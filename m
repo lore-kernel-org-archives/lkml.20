@@ -1,73 +1,47 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794209405;
+	b=bPg+AzXXXNR87kFFt+R8i3GZOt3+Ahv8pTVwcZlsPRaQ4spxhvOHvO9/Al5cNLYi7QgB
+	 gl/sPWyQmiSejBfB0+gdHf0Oz0MNAs0oBnCH+pAECcg03xntAMuofIz2g64LaAjF4CHck
+	 CbSGM/4TMnkg79CdWH6tOVh79rUHdD7IPFsjQVScZfIOULiQWSaSKlNZ5UTsZt/gxYpnk
+	 zVQ8ieDHaDUshLKiSgzT79QZxHXYezCdYYk1n3Z7BPRtIRT275nA9624uC5HRvnRHGa9C
+	 xjLYy2YXgq6i+Ps2FBH1cUJjmf33b81bPB8M2yhLhTZfy7zTSn8hrvxcTUfID5eVZ1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209405;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YHsIe+6yk2rHtgcsN9K0X9/VIE4GS8pTEpwTi7k8aRA=;
+	b=xkAPnBKCGF0OCB/lNhAIKmWGMhZJ869/jLvycOa/9qzZu82dPFm2zI3UXk5Hou1AfiU1
+	 VVulpeHmokeqtkjX4QIx4/nQ2UStx6R4DjHSQ0hcug9Qcl4cUhnexkJj6dbC3GZQhjB1z
+	 hGjc+1w8SWTdGAEozgrP7IoK+5HFzIm8qq+zTd/+yVbPmc2WR74Y1Xp/FzEJgWl9pIYAx
+	 IVzlpKgDrRxqDEQEeGNF/yZpUBAVjaOfJZRVlX3sBoWIK0MRe4ZtH8bA3dt0HHyUpIPbo
+	 JhDdKdWLsJqt7ikkJiNjJgaZy5jlcYh5XqwY+lJpX7ayiPAl84HnEe7FE4Y5VcPa5Bg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUJUZjuY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7550606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7550606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA05606A323;
+	Mon,  9 Nov 2026 07:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NLGdPXQI
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-14394530ec6so633441c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:30:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794209400; x=1794814200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zLa2TsfrRy1AdRRg9l7WHzKyohtBt7sUVnyih2ASIRU=;
-        b=NLGdPXQI7Vmq+n0QHGOI2o5QDaJG0jVvAr+RID02F6hU8gUu7c5x2jb4NmQkHr4ESJ
-         ruT2ptpJynrEIrQ6DH34dmu2LQVb+kIJm/UV0xWaDucQgiY6DKnSGiHxfmLnGOMr08aG
-         +xvHapfNQmIXTUJonPDAz+9jm4rJxvE4coZbgq5CSKrNyTbT0Rp6QFHkcZh5WLsnMZ9p
-         IcN2X9qylTwqzdlTE1ptNGfaV/GpH3Pb6rfWJUqeKT9tJ1chlADWgPo2jCK0cF45u+mA
-         MVh0LI8camAiA0MBVtwIm2Gdov/b6qqNwHIBtaAcwhUOaHps+slIXBiYAKU5uTLAXdlB
-         tQEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794209400; x=1794814200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zLa2TsfrRy1AdRRg9l7WHzKyohtBt7sUVnyih2ASIRU=;
-        b=oHqe+oM44/IeMgHw0DcV/SS1rhaewYXG81UK7L58GzpgAXQp1bD+e1Gobwn7sHTZZf
-         ni169goodP2Pk/GTZGXEMNKVolo6ScBxx5DbKktRH9aVgXaDpuVnQU2U6dNJNEfdZp5b
-         ZK6JcXCtC2fqawTIPzGshF2zIKabOQFqMUdA70HBFhyXkPbGgl/Z5JsIszv5Zkms948H
-         XwaGZea/9aHmWS7Y+KdE3sqxaR4PRpEyA3mzVZ2TesBTng5uIhE0U/A6tl7Fq0wefEFs
-         Txr9P/RmA36SOv2vdm10MRx3yX2zVyKaN58Cu8B3bBQAt49ABq9EAPgY9MnH5xuL1p3M
-         OODw==
-X-Forwarded-Encrypted: i=1; AL+hErGYP6sBLVEcM/QTeKvUPngGnDSWrZPpgyRbwVkPmV9JM3NGXgaI1aikk8diHzt7jwDT6t99ps1tT481bQQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Fl8TeVns19P/7npBeZ3fic7XjkUtP8zOrYQvRHakwhL40yYyx
-	EIS6kPme9bfPXA2bdc7G1XPFsKBrKNWr1LLrLXFf9F5GRyNA3pQ8rib2
-X-Gm-Gg: AYBFou2rfpJbEJ7IcIO/m9ujNrOlWrY0cBd4Alm/jU9v/Y1uOvHwgudml7oGRABKYx/
-	D83ah8DjaiF4lFlpoAB+ToLBm0cgoNCjQuzTTmGkz3sHRhCtMMtRr6QWaVIMSYa5QM8l9j7OX0J
-	jio6y+tCXrMfH3fPfOEcNq+pd6pBDcA3RoJBiBwx2/P+aAbnsOWlk2+DDCr+pAzJYNQhEW3jmbo
-	HiCTosyn6QRUlZKt26jvXBG7skgvtfrZ8vT44GW7hGMznax4aHkAv4rR+GGfU/A4o/weSNfzuRf
-	qxzwYSV/EaFDGCayuUVvP+QT2zBOjQKHk+5xP4tEjT9X0PirbzprmJpB96ao2DAz5NgtmVx99VL
-	u3ZwsjXw0CO/qE9SFNYhGsjwKQIKpEJPXSzIJtME/ea85zTqZv8A7jV6m/t+1+jMS5YUZ6M667K
-	2xo9tFvGNTa5uhdcfWlqycrFDqKgGmpaSd3+65qs++tPe9g83JeWnBpKD8z0H04ABMd95K5yghd
-	4FuyPYjVB2Kd08FYlk8aMlUiLa5E+POMkKWuTlb5gcOSrzstjr3XJaAPvBzBgdGBq+pZQDI33H+
-	2JADP6SnRwBF8G7766LpTBhjUd9FG4iNblakMhus6U02j8MtSnnVV6nSys4av/IsoDKPas3Vkc9
-	v9J1B/n4Be9yJ48+K
-X-Received: by 2002:a05:7022:8b:b0:152:9e88:daaa with SMTP id a92af1059eb24-1b39fef8f2cmr5210143c88.36.1794209398263;
-        Sun, 08 Nov 2026 23:29:58 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771f0e0fsm15265320c88.20.2026.11.08.23.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 23:29:57 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Felipe Balbi <balbi@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Hyunjung Ko <hj351016@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] Input: lm8333 - remove driver
-Date: Sun,  8 Nov 2026 23:29:50 -0800
-Message-ID: <20261109072950.3474308-3-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-In-Reply-To: <20261109072950.3474308-1-dmitry.torokhov@gmail.com>
-References: <20261109072950.3474308-1-dmitry.torokhov@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUJUZjuY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712221F008BE;
+	Mon,  9 Nov 2026 07:30:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794209404;
+	bh=YHsIe+6yk2rHtgcsN9K0X9/VIE4GS8pTEpwTi7k8aRA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QUJUZjuYfxOSz6pip8ibC3zrHMpsfA9to2z6CC8oBADDu4wRuFdZ1VAuPzyjzGkv4
+	 IDkKSPvcAFqjmVXJGzxdDnUslUlpY7nHHzwaY2ZLCnmCqPd1aVmqiXsUWXkAyoZoQK
+	 mhkTgk23JMEo4CTlxYPiNu7GkPw0KQsfb9X7l5uhdJ0SFPc+YVNdikfJgi2g+LsvaB
+	 vPPHrFvU0pr1yP0cQRRrWc4AQXcySghNhEFvneKpj4fcv9IaO2KZQ/Z64vNJUzctuQ
+	 YN0QHUqL1M1ZB6d0EHtnJ3eD5cSEK2kS6fHJmWNQg6TOIxmlc5lGYin+Lr5dzJQ55s
+	 FB3nD2lNuIdjA==
+Message-ID: <391f12cf-d86e-428b-906f-df6d8128ee05@kernel.org>
+Date: Mon, 9 Nov 2026 08:29:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,312 +51,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: cix: add RTS5453 PD controllers to Orion
+ O6
+To: Gary Yang <gary.yang@cixtech.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Fugang Duan <fugang.duan@cixtech.com>,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com
+References: <20261107011012.3655873-1-gary.yang@cixtech.com>
+ <20261107011012.3655873-5-gary.yang@cixtech.com>
+ <65af581e-caac-430a-88b1-3b7425c5209e@kernel.org>
+ <avEq_ngShxlvFSbS@gary-System-Product-Name>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <avEq_ngShxlvFSbS@gary-System-Product-Name>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The LM8333 keypad driver relies exclusively on legacy platform data,
-has no Device Tree or generic device property support, and has no
-users in mainline. The BSP board file it was originally written for
-was never upstreamed, and the original author Wolfram Sang confirmed
-in the mailing list discussion that it will likely never be converted
-to Device Tree and agreed to dropping it.
+On 09/11/2026 03:07, Gary Yang wrote:
+> hi Krzysztof:
+> 
+> Thanks for your comments!
+> 
+> On 2026-11-07 11:53, Krzysztof Kozlowski wrote:
+> 
+>> EXTERNAL EMAIL
+>>
+>> On 07/11/2026 02:10, Gary Yang wrote:
+>>> Describe the two Realtek RTS5453H port controllers on the Orion O6
+>>> I2C1 bus and add the I2C1 pin configuration.
+>>>
+>>> The controllers route orientation and DisplayPort mode changes
+>>> through the USB/DP combo PHY lane switches, but that PHY support is
+>>> not upstream yet, so the connector graph endpoints are left out for
+>>> now. The Type-C ports are still registered and reported, only the
+>>> lane switching is deferred until the PHY nodes are available.
+>>>
+>>> Both controllers report through the same level-triggered interrupt
+>>> line, which the driver handles with a shared interrupt. The I2C bus
+>>> runs at 100 kHz because the RTS5453H I2C interface does not support
+>>> higher rates.
+>>>
+>>> Signed-off-by: Gary Yang <gary.yang@cixtech.com>
+>>> ---
+>>>  arch/arm64/boot/dts/cix/sky1-orion-o6.dts | 51 +++++++++++++++++++++++
+>>>  1 file changed, 51 insertions(+)
+>>
+>> DTS cannot be combined in this patchset and must be split. Don't mix
+>> patches from independent subsystems when you send something explicitly
+>> targeting only one subsystem.
+>> See also: Documentation/devicetree/bindings/submitting-patches.rst
+>>
+> 
+> Do you mean the driver does not depend on DTS? Previously, it was acceptable
+> to put the DTS at the end of a patchset or place the DTS in a separate patchset. 
+> That’s why I put the DTS at the end of the patchset. Has the rule changed now?
+> 
 
-Remove the driver and its platform data header.
+Why can't you read the docs I pointed?
 
-Link: https://lore.kernel.org/r/Zr6I9RB5mibU_12N@google.com
-Link: https://lore.kernel.org/r/Zr6PnlsdoyLoX261@shikoro
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/keyboard/Kconfig  |  11 --
- drivers/input/keyboard/Makefile |   1 -
- drivers/input/keyboard/lm8333.c | 213 --------------------------------
- include/linux/input/lm8333.h    |  24 ----
- 4 files changed, 249 deletions(-)
- delete mode 100644 drivers/input/keyboard/lm8333.c
- delete mode 100644 include/linux/input/lm8333.h
-
-diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kconfig
-index a1102115093d..cc6d22394c39 100644
---- a/drivers/input/keyboard/Kconfig
-+++ b/drivers/input/keyboard/Kconfig
-@@ -316,17 +316,6 @@ config KEYBOARD_HP7XX
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called jornada720_kbd.
- 
--config KEYBOARD_LM8333
--	tristate "LM8333 keypad chip"
--	depends on I2C
--	select INPUT_MATRIXKMAP
--	help
--	  If you say yes here you get support for the National Semiconductor
--	  LM8333 keypad controller.
--
--	  To compile this driver as a module, choose M here: the
--	  module will be called lm8333.
--
- config KEYBOARD_LOCOMO
- 	tristate "LoCoMo Keyboard Support"
- 	depends on SHARP_LOCOMO
-diff --git a/drivers/input/keyboard/Makefile b/drivers/input/keyboard/Makefile
-index 282d41e346ba..110b250e6e51 100644
---- a/drivers/input/keyboard/Makefile
-+++ b/drivers/input/keyboard/Makefile
-@@ -35,7 +35,6 @@ obj-$(CONFIG_KEYBOARD_IMX_BBM_SCMI)	+= imx-sm-bbm-key.o
- obj-$(CONFIG_KEYBOARD_HP6XX)		+= jornada680_kbd.o
- obj-$(CONFIG_KEYBOARD_HP7XX)		+= jornada720_kbd.o
- obj-$(CONFIG_KEYBOARD_LKKBD)		+= lkkbd.o
--obj-$(CONFIG_KEYBOARD_LM8333)		+= lm8333.o
- obj-$(CONFIG_KEYBOARD_LOCOMO)		+= locomokbd.o
- obj-$(CONFIG_KEYBOARD_LPC32XX)		+= lpc32xx-keys.o
- obj-$(CONFIG_KEYBOARD_MAPLE)		+= maple_keyb.o
-diff --git a/drivers/input/keyboard/lm8333.c b/drivers/input/keyboard/lm8333.c
-deleted file mode 100644
-index 84e1faf1f5ab..000000000000
---- a/drivers/input/keyboard/lm8333.c
-+++ /dev/null
-@@ -1,213 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * LM8333 keypad driver
-- * Copyright (C) 2012 Wolfram Sang, Pengutronix <kernel@pengutronix.de>
-- */
--
--#include <linux/i2c.h>
--#include <linux/input.h>
--#include <linux/input/matrix_keypad.h>
--#include <linux/input/lm8333.h>
--#include <linux/interrupt.h>
--#include <linux/module.h>
--#include <linux/slab.h>
--
--#define LM8333_FIFO_READ		0x20
--#define LM8333_DEBOUNCE			0x22
--#define LM8333_READ_INT			0xD0
--#define LM8333_ACTIVE			0xE4
--#define LM8333_READ_ERROR		0xF0
--
--#define LM8333_KEYPAD_IRQ		(1 << 0)
--#define LM8333_ERROR_IRQ		(1 << 3)
--
--#define LM8333_ERROR_KEYOVR		0x04
--#define LM8333_ERROR_FIFOOVR		0x40
--
--#define LM8333_FIFO_TRANSFER_SIZE	16
--
--#define LM8333_NUM_ROWS		8
--#define LM8333_NUM_COLS		16
--#define LM8333_ROW_SHIFT	4
--
--struct lm8333 {
--	struct i2c_client *client;
--	struct input_dev *input;
--	unsigned short keycodes[LM8333_NUM_ROWS << LM8333_ROW_SHIFT];
--};
--
--/* The accessors try twice because the first access may be needed for wakeup */
--#define LM8333_READ_RETRIES 2
--
--int lm8333_read8(struct lm8333 *lm8333, u8 cmd)
--{
--	int retries = 0, ret;
--
--	do {
--		ret = i2c_smbus_read_byte_data(lm8333->client, cmd);
--	} while (ret < 0 && retries++ < LM8333_READ_RETRIES);
--
--	return ret;
--}
--
--int lm8333_write8(struct lm8333 *lm8333, u8 cmd, u8 val)
--{
--	int retries = 0, ret;
--
--	do {
--		ret = i2c_smbus_write_byte_data(lm8333->client, cmd, val);
--	} while (ret < 0 && retries++ < LM8333_READ_RETRIES);
--
--	return ret;
--}
--
--int lm8333_read_block(struct lm8333 *lm8333, u8 cmd, u8 len, u8 *buf)
--{
--	int retries = 0, ret;
--
--	do {
--		ret = i2c_smbus_read_i2c_block_data(lm8333->client,
--						    cmd, len, buf);
--	} while (ret < 0 && retries++ < LM8333_READ_RETRIES);
--
--	return ret;
--}
--
--static void lm8333_key_handler(struct lm8333 *lm8333)
--{
--	struct input_dev *input = lm8333->input;
--	u8 keys[LM8333_FIFO_TRANSFER_SIZE];
--	u8 code, pressed;
--	int i, ret;
--
--	ret = lm8333_read_block(lm8333, LM8333_FIFO_READ,
--				LM8333_FIFO_TRANSFER_SIZE, keys);
--	if (ret != LM8333_FIFO_TRANSFER_SIZE) {
--		dev_err(&lm8333->client->dev,
--			"Error %d while reading FIFO\n", ret);
--		return;
--	}
--
--	for (i = 0; i < LM8333_FIFO_TRANSFER_SIZE && keys[i]; i++) {
--		pressed = keys[i] & 0x80;
--		code = keys[i] & 0x7f;
--
--		input_event(input, EV_MSC, MSC_SCAN, code);
--		input_report_key(input, lm8333->keycodes[code], pressed);
--	}
--
--	input_sync(input);
--}
--
--static irqreturn_t lm8333_irq_thread(int irq, void *data)
--{
--	struct lm8333 *lm8333 = data;
--	u8 status = lm8333_read8(lm8333, LM8333_READ_INT);
--
--	if (!status)
--		return IRQ_NONE;
--
--	if (status & LM8333_ERROR_IRQ) {
--		u8 err = lm8333_read8(lm8333, LM8333_READ_ERROR);
--
--		if (err & (LM8333_ERROR_KEYOVR | LM8333_ERROR_FIFOOVR)) {
--			u8 dummy[LM8333_FIFO_TRANSFER_SIZE];
--
--			lm8333_read_block(lm8333, LM8333_FIFO_READ,
--					LM8333_FIFO_TRANSFER_SIZE, dummy);
--		}
--		dev_err(&lm8333->client->dev, "Got error %02x\n", err);
--	}
--
--	if (status & LM8333_KEYPAD_IRQ)
--		lm8333_key_handler(lm8333);
--
--	return IRQ_HANDLED;
--}
--
--static int lm8333_probe(struct i2c_client *client)
--{
--	const struct lm8333_platform_data *pdata =
--			dev_get_platdata(&client->dev);
--	struct lm8333 *lm8333;
--	struct input_dev *input;
--	int err, active_time;
--
--	if (!pdata)
--		return -EINVAL;
--
--	active_time = pdata->active_time ?: 500;
--	if (active_time / 3 <= pdata->debounce_time / 3) {
--		dev_err(&client->dev, "Active time not big enough!\n");
--		return -EINVAL;
--	}
--
--	lm8333 = devm_kzalloc(&client->dev, sizeof(*lm8333), GFP_KERNEL);
--	if (!lm8333)
--		return -ENOMEM;
--
--	input = devm_input_allocate_device(&client->dev);
--	if (!input)
--		return -ENOMEM;
--
--	lm8333->client = client;
--	lm8333->input = input;
--
--	input->name = client->name;
--	input->id.bustype = BUS_I2C;
--
--	input_set_capability(input, EV_MSC, MSC_SCAN);
--
--	err = matrix_keypad_build_keymap(pdata->matrix_data,
--					 LM8333_NUM_ROWS, LM8333_NUM_COLS,
--					 lm8333->keycodes, input);
--	if (err)
--		return err;
--
--	if (pdata->debounce_time) {
--		err = lm8333_write8(lm8333, LM8333_DEBOUNCE,
--				    pdata->debounce_time / 3);
--		if (err)
--			dev_warn(&client->dev, "Unable to set debounce time\n");
--	}
--
--	if (pdata->active_time) {
--		err = lm8333_write8(lm8333, LM8333_ACTIVE,
--				    pdata->active_time / 3);
--		if (err)
--			dev_warn(&client->dev, "Unable to set active time\n");
--	}
--
--	err = devm_request_threaded_irq(&client->dev, client->irq,
--					NULL, lm8333_irq_thread,
--					IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
--					"lm8333", lm8333);
--	if (err)
--		return err;
--
--	err = input_register_device(input);
--	if (err)
--		return err;
--
--	i2c_set_clientdata(client, lm8333);
--	return 0;
--}
--
--static const struct i2c_device_id lm8333_id[] = {
--	{ .name = "lm8333" },
--	{ }
--};
--MODULE_DEVICE_TABLE(i2c, lm8333_id);
--
--static struct i2c_driver lm8333_driver = {
--	.driver = {
--		.name		= "lm8333",
--	},
--	.probe		= lm8333_probe,
--	.id_table	= lm8333_id,
--};
--module_i2c_driver(lm8333_driver);
--
--MODULE_AUTHOR("Wolfram Sang <kernel@pengutronix.de>");
--MODULE_DESCRIPTION("LM8333 keyboard driver");
--MODULE_LICENSE("GPL v2");
-diff --git a/include/linux/input/lm8333.h b/include/linux/input/lm8333.h
-deleted file mode 100644
-index 906da5fc06e0..000000000000
---- a/include/linux/input/lm8333.h
-+++ /dev/null
-@@ -1,24 +0,0 @@
--/*
-- * public include for LM8333 keypad driver - same license as driver
-- * Copyright (C) 2012 Wolfram Sang, Pengutronix <kernel@pengutronix.de>
-- */
--
--#ifndef _LM8333_H
--#define _LM8333_H
--
--struct lm8333;
--
--struct lm8333_platform_data {
--	/* Keymap data */
--	const struct matrix_keymap_data *matrix_data;
--	/* Active timeout before enter HALT mode in microseconds */
--	unsigned active_time;
--	/* Debounce interval in microseconds */
--	unsigned debounce_time;
--};
--
--extern int lm8333_read8(struct lm8333 *lm8333, u8 cmd);
--extern int lm8333_write8(struct lm8333 *lm8333, u8 cmd, u8 val);
--extern int lm8333_read_block(struct lm8333 *lm8333, u8 cmd, u8 len, u8 *buf);
--
--#endif /* _LM8333_H */
--- 
-2.56.0.506.g506a7eabc5-goog
-
+Best regards,
+Krzysztof
