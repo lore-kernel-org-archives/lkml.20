@@ -1,91 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224356;
-	b=sheU258dJcY9Gv0e4IsverG0suE4oQz7E+ezzqpVUs729803fE/86wkrkBkstp+nPP0H
-	 obcigBZ2enZSMAKgys1nGAQf78lglYHN9rBARXT9rp0kFfr56NLashdzwCvBZ00PxWYAa
-	 Kjh6S7Vp8UO/5cfa7vT3juE1xJB9IL7nXoZwZcle/3pm6DhCPWRF4xNOYv661ZPmikQlU
-	 dj58Zv+Rgw5+v6US25ArgjoDUKnT0vIOna8AxBOyRjYqVXI9/iWDteAWA9o20itAd52JG
-	 B3jLWdKtrwrsUTa1CzmFGq/E8BpguQku0RPNzSRXoqQAvTYoWDmCyJ+rikKd5A6qv6g==
+	t=1794224378;
+	b=IS5faqY96I599mid9LrpXgnLhuveUWtjeRcnoDCf9m3BHIksnhnQk0c19sNRwhlD+M84
+	 ZIvqqC0CP/XlNanaOtAm8jVIfvUo8pnJXpqpMJgVV0amTNrDGJDcLpvsz0huUFgyVWaKo
+	 TKrko6l1E7G7F26H/2vTLMCClxSVtlnFkg77QwbXdS8AbdUoaG9aq8dT7pqGxo253Yc39
+	 0a0GvNSygCpnr+D/Z5/dMsbWxm+jPIJje/GfbhSLEKNFeNclGMcAakriTX9AlnqElxe55
+	 igvPO1A1akY/0LsghRuaQ1vP8kS0azxBSkqbI4TZSDb/q2V4hV/LY7dMp789uhHdJtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224356;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=eq61sWRYzrivcrYrCNupb/+PaqZUcH+6TeQg5Ei2qqI=;
-	b=rWk+QKeRQtoxroBPbnNTRFhVr6cZdM4mkgUjl0gGlkXVJYnPVt6WZT9rnNhYjs4U/Ch0
-	 MS+w7JZNgEVxy3Yv6Tg4Ye7tNWlKka5HTk/cwRizLcs9w/mQiG3LviaXXY++wN7ctkOFS
-	 sBmVzPw/x1qLqfpLIodb5GdBglNgAwmk+SepTGiLZbtu7hhegxYOQFZRgxc/uYl1fHhUH
-	 BuUq0UFlLwiMq1L3HaE9haqqpClY4id1TjTn5yr9nURy4OV9cSNtc6XUeKHLcu6hsctz/
-	 aEsQhdKB/9wyhjvV8c1kuBw5FrD8n6fUa1fJgUOKFcxBYVPO/soVWekKDNdnWKyZx2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224378;
+	h=DMARC-Filter:DKIM-Signature:Cc:X-Lms-Return-Path:X-Mailer:To:Subject:
+	 Content-Transfer-Encoding:In-Reply-To:References:Message-Id:
+	 Mime-Version:X-Original-From:From:Date:Content-Type;
+	bh=lQIeejudNR+LgX8DU2NR6RfogGGv5rkhMFHUUDdCJtw=;
+	b=U5Kxhl5TcIO9Xq6EadCZCU+PyIND1J1g7+VLyPkIC78jt2UvdkfzEiHtYM2sHAVXwy/4
+	 sCbQ/V1FzwzaM5msHHgLOpU/00zGUxZveDdh0ma+h34Jm0j/IQtv8k/wurLvIwli6SUt4
+	 tapjYIJbPEwhGaz/MC05Bg5uTHHkwtq2Tig8TCZf4xWf2S+JwldYwf7ts3GdCOhLreMo0
+	 psfI+UA2sYxtE0Pc4241iNj9vy0Y7FHxUNn1tFR6bshNxdF+o1EurKpQD3XWW6yBFwqU2
+	 42EW/d3R+QebeE+yucgEug1vkWhV2i1LtIL1Qve/8uUpHg3IJlpjFYPVvQPVevjYtQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T5VA3X2X;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=qNy6ipdZ;
+	arc=none smtp.remote-ip=209.127.230.111
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A23606A326;
-	Mon,  9 Nov 2026 11:39:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A23606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401CF606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 401CF606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=T5VA3X2X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794224355; x=1825760355;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=28dn8Z9BTHpktjmUfDQVXWTsYLxAtBNV0LRkkfndp1I=;
-  b=T5VA3X2Xpyl0jkq5FCw4dwjBJxNa3z0JxPLm/Vodj1iiVOhTdVsivpbc
-   crWNw6dMFLpaD0+Ev/e8HuAvJ2Ro3ByKUsr+GyGgr6E3inLfV9BenIcFn
-   Wm2q7eGkj1ngneKkbAmk+Squslko/qqY5WbgAqsOMshiulQHTnXBwu62J
-   38BQM0/Pwe5Mf2HglPLqfdnerfn0BR8wuMYd8vA7LfgIeoQCPquKvDjSV
-   301Thgbm3kW4QQfZ3R38TfOJwgzYqBqH6n/LYy2KctEelTIIOXikKldBy
-   DRcZORzgQuqH1mNiMjTvemd/YJyPzM7oDa5FbQ7ZjG02HLlXdYMiQADEg
-   Q==;
-X-CSE-ConnectionGUID: EH1y06QYTUGb8l01ezvoCQ==
-X-CSE-MsgGUID: 68dpbHpxRbOgEL/ZLVkIaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2933045"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2933045"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:39:15 -0800
-X-CSE-ConnectionGUID: KsBzyTehQSO6N/c0yLHEkw==
-X-CSE-MsgGUID: uePV1NF3RnqQc51dLGor1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7719555"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:39:11 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3C9D4121B96;
-	Mon, 09 Nov 2026 13:39:08 +0200 (EET)
-Date: Mon, 9 Nov 2026 13:39:08 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	"D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] media: ipu-bridge: Add the Surface Pro 9 and 11
- infrared illuminator
-Message-ID: <avGw3BRVvisX4P5k@kekkonen.localdomain>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
- <20261109093353.3757-5-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=qNy6ipdZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794224371; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=lQIeejudNR+LgX8DU2NR6RfogGGv5rkhMFHUUDdCJtw=;
+ b=qNy6ipdZCdUulsOs20KlgsVNdsW+Nc3NgXiRq/sl8nL2CfFwMyi1hEDetadjFhZvMwSnqy
+ Gi06EJ+EW8C5Zixcr8n/xgiRmgPehYCF7f24g0AFsFHDCPunD1iBSHWdBnjsyeFNpVZVQu
+ 7XlV6xhk342ZjQNKNdzMePKr+EKVLV6bscy47NlMrrcDkrCqD3AGdCnfrZ0P2U1ot1x4oh
+ ZwnVIe1v8Zoa9jtb6OrsOvv+9JJR0CiPnxmWrsGTSxhkff5GSNAzXcy4trfB8EsRZI4/qW
+ RSze6MBPXKTozPxHe57K7aj3f9Nn1a+pJPEP3fvqQNZDPMnrZtK2dbUFxsX9ag==
+Cc: <anup@brainfault.org>, <mark.rutland@arm.com>, <palmer@dabbelt.com>, 
+	<linux-riscv@lists.infradead.org>, <linux-perf-users@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, "Zhao Gongyi" <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af1b0f1+0c2ec4+vger.kernel.org+zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+To: <atish.patra@linux.dev>
+Subject: [PATCH v2] perf/riscv: Guard PMU counter indices and user access
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <20261103093709.81605-1-zhaogongyi@bytedance.com>
+References: <20261103093709.81605-1-zhaogongyi@bytedance.com>
+Message-Id: <20261109113909.38153-1-zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,192 +62,300 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109093353.3757-5-lsa.uz@pm.me>
+Mime-Version: 1.0
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Date: Mon,  9 Nov 2026 19:39:09 +0800
+Content-Type: text/plain; charset=UTF-8
 
-Hi Sergey,
+A disabled event may be mmaped before hw.idx is assigned; a userpage
+update with that invalid index can make pmu_sbi_csr_index() access
+pmu_ctr_list[] out of bounds.
 
-On Mon, Nov 09, 2026 at 09:34:50AM +0000, Sergey Lebedev wrote:
-> On the Surface Pro 9 and on the Surface Pro 11 with Intel, the infrared
-> illuminator is driven by the VD55G0's GPIO 1, which strobes it during
-> the exposure. The ACPI tables do not describe it, so the sensor driver
-> finds no st,leds and offers no V4L2_CID_FLASH_LED_MODE.
-> 
-> Give the sensor's software node st,leds from a DMI match, as the
-> upside-down quirk gives a rotation. dev_properties gains an entry for it,
-> as a sensor can also have a lens-focus reference. The software nodes
-> outlive the module, so the property name goes into struct
-> ipu_property_names and the GPIO numbers into struct ipu_sensor, where
-> nothing points into the module image.
-> 
-> Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6
-> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-> ---
-> v3: no change.
-> v2: the st,leds name and GPIO numbers live in the bridge's own
-> structs, as the software nodes outlive the module (Fernando); the
-> Surface Pro 9 is added (Fernando).
-> 
-> D. Manresa's ipu-bridge series changes the same lens-focus line;
-> whichever of the two lands second needs a trivial rebase:
-> https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
-> 
->  drivers/media/pci/intel/ipu-bridge.c | 68 +++++++++++++++++++++++++++-
->  include/media/ipu-bridge.h           |  6 ++-
->  2 files changed, 71 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index c99c85b7e6f..8d2025acf7a 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -283,6 +283,42 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
->  	{} /* Terminating entry */
->  };
->  
-> +/*
-> + * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables do
-> + * not say which. They reach the sensor driver as its own leds property.
-> + */
-> +struct ipu_sensor_leds {
-> +	const char *hid;
-> +	u32 gpios[IPU_MAX_LED_GPIOS];
-> +	unsigned int nr_gpios;
-> +};
-> +
-> +/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-> +static const struct ipu_sensor_leds surface_pro_ir_leds = {
-> +	.hid = "SMO55F0",
-> +	.gpios = { 1 },
-> +	.nr_gpios = 1,
-> +};
-> +
-> +static const struct dmi_system_id sensor_leds_dmi_ids[] = {
-> +	{
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
-> +		},
-> +		.driver_data = (void *)&surface_pro_ir_leds,
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-> +					"Surface Pro for Business 11th Edition with Intel"),
-> +		},
-> +		.driver_data = (void *)&surface_pro_ir_leds,
-> +	},
-> +	{} /* Terminating entry */
-> +};
-> +
->  static const struct ipu_property_names prop_names = {
->  	.clock_frequency = "clock-frequency",
->  	.rotation = "rotation",
-> @@ -292,6 +328,7 @@ static const struct ipu_property_names prop_names = {
->  	.remote_endpoint = "remote-endpoint",
->  	.link_frequencies = "link-frequencies",
->  	.clock_noncontinuous = "clock-noncontinuous",
-> +	.st_leds = "st,leds",
->  };
->  
->  static const char * const ipu_vcm_types[] = {
-> @@ -563,6 +600,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, struct ipu_sensor *sensor)
->  }
->  EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
->  
-> +static const struct ipu_sensor_leds *
-> +ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-> +{
-> +	const struct dmi_system_id *dmi_id;
-> +	const struct ipu_sensor_leds *leds;
-> +
-> +	for (dmi_id = dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-> +	     dmi_id = dmi_first_match(dmi_id + 1)) {
-> +		leds = dmi_id->driver_data;
-> +		if (!strcmp(cfg->hid, leds->hid))
-> +			return leds;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
->  static void ipu_bridge_create_fwnode_properties(
->  	struct ipu_sensor *sensor,
->  	struct ipu_bridge *bridge,
-> @@ -570,7 +623,8 @@ static void ipu_bridge_create_fwnode_properties(
->  {
->  	struct ipu_property_names *names = &sensor->prop_names;
->  	struct software_node *nodes = sensor->swnodes;
-> -	unsigned int i = 0;
-> +	const struct ipu_sensor_leds *leds;
-> +	unsigned int i = 0, d = 3;
->  
->  	sensor->prop_names = prop_names;
->  
-> @@ -624,10 +678,20 @@ static void ipu_bridge_create_fwnode_properties(
->  	if (sensor->vcm_type) {
->  		sensor->vcm_ref[0] =
->  			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
-> -		sensor->dev_properties[3] =
-> +		sensor->dev_properties[d++] =
->  			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
->  	}
->  
-> +	leds = ipu_bridge_get_leds(cfg);
-> +	if (leds) {
-> +		memcpy(sensor->led_gpios, leds->gpios,
-> +		       sizeof(sensor->led_gpios));
-> +		sensor->dev_properties[d++] =
-> +			PROPERTY_ENTRY_U32_ARRAY_LEN(names->st_leds,
-> +						     sensor->led_gpios,
-> +						     leds->nr_gpios);
-> +	}
-> +
->  	sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =
->  		PROPERTY_ENTRY_U32(names->bus_type,
->  				   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-> diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-> index 3ef94c2b767..7383bdf5a45 100644
-> --- a/include/media/ipu-bridge.h
-> +++ b/include/media/ipu-bridge.h
-> @@ -12,6 +12,7 @@
->  #define IPU_MAX_LANES				4
->  #define IPU_MAX_PORTS				4
->  #define MAX_NUM_LINK_FREQS			3
-> +#define IPU_MAX_LED_GPIOS			4
->  
->  /* Values are educated guesses as we don't have a spec */
->  #define IPU_SENSOR_ROTATION_NORMAL		0
-> @@ -136,6 +137,7 @@ struct ipu_property_names {
->  	char remote_endpoint[16];
->  	char link_frequencies[17];
->  	char clock_noncontinuous[20];
-> +	char st_leds[8];
->  };
->  
->  struct ipu_node_names {
-> @@ -178,8 +180,10 @@ struct ipu_sensor {
->  	const char *vcm_type;
->  
->  	struct ipu_property_names prop_names;
-> +	/* The software nodes outlive the module, so these values live here */
-> +	u32 led_gpios[IPU_MAX_LED_GPIOS];
->  	struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
-> -	struct property_entry dev_properties[5];
-> +	struct property_entry dev_properties[6];
+Validate indices before publishing or using a CSR, and reject
+out-of-range SBI results before accessing counter state. Keep mmap
+authorization independent of assignment for disabled events.
 
-Can you handle dev_properties as ep_properties is handled now? I recall
-there were patches that also did something in the area, related to keeping
-all memory allocated when ipu-bridge is unloaded.
+Reject a zero SBI counter count before allocating counter state. A
+zero-length pmu_ctr_list[] would be dereferenced when a non-sampling
+event selects its initial counter width.
 
->  	struct property_entry ipu_properties[3];
->  	struct property_entry ivsc_properties[1];
->  	struct property_entry ivsc_sensor_ep_properties[4];
-> 
+Fixes: cc4c07c89aad ("drivers: perf: Implement perf event mmap support in the SBI backend")
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+Changes since v1:
+- Reject a zero SBI counter count before allocating pmu_ctr_list[], as
+  reported by Sashiko.
 
+The v1 RISC-V QEMU/KASAN syzkaller run completed 300 seconds (62,069
+programs) without the original out-of-bounds report.
+The v2 PMU driver objects built with RISC-V GCC 12.2 and defconfig.
+
+ drivers/perf/riscv_pmu.c        | 29 ++++++++++-----
+ drivers/perf/riscv_pmu_legacy.c |  7 ++--
+ drivers/perf/riscv_pmu_sbi.c    | 62 +++++++++++++++++++++++++--------
+ include/linux/perf/riscv_pmu.h  |  7 +++-
+ 4 files changed, 79 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/perf/riscv_pmu.c b/drivers/perf/riscv_pmu.c
+index 8e3cd0f..adb64b3 100644
+--- a/drivers/perf/riscv_pmu.c
++++ b/drivers/perf/riscv_pmu.c
+@@ -18,13 +18,17 @@
+ 
+ #include <asm/sbi.h>
+ 
+-static bool riscv_perf_user_access(struct perf_event *event)
++static bool riscv_perf_user_access(struct perf_event *event, int idx)
+ {
++	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
++
+ 	return ((event->attr.type == PERF_TYPE_HARDWARE) ||
+ 		(event->attr.type == PERF_TYPE_HW_CACHE) ||
+ 		(event->attr.type == PERF_TYPE_RAW)) &&
+ 		!!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT) &&
+-		(event->hw.idx != -1);
++		riscv_pmu_ctr_idx_valid(idx) &&
++		rvpmu->csr_index &&
++		rvpmu->csr_index(event, idx) >= 0;
+ }
+ 
+ void arch_perf_update_userpage(struct perf_event *event,
+@@ -32,12 +36,13 @@ void arch_perf_update_userpage(struct perf_event *event,
+ {
+ 	struct clock_read_data *rd;
+ 	unsigned int seq;
++	int idx = READ_ONCE(event->hw.idx);
+ 	u64 ns;
+ 
+ 	userpg->cap_user_time = 0;
+ 	userpg->cap_user_time_zero = 0;
+ 	userpg->cap_user_time_short = 0;
+-	userpg->cap_user_rdpmc = riscv_perf_user_access(event);
++	userpg->cap_user_rdpmc = riscv_perf_user_access(event, idx);
+ 
+ 	/*
+ 	 * The counters are 64-bit but the priv spec doesn't mandate all the
+@@ -45,7 +50,7 @@ void arch_perf_update_userpage(struct perf_event *event,
+ 	 * the cpu vendor.
+ 	 */
+ 	if (userpg->cap_user_rdpmc)
+-		userpg->pmc_width = to_riscv_pmu(event->pmu)->ctr_get_width(event->hw.idx) + 1;
++		userpg->pmc_width = to_riscv_pmu(event->pmu)->ctr_get_width(idx) + 1;
+ 
+ 	do {
+ 		rd = sched_clock_read_begin(&seq);
+@@ -148,7 +153,7 @@ u64 riscv_pmu_ctr_get_width_mask(struct perf_event *event)
+ 	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
+ 	struct hw_perf_event *hwc = &event->hw;
+ 
+-	if (hwc->idx == -1)
++	if (!riscv_pmu_ctr_idx_valid(hwc->idx))
+ 		/* Handle init case where idx is not initialized yet */
+ 		cwidth = rvpmu->ctr_get_width(0);
+ 	else
+@@ -264,6 +269,8 @@ static int riscv_pmu_add(struct perf_event *event, int flags)
+ 	idx = rvpmu->ctr_get_idx(event);
+ 	if (idx < 0)
+ 		return idx;
++	if (!riscv_pmu_ctr_idx_valid(idx))
++		return -ENOENT;
+ 
+ 	hwc->idx = idx;
+ 	cpuc->events[idx] = event;
+@@ -353,12 +360,18 @@ static int riscv_pmu_event_init(struct perf_event *event)
+ static int riscv_pmu_event_idx(struct perf_event *event)
+ {
+ 	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
++	int idx = READ_ONCE(event->hw.idx);
++	int csr_idx;
+ 
+-	if (!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT))
++	if (!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT) ||
++	    !riscv_pmu_ctr_idx_valid(idx))
+ 		return 0;
+ 
+-	if (rvpmu->csr_index)
+-		return rvpmu->csr_index(event) + 1;
++	if (rvpmu->csr_index) {
++		csr_idx = rvpmu->csr_index(event, idx);
++		if (csr_idx >= 0)
++			return csr_idx + 1;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/perf/riscv_pmu_legacy.c b/drivers/perf/riscv_pmu_legacy.c
+index 1b8e478..7f778b1 100644
+--- a/drivers/perf/riscv_pmu_legacy.c
++++ b/drivers/perf/riscv_pmu_legacy.c
+@@ -76,9 +76,12 @@ static void pmu_legacy_ctr_start(struct perf_event *event, u64 ival)
+ 	local64_set(&hwc->prev_count, initial_val);
+ }
+ 
+-static uint8_t pmu_legacy_csr_index(struct perf_event *event)
++static int pmu_legacy_csr_index(struct perf_event *event, int idx)
+ {
+-	return event->hw.idx;
++	if (!riscv_pmu_ctr_idx_valid(idx))
++		return -ENOENT;
++
++	return idx;
+ }
+ 
+ static void pmu_legacy_event_mapped(struct perf_event *event, struct mm_struct *mm)
+diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+index 21a2078..543970b 100644
+--- a/drivers/perf/riscv_pmu_sbi.c
++++ b/drivers/perf/riscv_pmu_sbi.c
+@@ -434,6 +434,24 @@ static bool pmu_sbi_ctr_is_fw(int cidx)
+ 	return info->type == SBI_PMU_CTR_TYPE_FW;
+ }
+ 
++static int pmu_sbi_ctr_hw_csr_index(int idx)
++{
++	union sbi_pmu_ctr_info *info;
++
++	if (!riscv_pmu_ctr_idx_valid(idx) || !test_bit(idx, cmask))
++		return -ENOENT;
++
++	info = &pmu_ctr_list[idx];
++	if (info->type != SBI_PMU_CTR_TYPE_HW)
++		return -ENOENT;
++
++	if (info->csr != CSR_CYCLE && info->csr != CSR_INSTRET &&
++	    (info->csr < CSR_HPMCOUNTER3 || info->csr > CSR_HPMCOUNTER31))
++		return -ENOENT;
++
++	return info->csr - CSR_CYCLE;
++}
++
+ int riscv_pmu_get_event_info(u32 type, u64 config, u64 *econfig)
+ {
+ 	int ret = -ENOENT;
+@@ -530,9 +548,9 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *num_hw_ctr)
+ }
+ EXPORT_SYMBOL_GPL(riscv_pmu_get_hpm_info);
+ 
+-static uint8_t pmu_sbi_csr_index(struct perf_event *event)
++static int pmu_sbi_csr_index(struct perf_event *event, int idx)
+ {
+-	return pmu_ctr_list[event->hw.idx].csr - CSR_CYCLE;
++	return pmu_sbi_ctr_hw_csr_index(idx);
+ }
+ 
+ static unsigned long pmu_sbi_get_filter_flags(struct perf_event *event)
+@@ -605,6 +623,9 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+ 		return sbi_err_map_linux_errno(ret.error);
+ 	}
+ 
++	if (ret.value < 0 || ret.value >= RISCV_MAX_COUNTERS)
++		return -ENOENT;
++
+ 	idx = ret.value;
+ 	if (!test_bit(idx, rvpmu->cmask) || !pmu_ctr_list[idx].value)
+ 		return -ENOENT;
+@@ -810,19 +831,25 @@ static u64 pmu_sbi_ctr_read(struct perf_event *event)
+ static void pmu_sbi_set_scounteren(void *arg)
+ {
+ 	struct perf_event *event = (struct perf_event *)arg;
++	int idx = READ_ONCE(event->hw.idx);
++	int csr_idx;
+ 
+-	if (event->hw.idx != -1)
++	csr_idx = pmu_sbi_ctr_hw_csr_index(idx);
++	if (csr_idx >= 0)
+ 		csr_write(CSR_SCOUNTEREN,
+-			  csr_read(CSR_SCOUNTEREN) | BIT(pmu_sbi_csr_index(event)));
++			  csr_read(CSR_SCOUNTEREN) | BIT(csr_idx));
+ }
+ 
+ static void pmu_sbi_reset_scounteren(void *arg)
+ {
+ 	struct perf_event *event = (struct perf_event *)arg;
++	int idx = READ_ONCE(event->hw.idx);
++	int csr_idx;
+ 
+-	if (event->hw.idx != -1)
++	csr_idx = pmu_sbi_ctr_hw_csr_index(idx);
++	if (csr_idx >= 0)
+ 		csr_write(CSR_SCOUNTEREN,
+-			  csr_read(CSR_SCOUNTEREN) & ~BIT(pmu_sbi_csr_index(event)));
++			  csr_read(CSR_SCOUNTEREN) & ~BIT(csr_idx));
+ }
+ 
+ static void pmu_sbi_ctr_start(struct perf_event *event, u64 ival)
+@@ -890,10 +917,18 @@ static int pmu_sbi_find_num_ctrs(void)
+ 	struct sbiret ret;
+ 
+ 	ret = sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_NUM_COUNTERS);
+-	if (!ret.error)
+-		return ret.value;
+-	else
++	if (ret.error)
+ 		return sbi_err_map_linux_errno(ret.error);
++
++	if (ret.value <= 0)
++		return -EINVAL;
++	if (ret.value > RISCV_MAX_COUNTERS) {
++		pr_info("SBI returned too many counters, limiting to %d\n",
++			RISCV_MAX_COUNTERS);
++		return RISCV_MAX_COUNTERS;
++	}
++
++	return ret.value;
+ }
+ 
+ static int pmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+@@ -902,6 +937,9 @@ static int pmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+ 	int i, num_hw_ctr = 0, num_fw_ctr = 0;
+ 	union sbi_pmu_ctr_info cinfo;
+ 
++	if (nctr <= 0 || nctr > RISCV_MAX_COUNTERS)
++		return -EINVAL;
++
+ 	pmu_ctr_list = kzalloc_objs(*pmu_ctr_list, nctr);
+ 	if (!pmu_ctr_list)
+ 		return -ENOMEM;
+@@ -1485,12 +1523,6 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 		goto out_free;
+ 	}
+ 
+-	/* It is possible to get from SBI more than max number of counters */
+-	if (num_counters > RISCV_MAX_COUNTERS) {
+-		num_counters = RISCV_MAX_COUNTERS;
+-		pr_info("SBI returned more than maximum number of counters. Limiting the number of counters to %d\n", num_counters);
+-	}
+-
+ 	/* cache all the information about counters now */
+ 	if (pmu_sbi_get_ctrinfo(num_counters, cmask))
+ 		goto out_free;
+diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pmu.h
+index ecaa403..219e3a8 100644
+--- a/include/linux/perf/riscv_pmu.h
++++ b/include/linux/perf/riscv_pmu.h
+@@ -28,6 +28,11 @@
+ 
+ #define RISCV_PMU_CONFIG1_GUEST_EVENTS 0x1
+ 
++static inline bool riscv_pmu_ctr_idx_valid(int idx)
++{
++	return idx >= 0 && idx < RISCV_MAX_COUNTERS;
++}
++
+ struct cpu_hw_events {
+ 	/* currently enabled events */
+ 	int			n_events;
+@@ -66,7 +71,7 @@ struct riscv_pmu {
+ 	void		(*event_init)(struct perf_event *event);
+ 	void		(*event_mapped)(struct perf_event *event, struct mm_struct *mm);
+ 	void		(*event_unmapped)(struct perf_event *event, struct mm_struct *mm);
+-	uint8_t		(*csr_index)(struct perf_event *event);
++	int		(*csr_index)(struct perf_event *event, int idx);
+ 
+ 	struct cpu_hw_events	__percpu *hw_events;
+ 	struct hlist_node	node;
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Regards,
-
-Sakari Ailus
+2.39.5 (Apple Git-154)
