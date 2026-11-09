@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184755;
-	b=0MD2JhcTkmGWKL5T9XtBdhchp9QalAakBM3d822c+imXk8CBNWdqQfciSGB6OWtWZvJj
-	 53SJHT+YmSf97qAtspgRmlKMhUbFPF76CRVLm/oiLFJ6kCwW482wJLCbjd+MZmAyhskFm
-	 DN6oMFXzcVv/4+UBdOibvJATAucPsIsF4CyQteGi4/zepjaiYnjAQk27tCkx2r0xMg5/7
-	 Wz2Ndyd+DZ+hUr7Du5fX+/6Fnl3E8krDOeGQWiyn76p7DgzcSLBgZdktf+BMbHQiSnSqz
-	 af4nNurmdSqg5BvYyfg0Oj6WtuzVvf8TyJpDgMLTEMZFTo4WXYveA/DGSXOufutrm7w==
+	t=1794184826;
+	b=KZ/DjfQ5BHPmKOX6MoKTcFNObIfQEKlAogPTSP0Py0sxvKJ4vtcFImwuU7cIeTBgTrOa
+	 I7IJuqwLjDfNk+o6DyzyK+vW2W/9tP2slF1MJQcT3wuSmWzJ8/ig3Z/XA85iXgwG0cpRA
+	 GewRxeuxWq7ordioDDRZmZ/uAI6WU5Yr6XHO2tuRvv2sULjszqkXB40uAeuFIdbneCwhw
+	 OoEokGR4asn8L2pME1TRWmjFwNQ41JLb6dW0MIHXjITeh74X5CmtrqFD9SyQ2tcxsIHk4
+	 Ulzs1cEzL3kM1B7KmLwopBhiiqC4zv/EFj/vwh+JioasptDi33fLBqUb3ja7KwPAjnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184755;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+K+PG/oogt/eNAg9NDEXRDJuxcbPu513PzwhryksQVQ=;
-	b=wun81L7oDlBgiLP+a5Ad2EZjFCwtT8bmuJnvDVJC1C/8tNsy00ePZ4vcmTlkhlO3PiAA
-	 70ED/GHHwBtvwLZY+ULoNkCRApB1Xm5kfDP8LTI7m3255P0nzcng1MMVCOkfqX9i+5FH1
-	 Xb5FJ5C8V1QVjeiSgrNEAWnWIUGg7zRDFkfxYCUOVrH6+ZNPWmRGgnrKhiug1xalQ5k+m
-	 JkNHXjXAOHgX/QWi/mhUwnWNjwemC9yEeJbUW1IhA50sMRSpe5/X3Cr1+YyD6AgFzAC5G
-	 17T9Yz3CuJYcAZMx1W/Bl/vrQcwGljBR4D/yCYsprHtuZPm2vLAU7YiLmr7j6PXWqrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184826;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=Z5410FcRl90lti0FF+4on2X3OCr6eStq5XnIeOt7CdY=;
+	b=Q2pLXO2t5A6dV7VsRd8J76LJaXDwdTn7cGqwHuAznRNCn0nHdhALLCphgX5K18TRqMW/
+	 4wB+9dV72QzlsHMp5ZsWy6Jo8C58+8pj1YR6I96QUfLTie6+/wqBQ04vWOzOR91Vk1yA8
+	 UkytRNt3DaP1BAHRr/RuBnC+yMvzrBGGgO6bjQ1RqBWJ4AFzxTra06j3sZq+jfUMPCk53
+	 QbVECdji+9waUznKUBLDmYOrsceL5tPQYy3Y+1jOH0qJoqqHMEbhnLViOu/xpLKkg3UUQ
+	 vVnqWj/EQ9b4yVxRb3mYXd9yMGP7ATYVtllrmgQOhRPHUaq4Xc+mS/6rE5y5HUErmnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXxX6eOM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=PWxocnDr;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87859606A31C;
-	Mon,  9 Nov 2026 00:39:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E95606A320;
+	Mon,  9 Nov 2026 00:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E95606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXxX6eOM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0FC1F0089F;
-	Mon,  9 Nov 2026 00:39:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794184755;
-	bh=+K+PG/oogt/eNAg9NDEXRDJuxcbPu513PzwhryksQVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YXxX6eOMtPSiFx//WISHWWxWTHIwzCPoYFHr1D0Tompx9dWFoe4dfc6luRvj7OTjt
-	 0plc2V8LQcnEH/GLUSlwU8nHwxygzIUmlRpS2a04MxUkVbHs2XppGT8m0+4T4eTIVL
-	 iHDUhZ5t6Zr60kboFLNhSBZEfzNvydUnGz98+gCdCoLWoVfONfU8mxLFU658Wriota
-	 oLJXKQ/ru7W7RvI0m/SXriIaMQMCpCA2E7FeSBNocimr5l7XXZ1FUfCDSqOz5w6vO5
-	 alHgAwxwB5XprdocJPsX/ESBEPcQ9DiHL0oDM8gWSULSJJCq1JO5A++lnRwasVTYn+
-	 ZfJ3EuSIqgX7g==
-Date: Sun, 8 Nov 2026 19:39:09 -0500
-From: Nathan Chancellor <nathan@kernel.org>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: "Ahmed S. Darwish" <darwi@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>, Nicolas Schier <nsc@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 04/10] kconfig: Introduce checkconfig target
-Message-ID: <20261109003909.GB3429615@ax162>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-5-darwi@linutronix.de>
- <3dd2bb0d-8486-4630-b496-e92e4ac37c29@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=PWxocnDr
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A90eJ4H13825802, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794184819; bh=Z5410FcRl90lti0FF+4on2X3OCr6eStq5XnIeOt7CdY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=PWxocnDr6zUOTCadttfhv4dgZtFnMz5aDjJ0OtHUd3ug0N2Btmm6C63bDsYXVX9ms
+	 iHI+G0k1II0z4UMTkzgAo9QpFb+8NcqjuoBlcIdrlPIqbjEoadiXTJhBZIuh72uYPp
+	 X77Q3k64wdlorH6/Waf7VW8J85uy0GopC30N7bYCEYctNwelDPZgnkqyl3hnG1G1W6
+	 E4x4AkXVeD4achqfCeOKREFaprU4dacNJjX/JH3WmpKmawUaP17R1vZJxh68P30hrP
+	 rwazbxiuZB5LZr/c9DwheZbFSjMfh2oJEEMwNi4FmebxEePSwIdj/fix2z9vQMQRHm
+	 60SOpUVqTKmCg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A90eJ4H13825802
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 08:40:19 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 08:40:20 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 08:40:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 9 Nov 2026 08:40:19 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next 3/5] wifi: rtlwifi: usb: unify the RX code path
+Thread-Topic: [PATCH rtw-next 3/5] wifi: rtlwifi: usb: unify the RX code path
+Thread-Index: AQHda3lJQ5elRG4B+EepDSbwCkWrv7ck7r7Q
+Date: Mon, 9 Nov 2026 00:40:19 +0000
+Message-ID: <5371f205934a4dfd86cae13ffeebcf7c@realtek.com>
+References: <20261103095256.949327-1-hjf3108@gmail.com>
+ <20261103095256.949327-4-hjf3108@gmail.com>
+In-Reply-To: <20261103095256.949327-4-hjf3108@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,83 +86,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3dd2bb0d-8486-4630-b496-e92e4ac37c29@gmail.com>
 
-On Sun, Nov 08, 2026 at 06:59:45PM +0000, Julian Braha wrote:
-> On 11/6/26 09:19, Ahmed S. Darwish wrote:
-> > Add a checkconfig target to validate the current kernel .config against a
-> > set of rules.  Select the rules using a mandatory RULES= make variable.
-> > 
-> > Example usage:
-> > 
-> >    make RULES=preempt_rt checkconfig
-> > 
-> > Use the kconfig-checker to perform all sanity checks.
-> > 
-> > Document the new target at the 'make help' text.
-> > 
-> > Signed-off-by: Ahmed S. Darwish <darwi@linutronix.de>
-> > ---
-> >  scripts/kconfig/Makefile | 23 +++++++++++++++++++++++
-> >  1 file changed, 23 insertions(+)
-> > 
-> > diff --git a/scripts/kconfig/Makefile b/scripts/kconfig/Makefile
-> > index 5baf1c44ffa2..d67a23730259 100644
-> > --- a/scripts/kconfig/Makefile
-> > +++ b/scripts/kconfig/Makefile
-> > @@ -125,6 +125,26 @@ testconfig: $(obj)/conf
-> >  	$(if $(findstring 1,$(KBUILD_VERBOSE)),--capture=no)
-> >  clean-files += tests/.cache
-> >  
-> > +checkconfig := $(PYTHON3) -B $(srctree)/tools/kconfig-checker/check.py
-> > +list_checkconfig_rules =						\
-> > +	echo -n >&2 "Available RULES: ";				\
-> > +	$(checkconfig) list-rules >&2;					\
-> > +	echo >&2
-> > +
-> > +PHONY += checkconfig
-> > +checkconfig:
-> > +	$(Q)if [ -z "$(RULES)" ]; then					\
-> > +		echo >&2 "Usage: make RULES=<profile> checkconfig";	\
-> > +		$(list_checkconfig_rules);				\
-> > +		exit 2;							\
-> > +	fi
-> > +	$(Q)if ! $(checkconfig) list-rules | grep -qw "$(RULES)"; then	\
-> > +		echo >&2 "Unknown RULES profile = $(RULES)";		\
-> > +		$(list_checkconfig_rules);				\
-> > +		exit 2;							\
-> > +	fi
-> > +	$(Q)$(checkconfig) check -r "$(RULES)" -c "$(KCONFIG_CONFIG)"
-> > +
-> >  # Help text used by make help
-> >  help:
-> >  	@echo  'Configuration targets:'
-> > @@ -154,6 +174,9 @@ help:
-> >  	@echo  '                    default value without prompting'
-> >  	@echo  '  tinyconfig	  - Configure the tiniest possible kernel'
-> >  	@echo  '  testconfig	  - Run Kconfig unit tests (requires python3 and pytest)'
-> > +	@echo  '  checkconfig	  - Check current config against sanity rules specified by RULES'
-> > +	@echo  '                    Example usage: "make RULES=preempt_rt checkconfig"'
-> > +	@echo  '                    (requires python3, PyYAML, and jsonschema)'
-> >  	@echo  ''
-> >  	@echo  'Configuration topic targets:'
-> >  	@$(foreach f, $(all-config-fragments), \
-> > -- 2.56.0
-> > 
-> 
-> I think this tool may belong in scripts/ due to the kbuild integration,
-> as was mentioned in the past on another tool review:
-> 
-> https://lore.kernel.org/linux-kbuild/20260428183101.GA3304253@ax162/
 
-Yeah, while I would prefer for the script to live in scripts/ due to
-being called from Kbuild, I am not sure if the rules/schemas belong
-there? It might be better to keep everything in tools/ for that reason,
-especially if this may be called externally, but I am open to other
-thoughts.
+Ho Jie Feng <hjf3108@gmail.com> wrote:
+> _rtl_usb_rx_process_agg is a copy of _rtl_usb_rx_process_noagg
+> except without the tail end. The noagg function can be used for
+> aggregated frames, so drop it and rename _rtl_usb_rx_process_noagg
+> to _rtl_usb_rx_process to unify the code path.
+>=20
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 
--- 
-Cheers,
-Nathan
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+
+
