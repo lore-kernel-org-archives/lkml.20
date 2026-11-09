@@ -1,106 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246357;
-	b=soRSEJFMhI0+0AqhGgNkaQswq00cwIToMyIDEBgULL1N0klQPrjVdhmJG0DtrzYiR5sB
-	 NDfzR8eCb2k34An/ZF3ob/+YLA0AZyqRNnNLIeY5mJ3566TONLB1RMVwvLYJX2k+5mYwj
-	 uK4wFaUSdyEu2QVMt+VTI0ss5WAkcFixR0SgsyeidPzwo7eDDIj6hy1gaVmB1inRcJE4H
-	 DoiBoxYTmg0TIUcJpe7jeoKCQ+BycJCsyts17UgiDxC4bUzLRv4m6SJHLQbL57cDgNVFZ
-	 M3seUr+Eip/t0QcV8jwBWu4TeowMgayJA9Y91zty64KqE95zgxk3YWXGWGRJy0+GbJg==
+	t=1794246448;
+	b=iOtga31cqt8XSlFy0kidY4SYSCbyWcIp/czL45MHNRbMgCJSr5fpxHFfyHJqGABcr7UL
+	 IqZ2RxBYXPPN7mu5sDTKGtWbQVhjc4vlbGJj4Z7biGNwgzkGC5avGM8Tb1ldz2JalwFqh
+	 2j4vFGC7dGLVKGLT85LwHOF12MdqdmWbx8S/cuG2FJqP+9Ao2CfAUA8OocsjX4Z1SdxXd
+	 V83bRiW5nVZjQ5UKjW73I/UYZPyIvPrARnSe5AMbnbENmDPxQJCvUPnxT9673Eee7Ub2z
+	 EAJOS6TNW2IzDf9ZylL3KHWW8d41cOfPYHE3JsiEBac+3R9mN/LtmvdLaZ2jAe9w9fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246357;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Si1qr0FYlgYaa7aEt7lVrrFDFWoP/sB4RXZcugVCzwc=;
-	b=Y+xDKXCO3p9ytUOxb962mTZOdZw8AsMst49LCrLKQ9WdWofDrg7wx0RX9l2LKABIhvtL
-	 K/W2VS9GYFcWNjdburcGazB0FccMZr3YDeUgAuzCALL5wGDKrOPUtZetQvGvKQdCSpqwi
-	 PFG+nVziV5iZ63mnhUyngCvz4P2YeqjZiCp8edtBM5FJLyX+qKa5WBxECEjYbhavLAr0b
-	 kPhmq5+eR/Lk0n/6CElbg2cY2AbMZPC+mMkEfzX/7KvV9Fcsf7cawktPX80bplBI0huuZ
-	 D3xdXNlkWZx8wWfPDN72kiIDOSigJkf3MUX8TsgXLJW7bXC7IeTkdB/c9BRJ56mRbqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246448;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version;
+	bh=g4LcYdOZH4gsznCUXscaCp9ueXDK0eydwQ4sKQHtqYo=;
+	b=rdzsw7XESj+mo6Bm6eusUMoG6sqAbX/gM3n5DwUrwOvyYh/k36AKOQxzhagGVtSU2jLK
+	 LZlF/0BdLf9lp9Xi+5qBut143Yec7GOvczM8Ua6K5KX3RI2WFo1uFWT7ka4yUI+F0LYG5
+	 FNTAOe6CB7/F4OuE0orwIV4Cwo4ZW7fsAlV3Ggam7ca0LETprYlDgGjX+OocwoC0ppPNM
+	 Y0rjwaIFHaCfOc7aQ43721Eo4Pe9t8IzDR96mqUWMNkwCtHgWEa/c6xwZ0sf86DjQUdHI
+	 WeY0c4LNnvbvaIJtEhM/CJMFlrzCX3MXVDOZpk3k5JwxDkCYG7s6nR+Om6BTcHarWTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=s1hdktMa;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=fail header.from=kernel.org;
+	spf=pass smtp.mailfrom=meta.com;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0B5606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D0B5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=s1hdktMa
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070781f63so483977b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:45:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794246351; x=1794851151; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Si1qr0FYlgYaa7aEt7lVrrFDFWoP/sB4RXZcugVCzwc=;
-        b=s1hdktMa4eev/Xy37ge0y053vKHhohuEhfKbyyLGZ8LhehfDfc7Aa6wgvj8JlFdDIV
-         dyBTAaZ01JBpEwl/xyUBNHrukY2FPWOHOlKH2EUZ9LtH82OwqyZBQYFoihKUeBfR4Dod
-         LgF+/qrvAT9UuLDXWl1Y6p+h9axQtm5UsHRDWJ3QtCZUcnZs3NGSsvinvVwsc08xotdG
-         GoOWfQYQ1mNv4EHZtnaAhjn2alXJPY7zFG7Sd5i8zPKp/YAFfs3u8dZcv6D14loi5J5h
-         GhCWK2MsqUyjSRDeOvO8jO1/zjXEU3grOLYeeni9spd1jqtDBAku5qpX95f8Lr+hWhG5
-         Di/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246351; x=1794851151;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Si1qr0FYlgYaa7aEt7lVrrFDFWoP/sB4RXZcugVCzwc=;
-        b=SfPOpEViFJDxDCE3kb5wNr2hmrxZvncsUxX3zngf0w1W0BX7tBplTkoVnF6IgbE5Cg
-         kT5nwiVeq/jPRjsx/P61k8hz0bkxk3nXKVvu3SML4VUIU2tRS26o1kRanUDzS4h/bEAz
-         Nz1wLd4ANi4f+PBzf9Szgh2TbbEQfTPfoK++JOaZKPn3/cpyo6GOaCL15NjJBZz+S4Io
-         M51GmpUvWbSqSKRUkKdf47JH3zhUiXR/RKCY/7xIU38phckHw9PRUiU3XfVgk5WpUSVa
-         GS/+ycD3e5ommZcjLRWoyVu8evbT434TX1Jlf2tE+oZxTzIWbBZa+8qZf6YpaiHSNooM
-         4a7g==
-X-Forwarded-Encrypted: i=1; AL+hErG4fwHy50KDEU1ysrCYRN4uOqYohGkHb0denWHngUKfp7jAL2KnN952oCNiM9YysfUF8cGVWFWf6YGsXjk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BDGuF9wuBCgzmhVDq1A4vgjUnb2NRLahaWfTa6VyfaNo4QOTW
-	DwCx9RVgiTh6UrpWmxnOZ64Cq2Rmea3dGH3M25Uqu/zr/ompuOnjzQvBOoKoyyFRJwCv/M4Of5I
-	+Io0w
-X-Gm-Gg: AYBFou1J3ToDAY8MsXuVtGU76QbcBhNCGVzcfqDQdIkP7dmBak1p4XRbgzOm6139C29
-	mlY7TrC3hmk2xS3p1vluJcukOhz57DW1zn9yjeSeJ0YR8ROl91lSY1+CwKkysxDZLrjlv2BON7D
-	RNOnm4ZZ82qf+is+7FIGjNDx4JoNMUMZUbgF998l/B/III0vgbJRS2YC+i/nQgNg3mwmK2l6I1w
-	L8iXgZ6PJ6WkS3pzJq38SPQJXR6E8w6Zyate6mNDZK+zs7g1pQTER39t3J0xA8sKxaSBzzeRp82
-	CUT4cpkeXvXpfNrjrc5L+Sjcxx2njdoY4BLDixtyw6oFxhQSKw/93kV9VEglYB+A/6NtrNkwvsO
-	wWxLYhR7SqTxi0htZUwJQFk52O6qPaKHy1hTBmDxdhnxxhWZyAQuqFiD1iyNvDQ+8D42Mff8ODj
-	UqIV96mWcN53KsZ6Hk/c5Tv3i6kANzKqpGQTm5rhY+jjeYELQqygSXfGO7tmvjsL3Bzkb4hTR5X
-	S/zbBumnXf4UwY5/ozM8Uk8ZVaY0+xefK6EHF15Yuf9t/tmgcxLrltprPdZ5DYCvuSU0sCkxkFz
-	pyrvNTj99JYg/ZF9Hr5zUp6Bv8IRnpymoWh7dv4ycA==
-X-Received: by 2002:a05:6a00:1817:b0:87a:3144:8c4c with SMTP id d2e1a72fcca58-8ba87e0c270mr330184b3a.59.1794246350855;
-        Mon, 09 Nov 2026 09:45:50 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:52::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b64a1e1cc9sm1671290b3a.50.2026.11.09.09.45.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:45:50 -0800 (PST)
-Date: Mon, 9 Nov 2026 09:45:49 -0800
-From: Joe Damato <joe@dama.to>
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, prashant@broadcom.com, edumazet@google.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 1/4] bnxt_en: return the RING_FREE status to
- callers
-Message-ID: <avIGzUc6WaGgYBKG@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, netdev-bot+sashiko@kernel.org,
-	netdev@vger.kernel.org, michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, prashant@broadcom.com, edumazet@google.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org
-References: <20261106191423.4194081-2-joe@dama.to>
- <179408152976.994134.11735257663578231009@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DB5606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:47:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0DB5606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9HITow3891581
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 09:47:27 -0800
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4htrvyf47u-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:47:26 -0800 (PST)
+Received: from twshared36767.32.frc3.facebook.com (2620:10d:c085:108::4) by
+ mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Mon, 9 Nov 2026 17:47:25 +0000
+Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
+	by devbig197.nha3.facebook.com (Postfix) with ESMTP id 1CC432EB13629;
+	Mon,  9 Nov 2026 09:47:13 -0800 (PST)
+From: Keith Busch <kbusch@kernel.org>
+To: <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <shao.mingyin@zte.com.cn>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+In-Reply-To: <20261105215807526OqR0Bg86VChvwhCEz5xGr@zte.com.cn>
+References: <20261105215807526OqR0Bg86VChvwhCEz5xGr@zte.com.cn>
+Subject: Re: [PATCH] nvme: reject invalid reconnect_delay sysfs values
+Message-ID: <179424643310.2115845.680024030621638618.b4-ty@kernel.org>
+Date: Mon, 9 Nov 2026 09:47:13 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,157 +65,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179408152976.994134.11735257663578231009@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-FB-Internal: Safe
+X-Proofpoint-ORIG-GUID: gJCQDSY3HwR9zQo0cRpY-E5lTTrR22ak
+X-Authority-Analysis: v=2.4 cv=O5CsLx9W c=1 sm=1 tr=0 ts=6af2072e cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=4h92JMTCafKA-fb_NiOh:22
+ a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=vuk_V-wIeD6UzulCNUMA:9 a=QEXdDO2ut3YA:10
+ a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA3MCBTYWx0ZWRfX9ZB2czVjd9YD
+ 0u0/tRRWtTwZSO5hH7Zn9DEogEsnGn+izp/3WMUHKS0DYCTlgSwO0VTvFcIONkmML3GDoqVMqQ5
+ DZ4RboWT0eLt/7pZXseWo72N/+DHM3s/CI8ZOEs9ct/2/CzgOs6ZSm1kT3890rDFwwzeibUMu3I
+ /Pjf1H4f++XFl+m46t1b75C6UXH3c6GmmjdXIZcF7wrZvRh22Ch8T3bGg7Y1uGeYPy1gsOTeJo8
+ jxIhf6A9d1ThJgXc8QW1BTzlxq+RIq8R7jqX5FIvCfxqUL6fNOCGFw20oGXnP6nVbCdi7ChuIvi
+ 7ghIlb6HSLCtyaBdMNZh9OeY0/kYfNjSlHLRFTBX41f0uE0qfKTW+zd+zSOBKuuWVYUp2DZSIY+
+ cePBlIb5QnAnvhYswf/JvlYh9KfMjEHA4QKsXr5yfuLJvsmt4fxVONjScZdElll6+F/2ODyQfZt
+ HTY0Pp42oInef+3K4yw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA3MCBTYWx0ZWRfX722YfYCrm67f
+ vW5oe1NiBfCHul+U+8womhu9NC1K9n9zrtQYVoIjd0gGiqQBAWW/4nne9FJ0Zs+RyyzeluCqhCF
+ brz+9+0sIXge8jKGr3YRxvR5k6phLas=
+X-Proofpoint-GUID: gJCQDSY3HwR9zQo0cRpY-E5lTTrR22ak
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_06,2026-11-06_01,2025-10-01_01
 
-On Sat, Nov 07, 2026 at 07:58:49PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
+On Thu, 5 Nov 2026 21:58:07 +0800 (CST), shao.mingyin@zte.com.cn wrote:
+> nvme_ctrl_reconnect_delay_store() stores whatever kstrtou32() accepted
+> into opts->reconnect_delay without validating it.  The nvme-fabrics
+> option parser refuses reconnect_delay values that are zero or negative,
+> and the rest of the driver relies on that: nvme_ctrl_loss_tmo_store()
+> computes
 > 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 0
+> 	opts->max_reconnects = DIV_ROUND_UP(ctrl_loss_tmo,
+> 					    opts->reconnect_delay);
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The patch makes bnxt_hwrm_rx_ring_free(),
->   bnxt_hwrm_rx_agg_ring_free() and bnxt_hwrm_tx_ring_free() return the…
-> - [Medium] The commit message says "All three ring free helpers that send
->   the command discard the value", but four helpers send HWRM_RING_FREE,…
-> 
-> --
-> 
-> bnxt_en: return the RING_FREE status to callers
-> 
-> This commit changes bnxt_hwrm_tx_ring_free(), bnxt_hwrm_rx_ring_free()
-> and bnxt_hwrm_rx_agg_ring_free() so they return the status from
-> hwrm_ring_free_send_msg() instead of discarding it. No caller acts on
-> the returned value yet.
-> 
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > index 33c4cacc8ffe3..ea8529c789947 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > @@ -7679,50 +7679,55 @@ static int hwrm_ring_free_send_msg(struct bnxt *bp,
-> 
-> [ ... ]
-> 
-> > -static void bnxt_hwrm_rx_ring_free(struct bnxt *bp,
-> > -				   struct bnxt_rx_ring_info *rxr,
-> > -				   bool close_path)
-> > +static int bnxt_hwrm_rx_ring_free(struct bnxt *bp,
-> > +				  struct bnxt_rx_ring_info *rxr,
-> > +				  bool close_path)
-> >  {
-> >  	struct bnxt_ring_struct *ring = &rxr->rx_ring_struct;
-> >  	u32 grp_idx = rxr->bnapi->index;
-> >  	u32 cmpl_ring_id;
-> > +	int rc;
-> >  
-> >  	if (ring->fw_ring_id == INVALID_HW_RING_ID)
-> > -		return;
-> > +		return 0;
-> >  
-> >  	cmpl_ring_id = bnxt_cp_ring_for_rx(bp, rxr);
-> > -	hwrm_ring_free_send_msg(bp, ring,
-> > -				RING_FREE_REQ_RING_TYPE_RX,
-> > -				close_path ? cmpl_ring_id :
-> > -				INVALID_HW_RING_ID);
-> > +	rc = hwrm_ring_free_send_msg(bp, ring,
-> > +				     RING_FREE_REQ_RING_TYPE_RX,
-> > +				     close_path ? cmpl_ring_id :
-> > +				     INVALID_HW_RING_ID);
-> >  	ring->fw_ring_id = INVALID_HW_RING_ID;
-> >  	bp->grp_info[grp_idx].rx_fw_ring_id = INVALID_HW_RING_ID;
-> > +	return rc;
-> >  }
-> 
-> [Severity: High]
-> The per-queue callers of these helpers still ignore the returned status,
-> and none of the later patches in the series seems to change them. Can
-> the queue restart path still release rings that the firmware did not
-> free?
+> [...]
 
-The per-queue callers should be fixed in a followup to net-next, IMHO, because
-this series addresses a real failure seen in the field on production hosts.
+Thanks, applied to nvme-7.4.
 
-The per-queue callers probably would fail in the same way, but that's not a
-failure I've observed so I think that would be a separate followup.
+[1/1] nvme: reject invalid reconnect_delay sysfs values
+      commit: f92fe8dea19c743eb9e4d998ae0384344dd40091
+--
+Keith Busch <kbusch@kernel.org>
 
-So, I disagree with Sashiko, but if the maintainers feel differently on this
-bit, let me know.
-
-> > -static void bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
-> > -				       struct bnxt_rx_ring_info *rxr,
-> > -				       bool close_path)
-> > +static int bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
-> > +				      struct bnxt_rx_ring_info *rxr,
-> > +				      bool close_path)
-> 
-> [ ... ]
-> 
-> > @@ -7730,14 +7735,15 @@ static void bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
-> >  		type = RING_FREE_REQ_RING_TYPE_RX;
-> >  
-> >  	if (ring->fw_ring_id == INVALID_HW_RING_ID)
-> > -		return;
-> > +		return 0;
-> >  
-> >  	cmpl_ring_id = bnxt_cp_ring_for_rx(bp, rxr);
-> > -	hwrm_ring_free_send_msg(bp, ring, type,
-> > -				close_path ? cmpl_ring_id :
-> > -				INVALID_HW_RING_ID);
-> > +	rc = hwrm_ring_free_send_msg(bp, ring, type,
-> > +				     close_path ? cmpl_ring_id :
-> > +				     INVALID_HW_RING_ID);
-> >  	ring->fw_ring_id = INVALID_HW_RING_ID;
-> >  	bp->grp_info[grp_idx].agg_fw_ring_id = INVALID_HW_RING_ID;
-> > +	return rc;
-> >  }
-> >  
-> >  static void bnxt_hwrm_cp_ring_free(struct bnxt *bp,
-> 
-> [Severity: Medium]
-> The commit message says:
-> 
->     All three ring free helpers that send the command discard the value.
-> 
-> Is that count right? bnxt_hwrm_cp_ring_free() also sends HWRM_RING_FREE,
-> and it still returns void:
-> 
-> 	hwrm_ring_free_send_msg(bp, ring, RING_FREE_REQ_RING_TYPE_L2_CMPL,
-> 				INVALID_HW_RING_ID);
-> 	ring->fw_ring_id = INVALID_HW_RING_ID;
-> 
-> The inline NQ/L2_CMPL free in bnxt_hwrm_ring_free() also drops its
-> status:
-> 
-> 		if (ring->fw_ring_id != INVALID_HW_RING_ID) {
-> 			hwrm_ring_free_send_msg(bp, ring, type,
-> 						INVALID_HW_RING_ID);
-> 
-> By the end of the series, bnxt_hwrm_ring_free() counts stuck rings only
-> for TX, RX and AGG failures. If a CP or NQ RING_FREE fails, would
-> bnxt_stop_dma() be skipped, with __bnxt_close_nic() going on to free
-> that ring's memory in bnxt_free_mem()?
-
-This also seems possible, but this is not what I observed in the field. On
-three hosts, the NQ rings failed alongside the RX/TX ring free failures and so
-if this series were applied DMA would be stopped.
-
-I suppose it is possible that only the NQ or completion rings fail and this
-series do not handle that case.
-
-As with the above feedback from Sashiko: if I understand the requirements for
-net correctly (and I'm probably wrong), this series addresses actual bugs seen
-on prod workloads.
-
-I'd be happy to send a followup to net-next addressing both points above after
-this series is merged.
-
-If the maintainers prefer that these other failure cases (which I did not
-observe in real life) are handled in this series, please let me know.
