@@ -1,96 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794207097;
-	b=LdfZMgqFf92Hipr2MOx0bxvbYc2v4+p4BBJ1OBBYheHcPJdU1UtfyYYE3nkKCHYTATgD
-	 6jBGxpEL4A9EJaPIW32sxWqz/rYLxCv/eO7C3NEdiutEGusdSPcHxUQXwhSPA5tNvmVi3
-	 OJwq6pHehhvFmKbrWw0eCo+h/82qXK4H3kW110tSx9SDilpyPNXCaw6+Mb4IxXVeG48OK
-	 9vyadLN7cSmeqs0pIT1L4RfzCTjeomoNudt10L9MbAUjUl/fGcLjNOPuougiJSrzA/vJI
-	 ZMl/i5j/9WmRjULzwOHu/nQ8vA2cltGpcU/sn2LBjpxkkqw/5wLTx7lo1xnl+zfAX8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794207097;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GRYMVgY7LLZLdohLNTD198CyzBzgVMBBYs4VpkOhRfk=;
-	b=3X7lsl4jTunYLzLfIjFVJVWXhxTeynnguoAVkAgOXI4q+cjSaP0DdyW/TfL57mepvDgY
-	 L9x5R4/hCytjsJQ9OVzjzMlTwptLpeVlHlFu8V0URCEgvl0sn3resP2ex4JM/vqfeIL8w
-	 7adEZoIDK0b5eyxUUNPUi9eWELfiWpuF5VkOF0Q9KhjIoP4rXSHRwrCppq1NDhMlrj8RK
-	 HqObvyKWSb2+9crG16Ytv4cpjnfpCYjAUd0WvWJMJ9biMT+ZA3iBUEHNA6MEgf+3SEF71
-	 2w3w6gnEVUsLOk3DRGRHltoWHCgG422VFylEB1XjuWWWcItFVlvkTd/MCk18FkcDWfg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="H2qI7m/H";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.16
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010016.outbound.protection.outlook.com [40.93.198.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794207157;
+	b=FHcOlgv5mD8MxCvdQU2SeWafnlmjPvlSrpaj/mFk9Ww6WYHXpsJ687PTS7HBnBcbuhcK
+	 o6xzmvGZUOi2Do9Wt7etcH0ughmUAfgowfjow6ZnqxninfJuMq1ObQQq4xY37aqIrWK/a
+	 gYeXFbRV0Ggxto94CMKtizQ5VW4SSC2fqqFzyTx6MQZrdYURlKSVpgMc+VebJEzt+uhF1
+	 96cgGXsCN3Vk94rsH2SgYwmM49NE0sXXF6EDKIN8cDgyYmQm7nOs6i68NITXbrm0CAxyf
+	 c78ISz3xBhdSMJIQG8S3ONB1vWuCj/kHznCnvoRnZSukxfnjNrKV3vMNt2QGFOfTF8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794207157;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=pYBX0T5CKcwvZAIN9tNQTOFk9tmHNlr1/FpalyNCLYA=;
+	b=GqkyJY0rTZRWJFa6jyIw1aAefqCs2sOJ7MYML2Qjo+nipAvLiwyNx1h1G2H6y5Fcu22l
+	 NamUqoobDZE9x2V4CLdi0zdQ4+ZIjqHANWOD1C1Ebw8+Bd9swCIanRF1aXzgoC0+AFPmc
+	 nGguG9xmv2P6lkB4VvxJIdoM4PeIjNxort1404w9jpMf/tIGUVq6Sc7BuRX+fAC1Mf62P
+	 AC/Nz8/asxQ7sCG9gKGiUM3L12EXsLV3wlGxJJF7hLC05S3u1h9dR9UzIZzCctbfmroZV
+	 iJGojD72GjVmecWS9nguPXuV1Ifcas6fihKSCjlk3ZnRRWcehxbcji7a8+Sd2vWQbfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gINNI1pH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YV6BVpdz;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:51:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBE8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F309606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:52:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F309606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=H2qI7m/H
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TgU9atx5TO7UJYPRHN0N+U40HnGX8GwVxyIuSLYmE7nJs60+EGE2S9938XdLivyBFoCPd0dWappkKX983ei5xz/+SUuvHNxNRWHh+wEkX0ugWVMqigQfFQiRO2KE4CDXq3nIc4UoEiUp8uCbsxDK20ybxdiByjpQiMNnnhP8mQXKTOyHyMXicz3kDUsDgMhFMIK8KVffb1Wl1avL5k2OLVsIpD2Qww2uEnTCANNVGIrkSt5uDIAiCEEH9Ww9Fag60FAZNX9hgOc/3ya2nIruoIwUcMV1/jeQI/uMWMHnWY2sKuQKOPe3/UYQ1MOwLUdR1VivXdgFhSnpk93TXgrzGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GRYMVgY7LLZLdohLNTD198CyzBzgVMBBYs4VpkOhRfk=;
- b=muxGTC5zfF862XrMnfVOAS30RCeEQAkkortXy0MMfV0zunOMgnIoEKKHqS7EW9UpeCPoYygYGtORnwlcX0Ro2ewLZ+jisKhxZdzsKRUCrcm6sKb04TEryR30eSJMpncMkWBVxu/GYYJT5hghOonUuMfN6ONBQiIqpnHcydLFlRpG1fXrMbXa0lvA3Q7JRvG2xVL4LouzFXxhG29KA95eRhstPIiwbf2QG+PvGjne9LgHqHxHyknlmiqncifPtCyLeJESSG49DE8His20IgydjqTaJalBYGlmwkWyQOxgoSVy41qM2pjdnSxclGWOd4Ph6sgXDK3IG8KgaZk8b4yzBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GRYMVgY7LLZLdohLNTD198CyzBzgVMBBYs4VpkOhRfk=;
- b=H2qI7m/HXdV8Z8V9lb9NCRLRRyQHoXmUgQhn9k/03ePZRcN4fwO0Z64u/+uu9hx/yRiucrv8plrHY/dpVFeAbYi0K8w9Pr5/zGW6/pyUSuwKfis8LQIOaRHIaN+SPru5IfUBjuPhUQuzaBH+RDlj+V75p8g3od65ce1S4nvLpRc=
-Received: from MW4P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::26)
- by DS7PR12MB8082.namprd12.prod.outlook.com (2603:10b6:8:e6::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 06:51:31 +0000
-Received: from MWH0EPF000D8951.namprd05.prod.outlook.com
- (2603:10b6:303:80:cafe::14) by MW4P223CA0021.outlook.office365.com
- (2603:10b6:303:80::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
- Nov 2026 06:51:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000D8951.mail.protection.outlook.com (10.167.249.217) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 06:51:30 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 00:51:25 -0600
-From: Shivank Garg <shivankg@amd.com>
-Date: Mon, 9 Nov 2026 06:51:07 +0000
-Subject: [PATCH v2] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gINNI1pH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YV6BVpdz
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A969w1d2668063
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 06:52:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=pYBX0T5CKcwvZAIN9tNQTOFk
+	9tmHNlr1/FpalyNCLYA=; b=gINNI1pHW9CSMWKrDmmWyRmeTudBSCkqi6vz95iH
+	CRika5aaeka7jG5OOoGFPXtdQFmIcC5vYetU2L4Aj8gwCYWVkt9r3QWMlza+b4mn
+	xUJcHJxK4om9TzDnULvhndId7yWE50tfZo0famGN0tZUQIyjqe82BHN9rXW5Epd3
+	0XlFslXaen/RANdzKp2kcaj7oo3fjemoQj+aNXgvUGItUmSBokbB6+za/REnINHD
+	npfpBU9CW212d4OC3H65KSYhZmFlAsFr24dK3dwNpU4vGTgE6aBVBS1ixrmGwZqn
+	RKEugSn4HljBltNWyJKO/fMQUqSh0FPMrO0j7yHCh2P9+g==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw99mwcs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:52:36 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36de26cb4b3so703949eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:52:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794207156; x=1794811956; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pYBX0T5CKcwvZAIN9tNQTOFk9tmHNlr1/FpalyNCLYA=;
+        b=YV6BVpdzL0JyzulYm7zHFxWlCRmqRXo/fpz2ShEk9FF6LFYppayzZpa7NU0YTxX0Qg
+         Zy9yCwk+rJulKxoeX++JUpp2YXXehiW+NJ29xgI30dbyj761PgdxbC3oID0EJkgUPXK+
+         ITiZ2HyuAOQNNZ9e1bUzIW37OKuCyfmFk5V6cbQteNWgHdBnVSXrt/lJDVWyqqdbZ2Dh
+         VJB7wek9yr7/yCxKr8zjUV3aeZSj5nIJLlhydAOA/gsey32e+Y9uYmNOvBjOWEsnKRzi
+         tH8nbrkkxoboRWCNkcONZgBF1h3v1vkXdqyCerjI/nvZ/dBCAQflCaVAANRWkduUDx6/
+         inUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794207156; x=1794811956;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pYBX0T5CKcwvZAIN9tNQTOFk9tmHNlr1/FpalyNCLYA=;
+        b=s7VIB31NHSFF/jsCEdBgGLRPy5Poc0Y37SQ8rux7JxkiXy5PHWUpbk6VBe6AliUXXJ
+         87v0SxuuBPYLESbxrJMn/y3ukR+DqQCbbr87wVdlTMci6DqlSq81/9JDjmSBCQ0Zmtkd
+         j2edU3OnOYuxdlRMtSIWTgdcXWgU6fVrBTWlZbhi6ei2lB+ro+N5uBsookUJQaPMFCD3
+         JuaHNW6BTeoI4vQ8m+TdRfxBgHxqhugssr335h2vy4y4M/bschOWi16Y4ojhIHaSZV7i
+         3kHB7Cz5Buqd/48yZ6tYej0Ln88PnjqIPuJtsrUoGBBUhIGcHV/pFzJ9fN40DVodsRtr
+         LWtw==
+X-Forwarded-Encrypted: i=1; AL+hErFiisOgssBkVeIBuLgvoMuclwOWGTfp0bwo5x0EpDI89hBxrbuAI0uAd38e5zWQJRTv0Tpr3EhY9cAesJ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Mdw+0YwTcRXdD3EcROvdoZ+t8tVvC3PbxnUxYeUqg9LsZkiRn
+	n63GpFQWPmkxRe7fLZzjqobQ/rxD8RCMI0C0d+s81yGcwPOE1feeD8XVesfL0cOvvj+PpXxCpP7
+	SlUPZ9Z8m3MDERJ2oWVxy60EvvW9WyNrEl030nAGlXUWh8jgrQHgoZ2WiKLyjGmdrAao=
+X-Gm-Gg: AYBFou0tNqXshRJUS0FTGhSpmVN+B5Xx7HHGLnaRh6xWXZqDPTtwJ2EJHwjFVqr72Zp
+	2FBqlOu9kHL5OkgOaJsEL9o2mf2huTG49vH8tilaRMolLpbxmhz/XF9kqBqAEHyWzOkLgZr9CYR
+	BqiQ6coydZe9BW6DbMH03U8O3LsI7lxQHWwD26h5EItwfX68b5WUzEE0o5nX+8MDCZaGrt7YjoJ
+	2hi57nqGJNbpa5tbIA8q8i8ug2EMKRG+la3szWONO1A98pc4XUkINwJh6ZLyb08wTMNErCFGZml
+	YP706NTXgRwsyvofZpBpsh/bNJcbGcT9j4eONhCzOFqcRaI7jlgYj9vfArVINmyhAT7yWOfOEgw
+	QQ2x13lfCIgrI8P6QYjzVblnJ6x13RnvCsy8AxFTmqn5DHR6s1NwidQtIgtjJ8m28PFmfst2XPq
+	mP6R4=
+X-Received: by 2002:a05:7301:231e:b0:351:29c8:643 with SMTP id 5a478bee46e88-37256bf5b4amr5850910eec.18.1794207155653;
+        Sun, 08 Nov 2026 22:52:35 -0800 (PST)
+X-Received: by 2002:a05:7301:231e:b0:351:29c8:643 with SMTP id 5a478bee46e88-37256bf5b4amr5850874eec.18.1794207154898;
+        Sun, 08 Nov 2026 22:52:34 -0800 (PST)
+Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265efd2dcsm10502754eec.17.2026.11.08.22.52.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 22:52:34 -0800 (PST)
+Date: Mon, 9 Nov 2026 12:22:27 +0530
+From: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org,
+        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/6] arm64: dts: qcom: talos-lyra-evk: Add display
+ overlays for EVK board
+Message-ID: <avFtq61Hwzjk2f7n@hu-anantiwa-hyd.qualcomm.com>
+References: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
+ <au_BvH0rEKpgTpc3@zenbook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,206 +132,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261109-clear-pages-batch-v2-1-2e62c4f84f94@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrDIBREfyXcdS1qSpSu+h8hCx/XKDQxaJCW4
- L/XBrorszoDc+aAjClghnt3QMIScohrA37pwHi1zkiCbQyc8oFRzoh5okpkUzNmotVuPBHCCY5
- OUok3aLstoQuv0zlOjX3Ie0zv86Kwb/uz8T+2wkhLb3ttqZZiwIda7NXEBaZa6wfcyRnesAAAA
- A==
-X-Change-ID: 20261021-clear-pages-batch-77f72ef808e4
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, Pedro Falcato
-	<pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>, Borislav Petkov
-	<bp@alien8.de>, Bharata B Rao <bharata@amd.com>, Hrushikesh Salunke
-	<hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>
-CC: <x86@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794207085; l=5798;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=VNe8x8Ob0mAwd6pZ9p9OSSpfdUNhMscllgbnWCzcy4Y=;
- b=DLmLWcuAjWxv7oVtTAAcDqPpxeLlFKxKYXddpxXde/0zKA04voSCsGmjfG+kS2vknyM/t6sX6
- 61rg6Hxg3NxAfshcp5QTl0Xc97WWeEq1BVTyrpbUEdrQu8s67XT0CPy
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D8951:EE_|DS7PR12MB8082:EE_
-X-MS-Office365-Filtering-Correlation-Id: 787bce45-1f19-4416-8eb1-08df3e2de2b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|82310400026|36860700016|921020|11063799006|5023799004|56012099006|261021123027099003|261021121427099003|261022075727099003|261009223027099003|261026121527099003|261102123227099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nnKgUHJ1adgF+TFaD8P0woIETl499TGNuB1P7btBt2kW2utxef7hBGUlyqNaNT6jaGNfGrUn3oCf8Mv6PKmwWXKe6J4hjCEelBusjZw97oIgwXJ5Nai8qbEQoJj1WT7GXvXPgsNLSbkhJoxLYCKQVjKE7ECnzbWRynVBH6EW8pbIlnsmu8gl3/ztRkQYh1jbJgbaL6/jBNl+TvFqam1QU37P9uT04xqT2pXTbh0YDTvHaHrjbBp4eufYZlna4ZI7esyY5ydJSwd5p/8brdfPXF0HpbxHaAxlYTocpHADDKTsYZRkjCJTac7rqm8M9+QTUL22OANIdvks0V2LLReaRpYBKgBLd/yDhGN60dDYkNKpbmRAA1J1RtX7VR/GfzKXWs6NP2YOfxE9tUhsTnaQOfd1DGbJz7upf7HAxnznYpnR83gEMh8KTe0lnif0TtFKI9wVMB/vXyLosczsrPOH2jQvFFNx7V3KdX8vQv4jDQfn1oZ0C6gsOzUku152u/txN+uEMaZZMYCRsxDMJH8BeiR/LdshR0axT5bXsyKSiCWfK9NznmWv0oKkOoq5MlB7KlsyEP6f9klhWVEo6zURbwpamLhXWYDxLc/MXaBCkGsNPA61x6WHwjfwEeTJ/h0fUregJSix2ji6voR1UXxjTMKVDLrNdaoXSEXhT4U2reuDoCqoWx5A1zPxqIupxQDC+xSvwnVx+CFtwKEEwlBGhw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(82310400026)(36860700016)(921020)(11063799006)(5023799004)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261026121527099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wMSJxw+90Vdo4nlGdv+Yz9bnNDRgClQMI6bJIcuW0p38GGHBovvBlCsg1Qkyhi/db9fbkAZ25qY4Ok/IAX/HqFefMQpA9l1jM2maPTCFKiM8hA2T0DXwMH2Juf+75UUEgCgxIW60qLVPXD9Q4Ncex7hc5szfByKAxYJ8CcnI37/Ia8yzlR2VEucR9trgiDQ7eYOw95RvxF/CwyA8nId4r0oSPQMDT3/Icd4bpfkpQmvlG11rOVK4Y0brQ+l4GQLE2NNkFSstuvWWZ/aP5K4BiOlKmdyzE4vLoNPIBHKmG0H3DWgl/KG/7BqJClsrH4oTPkK80Xj4mjLjxzHxmc94AsgqQAAo6KmhSrbW2FAvKlEztnLk22zORHshphJepjj0+2nS9tjStsfsVbRxuUWMDSXsN50Jz+OeSmHeVQUPF3IarlTKDYYiFcRPOGvEqzc4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:51:30.6264
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 787bce45-1f19-4416-8eb1-08df3e2de2b0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000D8951.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8082
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au_BvH0rEKpgTpc3@zenbook>
+X-Proofpoint-ORIG-GUID: 6VRplOcZZC5OZrLdH0aBFsAeWWGnRksN
+X-Proofpoint-GUID: 6VRplOcZZC5OZrLdH0aBFsAeWWGnRksN
+X-Authority-Analysis: v=2.4 cv=CMq/zhrD c=1 sm=1 tr=0 ts=6af16db4 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=Q-fNiiVtAAAA:8
+ a=JfrnYn6hAAAA:8 a=YaO7I9Z_RSUIAtd64XYA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22 a=FO4_E8m0qiDe52t0p3_H:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAyNyBTYWx0ZWRfX9TrEUd9cX5N3
+ yq6DSBX8s+DEs/auqHFE2o4yDw7QQD3BhjytNsurNWFEgKFD0SwY2fVIAziopxseny8OaPyEVz1
+ EmR/GLG1j4TnPRFZkoDQRzWruFOikzxGht+s04dOJHoDgyQuMM3iDpZe0azX8oOW/J7wUncF4Zc
+ NZB2vtrzAaLSrVhVIU2cfuRc3lBRyJNi+m+y5BXGa1Mp1mgNz4A5xhXHkGy1sGF9HtTDoLC+UZv
+ nWHbWSJIpUx5SQ6CVz9qVKgCHmTom1DUskkRTE8kpMPi/oIpAxRUyA52EPWXABXZZaG698Q9NcP
+ 1i6W9o2KV7H6zMqlW3w6tgxWS0EQK11p2n1cpSskf7RDy+JjXOzOsMieVmIFuYUoElB63kP8Nqf
+ 7A3BBwB4sdyVZiHRLVJ5Si8qmrP7kaPcmFBpooc143eIK1RatlpWwLgOgp85tkX9halLRbUcM2L
+ kQ9awiR7EFgNor3c9/A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAyNyBTYWx0ZWRfXwSAsCx+PCXqQ
+ ECs0pL40+NUCgZFoKENdnu5oVpkgfiNaSNUNFqAtOXXricEa2InDGgOubkpYEvJUFLfR27mrxSR
+ m2oIe6U/ixZQc/z6Lsd8pBsUfD6sY70=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090027
 
-clear_contig_highpages() clears the whole range at once under
-preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
-pages at a time, with a cond_resched() in between. The batch is 32MB if
-the architecture defines clear_pages(), and one page otherwise.
+On Sat, Nov 07, 2026 at 06:29:41PM -0600, Bjorn Andersson wrote:
+> On Mon, Nov 02, 2026 at 01:01:30PM +0530, anand.tiwari@oss.qualcomm.com wrote:
+> > Qualcomm Talos Lyra EVK SoC card are mounted on the Lyra carrier card.
+> > The DSI0 interface from SoC card is routed to either the 22-pin DSI
+> > connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
+> > connector, through a MUX which can be selected by a hardware DIP
+> > switch. There are multiple daughter cards designed that can be
+> > connected to this B2B connector.
+> > 
+> > The below B2B display interfaces are enabled by default in base DTB:
+> >   - DSI-to-HDMI using the LT9611UXD daughter card
+> > 
+> > Below overlay DTs are added for additional display configurations:
+> >   - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
+> >     daughter card
+> >   - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
+> >     panel with touch via the 22-pin DSI connector for Lyra
+> >   - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
+> >     with touch via the 22-pin DSI connector for Lyra
+> >   - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
+> >     Lyra with LVDS daughter card
+> > 
+> > These overlays are applied on top of the corresponding base board
+> > DTBs.
+> > Link: https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com/
+> > 
+> > Dependencies:
+> > https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
+> 
+> This was rejected 3 weeks ago, so sending this series wasted both your
+> and my time.
+> 
+> Regards,
+> Bjorn
 
-Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-modes"), architectures that support lazy preemption only offer the
-full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
-one of them, and it is the only architecture that defines
-clear_pages(). So the 32MB batch is never used: whenever
-clear_contig_highpages() runs under a cooperative model, the batch is
-one page.
+Thanks Bjorn for letting me know. I missed that the dependency had been 
+rejected. I will resend this series after acceptance of dependencies
 
-Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
-set, and one page at a time with cond_resched() in between otherwise.
-Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
-
-PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
-cond_resched() does nothing on any of these kernels. So a build-time
-CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
-not needed.
-
-No functional change intended.
-
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Shivank Garg <shivankg@amd.com>
----
-This came up in review of the copy_mc_highpages() series [1]. Pedro
-pointed out that most architecture run with full or lazy preempt, so mm
-does not need to check the preemption model at runtime or batch the copy
-for cond_resched(), and a simple per-page fallback is enough for
-non-preemptible models.
-David suggested doing the same for the zeroing path, and this patch
-does that.
-
-[1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com 
----
-Changes in v2:
-- Rebased on mm-next/for-next, and drop RFC tag.
-- Link to v1: https://lore.kernel.org/r/20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com
----
- include/linux/mm.h | 28 +---------------------------
- mm/memory.c        | 29 ++++++++++++++++-------------
- 2 files changed, 17 insertions(+), 40 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index d89e6f823c9f..59bc3685aac5 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -5242,7 +5242,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
-  *
-  * When running under preemptible models this is not a problem. Under
-  * cooperatively scheduled models, however, the caller is expected to
-- * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
-+ * clear one page at a time and call cond_resched() in between.
-  */
- static inline void clear_pages(void *addr, unsigned int npages)
- {
-@@ -5253,32 +5253,6 @@ static inline void clear_pages(void *addr, unsigned int npages)
- }
- #endif
- 
--#ifndef PROCESS_PAGES_NON_PREEMPT_BATCH
--#ifdef clear_pages
--/*
-- * The architecture defines clear_pages(), and we assume that it is
-- * generally "fast". So choose a batch size large enough to allow the processor
-- * headroom for optimizing the operation and yet small enough that we see
-- * reasonable preemption latency for when this optimization is not possible
-- * (ex. slow microarchitectures, memory bandwidth saturation.)
-- *
-- * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this should
-- * result in worst case preemption latency of around 3ms when clearing pages.
-- *
-- * (See comment above clear_pages() for why preemption latency is a concern
-- * here.)
-- */
--#define PROCESS_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
--#else /* !clear_pages */
--/*
-- * The architecture does not provide a clear_pages() implementation. Assume
-- * that clear_page() -- which clear_pages() will fallback to -- is relatively
-- * slow and choose a small value for PROCESS_PAGES_NON_PREEMPT_BATCH.
-- */
--#define PROCESS_PAGES_NON_PREEMPT_BATCH		1
--#endif
--#endif
--
- #ifdef __HAVE_ARCH_GATE_AREA
- extern struct vm_area_struct *get_gate_vma(struct mm_struct *mm);
- extern int in_gate_area_no_mm(unsigned long addr);
-diff --git a/mm/memory.c b/mm/memory.c
-index c46482e35418..9bfd49ea990f 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7612,27 +7612,30 @@ static inline int process_huge_page(
- }
- 
- static void clear_contig_highpages(struct page *page, unsigned long addr,
--				   unsigned int nr_pages)
-+		unsigned int nr_pages)
- {
--	unsigned int i, count;
-+	unsigned int i;
-+
-+	might_sleep();
-+
- 	/*
- 	 * When clearing we want to operate on the largest extent possible to
- 	 * allow for architecture specific extent based optimizations.
- 	 *
--	 * However, since clear_user_highpages() (and primitives clear_user_pages(),
--	 * clear_pages()), do not call cond_resched(), limit the unit size when
--	 * running under non-preemptible scheduling models.
-+	 * clear_user_highpages() (and primitives clear_user_pages(),
-+	 * clear_pages()) do not call cond_resched(). That is fine on
-+	 * preemptible kernels, where the scheduler can preempt the clearing
-+	 * at any point, so clear the whole range at once. Otherwise, clear
-+	 * one page at a time and reschedule in between.
- 	 */
--	const unsigned int unit = preempt_model_preemptible() ?
--				   nr_pages : PROCESS_PAGES_NON_PREEMPT_BATCH;
--
--	might_sleep();
-+	if (IS_ENABLED(CONFIG_PREEMPTION)) {
-+		clear_user_highpages(page, addr, nr_pages);
-+		return;
-+	}
- 
--	for (i = 0; i < nr_pages; i += count) {
-+	for (i = 0; i < nr_pages; i++) {
- 		cond_resched();
--
--		count = min(unit, nr_pages - i);
--		clear_user_highpages(page + i, addr + i * PAGE_SIZE, count);
-+		clear_user_highpages(page + i, addr + i * PAGE_SIZE, 1);
- 	}
- }
- 
-
----
-base-commit: b1efbb50cfdfa953cb1335ead2ef93954b496bc5
-change-id: 20261021-clear-pages-batch-77f72ef808e4
-
-Best regards,
--- 
-Shivank Garg <shivankg@amd.com>
-
+> 
+> > https://lore.kernel.org/all/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com/
+> > https://lore.kernel.org/all/20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com/
+> > 
+> > DT bindings:
+> > https://lore.kernel.org/all/20261021-lt9611c-v7-v18-1-4978b94896f1@oss.qualcomm.com/
+> > 
+> > Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+> > ---
+> > Changes in v3:
+> > - Added GP CLK Frequency Dependencies
+> > - Reorder the &tlmm pinctrl nodes in the LT9611UXD HDMI bridge patch
+> > to ascending GPIO number.
+> > - Link to v2: https://patch.msgid.link/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com
+> > 
+> > Changes in v2:
+> > - Fold in the hdmi_connector port remote-endpoint indentation fix.
+> > - Drop the per-patch Depends-on trailer on the LT9611UXD HDMI bridge
+> >   patch; the dt-bindings dependency is now declared as a series
+> >   prerequisite (see base-commit/prerequisite info below).
+> > - Drop default-on from the DLC0697 backlight node.
+> > - Add the ilitek,ili9881c fallback compatible to the RPi 7-inch
+> >   panel overlay to fix a dtbs_check "too short" binding failure.
+> > - Reword the PWM_CLK defconfig commit message to name Qualcomm as
+> >   the SoC vendor.
+> > - Remove a stray blank line and non-ASCII characters from the AUO
+> >   LVDS panel overlay.
+> > - Link to v1: https://patch.msgid.link/20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com
+> > 
+> > To: Bjorn Andersson <andersson@kernel.org>
+> > To: Konrad Dybcio <konradybcio@kernel.org>
+> > To: Abel Vesa <abelvesa@kernel.org>
+> > To: Rob Herring <robh@kernel.org>
+> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > To: Conor Dooley <conor+dt@kernel.org>
+> > To: Florian Fainelli <florian.fainelli@broadcom.com>
+> > To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+> > Cc: linux-arm-msm@vger.kernel.org
+> > Cc: devicetree@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-rpi-kernel@lists.infradead.org
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > 
+> > ---
+> > Anand Tiwari (2):
+> >       arm64: defconfig: Enable PWM_CLK for backlight PWM support
+> >       arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
+> > 
+> > Mohit Dsor (1):
+> >       arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
+> > 
+> > Shashank Maurya (3):
+> >       arm64: dts: qcom: talos-lyra-evk: Add DLC DLC0697 panel overlay
+> >       arm64: dts: qcom: talos-lyra-evk: Add RPi 7-inch DSI panel overlay
+> >       arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch DSI panel overlay
+> > 
+> >  arch/arm64/boot/dts/qcom/Makefile                  |  18 +++
+> >  .../boot/dts/qcom/talos-lyra-evk-dlc0697.dtso      |  77 ++++++++++++
+> >  .../qcom/talos-lyra-evk-lvds-auo,g133han01.dtso    | 133 +++++++++++++++++++++
+> >  .../qcom/talos-lyra-evk-raspberrypi-dsi-7inch.dtso |  88 ++++++++++++++
+> >  .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   |  75 ++++++++++++
+> >  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts        | 101 ++++++++++++++++
+> >  arch/arm64/configs/defconfig                       |   1 +
+> >  7 files changed, 493 insertions(+)
+> > ---
+> > base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+> > change-id: 20261019-lyra-display-upstream-post-24656268a902
+> > prerequisite-message-id: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
+> > prerequisite-patch-id: 0dfae1e9d0c620866489eecacb4b7201b9333621
+> > prerequisite-patch-id: 94923ba8f57911649364a7e0e5494c7cfd478367
+> > prerequisite-patch-id: 660755293839baa7364b4baf3a2dd6b4018de48a
+> > prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
+> > prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
+> > prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
+> > prerequisite-message-id: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
+> > prerequisite-patch-id: 37995c88387ff54737dc82eb7c3b4600901ce061
+> > 
+> > Best regards,
+> > --  
+> > Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+> > 
