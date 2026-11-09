@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219065;
-	b=j6/mNaZR/cbze8dV5wh9K6u5j7Aml4Vsm/U4KIfu6OyYJGtKUnn9zvS2aH+ry2lUA6GO
-	 fQiM0HCoyyzJGgelE7p82TKIhU+IJ6Y/JH8mz1VGCC6OASGOvr1q+zfyK2gxdhLM6pwbR
-	 1KvD/b9jmua8VtAC/6xqunK3lxSIIpH2s3Y11ziqDA7zAOf+iiuEi9FD6rGTiymU7Lp4T
-	 nHlf6r7kV9ux+t7ORkOBkZK84qKlmQK+c6LwWU+xihxFE/LFplurfP2/3liKaFwmAyPyP
-	 DV9VJ7Fk9QFjAjrFldVLZEX80GSzYc7Q9hHB2upM3VX4yXur8b8nkQj241BsmDFmUZQ==
+	t=1794219113;
+	b=SKv6x7AwZwD4JL+KM+L9cAXaJYJMWK9rR+8dUivmx7tB1nIcMnBCVRAZ5sR5HQVNyx3y
+	 NJFP/alYrRnTmK23YEhL2GxnRd6JPlARhwz5b2SMAxVYaJKJh8Zqj1lz/SJrbbImGeiIr
+	 GyhnOj1o5h6Tg3yXQffkGJGLfZwhL50RnW+N0BMknm7KTlCqaBNcOqirdP9ibdKy3e21D
+	 9Jy7NomDxwmSihsv+U0V1e7Bt5rwCUDWaD28hx85yrwLL/YPrAlt5jvL0AiLLnTGK6fZB
+	 whmDZNjcNfrhXjB1o97xqEk0sINlj3MGPDH7hjxn619y6UOJePsglpbwRm/W4SWsqYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219065;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wbzKLdeX4uvspnezn7DDebS2QYAphq0U5j3vCU9hkMY=;
-	b=yI7fXy8dLqz42H232X/GSsuESgcvwnO0zqvUMsXbNaDDlwJOLpQYmPvJoXKVTaLP2UwE
-	 Wwv5VdxftO95RkV88kfvysnjs31quADkiWaiw0coFjWQJP6Sx4HP/RuVZJMBqlE2PdMwO
-	 U6nZ6sS+Gpwp4YHMPBno5VoPJDAYVx2J7EwUpxDSKFyLthFzTxTLyzH4TIML2kmtNC6yQ
-	 UpXPV1gSkQjn2lOg4J5alXdcst4x7L34We5BpRBgfxlNDOMx7PyLz5EjVSlZ/ZzlWm7JY
-	 TQci0tAdyhegXFY6OrLkUrnIULCX/WOCCgGk13gldAR/66kcuMwsnUNgnEkJDGJZIJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219113;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=6LczOBrrxXlOmcr0hIxa5uA7k5jQ+bcXpGN4rjE6NVY=;
+	b=G4JZEW4Wii/rtW7YY8/W8SErd/BrE8A/7vD11AytXcBZiWI8QlbNJVE4pC118vQC6BAY
+	 JHDNC9LWmLtyMeypYvExPLBr5WrfRt+ozNo3ODL73YHAdJzHYPpeb3VunkZ3MF+bJA2Z4
+	 s2k5VGlwM2FG5zNEjrUOuME9lSL5RkxJJMmCs7uHLx12OpTTkjMtxOXJyeBslAlDg8kRv
+	 3rCKmzbjcZk8FbMSdaYJ/Z1divLsuwLa4Iqe9L+prGUZi5deDZf7leBHuwByZemCVMdPX
+	 WIW1JFv9HI/Nw5xNRTxZtmqxbGipa5PvDBEf0quT4RD83l9xMKiagtJdW6TJ1rRG0bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yk3s3d9f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b="r6za/DKl";
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FF6606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E98A8606A31C;
+	Mon,  9 Nov 2026 10:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E98A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yk3s3d9f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB091F008A1;
-	Mon,  9 Nov 2026 10:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794219065;
-	bh=wbzKLdeX4uvspnezn7DDebS2QYAphq0U5j3vCU9hkMY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yk3s3d9frEWJZPF2MxjOZchcesGfDugA5BuxyDVBmApifp1nrXdBpEzCpJH135Z6v
-	 pGzHY0gQfwXYmSiHDmNGG3fWlgsrAVtTUjAgEKgTx+LSJq1LxyCnWmYQK598Fy7BNJ
-	 mgdd5EvGuaW1u0OeZ1SxXFAJnBEWulBCMtEpZEE8NzIETSir8TkiU4PYPuX7zsN/cS
-	 gvCwafWEipxdq2SZNqRTVIZMR4gtnUoPMtw8wUxI2SLTH0dYcSun490m/D2NhyjRMn
-	 LUYAQV+T8Fotdet4iYmRu+ol0wEuPD/vicVi+vMhVpVwFJO7zx1mOW9LpqdhrBtznQ
-	 HTzwwcKy85ODA==
-Date: Mon, 9 Nov 2026 12:10:59 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	David Hildenbrand <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xen/events: replace __get_free_pages() with kmalloc()
-Message-ID: <avGcM7xJfGpOQpVV@kernel.org>
-References: <20261108-b4-xen-v1-1-76095f25cbf4@kernel.org>
- <7af392b9-0cf9-46fe-a820-c994942893fe@suse.com>
+	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=r6za/DKl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1794219103;
+	bh=6LczOBrrxXlOmcr0hIxa5uA7k5jQ+bcXpGN4rjE6NVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=r6za/DKlZJfeVReiOxBIakEH5iQQVQsY/8UCwP8ikCxBrNty97VV1gDKhOI3gGUZX
+	 biGXRwPN9b5RhQkQnniFja97drqPTCavgrlwG1OOF7VgOG9A6r5ihayy6DJRyxImar
+	 MT7s0eo9VP7i1M65ZqtvTLsmaQaPO02rIceBZOzvl4ydBfjzxwUQJYL9A8HGI0Zt+0
+	 TZI2F+/PVe5+okf0kLps9a22WBw9KuPcI/GXj95E3XwnFWKUbDwuU7l5uBYuGZ6eo1
+	 4DI4Tevl9QimOxCbCK+dJFGf4RuZAOcNDbYw7hGpbzu/lzQru20/F8ok8zMiBqSRTs
+	 LY8xK/dg1w2LA==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id CD47F60056;
+	Mon,  9 Nov 2026 11:11:43 +0100 (CET)
+Date: Mon, 9 Nov 2026 11:11:41 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Florian Westphal <fw@strlen.de>
+Cc: Noah Weinberger <NoahWeinberger2003@proton.me>,
+	"kadlec@netfilter.org" <kadlec@netfilter.org>,
+	"netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] netfilter: nft_dynset: reject DELETE op when set lacks
+ ->delete
+Message-ID: <avGcXYd1ii96m8L0@chamomile>
+References: <5aybqcVfq3WxYdpbT0Ea6bEWamp-4x10J9FF_5La7SSXJ57a4j176x_t3zUW8Ii2r84MsPX8xx_vNashO2PRWvuO9yNsaxS8YV_4TLc-QHU=@proton.me>
+ <avExLOsc3ZWRF5hh@strlen.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,41 +68,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <7af392b9-0cf9-46fe-a820-c994942893fe@suse.com>
+In-Reply-To: <avExLOsc3ZWRF5hh@strlen.de>
 
-On Mon, Nov 09, 2026 at 08:53:18AM +0100, Juergen Gross wrote:
-> On 08.11.26 09:42, Mike Rapoport (Microsoft) wrote:
-> > set_evtchn_to_irq() allocates a page for the event channel to IRQ
-> > number software lookup table.
+On Mon, Nov 09, 2026 at 03:34:20AM +0100, Florian Westphal wrote:
+> Noah Weinberger <NoahWeinberger2003@proton.me> wrote:
+> > Hello,
 > > 
-> > This buffer can be allocated with kmalloc() as there's nothing special
-> > about it to go directly to the page allocator.
+> > nft_dynset_init() checks that the referenced set implements ->update,
+> > but for NFT_DYNSET_OP_DELETE the packet path calls set->ops->delete
+> > unconditionally. Today the only set type with ->update (nft_set_hash)
+> > also implements ->delete, so the call is always valid - but any future
+> > set type implementing ->update without ->delete turns a rule evaluation
+> > into a NULL function call.
 > > 
-> > kmalloc() provides a better API that does not require ugly casts and
-> > kfree() does not need to know the size of the freed object.
+> > Reject the DELETE op at init time when ->delete is missing, next to the
+> > existing ->update check.
 > > 
-> > Performance difference between kmalloc() and __get_free_pages() is not
-> > measurable as both allocators take an object/page from a per-CPU list for
-> > fast path allocations.
+> > Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), net/netfilter/nft_dynset.c:98-101 (eval), 209-217 (init).
+> > Longstanding asymmetry.
 > > 
-> > For the slow path the performance is anyway determined by the amount of
-> > reclaim involved rather than by what allocator is used.
-> > 
-> > Replace use of __get_free_pages() with kmalloc() and free_pages() with
-> > kfree().
-> > 
-> > Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > This was found during an assisted (AI-supported) static source review of
+> > mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
+> > reporter against that tree. The patch below has NOT been compiled and has
+> > NOT been runtime tested, and no reproducer was produced - the triggering
+> > conditions are described above instead. Please treat this as a report for
+> > verification rather than a battle-tested fix.
 > 
-> Shouldn't you also replace __get_free_page() in xen_init_IRQ()? I don't see
-> why this is being omitted.
+> This would have been fine 1 year ago but we no longer have resources
+> and time to reproduce and verify such "fixes".
+> 
+> Ask your LLM for a reproducer, run it, show a minimal backtrace.
+> We have LLMs too and we can use them to create enough usless and
+> time-consuming tasks as-is.
+> 
+> I have a db of +1k reports just like this one.
 
-Just an overlook, will send v2 with this too. 
- 
-> Juergen
+Right.
 
--- 
-Sincerely yours,
-Mike.
+The reporter has to proof this is not theoretical.
+
+LLM might no "understand" that only sets with dynamic backends are
+eligible.
+
+And this patch points to the /dev/null tree: Submitter has to specify
+if this is for nf.git (unlikely) or nf-next.git (maybe, just for
+hardening).
