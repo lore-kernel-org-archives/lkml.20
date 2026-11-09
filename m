@@ -1,63 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253429;
-	b=Lzdwr0UHPHroE2uuEAqF7giCPqbSELMeiR/yyeIiX5JObU4NW6/uzvZWfeePhauLowLH
-	 oGwH4SQJb8XqQIyP8EVJAE2hYZj4SLgReolsDe63iqqel5GONRp1F2MAEm9+fNcrRCIEw
-	 /III/Qgm9kgJiCazPZ5EPDenOGQm8ckBpHmHGMsz4MbPoISn83Nc9wua314XqXPT0LLs6
-	 KAtSqXim/mWJ/Ggl/T4Ky/p3azE5kj4JN3FCXjO4kBpnaMML4SeIhBUTQP/Bwo2OASXfz
-	 LwiR2YfWweAXDXA69AxfmAS+//TjdTmxz/4QoV5HJysQb8pwHlVJp3frPhgAg56NXRQ==
+	t=1794253432;
+	b=UCKe7L/4kn7N4lUitnBRQTWen4Gz+MJ2/IyKTIqX7M+Qy9Gt5LVV4V5C+aEDlwfzgjRZ
+	 cg2dr4I22Udgczg1EGN1k/RIFNafU30hBzm1+7WTUCB02pY2opcFwYohh7FolZOG4R+v4
+	 v+fpwtu3CiXb7pU+THKsG2kTHxdYc0fbiCCVCRh8LU6SYi0iHSOL5xBz6/OGrueeKbgfJ
+	 DEOkLNAe+M95GUo6wWH+A6duSkfUEzXTUiWdX4pp6oqyvc45aM2zUkUv5UdBc0QTQ7UB8
+	 4FTlV3axzRxfKKYmEkOIuXE7eAaT/egiNXB2MR32wERYZTsJMaggN2PaWRQE3EXFndw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253432;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=GiiCdlrkEsadT5b1EEALLJgkBNkzhktjT2LeWox5L6w=;
-	b=NJXBq1x1Q+gGWBjm00Us5yEHzsoPfXV5S+1b1RMu9SakORRBZQn7d/wvXT1q/oQ8+VF1
-	 4OAOXIe4w7zg8chYffQ7BJrkXz4OsQ+Z9plpH8neUEGn+/B2LVTOkTTK5s9V3thEZ2YCY
-	 elpInxbT1m7LyyzhkZ0idec14tkiJSzAThy1goPaCVi5+OF3CBf1J9p0N04wpjj7WOj6Y
-	 IkFd65Fd4cb7TZ9QMgDq5jRe97SaLqe6tP6aCbw8dI8yuEkfMhG1HeQ+xv3BRmlY83eou
-	 +LPo0THCo4U/yjMX9X5Go5ZnT+mDiCodosL2PbUEvSl6l8Kf9rvliajg1IcfJBqWtZQ==
+	bh=82dtHlvq0l4ELnCgcdHwVNzulXvatY26Ghviy9Z4izc=;
+	b=eMxoiZR85IjXJOcweP1UT5yM53QG5tl81M0rNjRjrpfMWwwnORVs/HB5lHuhGUndTjkN
+	 zP6c6Gv6yFndxMdL1xn+bIoSsXMmdkr/NSw9ZS9vWWzAKPLmlk2aD+EpauZlIG/CI5815
+	 hI+FUmM/ekRwi/amjNC3TJlHiLklPmlcfQkaQBoqvSUeop+a2bl4Fth46yD36o0zb+bBK
+	 YS+YEmnPk8+dXTnlQxythgBsI7uhz/DheMVZtrY4WNVZ4EspGQKGmtA0MGap/5AicjA/C
+	 ioET2I+ImZbB1gdBrPMj6889GNEvYwL9gyopllupfib41A60G4QYuvKAm3Rv0eTo3EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HswYtFnl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ktf0N/Kt";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBED8606A321;
-	Mon,  9 Nov 2026 19:43:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F1C606A31C;
+	Mon,  9 Nov 2026 19:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HswYtFnl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385BD1F008A1;
-	Mon,  9 Nov 2026 19:43:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktf0N/Kt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D6D1F0089F;
+	Mon,  9 Nov 2026 19:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794253428;
-	bh=GiiCdlrkEsadT5b1EEALLJgkBNkzhktjT2LeWox5L6w=;
+	s=k20260515; t=1794253431;
+	bh=82dtHlvq0l4ELnCgcdHwVNzulXvatY26Ghviy9Z4izc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HswYtFnlC2cFgEP+oUi2EdGObVoL1SjVfNscGxA1TgECdEGVUcOw9nV/YZTbMqyoI
-	 Yzt8b38ijHkNVCrFB+P0jQOQzM4AaARYcE5j/0krnLdDNiiaTQ6xbYZp0K2hc3o8b0
-	 j3wnDf8OrrP+1vONQfdNT7WUvTDDImqQOpUq8LQQAkYIUssOY8GbvD2EN3QjPcn4c7
-	 eiL8qoFqdX0ra2UrsyF2Sr8KKOANX9EBQfOTsWGPTWj9S5mCsE49vAQizCYLuE208B
-	 sbeLW2AqWWnb61GKC4Wp9+01X0ReACjD8xZzPrz/9imYV1NaxFOCFyN/sZ4iG1ogeZ
-	 c2wqzSOLPDW3w==
+	b=ktf0N/Kt83MKPUw/JWZRzBW0X5l2rC1LZmcr6JRb59suawxR/cqNm1UJAxl678PDF
+	 n/QH1PZ1Br0l3qaJBg6E/tZH8TD4H5h+oxerLeDBv88jeuMf+LkuPFeap22SruvkPd
+	 k8UERJ2nbYbIO/nQ5Y1paDq6gMjz7ZyiqhnXjtsY2LBZq7CzbrG/6RdpLernPQD0zT
+	 t67P8awK5nX0WqxZqOUFLgqzRUTO/TuUZXhM5XzdBvd7m6lmICFJOQmBwrJSc2oTxJ
+	 QLtA6Kt6w8wyanP3dNkGGxq9GhBYJ+9u8j4mJMf8helyf34fhFcpUORVziWZJLKJd3
+	 g1EVg+vuuW2Rw==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 453602FC6BDA;
-	Mon, 09 Nov 2026 19:43:00 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 200F12FC6BE5;
+	Mon, 09 Nov 2026 19:43:21 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Tyler Baker <tyler.baker@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261106054333.2748248-1-tyler.baker@oss.qualcomm.com>
-References: <20261106054333.2748248-1-tyler.baker@oss.qualcomm.com>
-Subject: Re: [PATCH 0/2] ASoC: fix the x1e80100 card after an ADSP restart
-Message-Id: <179422760307.3711751.5465611340806386159.b4-ty@b4>
-Date: Mon, 09 Nov 2026 12:33:23 +0000
+To: HyeongJun An <sammiee5311@gmail.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261106064408.2224910-1-sammiee5311@gmail.com>
+References: <20261106064408.2224910-1-sammiee5311@gmail.com>
+Subject: Re: [PATCH] ASoC: Intel: sof_sdw: Add quirk for Dell Latitude 9420
+Message-Id: <179422863326.3711751.7864762434656919974.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:50:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +71,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1611; i=broonie@kernel.org;
- h=from:subject:message-id; bh=1VINJaUZ4ngpMAC5A6UaEXNuVO47g2rYK3BqBR5Y9mM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+KblcDbap2bDvcf7vbRuFG9/U2dy6eWj3p7shQg2ad
- hMNLk/J7ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBNVmD4X7NN/sr1Uw1PbJO3
- PPb4/3e1/nlhzZ32ERc2M/3S/BzCmMnI8CnF41v7vc5tIXLaYjmyf10mXT5iWnzYzXLV6aMdu+4
- 95QIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1126; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=vafu6f8W5wKENjW0piKyE5D1gjwMstC1OTWrHVLaOVs=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+KUWcLDx2I+D2n+NpRaVhznEcm8rK1ljFP2medSo1S
+ nzXpSusHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIrzkMv1n3z73xQsJCPJFb
+ /83XZNFbf2bEKi3TedCU0lgyLcVj3RtGhu21Jn3pkftPzxKqrjeQDCzQeXQyJHHPjTrXJX9XOrC
+ EcAEA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 06 Nov 2026 00:43:31 -0500, Tyler Baker wrote:
-> ASoC: fix the x1e80100 card after an ADSP restart
-> 
-> On Qualcomm boards an ADSP restart unbinds and rebinds the LPASS pin
-> controller, the SoundWire controllers and the codecs, and the card binds
-> again once they are back. On the Hamoa IoT EVK two things break on that
-> path: the DAI link names point at the SoundWire controllers' freed
-> strings, and the headset jack is never recreated.
-> 
-> [...]
+On Fri, 06 Nov 2026 15:44:08 +0900, HyeongJun An wrote:
+> ASoC: Intel: sof_sdw: Add quirk for Dell Latitude 9420
 
 Applied to
 
@@ -96,10 +89,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: soc-core: copy the DAI link names into the card
-      https://git.kernel.org/broonie/sound/c/33a130f6ed8c
-[2/2] ASoC: qcom: x1e80100: recreate the headset jack on card rebind
-      https://git.kernel.org/broonie/sound/c/704251f9dad3
+[1/1] ASoC: Intel: sof_sdw: Add quirk for Dell Latitude 9420
+      https://git.kernel.org/broonie/sound/c/c1a503972029
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
