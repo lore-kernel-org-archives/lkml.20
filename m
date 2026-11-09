@@ -1,75 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218525;
-	b=UmAUiLyySOyOOsV3Up96HyWXySpGIaVYZV3U5DdZ+UmhrYMNy3n6HwQczdAozbKhQk9/
-	 0iF6RBzPZev8O33irWrefKo+jfC9hdAIcbZrQ9THcIXziFz1wuiWlVCIgPqChXvzibBNI
-	 SZwJpNghqgPiBhQH9w037p6FX9M7jSRTbxSakkYYkstAt5oglC+Skj+uWjnsijZAU2voV
-	 lIOsLNCCI8Ggv+JLxUK+rnrEitpmVFSoZZe0W65dqvhjErwQNlKTCS9CgBAtfmf4lufgI
-	 x0C2yy376eB4b4dZIYRjPxw86zsZ5P9EU/8+l7W7qBNJECe43vw95l5eqDhs7dVgEww==
+	t=1794218526;
+	b=pmdG87IiRgQfEPWqGfOdTrXTtSGEnVmMniQD8dtV8yeeEQaDdifELHv/XUpPmgu8FB0/
+	 /DmpezW6h0pIDO7H5RRdRm9vZ36c81Fk4/TMC5Uaw9TXyWcZmZboPJa8FgQSnoMGtpgSU
+	 g68NJawIAMPDm5IRowpoAzigZB5Xjp2+CZnt2N+0fOrhi3nFwTKvY0NIR5ptgPBx9Kgyq
+	 fZGhFpowZqVXGRIgqyQT2wNpmAFn7Gt7n1ND49LteYSA0UOXQtnGT6P6451MjtQHjHVBe
+	 NetkhrFKp2a7SET03/qcs70nsKzu/iCilSEqnxmB+s6n4P0X7ARBlzach2whakE5qUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218526;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=/VYbQoDHN5JxEWJjLKcHZAFrB8RPCsR8XdtuPDWSAnM=;
-	b=W2hecUOjW9qZsCz/32xEbAol+raCtbCnQJNVbZn6s80BtYFQY0E4CdXlK4Ke7vLz6D4F
-	 XIbzXwKPxWVwDH4OSveFl8VNALpzU4HAfH4KJnMFvOYYlK0WEvsyWOwJSq7HEtB6KBrT/
-	 pb9ZXWSoLXSPAOfByivthWzBEK616JSl20S+iM1EHNap1ND6E/vop5p/0SjBEEQyhEeH1
-	 CBiVU2P33Y7eHsawa7ucljiA0N/rpzYMLEhLG+Ul6XqlkXE4ktqDng1Rqv/puyMmEfjOB
-	 DhcqIolAdSe3O2SAA8sSJM5ANW6auQaplF2KjCtvw2REzeInEcmP/HopCK9sbv12LxQ==
+	bh=FwOjHYHHLviCyZ7DNKTk+PzqVTPRbfwjzmtcikpzKQo=;
+	b=2qubYtswIFB1ZNfQH1l3h7/zh8WkESoLLyi2AGIrmlSO9M/w6iyOjvstdjdPxZZTvL4m
+	 8ZZsaZm65ImZBc3pINe3yqoVYVF6OrCNxfTlfpbTWS0FgRIU8DUKs0QAXZhLCE4D/ndiM
+	 a2U26cgvNEBqMshpuSO5oza4C74iX1/oAtTy0AqqiV2e3s/Y7XjeL5LOnFda1YkxHN+Yz
+	 vuc+jypklLMJK9a1L+cSGgtPhpmiFKLzI8Vthzi4/AzSw06JoQLUfNjaFapOcs4BOigQr
+	 aE7KfGFLFXcEyZZj/s39D3z0QJpBPJ72rUXmPNk0aI4AN2CZ4oxtEkeyI2qVwc31IvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=gLMXQeeO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BCJdphoz;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=uZ+4XiVY;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CgCT7D8H;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C1B4606D805;
-	Mon,  9 Nov 2026 10:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C1B4606D805
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE0A606A33A;
+	Mon,  9 Nov 2026 10:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE0A606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=gLMXQeeO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BCJdphoz
-Date: Mon, 09 Nov 2026 10:02:00 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=uZ+4XiVY;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CgCT7D8H
+Date: Mon, 09 Nov 2026 10:02:02 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794218522;
+	s=2020; t=1794218524;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/VYbQoDHN5JxEWJjLKcHZAFrB8RPCsR8XdtuPDWSAnM=;
-	b=gLMXQeeOx1PkiVVyWP2DnNivZAxOwfvmdZImAFgOUtexpfyR/ZpYso35C6Xm6xcTaDJXaT
-	XJAncuD10HLdgxLtKF0NMHe1tTkc3aDtxagxSnnaXgXDGgTIOcVKQLY7jihcGr4wzqkHy0
-	nXDfuAf0jIfj3qPj91SUuTGk7/j6DpHHey8/oZNt4IZTPBJ/lUr89Gb7U8vsyZA2yqtIlB
-	dYNbpNLXjEYSxBdh6xTR9H8vSD36HEO6ToAAyEeVbl0sc8T/qvkPHVZ72cu2PeXTInx03P
-	XMzt1GXIrBlS9BOPXAm04SRnghT5OFAta6MDNLEr7KnPGiXTsoSquFkS5dF7WQ==
+	bh=FwOjHYHHLviCyZ7DNKTk+PzqVTPRbfwjzmtcikpzKQo=;
+	b=uZ+4XiVYl6wwUWeVe4fZ7gk6HEDQlpZDuWmWDQc0SAxmPM94vENmzlQut5VKeNFDGJ/xX0
+	lJv72xBfxmeKWr7XjS3oCv/wUu049jzoaTds73yFUXCBFfFIQ9MM6/LZYzxn6Xw7b5bc+7
+	kOANLQwRwsUeWySlT0mF4zndbb1fBzCIicJYt1uz5i6eiX+lL/EFF9Xld244xCyy8gu1Y5
+	lAzoRlvNXK+Y82BeOq8hceqfFMyYSn3uYHv7hDmbRWClX+2wF9O9HSJ6IB1Vy+JdIca2LL
+	DJN9PO2i2FRbTMYqT0YzAQj5iNdjOtLzD2wgwEglN/2i2Jn1zWMV4kHN6ECp4Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794218522;
+	s=2020e; t=1794218524;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/VYbQoDHN5JxEWJjLKcHZAFrB8RPCsR8XdtuPDWSAnM=;
-	b=BCJdphoz1FUWjPz+btUxUmZiebuqhHbUuvl8G+Mfmof3OWo2yGjJuoTmQ/3IueE4zulTS2
-	VPF5ekpwlywuT4Bg==
-From: "tip-bot2 for Yury Norov" <tip-bot2@linutronix.de>
+	bh=FwOjHYHHLviCyZ7DNKTk+PzqVTPRbfwjzmtcikpzKQo=;
+	b=CgCT7D8HNd+fLAEyu1JEsF4r6Av2fGfC7ueAJEPMY2VwGBbCWIr6oTTDCEueChfEdF3PGc
+	PLYCLnPmgQU+OJCg==
+From: "tip-bot2 for Aaron Tomlin" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] virt: steal_governor: store only the sampling delay
-Cc: Yury Norov <ynorov@nvidia.com>,
+Subject: [tip: sched/core] sched/debug: Introduce per-CPU debugfs files
+Cc: Aaron Tomlin <atomlin@atomlin.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261026171252.3860162-1-ynorov@nvidia.com>
-References: <20261026171252.3860162-1-ynorov@nvidia.com>
+ Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261030151307.768523-7-atomlin@atomlin.com>
+References: <20261030151307.768523-7-atomlin@atomlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,7 +78,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421852062.2093942.15767534565654453852.tip-bot2@tip-bot2>
+Message-ID: <179421852232.2093942.3619005916848473925.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -89,95 +88,105 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/core branch of tip:
 
-Commit-ID:     70fed49a29f0cf3806182f70dfbf450e5d5cbd4e
-Gitweb:        https://git.kernel.org/tip/70fed49a29f0cf3806182f70dfbf450e5d5=
-cbd4e
-Author:        Yury Norov <ynorov@nvidia.com>
-AuthorDate:    Mon, 26 Oct 2026 13:12:51 -04:00
+Commit-ID:     fd03f9fcf821f8663c292933865d8adf6e9c9fc2
+Gitweb:        https://git.kernel.org/tip/fd03f9fcf821f8663c292933865d8adf6e9=
+c9fc2
+Author:        Aaron Tomlin <atomlin@atomlin.com>
+AuthorDate:    Fri, 30 Oct 2026 11:13:07 -04:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 10:58:00 +01:00
+CommitterDate: Mon, 09 Nov 2026 10:57:54 +01:00
 
-virt: steal_governor: store only the sampling delay
+sched/debug: Introduce per-CPU debugfs files
 
-The governor stores the sampling interval in both milliseconds and
-jiffies, although delayed work only needs the latter.
+Currently, accessing scheduler debugging details for a specific CPU
+requires reading /sys/kernel/debug/sched/debug, which outputs
+information for all online CPUs. When investigating a latency anomaly or
+scheduling issue isolated to a specific CPU, accessing
+/sys/kernel/debug/sched/cpu/cpu<N>/debug provides an immediate, targeted
+view of that runqueue.
 
-Convert interval_ms to jiffies in the module parameter setter and store
-it directly in sg_ctx.delay. Initialize the default delay to HZ and
-remove the redundant interval_ms member and initialization conversion.
+Add support for per-CPU debug files under:
+/sys/kernel/debug/sched/cpu/cpu<N>/debug. Reading
+/sys/kernel/debug/sched/cpu/cpu<N>/debug calls print_cpu() specifically
+for CPU <N>, exposing CPU-specific runqueue details on demand. If the
+target CPU is currently offline, reading its file returns -ENODEV.
 
-Keep the read-only interval_ms parameter by converting the delay back
-to milliseconds in its getter. Use the same conversion for the startup
-message. Both now report the effective interval after jiffy rounding.
-
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-Link: https://patch.msgid.link/20261026171252.3860162-1-ynorov@nvidia.com
+Link: https://patch.msgid.link/20261030151307.768523-7-atomlin@atomlin.com
 ---
- drivers/virt/steal_governor.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ kernel/sched/debug.c | 43 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 43 insertions(+)
 
-diff --git a/drivers/virt/steal_governor.c b/drivers/virt/steal_governor.c
-index 6e31f99..81e5089 100644
---- a/drivers/virt/steal_governor.c
-+++ b/drivers/virt/steal_governor.c
-@@ -39,14 +39,13 @@ struct steal_governor {
- 	ktime_t			time;
- 	u64			steal;
- 	unsigned long		delay;
--	unsigned int		interval_ms;
- 	unsigned int		high_threshold;
- 	unsigned int		low_threshold;
- 	struct delayed_work	work;
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index 11290c7..ab6ff91 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -339,6 +339,7 @@ static const struct file_operations sched_verbose_fops =
+=3D {
  };
 =20
- static struct steal_governor sg_ctx =3D {
--	.interval_ms	=3D	1000,	/* 1 second */
-+	.delay		=3D	HZ,	/* 1 second */
- 	.high_threshold =3D	500,	/* 5% */
- 	.low_threshold	=3D	200,	/* 2% */
- };
-@@ -74,15 +73,21 @@ static int param_set_interval_ms(const char *val, const s=
-truct kernel_param *kp)
- 		return -EINVAL;
- 	}
+ static const struct seq_operations sched_debug_sops;
++static void print_cpu(struct seq_file *m, int cpu);
 =20
--	return param_set_uint(val, kp);
-+	*(unsigned long *)kp->arg =3D msecs_to_jiffies(interval);
+ static int sched_debug_open(struct inode *inode, struct file *filp)
+ {
+@@ -692,6 +693,47 @@ static const struct file_operations sched_cgroup_fops =
+=3D {
+ };
+ #endif
+=20
++static int sched_debug_cpu_show(struct seq_file *m, void *v)
++{
++	unsigned long cpu =3D (unsigned long) m->private;
++
++	if (!cpu_online(cpu))
++		return -ENODEV;
++
++	print_cpu(m, cpu);
 +	return 0;
 +}
 +
-+static int param_get_interval_ms(char *buffer, const struct kernel_param *kp)
++static int sched_debug_cpu_open(struct inode *inode, struct file *filp)
 +{
-+	return sprintf(buffer, "%u\n", jiffies_to_msecs(*(unsigned long *)kp->arg));
- }
-=20
- static const struct kernel_param_ops interval_ms_ops =3D {
- 	.set =3D param_set_interval_ms,
--	.get =3D param_get_uint,
-+	.get =3D param_get_interval_ms,
- };
-=20
--module_param_cb(interval_ms, &interval_ms_ops, &sg_ctx.interval_ms, 0444);
-+module_param_cb(interval_ms, &interval_ms_ops, &sg_ctx.delay, 0444);
- MODULE_PARM_DESC(interval_ms,
- 		 "Sampling frequency in milliseconds. default: 1000");
-=20
-@@ -270,13 +275,12 @@ static int __init steal_governor_init(void)
- 		return -EINVAL;
- 	}
-=20
--	sg_ctx.delay =3D msecs_to_jiffies(sg_ctx.interval_ms);
- 	INIT_DELAYED_WORK(&sg_ctx.work, steal_governor_loop);
- 	sg_ctx.steal =3D get_system_steal_time();
- 	sg_ctx.time =3D ktime_get();
- 	schedule_delayed_work(&sg_ctx.work, sg_ctx.delay);
- 	pr_info("enabled. interval: %ums, high_threshold: %u, low_threshold: %u\n",
--		sg_ctx.interval_ms, sg_ctx.high_threshold, sg_ctx.low_threshold);
-+		jiffies_to_msecs(sg_ctx.delay), sg_ctx.high_threshold, sg_ctx.low_threshol=
-d);
++	return single_open(filp, sched_debug_cpu_show, inode->i_private);
++}
++
++static const struct file_operations sched_debug_cpu_fops =3D {
++	.open		=3D sched_debug_cpu_open,
++	.read		=3D seq_read,
++	.llseek		=3D seq_lseek,
++	.release	=3D single_release,
++};
++
++static __init void debugfs_cpu_init(void)
++{
++	struct dentry *d_cpu_dir;
++	unsigned long cpu;
++	char buf[16];
++
++	d_cpu_dir =3D debugfs_create_dir("cpu", debugfs_sched);
++
++	for_each_possible_cpu(cpu) {
++		struct dentry *d_cpu;
++
++		snprintf(buf, sizeof(buf), "cpu%lu", cpu);
++		d_cpu =3D debugfs_create_dir(buf, d_cpu_dir);
++
++		debugfs_create_file("debug", 0444, d_cpu, (void *) cpu, &sched_debug_cpu_f=
+ops);
++	}
++}
++
+ static __init int sched_init_debug(void)
+ {
+ 	struct dentry __maybe_unused *numa, *llc;
+@@ -753,6 +795,7 @@ static __init int sched_init_debug(void)
+ #ifdef CONFIG_SCHED_CLASS_EXT
+ 	debugfs_ext_server_init();
+ #endif
++	debugfs_cpu_init();
 =20
  	return 0;
  }
