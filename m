@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794186441;
-	b=oN0v4JFe6pmPYM0br0wFW593YY3MsHZxFEtPVg/LQoiG1FkbEtbOyuowRVEF2IPYFKZW
-	 ICJsfIAyGgimcmLgdPQsdc7UzPePqFsFCnWwW6Y1h9SsDjgdDzETM76VUBADXMa9p6M0/
-	 ebJDcQrcrIlm+sp7jYqCjsvpl3uIMUwDNvpLfuUP03l31WwtYFcMCNjwwI6XrkNB9iRqD
-	 Unn95t+OD25uhQ5SYPMAGLf8Nk3novRhclJV1iC6x3RLmEpsrtPys3pDrmHKzmDVSv48n
-	 sanoBRb2UV3ojCh+YFdKGjgBpA3NcfkxVfxnsr/8Gydu/Qps6iGkIQqhoU7YSB1aCfA==
+	t=1794186516;
+	b=h0ZIsbQvpEIskO008Sv773ioG4JZU+7Uan+depAn0zR6I2elsHwng0SghDtVR7PKQXzW
+	 uyrCZuRA+cFK1DBOswbqsuQnyP43YEcyzY3UtXig76ELDMo+XYJaEyDJsyY0taaZPp6zH
+	 DWhZEi6t96+61fgJhptsybqAiE3S0fPdKt9uxOf93Vn4exr5c91fSznIyC4oMnf2iasAH
+	 Xz9nEEI2qVdI0giHze7gyjqhy6cUlWKjwc89nGz9IAw6u4pwU8c9y+i5phTDLoi7znels
+	 B486ahQtBzWrNHUx15glhzTbhfn7HPKTvEe3DKnJQYlA3mTb3VM1s8W7LLLKrDs8QfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794186441;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=H8LL4QavzVaz8U86ha91aoM/kohbLJcMtYgGD3jemMM=;
-	b=XYZnm98TZGCmMjPWYoMzQlw+zlHbWnOY46u4KHCzzgHXspxpSswN+6XD/v++R2HOXcXF
-	 sAVhHmDfxL12xoSenIInWBgNdLQ6+S0Wy9nfOyLXVZFN/sxvsOZX2+eg0Uy4zOYlT9rHR
-	 oaGiax4bdxy4Ay2zodqzdeQYnIGpahDhUp2wxAnsUNcddA46sjL51nlEMDmFXoo6IzubV
-	 PInjdluNt+qJgGxM/ftiFZr9GSTiQZ+Dec2uatSxxf+OnMyq+kZkoMnRicqbEfdT63sGy
-	 HAsi2SHYMJknRTISI6JFO0NpUeYnKj7zieYfJaY4nW35GFLiy4YwluvYXgUmGUyZTAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794186516;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=144nZo3uJLZwW70nsT1o/W6WX1xIsN36CKzc59My6Ew=;
+	b=GCc9apcuQWgLwTEGPm5pD0v8C14pBNBvo7iEyMJGIAgdNfdiM6jnM+MkLKf9XyMgXVLP
+	 6qB2N2vzwEOcnzrMqOkHMA0nKnNvkpVydsKj2iBW5RBubeQohIg/H/oj2go+KOLvHnfEb
+	 tloAVetrt23X7kEkhVsQDG2RHbUTjXtnbQo1uVZNr4HXeMkX6uGfworpoMyZ69QKholJw
+	 H58K5a103b+4USaxR9PjAQmPVDGXYTIRoVbCnGoXGHK6yHc4eYWtr5xOO5zX+6RXR0E0x
+	 bKdPCA8M7Ep3OvVE21AOm9rQgg9ZL+tfrcBWTWnxTGzVPdzyGEZ3NmTukN8OvQT2oPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qMw1bSYd;
-	arc=none smtp.remote-ip=74.125.224.52
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=eXKwqpUy;
+	arc=none smtp.remote-ip=185.70.43.23
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281DE606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:07:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 281DE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB947606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:08:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB947606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qMw1bSYd
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6774639a8a4so280051d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:07:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794186440; x=1794791240; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H8LL4QavzVaz8U86ha91aoM/kohbLJcMtYgGD3jemMM=;
-        b=qMw1bSYdA2G4Ithpx0ZGJFx93ETFKzisXZ2X4c8mjE2FWRjXSvf5mc6udtFkC33REk
-         8hHVm/RzeleJFxt1kVDP/AkmIDGZzySGZmvpqjOMTVksT62q/RLPvnITrD92RKLmIHof
-         2NO1TDeVh9W9CFbOcR+Ky+dSeOBGWvrib+FpwYmnXEk7nRIs3kjYTy/XQpif9G4jp0xr
-         mHCNZ+aWbxhskpiAZPqW04geXtQTVYjioEFWnx+6lZiEiXKktwBOVg35z3bJZMBf9e4i
-         jXpMpLFk28+wCCxjoxtFKrJr9JRBNZuKbSyanY96M5oZ2oi8Edkxg1w81boUEh9jFqMn
-         y0cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794186440; x=1794791240;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H8LL4QavzVaz8U86ha91aoM/kohbLJcMtYgGD3jemMM=;
-        b=FnU33prlw2t3mqSf+dbq11UvnrbUvNciAO462z7V8gHv0FlZb3tvY957DY1k06iMlv
-         mSo+Xo5sEvtZm8l9eMaMw6U1o204N1nYXmYkMfiSu8mUijA9y1+/LdGkvxnp1B8XBtl9
-         lwrCMF+HzmT0nGqApVh5vBvVZyFTI0c4K71Irpm99p3EYL55zD+Nbcg0MYG3iaUnedb4
-         Nc5FR/nfsAa/ic9KCn1ozOfuH1aWTzlHW40J56dmDy7L1qP9Bw0Qv8tC7NIoIVJnrh74
-         bvGXicEcUo6WzC1udWE6eoHeXszqyny0mpubAs9ME2wDAmeIOvVsKeUgegP3OoIFQYCP
-         fuPw==
-X-Forwarded-Encrypted: i=1; AL+hErFJxB7BadoJJj63p+1ojB3H1giulQ3vcl7UGqai8MT/zPfRNQmD1vGnV3UPOF8NPrWsCjadT4EKPCcZ5Q8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KzeVlKJHPiNQxgRDPZpB36yRMSOFYWCrXm3wo/LMsQC2SbXJx
-	eRlbC1O0sRtQb3SXROjWMZBit8p6HqyUL3NmZ3raJCIL2xF3Dxp2G6Xk
-X-Gm-Gg: AYBFou09uuw5QCAw7sI+JBVV2jLM5syXCZ2KChzCfz6z5G+O/vUqfUnd6FBQ+Cm4h6Q
-	knWQzgRx+ztVVR92BhPcH5a6/SRwEPb9Jw0/bJHNwfIsZIF5St+dQibdo2s5TCz/fPd7BevkomG
-	RBFpE6Jlhrg6QvsLYakLn25Bzauzyr2jELS1F8uAt2hh9c7nXqY7UcGkFiRvvj4CgMYrge6DIPZ
-	/Z1BMkoAGll++MTqSMC5NYmNyuCwuPm+BtrVxtJAQcSin6RkmjX+UT1ZyTn2OP71so/8gi5Dva6
-	TLTc1ZbaWbaKN7p3BzE0WlASzLk5heM5rp2NnGZqx/bAakIWN75IiGAT3fso7YwtA0Qpc6gl+JO
-	VjGaKG4uVRFpJAaDIvT9YaUpn5qwf1yJT/Pr1GoZ3m6Nr0TXdGG8BWhuPB23fO0L67dsPzenC6j
-	kTCj1wHw4lKxEHuOW/0qG6WhIc1WjYNIXbAwFMJfPoTtLcDJ5jgmQVxjDr2ozZkiFaW/lWng24l
-	PoANsr6QmmOx+pSfgPTKz/MHWBU8GPwNhcG2y/rOmYBgLBcHoJpXuK49wv+h8PG2DFz0/xFLjjS
-	MFUUlSiaF0joKNCX681tTfxfGoHS3sjJA/A=
-X-Received: by 2002:a53:ed43:0:b0:67b:ff6c:bfd7 with SMTP id 956f58d0204a3-67c3da5d148mr1145159d50.73.1794186440116;
-        Sun, 08 Nov 2026 17:07:20 -0800 (PST)
-Received: from localhost ([2804:30c:2705:e00:f991:19e0:eea3:4f90])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c3b83d780sm2931938d50.3.2026.11.08.17.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:07:19 -0800 (PST)
-Date: Sun, 8 Nov 2026 22:08:37 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Chen Ni <nichen@iscas.ac.cn>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Joshua Crofts <crofts@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v2] iio: adc: ad4134: Fix duplicate data_read mux state
- request
-Message-ID: <avEdFaY6xtzGaGTu@debian-BULLSEYE-live-builder-AMD64>
-References: <20261105033120.387616-1-nichen@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=eXKwqpUy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794186512; x=1794445712;
+	bh=144nZo3uJLZwW70nsT1o/W6WX1xIsN36CKzc59My6Ew=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eXKwqpUybCHTrWpi/boGR7AxzhXhe7TAh1kdKsCOr0g5kHytQAv6AoG3xb+cdWV8V
+	 SneeNivMRfnPw2gmIdfLABTxbKzB2jjiv2f9UHP6wvYnJk0jHJB0ZmRLL7vi2KOCpV
+	 pkXkD0Axqpm8kcopLPAPlXNS+0HTnBF6pUiaGu3GK6yoDDneWD6AFVgO0qar+xAnKn
+	 eaMYzLGuTTYpuKZaXhtwsxGulHDkp6Urst+0qTk1JjYtIv4cR2uB6IaaYNvIK18eIp
+	 OoX9d8LJ52UaX/dlMZ4SGjWklIoOdCKU2N06/QzsO8Id1ISeSoqLwEPU15vZDD/zNU
+	 yukmLPvnA7qXA==
+Date: Mon, 09 Nov 2026 01:08:28 +0000
+To: Qing Ming <a0yami@mailbox.org>, Corey Minyard <corey@minyard.net>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: Asmaa Mnebhi <Asmaa@mellanox.com>, vadimp@mellanox.com, openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ipmi: ipmb: keep device alive across remove
+Message-ID: <20261109010821.4172679-2-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: fcada103e9d882073758e56eb51586214354106f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,26 +61,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105033120.387616-1-nichen@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/05, Chen Ni wrote:
-> devm_mux_state_get() is called twice in a row. The second call's result
-> is stored directly into st->mux_st[AD4134_DOUT0_INPUT] without error
-> checking, and then immediately overwritten by the first call's result.
-> 
-> Remove the duplicate call and check the return value before saving the
-> state.
-> 
-> Fixes: f12ecb3e147b ("iio: adc: ad4134: Support SPI 4-wire mode")
-> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
-> Reviewed-by: Joshua Crofts <crofts@kernel.org>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> ---
-LGTM
-If still worth anything,
-Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+On Wed, 5 Aug 2026, Qing Ming wrote:
+> Allocate ipmb_dev explicitly and hold a reference for each open file. Mar=
+k
+> the device dead before deregistering the miscdevice, wake blocked readers=
+,
+> report a hangup to poll, and reject writes after removal.
 
-Thanks,
-Marcelo
+Tested on mainline d48723711bae (v7.4-rc1-672), where this still applies,
+in QEMU with KASAN, lockdep and kmemleak. There is no IPMB hardware
+involved: a test-only I2C adapter module with target support binds the
+driver and injects requests.
+
+Without the patch, sysfs unbind, delete_device or removing the adapter
+with /dev/ipmb-1 open gives slab-use-after-free reports on the next
+poll(), read() and write(), and a read() or poll() blocked across an
+unbind or delete_device is not woken.
+
+With the patch there are no KASAN, lockdep or kmemleak reports. After
+each of the three removals, poll() returns POLLERR|POLLHUP, write()
+returns -ENODEV, read() with no requests queued returns -ENODEV, and a
+blocked read() or poll() wakes up.
+
+A blocking read() and poll() are still woken by a new request, the
+request arrives intact, and an SMBus write completes. These also ran
+clean: a write in flight across an unbind (the unbind waits for it, now
+on file_mutex rather than the adapter bus lock, and the next write got
+-ENODEV), an unbind and bind with the old file still open, closing with
+three unread requests queued, probe failures from target registration
+and from misc_register(), and 200 unbind/bind cycles against six
+processes opening, polling, reading and writing while requests are
+injected. The same stress run on the unpatched kernel produces KASAN
+reports.
+
+One side effect showed up in testing. ipmb_write() now holds file_mutex
+across the transfer, and ipmb_open() takes file_mutex while misc_open()
+holds misc_mtx, so a second open of the node during a slow transfer
+stalls every misc device open in the system. With a 2 s transfer in the
+stub, an open of /dev/cpu_dma_latency took about 1.6 s, against 0.00 s
+without the patch. misc_deregister() also takes misc_mtx, and remove()
+drops its reference after that, so for lifetime ipmb_open() seems not to
+need file_mutex. An open racing removal could then still succeed, and
+that file sees the same results as one opened just before removal. With
+file_mutex replaced by READ_ONCE(ipmb_dev->dead) the open of
+/dev/cpu_dma_latency took 0.00 s and the rest of the tests above stayed
+clean. From reading the code only, poll() on the node also waits on
+file_mutex during a transfer.
+
+Not tested: real hardware, the i2c-protocol write path (only the SMBus
+one ran), adapter removal with a write in flight, read() after removal
+with requests still queued (from the code, these are still returned
+while poll() reports only POLLERR|POLLHUP), and module unload (the
+driver was built in).
+
+The harness and this report were produced with an AI assistant (Claude
+Opus 5.5), which also did the earlier runs, including the unpatched and
+READ_ONCE() comparisons. I ran the final version on the patched kernel
+myself and got the same results. The harness is available on request.
+
+Tested-by: Chad Aldreda <ca@modelmiser.com>
+
