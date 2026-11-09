@@ -1,82 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253220;
-	b=ePmlS95EckkhgRuzRqHYBSe3/5TeUwRaH8a325C38/AKcaM6+UeKiuu2UMlxufG3kQVz
-	 p7xQnmPNOTHpvcJqOEhK4Ix0hxgb0bECUHak/t3lSurktB92h2yBh5yCFCR74tBHnV552
-	 Kh1TizNDkkeU3pcWeLqKWufJm9DKZueJT5QIh4ftwj9lzMREtbA7j9Oj2m5+7zMkfuO+/
-	 raECMVSWIcGJ+NH2Qau5OvGS9T28weGXM6oQguBfDQZj8hKKQe1EQXABxaDFYQkSeLRfN
-	 h62yY6OC+LLcIGPp3qHR4OAWkfuCvpiuNZ56mKNOT/4+a2JFiOdpdz+SbUSa+b3tX/w==
+	t=1794253273;
+	b=fBYu8Sdf7Rp0jnNCCchnfij2W99AlJMq1h7xr7Kfjcq1WDc6n0gaY+Ml7pzTDlBi9hK3
+	 mEx+kKhXvdfrixCUDFnJPkmaEk8d1v+4ztJ7WY2oyr+1m3wkLt0jkoXqW5yXq2Ys46pFa
+	 fseAzOUaS6pwewtAVt2+tOwsWkDcEeAkDMFWpiTCd2FogGaur6fevHfBqZc/UREO/yAD1
+	 G719K1ZAu/E58X8UlH19X30Tl4ARjDttEjmUb33bCSlY597yJCHpiXYMcrva+dtW3qTMS
+	 CMcPHT3N8Iy3H+d1zrFq53yjFLAHuhtU32yBUcoxWd0PrQStQThIuTYW9A0b0fhYPQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253220;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=cSdUp+iMz6dZTnvvh+UyrpHr0aFeanxLOXVNeb5C0Jw=;
-	b=atPRB9fZez8E7qeW9Q8OxHOJVlESwjdcr2FBp9W+a1ZCDz7QeXp3JZAtrdSPPbOi1nIN
-	 rPyd1qOpSelVeKigXV5pVPi0g5W9VI7VA7QXhZJsQqEVtooT6Xo0tQFwfVksAJrsWmw0i
-	 ikrKbJFML3iuz37ZsoopQqdl1CgFVoFlUKMDoaKfEW9XqUiqqfJNkX/Dsq6BEx0wQyBWH
-	 swLqVdh1aynP9vXnFwH/1Y1NmAdPei39SHKyRqh8zINF1K9e7k69TIE618V9GYuGn1+Vw
-	 EhpeIQh26+dXV4mpc36waUiSekuBCwPK0qCoQbt3uXi+5VHNykpcOuulxzmcz2F6PNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253273;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fHpmjgsECIJi25ho/DxnUi1oX2Fy65R+OMp2li13J7k=;
+	b=LEibYn0P/BErHziCcAkHVlpwazthXSx+QO6WrehuB9VsXaCBtGaKRElcuJZwOhnqSsYg
+	 TUEFbiUxTFsdPo5T1g6At5Io3iv/qFSRFN1AGiTgy2t9DSH3m7BfWfpXH5eCSogQBUYn1
+	 LPYvhiVE2CVMHFnDGybg/+dlrOHemkNScrRrfYbdGmuos/q2j+dYB5LsdFwtsjuIaqE/z
+	 PiwCUo9mw9denmsBKtXiJwkSvtRzW8KiD6SrFiFFDlztp7LNj8N6jFUtLDxbBp7toIL0L
+	 rDUFzzTZTwYpEcQB6f0mZPyULDYybm0EADFbLQUHIdBnjMe2ONdCVwdRyoPHt851Edw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=p+IiLjyU;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MF4ck2Pc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C55606A339;
-	Mon,  9 Nov 2026 19:40:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C55606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EE6606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=p+IiLjyU
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9Hi6eQ016598;
-	Mon, 9 Nov 2026 19:40:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=cSdUp+
-	iMz6dZTnvvh+UyrpHr0aFeanxLOXVNeb5C0Jw=; b=p+IiLjyU72+mDYtscn6S+8
-	dNBQ0Jddr2OsPP2Ui+b557Ts/IVitRalTOCEJV/Uqoz2PedRdIkP82b1PbauWe4h
-	9x+wEFuCr0X5ORE7BF5h+ys798PdwOREyzNABqKuzpABMlg4D0iwuy3Nlhq2Lv/1
-	hV/8pYb3FVKmZU++T3OC/SnLRZTxv9HGyCZHAmzLMx2M2a++gqdy0huXqGbI8o+N
-	4/qK+d9oEfe5XBwDBX5IVSfniAEQYBGIBqRbNQFfrZjLQlCKyY5x8IP/w/+p8bs/
-	mnuLbHYeXz8PTtpVTyv7dsFj681qemT4IxiMcjRuH0qnJ2o69jfs0YFYtyygVrOg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuq6rvsx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 19:40:16 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9IvXpG482195;
-	Mon, 9 Nov 2026 19:40:15 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hth0y2rn7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 19:40:15 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9JeBOG16646592
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 9 Nov 2026 19:40:11 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A8E442004F;
-	Mon,  9 Nov 2026 19:40:11 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0B85D2004B;
-	Mon,  9 Nov 2026 19:40:11 +0000 (GMT)
-Received: from [9.111.35.129] (unknown [9.111.35.129])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  9 Nov 2026 19:40:10 +0000 (GMT)
-Message-ID: <de7b6808-9f9e-4fcd-a0b2-335369dd7eac@linux.ibm.com>
-Date: Mon, 9 Nov 2026 20:40:10 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MF4ck2Pc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BED31F008A1
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794253272;
+	bh=fHpmjgsECIJi25ho/DxnUi1oX2Fy65R+OMp2li13J7k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MF4ck2Pc8I2KKygXZ4b4Y8mXk/y40jXRg8bD3N9msZKjNKjBygyDmfnRprZ2l559f
+	 cegihAQrUpbeJcpuO5ptXxqZ3+6SlKRDEyfk0CMKR5mFoRfBuTSjtT9lYAJpHj7pOB
+	 Zyrl1n/zLOGLz0kCHdkQsM5e24WKs033u0hvs74Bl9oUKJplsrLEbaMf9dSUFnzOPY
+	 dQ2PK8IflS/TsQcxwjx+9i9px9Ehj7ZFad30L2LTPXzDjhJ0XJXFk8fpfQYoWdyCTX
+	 KtNJnx1hlxt6kOk6BTzTX0h0GxqskUf5Ew2sYE0KEvQGZkQPMxsyPhiN7UXunEKX+c
+	 Plujqm2rGEomg==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1172498e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:41:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHNirPxmJyZfcrrmSGI44wPtY+1x7SY4/BLR+4yNBnoUNCQH5i9Q4/ymxyZTjxy/1neuRcdPN6J9QUgZYI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8nb3HeZRYcNbW1Di/8lP7uCNeWcPt3WN/RiK4X451WZXxK9+F
+	AhlZUQhtvmwHbbeuxiIPSYbIwxGDFZnivWM3q3H9K9Oa31i93a9weAQpipLN90AweS0VNcZpVhx
+	wt7Re32q3LAWcuuIE732Q2UPl0O6ovuI=
+X-Received: by 2002:a05:6512:3d91:b0:5c1:5006:9e8e with SMTP id
+ 2adb3069b0e04-5c156e8b6e8mr132729e87.29.1794253271030; Mon, 09 Nov 2026
+ 11:41:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,95 +59,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] vfio/ccw: Flush notoper_work before returning from
- reset
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Yuho Choi <oss.patchbox@gmail.com>, Eric Farman <farman@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Vineeth Vijayan
- <vneethv@linux.ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        Alex Williamson <alex@shazbot.org>, linux-s390@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106191029.469837-2-oss.patchbox@gmail.com>
- <4cb58287-4273-4518-8cac-aa3056dc28e2@linux.ibm.com>
- <20261109144953.GN663069@ziepe.ca>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20261109144953.GN663069@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA3NiBTYWx0ZWRfX4G1a4Pw/g7wM
- +82nkA3x0hUsk11oRX7zJtxN0EVQoMAL0jYQ0QccHyvNGC/AWCEEwRmhjd8/dWBOr901Oo2OCXb
- lQdyJeot1E45L1szg1CbOR7+506gn7U=
-X-Authority-Analysis: v=2.4 cv=HbCB3SE8 c=1 sm=1 tr=0 ts=6af221a0 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=Pjkd0tzdIERNFELBtG8A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: k0hV1_7oyy_oMty6URswoLxqe5o577yE
-X-Proofpoint-GUID: 0zgPJs9UngTPOBHfZRc8TD4yKWd59kiu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA3NiBTYWx0ZWRfX7b7dUpyuAR0u
- RxcBxUBQITb5J45CQmhm9/O42OktyKwnJ3TEI0FWpvMTwWyI6FKRuT8qT3CmwFPZJf9YmJnNbu4
- GvG5CZNskrLsYrWGgWjznl8nOIICIxdQkVsY0iqAnxuOhymBXPwn8Or6+b9jq9EEAW/Q/AzO9XY
- /mFGk9cqWSOjE4RsCNOKp3RzkqZR8p1zOAHrPSgUrWvKgnedNvaCl98H0HW+hrjEQfMvDcNZ/5b
- ylttac8r+tgjR2JLNwtmrpl3l1xh3uK5ehOUpqYra6TwTXaXnfWOn2b529FQF22/uzRbpjG76G8
- wso80j93t+eqZJN8XViS72q6rPNL7bqr0FJ0dlOS8imThzTKWJSXORHLOSAf8+MHqyweN4hSdYz
- Fvcfe/+zgfuYJS2+DSs3fU58BtuVdG9a/0gsdDgop3r5HZVr1j8FtxnJyo8KwkmAehGIfidMdFS
- uhFZSssntnEldxXeNHQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_06,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
- impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090076
+References: <20261027161650.59170-1-mail@taterr.org>
+In-Reply-To: <20261027161650.59170-1-mail@taterr.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 20:40:57 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gJGTY6F4gXPvaAPYQdA=3hqJu0+TyO9GMugQM5UQxzxw@mail.gmail.com>
+X-Gm-Features: AclHuK9zrMj8xCWUkjHiVZslksOZ0-hUZelgJ8Pb4AIwM2FFKBbdpep1khz9AuM
+Message-ID: <CAJZ5v0gJGTY6F4gXPvaAPYQdA=3hqJu0+TyO9GMugQM5UQxzxw@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: fan: add missing MODULE_DESCRIPTION()
+To: George Karagounis <taterraster@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mail@taterr.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 27, 2026 at 5:16=E2=80=AFPM George Karagounis <taterraster@gmai=
+l.com> wrote:
+>
+> modpost now warns about modules without a MODULE_DESCRIPTION macro.
+>
+> Add one for the ACPI fan driver to silence the warning and provide
+>
+> proper module metadata.
+>
+> Signed-off-by: George Karagounis <mail@taterr.org>
+> ---
+>  drivers/acpi/fan_attr.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/acpi/fan_attr.c b/drivers/acpi/fan_attr.c
+> index 9b7fa52f3c2a..6b3d91c14f5c 100644
+> --- a/drivers/acpi/fan_attr.c
+> +++ b/drivers/acpi/fan_attr.c
+> @@ -15,6 +15,7 @@
+>  #include "fan.h"
+>
+>  MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("Extra sysfs attributes for the ACPI fan driver");
+>
+>  static ssize_t show_state(struct device *dev, struct device_attribute *a=
+ttr, char *buf)
+>  {
+> --
 
-
-Am 09.11.26 um 15:49 schrieb Jason Gunthorpe:
-> On Mon, Nov 09, 2026 at 01:38:44PM +0100, Christian Borntraeger wrote:
->> Am 06.11.26 um 20:10 schrieb Yuho Choi:
->>> vfio_ccw_dma_unmap() is the DMA invalidation callback, which must unpin
->>> the pages covering the range before it returns.  It calls
->>> vfio_ccw_mdev_reset(), which raises a CLOSE event.
->>>
->>> On the normal path fsm_close() calls cp_free() itself, so the pages are
->>> unpinned synchronously.  But if the subchannel cannot be disabled or
->>> quiesced, fsm_close() falls through to a NOT_OPER event.  Since commit
->>> 0c11f61a876e ("s390/vfio_ccw: Move cp cleanup out of not operational"),
->>> fsm_notoper() only queues notoper_work, which is where cp_free() then
->>> runs.  That commit flushes the work in vfio_ccw_mdev_close_device() and
->>> vfio_ccw_mdev_release_dev(), but nothing waits for it on the reset
->>> path, so the callback returns with the pages still pinned.
->>>
->>> Because notoper_work runs asynchronously, vfio_dma_do_unmap() can exhaust
->>> its 10 retries before cp_free() completes, hitting BUG_ON(++retries > 10)
->>> and taking the host down.  A further CLOSE cannot help either, as both
->>> CLOSE and OPEN are fsm_nop in the NOT_OPER state.
->>
->> Does the the iommufd backend have the same problem?
->> iopt_unmap_iova_range() keeps calling the unmap callback and gives up with
->> WARN_ON(tries > 100) and -EDEADLOCK. So that path is also fixed, I
->> guess.
-> 
-> Drivers are not allowed to refuse the shootdown, it is broken if
-> someone has done this.
-
-Agreed, but isnt that what the patch fixes? when CLOSE fails, vfio-ccw
-currently returns from the unmap callback with the pages still pinned
-and leaves the unpin to notoper_work. With the flush the pages are
-unpinned before the callback returns, so the driver keeps the
-contract on both backends.
-
-  > Jason
-
+Applied as 7.5 material, thanks!
