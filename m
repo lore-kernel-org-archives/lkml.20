@@ -1,38 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220600;
-	b=QfMLRzz7PQUdUd3DYBIqqXXy5FBP3mKSWUNDWa1m4YVH3ol4fffbKCjv2+gHuDPAuzQX
-	 VAm2cMlvQop2LDxpqytC7dW9doAtKpyECXwmdnqepJKfIZnq/Ckv7Hv5PSBw1u982aZr4
-	 RNtNbXwVv7thiM4gQ6c7jRNCI/sXRG6rWElRS6uWJHOQzkmeTIoWN+q/A326L+WhYpzI+
-	 h1FDBxmK2615NVmdPrTAjIoH2YZqq+79NJEdqb9UWjqOU6aR8hpHwg/0ZQy0+TTqAR0tj
-	 MisMgHyAxVuemrngoT3c4quh49bEFwkZHPlcrNA+gSqj+ptt3qnIXoM0Ix8vgLCNxSg==
+	t=1794220636;
+	b=fnvK17v6ePcX88zNfYZxEUAP2qkVCbJq4hT8g2YiXC6fn7J2TjNPn55FCohrKiyRnYOw
+	 5SctDn0WOlWSSy0yzc1ZZE16ZgPSL0hbsEOh+XUqmijVK23Fgt95UzjeFjPJixAljH9Pl
+	 o7KFU6yWCAJNdHlxYIQsqSUiF9mI/1EI+iNDcXYPe8tFccodEbBh4GazOTVKm0HvIFOI/
+	 VvowfKvXuRibXLwyyizzXyD8u5+x1SbzgdCbEoOAIYmyDCTOaklRP1/w93e26UWALtt3j
+	 JmwaZq3uAUV9qb/vTY5E8xKLr9mOkUSU+G9TBjpxkHxWvIe0xzhAC+UAxwdPrT5RAXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220600;
-	h=DMARC-Filter:Mime-Version:DKIM-Signature:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:From:To:References:
-	 In-Reply-To;
-	bh=ovprduxLgum2CY0XHb/PVUWcwSUV6g1yux7UTHcX5AM=;
-	b=KFmNbkQu/NFe38rmv3rbyJMq/0mtAjkTB6wHbPYAxRrqjK9T1/YACzyYAgFaiq+b8gaq
-	 +DvE1T1PGeh9ukB3J8umGyxrpCwYryVqxrg/ZUH8RmoRXpkvwgZ7LgbzlxbdbPcw6myWA
-	 q7kgjhetoirfsxaEpzvNoHfT12XPTPyjGdIz7SACGZjLAFC6jvlnqum9pv4mCn8A6Jrov
-	 BTOibZ/rNvIYBGm8SJ8IufOy9wB/SqiJtNe0Xp96oVULR1AAtP4ta9CDcpHxbdO9CdmdW
-	 LTCCS1BwF9AU0iuSAiAJWelk98wJdDsl3TMKPeXcsVboR1KmyrzJK2T1rsXuoN640Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220636;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=JWGXSQ0hUQUGHoC4dVJ49MPWtJvFZTUeG1TXP2ZaI3g=;
+	b=roWvUrbfxdVU5Yo0uTV5tJJtD6EkdDi/uJ47t7BmdCpd+qDyyyiaoiwjnpwth3OVlToN
+	 uiqNXGLtIh1NqlA860rNspXusQPuDVzdTvFjLQz0RkQL/Orc9Cl5dIqCj8gO3r2PWOapu
+	 acyXyTIUkPuv1llxnR89diHoIiKh4KCz7tuFpxb73gzqmq50kRPXFyNrtlzssjnkGG2Md
+	 JYTSAdKvIxHAonm4K3WSGqMea+XUT261Ls/fdldJJ44j1xgYCl+z7QhdhgpIojVF0N3w5
+	 ItzQFIbIH/wiQoFItyzpNawkjjLdPBsNNFXnpzVYF4j+B8J45DgnG1tC/yS1GzstEnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fhannenheim.net;
-	spf=pass smtp.mailfrom=fhannenheim.net;
-	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=0zVLGqBh;
-	arc=none smtp.remote-ip=188.245.251.181
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChR5inIe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BE0606A31C;
-	Mon,  9 Nov 2026 10:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75BE0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF518606A323;
+	Mon,  9 Nov 2026 10:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=0zVLGqBh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChR5inIe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D701F0089F;
+	Mon,  9 Nov 2026 10:37:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794220635;
+	bh=JWGXSQ0hUQUGHoC4dVJ49MPWtJvFZTUeG1TXP2ZaI3g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ChR5inIeuioYwn2lnClX1r47ujkSy3cnVwlYioF4BFRS0jInmFSD8MS8Eh7Q+v6Op
+	 lPAJKxmTWbQWxanhbExqOG+PavGbimGM2EosCDYi8dzt5A9eno9sYoLPOsrZIn+Vj7
+	 KVFLYYTCr7OfIH4wjiziV0oOIDbC8u3PGE7iBh2bISAHMc1RF4lFBNvUQ0RE93wcAZ
+	 GJdphuurrKPfvwED0gYeuzvsDZKWlBcc5MotiuMuNsCF2TRyiVcPLnyDK0HYDzIf3V
+	 ue1xRXLk6W14/9KPiEtB9WUYOfnICb//YIsKxoJWZDCq5ssBgRZuwpTDvgN/JhjX7w
+	 11NamFqqe7Zgg==
+Subject: Re: [PATCH net-next 2/3] net: sb1250-mac: Advertise and honor RX
+ checksum offload
+From: netdev-bot+sashiko@kernel.org
+To: f.fainelli@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, macro@orcam.me.uk
+Date: Mon, 09 Nov 2026 10:37:14 +0000
+Message-ID: <179422063443.994134.7898125324608942943@kernel.org>
+In-Reply-To: <20261105193435.2050321-3-f.fainelli@gmail.com>
+References: <20261105193435.2050321-3-f.fainelli@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -41,110 +62,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1794220596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ovprduxLgum2CY0XHb/PVUWcwSUV6g1yux7UTHcX5AM=;
-	b=0zVLGqBhpJnPasZaYQ6zfHjg9JqU0jEm2CuMDhqHhWPVnr9eDZ6MTrN2FmnmxJOeaTORCf
-	q69MMMPQPO6LOSt0x8akGl0X35JnKTc31p8Paca+xcBYVJw5Fp5KEvY5pNA6+imgb46ZNg
-	EBaUU2E3O0vmY8n3HSdmzDixOQldvZE=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 11:36:35 +0100
-Message-Id: <DMQM4AN8JPSW.388R1H1XOM5JF@fhannenheim.net>
-Subject: Re: [PATCH RESEND v4 2/3] arm64: dts: qcom: Add
- sm8250-oneplus-common.dtsi
-Cc: "Robert Oscilowski" <drgitx@gmail.com>,
- =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
- <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-From: "Frieder Hannenheim" <mail@fhannenheim.net>
-To: "David Heidelberg" <david@ixit.cz>, "Frieder Hannenheim"
- <git@fhannenheim.net>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
- Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>
-References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
- <20261105-kebab_dts-v4-2-c6bbe6ded92e@fhannenheim.net>
- <48420a1e-3611-4543-9d3a-7add3049b7ac@ixit.cz>
-In-Reply-To: <48420a1e-3611-4543-9d3a-7add3049b7ac@ixit.cz>
+MIME-Version: 1.0
 
-On Sun Nov 8, 2026 at 10:05 PM CET, David Heidelberg wrote:
-> On 05/11/2026 20:20, Frieder Hannenheim wrote:
->> This file contains common properties shared by all OnePlus devices using
->> the Qualcomm sm8250 chipset.
->>=20
->> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
->> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
->> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
->> ---
->>   .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 607 +++++++++++++=
-++++++++
->>   1 file changed, 607 insertions(+)
->>=20
->
-> [...]
->
->> +
->> +	gpio_keys: gpio-keys {
->> +		compatible =3D "gpio-keys";
->> +		label =3D "Volume keys";
->> +
->> +		pinctrl-0 =3D <&vol_down_l &vol_up_n>;
->> +		pinctrl-names =3D "default";
->> +
->> +		key-vol-down {
->> +			label =3D "Volume Down";
->> +			linux,code =3D <KEY_VOLUMEDOWN>;
->
-> Hello Frieder,
->
-> patch looks good, but I noticed - which one? this key-vol-down or later a=
-t bottom,
->
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Hmm well the pon_resin doesn't seem to emit input events. I don't know if i=
-t's
-used for anything else but the volume down button still works if I drop it.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
->> +			gpios =3D <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
->> +			debounce-interval =3D <15>;
->> +			linux,can-disable;
->> +			wakeup-source;
->> +		};
->> +
->> +		key-vol-up {
->> +			label =3D "Volume Up";
->> +			gpios =3D <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
->> +			linux,code =3D <KEY_VOLUMEUP>;
->> +			debounce-interval =3D <15>;
->> +			linux,can-disable;
->> +			wakeup-source;
->> +		};
->> +	};
->> +
->
-> [...]
->
->> +&pon_pwrkey {
->> +	status =3D "okay";
->> +};
->> +
->> +&pon_resin {
->> +	linux,code =3D <KEY_VOLUMEDOWN>;
->
-> or this one?
->
-> David
->
-> [...]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks for mentioning this. I had already tried disabling the gpio key and =
-just
-using the resin. I will drop the resin in the next version.
+- [High] sbdma_rx_process()
+  (drivers/net/ethernet/broadcom/sb1250-mac.c:1146-1149) reads the…
+- [Medium] The RX checksum engine's IP-header-offset setup, which the
+  probe comment calls necessary ("This is needed for PASS2 for Rx H/W…
 
-Frieder
+--
+
+net: sb1250-mac: Advertise and honor RX checksum offload
+
+This patch adds NETIF_F_RXCSUM to hw_features. It also enables the
+offload by default on chip revisions where sbmac_set_iphdr_offset()
+reports hardware checksum support. The receive path now tests the active
+feature bit, not sc->rx_hw_checksum, before it marks packets
+CHECKSUM_UNNECESSARY.
+
+> diff --git a/drivers/net/ethernet/broadcom/sb1250-mac.c b/drivers/net/ethernet/broadcom/sb1250-mac.c
+> index 1843b52e96f51..546415d3134c6 100644
+> --- a/drivers/net/ethernet/broadcom/sb1250-mac.c
+> +++ b/drivers/net/ethernet/broadcom/sb1250-mac.c
+> @@ -1142,8 +1142,8 @@ static int sbdma_rx_process(struct sbmac_softc *sc, struct sbmacdma *d,
+>  				 * the kernel
+>  				 */
+>  				sb->protocol = eth_type_trans(sb,d->sbdma_eth->sbm_dev);
+> -				/* Check hw IPv4/TCP checksum if supported */
+> -				if (sc->rx_hw_checksum == ENABLE) {
+> +				/* Honor the RX checksum offload feature setting. */
+> +				if (dev->features & NETIF_F_RXCSUM) {
+>  					if (!((dsc->dscr_a) & M_DMA_ETHRX_BADIP4CS) &&
+>  					    !((dsc->dscr_a) & M_DMA_ETHRX_BADTCPCS)) {
+>  						sb->ip_summed = CHECKSUM_UNNECESSARY;
+
+[Severity: High]
+In sbdma_rx_process(), is M_DMA_ETHRX_BADTCPCS tested against the right
+descriptor word? The header defines it as a dscr_b bit:
+
+arch/mips/include/asm/sibyte/sb1250_dma.h:
+/* Note: This bit is in the DSCR_B options field */
+#define M_DMA_ETHRX_BADTCPCS	_SB_MAKEMASK1(0)
+
+In dscr_a, bit 0 is the low bit of the RX buffer's physical address,
+which sbdma_add_rcvbuffer() programs:
+
+	dsc->dscr_a = virt_to_phys(sb_new->data) |
+		V_DMA_DSCRA_A_SIZE(NUMCACHEBLKS(pktsize + NET_IP_ALIGN)) |
+		M_DMA_DSCRA_INTERRUPT;
+
+sb_new->data is set up with sbdma_align_skb(sb_new, SMP_CACHE_BYTES,
+NET_IP_ALIGN). The address is therefore cache-line aligned plus 2, so
+that bit is always 0.
+
+If so, the hardware's TCP checksum result is never read. Any frame with
+a valid IPv4 header checksum gets CHECKSUM_UNNECESSARY. That includes
+TCP segments the hardware flagged as having a bad TCP checksum, and the
+stack then skips software verification of the payload.
+
+This decoding seems to go back to the original driver code. Still, the
+commit message says "The driver already trusts hardware RX checksum
+status". This patch rewrites the same conditional and makes it a
+default-on offload that ethtool reports.
+
+Should this test dsc->dscr_b & M_DMA_ETHRX_BADTCPCS instead? The same
+loop already reads dscr_b through G_DMA_DSCRB_PKT_SIZE(), so the
+hardware does write that word back.
+
+The later patch in the series ("Add ethtool autonegotiation restart
+support") doesn't change this check either.
+
+> @@ -2214,6 +2214,10 @@ static int sbmac_init(struct platform_device *pldev, long long base)
+>  
+>  	/* This is needed for PASS2 for Rx H/W checksum feature */
+>  	sbmac_set_iphdr_offset(sc);
+> +	if (sc->rx_hw_checksum == ENABLE) {
+> +		dev->hw_features |= NETIF_F_RXCSUM;
+> +		dev->features |= NETIF_F_RXCSUM;
+> +	}
+
+[Severity: Medium]
+Is the IP header offset that the checksum engine relies on actually
+programmed while the interface is running? The comment above calls it
+necessary, but sbmac_set_iphdr_offset() does:
+
+	/* Hard code the off set to 15 for now */
+	reg = __raw_readq(sc->sbm_rxfilter);
+	reg &= ~M_MAC_IPHDR_OFFSET | V_MAC_IPHDR_OFFSET(15);
+	__raw_writeq(reg, sc->sbm_rxfilter);
+
+Because of operator precedence, this only masks the register and never
+writes 15 into the field. S_MAC_IPHDR_OFFSET is 8 and the field is 8
+bits wide, so the field ends up as the old value's low four bits.
+
+There is a second problem. The path sbmac_open() ->
+sbmac_set_channel_state() -> sbmac_channel_start() writes the whole of
+sbm_rxfilter:
+
+	__raw_writeq(0, s->sbm_rxfilter);
+	...
+	__raw_writeq(M_MAC_UCAST_EN | M_MAC_BCAST_EN, s->sbm_rxfilter);
+
+That resets IPHDR_OFFSET to 0. sbmac_mii_poll() also calls
+sbmac_channel_start() on link changes, and nothing reprograms the field
+afterwards.
+
+So while traffic is flowing, the checksum engine uses an IP header
+offset the driver never intended. NETIF_F_RXCSUM is now advertised and
+turned on by default based only on the revision check, and
+sbdma_rx_process() trusts the engine's status bits.
+
+Could the field be set with something like:
+
+	reg &= ~M_MAC_IPHDR_OFFSET;
+	reg |= V_MAC_IPHDR_OFFSET(15);
+
+and kept across the rxfilter writes in sbmac_channel_start()? This code
+predates the patch, and the later patches in the series don't touch it.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105193435.2050321-1-f.fainelli%40gmail.com
