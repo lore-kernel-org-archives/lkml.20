@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794199290;
-	b=hGMvdIj8uCj66dWXUgWphflPp/YlHNd4lV84rIshpI6s3NXlkJFTp9y8qlHjW+wP3qm0
-	 F/YsgVP2kesejIuQsp5VbAiQL3ST5GJmDeXGASiANhf+dnRzQC0vyh4YCZr333lNjxqiE
-	 f3sF7qmmUl73SXT8g/u650PbqWjdCY5KP1AwUezgAVbIk3wDRT7jn7auPBP8sIn4A05RH
-	 E4PIhsYkQjXJvixVLow7zu+v8GEMJCa8DFDEMxBCU0pUOMcgmY+woxOjwGxMO4MOsm/Tb
-	 jDtBcdX0e3MkWyXXLo7Wdf5uzhm4Opp9p5mysqI0re/e8oJMtvIVwdk7dEwQYO2zNhA==
+	t=1794199309;
+	b=SSfwTQeTMSt37ZnLCmJ4xTBSxuCgv3KW9UA9u2w5uM0afsYetDsOFLk0AkGP5I2bdhXN
+	 pF+4Qii+fbWqVzHNjJS1DcF7vjtWHxPN+pTfPocB/ciK5EDwi5g4bKlDK4fy0tG4zpR+n
+	 ywW2HwD8BpcK8M4ABuutP1CJtoHyh+T8wetgvLHqdGGU5NhGeMqMc82X9oUUwlrpenJwt
+	 w1foZJGf8fTl3figXLjVYJW6ZXpC4pc0rniwzHlgxIW119jdY665lT7yl9vdlfJdwEvk0
+	 OXsTHRZptbhvHXGdN+onmppwyyRuJ0bXqU9o68DFKQjZh8aJ884op9V8If/+u3vI48g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794199290;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794199309;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WPUgjz9yrlSKqR8e85QEERzjQTMyzYLvqAjjoRM1I1A=;
-	b=Bnfmkda0RtMpHpkMRqRXTTfeBQCt5KzQ2j/KJq3mYXnn4vHdk2aj/U7EYwf14Rvhp0lN
-	 i0hdOdsPRntDojGAbJS++Nbdnhz8CC+xsuvNEbXUhZV3mUdwOpFF8KwjFJOqoDnic4DWt
-	 CFpNBkSigmF1WYqW9Dqa5HUXMk9vB6itN7UkkYX6XoNfI0WfGsHEyEWUEkMfABq3tpu11
-	 Ni6Yc92BlzAzvBuziHDBS7Er+cutg0pDtEvXnuK6bYmNWjbqWQn8Fq/cbhnbZYo+Forst
-	 3GBxOc3uzwpYQGp+2DN6uqk/giXJIiibn26Dy6gxIwnC8Ve9ZcNFFfaxSP+1hFsb0Lg==
+	bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
+	b=438nUCLDYoWvjS/cYfuQNP0rJgqfWBAZbc7W66wA7CieIYq/XAyDe5UkXUqfCwD7yvXs
+	 K4sCmEtmf2zQFTdLG3mH7pqP4gOqhOeIfDPLocHc1CjhFH4Zzy6lBcRxSI2S9h4FJCLui
+	 l23rtZbgVnv+nV6MNQgsztqIYKocyQvCIuocQOICCtXB7+f0rHLtaEmOs7zglbF8U+3Ok
+	 sDvBK2RwyJzuN2zMGXlgw9aZLx1DsktiMztxk+J6+GrSv6Qnfo2vzkwRVJNVgxvwIWQMc
+	 4MrETRlDB1N08lTwbtHoRlwrC5hHyY37sCzNSttpPXdLxu5TzERBnxP8hSEl8hjtwcQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qWzyW8/u";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XL67E+6C;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E5F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:41:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8E5F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D8D606A331
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8D8D606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qWzyW8/u
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so1183875eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:41:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794199289; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XL67E+6C
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4d427836e9so57451966b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:41:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794199307; cv=none;
         d=google.com; s=arc-20260327;
-        b=om7O1B2w4Vv42IQORoAqb/wZxfX1RgO7F2QwlVYiz6YXKdOXAYRUddva0lwlGng3tG
-         lSnui9uJxY5BVaLpEBaEWg2UR4dGSoq1me64zjGNEefN2F1RGmEVtCcNeuUbMU7s7ITL
-         Sj3Bwvv6tt4qhcVHzreeD9A4I9Nb5cg+Zrix2wLiBQ09P6QK/hlgqErMFoldA9CmVWbu
-         k3SYbjVRYZJZvpYhmhsFQicvfpPsoiKi3rrJltgIc1oQjnxuGTmC10vrlGgprRUQ35j+
-         EmLhX8u3jWXIjxpyPzcxCuGZV/Q+aruDF8NAmQ6oxW64CEGCtJ1EYjM7IEJwf9lBdkoR
-         dOAQ==
+        b=cuDzZYi9+JIUPaTJy/TqrTAtnuP0Tt973aahiOHa8zS5fe1Ws0bfZTs3+PlFRtDGlx
+         XE2GqkOww3+iOu/bZ2kLQfIY3Okl6bnYeTsFs1YJIE/ld8w4S3DjPH95l941GESkI7BA
+         Sgsxl+ZuUMv2IpjEoNPNsdjqR6nBp+5ko/+ozgfYrgcpuBOi3vftYdJlfKc9fGysSOhu
+         oTwK/mPNPxaP/1+QpvBVSvfeQ6OjVpv8gT/tQwhV4PLySDUA1XXz2XBOIkJHLnWYK9Kp
+         x0krpv+ilRftBPwlA6obcl2h8bZg99m0ey9eXaIAMniSxFbHfNCgaToVJWVgII4W0tqD
+         uP2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=WPUgjz9yrlSKqR8e85QEERzjQTMyzYLvqAjjoRM1I1A=;
-        fh=3Lky2aTKfcHf2UZArGD7hwn6g3rrU7TTB2xvXqrKRxc=;
-        b=ZR5+kMeKibA/agYDaePcRlnFD7KBxENpgUUxgRJDfYs2Wju1xuYVwldcsWZPCspq9h
-         R6ewazACpWfPdzlHQU7KBPUhftirI0df6KB2lir7bshQOxKZ0nPb3CPWgoC4xWf7aWAf
-         xIHguIhCjSnEphLqbdQWTPgoSe3fxPGyeAaoJpuG5ls5FJev9MO/95ubj++OkA8joKk5
-         LtsDitADMsFLHplQd8GOKunmFG3nC4xhIx/vMZfCDl/5qxSlTotL6kHcTbqDXRTmMq6p
-         ESma1H/Us2Y0CXbAmuj71j3k1ZHEQHUmT49Lr68bxlhjHO35ZPVMhKvduS0eeq12jmIF
-         1kwA==;
+        bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
+        fh=/4WxSXaxkC1+YFF0qr1qFMIppg+xIOrEcEBVCbIxglE=;
+        b=G9TBNCjzFCZFZF9c4JSWCth+qDngB77YRzLPIPhm+jMlZhA9gAEyKq6ZAE9haHEwE0
+         4tsAtX1RhbIHp7BswUaFmxhp6Q99eKk/DbGpdGiQHWnV7Xbkul5bOrbNKgkXDnZDgCSC
+         TlLZZtdsqePDF+4xPw6h5WdGSBeZqhRqkGuLXx6pFOhyb04enXUMndIh/GFImZD3axLq
+         5LsnZA6UeZK221kiOpDE3ZbZdMCUC/bCpk8YhMawhRPZT+xVyKH41Qf+iGD72tNV5y1r
+         l//xy4ZCCgKys4vWdqdgPS7pe9cKzbE3hnGOjidJjzargqws6biDE1UtKaPsJImdRUvn
+         0g1w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794199289; x=1794804089; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794199307; x=1794804107; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WPUgjz9yrlSKqR8e85QEERzjQTMyzYLvqAjjoRM1I1A=;
-        b=qWzyW8/uDqqZV968N5KMa+aeZcBBcxYqwpr0/9uFEACzVarzJn7M4ZXAcInHD+Iags
-         WhCbpkaDQ/9NNQte6f9vGtRS76hEzry90XVMO0itGzxrEdLe2sbGinMrC+/gIVrgvWfK
-         gPDLMDVzLSwdAkaWSknCY+DGn+bfibCfcNtHtV1+NBFvliwTCB66hgl/SBeEYptEr1LF
-         MUovj3LVM1XdPGgRzvOcjiiB6G7rG6UZgK0fxjK4RGlnVcx4JyoYoaeByMwyCV5NzoYG
-         tKM6eZ2IE6Ciq4whjh3oUr1hvfTkQ6fCjA79BYWdP6zX3YsvZ0PqwUMUfTtydn0qmR2/
-         qLWA==
+        bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
+        b=XL67E+6CWlgF6TMSKOxYtrmXheerI7gxjQHnzgaJ8fObVIn9fOePSsXpAm4jOuofTF
+         JUa9+99lY+OsAfdXl17zL3hpp5FHvDYFIf9QjfViZnwYD0NNrDWWEqJ4hlW67FAJMPQB
+         dQYuwABZR3fG8/wG3BSpt4hD2vPDv0MQ4bZ3WCwMGSQ0wz7vDhFUYrfW6deENy/fRobF
+         G+5XDXtDBwA9XC5kYyw3Mv+ab8M405NnZp86LZuTYErY080guobrxmbyglJuPwyWkK8/
+         xZTCgu0NmSgTNnE2WBiHipzOOotnAdFJ4HoM8GEXJYJWF51slx7oNW8Yovbo8OhkbFHu
+         mwhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794199289; x=1794804089;
+        d=1e100.net; s=20260707; t=1794199307; x=1794804107;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WPUgjz9yrlSKqR8e85QEERzjQTMyzYLvqAjjoRM1I1A=;
-        b=HA8eiAg+A6U1uzX+IlnrTmkZzgTKk3qjytZw/dqLZavAW5i3MKKz5W7G3D5ZfkeIGM
-         Nv0T1aQN+i54zTLY8R8ZxPDIxaPJgtW2QSpJQq1EWsh8cD6P40Zqad3HunBQ47Kb8IwI
-         GCluy5TQiUlnTSBO721HACDPcjYAdiOID42GlllRAMlZwMuEf0cT1RtitQKqWsAWWiGq
-         AyU+gpRoP7M1hemW2g22CbMdhqiYrS+dL7GhqXR+291KMiK/1FVgKGnvwCwG/1rO2weP
-         mSuesrJlNW1zbkrRpWvz98wqVZhRAK1ZKtD/c+egD3yK8rV+OgLDp3dz6LBZCwmSbrTm
-         xLeA==
-X-Forwarded-Encrypted: i=1; AL+hErENcZi1OpWGHQPItBms4uzZZqv/OZhad41UC/8E/AKX+9xp+B9xYeikB42vZ6LAX8RWsGvaOHVE3kL+IMo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/D6IPgkNjarBI1gOqRf2/lMUrOuCN/cNqq+eB4JIBpAfkHrzug
-	XK7XZRyGgGQneHNf6eG3u7VNhPJ0H834Ph9lhDY8WT5yzNdxsD0LsxSum3uoO8uTO3lC5XSN4cL
-	8fWpIHdjW0vuPQs+093GSVbUKFvBFj/U=
-X-Gm-Gg: AYBFou04k5jDFLic3ikOLOMNJhW++pkv7n0GCut89K0MKV98fGzGCYKg3nxQO0X9Q/T
-	1Nt3g2nUIOzKlaD99ZIrA5k/zT+xesK+y2Kg+/1IFRhmmKuJIlIiQthfOpdXpedvgB3+KPHVrIN
-	64HNCOqiXB27jTpyznTgVe37j8+uW/1yHcF2bIg+pc4YM6HMp9jG1TqysxIBqZnsPBCel1sLE8Z
-	S3xhG2rsobfNXSea5Kb0Z3DXllbGNjhJSZVoGjvLdClMiUx2inUuAohJIkmd5N/48wt2kuPya4q
-	YsUkilxSNQ94GvqVi36M1v0d2sxqqY77Jqys6XDWvfgORnUI0MGLFFX7ZZ+MkdOAnOdCPr8eVaK
-	m9SZl6xI9DuvmjipWz/52F2QxgEJEd+hlgdrldBWTmt7wKD1/JFR8NNDO8z4peF7FJgps
-X-Received: by 2002:a05:7301:1285:b0:343:9eb1:9940 with SMTP id
- 5a478bee46e88-3725e33de65mr8199608eec.26.1794199288994; Sun, 08 Nov 2026
- 20:41:28 -0800 (PST)
+        bh=27RG8D8CerxM4BmQ9ucwQVVSwZlvRge1TEEkPaNQ8Qk=;
+        b=G0LhKokWOcKILwfI2zHD9wU1zZ5989bwV/3kolSevllOVTyUp26C0iAkCd9uNjDL+6
+         yl/CKo1VrFrynPakFeDoSiTaPrESOJ2cz0yZFtWJsodDXWysZxEqt/c961h1OhV4N0C6
+         1xOtW+z01J25HTeGBNPYyiRHv2LP0ezX64hf8+Yccm/JonScSCIGN6gG0zyTaWoWL0gw
+         dbSygXjZ4w98Uu9+LzxpsXlrae1ECLVT67ToCrer8wSE1NOnN58m9uRw9adu/3Rzyf9a
+         NbDrLlkj1OChCoMjZS6peXAvMk9wkcEOcdRILt7daFifnpQ3jtsbAOSTmJfmZL5TKAxT
+         dqFQ==
+X-Forwarded-Encrypted: i=1; AL+hErE5PRrYXNOZD7Qmab0Zn1p15Knv+td3YOnxd5sxyhElsfRe92QLuGIznRyVCR/IgVIwqpFBg4MpT80dHAc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+V//zd2GTz+M766CgRKQdWW4dT/qrAvdwb2o+wpWiJqDRyOK0A
+	CSHPcXdJPttljYBIuqwbu87tC2JF9JapSuXcApcY9kTLOzQL5eBSoU+JV6yCKtXQfvh+P0yeq/5
+	ZFV9WzkjDStxY72XawP4htgPlogw01u8=
+X-Gm-Gg: AYBFou2lZ3ua4IIGSjIqm0tCEoIEUvlxQ/vy3jMmVLOOR6ok675WB2ryZwXdcM3ZxzP
+	frDnY8coAFndP7th0QF+0jvQKFGzJDSLDKDhm9+sl/pEv5VrUkwvbzeO4Fl8xxj7gPBg2hSUWqS
+	hBbO5fxh2BbQu0LhCJ14JNQcGJlbE32u1ezFEGjIWzvCdnqNTZCG1o3IUu0h8aE96w6pBTehCxl
+	nTmnHXs7sIyv+Zf9fp9NCboYEE1xQVj5CloEh0S/uqrhcymx2JYtMMxmaMXNMdpp0d9rvypCuES
+	F9ThkK+NemLhXX7hc7yindVsZlHgMmInilGAQMoNfZr7q7YpkjPE6PB/Pe4RAKH2q+oLec7vI4y
+	jiRaxsEk7MJkunF6S+Hw9vGd716SNgAHKLmQ2CLZXN0CbpsduUmS81cEn10Dy4/9NRbA=
+X-Received: by 2002:a17:907:2d93:b0:c26:19de:9aec with SMTP id
+ a640c23a62f3a-c4d6dd8cb24mr224378766b.43.1794199307082; Sun, 08 Nov 2026
+ 20:41:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,83 +104,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106160057.2754689-1-hj351016@gmail.com> <avEdYFDUHIj6mq0Z@venus>
-In-Reply-To: <avEdYFDUHIj6mq0Z@venus>
-From: khj <hj351016@gmail.com>
-Date: Mon, 9 Nov 2026 13:41:17 +0900
-X-Gm-Features: AclHuK_VP_O81IVVw6nsjch_EUlJXziP3JNmGnD4QyN0YGW8m1KTdax5oeelWrE
-Message-ID: <CAGr5VtNJwmMej+90yoLa6su5fcBc1gwOPviMGtjj7pis+Y7jjQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] power: supply: fix work-vs-devres teardown use-after-free
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: linux-pm@vger.kernel.org, Chen-Yu Tsai <wens@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+References: <20261005001143.576737-1-rosenp@gmail.com>
+In-Reply-To: <20261005001143.576737-1-rosenp@gmail.com>
+From: Inki Dae <daeinki@gmail.com>
+Date: Mon, 9 Nov 2026 13:41:10 +0900
+X-Gm-Features: AclHuK-aAUizeCRuM8WnAlvp8mvibSB9oiekBPg9ucUpGQvhhZ0l_iKHx8QZ7R4
+Message-ID: <CAAQKjZOm5vA+38XVo5D4qV5B9eRT1seOShk-eFk_Jg_EQPdaOg@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: gsc: allocate formats as a flexible array member
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sebastian,
+Hi,
 
-Sorry about that.... and thanks for taking the time to look.
+2026=EB=85=84 10=EC=9B=94 5=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 9:11, R=
+osen Penev <rosenp@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> The formats array is allocated separately with devm_kcalloc() and only
+> referenced through the gsc_context. Make it a flexible array member at
+> the end of the context and allocate both in one go with struct_size().
+>
+> Annotate it with __counted_by(num_formats) so the array accesses can be
+> bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
+>
+> Assisted-by: LLM
 
-You're right that the commit messages were far too long. I had added the
-"how found / tested" note out of habit -- another subsystem I send to asks
-for exactly that information, so I carried it over here without
-thinking -- but that is no excuse for the length.
-My mistake...
-I'll resend as v2: commit messages cut down to the bug and the fix, the
-inline comments dropped, no functional change.
+The allocation and lifetime changes look reasonable to me, but
+Assisted-by: LLM causes checkpatch.pl to report a non-standard
+signature and an unrecognized email address. Please describe the AI
+assistance in the commit message prose instead.
 
 Thanks,
-Hyunjung
+Inki Dae
 
-2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 10:11, =
-Sebastian Reichel
-<sebastian.reichel@collabora.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_gsc.c | 17 ++++++-----------
+>  1 file changed, 6 insertions(+), 11 deletions(-)
 >
-> Hi,
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gsc.c b/drivers/gpu/drm/ex=
+ynos/exynos_drm_gsc.c
+> index d9637ddfcfc4..f1807ef664e1 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_gsc.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_gsc.c
+> @@ -99,7 +99,6 @@ struct gsc_context {
+>         void            *dma_priv;
+>         struct device   *dev;
+>         struct exynos_drm_ipp_task      *task;
+> -       struct exynos_drm_ipp_formats   *formats;
+>         unsigned int                    num_formats;
 >
-> On Sat, Nov 07, 2026 at 01:00:54AM +0900, hyunjungg wrote:
-> > From: Hyunjung Ko <hj351016@gmail.com>
-> >
-> > Three power-supply drivers register a poll/detect/charger-detect work f=
-or
-> > device-managed cancellation (devm_[delayed_]work_autocancel()) in their=
- probe
-> > *before* they register the power_supply via devm_power_supply_register(=
-). devres
-> > unwinds in reverse order, so on unbind the power_supply device is relea=
-sed first
-> > and the work is cancelled last. The work handlers call power_supply_cha=
-nged()
-> > and dereference the power_supply, so a work instance still pending/runn=
-ing in
-> > that window touches the already-freed power_supply device -> use-after-=
-free.
-> >
-> > Each patch moves the devm work-cancel registration to *after*
-> > devm_power_supply_register() (and before the IRQ/poll that arms the wor=
-k), so
-> > teardown drains the work before the power_supply is freed. No functiona=
-l change
-> > otherwise. The relocated devm_[delayed_]work_autocancel() still runs it=
-s INIT
-> > before the work's first queue site, so no queue-before-INIT window is a=
-dded.
-> >
-> > This is the same class as the recently-applied cimax2/extcon work-vs-de=
-vres
-> > fixes. Found by static analysis / code review; none is reproduced on ha=
-rdware
-> > (each needs its charger/PMIC/gauge chip and is not QEMU-reproducible) -=
-- treat
-> > accordingly.
+>         void __iomem    *regs;
+> @@ -110,6 +109,7 @@ struct gsc_context {
+>         int     id;
+>         int     irq;
+>         bool    rotation;
+> +       struct exynos_drm_ipp_formats   formats[] __counted_by(num_format=
+s);
+>  };
 >
-> Please don not send direct AI output. You need to drop useless
-> comments and trim down / rewrite commit messages to a sensible
-> length. Instead of huge amount of spam.
+>  /**
+> @@ -1222,21 +1222,19 @@ static int gsc_probe(struct platform_device *pdev=
+)
+>         struct gsc_context *ctx;
+>         int num_formats, ret, i, j;
 >
-> Greetings,
+> -       ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +       num_formats =3D ARRAY_SIZE(gsc_formats) + ARRAY_SIZE(gsc_tiled_fo=
+rmats);
+> +       ctx =3D devm_kzalloc(dev, struct_size(ctx, formats, num_formats),=
+ GFP_KERNEL);
+>         if (!ctx)
+>                 return -ENOMEM;
 >
-> -- Sebastian
+> +       ctx->num_formats =3D num_formats;
+> +       formats =3D ctx->formats;
+> +
+>         driver_data =3D device_get_match_data(dev);
+>         ctx->dev =3D dev;
+>         ctx->num_clocks =3D driver_data->num_clocks;
+>         ctx->clk_names =3D driver_data->clk_names;
+>
+> -       /* construct formats/limits array */
+> -       num_formats =3D ARRAY_SIZE(gsc_formats) + ARRAY_SIZE(gsc_tiled_fo=
+rmats);
+> -       formats =3D devm_kcalloc(dev, num_formats, sizeof(*formats), GFP_=
+KERNEL);
+> -       if (!formats)
+> -               return -ENOMEM;
+> -
+>         /* linear formats */
+>         for (i =3D 0; i < ARRAY_SIZE(gsc_formats); i++) {
+>                 formats[i].fourcc =3D gsc_formats[i];
+> @@ -1256,9 +1254,6 @@ static int gsc_probe(struct platform_device *pdev)
+>                 formats[j].num_limits =3D driver_data->num_limits;
+>         }
+>
+> -       ctx->formats =3D formats;
+> -       ctx->num_formats =3D num_formats;
+> -
+>         /* clock control */
+>         for (i =3D 0; i < ctx->num_clocks; i++) {
+>                 ctx->clocks[i] =3D devm_clk_get(dev, ctx->clk_names[i]);
+> --
+> 2.56.0
+>
+>
