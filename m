@@ -1,53 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794261194;
-	b=1Nbhg6krWU3VvPo1CSC30q1ByIym8WF4fd6f8DSSfRLBo2GA6yzkEf2d61ij5rN3yd77
-	 orcsz6+u+hMZnfLCKgCpyrdEBQR1DrtG2OCASS5+HkYzneDZ1zjlxbq5Jfl+VE78KTJn9
-	 BKJhXCnSy8wTapa4MpsLthIIubEUZ8HiJRlOCnaaZcMmGR+2kfUimOQ3tKM6OoVP8MfKT
-	 HXkyijo+dVaYLIKHJRzxivwbJ4AVX7IBnkcZVUK0e06si0ZzFcXTO6SDg2x3J3meqo0Vn
-	 6RKyrM7gXVOudwK7ba7olBiqKO/zVvIoE3SA7BxekSWxEaP5l4dXbSEOAUfLCQABl8w==
+	t=1794261189;
+	b=QCysn2AZQoySkEFze/d+gGHwtxKe9HcS88A+VRlEP46g72zemxpVTIaAZDLDMVplWLr3
+	 07mRQy40iZ7Ve61rhteuh5HAiOBSC3NidOGF8X3uLgg168bYNRWr7aGHUBGiStPEAXvJe
+	 v4jMZlZL5lshDUw/J9MH6UH0+2WJ9IZlZnhS2JHFx/51hcHu7mQBb9McGqIFXVWeJf+PR
+	 kpv04hI1hBpg19R2z0zJaAkeN1OOeG3xiwQB4kNiKY3EBbzZT6n7l5rpGQOL/InoQKxHo
+	 8MYOd8JU/oJKp9ZBVuBH4pr7ZKn/2gm7eLWNc7zAua+lIJdgwnDL3M4xJqPOqqKTGPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794261194;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=+OjU5cpDd0WZsZbOTFKQfY0byW87CeplqtKe+Oidk0k=;
-	b=0c1iNpgWDww/Vmdorb/jsR3Jlu5eTkxRwWylZGQf5ZKVrflM4GTf2oi5k8GLP1L/7H//
-	 5nEfe240YS1oSe2mp4wBZBpxR5YwqEgXnfZz44/ejmvtyqq0/6NO+5XD9OVRm2ZaZN9Od
-	 VIhqAe8hy+TjWhnTBYoz8GX4BD2PYcvdoUxK9nPDekFQpYk/5l2TVgddrFM6l7qngsvbI
-	 tSn01ILUWYECfjqpEXT1htUi3aAe65DfPSkTXfVZ3kRVbpDnI2iajmEX9J2bC/metGL8a
-	 Yi5D1zOc8/BdygUhzwAAjFP8MLOJV/e3k4kJ9Med/irRRIRdYAe55/pIiV1+6zcjBfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794261189;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=cWrTHrhjMJkdIpxHpr48X/5dTj1ezXP2AOnHxHCAkkU=;
+	b=v4s7OoR5HaU8QW/o0kMDh4wo3wf/ju0R0qIEWJ/94QxmQMMnsIEkpWBj2vhlLLflUH92
+	 0IJLGTL3p/c/QAY38yG4f+LUpJ0r9Inlc3tMJTIGbdB1rSVCJcPrEn2OkiG4HU4pznjc+
+	 Lt8MOL0L7Wf33Jm3Tx2x7OaUYxBz1Vkg/So0kJ6g0ZrWoC2z5r+4isxqABYGJj1hJdpZv
+	 WdFGyXAv/rk8Jfc6g5aFHlCyb2it+pOlrn09jls0qSTt+FhpbOLiHrj/ovk9+IZpYJMv/
+	 KO8oqxHAv2CMoFGZv8SKSmSxuE/A5ByXVj3AOGqBiCQ2Hl/XxSjhjoCYVf6OAG8rnAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=SZ0JMSJF;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bj2Pu2bV;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D837D606A325;
-	Mon,  9 Nov 2026 21:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D837D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF47F606A31C;
+	Mon,  9 Nov 2026 21:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF47F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=SZ0JMSJF
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC7C8A1609;
-	Mon, 09 Nov 2026 22:53:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794261191; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+OjU5cpDd0WZsZbOTFKQfY0byW87CeplqtKe+Oidk0k=;
-	b=SZ0JMSJFDut+1am+/Kvra7d4mFjStNGpw1Q26lIMP6XSF8NbjUmUlTqr0DFiR7d7udcD68
-	E2LG8O8tKSBr2ORsRXzOPUBRENykRPfzkYIWZgahWyh60OE6aExA5TYJN2UfWNZQ33VYRL
-	Kwsr2VW3SDUEO15KPY5PdFNDIQQxZ1/v4g9wHf7m0Od3AwD3+LCSUEduFN4lVtai5VoGwD
-	n13mgWvIidlqxF16wRvl0ocX93gaAgg1b3yhTNIX4ymj3thHdDbcsmsspVSRYrXiTy+Fl+
-	NKnzg9MeCoBbFbxcM5DBcTHD/n9vZ7Uem6q8ErDjJs9bfjqN85Lcm1kxj4VX6g==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 09 Nov 2026 22:53:01 +0100
-Subject: [PATCH net v2 1/2] net: bcmgenet: cap the Tx queue threshold at
- the ring size
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bj2Pu2bV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794261188; x=1825797188;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=47rl7GHP11GZJhI4/OCDmLMOusvHUXAz+Mz7a8yPdho=;
+  b=Bj2Pu2bVDrNi5K1K35r74TC5k7BH2eiOkA3LEa4PDH8FG1cA4F0tG5eG
+   n/i0ZXK9UByTRtL5g9M7og4RuLdXrsOvFr/Mn7/VvTD1SvprYewCnbBwi
+   bJytEW2nWd0j8Xxaz0D0O2yQV5teJE/TQ4WD+78+EhyhpgM/qfNcDDLNl
+   GrsebD9fyExUkZkkeEUp/3BzxrRJPK20Iuh/6Lq4smt2wmx1NGE+K7aYV
+   brP/muLB3w6fkAEfs/aAwaRg4fd/MnyqdDQmjwgbmjqMFUJHL5sczO9ei
+   3lEkgcfTCvFShqBaKUlnLPwanF+vKkAz8s1Zuy4GyvZdeSclDHXxXTk1t
+   g==;
+X-CSE-ConnectionGUID: HvQyrFVyQ2GveMDreeqANA==
+X-CSE-MsgGUID: 9IKCUEZeTZOpGfd8VhCbQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2889617"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2889617"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:53:07 -0800
+X-CSE-ConnectionGUID: XtKZoMU+RKyLbhKNbasT5w==
+X-CSE-MsgGUID: kq1ZhVbmR4yjLX71MfSJUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7990591"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:53:05 -0800
+Date: Mon, 9 Nov 2026 23:53:03 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Kent Gibson <warthog618@gmail.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] gpiolib: don't overwrite the entire flags field
+ in gpiod_free_commit()
+Message-ID: <avJAv_3ACjvyc9VU@ashevche-desk.local>
+References: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
+ <20261109-gpio-desc-flags-atomic-v2-4-c4c54b476628@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,89 +84,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-nb-genet-txq-thld-net-v2-1-efd8f4be96f2@tipi-net.de>
-References: <20261109-nb-genet-txq-thld-net-v2-0-efd8f4be96f2@tipi-net.de>
-In-Reply-To: <20261109-nb-genet-txq-thld-net-v2-0-efd8f4be96f2@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Justin Chen <justin.chen@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Nikolay Aleksandrov <razor@blackwall.org>, 
- Jason Xing <kerneljasonxing@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-gpio-desc-flags-atomic-v2-4-c4c54b476628@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-A Tx queue stops when MAX_SKB_FRAGS + 1 or fewer descriptors are free and
-wakes once there are more. Queues 1 to 4 hold 32 descriptors, so with
-CONFIG_MAX_SKB_FRAGS at 31 they would need 33 to wake. As a result the
-first packet stops the queue and it stays stopped:
+On Mon, Nov 09, 2026 at 11:27:08AM +0100, Bartosz Golaszewski wrote:
+> Use gpiod_update_flags() to clear all request-related flags in one go
+> instead of risking racing with concurrent users and overwriting any
+> changes they could have done between READ_ONCE() and WRITE_ONCE().
 
-  eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 3 timed out 2004 ms
-  eth0: NETDEV WATCHDOG: CPU: 1: transmit queue 4 timed out 2004 ms
+...
 
-On a Raspberry Pi CM4 only queue 0 carried traffic afterwards. The other
-four counted an error on nearly every packet.
+>  #include <linux/acpi.h>
+>  #include <linux/array_size.h>
+>  #include <linux/bitmap.h>
+> +#include <linux/bitops.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/compat.h>
+>  #include <linux/debugfs.h>
 
-Fix this and cap the threshold at what the ring can free.
+No need, bitmap API implies all bitops.
 
-Fixes: 3948b05950fd ("net: introduce a config option to tweak MAX_SKB_FRAGS")
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 6 ++++--
- drivers/net/ethernet/broadcom/genet/bcmgenet.h | 1 +
- 2 files changed, 5 insertions(+), 2 deletions(-)
+> +		set_mask_bits(&desc->flags,
+> +				   BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_REQUESTED) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
+> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
+> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE) |
+> +				   BIT(GPIOD_FLAG_IS_HOGGED), 0);
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index 4d2be2a21ed1b..9049822012d13 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -2030,7 +2030,7 @@ static int bcmgenet_tx_poll(struct napi_struct *napi, int budget)
- 
- 	spin_lock(&ring->lock);
- 	__bcmgenet_tx_reclaim(ring->priv->dev, ring);
--	if (ring->free_bds > (MAX_SKB_FRAGS + 1)) {
-+	if (ring->free_bds > ring->stop_thld) {
- 		txq = netdev_get_tx_queue(ring->priv->dev, ring->index);
- 		netif_tx_wake_queue(txq);
- 	}
-@@ -2235,7 +2235,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	netdev_tx_sent_queue(txq, GENET_CB(skb)->bytes_sent);
- 
--	if (ring->free_bds <= (MAX_SKB_FRAGS + 1))
-+	if (ring->free_bds <= ring->stop_thld)
- 		netif_tx_stop_queue(txq);
- 
- 	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
-@@ -2742,6 +2742,8 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
- 	ring->index = index;
- 	ring->cbs = priv->tx_cbs + start_ptr;
- 	ring->size = size;
-+	/* An empty ring must be able to wake the queue */
-+	ring->stop_thld = min_t(unsigned int, MAX_SKB_FRAGS + 1, size - 1);
- 	ring->clean_ptr = start_ptr;
- 	ring->c_index = 0;
- 	ring->free_bds = size;
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-index e48ce39d3e7c8..6ab3f73475550 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-@@ -546,6 +546,7 @@ struct bcmgenet_tx_ring {
- 	unsigned int	index;		/* ring index */
- 	struct enet_cb	*cbs;		/* tx ring buffer control block*/
- 	unsigned int	size;		/* size of each tx ring */
-+	unsigned int	stop_thld;	/* queue stops at this many free bds or fewer */
- 	unsigned int    clean_ptr;      /* Tx ring clean pointer */
- 	unsigned int	c_index;	/* last consumer index of each ring*/
- 	unsigned int	free_bds;	/* # of free bds for each ring */
+Indentation is broken (and it has spaces, which makes me totally confused what
+the point of those spaces in the first place?).
 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
