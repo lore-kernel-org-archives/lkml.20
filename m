@@ -1,29 +1,22 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.72
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.57
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794206100;
-	b=VIiYeA/SCuimgHVQ7kj/z8nyKIX8ls1CE4+oNlDaALXCuMetRzYoc/FIMPyM05L3mvA+
-	 KCHspwWz4Sy6yExWFv6FNeaJZp/CCKZTOEKUyvykJ6lrU3BIQ3ZlQA/xUk32YCUyIPfi9
-	 MH7P18PG2wuBgtdeCM967naStAC4/nBKVlCRDHCGsUs/Mqo5Hvr2srbxrcO4ZN8fYU+BW
-	 eVba1WSOEi7z0w9Nx9CjLCy4Lwp20uyMQxeAP6UBpPubtvddHVT4qfsKwS6lDwbusIL65
-	 uARoBihedGRqVfCJlIzoCd2hZZDjPL9PQA4xF6SyIL+wWIWpUzmwvNgx+FnL6yBlh+w==
+	t=1794206141;
+	b=xr06JCdiAu6MgMGe8dp5bXO5EPZ1iSgzdQBwFIm9DJ/6HMOKCZwatAT67qIoBJlcPzI5
+	 YeT2xydWShtS0vIpqn7R+OLEKWR8an/pwv0Uf+o52y55g46kc+xeDgIqkhGDx454bsmwn
+	 KEKsWxWJu7XqoYbuEfz5Do3iV1fXABvNN9TVmFS3+Z5hsAJNCwrprtNCtftx2EH5eSHO0
+	 0LqiafJ3YFSqc2FfIRjgtJ2ci6zNoKBqDzE2A8YiZQllP+wIVNmT3yG03FVUSAZ5NcWBc
+	 vjwH7wO/aRrarnuuyEX0gafZMuwHjJx0e1/7yPlRz5zrXoPQBZexDGFDOnbhJamu7Og==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206100;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206141;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Authentication-Results-Original:Received:Received:Message-ID:Date:
-	 User-Agent:From:Subject:To:CC:References:Content-Language:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 Message-ID:Date:MIME-Version:User-Agent:CC:Subject:Content-Language:
+	 To:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-CodeTwo-MessageID:
-	 X-CodeTwoProcessed:X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -33,98 +26,69 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rseQX7vXp2t1+EdyOu0G7X5tvj/pZ/xAUX/c5fPxImo=;
-	b=QYPNgT1wW6c/agUpuPLcFZgGFDHlowfCTZuAMFj52wpV8bHCO3LdmZUKypihKuY8kUzz
-	 WwppHeBtN7BOlIxG9KCJOWR0C4M22kCTMc5wMlyuKEBNli3v1yiCM+pMmFDIFw/yhjSlC
-	 WTzyEKI5lBDVRUHHFgpDztq6Bx0AscGUuJyei5m7Wj4wTzyDp581viwX08tqOj1HLdtSi
-	 ieaH4YXAiZP7WVa/Z6+NuFKqgXTSi+r1sNxtjY87hUyvwyD2swdRbP+AJ7PWgvZkJ8lWV
-	 Ytla1soqEUaExDsLx2RPtML3ey5AMB6068tgLtPRRY1+79upAUq7RbPZDMQCL7EPzwQ==
+	bh=p2SLFQgvqloo0C4rxLEYp3jr3N9LHg5suTGY4RPZoPg=;
+	b=OMelDk3YJ4lo2ursYKGs9Ar4xhAEx5XS5Y3LzukQdZ15v3AK3Rnhp85AnmZl9vkRUvSZ
+	 LTfIU6h+YhFLANf9xbEx5iiQmIgpVohVrikPEcLjoXrPOLXw5rJCt1lo/+5b3RDFklE7j
+	 Su7huig2GxJFBhpyio/6eCHQDeonCcIC1NkjhlA5HJC4BYo20weziT4iJecE42qjaSKUi
+	 37+VEsq0c+fBtcd2yjKU5aJWT08/lGXNu3ZkHCzd/IKbwhhUHuNbdBjgou8MEag/Zc1pp
+	 oXPmUr6hhTtk4M53jQ4T1QCVBSckSDxxekZrbmBvao34Lb4SWQgFov32ysy0N1wPpyw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=topic.nl;
-	spf=pass smtp.mailfrom=topic.nl;
-	dkim=pass header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=sqD5civB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.72
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021072.outbound.protection.outlook.com [52.101.65.72])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CO7X0HqK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.57
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011057.outbound.protection.outlook.com [52.101.57.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B539606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:34:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B539606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=topic.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=topic.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F10606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:35:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20F10606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=sqD5civB
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CO7X0HqK
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ASmdlg+4Ic6jfK/6UHi5mQMkCOMkHfY2IUtOhuTJw9HVq0TpQG9O9yN0vjBBnG7miLuURE/6yxZkcucGmR5V5Gsl4k0hU6fsNVmUhDyBxXtVyXlUmGf1XZ8h3Uh8nwut+zSfoRmEPV0Z54CGdG1pAyLK1fgpmq062oSESpUrGdtYQDMAqplVA0JN9oeTBl9wtqXduZrq9imDA22GpEbslvMi2Ga6hW2Rr2+vKyi8r6qNv4wp8Ap5JTSzPKJKT0zYUDKXsKJmp4CQ28HBqGvqVa55kA4K0qFC436sJbC7LSDYUKkX0LNHMCl7RVwLG/UYY/hys3qWXc0x7gNxj+tU8w==
+ b=Sm0B2nqkz6LEJGtcnUMm3jT8Up/IYco9BJgNENx1hVbn4llR8DFR1DPvd6VtZYAd93uWM57rjw35NgV+uAte5dVL+qGGk8nMBif/M7PQg8Onj911qDrs+RwngQp8Bj9NP7qwmTwdPeWVW/g9+Huqk+yiMDcvaKfAEfS54DseWbDPXl8r3w1TSSYWRXtaWakTgOlkuY204eAZqdLj04+vJUSP8c9t/22aGAkwqCbRdMTSUOrgF3n6pzYyDlCPJYy8F0iq3w1bgy2oyOJcfzfsyGVjhhe7T8C/K3d/z0nDo6liFjvj1tdLlm+ixeSbU2dZKeJjxji1lgcE7PlFxw/H1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rseQX7vXp2t1+EdyOu0G7X5tvj/pZ/xAUX/c5fPxImo=;
- b=IeBT9sph8kUR52qfV1IIoWUDIPOu9+np2YiNGmPcjwavnLo3mVcCh4zS8ILJN7uBc3R12uFkghq5RT7WK+CddpmTAkzi85hoa03mV8kdyxWE8SLLVLxs1l/Jyt4ZV6TBpfb/Rl+12Zzf3voSJ9o9Sdrvst0wpucc7FD7LNgqBh0D6+h3c0ABHlho5Wl62h4jb9c3Cj3dypSCnHSEt2wVQvwO3ny0Veu4EyPjVwIBbgQdF4jbJZNn3DdRnTgR8QIC+pPq1eP8PoC8o8D3Ex1eX7+I+vKPifmhVqyZJZnU0u5KqnW4ZGx1Z6/9DP+fZ970CqvtJoCfKmuF5W0GexVRiw==
+ bh=p2SLFQgvqloo0C4rxLEYp3jr3N9LHg5suTGY4RPZoPg=;
+ b=kryrruejJQ9ABHihhBfUq8nvcG8ZIze2O6mljaqRFvtKIJEi/YXaF00BiD+kWV5POHdozT71zPWhLVjJglZfqpBjrlwCoAQYd1Uuvp5enJajl4dxm7DkureZJU7Vm155b+UGOTpEgkCzr2ThhxfL9N4raNixN0mW6jcXhlll34hd5SWgUgT/o+GLQZIZj1YoKhv5O+PiiGovw0BOLjbpQMyyP3N5TlVqtZSpHrbYjGh+qfbWODQ1yK50rksm7riZ5548w3gdXlYQowB3osMFqgiVzd1QtFGfL8TRc1sesm7tSVg42J9j3CirCPs2atgAU6omyweHjuhFkS769CuzcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 20.93.157.195) smtp.rcpttodomain=googlemail.com smtp.mailfrom=topic.nl;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=topic.nl; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=topic.nl; s=selector2;
+ 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rseQX7vXp2t1+EdyOu0G7X5tvj/pZ/xAUX/c5fPxImo=;
- b=sqD5civBbI6ZuBF5ruGgystDnKWrXiyljFcsUMH0l+hp5fRuZvm/zM+d28MnqDV38Xn9eDg48HPk7GeHWlOfYo8AAvWc5MriWgbyW9VcPF0ZQqHgKx0f+4cHWcgG6xK8YddX1vVQBY/2fATzGrGMCQvSGtPM6x0SinE2Be75QcXCBhcjJHEZn+F2CO4eUimZ+DG1a9FC1nGWyvILRNWs1TevpBwmTlzUEBTdOvmJQfNlDrqYcyEBcu/RuR1qQo1duK4FvgatxoE4slVaX49KE2AJ5jeVmF8k9y/aPzTyTVFvAxpMIqIZZEjhVCw2m2mjgEzrPJj1X6cqkKhLexAoZw==
-Received: from DUZPR01CA0286.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b7::12) by AS8PR04MB8085.eurprd04.prod.outlook.com
- (2603:10a6:20b:3f9::24) with Microsoft SMTP Server (version=TLS1_2,
+ bh=p2SLFQgvqloo0C4rxLEYp3jr3N9LHg5suTGY4RPZoPg=;
+ b=CO7X0HqK3XQOt5jJisj8DA4RZWIRAI/t0TqcMwAT1beT4zkceaSFOYNTP6B14Oyuzb1ZSIzfR7+dPwkjC0Ry/EEzAf4p0NnTQqP5ftRKEXSuSMh41R0c8fmHMrwp4fRUh/R0Ioii97AYS/KLUtYEYLForUsrWJiZO5vp98M0HRI=
+Received: from BN9PR03CA0296.namprd03.prod.outlook.com (2603:10b6:408:f5::31)
+ by AT6PR12MB727359.namprd12.prod.outlook.com (2603:10b6:170:116::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 06:34:55 +0000
-Received: from DB1PEPF000509EF.eurprd03.prod.outlook.com
- (2603:10a6:10:4b7:cafe::6d) by DUZPR01CA0286.outlook.office365.com
- (2603:10a6:10:4b7::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 06:34:55 +0000
+ 2026 06:35:37 +0000
+Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
+ (2603:10b6:408:f5:cafe::75) by BN9PR03CA0296.outlook.office365.com
+ (2603:10b6:408:f5::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
+ Nov 2026 06:35:37 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 20.93.157.195) smtp.mailfrom=topic.nl; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=topic.nl;
-Received-SPF: Pass (protection.outlook.com: domain of topic.nl designates
- 20.93.157.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=20.93.157.195; helo=westeu11-emailsignatures-cloud.codetwo.com;
- pr=C
-Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
- DB1PEPF000509EF.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 06:34:55 +0000
-Received: from GV1PR07CU001.outbound.protection.outlook.com (40.93.214.98) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Mon, 09 Nov 2026 06:34:54 +0000
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=topic.nl;
-Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
- (2603:10a6:800:316::24) by AS8PR04MB8499.eurprd04.prod.outlook.com
- (2603:10a6:20b:342::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 9 Nov 2026
- 06:34:52 +0000
-Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
- ([fe80::e428:3105:17ec:8224]) by VI0PR04MB12030.eurprd04.prod.outlook.com
- ([fe80::e428:3105:17ec:8224%4]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 06:34:52 +0000
-Message-ID: <e70bb142-20fb-46e2-8aa4-955854ddb1d2@topic.nl>
-Date: Mon, 9 Nov 2026 07:34:51 +0100
-User-Agent: Mozilla Thunderbird
-From: Mike Looijmans <mike.looijmans@topic.nl>
-Subject: Re: [PATCH 2/2] regulator: pwm-regulator: Revert "Add validity checks
- in continuous .get_voltage"
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mark Brown <broonie@kernel.org>
-CC: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
-References: <20261106130010.340950-1-mike.looijmans@topic.nl>
- <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.6954786b-65e0-4206-a0c4-60cd251dbec9@emailsignatures365.codetwo.com>
- <20261106130010.340950-2-mike.looijmans@topic.nl>
- <27e5c94a-acf2-4e32-92df-e3de124e0bc6@sirena.org.uk>
- <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
-Content-Language: en-US, nl
-Organization: Topic
-In-Reply-To: <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM8P189CA0022.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:218::27) To VI0PR04MB12030.eurprd04.prod.outlook.com
- (2603:10a6:800:316::24)
+ 15.21.639.0 via Frontend Transport; Mon, 9 Nov 2026 06:35:37 +0000
+Received: from [192.168.0.108] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 00:35:33 -0600
+Message-ID: <cf6717a9-1ede-481f-9d38-186a50c970f3@amd.com>
+Date: Mon, 9 Nov 2026 12:05:30 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,103 +98,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	VI0PR04MB12030:EE_|AS8PR04MB8499:EE_|DB1PEPF000509EF:EE_|AS8PR04MB8085:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f5bf474-da82-41e7-a284-08df3e2b9175
+User-Agent: Mozilla Thunderbird
+CC: <sarunkod@amd.com>, Adam Pelka <adampelka26@gmail.com>
+Subject: Re: [PATCH v3 3/3] iommu/amd: Rename unity_map_entry and unit_map to
+ ivmd_entry and ivhd_entry_map
+Content-Language: en-US
+To: "Jindal, Akshay" <Akshay.Jindal@amd.com>, "Joerg Roedel (AMD)"
+	<joro@8bytes.org>, Adrian Huang <ahuang12@lenovo.com>, Joerg Roedel
+	<jroedel@suse.de>, Robin Murphy <robin.murphy@arm.com>, Suravee Suthikulpanit
+	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
+ Deacon" <will@kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20261106041650.24076-1-sarunkod@amd.com>
+ <20261106041650.24076-4-sarunkod@amd.com>
+ <1b1ef14a-f3d5-459b-94cd-e0f2407a0627@amd.com>
+From: Sairaj Kodilkar <sarunkod@amd.com>
+In-Reply-To: <1b1ef14a-f3d5-459b-94cd-e0f2407a0627@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|AT6PR12MB727359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cd78a0c-a166-4519-cf5c-08df3e2baa9d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|52116014|22082099003|38350700014|18002099003|4143699003|261009223027099003|3023799007|56012099006|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261028144727099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 35XqjTzRPMd00Yuqny3gp5h3lq0LdFne5YxgjtHzK2uqXofTMNHjn7wHf2Dh2+KQRjmEbFuqqCqGAp3Mgw/nasAbc9clKccHbnozR0vScACYqMkho81lzn+yalDcGGFZcJ3YNTVt7YdKxrgFS9WQo6ipskYZ+ofqdNjOLYmG9yZViZl+838J7A67BA1fC8Yhv4GCeP1krxVljYnlH2fpHC5mTfD0crnPuREjgqopINHXhl8ohqyeqvW875HVTp8sUaJIyDHdiLFg9PDmK7nfxzZ3CoW88mYLrRjaWYvmqvAjr/8AQexyThw0M4cT7nUy+IErzMwlfmUaNP9iNJ0YZBygLk+t74cycjayZElo186PVxImg3CMsfbkDHIm5L3Vbq2kESBX3rmLwR/taSH+Q4tTDSvahv5p0FiMcLDMxPw3OPe6aNp81ewDN/80adJqr2rsOJB7oMdEp+EQ3JWhjig330O7XeOWxPaNxjlAtC3q/tFdOKh+v9DIGZ+AYelbV2wnzgZeweJm9vLtF4CP8zo/Rf97QIvV07FviNJ4kPziYF/UC+MMrCUcPQePgULoWqpuYstWX+XwUy6nQIZDLrUXfaQfvRczyxgsrw/MPkMphPQ67ub97VRsXU3tfH4or241glu4pEiem4Ts5bRlkbDIpuIPkzHwTf9748zspIc=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12030.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(52116014)(22082099003)(38350700014)(18002099003)(4143699003)(261009223027099003)(3023799007)(56012099006)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked: bpASH2+MhYZ8j1Qn6OHA8iw35lkUZpL8qYJRLZWctedAG473RlokyjtoKwpidSnZvpttt1hm7LzTpeHzRiMf4N41LGK/vIV+cOGOhQamA/1PrRP6ZeoZHlhmoOdqHLknEiYgvRXv5rEipUU6dNmfuOHUOJsuUBR9gKRy/dVrtEmC54rkp39Mm84npzc6z3VqhrLnJXLb2twios/WtBNqv0Tl13UhzhU2KEq0yNB3fRDxTa7HrhTImzvlMQT+Pjz6lEBRmJulgqeaR1JTBdbfEw5N1yylsbZm9sdBG1rHu6h6tEA3vh81KkJ+JpHIcDgMMs/ZXFp5skEgnw12J+vpVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8499
-X-CodeTwo-MessageID: e4cc650a-5c06-47ac-870e-2511dc0ef795.20261109063454@westeu11-emailsignatures-cloud.codetwo.com
-X-CodeTwoProcessed: true
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB1PEPF000509EF.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	47d5c5a2-e801-49ad-76af-08df3e2b8f4a
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|35042699022|14060799003|1800799024|82310400026|36860700016|4143699003|56012099006|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|921020|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022113327099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	94J+M63Q3P5ks8FS3YxpmPHG/6UZiOaR6WOfiI4eJbrX0LHleOqPzlnWa7mhU8Dv9hr9WDLsIU1F3y31nD6ZR3JjGxnWOBI/DEN6BVy6JcL0fjb1bXhH2zSFHRc0NVitkCFtT1MwEu2/C50JqVrjJvxYOfSBLim7OJtrsFGYAQrbPYlAilHcZvPbRBr59Knfu6oVT5Zug6CqzGTr9DgC1Rsbv0q+vr//JahJ93t2p+IXDP+kO5jR0yY/IgZIH0Nc8SH6hss6mz+0SoMJ9KStBtqag6YROjtYUupceEFvUR9m7slLCnOcuZMQDmobWmD1jpBTwFwrQMb4kBJ70QvOTa/DDsgt5h38/aI5BOJnlLj4ngxUDtlLz+bNnwvDC+G2VmGl6IkVSeday3dwtZ3jf1wCk6cd7hZgQGnJxKDLFDn84yffYhxMUfn5ut+JpBoMCnQgTbrgK3bGWhuijqFiaEwiNtFwuTa3jvFIGgVZ6d7BYD/jwMFimqm94Vu+EuY1bhlKj2M68Wm/f/Qod0EUaUiiP1CA0VhizVs1ETHp32K8vSvP1QYHyZY2nnlW0fvreToWajEI0CVWp2JT44mng7L1AECT+tmIflbE6PsXTBiZ+qMHGzkyskTDY0+75Cwsl97MIe1YrHeCMw0oeaVGCw==
+	uRi5OJ0ALxxBtolH3Y7Bsv33j9h1AKC3JguoDIGTYaxqq3bkryaywpbpcSgRJqwV+cSUsTjbaOCjhyf1a2Rp2i08FgprNC9gmoQG502HBlkYDzGlHOKKtnxXoMy5oQSnrHlumSTY7mwUOfJyxM7/RPNhQmYBuhla1cAFN/Mzmfklf0+oVK3PrjCAS+7VFUKP3IQfPQmF9FETgvi8pCv8SpAm0vog3hNcE+NCN0GCRfR7DMP4P4Hb+X1Bra60Mdh77yM/LBpEvpLEO7RpF2RoJrtqzvz47jy3tETNsd933IEFpF1d2+V3QT5nMF0hzmOxzC3KmT+4qbBFZBl3/K9HECELY+PZEDDEJdFWLlgpnOIZzpjifejTFFDaLMqmRefKfWX1zE67viybOzGabRDGJAfM10BUxlWiFczV7TOUf/4+4BHmFLkqQl89809FsJeZh7JmuG95z7gMWn8hAm3hWJPOW4uhsctdGx8XiRyJWRkVDP6Esx85mn0Ojqb+iv+9WawPiVwWNencf7qMnMVb47oM1WqDCf6+YZCOq6rF3785FHgFLEcvIxR7SNKsfS2B97AODedIVDHOvrp4oeBG8Oj4OfsEsE9blarSgoGL8+hEKF+AGLaR+q2W4B/zBKqfSMBF1bJb093jHq1W4psse9DsmddjD4qOD+xJ93I36f1054FFCBZJ7KmyLzHQtNhWVfDW/9+p1z8MvfZtVp/XG50I8Zr2gg33ybaDI6LJdLNyuHHgJy0E7ae1o2JV8X8X
 X-Forefront-Antispam-Report:
-	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(35042699022)(14060799003)(1800799024)(82310400026)(36860700016)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(921020)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022113327099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	g6rJHFQkHsccWibXv2ADrTMQgRCVIyTS8BLKB1sJSqbehgaGBXG5BH4Eze3pdH5jpCcEHdU+YsPk0KKR5qDuNTFbbWs9WfbSfI0N6GrX5kYxmEBXw7J5J4emzX5X9dkF8RfL2oz3Aig1zAxXq8OVBrmhqGgG/ADSSOQvQqdLPYOpQjyBySbc40mS1cktOrtVpiHLOHMAePQQM/TBJ1gk0/JQrX+HwLAsh9sN/K8lSuwhcjplywLouYrHSAfYoO1ZOb/Y+ve0N3vb6g0OFWb3mYfsSGZp0fvyah9nfeP10ZgfFmH5+B0ichjWkr+C1/CuOnRJ1wKpIUmb5ozRm4Plqp//ICH9GXLTTorYiZ769KjGn1RNV81lTxa3I8RoqtXAqBQcn+mwk4tVojq5UEwPLTCc244NR6tIH7L9SolrPBZUNv82eHppMNfkoeL1DQ4f
-X-OriginatorOrg: topic.nl
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:34:55.3992
+	qzgVGwsatWwhRSJyvNIrK60gSLTivW4I1v8c8oXgzuhW81KN9tkdly2Fww5lnVO8s7uNtNbB5lxz6F6qcRKL6annTW3QqnKNIhzGwVrSI6AHwz3Q9NCJSg9Cd6Ee7HIkJdWWX/G9eWbZtMcJtC6mhqHG/A6PtGCgpxqcPpkIAqzUV5bCTsLQcSmLwHbHH9Lp7etjhy3TBvCCL3WvQznB6pYo96Z5JxWVkxtU06ds0igF8aMibKhDjYV8SoRr5MbRKKi9L0hc0IL3eTkWS+4VEQSe8OOE1eDyqAnvgma3D1ve9VrpogLheK8mdLwve5tnqwP5eYlzVi+FQ53jmw2ekoKa3dEVaEloficyeb4BerA2aR5lnSnWNNRT3PnaEg/Gl92nY49/CJZzrZWuW2BztHkjCUAZjTPZhxqnM+OdaA+lwpqiJJs6derJ0vXx3/xb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:35:37.6499
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f5bf474-da82-41e7-a284-08df3e2b9175
-X-MS-Exchange-CrossTenant-Id: 449607a5-3517-482d-8d16-41dd868cbda3
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=449607a5-3517-482d-8d16-41dd868cbda3;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cd78a0c-a166-4519-cf5c-08df3e2baa9d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509EF.eurprd03.prod.outlook.com
+	BN2PEPF000055DB.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8085
-
-On 06-11-2026 22:45, Martin Blumenstingl wrote:
-> On Fri, Nov 6, 2026 at 2:46=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
-ote:
->> On Fri, Nov 06, 2026 at 01:59:56PM +0100, Mike Looijmans wrote:
->>> This reverts commit c92688cac239 ("regulator: pwm-regulator: Add validi=
-ty
->>> checks in continuous .get_voltage").
->> And again...  please don't try to sneak changes past people :/
-> Thank you for looping me in, Mark!
->
->>> The core, and in particular the machine_constraints_voltage() method,
->>> expects the regulator to report what the current setting is, even if th=
-at
->>> is outside the allowed range. The core will then bring the voltage into
->>> that range. It cannot do that if the regulator refuses to return its
->>> setting, and causes probe() to fail for a pwm-regulator when it has
->>> restrictions to the PWM range with messages like:
->>>    dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
->>>    pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to reg=
-ister
->>>      regulator pwm-regulator
->>>    pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator faile=
-d
->>>      with error -131
->>>
->>> Besides that, regulator_get_voltage() is not supposed to return any
->>> state information, as is mentioned in the API documentation.
-> according to include/linux/regulator/driver.h:
->   * @get_voltage: Return the currently configured voltage for the regulat=
-or;
->   *                   return -ENOTRECOVERABLE if regulator can't be read =
-at
->   *                   bootup and hasn't been set yet.
->
-> Can you please specify which API documentation you are referring to?
-
-https://docs.kernel.org/driver-api/regulator.html#c.regulator_get_voltage
-
-And the text above clearly states "can't be read at=C2=A0bootup and hasn't=
-=20
-been set yet", which is not the same as "whenever it's set out of range".
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR12MB727359
 
 
-> I believe back when this change was authored it didn't make a
-> difference on my board (but made sense based on review feedback).
-> So I'm not against reverting as long as we have a proper explanation
-> why the original patch is incorrect.
->
->
-> Best regards,
-> Martin
 
+On 11/6/2026 3:45 PM, Jindal, Akshay wrote:
+> 
+> 
+> On 06-11-2026 09:46, Sairaj Kodilkar wrote:
+>> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>>
+>>
+>> From: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+>>
+>> Also, rename struct list_head unity_map to ivmd_entry_map along with
+>> renaming the unity-map helper functions and add error message when
+>> handling invalid IVMD entry.
+>>
+>> No functional change intended.
+> Reviewed-by: Akshay Jindal <Akshay.Jindal@amd.com>
+>>
+>> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+>> Signed-off-by: Sairaj Kodilkar <sarunkod@amd.com>
+>> Tested-by: Adam Pelka <adampelka26@gmail.com>
+>> ---
+>>  drivers/iommu/amd/amd_iommu_types.h |  6 +++---
+>>  drivers/iommu/amd/init.c            | 22 +++++++++++-----------
+>>  drivers/iommu/amd/iommu.c           |  7 ++++---
+>>  3 files changed, 18 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+>> index bcb88b476167..033cabc5b73a 100644
+>> --- a/drivers/iommu/amd/amd_iommu_types.h
+>> +++ b/drivers/iommu/amd/amd_iommu_types.h
+>> @@ -609,11 +609,11 @@ struct amd_iommu_pci_seg {
+>>         u16 *alias_table;
+>>
+>>         /*
+>> -        * A list of required unity mappings we find in ACPI. It is not locked
+>> +        * A list of required IVMD mappings we find in ACPI. It is not locked
+>>          * because as runtime it is only read. It is created at ACPI table
+>>          * parsing time.
+>>          */
+>> -       struct list_head unity_map;
+>> +       struct list_head ivmd_entry_map;
+> nit:
+> IMO unity_map term was based on spec, which was synonymous with identity mappings.
+> If unity_map term is not being used, then I would suggest keeping it as ivmd_entry_list
+> instead of _map, since it is simply a collection of ivmd entries
 
---=20
-Mike Looijmans
+Sure.
 
+Thanks
+Sairaj
 
+>>  };
+>>
+>>  /*
+>> @@ -869,7 +869,7 @@ struct ivhd_dte_flags {
+>>  /*
+>>   * One entry for unity mappings parsed out of the ACPI table.
+>>   */
+>> -struct unity_map_entry {
+>> +struct ivmd_entry {
+>>         struct list_head list;
+>>
+>>         /* starting device id this entry is used for (including) */
+>> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+>> index 1f0ca675df1c..9356efe14b3e 100644
+>> --- a/drivers/iommu/amd/init.c
+>> +++ b/drivers/iommu/amd/init.c
+>> @@ -132,7 +132,7 @@ int amd_iommu_pprlog_size = PPRLOG_SIZE_DEF;
+>>
+>>  /*
+>>   * An AMD IOMMU memory definition structure. It defines things like exclusion
+>> - * ranges for devices and regions that should be unity mapped.
+>> + * ranges, unity mapping for device and regions.
+>>   */
+>>  struct ivmd_header {
+>>         u8 type;
+>> @@ -1726,7 +1726,7 @@ static struct amd_iommu_pci_seg *__init alloc_pci_segment(u16 id,
+>>
+>>         pci_seg->id = id;
+>>         init_llist_head(&pci_seg->dev_data_list);
+>> -       INIT_LIST_HEAD(&pci_seg->unity_map);
+>> +       INIT_LIST_HEAD(&pci_seg->ivmd_entry_map);
+>>         list_add_tail(&pci_seg->list, &amd_iommu_pci_seg_list);
+>>
+>>         if (alloc_dev_table(pci_seg))
+>> @@ -2319,8 +2319,8 @@ static int __init amd_iommu_init_pci(void)
+>>         }
+>>
+>>         /*
+>> -        * Order is important here to make sure any unity map requirements are
+>> -        * fulfilled. The unity mappings are created and written to the device
+>> +        * Order is important here to make sure any ivmd map requirements are
+>> +        * fulfilled. The ivmd mappings are created and written to the device
+>>          * table during the iommu_init_pci() call.
+>>          *
+>>          * After that we call init_device_table_dma() to make sure any
+>> @@ -2606,17 +2606,17 @@ static int iommu_init_irq(struct amd_iommu *iommu)
+>>   *
+>>   * The next functions belong to the third pass of parsing the ACPI
+>>   * table. In this last pass the memory mapping requirements are
+>> - * gathered (like exclusion and unity mapping ranges).
+>> + * gathered (like exclusion and ivmd mapping ranges).
+>>   *
+>>   ****************************************************************************/
+>>
+>> -static void __init free_unity_maps(void)
+>> +static void __init free_ivmd_maps(void)
+>>  {
+>> -       struct unity_map_entry *entry, *next;
+>> +       struct ivmd_entry *entry, *next;
+>>         struct amd_iommu_pci_seg *p, *pci_seg;
+>>
+>>         for_each_pci_segment_safe(pci_seg, p) {
+>> -               list_for_each_entry_safe(entry, next, &pci_seg->unity_map, list) {
+>> +               list_for_each_entry_safe(entry, next, &pci_seg->ivmd_entry_map, list) {
+>>                         list_del(&entry->list);
+>>                         kfree(entry);
+>>                 }
+>> @@ -2627,7 +2627,7 @@ static void __init free_unity_maps(void)
+>>  static int __init init_unity_map_range(struct ivmd_header *m,
+>>                                        struct acpi_table_header *ivrs_base)
+>>  {
+>> -       struct unity_map_entry *e = NULL;
+>> +       struct ivmd_entry *e = NULL;
+>>         struct amd_iommu_pci_seg *pci_seg;
+>>         char *s;
+>>
+>> @@ -2678,7 +2678,7 @@ static int __init init_unity_map_range(struct ivmd_header *m,
+>>                     PCI_SLOT(e->devid_end), PCI_FUNC(e->devid_end),
+>>                     e->address_start, e->address_end, m->flags);
+>>
+>> -       list_add_tail(&e->list, &pci_seg->unity_map);
+>> +       list_add_tail(&e->list, &pci_seg->ivmd_entry_map);
+>>
+>>         return 0;
+>>  }
+>> @@ -3178,7 +3178,7 @@ static bool __init check_ioapic_information(void)
+>>  static void __init free_dma_resources(void)
+>>  {
+>>         amd_iommu_pdom_id_destroy();
+>> -       free_unity_maps();
+>> +       free_ivmd_maps();
+>>  }
+>>
+>>  static void __init ivinfo_init(void *ivrs)
+>> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+>> index 699b5f530f11..d0308fbceac6 100644
+>> --- a/drivers/iommu/amd/iommu.c
+>> +++ b/drivers/iommu/amd/iommu.c
+>> @@ -3100,7 +3100,7 @@ static void amd_iommu_get_resv_regions(struct device *dev,
+>>                                        struct list_head *head)
+>>  {
+>>         struct iommu_resv_region *region;
+>> -       struct unity_map_entry *entry;
+>> +       struct ivmd_entry *entry;
+>>         struct amd_iommu *iommu;
+>>         struct amd_iommu_pci_seg *pci_seg;
+>>         int devid, sbdf;
+>> @@ -3113,7 +3113,7 @@ static void amd_iommu_get_resv_regions(struct device *dev,
+>>         iommu = get_amd_iommu_from_dev(dev);
+>>         pci_seg = iommu->pci_seg;
+>>
+>> -       list_for_each_entry(entry, &pci_seg->unity_map, list) {
+>> +       list_for_each_entry(entry, &pci_seg->ivmd_entry_map, list) {
+>>                 int type, prot = 0;
+>>                 size_t length;
+>>
+>> @@ -3148,7 +3148,8 @@ static void amd_iommu_get_resv_regions(struct device *dev,
+>>                                                  length, prot, type,
+>>                                                  GFP_KERNEL);
+>>                 if (!region) {
+>> -                       dev_err(dev, "Out of memory allocating dm-regions\n");
+>> +                       pr_err("%s: Out of memory allocating reserved regions for sbdf=%#x\n",
+>> +                              __func__, sbdf);
+>>                         return;
+>>                 }
+>>                 list_add_tail(&region->list, head);
+>> --
+>> 2.34.1
+>>
+>>
 
