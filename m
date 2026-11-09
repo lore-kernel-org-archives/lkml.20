@@ -1,53 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188377;
-	b=eVET8XOEwjJImehFcIF2MWWqI7bCQPfy/lT5exZahISRKka1Reer2x3/pPotCRkTdQvV
-	 hAUdqY8uHhENKjXytWGq6NMHoFspHnFg4jlpV2lBhpn71QCVUDQPrMqS+xpYla/Z2Z3O9
-	 cMuTVG8KAFDCmMnFQnhv7bVLhKja2e2UpsM4G/WGnp9Xc51O/4TTMynaHM4Bvyd9W4xc8
-	 fgat3NblC9d/vEjHFf7HajSAas2x7ldX91bKYokiEC+5uHw3r6IEo3jJ5BxhPMJ/nMRit
-	 06ZXOqWxg+tSlkkvmM+g8Hy+KxqE7ko9BtDWUJTr0eZW1zS9SaNSwoH5tc/SdmGzvRw==
+	t=1794188550;
+	b=y9GevLwJqdwuuI5NEasdpYz3GC+IAC2d1CyeWIopyco/4dmWaIXHw3Xmis4DGdTWW/DY
+	 Om2oQ5fwZtEay42cnhvjbOPvUvOpBLXdZKxKCd4zIV5Cb5lDFXKgwZtJKsXWMtKLVxbQi
+	 CDv7kgWTQt9oj1t3fyYmfHY7/AUwHBtGWqqffSsGwM7aF/b0XVXLYvtEjxea5G28XwAEi
+	 YiUEnZscTNejFohPou5/sLmZGyBpMnea+aYXAUK3vxio8dDuaxsPbkVpP8rSw023cRs1t
+	 sMRokjPKK+h2UJNBqTWOjK2tulN1YihZlamJzi81GMpIaKoGy8bIutW1SU1cJUnoyRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188377;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=rGpy2J3RwV8f8Yjs5bgIKdGTteqMsKSOdlOCeLRY2dA=;
-	b=a/mc2IhCZPzETTlymhtGo4MUz5ubsXpgb8canU8DjS3mUousu5Hep4f7XGEgsj8GwSOw
-	 sVoxDSAL4THcqKtQuX3UEtBYrhPjVKgO5qKXjJo3kNW/HeIFMr7yzEMK8g7EoCxHHQ1v/
-	 48SfriDhyrKr84Yv+QsOT+y4prXczbTx6F4biWGktQX9SmsauK1IUBApwZ+ehkPkxMxks
-	 siFZqBdc6ZxM+S4R50sx7FjvqYDWL+fO+DO/OC0Qg1VjfQT4ZJTCn4Q6fvOYbKgt57w/P
-	 cNQpu1qmCjIlINTVDcCXGYd8xPGDj38d9DxoQqgwovnH7GQBFiWc/rqI/6CY+vjlYgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188550;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5MDqAcZY9aksFeH5q+wRTzlQ8j65v5wPJh73bJ/o470=;
+	b=GKYVepYUMaE+2GAhO7h3xI0XQHwWlcDSlXHfUnxo8vQsGCbc5AljcqoLhqw0cB47pfa0
+	 gLrgDwmFhrBwLlcmIB8jfU7FO0V+eF5MsIxLOkWh6elI39JtjqDnGNQ94SXVw86SsQtOb
+	 95AFcsLWS9CfX8xhc5652RV97K20UZ8HmDTkruR/s+bvh09Sqb3QlMcB4Y/Iipa81uKJY
+	 f+HjYOJmvWDM3b0Qp0SzmXUwnJnRXDsx5Elu6UWxqZOKb4WgOrNAxb44GZ0ZosD2hTgtW
+	 1omnwV3T6StafZaZCg9OA36x5UHyGEdrnkB+WW9QkuCVpT79tPVUvbuFqknfY+2y/QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=206.189.79.184
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA32F606A326;
-	Mon,  9 Nov 2026 01:39:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA32F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMBmL2tNJPFqBpAiAA--.8502S2;
-	Mon, 09 Nov 2026 09:39:25 +0800 (CST)
-Received: from hust.edu.cn (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wAnsjw9JPFqZoQtAA--.37324S2;
-	Mon, 09 Nov 2026 09:39:11 +0800 (CST)
-From: Dongliang Mu <dzm91@hust.edu.cn>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mc0eoXnW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D0E606A31C;
+	Mon,  9 Nov 2026 01:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mc0eoXnW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C2201F0089F;
+	Mon,  9 Nov 2026 01:42:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794188549;
+	bh=5MDqAcZY9aksFeH5q+wRTzlQ8j65v5wPJh73bJ/o470=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mc0eoXnWhQ2Iv5xiM4kAz7BaBUY6zJUaUwv7V6CCp9CuPKdKRk+tYGvFd6I1py/Rc
+	 JPrpWcjHltb78ijqJdY74zQWP1NrGwaWwOGLJBq4oJ9z5Qu+gD6e0dXWtnOto/YFuC
+	 Q5utkMe6QiY9KQUgHm/wIcFMpwEAbnHapuKD1myJNtyI8q5+M+Vr260dLClG6vS1b4
+	 wmQeGsihzWl6MCdRaKmWuOAnK+gU7joCSIFr9s61EA61+NO6YOpg5fvlBK+kY2TBMa
+	 JjwWiJxilnHrjHyJBqwosNWH1r7w/m6Dcg9Uw77xd5CP7bdr34c9Wr/h1TS+rM+cHd
+	 59MrC7443LXww==
+Date: Mon, 9 Nov 2026 01:42:25 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Satyam Gupta <sgsatyam@google.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Enric Balletbo i Serra <eballetbo@kernel.org>,
+	linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/4] docs/zh_CN: translate generated-content.rst
-Date: Mon,  9 Nov 2026 09:39:06 +0800
-Message-ID: <541a2e0f4958f2261db1397b095a8206675634a1.1794153793.git.dzm91@hust.edu.cn>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1794153793.git.dzm91@hust.edu.cn>
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
+Subject: Re: [PATCH v3] iio: cros_ec: Use platform sensor_num to unregister
+ FIFO callback
+Message-ID: <avElARDvNGQWodN8@google.com>
+References: <au1FF5K9EALuqnNR@google.com>
+ <20261106071904.142937-1-sgsatyam@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,141 +66,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMBmL2tNJPFqBpAiAA--.8502S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW3Ary3Cr4kAF45Gw4kGw43GFg_yoW7Ar1kpF
-	Z7G3s3tF40kFy5CFZIkFy5X3W5CFnxGFyxJr93JasxtrZ3GFyqyry2vF9xXa43W347AF98
-	CFWkJryUCFnIyFUanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUH0b7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
-	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC2
-	0s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106071904.142937-1-sgsatyam@google.com>
 
-Translate the tool-generated content guidelines into Chinese.
+On Fri, Nov 06, 2026 at 07:19:04AM +0000, Satyam Gupta wrote:
+> cros_ec_sensors_core_register() registers the FIFO callback for the
+> sensor number found in the platform data. The matching cleanup action,
+> cros_ec_sensors_core_clean(), reads the number back from
+> st->param.info.sensor_num instead.
+> 
+> st->param is the EC host command buffer. Drivers fill it in under
+> cmd_lock before each command, while the cleanup action reads it without
+> that lock. It is also set only for physical sensors. If the field holds
+> another value when the device is unbound, the cleanup clears the wrong
+> slot and leaves the callback in place, still pointing to the iio_dev
+> that is about to be freed.
+> 
+> Use the platform data in the cleanup action too, and pass the struct
+> device pointer directly to devm_add_action_or_reset(), so it always
+> unregisters the slot that cros_ec_sensors_core_register() registered.
+> 
+> Fixes: aa984f1ba4a4 ("iio: cros_ec: Register to cros_ec_sensorhub when EC supports FIFO")
+> Signed-off-by: Satyam Gupta <sgsatyam@google.com>
 
-Update the translation through commit d699a5da1039
-("docs: link AI coding assistants and tool-generated content pages")
----
- .../zh_CN/process/generated-content.rst       | 97 +++++++++++++++++++
- 1 file changed, 97 insertions(+)
- create mode 100644 Documentation/translations/zh_CN/process/generated-content.rst
+Other than the fact that it wasn't sent independently, the patch itself
+looks good to me.
 
-diff --git a/Documentation/translations/zh_CN/process/generated-content.rst b/Documentation/translations/zh_CN/process/generated-content.rst
-new file mode 100644
-index 000000000000..0dfc02018eb9
---- /dev/null
-+++ b/Documentation/translations/zh_CN/process/generated-content.rst
-@@ -0,0 +1,97 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+.. include:: ../disclaimer-zh_CN.rst
-+
-+:翻译:
-+ - 慕冬亮 Dongliang Mu <dzm91@hust.edu.cn>
-+
-+========================
-+工具生成内容的内核准则
-+========================
-+
-+目的
-+====
-+
-+内核贡献者早已使用工具生成贡献。这些工具能够增加贡献的数量。与此同时，
-+审阅者和维护者的精力有限。了解一份贡献中的哪些部分由人编写、哪些部分
-+由工具生成，有助于合理使用这些精力，保持内核开发的健康发展。
-+
-+本文旨在阐明社区对工具的期望，让大家提高效率，同时维持投稿者与审阅者
-+之间的高度信任。
-+
-+适用范围之外
-+============
-+
-+以下准则不适用于仅对已有内容作细微修改的工具，也不涉及协助处理简单
-+事务的工具。例如：
-+
-+ - 拼写和语法修正，例如改用祈使句
-+ - 输入辅助，例如补全标识符、常见样板代码或简单模式
-+ - 纯机械式转换，例如重命名变量
-+ - 格式调整，例如运行 Lindent、``clang-format`` 或 ``rust-fmt``
-+
-+即使所用工具不在本文适用范围内，仍应考虑：告知审阅者所用的工具，是否
-+有助于他们审阅你的贡献。
-+
-+适用范围
-+========
-+
-+如果内核贡献中有相当一部分内容并非由 Signed-off-by 签名链中的人编写，
-+而是由工具生成，则适用以下准则。
-+
-+发现问题并测试修复也是开发流程的一部分。如果使用工具发现了一项变更所
-+修复的问题，应在变更日志中注明。这既是对工具的认可，也能帮助其他开发者
-+了解这些工具。
-+
-+例如：
-+
-+ - 工具建议的任何修复，例如 ``checkpatch.pl --fix``
-+ - Coccinelle 脚本
-+ - 聊天机器人生成了补丁中用于对列表条目排序的新函数
-+ - 补丁中的 .c 文件最初由编程助手生成，之后经人工整理
-+ - 将补丁交给生成式 AI 工具，由它编写变更日志
-+ - 从另一种语言翻译变更日志
-+
-+如果不能确定，请选择公开透明，假定这些准则适用。
-+
-+准则
-+====
-+
-+首先，阅读开发者来源认证：
-+Documentation/translations/zh_CN/process/submitting-patches.rst。
-+它的规则简单，长期以来涵盖了许多工具生成的贡献。请确保自己理解提交的
-+全部内容，并准备好回应审阅意见。
-+
-+其次，投稿时应在封面信和变更日志中如实说明内容的来源。可以提供如下信息，
-+使说明更加透明：
-+
-+ - 使用了哪些工具？
-+ - 这些工具的输入是什么，例如 Coccinelle 源脚本？
-+ - 如果代码主要根据一条或几条简短提示词生成，请附上这些提示词。
-+   如果会话较长，请概述提示词和由此获得的辅助。
-+ - 内容中的哪些部分受到该工具影响？
-+ - 如何测试投稿内容，使用了哪些工具测试修复？
-+
-+与所有贡献一样，各位维护者可自行决定如何处理投稿。例如，他们可能：
-+
-+ - 将其视为普通贡献；
-+ - 直接拒绝；
-+ - 特殊处理，例如要求额外测试、更加严格地审阅，或给予低于人工
-+   编写内容的审阅优先级；
-+ - 要求其他特殊步骤，例如请贡献者详细说明工具或模型如何训练；
-+ - 请投稿者更详细地解释贡献，以确认投稿者充分理解代码的工作方式；
-+ - 建议更好的提示词，而不是提出具体的代码修改建议。
-+
-+如果工具允许你自动生成贡献，应预期生成内容越多，审阅就越严格。
-+
-+与任何工具的输出一样，结果可能有误或不合适。你应理解并能够为提交的
-+所有内容作出解释。如果做不到，就不要提交生成的变更。
-+
-+如果仍然提交，维护者有权不作详细审阅而拒绝整个补丁集。
-+
-+参考资料
-+========
-+
-+有关 AI 编程助手的具体准则，参见：
-+
-+* Documentation/translations/zh_CN/process/coding-assistants.rst
--- 
-2.51.0
-
+Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
