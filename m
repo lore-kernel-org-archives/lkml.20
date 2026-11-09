@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794231840;
-	b=yTQp2YkSpmUbGK8yr81nlV2UrDuFC3PTAVY8UlCC5KcvH+0AEMziQDJTg3FgTkVkidP+
-	 TFR6SFic8KRyi2IDAaxmXrkZUC/zBTHlSTUSpkvqA/1D1eVbOaEf8YVbWeHsuYHamgPGY
-	 NUkDjoJBMGmy9JeE7nFF5A2sopUnyPU40adZ5kNqAX2nRwdKKrROc5g7WjfXS196PmFdB
-	 iBeQZTffSTwv4ZdiOIJhBNQ4GtiWI5/LcP/vUkJRVj0xFzfp6X6KWfilSerFl72ycYTTS
-	 gJ48kLp5NDq3O8RKLWfisdORMpgMaFXGiuhNn8NDS5i15gIi6O68gFdxjL2VZ8mHiAA==
+	t=1794231839;
+	b=2L2rgjbJp8fUrzXzQJB//9hLNPkeOyy0oBaIwEc1PAFoZb1hck8ZCep08raaWSCPXXqc
+	 j7MFQbsguvoQ1xxjcFX2laN1J/VNuoDsbuSiq08yNlwyGr9VpbYqThpMTpUT6oHFhJUg/
+	 BxrzlSWBwwk0KnX9iWKiQunZxiQMUWVyDaA5bxtj4eYHy1t63eeWaW0EWTxljo4qRq51q
+	 qU+Drpam+PxGMpazzwRO7DO0s8+rUKDqveBenaAmUDpaw/bWW244QkIlegMQhRLtSbr+4
+	 SBEAaV6XUuHHQ/yR0w7QLyjh0Fe7qXk6B+5o7I3mHYS/mQCk2Vgm26r7h0qzyyeC0JA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231840;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	b=YzLO/F8t3ECGAqfBToNVaLHNS/GUpgLy47PzG4oqnsvTgpK4RJoiZDoJdD5U+Ac8CFJV
-	 EGa90TXcZcl6PQ/74KqNszvxm4je5IdmcQZjsGYaEexH5Rca0i/hPbFS46qadZmT75G0r
-	 WIdW1aCZsSAqyiSe5n9ahAHIsPStHonjbBU57HqoL7akHq87S4bMAvKJVbYYknWu8dfxK
-	 birbXi5G6sauwGO/SrYApsDbEYyo12tzh4n7bfaQEqpGHD7+DCMWNu4HejDbZ2mPAzOwK
-	 wppT9i6qecW5C6jnKdQuG2T1X08RFjjXzKgpJ5SBDkQmX3ABWGXPPIOwc7T6HLPu2nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231839;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=KqI+Qz+GFttCTfVI/Kt/WWeDzMVSRyn+Mk3zpEGvFOc=;
+	b=YwzgdjN+LALYGNKqHpXh/uVokXZqUT2VtzOct/Nr/gDEVmI7bF3r9wC79nq2d/ZSYzR2
+	 Z+XPwCS2N66bPZvS+V//jdvdESr2FwoUsxBFtIWiOkoefOcnUQv7n9wkOr1fh+RI3rKmt
+	 VP3Xe5vbtEhU2feX+1ZaF+KtCMIGj/ebODItfz69c0m+JMKkwsGup3XhhFG+CqbnBIaAE
+	 TFb9imGabegE4LnxfM3dYCLTP+DAoJvchzTnrPsZD+U6Zsj+5G60t0lzRDJUmiF8QvnOL
+	 ERd6IPLH+Xujh4wGcTbu2W0w8jz1yw6h9vG5ptcoDniN8JTrjSFyAT+ewdIz1PNoX3w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJTyT2C8;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3402606A32A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E56E606A31C;
 	Mon,  9 Nov 2026 13:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJTyT2C8
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794231839;
-	b=lG96xWLSy5XFfp2TMOIYrBVkKaQ+VBADwRz4p/M2sUwZ5/zRbjGhLs8jHA/fTInXt5JH
-	 NHFM+sYE7acMZlympfex1cMEKiMDe6+On9ddowo53UTKLm9ALHa4dqFzVSuxLEULxy0Ki
-	 ZZ1qybt4b8//Izwevapqm3OmDfnYgWGyNW/v93AKFdCnNA2aupdg58NUpxkfIvx0mb8j3
-	 wZ9uh3gx0PfODpVk2rfNhbohELad4LNpwnBKzt+WwrGSRLMtoGicZIS0FhEDLnL4aQDlH
-	 KmlHqT6o+pWrzGWeaMG2sff4tfFiX/kYU6CYBkGZ+3sds15gvl9sDQ9MCdDPgt0Ixkw==
+	t=1794231838;
+	b=WMrLIb5/84cSbNq17bceaxs3giUQ8Q9F/FC9Jz/86UvDMLCd86OlQAyQoX98RzQMXOMC
+	 Ll+1UJsC5e0j2CX67fPSsYz8oaHq/O2QDae9NM3mTWWNvkTW4aR93rUwDakecqb0plrlA
+	 h0okC5rY3qxlzz12QmwrAYTy+5RC/MzfyqwDRhWrEOV1H6DuwP2ZPxLV37wolhHeGmQU2
+	 kqizBadskrR6dA6aewPEusz/JLfEd3YyLjdmmh/kJojTrwN4V1zvRIfdvoxOIsZRJjtnL
+	 DA4hXGiy9QGJpjswR1rlI492w+AQkn5qpx2B4+OJ8GPWNCI+tAjk8wxg8R+tZLXT+Dg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794231839;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	b=cqm9nPwAZPY2fjZiArfLYyw3VQ9gCurGoqhE4NwI3DMMQe5mz3jfA3IXNnVA7tFMjGmt
-	 ZbIK05gmypGp1djMFkrTtp+DJ1GHpwRVY3mLsGPmMDWTENX0Cib9vGuXhEzLjyVYvi4+O
-	 Hs93N0N5q5Qoj15r94F2/CS4uhh4Rz3L+WiXpqza8o5Ub+5+lHOD3yoLPfYIf83KuqIM5
-	 ugtHYRhmDUm8oJEzLQy7hFrTzJ4FadHkkXk5hvpRqJJ3HO/99wHzed43ITBilyEjPTu6v
-	 Kt7V3iXVH1x7w2IVBCOWO98hZhBz0E0UYhhfIYijp9QjGFeYQcWWxgMERGbQAdJHPsg==
+	c=relaxed/relaxed; t=1794231838;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=KqI+Qz+GFttCTfVI/Kt/WWeDzMVSRyn+Mk3zpEGvFOc=;
+	b=bJA93VoW8AUZ07o+d43jg6e4qzfhhoKoLvk51n0ENXs261cIxSkQ3Fj7sc3N0EFgJOIu
+	 DvN1Yi4xmNMKlsg3cak2rwtDhzyjLvao0M92sevT5Rd54isgjoGdH0//Sgls4JvzFn+q4
+	 Q/wpURvE8/oKbgshOFk97JrvS3Jx3oF8MlvX1cCFXYoAzWiaCIUN9p19bEbIsW33/IdnP
+	 xBU720dwuhc8wed+9M36KqTjf+6N94jv+lgDCmxC8GogGJgNkCMbuxT9gdEmk4JKnlzC9
+	 2bq7aBh2uJbCRczLGQX3i2qj38Ei71XWForH6bWG8fWUNcmJblnEKiIYLUhF3eXeILQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5A2901F008A3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1E4291F0089F;
 	Mon,  9 Nov 2026 13:43:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794231839;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OFv5ScoHr6NEX0ohHKaYpAnOpZrheTiWrjXo99Rlw0ygg1U/Dn2oZPucD7D+8evGk
-	 3ZdZ6nLr/wwUQMeiwrO0+o3V4FNVo6AKlCD15SjOWuyiwb6dBPGZnlLzTGRsZQvJAq
-	 rcRTKisoxYnKf1AqpS5adK5I7K/uq0hrDQb95ZRoLAVRLBuq2paQZqIW2tjyQ+s8ol
-	 a5IWZTRu+qt+El3jWoPmmaqwBKUVVvrALlDIhQjxzRRg2Df/NeAtmCw2ybQ5w2EVdm
-	 HY2WvmPMfTprGz22zP/oPpqBZb14pNIwXoecP2b5HKsQnWLFs5UleEunL1Acfd0lXo
-	 u+z+Buf8ObpoA==
+	s=k20260515; t=1794231838;
+	bh=KqI+Qz+GFttCTfVI/Kt/WWeDzMVSRyn+Mk3zpEGvFOc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ZJTyT2C8NUfrZtvakG0CARNC8BpC3p4lhy4WayPqKEddz/u0NvYw+Y2N/8eANgrjp
+	 HT4oJmUDu7Z8AIURXNT7QBUcugnFoSLs6774bSvqh3DxuJZfwCmXGiPsmkW5ikgrSn
+	 O+XyMjvbZFjGo1CAMCftH9kkU3HAbBdbvs1nLXmwGPJ8obgN5qdkZMwsMPBr0LjI56
+	 DPVY410dhV/WZMZ76pEAivZLFDV4cfk3uFZNVdlOvSMqcOQ8nDKn0hNgO8lO7b1W7u
+	 v5DIM7xoorU6j6wyZaHRPlu4RsOHbOV4MHyk43C5H3Zrb94olfDtWi7kLFIVCXp40Z
+	 P8MHI3+7QRhSA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DFA6F484C5;
+	by lkml.kernel.org (Postfix) with ESMTP id A4FEB484BD;
 	Mon,  9 Nov 2026 13:43:57 +0000 (UTC)
 From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 16:43:53 +0300
-Subject: [PATCH 3/3] media: verisilicon: leave room for the JPEG header and
- one stream burst
+Subject: [PATCH 0/3] media: verisilicon: fix VEPU1 JPEG encoder writes past
+ the CAPTURE buffer
+Date: Mon, 09 Nov 2026 16:43:50 +0300
+Message-Id: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
-References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-In-Reply-To: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAv1JyNtBWFPUr4sElasCNVEWQ/t3gc
+ QZmXggkTAEq84LQzYH3TcElBvq53SZCHpTBW587Z3NUecqO3TUuvPKJNsuosL7syKeg1SE08vM
+ f6ybGD+G1YdFhAAAA
+X-Change-ID: 20261106-hantro-buflimit-055e8029be23
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>
@@ -99,80 +102,78 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794231837; l=2875;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794231837; l=3241;
  i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=WFzfE2RiWdT+i+qq0glggXPv17AxZu0PiVwPxE5rxXQ=;
- b=pPK6FLWKeibNzXyvohaaL0PsnBvzKTougQAG6KwXp2yfxpo4tasR1lz+/mNE91PalLZ0uU93p
- 0Pp3dUaw9zCAA3hw1AA6gCnAy32OCAfz/TuRbgsnNesnOQZWA78mcPb
+ bh=en/jn4YMqVb7Nenx7Rb8ix4nBUnrgggys7Qhs7eVdYc=;
+ b=Vzu8+WR8qtMz9STuQ8vNsgANjERJiMoL0jn3Kz0IB5o5qa5qjmePpUxxb375dpQGxFTRimMKP
+ T/vCqhTRomuBg/iauDBMz10oDcnBKdVSRsyoTRBpSaar41IE7Ta6eJ/
 X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
  pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
 X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
  auth_id=1409
 X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
 Reply-To: shomenkow@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+The H1 JPEG encoder is given its stream buffer limit in bytes, but the
+register counts 64-bit words, so a stream that does not fit the CAPTURE
+buffer is written past its end, up to eight times the buffer size. A
+quality 100 frame of noise does not fit the default sizeimage, and
+userspace can also set a smaller one, so any client of the encoder node
+can get there. On an RK3026, which has no IOMMU in front of the VPU, the
+encoder wrote 230 KB past a default-sized 640x480 buffer and 1.6 MB
+past a 1920x1088 one.
 
-hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
-CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
-plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
-header into the plane with the CPU before the hardware starts, and a
-plane smaller than the header also makes the WARN_ON() in
-hantro_h1_jpeg_enc_set_buffers() and
-rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
-can trigger at will. After the header the encoder writes its stream in
-bursts, one of them even when the stream limit is 0; on the RK3026
-VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
-is therefore written past its end.
+Patch 2 writes the limit in the right unit, rounded down to the 64-byte
+write bursts measured on the RK3026. With it, a frame that does not fit
+ends with a buffer-full interrupt, which the driver turns into an ERROR
+buffer but which leaves the encoder paused, so the following jobs time
+out. Patch 1, which goes first, stops the VEPU1 encoder after such an
+interrupt. The encoder still writes one burst with a limit of 0, and the
+driver writes the 624-byte header itself, so patch 3 makes the smallest
+CAPTURE sizeimage the header plus one burst.
 
-Raise a smaller request to header_size + 64, so that every plane the
-driver accepts holds the header and at least one such burst.
+All three were tested on the RK3026 (VEPU1) only; the test paragraph of
+each patch has the numbers. v4l2-compliance 1.30.1 on the encoder node
+shows no new failures with the series; its one failure (the raw OUTPUT
+format's colorspace is not SRGB, v4l2-test-formats.cpp:892) fails
+without it as well. The VEPU2 JPEG encoder (rockchip_vpu2_hw_jpeg_enc.c,
+rockchip_vpu2_vepu_irq()) has the same code and the same limit in bytes,
+and the STM32MP25 VENC runs the H1 code that patch 2 changes but has its
+own interrupt handler without the stop of patch 1. I cannot test either,
+so this series leaves the VEPU2 and the STM32MP25 handler alone; a check
+there with a quality 100 noise frame and a default-sized CAPTURE buffer
+would be welcome, and the same change can follow.
 
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
-this message. Tested on that board: a 640x480 CAPTURE format set with
-sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
-656-byte DMABUF plane is then refused with EINVAL, and frames that do
-not fit a 688-byte plane stop exactly at its end and come back with the
-ERROR flag. A request of 600, now raised to 688, encodes with no
-warning; before this change it was kept, and the encode hit the
-WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
-reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
-bytes after the header (a stream limit of 0), the encoder wrote one
-burst, 32 and 56 bytes past the plane. The burst size is measured there
-only; not tested on other SoCs.
+Not changed here: after a watchdog timeout, rockchip_vpu1_enc_reset()
+sets H1_REG_INTERRUPT_DIS_BIT and the JPEG encoder path never clears
+it, so every later job times out until the module is reloaded. That
+can be a follow-up.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+Before v5.18 (dc8bfe1e482d, "media: hantro: output encoded JPEG
+content directly to capture buffers") the stream went to a bounce
+buffer; patches 2 and 3 do not apply there and those trees would need a
+separate backport.
+
+The bugs were found and the patches drafted with an LLM coding
+assistant while porting mainline Linux to an RK3026 board; every claim
+in the messages was checked against the code or measured on the board.
+
 ---
- drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Sergei Khomenkov (3):
+      media: verisilicon: stop the VEPU1 JPEG encoder after an unfinished frame
+      media: verisilicon: program the H1 JPEG stream limit in 64-bit words
+      media: verisilicon: leave room for the JPEG header and one stream burst
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..cc35beac8338 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 		 */
- 		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
- 			pix_mp->width * pix_mp->height * fmt->max_depth;
-+	} else if (fmt->codec_mode == HANTRO_MODE_JPEG_ENC) {
-+		/*
-+		 * The JPEG encoder writes the header with the CPU, then the
-+		 * stream in bursts, one of them even when the stream limit
-+		 * is 0. Leave room for both; a burst is 64 bytes on the
-+		 * RK3026 VEPU1.
-+		 */
-+		pix_mp->plane_fmt[0].sizeimage =
-+			max_t(u32, pix_mp->plane_fmt[0].sizeimage,
-+			      fmt->header_size + 64);
- 	}
- 
- 	return 0;
+ drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c | 10 +++++++++-
+ drivers/media/platform/verisilicon/hantro_v4l2.c        | 10 ++++++++++
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c    |  9 +++++++++
+ 3 files changed, 28 insertions(+), 1 deletion(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261106-hantro-buflimit-055e8029be23
 
+Best regards,
 -- 
-2.53.0
+Sergei Khomenkov <shomenkow@gmail.com>
 
 
