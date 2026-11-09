@@ -1,97 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794263462;
-	b=m3/Npzz5ZlOd6Qhkh87XeOyHkCuNh94b2XnKo38qFC6VgnXG5n3+e8SbMmoUh06qumx+
-	 v5fwp7yZjol9ZbpXdAMghQ5tIJlBk/ybaivyHnehM8/Z8JUIWbuHYUMBj+9H3TCHUGDju
-	 g9DnQ2jex3mRiw0nWnOvD8pAYBAPtpaoT+SsNhopSbwH6bN+4NgQBJ58+Q1ZuavKrf1P3
-	 tOS9bmjx8By/jwQyFJHgF2MPrRAjtqGB0RqqtDkNv9UChfzIJ+/SztYRZkHaRSZkxZJdm
-	 He6NhNgEyFjTasqGC0Yi0DP/Fx9AD9EKo7ehpc9ECgQ8dPrFsad4HvHKhTboAouQxIA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263462;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WOTFv6VJX6Xsjhv76PyixKH+T28COjVb1Ygxx/2pcso=;
-	b=RMAdD3rRbu6nPuSIOVKcCqvxD9P1rsbP7UUk1CSErakZy6/hW9qUxSP5Odru5frSRke0
-	 KywexiAqW0wGsbT3+W8D7sYUpqV/unvBKLdJJEsVkywo9LSwJcD6GjgUevAouEEjaISIy
-	 Q2F+DMY4hkFzsYJ2yeKIUkJN1Yolttv3PXY+o1nBxWPEYgZSTIK4+EpuNZhbNZd4spyPz
-	 oTs0tKlH4FKoZrjChTTSvxmOHwXXMFE+NT0bZpI6MqFY/EMsago6CWlLFfdxZ3Z97jVMM
-	 XkBta+ytKntfZ0oBfM7FX0jtJAn8PgBm+eyjv3/vXXz3NuHLIz6kqgEcszAf+rIcl9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hTIw2MTj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794263479;
+	b=uqQVNZApJ1pzax7bOEH+T05hKyTSnLgrEcx0TG3CDB3Fb4hP67baGQ9TczWhw2IlbTi2
+	 CtuyYPXIwI5MbLyZFUTEoFS2pqE0Mhb5miQghjHTaO/PVnt71G/X8z+qWMQ7kHTReuKAG
+	 OgSjx6fEvWS6y6PShyWiLiBDLDBBa4fBmRnIvRg/R83OZvD3VsK18LGnhudCFAcLsh0Wz
+	 x+t4yOHsTxyWkm1oh3dU+FGvmviayhcUsxdX5l1i4SwLdymgLddz060JJH8kXnUuDPzFc
+	 otBp9OhH8sx8/gsvPz6qMflM3E88qtEopPzs36mWczvTtwBGVv5zd0ddqg5wxUAdXUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263479;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=+Q/teHbjgmKyg42AqzsssNkJkbaIeHmrybg6EBOInXY=;
+	b=2ygG+GEFSiw3SuqJrAYVh4sMAceKSSopYTbF75kEWtaCl9CvtKIVvFKGf70jtKOHmT1m
+	 +ywgSlqYtBcwZ+bPA/kkLwwvfbKoGFqSRhel6WSZWzdPGeoQDezkOyMxNpvFzTH71CdPS
+	 q3q888IVo5a/v8q2Q8XubM83u7GqdTTSBgpP0C+46xSGcNk0OfrblIv75Q+OdqN2bS7ew
+	 +a8XEqrJEO1b603PgAJPagjpl06AqgaBybtQC2ACbSW/Viau3/msygQEgSqPUUw3Zsm3+
+	 h+GWULiiiZHy7PDr86i9Pk/7Ua2YhX1PzxxubynX5wt2ssA++gbgtQ6Fz7yVkweHVkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FLg0eRe8;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0648606A325;
-	Mon,  9 Nov 2026 22:31:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0648606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1394606A330;
+	Mon,  9 Nov 2026 22:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1394606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hTIw2MTj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vPB8V8CFDDMqcIWa+bYQb1M35AAaZI6ImQf/gEDy9Ca5dkVdjPwF/GVLkKGOREGMOcY52ADsUMpaJQxgZma4nqCJSaaitP8UpG2aNmMdefRgJWuohrsMdTXr6t3NjlUJjwqWA9CxPK2fhQnjwC9krKmlYDIIkgeXL3b0ehxNWiPeAcs4m2yHKXaKZZGpDaiM1+UcouAMqBldUJkfC4QD00q3Ofvh1eGiBfivYCN+ARdqqF9pomlVq6VNweVJ4FetURTQZqhf1WpnEAfjpSWtuDCxRY5Qtzr+gDNciE5P+JJqj9uyHFUCecq4B6Lr1IsDFWLXiK+H9UCpRkyh6JYZ/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WOTFv6VJX6Xsjhv76PyixKH+T28COjVb1Ygxx/2pcso=;
- b=isEyNOpPLwPiQFqoXYCZekJJQzPOyx7fRBG6x0UwTBzldhH6+GEUCksjS8K4dFLzU48MWsGx1PX7N0CtrXCBfjHEuRv/TKilWisatdbbzw5sgoUm66dGOaA8r1jahIK6TEb+mOs7YWqnSGA2BufVSHYUQe89f/b4YAZLJbZXO8ytsUJpDDOkEUyaE7L1Txd7qGSeesYB9yqTSF/DOBcrRs5QlWwmzBbBE6onRFFmPvoj6VMVag3rymuFM6Ip3RiAyWRKtnDIBXKyE0Q600/GTC+/QIqK2ha5IzhjA64HteTxeeBhc5E/NoRpmnacTl/MfisubYH8QBIqXpjQPx4nFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WOTFv6VJX6Xsjhv76PyixKH+T28COjVb1Ygxx/2pcso=;
- b=hTIw2MTjba/OAHoneV+Se0kqpLcwle7Z9kPvKFUzDDHdqXg9ExGy5a+SlTZHouYl/v0e6i0cX3kMlxEzQSRa7yCq/1CyfsbaIcMbDoWWo3T+CbdECDWcTGAlwYWJPDf1GbFVdaF93dhT59zB4hpwhTpF7/nnWWnGaxat/Ol3xn7ZLQen0Z6HOV2igKDGMDUJDgInab4l1mHPooSiKMBH1FqoDKrmQ+ifbqgsCnuswpOOOzK4SlLwE92d3B/BKBYqI1xFzsVGKHpjnaRWtcHMjDSaJ114BgGnxkVrWZlC25ul2dIG1oLyIANYq7Q4McoEkbOySjXtlPpn6QL56j1l/A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SN7PR12MB8170.namprd12.prod.outlook.com
- (2603:10b6:806:32c::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 22:30:57 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 22:30:57 +0000
-Date: Tue, 10 Nov 2026 09:30:52 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, John Groves <John@groves.net>, 
-	Miklos Szeredi <miklos@szeredi.hu>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/truncate: unmap DAX entries before invalidating them
-Message-ID: <avJEEEL-9L-ycVW9@nvdebian.thelocal>
-References: <20261106-fix-dax-invalidate-mapped-v1-1-292ce5958d67@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-fix-dax-invalidate-mapped-v1-1-292ce5958d67@nvidia.com>
-X-ClientProxiedBy: SY5P300CA0036.AUSP300.PROD.OUTLOOK.COM
- (2603:10c6:10:1fd::8) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FLg0eRe8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794263479; x=1825799479;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=0oAGGV7ACZl5cUvd318Hu7OhYmxrskwT7NubZ04RIu0=;
+  b=FLg0eRe849iIqmXvdLoHNmK9aBk0OKcDcjv9vxDpYq7Qs8nampCo1MjB
+   84Hye/zQEUDo3mN3zzhC9h4oKT7NpU6NRBBEYyDZohne2quLcOjDSgC4G
+   wbhLbaIeEVVwO2XskINVG9t9tw12Fli7ubKE1X5cUaJZ3gImkRT/cz55k
+   wXfNFGTqQTuDZVgN4ZDRGuW4j/g+38Hr8S3/AvgsoG9UyeeD+wJH+zzqu
+   ChckB1GxsYqLlghlD3rplUUDQWuSwgwifUeqKhHIZcr0HSQJGyDCrctDD
+   iu737mw1SYxO3KoHFBtgip+lBxMVUcMaWRQ20HE//CmhFzVfgtHaGnqUv
+   Q==;
+X-CSE-ConnectionGUID: 68bZXqdBQl+PbI7oLdKgIw==
+X-CSE-MsgGUID: G46CfTjWSPG9qDZd8DKOBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3024000"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3024000"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:31:18 -0800
+X-CSE-ConnectionGUID: 0LYaPUOWQG+Grke/pgH/Mw==
+X-CSE-MsgGUID: ICJZsGuUTRSLLXGmCIAm2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7974218"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:31:15 -0800
+Date: Tue, 10 Nov 2026 00:31:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: admin@tsv-stahl-riesa.de
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: light: Add Capella CM3217 ambient light
+ sensor driver
+Message-ID: <avJJsIJvUVpfZXnb@ashevche-desk.local>
+References: <20261106-upstream-iio-cm3217-v2-0-d97adde9171c@tsv-stahl-riesa.de>
+ <20261106-upstream-iio-cm3217-v2-2-d97adde9171c@tsv-stahl-riesa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,280 +89,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SN7PR12MB8170:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07faa934-f6b7-40bf-fbdd-08df3eb11fa8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|5023799004|11063799006|56012099006|261021121427099003|261021123027099003|261022075727099003|261028144727099003|261009223027099003|261026140227099003|261026121527099003|261102130727099003|261102123227099003|261022105027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xqitOJy98/CS34PvzGwEqkm2dczp3ddybnveZ1TNhRgl1a8v0aWreGZFGoT/CpIX60xem2K6MGyRzXQkuh9BIRwoGugwscCGX85K00XNLGMTieXNvLQ7sEywDWV1KLg0v1Zf66x3BlaaUhJlS16WCtKaB8wuJ28opxwfSjta5hsEHOeWXRalerWfsr+n1tiVq6xkv2+cuVZq+9MJKsxyph4+KgKTIRm2HZtDQDVuqqlY6vtumZuYpFi1qCk+Fk5rWL6pT6q+wYqVNgriSmUNFNEbrdyhh9FiXkLDkm2vhtnoKB0Iz0/UgPLCd8SEHYu51EbMtYgSXS7c1wPGFIVE5MfvgHGPrUiwChWF2IlU3xQCHF5Fmt+7JiD3UaiHJHv0xqQzqFHv3upzmWZx4D/hTtrai+SDngLjb17GGs4g36EZ4q+INdSot2qp2Rr9BgPyGCDco1YFPzxlh7Carj4xHm95RpD7fYby6RWbsp8oPU71AV+M36/+P8Wkdd1wt8lLoVTFaIJ63r1k2Oc7tJ5+KhFEsZXRWNgf0R0L7a7DTicEqQAl6DjIlDSeo+PI1xdOfJ8OmF8/N0wOJkZMvNlikTdKyOKnscj19jYBU2vzC1sxU1sNlcbe8yeQpbD5L4RF0oWGhQ9xy/fW2KwN96C5KQaiITdOsiAx2uGliKHXI8g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB598757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(5023799004)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022075727099003)(261028144727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261102130727099003)(261102123227099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2MJl2VcuWxf0z5OBdVHA6qp/xik/pLNER/4fS+bBfP0sVfzPxekSBgTBVPJM?=
- =?us-ascii?Q?jncCQPh7MZkaYQVW0/87JqQ3uNJ6BkaxLdlvKMSYdx5jYrz1SNCYMQkM/jZm?=
- =?us-ascii?Q?XRCAczeRdGS1N2wvrth618zPI+UgfWp1jTkH4COGH2DJ2pX2v0x07yhZjnhf?=
- =?us-ascii?Q?4zXHT949omXkwvmBU4vZzd1nUOZIY6V9CdMV2yuR6ohKAa6Nb6GKGFyHHH+B?=
- =?us-ascii?Q?4E1ZN2XgOBiVUIyNMvZR5//Eoq1DVnxJlLX4N8kwE6s1F+GaPKwAugUO5w9R?=
- =?us-ascii?Q?djLxofptfHDC8HU6+rlBBBy5SkkrrGtNvFd+xa+N5wwKlB/1ojAfS1tpx/dt?=
- =?us-ascii?Q?WkseI1LRFhcRzhPkmWyLA3foqaO3xsEjzOzJj5Xo0B3zh9MhdO+MxQlcwGO7?=
- =?us-ascii?Q?hYb3//Y1bCu+8Kx3Ywnj6zMxdh5c4bn1D0FmSeqxnqmE41T3Z7wa9XMHKzdI?=
- =?us-ascii?Q?8goBsnS7sJAarTSmigB/oVykAT+qwKd3tR/n6jGHsm+ZKftE//+b1+TuNPdI?=
- =?us-ascii?Q?JFvq0A0KeMD5+rq7SL/BEBNcIWzxtaFNs6Up1IXYdOBCQe213gY6SOBX6afx?=
- =?us-ascii?Q?j/DgB/dDs5r2dDvbtZoxXH7sTw19CbdznRuaU3aaXYPu6SjHnqzar6kNywRP?=
- =?us-ascii?Q?K0qgfdiJjxKyWxaeCfPuIr5JiMv2tKQJC4ujVcAEB0cPig4mOn5BArB71Dq/?=
- =?us-ascii?Q?jYt3hdH46ZHJtsXQ1F2tBQX6gXQkePWn3n0ii1eqW9zTWlzicF0lF+OZwX5z?=
- =?us-ascii?Q?bE6qv5tvzs9Xya79MOcxSNKlEV/ywrjK140DXGEJIold/1CyyEmF84acMy2J?=
- =?us-ascii?Q?H53HxqTjL4DwowT46OlN1ebrlOLsVjVC8/kKtwWoOgXhkEa1D2vnbFgFvSE4?=
- =?us-ascii?Q?vI+5AO2nUNATiF7Rl/VxzhZD+WPoyGoIqI0+g1recd7IyVi2IJldKZSxf4Ci?=
- =?us-ascii?Q?GQ3K/aKrMv3JB8ELUvsRvOllfpwy5lq5AF9otgz4nxgErGQHDrrgYsrUybKt?=
- =?us-ascii?Q?7+rq9+pxei2ufD3U/UaHjHw6TnObfncy9XHJam3ky8c0SW7VekOX9yXqE1ng?=
- =?us-ascii?Q?1xRkHplskFoZHm2uVZdhkX4GqLHmcPQ0tyNNj7HNxW4Xke3JIhtb/XNpchG7?=
- =?us-ascii?Q?DKTHsg4TfcJ3Y1Nj+StWSVCIBuA6uqyra1QzRg45Xg6I8w37aTdBQy2G17hN?=
- =?us-ascii?Q?SOEah/M/CwwgXTr6KrJ1lgrC0pMd7cl2HHYl3gZstbtQ7WAnqaMh6wVdXfWu?=
- =?us-ascii?Q?3JF0ZyBCGGGMYsR2ZOwwjoFz4BMJfMux1gyiRuTTm6gqo9kQgPTY73tJeRQR?=
- =?us-ascii?Q?Q0Ub3cKIzB9C/sCTU4tq1vTsmyOI67YUQ6IxoryxnTwXORhBXh9x7oRSKv/r?=
- =?us-ascii?Q?NNSO8BXipKXLAPqOzqDzEaBdFKPlMA4W/yKxKxcn0xi5nIWsnm8pxuBedMhz?=
- =?us-ascii?Q?herlBje3NJDlvfdP1CtUenbgRedmmc9rFCb2hITWkoUU1PI1fWqjt3Uiy4yd?=
- =?us-ascii?Q?Ky52bX/t9E1EcvrfxoAzm5c4LFAzfONQ0UwH7+rJshlilOHTIhPe4X1fU3qz?=
- =?us-ascii?Q?ui3S6B6lKnkSfzJvUHy8ZfhNO/fHt1PRo5IVNxcghehChfu6CzZWRlvzFT3y?=
- =?us-ascii?Q?PLdmVXgJDV3mXoahgGhSZkHGxGPB5ByY4wQ4DkPGw5tRzVSs383xt+qYuT0F?=
- =?us-ascii?Q?zUtgzvpGkRH/3gAzHRiJeLcV1YJiBw8Uu8/vuUUETSRQFM7Ktc0XarJv0yqU?=
- =?us-ascii?Q?n3dGSN/oMg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07faa934-f6b7-40bf-fbdd-08df3eb11fa8
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 22:30:57.1918
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UToODkYNpBpxmUI5J/x6PXhd+rHvkGem9o1RVDAHCebcsUh+sGQQLeeJ3jJzvXgyd+a3vqyOrg76xHzgTaAbKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8170
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106-upstream-iio-cm3217-v2-2-d97adde9171c@tsv-stahl-riesa.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-11-07 at 08:43 +1100, Zi Yan <ziy@nvidia.com> wrote...
-> invalidate_inode_pages2_range() invalidates the clean DAX entries in the
-> range through dax_invalidate_mapping_entry_sync() and only unmaps the range
-> afterwards. Dropping the last association of an entry releases its folio
-> by dissolving the folio into order-0 ones. If the entry is still mapped,
-> 1. dax_folio_put() warns;
-> 2. if the folio order is PMD, folio_remove_rmap_pmd() during the unmap
->    afterwards operates on an order-0 folio (the original head page) and
->    corrupts the original first tail page metadata.
-> 
-> This is reachable from userspace with a copy-on-write write to a mapped
-> reflinked file on XFS with DAX:
-> 
->   WARNING: fs/dax.c:452 at dax_disassociate_entry.isra.0+0x147/0x1c0
->   Call Trace:
->    __dax_invalidate_entry+0x106/0x320
->    invalidate_inode_pages2_range+0x3ce/0x830
->    dax_iomap_rw+0x421/0xcc0
->    xfs_file_dax_write+0x252/0x9e0
->    vfs_write+0x53a/0xe70
->    __x64_sys_pwrite64+0x195/0x250
->    ...
->   WARNING: ./include/linux/rmap.h:351 at folio_remove_rmap_pmd+0x8b2/0xaf0
->   Call Trace:
->    split_huge_pmd_locked+0x751/0x2350
->    __split_huge_pmd+0x1bb/0x310
->    ...
->    unmap_mapping_pages+0x133/0x150
->    invalidate_inode_pages2_range+0x700/0x830
->    dax_iomap_rw+0x421/0xcc0
->    ...
-> 
-> To fix it, unmap DAX ranges before invalidating them, as the page cache
-> path does for mapped folios. In __dax_invalidate_entry(), when
-> invalidating, skip an entry if the code is dropping its last association
-> but its folio still has outstanding references. -EBUSY is returned for the
-> skipped entries. The unmap before invalidation works because any remap of
-> the folio between the unmap and invalidation will bump the folio refcount.
+On Fri, Nov 06, 2026 at 09:56:30PM +0100, Patrick Fischer via B4 Relay wrote:
 
-A quick check of callers of invalidate_inode_pages2_range() either ignore
-the return code or produce a WARN_ON if the invalidation fails. For example
-xfs_fs_commit_blocks(). I don't think anything makes that inherently safe
-against COW for example.
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count.
+> 
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+> 
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers (drivers/staging/iio/light/cm3217.c in the 3.4 kernel
+> rel-tegranote-r8 and the 3.10 kernel
+> android-tegra-flounder-3.10-nougat-mr1.1). One value differs: the vendor
+> header defines 4 T as 4 << 2, which is outside the two-bit field. On a
+> Tegra Note 7 field value 3 gave four times the 1 T count, so the driver
+> uses that. For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+> 
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
 
-That's pre-existing of course - but this patch does increase the likelihood of
-error. Overall though I think this patch is still an improvement, and based on
-code comments my AI agent concluded that these kind of issues are somewhat known
-anyway.
+...
 
-> Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
-
-I suspect this issue actually preexists my changes here. Prior the page
-meta-data was still getting modified on disassociation even if the folio was
-referenced. In some ways proper refcounting just made it easier to catch these
-kind of problems, which was partly the point of doing it :-)
-
-But I think it makes sense to use this as the "Fixes" tag - backporting this to
-anything prior would be difficult and a rewrite of this fix anyway.
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> ---
-> I found this while auditing the paths that map pages into user page
-> tables. invalidate_inode_pages2_range() releases the folios of DAX
-> entries that are still mapped. For a PMD-mapped folio this corrupts what
-> used to be its first tail page, and a copy-on-write write to a mapped
-> reflinked file on XFS with DAX is enough to hit it.
-> 
-> In QEMU with emulated NVDIMMs and XFS on an fsdax namespace:
-> 
-> - Copy-on-write with the script below, PTE- and PMD-mapped, with only a
->   mapped and with a and b mapped. Before this patch, the WARNs in the
->   commit message and a corrupted first tail page in the PMD case. With this
->   patch: the mapping of a sees the new data, b keeps the old data, and
->   nothing warns, except for item 4 below.
-> 
->   mkfs.xfs -f -m reflink=1 -d su=2m,sw=1 /dev/pmem1
->   mount -o dax=always /dev/pmem1 /mnt && cd /mnt
->   xfs_io -f -c "extsize 2m" -c "pwrite -q -S 0x5a 0 4m" -c fsync a
->   xfs_io -f -c "reflink a 0 0 4m" b
->   (echo "mmap -r 0 4m"; echo "madvise -h 0 4m"; echo "mread 0 4m";
->    sleep 4; echo "mread -v 0 16") | xfs_io a &
->   sleep 2; xfs_io -c "pwrite -q -S 0xa5 0 8k" -c fsync a; wait
-
-Ideally I think this should be added to the xfstest suite - that was extremely
-useful during some of the refcounting reworks and found all sorts of interesting
-corner cases.
-
-> Open issues that this patch does not address. They are races or
-> already exist without it.
-> 
-> 1. A refault, or a short-term or speculative reference, between the
->    early unmap and the invalidation keeps a last association in place,
->    and invalidate_inode_pages2_range() returns -EBUSY.
->    dax_iomap_iter(), dax_unshare_iter() and dax_zero_iter() ignore that
->    and write the new extent anyway, which leaves a stale entry. Without
->    this patch the same race tears down the referenced folio. Should
->    these paths retry, or fail?
-> 
-> 2. XFS device pre-removal ignores the result as well, so an entry kept
->    because of a short-term reference is not revisited before the
->    memmap goes away.
-> 
-> 3. folio->share is updated under each file's i_pages lock, so the
->    shared-count check here, like dax_folio_put() itself, can race with
->    another file dropping its share.
-> 
-> 4. With reflink, after a copy-on-write write, a PTE fault can associate
->    an order-0 entry with a shared folio that another file still maps
->    with a PMD. That trips WARN_ON_ONCE(dax_entry_order(entry) !=
->    folio_order(folio)) in dax_associate_entry(), with and without this
->    patch.
-> 
-> Based on an LLM's analysis, 1 and 2 can be fixed by holding the invalidate
-> lock and breaking DAX layouts in the callers; 3 needs a per-folio lock
-> for ->share; 4 needs a way to share a folio at different granularities,
-> or no PMD mappings of shared extents as a simple fix.
-> 
-> LLMs were used to analyze the issue, write the patch, and review the code.
-> ---
->  fs/dax.c      | 28 ++++++++++++++++++++++++++--
->  mm/truncate.c | 16 +++++++++++-----
->  2 files changed, 37 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/dax.c b/fs/dax.c
-> index 94ba41273347c..e448552d8080d 100644
-> --- a/fs/dax.c
-> +++ b/fs/dax.c
-> @@ -527,6 +527,24 @@ static struct page *dax_busy_page(void *entry)
->  		return NULL;
->  }
->  
 > +/*
-> + * Determine if an entry can be disassociated. It cannot be if it is its folio's
-> + * last association and the folio still has a reference.
+> + * 0.01875 lux per count at 4 T and 800 ms, the finest resolution. The
+> + * resolution is inversely proportional to IT_T and FD_IT, so keep it as
+> + * lux per count times milliseconds: 0.01875 lux * 800 ms = 15 lux * ms.
 > + */
-> +static bool dax_can_disassociate(void *entry)
-> +{
-> +	struct folio *folio;
-> +
-> +	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
-> +		return true;
-> +
-> +	folio = dax_to_folio(entry);
-> +	if (dax_folio_is_shared(folio) && folio->share > 1)
-> +		return true;
-> +
-> +	return !folio_ref_count(folio);
+> +#define CM3217_NLUX_MS		(15ULL * NANO)
+
+Hmm... Can we use rather formula inside the definition? Also one of the
+multipliers from time.h might make sense here as MS are mentioned.
+
+18.75 per 800 µs, or 1875 per 8 µs if I'm not mistaken. Hence
+
+	(1875 * 8 * NSEC_PER_MSEC)
+
+?
+
+...
+
+> +/* Scale in lux per count at FD_IT = ms milliseconds and IT_T = 1/2 T << it_t */
+> +#define CM3217_SCALE(ms, it_t) {				\
+> +	(CM3217_NLUX_MS << (3 - (it_t))) / (ms) / NANO,		\
+> +	(CM3217_NLUX_MS << (3 - (it_t))) / (ms) % NANO,		\
+
+These NANO again are misleading.
+
 > +}
+
+...
+
+> +static_assert(ARRAY_SIZE(cm3217_scale_avail) ==
+> +	      ARRAY_SIZE(cm3217_int_time_avail));
+
+Having this on a single line is fine.
+
+...
+
+> +struct cm3217_data {
+> +	struct i2c_client *client;
+> +	struct i2c_client *client_lsb;
+> +	/* protects the command bytes and ready */
+> +	struct mutex lock;
+> +	u8 cmd1;
+> +	u8 cmd2;
+> +	ktime_t ready;
+
+Have you checked with `pahole`?
+
+> +};
+
+> +	/* the first count is ready after one conversion */
+> +	conv_ms = cm3217_conv_ms(data);
+
+You can add 10% margin right here with a comment.
+
+	/* Add 10% margin along with additional ... for ... */
+	conv_ms += conv_ms / 10 + CM3217_MARGIN_MS;
+
+> +	data->ready = ktime_add_ms(ktime_get(),
+> +				   conv_ms + conv_ms / 10 + CM3217_MARGIN_MS);
+
+	data->ready = ktime_add_ms(ktime_get(), conv_ms);
+
+> +	return 0;
+> +}
+
+...
+
+> +static int cm3217_write_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int val, int val2, long mask)
+> +{
+> +	struct cm3217_data *data = iio_priv(indio_dev);
+> +	unsigned int fd_it;
+> +	u8 cmd1, cmd2;
+> +	int i;
 > +
->  /**
->   * dax_lock_folio - Lock the DAX entry corresponding to a folio
->   * @folio: The folio whose entry we want to lock
-> @@ -853,9 +871,14 @@ static int __dax_invalidate_entry(struct address_space *mapping,
->  	entry = get_next_unlocked_entry(&xas, 0);
->  	if (!entry || WARN_ON_ONCE(!xa_is_value(entry)))
->  		goto out;
-> +	/*
-> +	 * Removing the last association of a folio releases the folio, so make
-> +	 * sure the folio has no reference.
-> +	 */
->  	if (!trunc &&
->  	    (xas_get_mark(&xas, PAGECACHE_TAG_DIRTY) ||
-> -	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE)))
-> +	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE) ||
-> +	     !dax_can_disassociate(entry)))
->  		goto out;
->  	dax_disassociate_entry(entry, mapping, trunc);
->  	xas_store(&xas, NULL);
-> @@ -1017,7 +1040,8 @@ void dax_break_layout_final(struct inode *inode)
->  EXPORT_SYMBOL_GPL(dax_break_layout_final);
->  
->  /*
-> - * Invalidate DAX entry if it is clean.
-> + * Invalidate DAX entry if it is clean and dropping it would not release a folio
-> + * that is still in use.
->   */
->  int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
->  				      pgoff_t index)
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index 9e9bf029635cf..b03cd99c4bba8 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -732,6 +732,15 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
->  	if (mapping_empty(mapping))
->  		return 0;
->  
-> +	/*
-> +	 * Invalidating a DAX entry can release its folio, so unmap DAX entries
-> +	 * before invalidating them. dax_invalidate_mapping_entry_sync() skips
-> +	 * the last association of a folio that still has references, e.g.
-> +	 * because it was faulted in again in the meantime.
-> +	 */
-> +	if (dax_mapping(mapping))
-> +		unmap_mapping_pages(mapping, start, end - start + 1, false);
+> +	guard(mutex)(&data->lock);
 > +
->  	folio_batch_init(&fbatch);
->  	index = start;
->  	while (find_get_entries(mapping, &index, end, &fbatch, indices)) {
-> @@ -787,11 +796,8 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
->  		cond_resched();
->  	}
->  	/*
-> -	 * For DAX we invalidate page tables after invalidating page cache.  We
-> -	 * could invalidate page tables while invalidating each entry however
-> -	 * that would be expensive. And doing range unmapping before doesn't
-> -	 * work as we have no cheap way to find whether page cache entry didn't
-> -	 * get remapped later.
-> +	 * For DAX, also zap the mappings that were faulted in while we were
-> +	 * invalidating.
->  	 */
->  	if (dax_mapping(mapping)) {
->  		unmap_mapping_pages(mapping, start, end - start + 1, false);
-> 
-> ---
-> base-commit: 63919467fb5239ab824de6a7a128b882055b24af
-> change-id: 20261103-fix-dax-invalidate-mapped-d0c2296f5543
-> 
-> Best regards,
-> --  
-> Yan, Zi
-> 
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +		i = cm3217_find_avail(cm3217_scale_avail[fd_it],
+> +				      ARRAY_SIZE(cm3217_scale_avail[0]),
+> +				      val, val2);
+> +		if (i < 0)
+> +			return i;
+
+> +		cmd1 = data->cmd1 & ~CM3217_CMD1_IT_T;
+> +		cmd1 |= FIELD_PREP(CM3217_CMD1_IT_T, i);
+
+FIELD_MODIFY()
+
+> +		return cm3217_write_cmd(data, cmd1, data->cmd2);
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		i = cm3217_find_avail(cm3217_int_time_avail,
+> +				      ARRAY_SIZE(cm3217_int_time_avail),
+> +				      val, val2);
+> +		if (i < 0)
+> +			return i;
+> +
+> +		cmd2 = FIELD_PREP(CM3217_CMD2_FD_IT, i);
+> +
+> +		return cm3217_write_cmd(data, data->cmd1, cmd2);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +	scoped_guard(mutex, &data->lock)
+> +		ret = cm3217_write_cmd(data, cmd1, cmd2);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to power on\n");
+
+It's better to have it inside scoped_guard().
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
