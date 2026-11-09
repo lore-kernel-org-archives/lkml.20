@@ -1,74 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263691;
-	b=svgs6Teo/ciRiaTYuKvywX6Sao5hGTU+Uc4U2b5em9Tp98rNUnaf5L4Nl0kkngOZi6BM
-	 WcBLYcHLlQUkPFFdOz0oA1/DYibU8hhyEZ5yCFa49wdCtCEOu8zgsezX3dRk4/u7OZqQS
-	 nEmQc8ya+x87DP3/ZqwzDrUCA2DIIE4KZUZYgpgRt8He9FVLk8PekfK7R+RACKlSBtz+2
-	 zUU7prbLPv3v7MyHgUobta8QT6Dj8+cTBz2TmOTK67JWs7s8PFJlJOXB+OvxBAWunP6y5
-	 Wk3UHKMnU73kiex5o3BBsK+/14YFMFfgm8OqZ0TxHVHzxAyDoUVw2eV0UUyC16xq3EQ==
+	t=1794263700;
+	b=q3hwKdMg2arAM3SZhTgU1OIGWSrj4MzW5bJCK8IpEnCBfMNDeV990DFlUREopvGNud/Q
+	 0zK9jDWHUfWbDIAZvwFi5FbnW3sRXGQB1SF3x8fTffESLW3dsQu6hlQbzHNQq1N48ausx
+	 Bv8JwPzccGIzxrKMjUEWuPlPG72h3lq//NM9yaBnVXuwB3L0itt9sg0xMcQWDCJmNJytE
+	 SSdidRIENGui4wtlQzKB+EwR/8HDUnGvJh2jnQeishMlb9271XHJKciod+BFGpzARqIs6
+	 uBzyYPNi6cj25M5MVk+IzhWgH1MnbUdjcLEuv60R00FjnTeTldUGLCwHSZcYHB9nMVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263691;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=rMScmg8ChgtOqa0AmoYWDPnHiW7OJ9SJMVamJgURMoY=;
-	b=nzu8IerHl/70QfKeRSYUkm5FP/94i8HQne/RZ5iZ8izfZKmEBPbBd10tAceZ3COgaEiN
-	 gXCcS4yGiOlZn239jRKVdd/xEyzSSsbf53mz0COsFaCZaqebnEJlsi4DIC4gTRyJOjMwa
-	 QFl20KIVAQBEqULgZVvK6sjexrhpdOSwmvpU8aZYfCe/RD+29Q/qzcus2XIjsM42PqIzn
-	 eXGxRXbulIbbvS15UtmbEqDQy6HM+27SxvxabhQPXGx/Y6U/IKLs0kkCHTbre05WQOC7I
-	 V3ZcAyLWjIPm1njF3H1+TWSyHKcBpwXzwf/rTBezG5uoqDQBlOmTg08caWIaliUMLXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263700;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
+	 References:In-Reply-To;
+	bh=TbeRpiMQNiT5Jtn969Ppv6Yio3qCqfnpSKR/Mo7ZTMU=;
+	b=yrlyvAMO+Aaw2+/o3xZxJrvViIqUAyKkKXev+wtXCYWVu7GA044Y1V2NYf9n0RAo7bAm
+	 NoaUbk+XEigGkD4XXoWl35eLsloEe4Rcxpj2NJrk54OaQtVD8W+dkzOOqvusLaBhCR92o
+	 2if8j10stY+jq6cuzQM+L42qw6DiTOnkNqr0x25VzRXH19I85uBhEA5eHrr8X6uhL3b61
+	 1Nz2Ru0CZLcmGGC1Ch25zPIbsVq0IB3wO0Nhgw9WbOcGmVZzTYL/7og7UFWVLnpiCFj78
+	 BXqWGZs6vuNNT6d0AwqkgbLiQQuSxaMZQ9ui20Xvl5Wfe50lXIz4w5H32Cm6+a8rAGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bojanowski.me;
-	spf=pass smtp.mailfrom=bojanowski.me;
-	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=VYGAj3oI;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZHEdAtMq;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9FD606A321;
-	Mon,  9 Nov 2026 22:34:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A9FD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7D760A2636
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7D760A2636
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=VYGAj3oI
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jNl2s5VybzKmSx;
-	Mon, 09 Nov 2026 23:34:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
-	s=MBO0001; t=1794263685;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rMScmg8ChgtOqa0AmoYWDPnHiW7OJ9SJMVamJgURMoY=;
-	b=VYGAj3oIeXiL43q3510PW8JBLz1a1jKs+9GfZrGWXsW8MZCBgHC5BYgsurNWVMDX/XnLF2
-	+7qzDS/8eJiUyu5Df3BfQkgJxHsJaxP0AoVey1dGisUW4617dghc4/XXEqGxI3RkLL7y73
-	mZc6bLbsdCelabM40rHiuFeFAVnetPC2Hg29YournOK4y9mR8Q9pNVFivR8t04iM8A+PRr
-	kSFd284sOYXVg9izM1Uww+RtjCuTQeAzNS6FHbcjmL4x9qsFdkadlFEr+TJB/zBVvwVSDK
-	o6AeGlMSE1GLLbSbQH9MMicqebq0pwNNGHDITncY8u07Z3X2BgaIxYGTjmGKwQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
-From: Tomasz Bojanowski <tomasz@bojanowski.me>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	Hamza Mahfooz <someguy@effective-light.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] hwmon: (nct6683) Make the fan curves of NCT6687D-R writable
-Date: Mon,  9 Nov 2026 23:34:42 +0100
-Message-ID: <20261109223442.509238-3-tomasz@bojanowski.me>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109223442.509238-1-tomasz@bojanowski.me>
-References: <20261109223442.509238-1-tomasz@bojanowski.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZHEdAtMq
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e09aa5264so822320f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:34:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794263698; x=1794868498; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TbeRpiMQNiT5Jtn969Ppv6Yio3qCqfnpSKR/Mo7ZTMU=;
+        b=ZHEdAtMqcMDVPooXMtdIyeTDcVwVMpn5P+qPV8DNIsSjjECv/mA8h7xZ/BTNyRPWEN
+         fPu+3dkCNxIxyF93RZww+sqtps2TO41Ngas6LHgN6TDF9CnqgLxuFjy5V8vpvub17CTT
+         XK2Efzjz+oYwe3gL8BeGmXe6hTbQtzGi5Mw1WDE8WNi3ztBLNCB3T2WqdD1jeQprFbH2
+         JU5qnKgQp9Q4xkgW0Y6/Mj/3qdgPREXlkdeTrAiLOJyt2RtnUGCH/VYnT4yakgQ9aKpu
+         fmZuXjx86sMiUNT7Sqb3/rAsvMdMnBggjoNJeHCZcVwzViYY95bGCkEomeypZ7Q5D3Qd
+         AQaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794263698; x=1794868498;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TbeRpiMQNiT5Jtn969Ppv6Yio3qCqfnpSKR/Mo7ZTMU=;
+        b=AYWfeeBgPFGwX37GsSLQyXBel8Ks5LjVMkxAQioIRA/U/+caNsSaOwCeC2RFIpOwql
+         K/oG7/Nnxw44Ezpm4Gk2++/TGAt4vIElmNROygyQrvUCzrJCbss5FiElrermr6i/D7Cc
+         /BbYDNmkNppP0qQSixQ6UPzOypvKD1R5OEgK/lf22dwyxq11XXciWBZj2RFj/j9aD2i7
+         BFciMe6r9AQDUagOmlxbsvbSnTCv5pTSaHyqhz8rPSPlNd3tzu7+yLhsSLGKMJIhUM6o
+         /SPFcYOVqBepJrhp8urPaqTtxluXekmQ5m6GKIIQUsusrnLrjcHla3+EO5MZhdBLadjV
+         yUXA==
+X-Forwarded-Encrypted: i=1; AL+hErGpE1CBkj0EGMJTPomztX+I5pm+CYKM1eLrcawC+di3Y7HRP9uBL82AGWE+h0Ln35KgXBEDEb6nW8AfT5I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BuuGcLYsfv71YZdHfgVC9UOzTiEcSRa2KreLE3VBB+WcVater
+	mZbjTspmUMccqu9V23nUwKoUm2Zdh8flGhVy/cya5jDk1veqmVlipfd9
+X-Gm-Gg: AYBFou0c1HIV6m3xsLYjn8WdE8psp+qxLwQyZy4MWfvQ7J7rOD8eMhNve/81YcYMYjZ
+	gmSxEKcfotEPMswWZ2ylXNl3iK+8LY9ni5iW0OlY12uJS1c7uXjSyEK/JtckHBH+cG9MqK5KrE+
+	a5P50tDRblzQL7Vf1IlFQWRW9m0MmaT6ZL03EzaWF6vDzYDXPxgq+UVHtLcMBHzSJHDaH4/zX3z
+	JIMSJhgXbomolxTDF/OtTsYLeukYlyNwFREXy1BD8aQNpi1SO6WoOq3Llht5inN+gIgEp2CT1rD
+	i9IFgtGy2u8tnThnrcZOdsHjGEIalN0S9Vk8ALhZClxUgZS15Y8D0MPokJR3QCnA1nsP48537ei
+	svUq69eTKG3Yi6Z0SoSvnaE+NWFnKpVziCXhATiYeQFyRbkFKVr7dqD6EiXLV9BB7bRyTUOCw7k
+	8E3Pg0e9SPVc1bNN55s/Gcz3Ma1Gxd+esIfR6YW1q3+onxpLHJKBE1YYl8suxDKnGv0uKJDtkFG
+	oVewQZS9e6HEwJJ2JSI1V6M0wJ8MJ8qtIuHv8TYlMln0My16NfjP4naBzise+v58d3QB/6Oyd+/
+	u0avziPTCink2HiqLMpUSRKg8g==
+X-Received: by 2002:a5d:5f47:0:b0:492:820d:1e with SMTP id ffacd0b85a97d-4982fb52472mr1381001f8f.11.1794263697601;
+        Mon, 09 Nov 2026 14:34:57 -0800 (PST)
+Received: from localhost ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bc8fsm1303661f8f.30.2026.11.09.14.34.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 14:34:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,527 +86,400 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jNl2s5VybzKmSx
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=1bc85eaa38fb06f5cb938135d83b598e0e2ac0da5a561a69ab953af6626c;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 09 Nov 2026 23:34:49 +0100
+Message-Id: <DMR1E7XB3AT6.3UI3YHHBI8O9Z@gmail.com>
+Cc: "David Sterba" <dsterba@suse.com>, "Alexander Viro"
+ <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
+ <sj1557.seo@samsung.com>, "Konstantin Komarov"
+ <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
+ <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
+ <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
+ <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
+ Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
+ <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>, "Theodore Tso"
+ <tytso@mit.edu>
+Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
+From: "koraynilay" <koray.fra@gmail.com>
+To: "Amir Goldstein" <amir73il@gmail.com>, "koraynilay"
+ <koray.fra@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261101015551.786044-1-koray.fra@gmail.com>
+ <20261101015551.786044-2-koray.fra@gmail.com>
+ <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com>
+ <DMP3UBB0QVOT.20HIXK7ZL6K6U@gmail.com>
+ <CAOQ4uxgSVc8n1LbL_dcU-DpNN5BB-ap_vGdXEu7+d0Td7PK5Tw@mail.gmail.com>
+ <DMP582BGB7DV.2U0SJLJL7A87K@gmail.com>
+ <CAOQ4uxj82K4z+2OiY5W1g7NyWAFOFjqqWnZSS3prytW36j1LgA@mail.gmail.com>
+In-Reply-To: <CAOQ4uxj82K4z+2OiY5W1g7NyWAFOFjqqWnZSS3prytW36j1LgA@mail.gmail.com>
 
-Allow writing pwmN_auto_point[1-7]_temp and pwmN_auto_point[1-7]_pwm in
-manual and in automatic mode. The points are writable if, when the driver
-is loaded, the temperatures and the duty cycles of the curve do not
-decrease and the temperatures are at most 127 degrees Celsius. The EC
-firmware is not documented and does not take a curve whose duty cycles
-decrease, so only curves like those set by the BIOS are written. The
-limit of 127 degrees Celsius reads the same whether the EC treats the
-temperature registers as signed or unsigned.
+--1bc85eaa38fb06f5cb938135d83b598e0e2ac0da5a561a69ab953af6626c
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Temperatures and duty cycles are clamped to those of the adjacent points,
-temperatures also to 0-127 degrees Celsius and duty cycles to 0-255. The
-whole curve is written in one configuration phase and read back, to check
-that the EC uses it as written. If that fails while the EC responds, the
-previous curve is written again.
+On Mon Nov 9, 2026 at 3:35 PM CET, Amir Goldstein wrote:
+> On Sat, Nov 7, 2026 at 6:09=E2=80=AFPM koraynilay <koray.fra@gmail.com> w=
+rote:
+>>
+>> On Sat Nov 7, 2026 at 5:48 PM CET, Amir Goldstein wrote:
+>> > On Sat, Nov 7, 2026 at 5:04=E2=80=AFPM koraynilay <koray.fra@gmail.com=
+> wrote:
+>> >>
+>> >> On Mon Nov 2, 2026 at 3:00 PM CET, Amir Goldstein wrote:
+>> >> > On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.=
+com> wrote:
+>> >> >>
+>> >> >> Add provenance time (ptime), indicating the time when a file or
+>> >> >> directory was created. This is user-settable via file_setattr() an=
+d
+>> >> >> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
+>> >> >>
+>> >> >> The semantics of when to preserve this new timestamp are the same =
+as
+>> >> >> mtime, the idea being that there is a correspondence like this:
+>> >> >>
+>> >> >> ctime <-> btime
+>> >> >> mtime <-> ptime
+>> >> >>
+>> >> >> so every operation (copying, moving, ...) that currently preserves=
+ mtime
+>> >> >> should also preserve ptime.
+>> >> >>
+>> >> >> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accept=
+ing
+>> >> >> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support ne=
+w
+>> >> >> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileatt=
+r() to
+>> >> >> allow ptime to be used with the file_setattr()/file_getattr() sysc=
+alls.
+>> >> >>
+>> >> >> [ This is a re-implementation of the initial patch[1] by Sean Smit=
+h
+>> >> >>   <defendthedisabled@gmail.com>, following the advice[2] from Darr=
+ick J.
+>> >> >>   Wong <djwong@kernel.org> of using file_setattr() instead of upda=
+ting
+>> >> >>   utimensat() ]
+>> >> >>
+>> >> >> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabl=
+ed@gmail.com
+>> >> >> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
+>> >> >>
+>> >> >> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
+>> >> >> Signed-off-by: koraynilay <koray.fra@gmail.com>
+>> >> >> ---
+>> >> >>  fs/file_attr.c            | 33 +++++++++++++++++++++++++++++++--
+>> >> >>  fs/stat.c                 |  2 ++
+>> >> >>  include/linux/fileattr.h  |  5 +++++
+>> >> >>  include/linux/stat.h      |  1 +
+>> >> >>  include/uapi/linux/fs.h   |  8 +++++++-
+>> >> >>  include/uapi/linux/stat.h |  7 ++++++-
+>> >> >>  6 files changed, 52 insertions(+), 4 deletions(-)
+>> >> >>
+>> >> >> diff --git a/fs/file_attr.c b/fs/file_attr.c
+>> >> >> index 833e03810b24..c0645cb22bf3 100644
+>> >> >> --- a/fs/file_attr.c
+>> >> >> +++ b/fs/file_attr.c
+>> >> >> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(vfs_fileattr_get);
+>> >> >>  static void fileattr_to_file_attr(const struct file_kattr *fa,
+>> >> >>                                   struct file_attr *fattr)
+>> >> >>  {
+>> >> >> -       __u32 mask =3D FS_XFLAGS_MASK;
+>> >> >> +       __u32 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
+>> >> >>
+>> >> >>         memset(fattr, 0, sizeof(struct file_attr));
+>> >> >>         fattr->fa_xflags =3D fa->fsx_xflags & mask;
+>> >> >> @@ -110,6 +110,8 @@ static void fileattr_to_file_attr(const struct=
+ file_kattr *fa,
+>> >> >>         fattr->fa_nextents =3D fa->fsx_nextents;
+>> >> >>         fattr->fa_projid =3D fa->fsx_projid;
+>> >> >>         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
+>> >> >> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
+>> >> >> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
+>> >> >>  }
+>> >> >>
+>> >> >>  /**
+>> >> >> @@ -141,15 +143,20 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
+>> >> >>  static int file_attr_to_fileattr(const struct file_attr *fattr,
+>> >> >>                                  struct file_kattr *fa)
+>> >> >>  {
+>> >> >> -       __u64 mask =3D FS_XFLAGS_MASK;
+>> >> >> +       __u64 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
+>> >> >
+>> >> > That is not the correct way to extend this API.
+>> >> > This fixed mask was added as a placeholder for
+>> >> > "We intend to add support for more xflags to selective filesystems"=
+:
+>> >> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-2-amir=
+73il@gmail.com/
+>> >> >
+>> >> > Please see this POC patch for filesystems to publish their supporte=
+d
+>> >> > xflags mask:
+>> >> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-3-amir=
+73il@gmail.com/
+>> >>
+>
+> Re-reading and answering your original questions:
+>
+>> >> Quick question, should _mask also be used for user-space -> VFS to ad=
+vertise
+>> >> what it wants to change?
+>
+> Yes absolutely.
+>
+>> >> This would be useful for on/off flags,
+>
+> Exactly.
+>
+> All the Windows filesystems that want ptime, would most likely want the s=
+upport
+> on/off HIDDEN/SYSTEM/ARCHIVE flags as well.
 
-The BIOS may restore its own settings when resuming from suspend, so
-restore the curves written through sysfs on resume, before manual mode.
+(But these should be deferred to other patches/to the FSs themselves
+right?)
 
-Tested on an MSI MAG B850M MORTAR WIFI (MS-7E61) with pwm16: writing and
-clamping of curve points, the written curve after suspend to RAM, and
-manual mode after resume.
+>> >> but for ptime both fa->xflags and
+>> >> fa->xflags_mask would have the same meaning of "I want to change ptim=
+e,
+>> >> look at fa->ptime".
+>
+> There needs to be no FS_XLAG_PTIME in fa->xflags,
+> just as there is no FS_XFLAG_PROJID in fa->xflags today.
+>
+> However, since btrfs does not support setting projid, when we introduce
+> fa->xflags_mask, it would be elegant IMO to introduce the (new) flag
+> FS_XFLAG_PROJID which would be valid in fa->xflags_mask.
+>
+> To be clear, currently upstream chattr (e2fsprogs) can set projid via
+> FS_IOC_FSSETXATTR ioctl (no xflags_mask) and upstream
+> xfs_io -c chattr (xfsprogs) can set projid via  file_setattr() syscall
+> (no xflags_mask).
+>
+> But if either utils were to be modified to support setting ptime, then it
+> would need to use file_setattr() syscall and set both FS_XLAG_PTIME
+> and FS_XFLAG_PROJID in  xflags_mask when it wants to set a non-zero
+> value to those fields.
+>
+> Specifically, the invocation of chattr -p <projid>, will no longer need t=
+o do
+> FS_IOC_FSGETXATTR to read all the unrelated flags for setting the projid.
 
-Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
----
- Documentation/hwmon/nct6683.rst |  35 +++-
- drivers/hwmon/nct6683.c         | 322 ++++++++++++++++++++++++++------
- 2 files changed, 287 insertions(+), 70 deletions(-)
+Ah yes, this would be a good change I think.
 
-diff --git a/Documentation/hwmon/nct6683.rst b/Documentation/hwmon/nct6683.rst
-index 62da8fd011c8..589839193874 100644
---- a/Documentation/hwmon/nct6683.rst
-+++ b/Documentation/hwmon/nct6683.rst
-@@ -60,25 +60,40 @@ fan reported by fanN_input.
- pwmN_enable selects the fan control mode:
- 
-   * 1: manual mode, the duty cycle is set with pwmN
--  * 2: automatic mode, using the fan curve configured in the BIOS
-+  * 2: automatic mode, using the current fan curve
- 
- pwmN can only be written in manual mode. Switching to manual mode keeps the
- current duty cycle.
- 
--For each fan with a pwmN_enable attribute, the fan curve configured in the
--BIOS setup is reported with the following read-only attributes, if the
--curve sets a duty cycle:
-+For each fan with a pwmN_enable attribute, the fan curve is reported with
-+the following attributes, if the curve sets a duty cycle:
- 
-   * pwmN_auto_point[1-7]_temp: temperature of the curve point, in
-     millidegrees Celsius
-   * pwmN_auto_point[1-7]_pwm: duty cycle of the curve point (0-255)
-   * pwmN_auto_channels_temp: temperature channels used by the curve, as a
--    bitmap (1 is temp1, 2 is temp2, 4 is temp3 etc.)
--
--A fan with Smart Fan disabled in the BIOS setup has a flat curve, with its
--fixed duty cycle at all points. The curve is read from the EC on each
--access. Reading pwmN_auto_channels_temp returns -ENODATA if the curve uses
--a temperature source which the driver does not report.
-+    bitmap (1 is temp1, 2 is temp2, 4 is temp3 etc.), read-only
-+
-+The fan curve is initially the one configured in the BIOS setup. A fan with
-+Smart Fan disabled in the BIOS setup has a flat curve, with its fixed duty
-+cycle at all points. The curve is read from the EC on each access. Reading
-+pwmN_auto_channels_temp returns -ENODATA if the curve uses a temperature
-+source which the driver does not report.
-+
-+The curve points are writable if, when the driver is loaded, the
-+temperatures and the duty cycles of the curve do not decrease and the
-+temperatures are at most 127 degrees Celsius; otherwise they are
-+read-only. They can be written in manual and in automatic mode. In manual
-+mode, a new curve is used after switching to automatic mode. Writing a
-+point returns -EIO if the curve no longer meets these conditions or if the
-+EC does not take the new curve. Temperatures are clamped to 0-127 degrees
-+Celsius and duty cycles to 0-255, and both to the values of the adjacent
-+points, so the points have to be written from point 7 to point 1 to raise
-+a curve and from point 1 to point 7 to lower it.
-+
-+The BIOS may restore its own settings when resuming from suspend, so the
-+driver restores the curves written through it. They are kept when the
-+driver is unloaded.
- 
- Tested Boards and Firmware Versions
- -----------------------------------
-diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
-index ce22f1e06600..fe624a5fe3c1 100644
---- a/drivers/hwmon/nct6683.c
-+++ b/drivers/hwmon/nct6683.c
-@@ -31,10 +31,13 @@
- #include <linux/jiffies.h>
- #include <linux/hwmon.h>
- #include <linux/hwmon-sysfs.h>
-+#include <linux/math.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-+#include <linux/string.h>
- 
- enum kinds { nct6683, nct6686, nct6687 };
- 
-@@ -187,6 +190,7 @@ superio_exit(int ioreg)
- #define NCT6687DR_REG_CURVE_MODE(x)	(0xa08 + (x))		/* channels 0-7 */
- #define NCT6687DR_REG_CURVE_MODE_SYS(x)	(0x240 + (x) - 10)	/* channels 10-15 */
- #define NCT6687DR_CURVE_MODE_PWM	0x40
-+#define NCT6687DR_CURVE_TEMP_MAX	127	/* degrees Celsius */
- 
- #define NCT6687DR_REG_FAN_ENGINE_STS	0xcf8
- #define NCT6687DR_FAN_ENGINE_PHASE	BIT(3)
-@@ -329,6 +333,12 @@ static const char *const nct6683_mon_label[] = {
- 
- /* ------------------------------------------------------- */
- 
-+/* Fan curve of NCT6687D-R: temperatures in degrees Celsius, duty cycles */
-+struct nct6687dr_curve {
-+	u8 temp[NCT6687DR_CURVE_POINTS];
-+	u8 pwm[NCT6687DR_CURVE_POINTS];
-+};
-+
- struct nct6683_data {
- 	int addr;		/* IO base of EC space */
- 	int sioreg;		/* SIO register */
-@@ -371,6 +381,7 @@ struct nct6683_data {
- 
- 	u16 have_fan_ctrl;		/* channels supporting fan control */
- 	u16 have_curve;			/* channels with a duty cycle curve */
-+	u16 curve_writable;		/* channels with a writable curve */
- 
- #ifdef CONFIG_PM
- 	/* Remember extra register values over suspend/resume */
-@@ -380,6 +391,10 @@ struct nct6683_data {
- 	/* Manual fan control set through sysfs, restored on resume */
- 	u16 pwm_manual;			/* channels set to manual mode */
- 	u8 pwm_cmd[NCT6683_NUM_REG_FAN];	/* their duty cycle */
-+
-+	/* Fan curves set through sysfs, restored on resume */
-+	u16 curve_set;
-+	struct nct6687dr_curve curve[NCT6683_NUM_REG_FAN];
- };
- 
- struct nct6683_sio_data {
-@@ -954,6 +969,12 @@ static u16 nct6683_cmd_reg(int ch)
- 	return ch < 8 ? NCT6683_REG_PWM_WRITE(ch) : NCT6687DR_REG_PWM_CMD_SYS(ch);
- }
- 
-+static u16 nct6687dr_curve_mode_reg(int ch)
-+{
-+	return ch < 8 ? NCT6687DR_REG_CURVE_MODE(ch) :
-+			NCT6687DR_REG_CURVE_MODE_SYS(ch);
-+}
-+
- static bool nct6683_pwm_manual(struct nct6683_data *data, int ch)
- {
- 	return nct6683_read(data, nct6683_mode_reg(ch)) & BIT(ch % 8);
-@@ -1198,6 +1219,150 @@ store_pwm_enable(struct device *dev, struct device_attribute *attr,
- SENSOR_TEMPLATE(pwm_enable, "pwm%d_enable", 0444, show_pwm_enable,
- 		store_pwm_enable, 0);
- 
-+/*
-+ * Read a fan curve of NCT6687D-R. Only curves which set a duty cycle are
-+ * supported: their mode register is 0x40 and the high byte of each output
-+ * is zero, so that the low byte holds the duty cycle.
-+ */
-+static bool nct6687dr_curve_read(struct nct6683_data *data, int ch,
-+				 struct nct6687dr_curve *curve)
-+{
-+	int p;
-+
-+	if (nct6683_read(data, nct6687dr_curve_mode_reg(ch)) !=
-+	    NCT6687DR_CURVE_MODE_PWM)
-+		return false;
-+
-+	for (p = 0; p < NCT6687DR_CURVE_POINTS; p++) {
-+		if (nct6683_read(data, NCT6687DR_REG_CURVE_OUT_HI(ch, p)))
-+			return false;
-+		curve->temp[p] = nct6683_read(data,
-+					      NCT6687DR_REG_CURVE_TEMP(ch, p));
-+		curve->pwm[p] = nct6683_read(data,
-+					     NCT6687DR_REG_CURVE_OUT_LO(ch, p));
-+	}
-+
-+	return true;
-+}
-+
-+/*
-+ * Only curves with non-decreasing temperatures up to the limit and
-+ * non-decreasing duty cycles are written. The EC does not take a curve
-+ * whose duty cycles decrease.
-+ */
-+static bool nct6687dr_curve_valid(const struct nct6687dr_curve *curve)
-+{
-+	int p;
-+
-+	for (p = 0; p < NCT6687DR_CURVE_POINTS; p++) {
-+		if (curve->temp[p] > NCT6687DR_CURVE_TEMP_MAX)
-+			return false;
-+		if (p && (curve->temp[p] < curve->temp[p - 1] ||
-+			  curve->pwm[p] < curve->pwm[p - 1]))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+/* Clamp a new value of point p to the values of the adjacent points */
-+static u8 nct6687dr_curve_clamp(const u8 *val, int p, int v, int max)
-+{
-+	int lo = p ? val[p - 1] : 0;
-+	int hi = p < NCT6687DR_CURVE_POINTS - 1 ? val[p + 1] : max;
-+
-+	return clamp(v, lo, hi);
-+}
-+
-+struct nct6687dr_curve_ctx {
-+	int ch;
-+	const struct nct6687dr_curve *curve;
-+};
-+
-+static void nct6687dr_curve_write(struct nct6683_data *data, void *ctx)
-+{
-+	const struct nct6687dr_curve_ctx *cc = ctx;
-+	int ch = cc->ch;
-+	int p;
-+
-+	for (p = 0; p < NCT6687DR_CURVE_POINTS; p++)
-+		nct6683_write(data, NCT6687DR_REG_CURVE_TEMP(ch, p),
-+			      cc->curve->temp[p]);
-+	for (p = 0; p < NCT6687DR_CURVE_POINTS; p++) {
-+		nct6683_write(data, NCT6687DR_REG_CURVE_OUT_HI(ch, p), 0);
-+		nct6683_write(data, NCT6687DR_REG_CURVE_OUT_LO(ch, p),
-+			      cc->curve->pwm[p]);
-+	}
-+	nct6683_write(data, nct6687dr_curve_mode_reg(ch),
-+		      NCT6687DR_CURVE_MODE_PWM);
-+}
-+
-+/* Write a fan curve and check that the EC has taken it */
-+static int nct6687dr_curve_apply(struct nct6683_data *data, int ch,
-+				 const struct nct6687dr_curve *curve)
-+{
-+	struct nct6687dr_curve_ctx cc = { .ch = ch, .curve = curve };
-+	struct nct6687dr_curve check;
-+	int err;
-+
-+	err = nct6687dr_fan_cfg_transaction(data, nct6687dr_curve_write, &cc);
-+	if (err)
-+		return err;
-+
-+	if (!nct6687dr_curve_read(data, ch, &check) ||
-+	    memcmp(&check, curve, sizeof(check)))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Set the temperature (in degrees Celsius) or the duty cycle of one point
-+ * of a fan curve, if not negative. The whole curve is written, and the
-+ * previous one is restored if that fails while the EC responds.
-+ */
-+static int nct6687dr_curve_set_point(struct device *dev, int ch, int p,
-+				     int temp, int pwm)
-+{
-+	struct nct6683_data *data = dev_get_drvdata(dev);
-+	struct nct6687dr_curve old, curve;
-+	int err;
-+
-+	mutex_lock(&data->update_lock);
-+
-+	/* Do not touch a curve which is no longer supported */
-+	if (!nct6687dr_curve_read(data, ch, &old) ||
-+	    !nct6687dr_curve_valid(&old)) {
-+		err = -EIO;
-+		goto unlock;
-+	}
-+
-+	/* Keep the temperatures and the duty cycles non-decreasing */
-+	curve = old;
-+	if (temp >= 0)
-+		curve.temp[p] = nct6687dr_curve_clamp(curve.temp, p, temp,
-+						      NCT6687DR_CURVE_TEMP_MAX);
-+	if (pwm >= 0)
-+		curve.pwm[p] = nct6687dr_curve_clamp(curve.pwm, p, pwm, 255);
-+
-+	err = nct6687dr_curve_apply(data, ch, &curve);
-+	if (err) {
-+		/* The EC does not respond, so do not try the old curve */
-+		if (err == -ETIMEDOUT)
-+			goto unlock;
-+		if (nct6687dr_curve_apply(data, ch, &old))
-+			dev_err(dev, "Fan curve of pwm%d in unknown state\n",
-+				ch + 1);
-+		goto unlock;
-+	}
-+
-+	data->curve_set |= BIT(ch);
-+	data->curve[ch] = curve;
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+	return err;
-+}
-+
- /* Fan curves, read from the EC on each access */
- static ssize_t
- show_pwm_auto_point_temp(struct device *dev, struct device_attribute *attr,
-@@ -1231,6 +1396,43 @@ show_pwm_auto_point_pwm(struct device *dev, struct device_attribute *attr,
- 	return sysfs_emit(buf, "%d\n", val);
- }
- 
-+static ssize_t
-+store_pwm_auto_point_temp(struct device *dev, struct device_attribute *attr,
-+			  const char *buf, size_t count)
-+{
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+	long val;
-+	int err;
-+
-+	err = kstrtol(buf, 10, &val);
-+	if (err)
-+		return err;
-+
-+	val = clamp_val(val, 0, NCT6687DR_CURVE_TEMP_MAX * 1000);
-+	err = nct6687dr_curve_set_point(dev, sattr->nr, sattr->index,
-+					DIV_ROUND_CLOSEST(val, 1000), -1);
-+
-+	return err ? err : count;
-+}
-+
-+static ssize_t
-+store_pwm_auto_point_pwm(struct device *dev, struct device_attribute *attr,
-+			 const char *buf, size_t count)
-+{
-+	struct sensor_device_attribute_2 *sattr = to_sensor_dev_attr_2(attr);
-+	unsigned long val;
-+	int err;
-+
-+	err = kstrtoul(buf, 10, &val);
-+	if (err)
-+		return err;
-+
-+	err = nct6687dr_curve_set_point(dev, sattr->nr, sattr->index, -1,
-+					min_t(unsigned long, val, 255));
-+
-+	return err ? err : count;
-+}
-+
- static ssize_t
- show_pwm_auto_channels_temp(struct device *dev, struct device_attribute *attr,
- 			    char *buf)
-@@ -1263,34 +1465,34 @@ show_pwm_auto_channels_temp(struct device *dev, struct device_attribute *attr,
- 
- SENSOR_TEMPLATE(pwm_auto_channels_temp, "pwm%d_auto_channels_temp", 0444,
- 		show_pwm_auto_channels_temp, NULL, 0);
--SENSOR_TEMPLATE_2(pwm_auto_point1_temp, "pwm%d_auto_point1_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 0);
--SENSOR_TEMPLATE_2(pwm_auto_point1_pwm, "pwm%d_auto_point1_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 0);
--SENSOR_TEMPLATE_2(pwm_auto_point2_temp, "pwm%d_auto_point2_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 1);
--SENSOR_TEMPLATE_2(pwm_auto_point2_pwm, "pwm%d_auto_point2_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 1);
--SENSOR_TEMPLATE_2(pwm_auto_point3_temp, "pwm%d_auto_point3_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 2);
--SENSOR_TEMPLATE_2(pwm_auto_point3_pwm, "pwm%d_auto_point3_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 2);
--SENSOR_TEMPLATE_2(pwm_auto_point4_temp, "pwm%d_auto_point4_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 3);
--SENSOR_TEMPLATE_2(pwm_auto_point4_pwm, "pwm%d_auto_point4_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 3);
--SENSOR_TEMPLATE_2(pwm_auto_point5_temp, "pwm%d_auto_point5_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 4);
--SENSOR_TEMPLATE_2(pwm_auto_point5_pwm, "pwm%d_auto_point5_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 4);
--SENSOR_TEMPLATE_2(pwm_auto_point6_temp, "pwm%d_auto_point6_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 5);
--SENSOR_TEMPLATE_2(pwm_auto_point6_pwm, "pwm%d_auto_point6_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 5);
--SENSOR_TEMPLATE_2(pwm_auto_point7_temp, "pwm%d_auto_point7_temp", 0444,
--		  show_pwm_auto_point_temp, NULL, 0, 6);
--SENSOR_TEMPLATE_2(pwm_auto_point7_pwm, "pwm%d_auto_point7_pwm", 0444,
--		  show_pwm_auto_point_pwm, NULL, 0, 6);
-+SENSOR_TEMPLATE_2(pwm_auto_point1_temp, "pwm%d_auto_point1_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 0);
-+SENSOR_TEMPLATE_2(pwm_auto_point1_pwm, "pwm%d_auto_point1_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 0);
-+SENSOR_TEMPLATE_2(pwm_auto_point2_temp, "pwm%d_auto_point2_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 1);
-+SENSOR_TEMPLATE_2(pwm_auto_point2_pwm, "pwm%d_auto_point2_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 1);
-+SENSOR_TEMPLATE_2(pwm_auto_point3_temp, "pwm%d_auto_point3_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 2);
-+SENSOR_TEMPLATE_2(pwm_auto_point3_pwm, "pwm%d_auto_point3_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 2);
-+SENSOR_TEMPLATE_2(pwm_auto_point4_temp, "pwm%d_auto_point4_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 3);
-+SENSOR_TEMPLATE_2(pwm_auto_point4_pwm, "pwm%d_auto_point4_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 3);
-+SENSOR_TEMPLATE_2(pwm_auto_point5_temp, "pwm%d_auto_point5_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 4);
-+SENSOR_TEMPLATE_2(pwm_auto_point5_pwm, "pwm%d_auto_point5_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 4);
-+SENSOR_TEMPLATE_2(pwm_auto_point6_temp, "pwm%d_auto_point6_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 5);
-+SENSOR_TEMPLATE_2(pwm_auto_point6_pwm, "pwm%d_auto_point6_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 5);
-+SENSOR_TEMPLATE_2(pwm_auto_point7_temp, "pwm%d_auto_point7_temp", 0644,
-+		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 6);
-+SENSOR_TEMPLATE_2(pwm_auto_point7_pwm, "pwm%d_auto_point7_pwm", 0644,
-+		  show_pwm_auto_point_pwm, store_pwm_auto_point_pwm, 0, 6);
- 
- /* pwm, pwm_enable, pwm_auto_channels_temp and the fan curve points */
- #define NCT6683_PWM_TEMPLATES	(3 + 2 * NCT6687DR_CURVE_POINTS)
-@@ -1306,8 +1508,11 @@ static umode_t nct6683_pwm_is_visible(struct kobject *kobj,
- 	if (!(data->have_pwm & (1 << pwm)))
- 		return 0;
- 
--	if (nr >= 2)	/* fan curve */
--		return (data->have_curve & BIT(pwm)) ? attr->mode : 0;
-+	if (nr >= 2) {	/* fan curve */
-+		if (!(data->have_curve & BIT(pwm)))
-+			return 0;
-+		return (data->curve_writable & BIT(pwm)) ? attr->mode : 0444;
-+	}
- 
- 	if (data->have_fan_ctrl & BIT(pwm))
- 		return attr->mode | 0200;
-@@ -1502,32 +1707,6 @@ static inline void nct6683_init_device(struct nct6683_data *data)
- 		nct6683_write(data, NCT6683_HWM_CFG, tmp | 0x80);
- }
- 
--static u16 nct6687dr_curve_mode_reg(int ch)
--{
--	return ch < 8 ? NCT6687DR_REG_CURVE_MODE(ch) :
--			NCT6687DR_REG_CURVE_MODE_SYS(ch);
--}
--
--/*
-- * A fan curve sets a duty cycle if its mode register is 0x40 and the high
-- * byte of each output is zero. The low byte then holds the duty cycle.
-- */
--static bool nct6687dr_curve_is_pwm(struct nct6683_data *data, int ch)
--{
--	int p;
--
--	if (nct6683_read(data, nct6687dr_curve_mode_reg(ch)) !=
--	    NCT6687DR_CURVE_MODE_PWM)
--		return false;
--
--	for (p = 0; p < NCT6687DR_CURVE_POINTS; p++) {
--		if (nct6683_read(data, NCT6687DR_REG_CURVE_OUT_HI(ch, p)))
--			return false;
--	}
--
--	return true;
--}
--
- /*
-  * There are a total of 24 fan inputs. Each can be configured as input
-  * or as output. A maximum of 16 inputs and 8 outputs is configurable.
-@@ -1563,9 +1742,14 @@ nct6683_setup_fans(struct nct6683_data *data)
- 
- 		/* Only report fan curves which set a duty cycle */
- 		for (i = 0; i < NCT6683_NUM_REG_FAN; i++) {
--			if ((data->have_fan_ctrl & BIT(i)) &&
--			    nct6687dr_curve_is_pwm(data, i))
--				data->have_curve |= BIT(i);
-+			struct nct6687dr_curve curve;
-+
-+			if (!(data->have_fan_ctrl & BIT(i)) ||
-+			    !nct6687dr_curve_read(data, i, &curve))
-+				continue;
-+			data->have_curve |= BIT(i);
-+			if (nct6687dr_curve_valid(&curve))
-+				data->curve_writable |= BIT(i);
- 		}
- 	}
- }
-@@ -1757,13 +1941,30 @@ static int nct6683_suspend(struct device *dev)
- static int nct6683_resume(struct device *dev)
- {
- 	struct nct6683_data *data = dev_get_drvdata(dev);
--	unsigned long manual;
-+	struct nct6687dr_curve curve;
-+	unsigned long manual, set;
- 	int ch, err;
- 
- 	mutex_lock(&data->update_lock);
- 
- 	nct6683_write(data, NCT6683_HWM_CFG, data->hwm_cfg);
- 
-+	/* The BIOS may restore its own fan curves, so restore ours first */
-+	set = data->curve_set;
-+	for_each_set_bit(ch, &set, NCT6683_NUM_REG_FAN) {
-+		if (nct6687dr_curve_read(data, ch, &curve) &&
-+		    !memcmp(&curve, &data->curve[ch], sizeof(curve)))
-+			continue;
-+		err = nct6687dr_curve_apply(data, ch, &data->curve[ch]);
-+		if (err) {
-+			dev_warn(dev, "Failed to restore fan curve of pwm%d: %d\n",
-+				 ch + 1, err);
-+			/* The EC does not respond, skip everything else */
-+			if (err == -ETIMEDOUT)
-+				goto out;
-+		}
-+	}
-+
- 	/* The BIOS may switch the fans back to automatic mode */
- 	manual = data->pwm_manual;
- 	for_each_set_bit(ch, &manual, NCT6683_NUM_REG_FAN) {
-@@ -1779,6 +1980,7 @@ static int nct6683_resume(struct device *dev)
- 		}
- 	}
- 
-+out:
- 	/* Force re-reading all values */
- 	data->valid = false;
- 	mutex_unlock(&data->update_lock);
--- 
-2.56.0
+>> >> Should we make _mask the only way to advertise what the user wants to
+>> >> change,
+>
+> Yes, unless _mask is zero, which then means set all the legacy values
+> which are frozen in the constant FS_XFLAGS_MASK.
+>
+>> >> ignore xflags | PTIME in user-space -> VFS and use it only in FS
+>> >> -> VFS -> user-space to say "this fs supports PTIME for this file"
+>
+> Close, but not exactly.
+>
+> For GET, semantics are clear and follow statx precedents:
+> xflags_mask always means "supported" (like stx_attributes_mask).
+>
+> For boolean flags, xflags is the value
+> For integer fields, an xflags bit means "value provided" (like stx_mask).
+>
+> For SET, when xflags_mask!=3D0, a flag of 1 means "I want to set this val=
+ue".
+>
+> For boolean flags, if the flag's bit in xflags_mask is 0, the flag is
+> left untouched
+> (e.g. a chattr -p that only sets the project ID doesn't touch IMMUTABLE).
+>
+> For integer fields, the meaning of xflags_mask 1 and xflags 0 would be
+> "I want to unset the value" which is not the same as "I want to set the v=
+alue
+> to 0", because as you wrote, 0 is a valid value for ptime.
+>
+> The question of whether a specific field can be unset or not is up for th=
+e
+> filesystem to decide, not the VFS.
+>
+> For example, XFS already unset the value of cowextsize when flag
+> FS_XFLAG_COWEXTSIZE is 0, although the same could be done
+> with a 0 value to fa_cowextsize.
+>
+> VFS does enforce that xflags & ~xflags_mask is EINVAL.
+>
+>> >> (which will be always once support is added to an FS, so it would jus=
+t
+>> >> be "this FS supports PTIME")?
+>
+> It does not have to be an FS-wide property. some fs could have ptime
+> (or another attribute) support only on some files types.
 
+Right.
+
+>> >>
+>> >
+>> > Sorry I was not able to parse your question.
+>> >
+>> > I think the mask should mean "this FS supports PTIME"
+>> > regardless if the user asked to get/set it or not.
+>>
+>> Yeah sorry, I'm just a bit confused because of all the similar names and
+>> concepts.
+>
+> Me too... I needed to re-read all the threads from Feb 2025...
+
+I also had to go back to those threads, since at least those have more
+parsable function names ahah.
+
+>>
+>> (assuming btrfs supports ptime and ext4 doesn't)
+>>
+>> * filesystem -> VFS -> user-space, while in fileattr_to_file_attr():
+>>
+>>   for btrfs, for all files[1]:
+>>         fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 1
+>>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1
+>
+> Yes.
+>
+>>
+>>   for ext4, for all files:
+>>         fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 0
+>>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 0
+>
+> Yes.
+>
+>>
+>> * user-space -> VFS -> filesystem, while in file_attr_to_fileattr():
+>>
+>>         fattr->fa_xflags & FS_XFLAG_PTIME =3D=3D ignored
+>
+> This is debatable. IMO it should be 1 for value, 0 to unset existing valu=
+e,
+> similar to removexattr() if you want to look at it this way.
+
+So in the case of ptime, fattr->fa_xflags & FS_XFLAG_PTIME should be
+ignored, while for fattr->fa_xflags & FS_XFLAG_SOME_NEW_THING it will
+need to be handled as
+
+=3D=3D 1: set it taking the value from ->some_new_thing
+=3D=3D 0: unset the value
+
+>>         fattr->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1 if user wants to=
+ set it, otherwise 0
+>
+> Yes. but now the user has to set any legacy field it wants to set in
+> fa_xflags_mask as well, because fa_xflags_mask is no longer zero.
+> so we need to introduce flag constants for legacy fields that do not
+> have xflags. I think that is only FS_XFLAG_PROJID.
+
+Should this be a patch in this series, or a separate patch sent after?
+
+>>
+>> Would this be correct?
+>>
+>> Or would it be better to set FS_XFLAG_PTIME only in fa_xflags_mask, and
+>> never touch fa_xflags with it, which would make the above become:
+>>
+>>
+>> * filesystem -> VFS -> user-space, while in fileattr_to_file_attr():
+>>
+>>   for btrfs, for all files[1]:
+>>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1
+>>
+>>   for ext4, for all files:
+>>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 0
+>>
+>>   (and always fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 0)
+>>
+>> * user-space -> VFS -> filesystem, while in file_attr_to_fileattr():
+>>
+>>         (fattr->fa_xflags & FS_XFLAG_PTIME =3D=3D ignored)
+>>         fattr->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1 if user wants to=
+ set it, otherwise 0
+>>
+>
+> I prefer the former.
+>
+>> This would mean that fa_xflags_mask is used like stx_mask both by the fs
+>> (to let the user know what it supports (a.k.a. what it's returning)) and
+>> by the user (to let the fs know what it's trying to set),
+>
+> This is actually like stx_attributes_mask not stx_mask.
+
+Ah ok.
+
+>> and fa_xflags
+>> is used only for ON/OFF flags (like immutable).
+>
+> Yes, on/off for flag values (like stx_attributes), but "value exists"
+> for field values (like stx_mask).
+>
+>>
+>> Let me know if it's clearer.
+>>
+>
+> Same.
+
+Yes, I think I get it know.
+
+So, just to recap:
+
+fa->xflags_mask =3D=3D 0 -> legacy behaviour before this series
+
+
+fa->xflags_mask & FS_XFLAG_ABCD =3D=3D 1 -> "user wants to set/change abcd"
+fa->xflags & FS_XFLAG_ABCD =3D=3D 1 -> "user wants kernel to take the value=
+ from fa->abcd"
+fa->xflags & FS_XFLAG_ABCD =3D=3D 0 -> "user wants kernel to unset abcd"
+
+fa->xflags_mask & FS_XFLAG_ABCD =3D=3D 0 -> "don't touch abcd"
+
+
+and in the case of ptime this means:
+
+
+fa->xflags_mask & FS_XFLAG_PTIME =3D=3D 1 -> "user wants to set/change ptim=
+e"
+fa->xflags & FS_XFLAG_PTIME =3D=3D 0/1 -> "user wants kernel to take the va=
+lue from fa->ptime" [1]
+
+fa->xflags_mask & FS_XFLAG_PTIME =3D=3D 0 -> "don't touch ptime"
+
+
+Correct?
+
+Thanks,
+koraynilay
+
+[1]: so basically ignored, it doesn't matter if the user sets xflags | PTIM=
+E
+or not, but still recommended in documentation. Tho thinking more about
+it, maybe it would be better to enforce it at the fs level with
+-EOPNOTSUPP.
+
+
+> Thanks,
+> Amir.
+
+
+
+--1bc85eaa38fb06f5cb938135d83b598e0e2ac0da5a561a69ab953af6626c
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSgVimKafU5DQMcjcDmj22qf5IGXAUCavJKiQAKCRDmj22qf5IG
+XFmvAQDJ5TYpkt4k3iU8vjC1XnupiucikMkdH55K6cVJ1gKQdwD/TAa5kJJuINtl
+uD988n6vHMlyrWBlrjXaxWFBiVegWQQ=
+=5ztk
+-----END PGP SIGNATURE-----
+
+--1bc85eaa38fb06f5cb938135d83b598e0e2ac0da5a561a69ab953af6626c--
