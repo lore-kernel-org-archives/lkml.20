@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794268569;
-	b=QisRPq6FjLD/+yJ6ztLTkjP9Lh4WdbZhKPrY9VNrxanuC6f8Jg2QXpTXT+gWDsFrT6mS
-	 isM07KdeIRC+7/ZHN4q7StTYApeD1gHVZxZDo4FnrfWvETf0f8tVf8s4gAVCSr604jeWW
-	 Wbmn8Pn6hFdO2WTGpyVlqPtkNoHA2DPQnvvefnEsERPv5X3sHXgYGNIBY0jcOC8LvPn2f
-	 MJQbpFwpEbO2HtF24a6+geUKlPy6cLXuYuPQOP+/itrRqEk4jk4azDsmntMCvdTdTFQPv
-	 9meAs41xPsHWzWHpnfrWIjHZjQFJPsWC2g0x1twNbcjFaxEX4cyDl1rv3pPPBet89ZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268569;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
-	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
-	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=gim1oJ1ePxJ3vdOAQtzwVGI11fG5kPHKo/ag868og+g=;
-	b=Bv8SU4poQwlLfaiojh1YIvRycM68x2udP4sr4z4W1qGyYpe5xzVJwLj0Qyl8TQ1NKvtG
-	 0x9ZIAIrs/07LAzKXAuA+BswcsSpvdip+5JJBiIPaDZGE9IzHmZcfLW9WrcFHd2mt1f06
-	 Ec3EkYm8xiTfRgSbL8ls0Pg9HzSRcqZ2xmJj8EY4TR4nT6d9n16VAB2bBLHaL12V+ebi1
-	 MwuwpTjFtmIfBBviu4jwydqYyrVGTlqFxZmbRZem0XAsQ8RYB775pfSREPP6+FhBxPvxp
-	 iEoTuf+rmWLQKEcDLZjnTP/TJjSMU9KSieChcfemzO6sjGijtwyTDuSxnXMYP6t+c5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=u5LL0pzT;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qfqHeVMr;
-	arc=fail smtp.remote-ip=185.56.87.7
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794268596;
+	b=FgbaWL5+cYKcfnPUGhlNwVzyt9R4QyQnib9RDP2Tt0afR7bt+FLO9ptU9X9u12WYOPDZ
+	 hOscmzKw03O9aVLtKZ1WGLzhTm10fr7hKKahhTChBYcNb45AbzSsA6vZZTgc5LAC48JvP
+	 9dl78f24APR4A4oasilFPEuvFxQ4UqlVDZM30U/pTA+1Oh/s8eGGxfY7S88VzMtag+OBl
+	 SI+F8IPBIW9psUiFqX9SL+SHTp/jcxaOzf3ZYQmX9SwXBqkpSh/3QOgbFQw6nIjgfj8FG
+	 21zeh4VjXUWuhUX4akFaV1R87SKKGbCV6mFRySCdrk6CjtIUbtDVVvMWkLGBMiBzFng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268596;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=MV9l+zJLmKEJUA1yt63pBpC3JlqNH1CMzrjR4zJJ62k=;
+	b=22/7TI430XB4L7hua9gfYp9uyN/BWFDaR35bap9Gsc6tUvlPPZ7CkaZDp/r9iuEOajSJ
+	 DOBzXS5MmcObQaHxAmSvDM8idM+M4F9KOTk2kw/23RGHEO80Rhjjua88aJYRRcZoEat5J
+	 oULGRsTR5mNWh2dmp1EJJpo2tI4WyxTDgbSk29ITnn/k2tfXhx9YIwsKGj7/lu61mGU9E
+	 O9QksRcFZ/K2nS1ybB1hIVIhDCGZYMG/qMmZhhkDiZs4ke8F09Qr5TBg6ceaNmnq6T2h+
+	 BuDpQQhD10qZMLz64KXYZ0wW5drX4/ZQIW1rDxh1kRHAYRBIROYouFqxAc5m5mdpJiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VLCqFtn3;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F99E606A321;
-	Mon,  9 Nov 2026 23:56:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F99E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941AD606A336
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:56:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 941AD606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=u5LL0pzT;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qfqHeVMr
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; s=arckey; t=1794268568;
-	 b=HSNWi6VJ4aZB0LkLnCkwf8U3TjIXEOg/+fwnflAdCWXWAwoLYLr1RWtCQKBUAwQHzH0Lqkl1Og
-	  dbx9SqXVwpTiW8W7YnhJ0MokNwqNZiHKjbHwikJo5Aoy/T3qOK3SgfvW26wdFvbRMkbgzC6soN
-	  2ZPAP7QsDJ7GaN0zuhCMxYOWSLO/si+OlDFIv/3KB2AW8FZ1RdtDqTdofWX22UKzFTrDsg9t28
-	  etltaDh8YfRJFmv5lp7ua97xRXobFRZOK6/RiP3FzlvAJb/axDq9gXzk2RsoeOm2Oqohn9FVL+
-	  1Nt+OcDVJgb+J3BkB67hQDmj0qYD2s9QyJBpnOLnmsT5PA==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; s=arckey; t=1794268568;
-	bh=AaYmPzMt1Zbav8ZLszRreNvHb9kTClH06Tlsv278sHA=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=kBN44PLjK1Lg/B8zetsmkOqWzrWEXjbT4HLMLHcKKXmyjCBFfFdu2JBsmZZcZ2JHUXK7Gq67At
-	  t9YFtyjA9zqIBFfooOFhsvR0DMhk4cWuIGbS6t0YSrlA/4RoQ375EztaDsO+EhqPTrfRvLtZ/W
-	  wbUmFdm+hO1t5ORHYtNcAZJRdvuuURrlWUTjCQ9ORu5dkzVsytG9d/Zy+oVVRLfAqbKKsPLRxr
-	  Qrgvqgl4ifJ0ledAMWTwHp6p36qrs7/lFCzJ/7lP1mE5WhkjH/oen9aSPfiZWg4iYQpKktO0Zg
-	  x9EFNekfyaBtdcxV+44XVCrBwgLe8y/zBpudZ9ptZnM/Sg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=gim1oJ1ePxJ3vdOAQtzwVGI11fG5kPHKo/ag868og+g=; b=u5LL0pzTKIBaHpr9h0u93PAbmu
-	ukOQxw10n6GAiTBIZ9vnlAriJm4dnp6TOV/tbjampFxCCAgocdtuuRzLMr/y4sjlG3g8cDNsfVJlW
-	GWQ6IDzONnj7Z7ncvvACuJz/UIzeZENFkJ8+0LsWNZXwXwXi3UhRTJ9h4Ip2/tx71neE=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQZDU-0000000EVdT-18EL;
-	Mon, 09 Nov 2026 23:56:00 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=gim1oJ1ePxJ3vdOAQtzwVGI11fG5kPHKo/ag868og+g=; b=qfqHeVMrTEDdGbC4Ue/pfvGTKJ
-	dakYiQWrmooe//kH6lzJdjvZDm0X+tpgeGpI8P5YjfVkC+bJtSKvXB5kAs7bZeFPIGRGPgSEyi86s
-	6w1QIVme1fFgL+O/0wG8A3tV0adEungI8lXEdRfqOVzvoyRDdq2hLd7y38kESa7AG+BI=;
-Received: from [79.17.15.196] (port=60430 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQZDP-000000005KN-2cLq;
-	Mon, 09 Nov 2026 23:55:55 +0000
-Date: Tue, 10 Nov 2026 00:55:54 +0100
-From: Francesco Valla <francesco@valla.it>
-To: Chrispine Tinega <dev@chrispinetinega.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] remoteproc: k3: Recover a crashed remote core
-Message-ID: <avJbc4Aebflkjgap@bywater>
-References: <d22a1ffd-cfbc-4122-b11a-7b680985defd@valla.it>
- <20261109160431.720498-1-dev@chrispinetinega.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VLCqFtn3
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso965220a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:56:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794268595; x=1794873395;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=MV9l+zJLmKEJUA1yt63pBpC3JlqNH1CMzrjR4zJJ62k=;
+        b=R3Pdgd30aWmVDFEZVstN3t0XAIMJHQBW18iGzrRK7hHnnZptz0Vm/Bco9/6XdcTLvD
+         YjpS5JF9GMF0zgsk0ZG8J9C7YDiyEI9NTmpuf28ib4XpqprcdOPhIFs8/iVYX+ii8sVU
+         fzuHjDC1TflY2eQRO9/adJK+JMF1vp/jvXmeijRCFsPb4XBEwsVU/XyMrvH93uu45FvB
+         ukX3pM6Jn/qS0GD/KQBiVaLWN+jbzeSmNZbJMfTydyUl+9ai7luUWCMP6RHxb766STZM
+         tAEJgEBDSdzsXguzOcZrTRXd4JjfXS+ImImBkpjpwg6RRkWxP/eqhDb9hF8gqpQ5GOwD
+         Xv9g==
+X-Forwarded-Encrypted: i=1; AL+hErH2QdiNG984oDDTOH6nRwcoCcYL7mDskSk0z98R+LU2e/JOgDcpyYWl1Ti/hAAq46FmVMJ+QU1Cjh9c1qw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91YCsB6NfSjtSLICfb7S7ZOVfaJJZ23dN06itmzP6p8csYH47d
+	RkYYDTnPxAebsSPviM9EfwUxY1leFQ1pSou63YOrcA18j7THa9jc7ty2TfjCT7EGw5IQdH8P9jT
+	A0ZZn+96AYsTsBsNO2le4vtVahCNqmaZQhU4P6vy9beBzlzelHPi1XELczlo6NarhvKNqGDdawn
+	5H/CTZVfUQNKnhV+WLG0tnIFZRGsrr6ymAk5pp8AKWOQkY7NBZzkVlhyWfFQfss+eR3ivjagkVf
+	vGSpa2kVyudNVbskDRhiSCv
+X-Gm-Gg: AYBFou1+BOxMGIRQCe+IglRSybd4qbnAC2COdWhWOoDxMtFVDzeAu3tW4Pv2pjBmqfq
+	hCMtRllx2+REYnda4kwbsySaL4VaJjVeBObSEcLh1Va5V46VmRnuRTPVlOI0o3TEMLO0xC2vGkw
+	wCaS4m0pL1hBxD5OH8LIuyAF+ibKDY+616Q/Ddtdh6t5+LoRnL80FCyrb914BtGDKN9RfKearec
+	JQW49BS34Q6m1ogZPQzkbTPlrunLywghqQJpv0vfECzBGnxQgWi0FPOPba1WATTFCqChRGu4agv
+	fH93pHx6q6DyCCwhJsYU5U06pg6AS8rXWrSava+ejobo0RISkibdxZQMngvpfx8w0V/kkD0WnpL
+	9Ue7GfhQjXiIvyREzcElsZZabKVfGpv/ZEYOtYiLbyCDruXQl7WtgJAoZtPszwqWs8aWY+cMhlc
+	d8yyBqS/V1iq2M2YSQhDTDh1PAfntLdP8EWkRtH+Sl
+X-Received: by 2002:a17:90b:1b03:b0:3ac:97bc:4c7b with SMTP id 98e67ed59e1d1-3b166c8486cmr1124080a91.14.1794268594675;
+        Mon, 09 Nov 2026 15:56:34 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b168b567ebsm230818a91.0.2026.11.09.15.56.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 09 Nov 2026 15:56:34 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91ea4a2210fso16500126d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:56:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794268591; x=1794873391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MV9l+zJLmKEJUA1yt63pBpC3JlqNH1CMzrjR4zJJ62k=;
+        b=VLCqFtn3HS6Mup60PGesKPi/CqY6dd6JQ+EePcPvKPpyGx8Y1dzAOiGdnwUvOXP0Jf
+         LpV0BlaC2pikJaZhO1Ee4xzP7t0NfH/KdhqyS5h8WnYEU3DmtoRek0ARdXbhujnpj7fH
+         PD7c4374lNxh8H1CNF+pP3C13u3FUWYmf/szA=
+X-Forwarded-Encrypted: i=1; AL+hErE/eNF9SBVvNSghRyMFtsiPQbDv8ihg3UzdbPXAC4c03Yf3Zp4LNOlPrDcOIQqOMdjDO4ICpPs5WC7rnh8=@vger.kernel.org
+X-Received: by 2002:a05:6214:c2a:b0:91e:8c55:e005 with SMTP id 6a1803df08f44-91eef93d977mr19944576d6.39.1794268591083;
+        Mon, 09 Nov 2026 15:56:31 -0800 (PST)
+X-Received: by 2002:a05:6214:c2a:b0:91e:8c55:e005 with SMTP id 6a1803df08f44-91eef93d977mr19944316d6.39.1794268590351;
+        Mon, 09 Nov 2026 15:56:30 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04fe53asm7909876d6.27.2026.11.09.15.56.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 15:56:29 -0800 (PST)
+Message-ID: <41b76df2-d07a-4b59-93b6-5e4e6fe264e1@broadcom.com>
+Date: Mon, 9 Nov 2026 15:56:27 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,133 +106,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109160431.720498-1-dev@chrispinetinega.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 70194f2650fe92e883fe30848340172b
-X-AntiAbuse: ID - 70194f2650fe92e883fe30848340172b
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xQZDU-0000000EVdT-18EL-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 3/8] net: dsa: b53: clear stale state when creating
+ an ARL entry
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, vivien.didelot@gmail.com,
+ linux-kernel@vger.kernel.org
+References: <20261030211617.288562-4-florian.fainelli@broadcom.com>
+ <179348376043.3131.9215522572202391161@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <179348376043.3131.9215522572202391161@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Chrispine,
-
-On Mon, Nov 09, 2026 at 07:04:30PM +0300, Chrispine Tinega wrote:
-> Hi Francesco,
+On 10/31/26 14:56, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 > 
-> On Mon, 9 Nov 2026, Francesco Valla wrote:
-> > If you share details on the Zephyr side of things, I can test this
-> > against rproc-next on a AM67A (BeagleY-AI).
+> Critical: 0 · High: 0 · Medium: 2 · Low: 0
 > 
-> Thank you, that would help. The AM67A has no M4F, so patch 2 does not
-> apply there. Patch 1 does: the R5F driver uses the same mailbox
-> callback, and it keeps recovery disabled. So on the main R5F I would
-> expect this:
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> - Without the series, the crash is only logged, and the core stays in
->   "running" until the next boot.
-> - With the series, the core moves to "crashed", the crash is counted,
->   and it can be stopped and started again through sysfs.
+> - [Medium] In b53_arl_op() (drivers/net/dsa/b53/b53_common.c), deleting a
+>    {MAC,VID} that is missing from the ARL now returns -ENOENT.
+> - [Medium] Deleting an ARL entry that is not in hardware now fails with
+>    -ENOENT, including the -ENOSPC lookup result, which used to return 0…
 > 
-> The Zephyr side is upstream's openamp_rsc_table sample with one file
-> added. The handler sends RP_MBOX_CRASH over the mailbox before it
-> halts, and a thread forces a fault 20 s after boot. This builds on
-> Zephyr v4.5.0 for beagley_ai/j722s/main_r5f0_0, but I have not run it
-> on that board.
-
-I did run it on the "MCU" R5F, and I think I found a bug... in the Zephyr
-ti_dmtimer code! With that fixed, the functionality seems to be working
-as expected, but I'll stress it a bit before declaring a Tested-by.
-
+> --
 > 
-> Copy samples/subsys/ipc/openamp_rsc_table, add src/crash.c below, and
-> list it in CMakeLists.txt:
+> net: dsa: b53: clear stale state when creating an ARL entry
 > 
->   target_sources(app PRIVATE src/main_remote.c src/crash.c)
+> When an ARL lookup misses, the patch now clears the b53_arl_entry before
+> building a new one. This stops a multicast add from ORing the port into an
+> unrelated bin's bitmap. A delete of an absent entry now returns -ENOENT
+> without writing to hardware, and that includes the -ENOSPC lookup result,
+> which used to return 0.
 > 
-> Build it:
+>> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+>> index 559d4b360c828..c38e8c5838bd8 100644
+>> --- a/drivers/net/dsa/b53/b53_common.c
+>> +++ b/drivers/net/dsa/b53/b53_common.c
+>> @@ -1990,11 +1990,15 @@ static int b53_arl_op(struct b53_device *dev, int op, int port,
+>>   	case -ENOSPC:
+>>   		dev_dbg(dev->dev, "{%pM,%.4d} no space left in ARL\n",
+>>   			addr, vid);
+>> -		return is_valid ? ret : 0;
+>> +		return is_valid ? ret : -ENOENT;
+>>   	case -ENOENT:
+>> +		if (!is_valid)
+>> +			return ret;
 > 
->   west build -b beagley_ai/j722s/main_r5f0_0 path/to/the/copy
+> [Severity: Medium]
+> Can returning -ENOENT on delete leave DSA's host address tracking out of
+> sync with the ARL?
 > 
-> Load build/zephyr/zephyr_openamp_rsc_table.elf as the main R5F's
-> firmware. After 20 s, check the state:
+> b53_fdb_del() and b53_mdb_del() pass this value back to DSA. On CPU/DSA
+> ports, when the last reference drops, dsa_port_do_fdb_del() in
+> net/dsa/switch.c treats any driver error as "still in hardware":
 > 
->   cat /sys/class/remoteproc/remoteprocN/state
->   dmesg | grep -i crash
-> 
-> To bring the core back:
-> 
->   echo stop > /sys/class/remoteproc/remoteprocN/state
->   echo start > /sys/class/remoteproc/remoteprocN/state
-> 
-> It will crash again 20 s after each start. That is a quick way to check
-> that a second crash is handled as well.
-> 
-> --- src/crash.c ---
-> /*
->  * Report a fatal error to Linux as RP_MBOX_CRASH, then force one.
->  */
-> #include <zephyr/kernel.h>
-> #include <zephyr/drivers/ipm.h>
-> #include <zephyr/fatal.h>
-> #include <zephyr/logging/log_ctrl.h>
-> 
-> #define RP_MBOX_CRASH 0xFFFFFF02U
-> #define CRASH_AFTER_S 20
-> 
-> static const struct device *const crash_ipm =
-> 	DEVICE_DT_GET(DT_CHOSEN(zephyr_ipc));
-> 
-> void k_sys_fatal_error_handler(unsigned int reason,
-> 			       const struct arch_esf *esf)
-> {
-> 	uint32_t crash = RP_MBOX_CRASH;
-> 
-> 	ARG_UNUSED(reason);
-> 	ARG_UNUSED(esf);
-> 
-> 	LOG_PANIC();
-> 	/* The FIFO can be briefly full of vring kicks. */
-> 	for (int i = 0; i < 100; i++) {
-> 		if (ipm_send(crash_ipm, 0, 0, &crash, sizeof(crash)) != -EBUSY)
-> 			break;
-> 		k_busy_wait(100);
+> 	err = ds->ops->port_fdb_del(ds, port, addr, vid, db);
+> 	trace_dsa_fdb_del_hw(dp, addr, vid, &db, err);
+> 	if (err) {
+> 		refcount_set(&a->refcount, 1);
+> 		goto out;
 > 	}
-> 	(void)arch_irq_lock();
-> 	for (;;)
-> 		arch_cpu_idle();
-> }
 > 
-> static void crash_thread(void *a, void *b, void *c)
-> {
-> 	k_sleep(K_SECONDS(CRASH_AFTER_S));
-> 	k_oops();
-> }
+> 	list_del(&a->list);
+> 	kfree(a);
 > 
-> K_THREAD_DEFINE(crash_tid, 1024, crash_thread, NULL, NULL, NULL,
-> 		K_PRIO_PREEMPT(10), 0, 0);
-> --- end ---
+> dsa_port_do_mdb_del() handles errors the same way. The struct dsa_mac_addr
+> then stays on dp->fdbs or dp->mdbs with refcount 1.
 > 
-> Regards,
-> Chrispine
+> A later add of the same {addr, vid, db} finds that record in
+> dsa_port_do_fdb_add() or dsa_port_do_mdb_add() and only calls
+> refcount_inc(). port_fdb_add or port_mdb_add is never called, so the
+> hardware entry is not reinstalled. The record is only freed by the leftover
+> sweep in dsa_port_teardown().
 > 
+> How can the hardware lose an entry that DSA still tracks? b53 doesn't set
+> ds->fdb_isolation, so dsa_port_bridge_host_fdb_add/del() force
+> db.bridge.num = 0, and all bridges share one ARL namespace.
+> 
+> A unicast ARL entry holds a single port. A user-port static FDB for the
+> same MAC/VID, for example in another bridge, overwrites the CPU port's host
+> entry. Deleting that user-port FDB invalidates the entry, and the later
+> host delete then misses.
+> 
+> There may be a second path, though I have not confirmed it.
+> bcm_sf2_sw_resume() calls bcm_sf2_sw_rst() and then ds->ops->setup(), and
+> does not replay FDB/MDB entries. If that reset clears the ARL, every later
+> host delete would miss.
+> 
+> Before this patch, the 0 return let DSA free its record, so the next add
+> reprogrammed the switch. Would returning 0 for a delete of an absent entry
+> fix the stale-bin problem without this side effect?
+> 
+> The commit message mentions the return value change, but not its effect on
+> the DSA core refcounting. With the Fixes: tag this will also go to stable.
+> Later patches in the series don't touch b53_arl_op(), b53_fdb_del() or
+> b53_mdb_del().
+> 
+> [Severity: Medium]
+> On BCM5325 and BCM5365, does this make every MDB delete fail?
+> 
+> b53_mdb_add() returns before it touches the ARL:
+> 
+> 	if (is5325(priv) || is5365(priv))
+> 		return -EOPNOTSUPP;
+> 
+> b53_mdb_del() has no matching check:
+> 
+> 	ret = b53_arl_op(priv, 0, port, mdb->addr, mdb->vid, false);
+> 	mutex_unlock(&priv->arl_mutex);
+> 	if (ret)
+> 		dev_err(ds->dev, "failed to delete MDB entry\n");
+> 
+> The bridge calls switchdev_port_obj_del() on RTM_DELMDB whether or not the
+> add was offloaded:
+> 
+> br_switchdev_mdb_notify()
+>    switchdev_port_obj_del()
+>      dsa_user_port_obj_del()
+>        dsa_port_mdb_del()
+>          dsa_port_do_mdb_del()
+>            b53_mdb_del()
+>              b53_arl_op() -> -ENOENT
+> 
+> So every group leave or expiry on a bridged 5325/5365 port with snooping
+> enabled would log "failed to delete MDB entry". It would also log a second
+> message from switchdev_port_obj_del_deferred(), which only ignores
+> -EOPNOTSUPP:
+> 
+> 	err = switchdev_port_obj_del_now(dev, obj);
+> 	if (err && err != -EOPNOTSUPP)
+> 		switchdev_obj_id_to_helpful_msg(dev, obj->id, err, false);
+> 
+> On other chips, when a user-port FDB or MDB add fails with -ENOSPC, the
+> bridge delete that follows now fails too. For FDBs,
+> dsa_user_switchdev_event_work() then logs "port %d failed to delete %pM
+> vid %d from fdb".
+> 
+> Should b53_mdb_del() get the same 5325/5365 guard as b53_mdb_add()? Or
+> should a missing entry on delete be treated as success? b53_arl_op() and
+> b53_mdb_del() are still the same at the end of the series.
 
-Regards,
-Francesco
+Agreed. I’ll respin this patch such that deleting an absent entry 
+returns success for both lookup-miss cases, while retaining the early 
+return without writing hardware. This avoids retaining stale DSA 
+host-address references and errors for entries that were never 
+offloaded. I’ll update the commit message accordingly.
 
+pw-bot: cr
+-- 
+Florian
