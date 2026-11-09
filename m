@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229592;
-	b=raEUVtfXKSLPifNyjserEaz/Su8DIPW3S2r047p1g1203ghWBPNc6n7X+f6S4E2dm//1
-	 rpaTa/kq6YIoCYTD8vk3PMJWoVZMTKoh08PGob/xLCnLUo33F9IS2IafElN3Jl8jTDuV1
-	 3zM3aYOp2zNWRW3abNV5E0U/Vvj6m3RTX4kwVDGXb11NycS93eaob2AlVH6eRA3yfIauK
-	 OD8XkKHHIAf+GBNfH270QuwqLnMVSlLY8zhk8lpXpgOFOyiPikVvzNEc2Nk/sQ/E1BBHO
-	 4YxtdizADyU+awuWrjJlqZH0TIlbvk12kvuQ90/6EXs9ffllM4VfaHp5Lv3nClM/Q1Q==
+	t=1794229610;
+	b=A1T2oxvrt5F92W0BoUjy8v5DrTUWnikp1vlosFO+8+r/GhYTFS8iAVW8gKI7R9Bz7zpO
+	 LqygJ0Kw0wRi7t+UYMbFSj6Rg+mAkHKwsS/syQaIsINkRGcRoYlEJRHBsWaj2XllIUQWR
+	 OLhHG+3SOAjTZ2UveQ6AwqW6+is+Ii4vkxgb0Wc5xYddvmqESckp+wB7K9YKW1u5Yl5eR
+	 xkC+QECgksQZMi61x/yguTQvUj146PyUmu40eJVguEH0Ak13O33J7StS9ymEW8wuMEceT
+	 mKg0XaaSuOnNLpDTK26tl7ZIT7l+CeV8ir8cwLVy9E20QxG5kmtAgbbljP1zVNVtkcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229592;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
-	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=M5XaS0Zod6058OtmcR4y5qY/copfL+BUMUEu0sLQEWQ=;
-	b=ilN+eLuHQ46dlWlaU8/cdgX2I41yZkeX4b0OGt2zB9xls+uHeQoxRAstN9RykIbxk1IM
-	 Uy97OP9FMSCvzgbR79w35gMbiTHJuBO1UacGdHedZliVt1CU8551isuTbWa5+2XE2mwbQ
-	 HGpFmU7lIz4OW5yRYsA3VudviiH9ypb/oxkxtJOK6HHWHyd0lPgewi0W8eg4v5CWWBjcp
-	 D9RG8+KSFf2ni+oZYVWarPKw2A0DYV+L9J+VdzPhJdH94WZT2Tz02Plq2VU7YkgM3sgMs
-	 NB9AoXioHkESpGm7wtL0FG9vIOdR5sBEZ9wx2awUwF4wXM5WBnvUdcQIR/FUdRrDITw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229610;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PybyCgFEOeMpgfEWJUHsfZ6hT1qaKHfrzLW0wrSobIo=;
+	b=azIwrKfQS94ZtzEyXpiJtpmpdnI4+4J3Md3nbuDIH5RE79bQQ2aOTlPKTXgDL4tJ7TCc
+	 pYknIAvw1YZK5hWWj6lZEudntiSSiRp/9582dOltWSUv3GnYTVeLne0l+V1O4CfAx3HD+
+	 H++6Iop0a1FMTMX8zKThPH39w0x7b74vMYM4+Z6ZVthWfFCBIeuEammjeu93Neibe1C6R
+	 U7WhYyII+rraoPHBuUjcs822iR5I96GGDjEbMp7rcxCinyN59gmR/0AAs8h0JcyYvCleE
+	 C35W+pyal9q0YUC61A519ecLERZmwyoeiTn1TLKvdj6m06zYgqEhsJB5aIp1QB+WqhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.46
-Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKHNJIA6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D635D606A325;
-	Mon,  9 Nov 2026 13:06:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D635D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jNVQh3QH3zpV2Z;
-	Mon,  9 Nov 2026 21:06:04 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.157])
-	by mail.maildlp.com (Postfix) with ESMTP id 6F1E340558;
-	Mon,  9 Nov 2026 21:06:27 +0800 (CST)
-Received: from [10.204.63.22] (unknown [10.204.63.22])
-	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0CGaF5JxfFqcoQPAA--.4413S2;
-	Mon, 09 Nov 2026 14:06:26 +0100 (CET)
-Message-ID: <f5b2a9348436f0ac8a11fe1957174de5cbba495b.camel@huaweicloud.com>
-Subject: Re: [PATCH v2] ima: fix races when deleting measurement list entries
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Steven Chen
- <chenste@linux.microsoft.com>,  stable@vger.kernel.org, Zhu Guanglei
- <zhugl3@xiaopeng.com>
-Date: Mon, 09 Nov 2026 14:06:14 +0100
-In-Reply-To: <179422925743.761920.15976497107095793440@xiaopeng.com>
-References: <20261109123335.432186-1-liuwb@xiaopeng.com>
-	 <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
-	 <179422925743.761920.15976497107095793440@xiaopeng.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AD6606A31C;
+	Mon,  9 Nov 2026 13:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKHNJIA6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F34F1F0089F;
+	Mon,  9 Nov 2026 13:06:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794229609;
+	bh=PybyCgFEOeMpgfEWJUHsfZ6hT1qaKHfrzLW0wrSobIo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cKHNJIA6y0axtxTpwfhLsliNXEsub8xL1Dvi02wF1h4C2yrVtX0kCzpslRusewXsn
+	 21Bc4MqQPdT5arJDyFLOabXkCAO7E97pndV0iL61vLoh6hwsI0UcLqHfvCzeAY0oTi
+	 OXDd6XWd99b9GY+ytWON1/bh9BKBr9+Y5Dh+GMEEUAu52ZKeEq3KbSdC3sK4o2mIpP
+	 ccTYSdnS37ZS2il3Dxj/qCR4ScYajyo9/bl0jjO24ycLUq8Pad5BZtNnHP3O143crI
+	 EjDqJyrUplBrm/FhD7iJDFb+bhpF6lQDTcjga6cNWiR+VyYyqC3EVfi9Ua+z2F2jWk
+	 ELdoEpge5EGug==
+Date: Mon, 9 Nov 2026 14:06:46 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Alban Bedel <albeu@free.fr>, Radu Rendec <radu@rendec.net>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-mips@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: interrupt-controller:
+ qca,ar7100-cpu-intc: allow shared write buffer interrupts
+Message-ID: <20261109-binturong-of-subtle-discourse-f06daa@quoll>
+References: <20261108215738.113582-1-rosenp@gmail.com>
+ <20261108215738.113582-2-rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,35 +60,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:nRC2B0CGaF5JxfFqcoQPAA--.4413S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYs7kC6x804xWl14x267AKxVW8JVW5JwAF
-	c2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII
-	0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xv
-	wVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjc
-	xK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY
-	04v7MxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r1q6r43MxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7IU1zuWJUUUUU==
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrxOrlkpAACsH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108215738.113582-2-rosenp@gmail.com>
 
-On Mon, 2026-11-09 at 21:00 +0800, Weibin Liu wrote:
-> On Mon, 2026-11-09 at 13:49 +0100, Roberto Sassu wrote:
-> > Is it still true with the new semaphore?
->=20
-> No. That paragraph describes the unpatched code. The patch serializes
-> writers with ima_measurements_rwsem and protects the lookup and cut
-> with ima_extend_list_mutex.
+On Sun, Nov 08, 2026 at 01:57:36PM -0800, Rosen Penev wrote:
+> On AR934x and QCA953x, the WMAC and the PCIe root complex share CPU
+> interrupt 2, but write to DDR through different write buffers. Document
+> that such an interrupt is listed once for each write buffer, and that
+> all of them are flushed.
+> 
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  .../bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml   | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 
-Sorry, the comment was not in the right place. Is it still necessary=20
-to take ima_extend_list_mutex to determine the cut position, since now
-writers are serialized with the semaphore?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Roberto
-
+Best regards,
+Krzysztof
 
