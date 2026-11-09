@@ -1,94 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794200001;
-	b=MHWFBKCQi/dZGmBeX9Kv5+r2MC9v7OXjfBQWPpN6nlJJYmB7d3qGFkvqER5HRxL/8JIb
-	 oGo0JwV6ZEum9hSgErloIprZYBq4BH9lJBgoUAIA6dCx5yqrwqX3OlC0q4fvlJU9l9b7w
-	 qNMh0h1XsgLHLXuaBZ+gLsZgOfH/Xi5oFeIsavod8EIOje1yQYxx9wekY7Hqbj+bz5Zka
-	 Qh3XJTjWnWR8PxDaUawqYqhYPWUvHu1nkfO2Q2KpUG7HPMAGsLg3NfoJJPs1SjiWgqn3j
-	 87UbivQDHThf8UOgOE3+Yz1apw+duAmtIhocR9B6xQKbv5G0ZIE3YMRE4mZDk0cNcjg==
+	b=PmExBsyKrdPvCc+RtilGyJmpDpGAfvPtmfyvMIWVJlbgidtU2DZwDc6d+cp376d2NkFZ
+	 8S0goGPqUkhWL2q6xp/vcnE4ygeWyjqNCQTFU2b6qT/jt5fUkxxCO0eUdKsm/KC/amx2X
+	 xSv69zf8dvG4WidPVnxEzQjIrO3Nn1JgjBYuEo/F2Z9bLrVSfU6SIvayVgVkiIbLzAik3
+	 faRvHSwWf20YXMUVJv0WytWcEm8MfIeKy0MIJqTodY6cI1XhGYh+HEJ5B8yKWOvKK5fK5
+	 AZ1+jZNMUj8GwHdrG+3ZdTS+Qwxg6v9JaFczLGM1Hyka1fi4Ev5tOKY3giZKSZGmcHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794200001;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=OVPWR8szOHg1B5tabceM6OrLtjIwXl1TZU2e2aNbhqg=;
-	b=UMY9awjLQEEhrHdhlI8zBTfWeiuM8sD8HPq2wQa2R2B6w8SLPkkvEuq8vTN+YJ9EuVfX
-	 RmqLA55eBV2stqt2Go81zDLG9q+cnX7RL9KsL0eewUTTVbxhvG1CQofABxPE2hkNXMiBR
-	 0qyhJCMBA6tbPMzPxV+Sio8FzzIBJlF0pqLG893qmbRsX112iZadBGZQ23ET4ayxdmybh
-	 gmS2jOyk91kKzUCeiHUE67S8EuXPxNJGlwqAoiYeD9ovbJkH3sKsi2X5CniI+VvRTK+zp
-	 uOr6kYg8mqZPWMfom9TOe37gDSPC+SDzEac1roQyk13y+lgSkJiW4cnEiZ3ci1flo/w==
+	bh=p7/QgpmviwHfjax+QkdbEV+4kJ4JiqjCSrBG/PO1GFk=;
+	b=luaazchaVuy/igHRT4OVd7ksISmNeFR/ZZyN0cckbqLR83dpOfbjzqn9qGG11c1KEfBT
+	 F1qQJ7mHZ2Dm/4crFrZJjKclMQre1optnohckPm2dC2SkYd8z6QITiieibnIbHpOB0G2M
+	 JyytcehpHuU6TTh/Vaa0Gj0LM6QyH8mnqsOMqNy3plzLW7Qh/JCZGQMN+wKVbP+7DQUYC
+	 zjHUgAbmQxGkwSqmvxtqhLl9VVWk9RpMkGVPxWn/9Z7+nEp73QcaPhH7MMSHRqf6/tIfz
+	 GeJdFWWdVAn2oKtoNYlzPnooWJRC1dGjvJnAiHMZsMZuzRbcDQnQlOY+Kl8tAGx8Kug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qY16YHLa;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F54606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:53:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F54606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=EUKmgY52;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B266606A31C;
+	Mon,  9 Nov 2026 04:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B266606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qY16YHLa
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36f6295304dso516902eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:53:20 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=EUKmgY52
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794200000; x=1794804800; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OVPWR8szOHg1B5tabceM6OrLtjIwXl1TZU2e2aNbhqg=;
-        b=qY16YHLaYcsSGtQaIHBGRxDeitfflTbWSp5Fg/cztpz7NzD9mnVKzqH1b5OUQZa8aX
-         69S1+iA33pi9iwO6mVSLtiRWYlwek60/xHCieXiR84UowCyP84KsBIqoW+YV6Rj4xf3F
-         zJYu4QTJ/iDEHLq3MxUw+pcnhP6hGsx7tKN+ua+TprgS1T7F6m6VkDk64IvrxT+nnT/y
-         Lz+IRCAK8dMgqR5zf1Hfgm510Cuur0f8/CO1+3iKBrzTdilakBAsGtJ0xJNXqTYcSRzJ
-         pyrr5t0uoA728okiY8D7sUXje4KiXpgR8eJNE5vhSUvbJ7FVIJPpg+SHrxpdRfVYLfVf
-         +oRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794200000; x=1794804800;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OVPWR8szOHg1B5tabceM6OrLtjIwXl1TZU2e2aNbhqg=;
-        b=iJh2rmRI6agtUF+SiidJXPviMynHGHOGnO7QnmIuhonBbdMtufqnef8l0kMUuAxIIv
-         jhzJ/+0PPuUFdh+U9TAk5KTNUHa3bwVJX7l0VxOFViR8LENbNrqcjH2BgmW2tu2SST+n
-         Sze24yxqnh2DD/A8Cn/MCUyeFx2qE79otdYoZTGs/yW8LDvHtDc4ODgew9ExOz0NyHnR
-         J7Kva3tfUf9JEa4akurMHAtX2UwK0H10OibJ1fsiP/o+BhMTJZoAnAfKbpXG6HlH0kpi
-         ot/TIfzY2bk/qe+q8ahUdYwz5CBR00VVKLyPbS6xH6p3it8/2nfxLserVKCLZA/KeOKT
-         lQ4g==
-X-Forwarded-Encrypted: i=1; AL+hErH2K9dB3LPpsJBhsnYEDvJFMY2jpA8O4SfHIga/f5sImslfocaCuS0rHQRrZPz5w7KjWtCmoIrdJvWTTBM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BplFI66qfc8mdYDyOpRQM32iE0BIebaIbZCFLFki0Lu4k0JiE
-	mRgaHBclVfxVGh0QvuU+wD63+GUMV/1OjiNbbzgOg1qE988XBfUIjqwJ
-X-Gm-Gg: AYBFou04vBPNMAmnrdfPPbDi/f248RjdeXOh5ieOZluLcBNzXIPobmI/iVc7Y7P6l2j
-	x9AQoGSU9O7Cu4lyq5Az0/H/s14ZFgZ9s3ntsT9gNUsYKB+rjzJZqwEzvYx0KLBsnl79vm09kCG
-	2Q2yoNae64x3EaEUSz/8S89ehI3rf7h2hFwuYDC8rweYhMJDM2AavUrL5YiLnfeTCisM6chIAVg
-	OFJPvS2QE862c9ZV7uz6z2pGssHQkL0Sgfn2FMibfYrT3XptQ1q/3KEo9Q+3sqvZgM0sy0+NJuC
-	FERgCg2FT12Pu3I1FQTm33BkbkTfNqPwNOoPPkjahVM1nSnPGvP+OLBZeOpYeEoC4pDT+CCls1Q
-	gYXNpymzaExdOMqJqo1p2qWmkWt+J5jdvbSU2QhAXNvWweWSF2i7HzKRswi1JOlOZ3nbKtoMMdX
-	Q35GxYrBGN4BTjJhwLvvocDgT3iBw91++RL+Jan3yW0qOAPZln/B7YPsBMnpXYvQ1EntYuqNfPm
-	k4m5khVsasMk83ZM9mo9ZevmjWa3flLVxFyClgZQNu1D9nWGA/cuBCgxjX1FLRaJ+oE0CriPzLh
-	/raKrwfe2ryHdFYFSHKNT3X8dbvRmLD/yj7BvBQDTPKS91cKGFxV25TZN24YdcKpsSMaUA==
-X-Received: by 2002:a05:701b:2506:b0:176:a225:e364 with SMTP id a92af1059eb24-1b39febea9emr4982230c88.35.1794199999858;
-        Sun, 08 Nov 2026 20:53:19 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e8838sm8409707c88.8.2026.11.08.20.53.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 20:53:19 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Martin Tuma <martin.tuma@digiteqautomotive.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=EUKmgY52HfAoLeLPfvsSQR6UQVi/MHUQVYsEsbujlL2k29zFprxGChk59R9OOs4bGI2gqcwR7stj5
+	 oWS8dGFnVDpOtDo0OieQhIukU4uitSXF1OUh2T947RjXUCm4RwgrptEpJDM/vW+iLgDL0BRvaTtaLB
+	 PJ0V+/tCpWHl7/bk=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af151bab8a-60c34;
+	Mon, 09 Nov 2026 12:53:16 +0800 (CST)
+X-RM-TRANSID:2ee86af151bab8a-60c34
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af151b9571-81ff0;
+	Mon, 09 Nov 2026 12:53:16 +0800 (CST)
+X-RM-TRANSID:2ee96af151b9571-81ff0
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: linux-spi@vger.kernel.org
+Cc: broonie@kernel.org,
+	lhjeff911@gmail.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] media: mgb4: cancel err_work on teardown to avoid use-after-free
-Date: Mon,  9 Nov 2026 13:53:07 +0900
-Message-ID: <20261109045307.1167784-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: sunplus-sp7021: fix clock prepare leak in system sleep suspend
+Date: Mon,  9 Nov 2026 12:53:14 +0800
+Message-ID: <20261109045314.1211-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,40 +72,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+sp7021_spi_controller_resume() enables the controller clock with
+clk_prepare_enable(), but the matching suspend callback
+sp7021_spi_controller_suspend() only asserts the reset line and never
+disables/unprepares the clock.  Every system sleep suspend/resume cycle
+therefore leaks one clock prepare/enable reference, leaving the clock
+usage count permanently unbalanced.
 
-The err IRQ handler (err_handler) schedules vindev->err_work
-(signal_change), which dereferences vindev (vindev->mgbdev, vindev->vdev,
-vindev->queue). mgb4_vin_free() disables and frees the err IRQ, so no new
-err_work is scheduled, but it never cancels an err_work that was already
-queued by the last interrupt before kfree(vindev). As err_work runs on
-the system workqueue with no timing bound, it can execute after vindev is
-freed, dereferencing freed memory -- a use-after-free.
+Add the missing clk_disable_unprepare() to the suspend callback, in
+reverse order of the resume sequence.
 
-Cancel err_work after the interrupts are freed (so it cannot be
-re-queued) and before vindev is freed, mirroring the existing
-cancel_work_sync(&vindev->dma_work) in stop_streaming().
-
-Fixes: 0ab13674a9bd ("media: pci: mgb4: Added Digiteq Automotive MGB4 driver")
+Fixes: f62ca4e2a863 ("spi: Add spi driver for Sunplus SP7021")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 ---
- drivers/media/pci/mgb4/mgb4_vin.c | 2 ++
+Verified against current upstream master; the probe path has been
+converted to devm_clk_get_enabled() upstream but the suspend/resume
+asymmetry is unchanged.  Not runtime-tested (no SP7021 hardware).
+
+ drivers/spi/spi-sunplus-sp7021.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/pci/mgb4/mgb4_vin.c b/drivers/media/pci/mgb4/mgb4_vin.c
-index b247854..64b7a9b 100644
---- a/drivers/media/pci/mgb4/mgb4_vin.c
-+++ b/drivers/media/pci/mgb4/mgb4_vin.c
-@@ -1068,6 +1068,8 @@ void mgb4_vin_free(struct mgb4_vin_dev *vindev)
- 	free_irq(vin_irq, vindev);
- 	free_irq(err_irq, vindev);
+diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
+--- a/drivers/spi/spi-sunplus-sp7021.c
++++ b/drivers/spi/spi-sunplus-sp7021.c
+@@ -509,6 +509,8 @@ static int sp7021_spi_controller_suspend(struct device *dev)
+ 	struct spi_controller *ctlr = dev_get_drvdata(dev);
+ 	struct sp7021_spi_ctlr *pspim = spi_controller_get_devdata(ctlr);
  
-+	cancel_work_sync(&vindev->err_work);
++	clk_disable_unprepare(pspim->spi_clk);
 +
- 	device_remove_groups(&vindev->vdev.dev, module_groups(vindev->mgbdev));
+ 	return reset_control_assert(pspim->rstc);
+ }
  
- 	mgb4_i2c_free(&vindev->deser);
 -- 
-2.43.0
+2.39.2
+
+
 
