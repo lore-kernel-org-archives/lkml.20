@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232152;
-	b=R8T54sdABQdjV+C5xJdmxAJgWyUOe8G80Tcy3kim3mE2efrpSnphWySaPmEGGiTNLTM5
-	 iFnjDRUU1yH6e9WN9QZp5EjHJKvJp5aHFawa85fQAJJ7GSdz602VwsZb1a7uxyVGhaUY+
-	 rmnrs2y8K1eFKV67RuUphQilhezOl6VZwEopEVDMqXU6oCWuY/Sasqh/++RQ84PMPeQKk
-	 AI2Pf5Qh1LYcYZISne88r0QiE6Xq6y84I3PbnGRZeRcuhksEHL3nc7xgfwm3UWB+ZEXwS
-	 jaP0e9OUswir3Ryik3vZ8jRZg5H5XRuxbZ4GUqeGSSqEof9l4R6HtpO3WREgFIdofVw==
+	t=1794232163;
+	b=1fp0pMnZd4RAyJPJmVIV0CqsR7RWuY+LipziHkYVn4an4pbmOL4BoNw0Vifkl4GA9DtY
+	 B6fA3Xa6ZN40ecak9M5lPdS845H9cn8E7mk38++R2Oaxm3pGbUeKxyNI+zntQTEYuW/0k
+	 cHKW9RhDANXOoExAIofQJBDWin7fRbrJEDq1tSMESr2wwWgvIlvaxrTu83WAWdtF2vTsp
+	 /4onlwLzmjjvUD/PpPA5PVxAOJaKwxMhQmult6j47i9tCVa2rKepvvkbxijsg2r/wo4PD
+	 gAklPUeED0TeLLVGVastvdvaMTadvxnwmD4gyx+5IF23suxtdargw+3ixPKS1IEiHKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232152;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8PFZkQCD6ILn1s8X2AxhNNZGgEneoc7HoQXfmR+1pTg=;
-	b=oZ10KMTkpRs+TdDFoooudwRsEmnevCe50jJogBjyjF6qALaDCzfxLq+B3QqPU5deg7Gn
-	 Q7mWX5upjKmjUBPnWkViZDFuYQ96dc0ntX3hJK7H9/QvPWlNeT4VJV2CsBxkxpNu8q8gw
-	 +RSvTjVxhSNkR5Rqj0z+Las2U8nE7KCUbjiucoH4Fu0RmTKPvwYgyzVb3cQswZprzN+IX
-	 +ktrq4bzLaz+l5xCLjZ++ew/wQX5mG68uedkMQmPL0/NYC7s91U04Hepq/xymLErJZS1H
-	 iBP+uWwfkxFQ4Bx5g2LLugxvfrtJGlE/8uwU/7zEstBKvXiLvFxN9XxLJ644oAYcReg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232163;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=8OfYwom2dzbzgSiyUihcV8RZtvhr5JY69wU+XuXle7Y=;
+	b=mwDneKE+pde02wCesnmejXvSO5Q9/1MgBnnYaTu4GR3Gd/4gu2tlXmrj/onZOOpbBiBz
+	 M6fulZSKWTHcyvoP4ZSazJOS5OSewv7hggdj472jPVQAVDrW0R30b/SzkVd3QEUJrpFJM
+	 9GTdl+S9G4oQM7q9daqfTPH+/cds36JZIvOqaHSd/hWWy+UXLm3stBUKm1Lf0Bb/ueCk2
+	 dqALG74q9P9tSiA7lvXLmEN+BrjKEWAIeNn54yF6G7tgo1Iwoz5va8/ykcHFb5F33WJ52
+	 huNIQWq/gEQVSo1+nL4esel5zfcE1krEiX8sYG4Af6vO1tH83jaw8N6krOEHE4KqzLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrvuAWsn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=F7JF27Sc;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF61D606A31C;
-	Mon,  9 Nov 2026 13:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9965D606A325;
+	Mon,  9 Nov 2026 13:49:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9965D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrvuAWsn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6041F008A1;
-	Mon,  9 Nov 2026 13:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794232151;
-	bh=8PFZkQCD6ILn1s8X2AxhNNZGgEneoc7HoQXfmR+1pTg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YrvuAWsneTIpjPHVpdFdeFQ/vyNnkHZbq2gfydvtaRDQdYQE/9TRnu35Iu02xiTZC
-	 5rcxFWeHs2xSn/AyZocNZXfDdlpBYe7YSzVNwVnQ1oJKK9yos8XekgXDK4ClVldt7O
-	 Iw6O0BEJOs1WRBDy7Z8c0ek7hTrKA2eKC8BKFWgMUvjJrDPf1OsN9MbohC/miY3ZUi
-	 GhJPpP9CppeUNFay6CcFwwhQdF7RhqPbJzJP+m5RDXJbOOcYNJUdDwcooCYoC+J0Dz
-	 lqVDmT6VwL9HFAG4oqM0UiTQIm4Ugo2uW2ei6IL652kF11UVpPsrd5x0Jp/n/VG4nj
-	 OFXaILSt2gpfQ==
-Message-ID: <f6f843ea-1ab2-45fc-b844-7fbb646c686e@kernel.org>
-Date: Mon, 9 Nov 2026 14:49:08 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=F7JF27Sc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=8OfYwom2dzbzgSiyUihcV8RZtvhr5JY69wU+XuXle7Y=; b=F7JF27ScqwrxDCxjQ3APA/FRL2
+	Gjf/6s9699Ol/na6dpL7VEULrcO0SjUdZ701hDGvds2KpP9AfjjBsDV3kW8ZiilpowaFij5y7Zygf
+	+7F/Tn+zuvNueuzLb5tY5+c90GnMj0Y02mYziUFogbhO/LC0S25BzieBjDKINfWkIp51SxnjaEyTb
+	ThYUDtKy/3Tu8xI2phlE46IHN9q/vrORCiwbWidEtBP2tI2WVclY+nOgr9UFfdNP7eGbJsnuamlnq
+	KFB0Hhvb3Efj66DEymlxPRtEiF4ajfbL4r0rRquu+pK6BE7/FmVi8YDoxlTemcspY1M0B9QMzt0DY
+	S2BgGzXg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQPkL-00BfMa-1i;
+	Mon, 09 Nov 2026 13:49:18 +0000
+From: Breno Leitao <leitao@debian.org>
+Subject: [PATCH RESEND v2 0/2] net: convert remaining CAN protocols to
+ getsockopt_iter
+Date: Mon, 09 Nov 2026 05:46:26 -0800
+Message-Id: <20261109-getsock_two_can-v2-0-763f87fb49b2@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,125 +64,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] HID: lg-g15: G15 v2 LCD and game-mode support
-To: Torstein Eide <torsteine+linux@gmail.com>, Jiri Kosina
- <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261109094426.1432465-1-torsteine+linux@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261109094426.1432465-1-torsteine+linux@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALfO8WoC/3WNsQ6CMBQAf6V5MzWlCAqTg6wOOhpCSvso1aQ1b
+ UUN4d8NOLteLncTBPQGA1RkAo+jCcZZqAhPCMhBWI3UKKgIcMYLlrMd1RiDk/c2vlwrhaW5ygq
+ 27dJyz3tICDw89ua9Fq9wri/16QjNj4dnd0MZl9xiDiZE5z/rekxX/+9lTCmjmeQCS1S9UPKgs
+ DPCbpzX0Mzz/AW6b2v7yQAAAA==
+X-Change-ID: 20260507-getsock_two_can-5d3604b1982f
+To: Robin van der Gracht <robin@protonic.nl>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>, kernel-team@meta.com
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1885; i=leitao@debian.org;
+ h=from:subject:message-id; bh=1/ZPmEhwEqLU9l7GQN4mn2+H2lMx4l6DKvUyFzKezAE=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8c9ZpWlTKaKNX8i27/qVGnTbLKYBoT53QTNtr
+ cKcCnK0wG2JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavHPWQAKCRA1o5Of/Hh3
+ bUzID/9DmmMtomd0YGyfhImmSuZ7XoRN15TCjQZs1wA6LL6Ue7ALc1auI3qY1Pdh7brXmePNY/G
+ U+GqQPVl0jijQaT79+W+W6Q8cPVpHKPSsnVcePCPpvorKABGC+bcv4aloTxpfBorrgH+uN8OUDb
+ d5A+grZGjWIY7hxRPoVwhb0d40ofDdL2DKv0whsl5GacWhKEnlOLOlpaUYbzILZ++mqQ9X+qeQn
+ ey4k/Tk3EtXjjJCgF/CcUCQUeXVcQ9TqYgOi/HqrsQkzgFu8yz52+YsxzAfmq76CfbX/BC0oCuC
+ O+bP6pcvfM26q1vdCtGqivpbfDIY+q8nGmvPwWH05sjGlXnwF2EAJLGximO84qOfi0T5K8gjJcS
+ 5P+QQ82l3+UQAKrgRkUWE+Lh9mkbPNK8y11xWuv8LS5aeU+yplhoMd6bfRz/xMBIb4gA83U3++0
+ 1MtGLP2cIm90ypNs8UiScII2qWY5UyPoNwpSZkVvWKWlUAbdWVzLZX30LWYGz9zIOmDLT/AhiNh
+ cRRi31pnAOHbbkh6BHS4rj8/3L3m4ZPRzLqcuUaTqj56x1PiQ2nKaeABnDP+RKOFVNUnbrkJ2de
+ CTtUdw0f2yMGuK9v2yveKxoOZAMpX+Kfzbm7ozy4T2A1GYA+GTL8sceNokZxcGIi1OcHupZygCY
+ Jp6BbKJl4eGSqOA==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Hi,
+Continue the conversion of socket protocols to the new getsockopt_iter
+API by covering the two remaining CAN implementations:
 
-+To: Benjamin Valentin <benpicco@googlemail.com>
+  - isotp (CAN ISO-TP)
+  - j1939 (SAE J1939)
 
-Who also just submitted a G15 LCD HID framebuffer driver:
+With these, all CAN protocols that expose a getsockopt callback (raw,
+isotp, j1939) now use .getsockopt_iter; raw was converted as part of
+an earlier series.
 
-https://lore.kernel.org/linux-input/20261108173920.424072-1-benpicco@googlemail.com/
+These are mechanical, ABI-preserving conversions following the same
+pattern as previously converted protocols (af_packet, can/raw,
+af_netlink, af_vsock):
 
-On 9-Nov-26 10:44, Torstein Eide wrote:
-> This series adds support for more of the Logitech G15 v2 hardware to
-> hid-lg-g15, plus a fix for the remove path.
-> 
-> Patch 1 exposes the GamePanel LCD contrast as a g15::lcd_contrast LED.
-> 
-> Patch 2 adds an optional fbdev framebuffer (HID_LOGITECH_G15_FB) for
-> the 160x43 monochrome LCD, updated through deferred I/O, so userspace
-> can draw on the LCD or bind fbcon to it without libg15/g15daemon.
+  - The (char __user *optval, int __user *optlen) pair is replaced with
+    a single sockopt_t *opt that carries the buffer length on input and
+    the returned size on output, and exposes an iov_iter for the
+    copy-out path.
+  - put_user()/copy_to_user() pairs are replaced with a single
+    copy_to_iter() per option.
+  - The wrapper in do_sock_getsockopt() handles writing optlen back to
+    userspace.
 
-Ok, so both of you are trying to turn this into a /dev/fb# device, which
-I can understand but I'm not sure this is the best idea.
+No functional or ABI change is intended.
 
-The /dev/fb# API is sorta deprecated in favor of the /dev/dri/card#
-kernel-mode-setting (KMS) interface. Note this is not an invitation to
-turn this into a KMS driver instead. Please do NOT tell your LLM agent
-to turn this into a KMS driver.
+For more context about the motivation for this change, please check
+commit 67fab22a7ad ("net: add getsockopt_iter callback to proto_ops")
 
-Regardless of /dev/fb# vs KMS the problem is that userspace code
-like GNOME/KDE will try to treat this as an actual display / an extra
-monitor and that userspace code will now need some special code to not
-treat it as such and may break without special handling added to it.
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Rebase on net-next, no code change
+- Collect Acked-by from Oleksij Rempel and Oliver Hartkopp
+- Link to v1: https://patch.msgid.link/20260507-getsock_two_can-v1-0-3c2ae9edfadc@debian.org
 
-And we *never* break userspace so using a userspace API which is
-intended for normal (extra) monitor / LCD panel  display output
-is not really appropriate IMHO.
+---
+Breno Leitao (2):
+      can: j1939: convert to getsockopt_iter
+      can: isotp: convert to getsockopt_iter
 
-Which brings us to the question, why handle this in the kernel at
-all. I realize that libg15/g15daemon are no longer maintained and
-are obsolete. This is part of why I wrote the drivers/hid/hid-lg-g15.c
-driver to move handling of the key-presses into the kernel.
+ net/can/isotp.c        | 12 +++++-------
+ net/can/j1939/socket.c | 21 +++++++++++++--------
+ 2 files changed, 18 insertions(+), 15 deletions(-)
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
+change-id: 20260507-getsock_two_can-5d3604b1982f
 
-But while handling key-presses is typically always done in the kernel
-so far these kind of small status displays (again not a full blown
-monitor / display output) has typically been done in userspace.
-
-There are several projects for this, e.g. lcdproc, which is still
-actively developed on github:
-
-https://github.com/lcdproc/lcdproc
-
-This works more or less out of the box with the G15 display, it does
-still rely on the libg15render library. But that can easily be fixed
-as shown by these kernel patches which in essence integrate a copy of
-the relevant libg15render bits.
-
-So maybe instead of writing a kernel driver you can write a PR for
-lcdproc to remove the dependency on the unmaintained libg15render,
-instead folding the render bits directly into the lcdproc code.
-
-Note that on Fedora (you can try by booting a F45 livecd) after
-installing lcdprod "sudo dnf install lcdproc" just replugging
-the G15 keyboard will trigger a udev script which automatically
-creates a lcdproc conf file to use the keyboard if no lcdproc.conf
-exists yet. So this pretty much works plug and play without any
-kernel changes...
-
-> Patch 3 binds the G15 v2's second interface (046D:C226), which is
-> currently handled by hid-generic, and exposes the Super-key-lock
-> ("Game Mode") state as a read-only g15::game_mode LED. Normal key
-> input on that interface is left to hid-input.
-
-Patches 1 and 3 do sound potentially interesting although I wonder
-how these interact with e.g. the existing lcdproc support which
-uses this interface directly in hidraw mode.
-
-Note again we never break userspace. So existing lcdproc setups
-must keep working with these changes.
-
-> Patch 4 fixes a use-after-free on remove: the LED work can be
-> rescheduled by a key press between cancel_work_sync() and
-> hid_hw_stop(). The bug predates this series, but the patch is
-> written against the remove path as changed by patches 1-3, so
-> it does not apply to the current tree on its own.
-
-I'll reply to this patch seperately.
-
-Regards,
-
-Hans
-
-
-> 
-> The LCD wire format and contrast commands follow libg15, hence the
-> Based-on-work-by tags for its authors.
-> 
-> All patches were tested on a Logitech G15 v2.
-> 
-> Torstein Eide (4):
->   HID: lg-g15: add LCD contrast LED
->   HID: lg-g15: add LCD pixel-content framebuffer
->   HID: lg-g15: report Super-key-lock state on G15 v2's keyboard
->     interface
->   HID: lg-g15: cancel LED work only after stopping the hardware
-> 
->  drivers/hid/Kconfig      |  13 +
->  drivers/hid/hid-ids.h    |   1 +
->  drivers/hid/hid-lg-g15.c | 599 ++++++++++++++++++++++++++++++++++++++-
->  3 files changed, 606 insertions(+), 7 deletions(-)
-> 
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
