@@ -1,53 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252525;
-	b=B21VzSlTe/miziADi0EwjO9FLXuqPESEDtQa5SsqN5OxYduTtVKkBqBiC3jeS+5wjn74
-	 jA7Kx1EEOIpIInshwR6w5i2KHPARuIIPL1kSuQji9911+7gmW7/63Zg8EJ04eBF/v/2jx
-	 PjZQBVF3seT2qPneS2Cck3Jz+El++4PuE62LJvh+UCbX1E1VTI7wZwduH4WRCwrRcXXf1
-	 mPVxCVpIaOp2ogvw9k7dT8018w0LJvalsXhLa6KlNExdiDbxVO+daQzBTAhhcFhl+xHnt
-	 xX1E8bCOehQKSssznOnm2WSwZKPoWhT18yMPFfe5dqmWfc5PSUYpze+EziP90vI2m0A==
+	t=1794252567;
+	b=Nj9ahdJg+CFba8cMVbaJHkPCcftDMUXJyE0wA/FyeBw3qRAHwUGbSlGSYLq5PX0x3NY1
+	 /Qzm991N2Ekpu8dBtAIUaif1fJF1C/6P1mZzj6p9MDNz2rAiQuZdvhS1AxrdUj3Irqd83
+	 KkyjMhVMfuc8KtORY6S2b9xXGQMvbtQ6ZbmnsOV9ke7icB2o8FTDmMS45Lx5NaVfhXjzz
+	 E3U9QkwPVmHnzLTuxdWUmIfF+CTgISF8Z2WHvH+K4wBT9nLvrtIbsPKyIgkiwipHnz22H
+	 jJ8QeoRCxXA2lvPQA1hZNmmIC6+VPV6nyG1Kiye2mImGyX+0/ch1JRMUfqlMjHc53pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252525;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8P+ZG6KiZ77Eb9mO9Id+HUpKEbu4gTtjlzZy16Jeb5g=;
-	b=mVY+lTAMu38O51N3Sk+R4SvfogYPvCAOiFN7pm0rhXJ3U/Y1lQntvlt05jRNNHKlcB6Y
-	 ngvlcWt1seLytXolw2FJ+sQuYQQ28Q/nh079OjYyYy0z4jytzFIAiYu9jROUz5PT+4Bas
-	 cDtowZmklXj1e8auGSs34iP1GmirKuJdQZkshwo7xf+yvhS5peKRSzZAn0fqdoGwDRpfn
-	 vqBDeu2YHRYd70Ks9Qc0VDm3VxuxGsZwwvLAEn/re56s8uzbdQkCkQx84U9GoSs7ez19b
-	 /HedAXG30r1Xp+uZmpppkxC7X3QvHsN2KP7QrrRGcai3a4EWcAqO1MyHfkvn9LruDwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252567;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=jVCGfkX1RIb2wLuptqR9bvcqrBU7RikfXXwk8aiHdtg=;
+	b=K9ZreCqy3sHLDnRVC2Foy/ufmZyT8UU7Bc5y+qBhBFm9dVoU9/LwavYtVGlKGA4KH9o3
+	 Xnkb5w1v/7anTjP5a4dZ2jJYmZ3qn+Olm+Yyp0ISdxri4AMLQcg8lnfVTkfjah/4AhpBO
+	 ouQY9CUFhUS9E38OQPyeVL+kxCsJsVTT+YHjM6NqFloiSe5JtQhfi7CzpYKeofdpUkoP3
+	 TWUGsuJV64LePhK/NDSam6lNKjj2XQgsCWh1p2v8kIaeaqI22xuhgeRoLs8/5bEUEw9sY
+	 vxKFqXBC2u159wGO5Nx5lUAt0zAhOAtlef2ihP9CGALwAH4SQVO2+vXF/ul3EKCyI8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qPeji1th;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="fjLY/+VF";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=1tdcC3gh;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF0A606A336;
-	Mon,  9 Nov 2026 19:28:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF0A606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72564606A31C;
+	Mon,  9 Nov 2026 19:29:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72564606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qPeji1th
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=8P+ZG6KiZ77Eb9mO9Id+HUpKEbu4gTtjlzZy16Jeb5g=; t=1794252523; x=2109612523; 
-	b=qPeji1thMDMO7dMQavXBh/l+wyF/4VJcXpq2aN2cj0Qyjpc4uwo/IrTWOcCBwET0wn4npsE4dFb
-	BJifpZ6pCabyLnTOOoMNBT9MEeAsFysHl9sTQiWM369770p3eEiC6BXLzUSZnsGRLelFbIf0ZM8pc
-	LDLZylE5eq2X89AvaN4WwK+yIUypfdZCApzOG8SOEhuSaSsiptLXvvvZkDhrmaxSsYJO5KtsT29l/
-	Wr9Ie8BU2PY083POm9dtlsEuiyetP65+YbGqPJpRbOhP49CpPyVLyaOaLmpepKwiOmqAc/Mc9VcvW
-	4+PUiTRN67tRr/QGZIQv3M/sjFVUQ5BMFpXA==;
-Received: from [177.172.122.137] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xQV2c-007bVC-TT; Mon, 09 Nov 2026 20:28:31 +0100
-Message-ID: <d767ae10-2738-43f4-bcc3-1583a5294766@igalia.com>
-Date: Mon, 9 Nov 2026 16:28:37 -0300
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=fjLY/+VF;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=1tdcC3gh
+Date: Mon, 9 Nov 2026 20:29:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794252564;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jVCGfkX1RIb2wLuptqR9bvcqrBU7RikfXXwk8aiHdtg=;
+	b=fjLY/+VFMKmkJECS8BA54MKsiBaEKQwVQWNOJhtiDteQpWvrbKIrqkHjf5zblWYIJiPtkK
+	lgeQwEvwE16OLyJkLnEGw8qyR5KBNy0Aqu61bSVGcpcJ9ny61pf/mBRbVgaq+mjJbrm5Q8
+	0a2EdCPWcnn91A3QXhzTwMyEuhk7IMqglSF+vTYv6jHHXb9Us0HgMPxr94hSE7wqjJC50r
+	UwIZFFiNDM8Lv9umbs+iuQ1YFmaGkFucGqiJ94vNSvocyG0jVy+zqh6LTyEgMHOkKFgt93
+	f3iBY2d0+u7vb/kv3oJRZerE83lnc/rVeK8fFvRCFltXdAqqeBg7dk915ZHX3Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794252564;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jVCGfkX1RIb2wLuptqR9bvcqrBU7RikfXXwk8aiHdtg=;
+	b=1tdcC3ghJ0UbmhHHYclN2HiCG2v+MZMzGS2Afnr4k5ZSGRPcyZG7Dyz1gxXuElCVKArA8U
+	u+t1w64Wk1JdLHAQ==
+From: "Ahmed S. Darwish" <darwi@linutronix.de>
+To: sashiko-reviews@lists.linux.dev
+Cc: Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
+ code
+Message-ID: <avIfEhE83UkF9g_Y@lx-t490>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <20261106091922.7560-4-darwi@linutronix.de>
+ <sashiko-outbox-202758@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,27 +90,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/futex: print tv_sec as long long
-To: Sasha Levin <sashal@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
- Ingo Molnar <mingo@redhat.com>, Shuah Khan <shuah@kernel.org>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20261103155445.534229-1-sashal@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20261103155445.534229-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-202758@kernel.org>
 
-Em 03/11/2026 12:54, Sasha Levin escreveu:
-> On 32-bit architectures with a 64-bit time_t, such as armhf in Debian
-> 13, tv_sec is a long long, and printing it with %ld warns:
-> 
->    futex_requeue_pi.c:351:30: warning: format specifies type 'long' but the argument has type '__time64_t' (aka 'long long') [-Wformat]
-> 
-> Cast it to long long and print it with %lld.
-> 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-Reviewed-by: André Almeida <andrealmeid@igalia.com>
+On Sat, 07 Nov 2026, sashiko-bot@kernel.org wrote:
+> >
+> > + def _find_issue_pattern(self, pattern_rule: PatternRule) -> Optional[PatternIssue]:
+> > +	  """Check the .config against a pattern rule. Return found issues, if any."""
+> > +	  if pattern_rule.expected == ExpectedValue.allowed:
+> > +	      return None
+> > +
+> > +	  violation_type = 'unset' if pattern_rule.expected == ExpectedValue.y else 'set'
+> > +	  docs_url = self.rules.get_docs_url_for(pattern_rule)
+> > +
+> > +	  violating_symbols = []
+> > +
+> > +	  for symbol in self.kconfig.get_matching_symbols(pattern_rule.symbol_regex):
+> > +	      symbol_value = self.kconfig.get_symbol_value(symbol)
+> > +
+> > +	      if pattern_rule.expected == ExpectedValue.y and symbol_value == 'n':
+> > +		  # Exclude the config symbol if it's explicitly disabled elsewhere
+> > +		  symbol_rule = self.rules.get_symbol_rule(symbol)
+> > +		  if symbol_rule and symbol_rule.expected == ExpectedValue.n:
+> > +		      continue
+> > +
+> > +		  violating_symbols.append(symbol)
+> > +
+> > +	      if pattern_rule.expected == ExpectedValue.n and symbol_value in ('y', 'm'):
+> > +		  # Exclude the config symbol if it's explicitly allowed elsewhere
+> > +		  symbol_rule = self.rules.get_symbol_rule(symbol)
+> > +		  if symbol_rule and symbol_rule.expected in (ExpectedValue.y, ExpectedValue.allowed):
+> > +		      continue
+> > +
+> > +		  violating_symbols.append(symbol)
+>
+> [Severity: Low]
+> Should _find_issue_pattern() skip any symbol that has an explicit
+> SymbolRule, regardless of symbol_rule.expected?
+>
+> Only checking for opposing expected values causes two issues: when
+> pattern_rule.expected is ExpectedValue.y, a symbol with a SymbolRule of
+> ExpectedValue.allowed is not exempted and is falsely reported as unset,
+
+I think you misunderstand what 'allowed' means.
+
+'expected: allowed', means that an option is permitted. Quoting the schema:
+
+        #
+        # Expected value for the matching kernel configuration option.
+        #
+        # Values:
+        #
+        #   y        option is expected to be enabled (built-in or module).
+        #   n        option is expected to be disabled or unset.
+        #   allowed  option is permitted and must not be reported as a violation.
+        #            This is to be used either by overlays, or to exempt a specific
+        #            symbol from a broader `name_pattern` rule  with `expected: n`.
+        #
+        expected:
+          type: string
+          enum: [y, n, allowed]
+
+So, for below policy:
+
+  - name_pattern: CONFIG_DEBUG_.*
+    expected: n
+
+  - name: CONFIG_DEBUG_ATOMIC_SLEEP
+    expected: allowed
+
+having a CONFIG_DEBUG_ATOMIC_SLEEP=y should not trigger an audit warning.
+
+But for below policy:
+
+  - name_pattern: CONFIG_DEBUG_.*
+    expected: y
+
+  - name: CONFIG_DEBUG_ATOMIC_SLEEP
+    expected: allowed
+
+having CONFIG_DEBUG_ATOMIC_SLEEP=y should trigger no warning, but having
+'CONFIG_DEBUG_ATOMIC_SLEEP is unset' should definitely trigger a warning,
+even with the second 'expected: allowed' rule.
+
+TLDR; the pattern expected: y / symbol expected: allowed case is not a bug.
+
+>
+> and when a SymbolRule has the same expected value as the PatternRule (for
+> example, to give a specific symbol its own severity or rationale), the
+> violation is reported twice—once by _find_issue_symbol() and once by
+> _find_issue_pattern().
+>
+
+Hmm, the tool does not handle below case:
+
+  - name_pattern: CONFIG_DEBUG_.*
+    expected: n
+    serverity: medium
+
+  - name: CONFIG_DEBUG_ATOMIC_SLEEP
+    expected: n
+    severity: fatal
+    rationale: Danger! must disable! Danger!
+
+But on a second look, maybe it should... I'll think about it.
+
+Thanks,
+Ahmed
