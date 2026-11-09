@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794257501;
-	b=WMmu5HTRGnuq0o5crnLzeLZlTq5HlRmxtxkD3Unpks5H21eUai0ijvAVSwn9p8z/3dCV
-	 1KaEwJP2MonGE7ehv78v3dpkdCbq4Hv1sNCRM0pF+bZglTBy7R1kWgh43TkL8tTFsqx4F
-	 CGL8wtkI/jeYCOUXahSmuU8qaeabyNef9IxZXWPJdD/8H/2sJ/xIrR7L9DHjchqeR/MQO
-	 oDH50IEu8JyBUV4QbXuDZVlMS5jhqgPXCgkGrl0honX3vKZBZGKDtFR8h8mZz//sjkkiR
-	 HLebCZXshHpxhNE3vmDtAax9v7m1BemXFI9QPfDvw40jYQ/Xb7okUGGgD8CXYOs0oFA==
+	t=1794257504;
+	b=iJgja5MIePWKv6fbs44RqOoMR7xxtx/0sDHFlyn653USN5AE98o/FxHgIzbzdmMGeCBr
+	 nu2IS66k+4LmR5c7q7Tz+sMkwiswhKEHMdjy1Fevpc+aJQ+KOnExFU0qrCQ07fEQ9WBZN
+	 3xuiDYfQraByi4WRbwvh0Yvi0U3nGFrhmOyPUMATM24PUAaVhkmETfrJyb/ss97SkXHWa
+	 OwpUq3PxO+Xc+mfsFmKBxNmWEn92BBkC0WOekC5IP3YUCejYY8Fmdbzw3zMW5eLLokemf
+	 gOXyb1ItJ72WajoG1//i30WfsX0ZqvEj/hi+iy1x8rKJv/Id+KCbcQnE2mr0Kw2tXQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794257501;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=L4zXAJ3yW63ryN+gw48d3K33QL1qFIrjuPfLxKdzEno=;
-	b=AwTnbNLj5BufHrXKI+Hpm/E4+73nnJQsL1EziAbtagMPF6WErqEiYfm8uKJKWibae1nD
-	 Lgr51p5v1ZnV/feHNeHN85TqhoYQ1aFkANrHNw2nN60El/mDwWbQA1LBdVlPJfakf6snU
-	 wjsh8LeRNVXw6GshlE3n+tlhNWXcarEnrZfgrMNWees/gzCZ5jT99TNfvzU/WumbljJ+a
-	 jewVL+qTJoAsty7QbAyxF8teCAOo70C2jIWjlWEFsJlQcamrX4WXjUuiAFs6ijL1XsVLQ
-	 f53GyMX2PGe0yg2ziCCkeoV6C835R2WccuUAYQcIADMQSV6yf19PQV86GVYuH9roAAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257504;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Pnowon3ySHj4s3V7gApt6Sl7sdIOH1Z/iRJmVH3LDsU=;
+	b=2Z5A4/VQTgtmbL9lnHA/2cr/TEOd/OtQCQWqEDMCaOmcljd+lzMlJSrLIpuQgtaCHnA8
+	 8rYJJl3WeXvCio8NzhHxa3L9n7ncffOcbgH0kMEIagEaAdKkmkCUw2ePk8DCNj2JqmiSH
+	 bQ0BNelcJc6QTDC/dg8zJS22AZMtLXhA4lyAoSFtVFtQF/+xP6riO8B12GTnRDP04aaDO
+	 w9TwS1oDstROVWFmBeeBmuNcg9nTucSxEfYXAAE4Yz2JutqwF+rxR0JeeUBXAGQpuE0U0
+	 wAJzmmFLBcZM6IUv1+Vhej4hT6ZlC2X9tZLG5SaTJFIoUZtC32srHxX58zQbRQb0piA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="cCMY3r/L";
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UPIT6fUf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BA1606A330;
-	Mon,  9 Nov 2026 20:51:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9BA1606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685F4606A32A;
+	Mon,  9 Nov 2026 20:51:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cCMY3r/L
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=L4zXAJ3yW63ryN+gw48d3K33QL1qFIrjuPfLxKdzEno=; b=cCMY3r/Le/jeF9GaTJ6+A6bLat
-	RUMBthYmwyWH0IZYfmRIS9BnzmriPlNHa1FWkbKhTMXgRWv4CP/HuzDZsf/ikGmNO4F+kp6OIv/K8
-	6/sTVUB7uSCMMvCZhuGzb7sSDbCxLZ0iMwHg3kCXy32QSaEr6V5i6aBstuQTcBuTUROM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQWKh-00FL2i-Uo; Mon, 09 Nov 2026 21:51:15 +0100
-Date: Mon, 9 Nov 2026 21:51:15 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: javen <javen_xu@realsil.com.cn>
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v1 2/3] r8169: add PTP hardware clock support
- for RTL8127a
-Message-ID: <e4b6394d-11b2-4244-85f2-5c4aa89ed463@lunn.ch>
-References: <20261109023022.770-1-javen_xu@realsil.com.cn>
- <20261109023022.770-3-javen_xu@realsil.com.cn>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UPIT6fUf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B911D1F008A7;
+	Mon,  9 Nov 2026 20:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794257503;
+	bh=Pnowon3ySHj4s3V7gApt6Sl7sdIOH1Z/iRJmVH3LDsU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UPIT6fUfZiq8RipkCFzj3P+Ku/kbsEdGf3X6gZWV41Egn8T0Nfziqhx5LNiLBIAxe
+	 F6zx3yc4rQ8Yz1zrbzO5EktuS2YllrOIuO69L1PzRwp77hf2g9p9bQ4FwNZ6nEZ9GT
+	 1nUcEaGg9FVkHQuhVBNG+qc710DclTG7AOr8n+V4=
+Date: Mon, 9 Nov 2026 12:51:43 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Heming Zhao <heming.zhao@suse.com>, Mark Fasheh <mark@fasheh.com>, Joel
+ Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 00/31] ocfs2: split dinode validation into shared
+ predicates
+Message-Id: <20261109125143.4e1428ced7368e1255394a5e@linux-foundation.org>
+In-Reply-To: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
+References: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,19 +57,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109023022.770-3-javen_xu@realsil.com.cn>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 10:30:21AM +0800, javen wrote:
-> From: Javen Xu <javen_xu@realsil.com.cn>
-> 
-> RTL8127a has a PTP clock in its PHY, accessed through the PHY OCP
-> interface. Register it as a PTP hardware clock supporting adjfine,
-> adjtime, gettimex64 and settime64.
+On Mon,  9 Nov 2026 20:20:50 +0800 Joseph Qi <joseph.qi@linux.alibaba.com> wrote:
 
-What PHY is this? Why is the PHY driver not exporting the clock, like
-other PHY drivers do.
+> ocfs2_validate_inode_block() is a flat sequence of about twenty open-coded
+> dinode checks.  The filecheck variant duplicates eight of them but reports
+> differently: mlog() plus an OCFS2_FILECHECK_ERR_* code instead of
+> ocfs2_error(), which can force the filesystem read-only.  The duplicated
+> conditions had drifted apart, and filecheck silently skipped the rest.
 
-	Andrew
+Thanks. I'll add all this and feed it into linux-next.
+
+Sashiko is almost happy, one thing which looks hard-to-hit.
+
+	https://sashiko.dev/#/patchset/20261109122121.21473-1-joseph.qi@linux.alibaba.com
+
+I'll hopefully feed all this into my LLM-driven live kernel testing
+setup, which is pretty comprehensive.  First I need to address some
+reliability issues then make it not take 48 hours for an "overnight"
+testing job!
+
