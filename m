@@ -1,108 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794225224;
-	b=JqkQU/0q0jhBBl9RPo4ozrs8GliAPTbNnb0ghz3wu56aVo8oS0lC1+1EB7z9hY6Sf90r
-	 kMly7twK1quhnU9bMPsymvNO2TPecBRlJ49iJvPOgZGPFXgowi0qgc8nU3yFtVJqOTFPQ
-	 xlbST1fNpyEw34gJHj+fuLsxiFJds7McnwDeUDxFoQsMC2cKHDTrI16uZToWBwoCyEPWJ
-	 1jq+YQJX+/ppHhWixTn+EvTlkBs8l/u6r1jnrjrHfzw09yRmsAZk48a0gIIsHpuN5AvPb
-	 RX0TZkyqvDIHpbjjfJAlo2QMCWgpRxjNyRaD65/+Zaj07vrRuO4/8Q7TARmzD6iZfGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225224;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
-	 Message-Id:From:To:Cc:Subject:Content-Transfer-Encoding:References:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=meXDDHveQHrS/ZdfC+sYeK51/w7twKJdG4w/4gS/ymY=;
-	b=McZshKNZmQ/VMsq0wDVCyOs/SEu046XZQLbhT2ddQNiBO3JEsMj7qOixRHoUr8olz/Fk
-	 VJAOhy+EzSmTZXCw/6BXHPJW6DWDCk8Rco09YevAZ4Cae3+ZQDXuOL5KGXNjdPoIwNPBI
-	 FyY4+4ZrRXXKq5rR9CJ1ymtW80B7RYxPdy66RC8WBtFvm4o3nywkKsMk7hpThhjXTZyFV
-	 Ru4e9WmaaSN3OrZ3OptJ1w8Xoy62DxUgq8HQpdUKlCsOdsNJazeRY5kzUCNu697jejM5z
-	 nRJJ2Za24DFR3sPxL+PrtYvmy3SffjvsX6CmpNjhYbwFCVyzSeshR4aZBhDJhkAI/Pg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cp2tPH0h;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.11
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011011.outbound.protection.outlook.com [40.107.208.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794225228;
+	b=NCYLO0z3RL5A2QcfEZwlyenYMByD6+mH1hnk4EzdX0FL8Zmhdf53H7qsdyLGI0J+Ts1j
+	 j44Ir9b3sOKnyRbIS5pOtj5ocZ8uXhRjYINbXRdZBFOtA+dQNtvc2C1OnIK+D/sK9bRBF
+	 2dWkf7a/2FNrAMJZlkAqkUDggNt32i1cDxpg5fmvYTywa7ryIK3KSedl9t/0FBPPSekQO
+	 5YV9LNAcPDTs4+7wUN+A/BTXcLHEvMzGrzs6vl5wfuL8xT2E5d25I7OARQSot8aH6yeOQ
+	 yFj1FsRMrC12keDSHxgzki3wjLfWz/tZJ5vXjrITUc28lzGTKr5gyNYnmnwfqGKhUTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225228;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=iFOnBd2Fsd3/8Giimws7lJb1PY5frjcIav1S/Ve2j8Q=;
+	b=hhd/wqRZQ3VMPj1fRLCviJpY4vmJIfkYAs75VYUH3T4zad34a+Vx4Bg4nClDwC1b3ebA
+	 goXse19v1WBnqH2hcW73ODWSyBu8RRaXDRUXH9uE4YG9H6lK0RfZ/tF6fK10+gc/gEjmK
+	 fWNJ4FVcQ4owqs2OrVQ7WWUVVEtqMHbrL4PZDWQtFQ1O9ECynbDk9JeD9G9Dy6GwHukV5
+	 nsylPnSczlq6n80WPegpUpbA5H1Pf6CP1eBCbPH6qqa866+CQcKEa6qHmdyZnO9xbF1Hj
+	 VVpj2epy7+7VX7Gz3GWPONRlKe/8GgAg60EzQhil2l/Ovbxoglx+nPobODCT5PFYowQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lw0PfL7j;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D5C606A325;
-	Mon,  9 Nov 2026 11:53:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63D5C606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E94606D82E;
+	Mon,  9 Nov 2026 11:53:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E94606D82E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cp2tPH0h
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xw8Ctgye3LSq5AQFiQeWRjwGiDiLv6QzKSwkBTu50rFEm+0KorBjcT84LQBw2bxrpa4QWysZu5gJTXRHgUB3eqfcVxGFxKjLnGFaIGEwxSkvmj/JCFi+wcLi6arIQJjOTsvl5dgUM+WZWTtQnxEjYvPeIaYh7Ok8GRC6pydlEoWhIDQMvPUK/yvhLc2nyxK17m8gEhu9E/Y9ITsI+gDKIs+ugPexnR5IELYvgbgtkEkvA1erqf7hLSIRU9dpogTkuxGJroGqqAlVbPv0djLwDAtRPJppsayp0nR/1c/aDnvovFLCZGzb1XuG5gBPzhg6BzN0jWEkFGLla3NTvEZEtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=meXDDHveQHrS/ZdfC+sYeK51/w7twKJdG4w/4gS/ymY=;
- b=lZajn3FuklM2E9+5Y/Zv4IT+PcTs0gNuWO8LW/0bJlhL2y5ZRSreFxZQEuefAeuRUP0vwXJxbQIY42S9hYDCNwuDPalccHDRtBYT/2UQvBZe5uw2N5uRUUzVcnful2oizFAM8ahiQArm9ltjwnWPmQpvhjokEaQtyZtZdUzQD4kcrz2QpmxTHpPhzIvgSeMgZUoiNdo86uo2wHq8sG7xT+TN3hTbFQOL/BqRLVOA3VzKzlwDmVvLGPKEdpu+b6uFWC8klfhITB2B0GlICn2WzOQHZ1iL59jufZjQ4CQdn7Qi0zhYWCs0kKZztDj2gQz/cjaQgDlARN/liGYI6yQI4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=meXDDHveQHrS/ZdfC+sYeK51/w7twKJdG4w/4gS/ymY=;
- b=cp2tPH0hA/syDzEbOt90QUoj8KwQdeot2upQmsTaFSOeyvlXoL5mLOtFmnNj8K1/OwGeqsAPoY9hRoHaqSapCiREc0lLOSffNwQF8AEWaHwEOOApGh64RL8sW79at0d+0EenNxlnMcd2spFp05XGX+1S4WYVfAgnurYAN3aJtP+jvybVeYpQ1XpxSEWeMUYy/0X/fGZaL28Te63sYLsccItvDuadU/2Z8MHKquC9wgXvX/YSVBv8cbwpsfXH+FxFb7Yj2Q3S1pUdK3IsrHn6QJMan6S9dw4G3UUURneTpPkRYxGWonm5SY1AuONf7uHMMTBVgWjMFB/T5KeJZ85vyg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH3PR12MB7713.namprd12.prod.outlook.com (2603:10b6:610:14d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 11:53:38 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 11:53:37 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 20:53:33 +0900
-Message-Id: <DMQNR8582QRP.LLEWOYGYEA1T@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Simon Song" <xinmengs@nvidia.com>
-Cc: <dakr@kernel.org>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
- <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-Subject: Re: [PATCH v5 4/9] rust: pci: add num_vf(), to return number of VFs
-Content-Transfer-Encoding: quoted-printable
-References: <20261030171230.196717-1-xinmengs@nvidia.com>
- <20261030171230.196717-5-xinmengs@nvidia.com>
-In-Reply-To: <20261030171230.196717-5-xinmengs@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0040.jpnprd01.prod.outlook.com
- (2603:1096:405:2bd::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lw0PfL7j
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AENGU1916121;
+	Mon, 9 Nov 2026 11:53:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=iFOnBd2Fsd3/8Giimws7lJb1PY5frj
+	cIav1S/Ve2j8Q=; b=lw0PfL7jDtuHO7GYK2HWyLo1a500HSjxeNP7mdxIJ/dHd8
+	bNJ4DmbKDNmVpuBzcEKh+80YRGWtOb+wU4A12/rFMLpM0oK/iOnXdywmRFMd6Xmr
+	+W2NY+GoP7FOEYyQN8Xnbe2spl9On9ipX0s6J6cApxl4R2RHOhrHCPyE1krIQPcw
+	o7bK0HaLRfpKi6l9INIa/6D6c6wlcKFV3zkJlPfPltWE0De0Gd/AW0GLOoTKq0HJ
+	t5pdaPuy3mLQE4bE7Fq7RjgTlkCbkUDkeh46gwRVwA+Q5Ree3WE+Z0YRF1zDbPP5
+	ja7rxXyW6fVgIXEm2nLCYwKhnFoEwraL22IMI2gQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdfvqj3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 11:53:47 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9A4vLt4004490;
+	Mon, 9 Nov 2026 11:53:46 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htfajyjk0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 11:53:46 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9BrgBo30015860
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 9 Nov 2026 11:53:42 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6E9E620043;
+	Mon,  9 Nov 2026 11:53:42 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4AE4820040;
+	Mon,  9 Nov 2026 11:53:42 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.68.17.117])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  9 Nov 2026 11:53:42 +0000 (GMT)
+Date: Mon, 9 Nov 2026 12:53:41 +0100
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Andreas Grapentin <gra@linux.ibm.com>
+Subject: Re: [PATCH v2] s390: Guard emitting assembler macros for
+ insn-common-asm.h
+Message-ID: <68336e70-8420-404c-899f-58933d1a0ddd-agordeev@linux.ibm.com>
+References: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,83 +93,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH3PR12MB7713:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14a3e7fa-636e-4051-2c20-08df3e58167e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|6133799003|10067099003|4143699003|56012099006|11063799006|261102123227099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	fy9AaLySQjmo6I9h5IlCPj78y4yDCdto+W0IWWRc+0Rp38QMw2e43kjsARaSlKipu30iCrkYyLxgUdh8EblDIHwMnKWNlIhBHlQ2+4PxvNcZ301wGhnHkghp8KiB6WKDkAgFGITSnDu3R/b0x1A2R8aFoo7v4fPcqfdhFPTUvPLsqOL3nFoEiVfOe5KKu4HxddBv0bV7yYSJf3uhiRFj/UbZ0NN9lpp2hO9SvSwoLb3UQe6HNCNMU2y63ZHbkeZvDbcYNxC+MijGS/pUvYKHYd4CHO/RQaeQVoL15eOIbhSvfkAWX0JI5KOHEUst2uZa5tzOIoA3e3roO1j70v6lbKSfUecjtyd8bjvN5+chyqigtpqCdr6iL94a/d7xGHY6/S+8n0BzM2uxVStZXqGhYU13nkpBkn8emhonBeRC7f0W0BtA8SDBa8XLOq4ZtttIxHN+E0amaqVsJmNpRhUxPvODFsOPOAJLTe6Bw1F81PVYS/ycg9l1Ggw3VQ4CTwSpjTD8K10xJFRf1s66bnP6dByUbVbtnNKcVmTaoIpyP9bqLgRhb8g9hIkL9K2GViQ55ESPw+pZqAMKlE2w+NGndJNMGy5/xeb+vr/GCl6rXtX7FT6TPi16RfF1I2D+NxRSBXEQXImR3bp6+gZ1a0pKohmJCjRwlfrtGB7ib+CO9TQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmRkdzNGa1lBWWI4RGJXNDlDd3hpUWw5aVFTbnIrZURIanFoMjdvY3RlL3NT?=
- =?utf-8?B?ZjZMQ0pXWnhINURmWXlUTld0RXRtVUJSeWZrWTdqejZaeEFsMXFNNzRiTzNH?=
- =?utf-8?B?cjJraVdEMzBJQ1pxOGJPNkU4dkx1RCtJT3ZLMjZoUXNRNDhLTzVGYTFaeXhJ?=
- =?utf-8?B?N1NzckpVS2xIMWYwL3NaYkNCTGZ2YW9HV2RPTVQwUmVNeEJGNGJhNFFub1JG?=
- =?utf-8?B?SjQ2MnVpdk9NSFM0VFkvVFkzUzVDcHdDOER3bmYrdlIraHVYNnBVakUrRkN6?=
- =?utf-8?B?dVNGS2hvSkpZbTlRNUV3cVBZVVRibExPL2QwQjBwV1JoYkVlb1VrOHV0cTRE?=
- =?utf-8?B?VWJ1ZDFod2JtcDRVbmJXRmFyRDFSbGxwakhKK2N6cFlvbkpzWUlIcjdQbEk0?=
- =?utf-8?B?VDVUYkdXTUgyMVp5UDlWSDVGZjcrRWhYeVU1d3VlTTc1NXVTcXRFbG92VTBs?=
- =?utf-8?B?Q2tlOVJMRlU4N0h3TDBINnlTNDJ3UXVRck9uQUs0WVhQemo0SkxLKzBuMmcz?=
- =?utf-8?B?aklpUTRxU2NGZWkzY2ViVFB5U2VCWFYwWksrMFpsSTFvRDdDU1ZEbVFSOWpP?=
- =?utf-8?B?cm5jT3FoR2VUNXFKL29LS0VaY1M0ckQ3TzFWVGNjaGxZV1A1T0RWU2lWRkxY?=
- =?utf-8?B?VVcvVERIVTZVMjlDREZncnpKUi9OWmc1Uys5VXlSS1lYZk5TdmFCcDI3ZGZj?=
- =?utf-8?B?SG9TMTBGbFExb3VLSkZpbVRRaUhua1lWNjdNS1kvalNhVzUrTE9LYk54dWNW?=
- =?utf-8?B?cjAyZFo4K2NLTjBFMTJFbFRxd01URGtmc1pIdVhPbTlWUU5iNFdQd0NqVDJm?=
- =?utf-8?B?cjc0S1o4LzhLeVMrTExDWXNXWVY3SG9BK29PMmREcWJaRXUzQWQrR0xpT1Y0?=
- =?utf-8?B?UkJ4ZkFFemxOOVpwSzVpNHpjeE14Z3hKd0VaVlZRenRFNXN3NFFHenRyeVNr?=
- =?utf-8?B?aVc5cUVTcEhqS3J2UklxTnhWSzk2LzhveW1ZSHVCSjNqbzV5ZkdiOVFBQU02?=
- =?utf-8?B?WE0rWnlNQ3FkK0tRQnRmWFZRSmVhZDU4eFdUb1o3QTVTT0FmSnU2a1BGdm5C?=
- =?utf-8?B?Lzllb1EvL3lKZVFoYy95MDQvd21HbFRVL3ZYM2Y5Rzk4RlZGbVdtR2FGTjE4?=
- =?utf-8?B?cWVLTVhWMVVqR3h2K2hnY0xTcDQ2TFZCOWFrZkhBbVVXd093Z2E5VGdUdUNE?=
- =?utf-8?B?L1labVdhRThseURiUCtKVVU0NUkzdFFpOWZ5OXd0U1UxT2gwbkhUVlBWVmE3?=
- =?utf-8?B?dnY4dGF4WEpoOTFEem1wM1QwU1BHczBEbDFub3RZYW5NYVpPejk5azBGM3h2?=
- =?utf-8?B?bXZRMUsrQmMxYXRTQkNGQjFvVkRnZ1VORTduU1VBTDRQaWJOSU9RZ0JHOCtq?=
- =?utf-8?B?dEhFZXMwRWtvRmNSYnpPNXQzRlVXZkRqY2tCQ2U0S2YyblB2MTJqWW11eHow?=
- =?utf-8?B?dVBoMENhdXR3bWEwei9BSTVwQzFiQ1JBT3JTV0FMbEp1WUt4ZTMyNHBCUWNv?=
- =?utf-8?B?OXAwYVRVMkVyRnZCRjI1YXdxL2xlM1JkUC9vVHR1MXdaQ2F1bE5wVzg1ZVlt?=
- =?utf-8?B?LzFDVVZhczNZOTRrOWFOYUovZGwyWExVU1c5cXE3Q0tWcFNGMlFxQzhOSkQ2?=
- =?utf-8?B?WU1lUjZtVjB0bnQzdVF2RmRvME1abUpyZ0wrREtpQXp5MHR5dnM5Q0hPZ0hj?=
- =?utf-8?B?R2FRdzAzd2d6VC9nU0FNUHJlNGRTbFQ2d1pNS3krSDhKMHdRMGI2YSsyU0Ra?=
- =?utf-8?B?aHBWZ3lZVllnRVVjRXNsK2pVYUQ1WlpuRW9SQWRlaWlLaWh0ZGxRcXcwZ3Nw?=
- =?utf-8?B?VmNCWCsxdnNkemVlcDh5ZlVtakJqV25pZ0xnSWRFZkkySnR5TlNRQVFUcHhH?=
- =?utf-8?B?RUtDTCsyQkxhcGlCaysvYmlLUmljSldNalh5bHBtY1AvSWxtODNtUUwzVlp4?=
- =?utf-8?B?NDNkNlRhdFJzZ2JqQjVKR04zYkJ6a0dRcGYyeGFDTlZ2c29IS01oa3NVMjM2?=
- =?utf-8?B?eTZaOG1pWHhPNjdsMXNJamFMUEZLcklSRjQwUEFRRGFQaFhpWDQxTWYvZjhx?=
- =?utf-8?B?b3poaStJSk45cTR5bzRvSks5eDg1SmtCQWJ6Q1FXb29kQXZWNlBzNXNBd05N?=
- =?utf-8?B?aFpDTzlOTUcwMjBrSkdCVkFSQ1RiUVQ3MWRXNHQ5dXpLZTRjN094ZE1RbjFk?=
- =?utf-8?B?dDdaUHJIaTZBcWdoOW9iUlFKOFNQU3ZRalJZdDA5TDNkRHFac3cvUUVUajVk?=
- =?utf-8?B?QWJscGEzTXVzRjlvQkdSY1paejBRNm5ZTFpINUhzbm1TNThmb21RNk50ZThQ?=
- =?utf-8?B?Ym5XQkE3U1c0VTA0eTdpZ1BBT1NGUEJoQTA3STFDYUdORVhSTFBKQXNZTGYy?=
- =?utf-8?Q?i99QHgBcUqgU2Ie9ylhwo4nuOIk02nlOS2WfTdwYk6Rl7?=
-X-MS-Exchange-AntiSpam-MessageData-1: pojVBXBf27H7iQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14a3e7fa-636e-4051-2c20-08df3e58167e
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:53:36.7509
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MSdSenMm/UhKMkyJoWcwPAVN1DtDcq5SluPY0kaXdFDxEsp7E/2caj8qs5leaEFiYRBGd4E+yA/UdXP8YAAiCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7713
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af1b44b cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=3WwxFDiQG7SU9cBGjFoA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX9/0HLWq6p/so
+ Te/y5fu4/8O34zkWtwz2SZPCNZ3w85fX1nC3FTUEZj3k+GtGMgqE5bb2q0L3SJQDWFmInOf59Fm
+ nhOg0ughj8R66fVSu/T2KiugeRnKGC1p1XX3JRpHdfGdnklXH0oBawtjJfypmcTLYqBUX25hc0z
+ nEz1fJkDevzLvfDZs0QLXEFF0Ltdgs6NQd0os0sxUkXB7aFd30y4GbsZ8Y1TP3SbZgB83cwsHte
+ 3Tn+1yFKnI8LvKNLNSRNbCVA33GrT5FsznUUYjXJzL105T3YrZImP308ohUeeF7+wGjaCXE+GOM
+ F3JGYwLWADPyrDJ1moSXV+H4rNMRJ+yhTtdQAP1Lrb4rsBQW/Urtrf9d/W/vpQ8Slze5cycj0tH
+ m8+F/YCyEh2J+sMSjuRG/+5372tSQTKFn4PQaKy+xrMO+E/1/Z9bssQz9bO+wou837doHdOLdGM
+ rLICP6vWvpywtxsARew==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfXz7jS/DrmzR6D
+ R+i045YeQXdqIoEsbE6jbfalOCCxbWyyzqz1l3O1kQxBg2bRYomWEIp97kxdkjLnZEK+KrvN6qC
+ W0S7phWzGJOjOkXLHMy3DRYOuaR2+sE=
+X-Proofpoint-GUID: OqXKheqGHfx6GPcD_y7vu82937ukp_TW
+X-Proofpoint-ORIG-GUID: OqXKheqGHfx6GPcD_y7vu82937ukp_TW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090046
 
-On Sat Oct 31, 2026 at 2:12 AM JST, Simon Song wrote:
-> From: Peter Colberg <peter@colberg.org>
->
-> Add a method to return the number of Virtual Functions (VF) enabled for
-> a Physical Function (PF).
->
-> Expose the query in the PCI core callback context and return u16,
-> matching the type of the VF count stored by the PCI core.
->
-> Signed-off-by: Peter Colberg <peter@colberg.org>
-> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+On Thu, Nov 05, 2026 at 02:46:14PM +0100, Steffen Eiden wrote:
+> The CPP include guard of insn-common-asm.h is ineffective when the file
+> is read via a gas-level .include from inline asm. The assembler ignores
+> all '#' lines, so every .include redefines GR_NUM/VX_NUM and fails with
+> "Macro was already defined" if a translation unit emits more than one
+> such include. This is not the case right now but may lead to future
+> build issues.
+> 
+> Add a header 'asm/insn-common-asm-emit.h' that can be used by C/H files
+> which want to emit those macros. The header guards the GAS include to
+> prevent multiple includes in one compilation unit.
+> 
+> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+> Changes in v2:
+> - Use a separate -emit header and CPP Guards to guard the asm .include.
+>   (Andreas)
+> - Link to v1: https://lore.kernel.org/r/20261102-insn-v1-1-df048a0be0d5@linux.ibm.com
+> ---
+>  arch/s390/include/asm/fpu-insn.h             | 2 +-
+>  arch/s390/include/asm/insn-common-asm-emit.h | 8 ++++++++
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
+> index eeb0a233d5c7..aaf1faeb3dc5 100644
+> --- a/arch/s390/include/asm/fpu-insn.h
+> +++ b/arch/s390/include/asm/fpu-insn.h
+> @@ -14,8 +14,8 @@
+>  #include <linux/instrumented.h>
+>  #include <linux/kmsan.h>
+>  #include <asm/asm-extable.h>
+> +#include <asm/insn-common-asm-emit.h>
+>  
+> -asm(".include \"asm/insn-common-asm.h\"\n");
+>  asm(".include \"asm/fpu-insn-asm.h\"\n");
+>  
+>  /*
+> diff --git a/arch/s390/include/asm/insn-common-asm-emit.h b/arch/s390/include/asm/insn-common-asm-emit.h
+> new file mode 100644
+> index 000000000000..26a31e8439bf
+> --- /dev/null
+> +++ b/arch/s390/include/asm/insn-common-asm-emit.h
+> @@ -0,0 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#ifndef __ASM_S390_INSN_COMMON_ASM_EMIT_H
+> +#define __ASM_S390_INSN_COMMON_ASM_EMIT_H
+> +
+> +asm(".include \"asm/insn-common-asm.h\"\n");
+> +
+> +#endif /* __ASM_S390_INSN_COMMON_ASM_EMIT_H */
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Reviewed-by: Alexander Gordeev <agordeev@linux.ibm.com>
