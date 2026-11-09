@@ -1,59 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264096;
-	b=1TnbKzgdQiva48aU8FsepbLAxErT/SLAGxG7WUuKD75XR8DRwuqJIB34WT0PSTZvkGaL
-	 vtG4NIPLlK5EGsN78EPOdV7rB2a83DaMDFKAPjy/2ZHenRdkhCElUUJzs36gUhq5xHTCs
-	 lV0uKbjrXkqRwmGD0vmHHgpr8phFopoq584cDibI/GD/6A1zunKcq39k0sQqfHTAVlvOs
-	 hTuBHr3p0T8bhzuuXd1TOAyKqLTdZsrbPV3y5PQ6Md8FIK1v4N/o9GKhYrDXX3kOZrfWt
-	 hCwZwyzygyId9+pu+z9EhpriEmHq+D7XxsWu9iKhydVrv13OCmGHr/oxcWS66t8tUiw==
+	t=1794264090;
+	b=qJa3bGwUYZuG3TXwXCZT4j59xWjLYLVkVMFpvYGDu6zXDlsXjKFRz5+fiH0CZg9noXQJ
+	 h/WS8CDUr/vZjZV3XjDaoUo/N+gJBQkcTJlx0FE8/rqukoL5UfxR+semgxCYQoGc59/5d
+	 W1EcFaagYiRAU4Wuxc1hPsXIqCrTFI2itvGTY3hO/VIry/Ae62JG6sC67zuxqzXJVLR+y
+	 ZFTkotngGyxdYTnAmZ7h7Q11rjghWC9Uz0h5lJRKS3hLCb+PjvoT2+tixuuRdkjtyR964
+	 ZT8UTdeCmWQ+2Ty0SIg9GKnmC+c9WqqKFU9c+pPVVIPaIkd/lDlr7NIoKlF4siZMrEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264096;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0FmOT40SSGTEJ8nAUd6PHhQJfpkzfaV1DQZc2IL/c4g=;
-	b=GM20zFJrHCRezueQJdeCEjfixuEsKubO04bc82CcjKq1yBbWVJGvPJg+r2AB7WUEoiDg
-	 avqsdx0GnvtiRF7NfO8N0ydCszfatXmUTB7F87gQMYBhnO8vc8QE6rdMoCSHUPvE0fip2
-	 bLD1OA5HQY2IcAx+uxPgROM/T10UCcSE5mPcYvYipgcEcDtkTtC6+Fn/NPDppWTykS5zX
-	 8zEaK/dWRiG5cB8jH/B2sq1E/xIFfukIVSbJYuIuibv0EQI+LyOslBkkzfAP4T4bGFVPc
-	 6+j+m2s8V0GRdFj9cQF0zvLyNzNcsV4Xmet4Lq+HIXs0cKo8tcs/R0t0FUeof7MmZ5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794264090;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=vbe6nTsdDhg8Mlze/ClcUGDvjt9uDhFUXXWTuvVdSok=;
+	b=yuaDMYqFb8I/t2z+WxVzoKgqM57N+6r3kNFiWpZtfAxyfnyGKx9Qqvzo88dUXvD31jhU
+	 5ftV1/1BOx3Ja7LonVLgd1H2WJk9YnK5TL1PrgJlkNMWhn1S7PK4AkBenTh6zLMz9BSq+
+	 DLT+j7YO710s0JVuNBg+oymkw3aKRNmC2e+lfzTksIFvRfvigUHA34MvNpu96QTI7oBsc
+	 8zVPRFSikoIsHCiTv6biRiYNctKK/I/n/P94kHcj6DT6NIGcyaKa9FLsrv5q2JDKFwIfl
+	 wbZax3Z5QiRnZTr4eiT3HUhiSvnxQx+FsyH3k/cG3OIVTmp+w5Htu+iZwopwhDJHphQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OvGAT3WY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rj0Rk2FE;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A55606A338;
-	Mon,  9 Nov 2026 22:41:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6090C606A31C;
+	Mon,  9 Nov 2026 22:41:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6090C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OvGAT3WY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7511F0089F;
-	Mon,  9 Nov 2026 22:41:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794264095;
-	bh=0FmOT40SSGTEJ8nAUd6PHhQJfpkzfaV1DQZc2IL/c4g=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OvGAT3WY2lqJf+x65niUYy5RRXbHypKdImba1ImF2KnOYLPiHNrnuaCU1Ox4OE9nt
-	 ld0MqAux4mV9fqrmQronw0F6vz9DHtLAs3FUXvtdQgZm10geCm5KYQ6E72cMmhn5dt
-	 GSKeMwuPSCVIQuKY8nUCJipskiYUCyEqlPEQRioKti0PFrC4rdaeFTGTXt40jnxqY9
-	 c/IijNAkiNbb92f5XF6Fj1LS0/n24w1jojrxele/eEEp4NC8xHUSu54eKiS2Km6lQU
-	 4I1N2HjmBaClR59cLXr38UB3dbNRECiqXVn3dRCVwsm0gTMtvsFczwirw9YBnQJDhL
-	 VamZJWECPpoIA==
-Subject: Re: [PATCH] wifi: mac80211: use frame link_id when adjusting link_sta
- on reorder release
-From: netdev-bot+sashiko@kernel.org
-To: NoahWeinberger2003@proton.me
-Cc: johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, security@kernel.org,
- kuba@kernel.org
-Date: Mon, 09 Nov 2026 22:41:34 +0000
-Message-ID: <179426409490.994134.13077118770469155374@kernel.org>
-In-Reply-To: <Sq80dyNRnQWE5H_yZYIwxaQiwgvIrIlET6kND66_K0UpnKQZruHroWDq6hlYKDM0y9e2vXW2UBlBmnjw3bCLKk1Acrp7F49_jk883tbCqxk=@proton.me>
-References: <Sq80dyNRnQWE5H_yZYIwxaQiwgvIrIlET6kND66_K0UpnKQZruHroWDq6hlYKDM0y9e2vXW2UBlBmnjw3bCLKk1Acrp7F49_jk883tbCqxk=@proton.me>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rj0Rk2FE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794264090; x=1825800090;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=loGujMBTdlkfiQk5hWwMHTl07E+9259CEaRMomFVuEY=;
+  b=Rj0Rk2FE7T+NWrkWn326px4ZqLreSM+p93yD36ZR3CaYVpaLxPXFeour
+   y2eiuRXazbcjyLCun02quor2RULbeLyZ1aeraTrdb6K/nT1RvjJjrkC3I
+   duTukWNPQaksAkNBeXaPWF982oD19GHKymcaNdEjDoUxbhyu5hhB9f1E9
+   jjjjre5ptP8tSkT1LaqhXgTrhCafOs0RBQT715zqTlOnhqgwwbFBRoSpA
+   e9Gnc01Pnc16N1fuodfR1ZBduswE1Le0GrSxHj+N2MNaNyMlj6BGzjgUP
+   qIN9HRgizNypPLvyWtT+FNsSegTRYv4zT25jK/xJqzvP4xj5QC3Fb9Lux
+   A==;
+X-CSE-ConnectionGUID: LPR5BJtyTLOO201ZhtgoJg==
+X-CSE-MsgGUID: TrInIqIIR5qc74GJ54Z7oA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3012356"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3012356"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:41:29 -0800
+X-CSE-ConnectionGUID: WiiU066RQsK4uk0B5ylzZQ==
+X-CSE-MsgGUID: 0Xjwhd9LQHC9A95XLjHjGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8169672"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:41:16 -0800
+Date: Tue, 10 Nov 2026 00:41:14 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	CL Wang <cl634@andestech.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
+	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+Message-ID: <avJMCrlbmV6uq9NK@ashevche-desk.local>
+References: <autqC143h7Qf1R9H@ashevche-desk.local>
+ <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+ <auuYcS7-YqJKcUbE@ashevche-desk.local>
+ <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+ <auxGom0XR-Hax9b3@ashevche-desk.local>
+ <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
+ <auxNmE8yZVP-wL2e@ashevche-desk.local>
+ <3dc7277e-2f6b-44a6-9085-2e33d989c1c9@kernel.org>
+ <avIJhv7p2v30U8H9@ashevche-desk.local>
+ <78833267-f204-4387-9f8c-c7e0d5df59a5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,151 +139,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <78833267-f204-4387-9f8c-c7e0d5df59a5@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Mon, Nov 09, 2026 at 11:10:38PM +0100, Krzysztof Kozlowski wrote:
+> On 09/11/2026 18:57, Andy Shevchenko wrote:
+> > On Fri, Nov 06, 2026 at 08:20:33AM +0100, Krzysztof Kozlowski wrote:
+> >>>>
+> >>>> Statement of oversight DOES NOT include "part of the patch".
+> >>>
+> >>> So, it means I MUST from now on REQUIRE a split before reviewing.
+> >>> Right?
+> >>
+> >> Why "from now on"? The reviewer's statement of oversight is worded like
+> >> that since beginning? Also nothing stops you from reviewing parts. We
+> >> discuss the statement of oversight and its result: giving Rb tag. The Rb
+> >> tag is not output of some review, but agreement with statement of
+> >> oversight and performing what is stated there.
+> >>
+> >> You can review parts, but you do not provide Rb tag.
+> > 
+> > No, I'm not going to review something that I may not put Rb tag on.
+> > I can NAK or ignore (or Ack without viewing, but it equals to ignore to me).
+> 
+> That's your call, but you put it on yourself, so do not blame us for "I
+> MUST from now on REQUIRE"...
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message names the wrong trigger for the link[-1]
-  access.
-- [Low] The commit has no Signed-off-by: line.
-- [Low] The Fixes: tag is a literal placeholder ('Fixes: [fill in before
-  sending - on a full clone run: git log -S ...]').
-- [Low] The commit message is a bug report or cover email, not a
-  changelog.
-
---
-
-wifi: mac80211: use frame link_id when adjusting link_sta on reorder release
-
-This patch changes the link-adjust block in ieee80211_rx_handlers(). When
-a released frame arrived on a different link, rx->link_sta is now looked
-up with the frame's own status->link_id instead of the previous
-rx->link_id. This avoids indexing rx->sta->link[] with -1.
-
-> In ieee80211_rx_handlers(), when frames are released from the BA reorder
-> buffer on timeout, rx->link_sta is re-fetched using the *previous*
-> rx->link_id instead of the frame's own status->link_id. For a legacy
-> (non-MLO) client on an MLO access point,
-> ieee80211_release_reorder_timeout() passes link_id = -1 and
-> ieee80211_rx_data_set_sta() never updates rx->link_id, so the adjust
-> block evaluates rcu_dereference(rx->sta->link[-1]).
-
-[ ... ]
-
-> nan_sched and the driver-private area that follow deflink. At minimum
-> this is a remotely triggered crash on MLO APs serving legacy clients;
-> worse outcomes are layout-dependent.
-
-[Severity: Medium]
-Is this the right trigger for the link[-1] access? For stations added
-through nl80211 on an MLD interface, nl80211_new_station() requires a
-link ID:
-
-net/wireless/nl80211.c:nl80211_new_station() {
-    ...
-	if (wdev->valid_links) {
-		if (params.link_sta_params.link_id < 0)
-			return -EINVAL;
-    ...
-}
-
-ieee80211_add_station() then goes through sta_info_alloc_with_link().
-__sta_info_alloc() sets valid_links for non-MLO stations as well:
-
-	if (link_id >= 0) {
-		sta_info_add_link(sta, link_id, &sta->deflink,
-				  &sta->sta.deflink);
-		sta->sta.valid_links = BIT(link_id);
-
-So ieee80211_release_reorder_timeout() picks a real link:
-
-	if (sta->sta.valid_links)
-		link_id = ffs(sta->sta.valid_links) - 1;
-
-ieee80211_rx_data_set_sta()->ieee80211_rx_data_set_link() then sets
-rx->link_id to the station's own link. That matches status->link_id, so on
-this path a legacy client never enters the adjust block.
-
-Before this patch, the caller that does reach rx->sta->link[-1] seems to
-be ieee80211_mark_rx_ba_filtered_frames(), which always passes -1:
-
-	if (!ieee80211_rx_data_set_sta(&rx, sta, -1))
-		return;
-
-On an MLD vif with a station that has valid_links set (MLD or legacy),
-this leaves rx->link_id at -1. status->link_id is an unsigned 4-bit field,
-so the first released frame always takes the mismatch branch.
-
-In-tree, only iwlwifi mvm calls ieee80211_mark_rx_ba_filtered_frames().
-MLO-capable mvm hardware sets SUPPORTS_REORDERING_BUFFER, so
-___ieee80211_start_rx_ba_session() never assigns tid_rx and the function
-returns early.
-
-The reorder timeout path could only hit link[-1] if an MLD vif held a
-station with valid_links == 0. nl80211 doesn't appear to create such a
-station.
-
-The code change looks correct for all of these paths. It also fixes the
-MLD peer case, where stats go to the previous frame's link.
-
-Could the changelog describe the actual trigger and its driver dependence,
-instead of "a remotely triggered crash on MLO APs serving legacy clients"?
-As written, it may mislead severity triage and stable backport decisions.
-
-> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), net/mac80211/rx.c:4243-4255 (adjust block), rx.c:4375-4404 (ieee80211_rx_data_set_sta), rx.c:4410-4426 (ieee80211_release_reorder_timeout).
-> Introduced in the v7.4 merge window (regression vs v7.3).
->
-> This was found during an assisted (AI-supported) static source review of
-> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
-> reporter against that tree. The patch below has NOT been compiled and has
-> NOT been runtime tested, and no reproducer was produced - the triggering
-> conditions are described above instead. Please treat this as a report for
-> verification rather than a battle-tested fix.
-
-[Severity: Low]
-This isn't a bug, but the changelog reads like a cover email rather than
-a commit message. It opens with "Hello,", refers to "The one-word fix
-below" and "every code path cited below", and includes tree-specific rx.c
-line ranges that will go stale once the patch is applied.
-
-Could the greeting, the rx.c line references and the review and testing
-notes move below the --- separator? The note that the patch is untested
-is still needed, but it doesn't belong in the permanent changelog.
-
-> Fixes: [fill in before sending - on a full clone run:
->   git log -S 'rcu_dereference(rx->sta->link[rx->link_id])' --oneline -- net/mac80211/rx.c]
-
-[Severity: Low]
-The Fixes: tag is still a placeholder. git blame on the adjust block in
-ieee80211_rx_handlers(), including the rx->sta->link[rx->link_id] line,
-points to:
-
-Fixes: 4db13371e217 ("wifi: mac80211: refactor RX link_id and station handling")
-
-That commit also removed status->link_valid, started deriving
-status->link_id from rx->link_id in ieee80211_prepare_and_rx_handle() and
-ieee80211_invoke_fast_rx(), and left callers such as
-ieee80211_mark_rx_ba_filtered_frames() passing link_id = -1.
-
-> Reported-by: [your name and email]
-
-[Severity: Low]
-The trailers have no Signed-off-by:, and the Reported-by: is a
-placeholder. Documentation/process/coding-assistants.rst says that when
-an AI assistant was used, the human submitter must add their own
-Signed-off-by to certify the DCO. submitting-patches.rst also requires
-one.
-
-Could a Signed-off-by be added, and the placeholder Reported-by: either
-filled in or dropped?
+No, I don't blame you. It's purely documentation and terminology issue in my
+opinion.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/Sq80dyNRnQWE5H_yZYIwxaQiwgvIrIlET6kND66_K0UpnKQZruHroWDq6hlYKDM0y9e2vXW2UBlBmnjw3bCLKk1Acrp7F49_jk883tbCqxk%3D%40proton.me
+With Best Regards,
+Andy Shevchenko
+
+
