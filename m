@@ -1,79 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794233378;
-	b=rHDw1wkW5H/YxcYADBsdbh8s9CGjoV0y7vDVGiHIapMqBN5M+PhwcWrMF1L4z+LaOqqG
-	 yBBetMfqMWV3yahTJh9k4aDQ0m0c/cHPQG6Nt9+b+Nci4dkwap9PtOVNCH8g5fHCjjanR
-	 h/7ZyjT54OGFz98RPBOG+pIGOPfOJzF0F++Sv1dBVcjk2bfaLnFOZkvLCyuLhKdN6z/T7
-	 4NXZxLVT1mXgMGUa4kNhrRR7Wz43cqAOIYoYebdmJn4gQ/by9elvCQqA40aYmzwGhxR1U
-	 sPOz9nLYVAwF8ehv8wzsN1XXk39EBY7QrThrLOMH+MK2HAMUQCboAoX8QmRvbpURbtw==
+	b=LcC96OodIYkhySj+Bj5tkWniB136QDMV8PtC0ZFCBaaZElxYMN+kcMKyJ8XdaZFnnYzM
+	 CiS3XaBd6mvHfLjHnsJEV3fx+TzUzOqkB9GMpcY411WaRS/35iaG4B6IfkT/2TRj5FUCY
+	 sgWni27obX1yEN7tU3CiB3Xcs5KkU4x5rY4Cn2Ikr0hO8dZmbur2wGv+gW1YqoLlzvedc
+	 YHTG2CfQuKMU5rvJZ4zxKeEp+ubzkO0Qdjs7IB5M4IELb3xBG96jujW2OIBbg8ThpnpB6
+	 qpBLEsG1yZ8uXyhGkDOdvuZdVpXTITJZA/UOtWQL5KAIuYS4bqdWLhEsEdX4q+01Mbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794233378;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=2H+AVH2q7EhcjSyHMuWAQKmHIf+eX/uuzTxGhvydkL0=;
-	b=dvLjvsfwMJEjHU4mng+J8PjitTU5huTVRcR0DcSuO0WDF9Ct4D0VPD7B/EvEDKN1z1s/
-	 qo8MCPrQFEuhpdp+ouO78rzeituuvR+7tcePDcTZHXGVcw/lKQCoSMpPBw818C9RP32R7
-	 tsR3gFlAdcPTobT9t0AWGk2KVFHM/BPdKzRAOM2Z5VEna3AkFhfK8TAtTwxVX5h444ixm
-	 N+8QG/6GrEdnJgvsa7VB++Iz0N2yljIOLpk3WyY80JsYBzZetI7AuFeakIhkNxe3l8rr1
-	 6uiVBvi64wIvcSGpzGGTAK70L9pUlbJnipSRBdz7WE9SWPHwh+n7kTpDjoKlkazv2+g==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hIbh6EbfhDOncQjZvGHUe6etv0nEZkX8eOE42PTaiP4=;
+	b=R+gTUSeGXJg23KP/mXUvXUtvV9sCVJwcNWApmM+GW2Gi93QWVYgMI8x5SyLH07IpL6rs
+	 FknxN9h6X7D7GF/7ZsWw5l3WqqS+bnJlBs9y0XW+XI1ff/bMTrYNnCAWk9fYxbfkgXnb2
+	 AHJfx3H+KjxH/As5ovTbu6OavIUK5ZniNZVjsw8S2pGlJ95nOCtip+JUQdMlNTDf5hQfg
+	 kPVaTsamknrulAo2X1skFw96p36RZk/VfgzhhCDT0LJrYUazW8GWwO9Ym9hhQymSq9zRe
+	 JQ6PvnNQKb25zDCoNdHk9Zj/eb4dIIvcmtZkBZuoIgD7whvd+VrIAdVTcBYOiuRzbRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hpn85cwv;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u1lfTtpc;
+	arc=none smtp.remote-ip=91.218.175.240
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEBE606EEB1
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FEBE606EEB1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929A2606EEB2
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 929A2606EEB2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hpn85cwv
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7105CC79A80;
-	Mon,  9 Nov 2026 14:09:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8680660051;
-	Mon,  9 Nov 2026 14:09:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E343103293DD;
-	Mon,  9 Nov 2026 15:09:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794233368; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=2H+AVH2q7EhcjSyHMuWAQKmHIf+eX/uuzTxGhvydkL0=;
-	b=hpn85cwv7AffrRaT4le9iTRnVGyJo3Z8o8GZlCH3mg5MKIWRAsA9vGsmgtQqtv4+Y/BXE4
-	lYXwPw685Ys7y0tfO7PwhQp9uPkOQJcr3WpwB4y0MTW7eM3EIbF2pMlmnmp87M6b5ZsKsy
-	vrqjhQIetHTuIEQFxB20sI+9VqiFTteEvp5+Za3WEnwujbOCWQZ5hgN8C2+UiAzoyEqJy7
-	4wiPyL0k1pm8oxyurXk0cyWN+76HvjPAcQrbEwjcb/XjWfUYkpfoM3vIWlRRby1Ia/2jdN
-	FWbIP8LvwNS1uqiUAuFNXPiAnDFU0fOtE6wB8bGhNlHGoC5b4gKekgtkq8I45A==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u1lfTtpc
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=j4YuKKOawnaz1xc9cWV5lDbUelCd51dMJdfYALRo3So=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794233375; v=1; x=1794838175;
+ b=u1lfTtpcQ6A3guqyElUO6mUrGw9iVxp5czQctA0rOMuHljl15WgOK6bY6GjsOtHzwfzh0K0N
+ Xh6SCfmT3rBXYybYJJ35cFeR4cAJa8S0mvDquVP0NaAu0kGCSjZrFXahNt1i136EJjYsZPd9u4V
+ SDQpxQ5bqE5zm4nvgi5M87BY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 85ad056a3d11807c;
+	Mon, 09 Nov 2026 14:09:35 +0000
+X-Mizu-Trace-ID: 85ad056a3d11807c
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	KP Singh <kpsingh@kernel.org>,
+	Matt Bobrowski <matt@bobrowski.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Leon Hwang <leon.hwang@linux.dev>,
 	linux-kernel@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH v9 0/4] lan966x pci device: Add support for SFPs, simple-bus part
-Date: Mon,  9 Nov 2026 15:08:38 +0100
-Message-ID: <20261109140916.90625-1-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.0
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH bpf-next 8/9] selftests/bpf: Verify iter link_create logs
+Date: Mon,  9 Nov 2026 22:08:15 +0800
+Message-ID: <20261109140816.5196-9-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261109140816.5196-1-leon.hwang@linux.dev>
+References: <20261109140816.5196-1-leon.hwang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,89 +87,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Check the error code, log message, and reported log size for invalid target
+FDs, flags, and iterator information. Also cover attaching a sleepable
+program to an iterator that does not support it.
 
-Previously, I sent a big picture series adding support for SFP ports
-available on the LAN966x PCI device [0].
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+---
+ .../selftests/bpf/prog_tests/iter_link.c      | 132 ++++++++++++++++++
+ 1 file changed, 132 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/iter_link.c
 
-In this series patches touch several parts and sub-system in the kernel.
-Reviews have be done and it makes sense to split the series and send
-parts separately.
-
-This current series is the extraction of patches related to the
-simple-bus driver. It has to be seen as a continuation of the big
-picture series but related to this specific simple-bus part.
-
-Patch 1 fixes an already existing issue reported by Sashiko.
-Patch 2 removes the no more useful remove() function.
-
-Patch 3 depopulates devices populated at probe() when the driver is
-unbound.
-
-Patch 4 makes the simple-bus driver compatible with fw_devlink
-expectation consisting in creating its child devices at probe.
-
-[0] https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
-
-Best regards,
-Hervé
-
-Changes:
-
-v8 -> v9
-  v8: https://lore.kernel.org/all/20260630102717.413501-1-herve.codina@bootlin.com/
-
-  Rebase on top of v7.4-rc1
-
-  - Patch 1 (new patch in v9)
-    Fix an issue reported by Sashiko related to possible inconsistencies
-    between operations done at probe() and the ones done at remove().
-
-  - Patch 2 (new patch in v9)
-    Fully remove the remove() function.
-
-  - Patch 3
-    Changed the way depopulate is performed and use devres feature.
-    Took into account a pm_runtime possible issue (reported by Sashiko)
-    related to async pm_request_idle() triggered when all child devices
-    are removed from the bus.
-
-  - Patch 4
-    Use devres feature.
-
-v7 -> v8
-  v7: https://lore.kernel.org/all/20260511155902.34534-1-herve.codina@bootlin.com/
-
-  Rebase on top of v7.2-rc1
-  No nother changes
-
-v6 -> v7
-
-  Rebase on top of v7.1-rc1
-
-  - Patch 1
-    No changes
-
-  - Patch 2
-    Fix conflict due to device_has_driver_override() introduction.
-
-Older iterations:
-  Patches 4 and 5 in the big picture series
-  https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
-
-Herve Codina (4):
-  bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
-  bus: simple-pm-bus: Remove the remove() function
-  bus: simple-pm-bus: Remove child devices when the bus is unbound
-  bus: simple-pm-bus: Populate child nodes at probe
-
- drivers/bus/simple-pm-bus.c | 90 +++++++++++++++++++++++++++----------
- 1 file changed, 67 insertions(+), 23 deletions(-)
-
+diff --git a/tools/testing/selftests/bpf/prog_tests/iter_link.c b/tools/testing/selftests/bpf/prog_tests/iter_link.c
+new file mode 100644
+index 000000000000..c684a109091a
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/iter_link.c
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <test_progs.h>
++#include "bpf_iter_bpf_map.skel.h"
++
++static void test_iter_link_create_log(int target_fd, struct bpf_link_create_opts *opts,
++				      __u64 flags, int err_exp, const char *msg)
++{
++	struct bpf_iter_bpf_map *skel;
++	char log_buf[128] = {};
++	int err, fd, prog_fd;
++	LIBBPF_OPTS(bpf_log_opts, log_opts,
++		.buf = log_buf,
++		.size = sizeof(log_buf),
++		.level = 1,
++	);
++
++	skel = bpf_iter_bpf_map__open();
++	if (!ASSERT_OK_PTR(skel, "bpf_iter_bpf_map__open"))
++		return;
++
++	err = bpf_program__set_flags(skel->progs.dump_bpf_map, flags);
++	if (!ASSERT_OK(err, "bpf_program__set_flags"))
++		goto out;
++
++	err = bpf_iter_bpf_map__load(skel);
++	if (!ASSERT_OK(err, "bpf_iter_bpf_map__load"))
++		goto out;
++
++	opts->log_opts = &log_opts;
++	prog_fd = bpf_program__fd(skel->progs.dump_bpf_map);
++	fd = bpf_link_create(prog_fd, target_fd, BPF_TRACE_ITER, opts);
++	if (!ASSERT_LT(fd, 0, "bpf_link_create")) {
++		close(fd);
++		goto out;
++	}
++
++	ASSERT_EQ(fd, err_exp, "err");
++	ASSERT_STREQ(log_buf, msg, "log_buf");
++	ASSERT_EQ(log_opts.true_size, strlen(msg) + 1, "log_size");
++
++out:
++	bpf_iter_bpf_map__destroy(skel);
++}
++
++static void test_log_invalid_target_fd(void)
++{
++	const char *msg = "Invalid target_fd.\n";
++	LIBBPF_OPTS(bpf_link_create_opts, opts);
++
++	test_iter_link_create_log(-1, &opts, 0, -EINVAL, msg);
++}
++
++static void test_log_invalid_flags(void)
++{
++	const char *msg = "Invalid flags.\n";
++	LIBBPF_OPTS(bpf_link_create_opts, opts,
++		    .flags = 1,
++	);
++
++	test_iter_link_create_log(0, &opts, 0, -EINVAL, msg);
++}
++
++static void test_log_iter_info_only(void)
++{
++	const char *msg = "iter_info and iter_info_len must be both set or both unset.\n";
++	union bpf_iter_link_info info = {};
++	LIBBPF_OPTS(bpf_link_create_opts, opts,
++		    .iter.info = &info,
++	);
++
++	test_iter_link_create_log(0, &opts, 0, -EINVAL, msg);
++}
++
++static void test_log_iter_info_len_only(void)
++{
++	const char *msg = "iter_info and iter_info_len must be both set or both unset.\n";
++	LIBBPF_OPTS(bpf_link_create_opts, opts,
++		    .iter.len = sizeof(union bpf_iter_link_info),
++	);
++
++	test_iter_link_create_log(0, &opts, 0, -EINVAL, msg);
++}
++
++static void test_log_invalid_iter_info(void)
++{
++	unsigned char info[sizeof(union bpf_iter_link_info) + 1] = {};
++	const char *msg = "Invalid iter_info.\n";
++	LIBBPF_OPTS(bpf_link_create_opts, opts,
++		    .iter.info = (union bpf_iter_link_info *)info,
++		    .iter.len = sizeof(info),
++	);
++
++	info[sizeof(info) - 1] = 1;
++	test_iter_link_create_log(0, &opts, 0, -E2BIG, msg);
++}
++
++static void test_log_invalid_iter_info_len(void)
++{
++	const char *msg = "Invalid iter_info_len.\n";
++	LIBBPF_OPTS(bpf_link_create_opts, opts,
++		    .iter.info = (union bpf_iter_link_info *)1,
++		    .iter.len = sizeof(union bpf_iter_link_info),
++	);
++
++	test_iter_link_create_log(0, &opts, 0, -EFAULT, msg);
++}
++
++static void test_log_invalid_prog(void)
++{
++	const char *msg = "The iter target does not support the bpf prog.\n";
++	LIBBPF_OPTS(bpf_link_create_opts, opts);
++
++	test_iter_link_create_log(0, &opts, BPF_F_SLEEPABLE, -EINVAL, msg);
++}
++
++void test_iter_link_log(void)
++{
++	if (test__start_subtest("invalid_target_fd"))
++		test_log_invalid_target_fd();
++	if (test__start_subtest("invalid_flags"))
++		test_log_invalid_flags();
++	if (test__start_subtest("iter_info_only"))
++		test_log_iter_info_only();
++	if (test__start_subtest("iter_info_len_only"))
++		test_log_iter_info_len_only();
++	if (test__start_subtest("invalid_iter_info"))
++		test_log_invalid_iter_info();
++	if (test__start_subtest("invalid_iter_info_len"))
++		test_log_invalid_iter_info_len();
++	if (test__start_subtest("invalid_prog"))
++		test_log_invalid_prog();
++}
 -- 
-2.56.0
+2.55.0
 
