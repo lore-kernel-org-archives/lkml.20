@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794212745;
-	b=5m3srQ5c5yn2twPK+kDcCnUFPfoB0fH9cgI7xZ9Ie77X72zICMlKY26jwvZ7cSG8F+Cj
-	 q9wllaohoKfmxW4T8JhVmY4XyyMb8llIt7CppdPekC/CFHesMkuJKSzVJ6w951VkqYJYq
-	 i8RBEw0KANISFl9Hm0hblQCM0Es9uQ7k7IdNhw7LBSVDl/188wELyvM8VtkHlbJvilD84
-	 e2sobY4jmI6PqXe/QkU9HmwLHaDGvqcujeFOil4aPZhs9taDgNEHyXXxfUBw9mS0h/Q66
-	 L/S+rPfnaPeA84buV84AdINQvJY6TvpzTDq/Fw1RpojQ+XZS/dLDpnswySsHSbAVkjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212745;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
-	b=Rs+7ODpPe9H/xc5ASx80/fgVLXcEiuf1acEB65oscErbNOewg2yz5MfBRJNIUvK3c3j8
-	 qguTVJFmr0wWJfGJcbYkyj4hgk7JuJH1nR5mIeZWAHc5Sir4eyfG7nPmPh6jb63Ur32Ci
-	 HCqcKxvDodOQ40g+1VhVjrMHlT5xxB2AqxBP0qKIGrXr4qZBT51qp1N8VRKUZqIcvrn+V
-	 OCM9vE/NKypo7oabCwnYoBWIodv6Y4SM0MP8efckIDMebaEiDNPSQG6ICdy7HgvSy95q1
-	 t//UY/27FKyjHKUEbPu+yWpgwzV34Pq0HBYp9ANifvCJNlA17Xm4oXutto4l6sW2Q+w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eCt6kjnM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794212772;
+	b=GNv3x1D9kaeenyLj9c5M5P/i4RmNBXAiaSaJq6gfq2uYDUcGMnHLA2beXeT0wO7MjzXV
+	 7eY6ktzdZTBS9aSGT4ExsA02sc98rwJL2wzNU0DDAP67msm7Csozub8gy8aBG/e4qgzAN
+	 FmfcuEXt27t9l8FmZlh9OC1/3LR/xoVwMfsb5ejwAqOjPx1ezdfX9GmnSJVUa0xs9XbPM
+	 eI1M5SSp6Ej++rc53i22CwVmENRngAOLDDxr654Fzjg8kzAjL6mXv4xi7P3nHQmOLTACC
+	 vA+ikRSBEpKGRwVymcloFE9LF+uzLCUwkIRcbGDS+zAfnvmW4Ldr+IRlgFaFDqhmaUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212772;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zWuQ3p27UIemdCXPGPIrkkPUH0IJBHZ4roQ2dSRcIvo=;
+	b=0M+WayD4pHw1nBwmicSO+0AmrQ2yYHLnggw6pU2+yJcn02hbiwExpuhxLK7lNcrGpVOZ
+	 72w2LScu2eraeBsU4Ztorzh+PrljMfyMrfIXmklzg3gwR8aE0Gh78h2FCxzvw+uB6weOx
+	 R0eIuu2x5pC/YmCAjzNt5bi7zjsk7hXQlgM93IEcrPD3uHEkcQ2gj/nZ6ccAzbbDTSACU
+	 wq0vWKpBsEDcRVJXYyomrJZ8IRSZGlfNzizvD2KuuFOR7DTMSQD7KhjtPVZXQRmdpZJRK
+	 NmS7qjbs4mdu02rwTAhRqP6+JbanXz00nujexnycEcywpbuIMjpOpvHxCnPGeI3OCFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDJzs3gM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF77606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:25:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF77606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9351606A322;
+	Mon,  9 Nov 2026 08:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eCt6kjnM
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1197849eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:25:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794212744; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GRXWk6SFZyxS1EnnZGoSnqm1uBxZHEZXVBIH9bhEPrgb/98cHwPb/MhvRToD0TaC8/
-         PELSh/Y/kKYDUcFDNX2eL6PSWqoVOD2bwmUk9F3tYXGS2pqSE+6ofx4MP7F0bMl7zgxj
-         axZRoHnLUxYFY9QbQmKdaRwC6Yhp4mDkK1c9i53iTWsBQLxsqDPHUfBFDfPKSHx6Kqxs
-         OnXjkY4lc+1Y8/FsV+jyR6759VxNVg4NJXxBKGRy+QapIMcfJGIAX3xLxXF5QP9LxKdA
-         xTrqHdc4BWtZWn1a+9jsfWT0f2oujBtJvsSBpHEOBb82N/tx93zpB/ijZCdsb0dyRPGa
-         RrGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
-        fh=0jAhIGTrlwLOU7UVwcHmmH7788GbTwal7SX3xHhC3zg=;
-        b=r47aT05Ta6Li6sZ6Mzap6doh6Vu4GWclMNKUVFpKVpqw7ngzGpwsXt76Sq6UWOxk6/
-         3jPWYc7siQf2bTBTMyWOHtSWxNW3F5L/HVa+96aD7qzsLTbtN86lFE3GFFk2fgAINdnJ
-         7/uXDYO1jPDnI40TAlQEE8WGOev5QvX4eLorb2oCbaCw7VI8UniGZ1SqLQsCNc65EaX5
-         EIyjbIx7Uvvsm5d6pds+z/nMMz6nj/5wNGoVPu6NDbkkzz5nRCRg1u2wDnEb3MitVBvg
-         +iJxgdhjtG0FpcPQJX09LooNqOnh1FETJ6PRbefL35K938md76cIsY160eY0sSWJAbpl
-         nTcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794212744; x=1794817544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
-        b=eCt6kjnMpDgG1ATD22usmrbzNUIUJfC4+/3SSzvAnI0ltHHz2VtJgZYny9zPt6p6Cf
-         VmEMQhU+zbc9ggs/CYP2QkM8fWx+Te2VDOAJq9LN6MZR55qN/5Z+2OjIPsy7ZF9QhYlq
-         VMsqj86BaopIctP72SraDac9FY1MdhSuijcv0NrK+BZ6Jg3e7fG83wJOSugK2LRK5uQn
-         6SohutqnizbdfYf1KCSZM3Tq2d8XsCXvzXCrVMIXJcXnoUC1vUKCZ0OxKWL/MDd2dTaR
-         DOhsDYVpIn1/2Q2RzSfjnaaeWno5AmjoNNhOCfr3qkg3cJic2KvoyL87Shn2Y4CNhyra
-         wkpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794212744; x=1794817544;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
-        b=UPnq/eacpUqnBsiaUD0P71Be2sBvQKMw/lSChAqvzg7snaMF7RPqZgkxvTG1qX8/7D
-         OtVobfXizyJetXS1j+qzVjeeMRspHsQZO8MWmegOKMwMqvsm8pehBQ6ruA7icqntvZ4E
-         fjPkjqKpTfRNPcmxNeb3fKv93Ef9zPTAshMkrWj7qLL/UqpCUVRpmoiBgLaEriE1hD5T
-         SnNOLQsqNJ07rDLTy6TD23/T2pfcJmfy82mpWA7rHqMxzAdoacUo9sbEBdYFLTiZ5CZr
-         jqVVDshEyquGWxabdeKdkxsxFNpUdzpmbPaFcWEtFAFtmtC/jBB5XMjhqOksMLhEe/q4
-         OdAw==
-X-Forwarded-Encrypted: i=1; AL+hErHTVIiHKz5cdrmC5IVWV9dHCK2ZdVGIfvzfMK2nVFeRVnaZc6oa4/EVTDIxEu/3jP8eiHjM4dtUwbjYFsI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W/q0gOlzn4zSajkniyp1Lx/AYc4wmJO1tVGIZP/TPj0QN34Gi
-	4WawGOBl7uQBZfC0POpeSsj50RJJmQCy98goHMtLt1SKjvole7ZoT7Z2sgenPfT5sDH+Vj9YemG
-	G9DTd2bEq4lytjMTkpfSu1d6CjICyXfQ=
-X-Gm-Gg: AYBFou0HrNJ8LCqtYCbS1wM/Y77ovCUVzlQz915trnxq4xfB+RW14zGene7uB30R5AO
-	oiEqhU52I4DNMF1cPdcE2EZmgKISHmN2bXh/7pf+1/c/buCmhgKyqxACsQMKBp95UGG29Obn5BO
-	ErjWIFPvbdGsbATM9kMgAL1jmkJ0szf7jNH6jxrN6MCaXS+xSNkV197yQlcFrO95m0o+lLh8kKy
-	TtDzomSopvpd1YtgCjHHudkFB7O59kSlC1SVuvW79pg70nvyVpTjiVZlI+C+OrQt/Q18EH9u+kj
-	e1XDo3/pf9KK7UA3C44xNfYr3loxFjO+zvlqm3yWAMKQt8WcUAexDv4m61WJNfwReN2YcSl3c5k
-	l3kRxgNvh8HYIQOKpN1JxZ6DWZY0gY3gYnO9d+MUSfP7vQmrtJBL8Z2N5J7bVBUQnK2kW
-X-Received: by 2002:a05:693c:8941:10b0:36d:f004:ae6e with SMTP id
- 5a478bee46e88-372571d8680mr6442806eec.34.1794212744367; Mon, 09 Nov 2026
- 00:25:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDJzs3gM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B6F1F0089F;
+	Mon,  9 Nov 2026 08:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794212771;
+	bh=zWuQ3p27UIemdCXPGPIrkkPUH0IJBHZ4roQ2dSRcIvo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DDJzs3gMF7pz5Mlv0wt7rZUXIIuiPDhYBkLsRf+HANOIyMcGMt1c+pAjW5PHIyYKi
+	 nYCeMjGIa3MyTCqLn6eDYpsweHwQxjHZNL/M8lS2nGf8TCjOhjMQl9XRkDnzhZU0hM
+	 jWz+hHslZDUnc/E3j470EUFJ7majXC/rON+kq1NckUlowF1ZIzNTN9TQj4jTu4x8IY
+	 Gc0WhTLaPb80aUSREr1NcMxqLYxL2225xVi9FzQB4wCTwmqQHaXQCrNBuLaf6IVN/Q
+	 WUNSX0ejaKQUcZGSLsWUWjb18W4W7wKvWkSob988ZtEoNY1jJm7764VwIWIBDym5kE
+	 D+0TzXxZRVepQ==
+Message-ID: <78a88d4d-11af-40c1-b063-b6a4d4298ecd@kernel.org>
+Date: Mon, 9 Nov 2026 09:25:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,245 +51,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108074733.248784-1-hj351016@gmail.com> <179421246928.994134.4691531527341185507@kernel.org>
-In-Reply-To: <179421246928.994134.4691531527341185507@kernel.org>
-From: khj <hj351016@gmail.com>
-Date: Mon, 9 Nov 2026 17:25:31 +0900
-X-Gm-Features: AclHuK9eAUiDtMPLiXAXqngFp10UUm9BXsLJcVw65tcB1NHPhojqGG_5DdAb4cA
-Message-ID: <CAGr5VtOkBt1duzjEMtgP-0OUiuxRzfTDz_BC9K=uuZtrK0ZLfQ@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: ti: icss-iep: fix deadlock when disabling PPS
-To: netdev-bot+sashiko@kernel.org
-Cc: danishanwar@ti.com, rogerq@kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/17] dt-bindings: arm: qcom-soc: Add Halliday
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
+ Guru Das Srinagesh <linux@gurudas.dev>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>,
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
+ <20261109-halliday-dts-v1-1-289114ab8197@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261109-halliday-dts-v1-1-289114ab8197@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thanks for the careful review =E2=80=94 both are fair.
+On 09/11/2026 01:33, Stanislav Aleksandrov wrote:
+> Add Halliday to the SoC codenames allowed in Qualcomm compatibles.
+> 
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom-soc.yaml | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-On the [Medium]: agreed. Draining outside ptp_clk_mutex is what breaks
-the deadlock with icss_iep_cap_cmp_work(), but it does weaken the
-enable<->disable serialization that the mutex used to provide, so a
-concurrent sysfs enable can now race the disable's drain as you
-describe. The deadlock and the ordering are in tension and a clean fix
-needs a small restructure rather than just relocating the
-cancel_work_sync().
+This should be squashed with patch #15. Also, there is no benefit in
+organizing patches within patchset where patches to the SAME subsystem
+are split all over. #1 and #2 targets SoC, then there is a break and
+again we are at SoC at #15.
 
-On the pre-existing [High]: agreed, and thanks for spotting it =E2=80=94 it=
- is
-a separate bug from the deadlock this patch targets. icss_iep_exit()
-unregisters (and can free) the PTP clock before the perout path is
-torn down, and icss_iep_perout_enable(off) never drains iep->work, so
-a late icss_iep_cap_cmp_work() can reach ptp_clock_event()/pps_event()
-on a freed or NULL iep->ptp_clock. That deserves its own fix (drain
-the work in the perout teardown path / order the unregister after the
-disable), which I'll send separately rather than fold into this
-deadlock fix.
-
-Since this is hardware I cannot test (am654 icssg PRU) and the clean
-fix touches the PPS/perout teardown and the ptp_clk_mutex discipline,
-I would appreciate the maintainers' preferred direction before I
-respin =E2=80=94 in particular whether to re-serialize the
-enable/disable/drain differently or to move the drain into
-icss_iep_exit()/perout teardown.
-
-pw-bot: cr
-
-2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 5:21, <=
-netdev-bot+sashiko@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 (1) =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] This patch moves cancel_work_sync(&iep->work) in
->   icss_iep_pps_enable() out from under ptp_clk_mutex.
->
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but it is a use-
->   after-free / NULL dereference in the teardown path that the new guard=
-=E2=80=A6
->
-> --
->
-> net: ti: icss-iep: fix deadlock when disabling PPS
->
-> This patch changes icss_iep_pps_enable() so that cancel_work_sync(&iep->w=
-ork)
-> runs after ptp_clk_mutex is dropped. This avoids a deadlock with
-> icss_iep_cap_cmp_work(), which takes the same mutex. It also makes
-> icss_iep_cap_cmp_work() return early when neither pps_enabled nor
-> perout_enabled is set.
->
-> > diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/eth=
-ernet/ti/icssg/icss_iep.c
-> > index ec085897edf09..3b2a88c2dad88 100644
-> > --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
-> > +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
-> > @@ -534,6 +534,17 @@ static void icss_iep_cap_cmp_work(struct work_stru=
-ct *work)
-> >
-> >       mutex_lock(&iep->ptp_clk_mutex);
-> >
-> > +     /*
-> > +      * PPS/perout may have been disabled (and the compare hardware
-> > +      * cleared) while this work was queued or waiting for the mutex.
-> > +      * Bail out rather than re-arm CMP1 and emit a stale PPS event on=
-ce
-> > +      * the event source is gone.
-> > +      */
-> > +     if (!iep->pps_enabled && !iep->perout_enabled) {
-> > +             mutex_unlock(&iep->ptp_clk_mutex);
-> > +             return;
-> > +     }
->
-> [Severity: High]
-> This is a pre-existing issue, but does this check cover teardown when per=
-out
-> is enabled instead of PPS?
->
-> icss_iep_exit() unregisters the ptp clock before it disables perout:
->
-> icss_iep_exit() {
->         if (iep->ptp_clock) {
->                 ptp_clock_unregister(iep->ptp_clock);
->                 iep->ptp_clock =3D NULL;
->         }
->         icss_iep_disable(iep);
->
->         if (iep->pps_enabled)
->                 icss_iep_pps_enable(iep, false);
->         else if (iep->perout_enabled)
->                 icss_iep_perout_enable(iep, NULL, false);
->         ...
-> }
->
-> Inside ptp_clock_unregister(), ptp_disable_all_events() only sends
-> PTP_CLK_REQ_PPS. icss_iep_pps_enable(off) then returns -EBUSY because
-> perout_enabled is set. So CMP1 stays armed and the work is never drained.
->
-> ptp_clock_unregister() then unregisters ptp->pps_source and calls
-> put_device() on the ptp device, which can free the ptp clock. After that,
-> iep->ptp_clock is set to NULL without holding ptp_clk_mutex.
->
-> Later, icss_iep_perout_enable(iep, NULL, false) clears perout_enabled. It
-> never calls cancel_work_sync().
->
-> During this window icss_iep_cap_cmp_irq() can still queue the work.
-> icss_iep_cap_cmp_work() gets past the new check because perout_enabled is
-> still 1, and then reaches:
->
->         ptp_clock_event(iep->ptp_clock, &pevent);
->
-> For PTP_CLOCK_PPSUSR, ptp_clock_event() calls pps_event(ptp->pps_source, =
-...)
-> without a NULL check. Can this touch a freed pps_source or ptp clock, or
-> dereference a NULL iep->ptp_clock?
->
-> On am654 with icssg_prueth (clockops perout_enable), this looks reachable=
-.
-> Enable perout with PTP_PEROUT_REQUEST, then bring the interface down, whi=
-ch
-> goes through prueth_emac_common_stop()->icss_iep_exit().
->
-> [ ... ]
->
-> > @@ -607,7 +619,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep=
-, int on)
-> >       } else {
-> >               ret =3D icss_iep_perout_enable_hw(iep, &rq.perout, on);
-> >               if (iep->cap_cmp_irq)
-> > -                     cancel_work_sync(&iep->work);
-> > +                     drain_work =3D true;
-> >       }
-> >
-> >       if (!ret)
-> > @@ -616,6 +628,15 @@ static int icss_iep_pps_enable(struct icss_iep *ie=
-p, int on)
-> >  exit:
-> >       mutex_unlock(&iep->ptp_clk_mutex);
-> >
-> > +     /*
-> > +      * Drain the capture-compare work only after dropping ptp_clk_mut=
-ex.
-> > +      * icss_iep_cap_cmp_work() takes ptp_clk_mutex itself, so cancell=
-ing it
-> > +      * under the mutex deadlocks against a handler instance already r=
-unning
-> > +      * and waiting for that same mutex.
-> > +      */
-> > +     if (drain_work)
-> > +             cancel_work_sync(&iep->work);
->
-> [Severity: Medium]
-> Now that the drain runs outside ptp_clk_mutex, is the disable still order=
-ed
-> before a following PPS or perout enable?
->
-> The chardev ioctls hold ptp->pincfg_mux around ops->enable(). In
-> drivers/ptp/ptp_sysfs.c, pps_enable_store() and period_store() call
-> ops->enable() without it. That means a second writer can take ptp_clk_mut=
-ex
-> between the mutex_unlock() and the cancel_work_sync() above:
->
-> CPU1                                  CPU2
-> icss_iep_pps_enable(iep, 0)
->   icss_iep_perout_enable_hw(off)
->   iep->pps_enabled =3D 0
->   mutex_unlock()
->                                       icss_iep_pps_enable(iep, 1)
->                                         icss_iep_perout_enable_hw(on)
->                                         iep->pps_enabled =3D 1
->                                         mutex_unlock()
->   cancel_work_sync(&iep->work)
->
-> Two outcomes look possible.
->
-> In the first, a stale work item from the old session gets the mutex after
-> CPU2. It may have been queued by a CMP1 IRQ just before the disable, or i=
-t
-> may already be waiting in mutex_lock(). The new check in
-> icss_iep_cap_cmp_work() only looks at the flags, so the item gets through=
-.
-> It reads the new start value that icss_iep_update_to_next_boundary() wrot=
-e to
-> CMP1. It writes start + iep->period back, then reports a PPSUSR event for=
- an
-> edge that has not happened yet.
->
-> Would the first pulse of the new session be skipped, with a bogus timesta=
-mp
-> sent to userspace?
->
-> In the second, CPU1 is delayed until the new session's first CMP1 match.
-> icss_iep_cap_cmp_irq() queues the new session's work, and CPU1's late
-> cancel_work_sync() removes it before it runs.
->
-> In the non-clockops path, this work is the only code that advances CMP1 b=
-y
-> iep->period. icssg_prueth_sr1 is one example, since it calls
-> icss_iep_init(iep, NULL, NULL, 0).
->
-> Could PPS stop for good here while pps_enabled is still true?
->
-> Before this patch, ptp_clk_mutex serialized the disable, the drain and th=
-e
-> next enable.
->
-> > +
-> >       return ret;
-> >  }
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261108074733.248784-1-hj351016%40gmail.com
+Best regards,
+Krzysztof
