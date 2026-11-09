@@ -1,48 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794257094;
-	b=AikRLYWm05B72nEIR50K0JGqzz12VoEBKt85UVsGm5J5dakXH+2nn/lpvJPm+6KPLzDq
-	 5ivnWqVO/i48CmAC/bfOyZY4q6OBCRL8nnNXmwZO5/yKVi61pqKARNH4EEZXB23bdu2QS
-	 gJ8u1L2Rra/LY4IBTOoVND/ZTPATi68FK8eh6fqPbKX0exSiy1tk6j/N8pbEQFo2iHYmo
-	 KLRfDWf7rXbre+gDpttSQgw4GefmH7j4oys2VnvpJ8NjImw9t4nAXTt1ZSPUVWnCn+DhJ
-	 Sj0hkqFC+uXGHKl6YQVEpWBZcHC8w16OSs4g7Rv4kF11g3YxGGd1cFeqiUGGiEmstDQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794257094;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wg3N0zeCU+V87W+DhVAiPtVIVV/pYPZTF3215VLc+s4=;
-	b=qT5IhSfdTCML4wi0Ylou6q/v7c/K6opxhcfcQ5lkIY3eSjfQwKe2i1CKMSsvW3ouRtFN
-	 920YHk0B7mCEhuI2/Ma96lagUPvIFIGhKAb/IvPhy4nEyPLUFYIj1Vl4ZMDHU5rcQV9FS
-	 W7YG+vlaReduPN3zGaeRpxvaBau7kAe0GKWu2nnwZUmp2taH9vB/KsXbpvvlgSlXrq+XE
-	 C4y2cRz1aKvIpqG8mHhk+HUwzc+lBQGxbZhMsqSytT95mrgziGq+6mIo9lW2UCKWRB++C
-	 Vm3gmiZOTYCuPAq2F2BLosScU2GPnUhMJSLM5xWAzGRqv4OfghtW0Dn3L5Z7CztvKNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XoHtTmRL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794257187;
+	b=rlTLfhOJrQVNXbeawnom2v7K7AAND1+RkWbZlMZUcyDL3i/Dn1+dMC9hNO1MdqAYgnAI
+	 Z+4TZEvPIyG3zsoAZz8WxchKKwrJ357SgXO7N0zHtmqfy4iahhVV+xShPjcGYEuGy9aqy
+	 YPxPhlaoZm0Ta61CUqAdzzNDdsN1gNOSlBMv5J8GsO/MvEjIjc9kgI/TSHWXS1dcZQjJH
+	 Kqe2gjAg3rn4eppmMc1EX0KLefkM+fbo0jB/L+wkstSBmXt2CFPxMQsS3rak6aaPbfRwf
+	 wt6yavS7rcpz7dBjFzWnl6nN2cgXWdCQyahSd40g4HSEjlzDIGjYLuj6JhpwhKUIhDQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PO36dFoBW7yl7SqTzC8Yly7dBYk4JKpR4W6jyTZ5PPA=;
+	b=VUylbVxKzOVqJN7qgQp9vmLyD2irDJNoZUBcdEO7OOunhnq4kP3ACm5TCF+MJg19idqo
+	 1rE3L/SbRPkaCFHwPkIt1PUE3d3Mp6pEIu1zS0HTiMPIfobTnOTR1hGaU5uLjMpc3yK6l
+	 BipdHjkRt/yiZ/waIdNOZjeN6onC3AnMLkLEyii7370e0gZgcVI3Vs1O+3WjD/KuoV/q8
+	 fBRTKvkSa4Rvnhu1NqzXzPKM9kc4TeqD9XKjHUmNN5Gf5dxIiADH92dhDWGv+Coyn0dvH
+	 XUZzWN1y/XUB9DH98duptwy2ii6hJvZpjNKJk+/VO5gee3zlvil02ZKCXJQ1nZZIl8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NCq+Izyi;
+	arc=fail smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E455D606A331;
-	Mon,  9 Nov 2026 20:44:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65C2606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:46:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D65C2606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XoHtTmRL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6931F008A3;
-	Mon,  9 Nov 2026 20:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794257093;
-	bh=wg3N0zeCU+V87W+DhVAiPtVIVV/pYPZTF3215VLc+s4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XoHtTmRLHgVdiYjcxOxjlSkkFUd/FtDJPlYIXUcHtgPg40sZQg+ai2KLHjfS+HOYp
-	 09XtAvC4nBLhSky06yhv9SVSqL94MrMKpy0pO/Ccbgkf4aBvgx7Kc1M8mt9k64PmM4
-	 /8+XtXVZGSrGkZnnFLS167d4fKug1ear4srGKwEpuqQ/QehBRA9WFZgK0h1YgonAAi
-	 02qz6kuApOLY2l3xxGNtWfjpFHiy59aRimbLvZCeHUapzIINrDjhJAw9zQ8wZh2rmr
-	 upyJY4McJQhUGsjOCKmCR1vERgdPSd6qmzBYYeJoXWQpXBgWMLJlfj8FzfhSgqG2Kz
-	 KkuDubC+xsOqg==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 09 Nov 2026 15:44:47 -0500
-Subject: [PATCH v2 1/3] NFS: don't let delegated c/mtime stamps go backward
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NCq+Izyi
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b571979178so1873101a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:46:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794257185; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XEvgP2zgO8VzV/skWPBo8D9bMJTFh8OwGqdrhLy9TqbdZ7R3X8yITeG6jIh7CR5Pgg
+         rZskaAz2wa5KQlt6iTHd7wQ7jqeGd80FtAKxHRO0ysDZ4Y6pEG9m1K9UKL+OVzw0m11X
+         jVIrL44zRHmKSaH9AG3kuo3shJi9NjOA6v1CRP+lSP/XuiOzBKDTEwRvxCMX4bEzKr6q
+         UPu0rotFhs71ThC788BKYY9r6LoLFfpd/pw1nje8hJ7RMSO0QmqJoZao2Lrsok3sfH1I
+         HOSMeR9nNkDJ0O8p9pfX5ynn3h6hmNJfmXxH3qtvIw7PPKgtcvy7gmfGfv/QBIG9/c5N
+         v1+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PO36dFoBW7yl7SqTzC8Yly7dBYk4JKpR4W6jyTZ5PPA=;
+        fh=Ablz8gqJbZ+NOlfdv1+4Lhv/sHBoUfNrEfk+Ve6/+4M=;
+        b=Txi5K62dFKvvSDpSFlclGYnvT2XsqqL06zwKmtDC7oURH5FUfbrlFoydaCdSYZzh6A
+         0YsEzCOpjWc9+uL3zecZroL/ByIMstsRZgYT9vAtPt0nbY/VdknSuclWfk4Q2rJy7BGK
+         aJDHpFkrFXisDtzHRg7JZJhgrt681cLqsv8N3yrnfv7+5LNalwoX64P3AWYaWa1QZfE8
+         LZfvGssiwXo10bfA5cWXxWbjNVpgvPExBgqwJKTeiSUFfo3zqt/rSEdnG2vM30QgcsgK
+         HQI/ttbtBn5ciG/ZXyVLqX+XC7uYeKKUTYPXNPLfQENH0Jw4UteuHbfd6oOhLd//OFNe
+         9lXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794257185; x=1794861985; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PO36dFoBW7yl7SqTzC8Yly7dBYk4JKpR4W6jyTZ5PPA=;
+        b=NCq+IzyiFJIoXBvrfXgpN4m1NTtx6utKbDHhw0CDtvmkxZpIDkhkEAu17BXroc1qQ3
+         Dwo2/g9HufKpEVE7+pcuHvSObjnHu2gvVQfvbqEfpf0QbDwr9WYZsiAJWIol4RENYkP6
+         l9wjFAnwSfddP5bn2BpxODAComGPKHSdo/Hq5IVSJ6KLBKJi1WQXUndr3ynxhKQQnmiv
+         Qqn5geCSciIz1JNiRPz0EcnEdxwU+bcDbVfxU9fBtbymrUn0sOmyrFqRFELOXUYDOKEG
+         TIr4fo4nliYGOT5MEF3xuUI2aExKR5p35lcTfFPPWdN5BfOU60BLKdjrDhxK8wSsSC3A
+         ZDzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794257185; x=1794861985;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PO36dFoBW7yl7SqTzC8Yly7dBYk4JKpR4W6jyTZ5PPA=;
+        b=LWY//FtOr5BmlZipca1fJ3IZ3ZVVUYDvgjMjV6WCD1ThzHZ6qmyEgNJkCbIX80/UyL
+         M/HG50/etNfsUX+ngWQW74+YaKhU5W47/wciUNxWQPzNGv9X+kSNrE7uyI3zGkecJMht
+         oDUU6e9TZ/CNHqAYntpCCxQWBWegxhDoEg+WBB6S05Tatt0JkHt4t94xrSX4KXQakJW6
+         OLe3SorLMy6sa8tBQtO1KUw6RNyT/qxFFeWS7XS2JGgcmjyzZHD9BKFUNG0HEkksL0As
+         Dnz1++d2B92SDQE6qKu/8MzCF60gVz48r0u3+yPaFKP6czJOiciz4BQ3mM4rayL2s3ip
+         6iYQ==
+X-Forwarded-Encrypted: i=1; AL+hErEbcA8jU0hCy6LAWj6SAtB7MYPM034gBbWDH+UHba5FLTMMsM3CKk6Uu91Er4C62kX3eUIas6DpRVoTpcE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ykEK5kduf3jyxII38HIgMn4y2iYhxZAGlxtRL8P689i/23ib6
+	Cs/H3dvNrQRH+jKz78Md4dSRol4d1ugPz7K3ayAEWHFHb87vSD/U9ZdQuon7ATH2tfvo+C4sPds
+	py0QK5nFlG5WTFNCGLbBmnhDaZHfUA+ZVHg==
+X-Gm-Gg: AYBFou161/K9bM55cPHeOOTUHfjO7Wp1qBENGZgM463CWK2VjuG6gd9Ry1NJDIp/L1i
+	QJYzdlGVjKDJsLrzLGIfiUwpeSYZcf0L3I0tkIxXACVwEzMHnp51f8ZOFrIy0pFe671GJW5+yz6
+	yYtxK6M6vLc33NQa1pDfrYCfgoS2hsdhKosgu9PX4kndDgQW6y0MeNRBEO0P3VGwy8Xzdpn5YIK
+	0NUE0mzZDM+sjP5X+21bu9et6oWJxpEstgss9j19WYTEqrBN5GKmkjw5GeGQ77S23zZcBgMO+wB
+	dOZ+oapgIDZ8GoF2vWyXx0igHnKsrMB/7Qm8InI22GcAGG4Kbx7gKB2i9QF1QN7Em6n3ymI9Iuc
+	zgImpsQycVnsTOSpCWWmXQg4NxFQ65GqS7GhChMSofaIvi+7tTDlVujZVrZLRmqpO84Cz1M/o0w
+	EkvbUOWev720wXNR2nc06XrKy9WOG2sdqAiFHQHKzMSY+HOyFA57jG4VvWBdRsYf6u3fBO0TLtd
+	c0chK5TCehKSIOCEI7PQr5TpxhOHzMsEVTdodpetAGxN6b+FA==
+X-Received: by 2002:a05:6402:13ca:b0:6b7:164a:7228 with SMTP id
+ 4fb4d7f45d1cf-6b756b0fab9mr580476a12.41.1794257185052; Mon, 09 Nov 2026
+ 12:46:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,118 +106,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-delegts-nfs-v2-1-9d1e926cc3d5@kernel.org>
-References: <20261109-delegts-nfs-v2-0-9d1e926cc3d5@kernel.org>
-In-Reply-To: <20261109-delegts-nfs-v2-0-9d1e926cc3d5@kernel.org>
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Lance Shelton <lance.shelton@hammerspace.com>, 
- Olga Kornievskaia <okorniev@redhat.com>
-Cc: Thomas Haynes <loghyr@gmail.com>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3172; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=/i+WgRkUTNLoT+wZXDiWG93r/fsgNbR+dFkibZFuirs=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq8jDDiVYldjueX0OrVuKTDBFgjmWyCDfaZE83J
- 2HosYwTPyOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCavIwwwAKCRAADmhBGVaC
- FZRIEACCPS6FuiAmKDRj+am+Ge8Lbyhg0lzWzZwAq0N60XemXTowRN2l08BjLOZV5ERwJ/uiufx
- RhfS+ANphcgSlTeAMYSzhhsFD8GWf1fD2zfN1HhkL5BBeEzCyOwdCawMBwFBJA/eyrOWqCHoBch
- 0OGjpg0GDf/PU6WbfPBPyG1cyNvA5S4GCUW3DdV1eJPYF51tl+EwblQkO37+CJzuYEM0hoLkyD7
- XhPdP3Nd36K+VCSVvDeZ9LDl13scPpcZA5ExAHKL3i+y4VAHIQ5DUiZ8CGThJs4BbsA9ehpoxND
- L8/p4SRcbdtgM8MVderZhOTsoR9znBKNSTKduXPzeNCsQanChoqG8S9C5goYRu9WVfPF5agaApa
- SHHaRaasaKeBQXYN6RdZg5vtXnl7IY5l9F/tWE8YPCZtRVE5djArzbCmRwKv9MYdjF/Ep8H9MsX
- sugsT+m6033nj35gR3bkfLF3bQc9TM0m2uM0y6h16LAI5QvLRxZU1qmn474waqZISVHVxRCX5NY
- 8Y8AQQpxPXtbHKROLZPWB551fIwdx9kmOTN/CgscpWfWRtddnNRjVzDSwnSqAaPSzRkebCiwqbX
- GwcPnFzvnpMT8rNZ23yF7T75mB4LzF8+w5LMJOugOpVQhDmyQe+val6bQ3FIe1qBmwR25kENYhb
- zcB/OAQDYjSxImQ==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+References: <20261104215959.24035-1-rosenp@gmail.com> <20261104215959.24035-6-rosenp@gmail.com>
+ <cw32kfja4uifaotvodb7cfxrpzawt4zqcuzf4k3hvjgxwutxqu@gyaayjuyq3j4> <2d9d1da9-0d2e-461b-9c9a-eaf3dc512035@kernel.org>
+In-Reply-To: <2d9d1da9-0d2e-461b-9c9a-eaf3dc512035@kernel.org>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 9 Nov 2026 12:46:13 -0800
+X-Gm-Features: AclHuK8yAS4r-QfhKzcFNAvzQn_YgnIQjLvWa2Szkx8dOWqMjuJua69E1x63B8k
+Message-ID: <CAKxU2N-oA_EQ-nC4y6E+Y1XCaai_QNmicobvJZ03mRRDikZ5RA@mail.gmail.com>
+Subject: Re: [PATCH 5/5] gpio: ppc44x: tidy up includes and probe
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-With a timestamp delegation the client stamps c/mtime from its own
-coarse clock. That can land before the server's fine-grained ctime the
-client cached from the OPEN or SETATTR reply, e.g. on a WRITE right
-after an exclusive create. The server then either rejects the times
-(they don't pass dl_ctime) or can't apply the ctime, since
-inode_set_ctime_deleg() never moves ctime backward. Either way the
-c/mtime the client reported while holding the delegation changes
-after DELEGRETURN; git t1092 over NFSv4.2 sees a stat-dirty file.
-
-When a delegated stamp isn't after the cached ctime, use the cached
-ctime + 1ns instead. Compute the stamp before storing it, so lockless
-readers (getattr, CB_GETATTR) never see the trailing coarse time.
-
-Fixes: e12912d94137 ("NFSv4: Add support for delegated atime and mtime attributes")
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/nfs/inode.c | 40 ++++++++++++++++++++++++++--------------
- 1 file changed, 26 insertions(+), 14 deletions(-)
-
-diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
-index 9839087cf373..98d8a34fab9d 100644
---- a/fs/nfs/inode.c
-+++ b/fs/nfs/inode.c
-@@ -629,25 +629,33 @@ nfs_fattr_fixup_delegated(struct inode *inode, struct nfs_fattr *fattr)
- 	}
- }
- 
-+/*
-+ * With delegated timestamps, the client's coarse clock can trail the
-+ * server's fine-grained ctime cached from an OPEN or SETATTR reply. The
-+ * server won't move ctime backward when the times are returned, so a
-+ * new stamp must land after the cached ctime.
-+ */
-+static struct timespec64 nfs_delegated_stamp(struct inode *inode)
-+{
-+	struct timespec64 ctime = inode_get_ctime(inode);
-+	struct timespec64 now = current_time(inode);
-+
-+	if (timespec64_compare(&now, &ctime) <= 0) {
-+		now = ctime;
-+		timespec64_add_ns(&now, 1);
-+	}
-+	return now;
-+}
-+
- static void nfs_set_timestamps_to_ts(struct inode *inode, struct iattr *attr)
- {
- 	unsigned int cache_flags = 0;
- 
- 	if (attr->ia_valid & ATTR_MTIME_SET) {
--		struct timespec64 ctime = inode_get_ctime(inode);
--		struct timespec64 mtime = inode_get_mtime(inode);
--		struct timespec64 now;
--		bool updated = false;
--
--		now = inode_set_ctime_current(inode);
--		if (!timespec64_equal(&now, &ctime))
--			updated = true;
--
-+		/* The stamp is always after the old ctime */
-+		inode_set_ctime_to_ts(inode, nfs_delegated_stamp(inode));
- 		inode_set_mtime_to_ts(inode, attr->ia_mtime);
--		if (!timespec64_equal(&now, &mtime))
--			updated = true;
--
--		inode_maybe_inc_iversion(inode, updated);
-+		inode_maybe_inc_iversion(inode, true);
- 		cache_flags |= NFS_INO_INVALID_CTIME | NFS_INO_INVALID_MTIME;
- 	}
- 	if (attr->ia_valid & ATTR_ATIME) {
-@@ -665,7 +673,11 @@ static void nfs_update_atime(struct inode *inode)
- 
- static void nfs_update_mtime(struct inode *inode)
- {
--	inode_update_time(inode, FS_UPD_CMTIME, 0);
-+	struct timespec64 now = nfs_delegated_stamp(inode);
-+
-+	/* Not inode_update_time(): lockless readers would see its stamp */
-+	inode_set_ctime_to_ts(inode, now);
-+	inode_set_mtime_to_ts(inode, now);
- 	NFS_I(inode)->cache_validity &=
- 		~(NFS_INO_INVALID_CTIME | NFS_INO_INVALID_MTIME);
- }
-
--- 
-2.56.0
-
+On Mon, Nov 9, 2026 at 3:30=E2=80=AFAM Uwe Kleine-K=C3=B6nig <ukleinek@kern=
+el.org> wrote:
+>
+> Hello Bart,
+>
+> On 2026-11-09 10:01, Bartosz Golaszewski wrote:
+> >>  static const struct of_device_id ppc44x_gpio_match[] =3D {
+> >> -    {
+> >> -            .compatible =3D "ibm,ppc4xx-gpio",
+> >> -    },
+> >> +    { .compatible =3D "ibm,ppc4xx-gpio" },
+> >>      {},
+> >
+> > Uwe: is this in line with your recent cleanups?
+> The change is fine, I'd appreciate to also do
+>
+> -       {},
+> +       { }
+>
+> at the same time.
+{} was done by clang-format IIRC.
+>
+> Best regards
+> Uwe
