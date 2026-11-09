@@ -1,77 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259602;
-	b=InYnEJlf5RkJDDmlALxMIb8aGuc2yftfdGN2RjJ5U8jMe3ugEnmlCkw1g4F91hQr2zsq
-	 IRUiZO4h/jhhkWlN4Dy4phG6qRpiSP08wU39DLjHsCcPsSOPqFVEztq2qFygQMlrmOV1T
-	 O18EEbAJPWlDeuRfe81CfunO6zgbDyLhaaKtRCh3x9lkT8EiSuev6MAhBYuvwBoS8/got
-	 frp6+SWq3h/pB68j2VQDKj798YttYPZozj6Bm27ofsORK4J52ngWBV2pwoF3XkHOIynr+
-	 IU0iO0+4FeZTJezEWefQ0WyomQRpIJd87u9jdunoFI4nwYiBLBqHxF20TfZNh02VKhw==
+	t=1794259598;
+	b=Si/Te4uPxegqCS1yFUOoxqPTTTgqal2Hv2DWz4L01viSKAOqI0KgLlkmaRYyOMQRx5CN
+	 o7QEktK/w+sHnDrTGcOKsn7qCP+ufNBNfm6z5Ge7TUlWEM8WaPU34Fe3hJiFQ/oHtawlV
+	 A7Spk8kESUysD6a8uMywglzwGbBdef26hF3B3NtI08of7trk25/v0LMoBAYmwnGZJwIdv
+	 PY9TQKFhXVeamHPZxko4QL9Mu6jRBsq8BaOx/RmdeIIewd64MT8W/8yoaRgd7WSxK/XWl
+	 wAViTi8KeyiYjzoumMtp0NLrHHrFPnM34ktpGcQZ8zxemqhmBPWhkSxmtEuuFWxNQEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259598;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=pao4KZceXXhiyS1kHwFDIIGXvo0ighZ64tQ2uApWnCM=;
-	b=b8eV8axDCrvWaJvwMRPlxkjn5gqf5qjEEYJbl2jXd3Gy5w7tB66ZluoKO40zg3cq9qFb
-	 5JbIcDgMtZaeU6sk5CYaXaibvAREOZhjtawQPUgPYz3t5JyDDz2sNpjuieUIag45/EQNS
-	 v1lQuRTi3hYVPh0dJkk1p7kj3E1KsXApc5AhGxa8VvomEfGS6IyaFvcw0ei/nM8EpXF1/
-	 tAsrHQx+r1+dwjSvICAw7W2S5HYUC2pNrdiz/UAYcXjaAkW83GAEXtc0euqE9Wpdl5k5z
-	 ODVimbA5L2vra1Jp0Zkufvxe2wbf2OFdnVzSrv8SL0eVP33o4Xdybfxw2agk6NAfIAQ==
+	bh=9T/Cxfy40DMYKpgdCoy5lmF/aG4jW9r6fse7gIoy3p0=;
+	b=dCHTDNsEab9h+CGRQSY1kM8JldXTiXZ+F5vcW3BXoPpNqK88S+PG7PLBTLj4bWOVGal+
+	 v95Q5FWBWXPpMpryovncMQ0Ozg7gRrzpMqCoKBuicrbq+BUyThLYecex/YiDWRhit7SD0
+	 YIEYJ5ha1FbiT91Z8Zz5KC5lvMGgyEHk6NwifVxRy/MROF9dqdpN5EBC4RaqwSy7BWnIQ
+	 W3Sh37D8DS8wbV8Vn4aNp3z+ABcKvfr7D5HpgfAPZ94y9eRdII0yWwkvju5XA96mH+d+G
+	 dK/Eez0DOX9JsFOx+ayRtwJkiXyNuytgUl7s6CyansxxRGGDkweaV5aDnXLTlBSZcCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=b3XQ+T9j;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Sxco4KqJ;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VIfqHijT;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wsNnpdZa;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B67606A33B;
-	Mon,  9 Nov 2026 21:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B67606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78361606A332;
+	Mon,  9 Nov 2026 21:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78361606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=b3XQ+T9j;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Sxco4KqJ
-Date: Mon, 09 Nov 2026 21:26:38 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VIfqHijT;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wsNnpdZa
+Date: Mon, 09 Nov 2026 21:26:32 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794259600;
+	s=2020; t=1794259594;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pao4KZceXXhiyS1kHwFDIIGXvo0ighZ64tQ2uApWnCM=;
-	b=b3XQ+T9jDtd75ck/qKmk9FcW4Kq5qoY0lG/HaJmS/AnDBwxBKuS+C+6B0v4qcsIdRaS8XM
-	jqHIRbd7MCGa4113s8qfZnto202OKKVnprG1QJYDqIhltlEllJnbRiY8PezM1HNfrViILr
-	gIUF43a0U3+eU8QezmW/z7rBLrYhJubMEHIqhkKOXeTmrLHsYJsfb/p2iXJ3Y9NADfN3Lz
-	hZ8BVgC/zNOEDDumD8CF/zQIaXbKQK8wHnfMXick1ERb6LBS2raf21YAlICZg767End02h
-	zDX3OOAIZgRf/qoGsyQOGN7Eb3bCQq/HquOyds1nkFAIjYZ0oKJKu+lg0CTkhQ==
+	bh=9T/Cxfy40DMYKpgdCoy5lmF/aG4jW9r6fse7gIoy3p0=;
+	b=VIfqHijTf+YUNwcIdi4BmfxoFBRfhirlXHL7XJxrpNrYLQ6wwgDUf1KPxzvLkgbsHpp+oi
+	pdf9v8bh2nW/OyvvzYk8meDLh3CX+C3Ufe2MU7cq6REfyRXu81TnkFXW/E1y+lnN07yY8Y
+	L1F/JERT4NJGmRNCtZ/GqR8A0Lk2KzTyH/A/X8ohcOIuGDH0q3dHXtXipERc8RmeJ7z8qe
+	augL6DXOV4ZJYL9fi9pj4ILyMeKueFA77nEQyveC03MN6tHN8h1r6bbkNlXlzxcuyFUbFD
+	xo/p33Ji/aeOUAvDSDT/3pQOzXNpX+Vzika/k0n4M0fhaZ6R0qgnLjRKPwp38A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794259600;
+	s=2020e; t=1794259594;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pao4KZceXXhiyS1kHwFDIIGXvo0ighZ64tQ2uApWnCM=;
-	b=Sxco4KqJopOKGqbKElADRGHTAl39J8CgbCQYFG7i8xjMWyxQ8p2na5bVe5Te9GgREWON4K
-	F2tQ+gsB7d9NFaBQ==
+	bh=9T/Cxfy40DMYKpgdCoy5lmF/aG4jW9r6fse7gIoy3p0=;
+	b=wsNnpdZabgzzwQXjMXFOfW15K+lJ5POt/OBpZchjZHcjjSzEjh3KpHLD6bFNP4/k8bDB0k
+	33oP6BvEyRTh2jBg==
 From: "tip-bot2 for Reinette Chatre" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cache] x86,fs/resctrl: Remove unused non-linear bandwidth
- delay mapping
+Subject: [tip: x86/cache] fs/resctrl: Drop unnecessary parameter from
+ resctrl_io_alloc_parse_line()
 Cc: Reinette Chatre <reinette.chatre@intel.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Chen Yu <yu.c.chen@intel.com>,
- Jinjie Ruan <ruanjinjie@huawei.com>, Tony Luck <tony.luck@intel.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: =?utf-8?q?=3C1ea0fed164eaa321a4eb151b14704134024dde88=2E1793834?=
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Ben Horgan <ben.horgan@arm.com>,
+ Chen Yu <yu.c.chen@intel.com>, Jinjie Ruan <ruanjinjie@huawei.com>,
+ Tony Luck <tony.luck@intel.com>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: =?utf-8?q?=3Ca1cbad5a426689842502793f21ddb1e9b3b6408d=2E1793834?=
  =?utf-8?q?224=2Egit=2Ereinette=2Echatre=40intel=2Ecom=3E?=
-References: =?utf-8?q?=3C1ea0fed164eaa321a4eb151b14704134024dde88=2E17938342?=
+References: =?utf-8?q?=3Ca1cbad5a426689842502793f21ddb1e9b3b6408d=2E17938342?=
  =?utf-8?q?24=2Egit=2Ereinette=2Echatre=40intel=2Ecom=3E?=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,7 +82,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179425959868.2093942.15951621813702320919.tip-bot2@tip-bot2>
+Message-ID: <179425959226.2093942.15264992073228548889.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -92,112 +92,69 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/cache branch of tip:
 
-Commit-ID:     9bb210ebbd44b237222a93367f2a413cce3ae126
-Gitweb:        https://git.kernel.org/tip/9bb210ebbd44b237222a93367f2a413cce3=
-ae126
+Commit-ID:     2a93af75384b7e95d62c5a9a39e13573e2170ec5
+Gitweb:        https://git.kernel.org/tip/2a93af75384b7e95d62c5a9a39e13573e21=
+70ec5
 Author:        Reinette Chatre <reinette.chatre@intel.com>
-AuthorDate:    Wed, 04 Nov 2026 16:13:29 -08:00
+AuthorDate:    Wed, 04 Nov 2026 16:13:33 -08:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sat, 07 Nov 2026 18:10:49 -08:00
+CommitterDate: Sun, 08 Nov 2026 19:10:41 -08:00
 
-x86,fs/resctrl: Remove unused non-linear bandwidth delay mapping
+fs/resctrl: Drop unnecessary parameter from resctrl_io_alloc_parse_line()
 
-Intel MBA throttles memory bandwidth with delay values, while resctrl
-exposes memory bandwidth to user space as a percentage. When delay values
-are linear there is a direct mapping between the two. Support for
-non-linear delay values would need a pre-calibrated table mapping
-percentages to delay values.
+resctrl_io_alloc_parse_line() parses a line written to the io_alloc_cbm file.
+It receives both a schema and a pointer to the schema's resource. Its only
+caller looks up the resource from the schema just to pass both.
 
-Commit
+Passing the resource separately is redundant and allows a caller to pass a
+resource that does not belong to the schema. parse_line(), which parses lines
+written to the schemata file, already receives only the schema and determines
+the resource from it.
 
-  05b93417ce5b ("x86/intel_rdt/mba: Add primary support for Memory Bandwidth =
-Allocation (MBA)")
+Pass only the schema to resctrl_io_alloc_parse_line() and have it determine
+the resource itself, matching parse_line() and in preparation for passing
+additional information when supporting multiple controls.
 
-added a placeholder for such a table to the resctrl_membw structure, but
-the table was never populated and never read. rdt_get_mb_table(), which
-would provide it, always fails. As a result, an Intel MBA resource with
-non-linear delay values is never marked as capable of allocation, and its
-control values are never written to hardware.
-
-Remove the unused mapping table and fold the linear percentage-to-delay
-conversion into the function that writes the control values to hardware.
-
-Keep the check that delay values are linear as a defensive measure in
-preparation for supporting multiple controls, which turns the memory
-bandwidth control into a generic scalar control that indicates whether it
-requires linear values.
+No functional change.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 Reviewed-by: Chen Yu <yu.c.chen@intel.com>
 Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Reviewed-by: Tony Luck <tony.luck@intel.com>
-Link: https://patch.msgid.link/1ea0fed164eaa321a4eb151b14704134024dde88.17938=
+Link: https://patch.msgid.link/a1cbad5a426689842502793f21ddb1e9b3b6408d.17938=
 34224.git.reinette.chatre@intel.com
 ---
- arch/x86/kernel/cpu/resctrl/core.c | 23 +++++++----------------
- include/linux/resctrl.h            |  2 --
- 2 files changed, 7 insertions(+), 18 deletions(-)
+ fs/resctrl/ctrlmondata.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl=
-/core.c
-index 55214d6..f9677e5 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -323,29 +323,20 @@ static void mba_wrmsr_amd(struct msr_param *m)
- 		wrmsrq(hw_res->msr_base + i, hw_dom->ctrl_val[i]);
+diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+index 4562072..69123b2 100644
+--- a/fs/resctrl/ctrlmondata.c
++++ b/fs/resctrl/ctrlmondata.c
+@@ -955,11 +955,12 @@ out_unlock:
+ 	return ret;
  }
 =20
--/*
-- * Map the memory b/w percentage value to delay values
-- * that can be written to QOS_MSRs.
-- * There are currently no SKUs which support non linear delay values.
-- */
--static u32 delay_bw_map(unsigned long bw, struct rdt_resource *r)
--{
--	if (r->membw.delay_linear)
--		return MAX_MBA_BW - bw;
--
--	pr_warn_once("Non Linear delay-bw map not supported but queried\n");
--	return MAX_MBA_BW;
--}
--
- static void mba_wrmsr_intel(struct msr_param *m)
+-static int resctrl_io_alloc_parse_line(char *line,  struct rdt_resource *r,
+-				       struct resctrl_schema *s, u32 closid)
++static int resctrl_io_alloc_parse_line(char *line, struct resctrl_schema *s,
++				       u32 closid)
  {
- 	struct rdt_hw_ctrl_domain *hw_dom =3D resctrl_to_arch_ctrl_dom(m->dom);
- 	struct rdt_hw_resource *hw_res =3D resctrl_to_arch_res(m->res);
- 	unsigned int i;
+ 	enum resctrl_conf_type peer_type;
+ 	unsigned long dom_id =3D ULONG_MAX;
++	struct rdt_resource *r =3D s->res;
+ 	struct rdt_parse_data data;
+ 	struct rdt_ctrl_domain *d;
+ 	bool update_all =3D false;
+@@ -1052,7 +1053,7 @@ ssize_t resctrl_io_alloc_cbm_write(struct kernfs_open_f=
+ile *of, char *buf,
+ 	io_alloc_closid =3D resctrl_io_alloc_closid(r);
 =20
--	/*  Write the delay values for mba. */
-+	if (!m->res->membw.delay_linear) {
-+		pr_warn_once("Non-linear MBA delay values not supported\n");
-+		return;
-+	}
-+
-+	/* Program bandwidth percentage mapped to linear delay value. */
- 	for (i =3D m->low; i < m->high; i++)
--		wrmsrq(hw_res->msr_base + i, delay_bw_map(hw_dom->ctrl_val[i], m->res));
-+		wrmsrq(hw_res->msr_base + i, MAX_MBA_BW - hw_dom->ctrl_val[i]);
- }
+ 	rdt_staged_configs_clear();
+-	ret =3D resctrl_io_alloc_parse_line(buf, r, s, io_alloc_closid);
++	ret =3D resctrl_io_alloc_parse_line(buf, s, io_alloc_closid);
+ 	if (ret)
+ 		goto out_clear_configs;
 =20
- static void cat_wrmsr(struct msr_param *m)
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 10dfdca..b63dc62 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -253,7 +253,6 @@ enum membw_throttle_mode {
-  * @throttle_mode:	Bandwidth throttling mode when threads request
-  *			different memory bandwidths
-  * @mba_sc:		True if MBA software controller(mba_sc) is enabled
-- * @mb_map:		Mapping of memory B/W percentage to memory B/W delay
-  */
- struct resctrl_membw {
- 	u32				min_bw;
-@@ -263,7 +262,6 @@ struct resctrl_membw {
- 	bool				arch_needs_linear;
- 	enum membw_throttle_mode	throttle_mode;
- 	bool				mba_sc;
--	u32				*mb_map;
- };
-=20
- struct resctrl_schema;
