@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251428;
-	b=uokdwKbrBS772RAbF2GVeOBxLrR+pI88YtFwqrnntaKVRyI06oOcBpqLtLIwN1Prt1u5
-	 0rGvU4kTz6PrkKrRnXGtyBuoE5qlHdg6skZIQXQ2Pc1RPajTxKR4Zhe/m3Sw5WK1CmSMm
-	 p0zgsGzq/ir7PRgBI2k2T5AKXib1vFaSvA52LVVlQzyMS1R9XkAd/JWFancaOlM6Ff4nW
-	 NVRBmZwmer82+Hrpa8qd+i7uvheCjYy/e3NCMsjde/1Dhs2pQAzd87geY2ZBoblZm4W8U
-	 P0WNF3Km8fPyU+D8YC1HJZOPTdlFb2CRj7Vcy9HBHYGuMSBiMDYaVx0fC/AynUymtRQ==
+	t=1794251502;
+	b=M2K2nwxP3+RieI4NBxgQ6c3o6aQKMORl+oARj0vwrom8GfUypugfaFDpN+FcZYnkmh41
+	 EfuBFic85coM2Fy9nUg+rcTqFAhObA+K+qD95jdE7z0RafxgCjf2utGNVnvsM8jL5ps0N
+	 DJY4EmNlOWyVCFqelGngMgFsP/CcyDq2UoS3AFWGolFUvpaD+drZV0apdosfLWxOJ30eC
+	 GkWYvqEXkOgQi4B4Gj+b6RMIbB6zz9j5dR3c+m8xK9l+2StKNiB2ebRPCztxXC1Qq7bH1
+	 w9EObJvRBwBDcRMBewqIT0yzsSpsIcbbeqwOA/8emQNTUvl/b9LpQyCLqyhBUBEJKVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251428;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=BR2H0P0oVpV7sSUQ86LkRigPdcwLV9GujxCpcT1ujvM=;
-	b=cW7fYy2VosNsiuNF2s6m00Ik2xcTxHgdv65V79mYsOF2zF2TF+nllSqFmolQLEJzqPLd
-	 9A9H+mbsc50MyglRLQI3Ak2lGZn4Ng/E3fUy7dccHDjS7oeN96yQ9dTfH1Xm7S6C7GXS3
-	 YX3XTS1Z7K72enWimQ4W+1R61dqWiN3jJggeFRjIujTTzIkPa0vVmpfU3QddlXpf9VC1r
-	 UGHg49UMurCp+7BU90/uDJaY/5if5Wjpolij1BSFaRQLmdIi47sO5wqSzP9j1QHyQgklI
-	 8usvkTAshxTG+kxyO7We8dSCAm3U0E+z9wFZS/y6+Af02Kz5hw/Daza5wOGo6IzRoQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251502;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DJss7vF018jxE3CgpbZ29VThuXk5wnx614xdus0Glzc=;
+	b=zE5+gXfqTza3PJAZjzlUmRmXt5pi7yKbBvjGA00bCfNAghdvLuFB7RshvEkN4GWmS/Ns
+	 YVycSeNgh0Xba16YpnytgZY9KMoT8kCpwOvPahHyVc+nUamxfR+pN8XFAMqAA7WmxbZuy
+	 Bi6kjHOmtt+aVHNG/okkcNCpqi9p9FrWhc3z3Iin4nx0tS+6iOROBPct9TnEGxHLCMdIw
+	 qGjV/jA6Ka5OGxUQBVeo8X0mBvfYwDsOIwVZAtg51HcX/24h+rA2u7/e/8kZ+dmHK/dsV
+	 c1kuAzKYy7Qw4V1IRIuzFhJl4TZpf6souJDOlhW9mdZ0/SMkWK2M4tczWF83coodH5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Pyvmg+RA;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4Sv859R;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5A460A3808
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:10:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F5A460A3808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B89606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Pyvmg+RA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794251427;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BR2H0P0oVpV7sSUQ86LkRigPdcwLV9GujxCpcT1ujvM=;
-	b=Pyvmg+RAxKFBFR9faVwbJLxHomDJcThMJuQ22F0pkdCpPQ0GE4SoHK33q/kfQ65dEymMAo
-	lNai0ZVw+gGPY7Y/Mn+nrGdMckboedoi0I6b9B8dFgN5wABbwrAbQTZ40He7olc9BOAhCc
-	/ElL6eviQJd+TY0IcLdkcsNd9BV4dpc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-3-kCYuJ8PaMlCLS02q9swIQw-1; Mon,
- 09 Nov 2026 14:10:21 -0500
-X-MC-Unique: kCYuJ8PaMlCLS02q9swIQw-1
-X-Mimecast-MFC-AGG-ID: kCYuJ8PaMlCLS02q9swIQw_1794251420
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 371D319560AE;
-	Mon,  9 Nov 2026 19:10:20 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AF71F195608C;
-	Mon,  9 Nov 2026 19:10:18 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v2 5/5] cgroup/cpuset: Correctly set isolated_cpus when switching partition state
-Date: Mon,  9 Nov 2026 14:09:55 -0500
-Message-ID: <20261109190955.1398611-6-longman@redhat.com>
-In-Reply-To: <20261109190955.1398611-1-longman@redhat.com>
-References: <20261109190955.1398611-1-longman@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4Sv859R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3661E1F008A1
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794251502;
+	bh=DJss7vF018jxE3CgpbZ29VThuXk5wnx614xdus0Glzc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=f4Sv859R4DrgEnPEvT/I04GNwFNGnCcO3NcpXc8kUtbt60Qhv1icbO0TP4o8vvczu
+	 k2XqYObS6IP2A3mXna8+uvL4qx7UhzDFQiWCEpkAzzpM+4H01Pe4cLIpMTwWQugkDc
+	 oei0/01C+5zeWS8Ag/LeQ99C+0/mBpZFWnqA3591x3xpNVj6Vg/CzAXm3J84jSA3Pf
+	 gv3t39V8v1hzyKeDpn9kvZJCW7TavFEuz8isvqdzvgL6uCxBFXjPLarLAq0KNIsOvn
+	 a1pwwpcgBaYLEuSjJjn/an4gksWOqvQUQVrfbCwM+EZfG95qOw8ASe46dfmC26THOk
+	 APBe1L6mSTWSA==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1076668e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:11:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFjgk1ZN0EktDYZmnB4u5clUP67kDnR77VtS5LoUs2guc60tWIiiH0+s0mS4NYFnM1foF0DDHMhHPlrwTQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CAq9r+sMqb75l60GOe+IkKImZjvyNu5fkRU30ZvL5bdTldY/f
+	l+itvPLiPA/7oucI7XvMUQngXwwdAsrnrMUo1bI8D0JHjMjvUW6RtmcFWCE+70GncO38e5h1Pme
+	VHM2X8n5wG+TaTInh8dvXJeFZ4zEmqts=
+X-Received: by 2002:a05:6512:1286:b0:5c1:4bb4:a6bb with SMTP id
+ 2adb3069b0e04-5c156ea28ecmr81403e87.36.1794251500588; Mon, 09 Nov 2026
+ 11:11:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,99 +59,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+References: <20261016141440.2794000-1-yaojiale02@163.com> <7192d240.1879.1a148c7d925.Coremail.19888972804@163.com>
+In-Reply-To: <7192d240.1879.1a148c7d925.Coremail.19888972804@163.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 20:11:27 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0h_oa2zguxw=5E5w9Jhc-m2cnbOfvFdPJoXerBhFmeh5Q@mail.gmail.com>
+X-Gm-Features: AclHuK_BUF-fAHbf6jyj3Z7UKdsM4Q5zT5fl2jVdiFMvd9z0XP0bfa11sJk1W4Q
+Message-ID: <CAJZ5v0h_oa2zguxw=5E5w9Jhc-m2cnbOfvFdPJoXerBhFmeh5Q@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: processor: validate CPU mapping entries
+To: jiale yao <19888972804@163.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When update_prstate() is called to switch the partition state from
-root to isolated or vice versa, the whole effective_xcpus is passed to
-isolated_cpus_update(). However, if there are child partitions present,
-some of the effective_xcpus are dedicated to those child partitions
-and their partition states will remain the same or get invalidated in
-the case of child root partition with isolated parent in the latter
-update_cpumasks_heir() call. In the latter case, their exclusive CPUs
-will be returned to their parent.
+On Sat, Oct 17, 2026 at 9:33=E2=80=AFAM jiale yao <19888972804@163.com> wro=
+te:
+>
+> At 2026-10-16 22:14:40, "Jiale Yao" <yaojiale02@163.com> wrote:
+> >CPU physical ID lookup walks MADT subtables directly and also accepts
+> >records returned by _MAT. Both paths can pass a truncated typed record
+> >to a CPU-specific mapper, and the MADT walker can be stalled or moved
+> >outside the table by an invalid length.
+> >
+> >Validate generic record bounds and the minimum size required by each
+> >supported CPU record before dispatching it on both provider paths.
+> >
+>
+> Fixes: 78ed8bd2944b ("ACPI: processor: move acpi_get_cpuid into processor=
+_core.c")
 
-Therefore isolated_cpus may be set incorrectly with child partitions
-underneath. Fix that by excluding their exclusive CPUs in computing
-the correct cpumask of exclusive CPUs used by that partition alone.
+So please resend.
 
-Add new test cases into test_cpuset_prs.sh to test for such cases.
+Also, is it possible that some systems currently in the field will not
+pass this new validation and stop booting as a result?
 
-Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c                        | 30 +++++++++++++++----
- .../selftests/cgroup/test_cpuset_prs.sh       |  7 +++++
- 2 files changed, 32 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 7aa614c6ac4d..41048997a955 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -3054,12 +3054,32 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 						  cs->effective_xcpus, NULL))
- 			err = PERR_HKEEPING;
- 		else if (parent_prs == PRS_ISOLATED)
--			err = PERR_ISOPARENT;
-+			err = PERR_ISOPARENT;	/* old_prs should be isolated */
- 
--		if (!err)
--			isolcpus_updated = true;
--		else
-+		if (err) {
- 			disable_partition = true;
-+		} else {
-+			struct cgroup_subsys_state *css;
-+			struct cpuset *child;
-+
-+			/*
-+			 * Need to scan child partitions, if present, and
-+			 * exclude their effective_xcpus from cs. In the case
-+			 * of switching to isolated partition with child root
-+			 * partitions, those child partitions will be
-+			 * invalidated in update_cpumasks_hier().
-+			 */
-+			isolcpus_updated = true;
-+			cpumask_copy(tmpmask.new_cpus, cs->effective_xcpus);
-+			rcu_read_lock();
-+			cpuset_for_each_child(child, css, cs) {
-+				if (!is_partition_valid(child))
-+					continue;
-+				cpumask_andnot(tmpmask.new_cpus, tmpmask.new_cpus,
-+					       child->effective_xcpus);
-+			}
-+			rcu_read_unlock();
-+		}
- 	} else {
- 		/*
- 		 * Switching back to member is always allowed even if it
-@@ -3093,7 +3113,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 	if (!is_partition_valid(cs))
- 		reset_partition_data(cs);
- 	else if (isolcpus_updated)
--		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
-+		isolated_cpus_update(old_prs, new_prs, tmpmask.new_cpus);
- 	spin_unlock_irq(&callback_lock);
- 
- 	/* Force update if partition is disabled & update effective_xcpus */
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index 2d4744f2d6ac..741a13bbeda7 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -556,6 +556,13 @@ TEST_MATRIX=(
- 	" C2-6:X2-5:P1 CX3-6:P2 \
- 	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
- 
-+	# Switch PRS state (root <=> isolated) will properly update cpuset.cpus.isolated
-+	# even if child partitions are present.
-+	" C1-6:P1 C3-6:P1 C5-6:P2  .       .    P2      .      .     0 A1:1-2:A2:3-4:A3:5-6
-+								       A1:P1|A2:P2:A3:P2 3-6"
-+	" C1-6:P1 C3-6:P2 C5-6:P2  .       .    P1      .      .     0 A1:1-2:A2:3-4:A3:5-6
-+								       A1:P1|A2:P1:A3:P2 5-6"
-+
- 	#
- 	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
- 	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
--- 
-2.56.0
-
+> >Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> >---
+> > drivers/acpi/processor_core.c | 48 ++++++++++++++++++++++++++++++++++-
+> > 1 file changed, 47 insertions(+), 1 deletion(-)
+> >
+> >diff --git a/drivers/acpi/processor_core.c b/drivers/acpi/processor_core=
+.c
+> >index 3bf076c150fa..4d5ff53f27ab 100644
+> >--- a/drivers/acpi/processor_core.c
+> >+++ b/drivers/acpi/processor_core.c
+> >@@ -157,6 +157,47 @@ static int map_core_pic_id(struct acpi_subtable_hea=
+der *entry,
+> >       return -EINVAL;
+> > }
+> >
+> >+static bool madt_cpu_entry_is_valid(struct acpi_subtable_header *entry,
+> >+                                  unsigned long end)
+> >+{
+> >+      unsigned long start =3D (unsigned long)entry;
+> >+      size_t length, min_length;
+> >+
+> >+      if (start >=3D end || end - start < sizeof(*entry))
+> >+              return false;
+> >+
+> >+      length =3D entry->length;
+> >+      if (length < sizeof(*entry) || length > end - start)
+> >+              return false;
+> >+
+> >+      switch (entry->type) {
+> >+      case ACPI_MADT_TYPE_LOCAL_APIC:
+> >+              min_length =3D sizeof(struct acpi_madt_local_apic);
+> >+              break;
+> >+      case ACPI_MADT_TYPE_LOCAL_X2APIC:
+> >+              min_length =3D sizeof(struct acpi_madt_local_x2apic);
+> >+              break;
+> >+      case ACPI_MADT_TYPE_LOCAL_SAPIC:
+> >+              min_length =3D sizeof(struct acpi_madt_local_sapic);
+> >+              break;
+> >+      case ACPI_MADT_TYPE_GENERIC_INTERRUPT:
+> >+              min_length =3D offsetofend(struct acpi_madt_generic_inter=
+rupt,
+> >+                                       arm_mpidr);
+> >+              break;
+> >+      case ACPI_MADT_TYPE_RINTC:
+> >+              min_length =3D offsetofend(struct acpi_madt_rintc, uid);
+> >+              break;
+> >+      case ACPI_MADT_TYPE_CORE_PIC:
+> >+              min_length =3D sizeof(struct acpi_madt_core_pic);
+> >+              break;
+> >+      default:
+> >+              min_length =3D sizeof(*entry);
+> >+              break;
+> >+      }
+> >+
+> >+      return length >=3D min_length;
+> >+}
+> >+
+> > static phys_cpuid_t map_madt_entry(struct acpi_table_madt *madt,
+> >                                  int type, u32 acpi_id)
+> > {
+> >@@ -172,7 +213,8 @@ static phys_cpuid_t map_madt_entry(struct acpi_table=
+_madt *madt,
+> >       /* Parse all entries looking for a match. */
+> >
+> >       entry +=3D sizeof(struct acpi_table_madt);
+> >-      while (entry + sizeof(struct acpi_subtable_header) < madt_end) {
+> >+      while (madt_cpu_entry_is_valid((struct acpi_subtable_header *)ent=
+ry,
+> >+                                     madt_end)) {
+> >               struct acpi_subtable_header *header =3D
+> >                       (struct acpi_subtable_header *)entry;
+> >               if (header->type =3D=3D ACPI_MADT_TYPE_LOCAL_APIC) {
+> >@@ -251,6 +293,10 @@ static phys_cpuid_t map_mat_entry(acpi_handle handl=
+e, int type, u32 acpi_id)
+> >       }
+> >
+> >       header =3D (struct acpi_subtable_header *)obj->buffer.pointer;
+> >+      if (!madt_cpu_entry_is_valid(header,
+> >+                      (unsigned long)header + obj->buffer.length))
+> >+              goto exit;
+> >+
+> >       if (header->type =3D=3D ACPI_MADT_TYPE_LOCAL_APIC)
+> >               map_lapic_id(header, acpi_id, &phys_id);
+> >       else if (header->type =3D=3D ACPI_MADT_TYPE_LOCAL_SAPIC)
+> >--
+> >2.34.1
