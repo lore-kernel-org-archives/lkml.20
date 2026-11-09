@@ -1,96 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265238;
-	b=N9qPgafihmTgDRUgA9jzvedqMPOInffWzJpCmoKUZl8SBsTexzdquBmyZNhpiVVQOP60
-	 K8iqvM9+Up5dsuw2qQIk7pVtjGwdILpbSqhqRN0l7+NmrtA2c+At+ySE9TQMQWSgM7rrQ
-	 IkIEtO4wK+hUT5bdKVBLolinlZGgV7eo56NKiIJlTVv1LrehtfntEJE/ba6kO9lAQxo/C
-	 xXXSqotXYkJaVJOdH7+uN0j1DtnedKpr7GAE+y0ngTMrkQH1wCiNgQBcYjjn9Hhft0oAR
-	 CwjPbeaHceCthcecc4CHxLdP+QG8Ap5ahBmGpgOFH7K4PerXJdJOcatxDZnOxjvGSZA==
+	t=1794265263;
+	b=Pa5aQvSjaM0T8oTS6pK7ABDBKpTDZie9HlbeZ3nRQKZEX1BxBC2CO8akOcI+JRfAiOz5
+	 xIhexLIUR+wFFw7RoFVx2IhwswoqHU8d3QzQ0q+1HLtufo64MHadn6MegNJg5FeKF/i0t
+	 e8DPCBiNJ2Nz0rtkTio9ni2mUQEsy6bVTL66wXJ9ENmSnrdk5KOINtqYSMWelbYKrT8FS
+	 dOERY8O8AVX5PaV5xH2Dh0YaCy6CI2USFqWXEn0j0/NymZtKIC/qermK7lzIifQbMru38
+	 R8BU3PrNWZrsikaayqoAtmCuSNwsckT1cS6pedHnRplgbzY5WYIkhB79frbomxcx1+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265238;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=q/L8G+eYF1W07A363h374vBZx+sG92miBJ5CImiRZyk=;
-	b=xs69w86Kjhi1u+Vmi68McCswBv5RuYtMFt2hnuNmSCsXVtten33iPpHbq+ISI0NiofyS
-	 yRQ28RJNUAkldGGG68ZoCfCmJ9ycpnq4ox0GGI0Fj9WA5HJ2+2SOmxGjVvYoOrdoe0hn/
-	 trScXDRcV88hWOj1PLfJXlCNSd2FroiQZB9D+PHprMGOe37vo+lR0C7tpoDvPyzkTwjzz
-	 45S0TcSPIxy9TaVjW2u3PjhB64dWKShUF7EVIomxzfsYXnsn9yEuz2dm1H9iatVeQLo4L
-	 8hQYzEtd+fSW7iDcDIZAb5kla4hxpQ8wUy8hbirZnUxGM1I75CNXwAbF9PIU7bvGBWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265263;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=zL8FK8P5Vsdfkx0MZ8+/mUpFCsZNRdF7JxzCjScEi5g=;
+	b=31UbMJewbJfctRKFzjccBKXfLxXsosv4zeCmXQiL2DfOpjrxLCRzCimEnAOq4lHCYITO
+	 ZW2XCRMqXqNBTOC369GCVP0S+MG0QZZCFMri0zjcOo5BiqGrWonN8hxTj4WJ3wBRN1Jlf
+	 WvPn3Bq8qeVoPQmIOpxU9jeAyovnKVPcG+Buvbbr+uS0WhaBgIzx7fIueDeY7TjY9s0HH
+	 LFV2x294HawUIYjOS77hjBUmW9HfR/i9EJBi02xp06NfIHRb7RcBcpH9yhoRmW5BM4ddj
+	 k3wCIqUSHOc4MxI9+OE/6OWrsYPn8CkpHjKFQgR47JToGO69tLi6AKIhm9n5hgdLkEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yTP9NfKS;
-	arc=none smtp.remote-ip=74.125.82.67
-Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=oEqpXKT3;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61CB606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E61CB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FA2606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FA2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yTP9NfKS
-Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-1aefd1bf74aso1204822c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:00:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794265237; x=1794870037; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q/L8G+eYF1W07A363h374vBZx+sG92miBJ5CImiRZyk=;
-        b=yTP9NfKS1OzVB4Wrk70HXAplMUaWBXG+TghqhxF/BIJjHjvPxml3jtpO6FXj5hS3K2
-         cdv3Up4B+TmZKVyWDWlmhmoel+DRQNZObbOlYVdOaW50mJ2fBGlBsac57fSqQpLq2Sxp
-         PvuTNIY0J6qZTRyVmsHoXCilPr1hYS4hCWtb48/mWeB137ZbWKjOS1M8QxiWuy/E1B07
-         f8uKkzBuvFwFnX1ny7YaFbOeHD0POGSPVTY0SJdyl432Uxh4TCTLOs5Wtq5a1euWS9NA
-         MzSUoGfSQU10WDgaaYQBrISXQ8w1ahnnQwWOLguqkitg+4xu2gl8QS2zL0DrJ1JBffDQ
-         rSfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794265237; x=1794870037;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q/L8G+eYF1W07A363h374vBZx+sG92miBJ5CImiRZyk=;
-        b=vdGiYdn23Upq8XDartES5kOwBUKgmNWEbx5mPr5kNiGF/ekOTMyNzvp7teaqeLCpzo
-         JesTvIOXlyy0EeHQ3orbBNsnRJp+WDOcBYDVZWXlDqZNcHAE6D+SCDU8ng99In27shi6
-         10mhfb6y/XysmZ9yp8y/rrnxwsmMSJrRcq+BnyZAWq0bvb8FhahoGBLN0sG+PRb62zDq
-         FX8d5hbDg9TZbyWMPj2cLzkrxHvGkntilOARI2J/rNrs+xIl/dP2OmZnkEjwWKPSYTwt
-         kJyR/qtQv55uC5KQlCS6VeFCq9grlZXpf4nmKsvaWjqa4/GUkhQT3UplnuOZWmQtgXSI
-         DQKQ==
-X-Forwarded-Encrypted: i=1; AL+hErGgDj4gGqoodUTOnENTcaySFlOavOU727mtld90ZMtAtWSlHJvvVXmCmMF8AlurMD68EGwxWmYoGsOZtXc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9O3S+KfJUrpzlgfSAGaZa8WDu/uX+cN0X6uFaVD9viRbkLCc16
-	EuJEplCHxH0ywcWeoBNb0YktKqxsX25Joi4O5wV6ga2vO0HAJd3d7VkI
-X-Gm-Gg: AYBFou2PmTGkRhMy9FpeosEEJ1sBrxCOIchboZluTSRSdaFnzFIhmoQuNQ43YV6fWs4
-	E6p6wb3N3NnZFFZ6XNRq4m1jwpcR50EdpHHIPr5d1i5ipalJpQP9ReBWRo1kKaPkN5hVAw2P0Yq
-	zi2Z2qgyv7yddidhu/JwDWKRlh7xFDP7VVDk4lTSugQjSIWbzch0xM1rm7ZvB8q9lXCO5+GYxIS
-	igMhQ8/B+0NTEBpQsyzeQh01Zk/X9nDRjeEopq5lzhzUWY1ewxmcsQVOY6JcBPX8w7z0zeE1GDu
-	p272p9xjENiTGHU9tKug+rVRw6itgev1W5TiVwMzC3p+7rddBBz0XDaz9Is3QZT2FJQHDQKaEPQ
-	cxbccaPMW+34Wu2Mump2/Ptyjza9IXuN0vdOyeqNM3lBHZGQ7WOfs/g5tBSupXt2cxJq6JRFdk0
-	kWDAOKGEvcgSFfXgW33s/UmKNTCfmdgx3lM0cfg879t7YY2iy4rEIoplUWwYOeJRUGv7xgd+jFA
-	46AqgEDwsl4Trxjn5XYsA5iJutzmV1wvRjF7nSlSvnpiuuOIWZtuW/0JoYko7h5HjNlTI4g9c84
-	o6I/mozUx6hMHUyEmPx4ViZEHWDxA3ZD7ShmyGETFgd2CMVeIipJ3ORX3Azy2NXeuZ07SDPsoTb
-	yrOF13fR9D4CLXw/CTfXrZa5iGi9lC6t3OhjynA==
-X-Received: by 2002:a05:7022:211:b0:1b2:581d:5dc7 with SMTP id a92af1059eb24-1b3b5e6084bmr1512349c88.25.1794265236538;
-        Mon, 09 Nov 2026 15:00:36 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b79649sm2177332c88.21.2026.11.09.15.00.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:00:35 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: netdev@vger.kernel.org
-Cc: edumazet@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] dql: Reset the adjusted limit when resetting the queue
-Date: Mon,  9 Nov 2026 23:00:22 +0000
-Message-ID: <20261109230022.10729-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=oEqpXKT3
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id QU78xXWm2JFmFQYMHx7zXQ; Mon, 09 Nov 2026 23:01:01 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QYMGxo2RLSeuLQYMHx8Dcn; Mon, 09 Nov 2026 23:01:01 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af250ad
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=XwxYKhIv0tpjMc_zibUA:9 a=CjuIK1q_8ugA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=zL8FK8P5Vsdfkx0MZ8+/mUpFCsZNRdF7JxzCjScEi5g=; b=oEqpXKT3wYL1wg/DZ1OCAmn/KQ
+	8jKL+gRhBFw50kw3/1IbtF+x3BKxyHO8/ZHuegflaUFp2X23elHmIUyEI0IVUD7Mygm00WsTG6ceO
+	JdulNAYghF6uY2e6jDXSkzFEmMkUNdPGavsBr/HVrzI5TO5K6PvbnI/THmShWtqcMHS9lOyBYbyUs
+	RWywmG6oBdddctKk8NwopLi1ceUUvqlrfkfydPoOVyqiIWoye4Fs+5P3RD/H4ypAbRDN4ekm+pXZ3
+	/z2LXMfAIkRCZJArqkzHeEjxwUsJTCSbqMzWIS16vBnedaTksTU+Lo4KeEvhybi+KVl+gSYZZke62
+	u8Musk0g==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54458 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQYMF-00000000mLs-46PO;
+	Tue, 10 Nov 2026 04:31:00 +0530
+Date: Mon, 9 Nov 2026 15:00:58 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Hrishabh Rajput <hrishabh.rajput@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] watchdog: gunyah_wdt: Re-enable the watchdog on resume
+Message-ID: <bbff9c33-0647-4608-9cd7-07a6801791e0@roeck-us.net>
+References: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,54 +89,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQYMF-00000000mLs-46PO
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54458
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 2
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfOrb62qptEqRdWoGWZJrEZ0prCYiPotmVoSiPKTk0x4gas4ttLH087p0I+ikwwa09u79EWCWTtSa65ZQw9NUrQRxrtzaLW0b8trTCD4+3Z9T+Lhqplzs
+ IS5XFE1b3IVL2vBOFSnNv69Vcnl7fiURyWv8olD8kA/6R5D3tcZ/vJt2K+JiyNYI9dghmbTbCbk6Cd78Ex9p6tKZENVjaK5DL2Q0lM8vsFkoU8nb4WTsmqIB
 
-dql_reset() restores limit to min_limit and clears the cumulative queue
-and completion counts, but retains adj_limit from the previous queue
-lifetime. dql_avail() therefore uses stale credit until the next nonzero
-TX completion.
+On Mon, Nov 09, 2026 at 08:26:52AM +0000, Stanislav Aleksandrov wrote:
+> gunyah_wdt_suspend() disables an active watchdog, and
+> gunyah_wdt_resume() enables it again with gunyah_wdt_start(). start()
+> first disables the watchdog, which fails with -EINVAL when it is
+> already disabled. start() ignores that only while the watchdog is
+> inactive, but on resume it is still active for the watchdog core, so
+> start() returns before it enables the watchdog:
+> 
+>   gunyah-wdt gunyah-wdt: gunyah_wdt_start: Failed to stop gunyah wdt -22
+> 
+> So after every system suspend, the watchdog is left disabled.
+> 
+> Move setting the timeout and enabling the watchdog into
+> gunyah_wdt_enable(), and call it on resume, where the watchdog is
+> already disabled.
+> 
+> Tested on the Samsung Galaxy XR (Qualcomm Halliday) with s2idle and
+> deep suspend.
+> 
+> Fixes: ca316e145c35 ("watchdog: Add driver for Gunyah Watchdog")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
-Reset adj_limit to limit as well so that adj_limit = limit +
-num_completed also holds immediately after a reset.
+Applied.
 
-Found by code inspection and reproduced with QEMU virtio-net TX ring
-resizes, using identical reset/completion tracing in both test kernels.
-
-Fixes: 75957ba36c05 ("dql: Dynamic queue limits")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Target net-next and drop the stable Cc, as requested by Eric Dumazet.
-- Add validation results; code unchanged from v1.
-
-v1: https://lore.kernel.org/netdev/20261020230358.6649-1-dennylin0707@gmail.com/
-
-Testing on Linux 7.4-rc1 (6628e7d4c6b):
-QEMU virtio-net, TX ring resize 256 -> 128, and real UDP/TCP traffic.
-With a low-priority UDP burst followed by a high-priority probe and
-QEMU tx=timer,x-txtimer=5000000,x-txburst=1, median probe RTT was
-349.15 ms before and 12.09 ms after the change (12 trials per version).
-No consistent TCP throughput gain was observed, including 64 MiB
-transfers with normal TX service.
-
-Rebased onto net-next fa5196392691; the ARM64 W=1 DQL object build
-and strict checkpatch passed.
-
- lib/dynamic_queue_limits.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/lib/dynamic_queue_limits.c b/lib/dynamic_queue_limits.c
-index f97a752e900a..acef6a35ba3d 100644
---- a/lib/dynamic_queue_limits.c
-+++ b/lib/dynamic_queue_limits.c
-@@ -191,6 +191,7 @@ void dql_reset(struct dql *dql)
- {
- 	/* Reset all dynamic values */
- 	dql->limit = dql->min_limit;
-+	dql->adj_limit = dql->limit;
- 	dql->num_queued = 0;
- 	dql->num_completed = 0;
- 	dql->last_obj_cnt = 0;
--- 
-2.43.0
-
+Thanks,
+Guenter
