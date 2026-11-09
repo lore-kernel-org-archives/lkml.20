@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794261618;
-	b=CaPucE8in61dPXg6/TdPd7EoUhH3j1/RYVfTnuITZvp1Exw4xUJJZZol24yXPkqVt4Mp
-	 g/Jya8ZF9n6Zq/OMah+DTqwX+x7ZDutQUW+LNyruEWj5BijPNMETDYnsC5rm7E0OXCEky
-	 yDphCmCKsZmkt7ZlCi37XDJEWZMhTXi00s+PmKbZSR68SJGZJs0Wx2Ft9AEeKeGXL5hvl
-	 Jzhbt05+SReXjkH7cYLg+gT55RvVpkp8aDNPDNNs2NTnRr2BEab4TSBrGZvXY+5oKa9Xo
-	 jkwGNjiPL+GogMnU8DXsoP9dfJTukBsm9F93EmLCcm3CuOoFTQmQHCIIvW1gT+HtpEg==
+	t=1794261614;
+	b=cErUu3ZV57+X09WE01wq2pNj0tPm2HfNI4mn6I0kXPS8Vs1scZGYfVgcB/tErOdjZQ9o
+	 eOzanDfG2Y4AElKgaO5LXUWRK7ck1201PKaa8t4EOxSsX5kd1+kD0FDaz+1wacRIL3YYv
+	 mm4M94LjbXXTjnrsTQjCOZwno7gQ3L8Cu0vHUCesAmSrNpYTT2XsIp8jxB1LtmkEI7esi
+	 AwOXPBXtuaAL98ltMd66Soe9hzKCxAxd8E+uDI8ZzoAfcSlIwF4yYKie2LsaBaxoR8Bsv
+	 OBLzcGz2Aq57Nj7Hbs0xdDYkwQDgqU+rTyJrrY64AyNr+Az1vmaevrQyLq77vbXuUnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794261618;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+uUNFNsJ/y/TsHe5tSEE2ggVSbT2u5FUwgZN1VUTMzo=;
-	b=Hxdw661Zx98gMQcR78CPsgb5vG8GTqawJORtjh0DYSvIj4IhXYlfhuGziIGTMEAMd6Og
-	 BEMq5UMuXpgQvZtTGCU9a/d4uzqjwJ9zslcITwlwnb60OFf1K5svluDI5Rq+HdBgOsTKH
-	 WWjGvPCuPd0vg/YOnVK7F8h59wYwxWa4BLGsZtz80aOBtQb8xGNydidSkFmHcAJTzmyx6
-	 nlBGurYK+3TLqJ2M8O3YDoLVHhMi43bhyWMhU5lGk57wbCRDXRaEZqeWvsQEjR38THAD/
-	 j4QVIjTIJVvbwNO+xOGbdNh/RusO13T6ONUAPnQNtzT0Twel5GypS9ndDt0KbS3Ztmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794261614;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/tIMJ84JZNY36MRroCaRF81WiSus/b/UO47cyKClHKA=;
+	b=tLc/uRwLSr0e7TmC5ouJPBT8IJjn3OXuk4c8okljakE+coU2Gt+36vV2mhafqmbFBamj
+	 KFRThFH7l9ZgZngRYQs/9yotoCHjjqD5m4qGfgN6ha+zb8G89w0kOyf9o9WSOJx9O3if3
+	 3bTE06L5o9dQyPL0iCMPZ6q21SzN4++e5mZ0DY48Cq/cpxNtIbgTpFPzsCtjYqxEkW5M4
+	 bBbWso8E1mFNR0pMAUFZ7yGrja+2Hu+jairhOLYkIoPKkUBy10vYTBbR17V7+pT6IbRuP
+	 UGyQyqXBWlhmEkixuuWfoImdu2mA08X31Skd3kLpxAHXRmvn0Puqk7m8pi7TaSLGohA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kAxaUji6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O8iua+t7;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C7D606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1A8606A31C;
+	Mon,  9 Nov 2026 22:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kAxaUji6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6216E1F0089F;
-	Mon,  9 Nov 2026 22:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794261617;
-	bh=+uUNFNsJ/y/TsHe5tSEE2ggVSbT2u5FUwgZN1VUTMzo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kAxaUji6k2KW8rfSAvXJhJiuO/EZX60VCydj5QPGZtcNUy06hAoNW9MKWzQpV/4uY
-	 142BRjiWbeltdP+9LWvBZfp5X6D9yTvRt07tXHpQJQcdUSLNrdfPrpSOMbUAEzgqTJ
-	 HpoHuTXP9QBCPx6WtPB9860DKqnLXKCenm87BaDg/78/XEw1a1CZdxAudNjGgcTC0q
-	 a5a+b5trvcOnvtXTOE6cSO7RlzSheWSRnx8xcpPWyP7WaNq+puxs1zaPHfh94lUUPA
-	 vzgZD0i0Ir0h7TMIxXspZ4uUgVnKKFn5jCj1KLtemmJsQDjBdqPd4VXe2ZInUO7b9F
-	 xPh8W3FLuSQIA==
-Message-ID: <b47cc8f4-3f8a-4893-8a2a-f88dd5ab762d@kernel.org>
-Date: Mon, 9 Nov 2026 23:00:06 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O8iua+t7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794261614; x=1825797614;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=XA6H0x3ntr/Cc1TmCFZhqqstcdGHUz1VfSRh9Nu+IzQ=;
+  b=O8iua+t7DGtAAJF3anvBZkx0EVLFXdpeDs3VuPJtZaNDfqUKtNnBbGPE
+   X6mxbFueCnWvp8qpF+Ca0O17MEELse9MvvtI7u/GNZ9KwCgBDqXf3WI3v
+   idGHLtfaPr3tntubz00HPJ1zLQ8AOSgf4HWOZjHbrt7RcBydxtdYHU9C9
+   8z3jd8Uozvv0Rclpob4kciHDkpI76i6SRNkw4z21Gbc3P3JqZIQ55U8NJ
+   1m1lZj2uWcYAMUb1sTIHKFn26iJE6EpaiFNMmckCT74RioaWbiOsobbvX
+   IMa1SIXzrjIdYAEChm23s1dNWJ6Mm26wb9Y8UqUzORwqv+rp4KDwZejXf
+   Q==;
+X-CSE-ConnectionGUID: oGHOJyD5RpSppp7zaAz2gw==
+X-CSE-MsgGUID: v1YmuL+SQEWbryx8vuO6cA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3083033"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3083033"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:59:47 -0800
+X-CSE-ConnectionGUID: 3TN/MOurRhKAiAia3RpTuw==
+X-CSE-MsgGUID: DdzIP4OsQ96zDL0G9A3n2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8289484"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:59:28 -0800
+Message-ID: <650a864a-2f20-4864-b29f-7cbe822e894a@intel.com>
+Date: Mon, 9 Nov 2026 15:59:27 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,104 +73,143 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
-To: Shivank Garg <shivankg@amd.com>, Andrew Morton
- <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>,
- Pedro Falcato <pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>,
- Borislav Petkov <bp@alien8.de>, Bharata B Rao <bharata@amd.com>,
- Hrushikesh Salunke <hsalunke@amd.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: x86@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+ Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-5-zide.chen@intel.com> <au4kyULjUYdqbfIq@google.com>
+ <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
+ <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
+ <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
+ <CAO9r8zPVt++jgZD3-Jd-DYKMjYyAfUuQkvEXD4pKqe0bdYE29A@mail.gmail.com>
+ <c2844568-f8f6-450e-a718-1e9e3b7b3e4b@intel.com>
+ <avI20tEzyvIshy2f@google.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <avI20tEzyvIshy2f@google.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/9/26 20:15, Shivank Garg wrote:
-> clear_contig_highpages() clears the whole range at once under
-> preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
-> pages at a time, with a cond_resched() in between. The batch is 32MB if
-> the architecture defines clear_pages(), and one page otherwise.
-> 
-> Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-> modes"), architectures that support lazy preemption only offer the
-> full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
-> one of them, and it is the only architecture that defines
-> clear_pages(). So the 32MB batch is never used: whenever
-> clear_contig_highpages() runs under a cooperative model, the batch is
-> one page.
-> 
-> Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
-> set, and one page at a time with cond_resched() in between otherwise.
-> Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
-> 
-> PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
-> cond_resched() does nothing on any of these kernels. So a build-time
-> CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
-> not needed.
-> 
-> No functional change intended.
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
->
 
-Thanks, I'll wait a bit for more review before applying.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+On 11/9/2026 3:12 PM, Yosry Ahmed wrote:
+> On Mon, Nov 09, 2026 at 12:59:01PM -0600, Chen, Zide wrote:
+>>
+>>
+>> On 11/9/2026 12:07 PM, Yosry Ahmed wrote:
+>>>>>>>> +/*
+>>>>>>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
+>>>>>>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
+>>>>>>>> + * so iteration up to KVM's maximum counter count is safe.
+>>>>>>>> + */
+>>>>>>>> +#define kvm_for_each_gp_counter(i, mask)    \
+>>>>>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
+>>>>>>>> +
+>>>>>>>> +#define kvm_for_each_fixed_counter(i, mask) \
+>>>>>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+>>>>>>>
+>>>>>>> These are not used in this patch, are they?
+>>>>>>>
+>>>>>>> They should probably be introduced when they are used. Also, do we
+>>>>>>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
+>>>>>>> yes, maybe we should pass in the pmu here instead?
+>>>>>>
+>>>>>> The intent was to group all bitmap accessor helpers together in this
+>>>>>> patch for easier review so that the big patch 5/18 could be kept to
+>>>>>> mostly mechanical replacements.
+>>>>>>
+>>>>>> But if you prefer introducing them on first use, I'll move their
+>>>>>> definitions to patch 5.
+>>>>>
+>>>>> Yeah I think it's clearer to see what their definitions are with their usage.
+>>>>
+>>>> OK, then I can move these two macros to the next patch.
+>>>>>>
+>>>>>> Regarding passing 'pmu' directly, I initially implemented it in this
+>>>>>> way, but I can't recall why I discarded it. I will take another look.
+>>>>>
+>>>>> Thanks.
+>>>>
+>>>> How about these? With them, we can remove the {gp,fixed}_mask variables
+>>>> that you pointed out in your review of 5/18. The APIs are more
+>>>> complicated, but the caller code is much cleaner.
+>>>
+>>> I don't understand why we can't keep the macros as-is, but just move the
+>>> calls to kvm_gp_pmc_mask() and kvm_fixed_pmc_mask() inside the macros?
+>>
+>> for_each_set_bit() requires a pointer (`const unsigned long *`) as
+>> input, but AFAICT a loop macro cannot declare a temporary local
+>> variable, nor it can use do { ... } while(0). So something like:
+>>
+>> #define kvm_for_each_gp_counter(i, pmu)                              \
+>>         unsigned long gp_mask = kvm_gp_pmc_mask(pmu);                   \
+>>         for_each_set_bit((i), &(gp_mask), KVM_MAX_NR_GP_COUNTERS)
+>>
+> 
+> Gemini suggested compount literals, and it seems to at least compile and
+> I see a few instances around the kernel:
+> 
+> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+> index f949fdbf359c6..3930680937577 100644
+> --- a/arch/x86/kvm/pmu.c
+> +++ b/arch/x86/kvm/pmu.c
+> @@ -1347,8 +1347,6 @@ static __always_inline u32 gp_eventsel_msr(u32 idx)
+>  static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
+>  {
+>  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+> -	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+> -	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
 
--- 
-Cheers,
+I am very happy to see these variables go away. Thank you!
 
-David
+>  	struct kvm_pmc *pmc;
+>  	u32 i;
+>  
+> @@ -1357,14 +1355,14 @@ static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
+>  	 * is intercepted if hardware has counters that aren't visible to the
+>  	 * guest (KVM will inject #GP as appropriate).
+>  	 */
+> -	kvm_for_each_gp_counter(i, gp_mask) {
+> +	kvm_for_each_gp_counter(i, pmu) {
+>  		pmc = &pmu->gp_counters[i];
+>  
+>  		if (pmc->counter != rdpmc(i))
+>  			wrmsrq(gp_counter_msr(i), pmc->counter);
+>  		wrmsrq(gp_eventsel_msr(i), pmc->eventsel_hw);
+>  	}
+> -	kvm_for_each_fixed_counter(i, fixed_mask) {
+> +	kvm_for_each_fixed_counter(i, pmu) {
+>  		pmc = &pmu->fixed_counters[i];
+>  
+>  		if (pmc->counter != rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i))
+> diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
+> index 98e6f2443b82e..37a6664fdb9c9 100644
+> --- a/arch/x86/kvm/pmu.h
+> +++ b/arch/x86/kvm/pmu.h
+> @@ -149,11 +149,11 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
+>   * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
+>   * so iteration up to KVM's maximum counter count is safe.
+>   */
+> -#define kvm_for_each_gp_counter(i, mask)	\
+> -	for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
+> +#define kvm_for_each_gp_counter(i, pmu)	\
+> +	for_each_set_bit((i), &(unsigned long){ kvm_gp_pmc_mask(pmu) }, KVM_MAX_NR_GP_COUNTERS)
+>  
+> -#define kvm_for_each_fixed_counter(i, mask)	\
+> -	for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+> +#define kvm_for_each_fixed_counter(i, pmu)	\
+> +	for_each_set_bit((i), &(unsigned long){ kvm_fixed_pmc_mask(pmu) }, KVM_MAX_NR_FIXED_COUNTERS)
+
+Right, I didn't realize C99 compound literals could be used here.
+
+However, with this suggested code, kvm_gp_pmc_mask() would be
+re-evaluated on every iteration. It seems this “expression with side
+effects evaluated more than once” is not encouraged by the coding style,
+is it?
+
