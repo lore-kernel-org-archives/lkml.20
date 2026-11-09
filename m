@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223518;
-	b=Xd7jYpSEyMQcNVbzi8jg2OXTUZZI8Vn4bANYS4uIyHHFnx6mxTuRpHDDAOnCJMSzpwyp
-	 uKovxxvxV8W76op7pd3k8VhH0gsL8wnBI0TtkrbxA6WuxBBBHPyohwD6DLYBK/FLl+o4E
-	 AiXnOSBdLzGTcVsxEnwJDIONqnA7Bo3fUNxo7FKZ8AC/wupoXYxeg8Aq7jKl3DL9Ev3B5
-	 DWfkuCj/i0bTAj4v8c4b/nP1X8OyOV6rf/FdElhDnAqbf/vSHRSgauzlq8hYptCE/YEGm
-	 swo3rzX7tuNRJeSsRnouifVrkmZE7es3VvGeV8bpGN4lR8kwcGvcEPEDSB5DR3hMq/g==
+	t=1794223543;
+	b=iHe20mWLUzcelIGYcnSGLvlkRx3spxZvnjvWRaUrBqpvPOFkPaMqpuEUSCQNfmyChLoc
+	 K15Q5b89bBGm49e20DZv+wOqhXiEhfyLSL9pFEsXUPejczW8jZPH+g9xWumo6PvCPqCPk
+	 i0n+zXic38ok/u5U4xv5OShouCPL4S9HS2TbDCMnhQXRPg0VOZGRea2mLmd8bXZXi3y2/
+	 pGMWt0sUnvMEcpe/ZFnt0f46QR4udwjhSrvLqg495A5HDPhAE3o23TwbFE8GtNuTrHIqt
+	 FSfurvHXMq3zhsK7lJsFNI1lKs7OdHWMAaEWMa/1YW3G1idpUy7Ui69T2pCccQN3xJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223518;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n1zPFDl2fDt5JEszA0IxWWrN2833H/CzgKPy7g9r5AM=;
-	b=GquyipKOQ5ILqZk7dciQYkuD2uFZWRemmg2I6g9GX8/nkAaPSdmesm5+OficOoK1cD6b
-	 To4/WZMGNfTAdc5/1gdDIXha8LEPVmQE71nfctFQUR30wDuuHivS+N5T8L9oS9JkLhMN6
-	 ohWau76YePcBQnm1NosMl+Ghpyf3/BnyzO5sVXU6H947t9ujhDp5sWjyysijNOg6220RO
-	 XJH6OvYPTlpHWSfw5AL8fWH//nhHt87eIq/wp25HDf0NU0lTT2IyJP4EvrPSnpK3Z6Pl5
-	 P4K0e/3CRXu0hgY5ne0U1xv9hfJg+CS3hyzIXysyyPxhyUyGqx47o8yk+HnWu2Dff2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223543;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CbwDqCCHasq9DNEhUXtm1GHYFn7se7+hF+mPE/dcVHQ=;
+	b=UjOCa0qcWMpV+Srbx10jnqTGC24kGog2oBafY6X3uNPjW+qPJmnvAAAJhT2gf2sU/C/Z
+	 7rKrY0rzSIIEntxYau1oZojaB6II0bNxdlc28dmWlXxLblHK5KIi9O1ESFIPqS9Onbqi5
+	 xdpIqzavJbjLSVPmWv0cO3/yyeNPw3PJe9U+BPbmUzCAXjJBhHEPkRO5x272CAnrT3R2C
+	 hFZAPaMWdy0C7rJ7pPEMzh9QMiyDT6YIn+riE2vPAKzeOuP7iLf3QTZIvcghrcxwZedkZ
+	 JXNfI8kGn0HKKNnbLNNhy23JiBpCb0NBpEXlIob1P/Me9RJC0UCNGkdVVqdM+lG+8/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bf5tqLNZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AvwjWz/i";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5141E606A31C;
-	Mon,  9 Nov 2026 11:25:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B185C606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bf5tqLNZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC381F0089F;
-	Mon,  9 Nov 2026 11:25:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvwjWz/i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56A2C1F008A5
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794223517;
-	bh=n1zPFDl2fDt5JEszA0IxWWrN2833H/CzgKPy7g9r5AM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bf5tqLNZRkpAGSPx9e0rwawSONrXL1QB4ySJFZQtilFLHWlDY7D4bzq0n+jtvpyJs
-	 YhV4Afg0ZeEN7TGXZ2Z/RcpvlUCPGFu+0nBOP9wh/OxwWeUoc5omDcFStUx6CKTtbF
-	 lTJ5jomlAV++QPCw8MEIWSgpR9fLCV1+zZgu7EW25VfJ96+2o6UkAqGmeIt8NOp9SU
-	 qCG6RkWanN7TlrI+rkzRiL5Nji+A2Zl07H+5QUjlFTfYgOSD3Frm3sw6bjSRM/Oro3
-	 fPoa7SBcL2jknydo9sAX/9gzQjHvdxTla80a4DyQDmLN1gXTfX3GAS4mfrThArqamF
-	 SQnzOr/2KOgIw==
-Date: Mon, 9 Nov 2026 12:25:12 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
-	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
- entries (Part 5/7)
-Message-ID: <20261109-zahnarzt-beseelt-spontan-7593c02dc33a@brauner>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
- <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner>
- <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
- <CAHk-=wiBsoUD=_V3vQr+sgArezxdk0aVk+_8yTX+gK+JVyNH+w@mail.gmail.com>
+	s=k20260515; t=1794223542;
+	bh=CbwDqCCHasq9DNEhUXtm1GHYFn7se7+hF+mPE/dcVHQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AvwjWz/iXuzr70RNpq1/onzvj2lFVw+EnU3AanIh3HXq22A2Nv7zDdh/djlD5SrKj
+	 6dFpL4DFUtAJTM30Pfc8Jao5+2vgQZ3hsHKLxDNZr8Ftz1VzNsiOO6a62r6PVUPwhT
+	 SAwUrbce31AWT1h4z9LHjkUNA5Ftk/Kiz0icLOL4+WSjTygInWD+871TKblub46vhr
+	 rlRB4vHI6ZNrnI/veFZLE+5dqoAJwBrhAP3+u5MFEH2Tn5uP2SPhIkf/HCkgkXpmyc
+	 3izRrp73dnFUijKNHSemm/q0a9AzVmMHkHzVHNYcChSUst2xir3JozdbUQeg8Py5+A
+	 5Vi3c9pFVCRpA==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d5cb1b181so95493566b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:25:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFdY6wI2tl9DOiS8nCmnveGzTGZeQFMmT1szKxzl1eBytqCDrK/fMXUmcuz/denWwGA4+7U38R/cbd+gqg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rhZ4BXCzgZgpGrVVDFQWTY2wy57+xufiAgMhjhYXD7PzniKiv
+	ajyBdAIWjHIBK4xJgsA2lHmeJckizUdXpe6Sb0xsRjJ+zkg5ILLM52gVYaHajtirZqYXTvrZSQx
+	JjWsRifF30FpSc3EJbfWojUDpH4OH6j8=
+X-Received: by 2002:a17:907:1ca1:b0:c4c:b681:38b2 with SMTP id
+ a640c23a62f3a-c4d6d4f2e14mr249925866b.19.1794223540939; Mon, 09 Nov 2026
+ 03:25:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,52 +59,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiBsoUD=_V3vQr+sgArezxdk0aVk+_8yTX+gK+JVyNH+w@mail.gmail.com>
+References: <20261108182011.1888520-1-icb@fastmail.org>
+In-Reply-To: <20261108182011.1888520-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 9 Nov 2026 20:25:27 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8dL4Ci4JO_R9LNeW_KXQo1=snVK+=NReZJToWN2nXSXw@mail.gmail.com>
+X-Gm-Features: AclHuK899ETLng_czFSgyYAfA-cg4CGy-TppyQBm1yWxdmk_WuZ6i9jpBAneUxQ
+Message-ID: <CAKYAXd8dL4Ci4JO_R9LNeW_KXQo1=snVK+=NReZJToWN2nXSXw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] ksmbd: fix explicit DACL checks and parent-derived rights
+To: Ian Bridges <icb@fastmail.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 12:03:37PM -0800, Linus Torvalds wrote:
-> "pos" should just be loff_t, and "size" and "cnt" should be "size_t".
-> Those are the correct types for those things. Not "unsigned int" and
-> certainly not "int".
-
-Sounds good:
-
---- v2/drivers/pci/proc.c
-+++ v3/drivers/pci/proc.c
-@@ -32,7 +32,8 @@
- 				 size_t nbytes, loff_t *ppos)
- {
- 	struct pci_dev *dev = pde_data(file_inode(file));
--	unsigned int pos, cnt, size;
-+	loff_t pos;
-+	size_t cnt, size;
- 
- 	/*
- 	 * Normal users can read only the standardized portion of the
-@@ -119,8 +120,10 @@
- {
- 	struct inode *ino = file_inode(file);
- 	struct pci_dev *dev = pde_data(ino);
--	int size = dev->cfg_size;
--	int pos, cnt, ret;
-+	size_t size = dev->cfg_size;
-+	loff_t pos;
-+	size_t cnt;
-+	int ret;
- 
- 	ret = security_locked_down(LOCKDOWN_PCI_ACCESS);
- 	if (ret)
-@@ -134,7 +137,7 @@
- 	pos = *ppos;
- 
- 	if (resource_is_exclusive(&dev->driver_exclusive_resource, pos, nbytes)) {
--		pci_warn_once(dev, "%s: Unexpected write to kernel-exclusive config offset %x",
-+		pci_warn_once(dev, "%s: Unexpected write to kernel-exclusive config offset %llx",
- 			      current->comm, pos);
- 		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
- 	}
-
-cfg_size stays an int in struct pci_dev, that's a larger thing.
-
--- 
+On Mon, Nov 9, 2026 at 3:20=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrote=
+:
+>
+> smb_check_perm_dacl() mishandles explicit access requests. It can turn a
+> deny ACE into a grant, ignore earlier deny ACEs, and treat guest and
+> anonymous sessions as Authenticated Users. This can grant read or write
+> access that the stored DACL does not grant.
+>
+> The function also ignores rights granted by the parent directory.
+> FILE_DELETE_CHILD can grant DELETE on a child, and FILE_LIST_DIRECTORY
+> can grant FILE_READ_ATTRIBUTES.
+>
+> Patch 1 evaluates explicit requests in DACL order and excludes guest and
+> anonymous sessions from Authenticated Users. Patch 2 obtains explicitly
+> requested DELETE and FILE_READ_ATTRIBUTES rights from the parent DACL.
+>
+> Patch 2 uses the authentication state added by patch 1. It also restores
+> parent-derived rights that patch 1 can remove from guests. Backport the
+> patches in order.
+>
+> Older stable trees first need commit cc2f133e80eb ("ksmbd: fix maximum
+> allowed access checks") and the preceding DACL fixes through "ksmbd:
+> grant a caller what its groups and OWNER RIGHTS ACEs allow".
+>
+> Changes since v2:
+> - Patch 1: keep the POSIX ACL fallback from replacing the DACL result
+>   when an Authenticated Users ACE is present, including for guest and
+>   anonymous sessions. Namjae found that the fallback could otherwise
+>   grant access denied by the DACL.
+> - Rebase onto the current ksmbd-for-next.
+>
+> Changes since v1:
+> - Patch 2: let group and OWNER RIGHTS ACEs decide the strict parent
+>   check before the POSIX ACL fallback. Sashiko's review of v1 found that
+>   a POSIX ACL entry could otherwise hide a FILE_DELETE_CHILD grant.
+> - Patch 2: add a comment on which MAXIMUM_ALLOWED requests omit group
+>   ACEs.
+>
+> v1: https://lore.kernel.org/linux-cifs/20261107062233.1579198-1-icb@fastm=
+ail.org/
+> v2: https://lore.kernel.org/linux-cifs/20261107231941.1824289-1-icb@fastm=
+ail.org/
+>
+> Both patches were tested with KASAN on ksmbd-for-next 6f42553e493d.
+> Its fs/smb/server tree is identical to current head 2f14fe2d5895.
+> smbtorture results are unchanged.
+>
+> This series was developed with LLM assistance.
+>
+> Ian Bridges (2):
+>   ksmbd: evaluate the DACL in order for explicit access requests
+>   ksmbd: let the parent's DACL grant DELETE and FILE_READ_ATTRIBUTES
+Applied them to #ksmbd-for-next.
+Thanks!
