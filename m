@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267070;
-	b=p7FuAnIH5PuVHSmQKbCibD/VjaO21T+W4aT/k26Sa6MXMyYOvyQqKCFFKfbJizKnRFhw
-	 i4nbkWqnWDefQIzfaX9lMOtrbkfrRBibP68ulU1ohyO09wQ5G5tdLqkJc8Ehbe+M7zCpD
-	 Bly5gnOBTszlbgS3J9RYNg67NkVQnYszYQKOdetdVpZO5Bw/IC9F6dJLpD+UteuxPsu8l
-	 MZKOn3PKYjebiOxNS8RbhJfkGrCJJaaj9M6P48R4yE1dSo/bVEvsCnYVJjUzXqvIZc3rb
-	 O5uzisCjIianoO8eRvKnRy5mj8iMCsuqneizxWVpA3NNpSH9ddaJcT64aksu27Q6nRg==
+	t=1794267068;
+	b=i4u5i18VJuXULFtycSWIkGncjbIzkSeTLubmInQ5p1sVvyH46pWPdUT+pPi+DBX7A8AW
+	 3oZpV3siyA7i33cXrCzmj9EiUfuGwXXM2qGiHk1RSpWDqP3yAZ16ERKvU+okSgk9jhgMs
+	 7o3VBiwkWOnDCaX06p3IzUfG1QwkRydB60KDAMAzvnrmafAAqWgAqfGb4kfhixxF5N9qL
+	 ZIenmPP2M+g71J1OWjLHqcjbhouh77o7FmwXzYK/o+kOYv5qhovVXmWye3FTkGrzM2xd7
+	 Tc2t7ty38XgH+pI9U9+OdJVr3bTGPUsK0kV3G7CbowIwhbX5OxBfAmsNdeIY+QR1jig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267068;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=+991lt0Xh67bkBKdZggWry2WoOUAzRXUj/nfqoAatHc=;
-	b=O0or+J6pXv73YDcYqXTot/ClDICD9HLlutG0Yy9NpnsoxSC4k7nQUO4UgAyowr4bsYrm
-	 jeoofs/Ps/m/RshjklZGzRvAgFhMVm0g5gETWh1DOkdLyt34P+Ic8DYKy7LhKl2r/eQSg
-	 U8PZSPBNHDWGDY7vsn2CscKITTUGQrSP3IeG0fii8vsTdN82HTjvxcKSC77OENIO/Yzbf
-	 zKkYu41LbudhZHoNRXJhsuYUN4MJMtkCsS4PLpJ3vbri7djXD4FTG5elvrEs04lM0Hb0f
-	 ypOJWY4fAO5xCBk787iMs1O5jgcOWsVWGXRAE/c5EC8VDJ/Ol5z6JXQDSeAPx9qUJPw==
+	bh=qkbYvrF9rtrrYRmustWbe82oT7X90+wNssHyXMtmJjg=;
+	b=FVK/LNEBThdywwPqVAVap/T3vqfyLW+hTyjr8qZ1aLQtRMo+DF40BaG18saK9+FX6H2R
+	 6n66S4gMBrXzxZOmbSUXvIPzu+Fq5N6QuwfV8RBFkKZ9vFE0WI0y+c4nsASK1D4RA1HMV
+	 ed68Gsp6O4QeL8PCzjHUmsbYzc71e1E6Rd+MGl6rMF31Yyvt4z0SG8PxVrSy1d14+jq68
+	 XcPb5QXdkP6GnIx7z52sqyR5DcxNP0ZgukGXIcE9S3pnHEelsT7e36dxyOcRo2PFrQlqw
+	 rOm1Q8kKIOECXCQzR8x9QybQcFKkOI/PP2TfnytqNnaIr9VDdvI5S46ctLoXJhwapDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bFgUAw73;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngySx6AP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EE7606A335;
-	Mon,  9 Nov 2026 23:31:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C677A606A321;
+	Mon,  9 Nov 2026 23:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bFgUAw73
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C941F008A1;
-	Mon,  9 Nov 2026 23:31:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngySx6AP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5A81F008A1;
+	Mon,  9 Nov 2026 23:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794267069;
-	bh=+991lt0Xh67bkBKdZggWry2WoOUAzRXUj/nfqoAatHc=;
+	s=k20260515; t=1794267067;
+	bh=qkbYvrF9rtrrYRmustWbe82oT7X90+wNssHyXMtmJjg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bFgUAw73VbNvJhTCBvvLsZRceoPHyECWs63U5UIrnZ/9EdESxATAnc1R9rNNzQUUc
-	 2sXhYlr8ruEVce0UFzhfxlBBzYnwbH18wNu0L4on9tIqrZxkzLtImBhGFjXSbaNyjv
-	 C918Jrn0wcsjMEkSj9i5jf5tsCTGzndKFog98lZBAZ2nHQ+iweLberCDrzOa4QNMtq
-	 I9HxCeH6k0GeWcn4rh2ONZEbONfsOqCQSVVFnodhyvNQNUmxsIHjrPivXn6fbc/AdT
-	 /nlIn0Itg2SMoLBZnv04Sx4KWDBW7nj4A6nv4uBLuTRWSXjmgvEA5RV+vYWTyj0XCz
-	 Z+JHGFiRzPvlQ==
-Subject: Re: [PATCH net-next 5/6] eth: mpnic: IPv4 and IPv6 in IPv6 tunnel
- segmentation
+	b=ngySx6APuRS6wnK6gY/GLgYbt2sexRXWkBgC38LPyM0XyhK1CLyXA055syL1tgciF
+	 Jwn3r1u0MwvsIHsQ3eWQ7QoIoGWEPzIQlFu68xP2Ic7wpXZ6x7TL0LJH/jF0hpBa9x
+	 mNkN8oPxBRGdazmfbx6QXjpDbBoxYIlyMAMH9yAWdVud3IcTVxpwJwbIWj4PvIqfbs
+	 y1uOYUQWRidSlgIW0tTQl1d8I946Fr+iKcibdVx6lycO43kU2ixTWMXDfhgW6Bm+rE
+	 EAanx4DXQuex/t7Q64ZYWDtDjL84Ja1gQnm6E4nsA57S+HyOi/3OtWwT3CufCbHoM7
+	 smns+W/pMqBMw==
+Subject: Re: [PATCH net-next 3/6] eth: mpnic: TCP segmentation offload
 From: netdev-bot+sashiko@kernel.org
 To: daniel.zahka@gmail.com
 Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
  andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  pabeni@redhat.com, dimitri.daskalakis1@gmail.com, mohsin.bashr@gmail.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 09 Nov 2026 23:31:08 +0000
-Message-ID: <179426706883.994134.14513321289855708811@kernel.org>
-In-Reply-To: <20261106-mpnic-lso-v1-5-e943ff1493e4@gmail.com>
-References: <20261106-mpnic-lso-v1-5-e943ff1493e4@gmail.com>
+Date: Mon, 09 Nov 2026 23:31:06 +0000
+Message-ID: <179426706639.994134.3147617580581432736@kernel.org>
+In-Reply-To: <20261106-mpnic-lso-v1-3-e943ff1493e4@gmail.com>
+References: <20261106-mpnic-lso-v1-3-e943ff1493e4@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -65,10 +64,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,247 +75,180 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] mpnic_ipxip6_gso_ok()
-  (drivers/net/ethernet/meta/mpnic/mpnic_txrx.c) never checks that the…
-- [Medium] eth: mpnic: stale inner transport offset used in
-  mpnic_tx_fill_hdrs()
-- [Low] The commit message does not mention that this patch turns on
-  hardware TX checksum offload for all encapsulated traffic.
+- [Medium] mpnic_tx_lso() writes skb_shinfo(skb)->gso_size straight into
+  the 14-bit MPNIC_TWD_MSS descriptor field with MPNIC_TWD_FLAG_REQ_LSO…
+- [Medium] mpnic_xmit_frame_ring() pads every frame to 60 bytes in
+  software (`skb_put_padto(skb, MPNIC_MIN_FRAME_LEN)`, line 307).
+- [Low] The two places that feed the per-ring `twq.dropped` counter now
+  count in different units.
+- [Low] mpnic_tx_lso() bumps the new qstats counters `twq.hw_gso` and
+  `twq.hw_gso_wire` (mpnic_txrx.c lines 259-260) before the frame is…
 
 --
 
-eth: mpnic: IPv4 and IPv6 in IPv6 tunnel segmentation
+eth: mpnic: TCP segmentation offload
 
-This commit adds 4-in-6 and 6-in-6 TSO support to mpnic. It advertises
-NETIF_F_GSO_IPXIP6, sets hw_enc_features, and fills the outer L3 header
-length and the new V6V6/V6V4 L3 types in the TX descriptor. A new helper,
-mpnic_features_check_encap_gso(), checks the outer IPv6 extension headers
-before it allows hardware segmentation.
+This adds hardware segmentation for non-encapsulated TCPv4/TCPv6 packets.
+The TCP checksum is seeded with zero length, and the TOF block is set up
+for incrementing IPv4 IDs and for clearing TCP flags per segment. GSO super
+and wire packets are counted and reported through the netdev qstats API.
 
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-> index 83be45031a30b..e391ca6483e09 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-
-[ ... ]
-
-> @@ -336,6 +337,7 @@ struct net_device *mpnic_netdev_alloc(struct mpnic_dev *mpd)
->  
->  	netdev->hw_features |= netdev->features;
->  	netdev->vlan_features |= netdev->features;
-> +	netdev->hw_enc_features |= netdev->features;
-
-[Severity: Low]
-This line in mpnic_netdev_alloc() copies the whole feature set into
-hw_enc_features, not only NETIF_F_GSO_IPXIP6. Was it meant to also turn on
-NETIF_F_HW_CSUM, TSO, TSO6, TSO_ECN and GSO_UDP_L4 for all encapsulated
-traffic?
-
-Before this patch the driver did not set hw_enc_features. The only bits came
-from register_netdevice():
-
-    dev->hw_enc_features |= NETIF_F_SG | NETIF_F_GSO_PARTIAL;
-
-netif_skb_features() masks encapsulated skbs with hw_enc_features. So until
-now, CHECKSUM_PARTIAL tunnel packets were checksummed in software. That
-covers VXLAN, GENEVE, GRE, IPIP/SIT, and the segments that software GSO
-produces from them.
-
-With this change those packets reach mpnic_tx_offloads() with
-MPNIC_TWD_FLAG_REQ_CSO set. The non-GSO path in mpnic_tx_fill_hdrs() then
-sets L3_IHLEN to cover everything from the outer IP header up to the inner
-L4 header. Because TSO is now in hw_enc_features, register_netdevice() also
-adds NETIF_F_TSO_MANGLEID there.
-
-mpnic_features_check() still enforces the alignment and header length
-limits, so this looks functionally ok. The commit message, though, only
-describes 4-in-6 and 6-in-6 segmentation.
-
-Could the commit message mention the tunnel checksum offload? If the wider
-change isn't intended, could hw_enc_features be limited to the bits IPXIP6
-needs?
-
->  
->  	netdev->min_mtu = IPV6_MIN_MTU;
->  	netdev->max_mtu = MPNIC_MAX_JUMBO_FRAME_SIZE - ETH_HLEN;
 > diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> index 9dd61b6d374c7..c349e54a35470 100644
+> index 680625810ec03..e2e6ab6d3c591 100644
 > --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
 > +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
 
 [ ... ]
 
-> @@ -363,6 +376,32 @@ netdev_tx_t mpnic_xmit_frame(struct sk_buff *skb, struct net_device *dev)
->  	return mpnic_xmit_frame_ring(skb, mpn->tx[skb_get_queue_mapping(skb)]);
->  }
->  
-> +static bool mpnic_ipxip6_gso_ok(struct sk_buff *skb)
-> +{
-> +	struct ipv6hdr *ip6h;
-> +	__be16 frag_off;
-> +	u8 nexthdr;
-> +	int start;
-> +
-> +	ip6h = ipv6_hdr(skb);
-> +	nexthdr = ip6h->nexthdr;
-> +	start = skb_network_offset(skb) + sizeof(*ip6h);
-> +	start = ipv6_skip_exthdr(skb, start, &nexthdr, &frag_off);
-
-[Severity: Medium]
-Should mpnic_ipxip6_gso_ok() check that ip6h->version == 6 before it
-parses this header as IPv6?
-
-A set SKB_GSO_IPXIP6 bit doesn't guarantee that the outermost header is
-IPv6. iptunnel_handle_offloads() only resets the inner headers on the first
-encapsulation, and it ORs in the gso_type bits.
-
-Take a 4-in-6 ip6_tnl packet that is then sent over a sit tunnel. It ends
-up with an outer IPv4 header and gso_type TCPV4 | IPXIP6 | IPXIP4.
-inner_network_header still points at the innermost IPv4 header.
-
-mpnic_tx_fill_hdrs() labels any encapsulated GSO skb as outer IPv6:
-
-    hdrs->l3_type = inner_ip_hdr(skb)->version == 4 ?
-            MPNIC_TWD_L3_TYPE_V6V4 : MPNIC_TWD_L3_TYPE_V6V6;
-
-The fbnic gate this code appears to follow rejects this case in
-fbnic_features_check_encap_gso():
-
-    if (ip6_hdr->version != 6)
-        return features & ~FBNIC_TUN_GSO_FEATURES;
-
-With only this patch applied, the nested case still falls back to software
-GSO, because IPXIP4 is not supported yet. The gate is still the same at the
-end of the series, though.
-
-After "eth: mpnic: add GSO_PARTIAL for other tunnels", a true return from
-mpnic_ipxip6_gso_ok() makes mpnic_features_check_encap_gso() return early.
-That skips the outer IPv4 check:
-
-    if (iph->version == 4 && !(iph->frag_off & htons(IP_DF)))
-        return features & ~NETIF_F_GSO_MASK;
-
-It also skips the TSO_MANGLEID requirement.
-
-With a sit tunnel using nopmtudisc, the outer DF bit is clear and byte 6 of
-the IPv4 header is 0, which is read as NEXTHDR_HOP. ipv6_skip_exthdr() then
-treats bytes of the middle IPv6 addresses as extension headers.
-
-With addresses such as saddr[12..13] = 0x33,0x00 and daddr[4..5] =
-0x04,0x01, the walk ends exactly at inner_network_offset with
-nexthdr == IPPROTO_IPIP, and the gate passes.
-
-Could that send every GSO_PARTIAL segment with the same outer IPv4 ID while
-DF is clear? That is the case the later DF check is meant to prevent.
-
-SKB_GSO_DODGY packets built by BPF (bpf_skb_adjust_room() with
-BPF_F_ADJ_ROOM_ENCAP_L3_IPV6), or GRO packets with a bogus version nibble,
-could also reach the device labelled V6V6/V6V4 when the outer version is
-not 6. Software GSO doesn't check the version either, so the effect on the
-hardware in that case is unclear.
-
-Would a check like the one fbnic has be enough here?
-
-    if (ip6h->version != 6)
-        return false;
-
-The inner version could optionally be checked against the nexthdr value
-accepted here as well.
-
-> +
-> +	return !frag_off && start == skb_inner_network_offset(skb) &&
-> +	       (nexthdr == IPPROTO_IPV6 || nexthdr == IPPROTO_IPIP);
-> +}
-> +
-> +static netdev_features_t
-> +mpnic_features_check_encap_gso(struct sk_buff *skb, netdev_features_t features)
-> +{
-> +	if (skb_shinfo(skb)->gso_type & SKB_GSO_IPXIP6 &&
-> +	    mpnic_ipxip6_gso_ok(skb))
-> +		return features;
-> +
-> +	return features & ~NETIF_F_GSO_IPXIP6;
-> +}
+> @@ -215,30 +218,82 @@ mpnic_tx_map(struct mpnic_ring *ring, struct sk_buff *skb, __le64 *meta)
 
 [ ... ]
 
-> @@ -228,9 +232,17 @@ static void mpnic_tx_fill_hdrs(struct sk_buff *skb, struct mpnic_tx_hdrs *hdrs)
->  	else
->  		hdrs->l4_type = MPNIC_TWD_L4_TYPE_UDP;
->  
-> -	hdrs->i3len = skb_transport_offset(skb) - skb_network_offset(skb);
-> -	hdrs->l3_type = ip_hdr(skb)->version == 4 ?
-> -			MPNIC_TWD_L3_TYPE_IPV4 : MPNIC_TWD_L3_TYPE_IPV6;
-> +	if (!skb->encapsulation) {
-> +		hdrs->i3len = skb_transport_offset(skb) - net_off;
-> +		hdrs->l3_type = ip_hdr(skb)->version == 4 ?
-> +				MPNIC_TWD_L3_TYPE_IPV4 : MPNIC_TWD_L3_TYPE_IPV6;
-> +	} else {
-> +		inner_off = skb_inner_network_offset(skb);
-> +		hdrs->o3len = inner_off - net_off;
-> +		hdrs->i3len = skb_inner_transport_offset(skb) - inner_off;
-> +		hdrs->l3_type = inner_ip_hdr(skb)->version == 4 ?
-> +				MPNIC_TWD_L3_TYPE_V6V4 : MPNIC_TWD_L3_TYPE_V6V6;
-> +	}
->  }
->  
->  static bool
+> +static bool
+> +mpnic_tx_lso(struct mpnic_ring *ring, struct sk_buff *skb, __le64 *meta)
+> +{
+
+[ ... ]
+
+> +	*meta |= cpu_to_le64(FIELD_PREP(MPNIC_TWD_L4_HLEN, l4len / 4) |
+> +			     FIELD_PREP(MPNIC_TWD_MSS, shinfo->gso_size) |
+> +			     MPNIC_TWD_FLAG_REQ_LSO);
 
 [Severity: Medium]
-Can skb_inner_transport_offset() be relied on here? In the
-encapsulated GSO branch, mpnic_tx_fill_hdrs() takes the inner L3
-length from inner_transport_header. The rest of the TX path finds the
-L4 header through skb_checksum_start():
+Can the device send runt frames for the last segment here?
 
-  - mpnic_features_check() validates i3len that way.
-  - mpnic_tx_lso() seeds the L4 checksum at skb_checksum_start(skb).
-  - mpnic_tx_lso() also reads the L4 header length from there.
+mpnic_xmit_frame_ring() pads every frame in software:
 
-If the two offsets differ, MPNIC_TWD_L3_IHLEN no longer agrees with
-where the driver says the L4 header is.
+	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
+		goto err_drop;
 
-They can differ. Take an IPv6 GSO packet with an inner extension
-header, such as destination options or a routing header.
-ip6_rcv_core() sets transport_header to network_header +
-sizeof(struct ipv6hdr), which points at the first extension header
-and not at TCP/UDP.
+That suggests the TX path needs at least 60 bytes from the driver. For a
+TSO skb the padding does nothing, because the super-packet is always longer
+than 60 bytes, and the device builds each segment itself.
 
-Suppose the packet is then encapsulated by one of these:
+The last segment carries (skb->len - hdrlen) % gso_size bytes of payload.
+For IPv4 TCP without options (54 bytes of headers) and a remainder of 1 to
+5 bytes, that is a 55 to 59 byte frame. A TCP_NODELAY sender with
+timestamps disabled can produce this, for example 1449 bytes at MSS 1448.
 
-  - bpf_lwt_push_ip_encap()
-  - bpf_skb_adjust_room()
-  - seg6_do_srh()
-  - the IPVS tunnel xmit
-  - the nf_flow_table tunnel push
+Neither mpnic_features_check() nor mpnic_tx_lso() guards against this.
+mpnic_txglb_init() also doesn't configure any MAC or TOF auto-pad.
 
-In each case inner_transport_header is copied from that unadvanced
-transport_header.
+Does the segmentation engine pad the segments it generates to the Ethernet
+minimum? If it doesn't, the link partner would drop those tail segments.
+This also looks unchanged at the end of the series.
 
-validate_xmit_skb() only calls skb_set_inner_transport_header() with
-skb_checksum_start_offset() when netif_needs_gso() is false.
-SKB_GSO_DODGY can be set by virtio_net_hdr_to_skb(), and
-bpf_lwt_push_ip_encap() and bpf_skb_net_grow() add it
-unconditionally. Without NETIF_F_GSO_ROBUST, netif_needs_gso() is
-then true and __skb_gso_segment() runs.
+> +
+> +	hdrlen = skb_checksum_start_offset(skb) + l4len;
+> +	MPNIC_XMIT_CB(skb)->bytecount += (shinfo->gso_segs - 1) * hdrlen;
+> +	MPNIC_XMIT_CB(skb)->gso_segs = shinfo->gso_segs;
+> +
+> +	u64_stats_update_begin(&ring->stats.syncp);
+> +	u64_stats_inc(&ring->stats.twq.hw_gso);
+> +	u64_stats_add(&ring->stats.twq.hw_gso_wire, shinfo->gso_segs);
+> +	u64_stats_update_end(&ring->stats.syncp);
 
-For a dodgy skb, ip6ip6_gso_segment() -> ipv6_gso_segment() ->
-tcp_gso_segment() only validates the packet, updates gso_segs and
-returns NULL segs. The inner ipv6_gso_segment() then jumps to out
-before skb_reset_inner_headers(). So when mpnic_xmit_frame() gets
-the skb, inner_transport_header still points at the inner extension
-header.
+[Severity: Low]
+Should hw_gso and hw_gso_wire be incremented only after the frame has
+actually been handed to the device?
 
-In that case hdrs->i3len is short by the length of the inner
-extension headers. The descriptor tells the device that L4 starts
-somewhere other than where mpnic_tx_lso() seeded the pseudo-header
-checksum. That would corrupt the hardware-segmented frames on the
-wire, and a guest or a BPF program can trigger it.
+mpnic_tx_lso() is called from mpnic_tx_offloads(), which runs before
+mpnic_tx_map() in mpnic_xmit_frame_ring():
 
-Would it be better to compute this as
-skb_checksum_start_offset(skb) - inner_off, which matches
-mpnic_features_check(), mpnic_tx_lso() and fbnic_tx_lso()? The
-GSO_PARTIAL branch added later in the series also uses
-skb_inner_transport_offset() and may need the same change.
+	if (mpnic_tx_offloads(ring, skb, meta))
+		goto err_free;
+
+	if (mpnic_tx_map(ring, skb, meta))
+		goto err_free;
+
+Say mpnic_tx_map() then fails, either on a DMA mapping error or on a
+fragment larger than MPNIC_TWD_LEN. The skb is freed and counted as
+dropped, but hw_gso and hw_gso_wire are not rolled back. The same happens
+to queued TSO skbs that mpnic_clean_twq0() discards with discard set.
+
+mpnic_get_queue_stats_tx() and mpnic_get_base_stats() export these as
+tx-hw-gso-packets and tx-hw-gso-wire-packets. They also add hw_gso_wire
+into tx-needs-csum.
+
+netdev.yaml defines these counters as packets the device segmented and the
+wire packets it generated. On these paths the reported values include
+super-packets the device never segmented. The existing csum_partial
+counter has the same count-at-enqueue pattern.
+
+[ ... ]
+
+> @@ -312,6 +369,10 @@ netdev_features_t mpnic_features_check(struct sk_buff *skb,
+>  	    l2len + i3len + sizeof(struct tcphdr) + MAX_TCP_OPTION_SPACE > 256)
+>  		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+>  
+> +	if (skb_is_gso(skb) &&
+> +	    !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size))
+> +		return features & ~NETIF_F_GSO_MASK;
+
+[Severity: Medium]
+Is the 14-bit field width the only limit the hardware puts on gso_size?
+
+This check only rejects gso_size > 16383. There is no minimum MSS, and
+nothing compares gso_size plus the header length against the largest frame
+the device supports (MPNIC_MAX_JUMBO_FRAME_SIZE, 9742).
+
+gso_size can come from an untrusted sender:
+
+- virtio_net_hdr_to_skb() is used by tun, tap, macvtap and packet sockets
+  with vnet headers. It only raises a small TCP gso_size to
+  TCP_MIN_GSO_SIZE, which is 8, and marks the skb SKB_GSO_DODGY.
+- mpnic doesn't advertise NETIF_F_GSO_ROBUST, so tcp_gso_segment() only
+  recomputes gso_segs and passes the original skb to the driver.
+- On bridged paths, is_skb_forwardable() skips the MTU check for GSO skbs.
+
+So a guest or tap user could make mpnic_tx_lso() program MPNIC_TWD_MSS in
+two problem ranges:
+
+- 8, which means thousands of segments per 64KB descriptor.
+- Roughly 9.7K to 16383, which asks for frames larger than the device
+  supports.
+
+How does the device handle either case?
+
+Drivers such as i40e and ice clear NETIF_F_GSO_MASK in ndo_features_check
+when the MSS is too small. Would a similar lower bound make sense here,
+along with an upper bound tied to the maximum frame size? This also looks
+unchanged at the end of the series.
+
+>  	return features;
+>  }
+>  
+> @@ -357,7 +418,7 @@ static void mpnic_clean_twq0(struct mpnic_napi_vector *nv, int napi_budget,
+>  		}
+>  
+>  		total_bytes += MPNIC_XMIT_CB(skb)->bytecount;
+> -		total_packets++;
+> +		total_packets += MPNIC_XMIT_CB(skb)->gso_segs;
+
+[Severity: Low]
+Does this leave twq.dropped counting in two different units?
+
+When mpnic_clean_twq0() runs with discard set, total_packets now adds wire
+segments to the drop counter:
+
+	if (discard) {
+		...
+		u64_stats_add(&ring->stats.twq.dropped, total_packets);
+
+The error path in mpnic_xmit_frame_ring() still counts one per skb:
+
+err_drop:
+	...
+	u64_stats_inc(&ring->stats.twq.dropped);
+
+TSO skbs also reach that path when the new skb_cow_head() in
+mpnic_tx_lso() fails, or when mpnic_tx_map() fails.
+
+Both counts reach rtnl_link_stats64.tx_dropped through mpnic_get_stats64()
+and mpnic_aggregate_ring_twq_counters(). A dropped TSO super-packet
+therefore counts as gso_segs or as 1, depending on where it was dropped.
+Before this patch both sites counted skbs. This also looks unchanged at the
+end of the series.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106-mpnic-lso-v1-0-e943ff1493e4%40gmail.com
