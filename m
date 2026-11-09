@@ -1,87 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794185521;
-	b=3KhIqKZ963H0znotG2o3JgBHewHeEnYVTWaj8bm0dEF6fzB/IXwq2HpkovQSBP7p0yHe
-	 Xga+hdZfDhxvSVj/ePunhQcaJU3zIa+m/ay/r0XNwkC+6VoSdR/066FNEkKgRZPIoF/fw
-	 apGFv2xlHy/eEy7Uu9HJFQCBNlxMRpBw1L6Gby3iD5Y4oCZIxwFHjpUjK0VIbYsalAABB
-	 pbfBpWHZ+LJhZEOSqZf7hNUMs3lggM5UDabWMJMZpnBy+pnOF8tfmdlb090ToAFmjaptV
-	 DH5Lcp4YQNs6zjt4h/GWmQLwIuNi0DU9tJZ6ON06PUFRnI/qOCyws+u290XHyZjDCAw==
+	t=1794185784;
+	b=Gp4p5VryoF4FcS7u8QeQlnB6ZfPuj/HBN5mpBChcmb794oqefidJxtdnMLEHbAocqKmX
+	 2KyB67vgk3DbP2Uhq8KBEwzjrfhUk5DsHj1z18Dmq6M/DeKabF23lpumZ/ywjNBsBcbyK
+	 WkXk4MpIQkRikjRuxzSLpXh96nw9q19obBtEzNerVCXoJgDwRYp20T9z48tNpOheaLdUP
+	 WQcSJS3KxhIV1owGeYvVNRv6f3/R1SjebpI6UQ+GxDmwC5srfL4bDbKqAkBiUMj94N6M6
+	 AdXHxgnTc8xj1D2y7bVZ71pdVc8kfLhclULqNtYCVzae30cK0i0W/lAKtOQNzr9WMcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794185521;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794185784;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=A2/Aph2qfH3RXUgYlqDL38imd1N9APnssAe7CDVkTj4=;
-	b=vJ88Ot44uvPM7lDVIf8oXIFWgY4jMTXRS4M3EyHVsH1pAzYLscV7TzX7Je24xzysx0nm
-	 mrtxsM6lXtf5hnP9zVCNWcdtWDnSVxby9IOs/8zoa0Zl3j5nGxmwihbcNX4pXePoK6tlJ
-	 Hhw9GIAJ8Gxhb5Z2at5JhFUZwBXurYfclUrWCXKau9+pJ2XmHy/GvOfko6qlYvPbAT+p5
-	 MMWi6ysh5WT+0MLTS/dSuvJ1TcLm/uljgNltFUwj1Wo/QK9G8rXZT49ipABipeIiKyiv1
-	 z29yAteuILFCINdTkJVioAuar50QXSaKxSrFY7q91XAtjZTSjvp09NKXcQYdSJmssrA==
+	bh=wWvcDa/WwpL4fAk+8aWJpTDqskV0sSrReLOpPCt1GP8=;
+	b=N8xZ1elkzoN3/1Fjew8MP2U+wwgJvC8rLIUtzsi6WRSY3ltonigGUdh/tcn5RFLdjFKt
+	 On4TNR25s6p1Ry3VGeoH3vOV+1YFVB4bitHCt4ePS94viDMNTeMZ7egV4UJc+XiTLYR6c
+	 7yvdNY8Pq/JKcIU/f8xnyjWjPQB276jik7n9jq6kQRPfoyvVxWuP+0+8ovfjeTZT38MJx
+	 ohJlZj7wymn+nX4JDUtKwWNqEnt0PaxGqCL1Ra65H3C52izQ7oKdk1k2GDDgtML77DaN0
+	 q1lwUsWQhhcQrwwpinLbE3YV6CLUQl3eAD72awkPJpURyyCgbG12zVc2mCu8Il+RJeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Crw2+fBt;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJmihHlY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CAC606D809;
-	Mon,  9 Nov 2026 00:52:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89CAC606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DAA3606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 00:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Crw2+fBt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794185521; x=1825721521;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=dffyN6jv3w949aLbiEJmcopGK9+iRTGjwv7+QCFfef0=;
-  b=Crw2+fBtsDiIRSOFzoJ0MWQcQ9dlqluhqusYnHN/NMlpKi4605uDfXti
-   dQQR+65+Dagy8iquRwep5KJiPTdE00CkE15Eb66j066BxlfR1KubNWEio
-   YzdoxNZUCIVlSt3uZuv0FR/v/If8jO9y8RrgN8WYgweNfUcO7yeKSOOmE
-   dvmI3ssqAtR9+iAIwucWMaqJrOl8AFUuNNxQo5HCqcOL6thaK2La7YUJp
-   +eBU9AtrCwK25E6vYYvVWsowuDCoIQ8qm0/nVvqXWrwvMivnIs2M7wJxF
-   1kAS9CdpgNix+1l2nEUSsgXwvn3/YywhGHgDeuYBWsxmoCIudhlhwwMcA
-   Q==;
-X-CSE-ConnectionGUID: zSoK8cp9SOajDWkW7DBKXg==
-X-CSE-MsgGUID: 1YgST6asThemST+d5tULfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2829569"
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="2829569"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 16:52:00 -0800
-X-CSE-ConnectionGUID: vD4d9O+XS62fimFFSjsC4A==
-X-CSE-MsgGUID: QJ0cX3TFSEmgjvLZ3WbFjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="7874364"
-Received: from spr.sh.intel.com ([10.112.229.196])
-  by fmviesa005.fm.intel.com with ESMTP; 08 Nov 2026 16:51:58 -0800
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJmihHlY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3402B1F0089F;
+	Mon,  9 Nov 2026 00:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794185784;
+	bh=wWvcDa/WwpL4fAk+8aWJpTDqskV0sSrReLOpPCt1GP8=;
+	h=From:To:Cc:Subject:Date;
+	b=hJmihHlY1KY9fSPEHHq/wRf+rIUkbw6KfI9lXcmq1qCKwjATn34gLnlatfOVZWDR4
+	 BfD0uHtHLN51tSLXXIR1lhHacA2P1qYkyL3FrW81K9CMYRs/YsF2NeshWDACNm9UW3
+	 pPYKbZeQMrbmR+Oeupsi7FiLkTzWMZVfMDxAy9Rnv93eV9yLZaco85okmhjxl7akjJ
+	 vp+z4T8wR6uQepuJbTm90BR6x9t/U6olIViyzovp1N2n8WqjWN9WwAt1P0Wdzj59aQ
+	 cJoDpWR/RkSks4vDmQnkGI1IhnOoZxC6Wk0EooqeBSjOtDKoCnOKvDCFKFnky16uKE
+	 LbgotiwjR+Gxw==
+From: Thorsten Blum <blum@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Dapeng Mi <dapeng1.mi@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: [Patch v2 5/5] perf c2c: Rename "Region" column to "Range" for consistency
-Date: Mon,  9 Nov 2026 08:44:02 +0800
-Message-Id: <20261109004402.1403713-6-dapeng1.mi@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109004402.1403713-1-dapeng1.mi@linux.intel.com>
-References: <20261109004402.1403713-1-dapeng1.mi@linux.intel.com>
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nicolas Schier <n.schier@fritz.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Jan Stancek <jstancek@redhat.com>,
+	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Thorsten Blum <blum@kernel.org>
+Subject: [PATCH v3 0/4] x86/boot/compressed: Enable -Wunused and remove unused variables
+Date: Mon,  9 Nov 2026 01:55:28 +0100
+Message-ID: <20261109005528.3477-6-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,53 +69,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1692; i=blum@kernel.org; h=from:subject; bh=oRLokQfYDPEMTVnqRXOhsHiQU1F/6UlA3R93CYSlwyE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfpRimqEXM5HsaJNByJr/waJTIq+M79gtoOnbe0I84/ Gmh78EdHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjAR4RkMf4XX8K9dKrZaeoLy grP7Zs1mL37boXDG0cjIouTKF9dPeacZGf4q9gVwxEXcMX0T8mGGs8qx3a6vt1xcW7mx+m1Ng84 yIS4A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Currently the "Memory Ranges" header uses the word "range" to indicate
-a memory region, however the top-level cachelines and per-cacheline pages
-label the memory-region column as "Region". This naming mismatch could
-confuse the users.
+This series marks potentially unused variables and functions as
+__maybe_unused and removes truly unused ones. Patch 4 enables -Wunused,
+matching the W=0 kernel defaults. With WERROR=y, the warnings failed as
+follows:
 
-Rename the column label to "Range" to match the existing "Memory Ranges"
-terminology and keep the output clearer for users.
+  arch/x86/boot/compressed/acpi.c:25:1: error: '__efi_get_rsdp_addr' defined but not used
+  arch/x86/boot/compressed/acpi.c:29:6: error: unused variable 'ret'
+  arch/x86/boot/compressed/acpi.c:57:15: error: unused variable 'nr_tables'
+  arch/x86/boot/compressed/efi.c:64:16: error: unused variable 'et'
+  arch/x86/boot/compressed/efi.c:136:6: error: unused variable 'ret'
+  arch/x86/boot/compressed/kaslr.c:600:13: error: unused variable 'i'
 
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
----
- tools/perf/builtin-c2c.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Patch 2 also drops a redundant efi_get_system_table() call and uses the
+existing efi_get_conf_table() error path.
 
-diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
-index a2dcc65d6b3c..94fca3e4fc0a 100644
---- a/tools/perf/builtin-c2c.c
-+++ b/tools/perf/builtin-c2c.c
-@@ -1395,11 +1395,11 @@ static struct c2c_dimension dim_dcacheline_node = {
- };
- 
- static struct c2c_dimension dim_dcacheline_mem_region = {
--	.header		= HEADER_LOW("Region"),
-+	.header		= HEADER_LOW("Range"),
- 	.name		= "dcacheline_mem_region",
- 	.cmp		= empty_cmp,
- 	.entry		= dcacheline_node_mem_region,
--	.width		= 6,
-+	.width		= 5,
- };
- 
- static struct c2c_dimension dim_dcacheline_count = {
-@@ -1429,11 +1429,11 @@ static struct c2c_dimension dim_offset_node = {
- };
- 
- static struct c2c_dimension dim_offset_mem_region = {
--	.header		= HEADER_LOW("Region"),
-+	.header		= HEADER_LOW("Range"),
- 	.name		= "offset_mem_region",
- 	.cmp		= empty_cmp,
- 	.entry		= dcacheline_node_mem_region,
--	.width		= 6,
-+	.width		= 5,
- };
- 
- static struct c2c_dimension dim_iaddr = {
--- 
-2.34.1
+Changes in v3:
+- Rebase patch 4/4
+- v2: https://lore.kernel.org/r/20260624120300.590233-6-thorsten.blum@linux.dev/
+
+Changes in v2:
+- Fix a kernel test robot issue by marking __efi_get_rsdp_addr() as
+  __maybe_unused: https://lore.kernel.org/r/202606240416.cXegPpiJ-lkp@intel.com/
+- v1: https://lore.kernel.org/r/20260621144116.224010-6-thorsten.blum@linux.dev/
+
+Thorsten Blum (4):
+  x86/boot/compressed: Remove unused variables in EFI helpers
+  x86/boot/compressed: Clean up EFI RSDP lookup in efi_get_rsdp_addr()
+  x86/boot/compressed: Mark process_mem_region() index __maybe_unused
+  x86/boot/compressed: Enable -Wunused
+
+ arch/x86/boot/compressed/Makefile |  3 +++
+ arch/x86/boot/compressed/acpi.c   | 18 ++++--------------
+ arch/x86/boot/compressed/efi.c    | 17 +++++------------
+ arch/x86/boot/compressed/kaslr.c  |  3 ++-
+ 4 files changed, 14 insertions(+), 27 deletions(-)
 
