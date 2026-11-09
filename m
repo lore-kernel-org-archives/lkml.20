@@ -1,82 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232973;
-	b=hqfzTc+qrMdIoFdon4QM7oAg5IvO8QYV0OndROrUxxzjmGX8iXBYMCmhfAO3yNqTOl4N
-	 XDmMut5q/GGDYln0SPmFJdSfACrulY/UE7bPPzIWI0c/G09fa3ckVpvbhgTsNflqEMrq5
-	 Bgyg/8TZr5lqKKUFMJnSPVV6/zR0QUXp4LWIlK/NWqAIdk5FN669kPNYYq1TB5zLgYbGZ
-	 i2dTzrZueY6y1NMLZEqZuBIPZLq6rFxh3D2u0ZMC1JV8AyIP63aLWLKz3jqddZ4gcHOlH
-	 PBHd0AwGKQPqVf3nKeCjD8eF6sPVRoLXjgr7gd6fu6jgctrEDJVP/4dIO1bqjU3qhtw==
+	t=1794232980;
+	b=VcZj87aOHoBkF/hLXCEKTspzLOPDfTNzxjsde39g8gf1zg+6KT0Lnt/Y0gKlp4mZfpeB
+	 WgvaEq/7U6qSXb9C7Px4D0mOnDbaFMrdpHNSyD3ZEoWEaSRNXkh1VGEtgVUnyl1aoQDQN
+	 NUtZK+o/2/VSNgptM6M39DANuIQFkoz9zO10eb7omoNiqJo2ICWgH91aTqXtnrKUqVUks
+	 wfCN29UV+pw+HKs4VB8L5RswbKobEeYFKxEIa+jIK9XHO7b5s8ZjcvYaE3pQ5XX1YrK/2
+	 DHQ5z1dxFSvz1OOb2FFkPq3dkab2wTQiBDR3ksQne2Er5eYUd1pCuEpBwMKLJCs/LYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232973;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3S4VhO94oDwkQsqfRw+fJ+qbREQfExEllSNmfm4R2Hw=;
-	b=NZ2KswHSrQFxtBK2vKpYZslQU+hJxMgzevwbTuFxo6LPEewOoYS6auBccF7op6zgnyKx
-	 nHrfhe0R5jDr/nclKgY0TOr723q5rkqFMqrrFRmFUJuiKnkQppajcgqEqUZtATk8pc5TV
-	 1zo+aQAeAomMOQg4471H2d6K8eOMOtqjz85mQqbkC/VE0mzF+cK0aIJUWAas15YYheOgb
-	 VcMkgcwwbEe5UQWIvYlNoDGq9bSjue4WTZj4R7+zGLcsjn6PBYyMbHF9ThPnGYmpdZXb4
-	 rMh5sSPiqJBjrHn3q6fNcv+2LCUb0ET1FJQ0Vgbl4Os8Jr2IHpI47W6BnIDV44VWQ7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232980;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=4IFgMuSamtCGf6cM8viFLNQK7HTuhKxaxt4FU0NAK/Q=;
+	b=UCxWHcK+MNsBa4dIYvDilrI7JlHxXGnr01h/82f4QX0orZlTUhdlrKkZRyl0C7sktQeX
+	 vo3327Dg8tO1lIBSjbGzvualJrNUpquaQC7J0MDtC7leEcOiF3EVhLa7JmudtXYUjx2uK
+	 3akF3YXl0oukPZgj4otSg2LfkmaWTPkftiwJnbxNyzspOjw8n2YhAXZ21quzKduSFAP2N
+	 oAD/Guq5KadSKt7VWSR0+Ar74Qervhl7+kFFqFuTZ0VO8fXDlV5n8g5v+XovnO/UMWhaC
+	 YOT8sIfvtxWwC0qXXhdEUXtz29MDbUTT51kxy+qmtOnU44Zu8lw1pYO5lnpKxRFUKyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=RxsI8RE8;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TDzWzqut;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RNG7T3a2;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA83D606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA83D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE88606A31C;
+	Mon,  9 Nov 2026 14:03:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE88606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=RxsI8RE8
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DEgj33699559;
-	Mon, 9 Nov 2026 14:02:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=3S4VhO
-	94oDwkQsqfRw+fJ+qbREQfExEllSNmfm4R2Hw=; b=RxsI8RE8HYJMaIfLGZEwTU
-	JrFcM266cOAq4v9xCzAdd/JdSMD04AtCdiZfhuJE4x59AMsbUVe8+SaxiZbVr0Zd
-	ZfKsi462CSsO95poLLMF2S3MQKEIvERPsdR9Zf5Es7fMA5ZkZY9BHeZY7CqpmdRd
-	QV9ZtDva8nO1b/HcCv4guSdRgFUiyHU7/GUr6MDWQIJpAShIOhrO/I6kvWKSxEgG
-	XFXENYebItAlJQB0TUEUixgTuW2TBRLfw29SQ0xBxayKeBEwQCAKlFFbqqdTuiyI
-	Qo5fvu/ZxVK/AVhOHpvHXayR0TG4Hbdgaq6o4irAtagPi38PfPCENJ7T5VPlvIrA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug5wh7s-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 14:02:20 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DK5Gg3151432;
-	Mon, 9 Nov 2026 14:02:19 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4htghfyrbg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 14:02:19 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9E2Hdg46989616
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 9 Nov 2026 14:02:17 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A292620040;
-	Mon,  9 Nov 2026 14:02:17 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A6B9920043;
-	Mon,  9 Nov 2026 14:02:14 +0000 (GMT)
-Received: from [9.124.212.131] (unknown [9.124.212.131])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  9 Nov 2026 14:02:14 +0000 (GMT)
-Message-ID: <3dcbccdd-0a50-4b57-b0bf-79b55911bfa2@linux.ibm.com>
-Date: Mon, 9 Nov 2026 19:32:13 +0530
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TDzWzqut;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RNG7T3a2
+Date: Mon, 09 Nov 2026 14:02:56 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794232978;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4IFgMuSamtCGf6cM8viFLNQK7HTuhKxaxt4FU0NAK/Q=;
+	b=TDzWzqutpPKRvZfEfTlr6nocOH0sVMEDRnscjjtNQPn4FiNxwIJqu+4ULRY8Px4ZbQ0m3t
+	Bk0zgaLSFwtj7iBHre4hxVS9DQBNGygba/ZggsTSKlXeB5A9CYssbD7Rs38tnC2XDIFoEG
+	AUM0Z39qpyNq1/i4J29vgUOPZFiH42yKqiy6bw6fzZs3oTZ5XJ1FO4VZQc9JvwV9Wb9SgO
+	5utC6d1MQZZB6Hm4oQjgWNM0WX5cMTcVQv2wcoAZ8jMbG5f+Ki55juzNyNrDHkqWWzSiZs
+	Vc17yIkHIjW6N1k2KbGKWjv9UygqTrTIfiqWCFI4fGyQNOit9wG1zAVGDPxuAw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794232978;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4IFgMuSamtCGf6cM8viFLNQK7HTuhKxaxt4FU0NAK/Q=;
+	b=RNG7T3a2TJPYh9Q314qHXZ8OKrpP/yqnPydgxZ/CYtubw46fJAX+umi6eT3ub/1dByV3MU
+	ijTbRkwK4zAuU6Cw==
+From: "tip-bot2 for Avi Weiss" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: irq/core] genirq: Resend pending interrupts after handle_simple_irq()
+Cc: Avi Weiss <thnkslprpt@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261101101635.270221-1-thnkslprpt@gmail.com>
+References: <20261101101635.270221-1-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,103 +79,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/core: Fix a TOCTOU bug in
- sched_non_preferred_cpu_push_stop()
-To: Fushuai Wang <fushuai.wang@linux.dev>, mingo@redhat.com,
-        peterz@infradead.org, juri.lelli@redhat.com,
-        vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-        rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-        vschneid@redhat.com, kprateek.nayak@amd.com
-Cc: linux-kernel@vger.kernel.org, wangfushuai@baidu.com
-References: <20261109083130.1679-1-fushuai.wang@linux.dev>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <20261109083130.1679-1-fushuai.wang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: zYsDelZRSbXhCTEZOMhRxQxOVhhSe8YN
-X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af1d26c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=zuLzuavZAAAA:8 a=Tcm3tUNZ0R_kjyZ4jMMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 1e8m9KwYVgcXC1Q7GQJQa0W6oYz8uTud
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1NCBTYWx0ZWRfX8b4U1fmmF+AP
- GFryA8IJEwGmWVed1rM/d/L8nA83w7XVkz6NBvMLodrxkrWoTdISe4+iPDvH7xH3a8OFg8j+0tS
- FE8gFjRhb1FauJeb6fJxLgu3xpW8MWvVDZA3AJXbidMD9whvV+Tx3cj/7xcKS9jVxg6iQ0Ei3xE
- 2ISZ7APCnCS/+gdlhOIq8i1xDSo5BBSjxkh8y34TvDwsxZyCB6gFqu4gkgTInMiT6LrSlE9bNrk
- x3nG4uUZkU6HwyaHs1iso/6mOKn6oNyHWqSa3eVMPpmVZeHrtJg9DKJe3hclSE4dRsjvWS6zP+h
- A08DybKiBBN/zmClLegQcwPS1WT9xxvIbdVrinBtGsTvaajWMbaTgWoCP5rctdPTpnyEC9o4YqL
- oDrfZ/S//y4TluvkXlA3ZhNx4qMMKHc+IMy3IKvZMtvasnIY9oCCppgxUzPOtMvMnmkZINgPIQW
- nOzWWTiM02sTIcuUOxQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1NCBTYWx0ZWRfX2Mk90JOwu154
- vc9G3wrXUvTz6tuXWOSJ1I8VqVEMxefCq6jlAYCsWFXRe5wHErBggFWLZIRnJq4ANh72bmU7IK7
- W9p0fbLkxfmIyb4Sn/v51eR2a2ZD0h4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090054
+Message-ID: <179423297601.2093942.3253583766812995270.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Fushuai.
+The following commit has been merged into the irq/core branch of tip:
 
-On 11/9/26 2:01 PM, Fushuai Wang wrote:
-> From: Fushuai Wang <wangfushuai@baidu.com>
-> 
-> sched_push_current_non_preferred_cpu() is called in irq context. It
-> checks is_migration_disabled() before queuing the stopper, but the
-> task may continue running and enter migrate_disable() before the stopper
-> runs.
-> Recheck is_migration_disabled() in sched_non_preferred_cpu_push_stop()
-> before calling __migrate_task().
-> 
->    WARNING: kernel/sched/core.c:3432 at set_task_cpu+0x1b8/0xdf0, CPU#21: migration/21/152
->    Stopper: sched_non_preferred_cpu_push_stop+0x0/0xb10 <- sched_push_current_non_preferred_cpu+0x6a6/0x9a0
->    ...
->    Call Trace:
->     <TASK>
->     ? __this_cpu_preempt_check+0x13/0x20
->     move_queued_task+0xfc/0x650
->     ? is_cpu_allowed+0x341/0x820
->     ? __this_cpu_preempt_check+0x13/0x20
->     sched_non_preferred_cpu_push_stop+0x7b7/0xb10
->     ? __pfx_sched_non_preferred_cpu_push_stop+0x10/0x10
->     ...
->     </TASK>
-> 
+Commit-ID:     1aed0e209f0c3bb1f28d4d69c2fc23528d30981e
+Gitweb:        https://git.kernel.org/tip/1aed0e209f0c3bb1f28d4d69c2fc23528d3=
+0981e
+Author:        Avi Weiss <thnkslprpt@gmail.com>
+AuthorDate:    Sun, 01 Nov 2026 12:16:35 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 14:59:39 +01:00
 
-How does rest of the stack look like? Is it disabling preemption where
-stopper is not getting a chance to run before task sets migrate_disable?
+genirq: Resend pending interrupts after handle_simple_irq()
 
-> Fixes: 74699f56ebcf ("sched/core: Push current task from non preferred CPU")
-> Signed-off-by: Fushuai Wang <wangfushuai@baidu.com>
-> ---
->   kernel/sched/core.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 1a088d4576f5..8ed7613eafd6 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11317,7 +11317,8 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
->   		rq->npc_push_work_pending = false;
->   		update_rq_clock(rq);
->   
-> -		if (task_rq(p) == rq && task_on_rq_queued(p)) {
-> +		if (task_rq(p) == rq && task_on_rq_queued(p) &&
-> +		    !is_migration_disabled(p)) {
->   			struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
->   
+Commit 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an
+in-progress interrupt") sets IRQS_PENDING when an interrupt arrives
+while another CPU is handling the IRQ. However, handle_simple_irq()
+does not check for the pending interrupt after the initial handling
+completes, so no resend is requested and the interrupt remains pending
+without being signalled.
 
-I thought it is unnecessary.
-https://lore.kernel.org/all/4e2421fe-4b26-4d92-8709-bfa8d3a4114a@linux.ibm.com/#t
+Check IRQS_PENDING after handle_irq_event() and request a resend, as
+handle_fasteoi_irq() already does.
 
-Can you share how you are running into this?
+Fixes: 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an in-progr=
+ess interrupt")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261101101635.270221-1-thnkslprpt@gmail.com
+---
+ kernel/irq/chip.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->   			if (rq != dest_rq)
+diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
+index de754db..4a131dd 100644
+--- a/kernel/irq/chip.c
++++ b/kernel/irq/chip.c
+@@ -626,6 +626,8 @@ void handle_simple_irq(struct irq_desc *desc)
+=20
+ 	kstat_incr_irqs_this_cpu(desc);
+ 	handle_irq_event(desc);
++	if (unlikely(desc->istate & IRQS_PENDING))
++		check_irq_resend(desc, false);
+ }
+ EXPORT_SYMBOL_GPL(handle_simple_irq);
+=20
