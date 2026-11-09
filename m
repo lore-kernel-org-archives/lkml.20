@@ -1,82 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221578;
-	b=bDWbvqCY0CRtbzCAbaR3k2meWQbhybRPS8FUtQ4+ABAx0BOGYtVLc3RrvPCTKI/0Qe9u
-	 Uqm4DjwyoyLBhr7bM66+sdBrRXiSd4BhhJKMhvAygFbquNRpvFwMvaOF//gsiF9hojTiK
-	 aRa3oq5dlQuj8eHuXEZyscFXDM1wiLn9/8X+3CK1Vnenx4fa3Q+MAAG49+H/omWl5j6NK
-	 XVys9WtE2Y2jUwHTdfyaMlsWWmyrapSOjwMnndcMNsnV9+omCUwjnuQPm4q97kt/adc7E
-	 Us+G7oQxWtTVh3X7zeP+tfS4PVZ9dHsaT3tnS6Mpx40tR85AyHu/90NTUp9jEYWTqwA==
+	t=1794221584;
+	b=omWp4A9oI6xqWnSVQgshY4/KqXq7JA0rzEgyaI4m8gGrDtQPkjgGCaPE3PE3Z48bI7RX
+	 BYFnipvtXB7AU3gMRc1uveDmuphIl7/7kK1sc10zpnK2h2maigBCGum1gKuszefv132bI
+	 RxD4z+iybZNxV6YbS5y+bnndyokgd+YYp7n71vGD0YH2gIWbKojB1u7YSXLdeELvIvrBg
+	 +AuxY0IDf6YdSCVWFtM0cXx64EU7AcJ/E2mldVCKGQlkbae5HB7PF+uDawUDLwR2ZeHUD
+	 buekgdPGQgYbPmu+I6FnyZlgNEldMApIWgYuf3kFlHA538GpJSS24TpH1pxVpMBTY5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221584;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1zQyQfd7Pg+TzVSNkwUE2q6hgZHqlG+eVtCLMd8G0fQ=;
-	b=KfjV3kDbXm7ox1Ue415BagqUCE1SfjwfFRYQy1UTFUJ98+ZuWOlEnF1Jd9DEQVJW/qm5
-	 HSH3bfz+wCbhvrflFx/7nAmOb1gHF6a/KsMw7BVsNh0DXtlbXiwIOhw3MacuUTVsAZipI
-	 CiZ61/mSKXT4L5y7G5u2MdO2sWvnHMHkPB4l8q/fXGu0YzA8VaOp0914rcRjdInGIEH8p
-	 vxyekSK+vHeLtn10T0+nj43zL/E6uGkC1RowxlvEkTNBMdAdDjhrVnMabkV/oU6lE+kV/
-	 09iBC8+dk0fFv6fd2Ey8CZyiAgP/Fv8rDLTAnHI9h1SfQlmXyAfPlQ0i31JnFGLN/ew==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7gQkAftGc6feY9izPoJt+dP0xjoWhSwyQPi0WVN939U=;
+	b=uDq9GXR98hpfPJYf6hCwKvhtgfCKmUoKZv01SihCMW8PovYTKTm2TWSeV9xU7N+vvnUm
+	 JaG2KAy5U5Fe4iUzHX1R3HqUBzB4H0zR16u1OpwdE4Y8+xA57S+j2XmN5JZVF85fxgy+p
+	 vXKSvE6DBAnfx+pTKTKITqQp1jYO0f9nI0I45u0kBoX/KhIrhcKJd9ndizbla3NR9yTK7
+	 B9i2OgAQg2DnOoYnaGm2Ke/jPWlGxHHR/8QxHeyTE5/pxKqiBu4P59D/qTNFqoYNREy3U
+	 ppBWIxjuOUBVyVGVWRadOVSKLTIRpCag5Nv1Aln5i6bUXOjX2gQ704E4USxy6CPMFfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
 	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=mrbtu23g;
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=iuwFimSr;
 	arc=none smtp.remote-ip=74.125.82.51
 Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CB0606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88CB0606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF56606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:53:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF56606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=mrbtu23g
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1ae18eb9b69so701198c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:52:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=iuwFimSr
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b2513decc3so795589c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:53:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1794221576; x=1794826376; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1zQyQfd7Pg+TzVSNkwUE2q6hgZHqlG+eVtCLMd8G0fQ=;
-        b=mrbtu23gmpxDhvj9lIuLzVAcy9ggR/dACUCylfJdr5HPlW7rbfwu8g7y6HvT5aCGLd
-         EVv2Mq/Uqm8mrnmUcoSZkM7in1s4s9q47VGjkIfbLhcbJYpCrA4mGcVVo4vjd6fnrpce
-         UHC4Tncg/hnG3BZSBbRALWFbLbTOd5B4RyFy/BtFzoP2k6xjKNQPcnIQGvL5oSkXbtRP
-         ZMpCCx8vTsm1yg5tyx2DkAtTUA5EkLqkb4o9KChWxZRoLw09fDagWW5/mPV4ADn1VGze
-         tCgtC+9kVwqxgIGUDbEDBH1BfwFoCaYdI6yvrPtaOODI8fZmLx9X8zCKl8K0pcOSYsyn
-         tQGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794221576; x=1794826376;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=is.s.u-tokyo.ac.jp; s=google; t=1794221583; x=1794826383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1zQyQfd7Pg+TzVSNkwUE2q6hgZHqlG+eVtCLMd8G0fQ=;
-        b=uWLGN2RKfczZvHkgEF1bdtgC95B9wQDA1hnwWsg5lPqfUQNcgE8Bhk4g7oFoB41Z9W
-         eswt8A76Qhu5dVmiKp3LBBeJmF3ZZqc5OFmFPjFLyfpVhXhzd5BOdKsBOnXAJDNkftlV
-         E11jYMpRaBgrmSKnYC2Eggei+T+d4g8SaBMSkQTecpCbfJI2xJnF6kPOMacFw9t6AvPw
-         xRx82dbyIowMmBZjX4QFQpNSiAMy/7+NK0febqEritpkJgqOVHXyhRjDh+Exmrsk9zeJ
-         /fuIQeRZez8jSKeYfzd+0Xj2rECLWM6jPbGEvYr4jgNGvgJfLCKgsMDmw1nIjIjTSNNq
-         KVIA==
-X-Forwarded-Encrypted: i=1; AL+hErFBR/086V4P+09RbVyTkW3/ck6YE5pxkgd/eOjhEXsC1fxCwHTrrueVG6CLUc9O0//Vlou45k4+ex5www0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HGLWnXN9bbSkzgJQoX2WTfjnDwzexPw7NtoKeL3b+7R/3iA8a
-	U4XNf5KiaCCvVGiCa94EM3sZN4pB5AJ+REweOHCl89bWXvwCz1DTI0fzalpAvtUmUw==
-X-Gm-Gg: AYBFou0ULlmr8PnxGWbA2DMYsiWRvYP1jLGeAq19uCwiyI+giBOoscyFOe/R70DEyWH
-	BNQoRuNLlNAeRQ3kp4vY3eyh+n6Ep7pXIkWliPDVC+1nGAQ9ecld/i/wF+Fhqwcl8LkNRT0k/4M
-	q5TMXiqVLzgXetk1ie2oiHbJ4/NCQi5xnD+njYix8gPs1PeX5tKGc+jlWNORe3i9EvXbGDa5lM/
-	T8cdlMQVUVQn8L9q/L11zUwnxLGfUN2gDfcB9J7zAjR+CtV4LxUfT6Pi3Xb9L6m2WSz3Tc1264v
-	iWvHdTd+W6f8o0Kn0kpg2PkheFq9LYTbVVnmijnRwb/vq3vDuXXX6JYmZhBAxXig/pMahpd1nNx
-	4ZGmH4MmOG+d3U91ymyugeZnGl6JbeKJdu0UG2OBzXaaXGJATMkvIpqJlHYFFL3M566IHvK1PLd
-	FMPH74jM21BMj/xxDy1numn1QdsMyq21TKFDEbQCNd+LN7/z0rMSe+V+Q6Tf8g02XTOT/oGJeyW
-	Tz/dBpYZ5Aa61xOm1+ERwpnkPqqdQIG9PYva0zL/82lzN4nBuiGCbj1s9ULunEdGBpQ9mzJJ0O2
-	2OzfTKGVTpOLzEOOKMhSbiIo0uBc2jSLKLsGFA==
-X-Received: by 2002:a05:701b:464b:b0:1b2:6855:99ac with SMTP id a92af1059eb24-1b39ff1d913mr5044256c88.46.1794221576448;
-        Mon, 09 Nov 2026 02:52:56 -0800 (PST)
+        bh=7gQkAftGc6feY9izPoJt+dP0xjoWhSwyQPi0WVN939U=;
+        b=iuwFimSrqv9XlDbzpW1iOYqtZawE7Uk8u6Mmd5lCyb4oscwXFUkWIxbvE8TtA+B/9S
+         ZL/mgAeaqdw29LV4vO7pODn1BiuVvrQYpM5sTA8f6DbqEXfoEPeko4goDe/x4ErWC+zg
+         +mODSEvFq5ljQbezobel1yT8x9XnU9x+FhdIYHgKNmWpmC7F8BECM6OYnhPOsQ0fyeVt
+         YBJ4g1M23Apn+MSghcLnFUBB94s470TgEjMgU1+1iA1sU3XnwxLiIm1wyvD8SRaXtyZS
+         76WQ/wBqIlMIyzzqrowOvVe0TL6FFxqOQ3bRWcwgVgz0HYZ+5GzUwjs8CYqUjWpOrh8+
+         uHaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794221583; x=1794826383;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7gQkAftGc6feY9izPoJt+dP0xjoWhSwyQPi0WVN939U=;
+        b=iVbQMkOpfEXFNYBq0Px32fzejemG0K3yQppnGzZWs8kar4GWrmz8q+EI2mKGhutJuK
+         1n/42NFbwo1CG198YD4S2VUGQJNOn762o5VCzntjKe43/VGMCJkeJkL3CrH6naP7xH4N
+         u63T39+SitJx2D2B5jGrdQJkPwVVv6El8cNV0JqCA2jnWogIGfP+JUwQeaCNaObfoZ4B
+         NaewFJjCnuVBMWJLnTXLMJ2cQ7BPMHBtlACW+NNg/yxJ49A8EP77sOIyxWVwOS9/Ut59
+         TvAaVq/ReSQ/Tpi944IG6R7IOjj8LPtcDikxaUvvVUbcNV5YBPalaH+S3UJr4CEJcJQz
+         fNlA==
+X-Forwarded-Encrypted: i=1; AL+hErHc1jMAsfDZ4nmLXDrEWnhXX9bwTlwlvAWLR9dIK4t/Y3mZSXFai54cM9e13WmcMJk6KJGWv58/O8lA/Ok=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KOoeGF5qtOR396PN+4Di2NyOEh4DIV4SdAp2yvjzTPx4g9EXb
+	asvht28FC9q5fCs/BHwRzKlu+iJX3LkHSw2NIkCTJSe7NLIr+VUMdcEjXLY6vOVlMA==
+X-Gm-Gg: AYBFou32TOaw8kS5WupDplVYT95CXGqOOL+0kgWV+/JkGstN2mxCROdBygDqLRrBB9K
+	jnJNcvCW8nxhRknluViVOAAEAPTJaxThJT5qPXHCYZMDqpLkrHrSzS4/M/hYW+k8flNQs2Q0vF/
+	huK4zjFg3tNTasbiI9qBbJOywiTAHea+7BJg5M5fjtP84xSYCb3cGd5GrjNbJSKL9fL+ti7UGC5
+	92bRWkGm+NtoPtDQGg0idGb8cxBYF5tj5t97lQgSGPL1PoPpjkw90M54cLfBZAOfTagbTQsWTiq
+	Jmc6r/fBCE3hivPI4l1fyoPuzqCJQvqtRsrXg7oHsYMf+i+cuFNpuotBmgn0oUudIswdhQc4rgk
+	CXVoEwvF4mYqa5JpZDIi71Yv8fyHVIfDaFiGcmcq3LWZUKO+uGir66U/AXiXYEj9b6y63ojiNuD
+	ll+YG5X27s6rB94paMbcAp/ryYf5HpY2NsI1cJbmQRDO78SnWwLF4n/kNeqyG4Skr5IsrBysQiH
+	92/C4mksuJ5KRhJX0+08VLTFG2hMQfJ/ukqfz/StcrzV85F9PAQ7ndMh9oyj+NgSxnYlIDxw7d1
+	NyO5RtBJDDloL4mHRNcJVFoVXopKb8N5H8+LAdQ+9dm9fz9YHQNaR+SIcndT
+X-Received: by 2002:a05:701b:2214:b0:16d:1e24:5cc3 with SMTP id a92af1059eb24-1b39feda859mr6171128c88.19.1794221582983;
+        Mon, 09 Nov 2026 02:53:02 -0800 (PST)
 Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375726fd1sm12228744c88.14.2026.11.09.02.52.53
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375726fd1sm12228744c88.14.2026.11.09.02.53.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:52:56 -0800 (PST)
+        Mon, 09 Nov 2026 02:53:02 -0800 (PST)
 From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 To: Eric Van Hensbergen <ericvh@kernel.org>,
 	Latchesar Ionkov <lucho@ionkov.net>,
@@ -96,11 +97,14 @@ Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
 	v9fs@lists.linux.dev,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>
-Subject: [PATCH 0/5] 9p: bound zero-copy error replies and keep flushed requests until the device returns them
-Date: Mon,  9 Nov 2026 19:52:46 +0900
-Message-ID: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/5] 9p: ignore a zero-copy reply that arrives after a fatal signal
+Date: Mon,  9 Nov 2026 19:52:48 +0900
+Message-ID: <20261109105251.2545764-3-lian@is.s.u-tokyo.ac.jp>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
+References: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,29 +116,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes memory errors caused by a misbehaving virtio-9p device
-in zero-copy requests and in the flush of an interrupted request. A
-correct device can also cause a double put, which is fixed in patch 3. A
-zero-copy write interrupted by a fatal signal can also overwrite a later
-write to the same file, which is fixed in patch 4.
+When a fatal signal ends the wait of p9_virtio_zc_request() for a
+zero-copy TREAD or TREADDIR, the device can still answer the request
+before the RFLUSH, and p9_client_zc_rpc() parses that reply.
+p9_virtio_zc_request() has returned by then, so it neither bounds the
+reply size nor moves the error string of an RERROR from the reply pages
+into rc.sdata, and p9_check_errors() skips its size check for zero-copy
+requests, so it parses the error string of an oversized reply past the
+end of rc.sdata:
 
-The patches were tested with QEMU modified to send the malformed or slow
-replies.
+  BUG: KASAN: slab-out-of-bounds in p9pdu_readf+0x151e/0x1c50
+  Read of size 8179 at addr ffff888004724009 by task zc9p/155
+  Call Trace:
+   p9pdu_readf+0x151e/0x1c50
+   p9_check_errors+0x23d/0x510
+   p9_client_zc_rpc+0x4f0/0x970
+   p9_client_read_once+0x237/0x6c0
 
-Lianjie Wang (5):
-  9p/virtio: clamp the reply size of a zero-copy request
-  9p: ignore a zero-copy reply that arrives after a fatal signal
-  9p/virtio: keep a request until the device returns it
-  9p: take the tag of a flushed request from the request
-  9p/virtio: keep zero-copy buffers until the device returns them
+Also, the error string that fits within rc.sdata is parsed from
+rc.sdata, but the device wrote only the header there, so
+p9_errstr2errno() can print the error from uninitialized memory.
 
- include/net/9p/client.h |   6 ++
- net/9p/client.c         |  19 +++---
- net/9p/trans_virtio.c   | 130 ++++++++++++++++++++++++++++------------
- 3 files changed, 106 insertions(+), 49 deletions(-)
+Fix this by ignoring the reply when a fatal signal ends the wait of a
+zero-copy request, since p9_client_zc_rpc() already returns -ERESTARTSYS
+when the server cancels such a request.
 
+This patch is assisted by Claude Opus 5.5.
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+Fixes: f615625a44c4 ("9p: handling Rerror without copy_from_iter_full()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+---
+ net/9p/client.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/net/9p/client.c b/net/9p/client.c
+index e63e8c2a853df..66980ad52bca8 100644
+--- a/net/9p/client.c
++++ b/net/9p/client.c
+@@ -706,10 +706,11 @@ static struct p9_req_t *p9_client_zc_rpc(struct p9_client *c, int8_t type,
+ 
+ 		if (c->trans_mod->cancel(c, req))
+ 			p9_client_flush(c, req);
+-
+-		/* if we received the response anyway, don't signal error */
+-		if (READ_ONCE(req->status) == REQ_STATUS_RCVD)
+-			err = 0;
++		/*
++		 * err stays -ERESTARTSYS even if the reply has arrived, since
++		 * the transport moves the error string of a zero-copy reply
++		 * into rc only while it waits.
++		 */
+ 	}
+ recalc_sigpending:
+ 	if (sigpending) {
 -- 
 2.56.0
 
