@@ -1,68 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195974;
-	b=XbFXWA/2NH/9vnre6vyE2uPsuJH5fkbm8L564cwSl457wGl0AAujoFUPSuO9N1zNelnZ
-	 u/xaOo6VoGyNmNvLVSKGqDoxp3TyNpUacavjax9zub1PyItbGxdRlsugrPtN4YnPVU38O
-	 iMO0kkPyFXIijyVlrg2645YjPCp6GBWlHYGnvgUAmi4pD0I3GNRHB6L9zmdzbiXT4/KGo
-	 Rt3HWk6qAutfKe01RXfhojANDwK9lwJvSwDdZ2lXbcdiUpLEEY/vx26QFGumhak6TzmXc
-	 anfOREp7ReS5lZhfgHNlMwDDdqxlpF/mvHkAVnsJ2aEC9VxXJ1C5rEvkm2qFfF+HF2A==
+	t=1794196047;
+	b=5YZHbXJkpQ4fUu/RU38d1PoGoEKSoNVU3JCIVn4BzbuS3sOts8BZNQEGPyxmEj6DERS8
+	 PP4NFKSRVeKrrVbOG3vz5NMoM48bogpsh9UsmhlUJqKcIbVf2kR4FOP6ZxIohndWd/TwT
+	 bYkUz5Jt8tgdmIwBYxz/xC81JKK2S7IResEs+N1WbF8Sqw3u2sj2lyAnwYsehz9w3ENgL
+	 qdaZVAcLia3kD8neCn4nQ69nQ1z5uSSrAF/aLQ1zGpxN0ET0ZOisb4a/xljK7PfhiUnol
+	 CI32Dm1esBk8rP3YUgkyr1bxS5+hQAaqDlb8hWLTnd1K+moLaplWn8WgUxeFYawx+OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195974;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gr96iaWliwZ75RhmyhCPwLKsIFpyS1bTKCZs7TpnfkY=;
-	b=0MhpnjkcRaXL32d6yu8GUOiVtJrADuvEadOWD6G72DO/q/0Znho40x7pcXlrq236xskr
-	 5sGsroPmeLAJzKg9TvGyt5NmgTWAiwmvS8Onyyls8q4qmen3J/Y76z5Nq3kUMkD/QuU8M
-	 fjb7gzBal0N2bYxY8kQfg0H1mRT78ZB18LK5Q/qTkT4X7HxBYz4t5eTtJFhbUD+zO31p0
-	 66JctTPMXL6apeL18LVr5Lj8v3c64GfYoPNrWZW1+M1/Mlimjo7M7t1z1nIUE7MLRo9+G
-	 NCFKRx/MU94B9X+n3JdNfwwEUpqLsJUx5rJcyQ8wEwyO5bjyQiM5VzSVGPgoidYbEkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196047;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-OQ-MSGID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7+1+PZFd2GII1zKvv2aHrH8V0Dvf1LcNr2LNa2B/+bw=;
+	b=anLQN602dof11IpBhSMYM7hcOuodxXU11L5+Rqpqqq6x1UtZ8dCSs/ertXyGDn0KsRTw
+	 +UPKtzOr8vHLhETLJI0M16NAa+SvvRwXrBThjKhfVp7KX76+jCX+akHGaVhbPHpjDEAP5
+	 9PLFbu97x/kXRIo2vl8MIyICD56PenkvjRgDSN2Up4OiJpBPrQDUcnMtW/sDtynDTizYg
+	 em9Vk22oSSnzmAMcbg/gY4BeO4WA9OfvBiHNZib+OFA0wPVDiCKfxz+4kcXEdhlWV6Z6T
+	 Tq4B0gwI2OAm/EtFwNhb93MozKFHP22f71w5xrhY+YfEkOGDnDKYtfBNb9LtkW6uPtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XSUo7BSD;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KDC2SmH3;
+	arc=none smtp.remote-ip=203.205.221.236
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5930606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:46:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5930606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4204606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:47:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4204606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XSUo7BSD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794195973; x=1825731973;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=BBS1gsXzLye4daje8OnhsCSPUgDhwifPpec/GQS7W5A=;
-  b=XSUo7BSDnpWgClKL2F+WOhETkdGLHHWNcq8FmVChVfesoyk9ykLgoPSB
-   NhTyG4xNOIJbZ+jXdwuA5VzMpVDVMk4GscOBfvVrCz2jAcdQxKeS0iQky
-   mjSbWUbbMqOdA4Nmxp6dqY+RNbmDAW8akWE6KYQ6FFILsKLYUXZnNugGF
-   yPj4BBhbwqRHWLssPeAeyNAym6ktzsyj7X5U4nxiGsklDu4+xfnII3cF4
-   vWNkI6bzGTJMPXqdvE3KCGLMwtjnjec28jAC8mqU9cuTqgTtYWOFGvlHa
-   xJxtrFkYghHOjBwLcCjZEyM8bvgLMJ5Z5psrODnE9cR18y5zRxswjTm5b
-   A==;
-X-CSE-ConnectionGUID: KNjxsySITEWuNpAziQ08ig==
-X-CSE-MsgGUID: gvFOV5/aQCa1xHdiJuO/uA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2836534"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2836534"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 19:46:12 -0800
-X-CSE-ConnectionGUID: kX3MBr+NRvuhF+mtb/9uAw==
-X-CSE-MsgGUID: rTa4fatiTi+HSG1WxC2X9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7658236"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 19:46:10 -0800
-Message-ID: <9d2bb2f7-4052-44fc-9ba6-a7ad6267678f@linux.intel.com>
-Date: Mon, 9 Nov 2026 11:46:07 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KDC2SmH3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794196038; bh=7+1+PZFd2GII1zKvv2aHrH8V0Dvf1LcNr2LNa2B/+bw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KDC2SmH3UdUqTAj/naxHFvfTao7XlpSet7tQIZzg+YBlYiMajF461CMioKaj/0pCy
+	 I5mx2c1PQD8Rzhbl3Pkk4CTd89aviDffBfYETGfgiPu1svwCEhYLD2QrpQDLYpia7j
+	 FRkDC1GNAEMhw90KrGYcivjnNGgrmoKeF7Ks6ZDI=
+Received: from [100.125.153.207] ([139.159.170.67])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id BCF20465; Mon, 09 Nov 2026 11:47:15 +0800
+X-QQ-mid: xmsmtpt1794196035t0rwr8jma
+Message-ID: <tencent_90CC2DA414E74CDF71D24A6ADAC784336206@qq.com>
+X-QQ-XMAILINFO: NOGirAuTnwHF/KpxD9OFSpM3LriLQs2mH/B0slkH4kz1eDZ9sqIUCKMvAsfqo+
+	 pLJXc/Fu+EW2AJk7AkmtqhruK1se1lIbdRaT9NiNIpMKzN+cQ4ytdg69LVtsoGJ2zywNMaEDW/Ck
+	 g1Om437R3M2X+3/ZDZJTgo8hcARoNJ+oxvMs/xf82IOYx2zxrpKwwHlEQddO31wzmwFuEbwWobm4
+	 ia3HB38VCW+ZMdYN08EgcSQ54ZhJmr79++EaLqp7WSScIH0fe5R5FWP85TGasObfpZwmpEAC8YwT
+	 x6heU80jK0DqyBTCq/KyPeiBnZBPjJqAC0ugnj9hVpLklUP2RaaolOm8NuXdt11ULirrvvi8ExPV
+	 x9x2zlGvUBkD1AsPf62urvPQk8TguPOMS02f4nP+ASVv89HWI8GqtGh/zBU5hraTLHlc2vMxKgAg
+	 vAtcQzjsI15W1aLEDGqx+Ok2w83TVMZIjEQGc0jaRPVHDyUkBMZGw7QTtVZb09J89cgCNLkUQInl
+	 SenKGqMFscDKWuC8YDf/RQBhHH26yyoNWMgszcbL3iJwDfPg6fUxJPTPKVfJHDQoFG9orrnBXFVE
+	 oR+1tBDHrJ6UYNCG0NmynRLjXeAIK5wb+qfvR9/ijVIeo/6osIX4k9Ly9AAmhudAHWPV8Q0SiEuk
+	 9upCL5bS5SfHZkqwQAPuaeLfFTNlyKxpJ8ju5X19NdlGHJrR8tnz4/G/9f1Ek/VCnw88MMtyw2tF
+	 u8FdiMK0529VKzzCLSvURYXbBtmBb/ql5KIez0IvEHhXvPBMLMbJbjLLRvJO0x8GPNyRjd7ZTG1f
+	 pmoIWM4sLzo6p/VSnERfdD0m4tAHON2iExo6kytw8qFu1Lv6zxdGyCFNRRTKJC/9uXGYmWe0d2cD
+	 oatJwXWawuaItDqYTmYNkNv4FYzviFps0f20ZnkchHxYYdm42M3J25tsVJxxtAnYNTCxIrSFa866
+	 OPiobQH68ZigCsfkdH5ZYkz/2YT/Y2svAbsmlQIOjvdop5JpxGZhiKged4rOS85a7d1rOdDFfsdr
+	 tU86MNLAuv06+uUHNXPHpDIP51+4mSMGJvhr34s6X8JjNGPWSsNuCLZgrf9/o=
+X-QQ-XMRINFO: M/715EihBoGS53Pa7FxY/h8cOY8DgkUKgQ==
+X-OQ-MSGID: <676c4f1b-1daa-48d9-b444-11db0fda69fd@qq.com>
+Date: Mon, 9 Nov 2026 11:47:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,41 +72,109 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Jean-Philippe Brucker <jpb@kernel.org>,
- Yi Liu <yi.l.liu@intel.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] iommu: Reject a same-domain replace in the attach
- handle APIs
-To: Nicolin Chen <nicolinc@nvidia.com>, joro@8bytes.org,
- Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1793729087.git.nicolinc@nvidia.com>
- <1b3a334eade93a5047d51af040f1400cd563189d.1793729087.git.nicolinc@nvidia.com>
+Subject: Re: [PATCH v8] arm64: kexec_file: Stop using the Image text_offset
+To: Catalin Marinas <catalin.marinas@arm.com>,
+ Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: will@kernel.org, mark.rutland@arm.com, pratyush@kernel.org,
+ leitao@debian.org, mpilaniy@redhat.com, yeoreum.yun@arm.com,
+ graf@amazon.com, pasha.tatashin@soleen.com, akpm@linux-foundation.org,
+ baoquan.he@linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, rppt@kernel.org
+References: <20261105125442.2282987-1-ruanjinjie@huawei.com>
+ <au4JOjnQlx2aSpiE@arm.com>
 Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <1b3a334eade93a5047d51af040f1400cd563189d.1793729087.git.nicolinc@nvidia.com>
+From: Jinjie Ruan <2118537295@qq.com>
+In-Reply-To: <au4JOjnQlx2aSpiE@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/4/2026 2:07 AM, Nicolin Chen wrote:
-> Both iommu_replace_group_handle() and iommu_replace_device_pasid() skip the
-> driver callback when the new domain is the one currently attached. In that
-> case, nothing flushes the pending faults that may still be holding the old
-> handle. Then, the caller frees the old handle once the replace returns, so
-> such a fault would hit a use-after-free.
-> 
-> No caller does this today, since iommufd_device_do_replace() returns early
-> when the new hwpt is the old one. However, it is only a caller convention,
-> which neither API enforces.
-> 
-> Reject a same-domain replace in both APIs with a WARN_ON, and document it
-> in their kernel-docs.
-> 
-> Suggested-by: Lu Baolu<baolu.lu@linux.intel.com>
-> Reviewed-by: Yi Liu<yi.l.liu@intel.com>
-> Signed-off-by: Nicolin Chen<nicolinc@nvidia.com>
-> ---
->   drivers/iommu/iommu.c | 36 +++++++++++++++++++++++++++++-------
->   1 file changed, 29 insertions(+), 7 deletions(-)
+Hi Catalin,
 
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+在 2026/11/7 01:07, Catalin Marinas 写道:
+> On Thu, Nov 05, 2026 at 08:54:42PM +0800, Jinjie Ruan wrote:
+>> image_load() adds text_offset to kernel_segment->mem and subtracts it
+>> from kernel_segment->memsz.  For CMA backed segments this breaks the
+>> load path: the payload is copied to page_address(cma), which is the CMA
+>> base, while image->start is set to the adjusted address, so kexec jumps
+>> into the middle of the kernel.  kimage_map_segment() has the same
+>> mismatch when a segment has been moved.
+>>
+>> The adjusted memsz also breaks the release path: the CMA pages are
+>> freed using segment->memsz >> PAGE_SHIFT, which is fewer than were
+>> allocated, leaking the tail of the allocation.
+>>
+>> Since commit 751c263bb74f ("arm64: remove TEXT_OFFSET randomization")
+> 
+> This commit only removed the randomisation. The one you want mentioned
+> here is cfa7ede20f13 ("arm64: set TEXT_OFFSET to 0x0 in preparation for
+> removing it entirely"). Although this removing never happened (see more
+> below).
+
+You  are right!  we should correct the commit.
+
+> 
+>> TEXT_OFFSET is always zero.  This has been upstream since v5.8, so no
+>> LTS kernel carries a non-zero text_offset.  Drop the adjustment and
+>> reject images with a non-zero value instead of booting them from a
+>> wrong address.  With the adjustment gone, segments stay at their CMA
+>> base and the release size matches the allocation.
+>>
+>> Cc: Catalin Marinas <catalin.marinas@arm.com>
+>> Cc: Will Deacon <will@kernel.org>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Link: https://lore.kernel.org/all/20260921090450.807575-2-ruanjinjie@huawei.com/
+>> Link: https://lore.kernel.org/all/20260921090450.807575-3-ruanjinjie@huawei.com/
+>> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+>> Suggested-by: Mike Rapoport <rppt@kernel.org>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>> v2:
+>> - Split out from the patch set.
+>> - Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
+>> ---
+>>   arch/arm64/kernel/kexec_image.c | 13 ++++++++-----
+>>   1 file changed, 8 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
+>> index 78b1f956d8d7..7d6baea3d28f 100644
+>> --- a/arch/arm64/kernel/kexec_image.c
+>> +++ b/arch/arm64/kernel/kexec_image.c
+>> @@ -80,12 +80,17 @@ static void *image_load(struct kimage *image,
+>>   	kbuf.bufsz = kernel_len;
+>>   	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+>>   	kbuf.memsz = le64_to_cpu(h->image_size);
+>> +	/*
+>> +	 * Pre-v5.8 images carry a non-zero text_offset, which is no longer
+>> +	 * honored; reject them instead of loading them at a wrong address.
+>> +	 */
+>>   	text_offset = le64_to_cpu(h->text_offset);
+>> +	if (text_offset) {
+>> +		pr_err("Unsupported Image text_offset 0x%lx\n", text_offset);
+>> +		return ERR_PTR(-ENOEXEC);
+>> +	}
+> 
+> If it's only CMA getting it wrong, can we not just set
+> image->no_cma = true here and continue as normal?
+> 
+
+Yes, it also works.
+
+I tested this cma problem on QEMU arm64 with cma=64M and an Image header
+whose text_offset is 0x80000.
+- Without fix , it jump 512K past the CMA copy and never boot;
+- With the fix, it loads from normal memory and the second kernel boots.
+
+> While text_offset is 0 now, I don't think we concluded it should be
+> deprecated. There was a recent push back on the attempt to document the
+> always 0 behaviour:
+
+Thank you! I will fix it with your suggestion.
+
+Best regards,
+Jinjie
+
+> 
+> https://lore.kernel.org/all/20260604140839.1930847-1-linux@rasmusvillemoes.dk/
+> 
+
+
