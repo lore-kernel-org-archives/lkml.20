@@ -1,101 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187283;
-	b=MFUOeDsDd/Tbl90R81cv2fR0Cyduqagp7s/udrc1k0aL80/TI19bGP9teR+cMHhRqu64
-	 zfW1IfImJKKofES1By9TMh/bujSYA3pecNxCzZviGC7b/cVDM4IXV0mxZNshqDJSBPmxH
-	 mWYm3t2qvov/IOSM33XqUxJU08a+GNI6JUZiozyysrphnUsZ0TP34VYae7mMC5bjoFuUk
-	 YR6LDN+/JNPf6C6XINjEerx53IpuznRSRWEgfAh68MAvkwfTmO9kLIe+ggYrafe/OFWUO
-	 AD/jHVhOlhtEZBeJCIHhy/6/bmNrWHKU26uT8axBcjindYhsMbiosJYG30GILqBRAkA==
+	t=1794187287;
+	b=ElgCS8M7KwLzKzPWGmAyVQdMYvtTttBO3NwZB3bPDZxHHaeOH0swCirIbkYp1E69JhDv
+	 a2eXhdEoWCtv1l59PW2UOfWHIJ2HWpWLC3gJPrm+BgMEiHQBQ2nqXDMp8dkph97fSa+VE
+	 sVJdBiGLk7m1zTvQOzkLxJFYVTBzbghj9uznSdM9/PCxTBR9sqvD7QxymSyChq2WVhvU2
+	 5uA+GDgNYOE6grNWXpinDzpsf2gpiU6rwfgyGFPdCef7alZGOSiWoibkQeXBG7SNf3HV1
+	 Y7XxqC6oC6CA7s6z3jsJLmB6AKsB9s0JZvLnE9jGsHvpFYeh3L7Zcu0v0SJnmCj9l8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/Z17mWdlObRHExXZCL6A/eytm6yqI/SONEQ1qiNL+yY=;
-	b=ytKkPcblbo+OmCFp2vGnhNH2EWKeQ2FZ9CVDepBX6s9C0SejjAF1LoFu4gP357S3bRF7
-	 GXFEnxadoRv+slBWfjCIoDIwQyeKXGv0rRKT1E8qMqmhUVUGYnFaXNShYZ+pqu/tbeaw7
-	 SN10semA927lbpPIrOG2ikpkNyYscZXF6CyhDuolK5xk+KDzczDO/L4MwXHVyUG6aGFuv
-	 12yP/KAYMqfL0nVW/HGH1NI5V0CP3M+fzXKPpEZp5fFUP8vTV2HJWB2U2ntBJeIoS2y94
-	 Y00/QjhK9sBJAvCz80Z5++VHLZqqyFdCcNJZeG3s3PRvoxvQXtocCOudP/USHhwJa8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187287;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=gbSTibk6XhTLDoA5XLLPoeaAYQeC/yS+SQ0C7gN4zPA=;
+	b=eZYSl2QxF+ZtXBAT72sPP8FfOTonfabzWGwjdwcXUuLvuJt0OXlsv0ENtHnRR66FgEm2
+	 ormkJG0FgWLrtRKUqlsxaH0fyNJbZY5Xp8I3TYk3oeEQgTTvKzGIBo9Tq3AEFzaKKi1do
+	 HpakQ44I+VkRV7gMLpzU88LgkeH2/NZ6DFuOg0eMUNRq3NbyJSKXFBLB2QeZjsvqmxSLX
+	 ay6CZ492t0L97H+mow48xsmInZGQAtXL4Qj0gLcmnuE342ZELhQVjfjhu1+/WnwWgUL26
+	 GhTzKa0uu++PqJVfk4QZn26ogOuTYSU8gK7P+EwchwYYK172KjjODpu1zI2b3LBB6ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=networkplumber.org;
-	spf=pass smtp.mailfrom=networkplumber.org;
-	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OKEGSm3w;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=bL3nGklC;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AD1606D83E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22AD1606D83E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48234606EE8A;
+	Mon,  9 Nov 2026 01:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48234606EE8A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OKEGSm3w
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b14b96448eso140862a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:21:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1794187282; x=1794792082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/Z17mWdlObRHExXZCL6A/eytm6yqI/SONEQ1qiNL+yY=;
-        b=OKEGSm3w4MAnap14tM2oUrid8Tww6hSauoTRrzABho3H/h1kA6j/G8+PZ+9SJSSj3u
-         0fDtlJVx1q3GDvwNTXIyEQH5m2NLU15e2AMby4zsSOTqLYQ26kgmJPX9Vydr9fOQJikI
-         D36vpUBRDhUzkCyjZudlKLa42fGo3NfnnMQKCWn2DogmKKY2rU/Xewvx9vMUulfOe4Sd
-         4HAsQGUKzfOiOFBO0wKD1iU3wJzIxPuLXJmOfw1BcR9aO1d7lH+4t3qTIKbFd5/6Vy75
-         Y9mZUg7YoKLfwnVtlklDpG/VhI59WUsvygIn4+9lCHGd2GqT1R0skg3GU1kGiwEMSUfg
-         6qeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187282; x=1794792082;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/Z17mWdlObRHExXZCL6A/eytm6yqI/SONEQ1qiNL+yY=;
-        b=sIAs8pLN71PoAasWcy/RhoxPYsR7Pkk15+JU2s6AjPoky+9ccmhglk+rT5gPB2xFe1
-         9aV03LiXCZlkRiDJIucGw6DGDUwYuDZA4/+Ucq8eUiaEcRxebTkWX5Gcb1YFnjmGt/5x
-         suGmGMmN3khUrRsOBDujEps6llUJ4+btSnpotb6GklLY26uuShodbWVsx1Y3bPHBRFwL
-         q2nHu95EONIKJ0RoWLm0xoQ+OZzh6A3odGiwIrMz4SvtOB0xHwqOsMjJHTHnO9QqPBlE
-         TtNgRO6QZGtJRFWsWALz4olGbNV1FRVoIQhvSJmGN8IcJOqxwGsc68ocBQwsBGUSXN1H
-         O+5Q==
-X-Forwarded-Encrypted: i=1; AL+hErGM2IrOWV6qyY/dUgtuUAmCHd3Bb1e+v/z0u3+ZFN2kHQ//dxE6tFSgUKTysYEZSm9w+KfA11B/mVdQbFg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xzFHHsdrbTCz8E9scW/kOn4pJS88cFCYcyKlXSgdckp8qty35
-	bBvjdLa50u+Dhs6Eh3NFJVpMdXeg3t5LuaF7xDC4cXSmQRnTfcgEhpB49FPJgFiAtrY=
-X-Gm-Gg: AYBFou1DMbo8Bqexu864DS2aAV291ZM9VNExvMVvdjCNEtUFadjdRQbWwqNjatf1H91
-	QOgkEijYHVx05IgkIQaxKeMY+LY7k8+rjBMJnhxMVMm2AldJjSx7f8j5EOR36Vv+mj+PNUIM7vO
-	oSUVgs5DkTeUOZJIX5L4tAA/L9xGrX1lY6IspU8Nf3HnihrvRkw2dVK185zKGUrP2zUTjH3YxWr
-	2A08FWWfyoKJqT9vgpcSJ2py1lfoQjRl7amgq2vr149uPgBeWfuX6yZaUoigDBGgohoO3raNwWr
-	1/J/EPAUmnlbbpeoP0/zK9i2xe2La2MaXXZBFgt3guB7I4te7iyVLCRDOiWzWRqvjTdBoSq5S3j
-	Ky+CZ7suJeKOrbfVrC8wv+Uuf8FB3yuwxi5LfSOJp1iTnbFqtVAkNt+tKyZeXRue7FsHT1FxsZz
-	XSmcnkY5Gta08Ojj3tMoKiaPsSg4theT6G97kcX3OliXneu075NRxwVJBvwfMZv119I9mV5o1Ef
-	AvY3d+6MoOIEEZB/RkAoMVkux4llHQBmlGMKlsU5Q/xamUAXXWCO4PvxMW3fIfucow6pfUF07Ll
-	MHV6YZQdQkOB6FuJ26vM4XEwJetciFuJ/OcWf8qgWDS7uHW5GcC9DFycmcAfpGoqks6yQTI=
-X-Received: by 2002:a17:90b:54c4:b0:3ab:27f0:c90b with SMTP id 98e67ed59e1d1-3b12d5813c1mr2577245a91.53.1794187282446;
-        Sun, 08 Nov 2026 17:21:22 -0800 (PST)
-Received: from phoenix.lan (204-195-112-43.wavecable.com. [204.195.112.43])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b103432e26sm4883217a91.3.2026.11.08.17.21.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:21:22 -0800 (PST)
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org (open list:KERNEL SELFTEST FRAMEWORK),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 3/3] selftests: net: netlink-dumps: test dump of route larger than skb
-Date: Sun,  8 Nov 2026 17:13:14 -0800
-Message-ID: <20261109012115.11898-4-stephen@networkplumber.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109012115.11898-1-stephen@networkplumber.org>
-References: <20261109012115.11898-1-stephen@networkplumber.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=bL3nGklC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=gbSTibk6XhTLDoA5XLLPoeaAYQeC/yS+SQ0C7gN4zPA=; b=bL3nGklCqLMlXTRUmYGvll42mK
+	/BsIcNU4Lxl/dhFyS5FQbibwCd0bDtGZjzzzUgKQAKo65ZF8zo0Bc3ivJmQKQtVjiC3GHxddJQaY2
+	ZjBfeyimvwXG/fqmoqVih7473jkBH6k4YH+u1+tKbM0DoRUAOPRW8W1oBsn2EFUqcKVGjjcOVp5Nb
+	Tj91bQt8BISBSawzIT/kQg+VoAlP0mW1CmD0lKxM+tbXSnJREySEBeGn0XCSF/NkZKBaxk5Nzz9tA
+	FdSAnwcC1uAApMiBvcuU78EYsh1L2A/8pTiEf9AgTWkXug8y+OLootmLOhL2HWPrdUmfAe5X0unrI
+	ZNecsk/w==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xQE4Q-00000006AYC-27zo;
+	Mon, 09 Nov 2026 01:21:14 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xQE4O-0000000EKUh-3h0s;
+	Mon, 09 Nov 2026 01:21:12 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paul Durrant <paul@xen.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sascha Bischoff <Sascha.Bischoff@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Jack Allister <jalliste@amazon.com>,
+	Dongli Zhang <dongli.zhang@oracle.com>,
+	joe.jin@oracle.com,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v12 10/24] KVM: x86: Remove pvclock_gtod_data and private timekeeping code
+Date: Sun,  8 Nov 2026 17:20:56 -0800
+Message-ID: <20261109012112.3415328-11-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
+References: <20261109012112.3415328-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,343 +94,97 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-Add IPv4 and IPv6 multipath routes that do not fit in the first dump
-skb of a fresh socket. The dump must return the route or fail with
--EMSGSIZE, not end with status 0.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-IPv6 nexthops cannot use lo, so create a dummy device and generalize
-lo_set_up() to if_set_up(). Add the IPv4 routing options to config.
+Remove the now-unused KVM-private timekeeping infrastructure:
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
+ - struct pvclock_clock and struct pvclock_gtod_data
+ - update_pvclock_gtod() and its seqcount-protected state copy
+   (the private readers were already removed when their last callers
+   went away)
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- tools/testing/selftests/net/config          |   3 +
- tools/testing/selftests/net/netlink-dumps.c | 271 +++++++++++++++++++-
- 2 files changed, 270 insertions(+), 4 deletions(-)
+ arch/x86/kvm/x86.c | 56 ----------------------------------------------
+ 1 file changed, 56 deletions(-)
 
-diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-index d4416f8bdcfd..e2f136274e6d 100644
---- a/tools/testing/selftests/net/config
-+++ b/tools/testing/selftests/net/config
-@@ -29,6 +29,8 @@ CONFIG_IP6_NF_MATCH_RPFILTER=m
- CONFIG_IP6_NF_NAT=m
- CONFIG_IP6_NF_RAW=m
- CONFIG_IP6_NF_TARGET_REJECT=m
-+CONFIG_IP_ADVANCED_ROUTER=y
-+CONFIG_IP_MULTIPLE_TABLES=y
- CONFIG_IP_NF_FILTER=m
- CONFIG_IP_NF_IPTABLES=m
- CONFIG_IP_NF_IPTABLES_LEGACY=m
-@@ -38,6 +40,7 @@ CONFIG_IP_NF_NAT=m
- CONFIG_IP_NF_RAW=m
- CONFIG_IP_NF_TARGET_REJECT=m
- CONFIG_IP_NF_TARGET_TTL=m
-+CONFIG_IP_ROUTE_MULTIPATH=y
- CONFIG_IP_SCTP=m
- CONFIG_IPV6=y
- CONFIG_IPV6_FOU=m
-diff --git a/tools/testing/selftests/net/netlink-dumps.c b/tools/testing/selftests/net/netlink-dumps.c
-index 4a94a25167e2..43f63f3f2289 100644
---- a/tools/testing/selftests/net/netlink-dumps.c
-+++ b/tools/testing/selftests/net/netlink-dumps.c
-@@ -263,11 +263,11 @@ TEST(close_with_ref)
- 	usleep(100 * 1000);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 0ed3d2549ac3..a357efbf1d94 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -889,60 +889,6 @@ static inline bool kvm_vcpu_exit_request(struct kvm_vcpu *vcpu)
+ 	       kvm_request_pending(vcpu) || xfer_to_guest_mode_work_pending();
  }
  
--static int lo_set_up(int sock, bool up)
-+static int if_set_up(int sock, const char *name, bool up)
+-#ifdef CONFIG_X86_64
+-struct pvclock_clock {
+-	int vclock_mode;
+-	u64 cycle_last;
+-	u64 mask;
+-	u32 mult;
+-	u32 shift;
+-	u64 base_cycles;
+-	u64 offset;
+-};
+-
+-struct pvclock_gtod_data {
+-	seqcount_t	seq;
+-
+-	struct pvclock_clock clock; /* extract of a clocksource struct */
+-	struct pvclock_clock raw_clock; /* extract of a clocksource struct */
+-
+-	ktime_t		offs_boot;
+-	u64		wall_time_sec;
+-};
+-
+-static struct pvclock_gtod_data pvclock_gtod_data;
+-
+-static void update_pvclock_gtod(struct timekeeper *tk)
+-{
+-	struct pvclock_gtod_data *vdata = &pvclock_gtod_data;
+-
+-	write_seqcount_begin(&vdata->seq);
+-
+-	/* copy pvclock gtod data */
+-	vdata->clock.vclock_mode	= tk->tkr_mono.clock->vdso_clock_mode;
+-	vdata->clock.cycle_last		= tk->tkr_mono.cycle_last;
+-	vdata->clock.mask		= tk->tkr_mono.mask;
+-	vdata->clock.mult		= tk->tkr_mono.mult;
+-	vdata->clock.shift		= tk->tkr_mono.shift;
+-	vdata->clock.base_cycles	= tk->tkr_mono.xtime_nsec;
+-	vdata->clock.offset		= tk->tkr_mono.base;
+-
+-	vdata->raw_clock.vclock_mode	= tk->tkr_raw.clock->vdso_clock_mode;
+-	vdata->raw_clock.cycle_last	= tk->tkr_raw.cycle_last;
+-	vdata->raw_clock.mask		= tk->tkr_raw.mask;
+-	vdata->raw_clock.mult		= tk->tkr_raw.mult;
+-	vdata->raw_clock.shift		= tk->tkr_raw.shift;
+-	vdata->raw_clock.base_cycles	= tk->tkr_raw.xtime_nsec;
+-	vdata->raw_clock.offset		= tk->tkr_raw.base;
+-
+-	vdata->wall_time_sec            = tk->xtime_sec;
+-
+-	vdata->offs_boot		= tk->offs_boot;
+-
+-	write_seqcount_end(&vdata->seq);
+-}
+-#endif
+-
+ static s64 get_kvmclock_base_ns(void)
  {
- 	struct ifreq ifr = {};
+ 	/* Count up from boot time, but with the frequency of the raw clock.  */
+@@ -7213,8 +7159,6 @@ static int pvclock_gtod_notify(struct notifier_block *nb, unsigned long unused,
+ {
+ 	struct timekeeper *tk = priv;
  
--	strcpy(ifr.ifr_name, "lo");
-+	strcpy(ifr.ifr_name, name);
- 	if (ioctl(sock, SIOCGIFFLAGS, &ifr))
- 		return -1;
- 	if (up)
-@@ -321,12 +321,12 @@ TEST(dump_with_queued_ntf)
- 		       sizeof(addr)), 0);
- 
- 	// A large read makes the kernel attempt large dump skbs
--	ASSERT_EQ(lo_set_up(inet_sock, true), 0);
-+	ASSERT_EQ(if_set_up(inet_sock, "lo", true), 0);
- 	n = recv(netlink_sock, buf, sizeof(buf), 0);
- 	ASSERT_GE(n, (ssize_t)sizeof(struct nlmsghdr));
- 
- 	// Leave one notification queued, then start the dump
--	ASSERT_EQ(lo_set_up(inet_sock, false), 0);
-+	ASSERT_EQ(if_set_up(inet_sock, "lo", false), 0);
- 	n = send(netlink_sock, &dump_links, sizeof(dump_links), 0);
- 	ASSERT_EQ(n, sizeof(dump_links));
- 
-@@ -362,4 +362,267 @@ TEST(dump_with_queued_ntf)
- 	close(inet_sock);
- }
- 
-+#define BIG_RT_TABLE	100
-+#define BIG_RT_IFINDEX	100
-+#define BIG_RT4_NH	1500
-+#define BIG_RT6_NH	500
-+
-+static const struct {
-+	struct nlmsghdr nlhdr;
-+	struct ifinfomsg ifm;
-+	struct nlattr name_hdr;
-+	char name[8];
-+	struct nlattr linkinfo_hdr;
-+	struct nlattr kind_hdr;
-+	char kind[8];
-+} new_dummy = {
-+	.nlhdr = {
-+		.nlmsg_len	= sizeof(new_dummy),
-+		.nlmsg_type	= RTM_NEWLINK,
-+		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
-+				  NLM_F_EXCL,
-+		.nlmsg_seq	= 1,
-+	},
-+	.ifm = {
-+		.ifi_family	= AF_UNSPEC,
-+		.ifi_index	= BIG_RT_IFINDEX,
-+	},
-+	.name_hdr = {
-+		.nla_len	= 4 + sizeof("dummy0"),
-+		.nla_type	= IFLA_IFNAME,
-+	},
-+	.name = "dummy0",
-+	.linkinfo_hdr = {
-+		.nla_len	= 4 + 4 + 8,
-+		.nla_type	= IFLA_LINKINFO,
-+	},
-+	.kind_hdr = {
-+		.nla_len	= 4 + sizeof("dummy"),
-+		.nla_type	= IFLA_INFO_KIND,
-+	},
-+	.kind = "dummy",
-+};
-+
-+static struct {
-+	struct nlmsghdr nlhdr;
-+	struct rtmsg rtm;
-+	struct nlattr dst_hdr;
-+	__u8 dst[4];
-+	struct nlattr table_hdr;
-+	__u32 table;
-+	struct nlattr mp_hdr;
-+	struct rtnexthop nh[BIG_RT4_NH];
-+} new_route4 = {
-+	.nlhdr = {
-+		.nlmsg_len	= sizeof(new_route4),
-+		.nlmsg_type	= RTM_NEWROUTE,
-+		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
-+				  NLM_F_EXCL,
-+		.nlmsg_seq	= 1,
-+	},
-+	.rtm = {
-+		.rtm_family	= AF_INET,
-+		.rtm_dst_len	= 24,
-+		.rtm_protocol	= RTPROT_STATIC,
-+		.rtm_scope	= RT_SCOPE_LINK,
-+		.rtm_type	= RTN_UNICAST,
-+	},
-+	.dst_hdr = {
-+		.nla_len	= 4 + 4,
-+		.nla_type	= RTA_DST,
-+	},
-+	.dst = { 198, 51, 100, 0 },
-+	.table_hdr = {
-+		.nla_len	= 4 + 4,
-+		.nla_type	= RTA_TABLE,
-+	},
-+	.table = BIG_RT_TABLE,
-+	.mp_hdr = {
-+		.nla_len	= 4 + sizeof(new_route4.nh),
-+		.nla_type	= RTA_MULTIPATH,
-+	},
-+};
-+
-+struct rtnexthop6 {
-+	struct rtnexthop rtnh;
-+	struct nlattr gw_hdr;
-+	__u8 gw[16];
-+};
-+
-+static struct {
-+	struct nlmsghdr nlhdr;
-+	struct rtmsg rtm;
-+	struct nlattr dst_hdr;
-+	__u8 dst[16];
-+	struct nlattr table_hdr;
-+	__u32 table;
-+	struct nlattr mp_hdr;
-+	struct rtnexthop6 nh[BIG_RT6_NH];
-+} new_route6 = {
-+	.nlhdr = {
-+		.nlmsg_len	= sizeof(new_route6),
-+		.nlmsg_type	= RTM_NEWROUTE,
-+		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
-+				  NLM_F_EXCL,
-+		.nlmsg_seq	= 1,
-+	},
-+	.rtm = {
-+		.rtm_family	= AF_INET6,
-+		.rtm_dst_len	= 64,
-+		.rtm_protocol	= RTPROT_STATIC,
-+		.rtm_scope	= RT_SCOPE_UNIVERSE,
-+		.rtm_type	= RTN_UNICAST,
-+	},
-+	.dst_hdr = {
-+		.nla_len	= 4 + 16,
-+		.nla_type	= RTA_DST,
-+	},
-+	.dst = { 0x20, 0x01, 0x0d, 0xb8 }, // 2001:db8::/64
-+	.table_hdr = {
-+		.nla_len	= 4 + 4,
-+		.nla_type	= RTA_TABLE,
-+	},
-+	.table = BIG_RT_TABLE,
-+	.mp_hdr = {
-+		.nla_len	= 4 + sizeof(new_route6.nh),
-+		.nla_type	= RTA_MULTIPATH,
-+	},
-+};
-+
-+static struct {
-+	struct nlmsghdr nlhdr;
-+	struct rtmsg rtm;
-+} dump_routes = {
-+	.nlhdr = {
-+		.nlmsg_len	= sizeof(dump_routes),
-+		.nlmsg_type	= RTM_GETROUTE,
-+		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_DUMP,
-+		.nlmsg_seq	= 2,
-+	},
-+	.rtm = {
-+		.rtm_table	= BIG_RT_TABLE,
-+	},
-+};
-+
-+static int nl_request_ack(int sock, const void *req, size_t len)
-+{
-+	struct nlmsghdr *nlh;
-+	char buf[4096];
-+	ssize_t n;
-+
-+	if (send(sock, req, len, 0) != (ssize_t)len)
-+		return -errno;
-+	n = recv(sock, buf, sizeof(buf), 0);
-+	if (n < 0)
-+		return -errno;
-+	nlh = (struct nlmsghdr *)buf;
-+	if (!NLMSG_OK(nlh, n) || nlh->nlmsg_type != NLMSG_ERROR)
-+		return -EPROTO;
-+	return *(int *)NLMSG_DATA(nlh);
-+}
-+
-+// Dump table BIG_RT_TABLE on a fresh socket, so the first dump skb is
-+// small, and count routes. The table holds only one route, too large for
-+// that skb. Returns the status from NLMSG_DONE or NLMSG_ERROR.
-+static int dump_big_table(struct __test_metadata *_metadata, int family,
-+			  int *routes)
-+{
-+	int netlink_sock, i, ret = 1;
-+	char buf[32768];
-+	int one = 1;
-+	ssize_t n;
-+
-+	netlink_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
-+	ASSERT_GE(netlink_sock, 0);
-+	ASSERT_EQ(setsockopt(netlink_sock, SOL_NETLINK, NETLINK_GET_STRICT_CHK,
-+			     &one, sizeof(one)), 0);
-+
-+	dump_routes.rtm.rtm_family = family;
-+	n = send(netlink_sock, &dump_routes, sizeof(dump_routes), 0);
-+	ASSERT_EQ(n, sizeof(dump_routes));
-+
-+	*routes = 0;
-+	for (i = 0; i < 100 && ret > 0; i++) {
-+		struct nlmsghdr *nlh;
-+
-+		n = recv(netlink_sock, buf, sizeof(buf), 0);
-+		ASSERT_GE(n, 0);
-+
-+		for (nlh = (struct nlmsghdr *)buf; NLMSG_OK(nlh, n);
-+		     nlh = NLMSG_NEXT(nlh, n)) {
-+			if (nlh->nlmsg_type == RTM_NEWROUTE)
-+				(*routes)++;
-+			if (nlh->nlmsg_type == NLMSG_DONE ||
-+			    nlh->nlmsg_type == NLMSG_ERROR) {
-+				ret = *(int *)NLMSG_DATA(nlh);
-+				break;
-+			}
-+		}
-+	}
-+	EXPECT_LE(ret, 0);
-+
-+	close(netlink_sock);
-+	return ret;
-+}
-+
-+// A route that doesn't fit in the first dump skb must either be dumped or
-+// end the dump with EMSGSIZE. It must not end the dump as if complete.
-+TEST(dump_large_route)
-+{
-+	int netlink_sock, inet_sock, i, ret, routes;
-+
-+	ret = unshare(CLONE_NEWNET);
-+	if (ret && errno == EPERM)
-+		SKIP(return, "Needs CAP_SYS_ADMIN for a netns");
-+	ASSERT_EQ(ret, 0);
-+
-+	inet_sock = socket(AF_INET, SOCK_DGRAM, 0);
-+	ASSERT_GE(inet_sock, 0);
-+	netlink_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
-+	ASSERT_GE(netlink_sock, 0);
-+
-+	ret = nl_request_ack(netlink_sock, &new_dummy, sizeof(new_dummy));
-+	if (ret == -EOPNOTSUPP)
-+		SKIP(return, "Needs CONFIG_DUMMY");
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(if_set_up(inet_sock, "lo", true), 0);
-+	ASSERT_EQ(if_set_up(inet_sock, "dummy0", true), 0);
-+
-+	for (i = 0; i < BIG_RT4_NH; i++) {
-+		new_route4.nh[i].rtnh_len = sizeof(new_route4.nh[i]);
-+		new_route4.nh[i].rtnh_ifindex = 1; // lo
-+	}
-+	ASSERT_EQ(nl_request_ack(netlink_sock, &new_route4,
-+				 sizeof(new_route4)), 0);
-+
-+	for (i = 0; i < BIG_RT6_NH; i++) {
-+		struct rtnexthop6 *nh = &new_route6.nh[i];
-+
-+		nh->rtnh.rtnh_len = sizeof(*nh);
-+		nh->rtnh.rtnh_ifindex = BIG_RT_IFINDEX;
-+		nh->gw_hdr.nla_len = sizeof(nh->gw_hdr) + sizeof(nh->gw);
-+		nh->gw_hdr.nla_type = RTA_GATEWAY;
-+		nh->gw[0] = 0xfe; // fe80::<i + 1>
-+		nh->gw[1] = 0x80;
-+		nh->gw[14] = (i + 1) >> 8;
-+		nh->gw[15] = (i + 1) & 0xff;
-+	}
-+	ASSERT_EQ(nl_request_ack(netlink_sock, &new_route6,
-+				 sizeof(new_route6)), 0);
-+
-+	// The ACK reads above used large buffers, which raise the dump
-+	// skb size for this socket. Dump on fresh sockets instead.
-+	close(netlink_sock);
-+
-+	ret = dump_big_table(_metadata, AF_INET, &routes);
-+	if (ret != -EMSGSIZE)
-+		EXPECT_EQ(routes, 1);
-+
-+	ret = dump_big_table(_metadata, AF_INET6, &routes);
-+	if (ret != -EMSGSIZE)
-+		EXPECT_EQ(routes, 1);
-+
-+	close(inet_sock);
-+}
-+
- TEST_HARNESS_MAIN
+-	update_pvclock_gtod(tk);
+-
+ 	/*
+ 	 * Pairs with the READ_ONCE() in the lockless readers; the race is
+ 	 * benign by design, relying on eventual consistency (the notifier
 -- 
-2.53.0
+2.43.0
 
