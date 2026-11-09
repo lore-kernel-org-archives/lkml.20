@@ -1,82 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233389;
-	b=Hwdy9sDlJwpo0meBbUNiOFxhEOxQ3h3djc7A2PDXumIL+2k5GNgL5py2lzHD2lgqYWAI
-	 QuXsRcGSrkPEMFznUBBymrwBjngp+A3ywGQnM6vW3W5m3f6PusTKGapTjSVo/PcUfaeEy
-	 q1sYy3jzIjOv0Rp3gVqs+g7d02FuAHM8kpn2qfPTQ11fhQjbev7ADt/VtYSH2eJDs95S4
-	 hgw5RBnf+RcmvG8mPEq4KVUUuW3+hpxwbbQnYpHkASt9hkY5HNXgYw3nuJhui2YnBuAw+
-	 P+pWYbXcq3F/y3nRRm7BWd+bQ7vWWq0bsFX8BsYbpNq8aCnFKvGugTa1kjxXayr+SuQ==
+	t=1794233400;
+	b=j8wseCjANJBxeakU1VJUAlHWudqlbiDfqrpitBE6bJrwLWCoyE0zUPKq90pr6YXWZsvJ
+	 Mp2F5RxVaC/ys+yo5mA4MbTFSbaAuuQHCgt5k26HfsnwA6H8zewVSzFr52LRZ+NBbxPXB
+	 KrCSs/MljeMf/7MzVsmM8kXa1C4mZw8/RE9tfwKsZiJEUqSLVt4WQhqtgQfxDGuQILo4R
+	 wIvCLXh80I926p0kc/R1yO86wQGi8m/oOZVVwzFuQC/GeIcP0NaPCSCEieNuMgk9T7JFv
+	 7xLXh+hZN+XIfgo6fOqkqu7i3AjFCkDRDCYJpofTu8JsQNfJ4WpiCTB8Mu45K+3PqEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233389;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=L1YcTl/uYfFtLb4iHc/VuFExeEr6pRbLZWly8UMoO5U=;
-	b=c1AE31vQQpvALPXDzTtPkvasQf06l0EsiHVytL094nJ43SilGQlbUBo5a5iHxCACdy5i
-	 wpRYGViqhxdVrO1LjkT0Bmo961os42pD03299zHmNRNBfO4dyRwnHFrD72T4yCExgTR84
-	 /1N2C1YojSup+iKvj7adVKxNiCheIxbGu5+nrpnm8kDrprHz/VEjERrfmus7hpmLruGlf
-	 oBcjEPHgbIgofar9ZKf8GerBlV+FGvShlyP14iWEyAxGmrm9MRIeScZb3YqVH9ovJta2d
-	 e3Zyc4UmAhzxzS4/e8sBrcLO6xYtAHBUDvhb0888Jss2ePC9Hv16TilVX5nXqb/bFng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233400;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=PO7g+lGXttnlXl0BDZq1t0lE88+kSOof69kb/rSlr68=;
+	b=cpU5g4XwvqOYsn8/GWIHyH6tC7cP/Uml7jBsbLUt7MbNn1hcxu5W87Zs+sH75GCSFlVr
+	 4Ibvz+jA9nDLLTgoGB5+SkqJG8vzRDPDy1lA303sQkbd51qIx7mC7wmMIbnjfQEcEdjVM
+	 NwxFgEk/3g6ghdg4L4ZNom8mkkz5e4Os785pP4uSjMdxWkS9A/+W+JypYEMfZwSGNWzVw
+	 E/we2MaZkjWDtAS0i9RSqSSuzH80viGMUXnvbT8R/Vw57kWyKa8YZwaj49k2YwDJjPTWM
+	 2w2smF3+2ICSnIy69ddQRwixbv3wvqNgpSqXOUjZf/anbLAVzdHV5trXWgCHIcP4xqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UvUrFAxl;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY4NdzoD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08845606D82E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08845606D82E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE288606A32A;
+	Mon,  9 Nov 2026 14:09:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UvUrFAxl
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id AE642C79A80;
-	Mon,  9 Nov 2026 14:09:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C59F860051;
-	Mon,  9 Nov 2026 14:09:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B1346103293D1;
-	Mon,  9 Nov 2026 15:09:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794233381; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=L1YcTl/uYfFtLb4iHc/VuFExeEr6pRbLZWly8UMoO5U=;
-	b=UvUrFAxlpJbvV29mh3MeMEVI7hIYOiY4XPs8GaAiEQe9fG0JX4bb/vkCLHAL1HhZPBoziK
-	vStNEyvNvZ9N4r/d+jBZEO2amvu7yD5MU6NZcNrOLU1yjMGpq+y7G6fsCFvIIH4V8BC+Ol
-	fxue7J1VS7yvlu0vlfu/C/oLKnVL0XDjYwigl6SgR73nqEWBCCyRax7Wcbbi2Z1AmHGEnM
-	oYilIKysNTQnJuAcyU4rc+z/gK+54U/h0YCeL5jihi231vw1XaWS0y0GIsohYL2x2xtUKO
-	0bSIkUKMoW+RFLHNQElcMJpFRSQ51ZeqykGOAO1jHghmLMXjTvE7DIE72DOw6w==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH v9 3/4] bus: simple-pm-bus: Remove child devices when the bus is unbound
-Date: Mon,  9 Nov 2026 15:08:41 +0100
-Message-ID: <20261109140916.90625-4-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109140916.90625-1-herve.codina@bootlin.com>
-References: <20261109140916.90625-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY4NdzoD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940D21F00900;
+	Mon,  9 Nov 2026 14:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794233399;
+	bh=PO7g+lGXttnlXl0BDZq1t0lE88+kSOof69kb/rSlr68=;
+	h=Date:From:To:Cc:Subject;
+	b=IY4NdzoD43npkVTVsKG/giSpu4B2mGBlw9WAAMntDnXckodYf5BWCxhTenS39lF3e
+	 pKPM/nC1k+/t/0UXXAQjPG506TLfZIDBYX132wGDGpbAm7Oja6YihhCbxBVclLLM1n
+	 Qi0rFX8PMjVbUEEZ+312+tlBGEKChblSbW/vRcFAU69fyCOP2h5LgArITffmPCGRtM
+	 q+yLWh2K3Q8FVZ4DUWnhnJ9hKY3SaIzKOYakp5JfEQ+0dJGCjJpp2gO8ieKzQKbD46
+	 +LYKjHS+LJpX6U1+uj3p2dZK7an1dZMBud+OHtrhSY8tB0khS03CnuvDaFwB/PJ95N
+	 0OiaeO1zitAeg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 59E161AC5995; Mon, 09 Nov 2026 14:09:57 +0000 (GMT)
+Date: Mon, 9 Nov 2026 14:09:57 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: linux-next: manual merge of the sound-asoc tree with the origin tree
+Message-ID: <avHUNWGDMmhAUeX4@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,86 +59,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ux8Rnc84bPPA4enI"
+Content-Disposition: inline
 
-During its probe, the simple-pm-bus driver (simple-pm-bus compatible
-variant) populates its child devices but it doesn't touch them during
-its removal.
 
-This leads to bus child devices present and bound to drivers whereas the
-bus itself is unbound.
+--Ux8Rnc84bPPA4enI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Be consistent and remove child devices when the bus itself is unbound.
+Hi all,
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- drivers/bus/simple-pm-bus.c | 45 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 43 insertions(+), 2 deletions(-)
+Today's linux-next merge of the sound-asoc tree got a conflict in:
 
-diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
-index e45700156732..23ac18551fd9 100644
---- a/drivers/bus/simple-pm-bus.c
-+++ b/drivers/bus/simple-pm-bus.c
-@@ -22,6 +22,46 @@ struct simple_pm_bus {
- 	int num_clks;
- };
- 
-+static void simple_pm_bus_depopulate(void *data)
-+{
-+	struct device *dev = data;
-+
-+	/*
-+	 * Bus stays on for children
-+	 * This ensure that the bus will not be put in idle asynchronously when
-+	 * all its children are removed.
-+	 */
-+	pm_runtime_get_sync(dev);
-+
-+	/* Let remove children */
-+	of_platform_depopulate(dev);
-+
-+	/*
-+	 * Lets runtime_suspend() calls simple_pm_bus_runtime_suspend() in a
-+	 * synchronous way before disabling runtime pm.
-+	 *
-+	 * This guarantee that clocks are disabled and unprepared before the
-+	 * bus is removed in all cases.
-+	 */
-+	pm_runtime_put_sync(dev);
-+}
-+
-+static int simple_pm_bus_populate(struct device *dev,
-+				  const struct of_dev_auxdata *lookup)
-+{
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	if (!np)
-+		return 0;
-+
-+	ret = of_platform_populate(np, NULL, lookup, dev);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, simple_pm_bus_depopulate, dev);
-+}
-+
- static int simple_pm_bus_probe(struct platform_device *pdev)
- {
- 	const struct device *dev = &pdev->dev;
-@@ -71,8 +111,9 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret, "failed enable pm_runtime\n");
- 
--	if (np)
--		of_platform_populate(np, NULL, lookup, &pdev->dev);
-+	ret = simple_pm_bus_populate(&pdev->dev, lookup);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to populate\n");
- 
- 	return 0;
- }
--- 
-2.56.0
+  sound/soc/amd/acp/acp-sdw-sof-mach.c
 
+between commit:
+
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
+
+=66rom the origin tree and commit:
+
+  7de8faa0fb6ed ("ASoC: amd: acp: add ACP7.B/7.F SoundWire link count for m=
+achine driver")
+
+=66rom the sound-asoc tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc sound/soc/amd/acp/acp-sdw-sof-mach.c
+index 8336eb5c82ea9,1d7487c872657..0000000000000
+--- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
++++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
+@@@ -374,16 -406,28 +406,28 @@@ static int mc_probe(struct platform_dev
+  	struct snd_soc_card *card;
+  	struct amd_mc_ctx *amd_ctx;
+  	struct asoc_sdw_mc_private *ctx;
+- 	int amp_num =3D 0, i;
++ 	int amp_num =3D 0, i, dmic_num;
+  	int ret;
+ =20
+ -	amd_ctx =3D devm_kzalloc(&pdev->dev, sizeof(*amd_ctx), GFP_KERNEL);
+ +	amd_ctx =3D devm_kzalloc_obj(&pdev->dev, *amd_ctx);
+  	if (!amd_ctx)
+  		return -ENOMEM;
+ =20
+  	amd_ctx->acp_rev =3D mach->mach_params.subsystem_rev;
+- 	amd_ctx->max_sdw_links =3D ACP63_SDW_MAX_LINKS;
++ 	switch (amd_ctx->acp_rev) {
++ 	case ACP7B_PCI_REV:
++ 	case ACP7F_PCI_REV:
++ 		amd_ctx->max_sdw_links =3D ACP7X_SDW_MAX_LINKS;
++ 		break;
++ 	default:
++ 		amd_ctx->max_sdw_links =3D ACP63_SDW_MAX_LINKS;
++ 		break;
++ 	}
++ 	if (mach->pdata) {
++ 		pdm_pdata =3D mach->pdata;
++ 		amd_ctx->pdm_sel =3D pdm_pdata->pdm_sel;
++ 	}
+ -	ctx =3D devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
+ +	ctx =3D devm_kzalloc_obj(&pdev->dev, *ctx);
+  	if (!ctx)
+  		return -ENOMEM;
+  	ctx->codec_info_list_count =3D asoc_sdw_get_codec_info_list_count();
+
+--Ux8Rnc84bPPA4enI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHUNQAKCRAv73Ows9A4
+iYOBAP0ZH01fRdfFMKKeX/yhUT+2+UuXUppidcDj0mZn/YZkewD/XcicxaSvP9Hn
+psT9zWQn3VLdxSPnju+P62LmZQcJaQM=
+=tyCZ
+-----END PGP SIGNATURE-----
+
+--Ux8Rnc84bPPA4enI--
