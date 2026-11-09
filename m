@@ -1,47 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209405;
-	b=bPg+AzXXXNR87kFFt+R8i3GZOt3+Ahv8pTVwcZlsPRaQ4spxhvOHvO9/Al5cNLYi7QgB
-	 gl/sPWyQmiSejBfB0+gdHf0Oz0MNAs0oBnCH+pAECcg03xntAMuofIz2g64LaAjF4CHck
-	 CbSGM/4TMnkg79CdWH6tOVh79rUHdD7IPFsjQVScZfIOULiQWSaSKlNZ5UTsZt/gxYpnk
-	 zVQ8ieDHaDUshLKiSgzT79QZxHXYezCdYYk1n3Z7BPRtIRT275nA9624uC5HRvnRHGa9C
-	 xjLYy2YXgq6i+Ps2FBH1cUJjmf33b81bPB8M2yhLhTZfy7zTSn8hrvxcTUfID5eVZ1Q==
+	t=1794209404;
+	b=MX3p7Ikh8tbdYJuavhJckt36vf8ZxGVfMw2SCTyipaD8egrX8I84++400tubRFqlYEr8
+	 TXUPt8h1MjmAu1KitaUk3v6EwXGkzsKUzN7BYJBaEms5MF6biFs/L9RLEETSfzGPHmfM0
+	 yTQ7wNKZIVpNBMRvSrP4bCwCu1G8J8yD2+LKZEcTaYiMFvHcKyL46dEHU/H1jA9oDVn6h
+	 BtTjjXkdthyNkirvazCSLD4JqqYEmXgBXpjvNkq9tbX5i17Cp2XYywBjzWqrgy2jqAUZ1
+	 19GMZzHED+W4kwlZDAnYq6QCctZbTSyUVb2v1PmX9HSHbL1OqURqeBrVMAQ071c966w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209405;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YHsIe+6yk2rHtgcsN9K0X9/VIE4GS8pTEpwTi7k8aRA=;
-	b=xkAPnBKCGF0OCB/lNhAIKmWGMhZJ869/jLvycOa/9qzZu82dPFm2zI3UXk5Hou1AfiU1
-	 VVulpeHmokeqtkjX4QIx4/nQ2UStx6R4DjHSQ0hcug9Qcl4cUhnexkJj6dbC3GZQhjB1z
-	 hGjc+1w8SWTdGAEozgrP7IoK+5HFzIm8qq+zTd/+yVbPmc2WR74Y1Xp/FzEJgWl9pIYAx
-	 IVzlpKgDrRxqDEQEeGNF/yZpUBAVjaOfJZRVlX3sBoWIK0MRe4ZtH8bA3dt0HHyUpIPbo
-	 JhDdKdWLsJqt7ikkJiNjJgaZy5jlcYh5XqwY+lJpX7ayiPAl84HnEe7FE4Y5VcPa5Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209404;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
+	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=y4XXizAsEXauZ8xNy3Uvk2MUwvg11466f+qVHEdRMkA=;
+	b=YA7bFut2dHchcl64X4o+XPtv1cza35PINbSfxvzfm2REm+ptisfAO3SpwDdWerUqZLX4
+	 vBYjjSaGFGlM/TPOCapFIR58+8CQ79Eeblc6K51I7WEsE1m8V/kV1rFBCVKMr8Y+I7SBH
+	 veXkaKvqm2QMueI3UTzoQjXCF1B9fYMnC8kv135oMl/O9u/i8BhIdA3IQf9JSeVhQh1ag
+	 Ew5fGJu4VsN7KrG1puqa3BE17si4HL0MalE7ImT3BFkJJWfqtozRsSFqqZMITiFYpNC7q
+	 u9IkDtbo3RLl8onkXHYUcHH7ix9wWQF5SMqQNYhMkTASHADeF57TxwqhFXNU9EZoYjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUJUZjuY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA05606A323;
-	Mon,  9 Nov 2026 07:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUJUZjuY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712221F008BE;
-	Mon,  9 Nov 2026 07:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209404;
-	bh=YHsIe+6yk2rHtgcsN9K0X9/VIE4GS8pTEpwTi7k8aRA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QUJUZjuYfxOSz6pip8ibC3zrHMpsfA9to2z6CC8oBADDu4wRuFdZ1VAuPzyjzGkv4
-	 IDkKSPvcAFqjmVXJGzxdDnUslUlpY7nHHzwaY2ZLCnmCqPd1aVmqiXsUWXkAyoZoQK
-	 mhkTgk23JMEo4CTlxYPiNu7GkPw0KQsfb9X7l5uhdJ0SFPc+YVNdikfJgi2g+LsvaB
-	 vPPHrFvU0pr1yP0cQRRrWc4AQXcySghNhEFvneKpj4fcv9IaO2KZQ/Z64vNJUzctuQ
-	 YN0QHUqL1M1ZB6d0EHtnJ3eD5cSEK2kS6fHJmWNQg6TOIxmlc5lGYin+Lr5dzJQ55s
-	 FB3nD2lNuIdjA==
-Message-ID: <391f12cf-d86e-428b-906f-df6d8128ee05@kernel.org>
-Date: Mon, 9 Nov 2026 08:29:59 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B43C606A325;
+	Mon,  9 Nov 2026 07:30:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B43C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jNLys3BPKz22sb;
+	Mon, 09 Nov 2026 15:29:57 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Xiubo Li <xiubli@kernel.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dlzhangak@isoftstone.com
+Subject: [PATCH v2] ceph: revalidate dentries under snapdir to drop stale snapshots
+Date: Mon,  9 Nov 2026 15:29:57 +0800
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <CAOuZWzx7eg1bNzyoY+kTP2CB4NqwwC23K1RC-etdWW1VyF01fA@mail.gmail.com>
+References: <CAOuZWzx7eg1bNzyoY+kTP2CB4NqwwC23K1RC-etdWW1VyF01fA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,111 +61,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: cix: add RTS5453 PD controllers to Orion
- O6
-To: Gary Yang <gary.yang@cixtech.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Fugang Duan <fugang.duan@cixtech.com>,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- cix-kernel-upstream@cixtech.com
-References: <20261107011012.3655873-1-gary.yang@cixtech.com>
- <20261107011012.3655873-5-gary.yang@cixtech.com>
- <65af581e-caac-430a-88b1-3b7425c5209e@kernel.org>
- <avEq_ngShxlvFSbS@gary-System-Product-Name>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <avEq_ngShxlvFSbS@gary-System-Product-Name>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Mon, 09 Nov 2026 15:29:57 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AF17675.001 by FangMail milter!
+X-FangMail-Envelope: 1794209397/4jNLys3BPKz22sb/6AF17675.001/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1794209397.6AF17675.001
+X-FangMail-Outinfo: 1794209397/6AF17675.001/4jNLys3BPKz22sb/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1794209399.6AF17675.001.4jNLys3BPKz22sb@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF17675.001/4jNLys3BPKz22sb
 
-On 09/11/2026 03:07, Gary Yang wrote:
-> hi Krzysztof:
-> 
-> Thanks for your comments!
-> 
-> On 2026-11-07 11:53, Krzysztof Kozlowski wrote:
-> 
->> EXTERNAL EMAIL
->>
->> On 07/11/2026 02:10, Gary Yang wrote:
->>> Describe the two Realtek RTS5453H port controllers on the Orion O6
->>> I2C1 bus and add the I2C1 pin configuration.
->>>
->>> The controllers route orientation and DisplayPort mode changes
->>> through the USB/DP combo PHY lane switches, but that PHY support is
->>> not upstream yet, so the connector graph endpoints are left out for
->>> now. The Type-C ports are still registered and reported, only the
->>> lane switching is deferred until the PHY nodes are available.
->>>
->>> Both controllers report through the same level-triggered interrupt
->>> line, which the driver handles with a shared interrupt. The I2C bus
->>> runs at 100 kHz because the RTS5453H I2C interface does not support
->>> higher rates.
->>>
->>> Signed-off-by: Gary Yang <gary.yang@cixtech.com>
->>> ---
->>>  arch/arm64/boot/dts/cix/sky1-orion-o6.dts | 51 +++++++++++++++++++++++
->>>  1 file changed, 51 insertions(+)
->>
->> DTS cannot be combined in this patchset and must be split. Don't mix
->> patches from independent subsystems when you send something explicitly
->> targeting only one subsystem.
->> See also: Documentation/devicetree/bindings/submitting-patches.rst
->>
-> 
-> Do you mean the driver does not depend on DTS? Previously, it was acceptable
-> to put the DTS at the end of a patchset or place the DTS in a separate patchset. 
-> That’s why I put the DTS at the end of the patchset. Has the rule changed now?
-> 
+When a snapshot is deleted on one client node, its corresponding
+'.snap/<snapname>' dentry cached in the VFS dcache on other client nodes
+never gets invalidated. As a result, on another client node:
+- recreating a snapshot with the same name fails with -EEXIST;
+- removing the already deleted snapshot fails with -ENOENT while leaving
+  the stale positive dentry in the dcache;
+- if the deleted snapshot is recreated with the same name on the remote
+  node, the local client still reads the file contents of the old
+  snapshot;
+- a removed ancestor snapshot stays visible as '.snap/_<name>_<ino>' in
+  child directories.
 
-Why can't you read the docs I pointed?
+Since commit 2817b000b02c ("ceph: directory operations"),
+ceph_d_revalidate() has unconditionally trusted all dentries whose
+parent directory has ceph_snap(dir) != CEPH_NOSNAP (later written as
+ceph_in_snap(dir)). Because that condition matches both immutable
+snapped directories (ceph_snap(dir) <= CEPH_MAXSNAP) and the mutable
+virtual '.snap' directory itself (ceph_snap(dir) == CEPH_SNAPDIR), it
+unconditionally sets valid = 1 when dir is CEPH_SNAPDIR, rendering the
+CEPH_MDS_OP_LOOKUPSNAP revalidation path added in commit 200fd27c8fa2
+("ceph: use lookup request to revalidate dentry") unreachable.
 
-Best regards,
-Krzysztof
+However, simply falling back to CEPH_MDS_OP_LOOKUPSNAP for every dentry
+under CEPH_SNAPDIR would cause every path walk through '.snap/<name>' to
+send a synchronous LOOKUPSNAP request to the MDS, because the MDS issues
+no lease for dentries under '.snap', the snapdir only has CEPH_CAP_PIN,
+and a snapped inode has no real caps.
+
+Instead, introduce snapdir_dentry_is_valid() to validate cached dentries
+under CEPH_SNAPDIR against the snapped head directory's snap realm
+cached_context. Because the MDS sends a snap update to every client
+holding caps in a realm whenever a snapshot in it is created or removed,
+we can keep trusting a cached dentry under '.snap' as long as we hold
+real caps on the head directory and the snapshot's snapid
+(ceph_snap(inode)) is still present in its realm's cached_context, and
+only fall back to CEPH_MDS_OP_LOOKUPSNAP when it is not or when no caps
+are held on that directory.
+
+Fixes: 2817b000b02c ("ceph: directory operations")
+Link: https://tracker.ceph.com/issues/81579
+Suggested-by: Xiubo Li <xiubli@kernel.org>
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+---
+Changes in v2:
+- Add snapdir_dentry_is_valid() to validate dentries under .snap against
+  the head directory's snap realm cached_context when holding caps,
+  avoiding unnecessary LOOKUPSNAP round trips on cache hits (Xiubo Li).
+- Drop the ceph_unlink() -ENOENT hunk (to be sent separately).
+- Update comments in ceph_d_revalidate() and point Fixes: to 2817b000b02c.
+- Note: Xiubo, please feel free to change Suggested-by to Co-developed-by
+  (with your Signed-off-by) if you prefer.
+
+ fs/ceph/dir.c | 64 +++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 62 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+index 6eb5b1cb039b..21983e14cb67 100644
+--- a/fs/ceph/dir.c
++++ b/fs/ceph/dir.c
+@@ -1979,6 +1979,58 @@ static int dir_lease_is_valid(struct inode *dir, struct dentry *dentry,
+ 	return valid;
+ }
+ 
++/*
++ * Check whether a cached dentry under .snap still names an existing snapshot.
++ *
++ * The MDS issues no lease for these dentries, but it sends a snap update to
++ * every client holding caps in a realm when a snapshot in it is created or
++ * removed.  So as long as we hold caps on the snapped directory, its realm's
++ * snap context tells us whether the snapshot still exists.  Without caps we
++ * cannot tell, and the caller has to ask the MDS.
++ */
++static int snapdir_dentry_is_valid(struct inode *dir, struct dentry *dentry,
++				   struct ceph_mds_client *mdsc)
++{
++	struct inode *inode = d_inode(dentry);
++	struct ceph_vino vino = {
++		.ino = ceph_ino(dir),
++		.snap = CEPH_NOSNAP,
++	};
++	struct ceph_snap_context *snapc = NULL;
++	struct ceph_inode_info *pci;
++	struct inode *parent;
++	u32 i;
++	int valid = 0;
++
++	if (!inode || ceph_snap(inode) > CEPH_MAXSNAP)
++		return 0;
++
++	parent = ceph_find_inode(dir->i_sb, vino);
++	if (!parent)
++		return 0;
++	pci = ceph_inode(parent);
++
++	down_read(&mdsc->snap_rwsem);
++	spin_lock(&pci->i_ceph_lock);
++	if (__ceph_is_any_real_caps(pci) && pci->i_snap_realm &&
++	    pci->i_snap_realm->cached_context)
++		snapc = ceph_get_snap_context(pci->i_snap_realm->cached_context);
++	spin_unlock(&pci->i_ceph_lock);
++	up_read(&mdsc->snap_rwsem);
++	iput(parent);
++
++	if (!snapc)
++		return 0;
++	for (i = 0; i < snapc->num_snaps; i++) {
++		if (snapc->snaps[i] == ceph_snap(inode)) {
++			valid = 1;
++			break;
++		}
++	}
++	ceph_put_snap_context(snapc);
++	return valid;
++}
++
+ /*
+  * Check if cached dentry can be trusted.
+  */
+@@ -2002,12 +2054,20 @@ static int ceph_d_revalidate(struct inode *dir, const struct qstr *name,
+ 
+ 	mdsc = ceph_sb_to_fs_client(dir->i_sb)->mdsc;
+ 
+-	/* always trust cached snapped dentries, snapdir dentry */
+-	if (ceph_in_snap(dir)) {
++	if (ceph_snap(dir) == CEPH_SNAPDIR) {
++		/* a snapshot under .snap may have been removed by others */
++		if (flags & LOOKUP_RCU)
++			return -ECHILD;
++		valid = snapdir_dentry_is_valid(dir, dentry, mdsc);
++		doutc(cl, "%p '%pd' inode %p under snapdir, valid %d\n",
++		      dentry, dentry, inode, valid);
++	} else if (ceph_in_snap(dir)) {
++		/* snapshots are immutable: trust dentries inside one */
+ 		doutc(cl, "%p '%pd' inode %p is SNAPPED\n", dentry,
+ 		      dentry, inode);
+ 		valid = 1;
+ 	} else if (inode && ceph_snap(inode) == CEPH_SNAPDIR) {
++		/* the .snap dentry itself */
+ 		valid = 1;
+ 	} else {
+ 		valid = dentry_lease_is_valid(dentry, flags);
+-- 
+2.48.1
+
