@@ -1,78 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794251078;
-	b=e25aeZHLT9BTisHckOlg2cS0Te7j/EXHkgy3Mqf5SxGR2soa1hc5y3S1khIiPqkaOiRn
-	 XUEWOBqVt0uO8dZLFBlBW9+ZVQQ/AzvX+KFYuwrEsW+Aqk2AmrwPrrSemgzAgWSwHhlvY
-	 MhcI8vErZ+ZV+lw4Nq/4iH3IZZ1ExhgBbtoGovo8F/ROMq6jZcLHQ/Pv2cen6skoD7wdK
-	 I7xggkE7y5/UCQ+Tzd/WkItr394dLZ+MZGiy5B1JrdiRFlFIWQTaLuARPc7LbPuSEQNIu
-	 V2H+pX52mlSCiGIAa0gM6n9bowv2wmTFk4zB3Mjph85H6wRNvZOQrQeLbHCvrmquT5w==
+	t=1794251099;
+	b=IGy9QmF4XUfN3ryK8lr3kWYZopffwRWVlIWx52Pt572huIrubFWAjA6GMt/m8VVounwl
+	 FUfEoDAhJigchP8XWF3nIk6bYjN502IXyZRiLYn4kUTHUECWqLp1HggNczkLaUwEUeHNc
+	 ZhaAFXjukiY6CWCSuwmKmVFAGxNZMCRsCzqhyToX2bzLCNvOj2R+6AuwommyP77sRcJuj
+	 nigxkgG//wmRUMtt8mfkqh212ng8LuEgY3cTiFHIkJmJ5j77N3rXkGbirLBxwEnnN3rpo
+	 bYmSgvER38I8y9XASpWHYDFL1JUpY+MWbeKmnnCk67C+Osc0uoCVInQH0FLiliSE7uA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251078;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CW5kJhCKpiEwwwuPeTwjgFcWVZ18wlPCSVAwORZMpDU=;
-	b=BXJ10P0VMrlu90cCKz9Hwncp8qMWeggsqUViiFyYZlQFvYmXL+oQp9offaauwNLEeFRQ
-	 u6ZcmoFZf2fE4fCmyTtKhSeBKekTksH4guqRrH57N5yxaWHmuAV+zdabQnEeKBF67stFi
-	 AB+26UYcK5zz+nShRBpYjTSoqo9viUDabuS0p4ipjLqRG3uYB7D0CVFUayIGkXTWOQXJe
-	 b5O7aM8/WJhbHLqi5vVhH4uNQJZCJ2YkawMz3pfaV+wGEll6NBXnFnpyjR8IOoyVpiCWD
-	 MBDYPZ0ejmiEDkSQ+QEQlnAD+2lOSqNhjNTYxVRhuu31B9DkkAV7QXPXs+X99H0HLkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251099;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=61mQGdGCCPWlzC4QLyl5ytHWy0dP+cOspyXrcAUNIqY=;
+	b=1kBgh+deL6tvGQss6A32XpWdgxR1++XlQRJSSe6xU0tfqDEuNYZY2I23S08Ohm/BIpqs
+	 NnmTCo+3+ZkHpgXnAQwe8reT9GFNhUEmnX1IFAR4iMaEaIe8bOuaD0pEpOiLzxlpRyrs1
+	 OS4G2Bl1GuFCZ77kJENIXBX8rFmTczySpvZjQ3KGVSWFeRcdUcx+yrmK1ZrlEuXbHP+zd
+	 p70unL1EiMowx27UHmFUixzPx1Z0e3wDEEx3212PTK0j942legSdeX4sya79oS/VcrDZt
+	 Q0Z9fq2nQnx2TCJSo55RJMzmv1QujVUEgVo/q/5ctQ/NEb1ThmTXNTNAWaaYyizBheA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oy3A4XSF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIJdbOp3;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B651606A33A;
-	Mon,  9 Nov 2026 19:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED2E606A330;
+	Mon,  9 Nov 2026 19:04:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oy3A4XSF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIJdbOp3
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794251067;
-	b=c3usotKZ7ZHupxpxdiMiO6jIp+gVnIFvNYSJLvLrfOD7Abujf8u03D0VGxgWQGWBntVV
-	 w7M/8W1vv4hXg2ik+4yLQIRS11fSRZzDuXydpr3v7pTxzrCHHUOYMqR9b/DPjf9I/HWTR
-	 WLNMTagwHfQKpZU5NRg0Y9zVXx+m2iG1DNCVv4HNgB18Oe2yADsJdKlVS4vakTI6/Ntg2
-	 0/2UK6+134a6CiAUs4JRlYqb8/soS369OsVQtqCiwLcxlnkFC13hOX7Ni9tY4pWvV4J5r
-	 HCca0r/cYSNdUOdcwffA+oQM0+mvudG5/gak7gmk5WjESDUN0RcoAPCnxO4F7JQuEMw==
+	t=1794251098;
+	b=WDCUT2oQ//p/IZlV1v6j3pBdRivNvn9HZVcAcKdyEE6a9io9DLqRdFTcb8DAPAK6HWhb
+	 uP4ae+WWDIEOFMwyjto55R378GgKVtjHxlUCI+nBCXLoJq5A+Ht2ZepJbw2tKD/NFoP4N
+	 fmDBjefNuaQ+MNjFus7IDIV3fXoYol56+RFIvKfneSxzNA7TJynLFENqq5li0X4R5Ws5k
+	 fASyviN7Y79xnbEYx5tgMGt9BSusKMXk6OpOUSrwtrG6oeHLbDnde5xFsWr3Is+yxQs4N
+	 6glnoPJGmO97RhH1/J0OZ/tK3CH+ul1YIJoKiRNzn4s7hYpPWJNpQmzfvegL4Mna1qA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794251067;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CW5kJhCKpiEwwwuPeTwjgFcWVZ18wlPCSVAwORZMpDU=;
-	b=Ta2+ivMlCceB76lm1JOLf6vcu2Wi+ZErKDLkKWXIkPmm8NyLdA1v9L84N8djYqnj0cTt
-	 Eqom8mTWKglbvrKiSUFP8Mrp4Pnpwl6J+PFzLDQm69XaGkgWdoojILdBXf9mIL1plRXF+
-	 4xNQ/uNqlE2zZAlC0wr0+0sKFJwtFPOEjIGyl48RCEl6S1W16yatkX1HJDYFDnyaIJjTG
-	 0EvKjCQohmPGCwNKw4m2OPUSO/cTs/AD6EAT5/UL3HlqtLJFaPjIhnb/xPy5k9Qu/AWiX
-	 /jbAx3J0GriqXY753u6/voCY3WXuxtIy/VUvQadFwZ6xTHglsCKufUfdiTxoyV8rBoA==
+	c=relaxed/relaxed; t=1794251098;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=61mQGdGCCPWlzC4QLyl5ytHWy0dP+cOspyXrcAUNIqY=;
+	b=ObZ+LpyxOKnonFNS/nQ+W0jF11R6ofTQMdU+Pm0C0tAoyyCUn7S2QaIMEARAw7MCRaab
+	 dAvZYGt2CWuz79i8aTvFzy/Dd4igjdC74h7S9HRIQ572/ktZ9FeMwuIiHWPfxk19FTcbT
+	 HqXCZ7vVr8X4luJMlfQbAO6sLpreRwMsciwHL9sUUz0TuEHF6YcnxHrVUywgqoPzyy6k7
+	 35BI/blweUCk5g4daeTuptuM1a5Xq8CeOKFfMQervUhq8ek3fx5E/UrOZfH5BbKxqIBDS
+	 25cMs6shpbKt4bzCRTRqwW1C6E0RZJLjvBXt75mDz+HAkJ1YrX/Ih2E535B5tn1mf1w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4E3391F008A1;
-	Mon,  9 Nov 2026 19:04:25 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 550621F0089F;
+	Mon,  9 Nov 2026 19:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794251067;
-	bh=CW5kJhCKpiEwwwuPeTwjgFcWVZ18wlPCSVAwORZMpDU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=oy3A4XSFMVsNa4NsQQFfbgBGl5LHe6fTMQjOSkNXmpZJvkmt/v8tRVZVXqfK2a0c2
-	 dCuNas2QkuaGW/oOL1moVdouxMPt0d8ljACsGBqBHpthjgBDlf1JNRLbcL/XNzesmB
-	 PmjFLfwtX0maG/ad+loBEtUwcRKpoon5T+PgRLmjcDJOrxHnzQF5Xj6yeJu7sqk9aq
-	 a+bJx1Wz/JIzvzRoh5UyAMU5U96ikkR0Qh4Bqa9cSwZqmGQJzu2534sn2zjlKiyJ93
-	 Zx5Zu6JRr5F27QOM3KzK6ncSyyEHT/VQDV4AOuqoFGRBe4nwuaFD2nnuChL5TKRxul
-	 MZ6/QTlb2CNdA==
+	s=k20260515; t=1794251098;
+	bh=61mQGdGCCPWlzC4QLyl5ytHWy0dP+cOspyXrcAUNIqY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=JIJdbOp3Ppmhy3bbqyuNHfIMmn3MbTLXoV28gASAd5rlUybojQOKTRMiULymSTHY5
+	 2hzCQsM8f+gghixxbTKGCMAmM80NxbCN484ciRDcM0JH9Gr59DckKAp4QiSJ3GMbm6
+	 2Mu7MVQFtzO/MhHL7Gl40wbNZyow29mBfKF2qLA8ILxAgRmzosKItgMMIyDO9x9Tgx
+	 GAr7YvfrcjfVMAHQNXZI7l3BdLWFK9BL8nT1A8Repq/NK31ypBNBticlRQ4iII/oDD
+	 M2ClAb3a5EtXUnc20FHz+4XyHX+ub9It2bBGfmPEtoW4K3uUj77CQlth2hqOLGuAZW
+	 7PDJ4g71J60vA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 93B77485FA;
-	Mon,  9 Nov 2026 19:04:23 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Mon, 09 Nov 2026 14:03:43 -0500
-Subject: [PATCH v2 07/11] leds: rgb: ktd202x: Add Etek ET6326 support
+	by lkml.kernel.org (Postfix) with ESMTP id D8706485DF;
+	Mon,  9 Nov 2026 19:04:57 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Subject: [PATCH 0/2] nvme-tcp: consume TLS records without application data
+ on a live queue
+Date: Mon, 09 Nov 2026 14:04:52 -0500
+Message-Id: <20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,237 +85,98 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-ktd202x-et6326-v2-7-56e97c226658@telaak.dev>
-References: <20261109-ktd202x-et6326-v2-0-56e97c226658@telaak.dev>
-In-Reply-To: <20261109-ktd202x-et6326-v2-0-56e97c226658@telaak.dev>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-doc@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794251062; l=7868;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=EliP/VZXaAy3VAfG0tJ1JsGl5wEtMq1jMLg2aUC+sFU=;
- b=c7MyRG2BL3PJBb/mJ5XVzHKkwj/eUUdrIXrm4/J5phc4ywkDAQXvis0V+hlysAnHSre5RyDGk
- zXCDQdMI4PhDQ6P4/eTM8MsJVajMJZAfjde1/2Ypb9BIxf9tX77w0HX
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTuQNCrEq4iLdvzVkRrLJAah9
+ O5GXX6L9xbKMEWmQ7eQoWrWZ2rwm47kNqQrWM/N1Lt+772LnOoDXGTmSStYik0G4e0uxDGG6IL
+ z1NrZcNH373s8/Z1f4x1SvjNa1w8p+XbweQAAAA==
+X-Change-ID: 20261109-nvme-tcp-live-ctrlrec-4539b9390301
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Hannes Reinecke <hare@kernel.org>
+Cc: Martin Belanger <martin.nvme.dev@gmail.com>, 
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Martin Belanger <martin.belanger@dell.com>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794251097; l=2856;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=+RFQb7lReLCFe1adR320Vhaj1EAjoE628nMe1pJcegU=;
+ b=KE7Dj2rsVobi2ZeWZ0BYkyr1AKi+lTSCDHAksQUcSkmM9Ui3OB1kf4+GUlaiORDKlQWhcd/1X
+ EY3H4rS5EeFC3sNueTdsMS7uXdLOQNmkRvMcTTz3E+0Il3+uC+stlZl
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-From: Joseph Telaak <joseph@telaak.dev>
+After the TLS handshake, a peer may send records that carry no
+application data: a NewSessionTicket, a KeyUpdate or an alert.
+tls_sw_read_sock() cannot pass such a record to nvme_tcp_recv_skb().
+It returns -EINVAL and leaves the record at the head of the receive
+queue. Since commit 288cfa187208 ("nvme-tcp: start error recovery when
+read_sock fails"), nvme-tcp then starts error recovery, and the
+controller reconnects.
 
-The Etek ET6326 is a KTD2026 with a different flash period encoding:
-Reg1 = n selects (n + 1) * 128 ms, from 128 ms to 16.38 s, where the
-KTD202x selects 256 ms + n * 128 ms and uses Reg1 = 127 for one shot
-mode.
+TLS 1.3 allows a server to send a NewSessionTicket at any time after
+the handshake (RFC 8446, section 4.6.1). Alerts can also arrive at any
+time.
 
-Move the number of LEDs and the flash period limits into per chip data
-and add the ET6326, so the timer trigger gets the delays it asked for.
+Patch 1 moves the TLS record read loop into a helper. No functional
+change.
 
-Report the on time rounded to the nearest millisecond rather than down.
-The shortest ET6326 period is 128 ms, and 1/256 of it rounded down is
-0 ms, which the timer trigger passes back with the next delay_off
-write, where an on time of 0 turns the LED off. Rounded, the delays
-read back also give the same on time when they are written again.
+Patch 2 reads the record with recvmsg() when read_sock() returns
+-EINVAL, and handles it by type. Handshake messages other than
+KeyUpdate are discarded and alerts are logged. A fatal alert, a
+KeyUpdate or another record type fails the queue.
 
-Link: https://www.etekmicro.com/wp-content/uploads/datasheets/ET6326_datasheet.pdf
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+This is the follow-up announced in the cover letter of "nvme-tcp:
+handle TLS control records at connect and on receive errors":
+https://patch.msgid.link/20261027-nvme-tcp-ctrlrec-fixes-v2-0-9656395ebcf2@gmail.com
+
+Both patches are tagged for stable, because 288cfa187208 is being
+backported to 6.12, 6.18 and 7.3.
+
+Tool use
+========
+
+I developed this series with the help of an LLM coding assistant. It
+drafted code, tests and changelogs, and helped with analysis of the
+kTLS and sunrpc sources. I reviewed, edited and tested all of it, and
+I am responsible for the content.
+
+Testing
+=======
+
+Host and target in one VM (virtme-ng), on 7.4-rc2. A test-only change
+to net/tls makes the target send records on a live I/O queue during
+I/O. Each case writes data and reads it back with O_DIRECT.
+
+  Records sent by the target   7.4-rc2     With this series
+  ---------------------------  ----------  --------------------------
+  NewSessionTicket, 64 bytes   reconnect   queue stays live
+  2 x 300, 2 x 1000, 6 x 64    reconnect   queue stays live
+  close_notify alert           reconnect   queue stays live
+  warning alert (90)           reconnect   queue stays live, logged
+  fatal alert (40)             reconnect   reconnect, logged
+  KeyUpdate                    reconnect   reconnect, logged
+
+Data was correct in all cases. Also built with W=1, with and without
+CONFIG_NVME_TCP_TLS.
+
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
 ---
- drivers/leds/rgb/Kconfig        |  3 +-
- drivers/leds/rgb/leds-ktd202x.c | 72 ++++++++++++++++++++++++++++++++---------
- 2 files changed, 58 insertions(+), 17 deletions(-)
+Martin Belanger (2):
+      nvme-tcp: move the TLS record read loop into a helper
+      nvme-tcp: consume TLS records without application data
 
-diff --git a/drivers/leds/rgb/Kconfig b/drivers/leds/rgb/Kconfig
-index 6e9ab5f60714..3a57e5819eeb 100644
---- a/drivers/leds/rgb/Kconfig
-+++ b/drivers/leds/rgb/Kconfig
-@@ -20,7 +20,8 @@ config LEDS_KTD202X
- 	select REGMAP_I2C
- 	help
- 	  This option enables support for the Kinetic KTD2026/KTD2027
--	  RGB/White LED driver found in different BQ mobile phones.
-+	  RGB/White LED driver found in different BQ mobile phones, and
-+	  for the compatible Etek ET6326.
- 	  It is a 3 or 4 channel LED driver programmed via an I2C interface.
- 
- 	  To compile this driver as a module, choose M here: the module
-diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-index 042de16c28bc..2650573b6c5a 100644
---- a/drivers/leds/rgb/leds-ktd202x.c
-+++ b/drivers/leds/rgb/leds-ktd202x.c
-@@ -5,6 +5,7 @@
-  * Copyright 2023 André Apitzsch <git@apitzsch.eu>
-  *
-  * Datasheet: https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf
-+ * Datasheet: https://www.etekmicro.com/wp-content/uploads/datasheets/ET6326_datasheet.pdf
-  */
- 
- #include <linux/i2c.h>
-@@ -65,9 +66,7 @@
- /* Register 6-9 */
- #define KTD202X_LED_CURRENT_10_mA		0x4f
- 
--#define KTD202X_FLASH_PERIOD_MIN_MS 256
- #define KTD202X_FLASH_PERIOD_STEP_MS 128
--#define KTD202X_FLASH_PERIOD_MAX_STEPS 126
- #define KTD202X_FLASH_ON_MAX 256
- 
- #define KTD202X_MAX_BRIGHTNESS 192
-@@ -86,6 +85,33 @@ static const struct reg_default ktd202x_reg_defaults[] = {
- 	{ KTD202X_REG_LED_IOUT(3), KTD202X_LED_CURRENT_10_mA },
- };
- 
-+struct ktd202x_info {
-+	unsigned long num_leds;
-+	/* Flash period encoded by a Reg1 value of 0 */
-+	unsigned int flash_period_min_ms;
-+	unsigned int flash_period_max_steps;
-+};
-+
-+/* Reg1 = 127 selects one shot mode on the KTD202x */
-+static const struct ktd202x_info ktd2026_info = {
-+	.num_leds = KTD2026_NUM_LEDS,
-+	.flash_period_min_ms = 256,
-+	.flash_period_max_steps = 126,
-+};
-+
-+static const struct ktd202x_info ktd2027_info = {
-+	.num_leds = KTD2027_NUM_LEDS,
-+	.flash_period_min_ms = 256,
-+	.flash_period_max_steps = 126,
-+};
-+
-+/* The ET6326 flash period is (Reg1 + 1) * 128 ms, up to 16.38 s */
-+static const struct ktd202x_info et6326_info = {
-+	.num_leds = KTD2026_NUM_LEDS,
-+	.flash_period_min_ms = 128,
-+	.flash_period_max_steps = 127,
-+};
-+
- struct ktd202x_led {
- 	struct ktd202x *chip;
- 	union {
-@@ -100,6 +126,7 @@ struct ktd202x {
- 	struct regulator_bulk_data regulators[2];
- 	struct device *dev;
- 	struct regmap *regmap;
-+	const struct ktd202x_info *info;
- 	bool enabled;
- 	unsigned long num_leds;
- 	struct ktd202x_led leds[] __counted_by(num_leds);
-@@ -271,6 +298,7 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 			     unsigned long *delay_off, struct mc_subled *subleds,
- 			     unsigned int num_channels)
- {
-+	const struct ktd202x_info *info = led->chip->info;
- 	unsigned long delay_total_ms;
- 	int ret, num_steps, on;
- 	u8 ctrl_mask = 0;
-@@ -304,11 +332,11 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 	/* Integer representation of time of flash period */
- 	if (check_add_overflow(*delay_on, *delay_off, &delay_total_ms))
- 		delay_total_ms = ULONG_MAX;
--	if (delay_total_ms < KTD202X_FLASH_PERIOD_MIN_MS)
-+	if (delay_total_ms < info->flash_period_min_ms)
- 		num_steps = 0;
- 	else
--		num_steps = min_t(unsigned long, KTD202X_FLASH_PERIOD_MAX_STEPS,
--				  (delay_total_ms - KTD202X_FLASH_PERIOD_MIN_MS) /
-+		num_steps = min_t(unsigned long, info->flash_period_max_steps,
-+				  (delay_total_ms - info->flash_period_min_ms) /
- 				  KTD202X_FLASH_PERIOD_STEP_MS);
- 
- 	/*
-@@ -319,8 +347,14 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 	on = clamp(on, 1, KTD202X_FLASH_ON_MAX - 1);
- 
- 	/* Actually used delay_{on,off} values */
--	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + KTD202X_FLASH_PERIOD_MIN_MS;
--	*delay_on = (delay_total_ms * on) / KTD202X_FLASH_ON_MAX;
-+	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + info->flash_period_min_ms;
-+	/*
-+	 * Rounded to the nearest ms, so that the delays give the same on time
-+	 * when written back. Rounded down, 1/256 of the 128 ms ET6326 period
-+	 * would be 0 ms, which means never on.
-+	 */
-+	*delay_on = clamp(DIV_ROUND_CLOSEST(delay_total_ms * on, KTD202X_FLASH_ON_MAX),
-+			  1UL, delay_total_ms - 1);
- 	*delay_off = delay_total_ms - *delay_on;
- 
- 	/* Set timings */
-@@ -548,8 +582,8 @@ static const struct regmap_config ktd202x_regmap_config = {
- static int ktd202x_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-+	const struct ktd202x_info *info;
- 	struct ktd202x *chip;
--	unsigned long num_leds;
- 	int count;
- 	int ret;
- 
-@@ -557,13 +591,17 @@ static int ktd202x_probe(struct i2c_client *client)
- 	if (!count || count > KTD202X_MAX_LEDS)
- 		return dev_err_probe(dev, -EINVAL, "Incorrect number of leds (%d)", count);
- 
-+	info = i2c_get_match_data(client);
-+	if (!info)
-+		return -ENODEV;
-+
- 	/* Loops over the LEDs go up to the number of channels, not of child nodes */
--	num_leds = (unsigned long)i2c_get_match_data(client);
--	chip = devm_kzalloc(dev, struct_size(chip, leds, num_leds), GFP_KERNEL);
-+	chip = devm_kzalloc(dev, struct_size(chip, leds, info->num_leds), GFP_KERNEL);
- 	if (!chip)
- 		return -ENOMEM;
- 
--	chip->num_leds = num_leds;
-+	chip->info = info;
-+	chip->num_leds = info->num_leds;
- 	chip->dev = dev;
- 	i2c_set_clientdata(client, chip);
- 
-@@ -623,15 +661,17 @@ static void ktd202x_shutdown(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id ktd202x_id[] = {
--	{ .name = "ktd2026", .driver_data = KTD2026_NUM_LEDS },
--	{ .name = "ktd2027", .driver_data = KTD2027_NUM_LEDS },
-+	{ .name = "et6326", .driver_data = (kernel_ulong_t)&et6326_info },
-+	{ .name = "ktd2026", .driver_data = (kernel_ulong_t)&ktd2026_info },
-+	{ .name = "ktd2027", .driver_data = (kernel_ulong_t)&ktd2027_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ktd202x_id);
- 
- static const struct of_device_id ktd202x_match_table[] = {
--	{ .compatible = "kinetic,ktd2026", .data = (void *)KTD2026_NUM_LEDS },
--	{ .compatible = "kinetic,ktd2027", .data = (void *)KTD2027_NUM_LEDS },
-+	{ .compatible = "etekmicro,et6326", .data = &et6326_info },
-+	{ .compatible = "kinetic,ktd2026", .data = &ktd2026_info },
-+	{ .compatible = "kinetic,ktd2027", .data = &ktd2027_info },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, ktd202x_match_table);
-@@ -649,5 +689,5 @@ static struct i2c_driver ktd202x_driver = {
- module_i2c_driver(ktd202x_driver);
- 
- MODULE_AUTHOR("André Apitzsch <git@apitzsch.eu>");
--MODULE_DESCRIPTION("Kinetic KTD2026/7 LED driver");
-+MODULE_DESCRIPTION("Kinetic KTD2026/7 and Etek ET6326 LED driver");
- MODULE_LICENSE("GPL");
+ drivers/nvme/host/tcp.c | 146 ++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 124 insertions(+), 22 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261109-nvme-tcp-live-ctrlrec-4539b9390301
 
--- 
-Git-155)
+Best regards,
+--  
+Martin Belanger <martin.nvme.dev@gmail.com>
 
 
