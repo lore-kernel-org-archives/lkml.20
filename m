@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241656;
-	b=ek+jp2osBU3YkJGHOHmcHR0dCyElk9XoMMYS6EjXr8f3vOWmoqsQ6cq+uTjETKIjZcQF
-	 YtwDCpFPhDPnKdwpa41PiPdo+9cQkVzbieGT0TP7ARq39c6fRB1juEC+INsPeLVBHS8jU
-	 Ml+Sb3d06Wu58JOPblJeibngmKMcZ/aSMvnwRfzRa/vQGMLwdFYnNI5uh7dG2T5oAGOHB
-	 LhhonRW/NKBKcr56bm0ari1+lBr2gZpQsJuILlqqxba+u3qiyrASQo69WN0J25e1ya8cb
-	 t/lXe5U4VzrsenXig1YNHIvomw3xbsXd4UFwBsd/U3dV8WcIA+K0Nr66pPpOCZFt5PQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241656;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794241691;
+	b=wTe0Q+cr5abkho8JHxKN11SZpJAZ+IYV04LGgKPQFcn6r91D1WC+zbvGhmxkoEQfrjE3
+	 zb1rrqMpozcyp/ZMh/2/FRW0jflhh8g6H6kosFPrMxjPr4fhPy2Z5rkKvybXBaIBJOFHM
+	 X+jUV+08LQpzh/lEw9/dISw6f4vfo4Juo1SbAYht3ocp38tM5noX+drIOPkvb/kuui+ur
+	 az86t5pCwoSQhu4CF4g+gVdNddz+SEB+LWY3JmqBuVNVe1M5MdOWm3GtRfiH1f1dDO8w0
+	 cSBZclDLBZLibq0KG46dU+iw3hLMKG2oyyFRPXMRyHWtYAJnRYhQfZyuZpu8rpE+TiA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241691;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RIx2VwyUaUm8R1FbfbNWeot9VjyRtZMUVqbLF/6xjCw=;
-	b=E1aqdot90aAAmyyVLd88xrRHzz6XGoKO87jfNTgd4sc79LAWywoHlpI1Tb4RIWeHocN7
-	 4hNCpYYeUFOHpFo9bXHygqolz6lHyfDxS1ghyCBd8zMIExKqeQmib9OpT8qO3jSlLYWwz
-	 /SLP8i7m3a5yBAmTXhuboydZxY6rB78vBVbPEwshO/BmuCmygg8MOUG0wJXD1NR7cmn6q
-	 Tmov5/I7HH7bJyH91bhXvIiJPRMZgZDYpJV++M+W2cCKSampdA+7M0RSVwuYVmrGxNmxM
-	 XWQXuGK9ybaREUV88GClPgfdy1tVG4mw16668WBeXjNz2UqoV4j7nLgrO75taKxty4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=66BRn2Aye/0ckjUoOnRMmf1MQbc/vWAfUdGb1bh4c6g=;
+	b=hseBOdsNeRa1wJy2ItzKx/b77zIuGg2Mx7iyjzB3K1smGjXkSmNYqNtY3tKntW0idLr9
+	 JputCV4s4YZqGdSzKRXWMS7o1tMbVJwGtDF1ABfi/Q62gpeNuUVr4vHWpt40VDrR8zYcc
+	 fhXfk3hK+O3Z8Jkt6yPSafzbJBaOciI6P39Y/OO6ANaTRnMKp4mk/r347lVEY8xxbFvfE
+	 UJVz6XwplgEpCRS0sATO/IDMtqyAWCOZtj/uvkXjs9WamatWZdKoG75e/yR+ZL0Fgl4j8
+	 oetDOTYGmcf2egow0qXN22mA+d7evO1p5inBnEpUX8rk+E5vpiom/u5wp6882jtH4Jw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HtplDJL0;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=c5bgooxP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ED7606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:27:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82ED7606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1750606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:28:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1750606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HtplDJL0
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so8595065e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:27:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=c5bgooxP
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so1221966a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:28:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794241689; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z17AlPiChdQWLzPlyxZXCqPlGoLPuQaEZboGhan+JwTjTRljkz3JLAwDcepZdwhkuS
+         3ys5S0jY5Xx0HxO+GGx09F7HYOf0wWyVtt18DoF5vmfc0kSzkmiqb/jZCeb8wQXq9EVs
+         CMhB4+fuWfLIBQxcN61HsGZLOwNyUEiMkHH9A4Z7f8xf9cKMHk++DP7S4kv+cJFCojJ4
+         yXi2H1fORIBHUo9HguC0Q4fZaqm4gWzG1dUGTV1Gd+qsHBZTiY6xbmtWzqCsB2A+DLUS
+         xwjKatP68qIJy0KIte2XNiUNriXlRrVldJC/2qy3edat+KvuqU9UcP7ZP00LYxSkWjAI
+         AKHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=66BRn2Aye/0ckjUoOnRMmf1MQbc/vWAfUdGb1bh4c6g=;
+        fh=pa/RDQR8b3yfZbMOkANrMblD8+B3gXgSaQTrquQtNoE=;
+        b=ca0tWGD9S7ReOdfb8zYRwkWMRKflOcQ9ER762oy+VFZK2Hmk0Hmc7cQ+fPdB7T5YpS
+         obDWEYo1qzICf7ro5u6aWoCU2go9vKEh/bUE8GDOLc0Dc0gjaM/4nP23PYRl9Emp3xFl
+         SB8RM/WD7NtR/Pw99OcJoqRGRpSd/RMcXypld+1kkcMZA8fISZ5GAfTT3Iz9Ra0G72nI
+         kyF8JmlUwbCxY4CgXY1Uz8wzQn5voNbLU97YwcWP209UGAAqFk3hJ8yLAQsvJNwjoPd4
+         jdpcmUIi2YNPmvbxvuXOCo/uZJjApo/6EOSz8kR93pcJxfQoaeMdhE3sircLVXsdzYWR
+         Jixg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794241654; x=1794846454; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1794241689; x=1794846489; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RIx2VwyUaUm8R1FbfbNWeot9VjyRtZMUVqbLF/6xjCw=;
-        b=HtplDJL02ylJvEefcfUp8Da9xP2PuSqf63KW/nwKA7nNqF4QlAl5B6Xtv4ue8XHdzv
-         gfCIDpiGx5biNZ3jOpzAqCJwyDbyfqh0BZnK31DKBR4r4NVo2mPs0p3480Dplzw+d/g+
-         Ejs4jbgaMWWOONqmwS7jAIK3a2+qDrsnXcgc79s1a0QPbmzlpsgpASU5a5z1UF9WiY0Q
-         6+oQZGdVDVQtgwZWwWnov374bY49sMJM247ZENXg37XorWZLhg3ZmI/+PwkpTNwDqROZ
-         YLT2FpKEkQP+Ha9pQscBEkaxyQLA9PK9leudPwsFWNu+Dj6XRezM516TJVzWVH5dXt6a
-         1CeA==
+        bh=66BRn2Aye/0ckjUoOnRMmf1MQbc/vWAfUdGb1bh4c6g=;
+        b=c5bgooxP+zL2y2viM40h+sJqVumJmHq5Kg9TLeYFT15jIeoR5HX9An2PQpeJKDtNtu
+         ImcSH4yDqkTx/VqSBiRl4ZR4Bz7eaK2a8I9+/9hmOrkT5MGDWABDpf/7jAsbSRwn/lD5
+         EJT08F5PC6HyzBtjMHpCK272l+tS9YlTBNd0D4H5qgFeYbQp+cjjUK3UiDYniQ2Y8T+K
+         nL4d/pT+C7at0GsIJiH/xselnVabgFr1OF9ziBH59MZykD0HqPALvmIFYLUIYWQlGNFc
+         naJn6D6jhLBc6pannUzY6hMpU8hVDhuQXVWTjKG/+LN/cwjs64OwFL5ohVarFFjymlZs
+         MSRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794241654; x=1794846454;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RIx2VwyUaUm8R1FbfbNWeot9VjyRtZMUVqbLF/6xjCw=;
-        b=zpy1rB+MLGcJRwPPtiZuts90gpgRdevHGutx+lErKZDWX642Uqa9QWeVI7Oo1L4DWf
-         pgCRbuwwU07/q2dbHvrBc+NueZ8lpNFLewM1w7srGJLyqmKBFR2huGJLabbySicpSSl4
-         /1VNW4PoslislDDXBuXMhZKfTZx4E2mBee2AtU5cZg6yVy0ESenVQky6+iPnyjgS4QCV
-         FMRlPNt6FTzxy6ZvQF7rzkF6+hlebRQHLk15sTt6bFe0q+LFmAsmmb6DooFjQVOXN89f
-         OXLLOWGqAj4hYi3GDhfKp4R+7xmMAnUIXWKXxs5rrw6iqMN9798OEpLQVXqjb8Jx+LTb
-         EOTw==
-X-Forwarded-Encrypted: i=1; AL+hErGJgc4zGXx6LVKWTy0jL1sJMIX9UjJsbaq9SrJiqE4ZgokMW2DM24e8gIYjlFH0gmUdSVU+KjnSxe5wJio=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Uwrtho3/nvtM7Dgp8cXczJzY6emrfQeXeggzXOT1G1q3RRvkz
-	7N9mC76m8sv/KcrYkWEZQgUdN7NHhAyqXNQ44UPwzuULAmeg6TPzR0Qiynn7UCkukno=
-X-Gm-Gg: AYBFou3iE2bvQH3NVWSx5hAXwFTEfVtee4ACJlBMdIOkDY06t83LxbQxLVZSHG63wpQ
-	UOj0GVnMXB8ypUdRzMSU+zk/esO2NTN5QXUIjqDuOI/CwtsbnciLSfXuvXpKAwzQJOKHO0sQ+XM
-	75Pw2u3JKvqZPyHn4zpSBVHMS8LacxJS8Zapf6YQ0SCQdLWt0oc5Wa70ej6d5WfvE1iBC4ALqjR
-	mLCPOIkOq6DC8KOwJrg8PkpV20LZ/u+ekzlD34c/segP57zvnDwGVRQMmEIt3RhbNWbRnSg8cbZ
-	AOZm4iTFgv3yU8UoYe0gbOcEOBTYGj3dsqvTm46WtXesARLc0YM7mkhmMsxvbBVkUXnBpM9XnyK
-	ti8S6oCYqg4Rl+8XZxWDmchrdU/NsB9VAQlqUPvY2MLQN0X86W8wiqKlHsxAH3ViMFyz4C7zLLN
-	dZKmq8S8YitzS5NaYTFvhCnnfdEtyhCjxLUKEcHOMgtjm6nJsjd+b7jMbk+/ArXmjgg+VU2Wioj
-	p3F5iD/WqdzMiggMD4/wFEv9ZuPuawAuVkFZzz/oO8XjqYMnG0WwIB7MFfq7EobEz22345Po2N2
-	8F6m9jhD5bxXEikwTz3g5ncUr9IPpwAo
-X-Received: by 2002:a05:600c:8b24:b0:4a1:9078:911 with SMTP id 5b1f17b1804b1-4b963c82388mr73750225e9.31.1794241653881;
-        Mon, 09 Nov 2026 08:27:33 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597e0097dsm11053891f8f.57.2026.11.09.08.27.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:27:32 -0800 (PST)
-Message-ID: <8136ec16-8132-4212-8ccc-6aff05ab698c@linaro.org>
-Date: Mon, 9 Nov 2026 16:27:31 +0000
+        d=1e100.net; s=20260707; t=1794241689; x=1794846489;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=66BRn2Aye/0ckjUoOnRMmf1MQbc/vWAfUdGb1bh4c6g=;
+        b=gxpFQL335VVl8xbdMtArJcbh0uYlB47Kc8TQamdYABjQ3YUAhpihzrntOmBGsx8vQX
+         rhlZtlvEy8xav86jKfbbKrngYCcNenwFDdt5+2GmnndS4/2jwvwunB+xEkPgmIjuQH/C
+         3BAsxWZrimdw9HErlIiiDJ1zReamFIyeBzGOIPJ5JYpFOTZNaWMSAn82q2sHKPLgU+iX
+         Zu73sIdW1X611A72NJfilDamshXPpyvyGT2lfN2mnmdEf2ZXC4ztA2jxXVn7TAF5i5Pt
+         z66Ks8mLjdBE79wZaf/o9U1ZoxC5uX7sLVoAjbHgyowQKKmlL9UT2OBVjYihUuAeWp0M
+         lZ3g==
+X-Forwarded-Encrypted: i=1; AL+hErGjSYTwoBCL972G6VnnUgv9Xc5yLZ8xalAX26qw56Usm7AVYnuodVxtOk58m8NC2KtZdZ0uZVKmRCIwqrk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uS2OoZJ5f2qTlNicsz/qS7QtqVFwItq3WrBr7vamjnq7kIu75
+	73pGE7DtlKuCgfv+qvzVnsW4+Bzi/hTuB4U4svvm6riLfTNTXx3EGHarSt1P947tLW7RPyVUV4T
+	kfjdz72Mmg429Ffd5MezEBWhZyS5IB9psf6G3MlyAKA==
+X-Gm-Gg: AYBFou16RtB4RCeZo26aF0dv6h2e52D/bTKCIIlxaQgK2KK4UO9AekuWNyh2Ij7R6T+
+	oaZEcrgMGwuT21a1gOx+oio4J5kPZDxklYg4kpgLSpGwBlGRa9I74/CPK3mefqXb2OnDPf9jPK0
+	wiTPdE8qgFFXfeJmztAPI5f5JJgf36XFqhOX7Iu4zp3V+BxHpm2AIFnEUdjU1arOAue70ZBFEkj
+	mj0gvpIEFPaf8QC6bzO8egfh8c5bMtLldEaCUXlHLAdRtZo6+ff/z4zS0/cDRsz6ZJK5AG161/M
+	8kO+OZyr3wXQob1QtZ10NvCzU6OEf6s7A3VMA1x7gDhx5Ea2eHaxXdIMYesv4KwMawcG7hobZ/3
+	uH9NwOfc8algUs+Mhday8Muz1hZN+ccI1JuBPPw97mHb6fXB8eUVX7qFWlB/IThzKpN8beg==
+X-Received: by 2002:a05:6402:22cc:b0:6b1:cd52:5798 with SMTP id
+ 4fb4d7f45d1cf-6b756b07148mr54356a12.42.1794241689236; Mon, 09 Nov 2026
+ 08:28:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,79 +103,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/23] coresight: trbe: Drop redundant disable from
- enable path
-To: Leo Yan <leo.yan@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
- <20261016-trbe_enable_disable_irq_handle_refactor-v2-6-3f57cf3199b1@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-6-3f57cf3199b1@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-3-vincent.guittot@linaro.org> <au38gSTzmvPKmqWT@scheduler.schedules>
+ <CAKfTPtDXo8_3tfXt=UH+BKyO1rJCWjRAVXjO5nFVHO1NBd8LyA@mail.gmail.com> <20261109154536.GK1779021@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261109154536.GK1779021@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 9 Nov 2026 17:27:57 +0100
+X-Gm-Features: AclHuK-qEpP_7M7KqnfdpIA6Mgua6z_axLvPnkGDjCe32vaSEKTrZIO3tqlNgoU
+Message-ID: <CAKfTPtAL9T0bGZdhkodC49DtNUFKJgEn9f5wLNBe_rGxzJEN0w@mail.gmail.com>
+Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
+ has been idle
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@redhat.com, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
+	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, 9 Nov 2026 at 16:45, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Mon, Nov 09, 2026 at 04:27:14PM +0100, Vincent Guittot wrote:
+> > On Fri, 6 Nov 2026 at 17:22, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> > >
+> > > On Fri, Nov 06, 2026 at 04:19:29PM +0100, Vincent Guittot wrote:
+> > > > @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> > > >
+> > > >       dequeue_hierarchy(p, flags);
+> > > >
+> > > > +     if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
+> > > > +             cfs_rq->idle_seq++;
+> > >
+> > > This needs WRITE_ONCE, no?  3/20 uses READ_ONCE().
+> >
+> > I hesistated to make it WRITE_ONCE but i concluded that it was not
+> > strictly necessary because the READ_ONCE is only used to compare the
+> > value but not use it for any computation or sync so if the compiler
+> > wants to do any kind of optimization what we really care is : is it
+> > equal or not ? so any intermediate value that we would read would be
+> > ok
+>
+> Right, so without WRITE_ONCE() the compiler is allowed to write the word
+> in random order byte writes. When comparing only cares about equality,
+> any intermediate messed up state is not equal. And since we were
+> incrementing, we're not supposed to be equal to any previous snapshot.
+>
+> Therefore all is well.
+>
+> That said; we should either document the above reasoning, or just do
+> WRITE_ONCE() and get all the sanitizers off our back, because I'm
+> certain that KCSAN is going to complain about this.
 
-
-On 16/10/2026 17:55, Leo Yan wrote:
-> The Arm ARM (ARM DDI 0487 M.c) rule RDJMDD says:
-> 
->   | When the following conditions apply, the PE might ignore a direct or
->   | external write to any of certain Trace Buffer Unit registers, other
->   | than a direct write or external write to TRBLIMITR_EL1 that clears
->   | the conditions:
->   | • TRBLIMITR_EL1.E is 1, and either FEAT_TRBE_EXT is not implemented
->   |   or the Trace Buffer Unit is using Self-hosted mode.
-> 
-
-Doesn't the rule just say that the buffer must be disabled before doing 
-writes to other registers? But the explanation for removing the extra 
-disable is that it's already disabled at this point, so nothing changes.
-
-The commit message would be clearer without this bit IMO. There's no 
-architectural requirement to make this change, it's only a software one.
-
-Otherwise:
-
-Reviewed-by: James Clark <james.clark@linaro.org>
-
-> trbe_enable_hw() calls set_trbe_disabled() first to ensure TRBE has
-> already been disabled before programming any other TRBE registers.
-> 
-> However, TRBE is already expected to be disabled before trbe_enable_hw()
-> runs:
-> 
->   1. CPU probe resets TRBLIMITR_EL1 via trbe_reset_local();
->   2. Interrupt handling disables the buffer before re-enabling it;
->   3. The normal disable path clears TRBLIMITR_EL1.E.
-> 
-> Calling set_trbe_disabled() from the enable path is therefore redundant.
-> Drop the call from trbe_enable_hw(), which only needs to program a
-> known-disabled TRBE.
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-trbe.c | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index a7c1037a048f5236598f8f3a7cc4f47bff9d329c..979d0fa84c1c7b448c1ce5cd7a37dff8845795ef 100644
-> --- a/drivers/hwtracing/coresight/coresight-trbe.c
-> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -652,7 +652,6 @@ static void trbe_enable_hw(struct trbe_buf *buf)
->   	WARN_ON(buf->trbe_hw_base < buf->trbe_base);
->   	WARN_ON(buf->trbe_write < buf->trbe_hw_base);
->   	WARN_ON(buf->trbe_write >= buf->trbe_limit);
-> -	set_trbe_disabled(buf->cpudata);
->   	clr_trbe_status();
->   	set_trbe_base_pointer(buf->trbe_hw_base);
->   	set_trbe_write_pointer(buf->trbe_write);
-> 
-
+I agree that it needs at least a comment. I can use WRITE_ONCE but I
+remember seeing somethign about its cost. But does it worth having
+sanitizers complaining ... I will run some tests and use WRITE_ONCE if
+I don't see difference
