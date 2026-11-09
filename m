@@ -1,101 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794202151;
-	b=sU4J6NpT/aCGBhkdo4vJXVMd6/6AZunUr173wrJWZHv4+wcZZKbICTEtD+nFCwVMrTcx
-	 PF++B7nVlKb5shLb9i1PO0+NT52PJfHA7dscp2krSo5pmcyWqpUBurTp9ZjopVo+jkUSF
-	 PnRVOiO5Ge8TBi6Ef2udBAyGrOMq4OmqnKxwPsr29RVMKU+ok4tOF9lXNSNHkTePO+Xnx
-	 MEWM40u2kG2ngds6FAvHDSlPnls0RAf/4UZW8UgiwhjtZeE8xCOPwtHDLyrYIVLn3ndMB
-	 6fA1tsofqCJU2/+Q28YlL70AU6HETHleyBWUwQ8VuLlkdKhoXLhLPDSzReV3dhWoigA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794202151;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2QuDJ1AJ4WCH3h75PaGKEKTg1UqzbPxHh6JCsc2YOBU=;
-	b=vKuAIS9kM+/BenUmX/4U0UB9JoxPbmUfQQWWkwD98r6p6R3q43xzekxRx2j4dsQ5ow42
-	 +nZpkw+jZQX9OkGUOn87ZsP+MwlK+IFnYHKLioiG059Inov9/WgW1Jx/3XRSATBR8pmyM
-	 EOcGsVWmcrBBmFGu3+TsATEVwpXlycawylNIVw/1eTxts+Lv4lHcX5GhKy05VTK5vbRXi
-	 Y4g8NENak1+sLe3MT88KV+fDgLOxlbZzIFAj6QehhPc5FBxrb7fzY6pETPc450cvDdeI+
-	 XjKPpyNynxdIMFl+3HfaCE6yTuemMAu16nD/5sjP1ZDw5NmhIeMfoB4Tk3HNXqQ/2pQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chipsnmedia.com;
-	spf=fail smtp.mailfrom=chipsnmedia.com;
-	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=W+NmvEDV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.75
-Received: from SE2P216CU007.outbound.protection.outlook.com (mail-koreacentralazon11021075.outbound.protection.outlook.com [40.107.42.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794202155;
+	b=d/rxNgVkl6acLXK8avc+6MA100mMDmdoaDsmOe+AHYtSdP1wCbJDc5jDv+JsNdWpVEjN
+	 LikTagugnrkAYOuyieJ4tWMcfYUvG6cVhviP90FJ5YaSy4WukSEh3OizZ1whyBsKd9lp8
+	 CkopZLULXEEx3g0/22PdHeT5lls2298zg5lpZhAj/e6I4LPA9FaN3msVRO0bkUZM7FVGO
+	 g1xadJ6/+b+zX+VYEHu2HY2EypJGoBJK8ESHPTyAn0Cw6ylGcuWVrxWmpYsRzkA35Cl21
+	 QlxMOCef+MIIWl/JPAx1quUlr6EAxVG73i1akDuCpTaqXO4/YahvukAVq/Grd9wZp9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202155;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=o/Zu8d9pjMW/MzpeHmGEy9jntTL7TUHvfpSM9hyMkeI=;
+	b=I93zaUpI2b0vn01x8bqaqOBPnZE6mKoux7bXjgV+LuTkOlMvf7Tx/CsGPTXy+k9i+rQs
+	 D8pQCqJQn67EyPZXif0l5TCkuH6p/l1Wt3nenJp4l8AUcQwu17Dfl46PbXPF7C64hM2BD
+	 6boPgBmSO2vMXyTDYQL2/Rkk3UEvtb+plaZozrIGgzwkjhEAUEYwgqL6ybdydDYv7yzI/
+	 HiFRV5iQ4qREa50r0kfhmsrc+BFLGhcit0NkEpDhc9ShCqXyEmro+cT1+c+DReDCBXKCB
+	 Cl7gISW/K/NC1pJI6SjpZ1QgjKkYmFQbEamVDMlJ40+7zgFfIg13/S+CtqueN6nalgQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ELv7xnh;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE29606D812;
-	Mon,  9 Nov 2026 05:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CE29606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFC7606D83D
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:29:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FFC7606D83D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=W+NmvEDV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vd3rDZEH/EPfcdsgZBiZuCQYEtTbYe/UXDvEV8UjVN/GyofrWfpF68qCvwqiSESPBuvPkBXN25Vvtnxl5WvndpivEZqm+wqZ+eMMBBDDCuPDEyR87MsARDPjUHxTrKQkIjcvp9UlHpGNbqV7oIHaw+1viflfuE1y+Dwvd6kFNAYVSu1SkidE0zM0CW6gvAToVBkt7XpKhZJEG/ONo3KYCNY3Joc5D4hcA6m04IMN/XrdM3AVpuilWwRSVuybAWXshhTXOiNbJbyX5J1UpIVA+8P3isjDNA/nIRGMbp0WLiMJcvAEE/u5jljNIZtBc7CzqYp9U7+y7keMvusBu1B2Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2QuDJ1AJ4WCH3h75PaGKEKTg1UqzbPxHh6JCsc2YOBU=;
- b=KYsekiTcn7a38X1YvfUne5mO0JiGy0bIRjf/i0X7EKeszlrJfG5+SIZoI127uuVpp/Irfgq+rSXZMNlG/eegKnwgYaBZEguMKWfqQdESh602YYISuBFrDoYuwd1aGj5s4HGqCmk51jRU6bi27brS9sBPGjiGRrZNs4IM3mUBGekgmQAIjaxPgKfHENrTdlSXCtZ6oisig6gpxZB3a3zHEdIQImxL/+2XxvBet15sN0xdXPYCNGbM66h/xnFhc2ZbP+Gtzj3cUdVbjDSlyUCUy5p2NW8tWLYl2m2EGpUioEvPqpKd9+doYzFhJFhrqpwjNoNIzvYj1n1aYbJzq9RBCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2QuDJ1AJ4WCH3h75PaGKEKTg1UqzbPxHh6JCsc2YOBU=;
- b=W+NmvEDVp1r+e3I3ZW4lMS+qf/vLWhdFrv8QCfYZKo4/pG5GZLe64K8GfzAuqAmy71VNIAMLjy7eWc3y7Afrb4qDpbsu2ici07QUiPEaRA8ty5DCr1fyJLppVih+KATbOjU7IUarVPwZ8FvkHOFqbpEyE8X1/8UFBZbdE2rfgCp0vmOk3+4QzfXRB1vmfxxAS6kyITrSUWqg+0oIqQUE5y+SK12i/NQlDztaQl0VFogO9/xOXH1wyllu4kY7zppi6Ual6koIdaAJ7zM2KZN8vfnz6d97ba2H1EFmaGPTD8I4BVWMgXOLVmGhhhvPjaMFlBCnpTAeoqlaMFhRDYUBEA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- PUVP216MB596218.KORP216.PROD.OUTLOOK.COM (2603:1096:301:173::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 05:29:04 +0000
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 05:29:04 +0000
-From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
-To: mchehab@kernel.org,
-	hverkuil-cisco@xs4all.nl,
-	nicolas.dufresne@collabora.com,
-	bob.beckett@collabora.com
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ELv7xnh
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a06e79e152so191933b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:29:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794202154; x=1794806954; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o/Zu8d9pjMW/MzpeHmGEy9jntTL7TUHvfpSM9hyMkeI=;
+        b=0ELv7xnhBjXLA7OQwudqcIzL/o1BjIovz0HBs+rIVtTTrk9MWz9mJShZ0d3rMK9bcN
+         EjVOg30yJMCFkuL6XAHSSUSMy88CJJaBPhKtWH5k03L9sqYr/OKoMEs10ebHw4TrOIXY
+         0VWAuGoIJgJczRyPFvHAWB9c6z8bG2ntDUy4p5bJZFt67BmwqLAd/0Lx4rTndWyF9CEC
+         EI+RGVHIWNArETna4OR9SPDnyHAaheLtD+D15FiMIAel0wQcBW9YVgjTse5xKw5Cci1x
+         lXpAS4lGYPFyLvXNhKQv4IjCD6/xWG+ndzbZhf7BhBhhvv6LrjaY1cw91noXEeAw7BgB
+         FIzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794202154; x=1794806954;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o/Zu8d9pjMW/MzpeHmGEy9jntTL7TUHvfpSM9hyMkeI=;
+        b=XzNOlrgvXp2/Sv3fTRbzOtVnSTYMuD10LZ4TnRRAsRVhler/Bcwmp2U43e+y4qyb6m
+         DULQcTNyEZUWRncF79A79zQhf89XRAIZ/jiN3SXet5O4GsKmDuZkqOuoHfxvcaMWL8g9
+         c8A87vU2/VrQPVJbJyXnucMaiBmHZS0JTsQ7I1SJglQytkOt0BPBzb3/+xhIapdRbZZj
+         TIHxNlM9sgB/DTf8QDm+iYAJiP1pC5nLLbPfnSE0lYd2vkq3SgxosNmJDgiZv0prNnZc
+         a/xBxs5C0VeKQEOB6aaXjhQiL1zmgvdVvETkZRNO/JYiZwmN5cT+GbU+8veZ9M1U6nmq
+         l8TA==
+X-Forwarded-Encrypted: i=1; AL+hErFsTfoKtCmvb/t0QOsQYnAkZBHNwR4drZbdNSZaUwJIAj98elBxJN5KRhtEWpE56sASxMCW7nldOYyYUzs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IeGKswog6/xTpOby5BN7G0Qba5H737AJIJewxyT0WxWRrzNFU
+	vHQNB+Vb/Deta4TQoMcdT9gspHcBUvhIK8oQSk/ErmvfHTsc0kcnIeY3
+X-Gm-Gg: AYBFou0Tu8DqaKS5AJN89l/FVnrnRs28ICnk1PZn3IGfdtnYsIMCLZSJCc0OP/iGORX
+	Ac24GAQsTC8BPBYT4wUCsRVH6SDb5AUqWDGegUVy6g6uTcbakmXl8/K431l8LFJrHRTEnkjimjY
+	glZmsf6gMOYQF55RTDnK+Dct7jQQXJIe6JXDjH1wM8iow2OxRmKllxUmOxx08l82a923HhI/wza
+	LZoSQ0tN2zpU94fuEWqszS7Ft6iyFk0UwXB/fK3Vs0NLVxyUZfTBJ2q+gD71VaXaxIUUlR1Q9bS
+	k73aixyQqgAwyzWxqwXIsHkrCSuDO0gkofTwuzF2P+QmMMEdC5a9IeNFKBHUmN0/PnkV5rAU5xP
+	oJ6gWhbtN3pGRfdxH8GdSE9f5Pu6Lcr9PL3JYoQkpD4j72zHJORNJtFmWiKnL78GC/hubR0OZmH
+	UyDo5D+A177LydExNRRL+UuRnbJ/CvtCYQiORyO9W4mOm5CaxLTVW5i6MSj2o0J6lnCU8LkylEs
+	axrzcAo0WcVRcXZ94VvEY9mCisEaBKBFahcY6AcUCvMfr56puTLMIth/2zuaKREi5Bgk0OsMtrD
+	jUi8T8G6etLcO3DCt9Jt5uRbC3XZ9GcL84PKwbjCLnZv8yVoqyzxb3vF+bYYSl3hMt8hoXIf5UZ
+	hIs63aAvCZDSAUKmOIH+IqYFPPP/YpE0dQS4i
+X-Received: by 2002:a05:6a20:160e:b0:3de:53c1:b627 with SMTP id adf61e73a8af0-3eed3325837mr3088295637.43.1794202153524;
+        Sun, 08 Nov 2026 21:29:13 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb9681385fsm1180899a12.6.2026.11.08.21.29.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 21:29:13 -0800 (PST)
+From: Shan-Chun Hung <shanchun1218@gmail.com>
+To: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	jackson.lee@chipsnmedia.com,
-	lafley.kim@chipsnmedia.com,
-	b-brnich@ti.com,
-	hverkuil@xs4all.nl,
-	nas.chung@chipsnmedia.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/9] media: chips-media: wave5: wait before retrying a refused flush
-Date: Mon,  9 Nov 2026 14:28:47 +0900
-Message-Id: <20261109052853.110-4-jackson.lee@chipsnmedia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
-References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SL2P216CA0135.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:1::14) To SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:f::14)
+	linux-hardening@vger.kernel.org
+Cc: Shan-Chun Hung <shanchun1218@gmail.com>
+Subject: [PATCH v2 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+Date: Mon,  9 Nov 2026 13:29:00 +0800
+Message-Id: <20261109052900.2960473-3-shanchun1218@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261109052900.2960473-1-shanchun1218@gmail.com>
+References: <20261109052900.2960473-1-shanchun1218@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,122 +110,733 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|PUVP216MB596218:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffa6ba71-cfe2-4573-44a1-08df3e225ea8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|52116014|23010399003|38350700014|10067099003|56012099006|261021123027099003|261021135927099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	9CitnasAKx+yhrPu8q5rRvzevohaqVNJQBQJ2kzb0UNQfRDGLMdqlwFRg6PRBvWjGY9LLRjhCGYFPTw85zlTZEjOzqWaM4pa1F6r7xMyltyWm4TGlzxU9jM1EWkAXd9koLhHCkc9JqTgwWks5+x1sMPXR7g2DptPx/+w14bjnXwThP3QVu4nGxlY/xpN0FHf+bEml/QGEACN+ORtollHIwLLNKnOentQFCQgq0aS24H3fTJJz/k6QE0jDACaWQVQN1IC1lyeLO60ER1mvkX46BWuoPI/AMqCrXRCDzSi00vMCtCR5W8mui/scUoly9bvAU4gMaJDYFnnWDkCMVLY33PKrazN49WIqowX6gSwQYV4IdbsSaZxtZDoeKAOumGfuYeelCQ1mTbX9wLAUYTLGGVKBf7Ben2lUQ+ocgK7A6EGRBm4ro+nP2KIRQm7Qt1aivlIVdG9ObtKWeDrCLvC4kK4hG+/B5NvNY4Xl1Bm83bdzsmYKM/n9HvnZXe1MmATHbPqq+a1xecjP9XkrTFT0GchGAC8TgtXmACJytbNrmT0gW5o0WwItN1naRSkoe1eNskseiBNds713rk7VOzbc9aCkupDiYfHs5qqMfxvxiftcObBo0GWYVu0R64FJCp9UxYeoVkPKC7LhsAr6sxZ8Q08wJMeo5iZHYY6kIIbWP1k+R9uY33QoWjrlscs/cwNJC51332QeXQ4p9Ig8zO/IupDBX6M8fO9Un+DN58ITQ4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(52116014)(23010399003)(38350700014)(10067099003)(56012099006)(261021123027099003)(261021135927099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?haD9ZG3IxYfBZnsc1zzy9ctjcyt8Cl1i619FLQcSH6eZOilGtlCTmRieVGi8?=
- =?us-ascii?Q?LQdBesvOQEmPA3Fw+v6jp1W4oRX3R2goZ3TvJquc4sVR2lp7CzYS3AE4LDuQ?=
- =?us-ascii?Q?FP7njpk5Ga/53rriqh3vNATSuOfEqND4q9sEtN2HuMdpph9zUODGSwvqIk6v?=
- =?us-ascii?Q?7We8Yl0sR4y+O/uVLVzhS0aCPHNmepjXTGKimPE5rrprUK8h9R3Wr8Li/dDM?=
- =?us-ascii?Q?gMEJT7TmeOfZpkyfXdbmKmyb7del6KwtyCRqlH7f6uV5UovsV7CU5d5Kchu/?=
- =?us-ascii?Q?Cad2XcmqE9s8EmmQFDbpQJ4cj2HiYOj7nwegmmM21Hvf9hLxVZilumvJvAY4?=
- =?us-ascii?Q?Oq/ew3jSITOVV07cAp3T1Pq/U/b8ZtxMa9giJO7dw6I5ozs654xA6S3IpV8K?=
- =?us-ascii?Q?gHl/jcsyI7ce4k43imrMr0+wialJkNd43ORaBBvULXLII0PMVw+RDapObvLi?=
- =?us-ascii?Q?DOC8JJfuofjTz6CW4YKXBJs+lWDwh3VPn/Zsan0Vjn22aiFVEw8JRmA0rOti?=
- =?us-ascii?Q?rP65EdPoLHthRTzzyGEtRwiDFoS+6ZRP1OJ2wh7/OdrTuY230TEVdwXBz/Ja?=
- =?us-ascii?Q?P6xMkmhy2o+FyAVOgJHKKhe5z4J29z0AxOBuuKBhy9SV9yPJn7ZRhs3fUrsI?=
- =?us-ascii?Q?h0F9ZQqLF88PeJkT2fPts3hmiN9qRZ1XG4QrNUW/qu1gSY79+M+rgiwt91zH?=
- =?us-ascii?Q?yGRwR+/JPxql0UVwkKJqviM40mq4cYo2p1Hmp1B+2HoDJWm2IxU1ss/PKXe1?=
- =?us-ascii?Q?KJudqLtOryR9L3lZwwPWB+S+95ooD281VlH5byli9J6MVOU4zzsXXyDv+jIv?=
- =?us-ascii?Q?gA4qEogKM7W6C+GA1gR/3NGge7DdkTkstoVUnXdotre0DjIuwbEPrl7KmHKy?=
- =?us-ascii?Q?FdFhJUdeoZ1NoMsdWrSzO8yx+AP2Db/VbG/FCb9r2TEp4+rXXvdN4z1qSJPo?=
- =?us-ascii?Q?vQnX9GRuA5d8x9O8JHLwUlbhqNs3EA8IwEqDz82Igxzr79riuOsyeQf9YUCN?=
- =?us-ascii?Q?8InNY23WjdBOrr+Kif4moXxyePBvVlc/Gyra0U7UYbNWBBwYehO0DV2bG7Cw?=
- =?us-ascii?Q?nstGcVtv5pl80EmJUXmIPoqCmHUB1KNieFIYPHBT93cMz+jgLRXvUeoHbX9E?=
- =?us-ascii?Q?k0KGUhbGCJO9KZp+Uw5gJp09ilzYUs5SIO98DTu3f56Q8bpJBx/+Te8W+aMo?=
- =?us-ascii?Q?lgl60YZG2f+aMKvkCFpQHxFOalW5Tk5BZSFhEoHI9foT2K6Z5zUeVARd/mH7?=
- =?us-ascii?Q?kUQzppX05A+xbTTdhkYNl6xO6+1AJX6DpnzZmR6219NYTt7ggmhh2weroL4m?=
- =?us-ascii?Q?8QruL4KOmcUsu5OTQFU/30SUY9+dMuC8bAiJsNcehA6vhXfR0ZrGkh676S+Y?=
- =?us-ascii?Q?M1/wrP8eCo3qTgd5wcKrgr4TBqc9GXKJd2maqIwvRQmh3s+81Tgzust5jJiv?=
- =?us-ascii?Q?Uor5EuPbSrsZdrvtpnrAzLiSiC1PzEGQd1GTOnQsEWx3m3hPJmW1Wp4cwH6j?=
- =?us-ascii?Q?hDIgmXFVua+wdRc1JjgoXlG0r78R8oR8z85e0K5FeelsZNUSyl7mLKmO+5Oz?=
- =?us-ascii?Q?Bng5/hZ6RBpKGC3PTYS3BsSm/I8Bwmd3zAKalNo574ZF3k8+n81rxbnXneD3?=
- =?us-ascii?Q?n1WvxnEwQzVy9CTpplOGfkCydtt1/bCWKkbyPfkCkySqJlZAfrXvJldas5ff?=
- =?us-ascii?Q?oUzyVAx70nv73sStxppOK77gCiR9aO89thfczPswHLM+qfECAz/2tUhLHXQc?=
- =?us-ascii?Q?MOEnVwyVZ876SHOStl5ENdhb+AjbevM=3D?=
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffa6ba71-cfe2-4573-44a1-08df3e225ea8
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 05:29:04.8554
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B/7EtpDuAWLszIquckiofyxvGyk404xw7/VD89pcfIjCBbF/Xw0yEHiu0e7YJd7SpSrfT0EwtJg4CSkewEcjlJ2+ltlcCOov4CbVmfjOrNI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUVP216MB596218
+Content-Transfer-Encoding: 8bit
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+Add a driver for the PDMA controller found in the Nuvoton MA35D1 SoC.
+It supports up to 10 channels with memory-to-memory, slave scatter-gather
+and cyclic transfers.
 
-wave5_vpu_flush_instance() repeats FLUSH until it is accepted but never
-waits between attempts, so the whole retry budget is spent in a few hundred
-microseconds - far less than a large frame takes to decode. A flush issued
-while a picture is in flight is refused every time and gives up:
-
-  Flush of DECODER instance with id: 0 timed out!
-
-streamoff_output() then returns -ETIMEDOUT without resetting the ring
-buffer and the instance never decodes again.
-
-Sleep 1-2 ms between attempts, and only use dec_info when the call that
-filled it succeeded: otherwise index_frame_display would set a display flag
-on an arbitrary frame buffer. With a flushing seek every 500 ms the decoder
-stopped after 519 frames before this change and ran past 2072 with it.
-
-Fixes: 45d1a2b93277 ("media: chips-media: wave5: Add vpuapi layer")
-Fixes: a2c75e964e51 ("media: chips-media: wave5: Fix a hang after seeking")
-Cc: stable@vger.kernel.org
-Tested-by: Brandon Brnich <b-brnich@ti.com>
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
 ---
- .../platform/chips-media/wave5/wave5-vpuapi.c  | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/dma/Kconfig       |  12 +
+ drivers/dma/Makefile      |   1 +
+ drivers/dma/ma35d1-pdma.c | 672 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 685 insertions(+)
+ create mode 100644 drivers/dma/ma35d1-pdma.c
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-index f77abd5e122a..397da200a9ed 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-@@ -78,13 +78,27 @@ int wave5_vpu_flush_instance(struct vpu_instance *inst)
- 			return -ETIMEDOUT;
- 		} else if (ret == -EBUSY) {
- 			struct dec_output_info dec_info;
-+			int info_ret;
+diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
+index 01f96a8257e5..3d4d09e459f1 100644
+--- a/drivers/dma/Kconfig
++++ b/drivers/dma/Kconfig
+@@ -404,6 +404,18 @@ config LPC32XX_DMAMUX
+ 	  Support for PL080 multiplexed DMA request lines on
+ 	  LPC32XX platrofm.
  
- 			mutex_unlock(&inst->dev->hw_lock);
--			wave5_vpu_dec_get_output_info(inst, &dec_info);
-+			info_ret = wave5_vpu_dec_get_output_info(inst, &dec_info);
-+			if (info_ret) {
-+				/*
-+				 * A flush is refused while a picture is still
-+				 * being decoded, and there is no result to
-+				 * collect yet either. Retrying straight away
-+				 * spends the whole retry budget in microseconds,
-+				 * far less than a large frame takes to decode, so
-+				 * the flush times out and streamoff_output() bails
-+				 * out before resetting the ring buffer. Give the
-+				 * decode time to land instead.
-+				 */
-+				usleep_range(1000, 2000);
++config MA35D1_PDMA
++	tristate "Nuvoton MA35D1 PDMA Engine"
++	depends on ARCH_MA35 || COMPILE_TEST
++	select DMA_ENGINE
++	select DMA_VIRTUAL_CHANNELS
++	help
++	  Support the Nuvoton MA35D1 PDMA engine. This engine is integrated
++	  into Nuvoton MA35D1 chips. This DMA controller can transfer data
++	  from memory to memory, memory to peripheral and peripheral to memory.
++	  If you have a board based on such a SoC and wish to use DMA, say Y
++	  or M here.
++
+ config MCF_EDMA
+ 	tristate "Freescale eDMA engine support, ColdFire mcf5441x SoCs"
+ 	depends on M5441x || (COMPILE_TEST && FSL_EDMA=n)
+diff --git a/drivers/dma/Makefile b/drivers/dma/Makefile
+index f62d12b08e15..dd99f7d12d4d 100644
+--- a/drivers/dma/Makefile
++++ b/drivers/dma/Makefile
+@@ -52,6 +52,7 @@ obj-y += idxd/
+ obj-$(CONFIG_K3_DMA) += k3dma.o
+ obj-$(CONFIG_LPC18XX_DMAMUX) += lpc18xx-dmamux.o
+ obj-$(CONFIG_LPC32XX_DMAMUX) += lpc32xx-dmamux.o
++obj-$(CONFIG_MA35D1_PDMA) += ma35d1-pdma.o
+ obj-$(CONFIG_MILBEAUT_HDMAC) += milbeaut-hdmac.o
+ obj-$(CONFIG_MILBEAUT_XDMAC) += milbeaut-xdmac.o
+ obj-$(CONFIG_MMP_PDMA) += mmp_pdma.o
+diff --git a/drivers/dma/ma35d1-pdma.c b/drivers/dma/ma35d1-pdma.c
+new file mode 100644
+index 000000000000..fef78e6d10d7
+--- /dev/null
++++ b/drivers/dma/ma35d1-pdma.c
+@@ -0,0 +1,672 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Nuvoton MA35D1 PDMA controller driver
++ *
++ * Copyright (C) 2026 Nuvoton Technology Corp.
++ *
++ * Author: Shan-Chun Hung <shanchun1218@gmail.com>
++ */
++
++#include <linux/bitfield.h>
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/dma-mapping.h>
++#include <linux/dmaengine.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/list.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_dma.h>
++#include <linux/platform_device.h>
++#include <linux/reset.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/types.h>
++
++#include "virt-dma.h"
++
++/* PDMA registers */
++#define PDMA_DSCT_CTL		0x000
++#define PDMA_DSCT_SA		0x004
++#define PDMA_DSCT_DA		0x008
++#define PDMA_DSCT_NEXT		0x00c
++#define PDMA_CHCTL		0x400
++#define PDMA_SWREQ		0x408
++#define PDMA_INTEN		0x418
++#define PDMA_ABTSTS		0x420
++#define PDMA_TDSTS		0x424
++#define PDMA_CHRST		0x460
++#define PDMA_REQSEL		0x480
++
++/* Bitfields in PDMA registers */
++#define PDMA_OP_BASIC		BIT(0)
++#define PDMA_OP_SCATTER		BIT(1)
++#define PDMA_OP_MSK		GENMASK(1, 0)
++#define PDMA_TXTYPE		BIT(2)
++#define PDMA_TBINTDIS		BIT(7)
++#define PDMA_SAFIX		GENMASK(9, 8)
++#define PDMA_DAFIX		GENMASK(11, 10)
++
++#define PDMA_MAX_CHANS		10
++#define PDMA_MAX_CHAN_BEATS	(U16_MAX + 1)
++
++#define PDMA_WIDTH(w)		FIELD_PREP(GENMASK(13, 12), (w) >> 1)
++#define PDMA_TXCNT(cnt)		FIELD_PREP(GENMASK(31, 16), (cnt) - 1)
++#define PDMA_CH_OFFSET(ch)	((ch) * 0x10)
++
++#define PDMA_SLAVE_BUSWIDTHS	(BIT(DMA_SLAVE_BUSWIDTH_1_BYTE)  | \
++				 BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) | \
++				 BIT(DMA_SLAVE_BUSWIDTH_4_BYTES))
++
++struct ma35d1_sg {
++	u32 ctl;
++	u32 src;
++	u32 dst;
++	u32 next;
++};
++
++struct ma35d1_desc {
++	struct ma35d1_chan *ch;
++	bool cyclic;
++	struct virt_dma_desc vd;
++	dma_addr_t dma_addr;
++	size_t dma_len;
++	u32 sg_len;
++	struct ma35d1_sg sg[] __counted_by(sg_len);
++};
++
++struct ma35d1_chan {
++	struct device *dev;
++	struct ma35d1_pdmadev *pdmadev;
++	struct virt_dma_chan vc;
++	void __iomem *base;
++	int id;
++	struct ma35d1_desc *desc;
++	struct dma_slave_config cfg;
++	/* second #dma-cells argument from devicetree */
++	u32 request;
++};
++
++struct ma35d1_pdmadev {
++	struct dma_device ddev;
++	/* protects read-modify-write of shared controller registers */
++	spinlock_t lock;
++	int irq;
++	struct ma35d1_chan channels[PDMA_MAX_CHANS];
++};
++
++static inline struct ma35d1_chan *to_ma35d1_pdma_chan(struct dma_chan *c)
++{
++	return container_of(c, struct ma35d1_chan, vc.chan);
++}
++
++static inline struct ma35d1_desc *to_ma35d1_pdma_desc(struct virt_dma_desc *vd)
++{
++	return container_of(vd, struct ma35d1_desc, vd);
++}
++
++static inline void ma35d1_pdma_reg_set(struct ma35d1_chan *ch, u32 offset, u32 mask)
++{
++	writel(readl(ch->base + offset) | mask, ch->base + offset);
++}
++
++static inline void ma35d1_pdma_reg_clear(struct ma35d1_chan *ch, u32 offset, u32 mask)
++{
++	writel(readl(ch->base + offset) & ~mask, ch->base + offset);
++}
++
++static void ma35d1_pdma_desc_free(struct virt_dma_desc *vd)
++{
++	struct ma35d1_desc *d = to_ma35d1_pdma_desc(vd);
++
++	dma_unmap_single(d->ch->dev, d->dma_addr, d->dma_len, DMA_TO_DEVICE);
++	kfree(d);
++}
++
++static int ma35d1_terminate_all(struct dma_chan *chan)
++{
++	LIST_HEAD(head);
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++	unsigned long flags, pdmadev_flags;
++
++	spin_lock_irqsave(&ch->vc.lock, flags);
++
++	spin_lock_irqsave(&ch->pdmadev->lock, pdmadev_flags);
++	ma35d1_pdma_reg_clear(ch, PDMA_CHCTL, BIT(ch->id));
++	spin_unlock_irqrestore(&ch->pdmadev->lock, pdmadev_flags);
++
++	writel(BIT(ch->id), ch->base + PDMA_TDSTS);
++	writel(BIT(ch->id), ch->base + PDMA_ABTSTS);
++
++	if (ch->desc) {
++		vchan_terminate_vdesc(&ch->desc->vd);
++		ch->desc = NULL;
++	}
++
++	vchan_get_all_descriptors(&ch->vc, &head);
++	spin_unlock_irqrestore(&ch->vc.lock, flags);
++
++	vchan_dma_desc_free_list(&ch->vc, &head);
++
++	return 0;
++}
++
++static void ma35d1_synchronize(struct dma_chan *chan)
++{
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++
++	vchan_synchronize(&ch->vc);
++}
++
++static void ma35d1_pdma_setup_channel(struct ma35d1_chan *ch)
++{
++	u32 offset, reg, shift;
++	unsigned long flags;
++
++	spin_lock_irqsave(&ch->pdmadev->lock, flags);
++
++	if ((readl(ch->base + PDMA_CH_OFFSET(ch->id)) & GENMASK(1, 0)) != 0) {
++		reg = readl(ch->base + PDMA_CHCTL);
++		writel(0, ch->base + PDMA_CH_OFFSET(ch->id));
++		ma35d1_pdma_reg_set(ch, PDMA_CHRST, BIT(ch->id));
++		writel(reg | BIT(ch->id), ch->base + PDMA_CHCTL);
++	} else {
++		writel(0, ch->base + PDMA_CH_OFFSET(ch->id));
++		ma35d1_pdma_reg_set(ch, PDMA_CHCTL, BIT(ch->id));
++	}
++	ma35d1_pdma_reg_set(ch, PDMA_INTEN, BIT(ch->id));
++
++	offset = PDMA_REQSEL + (ch->id & ~GENMASK(1, 0));
++	shift = (ch->id & GENMASK(1, 0)) * 8;
++	ma35d1_pdma_reg_clear(ch, offset, GENMASK(7, 0) << shift);
++	ma35d1_pdma_reg_set(ch, offset, ch->request << shift);
++
++	spin_unlock_irqrestore(&ch->pdmadev->lock, flags);
++}
++
++static int ma35d1_slave_config(struct dma_chan *chan, struct dma_slave_config *cfg)
++{
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++
++	memcpy(&ch->cfg, cfg, sizeof(*cfg));
++
++	return 0;
++}
++
++static int ma35d1_slave_width(struct ma35d1_chan *ch, enum dma_transfer_direction dir)
++{
++	enum dma_slave_buswidth width;
++
++	if (dir == DMA_MEM_TO_DEV) {
++		width = ch->cfg.dst_addr_width;
++	} else if (dir == DMA_DEV_TO_MEM) {
++		width = ch->cfg.src_addr_width;
++	} else {
++		dev_err(ch->dev, "invalid DMA direction %d\n", dir);
++		return -EINVAL;
++	}
++
++	if (width != DMA_SLAVE_BUSWIDTH_1_BYTE && width != DMA_SLAVE_BUSWIDTH_2_BYTES &&
++	    width != DMA_SLAVE_BUSWIDTH_4_BYTES) {
++		dev_err(ch->dev, "invalid DMA width %d\n", width);
++		return -EINVAL;
++	}
++
++	return width;
++}
++
++static struct ma35d1_desc *ma35d1_desc_alloc(struct ma35d1_chan *ch, u32 sg_len)
++{
++	struct ma35d1_desc *d;
++
++	d = kzalloc(struct_size(d, sg, sg_len), GFP_ATOMIC);
++	if (!d)
++		return NULL;
++
++	d->sg_len = sg_len;
++	d->dma_len = sizeof(*d->sg) * sg_len;
++	d->dma_addr = dma_map_single(ch->dev, d->sg, d->dma_len, DMA_TO_DEVICE);
++	if (dma_mapping_error(ch->dev, d->dma_addr)) {
++		dev_err(ch->dev, "dma mapping error for channel\n");
++		kfree(d);
++		return NULL;
++	}
++
++	return d;
++}
++
++static struct dma_async_tx_descriptor *
++ma35d1_desc_submit(struct ma35d1_chan *ch, struct ma35d1_desc *d, bool cyclic,
++		   unsigned long tx_flags)
++{
++	dma_sync_single_for_device(ch->dev, d->dma_addr, d->dma_len, DMA_TO_DEVICE);
++	d->cyclic = cyclic;
++	d->ch = ch;
++
++	return vchan_tx_prep(&ch->vc, &d->vd, tx_flags);
++}
++
++static struct dma_async_tx_descriptor *
++ma35d1_prep_dma_memcpy(struct dma_chan *chan, dma_addr_t dst, dma_addr_t src,
++		       size_t len, unsigned long tx_flags)
++{
++	int i;
++	size_t tlen, max_chunk;
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++	struct ma35d1_desc *d;
++	u32 sg_len, width = 1;
++
++	if (ch->request != 0) {
++		dev_err(ch->dev, "%s: channel is bound to a peripheral request\n", __func__);
++		return NULL;
++	}
++
++	if (!len) {
++		dev_err(ch->dev, "invalid memcpy length\n");
++		return NULL;
++	}
++
++	if (IS_ALIGNED(src, 4) && IS_ALIGNED(dst, 4) && IS_ALIGNED(len, 4))
++		width = 4;
++
++	max_chunk = (size_t)PDMA_MAX_CHAN_BEATS * width;
++
++	sg_len = DIV_ROUND_UP_ULL(len, max_chunk);
++	d = ma35d1_desc_alloc(ch, sg_len);
++	if (!d)
++		return NULL;
++
++	for (i = 0; i < sg_len; i++) {
++		tlen = min_t(size_t, len, max_chunk);
++		d->sg[i].src = src;
++		d->sg[i].dst = dst;
++		d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(tlen / width) | PDMA_TBINTDIS |
++				PDMA_OP_SCATTER;
++		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
++		src += tlen;
++		dst += tlen;
++		len -= tlen;
++	}
++	d->sg[sg_len - 1].ctl &= ~(PDMA_OP_MSK | PDMA_TBINTDIS);
++	d->sg[sg_len - 1].ctl |= PDMA_OP_BASIC;
++
++	return ma35d1_desc_submit(ch, d, false, tx_flags);
++}
++
++static struct dma_async_tx_descriptor *
++ma35d1_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
++		     u32 sg_len, enum dma_transfer_direction dir,
++		     unsigned long tx_flags, void *context)
++{
++	int i, width;
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++	struct ma35d1_desc *d;
++	struct scatterlist *sgent;
++
++	width = ma35d1_slave_width(ch, dir);
++	if (width < 0)
++		return NULL;
++
++	if (!sg_len) {
++		dev_err(ch->dev, "SG entry length is zero\n");
++		return NULL;
++	}
++
++	for_each_sg(sgl, sgent, sg_len, i) {
++		unsigned int len = sg_dma_len(sgent);
++
++		if (!len || len % width || len / width > PDMA_MAX_CHAN_BEATS) {
++			dev_err(ch->dev, "invalid SG segment length %u\n", len);
++			return NULL;
++		}
++
++		if (!IS_ALIGNED(sg_dma_address(sgent), width)) {
++			dev_err(ch->dev, "SG address not aligned to DMA width\n");
++			return NULL;
++		}
++	}
++
++	d = ma35d1_desc_alloc(ch, sg_len);
++	if (!d)
++		return NULL;
++
++	for_each_sg(sgl, sgent, sg_len, i) {
++		if (dir == DMA_MEM_TO_DEV) {
++			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_DAFIX;
++			d->sg[i].src = sg_dma_address(sgent);
++			d->sg[i].dst = ch->cfg.dst_addr;
++		} else {
++			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_SAFIX;
++			d->sg[i].src = ch->cfg.src_addr;
++			d->sg[i].dst = sg_dma_address(sgent);
++		}
++		d->sg[i].ctl |= PDMA_TXCNT(sg_dma_len(sgent) / width) | PDMA_TBINTDIS |
++				PDMA_TXTYPE | PDMA_OP_SCATTER;
++		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
++	}
++
++	d->sg[sg_len - 1].ctl &= ~(PDMA_OP_MSK | PDMA_TBINTDIS);
++	d->sg[sg_len - 1].ctl |= PDMA_OP_BASIC;
++
++	return ma35d1_desc_submit(ch, d, false, tx_flags);
++}
++
++static struct dma_async_tx_descriptor *
++ma35d1_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t dma_addr, size_t buf_len,
++		       size_t period_len, enum dma_transfer_direction dir,
++		       unsigned long flags)
++{
++	int i, sg_len, width;
++	size_t offset = 0;
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++	struct ma35d1_desc *d;
++
++	width = ma35d1_slave_width(ch, dir);
++	if (width < 0)
++		return NULL;
++
++	if (!buf_len || !period_len || period_len / width > PDMA_MAX_CHAN_BEATS) {
++		dev_err(ch->dev, "Invalid buffer/period length\n");
++		return NULL;
++	}
++
++	if (buf_len % period_len) {
++		dev_err(ch->dev, "Buffer length not multiple of period length\n");
++		return NULL;
++	}
++
++	if (period_len % width) {
++		dev_err(ch->dev, "Period length must be a multiple of DMA width\n");
++		return NULL;
++	}
++
++	if (!IS_ALIGNED(dma_addr, width)) {
++		dev_err(ch->dev, "Buffer address not aligned to DMA width\n");
++		return NULL;
++	}
++
++	sg_len = buf_len / period_len;
++	d = ma35d1_desc_alloc(ch, sg_len);
++	if (!d)
++		return NULL;
++
++	/* Split the buffer into period size chunks. */
++	for (offset = 0, i = 0; offset < buf_len; offset += period_len, i++) {
++		if (dir == DMA_MEM_TO_DEV) {
++			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(period_len / width) |
++					PDMA_DAFIX;
++			d->sg[i].src = dma_addr + offset;
++			d->sg[i].dst = ch->cfg.dst_addr;
++		} else {
++			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(period_len / width) |
++					PDMA_SAFIX;
++			d->sg[i].src = ch->cfg.src_addr;
++			d->sg[i].dst = dma_addr + offset;
++		}
++		d->sg[i].ctl |= PDMA_TXTYPE | PDMA_OP_SCATTER;
++		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
++	}
++	d->sg[sg_len - 1].next = d->dma_addr;
++
++	return ma35d1_desc_submit(ch, d, true, flags);
++}
++
++static struct dma_chan *ma35d1_of_xlate(struct of_phandle_args *dma_spec, struct of_dma *of)
++{
++	struct ma35d1_pdmadev *pdmadev = of->of_dma_data;
++	struct dma_chan *chan;
++	unsigned int chan_id, reqsel;
++
++	if (dma_spec->args_count != 2)
++		return NULL;
++
++	chan_id = dma_spec->args[0];
++	reqsel = dma_spec->args[1];
++	if (chan_id >= PDMA_MAX_CHANS || reqsel > GENMASK(7, 0))
++		return NULL;
++
++	chan = dma_get_slave_channel(&pdmadev->channels[chan_id].vc.chan);
++	if (chan)
++		pdmadev->channels[chan_id].request = reqsel;
++
++	return chan;
++}
++
++static void ma35d1_free_chan_resources(struct dma_chan *chan)
++{
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++
++	ma35d1_terminate_all(chan);
++	vchan_free_chan_resources(&ch->vc);
++	ch->request = 0;
++	memset(&ch->cfg, 0, sizeof(ch->cfg));
++}
++
++static void ma35d1_pdma_start(struct ma35d1_chan *ch)
++{
++	struct ma35d1_desc *d = ch->desc;
++
++	if (d->sg_len == 1 && !d->cyclic) {
++		writel(d->sg[0].src, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_SA);
++		writel(d->sg[0].dst, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_DA);
++		writel(d->sg[0].ctl, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL);
++	} else {
++		writel(d->dma_addr, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_NEXT);
++		ma35d1_pdma_reg_clear(ch, PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL, PDMA_OP_MSK);
++		ma35d1_pdma_reg_set(ch, PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL, PDMA_OP_SCATTER);
++	}
++
++	/* Memory-to-memory has no peripheral request, so trigger it by software. */
++	if (ch->request == 0)
++		writel(BIT(ch->id), ch->base + PDMA_SWREQ);
++}
++
++static void ma35d1_pdma_start_desc(struct dma_chan *chan)
++{
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++	struct virt_dma_desc *vd;
++
++	vd = vchan_next_desc(&ch->vc);
++	if (!vd) {
++		ch->desc = NULL;
++		return;
++	}
++
++	list_del(&vd->node);
++	ch->desc = to_ma35d1_pdma_desc(vd);
++	ma35d1_pdma_setup_channel(ch);
++	ma35d1_pdma_start(ch);
++}
++
++static void ma35d1_issue_pending(struct dma_chan *chan)
++{
++	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
++	unsigned long flags;
++
++	spin_lock_irqsave(&ch->vc.lock, flags);
++
++	if (vchan_issue_pending(&ch->vc) && !ch->desc)
++		ma35d1_pdma_start_desc(chan);
++
++	spin_unlock_irqrestore(&ch->vc.lock, flags);
++}
++
++static void ma35d1_pdma_complete(struct ma35d1_chan *ch)
++{
++	if (!ch->desc)
++		return;
++
++	vchan_cookie_complete(&ch->desc->vd);
++	ma35d1_pdma_start_desc(&ch->vc.chan);
++}
++
++static irqreturn_t ma35d1_pdma_interrupt(int irq, void *devid)
++{
++	int i;
++	bool handled = false;
++	struct ma35d1_pdmadev *pdmadev = devid;
++	struct ma35d1_chan *ch;
++
++	for (i = 0; i < PDMA_MAX_CHANS; i++) {
++		unsigned long flags;
++		bool done, abort;
++
++		ch = &pdmadev->channels[i];
++
++		spin_lock_irqsave(&ch->vc.lock, flags);
++
++		done = readl(ch->base + PDMA_TDSTS) & BIT(i);
++		abort = readl(ch->base + PDMA_ABTSTS) & BIT(i);
++
++		if (done || abort) {
++			handled = true;
++
++			/* Ack both flags first so a new descriptor is not completed twice. */
++			writel(BIT(i), ch->base + PDMA_TDSTS);
++			writel(BIT(i), ch->base + PDMA_ABTSTS);
++
++			if (ch->desc) {
++				if (abort) {
++					ch->desc->vd.tx_result.result = DMA_TRANS_ABORTED;
++					ma35d1_pdma_complete(ch);
++				} else if (ch->desc->cyclic) {
++					vchan_cyclic_callback(&ch->desc->vd);
++				} else {
++					ma35d1_pdma_complete(ch);
++				}
 +			}
- 			mutex_ret = mutex_lock_interruptible(&inst->dev->hw_lock);
- 			if (mutex_ret)
- 				return mutex_ret;
--			if (dec_info.index_frame_display >= 0) {
-+			if (!info_ret && dec_info.index_frame_display >= 0) {
- 				mutex_unlock(&inst->dev->hw_lock);
- 				wave5_vpu_dec_set_disp_flag(inst, dec_info.index_frame_display);
- 				mutex_ret = mutex_lock_interruptible(&inst->dev->hw_lock);
++		}
++
++		spin_unlock_irqrestore(&ch->vc.lock, flags);
++	}
++
++	return handled ? IRQ_HANDLED : IRQ_NONE;
++}
++
++static int ma35d1_pdma_probe(struct platform_device *pdev)
++{
++	int i, ret;
++	struct clk *pdma_clk;
++	struct reset_control *rst;
++	struct device *dev = &pdev->dev;
++	struct device_node *node = dev->of_node;
++	struct ma35d1_chan *ch;
++	struct ma35d1_pdmadev *pdmadev;
++	void __iomem *reg_base;
++
++	pdma_clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(pdma_clk))
++		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
++
++	rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
++	if (IS_ERR(rst))
++		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset\n");
++
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
++	if (ret)
++		return ret;
++
++	pdmadev = devm_kzalloc(dev, sizeof(*pdmadev), GFP_KERNEL);
++	if (!pdmadev)
++		return -ENOMEM;
++
++	pdmadev->irq = platform_get_irq(pdev, 0);
++	if (pdmadev->irq < 0)
++		return pdmadev->irq;
++
++	reg_base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(reg_base))
++		return dev_err_probe(dev, PTR_ERR(reg_base),
++				     "Failed to map pdma global registers\n");
++
++	dma_cap_zero(pdmadev->ddev.cap_mask);
++	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
++	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
++	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
++	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
++
++	pdmadev->ddev.dev = dev;
++	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
++	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
++	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
++	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
++	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
++	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
++	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
++	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
++	pdmadev->ddev.device_tx_status = dma_cookie_status;
++	pdmadev->ddev.device_config = ma35d1_slave_config;
++	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
++	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
++
++	spin_lock_init(&pdmadev->lock);
++	INIT_LIST_HEAD(&pdmadev->ddev.channels);
++	for (i = 0; i < PDMA_MAX_CHANS; i++) {
++		ch = &pdmadev->channels[i];
++		ch->dev = dev;
++		ch->pdmadev = pdmadev;
++		ch->id = i;
++		ch->base = reg_base;
++		ch->vc.desc_free = ma35d1_pdma_desc_free;
++		vchan_init(&ch->vc, &pdmadev->ddev);
++	}
++
++	ret = devm_request_irq(dev, pdmadev->irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
++
++	platform_set_drvdata(pdev, pdmadev);
++
++	ret = dma_async_device_register(&pdmadev->ddev);
++	if (ret)
++		return ret;
++
++	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
++	if (ret) {
++		dma_async_device_unregister(&pdmadev->ddev);
++		for (i = 0; i < PDMA_MAX_CHANS; i++)
++			tasklet_kill(&pdmadev->channels[i].vc.task);
++		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
++	}
++
++	return 0;
++}
++
++static void ma35d1_pdma_remove(struct platform_device *pdev)
++{
++	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
++	void __iomem *base = pdmadev->channels[0].base;
++	int i;
++
++	/* Stop new requests before the hardware is quiesced. */
++	of_dma_controller_free(pdev->dev.of_node);
++	dma_async_device_unregister(&pdmadev->ddev);
++
++	writel(0, base + PDMA_CHCTL);
++	writel(0, base + PDMA_INTEN);
++	synchronize_irq(pdmadev->irq);
++
++	for (i = 0; i < PDMA_MAX_CHANS; i++)
++		tasklet_kill(&pdmadev->channels[i].vc.task);
++}
++
++static const struct of_device_id ma35d1_pdma_match[] = {
++	{ .compatible = "nuvoton,ma35d1-pdma" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
++
++static struct platform_driver ma35d1_pdma_driver = {
++	.probe = ma35d1_pdma_probe,
++	.remove = ma35d1_pdma_remove,
++	.driver = {
++		.name = "ma35d1-pdma",
++		.of_match_table = ma35d1_pdma_match,
++	},
++};
++module_platform_driver(ma35d1_pdma_driver);
++
++MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
++MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
++MODULE_LICENSE("GPL");
 -- 
-2.43.0
+2.25.1
 
