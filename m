@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233080;
-	b=R/GpeuFhe8P4KMqG9TK2A1WfSJwTxO20TAPKv0pRureND26m8KxGadI6jEYihQ/RT6l7
-	 6VS1CFYCzbSgYWWoQu8w11Pj7DUFwIdugGcttQa9BdhKAqX4K6TCgj0RYOGjfp1paJvI9
-	 IQAFjz5NWyBjX19VI2xNsXUAVLfRUxHXPyo1LlVDvTV45lco1OddeZ6EnNMzEs0850xcN
-	 A7LSONCVTRNdnFqAsSy0snR0RUmmF8SfC7JXO0fmIuSJYjYsM2w1HC4CaStayHbdySyWJ
-	 kA9h4lg6nkdivOsHyCAfICUtV+/zJVdr/WWWpZvZHCuJTNFOOdCbStUggQbOapXta5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233080;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jVich8nvMx7lDX/pvruqVV2kTjm69QuzoBabY2+rHJM=;
-	b=lUvyAz7dfGvAFtTqXm5WqqbYlLh6RXTP9iU1LmskjPTSgr+3ZZO/O3TRT3kPcXvA+6Ju
-	 fIZ8epvbaU15e27UAsqzK9PUqEU+MITadFxs152bPrajH+SthuulFI6i2ll4JBA369EXG
-	 FJbUpOrAtsItMR2B8E4mvBLjIMAremtqUbXm9ZIgZk3ZiAYnREbj9QBXNmubiLcp37REy
-	 LrO/gga7B2ZzNvc9axE3jXEETVToQgNamTQc4K6mVdLI+vRU0axKVOwKEkriTxebA/PO/
-	 UEZAh2xzoxmHpIo4yHWLw4uHA7ESVPy73zaziC8dGdfMTy+vWSPRrGgAMlWBiRN54og==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZ5s8tEn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794233128;
+	b=mtb2mJ3Z/q6ZkdnO+jEHO54MO5J8SR+nj4k0n+kTxa99rZikoLxFWI+5buM0Ok4/Axvo
+	 d03kQqz3ZFzJb4K8KZjtj45PbDKefDvGEizHjw+MqBoCHCKJaz0rbaum97iW2Iod1Fg/I
+	 U8KxC96nmiQ0bmAGMt/11SNxLrMrjUZEVViK7J8t3prGM0QuzE6sgefmx++MdIbZ1B37z
+	 FLj20yDi51DkNCHUQk7di6nt2+7iatvcHOgNB28XEdi6AkkNUaqwnsv0I6WumquC7Yby7
+	 nYC12IsNeF3b8sPfM5hcK9lke6ZGlq6CDxdOb1M9kmhQJhXVBl3nDPvv4TG99wriB5g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hBMYWxF4MCqpQhvGes4d8FlHIJELgoUuQCBw2En9gT0=;
+	b=ROrMVwbQsU7RD9+MpiXbJxzNTQRjFxj1px3p1iPMTVct99LFmsDMjEnBWfBNX2yfUjOc
+	 XrucYj9YKdkw22mZEZws+RkJRu1NXpmNvIikL2z7oJ//+dc2REFbaN1Q1UVl/n+Pu6kJ8
+	 QkCTRvNoJjgcppq02F5sqTPWESpvwg//M3YJ5Wdb4sxzxnSf+Hbsm/jr4nAjPKhUSfTzC
+	 SaDApMAG+lEkeqkarn2+gxjMZXirxdeKsje589EIVydtrnKgKHRjuQ32yXaFZXG0RllqE
+	 iKpEkD4/FigYl1rnCzOp4JMa7XQxIpOEFR0urqnU1+q51vlcnlgbmaaO5qgymS8XsRQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7zSCsHV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8318606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEA3606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BEA3606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZ5s8tEn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E7B1F0089F;
-	Mon,  9 Nov 2026 14:04:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794233079;
-	bh=jVich8nvMx7lDX/pvruqVV2kTjm69QuzoBabY2+rHJM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dZ5s8tEnCgkuCLHe+AvywXX9fW5er432fE+hmxcoFDxYSHquXibvyFXJr0HhTu9mF
-	 4QwK5+xM7VcwmJHm57PdFgBD2B6we8ooMUXjiECMKfp3miAjqB2dGJQ85D0lrF2W73
-	 BVdCrPfmMAhxOj8HZ6D0aZDvDiVX4Vvc7O/VQYV5M51wgVphwJPlc0j3N97zSSXeWh
-	 J70K2BmPVXxWZ8W6uCFLEnmTBW8/1QQ86Y1sm08JygPoGON0OUdoifusd7BpxxwrF4
-	 zfR3Upx2a3JvDlQ7m7+DvOseZuSCgYltHiqYyFIT/aQ2/TLqF1/omtYplSjvqnaC3E
-	 pL9rVav96wRxg==
-Message-ID: <763bd31e-789a-4cf5-9e84-d57a375d2d93@kernel.org>
-Date: Mon, 9 Nov 2026 15:04:33 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7zSCsHV
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cc228078a1so24631137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:05:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794233126; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LEJ9a0tsT77w9MECbP3ZPDHGEs1S6zGuFmPhEzsKGI2ygnGN/mSkzkzcA4PeKq68Ps
+         StYPWvzawa0Fs1Pw0h5I1/4ES7BVFDcyNiJ2Mzt/G9ntZiz+emD1t+Nb6pfkQoEmG5T5
+         QCfBp3NvI4ZkKmJrt6d23MvjkGzLSJZiDjFCHpQbIf789y+u2SyVN13ZhqfX3yrvtXsr
+         5Lo7QRD7oSziou5VSF4fc1vNruE/seB7Geuv7b+tx6c8XHzKdcJuYG2NV+0pIfQuoBAs
+         W8UMsIzh2FAG+htF/NNTZiuk1vUdtuWCO5b+Jlp287tgMcKaP7F9+psynj21yW323qTu
+         K95Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hBMYWxF4MCqpQhvGes4d8FlHIJELgoUuQCBw2En9gT0=;
+        fh=BAyAlFxkxJEOoIFtUyFi2MeLRYFof8xJ0aFQ1/rnQdY=;
+        b=ap5EMWVOGgXJgVpvQ3N3pfwEwlpvoXjG3PIwAhLBdVXgnrl3A8bhls2ddbxZYOSgzv
+         +vSFcXB3D4whWIQyOQDjIrYvmZBR3GBBglhxOPtzvZSKjse5IqYMsJaqg5fKa+Vizrlr
+         OGXQ+Bf2oKIitod0go+8ntWCwTyTBncmCoXqF/R6LR74elFU1QYkdlEvZeatO2ZIpdjV
+         tTrzNdtHkI+0XR3Of0J+ZuhqrctnpFnJx/ozBBrRmyFo7fm1NjTPfMUSyswpQ8flb1PM
+         4YxLL/1yIllCiv5Wxk8YUn0m7p+7LelCAZaxwudpNW1PajWBr/xmzrCV1O0fd+nCQ4ox
+         s78A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794233126; x=1794837926; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hBMYWxF4MCqpQhvGes4d8FlHIJELgoUuQCBw2En9gT0=;
+        b=X7zSCsHVWmGxBnoMbR8S4TAp/FmBz9TCxQ7D0fbfigLV2/9i1SCaIe2vdHFm9xrlTk
+         GTQnUEuI1ReZrNrYm+BO6h6+8zUxYx9kcrRdmquY45FHIEZ5MRK9Vs3bjyupCq6xJ2DB
+         bCrM2skiC8HMJtSTvvLyJm0tf2YSgIi+8uGuIxRz0JA/w8k3aYPoefuhWRSaEwunCa8F
+         rqnK/JSSxZgkMxQ/sD9L5dqKQLkEmDYplr4DrYOiWxWacjyTKmodlOLjnFWQFKXN44NM
+         w14uUpVU3lmYRun70ryJA4RaSoVwKwNLuvI9tiBR4mNqfPP+0xY6S5gzcbhJKVpCF4Sr
+         DZlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794233126; x=1794837926;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hBMYWxF4MCqpQhvGes4d8FlHIJELgoUuQCBw2En9gT0=;
+        b=tTdEY2jsjNEnwahLnShJKlu+3eFUOHcDq9/h6UJ3GFt81osP6d2GKfLRYBtv5YwwFs
+         07R/h7NUpi5bEut2Hth7UN4MAI3oXDDTP8Ae1JF5mm/BttOqoq7OBVR9bcbdEXEgiPYy
+         +dSOYdBJt+LgrBWeLHm4ZW8JkSdFJXsxPEJgRTGwc0f6RGGPoizoxBU3wQqlBrT8jmXT
+         sVQ/NdNZAHFY8Y/izVzKWCP817WMIi2Mjhz9gaFpYY5r4y6lbV9vfwj0GP8sKsEkUBoy
+         dAZ8unQMxaP97x9cQOR6Kr8M0tELGFiYZ2ovDTKg9mb5BoUQ0NP93F/lrplKxtMWJ9a0
+         9sUg==
+X-Forwarded-Encrypted: i=1; AL+hErHdJO/0uOdtekOxCqLeAhBmGP2/siFCBV4b/H0sg61lT/pVWOlC8Rg1oXn620t2pZpTblLms33eggFWPlA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Eq9GBusVRXXJRHzGr1y1JywAPsxfWSAcZBNbZzhTZfnTsyTIy
+	EaxSOz2EqiXUSEDWvLLRpdk9fJCz0KQyd1WjBJ0zQJv8hyOnlXxXGRkxO85+hEeHhuGJ7V1gLSl
+	fXIfXMbLemUvaKmeKNPwNbOr9fc70WMNxvran
+X-Gm-Gg: AYBFou0s8OCqpHOSpDpm+6juN2CAOvrlwkwJ3NG38co6JFGPzan4ngr1ZA2OX+qfTwZ
+	bTqlIzoHyzpsB4TwQnuZGQnNDEIEEsE8jM7kBw09AqDoAxhpgTUoZhuzOGu435JOnd/Lp8F/xOZ
+	5TOvZZV05MZhQqWcjgNVexGEq/EMO0RVZl0rG2ILUBtrWcG/VnN46eNU8MfY1w6EtY61ztsfpOJ
+	6Us1jlOaPRWYxL3ZeDCBdMxZh/E+4/6FatrLa4NXbC/YtTgULCK46qAzoyolKvm+JwxamLKgf2r
+	xDfjIH/nKr84wWfaOp9vfVZwAYI99/p0NBNTOZ+B5jNGMiULwpIsYBprt0eSonDNtFv88P2pHUB
+	7rqEREFUttKHiYBob2ws8NdJLZp1Z6m2SR37JlnSUvjIEKH2KQ5zKeUL1MINPLOYfn5aOQAid0e
+	dXvsyrSF0+UuKHzhKkAxmK4+s=
+X-Received: by 2002:a05:6102:6116:10b0:7c3:91f5:26d4 with SMTP id
+ ada2fe7eead31-7d2db29ef38mr941152137.3.1794233126392; Mon, 09 Nov 2026
+ 06:05:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,184 +105,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] mm/memory: use pmdp_get_lockless() for the pmd read in
- do_fault_around()
-To: Greg Ungerer <gerg@linux-m68k.org>, Hui Zhu <hui.zhu@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- Sam Creasey <sammy@sammy.net>
-Cc: Hui Zhu <zhuhui@kylinos.cn>, stable+noautosel@kernel.org,
- linux-m68k@lists.linux-m68k.org
-References: <20261104091050.117076-1-hui.zhu@linux.dev>
- <dec26f4a-138a-4cd7-b000-4bda7c61af82@kernel.org>
- <88a6bf17-2189-44a8-8255-50b7ee1d80f2@linux.dev>
- <e6ed4165-03fd-4204-b25a-bafc37c3930c@polyxeno.com>
- <f03d8a2f-7803-4503-9485-54a9ddcaf332@linux.dev>
- <6f01317a-1536-4747-ba11-23e27461a694@linux-m68k.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <6f01317a-1536-4747-ba11-23e27461a694@linux-m68k.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <6af17cdb.63afbf66.14af03.b907@mx.google.com>
+In-Reply-To: <6af17cdb.63afbf66.14af03.b907@mx.google.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 9 Nov 2026 09:05:12 -0500
+X-Gm-Features: AclHuK8YIrpsTz_YPSzrtqYc-opyD2z4sAfbPJ8JbZ9yoQBStN6cKaRjskmODbw
+Message-ID: <CADnq5_Nvfm3sioOfxWpBkh7QgUDBerdzrsAj9HXN9T+2gw3TBQ@mail.gmail.com>
+Subject: Re: [REGRESSION] amdgpu: Raven/Picasso MCLK stays at 1200 MHz after
+ Chromium exits
+To: =?UTF-8?B?QXRhIMSwbGhhbiBLw7ZrdMO8cms=?= <atailhan2006@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/9/26 15:02, Greg Ungerer wrote:
-> Hi Hui,
-> 
-> On 9/11/26 15:50, Hui Zhu wrote:
->> 2026/11/6 20:08, Greg Ungerer:
->>
->> Hi Greg,
->>
->>> Hi Hui,
->>>
->>> The m5475evb_defconfig is supposed to have MMU enabled:
->>>
->>>       $ ARCH=m68k CROSS_COMPILE=m68k-linux-uclibc- make m5475evb_defconfig
->>>         HOSTCC  scripts/basic/fixdep
->>>         [snip]
->>>         HOSTLD  scripts/kconfig/conf
->>>       #
->>>       # configuration written to .config
->>>       #
->>>       $
->>>       $ grep CONFIG_MMU .config
->>>       CONFIG_MMU=y
->>>       CONFIG_MMU_COLDFIRE=y
->>>       CONFIG_MMU_GATHER_NO_RANGE=y
->>>       CONFIG_MMU_GATHER_MERGE_VMAS=y
->>>       CONFIG_MMU_LAZY_TLB_REFCOUNT=y
->>>
->>> But something ends up disabling it when you compile.
->>> I'll fix this.
->>>
->>>
->>> You should not be able to set MMU=y if configured for the M5208.
->>> It doesn't have an MMU. You want the 5475, 5485 or 54418 to test
->>> valid MMU=y configurations.
->>>
->>> Regards
->>> Greg
->>>
->>>
->>>
->>
->> You are right on both counts, and that mail of mine had three things
->> wrong.
->>
->> 1. "No m52xx/m54xx defconfig enables CONFIG_MMU" - wrong.  I grepped the
->> defconfig fragments for CONFIG_MMU=y, but MMU is 'default y', so an
->> enabled MMU never appears in the fragment.  m5475evb and m54418evb
->> both give CONFIG_MMU=y, as you show.
->>
->> 2. My "m5208evb + CONFIG_MMU=y" test config was not a valid config.
->> M520x is 'depends on !MMU', so forcing MMU on leaves the SoC choice
->> unsatisfiable and olddefconfig silently drops it:
->>
->> before:  # CONFIG_MMU is not set / CONFIG_M520x=y
->> after:   CONFIG_MMU=y / CONFIG_MMU_COLDFIRE=y / CONFIG_M520x gone
->>
->> Please disregard the m5208evb row in my codegen numbers.
->>
->> 3. The "red herring" I flagged was my own doing, not a pre-existing
->> problem.  mm/Makefile has 'mmu-$(CONFIG_MMU) := ... memory.o', so a
->> NOMMU config never builds mm/memory.o at all; I asked for a target
->> that config does not have.  Sorry for the noise on that one.
->>
->> Retested with the configs you named (7.4-rc1 plus the do_fault_around
->> change plus David's cleanup, gcc-m68k-linux-gnu 13.3.0):
->>
->> m5475evb_defconfig   without David's patch: mm/memory.o fails at
->> mcf_pgtable.h:134 with it: full -j24 build ok, vmlinux 4215344
->> bytes, 0 warnings
->>
->> m54418evb_defconfig  without David's patch: same mcf_pgtable.h:134
->> failure
->>
->> So the Tested-by I sent covers amiga, sun3 and m5475evb.  It is
->> build-tested only - I have no m68k hardware here to boot.
-> 
-> Thanks for retesting. Looks good.
-> 
-> 
->> On MMU being disabled when you compile: I cannot reproduce that. Here
->> m5475evb_defconfig gives CONFIG_MMU=y, olddefconfig reports no change,
->> two consecutive defconfig runs produce an identical .config, and a full
->> build finishes with CONFIG_MMU=y and CONFIG_M547x=y still set and
->> .config untouched.  Two differences from your setup that might matter:
->> I am on a glibc toolchain rather than uclibc, and building out of tree
->> with O= rather than in tree.
-> 
-> I can't reproduce either now. I must have done something silly when
-> quickly double checking that config. Multiple configures and builds
-> and I think it is all doing the right things at configuration and build.
-> 
-> 
->> One observation, which may well be unrelated.  m5475evb_defconfig never
->> sets CONFIG_M547x - it only ends up with it because the "ColdFire SoC
->> type" choice defaults to M520x, which is unavailable under MMU=y, so
->> kconfig falls back to the first usable member. m54418evb_defconfig sets
->> CONFIG_M5441x=y explicitly.  If that fallback is what breaks on your
->> side, making m5475evb explicit would sidestep it.
-> 
-> FWIW, running "make savedefconfig" on a fully built m5475evb configuration
-> results in an identical defconfig to arch/m68k/configs/m5475evb_defconfig.
-> 
-> Anyway, I applied both changes and tested on real hardware. All seems to
-> work fine. So for ColdFire:
-> 
->     Tested-by: Greg Ungerer <gerg@linux-m68k.org>
+On Mon, Nov 9, 2026 at 4:56=E2=80=AFAM Ata =C4=B0lhan K=C3=B6kt=C3=BCrk <at=
+ailhan2006@gmail.com> wrote:
+>
+> Hi,
+>
+> On a Picasso/Raven2 laptop, MCLK stays pinned at its highest level
+> (1200 MHz) after a Chromium-based browser (Brave) has used the GPU and
+> been closed. I could not find where the state is set or released from
+> the driver side, so I am asking whether this is known and what else I
+> should collect. I have the kernel tree and can test patches.
+>
+> =3D=3D System =3D=3D
+>
+> Laptop:  Huawei MateBook D14 (NBLK-WAX9X), Ryzen 5 3500U,
+>           Picasso/Raven2 1002:15d8 rev c2
+> Distro:  Fedora 44, Sway 1.11 on Wayland
+> Kernel:  7.2.13-200.fc44.x86_64 (Fedora kernel, not tested on drm-next)
+> amdgpu 3.64.0, DCN 1.0, SMU10, VCN 1.0 (ENC 1.15 DEC 3 VEP 0 Rev 9)
+> Mesa 26.2.5, libva 2.23.0
+> Boot:    amdgpu.noretry=3D0 amdgpu.ppfeaturemask=3D0xffffffff
+> amdgpu.gpu_recovery=3D1 amdgpu.vcnfw_log=3D1
+> amdgpu.dcdebugmask=3D0x10
+> Userspace: no daemon or tool writes to amdgpu sysfs.
+>
+> =3D=3D Symptom =3D=3D
+>
+> Idle: pp_dpm_mclk shows "0: 667Mhz *".
+>
+> After WebGL (WebGL Aquarium, sometimes this doesn't trigger?) or
+> VA-API video (YouTube, VP9 1080p) in Brave, and closing the tab
+> or the whole browser, pp_dpm_mclk shows "3: 1200Mhz *" indefinitely,
+> with GPU load 0% and SCLK back at idle. amdgpu_pm_info reports
+> "VCN: Powered down". Battery drain is about 5 W higher, (which for
+> my machine it makes about 1.5 hour at my daily usage).
+>
+> - Persists across tab close, browser kill -9, all fds closed, VT switch.
+> - power_dpm_force_performance_level stays "auto" and
+>    pp_power_profile_mode stays BOOTUP_DEFAULT throughout.
+> - While latched, writing "low" or manual MCLK levels does not move it.
+>    After it is cleared, MCLK follows low/manual requests normally.
+> - Cleared by: amdgpu_gpu_recover (debugfs), or by playing a video in
+>    Firefox (MCLK goes to 667 MHz -sometimes 933 MHz- during playback).
+> - Firefox itself does not trigger it.
+>
+> =3D=3D What triggers it =3D=3D
+>
+> - WebGL alone in Brave latches it, with VCN powered down the whole
+>    time. So this is not specific to a VCN decode teardown path.
+>    A clean Brave without custom flags behaves the same.
+> - VA-API video decode in Brave latches it with VaapiVideoDecoder
+>    confirmed active in media-internals, in each of these variants:
+>    default flags, --use-angle=3Dgl,
+>    --disable-features=3DUseMultiPlaneFormatForHardwareVideo,
+>    --disable-features=3DVaapiIgnoreDriverChecks, even I run with
+>    temp user directory with no flags, VA-API decoding ran and same issue
+>    continued.
+> - mpv --hwdec=3Dvaapi on the same file: MCLK is 933 MHz during playback.
+>
+> =3D=3D Kernel-side =3D=3D
+>
+> I attached bpftrace kprobes (with kstack) to smum_send_msg_to_smc and
+> smum_send_msg_to_smc_with_parameter and ran: Brave WebGL, Brave
+> YouTube, close (latched), Firefox WebGL, Firefox video (released),
+> then amdgpu_gpu_recover.
+>
+> - Before the latch was first observed: 152 SMU messages, all either
+>    GFXOFF enable/disable (smu10_gfx_off_control) or two VCN power
+>    up/down pairs (smu10_powergate_vcn). No smu10_dpm_force_dpm_level,
+>    no hard-min, active-display-count or deep-sleep messages.
+> - Between the latched read and the released read (Firefox): again only
+>    GFXOFF toggles and two balanced VCN up/down pairs. Brave's video
+>    session produces the same two pairs and does not release.
+> - A kprobe on rv1_update_clocks never fires during any browser
+>    activity, only during gpu_recover.
+> - Each read of pp_dpm_sclk/pp_dpm_mclk issues an SMU query
+>    (smu10_emit_clock_levels), so the reported value is live.
+>
+> So neither setting nor releasing the state is visible on the SMU
+> mailbox through these wrappers. This would not show direct register or
+> table writes. I cannot tell whether the state lives in SMU firmware,
+> in the display/data fabric p-state handshake, or elsewhere.
+>
+> =3D=3D Questions =3D=3D
+>
+> 1. Is this a known issue on Raven/Picasso?
+> 2. On SMU10, what other path can hold FCLK/MCLK high that does not go
+>     through the mailbox (DCN hubbub watermarks, DF p-state, firmware
+>     internal state)?
+> 3. What should I trace next? amdgpu_dm_dtn_log returns EPERM here even
+>     as root (probably lockdown); I can boot without Secure Boot if that
+>     output would help.
+>
 
-Thanks!
+Please open a ticket at:
+https://gitlab.freedesktop.org/drm/amd/-/work_items
+If you recently updated the firmware can you try going back to an
+older firmware?  If you changed your kernel can you bisect?
 
--- 
-Cheers,
-
-David
+Alex
