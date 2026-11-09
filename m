@@ -1,64 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266657;
-	b=vYr+F3wWCiPBc64CN+dpWUYXA9kUQYoni76/nXvj5MR0A7wUAuSPCosrSSK1T/O/jTgd
-	 0fW+OpWudg6O2qm6Ehv2OFTY5D0fx5m307yu7zZvgs1ZGwCZjLopUqt3EpE3/lV3l/fUh
-	 fRVI5a06khNtzotd2J5yoEsoGGlkKs5QLqhENG3wS1oM59J/rn4o8TXKxx+PGLisGWXic
-	 nep0HIKWxlTaqzc084C04CCuZrVJK1qWCutL6CsNZL0ttnM6NgmK9sJgHbUq+WFyG/YXZ
-	 hHlyXvWeDT4j2YeDYOcVayqy9yotWpWKGry5vWRDu82Q/KMQFpFwAxFSDEnAn3uqR9w==
+	t=1794266699;
+	b=xbPjZ7gajw1gsUTBRHB3woNhII12GBZGDkcAmp0yoGKpn6oIw+1HQxP/jXRJNSovraCG
+	 bjYJ/iuRclesnOMFBbuYzoViljG2TbmFybSV2TgT82WbLBRiEtOeML0BHTUjdVDZRuhQx
+	 IIbtMle4/f8A6L2K8KnO6onMb5H1YXFJAFOngpfxczlWYv5LGTyJqYrSZ1ZD6EisEFvpX
+	 IJE8LHIIi1Fj4pO2UcBA1xGSr79BrXbw0rjhBM4KwQz1+OtQLPtGtOnTjAJiVfARDi53M
+	 PMEYKsbB1H56e22QBDZrNjoFEFj7oGnelbBXM32EqBzTpHpO5JaMrewGBhZER7RjTZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266657;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NYLTUEr3KcsmorvXUyUc9odvTYuXILr61fltDodOWZM=;
-	b=aaTaOFCeWk4s8jFAsfeqZk7HhVOa6TOsP1RZHurzRWTciZgVJZ9lBdD5Sv2Bxzy517QR
-	 77MNFGuVJ5QfliMwKRWjD+emky3VqPWQTCLKPd7tH1564T7UL6UvAXUmIohAQjLUpxCBy
-	 lwe+8KTkEJijoh5CIMuo9Wtx2ZCQMTRha0axrKMU551TvxW4thsnGKPRYrIbsD1B+kOAV
-	 14KmUuYSbz4CEIbvpAYY/umaLq+kvZFHdO5faHpHsoO6wTIylCNkYqcSRbyIZkD3i8wxS
-	 aJ8/mryukrSaDgTNRCuUZ/3jx5AaIO+EQqDFoFPI6ABHSzWCY5i9uyNGVrByzbDywDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266699;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=J+68wHIkUnHwz3TivKr0WUSuO34xn3RSmjsxMh6ln60=;
+	b=ZvMhoJc7EmdhDKvL9nMYoeUnP6S1RYHS5uQd4+wKjye7Y17h+NPpP9PHXWwDEVLDj8SF
+	 YzWXJDTmv78jONTcDGp/f5i/c72YSXiA5FBlRnhVfmRAA7deFcOyrHjm2BaeFawWlZtZd
+	 CCghIzptA5/5mZJ5McFWONc0CZg5EV9F1Ps2OIVEnMEQEf8QZeTF0M93nZU7tWxj2qFj1
+	 WhdTaL3ZpwDXIoXo8YdVTZWsss7IoMLVazOt34RWDhX/HxltPYO1FtnwwJIR/qd1W19eJ
+	 FVffexIhjMiD5F0KXtH11XbP/hyAIFB8x/Pdayrsqe1A1IJDaAU67ObF3DUFzqhK+AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=DPFSzklS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=piHV1Lxo;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCFE606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:24:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15868606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:24:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15868606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=DPFSzklS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6D51F0089F;
-	Mon,  9 Nov 2026 23:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794266656;
-	bh=NYLTUEr3KcsmorvXUyUc9odvTYuXILr61fltDodOWZM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DPFSzklS2gUNO06UEJB85q5gP8Rup2PF/SVj8HYqythdmmE9zFLDQXZ6Vqk8Zafiz
-	 tuA3iiOfNDjgI7Fot8g2bHPAQDtig+sBOy0bPw84iU53OwOmXSwWpm5+8CMOTvxEZD
-	 Adu+++wwF/rAu0X54viIjAcfzWj/hpE4VnTYhFas=
-Date: Mon, 9 Nov 2026 15:24:15 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Alexandre Ghiti <alexghiti@meta.com>
-Cc: Kairui Song <ryncsn@gmail.com>, Alexandre Ghiti <alex@ghiti.fr>, Barry
- Song <baohua@kernel.org>, Chris Li <chrisl@kernel.org>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, Johannes
- Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel
- Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Axel
- Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei
- Xu <weixugc@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] mm, swap: only prefer nonfull clusters on
- synchronous devices
-Message-Id: <20261109152415.f7bb160e4089a17f15c8f42c@linux-foundation.org>
-In-Reply-To: <CAEmasaWMKsBSQ_LrewZc3f6a2u15WARAk25AKWjS4oFy8yciCA@mail.gmail.com>
-References: <20261105155032.240457-1-alex@ghiti.fr>
-	<20261105155032.240457-2-alex@ghiti.fr>
-	<CAMgjq7DpCCiEK00Es7yU_i_wyf7NU4fFN7QFO_RptF9tGvPZWA@mail.gmail.com>
-	<CAEmasaWMKsBSQ_LrewZc3f6a2u15WARAk25AKWjS4oFy8yciCA@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=piHV1Lxo
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id QPRkxNf7lAR1iQYjSxa9qU; Mon, 09 Nov 2026 23:24:59 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QYjSxojmxSeuLQYjSx8qYc; Mon, 09 Nov 2026 23:24:58 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af2564a
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
+ a=_jlGtV7tAAAA:8 a=X6MXEInN9CrlbRLakdQA:9 a=CjuIK1q_8ugA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=J+68wHIkUnHwz3TivKr0WUSuO34xn3RSmjsxMh6ln60=; b=piHV1Lxota5tnko/Lsecfqv1WG
+	cSQHd75k+wzOZePtR2ZBlYbAnYa767CLXA09Bue5KP/frAws6rpWrLxDno7xMPsdR3R6CNzjgOm3+
+	cofch2KLmvS3hJ1vebizHrCH3ik8x1EpQsMM5ZTEWoV5lhK8rLCKEWijw/0uEqxAvWlVvbwsWg8ZF
+	2pQ63lT/vKqlwMyKiiXuleanAdRR5f1N+ZfxfxcE+RMsjKRkRirqtXY72DAV3Zm/yi2XOPaOC7N5m
+	2zKyS4xlaXAPB1KfusHlQQ1baAU11/gRd2MMSB04++dLIDuE1geYLMAn6MfDMEFk69mafTmZsrFfj
+	HnTtmqgg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51608 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQYjQ-00000000xBF-2QUA;
+	Tue, 10 Nov 2026 04:54:56 +0530
+Date: Mon, 9 Nov 2026 15:24:55 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v8 5/7] watchdog: rzv2h_wdt: Add syscon based WDTDCR
+ access
+Message-ID: <835899c7-5dea-4f34-b804-1b6bbb564d71@roeck-us.net>
+References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261001165201.763882-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,122 +95,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001165201.763882-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQYjQ-00000000xBF-2QUA
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:51608
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 86
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfId6Bl28/qxAbhhEBbZ3fOuKFW/cvM75A6WLJVQWDzVGcjd2qNYUjCGolltxhm0y63ELu+9x2sTleo62EBsdzdeJvDrCgdZ3vdHnRubveJsg+HJ/yThy
+ JP/uVhKSdK118rbahMW8Be8bpf7+jzpunPalnNSm8/KKMqJx0Uh7aQAKmiAjyNLKmrP80Y/oCEqqN8qmu4ZNKrhaqTC/vigWbY6eTXBaekKzY8M+sDn9yvWI
 
-On Mon, 9 Nov 2026 10:00:45 +0100 Alexandre Ghiti <alexghiti@meta.com> wrote:
-
-> > The patch itself looks good to me.
-> >
-> > Acked-by: Kairui Song <kasong@tencent.com>
+On Thu, Oct 01, 2026 at 05:51:59PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Thanks,
+> On RZ/T2H and RZ/N2H, WDTDCR is located in the SYS block rather than the
+> WDT register space. Allow the WDT driver to access it through the syscon
+> regmap exposed by the CPG driver. Retain support for the existing second
+> WDT register region for compatibility with older device trees.
+> 
+> The syscon regmap uses locks and cannot be used from the watchdog restart
+> handler, which runs in atomic context. Use the CPG helper for this path so
+> WDTDCR can be accessed without taking a lock, while continuing to use the
+> syscon regmap for normal start and stop operations.
+> 
+> Keep the WDTDCR start and stop helpers as void and treat the regmap
+> operations as best effort. Propagating errors from these MMIO-backed
+> accesses would complicate the control flow and error handling, while
+> the restart path in particular should make a best effort to restart
+> the system.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Thanks all.
+For my reference:
 
-Please avoid single-patch patch series?  Present them as a unified
-singleton.
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-Here's what I ended up with.  Please check.
-
-
-From: Alexandre Ghiti <alex@ghiti.fr>
-Subject: mm, swap: only prefer nonfull clusters on synchronous devices
-Date: Mon, 09 Nov 2026 15:18:32 -0800
-
-Commit 9a42aed48421 ("mm, swap: prefer nonfull over free clusters") made
-the allocator fill nonfull clusters before taking free ones on swap
-devices without discard.  Commit 3cedb745d354 ("mm: clarify the
-folio_free_swap() for do_swap_page()") frees the swap slot on an exclusive
-write fault.  Such faults now leave holes in formerly full clusters,
-putting those clusters back on the nonfull list.  Reclaim allocates slots
-one folio at a time, scattering a batch across the holes instead of
-producing mergeable writes.  Later swapin can also require more read
-requests.
-
-On a mysql/sysbench workload in a 256 MiB memcg swapping to an NVMe
-partition, 7.3 compared with the previous version produced 59% more device
-read requests and 27% more write requests per transaction.  Throughput was
-unchanged without iocost and fell 19% with iocost.
-
-Prefer free clusters first on nonsynchronous devices, preserving
-contiguous swap slots for merging I/O.  Keep nonfull-first on synchronous
-devices such as zram: they do not merge I/O, and filling holes saves free
-clusters for large folios.  Keep free-cluster preference on discard
-devices to spread writes.
-
-In the same workload, v2 reduced read requests per transaction by 14% and
-write requests by 48% against its base kernel.  Throughput was unchanged
-without iocost and improved 33% with iocost.  The RFC's batch-aware
-allocator also improved this workload, but this policy needs no batch
-information from reclaim.  Reverting the slot-freeing change would keep
-swap space pinned under dirty pages; a proposed 50% swap-usage cutoff for
-free-cluster preference was arbitrary and would stop helping as swap
-filled.
-
-The 7.0 to 7.2 kernels retained the swap slot after a write fault as a
-side effect of 4b34f1d82c65 ("mm, swap: free the swap cache after folio is
-mapped").  The observed regression requires both 9a42aed48421 and
-3cedb745d354; stable backports should target trees containing both.
-
-Link: https://lore.kernel.org/r/20261105155032.240457-1-alex@ghiti.fr
-Link: https://lore.kernel.org/r/20261105155032.240457-2-alex@ghiti.fr
-Link: https://lore.kernel.org/r/20261022145615.2184343-1-alex@ghiti.fr
-Link: https://lore.kernel.org/r/CAMgjq7BFbXEKEt9faj_rg5AStfLkpJ0j57EQOOJ+L3-w2xRvtg@mail.gmail.com
-Fixes: 9a42aed48421 ("mm, swap: prefer nonfull over free clusters")
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Kairui Song <kasong@tencent.com>
-Acked-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-
- mm/swapfile.c |   19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
-
---- a/mm/swapfile.c~mm-swap-only-prefer-nonfull-clusters-on-synchronous-devices
-+++ a/mm/swapfile.c
-@@ -973,6 +973,17 @@ static bool __swap_cluster_alloc_entries
- 	return true;
- }
- 
-+/*
-+ * Prefer a new cluster over a nonfull one if the device needs discard, to
-+ * spread out the writes, or if it is not synchronous, to keep the slots
-+ * of a swapout batch contiguous so that its writes can be merged.
-+ */
-+static bool swap_prefer_free_cluster(struct swap_info_struct *si)
-+{
-+	return (si->flags & SWP_PAGE_DISCARD) ||
-+	       !(si->flags & SWP_SYNCHRONOUS_IO);
-+}
-+
- /* Try use a new cluster for current CPU and allocate from it. */
- static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
- 					    struct swap_cluster_info *ci,
-@@ -1143,11 +1154,7 @@ static unsigned long cluster_alloc_swap_
- 	}
- 
- new_cluster:
--	/*
--	 * If the device need discard, prefer new cluster over nonfull
--	 * to spread out the writes.
--	 */
--	if (si->flags & SWP_PAGE_DISCARD) {
-+	if (swap_prefer_free_cluster(si)) {
- 		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
- 		if (found)
- 			goto done;
-@@ -1159,7 +1166,7 @@ new_cluster:
- 			goto done;
- 	}
- 
--	if (!(si->flags & SWP_PAGE_DISCARD)) {
-+	if (!swap_prefer_free_cluster(si)) {
- 		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
- 		if (found)
- 			goto done;
-_
-
+Thanks,
+Guenter
