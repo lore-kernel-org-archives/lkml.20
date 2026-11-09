@@ -1,63 +1,153 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794206177;
-	b=CZPhbGAFW94xHkxbxQKfk3kRH5erxMGBcJU5Srk9Lofrbmhp9b15UjCZhViq+CUfhzYc
-	 x6b4X3VqWIBFm9tQufE/HSx0uhWX3EA7QlGuMdORwnoWoR0s4HakSXvfbGB3kV3ni6r4V
-	 3Lad1B10m0XBBxH4/QetHMH6Qb6GB7YrA9gQbC6RIm1Ytcvzx0AhID1RYsDZuRyU1SIJs
-	 /h48kMyn2J5XTYtxw1ZNpRQQnwkboWQMa73iL1oWmyJK9JIVWqTeAaubevymtUtjYVNtc
-	 3+d459JOXqni8pO3VOPGdd2tcf1OjepbI5JpEEVRDspFVQoVbsT5nhJpBi5Bx1Tl9fQ==
+	t=1794206210;
+	b=cAg8Dqec6k0C7abQ3njS6IT1rMQba6RzdMjJO1GDiDTQ/egXrJmNNFXH0SGjRWTygPY0
+	 x5YukVR+PPXd/G8HQhTKpyM31/86grWR2LmSUYNohqU0buSw9+2aESCtOkwfuV/yOpWVP
+	 E9ZGjZl29FaPxEPMSClHvMcv97BC7fpy8f6Kv/bvUIla6+j4BuJaPA+7Ok1jLNNEOWY22
+	 7T6bFPhXWHyHnuyrEF5Eco8qWzS2R3csBnkFY3T8lwKnxwoqwZYroMSirQelBprwKfe57
+	 yAiZfmQHfwlJoK3KnYb5E+aySgF/WODRNvwvsLF+LXPnLgx/UNhHRqWkS2lDQsew0jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206177;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ubVAfROa20NibdINJspeiownyQQhZxWkDLzw1XkPqbw=;
-	b=xki+O+Q29OnQk4B5jxwuR+UxrJW0BfttTqFYqEANNSLN5p/jC+zbFzQIIUNadve/GpLC
-	 cedjKSSE83bHPj1QNAdajtvUyi9doG5v1gF/QWuOwSVNYxCSle8iOHMadGVfbAxnGVqzs
-	 HyL7OSY+yAdDE3LiIO1+FDArD0r1h5VN3EhZcMVK0d2s/k2C/wXYczP/z5orW/bDFPyjE
-	 n8yDhL8cHWwMOUEJYYbuIUICpP0O3R29+P0w2KQkPo5lpCpmrpjtU2JitxEOe/QWLZNpe
-	 r6ib/1tOnZ5uMuSpwzUfsPkf8TPHA6EDquxXV3dGh5hJmem3CwclcUKzDhY9Hwdqo8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206210;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AtsfehftEhocEg2I5bmWwp2ROneUNtV4068+F7Hlw8w=;
+	b=spizSneDKGXHMomI/uMVyXQpL+nVFXeKycUYGq0sYBKGN0nuwky1Wamcbcnf1OsVCS3i
+	 J2Sm9iefRYz3368PANTUwGcGII1AMUMwtrSM94gIdaeiPkuxdH1EU35W14Aar6LGBn4XD
+	 +KkPZ6G4WoXqkGOJG7p1U9nubCAA9E14Lf9twCDjK6krE0kg63uAjZ3Hcd9tYNj6jPjbi
+	 XvafkxsLKLoFbIgD+0FVKQG0mUlInriNr2wmwMrrsJTT3zFjcdOk+jc3rOPZQ4vvEZKsc
+	 aG9o275oAuA1NSB//UrD4VI5IF/mtOQwMYUaeL2jtzhL4bMYVGI7VsGXAaPccMCUuBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QdpOdgjt;
-	arc=none smtp.remote-ip=95.215.58.249
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="JHF72/UU";
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A85606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A85606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32DD606A321;
+	Mon,  9 Nov 2026 06:36:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32DD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QdpOdgjt
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nED5IjRRVS9zufEnMoKY+EwjY9VykfLJN7/PFD533sk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794206174; v=1; x=1794810974;
- b=QdpOdgjtixd+BcIyK5mIaHhCDj9c/ugMSlX1jNERO8LlPu/V4HArcZCYA7T+6Ykl1kNR26Dn
- hZsduDFXMVasRteUT6mWP33Wxo9y6EW9SjOr6fCTCgR7RxsCyCyVk7w+xstHC7WQe5q9663Iu5e
- Nw0wHL0a2/D9DLHE6BeKxUXo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 30777b2291c593d7;
-	Mon, 09 Nov 2026 06:36:13 +0000
-X-Mizu-Trace-ID: 30777b2291c593d7
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 09 Nov 2026 07:36:08 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>, Kalpesh Solanki <skalpesh942@gmail.com>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_v3_0/2=5D_wifi=3A_rtw88=3A_firmwa?=
- =?US-ASCII?Q?re_recovery_fixes_and_LPS_hang_handling?=
-In-Reply-To: <39750c895e3b4dfa8ef98a28503f25fd@realtek.com>
-References: <20261108085126.331784-1-skalpesh942@gmail.com> <9fd1c42c5df94629a21c41dd08645b96@realtek.com> <27E9A60D-26F6-41D6-B74F-7DEF998C8498@linux.dev> <86803b2c13a74ada92ab73e79f38164d@realtek.com> <B1CD522C-2CC2-4913-8175-05F0D25CF65F@linux.dev> <39750c895e3b4dfa8ef98a28503f25fd@realtek.com>
-Message-ID: <1AF1A633-859B-42BA-9B2E-4B8081BF09C7@linux.dev>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=JHF72/UU
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 56B0A40E04CD;
+	Mon,  9 Nov 2026 06:36:46 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id aOVENPtaFWK7; Mon,  9 Nov 2026 06:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794206204; bh=AtsfehftEhocEg2I5bmWwp2ROneUNtV4068+F7Hlw8w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JHF72/UUi4yUT9aqIf+1NnxYf6RBnkvYAj3W0oNSoARYb9dCH6USJz/XwRB3zKAzN
+	 MWJW9xd/ygniOGVsaaW7GBZaf+qXYyhu3aJBhi2D/f1MdqaPIPAWinTyaFBOA9gM35
+	 5nUywwgnc62cQv4bfa4eoHQf48x0D4FJFNgLCt83+USeUOLy7Qh+2lSpB7trl1wz/p
+	 kEpq/vJ6nrjXE/KAhASp6qorwpWq2HXjCxbam8Cyo1Z2sIRXrUNhsh6zZ/KoYZL2i4
+	 1lmr105l2rgJ8qXntBB7PKSVPBF2/Z8bSDrAGXjT8NRQY6og6HlqYUIe5alwo9BgNF
+	 dx1kkKAsqjQxtJJM1XRbbhZFSRsQTaoRpIN6D9Rt0nTL0lKCj+axgl9IxZagHCy091
+	 r8Ki+ygh/0tcNG4AUVe5LTp4ch5qnCP4xKJ3OLYrbSXIXoab9f+zgIaxkW4jibdP8X
+	 3s6MuKTd4JCyKlo7AF17HWOnrGSmGTMzu5kqiIdy8sdRXtaPhqcCV+NSL9gv2T7SAZ
+	 ofaUI4PE6zr8T9OByuN3e8vf5AXpiMuzD+cRw/CoXMu517BCsSSS6nnJ+9Y0mm0MV/
+	 h2mAq7Jr8pQs6CouL4r0WevxUISKIjEtmSGk88S8UwKCzTVapUK5ItYrpXUIxXDEx2
+	 sCCf9g3g76KyyYwpg9RRhxLk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B1AD640E01E1;
+	Mon,  9 Nov 2026 06:35:12 +0000 (UTC)
+Date: Sun, 8 Nov 2026 22:35:09 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Alexey Kardashevskiy <aik@amd.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-pci@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jini Susan George <jinisusan.george@amd.com>,
+	Kees Cook <kees@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Kim Phillips <kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	"Tycho Andersen (AMD)" <tycho@kernel.org>,
+	Liam Merwick <liam.merwick@oracle.com>,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>,
+	Xiaotian Feng <dfeng@redhat.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
+	Andi Kleen <ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Tony Luck <tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Ian Campbell <ian.campbell@citrix.com>,
+	Jeremy Fitzhardinge <jeremy.fitzhardinge@citrix.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	David Howells <dhowells@redhat.com>,
+	Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Ilias Stamatis <ilstam@amazon.com>,
+	Sumanth Korikkar <sumanthk@linux.ibm.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Toshi Kani <toshi.kani@hp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Jiang Liu <jiang.liu@linux.intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Palmer Dabbelt <palmerdabbelt@google.com>,
+	linux-coco@lists.linux.dev, xen-devel@lists.xenproject.org,
+	iommu@lists.linux.dev, linux-mm@kvack.org, aik@ozlabs.ru,
+	Santosh Shukla <santosh.shukla@amd.com>,
+	"Pratik R . Sampat" <prsampat@amd.com>,
+	Scott Soule Cheloha <scott.cheloha@amd.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [RFC PATCH kernel 01/17] pci/dma/tsm: Call disable DMA bus hook
+ on cleanup
+Message-ID: <20261109063509.GFavFpnZ-OM-rGcjdp@fat_crate.local>
+References: <20260916115159.1938195-1-aik@amd.com>
+ <20260916115159.1938195-2-aik@amd.com>
+ <20260916174929.GCaqrWqZ1fIhi4Rgbn@fat_crate.local>
+ <9c83efe9-9367-472f-bf39-e07252e70c3c@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,65 +157,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9c83efe9-9367-472f-bf39-e07252e70c3c@amd.com>
 
-On November 9, 2026 7:30:52 AM GMT+01:00, Ping-Ke Shih <pkshih@realtek.com>
-wrote:
->Luka Gejak <luka.gejak@linux.dev> wrote:
->> On November 9, 2026 7:12:52 AM GMT+01:00, Ping-Ke Shih
-><pkshih@realtek.com>
->> wrote:
->> >Luka Gejak <luka.gejak@linux.dev> wrote:
->> >> On November 9, 2026 3:30:58 AM GMT+01:00, Ping-Ke Shih
->> ><pkshih@realtek.com>
->> >> wrote:
->> >> >Kalpesh Solanki <skalpesh942@gmail.com> wrote:
->> >> >> Changes in v3:
->> >> >> - Note: v2 patch 1/2 (DMI quirk) is already applied in rtw-next.
->> >> >> - Add patch 1/2 to clear RTW_FLAG_RESTARTING in rtw_ops_stop()
->> >> >>   with Fixes tag.
->> >> >> - In patch 2/2:
->> >> >>   - Count consecutive failures before triggering recovery
->> >> >>     (RTW_PS_HANG_MAX_CNT = 3).
->> >> >>   - Reset ps_hang_cnt on successful LPS leave and in
->> >rtw_core_start().
->> >> >>   - Suppress raw register dump on transient failures to avoid log
->> >spam.
->> >> >
->> >> >The patchset doesn't present in [1] nor [2]. Please wait a while to
->> >send
->> >> >newer version after it recovered.
->> >> >
->> >> >[1] https://patchwork.kernel.org/project/linux-wireless/list/
->> >> >[2] https://lore.kernel.org/linux-wireless/
->> >> >
->> >> >
->> >>
->> >> Hi Ping-Ke,
->> >>
->> >> The linux-wireless list is bugged and nothing is appearing on it
->since
->> >> 2026-11-06 15:46 UTC. Aren't patches accessible due to
->> >> linux-kernel@vger.kernel.org being CC'ed?
->> >
->> >I think not. I sent patches to linux-wireless, not including
->linux-kernel,
->> >before, and the lore and patchwork of linux-wireless can capture the
->> >patches.
->> >
->> >
->> 
->> We are having this conversation on linux-wireless, aren't we? I don't
->see
->> it and my lei isn't picking it up.
->
->I think the mailing list still works, but lore/patchwork got wrong.
->
+On Thu, Sep 17, 2026 at 12:28:50PM +1000, Alexey Kardashevskiy wrote:
+> Correct, the patches between v7.3-rc2 and 01/17 (can drop samples and tools,
+> obviously) are enough. It is basically recent tagged upstream + rebased
+> Dan's https://lore.kernel.org/r/20260705220819.2472765-1-djbw@kernel.org
 
-Possibly, now sure why lei is affected though(I am not sure how lei works).
+You probably should rebase that branch on 7.4 because it has caught a bunch of
+conflicts since the last time...
 
+Thx.
 
-Best regards,
-Luka Gejak
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
