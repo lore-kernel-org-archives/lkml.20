@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242204;
-	b=WxuDyZQY7OBQ0j+xiC6DH1UsPuxB1fPh2PEBEcbxZzLjYVONZlZIlf4M1P0CWzbb67Xe
-	 LpOA/ixqx2wDt1wD7zjO2dFUN+Lh0AT/xgnuxm20UFn17hWB5H82ek3mKknSqunwu7KPO
-	 tw8JcIk8VB2UTv2vO9wlOBj2e9xX0/8a6oFdhoAbtGi85M5hOUe8OTygMo8yzTDyfh2Zk
-	 dRTOUFRDv8UfDoYTyQmAyGMi4GwxqnJEGgiCYjRwcTY2pCI8jSGMhd9gWRoRbvG0s1J0+
-	 jQ8qO4E54SrmFhKBedIza2NRn4HEg3Tqc9yaSPvPI2f7pQqOJ09ILVwe8rGAxPIfWGQ==
+	t=1794242201;
+	b=DH0VshRnjiAhX5p8RePHyQH0wntCJrVEe71wmWhuXWBSSuW09wKcq/pZX3SfFyf3Bk1j
+	 BEljIa90AlrvHDzKwUs85D42JhkCIgtFaLLLg/oh0tsS65wYV1je/wx7FQp8VBYIQMdsZ
+	 WCZi0ZogMPWPKaGA1bgsT4j2bN9Io1ge2yZvs9C25nK7wosokvZn9Rh82qX+hjc9+Gtne
+	 aqiw/UBjZ/nRrAgY8OjU7HyjkbWyClX2my9B0Jj6VWfF3CL6aygWgFRUgcEch/e/XUHny
+	 ohchSPXi+Dli+VtlUWG9etiMKHSgtDr+aEWoc+54UKmzU7Wc4ewoM0xAVFVM8U1OhGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242204;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242201;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lJL2CrY7iNSJF7GqoCeb5yNm8erUqwgVxUedaZdDoNM=;
-	b=2yNFJu3xV/6p6ug7tMGOwJP2yBMRfilEjRS4TsKcutUzRtiHyMptXEomMWzl78epvmjZ
-	 L2AOpJWvOzBUe7PY7CcO059AV7zb+Nqm0QxXd+jGDFrmaqrB66TTfrDM2uF5xzDNVRX5j
-	 uxT1r/KGAeAww6uUKe2Ji6I6gpo3Eu1jvHxEdDz1vKEeVeV157HyjoRl8Cbi9lxxg8NeB
-	 HB+FFBOqS9XM3v0LfMKkEWsHSLSZnI2KpREqgMCALT6ejGZbJNmkQMW846DcRqUuFVWo7
-	 SRuLIhzfgy8cPZCfcXgqM1WK8DtBcBYneuwfM6NveOAl1sxAKj7gEExHoTuxeQYwweg==
+	bh=ErQf4cPvfS+1Yq71iFQrR+o0j0UZEjto9pKX8GV+5D0=;
+	b=glLTyvIejHCplIo6ok9GhFPk8FHfyeUoBa6SMvDtLF6IvReOLzlTGKLpIuP6xwkcpvL2
+	 MOnCF0kcA/sj7HLFytzMmmStLEZOZz9V1sy5uwBPdoeriukAjZyhkzQrPR6d7YkUyfRpT
+	 2SdFAChrASdkphSeefQBh3Z6w6LBdgKdo40VhlAZRRvFXx3v8lhEoLwiKP7o5WDL1iA1W
+	 Kd/5JSiF7v/z+Ch2lm3TMu7tGObCdqiHTjupWV+O5ygimrhOPbq2KLhDbQYsp4zGMG36Z
+	 XcgENOFhvyMldGTxEGepqc9Whpi8uMNQQAv9Do6xkoc5FYA1E4enRKsVVM4BCsuQFow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZoMGYc2;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cVtAEvv3;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F26360A3834
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F26360A3834
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB4C60A3810
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EB4C60A3810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZoMGYc2
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9076595e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cVtAEvv3
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9278845e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242202; x=1794847002; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794242199; x=1794846999; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lJL2CrY7iNSJF7GqoCeb5yNm8erUqwgVxUedaZdDoNM=;
-        b=GZoMGYc2cjOO+sCdIIq+4Gcwy3UfY+ElfbmHXvrpgurE+wik7MBgTMRrWIcQk1aNh9
-         Ve5QisdSLBZyScqtcnsBSRoYnw5dwyTX5Kh6gybmXsNESlpOAdzR2yX4HLR3xWbHGtUu
-         fvVT+B9K63HQJjwPk+WMPKp05a/xS41XyIJh/BD9SoAoDDN7oEuwC/sMIjABo6xzVAcu
-         o06ov0OQXj5t2eSXDxUeufQtkMviT5q6cP3lMHOuBJ08qJMFktz40xL5TrqI3hucX+Mo
-         yYTlSM62smaxLYLkrpXFJpji0/xeD4DWfZxelEQSxISKAi1cmew5UP+qIoZsbEstv8Wp
-         brjA==
+        bh=ErQf4cPvfS+1Yq71iFQrR+o0j0UZEjto9pKX8GV+5D0=;
+        b=cVtAEvv3EHpbPbOgoAn0iP3dC/fR+li4Mk815i0Xcwl0TvlkhEI1cziWW6UfhAUiYu
+         X+o2MTtnGFZTCGJel3c5h0er53GeSp2PVvDzsAOI8Fo/KoH5Yz0nECwOm1BffNkwgwtf
+         LyQCIf4Z3LPpwmbOap32xxqebFiDe+QpTsBJivBguqQbCVQjfwVdsRKCV1/hiAUVid1x
+         n6rqqKi4yOeawOzAnF/4J8Ig7e27nexZjUiTBBODtRWzkJSYD4Vk/TK8hphqPPnoz/zE
+         Ac9Cz15eW38QkpzlaXvSEIKkOeBXmx8Fe/ghGuLgdUXwRGIqCebYdaTAo93DuAN7x3iP
+         Dwjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242202; x=1794847002;
+        d=1e100.net; s=20260707; t=1794242199; x=1794846999;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lJL2CrY7iNSJF7GqoCeb5yNm8erUqwgVxUedaZdDoNM=;
-        b=TtQP9Lw34MlgFlSoyH2xWHdvruGReXk0rpbUSHfRo2VtugCUmq4u/BnUxGFCh5qMgh
-         QkE51cRPWgd2IBzy7w2Yf8XUPDogAOSawoDtq4974K5+cDinezU+XU3QhgLuey4R2+sD
-         y6xVv8KQGVQG7UP6NAS787kCf10BPicnbM6EPFTGLWydlSQ0A0a1muY3GM/VriTarhpR
-         6q0WmW5kWPqOy0NWIsslp7I09Q3cilVUYm0maGyb4d+UqxiiI9ZJgd3HaJ3ZEC35qN4u
-         Zm5iesmUSWG465a2UudnAv0v96q+zF21g4kS0BDtV1JmRunstbQ7L2RxQWEKOSvIbXYR
-         kEUA==
-X-Forwarded-Encrypted: i=1; AL+hErHfBSoZhythQqNMluHQhXwUBkyxK7UVAnC6cJ6+5bSY3HRn05YbIjUng+AewWSSRasMbqbccEyO/4myfbA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//a6e2P2D9FgBG/DoJmLUvXJ4vV9GB/oiUEaOt7SyTLChWXCyu
-	tdscsTZYcIzirS2pj3C++Jiy+UEMqE0watvYTaaJfEPnpsDDRM5YdQzm
-X-Gm-Gg: AYBFou2iFebfLj0nGUrytMQuYZNeYznWcfoV5DDHZ+azuWucdN/7iQWHE7pP+76inE7
-	j07SRGnQJp5Rq5rGew9S+jBmNB6mdbCCeTfsdcb6l0pbokcAT1fD+nR6cY65kShg2QlPgakfzHl
-	fp0BGd/cdHnMStjtmUSWtWgT9jZds7S7L5qxCfYLQN69Za0OoLW3FVSy50B4RxsXEUxCFeyXYvK
-	BgN4VFPodo8984vWIA6i3i5pAxKfjPGa+LOLkfDwQcDqpJztG+CClVDGYwjR++sTEpw5vBMvLnK
-	+WGzC9gr63uGh0MoDOkrh4VSCw3IFvNDTsIJQgAXSTgYqJmVjZHLcqxg4apMl7VzbshybKFz2DP
-	4kwd78RUGKIy/lb/HRzqn0HJpBM42ER6D1GgWSLAWvFSTaoq+criEIfveDPms9r/rQlZbdAsLW8
-	OvhmDoc8S9sjebLZJ79conPxPLR6rVfeZOsb+2PPNmcv0BbJPwB2si5s7zDEclfbyUnqvwuS9a9
-	O+lMeRQ9mfbnT5PtGW2Eg5/yQu3xDyhihXsQKL8OWwfbyw2D08Ai51STPGl5GK0XERAhd2Tancf
-	I3eCx2WsqwAdN5j+FkVLnGwuvw==
-X-Received: by 2002:a05:600c:1d0a:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b963c741f8mr79445725e9.20.1794242201591;
-        Mon, 09 Nov 2026 08:36:41 -0800 (PST)
+        bh=ErQf4cPvfS+1Yq71iFQrR+o0j0UZEjto9pKX8GV+5D0=;
+        b=cLoA7cr27Dbh9BGzI9hoYASEThXe8SXkfo+Az56EpSBqkfvI/EqSt4JsFNTbCe+4K3
+         D1a2BMvaxZfGirgcCXeiQ89Ri6/tytXb8qYGMHcQ1RvFDR/P0h6TsjUJn5A3uvR56vDI
+         Mgj0838pfMfUb5tocvBAbpC3SK2fM+5y/659yM0s5fSxqjz2ukJJLTvNdn5HBINNfVP5
+         RVKLCdd1a4htViBv2CqdiV5gi3CKiUGeYyY54gnctboP1sl3rFJUm/vuNPaWWmkVeWo2
+         aZ6prHD3IIVZt19FkkSomRDME4QQoaJbDsQLl0Z+OjoJEB8MwVF1m8zQCwerAUDeAwSA
+         8gbg==
+X-Forwarded-Encrypted: i=1; AL+hErEFxvXzVyOaLltGI7pwGIsrpxfLIG18NeHmTd+m5CbR+j9DpMbDQnEGekut7xgpwvdrjJLhaekcAmAaxjA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rTl0wN4ScrHLOnUXrlz585jfyx0tKQfDxzLNWar2jItMTyHxk
+	dKxvP1ZYBUkW4nfcwhCc9fXIKNAmaNaP0hA8wBnQ+crNZepvNORYATEE
+X-Gm-Gg: AYBFou1eoYAodsTq0ZWb1qZauSmOSBo8LE1C42b05ogir+/09R1fcPBTaBwvcIflASV
+	iVukWf034GOR7AFH2M8IidKtUjbNG91GPAiUD1Eh8QvigmgKrJKmCCSzXUgSFbTUSHYeZx+SpSw
+	0ePcfdCl8KZ6AYncpVBNUtyLsqtaADiQSktaVtnjjdLBmdmLfB5iIqkp4uPf5jzmq5oc4yrsdLs
+	IbPYzFsvBUTATetw0Ujlfy+qJGdEh96K68s1d5r4l8pxJsHnZrgfTXn/MHEQKIT9Aj03jE8WLzg
+	vROR9o/hQC9zdLCLf8HncAnEsyiaf1C6E/PTDZEIqLINdw/NeRxYFEcpx15h2wmkzVMcvZ1kcZx
+	r9vhTEiiHnQueR+Q1Bs1NSpVST5L6QkkfMHwe1aqOec3LY8C2j/sF1evEGR3QvU7DaRx/o2BDwK
+	J/SxqSzDZaZ7dOAZv+s+qdjUFIaWxRgbszYElZlUGvGRiYl0zS5KJNjmX764mTs0hnCZSrQPRv6
+	i0WYcOn24C5GpG8NkWat8Yj6iWPEs065MlU49mlaQIPjqvC8vo8muA7boFTaxwvyx9KdSxWARxR
+	wGruLiZoyTCuVsYemJ9zWe49Iu0nMntmFvLJWm616EUAh58=
+X-Received: by 2002:a05:600c:3107:b0:4b6:540d:6317 with SMTP id 5b1f17b1804b1-4b960da5deamr87546205e9.12.1794242199350;
+        Mon, 09 Nov 2026 08:36:39 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:40 -0800 (PST)
+        Mon, 09 Nov 2026 08:36:38 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,9 +96,9 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 12/29] sched/deadline: Account rt-cgroups bandwidth in deadline tasks schedulability tests.
-Date: Mon,  9 Nov 2026 17:35:58 +0100
-Message-ID: <20261109163616.195264-13-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 11/29] sched/rt: Add {alloc/unregister/free}_rt_sched_group
+Date: Mon,  9 Nov 2026 17:35:57 +0100
+Message-ID: <20261109163616.195264-12-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
 References: <20261109163616.195264-1-yurand2000@gmail.com>
@@ -113,207 +113,216 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: luca abeni <luca.abeni@santannapisa.it>
+Add allocation and deallocation code for rt-cgroups.
 
-Account the rt-cgroups hierarchy's reserved bandwidth in the
-schedulability test of deadline entities. This mechanism allows to
-completely reserve portion of the rt-bandwidth to rt-cgroups even if
-they do not use all of it.
+Declare dl_server specific functions (only skeleton, but no
+implementation yet), needed by the deadline servers to be called when
+trying to schedule.
 
-Account for the rt-cgroups' reserved bandwidth also when changing the
-total dedicated bandwidth for real time tasks.
+Initialize a cgroup's active context to that of its parent.
 
 Co-developed-by: Alessio Balsini <a.balsini@sssup.it>
 Signed-off-by: Alessio Balsini <a.balsini@sssup.it>
 Co-developed-by: Andrea Parri <parri.andrea@gmail.com>
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Co-developed-by: Yuri Andriaccio <yurand2000@gmail.com>
-Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
+Co-developed-by: luca abeni <luca.abeni@santannapisa.it>
 Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
+Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
 ---
- kernel/sched/deadline.c | 58 +++++++++++++++++++++++++++++------------
- 1 file changed, 41 insertions(+), 17 deletions(-)
+ kernel/sched/rt.c | 156 +++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 154 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index b6b5fcb15f43..7c2f4d2c9301 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -127,14 +127,17 @@ static inline struct dl_bw *dl_bw_of(int i)
- 	return &cpu_rq(i)->rd->dl_bw;
- }
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 3ca932ddcf75..e6f018db7579 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -120,24 +120,176 @@ struct dl_bandwidth *dl_bandwidth_write(struct task_group *tg)
 
--static inline int dl_bw_cpus(int i)
-+static inline int __dl_bw_cpus(const struct cpumask *mask)
+ void unregister_rt_sched_group(struct task_group *tg)
  {
--	struct root_domain *rd = cpu_rq(i)->rd;
-+	return cpumask_weight_and(mask, cpu_active_mask);
-+}
-
-+static inline int dl_bw_cpus(int i)
-+{
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
- 			 "sched RCU must be held");
-
--	return cpumask_weight_and(rd->span, cpu_active_mask);
-+	return __dl_bw_cpus(cpu_rq(i)->rd->span);
- }
-
- static inline unsigned long __dl_bw_capacity(const struct cpumask *mask)
-@@ -205,11 +208,25 @@ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
- 	__dl_update(dl_b, -((s32)tsk_bw / cpus));
- }
-
-+static inline u64 get_dl_groups_bw(void)
-+{
-+#ifdef CONFIG_RT_GROUP_SCHED
-+	const struct dl_bandwidth *dl_b;
++	int i;
 +
-+	guard(raw_spinlock_irqsave)(dl_bw_lock_of_tg(&root_task_group));
-+	dl_b = dl_bandwidth_read(&root_task_group);
-+	return to_ratio(dl_b->dl_period, dl_b->dl_runtime);
-+#else
-+	return 0;
-+#endif
-+}
++	if (!rt_group_sched_enabled())
++		return;
 +
- static inline bool
--__dl_overflow(struct dl_bw *dl_b, unsigned long cap, u64 old_bw, u64 new_bw)
-+__dl_overflow(struct dl_bw *dl_b, unsigned long cap, int cpus, u64 old_bw, u64 new_bw)
- {
- 	return dl_b->bw != -1 &&
--	       cap_scale(dl_b->bw, cap) < dl_b->total_bw - old_bw + new_bw;
-+	       cap_scale(dl_b->bw, cap) < dl_b->total_bw - old_bw + new_bw
-+					+ get_dl_groups_bw() * cpus;
++	if (!tg->dl_se || !tg->rt_rq)
++		return;
+
++	for_each_possible_cpu(i) {
++		if (!tg->dl_se[i] || !tg->rt_rq[i])
++			continue;
++
++		if (tg->dl_se[i]->dl_runtime)
++			dl_init_tg(tg->dl_se[i], 0, tg->dl_se[i]->dl_period);
++	}
  }
 
- static inline
-@@ -1937,7 +1954,7 @@ int dl_server_apply_params(struct sched_dl_entity *dl_se, u64 runtime, u64 perio
- 	cpus = dl_bw_cpus(cpu);
- 	cap = dl_bw_capacity(cpu);
-
--	if (__dl_overflow(dl_b, cap, old_bw, new_bw))
-+	if (__dl_overflow(dl_b, cap, cpus, old_bw, new_bw))
- 		return -EBUSY;
-
- 	if (init) {
-@@ -1984,7 +2001,7 @@ static int __dl_server_attach_bw_locked(struct sched_dl_entity *dl_se,
- 	 */
- 	if (cpu_active(cpu_of(rq))) {
- 		cap = dl_bw_capacity(cpu_of(rq));
--		if (__dl_overflow(dl_b, cap, 0, dl_se->dl_bw))
-+		if (__dl_overflow(dl_b, cap, cpus, 0, dl_se->dl_bw))
- 			return -EBUSY;
- 		__dl_add(dl_b, dl_se->dl_bw, cpus);
- 	}
-@@ -3710,8 +3727,9 @@ int sched_dl_global_validate(void)
- 	u64 period = global_rt_period();
- 	u64 new_bw = to_ratio(period, runtime);
- 	u64 cookie = ++dl_cookie;
-+	u64 dl_groups_root = get_dl_groups_bw();
- 	struct dl_bw *dl_b;
--	int cpu, cpus, ret = 0;
-+	int cpu, cap, cpus, ret = 0;
- 	unsigned long flags;
-
- 	/*
-@@ -3726,10 +3744,12 @@ int sched_dl_global_validate(void)
- 			goto next;
-
- 		dl_b = dl_bw_of(cpu);
-+		cap = dl_bw_capacity(cpu);
- 		cpus = dl_bw_cpus(cpu);
-
- 		raw_spin_lock_irqsave(&dl_b->lock, flags);
--		if (new_bw * cpus < dl_b->total_bw)
-+		if (cap_scale(new_bw, cap) < dl_b->total_bw +
-+					     dl_groups_root * cpus)
- 			ret = -EBUSY;
- 		raw_spin_unlock_irqrestore(&dl_b->lock, flags);
-
-@@ -3823,13 +3843,13 @@ int sched_dl_overflow(struct task_struct *p, int policy,
- 	cap = dl_bw_capacity(cpu);
-
- 	if (dl_policy(policy) && !task_has_dl_policy(p) &&
--	    !__dl_overflow(dl_b, cap, 0, new_bw)) {
-+	    !__dl_overflow(dl_b, cap, cpus, 0, new_bw)) {
- 		if (hrtimer_active(&p->dl.inactive_timer))
- 			__dl_sub(dl_b, p->dl.dl_bw, cpus);
- 		__dl_add(dl_b, new_bw, cpus);
- 		err = 0;
- 	} else if (dl_policy(policy) && task_has_dl_policy(p) &&
--		   !__dl_overflow(dl_b, cap, p->dl.dl_bw, new_bw)) {
-+		   !__dl_overflow(dl_b, cap, cpus, p->dl.dl_bw, new_bw)) {
- 		/*
- 		 * XXX this is slightly incorrect: when the task
- 		 * utilization decreases, we should delay the total
-@@ -4007,13 +4027,14 @@ int dl_cpuset_cpumask_can_shrink(const struct cpumask *cur,
+ void free_rt_sched_group(struct task_group *tg)
  {
- 	unsigned long flags, cap;
- 	struct dl_bw *cur_dl_b;
--	int ret = 1;
-+	int cpus, ret = 1;
++	int i;
++
+ 	if (!rt_group_sched_enabled())
+ 		return;
++
++	if (!tg->dl_se || !tg->rt_rq)
++		return;
++
++	for_each_possible_cpu(i) {
++		if (!tg->dl_se[i] || !tg->rt_rq[i])
++			continue;
++
++		/*
++		 * Shutdown the dl_server and free it
++		 *
++		 * Since the dl timer is going to be cancelled,
++		 * we risk to never decrease the running bw...
++		 * Fix this issue by changing the group runtime
++		 * to 0 immediately before freeing it.
++		 */
++		if (tg->dl_se[i]->dl_runtime)
++			dl_init_tg(tg->dl_se[i], 0, tg->dl_se[i]->dl_period);
++
++		hrtimer_cancel(&tg->dl_se[i]->dl_timer);
++		hrtimer_cancel(&tg->dl_se[i]->inactive_timer);
++		kfree(tg->dl_se[i]);
++
++		/* Free the local per-cpu runqueue */
++		kfree(rq_of_rt_rq(tg->rt_rq[i]));
++	}
++
++	kfree(tg->rt_rq);
++	kfree(tg->dl_se);
+ }
 
- 	rcu_read_lock_sched();
- 	cur_dl_b = dl_bw_of(cpumask_any(cur));
- 	cap = __dl_bw_capacity(trial);
-+	cpus = __dl_bw_cpus(trial);
- 	raw_spin_lock_irqsave(&cur_dl_b->lock, flags);
--	if (__dl_overflow(cur_dl_b, cap, 0, 0))
-+	if (__dl_overflow(cur_dl_b, cap, cpus, 0, 0))
- 		ret = 0;
- 	raw_spin_unlock_irqrestore(&cur_dl_b->lock, flags);
- 	rcu_read_unlock_sched();
-@@ -4030,6 +4051,7 @@ enum dl_bw_request {
- static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
++static inline void __rt_rq_free(struct rt_rq **rt_rq)
++{
++	int i;
++
++	for_each_possible_cpu(i) {
++		if (rt_rq[i])
++			kfree(rq_of_rt_rq(rt_rq[i]));
++	}
++
++	kfree(rt_rq);
++}
++
++DEFINE_FREE(rt_rq_free, struct rt_rq **, if (_T) __rt_rq_free(_T))
++
++static inline void __dl_se_free(struct sched_dl_entity **dl_se)
++{
++	int i;
++
++	for_each_possible_cpu(i) {
++		kfree(dl_se[i]);
++	}
++
++	kfree(dl_se);
++}
++
++DEFINE_FREE(dl_se_free, struct sched_dl_entity **, if (_T) __dl_se_free(_T))
++
++static int __alloc_rt_sched_group_data(struct task_group *tg) {
++	/* Instantiate automatic cleanup in event of kalloc fail */
++	struct rt_rq **tg_rt_rq __free(rt_rq_free) = NULL;
++	struct sched_dl_entity **tg_dl_se __free(dl_se_free) = NULL;
++	struct sched_dl_entity *dl_se __free(kfree) = NULL;
++	struct rq *s_rq __free(kfree) = NULL;
++	int i;
++
++	tg_rt_rq = kcalloc(nr_cpu_ids, sizeof(struct rt_rq *), GFP_KERNEL);
++	if (!tg_rt_rq)
++		return 0;
++
++	tg_dl_se = kcalloc(nr_cpu_ids,
++			   sizeof(struct sched_dl_entity *), GFP_KERNEL);
++	if (!tg_dl_se)
++		return 0;
++
++	for_each_possible_cpu(i) {
++		s_rq = kzalloc_node(sizeof(struct rq),
++				    GFP_KERNEL, cpu_to_node(i));
++		if (!s_rq)
++			return 0;
++
++		dl_se = kzalloc_node(sizeof(struct sched_dl_entity),
++				     GFP_KERNEL, cpu_to_node(i));
++		if (!dl_se)
++			return 0;
++
++		tg_rt_rq[i] = &no_free_ptr(s_rq)->rt;
++		tg_dl_se[i] = no_free_ptr(dl_se);
++	}
++
++	tg->rt_rq = no_free_ptr(tg_rt_rq);
++	tg->dl_se = no_free_ptr(tg_dl_se);
++
++	return 1;
++}
++
++static struct task_struct *rt_server_pick(struct sched_dl_entity *dl_se, struct rq_flags *rf);
++
+ int alloc_rt_sched_group(struct task_group *tg, struct task_group *parent)
  {
- 	unsigned long flags, cap;
-+	int cpus;
- 	struct dl_bw *dl_b;
- 	bool overflow = 0;
- 	u64 dl_server_bw = 0;
-@@ -4039,12 +4061,13 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
- 	raw_spin_lock_irqsave(&dl_b->lock, flags);
++	struct sched_dl_entity *dl_se;
++	struct rq *s_rq;
++	int i;
++
+ 	if (!rt_group_sched_enabled())
+ 		return 1;
 
- 	cap = dl_bw_capacity(cpu);
-+	cpus = dl_bw_cpus(cpu);
- 	switch (req) {
- 	case dl_bw_req_free:
- 		__dl_sub(dl_b, dl_bw, dl_bw_cpus(cpu));
- 		break;
- 	case dl_bw_req_alloc:
--		overflow = __dl_overflow(dl_b, cap, 0, dl_bw);
-+		overflow = __dl_overflow(dl_b, cap, cpus, 0, dl_bw);
++	/* Allocate all necessary resources beforehand */
++	if (!__alloc_rt_sched_group_data(tg))
++		return 0;
++
++	/* Initialize the allocated resources now. */
++	scoped_guard(raw_spinlock_irq, dl_bw_lock_of_tg(parent)) {
++		init_dl_bandwidth(&tg->dl_bandwidth, 0, RUNTIME_INF,
++				  dl_bandwidth_read(parent)->active_context);
++	}
++
++	for_each_possible_cpu(i) {
++		s_rq = rq_of_rt_rq(tg->rt_rq[i]);
++		dl_se = tg->dl_se[i];
++
++		init_rt_rq(&s_rq->rt);
++		s_rq->cpu = i;
++		s_rq->rt.tg = tg;
++
++		init_dl_entity(dl_se);
++		dl_se->dl_runtime = 0;
++		dl_se->dl_deadline = 0;
++		dl_se->dl_period = 0;
++		dl_se->runtime = 0;
++		dl_se->deadline = 0;
++		dl_se->dl_bw = to_ratio(dl_se->dl_period, dl_se->dl_runtime);
++		dl_se->dl_density = to_ratio(dl_se->dl_deadline, dl_se->dl_runtime);
++		dl_se->dl_server = 1;
++		dl_se->dl_bw_attached = 1;
++		dl_server_init(dl_se, &cpu_rq(i)->dl, s_rq, rt_server_pick);
++	}
++
+ 	return 1;
+ }
 
- 		if (!overflow) {
- 			/*
-@@ -4053,7 +4076,7 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
- 			 * We will free resources in the source root_domain
- 			 * later on (see set_cpus_allowed_dl()).
- 			 */
--			__dl_add(dl_b, dl_bw, dl_bw_cpus(cpu));
-+			__dl_add(dl_b, dl_bw, cpus);
- 		}
- 		break;
- 	case dl_bw_req_deactivate:
-@@ -4063,6 +4086,7 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
- 		 * turn cpu off?).
- 		 */
- 		cap -= arch_scale_cpu_capacity(cpu);
-+		cpus -= 1;
+-#else /* !CONFIG_RT_GROUP_SCHED: */
++static struct task_struct *rt_server_pick(struct sched_dl_entity *dl_se, struct rq_flags *rf)
++{
++	return NULL;
++}
++
++#else /* !CONFIG_RT_GROUP_SCHED */
 
- 		/*
- 		 * cpu is going offline and NORMAL and EXT tasks will be
-@@ -4083,8 +4107,8 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
- 			 * wise thing to do. As said above, cpu is not offline
- 			 * yet, so account for that.
- 			 */
--			if (dl_bw_cpus(cpu) - 1)
--				overflow = __dl_overflow(dl_b, cap, dl_server_bw, 0);
-+			if (cpus)
-+				overflow = __dl_overflow(dl_b, cap, cpus, dl_server_bw, 0);
- 			else
- 				overflow = 1;
- 		}
+ void unregister_rt_sched_group(struct task_group *tg) { }
+
+@@ -147,7 +299,7 @@ int alloc_rt_sched_group(struct task_group *tg, struct task_group *parent)
+ {
+ 	return 1;
+ }
+-#endif /* !CONFIG_RT_GROUP_SCHED */
++#endif /* CONFIG_RT_GROUP_SCHED */
+
+ static inline bool need_pull_rt_task(struct rq *rq, struct task_struct *prev)
+ {
 --
 2.56.0
 
