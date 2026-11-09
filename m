@@ -1,92 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223706;
-	b=shUFDjFFCto4VTCGjTvsaCA3AuIrDg5RnDu/wCBsjZXLu9Fq5r+Utj75lTyjOd4xSJdW
-	 gTEqTOUbQdbmYcQuVmQUrtSM/yfsn0KBz1g1Nxj1Ke6Xhi39dPAhJtXvO/rBPySZeOcvz
-	 a6eyqFhE0Ru8VEfbegNveVE4Yt4XaEre7TY47wKFhHrPpIVDl/DjZDTYEfjjel32JXflH
-	 OGHzIHYFf0HmnfF4RrPeBv9MiJyGOwUI5rdkVlf00yIXtAqjTOOV2Fnekaui3v7D3a2ZI
-	 aiLgbYBYqbou6PoNPuzk/FxMVqFv9Uxs+G+PArfDqfanMtMlp+46hB1jzSiJBCku4NQ==
+	t=1794223697;
+	b=s6k6scknELhn9Ra3gvZEPkNlIYGOc+mE6pH92vtpkbOeK+tSTIu/1LMEi+LnwPgrFv14
+	 Hdv7zdPWKtGXAzAWJTL31IptQds2rWW/H3zWsB4r3fpLPr2+xBo7M68XDXNYEFRcXR1lT
+	 ApaofQQ9ylOH573LjjCiNJqCT7N60pW4BoY3rKoWpTfTU+y1vsPkOkA97/EiEMq97sGx4
+	 2jzTdgjjTffppfri++h/HGzPRBkrrgdHtyyjU38UpZkm2H+HBsjIBsvIjlL7gjPw8Cs+M
+	 A0tqhJfVx8QIB8uUW1XssIXphj6ndjZMtrX4NTOrK07UyPSQ1OBfbysdB6a44tmqK7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223706;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References;
-	bh=4tw+IF5aQngUQm4ayIz8HVZjcjZZWFvwMMAFsCc9hwU=;
-	b=iHL92TGqMA/0rfRJ1GB8Uv8gtvEiW9Fqy6neOaaVewmc3Kh6xGZIpbaRQZoj+3BuEe57
-	 AEokzj3xewh7E6YxJwLbob1IRJYoOMpClQCMZCcyYDNlZWXScDVcbz2nVfQUV2U6HQ/Tu
-	 mx9kyeUm9KH+9Hg3O+i2te7ZKY4/duMH8C0gqb2lv7BJUTzSX4rtBi1c6jxN8o2CDVREN
-	 mFzliKeZgYmn0JV87GjeMgtQPvPYFWIxUwsBs8keMC//FDe446n/D/eEtnrmGIvqQJwAi
-	 iNssSfDqMRoEpa66zceRwbwZmFL7/hoxZ9024vtHbN0+ETcpK+MxmRGH7nSVRVmBv/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223697;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Dx7KFsIPXErMZRXQUE5h43fcnf5L/S+eJfYzlAG0V2Q=;
+	b=w2G++0C93JlHzshllR7m/5WEgxygcGpNtkROfEdxyNU1cdVYuXjHAi8gv9t9RRcEL3lj
+	 AC6r9Red5TpHgjTxLqCHXZ3RO3utqy2ErDvIC0MF/CScyFxZ106oML+6RTKGqOBc3UaZX
+	 8J2GesfxcptpN6khS9pB4AMzOBGsRKFu1NnQmN4xE9ACdGUSJo9MgzbSJ+H0fTKb2g35B
+	 Ku5P1b4rYllKfq4BTVy81ZbzJ6gXzBDQXdyYLyffDeQg+UYUK1NBtkqM/OZ8NE5+DHfy9
+	 ++B2QSPO5pSlsFHHCc+pTfDM2WdOVH6xJtXbLJAlwB3nc0FIU0Wg90+u1y/H7VuRcpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o2ncWKGo;
-	arc=none smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTEQczN4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E047D606D804
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:28:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E047D606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B27606A31C;
+	Mon,  9 Nov 2026 11:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o2ncWKGo
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a49a022221so6661321fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:28:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794223704; x=1794828504; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4tw+IF5aQngUQm4ayIz8HVZjcjZZWFvwMMAFsCc9hwU=;
-        b=o2ncWKGoK0i4/+DVA8voEoyBLT4opwHX+bw24fcA8OuNz52IoRCVDMG+LGZsry0mIE
-         0ATWJ518GAGfb5gMvkpz0IGiFydCiXaRXaH892r/K5eUUabeki34mUeRig7K37VoJfrb
-         uw9m0JdsLIWtZmypO2RJ7Y/XtTRsPUiTFYz4tg+cbDo+4xekERCPd52rhb3tya+8yfMJ
-         i1IQpeNsJJ+QI0tDQBLWKM9rESt5utG55gGijo2fNpt+EuzxH6r9E1CuFZU2lJj4qfyy
-         VUABuruMcogQTb2dDA1gULzh5a+8nn6jC64u4F7L/zZklVjuVLwvS0MEbZFKczk1KQeI
-         K+hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794223704; x=1794828504;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4tw+IF5aQngUQm4ayIz8HVZjcjZZWFvwMMAFsCc9hwU=;
-        b=vvTBgTKxHbeoWiR1oyzmF2b6CjF9kzQ4+vM3bAxJrlcg+mjidB5epEf5es2ACb6ijY
-         2uHYdn8H8RQPDgh7fh/yrXKbFi3MpSBH5b9IpxGPMnDEVCAl1Qn/kUK5GeMWHznDNCx4
-         oOgLjp2ycrjYBxG8V8XoQ0qCoGyKzEfJRtc1X0bvok6fTkQY2YJGbXiTMTylqwsyANpr
-         C4CR46D7oxhFPKrxWxskw1fcwSUmWG4h/jxvvkAO3aUcNEG2zt4TpEn204XvkEy+Wg/o
-         6C1Ng5ir87LDWfLs4009Q77Tah17kDyL/piOocfZvmJO4U1dTEFJ0vbl36MihsRcHU4F
-         CjIw==
-X-Forwarded-Encrypted: i=1; AL+hErF4QzvCFEM1Y5+mSCFMvx9ybAXiEUWUGIN0yGgnau4/k+L/Q7b9rsFJkmy7U48o6Ga1MtKZA85oaB2eC64=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ADrty3od3UeJf7tESuXTlR2GXxfpjapYzHns3ruug2ZZnGqI4
-	mN/E9ngcVswxyLizh2jhcINTqd/laCzHIXmdX5E/ou/aFwMS3ezFISZkITh9Sg==
-X-Gm-Gg: AYBFou1yjWf035LfLQ+NxeeABHz33zxsyuyvqPwjOO6rcglnvPY5FE/59rRxoj5bw1s
-	pjOXb72YBmvcHhGbiOpUXjhLfPS4UbQ+dn0ehh5TZWJv+jiGw9gZGV7M9ToBK/Yo/NZiQ7Ljqso
-	Bz8fRbAWLOXhzwI9QlZhGIHcqoEYY4lDTSh6RQZ+IjR3bD1rf//g4oc/j5khH4dpr/xz9ntE2Wi
-	I+VshhI7uXJRZOGgAjHBL05ZHbJ2oDr9dQhzKbGzUvvPwWlsEjpj6UL+7Ly1JfLt3j8Os3VXCO+
-	d2sFu6VNcSxaNMN7oUdjBl29CeNRKks5AeO6WONuH63BREa2oRcRCMhuwaMFAjOAabOJP4ucnxD
-	Kajx+xo5TGS85mb7YN2U/Yuim/zCNJy8fLD2L9+dAieiPI7S5XzTIFtcxQrvfVsaDNmJf5WEKOE
-	I5KMC3RyndRjhAG0qCtgivZYTIyfeqPfF26QzwtVoFXbjjjDUEDXBppccTcNgm335xaeYkQrWVT
-	fw8KihW+OFh+GaD4f+JfVZ/4WE8Cec+XQUsJxDJ2JYFJeHtUX9ZlQaKcKLanuTRi2gpDvymfKNe
-	ukc/FW+x5fw7/pRaGiMKgWYkMLy6IGO7s6tZWLQShHqA+tkjKBJ/xjr3
-X-Received: by 2002:a05:651c:2106:b0:3ac:e231:bb21 with SMTP id 38308e7fff4ca-3adfa45e5c4mr8927131fa.6.1794223703998;
-        Mon, 09 Nov 2026 03:28:23 -0800 (PST)
-Received: from localhost (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3adf9f52330sm7403421fa.39.2026.11.09.03.28.23
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 09 Nov 2026 03:28:23 -0800 (PST)
-From: Eli Billauer <eli.billauer@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: arnd@arndb.de,
-	linux-kernel@vger.kernel.org,
-	Eli Billauer <eli.billauer@gmail.com>
-Subject: [PATCH 4/8] char: xillybus: Rely on FMODE flags in poll method
-Date: Mon,  9 Nov 2026 12:27:56 +0100
-Message-Id: <20261109112800.48663-5-eli.billauer@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261109112800.48663-1-eli.billauer@gmail.com>
-References: <20261109112800.48663-1-eli.billauer@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTEQczN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1B71F0089F;
+	Mon,  9 Nov 2026 11:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794223696;
+	bh=Dx7KFsIPXErMZRXQUE5h43fcnf5L/S+eJfYzlAG0V2Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YTEQczN475Gpci88Kivql+GnqDsQ9KexuzAtryFP7GZKVxePQgWlIV3rGwVwxtB94
+	 uS4WHpBNG56cYlBgRB5n2sUg8gUzUJjt1S6PWz/sTVxCVuIPYVn+P2e6A8S/RVcDjr
+	 hJX44KcWDfLm5d7UoHszCEzXjXzmB9A8Jcujitq0XwAy08BkWdin2fGw0DPfk06XCI
+	 /HRJQhclOSMI6nvtV4xZ3C/MTxNG7yOpdfcgYCeHs81jvSO++8OicS6kxUHfeVieVN
+	 GiSn3KsAxBTPd2HT9HFuGAOytaGK8h5nr63jhybVo811HsbCltlwzB2WoRJ706VAtc
+	 ghFKvQQVRiS0A==
+Subject: Re: [PATCH net-next 1/2] net: bridge: switchdev: add
+ br_switchdev_fdb_find_port()
+From: netdev-bot+sashiko@kernel.org
+To: julius@bairaktaris.de
+Cc: razor@blackwall.org, idosch@nvidia.com, andrew@lunn.ch, olteanv@gmail.com,
+ netdev@vger.kernel.org, bridge@lists.linux.dev, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 11:28:15 +0000
+Message-ID: <179422369502.994134.8555421343624613660@kernel.org>
+In-Reply-To: <92a9adba8020449a269bb8941698ea6849b4c372.1794134495.git.julius@bairaktaris.de>
+References: <92a9adba8020449a269bb8941698ea6849b4c372.1794134495.git.julius@bairaktaris.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,71 +63,177 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-The poll method of xillyusb.c previously tested chan->in_fifo and
-chan->out_ep for being NULL in order to determine if the file is opened
-for read and/or write, respectively. This works incorrectly if two files
-are opened on the same device file, one for read and one for write.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-In particular, if the release method is called for the file opened for
-read while a poll is called for the file opened for write (and vice
-versa), a race condition could lead to access of freed memory.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Relying on the FMODE flags as a guarantee for the validity of
-chan->in_fifo and chan->out_ep as pointers to allocated memory is safe,
-as the allocation and deallocation occurs with the open and release
-methods for each file.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Assisted-by: Sashiko-0.2.5:gemini-3.1-pro-preview
-Link: https://sashiko.dev/#/patchset/20260724094302.50761-1-eli.billauer@gmail.com
-Signed-off-by: Eli Billauer <eli.billauer@gmail.com>
----
- drivers/char/xillybus/xillyusb.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+- [Medium] br_switchdev_fdb_find_port() has a kernel-doc that says it
+  returns NULL when "switchdev is not notified of" the entry.
+- [Low] Concern: br_switchdev_fdb_find_port() is exported, declared in
+  include/linux/if_bridge.h and given a stub there, but nothing in the…
 
-diff --git a/drivers/char/xillybus/xillyusb.c b/drivers/char/xillybus/xillyusb.c
-index 45612fd760f0..73e26f254693 100644
---- a/drivers/char/xillybus/xillyusb.c
-+++ b/drivers/char/xillybus/xillyusb.c
-@@ -1856,10 +1856,13 @@ static __poll_t xillyusb_poll(struct file *filp, poll_table *wait)
- 	struct xillyusb_channel *chan = filp->private_data;
- 	__poll_t mask = 0;
- 
--	if (chan->in_fifo)
-+	bool open_for_read = !!(filp->f_mode & FMODE_READ);
-+	bool open_for_write = !!(filp->f_mode & FMODE_WRITE);
-+
-+	if (open_for_read)
- 		poll_wait(filp, &chan->in_fifo->waitq, wait);
- 
--	if (chan->out_ep)
-+	if (open_for_write)
- 		poll_wait(filp, &chan->out_ep->fifo.waitq, wait);
- 
- 	/*
-@@ -1872,7 +1875,7 @@ static __poll_t xillyusb_poll(struct file *filp, poll_table *wait)
- 	 * wait queue.
- 	 */
- 
--	if (!chan->poll_used && chan->in_fifo) {
-+	if (!chan->poll_used && open_for_read) {
- 		chan->poll_used = 1;
- 		request_read_anything(chan, OPCODE_SET_PUSH);
- 	}
-@@ -1884,11 +1887,11 @@ static __poll_t xillyusb_poll(struct file *filp, poll_table *wait)
- 	 * which it may not. So make it never work.
- 	 */
- 
--	if (chan->in_fifo && !chan->in_synchronous &&
-+	if (open_for_read && !chan->in_synchronous &&
- 	    (READ_ONCE(chan->in_fifo->fill) || !chan->read_data_ok))
- 		mask |= EPOLLIN | EPOLLRDNORM;
- 
--	if (chan->out_ep &&
-+	if (open_for_write &&
- 	    (READ_ONCE(chan->out_ep->fifo.fill) != chan->out_ep->fifo.size))
- 		mask |= EPOLLOUT | EPOLLWRNORM;
- 
+--
+
+net: bridge: switchdev: add br_switchdev_fdb_find_port()
+
+This commit adds br_switchdev_fdb_find_port(), an exported RCU lookup
+that returns the port of a non-local bridge FDB entry that switchdev is
+notified of. The filter in br_switchdev_fdb_notify() moves into a new
+helper, br_switchdev_fdb_notifies(), and both functions use it.
+
+> diff --git a/include/linux/if_bridge.h b/include/linux/if_bridge.h
+> index 75673b8bffcb8..e050b7e698fc9 100644
+> --- a/include/linux/if_bridge.h
+> +++ b/include/linux/if_bridge.h
+> @@ -201,6 +201,19 @@ static inline int br_mst_get_state(const struct net_device *dev, u16 msti,
+>  }
+>  #endif
+>  
+> +#if IS_ENABLED(CONFIG_BRIDGE) && IS_ENABLED(CONFIG_NET_SWITCHDEV)
+> +struct net_device *br_switchdev_fdb_find_port(const struct net_device *br_dev,
+> +					      const unsigned char *addr,
+> +					      u16 vid);
+
+[Severity: Low]
+This isn't a bug, but nothing in this patch calls the newly exported
+br_switchdev_fdb_find_port().
+
+The only user seems to come in the next patch of the series, "net: dsa:
+fix host fdb refcount when a bridge fdb entry roams". That patch calls it
+from dsa_user_bridge_host_fdb_wanted() in net/dsa/user.c:
+
+    brport = br_switchdev_fdb_find_port(bridge->dev, addr, vid);
+
+Could the commit message name that consumer?
+
+> +#else
+
+[ ... ]
+
+> diff --git a/net/bridge/br_switchdev.c b/net/bridge/br_switchdev.c
+> index 10f3aea6a1f82..02ca1cbcfede0 100644
+> --- a/net/bridge/br_switchdev.c
+> +++ b/net/bridge/br_switchdev.c
+
+[ ... ]
+
+> @@ -156,9 +152,58 @@ br_switchdev_fdb_notify(struct net_bridge *br,
+>  	 * Drivers don't know how to deal with these, so don't notify them to
+>  	 * avoid confusing them.
+>  	 */
+> -	if (test_bit(BR_FDB_ADDED_BY_USER, &fdb->flags) &&
+> -	    !test_bit(BR_FDB_STATIC, &fdb->flags) &&
+> -	    !test_bit(BR_FDB_ADDED_BY_EXT_LEARN, &fdb->flags))
+> +	return !test_bit(BR_FDB_ADDED_BY_USER, &fdb->flags) ||
+> +	       test_bit(BR_FDB_STATIC, &fdb->flags) ||
+> +	       test_bit(BR_FDB_ADDED_BY_EXT_LEARN, &fdb->flags);
+> +}
+> +
+> +/**
+> + * br_switchdev_fdb_find_port - find the port of an entry switchdev knows of
+> + * @br_dev: the bridge device
+> + * @addr: the MAC address of the entry
+> + * @vid: the VLAN of the entry
+> + *
+> + * Must be called under RCU; the device is valid until the read-side critical
+> + * section ends.
+> + *
+> + * Return: the port of the non-local entry for @addr and @vid, or NULL if
+> + * there is none or switchdev is not notified of it.
+> + */
+> +struct net_device *br_switchdev_fdb_find_port(const struct net_device *br_dev,
+> +					      const unsigned char *addr,
+> +					      u16 vid)
+> +{
+> +	const struct net_bridge_port *p;
+> +	struct net_bridge_fdb_entry *f;
+> +
+> +	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "suspicious use outside RCU");
+> +
+> +	if (!netif_is_bridge_master(br_dev))
+> +		return NULL;
+> +
+> +	f = br_fdb_find_rcu(netdev_priv(br_dev), addr, vid);
+> +	if (!f || test_bit(BR_FDB_LOCAL, &f->flags) ||
+> +	    !br_switchdev_fdb_notifies(f))
+> +		return NULL;
+> +
+> +	/* learned by a switchdev driver, which is not notified back */
+> +	if (test_bit(BR_FDB_ADDED_BY_EXT_LEARN, &f->flags) &&
+> +	    !test_bit(BR_FDB_ADDED_BY_USER, &f->flags))
+> +		return NULL;
+
+[Severity: Medium]
+Does this filter match the kernel-doc above? The kernel-doc says NULL is
+returned when "switchdev is not notified of" the entry.
+
+The commit message also says the caller uses it to "ignore the entries
+whose deletion it will not be notified of". Several cases seem to
+contradict both statements.
+
+The comment "learned by a switchdev driver, which is not notified back"
+only holds for the addition. br_switchdev_fdb_notifies() returns true for
+BR_FDB_ADDED_BY_EXT_LEARN entries. So a flush, a delete-by-port or
+__br_fdb_delete() still sends SWITCHDEV_FDB_DEL_TO_DEVICE for them,
+because those paths go through fdb_delete(br, f, true).
+
+A software-learned entry has already had SWITCHDEV_FDB_ADD_TO_DEVICE
+sent. Suppose a driver then reports the same addr/vid with
+SWITCHDEV_FDB_ADD_TO_BRIDGE. The existing-entry branch of
+br_fdb_external_learn_add() does:
+
+    if (test_and_set_bit(BR_FDB_ADDED_BY_EXT_LEARN, &fdb->flags)) {
+
+It leaves BR_FDB_ADDED_BY_USER clear. This helper then returns NULL for
+an entry that switchdev already knows about.
+
+Replay also skips the filter. br_switchdev_fdb_replay_one() notifies
+every fdb_list entry without calling br_switchdev_fdb_notifies():
+
+    br_switchdev_fdb_populate(br, &item, fdb, ctx);
+
+    err = nb->notifier_call(nb, action, &item);
+
+Locked entries and user "master dynamic" entries are therefore notified
+on replay, but this helper reports them as not notified.
+
+The opposite case looks more concerning. A user-added extern_learn entry
+(bridge fdb add ... master extern_learn) goes through
+__br_fdb_add()->br_fdb_external_learn_add(..., false, true). It gets
+BR_FDB_ADDED_BY_USER | BR_FDB_ADDED_BY_EXT_LEARN and passes this filter.
+
+Any switchdev driver can then delete that entry without a DEL_TO_DEVICE
+notification:
+
+br_switchdev_event(SWITCHDEV_FDB_DEL_TO_BRIDGE)
+  br_fdb_external_learn_del(br, p, addr, vid, false)
+    fdb_delete(br, fdb, false)
+
+br_fdb_external_learn_del() only checks BR_FDB_ADDED_BY_EXT_LEARN, not
+the port:
+
+    if (fdb && test_bit(BR_FDB_ADDED_BY_EXT_LEARN, &fdb->flags))
+        fdb_delete(br, fdb, swdev_notify);
+
+With the DSA consumer from the next patch, consider a user port that
+holds a host address for such an entry on a foreign port. Would it ever
+get an event telling it to drop that address? The address seems to stay
+on the CPU port until a later event for that addr/vid, or until the port
+leaves the bridge.
+
+Should the kernel-doc and commit message describe what the filter really
+guarantees, or should the filter change to match the stated contract?
+
+[ ... ]
+
 -- 
-2.17.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794134495.git.julius%40bairaktaris.de
