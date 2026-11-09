@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188024;
-	b=BwuRdsVekHL3ZyGR2scFZwZgKdIWwibl6bq2MHGwHshiBJbM2pJtzHlWFZ6BUEy5+0jH
-	 C0JfrIKPDoXcPKVjCpM5h8n7YvybLpzHPLhg0TxODbZYSY++ZrnFjaX4QUI3jUd7Fugu7
-	 pBTzO2/rKKfoGybCvJgTHWYWx6eqPEfaZxsV4+k2RDaXUUpHz0DFq81ZnS5zAPPSn9T2s
-	 F2cLF6cXKqLyBxO/S/Od3vxk+tnOMlVhBdG8uaQPxpPDqB0VW8bTzdRChONxgHe8shjsN
-	 YrNCi45nyBh0HDhYlkJqLqztjQiFBxuo1yI7Rc3lBicDRKc9YZfSlZBRN8ZFtFeovMg==
+	t=1794188340;
+	b=SjayT1GetzkphwJfTRwUPZhkPZ6KwagrkkFpbr/+ezlz71CRnG3o4P+99+SClwbr97au
+	 ND5s+zaQH0kQHaMTeodQbUY4SG+ikDJZ6+MyWP0sBX26F1mV4m56NN/oJV+HsVBeT+3Dc
+	 5n2olIT6Co/HLiQ8SDxnexOZzpZMFIe6oFL+Maw6WOUH4dNQ/JrWDgMiwXfVtSEfwaEiR
+	 W0vbXbXmmYFHVz8yatzKDwThDe3y6uDPG9EaSdOtJSvopNyMII6LLKGr4lgY1sj5q5EQR
+	 TcRw5QJ0i296AElpGope1qf1SV7HFb+0zyb/h7Ng98lM02xB0E7E7gvXC4FmgzkF1UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188024;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BhteyzlsA9AHFknqXbHWkQrum6QaM3/9EY4gqsJCK3Q=;
-	b=vKOn3Da4bKU2spzuaEg3lTmSbcGzyzdtjZVAv1pyFFoc5izZBVhT8mBk0NXeEGsWAkxH
-	 tRgXxGLDuPaByzZ7B8Bkqagpu9IlHX4Tq1G19yHMTSFtWWCmFg0UH4zBrqalTHRsmRyaU
-	 dR799+I61LdU49dHj0Y5rok0tMGI5GMQegbPAkCLLw420TtvkmD+8RYfDMevPgxqk+bOZ
-	 s5byn0RHjQlbBnM0djoan5wTL68uii6aFCnkQUZJAp1Xlcr6Yr/uyMutAdma5mBqCdsJH
-	 8siAuIVo8YgWbAIAFP2NAV6hlXqpA8NY46KUnaqyYMNqXD1OXyc1HVXPaHRR4tI6hcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188340;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
+	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=x1muTvUlf9SEhMdygrZyzxBP7L0PY5h9SJntq65AnLM=;
+	b=twUL7sBPxQo46VOQIv4Wbvlwo/H4FuIR+pHe9dJtwXvqfVbxP6tAh+/15QqADNxyVmbW
+	 tgdO5plDwOJcUI9HuBAc8EOBhWyF7RWB2u7848pY0Gl3bvGDRCsiPYsy7HDD4G+lkQC8c
+	 vNMpcuTii11GAQuO31lQlvfvbxGLqBg7WAdFdWcn2HATcCq2Nk4B0j+zz3t+HWUnJcEk+
+	 WfkfWjvT5ww8lUdjsRtYMigZNN4wvQq8IfQKhM29Rg2Ep3H+FLfQ3ZsQ3wlQ/mplujUdX
+	 8BxEEcfJZxe9X4ALpqKQ6y1jdxgbqsxx9QyqdLFrezw3xNJbNKK45ak7+uq1ZqeLGsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bV00zcj9;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B59F606A31C;
-	Mon,  9 Nov 2026 01:33:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B59F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bV00zcj9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bV00zcj9Xwgs8wUHgD3Z+TRPtAQ5SdZbSgMqwv033cyuLyhlhlM1h6iPu17tFlfwp+vx6EXzhExtf
-	 8LI0yZs1ZqxDzsxbGElK1qHAVO0S2d9E3osfUlavu2yXqjgsMBXkuo/wtHXoMH/ao79Dc/ADeQ1yod
-	 yh0p7E557XKIzToo=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af122f4e3a-9a1ad;
-	Mon, 09 Nov 2026 09:33:40 +0800 (CST)
-X-RM-TRANSID:2ee16af122f4e3a-9a1ad
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af122f063a-7bfd3;
-	Mon, 09 Nov 2026 09:33:39 +0800 (CST)
-X-RM-TRANSID:2ee96af122f063a-7bfd3
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: greybus-dev@lists.linaro.org
-Cc: johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	elder@ieee.org,
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406DA606A31C;
+	Mon,  9 Nov 2026 01:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406DA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jNC9j12vbz23pF;
+	Mon, 09 Nov 2026 09:38:49 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Xiubo Li <xiubli@kernel.org>
+Cc: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] greybus: reject messages with claimed size smaller than header
-Date: Mon,  9 Nov 2026 09:33:36 +0800
-Message-ID: <20261109013336.1122-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dlzhangak@isoftstone.com
+Subject: Re: [PATCH] ceph: revalidate dentries under snapdir to drop stale snapshots
+Date: Mon,  9 Nov 2026 09:38:48 +0800
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <CAOuZWzyZoQ9oAHKmxVg7B292Vx-QZ2E+QLt6xVnpfKpps+4Yfw@mail.gmail.com>
+References: <20261106021310.777075-1-dlzhangak@isoftstone.com> <CAOuZWzyZoQ9oAHKmxVg7B292Vx-QZ2E+QLt6xVnpfKpps+4Yfw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,72 +61,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Mon, 09 Nov 2026 09:38:49 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AF12428.004 by FangMail milter!
+X-FangMail-Envelope: 1794188329/4jNC9j12vbz23pF/6AF12428.004/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1794188329.6AF12428.004
+X-FangMail-Outinfo: 1794188329/6AF12428.004/4jNC9j12vbz23pF/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1794188329.6AF12428.004.4jNC9j12vbz23pF@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF12428.004/4jNC9j12vbz23pF
 
-gb_connection_recv() performs two sanity checks on received
-messages: the receive buffer must hold at least a full message
-header, and it must hold at least the message size claimed in the
-header.  Neither check verifies that the claimed message size
-covers the header itself.
+On Sat, Nov 7, 2026 at 12:17 PM Xiubo Li <xiubli@kernel.org> wrote:
+>
+> Hi Daolong,
+>
+> Thanks for the patch. I can reproduce this with two kernel clients, and
+> it is a bit worse than described: after B removes .snap/s3 and creates a
+> new .snap/s3, A still reads the file contents of the old snapshot. A
+> removed ancestor snapshot also stays visible as .snap/_p1_<ino> in child
+> directories. Your patch fixes all of these cases.
+>
+> [...]
+>
+> >         /* always trust cached snapped dentries, snapdir dentry */
+> > -       if (ceph_in_snap(dir)) {
+> > +       if (ceph_in_snap(dir) && ceph_snap(dir) != CEPH_SNAPDIR) {
+>
+> With this change nothing can validate a dentry under .snap anymore. The
+> MDS issues no lease for it, the snapdir only has CEPH_CAP_PIN, and a
+> snapped inode has no real caps. So every path walk through .snap/<name>
+> does a synchronous LOOKUPSNAP. With 3000 stats of .snap/s3/f on a cached
+> snapshot (in a VM, so only the order of magnitude matters):
+>
+>                  ops/s   LOOKUPSNAP   p50/p99 (us)
+>   unpatched     257834        0         3.1/6.9
+>   this patch     10065     3000        89.9/273.1
+>   realm check   234741        0         3.4/7.5
+>
+> The "realm check" row is an alternative that avoids the round trip. The
+> client already knows which snapshots exist: the directory's snap realm
+> keeps the list in cached_context, and the MDS sends a snap update to
+> every client with caps in the realm when a snapshot is created or
+> removed. So d_revalidate can keep trusting a dentry under .snap while
+> its snapid (ceph_snap(inode)) is still in the realm's snap context of
+> the head directory, and only fall back to LOOKUPSNAP when it is not, or
+> when we hold no caps on that directory.
+>
+> I tried this on 7.2.9. It fixes the same cases as your patch: recreating
+> a snapshot, reading stale data, removed ancestor snapshots, and 50/50
+> "B rmdir, A mkdir right away" rounds. It sends no LOOKUPSNAP on cache
+> hits. I can send you the diff I tested if it helps.
 
-A message claiming a size smaller than sizeof(struct
-gb_operation_msg_hdr) (e.g. 7) passes both checks when 8 or more
-bytes were received, and the claimed size is then used as the
-message size:
+Hi Xiubo,
 
-- gb_operation_create_incoming() computes
-  request_size = msg_size - sizeof(header), which underflows to
-  SIZE_MAX.  The request handler then reads payload from a message
-  whose payload size is SIZE_MAX; syzbot reported this as a KASAN
-  global-buffer-overflow read in gb_svc_request_handler().
-- gb_connection_recv_response() similarly computes
-  payload_size = size - sizeof(*header) for accepted short
-  responses, which underflows the same way.
+Thank you very much for reproducing the issue, identifying the additional
+stale read and removed ancestor snapshot cases, and benchmarking the
+LOOKUPSNAP overhead.
 
-Reject such messages up front in gb_connection_recv().  A claimed
-size equal to the header size is valid (header only, no payload),
-so the comparison must be strict.
+Validating the dentry against the head directory's snap realm
+cached_context (when holding caps on the head directory) before falling
+back to LOOKUPSNAP makes total sense and avoids the unnecessary MDS round
+trips on cache hits. Could you please share the diff you tested? I would
+be glad to incorporate it and test it for v2.
 
-Reported-by: syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=693652ded53d3eb9cb91
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-No Fixes tag: the missing validation dates back to the original
-greybus import; the introducing commit could not be verified with
-the trees available to me.
+> >                 if (!err && !req->r_reply_info.head->is_dentry)
+> >                         d_delete(dentry);
+> > +               else if (err == -ENOENT)
+> > +                       d_drop(dentry);
+>
+> Please make this a separate patch. With the revalidate fix, rmdir of a
+> stale snapshot already fails in the lookup and never sends RMSNAP. I
+> checked the MDS counter with and without this hunk. Also, this hunk
+> affects unlink() of regular files too.
 
-Not runtime-tested (no greybus hardware).  The affected function is
-identical in current upstream master, so the patch applies there
-as-is.
+Agreed. I will drop this hunk from v2 and send it as a separate patch.
 
-This also answers the question raised on the syzbot thread about
-whether the underflow is reachable: it is, because the existing
-checks compare the *received* size against the claimed size, never
-the claimed size against the header size.
+> Nits: the "always trust cached snapped dentries, snapdir dentry" comment
+> needs an update. Also, the trust-all check dates back to 2817b000b02c,
+> while 200fd27c8fa2 only added the unreachable LOOKUPSNAP branch, so
+> please explain the choice of Fixes: tag.
 
- drivers/greybus/operation.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I originally chose 200fd27c8fa2 ("ceph: use lookup request to revalidate
+dentry") because it explicitly added the CEPH_MDS_OP_LOOKUPSNAP branch in
+ceph_d_revalidate() intending to revalidate dentries under CEPH_SNAPDIR,
+but overlooked that the earlier check from 2817b000b02c ("ceph: directory
+operations") made it unreachable. In v2, I will update the comment and
+point Fixes: to 2817b000b02c (while also mentioning 200fd27c8fa2 in the
+commit message).
 
-diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-index 8459e9bc07..83b16c78f7 100644
---- a/drivers/greybus/operation.c
-+++ b/drivers/greybus/operation.c
-@@ -1046,6 +1046,12 @@ void gb_connection_recv(struct gb_connection *connection,
- 	/* Use memcpy as data may be unaligned */
- 	memcpy(&header, data, sizeof(header));
- 	msg_size = le16_to_cpu(header.size);
-+	if (msg_size < sizeof(header)) {
-+		dev_err_ratelimited(dev,
-+				    "%s: malformed message received (%zu < %zu)\n",
-+				    connection->name, msg_size, sizeof(header));
-+		return;
-+	}
- 	if (size < msg_size) {
- 		dev_err_ratelimited(dev,
- 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
--- 
-2.39.2
-
-
-
+Thanks,
+Daolong
