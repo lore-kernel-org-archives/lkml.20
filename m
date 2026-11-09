@@ -1,95 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255217;
-	b=EwfnMTNe1xo5ThyCFbqmN45kNzX+k/wma/5kEi/4QVW+W3GCdXPLnUkjkwhjFgn7tZ8r
-	 rInenznFi1VT1fOr/6QJ+TcrCrxPDyVwIbulPTtaTtfa1f0lp0BMmLEjVVUYaRJSN8KrK
-	 J3OUnZlttl1zw70TnW62GPFdWy/yxSc2qKKYrm8RyY2HOoOEqqsCMUElRzcLW+vgRNllF
-	 9SuZi4Gf4+LQTZPb6aGqP5qNeA2H+ruf6xBIRIYim/pBHE1OltyYzwS1hItKJD5mPCDpq
-	 7R2XD+6e4uv+hLGHIANxImC56S4fPldP33L4bahfRxo0c61FWDpbJDuEx4cQDExlDfQ==
+	t=1794255218;
+	b=JK9FTFrw57/VM30MuBVLKOL6rxUjljwuSivpy/DDsHv7KGoWnyFDNl2ILyWnGryniQsP
+	 zi6H7Ksr3gsYFPpV7v6jEh7q/+RdhCOjwqHhMg2scjC7bbNI7nVjl4FCBeWkPfmf14O/+
+	 aqJSMvxLomW90Kf0zDn93HhvX93o4599p0lOIjAdJ0/y9GKU/o6hyNYe+pHARooYsbg10
+	 /waED8Xxsf6iSTS3CvxkwTlUcZKGUj7OB9VlNa6nYavUrUwnhyI6QW+vdRR1/PAH7uGlX
+	 AIH8QzNnSPC7jlnWoJFPNBpL17uGLNYNuvx/BNuh7NzTplj+4YhHBsZ5A85ZYt/jj2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255217;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uEUhc0o+zUeX7PEeAhsV85l+vCP5t8Vwwg/hq9Oboac=;
-	b=rmZMpKoyJDv+hukoOw5lUyFGApxgM7KqLXE9NuavjDInaNa6fmMsM5K1nqLJJTZvrlvW
-	 eO95uSQJqDQtObqQCZFXlvNeJr/6OmyBFgM/9SRXBhhjQdraVAr38iyzOT8XIM2LlMX/R
-	 W97l45ejHhG+SjW/y9xoBX0Ycb6sB28C1dRRelsiyeNBV6bBYbOG4BvzuQy2GIfruWNJq
-	 EQui50nPzDkXlnGjgW3pWM5hW9OICpqwBh3oQKuYd/W2gvEDFE0Nhcisf9IQZIp2cjK/S
-	 Xt0vVzHoZqz6JVvgRKWxEG1GmXHPbfNex1zcXJ8N3R0DTy2pmEe3TJmjaPqd6VlaE8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255218;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xYFObom8zsiGEQuhVglZG1bpAfVlitRP0q/hqkQpdvM=;
+	b=ASylhvzIUEamDfwLghhoMdaJUu3u7NRFOGYmXNLjgE1Oegrs+VZ0vf64Q2KsG3ZlGBZ6
+	 HLi8DisqE3OPg788I8pni6SdZw5uHIOJanWM9Z6SgQe0fYFRnrrQN7YdEmoy8uZLX/avV
+	 Fr5jDKxkK5AoURswxPhIhToV3CXZQj70ZVng1vdhqo5j8Ld9dDUJEalvFavCi6lWWRe5M
+	 9+MXkDOlag+dU/yBha67QOuJF+fK8cavHepmwbF0+XmGYQ8BKeX9WacTxI4AV2lzllmqG
+	 PCj9GmeBSuvvvQKyPrO5f1eZ0mFE6ISgxf8srFMpirJtkrqSYqKEvV0E91JMFiQZdTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Eg/ug+vY";
-	arc=none smtp.remote-ip=74.125.225.139
-Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8OkgUON;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA20B606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA20B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 18878606A336;
+	Mon,  9 Nov 2026 20:13:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eg/ug+vY
-Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49814d35686so761915e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:13:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794255215; x=1794860015; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uEUhc0o+zUeX7PEeAhsV85l+vCP5t8Vwwg/hq9Oboac=;
-        b=Eg/ug+vYD0D0AgnIWS1dNzLSRWyESktrtjplWdOPjXBJgMBMUIubipYZmoDoauUwvz
-         /dZGsc6EkttNs5bk+GFenZxxOQN+H7M6Wl5RBI1b9qEIRIFKL+rgwqOlDbgERFKahL/9
-         G5dez3qdZ3nGiGMgrM4QY8QQkB9mWgS8nvPMEQSHZj9MsIpqX7roNjOe5JtIyM5ZzRi5
-         k6oCSCEo2RxEony4RPbRrLfThs+geglFdhqQA+8d/tTr0USjaaGBoQfVwcI2I/PR4pY9
-         AnrBnsqAYUJmk9xcQAiH3zwEPQEZA8ardfjSoJhiO8tSLEiTCIoBC5h8C9aIeRpP0hbF
-         mYoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794255215; x=1794860015;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uEUhc0o+zUeX7PEeAhsV85l+vCP5t8Vwwg/hq9Oboac=;
-        b=fTZdqVOL5kzdcPDEZtSJoYDFJX0+Vhw3b/EWpfIRZUh4suOnKMmCooutVlJdrPS9b5
-         YrGqyAU1yPaO2MtyLBE/+2YTZLwEZjtucEfrzTw5+3YktTwxDrKSyDtUXtLGjH6Zm/Uu
-         4qENQD3L/yxC+rdrsCYzd89AvEQwjPUekhtCbgizSLwII3ZBMjna4kronLMmAZnQTxu7
-         hck9qsym39B9jepT9bFL2aE4sAFi22uZizh5hPpd1OVBYvZuMeUB39CEacRD9XNrUm9g
-         QTlI/gfl3jvswKjc2AquW3tG1mODQ8o6BveZ/WadST/Ohken+e9IC30u0NMk20WXNbM9
-         +jHg==
-X-Forwarded-Encrypted: i=1; AL+hErGCaO+qdcsEgwGIRbXMhNuRZfBVKKkaV4pg3hx6K6txlCKRUEuSTuTmxoXlZL4d5r9XuITcYN39Grgfd2Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tB9UShyE1UnuSsCK3g/JiOCdpQc5rMiJBFvw6tSgYVPtB4oIe
-	IaDybbOc6cNErBc0pNsi3+PHWritcc5B8EIdaMT+2s01eI+O7mrDCDw0
-X-Gm-Gg: AYBFou1cAi7hFd4vXXhFCanFcPuS13CtyUWNxthoYl3rmgYK/te+GhcAi4Sp+/ZNhTY
-	nN+2GhA9nCbH6AewU48mkGKJTK8aHQwrosC8DX0j/BEpWojUlSHEeH340j4LUP+4zJKT1hjY7r2
-	/cNSyp6CXlH14fJ5iIP0RRuSSCf5j0HiUd5aPv5dx8tsZE3x0c47R8Jj4jy32/CXEDOrSi/Q7vw
-	x8XgNsXWmQ6Pf4LZ0PKu5cRqypNPD2dSdeoQyx/l3u6nnw7yvB9yEB2V2D87l3rQ9j5u/DUrrmR
-	OCg41CBW44Shfqq8fYt384rUFvrU7RL0nrnbA+3wfOUpVS3mhVC8wLT+8FJpvGHGTkobJFV8MII
-	iaoTET6icxatRI24IhMSfBHs9oDzj/HQJpTx+yqZ5bU9ehe/cv6T6OWbaEkgHwhfsLUpQZgkyMy
-	og6BPAiYZvQlxDK324K08wN6MoOkq08BXdmQ2VN4+q+1Gpd7RK4vKQaGdssid5fE5Zxmprrvdad
-	c2YHWmSoDA/twPsEecVuK/ftvZaDLczjcxTjWWKQZIfxAkUYW/bYBn+WK6ZnWEun2UD2uHrVsBb
-	QlUFRffnBibtx5eOcsw2fHFwqGssXTsQCE7JtQJ33z8HLw==
-X-Received: by 2002:a05:600c:8b2a:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ba02351468mr5057055e9.16.1794255214985;
-        Mon, 09 Nov 2026 12:13:34 -0800 (PST)
-Received: from serhat-ubuntu.home ([212.253.195.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe63e6sm18441715e9.7.2026.11.09.12.13.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 12:13:34 -0800 (PST)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Doug Ledford <dledford@redhat.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH] IB/rdmavt: Call check_modify_qp after validating QP attributes
-Date: Mon,  9 Nov 2026 23:13:02 +0300
-Message-ID: <20261109201302.14531-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8OkgUON
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 681E51F008A2;
+	Mon,  9 Nov 2026 20:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794255217;
+	bh=xYFObom8zsiGEQuhVglZG1bpAfVlitRP0q/hqkQpdvM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H8OkgUONsFRo6QDUBZ4FZBSV8wFduhlSZ6mYkI4VZCh74ojgmRKa2l0nsvFjnuzGN
+	 rYqZAl2bGTI4ergczMBf7qiGC2KYVWnX48rUM9brnFTIhfNNqm4I+biaYTsCaC3/rA
+	 1BNwkFXRXgsJZIYW7i7YULSQxRxfSZ5a5hnRs8uWp//D9UuJrtzOlCgnyFCgEfYsp2
+	 Gzk1VHCQ4/iAxLIOGWh3G3oVVecYZf51wg0eUljThGbn9Px3y6j5vrnxpmV6HRJRFv
+	 wfSjvjxpjJaUaGf4tTPdOerBANlR0tuh+6qivUWj9BaIK2rTKcgc0cNNMxObJsjqvH
+	 SdTj0AkUNEtfg==
+Date: Mon, 9 Nov 2026 22:13:34 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Dan Carpenter <dan@cryspen.com>
+Cc: Dan Carpenter <error27@gmail.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] keys/trusted/tpm2: rename "bool" to "boolean"
+Message-ID: <avIpbqYocfnGV5eb@kernel.org>
+References: <avFcjHwnh9mrOEnz@stanley.mountain>
+ <avHelQ1nxsDVcQkZ@kernel.org>
+ <avIjqp3n29DKkpPp@stanley.mountain>
+ <avIoVVFxZ8PTniEz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,54 +66,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avIoVVFxZ8PTniEz@kernel.org>
 
-rvt_modify_qp() calls the driver's check_modify_qp() hook before it
-validates the address handle attributes with rvt_check_ah().
+On Mon, Nov 09, 2026 at 10:08:58PM +0200, Jarkko Sakkinen wrote:
+> On Mon, Nov 09, 2026 at 10:48:58PM +0300, Dan Carpenter wrote:
+> > On Mon, Nov 09, 2026 at 04:54:13PM +0200, Jarkko Sakkinen wrote:
+> > > 
+> > > Are we migrating to C23? I've not followed this too closely.
+> > 
+> > Google AI says that we will adopt C23 next year or the year after.
+> > I argued that it would be would be after 2030 but AI said, "No, there
+> > is too much juicy stuff in C23 for kernel developers to wait so long."
+> > 
+> > I don't have a pressing need for this patch to be merged.  I was
+> > just playing with some compiler related tools noticed this.  It's
+> > the only place in the kernel which uses "bool" as a variable name.
+> 
+> I do think that bool is not great choice for a variable name; in fact
+> it is quite horrible choice. But since there is no other force than being
+> horrible name, I think I'll pass...
 
-hfi1_check_modify_qp() uses the user-supplied SL in ah_to_sc() to index
-ibp->sl_to_sc[32]. The SL is a u8 that is bounds-checked only in
-hfi1_check_ah(), which runs later so an SL >= 32 causes an possible
-out-of-bounds read.
+In order to put this in a proper context, I meant that bad variable
+names are common.  I'm not blaming patch author in particular,
+especially since it is a local variable. It is just something that
+happens all the time; occasionally.
 
-Move the check_modify_qp() call after all generic attribute checks.
+We could merge a billion patches like this with no other effect than
+causing extra merge conflicts in backports. So the net-effect is 
+more harm than good.
 
-Fixes: e85ec33d820e ("IB/rdmavt: add modify queue pair driver helpers")
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
----
-found by smatch:
-- drivers/infiniband/hw/hfi1/verbs.c:1474 ah_to_sc() error: buffer overflow 'ibp->sl_to_sc' 32 <= 255 user_rl='0-255'
---This fix relies on the SL bounds check added by commit 0dbfaa9f2813
-
- drivers/infiniband/sw/rdmavt/qp.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rdmavt/qp.c b/drivers/infiniband/sw/rdmavt/qp.c
-index 3602b9ff2196..abd33f42c888 100644
---- a/drivers/infiniband/sw/rdmavt/qp.c
-+++ b/drivers/infiniband/sw/rdmavt/qp.c
-@@ -1422,10 +1422,6 @@ int rvt_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 				attr_mask))
- 		goto inval;
- 
--	if (rdi->driver_f.check_modify_qp &&
--	    rdi->driver_f.check_modify_qp(qp, attr, attr_mask, udata))
--		goto inval;
--
- 	if (attr_mask & IB_QP_AV) {
- 		if (opa_ah) {
- 			if (rdma_ah_get_dlid(&attr->ah_attr) >=
-@@ -1521,6 +1517,10 @@ int rvt_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 		if (attr->max_dest_rd_atomic > rdi->dparms.max_rdma_atomic)
- 			goto inval;
- 
-+	if (rdi->driver_f.check_modify_qp &&
-+	    rdi->driver_f.check_modify_qp(qp, attr, attr_mask, udata))
-+		goto inval;
-+
- 	switch (new_state) {
- 	case IB_QPS_RESET:
- 		if (qp->state != IB_QPS_RESET)
--- 
-2.53.0
+Br, Jarkko
 
