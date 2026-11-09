@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233659;
-	b=SlK5uzpZ5qY1M7PtUK+YL5+9AdZQfz5bJ6MSiZZuZMa55oUJZ+4dwXqf2liKLU3135dS
-	 NOsByl79cOXjGjQq4CAemiMxPwDQXbeu5gcJZPWg3YYuITlzi2VO5JnlXsblYWnT7WIt5
-	 MPrwhC200R5vjn//qy8ItCuJPFvcnjPcNhMVByUmPRFKqbk45aQEVVC6yBiCVK7Fm0gVS
-	 DRAVSjJ4W9Ip3tF6JDQEgk3WcAocmoTJnNKbyy5LZyeteMQbIDrGhA7efi9xMqtPCEr7r
-	 G7XFRLS7bnVKgSOJKLvXW4nTc8uyfLF+6uUgbgoR3Jt4sCN5oIzU+Bfn/1tRh5cApnQ==
+	t=1794233665;
+	b=0OURvogIY3SDKzx9DqjBlv2m/FGehqh6FdOMflz3xHBjhbe0bggA8CqolckXdH9RnrL/
+	 qD9/KSHi9hdETRy27u4WaIexbHZdJJCaaYNG0WKvXC+fjfduPfsGXAE5RLxccqz2g0+Pm
+	 e3utvKRp2/ekQUPm5UBgeU5yuCFRl4lKCwuOwzm2kvaNCwd/erveJRo1W81N5ziwtuPo6
+	 mW+2Li0qAW3+M6Qjq5Xn2Cmn91rhhf8zrtr98plf1+Wziv2blazbCsxT7xtGtTXibpmtV
+	 mh4UXM9GI3trCg8rp5ueiJaWG2Y9nNw6Zuh+QlTPLHkY5UXBxyzPTMd+grfbIl54wsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233665;
 	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=GSnPkr/rL24SbEjAXMIorIPla/nW3FYOSJPsATx3I5k=;
-	b=o4UDmSv6MwMA2vOJ28tcOqSBMNF3VYBQBGPwqowj8oXIfG3g/zUOhYOWC/ck9lWn7Crz
-	 Sc76FmDxN6+/JzymDMjwPQvhkIIQxHzK2ElsDoNJGd0SxQvXf55jRevQdSSm5hN4ROH7n
-	 qENtvdyQaZk2XI/GB9LnNeHb8sgLvSMQR8GgQ/ACxibndtBPGjcqLSAdXB95D0bJAemMp
-	 JpfcHKVT+l8yIfk3iFTntY8HLT7sZrsyVQ1F42KvpYr/IKZq8Eg1iLc/eia/UzMweoN2Q
-	 dG5LEhZqSXqIUI9045jaBpdVAyd1ONwFqXsCiUWop9SgUSUah9Xzcqfy98mW7G6VcKw==
+	bh=C96+dXNmms4Zhps4PH/y1q3yGKc3QpG2tEzWg+asa7o=;
+	b=Ehm+uC+nWfjENBxahVm8Gyxf16EdxPakpZjg+FaKqcTgsAWMckYnLVrspR768fEoJwEP
+	 H/o3NcLqskqU2Qa2KYsD+1izwuLHDs1MILo+QSvftSHfGU2/7Fjbq6W8kVSV6l1xeMKrm
+	 Tc0WnTnZ8gk6PAoBDK6Ypz8WoTPg/jDqKFJ7jcG/rHrpKKaU4WPHQhA7lK32g5rSwb/Et
+	 iZB4TouGgJPh0AAufT7rJZpUrL85q/G1EQSuZaHNkhlQAJbqgXpFgvf8sa84Jc/d+4dGS
+	 jFT3asPzeXvgb9Ups7vp1mkmrREqrfHg0hdGGucHchuXdn1vFy8H+wU1buUNt4ePV3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj8V6vhs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D/dAGBWX";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97568606A33A;
-	Mon,  9 Nov 2026 14:14:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099FB606A322;
+	Mon,  9 Nov 2026 14:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj8V6vhs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03A31F0089F;
-	Mon,  9 Nov 2026 14:14:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D/dAGBWX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B5D1F008A1;
+	Mon,  9 Nov 2026 14:14:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794233659;
-	bh=GSnPkr/rL24SbEjAXMIorIPla/nW3FYOSJPsATx3I5k=;
+	s=k20260515; t=1794233664;
+	bh=C96+dXNmms4Zhps4PH/y1q3yGKc3QpG2tEzWg+asa7o=;
 	h=Date:From:To:Cc:Subject;
-	b=kj8V6vhsSQZUPG5XoKQMgPoEvAmsSwSZoinQk78dfHYAMdsKmxOG8b4fGW3qkojTf
-	 QpqsCJhfAV6HyoRysZ9H9NcUV1HegafaK3HriujOFkiJlntwEUxy+NLZF7tvln8deB
-	 B8VV7V1oaS6ufKU3elLgaFt5OPrvBfB5rl/MwjC3zgfMN+rQna8ne7gvG3w2CXIjVI
-	 hfVP4haf1yLRNLBmq7LP5r8fk2UNwu2Bi+x9HvK+WdODVr63VXL9IOGdMaYokNYLvh
-	 409EBYCSLS0oB3n5Tkzd5rqbY9sHnCd1FDXc/2wt1n1nyq8GQxjHPndItb+hl9PXVy
-	 aLtylzOH0C4SQ==
+	b=D/dAGBWX/cSWMj64AVfO4EDAJNvLRGmEpKf95Rr+PGMlAndMxvW6+cXRYLJGcmC2v
+	 0HvqYzC/+nsnEA4vp/i7yyyKQKihia4XyVCxhB+dycBGRyGzG19HPpiiTlNJgJ7i04
+	 2JjK3D31TqyO+i53+7odCPpWWiWhts3cV48oZ5R3cfTWKAkNwkRLsHItQejbnSB3uU
+	 qp5KrmxinF4NXcK0qxzCG/6+YlUt6q7uUlcFcIvx3jTkXddHOhagr8wFBjSkm/6doE
+	 g7fN16+pREaRbG33USTx5c+awHYHoSI/ZoZ9cxPkDUT84sbzPdiBNROcI9PLNgfl74
+	 EAcMhKGQSNwzQ==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id C77BA1AC5995; Mon, 09 Nov 2026 14:14:16 +0000 (GMT)
-Date: Mon, 9 Nov 2026 14:14:16 +0000
+	id 8BCF61AC5995; Mon, 09 Nov 2026 14:14:22 +0000 (GMT)
+Date: Mon, 9 Nov 2026 14:14:22 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Lee Jones <lee@kernel.org>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Rosen Penev <rosenp@gmail.com>
 Subject: linux-next: manual merge of the mfd tree with the origin tree
-Message-ID: <avHVODjuTlxhuwkW@sirena.co.uk>
+Message-ID: <avHVPtCKqd_R1GpV@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,11 +60,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="57jt3IwzCWLIYfiG"
+	protocol="application/pgp-signature"; boundary="ZFiArzJusJ7KE1z1"
 Content-Disposition: inline
 
 
---57jt3IwzCWLIYfiG
+--ZFiArzJusJ7KE1z1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -73,7 +73,7 @@ Hi all,
 
 Today's linux-next merge of the mfd tree got a conflict in:
 
-  drivers/mfd/rz-mtu3.c
+  drivers/mfd/twl-core.c
 
 between commit:
 
@@ -82,7 +82,7 @@ oc_obj() family")
 
 =66rom the origin tree and commit:
 
-  9aac1f80c8784 ("mfd: rz-mtu3: Do not use struct rz_mtu3_channel::dev")
+  88f84144a35f8 ("mfd: twl-core: Embed the twl_client array in twl_private")
 
 =66rom the mfd tree.
 
@@ -93,44 +93,61 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-
-diff --cc drivers/mfd/rz-mtu3.c
-index 7e1313a57abc0,558ed3fbe5207..0000000000000
---- a/drivers/mfd/rz-mtu3.c
-+++ b/drivers/mfd/rz-mtu3.c
-@@@ -315,17 -291,16 +291,16 @@@ static int rz_mtu3_probe(struct platfor
-  	struct rz_mtu3 *ddata;
-  	struct reset_control *rstc;
-  	unsigned int i;
-+ 	int ret;
+diff --combined drivers/mfd/twl-core.c
+index 88296178f77e7,e5b79c9ffbba1..0000000000000
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@@ -153,13 -153,15 +153,15 @@@ struct twl_mapping=20
+  	unsigned char base;	/* base address */
+  };
  =20
- -	ddata =3D devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
- +	ddata =3D devm_kzalloc_obj(dev, *ddata);
-  	if (!ddata)
-  		return -ENOMEM;
++ #define TWL_MAX_SLAVES	4
++=20
+  struct twl_private {
+  	bool ready; /* The core driver is ready to be used */
+  	u32 twl_idcode; /* TWL IDCODE Register value */
+  	unsigned int twl_id;
  =20
-- 	ddata->priv_data =3D devm_kzalloc_obj(dev, *priv);
-- 	if (!ddata->priv_data)
- -	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-++	priv =3D devm_kzalloc_obj(dev, *priv);
-+ 	if (!priv)
-  		return -ENOMEM;
+  	struct twl_mapping *twl_map;
+- 	struct twl_client *twl_modules;
++ 	struct twl_client twl_modules[TWL_MAX_SLAVES];
+  };
  =20
-- 	priv =3D ddata->priv_data;
+  static struct twl_private *twl_priv;
+@@@ -770,7 -772,8 +772,7 @@@ twl_probe(struct i2c_client *client
+  		goto out;
+  	}
+ =20
+ -	twl_priv =3D devm_kzalloc(&client->dev, sizeof(struct twl_private),
+ -				GFP_KERNEL);
+ +	twl_priv =3D devm_kzalloc_obj(&client->dev, struct twl_private);
+  	if (!twl_priv) {
+  		status =3D -ENOMEM;
+  		goto out;
+@@@ -787,13 -790,6 +789,6 @@@
+  	}
+ =20
+  	num_slaves =3D twl_get_num_slaves();
+- 	twl_priv->twl_modules =3D devm_kzalloc_objs(&client->dev,
+- 						  struct twl_client, num_slaves);
+- 	if (!twl_priv->twl_modules) {
+- 		status =3D -ENOMEM;
+- 		goto out;
+- 	}
 -=20
-  	priv->mmio =3D devm_platform_ioremap_resource(pdev, 0);
-  	if (IS_ERR(priv->mmio))
-  		return PTR_ERR(priv->mmio);
+  	for (i =3D 0; i < num_slaves; i++) {
+  		struct twl_client *twl =3D &twl_priv->twl_modules[i];
+ =20
 
---57jt3IwzCWLIYfiG
+--ZFiArzJusJ7KE1z1
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHVOAAKCRAv73Ows9A4
-iUs9AQCZLrhWQVJ/gK7jdM3fc9nXKnk3gwcTSCzsqB6j4s0JTwEA2CkF9UDIae+M
-33zXmU6XxvnPTLwyFy5RqPWsPttxuQM=
-=2XI3
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHVPgAKCRAv73Ows9A4
+iRPAAPwMvdZtafsZS4CY2sTkKHqkFBaUiBd35Rmm8q0H5tTBqgD/REl5ah3nMUyS
+7RH8ElzDsxre/WYMk9SLM6YFx3ZraAQ=
+=6TSF
 -----END PGP SIGNATURE-----
 
---57jt3IwzCWLIYfiG--
+--ZFiArzJusJ7KE1z1--
