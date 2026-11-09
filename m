@@ -1,80 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794235485;
-	b=CoHAAgvYiZR4bI5iIZN9Eq5DoWEZH3z0NbWa/fyB8DhrcqUqaAyz2Pj5UlmxuI+NPfcs
-	 c1mTbQoAGxFqvDQYj4lk1Y0mr/UCCDohdo0W0vWvR6N6KLV3HPjkkzoe64hcSw17hVvwt
-	 HrcwCOpNhp2HbxZ3sv2u288V2ECJzKpGa56zo/ncccDTmk2pw0Bqmcl7bBjy/BC9rLpag
-	 ak25y88GX35iCeAMnm2EbsXAHyN+OeGyPZ1pYgWbBBfSVR1x6RYUY1clBT4kzC+h8yt2u
-	 JTUWcH6v/YC7SX6QR8U5vT+7JLonGVveHXzvWB4Hg7fdc0wQQCLh3PblvHgBh8QoLuQ==
+	t=1794235494;
+	b=bbOl7qCPW3ljcWUzLtceAMZrf0HBo2i3UuNm9lRUbHi2PPU0j44N3UHK20Ec4wpkQiA3
+	 D+XP6Eksb7mSsjFxUDTozO46WcEGSPK9Y/WMvyXD2nU3H7HHQwJCbDZEZ7tYgIuhlv3ho
+	 RMAg3qJko0vp9nzUm82i3zTyfqPANL20XYkvefer3vQBa4llXhdp7D4QpolaJZwk9jAQn
+	 Lk7nVc25mm/xRI71fOElC/xBhr/ET497KfKKTJWUqgSNjPSs7KXJiqsbQYCXavwHBHIeK
+	 +7bqIY/I85yiY4CbDxx20ajOPZB+s8C/OvlVmYJvKyHHWhG0jifBcg9RgJu9jvDrMzg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235485;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=P8cPmZ6LyhdSdBvBMkhnzumAS8edWkpwK9m1uBz9e0c=;
-	b=0iXHN9OJuvU4l9qnMUJZhddxNtcbYy/G8hz19YJU6vR1+1FbAR9JAsQvu76A8+Z/EZTe
-	 lH+6bHS+yk1lW2vzJDAgo4iIWowdElVnOg/H9TXLUZHt0tPUQnih4v+gHZeDau0KK7VSI
-	 b5ojMz+qNCZqTZychGybWHqCOx1wGY5AUsKEzYRfzvfWcOcajAK+heK0YdaRUi6CkIW8g
-	 TptsryBKn40voZK/DboouwpsSRhxzgTxQDoMM6uf2RWYzT77RJJDb1lAk8y3tUJ2B92Gv
-	 AC0pBrfZjxH7Yf/uslhKv7lfClub6b7RF1Ep6Of0bq6J0jy7VkNFgngzFl398OwajvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235494;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+	b=OPXyAfpYHGn0USaaTi0u1ebLFdVqs2kjhjNNA+ng+PKhuIep7sCzy5zWLzw/FNYi+8eu
+	 BxliYn0tI5PIMTxNchsk19qMpR+XX5P7bonK7sjOyWfmdrNRmeQJ5hyw4SVI9lRJdkHlC
+	 BjdnQ+5UoHOY4DnJsdRetE55bOdjMeczPbf78yHTZKUqC0xOVa/C5tRfj/g+cmaTstLeF
+	 3LrW/vJXfHaNBobSw9Uy6LypmwFVxH071jKBkUL1UJdAEdQNaiq0DUly2MxDNluN13P/i
+	 fLEv4OjYbMGCWYZzbrfHeCvTL8Y1f4EsV+XNbY9/2IhFd80XKxjzfuzL0xBchPx8rkg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFoaIo2B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C38606A322;
-	Mon,  9 Nov 2026 14:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFoaIo2B
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794235484;
-	b=RLwF+j6/d3fXIZ5OYqDFht6mBCBmGylZFd5Bptl3+BGi3ibyhjbg5TP+BpN4dMr2puq6
-	 HhUoWDeAumPKxMss5OkypaDzxNHLUZJn3bvEpiTVLo+SoBhBrIYQu0vnvI09wO8YBC7bK
-	 dnDnQcwMQtjUxt84AOTo13+NuXexwcAK1Jk173j5RaKL2YTQX30n2Qx+t4S9s+XCggcBC
-	 F1IBOAPGWspE8KFDROQ0sLC0JaVtSte7XHNNWyRwidcPRJxkgLcebFk8+zFFtENcxoRCc
-	 f4g8xhki5W778hNy/ZahyPVZYldiUFUG/Xx78MdSSDd8DewdlOoxlJ7nUJ3NCdMSFiA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794235484;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=P8cPmZ6LyhdSdBvBMkhnzumAS8edWkpwK9m1uBz9e0c=;
-	b=ow9ufE4f+MExdCiGV6xzPYwzY2BXq9Xr5df+iSK9bGFchWTt7V6YqH/CxhJIxKx0r740
-	 H8kKIfh4l5WHVkvd+zG8pHcryT3to3TD6F0/HFEDS0iyk+qcUImEFsJfm6/sR6DY0eHqL
-	 4Y0inITO0Uc6NwpDS1rIiclXy9+kPzg0LLomgfj7VuCpMJ79iLf7ELznsY+m558PHMnHJ
-	 agMw1dFG9hRrb6g2QEKUZ1x8GBmK1T5kMCDa8wlMHX4omlFCIoKIrgQSinivwbnzScZBB
-	 60p8TEOFdoAdxrwr6JmH5fNkmhDSy+SrhVNfc2XFAqFA7Avvjb3qcgZi/qnY1KpGRRw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm5tqw4H;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D9AB81F008A2;
-	Mon,  9 Nov 2026 14:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794235484;
-	bh=P8cPmZ6LyhdSdBvBMkhnzumAS8edWkpwK9m1uBz9e0c=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=XFoaIo2BLRg3Y4uCpy7NLTkL3B21kvsKP7q2kYfqJYX26C9KrJqRHwmkG5tam/zgj
-	 BoCCIEKOuxOUYEDy0SVQCBTYHVNGMKiI6iynEBVdO7qqSGk8M2bk0wYBc0eoqK7tgW
-	 5ngw5U+mcn56KopIXFvMAHBhV+PskFCJSya0q9f3Hca4lqaJyPh+XsxJmpi/nrokri
-	 sryjIWI8Y5XZ2MRocQYmgL5FlQeOjaYVbkto/ZZ10bOxGNe/uLcYZUXqcEI7VtGwqZ
-	 zgefmPMnUuk92M6+RHXNijlMiGLvM+y5elXClGVOOtm0xKLzzlKoGrNx3tbUh1ZQMu
-	 ZOCclvbdbqy6A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 35482484FD;
-	Mon,  9 Nov 2026 14:44:43 +0000 (UTC)
-From: =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD_via_B4_Relay?= <devnull+cleverline1mc.gmail.com@kernel.org>
-Subject: [PATCH 0/2] serial: 8250_dw: Fix RX trigger levels for 64-byte
- FIFOs
-Date: Mon, 09 Nov 2026 15:40:58 +0100
-Message-Id: <20261109-8250-select-u6-64bit-v1-0-04bc8332fa34@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB07606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BB07606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm5tqw4H
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so149698066b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:44:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794235492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qv1Wh6OyH8IlusSe/3mOq3fTDpzzZ15TWsRzNnDZap3dBezGLL8PAonctiiFnrqWLV
+         hgOHKXOe0WqvlnTeuiu5y3oZArwu6UPQ6W+Lw4PHAhEAg07kHSQ0m10eT0l68dstjwRs
+         iBKcj0CRGBTDnoRoRGAv1AdIq7o15Lbduf3z8JGMAGJjEsqtFix751tuNT0OMWzyyb81
+         3fK2RVL57MxH/37+9rkFh0U85nAsWd3RzjJKkFpZXkT9czCMejGkoZ+rDjUlR+HapTOQ
+         Su8zD/B73rfrC99U4WSW/STsW0Rvy9OCb/Jou+6NX21EO82acMZ86t0Rv9Q8durHDCfp
+         8+bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+        fh=TM1ftfiPYqrc7rX4UXft0w2A4UCjOLw5WY7GTAdfFy4=;
+        b=BbsVCXzUpzj86+8j/3wyqs7HZKe2pJbvE6ENbSeLcw1w6Re+0YKGzw5ueI/oTxtLKc
+         2Bt5ritZIhOUmnlcRa8RjbXgtt9oK3dMEg18TAoJlqSqQSR1i/qXHqo/5sKErsYCnEvZ
+         kuyHHaH4tp0gZNzkM1nS83DDhlirL5/7WekKF/mUeszbRr4Y9FidS3lBx/QDYEpAWKoW
+         JW/ij1htbzJaL52MzrWHJtD1EtupGoZVM57WuQah+NwEwrafoWaKqQH4wqEfq7z+RuAJ
+         hecqJeizL3mfE1WlwvWmzTsshvohUI2xIot5z/sGUPyIILji3Za5N8g7atuZ9zVEQ9Br
+         YvSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794235492; x=1794840292; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+        b=mm5tqw4HLkEAYwxkVAGFQdiUaORFmvkuPw9UB87sNNk3i6lMxavweuisPZYUK/CT1h
+         KOjPo7pgnd8LN272URm3edqqk21fIGQ/4oM0cCV750lM2e8gBpArAPcSoVwR18z79Fhd
+         ranHton6NsqSWJNQA3K2AQWvyJbfI6xn+4aozez/H0VnZDTGdpPHTXoqtt8gg9pFhdc9
+         KL30xPY+CzT9eFaH3CFtdvPBFoaNUQXaWY454pRdG1p2CeuIA7AxGWd5eGUXaugqaTHf
+         Usup3xbkT/xTWPaEnufMlIeCAIZSxPz8k7/9wjDrEPrt72uG3+eRH+k3oBjFYjDhvH1S
+         Ca3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794235492; x=1794840292;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+        b=L6fuX2TNd5Q164RrUlpY1FKGOvgyPuqjEb7dFbtvUYBeXqnLTfKmNl4yJxBoESvAFS
+         /f9Lc+gKGPIZ5FS8TAa3aTo5tz/AqECe2C5kdgYdXOO8YduCx0+iepG8aEwXXy8MWAAK
+         8CttYZLIcIbAQOX0/bJMwyzsIu6DdypUMR5pVOS00qRRPZN3TLCckDBhZSYHdj/7Loxq
+         pFkPz4UrNx9quclX9GvXH2KlRHoti/fplE5Sq2gredXYuBUmGdSzxd90v6ewDswFkQmk
+         +PEMlMCusSZ+QDrnbNjJUEC45P34nEkNdl/zFg3oOrlDGkBxBAbX+3q8itRV/I4YGByy
+         xh4g==
+X-Forwarded-Encrypted: i=1; AL+hErG8r5i5SL3wj6ODymt57UZ1a8q+fUEM2+7V+M5eizU+xWdu9+c/rExU9njp8BOx4c88V85UF6Wx/YCiaWU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Q+Wd7jBaBTPQHnx1i+ETu5YoyvdvoNOvjTdVCjGfAVAefH+WA
+	6OJoT109H3gB6EFUUI5KaFFGjc+3nfRppGf4myixlxh8D8XP7gBPwg6HgIXiaaCWVGaU/vnksNn
+	WJDidvZ7hkg0itG2UTVYA9VfqibY1da8=
+X-Gm-Gg: AYBFou3yJyHOlmlLJkm9CP+wdQ9Wzqa+qYCa0276XqhLH8Od3PYEZIhiPacHBxTOOTb
+	U9corjsKn/oCOoIKf+24GZ80cIyKmVW/LMom/kCF85OAmRPNNroNShH1MPI78Oe71W+KK6wpuXU
+	E2oxb6UU3CzsbpC27f5SyEpmbN4tOyK1JWmDFAXKrWasMl3Y/pK7snoN8BgxqDn9LaeOa7azW2m
+	/Z+O+vAG5CFTnr3JGDsflSinV1r8eotbvU+Punx6flTMaL7MxBRJL8oJn0iyLZThPzAqryCTtkw
+	3UDQ9/oOzPaNbi4ezzOvQ2CmUs2geypBalsq4E/jwhKkO9rh4ZYOAYwDd73Q8U9LgirLdkrGUsC
+	/vOk72cAlGbNE5x58COkdoidO+17sMCHLLivY
+X-Received: by 2002:a17:907:844:b0:c29:f5d8:9c82 with SMTP id
+ a640c23a62f3a-c4d6db58c84mr325111966b.49.1794235491848; Mon, 09 Nov 2026
+ 06:44:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,125 +103,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAHrb8WoC/yXMTQqDQAxA4atI1g1kRp2pvYp04U/USNEy0SKId
- 3esy2/x3g7KQVjhlewQ+Ccq8xRhHgk0QzX1jNJGgyXrDKWET5sTKn+4WXB16LJaFvTeeDZVUZB
- NIabfwJ1s/235vq1rPcbmesFxnGmESPp4AAAA
-X-Change-ID: 20261030-8250-select-u6-64bit-7717e1a99023
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD?= <cleverline1mc@gmail.com>, 
- Miroslav Ondra <ondra@faster.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794235482; l=4142;
- i=cleverline1mc@gmail.com; s=20241112; h=from:subject:message-id;
- bh=j7wsNWKLOu8PU6y8Iijjhk75JExmK+N8BPwkouuO6/4=;
- b=j33Bj/JLEw5tU/jtXgoDEE6XPG5xL5NLdO5eBUw/pzIKsWldf4BLZxfpNUT2XARmmBnE29HHP
- iwu6BkgbdpjAHPQHQs8PwHl9YcEADD/JNz4ILRDb4PAW+fpU5fqG1d4
-X-Developer-Key: i=cleverline1mc@gmail.com; a=ed25519;
- pk=EJoEbw03UiRORQuCiEyNA8gH1Q6fIpEWnn/MyaWOWX0=
-X-Endpoint-Received: by B4 Relay for cleverline1mc@gmail.com/20241112 with
- auth_id=275
-X-Original-From: =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD?= <cleverline1mc@gmail.com>
-Reply-To: cleverline1mc@gmail.com
+References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
+ <20261017-ov9734-ipu6-v1-2-86eab22ae258@gmail.com> <avG8ZgDPVWCr1pja@kekkonen.localdomain>
+In-Reply-To: <avG8ZgDPVWCr1pja@kekkonen.localdomain>
+From: Tin Posavec <tin.posavec04@gmail.com>
+Date: Mon, 9 Nov 2026 15:44:38 +0100
+X-Gm-Features: AclHuK_PHfWehNIYSFaUtvinypIscMfmjsHD97Wco3q2H8fRNHwkYNi4pk5IzQ4
+Message-ID: <CAOJcTPXBQTFRR_m2S2ZrwXbZdMLHHz0DGG7=2BtFsv1ouY3Tog@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: i2c: ov9734: Add power on/off sequencing support
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	afonso.figuinha@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-DesignWare UARTs that report their FIFO through the CPR register are
-always registered as PORT_16550A. For a 64-byte FIFO, as found on the
-Rockchip RK3328, the rx_trig_bytes sysfs attribute therefore uses the
-16-byte table: it reports 8 bytes while the hardware triggers at 32,
-and writing it programs a different level than requested.
+Hi Sakari,
 
-Generic autoconfig already classifies a 16550A with a 64-byte FIFO as
-PORT_U6_16550A. DesignWare ports without a usable CPR are probed this
-way, so the same 64-byte core is registered as U6_16550A or as 16550A
-depending on whether its CPR can be read. This series makes the CPR
-path pick U6_16550A as well, after first giving PORT_U6_16550A an
-rxtrig_bytes table that matches the DesignWare FCR RT encoding.
+On Mon, Nov 09, 2026 at 02:28:22PM +0200, Sakari Ailus wrote:
+> > +     if (ov9734->reset || ov9734->powerdown) {
+> > +             /*
+> > +              * Keep reset/powerdown asserted for at least 2 ms on a
+> > +              * back-to-back off-on cycle.
+> > +              */
+>
+> The comment isn't useful. Please drop it.
 
-Patch 1 adds the table to the core. It has to come first: without it,
-patch 2 would make the rx_trig_bytes attribute disappear on the
-affected ports.
+I'll drop it in v2.
 
-Patch 2 switches 8250_dw to the new type for 64-byte FIFOs.
+> > +             fsleep(2 * USEC_PER_MSEC);
+> > +             gpiod_set_value_cansleep(ov9734->powerdown, 0);
+> > +             gpiod_set_value_cansleep(ov9734->reset, 0);
+>
+> The sensor appears to need a single GPIO (xshutdown). I wonder what's the
+> other one.
 
-Things worth reviewing:
+There isn't one that I know of. I based the GPIO handling on ov01a10,
+which requests both a reset and a powerdown GPIO. On the NUC M15 the
+INT3472 provides neither of them, and on the Surface Laptop 1 it
+provides the reset GPIO, as Afonso reported. I'll keep only the reset
+GPIO in v2.
 
-- The register programming does not change. FIFO size, TX load size and
-  capabilities still come from CPR, and both types use the same default
-  FCR value.
+> > +     /* Give the sensor time to start up before accessing it */
+>
+> Ditto.
 
-- The port type visible to userspace changes from 16550A (4) to
-  U6_16550A (19) for these ports, in TIOCGSERIAL, /proc/tty/driver/serial
-  and the boot log.
+I'll drop this one too.
 
-- dw8250_setup_port() is also used by 8250_lpss, so Intel LPSS UARTs with
-  a 64-byte FIFO are affected the same way. I could not test on LPSS
-  hardware.
+> > +     fsleep(20 * USEC_PER_MSEC);
+>
+> 8192 external clock cycles are required for this.
 
-- Ports detected as U6_16550A by autoconfig gain the rx_trig_bytes
-  attribute. Its highest level, FIFO size - 2, follows the DesignWare
-  encoding and may not match non-DesignWare hardware detected this way.
+I'll wait for 8192 external clock cycles in v2.
 
-- Only 64-byte FIFOs are handled. DesignWare FIFOs of other depths keep
-  using the 16-byte table. Deriving the levels from the FIFO size would
-  cover them as well, but needs a new hook in the core. I am happy to go
-  that way instead if it is preferred.
+Thank you for the feedback.
 
-Testing:
+Regards,
 
-Tested on a Unipi G110 controller with a Rockchip RK3328, on ttyS1 and
-ttyS2, with next-20261029 and with 6.12.114-cip34, each without and
-with this series. Both ports have a 64-byte FIFO, and both kernels and
-both ports gave identical results.
-
-With the UART in internal loopback at 9600 baud, each value was written
-to rx_trig_bytes and 640 bytes were sent. The largest chunk delivered
-to userspace shows the trigger level the hardware actually used:
-
-                 without series         with series
-  written        reads   hw level       reads   hw level
-  1              1       1              1       1
-  4              4       16             1       1
-  8              8       32             1       1
-  16             14      62             16      16
-  32             14      62             32      32
-  62             14      62             62      62
-
-Without the series the ports register as 16550A and rx_trig_bytes
-reports 8 by default, while the default FCR value is the one written
-for 8 above, i.e. 32 bytes. With the series they register as
-U6_16550A and report 32. Values in between round down to the nearest
-level, for example 31 reads back as 16, 40 as 32 and 255 as 62. At
-level 62 the TX-empty interrupt also drains the RX FIFO, so 2-byte
-chunks appear between the 62-byte ones.
-
-The series was also build-tested with W=1 for arm64 defconfig and for
-an x86_64 config with 8250_lpss, at each patch. It was not tested on
-Intel LPSS hardware.
-
-The commit messages and this cover letter were drafted with help
-from an AI assistant. The changes are used in downstream Unipi kernel.
-
-Signed-off-by: Kryštof Černý <cleverline1mc@gmail.com>
----
-Kryštof Černý (2):
-      serial: 8250: Add RX trigger levels for U6_16550A
-      serial: 8250_dw: Select U6_16550A for 64-byte FIFO
-
- drivers/tty/serial/8250/8250_dwlib.c | 2 +-
- drivers/tty/serial/8250/8250_port.c  | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
----
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-change-id: 20261030-8250-select-u6-64bit-7717e1a99023
-
-Best regards,
---  
-Kryštof Černý <cleverline1mc@gmail.com>
-
-
+Tin Posavec
