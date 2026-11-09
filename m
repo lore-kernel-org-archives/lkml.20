@@ -1,102 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246278;
-	b=lpKdW/HL0ovCcLeX7Engrr6a6mmA+CJOK/6gaSEtOkvtUEskJKZsfhjWftoE0mD+UvIl
-	 LpXFidORSfMUSpyg+dIrYIwKxuok7qx7jlSvPDJJqQePwWycjQF9kwjss37UJdIognzyf
-	 k/Qg6ts10aXBNhIF0Bw+VP/ZVfz39r5BjsQ9ex0+l/cPXtZ2QEh36r1DfmX4OKR67W0jO
-	 5x6o6PoVxBaPf+4+acAO5KWdtNdRZBFz3x2tbqYrT/+RRXV0jxkACnwNRVuUxqIgBonYS
-	 ulQRYaQP5qh2To8jN0nvv7dvvDcI8iwBMffdyB+KDfiWX1RI/XtVu0J6XfWfPXtRQug==
+	t=1794246303;
+	b=rAZeSzwLZEWtkyIg9MiO2Fyn8L80tiyx6P/rIjSTMMna2L5/Gd794HRr1oaqfvGB1tmm
+	 a/kvX29NJvvxUnuG1+eoo667pp7NE9IZS/4Z2+nzMIH40mDkeQr0wz46NXOJrg3PUKlsb
+	 Y7WBM4UANYmeDjVul+DQVRaaLHuAr5ayP8Sxnf5RckQPSi5OZ1WaeEoUogZsOcpEHTHpM
+	 KgfCu2PeonGTSP8Q7Upt33ynxQHuEHfqUEAXF4chdNybiGD7hSQLkTmIj2HCzbVmopWnD
+	 E41Hvx/o2/7wPO8U3nky/vCRZSgBX2jzgxxShuM2KfSPgfNpLkjlEMatCWyYGbzKQcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246278;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+EpjN/DsBpVyfyR8n/gQ0lrO4LV9kbgQU5k49WPSPeE=;
-	b=gI0vXvZWQsMtHFwcHnhFN+boumpvFQb2l1QvBzu7si8jY6r58KFzl/ES7AAIPPL91I+V
-	 yrR+Ftt48zm1Or5k4dVfqnzBKvqfS1bD+YEUhIb9oNVqgCHqQQUZZ8yD9G95+1hm+zdIy
-	 HMBHW7BqagF+76eihdYNfLCcQjZbcNfB76Y/obXVJk8HJER9M3f4l9BvC/HuYTS3h3J/L
-	 5zkgnaJ8HjWu0fOCoP8CsQbhXCCXx6qtDg5IgfiZRkrAqFbh74GBRdh6WkSepgvKM3Vww
-	 7EPxKCA0s9yg/4SGiTz9UBFKyXA1SuMcRzPWSlMByvA3LoARZNhMblDbRAHdNVJcIZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246303;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tvTIiQEGOEWU0flF7t6aHKkREUisvkkIXYmx5h+gLXQ=;
+	b=rDj7AyeYZW4p/twTYnrseeK7MpRt8rrCkpNiJ6J0x8sxmNUZPa9cl+2zw3QIqT7L9IB9
+	 /lB/2cmOmaSSLd1fuzFAj8RdSgRkkLjdVnz2c2blJm7JjyiFzRI6zKQHF51W6LJmFYAyt
+	 p8xOXciwnS48okdxc78RWzmKlsFsWHlaw1x+3qAmttCm0JRl0CLb2suE4MbMWx5bKKfZa
+	 Z7bulNGpJHsKC5qlG5LOVEsM6vDKF+ZWS3uxvr3CvAWCNut1L0QcJ5E2CdSjSoDjiAAOe
+	 x3TOODLveormHSYInQIW644ntm1XT9xDiFh2LqgWtKS0Ojcg1SPWlDu6VlBP4WYgX2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gzaCyMM1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KiaNZdMt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D9F606A31C;
-	Mon,  9 Nov 2026 17:44:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37AC606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:45:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gzaCyMM1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC2301F0089F;
-	Mon,  9 Nov 2026 17:44:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794246277;
-	bh=+EpjN/DsBpVyfyR8n/gQ0lrO4LV9kbgQU5k49WPSPeE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gzaCyMM1cJrjP8mVfAdfm9Tk0MNbUwWsCzu5aBYFwIXvHqXzHyjNWYvmsk0qAwsED
-	 GA9iUPuLXd53UNdhLXbucDDSJCBnpyT4AdCqpMXhvrVqGpYP2eidMHAWz42rUr0Xzx
-	 9ZMkq6R2Q8unfhnRO7BxhFf1Z4gUeAYDiBZoVcbY=
-Date: Mon, 9 Nov 2026 09:44:34 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Jason Gunthorpe
- <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
- Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Harry Yoo
- <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang
- <lance.yang@linux.dev>, Zi Yan <ziy@nvidia.com>, Matthew Brost
- <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul
- Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache
- <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
- <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Xu Xin
- <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, Madhavan
- Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)"
- <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel
- Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
- <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Leon Romanovsky
- <leon@kernel.org>, SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
- David Rientjes <rientjes@google.com>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo
- Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, John Johansen
- <john.johansen@canonical.com>, Georgia Garcia
- <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, James
- Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Mimi
- Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, Stephen Smalley
- <stephen.smalley.work@gmail.com>, Ondrej =?UTF-8?Q?Mosn=C3=A1=C4=8Dek?=
- <omosnacek@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, damon@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-Subject: Re: [PATCH 00/13] mm: continue vma_flags_t conversion
-Message-Id: <20261109094434.d23a227a869e76455ddff3b1@linux-foundation.org>
-In-Reply-To: <93fef824-9f60-4940-9ee6-80c9c8e3f945@kernel.org>
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
-	<d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org>
-	<au3r0-geuwtRYPiC@gremlin>
-	<1c0b1368-a381-4b25-bba9-7a4f8e92b764@kernel.org>
-	<au-DXpEi4wHwsz0r@gremlin>
-	<93fef824-9f60-4940-9ee6-80c9c8e3f945@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KiaNZdMt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A151A1F008AB
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794246302;
+	bh=tvTIiQEGOEWU0flF7t6aHKkREUisvkkIXYmx5h+gLXQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KiaNZdMtJZmfWSh60d4QfA3OQ37nt3Jhc++izjQcPiQ8A0e1M7eXsEixyX/vEPqO9
+	 F6VFAfUtVQB/Xcjyc6gATovUgsFyYgUti7tTmbTzLO/IRsafqQhlOT8fSSnCKpBV0F
+	 3hgHhoEN+xtlqU1hUBHPMIWRVjupklF7GUAvhhEvNBPxuICisz+KOz06GjNupAL5Pp
+	 7DYKGyYzoqH5hQiNOFTE9kOAmFAiw8UnZ2MGW9mZU0PfYPidSiQmumqdOXthTJa2+e
+	 C52bTiScNwIDqpy0vvIf38zchYkLP/9a6+XayAKABFL2fdSmmibdj4pVKSddn/NX+i
+	 LCRG5+gPGlZmg==
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5ebf39def3aso385333e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:45:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE/odxv8FJPFolJKntJpOC/mmBDuQ3c8Vk3NYzQ5TBtFodNf6qw8XuMAu4Iu84d31jRPjo0K0yuHeY+cUo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Mn0FrdSGvbxhSF36ECYUFzCgWgDGJ1XwnxiCLstVpLV/v8Bo7
+	vuS8TO27v7pZj26A79L8Y2fdLzVEUH0hgFRBOU3GloxQUGi+YOKax+q3aMSfDOWS5Sx8oKahKJS
+	Xiju5gl0zE+olKH6XmaKUg68Ams/2V1s=
+X-Received: by 2002:a05:6123:109:b0:5c9:66f7:2f23 with SMTP id
+ 71dfb90a1353d-5ece7144366mr1578911e0c.2.1794246301761; Mon, 09 Nov 2026
+ 09:45:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,35 +58,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <20261013063856.1755787-1-liujinlong176@163.com> <20261014015034.2248352-1-liujinlong176@163.com>
+In-Reply-To: <20261014015034.2248352-1-liujinlong176@163.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 18:44:47 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hvn3ttLKeEMVrLy8uz=goaQH8hVmWLaDTEb6So2oAJOw@mail.gmail.com>
+X-Gm-Features: AclHuK8XrsETT6WVH283I15CkZltdafQ-ZSMOqyWWmhM57V1PLqPwgGaffyVU0A
+Message-ID: <CAJZ5v0hvn3ttLKeEMVrLy8uz=goaQH8hVmWLaDTEb6So2oAJOw@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: button: Evaluate _PSB to determine power button state
+To: liujinlong176@163.com
+Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, liujinlong <liujinlong@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 9 Nov 2026 14:40:48 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Wed, Oct 14, 2026 at 3:50=E2=80=AFAM <liujinlong176@163.com> wrote:
+>
+> From: liujinlong <liujinlong@kylinos.cn>
+>
+> The ACPI button driver always synthesizes a press followed by an
+> immediate release upon receiving a 0x80 notify.  This prevents
+> userspace from determining the actual duration of a power button
+> press.
+>
+> When the 0x80 notification is received, evaluate the _PSB control
+> method if present.  If _PSB returns 1, report only a key press; if
+> it returns 0, report only a key release.  If _PSB is not available,
+> fall back to the existing press+release behavior for compatibility
+> with firmware that does not implement it.
 
-> On 11/7/26 21:09, Lorenzo Stoakes (ARM) wrote:
-> > I think we're slightly talking across purposes, so to be clear - I am totally
-> > fine with you taking any of this through your tree or whatever works for you and
-> > Andrew to avoid merge pain :)
-> > 
-> > I was just talking more generally about how to merge series that touch a lot of
-> > subsystems and maintainers-who-may-never-reply, etc.
-> > 
-> > These are the edge cases that make things... fun :)
-> > 
-> > Anyway, I guess easiest resolution here is for you to take the bits that belong
-> > to your trees and Andrew takes the bits that belong elsewhere?
-> 
-> Yes, that's what I did now, applying #1,#3,#4,#5,#6
+_PSB is not defined in the ACPI specification AFAICS.
 
-Cool.
+What is it and where is it defined?
 
-I'll remove the whole series from mm.git immediately for
-collision-avoidance reasons - let's sort things out later.
-
-I'll get better/more accurate about this soon - I need to set up
-infrastructure to fetch everyone else's trees, do test merges and
-figure out what should be removed/fixed in mm.git.  I might just base
-mm.git on everyone-else and always route its stuff ->david.  I need to
-spend a bit of time on this and discuss with the mm-next peeps.
-
+> Signed-off-by: liujinlong <liujinlong@kylinos.cn>
+>
+> --- changes in v2:
+>  - Dropped the new ACPI notify values 0x81/0x82 per Rafael's
+>    feedback, as they would require an ACPI specification update.
+>  - Instead, evaluate the _PSB control method upon receiving the
+>    existing 0x80 notification to determine the real button state.
+>  - No longer touches include/acpi/button.h.
+> ---
+>  drivers/acpi/button.c | 29 +++++++++++++++++++++++++----
+>  1 file changed, 25 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
+> index cdbb1023a8ee..2d079703899b 100644
+> --- a/drivers/acpi/button.c
+> +++ b/drivers/acpi/button.c
+> @@ -456,12 +456,25 @@ static void acpi_lid_notify(acpi_handle handle, u32=
+ event, void *data)
+>         acpi_lid_update_state(button, true);
+>  }
+>
+> +static int acpi_button_evaluate_state(acpi_handle handle)
+> +{
+> +       unsigned long long state;
+> +       acpi_status status;
+> +
+> +       status =3D acpi_evaluate_integer(handle, "_PSB", NULL, &state);
+> +       if (ACPI_FAILURE(status))
+> +               return -ENODEV;
+> +
+> +       return !!state;
+> +}
+> +
+>  static void acpi_button_notify(acpi_handle handle, u32 event, void *data=
+)
+>  {
+>         struct acpi_button *button =3D data;
+>         struct acpi_device *device =3D button->adev;
+>         struct input_dev *input;
+>         int keycode;
+> +       int state;
+>
+>         switch (event) {
+>         case ACPI_BUTTON_NOTIFY_STATUS:
+> @@ -482,10 +495,18 @@ static void acpi_button_notify(acpi_handle handle, =
+u32 event, void *data)
+>         input =3D button->input;
+>         keycode =3D test_bit(KEY_SLEEP, input->keybit) ? KEY_SLEEP : KEY_=
+POWER;
+>
+> -       input_report_key(input, keycode, 1);
+> -       input_sync(input);
+> -       input_report_key(input, keycode, 0);
+> -       input_sync(input);
+> +       state =3D acpi_button_evaluate_state(device->handle);
+> +       if (state < 0) {
+> +               /* No _PSB method, synthesize a press+release */
+> +               input_report_key(input, keycode, 1);
+> +               input_sync(input);
+> +               input_report_key(input, keycode, 0);
+> +               input_sync(input);
+> +       } else {
+> +               /* _PSB returns 1 =3D pressed, 0 =3D released */
+> +               input_report_key(input, keycode, state ? 1 : 0);
+> +               input_sync(input);
+> +       }
+>
+>         acpi_bus_generate_netlink_event(button->class, dev_name(&device->=
+dev),
+>                                         event, ++button->pushed);
+> --
+> 2.25.1
+>
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
+>
