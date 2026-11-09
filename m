@@ -1,123 +1,145 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.117
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794237207;
-	b=tqcPvJs8J/wohQV9gAzCWH/cIjgVnVE4xgxDEzlK5Z0iF0SwzyAKpdTZPTG1I9Zz6PfI
-	 9OSM1AbhU7QXx8nyrtDexgFePEsA8DPt2aGi3oyBwZJDNI5mkifHylUpAccX0L+iTLW8E
-	 Kh9UKysjgFWkx2/sHsTkDjA8jCXLG8KHTTcJnUF87yDuNJ7FjqBCQ/EXXTKjwZoncwCtY
-	 4QGOzKQ9JFaOsU40PN6jBOvLuhs81+2U2O+yqGGOilBL83P43SG0zUS5JNkYDWtLYZJFp
-	 zLldgPY0jlzwD5SxHVMyI9QUserQ3mtYas8opIoZKSe6PBluN/kW8CVLyI+VCt5MUtA==
+	t=1794237242;
+	b=VCF/zNWHbTy6lc7kE0GzZhNKVrtXDEifzCbQTooVRl4y5auuoArDIUFe5lPLGM7N1Q6I
+	 iUnd4s7x9F4/tpybHOEjEEA0W9VDvQ9qASI7pKubJdVEwJAF1QV97GSECeXtjaAqwqAMP
+	 xC+ynby2wICW7Gzcw27sRe+Bz6pcX+f952k6LQyCkEZuP7nrxlPX7YbLcQoaxH2M6+Xyv
+	 HOce2Zy2WzIo7JJ+muE8wSmAKYtA+gR/AHKVkaPNawh5fS6YtHScSTC3t2sdL57NV7J15
+	 9FjsOV37HuVhmzDnIGbyHGkcAIQ37RL9mqsXC5sMZZGY77/fKAfp1ps6ZNvbtZtMGhQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237207;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=f2bVAvGRQ8KmIiccMBatK2dy09lwBqE7j5syb8pUU3E=;
-	b=ykgbUs2WUpOtYI90xuCAWFCIVpc5zd4O+Jm65Op376USQ+2HpgiwzlwLQ1Dk9nOptjvf
-	 qQImVtD7Yw65wPTidgoLSqvZyyEgZNnoReROAuRhw2tX+vvhxhUtAgV6IG89rcTRWfrFU
-	 bp5TlBjwLyQp5DWTt6L2UHA0krp+NIY+XDrU+0uMZXdtok7M6B9NuGabkXAmWeElJ9qdg
-	 3jQqvGfCvPLnr4kBB1uEcxQhJuj6rbmZfq+fwkTWtBF5jWJUqRQR9mQidlhGRmUvzPbB/
-	 0TonKpN1h0GJeau6TG5IfE+zmO5LsHVMLAvl9u2C9pcC7VGblfNV714KzeKWzib8eLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237242;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:msip_labels:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:
+	 x-ms-exchange-antispam-messagedata-1:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BQKfqqFIW+XWKnskeiNVtv2CbvQX15ixpJt8mqa+ARQ=;
+	b=3LOipka5P5OvwDO2AN/NQh++r+BJF0U9FFvrG3lkAb4DQ1mYE5EtRr1iD2jNKEagt56t
+	 i5KsSFSqGq3u2/VYQjYkocgSnG/5pRN3OIAmXOfoxpbtWv0IQhp5N0nCUDbUBS1CCsW9y
+	 7BiywsfP1BeD+6Tq0C44vcGaPd+6vGujnKmD9YTuQ3MTSPuGgz++qIQpsFsZwh4kgf5ne
+	 g31oZtVJB60pkGlEnkBH5PXVRDDBhOLKQcCy8QRerlpKCKXSGgmFMXBixqG1yC2GSj69v
+	 BZ5eE1FVy+YOMSSr4jTQX3HczhrfXlCAhfZ2W+ClAbTjzrzVRRo3V4r+DeUGY88r83A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ALf1fyLf;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F71Q4QMP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=tek-up.de;
+	spf=pass smtp.mailfrom=tek-up.de;
+	dkim=pass header.d=tekupde.onmicrosoft.com header.i=@tekupde.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-tekupde-onmicrosoft-com header.b=iFkX1TZO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.117
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023117.outbound.protection.outlook.com [52.101.83.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DAD606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90DAD606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC725606A32A;
+	Mon,  9 Nov 2026 15:14:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC725606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tek-up.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tek-up.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ALf1fyLf;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F71Q4QMP
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFYZW335804
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 15:13:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	f2bVAvGRQ8KmIiccMBatK2dy09lwBqE7j5syb8pUU3E=; b=ALf1fyLf2FjXdUoU
-	6oeeOPdFeB1HyHQDhDkeN8ThA5C1tMT2b6TzcY6eT8wxJD4QoVVhh/M5IZBWRQmm
-	ivVbAHAZv0MpvVkNN9khzL2abl1xU3wpzbKGwZQ7+lEtc3vVJyDz/UZ+Sq8AVATI
-	o6qeLi08z5O5iqpANWASXnXDpBM11cuZ53nWnxtmoo3JlNYd7t8ViLyDskJgzeWD
-	NpihyKfmsSKPJ4E8MZGT4ptrRGxSkVpR93BJlGB7ApdqQBkqpgw/TaRi3yd8Qr4I
-	h+gORQZLHTZtFOMn2tTvBg1OvzpMh1QhBWznrWjEnt23FMlDI4lx6Q86OrXaoa9o
-	ooxlQg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hudf58rr8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:13:25 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0afbf532eso849884a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:13:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794237204; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KKESjo1CCTsn3mQvND4sDs+scdMkVqry3RYRT7QMrYRkZsYqr6UYtkfyTmxOWNtvMZ
-         Ln7KuZq4FkhTQ5bQ9Q0uTaIQuq7bvz3APMFYCYfZmKKWm5RsLPWYq9pxVyP4z+1hlCQn
-         Kg2FzvG/xo4ZlBRBmjDpqswll7QrfuBlKU2t9eT98QFQKUyDirKgR1PqBh+IPRPQJdk4
-         STvf8Qi3wIpO6m33u89svKijAhmOGnm0uBrg45kLQCRI4gbRIAEokGKF+Mkta2cVqicd
-         4biiu8PPQThN0GiMiJlD+KrczuYAu0xW18HZz+VeENqEeWNXE9fMmsOCqYn/lSKomTbG
-         B8+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=f2bVAvGRQ8KmIiccMBatK2dy09lwBqE7j5syb8pUU3E=;
-        fh=fJU86SAGs7BlfsTlcHxjvBEYQ3PDIDdaBztYXM6C94U=;
-        b=oG/zcsM0cH7gHDydusFzpwIw0/Y62HSxBEHyWBr2fD0YZFColFeKj/wS5zXh/nlo85
-         gmwB4j2/fUE+OR9lmDn/dI8G9Y0eT93iavo8ZAqOdf+4KWb1K2cDVOKEagSlzW5N2GbT
-         wZ9jvUEJVUqQWg5OMHQ06nYxW1hdninMNSEKNX/mYC+z0x4afDZ4LXAXqhWHttj1TwdU
-         a2AJOic4tw24f8mzj/JgU5K65+xuzhgvq1iefzQ8FDxMlqsrUsY84DbclbeowKzxgQtw
-         oM5L1j3eyPMm/sDikSd2B3SVMA81jLIGAX9PD7KlFaeh4kHxlkb0lhu1zcjtVuuEDPQK
-         0XiA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=tekupde.onmicrosoft.com header.i=@tekupde.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-tekupde-onmicrosoft-com header.b=iFkX1TZO
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lsrniidUMHwLBe9w4w9Nt02fMa20fdTzNd8lxslmai2iL1yXVzybAiofubt13f/MxUIAh+dG6VaG4AYUnGg7gAXKKsjK5fuVXSAQC6yR5KWrxZ+gU9Sk22nxyhyoYJllByLNdusiQPmllN36ZWisO9gWu2Ib1ZJ8RalgdT94Ku7KxBW7utnaq8G3sV3nki7PR9c1b05Jz283avaSVdpu0FlpAhU02LztjvFfzAaEjYZXZ32/SZ0lT73JS1lk9d2Lkvickt+/sShgJAyWpz9j3T3+9I7YhLupQVpXcp05c7FjiLFp0vJHRhEJrlqJZXMoyzrbHkdQU+XaU6PROQXmZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BQKfqqFIW+XWKnskeiNVtv2CbvQX15ixpJt8mqa+ARQ=;
+ b=B7NE4mxa2qPZG8MPfOtP141S+Q/7IuOF3s9THPRiBG+4K24whQ+4gbsPu4dxQNXSzHzeGnmvq0ZHqfENAXMXHlXU01OCtBxN53F0UDNgH9sVv/jn7e5P3PXqE2w5weOvXx4ZFicXrc4KV4j9dlEtXaGIICALKu2PbnB2BX+ZlPwkmvXSvgFyWOHSsWIc09/jilWos783oYR8rYOEr3LEPUnlTPM1XagwvhdVM0AmlyyUj3IELxeCCCnO1FjAJwTd3d+b5Pzvu/j+nwoeSFkdWRAkWMsxC+p7uMolRVRJdDAvLO1TObt8nZHFPaGTrN4vpglXSWdUE7bfk0H37aB+Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=tek-up.de; dmarc=pass action=none header.from=tek-up.de;
+ dkim=pass header.d=tek-up.de; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794237204; x=1794842004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f2bVAvGRQ8KmIiccMBatK2dy09lwBqE7j5syb8pUU3E=;
-        b=F71Q4QMPl2i6nrVcmYPZGFCmL0uUxDpjvOy2QDSsPwmHOVRCzUwBNPyhKb1BNoLW19
-         CPF0o/r2CFDEbnaEbKK19NTFGlqqDZp20v9LEPeeX18ET0nBC4NCSsIPVpvPkLgN6jwN
-         VBg+gjmmEPxRUpjco6aylVUn7dBp3mh5GPMUiorNrrJsWcrnN0wofwbEyN7yxzfVohRq
-         tUMtTvacGzfVKuy8yiG2m5H6XPMCqZeRG3akSlki6KIbJXo2RydsyhGaKiSOAj3CuQvf
-         vjwF4uXyQbt4CFmOWG/CN11uweG0BgW5FIGa1QoMQT8jcV/dNaakUPUA6WdwipiaIEeQ
-         V9WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794237204; x=1794842004;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f2bVAvGRQ8KmIiccMBatK2dy09lwBqE7j5syb8pUU3E=;
-        b=lL6/BUdZsqM9cmXtlNcCwTgFT2odi/0s26vX1VeWvXW5OtmrNa5tbv4cvp8KTx7rGy
-         QsnAm8gdzGTRMyf/nyRvrNE0m8s5Z4LWmEiNlTlnQKPYedckGsVUQ4hdn1XKIbXx3jm8
-         Gn9Y965OscGUSGHAuabWtEXt/1TiN4RYqO1f2DpSvyVMjCFw8gmvbtxzldvfSsvuA3ym
-         tY2pznGdPLY+UPQ+rEprhh4LJKjFUmyQFhQr2kA2wP2fZLU7wQLRXrTe3sn3HT/HPLPn
-         2fafxj/OfsfvKWZCbxtSzcvHIYjMTtE8uqqwA//xpuMW7Bp28VwjGjUjI+jsjHn5Gavh
-         QO9w==
-X-Forwarded-Encrypted: i=1; AL+hErG0KS4V7qaCj6K4C3z3YMqT+UQZa+i9nNiNLGFsJUZL55QCC1wkY8lUHAXTTFAhOSOG50e+ZFbXcxxjYB0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98p2D5zPp6uXRC0K7VazHq7auwkCYtA4yLh/RE6rb2MHNmRi0B
-	wIrhQHPmc3GGwYVFwF6zJ3EPybYwZxU7Q1rHCTc8Y72wUxdI2QGw5FF8psiETivpqB9rtzaVDI7
-	IGYWmsQzyJrMH0HbHyiMsMgVxxZJlG1SAvC70pun0KLQ1ygS0mfFEeY4t72MqkiUjM+3MGgvIed
-	7qZJTDrPYutoDsOq9oub6yI0Z20mmGHE0sr90r3MOxbQ==
-X-Gm-Gg: AYBFou0y1Lz9Tgwx6Xo8kgjkc83imS9kQTa4FdS/Ul3FitrHI0sUIwx1JJdtWS7Lakg
-	8p97skDeVcM+aM0g/SwdzIBlZCxwuN/IW1igct2DE0SRAPYgrP8STJrHrOLqzfe+AQHU3dsi/9I
-	24VkMLsk5x8yu34+7CSefzTnXnlOa4mPTKFXgAt8Hln4od0YpWXL8PIs2/HA==
-X-Received: by 2002:a17:90b:4cca:b0:3ab:5832:72af with SMTP id 98e67ed59e1d1-3b12d33ca53mr3640816a91.32.1794237204183;
-        Mon, 09 Nov 2026 07:13:24 -0800 (PST)
-X-Received: by 2002:a17:90b:4cca:b0:3ab:5832:72af with SMTP id
- 98e67ed59e1d1-3b12d33ca53mr3640777a91.32.1794237203488; Mon, 09 Nov 2026
- 07:13:23 -0800 (PST)
+ d=tekupde.onmicrosoft.com; s=selector1-tekupde-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BQKfqqFIW+XWKnskeiNVtv2CbvQX15ixpJt8mqa+ARQ=;
+ b=iFkX1TZOle4aRC5Vkp6vjCmeNTvnEe+jNyiZjtvYJuAEBFEYsZ96TfG6064nGfr3953tP8y2CbV5GpbDGZ1iW6Q4nJxtwwJLfH0VexbbNXznW9+565sdlKeamaHSSbjr/3TZ3oeib3skjls77rs6M71ZJEIG+jZuqvNW/3W+jc4LfKu6M532p7cI1WzLFOgtrMVraPjZ2LvSwhPXTKKDpYagZdmo5oETggpirQus4AjOqBRCSiaKG6yjakg+Nu3UpnD0tAL6Zera6B2JNIaktiXEucRZkCCNoWh6DYMsDPsvQBdDXZ7/R53bWIuKp6/wDapw2XHMOZ7V/gqL/Ytfxw==
+Received: from AS8PR07MB7560.eurprd07.prod.outlook.com (2603:10a6:20b:2ae::12)
+ by DU0PR07MB8490.eurprd07.prod.outlook.com (2603:10a6:10:356::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 15:13:57 +0000
+Received: from AS8PR07MB7560.eurprd07.prod.outlook.com
+ ([fe80::62d2:70e0:fdc3:d89a]) by AS8PR07MB7560.eurprd07.prod.outlook.com
+ ([fe80::62d2:70e0:fdc3:d89a%4]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 15:13:57 +0000
+From: Wael HASNAOUI <wael.hasnaoui@tek-up.de>
+To: "axboe@kernel.dk" <axboe@kernel.dk>
+CC: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"usama.arif@linux.dev" <usama.arif@linux.dev>, "llvm@lists.linux.dev"
+	<llvm@lists.linux.dev>
+Subject: [PATCH] block: order timestamp flag clearing before plug detachment
+Thread-Topic: [PATCH] block: order timestamp flag clearing before plug
+ detachment
+Thread-Index: AQHdcFYyoG1mW+zVQEu1Cwt9IJObwA==
+Date: Mon, 9 Nov 2026 15:13:57 +0000
+Message-ID:
+ <AS8PR07MB756032CE87F3CC0F35611CFBB0732@AS8PR07MB7560.eurprd07.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=tek-up.de;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS8PR07MB7560:EE_|DU0PR07MB8490:EE_
+x-ms-office365-filtering-correlation-id: a4d961ea-4e97-47e1-2a58-08df3e7413b2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|41320700013|366016|23010399003|10070799003|786006|376014|18002099003|6133799003|10067099003|3023799007|38070700021|5023799004|261028144727099003|261102123227099003|261021123027099003|261022105027099003|261022075727099003|261021121427099003|56012099006|261022115727099003|261021135927099003|261026140227099003|261009223027099003|261026121527099003;
+x-microsoft-antispam-message-info:
+ f625X4c1POxYGDPWU1cQqjnEtcofx2oc3wuJqor3AFl+0TEgtB5qqUr7qClrTO2yAaPT0f+9VYJAVRN7pCdqno5+ytY8aoo0MlKK+1o0f/y4EGgz/NgemzqC5i4FByKTq0BexPg2q4qLowA7sukHZVGzxtobPEg4M+bcNSbSI2GjQ9P7Y6ySqxcW2fFitwpGckykHQTLEbvaXBnqvso+PIc4fMHmxiAOpXsTW0EtcysJv78WH+QO/UJhtWuelkZLotxT+/qqmUQWJOF/ATKyOROKup0wTuA1WLu09KLM9KJj9uqb3I6oFuEwwb1qZdKbuYdZePK3f3NdSR3PU9/ToT9zzNlA04x+jTxs9tXh7zrdnVISB+dsXcWIw8ixvBWM0yh8sUe2pQ66o8801bo1Rta+0o8JaKH7NF5MnpvvYu/FqY7sPuKRVjOMCVCmvKQLCtKFWrGCG6uv0BWyfSFN2ArtRePLuz/nhC1LcwfW/mvkQC+dRWAroffpgMQLNIrNenUgZ2VJnjqgGIeUWGwI4q01q62nUvNsaT+Nt+GwwNALLz+7SugRilFpXYniAFXwhll8WRX6U2hNuJjvTrDNmNCcp6fM8wDL+zBkobrGOaMNG05LEFGxfPKOX5M6DNpbFmbGnqX1gleVRToPNz5ULvNJLfSUOadMJ2cwCrfIIBv0N1oYno6GskH6z8n9ZcXY+QuSSebP6toRcZ1ylHjRfv0wbnAQ7ZOVDvZC2unGjj4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR07MB7560.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(41320700013)(366016)(23010399003)(10070799003)(786006)(376014)(18002099003)(6133799003)(10067099003)(3023799007)(38070700021)(5023799004)(261028144727099003)(261102123227099003)(261021123027099003)(261022105027099003)(261022075727099003)(261021121427099003)(56012099006)(261022115727099003)(261021135927099003)(261026140227099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?snPE7fKjAUzOgHfF3MJ2PmtFKcOilRU/vSzP8m4XoG8Zr8Xp0B9KBNjn8x?=
+ =?iso-8859-1?Q?WOLlEPuXz4zAPXDB2AWF4E8eC7gIqmPgzPymP61prrGMwdCA83u0pERukX?=
+ =?iso-8859-1?Q?w5Zw/MEd/bjAa+pUmURO7XzQYFBzv+Z7qQrWnBJ+rJLBimvy/uOuXys716?=
+ =?iso-8859-1?Q?AXFy7eKYKbNO9Ugk6n3wCPQ1jYlYBUSGocluA6sw6DW3m8Kys502+zzz/H?=
+ =?iso-8859-1?Q?y1XOwi2NtuKY5kXfEz8eeEQapQPqV392OW137MgAI72uVDmf8+6LN6/J3A?=
+ =?iso-8859-1?Q?0EN/WvTSjslzhdzt7GTvsE+90iJMTFKPNmWIkjB/BMFXIPTjAnbj+otFvu?=
+ =?iso-8859-1?Q?NNetDiVXJLkCLCiExhEan8lw7MGXhDiVPEV/tyds2AMRYZ8OpZBzBLBxhG?=
+ =?iso-8859-1?Q?36aFEuseNLidm3GUiFxS4au0kVfN5wRv07+ETrQPNqMslbpk7biPTTSg95?=
+ =?iso-8859-1?Q?XDkzTZbLHgH436O9xJyhrthDW4KR0l/PcM3q8M2oyYW5Ohdp/oTsGP8Um2?=
+ =?iso-8859-1?Q?phcn+mIlwcRnDT7MYvz98BK0bKO2XHdAaW1hYigGKmf/yEuYo+APGb8UxQ?=
+ =?iso-8859-1?Q?x13wocZ/1E/CkrwWjTtxK3+4d2YjCu68HZ/DLX9iW47/4ZZ48G5yUMO0Z5?=
+ =?iso-8859-1?Q?4Yx06T0TW5u9Oe+ujMGBY0xa4LVSHEdDrpHmz27+lzbBmE1ECrRnqSmU9/?=
+ =?iso-8859-1?Q?CfHLFJCR8iu9CntdtuNa1MGxY6U0tJUdjU75ZjDav/Tvx53e1imeiKS7hn?=
+ =?iso-8859-1?Q?bgEYLt/a+TcFZqvkZGa8bNGXaHpnpU1ZgFdCpXbXhdbsplV4uwMWoOwXOb?=
+ =?iso-8859-1?Q?Ewqv6I4Dvr8d4DCG9onxrNly/6/noYGzJ+rPRE3o3Zeg3h9rW6IBIX3Yiy?=
+ =?iso-8859-1?Q?c6zOCONU9Dbh2QC6/Urz2kbFywD3ieDXS/JvznqFjfGcHp8/jDriNsyy+w?=
+ =?iso-8859-1?Q?KnYG3NiZ9EKLqEL4T/TJmDEAN6EmQIwbU9JIn5PbcMPDlXnn8ufwLMCoqL?=
+ =?iso-8859-1?Q?dgPTUhAupbdXKc9JXUAoZOOwiStsQq3St1eXLmN6nBjOxQ5RSLBJO+Jnvu?=
+ =?iso-8859-1?Q?tuSf/1zaMmdYQFeoPyHTd2Ny8DEmM0P7VEBOAunkTqkpk8lcd0+fsLq27G?=
+ =?iso-8859-1?Q?1XswSE7+uOhU7/FJxAf4g2tthW/KTrZ3QKfiexgKVY6NF4/W0MqCIxVoRf?=
+ =?iso-8859-1?Q?yHTG8y0EfLpNxISywG6jiuDohEXJlI6dyKCrAeOGlMDETPk8+EAJshyuqu?=
+ =?iso-8859-1?Q?U1qgeRAXNWUpESEz9lt9nS9ryB4JZj14kDm+W2f+wqLbzlxehU9ET/nfvj?=
+ =?iso-8859-1?Q?U3VfeZFV4y5m6irgzIzg+9v3uCZPAK4slC9aCNsoB8MRrDRJbZQn6KOJuS?=
+ =?iso-8859-1?Q?JqakjQIHuRbG0bBGdrmMbKaM+flvMhcLQNOLXIWFsMSaqBqZXE3UtbZugl?=
+ =?iso-8859-1?Q?4QVku2JRpjbmOW1i99VA32XresY2ZzT090U4pGdAXY/zlzm6rjs3ysg0KC?=
+ =?iso-8859-1?Q?JZvwsFyn3FXQyRfFpD3y4CfOn05C5ojLXuMciFns6yJ1m4IhABnk0n6nQu?=
+ =?iso-8859-1?Q?SneMof3i/HbgJUsOO48/xBLWtKC5puZ4aWEBS8HSCbOSNNMjd66FdIXXnd?=
+ =?iso-8859-1?Q?YmbUE7Lss9TgJG9AIUavZv6Xt8OnDcLEUnud2Ol73susZw18ffbLkfPogH?=
+ =?iso-8859-1?Q?qUPjBy+3tvBhN4dbfFcgyRt1hAq/H/NmH4kc9M1kK6zh0kBNSGXC0tkXt9?=
+ =?iso-8859-1?Q?EVd0FG+Uh7bpcZH6wWUGavIYWidnYH++FUAs5YNbgkcDy7RkPWFecF0bB3?=
+ =?iso-8859-1?Q?dmxkOhmCEnAv8w5cPg85NDa3OMfA5VW7AKrsz63CsTlteyIucGq2MyvN95?=
+ =?iso-8859-1?Q?yV?=
+x-ms-exchange-antispam-messagedata-1: nhQ3QzTvjr/27w==
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,192 +149,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261008091032.2832333-1-joshua.yeong@starfivetech.com> <20261008091032.2832333-3-joshua.yeong@starfivetech.com>
-In-Reply-To: <20261008091032.2832333-3-joshua.yeong@starfivetech.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 16:13:09 +0100
-X-Gm-Features: AclHuK-qxobxprSMzZBUYKJj_uyReksqIyxGSuqu40gW9TvUywVmIwdWYsE9eVQ
-Message-ID: <CAPx+jO9-fANS=WN74rFz=dFZqE5PQo9gDcqb1A33W5ohEsbevA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/7] dt-bindings: dvfs: Add RPMI performance service bindings
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org,
-        palmer@dabbelt.com, aou@eecs.berkeley.edu, rafael@kernel.org,
-        viresh.kumar@linaro.org, ulfh@kernel.org, rahul@summations.net,
-        anup@brainfault.org, lftan.linux@gmail.com, alex@ghiti.fr,
-        linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: 47At7NrrhNyjv7SqXQ0I8dYIljLiyUAY
-X-Proofpoint-GUID: 47At7NrrhNyjv7SqXQ0I8dYIljLiyUAY
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2MCBTYWx0ZWRfX0Sg0rZTAePP+
- a40op4EYwf8Iel/kvzIHspEoBjW9uzmPeaRpExEvWUvBE9n9vEqF75usJNz+sf7fEtnrihuN7E/
- FjJS/ryVWiZNJvg+vlk66dYZvxPoNeU=
-X-Authority-Analysis: v=2.4 cv=bar+w+PB c=1 sm=1 tr=0 ts=6af1e315 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8 a=V1jnuoLLAAAA:20 a=Bq6zwJu1AAAA:8
- a=TxQ1F8pul8oCGEKA_3AA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
- a=sptkURWiP4Gy88Gu7hUp:22 a=KQ6X2bKhxX7Fj2iT9C4S:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2MCBTYWx0ZWRfX7tysw+f4Ghht
- 714pFCXbziEuI0STkc1L+GTZ6rKhp8cLfEIiRnPIj6dtAkgZnziz4kM0MI1XygUcKOc3OwUQ/y+
- wKTrTaEXD+HBlehFajN2Pub2oq6wgcurlyW0mRZkubIbpzAspyeB5G1MWudMLlz/Immf0nPKKZK
- tbZ7gQmys1maz8MIUQDJLNzE8ly+HLRbKGTqwLabboRYPJAQjgK0p6HKUVYQ/zzUj7YLXMSaAZT
- 1STf/GZmvSeoqW4YwKstDjXfDV4eka+NImx2F38foHhYbEWiPhxiiYd8EOZWKViWn0t8Peo+Dt8
- iVng2iYLaX9cIICat6Tl/LgAFRQDUYop8ab0LjpaSWsyiPk4iT+kGn8wV5SWyNm+X/Q7U80Uk3z
- MYuPiMyfklV52Rtsgyz/NCHQIPyuOtuuyLWTJ9+x3UO9DcOoqJzk69LKiTQdBNw3/iCXyW7qcwQ
- y0RDoyXE8rKPEHPCp0g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0
- spamscore=0 clxscore=1015 bulkscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090060
+X-OriginatorOrg: tek-up.de
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR07MB7560.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4d961ea-4e97-47e1-2a58-08df3e7413b2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2026 15:13:57.6694
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 889cdbee-d881-42dc-bd06-ad3237c34a53
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TE2TNRBPenzL1KzyyweM90LGWHb4KCpFqqZdBF4u8mEeq7oQIbo/ympB9TFoPtJ6Zek8oE9G9LVdMRP2B8UVgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR07MB8490
 
-On Thu, Oct 8, 2026 at 11:12=E2=80=AFAM Joshua Yeong
-<joshua.yeong@starfivetech.com> wrote:
->
-> Add device tree bindings for the RPMI performance service group based
-> controller for the supervisor software.
->
-> A CPU names its performance domain through "performance-domains". Any
-> other device names it through "power-domains": the controller is also a
-> power domain provider, with one power domain per performance domain and
-> the levels the domain advertises as the performance states of that
-> power domain.
->
-> The RPMI performance service group is defined by the RISC-V Platform
-> Management Interface (RPMI) specification.
->
-> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
-> ---
->  .../bindings/dvfs/riscv,rpmi-performance.yaml | 88 +++++++++++++++++++
->  1 file changed, 88 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dvfs/riscv,rpmi-per=
-formance.yaml
->
-> diff --git a/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performanc=
-e.yaml b/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
-> new file mode 100644
-> index 000000000000..ec7856cb7257
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
-> @@ -0,0 +1,88 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/dvfs/riscv,rpmi-performance.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI performance service group
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a modular =
-and
-> +  extensible messaging protocol for platform management functions. The s=
-upervisor
-> +  software can send and receive RPMI messages via SBI MPXY extension [2]
-> +  or via a dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines performance service group (performa=
-nce
-> +  domain) for accessing and controlling platform-managed performance-rel=
-ated
-> +  resources, as implemented by a platform microcontroller. Supervisor so=
-ftware
-> +  can interact with the RPMI performance service group through an SBI MP=
-XY
-> +  channel or through a dedicated supervisor-mode RPMI transport.
-> +
-> +  The node is a performance domain provider. A CPU references its domain
-> +  through the generic "performance-domains" property described in
-> +  dvfs/performance-domain.yaml.
-> +
-> +  The node can also be a power domain provider, with one power domain fo=
-r each
-> +  performance domain. Any other device that runs in one of the domains
-> +  references it through "power-domains", and each level the domain adver=
-tises
-> +  is a performance state of that power domain.
-
-It should be sufficient to use the power-domain DT binding to describe
-a performance domain. See
-Documentation/devicetree/bindings/power/power-domain.yaml for more
-details.
-
-For example, a power-domain provider node may have an
-operating-points-v2 node, indicating that it can scale performance.
-
-Kind regards
-Uffe
-
-> +
-> +  For example, with the provider labelled "performance", a CPU that runs=
- in
-> +  domain 0 and a device that runs in domain 1 reference their domains as=
-:
-> +
-> +    cpu@0 {
-> +        ...
-> +        performance-domains =3D <&performance 0>;
-> +    };
-> +
-> +    gpu@40000000 {
-> +        ...
-> +        power-domains =3D <&performance 1>;
-> +    };
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the supervisor software.
-> +    const: riscv,rpmi-performance
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport or SBI message pr=
-oxy channel.
-> +
-> +  "#performance-domain-cells":
-> +    const: 1
-> +
-> +  "#power-domain-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - "#performance-domain-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    rpmi-performance {
-> +        compatible =3D "riscv,rpmi-performance";
-> +        mboxes =3D <&mpxy_mbox 0x1003 0x0>;
-> +        #performance-domain-cells =3D <0x01>;
-> +        #power-domain-cells =3D <0x01>;
-> +    };
-> +...
-> --
-> 2.43.0
->
+From: Wael Hasnaoui <wael.hasnaoui@tek-up.de>=0A=
+=0A=
+blk_plug_invalidate_ts() runs when a task is switched back in and assumes=
+=0A=
+that PF_BLOCK_TS implies a non-NULL current->plug. blk_finish_plug()=0A=
+clears the flag through __blk_flush_plug() before detaching the plug in=0A=
+the source, but nothing prevents the compiler from reordering those=0A=
+stores when the flush is inlined.=0A=
+=0A=
+An arm64 kernel built with Android Clang r596125 and AutoFDO contains=0A=
+the following sequence, where x19 is the plug and x20 is current:=0A=
+=0A=
+  str xzr, [x19, #0x20]   // plug->cur_ktime =3D 0=0A=
+  ldr w8, [x20, #0x54]    // current->flags=0A=
+  str xzr, [x20, #0xad8]  // current->plug =3D NULL=0A=
+  and w8, w8, #0xdfffffff=0A=
+  str w8, [x20, #0x54]    // clear PF_BLOCK_TS=0A=
+=0A=
+Preemption after detaching the plug but before storing the cleared=0A=
+flag exposes a NULL plug with PF_BLOCK_TS still set. When this task=0A=
+resumes, blk_plug_invalidate_ts() dereferences NULL before execution can=0A=
+return to the pending flag-clear store. This explains a recorded write=0A=
+fault at address 0x20 in the scheduler's timestamp invalidation.=0A=
+=0A=
+Add a compiler barrier between the flush and pointer detachment to=0A=
+preserve the invariant across preemption, including when the flush is=0A=
+inlined. This needs compiler ordering between accesses by the same task,=0A=
+not an additional hardware memory fence.=0A=
+=0A=
+Fixes: fad156c2af22 ("block: invalidate cached plug timestamp after task sw=
+itch")=0A=
+Cc: stable@vger.kernel.org=0A=
+Signed-off-by: Wael Hasnaoui <wael.hasnaoui@tek-up.de>=0A=
+---=0A=
+Based on Linux 7.4-rc2 (7475ea8b58616b33c04afb976cf0fbaad9dd63fb).=0A=
+The same code is present in Android common 6.18.38.=0A=
+=0A=
+Validation:=0A=
+- The unsafe ordering is present in the installed arm64 Image. Its entire=
+=0A=
+  blk_finish_plug() function matches a symbol-bearing reference ELF;=0A=
+  the whole-build IDs differ, so attribution used that byte match.=0A=
+- A focused compile of unchanged Android common blk-core.c with Clang=0A=
+  r596125 and the public GKI AutoFDO profile reproduces the ordering.=0A=
+  With this barrier, the flag-clear store precedes pointer detachment.=0A=
+  Both compile without warnings under Kbuild's normal warning policy.=0A=
+- A bounded model of the actual instructions reaches the recorded 0x20=0A=
+  fault from a valid state at two interruption points. The corrected=0A=
+  order passes all 64 combinations of the tested switch boundaries.=0A=
+- The patch applies to both the mainline and Android common source.=0A=
+  Checkpatch reports no style issues; the absent local Fixes history=0A=
+  was checked against the public commit separately. DCO sign-off is=0A=
+  pending the author's review.=0A=
+=0A=
+This is not a full-kernel runtime reproducer. A full mainline build and=0A=
+on-device validation have not been performed. The saved panic does not=0A=
+retain the interrupted PC, so its precise historical interleaving is=0A=
+inferred. Supporting compiler/model evidence is available on request.=0A=
+=0A=
+ block/blk-core.c | 6 ++++++=0A=
+ 1 file changed, 6 insertions(+)=0A=
+=0A=
+diff --git a/block/blk-core.c b/block/blk-core.c=0A=
+index 8836c70..99f79bb 100644=0A=
+--- a/block/blk-core.c=0A=
++++ b/block/blk-core.c=0A=
+@@ -1299,6 +1299,12 @@ void blk_finish_plug(struct blk_plug *plug)=0A=
+ {=0A=
+ 	if (plug =3D=3D current->plug) {=0A=
+ 		__blk_flush_plug(plug, false);=0A=
++		/*=0A=
++		 * A preempted task invalidates its cached timestamp when it is=0A=
++		 * scheduled back in. Keep the PF_BLOCK_TS clear above ordered=0A=
++		 * before detaching the plug, including when the flush is inlined.=0A=
++		 */=0A=
++		barrier();=0A=
+ 		current->plug =3D NULL;=0A=
+ 	}=0A=
+ }=0A=
