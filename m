@@ -1,66 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251547;
-	b=H3Vf0NL6ZsX8rKbzjadRkJ0hLFK885oeUaH+UxRtgPJieAQH1bmi+kZfA5Gj3kuepDjK
-	 XPHADQJy9h9vSfIv/3fb9VisMli0l/72OTqgoj4bA4eRz4BMzF2g2NT1EZqijeoeimPHN
-	 ynfTduDzQR6wlIYF3Tznp2F2aHXjMzIcWnsqEA5SowHED89v3ywQ3+wPb7uyamqF09qB7
-	 LRydwqt1ZYUjvJwhIjDS95ylpKXO2XEHSD2ojrWnuW44TaVCXSQ7+edxu3ZgSboRPaYwA
-	 A1RWCLBONog3vwzOQD+AYuVFWSGqVZrRyMoC6hiaPrWfB7TxfSB8b7FDS8DQwH/ct+g==
+	t=1794251632;
+	b=WJPi5vmQzk1xJrJQv5qplTdme6mxl/aG9RUYf4TgAX4mP20X0Xb4tsTuFAn3N7oyGent
+	 HbRl0H8SosxjjdGfjNwzdMES3qEjL3pZ7WPX5dBzICru6o2XlXSvDU1WMLZRQlM5TP4d9
+	 GvA8HW4PXWOLpIzbLJTb4ciaj8ADYP6rH7DK3hvQgO0BVLUI9zZhnTROjVjUrUo+uD28b
+	 cac878SnfEhDxWjubPMNK+Q050eunrInz0vNi2lyM6DNPQXwCOmS8fE4vWcofD1M6Pe3W
+	 LyDKrERca4H2uma0hfG9CpO6abQSxdXvmRdZ50bJdU6clMtNdcc5AR9FKOR8azPWKvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251547;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251632;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=iDbXTgguYxJP6pzU6QfRyBYR+dcD++wKGFFljJ+0QiQ=;
-	b=Po+1PX9+wpVwdiqDt1SDxVXh0YAhYPDTR/FYDcMwb4XLFYSG9EjwyhLZOHFdV0DaBTxH
-	 vGZB00MkEC2X0Tr70BP15Bg351ZsQfjO3HY1Fw17hpnj6mTNKDiR6DKpWI6zCbuP3NSrP
-	 M4PIUO+aU6+4dPyTxM5xTCLAznG4uN8oYnu0KndgO4FgaokrENgyvTV08vNqGakmg7ma2
-	 ypA3xkffzUtUjTUUPIW/pEb4LsdLlUaWFC1YgFmQznuRS46QKWwNsWInc+SAoEiH5Oogv
-	 gnDYCGCym6nO5h4ewlS0R3WnLjwdiXb8YR0LM6J9uXg7ROz9/f4L/Cqmex79d2/FUfg==
+	bh=Cdkni7bBOF7vlyawXIABp/ZX1WW/TwHgwgO32lIZhnA=;
+	b=XvQtvWD42b3sIpCXXeYHPpEMXA9VtQdr+mh5BgJ+dUk7sToYGYs53UJOVbMBpSb9Mv9R
+	 doKuVFFhJRn7whOIhTL5RFM/UgcSNIN6/6kKCUey/hs/M//8EhYEZPh8f8i4DkcirB/G4
+	 GGPPAeTqLWIjGKD36Pqk7z/GC6QvIvtsjuO6bLFe5WPrbKaIaRQ1PXS55A4ls1G8eIBXS
+	 Ms2L0T9susiTdoxQ9FzblSb2JwOF5aXpvoHsifeEbP+1fBkoXncSLldWfZUBg2nXMmtaT
+	 h59s6hY8M5LFSLkpC6ksVr9MvsXJh2mvV2RflPfnD+MF/KZxMwaqaf7JCaTv1tB4L0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=hVhgVGxD;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=h1OaLtr2;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76110606A31C;
-	Mon,  9 Nov 2026 19:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76110606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE38606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE38606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=hVhgVGxD
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Date:References:In-Reply-To:Subject:Cc:To:From:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description;
-	bh=iDbXTgguYxJP6pzU6QfRyBYR+dcD++wKGFFljJ+0QiQ=; b=hVhgVGxDFLF41YpCLUNWrS+PTg
-	1tJrqObdJa5xerjSzXGPt4RxI/Tw2kkhLZstFXuJjqi7V4JgySG6m9yHuQiWSW1yhXMS5/4Mu1N+j
-	c9SCcZqCErA63BtwwmhYz5p7QAnrxXl863eGvBk/wlve7GbDyBNcreSp8C7Uxa6yof43gqeHaUeqw
-	vJGBncDk+nVMaI/U4lNFrX8yqwrz8PORmTclLTA3kmMQAY6aLCeUrGEw0ROHrEi3j7ooKbFU9lSEb
-	6E4W1n5axGd0UsmjrvIUQl4syh2FXj/wOgBUjCvod+wX3Wg9+2jV2hBUifctAfAvOYsmmgolc6S/8
-	Xm9iD4IA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xQUmt-00000001HIj-0qH6;
-	Mon, 09 Nov 2026 16:12:16 -0300
-Message-ID: <b0fecf98c80a78b4b40488e44dd73ebe@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: =?utf-8?Q?Iv=C3=A1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>, David
- Howells
- <dhowells@redhat.com>, netfs@lists.linux.dev
-Cc: Shyam Prasad N <sprasad@microsoft.com>, Steve French
- <stfrench@microsoft.com>, linux-fsdevel@vger.kernel.org,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH netfs v2 1/2] netfs: preserve prepare_write errno on
- reissue
-In-Reply-To: <20261102150656.207612-2-ivanrwcm25@gmail.com>
-References: <20261028181229.1408342-1-ivanrwcm25@gmail.com>
- <20261102150656.207612-1-ivanrwcm25@gmail.com>
- <20261102150656.207612-2-ivanrwcm25@gmail.com>
-Date: Mon, 09 Nov 2026 16:12:15 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=h1OaLtr2
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jNfb26Dz8z1XM30h;
+	Mon,  9 Nov 2026 19:13:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:mime-version:x-mailer:message-id:date
+	:date:subject:subject:from:from:received:received; s=mr01; t=
+	1794251625; x=1796843626; bh=Cdkni7bBOF7vlyawXIABp/ZX1WW/TwHgwgO
+	32lIZhnA=; b=h1OaLtr2yZT425K3vFLso7vZ0NtST55GLBeg35kjEpIbJwK2NV9
+	Afp7L6aLkDEKuqVVGlP94+uQYvxlVuDAXKtWDBLpEJU4lWVIe/0l9bDPKRZnw3Vy
+	vSdDmDdp2YP/Y3EiC7LX235wcMgFaCGv1g+gQ1OUA95TU0aNIU0Ze6iloiiMP0xa
+	n9MNoEyUMCsbgN+RFTbJLaEGIwNJkilYEqmZ5yNF3dOAZuxApVYn03S7wkQv53lD
+	dnNBFWG47/4J/TWOcir34sUzQyRWKQXZbQ54I1UpQ99bNumokPTQWZhTAH0ioNdi
+	TArLFge0UUvThQJP0buIPUeTUUVxRThdPFQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id xdXNHPvhfoN5; Mon,  9 Nov 2026 19:13:45 +0000 (UTC)
+Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jNfZw6M5xz1XM4Tn;
+	Mon,  9 Nov 2026 19:13:44 +0000 (UTC)
+From: Bart Van Assche <bvanassche@acm.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Marco Elver <elver@google.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH v2 00/14] Stop lockdep_assert_held*() from assuming lock ownership
+Date: Mon,  9 Nov 2026 11:13:08 -0800
+Message-ID: <cover.1794250850.git.bvanassche@acm.org>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +81,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com> writes:
+Hi Peter and Marco,
 
-> prepare_write() may call netfs_prepare_write_failed() (FAILED + errno)
-> before write_retry calls netfs_reissue_write().  Clearing subreq->error
-> to 0 for a clean I/O reissue (82e8885bd763) then makes
-> netfs_do_issue_write() terminate with 0.  The collector copies
-> front->error into stream->error and mapping_set_error(), which ignores
-> 0, so writeback failure is silent.
->
-> Skip clearing error when NETFS_SREQ_FAILED is already set;
-> do_issue_write() already terminates FAILED subrequests.
->
-> Fixes: 82e8885bd763 ("netfs: when subreq is marked for retry, do not chec=
-k if it faced an error")
-> Cc: Shyam Prasad N <sprasad@microsoft.com>
-> Cc: Steve French <stfrench@microsoft.com>
-> Signed-off-by: Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Since commit 7c451541743c ("lockdep: Annotate lockdep assertions for
+context analysis"), lockdep_assert_held*() and lockdep_assert_in_rcu_*()
+not only verify at runtime that a lock is held but also instruct Clang
+context analysis to assume that the lock is held. This has the following
+disadvantages:
+- These assertions silence context analysis warnings in functions that
+  lack a __must_hold*() annotation. Hence, the compiler neither reports
+  the missing function annotation nor checks at compile time whether
+  callers hold the lock.
+- lockdep_assert_held() makes context analysis assume exclusive lock
+  ownership, even if a reader-writer lock is held in shared mode.
+- lockdep_assert_held*() can only be used with lock types that are
+  defined with context_lock_struct().
 
-Applied with R-b from Dave.
+This patch series removes the context assumptions from the lockdep and
+RCU assertion macros and introduces separate macros for code that needs
+to inform context analysis that a lock is held:
+- lockdep_assume_ctx_held() and lockdep_assume_shared_ctx_held().
+- lockdep_assume_in_rcu_read_lock(), lockdep_assume_in_rcu_read_lock_bh()=
+,
+  lockdep_assume_in_rcu_read_lock_sched() and
+  lockdep_assume_in_rcu_reader().
+Unlike the __assume_*() macros, which only inform context analysis, the
+new lockdep_assume_*() macros also verify the assumption at runtime.
+
+This patch series is organized as follows:
+- Patches 1-4 fix issues in the existing context analysis support:
+  __bitlock() operator precedence, false positives for __free() helpers,
+  enabling WARN_CONTEXT_ANALYSIS_ALL for allmodconfig and allyesconfig
+  builds, and a too strict SRCU reader requirement in
+  srcu_dereference_check().
+- Patches 5-7 add __must_hold*() annotations to functions that currently
+  rely on lockdep_assert_held() for context analysis.
+- Patch 8 introduces lockdep_assume_ctx_held() and
+  lockdep_assume_shared_ctx_held().
+- Patches 9-11 convert code that accesses locks through pointer aliases
+  or that uses __assume_ctx_lock() to lockdep_assume_ctx_held().
+- Patch 12 removes the context assumptions from lockdep_assert_held*().
+- Patches 13-14 do the same for the RCU assertions and introduce the
+  lockdep_assume_in_rcu_*() macros.
+
+Please consider this patch series for the next merge window.
+
+Thanks,
+
+Bart.
+
+Changes compared to v1:
+ - In the commit message of patch 8/14 it is now explained why the new
+   macros are introduced.
+ - lockdep_assume_shared_ctx_held() now calls lockdep_assert_held_read()
+   instead of lockdep_assert_held().
+
+Bart Van Assche (14):
+  bit_spinlock: Fix the __bitlock() definition
+  cleanup: Disable context analysis for __free() helpers
+  tracing: Disable branch profiling for COMPILE_TEST builds
+  srcu: Remove check from srcu_dereference_check()
+  futex: Annotate __attach_to_pi_owner() and fixup_pi_*owner()
+  locking/rwsem: Annotate rwsem internal functions with __must_hold()
+  nvme-fabrics: Annotate nvmf_lookup_transport() with
+    __must_hold_shared()
+  lockdep: Introduce lockdep_assume_ctx_held()
+  kfence: Use lockdep_assume_ctx_held() in kfence_report_error()
+  Bluetooth: Add lock context annotations for connection aliases
+  futex: Verify exit_mutex ownership in futex_exit_recursive()
+  lockdep: Stop lockdep_assert_held*() from assuming lock ownership
+  compiler-context-analysis: Split the RCU assertion tests
+  rcu: Introduce lockdep_assume_in_rcu_*()
+
+ Documentation/dev-tools/context-analysis.rst | 20 +++--
+ drivers/nvme/host/fabrics.c                  |  1 +
+ include/linux/bit_spinlock.h                 |  2 +-
+ include/linux/cleanup.h                      |  6 +-
+ include/linux/lockdep.h                      | 72 +++++++++++++++--
+ include/linux/rcupdate.h                     | 82 +++++++++++++++++---
+ include/linux/srcu.h                         | 20 +++--
+ kernel/futex/core.c                          |  2 +-
+ kernel/futex/futex.h                         |  3 +-
+ kernel/futex/pi.c                            |  3 +
+ kernel/locking/rtmutex.c                     |  7 +-
+ kernel/locking/rwsem.c                       |  3 +
+ kernel/trace/Kconfig                         |  3 +-
+ lib/test_context-analysis.c                  | 38 +++++++--
+ mm/kfence/report.c                           |  2 +-
+ net/bluetooth/6lowpan.c                      |  2 +-
+ net/bluetooth/iso.c                          |  8 +-
+ net/bluetooth/l2cap_core.c                   | 48 ++++++------
+ net/bluetooth/mgmt.c                         |  2 +-
+ net/bluetooth/smp.c                          |  2 +-
+ 20 files changed, 251 insertions(+), 75 deletions(-)
+
