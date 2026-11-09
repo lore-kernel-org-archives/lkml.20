@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241427;
-	b=dHFh7T/txN7N1yEUKCSceYckEUVY1c6Fir9PdWeEaBKLs4fInShIY0G37x/lYWWQW8Tx
-	 warI+CVuT+cUhlWEKIbLcKiySK0/360Dm0VbS472MNx60nDV+SGXYQSzA7zZSXX8JEcWx
-	 HgJ+z55rs8iA8djMcHEoOqWtuVpP9r4YopiYZg0N1sBZga/5pCAzDSb18FlSgKjGGLLRq
-	 rljgy7Q8YC2D2VY5qI1LTPCtfMd5dxdUZLnDEejTBaFNGi+rJu/6yfcNQ6Ebpb+HX3LxL
-	 bQ01a4BWawnjvcy811hbHM3+FNLGLZgZzkVRuTbI9iz/tvQzpQy7ru8Ac96oRrKZ7NQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241427;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=jHf22tsdPPfDKAeOIiu4WmAuLGDaW8+V7RxrZhx4qXg=;
-	b=DF6iKJEbnC7JTmNraUMsVPg7zzlP7UZSiY/NBo13gc2GwP+IipERRVr3Nl485tEDo7xL
-	 Wg4tAy2pdQxgDzclluXnsp164od5ezIDxJ8MMJB0Nh+E2j5xnEOi4w0TBE0eMTFoo2Lz2
-	 c758ENbD+JbZd/MkD1IGMhQXc0yEvkD1HBLuPj4Rn0m9nKRhN9QJt1aVuBAEFdeYWADRC
-	 3edvxjxCflESbO3qotD4+SDiSHCMeBvx4hmkZiW5y7tZ5vRAP6foyH49XRr/T5O46ly5O
-	 4FxnLuif8ZBhTtGas2iimt4irbOk4VcQa0rDpsk5wqX75ODcQTb+Bvta+9KD+InsA9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSyx9BAa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794241440;
+	b=iVQbO07PKkYz3GAuqRv4MshOWuRLAr8487Ym2sE0JlSQMicSdTesj3sBgfKHERs10ESe
+	 zTITvexYtvOU350HVBCrAn2VQ3pidFtP+XwiQrEOwm5VAlVbwmYgAoIFuf3O+1PpN8C9W
+	 eS5wH+EFtPw+VMNBWt0/Kc2z7tlMN6FOADGqRzxLFF5UMj6uYxWLookeW0vBk8v4PBQsj
+	 HshWRqkuncavVTkPwJZPIyWDCH4oeuKCzijgB2mYegED1dq+bP48VETFO+ogbsOHp99il
+	 sPfB7oweX70abTOfoYmC/AuTINu0yG1K0OuFzF6a/fShlYcyK4WO2iuQdFbxMi5secg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241440;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vLZwk4AFIJeTe2+OOXpWks9pg7PEHXnH7iojJi3jmvc=;
+	b=SlqmNbQ7Z/bnZ7gC7HeI1vlGoFIhI2CpGh3Ffu5kJPinjjjiP0g0ANMmXe/Epzdzaw6U
+	 5uRGgI8rwD2IUJrDorge7dR0iGbbL33zMwioB3gcfLp57YFZycA9S2GP5+SOuzQO6Rso4
+	 F5glx3GnCYWlpTtBZ68jxN3GlJ+J5fEpsEi5u4L6bRCFmc6QkPinlvxvDpkklSwhBzgNg
+	 T0Jl0uiVoxRayG3QhFhRUsq5DoLulVDgxiMVGJqLhlzbGlZWwt2pIb2W9IEcZRtVhHW6K
+	 3sYOYeziUIBDCUg2Wv09QIHs4CSUKQVtSw1kR6/KQ7nSUVl7hJM5uWBSwCZDbfxo1ww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UST4gphl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.49
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D733606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:23:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F63606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F63606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSyx9BAa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED57B1F0089F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794241427;
-	bh=jHf22tsdPPfDKAeOIiu4WmAuLGDaW8+V7RxrZhx4qXg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OSyx9BAa9gS4PwuytH0sMUh2QyzhT6ozk6cj07WytrOmwfGLoC3KN8+wL4IsPkOuq
-	 wgVG4zxb4RwB9DVXmyHCHLSeoSIKvTTlZ76dxEOgcxdgh5ZVMrJn8kDrYEAtmPICgj
-	 HcIX0pl3w2Da+iZvLrqGiSOmus+BORZjtThdpKZxcWwrVxHQ3tcpSVyFpPj3394gtE
-	 W/u9WJffOZKTRUz/cmPGbuIut3k0lBJh4Lr4fpD0eyNtl0EUMyMqtkOJKeWLayU18J
-	 7bZqP5NO02E3HFuQ9seJ2dkgfPCb0vq+tUoiRTiANl8ZRgEB5+Iv1d7viNOQxetQoE
-	 D1SEz81YkI70g==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d28f75d62so142339466b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:23:46 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHGbCts4vcgEpNZdjYQ42RLpo7tnEDGIAQB6KLm2xk7ezi+6dNdtAaYPweOx6lqUUarRYudUQBvqF8T0O0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7eNnqucJ70Bx7INP5rJ1QK+5p6PkMZdFCit42i8PXHXq7RZai
-	zmbL0bLXpIlSkw86zlE5exO7dXgnwmhIWQ5HN9wptLfveRNXg6qXGlA1OPluQVQ2Ge7jKaRBONK
-	72q32kBZUu6n541WK7CN6pLeU1P4d6pY=
-X-Received: by 2002:a17:907:ea89:b0:c3f:7270:10ab with SMTP id
- a640c23a62f3a-c4d6d491847mr331944966b.14.1794241425829; Mon, 09 Nov 2026
- 08:23:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UST4gphl
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7cc0ccc2fddso293345137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:23:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794241439; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pZrRHMjm8mcvy7msp9G6nnStJ6OSW7jqTZTJ5TtKlrflrO8nVDPSxH74rA2Mqq7AT/
+         35bqVK7ruW0LTl+a/JDQErWyFYJQddAlVWj66hho4yyinVLknAurrLz0cRLUnA0FEqeF
+         kroFOEr7yd2VDBhp/A6Nz/X+dB4ZIIiWtOOHpmOSw7ki/INj+N5cL/K6oiSy/7g289Rl
+         VFShmmsYlsatWoo8qjHehJQug0RJPIdHKxA5GvyD/A8IcC7KjZcAwMR3EuJ0FNwDEtIS
+         FtIZ9HOppf+hK4Y+R0d8e92GsHbAZUfJj3S8asy6UTAnKpydibeMUdCI1353SoMUnXXj
+         0jbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vLZwk4AFIJeTe2+OOXpWks9pg7PEHXnH7iojJi3jmvc=;
+        fh=LopDZj3M4HTpgNMGL92+Kl526C9AvDQGj4uhH47/TyI=;
+        b=XMI6VtRjxzQPZFBRNnveiy7e/5UCySJtwVr3p7vFBg+xlIM5GV/As1kYS9JgblnXFj
+         SN30HTem723+nccqNqWrDwGaRA92bqPjIGYDeEkzmSSfy2+A3N+g9stbTSEzf3LvnJel
+         8H5Za/lBfUoi5odXFhEgDVeQKOZ96VQEnslYpJ8fpVLZ4sfCHpILOxvfLhTJnN41fEMM
+         xWrl0QOCsXHziI9DogfYDX+0d0ZofQ1lQKf4BAgF10YvHJThhiriOKB46hGSuuBC030r
+         wSG5DqN/x9KkrSRPHt49Y8zyuhhNnp14JBgaAH1vEChgELioy72UoEX9OZH9jiZkpmEd
+         lWQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794241439; x=1794846239; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vLZwk4AFIJeTe2+OOXpWks9pg7PEHXnH7iojJi3jmvc=;
+        b=UST4gphlOvD5ejtNgHkUaby8TiPPWioel/rdaHliNbx7NLJQBpY8ELZsZOTVKnxYV/
+         jxzwZfWKFxN87xXP4SxHDeDdzrekTy27GwWngL8hJTHxRgbzjNKsQOtJeFYMNky9WCQG
+         Ps72rUK3ng9bZyiafnYX1ktnvCvH3ek9XcD2dFJEc8pDtq/GUAoQaI9nAPfdz6uB0q94
+         +MiI1kru94LjNDPOQ81EPnuN4GbtKm7y1VemTeTX9rtpem3A7TS9I9h7OnrtksCFGUHW
+         6tFdxxhYWZhH6F4GQIIjTUi7BfWXohv6jC4TxX63vG93YF0d7PwBS/ZjH6OxSDlqjakl
+         2U2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794241439; x=1794846239;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vLZwk4AFIJeTe2+OOXpWks9pg7PEHXnH7iojJi3jmvc=;
+        b=FnStJfJjLdW5uFYVWmpcP1l0473v2z3CmBj8k3c/KB6dLydyYS5mmb/mFLaT3kpWCD
+         fcfx1p3nVkyecAVHwRYyGHyYQybXLjyma16D+DcHOUCXYEPJufedQQ68cDwoaSsiAbQy
+         vaLxMeEZ766oScWWanpDyzF9+X5X0YMpA4AHuMB29Wc3rKc1eeeO+LJBjxncp6CvuBjv
+         3Rf5bzNJK3FGU0OC0jCsrUoHmhqrPUs924JVQ6nt9/vndmmQTVRNu7wIfHAD05tN41+f
+         yIuf6sgRJVU462Zw/V0mrHA989nux1tPDVWL9KmHRalU2Zkmo+dVSyStv2BzLcJkVLfx
+         Mkeg==
+X-Forwarded-Encrypted: i=1; AL+hErEofNz3lz9vYlxv7GfRHjhYcRlZMEK5rLyQT1+y64oZc8Dgh7uEEYqVirovN9DIYSMQ6yAieopmpEOuIJI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Ey7PAZMiTW8+o7o3UWtzDx1YgvUXsaZ1qUM0emAUFue7B3HbF
+	M7X54eFRhiWtHgNBMBGT+CWfNTuSMHiUYSsryecRKmnhAwzGdYqpJCY54QUwhIS3P/xXjazI8P4
+	io7NrqEof1mgzce3hATL5DocRojSq6/U=
+X-Gm-Gg: AYBFou2tIiSDIBHbrEBTH4qoSUyv2be7CmlyTR2/EB/jW94TiUOpLGC96RcDmsDj1YL
+	rbi+OFLi7NuX3TYb9i43yyVr7QuEg3IuMjna1pyl3Cvwqpq1ViFGRnVcsydEvesJPR2BsMqtsf4
+	ggbamX8kqbflG/uWMQeQsgh70l72YDmDbkjZ0Q6B3AVZcMUxFGF08vhnXsRZLibYXYyeyJyH2/9
+	TxdHUii2jyF/KyUUHTHN2L8yO2KZ3n/ObmHlpD/d/gc987HsZ4NXb3VOAAc9bp1B6o3te29Y9ze
+	e48emDM/JduyxuqkgDXLNUB+ctLag4DQhhTXfz20r7OMAz1ZlqXkOBX8F9prCsFpwWrvzHvxgvb
+	RgBRoByF8E4KJe1tnqm5vW6bg1li+AlSA9TgUTx0=
+X-Received: by 2002:a05:6102:604a:b0:7d0:5688:f511 with SMTP id
+ ada2fe7eead31-7d2db157523mr1181146137.16.1794241434153; Mon, 09 Nov 2026
+ 08:23:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,168 +104,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
- <au5l3KEjG_mri-br@google.com> <CACpmpoc3R8gwkMouwyFLw9PEqyDN1i6OcmPxsvZ1d0QOPSS_fQ@mail.gmail.com>
-In-Reply-To: <CACpmpoc3R8gwkMouwyFLw9PEqyDN1i6OcmPxsvZ1d0QOPSS_fQ@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 9 Nov 2026 08:23:34 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zOVf+gN0nbKkMGraTGhnCOG+5mpNBJvsZ=C5jDOssBf+A@mail.gmail.com>
-X-Gm-Features: AclHuK8wGQGw5PDN9FVkkzijzlP7nY0X41Q1fjXtSpx5oni4CF9QZzjxFkOpA7k
-Message-ID: <CAO9r8zOVf+gN0nbKkMGraTGhnCOG+5mpNBJvsZ=C5jDOssBf+A@mail.gmail.com>
-Subject: Re: [PATCH v3 0/8] Batched zswap_store() framework with compression batching.
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org
+References: <20261108213656.13031-1-antoniovazquezblanco@gmail.com> <CAHp75VcP6AD8-vSG-QzxTCWm8RWJG2CQJ=9mrn=3nFGJd2YJXw@mail.gmail.com>
+In-Reply-To: <CAHp75VcP6AD8-vSG-QzxTCWm8RWJG2CQJ=9mrn=3nFGJd2YJXw@mail.gmail.com>
+From: =?UTF-8?Q?Antonio_V=C3=A1zquez_Blanco?= <antoniovazquezblanco@gmail.com>
+Date: Mon, 9 Nov 2026 17:23:43 +0100
+X-Gm-Features: AclHuK9_L7g6nQeJqb6GRMpf5wVh4DmYUaeFgBi1z-Yb1qLIeH2stSdKS5uAbfY
+Message-ID: <CALAp9RGDV-L6icyq6nJhEA1=4DQuj-UOb-3B_NiUAi1JVTojkA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Fix MSHW0040 button driver selection on AMD
+ Surface devices
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>, Maximilian Luz <luzmaximilian@gmail.com>, 
+	Chen Yu <yu.c.chen@intel.com>, Sachi King <nakato@nakato.io>, linux-input@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > As with previous versions, I cannot reproduce these results. I tried
-> > with a QEMU VM on a Cascade Lake host. I saw marginal improvements with
-> > patch 6 and no significant gain with patches 7-8.
+Hi Andy,
+
+Thanks for the review.
+
+On the tags, agreed. In v3 the acpidumps reference moves into the tag block
+as
+
+  Link: https://github.com/linux-surface/acpidumps [1]
+
+and I will keep the v1 thread, marked [2] and referenced from the text,
+since Dmitry's review there is where the "0 is a valid revision" design
+comes from.
+
+On the documentation: if the maintainers would rather not take it with
+b4 shazam -M, I am happy to put the model table in a comment next to the
+check in both drivers instead.
+
+I will wait for Dmitry and Hans before sending v3, so it can cover anything
+they raise as well.
+
+Thanks!
+Ant=C3=B3n
+
+
+El lun, 9 nov 2026 a las 8:10, Andy Shevchenko
+(<andy.shevchenko@gmail.com>) escribi=C3=B3:
+>
+> On Sun, Nov 8, 2026 at 11:37=E2=80=AFPM Antonio V=C3=A1zquez Blanco
+> <antoniovazquezblanco@gmail.com> wrote:
 > >
-> > I noticed that you omitted high-level metrics (e.g. throughput), I
-> > didn't see significant changes in throughput, and I also ran a kernel
-> > build and saw a small regression in some cases (probably with order-0
-> > folios) and no significant improvement otherwise. Even if latency for
-> > some functions does improve slightly, it doesn't matter if it doesn't
-> > show up on higher-level metrics.
+> > This is a rebase and rework of Sachi King's series from November 2021 [=
+1].
+> > It was reviewed then, the review was never acted on, and the thread wen=
+t
+> > quiet in March 2022. Sachi has confirmed they are happy for it to be
+> > carried and no longer have the hardware. Both patches keep their origin=
+al
+> > authorship and sign-offs.
 > >
-> > It could be the difference in setups, or the overhead of bpftrace hooks
-> > for zswap_compress() might affect measured zswap_store() latencies, as
-> > you will have fewer zswap_compress() calls with patch 8.
+> > The problem, restated, because Hans asked for this in [1] and never got=
+ a
+> > clear answer:
 > >
-> > As advised previously, I would trim down patch 6 to the bare minimum
-> > (without all the scaffolding and prep work for patches 7-8), and send it
-> > separately (with patch 5), and we can check if it's worth adding, I am
-> > still concerned it might be adding overhead for order-0 to be honest.
+> > The AMD variants of the Surface Laptop 3 and 4 use the same MSHW0040 AC=
+PI
+> > device ID as the Intel Surface devices from the 5th generation on. Both
+> > soc_button_array and surfacepro3_button match that ID and tell the grou=
+ps
+> > apart inside probe, by evaluating function 2 of the MSHW0040 _DSM, the =
+OEM
+> > Platform Revision, and treating a returned 0 as proof that the method i=
+s
+> > absent. The AMD variants implement that function and legitimately retur=
+n 0,
+> > so both drivers draw the wrong conclusion, and surfacepro3_button binds
+> > where soc_button_array should.
 > >
-> > I am questioning the benefit of batching here without HW batching, so
-> > far the results are more concerning than encouraging. I already spent
-> > too much time trying to reproduce the performance gains. Also, sending
-> > new versions without resolving discussions on previous ones is not
-> > really productive.
+> > The sound test is whether the device implements that function at all, w=
+hich
+> > function 0 of the same _DSM advertises and acpi_check_dsm() reports.
+> >
+> > To answer the question of which models are affected, every ACPI dump in
+> > linux-surface/acpidumps [2] carrying MSHW0040 was surveyed, 32 models, =
+for
+> > UUID 6fd05c69-cde3-49f4-95ed-ab1665498035 revision 1:
+> >
+> >   Model                        fn 0 mask fn 2 advertised
+> >   Surface Book 1               0x03      no
+> >   Surface Book 2               0x0d      yes
+> >   Surface Book 3               0x0f      yes
+> >   Surface Laptop 1             0x05      yes
+> >   Surface Laptop 2             0x05      yes
+> >   Surface Laptop 3 AMD         0x0f      yes
+> >   Surface Laptop 3 Intel       0x0f      yes
+> >   Surface Laptop 4 AMD         0x0f      yes
+> >   Surface Laptop 4 Intel       0x0f      yes
+> >   Surface Laptop 5             0x0f      yes
+> >   Surface Laptop 6             0x0f      yes
+> >   Surface Laptop 7 Qualcomm    0x0f      yes
+> >   Surface Laptop Go 1          0x0f      yes
+> >   Surface Laptop Go 2          0x0f      yes
+> >   Surface Laptop Go 3          0x0f      yes
+> >   Surface Laptop SE            0x0d      yes
+> >   Surface Laptop Studio 1      0x0f      yes
+> >   Surface Laptop Studio 2      0x0f      yes
+> >   Surface Pro 10 Business      0x0f      yes
+> >   Surface Pro 11 Qualcomm      0x0f      yes
+> >   Surface Pro 4                no _DSM   no
+> >   Surface Pro 5                0x0f      yes
+> >   Surface Pro 6                0x0f      yes
+> >   Surface Pro 7                0x0f      yes
+> >   Surface Pro 7 Plus           0x0f      yes
+> >   Surface Pro 8                0x0f      yes
+> >   Surface Pro 9 5G             0x0f      yes
+> >   Surface Pro 9 Intel          0x0f      yes
+> >   Surface Pro X SQ1            0x0f      yes
+> >   Surface Pro X SQ2            0x0f      yes
+> >   Surface Studio 2             0x0d      yes
+> >   Windows Dev Kit 2023         0x0f      yes
+> > Exactly two do not advertise function 2, and they are exactly the two t=
+hat
+> > need surfacepro3_button:
+> >
+> >   - Surface Pro 4: its MSHW0040 device carries no _DSM at all, only _HI=
+D
+> >     and _STA.
+> >   - Surface Book 1: it does carry the _DSM with this UUID, but function=
+ 0
+> >     returns {0x03,0,0,0}, advertising functions 0 and 1 only. Function =
+1
+> >     there is dGPU base attach and detach handling.
+> >
+> > Worth noting that v1 said the devices needing surfacepro3_button "do no=
+t
+> > have the _DSM". That is not true of the Surface Book 1, and the inaccur=
+acy
+> > is probably why the problem was hard to follow. The commit messages now
+> > describe what is actually tested.
 >
-> Thanks for taking the time to test and provide feedback, Yosry.
+> ...
 >
-> I omitted high-level metrics like throughput since you raised a
-> concern about variation. Hence, I decided to go with the "ultimate
-> truth" which is bpftrace latency measurements.
-
-I didn't mean that we shouldn't look at high-level metrics, it's just
-that the test setup had too much variance for the high-level metrics
-to be useful so I checked the low-level latency. Ideally we'd test
-performance with benchmarks that should have stable high-level
-metrics.
-
-> For performance validation, I only have access to a 16G Chromebook
-> with a Crostini VM to which 13G is allocated. I am setting aside 3G
-> for swap and 7G for QEMU. Within the QEMU VM, I am selecting 2 E-cores
-> to run the 2 usemem processes to minimize variation due to frequency
-> fluctuations. This setup has its own limitations such as being unable
-> to fix the frequency.
+> > On merging: please do not separate the two patches. Both drivers match
+> > MSHW0040 and discriminate only in probe, so with only one of them appli=
+ed,
+> > which driver claims the device on the AMD variants depends on module lo=
+ad
+> > order. Hans asked for the same arrangement for his own two patch series=
+ in
+> > 2022, so either tree with an ack from the other would work.
 >
-> Despite all this, I have been able to consistently replicate the
-> bpftrace latency improvements with patch 8. My results show regression
-> with patch 6-7, and improvement only with patch 8. As noted in the
-> cover-letter, patch 8 adds significant latency improvement for order-0
-> folios. This is with ZSTD. FWIW, these are bpftrace latency
-> improvements in a significantly memory constrained environment and
-> this ought to be a useful data point. I have been posting general
-> vmstat "system health" metrics to prove that nothing unexpected is
-> going on.
+> If we go with this series close to its current shape, I really ask
+> maintainers to use `b4 shazam -M` for it to make a cover letter
+> (without list of files and changelogs) be present in the Git history
+> (as a "merge" commit message) as it supplies nice piece of
+> documentation (see the part above ...). Alternatively we might want to
+> see this be listed somewhere in the code as a comment, or in some file
+> under Documentation. The rationale is that it is always hard to find
+> people who may test something on a variety of the HW and having a
+> technical background provide a valuable summary.
 >
-> My data shows that order-0 zswap_store() tail latency improves by 11%
-> over mm-unstable with patch 8, although p50 is roughly similar between
-> patches 6-7 and 8. PMD store latency is significantly better at p50
-> and p99 with patch 8.
->
-> Likewise, p99 latency of zswap_compress() alone improves by 3% with
-> patch 8, while it degrades with patch 6-7. p50 is almost the same with
-> patch 8, although patch 6-7 regresses. The page-normalized
-> batch_compress() p99 latency is better by 15%. All comparisons are wrt
-> mm-unstable.
->
-> Hence, I believe even in a memory-constrained setup such as mine,
-> batching significantly (7-15%) improves p99 in all cases, with 4-5%
-> gains in p50: for order-0 and PMD folios.
->
-> In addition to the latency benefits shown through my validation, I
-> would like to also emphasize the strategic benefit of moving zswap to
-> use batching, as noted under "Conclusions" in my cover letter. IOW,
-> batching within large folios to improve workload metrics can only do
-> so much (in proportion to the # of large folios reclaimed and
-> contribution of zswap_store() to the overall allocation-reclaim path).
-> What this patch series attempts to provide is a zswap batching
-> framework upon which additional improvements can be built, such as
-> reclaiming multiple folios as a batch. I believe that compress
-> batching is essential to support these next steps, which improve
-> workload throughput/latency metrics even more than simply batching
-> within folios. This is with ZSTD.
-
-Without a direct line of sight for such features and consensus from
-the community, landing the framework in zswap is not very useful, it
-actually increases maintenance burden.
-
-> Due to the environmental constraints, I haven't been able to reliably
-> use kernel compilation for validation.
->
-> I have been doing my best to resolve previous discussions by
-> incorporating the calculate_high_delay() hack that you suggested to
-> reduce variation. The data posted in v3 comprehends this suggestion.
-
-Oh I wasn't suggesting you generally test with this hack, I just
-noticed that the variance was resulting from memory.high throttling
-and nullified it to see what the numbers look like without it. As I
-mentioned above, ideally we see stable improvement in high-level
-metrics. usemem is already a microbenchmark, if we can't demonstrate
-stable improvements in its metrics and have to measure latency of
-specific functions, the significance of the optimizations is
-questionable.
-
-It's a tradeoff between maintainability and performance. It doesn't
-really make sense to add complexity for marginal performance benefits
-on a small subset of setups.
-
->
-> I would like to suggest/request the following, as next steps:
->
-> 1) Can we reconcile our methodologies for usemem bpftrace
-> measurements: # of vCPU, usemem command line, reading Silesia, etc.
-> Also swap space and QEMU memory allocation, using linear lhists() in
-> bpftrace, etc. If you can share these details, it would be very
-> helpful. Thanks again for your time!
-
-I ran a VM with 2 vCPUs, 8G of memory, and a 25G swapfile (although
-the size of the swapfile doesn't matter much).
-
-I used zstd with the default pool limit (20%) and the shrinker off,
-with 2M THP enabled. I set memory.high to 3G for usemem like you.
-
-I used this usemem command with the diff you posted in the last version:
-$ usemem -w --read-silesia -O -b 1 -s 10 -n 2 2400M
-
-For kernel build, I used:
-$ kcbench --llvm -s 6.8 --nodownload -j 8 -i 1 -o <PATH>--detailed-results
-
-I don't have the bpftrace commands but it should be pretty standard (I
-think I used hist() not lhist() tho).
-
-All that being said, I don't think I have more time to spend on this tbh.
-
->
-> 2) Does the kernel community offer servers for contributors to test
-> their optimizations at scale?
-
-I don't believe so, but I am not sure.
-
-> 3) Can I please request the help of other zswap maintainers/reviewers
-> to validate this series with ZSTD on a server setup with usemem
-> running on 30+ cores, under high over-commit ratios; through bpftrace
-> and/or throughput metrics.
-
-I can't ask people to spend time testing this, I already spent more
-time than I have and I am sure other people are also busy. If someone
-is interested in testing this and collecting performance numbers, that
-would be up to them.
+> --
+> With Best Regards,
+> Andy Shevchenko
