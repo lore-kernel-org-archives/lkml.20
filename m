@@ -1,62 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224028;
-	b=af02aUQLMcyhNQV73w+NwE5NNwQlUEFVjMB3Ogu0d+JWPNfLfhgmqVPyt5+x+mF8mx0q
-	 qy9jCBfb/iMzzX9FhphNprHeu+ZoatZvQ4gqnv5NkhcHIZwkpYDiYsiaIZyepV/6aWSOL
-	 EF7xRmq727bdKdmToIbHE5ec9vTbAWYEfg45hxvdJQAW4EDd6nytuy1APaDQvUL5d8b7B
-	 1FpP71T2qVQ5nFEiA1LZG2Nssz8QRO/sPLt+DfeuV4v+x8CSeAKuW1TtqnvEnGDSuHY+q
-	 qQk7J1OFKOoBtaf6ZOrEQBhoXDQYwR49AImU2cmOSPVGYQYtLwv1oQgxmz9J7e9fKiQ==
+	t=1794224138;
+	b=bzWddBR9rroE3V3wtmAiBFqJgj5d1QW4E0RIajNe+/OIEUQMgOoeCCw82czUe7Yf9/gO
+	 y0SZXwAXfo5/2gDluQIzA5B3AYc1ODmdX4OzRa9GJbBhdgWzdMZUC9tbE9UVTjwHbH8ac
+	 z/K1tPYPFfuWeVENyzZAaFD89XbskjZHfEcsCtUsG42z3FnXay0M3z9KLzJZBgqicg8aW
+	 bgNBAftX4PfufGDODpIew4GY/OmL7HFLYZkhtvxKUKJbOo7TKigm4d+4E/9/kXZF96T+I
+	 54coJQpMgXu1U84OivReALM4E2nZe3mO2jNucuat1WGvVluw91k1wiTL2fQNk8d5u/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224028;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=gkT4fe5CJwp7XAtvSBn0G3WSLvL/1VCPfATmUEKUqdc=;
-	b=o9CN2hkS6vE4tT5M9qSmJAl6danWYz8EK0wJb+Meat8pEA1n7RYRJ0+QB7252GUHnwTr
-	 mX/v9dIbmKRw2veKNR5LcjlnIjKJ2ZkcDnVu/kMixa99cCwEZXaZsSdApZDezhA4GKdka
-	 gbUqqFY9FpaLM384PazofQyuOqPueXYy6+142T75t36mflBwhK2dIuZRedn0z5hc9VJH9
-	 hQyjEj7jDrIs6eucnbPScb55d7y2TscAoLZiV58dx2v0ooF3hG69k7Ic/VQGDwjMj5IG+
-	 6g/WEQAlkbcKKM28D/5LV65Dw4SdEmxcbHLMJ1lxwUJbPsOpJgUJfbKQxSvnNwaEVGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224138;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=PYV844ivqJ39fhXbpbQJt7ThrmrdZ/Uef1Hl7B/7mic=;
+	b=f29hFGyLNqhAUEjwpKAOXEpKakxperivik7g0ipk0/maQLsRP3oudY2PdPYsHoST4pRL
+	 UKnjnQks3WXi2hFEx8cBbboyhgTK11MyXbexyVN5WlBckmZRW0GN9yXpudmOiLtjQ7TSf
+	 6JKSIPZShK8NE8HPP5fjWoEjL8E4759ZECGn7yB2tW5IyuGaPUWC63jh8uX4Ryw6Gg1YZ
+	 NbIDVWrBiTUd05bQd9jkWxGDJlrY/rkofH1S8d/4AXVhaxbsJzeqQ+BgHFikr2Bik4xZm
+	 GCIxmn3mi633SFYhJHSuqpffmWt6XdpbDEsZqyBsF7G4gydobjE2+I+afEJN4SqfMFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRmNFR5N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85A4606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:33:47 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Qzcy7j5c;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41A81606A322;
+	Mon,  9 Nov 2026 11:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A81606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRmNFR5N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F0D1F0089F;
-	Mon,  9 Nov 2026 11:33:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794224027;
-	bh=gkT4fe5CJwp7XAtvSBn0G3WSLvL/1VCPfATmUEKUqdc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TRmNFR5NGdiaeT/EJyT5AIJBFybSfvC+RFqnrxtntPEiIYgXBWWSdY0ZXLbH3u8k2
-	 LM9cUR88CfTS0kd+K+MIADUPeNj8ViurK4Xvt/R0YEXGxmr35td8HjnHvSc9daasPB
-	 vfDsmiS6OXLgcp1GMOQmO9CmLfTBry1jFzABLuITSP2N3h7PBqD8u3RyPLCK7+YvyC
-	 0pOBDNKL9jZLrNm1ICAkZBYP+bg+uv6SyGJ1dDfjvtxthMX9sOaRVOsNhCJMWcTuED
-	 aMNRMX06EaGfcsXVT0f+LOkJeo1AHoXwfcNSR6KpeG3/S2XKWkvDw8G4wNk6PeJ3Hs
-	 ywEmGQB1o6sqg==
-Date: Mon, 9 Nov 2026 13:33:40 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: Balbir Singh <balbirs@nvidia.com>, muchun.song@linux.dev,
-	osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org,
-	apopple@nvidia.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap
- init
-Message-ID: <avGvlDENwtgUWv-4@kernel.org>
-References: <20261105120615.16817-1-lizhe.67@bytedance.com>
- <20261105120615.16817-3-lizhe.67@bytedance.com>
- <au2qhlsxQt3SRwIu@parvat>
- <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com>
- <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com>
- <avGVNISvj-v8IN3g@kernel.org>
- <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Qzcy7j5c
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 37FB61516;
+	Mon,  9 Nov 2026 03:35:33 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B59B93F85F;
+	Mon,  9 Nov 2026 03:35:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794224136; bh=rTLHWsiv8pph/dAfc4DcKVgal8O6MwfZfU2M1D232cA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Qzcy7j5c8+tbgnD1Z9hB0H2xfYVSag9SEoaDEDoibA7M1o5laQrfJaS2pa7i5zACm
+	 0Wgo+QHOtul0e27z4on0wY4fO+kWBT/9IiUgRtGqRXOU8DsIHZh5o41QjjaZjx8WoB
+	 tleUJKwVUK/luuLMar6jw5SH1NCbv5e66XgI8lXc=
+Message-ID: <06e52c9c-9026-4279-b8c0-53a54a667dad@arm.com>
+Date: Mon, 9 Nov 2026 11:35:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,106 +53,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/11] KVM: arm64: CCA: Support runtime faulting of memory
+To: Fuad Tabba <tabba@google.com>
+Cc: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev, Catalin Marinas <catalin.marinas@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>,
+ James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>,
+ Zenghui Yu <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
+ Alexandru Elisei <alexandru.elisei@arm.com>,
+ Christoffer Dall <christoffer.dall@arm.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+References: <20261102141304.126883-1-steven.price@arm.com>
+ <20261102141304.126883-11-steven.price@arm.com>
+ <fa0ee5a1-4c49-4c1f-bfbb-c270dc4b6301@arm.com>
+ <CA+EHjTy970AWnhYoZ5OqxQ8ojCAELeejw60y2NmpDsM_ZMdu4Q@mail.gmail.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTy970AWnhYoZ5OqxQ8ojCAELeejw60y2NmpDsM_ZMdu4Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 05:52:19PM +0800, Li Zhe wrote:
-> On 11/9/26 5:41 PM, Mike Rapoport wrote:
-> > Hi,
-> >
-> > On Mon, Nov 09, 2026 at 05:22:24PM +0800, Li Zhe wrote:
-> >> On 11/9/26 11:01 AM, Li Zhe wrote:
-> >>> On 11/6/26 6:23 PM, Balbir Singh wrote:
-> >>>> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
-> >>>>> Boot-time HugeTLB allocation has to initialize tail struct pages itself
-> >>>>> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
-> >>>>> gigantic pages, this can cover a large number of tail pages. Most state
-> >>>>> installed by __init_single_page() and prep_compound_tail() is identical
-> >>>>> for every tail page in the same huge page; only PFN-dependent fields
-> >>>>> need refreshing.
-> >>>>>
-> >>>>> Initialize the first tail page normally, copy it into a local template,
-> >>>>> then initialize the remaining tails from that template with
-> >>>>> memmap_init_page_from_template().  This avoids repeatedly doing the
-> >>>>> full
-> >>>>> __init_single_page() and prep_compound_tail() sequence for state
-> >>>>> that is
-> >>>>> identical across tail pages in the same huge page.
-> >>>>>
-> >>>>> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
-> >>>>> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
-> >>>>> initialization time improved by 36.43%, measured with a temporary
-> >>>>> jiffies-based printk modeled after the existing timing in
-> >>>>> memmap_init_zone_device():
-> >>>>>
-> >>>>>     base:             318.4 ms
-> >>>>>     with this patch:  202.4 ms
-> >>>>>
-> >>>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
-> >>>>> ---
-> >>>>>    mm/hugetlb.c | 23 ++++++++++++++++++-----
-> >>>>>    1 file changed, 18 insertions(+), 5 deletions(-)
-> >>>>>
-> >>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> >>>>> index da5d04edf7c1..987f16a5ea27 100644
-> >>>>> --- a/mm/hugetlb.c
-> >>>>> +++ b/mm/hugetlb.c
-> >>>>> @@ -3219,19 +3219,32 @@ static void __init
-> >>>>> hugetlb_folio_init_tail_vmemmap(struct folio *folio,
-> >>>>>        enum zone_type zone = folio_zonenum(folio);
-> >>>>>        int nid = folio_nid(folio);
-> >>>>>        struct page *page = folio_page(folio, start_page_number);
-> >>>>> +    struct page template;
-> >>>>>        unsigned long head_pfn = folio_pfn(folio);
-> >>>>>        unsigned long pfn, end_pfn = head_pfn + end_page_number;
-> >>>>>        unsigned int order = huge_page_order(h);
-> >>>>>    +    if (start_page_number >= end_page_number)
-> >>>>> +        return;
-> >>>>> +
-> >>>> Can this actually happen?
-> >>>
-> >>> No, current callers always pass a non-empty range. I kept this to
-> >>> preserve the old for-loop no-op semantics for an empty range, but it is
-> >>> not needed here. I will remove it in v2.
-> >>
-> >> I need to correct this. A local Sashiko run pointed out that the bootmem
-> >> fallback caller can pass an empty range on SuperH.
-> >>
-> >> SuperH supports a 64M HugeTLB page size, and with 64K base pages
-> >> pages_per_huge_page(h) is 1024. HUGETLB_VMEMMAP_RESERVE_PAGES is
-> >> PAGE_SIZE / sizeof(struct page), which can also be 1024 or larger on a
-> >> 32-bit SuperH configuration.
-> > If the only difference is unnecessary initialization of the template on SuperH,
-> > we don't care and you can drop that if.
+Hi Fuad
+
+Thanks for sharing the pVM gmem details, some more questions below.
+
+On 09/11/2026 07:40, Fuad Tabba wrote:
+> Hi Suzuki, Steve,
 > 
-> It is not only initializing the local template. The code first
-> initializes one page with __init_single_page(), prep_compound_tail(),
-> and set_page_count(), and then copies that page into the template.
+> On Thu, 05 Nov 2026 17:30:16 +0000, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> [...]
+>>> @@ -1816,13 +1828,28 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd,
+>>>          /* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
+>>>          smp_rmb();
+>>>
+>>> +        if (kvm_vm_is_realm(kvm)) {
+>>> +                is_realm_private = kvm_realm_is_private_address(&kvm->arch.realm,
+>>> +                                                                s2fd->fault_ipa);
+>>> +
+>>> +                if (is_realm_private != kvm_gmem_is_private_gfn(kvm, canonical_gfn)) {
+> [...]
+>> I am wondering there is a way to make it a bit more generic. The issue
+>> is, only Realm has private memory with guest_memfd for now. Don't know
+>> the pKVM plans for it.
 > 
-> So if start_page_number == end_page_number == pages_per_huge_page(h),
-> the old loop is a no-op, but without the check the new code would update
-> folio_page(folio, start_page_number), which is outside the HugeTLB
-> folio.
+> The plan is for protected pKVM VMs to be backed by guest_memfd too,
+> which would also hold each page's private/shared state [1]. So
+> kvm_arch_has_private_mem() will be true for them, and this comparison
+> applies as is. Only how the expected state is computed differs: for a
+> pVM it comes from the per-page share state rather than an IPA bit.
 
-A recent patch to arch/sh indicated that hugetlb is never used on sh:
+When you say, per-page, you mean per-IPA or per "backing page" ? i.e.,
+can pKVM do something like :
 
-https://lore.kernel.org/linux-mm/auJI2blzfpFD9yLe@kernel.org/
+    kvm_ipa_is_private(kvm, ipa) ?
 
-And it seems none of upstream sh defconfigs can hit it.
- 
-> Thanks,
-> Zhe
+(similar to Realm) or does it need the struct page backing the "ipa" ?
+
 > 
-> >   
-> >> In that case the old for loop is a no-op. So I will keep the empty-range
-> >> check in v2, before creating the seed template.
-> >>
-> >> Thanks,
-> >> Zhe
-> 
+> Steve, could you gate the guest_memfd checks on
+> kvm_arch_has_private_mem(kvm) rather than kvm_vm_is_realm(), this one
+> and the memslot check you proposed for 02/11? Only the
+> kvm_realm_is_private_address() and realm_map_ipa() calls are
+> realm-specific, and they could be VM_REALM cases of a switch on
+> vm_flavor, as Marc asked for on the v21 memslot check [2]. The macro
+> would then only widen to protected VMs when pKVM's guest_memfd support
 
--- 
-Sincerely yours,
-Mike.
+Makes sense.
+
+Suzuki
+
+> lands.
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/CA+EHjTz+WgXEW5RTxXf4oGeEb1Tsm5Ha4nOc4S1jBcp7jxP4+A@mail.gmail.com/
+> [2] https://lore.kernel.org/all/86mrsw2jrn.wl-maz@kernel.org/
+
