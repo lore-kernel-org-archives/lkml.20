@@ -1,59 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221207;
-	b=z05KSNbMmbE2pxW83IbcBZjVVpDhroOXAk1PSTTyBhkSHEmkjczEuXx1oLNxG2XsKwaR
-	 hWGYAMgdfSH2tEmNlEcwo4phJOqF+Lwlg5iat21ycrVawpoVOiTzoj8Xz9ZAqve+YpywC
-	 R0S5zu2achbv3KruGnO+68FuDWMeRxX4FxnFxl5GXyetlpOQuZOeFfPtzMlLx7Ilk7KCb
-	 AJ44d9W1PK5NygrxyjfAA5zewDM11QrFV8if+kpZXu/mdgSAVKPAGSPq0s78eo8sbGdz8
-	 6GlsjX1bIPZwmb825zifTnr5tZhu44f2KtxzHoNHeNxDqD2Y0SWBdE508vydEwbbffw==
+	t=1794221211;
+	b=3pz+6GAqHJ8E+0k+PdXB3xp36Gfzyk9wMVXdjR1MwVCf8by4Cl011CAC8Ergkn8gHHg2
+	 nDxOOZvSBs9uvgxjjZXcgV/e6TTebiBFTURx/FfOT0X+05HwqenQjOiSFFbyCLo9eEBFm
+	 QnqcIU+CDqaTNkSFQvZoJ1VrBl9C73Gg6ZIJBDob+fxN1ISxK2go4ymT9b+Xl0OC3NUvx
+	 SgK2w1T3SVZViqWun+UO5+XmjnMEXDYx3P0MfkqMW8l2vBwsQgf+5ysJDX/Fa8sfnJcW4
+	 LQ16UmjDILZAzra8vy+fDh/5Og7UzNg+1dePc2i/+8shco+1qt5/WdHlc2hhZnW42Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221207;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=EGLRBtrqwLmpuLL/DC/Zcp+EGbQUnDJwdb8d7ZNXyZw=;
-	b=lP9afI2B9UOe3FV8KnhMrzqO9dI8fDcp0JzNcml6xALAN3Kijg+3sm9lXRPQ1VMH5/mF
-	 ze2ez3TBSK9oHWWvYzn35MLId7pOM86XHKkMvy46HcW/25MUnV1yPIBb/5BTufXJP6+iV
-	 vrNKomeolnvlXk+1spxvQFrOxr5XOK1cSxoObf3HeBH/EP0TTVoZ1SvtGOgqFMGhxxAcQ
-	 L6pInn5jXRYXbF40JMEZ1j+D7LWMQ5/qxVGiIRkoEZxKtx7ktiD2iRUCMpV4A1vrARo1t
-	 +Fd+mEcZe+1z+fmHzqZX/+APVEemaNV1gjgF8ZJR8fjVA/eXyXOJ0Ynz3jlvDKEPXOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221211;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wgmYZSso3S5s7ntmVXft5Hjp1pkxoHbFdmgMj87YoCY=;
+	b=cHCsMAN2MFkqqD/N2me+2DyhZSwpPv25IPXNEnpaF8QOhaPkaC4B1IxzmTaitWX1euVY
+	 nOnXIMhaCyqTRc/6EbN7bC3GFjr1Czb0XAMgxcgMZPS5QwaKEwf0uTS/xoaNgmuVGU/6u
+	 C827J8pNQcQoprkB83r6NvlzkJPFCR25uys9F/xppScv4d1RYOS6UqDRr1duUkM0vyFeu
+	 YmgXU7BXIcBYjz8XbyGaODWCqZNeiU0/hUuF7TeWZbeqLpmB3dzplPAmhAqof3KtuLQrt
+	 uFl5e7FktQT9Ao+pD40D5vxGkaIMi11K+/pSc2ciASZ7tfdbHHgNVeradwZqab93/Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dro8/MQC";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88486606A325;
-	Mon,  9 Nov 2026 10:46:47 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h79isfwl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46B81606A334;
+	Mon,  9 Nov 2026 10:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B81606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dro8/MQC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E421F0089F;
-	Mon,  9 Nov 2026 10:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794221207;
-	bh=EGLRBtrqwLmpuLL/DC/Zcp+EGbQUnDJwdb8d7ZNXyZw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dro8/MQCh7R7TbkAjW26BFB+ihtZj8Wbf7vP0yl/I+MaAhv/gOlpgbg3xqAvSJE0N
-	 TG0VHmR1JnLdYZWiTHIHdEkTKsnmJHiX6Yqg4KSUsNOt9MUW8sTW1XvYqXEPZSSsNA
-	 i/hgHWE5q3LZT3rcu1W3XHY5Ys5DoI+wOB93omFwluipdFFKoK8jUd61lz4I/ndNgo
-	 ieyq30nEKtMONxHi0pWIt03PAuKwhmwhAhSNlb3LyQMx4W7o3Aajq77qWQM+kVbzGz
-	 AhKNYYZhR0mpIwbyP1C0B8NVaEVlNXDm/OjXU8PdA5anFaVzN7p1W30A/TEuRu4Tvl
-	 HhiEw8uw4mNqQ==
-Subject:
- Re: [PATCH net-next] net: dsa: motorcomm: Free the MIB block on port teardown
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Mon, 09 Nov 2026 10:46:46 +0000
-Message-ID: <179422120601.994134.564932634198490394@kernel.org>
-In-Reply-To: <20261108101648.1308271-1-mmyangfl@gmail.com>
-References: <20261108101648.1308271-1-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=h79isfwl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 760C11576;
+	Mon,  9 Nov 2026 02:46:46 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D9183FA1F;
+	Mon,  9 Nov 2026 02:46:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794221209; bh=zGW4Vk+oTTcAeYvgmOhuujaSbESC2vD11QIhzUqWk7w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=h79isfwlJj5NA/YUWS8Ik8ho4Z0G1xk/NdkZHTI+7kY++cbuf7734EwR9LCt+Ww0O
+	 EJouX7BeyT+m5P4fhTwO4x8UvN4uCSp1Up19Def4Ui50nAl5N0tzsPl2WATHSB74O7
+	 BPCwwkSdpPWko5ab4dSUwtIoV7q7/DoVqO+iIaHY=
+Message-ID: <dc798bed-85b4-4d47-87c3-f0e0f156ed0a@arm.com>
+Date: Mon, 9 Nov 2026 10:46:44 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,148 +53,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/5] Fix traceNoC probe issue on multiple QCOM
+ platforms
+To: Jie Gan <jie.gan@oss.qualcomm.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Abel Vesa <abelvesa@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com>
+ <42b832c0-5cbd-452f-a9f3-50355a008533@oss.qualcomm.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <42b832c0-5cbd-452f-a9f3-50355a008533@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 09/11/2026 01:25, Jie Gan wrote:
+> 
+> 
+> On 7/10/2026 10:38 AM, Jie Gan wrote:
+>> The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed 
+>> the
+>> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+>> forces the device onto the AMBA bus, where the driver must read the
+>> peripheral ID from the device registers during probe. On several QCOM
+>> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+>> never probes and its trace path is unavailable.
+>>
+>> This series drops the "arm,primecell" entry and turns "qcom,coresight- 
+>> tnoc"
+>> into a standalone platform compatible. Without "arm,primecell" the device
+>> is created on the platform bus and probes through the platform driver by
+>> compatible string, bypassing the AMBA peripheral-ID read while 
+>> remaining a
+>> fully functional Aggregator TNOC that allocates a system trace ID (ATID).
+>>
+>> The series is organized as: binding first, then the driver support for 
+>> the
+>> platform-bus compatible, followed by the per-platform DT fixes that 
+>> switch
+>> the affected nodes over to it.
+>>
+>> - Patch 1 (dt-bindings) drops "arm,primecell" and makes
+>> "qcom,coresight-tnoc" a single standalone compatible, and updates the
+>> example node accordingly.
+>> - Patch 2 (driver) adds "qcom,coresight-tnoc" to the platform driver's
+>> match table and renames the itnoc-specific names to generic tnoc names,
+>> since the platform driver now serves both the Interconnect and Aggregator
+>> TNOC. It also restricts the ATID-unsupported handling to
+>> "qcom,coresight-itnoc" only, so the Aggregator TNOC on the platform 
+>> bus is
+>> no longer wrongly covered and correctly allocates a trace ID.
+>> - Patches 3-4 (kaanapali, sm8750) drop the "arm,primecell" entry on the
+>> traceNoC nodes and use the standalone "qcom,coresight-tnoc" compatible,
+>> fixing the probe failure on those platforms.
+>> - Patch 5 (glymur) switches the node from "qcom,coresight-itnoc" to
+>> "qcom,coresight-tnoc". This node is actually an Aggregator TNOC (its
+>> tn_ag_* endpoints show aggregation), so it should expose a system trace
+>> ID rather than being treated as an Interconnect TNOC.
+>>
+> 
+> Gentle ping.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Apologies for missing this. Please could you resend it based on v7.4-rc,
+as this doesn't apply cleanly on coresight/next
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Cheers
+Suzuki
 
-- [Medium] The patch adds a memory leak on the yt921x_dsa_port_setup()
-  error path (drivers/net/dsa/motorcomm/chip.c).
-- [Low] A comment in yt921x_phylink_mac_link_down()
-  (drivers/net/dsa/motorcomm/chip.c) is now false.
-
---
-
-net: dsa: motorcomm: Free the MIB block on port teardown
-
-The patch moves the per-port MIB block from devm_kzalloc() to
-kvzalloc_obj() and frees it in yt921x_dsa_port_teardown(). The next
-.setup() then gets zeroed counters after the hardware reset. The
-disable/enable pairing of the MIB poll work in port_setup is dropped.
-
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 33e5fc127244d..fd737c3e2e184 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-> @@ -1994,11 +1994,11 @@ static void yt921x_dsa_port_teardown(struct dsa_switch *ds, int port)
->  	struct yt921x_port *pp = &priv->ports[port];
->  	struct yt921x_mib *pm = pp->mib;
->  
-> -	/* get_stats64() might not be synchronized with port_teardown(), hold
-> -	 * the MIB block till the device teardown
-> -	 */
-> -	if (pm)
-> +	if (pm) {
->  		disable_delayed_work_sync(&pm->work);
-> +		pp->mib = NULL;
-> +		kvfree(pm);
-> +	}
->  }
-
-[Severity: Low]
-
-This isn't a bug, but the MIB block is now freed here on every tree
-teardown, so the comment in yt921x_phylink_mac_link_down() looks stale:
-
-drivers/net/dsa/motorcomm/chip.c:yt921x_phylink_mac_link_down() {
-    ...
-	/* No need to sync; port control block is hold until device remove */
-	pm = priv->ports[port].mib;
-	if (pm)
-		cancel_delayed_work(&pm->work);
-    ...
-}
-
-The code still looks safe, but for a different reason. DSA stops and
-destroys phylink before .port_teardown():
-
-  user ports:     dsa_user_destroy()->dsa_port_phylink_destroy()
-  CPU/DSA ports:  dsa_port_disable_rt()->phylink_stop(), then
-                  dsa_shared_port_link_unregister_of()
-
-All of these run before dsa_port_devlink_teardown().
-
-Could this comment be updated to give that reason instead of the old
-devm lifetime?
-
-[ ... ]
-
-> @@ -2006,12 +2006,11 @@ static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
->  	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
->  	struct yt921x_port *pp = &priv->ports[port];
->  	const struct yt921x_info *info = priv->info;
-> -	struct device *dev = yt921x_priv_to_device(priv);
->  	struct yt921x_mib *pm = pp->mib;
->  	int res;
->  
->  	if (!pm && (BIT(port) & yt921x_info_ports_mask(info))) {
-> -		pm = devm_kzalloc(dev, sizeof(*pm), GFP_KERNEL);
-> +		pm = kvzalloc_obj(*pm);
->  		if (!pm)
->  			return -ENOMEM;
->  		pp->mib = pm;
-
-[ ... ]
-
-> @@ -2031,9 +2026,6 @@ static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
->  	if (res)
->  		return res;
-
-[Severity: Medium]
-
-Now that the MIB block is no longer devm-managed, does this error path
-leak it?
-
-pm is allocated with kvzalloc_obj() and stored in pp->mib before
-yt921x_port_setup() runs. yt921x_port_setup() can fail, for example
-when a register write fails in yt921x_userport_standalone() or in the
-YT921X_PORTn_PRIO_ORD or YT921X_PORTn_ISOLATION writes. In that case
-this function returns without freeing pm.
-
-The DSA core doesn't call .port_teardown() after a failed .port_setup():
-
-net/dsa/devlink.c:dsa_port_devlink_setup() {
-    ...
-		err = ds->ops->port_setup(ds, dp->index);
-		if (err)
-			return err;
-    ...
-}
-
-dp->setup stays false, so dsa_tree_teardown_ports()->dsa_port_teardown()
-skips this port:
-
-net/dsa/dsa.c:dsa_port_teardown() {
-    ...
-	if (!dp->setup)
-		return;
-    ...
-}
-
-yt921x_mdio_remove() frees the ACL blocks but not priv->ports[].mib.
-
-With a single switch, dsa_register_switch() fails and so does probe.
-The devm-allocated priv, which holds the only pointer to the block, is
-then freed.
-
-For user ports, dsa_port_setup_as_unused() retries and reuses the
-leftover pm. If that retry also fails, the block leaks the same way.
-
-The commit message says .port_teardown() "pairs with every successful
-.port_setup()", which doesn't cover the failed-setup case.
-
-Could this path kvfree(pm) and clear pp->mib when this call did the
-allocation? Another option is to allocate only after yt921x_port_setup()
-succeeds.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108101648.1308271-1-mmyangfl%40gmail.com
