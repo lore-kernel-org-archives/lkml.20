@@ -1,121 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191521;
-	b=o4WNss3wbHqfoWjz3r6VT2FygQVzj8iFerAR1cH774weKlDzzdSBneAOM+P1J3un78GI
-	 RqLqv1ngQfg4gjUv7dq8rCgUD4+I4TFKxbC+NHJztMFJMl8BUl2xYFeU+cCaIZFcS5wIN
-	 PkQskCTuD/eA9uK3eteqYBSN8Ier+Oipgx062Za7aOgka81F8ve3Skjv8zz5+49pj+8D0
-	 ZBA1jrlrbFsMgJNAUUMGGFlTB9XkF609uCIESxSNKTdz1MxIq1gjxzr1d/Q91rgJltJ76
-	 9F2TFqlZ+5TG7KBROUIo1uUjwoserSc4kLBv34onMD8lNzsFdueosWrmFjXMnOvEiwg==
+	t=1794191522;
+	b=KLh8gBciSU4sHc6u9HSGgxf2hu8QMNYyQX0gHFsueyLExq6BXJplUYuJmT7TB56yis8p
+	 UJLsb2TGgSxN9jcrd0/btpIPxjLV3CuPrxAQ5oDioMDbZql0Z4oC8KJ5KX6Zk5k8LSV4l
+	 CuloyjRwo97r93CVx7FoUoY1P8p2r6YYbih+zw2l5HB352AdkFQHooHIQ7QJA7asyoGIM
+	 6BUkcwVcBTUuH9GnMzmhPIhBtu21QCDC7Gxgiwsizx2RUfcQx59VTw+QpBsvLr6NA5N1Z
+	 4RXG6hguhvMw6Lfq9PUePwgZe2WqP+xcoaBlBWl1V+NyKbMg0CC0FnFoTRCglMY6a9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191521;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7SFrqMGiGYXTqFUF13dP6f7Cgotj6WnY/CKyUSighPs=;
-	b=x6RJ2Adg5CMqLprVMsMHOPcQ+zzZqdtJ8btAaTgmThxLweaon0Lhc7apSfDlNhm5iUzT
-	 weJxsqoAn3sUTm3xxworuI5FppJxWRIBTFiwyoLusY1ETdu78bCFrMDqm6QK06+uPqkBZ
-	 1VYE3llCxT/BlkNFLmBZbwjSBV1mWcgnmElyycKxWmaIzcK5E/O1z/bJPp8zirlUOYKLG
-	 yb9Z15fy8wWUZcc5/R/I2907pIW7jfZ8jvoXMMXk/DkKf+IpRSJ5nMTztm5jHE0IjGNSm
-	 hKSfGyVVr/ZmUATsoSPfBIoSi1HZ/cX5ekppAUEduNDU0qfSJqx2wXypD1csPynmZyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191522;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LbDv0XxXL4jun3vJs/THg0exYJ8fRU8LTDwe8xfPh6M=;
+	b=PhrJwnKELbbI7LC4aS64Mc6/E3Z6wiSczs50/7iGMlNBS2m5j82cbJEHGCcv3X5MUfWn
+	 t9KyTPzRzjEPr9j08xmhvZZzKBUk+JrvLt3zdyz5wnCmW4Y2MyokFMKr/xUHXjWDq4ycO
+	 Bt7sou4dIImS0D4nk1smZYDxroToA4QPECc0lZea7wUK6es9cMM8Ciz+DxrDdflLR+9kw
+	 TrHDHkmpEwOQ747lkwPfwNF1808xg+TpP6KaH0P1FBM1/68KcpmYLaujaGy+0QCjOwhyz
+	 XSHZhk1xN9FNzE46sQCmPxflNDjlB739iqG+t+kn/aSfc+QK6bDzSCrfxVTdhD39hwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MfY1NQzN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A2eXXTGJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nzQQJxq/";
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10E7606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:31:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10E7606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A914606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:32:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A914606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MfY1NQzN;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A2eXXTGJ
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A90H3h82872400
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 02:31:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=7SFrqMGiGYXTqFUF13dP6f7C
-	gotj6WnY/CKyUSighPs=; b=MfY1NQzNlgTlzpdnjDkdCyR45kO+Y6SrUk21XBhs
-	+0ldf71sxm9viqmWjP50XeV0MdEgrhEZc68hBHc/1H+Wnca+9zMbgD1cnE3jVoFw
-	Db1Xss3ir39qcW78GW++YwKsD4880GikqvvVsOzc32KDesGnfoNJhhLMDja6FV7F
-	Lsab48oGjW0JMdveYXwbhfj5wsR6cWkPigI4h0sV4da8uWdGc3A6Kwxnbu5vcuUO
-	PWJPOlzvPdqn+5Hk8nlvXanIti/9jprJ8Bzx++Hl3PwV4ndrpM+7ex4eO7urH+Nw
-	RsfkUXANQNXWib90mUq350pKl1U3C08usjqiqhEzML424Q==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hssbnvsda-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:31:58 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-154e9d2d94fso107757c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:31:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nzQQJxq/
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1931ff67a29so1120195c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:32:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794191518; x=1794796318; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794191521; x=1794796321; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7SFrqMGiGYXTqFUF13dP6f7Cgotj6WnY/CKyUSighPs=;
-        b=A2eXXTGJ0cjVkA6JHUp6iTxttBqXeGkWIfhgaAD0fP3uuKicNVg9Qe3A3uIrgyMeWu
-         ZHpDjntMmrK4w4aRTdI4zyJGmE75ICgLqKoIEdOa0XLggh1rGFno+bXvnkoKx+0iRAMr
-         MqEuwmnyIw9ZzdqqbfX5GGofrLHB1+PZrPr4bqSmDyalQajZR5bFvUU26Vm/rY69PeJi
-         zJLB+n0arM2OOTSkKZnN2mITRsv6iSf4PxpCoaq1ZAeiZT+YVRAqGqt7oGNuQw5/+1Hg
-         rR99X02/81JqSmD5x9lkTz+eRD/gcDxyFPpb0zxLU7DlAlsKPacUKtOB6FiAectpXKNS
-         EjrA==
+        bh=LbDv0XxXL4jun3vJs/THg0exYJ8fRU8LTDwe8xfPh6M=;
+        b=nzQQJxq/C0uKAfp84jXxrrOh+bv84vYhXkrPaJ8L5jDllQ0CwLZencpq4Q924JedQV
+         0/RZtzbamb2PyjzqocfKn0rrh618LCrvRkZ3BnYhvKGViGqq2AHx2TCiALMXt9MIverf
+         8BSsY9CX3xgzXIooaDkDvgZ1suxapxWsz5TQ15gDWUOMUvC7BXg8siNRvN8LSX9mOswD
+         wyZ0+/5AY0Pwzl7s2D7uJQuYViLItQyaSUkNeluNf9m6dKhJ5dQVvnQyPQhZY8SRbnRB
+         OQ/hMO66TY7f0Fva9nBuT0ZnHhEhWJN7O50+qeJPoVDYI0FcxQ3w5xIClfG67E4pADIE
+         51kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794191518; x=1794796318;
+        d=1e100.net; s=20260707; t=1794191521; x=1794796321;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7SFrqMGiGYXTqFUF13dP6f7Cgotj6WnY/CKyUSighPs=;
-        b=aiV8/AwxjZBwT4vmFpS1sDkVEnAe6JivMVdysQMVcmeqOitjlc1UtffCd6qqjSjeFQ
-         I08k7FgWny4OvLFlbcEgAHax3zTxTcYpC5qdPSNfPK1XWM55t9tqU+t2EsLmQhtphDkf
-         PKagXB24pI9f27fBDZ7AxCZsHIg5urLi1gGuZiep1xouyqlFnMkdTmDOcxhzrnQVKYL3
-         TZggaIPQuEYrbHQTA2aOJgwGHxgEokrnbEGns8FYKW6SB1RqssjGP99V4sBwdc8iQj/j
-         BqKnT1sr/qx/yPqeM0zREfDvz6z6pZIVzyuaOEKNbohd+bo9b0cnhsXCbGmuiOjXCEJX
-         sBGQ==
-X-Forwarded-Encrypted: i=1; AL+hErEaLJGTuiYax6GyiEPKIEri7CGMi5vLOSr4ErPj0c0tiDwm/k+expMBS8lb0QKDBaEhKVF+UeaQ9GuFKSE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tW+u3KWdejRcoiNuSj/mELZY7RJ/LFIsZSs2t5tmKSSQ72k5D
-	3dzoJ/wqg2tw4iynWXfFDRrnz1TnixK0Rh/t0UhdELGQRZ+8BfSFmRFQwCg8jSk6kcXDNvneCcL
-	/2pIaebdW+8bIr0n+Yi+EqqEl3WJ4IqELSlRJBnRaA2nemXiM5VPm/tfKDVGil/O3Bbg=
-X-Gm-Gg: AYBFou1Bimpt+E7Cnd/Kq/VkcWAy7oHOa5pzn2zz6979Gvpc6SQlzGerviuN65mDQlC
-	CCfa3fOV+Zl1jLja0E/dkJcUXCBhuAg9i5jW5OMC5ehXBtt88DUc2hIzE/2bVbaQXMwuOZ4seXg
-	nrG2cAjldgQztBVRlABaaHDoICTRhxuKNreVs8Cb5J/BMl0ZaNi6s0LOejq9/oPoejg8x4cyrHX
-	rByyoo15xcjzKePvRQEEiu+8kdptYN0TpZxJoBlg9HXFriLVyaZxltdzaQcxYeSJj/sQ0c0UHwR
-	WPooMTccWpC30ykw3RZOIPVS7Fh0JM0aEy7zfAgh3Us0wJ0hW6tATDFv6BJPT/7gAutCDlfVjrQ
-	TiqIzMsZFzbbBwQMXbS/vdpFapSdj1RCe3ptATxlvuO8EJydr7ec/QFF9sjC8Qhr5OjVs/LPIw6
-	ZYHsAKrsidpS8g8X0W2O/5r6hnoog=
-X-Received: by 2002:a05:701b:2905:b0:184:5f2e:aa52 with SMTP id a92af1059eb24-1b39fecbe14mr4302372c88.16.1794191517824;
-        Sun, 08 Nov 2026 18:31:57 -0800 (PST)
-X-Received: by 2002:a05:701b:2905:b0:184:5f2e:aa52 with SMTP id a92af1059eb24-1b39fecbe14mr4302325c88.16.1794191517129;
-        Sun, 08 Nov 2026 18:31:57 -0800 (PST)
-Received: from YUANJIEY2.ap.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b372ed839fsm9659808c88.0.2026.11.08.18.31.53
+        bh=LbDv0XxXL4jun3vJs/THg0exYJ8fRU8LTDwe8xfPh6M=;
+        b=gqxGcSsVaW7l3+I72T1kCCG6TQJ6/3ZyCNN2jPSb80VpcEyDnDsIcyY3Y8NbAPSDty
+         UKEeX/DA/DlUAhCe7lG77GtfDOctr0c95/yw9G1sVpqye+GfoboBC6dspXZTd+/dPX3D
+         ZTcJ9DIxRgTdJv9m5rm1grutND0y28fWeO5NnEQAk8u2mIwhxlipZu76Ct7AZhDTTmzD
+         ivgtRKgHPlvjEfWnyuKv6AU1rmZA9IHw4Jn0OKU9d3DFnpcqsJz/GVMIeX8i670eXJoU
+         A7BYODA/rg387F2whNK/q4G7n6IWua0Jg+9eIymEEWQSBbmcglHxLp1/L0bYN6ZehA08
+         K1HA==
+X-Forwarded-Encrypted: i=1; AL+hErHQ+mzs1AqNXlCf76X01bQAazkgtjX325Nvx7lT9YZ304jURbYsVoULMNJwoTBUQAcG8kfV7bXYzhfJEyw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IqVK0HzpCYdLfYJ6ur2E5kcf2711P+TkowlYCrVzYj3bITPBE
+	YIFxo3AalXxXWQOnVQig/RyTKv6VL+zPLMetkDc33Pq+PmViTBugQJtq
+X-Gm-Gg: AYBFou3uVsMWnnVenQ57htIn7BB0E/mXgj14q5eXf+6Qn2DtovkalL634BEzLnSUB07
+	6HZrjVKUCK3aDMrhlofqHVOF5uLce0sOi5jkMZAfKBvWNQh3jK8HQo2nSmravYe2NEhjPBkmrRv
+	cGnGVIMB2Lk7b1mjeHBy6TJrd5AAj3AJxiYP+GiaaGGD/TmUcgO3XyGVRIYO4kbTOSpQ+/cnUXj
+	nrSSf21mxaRtHBqMqZxiPv/u8bY+Q+HV5N1GhttN/P+ZM3JPTdAtdAO4qZ8sPhVUVznQvo70o8q
+	3iMlPk5p58j8hU4gCDbJCmtMVpGfMEqN+Kk7oc+3eVSPteWc3gQWWNRNODtvHtSYPzG8oDmq573
+	N7bA0GzFdEHSrpL9p2LDdABa/g9tXv0AzH6VeVTrPkJt1n8+8Q6IjPdiNV0Tr4kfBLpDcoiqu3u
+	0Ov7QptVpfHoDqFdtHDrw6t+sM7h1Ejuwe7VukW8sSB4eBuJ4DhjbfXiCkCdiuNnPV7Hc/y362c
+	QS4e8xwoEMLdP6YmZyI6+c6TMRD7Y5C7Ffv3wyP35Vfklq8Pn2D3C20X3xxVREx2NaucOARvKQe
+	VAkcUK/IokXkl+gi0g==
+X-Received: by 2002:a05:701a:c907:b0:190:8f72:445e with SMTP id a92af1059eb24-1b39fecbe1fmr4519636c88.11.1794191520825;
+        Sun, 08 Nov 2026 18:32:00 -0800 (PST)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372632d7d62sm13689947eec.3.2026.11.08.18.31.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 18:31:56 -0800 (PST)
-Date: Mon, 9 Nov 2026 10:31:50 +0800
-From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        tingwei.zhang@oss.qualcomm.com,
-        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/2] Initial support for Advantech SOM-DB5830
- board
-Message-ID: <avEwlqGhRQz51b_0@YUANJIEY2.ap.qualcomm.com>
-References: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
- <179416929274.628393.12037192351352245383.b4-ty@b4>
+        Sun, 08 Nov 2026 18:32:00 -0800 (PST)
+Date: Mon, 9 Nov 2026 11:31:57 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Xuewen Wang <wangxuewen_ky@163.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: Re: [PATCH v5 11/31] ntfs: handle source record removal failure
+ during attribute moves
+Message-ID: <avEwnT6CAgeCj2oo@hyunchul-PC02>
+References: <20261102073532.98873-1-wangxuewen_ky@163.com>
+ <20261102073532.98873-12-wangxuewen_ky@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,80 +98,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <179416929274.628393.12037192351352245383.b4-ty@b4>
-X-Proofpoint-GUID: -4o81btVh7J-48hQaGOxaLd2mDzOgXhE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAwOSBTYWx0ZWRfXxlPlpzHatN2p
- SYsalHKkaKnpoOpphQJtNihIPzZAo8yynzsdstcHueGABxJ/1DaK+seVPI+bbuywKXYSdX1Oitg
- H6VwYPRHWFMKnCcBsso+rYjYxdWde7PWqRYtohDYlkUA9B5435PLpXEE9zrX2Smoy9rOC0Ov8ny
- V6Yt7twSzsYMbTsQqVOGWXJLNVpc59O3MUPBG0QoOGidgmsz0hekE/NP6Fw6hFTdOleIeSsps7b
- GSghxeAMktRS9yt+K/m62Xe8b25O+UjDH8oZVLkQb0+PzodXuxgxEo8a9OosRrNn4Oboz5hxrVl
- P0+FV/mc4QrzKYr/PFu+3dA2jRBHKaVNcjS7CrD4B9CopOsuCnMTTEXJpMQJTF638rhm7B6i3RZ
- BzSocgMQGWpXnd1oi5zQAPWItx1WwbvtBSgUTg/IIso3jhHkwiOQ8Stp3UnJoTGq5xXwtfKP5yb
- QU2tHe12iaCzAmYF+6g==
-X-Proofpoint-ORIG-GUID: -4o81btVh7J-48hQaGOxaLd2mDzOgXhE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAwOSBTYWx0ZWRfXxriC38RxNCzb
- rDGXwMN1QGHhWiY1IuYEezbszGx50UT2XDilCGpQhsfxCm9+s3RUq+d0kO9Xo85VrNV3dmwlXmu
- Jg5Fjyo0yS0kEMd7B9M4mNHjWF3YqR8=
-X-Authority-Analysis: v=2.4 cv=JtBkP84C c=1 sm=1 tr=0 ts=6af1309e cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=kNaXiPVJs_Xvx0yAIYMA:9 a=CjuIK1q_8ugA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 phishscore=0 adultscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090009
+In-Reply-To: <20261102073532.98873-12-wangxuewen_ky@163.com>
 
-On Sun, Nov 08, 2026 at 02:21:40PM -0600, Bjorn Andersson wrote:
+On Mon, Nov 02, 2026 at 03:35:12PM +0800, Xuewen Wang wrote:
+> From: Xuewen Wang <wangxuewen@kylinos.cn>
 > 
-> On Mon, 28 Sep 2026 11:18:47 +0800, Yuanjie Yang wrote:
-> > Board layout:
-> > +--------------------------------------------------+
-> > |               SoM (Advantech SOM-6820)           |
-> > |                                                  |
-> > |   +------------------------------------------+   |
-> > |   |     SiP (IQ X7181 EVK SiP)               |   |
-> > |   |                                          |   |
-> > |   |   +----------------------------------+   |   |
-> > |   |   |   SoC (X1E80100)                 |   |   |
-> > |   |   +----------------------------------+   |   |
-> > |   |                                          |   |
-> > |   +------------------------------------------+   |
-> > |                                                  |
-> > +------------------------+-------------------------+
-> >                          |
-> >                          |  Plugs into
-> >                          v
-> > +--------------------------------------------------+
-> > |         Carrier Board (Advantech SOM-DB5830)     |
-> > +--------------------------------------------------+
-> > 
-> > [...]
+> ntfs_attr_record_move_to() ignores failure to remove the source attribute
+> after copying it. It can update the attribute-list reference and report
+> success with both copies present.
 > 
-> Applied, thanks!
+> Check removal before changing the list entry. On failure, attempt to
+> remove the destination copy, mark its record dirty and unmap it, leaving
+> the list pointing to the source. Report destination cleanup failure
+> separately.
 > 
-> [2/2] arm64: dts: qcom: Add Advantech SOM-DB5830
->       commit: 5fb1997399eb2e27086f1cdd160a120314358f1d
+> Shrinking a record to zero needs no extra space, so failure indicates
+> inconsistent record accounting. Return and report EFSCORRUPTED even if
+> cleanup also fails.
 > 
-> Best regards,
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
 
-Hello Bjorn,
+This patch has the Fixes tag, but it calls
+ntfs_report_file_metadata_error(), which is introduced in patch 3.
+If this patch is backported to a stable tree with patch 3, it could fail
+to build.
 
-here you have merged this change in v4: https://lore.kernel.org/all/179065170995.2673486.7594805451558800807.b4-ty@b4/
-and you do some change [bjorn: Added "-avantech" portion in filenames]
+> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+> ---
+>  fs/ntfs/attrib.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index 5af8ac41af17..f1c99e0d8dca 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -3578,7 +3578,17 @@ int ntfs_attr_record_move_to(struct ntfs_attr_search_ctx *ctx, struct ntfs_inode
+>  	nctx->attr->instance = nctx->mrec->next_attr_instance;
+>  	nctx->mrec->next_attr_instance =
+>  		cpu_to_le16((le16_to_cpu(nctx->mrec->next_attr_instance) + 1) & 0xffff);
+> -	ntfs_attr_record_resize(ctx->mrec, a, 0);
+> +	err = ntfs_attr_record_resize(ctx->mrec, a, 0);
+> +	if (err) {
+> +		err = -EFSCORRUPTED;
+> +		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
+> +		if (ntfs_attr_record_resize(ni_mrec, nctx->attr, 0))
+> +			ntfs_report_file_metadata_error(VFS_I(ni),
+> +							-EFSCORRUPTED);
+> +		mark_mft_record_dirty(ni);
+> +		unmap_mft_record(ni);
+> +		goto put_err_out;
+> +	}
+>  	mark_mft_record_dirty(ctx->ntfs_ino);
+>  	mark_mft_record_dirty(ni);
+>  
+> 
+> 
 
-it is already in repo:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=37f28aec2091c949a0e2ba76ad6b5eda34301e0a
-
-
+-- 
 Thanks,
-Yuanjie
-
-> Bjorn Andersson <andersson@kernel.org>
+Hyunchul
