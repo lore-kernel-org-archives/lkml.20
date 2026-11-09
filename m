@@ -1,48 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258071;
-	b=HKtj8B4IFlY7iuCj3tQ17bCXmK5MXOTL9tIwpPcOj1qNA2cLl6LBgLuB6RsebpbDOyjG
-	 RoyR/PsR4n8APaVeXcGFc4SuIDkC1dXhIF/9waXY3MHzrawpOMq69iHHd1YMLdLQWqmyd
-	 RahrHqG4bUdxFndCLsDjdCdDo8hk7c/Wj7O7dHjlOmQl5pJULarg7Ua+JoBKvJE4Ae0RC
-	 tq1sOAf59uLt/E1S/JQolTJBjJUALdFX2//CkrjSLRQ1OKADHcf0kfyJbMWHewTNkEpa8
-	 fie4LD9JOoBcbed1kurcvZkR2URFGuDFsG5iXLVPSIQNSLJaqJSplnoQiNR4ECBewtQ==
+	t=1794258115;
+	b=QV90KWli1mslx2cfEWHWfGmMI7kzljm1ga+n4JgNF+ET0aGtUZD0+Fqd4wLfYwhAQ8ng
+	 VSlm+l9EXv0WYweG5gkA4S3x8slNUzadHFZNDuhAXJlNoHPXhxzRYzyaYLThbLYUqne5X
+	 x2qw3qAGs7mTfsXQSr96muXxeEbfMQo9I6E7i0+u2qZGB02IM1z6Bx9y6hyGtoPVanA2c
+	 42dI6azAUHoKKm5pSc10aM4U7ta/rLTDia/mGyTxjwJPIftN1wCwNQj/hTfeZrBT9p/Mw
+	 WOXbRveFS6b1mYkmrCUaBTJjWYWDZpDs9J8K5uDjw00m0MaUDjGvz2J/28sppr098Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258071;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=W40un1XNAqPtcoImBzGbxmEQEgO2uX7YR4GLBCynYYQ=;
-	b=kd+Jg6OQ2zU4ONZCgxzYc/KoTFQ/QIFFGoPipy7cQ2UJUDNl+N/sVCXX+MFHOiY27CsO
-	 15Un44gTXd4fMHlH2UKDO6LCmwp6u47YyXVKnFITh+g4leuLfUeNzEsm5Zo25gCagnlkC
-	 C1PuHtsSz/q0cG4fZmzb6PhmmndIz/f+1eTbkSyLJ+InYiarKUfIH3VgweUPP1Z3crwy8
-	 CfVCuXNB/IBmnb41OmTWYXjPKGA/C/qP2x2VhVWyTyqBusicHn+VuWEDG4MryiRjD9KKC
-	 ZV6wfTPvtJ8f75MRGcbEJ9YUCAO6e5+gVaAEB2d1WNNk0ih9hGQJ23RFg8FSroPLojw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258115;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1rRofamHWsgQtnXWvZBbAiHKmjpBdt9GxPKw93w6wfI=;
+	b=5phxEjXDbpSUzCux3JIWDWyo1uc14rlYB4mgKmGkVRzUOeB/m43B4Ip3nN2bXe5DYLy/
+	 sZ2s5tBcMUom/rGTA8YgjJULcniJJmBQcWhqZhIMWqXMJ1tpqcdAIfi3g3C6VUvuHe2+j
+	 WRQcjvrWv2Ij2+zpQyJ5U6PmpnCKcdK+MH5dJgTrFajwNKAZXL39zpQMeILLvaon8xoPt
+	 YyD9sojHGVAztEWVlKS4x625u04MikNNtfoRRBORt3fQvIVSXYGCDWb55MCbR63sL1gMQ
+	 aKgsl9zawXy+fzbNoh5Pc3RpKw5tbd0WJY0URiJzad+H79y0IMrayxVQmqjRQKY629A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF6GzHcR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D5L6amhx;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618B4606A31C;
-	Mon,  9 Nov 2026 21:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF525606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF525606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF6GzHcR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6991F008A1;
-	Mon,  9 Nov 2026 21:01:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794258071;
-	bh=W40un1XNAqPtcoImBzGbxmEQEgO2uX7YR4GLBCynYYQ=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=iF6GzHcRZmIKjnW69pOqsfO3jKAeD20Cdt392q+PS9hRNVpMtyfXiSFvnZi5+nGeO
-	 XyA/Ck7Fozg+jjB7td5JXyNuj700k9Nf5A9KGOkWl1F0BUQJe4yLx7pS/4nFpaiRUk
-	 x7AWekRNXn5bQCVkUh5iCDNKJmZNu7gjlX0mpe4FRQ5REGfUUaDyp+ieAACA0+Kz0v
-	 qePEDEBsL7DZSqucOiLJ9ErFUjCdXfZ6PeK0XGNFr6m96sFeombWoKBtcACxeDunFu
-	 Il035pDznLn2FokxjL2V6c2ePy10UMnns3fIUxZYdmcAN08iFQIZzQBqbBMPsXZP2D
-	 cMa3/QG9SZXMw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id C64CD30217EA;
-	Mon, 09 Nov 2026 20:59:39 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D5L6amhx
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so745912a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:01:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794258114; x=1794862914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1rRofamHWsgQtnXWvZBbAiHKmjpBdt9GxPKw93w6wfI=;
+        b=D5L6amhxFSoDqc8GwvGK3NvVz5o+I0AQvBDbqUKgOzZ/CdW25tCh9hjypnl+Xpd2ve
+         HHub+xs/2/NInY4mxfESNkENa6n9PPadk9TlwMOLuchIADPTzqhp7IRsub52uCgO4VqX
+         +FNiv7i/pAKGWeOaHu5/27nUSNVhWxpcNRsFjHMsR7rGe6tmzt0NFkJ80SKfoRiz+K+C
+         iTov9Pz6KcZ5UuU/2vHccxPKHJ3hOY1k2afJUiOIn0HKH4uzJcS6WLUv9aFoUom/GSxs
+         jOl1dWq49VnmO2BQucHm5wjdl+6ZhZ7azuhhvzWPTHhxZwnNZvM225Bs5xRrdSKCfb7g
+         iRyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794258114; x=1794862914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1rRofamHWsgQtnXWvZBbAiHKmjpBdt9GxPKw93w6wfI=;
+        b=Fe+GDHp9Oo9QxH9qRxjfXfJNYeJ1Y5ICU6YPxpChqZQdvpnzEDjIou77JbyTQZvPeX
+         6FDWH6b7Oi0ROGKd2vsxpqXUStfRC3dK53Wqy7+yNlqcP8ZPzcMO4SiGBXnQN0Egxn+S
+         0id2khxqJZWXfaRnPWZEwjLv7ehgzg4MKfkRTwGy/Vw3KZ/EnWJ5azbBHDk0eQoPB1yw
+         YPSqg24Go5nDTwwOW37bUYZ0yfrd7mXO0WfqP1ZCcg9KYEkiA1yH/43ycUcCO6ghdtg3
+         91zmNHt0ZExX0VjTz7WIE8e2ytelfkFPpybmkzc+OcbgMXxZN41tkD9Uf+z4DQdTJ6LZ
+         wDqw==
+X-Forwarded-Encrypted: i=1; AL+hErFaa6M1yijIvudL+Ppssy87oukUycHKVTDRNIy6k7SgKnw52FacQIbrc3CeF5fdqLc7XZ/AHd5TqPueRhk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bXY1hBBCxCZH73QXJ9ViDbGuwKKOlrmFGhLrFaZsduI/wJlBU
+	CUpvXua1xn48cXCmvEkWv7zvCGuligtx6/wzfwzqWufOUU3CuMX4m0lB
+X-Gm-Gg: AYBFou0pD1ZGGudi7YS4NbsKOkmDtVi/BRM1XxwP5RWkOB5wBVu4l6jG4TMYdfY1hVk
+	Q7/kHJy+OjDCSK/hdvgc0lo9qq43qTBJ+u7k80M+tNpTJT3RQQT8ZvmfupWZP4cxO5eblbEf4yZ
+	KPyJsh9j2oS1eQ+RrzZNRrBz2jlkYysvUyzdc1JY+kuXXFbygrqOQimYmGlqoMi+Etx+OiyvCGv
+	EXAaX3BW3iQWtv91XBn84FO9AZsXP1zMf2pFm3T7TKCz6eTADiXaOFOPFQI7LXpU7fwGhjEyWCP
+	kb/N3EzvShAbr8W2i88sG0mJqi52Zywgbmau4eGqBqNQtKQa45YQf267l4aOqYpRg3y4dcNlzEY
+	e6BkBocH0mf62RmumNPvNLuzjvdVCdfs++v8Pz8fc9GtuzRj4fKqnhi/sdrQ8EgMsRnKITeYevi
+	fowNUU6UGIbi/i+VK9azUNw9acATORkaKMvb7S0lUvmMoVizEFgfIb5K801Mc/ejmDlHXP1ns8q
+	q+HyrfbS3QlByGaEdIRkNKcQOUzRzKOFrFIO770PBob5HkcF0s8PyCe9ydplKUlqjdXcuSNxQB8
+	E2gDeuEgTvT9D90qKZj5W/UnSDUmAkoaaFUS4lMACvxM7M1+iNIMnOkchYT6dTEmq7h+RB2ym5Z
+	T016k8Uy6ReMGrNmGlIeqJsiqVcrskIhrWJ6B33ztP/EevyG82473oY1KGoTdgvGC1F06ITyjv1
+	qJ9TLu5aPaZRkYIN3+etZDDye/En2z41znpgJmkUAV
+X-Received: by 2002:a17:90b:3e4c:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3b1679e9575mr500295a91.32.1794258114035;
+        Mon, 09 Nov 2026 13:01:54 -0800 (PST)
+Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b168ed00d2sm275299a91.1.2026.11.09.13.01.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 13:01:53 -0800 (PST)
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Len Brown <lenb@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	apais@microsoft.com,
+	rlmenge@gmail.com,
+	hargar@linux.microsoft.com,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+	Jarred White <jarredwhite@linux.microsoft.com>,
+	Jeff Kirsher <jeff.kirsher@microsoft.com>
+Subject: [PATCH v2 1/1] i2c: designware: Add ACPI ID MSFT0006 for Microsoft Cobalt SoCs
+Date: Mon,  9 Nov 2026 21:01:46 +0000
+Message-ID: <20261109210146.57766-1-sidchintamaneni@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,59 +107,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 05/22] ASoC: ops: Introduce 'snd_soc_ctl_activate'
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20261103-macaudio-v4-5-637484efe46d@gmail.com>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-5-637484efe46d@gmail.com>
-Date: Mon, 09 Nov 2026 20:59:38 +0000
-Message-Id: <179425797818.3711751.12937263042321950225.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=615; i=broonie@kernel.org;
- h=from:subject:message-id; bh=xvmkDp6UJdRL/ikpcXrp5a9qw8WBoVYhDOKggMTTKA8=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+mVhLfZutsGLFm5NREsxh81TmK534tEw69faZh2Xvb
- DPO5p2y6ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBElqcyMnTt/cX6NiT78a4j
- 3hLbP96dumXapB9us2+qqLMLVG/+1F7IyPC3cd+ZEyk/joiv7+c6O399yQO2tFe8+ociNE8pHee
- SnsUMAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-> This function mirrors wraps the sound/core 'snd_ctl_activate_id'
-> for ASoC. Machine drivers may call it to lock down kcontrols
-> during fixup_controls.
+Add the MSFT0006 ACPI ID for the DesignWare I2C controller integrated
+on Microsoft Cobalt SoCs, along with its 300 MHz input clock description
+in acpi_apd.c.
 
-> +int snd_soc_ctl_activate(struct snd_soc_card *card,
-> +			 const char *name, int active)
-> +{
-> +	struct snd_kcontrol *kctl;
-> +	int ret = -EINVAL;
+Without an explicit MSFT0006 entry, ACPI device matching falls back to
+its _CID (APMC0D0F), which configures a 100 MHz input clock instead of
+the controller's actual 300 MHz clock.
 
-> +	kctl = snd_soc_card_get_kcontrol(card, name);
-> +
-> +	if (kctl) {
-> +		ret = snd_ctl_activate_id(card->snd_card, &kctl->id, active);
-> +		if (ret < 0)
+Acked-by: Jarred White <jarredwhite@linux.microsoft.com>
+Acked-by: Jeff Kirsher <jeff.kirsher@microsoft.com>
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+---
+ drivers/acpi/acpi_apd.c                     | 6 ++++++
+ drivers/i2c/busses/i2c-designware-platdrv.c | 1 +
+ 2 files changed, 7 insertions(+)
 
-As Cezary pointed out this return is redundant, we could just exit above
-if there's no kctl.
-
+diff --git a/drivers/acpi/acpi_apd.c b/drivers/acpi/acpi_apd.c
+index ea226fd987567..66a7607752d9b 100644
+--- a/drivers/acpi/acpi_apd.c
++++ b/drivers/acpi/acpi_apd.c
+@@ -198,6 +198,11 @@ static const struct apd_device_desc hjmc_i2c_desc = {
+ 	.fixed_clk_rate = 200 * HZ_PER_MHZ,
+ };
+ 
++static const struct apd_device_desc msft_i2c_desc = {
++	.setup = acpi_apd_setup,
++	.fixed_clk_rate = 300 * HZ_PER_MHZ,
++};
++
+ #endif /* CONFIG_ARM64 */
+ 
+ #endif
+@@ -272,6 +277,7 @@ static const struct acpi_device_id acpi_apd_device_ids[] = {
+ 	{ "HJMC3001", APD_ADDR(hjmc_i2c_desc) },
+ 	{ "LECA0002", APD_ADDR(leca_spi_desc) },
+ 	{ "LECA0003", APD_ADDR(leca_i2c_desc) },
++	{ "MSFT0006", APD_ADDR(msft_i2c_desc) },
+ 	{ "NXP0001", APD_ADDR(nxp_i2c_desc) },
+ #endif
+ 	{ }
+diff --git a/drivers/i2c/busses/i2c-designware-platdrv.c b/drivers/i2c/busses/i2c-designware-platdrv.c
+index 13dd7c50486a4..cf364f3c26199 100644
+--- a/drivers/i2c/busses/i2c-designware-platdrv.c
++++ b/drivers/i2c/busses/i2c-designware-platdrv.c
+@@ -280,6 +280,7 @@ static const struct acpi_device_id dw_i2c_acpi_match[] = {
+ 	{ .id = "INT3433" },
+ 	{ .id = "INTC10EF" },
+ 	{ .id = "LECA0003" },
++	{ .id = "MSFT0006" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, dw_i2c_acpi_match);
 -- 
-Mark Brown <broonie@kernel.org>
+2.45.4
+
