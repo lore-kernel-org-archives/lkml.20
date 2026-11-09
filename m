@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235899;
-	b=FK5dgXXsihF/n/E6HeZhDfhlCMRdh52C6jNcJ3cLkSr/c4Xwyyz/ORQFWrYtm2tk8t59
-	 88lC5/zsdkp4z0q7LKU3mNvBsDPgmUxKJJanfUkDxe4FE8ltfc/MyYMm809mpjz9AK77H
-	 MlM6wuyWMUbp+xBvRmFsFd93SaPYpB2Po3ftqa1tIrda30FF0vsQqhQ0mXMM9D5h8EzXD
-	 oclXWWISSCDMtj8YzSoF+/kmRXOYGiWZdK2SSto4bglrIH/hqy0U+CpKipyhHMzUCYvx/
-	 QlLQAv0zzBC3FtX+QryMuFeE/DAZsSAZgH0WpKzyLTeZ2liPLtt2em6hNsrDmhM2kKA==
+	t=1794235912;
+	b=BIP3GfaudJoUUCXJvDiAdTdh7+jL6XIZLfv7CFmBCNhIM3po1CfH0Pq0HczwV8E+LlMe
+	 Cvb5yKey/Grp+fLHciB5ucc7TVuIRQVNLKD2FHUfuLCLv1PeYK1tr797SQdL5wQb4Ojum
+	 6h/+UZ11o5n8G3OwEM374nDR3YmKts7027E1dbKKtbw7UenVdw2Wny7rTpXWdf3GsGQLT
+	 odvqyEcJLyftN+PXONqS3dvkmWr1NKN+liP/qA5zwu4/EVa0TUWNSn0LFDzwMiy69y/Od
+	 Ml/9Vw+/dQS7QR9CxHEgb+oeJJti/rNZBF8+wToOW62K8Cu6hbMNvj+DBsuE/8CXKOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235899;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=huhYkHkMLKUOnx9UUm0gQsNSNgIkNEluGxiIbh/+VXk=;
-	b=02fURrU6zu5r11704ckLnPxf0qWA4mANmOnOhcy9I+RQaphfYgarAvMAlbcxT8keboNf
-	 SHTb6UaKNdh/ofFN8SN0DICxuZwptYuG9tUTOKXMdwKouq07qSHFK8TVmL/PDxynsyXD1
-	 sU5o6UDmbxsxUYMcg0Yr0o3S5G4b8doX9t9v+K6GfuzX5U/o1p6geNnB4UM/igQXOxxMu
-	 Ubg6s0VrS6V7xL+2WzEVgFCbxQRpyra1E0vjZDshcmtEvZOWXJJnKTqh85h+Xd1Z2YW3I
-	 M001yecavjZe/u6UNXgnCnoaxLoM+32LVZoYwo71ErqH+RbuWI4i66Lxugk17l1P7PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235912;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=J/ON+kd3JZ2PEUk7mTIiSkX+r3bemsj8teqmqV8x0KE=;
+	b=IW07sktxM8eiyLFWa63OWd+5NROu3LD3htAD4KqtAJDwM5BO965YJn91/dkUUjC5xird
+	 hd4c0mPegIaFGleo6g0iM9q9MDf6Hb6oXAWQigwd5u1wWwaOD59jQdi777GrMUdLd8O0E
+	 /8t/p6MIlOdXU+6R9JOg5msdElNQ2sea1fjG2jVZdWL7bwQBscJ6AqTp8SOv3kVKE1p+i
+	 dt59QxiwTQ5rAevvE8RITR8afAocQOJE7Gpr9mGNwu662jGN4s1NQ3XS9Paxbo9rpmzlH
+	 IA7iIzV7fL6cDH/4Zxf+Z4yt5sAgs7TH4LAPN4a4I6QsobcqtANZMWED1pxC+8gxY1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjee9h8b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PkleYFAc;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EBEC3606A31C;
-	Mon,  9 Nov 2026 14:51:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FB7606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:51:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17FB7606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjee9h8b
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4A8341F0089F;
-	Mon,  9 Nov 2026 14:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794235898;
-	bh=huhYkHkMLKUOnx9UUm0gQsNSNgIkNEluGxiIbh/+VXk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kjee9h8b/noqtxGbLb2nKy3V8qHpCiVR4VHXIXX2uBOQZAb8UpSNLB8TD85ihhZ67
-	 VykrfRMbzTy4snd3pgPnbvYebfBzngs2iBn/HBpJwF9Kcfcsz8rTZgH7uVdaXD2UA3
-	 hTM+m2Fn6VKFUw//qV/MWeJ/MKy53vo5tBd4/rvzTMWA5gJgqyqAuI+UAHzuFLvY30
-	 5aikNH4DVqKyBaSYq0ge7pnxn6L5gJgY1vywponajgoNZ+3HlJabQT1zWwDX8Uul9g
-	 5ameZnKYNqePHDVNmnN/2Qc03juGXGFOuo6KC1jHQek1D6haJrkHvMsAAEB5AmJHEq
-	 DRqm4J73JbaCQ==
-Date: Mon, 9 Nov 2026 16:51:35 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Guo Zihao <guozh23@xiaopeng.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] tpm: sessions: bound the parameter decryption by
- the response size
-Message-ID: <avHd9w2d_nS6pdml@kernel.org>
-References: <au3waVnY6QA8TpPl@kernel.org>
- <20261109014955.2777635-1-guozh23@xiaopeng.com>
- <20261109014955.2777635-2-guozh23@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PkleYFAc
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so1298470a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:51:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794235910; x=1794840710; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J/ON+kd3JZ2PEUk7mTIiSkX+r3bemsj8teqmqV8x0KE=;
+        b=PkleYFAc+0BvCXsJXVq3M/zBPc+eyFBW6hC4WYb2ML24PLhITX2DmlX3mLQNASXS1N
+         nc5jJqreb/r14U3fqpOlQvSvR1Nb/tmPlVv7VniorSqIYqocbkm6ZOIU838NH2hN2oZ4
+         SFgYWXIBafbDJB9SqchXjKumyuKVdXMex6/5jmglbujr/AlM7HnnXm96IdSthgrZkDXn
+         GGaQ3sgNTyk9FHxWLk2lX2BQm5sQ7F4wQMv9FqGaKlP8K2jWsptRBQ4YkAqwSzBlFg+4
+         PcChdGXGfFcegdYid+AA+XUylPI7d2UcVlQokEUL6HsSjvO3geAVocKtk8nAnG7xU0kU
+         354A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794235910; x=1794840710;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=J/ON+kd3JZ2PEUk7mTIiSkX+r3bemsj8teqmqV8x0KE=;
+        b=XZXKJvORD7oIvTh7i15l9MIj2dclGWMUHJujkyEqwNZfbeGVlQTrTdC1pFo33GO0Hs
+         /ZiLxxSkkGxLt+n2goVy6QVRQCsZkSr+siipLDjzBYaMtEDd8Iqn9LqxPoRTZjpCDNRp
+         jiEl/Obsf6jqe2FJYIXtyqomKMs/PM2nq+AyC9SUc99A/lWb/cdF7va/s2gEjWWNLRe1
+         doqiLiJXecuu/rPu753HrlYMkbRA9lFWR9Ic/zkPJtqCWD4PaIEmiKQEsyzHpCHLPyao
+         hefEpnZ8g8KupbvLBLNq54wzo19YXJ8TKUtJnyDHhQYYIjnG9EZiz8VqRFHuSYsP9+pK
+         MLTw==
+X-Forwarded-Encrypted: i=1; AL+hErFhK0pLCFuf+UP/NKgJNsjjIweyQHMAy8+mvQvYE3hewufwssdtRQ5FaXKfcK07kP9FyFZVkUNtUNaoEd4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IcaEqMD78h2rGcSomAeLSmL/52tZXANJ1INZ0B5z+p0Kv/hfm
+	92ErdnTzRfqawPjJnvq1wUC4MRj2oXK3alMS8aWcoYEDnI2RLXw0ZTDE
+X-Gm-Gg: AYBFou1ZieGIQMju7XVvuJ0OhJUk+afoErjSAjva5KwpxzYSO17ZDcEdoLdXoCpmz1z
+	tWMgnNs68L3KMpBz5LkAvEo892YCsdtoIHz5sXnM0ud7n/Cdxg9M1VzRpeddlzr0DeSiJ/ZaMXo
+	XIM9wduWdrH/tBF3ZXVjJ7nypDSkSfMYFLzzjWTwNTo5phwBMj5AtAc0+ywMz6dTil4ck+KVJVW
+	RQLjqWRom55woOcx8Rj6Xz/OVu/kMDOBG+n8SV0+0cGsr3BTyOXI6/r4+klRA81NXKQgr79uCQU
+	l0FIJhnh1kWKRSgwWEJFotaLCHPsTWK7EXuVX9lSXfVM9oXZPoOh7neX80gf1HeH/+G3wogF7qG
+	XSiBIn9j+36fgUZISMNqT1WSFJzP36cnxB7r1rb5D/oj3tG0aoBBqpCS57Ib9dsRLVBzw9TtZwD
+	l5gkRNpVCVeamRx95wT14CGdBQ+nZ8SuKPOldl+2NZiyZSWBnTPrCNg95TkFnsKweCVOc2FjWoo
+	kL5Ie0io0BFhdIH4VGhBoCvJb60CY3sQ4q0B0OJe7vjY50pfDp0HTHq14pCDGsmc/Sqx1ZS2JuX
+	bIN0dGgeLIFenhUU35QiDpqTaCwe6czsz5kVrNFLqGuuj+Sxl7sCOOFPFJ6CWA0wySMRQXriH8+
+	KbMtRLRf1HHU=
+X-Received: by 2002:a05:6402:528f:b0:6b5:660b:70dd with SMTP id 4fb4d7f45d1cf-6b722484c1fmr3165155a12.21.1794235910318;
+        Mon, 09 Nov 2026 06:51:50 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721eedfd7sm1603106a12.31.2026.11.09.06.51.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 06:51:49 -0800 (PST)
+Date: Mon, 9 Nov 2026 15:51:49 +0100
+From: Amir Goldstein <amir73il@gmail.com>
+To: =?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
+Cc: Christian Brauner <brauner@kernel.org>, miklos@szeredi.hu,
+	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] ovl: disable nfs_export for same-sb lower layers
+ with different idmaps
+Message-ID: <avHeBTeJlQfrSIPa@amir-ThinkPad-T480>
+References: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20260920203239.2876221-3-Jeremy.Jean@oss.cyber.gouv.fr>
+ <CAOQ4uxhyc5x3LDzbJtRhQJ+JNQ-hES2k45jcxeGsfEWPB24TKA@mail.gmail.com>
+ <20260925-server-hager-riskieren-06116eded213@brauner>
+ <CAOQ4uxhdP4XeHfbKfOg+3XRF8oLhPMmbU9xHp7pV2w=snQk-+w@mail.gmail.com>
+ <5e8dff576ead72fa502b7cd38889e780@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,61 +104,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109014955.2777635-2-guozh23@xiaopeng.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5e8dff576ead72fa502b7cd38889e780@oss.cyber.gouv.fr>
 
-On Mon, Nov 09, 2026 at 09:49:55AM +0800, Guo Zihao wrote:
-> tpm_buf_check_hmac_response() decrypts the parameter area of a
-> response for sessions with TPM2_SA_ENCRYPT set:
+On Sun, Nov 08, 2026 at 08:12:49PM +0100, Jérémy Jean wrote:
+> On 2026-09-25 16:17, Amir Goldstein wrote:
+> > On Fri, Sep 25, 2026 at 3:51 PM Christian Brauner <brauner@kernel.org>
+> > wrote:
+> > > 
+> > > On Mon, Sep 21, 2026 at 10:10:28AM +0200, Amir Goldstein wrote:
+> > > > On Sun, Sep 20, 2026 at 10:33 PM Jérémy Jean
+> > > > <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+> > > > >
+> > > > > Overlay file handles identify a backing filesystem, but not the lower
+> > > > > mount used to decode it. If lower layers share a superblock and use
+> > > > > different idmaps, a file handle can decode through the wrong layer and
+> > > > > initialize the overlay inode with the wrong owner.
+> > > > >
+> > > > > Track the first lower idmap seen for each ovl_sb and disable nfs_export
+> > > > > when another lower layer on the same backing superblock uses a different
+> > > > > idmap. Keep index enabled: copy up starts from the overlay dentry selected
+> > > > > by lookup and does not need to decode a lower file handle through another
+> > > > > layer.
+> > > > >
+> > > > > Fixes: bc70682a497c ("ovl: support idmapped layers")
+> > > > > Assisted-by: Codex:gpt-5
+> > > > > Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> > > > > ---
+...
+> > > > > +/*
+> > > > > + * Lower file handles identify a lower fs, but not the mount whose idmap was
+> > > > > + * used to decode them.  Remember the first lower idmap seen for each fs so
+> > > > > + * decodable export handles can be disabled if another one appears.
+> > > 
+> > > I find this behavior counterintuitive. Shouldn't we just fail the
+> > > mount then?
+> > 
+> > I would love to fail the mount if you confirm that setting up an ovl
+> > with several
+> > lower layers some on the same fs with different idmap, is a non-feature.
+> > 
+> > I don't know can't /home/amir and /home/brauner be on the same fs with
+> > different idmapping?
+> > 
+> > Could it ever make sense to compose an overlay from two such
+> > directories?
+> > If not then I would gladly remove this setup from the test matrix.
+> > 
+> > Thanks,
+> > Amir.
 > 
-> 	len = tpm_buf_read_u16(buf, &offset_p);
-> 	aes_prepareenckey(&auth->aes_key, auth->scratch, AES_KEY_BYTES);
-> 	aescfb_decrypt(&auth->aes_key, &buf->data[offset_p],
-> 		       &buf->data[offset_p], len,
-> 		       auth->scratch + AES_KEY_BYTES);
+> Hello,
 > 
-> The length is read from the response itself and never checked
-> against the buffer: every other size taken from a session response
-> is compared to tpm_buf_length(), but not this one. A TPM that
-> reports an oversized parameter area makes aescfb_decrypt() walk
-> past the end of the buffer, and since the decryption is done in
-> place, this both reads and writes whatever follows the received
-> data.
-> 
-> Check that the encrypted parameters fit in the response before
-> decrypting them.
-> 
-> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
-> ---
-> 
-> v2: Drop the Fixes and Cc: stable tags, as suggested by Jarkko
-> Sakkinen: a TPM reporting an oversized parameter area is not known
-> to violate the TCG specification, so this is hardening rather
-> than a bug fix. No code changes.
-> 
->  drivers/char/tpm/tpm2-sessions.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-> index e140079dbc13..59c7fdc0c88e 100644
-> --- a/drivers/char/tpm/tpm2-sessions.c
-> +++ b/drivers/char/tpm/tpm2-sessions.c
-> @@ -872,6 +872,10 @@ int tpm_buf_check_hmac_response(struct tpm_chip *chip, struct tpm_buf *buf,
->  			  auth->scratch);
->  
->  		len = tpm_buf_read_u16(buf, &offset_p);
-> +		if (offset_p + len > tpm_buf_length(buf)) {
-> +			rc = -EINVAL;
-> +			goto out;
-> +		}
->  		aes_prepareenckey(&auth->aes_key, auth->scratch, AES_KEY_BYTES);
->  		aescfb_decrypt(&auth->aes_key, &buf->data[offset_p],
->  			       &buf->data[offset_p], len,
-> -- 
-> 2.50.1
-> 
+> I'm digging this up: should I investigate to prepare a new version that
+> simply fails the mount?
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Yes, please.
 
-Br, Jarkko
+Thanks,
+Amir.
