@@ -1,112 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234595;
-	b=P/Q+eII+4JRrVwSlQwMeQy0u0Ex02q/Mc+gIhWvxz7KmfNEWR/UNyBlSrJ2Kk7Q8ziGp
-	 avxwytj/ZVSllH/5GbutNnFljEs14HlXT/HQaxIoNm4zDByiEDxGQwyLID2hu22AvTw6y
-	 a04Gy16khv1QfxMJ+TNRvhFXnWVr/UpJ0fzrD/h9jmNOgcSOk6UTKOZbQHZ26LIxjQiOg
-	 iEKwaUCCgg1HhPX7mvtgSuIoflceUHt4fu+IYKDCBH8r5WjHsZ51bOYXeTuHVCDUeCZD6
-	 uhjbkRFtG2ciJauC611G70g6ylm8SR0R0WL8qnpOFr1sVR+NKDJi8cpqhQOXRqYA98w==
+	t=1794234614;
+	b=b+yTrVy3kalFa0Kcaq4YAWM/urgvwV7G8N8pI3qckPWdKpt9hrSUvk3AXUc4k8bsI9Aa
+	 28yoMqemVxG5iUe5nCR1X6m/JT5LMg/FW1ELpC4+2wMRo/REYMs64j99s2cTgVkdKT249
+	 wNV9KRjCfS2BZpn7l0IHqlaU0h3J/reGnXKj4MQmbmVep71zBIBuAmRQtJW7VYnNaYidh
+	 Gl887kZffElAyZ6Hv/dbWSX68qQSRP7CNlGhBZOQ5DWribai7+G3FIA7UlVszxYZbdw3r
+	 +eNmRhiFDMOBBdrRH/Ub22UclHGviu+eSAV9vTfSepSCmQxhDr6LvHfX6E5h7QsXpQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234595;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=;
-	b=PTZnra6U3N01SvA5hI4LBsf6IJUfEpzaqY0PyNNSCKeI+WhrNvz45GfPfXYUQEqGoR2m
-	 MPjeQkpqImMU6cdR/lpoXqVs44nyVm8jT2GjNWhKF3yXMvbJhJzF8/HujVgIO0CqGBBmr
-	 nQNhG9ZbL3yXaIbTc53k7mAdRB5g8BZhJy6soHw/xfUjvVMtbPl8zGOrPET0DCF+NAv6S
-	 G7fNeAz8ftCWfiqVidIBSTMJBdc0/5XZ04ErfIESyP5cxvcz1k48wG+JFoCNynmiWy/B0
-	 RRvnIvg3czESvqWixPbMIIbeHBmXQSPwHGJ4w0w5ikeOVMiEhPa7nKMgq5lsvIrWJCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234614;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=I/6OXbgLV4bCZUWKV0/koAsoiTh094pqrHlSP0k4YPc=;
+	b=LH8U+ltLD5xSlB5dolNt4JR4r+6hBn6z53HMpVeUaMNR+GvjvBpWtEnwz3jOWQr+Igbv
+	 A/2kgj4BGkkMlGXcxh4rC9lsEdr6PVQuofPyE7ET3WgDtcmDu/qB5rTI17zzb1ane4fno
+	 J5oyfs1Xp/zHD8hMZLqcMlAEAgitwAIaN45TWWKi0l+F8/9cND/W9AmVOPwFzBD1IZybC
+	 hXqrivX5ULfehcvmql3eM9V64TOQe0lFrzaGUxrOWBqdl/tuF6HSDf2u9e60Ty1DD7G+a
+	 LMrBooPJhu3RapUgPBAb7x+L9bYPklGty9IJ8FB0cPxR1oV2wWOn1f2kdmq76e2kHxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hsUSmamq;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KaRuyotC;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Gjh+K8CB;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dd43KXn4;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D8F606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:29:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5D8F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962BD606A336
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:30:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 962BD606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hsUSmamq;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KaRuyotC
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFESA4025867
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 14:29:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=; b=hsUSmamqp+4mG1SE
-	KUW3SAIjEc099jEXwvCQNZqDxsS3vQvHCjIM+5B3BoN7z7sqS7O7QrgeV88ZoJTh
-	mjt+RbmGUPGbyQGVrx+LoWEJuhY+eDxW8H7C3p4T+C55dPaQH0Z6d7ZimAalRx3q
-	BOF0MZB6HkO8jSfTK0Ra40Z6nvrkckSC9pa3mIFiYUS79qzRsS+2gqDcdYk80C07
-	/qLRjX7YjRhwcuTFP7yTF33rjKenqqsila2AURcFh0f2/poJv+Efmqvznmu9YSdj
-	v3MwHvujMgKbY0uKlOEDvlQCWK5VOPUg9Jje2gA6hpT4usmLQWJruPJXdSVohW1r
-	7fQ3og==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hua589bwy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:29:53 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7d2c5352d1eso30767137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:29:53 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Gjh+K8CB;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dd43KXn4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794234612;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I/6OXbgLV4bCZUWKV0/koAsoiTh094pqrHlSP0k4YPc=;
+	b=Gjh+K8CBtHRplJUjh8Z6lW55vteLw/9Cfmmob4fXONPeuzLIzivkKJlQCRyxcgT++kYVJ0
+	toYWOli8le+po3/VN0OMIXrY7S+DehqUdKu0WZ7mhX3dwwVBcFJcx/yCR4+ErXnkF5plZT
+	MgtzY7PjWYbRK2R2hdvqI7t6u9aa2kA=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-180-EpMm4xHsMRax1dj-G39kdg-1; Mon, 09 Nov 2026 09:30:11 -0500
+X-MC-Unique: EpMm4xHsMRax1dj-G39kdg-1
+X-Mimecast-MFC-AGG-ID: EpMm4xHsMRax1dj-G39kdg_1794234610
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so9504875e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:30:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794234592; x=1794839392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=;
-        b=KaRuyotCuCFrcyvYNPhSecTPgRBE5ZluStDX2v4stdKM1N/NEX9M0Bx0+rl5JZX7Lt
-         wV/aYv7XQbP7zkO0CE43aUt3OVYofm+Sy980jRRM1ydR/v4nahyVZakqlkFgzso4VS7P
-         0MaYjjruIP43L/mMGJFeh0qC5z4d6gz2ZmWl5SAqOcj6hWtTOGBVL6PW3yW3J2UONFuw
-         SvDEa+TxHOyzO+MtsN1wIBM+9y12bZHXcczljC6mHXurGG0E2vu2uWx+tAY1rubvvBLN
-         QPf5gXvNME/pa7VbH2B4z1BlfWAImbBOp3Wg2HgT3Zlk+s6ufT2D4VAopFTB98eVlHDj
-         rlpw==
+        d=redhat.com; s=google; t=1794234610; x=1794839410; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I/6OXbgLV4bCZUWKV0/koAsoiTh094pqrHlSP0k4YPc=;
+        b=dd43KXn4Wy1tYHjLd9a3rPrrv+UgG2J+eWe+fLmAlxk98/M0IFu3WKA8QurADR4kCk
+         AvoV2ea57h1fbdzNTEXULZ1LTeQW80Ewn5std7hx7eI7Ef2F9405Jwe47KF4JD5bc4Av
+         XtNS1k0LB6gEHlqO/gSgNE95zbODfcBJrmnYUQsDM2ytbH2M1GPMHCMZQQqa66GcfZk5
+         Ll8QaGrAf4wPtCHQu829NHJ0EGSRRnCwwhIXNoCg5CD8v5M4bRe/tlu0woD0dhK52s/u
+         kyiL6abg5nhUEVVYVcrC9tAQWCHEgXz/99Xp0OVbUrrm/sTCxYE0/azR0dzB9EunBA9x
+         pHkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794234592; x=1794839392;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=;
-        b=02dVsUOFzsNS+VAbo/ih+oRRDsBbr62R1uqz+PqJ/nDf/ilQaVro1IhUevlAFXC/vC
-         ENzQrhv4HwbzCW4rxGwkj/XJ7giOeBv9vjRUEUFCJz7PNl2cb7drNrPohrAAZwylOUKy
-         NGKAabGlQr7fktMsytJfgDQqtJMVzuhXeQux4+WZeJ146fSn5Xa14jtyNCJRLXOSEfBR
-         8X7i+jbtQkU8oJ9HbKtjOO8gthz5ZE2emoVqJwSei7exnBmfZVMsTo8js79s5p90Eaf/
-         OQMqSIwZpdMiTrW871s1viX5aY+VSMzTCpaMRo5Udt/QOBzOPQQW3Lby3XWajNzz9emf
-         p9eQ==
-X-Forwarded-Encrypted: i=1; AL+hErGnvxYWRVs94NP82/YcffDaj5RfCFLWauqrfSqF72VR8Z493o1q/MZJKXC267hKNdD0E2+Pt4eg/By5r1c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NeBn9X2SppMnRVGrAQ7caH1e9OI3mgQ9ECq867QrwgYH5iqtN
-	ieIxCc3WsKUBGJc4NFaaoVpDHM2c23m0prWOGDj4guCbAPzHYpa7fu+RXBmDfAnfalVTHF8VLf3
-	T/IOwAnn/QI4DHyS9q9KmIQBNfL+tSx9noJCbH2W/sCAuMBQcxGLSEgrr2H/KciVDr0VMNAoF8K
-	o=
-X-Gm-Gg: AYBFou3FTO2uU3IjC+y3N4MnUKE+vFjTrYo500bdmmZ96S3nsFoGHBMmbHOk14tS47y
-	H85fNd5byMqC9nCGwpURzsHvRf9pD9cOOcTwBnn0o+jv2rI33yqm2vDdMF2o9EdYJ5Ebvte4bvS
-	E9aT44hHEUKk++HlowWzJwUMWg/cN2a3MySiIgNO7Wc0guamxbL3E24/2SkJ65QZYPOixEhzcde
-	VOwqcOhTRBDvyUwZfXv1T2cIqPbl+Hqqp20aJpNH7IV4WhrjJGPd1KS2ds1yIc6f5WL+YPz98mG
-	RgV8Dc7wq5OACPBHcas5irXPVuVP4sTVWDhFMckVu0n3gzCfTdzTr8UGc3um84NEK1D5+HKMpek
-	p5XfhaeTDw+/U7FpGrJfm3n4ejarbhYwBGuPdbPDp/Z8GYRL+Y2I4be8kh6dFyIo3qhO+lQ==
-X-Received: by 2002:a05:6122:360d:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ece737a062mr963301e0c.4.1794234583912;
-        Mon, 09 Nov 2026 06:29:43 -0800 (PST)
-X-Received: by 2002:a05:6122:360d:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ece737a062mr963286e0c.4.1794234583423;
-        Mon, 09 Nov 2026 06:29:43 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a47515dsm173047166b.44.2026.11.09.06.29.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 06:29:42 -0800 (PST)
-Message-ID: <fd8b69b2-5487-4e99-a45e-d6c2ce9ae1f1@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 15:29:40 +0100
+        d=1e100.net; s=20260707; t=1794234610; x=1794839410;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I/6OXbgLV4bCZUWKV0/koAsoiTh094pqrHlSP0k4YPc=;
+        b=nKjz3qEHJdlJPvY8t8NwtCCOxOcCG3CXPYGWyvcqP8Dw3Z/5JrnGCqRLozSg7HJKiS
+         dXxD8JVD5QaN3NB4VN8nuFd93VTxAXUMXKlMDSzhCdETWyxWs5+TCsHx4UJlM3AnWHcP
+         7Va9LxL8XCI6TCQygAOjLmgX1JN6AFCbs1VTxbbfeuJVyUOJMWuQL5zq1mrcZnYxoaJk
+         fyNin+KpkmHDSLChwe0P30f/8+gf3Mvj1AAaVCpQfPPdp+BfSV0ERdALfGmu3GBO2Czy
+         6n58dHeYDsLSsrYtpgWaeE/55H1ZKJ4BQSDW1pVj/BJ/qnM74jNwBkogyG8fqmZ3z9LV
+         KJ0g==
+X-Forwarded-Encrypted: i=1; AL+hErFTgJDdhtcz7XR+a5EjIdmNap64dFQfRdLOJMzeXl4ih4AmTmJBWCF4B0VUy029WT388wgVl6IQcTTSnlU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AMdMMysXEUyl3PdPMcqshvu7DhM/AnsCnQHDYrVasj31s6Yx+
+	eeoMU7UtBAhPG5e3PPG+vSWvONkuCW/vQxeL+dj9dAk5qs9aXANssSWNhGu0uj67+klJbTuFJ6y
+	BPY9lOifr2a2g532dlWQwDugEbLGWfrJmJN896FLx+cDHcrUouFvodIt3noNWcPsPnw==
+X-Gm-Gg: AYBFou13/jqTw3Cy0Cyv4c9MoQ9jjhcH/HQeCSTdorw3VyK6kzLg+/2zOIUCy7bxuOD
+	JcxqznxFv/YSjsbx9sAMEQORVbrbhSRk8uJhjviG6nNkZrqTHRUC2ai9/gUZ2iDWs6oJoMKHcOD
+	TYOvImdiSWPyxWDfn3nPzKW/S8N3MDshqBPw+aXqtUqHhA28NZA0YUuxZgzwhttkN8+47Cf2JlK
+	hcpWRSJZ+ol+kqAiqQu0wahfYzYgcKo342U/bUWSigtPlsGcn4GZouUFen5jkfi64JUJuYBhN9T
+	RA6zXJAACAURNX3aCJeHgVADCUE3gtZTfCbwAvpfNL5R4/Cb3OI+30ZQ4udGN6teSzS/e0Xkwoc
+	ZlBSH2qw0nQZQhpUj91aY6ng0iQAD90h5cghvXRVjkt2cEa4t6LD4hQAD4OHc5PQ=
+X-Received: by 2002:a05:600c:1c09:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4b963c858d8mr92853735e9.31.1794234609915;
+        Mon, 09 Nov 2026 06:30:09 -0800 (PST)
+X-Received: by 2002:a05:600c:1c09:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4b963c858d8mr92852865e9.31.1794234609470;
+        Mon, 09 Nov 2026 06:30:09 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad610sm553074535e9.3.2026.11.09.06.30.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 06:30:08 -0800 (PST)
+Date: Mon, 9 Nov 2026 15:30:06 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 05/29] sched/deadline: Do not divide by zero active
+ CPUs of a root domain
+Message-ID: <avHY7oNeuvjsLT4I@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-6-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,147 +127,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 4/4] PCI: qcom: Implement shutdown() callback
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Jingoo Han <jingoohan1@gmail.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20261107-shutdown-v8-0-bf607c6429b0@oss.qualcomm.com>
- <20261107-shutdown-v8-4-bf607c6429b0@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261107-shutdown-v8-4-bf607c6429b0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1NyBTYWx0ZWRfXw9mSm1q4SnlN
- dwD/I2BdUY97bmq7rBiR1CQqzhaAm9LpKfpmdGJ8k3zYD5Uilnrw7+UZoNmLIUIZVJ19MnE9JH4
- eWT198RHqTZ2xy1qSp21+0xWQHQ+OoaCD3wTrxYwlX4J1edSSqdPHLM0+JyqzUmEFay1dK/iFZ4
- rjxCiqANw+80M4YziZUuWqWhdrBjXMmce//Aigj3tVboOWqw089bPmeU2GpqJaVjXL86L6oRJg5
- PHsG5uD8uEsLHdRiwJMMmrc9/sltA+xLBQaG/bOxt5qUyrppw7iGUTyPLeBEg7Sg6iuWRgDSvmy
- 3+0mLPqVl3HdxN51gskqNudEjhqz3TaDQx+TNDixa52uR7MD1jSz1SKNG+KZ3GPo/aZXc3WLAdM
- pRvXjuUrc8lGMun9WWY8887h9Tzr0fNYkkBqNDVRhPxeWUYjo76bYv3fwU181mievPwduI3+RRg
- SYmbzicZdhKVQlzgW8g==
-X-Proofpoint-ORIG-GUID: vv2O6GU-SToNflKc3AoKRF-Q3HK-id8i
-X-Proofpoint-GUID: vv2O6GU-SToNflKc3AoKRF-Q3HK-id8i
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1NyBTYWx0ZWRfX/TKWg11bu36a
- QFo00dYHAD/s4wREsx6Grj18Iouhsv5VkO8ExgzPwDZBDUsFxbFr1LgLRqQxCGOzCTJt763vHS7
- rM2wGZqiLDZZsX5XGqK3+d9c4RozOeE=
-X-Authority-Analysis: v=2.4 cv=C9V8WgP+ c=1 sm=1 tr=0 ts=6af1d8e1 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=mifKogskm1HCQoUnOUEA:9
- a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090057
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-6-mathieu.desnoyers@efficios.com>
 
-On 11/7/26 2:45 AM, Krishna Chaitanya Chundru wrote:
-> From: Manivannan Sadhasivam <mani@kernel.org>
+Hello,
+
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> __dl_sub() and __dl_add() divide by their cpus argument. Most callers
+> pass dl_bw_cpus(), the number of active CPUs of a root domain. That
+> number can be 0, and the division then traps.
 > 
-> PCIe host controllers should bring the link down cleanly before system
-> shutdown/reboot proceeds to remove power/clocks from the controller.
-> Without this, the link may still be up and endpoints still have
-> transactions in flight when power/clocks are cut, which can trip SMMU
-> translation faults or NoC protocol errors.
+> Commit daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl
+> tasks") added extra_bw, the bandwidth that deadline tasks can reclaim
+> on a runqueue. A change of a root domain's total_bw is shared by the
+> extra_bw of its active CPUs.
 > 
-> Reuse dw_pcie_suspend_noirq() in the shutdown path to force the link
-> into L2, putting it into D3cold.
+> During hotplug, a CPU sits in the default root domain, which can then
+> have no active CPU. This lasts from the rebuild in
+> sched_cpu_deactivate() to the offline, and from the online to
+> sched_cpu_activate(). A debugfs write to its fair server's runtime or
+> period divides there. Commit 4043f5498416 ("sched/deadline: Reject
+> debugfs dl_server writes for offline CPUs") refuses the write only once
+> the CPU is offline. A write of the same bandwidth passes admission in
+> the window. In 8-CPU VMs of v7.4-rc1, a loop of such writes oopses at
+> the first offline and online:
 > 
-> device_shutdown() runs with interrupts enabled, unlike suspend_noirq().
-> Mask the chained MSI IRQ(s) and the Global IRQ before tearing down the
-> link and clocks/PHY, since a late/spurious interrupt could otherwise
-> reach a handler that touches now-unclocked PARF/DBI registers. Use
-> dw_pcie_mask_msi() rather than dw_pcie_free_msi() so the MSI IRQ domain
-> and the MSI mappings held by downstream devices (which device_shutdown()
-> does not remove) are left intact.
+>   Oops: divide error: 0000 [#1] SMP NOPTI
+>   RIP: 0010:dl_server_apply_params+0x335/0x380
+>   Call Trace:
+>    sched_server_write_common.isra.0+0x1c0/0x260
+>    full_proxy_write+0x58/0x90
+>    vfs_write+0xcb/0x550
 > 
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> By reading, two other paths would divide by zero:
+> - inactive_task_timer(), for a task that left SCHED_DEADLINE or died,
+>   if its CPU went offline.
+> - sched_setattr(SCHED_DEADLINE) on a task asleep on an offline CPU,
+>   with admission control off.
+> 
+> Fix this in two places:
+> - Refuse the debugfs write while the runqueue is offline. The server's
+>   bandwidth is not counted then. rq->online is set under the runqueue
+>   lock when the CPU joins a root domain that counts it, after
+>   cpu_active() is set.
+> - With no active CPU, have __dl_sub() and __dl_add() change total_bw
+>   alone. This covers the other paths.
+> 
+> With this patch, the reproducer survives 20 rounds with no warning.
+> 
+> Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 > ---
->  drivers/pci/controller/dwc/pcie-qcom.c | 41 ++++++++++++++++++++++++++++++++++
->  1 file changed, 41 insertions(+)
+>  kernel/sched/deadline.c | 11 +++++++++--
+>  kernel/sched/debug.c    | 10 +++++++++-
+>  2 files changed, 18 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-> index d39753f0e724..c5b06db3b92a 100644
-> --- a/drivers/pci/controller/dwc/pcie-qcom.c
-> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
-> @@ -2046,6 +2046,9 @@ static int qcom_pcie_ecam_host_init(struct pci_config_window *cfg)
->  
->  	dw_pcie_msi_init(pp);
->  
-> +	/* Stash pci so qcom_pcie_shutdown() can mask the MSI IRQ(s) later */
-> +	platform_set_drvdata(to_platform_device(dev), pci);
-> +
->  	return devm_add_action_or_reset(dev, qcom_pci_free_msi, pp);
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index dfae08625342..b614d5fc1a1a 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
+>  	}
 >  }
 >  
-> @@ -2466,6 +2469,43 @@ static int qcom_pcie_probe(struct platform_device *pdev)
->  	return ret;
->  }
->  
-> +static void qcom_pcie_shutdown(struct platform_device *pdev)
-> +{
-> +	const struct qcom_pcie_cfg *pcie_cfg = of_device_get_match_data(&pdev->dev);
-> +	struct qcom_pcie *pcie = NULL;
-> +	struct dw_pcie *pci;
-> +
-> +	if (pcie_cfg && pcie_cfg->firmware_managed) {
-> +		/*
-> +		 * Firmware owns the link teardown and clock/PHY shutdown in
-> +		 * this mode; Linux only owns the chained MSI IRQ(s), which
-> +		 * still need to be masked off before shutdown proceeds.
-> +		 */
-> +		pci = platform_get_drvdata(pdev);
-
-Revisiting my older comment, we can still stash `pci` in drvdata regardless
-of the flavor and do `struct qcom_pcie *pcie = to_qcom_pcie(pci);` in
-places where we need it
-
-Konrad
-
-> +	} else {
-> +		pcie = platform_get_drvdata(pdev);
-> +		pci = pcie->pci;
-> +
-> +		if (pcie->global_irq)
-> +			disable_irq(pcie->global_irq);
-> +	}
-> +
-> +	if (pci->pp.use_imsi_rx)
-> +		dw_pcie_mask_msi(&pci->pp);
-> +
-> +	/*
-> +	 * In firmware-managed mode 'pcie' stays NULL and firmware owns the
-> +	 * link/clock teardown. Otherwise, skip if the controller is already
-> +	 * suspended (e.g. a prior resume failed), since dw_pcie_suspend_noirq()
-> +	 * would touch DBI registers with clocks/interconnects already off.
-> +	 */
-> +	if (pcie && !pcie->pci->suspended)
-> +		dw_pcie_suspend_noirq(pcie->pci, true);
-> +
-> +	pm_runtime_put_sync(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +}
-> +
->  static int qcom_pcie_suspend_noirq(struct device *dev)
+> +/*
+> + * Spread a change of total_bw over the extra_bw of the active CPUs of the
+> + * root domain. @cpus is their number. With no active CPU, as can happen
+> + * during CPU hotplug, change total_bw alone.
+> + */
+>  static inline
+>  void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
 >  {
->  	struct qcom_pcie *pcie;
-> @@ -2657,5 +2697,6 @@ static struct platform_driver qcom_pcie_driver = {
->  		.pm = &qcom_pcie_pm_ops,
->  		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
->  	},
-> +	.shutdown = qcom_pcie_shutdown,
->  };
->  builtin_platform_driver(qcom_pcie_driver);
-> 
+>  	dl_b->total_bw -= tsk_bw;
+> -	__dl_update(dl_b, (s32)tsk_bw / cpus);
+> +	if (cpus)
+> +		__dl_update(dl_b, (s32)tsk_bw / cpus);
+>  }
+>  
+>  static inline
+>  void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+>  {
+>  	dl_b->total_bw += tsk_bw;
+> -	__dl_update(dl_b, -((s32)tsk_bw / cpus));
+> +	if (cpus)
+> +		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+>  }
+>  
+>  static inline bool
+> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+> index e6a3b516c703..e0d6cd3bd607 100644
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -410,7 +410,15 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
+>  			return  -EINVAL;
+>  		}
+>  
+> -		if (!cpu_online(cpu_of(rq)))
+> +		/*
+> +		 * Refuse the write while the runqueue is offline. This
+> +		 * includes the windows where the CPU goes offline or comes
+> +		 * online. The root domain then does not count the server's
+> +		 * bandwidth, and may have no active CPU. rq->online is set
+> +		 * under this lock when the CPU joins a root domain that
+> +		 * counts it. cpu_active() is set before that.
+> +		 */
+> +		if (!rq->online)
+>  			return -EBUSY;
+
+This 2nd hunk complements and tightens 4043f54984161 ("sched/deadline:
+Reject debugfs dl_server writes for offline CPUs") which has Fixes:
+d741f297bcea ("sched/fair: Fair server interface"). Do we need both
+fixes (if that is allowed) or maybe we need to split this change in two
+(as this second part won't apply to old kernels w/o dl-servers)?
+
+Thanks,
+Juri
+
