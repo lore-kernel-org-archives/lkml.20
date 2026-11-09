@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.85
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794193060;
-	b=EoB25xrLyeop0VT7W3p7MC4FTBwVzd+3YQUo3ZYdR13V02ijrGHQGEX7xmoIptgzh7D5
-	 pSvdSrjeJJUc8kog85vT2YcnKq6FKJG0MdUMlHKycN5F5rc4TF7VDPXuYV2fcdRRKbh0a
-	 NDv/b0nSbAW8HYh1nTv2yGdpQXKHeEzln4LJNAfqtA7XaWHZZhHMiwGyIiEK64EbEgZoy
-	 R+Z1zQ0wi73DT1ztMNY1dxOBkOllP7UsjZTbHDVHv/6UYfdzzETYFlFkooQ5sJT/7AdWh
-	 1nO0dKdw5rGF76TxPEvaoFNVsj4CNbjZaKxEWUWUKPX7I32EKZcCqoR3x5fTMbRoTzQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193060;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=F/cKq6zN71WV1MJrIOLxWJ0XZrqIg7yqs3/MNpoYvB8=;
-	b=sQLvI5OC816atRWJHZfxP3X8MSrS/CytjSdJXH0blBxA4ZjFH3Md7uCSLtveksqRw5WW
-	 5lfWqYcC41xDLNiSzTs88dIQmHnq56NcuxY2xWtofsbzm9hJGWlWN5yngZeSVYqQhd7dp
-	 RfzDfc4IMXnlF/W05K8cq27WY8oikrPHDMLTUVDwQbVnLbvIgxPM2HqbbED/69tYt9OI5
-	 BGbd88CuPMlC+2dy1XTH5bu5Yya9QNZBBP/JQ3rALUNWkOjeqVdqxpIyg2y08pkCNpCB0
-	 uyQi4MVO5Q41plOmZn7+CxQ4ze2jL0YvsrMvzDYEeURbx4lKBED8XobjxXeipbJiGPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=b32z0FY1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.85
-Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022085.outbound.protection.outlook.com [40.107.193.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794193074;
+	b=sxr5ZwL8DzyXfzJuM5SIz6xB5PTJBaiPmy7wGTvnbUgXlIV9RcO4rcjhAzToTBow8Esa
+	 +bxnVBeNcMige/zX3QmpUKEQdZvaZai+LcERR2FcUg/kLtRI+Ou2PfWvO/wvu7GBaFF6g
+	 HgnkczUM68DB2xvfT9T97osHNcJ+fmt4zMocSQjim6EdrdkGJ0vyE0XDMbIdele9NhW1D
+	 q2UaeetJTanClR/a77m+rLXus5GpE4xRfXf+mpRseEWEsigBQbh4UhBVecNoM9vWi1D9L
+	 +EkPPCkiad02LoNkruPA0XX1uyLPOmwTmdPtzu+wkT1hyvuJw+w66RpbmpSK2vuymgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193074;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lozlDLGMrT/gL+voaOHtm4eMaFENRCN+XrnADYX5CgI=;
+	b=HZOE17SWkQcIMvy7lKNL6+AM49YBDhBINwBDtniBxVJtZIklxeP9Jfc3UcRP1wyFVZt/
+	 6iBFns269YJH79RuC5Cky/EfQxtvVkZZJSIFbK6nIbfhVJixg3EZHdLt+sVT8ooFuzHr4
+	 CXJGk23p2PoVW4OFhpK0co4NPC9TNk9rA2SjaclPkeWv6d1Mv3fXqNBhapzEk4KxBzTC8
+	 xUD6155FPtcJPqT+gZZhnStoparMSahK6Tcrhjbg+MjKOMcXAuY0pgYjzi0iZgNcRWYrI
+	 9wA0G0Vebspjd6pWcP+JpZak0nEcK2PHbuNfIT4CCbgU/2jn/cRKSTo9UhjzQiyg16w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.94
+Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C3E606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:57:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C3E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=b32z0FY1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dpliq+/SJSmVEVSYQZtQ/clfvzgm4i72SkPixPMraLe8zR4Xg34Adin0afPSyQjyPSfSX4dOzajow56+W6P+/pkLYhWcTM7pe95NZmbXD2SDvgkBZmz1JLeActxynXZgom99l2xOPHa24kL+nCS3F/UcmlH403apzaNwH1ENeyf5Gb3Uhg5TTvAvRHpgwVhem8W0/BojHEMd2eDBA+h7i/Q07VmOgwGoGD+rG6S7rkM/CTHxibS0PWg6plIdQ6Wyk0+g0rDmSWM2Al50tH7fMNFa67egD4QG+cWfp7p/84yXyVR1epCjh/SsqJ+DGP8tARFA0rY9o6F4LNjkbU4+Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F/cKq6zN71WV1MJrIOLxWJ0XZrqIg7yqs3/MNpoYvB8=;
- b=YQtrtJXL3kUG+IqNHuq4TY/sOPDSMD+74Sok2tdOiNzl7PHs+Mdi6bFTcccHqmE41eyuhZYweAbOf8CjqyqoBn4SLEiVSSMNZWDFlNRyzuXEcA/7ny+3gPhYsm2ZkQENP4jLQ6s40+IKRNMhU1NLN3xZiUYu8v9RabVuFYnHWC94lDzLCBW1Lb0xuLn+n9iWPX6fAPLmLFfG+vdjTXlQXE8bk66vkaFoSoirsttn9wf90Ed0DlMyxucX818pyqfQqC7cO58ZkiJVr3mofivLT5y8UtjrXzaDwIiKdQGNmvmm1kAZxumr2l5z1+m7H9v6OW0xjQd5WdZMGHtVby2SuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F/cKq6zN71WV1MJrIOLxWJ0XZrqIg7yqs3/MNpoYvB8=;
- b=b32z0FY1FrhiTC3c1xVmNJ2GDKBH8xwatPWyvDjAaIJbwNJ7t0EfFoUFMAUjHodQo05dyUluTQCFAhpdAsBY9x9FjP2/yAZTfE2ZFaKzUKdp1P+SjXHSTLuADcEoYRDEqfbAWKqBGRL2i2+qJvKDrLDC88qtLUx1CFnGeQJ9QdGpfj5jEOQybDIylBzH64liAaSi+soFAjiTNE4+9SE9cnWvOh328ioqw8Nnmly/iM50E9ZAEeOqXv7AbvsS+jGzoac4LbqhyETKMcoAxsiLtgfjLMTirMrK/YmSPaRQIaYPnh70+7u8/1Wmzp3mvlusPT/J6Iq31yXlq+HuR3s3MA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQ1PR01MB376387.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:c8::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 02:57:39 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 02:57:39 +0000
-Message-ID: <2b16a58d-09b8-4068-ad91-3aeed012bc9e@efficios.com>
-Date: Sun, 8 Nov 2026 21:57:38 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 21/29] cgroup/cpuset: Reserve the bandwidth in the root
- domain a task moves to
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-22-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-203956@kernel.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-203956@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0009.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::22) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB325606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:57:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB325606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bQlLi3pjQjNg07B3XdBXzAfYAXHL8wvePGlXaSV5fbk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794193069; v=1; x=1794797869;
+ b=X4tcFqyjSZuCM9fVCaQdosqMp6bpuolZ48GAnjnH5SnWiZSuKdUoU004/VyS1MP7KN+zTKgM
+ 1bHRAIUgGinMkiyfsd+cxe+QMSWe1fFtzKtx7pkWK35dfvH9/yVV0HOj5wCDcfyjmdItAEnMQUp
+ w+2Sd+UZlLWQz1IbOboWQYCc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 86d7e8d117da196a;
+	Mon, 09 Nov 2026 02:57:48 +0000
+X-Mizu-Trace-ID: 86d7e8d117da196a
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 06/14] sctp: annotate data-races around sctp sysctls
+Date: Mon,  9 Nov 2026 10:52:05 +0800
+Message-ID: <20261109025425.328445-7-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,105 +98,406 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB376387:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9221267a-f415-4ed6-4b00-08df3e0d370f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|5023799004|4143699003|56012099006|261021121427099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	MCW5X/0Vg4u0EvYc4j7HGe8zirpSjO42DjflGOpmlrwuGoCnpSgbLH3t47JyzacuuwUHzz2Q+0LWXKlsQkvDCBlOixDe6u4Uc3lC0NY70tcuWAAk65supWG6pjtUAdxBNs7vtuQKVsXrfe1cQHx1mPmCHJUfhROAkkJGiL/vx6HmEcg7bGRn7kjja5nCZ4+TXq7oDYn0BgPqNOJZ6GDzvmW08tA0R79zY2JSpUTNJg0D6jeqCHwDq8N3yAjJ2HJkVfpEcDi/nQaVuYG/6swRto7aDkg+UjMh21Li4WM7xOPRGlltUuW5BgRh86QZXTMfIjuGKQtwl8GqgdR1E8WghF7HEKeHTv/fsYaMF5b4LEknWPDRsZSOZuliUQvCLQHpPnolyjMVeret/RisDhdNjrJIYvXq3uOAvJ7+PQUn0iOB8YCN4axHe9HcGW14Ne6zF2JuHjUrJU7bV5Hmryn2Soi4Ld+xPLI2Z8rcnVsFRGjf7nqWyOOQkK52h9Otwo/i3mis29PMGBLHMYEayrJVStJNMgijtgJb6lYOkY0pVL84k/MdkAzcpNO8syMjXVIpsrJLO/VrYkLNr0N7jPfQreHNs9XjgyepWLotqzDXZ8E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(5023799004)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1p3NHY2bjlsZ2oyLzc3M0M2cGtMYVdqMkNHNFVVVmUzK1VQOThUN21hRERz?=
- =?utf-8?B?eU8rQ29IcUJwckk0L2ZJV2VnQ1pTdUdRMDNqUXJTWjVzQ0I5QUEzb0h1VEpC?=
- =?utf-8?B?enZrZmlscm5MM3QxUk9aT2xVSmRGV2dnYWVQc3IwbDV3MU1DTmNCYUJwVGh0?=
- =?utf-8?B?YVhXcWdSTExKWFpFVFQvUHFXaklwQjhEMCs4anBjVnhjZUU3dzQ5am9QZFda?=
- =?utf-8?B?Q1VXUGsrUWlrNG13M05xNGVmNU5sTS9lOXBkZFVWeWRoNmNBUW9SVFJKSXpC?=
- =?utf-8?B?bTBsUEh1Z0U5N0N6R3MxdHowa3lIeUpyVndVdm14Q0p5WFNZeUcxRWJ5TjhT?=
- =?utf-8?B?dlB1Q2I3Zi9UbTJTS2tLUEhEZjIxVzhXelBGY1lNVVF4eUxQV3FSTGlCUnBK?=
- =?utf-8?B?TlpHeWRrSTN5a3ZFNnVsaGsrUHN0WU8yMTZpVy9zbld5d3E2c0dHbSsyMDll?=
- =?utf-8?B?YkpSY2JPNnlCVDRWd1ZMcVg3MmQvZ0J2SDNxWmhRUjZ6czlZc2Q1b0JmK3Vi?=
- =?utf-8?B?cExqcWNJdFlsOXR4T05tS1JNSDBKQm5NMTR5S3hoTUEwUDNLdnVDSDFmVW1p?=
- =?utf-8?B?VEN3ZW01RzJFY1UxVTBCciswRnF5MS9Ta0Iyc3RhQ0xFVlduTEcvYlVkVTVX?=
- =?utf-8?B?RzMvK1I5TkxNZ2V6dURDbXhqWUdER1dMb1A0REpxMHVOdCsyTFVpc2hsai9Z?=
- =?utf-8?B?SXc5c2piUEFyNkRmSFVWVldNakoxRWtlMTJ4UTFyb1gvMHRWdDFsVzluUmNp?=
- =?utf-8?B?M3hYd1pWM3dMYjVDVDZRSGpya1VvOTlmcFk4ZmV1QThjZlJRTFhlaHVNVnpJ?=
- =?utf-8?B?WXg3TWVrRlZYL3FqcTNoNGx3dXFqRlJUcTFrQjdoTnBKQW4zOStteWJwRGV0?=
- =?utf-8?B?SU51WmI0UjVwNWNuQkg4ZkpjMDFObVIwUmRRWURGc1N0WEhjYmY4N3Z2L3JV?=
- =?utf-8?B?VzR5c29GQk13eFFEeW92MzFxK0lPR2VlSUFEbjRzTmE5V3F1ZVNLa0lxSE1X?=
- =?utf-8?B?MjVhbTM0UG9IK0k5a3hidW1BV3FBaFYxdWVsYSsvb09MMm9MSzR2azBwQlBi?=
- =?utf-8?B?M1lDOGJZZ01OYURydkdMbDdxR0tsTitxbXZDaDFlbnVEQWtqK1pxUDZWVDQv?=
- =?utf-8?B?MldFTXVmTFljU2t6NlJxN1A5NDZOWW8rZnhWZ0c3dGg5UktmbFp2eG5raXBo?=
- =?utf-8?B?Vm0vdjJrUDJNTCtkWlNDWWFCSCs5UzlSOTJDZHNpM1MvTTU2ZGxRWnpMTHVr?=
- =?utf-8?B?eGRyaXBhQ3FOQTFvT2hPWmhBbGMyMWtPclBrcXYzWlRpbk1ZREo4QjB2QzBS?=
- =?utf-8?B?RlJEc0ltSlR0N1g4M1M1VVptbDNuYThybVJBMlE2Yk5HeUVFS2FCUzQzV1Jr?=
- =?utf-8?B?aVBMRWNpK3d6RlN6S1dISWg2dmVuamxlU3FEb3lrMjQxKytBSUtFVEFVQjJB?=
- =?utf-8?B?QWlSMldJMWo5VVcyajVORHZCcUZoSlVGMkU0YnFmN21jK1hpRUFWS2lCaUYy?=
- =?utf-8?B?UFBrQWp4R1RrSkdzSXNJUkFLMjBjU0pMNEc3Q3JPKytacDVMa3RITjBTWTdU?=
- =?utf-8?B?QlEvMHBDemR1VTQvYkZNZ3ozTzFNVTlTSXRKSzlraUpsOW50TC9xekRncDhj?=
- =?utf-8?B?MXJOdUIvU1pkclkwM1grbXdqWHpPME9DZHIvV3E2T2dJbkVxZGgvVWxZMWNM?=
- =?utf-8?B?VjB6ZC94QlhUbyswb29GMTBOWGFpc3M2UEdKSVBZTHlPODNqRWhWK1gzZkJO?=
- =?utf-8?B?V2Y1aEJjRXlnc3l2T0FPSjBwc0xvV1hta3ZRY0RBSkcwOUk2UVZuc2hrZDBZ?=
- =?utf-8?B?Ylp1REZIK3hRM0dPaEd6THJNdnJ5dk8ycnFGNFJjV3NuTmIrdjNERUI5TkVI?=
- =?utf-8?B?S2FGVlRMckpQNDVqZ0hDRUwwR1lSbWNTS3ZRd0FrQjI5c01CNlo1ckUwZ0RV?=
- =?utf-8?B?U01UZWU5RDUrVHp6TWdmVzE5Q3hrVmR3cnErZXI1QUw4VXZTL0ZQT04ySFFr?=
- =?utf-8?B?aEtlQ0FOWm5vcGJoeERUMDZXbDdOeGh1SjVIOVFkWDdIY0l0MlhJdnowRGEy?=
- =?utf-8?B?SjJLRmhBbnJRbnRiZ09pTXppOWZPclkzNkc0N20zQkNtTUY2bS9iQlpjUll4?=
- =?utf-8?B?V3hEWHlOa3VTRmtPbnhIaFcxTzdxRFdZWTllZXl2REtIMUFTNnU0Y0FwRUZs?=
- =?utf-8?B?eEExNWJBTjlNYllMeFdyb1lrRSs0SGJuOFhBd0ZkWlkxbDdUazJFMngxODZz?=
- =?utf-8?B?NUFVS1VBVkpUbG9aTFRyV0xvdk5zc0ZGK2RVVkhpQXFLUm5CMVhxbWtJUmJD?=
- =?utf-8?B?ckpqRmIyL01vWlFDb3d0Y0ZEN0RVTzF6U3dPd0o0dFZwWXh1RTFpZUJNVVZ3?=
- =?utf-8?Q?z5E9qQC1n56vl7A8lsh8oOkp3lNPqJq2VSfQQcOKTiQHw?=
-X-MS-Exchange-AntiSpam-MessageData-1: cmAdjGYBJMVWZYshrwB3ddgwGKGwdfVUXIc=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9221267a-f415-4ed6-4b00-08df3e0d370f
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 02:57:38.9717
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rEylDRYMA7sqigVJmugpr+lp15K8fzE5US7sDtNp0C7wYcSpXToFZYdeCO+bsO0gyEDyG8GAPlZnxyQl/AYYVVZtZigwdiQ9k8xlvt9dxyc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB376387
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-08 14:32, sashiko-bot@kernel.org wrote:
- > equal cpumask early exit skips set_cpus_allowed_dl()
+rto_min, rto_max, rto_initial, hb_interval, sack_timeout,
+valid_cookie_life, max_burst, max_retrans_path, max_retrans_association,
+max_retrans_init, pf_retrans, ps_retrans, pf_expose, pf_enable, udp_port,
+encap_port, probe_interval, addip_enable, addip_noauth, auth_enable,
+default_auto_asconf, prsctp_enable, reconf_enable, ecn_enable,
+intl_enable, cookie_auth_enable, cookie_preserve_enable, sndbuf_policy,
+rcvbuf_policy, rwnd_upd_shift, scope_policy and max_autoclose can be
+read concurrently with the sysctl handlers that update them, and the
+rto_min, rto_max, udp_port, probe_interval, auth_enable and
+cookie_hmac_alg handlers store them with plain writes. Add READ_ONCE() to
+the readers and WRITE_ONCE() to those handlers.
 
-This is the early exit of __set_cpus_allowed_ptr_locked(), as on patch
-18. The next version skips it for an attach that reserved the bandwidth.
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/sctp/associola.c     |  2 +-
+ net/sctp/bind_addr.c     |  2 +-
+ net/sctp/endpointola.c   | 14 ++++++------
+ net/sctp/input.c         |  2 +-
+ net/sctp/sm_make_chunk.c |  6 +++---
+ net/sctp/sm_sideeffect.c |  2 +-
+ net/sctp/sm_statefuns.c  |  6 +++---
+ net/sctp/socket.c        | 46 +++++++++++++++++++++-------------------
+ net/sctp/sysctl.c        | 16 +++++++-------
+ net/sctp/transport.c     |  6 +++---
+ 10 files changed, 52 insertions(+), 50 deletions(-)
 
- > __dl_task_bw_move_cpu() skips move on spanning cpumask
-
-The attach reserves nothing here, by design: the root domain that counts
-the task stays in the mask. If the task then has to leave its CPU and
-lands in the other root domain, migrate_task_rq_dl() moves the bandwidth
-there (patch 23). So total_bw stays right. What is skipped is the room
-check in the root domain it lands in. That is the same for every move
-without a reservation, as patch 23 says. The next version states it in
-this patch's message.
-
- > per-CPU reservation mismatch when task_cpu() changes
-
-Thanks. The window is real: a wakeup between can_attach() and attach()
-can move a sleeper, and the reservation is then not used. But the
-bandwidth does not stay in the partition. The task's CPU is out of its
-new mask, so migrate_task_rq_dl() moves the bandwidth when the task
-leaves it. total_bw ends right. What is lost is the admission, in the
-root domain the task lands in. It differs from the one reserved only
-when the destination spans two root domains. This is the same as for a
-task that changed its affinity or its policy in that window, so I leave
-it as is.
-
-Thanks,
-
-Mathieu
-
+diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+index 4521be3bd85aa..0a814faaea601 100644
+--- a/net/sctp/associola.c
++++ b/net/sctp/associola.c
+@@ -1454,7 +1454,7 @@ static inline bool sctp_peer_needs_update(struct sctp_association *asoc)
+ 	case SCTP_STATE_SHUTDOWN_SENT:
+ 		if ((asoc->rwnd > asoc->a_rwnd) &&
+ 		    ((asoc->rwnd - asoc->a_rwnd) >= max_t(__u32,
+-			   (asoc->base.sk->sk_rcvbuf >> net->sctp.rwnd_upd_shift),
++			   (asoc->base.sk->sk_rcvbuf >> READ_ONCE(net->sctp.rwnd_upd_shift)),
+ 			   asoc->pathmtu)))
+ 			return true;
+ 		break;
+diff --git a/net/sctp/bind_addr.c b/net/sctp/bind_addr.c
+index 31737f144c7f0..36cea9ae2ad18 100644
+--- a/net/sctp/bind_addr.c
++++ b/net/sctp/bind_addr.c
+@@ -530,7 +530,7 @@ int sctp_in_scope(struct net *net, const union sctp_addr *addr,
+ 	 * Address scoping can be selectively controlled via sysctl
+ 	 * option
+ 	 */
+-	switch (net->sctp.scope_policy) {
++	switch (READ_ONCE(net->sctp.scope_policy)) {
+ 	case SCTP_SCOPE_POLICY_DISABLE:
+ 		return 1;
+ 	case SCTP_SCOPE_POLICY_ENABLE:
+diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
+index a15b599b20b76..49d9c5c0babc1 100644
+--- a/net/sctp/endpointola.c
++++ b/net/sctp/endpointola.c
+@@ -54,8 +54,8 @@ static struct sctp_endpoint *sctp_endpoint_init(struct sctp_endpoint *ep,
+ 	struct net *net = sock_net(sk);
+ 	struct sctp_shared_key *null_key;
+ 
+-	ep->asconf_enable = net->sctp.addip_enable;
+-	ep->auth_enable = net->sctp.auth_enable;
++	ep->asconf_enable = READ_ONCE(net->sctp.addip_enable);
++	ep->auth_enable = READ_ONCE(net->sctp.auth_enable);
+ 	if (ep->auth_enable) {
+ 		if (sctp_auth_init(ep, gfp))
+ 			goto nomem;
+@@ -86,14 +86,14 @@ static struct sctp_endpoint *sctp_endpoint_init(struct sctp_endpoint *ep,
+ 	INIT_LIST_HEAD(&ep->asocs);
+ 
+ 	/* Use SCTP specific send buffer space queues.  */
+-	ep->sndbuf_policy = net->sctp.sndbuf_policy;
++	ep->sndbuf_policy = READ_ONCE(net->sctp.sndbuf_policy);
+ 
+ 	sk->sk_data_ready = sctp_data_ready;
+ 	sk->sk_write_space = sctp_write_space;
+ 	sock_set_flag(sk, SOCK_USE_WRITE_QUEUE);
+ 
+ 	/* Get the receive buffer policy for this endpoint */
+-	ep->rcvbuf_policy = net->sctp.rcvbuf_policy;
++	ep->rcvbuf_policy = READ_ONCE(net->sctp.rcvbuf_policy);
+ 
+ 	/* Generate the cookie authentication key. */
+ 	gen_cookie_auth_key(&ep->cookie_auth_key);
+@@ -109,9 +109,9 @@ static struct sctp_endpoint *sctp_endpoint_init(struct sctp_endpoint *ep,
+ 	/* Add the null key to the endpoint shared keys list and
+ 	 * set the hmcas and chunks pointers.
+ 	 */
+-	ep->prsctp_enable = net->sctp.prsctp_enable;
+-	ep->reconf_enable = net->sctp.reconf_enable;
+-	ep->ecn_enable = net->sctp.ecn_enable;
++	ep->prsctp_enable = READ_ONCE(net->sctp.prsctp_enable);
++	ep->reconf_enable = READ_ONCE(net->sctp.reconf_enable);
++	ep->ecn_enable = READ_ONCE(net->sctp.ecn_enable);
+ 
+ 	/* Remember who we are attached to.  */
+ 	ep->base.sk = sk;
+diff --git a/net/sctp/input.c b/net/sctp/input.c
+index 9494cfa51106c..ecff82c0d5539 100644
+--- a/net/sctp/input.c
++++ b/net/sctp/input.c
+@@ -1276,7 +1276,7 @@ static struct sctp_association *__sctp_rcv_walk_lookup(struct net *net,
+ 			break;
+ 
+ 		case SCTP_CID_ASCONF:
+-			if (have_auth || net->sctp.addip_noauth)
++			if (have_auth || READ_ONCE(net->sctp.addip_noauth))
+ 				asoc = __sctp_rcv_asconf_lookup(
+ 						net, ch, laddr,
+ 						sctp_hdr(skb)->source,
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 90de272842512..43a757d4a69e7 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -2038,7 +2038,7 @@ static int sctp_verify_ext_param(struct net *net,
+ 	 * only if ADD-IP is turned on and we are not backward-compatible
+ 	 * mode.
+ 	 */
+-	if (net->sctp.addip_noauth)
++	if (READ_ONCE(net->sctp.addip_noauth))
+ 		return 1;
+ 
+ 	if (ep->asconf_enable && !have_auth && have_asconf)
+@@ -2425,7 +2425,7 @@ int sctp_process_init(struct sctp_association *asoc, struct sctp_chunk *chunk,
+ 	 * also give us an option to silently ignore the packet, which
+ 	 * is what we'll do here.
+ 	 */
+-	if (!asoc->base.net->sctp.addip_noauth &&
++	if (!READ_ONCE(asoc->base.net->sctp.addip_noauth) &&
+ 	    (asoc->peer.asconf_capable && !asoc->peer.auth_capable)) {
+ 		asoc->peer.addip_disabled_mask |= (SCTP_PARAM_ADD_IP |
+ 						  SCTP_PARAM_DEL_IP |
+@@ -2583,7 +2583,7 @@ static int sctp_process_param(struct sctp_association *asoc,
+ 		break;
+ 
+ 	case SCTP_PARAM_COOKIE_PRESERVATIVE:
+-		if (!net->sctp.cookie_preserve_enable)
++		if (!READ_ONCE(net->sctp.cookie_preserve_enable))
+ 			break;
+ 
+ 		stale = ntohl(param.life->lifespan_increment);
+diff --git a/net/sctp/sm_sideeffect.c b/net/sctp/sm_sideeffect.c
+index 35f540fb15fc1..01ee6c3dd441a 100644
+--- a/net/sctp/sm_sideeffect.c
++++ b/net/sctp/sm_sideeffect.c
+@@ -591,7 +591,7 @@ static void sctp_do_8_2_transport_strike(struct sctp_cmd_seq *commands,
+ 	 * is SCTP_ACTIVE, then mark this transport as Partially Failed,
+ 	 * see SCTP Quick Failover Draft, section 5.1
+ 	 */
+-	if (asoc->base.net->sctp.pf_enable &&
++	if (READ_ONCE(asoc->base.net->sctp.pf_enable) &&
+ 	    transport->state == SCTP_ACTIVE &&
+ 	    transport->error_count < transport->pathmaxrxt &&
+ 	    transport->error_count > transport->pf_retrans) {
+diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
+index b2f609f177fb9..b6b95972eea9a 100644
+--- a/net/sctp/sm_statefuns.c
++++ b/net/sctp/sm_statefuns.c
+@@ -653,7 +653,7 @@ static bool sctp_auth_chunk_verify(struct net *net, struct sctp_chunk *chunk,
+ 	 */
+ 
+ 	/* Make sure that we and the peer are AUTH capable */
+-	if (!net->sctp.auth_enable || !asoc->peer.auth_capable)
++	if (!READ_ONCE(net->sctp.auth_enable) || !asoc->peer.auth_capable)
+ 		return false;
+ 
+ 	/* set-up our fake chunk so that we can process it */
+@@ -3944,7 +3944,7 @@ enum sctp_disposition sctp_sf_do_asconf(struct net *net,
+ 	 * described in [I-D.ietf-tsvwg-sctp-auth].
+ 	 */
+ 	if (!asoc->peer.asconf_capable ||
+-	    (!net->sctp.addip_noauth && !chunk->auth))
++	    (!READ_ONCE(net->sctp.addip_noauth) && !chunk->auth))
+ 		return sctp_sf_pdiscard(net, ep, asoc, type, arg, commands);
+ 
+ 	hdr = (struct sctp_addiphdr *)chunk->skb->data;
+@@ -4087,7 +4087,7 @@ enum sctp_disposition sctp_sf_do_asconf_ack(struct net *net,
+ 	 * described in [I-D.ietf-tsvwg-sctp-auth].
+ 	 */
+ 	if (!asoc->peer.asconf_capable ||
+-	    (!net->sctp.addip_noauth && !asconf_ack->auth))
++	    (!READ_ONCE(net->sctp.addip_noauth) && !asconf_ack->auth))
+ 		return sctp_sf_pdiscard(net, ep, asoc, type, arg, commands);
+ 
+ 	addip_hdr = (struct sctp_addiphdr *)asconf_ack->skb->data;
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index b5a57f61ee6d1..715ecc25b2866 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -403,7 +403,7 @@ static void sctp_auto_asconf_init(struct sctp_sock *sp)
+ {
+ 	struct net *net = sock_net(&sp->inet.sk);
+ 
+-	if (net->sctp.default_auto_asconf) {
++	if (READ_ONCE(net->sctp.default_auto_asconf)) {
+ 		spin_lock_bh(&net->sctp.addr_wq_lock);
+ 		list_add_tail(&sp->auto_asconf_list, &net->sctp.auto_asconf_splist);
+ 		spin_unlock_bh(&net->sctp.addr_wq_lock);
+@@ -2326,6 +2326,7 @@ static int sctp_setsockopt_autoclose(struct sock *sk, u32 *optval,
+ {
+ 	struct sctp_sock *sp = sctp_sk(sk);
+ 	struct net *net = sock_net(sk);
++	unsigned long max_autoclose;
+ 
+ 	/* Applicable to UDP-style socket only */
+ 	if (sctp_style(sk, TCP))
+@@ -2333,9 +2334,10 @@ static int sctp_setsockopt_autoclose(struct sock *sk, u32 *optval,
+ 	if (optlen != sizeof(int))
+ 		return -EINVAL;
+ 
++	max_autoclose = READ_ONCE(net->sctp.max_autoclose);
+ 	sp->autoclose = *optval;
+-	if (sp->autoclose > net->sctp.max_autoclose)
+-		sp->autoclose = net->sctp.max_autoclose;
++	if (sp->autoclose > max_autoclose)
++		sp->autoclose = max_autoclose;
+ 
+ 	return 0;
+ }
+@@ -4296,7 +4298,7 @@ static int sctp_setsockopt_interleaving_supported(struct sock *sk,
+ 	if (!asoc && p->assoc_id != SCTP_FUTURE_ASSOC && sctp_style(sk, UDP))
+ 		return -EINVAL;
+ 
+-	if (!sock_net(sk)->sctp.intl_enable || !sp->frag_interleave) {
++	if (!READ_ONCE(sock_net(sk)->sctp.intl_enable) || !sp->frag_interleave) {
+ 		return -EPERM;
+ 	}
+ 
+@@ -5098,9 +5100,9 @@ static int sctp_init_sock(struct sock *sk)
+ 	sp->default_timetolive = 0;
+ 
+ 	sp->default_rcv_context = 0;
+-	sp->max_burst = net->sctp.max_burst;
++	sp->max_burst = READ_ONCE(net->sctp.max_burst);
+ 
+-	sp->cookie_auth_enable = net->sctp.cookie_auth_enable;
++	sp->cookie_auth_enable = READ_ONCE(net->sctp.cookie_auth_enable);
+ 
+ 	/* Initialize default setup parameters. These parameters
+ 	 * can be modified with the SCTP_INITMSG socket option or
+@@ -5108,24 +5110,24 @@ static int sctp_init_sock(struct sock *sk)
+ 	 */
+ 	sp->initmsg.sinit_num_ostreams   = sctp_max_outstreams;
+ 	sp->initmsg.sinit_max_instreams  = sctp_max_instreams;
+-	sp->initmsg.sinit_max_attempts   = net->sctp.max_retrans_init;
+-	sp->initmsg.sinit_max_init_timeo = net->sctp.rto_max;
++	sp->initmsg.sinit_max_attempts   = READ_ONCE(net->sctp.max_retrans_init);
++	sp->initmsg.sinit_max_init_timeo = READ_ONCE(net->sctp.rto_max);
+ 
+ 	/* Initialize default RTO related parameters.  These parameters can
+ 	 * be modified for with the SCTP_RTOINFO socket option.
+ 	 */
+-	sp->rtoinfo.srto_initial = net->sctp.rto_initial;
+-	sp->rtoinfo.srto_max     = net->sctp.rto_max;
+-	sp->rtoinfo.srto_min     = net->sctp.rto_min;
++	sp->rtoinfo.srto_initial = READ_ONCE(net->sctp.rto_initial);
++	sp->rtoinfo.srto_max     = READ_ONCE(net->sctp.rto_max);
++	sp->rtoinfo.srto_min     = READ_ONCE(net->sctp.rto_min);
+ 
+ 	/* Initialize default association related parameters. These parameters
+ 	 * can be modified with the SCTP_ASSOCINFO socket option.
+ 	 */
+-	sp->assocparams.sasoc_asocmaxrxt = net->sctp.max_retrans_association;
++	sp->assocparams.sasoc_asocmaxrxt = READ_ONCE(net->sctp.max_retrans_association);
+ 	sp->assocparams.sasoc_number_peer_destinations = 0;
+ 	sp->assocparams.sasoc_peer_rwnd = 0;
+ 	sp->assocparams.sasoc_local_rwnd = 0;
+-	sp->assocparams.sasoc_cookie_life = net->sctp.valid_cookie_life;
++	sp->assocparams.sasoc_cookie_life = READ_ONCE(net->sctp.valid_cookie_life);
+ 
+ 	/* Initialize default event subscriptions. By default, all the
+ 	 * options are off.
+@@ -5135,15 +5137,15 @@ static int sctp_init_sock(struct sock *sk)
+ 	/* Default Peer Address Parameters.  These defaults can
+ 	 * be modified via SCTP_PEER_ADDR_PARAMS
+ 	 */
+-	sp->hbinterval  = net->sctp.hb_interval;
+-	sp->udp_port    = htons(net->sctp.udp_port);
+-	sp->encap_port  = htons(net->sctp.encap_port);
+-	sp->pathmaxrxt  = net->sctp.max_retrans_path;
+-	sp->pf_retrans  = net->sctp.pf_retrans;
+-	sp->ps_retrans  = net->sctp.ps_retrans;
+-	sp->pf_expose   = net->sctp.pf_expose;
++	sp->hbinterval  = READ_ONCE(net->sctp.hb_interval);
++	sp->udp_port    = htons(READ_ONCE(net->sctp.udp_port));
++	sp->encap_port  = htons(READ_ONCE(net->sctp.encap_port));
++	sp->pathmaxrxt  = READ_ONCE(net->sctp.max_retrans_path);
++	sp->pf_retrans  = READ_ONCE(net->sctp.pf_retrans);
++	sp->ps_retrans  = READ_ONCE(net->sctp.ps_retrans);
++	sp->pf_expose   = READ_ONCE(net->sctp.pf_expose);
+ 	sp->pathmtu     = 0; /* allow default discovery */
+-	sp->sackdelay   = net->sctp.sack_timeout;
++	sp->sackdelay   = READ_ONCE(net->sctp.sack_timeout);
+ 	sp->sackfreq	= 2;
+ 	sp->param_flags = SPP_HB_ENABLE |
+ 			  SPP_PMTUD_ENABLE |
+@@ -5182,7 +5184,7 @@ static int sctp_init_sock(struct sock *sk)
+ 	atomic_set(&sp->pd_mode, 0);
+ 	skb_queue_head_init(&sp->pd_lobby);
+ 	sp->frag_interleave = 0;
+-	sp->probe_interval = net->sctp.probe_interval;
++	sp->probe_interval = READ_ONCE(net->sctp.probe_interval);
+ 
+ 	/* Create a per socket endpoint structure.  Even if we
+ 	 * change the data structure relationships, this may still
+diff --git a/net/sctp/sysctl.c b/net/sctp/sysctl.c
+index 2b94c211427de..8a84ae3272d24 100644
+--- a/net/sctp/sysctl.c
++++ b/net/sctp/sysctl.c
+@@ -402,11 +402,11 @@ static int proc_sctp_do_hmac_alg(const struct ctl_table *ctl, int write,
+ 		if (ret)
+ 			return ret;
+ 		if (!strcmp(tmp, "sha256")) {
+-			net->sctp.cookie_auth_enable = 1;
++			WRITE_ONCE(net->sctp.cookie_auth_enable, 1);
+ 			return 0;
+ 		}
+ 		if (!strcmp(tmp, "none")) {
+-			net->sctp.cookie_auth_enable = 0;
++			WRITE_ONCE(net->sctp.cookie_auth_enable, 0);
+ 			return 0;
+ 		}
+ 		return -EINVAL;
+@@ -441,7 +441,7 @@ static int proc_sctp_do_rto_min(const struct ctl_table *ctl, int write,
+ 		if (new_value > max || new_value < min)
+ 			return -EINVAL;
+ 
+-		net->sctp.rto_min = new_value;
++		WRITE_ONCE(net->sctp.rto_min, new_value);
+ 	}
+ 
+ 	return ret;
+@@ -469,7 +469,7 @@ static int proc_sctp_do_rto_max(const struct ctl_table *ctl, int write,
+ 		if (new_value > max || new_value < min)
+ 			return -EINVAL;
+ 
+-		net->sctp.rto_max = new_value;
++		WRITE_ONCE(net->sctp.rto_max, new_value);
+ 	}
+ 
+ 	return ret;
+@@ -504,7 +504,7 @@ static int proc_sctp_do_auth(const struct ctl_table *ctl, int write,
+ 	if (write && ret == 0) {
+ 		struct sock *sk = net->sctp.ctl_sock;
+ 
+-		net->sctp.auth_enable = new_value;
++		WRITE_ONCE(net->sctp.auth_enable, new_value);
+ 		/* Update the value in the control socket */
+ 		lock_sock(sk);
+ 		sctp_sk(sk)->ep->auth_enable = new_value;
+@@ -541,12 +541,12 @@ static int proc_sctp_do_udp_port(const struct ctl_table *ctl, int write,
+ 			return -EINVAL;
+ 
+ 		mutex_lock(&sctp_sysctl_mutex);
+-		net->sctp.udp_port = new_value;
++		WRITE_ONCE(net->sctp.udp_port, new_value);
+ 		sctp_udp_sock_stop(net);
+ 		if (new_value) {
+ 			ret = sctp_udp_sock_start(net);
+ 			if (ret)
+-				net->sctp.udp_port = 0;
++				WRITE_ONCE(net->sctp.udp_port, 0);
+ 		}
+ 
+ 		/* Update the value in the control socket */
+@@ -580,7 +580,7 @@ static int proc_sctp_do_probe_interval(const struct ctl_table *ctl, int write,
+ 		if (new_value && new_value < SCTP_PROBE_TIMER_MIN)
+ 			return -EINVAL;
+ 
+-		net->sctp.probe_interval = new_value;
++		WRITE_ONCE(net->sctp.probe_interval, new_value);
+ 	}
+ 
+ 	return ret;
+diff --git a/net/sctp/transport.c b/net/sctp/transport.c
+index 6ea55b9fbde45..78b87e1b7e64b 100644
+--- a/net/sctp/transport.c
++++ b/net/sctp/transport.c
+@@ -55,7 +55,7 @@ static void sctp_transport_init(struct net *net,
+ 	 * given destination transport address, set RTO to the protocol
+ 	 * parameter 'RTO.Initial'.
+ 	 */
+-	peer->rto = msecs_to_jiffies(net->sctp.rto_initial);
++	peer->rto = msecs_to_jiffies(READ_ONCE(net->sctp.rto_initial));
+ 
+ 	peer->last_time_heard = 0;
+ 	peer->last_time_ecne_reduced = jiffies;
+@@ -65,8 +65,8 @@ static void sctp_transport_init(struct net *net,
+ 			    SPP_SACKDELAY_ENABLE;
+ 
+ 	/* Initialize the default path max_retrans.  */
+-	peer->pathmaxrxt  = net->sctp.max_retrans_path;
+-	peer->pf_retrans  = net->sctp.pf_retrans;
++	peer->pathmaxrxt  = READ_ONCE(net->sctp.max_retrans_path);
++	peer->pf_retrans  = READ_ONCE(net->sctp.pf_retrans);
+ 
+ 	INIT_LIST_HEAD(&peer->transmitted);
+ 	INIT_LIST_HEAD(&peer->send_ready);
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.43.0
+
