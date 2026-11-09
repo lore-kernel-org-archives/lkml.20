@@ -1,69 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213015;
-	b=ZDyPtLItHICfAccdRJsLQpvtOdkxfpkV2ghx1S6Jze5IF658QpT1yZMkrq/n25CRvHdn
-	 V+nHxKMBGzl45At/HQ7A5/Q4tHUdzLtVQHXXwB+mrfaK8PkV3P4HX/C5AHP+Em5IX0mKm
-	 hAApBL/EWDLHmMYFtGgUV8Z0V64AsJYN587AbUBwj18a5AKHFdhxwqR9goiINjdrAyQ5C
-	 TPH7TcFQFeSnqSi8wNki3ACsn8H/0NUW4v86lcQCDEyxgBrcWWt2ZpcNOtcBZxYuF/J0D
-	 Be/6Yki6JDKsjacKCiAJfmQV5IfnsgPkNWMIC9ktyOn13f3nhIJXA4X59LUMpDYocGg==
+	t=1794213062;
+	b=YIY/EU72SUM67r4NEOMmzw0E+DT3mVNpnk0Cny/idKXsYTb7/+a7alDK8YkyBgKpxg4J
+	 Jk61kGmn/i1XmZAu71iSYyVg00gkkWWCbs0waGzpBJfuhYDPDNQgWzxASlcUQxfCk/izd
+	 QAjQ3ukQpEdVGL+X9ZXoHIOi26VlGZkDtPNvmICB2JlwtH2Ugs4CYEZzFI33xEPwFz0di
+	 XcdRKWg43RebqfOPZt9yM+WdAMBS1/Dm8PjcVdO8eVj0UeeT02VLQ2SK/2jwnMrbOMmRz
+	 QNEKWau1l4mDr00gZE2Q7xecuUGW63aIV5TmLW4gmZVNjnbUqT5j3Pl7gHxhUyaXZvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213015;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=gYmNWV1rm3ygUd91UJdw9gR5xquyUcoWzSp9DB3N2c8=;
-	b=kwVqQ/3JxCQpjBTO5eALgDmhXQ81hYFCs8uDTXvDHjfvk/zbNchIiB1yglGY3WGKBy35
-	 +yN/ArOmHyhMeUOaObZDxRbFBcJIVvWywxigVJTmsvLW6ce9Ktb+Et1nvJkalKH1mlK2z
-	 4TMkyQ0PXIoTUkccK2KPdRwyBss6UyswMgyPaI7Lr2roJgP7uZsZF91QmX+N7HALZNky9
-	 EejEWIUtDQhbL9TsmlEkUoRkExG2Ey6ssMlpZoyqUPqAL1kt1aAuKUjX+vCftZy8VNiwl
-	 pu8NM7DjpaAc4nxcyPOht9UixEwhL0gQUsi8YNzoLeJ/al8XAy/iJmADaFLWBX3lpfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vfC+pb0AJgv0GKU95tThougH9ZxYjEepJvXJA7a1FV8=;
+	b=Nn6qLwfwjTSpOe8GjmHLJl6PNRUJlEfkEe3RRE9FNaMS0uUpyo1fsAbXSUcVCueZoecA
+	 YeQzlJ95hNl0kgkp43GCtYEq/nKd/dRVJZv9XfLI9tON0eLgHhG9ywOszIyofxYGpINSf
+	 GISEWumMuR2x2t741Rfbq2Wr9KzhqsO596lJkPwA1rma7ojMKWXwYwgBtv2mN6iDW+SVl
+	 XzbEbByO5BqQQye7Rx/X52mj6HG3nhiS5BVtvoceBYO9i8PfTTxeQbKQVGmOK6I3uyYi5
+	 UjCT0EgIiscZyVRhxetFoPGomDLCvMtZSozQz81F3DZcm06s2b0+ZePiiK8rm9nw7wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gK7AJAf6;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jU89jaK5;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B76606A31C;
-	Mon,  9 Nov 2026 08:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B76606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07B5606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:31:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E07B5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gK7AJAf6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794212954;
-	bh=gYmNWV1rm3ygUd91UJdw9gR5xquyUcoWzSp9DB3N2c8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=gK7AJAf6L02ZSqdVZzOn1Oi7QidEAY7F8LZdeLl+zGsR0uk1O79DO3YYLH+g7fACj
-	 ObuGY2HTX5FjaEeiIgxZVXwKWBTHgM1GMJoZLdDoDnN2g20n+oHDtVMyYLt5/72PXd
-	 oNZAaa0DKceWJ5Jg3php2u4rFd3NLLcB9nnKq/zQ=
-X-QQ-mid: zesmtpsz3t1794212937tf574f476
-X-QQ-Originating-IP: 1GzHOlaNovGB9WvowQCBhTYzUK8z7c7NFtzph5Ftq74=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 16:28:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5203412662589610849
-EX-QQ-RecipientCnt: 9
-From: raoxu <raoxu@uniontech.com>
-To: sudeep.holla@kernel.org
-Cc: linux@roeck-us.net,
-	cristian.marussi@arm.com,
-	marek.vasut@mailbox.org,
-	arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jU89jaK5
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37000e7234bso80777eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:31:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794213061; x=1794817861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vfC+pb0AJgv0GKU95tThougH9ZxYjEepJvXJA7a1FV8=;
+        b=jU89jaK5dnAFqhr6/U60Wm+KBdemIPUAoWBa9y10Mk9AEUfHm1Pa0iMz/lxQ0n5Ux4
+         pky21JLLJrd7tLJ5GFtAHPV8h7ntqQ0ebFN57Mqh9J8Te8+Ci8tDEsqhM+pUmaS2BgHu
+         mmUR0X9uzi9jE6ezViLjRCO2xdnpkXw0Afm8sdF4ZZJp+i081byH6OhPjYvEYUN4t3Lf
+         kbUmVJXdx+bzkVRkGBJmz839qzNhXzSs0nUVeveROtfFCWtmktSQQCLTPwDcoEB9a79y
+         vPwQN/OgLAXAFSUr22w17OWIIFVRE6X9nBuzYJQkok3mltOVDZdLWBr6IEcCPFIqTV7E
+         PPWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794213061; x=1794817861;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vfC+pb0AJgv0GKU95tThougH9ZxYjEepJvXJA7a1FV8=;
+        b=Xs3tINWsnJGueuvmJ/z18w9hKdD/17687I/KiKJhAl/eDbWK9oPh7V7DOSdv+/hCv9
+         LdzFiFHSCL5+T21vjIdbcd96GmHeJe9/e+DTSZDj15yro6jtRhgYTglfhfRNT4M9bz4m
+         o2oW9k16uL4v5nqjTzV91OEUTUOpRBb3X95QtjLBTCBaReDH26p+npvSQ0oe8tVpPZA+
+         3t6oSci9CtLs2T3lm7weeJ2KYQdEaywlIuNWUxDPzu0p5RJsR7uL1TRD2jBUrelye7DV
+         q2Jr5HuQoPs5kZSNoL6DQSFVuNOjrKPpnA2s7UKxZRGggpcroSJONZm8MJ3dXF3mfKVm
+         xkwg==
+X-Forwarded-Encrypted: i=1; AL+hErGU4lI11XALIQy5aKNNVLqOQzkymRopYtjYtdDjA9LhLnlQ67i4/rnIH2dfmdJ8W+So2ThhowN0XWat/L4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89np8X10Dk/+YAvOKkQQ9+MX9CZ3BvrMAVE/q2dzVu3Tw7KEq5
+	1XXurOsKYaB139fC4Ruo8U4q4Pmg0k3ICGJvLf+7IdT2nOdrJVqZTOh2aTAbZziKZzA=
+X-Gm-Gg: AYBFou0VWkeH3uyqHTyuuWyNybzYOvQpZDTXUaW8stNYrejZsdPUX/wg75cfDFSfrTs
+	X4io+Kig6R83ypahAr/O8N9UY64AeHCNhTV8q3WuCiCapxyOpG+Gp03WbP8DHXJsQOxccSKTVvL
+	llAJh1UHX/EuYExANY+cp2ZblI5TT98/UrkEEKFO4H/NZXjPPvB6/ZDxR8NpUYjf/yuoZPiRio9
+	ZsAh5lG4dyoCJHXXmw6r6nyti9huEBkm7amdjFXCINrusYoxb8BaFRTvKduD5w//JNHWKNfKJlk
+	VPLW2EqDd3VIOHxbrN3f3EeZnBrnCO65yKLx/h5cVeQmNlHZYvV6nE2kMx9pcAq7cXuo7ZdNY4L
+	DUtfNYO5eBmSI1ZjE+yF8Pum0p2c6zDkzIuuvlQPKMrOqkhO9qwct1N3R1FF8o+BZpnbtBHQv97
+	QQ2RzKY7/0kITFucRokLs0kwRoAiLVHA5bTAVQ+5SGRymeycmET/LD1rKsZKlaJtvFYXeK/4dB4
+	pRQ0fgwKGGGEpjqwDFFvcLniRhN0r7kz0aBqc5YthlXPIh1Mu2VfIBfkt5eys7yMEaqqqEhFlR4
+	hfmuHywCAb5+2k3VVJlyIcS7rxUo9VJODXmwWQU=
+X-Received: by 2002:a05:693c:65c6:b0:36e:53bc:4681 with SMTP id 5a478bee46e88-372569fae2emr6648368eec.37.1794213061041;
+        Mon, 09 Nov 2026 00:31:01 -0800 (PST)
+Received: from xploitoverload ([2409:40c1:400f:1382:e6ca:3a31:da44:4020])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d60absm12131756eec.26.2026.11.09.00.30.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:31:00 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: willemdebruijn.kernel@gmail.com,
+	jasowangio@gmail.com,
+	alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: andrew+netdev@lunn.ch,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com
-Subject: [PATCH] hwmon: (scmi) Enable temperature sensors using their sensor IDs
-Date: Mon,  9 Nov 2026 16:28:54 +0800
-Message-ID: <AED18609B941BCFD+20261109082854.3739085-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+	Kalpesh Solanki <skalpesh942@gmail.com>
+Subject: [PATCH net v4] tun: disallow setting IEEE 802.15.4 and 6LoWPAN link types via TUNSETLINK
+Date: Mon,  9 Nov 2026 14:00:37 +0530
+Message-ID: <20261109083037.22337-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,62 +107,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MfJtHqZtrd+O0mh5CtnHDBrZln1M1rSMnBJxvN43PbBUF8zTEvEnhB74
-	JSdC7+NEzdDqEW6W59d8IA6XrG6f4PltrbyHuz0DcAy4otOpSS1PY3qMGJILLT441bsVRD+
-	Jq8fKE9dJuqqzHvbY0zT+vpvmzC0oKo+eHAbYkn/Q1CYABlTij1UCOeZv03KbSRHIXeGqcp
-	oklCqm9LuR8AVMSL9Irv807UwG2wIfF4tX9EB/y9wPY7mJguVa7OKvx/jhHER52snijz/DL
-	eDFKdkzfYh/B0lc7Zul9zQYiULbJS1HE8LgW9gKZ8TWvDfFVCl124eHWVCBQ0a16BFeZpZR
-	qnFiadhmVtLfyKs0f1rl8jK9EbzNkB4ywx1ye4eJcg6Ec7pNUCj0tSkH8Yg0y6i+UPGQHs0
-	W+07rJWijtQaIaVf9ZZunzclE3iJAA5YbruVESLJCGZ/P9ISids3o4VCSgaDT8ZAmtRqA+N
-	6UziD2/Su2gj6y4ZQT/xqx2Z21kirmP1CKzUjSYk8GmeiR6AJ5vIbar3heUMULrNc0AzOcv
-	1IGQFAGYpsGMbY28i47LDFiLNAKN7lJ2eBb16/1F+gItrzgSVgioXyROiXK94PqeMC6s57/
-	CNiI0R8KdT1a6xxkBPEEXGPxOVb5qxg3cK9Elrjm4PcZBqV+RxpZ4Qda6iNWxGwfJtxbWvJ
-	bCqTl49Arn3kaG8WT+seRzfGAlqAZn2+rKdExrmYH6EWN2IgjKz/8G/qn9/m3ngDFpI8b1r
-	Gvdw2d23QTSoy9LtGChPPsEjOccsSGbEaAmgUsavTSvfDVqLYNY35Ki7DKfWpKsk4sJltrJ
-	uU07UepS+vj997hpvl9s61zJcXX0d/ToZUgJDVchUkoULDz97o05eF4vQvFz3LzwvMht541
-	4Gv+kuEwYfnY5cqAntTwffyHHYgidfVN6XFui3qb9uH5RFbOnUHsL0jzD+g4dK9zrSQKY93
-	wWM19Nz0oeslZMilkgs4VFigABUiBLq1Qg0/ityWzu92y2MA33rdyt530Y5/JWInW+CuZbM
-	tcRHTW+ShNCU96cmdmHFC2BEiKWmUNx57iT4IzqA==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+A userspace application can set the link type of a TUN/TAP interface
+to ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, or ARPHRD_6LOWPAN
+via ioctl(fd, TUNSETLINK, arg) because tun_get_addr_len() explicitly
+recognized these types.
 
-scmi_hwmon_probe() groups sensors by hwmon type, so the index in
-scmi_sensors->info[hwmon_temp] is not necessarily the SCMI sensor ID.
-Passing that index to config_set() targets a different sensor if the
-platform exposes non-temperature sensors ahead of temperature sensors.
-The intended temperature sensor can remain disabled, causing subsequent
-readings to fail. If configuring the wrong sensor fails, thermal
-registration of the intended sensor is also skipped.
+However, TUN devices cannot function as genuine IEEE 802.15.4 or 6LoWPAN
+interfaces:
 
-Use the firmware sensor ID, as the read and thermal registration paths
-already do, so temperature sensors are enabled correctly.
+1. They lack wpan_phy, channels, PAN IDs, and MLME operations, and tun
+   never initializes dev->ieee802154_ptr or dev->ml_priv. When an
+   unprivileged user creates a TUN interface in a user+net namespace,
+   changes its link type to ARPHRD_IEEE802154, and issues a netlink dump
+   request (such as IEEE802154_LLSEC_LIST_KEY),
+   ieee802154_llsec_dump_table() unconditionally dereferences
+   dev->ieee802154_ptr / ieee802154_mlme_ops(dev), triggering a supervisor
+   null-pointer dereference / general protection fault. Similar
+   dereferences occur across net/ieee802154/nl-phy.c (ieee802154_del_iface)
+   and net/ieee802154/socket.c.
 
-The patch was reviewed and the commit message expanded with OpenCode
-AI assistance.
+2. Similarly, the 6LoWPAN subsystem assumes via lowpan_dev(dev) that
+   netdev_priv(dev) is struct lowpan_dev. On a TUN device, netdev_priv(dev)
+   is struct tun_struct. On netdev events (such as NETDEV_DOWN in
+   net/6lowpan/core.c:lowpan_device_event), it clears bits in
+   lowpan_dev(dev)->ctx.table flags, which corrupts private memory inside
+   tun_struct.
 
-Fixes: 72804d1631b3 ("hwmon: (scmi) Enable sensors to assure they can be read")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Rather than scattering checks across subsystems, fix the issue at the
+source: disallow setting ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, and
+ARPHRD_6LOWPAN via TUNSETLINK by returning -EINVAL. Cast arg to unsigned
+short in the comparison to prevent upper-bit truncation bypasses (e.g.
+arg = ARPHRD_IEEE802154 | 0x10000).
+
+Fixes: ff4cc3ac93e1 ("[TUNTAP]: Allow setting the linktype of the tap device from userspace")
+Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
 ---
- drivers/hwmon/scmi-hwmon.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/tun.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/hwmon/scmi-hwmon.c b/drivers/hwmon/scmi-hwmon.c
-index 9ae8f774297e..6a9895697f3c 100644
---- a/drivers/hwmon/scmi-hwmon.c
-+++ b/drivers/hwmon/scmi-hwmon.c
-@@ -342,7 +342,7 @@ static int scmi_hwmon_probe(struct scmi_device *sdev)
- 		if (!sensor)
- 			continue;
- 
--		ret = sensor_ops->config_set(ph, i, sensor_config);
-+		ret = sensor_ops->config_set(ph, sensor->id, sensor_config);
- 		if (ret) {
- 			dev_err(dev, "Error enabling sensor %s. err=%d\n",
- 				sensor->name, ret);
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index dcec7311e60..b50a7245be9 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -3362,6 +3362,10 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
+ 			netif_info(tun, drv, tun->dev,
+ 				   "Linktype set failed because interface is up\n");
+ 			ret = -EBUSY;
++		} else if ((unsigned short)arg == ARPHRD_IEEE802154 ||
++			   (unsigned short)arg == ARPHRD_IEEE802154_MONITOR ||
++			   (unsigned short)arg == ARPHRD_6LOWPAN) {
++			ret = -EINVAL;
+ 		} else {
+ 			ret = call_netdevice_notifiers(NETDEV_PRE_TYPE_CHANGE,
+ 						       tun->dev);
 -- 
-2.50.1
+2.53.0
 
