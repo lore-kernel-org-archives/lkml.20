@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794210867;
-	b=fA7WpkUk2XF/HyT3EMTzc8mYiNAq9cmThAW/iD1mByPHASXTo8QCQSvNHc1F/Q2VWerP
-	 kaC8C20HecfJWFNcAZyjp5aOBqQRZMtfNXMZPfHz0WQTouF5qjNKo6TMbXzSLXp6FsOHP
-	 u1WXS9vGrobJFk9wBXhxe6pUVjxu5U5MbEZjczHKnCQBG+2Gb1g5W8NjRL44tUY54oxpk
-	 UKaKs4/F8+AAn7btaGrcbWkN0RdIOU+8MqdNev2RWlvUeffU1/UYEf+QgVWNFRwWum6jy
-	 5KPIe5ojIOcvYBmXzJKxclL+3BY2SBDrriPtu+L60wcWq4yCrvfokiExjrxvTGMLLDQ==
+	t=1794210888;
+	b=v8NAugbJzKb0HMPiBoVNwvDN2m5PuFttaiMg8QjXCrYr7kcR42qEHKfgD/d5YzpLJUP5
+	 4ZDE/LlfV+6M3CLlbUjDO0DdTrtThYwEU0xtE7XOZsX5/87ywcL/Fz7CjTs+cgPybasr0
+	 TVjRTFHKnoMrHWRZBmgqggR1gGnIOg2sNP/srcI4PyzmX5mnmV0klmDFVAMEDDYEQdPnD
+	 kHgVtJ/uMC08TJriFN8Z4G9/S98izZYoIkkKwJi4+UdHGN8N13+tOJH9oH5SLhcVyTKuY
+	 alo28U/Ulxv1RC+iHHZQvbpFJoChBROlVQHa7rxYryRB4oS8JQ/VDVRhU8IdRUtV6wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794210867;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=ZWl9jingBRzJ5jAonR3zuO+3KdpoVL68SjqrmB0AJc4=;
-	b=3utvUcdyaJ5SOq2KGwiT9q/I4kZ1oDalNMbM/F68aOAyfwpg0RbjLMwX7NpJw8j/6wE0
-	 FqIr/fWw7j8tyclP8pk4bKSKXnSqtyeGuJM4sQnDV5z1YaivDevjHDEpJrdJieTL/NDmz
-	 6OXy6iqzW7g1fLDG9HbN6URVEOEgKwW4x09M+2Nn9KjryiHtWXb1CvcqtZxU2bm1iO64U
-	 qNYHog79UZ98ue/wMVoFZ7dvz35ceeYPIDhwA/tzhAyaQjPf5YH7kdge1GTVk3KVZdQlb
-	 hCiRW8XD/52RuAcZ9NrcKuhWtZl0wuZWc4Jtz2L7YdWXfrUjbtyh57CazPgeq1WHf0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794210888;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=XBzsYfVAhhjke4pclcuDcTyD1Jq8HvwglfpfSzwW3KQ=;
+	b=aVkXLNwiqBjlRDXaqqDWZu9Ltc7AwEqUo2z0S7Lfts2qw3OeJ+bEH/OoRU8xdsPIJLPB
+	 BpfaQfW5pxb7JGyoU8eTHATrR2pvNTnSUKqbM3a6Zv0h5Cel0cupPEJ+YlQ6gs48G0ZmT
+	 c0TgVW7sH+hDrRyqOt17GCc/CrX3tTzqeg9Es+ffeBYvhzM2k208ClvKSCLKIaHHC8eBA
+	 0ymmqVgFo1OGsX3GrfI6f4Avw+29jykH5JG9cYsz3qnBRc+Va1J2ovgQHkYaRGsGNM6H6
+	 cwjDnJazuJZpHFymrqGtunJKU6+E6dRA3KmHgynyJzNxAmppPpzRDkVJvEjaR17/JqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="JG/VO2lC";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rPtbq+8D;
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="S66+/Nlf";
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6F4606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:54:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC6F4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189FD606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189FD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=JG/VO2lC;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rPtbq+8D
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id E27F77A0112
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:54:25 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 09 Nov 2026 02:54:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794210861;
-	 x=1794297261; bh=ZWl9jingBRzJ5jAonR3zuO+3KdpoVL68SjqrmB0AJc4=; b=
-	JG/VO2lCNqs07FngyJ7sAGpb5yy4Lvl4D5i6PBSlZehYdyaXJdONub8jYg5cFb4p
-	D5waHZjLmZ/gym7e3LJLg3CEWIB7JfUkdWO50roZS16Rp1ql3ZY7a8ngrNBP6cqo
-	rYop5t6tqTSEA0QnHsD/FGnvwQmw3JceqUhRC5vOopoHDw7mhELkrFXD5uCFXeHt
-	sLGDANpG5PzQDVsX5Clq4qdNifqyZjtOyUWHmqlCbObIoNN+6C3i5zZr12PoBCUj
-	9Q9xjj8LRUtINNmlFgP63h58s3aJkXbeTc9F5uqyqE4Gh2wqrVnc+wfVHlxAGMHR
-	UohNUkLaAdOzJlRBswjwMg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794210861; x=
-	1794297261; bh=ZWl9jingBRzJ5jAonR3zuO+3KdpoVL68SjqrmB0AJc4=; b=r
-	Ptbq+8D099xl3neJOYJETm/+DDpoVWpMJBJsspnIy4MNnjMUe89LSpmH2b9PmmXn
-	8lHVL4rADE/bWp2PRXabFPrhQg7ItFkhdPEcrz6KDxNvsBvpTOTU/tYeJQcB0N9b
-	vNtG5biqc3kjdNiFK2t3LNRDVHFlKm45bOCUCgYa9Lu2qyo26u6MVBtSo2DhhbZ5
-	tsgtaSZTXidlLxxy3ZwIqxcAPKAMiz7hQBWBzH4PJnJC3oAHfvYEZPWW/Dvuk+O7
-	OH8A9NzJPn4jaR8lm4Avm9K7F63d9V6ZsPugyubBD4EVoaX4CJyNO1ZCm1KC7Sko
-	BTVYhIqDF7EoJA91SurnA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794210861; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:P9GipjRay6yNs/gTiaEiURkNblY7jT+nEABSpjdPbrx0y/1
-	b1NwTRpA+JIWfgiXf189/uq67vNASMgCljPzF9GYipRiVJxzbwIg05F7Cx6ocVbp
-	s7q1DtdQo7o3Huf0PyZ5Y7LkUF2D13gzQ6+5Oa0zvZMKMfJBoQfDzGuivyKr8e0X
-	zITaJkOJqR+SHfWBKSzmbs0u1xcuK40fkdAAQfXW7eg9/ytiIIdKemcHmwQeFreq
-	WvpIrMmnyK1VbqkJQQ4ExioBVy5AETB0kQzorqTdde+V0KFEmuElr5S+Gvoy2fuL
-	eN8ptZ7RehXTCkWGd/TZXNNgPrSJCZMsciaitWA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:br0h45qtPgSMInCnHStrufGtjfx3n0i1XgMdXhJuoi0=:9EZ78bDb/IFFrfazya5uDh2QzfACEXi+vbNDDTBiANM=;
-X-ME-Sender: <xms:KnzxajJPabEKH3Cme6Du29CyTpdTgfW8Kdp9LDgB7u6HhkIBgwtOxw>
-    <xme:Knzxah94pGAakNpgsvSHwVMZEAVQxmiUbfEAin0pf3zRcMOIV3q_GvAk62d-qkdR-
-    1_wsxEBh7-I3DtnPZ_woewRVdf2pq1zilKkgt20FVMM6Xr3l3pat9wT>
-X-ME-Proxy-Cause: dmFkZTFLBPZbwZtPJBZ6eGa1A0tuL5I23qQHDe5h6M5107y16xhJ43qHckrVl7wSASxvMB
-    uQIspcTnvmRRYpTIHvglYFVFyN9RBDpkWrf3cQKOM4H/8WFSFE8aRcd+CG+mIoWA4WVWop
-    3svGV8oEXlP1fhZTwSGOPH9EDNmoaR9XsEAG2VSSARJlWgaTYxsxQ/q5wmTrVHwWEpyR9f
-    fzJXT2XkxEDmtfrXAdXDgUHYyF9JxZtmnZWWWK8du3uMwTFaSeF9Rosw3loPwrWS5oDmF2
-    ZJIfJ33U1+iO26YFIB2wDU0QKtC08h0Prnw3PzsIJwF1S7VPSj42dPVMh/Gj3vkLoWdoHM
-    RGYzKUPIVLP4Pd3XVu9Kv70ufqpLFDGmjMU1d1XhhNF9uHDIaK4xgYxJrp04KGBfcrqftZ
-    CUQxuKryCVcwPXGR2lsIm4QM7Mffe4BTk/J+kz0OeT5hHOTMY19JoaW9JVRV21EH25Gw/l
-    hf7exVwNf6PDxg3hnd6RwhMVZC/iTIKhyyRWrXnc0g6vxB//wPlSVrOS5COwDXbbSlB2jy
-    vhwgDRb0X6v4odMT8QNd7Umwfg1/hOt0ngYGmLHssaVrO93231lVN8nq0RM4M2a4ykRgRY
-    pSOg0pnQjWHv8fBuDTHLbK/c8k7sCWSJ+Tx4PNQ6JABoNVPggIe4Sv3skgvw
-X-ME-Proxy: <xmx:K3zxagwDC6I1YEnhi5Ef1X-kKsGkVFwmoJLNIJRwXEhesMSIdAvVwg>
-    <xmx:LHzxauVzymye-IrMhAg1UfIdf5bOp7KyVDn1ppvc5wYZEL4916oWuQ>
-    <xmx:LHzxaiNySRdQi0g7UcAYaxQySSYRAqHle1ZHcJ1ZMu6I9VF87I2sqg>
-    <xmx:LHzxagAGfgfPzCu-KfvAY0ZHPoygMCz48TdXN2LTvDUXzmmuaX4Esg>
-    <xmx:LXzxak7Ybh3qiuUxpqoFCHXSg7PAR9SaazcAOhG8_4AIk5XQnf1b0INu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id DAF7032A0097; Mon,  9 Nov 2026 02:54:18 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=S66+/Nlf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794210887; x=1825746887;
+  h=date:from:to:cc:subject:message-id;
+  bh=DhXQ/F9Bvaup89gZuosGV87vm9Uebn/h+1lx/g7CacA=;
+  b=S66+/Nlfu5sPt6nDmwEVm9m3Vkpb4lGUrd76Rldgx/V3fSfMhiAbHXm6
+   2KPuXu2uOv0GGqcLUAZls4w/C+x6COvGTO4x9tQuRWrLL+cVjga7wPM2K
+   f1dud3PwH/ubgwb6URhkbYMr4BHHX9EjpTzf8y70PhZ7wSvYD3QMRwwvR
+   FxanggnutkbMdkspYVpPPT34rHBbIKCqRlo3oNSHVj9yJuTKC6rRFJyLn
+   uRNUkbicrpPE8qaOAr9gggsSq9z1qvG4x7SSog3lXS/GkAZHii0kAEXgA
+   u7lxHhH8hxgUqOyT8NpCgcf2K6rL9M8Psv/hvn9GfL1HlMiCQaU9Q/ZfG
+   w==;
+X-CSE-ConnectionGUID: rfmhPWRDQMC5VVzEDf3kAQ==
+X-CSE-MsgGUID: PoP9pGrxSY6Wm+fgSPDYVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2929611"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2929611"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:54:46 -0800
+X-CSE-ConnectionGUID: CwypO6qcSAyaWvU+lwhdTg==
+X-CSE-MsgGUID: Mp8WHjdAQlKf9D20eDzb3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7680893"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1db0d17a343c) ([10.211.93.152])
+  by orviesa004.jf.intel.com with ESMTP; 08 Nov 2026 23:54:43 -0800
+Received: from kbuild by 1db0d17a343c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQKD9-000000000Gd-3JHr;
+	Mon, 09 Nov 2026 07:54:39 +0000
+Date: Mon, 09 Nov 2026 08:54:33 +0100
+From: kernel test robot <lkp@intel.com>
+To: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>
+Subject: [tip:irq/drivers 7/11]
+ drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: label 'out' defined but
+ not used
+Message-ID: <202611090809.xeAXPI6O-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,187 +82,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ThreadId: A33Xb_92NdCN
-Date: Mon, 09 Nov 2026 08:53:58 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Wolfram Sang" <wsa@kernel.org>
-Cc: "Felipe Balbi" <balbi@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
- "Hyunjung Ko" <hj351016@gmail.com>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <def3815d-d3f6-4032-b7f3-d2b5e48c770f@app.fastmail.com>
-In-Reply-To: <20261109072950.3474308-2-dmitry.torokhov@gmail.com>
-References: <20261109072950.3474308-1-dmitry.torokhov@gmail.com>
- <20261109072950.3474308-2-dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH 1/2] Input: lm8323 - remove driver
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 9, 2026, at 08:29, Dmitry Torokhov wrote:
-> The LM8323 keypad driver relies exclusively on legacy platform data,
-> has no Device Tree or generic device property support, and has no users
-> in mainline (including the Nokia N810 DTS, which never added support
-> for it). Its PWM/LED handling and unbind lifetime are broken, and after
-> hardware-tested IRQ fixes in 2011 the driver has for over a decade only
-> received mechanical API conversions and static-analysis cleanups
-> without hardware testing.
->
-> An inquiry on the mailing list asking whether anyone still uses or
-> wishes to keep the driver received no objections. Remove the driver
-> and its platform data header.
->
-> Link: https://lore.kernel.org/r/Zr6I9RB5mibU_12N@google.com
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
+head:   0c0da722d7839e5250999416404d4a4055afb300
+commit: 54ac29cd11115edd9f72f17aa4551658735f919d [7/11] irqchip/imx-irqsteer: Let devres own the clock
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20261109/202611090809.xeAXPI6O-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611090809.xeAXPI6O-lkp@intel.com/reproduce)
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611090809.xeAXPI6O-lkp@intel.com/
 
-I made an identical patch (for both drivers combined) based on the
-same conclusion, but you beat me to posting it.
+All warnings (new ones prefixed by >>):
 
-I have additional Input driver patches in the same series at
+   drivers/irqchip/irq-imx-irqsteer.c: In function 'imx_irqsteer_probe':
+>> drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: label 'out' defined but not used [-Wunused-label]
+     269 | out:
+         | ^~~
 
-https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/?h=board-remove-7.4
 
-It's a mix of three types of changes:
+vim +/out +269 drivers/irqchip/irq-imx-irqsteer.c
 
-- drivers that have been unused for years
-- drivers that become unused after I remove the board files
-- drivers that support both DT and platform_data, and I remove the latter
+0136afa08967f6 Lucas Stach           2018-12-17  178  
+0136afa08967f6 Lucas Stach           2018-12-17  179  static int imx_irqsteer_probe(struct platform_device *pdev)
+0136afa08967f6 Lucas Stach           2018-12-17  180  {
+0136afa08967f6 Lucas Stach           2018-12-17  181  	struct device_node *np = pdev->dev.of_node;
+0136afa08967f6 Lucas Stach           2018-12-17  182  	struct irqsteer_data *data;
+28528fca490814 Aisheng Dong          2019-02-20  183  	u32 irqs_num;
+28528fca490814 Aisheng Dong          2019-02-20  184  	int i, ret;
+0136afa08967f6 Lucas Stach           2018-12-17  185  
+0136afa08967f6 Lucas Stach           2018-12-17  186  	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+0136afa08967f6 Lucas Stach           2018-12-17  187  	if (!data)
+0136afa08967f6 Lucas Stach           2018-12-17  188  		return -ENOMEM;
+0136afa08967f6 Lucas Stach           2018-12-17  189  
+33b1c47d1fc0b5 Shenwei Wang          2024-07-03  190  	data->dev = &pdev->dev;
+358b9d248a026d Anson Huang           2019-04-01  191  	data->regs = devm_platform_ioremap_resource(pdev, 0);
+0136afa08967f6 Lucas Stach           2018-12-17  192  	if (IS_ERR(data->regs)) {
+0136afa08967f6 Lucas Stach           2018-12-17  193  		dev_err(&pdev->dev, "failed to initialize reg\n");
+0136afa08967f6 Lucas Stach           2018-12-17  194  		return PTR_ERR(data->regs);
+0136afa08967f6 Lucas Stach           2018-12-17  195  	}
+0136afa08967f6 Lucas Stach           2018-12-17  196  
+54ac29cd11115e Zhipeng Wang          2026-11-04  197  	data->ipg_clk = devm_clk_get_enabled(&pdev->dev, "ipg");
+e0c45b107fc94c Anson Huang           2020-08-11  198  	if (IS_ERR(data->ipg_clk))
+e0c45b107fc94c Anson Huang           2020-08-11  199  		return dev_err_probe(&pdev->dev, PTR_ERR(data->ipg_clk),
+e0c45b107fc94c Anson Huang           2020-08-11  200  				     "failed to get ipg clk\n");
+0136afa08967f6 Lucas Stach           2018-12-17  201  
+0136afa08967f6 Lucas Stach           2018-12-17  202  	raw_spin_lock_init(&data->lock);
+0136afa08967f6 Lucas Stach           2018-12-17  203  
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  204  	ret = of_property_read_u32(np, "fsl,num-irqs", &irqs_num);
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  205  	if (ret)
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  206  		return ret;
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  207  	ret = of_property_read_u32(np, "fsl,channel", &data->channel);
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  208  	if (ret)
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  209  		return ret;
+0136afa08967f6 Lucas Stach           2018-12-17  210  
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  211  	data->devtype_data = device_get_match_data(&pdev->dev);
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  212  	if (!data->devtype_data)
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  213  		return dev_err_probe(&pdev->dev, -ENODEV, "failed to match device data\n");
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  214  
+28528fca490814 Aisheng Dong          2019-02-20  215  	/*
+28528fca490814 Aisheng Dong          2019-02-20  216  	 * There is one output irq for each group of 64 inputs.
+28528fca490814 Aisheng Dong          2019-02-20  217  	 * One register bit map can represent 32 input interrupts.
+28528fca490814 Aisheng Dong          2019-02-20  218  	 */
+28528fca490814 Aisheng Dong          2019-02-20  219  	data->irq_count = DIV_ROUND_UP(irqs_num, 64);
+28528fca490814 Aisheng Dong          2019-02-20  220  	data->reg_num = irqs_num / 32;
+f99f3c4acaff0d Fabio Estevam         2026-11-04  221  	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
+f99f3c4acaff0d Fabio Estevam         2026-11-04  222  		return -EINVAL;
+deb904e45b4e32 Aisheng Dong          2019-02-20  223  
+4730d2233311d8 Lucas Stach           2022-04-06  224  	if (IS_ENABLED(CONFIG_PM)) {
+0136afa08967f6 Lucas Stach           2018-12-17  225  		data->saved_reg = devm_kzalloc(&pdev->dev,
+deb904e45b4e32 Aisheng Dong          2019-02-20  226  					sizeof(u32) * data->reg_num,
+0136afa08967f6 Lucas Stach           2018-12-17  227  					GFP_KERNEL);
+0136afa08967f6 Lucas Stach           2018-12-17  228  		if (!data->saved_reg)
+0136afa08967f6 Lucas Stach           2018-12-17  229  			return -ENOMEM;
+0136afa08967f6 Lucas Stach           2018-12-17  230  	}
+0136afa08967f6 Lucas Stach           2018-12-17  231  
+0136afa08967f6 Lucas Stach           2018-12-17  232  	/* steer all IRQs into configured channel */
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  233  	if (irqsteer_has_chanctrl(data->devtype_data))
+0136afa08967f6 Lucas Stach           2018-12-17  234  		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
+0136afa08967f6 Lucas Stach           2018-12-17  235  
+f98835ded6dcbb Zhipeng Wang          2026-11-04  236  	/*
+f98835ded6dcbb Zhipeng Wang          2026-11-04  237  	 * Mask all interrupts before wiring up the chained handlers. CHANMASK
+f98835ded6dcbb Zhipeng Wang          2026-11-04  238  	 * has inverted polarity (a set bit enables the interrupt), so writing
+f98835ded6dcbb Zhipeng Wang          2026-11-04  239  	 * zero masks the source.
+f98835ded6dcbb Zhipeng Wang          2026-11-04  240  	 */
+f98835ded6dcbb Zhipeng Wang          2026-11-04  241  	for (i = 0; i < data->reg_num; i++)
+f98835ded6dcbb Zhipeng Wang          2026-11-04  242  		writel_relaxed(0, data->regs + CHANMASK(i, data->reg_num));
+f98835ded6dcbb Zhipeng Wang          2026-11-04  243  
+95cb660c28dcec Zhipeng Wang          2026-11-04  244  	platform_set_drvdata(pdev, data);
+95cb660c28dcec Zhipeng Wang          2026-11-04  245  
+95cb660c28dcec Zhipeng Wang          2026-11-04  246  	ret = devm_pm_runtime_set_active_enabled(&pdev->dev);
+95cb660c28dcec Zhipeng Wang          2026-11-04  247  	if (ret)
+54ac29cd11115e Zhipeng Wang          2026-11-04  248  		return ret;
+95cb660c28dcec Zhipeng Wang          2026-11-04  249  
+93174c05dd2e9b Jiri Slaby (SUSE      2025-06-11  250) 	data->domain = irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg_num * 32,
+0136afa08967f6 Lucas Stach           2018-12-17  251  						&imx_irqsteer_domain_ops, data);
+0136afa08967f6 Lucas Stach           2018-12-17  252  	if (!data->domain) {
+0136afa08967f6 Lucas Stach           2018-12-17  253  		dev_err(&pdev->dev, "failed to create IRQ domain\n");
+54ac29cd11115e Zhipeng Wang          2026-11-04  254  		return -ENOMEM;
+0136afa08967f6 Lucas Stach           2018-12-17  255  	}
+4730d2233311d8 Lucas Stach           2022-04-06  256  	irq_domain_set_pm_device(data->domain, &pdev->dev);
+0136afa08967f6 Lucas Stach           2018-12-17  257  
+28528fca490814 Aisheng Dong          2019-02-20  258  	for (i = 0; i < data->irq_count; i++) {
+28528fca490814 Aisheng Dong          2019-02-20  259  		data->irq[i] = irq_of_parse_and_map(np, i);
+7db5fd6b751fbc Shengjiu Wang         2025-03-05  260  		if (!data->irq[i])
+7db5fd6b751fbc Shengjiu Wang         2025-03-05  261  			break;
+28528fca490814 Aisheng Dong          2019-02-20  262  
+28528fca490814 Aisheng Dong          2019-02-20  263  		irq_set_chained_handler_and_data(data->irq[i],
+28528fca490814 Aisheng Dong          2019-02-20  264  						 imx_irqsteer_irq_handler,
+0136afa08967f6 Lucas Stach           2018-12-17  265  						 data);
+28528fca490814 Aisheng Dong          2019-02-20  266  	}
+0136afa08967f6 Lucas Stach           2018-12-17  267  
+0136afa08967f6 Lucas Stach           2018-12-17  268  	return 0;
+28528fca490814 Aisheng Dong          2019-02-20 @269  out:
+28528fca490814 Aisheng Dong          2019-02-20  270  	clk_disable_unprepare(data->ipg_clk);
+28528fca490814 Aisheng Dong          2019-02-20  271  	return ret;
+0136afa08967f6 Lucas Stach           2018-12-17  272  }
+0136afa08967f6 Lucas Stach           2018-12-17  273  
 
-My plan was to post these after my board removal series is merged,
-and this got delayed until 7.5 now after some back and forth because
-I wanted to make sure they remain in the LTS kernel.
+:::::: The code at line 269 was first introduced by commit
+:::::: 28528fca4908142bd1a3247956cba56c9c667d71 irqchip/imx-irqsteer: Add multi output interrupts support
 
-If you like, I can send more of these earlier.
+:::::: TO: Aisheng Dong <aisheng.dong@nxp.com>
+:::::: CC: Marc Zyngier <marc.zyngier@arm.com>
 
-      Arnd
-
-2fc6e4e7ae89 Input: serio: remove RiscPC keyboard driver
- drivers/input/serio/Kconfig  |  11 ----
- drivers/input/serio/Makefile |   1 -
- drivers/input/serio/rpckbd.c | 152 -------------------------------------------
- 3 files changed, 164 deletions(-)
-48553e29487a Input: mouse: remove RiscPC mouse driver
- drivers/input/mouse/Kconfig    |  10 ----
- drivers/input/mouse/Makefile   |   1 -
- drivers/input/mouse/rpcmouse.c | 113 -----------------------------------------
- 3 files changed, 124 deletions(-)
-cc705b30670f Input: touchscreen: remove unused iPaq micro driver
- drivers/input/touchscreen/Kconfig         |  12 ---
- drivers/input/touchscreen/Makefile        |   1 -
- drivers/input/touchscreen/ipaq-micro-ts.c | 156 ------------------------------
- 3 files changed, 169 deletions(-)
-e0fa7869cf39 Input: touchscreen: remove HP jornada720 support
- drivers/input/touchscreen/Kconfig         |  10 --
- drivers/input/touchscreen/Makefile        |   1 -
- drivers/input/touchscreen/jornada720_ts.c | 156 ------------------------------
- 3 files changed, 167 deletions(-)
-0e7bc6741e99 Input: touchscreen: remove unused mc13783 driver
- drivers/input/touchscreen/Kconfig      |  12 --
- drivers/input/touchscreen/Makefile     |   1 -
- drivers/input/touchscreen/mc13783_ts.c | 245 ---------------------------------
- 3 files changed, 258 deletions(-)
-b106094d20b6 Input: touchscreen: remove unused ad7877 driver
- drivers/input/touchscreen/Kconfig  |  13 -
- drivers/input/touchscreen/Makefile |   1 -
- drivers/input/touchscreen/ad7877.c | 813 -------------------------------------
- 3 files changed, 827 deletions(-)
-618f5f964ae6 Input: touchscreen: remove unused tps6507x driver
- drivers/input/touchscreen/Kconfig       |  12 --
- drivers/input/touchscreen/Makefile      |   1 -
- drivers/input/touchscreen/tps6507x-ts.c | 291 --------------------------------
- 3 files changed, 304 deletions(-)
-f19aee30274b Input: serio: remove sa1111 ps/2 driver
- drivers/input/serio/Kconfig     |   4 -
- drivers/input/serio/Makefile    |   1 -
- drivers/input/serio/sa1111ps2.c | 384 ----------------------------------------
- 3 files changed, 389 deletions(-)
-f89e36a6d981 Input: keyboard: remove unused ipaq-micro driver
- drivers/input/keyboard/Kconfig           |  10 --
- drivers/input/keyboard/Makefile          |   1 -
- drivers/input/keyboard/ipaq-micro-keys.c | 165 -------------------------------
- 3 files changed, 176 deletions(-)
-f47f4668b39e Input: keyboard: remove unused locomo driver
- drivers/input/keyboard/Kconfig     |   8 -
- drivers/input/keyboard/Makefile    |   1 -
- drivers/input/keyboard/locomokbd.c | 340 -------------------------------------
- 3 files changed, 349 deletions(-)
-94397d400e71 Input: keyboard: remove unused jornada720_kbd driver
- drivers/input/keyboard/Kconfig          |  10 ---
- drivers/input/keyboard/Makefile         |   1 -
- drivers/input/keyboard/jornada720_kbd.c | 142 --------------------------------
- 3 files changed, 153 deletions(-)
-45a0b5d9aec8 Input: keyboard: remove lm8323 and lm8333 drivers
- drivers/input/keyboard/Kconfig  |  22 --
- drivers/input/keyboard/Makefile |   2 -
- drivers/input/keyboard/lm8323.c | 813 ----------------------------------------
- drivers/input/keyboard/lm8333.c | 213 -----------
- 4 files changed, 1050 deletions(-)
-7b34e2e324ff Input: joystick: remove as5011 joystick driver
- drivers/input/joystick/Kconfig  |  10 --
- drivers/input/joystick/Makefile |   1 -
- drivers/input/joystick/as5011.c | 354 ----------------------------------------
- 3 files changed, 365 deletions(-)
-62cfa3e37cba Input: misc: remove unused mc13783-pwrbutton driver
- drivers/input/misc/Kconfig             |  10 --
- drivers/input/misc/Makefile            |   1 -
- drivers/input/misc/mc13783-pwrbutton.c | 266 ---------------------------------
- 3 files changed, 277 deletions(-)
-e907244315b7 Input: misc: remove unused cma3000 accelerometer driver
- drivers/input/misc/Kconfig           |  24 ---
- drivers/input/misc/Makefile          |   2 -
- drivers/input/misc/cma3000_d0x.c     | 379 -----------------------------------
- drivers/input/misc/cma3000_d0x.h     |  31 ---
- drivers/input/misc/cma3000_d0x_i2c.c | 113 -----------
- 5 files changed, 549 deletions(-)
-9dcaab7ec67a Input: misc: remove unused kxtj9 driver
- drivers/input/misc/Kconfig  |  10 -
- drivers/input/misc/Makefile |   1 -
- drivers/input/misc/kxtj9.c  | 548 --------------------------------------------
- 3 files changed, 559 deletions(-)
-82f1f73d7331 Input: misc: remove unused max8997_haptic driver
- drivers/input/misc/Kconfig          |  12 -
- drivers/input/misc/Makefile         |   1 -
- drivers/input/misc/max8997_haptic.c | 434 ------------------------------------
- 3 files changed, 447 deletions(-)
-8a21394cb9e7 Input: misc: remove unused bma150 driver
- drivers/input/misc/Kconfig  |  10 -
- drivers/input/misc/Makefile |   1 -
- drivers/input/misc/bma150.c | 575 --------------------------------------------
- 3 files changed, 586 deletions(-)
-a25190646153 Input: misc: bma150: remove platform data based probing
- drivers/input/misc/bma150.c | 49 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 31 insertions(+), 18 deletions(-)
-3ee02d394861 Input: misc: remove unused adxl34x driver
- drivers/input/misc/Kconfig       |  37 --
- drivers/input/misc/Makefile      |   3 -
- drivers/input/misc/adxl34x-i2c.c | 137 ------
- drivers/input/misc/adxl34x-spi.c | 103 -----
- drivers/input/misc/adxl34x.c     | 872 ---------------------------------------
- drivers/input/misc/adxl34x.h     |  30 --
- 6 files changed, 1182 deletions(-)
-7303850802da Input: misc: remove unused ad714x driver
- drivers/input/misc/Kconfig      |   30 -
- drivers/input/misc/Makefile     |    3 -
- drivers/input/misc/ad714x-i2c.c |   97 ----
- drivers/input/misc/ad714x-spi.c |  103 ----
- drivers/input/misc/ad714x.c     | 1200 ---------------------------------------
- drivers/input/misc/ad714x.h     |   53 --
- 6 files changed, 1486 deletions(-)
-067581d4518d mfd: remove unused da903x driver
- drivers/input/touchscreen/Kconfig     |  13 --
- drivers/input/touchscreen/Makefile    |   1 -
- drivers/input/touchscreen/da9034-ts.c | 364 ----------------------------------
- 3 files changed, 378 deletions(-)
-0403fd11877e mfd: remove unused adp5520 driver
- drivers/input/keyboard/Kconfig        |  10 --
- drivers/input/keyboard/Makefile       |   1 -
- drivers/input/keyboard/adp5520-keys.c | 190 ----------------------------------
- 3 files changed, 201 deletions(-)
-d26d231fe10b mfd: remove unused 88pm80x driver
- drivers/input/misc/88pm80x_onkey.c | 152 -------------------------------------
- drivers/input/misc/Kconfig         |  10 ---
- drivers/input/misc/Makefile        |   1 -
- 3 files changed, 163 deletions(-)
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
