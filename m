@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253604;
-	b=hXin5lHGoOKpHS+V3XspRaEg2Qet/JRTU/5LuCk53FOfY5KCCjzq9qiZI4G2PML/3nLJ
-	 xehpKDgD4aj0n4MckO+SeU9xT3PNdYyGsNGuD91GABEA4Mrtnz7aI0A6Yf7JVEhe3EsC4
-	 vShq0HGzMNwjbVbuq95eL25mHvVqZqodMBVCEspqHm8SHDhSFDTc/PQQKmB8YrwpfD116
-	 rSUtAjEdfjqamszTUkLNV032yLy5cYtUOu6ont+G+lf+8lvsfrNpck+S0GSwcuD9GA3Md
-	 AgJONUWJo84esXztuLsr7K1Px0f8SRGiFyptJB8Zz2bvKqCZMIJg7XGJkH7mlw+5J5w==
+	t=1794253616;
+	b=hKAaE9evCvMSr3EzcKEtvLoW8cAOsgFCeKZvV9Hd8+GxaxhxZtfzqJDZgmLP1mUfevkP
+	 +bLqnjEufsODdOIPCrx1X2vCmPrA+sWjaOUWkbzrdff4HTet3K8+5qFT8GjdySb5WJvZR
+	 /f0O5iMiFG6AKR8RboKRJaI5lyijEQhdt35OhZKU+F+6538lVeo4C1QVTSfno2VzdIbh+
+	 pjHvftf3L4BUPxg7yHi/fj591kqGqxPW3Q/OMrNg1Q6XBeNoyZTT/B6OBMBVsY5I89dhk
+	 KpYp7Zco/9HUMGoKk/LPbkaALNmjpPcLYEeoPaeuMoo6tF19oCh3KKulRvLHorHNUEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253604;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qEBa9u+yInBAIiZjw4VsN7vRNVc+Jm7tQI4mTxNp3jo=;
-	b=DACasK/5vABQ34C1F1fDymVv+gILVEuAZVi9+4V7dartm7swWUGVU3EkUk0GmPn1GvSe
-	 4zjdhK4YcMrOO2TSnsFfqOD0FVgog6OlsnuNohTjZySnFksIM3JMATzTZVwfsAyzgLk++
-	 SwUSooA3Qv42ySs+AdnD0a62Kx8seeRUwn1QF1bXJ9B+MiGPX+fB2mej8HB4Wh9FcZ1N+
-	 5zsS1DRI1gIgMxD7OpzT3O5XmOYPKIN5Ob9pgXG9z750GEfeQY8SQa5SakNPB77rQPXV4
-	 xqLUwnGhiBdc7Ye25bxQrZ9msznwuAbyyI67OfqTL+FiOJn1cyiCxEYljbYqqVc0X1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253616;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=g8KZrmmXlZvIgwyOWoivduEv1ngGHJzGbY2i8aPyLd4=;
+	b=qYma8+DknAm81oTiOCY9g7cQc1nplWJiYZc/zJcta1NQW1FiANiOK6jv9x5B0d6wMPfo
+	 e2o1ai3A7PJRcmf7NIKD346Lonuy436Llgyu0iWbEF7CQ2o0+KOs5d2IyO9HdClGzqO02
+	 9AQl64ldsqijVir40TpRj8IDDjZub7baOCUCPyyVHEr3X+ebiZ+kancfbDtz5d+O0xiPG
+	 w0HcdPRtil9MfDX02nLM+wCk0Uq/ER1JjGEFp4khuizUYgH7R9aFKJvweg+1E8OkpPf8R
+	 UcHrLVQSBuT9dylVqf4oU/2y4Qcw1PdU/YwcBetEbQIsF9WDt4lgN5BHgqq10Z/sPhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Nh8itQRj;
-	arc=none smtp.remote-ip=95.215.58.84
-Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDC6606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:46:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BDC6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Nh8itQRj
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PIjbipDEmK9uXK7APGMPOggxwIyBx+5BzwGbBoTwbE8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794253601; v=1; x=1794858401;
- b=Nh8itQRjTd0/TuCusCGC7qb22M4+RP/At2u6Nhs+uE0uJY9amvjJz/gswMTRpN1p8aecKz7/
- FIXomRgIIuoJwJ8vChQWQPvw/K2DdenZ3JyJ5EdAiZJIraO6lTis0ohTuuwgvOZxWaQzcyFPhk3
- viKMdOvRjaQkuiRUCm1oMDeY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6e2f040e86cc4919;
-	Mon, 09 Nov 2026 19:46:40 +0000
-X-Mizu-Trace-ID: 6e2f040e86cc4919
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f5a22a46-0fd8-4739-bf11-a20e0b3a443b@linux.dev>
-Date: Mon, 9 Nov 2026 12:46:34 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BDF606A325;
+	Mon,  9 Nov 2026 19:46:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8BDF606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
+Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
+ separately
+From: Paul Cercueil <paul@crapouillou.net>
+To: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org
+Cc: "H. Nikolaus Schaller" <hns@goldelico.com>, Paul Boddie
+ <paul@boddie.org.uk>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter	 <simona@ffwll.ch>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs"	
+ <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"	
+ <dri-devel@lists.freedesktop.org>
+Date: Mon, 09 Nov 2026 20:46:40 +0100
+In-Reply-To: <20261105203517.2293404-1-f.fainelli@gmail.com>
+References: <20261105203517.2293404-1-f.fainelli@gmail.com>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,110 +70,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light
- skeletons
-To: Siddharth Nayyar <sidnayyar@google.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Quentin Monnet <qmo@kernel.org>,
- Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Giuliano Procida <gprocida@google.com>,
- Neill Kapron <nkapron@google.com>, =?UTF-8?Q?Thi=C3=A9baud_Weksteen?=
- <tweek@google.com>, Maxime Ripard <mripard@kernel.org>
-References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/6/26 1:19 PM, Siddharth Nayyar wrote:
-> BPF light skeletons (bpftool gen skeleton -L) compile BPF object loading
-> into a self-contained BPF_PROG_TYPE_SYSCALL loader program (gen_loader)
-> embedded in a C header, removing any runtime dependency on libbpf or
-> userspace BTF parsing. Currently, light skeletons do not support
-> BPF_MAP_TYPE_STRUCT_OPS maps or BPF_PROG_TYPE_STRUCT_OPS programs
-> because preparing a struct_ops map normally relies on libbpf parsing the
-> target vmlinux or kernel module BTF in userspace to resolve type IDs,
-> struct sizes, member byte offsets, and member indices.
-> 
-> This series adds BPF_MAP_TYPE_STRUCT_OPS support for link-based
-> (SEC(".struct_ops.link")) maps in light skeletons across both vmlinux
-> and kernel module BTF targets:
-> 
-> - Patch 1 adds a new bpf_btf_get_struct_member_info() helper for
->   BPF_PROG_TYPE_SYSCALL programs to query a struct's byte size (when the
->   member name is NULL) or a named member's byte offset and member index
->   from vmlinux or module BTF at load time.
-> - Patches 2-5 wire up struct_ops initialization, map creation, program
->   loading, and map update in libbpf's gen_loader. At runtime, the loader
->   program resolves the kernel wrapper type bpf_struct_ops_<name> and
->   target <name> struct BTF IDs (and module BTF FDs) via
->   bpf_btf_find_by_name_kind(), queries struct sizes and member
->   offsets/indices via bpf_btf_get_struct_member_info(), constructs the
->   kernel vdata buffer in the loader data blob, passes the resolved BTF
->   metadata to BPF_MAP_CREATE and BPF_PROG_LOAD, and populates the
->   callback program FDs before issuing BPF_MAP_UPDATE_ELEM.
-> - Patch 6 teaches bpftool to generate per-map skel_link_create() attach
->   functions and skel__attach() / skel__detach() plumbing for BPF_F_LINK
->   struct_ops maps in light skeletons, skips gen_st_ops_shadow() so the
->   light skeleton ctx layout is preserved, and rejects non-link
->   struct_ops maps.
-> - Patch 7 adds light skeleton struct_ops selftests covering both vmlinux
->   (tcp_congestion_ops) and bpf_testmod (bpf_testmod_ops, including a
->   subset struct with reordered members, scalar fields, detach, and
->   re-attachment).
-> 
-> Adding a new BPF helper and alternative kfunc approach
-> ======================================================
-> I am aware that BPF helpers have been frozen for several years in favor
-> of kfuncs. I propose adding bpf_btf_get_struct_member_info() as a BPF
-> helper (restricted exclusively to BPF_PROG_TYPE_SYSCALL loader programs,
-> alongside bpf_btf_find_by_name_kind()) because, to my knowledge, there
-> is no better way to enable struct_ops support in light skeletons.
-> 
-> Before settling on a BPF helper, I explored an alternative approach
-> using a kfunc, which hit a roadblock. Calling a kfunc directly from the
-> light skeleton loader program is not possible because kfunc calls
-> (BPF_PSEUDO_KFUNC_CALL) require the target kfunc's BTF ID in insn->imm
-> when the loader program itself is loaded, whereas light skeletons ship
-> pre-generated loader bytecode without userspace BTF resolution.
+Hi,
 
-Hi Siddharth,
+Le jeudi 05 novembre 2026 =C3=A0 12:35 -0800, Florian Fainelli a =C3=A9crit=
+=C2=A0:
+> The LCD controller's internal bridge is embedded in an object
+> allocated
+> with drmm_encoder_alloc(). This initializes the encoder but leaves
+> the
+> bridge's reference count at zero. Since drm_bridge_attach() takes a
+> reference, probing the CI20 display produces addition-on-zero and
+> underflow warnings and fails to attach the HDMI bridge chain.
+>=20
+> Allocate the internal bridge with devm_drm_bridge_alloc() and
+> register
+> it with devm_drm_bridge_add() before attaching it. Keep the encoder
+> in a
+> separate DRM-managed allocation: encoder cleanup can drop the final
+> bridge reference before it has finished accessing the encoder. Find
+> the internal bridge through the encoder's bridge chain during mode
+> setting, and use the bridge argument directly in bridge callbacks.
+>=20
+> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
+> drm_bridge_attach/detach()")
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-I don't think a new helper is going to fly.
-It's a legacy baggage we are carrying because we can't easily get rid
-of it, we don't want to make it heavier.
+Looks like I lost my commit rights to drm-misc-next, I guess for
+inactivity.
 
-IIUC the problem is that the BPF instructions of the loader are
-supposed to be frozen (signed?), therefore it's not an option to patch
-them at load time, as libbpf normally does with kfuncs.
+So I'll ack it (LGTM) and let someone else (Maxime?) commit it.
 
-I think the way around this may be teaching the kernel to resolve
-kfuncs itself, similar to how it resolves CO-RE relocations?
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
-The call instruction (or a new bpf_core_relo kind) would refer to the
-kfunc in the *program* BTF instead of a kernel BTF ID. Early in
-bpf_check(), the verifier would look the name up in vmlinux and module
-BTF, check prototype compatibility against the local FUNC, and patch
-imm/off. The rest of the verifier would see a regular kfunc call.
+Cheers,
+-Paul
 
-The loader could then call kfuncs, so your member info query could be
-a kfunc, and the programs it loads would resolve kfuncs the same way
-libbpf does.
-
-One concern with this may be that we are moving libbpf functionality
-into the kernel, which may not be desirable for reasons I haven't
-thought of. Not sure.
-
-Andrii, Alexei, wdyt? Any other ideas?
-
-
-
-> [...]
+> ---
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++-----=
+-
+> --
+> =C2=A01 file changed, 21 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> index 625ec76cf04d..520912f9ed0d 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -121,16 +121,15 @@ struct ingenic_drm {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct ingenic_drm_bridge {
+> -	struct drm_encoder encoder;
+> =C2=A0	struct drm_bridge bridge, *next_bridge;
+> =C2=A0
+> =C2=A0	struct drm_bus_cfg bus_cfg;
+> =C2=A0};
+> =C2=A0
+> =C2=A0static inline struct ingenic_drm_bridge *
+> -to_ingenic_drm_bridge(struct drm_encoder *encoder)
+> +to_ingenic_drm_bridge(struct drm_bridge *bridge)
+> =C2=A0{
+> -	return container_of(encoder, struct ingenic_drm_bridge,
+> encoder);
+> +	return container_of(bridge, struct ingenic_drm_bridge,
+> bridge);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline struct ingenic_drm_private_state *
+> @@ -738,7 +737,9 @@ static void
+> ingenic_drm_encoder_atomic_mode_set(struct drm_encoder *encoder,
+> =C2=A0{
+> =C2=A0	struct ingenic_drm *priv =3D drm_device_get_priv(encoder-
+> >dev);
+> =C2=A0	struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+> -	struct ingenic_drm_bridge *bridge =3D
+> to_ingenic_drm_bridge(encoder);
+> +	struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
+> +		drm_bridge_chain_get_first_bridge(encoder);
+> +	struct ingenic_drm_bridge *bridge =3D
+> to_ingenic_drm_bridge(first_bridge);
+> =C2=A0	unsigned int cfg, rgbcfg =3D 0;
+> =C2=A0
+> =C2=A0	priv->panel_is_sharp =3D bridge->bus_cfg.flags &
+> DRM_BUS_FLAG_SHARP_SIGNALS;
+> @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct
+> drm_bridge *bridge,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_encoder *encoder,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 enum drm_bridge_attach_flags
+> flags)
+> =C2=A0{
+> -	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(encoder);
+> +	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(bridge);
+> =C2=A0
+> =C2=A0	return drm_bridge_attach(encoder, ib->next_bridge,
+> =C2=A0				 &ib->bridge, flags);
+> @@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct
+> drm_bridge *bridge,
+> =C2=A0					=C2=A0=C2=A0 struct
+> drm_connector_state *conn_state)
+> =C2=A0{
+> =C2=A0	struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+> -	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(bridge->encoder);
+> +	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(bridge);
+> =C2=A0
+> =C2=A0	ib->bus_cfg =3D bridge_state->output_bus_cfg;
+> =C2=A0
+> @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device
+> *dev, bool has_components)
+> =C2=A0			drm_panel_put(panel);
+> =C2=A0		}
+> =C2=A0
+> -		ib =3D drmm_encoder_alloc(drm, struct
+> ingenic_drm_bridge, encoder,
+> -					NULL, DRM_MODE_ENCODER_DPI,
+> NULL);
+> +		ib =3D devm_drm_bridge_alloc(dev, struct
+> ingenic_drm_bridge, bridge,
+> +					=C2=A0=C2=A0
+> &ingenic_drm_bridge_funcs);
+> =C2=A0		if (IS_ERR(ib)) {
+> =C2=A0			ret =3D PTR_ERR(ib);
+> +			dev_err(dev, "Failed to allocate bridge:
+> %d\n", ret);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		encoder =3D drmm_plain_encoder_alloc(drm, NULL,
+> +						=C2=A0=C2=A0
+> DRM_MODE_ENCODER_DPI, NULL);
+> +		if (IS_ERR(encoder)) {
+> +			ret =3D PTR_ERR(encoder);
+> =C2=A0			dev_err(dev, "Failed to init encoder: %d\n",
+> ret);
+> =C2=A0			goto err_drvdata;
+> =C2=A0		}
+> =C2=A0
+> -		encoder =3D &ib->encoder;
+> =C2=A0		encoder->possible_crtcs =3D drm_crtc_mask(&priv-
+> >crtc);
+> =C2=A0
+> =C2=A0		drm_encoder_helper_add(encoder,
+> &ingenic_drm_encoder_helper_funcs);
+> =C2=A0
+> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+> =C2=A0		ib->next_bridge =3D bridge;
+> =C2=A0
+> +		ret =3D devm_drm_bridge_add(dev, &ib->bridge);
+> +		if (ret)
+> +			goto err_drvdata;
+> +
+> =C2=A0		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+> =C2=A0					DRM_BRIDGE_ATTACH_NO_CONNECT
+> OR);
+> =C2=A0		if (ret) {
