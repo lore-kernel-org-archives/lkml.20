@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794211776;
-	b=q9MVeT/gbyMyhCiFF7gqEI9TzcgAUt5RobmzFRSvLCqMYc39K1+HJF5H5CMGomsGd2nG
-	 73GPYLxm29imNEsr0pVTqX4lGC0wpHBqtSoeN+VTozg5ep5GmM3vJ6JLh8GrPsa6ZrIK1
-	 ckbFEzGlubTPKM/y+niWyogiY8Z9pJhGH0w8oRkh30G7WrKEBy76vwufpthIJlekmj80K
-	 yvJyx+jBMJvQYnIESzwvEvQotq3g60RecSnumbezW4EyBt/FLpaGBpbDEcpz9GCTN3i50
-	 v4QHwfW+n4gzF3e/v2FNX1ifs0Kui+o1GCHJvJNLvgGAS1+2GgF+3920DwnPdDqjo+A==
+	t=1794211778;
+	b=3/BlKfD9YybuPc8LfRY3Ad4KpNyUmBqUSAbkWVxRPQv4Xe5FKbMIxWMaysOS48FSImLv
+	 pFrydZBU8AfhBX1EkEpfKDMSMFMuYU3E9ghJkqG2U319HWADKY4a2LiV233Ki38MZc4pG
+	 tQG2jdBNSv1QfqFcr6q4EnDZBPYYFIpiRAAC3cyop/Q6HSWYpyw8OLU4LhQ2AHm+8OdBk
+	 YHiklcKTQovKadMZNHW3xtoaKThUVHLOMr9HZLgGT9FGQhzzjNfzmcMsWCXCYZNUQrn2F
+	 qJU58skhhEKRtGv6CORtd3N3h20I9NL1KkpaJk9vIj1aaeBxcVLPfZZ+jJxjpEB8H+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794211776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794211778;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=JsDKGMOU9swp0GAHJV/6e1W8mjoZhe2ZCwScsI7P9n0=;
-	b=awLGss/tWH9EBCXxtw+SrzeS1pIx+woXQAAIq0qJxzXvUk1H62V/Lra9LSy5JbmzAJ9K
-	 m/mjnOu8JjpTpTTyBJVgJPqJBQUCfLHtvC7fgSr9EpU+VhSw1d8W+vIjRj2BxARFbtqy8
-	 3t9Tt3KdPbNkUb9/P74BW8T5oDlLS+aAtSN65l3ievBQ1+iA3H/q2edkX4MmlzqGzi2ru
-	 amuXrBFIOM+YYOfUtRcfrXGqVWilkzGSkvv2fSlI+MRszWl1eE8qO21p6Bucsv1t+o8pL
-	 so1USs4CiSKPjpBF+zoyEuI3AZqDyfJLGR8FdivMsxIZDob5f+ECdvgKW3Nrw1MArGg==
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=7WgP2xkUAyLjKpFzwzFZYmyYY1jkU6o9DJTWgp1SX/A=;
+	b=aub8kJZr6Nd5euVr0yHh8kQoBwCCKMEN51uMz5EecCUWiRQlVzTJ1XyiLsonRxwInSoM
+	 vAbzkXNlxGdwcEd6rAUczUEbkkuQd79uu9e+/OYf5aZCjivEi5BgczOgSI8QnjLfBjdZV
+	 6TB9dqR+KvObaOcy38gSbA31O/Ki8hfxkhUj4rqM6BwCHmJdnQerwydE3W20ZNA+CD0i9
+	 Lvq4ZE4K4kcPQQEsrYG+ZlN7YK0/Hu8YHw4fgzaeFtUBRRoATFCWH1Jz/RPApXkW8IRM1
+	 kBdr85f+cAEceBgakSivzAnl8hpR6Pxp5ZLrID8gXxtqtVp9I49wdUCKpdeFg3hc+Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vsJMeHUs;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=S8Tk0nNo;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B21C606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3392F606A337
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B21C606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3392F606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vsJMeHUs
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37198ed3727so848575eec.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=S8Tk0nNo
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso333261f8f.1
         for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:09:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794211775; x=1794816575; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JsDKGMOU9swp0GAHJV/6e1W8mjoZhe2ZCwScsI7P9n0=;
-        b=vsJMeHUsuLmuwRFGQWjqexyf0lMs+FFMbp3YzxktWX9Z7Hfi6YU9iNvv99NilaFmcx
-         xXZHfM2uVf0gfScXZEPRmTsPR3HA2Kypv3FxakX8i6MaX7QobwzarLkVMb5mpJcsL2/O
-         36mMZm/x8VV9jOsWP4EKWkW3PqNh6LwEYAcY8iwXDDLu5tuH7e4IFIzYxOiG7ATzUeSG
-         Pf6bpFOpzZ+47UMY2JH8+Vmn7MWhPq2EFybf6Ymu2SNTcUfCaY4XpOv40hnz8qbKrAiX
-         gvFPjcCmSohdpDRIK2GPMUPUXhHYK2j0wnWNkDq8MqTkKsNv0c1MyzdPjck7tTFoA2ER
-         RhfA==
+        d=baylibre.com; s=google; t=1794211775; x=1794816575; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7WgP2xkUAyLjKpFzwzFZYmyYY1jkU6o9DJTWgp1SX/A=;
+        b=S8Tk0nNoY0maepYWmlS7C2sFzi+1aC0IBEIvaWcskQHbTJpM7hyPwl1ZF7mkVp3veC
+         OdVMuwzBQmRwg9N3Cu69n21v/xaAmbOwFyAl2wyht10VAOUa8XEGxDQty4gx1vvGGRB1
+         bZPTJHgqRu53HnL6T6kAefTWdnHtWdMNK8CqDV1deR/SFghUzJE9rfhbGI+h1PxA/xaL
+         Dizr1Zc6Ns1LhZstTyHRy5z/kHmnQJagcwu23jNbIBtWVtEH+guHHcfGApsHEgDz3Gen
+         4PbzSLlnhrJaPjngxF3ucCCbvyreRU7DFXjlWuK6R+sBhihB1IjQF318nn0Gc022YwUo
+         EyYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794211775; x=1794816575;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JsDKGMOU9swp0GAHJV/6e1W8mjoZhe2ZCwScsI7P9n0=;
-        b=R9zGKggpbS2qFr2vHrhdDjd+9DScKNu5hiLLaUMA3MNZ/LwodCGmwIc/xAVTDVyxPK
-         WIeUOfK+aFgtag+2LGd5m9IOepm4I93anfhX8Uq2Nvt4iCp7e575hfJ1yk7SyHCCwewg
-         JcRlNaHt2RnVOwclSFTmNFZE4zFj3YTdz3Rs/X2Ab/y/9Z/b23ITnbl63uNVuc2aECsS
-         9+IIiygQUqRAI4uoZeMXpOPiB25VFGpJMD034rLwzn2V7BHSw3I/3UF8EeLdyL2X0qvo
-         ig7iF9UbZckFHvbzIWQOOgb4eJ45tlNw0y9yiKCgkEufBprwWE7d8gZkeyuWHvqthH27
-         mTlQ==
-X-Forwarded-Encrypted: i=1; AL+hErEo+eJ+XbccPjuqrbDBT5MJJE88f90Jzf4zyzyKtWjBafRiUHYXLjMXJ/mj8N2+rRhuV9Q2Goi1De6nNR8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6LqGxoY1e4zi+NLzd9FiMoCmQdbkxg0T8Y5nP9Nm1EXpfJml+
-	U2qyAhok90+IRtGG93f4aZzALtWjvQySaQe8+iLYmgOTIxRcWlfIeJj4
-X-Gm-Gg: AYBFou2vgSm12H3BHhOg3ptQs/gMuQy3g3vnfaenUEWJRd1Mh63e3hQ6HeKtNZ4uNJz
-	34bR0LkG5UCteZOeQnwWLYvkCQTZQ6ORRAuSv9gJhllLuwmCRiZxDkdQba0qgIuAwE8l4psTL/S
-	ZkrG9tApqVNVdMgVR8ZHh2/h5YVAb7sRj5VxXUGgs83AC0vViKg37tfF2ID5TrJ84SVU9l9uGQS
-	zx0TPlvEEOeKjinldHkn71nZdKzHOFk8Ec2iCIpsqPlOUQHk4wZpmquavsIojRkQHYx+VSpKOOq
-	4EAscK413oHy7YRkS6U6T6WiCWSEcpvWFA4ze5rYS4zIOnIqRrUF//02pcCrDUVFF7CcriIvh4x
-	NXcLoZZAgJactkaSO4EkC/8uJSuw+wiLGOwL5+pgefswZTZw3AwPJmZ5kkhBRiaTjrmuh0wFBbq
-	kByf7WYFwyZYXkqZROzpKBQV90wqqwVMSXbqyXDZTq+MFbWSnpugsBGQQNPMbjApzMpB3wjQN/7
-	FS/p9SE1UVRR3K8Qv/ay0iBRnEbMrwP8/Z9KpuC71aN1faq2+rDtDumlJnjMc1JIh2ri2596Kg/
-	/A2tnJEPuaZuTXNOWxvlEnT0tiQImbPdyb2s6uYcjSYD7UhTwWbDJ3MNkbeP5sFFp5dv
-X-Received: by 2002:a05:7022:408b:b0:1a3:cbd7:1269 with SMTP id a92af1059eb24-1b39fedb95cmr5006800c88.23.1794211775040;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7WgP2xkUAyLjKpFzwzFZYmyYY1jkU6o9DJTWgp1SX/A=;
+        b=2M8SZcZO1eg8sV/wMst+ELDmzuysG+8+7t6kMrhWf8PGdmVg5qmuhS4P3HP3TffZbj
+         oaGGKp0m0iYBM/fkjWaK9/78/cTNeE38qr9P2lXs6Mp9HPTEbwmgR5aSwTBzY5vP54Ur
+         9+NiI0HNg2on8lx9e/g+87MwG5Dr3P+D4Eev1voU/Sb7mBLZnM6x2DwMG2DCGCIHdl3m
+         kvHV4Qt1ZpcGKGNE2SpFjdG9XO2rAkpL6Tl5A8GD9ixNAlBPZCQjfyM/YzbiRcrZeHq4
+         38vHqX/9FKqUbF4MhAY/c7cXj3mFEMu/w0ORljdfE9aj5xVNPGkJANJwG9ooXki40JCT
+         i9Qg==
+X-Forwarded-Encrypted: i=1; AL+hErGCKeFzXFVXVI0OVtGaDe+Lo7zZwGfcdr7mcoMAlP05lSoAw7izpEe7dmykKCOhyU2cc3/2EzLrgt/WfQY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lq/GbwY0j2LNXU1j/mpLQy4DG5yzYvPa9E3FrF1PAmMQmxmvq
+	l37uhHqSXb1P0dDec1ttEBvzSUGNmze6p/NtUcOUd+TZWgzZ66zUEM8K2dsLPNQS+UiU280vloz
+	Nkp6y
+X-Gm-Gg: AYBFou3wpdKhCvFYG5TIA8bFHweHAczD4/mhLLrhL3F2SU3QHNH7fxN0rQX/YqLvmGo
+	MEVUWylVbmMEa0Zj05rbxeTdG6eZOAXFKujSH8LqzBhqAOmY6JCkm6dJK0Tj//BGBD4Ij6Z1LMR
+	iilqZpHBZkjLRnZdXgbi77zEmjrN3UNvbd5R3tM4gOQmzd/OrvF3T+zzrC/o4fiJLpPbrzCvFdK
+	Ft+I9VnzEU7SGP+y+11bNcC1Fe+MCJiV8DIjKggglEoMhThgqbcdJwFPJOr4Rjh+dSuJkjUgJMX
+	MNWykKmwhMTGjAm0kcNqKsWJFTFGexxkdWu8io9BOb6um0d7T3peOEa3CP5IHGl2rFqjnEvABxO
+	HS60bjLSevJS8bqjYO1z8OmdTdzREKPwzbwryr3OWDWX9BdMMzOf9JxgQlHTjQUk0zblUC5NZC6
+	Ne05+FG2EhoP70AKffoxgqzaPn14+tPkWuHZhZ+NZp7x0IZFRGZxarr300URgWkd+NuGmtTj4g/
+	npwvr0c+CStMhRbuvzQ8Kv//SohzblQnIl9MaJXmy36yrpB4R0gSLL7h5e5npZlT4fuf3I4dWA7
+	Rqw4E/EBohbBTLHzG72ShrXmyRB+PNYb1ZhSDvPxl7z2tETj
+X-Received: by 2002:a05:6000:5c6:b0:490:5521:f24f with SMTP id ffacd0b85a97d-4941f667da5mr10718282f8f.3.1794211775492;
         Mon, 09 Nov 2026 00:09:35 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375728f8bsm10241765c88.15.2026.11.09.00.09.34
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597187162sm8595813f8f.34.2026.11.09.00.09.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 09 Nov 2026 00:09:34 -0800 (PST)
-Date: Mon, 09 Nov 2026 00:09:33 -0800
-Message-ID: <e9cf3745ebc09bf04ce0bf75b67a31f0@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-input@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH] Input: apm-power - Rename to apm-power-input
-In-Reply-To: <20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org>
-References: <20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org>
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jude Gyimah <jude.gyimah87@gmail.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Cc: neil.armstrong@linaro.org, khilman@baylibre.com,
+ martin.blumenstingl@googlemail.com, linux-sound@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jude Gyimah <jude.gyimah87@gmail.com>
+Subject: Re: [PATCH 0/4] ASoC: meson: fix missing REGMAP_MMIO dependencies
+In-Reply-To: <20261107165527.576383-1-jude.gyimah87@gmail.com>
+References: <20261107165527.576383-1-jude.gyimah87@gmail.com>
+Date: Mon, 09 Nov 2026 09:09:33 +0100
+Message-ID: <1jmrri1l4y.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,47 +100,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Type: text/plain
 
-Hi Nathan,
+On sam. 07 nov. 2026 at 17:55, Jude Gyimah <jude.gyimah87@gmail.com> wrote:
 
-On Mon, Nov 09, 2026 at 01:25:26AM -0500, Nathan Chancellor wrote:
-> When scripts/modules-check.sh is fixed to normalize the module's name
-> like name-fix-token does in scripts/Makefile.lib before checking that it
-> is unique [1], there is an error due to drivers/input/apm-power.ko and
-> drivers/power/supply/apm_power.ko having the same module name.
-...
-> Rename drivers/input/apm-power.c to apm-power-input.c to make the module
-> name unique and clear up the error.
-...
-> We would like to take [1] for 7.5 in kbuild-next, so we would appreciate
-> an ack to take this directly or a stable branch that we can pull in.
+> Each of these drivers can be built into vmlinux while the code
+> providing a symbol it calls is a module, which fails to link.  The
+> same shape in 4 drivers, so they are here as one series.
+>
+> Affected: aiu, axg-pdm, axg-spdifin, axg-spdifout.
+>
+> The fix is a select rather than a depends on: the providers have no
+> prompt of their own and are only ever enabled by a select, so a
+> depends on would leave these drivers unselectable.
+>
+> Each was reproduced on v7.3, arm64 by a vmlinux link that failed on the
+> named symbol, and each links once the select is added.
+>
+> Found with kreach, a static check that compares what Kconfig allows
+> against the symbols the compiled objects actually reference.
+>
+> The checker is at https://github.com/JGyimah/kreach, and the
+> reproducer configuration for each finding is published with it
+> under results/.
+>
+> Jude Gyimah (4):
+>   ASoC: meson: aiu: select REGMAP_MMIO
+>   ASoC: meson: axg-pdm: select REGMAP_MMIO
+>   ASoC: meson: axg-spdifin: select REGMAP_MMIO
+>   ASoC: meson: axg-spdifout: select REGMAP_MMIO
 
-drivers/input/apm-power.c only reacts to EV_PWR/KEY_SUSPEND input events
-to queue APM_USER_SUSPEND via APM emulation. The only in-tree users that
-generate those events are the legacy Sharp Zaurus ARM machines
-(spitz/borzoi/akita on PXA alongside SHARPSL_PM, and collie on SA1100
-via locomokbd). None of them were converted to Device Tree, both
-mach-pxa board files and mach-sa1100 were marked deprecated in 7.3, and
-Arnd (added to Cc) already has their removal queued up for 7.5 after
-holding it back from 7.4 LTS:
+With the change sashiko requested
 
-https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
 
-None of the remaining ARM platforms or other APM_EMULATION targets emit
-EV_PWR input events or enable CONFIG_INPUT_APMPOWER (and pxa_defconfig
-already dropped CONFIG_PXA_SHARPSL in commit cc7852314abd, leaving
-CONFIG_INPUT_APMPOWER inert there).
+The re-spin is necessary because the description does not match the
+change, even if the change is correct.
 
-Since you are targeting 7.5 for the modules-check change anyway, let's
-just drop drivers/input/apm-power.c altogether instead of renaming a
-module whose last users are going away in the same cycle. I will send
-out a removal patch shortly, and either you can take it directly through
-kbuild-next or I can put it on an immutable branch for you to pull.
-
-Thanks.
+>
+>  sound/soc/meson/Kconfig | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> -- 
+> 2.43.0
+>
 
 -- 
-Dmitry
+Jerome
