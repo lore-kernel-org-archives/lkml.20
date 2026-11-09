@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218298;
-	b=fVXmFNVi2jqvSRBfheorvOZptVM1tHkRlbwIjDwN/7cUA+ZDjBjboPL2H1ikIzfSTq7m
-	 r7AH2kfookp1mYRk62xJWuM8E0r3JEDqoH/WYbHJVMLt5JgGxOI0qzRzHvGXzkTae/xcW
-	 QLmv0vpCHr9izOkln3gDM9YlOgPfwXWRZLOvrzKbdq8p73OaAkbTbcb7E9oHQ6Y4tr3MY
-	 uOWvgBeVn3hc7g7fKV/4Kjm0/Y1OZzos+tL03C4NnVslL2YK85tlx37ZDHqn6qGqjLZoo
-	 DEXWj/mjbCowm+/Whzk1jXw2Fiug/pZOHlM7AIj0GUWryCXb/LxXrt+3/Yd9rU7T0fA==
+	t=1794218303;
+	b=EKN0KyfJJBP36KRaS5hhCL3cwvB1EVpMbINeykVuI75wuZltO+TPCg5DPtsW24HCV9k/
+	 O3fQ7FsiJ0erZgWPAZ2g/p/oUhSM+3KQDfF5fNRrW7mWo9rTKgRZ7Cu4C9V2OWQXUUgze
+	 QAXlmCF9oIGe97ufgOKXpreMz31LfLswN4XcDATzk67uQNS54zVcczR/3GWLgaAV9GsrZ
+	 10bEDbyXupfZphpS6V5LxP3XyY66/xWPRZS/O0+tP7R4Gm1bPZMQm+5TJ+FxpVNK8mgXH
+	 2xx1idS++eRqle58iOW/d3FriclHdLBueFloXAQ6nY5kwMbkz/bHrLvZbMJMJPCZrJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218303;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Kh6WS4JV09X5bkn+ckuHPEH2lqGAS0Kwa0bbH5KEGyg=;
-	b=vpXXQ7xqHd+Op3KGcMwX+/3osU9yts8+ucbY5i0H0c3wzNlTIfj4WwdGwQbGVCXayBDf
-	 YBl+s4zKVFG9uxO9Fz1Vphi/ltaMP3PT6ug+mmq3QItscahTVB7cot4GF2kvEawnPhJAO
-	 Q/Y0o4PFG+rL+P3rNfss8Fn2T+akBZ4LNDtw9pSpJIKfKL+qdQM3HSgBe6EbTh4wh21yu
-	 ZKyTSro6Garqxs4Ymxq1zZOxU9CzTM9Pkwre1KiBsvjRkKyoNsLuPjcFWtiwW9yUy9don
-	 ZlOkUne3tydOEzqXXcifLdb3oHYZCOmmO2LZ++kWyeNcUSYBp6oz9Uag0KXXt0vdLlg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1oy4Sqnm7F3cOGv06qj6Z3Ixjl/LADzL4b+dbql4rc0=;
+	b=AfTnTcXkVpDxyvqrexBcHk/6HRLm9IHKZatQwyQLUlyn4eJ9EarhmHDLwmEGrAmUdkR3
+	 WrKErZxIX9ugaxbtB+1L9HLNuRuEFxw7X1B7c1clsOj80Ris7mvDBnbJF227FAU/WKj/d
+	 B2x5gwXbVZPpWFwJCq/0BR1iu6LVWkH+8z8rLP8Iulzls/CO0qi4B2AePwrrqHj4KVLJ/
+	 nYupbLA1Sx0rlCJPeKCL7aoluey7ld8+1QR43TyI8xVklw11JAVscIauGfCOX9XOlZvuU
+	 E/HvZTjdT/waNJ6JG4awaLpWn55GrefHty70tOrW/zj+akd0rIw0jIDuK95zocNxX7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=RvQ1Eopo;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ejvgiy5X;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F92606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:58:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03F92606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B517606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B517606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=RvQ1Eopo
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1039020c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:58:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ejvgiy5X
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b244fb7fffso752455c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:58:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794218297; x=1794823097; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kh6WS4JV09X5bkn+ckuHPEH2lqGAS0Kwa0bbH5KEGyg=;
-        b=RvQ1EopoPFmBQtaTi6FV4ZBTxnA+F3Ji6r4MVf99iPO9nKoCsetbHE+5wq7vaOhCOQ
-         CLn+0d3eZYiU+Il+Dms60RaYAzpJi16w/LU5JfHZTpyiX6hpdbHQLT14JKDzT4f0ytju
-         7ErFzZJ2q7DyzP+nkJIL3VVM6uXi005cTgUVB5jDo4wpgZgs7k7QFoqpHy188JzGcL2V
-         qmvNkZI3kSSjIGDU9WbJWc+NgpLDL1GK06+MT25o5msEOHKkVjk79IRgfH0gM6ZI8Eam
-         zSPtr6OVzAi1vk6ROGp3LsPjdHjhDp02SWte5ZgDH/I+5oTpuFZ7XTX65n/lhCLyCIF3
-         bCZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794218297; x=1794823097;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytedance.com; s=google; t=1794218301; x=1794823101; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Kh6WS4JV09X5bkn+ckuHPEH2lqGAS0Kwa0bbH5KEGyg=;
-        b=hIvQ/ZKDXef3uWsOZYrbtxJLHl0/BUL2b8BxnGQ2FKmrFlXuxph+ZmgsdM8VCu307k
-         tmhrxO1oG1e+w/4hyZ6Ud9SdRj115FIITvIBsaPcDLeMdEK+aS7tbDqS1gS17iu15ZS2
-         BZWQ9q5TQG5lqEsGNzgarTjLkRfnbGWhJS+JjuikigvnXaWlmFmsbrfn6zsueGVot2Ku
-         7UCBncNE+6FrCKh4pXpseqyJlnyRvNpGZFQJZn9+ViJ1R8CvjlhcR3y9TvMTPwj15ru0
-         rvbYjtHGU3NPuxMVzLcf6JKjIAjSkWH447be3olfzIqcj1wL3qkztQ9Wu8cowbpBy4V2
-         Zo/w==
-X-Forwarded-Encrypted: i=1; AL+hErEe2AbXixDNVJ+r79Kr5Oc25pWnnU4WeDBT3uPFJw81G03LePXzDmepgo7lSyhhE03xlN84MAatlbQoJKY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+C9YhLKa4mqDpG6guA2Fhu+hzHCSkCEmSBltMq8AMzM60HSe+k
-	QbFondMESzM8WLTRRRbpj/mUM9vtdYPMsRbv3zw4cfdn5hpQ+ccXEa2AHZQHK9QrgUY=
-X-Gm-Gg: AYBFou3N7nLBNDSKOy7Sav4bDBU+AQzhx7KldJP9AznlAG0gxdo5mv//mPBe52DGhdP
-	t4RyqbarLlAV9vTy5UTgcGgzqiylslM/zkTLlODKxfeUJfZFQn6Ps+4O+yjJpTW968NHmUOowPj
-	UVSlGrhamTtfBgU+QZLbbdtbYpvNBMhCNdWuuJUgfdpBIq/9efrlnrIFzqLJ7t9t/LbRhzPNMuc
-	dY7bgIdWP8sUiBd/sGfYXI3RUdNuVSWtt/oO9/yPuc58SGnlPAUiRlsNco2fIYvUFfVwdumCQdz
-	HPjLCLP+AL2hc6EcCd7NrIwf9t7HwAyfQTgkfeeSyxvAPfdpUGDzEuNj3hbA8/MBBMxC0MSHkCb
-	IIka4F/vWmwdoZtWs9PPyIQyjAmw+n3WWZqg9ui7JFLzmJS5C7H/RhFkY4il/2P7zC6/ES40L6p
-	3h7fk0Tm7NSA2WfxbCj/oD3gy++r5C9ZHKbk04NyVDMpUE0KWnuZO5NB4bAXcwKHUMLML98z8g5
-	9D07vP9R3R+P9oRmYtzQKtSe8mAg3+ZObFTXB4cl0PwSPd7MdsM3XcnQJs0BSt+iEnCho/7nhSi
-	aM08/ylwEQ2fgkI08pkZ/19+8CkTr2AD+6ACjsulfbRsROJxkXZSE1tvvTd5+rcp/eawZk+WK5x
-	gsuPYvOU=
-X-Received: by 2002:a05:7023:884:b0:196:bf5f:8bb with SMTP id a92af1059eb24-1b39fecb7a4mr5891979c88.45.1794218296778;
-        Mon, 09 Nov 2026 01:58:16 -0800 (PST)
+        bh=1oy4Sqnm7F3cOGv06qj6Z3Ixjl/LADzL4b+dbql4rc0=;
+        b=ejvgiy5X88l8ocx2wSI44EzVPzr0genF3maHiXufCK9nfb46o0Dw54ubu+UqXBLOjy
+         Olp3+F+pyUZIEs9+COiX2oDi1BD3/KNL6MuqI2VE2j7iOZ2DYdQeWijDI8CJzY65Qlz1
+         lM4rivu39+cDLZt30VlgI9oRYErqyckwFh15lCdWuHkIvmQjzen0kSba4hbco0ZlCoRE
+         aYla0u7ItCEz1/F6kcIeE3CsaONKo8dxg6lYOOWjdxmgVSIbLrL03zPBhboeEEpqdzad
+         pHP9IfvlGgfoG7oSPbl9V6WKIYMUrp9lklN7wTUTepFXy3yqXvNHsHEPYL0RkFbQEuOw
+         gh/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794218301; x=1794823101;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1oy4Sqnm7F3cOGv06qj6Z3Ixjl/LADzL4b+dbql4rc0=;
+        b=P5R8fG4Poye5M4WMQc0StplzarBa+0Qr0mBLOxOt1StIRrWlt/X4YNbwfbGjZ91mD7
+         73R5kEbs+WxuSFtw2YcHpACCFTuEbWDATij9gDG5tF0/Rf5kuLehweTMybTyTiTJPc01
+         dPqTrOUdjgWAKmzgLZmLvbloIfDOZ3GrCfI4Bu/4IFwa2PzEqY5gnNVMwB2ZiIqv8nvB
+         1itMd6xVNPBRkbyqI9N3W3oTUyGBr0Nh9v8OLyjqu9qCUMZiuCW+LJNrWD4Xhrhivpsn
+         yVL2HUAj2RaJr5KNxnwK8aTZ2Our2wQwgnT/BxuqtMkJaJFb5xokG64536Qya7zCXYI5
+         LjWw==
+X-Forwarded-Encrypted: i=1; AL+hErGDt4OyHERT3H05clJhLO9+ghrz+cQJ3eYEKOyZzyCaKw7C9d5Vps8DVuMVttoxXq/BlSZz9YcWk9d0nQs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qW9vuNFy3CRMBs3TNx+Q8YQLx8GjBXRKm+Fzh6Q8bbODlS6kJ
+	lnaHn24kDbWQsPfc5UTyXxStDq2acQRNwOjIL8fbDOFf8UCwZMIQ9REtlIuCpYZvYLU=
+X-Gm-Gg: AYBFou07GgpvR/qVG9LdhE14Yn+61pTIosujTg7lyyLwwc9FszOxS8NcGAEMS9vP9aw
+	v40nUW65OmbzTRcnE+NVy+9h2sQ4LSRiWpvAFAn+m0jcjwqTjewTLZvPmGz+GZJzq37GlHM+WJi
+	mVM+xuWkPBuZSzyoBYST0svQNi/y4chczVv8bkFeHSgYqQ19hk/Yd+OHK26DkVHwulD+ZtKPmEJ
+	tO8WwvKJiNfGAlbfnt2Wtkl0wMOetHqudYvathjAXHz4srqrET1Dtl6AQ+20YP52xvMlWxZm2ec
+	KqOXBxuTDSf5J2kNMQulcDR65sXbGtv3d/y2y6ymgXstF10rt37EZm9z5joPBau0V+gHnAsj5WK
+	Dik9rNMBwuQNyBY2gdURfyUDcOIGq4JnaBk23jYuL2t6HDH8aKHCjuxoKMETTKo9FeBICgYCsn2
+	MqPm7xecrN0KT0L0YbbEsreGV29ogKjHjtMou/ZWH55GUJpB4/zapNnEwrN11H3WIPECzv6KrgC
+	9lH5R57gKHakk9zZrHAzHHipQcNPvgKi6+NLqExD+GOJg7f8i6NR+UUXZM734afm3lC7KEoJU4T
+	es0lxIT+xgiTaPc2z032n+H54gGpo6JSWLzyivtHgXXmcgS/mTCjuDe90PNLNihqeNilq5PC+T6
+	d3ajHpl8=
+X-Received: by 2002:a05:701b:2054:b0:191:444:425 with SMTP id a92af1059eb24-1b39fe2dd86mr5786268c88.2.1794218301076;
+        Mon, 09 Nov 2026 01:58:21 -0800 (PST)
 Received: from G6L4RL2QG9.bytedance.net ([61.213.176.10])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e8911sm12841684c88.5.2026.11.09.01.58.12
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e8911sm12841684c88.5.2026.11.09.01.58.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 01:58:16 -0800 (PST)
+        Mon, 09 Nov 2026 01:58:20 -0800 (PST)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -95,10 +96,12 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH 00/11] mm: Unify memmap initialization for compound pages
-Date: Mon,  9 Nov 2026 17:57:55 +0800
-Message-ID: <20261109095807.41547-1-songmuchun@bytedance.com>
+Subject: [PATCH 01/11] mm/mm_init: verify zones for template-initialized pages
+Date: Mon,  9 Nov 2026 17:57:56 +0800
+Message-ID: <20261109095807.41547-2-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109095807.41547-1-songmuchun@bytedance.com>
+References: <20261109095807.41547-1-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,74 +113,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Template-based ZONE_DEVICE initialization bypasses
+__init_single_page(), which means copied struct pages do not run the
+vmemmap zone consistency check.
 
-This series is based on the mm-new branch at commit b95f8bb86713.
+Verify each destination after copying the template so the fast path gets
+the same validation as regular page initialization.
 
-This series is split out from the earlier, larger series
-"mm: Generalize HVO for HugeTLB and device DAX" [1]. That series
-generalized vmemmap optimization across HugeTLB and device DAX. One
-remaining piece is the separate compound struct page initialization used
-by boot-time gigantic HugeTLB pages and compound ZONE_DEVICE ranges.
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ mm/mm_init.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The prerequisite changes already let both users derive their HVO layout
-from sparsemem section metadata and use the common sparse-vmemmap
-population path. Their post-population initialization still differs,
-however. memmap_init_zone_device() builds compound pages from reusable
-templates, whereas boot-time HugeTLB retains separate HVO fallback,
-compound-page, and pageblock migratetype handling.
-
-This series consolidates those paths in three stages.
-
-The first four patches make the generic memmap initialization code
-suitable for sharing. They add zone-consistency verification to template
-copies, factor the PFN-independent page state, simplify the ZONE_DEVICE
-template setup, and introduce a helper for initializing frozen compound
-pages.
-
-The next four patches simplify boot-time gigantic HugeTLB initialization.
-They make it rely solely on section-based HVO, mark the entire gigantic
-allocation as noinit so HugeTLB owns its memmap setup, and switch the
-retained struct pages to the common frozen compound-page helper. With the
-last external user gone, __init_single_page() becomes local to mm_init.c.
-
-The final three patches move initialization of early-reserved CMA
-pageblocks into cma_activate_area() and localize the CMA helper. This
-allows MIGRATE_MOVABLE initialization to move into the shared memmap
-helpers. CMA later overrides those pageblocks to MIGRATE_CMA during
-activation, while non-CMA HugeTLB and ZONE_DEVICE users retain the
-default migratetype.
-
-After this series, boot-time HugeTLB and compound ZONE_DEVICE ranges,
-including device DAX, use the same helpers for frozen compound-page and
-pageblock initialization.
-
-[1] https://lore.kernel.org/20260513130542.35604-1-songmuchun@bytedance.com/
-
-Muchun Song (11):
-  mm/mm_init: verify zones for template-initialized pages
-  mm/mm_init: factor out common struct page initialization
-  mm/mm_init: simplify zone device page initialization
-  mm/mm_init: factor out frozen compound page initialization
-  mm/hugetlb: drop boot-time HVO handling for gigantic folios
-  mm/hugetlb: initialize all struct pages for bootmem hugepages
-  mm/hugetlb: use common compound page initialization helper
-  mm/mm_init: make __init_single_page() static
-  mm/cma: centralize CMA pageblock initialization
-  mm/cma: localize init_cma_pageblock() to cma.c
-  mm/mm_init: move pageblock migratetype init to memmap helpers
-
- include/linux/mm.h   |   8 --
- mm/cma.c             |  24 +++--
- mm/hugetlb.c         | 111 ++-------------------
- mm/hugetlb_vmemmap.c |  17 +---
- mm/mm_init.c         | 232 ++++++++++++++++---------------------------
- mm/mm_init.h         |  14 +--
- mm/sparse-vmemmap.c  |   7 +-
- 7 files changed, 120 insertions(+), 293 deletions(-)
-
-
-base-commit: b95f8bb86713c860ce8536d22a988b949b884d5f
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index a9d848c92678..0129152b74d8 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -1082,6 +1082,7 @@ static void zone_device_page_init_from_template(struct page *page,
+ 		set_page_address(template, __va(pfn << PAGE_SHIFT));
+ #endif
+ 	memcpy_nontemporal(page, template, sizeof(*page));
++	vmemmap_optimization_verify_zone(page);
+ }
+ 
+ /*
 -- 
 2.54.0
 
