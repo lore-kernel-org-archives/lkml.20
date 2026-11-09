@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.93.178.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222258;
-	b=Tw5VphnAmNWKIFy6Ixtd+HrTisQEu8hq5NLBxaSAK5KRgYL/OeMUM6ObncFtCM6owIHk
-	 +omCfiXPmTY+EGY6ttQTRmGT+JmwuKS0DI9FphJsbRZ9vHhpUxdvQuAOSdCF1Q+WQVpsz
-	 +P1aUCo8VdL1uIHhYaYLsPSW2DW5rCBAdyjzR3WHNkzJwP7C85sC+xRWVRSZSXCDC4/vM
-	 8UZoG5tyo9A7G2j0Q2ZzRvA5q9Rf+nb0UXPGxrETMxaOcG9i/yw0PBxh77G6zZvegtVB+
-	 61aUxfDbO+7nIfrUuneewjz6DxnTnMkvfdQCrIEZON/9V3IXKEahwJrDCLPAAS9zDTg==
+	t=1794222273;
+	b=5m+opkfhCakkh24Ex9VflykGi/yOeQfH15zfAMoPd/3eOmzxiZDalwwr6VBQvT5dsfoY
+	 +KqG8jAaVW2WAt7PuWvJkyR1L2TwwJl9yQgDaI0beA7ejoBubvxrwH+77r+kES8AsOLg4
+	 3d3dHRx53+7qBBFzEPHEUqUBjpBawNrK+SLmJM5C+FSrDxxd87qbJ2G5cLzWfO85jMR8h
+	 /MPQK9q84QC1jjKi0CeXZOMKaizbytLI7z3cndv0BlUCHMyNcxnAWWENleQIBdv+Pse8Z
+	 trGWDHVMBD0M9T8lNGwryNLtszu75yR43uJd2TIPTNdmfiw8Wq2BDxzj9XTylmaqFMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222258;
-	h=DMARC-Filter:X-CSE-ConnectionGUID:X-CSE-MsgGUID:X-IPAS-Result:
-	 IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:X-Talos-MUID:
-	 X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:Received:From:To:
-	 CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=IAvdkeYbWNqPuHgLOFIbTsl4llsltzOBBEnlGn0o0/Q=;
-	b=GwAK+keBeAZM8vf49TcKOGS+hx+zqxV7RluwghDEZD5GkfhJIPl+lK4zNT6ADiBskJXk
-	 5jRy9uHWKaN2PUosArytUCZLvjeWCdOwxkALRqKGcNNLkxtZLZKZFOSojEubkoBNitom3
-	 sEaqr15Hk/DSA0lmuhbmkMlHGlywKVixFKC+s/PpdFe6w0e2xCT1Y0PRotDF4Gt4VLAo1
-	 Df+Xuiyy3xb9CHJzFIiqw6mVfZTe0ro05HXUdRMzXlWS3Fy5cdhpiueFfLGWm8rRxXsPI
-	 w0pnndKkgxJVrTpLywdEr7ZHyionaf8xHT3WxAAnfQdgh7D3B7RluQJIppX13YclHRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222273;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:X-Mailer:Cc:
+	 Date:Message-Id:Mime-Version:Subject:X-Original-From:Content-Type:To:
+	 From:X-Lms-Return-Path;
+	bh=Y5Lzomot2LyKiavuKiwRHLXi9C7DIBS9PkpU70qoGZQ=;
+	b=fdPoAZKBXl5C52ebnxi+iHW3yWWoiE6E7580+6nlxYO1uzHdIAswyzw7dfQfRnmaUKbs
+	 mKva6FcsVjFMKildPO6Up29sTumHf2N8y4ztD6wxLMcK9r1jSLedHovNM+lwp2enPVSFq
+	 if30LPF+7ayRARX9peV3WOwHET9l6B0cUFbqantTO2DRO0K4lDesFMoxLRC5/C8hGtO2h
+	 qh/FYG6zMdJ9DI8ZsHG7TJWEuc6nI8GiatFvYHlo8C2QGcbUztp9sGg+OLqXUxllP+iT2
+	 8fqn/zkqhXFaoj+wJVkcICIgqAKxKPiTOtsMlXmZkx10g5Bzb4oPHuK0gCtxUSLiHAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hs-mainz.de;
-	spf=pass smtp.mailfrom=hs-mainz.de;
-	arc=none smtp.remote-ip=134.93.178.243
-Received: from mailgate-3.ZDV.Net (mailgate-3.zdv.net [134.93.178.243])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=haWrxf6C;
+	arc=none smtp.remote-ip=209.127.231.112
+Received: from va-2-112.ptr.blmpb.com (va-2-112.ptr.blmpb.com [209.127.231.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93CC606A31C;
-	Mon,  9 Nov 2026 11:04:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E93CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hs-mainz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hs-mainz.de
-X-CSE-ConnectionGUID: E54ZMBywTUO/zkDaGLm1TQ==
-X-CSE-MsgGUID: yIURpLAaRHiP40Wn8DkPug==
-X-IPAS-Result: =?us-ascii?q?A2APBABwp/Fq/z72XgpaglmDTIIJli6eJIF+DwEBAQ4BP?=
- =?us-ascii?q?RQEAQGFBQKOHic2Bw4BAgQDAgMBAQEBAQEBAQEBAQEKAQEBBQEBAQEBAQYEA?=
- =?us-ascii?q?YEhhglGDZATBjIBRhALRlYGDoMHAYJ0FL91gQHeSYFuBgkBgUOFdIJuAYUDh?=
- =?us-ascii?q?XM2gVVEhEA+hCEBAW2FeQSCIoEMl0BICnh4LAFVEw0KCwcFgSVDAzUSKhUjS?=
- =?us-ascii?q?wUtHYEjIR0XER5YGwYFEiAqQUNbgRKBB12BKyhdAQIfRi0VgXYCglGBI10CA?=
- =?us-ascii?q?UlBDgdFUwklQxJHJCIIEgkBExosCoEaNTwJJgQ7FQxkCxoFGkcIAgsCDHQoE?=
- =?us-ascii?q?RATHR4kLwUcJj4bCjYYDUgRLDcVGQQ+bgeSQoIwghxYdRE1H0iWFQGvbzQHg?=
- =?us-ascii?q?jmBaoFgCAyKMJU6Tapxkk6GOo4Kmw8CBAIEBQIYgW8IggYzGiSDN1IXAg+Wf?=
- =?us-ascii?q?MVogTUCBwIHDgMLkkgBgR0BAQ?=
-IronPort-Data: A9a23:mT7UGqqGsGZHOcXzWvjWkIJH8GVeBmJ4ZRIvgKrLsJaIsI4StFCzt
- garIBmFO62PNjf8fYh1Pd+18k0PuJbdnddkHFBorytmRiwa8JacVYWSI27OZC7DdceroGBPt
- JxCN4aafKjYbVeF/kv9b+e/9RGQ8YnSG9IQ3cadYngZqTdMEXln1FQ73bFp2uaEuPDhayuVo
- 9T+vsbDD1Gs3j9wIwo85rmKwP9VlK2aVAgw4BpkOpingHeEzyNLVctHdPnoR5fFatA88tCSF
- rurII6Rpgs1zz91Yvu5n7DydFE9Q7K6FWCmlnpMVqG+tQNJryo037xTHKJ0hZB/0mjhc3hZk
- b2hhLToIesbFvSkdNc1CnG0JxpD0Zhuo9crF5QdXfu7lCUqe1O0qxln4dpf0Ycwoo6bCkkWn
- RAUxaxkgh2r34qLLLyHpuZEq5l/HuzBLZwjh1Yn3zL1BNkCRMn/evCfjTNY9G9YasFmD/rAI
- scJYjoqNlLyTyMJHFoLYH48tL7wwCijNWcE9hTL/8Lb4ECKpOB1+L7sO93Rc93MRthTglSVj
- mLdumHwAxcIctCSodaA2ij33LWWxHKqMG4UPKyZy8RypHSa/EwSMEFOal3rjfqBl0HrDrqzL
- GRRoELCt5Ma8E2tU8m4XhukrXGevwINc8RfHvd86wyXzKfQpQGDCQAsXDlBYcYOsM4wWCxs1
- 1WM2djuAFRHkrSQRGnb3LCIsTS3PSUEBW8LYzQJSxMM+cXlrZsojhPXCN1kFcadlNr/FCvsx
- HaRpTMlmp0TkMcU2qT99lfC6xqgo5nVVB9z5QzMV36m7wVRa4usZoju4l/ehd5NNoeSCEKHu
- 2cOltKRxOcUBJqJmWqGR+BlNKmg+vKtKDTBhRtqGJ47+nKm/HvLVYJV5ytkJVxBNM8BdD6vZ
- 1Xc0StK6YVcMVOqZKtzcoT3AMMvpYDkFNL4RrXPY9FTeJltZUqC+y1zYUO4wW/gig4vnLs5N
- JPddtyjZV4eCKJ63H+1Sv0b3LsD2C8z3yXQSIr9whDh1qCRDEN5Up8XPEXLY/Ay7Obe5hfZ7
- ZBZOtfiJwhjbdASqxL/qeY7RW3m51BibXwqg6S7rtK+Hzc=
-IronPort-HdrOrdr: A9a23:93f/DazCXS0knN5j30RYKrPwHb1zdoMgy1knxilNoRw8SKClfq
- eV7ZAmPH7P+VEssR4b9+xoVJPrfZqYz+8X3WBzB8bGYOCFggqVxehZhOOI/9SjIVydygc079
- YHT0EUMrLN5DZB4PoTt2KDYq4dKaG8kJxA0t2utktQcQ==
-X-Talos-CUID: =?us-ascii?q?9a23=3AruK6XmhqefTxDlM/F99WVkoLiDJuXyCB/lL6MlC?=
- =?us-ascii?q?ENEEuWr65QHC0/fpYqp87?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AcBzv5A0eJj0rN5/2p6AM632ppTUj8oWTMlgpuJw?=
- =?us-ascii?q?8m8i8aXRPPWexjwyqTdpy?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.27,203,1787004000"; 
-   d="scan'208";a="23221199"
-Received: from zdv-exch-2.zdv.net ([10.94.246.62])
-  by mailgate-3.ZDV.Net with ESMTP/TLS/ECDHE-ECDSA-AES256-GCM-SHA384; 09 Nov 2026 12:04:08 +0100
-Received: from MacBook-Pro-von-Nicolai-4.fritz.box (91.37.89.206) by
- zdv-exch-2.ZDV.Net (fd42:4323:8cdd:70e:9a03:9bff:fe77:8f92) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 12:04:08 +0100
-From: Nicolai Kuntze <nicolai.kuntze@hs-mainz.de>
-To: <linux-integrity@vger.kernel.org>
-CC: Mimi Zohar <zohar@linux.ibm.com>, James Bottomley
-	<James.Bottomley@HansenPartnership.com>, Roberto Sassu
-	<roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric
- Snowberg <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James
- Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
-	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC] IMA: periodic runtime re-measurement of process .text/GOT
-Date: Mon, 9 Nov 2026 12:03:36 +0100
-Message-ID: <20261109110336.82654-1-nicolai.kuntze@hs-mainz.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cf79fc0314c1984e68f683d26cbee3ac0859b5d6.camel@linux.ibm.com>
-References: <20260817102323.35950-1-nicolai.kuntze@hs-mainz.de> <b13a1741eceeba4d4ec50e1c898e011ea81a178b.camel@HansenPartnership.com> <20260822193833.98211-1-nicolai.kuntze@hs-mainz.de> <1805cb973c0e38e1ca8cbeb6dadc4f46f9475a0c.camel@linux.ibm.com> <cf79fc0314c1984e68f683d26cbee3ac0859b5d6.camel@linux.ibm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D008606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D008606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=haWrxf6C
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794222265; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=Y5Lzomot2LyKiavuKiwRHLXi9C7DIBS9PkpU70qoGZQ=;
+ b=haWrxf6C94JWYif297/Q/Hy3fL1sRedEs37FjuZXdfVnmL9yP9izqWjjgHJqVMr6mLupl7
+ xCjZf0HU1Mh0RmHizYtqaAYXAmf10kOnIbGyDwAp6JhmkY3klHOZDH5A2Ph8kxHOAhxVut
+ LpMcCox1ot8rijGaA7c/qSo+kE802RAAYpXKMfj2YURJ8T7w/753Lf2xVG9ZA59Zarwg5I
+ ZgxDSpvny5Dwn2jGYuZPI+eRrzYlm0ZZMgdwU3dSfISD7pkAB30pZaq7meAV6eGBYk+fey
+ QigLZORhi8bLo0L+Wnvigb6JJ6COtyBl2lo0bXFZr0IaJSaazmAIGbaQtE5ERQ==
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Cc: <acme@kernel.org>, <namhyung@kernel.org>, <mark.rutland@arm.com>, 
+	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>, 
+	<irogers@google.com>, <adrian.hunter@intel.com>, 
+	<james.clark@linaro.org>, <x86@kernel.org>, <kim.phillips@amd.com>, 
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Date: Mon,  9 Nov 2026 19:03:56 +0800
+Message-Id: <20261109110356.27709-1-zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,28 +60,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: zdv-exchfe-1.ZDV.Net (2001:4c80:40:70b:21d:d8ff:feb7:30e1)
- To zdv-exch-2.ZDV.Net (fd42:4323:8cdd:70e:9a03:9bff:fe77:8f92)
+Mime-Version: 1.0
+Subject: [PATCH] perf/x86: Reject pair-counter groups with no GP budget
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+To: <peterz@infradead.org>, <mingo@redhat.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af1a8b7+981cbe+vger.kernel.org+zhaogongyi@bytedance.com>
 
-Mimi,
+AMD large-increment events reserve an extra GP counter. A syzkaller
+reproducer opens a perf event group until the adjusted GP budget is
+exhausted. x86_schedule_events() then WARNs on the unschedulable group.
 
-Sorry for the long silence, and thank you for the review.
+Treat an exhausted budget as a scheduling failure and return -EINVAL
+through the existing cleanup path.
 
-A short status note so the thread is not left hanging: I agree with
-your direction. I am reworking this as an IMA critical-data measurement
-(ima_measure_critical_data()) triggered by the securityfs write, and
-will send a v3 on that basis once it has been tested against the
-integrity tree. 
+Fixes: 5738891229a2 ("perf/x86/amd: Add support for Large Increment per Cycle Events")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+ arch/x86/events/core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-The question about extending unchanged digests in that mail needs a bit
-of consideration on my end but I agree that my earlier justification
-for it was not correct. 
+diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+index 4e344fb1a..20ba7b5b0 100644
+--- a/arch/x86/events/core.c
++++ b/arch/x86/events/core.c
+@@ -1246,11 +1246,13 @@ int x86_schedule_events(struct cpu_hw_events *cpuc, int n, int *assign)
+ 		 */
+ 		if (x86_pmu.flags & PMU_FL_PAIR) {
+ 			gpmax -= cpuc->n_pair;
+-			WARN_ON(gpmax <= 0);
++			if (gpmax <= 0)
++				unsched = 1;
+ 		}
+ 
+-		unsched = perf_assign_events(cpuc->event_constraint, n, wmin,
+-					     wmax, gpmax, assign);
++		if (!unsched)
++			unsched = perf_assign_events(cpuc->event_constraint, n, wmin,
++						     wmax, gpmax, assign);
+ 	}
+ 
+ 	/*
 
-One correction: the repository URL in my RFC and in my last message is
-stale. The reference implementation now lives at
-https://gitlab.rlp.net/trusted-computing/memory_attestation
-
-Nicolai (drafted with AI assistance)
+base-commit: 59f1398140869432c7171b9a2a279ca315467c4e
+-- 
+2.39.5 (Apple Git-154)
