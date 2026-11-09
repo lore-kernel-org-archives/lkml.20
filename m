@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794199367;
-	b=seEGT78tZ97HhEmi3sY5nU48Yblz9ffpsfa72xRB7obIwNDj9FMpx6XSsqV6mgcI/yHc
-	 0z6Q7w+lW8Ak4qLvbRnwk92j5OQWSFMyXU9hX9eOxphMJudfeV/Y51qk4oseE/Ne+Om6K
-	 o0AWXqcO8ghNFK8ktbMsBKeTVYPrLuPFt0bOcbDfE+PEP3aP/ZUqIAqeyrBPf6qOOTIm6
-	 9OukenWN0yrI2ixI7Iryo3D6S/fE21/fspo3SHG0m9mCxt5+SLluyMc0T2cQhBznx1hnm
-	 6Hdg0LguiqXO4tUOgYPkGizOgkqUmen95W66CzEstoq4CRms084U1x3TQdgkp9oBRng==
+	t=1794199371;
+	b=KohK+JsZvbbyq7S6txTGgCLue6EsjEeNUPGQGrPSWVPH2xFzBcrXuuTQReG7IKIXCOXx
+	 puvZGXCDSWmNXmUQbd5rpJsXJ/7I1r9xGjHYvLXO2QAf6E3lEsVzuO/KpofRYtOG9Ee9b
+	 k/Xt19R1EPsNzLuc0cfe8AKD9F7VGj94mhB8gB6O/0kAFlTPmLb1qxOoo3QmsFiF6b5BK
+	 kJbZVUB+88zPPi5PMJHfxYa6j22PDhTgHvaV5+OYvXdA5u8sRKf6iLqj78ditLkBESERO
+	 3uejgLwnK0xUd6haWvYkYP5iLwm1AEEoRSWBBdBF+rkEQmyfyK7YabPvQNB5egHTmCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794199367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794199371;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=shxUqKnWZYz/K/hcqwVzW+1VupY1njR3r4UW+YRvWGE=;
-	b=awp46IUPetacNbLw2SgNwNcTCJVMTfwGnOfvLkX5Tp0B80Oa+GFya0FsfTHxfYG9vmiq
-	 W5tbK5rS5jU7u8rIBAbDs8GvEftVCWtcXw0VdaapWwI751Jj0njAWOcWufoJHzUZi6ujH
-	 ASQ/LbJhti2CyO9hDeXzEqW9fiSLul7yMUrxCWw4s8XRZep75y7+ex9h0Tw88MoNUwmDP
-	 yECY5ElcPU3e4JTFMVfL17yNYrYZNDg5ofUhyEHlwDPATMyLOuSAwAG0DfR9I3S9tbkRO
-	 u0Qs0joB/HZ/coMe9BAIjODCeoXETb7GWCXU6ekjZYdVY9OtnZCbh4KaZziaXr3kF/w==
+	bh=yZy6juQ/C2+U+L3WTVvMgyAkJHBU1cX+JxwPunI95Oc=;
+	b=S/RL6ZRK6QbhL4qHZQ/uzKGHSkLqawA6fsKYEdEsfEcg4Wrjbn0D0Wei3JI4Cs2WfvDi
+	 rPTPj/mQ8J+cAyzcDvVF2RTFtcbMGrVpaEGlFtkE4r7VKLTIoESfWsHvo1NIq/rekprxt
+	 V4jZ67ksE+TsL2c7qryGGWGZbAdiaJx6kALsl92O63rCnxJrmrTLBI+6H+umPQQyMTD7H
+	 5VWZap4dzK9tGAAk6JqquRxJN0/zROyKp4sai3Bvf5kS7pPFv55B0PKJRdWQmJChEqn3F
+	 V2+RMaElhRY2gwH0PVScAG/Dmer9CqsjhN4niIA6p2D9r+C5vSBT078E8Txunc00iEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aFn5/jAp";
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XkWijxTT;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CA5606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:42:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4CA5606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BD5606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:42:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BD5606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aFn5/jAp
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso701957eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:42:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XkWijxTT
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so1185592eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:42:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794199366; x=1794804166; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794199370; x=1794804170; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=shxUqKnWZYz/K/hcqwVzW+1VupY1njR3r4UW+YRvWGE=;
-        b=aFn5/jAp5/goiBRVghRUHFdJZk1JQT8b9Cf95Pg++7PNnY69wXy3Q1A9iJcXCs8u6L
-         qAGQ+TuTq7SmGvbz18K6y0tH3SGtviISG8F9JB7+Ty713HKQU9468NQlKUkI5m7VPbV0
-         ziVWxVwpunNz1y8joLB0gHSgFGoJ7ALKA0vzYn3fFg7X8KglQNDV63kdby5pEUc0kdBF
-         y3GiDwYIvUrsZgxICqeAs4xj87CCfCyA0av8vGdo6DGfQeAYdSRq0vgt0pjDDv238C4F
-         pO5zgDAsntuYNM82nLMGPWanRHIdn+j5rrBYt4CqWV/NOj/w2u5BLY8XSMhYQNaIvz+Z
-         2cNQ==
+        bh=yZy6juQ/C2+U+L3WTVvMgyAkJHBU1cX+JxwPunI95Oc=;
+        b=XkWijxTTWAqwBLhYURWexse90j8lVvME6HjHujR/avU4s8oe2xbjRMSMCFK97tMZ0b
+         O6vtS6ERCGtHtCCyAdVbQd6/PpIn38zebhx6WxFlGf0NJIRfX1XkoCxqRZKqmxmCCpgO
+         9mynUDx4Jgh5HXko5DbENTlBkZFuAx48zd6c97EQG27tC55FN9ikxX3vl/5iR4pvYO/C
+         PsF+hP6z6mbVbb04Rpe2Qy9lmsAoRXK5P5F+z0UKtMr4AyTxrzev5IWcY+WvuALVBfnZ
+         Xrk3aVHeo/wYy7IZ0+8e9aAQY2Wo9+KtMHSbYRouYdVZZ7WxPh9Eh+qm/yNIeOxqhut6
+         SuTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794199366; x=1794804166;
+        d=1e100.net; s=20260707; t=1794199370; x=1794804170;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=shxUqKnWZYz/K/hcqwVzW+1VupY1njR3r4UW+YRvWGE=;
-        b=Gn7KwuwNpSl9NmNp+SVVftcd9M2DCRcfjuwFAP3fyyLB8W/aAkWGvjBzuV4fptut/w
-         YtsWG2p4obAy7R2x9MayZ9SJnJR1TbTgx3gCf/guG83th222gI6+43Heji2qZ/hea/xs
-         kvwapQyjUhbEO+powc6ivAQTpbJXnXjDsTyDPEM/tBVUncpPw0lmVedNf6A/3Y+gKIwm
-         sJ8re9/7imM/r+rhaFoC7tEAKyNmqXCR5sylfDNHEXCiE6m0oEZ9BF7F6IO4PjSD/s/u
-         Yn83VTtJEhZouvUl6giA9btIt92LTIK0w1Cxg8BZ9CsWIKdosYztWf3yn/uDjQmjDLFQ
-         uK0Q==
-X-Forwarded-Encrypted: i=1; AL+hErEnFgmtDUbmYHYA4aI9rr/bK9dq94sEjsHtqMQmUJSFL/yyWE68UoviY/dOrpBoghI4OTYIDt6+CZPG92E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+x981u0/xZsb+3A3qufy0ut7ZZlsYZK1bBAqxbvqr1yWjkTnff
-	LYlLbNkfYwvr4YHNotfbw+FhmLuaJYjhKb7HSuuYnkUR+0p0/rvOitqG
-X-Gm-Gg: AYBFou2XlWc1zz7IYAVr2iL5IPxQYvZzn9shKdNwar/NDvLQNesjctmUBFtEyPQ0Tay
-	fYi5szb/TsEM0ClptVO08Dw7L2p4mUWbrYz46op2BQOQSmZNtmYB/i5bS/hXSzBT97FYv3IZ89I
-	K2vBiJC5qIdRW6FzLlIl/CCKlKn4Lsz1zVSjOFeVisMMaNI63TAUJClPIVYK6d3B+ttDrtDjhHB
-	GRvsZqUqiNLo98gl2Ar4WNesqvgY2XH27vvp7FPQ8TrYqRB5Cy0xZlK5dX1ePomz2C/m6jgV7ov
-	MZCKUqLNeIQ4gGvm2Si6/QAtS94stz7V3AvlabuQ9mV60PiyYW3D/aTHYGBj8kuV9lFa7xK6KxW
-	WY4TtK+qJewjSH5dw2+qdROtEewgy8WTFW51nmqCqDVfrjPIX7gi64KfAIli5kQay33YhTVu4u0
-	K3gTDnp7BXXF+sx7JDWfAQCyb8hVMZomjkbnZeJAEB2pESEqtXqaTUyUd8Y7RAnjYOSqbN90C43
-	A/Vw0w5d8l/XKljfj/w4yXvWFo+02PPFrOcCenCJmv6aDIM2FenaYsoLfjLRzkoHT4uR/Jz78Ek
-	3Mp3t+KjnBvgZX8cNbAProlYYUgADqvyYv96HnDaJV0ZnWFJ/NzYQ4nRPDQYoWoOvZL05Q==
-X-Received: by 2002:a05:7300:f14a:b0:369:f9b6:f486 with SMTP id 5a478bee46e88-37256aefa73mr5940591eec.41.1794199365785;
-        Sun, 08 Nov 2026 20:42:45 -0800 (PST)
+        bh=yZy6juQ/C2+U+L3WTVvMgyAkJHBU1cX+JxwPunI95Oc=;
+        b=eZ+oS6mzMIrzwCCmqZnEyXaR311Gs6w602tA8Ox29rqI57SMWH6ax8x+24XBLlDzN7
+         f9CX4AN1IOIwoow0fGEn8PT+IlyMzaX7Mpx0w1Qzgq4MqpCBINveC9s77oO86XhL6Dfq
+         M99gN9UpsBjQXIvHYNo0sgQ7l0rZY09lrchCi/X6iaV0VZcUCvfc4LghSxq6guBiFVoi
+         4fQkbBXdw1xWJDEk8R7wA1obsICShEAaTbMd7EaHZ23vHZpYDnQRcFPzhDf2oyduVcpa
+         /OMeu6U6xWDbEVGIejvuTdjA5hOq2ByleSa4EU+FpIf61Slxp5wScdrB7CeGGNbg+wGY
+         6bwA==
+X-Forwarded-Encrypted: i=1; AL+hErEWH3Cp23bCw04C7mOVF4M5uhA0kuFJGuli10NXnpcqJHIoxl+LaixEub4AdvOky8oi4RkFEqQLh2kdjNU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5LaAkGK7ihI6pF0LMsgBf0i+V4BuCx4qFJZYYSZdFUzZhNafP
+	uH8gUr3qu5S9UZV+Qh3Fn6Jp+thP7+5sqzNURhhw4VLAuYwaG4brsMQr
+X-Gm-Gg: AYBFou3S9fpGFpCJ3VsauM9ZkTMr9IVUCQlryU8s4fuaBVInN2jWG/iktg13NUiY9Dq
+	oO+jqjydloN8yQDLIXtqU33JzysAR/7TgYaGYHvPNhKD6uUWFguAhtDiRdgfWn3QwwES+E2BF9d
+	kKF0sp0BqoHfHn1CeNiYKk6VBAsUHApjYRgIsVa9OrKLZrxycJT6D+tSk5t8ZuBUpwYYlyNTfvu
+	vyN2YlAzoYXmBoLREot/b4w2/JIQqF6y4IJgAqR0o0L4GnosB/lRXy37Pg6gbeX0xu3DeFUovC7
+	RhOYW0JxsxWINEDKRU+px55igJMyd9IsMFg5M3hdZHv6QTLke/G/TjAoH3Sc/YwG3hnYnzWPsT5
+	S5Uv68a2nEC6WU8Hk3ZnRt8ZDfcA/XpDXtFNABT7PXRAfboB3yDA8XeWhFy9gFLWpPhXBiowN22
+	htbaCfN/rE0KbRkb9cLrozq7OsYDVdvV0S/I0CP7CbUhpV+rfv4Ueony/OJgnK2Ow8UJEKQWXxx
+	5K7Hv8f02QzsszYtWIieRA7E7tEdDv+O7J5QmWA4GWnhE5kArlHEbAS8KHZUUZOOferJdYLnCJw
+	X49xekXKGjBU11vvH8G43ivCJ1bvDfmgxnFnBc4Rm5cuSCsP
+X-Received: by 2002:a05:7300:da10:b0:36e:8e6d:a0c0 with SMTP id 5a478bee46e88-3725dd59dd2mr5386387eec.19.1794199370484;
+        Sun, 08 Nov 2026 20:42:50 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726561851esm10154026eec.4.2026.11.08.20.42.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726561851esm10154026eec.4.2026.11.08.20.42.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 20:42:45 -0800 (PST)
+        Sun, 08 Nov 2026 20:42:50 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
 To: Sebastian Reichel <sre@kernel.org>,
 	linux-pm@vger.kernel.org
@@ -90,9 +90,9 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
 	linux-kernel@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] power: supply: axp20x_usb_power: drain vbus_detect work before unregistering the supply
-Date: Mon,  9 Nov 2026 13:42:11 +0900
-Message-ID: <20261109044212.1157357-3-hj351016@gmail.com>
+Subject: [PATCH v2 3/3] power: supply: mt6360_charger: drain chrdet_work before unregistering the supply
+Date: Mon,  9 Nov 2026 13:42:12 +0900
+Message-ID: <20261109044212.1157357-4-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261109044212.1157357-1-hj351016@gmail.com>
 References: <20261109044212.1157357-1-hj351016@gmail.com>
@@ -109,48 +109,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-axp20x_usb_power_probe() registers the vbus_detect poll work for devm
-cancellation before devm_power_supply_register(). devres unwinds in
-reverse, so on unbind the power supply is freed first and the work
-cancelled last. The handler calls power_supply_changed(power->supply) and
-re-queues itself (and is also queued from the USB power IRQ), so an
-instance running in that window dereferences the freed supply.
+mt6360_charger_probe() registers chrdet_work for devm cancellation before
+devm_power_supply_register(). devres unwinds in reverse, so on unbind the
+power supply is freed first and the work cancelled last.
+mt6360_chrdet_work() calls power_supply_changed(mci->psy), so the work
+running in that window dereferences the freed supply.
 
-Register the work cancellation after the power supply, matching the
-"request irqs after registering" ordering already used below.
+Register the work cancellation after the power supply so devres drains it
+first. chrdet_work is only scheduled later in probe, so the move is safe.
 
-Fixes: 6d0c5de2fd84 ("power: supply: Clean-up few drivers by using managed work init")
+Fixes: 0402e8ebb8b8 ("power: supply: mt6360_charger: add MT6360 charger support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-diff --git a/drivers/power/supply/axp20x_usb_power.c b/drivers/power/supply/axp20x_usb_power.c
-index 7625366104bc..f6a7dcbd5a01 100644
---- a/drivers/power/supply/axp20x_usb_power.c
-+++ b/drivers/power/supply/axp20x_usb_power.c
-@@ -979,11 +979,6 @@ static int axp20x_usb_power_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	ret = devm_delayed_work_autocancel(dev, &power->vbus_detect,
--					   axp_data->axp20x_read_vbus);
+diff --git a/drivers/power/supply/mt6360_charger.c b/drivers/power/supply/mt6360_charger.c
+index b4d462343151..71c60ba012df 100644
+--- a/drivers/power/supply/mt6360_charger.c
++++ b/drivers/power/supply/mt6360_charger.c
+@@ -790,9 +790,6 @@ static int mt6360_charger_probe(struct platform_device *pdev)
+ 	mci->vinovp = 6500000;
+ 	mutex_init(&mci->chgdet_lock);
+ 	platform_set_drvdata(pdev, mci);
+-	ret = devm_work_autocancel(&pdev->dev, &mci->chrdet_work, mt6360_chrdet_work);
 -	if (ret)
--		return ret;
--
- 	if (power->vbus_mon_bit) {
- 		/* Enable vbus valid checking */
- 		ret = regmap_field_write(power->vbus_mon_bit, 1);
-@@ -1018,6 +1013,11 @@ static int axp20x_usb_power_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(power->supply),
- 				     "Failed to register power supply\n");
+-		return dev_err_probe(&pdev->dev, ret, "Failed to set delayed work\n");
  
-+	ret = devm_delayed_work_autocancel(dev, &power->vbus_detect,
-+					   axp_data->axp20x_read_vbus);
+ 	ret = device_property_read_u32(&pdev->dev, "richtek,vinovp-microvolt", &mci->vinovp);
+ 	if (ret)
+@@ -828,6 +825,10 @@ static int mt6360_charger_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mci->otg_rdev))
+ 		return PTR_ERR(mci->otg_rdev);
+ 
++	ret = devm_work_autocancel(&pdev->dev, &mci->chrdet_work, mt6360_chrdet_work);
 +	if (ret)
-+		return ret;
++		return dev_err_probe(&pdev->dev, ret, "Failed to set delayed work\n");
 +
- 	/* Request irqs after registering, as irqs may trigger immediately */
- 	for (i = 0; i < axp_data->num_irq_names; i++) {
- 		irq = platform_get_irq_byname(pdev, axp_data->irq_names[i]);
+ 	schedule_work(&mci->chrdet_work);
+ 
+ 	return 0;
 -- 
 2.43.0
 
