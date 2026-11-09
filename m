@@ -1,98 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224669;
-	b=jIi1r9pJXI2FWs/4CAHygrODHu3ND5ZMOr8e/QC/l0f+ZKsO20ZadVC/Fg6vJFEoTXEY
-	 D+lS5A8VZZYO6dy+HJpGam2/quM3yrWzZF+N2YB9Ge+UFzpdXfOIm199BnuQ9fBkF7R81
-	 OLkMWznpIAykzpd3krHbA3DV373Wsfu7JnriV0Ahg7uHRRAVIFt2xkVGQEr+IV2bnpSrn
-	 EFwu+qxrE4ArVrbumBpoLH6FeDeWJyobNXSUoCl8O/EGikMXPNtogXlTJJ3Yl82KLPMSr
-	 bHbCgDBxio6SdPmjGTGxepQB7hY0TYDUcWsCBUJo6RFissj3nOu2spqIKzK9KERtnSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224669;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TUIOjmzBlQxfdwjHftiwHU+LF7dk3gDF7kPQW6Gje5E=;
-	b=q1GBY8De0r26LzIa/dimexAzktjoC9q0WaqD1Bke6RaC/9Sd2d3gjleH67p8Qc6bEiTI
-	 FHflZl+OWgKJFufY82DdCP70BWYWByeXmHYxSiBV3FV9MwM+KvqhUrAMmM6ntf3i+EBr9
-	 4HheYM5nu7OIB3POE9OJdMeFxFrxls3SSupXrIyNNlKO63K3f6706ysRBUR33hD7DG7fL
-	 T5lyXYb7TyvRB3PYggnNnOhzvfkcgQeAgrkInINV309ix3QpwKfky9230PSJR3tft+xPP
-	 U37uZVtZiUjyrRVKS6fbdn02UtHnOD6e8SlEXNCcvvY9X/hasVEanctCrwUANY8vx6A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xqEuKWhE;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794224704;
+	b=jIXzt1/eSqDOpxtZe5yngCVw4OzYRccd3Tbkd5kZFVUf2kVbiM7QwGhL/KRwNDZN4SZP
+	 54L+AjeMu7C4rfNx+UeOrKOiqQEux68s60I0mCtUOIMus02+nb/ScRSEb/xUPiVwaCS3Z
+	 WppsceEBCTo/AkBGKFqJZEWTeQnSXxNThbg4FnaUinZO9hNjvhBqmSNjlOmNXduopEPSu
+	 Okk+R6KyqT3It96Ctkh1fpWBU3vHlbQWpHSYpoD3TDvp0amuVcpN3wi6kR8ql4UZEvHT4
+	 buI1z/X4rzfx6tcbxjXg8h21RQqZCzHTThEJNNFP9Vfmq5e475G0igZl9ziwyB/uewQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224704;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=jD3z+kf+p7o3UoabVYPoGxaaVHCfZCCVEt1sMeZ6TKg=;
+	b=en1E/OMh14XaAEAorM4NJgKRE117gdGTR72NE9WoE4gyY1EGI+s0BMiwLjv93AdD9qLO
+	 MSmzp9IznpwgulOhYMMtagN5Bz8rag2RyfUaU+9fzuG4T0sXwjU//suQiL/yGixtdfqJ2
+	 5lf9znTZDbFXWoU+fdUXDba/lBgNuhL031/qt155cm2go936pbHOn01OoI1GYXsnff/o1
+	 NKu4mimY88IOcra5msS91gcMGHEhl/jaLPGBODa8bNo483Un8ki3R1b1Mp6KXczrUvzFF
+	 k7bHuqTx5FOdKGONKfGKfcFXb+eGCIWlfJ32VNstD/h0jbZMWlITLM+gJwrcQYLA1rA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AUna2nQ+;
+	arc=fail smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442DC606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442DC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54DF606A322;
+	Mon,  9 Nov 2026 11:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C54DF606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xqEuKWhE
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b58cb69927so1263227a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:44:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794224668; x=1794829468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TUIOjmzBlQxfdwjHftiwHU+LF7dk3gDF7kPQW6Gje5E=;
-        b=xqEuKWhEubSRYm9cPGcvDBUNSMiBaxMCVF2Co9vgHEEsJijOwKyFhf0BNcawkj6ZYA
-         U1saTLAnUDDpKqXyVvYsd4gN+hZx1lyqXguoiwQiQbdk2Fr6cTrz8PfMTD/lVpn/kKi3
-         u8IgYVnDGKwZGmAH8rLo+KSRKJC3U6QGHBX8aAtOpWlPKxTndnbwYINHhTkZVXeVcNXa
-         jAakjW49pScqXtHdisUszHSRlsnoEOSKgDg0S5OvVE/FF/dDJUw6UiTlA11RPdibzwSP
-         ZWxUql9X24OubHJve/e6Bak9W7aULb2pSukQmHlO0XGXawYRgtaQXc200baK1XnRliir
-         qAGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794224668; x=1794829468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TUIOjmzBlQxfdwjHftiwHU+LF7dk3gDF7kPQW6Gje5E=;
-        b=AP7FI4hvXQViVsL674lx2NRO6vsnzrP/e/aIPhOoWkyMjY9g0XKFDuY2KW8MotBxfa
-         /a9jH51re0DDTOFeWfRB4oPwbig2Y5Wkkvlx2fxQ4S2sRi/jkbBq3jEsQiMDT69EGQJc
-         pldUEONYGA/EXA2VOKrjOOCd/GBDJF8Nw2Qf5JABcgGT7MbUBGpuzDGZxsN6QT3TOtnC
-         vYvj0qUbmf/juW04yuP9sXH2347JzYrxkFTx2NRMoshFqZcF9+l89ayFsYVH3pkoOe8U
-         NJZBIbTT/QoYqe0wby818D2vjBSPUVGFlUlasMMkHJNRwydZi5yYlpvhNWDbEWNiDoQg
-         lxig==
-X-Gm-Message-State: APuU4Z+s96EDIOdcXUhri+3cQFgZXltynJrKXbZvHVZU1wcWmbu73Rxr
-	hVGkCRrVdD3Wt65gFnKDtpV6JZ7s402pDLNTnjvSJIp//UwrzbdzA+YFZych66u7
-X-Gm-Gg: AYBFou0k7Orsis4kSpx4iU0pctbdgQgFeews+C33I5koSXHMhRm9SX8+0ZPFlXeBjPM
-	+G43XEEHZ7ATV8Xs6vpnG/i90z6SFWHY+oiKhEBKgSez1SXb9MiFLEQmxpW51Xb5ouizqd8gVPo
-	uony3JnFhlJbbGsjzQG5j//0AOtAWvyt/EBmmtdvvAKQLgB0/kOrzUZDe7iG2I6xgK28vs2dq6d
-	vxFOUh1b2m2Lu3w0Ht2XcBBDQkBRX6xxaSrzdMG5RB08cUV55uHoGcMn+ln55NPhEV87zVLcylA
-	HVHPHjfW20ay0RzShHJuDS6dALWwtAYob6umM97MndGBmr5IxVoIyf6rPRgbnZmw8y/CdMZFn5e
-	uQZgldTQScz0L8KezXUHrucAkq0osdetq7wCwFQ322AxjDjbqSMI6ZAz1CZVa9HDhgMnc0pYYSk
-	99sHYPL+owZdGWy1RXKgYgYfcSQJ149AKS7hGfSNwKnWhN+LjAVNaTBPr/sUxwLqmrbaFRN3aJ+
-	ZNbxO4RXjGO/0615p2BhlIA6Yn84pqn9sjoXMzvxRu93lg880cUdI9sdFtf7LcwgzN/4saeqncS
-	0/o7ccxpwTMQ3BACUAmsSc+JOOaVYBTi11lsy4Z6YfGwrD2+ZgnUnCnlK87s+WO5wTbhFoRI99E
-	FOimQHJEhZfUE5N4MFQ9ljV9AWmT1I21io+5gfPpsR9GI0WcSPixFkJqJM6Tmk4gAXwFeFQnNlL
-	8aK9wQW/1757Q=
-X-Received: by 2002:a17:907:3fa1:b0:c42:6632:a369 with SMTP id a640c23a62f3a-c4d6db7d76bmr283531266b.21.1794224667461;
-        Mon, 09 Nov 2026 03:44:27 -0800 (PST)
-Received: from linux-laptop.dynamic.ziggo.nl (2001-1c03-0884-3400-503b-37c4-84e0-7f98.cable.dynamic.v6.ziggo.nl. [2001:1c03:884:3400:503b:37c4:84e0:7f98])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a4b0245sm156584666b.62.2026.11.09.03.44.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:44:27 -0800 (PST)
-From: Laurijssen <lauserve@gmail.com>
-X-Google-Original-From: Laurijssen <laurijssen@protonmail.com>
-To: linux-kernel@vger.kernel.org,
-	pjw@kernel.org,
-	akpm@linux-foundation.org,
-	jannh@google.com,
-	brauner@kernel.org
-Cc: Laurijssen <laurijssen@protonmail.com>
-Subject: [PATCH] SYS: add utsname_set_field to reuse code in setdomainname and sethostname
-Date: Mon,  9 Nov 2026 12:44:21 +0100
-Message-ID: <20261109114421.8414-1-laurijssen@protonmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <AE97EF84-F9EB-403E-B2A5-E75A4C329179@mainlining.org>
-References: <AE97EF84-F9EB-403E-B2A5-E75A4C329179@mainlining.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AUna2nQ+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794224702; x=1825760702;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Dq5vVML3wPlbTuFgGX6ADaQWTyeLQQoNVMEu3ET1UMQ=;
+  b=AUna2nQ+qU8G+7hCBocjENwbapcNgmJuXaEUuUE0RSpDDuD667g9h88Y
+   mK6rfugJve66yaAePsNE44gI+MI0TCzmtmv9/kG+knaeXoJSpVsS2mcRV
+   AtmLnmVa2by53QiQ6SHDADs10n0nqXYCooqxhAhPfMd7LL85nnKMOHcFm
+   VjjZrJDhV3EJ3sAmlGouFY6K5PgfF+pY5AmIR3QwbyUW1CTRjIhKE1LMZ
+   /CZx5Xp1q8VVHZRafi8IWUwcXFTdM5jJ+iLfbdQIHe738c8D8UQNIjRgQ
+   kF2BaI3jS5C1PSzsxzK0X0Pjub3Vjx0xqXUdwVuUWeBOCdUNbuKPH4kHz
+   w==;
+X-CSE-ConnectionGUID: YjNVAxT8TrShl7WJKz201g==
+X-CSE-MsgGUID: HPFA5LA3TnmYk0BjqkMdlA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2983381"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2983381"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:45:02 -0800
+X-CSE-ConnectionGUID: ZD2R8tOET3iccdLn0CPX9w==
+X-CSE-MsgGUID: oSpeyBAvRxSN63otZFWiag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8182670"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:45:02 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 03:45:01 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 03:45:01 -0800
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.9) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 03:45:01 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PJnRVdH+AT/AR7Hr2V+SCjzv2BO0mEOXdfXFvByw9N/hQYrMCOKuWVNjCE/Luj1PRDEgsEMo0Nvsh9yoNqlZ0M4gxBk8k7l/MTo87yoRlJG4QB2nXOUHrZBmpipGLw27CNHNSyfu0eBdW6ihFwNO8FraPgFx0J07VJRGIsXWV+VfWr7Yf6+umjTbMRy/ZZ15qGDCd9hecJqV2exjRN7h11hmbQTamkFtEMQxYsNhqWez1HhDm60XGGSQGSBFdrLU3WQfIK4BJS+fs2l1yIgCfIj+CWkGaDg2Cpf/+QAwM/5knvLBhL9R083RcrZddSSvzIwci3X3NnTVInq8Is+seg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jD3z+kf+p7o3UoabVYPoGxaaVHCfZCCVEt1sMeZ6TKg=;
+ b=UD277Cvgt0KknVj8o91bAxIzknNcUqd1sJ8VjqKJ+a3y9FXiBCf5zBBPLsEly+u+pzZKdmBggbHzYmccyq56lvpsch3smw9QsLnapSDlY244DrL0Wsrws/KMICB045WQA3oqPIGmFucOopc4ZTU/C49bvqGZMBmpSOXLARHgVbSSSgOk1NxOEin+6uu4d2f1XIylcc2B6YAcd2ZiUG77NQ5IT40fQCaVTAU+Do/3CAOsUGLVf1C0BBVMSIdGHedSgwQ8zwQJS4ECqoF3VEQtuyOfCRghkL8ufT0byg3wDB97NjfF3m/k4AaInJr9mn6f1mDtMyVgSs+qjyBNlkuMNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ0PR11MB5630.namprd11.prod.outlook.com (2603:10b6:a03:3bb::6)
+ by MW3PR11MB4587.namprd11.prod.outlook.com (2603:10b6:303:58::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 11:43:57 +0000
+Received: from SJ0PR11MB5630.namprd11.prod.outlook.com
+ ([fe80::79de:af84:3b43:84e3]) by SJ0PR11MB5630.namprd11.prod.outlook.com
+ ([fe80::79de:af84:3b43:84e3%4]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 11:43:57 +0000
+Message-ID: <02c36d47-ad50-4f2c-88cc-6c91f62bba00@intel.com>
+Date: Mon, 9 Nov 2026 13:43:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] igc: Disable PCIe L1.2 substate on I225-LMvP and
+ I226-LMvP devices
+To: <netdev-bot+sashiko@kernel.org>, <danividanivi@gmail.com>
+CC: <anthony.l.nguyen@intel.com>, <przemyslaw.kitszel@intel.com>,
+	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
+	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kuba@kernel.org>
+References: <20260925112850.189302-1-danividanivi@gmail.com>
+ <179068206160.434549.1717741783856466607@kernel.org>
+Content-Language: en-US
+From: "Ruinskiy, Dima" <dima.ruinskiy@intel.com>
+In-Reply-To: <179068206160.434549.1717741783856466607@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TL0P290CA0001.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:5::15) To SJ0PR11MB5630.namprd11.prod.outlook.com
+ (2603:10b6:a03:3bb::6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,223 +137,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB5630:EE_|MW3PR11MB4587:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3342f2b7-eba3-4352-72bf-08df3e56bd22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|6133799003|10067099003|4143699003|56012099006|11063799006|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: vNveLvh1KNbrXCKwpjgSvKNg1zXscaVRA/qnfIpKKacJQn68Hh4jO4nI2WlaBvHYhAkPTyi/VRf+DM84gCR3DqkKOTbGf7/26x+8miFKIEVmBjK2HcYgEhvtjb07es7W00HxsEsho6hsAwogxrqMPLAlvK6fl/F/FIarLXB4ZIXAgAsKctIWcgzVAYmf7/vgHcrYBTVYzwipx3yYIomFYFf4393aQuS5MTrTfDxxs9PuZbyzU1QO4KV0V4vEdHQR1Irm4MNPu4kYCS0YtNGfxF0t9FRuQJPfDEc4WpflZVSCqKfvLcUx9x8At8clI68k4KZMZJcLCysDeIWDbJHMsrVEVvYNHtz53+ybl3hK1VyPztvxfw9f3KZek9q83VwrVZKoY+4U5vj6vk+5N9eMND97tjl2g32mE/usJcFsUvdvjgWoH2pjCZrXIvO3VnW6g/eqVmI84vz7CQhq0AEIff1lnzd1V5pG7KiA/XZTUrDN/t6Y9Sw7k+whmkMC38qNWJWjcEPOi2WAy8ZGx9ZldDDsPzXWJ7n0gy8pRg3EhqfiyunCU5zGxynY+EiZnrDmGYO624Q2t1Ujl08qaBPzTGZXwX802MTxxgnQl9qryAw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5630.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGdVRDNvaDRmOFhpSnJpOFJvelU0djVCS0xGMnBQRytEaGVxenh0bUgyS3Q5?=
+ =?utf-8?B?R0cvY2RJL3Z4eEZSaDJvaGxMSmpnQjZ3NGhHZ0lma3I2SHJ2Zm1jeFU3TEVT?=
+ =?utf-8?B?YkFOeGwyWHlEeEYzZDZQOElMaENNQjZDak1CdTBTUHJwZ0svZDZaK1gwODZD?=
+ =?utf-8?B?RWtUb3hXTWNuaU9GN01aUlNHdFAvZXBzcEczY2VuMC8zZzE3eHdOQjh3V3g5?=
+ =?utf-8?B?WExlMVkrbkRQNnlzVVZTWFdNdXpvT3RmZnBzUUNSLzJGaWs3RjdEVlU4Z2FY?=
+ =?utf-8?B?VkxxRVhLU0NYZUEyUEZYRUF6ejJvYTZSREk2YjhrTXA3UGZFbUFGZDlaK1ls?=
+ =?utf-8?B?bVc5Wmg1c3RMUkRmNFdpMVNUQndmcnhMTW13YmVKcjBEZjZZd0I0c1JSUFdX?=
+ =?utf-8?B?TUZ4bjVTd3NxRkFLYTNpOW81VnJacFZHRm1sWHU4bXJqYnFZQkhldUVGS3g2?=
+ =?utf-8?B?WVlVZWVIY3RRNE45K3FybjFBeDE5eEJUb1ZYOFVONWR0eG9jRjFQSWhYYkFY?=
+ =?utf-8?B?UDhkMms0bE9oZlhueTBrRHRBZFlsWWFjOXpNb3lCMHZSdGIyZ3Z6Uk1zNWtm?=
+ =?utf-8?B?L2pKMDZmUGsyNmNsMS85TGF0bGw2WVFRSlY1V0Q3Rjg2OThIU3JUTXM3ZEg4?=
+ =?utf-8?B?ejliczk5OUVtejNDMWdaSW9mSlU1WWc3eEVKSDZPb1dWbEE3MGVNSWNPSTI2?=
+ =?utf-8?B?QTRiWXJmdERCRTVKYlZVbUpLMFZnSzB0SVVnUThFeTE1VGw5S2hkT29EdDEz?=
+ =?utf-8?B?d2lvK2ZXTDduaEVuTXlSWGdFWTU1MnNXYzk5SVhqTmVLNWlVMGxPd0xza1pU?=
+ =?utf-8?B?Rzh6NXMrbVJXOExoTEhNV1FvdUN5aTBXSXhWQjE5N2k1WXJpaHpESU1YUEMr?=
+ =?utf-8?B?aXh1VWUwYlB5UUw1Y2U4ZlZnaThKNmowOXgwMWFFc21kOGVkWU9iMXBhZ2sz?=
+ =?utf-8?B?cnlpTnFyOGtMR0hxNXFUVWUvVnhkUFNHekxBd2lNVUQvZTVPNHg0UHV3UWhy?=
+ =?utf-8?B?N3pEQmRadjdZYVdodTk0bjYwVjVoaUNKZXFnV2V3SW9ReVVLaStmankwcXFE?=
+ =?utf-8?B?cUxieVhUMXZmbVlkMGdZUnZsNGZNeGJyN0pMSUxwN0RGWDlRWmNBT1VPY1ZD?=
+ =?utf-8?B?ekdXVFJEbS92MUdyY2NyTWhCN3dqb29xdEF1UlVreDFkOUR4c1NUdkR5NU9q?=
+ =?utf-8?B?eGtZSjFTeDhKdDVIZzMwMkw0L0ZMY3luV0N3N3d0YkpMU2dHVkNPSjhaUFpz?=
+ =?utf-8?B?bnNLQktuY3c5S3RjOUlnV0F3TThBOHRlcG81dHF1Ri9MdytDOEkyU2FhMlpN?=
+ =?utf-8?B?MGgzSlUrbU0xOXdqZUJwdkVIUnNMMzlsNGxSb1lDbUlIcFZpbnpyM08xMWJ1?=
+ =?utf-8?B?YTl1RS9taVF4UDhwaEY0ZGNqMU9OdmFGdHhJbjA4QjUvTVFTcDMrVjZCcDZj?=
+ =?utf-8?B?SUs3TGZTSjhZQ25RVExzM2VUbzRyUG9WMjk0Z3p4WDVYZHdNbjVoMFR3bnFv?=
+ =?utf-8?B?YWcyV0pGOHR0d2Z6NmsvLzRTNnFWeHlEZVpCSmtXaDFqWk5zbEwwakZqelhO?=
+ =?utf-8?B?c0R0ZC9ycU1vUDdFdkhzRzNTblZRT3ZLZkpwYUZjY2pRRWxpZGx6S3Jqdzlh?=
+ =?utf-8?B?Y1I0UDNFa2U1YlhaMG5uM3ExZ0NreXVXNE5HL3RuVlYyY0pDazB2RksrWXNN?=
+ =?utf-8?B?VFo5czIrTU5DcDdaV3pvN045dWd6bFQ5N1htN1dpODZMSEgwaWthS3Y0OWtF?=
+ =?utf-8?B?ZXpZeXVUdllLYmVBN2JOcU9LRTd1ZGZlZjVhbEYwYWxEclRqNmhNL3hvVUdB?=
+ =?utf-8?B?UEtVRXI0anlBaS91bXRVaFM2dTlEaHlrL1JVTHE4NkQ5TEVOSmNZZVNLQVBD?=
+ =?utf-8?B?WkZMZUlrUGd2bTVwWDFkZjd2RXV6M051a1pzNDIvMHhreHY1NDlRU09sM1dV?=
+ =?utf-8?B?TWc1cldqdHV2Q1NMRU5YQWxNSHpWWVFNQ1lQcUVpTTdUVW5tNkpwa0tWZVNh?=
+ =?utf-8?B?ODR3OHhFaU1SK09vZ245RXdwcXBLcnNtYlFVd0ppTEttZWZxMGNwWEl1SFNx?=
+ =?utf-8?B?WFVSQnNuS0NiR0NxYi9sN3FoNkUwK2xpTzAwdmZlZitYdk9rTkpPeGFUM1Y5?=
+ =?utf-8?B?d0lBRytHaVk1N0kxNC9ld0J0VFRGaUxweUViZVc1QWpHenRqZllpc3pBakdI?=
+ =?utf-8?B?czgwWUFKbUpFcUdUQjArVjFVcEsrNG1KZVdZeDlWeG5UbE1TWjhNQXZOQ0pQ?=
+ =?utf-8?B?K3Q3QkF0bHJ1OXNxTHpSVUxZWWZ3eWJld0Rmb2xtcmFzMmFpeHV6cTRPSnNo?=
+ =?utf-8?B?aklzNWc3R0hEZDljcjVaSXZqVjJYZmp4eWhFMzdWVmkvREVWKzlzUT09?=
+X-Exchange-RoutingPolicyChecked: Mfie3Cqphw4U9Z8kvVP6L0x3/7QHoRhGJH+aVxa/f5lhWYi4pCnPEsaxXzSOQYPZI4kx28sPl7dzncEyc/vlJdgkui+vW2QxWeKW6nai+yn8sMtLJUX2ikmAHvJfS5on7SweUAr4eEf2JBnx9uJvuRki9gC1YnWfvhLvYj/2RIgYicakBjjMXGKF4aJs9OFDOEIukB3+rd/abCo+dTIf7lPqGwRdBai/HAl5zxH2vqJnnZZVJGv+WorFaBsd0eV6a8wEbRiUoZc6OXe+mLaJ/8eJKUHlWaaRPnTJjWDSyqkMw7lCVG4Oq76e/lDEdh0U4Vw/Z20jBFru4sT/R7inbw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3342f2b7-eba3-4352-72bf-08df3e56bd22
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5630.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:43:57.2151
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wohVK3ElYAgT81eg6XIeX7xRh5+EFZTFZZmT9/g0GZZBjX5SiT3KJyPuI8fBxNxibij3N4K2ElZPrVa8FJEwBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4587
+X-OriginatorOrg: intel.com
 
-Changes after review, cleanup of duplicated code in sethostname and
-setdomainname. Moved reusable code to utsname_sysctl.c
+On 29/09/2026 14:41, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 (1) · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The widened condition in `__igc_resume()` (igc_main.c:7562-7563)
+>    makes I225-LMvP and I226-LMvP call the non-locked…
+> - [Medium] Adding `IGC_DEV_ID_I226_LMVP` to `igc_is_device_id_i226()`
+>    (drivers/net/ethernet/intel/igc/igc_base.c:450) changes more than the…
+> - [Low] In `igc_probe()`, `__igc_resume()` and `igc_io_slot_reset()`, the
+>    return value of…
+> 
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the patch now
+>    exposes I226-LMvP to it.
+> 
+> --
+> 
+> igc: Disable PCIe L1.2 substate on I225-LMvP and I226-LMvP devices
+> 
+> This commit adds IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226(). It also
+> extends the ASPM L1.2 disable in probe, resume and PCI error recovery to
+> IGC_DEV_ID_I225_LMVP. The motivation is BadDLLP errors, link timeouts and
+> shutdown hangs seen when I225-LMvP negotiates L1.2 behind Thunderbolt/USB4
+> docks.
+> 
+> Link: https://lore.kernel.org/lkml/eb5a9805-3e53-ec22-696e-21c6b8cf0bfc@molgen.mpg.de/T/
 
-- add utsname_set_field to utsname_sysctl.c
-- call utsname_set_field from sethostname/setdomainname
-- moved uts_proc_notify from .h into utsname_sysctl.c and turned static
+I think this patch might better be split into several patches.
 
-Signed-off-by: Laurijssen <laurijssen@protonmail.com>
----
- include/linux/utsname.h | 10 ++----
- kernel/sys.c            | 46 ++-----------------------
- kernel/utsname_sysctl.c | 75 ++++++++++++++++++++++++++++++++++-------
- 3 files changed, 66 insertions(+), 65 deletions(-)
+1. Adding the missing IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226(). 
+This was probably an accidental omission.
 
-diff --git a/include/linux/utsname.h b/include/linux/utsname.h
-index dc5594ffffcc..409261d5381f 100644
---- a/include/linux/utsname.h
-+++ b/include/linux/utsname.h
-@@ -18,14 +18,6 @@ enum uts_proc {
- 	UTS_PROC_DOMAINNAME,
- };
- 
--#ifdef CONFIG_SYSCTL
--extern void uts_proc_notify(enum uts_proc proc);
--#else
--static inline void uts_proc_notify(enum uts_proc proc)
--{
--}
--#endif
--
- static inline struct new_utsname *utsname(void)
- {
- 	return &current->nsproxy->uts_ns->name;
-@@ -38,4 +30,6 @@ static inline struct new_utsname *init_utsname(void)
- 
- extern struct rw_semaphore uts_sem;
- 
-+int utsname_set_field(char __user *name, int len, enum uts_proc proc);
-+
- #endif /* _LINUX_UTSNAME_H */
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 755bfa5ccd92..688c5e9e222f 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -1421,28 +1421,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
- 
- SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
- {
--	int errno;
--	char tmp[__NEW_UTS_LEN];
--
--	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
--		return -EPERM;
--
--	if (len < 0 || len > __NEW_UTS_LEN)
--		return -EINVAL;
--	errno = -EFAULT;
--	if (!copy_from_user(tmp, name, len)) {
--		struct new_utsname *u;
--
--		add_device_randomness(tmp, len);
--		down_write(&uts_sem);
--		u = utsname();
--		memcpy(u->nodename, tmp, len);
--		memset(u->nodename + len, 0, sizeof(u->nodename) - len);
--		errno = 0;
--		uts_proc_notify(UTS_PROC_HOSTNAME);
--		up_write(&uts_sem);
--	}
--	return errno;
-+	return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
- }
- 
- #ifdef __ARCH_WANT_SYS_GETHOSTNAME
-@@ -1475,28 +1454,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
-  */
- SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
- {
--	int errno;
--	char tmp[__NEW_UTS_LEN];
--
--	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
--		return -EPERM;
--	if (len < 0 || len > __NEW_UTS_LEN)
--		return -EINVAL;
--
--	errno = -EFAULT;
--	if (!copy_from_user(tmp, name, len)) {
--		struct new_utsname *u;
--
--		add_device_randomness(tmp, len);
--		down_write(&uts_sem);
--		u = utsname();
--		memcpy(u->domainname, tmp, len);
--		memset(u->domainname + len, 0, sizeof(u->domainname) - len);
--		errno = 0;
--		uts_proc_notify(UTS_PROC_DOMAINNAME);
--		up_write(&uts_sem);
--	}
--	return errno;
-+	return utsname_set_field(name, len, UTS_PROC_DOMAINNAME);
- }
- 
- /* make sure you are allowed to change @tsk limits before calling this */
-diff --git a/kernel/utsname_sysctl.c b/kernel/utsname_sysctl.c
-index 6c1522201e39..026e5c877a8b 100644
---- a/kernel/utsname_sysctl.c
-+++ b/kernel/utsname_sysctl.c
-@@ -5,6 +5,7 @@
-  *  Author: Eric Biederman <ebiederm@xmision.com>
-  */
- 
-+#include <linux/capability.h>
- #include <linux/export.h>
- #include <linux/uts.h>
- #include <linux/utsname.h>
-@@ -12,6 +13,9 @@
- #include <linux/sysctl.h>
- #include <linux/wait.h>
- #include <linux/rwsem.h>
-+#include <linux/uaccess.h>
-+
-+static const struct ctl_table uts_kern_table[];
- 
- #ifdef CONFIG_SYSCTL
- 
-@@ -67,10 +71,68 @@ static int proc_do_uts_string(const struct ctl_table *table, int write,
- 
- 	return r;
- }
-+
-+/*
-+ * Notify userspace about a change in a certain entry of uts_kern_table,
-+ * identified by the parameter proc.
-+ */
-+static void uts_proc_notify(enum uts_proc proc)
-+{
-+	const struct ctl_table *table = &uts_kern_table[proc];
-+
-+	proc_sys_poll_notify(table->poll);
-+}
- #else
- #define proc_do_uts_string NULL
-+
-+static inline void uts_proc_notify(enum uts_proc proc)
-+{
-+}
- #endif
- 
-+int utsname_set_field(char __user *name, int len, enum uts_proc proc)
-+{
-+	int errno;
-+	char tmp[__NEW_UTS_LEN];
-+
-+	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	if (len < 0 || len > __NEW_UTS_LEN)
-+		return -EINVAL;
-+	errno = -EFAULT;
-+	if (!copy_from_user(tmp, name, len)) {
-+		struct new_utsname *u;
-+		char *field;
-+
-+		add_device_randomness(tmp, len);
-+		down_write(&uts_sem);
-+
-+		u = utsname();
-+
-+		switch (proc) {
-+		case UTS_PROC_HOSTNAME:
-+			field = u->nodename;
-+			break;
-+		case UTS_PROC_DOMAINNAME:
-+			field = u->domainname;
-+			break;
-+		default:
-+			WARN_ON_ONCE(1);
-+			field = u->domainname;
-+			break;
-+		}
-+
-+		memcpy(field, tmp, len);
-+		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
-+
-+		errno = 0;
-+		uts_proc_notify(proc);
-+		up_write(&uts_sem);
-+	}
-+	return errno;
-+}
-+
- static DEFINE_CTL_TABLE_POLL(hostname_poll);
- static DEFINE_CTL_TABLE_POLL(domainname_poll);
- 
-@@ -122,19 +184,6 @@ static const struct ctl_table uts_kern_table[] = {
- 	},
- };
- 
--#ifdef CONFIG_SYSCTL
--/*
-- * Notify userspace about a change in a certain entry of uts_kern_table,
-- * identified by the parameter proc.
-- */
--void uts_proc_notify(enum uts_proc proc)
--{
--	const struct ctl_table *table = &uts_kern_table[proc];
--
--	proc_sys_poll_notify(table->poll);
--}
--#endif
--
- static int __init utsname_sysctl_init(void)
- {
- 	register_sysctl("kernel", uts_kern_table);
--- 
-2.53.0
+2. Addressing the locked vs. non-locked call to pci_disable_link_state 
+(the possible deadlock noted by Sashiko) - this should be looked into a 
+bit more, I don't know off the top of my head what race is / isn't possible.
+
+3. The actual problem with L1.2 substate this patch aims to solve. I 
+checked with the HW team and there are two conclusions - (a) it is 
+strange that L1.2 is enabled somehow for I225_LMVP - this is not 
+expected. (b) generally it is probably best and simplest to remove any 
+device ID checks and simply disable L1.2 across the board in this 
+driver. Unless there are downsides to calling the API when it is already 
+disabled (I don't expect there are).
+
+--Dima
 
