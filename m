@@ -1,127 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260763;
-	b=zXsqK/5fryowfi1+L0PICeakpglP5Id8HMFsb4MDn7IHBndLLFX5kZdQXVLhiQcMSdpE
-	 TsHE95V3aqE75OwVzYNkKoED/c/RmImtmJNXNdXJ8LMuRPJynrWBSd1zKlPTmJR+SbZ8s
-	 TDtTBrN5C4l6pHX06UdjwmbIt37NjHCh5MFD0Sv5IdnNkn37A0erqFZU2zB9vbljbz4m7
-	 grvfGP3vHFIp78HmvnblioWlGLsjcyobVi0z4PKbdsiY8iI5lkDf49EgXbToiZzWHKHrU
-	 xzH/q3PUFmnZEMweVg1oX6eQ1i0pCME+GuZ2/J3oQ6Al/EwcIiZcMF/YG5OcNXbcNTw==
+	t=1794260962;
+	b=0RN8oOBJD9pZLbp0RbXs1cIO1aze+D2GATuvVPt/OtU+/gtRls7IF9G+h7gwuTAY/E0u
+	 LigZL+rg/1Siv8S8koH9sQkI6IbYedwVEoLl7ZOSYtabmmMIRonCo5g+L9rwuWcVTPvhe
+	 23pJOmPdLW5BUKR/yHidFCPrttDp2EG/zrG2cYvwGTYqBs5Za4wby/+VemQwT9XdEPX49
+	 UwWOEErxqY5ive8mTjncUGTb6TPtGvjmBeXtBNLtlJb1Jdru4yAaSlt9Bw7DUZl0M1uoy
+	 aMt40e+PEpVxARRxi51xBphsAdgwFRtjC/BYqMB9Cx4ZEK9pZKSfhLMq0tieeBGJ1cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260763;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=874yjmK9ypxK94+nKOJ/uR1d6HpqK0owgIThZQA8ZUA=;
-	b=Gyeoe4dzVChkOZgffq+j47Tru1emNua7QiIKGLE7PvUM3Lw4ekt9jfw7CdVWSsoN0sxU
-	 ganHBvMYQ8M67vy6L95JYCbexQFNk6cpYBN6XBKsTKqAo/z+zs9vOFurNn5CdvJz5T+SY
-	 KPcsdVQJPUp21SeW0RNaFWsw1f0gCxK3fmxYg4Zk21zYSAG3fyivdB2F59HuEIb4pVHRt
-	 U0Hm0IJcLMBEJYc5CThRzaaqwGyoP/YJx5oBvhNPPaVFCtC+1lr06frGEBJa0MpdPeQmu
-	 WDLDo3Wu5u1fw97TwWLTidsQIOSs/n9HxL4mJ7kAgfJnVliu7CeQmJmM2SV58Y1Si/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260962;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=uEtW3s1zbnVOX6jpNNZBXvC+gKkgYk8Ew3vUQCdNNbw=;
+	b=ZCaO+X7hqPiL4xmsMGANXUoDv8hPcay5DrqIR3LxAsc/0UuECkuZwuFsLwHWAfx8y+Nf
+	 ST0Mbc78cWmVqIybjfba0A+IcYvqlz4HEyzHLKRwq9xF5h7xmv2SA2wlylwVyqje3AtSF
+	 7MUO2tA7/C8B2dQQS55uxg8KUYiAUXUb0Bh54EO9ej/+ANAq27+aUT6PzxrYgQCIWmP4B
+	 RgPWCLPnrD40R+Z+b48FIXtxICHlvN+9NPomQj/kPibwcqy5u2S6XXbYIuThhav9jDbYt
+	 xEh0oifnTLHBZzB/NooqzspaCK4OAWWQFDFs05XBYzQ4zuu33cTSV3EA4dG1YfCgz+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LaZ0qPv5;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=IGe1N7zY;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF29606A33F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF29606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E9B606A326;
+	Mon,  9 Nov 2026 21:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E9B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LaZ0qPv5
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-490a0e72588so737609f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:46:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794260761; x=1794865561; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=874yjmK9ypxK94+nKOJ/uR1d6HpqK0owgIThZQA8ZUA=;
-        b=LaZ0qPv5+whTFQHjIA7oYo021SUS2QeXnWN8ii9Y4im7Ue68o46nz2xh/hHMwIUfQ/
-         ICad5fyoXePYl6/8nNVhZk6UxBKiDwJbHcHq6QklDSJskt7Ox2MaUqpcgklbAASOb1WD
-         7U13gt1MK2zXHTSuMFiAfjmE40I4QhfpTIR2Mc6nMOBQW6Dg/mqe6U/h69Hyf/QnrKae
-         CyKIviPRPYc2tnG0IM8qOylYYY2PKnrUJzf833wY0ZcFYDbyZdAS7ekVESO+FaUUNtdA
-         WzN6sPDUCv7pE3hPSGmxzNcqgZM1jmpktE+mpPCXGo9ukB9qCsiBySNit7DIM51G+Ivt
-         K68Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794260761; x=1794865561;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=874yjmK9ypxK94+nKOJ/uR1d6HpqK0owgIThZQA8ZUA=;
-        b=iWDWma6/u8vV7ScbIHfe5IdoD/lLb8Ol1Psh5APSqn2Sp+H0NoBKRHksu4S3QtPyTd
-         6Dh3xZ3Ma5MoFV9bhXRIQkq3OYNqb7XokUhh2pY/0z350O9TqrBmnbpvCqJhW/vxMCEC
-         hPLO0p3Ra6S28i21Vb4zYlDVx2FV2RV5R0FHrmLJnMbuc5CVQF2R26YIdPbbwzajvJcL
-         lLkBRqZtd1MSuw9Ln/fu2J/jvdGVsVmgvabx8nTM/WLHIM2qQH49HwiwwzNF0rrWsO3J
-         y4sidHfkqmh4YdmkTqi2EJyFDBISY6Rw0lyklsA1qDLb0z/ePLcfteEmkqsYnkYQUpjJ
-         ECjw==
-X-Forwarded-Encrypted: i=1; AL+hErHtJei8nl76JscYe5rUdMjnVCRFKfD4UXWVwEkWCWmg8Bud7TTSUbUwonmU2PGUrW9q8taZUuL0tElBr4g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BQ+I9ttcL6+fABec8zYn3dVFMVRme8jNJ/XQKbxbXtPQn1vfI
-	ly0t62YE0UsEnXRe6WcDBJapRNHXTtH9hOY5Dwz108jVSU8PbZ5dOmQX
-X-Gm-Gg: AYBFou07LvaJLYWbL9zcxZO96joEIEmCla7FP+5rDIl9FQz12pR+vGZYpWhVTMtPI2w
-	xtJylYHlyc66jsZJGoQD1J6G/1XNgtKYDNTrWf7uShXYGRc+7TKmvmM6HXLLCPXt1oQ9/SLkUWA
-	/VmKZT5zcW3hzuvYiiGSSTAFoDZxhh+7JiE3qRD8e2rOdy00T+S0wlFPX2l5xG3lYkkoAFJYi0d
-	C/Pi0Nx4E6GhR8XeN9++G3xJn/PU+bsY+xxwNkp8eZkHjtyX5N3Qr369c+AHC6I2xMqsPJv6jKq
-	3wfro/OMCbr5nHOrfTCdDlkcAMW+FXBriTWBEnAiHKCTLpwlTeUUQSABLrQf8IEZbES2KN5uVq7
-	mI5I3SdOhO7a0KN9ZyJ3pU5OKBc0qjtMoJzH+QUvA3t7LLvC8fSAag1ThmgsGgMKRzVi/8NzoTt
-	pmTltgw0q84u4OZDr31j9GQl+nZaXTQX+yUdGi52ZoUDukoGDREihgKLAGfWoojvVEbrfwJrs+c
-	ldZNhQRnJqdbZDF8EUeM/bUjymuzYgNV6+eF6ew0I+SYrlVE8GY9wOoCGYPQqqub/MpGREEqv7W
-	i6nouwB/8kJB+KBxR7Nsd47iPnQeWlDXHFUjgOgDmFzVn1iHHu03btQWBp7l/bHNSQ==
-X-Received: by 2002:a05:6000:288d:b0:48e:25e1:5eb8 with SMTP id ffacd0b85a97d-4982b28aa42mr1487213f8f.3.1794260760763;
-        Mon, 09 Nov 2026 13:46:00 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c4fdsm1213644f8f.10.2026.11.09.13.45.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 13:46:00 -0800 (PST)
-Date: Mon, 9 Nov 2026 21:45:58 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: Christian Brauner <brauner@kernel.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, linux-fsdevel@vger.kernel.org, Linus Torvalds
- <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik
- <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, Jeff Layton
- <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet
- <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Al Viro
- <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph
- Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados
- <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara
- <jack@suse.cz>, Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-um@lists.infradead.org,
- linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- netdev@vger.kernel.org, ntfs3@lists.linux.dev,
- platform-driver-x86@vger.kernel.org, coreteam@netfilter.org,
- kexec@lists.infradead.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net,
- jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-mm@kvack.org, linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, Chuck Lever
- <cel@kernel.org>
-Subject: Re: [PATCH RESEND v2 14/23] proc: let procfs copy in writes before
- pinning the entry
-Message-ID: <20261109214558.0d9d5228@pumpkin>
-In-Reply-To: <alpine.DEB.2.21.2611090504170.17804@angie.orcam.me.uk>
-References: <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org>
-	<CAMuHMdVfakapgBK6TBhO1iWX8qzvLDk8jzRS=t2MVa5G=MCUeg@mail.gmail.com>
-	<20261107-akteur-gemieden-eckdaten-21304d085e35@brauner>
-	<20261108185953.28054fb3@pumpkin>
-	<alpine.DEB.2.21.2611090504170.17804@angie.orcam.me.uk>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=IGe1N7zY
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 41D7240E01E1;
+	Mon,  9 Nov 2026 21:49:19 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id QWiQBMqmt_GI; Mon,  9 Nov 2026 21:49:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794260956; bh=uEtW3s1zbnVOX6jpNNZBXvC+gKkgYk8Ew3vUQCdNNbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IGe1N7zYxyxFFH7+MzP3GiEm4eT69oXK4IwZ1MWc0BbMe44ywyBr8M93gecB4SQtS
+	 jTP5LY1NDFa4N+iMgCQZvtH3go1V+RpQLL+dP3yW0z0DgJvEQek97tmK5V7go5bRGP
+	 VF1yCNm3qDjVRQY68UbghRWNYWgAZxdS+w9a2ONoBrnj/lr8hL8usjKIYgh7/nV78Z
+	 88dP3UQUVNyQ3/WNOKa9hqZ6Z/zBgkjRr3/HCrb8/tJH+gi9z7zRvAMZdoVI30BVMT
+	 jUO3tbM3NvMyEhiImnh9wmpBiyJiB38IbCHpISWjIueQY/RM7SMehGbqM0h19Xoc5J
+	 FRjMwX5PHGkHw315BXf/zvZLjOLHxwLFuPBpLKweDSfEO5FtXWWqioWNmBQWl6MNcL
+	 fw0fGYn1o4eB3SeBs14GCtOtb9QL0Js51bhssUA4I9nbCcQHWSvQEtQxK36qoW8W4b
+	 Mmbd6TUdBjfLU6VRdXZaij/+Ipl02gpuW2dVsIGBZaM/GfBSxs36St2sN8r4uJtvqm
+	 IFpwvY8TTDmDZqCivQy97+JlmWsRutuhpRmkfaHHbWo8cVThPk7ryOkN8CjzN7owfS
+	 QZBaWoWiKopiDlswGW2BzPztwKxrNAQdmMoe5lmOMzG4aXV9kWvo+RDjAwjbsMtfMf
+	 sosS86IPIVU0ARDT/NDuAgcw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AD70A40E0184;
+	Mon,  9 Nov 2026 21:49:03 +0000 (UTC)
+Date: Mon, 9 Nov 2026 13:49:00 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Rik van Riel <riel@surriel.com>
+Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kernel-team@meta.com" <kernel-team@meta.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH] x86/mce: Restore rate limit on MCE logged message
+Message-ID: <20261109214900.GEavI_zEdfTeiCFKLg@fat_crate.local>
+References: <20261108143751.3af49e48@fangorn>
+ <20261108202820.GCavDbZJgmwKqysH4X@fat_crate.local>
+ <CH8PR11MB4034331B3E52AF39AA9C003E68FC732@CH8PR11MB403433.namprd11.prod.outlook.com>
+ <20261109195216.GBavIkcPlh-HcT_7JW@fat_crate.local>
+ <63ed91b49db00d7a601b8ae1625571ee0c46ffca.camel@surriel.com>
+ <20261109212305.GDavI5uXK066CxHoNA@fat_crate.local>
+ <a799adc77dc325f5e3cd9f806dae684f198efd38.camel@surriel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,34 +92,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <a799adc77dc325f5e3cd9f806dae684f198efd38.camel@surriel.com>
 
-On Mon, 9 Nov 2026 05:05:57 +0000 (GMT)
-"Maciej W. Rozycki" <macro@orcam.me.uk> wrote:
+On Mon, Nov 09, 2026 at 04:29:32PM -0500, Rik van Riel wrote:
+> I do not know how exactly memory errors are getting
+> collected. There are some tools that watch netcons,
+> some that collect data on the host, and some that
+> grab data off the BMC. I have no idea which of
+> those paths the memory error collection uses.
 
-> On Sun, 8 Nov 2026, David Laight wrote:
-> 
-> > > > While at it, I think it would be good to use this conversion as an
-> > > > opportunity to replace "char *" by "void *", which will probably let
-> > > > you drop several casts from users.    
-> > > 
-> > > So I tried that too. The thing is it drops exactly one u8 * cast in
-> > > ntfs3's label write.   
-> > 
-> > Since char is now unsigned that one isn't even needed...  
-> 
->  Please excuse me missing the context, but what circumstances does your 
-> claim refer to?
+It probably doesn't matter for the problem at hand - I guess we should
+ratelimit that printk after all...
 
-Just that the cast would have to be:
-	u8 *foo = (u8 *)bar;
-where 'bar' is 'char *', and I don't think you need a cast there when
-char is unsigned.
+-- 
+Regards/Gruss,
+    Boris.
 
-David
- 
-> 
->   Maciej
-> 
-
+https://people.kernel.org/tglx/notes-about-netiquette
