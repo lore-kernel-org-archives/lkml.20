@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242200;
-	b=S2Cm0lWRGCllkbmASx3S0+FsgDPmebF5L7POtF2uOYFvdMZmE/ZVIhJsV0zuw9L7nta/
-	 tPVxpHGUl5vdYUuBMQlPbNQ//J5gDOtQJs68dnX9nGIgbIMsbiIuj7qUGGzCGBNoeEpsG
-	 JnzYpo4x+4U5LeuYsIZRm4ZKJdHeSjKRbJKzyPs50Lu5GsKtVFOeqgosmFNYOQHdMmEz9
-	 9eblMuDaoWw8NyV2HpZO9FM72z4ARRBdbGPN7UeeoqUyZfalM3gvdJNeM3lLPWx3X8uwd
-	 DB3Ta4vJHs/Ldk7vrS2qLyoJq4mgTAnN3WeyjaiT6bEtmEby1TzTP/cRTQA3+HJgiyA==
+	t=1794242204;
+	b=WxuDyZQY7OBQ0j+xiC6DH1UsPuxB1fPh2PEBEcbxZzLjYVONZlZIlf4M1P0CWzbb67Xe
+	 LpOA/ixqx2wDt1wD7zjO2dFUN+Lh0AT/xgnuxm20UFn17hWB5H82ek3mKknSqunwu7KPO
+	 tw8JcIk8VB2UTv2vO9wlOBj2e9xX0/8a6oFdhoAbtGi85M5hOUe8OTygMo8yzTDyfh2Zk
+	 dRTOUFRDv8UfDoYTyQmAyGMi4GwxqnJEGgiCYjRwcTY2pCI8jSGMhd9gWRoRbvG0s1J0+
+	 jQ8qO4E54SrmFhKBedIza2NRn4HEg3Tqc9yaSPvPI2f7pQqOJ09ILVwe8rGAxPIfWGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242204;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Qc3dyiPx/W4X/rGPB8m5a/kBhaoScoqCV/wwR71LaO4=;
-	b=3PlsEC9A/0DK4kBaL4DshlwnKOuzKdLyH7P1ixutMf0r2VbcuPLobhb7gi0UhVgKe7bJ
-	 32Tb81S27mes8JUtMAwWldnBCqKQTCMCXvnldps0c7a7xB2XI+qgepr5AQnIP0QhBXPiU
-	 Q0mMmyZchEQ9yxn/qYnMicVaRfJ9QH9aah4l07Xoa80srPgdDjaUy86dprUFSp/85H5Fh
-	 bmAef1zzcWhqHJ8eQd2TJDPKim1KnzecG9rIuakytNGmSvlA/S/K9aYt0vvR8FIdwPLB+
-	 TA7/dU2cM1LCdyfS/gv3Nux/Xjzi8Cee/YX4kqPopOtso1aZn/Mj5tJYGawWuhvKIUQ==
+	bh=lJL2CrY7iNSJF7GqoCeb5yNm8erUqwgVxUedaZdDoNM=;
+	b=2yNFJu3xV/6p6ug7tMGOwJP2yBMRfilEjRS4TsKcutUzRtiHyMptXEomMWzl78epvmjZ
+	 L2AOpJWvOzBUe7PY7CcO059AV7zb+Nqm0QxXd+jGDFrmaqrB66TTfrDM2uF5xzDNVRX5j
+	 uxT1r/KGAeAww6uUKe2Ji6I6gpo3Eu1jvHxEdDz1vKEeVeV157HyjoRl8Cbi9lxxg8NeB
+	 HB+FFBOqS9XM3v0LfMKkEWsHSLSZnI2KpREqgMCALT6ejGZbJNmkQMW846DcRqUuFVWo7
+	 SRuLIhzfgy8cPZCfcXgqM1WK8DtBcBYneuwfM6NveOAl1sxAKj7gEExHoTuxeQYwweg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m56waSXI;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZoMGYc2;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32FF60A3801
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A32FF60A3801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F26360A3834
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F26360A3834
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m56waSXI
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so8731605e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZoMGYc2
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9076595e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242198; x=1794846998; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794242202; x=1794847002; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qc3dyiPx/W4X/rGPB8m5a/kBhaoScoqCV/wwR71LaO4=;
-        b=m56waSXIGbDoPCqa3EPTpb83A8+SHp7KEUmMvHW1ZtD2SteEhHHU7gDbyJzpQpVt2r
-         o30K1n1EqiqougesSW8wvQ+mTEP72/V4OS3lImkQ7fnzRn+1g5Zb6zauhqyNdcizT48e
-         jGYWtSzdHTDmk+Ql+zIcVGD7VX6/p/DwmnqT7E9MY8a6uVzfJ+Bs8LwdGX9jvL81vJtd
-         d0pg6Rm/XBJeF9tw2Ebw3Ly8daRURKusVyrHlDQr5A0wGf3b9TrKyGLKgY2QJ5xnHlJ4
-         EYCRq7EAq094BBs7qxacKSDkdaQ8F3PKb67kGnWGLiu0t0OyY8gZkbjLkXvlOZ9TJmcQ
-         8tnA==
+        bh=lJL2CrY7iNSJF7GqoCeb5yNm8erUqwgVxUedaZdDoNM=;
+        b=GZoMGYc2cjOO+sCdIIq+4Gcwy3UfY+ElfbmHXvrpgurE+wik7MBgTMRrWIcQk1aNh9
+         Ve5QisdSLBZyScqtcnsBSRoYnw5dwyTX5Kh6gybmXsNESlpOAdzR2yX4HLR3xWbHGtUu
+         fvVT+B9K63HQJjwPk+WMPKp05a/xS41XyIJh/BD9SoAoDDN7oEuwC/sMIjABo6xzVAcu
+         o06ov0OQXj5t2eSXDxUeufQtkMviT5q6cP3lMHOuBJ08qJMFktz40xL5TrqI3hucX+Mo
+         yYTlSM62smaxLYLkrpXFJpji0/xeD4DWfZxelEQSxISKAi1cmew5UP+qIoZsbEstv8Wp
+         brjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242198; x=1794846998;
+        d=1e100.net; s=20260707; t=1794242202; x=1794847002;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qc3dyiPx/W4X/rGPB8m5a/kBhaoScoqCV/wwR71LaO4=;
-        b=OGF7AIBbutW965AlIOTXkp7TMrOkXOzWYQEURUk6MsQY8fn/19Hw1qmtkUCJOuKrEj
-         XJUYRyLSWRoojIOba6RYpUjnHeVZRq+Hw3nnr83TSM9yvLVLAOYz0KkiuTgJjRK/qgv1
-         lG75l2Fa2yeJxiMcUh763mAUS58hg/dEjnkSmTdt3+DXAUs+C9mXliorEYG73Z+kBWi3
-         c6VpohDAd6cTzeHibMZmqONnP6lIEfwts22GyeDo4KMJzcUuMWbGt3xjTvbLFKBAUMKv
-         +ZeERhW38fukauJYXOzxoRQOiN07ivIIPdpHQbX5ZiuJfl/YmPiXkucFBE5yKFcl5Fe4
-         XDfg==
-X-Forwarded-Encrypted: i=1; AL+hErHR/6dQaPtuad5OXdBw6nI9enSCE7NUon4CDXyCPwZhtV/SQ3KdNdGA4z+2lEEnbRCkEDa9EI6XuL2Y7DY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HrMaEaitHKhc2uNrMrpSE0doL/KrPqUx/XMyoeeR7TKM2Yv7M
-	j5TQ8ViutXyR2CshIyAeE9AO2OqfL+2B0ooCK21BQKDO1XgbUO69wfX5
-X-Gm-Gg: AYBFou2EDKRuSs7d7+G+EOO8paqB/zLBOx1P2Hi4KR81ZugIvj9dQUhqE86gHOqUkFH
-	x6NCEuAQSIawtG69sifHk3F7QuJxVyQfoTo+VOoxb8qFF8Jp4COrXeOAm2qder/CIc6o1uILCs2
-	gZ7QMT1joBf7fy4fTrg1lWwC/6Ry+McO9meh4eDb+zPpyxIPhJrki+hIjEZPCE/3dO1EYFpIURr
-	wN2wqwZxkO9r3nZ53YNlWiBgbK+FYyTN44tEP4IO/TpVvqKQFRhvClxU+/ybHYiPFIv2PrPRHZC
-	a3MyS1tCWAlkxffs4TQA/SKDDBY0YzxTSnyJEaHBL5Ad7F8XfJysRA3Dglaq64HMTznO0h3OI/C
-	jbkRzfKkxGradu+OAjoiQzG3Yyi/CxljLAI+SYw6/oVcwdcjXI0WJ4MSafesk8UCVjpK0T+h9sQ
-	5oFpuAsLBIta8BktmFWHg5Q1iwPu0tlghQGcML+waOcdWQ35BAwEfTBk6kVARtbe9CzI3HTO0fq
-	1id524dCJ0mw1bs0mgRUew7x44tVK06COsmAYYc4BNoGouZMkU0fcbF8+y6C+eNWajLWPONZUIA
-	WcFkdESM6vL3N474nKzv7uR++TY=
-X-Received: by 2002:a05:600c:3b04:b0:4a2:e0c:2b0a with SMTP id 5b1f17b1804b1-4b960e9a794mr86657665e9.16.1794242198055;
-        Mon, 09 Nov 2026 08:36:38 -0800 (PST)
+        bh=lJL2CrY7iNSJF7GqoCeb5yNm8erUqwgVxUedaZdDoNM=;
+        b=TtQP9Lw34MlgFlSoyH2xWHdvruGReXk0rpbUSHfRo2VtugCUmq4u/BnUxGFCh5qMgh
+         QkE51cRPWgd2IBzy7w2Yf8XUPDogAOSawoDtq4974K5+cDinezU+XU3QhgLuey4R2+sD
+         y6xVv8KQGVQG7UP6NAS787kCf10BPicnbM6EPFTGLWydlSQ0A0a1muY3GM/VriTarhpR
+         6q0WmW5kWPqOy0NWIsslp7I09Q3cilVUYm0maGyb4d+UqxiiI9ZJgd3HaJ3ZEC35qN4u
+         Zm5iesmUSWG465a2UudnAv0v96q+zF21g4kS0BDtV1JmRunstbQ7L2RxQWEKOSvIbXYR
+         kEUA==
+X-Forwarded-Encrypted: i=1; AL+hErHfBSoZhythQqNMluHQhXwUBkyxK7UVAnC6cJ6+5bSY3HRn05YbIjUng+AewWSSRasMbqbccEyO/4myfbA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//a6e2P2D9FgBG/DoJmLUvXJ4vV9GB/oiUEaOt7SyTLChWXCyu
+	tdscsTZYcIzirS2pj3C++Jiy+UEMqE0watvYTaaJfEPnpsDDRM5YdQzm
+X-Gm-Gg: AYBFou2iFebfLj0nGUrytMQuYZNeYznWcfoV5DDHZ+azuWucdN/7iQWHE7pP+76inE7
+	j07SRGnQJp5Rq5rGew9S+jBmNB6mdbCCeTfsdcb6l0pbokcAT1fD+nR6cY65kShg2QlPgakfzHl
+	fp0BGd/cdHnMStjtmUSWtWgT9jZds7S7L5qxCfYLQN69Za0OoLW3FVSy50B4RxsXEUxCFeyXYvK
+	BgN4VFPodo8984vWIA6i3i5pAxKfjPGa+LOLkfDwQcDqpJztG+CClVDGYwjR++sTEpw5vBMvLnK
+	+WGzC9gr63uGh0MoDOkrh4VSCw3IFvNDTsIJQgAXSTgYqJmVjZHLcqxg4apMl7VzbshybKFz2DP
+	4kwd78RUGKIy/lb/HRzqn0HJpBM42ER6D1GgWSLAWvFSTaoq+criEIfveDPms9r/rQlZbdAsLW8
+	OvhmDoc8S9sjebLZJ79conPxPLR6rVfeZOsb+2PPNmcv0BbJPwB2si5s7zDEclfbyUnqvwuS9a9
+	O+lMeRQ9mfbnT5PtGW2Eg5/yQu3xDyhihXsQKL8OWwfbyw2D08Ai51STPGl5GK0XERAhd2Tancf
+	I3eCx2WsqwAdN5j+FkVLnGwuvw==
+X-Received: by 2002:a05:600c:1d0a:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b963c741f8mr79445725e9.20.1794242201591;
+        Mon, 09 Nov 2026 08:36:41 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:37 -0800 (PST)
+        Mon, 09 Nov 2026 08:36:40 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,9 +96,9 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 10/29] sched/deadline: Add dl_init_tg
-Date: Mon,  9 Nov 2026 17:35:56 +0100
-Message-ID: <20261109163616.195264-11-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 12/29] sched/deadline: Account rt-cgroups bandwidth in deadline tasks schedulability tests.
+Date: Mon,  9 Nov 2026 17:35:58 +0100
+Message-ID: <20261109163616.195264-13-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
 References: <20261109163616.195264-1-yurand2000@gmail.com>
@@ -115,11 +115,13 @@ Content-Transfer-Encoding: 8bit
 
 From: luca abeni <luca.abeni@santannapisa.it>
 
-Add dl_init_tg to initialize and/or update a rt-cgroup dl_server and to
-also account the allocated bandwidth. This function is currently unhooked
-and will be later used to allocate bandwidth to rt-cgroups.
+Account the rt-cgroups hierarchy's reserved bandwidth in the
+schedulability test of deadline entities. This mechanism allows to
+completely reserve portion of the rt-bandwidth to rt-cgroups even if
+they do not use all of it.
 
-Add lock guard for raw_spin_rq_lock_irq for cleaner code.
+Account for the rt-cgroups' reserved bandwidth also when changing the
+total dedicated bandwidth for real time tasks.
 
 Co-developed-by: Alessio Balsini <a.balsini@sssup.it>
 Signed-off-by: Alessio Balsini <a.balsini@sssup.it>
@@ -129,64 +131,189 @@ Co-developed-by: Yuri Andriaccio <yurand2000@gmail.com>
 Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
 Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
 ---
- kernel/sched/deadline.c | 31 +++++++++++++++++++++++++++++++
- kernel/sched/sched.h    |  1 +
- 2 files changed, 32 insertions(+)
+ kernel/sched/deadline.c | 58 +++++++++++++++++++++++++++++------------
+ 1 file changed, 41 insertions(+), 17 deletions(-)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index aceeb28d4b2b..b6b5fcb15f43 100644
+index b6b5fcb15f43..7c2f4d2c9301 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -335,6 +335,37 @@ void cancel_inactive_timer(struct sched_dl_entity *dl_se)
- 	cancel_dl_timer(dl_se, &dl_se->inactive_timer);
+@@ -127,14 +127,17 @@ static inline struct dl_bw *dl_bw_of(int i)
+ 	return &cpu_rq(i)->rd->dl_bw;
  }
- 
-+#ifdef CONFIG_RT_GROUP_SCHED
-+void dl_init_tg(struct sched_dl_entity *dl_se, u64 rt_runtime, u64 rt_period)
-+{
-+	struct rq *rq = container_of_const(dl_se->dl_rq, struct rq, dl);
-+	int is_active;
-+	u64 new_bw;
-+
-+	guard(rq_lock_irq)(rq);
-+	is_active = dl_se->my_q->rt.rt_nr_running > 0;
-+
-+	update_rq_clock(rq);
-+	dl_server_stop(dl_se);
-+
-+	new_bw = to_ratio(rt_period, rt_runtime);
-+	dl_rq_change_utilization(rq, dl_se, new_bw);
-+
-+	dl_se->dl_runtime  = rt_runtime;
-+	dl_se->dl_deadline = rt_period;
-+	dl_se->dl_period   = rt_period;
-+
-+	dl_se->runtime = 0;
-+	dl_se->deadline = 0;
-+
-+	dl_se->dl_bw = new_bw;
-+	dl_se->dl_density = new_bw;
-+
-+	if (is_active)
-+		dl_server_start(dl_se);
-+}
-+#endif
-+
- static void dl_change_utilization(struct task_struct *p, u64 new_bw)
+
+-static inline int dl_bw_cpus(int i)
++static inline int __dl_bw_cpus(const struct cpumask *mask)
  {
- 	WARN_ON_ONCE(p->dl.flags & SCHED_FLAG_SUGOV);
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e8a62b37a72d..b55ce13412d6 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -425,6 +425,7 @@ extern void dl_server_init(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq,
- 		    struct rq *served_rq,
- 		    dl_server_pick_f pick_task);
- extern void sched_init_dl_servers(void);
-+extern void dl_init_tg(struct sched_dl_entity *dl_se, u64 rt_runtime, u64 rt_period);
- 
- extern void fair_server_init(struct rq *rq);
- extern void ext_server_init(struct rq *rq);
--- 
+-	struct root_domain *rd = cpu_rq(i)->rd;
++	return cpumask_weight_and(mask, cpu_active_mask);
++}
+
++static inline int dl_bw_cpus(int i)
++{
+ 	RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+ 			 "sched RCU must be held");
+
+-	return cpumask_weight_and(rd->span, cpu_active_mask);
++	return __dl_bw_cpus(cpu_rq(i)->rd->span);
+ }
+
+ static inline unsigned long __dl_bw_capacity(const struct cpumask *mask)
+@@ -205,11 +208,25 @@ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ 	__dl_update(dl_b, -((s32)tsk_bw / cpus));
+ }
+
++static inline u64 get_dl_groups_bw(void)
++{
++#ifdef CONFIG_RT_GROUP_SCHED
++	const struct dl_bandwidth *dl_b;
++
++	guard(raw_spinlock_irqsave)(dl_bw_lock_of_tg(&root_task_group));
++	dl_b = dl_bandwidth_read(&root_task_group);
++	return to_ratio(dl_b->dl_period, dl_b->dl_runtime);
++#else
++	return 0;
++#endif
++}
++
+ static inline bool
+-__dl_overflow(struct dl_bw *dl_b, unsigned long cap, u64 old_bw, u64 new_bw)
++__dl_overflow(struct dl_bw *dl_b, unsigned long cap, int cpus, u64 old_bw, u64 new_bw)
+ {
+ 	return dl_b->bw != -1 &&
+-	       cap_scale(dl_b->bw, cap) < dl_b->total_bw - old_bw + new_bw;
++	       cap_scale(dl_b->bw, cap) < dl_b->total_bw - old_bw + new_bw
++					+ get_dl_groups_bw() * cpus;
+ }
+
+ static inline
+@@ -1937,7 +1954,7 @@ int dl_server_apply_params(struct sched_dl_entity *dl_se, u64 runtime, u64 perio
+ 	cpus = dl_bw_cpus(cpu);
+ 	cap = dl_bw_capacity(cpu);
+
+-	if (__dl_overflow(dl_b, cap, old_bw, new_bw))
++	if (__dl_overflow(dl_b, cap, cpus, old_bw, new_bw))
+ 		return -EBUSY;
+
+ 	if (init) {
+@@ -1984,7 +2001,7 @@ static int __dl_server_attach_bw_locked(struct sched_dl_entity *dl_se,
+ 	 */
+ 	if (cpu_active(cpu_of(rq))) {
+ 		cap = dl_bw_capacity(cpu_of(rq));
+-		if (__dl_overflow(dl_b, cap, 0, dl_se->dl_bw))
++		if (__dl_overflow(dl_b, cap, cpus, 0, dl_se->dl_bw))
+ 			return -EBUSY;
+ 		__dl_add(dl_b, dl_se->dl_bw, cpus);
+ 	}
+@@ -3710,8 +3727,9 @@ int sched_dl_global_validate(void)
+ 	u64 period = global_rt_period();
+ 	u64 new_bw = to_ratio(period, runtime);
+ 	u64 cookie = ++dl_cookie;
++	u64 dl_groups_root = get_dl_groups_bw();
+ 	struct dl_bw *dl_b;
+-	int cpu, cpus, ret = 0;
++	int cpu, cap, cpus, ret = 0;
+ 	unsigned long flags;
+
+ 	/*
+@@ -3726,10 +3744,12 @@ int sched_dl_global_validate(void)
+ 			goto next;
+
+ 		dl_b = dl_bw_of(cpu);
++		cap = dl_bw_capacity(cpu);
+ 		cpus = dl_bw_cpus(cpu);
+
+ 		raw_spin_lock_irqsave(&dl_b->lock, flags);
+-		if (new_bw * cpus < dl_b->total_bw)
++		if (cap_scale(new_bw, cap) < dl_b->total_bw +
++					     dl_groups_root * cpus)
+ 			ret = -EBUSY;
+ 		raw_spin_unlock_irqrestore(&dl_b->lock, flags);
+
+@@ -3823,13 +3843,13 @@ int sched_dl_overflow(struct task_struct *p, int policy,
+ 	cap = dl_bw_capacity(cpu);
+
+ 	if (dl_policy(policy) && !task_has_dl_policy(p) &&
+-	    !__dl_overflow(dl_b, cap, 0, new_bw)) {
++	    !__dl_overflow(dl_b, cap, cpus, 0, new_bw)) {
+ 		if (hrtimer_active(&p->dl.inactive_timer))
+ 			__dl_sub(dl_b, p->dl.dl_bw, cpus);
+ 		__dl_add(dl_b, new_bw, cpus);
+ 		err = 0;
+ 	} else if (dl_policy(policy) && task_has_dl_policy(p) &&
+-		   !__dl_overflow(dl_b, cap, p->dl.dl_bw, new_bw)) {
++		   !__dl_overflow(dl_b, cap, cpus, p->dl.dl_bw, new_bw)) {
+ 		/*
+ 		 * XXX this is slightly incorrect: when the task
+ 		 * utilization decreases, we should delay the total
+@@ -4007,13 +4027,14 @@ int dl_cpuset_cpumask_can_shrink(const struct cpumask *cur,
+ {
+ 	unsigned long flags, cap;
+ 	struct dl_bw *cur_dl_b;
+-	int ret = 1;
++	int cpus, ret = 1;
+
+ 	rcu_read_lock_sched();
+ 	cur_dl_b = dl_bw_of(cpumask_any(cur));
+ 	cap = __dl_bw_capacity(trial);
++	cpus = __dl_bw_cpus(trial);
+ 	raw_spin_lock_irqsave(&cur_dl_b->lock, flags);
+-	if (__dl_overflow(cur_dl_b, cap, 0, 0))
++	if (__dl_overflow(cur_dl_b, cap, cpus, 0, 0))
+ 		ret = 0;
+ 	raw_spin_unlock_irqrestore(&cur_dl_b->lock, flags);
+ 	rcu_read_unlock_sched();
+@@ -4030,6 +4051,7 @@ enum dl_bw_request {
+ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
+ {
+ 	unsigned long flags, cap;
++	int cpus;
+ 	struct dl_bw *dl_b;
+ 	bool overflow = 0;
+ 	u64 dl_server_bw = 0;
+@@ -4039,12 +4061,13 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
+ 	raw_spin_lock_irqsave(&dl_b->lock, flags);
+
+ 	cap = dl_bw_capacity(cpu);
++	cpus = dl_bw_cpus(cpu);
+ 	switch (req) {
+ 	case dl_bw_req_free:
+ 		__dl_sub(dl_b, dl_bw, dl_bw_cpus(cpu));
+ 		break;
+ 	case dl_bw_req_alloc:
+-		overflow = __dl_overflow(dl_b, cap, 0, dl_bw);
++		overflow = __dl_overflow(dl_b, cap, cpus, 0, dl_bw);
+
+ 		if (!overflow) {
+ 			/*
+@@ -4053,7 +4076,7 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
+ 			 * We will free resources in the source root_domain
+ 			 * later on (see set_cpus_allowed_dl()).
+ 			 */
+-			__dl_add(dl_b, dl_bw, dl_bw_cpus(cpu));
++			__dl_add(dl_b, dl_bw, cpus);
+ 		}
+ 		break;
+ 	case dl_bw_req_deactivate:
+@@ -4063,6 +4086,7 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
+ 		 * turn cpu off?).
+ 		 */
+ 		cap -= arch_scale_cpu_capacity(cpu);
++		cpus -= 1;
+
+ 		/*
+ 		 * cpu is going offline and NORMAL and EXT tasks will be
+@@ -4083,8 +4107,8 @@ static int dl_bw_manage(enum dl_bw_request req, int cpu, u64 dl_bw)
+ 			 * wise thing to do. As said above, cpu is not offline
+ 			 * yet, so account for that.
+ 			 */
+-			if (dl_bw_cpus(cpu) - 1)
+-				overflow = __dl_overflow(dl_b, cap, dl_server_bw, 0);
++			if (cpus)
++				overflow = __dl_overflow(dl_b, cap, cpus, dl_server_bw, 0);
+ 			else
+ 				overflow = 1;
+ 		}
+--
 2.56.0
 
