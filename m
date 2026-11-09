@@ -1,66 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225937;
-	b=hEQ1Hn6AJvlrR8PFutPSU4xju/EBa2qersXrCpbVkffjfAHfRSxasy8I2A6RQfCsHtq2
-	 69K05Alu5LOLswiAz8oHIZmG6nFOQiUNiC4lO5b9drzkJxbC6ngRn3b7ydOdtMk3pwBGd
-	 nD+EGfnaZBk3sWiTDEILULKgLvh0/cM72MfR4Ws51yrRlTJlPAwDt0AlXrne2ukOfA4uB
-	 o3AcviPq9ljeIhrOTOuLFb2KcQJf4CwXQv0cDZmhxLKo7dsiaPGqG6z6W/jXMQmJBajrQ
-	 h61Kkv5Kj4kmP1G719tEUc9PtbxlhfpImYzCA+2WWSjLAQr/k+B1Q7pKtnt3P5hBjKw==
+	t=1794225958;
+	b=Mvq/1akp7qXyq4McwZAnBhDQyyNu0ss2M0l8Wyub0EzeD7myQO7oq7LATUCsQsEeK6jz
+	 CTukAOXVpnd0o6GMNp4hMYPX17MC7e1h6X1kG+6V1QihrwlpV8mtoaWXBixk4IKk/AMLC
+	 xtiYGF57q+LU9+3kxYI7tGnC2XKJy9mzR2QvfirM7v9n19T5bVcmb+DzXdMDLFTriYknK
+	 cGgfFzymyFlscGzkyHfQ03yDHBRjg8QAoQguMZbqqYYPK2lR91LUuPWE3Sofe9YWUtqAN
+	 +2vPKR/tOC4vcpLAN54kZGqC9RCn6fG1r+5/WHrTXySRn6jZ1K6sspeLPpnhjJ0hLKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225958;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mb6zscB9xA65zKWgADOGhrqsQ/nGHmGTb9eOGjPV3Qo=;
-	b=R0Ir8GOsHKlYhNiGdz0P/4s0HHHv6rdLkS7rqOBpWZqt+msLernP+KorRygkpYw1FuE/
-	 1mEHMcbrboyMKoOezgvI5uEaSTlOQimqaqD7VhUF8Y8vvjG+ADykl5sza21p5y+UlB4F2
-	 V6xjQ8JxZJELPT9iPFcCyKwU0wEGfM5jjcpRUoLmaeRdA9ugwMGjC2XTTcbp4wt3AGOjS
-	 eGwjBOT8CWa/C0DQLbXwkoDmyvr7Zh9KMZ78fQbCbzXBItvISgb6hg1aiqRMaNFsEjNbm
-	 2qn+sCG1k3AbCQVj0si+omoLqVva9iVXVm8X/kDAZSkRsZf38WkFFfGn2/GJymnpVhw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8VRMkBgMeSqbC5Ba9NzzAeWALgbw62uujK7fDusMRS4=;
+	b=yc0AoUSKCWkMOqEDdjJFUvMch2A9uaV8thJTUkkPBhYQyqpR+1/t3ZTQELub7on6WV3i
+	 /Np3kaOL5E28WHN0Absejgto7hpCkrnjt5WteO7fD5Zfml5vmUXIhcubI2hJTbrzdF5MA
+	 NBIOfQ7oTbnlFqQ0HK3H0QA1NWzR994JbCjU6M/cBteW7rf4XABY1iAAJS7jgHBJlELtN
+	 m5X/M6PXM3ZlBDbmQ4Qjj2IFu/26R6NZL/6UPVRqt3AU6sueI598jXiIbejEXQrHyn8X7
+	 K4UOtgvgS0fAxwsza05XcHElvKxsISc67btruvpfTYe0eAvZRzEJv1xpKbsq37VV0JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfxHncTq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rw1a3E63;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C475C606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEF5606A31C;
+	Mon,  9 Nov 2026 12:05:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfxHncTq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26BA01F008A3;
-	Mon,  9 Nov 2026 12:05:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rw1a3E63
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629461F008A5;
+	Mon,  9 Nov 2026 12:05:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794225936;
-	bh=mb6zscB9xA65zKWgADOGhrqsQ/nGHmGTb9eOGjPV3Qo=;
+	s=k20260515; t=1794225958;
+	bh=8VRMkBgMeSqbC5Ba9NzzAeWALgbw62uujK7fDusMRS4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RfxHncTqGmZ8TCef+6tWTgry+fmHYOt1r113jnwW6tvWLT75/HuVzVwwM0rnYytjo
-	 YPyJowg1fiHxzT8NeyDJYnOgIvo9zkbN16X/iwJFDxb9lkdl2UXbNfnJw7CsxuLAhO
-	 6itAed9ea0+YQtKEGy/bcDnpws+CE01M/oVcdNG7IW4QzRZeB9b32E30RnzaeAy374
-	 34I+0+Hf4xVLb7QfnBaxFyVBHwynjfKxOpio5H/vyMD4IrX5cBHysT5Oxprv0cPb0G
-	 tFmSopTnbOnb8IkL5sezYF0q18gOBkkkrTFV04DBcvb1lzGRBJEo09Nwql+8wY4Nmt
-	 Ogrx3vqVJ1xhQ==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Tejun Heo <tj@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org
-Subject: [PATCH v2 6/6] arm64: alternatives: Make branch and ADRP offset helpers noinst
-Date: Mon,  9 Nov 2026 19:44:59 +0800
-Message-ID: <20261109114500.20298-7-jszhang@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261109114500.20298-1-jszhang@kernel.org>
-References: <20261109114500.20298-1-jszhang@kernel.org>
+	b=Rw1a3E63im1BPzwPFfjalYxnWinbwVrJ62OeoygdnT6Wm3B1HUdFpvPuG6jop+GKW
+	 ozvlWkMdFnEoobD/CbcU4A2BrMZFSgk+84DPWhQWs4wo3MM5nQtAQxl582gIe1C/JZ
+	 lvQMYtluZuWWRJAcLh/PR4o55eGykZBBJIDX6O8h6nSroU5kn8dNcWzmZgusb5DDZC
+	 PkydHofWFJcIiaUYSJIEmJr+yQmWJd4NVZDKzvYDRC54ZJ9GEuH/EYdqRVDdsNLRM6
+	 +TNJSQt10EwgYUIDY3u9HLdQfWeZ7GczTYJBsqJE86cHbG6q1XAOklOWEgckospTQ4
+	 Fv75q+aFIzEEg==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, "Linux trace kernel" <linux-trace-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] riscv: kprobes: free insn slot in arch_remove_kprobe() to avoid memory leak
+Date: Mon, 09 Nov 2026 21:05:54 +0900
+Message-ID: <undine-1794225954481525621-8248ce0c28df01fe@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261013023605.317-1-yuanxiaofeng@eswincomputing.com>
+References: <20260731100940.2330-1-yuanxiaofeng@eswincomputing.com> <20261013023605.317-1-yuanxiaofeng@eswincomputing.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,179 +58,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-patch_alternative() must avoid instrumented code while alternatives
-are being modified, before cache maintenance completes. However, its
-branch and ADRP offset helpers are instrumentable. A GCC build with
-function tracing enabled emitted ftrace patchable entries for these
-helpers.
+On Tue, 13 Oct 2026 10:36:05 +0800, Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com> wrote:
+> When a kprobe is removed, arch_remove_kprobe() does not free the
+> instruction slot allocated by arch_prepare_kprobe(). This causes
+> a memory leak every time a kprobe is unregistered.
+>
+> Other architectures such as arm64, x86, and powerpc all free the
+> slot in their arch_remove_kprobe() implementations. Add the
+> missing free_insn_slot() call for RISC-V.
+>
+> Registered and unregistered a kprobe on kernel_clone in a loop
+> inside a QEMU (RISC-V virt) guest: before the fix the number of
+> kprobe_insn_page entries in /proc/kallsyms grew by one every 512
+> iterations (each insn-slot page holds 512 eight-byte slots), and
+> after the fix it stays at 1.
+>
+> Signed-off-by: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
 
-Mark the four offset helpers noinstr. Introduce private
-__always_inline immediate encoding and decoding implementations for
-their use, and force inline the immediate mask helper.
+Since this fixes a memory leak present since RISC-V kprobes support was
+introduced, please add a Fixes tag (and Cc stable):
 
-The offset helpers pass constant encoding types, allowing the compiler
-to eliminate invalid-type diagnostic paths. Keep the public immediate
-helpers as wrappers to preserve diagnostics for other callers.
+Fixes: c22b0bcb1dd0 ("riscv: Add kprobes supported")
+Cc: stable@vger.kernel.org
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Assisted-by: LLM
----
- arch/arm64/lib/insn.c | 57 ++++++++++++++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 20 deletions(-)
+And
 
-diff --git a/arch/arm64/lib/insn.c b/arch/arm64/lib/insn.c
-index e70ac0238515..b98610fcab32 100644
---- a/arch/arm64/lib/insn.c
-+++ b/arch/arm64/lib/insn.c
-@@ -21,7 +21,7 @@
- #define AARCH64_INSN_N_BIT	BIT(22)
- #define AARCH64_INSN_LSL_12	BIT(22)
- 
--static int __kprobes aarch64_get_imm_shift_mask(enum aarch64_insn_imm_type type,
-+static __always_inline int aarch64_get_imm_shift_mask(enum aarch64_insn_imm_type type,
- 						u32 *maskp, int *shiftp)
- {
- 	u32 mask;
-@@ -86,7 +86,12 @@ static int __kprobes aarch64_get_imm_shift_mask(enum aarch64_insn_imm_type type,
- #define ADR_IMM_LOSHIFT		29
- #define ADR_IMM_HISHIFT		5
- 
--u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
-+/*
-+ * Keep the immediate helpers inline so noinstr callers using constant encoding
-+ * types do not call instrumentable code, including the invalid-type diagnostics.
-+ */
-+static __always_inline u64
-+__aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
- {
- 	u32 immlo, immhi, mask;
- 	int shift;
-@@ -101,8 +106,8 @@ u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
- 		break;
- 	default:
- 		if (aarch64_get_imm_shift_mask(type, &mask, &shift) < 0) {
--			pr_err("%s: unknown immediate encoding %d\n", __func__,
--			       type);
-+			pr_err("%s: unknown immediate encoding %d\n",
-+			       "aarch64_insn_decode_immediate", type);
- 			return 0;
- 		}
- 	}
-@@ -110,8 +115,14 @@ u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
- 	return (insn >> shift) & mask;
- }
- 
--u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
--				  u32 insn, u64 imm)
-+u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
-+{
-+	return __aarch64_insn_decode_immediate(type, insn);
-+}
-+
-+static __always_inline u32
-+__aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
-+			      u32 insn, u64 imm)
- {
- 	u32 immlo, immhi, mask;
- 	int shift;
-@@ -131,8 +142,8 @@ u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
- 		break;
- 	default:
- 		if (aarch64_get_imm_shift_mask(type, &mask, &shift) < 0) {
--			pr_err("%s: unknown immediate encoding %d\n", __func__,
--			       type);
-+			pr_err("%s: unknown immediate encoding %d\n",
-+			       "aarch64_insn_encode_immediate", type);
- 			return AARCH64_BREAK_FAULT;
- 		}
- 	}
-@@ -144,6 +155,12 @@ u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
- 	return insn;
- }
- 
-+u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
-+					  u32 insn, u64 imm)
-+{
-+	return __aarch64_insn_encode_immediate(type, insn, imm);
-+}
-+
- u32 aarch64_insn_decode_register(enum aarch64_insn_register_type type,
- 					u32 insn)
- {
-@@ -1299,23 +1316,23 @@ u32 aarch64_insn_gen_adr(unsigned long pc, unsigned long addr,
-  * signed value (so it can be used when computing a new branch
-  * target).
-  */
--s32 aarch64_get_branch_offset(u32 insn)
-+s32 noinstr aarch64_get_branch_offset(u32 insn)
- {
- 	s32 imm;
- 
- 	if (aarch64_insn_is_b(insn) || aarch64_insn_is_bl(insn)) {
--		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_26, insn);
-+		imm = __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_26, insn);
- 		return (imm << 6) >> 4;
- 	}
- 
- 	if (aarch64_insn_is_cbz(insn) || aarch64_insn_is_cbnz(insn) ||
- 	    aarch64_insn_is_bcond(insn)) {
--		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_19, insn);
-+		imm = __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_19, insn);
- 		return (imm << 13) >> 11;
- 	}
- 
- 	if (aarch64_insn_is_tbz(insn) || aarch64_insn_is_tbnz(insn)) {
--		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_14, insn);
-+		imm = __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_14, insn);
- 		return (imm << 18) >> 16;
- 	}
- 
-@@ -1327,35 +1344,35 @@ s32 aarch64_get_branch_offset(u32 insn)
-  * Encode the displacement of a branch in the imm field and return the
-  * updated instruction.
-  */
--u32 aarch64_set_branch_offset(u32 insn, s32 offset)
-+u32 noinstr aarch64_set_branch_offset(u32 insn, s32 offset)
- {
- 	if (aarch64_insn_is_b(insn) || aarch64_insn_is_bl(insn))
--		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_26, insn,
-+		return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_26, insn,
- 						     offset >> 2);
- 
- 	if (aarch64_insn_is_cbz(insn) || aarch64_insn_is_cbnz(insn) ||
- 	    aarch64_insn_is_bcond(insn))
--		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_19, insn,
-+		return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_19, insn,
- 						     offset >> 2);
- 
- 	if (aarch64_insn_is_tbz(insn) || aarch64_insn_is_tbnz(insn))
--		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_14, insn,
-+		return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_14, insn,
- 						     offset >> 2);
- 
- 	/* Unhandled instruction */
- 	BUG();
- }
- 
--s32 aarch64_insn_adrp_get_offset(u32 insn)
-+s32 noinstr aarch64_insn_adrp_get_offset(u32 insn)
- {
- 	BUG_ON(!aarch64_insn_is_adrp(insn));
--	return aarch64_insn_decode_immediate(AARCH64_INSN_IMM_ADR, insn) << 12;
-+	return __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_ADR, insn) << 12;
- }
- 
--u32 aarch64_insn_adrp_set_offset(u32 insn, s32 offset)
-+u32 noinstr aarch64_insn_adrp_set_offset(u32 insn, s32 offset)
- {
- 	BUG_ON(!aarch64_insn_is_adrp(insn));
--	return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_ADR, insn,
-+	return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_ADR, insn,
- 						offset >> 12);
- }
- 
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+from kprobes point of view.
+
+Thanks,
+
+> ---
+> Changes in v2:
+>  - Drop the stray blank line before the closing brace.
+>  - Extend the commit message with a reproduction/verification note.
+>  - Rebase onto linux-next 20261009.
+>
+>  arch/riscv/kernel/probes/kprobes.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+
 -- 
-2.55.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
