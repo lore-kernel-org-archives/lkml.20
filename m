@@ -1,83 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794205948;
-	b=2crHL9eB7IAsjtBPkMgz4lJHlFB/7w2NMy+JuYfdT2gGb9gdIr/K/wkBJ2rDs6FWrsV2
-	 MyWs2FGACCExjzKNnOQe8veJFwrtN6mqYl1RGm/5kQD8mZ/DqrkJ8Xpw9mznnE/WfVUsa
-	 tAIJfMNrrW8C++196eb4LPTnekeY7hAfmvHeNnEiqpyX7i3mMg5T2sQTZNELhHfgs8+53
-	 cohRlxAdfi7rC2axcEQODE+yIzSIEewvGQsrNoPWe+0P1Oe8M9N/Xu5Xu8qSwEEpHNYp4
-	 T/hdMhquMP8sbSLeqZ/GLFAYTkw5ENSRZW2peQtJESROOWVetPpK50EGrqxKePiB+SA==
+	t=1794206082;
+	b=bwTqH9vx5OrnUGJzxY0pDgEOks/v9JbukObkeLefvvqpwRe50sQp2ThYDYOT93m7PrOb
+	 4mPs4Z5DS6JQNzWnB29+BUysPJ0xn1/yftXkMZZsXIdIci3KS9K6bMYITCdrLtXmJmu2E
+	 mhAt314MiIB5lImM/hoSXMf1jbHiPoi6ErNx5til3qzII/5ZLrxM/PA6LxfLrChn4LwSv
+	 mKVkUS2Sr8m3f3Xzo1F2y+MLCJCmH6t4ZziqdAL6cX25e4uAUjoNhoUVLzZITpS4tVyNQ
+	 8PfS4YkLY081Cp6NJoRXWBeoOqoCnfEGr8WQjyPcXFuXlGBxgv5MxNH+iwCXgNpGwyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794205948;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=LYC6phoo/HG6IzCEVa7nSJN6fn2Jgm/piiC8Mqdg3HM=;
-	b=gSAA2+ac7GCwxXq8OqQxvrjlj3AZmU+Tocx3FeMquCTifVcs3vS3NbxBrTuCdNXtWcz+
-	 0mPcQS1qzl2DnyGBnzw21hSwt21DMV747jgHBfNipbI0i9jWDBhrkuM8SZbErL7Lq/JJf
-	 u0XO+5/l1+gNlBRSLW43ekDPtwJKdAPxTU6Z1cSr71pdJSxijLpdWVPtXGNei0xaWBIlh
-	 ni0iZXTampm1k6zPQ6Leb1IwB0jvaQG8Aw3YNOweA0tm0RIp5VSvrE5iCKYFPWuM01cEB
-	 zzuBMCdwp4weK6QscEMVXpBfcIFtIAHl+vr472YvnQWLor527nISqdr4nwJQKhqSWlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206082;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=ESX1JHxy1DZ7sLwexlMAPg6zavFwrhel2U+u+NQmhvc=;
+	b=k/Uvt2biys3q9XhKzGNYk8rSSwR2dqQXGqPo/EG5vVP4PBT0uyUvDy5bz5JQ5i4cop8f
+	 L43p0Fg7dzbQu8Zpqc612WZ2N3VFUp8r8B6V3VAl3hzhTTTGnEXtPqfyH/iBzlII7xrwZ
+	 KrQR7/Ze/Je0SaUln4TWnAW2FNKLahA7ZiqGR5qdxnMTkTrAL995MxadgURIg9cksja4v
+	 78TP1CWkKVGSuK3KVLXHBba+l3aMoiT0JuhPhK5gljCbGbDSfQ9PEy8XZz1zJUnOCm1cF
+	 Uz/gb2FhbjSR/FnE+R9SZGdfj0G8RS15Au3SnnlF8fuW1jNHpB6p8glci6xDuN6b4hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=EXK1SHyQ;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwuynAZD;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD5B606A31C;
-	Mon,  9 Nov 2026 06:32:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CD5B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98654606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98654606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=EXK1SHyQ
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A96WDkG44114969, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794205933; bh=LYC6phoo/HG6IzCEVa7nSJN6fn2Jgm/piiC8Mqdg3HM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=EXK1SHyQ740vk1qKMjydMzy2zP0lpdBNNKJhBRHonHb1REstR4y5HKWPQJwwOrU1F
-	 5Gbm91wVq4s8ahTrxW4DcHu1RPkmWaTiyidwyZGVDxvzXp3dmtsK4yTQMbvA1zo51o
-	 iaLcN5MWY7Y+/1vCtZc43V80/+vG5RqGYu6Wav7rzM2yMxeaEp2wbOhmASJRgrbywL
-	 eLh4+xkJC9YatZR72ay8wBB/bdmhDDU2P6Gwd5RdXyOhOcAb1ubSoiEToDxok084W/
-	 5FaofX2S8Vqc5T2uaW0S7amPV/oKSdZbuV0iVW2eDPU+Dz7W7ZeT/312svZxoAAP2I
-	 ATqdmOTSBbD8g==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A96WDkG44114969
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 14:32:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 14:30:52 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 9 Nov 2026 14:30:52 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Kalpesh Solanki <skalpesh942@gmail.com>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v3 0/2] wifi: rtw88: firmware recovery fixes and LPS hang
- handling
-Thread-Topic: [PATCH v3 0/2] wifi: rtw88: firmware recovery fixes and LPS hang
- handling
-Thread-Index: AQHdb15tzENGiXbpUkmLg1jSpFrwf7clBUSw//+124CAAIglsP//fRYAgACIQ+A=
-Date: Mon, 9 Nov 2026 06:30:52 +0000
-Message-ID: <39750c895e3b4dfa8ef98a28503f25fd@realtek.com>
-References: <20261108085126.331784-1-skalpesh942@gmail.com>
- <9fd1c42c5df94629a21c41dd08645b96@realtek.com>
- <27E9A60D-26F6-41D6-B74F-7DEF998C8498@linux.dev>
- <86803b2c13a74ada92ab73e79f38164d@realtek.com>
- <B1CD522C-2CC2-4913-8175-05F0D25CF65F@linux.dev>
-In-Reply-To: <B1CD522C-2CC2-4913-8175-05F0D25CF65F@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwuynAZD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794206081; x=1825742081;
+  h=date:from:to:cc:subject:message-id;
+  bh=iuow8yI42nJ73lgO6c9nwFQ1RKHFsacJu8zWaBrwzKk=;
+  b=kwuynAZDxA2lylx+nDpS1/d/q8HZdne9i8uucz1QMejQExhIOO5bgv9q
+   7x6QyR4qq6kIIDOgt6rL7yDKwjzlAe0qeqdejKd05Fkt49/o/0pXXwzcd
+   caupJDk37X4mK19hfeWjCFehuKzwwxZ1EqpysMgpmA7rHLv0dVp+zdub3
+   ftEnv7QS138RM32cjW9PRe+6nQUoPrKTB9jn3Qq1jLM4RybYYl5EFQplZ
+   0MGnAEmdM5c7xQz6y7Tv+jwYmHLhgQhQKS+w9PZV4jtW87bD4jj7JN4oA
+   uLQ95hX1Wr122leV4MGqirvBOfL9aOnbcT/X9pY35JAK/GGs4NBIiIlCD
+   g==;
+X-CSE-ConnectionGUID: Nmo3/UJ4Sn2C6SulxFKlvw==
+X-CSE-MsgGUID: vLIKxZcCQmSOTwXxbZvv3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2914313"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2914313"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 22:34:40 -0800
+X-CSE-ConnectionGUID: A0J8K8ABQtuzBW4TuTdczw==
+X-CSE-MsgGUID: NYGetotDQcyzpenDhP4HXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7825951"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 08 Nov 2026 22:34:38 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQIxf-00000000u25-2bFX;
+	Mon, 09 Nov 2026 06:34:35 +0000
+Date: Mon, 09 Nov 2026 14:34:34 +0800
+From: kernel test robot <lkp@intel.com>
+To: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>
+Subject: [tip:irq/drivers 7/11]
+ drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: label 'out' defined but
+ not used
+Message-ID: <202611091409.SjBn3tkJ-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,35 +82,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBPbiBOb3ZlbWJlciA5
-LCAyMDI2IDc6MTI6NTIgQU0gR01UKzAxOjAwLCBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVr
-LmNvbT4NCj4gd3JvdGU6DQo+ID5MdWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3Jv
-dGU6DQo+ID4+IE9uIE5vdmVtYmVyIDksIDIwMjYgMzozMDo1OCBBTSBHTVQrMDE6MDAsIFBpbmct
-S2UgU2hpaA0KPiA+PHBrc2hpaEByZWFsdGVrLmNvbT4NCj4gPj4gd3JvdGU6DQo+ID4+ID5LYWxw
-ZXNoIFNvbGFua2kgPHNrYWxwZXNoOTQyQGdtYWlsLmNvbT4gd3JvdGU6DQo+ID4+ID4+IENoYW5n
-ZXMgaW4gdjM6DQo+ID4+ID4+IC0gTm90ZTogdjIgcGF0Y2ggMS8yIChETUkgcXVpcmspIGlzIGFs
-cmVhZHkgYXBwbGllZCBpbiBydHctbmV4dC4NCj4gPj4gPj4gLSBBZGQgcGF0Y2ggMS8yIHRvIGNs
-ZWFyIFJUV19GTEFHX1JFU1RBUlRJTkcgaW4gcnR3X29wc19zdG9wKCkNCj4gPj4gPj4gICB3aXRo
-IEZpeGVzIHRhZy4NCj4gPj4gPj4gLSBJbiBwYXRjaCAyLzI6DQo+ID4+ID4+ICAgLSBDb3VudCBj
-b25zZWN1dGl2ZSBmYWlsdXJlcyBiZWZvcmUgdHJpZ2dlcmluZyByZWNvdmVyeQ0KPiA+PiA+PiAg
-ICAgKFJUV19QU19IQU5HX01BWF9DTlQgPSAzKS4NCj4gPj4gPj4gICAtIFJlc2V0IHBzX2hhbmdf
-Y250IG9uIHN1Y2Nlc3NmdWwgTFBTIGxlYXZlIGFuZCBpbg0KPiA+cnR3X2NvcmVfc3RhcnQoKS4N
-Cj4gPj4gPj4gICAtIFN1cHByZXNzIHJhdyByZWdpc3RlciBkdW1wIG9uIHRyYW5zaWVudCBmYWls
-dXJlcyB0byBhdm9pZCBsb2cNCj4gPnNwYW0uDQo+ID4+ID4NCj4gPj4gPlRoZSBwYXRjaHNldCBk
-b2Vzbid0IHByZXNlbnQgaW4gWzFdIG5vciBbMl0uIFBsZWFzZSB3YWl0IGEgd2hpbGUgdG8NCj4g
-PnNlbmQNCj4gPj4gPm5ld2VyIHZlcnNpb24gYWZ0ZXIgaXQgcmVjb3ZlcmVkLg0KPiA+PiA+DQo+
-ID4+ID5bMV0gaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L2xpbnV4LXdpcmVs
-ZXNzL2xpc3QvDQo+ID4+ID5bMl0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtd2lyZWxl
-c3MvDQo+ID4+ID4NCj4gPj4gPg0KPiA+Pg0KPiA+PiBIaSBQaW5nLUtlLA0KPiA+Pg0KPiA+PiBU
-aGUgbGludXgtd2lyZWxlc3MgbGlzdCBpcyBidWdnZWQgYW5kIG5vdGhpbmcgaXMgYXBwZWFyaW5n
-IG9uIGl0IHNpbmNlDQo+ID4+IDIwMjYtMTEtMDYgMTU6NDYgVVRDLiBBcmVuJ3QgcGF0Y2hlcyBh
-Y2Nlc3NpYmxlIGR1ZSB0bw0KPiA+PiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIGJlaW5n
-IENDJ2VkPw0KPiA+DQo+ID5JIHRoaW5rIG5vdC4gSSBzZW50IHBhdGNoZXMgdG8gbGludXgtd2ly
-ZWxlc3MsIG5vdCBpbmNsdWRpbmcgbGludXgta2VybmVsLA0KPiA+YmVmb3JlLCBhbmQgdGhlIGxv
-cmUgYW5kIHBhdGNod29yayBvZiBsaW51eC13aXJlbGVzcyBjYW4gY2FwdHVyZSB0aGUNCj4gPnBh
-dGNoZXMuDQo+ID4NCj4gPg0KPiANCj4gV2UgYXJlIGhhdmluZyB0aGlzIGNvbnZlcnNhdGlvbiBv
-biBsaW51eC13aXJlbGVzcywgYXJlbid0IHdlPyBJIGRvbid0IHNlZQ0KPiBpdCBhbmQgbXkgbGVp
-IGlzbid0IHBpY2tpbmcgaXQgdXAuDQoNCkkgdGhpbmsgdGhlIG1haWxpbmcgbGlzdCBzdGlsbCB3
-b3JrcywgYnV0IGxvcmUvcGF0Y2h3b3JrIGdvdCB3cm9uZy4NCg0KDQo=
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
+head:   0c0da722d7839e5250999416404d4a4055afb300
+commit: 54ac29cd11115edd9f72f17aa4551658735f919d [7/11] irqchip/imx-irqsteer: Let devres own the clock
+config: nios2-randconfig-1001-20261109 (https://download.01.org/0day-ci/archive/20261109/202611091409.SjBn3tkJ-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611091409.SjBn3tkJ-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611091409.SjBn3tkJ-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/irqchip/irq-imx-irqsteer.c: In function 'imx_irqsteer_probe':
+>> drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: label 'out' defined but not used [-Wunused-label]
+    out:
+    ^~~
+
+
+vim +/out +269 drivers/irqchip/irq-imx-irqsteer.c
+
+0136afa08967f6 Lucas Stach           2018-12-17  178  
+0136afa08967f6 Lucas Stach           2018-12-17  179  static int imx_irqsteer_probe(struct platform_device *pdev)
+0136afa08967f6 Lucas Stach           2018-12-17  180  {
+0136afa08967f6 Lucas Stach           2018-12-17  181  	struct device_node *np = pdev->dev.of_node;
+0136afa08967f6 Lucas Stach           2018-12-17  182  	struct irqsteer_data *data;
+28528fca490814 Aisheng Dong          2019-02-20  183  	u32 irqs_num;
+28528fca490814 Aisheng Dong          2019-02-20  184  	int i, ret;
+0136afa08967f6 Lucas Stach           2018-12-17  185  
+0136afa08967f6 Lucas Stach           2018-12-17  186  	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+0136afa08967f6 Lucas Stach           2018-12-17  187  	if (!data)
+0136afa08967f6 Lucas Stach           2018-12-17  188  		return -ENOMEM;
+0136afa08967f6 Lucas Stach           2018-12-17  189  
+33b1c47d1fc0b5 Shenwei Wang          2024-07-03  190  	data->dev = &pdev->dev;
+358b9d248a026d Anson Huang           2019-04-01  191  	data->regs = devm_platform_ioremap_resource(pdev, 0);
+0136afa08967f6 Lucas Stach           2018-12-17  192  	if (IS_ERR(data->regs)) {
+0136afa08967f6 Lucas Stach           2018-12-17  193  		dev_err(&pdev->dev, "failed to initialize reg\n");
+0136afa08967f6 Lucas Stach           2018-12-17  194  		return PTR_ERR(data->regs);
+0136afa08967f6 Lucas Stach           2018-12-17  195  	}
+0136afa08967f6 Lucas Stach           2018-12-17  196  
+54ac29cd11115e Zhipeng Wang          2026-11-04  197  	data->ipg_clk = devm_clk_get_enabled(&pdev->dev, "ipg");
+e0c45b107fc94c Anson Huang           2020-08-11  198  	if (IS_ERR(data->ipg_clk))
+e0c45b107fc94c Anson Huang           2020-08-11  199  		return dev_err_probe(&pdev->dev, PTR_ERR(data->ipg_clk),
+e0c45b107fc94c Anson Huang           2020-08-11  200  				     "failed to get ipg clk\n");
+0136afa08967f6 Lucas Stach           2018-12-17  201  
+0136afa08967f6 Lucas Stach           2018-12-17  202  	raw_spin_lock_init(&data->lock);
+0136afa08967f6 Lucas Stach           2018-12-17  203  
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  204  	ret = of_property_read_u32(np, "fsl,num-irqs", &irqs_num);
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  205  	if (ret)
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  206  		return ret;
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  207  	ret = of_property_read_u32(np, "fsl,channel", &data->channel);
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  208  	if (ret)
+7d3a5eb78e3614 Arnd Bergmann         2019-03-04  209  		return ret;
+0136afa08967f6 Lucas Stach           2018-12-17  210  
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  211  	data->devtype_data = device_get_match_data(&pdev->dev);
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  212  	if (!data->devtype_data)
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  213  		return dev_err_probe(&pdev->dev, -ENODEV, "failed to match device data\n");
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  214  
+28528fca490814 Aisheng Dong          2019-02-20  215  	/*
+28528fca490814 Aisheng Dong          2019-02-20  216  	 * There is one output irq for each group of 64 inputs.
+28528fca490814 Aisheng Dong          2019-02-20  217  	 * One register bit map can represent 32 input interrupts.
+28528fca490814 Aisheng Dong          2019-02-20  218  	 */
+28528fca490814 Aisheng Dong          2019-02-20  219  	data->irq_count = DIV_ROUND_UP(irqs_num, 64);
+28528fca490814 Aisheng Dong          2019-02-20  220  	data->reg_num = irqs_num / 32;
+f99f3c4acaff0d Fabio Estevam         2026-11-04  221  	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
+f99f3c4acaff0d Fabio Estevam         2026-11-04  222  		return -EINVAL;
+deb904e45b4e32 Aisheng Dong          2019-02-20  223  
+4730d2233311d8 Lucas Stach           2022-04-06  224  	if (IS_ENABLED(CONFIG_PM)) {
+0136afa08967f6 Lucas Stach           2018-12-17  225  		data->saved_reg = devm_kzalloc(&pdev->dev,
+deb904e45b4e32 Aisheng Dong          2019-02-20  226  					sizeof(u32) * data->reg_num,
+0136afa08967f6 Lucas Stach           2018-12-17  227  					GFP_KERNEL);
+0136afa08967f6 Lucas Stach           2018-12-17  228  		if (!data->saved_reg)
+0136afa08967f6 Lucas Stach           2018-12-17  229  			return -ENOMEM;
+0136afa08967f6 Lucas Stach           2018-12-17  230  	}
+0136afa08967f6 Lucas Stach           2018-12-17  231  
+0136afa08967f6 Lucas Stach           2018-12-17  232  	/* steer all IRQs into configured channel */
+5e72917802dd65 Ciprian Marian Costea 2026-03-11  233  	if (irqsteer_has_chanctrl(data->devtype_data))
+0136afa08967f6 Lucas Stach           2018-12-17  234  		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
+0136afa08967f6 Lucas Stach           2018-12-17  235  
+f98835ded6dcbb Zhipeng Wang          2026-11-04  236  	/*
+f98835ded6dcbb Zhipeng Wang          2026-11-04  237  	 * Mask all interrupts before wiring up the chained handlers. CHANMASK
+f98835ded6dcbb Zhipeng Wang          2026-11-04  238  	 * has inverted polarity (a set bit enables the interrupt), so writing
+f98835ded6dcbb Zhipeng Wang          2026-11-04  239  	 * zero masks the source.
+f98835ded6dcbb Zhipeng Wang          2026-11-04  240  	 */
+f98835ded6dcbb Zhipeng Wang          2026-11-04  241  	for (i = 0; i < data->reg_num; i++)
+f98835ded6dcbb Zhipeng Wang          2026-11-04  242  		writel_relaxed(0, data->regs + CHANMASK(i, data->reg_num));
+f98835ded6dcbb Zhipeng Wang          2026-11-04  243  
+95cb660c28dcec Zhipeng Wang          2026-11-04  244  	platform_set_drvdata(pdev, data);
+95cb660c28dcec Zhipeng Wang          2026-11-04  245  
+95cb660c28dcec Zhipeng Wang          2026-11-04  246  	ret = devm_pm_runtime_set_active_enabled(&pdev->dev);
+95cb660c28dcec Zhipeng Wang          2026-11-04  247  	if (ret)
+54ac29cd11115e Zhipeng Wang          2026-11-04  248  		return ret;
+95cb660c28dcec Zhipeng Wang          2026-11-04  249  
+93174c05dd2e9b Jiri Slaby (SUSE      2025-06-11  250) 	data->domain = irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg_num * 32,
+0136afa08967f6 Lucas Stach           2018-12-17  251  						&imx_irqsteer_domain_ops, data);
+0136afa08967f6 Lucas Stach           2018-12-17  252  	if (!data->domain) {
+0136afa08967f6 Lucas Stach           2018-12-17  253  		dev_err(&pdev->dev, "failed to create IRQ domain\n");
+54ac29cd11115e Zhipeng Wang          2026-11-04  254  		return -ENOMEM;
+0136afa08967f6 Lucas Stach           2018-12-17  255  	}
+4730d2233311d8 Lucas Stach           2022-04-06  256  	irq_domain_set_pm_device(data->domain, &pdev->dev);
+0136afa08967f6 Lucas Stach           2018-12-17  257  
+28528fca490814 Aisheng Dong          2019-02-20  258  	for (i = 0; i < data->irq_count; i++) {
+28528fca490814 Aisheng Dong          2019-02-20  259  		data->irq[i] = irq_of_parse_and_map(np, i);
+7db5fd6b751fbc Shengjiu Wang         2025-03-05  260  		if (!data->irq[i])
+7db5fd6b751fbc Shengjiu Wang         2025-03-05  261  			break;
+28528fca490814 Aisheng Dong          2019-02-20  262  
+28528fca490814 Aisheng Dong          2019-02-20  263  		irq_set_chained_handler_and_data(data->irq[i],
+28528fca490814 Aisheng Dong          2019-02-20  264  						 imx_irqsteer_irq_handler,
+0136afa08967f6 Lucas Stach           2018-12-17  265  						 data);
+28528fca490814 Aisheng Dong          2019-02-20  266  	}
+0136afa08967f6 Lucas Stach           2018-12-17  267  
+0136afa08967f6 Lucas Stach           2018-12-17  268  	return 0;
+28528fca490814 Aisheng Dong          2019-02-20 @269  out:
+28528fca490814 Aisheng Dong          2019-02-20  270  	clk_disable_unprepare(data->ipg_clk);
+28528fca490814 Aisheng Dong          2019-02-20  271  	return ret;
+0136afa08967f6 Lucas Stach           2018-12-17  272  }
+0136afa08967f6 Lucas Stach           2018-12-17  273  
+
+:::::: The code at line 269 was first introduced by commit
+:::::: 28528fca4908142bd1a3247956cba56c9c667d71 irqchip/imx-irqsteer: Add multi output interrupts support
+
+:::::: TO: Aisheng Dong <aisheng.dong@nxp.com>
+:::::: CC: Marc Zyngier <marc.zyngier@arm.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
