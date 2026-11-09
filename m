@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264691;
-	b=W9Iyfk8h4Z59v8Skflt8xQZlxp2T2aWVRnzc/+Rii2PD+q/y15NhLi4ny8LdroyYRbIF
-	 YNeZe7NSQx678dn5IVvSOBOIwNgaON8nyR1eWXXRK5lviXXsKqrie6mXPrry7Eitxhn8i
-	 H2F/ADGaCNjNz5elV/YYQ6ZAca7970tE/mSGCwPZegOL/O05bH8fN8Ls2CVbkIF46jPyW
-	 zWbQyTjdQQg5vkMZUbIZ4E7ZxnU6RtiN8GLo/0V0sGZGnwRkifb2LFc+3tjY7hDlpK41n
-	 HQsbD+BgxinuC4VtocQ86acwdgUXfxBFwWmAWS4e73M7gGUCdMoE5jOcFYJgFeLqJuw==
+	t=1794264697;
+	b=ouJMY4aGIher9aZVZqFp1R3Je1JL8w4xq7A4hi+ZhIEcNQlEW7NnXYpF44gcC361/CJP
+	 6NP8vwbEcke3lZU+EQw6xemV+oGBJlFzdmB366PTcbmTBW0wX51wKqWv4PVRNOHHNarqv
+	 aKV0MY9D+4mUBjLcd/s8FfxGd67MQwMOCA4winmItiD8ixq2G0U/zNpiJJjz4p7SRuG6d
+	 Pb5HU2JkOIXjbl97LkxzSj/1Rby2p9uvvKMRLgwNlGWRKsxVh4mlSlSo4I7scdyUpP2Gj
+	 qY6TgHzrUZEn+kI+fKYQMuc/HCc9utxrg9fjI2m6IcZbCH30/RHIFwfzAXdXnZRGxPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264691;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=OLJ67V8X7KC85E5hy4wyiU8tc9lVp4VzA68SRJcP5ck=;
-	b=3UDjHr5BlZx/RGEcqjIoFH+cFfsIln67YN5SnlF36LBNhEtm/ff0pPzQZY9TcOhkoZxD
-	 velD9Wb83cYlCqO825ewRcJS0tmsv6bO7wliCoR1E5G+4+S3gkftSi3rQuXp3OVvZndHP
-	 rexvVvNyItay23uq102JKcIDcxPw3VdyWvtlifjFM0jPpjp9uWgfQ7wQQhyXlvyxab3XV
-	 ngXgBdbvuaHSKO1aF22su6dhVeR8uB+r8fo8/Bofx/nNvqWWy5JYDyk3/XT95yH/cg2Fp
-	 H3LsV/pI8zABj9TjaSdkoMVFppZbrZ0ZGdVLpgLUNJ5vjh9MLeR9DLIwdbyjBaEmWfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794264697;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=O8KHCux6DdBKzEkjUoqO1TbETr0T7myPvKNAkvAeZEo=;
+	b=Hnil61zqLYeQ3DKXPtdPfJqDzhF5RpNmITYyCu6qUvV/3+r3UF0PxLfLQt/cokeXq8rV
+	 X+ppZwynsoko0gHnngKwb1TjRj4dVfllKr+O+dtjxlxwHhvSEOOvKXp93Ra4zjBboNCUA
+	 aDeJgcqtmrP2+aSr6ib1wpgjc5zFfrz2CRskKRl9f8MIxeVj/P9B4A+T2r2qsjpH/B65f
+	 iZRYN88oLVrJGlJ1cxDeZK8QMfZ6nKpJme+74gqu7AN3Xzg6SxSPfRuLaPXVJVP+Juwfo
+	 cOI3q0bYSOkE9XC9h8kLeMGbd+MS7CMWrLFQSvUBeBAh4dttQGuGRvrlYottjd7Ve7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrAW11MW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90AC606A321;
-	Mon,  9 Nov 2026 22:51:30 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N+1eX0lt;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35481606A336
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:51:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35481606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrAW11MW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1271F008A3;
-	Mon,  9 Nov 2026 22:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794264690;
-	bh=OLJ67V8X7KC85E5hy4wyiU8tc9lVp4VzA68SRJcP5ck=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=VrAW11MWqmE8FHeSQc8ncdp1WQph7/ZKqQKoG5d04gFFAh/KiyOeMyhbs9tgUPVEH
-	 yu0Sw/LVrEnq1l0/D1Ogtek0IwM86wjZL3ojvdP6jRRRvgmhv+3Yt1Qlzl2Ay3tSfi
-	 CGCdK0drexkQf8k6w5Z73HDDhrQ0OlxihxA9oNkzZhHXoFCMq+7x9TlJyew0p1V8ix
-	 dAfTAyuGDAb2n7DcSnbSgQBxeYdtPNk1xfWrFJ5zmfRW9HQ5lVc+fCuBDBWH3eY7mp
-	 qXuHsRYFc7+UJBGV9tH7o+jCuK7GtShutCPiQGcOj8hWCcvxwDoO5/MJYxga8YJXp+
-	 rFWDHRUqWDABw==
-Date: Mon, 9 Nov 2026 16:51:29 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Subject: Re: [PATCH 0/3] PCI: remove redundant resource assignments done
- after BAR resize
-Message-ID: <20261109225129.GA334675@bhelgaas>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N+1eX0lt
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F186814BF;
+	Mon,  9 Nov 2026 14:51:30 -0800 (PST)
+Received: from [10.57.66.183] (unknown [10.57.66.183])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 25CC83F85F;
+	Mon,  9 Nov 2026 14:51:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794264694; bh=maXvj0CLcHHwIox8S+lKpiL0hGRDaPZhNzhXsuq3WZk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=N+1eX0ltPT9Wy2JU8iL7JDkbbLYXUHCGzVG3CYzFvGsCFD3vH9pMR0OqjOXAt0dro
+	 TNY6vd0aSgtPeLSBCBoaU+/pENk4EMCdEGdjoiXRX91195R7V3wFkgXF5h9z/7kc4K
+	 xjLPM+sg+KiHX46i7qbWQbnu4xd2fCzQ7ClHvtLk=
+Message-ID: <a79a52db-2361-4303-9d43-87837f349f48@arm.com>
+Date: Mon, 9 Nov 2026 22:51:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,35 +53,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/23] coresight: trbe: Clear TRBSR status at stop
+ sites
+Content-Language: en-GB
+To: Leo Yan <leo.yan@arm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-9-3f57cf3199b1@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-9-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 03:10:07PM +0200, Ilpo Järvinen wrote:
-> The BAR resize rework removed the resource assignment call that
-> followed the BAR resize in amdgpu. The xe and i915 drivers and the
-> PCI sysfs resize interface still make the same call.
->  
-> The current BAR resize code should properly assign all resources and
-> handle fallback gracefully so a driver-side call to assign resource
-> right after BAR resize is just duplicate work (no-op). If that isn't
-> the case somewhere, the fix belongs either the BAR resize code or the
-> code that left the resource unassigned (e.g. a hotplug race or whatever
-> left an resource unassigned prior to resize).
+On 16/10/2026 17:55, Leo Yan wrote:
+> TRBSR_EL1 records the status of the buffer that just stopped. Clearing
+> it in trbe_enable_hw() postpones cleanup until another run starts. If
+> AUX output cannot restart, for example when AUX space is exhausted,
+> that clear never executes. Clear the status in arm_trbe_disable()
+> after disabling TRBE instead.
 > 
-> If drm wants to take their patches out of these, it's fine with me
-> (either drm+pci or through pci tree only works for me).
+> trbe_handle_overflow() can start the next run without calling
+> arm_trbe_disable(). Clear the stopped buffer's syndrome and status bits
+> while TRBE is disabled, before attempting the AUX restart. This also
+> leaves the status clean when the restart fails.
 > 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-trbe.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
 > 
-> Ilpo Järvinen (3):
->   PCI/sysfs: Remove resource assignment after BAR resize
->   drm/xe: Remove driver side resource assignment after BAR resize
->   drm/i915: Remove driver side resource assignment after BAR resize
-> 
->  drivers/gpu/drm/i915/gt/intel_region_lmem.c | 1 -
->  drivers/gpu/drm/xe/xe_pci_rebar.c           | 2 --
->  drivers/pci/pci-sysfs.c                     | 3 ---
->  3 files changed, 6 deletions(-)
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> index 26e7554d6bdd31f8a55a8bc3a7b6d4c49b984b9b..dd9c9330bb0c739795f300dafc6ce34e72fbf280 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> @@ -655,7 +655,6 @@ static void trbe_enable_hw(struct trbe_buf *buf)
+>   	WARN_ON(buf->trbe_hw_base < buf->trbe_base);
+>   	WARN_ON(buf->trbe_write < buf->trbe_hw_base);
+>   	WARN_ON(buf->trbe_write >= buf->trbe_limit);
+> -	clr_trbe_status();
 
-All applied to pci/resource for v7.5, thank you!
+TRBSR_ELx is UNKNOWN at reset and if we don't clear it at probe time, we 
+endup running the first session with unknown values. It is safer to
+clear this at enable_hw.
+
+Suzuki
+
+
+
+>   	set_trbe_base_pointer(buf->trbe_hw_base);
+>   	set_trbe_write_pointer(buf->trbe_write);
+>   
+> @@ -1069,6 +1068,8 @@ static int arm_trbe_disable(struct coresight_device *csdev)
+>   		return -EINVAL;
+>   
+>   	trbe_drain_and_disable_local(cpudata);
+> +	clr_trbe_status();
+> +
+>   	buf->cpudata = NULL;
+>   	cpudata->buf = NULL;
+>   	cpudata->mode = CS_MODE_DISABLED;
+> @@ -1095,6 +1096,13 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
+>   	unsigned long size;
+>   	struct etm_event_data *event_data;
+>   
+> +	/*
+> +	 * Clear the status. No context synchronization is required here,
+> +	 * since context synchronization will be performed before TRBE is
+> +	 * re-enabled (see trbe_enable_hw()).
+> +	 */
+> +	clr_trbe_status();
+> +
+>   	size = trbe_get_trace_size(handle, buf, true);
+>   	if (buf->snapshot)
+>   		handle->head += size;
+> 
+
