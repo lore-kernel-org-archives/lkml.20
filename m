@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196753;
-	b=gKdi9JcmLk48CzG72HOLnFp9z91MXW7zlO55zGwML97MrTjx+Kdcd438OIr//K1maaET
-	 KGtVlVg9lB47uxluRfGCyAEm3ZidK4LsIDwXTo0r6dMXU2zyc+y9HJ7MSRdQ/F4fmzdqg
-	 4V8TffKN3Rda1oYupjAdf13DXr0hbjX+3n9nEstCuQ2RYCkRQJuKyEs88RUoJfxMeom5f
-	 0vu77foByirIzMGrhtyyRqyI2uiYhTA1Ze1w+/mL3cCpkKrB/t68awptr53StwUtdX8vY
-	 VchwthLXIN5v3NV8FC/wgvdYHpjpGuwXyj5UJ1vjgUpjnuP8rw3Ax9dbrRynLPSCMpg==
+	t=1794196859;
+	b=L5HoEt4gldWi64w6wO+mxd2RE5/7ba68cI/fwk37jV7smFex5VVmecRjXRf0tuq11x3y
+	 875lGQTd0Cc6Kl14NZ2yJZrmgO9nAEVC0/fnuxRlT5itz2vi3sLoSlsQz8gIm+iHnExj8
+	 OdRirn9tJDS1FqgF/EYJU6s5IzkbMq3isPgZ9qo99W4mXDzN6cc/yWkSNUzPfD4dliN2e
+	 p1EpFtv5dNuVNJOGVqLsZfD+V2JQLxUT/WsJnmfZDMW705Kp5eBsDpRRxtHt9ZmM3o2CM
+	 pBR+WSS3kv7xsolDzSE26lWClh6T8RjTuaXNknIoss40T8YgJjq43R4U6TZ9pn/EOYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196753;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=ME3PhzKv+3KgT6aXu12teusJRCWDcoOwJXl3TiAU6IU=;
-	b=JbWolcrNPO1jVpd4QNtu9ZwPOlVTEOwDt4C/64srj9gd8olyyoIQaDENcI4YYbvmicbX
-	 uYM0cqQtH4jz60uIG2nzRCxrB+228ndODgCiStLC+c1tz6dns+5Rv4/N22ZQi2bmbvLR7
-	 kQNx4mMdStXbxmQpI36mTbTd+CLJHcJwC96yjNAzRbYtETxXhPnSXmAbZzavcKwmP25c8
-	 xSsV7MrhpsDwplhQy9894DaNbAMbo3WJMrwBorqIwHf2XjA3rQC1PwNSnmOk4R7XukFFX
-	 D6w7rw4t61n//w6drGH5LWtHBtp8RhGVuLPDY/ON62B4rAl0jaZb6MYfMhaPMCZq7ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196859;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=k9f/XG0jUHwAWni++59A0P9y1jNPRh2eSZs3+JhDEUA=;
+	b=CPDu8J6mRfnmQVqObNUcY8hOWQ7erirvBn9N2q5ROHkmZzCEmdaR7MX2l5MVYPKf0b9j
+	 XGo1cnMz5VDxfPr4PeIqX4iSthd+blcijnthgHlYrEjAKUcml5pCzQ/utfsMQFzxOLq8D
+	 9DMFySYgFqTOQreD0uxUX9EyFG+Kfjrs/TbsU6ZhA9GWb2ixYNMOuRZa4fS3vREUF4F4p
+	 HAW7zzWcr/2Gr81fzQlGiiiZeyQsnxkoXYCs+kvRVVHdCq54MO1EJOczWk4Yrp3r5hr0v
+	 uAUWZlRx7aev6cRT6ZFe2MIc+QJFpKebkGScsArnhpJgBis/Gb/6d2/9vkQgwz+VJCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C929606A31C;
-	Mon,  9 Nov 2026 03:59:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C929606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxC9INRfFqtLIdAA--.20237S3;
-	Mon, 09 Nov 2026 11:59:09 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJCxtMwKRfFqyxszAA--.12328S2;
-	Mon, 09 Nov 2026 11:59:07 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>
-Cc: linux-mm@kvack.org,
-	loongarch@lists.linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mm/slub: Genericize x86-specific cmpxchg16b comment
-Date: Mon,  9 Nov 2026 11:59:06 +0800
-Message-ID: <20261109035906.10857-1-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=I66cXV08;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4287F606A31C;
+	Mon,  9 Nov 2026 04:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4287F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=I66cXV08
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=k9f/XG0jUHwAWni++59A0P9y1jNPRh2eSZs3+JhDEUA=;
+	b=I66cXV08SVU8H6Ooa3FqjkUTTAUiz1/OKTMvrnqNYlSvLCl0vIKIQRfIpYhXEH72RyVL1rOoN
+	zjlGZ4UjGr1vF5wFBz8+AMpHxLTSL/AL7J9yXkp7UUKN3HhsNtE5X6a135MzyoHi0tZfZ0y+xK9
+	byBA80NkLXQJaUjBGpYmaow=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jNGK05jxkzpSwg;
+	Mon,  9 Nov 2026 12:00:20 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4A91E202E6;
+	Mon,  9 Nov 2026 12:00:54 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 9 Nov 2026 12:00:53 +0800
+Message-ID: <d81243e3-d790-4ee8-9b28-36d35591ee77@huawei.com>
+Date: Mon, 9 Nov 2026 12:00:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,73 +62,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxtMwKRfFqyxszAA--.12328S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZF45uw4UCF4xKw4DKF1Dtwc_yoW8tF1rpF
-	4xurW7Xw4Dur4S9a47Aw47uw43Jay8KFW7Ca1rK343Zwn8Krn8KFyIkrWrXFZ5JrWI9a1U
-	Kan7trW5ZF4UAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
-	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
-	Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5o7tUUUUU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/15] KVM: arm64: Reserve dirty ring space for the
+ HDBSS buffer
+To: Leonardo Bras <leo.bras@arm.com>
+CC: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
+	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
+	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
+	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
+	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
+	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
+	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-12-zhengtian10@huawei.com> <auikG0clmr19sAjh@LeoBrasDK>
+ <afcbf19b-bd13-4afc-ab56-8bc50c793e50@huawei.com>
+ <au30DqzWIFny1tpr@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <au30DqzWIFny1tpr@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-The kmalloc_nolock() infrastructure relies on slab caches with double-word
-atomic cmpxchg capabilities (__CMPXCHG_DOUBLE). The current inline comment
-in __kmalloc_nolock_noprof() uses 'cmpxchg16b' as the prerequisite hardware
-capability.
 
-However, "cmpxchg16b" is an x86-specific instruction mnemonic (CX16). On
-the modern architectures supported by the Linux kernel, this double-width
-atomic primitive is satisfied by different hardware implementations:
-(1) arm64: satisfies it via LSE atomics ('casp' instruction)
-(2) s390: satisfies it via native 'cdsg' instruction
-(3) riscv: satisfies it via ZACAS extension ('amocas.q' instruction)
-(4) loongarch: satisfies it via SCQ extension (using an 'll.d'/'sc.q' loop)
 
-Update the comment to "double-width atomic cmpxchg", which provides the
-following advantages:
-(1) Accurately describes the cross-platform hardware invariant.
-(2) Covers both 32-bit and 64-bit platforms.
-(3) Aligns well with the __CMPXCHG_DOUBLE flag.
-(4) Avoids misleading developers of non-x86 architectures.
+On 11/6/2026 11:36 PM, Leonardo Bras wrote:
+> On Fri, Nov 06, 2026 at 06:36:04PM +0800, Tian Zheng wrote:
+>>
+>>
+>> On 11/2/2026 10:54 PM, Leonardo Bras wrote:
+>>> On Tue, Sep 29, 2026 at 06:36:51PM +0800, Tian Zheng wrote:
+>>>> The dirty ring reserves room for CPU-side dirty buffers via
+>>>> kvm_cpu_dirty_log_size(). Report the HDBSS buffer entry count
+>>>> through it, so a full buffer flush always fits in the ring.
+>>>>
+>>>> Pin the HDBSS buffer size to PAGE_SIZE when dirty-ring is enabled,
+>>>> via kvm_arch_dirty_ring_size_updated(): a larger buffer only
+>>>> shrinks the soft_limit and forces more frequent userspace drains.
+>>>>
+>>>> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+>>>> ---
+>>>>    arch/arm64/kvm/arm.c | 8 ++++++++
+>>>>    arch/arm64/kvm/mmu.c | 8 ++++++++
+>>>>    2 files changed, 16 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+>>>> index 9d7bdece149a..5a7046acb62e 100644
+>>>> --- a/arch/arm64/kvm/arm.c
+>>>> +++ b/arch/arm64/kvm/arm.c
+>>>> @@ -215,6 +215,14 @@ static int kvm_arm_default_max_vcpus(void)
+>>>>    	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
+>>>>    }
+>>>>
+>>>> +void kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
+>>>> +{
+>>>> +	if (!system_supports_hdbss())
+>>>> +		return;
+>>>> +
+>>>> +	kvm->arch.hdbss_buffer_size = KVM_ARM_HDBSS_DEFAULT_SIZE;
+>>>> +}
+>>>> +
+>>>
+>>> On the same subject as a previous patch:
+>>> I don't think this is the best approach, on top of adding a new weak
+>>> function to take care.
+>>>
+>>> Maybe during the dirty-ring allocation, on vcpu creation, we could take
+>>> into account the requested dirty-ring size, and just allocate the HDBSS
+>>> buffer taking that into account. That would make it simpler, don't you
+>>> agree?
+>>>
+>>> Thanks!
+>>> Leo
+>>
+>> Hi Leo,
+>>
+>> The "set once" guard we're discussing comes from the patch that adds the
+>> ioctl, and it isn't really needed. We discussed this earlier [1]: we can
+>> just initialize hdbss_buffer_size to PAGE_SIZE at VM creation and let
+>> the ring reservation use it directly. **That also means
+>> kvm_arch_dirty_ring_size_updated() can be removed.** Thanks for your
+>> suggestion.
+> 
+> :)
+> 
+>>
+>> As for why PAGE_SIZE is the right value in ring mode: the HDBSS buffer
+>> is flushed on every VM exit, so a larger buffer doesn't reduce the flush
+>> frequency. It only inflates the ring reservation (64 + size/
+>> sizeof(u64)), which shrinks the soft_limit and forces more frequent
+>> exits to userspace for the ring to be drained. Draining the dirty ring
+>> from QEMU is more expensive than draining the HDBSS buffer from the
+>> kernel, so the smallest buffer gives the best performance. In this mode,
+>> a larger buffer provides no benefit to users.
+> 
+> Humm, if properly dimensioned larger buffers would be benefitial for
+> memory-intensive workloads, unless they are guest_exiting for other
+> reasons in the meantime.
+> 
 
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
-v2:
-  - Update "128-bit atomic cmpxchg" to "double-width atomic cmpxchg" to
-    properly cover both 32-bit and 64-bit platforms, suggested by Harry.
-  - Refine the commit message to format the architecture implementations
-    and advantages into structured lists for better readability.
+Agreed, and the workload I tested is on the "unless" side. The guest
+exits constantly for other reasons, so the larger buffer never got a
+chance to pay off, and only cost ring capacity.
 
- mm/slub.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> In my tests, I also saw performance degrade when more space is reserved.
+>>
+> 
+> Humm, what kind of workloads did you test?
+> Did you have the chance to monitor what were the reasons for VM exiting?
+> 
 
-diff --git a/mm/slub.c b/mm/slub.c
-index 45e077c7526c..090302f1daeb 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -5589,8 +5589,8 @@ static void *__kmalloc_nolock_noprof(DECL_TOKEN_PARAMS(size, token), gfp_t gfp_f
- 	if (!(s->flags & __CMPXCHG_DOUBLE) && !kmem_cache_debug(s))
- 		/*
- 		 * kmalloc_nolock() is not supported on architectures that
--		 * don't implement cmpxchg16b and thus need slab_lock()
--		 * which could be preempted by a nmi.
-+		 * don't implement double-width atomic cmpxchg and thus need
-+		 * slab_lock() which could be preempted by a nmi.
- 		 * But debug caches don't use that and only rely on
- 		 * kmem_cache_node->list_lock, so kmalloc_nolock() can attempt
- 		 * to allocate from debug caches by
--- 
-2.42.0
+For the workload question, it's a Redis server in the guest under redis-
+benchmark (SET-only, 2KB values, 1M keys, 100M requests). The traffic is
+network-driven, so the guest exits constantly to service requests. The
+HDBSS buffer only accumulates entries between two exits and is flushed
+on every exit, so it rarely fills regardless of size. A larger buffer
+only inflated the ring reservation, which shrinks the soft_limit and
+makes the ring-full exit and userspace drain fire more often.
+
+> I am not saying this is mandatory for the HDBSS implementation, but the
+> whole idea of letting the user choose their own HDBSS buffer size is
+> because different workloads may benefit from different buffer sizes: if a
+> VM writes a lot to new memory, and exits very little for other reasons,
+> then a larger buffer will cause the VM to guest_exit much less often.
+> 
+> Does that make sense?
+> 
+> Thanks!
+> Leo
+
+It does make sense. That's exactly the workload where a larger buffer
+pays off, and the next version no longer gets in its way. The two ioctls
+are no longer mutually exclusive.
+
+The only coupling left is the reservation. hdbss_buffer_size starts at
+SZ_4K at VM creation, so a ring enabled right away reserves for the
+default buffer (64 + 512 entries), and the minimum ring size accepted is
+unchanged from v5. KVM_CAP_ARM_HDBSS_BUFFER_SIZE is the gate. When the
+ring is already enabled, a size is accepted only if its reservation
+still fits in the ring, otherwise -EINVAL. In the other order, ring-
+enable validation rejects a ring too small for the configured size.
+
+So SZ_4K is just the conservative default for guests that exit often.
+Anything larger, within what the ring can reserve, is up to the user.
+
+Does this work for you?
+
+Thanks,
+Tian
 
