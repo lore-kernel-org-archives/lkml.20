@@ -1,110 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794242216;
-	b=mLheyJRI7G35A4ck6C2HjHjZKP3XDu4/UnaJRD98z0cdvDixqUlc0TKVeaRlKRi01Tqb
-	 36sjJIlSe4hiM5uSYUPPp+sZAAr5/lFWwza8s5D/9ozJ3nWFEPElMe8MikxlVDTRQVi0l
-	 oErpD+c1JUAfWqwT+BUr7/h0p5PY0wi9vvHUTt119WiqeF8WuQsjlzFD9YsZjW8xUY5K9
-	 NmRYjms8PksrglWejTbdMMdMWLJmhLd2UuxiTIcaX3ZZ79sb0X2oNs2y7gH/2fY5i2rHk
-	 8rqsSHXXgvzAzzklYjjRJjubp5RKmJ7Lj/l+pjQMMgEimKbffIfrckF8XzuPppPQDEg==
+	b=bArbOj1z4tLBaEyFjBvCFLp280DGi1BvyBV+RI8DpY3XXv8gqJ3gfpu4U30gRiDxdsx7
+	 3LQpBY4f/SaksPkJVuJkcdMtj3vuK1QoO0W5mpL46WmoUG+3Zx8VRFPJV+qvjg/AKrOH7
+	 Pw1s/i8mw/HItpMupOW/i920YK2IO17/QR84X3bS/CB1R+oCZ4uGCgeBMKfaGAd46tOC3
+	 olfiOJFoEJrMEjqddUsrA6BpZYnyLg93jF1NSXZhum1BArVkob8nsrp6i9CWWlG9wOh2e
+	 iTEOcVktT1o71tldBf/JDtH3C+Zjr9fdd54oFvuY/HP9jvdVZHTM0dV0h8rvaOtF7rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794242216;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=;
-	b=bfjDbzave8hQXOWFLPruH/p4ON9Aydz4V4aUFudosoAL+wUqtXzBS2iRzBW8ZEVtatiE
-	 qLpRKmVD1KK5e0fND6eNSx4uRRrK9G37/VnKQ6vEt5Xhusw04Ih/euhEmTP1Qu11quZrs
-	 xYCzwV1dUoxTUzYRcwXX3PBz2JjP+WVbhsT61MoqbmGpXakU9mUIW+v9uYJK+tB8kevoA
-	 65DHX6vZdf2T5U0PjNRuZfNt1LwnCIy8Z97E+BhjNm8a18TAq9PApQps1zEexeprXDURH
-	 7v1md0SwfrRJvIwjNioDL/EqDo1D+3Oot5Ps6Vn7AxBYltDDRCig25AKwHXjh3ENxdA==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SQakOIJ3odtJILa82eMvlmErnXwHne52IiOtyLJnsRs=;
+	b=iRCmMTOjeASWIz9b43nfYQI033CE60zm3VvftEqInm7ZaEgKXJEEiGTsa1A4iG4wSILD
+	 IPMGkJrwK4INqTHzXE9VKasWwK96IybSAvNee9z0pc9HnXauorCtI3/MGWjSTZeEfg6as
+	 1D/W9umfq89sCpd8OG9Yv+3l2JAK8GIhdpRF68nOtYKASB+PftlA1xNSQ4HUe/+VJy9lp
+	 1ITe34iwCoacCnXao8nTAfcowrpkIiZADWON3Lzbhv6RvPN1CZPL9G1zcov08m8rTXLiE
+	 mU1C25B7KrI95Mb5+pwgO6NitnF8diYURS/h7sDnqiIV7N5W/BQ0jgQeDrM9M49kl1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=msfeHy88;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SLzHrJNq;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mXnkXHdU;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689E160A6F73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5844860A6F6F
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689E160A6F73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5844860A6F6F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=msfeHy88;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SLzHrJNq
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFErE4025860
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 16:36:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=; b=msfeHy88415MBPwc
-	L2uACbLQp0TEuRExtyxYzU291teu/v++InscGb4Aaa2Ur6ppwNzx450ymMgkJ6+T
-	RsKi8GKr+ln9kS31RG1mwE7HLQ8zS9AkBTfrRvBIp8KaomUIGxjcbXLCcazMAs9t
-	IQiA20uJJmBdCDwoT/mRRETRWRxdcF+cGqiUN7XjYq9Siu5kdnHVZgCVgIBcXc5P
-	58qz5s4legHs7/U50tGU9KDu+NKv3Ldhtcbc68SZ+oTIE034fBt4Xb7K58F8UT/5
-	3l8HcU9tCM+fn3FczPhTZAoOO0DYs/PpWqece//gUUofGWuBUeeGDlkKdyI0H3iv
-	EyNxwg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hua589us7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:36:54 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7d2e7fa9fbbso778630137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mXnkXHdU
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so11605495e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794242214; x=1794847014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=;
-        b=SLzHrJNqf9j5xRb2SDpdSZWy9ypPctNtHh/7EXdgzvFa++3wgN9My0Z0FyHa6HzEbi
-         ybxzf/ZheDp9c6tjd/YD+0WaEH4Q/noeLraKwN6ucjmmk2kFuMZs6tSQGZHEKjuf+uKy
-         DcffWqfpNHMAgU0hcNtG2Ldm4bSF1X9eP3B0t5HsmFtP/7T3O49e9XKfR1y6X2HIsqmw
-         ZxNN2VQ3LNjqEYMJb8Ty8PpmKXW1d1Dr6XziM7uW8vvK4TsDA3L213s7RaqUfuPCcVmK
-         5Zs71CBK5k80iSOCzGdJQMJtsL25LvnrPuMVdhAAmwqF8UsNnTg+RjufFzS3Trm531sd
-         aXTQ==
+        d=gmail.com; s=20260707; t=1794242214; x=1794847014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SQakOIJ3odtJILa82eMvlmErnXwHne52IiOtyLJnsRs=;
+        b=mXnkXHdU6KkL0B0nTKerWKVBtoZhM/eZ21/+gklRv6zFwEKUV+pr2qBWsGBcy8W7/4
+         2lub6WhRj8PCVzAsiDOzkHPuyHmFYTXi4NCAzYQnsL3/CStNdsSEmZVK0+VVGa53BOun
+         7tqpKC1XoSfTwV9i4lxqD0uAvfqbKsEj4aph72ylfZotq8Y4niM4iqPFuckPKqmxt5mG
+         zwAUAMgPxHcNppa4feXPkgylLIRTgXdfpRYTxkwTZtSfV+wrNWTOKmlNaGC5+M8Dgp0H
+         NU7MehkXMvo5CursI1CydKl7qkqv0qSyz6Q/ZmiSgjJze4+ADHnO1wvCMtecLyDL6aIP
+         Yn/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794242214; x=1794847014;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=;
-        b=I2VgEK9YRGDvaX6/6kEhvCJsFnLOWq5Ln8IHBUzVGSB67/K5E5eGIaXU37wwDIQanA
-         dK36pwqEws0coITZ9rVu6lSYiHj3BqIBv+UtCc6b8P/Z4Ktkg2rVBSnyA61PY7iYMrri
-         JzKnTbnsF79LW2uAwiZSfucFxVTIBj3dp/4fPi9LUdf+EEZ6QEsMElia9mnRNQim964E
-         DUdRl1rfFHy1LVdP7nt9U5JHz5CeCezhf0NeTch2A0RXbbb0RssS5baPhd79nA3APHNa
-         MROioHnye49Ezx17DLjKlcLsSj9jrViM9AmE+J7lpdqKkmc5T/OYtoon5GjCmBPhFAbn
-         1BFw==
-X-Forwarded-Encrypted: i=1; AL+hErGW8qbLnrl6yReZKZET23tLyGsy4zkSlDg1RJoLVOzeKNDL4w4zN1d2H3Lt5hdURHYlBpk30PosH0za134=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gnizDrQXwSjunaMeHSoOJfW/0L4SuShfsl4CnJRTA5CHpiZdd
-	CNVmQRF65rsbnb8/xfuRQVSS/i7pMxcU9JvXnL78I3SQM4KwHlniswyle8/hxwYrdlHFmjT1nwY
-	+Vf+C6u1nvU/IvO7ZfkBi8x6kZQp5vzpV1K3t74KExvNODyMGh5bW9ImxEJ+QKdxiKHE=
-X-Gm-Gg: AYBFou1UyXvwwYz7p7qkx+OHifpLSlUQXWoWOdt15zh1VXloWbKhOrBiSFIFV08jZfb
-	wExtcLVAqFy/dSTJIR8UOL13csUiPGN2zHF6ung/8ymxSBtmI2v3Ovx+6JWCIkro8730QWg9n5C
-	tnfWKgA13IH31JImn8Zr49C8JistYXzYkUjuFIBh2V05HgPoAHbpYDzDnwDKPcgze+REvV7fmJm
-	5x9aAdZPOcrY3rLpVYMr4St/3Y27gVtpfISd0l/gBJGjpqq48jxzJ+2KsVGPS3uuoorYlu1gyW2
-	Gfktw5eQpW+cDAWlqiV4wPYz0b1K394qE+zi4Mer/iia0WZ7pBCCyKcSYeBKWgGfGahg6jNmSYL
-	5rfm7sgVuuKmGG5OlXkziomCBq9P/oDq3qlchxnEkpRw1apNGVbrLeIC4kboeq+JTN0NPbhJH0A
-	KoMpJ7bmzjUtq4qN8X+XC8YUCRiow37aqWoQ==
-X-Received: by 2002:a05:6102:390d:b0:7d2:cdcb:6b4a with SMTP id ada2fe7eead31-7d301120897mr5316137.22.1794242213435;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SQakOIJ3odtJILa82eMvlmErnXwHne52IiOtyLJnsRs=;
+        b=YZA8Mr5Zb8C8e2rL0NrOGZOTFpt3b04GV+1gaBibBAj3mNWzGBX6Vl6mGbfIyHS/yL
+         YXa6vzEAvUfJLB9nbHom5pzY/xSa7N/RGd7oScv51L/QMeiiTQ7jihcyAn8h9HBSBQzX
+         ZNTbq1Dv7PrSaJv+HLml2f4xOuPif9lulcm6vICcKNlI7vhJR2+GuGWlUC3SAjP7rGQt
+         ofHNpr8iO6kKWp5yKJbrNE1flTMrD47z/zFtFPTmJ3no9dpMeEr/w1NqlARZ1F7JRQCw
+         FD2qMJOPyd6LcmO0CLqFAVrG89pZyxPI8DjKn8ikJF+8fcZJDQkT4U2AnVY2STec+bsP
+         ty4g==
+X-Forwarded-Encrypted: i=1; AL+hErGFPQH62lnS6Zk/CqdLe+3E3CzA5DNE8lQE8EG7TmHbXAXQDcoqPniSXEG8BZmzFTiFg6qa1g+Lf2f4Kkc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9A9Z5yjg/pYe7H7n+YIjpNAFQK6iheKDZsuP2kiXnXQ+J4t9Un
+	QnpFJG47kGFNZ/pnnCs9fb2qOiTZQUZ88m5TNeyrTu0Qiyxy7MGsJ9y2
+X-Gm-Gg: AYBFou01uxuRWWwyytKb9YY+HVlErOW2tCLaDcZv05IT8oKK5gBq5kl7JugKVYo3r4s
+	yMqi46sWFhFF6FRQWDCPcKT1cQT+UW3sbp11YuinKm8y7xgsCDWpSgsQ28RjdEKprWCcw35+0Bs
+	mqFqonmA9+dUPirV1OXSiSLiPbmVnsi7oGkHdbZtimeMMhZ03ose0UXBYVf8qQX2Fb7/+5NpU8J
+	p0mU2JwJgkVmau6WMs2fzeTqy6GFHP3tkn4G1EEC7o1ge7uJmDcPPWffg5DQhoU+WP2BamymfDw
+	QpH0lz3KM4HTG9EYkRnw+rhocMMx7etuOSqbIVmV2GBAavYPTsfPYLAHjIUEBuZbOHZbhvNmFYR
+	9jE5TFSEIVjsRY+MQ78DMKdlqUyjd8vXXwOpfJFLEcSeyYcu8sjs38rlybYL0mTzvgy7N6U3NGa
+	ME36EyynYCvED4JrJqylL+t6UmiJT0OA6vEMJ4ARSZqqs2qbWY3/xETIvrUw0+2qA5hWh9g5VQZ
+	2FvvPoAr560Gf4DnfUWMCms4up8OvkHF/y6SLIKz54NaalWux1c46yP0qiXstLYdPpM1M21BmEc
+	gWHmg/VXHX8odxYBy2+XESohqg==
+X-Received: by 2002:a05:600c:34c9:b0:4a1:fa33:441a with SMTP id 5b1f17b1804b1-4b94d7631ccmr86729705e9.2.1794242213578;
         Mon, 09 Nov 2026 08:36:53 -0800 (PST)
-X-Received: by 2002:a05:6102:390d:b0:7d2:cdcb:6b4a with SMTP id ada2fe7eead31-7d301120897mr5297137.22.1794242212750;
-        Mon, 09 Nov 2026 08:36:52 -0800 (PST)
-Received: from ?IPV6:2a05:6e02:1041:c10:8ebe:809e:5980:89b4? ([2a05:6e02:1041:c10:8ebe:809e:5980:89b4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9a9ffsm11476601f8f.30.2026.11.09.08.36.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:36:51 -0800 (PST)
-Message-ID: <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 17:36:50 +0100
+Received: from victus-lab ([193.205.81.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:36:53 -0800 (PST)
+From: Yuri Andriaccio <yurand2000@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luca Abeni <luca.abeni@santannapisa.it>,
+	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
+Subject: [RFC PATCH v7 19/29] sched/rt: Add HCBS migration code to related functions
+Date: Mon,  9 Nov 2026 17:36:05 +0100
+Message-ID: <20261109163616.195264-20-yurand2000@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
+References: <20261109163616.195264-1-yurand2000@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,222 +111,586 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] Make platform profiles firmware independent
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: rafael@kernel.org
-Cc: Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Maximilian Luz <luzmaximilian@gmail.com>,
-        Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-        Mark Pearson <mpearson-lenovo@squebb.ca>,
-        "Derek J. Clark" <derekjohn.clark@gmail.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jack Wu <jackbb_wu@compal.com>,
-        "Mario Limonciello (AMD)"
- <superm1@kernel.org>,
-        linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-pm@vger.kernel.org,
-        platform-driver-x86@vger.kernel.org
-References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX7Die4Bss41wF
- zIAk6ixKY4wyocTgqjmnjRxpVuu6bEHF0Va1E8Xc1bnqWGIlixbdGguRyd88MZPxuBhhIM1X/zZ
- WiHFTQNSeUfrOgnxQIyznFrWIxnH4LpM7guohBhGM/oXo2nMbtLm2DBbMltmXBrlvqzzk6ZllhK
- Vf5H52IitdHM5mCz0JvNSfUMGg+bARmB2mynJuLAcesYJgjzz8yC6kj8g/x0e8poJ7CIGY++G5a
- dyR6fLmUJFIzmyr7DMMRzWwp5wYjnH6vru76aq3Ddk15pxRSzMNzb+9y2U1x6rTvbADkuInKDo5
- S3AmZr1qDrTuJ1FsG5L+qXd98u7H1U15iT6jYmJoNZWM7kPIukKY42hU/syrP10kl0ASv0yoiaU
- AQUPibcBgIZWL3lnvFK9Luunp7GEFWNAt5QUnPnA+UW4rqceg1imJ4WH42AbrM+syhyx31yDmjU
- liz7O8cchdyssDD88ug==
-X-Proofpoint-ORIG-GUID: ZWn6__Zb79iVsU-Z0bdG-PlvLjueb2iM
-X-Proofpoint-GUID: ZWn6__Zb79iVsU-Z0bdG-PlvLjueb2iM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX0eSovTBILPAN
- yM6tzx9Nye5JhqpymfZ40GydDUD0mXPxNHFJ80ZOT31CdlIpycpBWDp7C9R33ZNPJPPXiSwa1KW
- 3RiA/lDmmGxP+WZr3fQHStiBUMx2Tx8=
-X-Authority-Analysis: v=2.4 cv=C9V8WgP+ c=1 sm=1 tr=0 ts=6af1f6a6 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=I2DTqkVBWxGU35LqPC4A:9
- a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090066
+Content-Transfer-Encoding: 8bit
 
+Update rt_queue_{push/pull}_task{s} to differentiate between cgroup and
+global runqueue balancing.
 
-Hi,
+Introduce new balance callbacks for cgroup migration.
 
-sashiko validated this series
+Add rq_to_push_from and rq_to_push_to fields for cgroup related migration.
+  Balance callbacks are only called on the root runqueues, thus it is
+  necessary to store which non-root runqueues need to be balanced. The rqs to
+  balance are stored as a forward-linked list/stack, with the top pointers
+  accessible on root runqueues.
 
-Is there any other comments for these changes I should take care of ?
+Update migration functions to specialize for cgroup migration:
+- find_lowest_rt_rq():
+  Scan all the cpus to get the cgroup specific lowest_mask.
+- find_lock_lowest_rt_rq():
+  Use appropriate rt_rqs to differentiate the cgroup being checked.
+  Prevent migration for throttled cgroups.
+- push_rt_rq_task():
+  Allow pushing away for migration disabled tasks only if the tasks
+  belong to the same cgroup.
+- pull_rt_rq_task():
+  Use appropriate rt_rqs and push away for migration disabled only
+  if the task to pull and curr are in the same runqueue.
 
+Add tg_of_se to get the task group a scheduling entity is assigned to.
+  This is different from the active context of the group.
 
-On 10/25/26 00:34, Daniel Lezcano wrote:
-> Make platform profile selection independent of ACPI firmware.
-> 
-> The provider API already uses struct device, profile enums and callbacks;
-> it does not require an ACPI handle or firmware node. However, the core is
-> built under drivers/acpi/, its Kconfig symbol depends implicitly on ACPI,
-> and initialization fails when ACPI is disabled, preventing non-ACPI
-> providers from using the existing firmware-independent class interface.
-> 
-> This series moves the core to drivers/platform/profile/ and introduces
-> CONFIG_PLATFORM_PROFILE, updating all existing provider selectors. It
-> retains the tristate configuration and platform_profile module name.
-> Firmware-specific discovery and profile operations remain with providers.
-> The core can also be selected directly through its Kconfig prompt.
-> 
-> An optional ACPI adapter obtains the legacy sysfs kobject and is linked
-> into the same module. The generic core contains no ACPI types or symbols
-> and initializes without ACPI support or with ACPI disabled at boot.
-> The existing /sys/firmware/acpi/platform_profile and
-> /sys/firmware/acpi/platform_profile_choices attributes remain available
-> on active ACPI systems.
-> 
-> CONFIG_PLATFORM_PROFILE_LEGACY controls the backwards-compatible aggregate
-> sysfs interface. It defaults to enabled to preserve existing userspace.
-> Disabling it omits the legacy sysfs callbacks and ACPI adapter while
-> retaining class devices and kernel profile cycling. New userspace should
-> discover and control individual class devices instead.
-> The interface is deprecated, with removal intended after the 2028 LTS
-> kernel once userspace migration is complete. A shared pr_notice_once()
-> warns on legacy attribute access rather than on merely loading the core.
-> The default remains enabled while userspace adopts released class-device
-> support; this series does not claim that ecosystem migration is complete.
-> 
-> The existing firmware-independent interface remains:
-> 
->    /sys/class/platform-profile/platform-profile-X/name
->    /sys/class/platform-profile/platform-profile-X/choices
->    /sys/class/platform-profile/platform-profile-X/profile
-> 
-> Non-ACPI userspace controls providers individually through these class
-> devices. Aggregate selection remains available through the legacy ACPI
-> attributes, and aggregate profile cycling remains available to kernel
-> callers. No new sysfs directory or userspace ABI is introduced.
-> 
-> The original first patch, "Separate handler locking from sysfs lifetime",
-> fixing the handler access race and sysfs teardown locking issue, has been
-> sent separately as a standalone v3 fix. It is not included in this series.
-> The base tree used here already contains that fix.
-> 
-> Patch 1 extracts the core and initializes it before built-in consumers.
-> Patch 2 completes class-device notifications and registration cleanup.
-> Patch 3 documents firmware-independent profile selection through class
-> devices. Patch 4 makes the legacy ACPI aggregate sysfs interface optional
-> and documents its deprecation.
-> 
-> Validation performed during development (before this rebase):
-> 
->    - ARM64 built-in core with CONFIG_ACPI=n: W=1 build and sparse.
->    - x86 modular core with CONFIG_ACPI=y: W=1 object build and sparse.
->      Both CONFIG_PLATFORM_PROFILE_LEGACY=y and =n are covered.
->    - Full x86 kernel link and QEMU boot with lockdep and list debugging,
->      with active ACPI and with acpi=off.
->    - Firmware-less providers exercising common and hidden choices,
->      profile reads/writes, invalid input, mixed profiles, cycling,
->      partial callback failures and POLLPRI on the class and legacy ACPI
->      interfaces. With acpi=off, class get/set, notifications and kernel
->      cycling are exercised. Both runs check that no new aggregate sysfs
->      directory is created.
->    - Concurrent sysfs I/O with two persistent providers while a third
->      provider is registered and removed 200 times, last-provider attribute
->      removal and repeated provider module reloads.
->    - QEMU with active ACPI and CONFIG_PLATFORM_PROFILE_LEGACY=n: verify
->      the legacy attributes are absent, class get/set and notifications
->      work, and kernel cycling and registration/removal stress pass.
-> 
-> The provider API and profile names are unchanged. Aggregate writes retain
-> their sequential, non-transactional behavior: a failing callback does not
-> roll back providers already updated.
-> 
-> Changes in v3:
->    - Send the original first patch fixing the handler access race and
->      sysfs lifetime locking separately as a standalone v3 fix, including
->      the requested profile_lock protection comment and Fixes tag.
->    - Reduce this series to the four remaining patches and renumber them.
->    - Rebase the remaining changes onto the current base, which already
->      contains the separately submitted locking fix.
-> 
-> Changes in v2:
->    - Add the Fixes tag to patch 1 and explain how the mutex-guard conversion
->      reintroduced the teardown deadlock previously fixed in 041142d7d252,
->      and how class-device support subsequently extended the affected paths.
->    - Drop the proposed /sys/kernel/platform_profile/ aggregate interface
->      and its ABI documentation. Use the existing firmware-independent
->      /sys/class/platform-profile/platform-profile-X/ devices instead.
->    - Preserve aggregate selection through the legacy ACPI attributes and
->      retain internal aggregation for kernel profile cycling.
->    - Refocus patch 3 on class-device notifications for direct writes and
->      restoring aggregate visibility after failed registration.
->    - Update the Kconfig help and documentation to describe the existing
->      class interface and distinguish it from ACPI aggregate selection.
->    - Revalidate class controls and notifications with acpi=off, legacy
->      aggregation with ACPI active, and the absence of a new aggregate ABI.
->    - Add CONFIG_PLATFORM_PROFILE_LEGACY (default y) to make legacy aggregate
->      sysfs code optional, independently of class devices and kernel cycling.
->    - Mark the legacy ABI deprecated and describe removal after the 2028 LTS
->      kernel, conditional on userspace migration. Emit one shared notice on
->      legacy attribute access; retain the enabled default during migration.
->    - Move the legacy ACPI ABI documentation from testing/ to obsolete/,
->      document the replacement class attributes and update MAINTAINERS.
-> 
-> Changes in v1:
->    - Initial series extracting the core from ACPI, separating handler
->      locking from sysfs lifetime operations and retaining the legacy ABI.
->    - Proposed a firmware-neutral aggregate sysfs interface alongside the
->      existing per-provider class devices (removed in v2).
-> 
-> Daniel Lezcano (4):
->    platform profile: Extract the core from ACPI
->    platform profile: Complete class notifications and registration
->      cleanup
->    platform profile: Document firmware-independent profile selection
->    platform profile: Make legacy ACPI aggregate interface optional
-> 
->   .../sysfs-platform_profile                    |  12 ++
->   .../ABI/testing/sysfs-class-platform-profile  |   2 +-
->   .../userspace-api/sysfs-platform_profile.rst  |  55 ++++++--
->   MAINTAINERS                                   |   5 +
->   drivers/acpi/Kconfig                          |   3 -
->   drivers/acpi/Makefile                         |   1 -
->   drivers/cpufreq/Kconfig.x86                   |   2 +-
->   drivers/platform/Kconfig                      |  35 +++++
->   drivers/platform/Makefile                     |   2 +
->   drivers/platform/profile/Makefile             |   5 +
->   drivers/platform/profile/acpi.c               |  15 +++
->   .../profile/core.c}                           | 122 ++++++++++++++----
->   drivers/platform/profile/profile.h            |  17 +++
->   drivers/platform/surface/Kconfig              |   6 +-
->   drivers/platform/x86/Kconfig                  |  10 +-
->   drivers/platform/x86/amd/pmf/Kconfig          |   2 +-
->   drivers/platform/x86/dell/Kconfig             |   4 +-
->   drivers/platform/x86/hp/Kconfig               |   2 +-
->   drivers/platform/x86/lenovo/Kconfig           |   6 +-
->   drivers/thermal/intel/int340x_thermal/Kconfig |   2 +-
->   include/linux/platform_profile.h              |   3 +
->   21 files changed, 255 insertions(+), 56 deletions(-)
->   rename Documentation/ABI/{testing => obsolete}/sysfs-platform_profile (70%)
->   create mode 100644 drivers/platform/profile/Makefile
->   create mode 100644 drivers/platform/profile/acpi.c
->   rename drivers/{acpi/platform_profile.c => platform/profile/core.c} (88%)
->   create mode 100644 drivers/platform/profile/profile.h
-> 
-> 
-> base-commit: 8244dc8f69f0e73cb1789355260b7d68bf5494e7
+Add new macros for field access and non-CONFIG_RT_GROUP_SCHED code.
+
+Co-developed-by: Alessio Balsini <a.balsini@sssup.it>
+Signed-off-by: Alessio Balsini <a.balsini@sssup.it>
+Co-developed-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Co-developed-by: luca abeni <luca.abeni@santannapisa.it>
+Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
+Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
+---
+ kernel/sched/rt.c    | 292 +++++++++++++++++++++++++++++++++----------
+ kernel/sched/sched.h |  24 ++++
+ 2 files changed, 248 insertions(+), 68 deletions(-)
+
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index b16cc77d7015..0b7c36f8acdc 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -364,31 +364,83 @@ static inline int has_pushable_tasks(struct rt_rq *rt_rq)
+
+ static DEFINE_PER_CPU(struct balance_callback, rt_push_head);
+ static DEFINE_PER_CPU(struct balance_callback, rt_pull_head);
++static DEFINE_PER_CPU(struct balance_callback, rt_group_push_head);
++static DEFINE_PER_CPU(struct balance_callback, rt_group_pull_head);
+
+ static void push_rt_tasks(struct rq *);
+ static void pull_rt_task(struct rq *);
++static void push_group_rt_tasks(struct rq *);
++static void pull_group_rt_task(struct rq *);
++
++#define rq_queue_field_push(global_rq, new_rq, field)		\
++	do {							\
++		struct rq *__rq = (global_rq);			\
++		struct rq *__new_rq = (new_rq);			\
++		__new_rq->field = __rq->field;			\
++		__rq->field = __new_rq;				\
++	} while (0)
++
++#define rq_queue_field_pop(global_rq, field)			\
++	({							\
++		struct rq *__rq = (global_rq);			\
++		struct rq *__head = __rq->field;		\
++		if (__head) {					\
++			__rq->field = __head->field;	\
++			__head->field = NULL;			\
++		}						\
++		__head;						\
++	})
++
++#define push_rq_to_push_from(global_rq, new_rq) rq_queue_field_push((global_rq), (new_rq), rq_to_push_from)
++#define pop_rq_to_push_from(global_rq) rq_queue_field_pop((global_rq), rq_to_push_from)
++
++#define push_rq_to_pull_to(global_rq, new_rq) rq_queue_field_push((global_rq), (new_rq), rq_to_pull_to)
++#define pop_rq_to_pull_to(global_rq) rq_queue_field_pop((global_rq), rq_to_pull_to)
+
+ static inline void rt_queue_push_tasks(struct rt_rq *rt_rq)
+ {
+-	struct rq *rq = global_rq_of_rt_rq(rt_rq);
+-
+-	if (is_dl_group(rt_rq))
+-		return;
++	struct rq *rq = rq_of_rt_rq(rt_rq);
++	struct rq *global_rq = global_rq_of_rt_rq(rt_rq);
+
+ 	if (!has_pushable_tasks(rt_rq))
+ 		return;
+
+-	queue_balance_callback(rq, &per_cpu(rt_push_head, rq->cpu), push_rt_tasks);
++	if (!rt_group_sched_enabled() || !is_dl_group(rt_rq)) {
++
++		queue_balance_callback(global_rq,
++				       &per_cpu(rt_push_head, rq->cpu),
++				       push_rt_tasks);
++	} else {
++
++		push_rq_to_push_from(global_rq, rq);
++		queue_balance_callback(global_rq,
++				       &per_cpu(rt_group_push_head, global_rq->cpu),
++				       push_group_rt_tasks);
++	}
+ }
+
+ static inline void rt_queue_pull_task(struct rt_rq *rt_rq)
+ {
+-	struct rq *rq = global_rq_of_rt_rq(rt_rq);
++	struct rq *rq = rq_of_rt_rq(rt_rq);
++	struct rq *global_rq = global_rq_of_rt_rq(rt_rq);
++	struct sched_dl_entity *dl_se;
+
+-	if (is_dl_group(rt_rq))
+-		return;
++	if (!rt_group_sched_enabled() || !is_dl_group(rt_rq)) {
++
++		queue_balance_callback(global_rq,
++				       &per_cpu(rt_pull_head, rq->cpu),
++				       pull_rt_task);
++	} else {
++
++		dl_se = dl_group_of(rt_rq);
++		if (dl_se->dl_throttled)
++			return;
+
+-	queue_balance_callback(rq, &per_cpu(rt_pull_head, rq->cpu), pull_rt_task);
++		push_rq_to_pull_to(global_rq, rq);
++		queue_balance_callback(global_rq,
++				       &per_cpu(rt_group_pull_head, global_rq->cpu),
++				       pull_group_rt_task);
++	}
+ }
+
+ static void push_rt_rq_tasks(struct rt_rq *rt_rq);
+@@ -403,6 +455,31 @@ static void pull_rt_task(struct rq *global_rq) {
+ 	pull_rt_rq_task(&global_rq->rt);
+ }
+
++static void push_group_rt_tasks(struct rq *global_rq)
++{
++	struct rq *rq;
++
++	while ((rq = pop_rq_to_push_from(global_rq))) {
++		struct rt_rq *rt_rq = &rq->rt;
++
++		if (rt_rq->rt_nr_running <= 1 && !dl_group_of(rt_rq)->dl_throttled)
++			continue;
++
++		push_rt_rq_tasks(rt_rq);
++	}
++}
++
++static void pull_group_rt_task(struct rq *global_rq)
++{
++	struct rq *rq;
++
++	while ((rq = pop_rq_to_pull_to(global_rq))) {
++		struct rt_rq *rt_rq = &rq->rt;
++
++		pull_rt_rq_task(rt_rq);
++	}
++}
++
+ static void enqueue_pushable_task(struct rt_rq *rt_rq, struct task_struct *p)
+ {
+ 	plist_del(&p->pushable_tasks, &rt_rq->pushable_tasks);
+@@ -1246,35 +1323,74 @@ static DEFINE_PER_CPU(cpumask_var_t, local_cpu_mask);
+ static int find_lowest_rt_rq(struct task_struct *task)
+ {
+ 	struct sched_domain *sd;
+-	struct cpumask *lowest_mask = this_cpu_cpumask_var_ptr(local_cpu_mask);
+-	int this_cpu = smp_processor_id();
+-	int cpu      = task_cpu(task);
+-	int ret;
+-
+-	/* Make sure the mask is initialized first */
+-	if (unlikely(!lowest_mask))
+-		return -1;
++	cpumask_var_t mask __free(free_cpumask_var) = CPUMASK_VAR_NULL;
++	struct cpumask *lowest_mask;
++	struct sched_dl_entity *dl_se;
++	struct rt_rq *rt_rq, *task_rt_rq = rt_rq_of_se(&task->rt);
++	int cpu, this_cpu = smp_processor_id();
++	int ret, prio, lowest_prio;
+
+ 	if (task->nr_cpus_allowed == 1)
+ 		return -1; /* No other targets possible */
+
+-	/*
+-	 * If we're on asym system ensure we consider the different capacities
+-	 * of the CPUs when searching for the lowest_mask.
+-	 */
+-	if (sched_asym_cpucap_active()) {
++	if (!rt_group_sched_enabled() || !is_dl_group(task_rt_rq)) {
++
++		lowest_mask = this_cpu_cpumask_var_ptr(local_cpu_mask);
++
++		/* Make sure the mask is initialized first */
++		if (unlikely(!lowest_mask))
++			return -1;
++
++		/*
++		* If we're on asym system ensure we consider the different
++		* capacities of the CPUs when searching for the lowest_mask.
++		*/
++		if (sched_asym_cpucap_active()) {
++
++			ret = cpupri_find_fitness(&task_rq(task)->rd->cpupri,
++						  task, lowest_mask,
++						  rt_task_fits_capacity);
++		} else {
++
++			ret = cpupri_find(&task_rq(task)->rd->cpupri,
++					  task, lowest_mask);
++		}
+
+-		ret = cpupri_find_fitness(&task_rq(task)->rd->cpupri,
+-					  task, lowest_mask,
+-					  rt_task_fits_capacity);
++		if (!ret)
++			return -1; /* No targets found */
+ 	} else {
++		if (!alloc_cpumask_var(&mask, GFP_KERNEL))
++			return -ENOMEM;
++
++		lowest_prio = task->prio - 1;
++		lowest_mask = mask;
++		cpumask_clear(lowest_mask);
++		for_each_cpu_and(cpu, cpu_online_mask, task->cpus_ptr) {
++			dl_se = dl_se_of_tg(task_rt_rq->tg, cpu);
++			rt_rq = &dl_se->my_q->rt;
++			prio = rt_rq->highest_prio.curr;
+
+-		ret = cpupri_find(&task_rq(task)->rd->cpupri,
+-				  task, lowest_mask);
++			/*
++			* If we're on asym system ensure we consider the
++			* different capacities of the CPUs when searching for
++			* the lowest_mask.
++			*/
++			if (dl_se->dl_throttled || !rt_task_fits_capacity(task, cpu))
++				continue;
++
++			if (prio >= lowest_prio) {
++				if (prio > lowest_prio) {
++					cpumask_clear(lowest_mask);
++					lowest_prio = prio;
++				}
++
++				cpumask_set_cpu(cpu, lowest_mask);
++			}
++		}
+ 	}
+
+-	if (!ret)
+-		return -1; /* No targets found */
++	if (cpumask_empty(lowest_mask))
++		return -1;
+
+ 	/*
+ 	 * At this point we have built a mask of CPUs representing the
+@@ -1284,6 +1400,7 @@ static int find_lowest_rt_rq(struct task_struct *task)
+ 	 * We prioritize the last CPU that the task executed on since
+ 	 * it is most likely cache-hot in that location.
+ 	 */
++	cpu = task_cpu(task);
+ 	if (cpumask_test_cpu(cpu, lowest_mask))
+ 		return cpu;
+
+@@ -1294,30 +1411,27 @@ static int find_lowest_rt_rq(struct task_struct *task)
+ 	if (!cpumask_test_cpu(this_cpu, lowest_mask))
+ 		this_cpu = -1; /* Skip this_cpu opt if not among lowest */
+
+-	rcu_read_lock();
+-	for_each_domain(cpu, sd) {
+-		if (sd->flags & SD_WAKE_AFFINE) {
++	scoped_guard(rcu) {
++		for_each_domain(cpu, sd) {
+ 			int best_cpu;
+
++			if (!(sd->flags & SD_WAKE_AFFINE))
++				continue;
++
+ 			/*
+ 			 * "this_cpu" is cheaper to preempt than a
+ 			 * remote processor.
+ 			 */
+ 			if (this_cpu != -1 &&
+-			    cpumask_test_cpu(this_cpu, sched_domain_span(sd))) {
+-				rcu_read_unlock();
++			    cpumask_test_cpu(this_cpu, sched_domain_span(sd)))
+ 				return this_cpu;
+-			}
+
+ 			best_cpu = cpumask_any_and_distribute(lowest_mask,
+ 							      sched_domain_span(sd));
+-			if (best_cpu < nr_cpu_ids) {
+-				rcu_read_unlock();
++			if (best_cpu < nr_cpu_ids)
+ 				return best_cpu;
+-			}
+ 		}
+ 	}
+-	rcu_read_unlock();
+
+ 	/*
+ 	 * And finally, if there were no matches within the domains
+@@ -1368,27 +1482,35 @@ static struct task_struct *pick_next_pushable_task(struct rt_rq *rt_rq)
+ /* Will lock the rq it finds */
+ static struct rt_rq *find_lock_lowest_rt_rq(struct task_struct *task, struct rt_rq *rt_rq)
+ {
+-	struct rq *rq = rq_of_rt_rq(rt_rq);
+-	struct rq *lowest_rq = NULL;
+-	int tries;
+-	int cpu;
++	struct rq *lowest_rq, *rq = global_rq_of_rt_rq(rt_rq);
++	struct rt_rq *lowest_rt_rq;
++	struct sched_dl_entity *lowest_dl_se;
++	int tries, cpu;
++	bool dl_group;
++
++	dl_group = rt_group_sched_enabled() && is_dl_group(rt_rq);
+
+ 	for (tries = 0; tries < RT_MAX_TRIES; tries++) {
+ 		cpu = find_lowest_rt_rq(task);
+
+ 		if ((cpu == -1) || (cpu == rq->cpu))
+-			break;
++			return NULL;
+
+ 		lowest_rq = cpu_rq(cpu);
++		if (dl_group) {
++			lowest_dl_se = dl_se_of_tg(rt_rq->tg, cpu);
++			lowest_rt_rq = &lowest_dl_se->my_q->rt;
++		} else {
++			lowest_rt_rq = &lowest_rq->rt;
++		}
+
+-		if (lowest_rq->rt.highest_prio.curr <= task->prio) {
++		if (lowest_rt_rq->highest_prio.curr <= task->prio) {
+ 			/*
+ 			 * Target rq has tasks of equal or higher priority,
+ 			 * retrying does not release any lock and is unlikely
+ 			 * to yield a different result.
+ 			 */
+-			lowest_rq = NULL;
+-			break;
++			return NULL;
+ 		}
+
+ 		/* if the prio of this runqueue changed, try again */
+@@ -1404,25 +1526,24 @@ static struct rt_rq *find_lock_lowest_rt_rq(struct task_struct *task, struct rt_
+ 			 * check the task migration disable flag here too.
+ 			 */
+ 			if (unlikely(is_migration_disabled(task) ||
++				     (dl_group && lowest_dl_se->dl_throttled) ||
+ 				     !cpumask_test_cpu(lowest_rq->cpu, &task->cpus_mask) ||
+ 				     task != pick_next_pushable_task(rt_rq))) {
+
+ 				double_unlock_balance(rq, lowest_rq);
+-				lowest_rq = NULL;
+-				break;
++				return NULL;
+ 			}
+ 		}
+
+ 		/* If this rq is still suitable use it. */
+-		if (lowest_rq->rt.highest_prio.curr > task->prio)
+-			break;
++		if (lowest_rt_rq->highest_prio.curr > task->prio)
++			return lowest_rt_rq;
+
+ 		/* try again */
+ 		double_unlock_balance(rq, lowest_rq);
+-		lowest_rq = NULL;
+ 	}
+
+-	return &lowest_rq->rt;
++	return NULL;
+ }
+
+ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq) {
+@@ -1442,12 +1563,10 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq) {
+ static int push_rt_rq_task(struct rt_rq *rt_rq, bool pull)
+ {
+ 	struct task_struct *next_task;
+-	struct rq *lowest_rq, *rq = rq_of_rt_rq(rt_rq);
++	struct rq *lowest_rq, *rq = global_rq_of_rt_rq(rt_rq);
+ 	struct rt_rq *lowest_rt_rq;
+ 	int ret = 0;
+-
+-	if (is_dl_group(rt_rq))
+-		return 0;
++	bool dl_group;
+
+ 	if (!rt_rq->overloaded)
+ 		return 0;
+@@ -1462,7 +1581,8 @@ static int push_rt_rq_task(struct rt_rq *rt_rq, bool pull)
+ 	 * higher priority than current. If that's the case
+ 	 * just reschedule current.
+ 	 */
+-	if (unlikely(next_task->prio < rq->donor->prio)) {
++	dl_group = rt_group_sched_enabled() && is_dl_group(rt_rq);
++	if (!dl_group && unlikely(next_task->prio < rq->donor->prio)) {
+ 		resched_curr(rq);
+ 		return 0;
+ 	}
+@@ -1474,6 +1594,13 @@ static int push_rt_rq_task(struct rt_rq *rt_rq, bool pull)
+ 		if (!pull || rq->push_busy)
+ 			return 0;
+
++		/*
++		 * If the current task does not belong to the same task group
++		 * we cannot push it away.
++		 */
++		if (dl_group && rq->donor->sched_task_group != rt_rq->tg)
++			return 0;
++
+ 		/*
+ 		 * Invoking find_lowest_rt_rq() on anything but an RT task doesn't
+ 		 * make sense. Per the above priority check, curr has to
+@@ -1550,7 +1677,7 @@ static int push_rt_rq_task(struct rt_rq *rt_rq, bool pull)
+ 		goto retry;
+ 	}
+
+-	lowest_rq = rq_of_rt_rq(lowest_rt_rq);
++	lowest_rq = global_rq_of_rt_rq(lowest_rt_rq);
+ 	move_queued_task_locked(rq, lowest_rq, next_task);
+ 	resched_curr(lowest_rq);
+ 	ret = 1;
+@@ -1747,16 +1874,22 @@ void rto_push_irq_work_func(struct irq_work *work)
+
+ static void pull_rt_rq_task(struct rt_rq *this_rt_rq)
+ {
+-	struct rq *this_rq = rq_of_rt_rq(this_rt_rq);
++	struct rq* this_rq = global_rq_of_rt_rq(this_rt_rq);
+ 	int this_cpu = this_rq->cpu, cpu;
+ 	bool resched = false;
+-	struct task_struct *p, *push_task;
++	struct task_struct *p, *push_task = NULL;
++	struct sched_dl_entity *src_dl_se;
+ 	struct rt_rq *src_rt_rq;
+ 	struct rq *src_rq;
+-	int rt_overload_count = rt_overloaded(this_rq);
++	int rt_overload_count;
++	const struct cpumask *cpu_mask;
++	bool dl_group;
+
+-	if (is_dl_group(&this_rq->rt))
+-		return;
++	dl_group = rt_group_sched_enabled() && is_dl_group(this_rt_rq);
++	if (dl_group)
++		goto group_sched;
++
++	rt_overload_count = rt_overloaded(this_rq);
+
+ 	if (likely(!rt_overload_count))
+ 		return;
+@@ -1779,12 +1912,26 @@ static void pull_rt_rq_task(struct rt_rq *this_rt_rq)
+ 	}
+ #endif
+
+-	for_each_cpu(cpu, this_rq->rd->rto_mask) {
++group_sched:
++	if (!dl_group)
++		cpu_mask = this_rq->rd->rto_mask;
++	else
++		cpu_mask = cpu_online_mask;
++
++	for_each_cpu(cpu, cpu_mask) {
+ 		if (this_cpu == cpu)
+ 			continue;
+
+ 		src_rq = cpu_rq(cpu);
+-		src_rt_rq = &src_rq->rt;
++		if (!dl_group) {
++			src_rt_rq = &src_rq->rt;
++		} else {
++			src_dl_se = dl_se_of_tg(this_rt_rq->tg, cpu);
++			src_rt_rq = &src_dl_se->my_q->rt;
++
++			if (src_rt_rq->rt_nr_running <= 1 && !src_dl_se->dl_throttled)
++				continue;
++		}
+
+ 		/*
+ 		 * Don't bother taking the src_rq->lock if the next highest
+@@ -1825,12 +1972,21 @@ static void pull_rt_rq_task(struct rt_rq *this_rt_rq)
+ 			 * This is just that p is waking up and hasn't
+ 			 * had a chance to schedule. We only pull
+ 			 * p if it is lower in priority than the
+-			 * current task on the run queue
++			 * current task on the run queue and p is
++			 * in the same runqueue as donor.
+ 			 */
+-			if (p->prio < src_rq->donor->prio)
++			if (tg_of_se(&src_rq->donor->rt) == this_rt_rq->tg &&
++			    p->prio < src_rq->donor->prio)
+ 				goto skip;
+
+ 			if (is_migration_disabled(p)) {
++				/*
++				 * If the current task does not belong to the
++				 * same task group we cannot push it away.
++				 */
++				if (tg_of_se(&src_rq->donor->rt) != this_rt_rq->tg)
++					goto skip;
++
+ 				push_task = get_push_task(src_rq);
+ 			} else {
+ 				move_queued_task_locked(src_rq, this_rq, p);
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 1242d297532f..835af319b78d 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1403,6 +1403,16 @@ struct rq {
+ 	struct list_head	cfsb_csd_list;
+ #endif
+
++#ifdef CONFIG_RT_GROUP_SCHED
++	/*
++	 * Balance callbacks operate only on global runqueues.
++	 * These pointers allow referencing cgroup specific runqueues
++	 * for balancing operations.
++	 */
++	struct rq		*rq_to_push_from;
++	struct rq		*rq_to_pull_to;
++#endif
++
+ 	atomic_t		nr_iowait;
+ } __no_randomize_layout;
+
+@@ -3520,6 +3530,11 @@ static inline struct rt_rq *rt_rq_of_se(struct sched_rt_entity *rt_se)
+ 	return rt_se->rt_rq;
+ }
+
++static inline struct task_group *tg_of_se(struct sched_rt_entity *rt_se)
++{
++	return rt_rq_of_se(rt_se)->tg;
++}
++
+ static inline int is_dl_group(struct rt_rq *rt_rq)
+ {
+ 	return rt_rq->tg != &root_task_group;
+@@ -3536,6 +3551,7 @@ static inline struct sched_dl_entity *dl_group_of(struct rt_rq *rt_rq)
+ 	return rt_rq->tg->dl_se[rq_of_rt_rq(rt_rq)->cpu];
+ }
+
++#define dl_se_of_tg(tg, cpu) ((tg)->dl_se[(cpu)])
+ #define dl_bw_lock_of_tg(tg) (&(tg)->dl_bandwidth.dl_runtime_lock)
+ #else
+ static inline struct task_struct *rt_task_of(struct sched_rt_entity *rt_se)
+@@ -3560,6 +3576,11 @@ static inline struct rt_rq *rt_rq_of_se(struct sched_rt_entity *rt_se)
+ 	return &rq->rt;
+ }
+
++static inline struct task_group *tg_of_se(struct sched_rt_entity *rt_se)
++{
++	return &root_task_group;
++}
++
+ static inline int is_dl_group(struct rt_rq *rt_rq)
+ {
+ 	return 0;
+@@ -3570,6 +3591,9 @@ static inline struct sched_dl_entity *dl_group_of(struct rt_rq *rt_rq)
+ 	return NULL;
+ }
+
++#define rq_to_push_from(rq) (rq)
++#define rq_to_pull_to(rq) (rq)
++#define dl_se_of_tg(tg, cpu) ((struct sched_dl_entity*)NULL)
+ #define dl_bw_lock_of_tg(tg) ((raw_spinlock_t*)NULL)
+ #endif
+
+--
+2.56.0
 
