@@ -1,111 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248205;
-	b=aTJ/LpwcdFEbGYrcyIdLt8CD5u+GnJgf/NUYiDXaDSChW+OoNvaplA59TVGjYHvMFwQV
-	 pgSX/hHRdSBl/0ch9QacqjB1nCXUQnAxpEPvHcBBVZ7hQJyNP2yoY6eQouT+sEEYfIYz6
-	 OqH9L3EJnjjcly2tXfMUM7it4MwmEnq9BnCklO0lLFkactL+wg2RWi2Buyo15NLq0vpnw
-	 lsrcRW2Skqn6Inb0Us7CgDDuLILrFU1rg1Xgr1MCDTCejHCegwUHyyhKjedbRFv5QYVwa
-	 Vmjc2ay6ydcM3LJe/o+ANfNUV4bjtdx8rzkDmcj3DQ7lSJCYe1+T+JYIVbyzsKsZj+w==
+	t=1794248302;
+	b=NnU/NPcb73oiBD3FvMylgqKS068tJfrGS9HHX7cFaGG4LljDUVujm1yuOYsIrfJ+TPhD
+	 UTkmkmENx1nKSeAd9ilcilrfiERSH9tEjJ2pItVkB0/fcKx5uIERUumHGC0o7OyaRtRej
+	 rFX3ibjLvFVkWRzLd/CUvSyZaDbgmBAbEeWY6+iC3iUrM36CiXacmJy3t05ElPhSJwZ0m
+	 rTGEj40KLzHXD3FvWERh1tjxAyAM6jDAPFM9mkEXa2wtwG48Vnoy5O+4bE+1LzOaeQSqp
+	 z7F1WnuLYpozFhDIv4j04POJo9FBNOBlRyx9M+XYjk4xQPkBs4gP0PSznOkMPTZyX5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248205;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
-	b=Waa2Qlee3ofiH5LgTFp7sD+XGHH91Rw72eSApbK1IQAMhTH25Qn0iJqNJTZMJiE45BEq
-	 lKEWyyYbCTBIDpTxsvmyM1YG2zQ7mvM+DV1mhJBfgCNIsWsBECdyGPtKmUqxJiUIPSXqg
-	 3SzD8/cP+zpZ73U1xJ0Ct2hviIPAwvyqpR43jhL+pycIoKfGINBnw/3x+IqLDd3e0i6oh
-	 GCcI3GNlEx22/IIKRuOnjOGL0GKHaMkafkekuc2sN2aPPPCmbZXg+szcj3ItSgdpEsv8C
-	 jN2njLOoS2FdglnntCUBZ+dafNasF4AHg04XegbIMt7m32ryciLoRTswUlOvMqbF6lQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248302;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=yTkdE7maNMK6imjnB7YH+dyPA4CS1X0Qhx1x4XkmNWo=;
+	b=WnuNZXbH9vJRpyhpfnWlK4iJis88qpCBtPC7PBULmqMWYnxdiiDt7kIj4I8uQW3MRNfM
+	 w35CiPDbORmc2wdwggH5Z0fWUDxwz2K/hRtC7ZZYRtzwzymn/SK37JkHkFZeMkfj9fDo3
+	 zxwBRPe7d2mTSYOx23uRZzIIaxZreCyo5zDvlFnhDUr09nW0Ae0zos+mL8R67DNvAa3dq
+	 DLEGOEkZkLp8Z/y0wnyHG9gHgmWZeEA2+mSRmFsEoZPsowkDSw39iAZHItE7vbd7l+k8r
+	 9N+g8eJg5PdJ1BOU1FkxhTSELzKZ2lQ1OlwEc0daadAG+RRRnaGC+W8l+oMcZ74Geow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=3B2lzBEt;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y9sWCsIL;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="NlIbVV/a";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TyVw7qhd;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5852B606A326;
-	Mon,  9 Nov 2026 18:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5852B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lwQiuZhG;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1AD4606A321;
+	Mon,  9 Nov 2026 18:18:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1AD4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=3B2lzBEt;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y9sWCsIL;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=NlIbVV/a;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TyVw7qhd
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 06395220BC;
-	Mon,  9 Nov 2026 18:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794248202;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
-	b=3B2lzBEtfxWa4On/eJaIrsC37NbKPW2fT6WkCQrXYyF5l4Qv/MI+/eNZ/PJWj1rFXjK5nT
-	yBtsP4LawaLJW85j18DQ8dCtpDjOlkCv8ufh/wrlIOZPjDq/5vZVaGNTsb0UQVtiQXHGkC
-	Axztq5W0rWJZzAo4gEh8SNYd7/rRdgk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794248202;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
-	b=y9sWCsIL492ZByPiZla7bovZxO5GS/htk45tN0G9T/jb0cn+EBOq3reS0ZGcO0+9X8R/QE
-	kARNc7PbFo7s3SDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="NlIbVV/a";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=TyVw7qhd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794248201;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
-	b=NlIbVV/a3apB6ADiiasMmf6Q5NNjHqIkypLsiMAt7sXuw3y6fCsywykUMjgjUWz5bZMIry
-	6ffwDyHy1Ip/8Zrxe0DUpHX4ohMThM44KEL6x5OrKXFbCrFjY1OjVYu5JPvCofZ0LKSJo5
-	9Frisz5KLIPxSepAk9CbJ0xy+x5n7ng=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794248201;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
-	b=TyVw7qhdEMTtx0FSAbWkwIQYAyxK27PSiTnUROj7y2B8TTsXxIZcvckq2KoMyBhNYIEsYv
-	8kZYa+ovdtGyoPCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A200413319;
-	Mon,  9 Nov 2026 18:16:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hlLSHAgO8mrtVgAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Mon, 09 Nov 2026 18:16:40 +0000
-Date: Mon, 9 Nov 2026 19:16:39 +0100
-From: David Sterba <dsterba@suse.cz>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: dsterba@suse.cz, David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>, Chuck Lever <cel@kernel.org>,
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] btrfs: fix FMODE_NOCMTIME handling in btrfs
-Message-ID: <20261109181639.GD4186782@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <20261105-delegts-btrfs-v1-0-a42a2b93cdc2@kernel.org>
- <20261109161019.GC4186782@twin.jikos.cz>
- <ceec68acafcec5d598a47bac4e065e762641c25e.camel@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lwQiuZhG
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F39941476;
+	Mon,  9 Nov 2026 10:18:17 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9F1553F85F;
+	Mon,  9 Nov 2026 10:18:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794248301; bh=+kKT4wUsq7CDHU0AL2TBwXRHS3FwQ1bCLDWSYWrdmXw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=lwQiuZhGl+8AQalV+u66cqF+1O6EKZ8cYVF8MVWAW+SJxHcQXxvFC1yaVtBa2xM3R
+	 TO37/fHYeLwKchPlvjEHL5pMHEIB8G4VDEJCvpij1shYcMM1dbUDavYCty6c7nVL6r
+	 LkHKuiRsWsyNfhHgib+kWMNe5ptePv/Bhd1M+IsE=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 11/15] KVM: arm64: Reserve dirty ring space for the HDBSS buffer
+Date: Mon,  9 Nov 2026 18:18:14 +0000
+Message-ID: <avIOZTvQF-1sxs2p@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <d81243e3-d790-4ee8-9b28-36d35591ee77@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-12-zhengtian10@huawei.com> <auikG0clmr19sAjh@LeoBrasDK> <afcbf19b-bd13-4afc-ab56-8bc50c793e50@huawei.com> <au30DqzWIFny1tpr@LeoBrasDK> <d81243e3-d790-4ee8-9b28-36d35591ee77@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,87 +91,145 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ceec68acafcec5d598a47bac4e065e762641c25e.camel@kernel.org>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spamd-Result: default: False [-13.21 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:replyto,suse.cz:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.21
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 06395220BC
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 11:48:12AM -0500, Jeff Layton wrote:
-> On Mon, 2026-11-09 at 17:10 +0100, David Sterba wrote:
-> > On Thu, Nov 05, 2026 at 03:07:41PM -0500, Jeff Layton wrote:
-> > > I tested the delegated timestamp support in nfsd recently. That support
-> > > relies heavily on FMODE_NOCMTIME, and I found several places where btrfs
-> > > didn't handle that flag properly. This series seems to fix them for me.
-> > > I tested mostly with the git regression testsuite, because it is very
-> > > sensitive to subtle bugs in timestamp handling.
+On Mon, Nov 09, 2026 at 12:00:52PM +0800, Tian Zheng wrote:
+> 
+> 
+> On 11/6/2026 11:36 PM, Leonardo Bras wrote:
+> > On Fri, Nov 06, 2026 at 06:36:04PM +0800, Tian Zheng wrote:
 > > > 
-> > > Please consider for v7.5.
 > > > 
-> > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > > ---
-> > > Jeff Layton (4):
-> > >       btrfs: honor FMODE_NOCMTIME in btrfs_write_check()
-> > >       btrfs: honor FMODE_NOCMTIME when punching holes
-> > >       btrfs: honor FMODE_NOCMTIME in fallocate
-> > >       btrfs: honor FMODE_NOCMTIME when cloning
+> > > On 11/2/2026 10:54 PM, Leonardo Bras wrote:
+> > > > On Tue, Sep 29, 2026 at 06:36:51PM +0800, Tian Zheng wrote:
+> > > > > The dirty ring reserves room for CPU-side dirty buffers via
+> > > > > kvm_cpu_dirty_log_size(). Report the HDBSS buffer entry count
+> > > > > through it, so a full buffer flush always fits in the ring.
+> > > > > 
+> > > > > Pin the HDBSS buffer size to PAGE_SIZE when dirty-ring is enabled,
+> > > > > via kvm_arch_dirty_ring_size_updated(): a larger buffer only
+> > > > > shrinks the soft_limit and forces more frequent userspace drains.
+> > > > > 
+> > > > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> > > > > ---
+> > > > >    arch/arm64/kvm/arm.c | 8 ++++++++
+> > > > >    arch/arm64/kvm/mmu.c | 8 ++++++++
+> > > > >    2 files changed, 16 insertions(+)
+> > > > > 
+> > > > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> > > > > index 9d7bdece149a..5a7046acb62e 100644
+> > > > > --- a/arch/arm64/kvm/arm.c
+> > > > > +++ b/arch/arm64/kvm/arm.c
+> > > > > @@ -215,6 +215,14 @@ static int kvm_arm_default_max_vcpus(void)
+> > > > >    	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
+> > > > >    }
+> > > > > 
+> > > > > +void kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
+> > > > > +{
+> > > > > +	if (!system_supports_hdbss())
+> > > > > +		return;
+> > > > > +
+> > > > > +	kvm->arch.hdbss_buffer_size = KVM_ARM_HDBSS_DEFAULT_SIZE;
+> > > > > +}
+> > > > > +
+> > > > 
+> > > > On the same subject as a previous patch:
+> > > > I don't think this is the best approach, on top of adding a new weak
+> > > > function to take care.
+> > > > 
+> > > > Maybe during the dirty-ring allocation, on vcpu creation, we could take
+> > > > into account the requested dirty-ring size, and just allocate the HDBSS
+> > > > buffer taking that into account. That would make it simpler, don't you
+> > > > agree?
+> > > > 
+> > > > Thanks!
+> > > > Leo
+> > > 
+> > > Hi Leo,
+> > > 
+> > > The "set once" guard we're discussing comes from the patch that adds the
+> > > ioctl, and it isn't really needed. We discussed this earlier [1]: we can
+> > > just initialize hdbss_buffer_size to PAGE_SIZE at VM creation and let
+> > > the ring reservation use it directly. **That also means
+> > > kvm_arch_dirty_ring_size_updated() can be removed.** Thanks for your
+> > > suggestion.
 > > 
-> > There's a comment from sashiko for patch 4 regarding the unconditional
-> > i_version update but this is mentioned in patch 3 as intentional. I
-> > can't tell if it's a problem, it seems more like a suggestion for
-> > cleanup. I'll add the series to for-next, please check if the question
-> > is valid. Thanks.
+> > :)
+> > 
+> > > 
+> > > As for why PAGE_SIZE is the right value in ring mode: the HDBSS buffer
+> > > is flushed on every VM exit, so a larger buffer doesn't reduce the flush
+> > > frequency. It only inflates the ring reservation (64 + size/
+> > > sizeof(u64)), which shrinks the soft_limit and forces more frequent
+> > > exits to userspace for the ring to be drained. Draining the dirty ring
+> > > from QEMU is more expensive than draining the HDBSS buffer from the
+> > > kernel, so the smallest buffer gives the best performance. In this mode,
+> > > a larger buffer provides no benefit to users.
+> > 
+> > Humm, if properly dimensioned larger buffers would be benefitial for
+> > memory-intensive workloads, unless they are guest_exiting for other
+> > reasons in the meantime.
+> > 
 > 
-> Thanks, I think the suggestion from sashiko is a false positive and we
-> should just merge this set as-is. That said, the kernel _is_
-> inconsistent in how it treats i_version under FMODE_NOCMTIME:
+> Agreed, and the workload I tested is on the "unless" side. The guest
+> exits constantly for other reasons, so the larger buffer never got a
+> chance to pay off, and only cost ring capacity.
 > 
-> The generic VFS layer (so ext4, tmpfs, etc.) suppresses i_version
-> updates when FMODE_NOCMTIME is set.
+> > > 
+> > > In my tests, I also saw performance degrade when more space is reserved.
+> > > 
+> > 
+> > Humm, what kind of workloads did you test?
+> > Did you have the chance to monitor what were the reasons for VM exiting?
+> > 
 > 
-> XFS keeps incrementing it. This is because i_version behavior is a bit
-> different there (historical reasons). IIRC they more or less keep it in
-> lockstep with the LSN.
+> For the workload question, it's a Redis server in the guest under redis-
+> benchmark (SET-only, 2KB values, 1M keys, 100M requests). The traffic is
+> network-driven, so the guest exits constantly to service requests. The
+> HDBSS buffer only accumulates entries between two exits and is flushed
+> on every exit, so it rarely fills regardless of size. A larger buffer
+> only inflated the ring reservation, which shrinks the soft_limit and
+> makes the ring-full exit and userspace drain fire more often.
 > 
-> btrfs is mixed -- the write path suppresses it (like the generic VFS
-> does) but hole punching, fallocate, clone, etc. bump i_version anyway.
-> This is probably accidental.
+> > I am not saying this is mandatory for the HDBSS implementation, but the
+> > whole idea of letting the user choose their own HDBSS buffer size is
+> > because different workloads may benefit from different buffer sizes: if a
+> > VM writes a lot to new memory, and exits very little for other reasons,
+> > then a larger buffer will cause the VM to guest_exit much less often.
+> > 
+> > Does that make sense?
+> > 
+> > Thanks!
+> > Leo
 > 
-> In practice, it's harmless for nfsd. While there is a delegation
-> outstanding, it doesn't consult i_version anyway, and i_version is
-> updated when the delegation is released.
+> It does make sense. That's exactly the workload where a larger buffer
+> pays off, and the next version no longer gets in its way. The two ioctls
+> are no longer mutually exclusive.
 > 
-> It might be worth making this more consistent at some point just for
-> neatness sake though, or in case we want to use i_version some other
-> way. I'll think about it.
+> The only coupling left is the reservation. hdbss_buffer_size starts at
+> SZ_4K at VM creation, so a ring enabled right away reserves for the
+> default buffer (64 + 512 entries), and the minimum ring size accepted is
+> unchanged from v5. KVM_CAP_ARM_HDBSS_BUFFER_SIZE is the gate. When the
+> ring is already enabled, a size is accepted only if its reservation
+> still fits in the ring, otherwise -EINVAL. In the other order, ring-
+> enable validation rejects a ring too small for the configured size.
 
-Thanks for the exmpalation, this seems nuanced enough for the AI review
-to miss something.
+I don't think this is needed. If using dirtyring, we don't need to allow 
+user to set hdbss size: HDBSS size should be sized according to the 
+dirty-ring dimensions, that are set by userspace before the first vcpu is 
+created.
+
+
+> So SZ_4K is just the conservative default for guests that exit often.
+> Anything larger, within what the ring can reserve, is up to the user.
+> 
+> Does this work for you?
+
+I still think we should do PAGE_SIZE for dirty-bitmap. Dirty ring should do 
+based on the dirty-ring size, and maybe review the use of reserved 
+entries, or it's accounting.
+
+What do you think?
+
+Thanks!
+Leo
