@@ -1,102 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215732;
-	b=E/WMTknVzkpVMnoRgFp9yzSV1RO8fBP6VkFT+5mPr03534ZJ6CU3pYIZKuTMqnnw2QD9
-	 /UgDy0kjXa45iYqfob94dxuqzV47vn0uJCUGMO1e9lz542d90XvusQajEkLVnw11wynwL
-	 KMbfSvUJtPZForZVfAOtEJDK6f8qORwiperOuh00Hm0MTfDDKdL0iYxAHASJgdMxIHKjR
-	 xEtMCoIuzh4do2rsXYEphhipMTiuze646EigtulmNzS32LS4U436nDXqKQHMspId7HdVx
-	 JwBY0z543sQrsekahya7t7DkXkBgy2uRGU1fMIf5YZG66CsZza/ZF3bC1P/XwXqbfgQ==
+	t=1794215733;
+	b=nPswJ31sBQ/1tTHpQsUlz7H9Gj2cFCll9wgZoIR5WhWwW27spi9BFqBseSVueInsDBwK
+	 9pjS1uoVd3PURbpa5Nve95pdvj3pSppVbeSN8NTVAeQx/ZRfJXIXHOn5HcNOzX1xLuLrK
+	 JosWoCwizGoMBOhxKQ8SVYt4eSz1O/2kKMlMgi5tZBJLlim+dXtb3s92nir6Pc10OW9s0
+	 t9l8Xif3qBSXA6UrNY/u3S6fXNgfZh9QbLAdHQ9Wlhj9R7lxLEwjBj7g5HGbE2XR/A56o
+	 z0G1jqE+lWzNd3IDpr4DAgpkaN+Log6cSuRAFBYvcKOP+7YhBnWNDkVyWYVCHvf0vkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nAZcXDlQZddbY3M/muInvcNY1JTv1MgI/C6goEt1No4=;
-	b=iBzEOi1UPw5OlHz3DTR95anUae3++7hRqnzu3KpCvlMiyqQJruHo4YScNXxkyOk1NFof
-	 BRILoJjzSCtnm7WepfA+ZwGlPPhRHX+23lLcuTUkMPxtYKUOLzPsj4djobmUn0yDLkPE7
-	 S5QedlL4XqtMcWJVvdEmwTKTJjl+gtbbWYqhswesMyhpVkHqIirqXNAKnWHR7rK8HrOwT
-	 2flZb4hY14Vk6NjaeFnWDtDGPWG/+bm+ZDtFgf+IWuPoHZofOrMocDETP6lQ8/neHpHRi
-	 x6qyW2zdIMhce8uWgziKDYmP3Vsmy+FeQgfZnpRLinjJv+Af2kEfk7LJo4U1tNSuCvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215733;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YM+mipvDK5NxibPxkPn9Srng6miYHDN2FOwdewCrHKk=;
+	b=s4FjC6jecs3TZHsi/CiXJcP8WNQjgS3HVde/c7j4HolWpROKaTsmnNZChuU90bb8IWGh
+	 C6jSZ5IIpUnkGSEV3PU3uXFG/j0eBb0qXRQyWkDJUcyMD7sJ7YuvIn/gfRRuziFdEV/w8
+	 H3baCnJYUsYY0VStTlqJynFI4gQQWkkJiW5khr1R9Mu5r20e0ifAhuBq+Pl5RVKd2KBFK
+	 lWF8ig2IeG6/KSP1oe6tZff3AOrCCE/mMinYWwy7czgxS/4gQiScVr/MV8XtTPiek7lon
+	 /w5olZwyNFv65ITkK9x0ea0aNRAsl2lRPbQbGpXZ5oSdjZL+SCmzVSz5p4HehKcTNLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EumOcsGU;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAC1606EEA9
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EAC1606EEA9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LbcHXNbf;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 305EA606D82E;
+	Mon,  9 Nov 2026 09:15:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 305EA606D82E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EumOcsGU
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-14394530ec6so740806c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:15:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794215731; x=1794820531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nAZcXDlQZddbY3M/muInvcNY1JTv1MgI/C6goEt1No4=;
-        b=EumOcsGUVgvV6f4EIH+ss1Yo0OuOX2Lpnk3VvwxNMWYoLWsAbpCyFZAEUxaiJGfm+c
-         34QwvxyCf+23hcUVfaIHJDmgVm0XoqZiNbgTZ5TUn/mLejXnDp1MO+SgBB66yCsEUVKu
-         96+aPOeNGOaR0Nn/W7Xzr1BvqfFtScUfIhDfa0P673LMDBqZ84oLuk1jSwSeDSwPQ7D3
-         NC/jq2knesGuifhSLeY7+1mEf335ndDq28JT8tcAcHVCjf7hXuBq/547XOl502ngw1Cs
-         W/FXfsvSERSAIeHHrTGkDnsbbVywHUyVCTv+57PhzoRpgj4x6/vHXC7xMJFkK5ROj0HX
-         xQtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794215731; x=1794820531;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nAZcXDlQZddbY3M/muInvcNY1JTv1MgI/C6goEt1No4=;
-        b=eKJFl1i7MVy/RwWoeTF7Bn7NkIaboePrrjE5DnVZFmLfqtVF89F3zZOo7/HzS8VK+R
-         xapOI7k4k7842vM3iVge4ihvylPonLbahe6EWqJliN/jnZUsF+SGInq3oMY3TwFNWEq1
-         /ZnT0vsUkKxxaDHABrgDecSQenLch0HtyXlQLmdRtSUeJ64sJ3yHNIBv7PyD13SrUs+p
-         7W8AbCxjkhkCjYAOzrO6i/q7PsrMrlXoRezgw2yEQSGF6RO+oPw/HldI7Rv9RkQAQLbT
-         eU6WoTJ5CsNqabT5LkjgoPGzL8ARDTAohlDh2zLxMyjbKq98oVGsV9KCr1v6rHefJ4xg
-         u0Vg==
-X-Forwarded-Encrypted: i=1; AL+hErHdRAQlSoKkdjtlEg9xaeh4OVwNL9LDfcVetm+p0+Mtt4etbtaGBE/6Jjt07rm6R2tqdF+4rrQl/whu3yo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/zwEpsYA131diQRRNDaj/g8Dgi2Oi/a49H68dN2fm1Gp/Rid/
-	YyouMpQoVK9172MRiVL9uE+QVWnxMly5o3lgy1Wayi4c8zcOvYRP4Iuu
-X-Gm-Gg: AYBFou3xSatSHT0qpiEuCphWctP+ZUT2q03vd/s3ECS5VqUwl6REVZxs/fhnR6HPSiD
-	qv6FOGXJITSyVQ8JK1VU5a2r9+FF6A+WsNyQg7/EWTac1vLNdIZic6Zz41vtloVA/jhAplpLHvJ
-	8s+NT0ryBC58GyW6cFxsVAnW2Xiuu/3vYRF734InioeY6CuQrE8cT4lRwgnXCrUaMMaeoD7Q0vZ
-	MwsX2eKNL1KY4u4EZCbt4ctVgcs0rFOxbFa7/bm14eyQe/VBv0ESGJprm0Bv5mNYs0pmVzNd/xQ
-	iPul3yaSDCm3qkyzOSy3nfsATj4ouIp7oQoxRN8eQMu+asOX9A5sitZVZPtQNrdeTLfFNEREYWV
-	wJeiM2rQETAR4JCldEtdtN5F33w3ZmMNJlFLpJqU+vs0xpFt4UkbFGQBDbTn6w7ludmaPzVFfyL
-	pGW1N2l9B1Vgh5Bj9svGPyu+xg65ooJ3xr0yK7FVwEXv4X7Omeo5u8MgFx6JO870UKakhljlJbY
-	53wZrX+8q439z7UiGgYOuZC6Ywnnk379ziX0cQBLPC321Xm3JfjBjlGYw/06C0cKXGa+WiulmkU
-	vsORI3QDYHjwkuokLfHNLkB+kbuvwMbMYa8aYFl/CKwl+80Y0ewpX0ZXURsY//wWkA==
-X-Received: by 2002:a05:7022:e803:b0:1ad:4ef5:ffed with SMTP id a92af1059eb24-1b39fefb9e8mr5783381c88.38.1794215730818;
-        Mon, 09 Nov 2026 01:15:30 -0800 (PST)
-Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.106.86])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375604109sm14379505c88.10.2026.11.09.01.15.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:15:30 -0800 (PST)
-From: Gopal Malaviya <gopalmalaviya53@gmail.com>
-To: akpm@linux-foundation.org,
-	willy@infradead.org,
-	jack@suse.cz
-Cc: linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	fujunjie1@qq.com,
-	vishal.moola@gmail.com,
-	roman.gushchin@linux.dev,
-	Trace <tracekotae@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/filemap: restart mmap readahead on sequential faults after many misses
-Date: Mon,  9 Nov 2026 09:14:44 +0000
-Message-ID: <20261109091444.128521-1-gopalmalaviya53@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105192517.228523-1-tracekotae@gmail.com>
-References: <20261105192517.228523-1-tracekotae@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LbcHXNbf
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8487115A1;
+	Mon,  9 Nov 2026 01:15:28 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A1ED43F85F;
+	Mon,  9 Nov 2026 01:15:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794215731; bh=O1wQhmHtXR4EVUqNjtp/1IOFgHYF9RkpriVNYuK5Vow=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=LbcHXNbfnzNp3YwWEoUEhKRM3qcAJTJRpHG9s6C0RcAXcx7lbV27XT+3Uyu7FwVkt
+	 bEDwnLARigXGcjSYbhZP3226Mk4o8XJhIA9qDURMsqqW8w2Wr3CoxDOlLDNIqAFZb5
+	 M3PbYTIRxPPEUZMs80rRTPm5Tp2Mb6pXlxObYYfI=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jonathan.cameron@oss.qualcomm.com,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: [PATCH v15 11/35] firmware: arm_scmi: Add Telemetry groups initialization
+Date: Mon,  9 Nov 2026 09:11:57 +0000
+Message-ID: <20261109091221.2532706-12-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109091221.2532706-1-cristian.marussi@arm.com>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,119 +84,295 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED
-retries as mmap hits"), about a hundred sparse mmap faults push
-mmap_miss over MMAP_LOTSAMISS and turn off mmap read-around, as
-intended. But mmap_miss only comes down on hits on pages that
-read-around brought in, and with read-around off there are none. A file
-that is then read sequentially gets a synchronous single-page read for
-every page until it is opened again.
+Allocate and initialize Telemetry Groups from base DataEvent data.
 
-When a miss above the limit is on the page right after the previous
-miss, start readahead the way a sequential read() miss does, with
-page_cache_sync_ra(), and keep mmap_miss at its cap so that hits on
-that small first window do not bring back full read-around for random
-access.
-
-Tested in a KVM guest (x86_64, 2 vCPUs, 3 GiB) with ext4 on virtio-blk.
-"base" is mm-hotfixes-unstable. "95b8e" is commit 95b8e432265f ("mm: use
-zone lock guard in __offline_isolated_pages()"), the last one before the
-series of 9b0fcac3cfe7. Commit 0b9c0aeba938 ("mm/filemap: count only the
-faulting address as a mmap hit"), the first of that series, gives the
-same results as 95b8e for the reproducer.
-
-Reproducer from the report, read_ahead_kb 128, major faults:
-
-                                         95b8e    base  patched
-  sequential only                            1       1        1
-  sparse pass, then sequential               1   16384        2
-  sparse, MADV_SEQUENTIAL, sequential      512     512      512
-  sparse, close and reopen, sequential       1       1        1
-
-Touching 1% of the pages of a cold 20 GiB file, larger than memory,
-MiB read from disk:
-
-                       read_ahead_kb 128        read_ahead_kb 8192
-                      95b8e  base patched     95b8e   base patched
-  random               5656   215     215    344731   1032    1032
-  stride 2053 pages    6545   216     216    419003    992     992
-  random 2-page runs   2992   215     528    173093   1099    2248
-  random 4-page runs   1570   216     594     86797   1266    2301
-
-After the sparse pass, reading 32 regions of 2 MiB in turn takes 512
-major faults per region on base and 2 with this patch.
-
-Not tested: NFS, the GPU workload from the report, and other
-architectures and page sizes.
-
-An AI assistant (Claude) helped with the analysis and the approach, and
-wrote the test programs and drafts of the comment and this changelog.
-I reviewed, implemented, built and tested the change.
-
-Fixes: 9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED retries as mmap hits")
-Reported-by: Trace <tracekotae@gmail.com>
-Closes: https://lore.kernel.org/all/20261105192517.228523-1-tracekotae@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Gopal Malaviya <gopalmalaviya53@gmail.com>
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
 ---
-Notes, not for the changelog:
+v14 --> v15
+ - removed needless vars from groups_init
+ - bailout from group initialization when NO DEs were found
+ - better handling of error path on groups init
+v13 --> v14
+- splitted out of the old Basic Telemetry patch, contains the
+  groups initialization code.
+---
+ drivers/firmware/arm_scmi/telemetry.c | 154 +++++++++++++++++++++++++-
+ include/linux/scmi_protocol.h         |  24 ++++
+ 2 files changed, 176 insertions(+), 2 deletions(-)
 
-- Keeping mmap_miss at its cap is the least obvious part. Without it,
-  hits on each small window keep mmap_miss near the limit: random 4-page
-  runs at read_ahead_kb 8192 read 25896 MiB instead of 2301. A cap of
-  MMAP_LOTSAMISS * 2 gave the same results as the full cap in all tests,
-  since each new run sets it again. The cost: a reader that jumps
-  between sequential runs stays at 2 faults per region, where without
-  the cap it is back to 1 after 16 regions.
-- A full read-around on the adjacent miss instead of page_cache_sync_ra()
-  also fixes the report, but random 2-page runs on a 2600 MiB file at
-  read_ahead_kb 128 read 379 MiB instead of 76 (38 on base).
-- At read_ahead_kb 8192, this guest's default, the reproducer shows 1
-  fault for "sparse pass, then sequential" even on base: the 8 MiB
-  windows reach the next sparse pages.
-- Patched results matched within 1% over two runs (the 32-region test
-  ran once). checkpatch is clean; mm/filemap.o builds without warnings
-  with W=1 for x86_64 and i386.
-- I can send the test programs if useful.
-
- mm/filemap.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 371a4bbd06..1548021472 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3398,9 +3398,27 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
- 		/*
- 		 * Do we miss much more than hit in this file? If so,
- 		 * stop bothering with read-ahead. It will only hurt.
-+		 *
-+		 * But without read-around no hits are left to bring
-+		 * mmap_miss down again, so a file that turns sequential
-+		 * would stay without read-ahead. Remember where we missed,
-+		 * and treat a miss on the next page like a sequential
-+		 * read() miss: page_cache_sync_ra() starts with a small
-+		 * window and only grows it while access stays sequential.
-+		 * Keep mmap_miss at its limit, so that hits on that window
-+		 * do not bring back full read-around for random access.
- 		 */
--		if (mmap_miss > MMAP_LOTSAMISS)
-+		if (mmap_miss > MMAP_LOTSAMISS) {
-+			pgoff_t prev_index = (unsigned long long)ra->prev_pos >> PAGE_SHIFT;
+diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+index db4108ef0232..9944506652f5 100644
+--- a/drivers/firmware/arm_scmi/telemetry.c
++++ b/drivers/firmware/arm_scmi/telemetry.c
+@@ -387,6 +387,7 @@ static int scmi_telemetry_de_descriptor_parse(struct telemetry_info *ti,
+ {
+ 	const struct scmi_de_desc *desc = *next;
+ 	size_t payld_sz = sizeof(*desc);
++	unsigned int grp_id;
+ 
+ 	lockdep_assert_held(&tde->mtx);
+ 
+@@ -394,7 +395,22 @@ static int scmi_telemetry_de_descriptor_parse(struct telemetry_info *ti,
+ 		return -ENOSPC;
+ 
+ 	tde->de.info->id = le32_to_cpu(desc->de_id);
+-	tde->de.info->grp_id = le32_to_cpu(desc->group_id);
++	grp_id = le32_to_cpu(desc->group_id);
++	if (grp_id != SCMI_TLM_GRP_INVALID) {
++		struct scmi_telemetry_res_info *rinfo;
 +
-+			ra->prev_pos = (loff_t)vmf->pgoff << PAGE_SHIFT;
-+			if (vmf->pgoff - prev_index != 1)
-+				return fpin;
-+			WRITE_ONCE(ra->mmap_miss, MMAP_LOTSAMISS * 10);
-+			fpin = maybe_unlock_mmap_for_io(vmf, fpin);
-+			page_cache_sync_ra(&ractl, 1);
- 			return fpin;
++		/* Get rinfo without triggering a recursive enumeration */
++		rinfo = __scmi_telemetry_resources_get(ti);
++
++		/* Group descriptors are empty but allocated at this point */
++		if (grp_id >= ti->info.base.num_groups)
++			return -EINVAL;
++
++		/* Link to parent group */
++		tde->de.grp = &rinfo->grps[grp_id];
++	}
++
++	tde->de.info->grp_id = grp_id;
+ 	tde->de.info->data_sz = le32_to_cpu(desc->de_data_sz);
+ 	tde->de.info->type = GET_DE_TYPE(desc);
+ 	tde->de.info->unit = GET_DE_UNIT(desc);
+@@ -546,6 +562,102 @@ static int iter_de_descr_process_response(const struct scmi_protocol_handle *ph,
+ 	if (tde->de.fc_support)
+ 		list_add(&tde->item, &ti->fcs_des);
+ 
++	/* Account for this DE in group num_de counter */
++	if (tde->de.grp)
++		tde->de.grp->info->num_des++;
++
++	return 0;
++}
++
++static int
++scmi_telemetry_de_groups_init(struct telemetry_info *ti)
++{
++	struct scmi_telemetry_res_info *rinfo;
++	unsigned int num_groups = 0;
++
++	/* Get rinfo without triggering a recursive enumeration */
++	rinfo = __scmi_telemetry_resources_get(ti);
++
++	/* Bailout when no DEs were discovered */
++	if (!rinfo->num_des)
++		return 0;
++
++	/* Allocate all groups DEs IDs arrays at first ... */
++	for (int i = 0; i < ti->info.base.num_groups; i++, num_groups++) {
++		struct scmi_telemetry_group *grp = &rinfo->grps[i];
++		size_t des_str_sz;
++
++		unsigned int *des __free(kfree) =
++			kzalloc_objs(unsigned int, grp->info->num_des);
++		if (!des)
++			break;
++
++		/*
++		 * Max size 32bit ID string in Hex: 0xCAFECAFE
++		 *  - 10 digits + ' '/'\n' = 11 bytes per  number
++		 *  - terminating NUL character
++		 */
++		des_str_sz = grp->info->num_des * 11 + 1;
++		char *des_str __free(kfree) = kzalloc_objs(*des_str, des_str_sz);
++		if (!des_str)
++			break;
++
++		grp->des = no_free_ptr(des);
++		grp->des_str = no_free_ptr(des_str);
++	}
++
++	/* Unroll on failure... */
++	if (num_groups < ti->info.base.num_groups) {
++		for (int i = num_groups - 1; i >= 0; i--) {
++			kfree(rinfo->grps[i].des);
++			rinfo->grps[i].des = NULL;
++			kfree(rinfo->grps[i].des_str);
++			rinfo->grps[i].des_str = NULL;
 +		}
++
++		return -ENOMEM;
++	}
++
++	/* Reset group DE counters before populating */
++	for (int i = 0; i < ti->info.base.num_groups; i++)
++		rinfo->grps[i].info->num_des = 0;
++
++	/* Scan DEs and populate DE IDs arrays for all groups */
++	for (int i = 0; i < rinfo->num_des; i++) {
++		struct scmi_telemetry_group *grp;
++
++		grp = rinfo->des[i]->grp;
++		if (!grp)
++			continue;
++
++		/*
++		 * Note that, at this point, num_des is guaranteed to be
++		 * sane (in-bounds) by construction.
++		 */
++		grp->des[grp->info->num_des++] = i;
++	}
++
++	/* Build composing DES string */
++	for (int i = 0; i < ti->info.base.num_groups; i++) {
++		struct scmi_telemetry_group *grp = &rinfo->grps[i];
++		size_t bufsize = grp->info->num_des * 11 + 1;
++		char *buf = grp->des_str;
++
++		for (int j = 0; j < grp->info->num_des; j++) {
++			char term = j != (grp->info->num_des - 1) ? ' ' : '\0';
++			int len;
++
++			len = scnprintf(buf, bufsize, "0x%08X%c",
++					rinfo->des[grp->des[j]]->info->id, term);
++
++			buf += len;
++			bufsize -= len;
++		}
++	}
++
++	/* Expose all groups once all fully initialized */
++	rinfo->num_groups = num_groups;
++
+ 	return 0;
+ }
+ 
+@@ -578,7 +690,7 @@ static int scmi_telemetry_de_descriptors_get(struct telemetry_info *ti)
+ 	if (ret)
+ 		return ret;
+ 
+-	return 0;
++	return scmi_telemetry_de_groups_init(ti);
+ }
+ 
+ static const struct scmi_telemetry_info *
+@@ -653,6 +765,18 @@ static int scmi_telemetry_resources_alloc(struct telemetry_info *ti)
+ 	if (!dei_store)
+ 		return -ENOMEM;
+ 
++	/* Array to hold descriptors of discovered GROUPs */
++	struct scmi_telemetry_group *grps __free(kfree) =
++		kzalloc_objs(*grps, ti->info.base.num_groups);
++	if (!grps)
++		return -ENOMEM;
++
++	/* Allocate a set of contiguous Group info descriptors. */
++	struct scmi_telemetry_grp_info *grps_store __free(kfree) =
++		kzalloc_objs(*grps_store, ti->info.base.num_groups);
++	if (!grps_store)
++		return -ENOMEM;
++
+ 	struct scmi_telemetry_res_info *rinfo __free(kfree) =
+ 		kzalloc_obj(*rinfo);
+ 	if (!rinfo)
+@@ -667,12 +791,20 @@ static int scmi_telemetry_resources_alloc(struct telemetry_info *ti)
+ 		scmi_telemetry_free_tdes_add(ti, &tdes[i]);
  	}
  
- 	if (force_thp_readahead) {
-
-base-commit: 09f140d2cb078edfcd08a40a23ead0bdceea30a4
++	for (int i = 0; i < ti->info.base.num_groups; i++) {
++		grps_store[i].grp_id = i;
++		/* Bind contiguous Group info struct */
++		grps[i].info = &grps_store[i];
++	}
++
+ 	INIT_LIST_HEAD(&ti->fcs_des);
+ 
+ 	ti->tdes = no_free_ptr(tdes);
+ 
+ 	rinfo->des = no_free_ptr(des);
+ 	rinfo->dei_store = no_free_ptr(dei_store);
++	rinfo->grps = no_free_ptr(grps);
++	rinfo->grps_store = no_free_ptr(grps_store);
+ 
+ 	/* Ensure all of the above assignments are visible */
+ 	smp_store_release(&ti->rinfo, no_free_ptr(rinfo));
+@@ -701,6 +833,9 @@ static void scmi_telemetry_resources_free(struct telemetry_info *ti)
+ 	kfree(rinfo->des);
+ 	kfree(rinfo->dei_store);
+ 
++	kfree(rinfo->grps);
++	kfree(rinfo->grps_store);
++
+ 	kfree(rinfo);
+ 
+ 	dev_dbg(ti->ph->dev, "SCMI Telemetry resources freed for instance\n");
+@@ -722,10 +857,25 @@ static void scmi_telemetry_tdes_cleanup(struct telemetry_info *ti)
+ 	xa_destroy(&ti->xa_des);
+ }
+ 
++static void scmi_telemetry_groups_free(struct scmi_telemetry_res_info *rinfo)
++{
++	/* Cannot be NULL here by construction, make sure it remains like that */
++	if (WARN_ON(!rinfo))
++		return;
++
++	for (int i = 0; i < rinfo->num_groups; i++) {
++		struct scmi_telemetry_group *grp = &rinfo->grps[i];
++
++		kfree(grp->des);
++		kfree(grp->des_str);
++	}
++}
++
+ static void scmi_telemetry_instance_cleanup(void *arg)
+ {
+ 	struct telemetry_info *ti = arg;
+ 
++	scmi_telemetry_groups_free(ti->rinfo);
+ 	scmi_telemetry_tdes_cleanup(ti);
+ 	scmi_telemetry_resources_free(ti);
+ }
+diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
+index cc5bd87705ed..c81b4ceb84b3 100644
+--- a/include/linux/scmi_protocol.h
++++ b/include/linux/scmi_protocol.h
+@@ -830,6 +830,22 @@ struct scmi_pinctrl_proto_ops {
+ 	int (*pin_free)(const struct scmi_protocol_handle *ph, u32 pin);
+ };
+ 
++#define SCMI_TLM_GRP_INVALID		0xFFFFFFFF
++
++struct scmi_telemetry_grp_info {
++	unsigned int grp_id;
++	unsigned int num_des;
++	unsigned int num_intervals;
++};
++
++struct scmi_telemetry_group {
++	bool enabled;
++	bool tstamp_enabled;
++	unsigned int *des;
++	char *des_str;
++	struct scmi_telemetry_grp_info *info;
++};
++
+ struct scmi_telemetry_de_info {
+ 	unsigned int id;
+ 	unsigned int grp_id;
+@@ -852,6 +868,7 @@ struct scmi_telemetry_de {
+ 	bool enabled;
+ 	bool tstamp_enabled;
+ 	struct scmi_telemetry_de_info *info;
++	struct scmi_telemetry_group *grp;
+ };
+ 
+ struct scmi_telemetry_res_info {
+@@ -859,6 +876,13 @@ struct scmi_telemetry_res_info {
+ 	unsigned int num_des;
+ 	struct scmi_telemetry_de **des;
+ 	struct scmi_telemetry_de_info *dei_store;
++	unsigned int num_groups;
++	/*
++	 * Allocated at max capacity and populated dynamically
++	 * at runtime, cannot be counted_by num_groups.
++	 */
++	struct scmi_telemetry_group *grps;
++	struct scmi_telemetry_grp_info *grps_store;
+ };
+ 
+ struct scmi_telemetry_base_info {
 -- 
-2.43.0
+2.54.0
 
