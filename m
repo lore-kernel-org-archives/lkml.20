@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794197117;
-	b=5RGQGnOa9nckmk7oepgHm3x2z3TpItHRHmXG6sU5xr+kASjj1PD25VjM+VCXZZdLCTYO
-	 VS+4bwYsj7u9IOBpjc0ibb3Urhndz96zkavmD02RzmD0otDDTooGuL0tBVGA4pTSVlk7Y
-	 PkwBfVPUc0mr4XmPbOaXH+H3k1Hq9ZbOM5lkj2KUqPyTUe7z3jHjGrUQ3cLN82R4rLaSH
-	 fHeHWPFaSSWidIetcAd9+5XplWvLDnnDftZNXUlK6SrSZlrt54fTANKOI7Mmu+BU1Wqom
-	 j7m42YJKysx5qF1esC9xL9uFeYZ78cM24vflnx0HepDPDQKtdCtNM9+kjz5VmHvXh7Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794197117;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794197304;
+	b=Xg+2oB77ZMcGXmBy7VtRUmwZszOT+SqbGJN1LuXeGKKs28MyJdbTcS0OZSZnY1xv/KTA
+	 yITtzMy9Jk+1PQbJFyZUNS4aBA9kVag4J5IrbLU3E8BoLY0cxQnZs2SCiiJP7uevjxerI
+	 /hqhfbGI4kBQYdsO13vZoSeqE3lkJj38HbLxP6xmUekSdmgHtaOPlgcb49KvV7/AFPI4g
+	 5r7JdWr+RrvI+w3WS3rP1nSr6/TnvIsFqoNAZsxG1bm+adBvYQdUxoUpQGoxhdnLwxvKj
+	 MKj2kF67toHr99mLOmEMblcFTtCmixRq9ITCHEQ+X3+HalEb8X4zI9auS90V8Y7IiDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794197304;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
-	b=skJ2+eDMsyU1sMvWPVgoIbo2Shlyhg0AjkDz4GLMRcfXRnHBHqR3TWi7JR9lnJAw5PqN
-	 aSvve5+hMfc2vPqeo8J8g2X3rMFPYEhyMX0t0qVyp0pgiuLy9OxC1is/OalxeEQuUYWlU
-	 HTC68CC46TT0azJAPHP6z9CrO2MZDeKsddS9AHWc/71IRpXmi9xzEjpl+x6yAKxZo/W09
-	 1kmpR9EYeZNj98QjoEtYXRB+7nwDazlWwpCYGZQnHfcXQQ1vsIvD0kQOQTlH8ax6VLr1S
-	 m5FPFYPadsbET9GtIRYTW1S6ZsfqQJY/KeBu1pa6LMjma1joCbK86wmdqMHjGHfbmtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
+	b=wesWuCPIfU9wb/UrlUXmtcXveuAyBglDKJOhDO76XpNoMKOIeOVhaR+L8qzfnHHUj2mX
+	 8LLhzsXZNKdnsmOh12BFox51rXjfP4HG11022EVj1O5kCfbrb8SuZf+1cQcdY3rp3qBo6
+	 N9h/9oD1ZoxvbY5DzPOjSwuZOy8B7qg5w8EJQYEDJIw8EvMTqq+KPqoAXlZ3e+i5OgtAC
+	 nJD/pDE8EmW3h9qhFL6p0pL2CQSdZ1UxyWn/Asr7ekHHlJyVY2dvQd7/nZmxIspfhe+8G
+	 u/vi9pRJQljrhSHzTA/GuG+6bMMyFaCEh/TYpZbzHpm5YLJ4VpPZYqCNsFm3HSxoJrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I5gKMrwa;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PZBXTZev;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE5B606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:05:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE5B606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C14606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C14606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I5gKMrwa
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdab938dc83so131756a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:05:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PZBXTZev
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b4f7d3cd98so517501a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:08:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794197302; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qX3jD8SnPFE7dqE6RZMTGzLBbIVWDj5BfMF7pi3jGM4NEVEpbMzYUln0YbTZsB2XAV
+         dq6A9onwQvmATo3T7X6aNqpRaeZ67cAd4vmjE4Jw1uC9DK5oxp58dLfXABb5+MbvI8IE
+         xomoLmfqsnuEbHUjmb9DBd84KFOgguXu8ou95zpO1zjG1l8zx+yN6vUxj2i/MB0FsHLU
+         3dps95/QemWCV1ETs1Th9a615OvNzvejYI3RXOTidhv81yAJshHHkmqIb6dmjaDU0MdV
+         YtoR5t7lyiKYyZ0giJQU0wlPZDzxT5oQ9gRfrYsVKtRIwnvugTVVFdXLl1MUhLx+tDG3
+         S2kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
+        fh=C6CNplLsuuD/IFQ65YySObBMyZ72KYBYx1OuxF3oXtw=;
+        b=kLvus7d0SP7yYF134eQ339ahEbNWKtWK+jl6LDWmkLSRZ7M2yrVZv1dq1nB5oajM+M
+         +n28/J8kSEcQv3OfUzvi2NsirS3OWoZvIV9kxF0Vur+bT9o3VSNracTVuy+hl1VUkHXZ
+         d+A9QSw21blkCAtNsEhFz4GxB4G6JuBuy+7B3NdueTn3tTyNcnHc86XP1AZMWZ/m+Crr
+         onoNh4QF1wt4yMzWGQkTkvZstV8sKjbiMacEIbMHZV8vbiYWl0gKj1nKRLLQFJJ3d3L2
+         fHeRuD2J97a39xEvn9Hws07aTyXrDIXePjBTZba7BsIQqBz2UdmMyHmRBVPU+my4NwSP
+         o/+A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794197117; x=1794801917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
-        b=I5gKMrwa19rWO9uB+yyStHKDiGnBXW/aY0L4wNFgNdUPc9Wa0HLrFNtNp7gDLaz8lz
-         SUuHx6sALRlnpVJ/D/vnH7eNXbTUmvpD45oBmN1pLC7kIKvPbV5b+OVKcmP+9+opQkOK
-         1jBNih8MgTlwHniTr0T+8bAZFkfjKDoPSzNGi6lPX7zre6ntCnsHqfhoQLXSs0qwN3dd
-         niotTAQrSz+TSVH0+Px0iWPdOsvp108jwt6v0d9IU1bVTUEVWnf7GOGrC/JzWqDrheGG
-         a7f9ayH04ssJ1QTvXRDWU7I6BUXFNJKrmRk+NZkIVKIZaLtijvg7pf7oM/DRYchaWJJY
-         z8XQ==
+        d=gmail.com; s=20260707; t=1794197302; x=1794802102; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
+        b=PZBXTZevTJRcpEqxhnLcKwEKgU0sp12tcupiabyP7Ks3Iupa8aIuGCUvv5+d8YlgzK
+         XA0cwI5d8kvekvoN9CTbFMUwNPv+QFZX3dUYsqBddXimPmVlBErCjmNlWzGaQc2NIC9j
+         sAN4ZrXFdEJqqvoTrKHlnHJFZawpugZ0jHLvM38LlHa9JvzSky7CqCNBibY0TyKNsWGp
+         4VHZNcHbGtGcvCBcVjUquDXcEQidUacnrPTCp+FwY2/mQuTk3HpYOdL+/hb9uFSij9mP
+         zctW62FDZrWJ/NNgI0PPyPyWpn3ZpKBpPFdHxx8GQt9eDaA8vXpyY2Dx/G+g7Sid4scE
+         Duvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794197117; x=1794801917;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
-        b=vJiJaXF+9GSb7KXp8WztGQE+s14u4acTdowr590sOD8VaMl0LWDah6g3daLKSLVX7A
-         dU2IoMFigg1ewhlR1z9/3wAPiogM19REyqjb1SvmM6WLmzJ5th9elcj8l+x2DCeIUv5N
-         s7tAIlKMUD3BtfY8zJHbDz70GRy1yxyBdzqR8SkVexGI0DqsJ0y1GSqe2856K7VLTHX1
-         meHTZhUOiE1Y0wz1fedx8UWpHFY/E/jhMHymCn7DORK+RVwE2iI1PlLRupwAPSJIYxEs
-         taiwZzL386E1uD5PqWCJPfnjkdAuOFLJHmUvCDS/jMcReszqQzbci8EmAzuS7LANZHfI
-         oOUA==
-X-Forwarded-Encrypted: i=1; AL+hErHPlkcG+eRfIsw4SZgVNPzkysiW6hV6eop3vLfTJHBfZ82gkMdXhIi9T4hOxCCXN/w86FqAus90TqU25wI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vmaUjUhN+iDtftvc4X1E2ILEU84neDohrRH44bZ0TuQfB3gs6
-	NRiqI+saIWW2OLuhuvXpBsFLBM/7I8XGl1oJIEuMO+LVFrVlmEgDqGrG
-X-Gm-Gg: AYBFou0SgzEkwUhOEYeh/YthFLngT7fZH6WN60NuUcD8G0b7khW4sAdMdg08ckUyta8
-	ZkN6cbX1mjWdy4K6CTTOu3GwOxJALHhYK8dwLvQFg2r5FcnIkGBUnkl0P3R1TJc3XGG2+b1QKxk
-	3vseId2ufE8fJJrc3ju+/1VHh2OXO1A2X94Sx455o9eAjGzBjkbkJZQNHMSzKEPdPm3drhJC88Q
-	XmmqpBDsFyJp1BLxXSAyegwnmaGFgPGV3HCmfcp0EdollZt0BcrkbJFpEHzLq4KOsuIkEZve4GM
-	pnAx57P3C5buh7HHLZ7O8V2+QaTqZn0PZTLTVv1T+kxpvmP5MwRFQUZfrnc0CcJDV//2XnH3J8t
-	OtjaYHCOoNoXLCwxDSaec4iI2rFn6zRJ1LO8pg4Gi1hXLOfZx8+E4P2lGFUNDiOnFUKpFPcmuNt
-	WIDaRjBDFoBvcNBMka5Rxeob1byc7eDAo6kMZ/RHBj+5Cj5TTeYT5fIuKHyMm7RVg4zMBP4pxgD
-	HD7BpfV2ZB4Cg1fKfIP7HlFDxWOgLrqOD2KtbOn/j9cO2C4+1z/AYjHerWL3qA4fVqI+j6cqzMS
-	EjGkKQ8f5J1XsafTEX9+PYDgFEt11V3bOej0qtcNy8Z2IYIgKy5OlabE266FZ9ggHNSZnSKXfFc
-	WuevdkZqdelmI2wSP2luII2tz2MAuSdEfvZK8bIEbXcw9xPFw659tzE4E4OQRPxODS8SuC6rT3L
-	Gn0rXiTjVnzkqC9p+GAxkptxg=
-X-Received: by 2002:a17:90a:fc4d:b0:3ad:25f6:1dd0 with SMTP id 98e67ed59e1d1-3b12d444739mr2752350a91.11.1794197116640;
-        Sun, 08 Nov 2026 20:05:16 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b127891fa4sm5116170a91.4.2026.11.08.20.05.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 20:05:15 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Alban Bedel <albeu@free.fr>,
-	Vinod Koul <vkoul@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 2/2] phy: ath79-usb: support the analog reset
-Date: Sun,  8 Nov 2026 20:04:51 -0800
-Message-ID: <20261109040451.114135-3-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109040451.114135-1-rosenp@gmail.com>
-References: <20261109040451.114135-1-rosenp@gmail.com>
+        d=1e100.net; s=20260707; t=1794197302; x=1794802102;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
+        b=NM7W9qHR+LZIZhvfrHSblz9+PvdRpLzv97OTR52t7yC5K7q5z+ua7VXVAAZuuk41Dh
+         /4tW9EIUG8Dcgta8Xzb3PvW1cp2AcirzAQApqMxtZJ+6qsP9ohvNgCbRq+ImcD0IqNDq
+         aeLL6ZLmCOA3lhbiYplc5+8RKtmAaNdnV0vSCenPjBTKA5TiW0hucecSiqXEnNVtG/ll
+         xwqai6SsQVlItzsQTb4qUlBbDVk7PpmFgBupi6MLuMXtbUFB8LKQqjsUkZ12mISHY8qD
+         hWasT72deOd44UDINdYM/Ic5brjy4SBmdCLYXN9KRmTp+BEdVhu5m5eirWpWchzNFeAC
+         UWsA==
+X-Forwarded-Encrypted: i=1; AL+hErEAWo/Vl5eaZTfdppD4xPZa+9aVU1GdPa3pFfVfheJX4CqA7N1wpilK5lOtBE43WH3roeJIYamfW8yp8N4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88DRhBopTvPRwpnS9I+I9KfskuYt+XdyEv7B+YuxqjTIHOaUgD
+	nLl51CV/cPFh6K0I8NOS7B43aoXzTdO1Z97gtt95cjECWMuNtxxm3ai4dekMHfAZNg07unM54ck
+	wnqdVZ95UlKfdlZ4+XhaRFp+7FmECXxs=
+X-Gm-Gg: AYBFou1oy02sENS261cQ3L3m5mFTqShfcldgk2WYWoakcOzW+iT7fdwabzQRRPFUFPJ
+	XAzIvrDmL/Ad+g/f57z8iKMv1x5LE9HvUyPDBW9YQ3z2EMEoA7wOZg7yOgd5U1dd46GR+2yI1tn
+	VLGS0yqWKu6hBXvfmHoMBBPhb3qadruzVVl+gl27nsJtdWfNpDwAuPveYKYq24gbVo7Z7tFhjHm
+	PkgfVv/Vlh+0lTCXXIeGcGj7VNme2K0UMoRb7vf7kJTjdTOAB6+0OBkoP/9zLQZulAN3ZBviJJc
+	MbdppV1B49eFg8k5EpLaiFswD83iQqd8gWR/dsSHpRGAudDfFA9p0ZRAA0sfeAMxRhd/aXDgFoh
+	bH6hkG1YzaDRm9hUX87BPGfgNf0s37g+LfAsa6EmcqGxn4/jAZetSnZH1w8IQVeHJJX8=
+X-Received: by 2002:a05:6402:274d:b0:6b5:76be:62e0 with SMTP id
+ 4fb4d7f45d1cf-6b722480872mr1993578a12.35.1794197302011; Sun, 08 Nov 2026
+ 20:08:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,93 +104,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260803135249.2898083-1-wenst@chromium.org>
+In-Reply-To: <20260803135249.2898083-1-wenst@chromium.org>
+From: Inki Dae <daeinki@gmail.com>
+Date: Mon, 9 Nov 2026 13:07:45 +0900
+X-Gm-Features: AclHuK_ZmjCHtFzSMtsaBOPEyrbrKGy7XikpiPUkajiV_K7VOdZCVHHguZRFD24
+Message-ID: <CAAQKjZP+W0_gByaDAv8DrtxFgSDdtw4AMd-=tA_Pr8gL30z1iA@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: Set supported modifiers during plane init
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From AR934x on, the analog part of the USB PHY has its own reset. The
-old platform code released it after the PHY reset on AR934x, and left
-it to the bootloader on QCA955x.
+Sorry for late review,
 
-Take it as an optional "phy-analog" reset, release it after the PHY one
-when powering on, and assert it first when powering off. This is the
-reset handling OpenWrt has used on its AR934x, QCA955x and QCA956x
-boards.
+2026=EB=85=84 8=EC=9B=94 3=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 11:22, C=
+hen-Yu Tsai <wenst@chromium.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> The exynos driver currently checks the modifier in a helper called by
+> the plane atomic check helper callback. This check only concerns whether
+> the selected plane supports the tiled format or not. This is tied to
+> the plane's hardware capability.
+>
+> Turns out the tiled support was added around the same time modifiers
+> were being plumbed through DRM planes. The latter provided a way to
+> describe per-plane modifier support.
+>
+> Add a field to the hardware plane capability struct to allow adding
+> an optional list of supported modifiers. This is passed to
+> drm_universal_plane_init(). This also allows the core to generate
+> and pass to userspace a list of supported modifiers for each plane.
+>
+> EXYNOS_DRM_PLANE_CAP_TILE and the existing helper are removed, as the
+> check is now down by the DRM atomic check.
+>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_drv.h   |  2 +-
+>  drivers/gpu/drm/exynos/exynos_drm_plane.c | 30 +----------------------
+>  drivers/gpu/drm/exynos/exynos_mixer.c     |  8 +++++-
+>  3 files changed, 9 insertions(+), 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.h b/drivers/gpu/drm/ex=
+ynos/exynos_drm_drv.h
+> index b126cd129944..ab0edb826261 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
+> @@ -92,7 +92,6 @@ struct exynos_drm_plane {
+>  #define EXYNOS_DRM_PLANE_CAP_DOUBLE    (1 << 0)
+>  #define EXYNOS_DRM_PLANE_CAP_SCALE     (1 << 1)
+>  #define EXYNOS_DRM_PLANE_CAP_ZPOS      (1 << 2)
+> -#define EXYNOS_DRM_PLANE_CAP_TILE      (1 << 3)
+>  #define EXYNOS_DRM_PLANE_CAP_PIX_BLEND (1 << 4)
+>  #define EXYNOS_DRM_PLANE_CAP_WIN_BLEND (1 << 5)
+>
+> @@ -112,6 +111,7 @@ struct exynos_drm_plane_config {
+>         const uint32_t *pixel_formats;
+>         unsigned int num_pixel_formats;
+>         unsigned int capabilities;
+> +       const uint64_t *modifiers;
+>  };
+>
+>  /*
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_plane.c b/drivers/gpu/drm/=
+exynos/exynos_drm_plane.c
+> index 5c04ef87e400..31f5f0941154 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_plane.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_plane.c
+> @@ -174,30 +174,6 @@ static struct drm_plane_funcs exynos_plane_funcs =3D=
+ {
+>         .atomic_destroy_state =3D exynos_drm_plane_destroy_state,
+>  };
+>
+> -static int
+> -exynos_drm_plane_check_format(const struct exynos_drm_plane_config *conf=
+ig,
+> -                             struct exynos_drm_plane_state *state)
+> -{
+> -       struct drm_framebuffer *fb =3D state->base.fb;
+> -       struct drm_device *dev =3D fb->dev;
+> -
+> -       switch (fb->modifier) {
+> -       case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
+> -               if (!(config->capabilities & EXYNOS_DRM_PLANE_CAP_TILE))
+> -                       return -ENOTSUPP;
+> -               break;
+> -
+> -       case DRM_FORMAT_MOD_LINEAR:
+> -               break;
+> -
+> -       default:
+> -               DRM_DEV_ERROR(dev->dev, "unsupported pixel format modifie=
+r");
+> -               return -ENOTSUPP;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+>  static int
+>  exynos_drm_plane_check_size(const struct exynos_drm_plane_config *config=
+,
+>                             struct exynos_drm_plane_state *state)
+> @@ -245,10 +221,6 @@ static int exynos_plane_atomic_check(struct drm_plan=
+e *plane,
+>         /* translate state into exynos_state */
+>         exynos_plane_mode_set(exynos_state);
+>
+> -       ret =3D exynos_drm_plane_check_format(exynos_plane->config, exyno=
+s_state);
+> -       if (ret)
+> -               return ret;
+> -
+>         ret =3D exynos_drm_plane_check_size(exynos_plane->config, exynos_=
+state);
+>         return ret;
+>  }
+> @@ -312,7 +284,7 @@ int exynos_plane_init(struct drm_device *dev,
+>                                        &exynos_plane_funcs,
+>                                        config->pixel_formats,
+>                                        config->num_pixel_formats,
+> -                                      NULL, config->type, NULL);
+> +                                      config->modifiers, config->type, N=
+ULL);
+>         if (err) {
+>                 DRM_DEV_ERROR(dev->dev, "failed to initialize plane\n");
+>                 return err;
+> diff --git a/drivers/gpu/drm/exynos/exynos_mixer.c b/drivers/gpu/drm/exyn=
+os/exynos_mixer.c
+> index 69dea5049309..d74e605a452b 100644
+> --- a/drivers/gpu/drm/exynos/exynos_mixer.c
+> +++ b/drivers/gpu/drm/exynos/exynos_mixer.c
+> @@ -93,6 +93,12 @@ static const uint32_t vp_formats[] =3D {
+>         DRM_FORMAT_NV21,
+>  };
+>
+> +static const uint64_t vp_modifiers[] =3D {
+> +       DRM_FORMAT_MOD_LINEAR,
+> +       DRM_FORMAT_MOD_SAMSUNG_64_32_TILE,
+> +       DRM_FORMAT_MOD_INVALID
+> +};
+> +
+>  struct mixer_context {
+>         struct platform_device *pdev;
+>         struct device           *dev;
+> @@ -148,8 +154,8 @@ static const struct exynos_drm_plane_config plane_con=
+figs[MIXER_WIN_NR] =3D {
+>                 .num_pixel_formats =3D ARRAY_SIZE(vp_formats),
+>                 .capabilities =3D EXYNOS_DRM_PLANE_CAP_SCALE |
+>                                 EXYNOS_DRM_PLANE_CAP_ZPOS |
+> -                               EXYNOS_DRM_PLANE_CAP_TILE |
+>                                 EXYNOS_DRM_PLANE_CAP_WIN_BLEND,
+> +               .modifiers =3D vp_modifiers,
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/phy/qualcomm/phy-ath79-usb.c | 33 +++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+The VP plane advertises the tiled modifier for both NV12 and NV21, but
+framebuffer_check() accepts it only for NV12[1]. Could you add a
+format_mod_supported callback to restrict that combination? For
+example, the callback could check that the modifier is present in
+plane->modifiers, then reject DRM_FORMAT_MOD_SAMSUNG_64_32_TILE when
+the format is not NV12:
+static bool exynos_plane_format_mod_supported(struct drm_plane *plane,
+                                              u32 format, u64 modifier)
+{
+        unsigned int i;
 
-diff --git a/drivers/phy/qualcomm/phy-ath79-usb.c b/drivers/phy/qualcomm/phy-ath79-usb.c
-index 8e9565846b2f..1e7868fc0b5f 100644
---- a/drivers/phy/qualcomm/phy-ath79-usb.c
-+++ b/drivers/phy/qualcomm/phy-ath79-usb.c
-@@ -12,6 +12,7 @@
- 
- struct ath79_usb_phy {
- 	struct reset_control *reset;
-+	struct reset_control *analog_reset;
- 	/* The suspend override logic is inverted, hence the no prefix
- 	 * to make the code a bit easier to understand.
- 	 */
-@@ -30,7 +31,19 @@ static int ath79_usb_phy_power_on(struct phy *phy)
- 	}
- 
- 	err = reset_control_deassert(priv->reset);
--	if (err && priv->no_suspend_override)
-+	if (err)
-+		goto err_suspend_override;
-+
-+	err = reset_control_deassert(priv->analog_reset);
-+	if (err) {
-+		reset_control_assert(priv->reset);
-+		goto err_suspend_override;
-+	}
-+
-+	return 0;
-+
-+err_suspend_override:
-+	if (priv->no_suspend_override)
- 		reset_control_deassert(priv->no_suspend_override);
- 
- 	return err;
-@@ -41,14 +54,22 @@ static int ath79_usb_phy_power_off(struct phy *phy)
- 	struct ath79_usb_phy *priv = phy_get_drvdata(phy);
- 	int err = 0;
- 
--	err = reset_control_assert(priv->reset);
-+	err = reset_control_assert(priv->analog_reset);
- 	if (err)
- 		return err;
- 
-+	err = reset_control_assert(priv->reset);
-+	if (err) {
-+		reset_control_deassert(priv->analog_reset);
-+		return err;
-+	}
-+
- 	if (priv->no_suspend_override) {
- 		err = reset_control_deassert(priv->no_suspend_override);
--		if (err)
-+		if (err) {
- 			reset_control_deassert(priv->reset);
-+			reset_control_deassert(priv->analog_reset);
-+		}
- 	}
- 
- 	return err;
-@@ -78,6 +99,12 @@ static int ath79_usb_phy_probe(struct platform_device *pdev)
- 	if (IS_ERR(priv->no_suspend_override))
- 		return PTR_ERR(priv->no_suspend_override);
- 
-+	/* AR934x and later also hold the analog part in reset */
-+	priv->analog_reset = devm_reset_control_get_optional(&pdev->dev,
-+							     "phy-analog");
-+	if (IS_ERR(priv->analog_reset))
-+		return PTR_ERR(priv->analog_reset);
-+
- 	phy = devm_phy_create(&pdev->dev, NULL, &ath79_usb_phy_ops);
- 	if (IS_ERR(phy))
- 		return PTR_ERR(phy);
--- 
-2.56.0
+        for (i =3D 0; i < plane->modifier_count; i++)
+        if (plane->modifiers[i] =3D=3D modifier)
+                break;
 
+        if (i =3D=3D plane->modifier_count)
+                return false;
+
+       return modifier !=3D DRM_FORMAT_MOD_SAMSUNG_64_32_TILE ||
+                 format =3D=3D DRM_FORMAT_NV12;
+}
+
+This can be assigned to exynos_plane_funcs.format_mod_supported.
+Checking the modifier list matters here because DRM delegates that
+validation to the callback when one is present.
+
+Thanks,
+Inki Dae
+
+
+[1] in drm_framebuffers.c
+static int framebuffer_check(struct drm_device *dev,
+    const struct drm_format_info *info,
+    const struct drm_mode_fb_cmd2 *r)
+{
+...
+        /* modifier specific checks: */
+        switch (r->modifier[i]) {
+        case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
+               /* NOTE: the pitch restriction may be lifted later if it tur=
+ns
+                * out that no hw has this restriction:
+                */
+                if (r->pixel_format !=3D DRM_FORMAT_NV12 ||
+                         width % 128 || height % 32 ||
+                          r->pitches[i] % 128) {
+                       drm_dbg_kms(dev, "bad modifier data for plane %d\n",=
+ i);
+                       return -EINVAL;
+        }
+...
+
+>         },
+>  };
+>
+> --
+> 2.55.0.571.g244d577d93-goog
+>
+>
