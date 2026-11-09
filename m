@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217539;
-	b=JAsTo89GjhVB7dqR+IrTgM0nZ3FZqIDB6CIvL7wkFjcTsxMbHX1b+vVqKXagWQEXW7na
-	 OryqwKvoUDjxnKWlcQ3rc9BfLtXHU3lnaCaO+Iqh5AVuxp9Ouqn7wWkViARguO7IhGMiY
-	 AIflURGeienTrWv8a94QSrGKIOkqhgp42fgNbm7/auof7iJYhs4YXF7gDMZ+p+GaxRQY4
-	 TQCTJvQDi81hiW3Jk/kRtX3Gxs0wy7Udn5n48XfIqJvSdzTRuKBMOvjJtbKsRy6RluV4L
-	 44vy6FPZTPGBH+sXBkAgDBNFQ/Kc5+xfPMz+5TL3G0KuTASKMT23J8/7VX0pE28m/Cw==
+	t=1794217580;
+	b=AxVmVtil+VSKj1GExLz/dtTvYY90lfc635uvRPqRt/6YcRgXxU7panhLkHjeNjANyADm
+	 WRJWmsTbm2+302dSVkkiDq7fznetgi8/aM1n/eSGn0/qTHxjcskXZWhHqjTuLyF5RONLh
+	 L/arTSG5D0L8D05QCWVZfotni6U41wl8FXDxq13xP6OGXOvva9MZO3kbMtVCad3GvARUz
+	 tUOAY/C+qTXG/fo97JyZKG1LuEZoJEjdt7lBNyORbx9DAYqfYS0tBX9Qz6isoZsTdU/RK
+	 7X9lZxFDZMu3LaOY1USkCEqTlvxorj6+Wh+pWrvCRiExrYu90acSuxgjzMcWKQbmcSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217539;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aVhDRH0Ejv2dP5BNHANZ6BfN36P5eG+GYmlsiu8O5i0=;
-	b=FodVHqY00jPqklCfQzlzNxy5Pxbmx6zmxU2ihT+YXUdXeNt4s4LqYiaFH+T6Szfn1H8S
-	 jxqJNHzc0H70SS/ymZWu0heVmN6g+wcmgovtrR0x+4vscOR7X3EacJ2GBhnTkOrO6MSpJ
-	 wN18/+/nkkSb5E4R/qvtQgwuhXWTpr6x/7jYbObAepK2FMi5Jsf+4v1MANvTHF0217XSV
-	 haM7nLD5BCzR81DtqRD2F+Il9nGd03HfhE4VCTtZaodqZnqxY8EmosQlKx/NBz/d8vOby
-	 AcEdfNe3vnXfkhcSaTOR3eLoS6VnxVmWF0RCpRe+Qk6FqPeKWG8VUXX8k8iXSQmH8gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217580;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=j/JNSqiuxSrB70B02fRtLw3bSYxRwlLDMiCkZqEuAV0=;
+	b=CJT2g4mqqA8OQZ6jYLh1mjvd4Kmx9rB1SeD5xNtRDmK9Ta+GuRRc8jYoz64HiuEgurAQ
+	 XU5OU/Fh2INCxJcGLXNxTdswBYJ7QKS4TPmX4Y49fB2F2/uOkJLhHlgEA8WOy8B1s1V7+
+	 yGVFNWPeQTeD+MQwBg89snQyVlxT5MHQMuR5KtECQnl9ZBxpUZLO0PSaoWTPBdAv9d6m2
+	 S52m+3Lj2gOwSfu8f+hc/PWORAHnDJNXfhsog8np853B/cR73Q2DNDaV3zvVutvajAcJ0
+	 Uq90VRVxK2ompnDAMHl6ppVtiDsPNTykxzOSGu2PdohQO3j9ivZdNATTHz3wIFK/A3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIiDOn+6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTDGMlJi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2682606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:45:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97494606A323;
+	Mon,  9 Nov 2026 09:46:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIiDOn+6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD65A1F008BE
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:45:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTDGMlJi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E831F008A1;
+	Mon,  9 Nov 2026 09:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794217538;
-	bh=aVhDRH0Ejv2dP5BNHANZ6BfN36P5eG+GYmlsiu8O5i0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IIiDOn+6mHfBnlcx8dhDV0FbXr2mIkgDI/paabPEfftwv+t/j09LPO0F9TMdLelU0
-	 tF2I7Yd6xJ8I9DUoadaKfVesvIhkMVneSGd/Yyc6alpGUegu/IMkgHDPJOxukl+4K9
-	 HVuGPXppT6pwICcvzAwKVAc9t3ftXP6BPM/xsK7sBY74+t775KrL45Z4Dj+6YK5a9b
-	 92SdWwCP63fFsXWmHTdJ9eLVu1/SoGtiU8M298cTk6P5HkN5ayeiHetEDIZELpuaRB
-	 znspq3nuzORltN9i94EKzRNFp9RwUmabvzdG5ZuUL7SO4xL9xcUbOSTMUAr/AaOJzh
-	 AkQbbHe0knYPA==
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5e948e56af3so236847e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:45:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFn8RgghX4Xgd4zy7HPbgQjGIHA8wuByyxRJrQ327P8vaRFIblSK9sZld+35Ej350NVccN45smt6QaSuL4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OciEE98+ZI8E8er7ssLrFVUg9ZfMSxOMsKQI/QAp2l85CZMg0
-	LfvxR9iP8mSKRyi5WMYQRRQ6FDyjVVjusieCjAwYqFdDDjR4KDftzdnf2kc+KYzd3LBKoHP6H5Z
-	h+ZPrfkB1Dbf48OntyMmGzZeRLFYmBpI=
-X-Received: by 2002:a05:6122:e203:b0:5c9:a60d:3276 with SMTP id
- 71dfb90a1353d-5ece7246f6emr692804e0c.10.1794217537447; Mon, 09 Nov 2026
- 01:45:37 -0800 (PST)
+	s=k20260515; t=1794217580;
+	bh=j/JNSqiuxSrB70B02fRtLw3bSYxRwlLDMiCkZqEuAV0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PTDGMlJiFfoBNSmEUkvji9RMFkPeN4z4fd7qZkPHZUv6bnJeH3EVqTDCdYQTfAR0s
+	 62mc7epQR3o0y6ka5+NLoWSfu3U+bwdhCVuadEPBrQfU/OZ29SKpTmZwZKnsls2Xb7
+	 MKB3kDEyBncpmpYU/DMCpSg5Gj8dstE8ZIsbLaWRqfTJE5qd3f0jXJYVSLjPnBXfVV
+	 snc/Ntd9R2XVSSzVFOw0TNgOQ0zYi/qDVpUbP1t+XiPhNSBAHNsz0zwoXeWAVaF8cU
+	 DH0iIjZ7PS4C+R9aYp68PO+r99+rbRL/Gr3xkQzOGS8OajM6J81LcBfgabjfa1cP3f
+	 MrCUSQtd9QDVA==
+Subject: Re: [PATCH net-next v2 1/2] net: dsa: motorcomm: Report error when
+ FDB fails to add
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 09:46:19 +0000
+Message-ID: <179421757926.994134.10474840324955611823@kernel.org>
+In-Reply-To: <20261108094512.1285796-2-mmyangfl@gmail.com>
+References: <20261108094512.1285796-2-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,211 +63,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
- <20261016-mglru-fg-v4-15-2106750c0bfa@tencent.com> <CAGsJ_4wTFHJxzuiRDBcuevdULMcD+se6SuPbzWKA8wsUAG80_w@mail.gmail.com>
- <CAMgjq7Atry0zRc_-xbrL_VubxTBQOT8R2_aumghXQaO9uTANHg@mail.gmail.com>
-In-Reply-To: <CAMgjq7Atry0zRc_-xbrL_VubxTBQOT8R2_aumghXQaO9uTANHg@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 9 Nov 2026 17:45:24 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wRw=z0fqWo8pK6cJ-NdnjxC-W7uLRw=_Y+VjNaAO2+kQ@mail.gmail.com>
-X-Gm-Features: AclHuK8xNVegVCW7QSB1W4kv0lSWF1rRdFvqk_1TYyR009hud_IPjR1oWsQQqAY
-Message-ID: <CAGsJ_4wRw=z0fqWo8pK6cJ-NdnjxC-W7uLRw=_Y+VjNaAO2+kQ@mail.gmail.com>
-Subject: Re: [PATCH v4 15/17] mm/mglru: make folio_inc_lru_refs lruvec lockless
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, SJ Park <sj@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Chris Li <chrisl@kernel.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nico Pache <nico.pache@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
-	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
-	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
-	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
-	Xiang Liu <liuxiang.277@bytedance.com>, Ehab Ababneh <ehab.ababneh@intel.com>, 
-	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, Lian Wang <lianux.mm@gmail.com>, 
-	Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, damon@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 9, 2026 at 4:08=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrote=
-:
->
-> On Mon, Nov 9, 2026 at 5:48=E2=80=AFAM Barry Song <baohua@kernel.org> wro=
-te:
-> >
-> > On Fri, Oct 16, 2026 at 2:16=E2=80=AFAM Kairui Song via B4 Relay
-> > <devnull+kasong.tencent.com@kernel.org> wrote:
-> > >
-> > > From: Kairui Song <kasong@tencent.com>
-> > >
-> > > The lruvec spinlock in folio_inc_lru_refs was only taken to keep
-> > > concurrent aging from corrupting the size counters.  This is no
-> > > longer needed: the per-generation counters are atomic, and the
-> > > active/inactive ABI counters are updated per folio and linearized by
-> > > the CAS on the folio flags, so concurrent aging can no longer corrupt
-> > > them.  The same argument already allowed folio_reset_lru_refs() to
-> > > drop the lock.
-> > >
-> > > Use folio_lruvec_live_get()/folio_lruvec_live_put() to hold the RCU
-> > > read lock around the lruvec lookup, and drop the spinlock entirely.
-> > >
-> >
-> > Yes, this is cool. We have two paths calling
-> > folio_inc_lru_refs() or folio_inc_lru_refs_walk().
-> >
-> > 1. folio_mark_accessed() from syscall access
-> > 2. walk_update_folio() from page table walker or look_around
-> >
-> > For the latter, we can't actually cross multiple
-> > lruvecs/memcgs, because of get_pfn_folio() as shown
-> > below:
-> >
-> > static struct folio *get_pfn_folio(unsigned long pfn, struct mem_cgroup=
- *memcg,
-> >                                    struct pglist_data *pgdat)
-> > {
-> >         ...
-> >         rcu_read_lock();
-> >         if (folio_memcg(folio) !=3D memcg)
-> >                 folio =3D NULL;
-> >         rcu_read_unlock();
-> >         ...
-> > }
-> >
-> > Consider a common library file used by 100 memcgs, with
-> > its folio residing in the root memcg.
-> >
-> > When walking the 99 non-root memcgs, even if the folio
-> > has been accessed, we won't get a chance to call
-> > folio_inc_lru_refs_walk() for it. As a result, this folio
-> > may eventually reach the eviction rmap path. With a high
-> > mapcount, folio_referenced() could become quite
-> > expensive.
-> >
-> > That's what I was trying to point out here as well:
-> >
-> > https://lore.kernel.org/linux-mm/20261102213915.57805-1-baohua@kernel.o=
-rg/#t
->
-> Hi Barry,
->
-> Thanks for the review, I saw that too, very interesting approach! And
-> I believe it will helpful.
->
-> > For the former, you can get the lruvec with:
-> >
-> > lruvec =3D lruvec_live_lock_irq(folio_lruvec(folio));
-> >
-> > I'm wondering whether we could eventually unify them
-> > so that both support cross-memcg inc_refs.
->
-> Definately, actually for that link you posted, combined with the code
-> snip above, after FG, I think we can further simplify that, no need to
-> check mem_cgroup_is_descendant, we just do:
->
-> - folio_inc_lru_refs_walk: if the folio belongs to the lruvec being
-> walked, the batch stays in walk->lruvec
-> - folio_inc_lru_refs: if the folio is a remote one, per-folio, no batch
->
-> non-descendant folio sharing across memcg are actually quite common
-> e.g., libc and shared mapped memory, this could be more helpful? And
-> it seems fast for the walker.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-I agree. I mentioned mem_cgroup_is_descendant() because
-folio_referenced() checks for descendants and ignores
-folios belonging to non-descendant memcgs:
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-static bool invalid_folio_referenced_vma(struct vm_area_struct *vma, void *=
-arg)
-{
-        struct folio_referenced_arg *pra =3D arg;
-        struct mem_cgroup *memcg =3D pra->memcg;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-        ...
-        /*
-         * If we are reclaiming on behalf of a cgroup, skip counting on beh=
-alf
-         * of references from different cgroups.
-         */
-        if (memcg && !mm_match_cgroup(vma->vm_mm, memcg))
-                return true;
+- [Medium] Bit 14 of YT921X_FDB_RESULT is defined in chip.h:284 as
+  YT921X_FDB_RESULT_NOTFOUND.
+- [Low] This patch fixes a real silent-failure bug but has no Fixes: tag.
 
-        return false;
+--
+
+net: dsa: motorcomm: Report error when FDB fails to add
+
+This patch makes yt921x_fdb_add() check the result word after the hardware
+OP_ADD operation. It now returns -ENOSPC when the result reports a failure,
+instead of always returning success. The commit message describes this as
+preparation for the upcoming static entry counters.
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index 33e5fc127244d..a7a9a74393045 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -725,7 +725,13 @@ yt921x_fdb_add(struct yt921x_priv *priv, const unsigned char *addr, u16 vid,
+>  	if (res)
+>  		return res;
+>  
+> -	return yt921x_fdb_wait(priv, &val);
+> +	res = yt921x_fdb_wait(priv, &val);
+> +	if (res)
+> +		return res;
+> +	if (val & YT921X_FDB_RESULT_NOTFOUND)
+> +		return -ENOSPC;
+
+[Severity: Medium]
+Is YT921X_FDB_RESULT_NOTFOUND the right bit to treat as a capacity failure
+after an OP_ADD?
+
+Everywhere else in the driver this bit means a lookup miss. For example,
+yt921x_fdb_has() checks it after a hash-mode GET_ONE:
+
+drivers/net/dsa/motorcomm/chip.c:yt921x_fdb_has() {
+    ...
+	res = yt921x_fdb_wait(priv, &val);
+	if (res)
+		return res;
+	if (val & YT921X_FDB_RESULT_NOTFOUND) {
+		*indexp = YT921X_FDB_NUM;
+		return 0;
+	}
+    ...
 }
 
-static inline bool mm_match_cgroup(struct mm_struct *mm,
-                                   const struct mem_cgroup *memcg)
-{
-        struct mem_cgroup *task_memcg;
-        bool match =3D false;
+The only caller of yt921x_fdb_add() is yt921x_fdb_join(), and it calls it
+only after yt921x_fdb_has() has reported the key absent. In that case a
+"not found" flag would naturally be set.
 
-        rcu_read_lock();
-        task_memcg =3D mem_cgroup_from_task(rcu_dereference(mm->owner));
-        if (task_memcg)
-                match =3D mem_cgroup_is_descendant(task_memcg, memcg);
-        rcu_read_unlock();
-        return match;
-}
+Suppose the hardware sets this bit on ADD to say the key was not present
+before the insert. Wouldn't every new static FDB/MDB entry then fail with
+-ENOSPC? That would include the host addresses DSA installs on the CPU
+port:
 
-I actually wonder whether this is really correct...
+yt921x_dsa_port_fdb_add() / yt921x_dsa_port_mdb_add()
+  -> yt921x_fdb_join()
+    -> yt921x_fdb_has()   /* key absent */
+    -> yt921x_fdb_add()   /* OP_ADD, NOTFOUND set -> -ENOSPC */
 
->
-> folio_inc_lru_refs_walk follow the same rule as folio_inc_lru_refs
-> (with MAPPED flag), just faster, skipping RCU and the speculative
-> check afterwards as the walker owns the seq it is advancing, and
-> caller handles the batch update of counter. While folio_inc_lru_refs
-> only requires the caller to hold an reference to the folio it heavily
-> relies on RCU / CAS conventions, not easy to batch things there, but
-> it's still accetablily fast already (e.g. the fio read test showed
-> almost no performance penalty).
+If the bit instead means a generic lookup or insert failure (for example,
+no free slot in the hash bucket), could a comment or an alias macro be
+added so the ADD-time meaning is written down?
 
-Yes. One tricky aspect is that update_batch_size() is
-designed for the current lruvec, not a remote one.
+YT921X_FDB_RESULT_OVERWRITED is also defined, but nothing reads it.
 
-static void walk_update_folio(struct lru_gen_mm_walk *walk, struct
-vm_area_struct *vma,
-                struct lruvec *lruvec, struct folio *folio, bool dirty)
-{
-        ...
-        if (walk) {
-                old_gen =3D folio_update_gen(folio, new_gen, &type, &vma->f=
-lags);
-                if (old_gen >=3D 0 && old_gen !=3D new_gen)
-                        update_batch_size(walk, folio, old_gen, new_gen, ty=
-pe);
-        } else if (lru_gen_set_refs(folio, &vma->flags)) {
-                ...
-        }
-}
+> +
+> +	return 0;
+>  }
+>  
+>  static int
 
->
-> And I think the main reason MGLRU can't operate cross memcg was, lack
-> of a protocol to stablilze the memcg's gen and holding a lock is too
-> costly, now folio_inc_lru_refs handles that, and FG
->  lives on top of that. So we can try that out right after the FG series.
+[Severity: Low]
+Should this patch carry a Fixes: tag?
 
-Yes, absolutely. With MGLRU-FG, we lay the groundwork
-for further cross-memcg optimizations.
+Before this patch, yt921x_fdb_add() returned 0 even when the hardware
+rejected a hash-mode OP_ADD. DSA and the bridge then counted the static FDB
+or MDB entry as offloaded, although the switch had never programmed it.
 
-On Android, we observed that folios with very large mapcounts
-still reach the rmap path because walk and look-around cannot
-promote them across memcgs. In more than 99% of cases,
-folio_referenced() finds them PTE-young. As a result, these
-folios incur the rmap overhead but are unlikely to be
-reclaimed. It's essentially wasted rmap work.
+The ignored result seems to come from the original driver commit:
 
-With the cross-memcg optimizations, we are likely to
-eliminate this overhead.
+Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
 
-Thanks,
-Barry
+The commit message says:
+
+  In practice the 4096-entry table is hardly ever filled
+
+The ADD is hash keyed and not index based (no YT921X_FDB_OP_MODE_INDEX).
+Could the hardware reject it once a single hash bucket is full, well before
+all 4096 entries are used?
+
+If the patch is not meant for stable, could the commit message say why?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108094512.1285796-1-mmyangfl%40gmail.com
