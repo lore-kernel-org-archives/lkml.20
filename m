@@ -1,82 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192561;
-	b=G2vp/Y+vlBYac1Imv404gFugL0JQrf0gGGVd2SG9qYGiducsl6CiZpSfPs6RVydIZ6aw
-	 mKcCB+cH9UM4vD6749ik5OsrLexPagzsN2+eoUv7wsi5RKl3Pq34TJxiT0cFXaawWE66h
-	 /ADkeaaOV6VZuj4q3GBaQSZwlLIXD8ekZskn1P1/uuh14+1GyXgYm7UzbS4NylPAcSDcU
-	 LC40tr9ibE4YZag4afl7F8vK2pkWxe/PNvQHvMais3TmV/+2bWufk1EWcMh24wN9xepk1
-	 9KRDBo5O6CmVUOimSvgvmh83ry1y0rZvf8q7wCkRvVmGWUFYWQ/3hIef81c2tW7NPeQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192561;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=YJFIEO4Yo1Kwr5WnDwBRFU+vuAS+BAEotaPvoQmyOGM=;
-	b=QUTkIaazlsgCQVeaqp0u0dGEWmP5/BoLzrVJgYA9nrDAjp5MLwvl0mshv9J9+CBGhgPG
-	 RSc7aeZsPOnwBEtB34gs+Lwwrfqn9ZgcTED754onOXVjcd17+A8LBdlpk5Z5UlsTVgzfy
-	 byFDCcMVf5EmuFTi14XKUYnoCKX1O7mmZJLJzybirJGqYcKBg3RHkJbIQQEU/pIAz2ZRk
-	 5/LcWjP/vSSh5OCcoYB5PulnP8FQXXahOzxSBt8UxxGA+abJg7CKq/xS8+t3mW/U1+kvk
-	 kytVYGLLiAquUutBcDFC4xOm6i35Qu+b2XSeJUQ1rtNpHvxQSxZrC+hI2gmFDJr4VWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=CCcGPtBU;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794192612;
+	b=OmLA9RDcq/At8AQNvwYiQH4PL6o4G+6F62FLzypuUaORN4SyatpflXKd3M+pqkm33ucV
+	 7efwNLoVHri7XRj3ufEOKzcAg+4tJ5wBGqRz+XEB7RMQlCNqISAw2CFq4r6wVEFcRM/Eh
+	 tVX1Ga+s+qyouLXstxfzrpqolvczaDsYbs/61pQKWi3AwJNGyI6e7EsRowJUiXtrDGl3c
+	 gHcMH0N2fRtFtDk7uYyiqBhYMfla2KG28LtMnarRqo955i8dS39+oE/KZQQ/aP3co4FsY
+	 MEm6KET1k7altZj5LDcp0Zpp/vdC4tbFj0PkzCg6UqEMqf/bwEAGZJZGWdAESe/L/bg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192612;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ed7qSEh0MYcYsCSvjaeOTvgwKguOiXkGsv7GSaDrJYQ=;
+	b=2ZBjYlKRj6A21aA2E9m2tedSwF9Az4zLfLdgHi8HCLFPKabIc06tmzdC62c7/xhuE/4t
+	 qpnMrkGCTSDr7n8M3tN4JDdXhUvoVcbKv+M9uKi8zrUTv/2ITKb22Qh5gc7hUqQw7bea+
+	 jX0i9oZ0RHfTgvIjWwmLjhPtcQeBTzAyN+qxX5cyPXF32B8lS1sp+DIoPtxHCU66NUVvB
+	 +IXWt8bxpmvAcG5YGBOpHCarf/wJglqLEFOjApuSUUSsZOD6u9t7ULK+6g4JsnuSRsg0T
+	 laRlWHETSMC+5GZ2s1aTd7dQt9Ko5oKEIdzKr3Gll9oIpBjYxCm6L5pdYlQLoGFEkGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=spacemachines.com;
+	spf=pass smtp.mailfrom=spacemachines.com;
+	dkim=pass header.d=spacemachines-com.20260707.gappssmtp.com header.i=@spacemachines-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="ILww/xj7";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195C9606A31C;
-	Mon,  9 Nov 2026 02:49:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 195C9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273D5606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 273D5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=spacemachines.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=spacemachines.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=CCcGPtBU
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A92nGEG13957756, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794192556; bh=YJFIEO4Yo1Kwr5WnDwBRFU+vuAS+BAEotaPvoQmyOGM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=CCcGPtBUDjn7vI3UCIUTi/seesuLWSdMdnDUg5XWR9915WfZvlluVHH77iKI959bK
-	 W4iTSPnOE4s07iBMwI6bMxbIn2PDTsuxC9TcYg72odH4yUvcjFPEfbhhhA3gy/cL2+
-	 kNl3OI3z7iwC/T8CHq/2z2w0pRvMUOzvmuuzpvg0aGysJXyw1dLA/lLiz5bIadJ7Bp
-	 y9By2RH2t7MRmrT200q966EaGSUGr6T8C5Owckp3qR7mrsLg3EWwAE2zxX2kKpOHYd
-	 YtqG9QCDzHeAUu6841vc3VG9MLtru7dWcKWPOUjCirGnMvZXxN1Jy6kbSvYMa9LK9m
-	 zjcJrRhpmWEZw==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A92nGEG13957756
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 10:49:16 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 10:49:16 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 9 Nov 2026 10:49:16 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Jie Feng <hjf3108@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next 1/5] wifi: rtlwifi: rc: start no BA session for
- QoS null frames
-Thread-Topic: [PATCH rtw-next 1/5] wifi: rtlwifi: rc: start no BA session for
- QoS null frames
-Thread-Index: AQHda3lHxIC7vpFqd0S6iIDQsoFki7cjlhkAgABmC4CAARZ1kA==
-Date: Mon, 9 Nov 2026 02:49:15 +0000
-Message-ID: <a69a96e55d1a43fea6b89db002adc33b@realtek.com>
-References: <20261103095256.949327-1-hjf3108@gmail.com>
- <20261103095256.949327-2-hjf3108@gmail.com>
- <e4895ae4df0e4de6a5dc45bc276cb1d1@realtek.com>
- <CABOQOSWgd5hyvZj4tcSwYHD2_n3Su1hBGkBRo3AYvvRmPijeYw@mail.gmail.com>
-In-Reply-To: <CABOQOSWgd5hyvZj4tcSwYHD2_n3Su1hBGkBRo3AYvvRmPijeYw@mail.gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=spacemachines-com.20260707.gappssmtp.com header.i=@spacemachines-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ILww/xj7
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36ff9c9da34so708732eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:50:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794192610; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GuAbyLYe9ZZuHzAkQUNaeqPPAmoZbWIlk0NI+3YfBJ4nyg0GvSWS4TxESQspl0ubKK
+         Y7trf52JagkOpt9S7uNUnOMpxAlVUiGwHZQ+lxz+qe5Br6NOMNi0tHK+G8AqHIFNsUA4
+         bw7Xy14V/0r19csydo4XFZJusLEln28CM76It4J4czLyV2MnTnd1y65fcBobq1PU6egg
+         eD3jtgCeRTK69uu2PhXtr5QB7tzwPpHXUlyQ3OfXeAQNXDDcMTcUwgwp22kpF2tW+ADt
+         ePnUSV/AzrvrP+sDeZO5spXj4pTjHtpvT+df1RRe9ddlqeyZjjRbwycGf0j1IpyC6glD
+         VSSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ed7qSEh0MYcYsCSvjaeOTvgwKguOiXkGsv7GSaDrJYQ=;
+        fh=G7LPI1v643KddlR1Ahd+rwYCG45IBczC0C24Qx6QiTo=;
+        b=halasXb3sq48hpJMD8HvqMzKGJGIHGv/hAjFxrAYIKnNWVgfcQYyqMPxpyv+v2/xOe
+         bCmpL7lywQDId7LgD2dhs7nGylFJjdXTM01cT0iBmVv74dCJ9nbeDVXAJsykYo2kLvrV
+         iPInuqVqYApXWZtVsXKh8W89EuLsIVq0xQ3XXclL7oTE+5n+K5zcJgu3Mn4fmwBzlGU0
+         DRlj7S7OjyFPBDf/NqyV4fowDjw3d5qLvJ0F1t69LS6CP/tQsMFsU37nmRc+2rSGBFvd
+         vSEiqTXNBDw9Rvihy/MQD03vL85U4Pj8TgL2otj/Sdl4Qe0seiB4u0lKnEC7HJ84Bxrm
+         Wxmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=spacemachines-com.20260707.gappssmtp.com; s=20260707; t=1794192610; x=1794797410; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ed7qSEh0MYcYsCSvjaeOTvgwKguOiXkGsv7GSaDrJYQ=;
+        b=ILww/xj7Xp3Hs4hWMpGlZDMA45MuHuRp7Ipq58oF5l0mbLOZqesuXhF665BfF9E4AZ
+         GYmh5WB3sKwWpNZ/ezUO0PaM/8pgWL5R+HgDwghrPsONKKRJkUsH2Ghz+H6Kb/56iaMz
+         7jkCjhYFAeHfnBrQRZEHf9shrfVul3oIQBDK4vbU4AFbz88u0tuedCpNf0eZE6aMqy0B
+         KOM0mtWX84JxVM+zeDlrKw7D0sMCMoyUjsiO/K4iDy+lCywxvLxj2XVGvEliSRCP9N4l
+         bfJoas6JHUf5UwxjsrtGyn19Xo97S8ccWIpjh8bs02zBw8PnoqL95m5jYnBJnaOXy5ML
+         OlxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794192610; x=1794797410;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ed7qSEh0MYcYsCSvjaeOTvgwKguOiXkGsv7GSaDrJYQ=;
+        b=QIiC2yuV6WpO51eUEAaH5aLlOKPcHRcRD7uvq9B3qkxDa7JkUfSudkKZKad3A6I3BN
+         VoTm7tmo3eZBYfRpk0MZKYlG89TKUv4renpeNR9Fbe3Az2dPXda9rr8+VaR2jFztuR9w
+         7bbByLqt/CpqnuwUcphAQS8BzkGjzMqfqUymfz41BvMYgjjSYCkA6R+rF6eKhCMcITYs
+         rPHM90dY3fb9qJ10S5xKD0m+g/HlCQw7t6nUV3qLxOP1/Lj+ZoMRVrbMQKvLcj9CKl1a
+         4P9jVonWP3I5Lt2UjgrOrD7gB69rihf7qjhHJao8aZR0yr2j/Ilv2J+qlXHVrzuGki83
+         xs5A==
+X-Forwarded-Encrypted: i=1; AL+hErEYvk/BAmfaff54my6TuVpiQuF3rCkvThznXFRo0e8yXqSJzlO+i4Gg2RtgTEHqYwWKrvZYzGEYeiJjYQM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VwEUdilTG7VNaKbmSGl0kWxOOiFPfNN/vprH3K1cH9cqGHJrq
+	D1M3Avy3lOP1OEXzku/pP1Zjd2Ut2Hd7l8GGfN4Gh86sfxtI1GEgBecxSXnckoavYgZ36rxWnp/
+	WNNGtnJ/5y7ov+QKwUAk9RudFSiHax250LgwVr0p+Fw==
+X-Gm-Gg: AYBFou0OzbeCFI9BG73CzTlWyxqbGZlg0Ic8rLtbfRlfpZCULQE2GXnPE9pX6ZH1EMU
+	FfMMOdhQtLvRm4mNlEQFq5z0fK6o0d7gtNttcpgfpe4MhKE8YGq6l2HRcyQ8RttxJf/RjRETrxX
+	RrqKrJ6Tw4jJzQbSxizUFiKKrIJqwpTmcUMFn8OaaDsJz1e71TIfX6Qh5hZ0RaDG7CcRQSJ7BZV
+	JUVHnPxrXi2BjX0KrVNiD7D8kYc5D2P+WjgzcJVG2mVGYMlOa/Ek+BT0k1TJC3XUsR8hpUjkjdP
+	Bfg8qY7ErfXOz1AE5WAUG+ToZ11UqMoeQrccltR5HWdaNSuVe733vZKxpEaMDD2H0MLBwHSWMx+
+	O5D4BdwT1ykdW+8jAu6RR4S+mUvJ0wFc8UX7uPw==
+X-Received: by 2002:a05:7301:f29:b0:36e:b3e6:ebe7 with SMTP id
+ 5a478bee46e88-37256bf3a85mr5778794eec.26.1794192610085; Sun, 08 Nov 2026
+ 18:50:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,14 +104,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
+ <20261103-core16550-rs485-v1-2-6d15ebe1e5b9@spacemachines.com> <20261104-aqueduct-caregiver-1513775dd0f8@spud>
+In-Reply-To: <20261104-aqueduct-caregiver-1513775dd0f8@spud>
+From: Kohei Otsuka <kohei@spacemachines.com>
+Date: Mon, 9 Nov 2026 13:49:58 +1100
+X-Gm-Features: AclHuK_TaLU_humEBm6TAF3Q-YezCM8lbSJnIvWc-8zfqGYMOgplq9g4PPOrSlU
+Message-ID: <CADMKYUBHCG3h4tGuDTZUyrLSK1UJmDZvTAvVtmZchtPBTy2WwA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] serial: 8250_of: drop RS-485 RTS on Microchip Core16550
+To: Conor Dooley <conor@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, conor.dooley@microchip.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SmllIEZlbmcgPGhqZjMxMDhAZ21haWwuY29tPiB3cm90ZToNCj4gT24gU3VuLCA4IE5vdiAyMDI2
-IGF0IDExOjA4LCBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4N
-Cj4gPiBIbyBKaWUgRmVuZyA8aGpmMzEwOEBnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gT25seSBz
-dGFydCBCQSBzZXNzaW9ucyBmb3IgZnJhbWVzIHRoYXQgY2FycnkgZGF0YS4NCj4gPg0KPiA+IEkg
-Y2FuJ3QgdW5kZXJzdGFuZCB3aHkgYnVpbGRpbmcgYSBCQSBzZXNzaW9uIGZvciBudWxsIGZyYW1l
-cyBjYXVzZSBsb3dlcg0KPiA+IHRocm91Z2hwdXQ/IFBsZWFzZSBleHBsYWluIHdoeS4NCj4gSSBp
-bmNsdWRlZCB0aGUgdGhyb3VnaHB1dCBudW1iZXJzIGFzIGEgcmVncmVzc2lvbiB0ZXN0LCB0byBz
-aG93IHRoYXQgaXQgZG9lcyBub3QNCj4gY2F1c2UgYW55IHNwZWVkIHJlZ3Jlc3Npb25zLiBJdCBz
-aG91bGQgbm90IGFmZmVjdCB0aHJvdWdocHV0Lg0KDQpQbGVhc2UgZHJvcCB0aGUgbnVtYmVycyBm
-cm9tIHRoaXMgcGF0Y2guIA0KDQoNCg==
+On Thu, Nov 5, 2026 at 3:28=E2=80=AFAM Conor Dooley <conor@kernel.org> wrot=
+e:
+>
+> On Tue, Nov 03, 2026 at 11:11:32AM +1100, Kohei Otsuka wrote:
+> > Core16550, a 16550-compatible UART for Microchip FPGAs, interrupts on
+> > THRE but not on TEMT. When the last character moves from the FIFO into
+> > the shift register, the THRE interrupt calls __stop_tx(), which finds
+> > TEMT clear and, without UART_CAP_NOTEMT, returns to wait for a TEMT
+> > interrupt that never comes. RTS, and with it the RS-485 driver enable,
+> > then stays asserted after the frame, and receive interrupts, disabled
+> > for the half-duplex transmission, stay off.
+> >
+> > Set UART_CAP_NOTEMT for nodes compatible with "microchip,core16550",
+> > so em485 drops RTS from its stop timer one frame time (plus 1/7) after
+> > THRE, as it does for DesignWare UARTs.
+> >
+> > Set UART_CAP_FIFO as well: with the capabilities already non-zero,
+> > serial8250_do_startup() no longer fills in the PORT_16550A default,
+> > and without UART_CAP_FIFO serial8250_clear_fifos() does nothing, so
+> > the RX FIFO is not flushed at the end of a half-duplex transmission.
+> >
+> > Link: https://github.com/linux4microchip/meta-mchp/issues/5
+>
+> It's worth noting that in that GitHub link I pointed out that the time I
+> recall this core being used they required changes to the baud rate logic
+> in the driver and that there were differences between how the baud rate
+> is actually determined from the input clock:
+> | The docs for core16550 say:
+> |
+> | This block takes the input PCLK and divides it by a programmed value (f=
+rom 1 to 216 =E2=80=93 1). The result
+> | is divided by 16 to create the transmission clock (BAUDOUT)
+> |
+> | whereas ns16550a docs say:
+> |
+> | The UART includes a programmable baud rate generator
+> | that is capable of dividing the timing reference clock input
+> | by divisors of 1 to (216-1 ), and producing a 16 x clock for
+> | driving the internal transmitter logic. Provisions are also included to=
+ use this 16 x clock to drive the receiver logic.
+>
+> Kohei reported not being affected by this, but I figured it was worth
+> mentioning.
+
+Thanks for flagging it. As I read the two quotes, they describe the
+same arithmetic: Core16550 divides PCLK by the divisor and then by 16,
+and the 16550 divides its reference clock by the divisor to get a 16x
+clock. Both give baud =3D clk / (16 * divisor), which is what the 8250
+driver programs.
+
+That matches what we see. With PCLK at 50 MHz, the driver programs a
+divisor of 27 for 115200 (115741 baud, +0.47%), and all four ports
+exchange data cleanly with external USB-RS485 and USB-RS422 adapters.
+They wouldn=E2=80=99t if the core divided differently.
+
+
+>
+> Cheers,
+> Conor.
+>
+> > Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+> > ---
+> >  drivers/tty/serial/8250/8250_of.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/825=
+0/8250_of.c
+> > index b41ca604083f..2f1f505501a2 100644
+> > --- a/drivers/tty/serial/8250/8250_of.c
+> > +++ b/drivers/tty/serial/8250/8250_of.c
+> > @@ -278,6 +278,15 @@ static int of_platform_serial_probe(struct platfor=
+m_device *ofdev)
+> >       if (port8250.port.fifosize)
+> >               port8250.capabilities =3D UART_CAP_FIFO;
+> >
+> > +     /*
+> > +      * Core16550 has no TEMT interrupt: without UART_CAP_NOTEMT the e=
+m485
+> > +      * code waits for one after the last THRE interrupt and never dro=
+ps RTS.
+> > +      * Set UART_CAP_FIFO too, because a non-zero value stops
+> > +      * serial8250_do_startup() filling in the PORT_16550A default.
+> > +      */
+> > +     if (of_device_is_compatible(ofdev->dev.of_node, "microchip,core16=
+550"))
+> > +             port8250.capabilities |=3D UART_CAP_FIFO | UART_CAP_NOTEM=
+T;
+> > +
+> >       /* Check for TX FIFO threshold & set tx_loadsz */
+> >       if ((of_property_read_u32(ofdev->dev.of_node, "tx-threshold",
+> >                                 &tx_threshold) =3D=3D 0) &&
+> >
+> > --
+> > 2.53.0
+> >
+
+
+
+--=20
+
+
+Kohei Otsuka
+Satellite Flight Software Team Lead
+
+  koheio@spacemachines.com   spacemachines.com
+
+ UTS Tech Lab, 36-38 Lord Street, Botany NSW 2019
