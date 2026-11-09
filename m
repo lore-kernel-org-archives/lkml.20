@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228533;
-	b=WE4lX3nROguqoCqpBoMM7seCBpFoeTku7sKStQ35jkIJGtsGKCNgYVDH+aShB35QSvbL
-	 /KP2j1Ka1EZRooGwWYLZd6bDBGAxPdi+1tnP1xU9obcL4cXYoVA73P6u1VIgmVI0JXQ+e
-	 fpExxRxkIIfQJZbm1rqXlBdaVOWe2d9osFSuXuR5gdOzUP9e10oiTIUkip3fjjxqy54r9
-	 4HQJcq5WjsTTXcBT8n0C1vM30A1VUQV6LmSniZga6TWy4qgmNDKINd2v8Qxc8Po7OHaRp
-	 SKpE6usIxDs/qbSZEFi8ccBJ/DNZPwaPQPj7CEt+gSmeDipMFr91fVC35IwzBFRRLHQ==
+	t=1794228540;
+	b=nNf9olnS2dFRFmam0Hc47hioBRVRpKNd3CTQMO9s7ASPMfJA7NjqqQ2n1LCcdMZIDedD
+	 4sVKc8W1MCH+Ge/tOIqTCXU/k4eMUBqnJMhRUSBm3VBdL99109foiFX8GczxKGYnn2lfy
+	 eEsq4/9HRJTd1vhmuFkNPBRB/hOetT59G5ypP4/Dpew1CqtukxDy2v4tq3HBMRz857Igq
+	 tIssCzoKz5UJM4x50XB3mx9E53emI2+Lp2BGqET+PNN28GokGSaLNXOLZ2ut0d6M8wCqe
+	 8wst1M3+akJ+UMhZ5ucezQVyorhkkv5aWPRHtPrKOdkUDOIkvyHKN87sLTgMhrQJyRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228540;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=nZMF3N50ur/GRiqgfnOwgyVXjgdypMZ6MJnhQEab5sQ=;
-	b=CvGnN43Z1SXzkJ5oWGG3GmNCqopBfe9KMFawC/LGFSoVoecYzVdFk5v6UyKyhOpnss8x
-	 U6HGRDWL7UGHaBA/UfKBtKUmR00AKCAnfzeGRsHeTy+Xmrl873axOM8s+MW8oGUu/Fa2f
-	 iDbwr2os1Zn4Lzz6L6Jxc7v8LLlJvFBmfywBOEAgXwwBHRj3k5oxVDFTugpScjbRaeMh7
-	 BuomEOCMdFd4NuVuV4NhrvIQXxxg7uMzgyuOefQ+UBvFDV9qKqck67bvn5O+9qqzBir4I
-	 7ApMPpB8C7LewsRv4JNUl+oiGvO1t6XxewYVha/De7SIJ1EfybJr+CL5Mw7dpRxeNog==
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=LWwqugR4e9DRn+gY3WZafaAZgAGJVlJP5AvR5oaP+Xw=;
+	b=THCzPj7wHHlDkaG8jti5vRPhn6/vUnYTVMRkdUhxJ+//m7quqSJdSLhUDfoA8ZRSkFRu
+	 bFuo3zfeP/CJoQjFKySBaxvASja556IkR6N0PTilR9fa8xfyOXoUnu203OHIj5hlWfV2s
+	 LJdkHAv1aEHrBEYKDjRP+JNiL2gdqn4Qc+5dYPc7Hb05M19AUs0vebQWIIs4+b42vzu/h
+	 zvJggb8IER4HbEDs2MHhwtnUFtMiiE7Bla0lUOb0D3i3RJ4cNuF1d7xcickI0ZHFMZmLM
+	 tlVb3VPcXMNizR30JoQa513OkTRS8Jt2uSiOQefV4u93WWs6q7xVN+iGr/ChpMY/88g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8m72HPy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xen4EoJc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A825606D830
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A00606D811
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8m72HPy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7A31F008A1;
-	Mon,  9 Nov 2026 12:48:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xen4EoJc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A361F008A1;
+	Mon,  9 Nov 2026 12:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794228533;
-	bh=nZMF3N50ur/GRiqgfnOwgyVXjgdypMZ6MJnhQEab5sQ=;
-	h=From:To:Cc:Subject:Date;
-	b=O8m72HPy/TF1TSwEeqIzTFY2xQ2WH9P3thGWDaKPtf22Wr6ePjRP/5KxXL0aE9+cb
-	 IilH9GiVb7H4wgYZiocbgiM+2pyo8vk70dSNu+ELWRDLN96dhL3nCqWJv6geWKtweE
-	 ntho3XeCwrwtBZ9O9wozmzMHI4H1lSzaDDJqY7g2rTnxB/0zfNp4oos28wMTfkW+/y
-	 Bndr10NVilxzHFfdAgmrvYAGvIqWb2GqMO9xDAM10TOxL4KTXW8N3/6/GAs0cH2Nwb
-	 RCqJArZigj+KUeSnlnklsDURFv/sMCCciNB5NjBwKRgOIjinS/MQjijQGXm9fWcZbB
-	 Bz+5HJuYq5FHQ==
+	s=k20260515; t=1794228539;
+	bh=LWwqugR4e9DRn+gY3WZafaAZgAGJVlJP5AvR5oaP+Xw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xen4EoJcp/00OkJEeR7hisgDwRc7AsTT9ZOx6aB7UWim/SArXbjtRHCNU0AyH9B+3
+	 E+P2hh/FSZlzbSp833crVPcNLhXYPleRh3ZnRydqWXMe5LsKLaPG2pumzEH3F8CgAh
+	 0AFBOV+zDvjZULtD6GBV8cTwS1nZick6n9gpueC0InzF976xx7opqqz1upImbOLiPm
+	 59y7haUPAvi7XlfWdg5KTNeSDyRlrOI1B9YyRBSa3980JGi5ifl/t1cgu1CdjZC2MK
+	 zbL6JcPRlLOMyAu7vBDXOCYMO02c96LcqC18OqKjS4NtNO2TS4DMdVHjbLx9emxT2S
+	 a7etZvQEBsv0g==
 From: Thorsten Blum <blum@kernel.org>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -60,10 +60,12 @@ To: Thomas Gleixner <tglx@kernel.org>,
 	Kevin Brodsky <kevin.brodsky@arm.com>
 Cc: linux-kernel@vger.kernel.org,
 	Thorsten Blum <blum@kernel.org>
-Subject: [PATCH v4 0/4] x86/boot/compressed: Enable -Wunused and remove unused variables
-Date: Mon,  9 Nov 2026 13:48:17 +0100
-Message-ID: <20261109124816.61438-6-blum@kernel.org>
+Subject: [PATCH v4 1/4] x86/boot/compressed: Remove unused variables in EFI helpers
+Date: Mon,  9 Nov 2026 13:48:18 +0100
+Message-ID: <20261109124816.61438-7-blum@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109124816.61438-6-blum@kernel.org>
+References: <20261109124816.61438-6-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,48 +75,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1964; i=blum@kernel.org; h=from:subject; bh=rElI/a7Z1x6cmSJbjS57jvhHR3gdAwUo4QJOOt0AF78=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfDwpwtIadmVXMWLzqoX3MH6HqPtfTEXXZsy5NzFv83 GrPGXuujlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZiI0iRGhs8G8qGvF0ycaz/1 yrxNMrqSHavbPqS+upM5+/WW2LI5XJ0Mf+WL71vv8AizUMiOy304xWoyi/pUzn1nJb5uZjeRtb5 8nQEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2850; i=blum@kernel.org; h=from:subject; bh=UZpJ55fJR9Sdt3yIlM4OuBKiufuzYj3V6nB41UusnRk=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfDwpNmTp/7u1Jz266bTGQ9q7yNU29puOese55ZbWcv prKozVpHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCR9b4M/x0OLZoscyvnmMnJ HfN4NHxeLd6uZiRUUdS//f2vR+H3jsswMrxtbKl4fvfNgzkqz+u0Nz99wpb/3OlEZ9Wqp6zVItV XinkB
 X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-This series marks potentially unused variables and functions as
-__maybe_unused and removes truly unused ones. Patch 4 enables -Wunused,
-matching the W=0 kernel defaults. With WERROR=y, the warnings failed as
-follows:
+efi_get_system_table() declares an unused et variable, and
+efi_get_conf_table() declares an unused ret variable - remove both.
 
-  arch/x86/boot/compressed/acpi.c:25:1: error: '__efi_get_rsdp_addr' defined but not used
-  arch/x86/boot/compressed/acpi.c:29:6: error: unused variable 'ret'
-  arch/x86/boot/compressed/acpi.c:57:15: error: unused variable 'nr_tables'
-  arch/x86/boot/compressed/efi.c:64:16: error: unused variable 'et'
-  arch/x86/boot/compressed/efi.c:136:6: error: unused variable 'ret'
-  arch/x86/boot/compressed/kaslr.c:600:13: error: unused variable 'i'
+get_kexec_setup_data() also takes an unused et argument. Drop the
+argument and update the only caller in efi_get_conf_table().
 
-Patch 2 also drops a redundant efi_get_system_table() call and uses the
-existing efi_get_conf_table() error path.
+Also simplify the no EFI system table case in efi_get_system_table() by
+falling through to the existing return since sys_tbl_pa is already zero,
+and add the missing newline to the debug log message.
 
-Changes in v4:
-- Add a newline to the log message in efi_get_system_table() (Jan)
-- Make efi_get_system_table() static and update misc.h (Jan)
-- v3: https://lore.kernel.org/r/20261109005528.3477-6-blum@kernel.org/
+Reviewed-by: Jan Stancek <jstancek@redhat.com>
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/x86/boot/compressed/efi.c | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
-Changes in v3:
-- Rebase patch 4/4
-- v2: https://lore.kernel.org/r/20260624120300.590233-6-thorsten.blum@linux.dev/
-
-Changes in v2:
-- Fix a kernel test robot issue by marking __efi_get_rsdp_addr() as
-  __maybe_unused: https://lore.kernel.org/r/202606240416.cXegPpiJ-lkp@intel.com/
-- v1: https://lore.kernel.org/r/20260621144116.224010-6-thorsten.blum@linux.dev/
-
-Thorsten Blum (4):
-  x86/boot/compressed: Remove unused variables in EFI helpers
-  x86/boot/compressed: Clean up EFI RSDP lookup in efi_get_rsdp_addr()
-  x86/boot/compressed: Mark process_mem_region() index __maybe_unused
-  x86/boot/compressed: Enable -Wunused
-
- arch/x86/boot/compressed/Makefile |  3 +++
- arch/x86/boot/compressed/acpi.c   | 18 ++++--------------
- arch/x86/boot/compressed/efi.c    | 21 +++++++--------------
- arch/x86/boot/compressed/kaslr.c  |  3 ++-
- arch/x86/boot/compressed/misc.h   |  6 ------
- 5 files changed, 16 insertions(+), 35 deletions(-)
+diff --git a/arch/x86/boot/compressed/efi.c b/arch/x86/boot/compressed/efi.c
+index f2e50f9758e6..f2d08e756e66 100644
+--- a/arch/x86/boot/compressed/efi.c
++++ b/arch/x86/boot/compressed/efi.c
+@@ -61,7 +61,6 @@ unsigned long efi_get_system_table(struct boot_params *bp)
+ {
+ 	unsigned long sys_tbl_pa;
+ 	struct efi_info *ei;
+-	enum efi_type et;
+ 
+ 	/* Get systab from boot params. */
+ 	ei = &bp->efi_info;
+@@ -70,10 +69,8 @@ unsigned long efi_get_system_table(struct boot_params *bp)
+ #else
+ 	sys_tbl_pa = ei->efi_systab;
+ #endif
+-	if (!sys_tbl_pa) {
+-		debug_putstr("EFI system table not found.");
+-		return 0;
+-	}
++	if (!sys_tbl_pa)
++		debug_putstr("EFI system table not found.\n");
+ 
+ 	return sys_tbl_pa;
+ }
+@@ -84,11 +81,10 @@ unsigned long efi_get_system_table(struct boot_params *bp)
+  * the initial physical address via a struct setup_data entry, which is
+  * checked for here, along with some sanity checks.
+  */
+-static struct efi_setup_data *get_kexec_setup_data(struct boot_params *bp,
+-						   enum efi_type et)
++static struct efi_setup_data *get_kexec_setup_data(struct boot_params *bp)
+ {
+-#ifdef CONFIG_X86_64
+ 	struct efi_setup_data *esd = NULL;
++#ifdef CONFIG_X86_64
+ 	struct setup_data *data;
+ 	u64 pa_data;
+ 
+@@ -112,10 +108,8 @@ static struct efi_setup_data *get_kexec_setup_data(struct boot_params *bp,
+ 		debug_putstr("kexec EFI environment missing valid configuration table.\n");
+ 		return NULL;
+ 	}
+-
+-	return esd;
+ #endif
+-	return NULL;
++	return esd;
+ }
+ 
+ /**
+@@ -133,7 +127,6 @@ int efi_get_conf_table(struct boot_params *bp, unsigned long *cfg_tbl_pa,
+ {
+ 	unsigned long sys_tbl_pa;
+ 	enum efi_type et;
+-	int ret;
+ 
+ 	if (!cfg_tbl_pa || !cfg_tbl_len)
+ 		return -EINVAL;
+@@ -149,7 +142,7 @@ int efi_get_conf_table(struct boot_params *bp, unsigned long *cfg_tbl_pa,
+ 		struct efi_setup_data *esd;
+ 
+ 		/* kexec provides an alternative EFI conf table, check for it. */
+-		esd = get_kexec_setup_data(bp, et);
++		esd = get_kexec_setup_data(bp);
+ 
+ 		*cfg_tbl_pa = esd ? esd->tables : stbl->tables;
+ 		*cfg_tbl_len = stbl->nr_tables;
