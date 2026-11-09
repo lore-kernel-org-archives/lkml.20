@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192009;
-	b=zZNMhJoHf/PbBjTTRvbjXgiBWqIV+K+iKAIgB/gISNoytWyn1si6B/8Q4T6nyACOUl5w
-	 wIamvEXvMnQ9Xv+TVEVWOTqdHIdEgpRYbhQ1L5hcFYw8LG8qvf00PqZPNojYQ2IAAe/cI
-	 IloUaf/Fhbc0xmYNemv0gnSwICpyAki5q1+rhBgEitduDBEvV1vI6+AKp71Fjd2t8VqQG
-	 0vf+s3MS7SdjyAdDRCC+s3VDuo/ccDp+KOHzZaOKuoq45mszve8YXzQCIQHjgw/8hzjfz
-	 Meg2ZD5MP+C7R4fdL9qVUHQUeNmwo8cQSGCoMuwEcXrtM69h2SQwxm4Hj0UhoFhEDdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192009;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794192024;
+	b=yM0ozrQYQgDaeJlxOJ8EbmM0Vo0DaGGvJ0EJRXa0genF6QrZDeHBVDnSR3pecfM4V+q5
+	 0FMxk5B/EBstsN77ThY60rV3+k7/IUD7A9L++JcO0G9CT5khEqPADMVD7ecVLcRJLGyb3
+	 OI8yMJ6STsvUdj4Fhy61wZCVU1cHKIY3PCMKTW6gsqOwUEKoqqUpBszWEJzaewbrYTnOl
+	 1A/to6U7rXVEHrrz/zo+JR1gCNni34yf8b7+tnybqczeZ6FRqaucFG0lTIcV6512HaMHF
+	 RkFVOi+yxLCJ19cXvFem0Dvrru/+SUFROpPnCK8OB3TjPkfcetoDAFtX8S9MqLNfu/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192024;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hamfHniDHGCKRAw+vpTUWbv3vFb7E6pjHS73N4V1Z68=;
-	b=0K5gqrz55rs6s8HQ4YQdkz42Co4FQAi3Mbcna/cF4d/3Ybu0uFJZR/3ByZeiq7f7QbjN
-	 +TA+WAo314amf23a0QOhncU9rdKuajCkMiTlJz3ZZhsaUW6tQ+gejPnPdpV9nh+v56iJB
-	 WJO6nc2L2BVw8RObbyhTlhoRW9AErtMwZYMKBUGj3sWKbCC8IU9+ZHxuMc91ubda9WT7o
-	 xZZzzXgx0vsZHXXDi1X3TOMCNYaSLudMbvwAtpaf9nFWe5YsjId0ZtJfZpffr6PE1nBnz
-	 DJSv9MGRuKPfQviJ030khy8HM2BZvd2eUyVEyh4td+PSQSE9s68sfRedBHjh9Lqr90Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2F7vwQ+fIrmysPu/pD/++M3RDrBlwD6YHjhjHV8qY/c=;
+	b=nFHpzjG+FJrDAjpt98oDptjnzID0yek/NSmYYDoP+FC0xBY9qu2Mmjb0408xa4DE1t3T
+	 Oa+JFE+kLjHsQ4oLBEbQKQVfgOvh0HmCN3QaL1SNBQvVEMvXqRml0bjwwpfrDIpRUoqcU
+	 nVzlH5beYkx2ZORGPjp3+MZ1qbLO7f9ghiptqLF0sZPpFNWY1ZJuFGX8wia/s7iscinYC
+	 kVylr7Hs5z0dLbp4aCftEBy+AhSJfKozqhSYaoV6JiL0Y/M8NGcaeUa0Qagth3BjnCCz4
+	 9zkJXk6Qs6BkQz33vdF7lrl9MNMX/WX/mDRJqMAu/LnFPJFLqY5bb0cK0RxxoUZGcnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cS22eW3r;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jpggHbfK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31804606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:40:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31804606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A32C606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A32C606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cS22eW3r
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2eb33b5c067so579995ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:40:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jpggHbfK
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so2144025e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:40:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794192023; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SOSLsQneUtnQiU2aUM06el4hFuBnK7WOa5fwCaDtQoVzVdRYXk1NdYnrYo+2qJKrrK
+         xXHD8MvdlGvAPtUsx8utAh3iLgwOzQWU3y7IChAp1ZO4icRDW3ot4b4L/BUNbZGK5PFt
+         UkaPS3lumsr27FXgVDzOJoaTIAuJIehZbmDkIhppVqSjWsvzbifzcFg+4UZ4ZQoDfidc
+         Wn3+vR93+GBgK8wj7EiXLWCg8CajLzNhARNbOwlEmi5ZeOWJjJ11IEYyR5D6q/HGsPWz
+         9ffjjOA7TmtSFqF2PTGJwgWZqtbyxP2+kfgxnarlYs4DadOZWYp9AqJaAF+GCfI/ZNQy
+         WGcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2F7vwQ+fIrmysPu/pD/++M3RDrBlwD6YHjhjHV8qY/c=;
+        fh=EpbdyxqzmN8V32zA9XmYQFm7tONyu4tQLjelvoT5KGw=;
+        b=aJJh5sWWxAgvVN1UOi/nYf4hgWbynZ5MCbMc8wsYAeugkSAxRzGiQZycSDBXfw41Il
+         UrCcAYVQivJKkYUQOiDl/a21cQ1FfhkHaSomUt4mnBq/9COqXeO49gL0h4qqYESxrqai
+         JnxQSyTWcjw5YtzCJf4BWbPMke/AdIkUEAvHmIFDlw7oDvMnpO75uAObM2CaArPaHNnB
+         VP1xLbBxtFN4+GBBmB2yzosUJ5D7GgI9qtUe0WK4CgEURcgh/jXxIMlwf6j7wITzWQWV
+         sFGKsHZhXSPI5cZz4q2J53zbNv+Eon7/YjQhxxMLW5pTdejSKANYcOE4gJTn+29GxFz8
+         TVXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794192008; x=1794796808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hamfHniDHGCKRAw+vpTUWbv3vFb7E6pjHS73N4V1Z68=;
-        b=cS22eW3rsIFu8ZM+yFqshxVxqi0YVotkEQOOqXilZqZjcCJ+1Fz14Tpw/77Tc2Hgb4
-         C+65zfLGJkOkct+HclLyOm925z7l2mUHkgF6kahQYMLxdIzRL5g1UnshAA6beh3+Ef5/
-         IglEBkWdkDDNSy7j285QqwCUV1uLeZgIK8q7g5Ko/9A9rZ4B22uSw81cTqQV36iezZpX
-         OSfCMoe+H0Y0u3NGhorFQT7uz+RlS8I4cZH1d9jEhoUoXdSOHQbsfw1TNaMJjwKAQeI8
-         OJRA2iJZ+3U5axF8+CfVMjPJW0+cu1t7ms20OJZdy3r+/aVNRBjiKFRIgiuD64fJ0nbn
-         HwAw==
+        d=gmail.com; s=20260707; t=1794192023; x=1794796823; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2F7vwQ+fIrmysPu/pD/++M3RDrBlwD6YHjhjHV8qY/c=;
+        b=jpggHbfKJSpOUOT63/kzNkMVwRYziIugwQ7krP46th9WgszItKOeeGbOU5DrSpckd/
+         IdVVP0EqUrh+TWakzBhTxigHGptKoBPGKzCab7hekJZ6swooSZk3v4drVaPYHispZPhx
+         PzKsjWhfX8YJIh6Dc0jbsoPZwZ58KPfjKdUKHbvirypcUK4Tj+mFkuUJpiRtOR1pbY8r
+         G1kYMcSL7YwvnbAy9+yX42wpKIxm5EI2FXuFGO9+efRXgLulnUaXR4ql0eTs8iIDxjGv
+         S5oNzQe+TujYGTevvDCRKHp3IRjzh+T8etRmui/oZVz5mKf/CoBuPSoF3wEDr8TYTH48
+         p2iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794192008; x=1794796808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hamfHniDHGCKRAw+vpTUWbv3vFb7E6pjHS73N4V1Z68=;
-        b=ndxHc7h1TVJZy4PI9yJFYmGAierQvk/Q4W+RStxsi3yUnNFw8rQtpCGUE3ZApslRdF
-         2osw2xcaFaFDXFBP5Bs9e7lJ9U0UBh3jF1uVTZEHk7G/p8e0M6weF/GzROOUXZlJ2x2r
-         7llZVqENSZ/d8maPlhy5fMntNgxCJnHc8XsBqkLUnl0RVeBRfDc68UIGNbXfqL+usd81
-         Ou1D87c8i8WsoMybhAf5d0gZNq6whaDpBCVqyU8ZMqWWVV7djS8+rL+viKUlSemC6qJE
-         jeG1WT31xNGi0CFbieCRXbIgPsD5ivEQBhBRkyjOpNimsgXSe/I9aMN7Ixsmqu9rVpEu
-         2Fbg==
-X-Forwarded-Encrypted: i=1; AL+hErF5YZhUeUV+G1c7aITKxA9gl9rZu2FSKL4aE0EpSiPUSOk7XpbGHsyOByHDmW0GhY2PPQHfSAHdd8uSNWQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//StpJduv+2ZzmmfVrjp0uikx13nFxdf5R35bhxr7XViyscz4x
-	lHubajL8oFSmFzv8DjrP5M/9kTY35urMxjJQ/2vhYYwyo2RIoDFW1rv9ZruA5bFabQw=
-X-Gm-Gg: AYBFou220OaFrcCjRcP97R6c02xdyiU/qazU5u6R+SN7XyxxIjtu5eRce9b6Av2IFAI
-	5OzJ+Dp2vi460UsC21eney3H+rrKD8vTvZjqmyfFe03hzXHmvfGz3W65/kt8aaV/qqSspbw2NB2
-	kHiZvWaw5a5mKoUk0u0OhREUzsJV4eLY/i3W/lnpQpllqKpsm8869HwtV4cvPSFV1cOySem2ndR
-	rjNRbTo1WiJKW18kgEbV4VPrjqxN6Vgk7ijW6VFUhyNydzSW8kDhLUkC7xvAA/2lBD5l4OCCSoR
-	quf5lQYzeZKON8njyGt80OQvKwVBJ+cooLjINYVPsHUvkCurFGrbdLO5wubVgR7I4gif+svDwX/
-	YKzcEVFQz4s0MSS3Lr31kWrjywaD5jdjUdf9EhxlOZCCg67L7O8uWH8eief43oS483uztyqcECF
-	xaiRk6Z/V8efUIhACMvI5ckz7b1vQUXK+YLmNxtbyUHLcF9dbz4eAgmnP/8PTo2LR2K4UbFMGbd
-	6A1w3CsUrCFXaJG26gmpz7FI35JwU101PiBQv2jrqfGH67I8Y1mJ3/tOXRZU8mBMzK+O2M7JFdP
-	j5JbMsmfcQ2wG6PuiEsgHPh4HmV09cEAsOWTPKvgPItSe9cyuQWDzB5LH/LTf8x0avg4lHobIC5
-	em7+p+kDPwNDtsOEQ
-X-Received: by 2002:a17:903:2289:b0:2df:8ab7:fe3a with SMTP id d9443c01a7336-2ed83786890mr43450945ad.4.1794192008326;
-        Sun, 08 Nov 2026 18:40:08 -0800 (PST)
-Received: from localhost.localdomain ([139.159.170.85])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81600c3esm6172515ad.34.2026.11.08.18.40.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 08 Nov 2026 18:40:07 -0800 (PST)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: German Maglione <gmaglione@redhat.com>,
-	Vivek Goyal <vgoyal@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>
-Cc: "Eugenio Perez" <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] fuse: virtio-fs: stop new requests before draining queues
-Date: Mon,  9 Nov 2026 10:39:57 +0800
-Message-ID: <20261109023957.34500-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1794192023; x=1794796823;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2F7vwQ+fIrmysPu/pD/++M3RDrBlwD6YHjhjHV8qY/c=;
+        b=HPtn8dGSkC3zY2H0w1fDu2VlYPpmWWIfwNtM4N/vCb2aAUb28jZibLCc0cYArRWeMQ
+         WXhGqhEjQF6+QpM90BYAL+qkDphz6dT4q96GTZPHFVioXgk9nWYNdGmPfuVBOqn8ZOrO
+         hS+pKs4xomI5RButL2ksBaztidtCthuj01XoIfFDGCXRjqoWt0mkTruMzFnKFBwRuEJc
+         DK0MzkE+03YiQg06Lledzj2cZfuhhOP+zYRQYC250trPa/jtpqXwUS9wVUuvV6JPe05F
+         syhCkzJNIUkQAd9lydCiAkCkuavL8ReA3Pu26fw+Kflc2sr1SolccApQSw4mk5XryCzi
+         1eoA==
+X-Forwarded-Encrypted: i=1; AL+hErEZT1c1N+ARhk+MdRt588f+/qeCjS+WW/XntcfwxXCuaw+IGQzJ4JH/QluGVqLOzLhR+mIHvqY4JnYEjDA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8idp4dtNfwxAFE5Tr0a+C1DW1YQTaOXaGQNkZv5lCw6+cZutQ5
+	NhTPUKmPe4prQz5VyaMYfc4FNKMPcVjOo5PaK32PTuPNjJbJ1VyXy05ZU6wtqJwg22ItfrpB9Po
+	FlhqLBDGHRJDSvuSOyE5RGUM2+Dd2/Gs=
+X-Gm-Gg: AYBFou2fL/Vs1MC3GCjxPRQH9mfoZ7fW/D0KVIdsMMd7TGQHRkiHAPWuMNA0UAr66t9
+	MwAnxGuMNyC03T/tV1x97BDLGv+lZeTuoucDyUFJBgcLMYnp0wJGv1CUUwCKASVrDrrRSG8I8Aw
+	LAqN8HMrriTZ3kDUQZC9MuVCpwbK5fLoyqf5iyM6DNZI3/ZZHdiCj7GHMTClFALtgV7AMU+AXUM
+	BnrdzM8neP5i6TxyB/sOX10O0ZkHPbq6mx5YOVdBiTltvuIf9P/0QXFmTvqQ/N9xalWkX5ZGgEo
+	bBOcJWDsVMHoR6vBXMDcBInChc8farPEgXABX3iXbYcZ3F5kwNcNCX1brVEiPIEIXvH/3oedmlD
+	qpzfovPyOw3R9W4lymNgRsGcm10E5DNcz1Ow/yA==
+X-Received: by 2002:a05:600c:1392:b0:4a1:88df:8a2a with SMTP id
+ 5b1f17b1804b1-4b963c72e9amr52747045e9.13.1794192021945; Sun, 08 Nov 2026
+ 18:40:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,288 +104,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106143913.3627722-1-kunwu.chan@gmail.com>
+ <7883f32c-80b8-4bfa-a4e4-f1e04da647f3@nvidia.com> <dda59546-c03a-4c4c-9df3-a107bc629e2c@paulmck-laptop>
+ <2b4b213b4e9b27016982dfc517a5629f2ff5f3b8@linux.dev>
+In-Reply-To: <2b4b213b4e9b27016982dfc517a5629f2ff5f3b8@linux.dev>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Mon, 9 Nov 2026 10:40:10 +0800
+X-Gm-Features: AclHuK8pb_L_UpC3BJZ1KZ32a43XhwjPc70Vuz4br2IW6J-bKH9QE2SObC-xuRc
+Message-ID: <CAN_Opa8+dGZtZGO934R2CQjdrTwuFyMj9=KtjcOaSpm70t_-nw@mail.gmail.com>
+Subject: Re: [PATCH 0/5] rcu: Record callback enqueue stacks and add torture tests
+To: Zqiang <qiang.zhang@linux.dev>, paulmck@kernel.org, 
+	Joel Fernandes <joelagnelf@nvidia.com>
+Cc: dave@stgolabs.net, josh@joshtriplett.org, frederic@kernel.org, 
+	neeraj.upadhyay@kernel.org, boqun@kernel.org, urezki@gmail.com, 
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, 
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-virtio_fs_conn_destroy() drains the virtqueues and then calls
-fuse_conn_destroy(), which aborts the connection.  The abort ends every
-request the fuse device still owns, and each ended request is freed as
-soon as its waiter wakes up.
+On Sat, Nov 7, 2026 at 12:20=E2=80=AFPM Zqiang <qiang.zhang@linux.dev> wrot=
+e:
+>
+> >
+> > On Fri, Nov 06, 2026 at 01:49:04PM -0500, Joel Fernandes wrote:
+> >
+> > >
+> > > On 11/6/2026 9:39 AM, Kunwu Chan wrote:
+> > >  This series adds KASAN auxiliary stack recording for RCU Tasks
+> > >  callbacks, rcutorture coverage for duplicate-callback detection,
+> > >  and KASAN aux-stack verification tests across RCU and SRCU flavors.
+> > >
+> > >  This series is based on [1]. For testing, I also applied Joel
+> > >  Fernandes' fix for debugobjects tracking of barrier callbacks
+> > >  [2], which is needed for the barrier tests.
+> > >
+> > >  The changes:
+> > >  - Record the enqueueing stack in call_rcu_tasks_generic().
+> > >  - Enable duplicate-callback testing for the "tasks" and
+> > >  "tasks-tracing" torture types.
+> > >  - Add a KASAN aux-stack verification test module with a Kconfig
+> > >  choice for each supported flavor.
+> > >  - Add one rcutorture scenario per flavor for the verification
+> > >  test.
+> > >
+> > >  Tested on x86_64:
+> > >
+> > >  - TASKS01, TASKS02, TASKS03, TRACE01, and TRACE02 completed
+> > >  3-minute runs successfully.
+> > >
+> > >  - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dy and
+> > >  rcutorture.object_debug=3D1, duplicate-callback detection was
+> > >  triggered as expected for both torture types.
+> > >
+> > >  - TRACE01 was run for 1 minute with
+> > >  CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dy and
+> > >  rcutorture.object_debug=3D1. The test detected both duplicate
+> > >  callback heads through the SRCU enqueue path:
+> > >  [ 0.405836] rcutorture: WARN: Duplicate call_tasks-tracing() test st=
+arting.
+> > >  [ 0.405852] ODEBUG: activate active (active state 1) object: 0000000=
+020df980d object type: rcu_head hint: 0x0
+> > >  [ 0.734724] rcu: __call_srcu(): Duplicate call_srcu() CB 0000000020d=
+f980d->rcu_torture_leak_cb+0x0/0x10()
+> > >  [ 0.734780] ODEBUG: activate active (active state 1) object: 0000000=
+06634e8c9 object type: rcu_head hint: 0x0
+> > >  [ 0.776688] rcu: __call_srcu(): Duplicate call_srcu() CB 00000000663=
+4e8c9->rcu_torture_leak_cb+0x0/0x10()
+> > >  [ 0.779126] rcutorture: WARN: Duplicate call_tasks-tracing() test co=
+mplete.
+> > >  [ 65.411342] tasks-tracing-torture:--- End of test: SUCCESS: ...
+> > >
+> > >  Both duplicate callback heads (the stack-allocated rh2 and
+> > >  the kmalloc-allocated rhp) were rejected and neither was invoked.
+> > >
+> > >  - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dy,
+> > >  object_debug=3D1, and n_barrier_cbs=3D4, the TASKS01 barrier
+> > >  test completed 630/630 rounds without barrier errors.
+> > >  The only debugobjects warnings were the four intentional
+> > >  warnings from the duplicate-callback test at startup.
+> > >
+> > >  - All five aux-stack scenarios (TASKSKASAN01, TREEKASAN01,
+> > >  SRCUKASAN01, TINYKASAN01, and SRCUTINYKASAN01) produced the
+> > >  expected KASAN use-after-free reports. Each report's
+> > >  "Last potentially related work creation" entry showed the
+> > >  expected enqueue helper:
+> > >
+> > >  =3D=3D=3D=3D=3D TASKSKASAN01 =3D=3D=3D=3D=3D
+> > >  [ 1.244567] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0x=
+b0
+> > >  [ 1.244707] Last potentially related work creation:
+> > >  [ 1.244716] aux_test_call_rcu_tasks.constprop.0+0xc/0x20
+> > >
+> > >  =3D=3D=3D=3D=3D TREEKASAN01 =3D=3D=3D=3D=3D
+> > >  [ 0.670399] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0x=
+b0
+> > >  [ 0.670561] Last potentially related work creation:
+> > >  [ 0.670571] aux_test_call_rcu_tree.constprop.0+0xc/0x20
+> > >
+> > >  =3D=3D=3D=3D=3D SRCUKASAN01 =3D=3D=3D=3D=3D
+> > >  [ 0.658679] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0x=
+c0
+> > >  [ 0.658919] Last potentially related work creation:
+> > >  [ 0.658932] aux_test_call_srcu.constprop.0+0x16/0x30
+> > >
+> > >  =3D=3D=3D=3D=3D TINYKASAN01 =3D=3D=3D=3D=3D
+> > >  [ 0.951503] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0x=
+b0
+> > >  [ 0.951641] Last potentially related work creation:
+> > >  [ 0.951650] aux_test_call_rcu_tiny.constprop.0+0xc/0x20
+> > >
+> > >  =3D=3D=3D=3D=3D SRCUTINYKASAN01 =3D=3D=3D=3D=3D
+> > >  [ 1.009005] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0x=
+c0
+> > >  [ 1.009141] Last potentially related work creation:
+> > >  [ 1.009150] aux_test_call_srcu.constprop.0+0x16/0x30
+> > >
+> > >  I'm not feeling very excited about adding more configs just for KASA=
+N. That
+> > >  sounds like a maintenance burden. I believe Paul already has KASAN t=
+esting in
+> > >  his scripts. Is it possible to activate this testing only when those=
+ are enabled?
+> > >
+> > The usual way that I do KASAN testing is with the --kasan argument
+> > to kvm.sh. I use --kconfig and --bootargs to specify further testing,
+> > usually as another option in torture.sh. This causes the testing to
+> > be carried out as a matter of course.
+> >
+> > One good thing is that the Kconfig choice in patch 4/5 is automated so
+> > that RCU_KASAN_AUX_TEST causes the right testing to happen depending on
+> > what is configured.
+> >
+> > Is it possible to drive this from --kasan and the rcutorture.object_deb=
+ug
+> > kernel boot parameter or something similar? Or is there a better way
+> > to make the overall testing happen?
+>
+> Hello, Kunwu
+>
+> Perhaps we can simplify this testing, similar to object_debug testing.
+> double-free also should output stack (I did not actually test the
+> modifications below) which record by kasan_record_aux_stack():
+>
+>
+> diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+> index 968343be4e0d..93b30bf90cc9 100644
+> --- a/kernel/rcu/rcutorture.c
+> +++ b/kernel/rcu/rcutorture.c
+> @@ -120,6 +120,7 @@ torture_param(bool, nmi_calls, true, "Exercise ->call=
+() from NMI on nmi_capable
+>  torture_param(int, nreaders, -1, "Number of RCU reader threads");
+>  torture_param(bool, nwriters, 1, "Number of RCU writer threads (0 or 1)"=
+);
+>  torture_param(int, object_debug, 0, "Enable debug-object double call_rcu=
+() testing");
+> +torture_param(int, kasan_debug, 0, "Enable call_rcu() kasan testing");
+>  torture_param(int, onoff_holdoff, 0, "Time after boot before CPU hotplug=
+s (s)");
+>  torture_param(int, onoff_interval, 0, "Time between CPU hotplugs (jiffie=
+s), 0=3Ddisable");
+>  torture_param(bool, gpwrap_lag, true, "Enable grace-period wrap lag test=
+ing");
+> @@ -4632,6 +4633,25 @@ static void rcu_test_debug_objects(void)
+>         kfree(rhp);
+>  }
+>
+> +static void rcu_free_cb(struct rcu_head *rhp)
+> +{
+> +       kfree(rhp);
+> +}
+> +
+> +static void rcu_test_kasan(void)
+> +{
+> +       if (!IS_ENABLED(CONFIG_KASAN_GENERIC) ||
+> +                       !cur_ops->call || !cur_ops->cb_barrier)
+> +               return;
+> +
+> +       struct rcu_head *rhp =3D kmalloc_obj(*rhp);
+> +       if (rhp) {
+> +               cur_ops->call(rhp, rcu_free_cb);
+> +               cur_ops->cb_barrier();
+> +       }
+> +       kfree(rhp);
+> +}
+> +
+>  static void rcutorture_sync(void)
+>  {
+>         static unsigned long n;
+> @@ -5191,6 +5211,9 @@ rcu_torture_init(void)
+>         if (object_debug)
+>                 rcu_test_debug_objects();
+>
+> +       if (kasan_debug)
+> +               rcu_test_kasan();
+> +
+>         if (cur_ops->gp_slow_register && !WARN_ON_ONCE(!cur_ops->gp_slow_=
+unregister))
+>                 cur_ops->gp_slow_register(&rcu_fwd_cb_nodelay);
+>
+>
+>
+> Thanks
+> Zqiang
+>
 
-The drain only covers the requests that were already counted in
-fsvq->in_flight when it started.  A request submitted after it returns is
-not covered, but is still handed to the device before the abort runs:
+Thanks Joel, Paul, and Zqiang.
 
-  CPU 0 (umount)                     CPU 1
-  ---------------------------------  --------------------------------
-  virtio_fs_drain_all_queues()
-    /* in_flight drops to 0 and
-       the drain returns */
-                                     virtio_fs_enqueue_req()
-                                       virtqueue_add_sgs()
-                                       inc_in_flight_req() -> 1
-  fuse_conn_destroy()
-    fuse_send_destroy()
-    fuse_chan_abort()
-      /* ends and frees the
-         request above */
-    fuse_chan_wait_aborted()
-                                     /* the device still owns the
-                                        virtqueue descriptors and
-                                        DMA-writes into the freed
-                                        request and its argbuf */
+I agree that we should avoid extra KASAN-specific configs and integrate the
+testing into the existing KASAN/torture workflow. I'll look into how
+best to do that.
 
-Stop admitting requests on each queue before draining begins.  The flag
-is set per queue, but that is sufficient: request admission,
-virtqueue_add_sgs() and, on the submission path, the in_flight
-increment are serialized by the same fsvq->lock.  A request is
-therefore either rejected before the device can see it, or already
-counted in fsvq->in_flight and covered by the drain.  There is no
-window in between.
+Zqiang, thanks for the code suggestion.
+I'll look more closely at which callback paths it covers and how the
+intentional
+KASAN report should be handled by the torture scripts. The important part i=
+s
+to make sure that "Last potentially related work creation" points to
+the expected
+callback enqueue helper, rather than just triggering a KASAN report.
 
-Rejected requests use the existing -ENOTCONN error path and are ended by
-virtio_fs_request_dispatch_work() through end_reqs, so no new request
-completion or ownership state is introduced.  Nothing has to be
-discarded in the completion path, and fsvq->in_flight remains the only
-per-queue accounting state.
+I'll consider all these points for the next revision.
 
-The -ENOSPC path needs the same admission check.  virtio_fs_enqueue_req()
-drops fsvq->lock before returning -ENOSPC, and the caller queues the
-request in a second critical section; teardown can finish in between and
-leave the request stranded on queued_reqs, which nothing drains.
-Re-check connected/aborting before queueing, in both the submission path
-and the dispatch worker.  After aborting is set, no request can newly
-enter queued_reqs or the virtqueue, except the explicitly permitted
-FUSE_DESTROY path.
+Thanks,
+Kunwu
 
-Rejected requests are ended by virtio_fs_request_dispatch_work().  If
-their end callback may block (a DAX release), ending them inline can
-deadlock: the callback may issue a synchronous request that needs the
-same worker.  Offload those endings to a separate work item, like the
-device completion path already does.
-
-The new state is not folded into fsvq->connected because the request
-queues have to stay usable: fuse_conn_destroy() sends FUSE_DESTROY
-through them, with args.force set so that fuse_simple_request() waits
-for the reply.  Clearing fsvq->connected would make that request fail
-with -ENOTCONN and the server would never see the destroy.
-
-FUSE_DESTROY is the sole exception while aborting is set.  It is sent
-only after the first drain, and its completion is waited for before
-fuse_chan_abort() can end requests, so the destroy is the only request
-the device sees after the drain.  virtio-fs exposes no userspace
-/dev/fuse fd (and no_control disables the fusectl interface), so
-userspace cannot inject another request.
-
-virtio_fs_start_all_queues() clears the flag, so a mount that follows an
-unmount starts with admission enabled again.
-
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
-V2 -> V3:
-- re-check admission before queueing on -ENOSPC, in virtio_fs_send_req()
-  and in the dispatch worker, so teardown cannot strand a request on
-  queued_reqs
-- offload may_block request endings in the dispatch worker to avoid a
-  self-deadlock through fuse_simple_request()
-- add Fixes: and Cc: stable
-V1 -> V2:
-- prevent new requests from reaching the virtqueue at teardown time
-  instead of skipping completions of aborted requests
-- keep FUSE_DESTROY working: it is the teardown request and is waited
-  for before fuse_chan_abort()
-- drop the per-vq aborted flag and the completion-skip branch
- fs/fuse/virtio_fs.c | 104 +++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 94 insertions(+), 10 deletions(-)
-
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index ba8d79c4bcac6..a46536c9fdc8e 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -55,6 +55,7 @@ struct virtio_fs_vq {
- 	struct work_struct dispatch_work;
- 	struct fuse_dev *fud;
- 	bool connected;
-+	bool aborting; /* reject new requests except FUSE_DESTROY */
- 	long in_flight;
- 	struct completion in_flight_zero; /* No inflight requests */
- 	struct kobject *kobj;
-@@ -97,6 +98,11 @@ struct virtio_fs_req_work {
- 	struct work_struct done_work;
- };
- 
-+struct virtio_fs_end_work {
-+	struct work_struct work;
-+	struct fuse_req *req;
-+};
-+
- static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
- 				 struct fuse_req *req, bool in_flight,
- 				 gfp_t gfp);
-@@ -348,6 +354,7 @@ static void virtio_fs_start_all_queues(struct virtio_fs *fs)
- 		fsvq = &fs->vqs[i];
- 		spin_lock(&fsvq->lock);
- 		fsvq->connected = true;
-+		fsvq->aborting = false;
- 		spin_unlock(&fsvq->lock);
- 	}
- }
-@@ -551,6 +558,39 @@ static void virtio_fs_hiprio_done_work(struct work_struct *work)
- 	spin_unlock(&fsvq->lock);
- }
- 
-+static void virtio_fs_end_req_work(struct work_struct *work)
-+{
-+	struct virtio_fs_end_work *w =
-+		container_of(work, typeof(*w), work);
-+
-+	fuse_request_end(w->req);
-+	kfree(w);
-+}
-+
-+/*
-+ * A request rejected during teardown can have an end callback that may
-+ * block (DAX release).  Ending it inline in virtio_fs_request_dispatch_work()
-+ * can deadlock: the callback may issue a synchronous request whose
-+ * completion needs the same dispatch_work that is currently blocked.
-+ * Offload it, like the device completion path does.
-+ *
-+ * virtio_fs_request_complete() cannot be reused here: it also consumes
-+ * argbuf and drops in_flight, while a rejected request has neither.
-+ */
-+static void virtio_fs_end_req(struct fuse_req *req)
-+{
-+	if (req->args->may_block) {
-+		struct virtio_fs_end_work *w;
-+
-+		w = kzalloc_obj(*w, GFP_NOFS | __GFP_NOFAIL);
-+		INIT_WORK(&w->work, virtio_fs_end_req_work);
-+		w->req = req;
-+		schedule_work(&w->work);
-+	} else {
-+		fuse_request_end(req);
-+	}
-+}
-+
- static void virtio_fs_request_dispatch_work(struct work_struct *work)
- {
- 	struct fuse_req *req;
-@@ -570,7 +610,7 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
- 
- 		list_del_init(&req->list);
- 		spin_unlock(&fsvq->lock);
--		fuse_request_end(req);
-+		virtio_fs_end_req(req);
- 	}
- 
- 	/* Dispatch pending requests */
-@@ -593,9 +633,17 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
- 		if (ret < 0) {
- 			if (ret == -ENOSPC) {
- 				spin_lock(&fsvq->lock);
--				list_add_tail(&req->list, &fsvq->queued_reqs);
--				spin_unlock(&fsvq->lock);
--				return;
-+				if (!fsvq->connected ||
-+				    (fsvq->aborting &&
-+				     req->in.h.opcode != FUSE_DESTROY)) {
-+					spin_unlock(&fsvq->lock);
-+					ret = -ENOTCONN;
-+				} else {
-+					list_add_tail(&req->list,
-+						      &fsvq->queued_reqs);
-+					spin_unlock(&fsvq->lock);
-+					return;
-+				}
- 			}
- 			req->out.h.error = ret;
- 			spin_lock(&fsvq->lock);
-@@ -603,7 +651,7 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
- 			spin_unlock(&fsvq->lock);
- 			pr_err("virtio-fs: virtio_fs_enqueue_req() failed %d\n",
- 			       ret);
--			fuse_request_end(req);
-+			virtio_fs_end_req(req);
- 		}
- 	}
- }
-@@ -1226,6 +1274,28 @@ static void virtio_fs_stop_all_queues(struct virtio_fs *fs)
- 	}
- }
- 
-+/*
-+ * Stop admitting new requests before draining the queues.  Admission and
-+ * virtqueue submission are serialized by fsvq->lock, so a request is
-+ * either rejected before reaching the device or accounted in in_flight
-+ * and covered by the drain.
-+ *
-+ * FUSE_DESTROY is exempt because fuse_conn_destroy() sends it after the
-+ * first drain and waits for its completion before aborting the channel.
-+ */
-+static void virtio_fs_stop_new_requests(struct virtio_fs *fs)
-+{
-+	struct virtio_fs_vq *fsvq;
-+	int i;
-+
-+	for (i = 0; i < fs->nvqs; i++) {
-+		fsvq = &fs->vqs[i];
-+		spin_lock(&fsvq->lock);
-+		fsvq->aborting = true;
-+		spin_unlock(&fsvq->lock);
-+	}
-+}
-+
- static void virtio_fs_remove(struct virtio_device *vdev)
- {
- 	struct virtio_fs *fs = vdev->priv;
-@@ -1479,7 +1549,8 @@ static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
- 
- 	spin_lock(&fsvq->lock);
- 
--	if (!fsvq->connected) {
-+	if (!fsvq->connected ||
-+	    (fsvq->aborting && req->in.h.opcode != FUSE_DESTROY)) {
- 		spin_unlock(&fsvq->lock);
- 		ret = -ENOTCONN;
- 		goto out;
-@@ -1551,12 +1622,22 @@ static void virtio_fs_send_req(struct fuse_iqueue *fiq, struct fuse_req *req)
- 			/*
- 			 * Virtqueue full. Retry submission from worker
- 			 * context as we might be holding fc->chan->bg_lock.
-+			 * Re-check admission under the same lock that
-+			 * increments in_flight: teardown may have started
-+			 * between enqueue_req() dropping its lock and here.
- 			 */
- 			spin_lock(&fsvq->lock);
--			list_add_tail(&req->list, &fsvq->queued_reqs);
--			inc_in_flight_req(fsvq);
--			spin_unlock(&fsvq->lock);
--			return;
-+			if (!fsvq->connected ||
-+			    (fsvq->aborting &&
-+			     req->in.h.opcode != FUSE_DESTROY)) {
-+				spin_unlock(&fsvq->lock);
-+				ret = -ENOTCONN;
-+			} else {
-+				list_add_tail(&req->list, &fsvq->queued_reqs);
-+				inc_in_flight_req(fsvq);
-+				spin_unlock(&fsvq->lock);
-+				return;
-+			}
- 		}
- 		req->out.h.error = ret;
- 		pr_err("virtio-fs: virtio_fs_enqueue_req() failed %d\n", ret);
-@@ -1669,6 +1750,9 @@ static void virtio_fs_conn_destroy(struct fuse_mount *fm)
- 	spin_lock(&fsvq->lock);
- 	fsvq->connected = false;
- 	spin_unlock(&fsvq->lock);
-+
-+	/* Nothing may be queued after the drain below */
-+	virtio_fs_stop_new_requests(vfs);
- 	virtio_fs_drain_all_queues(vfs);
- 
- 	fuse_conn_destroy(fm);
--- 
-2.54.0 (Apple Git-157)
-
+>
+> >
+> >  Thanx, Paul
+> >
