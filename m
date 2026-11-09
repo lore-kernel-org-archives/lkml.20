@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794184098;
-	b=C1DJf030v9UsV1YUNUQJK7jj8qCOCNs+px9b8J5tksLRyydy9ZUWl2GXGhj/+IuzRFeB
-	 Z+MPKbM3u4nJCIAcYrZRBmMn9GHK8iSCk7ty+2F8zaWd1zmdzMpwetGFHKRA41pPECUFg
-	 2Kt1vhj4C6V0ggyxxwwUT5HwI58m1JR7m8zt4aMAUwEXkh/lFObzqMEmqD2ZWkdgv4q+i
-	 TNWFNfXuGABHpu3cLl1ktFiiqsx2LQoTVma/6FpIZ96QtgIHxvK5nVF5YtlMtAWM0OMFo
-	 6WqXcttRSjyE/PYes+KZeW6KN6aJLT6pecCIUFl8lQpjPT0QYrHxOzH709JklaTOqMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184098;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YnrBzjT1IwRnefP39AoEKGX0WWpF+lHgzCtbl/lCHus=;
-	b=2gk0+taF/C2DlT6mLR5fKFAPhEKv7MOHJn71noVkoY/9NEPAliMIrW/cow1CGhPrSdSo
-	 FPj78lGg1JrONNjUfYTPiVsOnmkCU3yVazRfid35lkuKFttQRIUXS7ybM3/rioC0y/WeX
-	 vEVXdQ8DIdXD2tSkXmFUfdRgc/AUwIk5B1CmEB63Zh2m3vnYYIDbE8QG9wYHD3059xoO/
-	 S/sG7U1bAiNFffL1Rjc+cSwP51CQSy/umDIeKQ8mU6i0sw6dqjwxG01+w2Z6oSZEmD2ah
-	 gOWCMGBTc3eRLsmTQ/kXFz6SGwS4s+cM+OksUOYIGprX643/AAEjUMbwzWKBbliykrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUh9r3Lt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794184097;
+	b=W7k35m+x6nFHERGdCO+sCuCQQQYtt8QvfepFu8ucXIKYKdpRs27BSME1zBBqk4jDablR
+	 +4tlrTkX179KaSU+FzZjIk+xpZOQ1p/OwzdKwSKq1w4660m731ry0gAU2PbbnT+FX1Y9B
+	 H/5k3PcEWVIKBtYVKuaA1j+Qq59uX8+KLzxoF4C2iaeOVA1VZNQwXV3lEpfrSqO1W+v+n
+	 BRtcxJxEY5itXRWkVR8Un9O/d/eHi8Q9WtboslDTFJ43IWzhACPglhat4Y9rDZZVkRmRa
+	 sxx5c/pINrGtQRrpGUf00AFji1+T44QA+bFdlElsqOkRf9yc97QUkYr2z8430gtE2FQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184097;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=oDBZSd2HMkUrgeR+h9U1/zObKN23+ppb2T0hvywk+YU=;
+	b=zNI5f+e/d54kwd2dhWMPUr1Yo+xek+GE+w5pWnJj+qQ//eDTgG69kX9opFKU4UKZ5ft3
+	 +HcuLIyozzM28W9Btr8JthQu282DL8/Rq19UpINj0pC9WFDYSnUmVHRC6+GMPys0nntVM
+	 vnNrjP4F1dMpECBWFsKEMALQ7c6pku2VbuKw+jHcULILMBJeFR6BGusvHDrDSsBw04Wxt
+	 GTdek207Dt55uXOF40CPybkwspd6SZG4wX8AueKjCLWwGYfkuRAf2S5nGXF6SjeG/9tVo
+	 x9Oo6ZDzN5qDRsqcDSV9WCa+JtXF5umDARqbOdrQImAyUiNJVfoa6WpeYajPRv51Q2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUCtxfYw;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FB5606A326;
-	Mon,  9 Nov 2026 00:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUh9r3Lt
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794184097;
-	b=OCWxR3YxTWvuMtUIxKMw/BnsNzPNAa0uz+bvjJFRBOgE7GI4Z5L4l5rr6b84w9mCqR0Z
-	 ALKlT20W6eZ+mMmQADzEFDHea2ExlwcbtOPk2DEnCQdhLbT6gslEZcUjK+/ThEFzafYKv
-	 qneoKd7Fu/CcMIdsG1aRHNt5CLR4h76fUjcDAwHR9P6wq/g6C2NjOCqMUksT3frsdj4Bi
-	 +2j9MDkETFeQaP7f9mP2U4rX9iqoC1uNMje9Ve58DCjH5K+ULJKuOAOJvw2C8rTea4gmt
-	 Y6m8eSQGyEGe4xXGQOqw7Xux4emAWCYR9nPbmiar3/FwLaL61Q05epnJKDBZfLHs7/w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794184097;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YnrBzjT1IwRnefP39AoEKGX0WWpF+lHgzCtbl/lCHus=;
-	b=Gxe7VnsJn7MNL7CTDrbAltw1byG9D9LtxdIGfcCWIMyO3VLhjnSHHqKAMM/swf1ZDATp
-	 JywpM9zjjGCxa88hm3RYgn8w+u+nmJQRL0qYQMEdOTpsXOAsFIbCypM3f8oNxppBqwp8o
-	 7wbKwXSuhRps1uxs+vWtQiHExCVt12Yf28LhHmPhCrGUM9Ge3QzTC/pJ+LO7ovccm2HNH
-	 xQ0wLOOjDJUdp4gXVHW4JV+1GHhzIUFOFncAV+V7maCbAwa+qhntBfFz775XlV65kZh4i
-	 //RogxRvpDr3K/48lDqlqu3GjgKmyWJxb44kHF05NxiF6nFzIBJNm8/+trIVRGFAf3g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6EE7F1F008A1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D2A606A31C;
 	Mon,  9 Nov 2026 00:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUCtxfYw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2372A1F0089F;
+	Mon,  9 Nov 2026 00:28:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794184097;
-	bh=YnrBzjT1IwRnefP39AoEKGX0WWpF+lHgzCtbl/lCHus=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=FUh9r3LtdKgEedcokMOY/gMNpDYqXG0YF7Ewz8TR4AJ2SALvNryeFTJkUDHlmSe9O
-	 xFoTDiuU+aX7Iwh0yo5MEFvXn14Rnao+kUJIIOHby4ZE/wV3VfCdE3vr8B+GVplB/p
-	 IckQrG/juQPjqsZwYhuTXz03xbVPNPWAC5/GJ4bGP4LFHGXCL5k6YQvGIWhXD2QwbP
-	 v8z4FRTc8rOHz71cJNJmznNIVB4rzx/aFD6xbHOBPq12YhCB6xveDLXjyJ5s5a/dZF
-	 E0UDDuS/8AeWaymab9weR0Sa5qzy2JqDyfJJJMdmjRWy4/0qU4vQUggaCGAhvViSyS
-	 hyp+T7lPJWFIQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 00A644818E;
-	Mon,  9 Nov 2026 00:28:17 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Mon, 09 Nov 2026 01:28:15 +0100
-Subject: [PATCH] ceph: write back a cap snap's dirty pages as soon as it is
- finished
+	bh=oDBZSd2HMkUrgeR+h9U1/zObKN23+ppb2T0hvywk+YU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DUCtxfYwFdnnoYYkMqu52LIZaWglNmAoNj/o4b+AYvIsPjFsDEuQzNy3h9Sr8NGpN
+	 4/Z06RjEHMRINTQYp0PA8p1UwVGKBUPp+62oM62/vTHc1Yi7Z+Q8wePJhupXRGBjGb
+	 7FAuMng2vMz0OvxD7z1TU+gVLyvuIvoqGlgIf/q5xcSelIHI6t5SHoX7LHct3fINRV
+	 9pjklU7W+8LExkcrgZE1TX4rs6n2LbGdOAPh0t5V38a1Kn/W+HOJxlNBrI046gO2Vf
+	 WsHHz/DrDLMFnKWD1jUskoQW6KkZUjJrT7YqYwG5TSfC18C7I1H2N/lz53qmASgnYg
+	 R3nGI0xQO/1Cw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH 01/12] tracing/probes: Check enabled and busy state before unlinking sibling probes
+Date: Mon,  9 Nov 2026 09:28:14 +0900
+Message-ID: <179418409398.227715.11396070214186733215.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179418408457.227715.1485179201014819821.stgit@devnote2>
+References: <179418408457.227715.1485179201014819821.stgit@devnote2>
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,95 +63,137 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-ceph-capsnap-writeback-v1-1-d2130bce504b@clyso.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQrCMBBA4auUWTuQBCLVqxQXk+nYjkIMmfoDp
- Xc31uW3eG8Fk6picO5WqPJS00du8IcOeKY8CerYDMGFo/euR5YyI1OxTAXfVRdJxHeMXig4N8Y
- UT9DiUuWqn308XP62Z7oJL78bbNsXODSi5noAAAA=
-X-Change-ID: 20261108-ceph-capsnap-writeback-51ea200d5b59
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, 
- Milind Changire <mchangir@redhat.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794184095; l=2794;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=R6XqZSxdVxydzDKnNp2ga3kcSz7zsahaBCcIEPSGDXQ=;
- b=VF1dnMWpYunG/+eQ1Ei5JrkO5cng3HsIWMoEYlJ8MoweHver5KuMGGStsKwC2YX1zckKdL61+
- 5ZP1XxWV6/fDr8m5KSHLjNPTTmdCnNImUiOj0YpGiEZ371XwNwfcX1V
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Xiubo Li <xiubo.li@clyso.com>
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-When a snapshot is taken while an inode has dirty pages, the pages
-move to a cap snap, which can only be flushed to the MDS once they have
-been written back.  __ceph_finish_cap_snap() starts writeback at once
-when the cap snap has no dirty pages of its own but the inode still has
-some, but when the cap snap has some it starts nothing: its pages wait
-for periodic writeback, up to dirty_expire_centisecs, or for the next
-write to one of them.  ceph-fuse flushes the buffered data at once in
-both cases.
+When a multiprobe event is enabled or referenced (for example, by an
+eprobe, trigger, or open tracefs file) and a user attempts to delete the
+event or one of its probes via dynamic_events, checking
+trace_probe_has_sibling() before the enabled and busy checks allows the
+first probe to be unlinked and freed while the event is still active,
+only returning -EBUSY on the last sibling probe. For uprobe events,
+unlinking and freeing an enabled sibling probe without unregistering its
+uprobe_consumer also causes a use-after-free.
 
-With lazy I/O that loses data from the snapshot.  Several clients
-buffer writes to one file then, and when another one writes to the
-same object with the new snap context first, the OSD clones the object
-for the snapshot on that write; what this client writes with the old
-snap context after it goes to the head only.  With two lazy writers
-that each dirty a page, take a snapshot and write again, the snapshot
-had zeros instead of the first client's data whenever the second
-client's new write reached the OSD first, as the OSD op history shows:
+Ensure all four probe types (kprobe, fprobe, uprobe, and eprobe) verify
+that the event is neither enabled nor busy before unlinking any sibling
+probe.
 
-  client.4157.0:4 [write 4096~2000] snapc 2=[2]
-  client.4156.0:3 [write 0~2000] snapc 1=[]
-
-Start writeback of the cap snap's pages at once, too, as ceph-fuse does.
-This also gets the cap snap to the MDS sooner without lazy I/O.
-
-Fixes: 2d12ad950b0c ("ceph: trigger to flush the buffer when making snapshot")
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+Fixes: ca89bc071d5e ("tracing/kprobe: Add multi-probe per event support")
+Fixes: 41af3cf587f4 ("tracing/uprobe: Add multi-probe per uprobe event support")
+Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+Fixes: 334e5519c375 ("tracing/probes: Add fprobe events for tracing function entry and exit.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
-When a snapshot is taken while an inode has dirty pages, the kernel
-client leaves the cap snap's pages for periodic writeback, while
-ceph-fuse flushes them at once.  With lazy I/O another client may write
-to the same objects with the new snap context first, and what this
-client writes with the old one afterwards misses the snapshot.
----
- fs/ceph/snap.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ kernel/trace/trace_eprobe.c |   12 ++++++++----
+ kernel/trace/trace_fprobe.c |    8 ++++----
+ kernel/trace/trace_kprobe.c |    8 ++++----
+ kernel/trace/trace_uprobe.c |    8 ++++++--
+ 4 files changed, 22 insertions(+), 14 deletions(-)
 
-diff --git a/fs/ceph/snap.c b/fs/ceph/snap.c
-index f59b83a97d52..e44378b07fd3 100644
---- a/fs/ceph/snap.c
-+++ b/fs/ceph/snap.c
-@@ -683,6 +683,15 @@ int __ceph_finish_cap_snap(struct ceph_inode_info *ci,
- 		      capsnap->context->seq,
- 		      ceph_cap_string(capsnap->dirty),
- 		      capsnap->size, capsnap->dirty_pages);
-+		/*
-+		 * Write them back now, not when writeback or the next
-+		 * write to them gets to it: they belong to the snapshot,
-+		 * and with lazy I/O another client may already write to
-+		 * the same objects with the new snap context.  Its first
-+		 * write clones the objects for the snapshot, and what we
-+		 * write with the old one after that misses the snapshot.
-+		 */
-+		ceph_queue_writeback(inode);
- 		return 0;
- 	}
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index 474be2f5ccd9..f1590c9af6b2 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -94,14 +94,18 @@ static int eprobe_dyn_event_show(struct seq_file *m, struct dyn_event *ev)
  
-
----
-base-commit: 5dcec86cc31f8144857c0d9bf2a7fa13b6e6f531
-change-id: 20261108-ceph-capsnap-writeback-51ea200d5b59
-
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
-
+ static int unregister_trace_eprobe(struct trace_eprobe *ep)
+ {
+-	/* If other probes are on the event, just unregister eprobe */
+-	if (trace_probe_has_sibling(&ep->tp))
+-		goto unreg;
+-
+ 	/* Enabled event can not be unregistered */
+ 	if (trace_probe_is_enabled(&ep->tp))
+ 		return -EBUSY;
+ 
++	/* If there's a reference to the dynamic event */
++	if (trace_event_dyn_busy(trace_probe_event_call(&ep->tp)))
++		return -EBUSY;
++
++	/* If other probes are on the event, just unregister eprobe */
++	if (trace_probe_has_sibling(&ep->tp))
++		goto unreg;
++
+ 	/* Will fail if probe is being used by ftrace or perf */
+ 	if (trace_probe_unregister_event_call(&ep->tp))
+ 		return -EBUSY;
+diff --git a/kernel/trace/trace_fprobe.c b/kernel/trace/trace_fprobe.c
+index 4e9034ebc3fb..77f2228d44ba 100644
+--- a/kernel/trace/trace_fprobe.c
++++ b/kernel/trace/trace_fprobe.c
+@@ -853,10 +853,6 @@ static void __unregister_trace_fprobe(struct trace_fprobe *tf)
+ /* Unregister a trace_probe and probe_event */
+ static int unregister_trace_fprobe(struct trace_fprobe *tf)
+ {
+-	/* If other probes are on the event, just unregister fprobe */
+-	if (trace_probe_has_sibling(&tf->tp))
+-		goto unreg;
+-
+ 	/* Enabled event can not be unregistered */
+ 	if (trace_probe_is_enabled(&tf->tp))
+ 		return -EBUSY;
+@@ -865,6 +861,10 @@ static int unregister_trace_fprobe(struct trace_fprobe *tf)
+ 	if (trace_event_dyn_busy(trace_probe_event_call(&tf->tp)))
+ 		return -EBUSY;
+ 
++	/* If other probes are on the event, just unregister fprobe */
++	if (trace_probe_has_sibling(&tf->tp))
++		goto unreg;
++
+ 	/* Will fail if probe is being used by ftrace or perf */
+ 	if (unregister_fprobe_event(tf))
+ 		return -EBUSY;
+diff --git a/kernel/trace/trace_kprobe.c b/kernel/trace/trace_kprobe.c
+index e41a7c113646..a42af0e66009 100644
+--- a/kernel/trace/trace_kprobe.c
++++ b/kernel/trace/trace_kprobe.c
+@@ -548,10 +548,6 @@ static void __unregister_trace_kprobe(struct trace_kprobe *tk)
+ /* Unregister a trace_probe and probe_event */
+ static int unregister_trace_kprobe(struct trace_kprobe *tk)
+ {
+-	/* If other probes are on the event, just unregister kprobe */
+-	if (trace_probe_has_sibling(&tk->tp))
+-		goto unreg;
+-
+ 	/* Enabled event can not be unregistered */
+ 	if (trace_probe_is_enabled(&tk->tp))
+ 		return -EBUSY;
+@@ -560,6 +556,10 @@ static int unregister_trace_kprobe(struct trace_kprobe *tk)
+ 	if (trace_event_dyn_busy(trace_probe_event_call(&tk->tp)))
+ 		return -EBUSY;
+ 
++	/* If other probes are on the event, just unregister kprobe */
++	if (trace_probe_has_sibling(&tk->tp))
++		goto unreg;
++
+ 	/* Will fail if probe is being used by ftrace or perf */
+ 	if (unregister_kprobe_event(tk))
+ 		return -EBUSY;
+diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
+index 22cc3c8181b8..146da04b93a8 100644
+--- a/kernel/trace/trace_uprobe.c
++++ b/kernel/trace/trace_uprobe.c
+@@ -396,13 +396,17 @@ static int unregister_trace_uprobe(struct trace_uprobe *tu)
+ {
+ 	int ret;
+ 
+-	if (trace_probe_has_sibling(&tu->tp))
+-		goto unreg;
++	/* Enabled event can not be unregistered */
++	if (trace_probe_is_enabled(&tu->tp))
++		return -EBUSY;
+ 
+ 	/* If there's a reference to the dynamic event */
+ 	if (trace_event_dyn_busy(trace_probe_event_call(&tu->tp)))
+ 		return -EBUSY;
+ 
++	if (trace_probe_has_sibling(&tu->tp))
++		goto unreg;
++
+ 	ret = unregister_uprobe_event(tu);
+ 	if (ret)
+ 		return ret;
 
