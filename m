@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217830;
-	b=cCs4xqBGdO21vzg1k06vLOIBQpMLMeIbIHF8JGTIwJ+Z//M0W4Ee1x05z56/tnclEtos
-	 J1uNApD/XIlbo+jD3bm0bef85zIDD+iZ9MXYmFxFQi5kDAlU2C7wTyKcFxsQUvt6MoIXi
-	 E0r1WuEsRXz+rI/Iyxqm7Ni4DrvlxN+6jZjH8Nof/c4hsIrUk8TMAl5yfh0QCvxBZBK2A
-	 E4x4RVf5r8jNjo4mmtb8u5ozg2xxcuFi3Qdwi/82dCg/0E/OUMMEIZUmJdxqXEZXBznYC
-	 cxOeuCX9HKlhY8HA2BqJzyRR7ek29ADOYGIxT/BN+8CUrQ3WDPuAcyQtChAP7S7evuw==
+	t=1794217842;
+	b=y/MYVikb7RnSHPZ1aMdv7REOzSkbUROBvLuXaY1M6AlVSu0jDLKLjH5q+F5rXYE4tE4E
+	 hKBou4TDeV2P+UYeLDvtenrG5eP/0Hu4cUqK9yh84PUd7BmcZ9vOO4h/B+0ea2wwTC/tP
+	 3cWx967x8JUpXaRIfuOKHumvYwcrwzL1hkX7HsXsqAt0z24HrHZUAlEY/qe/4zuEcyPnA
+	 7OVsd5lVfrssTZQNlzi1aOse4wQx9PXqT4V+1raGAYjumRuuRUuDJdDSBmkKO1mMAgQla
+	 tHm43jXb4XgxbUUfI9nNvkYM5do530VzO199HdymNDzluHbGKMEFX/D9+YmRzgeE9cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217830;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8jQST5+SfU/stcEn1VOV+s+O2grX/AjdmKJu3mY8h/o=;
-	b=Ej2fWZtB83gg5ecnot9hL7fjusmQvVPH4qbdBnpk+mTanNg/BT+xg+btl9BgAsHcfKqb
-	 DhXdrqkbU23WSnlQlXTyA0tg/RB1TBN8yTwoQkONBA1wr4rKKpYus9txgbcSdkcoPOOVP
-	 1zhp5NiyqTw84T4AhLnI1KSsRhPXkrb6TjIA8UF+o698Cf9M9nM5hxo2v9cfqLvWTKWNh
-	 HfJnpSnjV3e/ZreZoUSKAxQCXtmQXfkW60jZ8HDvj4nWmCHWaGZQiMS0JukonmJuMsA/Q
-	 5z+XfOGLkwVCh6KMnX1Q7GjGdkOvwNbkao1kukVfBoWc0aDVjdlNI+MkgnQ9l3a//0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217842;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9iiWUMRW68xMPGfjZ+AcEwv9KLUF/IxUzNqoAU1lF5U=;
+	b=KDomSi1CYTfv9qog6Fyydw2rO4y/P3W5Urniq4HbUv7ZqgrEKVvrQ+t2qjnbvAK0UjNG
+	 jGddupoPc4IpycKhluDLo8PKOgZcB9xlx82AzojPXHyhPbN0z8hcEVgvCxuEay0OFYPqW
+	 qfeYroMDy0EGmBx2gVfd8EOzvqx0yLNsG476hrlVU0TQM2v1UHdhrVqzCvoM530Fp6v25
+	 maZc4Il+AGXnrWXwwhszfaA6d2PJyN3yGqHL5hD2XfxlE7WQkFKy+2DOJVTIzpMH0uo/z
+	 VKi5DQu5luY54MY61oKY7+E2s6DvwV4QQ9HM3o0PrmtIVa9UMqrxCxWEY5B13QlXxNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OvHIGFuz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Y89PWs7e;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E19606A321;
-	Mon,  9 Nov 2026 09:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85472606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:50:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85472606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OvHIGFuz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB921F0089F;
-	Mon,  9 Nov 2026 09:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794217829;
-	bh=8jQST5+SfU/stcEn1VOV+s+O2grX/AjdmKJu3mY8h/o=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=OvHIGFuzeTrht0qsWVugipKYTrQLZcnvB6H9AoSgt/BfQa9OPyUvWqvJ8MOIsDadM
-	 GanFXxKFurEMX1AJqRVtXq3aRWMU3f5+WrFTpo5wgIB//RmeuK1DCmhhBP23ms4Q1h
-	 OxpyKGhtol4qDQfjdGC5xXV4KMT4/NcBlPfpG7uNWKEuNcRlrmaMThNfOOIhb6iqsV
-	 6bvrPZ4Od2X8Yz8iIIBCfsyQcB4XJmpr+4JPhTB/o49dc/swkETYACw1k9TwnUEdPS
-	 i/WrVh9yir+LZOUj1ItLVGLUb1Oim+AfBYVUIRuwBzAMFlgA47kPNAltSH3lzQo+Vl
-	 sFPz+2VdU0FGg==
-Message-ID: <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
-Date: Mon, 9 Nov 2026 10:49:08 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Y89PWs7e
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a315ed211so771206eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:50:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794217841; x=1794822641; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9iiWUMRW68xMPGfjZ+AcEwv9KLUF/IxUzNqoAU1lF5U=;
+        b=Y89PWs7e1BJC+SG+uwknmjEOeXLCPVHRqNnTH+jAuqrWpPQPhmqkDe5YFTrm31BLxQ
+         bDfCPsvOSmLnlw4NYzRV5b6sL331MHSp9rjVMseNdC1asEhvDqiFyocNDGKDx2plT/R7
+         KjTjxs6CjOJ9V3r9uku1nqC+NMy/9hvYDo5EY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794217841; x=1794822641;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9iiWUMRW68xMPGfjZ+AcEwv9KLUF/IxUzNqoAU1lF5U=;
+        b=SGUpOTIxVgq/uM3YovERPZMyLGjbxBXT8Jn/RAyghxrMz+kLhEOOcS/sv7ymgp+yKv
+         MjqVT+3JhCdbC8SWRkzvXhTvXQBhzQx+dzYotibl+rc2MjooN/Nn8W9Tn2dyvGUwP62I
+         7f9s/yNO9SGi6IWTWlsxTWiV9BY0M1QDdgZlwMtpyhFs2m5cKxlxeug1FwXxb1/PkuxQ
+         35nvAjZGVI6MtD0TLObMB4HpZb4qcxvk8XjeyaVOTiAiutKqfVhQkTDThhi6YApWi0nl
+         m05331pTtzOuSDM4O6LFU6zncBR1lk6Sc8Qe3zHXJiaZw/BQhKV5V9z2X8qiZEZvHU5C
+         o7vg==
+X-Forwarded-Encrypted: i=1; AL+hErEqC74bt9H2Yz/2EROqN7x5XEyPIumeESEJpF9TxNbk3SH+D1abvndn+WwA1Aa/rypIzKvHfddm4vVKpyM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VUTrbLAa4vqpHyttdVdQhBAIvVIw4w8vyTiJAUg4IrJRWFHkh
+	BMrcIwOMchbJlU5kGArMxj7a8WgrS2tyMXtATvrJRDsfUaHZBSz3YSYymPvbfuRROw==
+X-Gm-Gg: AYBFou25NkuemFV/4XGhMxdut4NteVO8KpIAvuVmlI3RtusWIv09j5BSiD1L5elOaNz
+	kdHcIutiHGN7Pq4LV7ydh8UKA17fq3X2WCnz8j8ykLUngSYFaiiwrQWoV0ilwf/ib6Wy5yQlF/F
+	2g4ts+1HxOxmEwQdw8xviSXnWNOPc4Ificx9iUSySC+JiQ0J+ysg6P0SRpmL3Kl24v04L9qKb7X
+	cJXENfqD1TUm9zTzIVlMDMPO82vNoqg9gw5Vrsv86lRcGPE6ioMamFWwrvJ7gC9+aIBa+U/ZKnG
+	V+fYVuoUyrO/+f7Z1XVpXD6e2/9DHIsDCP1opmdWDXQL4TmqnktZvJotrKH3Agi66I4+NrcBwP/
+	BHygxdO1ujA61BXfWSiH/5ESuoMv6cvVAzO1vpaN9EkDtVBWOISzgg0F0+0yM+sIpAF0it3x58T
+	sM4kg35L7TcdrsqAoQdXGNYy+SnrgUwte4GVkHJFN2otMRtxplFEbBHaBuWfeFndfDxJWIBXo9x
+	Mjd9erasYyfzHqCiXXzKbHUve24OUmZwmz8PRVv/Phw+obO3x/WP04LMjsTdjNvLeGuDU4WwxBj
+	ywu6mKsGtXoHSagliP2XSz5MbqwHsz37skoEHX8nVzDef1ctHuJoIiKe1gRx3KxrMXcGl7KxTJQ
+	zjaN/4A==
+X-Received: by 2002:a05:7300:f407:b0:36f:fc3e:fb95 with SMTP id 5a478bee46e88-370f74a3b54mr9301081eec.17.1794217840410;
+        Mon, 09 Nov 2026 01:50:40 -0800 (PST)
+Received: from google.com ([2a00:79e0:203d:7:24d0:a2cf:66c5:ef86])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372660f385bsm12674477eec.20.2026.11.09.01.50.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 01:50:39 -0800 (PST)
+Date: Mon, 9 Nov 2026 17:50:36 +0800
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Stanley Chu <stanley.chu@mediatek.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/3] clocksource/drivers/timer-mediatek: Convert to OF
+ probing
+Message-ID: <20261109095036.GA722431@google.com>
+References: <20261002072115.169250-1-l.scorcia@gmail.com>
+ <20261002072115.169250-3-l.scorcia@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,189 +101,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
-References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
- <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
- <a9fb2d3c-d518-49d3-9479-a25fa2cfc5b3@gmail.com>
- <8d23b1eb-72aa-479d-9486-dbfd86d8414c@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <8d23b1eb-72aa-479d-9486-dbfd86d8414c@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002072115.169250-3-l.scorcia@gmail.com>
 
-On 11/9/26 10:30, David Hildenbrand (Arm) wrote:
-> On 11/9/26 09:57, Jose A. Perez de Azpillaga wrote:
->> On 11/7/26 11:23 PM, David Hildenbrand (Arm) wrote:
->>> Similar to mapping pagecache folios into page tables, let's reject
->>> additional references when splicing folios into a pipe if the refcount
->>> is at its limit, similar to how we handle it during GUP.
->>>
->>> This will prevent more cases of possible folio refcount overflows with
->>> large pagecache folios.
->>>
->>> Let's keep it simple and check in the two callers of
->>> splice_folio_into_pipe(). Return -EOVERFLOW if the limit prevents any
->>> progress, so do_splice_read() can fall back to copy_splice_read() when
->>> read_iter is available. This keeps sendfile() and other splice users
->>> working when ordinary reads would still succeed.
->>>
->>> Also fall back to copying in FUSE when taking another reference through
->>> fuse_ref_folio() would exceed the limit.
->>>
->>> Also check in try_get_page() to cover pipe-buffer duplication by tee()
->>> and partial pipe-to-pipe splicing.
->>>
->>> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
->>> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
->>> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->>> ---
->>>  fs/fuse/dev.c      |  5 +++--
->>>  fs/splice.c        |  8 +++++++-
->>>  include/linux/mm.h |  9 ++++++---
->>>  mm/filemap.c       | 11 ++++++++---
->>>  mm/shmem.c         |  4 ++++
->>>  5 files changed, 28 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
->>> index 3641abb90d6bb..4f6b7b42bfd3e 100644
->>> --- a/fs/fuse/dev.c
->>> +++ b/fs/fuse/dev.c
->>> @@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
->>>  		if (cs->write && cs->pipebufs && folio) {
->>>  			/*
->>>  			 * Can't control lifetime of pipe buffers, so always
->>> -			 * copy user pages.
->>> +			 * copy user pages. Also copy folios at their refcount limit.
->>>  			 */
->>> -			if (cs->req->args->user_pages) {
->>> +			if (cs->req->args->user_pages ||
->>> +			    unlikely(folio_ref_count_over_limit(folio))) {
->>>  				err = fuse_copy_fill(cs);
->>>  				if (err)
->>>  					return err;
->>> diff --git a/fs/splice.c b/fs/splice.c
->>> index e6d43329ed3f0..df73a4e65118b 100644
->>> --- a/fs/splice.c
->>> +++ b/fs/splice.c
->>> @@ -956,6 +956,7 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
->>>  			      unsigned int flags)
->>>  {
->>>  	unsigned int p_space;
->>> +	ssize_t ret;
->>>  
->>>  	if (unlikely(!(in->f_mode & FMODE_READ)))
->>>  		return -EBADF;
->>> @@ -977,7 +978,12 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
->>>  	 */
->>>  	if ((in->f_flags & O_DIRECT) || IS_DAX(in->f_mapping->host))
->>>  		return copy_splice_read(in, ppos, pipe, len, flags);
->>> -	return in->f_op->splice_read(in, ppos, pipe, len, flags);
->>> +	ret = in->f_op->splice_read(in, ppos, pipe, len, flags);
->>> +
->>> +	/* Fallback to copying when hitting folio refcount limits. */
->>> +	if (unlikely(ret == -EOVERFLOW) && in->f_op->read_iter)
->>> +		ret = copy_splice_read(in, ppos, pipe, len, flags);
->>
->> here it can't tell where the -EOVERFLOW came from, if another file
->> returns -EOVERFLOW (i.e. tty_fops uses copy_splice_read, and
->> n_hdlc_tty_read() returns -EOVERFLOW after dropping the frame), it now
->> gets a second read.
+On Fri, Oct 02, 2026 at 09:19:27AM +0200, Luca Leonardo Scorcia wrote:
+> MediaTek APXGPT general purpose timer driver is registered via
+> TIMER_OF_DECLARE to be loaded early in the boot process. It depends on
+> a reference 13 MHz clock that is assigned via the clocks property of
+> its DT node.
+> On platforms like mt8516/mt8167 this clock is provided by a driver that
+> is loaded using OF probing and becomes available only later during boot.
+> This leads to a silent EDEFER error during timer init, which is not
+> recovered by TIMER_OF_DECLARE and GPT clocks are not registered at all.
 > 
+> Since those clocks are not critical for boot, convert the timer-mediatek
+> to OF probing and drop the TIMER_OF_DECLARE instructions.
+
+I think this is now triggering some lockdep warnings.
+
+[  +0.000084] BUG: sleeping function called from invalid context at ./include/linux/percpu-rwsem.h:51
+[  +0.000086] in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid: 1, name: swapper/0
+[  +0.000079] preempt_count: 0, expected: 0
+[  +0.000050] RCU nest depth: 0, expected: 0
+[  +0.000051] locks held by swapper/0/1: 1, last CPU#3:
+[  +0.000060]  #0: ffffff80c15d1138 (&dev->mutex){....}-{4:4}, at: __driver_attach (./include/linux/device.h:1109 drivers/base/dd.c:1046 drivers/base/dd.c:1299)
+[  +0.000142] irq event stamp: 250728
+[  +0.067364] hardirqs last  enabled at (250727): tick_oneshot_mode_active (kernel/time/tick-oneshot.c:128)
+[  +0.009480] hardirqs last disabled at (250728): sched_clock_register (kernel/time/sched_clock.c:189)
+[  +0.009301] softirqs last  enabled at (250642): __do_softirq (kernel/softirq.c:703)
+[  +0.008427] softirqs last disabled at (250637): __do_softirq (kernel/softirq.c:703)
+[  +0.008433] CPU: 3 UID: 0 PID: 1 Comm: swapper/0 Tainted: G        W           7.4.0-rc1-next-20261105-04243-gd86019357887 #373 PREEMPT>
+[  +0.000018] Tainted: [W]=WARN
+[  +0.000005] Hardware name: Google Hana (DT)
+[  +0.000007] Call trace:
+[  +0.000005]  show_stack (arch/arm64/kernel/stacktrace.c:499) (C)
+[  +0.000018]  __dump_stack (lib/dump_stack.c:94)
+[  +0.000015]  dump_stack_lvl (lib/dump_stack.c:120)
+[  +0.000015]  dump_stack (lib/dump_stack.c:129)
+[  +0.000013]  __might_resched (kernel/sched/core.c:9195)
+[  +0.000018]  __might_sleep (kernel/sched/core.c:9124)
+[  +0.000014]  cpus_read_lock (./include/linux/percpu-rwsem.h:51 ./include/linux/percpu-rwsem.h:77 kernel/cpu.c:490)
+[  +0.000013]  static_key_enable (kernel/jump_label.c:222)
+[  +0.000016]  enable_sched_clock_irqtime (kernel/sched/cputime.c:33)
+[  +0.000014]  sched_clock_register (kernel/time/sched_clock.c:243)
+[  +0.000014]  mtk_gpt_init (drivers/clocksource/timer-mediatek.c:338)
+[  +0.000014]  mtk_timer_probe (drivers/clocksource/timer-mediatek.c:356)
+[  +0.000014]  platform_probe (drivers/base/platform.c:1508)
+[  +0.000012]  really_probe (drivers/base/dd.c:? drivers/base/dd.c:707)
+[  +0.000014]  __driver_probe_device (drivers/base/dd.c:869)
+[  +0.000014]  driver_probe_device (drivers/base/dd.c:899)
+[  +0.000014]  __driver_attach (drivers/base/dd.c:1300)
+[  +0.000014]  bus_for_each_dev (drivers/base/bus.c:383)
+[  +0.000013]  driver_attach (drivers/base/dd.c:1318)
+[  +0.000013]  bus_add_driver (drivers/base/bus.c:782)
+[  +0.000013]  driver_register (drivers/base/driver.c:174)
+[  +0.000014]  __platform_driver_register (drivers/base/platform.c:996)
+[  +0.000016]  mtk_timer_driver_init (drivers/clocksource/timer-mediatek.c:372)
+[  +0.000017]  do_one_initcall (init/main.c:1419)
+[  +0.000015]  do_initcall_level (init/main.c:1481)
+[  +0.000014]  do_initcalls (init/main.c:1497)
+[  +0.000012]  do_basic_setup (init/main.c:1517)
+[  +0.000013]  kernel_init_freeable (init/main.c:1732)
+[  +0.000013]  kernel_init (init/main.c:1622)
+[  +0.000014]  ret_from_fork (arch/arm64/kernel/entry.S:870)
+
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> ---
+>  drivers/clocksource/timer-mediatek.c | 36 ++++++++++++++++++++++++----
+>  1 file changed, 31 insertions(+), 5 deletions(-)
 > 
-> That's what claude told me during review, and when asked whether that actually
-> happened in practice it said no ;)
+> diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
+> index e20075b09fab..a9e7ff6908a3 100644
+> --- a/drivers/clocksource/timer-mediatek.c
+> +++ b/drivers/clocksource/timer-mediatek.c
+> @@ -13,6 +13,9 @@
+>  #include <linux/clocksource.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/irqreturn.h>
+> +#include <linux/module.h>
+> +#include <linux/of_device.h>
+> +#include <linux/platform_device.h>
+>  #include <linux/sched_clock.h>
+>  #include <linux/slab.h>
+>  #include "timer-of.h"
+> @@ -215,8 +218,7 @@ static irqreturn_t mtk_gpt_interrupt(int irq, void *dev_id)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> -static void
+> -__init mtk_gpt_setup(struct timer_of *to, u8 timer, u8 option)
+> +static void mtk_gpt_setup(struct timer_of *to, u8 timer, u8 option)
+>  {
+>  	writel(GPT_CTRL_CLEAR | GPT_CTRL_DISABLE,
+>  	       timer_of_base(to) + GPT_CTRL_REG(timer));
+> @@ -281,7 +283,7 @@ static struct timer_of to = {
+>  	},
+>  };
+>  
+> -static int __init mtk_syst_init(struct device_node *node)
+> +static int mtk_syst_init(struct device_node *node)
+>  {
+>  	int ret;
+>  
+> @@ -339,5 +341,29 @@ static int __init mtk_gpt_init(struct device_node *node)
+>  
+>  	return 0;
+>  }
+> -TIMER_OF_DECLARE(mtk_mt6577, "mediatek,mt6577-timer", mtk_gpt_init);
+> -TIMER_OF_DECLARE(mtk_mt6765, "mediatek,mt6765-timer", mtk_syst_init);
+> +
+> +static int mtk_timer_probe(struct platform_device *pdev)
+> +{
+> +	int (*timer_init)(struct device_node *node);
+> +	struct device_node *np = pdev->dev.of_node;
+> +
+> +	timer_init = of_device_get_match_data(&pdev->dev);
+> +	return timer_init(np);
+> +}
+> +
+> +static const struct of_device_id mtk_timer_match_table[] = {
+> +	{ .compatible = "mediatek,mt6577-timer", .data = mtk_gpt_init },
+> +	{ .compatible = "mediatek,mt6765-timer", .data = mtk_syst_init },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct platform_driver mtk_timer_driver = {
+> +	.probe = mtk_timer_probe,
+> +	.driver = {
+> +		.name = "mediatek-timer",
+> +		.of_match_table = mtk_timer_match_table,
+> +	},
+> +};
+> +module_platform_driver(mtk_timer_driver);
+> +
+> +MODULE_DESCRIPTION("MediaTek Timer driver");
+> -- 
+> 2.43.0
 > 
-> So is that actually a problem?
-
-Double checked, claude managed to confuse itself.
-
-n_hdlc_tty_read() can indeed return -EOVERFLOW.
-
-I should just have let splice keep failing, dealing with copy fallback starts to
-get annoying.
-
-I guess switching to -ETOOMANYREFS should work (and might be a better fitting error)
-
--- 
-Cheers,
-
-David
-
