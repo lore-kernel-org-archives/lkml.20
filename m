@@ -1,93 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246886;
-	b=NXBUr4x4fC+FlMZ7HMO0rYFCSJPkm3ks1YsDb2+52y7qs5dZ9mfU0XiEJVecZSt5oKdZ
-	 RoEfyGHMEWsUXx0Y7LAt7QiapOdAoHjMQh+bt5IPvwPMDkJEMXX6invPkTLDeMjZa6Cmj
-	 4tcGq01z1xbzAvwRHREM+WJBFX/Z47sB7/xMTo/L3yWeB9x2QrMxLxRGofHRwAYRa6841
-	 yH4jqR75zpIUR4moJwtbBTgVeGA5j2HeowjTnHMSLBlf467lkE2cEObNMt/BdJF5sLs6s
-	 xFmdzoPweTng2J3Kb1dQwGkR1Ilj6+zDnAsWhwj5GFo08VxxEk+9Zixv4cE+BMOCVmw==
+	t=1794246948;
+	b=BD7/f0A7cp+GVUY9/8Io5y5reyDlNYz4HkLuJ0DmZh3CyRFsOPZc7L983xMoRUYmCI/4
+	 Rr0nYNUYJpV5Pzvug6hgjwrO4DlBB0m0+5szTFv9gSGT+ORcyZw6zMy//l5YJzPWK4QA4
+	 4VgxY9JSuEfc/pvrB6yEmycOOprWoAruSKZ/TOc0aFIVaKWqJ37CAJBFWLTmhKHMGcAvv
+	 pKXwazb1BOLarvWTZ8KCe6sH/C4jNK+HlXhk+tu+Y6Bukf2DwOBzfwgK1au3gTpEeQ/Vj
+	 vxvrA7vQsllSFYivXWqJSzQCnpoYbdss5Mea7rG6FNiTyhMbsg9exj0LP7ZepovDgrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246886;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nwyR6TxIPEqjKF2oJPWcQncPlh2G58YufELbU9iyGxk=;
-	b=bvmfQ3bwmPxOOZAWlwb0syEMtlfXrY4D+iYYEMk4H1bLrWRHiA8US8ijuPqszcEdvxK4
-	 mSs3GesEGLiEEw7NEd3lhTqEMP1RLV/hrRVldto3pQkIeCzqMFhi/iDyIQKqYeMcK4PU8
-	 rU44TQtb19QeAo4dlAgO0Cf9cSRyu9V7CNqwqKr6SxwESjyl5WT4CvWfIXk9WyLvPdZo6
-	 QNbzTJQQfa7hu5UzcfQKQOLUJUU5T5IaWyk9GMiQbO8M1JVw8JF1EwOVFq/DfXECfb9VC
-	 cDU3+Tk43+Z+A3jdTypS4Bk0ltPG5xSSXnGRy8XrTd7l8t2b5NVdE7JlAfNvrO+ykYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246948;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=6bKX3aMMhixRTUNzDdHxk7FZKlQ3NYr1JIqZdM+Irpc=;
+	b=pGgfE41FxKk/WMcmRhfcEBz2I9ooerf1DL+ow3NVwqK+pIb8TM7Oeb9NGFDpgf7IWTlC
+	 AzUmWvXECXgzRMwrg1jN/8LHVvtiYW7Zn4Qz2lK3DCBVsews1DtEwiLY8JwuU+++h57g6
+	 JsvQN8/hkU2g1TDMY4BMp4qk/G1rwAr/1pL+IUzd9YIp7uF72qcA9Ly/NeUptB7aRcJvP
+	 JdwyxTO01OTU/rS7jGYnakL0U8iK3Q3ig0JmfDnXCX1m0xxACvWRVgt1veENwDvlCndOS
+	 cLh1AR+i4OfEFcizAoAFrL3Y2pXrIwX4Yx4ncpg3/HJK3Z7HB5DELlWFpCHFK1i63Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U+TQMMhp;
-	arc=none smtp.remote-ip=209.85.222.171
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kN1nFyIr;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A11606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A11606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE26606A31C;
+	Mon,  9 Nov 2026 17:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE26606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U+TQMMhp
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f269e335eso128987685a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:54:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794246885; x=1794851685; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nwyR6TxIPEqjKF2oJPWcQncPlh2G58YufELbU9iyGxk=;
-        b=U+TQMMhpJVS35K6a85oGim4U4eTQTREEagwjzk4kmED+5wpKqvfzZkSFCwScXXe1m4
-         kjdAtGYjy8SWBwT2u4PHbhavJbmDDTqfK7TvfmeKgBZ/U5cXm/CvhuqkVZjLR69DDjcK
-         ho/t4IQVJ+Wt7EC4rE614AObzpSuz0fekm0vpwow6ZKSvOv9zpVyuepIdyxK4Cvo+R3z
-         dwGgOoGROo5XQvhH70PeS28gW3IsgdecGScnJ9I+bx07n43PTnQTZtjEYvWV5c92IpqK
-         AkReWxURZWUE04Jeis82SRBOtWps2iyQjnl5+FSmC23cfuBn0lMvoNY4eYa/btQYyKRh
-         zwaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246885; x=1794851685;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nwyR6TxIPEqjKF2oJPWcQncPlh2G58YufELbU9iyGxk=;
-        b=Ip2ns3H933oQTbONOigehffT5N7ai+IDoVLsvGcRxUxIkkaSNMziha1j1tlGCRjXfY
-         y3igxOSgCIm3R0bSHjhKKe8sCKLOrpMjAnfiLzNk+KksCqCQGvj0ah/PEzETqpHSbGkF
-         C1B7E0tNePKYDBb5ZFeO7Gx7xfhyciPPoHEy+A38T9qSzHjCIlrb2fq4gz208bFVHWkF
-         E5gwz/2VSZeIhLGNtL0DK1Dyf/HWLWGJnOHgDm1CI/C3XPuNsCc/5BVX6o7M92RthMSE
-         n/QmjXkaP/NZ//PrMYsiVQH7ePUh26lm5qbzyJcQj4218h8F5G+Aq/5NYfnjBpTRlXxd
-         cCiw==
-X-Forwarded-Encrypted: i=1; AL+hErGxs/rmBE90eXVmwN+Q3/gskDLK35eRXeh4nsaqyAC529PxE/dcXNwGc6Ul5EIO3f/ow1vkLoRBSgoRYGY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LXQc+iMcYepU7T4lzMdn4czwovTE70v+l+wzAl+QQj4yskQSi
-	0A2DSmlVwfuQi/G+bUh3/Sjs4wyJg4l23mj/FemIYD931eYXbrx5NFWvWcKRb6Ck
-X-Gm-Gg: AYBFou3lHiaW5s4cPwUlW/sj7Y605UvuNH0liwODmpnKkYRY7KfNr86fWZ3WLZuRoeF
-	hJ6znrkGfRvNAwkFbCIv2g8KxcBq102v7jAB5h2z2+i9+BrPopNfFYIOqXIYkpC85Ih/t7ki9jA
-	N+0VcuMYylK/GgZ00DDACjRUK7VbyB7BdjKeeJEu4NYKLgVMz4TfrjqNKFEWrAcKADYW2t9v4Me
-	0nVCSWCTSu9W4tDZzjZBoZi5sByHgpN17EB75MrE1r2GTbyOO8Q3gFzVSa+yJvmfCXY0AKPOckW
-	cLWTkUCgsNaXv38irX47k3PjfqimJHnK6P3/rHooopKHRKpU4efMvi9/28fKPGgDVFO79Z2/4kW
-	Sgcc7uJkryFwruvZ9BU8p+VUz/hIRCxd5dC0x+UPm9ULgwc8aZeXb+IoWQYEEAMuCMjA/LVyEMv
-	ZHx7/uunkNxa0n3IxavClVdB8LF7SBXM6B7ezLBKkqijc1Uwiy3iqacYS6xdARJpf+MIqSRCifa
-	4P6k0rYzQiRDRuYrq/M8l5+0LitXlfIQofiPAlMkZx/XhMYvPw9qg18d6i9Zpp3GYJ0gh0TcMme
-	fgUrYZDLNvBqCaGOiQ==
-X-Received: by 2002:a05:620a:4509:b0:93e:fa30:f1da with SMTP id af79cd13be357-9479f33c0damr31442385a.45.1794246884777;
-        Mon, 09 Nov 2026 09:54:44 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7dc398sm25843685a.35.2026.11.09.09.54.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:54:44 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Maxim Levitsky <maximlevitsky@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] memstick: core: Remove the host ID after device_del()
-Date: Mon,  9 Nov 2026 12:54:41 -0500
-Message-ID: <20261109175441.1180468-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kN1nFyIr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794246948; x=1825782948;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=8rkFS1gDTEYHVkLMdZ+zlX60pR3SDfNCsmHMqLuoh18=;
+  b=kN1nFyIrtI1E/j8/vTXFRKhdZDxpgSn+SHthu3ibxjqqudzyMhRM0rbL
+   rKEixvHWjI2x63X+FMKiHjzoUjke9FgZoJMO0sSMgb7HbtLRxVRtJyyR9
+   u8GS4E/giqIRHptl16zTj36HOY4T0bmYdAdseddKS8+Jgoy1b64afRSR8
+   tdGp6CGZmJR2pgu2utZRM1V/jnXyb7wqCZ7uZZxNLyR6oeOTzMWFJnyfu
+   R9Hlok+E83eCwMPUo5w5r777TSyt7rsZkU508sSOQXHWYQxBeDB3n/6Sc
+   kxzjnD1mzKYUJkjK+cYGdziP2GVVMXllXTNjAovf1CevEEpsdK4M15tej
+   Q==;
+X-CSE-ConnectionGUID: wfgVPIWvQriCtXbK8emzCw==
+X-CSE-MsgGUID: caWi0VCHR/2EQDgGktzmfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2878648"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2878648"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:55:44 -0800
+X-CSE-ConnectionGUID: U8vhVYsyR7euGllKRrqZTA==
+X-CSE-MsgGUID: o2O6LOgOTKS6H7TLgCe9Jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8248962"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:55:41 -0800
+Message-ID: <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
+Date: Mon, 9 Nov 2026 11:55:39 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,51 +72,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+ Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-5-zide.chen@intel.com> <au4kyULjUYdqbfIq@google.com>
+ <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
+ <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-memstick_remove_host() removes the host ID from memstick_host_idr
-before device_del() removes the "memstick<N>" device. A host added in
-between, for example by another card reader being probed, can get the
-same ID, and its device_add() fails:
 
-  sysfs: cannot create duplicate filename '/class/memstick_host/memstick0'
 
-Remove the ID after device_del(), as the error path of
-memstick_add_host() already does.
+On 11/6/2026 4:35 PM, Yosry Ahmed wrote:
+> On Fri, Nov 6, 2026 at 2:19 PM Chen, Zide <zide.chen@intel.com> wrote:
+>>
+>>
+>>
+>> On 11/6/2026 1:09 PM, Yosry Ahmed wrote:
+>>>> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+>>>> index b8875ed5502c..4f192429ed93 100644
+>>>> --- a/arch/x86/include/asm/kvm_host.h
+>>>> +++ b/arch/x86/include/asm/kvm_host.h
+>>>> @@ -595,7 +595,10 @@ struct kvm_pmu {
+>>>>              DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
+>>>>              atomic64_t __reprogram_pmi;
+>>>>      };
+>>>> -    DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
+>>>> +    union {
+>>>> +            DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
+>>>> +            u64 pmc_exists64;
+>>>
+>>> __pmc_exists would be more consistent with __reprogam_pmi above.
+>>
+>> I used the *64 suffix and without '__' to match the cntr_mask/cntr_mask64
+>> and fixed_cntr_mask/fixed_cntr_mask64 pattern in struct x86_pmu_capability
+>> (patch 7), whereas __reprogram_pmi used '__' because it is an atomic64_t
+>> rather than a scalar mask.
+> 
+> I don't follow why the '__' prefix is specific to atomics, but anyway,
+> I will leave this up to you and Sean.
+> 
+>>
+>> Also, arch/x86/events/perf_event.h has similar names:
+>>
+>>         union {
+>>                         u64             cntr_mask64;
+>>                         unsigned long
+>> cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
+>>         };
+>>         union {
+>>                         u64             fixed_cntr_mask64;
+>>                         unsigned long
+>> fixed_cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
+>>         };
+>>
+>> Seems either way won't be absolutely unifie
+>>
+>>>> @@ -120,6 +144,17 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
+>>>>                      continue;                               \
+>>>>              else                                            \
+>>>>
+>>>> +/*
+>>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
+>>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
+>>>> + * so iteration up to KVM's maximum counter count is safe.
+>>>> + */
+>>>> +#define kvm_for_each_gp_counter(i, mask)    \
+>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
+>>>> +
+>>>> +#define kvm_for_each_fixed_counter(i, mask) \
+>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+>>>
+>>> These are not used in this patch, are they?
+>>>
+>>> They should probably be introduced when they are used. Also, do we
+>>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
+>>> yes, maybe we should pass in the pmu here instead?
+>>
+>> The intent was to group all bitmap accessor helpers together in this
+>> patch for easier review so that the big patch 5/18 could be kept to
+>> mostly mechanical replacements.
+>>
+>> But if you prefer introducing them on first use, I'll move their
+>> definitions to patch 5.
+> 
+> Yeah I think it's clearer to see what their definitions are with their usage.
 
-Fixes: baf8532a147d ("memstick: initial commit for Sony MemoryStick support")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
----
-Found with a static analysis tool we are developing.
+OK, then I can move these two macros to the next patch.
+>>
+>> Regarding passing 'pmu' directly, I initially implemented it in this
+>> way, but I can't recall why I discarded it. I will take another look.
+> 
+> Thanks.
 
-Reproduced in QEMU (x86_64) with a test module that runs two kthreads
-for 20 seconds. Each kthread allocates, adds, removes and frees a host
-in a loop, under its own platform device as the parent. Without this
-patch, device_add() failed with the error above 3713 to 4442 times per
-run in three runs. With it, it never failed in three runs.
-Not tested on MemoryStick hardware.
+How about these? With them, we can remove the {gp,fixed}_mask variables
+that you pointed out in your review of 5/18. The APIs are more
+complicated, but the caller code is much cleaner.
 
- drivers/memstick/core/memstick.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+static inline unsigned int __kvm_find_next_counter(struct kvm_pmu *pmu,
+                                             unsigned int base,
+                                             unsigned int max,
+                                             unsigned int prev)
+{
+        return find_next_bit(pmu->pmc_exists, base + max, base + prev) -
+base;
+}
 
-diff --git a/drivers/memstick/core/memstick.c b/drivers/memstick/core/memstick.c
-index 0d15f48ef51d..98057ffa1bf7 100644
---- a/drivers/memstick/core/memstick.c
-+++ b/drivers/memstick/core/memstick.c
-@@ -562,10 +562,10 @@ void memstick_remove_host(struct memstick_host *host)
- 	host->set_param(host, MEMSTICK_POWER, MEMSTICK_POWER_OFF);
- 	mutex_unlock(&host->lock);
- 
-+	device_del(&host->dev);
- 	spin_lock(&memstick_host_lock);
- 	idr_remove(&memstick_host_idr, host->id);
- 	spin_unlock(&memstick_host_lock);
--	device_del(&host->dev);
- }
- EXPORT_SYMBOL(memstick_remove_host);
- 
+#define __kvm_for_each_counter(i, pmu, base, max)                       \
+        for ((i) = __kvm_find_next_counter((pmu), (base), (max), 0);
+     \
+             (i) < (max);                                               \
+             (i) = __kvm_find_next_counter((pmu), (base), (max), (i) + 1))
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.43.0
+/*
+ * Iterate over all general-purpose or fixed counters supported by @pmu.
+ */
+#define kvm_for_each_gp_counter(i, pmu) \
+        __kvm_for_each_counter(i, pmu, 0, KVM_MAX_NR_GP_COUNTERS)
 
+#define kvm_for_each_fixed_counter(i, pmu) \
+        __kvm_for_each_counter(i, pmu, KVM_FIXED_PMC_BASE_IDX,
+KVM_MAX_NR_FIXED_COUNTERS)
