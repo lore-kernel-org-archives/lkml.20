@@ -1,49 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240009;
-	b=at0Oey3HS8HRUo8f5JsecoRkc22tvFEw6y0ke5vzh3+fJK1BhBoGKnWM2SLX/LQH9A3h
-	 IVmcfTMnq5odUvH0ATeqshOKXuvWjE/PUWCfdstTJI2pNwcemGrxuiuklXXxjuP/9XSsM
-	 jzJeRctAyckUQrkWuzgxCHm0trYQEeWqSP+UqutYl81I6UzIqu7NCfLeTxY2cZVsE8ZDr
-	 42Ec1QFw5x59qyMtGAuy9DyTvG/p6PlwXNr84WSlapTypxzkoy56BejjsFeQRbNooxesS
-	 RHz9FvMEa/vejwvIttAnibm4QJCn3+Mu4CCuY4/ASFw0h7GVL/fZRY3iCT1/NiMzjzA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240009;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=xNRqjObeTp/7I6It829IcrazYn0krY0ldw7Pv0J8uis=;
-	b=wNMAf1NGr9CBw6aDY3GVRT3SUAfC35th1dZzf//sh65Hoceqr4+GwPla9ynd6n8ktZBu
-	 Eo5bZWAoSAWSTiFEPBZgjezKveUjInsmeFVW08YHKEQgMxXJOp/cvyXT3qyKD/ybevPxo
-	 HZ40Seecbu+pDElsjSrzZVnqL6VfH8S9hyqr1VC0IqNSIld4xYvY16Gti5w08mWX9IYwH
-	 cS1mwL7yP9YbMdKog2N1/IYeLMI6YknXnsFVDHPudOxshYFWMorVnAKiHc+A5+MTx/0xf
-	 ppRDXLxDoT3gZXs4EiSNApFkB9P9duK6GRLsWQvRo9SvmKEB6yds4s5Hxzb4AKGmBBQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmkIBnEt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794240038;
+	b=SUyDcYf/nctxIP2PKU2ypGOxzgGJiZrbdT5+RaucMnqXNi1vxhAQYrLlHTS4dAZ7cyAE
+	 n5Pd2dBrJMMNq4bHYOD4bPULWFlbSTMejUMeP6tzJcrp/oUepJfcAbFWhtgOuK392As0x
+	 CHzFRE7+PoOwaxv4VRhCctv0YvSY7lFiPndPvNhN0Nuu9cKi/zQS0q0I6eR6PGv/x9nkW
+	 PzkBoMeP/FEJKRQM6x8UDcsLLlIsSI2Nmni5xsAjw+vHsOp1EHdcXXU2FQzRLZwyOrtWx
+	 CgB5319l9sOritmuTZ1mflmT2lWhbkVX+b6lX5aq149ZsRlYge4ZEfU56FEj97+JWqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240038;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1IVvR7owaTCfwRNK1gEl9dRHd5D6+SPRltJMKFkI3Z4=;
+	b=STpma5s1yxIVtPK3IuWSqFLb4yq4z9cq8R0ZPXhhd8kL2oPLogHNdqwqy9D5AmZHtuRx
+	 BflSwD82Cugy4c1FOvA7aF90pv124yFx3qDQB/xMVxieM7l3+RaMY+U9dXUeDf4/S/WPR
+	 D33dh0XVCAOOYamBPWj6E0WgGnuYESN0BO5RI/AAheK1pc5Gc9yUcLDMXP9mzO0etAKzt
+	 0wp4JuJyZr+GXTDn0o3WGk45t3n9U7tW9C7O454cXf/3svFm2NeBbrLSp9ehPlZW8amuS
+	 w/4R5kzYrIwSjjnFnFApHHVKDYPbZUnQNUlpUjgd3VTdZ9fOSbQnH2suqyLfA2GpQrg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kMnje8W8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6FE608360B;
-	Mon,  9 Nov 2026 16:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786CA606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 786CA606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmkIBnEt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96D51F0089F;
-	Mon,  9 Nov 2026 16:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794240008;
-	bh=xNRqjObeTp/7I6It829IcrazYn0krY0ldw7Pv0J8uis=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=EmkIBnEtPmN6EZlZAKHCQH0YJ+c8zy7rgvPBbi1ARu814PcUS3NdAAzJAHPmgK0wn
-	 HCrCiNxxm9+VVOGwAPJmOxEPQTky9SPmtcH3vNgvj9y4gPwYE89mkFVv0Z4qyV4x0S
-	 ObcOHm0Wfw2rVnlF+4v43ZHbSQh0hQZQE0Txef41gm76BT1BY9bXJtE8m1b/1qHbLC
-	 fFKuBWKDlqiHhXx4mrSXL1bT6QPJW3+YJnBQpbxhdB9Xq5TxzWVOPPh+akYbzvIScN
-	 yAKJCxeYbj2sGxPEVOw1A3bz8dsNVu9q2ufOmGUZ1qvoMMY0W5EGDC/lmWK8nzuBAD
-	 AQZgSKhaNwW3g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B23D3805CCC;
-	Mon,  9 Nov 2026 16:00:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kMnje8W8
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91ec396c93dso12255936d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:00:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794240037; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LXSK4hWcCViZ97MPUxyqi2AYTfWlthzOb5u+W3sT+hMBpi3fhkPXDJjPKRWYDKencj
+         mqYHwE/4IBcsFHHh63/JRVMka0t0a3lAg7R0kjkr7qjioV11LxIIw2jam9ZrzW/T3L94
+         lxxf63+q1LxpoWfxJpA62Wz/R0RCb0skaGNXW62N2bozHPUueaqq9hcRvQtwsycB/sSZ
+         c3mDCWqKtpEO7oSHRcGF07rRqQc2sIsI/jZRis3Nkdqv8N8q3sUno7VvU9p2+suuIV2i
+         4OjBSJpEywcuJqNHluCgoyVsf/k/zwjqKa6SWsbAWiFchxHfDAA0/0xhyo5KSkgWHG86
+         os2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=1IVvR7owaTCfwRNK1gEl9dRHd5D6+SPRltJMKFkI3Z4=;
+        fh=Ni0sVKlAOSo8DrLZzMTSyw6RfG0huISPZ9PMknbNSmo=;
+        b=C8KgZ3x4EERGdcFAJZFIpHOpiP+8Rp7BUtGi3TbgzAt3ifkbEA1M/uDU3I+GEHawxx
+         bjNJZzHyssZ/e7nwn/Ru8ULDh/0kbbf6RucML+xl0sStdkO4SZrvz7uLAf2jPxl9t7n3
+         YzdERM2sUsgtMq3eUWOKmqVNnJstwf2ZSK5gw7WL8sADO1nrv3pAsp7tyGWLMVFDXdhZ
+         Iko43fJUVyi9kz2mPb4mKrIRV/q2P1jQWQOT6haOKdW4IQz7T+k5JiKj3w8LTgyiPRNy
+         jw7+ot6Pty5YGmC6XHUgOJB3pTTKh0LCdzEuLbEEiAvNm35A5+2NbnaMW9nrGobJTmg5
+         +OUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794240037; x=1794844837; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1IVvR7owaTCfwRNK1gEl9dRHd5D6+SPRltJMKFkI3Z4=;
+        b=kMnje8W8g/JYnugbNNHI+pmFVWJmCOfl7lIl1FIzm9S/wjPwFsL0D5gN5jnu26wiR6
+         7QrwsYDMIALex15kGj+PZ93dilYTkKvaVfyRHmGvbelBUSqPrlGK88N6Ec+yOO35X3/f
+         4Cu3wAR5B9c7jUYOO2bd0iEU/nJfZQndXTu/qbO4wgqEZKQNetD8la4PtHNWLeOVLD1V
+         N/nz46O6hGbMxrUofNqXfx2M5iMZV/voFo5hGX8lvY//jbKP9A0PWeXBnyUGszzkmExw
+         d2pRFF52nYqVvvRn2sij56DlcJEGAkQqswFSR50AZ1OO/Q12zOl+MHq2FvISe1eQreH1
+         qNNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794240037; x=1794844837;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1IVvR7owaTCfwRNK1gEl9dRHd5D6+SPRltJMKFkI3Z4=;
+        b=g+nlcv57j35z2e+mCV+wsvxtPv1+7q90xchdUXE8n+YC148/fgmiQYYrWVaU3sh14c
+         EPGSSAC8SvUq7eagIHsSZaVnNH/lbYtD8Ss59Qidn5+9xy0Aohvzy/Y2fNrgq55FcPfs
+         biPLTk9HcTNbO+MuO4emAhBuikB84GYD29OzjJDI1olMQcNxIBREAwJqxylWC2cKTgre
+         fRiTZlxC0ZTaYI3lBM2dejNjE0Lor4nS4aM6tzmjwrA+98wPWyFQtHcribQeb6YBUUQa
+         +bF6OjQUexAZCku5CgJAI1NjdTMILZ7mMUW5UfSaQhSh+9XMvGilsjyXjgvSYOEd4q7M
+         VuGg==
+X-Forwarded-Encrypted: i=1; AL+hErGdUw7/QCXwt0lo9TXBgMHzeH7+G2PG0Lr+1Ka3EOSpHn+QiJqCmpyo4jNg/qfeC3s90jpWG4aJLVohwvs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Uo9iLCLYTmnej7M3Xa1/z4xOJU8xd8vHl11JjV+1JtfDQQ8TM
+	gqXLkOSGtsAaXy76XPtWOtnstmsDNRTNlnznWxHxpOqpOOPw0dGFf1jVYa4vGcpt4Us8yaz/HrO
+	uGiY000xFzi7iHkIuD7EydJGmeGP6hBthgMtXeVC5
+X-Gm-Gg: AYBFou1m20Pxpg9tLmwVMQGDySsApTh51roLGsj0z3f6M8IPwwQQzq7waW/KhIxJZz5
+	LAbU0YOuqg+q3dYWo9VDdkaMqQrNpSkoF/8Gkzxy78mYjh+xmLt94+Zfbpw1cIJGacg7yClylJZ
+	qs9g8IfWeObY3P6iEU7TRVJYRQCSl0DOC0peUQmtg+RYfrKmLpSFvNZK46LTij2saLo+yMlVIoG
+	QBIxaDEVXOVZCP9sRU9eFT78edf3Oul++ClTDrcFUDWccss3tXrkxodZB525v26cuFvw1hDVD2g
+	TXiwpwWvRg/Wlpv+WPX83Or8q6XG58eRiauZvvhWdFS7bsH1o3YimUyZ7JjV/9uJWln15cyo/cW
+	FDDLfFc3716qcvxTqm4IdqSTMIaZs8KZJkb2TTny2va9JYEFGLGjyJRB3NV3eXfA8mg==
+X-Received: by 2002:a05:6214:5402:b0:91e:ee31:55ba with SMTP id
+ 6a1803df08f44-91eef8c841emr97756d6.57.1794240035928; Mon, 09 Nov 2026
+ 08:00:35 -0800 (PST)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 9 Nov 2026 08:00:34 -0800
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20261105-tdx-selftests-v16-2-2024e8fa517a@google.com>
+References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com> <20261105-tdx-selftests-v16-2-2024e8fa517a@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +108,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: qca: Disable SoC debug logging for WCN3990
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179424000705.3335769.610567076772554344.git-patchwork-notify@kernel.org>
-Date: Mon, 09 Nov 2026 16:00:07 +0000
-References: <20261108000449.2664455-1-hex@freenixos.com>
-In-Reply-To: <20261108000449.2664455-1-hex@freenixos.com>
-To: Hex Lindqvist <hex@freenixos.com>
-Cc: brgl@kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com,
- pmenzel@molgen.mpg.de, linux-bluetooth@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 9 Nov 2026 08:00:34 -0800
+X-Gm-Features: AclHuK8G0EZDW3tY7sTDlhlnaXZOXK3ScUEr2v83dxDnmQ6yymeVPIAKQ5tIQLE
+Message-ID: <CAEvNRgHhzFxfXB+jXy+RCwTWevFTEW3RH4q51xztrFZYa4Xe_w@mail.gmail.com>
+Subject: Re: [PATCH v16 02/20] KVM: selftests: Update kvm_init_vm_address_properties()
+ for TDX
+To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
+	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
+	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Oliver Upton <oupton@kernel.org>
+Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, x86@kernel.org, 
+	Adrian Hunter <adrian.hunter@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Lisa Wang <wyihan@google.com> writes:
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+> From: Isaku Yamahata <isaku.yamahata@intel.com>
+>
+> Initialize the TDX S-bit and the GPA tag mask in
+> kvm_init_vm_address_properties() for TDX VMs, similar to how the C-bit
+> is initialized for SEV VMs.
+>
+> The TDX S-bit is used to distinguish between shared and private guest
+> physical addresses. Its position is determined by the guest physical
+> address width, which is either 48 or 52 bits for current TDX
+> implementations.
+>
+> Co-developed-by: Adrian Hunter <adrian.hunter@intel.com>
+> Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+> Co-developed-by: Sagi Shahar <sagis@google.com>
+> Signed-off-by: Sagi Shahar <sagis@google.com>
+> Signed-off-by: Isaku Yamahata <isaku.yamahata@intel.com>
+> Signed-off-by: Lisa Wang <wyihan@google.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 
-On Sat,  7 Nov 2026 16:04:49 -0800 you wrote:
-> Unless the host turns it off, the WCN3990 firmware sends debug logs to
-> the host as ACL packets on handle 0x2EDC. hci_qca passes them on as
-> diagnostic packets, which the core copies to the monitor socket and then
-> frees, so nothing appears in the kernel log. btmon shows them as:
-> 
->   = Vendor Diagnostic (len 492)                      [hci0] 0.761331
->           dc 2e e8 01 e4 01 03 00 0a ff 10 04 01 00 55 53
->   = Vendor Diagnostic (len 481)                     [hci0] 11.334015
->           dc 2e dd 01 d9 01 04 00 0a ff 10 04 01 00 51 d3
-> 
-> [...]
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 
-Here is the summary with links:
-  - [v2] Bluetooth: qca: Disable SoC debug logging for WCN3990
-    https://git.kernel.org/bluetooth/bluetooth-next/c/530e411a49f3
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+>
+> [...snip...]
+>
