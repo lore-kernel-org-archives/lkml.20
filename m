@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193478;
-	b=1vSvE1NDw7jdvVQ0LjzYzvO8QhNCaGRUiyBYehV0oKMLEVC4INdoKQ4X0La1gA3mkLpg
-	 Eq191t4H3W1NoNd8d97r64hxb0jewHFQ40O3oKlVzGMmOsiV92O2qalxzFUa0txifs/ka
-	 f3n8YkITaZD4n+M4QiDGEB5xwwD6YPV1VIXjVHxtyKpWGEO48isLmiEiXsVxDjI0O+hyT
-	 MgiTo4LrCWXoFCPrA5znrtZxcj3FV4Ijyrb18EZBFQnj8mhwP3S+ElPkH87XxFcGPGYnB
-	 9m6YjW+RJNvDYnfV5RCy2RjARyOo7p00UlG8JGZQX08q83Q4eWGdqp91kiX69NjvyyA==
+	t=1794193517;
+	b=E7VemG6Oj2YiYPQPHYTzunQzKuI6+B7ZlFK1kvS7dooIzoK8r6FkFxtHgQXl9Mir2Cei
+	 6WWDURJGF20iSkEPS8MShh7mG9VrtuTQ1+lJMl/+jNrwQbt6B4LsSqWjkY40p0pPcf9Dp
+	 +WbUfrYVma4SBDi/o+kTqAKDDFIteZmBVCyM8Tx0yqQDSalSfh3vGdYghb3+zn2ruQQit
+	 QeryjfVov3s6eo/h4ttR9gCW9o0Wahqw2DbZGlKK2ysf7ubpGmYrluZWAAxEZnv1ZJ5BA
+	 o7xygs1ad+FsPNUyEMGJarHZhiCgbsNQV9nidA7QKX9gPdrA5jz1EIXzoH6ASjAhtRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193517;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=Mbaxm6pY4DxTSQpSJHy5VFk99rqnTyFhJcAlVZ816Oc=;
-	b=HDYmO74+yxpZeWlYmYVuU7iWaJzVAt44Sg1IaBImGQ3lSFaB9zEE9liJafAGy2dmqfNN
-	 H0OLgLZa8cyDnYARSq2mMnr99VSFB3BfsO+umbl6r1AYb0SvxpT79krZ6MpqtGijjxygc
-	 C1lBaYvO5U3weASjpiJRL/5ObwhrapxK+Dr8poGdEbDswf1gwBpXjIfqxV3HZBOssLhcq
-	 YLiXTU+w5VhwPaga/LcYBVVWWvcM5flvYYNcUQCLu7yiIVqqsNTQzRSV/gAWh6CH21B16
-	 E4tg66tLl/7cvUF25bx9OIEbYXZ06kuyP4T/M3unlf1uMsQtgncxWk4uaMKJWhclAOw==
+	bh=jzgKfvc+gCMyeJegNnCCdCmwPfxrXP8BnCLwAgAaGdA=;
+	b=UCyljvxRpryoW24xaUqTPxeadwePV2wCPT/S2nyn8qZsYGoyIdEFrjDp4iUtPJMRN/2j
+	 +irS43iKnm0y21HpKXsVhxSvs6tECkZNb5GYzF+CNT1phJm+ZGmLmrYjBRbJOjA7U9mwP
+	 1eQgOwV59h5bI0LFrKtHViRwaNb51tB7FTXAFrdyfrVarLjLuY6C1W1YxbHSMmET0vthP
+	 5uTYsgcu/YxU79ix6eHHAby46yRTfzhVQViotqa/7TzGEkB1KanjMGYtYVd7er7luqEtz
+	 vCvkNgtzUE4T6luKnVVwPa2ZX/lWvC6UUFiC6UHxAi26Q22Dq3pj0Q5Dd565uJQN51g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CtYCblXF;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Yiy20rE3;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7625606A31C;
-	Mon,  9 Nov 2026 03:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7625606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D23606A321;
+	Mon,  9 Nov 2026 03:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D23606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CtYCblXF
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Yiy20rE3
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=Mbaxm6pY4DxTSQpSJHy5VFk99rqnTyFhJcAlVZ816Oc=;
-	b=CtYCblXFy/cGn0hGPSCCSQ18qXbxR6oawatN6w1O3/wMKm7tujOVfxw+d9a5gLpD4r0XqwFnE
-	0H8hBRFJJP8RckrglcAuREAk8RCtGQ/T6Ob+lI9OVQjG8owTT2uvRysPTEzPVUZarOBZGmWSPFL
-	VtJNROtL5QnLfCR26uXv2io=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jNF4V2976z1K9BF;
-	Mon,  9 Nov 2026 11:04:26 +0800 (CST)
+	bh=jzgKfvc+gCMyeJegNnCCdCmwPfxrXP8BnCLwAgAaGdA=;
+	b=Yiy20rE3tUxvNjQUXWrkWgEM6W3ZOutKcLH5hrKwXqvKR23Spyf1RzTqdQOf4gvzCNQR7edm+
+	B8gVqcwnVCC+u8GvcK7sX6dbCoxn2Eudx3PWzZw0f39jKptY1klaUKgNxQwH3iHmC0Kuget5fOO
+	lXiPLyf4hNwQHgQDgzejRXM=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jNF5629JpzKm8j;
+	Mon,  9 Nov 2026 11:04:58 +0800 (CST)
 Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
-	by mail.maildlp.com (Postfix) with ESMTPS id 317694048B;
-	Mon,  9 Nov 2026 11:04:34 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id E4EA940565;
+	Mon,  9 Nov 2026 11:05:06 +0800 (CST)
 Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
  (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 9 Nov
- 2026 11:04:33 +0800
+ 2026 11:05:06 +0800
 From: Ran Hongyun <ranhongyun1@huawei.com>
-To: <john.johansen@canonical.com>, <georgia.garcia@canonical.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>
-CC: <apparmor@lists.ubuntu.com>, <linux-security-module@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <ranhongyun1@huawei.com>,
+To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>,
+	<bmarzins@redhat.com>, <song@kernel.org>, <yukuai@fygo.io>
+CC: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-raid@vger.kernel.org>, <ranhongyun1@huawei.com>,
 	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH] apparmor: fix double d_instantiate() in ns_mkdir_op()
-Date: Mon, 9 Nov 2026 10:56:00 +0800
-Message-ID: <20261109025600.2031008-1-ranhongyun1@huawei.com>
+Subject: [PATCH] md: validate raid_disks range before loading personality
+Date: Mon, 9 Nov 2026 10:56:21 +0800
+Message-ID: <20261109025621.2031722-1-ranhongyun1@huawei.com>
 X-Mailer: git-send-email 2.52.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,40 +72,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  dggpemr200001.china.huawei.com (7.185.36.96)
 
-ns_mkdir_op() drops inode_lock for simple_pin_fs() and re-acquires it
-before instantiating the dentry.  A concurrent mkdir() of the same name
-can pass the VFS negative-dentry checks in that window and also reach
-d_instantiate(), tripping BUG_ON(!hlist_unhashed(&d_alias)).
+md_set_array_info() accepts raid_disks from user space without any
+range check. The value is stored directly into mddev->raid_disks and
+flows unchecked into md_run(), which only tests for zero. A negative
+or excessively large raid_disks then reaches the personality ->run()
+callback, where it scales several allocations:
 
-Re-check that the dentry is still negative after re-acquiring inode_lock
-and return -EEXIST if a concurrent mkdir() won the race.
+  raid0:  kvzalloc(array3_size(..., raid_disks)) in create_strip_zones
+  raid1:  kzalloc(array3_size(..., raid_disks, 2)) for mirrors and
+          mempool_create_kmalloc_pool(offsetof(r1bio, bios[raid_disks*2]))
+  raid5:  kzalloc_objs(disk_info, max_disks) and alloc_page() loop
+  raid10: kzalloc_objs(raid10_info, raid_disks + ...) for mirrors
 
-Fixes: 4ae47f33354a ("apparmor: add mkdir/rmdir interface to manage policy namespaces")
+cf5963d6781dd ("md/raid0: validate device count before allocating
+devlist") already fixes the raid0 warning. However raid1/5/10 still
+hit the MAX_PAGE_ORDER WARN, and simply switching their kzalloc_objs
+calls to kvzalloc_objs does not help because kvmalloc_node rejects
+sizes above INT_MAX. The proper fix is to validate raid_disks before
+any allocation takes place.
+
+Add a MAX_RAID_DEVICES (253) bounds check in md_run() before
+pers->run. This is the single choke point covering ioctl RUN_ARRAY,
+dm-raid ctr, and reshape paths. Move the existing dm-raid private
+definition to md.h so both subsystems share the same limit.
+
 Signed-off-by: Ran Hongyun <ranhongyun1@huawei.com>
 ---
- security/apparmor/apparmorfs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/md/dm-raid.c | 1 -
+ drivers/md/md.c      | 7 +++++++
+ drivers/md/md.h      | 3 +++
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index a99366467217..5a9565eeb62b 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -2111,6 +2111,12 @@ static struct dentry *ns_mkdir_op(const struct mnt_idmap *idmap, struct inode *d
- 	if (error)
- 		goto out;
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index ac019a0f5a92..29c41a04773e 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -18,7 +18,6 @@
+ #include <linux/device-mapper.h>
  
-+	/* the dentry may be instantiated by a concurrent mkdir */
-+	if (unlikely(d_really_is_positive(dentry))) {
-+		error = -EEXIST;
-+		goto out_pin;
+ #define DM_MSG_PREFIX "raid"
+-#define	MAX_RAID_DEVICES	253 /* md-raid kernel limit */
+ 
+ /*
+  * Minimum sectors of free reshape space per raid device
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..7b202b483e98 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -6703,6 +6703,13 @@ int md_run(struct mddev *mddev)
+ 			return -EINVAL;
+ 	}
+ 
++	if (mddev->raid_disks <= 0 ||
++	    mddev->raid_disks > MAX_RAID_DEVICES) {
++		pr_warn("md: %s: raid_disks %d out of range [1, %d]\n",
++			mdname(mddev), mddev->raid_disks, MAX_RAID_DEVICES);
++		return -EINVAL;
 +	}
 +
- 	error = __aafs_setup_d_inode(dir, dentry, mode | S_IFDIR,  NULL,
- 				     NULL, NULL, NULL);
- 	if (error)
+ 	if (mddev->level != LEVEL_NONE)
+ 		request_module("md-level-%d", mddev->level);
+ 	else if (mddev->clevel[0])
+diff --git a/drivers/md/md.h b/drivers/md/md.h
+index 6440da292105..75d7f4b14d39 100644
+--- a/drivers/md/md.h
++++ b/drivers/md/md.h
+@@ -22,6 +22,9 @@
+ #include <trace/events/block.h>
+ 
+ #define MaxSector (~(sector_t)0)
++
++#define MAX_RAID_DEVICES	253 /* md-raid kernel limit */
++
+ /*
+  * Number of guaranteed raid bios in case of extreme VM load:
+  */
 -- 
 2.52.0
 
