@@ -1,99 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220511;
-	b=uprtme0vGiCJNcydKl2O/EAbt9CoNqDNuKSmd03+HdQgno5j7PPH+lecBDRPJXJ5A9OZ
-	 js3wc2OwLoVyYqW8kPlqvoAVwh5nbRCwexXMwbjRry37JyIjV8SFE8vKKpSvNyn8pzxM6
-	 esuyN3DPYISgluoZ11GHgBWZ2T74eprD8TRU3fp3AEMjbvpeGTGC3I0x3eWJfxAmG3O4c
-	 hZsdDaN1eXLT3vTWAOw0x/AgYYFFm2BobZBsO7WjKSf1ea56T16F6TvT2HejNgf7M2+ut
-	 75BgLCDIlja7bUIrq9+3CrgQT/Bso/Px519FcdX026e0mL9BeslqJ/0eyW9kpDndXCA==
+	t=1794220507;
+	b=jH7pIKNdHKlbEEfnt3nQ1z7P8MvjW2leZf5IzuHJQwsXI4JYKiKWKlWCQdXXxcg/uctI
+	 SLV6HwPWZDs9B8luh6kJyJ4CUGrb3jSAdKZ3mF9798a0Y4dF/5xGGHVbwWBwrsi5gsVzr
+	 bSX3GFt9POMASn2kLZ+8D6brkeSftfR6+w8/u/Sdz167h2woVsMGS5MZnsonEDApLTBiv
+	 KvxpL3M1NMpWVcsyJW/kYt/wUCOV+9+V+W73cB2Af7UbJpru1KYMHEC4dhjXvcT9qrpl7
+	 D1DiYSt+MIgY5wN1jkEgylgczzs15srWgbL44cvjOyrqJbXAsp3dzogDgFqnJDOhhBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220511;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8Hb0sYmcLHQnhtWzS9j1woOF2kw5P/sRWChZAP1XD0M=;
-	b=rg10XMt2A8M/HE6DlQCYZ85GM5rj7sN0IbSeftOLBGlLOB6W3eTE8s+di2XiLPF06lvw
-	 7S5f87t4YLdoysymb5t2Z2Q4deV7TE7HKKYtd/1/tg0OgLyB31ghW10vsRlORQV9IxoZ9
-	 +ZOpHFKanghX5e0V/3UT3T7FotYF0I/xJAjslQKgbdQbtboNqpkAOebfKghuwGJqfazgI
-	 z/+L4uODCcLbhm3+GgSGGKE/oJAdlHfMaHho3MgSQCiLuuJt1v0LYalezmbXESFy2FHDy
-	 aJ2q4cnkJ+OEcGiG89mB203j0wumIu0g9lasHSe8QgGIZyvwUAYmbZQZrVGV8wtyi+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220507;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=781MGkUds9I/CI1+UP2+HKzeCqNjF5wPmk1nWC+RDLw=;
+	b=BeZVcvSVi6ezYf1CJmH6Vds/Tmqm8MxEwGQ1v63FbrXg4fBLPIgyQtjIaPacWlISto1n
+	 vqf6Cgt+KH+Cgr+NBSEDQAi1vAcbIbfIGbu20Asn8jAB1QZn76NJxB5wuNVcnGPLmQce8
+	 BfChKzITdXiLcSuFnjCS2UIxbWeLfJ+JGxVTW/aWVxuN+U74j72Cq6KYAY9EKAskRZG5d
+	 sOUG6T76CKhxz6NS+UK0ABe4sDIfbJqfJguPKZ9tBTWjGOKjmfQ7sye1YdskymL6g7X44
+	 9bgYw87K0ek1Cd0HpRty6WoFwIHdCox10Hwer4tJ7fdNT/hmcDfSzCRFFhNIo8yxw1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g49MWb5/";
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=OyMtypEJ;
+	arc=none smtp.remote-ip=109.224.244.119
+Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A74606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:35:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3A74606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859C5606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 859C5606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g49MWb5/
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b147e06befso241635a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:35:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794220510; x=1794825310; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Hb0sYmcLHQnhtWzS9j1woOF2kw5P/sRWChZAP1XD0M=;
-        b=g49MWb5/yifGNXK9v3uJRzMXvdGfHYwVnDsvkvqEbUJ6QN0jlYqr1ebA6azfClAOT/
-         RK/UbwGDRf1IqGGk6TL2Kwi5PkpKUg9C6hmiS1LVRsH41VSiAS/nlk7H4cp+5AJtbbC8
-         GSnqjaXUhNuWEVSqFtLKFOu6cE/WcQjuIWQRH2P92DD+wRfV4wAR2aVxlEVHt2SgG/pJ
-         srvU7WjvoR/jsUrFzj+vQ8Yl48XoC7MhyKTF1Rap8WKCzascASo+RhvYPclJepG/G00W
-         7VgpYVYilAtvFTbNuW/FfaxsImmKv8evAU/LZm2cwA0Xxmi5Lv4IJeerouQbo+5r+rWa
-         gWfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794220510; x=1794825310;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Hb0sYmcLHQnhtWzS9j1woOF2kw5P/sRWChZAP1XD0M=;
-        b=fT9vyF7hgsBWqIi0/lv6j20IFSayQJQbxnbUMFoSvjgdm0/fmZYD02WqMtW41iMWJL
-         uBX7aVtyDNbjyHtuqaE0/2L5TS+IhA1yxUFN2qyIvF0HHc7AmifKAdv37TUCAHCGP7J3
-         jJMTewgkRcKBxtG7vB7/qbGTXK82MqzSn0QFrvAmqN567/sdUOarrMuMIRqmIcOrD14y
-         SDpSTnGHBoTxIXCPUlXvkcJzton9hCIxyCYn+m3YJRYQ+LgbDOVyjfYp3GyuZfxNsKxz
-         SQ4gMIisDYdlKSJNyUr0+X5gCD37dUdG0lpYmFy1vpriQOKRAZ0SbiEFiF21Oc786hwF
-         B2Lw==
-X-Gm-Message-State: APuU4Z/ZrKCWBRnnwsrwhXDt8syFMoKT49R+XOrmFy8U1IFtNkaNS3O0
-	mRYPh0uSgi9p2P3BFSh1wWbIBorV/6QOiDV9sDQQKUJXdUb0eQr30LV+
-X-Gm-Gg: AYBFou3mYyRLyu5cUwP2UqNUwXDH+1tsiopUy/yMOMNWHHRebDvAxgNr6m0s2pwRImu
-	kaoooz45GU0X+uJQ8CPBAsezZJ5Yi7eCh4ExRF1LbOT04ePWHorySt/u7y0LnlyGH0+a4FcWt+w
-	0q4BegS5/Gp0xfB3ePLojz3uZDkz69SFfpRsmOefHKdYLXYMerf3xHTlt0/tF+rPrcp5Kyukv/9
-	f2mt6RyKdAKuzt04oi8kzifGTbfhZUrLvIfKQ5KFPOxyBgoQ68GOhWKLbFN0B0UWLQwbozhZokV
-	nTb4QelITcVV5rTUUaboDIaEiMRYpKKX17bDrnw7scqfPTHcRdp8obkzkkT6KCOfBInn36rl8d5
-	vVqC/RFhyh5/yVG1y9UD6J68nCqSF+YCjlP8LWiN75gNsrsmBvPK/GoyklTJSr3EwJvINVdO6uF
-	wDZwpdbeFKr4PG/DHOhLioIDHc5/mozCT1GdncLcSo2XxDNgv+m2QcO9Ie5avt7mGqV4eU0krlK
-	V7BCUwNonUhAzmdBQe0yJY+fYYHCo5XgY+Xm0M6kLBkb22CXbyrt6+prAPAn5hDdiD1Pk5y3gFF
-	EqfbFjxkMXNqEpwEqGC1fedU/R+5GPyE14FwHqMLrXes8DmSlQxUCH1DuFGcazoWqlxRm93jSNb
-	Y
-X-Received: by 2002:a17:90b:530c:b0:3a5:c08:4c41 with SMTP id 98e67ed59e1d1-3b12d49b258mr2971323a91.50.1794220509924;
-        Mon, 09 Nov 2026 02:35:09 -0800 (PST)
-Received: from LDYT9Q2G2M ([2a09:bac1:7680:450::1c:35f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058d3310sm10379457a91.15.2026.11.09.02.35.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 02:35:09 -0800 (PST)
-From: Zhiqi Zhang <zhiqizhangg@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Finke Lennart <lfinke@student.ethz.ch>,
-	netfilter-devel@vger.kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] lib/ts_fsm: preserve patterns across tc dump and restore
-Date: Mon,  9 Nov 2026 18:34:54 +0800
-Message-ID: <20261109103454.50617-1-zhiqizhangg@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261101081736.51803-1-zhiqizhangg@gmail.com>
-References: <20261101081736.51803-1-zhiqizhangg@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=OyMtypEJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794220498; x=1794479698;
+	bh=781MGkUds9I/CI1+UP2+HKzeCqNjF5wPmk1nWC+RDLw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=OyMtypEJGoKtINe2AEHBQiUCtjzZr1LAavt9y3jZ7fzBv6McX5oIPNPG4p9KHaCbN
+	 uPCnvGaSA3bfeZzk/abBEtju0obqeUD6tkEcPDmsKhTqWSbrNeuNnnTmhWG/Bo+Vdy
+	 LRDZuJNmkmwXh1PQvjvdZMugKhjS1788YhaL4cQn5LPJwnWTDeiM5xZJZnm1rWzFB8
+	 08YG2lt3HnHUYYTnx2DqgcrpqkaeHAIVeWYjQp07d7qqqE5KzYWOP8QxrPJ1fnzFEZ
+	 YQGfjWmVmTRbb1wSJJkBnuitC61Z9DBbWmDLwydvy5xb4s1jqx/1QRK8YhYJMpZXkd
+	 nc5PCFE/lldXg==
+Date: Mon, 09 Nov 2026 10:34:51 +0000
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: =?utf-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, Jeff Johnson <jjohnson@kernel.org>, falemi@asu.edu, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] ath9k_htc_tx_cleanup_timer -- ODEBUG free-active-timer and use-after-free on USB unplug
+Message-ID: <20261109103444.381459-2-ca@modelmiser.com>
+In-Reply-To: <CA+0ovCgiXX28Mdyu5xA4mDU2pPwoByEzEKgLn5JnfapEKg+PmA@mail.gmail.com>
+References: <CA+0ovCgiXX28Mdyu5xA4mDU2pPwoByEzEKgLn5JnfapEKg+PmA@mail.gmail.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: d3056e397a153c22841cac1e7ebcd25d4381a482
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,28 +64,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andrew and all,
+Hi Farhad,
 
-A gentle ping on this series, sent on November 1:
+Could you share the reproducer for this one?
 
-https://lore.kernel.org/all/20261101081736.51803-1-zhiqizhangg@gmail.com/
+Two paths in the code would fit the report. Both end the same way:
+the timer re-arms itself (ath9k_htc_tx_cleanup_timer()), and nothing
+deletes it before ath9k_htc_disconnect_device() frees the hw.
 
-v2 describes the tc dump/restore impact, adds the exported-pattern
-equality assertion, and splits the fix from the KUnit tests, with
-Cc: stable on the fix.
+1. ath9k_fatal_work() calls ath9k_htc_reset(), which re-arms
+   tx.cleanup_timer without checking ATH_OP_INVALID. A WMI_FATAL_EVENTID
+   (or beacon-stuck SWBA) that arrives after ath9k_htc_stop() has
+   finished still queues fatal_work, since WMI events are processed
+   until ath9k_stop_wmi(). The timer is then armed on a stopped device,
+   and ieee80211_unregister_hw() does not call stop again.
 
-Could you please advise whether this series should go through Andrew's
-tree, or whether another tree should handle it?
+2. Inside ath9k_htc_stop(), the timer is deleted and priv->mutex is
+   dropped before cancel_work_sync(&priv->fatal_work). A fatal_work
+   already waiting on the mutex runs the reset in that gap and re-arms
+   the timer.
 
-The netdev CI also flagged the new lib/tests/textsearch_fsm_kunit.c file
-as lacking specific MAINTAINERS coverage. How should that file be
-covered, in light of the dedicated textsearch entry discussed in the
-v1 review? I would appreciate guidance on the intended maintainer and
-coverage before preparing an update.
+I'd like to know which one your reproducer hits before proposing a
+fix. Does it send WMI_FATAL_EVENTID (or let beacons go stuck in
+AP/IBSS/mesh mode), and is the interface up or down when it does?
 
-Please let me know if any further changes are needed.
+The code reading above was done with an AI assistant (Claude). Nothing
+has been tested yet.
 
 Thanks,
-Zhiqi
+Chad
+
