@@ -1,49 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232393;
-	b=mhOSgH5ubYnrokdZmbZuMKBemqKCVCbnRFpOD8uz3YbxQgOrjUdbwTldAO+vixph1eDz
-	 3u0euORRytklGFRSsuEEBW0kuz2KAa+NlXZyDpVSQm7lXnY5O9fhtSvvf8BGIJgzLWS+e
-	 qeUl1EahkYzwfITV/24rGypOy3/0F+LRlQ6mTZB+uVu0YHxUvKxhSYVT7NqDoru1nV/qE
-	 +peJBftoSOdIOCC1D989Bs2l8yctcX9afA+J/LgAJ7cmpcWSC3/anVGNIygX2MGfCqVG2
-	 XRnDWgbefd2f0Pb4rhC4Fs+ZbwTLlrT2KpLrNDnU0Cl8/jjmkv+BCn2RaY2rdgqQfwQ==
+	t=1794232518;
+	b=xmJx61hh8Qe6AbxiKxoYQKn82+p91geG/+/U3e/N1a764LmIxA+19UJW0yx+UAnbxiQX
+	 g1ySFr8QCnxUz9wNburOJfqp9XPM9HS4mU07c9Q5ow2/JjpoMMP9i91TCltPCnl/aDNdf
+	 xIiNgnDPPAF/usK3fIcT50N15LBkFQ6xiOdwHgsttZ+1jL0Jng8JWJ2xjiqF0J9i7CAv1
+	 w+Z43d2BnSC8v8M6xwLwHZtEZq/qpO+kjsf3NT0+93tzH/5ZnthCEvZH/F73WTaM+C3hF
+	 g/V/yvm9trwT7FaK2u8be8UcNDxwn7mnwaLIFOZpwTapJaZBhraODznSu7/QPU5EBNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232393;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FmzE/0AuzROOVSIWwCygvTpvGfdQlGJ3e5R6heSWG28=;
-	b=vsAt9BsCBptGq7HvUBI9bkyFmZdfiSiy7bv47J+ZL/Od3OVdYhmh4D3XBYn9O9iXoMAB
-	 zDggtFx/LYwv8N5/n643PtTZ2dP/RiT6/TL2X035WAoetv8p/z3q6KVYyW2rRuuXGIlxw
-	 nguq4na59jDIXlQ7EERYT8nuuIc3pJSjGhtFf5H4vmnHWtW4GyKj4nvUwghTTBvOEIBsm
-	 atk/tlxxor6LIVbKGuZ7TZ5ZoUZBihtGxUbLO+0izCqln32FfvROOriCX8wl8Q56REeCr
-	 eJGjxM0ipOS2fGaO14+K8MeYzEdu4LgqHK7hG7pPciKMkXETAeLm73tggBfRJArZ6qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232518;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=qyBKwFksJNX/3zANmADcweL35ZbCo7zw0f36je+aSa0=;
+	b=gG8JUcmjKyoIzNeWUGqK0n99w5AvAya6Ti1sVHZYLmtFlQaMLKssLAsQvFbHazwAxBPp
+	 URuLEBkCr1Dg43P4nRdhJvrmggiTKNxaFzLMquWre1LGw51dSTkuG0l/do64kmqqbpxFU
+	 zyY+CMEFqpVlQAIPBBsgf4MU8TGDrdTHTn2UsOuL+lDb/kh58CKqZszv6S8prAVQTb7Do
+	 VF5j+jB7TMoBZ3eEy9ckgPlXs0SBNshh00eEcLL5gi0+QBfcFBe7TaluzwlOWa2mJl8Ku
+	 mhzqENmCeYyOPdYx0dng/mbKNI5XTGzXs/8mkpVLLvvPEIjxJpexxhEmDXVBpaU+6bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PbSiKt+6;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b8Usqek3;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C96FD606A322;
-	Mon,  9 Nov 2026 13:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C96FD606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67295606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:55:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67295606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PbSiKt+6
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b8Usqek3
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6138A1516;
-	Mon,  9 Nov 2026 05:53:08 -0800 (PST)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 325953F632;
-	Mon,  9 Nov 2026 05:53:06 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CF7114BF;
+	Mon,  9 Nov 2026 05:55:13 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6C3F13F632;
+	Mon,  9 Nov 2026 05:55:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794232391; bh=wlZiYNVovym20CI+TkD2zA5b5H/GLLhwfGNQAFy1oHQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PbSiKt+6/8n08qcvegxvEqZ785gaJmYXPkCXkChu7e4iPaKOKPr/1jPeRUiVcqb1H
-	 0qgDWwsPD1EkmkbX1+fO1PRojMVMKmDJxVXyFTHx4NLSzrteJQaRhzRzAMr1SrHAal
-	 oJp5YHh3ZyU6EAv/FfCOS4WZ6M+H14+z84WD/B+o=
-Message-ID: <d0999161-3b27-4c3b-9d66-1d117c4836fd@arm.com>
-Date: Mon, 9 Nov 2026 13:53:02 +0000
+	t=1794232516; bh=KJJLhpniQZUmQ77hpm1zsDXOiW1CCXxKt62dmhbtma8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=b8Usqek3kaVUOB1RB0xwIA04Lp+O+RMitLE1+TFQAq4X64T9fjtId114taMH3frRl
+	 uKaZaRYI3VzAPYg9BkjXhmSjl9Z9fCVabsIalNzEHG3yDozSmuQbmFGDj9pvCUCHl0
+	 RU9u7X30AsjjJzRT1Z8wrFgLwHe0DDdE1gdE9jI4=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v4 2/3] KVM: arm64: Introduce KVM_PGTABLE_WALK_SKIP_LEVEL* walk flags
+Date: Mon,  9 Nov 2026 13:55:05 +0000
+Message-ID: <avHQubuK6r3k9anX@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <60fe23f4-4fca-41b6-8489-a28ab7b281f9@arm.com>
+References: <20261106161240.1345126-1-leo.bras@arm.com> <20261106161240.1345126-3-leo.bras@arm.com> <60fe23f4-4fca-41b6-8489-a28ab7b281f9@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,122 +73,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 18/19] PCI: Replace untrusted state with device trust
-To: Leon Romanovsky <leon@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Johannes Berg <johannes@sipsolutions.net>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
- Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- linux-input@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, iommu@lists.linux.dev,
- Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
- <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On 09/11/2026 7:33 am, Leon Romanovsky wrote:
-[...]
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index b486b8bbd1fcd..8be2a246d4903 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -1879,7 +1879,7 @@ static int iommu_get_def_domain_type(struct iommu_group *group,
->   static int iommu_get_default_domain_type(struct iommu_group *group,
->   					 int target_type)
->   {
-> -	struct device *untrusted = NULL;
-> +	struct device *restricted = NULL;
->   	struct group_device *gdev;
->   	int driver_type = 0;
->   
-> @@ -1901,14 +1901,15 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
->   		driver_type = iommu_get_def_domain_type(group, gdev->dev,
->   							driver_type);
->   
-> -		if (dev_is_pci(gdev->dev) && to_pci_dev(gdev->dev)->untrusted) {
-> +		if (dev_is_pci(gdev->dev) &&
-> +		    pci_dev_default_is_restricted(to_pci_dev(gdev->dev))) {
+On Fri, Nov 06, 2026 at 05:02:31PM +0000, Suzuki K Poulose wrote:
+> On 06/11/2026 16:12, Leonardo Bras wrote:
+> > Add new walking flags KVM_PGTABLE_WALK_SKIP_LEVEL{0-3}.
+> > When used, they make the kvm_pgtable_walk() skip the given level, as well
+> > as levels higher than that.
+> > 
+> > Being able to skip levels substancially decreases the runtime of a
+> 
+> minor nit: substantially
 
-I think this should be the generic device_is_adversarial(gdev->dev) now 
-- in fact probably all the dev_is_pci()/to_pci_dev() stanzas aren't 
-conceptually PCI-specific, just an artefact of the current "untrusted" 
-flag being so.
+fixed!
 
->   			/*
-> -			 * No ARM32 using systems will set untrusted, it cannot
-> -			 * work.
-> +			 * No ARM32 using systems select a restricted trust
-> +			 * policy; it cannot work.
->   			 */
->   			if (WARN_ON(IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)))
->   				return -1;
-> -			untrusted = gdev->dev;
-> +			restricted = gdev->dev;
->   		}
->   	}
->   
-[...]
-> @@ -616,6 +608,28 @@ static inline struct pci_dev *to_pci_dev(const struct device *dev)
->   {
->   	return container_of(dev, struct pci_dev, dev);
->   }
-> +
-> +static inline bool
-> +pci_dev_default_is_restricted(const struct pci_dev *pdev)
-> +{
-> +	enum device_trust_policy policy = READ_ONCE(pdev->dev.trust_policy);
-> +
-> +	return policy == DEVICE_TRUST_POLICY_DISABLED ||
-> +	       policy == DEVICE_TRUST_POLICY_ADVERSARY;
-> +}
-
-Unless I've wildly misunderstood, I'm not sure this is right - if the 
-user has set DEVICE_TRUST_POLICY_DISABLED to explicitly override the 
-bus-default behaviour, but that leads to the IOMMU layer special-casing 
-all PCI devices as adversarial and thus force-*enabling* all their 
-trust-model restrictions, isn't that pretty much the complete opposite 
-of what was asked for?
-
-Thanks,
-Robin.
-
-> +
-> +static inline bool pci_dev_ats_permitted(const struct pci_dev *pdev)
-> +{
-> +	enum device_trust_level level = device_get_trust_level(&pdev->dev);
-> +	enum device_trust_policy policy = READ_ONCE(pdev->dev.trust_policy);
-> +
-> +	if (level == DEVICE_TRUST_DISABLED)
-> +		return policy != DEVICE_TRUST_POLICY_ADVERSARY &&
-> +		       policy != DEVICE_TRUST_POLICY_DISABLED;
-> +
-> +	return level == DEVICE_TRUST_FULL;
-> +}
-> +
->   #define for_each_pci_dev(d) while ((d = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, d)) != NULL)
->   #define for_each_pci_dev_reverse(d) \
->   	while ((d = pci_get_device_reverse(PCI_ANY_ID, PCI_ANY_ID, d)) != NULL)
+> 
+> > pagetable walk when the callback function does nothing on that level.
+> > 
+> > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > ---
+> >   arch/arm64/include/asm/kvm_pgtable.h | 14 ++++++++++++++
+> >   arch/arm64/kvm/hyp/pgtable.c         | 16 +++++++++++++---
+> >   2 files changed, 27 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> > index 41a8687938eb..5f37ceef8d63 100644
+> > --- a/arch/arm64/include/asm/kvm_pgtable.h
+> > +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> > @@ -311,31 +311,45 @@ typedef bool (*kvm_pgtable_force_pte_cb_t)(u64 addr, u64 end,
+> >    * @KVM_PGTABLE_WALK_SHARED:		Indicates the page-tables may be shared
+> >    *					with other software walkers.
+> >    * @KVM_PGTABLE_WALK_IGNORE_EAGAIN:	Don't terminate the walk early if
+> >    *					the walker returns -EAGAIN.
+> >    * @KVM_PGTABLE_WALK_SKIP_BBM_TLBI:	Visit and update table entries
+> >    *					without Break-before-make's
+> >    *					TLB invalidation.
+> >    * @KVM_PGTABLE_WALK_SKIP_CMO:		Visit and update table entries
+> >    *					without Cache maintenance
+> >    *					operations required.
+> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL0:	Skip visiting level 0+ entries
+> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL1:	Skip visiting level 1+ entries
+> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL2:	Skip visiting level 2+ entries
+> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL3:	Skip visiting level 3 entries
+> >    */
+> >   enum kvm_pgtable_walk_flags {
+> >   	KVM_PGTABLE_WALK_LEAF			= BIT(0),
+> >   	KVM_PGTABLE_WALK_TABLE_PRE		= BIT(1),
+> >   	KVM_PGTABLE_WALK_TABLE_POST		= BIT(2),
+> >   	KVM_PGTABLE_WALK_SHARED			= BIT(3),
+> >   	KVM_PGTABLE_WALK_IGNORE_EAGAIN		= BIT(4),
+> >   	KVM_PGTABLE_WALK_SKIP_BBM_TLBI		= BIT(5),
+> >   	KVM_PGTABLE_WALK_SKIP_CMO		= BIT(6),
+> > +	/* SKIP_LEVEL* flags should not be split nor reordered */
+> > +	KVM_PGTABLE_WALK_SKIP_LEVEL0		= BIT(7),
+> > +	KVM_PGTABLE_WALK_SKIP_LEVEL1		= BIT(8),
+> > +	KVM_PGTABLE_WALK_SKIP_LEVEL2		= BIT(9),
+> > +	KVM_PGTABLE_WALK_SKIP_LEVEL3		= BIT(10),
+> >   };
+> > +#define KVM_PGTABLE_WALK_SKIP_LEVELS 	(KVM_PGTABLE_WALK_SKIP_LEVEL0 | \
+> > +					 KVM_PGTABLE_WALK_SKIP_LEVEL1 | \
+> > +					 KVM_PGTABLE_WALK_SKIP_LEVEL2 | \
+> > +					 KVM_PGTABLE_WALK_SKIP_LEVEL3 )
+> > +
+> >   struct kvm_pgtable_visit_ctx {
+> >   	kvm_pte_t				*ptep;
+> >   	kvm_pte_t				old;
+> >   	void					*arg;
+> >   	struct kvm_pgtable_mm_ops		*mm_ops;
+> >   	u64					start;
+> >   	u64					addr;
+> >   	u64					end;
+> >   	s8					level;
+> >   	enum kvm_pgtable_walk_flags		flags;
+> > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> > index 7a51f78b6446..80744478c810 100644
+> > --- a/arch/arm64/kvm/hyp/pgtable.c
+> > +++ b/arch/arm64/kvm/hyp/pgtable.c
+> > @@ -137,20 +137,27 @@ static bool kvm_pgtable_walk_continue(const struct kvm_pgtable_walker *walker,
+> >   	 * Ignore the return code altogether for walkers outside a fault handler
+> >   	 * (e.g. write protecting a range of memory) and chug along with the
+> >   	 * page table walk.
+> >   	 */
+> >   	if (r == -EAGAIN)
+> >   		return walker->flags & KVM_PGTABLE_WALK_IGNORE_EAGAIN;
+> >   	return !r;
+> >   }
+> > +static bool kvm_pgtable_skip_level(s8 level, enum kvm_pgtable_walk_flags flags)
+> > +{
+> > +	u32 skip = FIELD_GET(KVM_PGTABLE_WALK_SKIP_LEVELS, flags);
+> > +
+> > +	return unlikely(skip && level >= ffs(skip) - 1);
+> > +}
+> > +
+> >   static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
+> >   			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level);
+> >   static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
+> >   				      struct kvm_pgtable_mm_ops *mm_ops,
+> >   				      kvm_pteref_t pteref, s8 level)
+> >   {
+> >   	enum kvm_pgtable_walk_flags flags = data->walker->flags;
+> >   	kvm_pte_t *ptep = kvm_dereference_pteref(data->walker, pteref);
+> >   	struct kvm_pgtable_visit_ctx ctx = {
+> > @@ -185,35 +192,35 @@ static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
+> >   	 * into a newly installed or replaced table.
+> >   	 */
+> >   	if (reload) {
+> >   		ctx.old = READ_ONCE(*ptep);
+> >   		table = kvm_pte_table(ctx.old, level);
+> >   	}
+> >   	if (!kvm_pgtable_walk_continue(data->walker, ret))
+> >   		return ret;
+> > -	if (!table) {
+> > +	if (!table || kvm_pgtable_skip_level(level + 1, ctx.flags)) {
+> >   		data->addr = ALIGN_DOWN(data->addr, kvm_granule_size(level));
+> >   		data->addr += kvm_granule_size(level);
+> >   		goto out;
+> >   	}
+> >   	childp = (kvm_pteref_t)kvm_pte_follow(ctx.old, mm_ops);
+> >   	ret = __kvm_pgtable_walk(data, mm_ops, childp, level + 1);
+> >   	if (!kvm_pgtable_walk_continue(data->walker, ret))
+> >   		return ret;
+> > -	if (ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
+> > +out:
+> > +	if (table && ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
+> >   		ret = kvm_pgtable_visitor_cb(data, &ctx, KVM_PGTABLE_WALK_TABLE_POST);
+> > -out:
+> >   	if (kvm_pgtable_walk_continue(data->walker, ret))
+> >   		return 0;
+> >   	return ret;
+> >   }
+> >   static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
+> >   			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level)
+> >   {
+> >   	u32 idx;
+> > @@ -242,20 +249,23 @@ static int _kvm_pgtable_walk(struct kvm_pgtable *pgt, struct kvm_pgtable_walk_da
+> >   	u32 idx;
+> >   	int ret = 0;
+> >   	u64 limit = BIT(pgt->ia_bits);
+> >   	if (data->addr > limit || data->end > limit)
+> >   		return -ERANGE;
+> >   	if (!pgt->pgd)
+> >   		return -EINVAL;
+> > +	if (kvm_pgtable_skip_level(pgt->start_level, data->walker->flags))
+> > +		return 0;
+> > +
+> 
+> Should we rather return an error here ? A walk skipping the start level,
+> is that any meaningful ?
 > 
 
+My rationale on not returning error is that it may be ok for some routine 
+to call a walker on a pagetable range just to be sure, even if it actually 
+does nothing.
+
+I take that this happens based on the split walker being called on
+kvm_arch_mmu_enable_log_dirty_pt_masked() multiple times in the same range, 
+even though it's already split, for instance.
+
+But I am fine on changing it to return an error here if it's important in 
+some scenario.
+
+Thanks!
+Leo 
