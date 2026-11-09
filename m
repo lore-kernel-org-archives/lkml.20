@@ -1,86 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258519;
-	b=ISBL30VZ4sjwBVbISxtWQ4/G73y3f+ClKccIMLNG82sDa3TSZk3eiawFSMywzhY7oxj2
-	 NPg5qk4+5j8H81Q0AwFQtdEdvhwGHH5dCXB3T4LX9gFrSty+BQCFGXDz9R8eTwQ71x+b0
-	 VA2bIb7B38/RdMEKoAThJImH4OKdYVk9WMBQ6pTFsd4/k8M27QqMLkYxGcLYGiWDP51l1
-	 Ytit8dYLbRje9CjI4Q6T29eGlhiwQmCuzWGam0MvYp/cXOXVlCzOXnZDR0bJP1MtJfAQD
-	 KO0H+3QnF2sI+eSlAyxcbsZRsMjLKSfT9s0LLiT4BV975Ntg4Wn8yWRmnYew2hPNzOg==
+	t=1794258520;
+	b=Pxb3/f6IitTQ/Yxndhmgz7JZ9RQnTv/KSJNimEo+4ciJ6uoB1Qb9otT+BfPyZkl/1va6
+	 x1WC3GZL183l3SUR+zFG9OKcybH7VRhVmC8c8+5jOfrUGGgnPY8+uGlqSJ61XkB3OCD/I
+	 HW+wnVsZk0UC2JbOyv4U5flUBW0joCwWTKVI9URxuyuj1FNZ+lBIiQrFA3MegdPY6Uib4
+	 qiqWb5hTqYiI77i28FKHJ/i/AYCAUP2fuchnU4TbuXTGNya9yzygUB/PNFTB39bp35Kx7
+	 NM3mB5gsOVh2VfJxX2nKlhj4Zpd/Prf1DidVbupMS2wGtwNJ2lNCcudHYqh7tE3Bttg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258519;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Pq+rUe2h6lwne59EbimzJsOTsSFWdwJecoD7SnDlf28=;
-	b=ekG5WRtqrZfmRs9Gc1xfiIlfJBJLzGoKFcM2N3vbVm5vy+FzVBHl949PISn2h41HX00F
-	 weaTEmYkvCE+IDkjuSr03l8Xc6JaDUUdeI5/DH+3HYb9pxL3ItcPlfguQelyhFGOMwIBM
-	 g6NJ2msKUCqll72jJgkQanrmGs/xpbpFJPQnRpDS10BHmztuf4ittVws3eofhoX5VsDDV
-	 kmpumV2olgyVKOyA9sNTCj7FcGq3gwFY+4woovOBMiYh12UcrzIQnK+iHJX/sCgoFoF1H
-	 q+UFOiqpJNUaoW2N8IbIqxPZXJET3ZVAjEg6ngNM1iS+F2JLBbYJCZL9Xq3yfhhVJhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258520;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=iC2P0GfdUxK7SsTs/Dpd9lSERxs22y9XDDdLlV5GFTM=;
+	b=KBbGx/pa4CW5GqOecEthYXrKg6w4dNHdQE7hfR1IMnLYmt+QDEKMH8zBXsDsuhg4O0QK
+	 jhIu4Ptq/jUmmTYydwBG8c4hKVMEVSWYisLYYQl3USpP/ryPeeUfzU2P5gJNMmA1JrcUz
+	 6dnxy/yk7OADjTLnG1DnS9nB6YEeu8stOzvLGRrr4U4LWKpDPL8RKeYpyyNEKnVm2zJMM
+	 8DTjIpSoszqsdZfGX8zFBcceoW7gxTlhtqUjuW0IUSX/cx8/QO/uMXhoeYey/SgG0GRtK
+	 kjrh1gYt5yuJfK57H06dPO+eVtd8RjzABppZbQwVvfrD912QSf3VE7MA5N3vrKPr5nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kk0vqNR9;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Am4PHnYR;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA37C606A334;
-	Mon,  9 Nov 2026 21:08:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA37C606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B10C606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:08:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B10C606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kk0vqNR9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794258519; x=1825794519;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=BuusNMbZxO+ErFUdpf9Ul1RNEs8Z0V6p6exb7dpC0MQ=;
-  b=Kk0vqNR9GGeSqZFtaTxSSg1FcWAPsjSl8epug+dR+ALYI8v+lA0PAtso
-   qdG67cnKxfHloL8W4gm8Svq7GlD9uBatiPwmqkUkNKMuwEC613O5C5Qb7
-   NegrAu4v2HlILP0cJU8EFgjzONX2xr7KoNlFvlKt5PAP3qypqWuquUQyc
-   v1EgmlzmGrZyglAv4gDIspXAjk7Nu2ixsCc5OhSqbTBTgouDM6hgk6hqf
-   gz/C4IOCvd7n6vT7C0lCap1oPxP8aimYHc8eIsv5aAKsjArEZQweGPJbj
-   sEbzGPDRxvSgBJTtixwSAIdABA4oRxrKJjQz7Ra0rogj+j8otveYbPopp
-   A==;
-X-CSE-ConnectionGUID: +ZW4pc4eSL+Er5hON+ZB+A==
-X-CSE-MsgGUID: /H6Fz6epSWeP2iWlJ+yKQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2874579"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2874579"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:08:38 -0800
-X-CSE-ConnectionGUID: dLo04yZBReOn+4Azaw0BTg==
-X-CSE-MsgGUID: /9SIhAK9SgGKVVAJpyu1yQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7838187"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:08:34 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Alex Dubov <oakad@yahoo.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	linux-mmc@vger.kernel.org,
-	linux1394-devel@lists.sourceforge.net
-Subject: [RFC PATCH 08/11] PCI: Move CardBus device setup to setup-cardbus.c
-Date: Mon,  9 Nov 2026 23:07:08 +0200
-Message-ID: <20261109210714.3862-9-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
-References: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Am4PHnYR
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-540537f959fso1625583b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:08:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794258518; x=1794863318; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iC2P0GfdUxK7SsTs/Dpd9lSERxs22y9XDDdLlV5GFTM=;
+        b=Am4PHnYRT0PM1Z5s2HjamOLVexU4sMrJFIFIAqkgycuWZ9sZhwzwE1lFPs4f2rDNxO
+         NE+3X3cvLvEmJtlgTYkfMa7cJV76MkELWjwvwZsXXPRCOfc0NwyduOuqTazmlhLj9QGJ
+         CptgZhK7+7AaF6IJdc5BsSAuNqqEU7iB/ZmajYWnUDn0+tACMUfznS1QT4saWwL+V/+6
+         TXKZnKltAwKv/Io6iQz6ucJlIyDwQmARjmIe9M+Yh5GbYd6zWQPlHk8346XZmtxfex8p
+         Y2wSzLJQtyK/0tV4nb2Nl7IAeDWU19mS4eBBK/B7+qTy8i75q754idQO09CNSj18befV
+         sW4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794258518; x=1794863318;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iC2P0GfdUxK7SsTs/Dpd9lSERxs22y9XDDdLlV5GFTM=;
+        b=LiMz52pgjYOC9ebQnuEiG+Xf0jZRIvf0rp5QxX1M3ul+2KPKm+uL8IFe9Rp7mADeFr
+         fly7KsSmRLX4HaMbsLKKqbspE7TwJQj7vg+APe4pZavjS2nJLI/iGMTSEeDrKEgMMRAn
+         u2agDWv4K2EGhFydhQBwQ09jzpqdUH4Dh/j4NRDROed92K4V4RrIx5QKvfKeyevo7B4Q
+         aP9QBBKqomzk0mmiOs/ZJ7twjyG5sjexv+4EmSiyFuPeLdIsy/CW4Pom9OtpGf4fQy2L
+         xEBP4vaKkwsGbeqpSn7j2aOumJerRB0P2qHS9lfvfnl2ir+8lhVrHDjlA5ZNyEvetGKh
+         Uz3A==
+X-Forwarded-Encrypted: i=1; AL+hErEtPmbHO7o91ROJruqSyu2mgxlj3gRHvK6tLHb9gv+IDKagEYiS4gCROjQ2H/l52tzDitIIyRzbL5FFwXM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jZ9aURyosswHRd8vsfRu72c8G6ceZZi6hY0hFOvGoTwQ3a8Jl
+	UjrMgLqSRizi4bOSNe1iJjzzElxq50x5svRMnh9u7haGtkuk0Sr1Yjde5Y++YVTJgjYAF6qooy6
+	B7fQ99lVcGDeh8Q==
+X-Received: from ila8-n2.prod.google.com ([2002:a05:6e02:5208:20b0:518:96aa:6d6a])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:4f5f:b0:553:66a3:d863 with SMTP id 5614622812f47-5683cc9edc1mr664866b6e.21.1794258517825;
+ Mon, 09 Nov 2026 13:08:37 -0800 (PST)
+Date: Mon,  9 Nov 2026 21:08:30 +0000
+In-Reply-To: <20261109210833.1250548-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,141 +78,265 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261109210833.1250548-1-dmatlack@google.com>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+Message-ID: <20261109210833.1250548-3-dmatlack@google.com>
+Subject: [PATCH v3 2/5] vfio: selftests: Skip tests when the IOMMU mode is not available
+From: David Matlack <dmatlack@google.com>
+To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-CardBus support can be disabled with CONFIG_CARDBUS, but
-pci_setup_device() still sets up CardBus bridges regardless of it. This
-inconsistency leads to a few corner cases in the resource sizing and
-assignment algorithm where CardBus bridges are treated like normal PCI
-devices.
+Skip tests when the IOMMU mode they need is not available on the current
+system, instead of failing. Add iommu_mode_is_available() to check
+whether a given IOMMU mode (or, if NULL, any IOMMU mode) is available,
+iommu_mode_unavailable_msg() to explain why a test is skipping, and
+SKIP_IF_IOMMU_MODE_UNAVAILABLE() to skip a kselftest harness test if the
+mode is not available.
 
-Move the CardBus-specific part of pci_setup_device() into
-pci_setup_cardbus_device() in setup-cardbus.c and ignore CardBus bridges
-when CARDBUS is not set.
+On a kernel without iommufd, for example, all of the iommufd and
+iommufd_compat test variants currently fail on an assert in
+iommu_init(). Skip them instead, with a message that explains why:
 
-If a CardBus bridge that is Function 0 of a Multi-Function Device is
-ignored, pci_scan_slot() does not enumerate the other Functions either.
-Without CARDBUS, this makes the other Functions of CardBus combo chips
-unusable, e.g., the SD controller of the Ricoh RL5C476 (sdhci-pci), and
-the FireWire (firewire-ohci), Flash Media (tifm_7xx1), and SD
-(sdhci-pci) controllers of the TI PCIxx21. Making those drivers depend
-on CARDBUS would force CardBus also on users of chips without CardBus,
-e.g., the SD controller of the Ricoh R5C832 family, where Function 0 is
-a FireWire controller.
+  ok 33 vfio_pci_driver_test.iommufd.send_msi # SKIP IOMMU mode 'iommufd' is not available
 
-CARDBUS defaults to y if CONFIG_PCCARD is enabled and the yenta_socket
-driver (CONFIG_YENTA) selects it, so CARDBUS=n on hardware with a
-CardBus slot is most likely an intentional choice. It seems reasonable
-to require users with such an exceptional config to enable CARDBUS to
-keep using the drivers above with this legacy hardware.
+Use SKIP_IF_IOMMU_MODE_UNAVAILABLE() before every call to iommu_init()
+in the kselftest harness tests, and in vfio_iommufd_setup_test, which
+uses iommufd directly. Also skip vfio_pci_driver_test, which calls
+iommu_init() from main() to probe the device, if no IOMMU mode is
+available.
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Skip via the harness's SKIP() rather than calling ksft_exit_skip() from
+iommu_init(). ksft_exit_skip() is not aware of the harness, and would
+emit a bogus "1..0 # SKIP" plan line in the middle of the TAP output.
+
+Signed-off-by: David Matlack <dmatlack@google.com>
 ---
+ .../vfio/lib/include/libvfio/iommu.h          | 30 ++++++++++++++++++-
+ tools/testing/selftests/vfio/lib/iommu.c      | 20 +++++++++++++
+ .../vfio/vfio_dma_mapping_mmio_test.c         |  2 ++
+ .../selftests/vfio/vfio_dma_mapping_test.c    |  4 +++
+ .../selftests/vfio/vfio_iommufd_setup_test.c  |  2 ++
+ .../vfio/vfio_pci_device_init_perf_test.c     |  2 ++
+ .../selftests/vfio/vfio_pci_device_test.c     |  4 +++
+ .../selftests/vfio/vfio_pci_driver_test.c     |  7 +++++
+ .../selftests/vfio/vfio_pci_sriov_uapi_test.c |  4 +++
+ 9 files changed, 74 insertions(+), 1 deletion(-)
 
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: Ulf Hansson <ulfh@kernel.org>
-Cc: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: Alex Dubov <oakad@yahoo.com>
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>
-Cc: linux-mmc@vger.kernel.org
-Cc: linux1394-devel@lists.sourceforge.net
-
- drivers/pci/pci.h           |  6 ++++++
- drivers/pci/probe.c         | 13 +++++++------
- drivers/pci/setup-cardbus.c | 13 +++++++++++++
- 3 files changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 798b31c31ae4..057c8a2c7ee7 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -425,6 +425,7 @@ static inline bool pci_is_cardbus_bridge(const struct pci_dev *dev)
- }
- #ifdef CONFIG_CARDBUS
- unsigned long pci_cardbus_resource_alignment(const struct resource *res);
-+int pci_setup_cardbus_device(struct pci_dev *dev);
- int pci_bus_size_cardbus_bridge(struct pci_bus *bus,
- 				struct list_head *realloc_head);
- int pci_cardbus_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
-@@ -437,6 +438,10 @@ static inline unsigned long pci_cardbus_resource_alignment(const struct resource
- {
- 	return 0;
- }
-+static inline int pci_setup_cardbus_device(struct pci_dev *dev)
-+{
-+	return -EOPNOTSUPP;
-+}
- static inline int pci_bus_size_cardbus_bridge(struct pci_bus *bus,
- 					      struct list_head *realloc_head)
- {
-@@ -528,6 +533,7 @@ bool pci_bus_generic_read_dev_vendor_id(struct pci_bus *bus, int devfn, u32 *pl,
- 					int rrs_timeout);
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
+index 53e38130c334..8306ade5f069 100644
+--- a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
++++ b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
+@@ -32,11 +32,26 @@ struct iommu {
  
- int pci_setup_device(struct pci_dev *dev);
-+void pci_read_irq(struct pci_dev *dev);
- void __pci_size_stdbars(struct pci_dev *dev, int count,
- 			unsigned int pos, u32 *sizes);
- int __pci_read_base(struct pci_dev *dev, enum pci_bar_type type,
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index a20ceaf7307a..f7afbaac723d 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -1599,7 +1599,7 @@ EXPORT_SYMBOL(pci_scan_bridge);
-  * Read interrupt line and base address registers.
-  * The architecture-dependent code can tweak these, of course.
+ /*
+  * Pass NULL for iommu_mode to use the most preferred IOMMU mode that is
+- * available on the current system.
++ * available on the current system. iommu_init() fails the test if the mode
++ * is not available, so check iommu_mode_is_available() first to skip instead.
   */
--static void pci_read_irq(struct pci_dev *dev)
-+void pci_read_irq(struct pci_dev *dev)
- {
- 	unsigned char irq;
+ struct iommu *iommu_init(const char *iommu_mode);
+ void iommu_cleanup(struct iommu *iommu);
  
-@@ -2180,12 +2180,13 @@ int pci_setup_device(struct pci_dev *dev)
- 		break;
++/*
++ * Returns true if the given IOMMU mode is available on the current system,
++ * or, if iommu_mode is NULL, if any IOMMU mode is available.
++ */
++bool iommu_mode_is_available(const char *iommu_mode);
++
++/*
++ * Returns a message explaining that the given IOMMU mode is not available,
++ * or, if iommu_mode is NULL, that no IOMMU mode is available, e.g. for tests
++ * to print when skipping. The returned string may be overwritten by the next
++ * call.
++ */
++const char *iommu_mode_unavailable_msg(const char *iommu_mode);
++
+ int __iommu_map(struct iommu *iommu, struct dma_region *region);
  
- 	case PCI_HEADER_TYPE_CARDBUS:		    /* CardBus bridge header */
--		if (class != PCI_CLASS_BRIDGE_CARDBUS)
-+		err = pci_setup_cardbus_device(dev);
-+		if (err == -EOPNOTSUPP) {
-+			pci_err(dev, "CONFIG_CARDBUS not set, ignoring CardBus bridge\n");
-+			goto free_name;
-+		}
-+		if (err)
- 			goto bad;
--		pci_read_irq(dev);
--		pci_read_bases(dev, 1, 0);
--		pci_read_config_word(dev, PCI_CB_SUBSYSTEM_VENDOR_ID, &dev->subsystem_vendor);
--		pci_read_config_word(dev, PCI_CB_SUBSYSTEM_ID, &dev->subsystem_device);
- 		break;
+ static inline void iommu_map(struct iommu *iommu, struct dma_region *region)
+@@ -81,4 +96,17 @@ FIXTURE_VARIANT_ADD_IOMMU_MODE(iommufd_compat_type1, ##__VA_ARGS__); \
+ FIXTURE_VARIANT_ADD_IOMMU_MODE(iommufd_compat_type1v2, ##__VA_ARGS__); \
+ FIXTURE_VARIANT_ADD_IOMMU_MODE(iommufd, ##__VA_ARGS__)
  
- 	default:				    /* unknown header */
-diff --git a/drivers/pci/setup-cardbus.c b/drivers/pci/setup-cardbus.c
-index dcb8e2b3f73b..0de82d7fde68 100644
---- a/drivers/pci/setup-cardbus.c
-+++ b/drivers/pci/setup-cardbus.c
-@@ -31,6 +31,19 @@ unsigned long pci_cardbus_resource_alignment(const struct resource *res)
- 	return 0;
++/*
++ * Skip the current kselftest harness test if _iommu_mode is not available,
++ * or, if _iommu_mode is NULL, if no IOMMU mode is available. The statement
++ * argument is passed to SKIP(), e.g. return.
++ */
++#define SKIP_IF_IOMMU_MODE_UNAVAILABLE(statement, _iommu_mode) do {		\
++	const char *__iommu_mode = (_iommu_mode);				\
++										\
++	if (!iommu_mode_is_available(__iommu_mode))				\
++		SKIP(statement, "%s",						\
++		     iommu_mode_unavailable_msg(__iommu_mode));			\
++} while (0)
++
+ #endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_IOMMU_H */
+diff --git a/tools/testing/selftests/vfio/lib/iommu.c b/tools/testing/selftests/vfio/lib/iommu.c
+index ecdfbb62ac5e..56696bd5c30d 100644
+--- a/tools/testing/selftests/vfio/lib/iommu.c
++++ b/tools/testing/selftests/vfio/lib/iommu.c
+@@ -126,6 +126,26 @@ static const struct iommu_mode *iommu_mode_lookup(const char *iommu_mode)
+ 	VFIO_FAIL("Unrecognized IOMMU mode: %s\n", iommu_mode);
  }
  
-+int pci_setup_cardbus_device(struct pci_dev *dev)
++bool iommu_mode_is_available(const char *iommu_mode)
 +{
-+	if (dev->class >> 8 != PCI_CLASS_BRIDGE_CARDBUS)
-+		return -EIO;
++	if (!iommu_mode)
++		return iommu_mode_detect();
 +
-+	pci_read_irq(dev);
-+	pci_read_bases(dev, 1, 0);
-+	pci_read_config_word(dev, PCI_CB_SUBSYSTEM_VENDOR_ID, &dev->subsystem_vendor);
-+	pci_read_config_word(dev, PCI_CB_SUBSYSTEM_ID, &dev->subsystem_device);
-+
-+	return 0;
++	return iommu_mode_probe(iommu_mode_lookup(iommu_mode));
 +}
 +
- int pci_bus_size_cardbus_bridge(struct pci_bus *bus,
- 				struct list_head *realloc_head)
++const char *iommu_mode_unavailable_msg(const char *iommu_mode)
++{
++	static char msg[128];
++
++	if (!iommu_mode)
++		return NO_IOMMU_MODE_AVAILABLE_MSG;
++
++	snprintf(msg, sizeof(msg), "IOMMU mode '%s' is not available",
++		 iommu_mode);
++	return msg;
++}
++
+ int __iommu_hva2iova(struct iommu *iommu, void *vaddr, iova_t *iova)
  {
+ 	struct dma_region *region;
+diff --git a/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c b/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c
+index d7f25ef77671..add7d3881930 100644
+--- a/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c
++++ b/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c
+@@ -64,6 +64,8 @@ FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES();
+ 
+ FIXTURE_SETUP(vfio_dma_mapping_mmio_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ 	self->iova_allocator = iova_allocator_init(self->iommu);
+diff --git a/tools/testing/selftests/vfio/vfio_dma_mapping_test.c b/tools/testing/selftests/vfio/vfio_dma_mapping_test.c
+index 7d0de8c79de1..e42170aecf6e 100644
+--- a/tools/testing/selftests/vfio/vfio_dma_mapping_test.c
++++ b/tools/testing/selftests/vfio/vfio_dma_mapping_test.c
+@@ -119,6 +119,8 @@ FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES(anonymous_hugetlb_1gb, SZ_1G, MAP_HUGETLB |
+ 
+ FIXTURE_SETUP(vfio_dma_mapping_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ 	self->iova_allocator = iova_allocator_init(self->iommu);
+@@ -228,6 +230,8 @@ FIXTURE_SETUP(vfio_dma_map_limit_test)
+ 	iova_t last_iova;
+ 	u32 nranges;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	/*
+ 	 * Over-allocate mmap by double the size to provide enough backing vaddr
+ 	 * for overflow tests
+diff --git a/tools/testing/selftests/vfio/vfio_iommufd_setup_test.c b/tools/testing/selftests/vfio/vfio_iommufd_setup_test.c
+index ec1e5633e080..f4792899fd79 100644
+--- a/tools/testing/selftests/vfio/vfio_iommufd_setup_test.c
++++ b/tools/testing/selftests/vfio/vfio_iommufd_setup_test.c
+@@ -67,6 +67,8 @@ FIXTURE(vfio_cdev) {
+ 
+ FIXTURE_SETUP(vfio_cdev)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, MODE_IOMMUFD);
++
+ 	ASSERT_LE(0, (self->cdev_fd = open(cdev_path, O_RDWR, 0)));
+ 	ASSERT_LE(0, (self->iommufd = open(iommu_dev_path, O_RDWR, 0)));
+ }
+diff --git a/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c b/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c
+index e1a54e153cd3..8a98c86096be 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c
+@@ -44,6 +44,8 @@ FIXTURE_SETUP(vfio_pci_device_init_perf_test)
+ {
+ 	int i;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->threads = calloc_assert(nr_devices, sizeof(self->threads[0]));
+ 	self->thread_args = calloc_assert(nr_devices, sizeof(self->thread_args[0]));
+diff --git a/tools/testing/selftests/vfio/vfio_pci_device_test.c b/tools/testing/selftests/vfio/vfio_pci_device_test.c
+index 59a7c1f71804..1b1baa1e1c85 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_device_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_device_test.c
+@@ -29,6 +29,8 @@ FIXTURE(vfio_pci_device_test) {
+ 
+ FIXTURE_SETUP(vfio_pci_device_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, NULL);
++
+ 	self->iommu = iommu_init(NULL);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ }
+@@ -121,6 +123,8 @@ FIXTURE_VARIANT_ADD(vfio_pci_irq_test, msix) {
+ 
+ FIXTURE_SETUP(vfio_pci_irq_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, NULL);
++
+ 	self->iommu = iommu_init(NULL);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ }
+diff --git a/tools/testing/selftests/vfio/vfio_pci_driver_test.c b/tools/testing/selftests/vfio/vfio_pci_driver_test.c
+index f8f99ee6bb1a..56178c25c2fd 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_driver_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_driver_test.c
+@@ -80,6 +80,8 @@ FIXTURE_SETUP(vfio_pci_driver_test)
+ {
+ 	struct vfio_pci_driver *driver;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ 	self->iova_allocator = iova_allocator_init(self->iommu);
+@@ -270,6 +272,11 @@ int main(int argc, char *argv[])
+ {
+ 	device_bdf = vfio_selftests_get_bdf(&argc, argv);
+ 
++	if (!iommu_mode_is_available(NULL)) {
++		fprintf(stderr, "%s\n", iommu_mode_unavailable_msg(NULL));
++		return KSFT_SKIP;
++	}
++
+ 	if (!device_has_selftests_driver(device_bdf)) {
+ 		fprintf(stderr, "No driver found for device %s\n", device_bdf);
+ 		return KSFT_SKIP;
+diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
+index f3a018b8699d..32a1e651c815 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
+@@ -90,6 +90,8 @@ FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES(null_uuid, NULL);
+ 
+ FIXTURE_SETUP(vfio_pci_sriov_uapi_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 
+ 	self->pf_token = UUID_1;
+@@ -163,6 +165,8 @@ TEST(failed_second_open_does_not_clobber_token)
+ 	struct iommu *iommu;
+ 	int ret;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, MODE_IOMMUFD);
++
+ 	iommu = iommu_init(MODE_IOMMUFD);
+ 
+ 	/* Create and bind PF using UUID_1 */
 -- 
-2.47.3
+2.56.0.506.g506a7eabc5-goog
 
