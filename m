@@ -1,50 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236863;
-	b=pZQcnD7P/7gF7z0LOD4Y6mp+dWpaUcJLuZSX787XMsiN7UE2lZP+nia/opBe+qZ+lXO+
-	 fVNmAuzZADmXhfRd5swFmTUqQlyIfJwqgKUr7zUYLWJXBkatv4nWB1IfWVcJ+tQsWSwN3
-	 IKLKYpa2WSY5Wy8iBaOsMzQi3s1FvjlYomoxaAldzWxPmvIT5n5m4R8kd1T208RDZJxrJ
-	 lR11E3Io1CF2KPbGe/7rTaQwadGyBicEB26OaQAP5HLkqvPyfAiMpg1BK4M4WFtQeV6FC
-	 9rKeEJC0G/FrFyy4Cep6+02m/+XDdFl5aJR5ORvPEXpSmXKj+uepjNgchVKf9NqFR6w==
+	t=1794236891;
+	b=nt33Y17Q61GM5/k/ppw/WkmIsKecMTRl8nzsR/MLlgzwsm18BylNTKYeVxeBNrDk3sAr
+	 u98aowVNl+ReSadx5YykrUPOgNEZC9raBinZuMnhI2K9wbmBOZtkKu5S5nj2uycBxf9/v
+	 DP50+VlPSBPjr4geLuDKqUH1GdpnjajARDse5Rjb+68Sqi6DiHX1xsRfNBIWUgEssihak
+	 D6JY1GtyuExOqQp8ROabyn0/TWf2uOzD3s64+L9EqDpoc49WIY97LCxI5NwIIkJDbs6m1
+	 StLkt4fOxYmiGDeyEvDVzs1VgBuwxW9ZvR+6kBM4oC37nntKA+hsYTecoL4snUDXm+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236863;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=InNwYIMIJI8yrg6o/8hogQFe84wdeKa70SPggHPT1Ps=;
-	b=TXPDnbj4jiB0iF5k/pGGONaf3WxEPtZNJ6TPOnQfd/XQL/JYzp2L3jQtQdXmSNjthWQX
-	 Z1qBaL3al6u/5ZL8eT1kzSIJu2Pq7Qb99XVIKi2Bw7qIJyjyy09vUhwYF1QlNKegsiTO2
-	 0Ate5+O60PkQvENp7ntLQO+6hIKysiGggS5pabJGcG+lVqGp0ErUiviwjpYGmenBZy7+a
-	 mZ34VB2WsuTuZCdN46nACo3KofaNITguANRHyFkMWd6KAjsyIvOyy4B32ZUu8xACurQBf
-	 PgsC1Z4CXPq7aLP++qhD0O8/haixuKOxpkPcDSG0GdnwyVCuVojHrcKlTodo9v4ce/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236891;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=VApTwWJ3qmohUJ+gUV6MygaZwmFVLWa//DQWS1mUyZI=;
+	b=HTp+wnZklemPLqseq4LQkkJNiFfIRo/dfeEKl1mHOBWgq/LHga+qn0ajKKhdDs1rqWUX
+	 rz7kMIn3DIOhnFraAoMIxs7eROwExJCjx+6pNTTuJPxPhF0xftUF5snyvBxDJR+/UljRg
+	 9RttSJ4ZAAGBqSlrwYJk1YVQPULi/dC2F9jyeIQ7JybdoJ14Jemq8TK08f+2RXBmphP1o
+	 R3lg7xqHce80evjWjKOCVr54kTdZy1Y213HD0+lo67vRB6sp7+ArzpGhvKv607w8ZnK08
+	 os0RH390/jrDr56aB+m/QZWgX9vWwf+eULl88fLDuYDmhece/fctcnXi5RbmQyCiVDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KrVbrHBa;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dmarc=pass header.from=roblab.la;
+	spf=pass smtp.mailfrom=roblab.la;
+	dkim=pass header.d=roblab.la header.i=@roblab.la header.a=rsa-sha256 header.s=fm2 header.b=w5qs0gob;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=AmBY2ipQ;
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B184A606A326;
-	Mon,  9 Nov 2026 15:07:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B184A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBB9606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:08:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CBB9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=roblab.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=roblab.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KrVbrHBa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=InNwYIMIJI8yrg6o/8hogQFe84wdeKa70SPggHPT1Ps=;
-	b=KrVbrHBatWN5A+oE+H9yy3Vf4NfkgY3u8Rj2HFxCrfy7EdplXfSt70HWWcZLwh
-	/C6WnH1r7rLfVgoW1FY1zaLGFzyd7dn95MxfK1IloYJhY6mNWLvFrOOKJCksyygH
-	nw9KRh5w9N9Ue+WQ5j+8iur5GXJoCi6j7QcxLNX0lZ4Vk=
-Received: from [IPV6:240e:b8f:91b3:d000:f8a3:659e:94ea:8cfa] (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD39xp74fFqmq84GA--.54682S2;
-	Mon, 09 Nov 2026 23:06:36 +0800 (CST)
-Message-ID: <ad7ad5ed-bf3f-40b2-97c4-fbd6f35acd3d@163.com>
-Date: Mon, 9 Nov 2026 23:06:36 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=roblab.la header.i=@roblab.la header.a=rsa-sha256 header.s=fm2 header.b=w5qs0gob;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=AmBY2ipQ
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 656F41D0017D
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:08:10 -0500 (EST)
+Received: from ams-imap-01 ([10.64.2.21])
+  by ams-compute-02.internal (MEProxy); Mon, 09 Nov 2026 10:08:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=roblab.la; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794236886;
+	 x=1794323286; bh=VApTwWJ3qmohUJ+gUV6MygaZwmFVLWa//DQWS1mUyZI=; b=
+	w5qs0gobz7jEhvbu42EoNe0kdY1t6ZxaOYdWduC3+oH27epLriRSwWilYlhmId25
+	KnHFHd+rHat28gkgW6JHqtY/E5Y4JaAmwR1+zENdO6fgLeHKfv2rBKK5w+0m21rn
+	jWQvSg32Tw1jYkvuPqw7P3wl+duMZcnPSfYDwteCQlnHAMDhFXEeL+wtg6xYppz/
+	eagRLTdeE6BuQGyZfeNsIyiL01t6Fn+Op2BfSOMzopv4IJ6xhunOA4XUAXXGP5vs
+	gHIrrIHBReqXQxd+45Dbmjfsu2M4pKj5UB7TLf/BlNOgXoCby4rbwJuwAcrFhKCa
+	lfkY0RfO/HjcLgQLyyJ1jA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794236886; x=
+	1794323286; bh=VApTwWJ3qmohUJ+gUV6MygaZwmFVLWa//DQWS1mUyZI=; b=A
+	mBY2ipQrm+6pDwTlkvMWIR3iwNKrvdC6t2q/OLyHd/ynclOGmYNSQpFSr1NNXZLL
+	up5j9F6USIH39S+tB6EAsmDVpcvgjHgN2yeeQdUAzwzDiC5wc9K5rehDHUJafwwD
+	JBgBYRNNwoYCFOD0fefwVslUR4eO4ehMmFiKKde5SpstHV02wddQfp6HSv1kscx6
+	MMU/tRr/3FghVClAtboTg62D83nN2g/DHX/10aqHA0QfvTE/9exXWJEdUpx1Z0/G
+	d0peQLwPuEzFrA1bowVTtYJd496fPx4RQXvjGMahnFaCAx6l1eT4YgDIAPJNqOuL
+	6VXMUguYvMd9hwnPp9AxA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=roblab.la a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794236886; d=roblab.la;
+	mf=PGxpbnV4QHJvYmxhYi5sYT4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:wauOmpFpyX90qYa46fI2GyqHjIhvjpncbC/nBBbmT/pUKY+
+	PWXuYdTKBhZj/zdZGu5sIjvdp0E0NUq+kQKm8FaQsradzD+YMLr6JHTyEaei3NRI
+	uisBt3LCNDF66dOHBqXheDFY6ldHfEvX20DWw7QyKmchbbd1CUBfV/OKW2Sn7ZwD
+	JcC2jVqTFTkfR6igWPwQBF3sm7rfbXGiDrSyCUXFwiPipGr4irhEBmjgvF67S0In
+	cs47mk3x48QBEAiDx6uNj/jNSeQZSizTCCs/tPGn9fEv6L6+uTyCJQJZx9tyz3JA
+	G+NYNuw9fuJ1IFZkjav7XRyVefqw8Gfcqf6oYYg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:ddwfNLPp0IsKXzeqZm/tuCizgfx94OIjmVEDFx1AhQ0=:K3DqAWrmELiptr52b2dyq/LsiQ1CiyUr9uR6+OXPP3s=;
+X-ME-Sender: <xms:0uHxanJY2BUty-rF6d7WbZiiY4kog_zqhazhZRwbHyKNGjQIpsjnvw>
+    <xme:0uHxal_oOu3nYRuz-mbK42dEid5ndgcLZgH8aFdX0Qx_P9JdwYRyw8kyjZTj3TS1R
+    dN5Q-5WFfezeCa23LGb40rHdibjzq3nL4XTouu0jwUmiRfolshCgwxW>
+X-ME-Proxy-Cause: dmFkZTFwNPAAGVjalJ2RlYQLODA8FyDd+IjZJLDJzZnhOTGrb2yAfnzg9QaRSawQl7DVJr
+    IUJc+bPV7ePb0ZpfHMD144cd1AuB8CuZFQ/ONKYEnweJg7/jPt/alh0tLlrmMU9EEeG9lN
+    WzUKFZdZgcuq3NpsQZDyrqLZURx7ZFWaihgPcjyJafMMEy/fnTt2lmoXpm5vQ2FoGRfmLd
+    i9gUFKBZTRYXO85hS7iMD+Q9e6wjhmQVMfxa9EgBldypk/ZGIJh05M2hqOxPCCILUQh8Ml
+    FC2WdzTXcZ5idgTnN6/yKzVJtwjcMTry8kLLPyY9ZmtBVARQPT0WyQrSRRLz3B0UPVgEOZ
+    ef3m2z18ItEFcMl7cL+2xvxu3lXQI7qFiL/1G06abo8phPKGCID4ijnrBoMA7a9fuPZKKS
+    AXg2NlmJRIIIzRARp+e5PHNojY1K0IUgWwO1pXsdPwXH6kvxT5/qizddITjHmKS9SxjXgy
+    ujB4DQ7ZmJjk6vLPCtMu+RcngFkY+i9s1RDkPSpHRRLSh27Sez50HZAf7WXWXLAVBtciQr
+    OfYpd8MQZaH9fNF59yuoKrGWJT7Wy7VzdxJcxZh3GXayFbWvgzLAerXiC+g5317bYhl8vi
+    Kjg5ZUZhUqQGsZk8iEnV4MPIUOezi6csRgz4iFkSOXhEfAu1rJo6sqi2W/1w
+X-ME-Proxy: <xmx:1OHxat5e2-nxVUpQBEN-txPwu4yv0ViWlmn1zgd_Abp8DHRyWLJWug>
+    <xmx:1OHxate4_tQruJWIjUrT6wpPWPfeeB-mqstgG5TH2HxmmZ1a_YdhJw>
+    <xmx:1OHxaoGy1-lldS9ItGS10Nj4zgIs3jkU5M5zFFqQMdR_JZxi_3SZjQ>
+    <xmx:1OHxamScr9WHq7-cfTn-A9BfBWYxVT8iao8fAphsyRmSOuNzGWWtDQ>
+    <xmx:1uHxarTgFlNq_bsRwIb1Kbnjs4f2Vd2DEX1MvAYM-GZoWBCYymyWpMRu>
+Feedback-ID: iddd147b3:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3584EFA0090; Mon,  9 Nov 2026 10:08:02 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,157 +115,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] PCI: Use pcie_get_link_speed() in pci.c
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: bhelgaas@google.com, mani@kernel.org, lpieralisi@kernel.org,
- kwilczynski@kernel.org, thierry.reding@kernel.org, ryder.lee@mediatek.com,
- jonathanh@nvidia.com, robh@kernel.org, linux-pci@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org
-References: <20261108094034.679945-1-18255117159@163.com>
- <20261108094034.679945-2-18255117159@163.com>
- <43198b7a-b0f7-49e4-731a-807e7d9e5959@linux.intel.com>
-Content-Language: en-US
-From: Hans Zhang <18255117159@163.com>
-In-Reply-To: <43198b7a-b0f7-49e4-731a-807e7d9e5959@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD39xp74fFqmq84GA--.54682S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrWfAw18uryfWF48GFWUCFg_yoWrWrykpa
-	y7C3WYyF1UJr1fWF4Fqan8ur15X3ZxZrWxJrySka4kWr12yrZ3XFy0q3yayr1Syr4DAry5
-	A3ZIyrs8uan7tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRepBDUUUUU=
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7ByuUmrx4XyrPAAA3d
+X-ThreadId: AgAAt5wBJ-mw
+Date: Mon, 09 Nov 2026 16:07:34 +0100
+From: roblabla <linux@roblab.la>
+To: "Andrii Nakryiko" <andrii.nakryiko@gmail.com>,
+ "Paul Moore" <paul@paul-moore.com>, "Daan De Meyer" <daan@amutable.com>
+Cc: bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+ paul.mabileau@harfanglab.fr, linux-kernel@vger.kernel.org,
+ "Andrii Nakryiko" <andrii@kernel.org>
+Message-Id: <9d6bdc31-e57c-4187-be78-29d82471f710@app.fastmail.com>
+In-Reply-To: 
+ <CAEf4BzZKmn6g0SK8OddjKFj_vAmZFvpZv32Hs_S+GHgT7VNfrg@mail.gmail.com>
+References: <d85ece6e-27f9-4d9f-83af-4101bc76fef6@app.fastmail.com>
+ <356db94e-f5d6-4fb2-839a-b97aef72256b@app.fastmail.com>
+ <CAHC9VhR9sjunJRnM9gy-BkBZkapQTrr8a8FtmaK7JkAmUqTrLA@mail.gmail.com>
+ <CAEf4BzZKmn6g0SK8OddjKFj_vAmZFvpZv32Hs_S+GHgT7VNfrg@mail.gmail.com>
+Subject: Re: [BUG] bpf, lsm: new first argument in 7.4 inode hooks silently breaks BPF
+ LSMs
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+Thanks for the replies!
 
-On 11/9/26 20:03, Ilpo Järvinen wrote:
-> On Sun, 8 Nov 2026, Hans Zhang wrote:
-> 
->> Replace the to_pcie_link_speed() wrapper with pcie_get_link_speed() in
->> pcie_link_bandwidth_mbps() and pcie_bandwidth_available(), and remove
->> the now-unused wrapper.  pcie_get_link_speed() performs the same lookup
->> with bounds checking and is already exported.
->>
->> Signed-off-by: Hans Zhang <18255117159@163.com>
->> ---
->>   drivers/pci/pci.c | 9 ++-------
->>   1 file changed, 2 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> index 7c6f2aba8144..92ede1768caf 100644
->> --- a/drivers/pci/pci.c
->> +++ b/drivers/pci/pci.c
->> @@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
->>   }
->>   EXPORT_SYMBOL(pcie_set_mps);
->>   
->> -static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
->> -{
->> -	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
->> -}
->> -
->>   /**
->>    * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe link
->>    * @pdev: PCI device to query
->> @@ -6048,7 +6043,7 @@ int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
->>   	if (err)
->>   		return pcibios_err_to_errno(err);
->>   
->> -	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
->> +	speed = pcie_dev_speed_mbps(pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)));
-> 
-> Readability seems worse due to cramming everything into a single
-> statement.
+> LSMs that need to provide a stable API must provide an abstraction
+> layer between the LSM hook callbacks and their stable API.  The LSM
+> framework is not responsible for the stability of individual LSM APIs.
 
-Hello Ilpo,
+Understood, that lines up with my expectations. I think the biggest
+thing here would not necessarily be stability guarantees, but rather to
+make sure that the eBPFs fail to load when the compatibility is broken.
+But that's probably a problem for the eBPF side, and not LSM, I assume.
 
-Agreed. I'll split the link speed class into a separate local variable
-at both call sites, keeping lnksta intact for the link width extraction.
+> So, in short, would it be possible to send a follow up to Daan's
+> commit and move `struct mnt_idmap *idmap` to the end of LSM argument
+> list?
 
-I'll send v3 of the series with this change.
+If this is possible, that'd be nice so that we avoid this breakage in
+the short term, since the change isn't in a released kernel yet.
 
+> Having said that, there is a way to handle this, although ugly and
+> *everyone* using specific LSMs would need to do this on their own.
+> Instead of using convenience BPF_PROG() macro to define BPF program,
+> you just use raw `u64 ctx[]` access, and then cast ctx[0] to either
+> `struct mnt_idmap *` on new kernel, or `struct dentry *` on old
+> kernel.
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba8144..594ee7aa4cad 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
-  }
-  EXPORT_SYMBOL(pcie_set_mps);
+So, we already do similar tricks in the software we ship (which uses
+various eBPF program types, not just LSM) to cover kernels 4.11 to 7.3,
+using a mixture of CO-RE tricks similar to what you describe and
+per-kernel builds selected at runtime.
 
--static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
--{
--	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
--}
--
-  /**
-   * pcie_link_bandwidth_mbps - get the current bandwidth of a single 
-PCIe link
-   * @pdev: PCI device to query
-@@ -6041,14 +6036,15 @@ static enum pci_bus_speed to_pcie_link_speed(u16 
-lnksta)
-   */
-  int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
-  {
--	u16 lnksta;
-+	u16 lnksta, lnksta_cls;
-  	int speed, err;
+Here's the problem though: We ship to customers, and we don't control
+when they upgrade their kernel relative to our agent. When the kernel
+changes a hook signature, a program built before we could handle that
+new version still loads fine and just reads the wrong arguments, which
+causes some really gnarly bugs that can cause really bad breakage (such
+as accidentally denying events that should have been allowed, often
+resulting in machines left broken).
 
-  	err = pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
-  	if (err)
-  		return pcibios_err_to_errno(err);
+So what would be really nice is a way to make eBPF code robust against
+kernel changes such that it either works, or fails to load, but doesn't
+do the halfway "loads but silently misbehaves". Here are two ideas that
+have been in the back of my mind that could help solve this issue (though
+I understand that they may be rather large changes, I'm putting them out
+there mostly as a conversation starter):
 
--	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
-+	lnksta_cls = FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta);
-+	speed = pcie_dev_speed_mbps(pcie_get_link_speed(lnksta_cls));
-  	if (speed < 0)
-  		return speed;
+1. Could libbpf/the kernel have a mismatch check on hook arguments? I
+   understand that libbpf and the verifier don't know the types a
+   program expects, since BPF_PROG() only casts u64s. But the macro
+   does know the types at compile time. Could it (or an opt-in variant)
+   record the expected prototype in the program's BTF, so that libbpf
+   can compare it against the LSM hook's prototype in vmlinux BTF and
+   refuse to load on a mismatch?
 
-@@ -6074,7 +6070,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, 
-struct pci_dev **limiting_dev,
-  			     enum pci_bus_speed *speed,
-  			     enum pcie_link_width *width)
-  {
--	u16 lnksta;
-+	u16 lnksta, lnksta_cls;
-  	enum pci_bus_speed next_speed;
-  	enum pcie_link_width next_width;
-  	u32 bw, next_bw;
-@@ -6089,7 +6085,8 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, 
-struct pci_dev **limiting_dev,
-  	while (dev) {
-  		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+2. Since kernel BTF has parameter names for the bpf_lsm_* functions,
+   could we maybe have CO-RE-style relocation to resolve "the argument
+   named dentry" to the argument index at load time? This way, adding a
+   new argument could happen anywhere in the argument list without
+   breaking eBPFs, and removing an argument will (correctly) cause our
+   eBPF to stop loading. It does mean the eBPF programs must provide the
+   same argument names, but maybe that's an acceptable tradeoff?
 
--		next_speed = to_pcie_link_speed(lnksta);
-+		lnksta_cls = FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta);
-+		next_speed = pcie_get_link_speed(lnksta_cls);
-  		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
-
-  		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
-
-
-
-
-Best regards,
-Hans
-
-
-
-> 
->>   	if (speed < 0)
->>   		return speed;
->>   
->> @@ -6089,7 +6084,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
->>   	while (dev) {
->>   		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
->>   
->> -		next_speed = to_pcie_link_speed(lnksta);
->> +		next_speed = pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta));
->>   		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
->>   
->>   		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
->>
-> 
-
+Thanks,
+roblabla
