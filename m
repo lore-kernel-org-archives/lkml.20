@@ -1,51 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229796;
-	b=HaFhvcAInXKj7RJr8UBkmIRYLZTBciw6x2bD93gPj29VOs4ZSi1VatuZPQw3KMNugADJ
-	 V6weKhAbmWOdPBCtJ+PEGM69dAGazXUoehTybN7jHJ9iIKOY7YfVvfK1Q8M2C3GXRWysX
-	 y7VGe5/vzXkq7OsGyBYA5GSKL2rmkWGMDTPRraDwum/eOQf1jC5YMYipzE801s0lcct3j
-	 /wGnYJ3rRROo+Qiz1voIxRo89IsaHOGdicwzcoM7cKUJpHsxr5rRTyukvdw8bGj2JwajQ
-	 C/Yzq3zLNpxCF3GJMxholvEk3FSjexwkJdyD65iMdSfCwCxRXvI2AsMMiFtDVJOn0oA==
+	t=1794229823;
+	b=4wqMwjqQeRt1DQSSN53DHIzcXw52Bh2AOR6s4y3hVlWOQ58u9sjkQJRzmnNNSwhWw/PP
+	 SrKTyyaH1phYwqs9MmQ+2eq8yx6W2TqnthdIU8rozGWPIeQKdaBhXu2+DonlyyO5x2qmC
+	 TjSDBE68RsGxPLx62tSV2iN+c5KYLP/y6GHsFZ7be1V2LTkwCQ3M0GXCYS6tZt+T4OMdv
+	 adLxiUdt3nF1xdaNGj/Gk9Nx794b9AWS2K7+F4bBcjW06y6S3tBbw1clE7vADO/mY9yQw
+	 qLuRPaSkA0QDP4ki0v2p4Ck5MeqGPSpFB2GSj0TEc+oHjoYfPkGOzfXGQ+SuQc7yLIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229796;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=f+8E0s5Zue5uHtaK5KTCTkEmSgDAkRA+JcPbsxori10=;
-	b=2LRTziv6hkRFErjlqaVpg+YTtPUjmrsPG+mBpk4fAxOiJ3sSwoQMWjOxMXWi8vtbqiPn
-	 SMcUh4VSfDDDl/vz214sSEmybvbj+rJb4Fr+pl147f5V6wrOHrQS4CyewVdsD+9t9lHQf
-	 cQatvI7QET7IfSeR9uWH82ZKDwiAdJ25Hv10j1tVaiPhtZeMsO2/5GcR0sLyo5CUFP8vd
-	 ZU/H1JO+wLX1Y7zz0S0l0OjN7/sUlfByWb/ykU7Clf+5juqj+kZPfcklnYNugWMVwf6Ey
-	 8OYy4Uugn5t5loa0N+5t1oYSbMUiXz/iDxgWjLmBwJQNIO/jYnE6QceALCFun8+vO5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229823;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FZZMx5Ep2WBP3yRYbUwpo8CiLtMhiMWGEYjzNV7FYJw=;
+	b=3BnYMk+8kPs9sDZMSBajrPWNHn5Mq0jJf79U//XUhPddRrikutSoo5FvRDmBlO+evjvi
+	 gGkMtmDRcQlQ8GvNYcJn5VLQg7FoPsZ//X+k/GNlhOYZXtjb2Ipd6beLKp/htvlf8GrFt
+	 gF6I9OFrjVF4JgPkO03tXtC/6TXa3RkSwEsgVFqnNi6OTpynp0nMCjjVeJzL2OHh4OFka
+	 ym9CWWK33S+qZExJyGEUWk8k7XN42SKOFVEaL/PbpFZ4bEDXhih14BYrv4A9ciz2dwT/v
+	 /7xI0021XLE11+hTJTUnN9hDtMyvneCcyoGYI6U3bwzhzMdIfIxuj2e30xFD921sRuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N6KnvR8W;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a0YKVZJO;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5C5606A33B;
-	Mon,  9 Nov 2026 13:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A5C5606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A66606A321;
+	Mon,  9 Nov 2026 13:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8A66606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N6KnvR8W
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54050f33f;
-	Mon, 9 Nov 2026 21:09:44 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: sccnxp: Fix potential stale ports after IRQ request failure
-Date: Mon,  9 Nov 2026 21:09:43 +0800
-Message-ID: <20261109-21df1234b2-serial-sccnxp@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a0YKVZJO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794229823; x=1825765823;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=MIxBSmzDBepqTU2DTXW7tfzJLCR9DCC+4Y6znsrqrMY=;
+  b=a0YKVZJO2wz+OZaamVF98vntkPik2sQ8pw7wstL/FyW6MqkfzfDpD8QZ
+   5FVsD+hcD9SVgWcsBTQCbhkBRRmN0wJFxntWCFNYXBDwdPnTUTeeVaI8x
+   B/9OWJRmn+V7KKjEQ3HtpNC7Z1X07YKDLC/+QlhzLkA3QnFmxsCRo1mnV
+   ePDwtdYVy6/nNdXD/tHi8Ho5qu3UbHI1iAbWTozi3eiz3a9OG3lNED1aA
+   99WaWXiZJ/OiWvvOAEzakbdys8ZGgRfOtqbQx+UwbSzXfm2LckTF8pjgc
+   xQf/fxHCcN/wKI/rBgZnxlVC4bVRYY9QrcFkswCU8TYpWm5CNbvlf60vN
+   Q==;
+X-CSE-ConnectionGUID: qjZE+a5kS6eZL69OKTWCVQ==
+X-CSE-MsgGUID: 881HzFDpSFeYbUveTbOCjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3052214"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="3052214"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:10:23 -0800
+X-CSE-ConnectionGUID: lyKUtdNAR0SkpkMCqLgrRw==
+X-CSE-MsgGUID: rDXvF2QkR0aXbw7i3v3x2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8002741"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:10:19 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 0/3] PCI: remove redundant resource assignments done after BAR resize
+Date: Mon,  9 Nov 2026 15:10:07 +0200
+Message-ID: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,59 +90,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1c06dd09103a1kunmf9615dd512147e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0JMVhlDSBhLH0sYSk1NT1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=N6KnvR8Wd9zieM82mRNyS0/wFuf4dZPUy7MvpF1sjobIDmh15WZuMPFqUd3UchKURok0pF1gvN69pohNyfrLOrYJx+UVfef6Vh3V1fdkkGOgGWIPpbkocKFL8Xm7DTZBHhlLFNaGrxSvrNZqyeqxWNrI1XBR+nGkpXhbvw5vUc4=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=f+8E0s5Zue5uHtaK5KTCTkEmSgDAkRA+JcPbsxori10=;
-	h=date:mime-version:subject:message-id:from;
 
-The ports are registered before the interrupt is requested. If that
-request fails, unregistering the UART driver frees its state array
-while the registered ports still refer to it.
-
-Check each port registration and remove the ports already registered
-before unwinding the UART driver on either failure path.
-
-This issue was found by our static analysis tool under development.
-
-Fixes: 1d65c0b12656 ("serial: New serial driver SCCNXP")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
- drivers/tty/serial/sccnxp.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/sccnxp.c b/drivers/tty/serial/sccnxp.c
-index cb31e3aceb62..502f8ebe265b 100644
---- a/drivers/tty/serial/sccnxp.c
-+++ b/drivers/tty/serial/sccnxp.c
-@@ -989,7 +989,9 @@ static int sccnxp_probe(struct platform_device *pdev)
- 		s->port[i].uartclk	= uartclk;
- 		s->port[i].ops		= &sccnxp_ops;
- 		s->port[i].has_sysrq = IS_ENABLED(CONFIG_SERIAL_SCCNXP_CONSOLE);
--		uart_add_one_port(&s->uart, &s->port[i]);
-+		ret = uart_add_one_port(&s->uart, &s->port[i]);
-+		if (ret)
-+			goto err_remove_ports;
- 		/* Set direction to input */
- 		if (s->chip->flags & SCCNXP_HAVE_IO)
- 			sccnxp_set_bit(&s->port[i], DIR_OP, 0);
-@@ -1016,6 +1018,10 @@ static int sccnxp_probe(struct platform_device *pdev)
- 		return 0;
- 	}
+The BAR resize rework removed the resource assignment call that
+followed the BAR resize in amdgpu. The xe and i915 drivers and the
+PCI sysfs resize interface still make the same call.
  
-+err_remove_ports:
-+	while (i--)
-+		uart_remove_one_port(&s->uart, &s->port[i]);
-+
- 	uart_unregister_driver(&s->uart);
- err_out:
- 	if (!IS_ERR(s->regulator))
+The current BAR resize code should properly assign all resources and
+handle fallback gracefully so a driver-side call to assign resource
+right after BAR resize is just duplicate work (no-op). If that isn't
+the case somewhere, the fix belongs either the BAR resize code or the
+code that left the resource unassigned (e.g. a hotplug race or whatever
+left an resource unassigned prior to resize).
+
+If drm wants to take their patches out of these, it's fine with me
+(either drm+pci or through pci tree only works for me).
+
+
+Ilpo Järvinen (3):
+  PCI/sysfs: Remove resource assignment after BAR resize
+  drm/xe: Remove driver side resource assignment after BAR resize
+  drm/i915: Remove driver side resource assignment after BAR resize
+
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 1 -
+ drivers/gpu/drm/xe/xe_pci_rebar.c           | 2 --
+ drivers/pci/pci-sysfs.c                     | 3 ---
+ 3 files changed, 6 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.47.3
 
