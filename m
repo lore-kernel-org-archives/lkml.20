@@ -1,64 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260956;
-	b=Ga1Uxw6K1UpuFtBG+1/yR+gxcAV6+1JkWNdzRKU6w6uudgt9fi+qUAOiLOPiq58Pm7b7
-	 9eZAZnXdTQLgZGFctVrVtUlj0QP94MGx3li1fjM9C7Kc9Xg2jkMFqrtLKCJrDMmNroBjq
-	 L98NDqRTwg/UFVjdhbUmdw3hvcud8Fxk3eoL9LifN9D7Ox9iTzeqpUwXwwLRl0CZzGHcJ
-	 9E+hMx2tjzoQAVpnBrgU27OJ+sVr4eXq6CqjdqQXrVFWlWZvgfe3kFq9JXyiqJQVmToG8
-	 wsnFS8sAVBbdM3WPIGDfqRqeA6sS/0vAO+BCkdpW8ls1OnK1+yNtlQ9VilKzDG9MlLg==
+	t=1794260985;
+	b=byFxvX7yPbLpZlyhgB/DV2Amx54E74S6tk3+6b95qfS4r3tLBWbraFYNPXkLPhmVZkQj
+	 BskSB1kyeDw6cCBL1DbyxMngsWdIBiPR0tRbhKwk0lg7ibfdyyJ5UjyVOn/Sr+7D10rxs
+	 GVXuQpFRCgQflECVcS/COMfQrgZyx3JtNbuybE9xnIaBCvSDG/bFpRXELQVR2QLv4tZKw
+	 LtxEMxhNkTF6Be40oAbYHwpNp9wQsujJpU19Cw6lMiXP/PG2i7Sb2fRWMH4C57vlQg8+e
+	 SkKA1xysZZPuBDhLGMKIx8xT1fn+zSsA3e+G79tOz7g3HabBv0dLd/XWxl53XrO98IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260956;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hD4/rOBor8vuXy7+FBslFmkGihyycuVPMTbcjvsGkCs=;
-	b=TVL9R3M0EF1q0825Y08zCwfVEs0Ff1ZNXb1yoYF/QOAjIX8I2Z49xxo1Ifj02WKv7SsC
-	 LSZyR2qiFyrzV+1nsIUMiroFQPvgF7XpaxLTuzGY4Ia3PMtjNOWgZ9YuXiup9JQnNTzCa
-	 TbuxI2PG2XUA+yH9bMvtpioY0zRoFUjnqYA+o2hQMXXv5fbeB3DokMOgIge+QGZJ9Fi2p
-	 JCO+AfKG5TkzJBUlS5CEg76M++nS5K2kHkjpqWRrY3Tmiq4Wu0Zxt/dctaYHPQSVbzTH6
-	 XDXDtwFyuZYs9BCfp5lRErCgF+anIRFQ6oDt1uoFsoXYKb35GCnxY7z7u6lRwswxwZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260985;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=kIPvUyy58FluJNp+/4hObdnVo8Xv8U2P/+DLXfONN+A=;
+	b=gYfWLT9rfWA12BgOVaBS6tnG/BXhmQYSzw+jHR2Y6ddaAWKkEtxzW6Z0wjna2aiI3PuB
+	 Lbh6osTZEcRImlHmsZxBQjn5QRHe7HnpqPJtoFPHjka+j8DxPh3E9wibqq6XtXQhuDcA/
+	 c97rumFrzQP8ezNRU72T2cNkfrbR9yl+ri+4Cuj6o02uc+XPr4v8pS7etq8KGSsn2TROt
+	 J6QKOrDgavLpo+BPYpOPDH25oIjQreYqGfHWuRsJdQVlXSEtUBE02V/xck3uGmorjoobF
+	 owexYahfuDq1u7gvJWICXHKh3cJVAaCbWA+wl6Jpi13SeOtSzwrskXpASh7/cflDUcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IwAHBzog;
-	arc=none smtp.remote-ip=95.215.58.101
-Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="P/5X1NKO";
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A4A606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34A4A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BE9606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86BE9606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IwAHBzog
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nOiQEYuSoNBv1LoQFek3ZETD1fxVkZfpV6TKA1yBp1c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794260952; v=1; x=1794865752;
- b=IwAHBzog+whtqfF3z2P7E5B0HdrMiktrlXFGvgiNL/MhO1f3H5FrF1rWSFrmGCFYunIq+Bij
- BlyAusF21I1a5dqJHHnnHAx+OdHyJiSxYAgHPzOgeFcXzZdYChml06mclSY9cQDJWmH8iWMX/Ek
- hd3OON6X9y0nY6uL0Tas4/eQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e82d086895ec596b;
-	Mon, 09 Nov 2026 21:49:12 +0000
-X-Mizu-Trace-ID: e82d086895ec596b
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 09 Nov 2026 22:49:06 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Alastair D'Silva <alastair@d-silva.org>, Ping-Ke Shih <pkshih@realtek.com>,
- linux-wireless@vger.kernel.org, Kalle Valo <kvalo@kernel.org>
-CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v9_0/4=5D_wifi=3A_rtw88=3A_sd?=
- =?US-ASCII?Q?io=3A_Fix_unhandled_RX_request_interrupt_storm?=
-In-Reply-To: <23518740c620e5575d5ca5f46aa99f1dbb7e1172.camel@d-silva.org>
-References: <20261107035321.1210303-1-alastair@d-silva.org> <ab3dcde64bb90809ae10627803315d7385d6708e@linux.dev> <f2784538533947a38e9d03af7bc7fce8@realtek.com> <162821b6cf0e6d17aa33c81d55a716b553e70579@linux.dev> <23518740c620e5575d5ca5f46aa99f1dbb7e1172.camel@d-silva.org>
-Message-ID: <DE52F1F4-9DBC-4627-BB76-90A2727345F8@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=P/5X1NKO
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a60f90a924so517742b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:49:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794260984; x=1794865784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kIPvUyy58FluJNp+/4hObdnVo8Xv8U2P/+DLXfONN+A=;
+        b=P/5X1NKOtIip1FyBmDSV4p0wl2ud61ENGtVnUGBVCAjEcvdt0YUwj455lJmo9UfqMt
+         vCOhEAmZ4yrEzAb2eT5Iv4n8biEztSWh0scwKCiXrk1MmEA3o2mXwAjpM6ETbakkQYg0
+         vNNye0WeTz+ceNZPeR5hJT2cNv54WQgI7/V5URcrhNbfO9DNd1MAUP/8kj5qivrPUoVL
+         sLAHqfryiGqWxigTQpR/0hk9aw9CHzGbrRJB4zwn7RREdvd4AY17qM8kIfLHJM3z7kuz
+         HGwIQlp3cOYg8a8CznYLh0PlnYU6Ug6wU9OaDqzjVyrTJjusApj909yqk/ur67ohJS5g
+         GydA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794260984; x=1794865784;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kIPvUyy58FluJNp+/4hObdnVo8Xv8U2P/+DLXfONN+A=;
+        b=LAG2N4g620m1aLBzlHgYAbFqntdlyjxuavI53TbcqEfjvaVbRkVh1m53vJzuMGcUIa
+         De4rUeDN+FImS4DQ+4ah3C4PY4fi53Fmkni6y9L5L/0UOS4M7oWuuSVHPiHZwyq9RylH
+         Y0Gp2kVJCu36S9fk+qhsEa7YzzMqZTLr7BPAIVFVQFoC1QaIqKYB1uKA/YbDQYmomFdS
+         OtvzEez5DH1Hem8jgt8QLrS85h9WYC2kzrz+UdEFaMXHo2fbJDIi5njaRDJKq2i0wg1L
+         9GMkmDMUZsi6QiCsbqZT/wYb1gwz7M/RVOX9Cw2xhk6sQLZSllFbk9NZfBwQAmc1zHrF
+         XTmA==
+X-Forwarded-Encrypted: i=1; AL+hErEA2JotMVbn3Jv5TKi1Kz/RvHkVsTO5AqTbPxk5EN3F2ZckW7/1h/WDFNJtFIKY6XmbhyHCwFdKUu4WCs0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uT9gzAIqpvDijkJAqHJ/4HCDaC7ptTv4ULu27ESlMr2LdTIWD
+	EW0xG++VhzsAYFbMRER6QUad3UwjJCEpSy84mFWnP5lAH8R4ydz8kqz3p7f7gyrAnARqDeWAyLR
+	g3TaE6Ic=
+X-Gm-Gg: AYBFou3Dai28L5GXDJS/hSljFzsMczGi8kTX9VjF9LMhaOwJLFRy1+qUSpR9wgHIBij
+	49hobZVOmAA2/5mRMdhidjsB44IPnOBV70klUNNGK7Z1e5RgJk2+f6+iC5JjEjjTVSewIpK/khT
+	rXXy/oL+HYYd9OCqOKlOGqo4+DQlt+/O7WjWNGzFGSJIj61TpfP8O/UrnaFHNtRrB++dZAE8CdD
+	+Xh4vbhIPhaBnnx3/HrfNiWzmeBJZ+5L4/WNeDoRkVOPGxNfX7e/NB4Q6F3BWQ+D/+jE4qQiNyI
+	f72WSvYRG5YT9ybsM52VC0C//ifubvfbi3Ftu2OStSuXFj8XRF63Fck7gaQj2ak0yTOuWpSx4Wd
+	bS1n7sEZOGoYwEzgkh9Ieh42QTgiFbd8LBf0cXjnW8mPe2BWUUcA+ksvYU1NhE4Cf/iZO9sjsgD
+	fJpdSEDkVWnafpezxSiad0AKBEwk7kWreyG8xDicVxtQGPY7TunI9lOaWhk1FPhBX+reLfFm/5d
+	he0VHuGMf1IwZ+czwSMYfOYXAtGJGR8k3Wx5/acRscefSSSXeSYuikAJ5GvVdyjqv6b+7MivUyp
+	detla8ZB5U99Dk8+p0X1lQSQGLJykUbNEg981Gx8NoZ2HalIiu5d1k+1PS/+iQ9ljy4OGaHrg0C
+	EfjVyWV1OY3PI
+X-Received: by 2002:a05:6a00:3e24:b0:8a0:3ed7:939b with SMTP id d2e1a72fcca58-8ba864bf926mr840169b3a.29.1794260983915;
+        Mon, 09 Nov 2026 13:49:43 -0800 (PST)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b2896sm129427b3a.17.2026.11.09.13.49.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 13:49:42 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: Cinq Prairie <notprairie@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Stefan Roesch <shr@devkernel.io>, 
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261027204840.7823-1-notprairie@gmail.com>
+References: <20261027204840.7823-1-notprairie@gmail.com>
+Subject: Re: [PATCH v2] io_uring/napi: don't end the single NAPI busy poll
+ early on need_resched()
+Message-Id: <179426098226.155418.4382559329615606121.b4-ty@b4>
+Date: Mon, 09 Nov 2026 14:49:42 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,34 +100,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On November 9, 2026 9:29:38 PM GMT+01:00, Alastair D'Silva
-<alastair@d-silva.org> wrote:
->
->On Sun, 2026-11-08 at 06:06 +0000, Luka Gejak wrote:
->> 
->> > Please take Luka's Reviewed-by for each patch, and send v10.
->> > 
->> > [1] https://patchwork.kernel.org/project/linux-
->> >
->wireless/list/?series=&submitter=Alastair&state=*&q=&archive=&delegate=
->> > 
->> 
->> It might be the same issue lore is experiencing. Nothing newer than
->> November 6th is appearing, maybe it's related?
->> 
->> 
->
->Looks like it's still stuck on 6th of November - is there someone we can
->poke?
->
->-- 
->Alastair D'Silva
->0493 18 5566
->
-Maybe helpdesk, or Konstantin? I'm not sure, I will see what I can do.
+
+On Tue, 27 Oct 2026 21:48:40 +0100, Cinq Prairie wrote:
+> With a single registered NAPI, io_napi_blocking_busy_loop() hands
+> io_napi_busy_loop_should_end() to napi_busy_loop_rcu() as loop_end and
+> runs its own loop once, relying on __napi_busy_loop() to spin until
+> that predicate fires. napi_busy_loop_rcu() sets NAPI_F_END_ON_RESCHED,
+> so __napi_busy_loop() also returns on the first need_resched(). io_uring
+> treats the return as the end of the busy poll period and sleeps in
+> schedule_hrtimeout() for the rest of the wait timeout.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] io_uring/napi: don't end the single NAPI busy poll early on need_resched()
+      commit: 39c7210e970200f8b17de3767c73efe64173a95f
+
 Best regards,
-Luka Gejak
+-- 
+Jens Axboe
+
+
+
