@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794267086;
-	b=OOpHwC++NdCF3CFT91ltykl33o889U0YY7xb/wONM56cwhQLTAgsrLOiito6jk5rbkLB
-	 TRjtUDn2AIDor7G7GY3abWGYHD6F3bkduxU6Cx710DcmY1RhVnj51EiyAAiPKZNRUQk+/
-	 BtvdFM0rLXlue8b8L28V+sTWypoOq02GdH8+LBEPe5btns2rI4fnEjhWcKNTlgqaoSoNK
-	 s0H9hHXIif6ctefcydwylrnY2esyrcG5CjF3et+0T61ksQXYe+0N9sWfLElD09sKRoqAA
-	 nHbtBdG98pSO6+0flWTuyuUrxfSb0ZddPe2S4P6WPkDvC+qKyV/SEDdVIJkO1FNZU5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267086;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HT8waMJ0wlqU21uDHOBtPqMcLR26JjkfXc4rxkOhZK8=;
-	b=t0xX7mEn3s8Jqv39r4kydxftdU3c2UsSEjdJquns6k4BRlSwKm1d12HARaZ+EIXKLpVL
-	 9R2nudoi4/X8qXCbeEyrXCjf0OqGQfK8A7FM10nPZh2jF+L52VA+HpmLJcUsxJ3z2RU+s
-	 IizWh6pNncG91Xb+HConntZ12seqgjRbLFrUC9ljsCQbUW7eT8cd3LLE+lOoF+vd18tbf
-	 o9CiZt7mdjvqUTGPLpMnR2G8mDUTj8RZwHU+GQHo9QfzzyL+XEA57aaJlzAfyYywmp14C
-	 bGcF+eD7fdNYO/NVEB0qfTnDAgWrVJBwvpDGFGPNo7LQwGMN+GP7lTuWTj3ELfAqIjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="VsaRnHV/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794267069;
+	b=MueAhLie5sdfspjwLY2fOHUh6wAyqx3l28+hTgyEre/lJmGovLjL8ecP5HkmxZOmFxuc
+	 jFN+ztXDDpc3KHgqqV+2Fs98d1HWJfs3GlLT26YYLagOhOdO8qeiCYzNyQmFJig7AYqND
+	 bcbH4aABAGu0/d18mwAS1g00W29qHzjTOjBm9BmqcvX1UvmJQdmo6bhgg8NPkM4kiHuI3
+	 of3/oDZltIGihg2eJZRcqVJFgQWC3K8TRMbP/YKfLbKlk1m+UdSBQXue7NObzMM7+bque
+	 POk/S4wU9/uhNVj9YwL+Kh4HCCl27ssaXYsc5YwhENnt9xKKmdI006JMb5DcBftQWdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267069;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=uu90JLzf6q6WA1nLCDfkETvyup9H36ekzosWSH+2F7s=;
+	b=0keyw3alCIlb/QEmmIVomJHbtsIMZsvVmN/JSZPh2oJ1eWO3T1CMizU/ZZveQKTEPOyM
+	 DANxkCkVa9epwuHd+uqKiwBQ3fPfwd2H1X+sFItck56KpQxwenDnSK1p4Ih5VnlOnUopk
+	 cuMizGf9IlnO0yWcPh4i6Q5p9J/A+PFqUVtWPpmewP0WzMo2RJyhczowOdmFW1aEi2Dyu
+	 a7gvJuwZHozLC3n4QvzdVFu5ujijuons11d8X+TTNgU5tUtEpWRjZtbQPr9Z5Sm13hMdo
+	 QXr2ShO32xDVkYqW89i1sQRI2dyP10HE0gxl1tDgLiCyC34DeHycN/T/1DjMFnX5chA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdvUL99H;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7A560A261C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC7A560A261C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE87606A332;
+	Mon,  9 Nov 2026 23:31:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VsaRnHV/
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be58ad9600so1470e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:31:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794267084; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dICWxqCY2gMu5Er5yFhnTS/FDY4hpF40IZjfTB43jlPpHJtgz2JSrjFCZFx/x2/tI0
-         zPebLfTqKsmBZatBAIdAC9gljchdwBfqxDApQqexB+zbbhLQozGtPUDLIil3O0xEqO+y
-         sBhEN28EuJbSAQRHvKQI7eAs2goYnG2mc0gnotuRjdPS21xrwBLUDJnBRhoaA38Q5eCU
-         2ewzq3hfWUX47uB9sjmsdbVKa5H1fJfmNAZAJYBsvqYjgh6xPpjIbbN5f81Oa6Fo+pT9
-         eOWCesDd7yl0hKvl5sDJ4yDvNt+drIQNFUKdc0dkucaqFL0mz59vH3nzg+DF0o6lMjUK
-         Ei9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HT8waMJ0wlqU21uDHOBtPqMcLR26JjkfXc4rxkOhZK8=;
-        fh=hEn7fJE8vEdaQNqCKvGi+67c7wH3+HVq2aG6e7/rlG4=;
-        b=GRAKMimg8yGhhJSHMa8VDd8eXOEoKvuU9M1Fy4XwpMpsl/eqTsla48bApYhfeN0kBs
-         aGbKpqV4aWSL9t9aQnzE22cnY2Z6+sACDkDdDOLhNtiGMU9FI8nKfxWcPkWZI4Fq+ydD
-         JrosGkBc0d4WwNpMhx5wm4/36btr3EXhI++DQCWfQx70sJ4T+8Epv2teBwmaMQUOxSdd
-         JHMCeGXq1Vxa1VOE4J8TLu0200xrVdteaql2cpFnr6JfWalHf6urmwXBw/IP8t12ONSP
-         IGA5dKLsHBErPOkUeMprtIQk0RhVSZOCj1TmRs/CDQgJgt7OyqDsghpyaHwTGwS/rS0Y
-         LQeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794267084; x=1794871884; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HT8waMJ0wlqU21uDHOBtPqMcLR26JjkfXc4rxkOhZK8=;
-        b=VsaRnHV/tmPIj88IV5UH5O9XloOChnxcIUHd6caHuvvjWl2jaw3iEqBwAjzy32XFGl
-         QK8bo6/LHa/jfFduTOQSXVJrV4Pwuj2a+DRz9TFWb8HlDCFe2rjkTTWaNQezBDerjmvY
-         peF4d8960JsnkMG4SJwWxURIsyxLxnDYH+0oJ6yXnyAWxsnd/5Oo/lqqWURYalxAHlpQ
-         aQLVMJ2LI8ZGKMn67AHTXV27DVfbACwN/rsVUG3BoLM+feu1QngFot9b5fCPFyx8M4Ds
-         ZgLWCSfUVCQfU4kIJt3QXdaWWlxT36GUnz21ixZMkARLug/0eMNuIzZJ7Uqrti0prw+U
-         pOoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794267084; x=1794871884;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HT8waMJ0wlqU21uDHOBtPqMcLR26JjkfXc4rxkOhZK8=;
-        b=Tij1ZXylKD7Uzddg7PF8UlL+sjtMxTrWdYG7uwdyVaNgd/bkHRx9XZ4PXzWhtXe1C+
-         0mMe5p8WDHac06/HiZuvAHAaZQDLMzHUueIFExKjOlshIoEXWlRROjZ4Strs1dCtD4UH
-         oUJXMBiHoqA/XBXfJtFhK/2OviGqqwK++qI/t4aDkL0Hzh9iaf++P40aVodbvVX6FlPc
-         xsfrrXgdBiDpYkrMMygsLAB8G70yaQQRP5wvsG79HL0Tzq2A6U/DpEpn9Q/yMlklqWEQ
-         SbTR7en+DNUPD7qJzb4c+lOpF3Kp1BmeiHPQCZ185ZozfI/dXaNYHj2IlU3oHAr94uQE
-         sVsA==
-X-Forwarded-Encrypted: i=1; AL+hErHM+Lmd27K2fiq3fO13Mz47JKtRqKJVUYSyWKdRpJFg4y2juFZL2pwFgscLG/DQz3vBHe1aPXsMyN0G258=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XJ27T0nTzvfU/qVfZln/SoeDhWT3XwOdrRdYLLDYr7h7E1KUv
-	kWIOHc3YM2QylnG+lH6z+U3b26xQNCn+AbA+LgZY1bCMkzwviGVQMlqDq6lRTOdN4MQuS0znbIo
-	GRHb7rxRmJLbxWpD6+XndOsEx8orYkzYlI6wSDxge
-X-Gm-Gg: AYBFou16eLVoVtKzmXgQexO9QMF7uljTKaLJcPmzlS9f9X45ojoHBs0+dI+UEHHXnS7
-	Onnvy3ZGQpvQh34t6LAVryjV/QLex7i944MsU2Bk4pwPbW/1Z/RPtV/V2K18sI4wfsFOxf7R60A
-	eYkHhNl+fPVZ4JiqWqFLJ78HxjHx9PWgsqXZLL012nR00LrLgr4iYAOEgKoGQLy8H0TxyU8Xai9
-	prQi7SZUn3o8xsZQ3B7abijiwrvVRVNQ6qmrNTahoJoYmbdF5iSAzRWkBv+mt7yu/Rz1E6lFvA3
-	N+RZW5NlJcXC/YwNS7oZ9CF7mK30QxiVoJx4bRhVetLfa/lz/7p63cguYbjoXZcpXNJyHXVQuQJ
-	6myOIP6URrEOSN5vgiCn4ajSY04CLpzEmzfYuQ5vLxEHyNn0ZNwncKL/bmuUkgm5z9AhiZskQMc
-	ofhw8Gx2X9I1gAHe7LudP6uSE=
-X-Received: by 2002:a05:6512:23a5:b0:5c1:5209:5a44 with SMTP id
- 2adb3069b0e04-5c157047b22mr51653e87.4.1794267083633; Mon, 09 Nov 2026
- 15:31:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdvUL99H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085EA1F008A2;
+	Mon,  9 Nov 2026 23:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794267068;
+	bh=uu90JLzf6q6WA1nLCDfkETvyup9H36ekzosWSH+2F7s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SdvUL99H1z6ifJXkEkWV65cq4B2Q8ofopqb3s46fkK5FIvm+oequp28P3qpWA1Y4n
+	 KRPge3K0j9nugITJzuIvo4/E6OxeUU5rFeiSrajOoiv/KzMM5HGlp94VbloihWUWHk
+	 ZzaNCAQdSusnNqTP+UazvBuKfJDi4F80rBIC8CWovE2pHuEr3grzzjJ/pZwdSsQS+w
+	 6Rk8NPAMR18GODXs19DP33D2MrRTOcLL4jFr8+zj40mxxLRkC1En8nogfiKK6vcUcE
+	 iYQPo1AAcFM0yqYaP/X/HzT4BkalyTqlro0AkaWWpevz1FNJ2K/Flp2/nCy9t6N9+v
+	 P3j/T0p+H2M+Q==
+Subject: Re: [PATCH net-next 4/6] eth: mpnic: UDP segmentation offload
+From: netdev-bot+sashiko@kernel.org
+To: daniel.zahka@gmail.com
+Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, dimitri.daskalakis1@gmail.com, mohsin.bashr@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 23:31:07 +0000
+Message-ID: <179426706758.994134.346895450294126427@kernel.org>
+In-Reply-To: <20261106-mpnic-lso-v1-4-e943ff1493e4@gmail.com>
+References: <20261106-mpnic-lso-v1-4-e943ff1493e4@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,32 +63,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105165525.011876858@infradead.org> <20261105170157.453569788@infradead.org>
-In-Reply-To: <20261105170157.453569788@infradead.org>
-From: Josh Don <joshdon@google.com>
-Date: Mon, 9 Nov 2026 15:31:11 -0800
-X-Gm-Features: AclHuK9aIglRyjrXhQ_DwNbOxWjeZRaKI6HC103Zk3dWCXQSjLR7gGvQ8QRHuME
-Message-ID: <CABk29NvMcBSO_Eu3VN5Au1QjZHcFESmNWCqmD0fEwydmctUL=w@mail.gmail.com>
-Subject: Re: [PATCH 1/3] sched/fair: Use guard in sched_group_set_idle()
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, tj@kernel.org, jakub@okonski.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 5, 2026 at 9:12=E2=80=AFAM Peter Zijlstra <peterz@infradead.org=
-> wrote:
->
-> Cleanup the code by using guards; prepares for further changes in this fu=
-nction.
->
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  kernel/sched/fair.c |   16 ++++------------
->  1 file changed, 4 insertions(+), 12 deletions(-)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Thanks Peter,
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Reviewed-by: Josh Don <joshdon@google.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] With this patch, mpnic_netdev_alloc() advertises
+  NETIF_F_GSO_UDP_L4.
+
+--
+
+eth: mpnic: UDP segmentation offload
+
+This commit adds UDP segmentation offload for non-encapsulated udp4/udp6
+packets by advertising NETIF_F_GSO_UDP_L4. For GSO skbs, mpnic_tx_lso()
+now seeds the UDP checksum with zero length, the same way it already does
+for TCP.
+
+> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
+> index 3a4aa5be57a19..83be45031a30b 100644
+> --- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
+> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
+> @@ -331,7 +331,8 @@ struct net_device *mpnic_netdev_alloc(struct mpnic_dev *mpd)
+>  		NETIF_F_RXCSUM |
+>  		NETIF_F_TSO |
+>  		NETIF_F_TSO_ECN |
+> -		NETIF_F_TSO6;
+> +		NETIF_F_TSO6 |
+> +		NETIF_F_GSO_UDP_L4;
+
+[Severity: Medium]
+Now that NETIF_F_GSO_UDP_L4 is advertised, can UDP GSO skbs shorter than
+MPNIC_MIN_FRAME_LEN reach the hardware with the zero padding counted as
+payload?
+
+An unprivileged process can set UDP_SEGMENT with a small gso_size and
+send a short datagram. For example, IPv4 with gso_size=1 and 2 bytes of
+data makes udp_send_skb() build a GSO skb with gso_segs=2 and a 44 byte
+frame (14 + 20 + 8 + 2).
+
+mpnic_xmit_frame_ring() pads every skb, GSO or not, before the offload
+setup runs:
+
+drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:mpnic_xmit_frame_ring() {
+    ...
+	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
+		goto err_drop;
+    ...
+}
+
+The frame grows to 60 bytes. Then mpnic_tx_offloads()->mpnic_tx_lso() sets
+MPNIC_TWD_FLAG_REQ_LSO with MSS=1 over a buffer that holds 18 bytes after
+the 42 byte header, not 2.
+
+If the segmentation engine works from the mapped length, would this send
+18 one-byte datagrams instead of 2? 16 of them would be zero-filled and
+delivered to the peer application.
+
+That depends on whether the LSO engine uses the buffer length or the
+IP/UDP length fields, and the driver source doesn't show which.
+
+Even if the hardware ignores the padding, the accounting is still off.
+MPNIC_XMIT_CB(skb)->bytecount, MPNIC_XMIT_CB(skb)->gso_segs and the
+hw_gso_wire stat are all computed from shinfo->gso_segs. They won't match
+the padded buffer the hardware is asked to segment.
+
+Nothing appears to steer these skbs to software GSO. mpnic_features_check()
+only checks an upper bound on gso_size:
+
+drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:mpnic_features_check() {
+    ...
+	if (skb_is_gso(skb) &&
+	    !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size))
+		return features & ~NETIF_F_GSO_MASK;
+    ...
+}
+
+In net/core/dev.c, gso_features_check() and gso_within_dev_limits() only
+check gso_max_segs and gso_max_size.
+
+Before this patch only TCP GSO reached the driver, and locally generated
+TCP GSO frames are well over 60 bytes. The later patch in the series,
+"eth: mpnic: add GSO_PARTIAL for other tunnels", still pads every skb and
+doesn't add a minimum length check.
+
+Would it make sense to skip the padding for GSO skbs? Another option is to
+clear NETIF_F_GSO_MASK in mpnic_features_check() when skb->len is below
+MPNIC_MIN_FRAME_LEN.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106-mpnic-lso-v1-0-e943ff1493e4%40gmail.com
