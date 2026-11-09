@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251798;
-	b=oNnL5p72mbqveXku3/OYDYG1NoC3zX2bUM7xhEjra5Jkof/qMy4vq/5/1v7hVkQSxu1t
-	 szJ8mJwF73l/Wq1CgmKxbyDr84XrXZ4TkwyhonDbjtktux7XfUBNwH8DYFMFv3K6hdcjs
-	 GCSr7gUYADzuOAQeSA/xxJOtwgQ1UEEZSsvHLEYZaB+PAoBkklipQ3HLSQJljIIoyY5s+
-	 wSE+K6RHQiQZFTWmQUUkc5z/Yqs9MXGFYvJG9+5lGvxenrHN4q2JDsD6xIE98SMBL6/Mo
-	 vZLm2bYbWXmbsBl541kTWGJPcKbaT78Jy0+pbuizKHChn5xTwt87pCU5v5Vlfcmqipw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251798;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hKAQdA3xa/ca1jx07L9rSksx5n8SHXVGckAyI+PNUn4=;
-	b=VzYn5czKXT83Zl4kr7hwlh6PoHLgo4KmV08virEDgu2X+PGxWXmKuN88KXne5R1obPqi
-	 BLo6+1Fm7RcAMDFR0yWcI7SpI4vs2YzHZWf+qvWlPI4hhrW/IqAGIb+U2RbucvILQm7Nf
-	 eiI51YgwCcvnKDgoWrD+pfDWdcbIlOYrSrCoNfquR/oeAgsYw5TC5VtRIgGbIsuKJGtX9
-	 WnyfnuVUZ1SGOg0+Bbu078qoitXDz3K+beR8SQMgz7cTsmI7Ig2wYHzAiNhmpR6Kz9bAW
-	 EhqSwxssULEUETgpBC4XpUOEHANSrR+kXM11ObMUvbV6vvuS+mMD0gVO1YCr9CXKi7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YK+1B2jN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794251802;
+	b=qMFLLR18+BGZtSP0Qr/YavCcBUXBfo2VJM5ddqj6zHAR9nbotRNvKIpu9BHflwvkJhcd
+	 el9vwj6yCxtpJE2BMF9zAp24FYmxu3dO0Go4H5/B9MEvl1CyNKK8ovQ3AHvdeqRVIgu48
+	 TLI4mKXEjx0lAQAzuOZrHYU4cqzHO3HF5Lv3hKrLVrK7y3RygQuu2R6eGWnbfwKMkjU7w
+	 NzIPLd19BNwPIRMILEx+drMpI+AtNI3N5S8MqtoZhcbKN9xbz7jmoTSRasua7TQ4RHfiD
+	 ptduiKItHVNFZu59Zvir5ST+SBGXy3OCXcCtAgYyNE7xm5tvNdR0QR4Ozipfxonc+NA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251802;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8u5w95cAT4AqylY2+SjrdhHAzOziXGL/qgoxF07FL6w=;
+	b=yN9XFN311LAwJdsM8daqbbGiXzedT6bPFnqkJawLZv1JMB/k1q+J8m5BpSrdeidZlvyb
+	 2jmqKiDSgbJvUX3CxDccBq++jNCtPyQjkEi6JyuBFmC5XlK0Zeggj0DLKbbqz3b9msZCY
+	 L+z5Pe0nbcbsC7B40+cnDZQvNf3t0JmUT26T3xHmMoQecPBsquTRGBoskDovvTbXZtIsH
+	 kM9oYV/PronrYOmGMWGwjAQj9umrsHYVyHdTAVlNJffHNocAw3doNK2dPg0SqOu6u8AIY
+	 LBjESmWmXo8MGMYqIkRS5s0GHiWaRijKoUcWa7eHtT1vncdGWmb9C0lFe57qwSjX/8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gvu1A139;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.36
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013036.outbound.protection.outlook.com [40.107.201.36])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9B5606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5606C60A2601
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5606C60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YK+1B2jN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4A5D1F008A2
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794251797;
-	bh=hKAQdA3xa/ca1jx07L9rSksx5n8SHXVGckAyI+PNUn4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YK+1B2jN/k2S/q7Bau/EZiMetHzk9oLZCRIcrM3auKnbLWOAT+uelMatzkdXaNTod
-	 3/dwKhVfpiTNHxxfZvjURrOhvpc5AbUzyqqL8lOHAoAA6OVoFGpFRops19+rBopTao
-	 wkotyM0DgerObW4nQ8u4GN5rm7l3bW1GdSjkitXKdGBTzYyP+sKBd3dTdmEf2Wjk7i
-	 mXXGeu/GLhCtwiK6TCaD42k7Riw66oNIheWDAh0zrktbe1br/RUgOmOvG/a1+s5KbB
-	 9cbvlRIuQVdHpdGyGL9n7FaULAQOXjCPuQFPLcOaNN845Uc8b6e/79pmkWYavPRrBa
-	 F05TrVdqFRVXA==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3acd523a802so10710641fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:16:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGx1/s/gupopudysOaFltgFKR70rrX3+eaoZmdKH2wERZL7plmc17V7gwoIwIkeVSSQx/0MCSYa2Nta9tM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pn4b9LTBglIHmD3dI+P0a8m42/FvHH2q1k2Qh93EAZ2PpPcsU
-	Zx1NnAHz1T4+92uvDhtMnV5twHm49pXdVNEkzJTEcTJyn7+cokSoycW41aXtyylDcsFex5g5H4S
-	lz4T88NxcCFrr7WWj7OJHXHWk+1gXdmM=
-X-Received: by 2002:a05:651c:1612:b0:3ac:e5ef:1b8c with SMTP id
- 38308e7fff4ca-3ae0961fc0cmr447841fa.11.1794251796214; Mon, 09 Nov 2026
- 11:16:36 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gvu1A139
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RDwECN/4n476MBjSN71dm6fsiWVxjlROKw78exYdiAXkhlqqTs1TwGKLs3A6pnHu8IuUcUbVw+4lPmBt7kwuS92rSlE1e0O1iK3opCEzvKIV7wEMkPV2s9044Kebm9HtHDnVPdrdUcmAtG0LewNwTboJqe4jY+DiJarXWPfQ65wpNPW0tv4kV/30bNEHxzOws6RJ3mZkHsSAWFJzjC8z2uov/fit5OVYgQ+BX5vcBlmh8hgnRAGi1s19uQ67j6lgoqa9/NNQUIZi2zSMd8WsCaIxrGyjiDOLhgNzv4yg1MdutFEEyV7/AAYe17C/hFvo7qWtI+hJb9q1MumlziqpLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8u5w95cAT4AqylY2+SjrdhHAzOziXGL/qgoxF07FL6w=;
+ b=dLFO25Zg1Dx1Dmx68puaiusU/NzrfSDupCwqIUbJ9nCOtzd8AZerg5vz1dL8pptcBUqJ93HCrjioBNPAt1iRMY7lf7itx3/q+Md1eE78suv9vCBGeQWvF/amu4KsLBF9JlqxF8ESzLfvuKj07yZHs6OFDW3w0qA2VFi/Zow/U/DLoYiKXYdA8T6rs1eKg0Jab8WpUQP+rKPgC25b4cgp+fU7a8I1IbuXgDYTFe+iGlJgHPTnvSotBFzYKMdSA/iviSWap+d22i4CrpBDIhd3h6WaAlgD/4WZDIXpnxKEchwZPwZa4EivCNXOJUB8pc2BbwziCmrxkeVsWMw2clEYmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8u5w95cAT4AqylY2+SjrdhHAzOziXGL/qgoxF07FL6w=;
+ b=gvu1A139lv3CLP+txip+pdTSVUptAzcTmKfelL0AbhvUNB1CvbK0YARn/InC+j2Kd2Q++wbX5MahoDol66G/JZUCyqXa/6ziti3Aq3gmDYH4hrvJmRssWyh402XmV7twi4y2Xl0iVkwXH+pg9KEf4snUP3hNAWtSUIDhRFCeS/E=
+Received: from BN9P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::17)
+ by BL1PR12MB5970.namprd12.prod.outlook.com (2603:10b6:208:399::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 19:16:16 +0000
+Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
+ (2603:10b6:408:13e:cafe::7f) by BN9P220CA0012.outlook.office365.com
+ (2603:10b6:408:13e::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 19:16:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 19:16:15 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 13:16:10 -0600
+From: Shivank Garg <shivankg@amd.com>
+Date: Mon, 9 Nov 2026 19:15:51 +0000
+Subject: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,103 +100,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-acpi-sbs-serialize-v1-1-913abf8ed30c@gmail.com>
-In-Reply-To: <20261020-acpi-sbs-serialize-v1-1-913abf8ed30c@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 9 Nov 2026 20:16:23 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gaTgn-L8R8X_XWesxDNJsCybM6-Wyj4eo6CbOa16ueOw@mail.gmail.com>
-X-Gm-Features: AclHuK8KPeR5AAr78YhZ8OA-lcxrUTleUxc9Kx9JKlQhl_Z6Cxy6hVNYGjEtgQs
-Message-ID: <CAJZ5v0gaTgn-L8R8X_XWesxDNJsCybM6-Wyj4eo6CbOa16ueOw@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: SBS: Serialize battery state refreshes
-To: balthasar978@gmail.com
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQrDIBAGXyV4rkU3Ek1PeY/Sg9E1EZofNEhLy
+ LvXBEouYU/zwcyuJGLwGMmjWEnA5KOfxgzlrSCm12OH1NvMBBhUnAGn5o060Fl3GGmrF9NTKZ0
+ EdIopFCR7c0DnP0fz+crc+7hM4Xu8SHxf/zW4qCVO85W2bC1rlayw0YO9m2kgeyvB6XNWX/mQf
+ cAKjHBKuFqc/rZtP65fSTPwAAAA
+X-Change-ID: 20261021-clear-pages-batch-77f72ef808e4
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, Pedro Falcato
+	<pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>, Borislav Petkov
+	<bp@alien8.de>, Bharata B Rao <bharata@amd.com>, Hrushikesh Salunke
+	<hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>
+CC: <x86@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	Shivank Garg <shivankg@amd.com>
+X-Mailer: b4 0.15-dev-47d62
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794251770; l=6052;
+ i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
+ bh=Bb5seka6xNYsOmYAJp2YNJ60p2VRS1KfZvZfUsEUQBs=;
+ b=EcUWwczM/eMwNTCxsByYAirBsxAtvCZLIaalTzmen3dn0lvU0Q7nkwCVT/EtoYc9+NsTzRto+
+ HiPrGJv2LGwCu1+703ZO5sIWz0EbAZ7fy7JczygdWFDoTVW3u27cGkN
+X-Developer-Key: i=shivankg@amd.com; a=ed25519;
+ pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|BL1PR12MB5970:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea5bf661-6d4a-42e1-bcd9-08df3e95ecf1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700016|82310400026|23010399003|921020|260925022911599003|260925021311599003|260925021911599003|10067099003|5023799004|11063799006|56012099006|261021123027099003|261022075727099003|261021121427099003|261009223027099003|261026121527099003|261102123227099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	ooTzTUXhiaMI4v4F58fKC1u+z6O9CQHEzlL9kPzCMebSWy/a9/ydMXYnIyqy/Ya8hhd5+Lo+xmcMZBKl2W3RDGQTQT93ei34yRbRyt2/45NfVwz45U9gDmp2W5qqlfQ2gppleM7EpNso7lpgrFTiEfrN4QoqpW7t5PHjMhba0DKAebwISqaYPtO8V1PkkkZT4Em+cpIRLZ3iZ2sEd7ux151bJOISYieGzCJJMUwGvvuSRx7e0eV4UKa1ykm+eaddepEV46ZPh9pp/QAmzCC9k+Y+Abhkme6x8f4VKMGvu/f9TWO7FKN5FvAcuE62f1X2c7u53TXFIQ0NXk8eFUwegLGPkZFk0SHOuULSaAlI/Ug6/gsAvN0XnKdc3gBUdadudZrOhyolRf8tOpxkOOzbWbZtH0OtzDRhFvoSCeUeOca00vSnYIc8CvG1Mco7p4mtC/TkKa21wvJFJ77MDvWJCRnASyLvd70IdMyI6yeU476Hx63ncFu7g2K6X7Qo4SRnohLAuAnnd8mpZue4qQk26+8L5+6tM1IZYvx6PmymLTejgEDU1Gldc59wGIPE/2iWxx4GE8I/k9uQfFsOfdevUIHo6+qWwB7ZgnkqG56Em6a6rO3XwZMo+qV6c6ng74QQCYJiBWOkCYm3c7EvhraOgpmdNx1YfKLyTMeyOmWimQvJMb+VKeYPwPp6ip0019JUfF5OAktVJZc4OVVAzHaYVw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(82310400026)(23010399003)(921020)(260925022911599003)(260925021311599003)(260925021911599003)(10067099003)(5023799004)(11063799006)(56012099006)(261021123027099003)(261022075727099003)(261021121427099003)(261009223027099003)(261026121527099003)(261102123227099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jkRIKvL7oFAFwGgybgjzNvwkBeLwkJYuBcRJg0DS3VmlhtOlF2lN0O0yHTkjfxgAciOkrHYNdzmWqPD69PlxgnHFtg3ATCe39xZ3GUO1Yt28sCVLZgaCxyKgFcXtDh5hP8wY4QKd7UVAn14YwcI6M9ItDKcBCTCe2ubnWm5kWdH2b9Z1c1FrD1VA7nKtPILZDHI1eL5IcZfHODjsb5jlFbdoy/pi2CHqpi3565RAcsmRYgZDG7toGluvK1H2DCImKeXlFtfghhuEbrqMC8eq00PDMJSh7w98WL1sPeLOGj4LfJFwS+QFS1OingydlPGSuwDNZ/hRjUyeMlZpRprQOpkszYarJ17+HGMD4QtAFWsRTJ/0IzCzlnlcuWG9dMbQsXes2c/9xQXlD9Ea2yYjH8FXNd2r/NopWle5bsHCHkOmXIDzdNPGWxBX9lOkQVnx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 19:16:15.5765
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea5bf661-6d4a-42e1-bcd9-08df3e95ecf1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5970
 
-On Tue, Oct 20, 2026 at 12:58=E2=80=AFPM Penkacelsus via B4 Relay
-<devnull+balthasar978.gmail.com@kernel.org> wrote:
->
-> From: Penkacelsus <balthasar978@gmail.com>
->
-> acpi_battery_get_state() refreshes the battery state at most once per
-> cache_time (1 s), but the check and the update are not serialized:
-> callers that arrive together all see a stale cache and each read all
-> seven state registers over SMBus.
->
-> On T2 MacBooks (MacBookPro16,1: SBS battery behind the EC's SMBus host
-> controller) every SMBus word read takes about two dozen EC GPEs. A
-> desktop shell that reloads ten BAT0 attributes in parallel every 2 s
-> drove the EC GPE to ~680/s, which kept irq/9-acpi near 16% of a CPU.
-> Readers of a single attribute file each get their own thread in such
-> shells, so the race is the common case, not a corner case.
->
-> Serialize the refresh with a per-battery mutex taken in
-> acpi_battery_get_state(), so that the power supply readers and the
-> SMBus alarm callback share it. The first caller does the SMBus reads;
-> the others wait and then find a fresh cache. Use a new lock rather than
-> sbs->lock: acpi_sbs_remove() holds sbs->lock while it unregisters the
-> power supplies, which waits for sysfs readers to drain.
->
-> With ten parallel readers of state attributes every 200 ms, SMBus reads
-> drop from 26-29/s to 6/s (the cache floor) and EC GPEs from 600-670/s
-> to ~140/s.
->
-> Signed-off-by: Penkacelsus <balthasar978@gmail.com>
-> ---
->  drivers/acpi/sbs.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
-> index f10bbf13c..861739b18 100644
-> --- a/drivers/acpi/sbs.c
-> +++ b/drivers/acpi/sbs.c
-> @@ -55,6 +55,7 @@ struct acpi_battery {
->         struct power_supply_desc bat_desc;
->         struct acpi_sbs *sbs;
->         unsigned long update_time;
-> +       struct mutex state_lock;        /* serializes state refreshes */
->         char name[8];
->         char manufacturer_name[ACPI_SBS_BLOCK_MAX];
->         char device_name[ACPI_SBS_BLOCK_MAX];
-> @@ -355,6 +356,13 @@ static int acpi_battery_get_state(struct acpi_batter=
-y *battery)
->  {
->         int i, result =3D 0;
->
-> +       /*
-> +        * Callers that find the cache stale at the same time would each
-> +        * re-read the whole state over SMBus. Serialize them so that onl=
-y
-> +        * the first one does; the others then find a fresh cache.
-> +        */
-> +       guard(mutex)(&battery->state_lock);
-> +
->         if (battery->update_time &&
->             time_before(jiffies, battery->update_time +
->                                 msecs_to_jiffies(cache_time)))
-> @@ -367,9 +375,8 @@ static int acpi_battery_get_state(struct acpi_battery=
- *battery)
->                                          (u8 *)battery +
->                                                 state_readers[i].offset);
->                 if (result)
-> -                       goto end;
-> +                       break;
->         }
-> -      end:
->         battery->update_time =3D jiffies;
->         return result;
->  }
-> @@ -530,6 +537,7 @@ static int acpi_battery_add(struct acpi_sbs *sbs, int=
- id)
->
->         battery->id =3D id;
->         battery->sbs =3D sbs;
-> +       mutex_init(&battery->state_lock);
->         result =3D acpi_battery_read(battery);
->         if (result)
->                 return result;
->
-> ---
+clear_contig_highpages() clears the whole range at once under
+preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
+pages at a time, with a cond_resched() in between. The batch is 32MB if
+the architecture defines clear_pages(), and one page otherwise.
 
-Applied as 7.5 material, thanks!
+Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
+modes"), architectures that support lazy preemption only offer the
+full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
+one of them, and it is the only architecture that defines
+clear_pages(). So the 32MB batch is never used: whenever
+clear_contig_highpages() runs under a cooperative model, the batch is
+one page.
+
+Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
+set, and one page at a time with cond_resched() in between otherwise.
+Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
+
+PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
+cond_resched() does nothing on any of these kernels. So a build-time
+CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
+not needed.
+
+No functional change intended.
+
+Suggested-by: David Hildenbrand <david@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
+---
+This came up in review of the copy_mc_highpages() series [1]. Pedro
+pointed out that most architecture run with full or lazy preempt, so mm
+does not need to check the preemption model at runtime or batch the copy
+for cond_resched(), and a simple per-page fallback is enough for
+non-preemptible models.
+David suggested doing the same for the zeroing path, and this patch
+does that.
+
+[1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com 
+---
+Changes in v3:
+- Use clear_user_highpage() in the per-page loop (Pedro).
+- rebase on mm/core.git/for-next.
+- Link to v2: https://lore.kernel.org/r/20261109-clear-pages-batch-v2-1-2e62c4f84f94@amd.com
+
+Changes in v2:
+- Rebased on mm/linux.git/for-next, and drop RFC tag.
+- Link to v1: https://lore.kernel.org/r/20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com
+---
+ include/linux/mm.h | 28 +---------------------------
+ mm/memory.c        | 29 ++++++++++++++++-------------
+ 2 files changed, 17 insertions(+), 40 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index e6da76fbe8e8..8d14e45fcf24 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -5250,7 +5250,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
+  *
+  * When running under preemptible models this is not a problem. Under
+  * cooperatively scheduled models, however, the caller is expected to
+- * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
++ * clear one page at a time and call cond_resched() in between.
+  */
+ static inline void clear_pages(void *addr, unsigned int npages)
+ {
+@@ -5261,32 +5261,6 @@ static inline void clear_pages(void *addr, unsigned int npages)
+ }
+ #endif
+ 
+-#ifndef PROCESS_PAGES_NON_PREEMPT_BATCH
+-#ifdef clear_pages
+-/*
+- * The architecture defines clear_pages(), and we assume that it is
+- * generally "fast". So choose a batch size large enough to allow the processor
+- * headroom for optimizing the operation and yet small enough that we see
+- * reasonable preemption latency for when this optimization is not possible
+- * (ex. slow microarchitectures, memory bandwidth saturation.)
+- *
+- * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this should
+- * result in worst case preemption latency of around 3ms when clearing pages.
+- *
+- * (See comment above clear_pages() for why preemption latency is a concern
+- * here.)
+- */
+-#define PROCESS_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
+-#else /* !clear_pages */
+-/*
+- * The architecture does not provide a clear_pages() implementation. Assume
+- * that clear_page() -- which clear_pages() will fallback to -- is relatively
+- * slow and choose a small value for PROCESS_PAGES_NON_PREEMPT_BATCH.
+- */
+-#define PROCESS_PAGES_NON_PREEMPT_BATCH		1
+-#endif
+-#endif
+-
+ #ifdef __HAVE_ARCH_GATE_AREA
+ extern struct vm_area_struct *get_gate_vma(struct mm_struct *mm);
+ extern int in_gate_area_no_mm(unsigned long addr);
+diff --git a/mm/memory.c b/mm/memory.c
+index c9d64170e47a..fcc7ea2a00d1 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -7650,27 +7650,30 @@ static inline int process_huge_page(
+ }
+ 
+ static void clear_contig_highpages(struct page *page, unsigned long addr,
+-				   unsigned int nr_pages)
++		unsigned int nr_pages)
+ {
+-	unsigned int i, count;
++	unsigned int i;
++
++	might_sleep();
++
+ 	/*
+ 	 * When clearing we want to operate on the largest extent possible to
+ 	 * allow for architecture specific extent based optimizations.
+ 	 *
+-	 * However, since clear_user_highpages() (and primitives clear_user_pages(),
+-	 * clear_pages()), do not call cond_resched(), limit the unit size when
+-	 * running under non-preemptible scheduling models.
++	 * clear_user_highpages() (and primitives clear_user_pages(),
++	 * clear_pages()) do not call cond_resched(). That is fine on
++	 * preemptible kernels, where the scheduler can preempt the clearing
++	 * at any point, so clear the whole range at once. Otherwise, clear
++	 * one page at a time and reschedule in between.
+ 	 */
+-	const unsigned int unit = preempt_model_preemptible() ?
+-				   nr_pages : PROCESS_PAGES_NON_PREEMPT_BATCH;
+-
+-	might_sleep();
++	if (IS_ENABLED(CONFIG_PREEMPTION)) {
++		clear_user_highpages(page, addr, nr_pages);
++		return;
++	}
+ 
+-	for (i = 0; i < nr_pages; i += count) {
++	for (i = 0; i < nr_pages; i++) {
+ 		cond_resched();
+-
+-		count = min(unit, nr_pages - i);
+-		clear_user_highpages(page + i, addr + i * PAGE_SIZE, count);
++		clear_user_highpage(page + i, addr + i * PAGE_SIZE);
+ 	}
+ }
+ 
+
+---
+base-commit: 2683df3b7eac1d91380194955ad0c9751454610c
+change-id: 20261021-clear-pages-batch-77f72ef808e4
+
+Best regards,
+-- 
+Shivank Garg <shivankg@amd.com>
+
