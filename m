@@ -1,76 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.241
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794206496;
-	b=QGX/BTAWF2w5Scp/dZT9DeAiRb1xjAyJ/e+tlNYfhRqTeqz2OE4VzF8787MQvx2s5H5/
-	 wshSinYDpNskLaDOEoUeX/SkI6Hgp66z9LofRd4QCV+4sEdSwdvrdiB8P7CkYloYvJvRO
-	 pRNeIQmutJm+iO3OeoQzBZsAdYAOuksTxWjF/Erj74spIhS3Ux4LlgtDTWCLio7vilrw4
-	 o7muTIIWUjro00vFyaOeEMOTWEO4B950uxiwrkBd+YnVT0zqheWgWYGoyRgkgrfZmxRXy
-	 9pL0RbantakHbPNMFMDFfOtb13o3oQjISVb72ny7boOw7Wy8Tsc7h+4rhsiBMHY0Skw==
+	t=1794206515;
+	b=Qad+t7XXOjSPwea+Iawr/lEmNspmbkIKVf4B1L3kCMi13cQCvELA3yA6i9AFalO4msXc
+	 8/5mqBK9u0c/UzUWJCQpN7ENZtqVJ1o51mX2xovUd++ho20bj2BnqIOCvtDKPaagn+zpV
+	 RSJh+FuQFPD6KYoT657iNqbiPaUWrY4eJ5TRdyp3clBa0xf18C84Xi3P5ua9mwqhYo5tN
+	 3UEbD/wPtyKfgWEl/ZMaov+GyA7Qrw1v2SSWbAnM1gt7XdL27brT8voIgwjNyftfSiuUb
+	 lsaXTEH3uuPVqAe4ALkl3qfswNjVvvSjoxDzi/uP45sCFoZcBl/aEHe1smcB9Br+gOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206496;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=b4NG28+Ff2oTIi9k9M1agvKHdqFEhBLZ2FfrsTN1o5o=;
-	b=UVYb1uEMTp1jHwLr3XkLJFw8Wc40Fdky7OUq/p6U8V/7GtI3l52bCO1E9mJqzzyzKJid
-	 TdOC2evsQLmisAA3lMky4YraAc4wS0YRxmObKonzOH13SJThBFuxPw6Vbw8XzbNf6uMo6
-	 fs/Q7DyMFKKFAkubDXiVJx/Qfw/YEgBW4Sz4fBN0ADCO7qEAnks+523cOfKt3BQNqyf9O
-	 hLPtEIiKZw0/2FutP96I29edeZbN69JaA7sxXXEBucLZfqp+/HW0o+d1zQoRC0V7j5GxM
-	 E3Hjdd6vMg5wa/l6dAOzpKjy1qI1tpmGrRhmr3wjWnIyjXK6kmYRJxbjd/wjWgJGlJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206515;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZzG+B6v080Z5FbgsRfwns3KQJ2PJp7hPF1hqKQeiP0I=;
+	b=jf/A/2SbhRBHngpGqXVI3/PeRkj/DHIzKshyWP4nBPbIE7gF8q11ASQnorsajZMMCgbG
+	 TRwrHEpXQkaSmug5Rn47SgI0cePFASieZLaCExSiXbqZ4GcnQiFWwT02jI6h857WupU4G
+	 J5KS5Ng5Jh+yYwDk8XeFBslP0xalipLrgVGO0AQIffXHwhr2oELJ4UTcF8s/w4cWHCJ0e
+	 YCmVhZd/rsIHVmugIkhfvTapKxh60rPyy+UEmKsqeZYTfGMwoZ6qcPxiknwPUYcOjsmWh
+	 H63vqxX5P0m3O9Jb6eHeNbPt68XayefvxEXevWGGy94jtXydK/Re24unzvZp9+YerIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KSGCgNY7;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 478D8606A31C;
-	Mon,  9 Nov 2026 06:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478D8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v7F+PgyF;
+	arc=none smtp.remote-ip=95.215.58.241
+Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006D4606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 006D4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KSGCgNY7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=KSGCgNY7PLDxRTZGYg34RiQ9JuzV8gwR1bXmFef1QpioYhuQoXOZ/GiX9vILwFqnBXukhE6doHEBK
-	 fsEMi93sKBulcHCBeyn5/0zmjiQZ+VA8e87QQLu2b9UxPF06n5yPBRDLyC0iFsD87c+bNldauGnHPg
-	 UkCk2YrEOIocWck4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af16b1d1e3-9d57a;
-	Mon, 09 Nov 2026 14:41:33 +0800 (CST)
-X-RM-TRANSID:2ee16af16b1d1e3-9d57a
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from openEuler-24.03.03 (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af16b0cff7-849c3;
-	Mon, 09 Nov 2026 14:41:33 +0800 (CST)
-X-RM-TRANSID:2ee76af16b0cff7-849c3
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	willemb@google.com,
-	mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	willemdebruijn.kernel@gmail.com,
-	narcisav.kernel@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 2/2] net: add a KUnit test for the alloc_skb_with_frags() tail split
-Date: Mon,  9 Nov 2026 23:41:06 +0900
-Message-ID: <20261109144113.36600-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179419003377.994134.4899199888022081447@kernel.org>
-References: <20261108100617.23840-3-yanhaishuang@cmss.chinamobile.com> <179419003377.994134.4899199888022081447@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v7F+PgyF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nox8bTJLykF11nD4yonwkiNc7pDMafIXe+7tPzIa2gA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794206511; v=1; x=1794811311;
+ b=v7F+PgyFV/RlIoNzZkTNW/LpuHk+gaaL8XmTOU2rbR7vYbYWxjVgo75l4TUdZKiyvxMmCznH
+ N5tsw4GpOwRaDjJ9u9Kv5RaMwwyYqfH9aktHAV/tLPlpzisRb/yqP0yMQ6b9KmMqJQ6ykDGPRSk
+ L8dJrMtP8XueB+Z18vLDCVlA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2938fe24122b836d;
+	Mon, 09 Nov 2026 06:41:51 +0000
+X-Mizu-Trace-ID: 2938fe24122b836d
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 09 Nov 2026 07:41:46 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Zeshan Ahmed Nobin <zeshanahmednobin@gmail.com>,
+ linux-wireless@vger.kernel.org
+CC: linux-kernel@vger.kernel.org, Ping-Ke Shih <pkshih@realtek.com>,
+ Kalle Valo <kvalo@kernel.org>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_RESEND_rtw-next_v2_1/2=5D_wifi=3A_rtw88?=
+ =?US-ASCII?Q?=3A_8822c=3A_fix_out-of-bounds_access_in_cck=5Fpd=5Fset?=
+In-Reply-To: <20261108182837.682661-2-zeshanahmednobin@gmail.com>
+References: <20261108182837.682661-1-zeshanahmednobin@gmail.com> <20261108182837.682661-2-zeshanahmednobin@gmail.com>
+Message-ID: <0FD97102-7E9C-47DA-9B52-7F7A837E2924@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,21 +67,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 02:07:13AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Would it help to reference that commit by its subject (or sha once it
-> is merged)?
+Hi Zeshan,
 
-Yes, v2 names it by its subject.
+Thanks for the v2. One minor thing.
 
-> Can this assertion fail on a system with fragmented memory, even with
-> the fix applied?
-[...]
-> Would it be more reliable to call kunit_skip() when the order-3
-> allocations cannot be satisfied?
+On November 8, 2026 7:28:36 PM GMT+01:00, Zeshan Ahmed Nobin
+<zeshanahmednobin@gmail.com> wrote:
 
-Yes. In v2 the test skips instead of failing when the allocation fails
-and an order-3 page can't be allocated either.
+> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
+> index 09315d23e2c4..6343568285bc 100644
+> --- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
+> @@ -4406,6 +4406,13 @@ static void rtw8822c_phy_cck_pd_set(struct rtw_dev *rtwdev, u8 new_lvl)
+>       nrx = (u8)rtw_read32_mask(rtwdev, 0x1a2c, 0x60000);
+>       bw = (u8)rtw_read32_mask(rtwdev, 0x9b0, 0xc);
+>
+> +     /*
+> +      * cck_pd_lv[] only has entries for 20 and 40 MHz. A chip that stops
+> +      * responding on the PCIe bus reads back as all ones, giving bw = 3.
+> +      */
+> +     if (bw >= ARRAY_SIZE(dm_info->cck_pd_lv))
+> +             return;
+
+As far as I can see bw doesn't have to come from the chip here, since
+rtw_set_channel() programs the same value it stores in hal. So maybe
+this could just be
+
+        bw = rtwdev->hal.current_band_width;
+
+CCK PD only runs on 2.4 GHz, so that seems to always be 20 or 40 MHz and
+the check could go. Or is there a reason to read it from the chip that I
+missed?
 
 
+Best regards,
+Luka Gejak
