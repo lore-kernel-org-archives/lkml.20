@@ -1,67 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254124;
-	b=yXSgMDGUdhTBnM06Iryn6+Q3vGPaoMRy4GhzpLDwaXwIH9BSPoFDRpBBaAa4E5XyNCmb
-	 AfB4LXqDwsMHpgbvY1R+WxG/A3wRtgwh5EjR42udkMYQ2rx2pYqycCIE07joRfgJkiQvb
-	 ef0FJmJEev4fGU5bDmATiNfAD1qIauSnyOxOpxFQYro1HyTm2oAriqF0/i2MXcNSwHr/J
-	 qEZ+pWfZD9abIJdEbFEzpSLUzaiRMKIZIzznkd0KoDhZUQxcRKlmBWH6mPWs5ZkT8eBxE
-	 YwJQcB8jrV9wuqhMUOsw4VwO/joo5gaoBSeImvvlY6X48imd6Jhr8KwyrcwkDGiKA2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254124;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6nacvov+Xt10hjpdaeu8lh7BbBb3QCZxW68Z63/3sQA=;
-	b=4UK7eTcK/GIuyeI0Njna/ef7/r91bwhPoj8f+sfvrRR53Ct/ie3JdUtKSCM5NpKh3Cl1
-	 nLlnTN5Ci6MYFrxb1rInUfLj89ootCLe241ROZDoF7wCI8GKeSC+4Ioe9w2EqEauejfcm
-	 taKeTBYY3RXSoqCo9Es2ss24Zb9aaiGXAU2frw3dz5K4SmB85xU0zZcg1rWm4DUtO4BDh
-	 YXkRBNahhYVfhko8hVnwWV9ic2OizwEoAuPKApo7U6bvvMH7xiheHl4Z11vhBszXguIoh
-	 gAYCIn/BbzoxXVMdeIX4sKtp8J/ruKxXc7QSZCeAGOWtd0GDwMeiA+RGqL8wlfGBY0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcM6orzu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.222.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794254141;
+	b=T5Ad8sm/fJFdC6uOuPzVivqRD+xJlgNKkaccTOa4fTgLVWwwjfg3UM+3d4NPgnVF6tQl
+	 sYqNhXXiqGYSrUNfsBffF7g1f0nfN0i/KX5p7kyAqWzU6C+arkCrX+uWlvGg4VNrdxV6i
+	 OYIjOx9a8Ous7dzVjJ27yc43IM7j9TqxDGW/TzhO8RtGvHhbIHogGlTw6DPGXGBohZCJO
+	 hRIAaShCpbyKpaVLmIoAvhYOIbThc/trgrBrEBWzREXKhEheyoqXNLD+BJJF3oiZPobpN
+	 0+3NnEOQ4T24SWT7PyWtWuNrGMXsJFUwUCnltbNDqSUOht5gHDDs8aJc153/8nfO6Pg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254141;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
+	b=jpefuGN5YvEcdyY1gM+etmmOk5rxqWfew6wuWKRXzhBpe/OCL3HmgWywgKSWki+gElC1
+	 aDZ2UIgfplJhx+waRcvUMxlR8H9RCVdEBZii3d9wZs9EfmsEp9d8X8GRPdAIo+KSBiOJY
+	 hEYQlWUUHfVMPCk6O3T7cgkatjRJB1GVBbSrVPHQpaIbmV9hOCzBXNMloxjMaawi1h228
+	 HNjCYbSATNjKCydUzz3wOdT+KorpFKQ50jh+YHaKd9sGtf1DeQp7h5VwQOKQnfAtbUOdp
+	 w3kILpfisrBKwVvz7Nm5GEsVDael0iSrIJTCfOtJzTZS64AYDz4f4TVog7kvu302iZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nNuGxWm8;
+	arc=fail smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD44B60A2624;
-	Mon,  9 Nov 2026 19:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D38606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:55:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D38606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcM6orzu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9E61F008BC;
-	Mon,  9 Nov 2026 19:55:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794254123;
-	bh=6nacvov+Xt10hjpdaeu8lh7BbBb3QCZxW68Z63/3sQA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kcM6orzuNroJokHJn0PDLLJCxQ6uJveDk/K78cGPhuvOwgPBl01mVY5QmL9Xd4JTU
-	 LIThQFymFmJ42o7sY19pWalzMGN969vFleNSnq45Ku2lCJt6ZSXc8pdIjORrr+tMKs
-	 eKCi9sES1NpqhtnREmh0gMwU7RUxJWrMiJ8A4gKSixModmFrCQhwuT20pCEkGpNo2E
-	 T53B/IffZiGgiYlO5FOP8SeGcXOtu0c3X2jYtxeU1g6zXo+aOiTViPDr96zOWsjdzC
-	 hEj1gVf0ZhdyXU39jrQg1vtqjyy6jD02Es67YkkXw/daDSyRaMUH7euAjPgqiBf0E+
-	 EHiDTw7Ip4K0Q==
-From: Jiri Olsa <jolsa@kernel.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Alan Maguire <almagui@kernel.org>,
-	x86@kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH 04/13] kprobes: Maintain an rbtree of registered probes
-Date: Mon,  9 Nov 2026 20:55:17 +0100
-Message-ID: <20261109195517.1090787-1-jolsa@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109194916.1089703-1-jolsa@kernel.org>
-References: <20261109194916.1089703-1-jolsa@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nNuGxWm8
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f3c8958d5so139710885a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:55:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794254139; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eT/L9Cg8IxQO+7KxbW0lXHjAsuG5UWkcTyjTwwfe/bTtt/6ty/IC6VKX1tkiju4z9y
+         T9fxZlnKBpiii3Vbgbzhx0GB/kWEReU1BVTS7BOVKXncNo0ZO4BHVhhfMqSCQjbvqLDr
+         NmWoyQB8C54/lcFKUz0PpRvUmovlZlbk9dmDRDYixiAdbk+0qs0kQNynWBMehKyxn3tr
+         xbOLQLhx5JpvsCWEw6XeeELYVZtf8az082SpnxAnG2KhByfwocS3vxRoG88jK/jTFBQq
+         DKrD2T2LLwQPwd+vnIGcK+S7EiGA3WkbDMKFCjdgwh1jAEth/EdL9645eb6Z1mEIYxCs
+         vChA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
+        fh=QJRahQoyNThESY4lXlYpXZAF2lYJ2xRMQTz0KOiBALI=;
+        b=o3zJ+s9dxcikOP9rowwJvqKtoC51kgL00t4Q0iIBfABV11sXB06D0s58H3d3ImrjyF
+         h1WWvv7goupDUfvmahq1DDBtPuIu8RxMaD6MqIFdleOcNG87rEhxtU29Pk56EGw2mnkQ
+         ddiPEjWQHLmkdQ8slX6m4kfcry/fby4IYfJ7eUeg1VXrFquSJ4QKyGBhyt2hKJMZ6bws
+         z8HCVyPZhB2q0kasBgaC5z51dYn4W+lRa+1Gj+5+VXmaL/PcP7IvJIhWjzgQGyWKfDQN
+         e5vIHLI3mGpRTSBJ9p+jhm4DYTzscm4Srv9bjBul13LmCvbw6qpYNOJIayq1AGPK+/zy
+         qePg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794254139; x=1794858939; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
+        b=nNuGxWm8Llt4wMSkTawrXFCtJ01glbLkTUhNNxKxqyXsBD0dSWALjhimvqMhO2OxRn
+         QVdVQipKx5PjIzJEQQr/sF8toDoGfl0PguXQ/4OZetVUxLVDejmRRFUvTHUI/MQDaUm6
+         8xQcLCMRsZ/aD7IQSLJ8XJcnm66ipa+y/gsifit5VlukaYh7OimEPUbRz2bBDAJ2WA0s
+         jsSVMH6GELppwjZ5ZNBP0ONytHjT/rt0/OInzCOvGgAOh7rMmMb0lM1H77QtAB/hxoyt
+         ZF/DPHqsC6C3PkbWztg92OZJdOSd2fcopjzCFlKGZ6+neC1XBI7g0tv5xX/u8f5p6+/k
+         UDxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794254139; x=1794858939;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
+        b=bLUYIMOWMdUaEOPufDoKMbLNvf5rGva/ZXRdTtnTlsACG6ZlS/nsxWEy7BlehAR4pH
+         hNHpC60u+8M8oxnYsS9sFucXSwgx8HlP8JaRloU4sgyfvjEAOvjx0xm5q0j+8BMSeR0L
+         DcRNkQZ60z6r0LmbtU7C9fRq4udbqT1JXMbioc9Ct2himfmGqQIK77YgiVuBeDG6YfrI
+         ywHOBDf3yzMV6aIZxjd/NHI7UtzcK6U9Sij/GB6KXkpD6UAyP1K7i0v84XgdUaKOg2rX
+         HpoP6JgFVacrHCXlHYr0BbxY1SMLh3sMg8j+dxHN1P7vy2IPrwJQD7jpVqtqOtCLSqLa
+         BleA==
+X-Forwarded-Encrypted: i=1; AL+hErEnrOCpsW7QWTdWOcEVe2a+mt+WqO1hEQxkhrDeUWJwu6JCI3q0XY52E2zhrVs6xypMil//4+SStgli1fA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CjL0Yh+kCh0hLoU9mTENxl/SNlTclljPBOs1gIjus1SwmmkID
+	XzDx8SzZDSyogzy63cQ+IpbDzik9mLR54PxYOU++cRsacHQqsT3x1IDjZdmUFc4r3cAQe41jYg4
+	ElfQDQ2nNWi69EbKqtPiUyseE5Jw63OpS5wuP+Ret
+X-Gm-Gg: AYBFou3TykXD6Brt5mouoUL0y7HHIjVztFzqmNqE0iFYztR8OtIRq+w38RN31dlR49Y
+	ujfQk2i39f40ZZVFuwnYKdfXthLDZjr1LDxClfxoK8xqZBp/uetaVvlWKAM/+5PEnD0htEkEzM9
+	RQzKsCzcCc1BA22jWr8i1eWMVH+YQQG5NrNCu+OjQRUUhO4vY+K6lfRPfn0LjiEcwERp7gKdH5p
+	3lADXlCE7ezspWGMm8h3CU1SGxQ8sk3l19PtgpOUJTDF/rnyp3IJkWpykvzYFm4WhOqIxiRnsE7
+	CwV1BqHXAqjuZD1KzznrmldXDEqih364ZNw+EapK0sU/+xuo8/4XP4ST1OP19VC21ulsUcortyR
+	zT0dUPiKfuLj1B84RpxmyYv1BIVnFmNzm08KqahU9LjKKQEEu+GJKKdFXjGDsmRMBgk+PdBJKy0
+	btFkmQqyS7qm2lQn/RRvFqxtE=
+X-Received: by 2002:a05:620a:710b:b0:93e:49eb:a274 with SMTP id
+ af79cd13be357-9479f2fa7d5mr94788085a.23.1794254138721; Mon, 09 Nov 2026
+ 11:55:38 -0800 (PST)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 9 Nov 2026 11:55:37 -0800
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20261105-tdx-selftests-v16-9-2024e8fa517a@google.com>
+References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com> <20261105-tdx-selftests-v16-9-2024e8fa517a@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,166 +109,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 9 Nov 2026 11:55:37 -0800
+X-Gm-Features: AclHuK-fw27NEX4WLMeH0MQEMu23wQjUHEw6LG3xIqCQa_4vVj4k3LjJhmBS0EU
+Message-ID: <CAEvNRgFvkWCM_JDxiamzQW=stgOnY0Xum5aphVv-Zo941zx2sg@mail.gmail.com>
+Subject: Re: [PATCH v16 09/20] KVM: selftests: Set up TDX boot code region
+To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
+	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
+	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Oliver Upton <oupton@kernel.org>
+Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add an address-ordered rbtree for registered probes. Keep it synchronized
-with the hash table when probes are added, removed, or replaced by
-aggregator probes.
+Lisa Wang <wyihan@google.com> writes:
 
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
----
- include/linux/kprobes.h |  2 ++
- kernel/kprobes.c        | 49 +++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+)
+>
+> [...snip...]
+>
+>  /* Leave marker so size of td_boot code can be computed. */
+>  .globl td_boot_code_end
+> diff --git a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
+> index 564144c40f0a..b4a7089b3636 100644
+> --- a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
+> +++ b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
+> @@ -1,8 +1,46 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+>
+> +#include <linux/sizes.h>
+> +
+>  #include "processor.h"
+> +#include "tdx/td_boot.h"
+>  #include "tdx/tdx_util.h"
+>
+> +/* Arbitrarily selected to avoid overlaps with anything else */
+> +#define TD_BOOT_CODE_SLOT	20
+> +
+> +#define X86_RESET_VECTOR	0xfffffff0ul
+> +
+> +void tdx_vm_setup_boot_code_region(struct kvm_vm *vm)
+> +{
+> +	const size_t total_size = TD_BOOT_CODE_SIZE;
 
-diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
-index e6de7ae55bda..6f16cc01a16c 100644
---- a/include/linux/kprobes.h
-+++ b/include/linux/kprobes.h
-@@ -28,6 +28,7 @@
- #include <linux/ftrace.h>
- #include <linux/objpool.h>
- #include <linux/rethook.h>
-+#include <linux/rbtree.h>
- #include <asm/kprobes.h>
- 
- #ifdef CONFIG_KPROBES
-@@ -58,6 +59,7 @@ typedef int (*kretprobe_handler_t) (struct kretprobe_instance *,
- 
- struct kprobe {
- 	struct hlist_node hlist;
-+	struct rb_node rb_node;
- 
- 	/* list of kprobes for multi-handler support */
- 	struct list_head list;
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 2441b9e39343..6be1430a4ebe 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -64,6 +64,7 @@ static int kprobes_initialized;
-  * - RCU hlist traversal under disabling preempt (breakpoint handlers)
-  */
- static struct hlist_head kprobe_table[KPROBE_TABLE_SIZE];
-+static struct rb_root kprobe_tree = RB_ROOT;
- 
- /* NOTE: change this value only with 'kprobe_mutex' held */
- static bool kprobes_all_disarmed;
-@@ -395,6 +396,45 @@ struct kprobe *get_kprobe(void *addr)
- }
- NOKPROBE_SYMBOL(get_kprobe);
- 
-+static void kprobe_tree_insert(struct kprobe *p)
-+{
-+	struct rb_node **link = &kprobe_tree.rb_node, *parent = NULL;
-+	unsigned long addr = (unsigned long)p->addr;
-+
-+	lockdep_assert_held(&kprobe_mutex);
-+	while (*link) {
-+		struct kprobe *kp = rb_entry(*link, struct kprobe, rb_node);
-+		unsigned long kp_addr = (unsigned long)kp->addr;
-+
-+		parent = *link;
-+		if (addr < kp_addr)
-+			link = &(*link)->rb_left;
-+		else if (addr > kp_addr)
-+			link = &(*link)->rb_right;
-+		else {
-+			WARN_ON_ONCE(1);
-+			return;
-+		}
-+	}
-+
-+	rb_link_node(&p->rb_node, parent, link);
-+	rb_insert_color(&p->rb_node, &kprobe_tree);
-+}
-+
-+static void kprobe_tree_erase(struct kprobe *p)
-+{
-+	lockdep_assert_held(&kprobe_mutex);
-+	rb_erase(&p->rb_node, &kprobe_tree);
-+	RB_CLEAR_NODE(&p->rb_node);
-+}
-+
-+static void kprobe_tree_replace(struct kprobe *old, struct kprobe *new)
-+{
-+	lockdep_assert_held(&kprobe_mutex);
-+	rb_replace_node(&old->rb_node, &new->rb_node, &kprobe_tree);
-+	RB_CLEAR_NODE(&old->rb_node);
-+}
-+
- static int aggr_pre_handler(struct kprobe *p, struct pt_regs *regs);
- 
- /* Return true if 'p' is an aggregator */
-@@ -643,6 +683,7 @@ static void do_unoptimize_kprobes(struct list_head *unopt_list,
- 			 * (reclaiming is done by do_free_cleaned_kprobes().)
- 			 */
- 			hlist_del_init_rcu(&op->kp.hlist);
-+			kprobe_tree_erase(&op->kp);
- 		} else {
- 			/*
- 			 * Keep on cooling_list until the quiescence period
-@@ -722,6 +763,7 @@ static void optprobe_finalize_generation(struct optprobe_generation *gen)
- 			 * it will be reclaimed after the next quiescence period.
- 			 */
- 			hlist_del_init_rcu(&op->kp.hlist);
-+			kprobe_tree_erase(&op->kp);
- 			list_move(&op->list, &optprobe_gens[optprobe_cur_gen].freeing_list);
- 			kick_kprobe_optimizer();
- 		} else {
-@@ -1006,6 +1048,7 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
- 					if (!kprobe_gone(&op->kp))
- 						arch_disarm_kprobe(&op->kp);
- 					hlist_del_init_rcu(&op->kp.hlist);
-+					kprobe_tree_erase(&op->kp);
- 					list_move(&op->list, &cur->freeing_list);
- 				} else {
- 					list_move(&op->list, &cur->cooling_list);
-@@ -1021,6 +1064,7 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
- 				if (!kprobe_gone(&op->kp))
- 					arch_disarm_kprobe(&op->kp);
- 				hlist_del_init_rcu(&op->kp.hlist);
-+				kprobe_tree_erase(&op->kp);
- 				list_move(&op->list, &cur->freeing_list);
- 				kick_kprobe_optimizer();
- 			}
-@@ -1076,6 +1120,7 @@ static void kill_optimized_kprobe(struct kprobe *p)
- 		if (kprobe_unused(p)) {
- 			if (optprobe_queued_unopt(op) || optprobe_queued_cooling(op)) {
- 				hlist_del_init_rcu(&op->kp.hlist);
-+				kprobe_tree_erase(&op->kp);
- 				list_move(&op->list,
- 					  &optprobe_gens[optprobe_cur_gen].freeing_list);
- 				kick_kprobe_optimizer();
-@@ -1599,6 +1644,7 @@ static void init_aggr_kprobe(struct kprobe *ap, struct kprobe *p)
- 
- 	list_add_rcu(&p->list, &ap->list);
- 	hlist_replace_rcu(&p->hlist, &ap->hlist);
-+	kprobe_tree_replace(p, ap);
- }
- 
- /*
-@@ -1940,11 +1986,13 @@ static int __register_kprobe(struct kprobe *p)
- 	INIT_HLIST_NODE(&p->hlist);
- 	hlist_add_head_rcu(&p->hlist,
- 		       &kprobe_table[hash_ptr(p->addr, KPROBE_HASH_BITS)]);
-+	kprobe_tree_insert(p);
- 
- 	if (!kprobes_all_disarmed && !kprobe_disabled(p)) {
- 		ret = arm_kprobe(p);
- 		if (ret) {
- 			hlist_del_rcu(&p->hlist);
-+			kprobe_tree_erase(p);
- 			synchronize_rcu();
- 		}
- 	}
-@@ -2075,6 +2123,7 @@ static int __unregister_kprobe_top(struct kprobe *p)
- 		 * unoptimizing.
- 		 */
- 		hlist_del_rcu(&ap->hlist);
-+		kprobe_tree_erase(ap);
- 		return 0;
- 	}
- 
--- 
-2.43.0
+This caught my attention because it wasn't quite reverse-fir-tree
+ordering.
 
+Naming is confusing here since there's both TD_BOOT_CODE_SIZE and
+boot_code_size, so which is the boot code and what is the right size?
+
+If the only use of TD_BOOT_CODE_SIZE is here then maybe we could just
+directly memcpy (td_boot_code_end - td_boot) and not have the macro.
+
+> +	const size_t boot_code_size = td_boot_reset_vector_trampoline - td_boot;
+> +	const gpa_t boot_code_gpa = X86_RESET_VECTOR - boot_code_size;
+> +	gpa_t alloc_gpa = round_down(boot_code_gpa, PAGE_SIZE);
+> +	size_t nr_pages = (SZ_4G - alloc_gpa) / PAGE_SIZE;
+> +	u64 gmem_flags = 0;
+> +	gpa_t gpa;
+> +	u8 *hva;
+> +
+> +	if (kvm_has_gmem_attributes)
+> +		gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED | GUEST_MEMFD_FLAG_MMAP;
+> +	vm_mem_add(vm, VM_MEM_SRC_SHMEM, alloc_gpa, TD_BOOT_CODE_SLOT,
+> +		   nr_pages, KVM_MEM_GUEST_MEMFD, -1, 0, gmem_flags);
+> +
+> +	gpa = ____vm_phy_pages_alloc(vm, nr_pages, alloc_gpa,
+> +				     TD_BOOT_CODE_SLOT, true, false);
+> +	TEST_ASSERT(gpa == alloc_gpa, "Failed vm_phy_pages_alloc");
+> +
+> +	virt_map(vm, alloc_gpa, alloc_gpa, nr_pages);
+> +	hva = addr_gpa2hva(vm, boot_code_gpa);
+> +	memcpy(hva, td_boot, total_size);
+> +
+> +	hva += boot_code_size;
+> +	TEST_ASSERT(hva == addr_gpa2hva(vm, X86_RESET_VECTOR),
+> +		    "Expected RESET vector at hva 0x%lx, got %lx",
+> +		    (unsigned long)addr_gpa2hva(vm, X86_RESET_VECTOR), (unsigned long)hva);
+
+TEST_ASSERT_EQ would work here, same for the == assertion above.
+
+Not a huge issue,
+
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+
+> +}
+> +
+>  static const struct kvm_tdx_capabilities *tdx_read_capabilities(struct kvm_vm *vm)
+>  {
+>  	static struct kvm_tdx_capabilities *tdx_cap;
+>
+> --
+> 2.56.0.455.g6c5a503b38-goog
