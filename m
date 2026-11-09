@@ -1,88 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219453;
-	b=nywNkIfMG51M3i2ukZaWd9yGn4Woag73dalh7xEXK56/GSFmaoYlXvvE9NPzVTwPejH8
-	 YbHpNgc6DPlm25QM7IXdi+5VgQHCxN9CHBZfPIk5ydaLFzkxUbKvMcafdy+7fxLfn0sKb
-	 Sf/Lke7amOAj32Z3UoePzcPOXwI9SRt8YnAfZaU71QIhKrtAkAZMAVMywzeDWIcaL3ceK
-	 A61xYTn3FdMSOWdWeKoSyk/GhwUkAwGdnFsDkxyqKPCJtgv3Fd7ppAEJif5aLEabRizpD
-	 TYRsU9ruFWzvL6mrxv721jLD4KPQVRzdtoHtplPXST5Y+Nk+HvWepKlkBGaOBkbZ0Ew==
+	t=1794219467;
+	b=cSm8Ka+YLPs9BrZ0xlx4LsXyH8FTZXnJoEKTLf5nkX0wpzZMgQaAV2cCuRu4+LGA6g1H
+	 QKBy7XbtxOXc7foKiLE8/5xUKsnKJwfYeWFP1gp45+1OEw08kLuxwXHM0UuGZDT62m5tN
+	 9+sVsx/ztZJ4alac/Q4uAA+EhBasBK2xmy2r8Q8ZRHOk53xGLpjNPdDQ2D8R9SxCQnYk4
+	 M62Y+Ci2qt+wLvdkV4Tn+ANrrHJZp04kWf0BEBP4yHHVnBVUbRUPHtyog7GC0odXv0Hoo
+	 biYn6L/bQY6hYFmcDoLGk/UdTb7Cp2vtUvOwPcJ3lj1UdHhTXj7KB+1WbC0avd9hIrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=bvVa3bulUsYqSwCXV6o2ClwLUYzLh1XdnIqlWVEHka4=;
-	b=hbmdXPvUQq5KezgsFv752hcORG51EH9cHRKe4HlrCHgspqCw5TNaBpowXcgWDMyD9DxU
-	 0InWtUeBQjUkU+J4o9xUK4X6kUouNs/+/ZD06z0CFkjglG297S1mZ+JCDaq51lmyMptNw
-	 /FwWt24Vtcc5qLGYSP/DRzlPvHEzy1LUMyIEoSgZi3Ozq0wzVPFMIlSiBsfAq7bMgBhlg
-	 p+N8TXZA5mUcwDNy48nGdKEji6NBd5iOQiuNFUkNlkE5jQKPRjOTimAArpWIg1qFQcfLo
-	 r5M8UqJONFg9Us0G2oIfg+foWUcY54Nv826+HQ+SiNe+p5tPnzxeKt2bTxsCuEpBGAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219467;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ddkOtMAYrsvUcLScu0EXL1q3r0bk7k3jibPpdc8N7ao=;
+	b=URcq7DefWOV7mSg+dI0jHFuJJwQitFL01obMQpme9TqjEdes9lmLxw4sgP+19gcUVPpa
+	 PX6oLhHvkQMbcZvxAeZt1EKB0HAfVeG3kEL4zTyvYtyBbqiFWo12+JSHPzbnWENQyPROs
+	 jIIdzaDhpTMx8S/8U58PlnIEMk50Xn4UBFLEfwx7EjcQCu5vOomnIGy35lAgddVPfqjCS
+	 fll6/2GmmzAji6dT843Nm+c8gGemlPzg9fLS++Ir1I9F8Di6qOZ0SqFpvHww1cSNMEcFc
+	 cYkKbG66hoBtQ/nvKt4PGw+WeHuYefl3i165AYtE1mk/tU0j6yhCRa8/VoJ+CdomZHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rOzYBPZx;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1771E606D811
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:17:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1771E606D811
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=P0p5PnRf;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 005BD606D807;
+	Mon,  9 Nov 2026 10:17:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 005BD606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rOzYBPZx
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso4290515e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:17:32 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=P0p5PnRf
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794219451; x=1794824251; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bvVa3bulUsYqSwCXV6o2ClwLUYzLh1XdnIqlWVEHka4=;
-        b=rOzYBPZxig3Ym+XAUmIMsKUL32rQc4RdRGlBogmtC23StL5mgnjoxBpMSqzXdyMhtV
-         0sTiAS/sh1n8Ds2oCB8n1GnJhXyktaULTHyLBrvU7S1bT/HmUoF9IrzvadW0LWlsbXDe
-         cBARwf1d+f1bIxwLEd0BTyHpMCk/6wLRgRNvZPOO2BxrhbY1vU7HJfghqpYDDLfnlZJ3
-         66jkoNUZB2agOPbDKx/CIDUkNHBH5ubBKW+ICH5/Todpv8hJpuxBQ6KyCQe4kTKxRu0K
-         JunTFxwVctZzF6dkYFTgsPRkNK5eTVjqe06y2Y3googRp6KBO0Kxg+H+K5miSNFloo9G
-         JwEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794219451; x=1794824251;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bvVa3bulUsYqSwCXV6o2ClwLUYzLh1XdnIqlWVEHka4=;
-        b=IzzqS9NDWUvXcVe6aWi+nAxud/VinnQNsIuol9aWDNgkTgE7/OWogk15LBa0S2EANH
-         P3e4HRbBkiFDYTb3fz0LCUtzvjwutO1uBUL/VB6bc/7lqBR24LEJCjzVUNzy2LbPV0Uv
-         v7hjhW+TfxKyV8jqRlI7c0wsEIvEC6AWduolhb7IctqzOQOo5yzUgUFhmqmYzrrpuNf1
-         rX8yax/Fu3t4uwZ5VzJ/CHQBa3O3h/wIuA8g1PeNSEf9qO1a3D38iSqKbOVStkL1SmWo
-         jQdQWUGOI5yogyo6MMzAdR5erGeH18ymOU8uaPjABEq8Ks+uzK0j1YSj1fmvX1l9rLjW
-         6l5g==
-X-Forwarded-Encrypted: i=1; AL+hErEGvsilLF3luJe/80vss39I4hgfgWBGNdsphMalKZCIhlsJYzXShSutt2AhuYkr8vEawS3rSMbZnq507xc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Jd+7BESVtppz7Fnsukpd7J44YqWND9ZHQTPQYjzTuriVZcfiX
-	mVuJvyDw7zl2ez8X0J68ipGC8io27ww7UgnVJEk9Qm/ke8lU44Qw96cynUKHu5L1pSs=
-X-Gm-Gg: AYBFou25jWJ9FtVoZiL0OIYKWJUNoRz3xhoFHIl4tWrQ7cha7C3diarUWKd8T0K4Viy
-	q4GAdsVtFUuCm0+h6zg/8ELu6R26gLwgfaIiIBirA+MYSa1pmg57HobSFqaac4NtrfOlix3niyJ
-	ZQIrrJIlUlurF1LzYZT2fWk1Z2DHN2NI7qSn87UCt24X6C6cznEe2BrO8LGT9lThyGuWJNWgHWX
-	6RGl9BXYQrjVxlqct72ZFQ0Jv0at/jSlHdAMTW1auZcPFaH1WaI/Z4uSIUMQCZyNACFRzuBx/hB
-	J2xdAbx31Vdizvu14BemS/hdSUOcLFtuUdiBwPNoKD0jmr4a8t5LlzxznggJUQPmG33sf9dCFZZ
-	OhtYbGHPWHb3hGU9YNmJYQPLvb5F4KpPrgXfqcRp2mZz8C+G5tC9e6dLTaw+vao+zRrGvsMdbNQ
-	h/qp3ApTFZYEN02OnTJ1+GsYRq53hgc8k09gKVB3XFKG711eeH2wADwwup/dktczPPfn8zkmrlA
-	f6fMtkNYUpGuxmib7+5Q5SJO2TF1PgtO9HWM5vxmBItBUal61M5Faqoufwl8eLf+qYdww35CCTz
-	o5rB5U6FsyvixKDLppoyizJTsVLrTC9g
-X-Received: by 2002:a05:600c:314f:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4b963c73aa2mr70024315e9.25.1794219451235;
-        Mon, 09 Nov 2026 02:17:31 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee1de2esm121575795e9.5.2026.11.09.02.17.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:17:30 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Mon, 09 Nov 2026 10:17:02 +0000
-Subject: [PATCH v3 2/4] perf dwarf-aux: Support DW_OP_addrx locations for
- global variables
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=P0p5PnRftzOqM/fis4IKOwg1wV46an1d0qxsVwCIofOdVUqvvnNbV8zCA6kFh+bdqMs0bW7q7OD6i
+	 6KlUc2AQ/iBaat/Lrco0ZbRyxlCYyieL6Ep16vo5PwL4Q0s7B5n54iAZSHhaaF51E3uMnY60EZMTbo
+	 RaQ01AeXiFUrDysw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af19dbf1d2-ca47b;
+	Mon, 09 Nov 2026 18:17:44 +0800 (CST)
+X-RM-TRANSID:2ee96af19dbf1d2-ca47b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af19dc746c-8bf54;
+	Mon, 09 Nov 2026 18:17:44 +0800 (CST)
+X-RM-TRANSID:2ee66af19dc746c-8bf54
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: jdelvare@suse.com
+Cc: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwmon: (it87) Clamp temperatures before rounding
+Date: Mon,  9 Nov 2026 18:17:43 +0800
+Message-ID: <20261109101743.16955-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,137 +68,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-james-perf-test-fixes-v3-2-e8d0a65e618a@linaro.org>
-References: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
-In-Reply-To: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
- Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-die_find_variable_by_addr() and die_collect_global_vars() only accept
-global variables with a DW_OP_addr location. DWARF 5 producers like
-clang use DW_OP_addrx instead, which is an index into .debug_addr, so
-global variables are never found when Perf is built with LLVM=1.
+TEMP_TO_REG() adds or subtracts 500 before clamping the result. Values
+near LONG_MAX or LONG_MIN can overflow, causing a high temperature limit
+to select the lowest register value, or vice versa.
 
-Add a helper that also resolves DW_OP_addrx and DW_OP_GNU_addr_index
-through dwarf_getlocation_attr() and dwarf_formaddr(), and use it in
-both places. This fixes the "perf data type profiling tests" test:
+Clamp the requested temperature to the signed 8-bit range before
+rounding to whole degrees.
 
-  $ perf test -vvv "perf data type profiling tests"
-  ...
-  Basic C perf annotate test
-  Basic annotate [Failed: missing target data type]
-  ...
-  Pipe C perf annotate test
-  Pipe annotate [Failed: missing target data type]
-  ...
-  Basic FS perf annotate test
-  Basic annotate [Failed: missing target data type]
-  ...
-  Pipe FS perf annotate test
-  Pipe annotate [Failed: missing target data type]
-  ---- end(-1) ----
-   88: perf data type profiling tests : FAILED!
-
-Fixes: d60469d7c0e5 ("perf dwarf-aux: Add die_find_variable_by_addr()")
-Signed-off-by: James Clark <james.clark@linaro.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 ---
- tools/perf/util/dwarf-aux.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+Validation: x86-64 and i386 driver objects built with W=1.
+Source-extracted boundary tests passed on both word sizes;
+the corresponding test fails on the base revision. I/O is mocked.
+No physical sensor or booted-kernel testing was available.
+OpenAI Codex assisted analysis, code, tests and changelog drafting.
+Please review and add your own Signed-off-by before submitting.
 
-diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-index 4cc231ffcb2a..d972c121171f 100644
---- a/tools/perf/util/dwarf-aux.c
-+++ b/tools/perf/util/dwarf-aux.c
-@@ -1666,6 +1666,27 @@ Dwarf_Die *die_find_variable_by_reg(Dwarf_Die *sc_die, Dwarf_Addr pc, int reg,
- 	return result;
- }
- 
-+/*
-+ * Get the absolute address of a location op. DWARF 5 producers like clang use
-+ * DW_OP_addrx, which is an index into .debug_addr, instead of DW_OP_addr.
-+ */
-+static bool die_get_op_addr(Dwarf_Attribute *attr, Dwarf_Op *op, Dwarf_Addr *addr)
-+{
-+	Dwarf_Attribute addr_attr;
-+
-+	switch (op->atom) {
-+	case DW_OP_addr:
-+		*addr = op->number;
-+		return true;
-+	case DW_OP_addrx:
-+	case DW_OP_GNU_addr_index:
-+		return dwarf_getlocation_attr(attr, op, &addr_attr) == 0 &&
-+		       dwarf_formaddr(&addr_attr, addr) == 0;
-+	default:
-+		return false;
-+	}
-+}
-+
- /* Only checks direct child DIEs in the given scope */
- static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
- {
-@@ -1673,7 +1694,7 @@ static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
- 	int tag = dwarf_tag(die_mem);
- 	ptrdiff_t off = 0;
- 	Dwarf_Attribute attr;
--	Dwarf_Addr base, start, end;
-+	Dwarf_Addr base, start, end, addr;
- 	Dwarf_Op *ops;
- 	size_t nops;
- 
-@@ -1684,11 +1705,11 @@ static int __die_find_var_addr_cb(Dwarf_Die *die_mem, void *arg)
- 		return DIE_FIND_CB_SIBLING;
- 
- 	while ((off = dwarf_getlocations(&attr, off, &base, &start, &end, &ops, &nops)) > 0) {
--		if (ops->atom != DW_OP_addr)
-+		if (!die_get_op_addr(&attr, ops, &addr))
- 			continue;
- 
- 		if (check_allowed_ops(ops, nops) &&
--		    match_var_offset(die_mem, data, data->addr, ops->number,
-+		    match_var_offset(die_mem, data, data->addr, addr,
- 				     /*is_pointer=*/false))
- 			return DIE_FIND_CB_END;
- 	}
-@@ -1814,7 +1835,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	Dwarf_Die type_die;
- 	int tag = dwarf_tag(die_mem);
- 	Dwarf_Attribute attr;
--	Dwarf_Addr base, start, end;
-+	Dwarf_Addr base, start, end, addr;
- 	Dwarf_Op *ops;
- 	size_t nops;
- 	struct die_var_type *vt;
-@@ -1829,7 +1850,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	if (dwarf_getlocations(&attr, 0, &base, &start, &end, &ops, &nops) <= 0)
- 		return DIE_FIND_CB_SIBLING;
- 
--	if (ops->atom != DW_OP_addr)
-+	if (!die_get_op_addr(&attr, ops, &addr))
- 		return DIE_FIND_CB_SIBLING;
- 
- 	if (!check_allowed_ops(ops, nops))
-@@ -1845,7 +1866,7 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
- 	vt->die_off = dwarf_dieoffset(&type_die);
- 	vt->die_tag = dwarf_tag(&type_die);
- 	vt->from_alt = !die_same_file(die_mem, &type_die);
--	vt->addr = ops->number;
-+	vt->addr = addr;
- 	vt->end = 0;
- 	vt->has_range = false;
- 	vt->reg = -1;
+ drivers/hwmon/it87.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/hwmon/it87.c b/drivers/hwmon/it87.c
+index b8ad1ed043b3..036e0b7ce01b 100644
+--- a/drivers/hwmon/it87.c
++++ b/drivers/hwmon/it87.c
+@@ -771,8 +771,8 @@ static inline u16 FAN16_TO_REG(long rpm)
+ #define FAN16_FROM_REG(val) ((val) == 0 ? -1 : (val) == 0xffff ? 0 : \
+ 			     1350000 / ((val) * 2))
+ 
+-#define TEMP_TO_REG(val) (clamp_val(((val) < 0 ? (((val) - 500) / 1000) : \
+-				    ((val) + 500) / 1000), -128, 127))
++#define TEMP_TO_REG(val) \
++	DIV_ROUND_CLOSEST(clamp_val((val), -128000, 127000), 1000)
+ #define TEMP_FROM_REG(val) ((val) * 1000)
+ 
+ static u8 pwm_to_reg(const struct it87_data *data, long val)
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.43.0
+2.51.0
+
+
 
