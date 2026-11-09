@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242187;
-	b=LwIU4IkT7lu8aaalhA6Tieub1yHnhqNoIx5LW10+BA5DwsRglGJYxPzp8jXIW89yTxeR
-	 ZcfCXdTYO7llKvOH86gOfxAgdQV5Ionco1iXcA7aDoHyaWiO3HMnJ05tnmVs2XByTeAfV
-	 w+KQaTYl9vkLs5JtdrPD7P9MjF29/V9wtoHSW4yoXkbb+xtAbz+JO/92kCqDwUyoratfw
-	 DuR5rrClPxj0JaoVDM7xxHjVBMGDuVD5vyyfHeUizCM+R5WA4cGWUNe55SGvwMf1AOL4L
-	 EHWNqNwd7pf44VpzkVHfxHPzxY5P32BAQdUr9ilzYt35/ZTZ50fHbG9a2DaZyKRYuBw==
+	t=1794242189;
+	b=EIwYwFk3ONVA1gnio/LZ3DFyI9KRPHzxz8/ZcNS89IV1x46VU5U98pn8aS56Zi8QPvqa
+	 oo6i9feRA6+mg5Gh5Wpq17SQ6PUNIifEq0ii+N4sfMeLVVzgd7Q8xiMDGIGhLgE0ZB+a6
+	 rP+dA0hPQqbSWJolVoLHNe5rh5U99q5h0RcsGvtqY0r22KR10mDdN9G5CqArmauY1QTbH
+	 mX1VD49vDxc3+3JOt82mTXiSudarsCbvXulvYMM8/ZMikEsO/oDN3rUZkS2gXITojVatd
+	 y+BGAbbzROLIfLSmnwbuYBCprHxrnOCQ2rSuuMOnhs5TnmF645jJJ00+R6bn253ETIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242189;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZrkVR5mXFjugKxMsS6+5gUfgoZd/TSJdYFOiJryJnwY=;
-	b=r4plkGEvsrK9l5s5Wmn+dIyrCo8X6V47bP0lHnLAIlMUk989MeeDRRoEzKz62/TA0zVa
-	 YUhEEWSDTPN2Tdt6tS2KAeTLLhQSE4l0FHX2HuWX/eUxQx9ZnNlBQDQeqX+HE2FlviSpK
-	 ZLTKsHUhlJDJQ231eLSOhoP0dZ3MtiRJnqWVDiqalZs3qbOHw1JMaEU9LMrYOQJ+BUUUy
-	 PMyXeJvLss6V7b1LKdQd5ZbxeuIINKRL/60nRyGEE7If+wfKurrSaw/Np0NhfoRhcXqEF
-	 eXJA7yJwZgemlzezGt9nJ9Et2DpPBMUTESmTLf2PppmpHSDdomDkEj1XQJuz61Hlgwg==
+	bh=KO/0r+lIhJktKWfl2CvuTHQI6kveJU7dk3j+beHee14=;
+	b=jxzj6XGV4D/TKA4h69EqngNvu7on4muoeXNfcXWHEgJLF2oGLTUIPfhBegX9XCGkgiQ4
+	 K7DQtR3+B7RVte58RAiJyIE5RTufBv49C/oCkTKhH2Htv2YVlaFo/5VHfyfW2HqS/vHwK
+	 kskzzy6OVSH5qdYpGL+peFFQUFpPKhadrQjOANybRrnh8TErFRwi5tPWoV73WeJy2+bWO
+	 sPaoW6XtLcvN8AFcGhDOG2jp3P+g3GtN76+A68MhuohxXpt69j6iBAxq7XMeVEDTIg6b7
+	 FMO1upyqt9FiEXLiWo9QCLAId3z1OOKIuQBnOTE+5y4Mdf5zT2pgmhOh8aXNKYcm8Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MoGq4ijb;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gPT/ezDO";
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FAA606EE88
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5FAA606EE88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9919606EE99
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9919606EE99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MoGq4ijb
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so11776775e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gPT/ezDO
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so11204165e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242185; x=1794846985; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794242187; x=1794846987; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZrkVR5mXFjugKxMsS6+5gUfgoZd/TSJdYFOiJryJnwY=;
-        b=MoGq4ijbYVarJ9kFWIv73DFei5kldJDcuv4Nu0Qvyur+JN+Sn7Gv3zWKCzG8kMEZ+W
-         tL0CItmuB3KLCDikHZPTSjr33SI9Veyz6SiqfYUWOT8Gf9pljWHRc3XKi/j0HaQJbuYo
-         P/Ure7T1fgayzzFXTxa4KaCkfrCMNl5nak1M1ogRvPlRzr/zEleqknwZonzC6EFzWFpq
-         ovsXQX9ia5VLwJLk858SIX36S3s2a4h+/HZ2llCag2LOsdfT66drY4PNgqSgGXw66pEI
-         iO6x2wXzSt2CtEG2nDp/Dp9BvDmujtbjbW5ALxMTYwjOCwemdlt0lbeL9d53WYwc+CMj
-         B5vg==
+        bh=KO/0r+lIhJktKWfl2CvuTHQI6kveJU7dk3j+beHee14=;
+        b=gPT/ezDO5iWX8HLOauCyrEseGKTLRkHJ3eFOa7CEKz3nlf0fWI+9Ksa6gptP3WWXLu
+         qkA/PL+xQpOBcJJ2XIQ9LRfbGoIa2Ld+2OZNvJLZrEgutYk14rqSlO2b2lUZGJUHxuul
+         iaJ1BcuWXELkPN6pDC6olYULyHtqUqXaKl1aEZivP0/RaW2MaNRTs8RPgYUvYG44jMpZ
+         1OEUBwrLwqanyB9g9ssseOQWBLBhhk+LfcoEd87S5ahBEhimlyjyQavahbukxnHvvsDW
+         X2R6uhDzYVN/J/bcgaF+wb8pwpqkOcyjfDoQe79Sy0uVhKs0Fq9uL261W7uizsLkDGG2
+         wP5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242185; x=1794846985;
+        d=1e100.net; s=20260707; t=1794242187; x=1794846987;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZrkVR5mXFjugKxMsS6+5gUfgoZd/TSJdYFOiJryJnwY=;
-        b=rkdsy/Cn4DfjNTZX8A7RsFBnljhLfCKsluYjSILnjVchZcIUxfQGU8dWLyP1EeA4Lb
-         TUeUw+L5j5dxmg1Sc3FtDoArtCh/kWjBh/pZ9RKH1wswj+V55aV4F4tu+q9eDXsow/U5
-         geX8lR0zeUFJ6oReLOUzpMR1lYnhh4bfQLp7tYIrGEzpf4PAVLpIXnqE7l4qCN7v+W0c
-         P49uPIBiPVjYhkqLAeRmgBOc2IbDlNck0LG7jshS3vBeh2rZSHIUy4xmFsWA5Kz/RNmW
-         PMzPJ0gS8GptYWLz1OV79afTznIGkaTO0e1sCzK4YyPl17jCrvsHjAw0XhPC5KzZF840
-         3XdA==
-X-Forwarded-Encrypted: i=1; AL+hErG8A5kmAK5WCA+fO00JXICzke6B7aC7OqifPi8z7FBVfxPTQIjvS14VgdnSkAv5mGew22y5AolmadV0ilE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+To8opXYpmzv+Zqf2lofIlzQad0UI9+oOh56NKHgy//G27DA+J
-	pyHi2QMK3HdDHapsu87JdWUsYoUcgBBoOVywMDlbz2DFPjhFHK+orVQF+6DuMA==
-X-Gm-Gg: AYBFou3OaSdw7ZF6mYVs5WOzxbvsMTOv+IhnjPGuSfb9aa9+ZUMtVJv8wXl/nFushHc
-	SbY1V6PIgzkTE8MUmPKIY+u9jEdDQW/vAPhm1To6peoRNJ4QVp9pRfqJpfnYrd4SuDO26li3l3i
-	ZZGDLydeTXTClZ5MA06sM8qnxCh5Y9iH3cXVmz2q5HucpYP70yk4THADSUVveE8+NIprQN0y/wq
-	i4qq7I2G/7OQxZHQEp5Jqk3S5/LC4TsXl0bTUH9TOT9Gjb4S392XuX0qMxotXJA8FuGM73RVCeS
-	E3RoHmKPvzpWgRJHSTPdowb+qiRRx/V5ndUpNAV855MzEa5XLxrVPzGEppa+g2mp9I0Y7O7CkUk
-	lms8KF103aAd8hkXWeGgBM/+2zRadbp+mujXO+helNbR+80BJDu4HQtLzwK59QvJ8rettj7Jw/n
-	MUM3dFXLKhgrrCI7BEIU62X2qgBXDi4n/NJB+mBFZddclTXmekD2bHH2rmGWNscs+oqlkoQa1DM
-	buK3polya5ghG1jsy8PE+n82oMEDCQuo9VeH1vH75bDEmlyiE4VJXEpq/4MtwfRHvk5zg4Z8uqO
-	wekEHhmu49uUhgQ8BkZlKKX5T+4yfmT8iKFpnNYGgEH4zJc=
-X-Received: by 2002:a05:600c:8b8c:b0:4b3:9540:47a6 with SMTP id 5b1f17b1804b1-4b963c9b6e2mr84346175e9.28.1794242185031;
-        Mon, 09 Nov 2026 08:36:25 -0800 (PST)
+        bh=KO/0r+lIhJktKWfl2CvuTHQI6kveJU7dk3j+beHee14=;
+        b=zuKma3YprUqzJ17/ioR1RbuAi0LViknAB8Af9BhEUGGVCQKn16EMKD9i/ErBlFsVzJ
+         M8kIGfIftDXrK7n5ayCQfNFKyNfUsL9kOYTWtUfv9+XZTQfeDgq671gsB1gZeQ6l9ONa
+         wtzhymSObnyFGe3NC30YA+ETijgH1yeAuun/ZYVK/SsyRmwKkqraIHivRA1qs6rGcnUs
+         eRoxLPkYHPJag9a18QcmVa7bEpKaExehzjAELggkAM4L5n9f4OLgKvDXTodqLwrx7edE
+         codzH2zYIeVo01HMjRcIj3Pzz0Gb0QmA1MkKkZ54aNDHVrocp9wyDs9tGt3xNA/Xwkwb
+         aj9g==
+X-Forwarded-Encrypted: i=1; AL+hErHSgbtGuvp8ioMvSaDVgRJLAvwWFVI6JscIkzcr3OqkFPfmEvPhUFgi96tAwpxEeSghXaYJjYOPgyMQJW8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jPzhFxhLhXG2WxSafMamajzL55quXcBPemfd92MQ/by14Kk97
+	AEjn2nz5pmgP2Zup1miTEA0+h5k8LgR/y4+lgp9o5+O/CsNs3JUCi/i4
+X-Gm-Gg: AYBFou0iHqwwlB/MPssD2ZpT3lVHa2NOuwCZpCJS7abxjym3mgm5RGLSp1vZtvcAaOa
+	tDHcKkD/r2Qt9eJOHhjDg2cWnz8nmoK+0kWm7NleGJehpgP2uqZ6o75kbj54vO9TAzYLXZ+MqRf
+	yIg3+3Q1oRz2RpXO4drkhpmKNWMrDNjj3EqUgEDKTtIwQxv1IrkSUHuE+jRRPw1GOuzYVDFSWnF
+	LEqBqDX+lQt8vA5xbxdZxzacYf9t2F/m4IzXSnDK/XENi7fmTbRCbNM959Lutfp49clf9AmI4DV
+	Mumj3iMa6XYkCdIbxa5B0yyv824+fwztXe3Z5Unwzs2SQPEJew/KM0PbUSNhcf4VKMtC9RlI9qd
+	8RxGiR04v6VwnM3+QhugpB/43rhx1dtkfXSTS0yq1VEnxUJgKFk0lDjujZs9m/8ynbsIr3rQ1Z9
+	jcIo9ge/HI+tMyAD5/9pupnx+j+6hLY+Kb5G7cAqnx0by2mrhPUqfemJ1GiUs7arj0b9Ffpfnng
+	wjkpGQMjVQ3JGg3uhQRWTBrmC6IoiVO7UJuWt5EYXZdCmZ9tNG4hWLlufEn08TYrMz+dkVRoGoE
+	ZmmxKFtIUJcThrYsZxCK29Z50w==
+X-Received: by 2002:a05:600c:34c4:b0:4a5:dc5d:20f7 with SMTP id 5b1f17b1804b1-4b962a42ca0mr82854325e9.14.1794242187267;
+        Mon, 09 Nov 2026 08:36:27 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:24 -0800 (PST)
+        Mon, 09 Nov 2026 08:36:25 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,9 +96,9 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 03/29] sched/deadline: Distinguish between dl_rq and my_q
-Date: Mon,  9 Nov 2026 17:35:49 +0100
-Message-ID: <20261109163616.195264-4-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 04/29] sched/rt: Pass an rt_rq instead of an rq where needed
+Date: Mon,  9 Nov 2026 17:35:50 +0100
+Message-ID: <20261109163616.195264-5-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
 References: <20261109163616.195264-1-yurand2000@gmail.com>
@@ -115,162 +115,502 @@ Content-Transfer-Encoding: 8bit
 
 From: luca abeni <luca.abeni@santannapisa.it>
 
-Split the single runqueue pointer in sched_dl_entity into two separate
-pointers, following the existing pattern used by sched_rt_entity:
+Make rt.c code access the runqueue through the rt_rq data structure rather
+than passing an rq pointer directly. This allows future patches to define
+rt_rq data structures which do not refer only to the global runqueue, but
+also to local cgroup runqueues (as rt_rq will not be always equal to
+&rq->rt).
 
-- dl_rq: Points to the deadline runqueue where this entity is queued
-         (global runqueue).
-- my_q:  Points to the runqueue that this entity serves (for servers).
-
-This distinction is currently redundant for the fair_server and ext_servers
-(both point to the same CPU's structures), but is essential for future RT
-cgroup support where deadline servers will be queued on the global dl_rq while
-serving tasks from cgroup-specific runqueues.
-
-Update rq_of_dl_se() to use container_of_const() to recover the global rq from
-dl_rq, and update fair.c and ext.c to explicitly use my_q (local rq) when
-accessing the served runqueue.
-
-Update dl_server_init() to take a dl_rq pointer (use to retrieve the
-global runqueue where the dl_server is scheduled) and a rq pointer (for
-the local runqueue served by the server).
-
-Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
+Co-developed-by: Yuri Andriaccio <yurand2000@gmail.com>
 Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
+Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
 ---
- include/linux/sched.h   |  6 ++++--
- kernel/sched/deadline.c | 17 ++++++++++++-----
- kernel/sched/ext/ext.c  |  4 ++--
- kernel/sched/fair.c     |  4 ++--
- kernel/sched/sched.h    |  3 ++-
- 5 files changed, 22 insertions(+), 12 deletions(-)
+ kernel/sched/rt.c | 174 +++++++++++++++++++++++++++-------------------
+ 1 file changed, 104 insertions(+), 70 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index b78ca828f694..febc03b02fa4 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -742,9 +742,11 @@ struct sched_dl_entity {
- 	 * Bits for DL-server functionality. Also see the comment near
- 	 * dl_server_update().
- 	 *
--	 * @rq the runqueue this server is for
-+	 * @dl_rq the runqueue on which this entity is (to be) queued
-+	 * @my_q  the runqueue "owned" by this entity
- 	 */
--	struct rq			*rq;
-+	struct dl_rq                    *dl_rq;
-+	struct rq                       *my_q;
- 	dl_server_pick_f		server_pick_task;
-
- #ifdef CONFIG_RT_MUTEXES
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 00f584c7bbd5..d24a1e14dd21 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -65,10 +65,12 @@ static inline struct rq *rq_of_dl_rq(struct dl_rq *dl_rq)
-
- static inline struct rq *rq_of_dl_se(struct sched_dl_entity *dl_se)
- {
--	struct rq *rq = dl_se->rq;
-+	struct rq *rq;
-
- 	if (!dl_server(dl_se))
- 		rq = task_rq(dl_task_of(dl_se));
-+	else
-+		rq = container_of_const(dl_se->dl_rq, struct rq, dl);
-
- 	return rq;
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 1535046a23ff..2b1c3ab5d6a4 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -370,9 +370,9 @@ static inline void rt_clear_overload(struct rq *rq)
+ 	cpumask_clear_cpu(rq->cpu, rq->rd->rto_mask);
  }
-@@ -1819,11 +1821,14 @@ void dl_server_start(struct sched_dl_entity *dl_se)
 
- void dl_server_stop(struct sched_dl_entity *dl_se)
+-static inline int has_pushable_tasks(struct rq *rq)
++static inline int has_pushable_tasks(struct rt_rq *rt_rq)
  {
-+	struct rq *rq;
+-	return !plist_head_empty(&rq->rt.pushable_tasks);
++	return !plist_head_empty(&rt_rq->pushable_tasks);
+ }
+
+ static DEFINE_PER_CPU(struct balance_callback, rt_push_head);
+@@ -381,50 +381,66 @@ static DEFINE_PER_CPU(struct balance_callback, rt_pull_head);
+ static void push_rt_tasks(struct rq *);
+ static void pull_rt_task(struct rq *);
+
+-static inline void rt_queue_push_tasks(struct rq *rq)
++static inline void rt_queue_push_tasks(struct rt_rq *rt_rq)
+ {
+-	if (!has_pushable_tasks(rq))
++	struct rq *rq = container_of_const(rt_rq, struct rq, rt);
 +
- 	if (!dl_server(dl_se) || !dl_server_active(dl_se))
++	if (!has_pushable_tasks(rt_rq))
  		return;
 
--	trace_sched_dl_server_stop_tp(dl_se, cpu_of(dl_se->rq),
--				      dl_get_type(dl_se, dl_se->rq));
-+	rq = rq_of_dl_se(dl_se);
-+	trace_sched_dl_server_stop_tp(dl_se, cpu_of(rq),
-+				      dl_get_type(dl_se, rq));
- 	dequeue_dl_entity(dl_se, DEQUEUE_SLEEP);
- 	hrtimer_try_to_cancel(&dl_se->dl_timer);
- 	dl_se->dl_defer_armed = 0;
-@@ -1832,10 +1837,12 @@ void dl_server_stop(struct sched_dl_entity *dl_se)
- 	dl_se->dl_server_active = 0;
+ 	queue_balance_callback(rq, &per_cpu(rt_push_head, rq->cpu), push_rt_tasks);
  }
 
--void dl_server_init(struct sched_dl_entity *dl_se, struct rq *rq,
-+void dl_server_init(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq,
-+		    struct rq *served_rq,
- 		    dl_server_pick_f pick_task)
+-static inline void rt_queue_pull_task(struct rq *rq)
++static inline void rt_queue_pull_task(struct rt_rq *rt_rq)
  {
--	dl_se->rq = rq;
-+	dl_se->dl_rq = dl_rq;
-+	dl_se->my_q  = served_rq;
- 	dl_se->server_pick_task = pick_task;
++	struct rq *rq = container_of_const(rt_rq, struct rq, rt);
++
+ 	queue_balance_callback(rq, &per_cpu(rt_pull_head, rq->cpu), pull_rt_task);
  }
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index f74ffb3b1aca..3dd7d8998924 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -4099,7 +4099,7 @@ ext_server_pick_task(struct sched_dl_entity *dl_se, struct rq_flags *rf)
- 	if (!scx_enabled())
+-static void enqueue_pushable_task(struct rq *rq, struct task_struct *p)
++static void push_rt_rq_tasks(struct rt_rq *rt_rq);
++
++static void push_rt_tasks(struct rq *global_rq) {
++	push_rt_rq_tasks(&global_rq->rt);
++}
++
++static void pull_rt_rq_task(struct rt_rq *this_rt_rq);
++
++static void pull_rt_task(struct rq *global_rq) {
++	pull_rt_rq_task(&global_rq->rt);
++}
++
++static void enqueue_pushable_task(struct rt_rq *rt_rq, struct task_struct *p)
+ {
+-	plist_del(&p->pushable_tasks, &rq->rt.pushable_tasks);
++	plist_del(&p->pushable_tasks, &rt_rq->pushable_tasks);
+ 	plist_node_init(&p->pushable_tasks, p->prio);
+-	plist_add(&p->pushable_tasks, &rq->rt.pushable_tasks);
++	plist_add(&p->pushable_tasks, &rt_rq->pushable_tasks);
+
+ 	/* Update the highest prio pushable task */
+-	if (p->prio < rq->rt.highest_prio.next)
+-		rq->rt.highest_prio.next = p->prio;
++	if (p->prio < rt_rq->highest_prio.next)
++		rt_rq->highest_prio.next = p->prio;
+
+-	if (!rq->rt.overloaded) {
+-		rt_set_overload(rq);
+-		rq->rt.overloaded = 1;
++	if (!rt_rq->overloaded) {
++		rt_set_overload(rq_of_rt_rq(rt_rq));
++		rt_rq->overloaded = 1;
+ 	}
+ }
+
+-static void dequeue_pushable_task(struct rq *rq, struct task_struct *p)
++static void dequeue_pushable_task(struct rt_rq *rt_rq, struct task_struct *p)
+ {
+-	plist_del(&p->pushable_tasks, &rq->rt.pushable_tasks);
++	plist_del(&p->pushable_tasks, &rt_rq->pushable_tasks);
+
+ 	/* Update the new highest prio pushable task */
+-	if (has_pushable_tasks(rq)) {
+-		p = plist_first_entry(&rq->rt.pushable_tasks,
++	if (has_pushable_tasks(rt_rq)) {
++		p = plist_first_entry(&rt_rq->pushable_tasks,
+ 				      struct task_struct, pushable_tasks);
+-		rq->rt.highest_prio.next = p->prio;
++		rt_rq->highest_prio.next = p->prio;
+ 	} else {
+-		rq->rt.highest_prio.next = MAX_RT_PRIO-1;
++		rt_rq->highest_prio.next = MAX_RT_PRIO-1;
+
+-		if (rq->rt.overloaded) {
+-			rt_clear_overload(rq);
+-			rq->rt.overloaded = 0;
++		if (rt_rq->overloaded) {
++			rt_clear_overload(rq_of_rt_rq(rt_rq));
++			rt_rq->overloaded = 0;
+ 		}
+ 	}
+ }
+@@ -1436,6 +1452,7 @@ static void
+ enqueue_task_rt(struct rq *rq, struct task_struct *p, int flags)
+ {
+ 	struct sched_rt_entity *rt_se = &p->rt;
++	struct rt_rq *rt_rq = rt_rq_of_se(rt_se);
+
+ 	if (flags & ENQUEUE_WAKEUP)
+ 		rt_se->timeout = 0;
+@@ -1449,17 +1466,18 @@ enqueue_task_rt(struct rq *rq, struct task_struct *p, int flags)
+ 		return;
+
+ 	if (!task_current(rq, p) && p->nr_cpus_allowed > 1)
+-		enqueue_pushable_task(rq, p);
++		enqueue_pushable_task(rt_rq, p);
+ }
+
+ static bool dequeue_task_rt(struct rq *rq, struct task_struct *p, int flags)
+ {
+ 	struct sched_rt_entity *rt_se = &p->rt;
++	struct rt_rq *rt_rq = rt_rq_of_se(rt_se);
+
+ 	update_curr_rt(rq);
+ 	dequeue_rt_entity(rt_se, flags);
+
+-	dequeue_pushable_task(rq, p);
++	dequeue_pushable_task(rt_rq, p);
+
+ 	return true;
+ }
+@@ -1498,7 +1516,7 @@ static void yield_task_rt(struct rq *rq)
+ 	requeue_task_rt(rq, rq->donor, 0);
+ }
+
+-static int find_lowest_rq(struct task_struct *task);
++static int find_lowest_rt_rq(struct task_struct *task);
+
+ static int
+ select_task_rq_rt(struct task_struct *p, int cpu, int flags)
+@@ -1548,7 +1566,7 @@ select_task_rq_rt(struct task_struct *p, int cpu, int flags)
+ 	       (curr->nr_cpus_allowed < 2 || donor->prio <= p->prio);
+
+ 	if (test || !rt_task_fits_capacity(p, cpu)) {
+-		int target = find_lowest_rq(p);
++		int target = find_lowest_rt_rq(p);
+
+ 		/*
+ 		 * Bail out if we were forcing a migration to find a better
+@@ -1612,7 +1630,7 @@ static int balance_rt(struct rq *rq, struct rq_flags *rf)
+ 		 * not yet started the picking loop.
+ 		 */
+ 		rq_unpin_lock(rq, rf);
+-		pull_rt_task(rq);
++		pull_rt_rq_task(&rq->rt);
+ 		rq_repin_lock(rq, rf);
+ 	}
+
+@@ -1657,7 +1675,7 @@ static void wakeup_preempt_rt(struct rq *rq, struct task_struct *p, int flags)
+ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum snt_e type)
+ {
+ 	struct sched_rt_entity *rt_se = &p->rt;
+-	struct rt_rq *rt_rq = &rq->rt;
++	struct rt_rq *rt_rq = rt_rq_of_se(&p->rt);
+
+ 	if (type == SNT_REPICK)
+ 		return;
+@@ -1667,7 +1685,7 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum s
+ 		update_stats_wait_end_rt(rt_rq, rt_se);
+
+ 	/* The running task is never eligible for pushing */
+-	dequeue_pushable_task(rq, p);
++	dequeue_pushable_task(rt_rq, p);
+
+ 	if (type != SNT_PICK)
+ 		return;
+@@ -1680,7 +1698,7 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum s
+ 	if (rq->donor->sched_class != &rt_sched_class)
+ 		update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 0);
+
+-	rt_queue_push_tasks(rq);
++	rt_queue_push_tasks(rt_rq);
+ }
+
+ static struct sched_rt_entity *pick_next_rt_entity(struct rt_rq *rt_rq)
+@@ -1731,7 +1749,7 @@ static struct task_struct *pick_task_rt(struct rq *rq, struct rq_flags *rf)
+ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_struct *next)
+ {
+ 	struct sched_rt_entity *rt_se = &p->rt;
+-	struct rt_rq *rt_rq = &rq->rt;
++	struct rt_rq *rt_rq = rt_rq_of_se(&p->rt);
+
+ 	if (on_rt_rq(&p->rt))
+ 		update_stats_wait_start_rt(rt_rq, rt_se);
+@@ -1747,7 +1765,7 @@ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_s
+ 	 * if it is still active
+ 	 */
+ 	if (on_rt_rq(&p->rt) && p->nr_cpus_allowed > 1)
+-		enqueue_pushable_task(rq, p);
++		enqueue_pushable_task(rt_rq, p);
+ }
+
+ /* Only try algorithms three times */
+@@ -1757,16 +1775,16 @@ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_s
+  * Return the highest pushable rq's task, which is suitable to be executed
+  * on the CPU, NULL otherwise
+  */
+-static struct task_struct *pick_highest_pushable_task(struct rq *rq, int cpu)
++static struct task_struct *pick_highest_pushable_task(struct rt_rq *rt_rq, int cpu)
+ {
+-	struct plist_head *head = &rq->rt.pushable_tasks;
++	struct plist_head *head = &rt_rq->pushable_tasks;
+ 	struct task_struct *p;
+
+-	if (!has_pushable_tasks(rq))
++	if (!has_pushable_tasks(rt_rq))
  		return NULL;
 
--	return do_pick_task_scx(dl_se->rq, rf, true);
-+	return do_pick_task_scx(dl_se->my_q, rf, true);
- }
+ 	plist_for_each_entry(p, head, pushable_tasks) {
+-		if (task_is_pushable(rq, p, cpu))
++		if (task_is_pushable(rq_of_rt_rq(rt_rq), p, cpu))
+ 			return p;
+ 	}
 
- /*
-@@ -4111,7 +4111,7 @@ void ext_server_init(struct rq *rq)
+@@ -1775,7 +1793,7 @@ static struct task_struct *pick_highest_pushable_task(struct rq *rq, int cpu)
 
- 	init_dl_entity(dl_se);
+ static DEFINE_PER_CPU(cpumask_var_t, local_cpu_mask);
 
--	dl_server_init(dl_se, rq, ext_server_pick_task);
-+	dl_server_init(dl_se, &rq->dl, rq, ext_server_pick_task);
- }
-
- #ifdef CONFIG_SCHED_CORE
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc982205b98..a8e547c144af 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -10311,7 +10311,7 @@ static struct task_struct *
- fair_server_pick_task(struct sched_dl_entity *dl_se, struct rq_flags *rf)
- 	__must_hold(__rq_lockp(dl_se->rq))
+-static int find_lowest_rq(struct task_struct *task)
++static int find_lowest_rt_rq(struct task_struct *task)
  {
--	return pick_task_fair(dl_se->rq, rf);
-+	return pick_task_fair(dl_se->my_q, rf);
+ 	struct sched_domain *sd;
+ 	struct cpumask *lowest_mask = this_cpu_cpumask_var_ptr(local_cpu_mask);
+@@ -1866,12 +1884,13 @@ static int find_lowest_rq(struct task_struct *task)
+ 	return -1;
  }
 
- void fair_server_init(struct rq *rq)
-@@ -10320,7 +10320,7 @@ void fair_server_init(struct rq *rq)
+-static struct task_struct *pick_next_pushable_task(struct rq *rq)
++static struct task_struct *pick_next_pushable_task(struct rt_rq *rt_rq)
+ {
+-	struct plist_head *head = &rq->rt.pushable_tasks;
++	struct rq *rq = rq_of_rt_rq(rt_rq);
++	struct plist_head *head = &rt_rq->pushable_tasks;
+ 	struct task_struct *i, *p = NULL;
 
- 	init_dl_entity(dl_se);
+-	if (!has_pushable_tasks(rq))
++	if (!has_pushable_tasks(rt_rq))
+ 		return NULL;
 
--	dl_server_init(dl_se, rq, fair_server_pick_task);
-+	dl_server_init(dl_se, &rq->dl, rq, fair_server_pick_task);
+ 	plist_for_each_entry(i, head, pushable_tasks) {
+@@ -1897,14 +1916,15 @@ static struct task_struct *pick_next_pushable_task(struct rq *rq)
+ }
+
+ /* Will lock the rq it finds */
+-static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
++static struct rt_rq *find_lock_lowest_rt_rq(struct task_struct *task, struct rt_rq *rt_rq)
+ {
++	struct rq *rq = rq_of_rt_rq(rt_rq);
+ 	struct rq *lowest_rq = NULL;
+ 	int tries;
+ 	int cpu;
+
+ 	for (tries = 0; tries < RT_MAX_TRIES; tries++) {
+-		cpu = find_lowest_rq(task);
++		cpu = find_lowest_rt_rq(task);
+
+ 		if ((cpu == -1) || (cpu == rq->cpu))
+ 			break;
+@@ -1935,7 +1955,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
+ 			 */
+ 			if (unlikely(is_migration_disabled(task) ||
+ 				     !cpumask_test_cpu(lowest_rq->cpu, &task->cpus_mask) ||
+-				     task != pick_next_pushable_task(rq))) {
++				     task != pick_next_pushable_task(rt_rq))) {
+
+ 				double_unlock_balance(rq, lowest_rq);
+ 				lowest_rq = NULL;
+@@ -1952,7 +1972,16 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
+ 		lowest_rq = NULL;
+ 	}
+
+-	return lowest_rq;
++	return &lowest_rq->rt;
++}
++
++static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq) {
++	struct rt_rq *rt_rq = find_lock_lowest_rt_rq(task, &rq->rt);
++
++	if (!rt_rq)
++		return NULL;
++
++	return rq_of_rt_rq(rt_rq);
  }
 
  /*
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c7c5633524a..1b04b4c40ae9 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -412,7 +412,8 @@ extern void dl_server_update_idle(struct sched_dl_entity *dl_se, s64 delta_exec)
- extern void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec);
- extern void dl_server_start(struct sched_dl_entity *dl_se);
- extern void dl_server_stop(struct sched_dl_entity *dl_se);
--extern void dl_server_init(struct sched_dl_entity *dl_se, struct rq *rq,
-+extern void dl_server_init(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq,
-+		    struct rq *served_rq,
- 		    dl_server_pick_f pick_task);
- extern void sched_init_dl_servers(void);
+@@ -1960,16 +1989,17 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
+  * running task can migrate over to a CPU that is running a task
+  * of lesser priority.
+  */
+-static int push_rt_task(struct rq *rq, bool pull)
++static int push_rt_rq_task(struct rt_rq *rt_rq, bool pull)
+ {
+ 	struct task_struct *next_task;
+-	struct rq *lowest_rq;
++	struct rq *lowest_rq, *rq = rq_of_rt_rq(rt_rq);
++	struct rt_rq *lowest_rt_rq;
+ 	int ret = 0;
 
+-	if (!rq->rt.overloaded)
++	if (!rt_rq->overloaded)
+ 		return 0;
+
+-	next_task = pick_next_pushable_task(rq);
++	next_task = pick_next_pushable_task(rt_rq);
+ 	if (!next_task)
+ 		return 0;
+
+@@ -1992,7 +2022,7 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 			return 0;
+
+ 		/*
+-		 * Invoking find_lowest_rq() on anything but an RT task doesn't
++		 * Invoking find_lowest_rt_rq() on anything but an RT task doesn't
+ 		 * make sense. Per the above priority check, curr has to
+ 		 * be of higher priority than next_task, so no need to
+ 		 * reschedule when bailing out.
+@@ -2003,7 +2033,7 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 		if (rq->donor->sched_class != &rt_sched_class)
+ 			return 0;
+
+-		cpu = find_lowest_rq(rq->curr);
++		cpu = find_lowest_rt_rq(rq->curr);
+ 		if (cpu == -1 || cpu == rq->cpu)
+ 			return 0;
+
+@@ -2032,19 +2062,19 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 	/* We might release rq lock */
+ 	get_task_struct(next_task);
+
+-	/* find_lock_lowest_rq locks the rq if found */
+-	lowest_rq = find_lock_lowest_rq(next_task, rq);
+-	if (!lowest_rq) {
++	/* find_lock_lowest_rt_rq locks the rq if found */
++	lowest_rt_rq = find_lock_lowest_rt_rq(next_task, rt_rq);
++	if (!lowest_rt_rq) {
+ 		struct task_struct *task;
+ 		/*
+-		 * find_lock_lowest_rq releases rq->lock
++		 * find_lock_lowest_rt_rq releases rq->lock
+ 		 * so it is possible that next_task has migrated.
+ 		 *
+ 		 * We need to make sure that the task is still on the same
+ 		 * run-queue and is also still the next task eligible for
+ 		 * pushing.
+ 		 */
+-		task = pick_next_pushable_task(rq);
++		task = pick_next_pushable_task(rt_rq);
+ 		if (task == next_task) {
+ 			/*
+ 			 * The task hasn't migrated, and is still the next
+@@ -2067,6 +2097,7 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 		goto retry;
+ 	}
+
++	lowest_rq = rq_of_rt_rq(lowest_rt_rq);
+ 	move_queued_task_locked(rq, lowest_rq, next_task);
+ 	resched_curr(lowest_rq);
+ 	ret = 1;
+@@ -2078,10 +2109,10 @@ static int push_rt_task(struct rq *rq, bool pull)
+ 	return ret;
+ }
+
+-static void push_rt_tasks(struct rq *rq)
++static void push_rt_rq_tasks(struct rt_rq *rt_rq)
+ {
+-	/* push_rt_task will return true if it moved an RT */
+-	while (push_rt_task(rq, false))
++	/* push_rt_rq_task will return true if it moved an RT */
++	while (push_rt_rq_task(rt_rq, false))
+ 		;
+ }
+
+@@ -2237,9 +2268,9 @@ void rto_push_irq_work_func(struct irq_work *work)
+ 	 * We do not need to grab the lock to check for has_pushable_tasks.
+ 	 * When it gets updated, a check is made if a push is possible.
+ 	 */
+-	if (has_pushable_tasks(rq)) {
++	if (has_pushable_tasks(&rq->rt)) {
+ 		raw_spin_rq_lock(rq);
+-		while (push_rt_task(rq, true))
++		while (push_rt_rq_task(&rq->rt, true))
+ 			;
+ 		raw_spin_rq_unlock(rq);
+ 	}
+@@ -2261,11 +2292,13 @@ void rto_push_irq_work_func(struct irq_work *work)
+ }
+ #endif /* HAVE_RT_PUSH_IPI */
+
+-static void pull_rt_task(struct rq *this_rq)
++static void pull_rt_rq_task(struct rt_rq *this_rt_rq)
+ {
++	struct rq *this_rq = rq_of_rt_rq(this_rt_rq);
+ 	int this_cpu = this_rq->cpu, cpu;
+ 	bool resched = false;
+ 	struct task_struct *p, *push_task;
++	struct rt_rq *src_rt_rq;
+ 	struct rq *src_rq;
+ 	int rt_overload_count = rt_overloaded(this_rq);
+
+@@ -2295,6 +2328,7 @@ static void pull_rt_task(struct rq *this_rq)
+ 			continue;
+
+ 		src_rq = cpu_rq(cpu);
++		src_rt_rq = &src_rq->rt;
+
+ 		/*
+ 		 * Don't bother taking the src_rq->lock if the next highest
+@@ -2303,8 +2337,8 @@ static void pull_rt_task(struct rq *this_rq)
+ 		 * logically higher, the src_rq will push this task away.
+ 		 * And if its going logically lower, we do not care
+ 		 */
+-		if (src_rq->rt.highest_prio.next >=
+-		    this_rq->rt.highest_prio.curr)
++		if (src_rt_rq->highest_prio.next >=
++		    this_rt_rq->highest_prio.curr)
+ 			continue;
+
+ 		/*
+@@ -2319,13 +2353,13 @@ static void pull_rt_task(struct rq *this_rq)
+ 		 * We can pull only a task, which is pushable
+ 		 * on its rq, and no others.
+ 		 */
+-		p = pick_highest_pushable_task(src_rq, this_cpu);
++		p = pick_highest_pushable_task(src_rt_rq, this_cpu);
+
+ 		/*
+ 		 * Do we have an RT task that preempts
+ 		 * the to-be-scheduled task?
+ 		 */
+-		if (p && (p->prio < this_rq->rt.highest_prio.curr)) {
++		if (p && (p->prio < this_rt_rq->highest_prio.curr)) {
+ 			WARN_ON(p == src_rq->curr);
+ 			WARN_ON(!task_on_rq_queued(p));
+
+@@ -2384,7 +2418,7 @@ static void task_woken_rt(struct rq *rq, struct task_struct *p)
+ 			     rq->donor->prio <= p->prio);
+
+ 	if (need_to_push)
+-		push_rt_tasks(rq);
++		push_rt_rq_tasks(rt_rq_of_se(&p->rt));
+ }
+
+ /* Assumes rq->lock is held */
+@@ -2425,7 +2459,7 @@ static void switched_from_rt(struct rq *rq, struct task_struct *p)
+ 	if (!task_on_rq_queued(p) || rq->rt.rt_nr_running)
+ 		return;
+
+-	rt_queue_pull_task(rq);
++	rt_queue_pull_task(rt_rq_of_se(&p->rt));
+ }
+
+ void __init init_sched_rt_class(void)
+@@ -2460,8 +2494,8 @@ static void switched_to_rt(struct rq *rq, struct task_struct *p)
+ 	 * then see if we can move to another run queue.
+ 	 */
+ 	if (task_on_rq_queued(p)) {
+-		if (p->nr_cpus_allowed > 1 && rq->rt.overloaded)
+-			rt_queue_push_tasks(rq);
++		if (p->nr_cpus_allowed > 1 && rt_rq_of_se(&p->rt)->overloaded)
++			rt_queue_push_tasks(rt_rq_of_se(&p->rt));
+ 		if (p->prio < rq->donor->prio && cpu_online(cpu_of(rq)))
+ 			resched_curr(rq);
+ 	}
+@@ -2486,7 +2520,7 @@ prio_changed_rt(struct rq *rq, struct task_struct *p, u64 oldprio)
+ 		 * may need to pull tasks to this runqueue.
+ 		 */
+ 		if (oldprio < p->prio)
+-			rt_queue_pull_task(rq);
++			rt_queue_pull_task(rt_rq_of_se(&p->rt));
+
+ 		/*
+ 		 * If there's a higher priority task waiting to run
 --
 2.56.0
 
