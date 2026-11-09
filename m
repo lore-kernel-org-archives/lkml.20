@@ -1,51 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223936;
-	b=uratz09cL5UDaEqTauqwpSNaL46KZkOAX4wZ4R9D9kYQX3bwI4abGSra/HEhhTPBrQ4W
-	 aJHE5fEUvjg19GUZl92amnHbEPQdIoH1++VX2D9Y5cFMmEb4xK7inNJFuhq85k0sRLfWx
-	 8qhP4Ho5rdTnZ7+DiiXYtGyiGC24CKM9feP7kg6rvGBUncUCWMgHY51rQf0COqStCSRR3
-	 S0rLZBUUecBMDmbSs0PXF3iv/3LKGXKTA+LLvIsETX1UhOMXbS1wQwFHVY2DizI8jhvkI
-	 kzPUn081XTObm0++AwFhMzWwWd5mLsKW1CSAKqWKcOoBJo/BLsLBQp918Pkst2Karnw==
+	t=1794223925;
+	b=1Dj2JJfGg2WaWDNlTuyRRdXW5fEDay5Tr4WmDFsmGbwtZbG8StY7mBPsbo1JCYqb7w3O
+	 uCOR1y0FLXKitLLlnKbY0IOSeUclRSPUmlgomAsgOymOjYM2bT8sKcSGZIY/s4zeJSZdY
+	 lplB97tx5t7/noT++UsEOpB3B4plGTstLAr6qSfRj4jIcGLzGgkyF5FZMRA7ZxoV3sdME
+	 /mtLXDuBu37S2begj4LW5yg7In8vxWLNg7Evq2Mo6ht0ZVNIrQSILXEMryewNS8ObrASJ
+	 UlSn/vzUCLkQpeBv5K6g/qqPtmJTh3aE1NbVzREmua2cr1JNbSGfS5jqDt+wQnU8slQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223936;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=CXHQRvzu9ySr8LuHBBRQmSRAHwMMhm14WW1qfDMLw/c=;
-	b=VHZST4CwF3pci3Pmg2myylJ9gkSDgM8/iIR8DcswCxwKcwoHcyvslAFsxgkbmQUHBVXq
-	 V3QwYmL8EP6FkjcoGAs677xUXT/QqYN8O4VRSHfwc20txbLOLdgdCtjKN1biVphEngeii
-	 LLECSDLbsLH/Kxt6KzXDB5BhS8f9kLPdOqVL1WSJrNkQrh1gJOMvBzissqm52UjhmH2l5
-	 NSBnB0xtea1cFtJYH9td0OJsa/NKjg80YY8Qc3ZRy0807ol2GXeIyIuW9VlXXssb+0cCG
-	 Ft2jjnbWIFRaPPOzgAXnOxp6fXp46Fh2nTc4AkKY0Za3lsbzhN2/jBfGN+J19egQyjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223925;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=jJvrqdQZADrckzsrAbFU3gv/4+MKLvtOfmIfshWTwuU=;
+	b=w1BdgRMPGKyn/1woQHcb/qvYXNt/+bcqtKHRTD0BRBo3j7S7YI+A796ednm44xFJMVO6
+	 iKS9bRds7cXOwEt7spLpdB5PR4w5qfMYcdn2vn7ppkIzXfTa4ZxdhjSfTaeaa0wY137lv
+	 BrcpKDsAZtKdGcZDnISplSjxIWwxB1hndQ21/u3V8V7RLbr0uQhRnuHiHLKQe9WxjaCAI
+	 N5y6VPmLu1+P9Ud2ta4lR5ZiV/Jdy/159Y1tuSZhKnufxSdjnNrfCeOeOUGM6wTvhJGGY
+	 3+b77MxUX3PUhDuMINjfJ6rttunLqZ3kjOqiHKOGadPa9ULv3KrhMxgXhIA1IdGaXiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hMg7TyP8;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1559606A321;
-	Mon,  9 Nov 2026 11:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1559606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b="QLiwKn/c";
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 94B2B606A31C;
+	Mon,  9 Nov 2026 11:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B2B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hMg7TyP8
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 118511516;
-	Mon,  9 Nov 2026 03:32:12 -0800 (PST)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 638FF3F85F;
-	Mon,  9 Nov 2026 03:32:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794223935; bh=r0wxlvvbX4+OZAvcNk00XNBeViJ9UtAC+4++EEYcwcA=;
-	h=From:Date:Subject:To:Cc:From;
-	b=hMg7TyP8YQOM4N79+1WjmlQWjRNykXwLvLmDcBN2EAZ8JuB5knQU6LcJzSLxu3qoF
-	 QtFj3IbRWEUUszuarolBh5WjyMax3jgMKZUMdqHIkjEa3yRxP/uX0STUul7fKWuSta
-	 glWVnI9nDcFHRz+lLOPD8BM2BeiI1dWrg0kR6ViQ=
-From: Leo Yan <leo.yan@arm.com>
-Date: Mon, 09 Nov 2026 11:31:53 +0000
-Subject: [PATCH] perf/aux: Fix a memory leak on AUX allocation failure
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=QLiwKn/c
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, Philipp Stanner
+	<pstanner@redhat.com>, =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?=
+	<kwilczynski@kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH] PCI: Fix pcim_iomap_regions() error path rollback and leak
+Date: Mon, 9 Nov 2026 19:31:36 +0800
+Message-ID: <20261109113136.2295-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,75 +51,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-perf_fix_aux_page_memleak-v1-1-aae781d6749c@arm.com>
-X-B4-Tracking: v=1; b=H4sIACmv8WoC/x2M3QqEIBQGXyXOdUJm7Na+SoSYfdahnxWlCKJ3T
- 7ocmJmLIgIj0i+7KODgyP8tgcwzspPZRggeElNZlB8pi0Z4BKcdn9rsp/ZmhF6xLjCzaAarvs7
- 2daUUpd4HJO99t919P9V9qtJrAAAA
-X-Change-ID: 20261109-perf_fix_aux_page_memleak-9dc37fcb8433
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794223933; l=1781;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=r0wxlvvbX4+OZAvcNk00XNBeViJ9UtAC+4++EEYcwcA=;
- b=zJD8U6yffrHJiNrOFC5llDvc7sJv10tIeTLsnQjA8NUOVC81FMoWVwPDqogMIJ9OjK6USk+1a
- zGumgocFo2/AK4X6UZvR5kyJ1TkBhMm5VJuyHH51MHuqBd1x4Fsdyaq
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc3.internal.baidu.com (172.31.3.13) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1794223918;
+	bh=jJvrqdQZADrckzsrAbFU3gv/4+MKLvtOfmIfshWTwuU=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=QLiwKn/cUH2/YZRuA09QrYcSCSEz0NQ25xm5+SZw9k8+HdE1Mdn5JXgrBv8M04Di+
+	 l+gLeHJ9fPRupbmPP/t8ZolAzldUVBcXi6F5V6DZRwMrc/fd5IOS4BItCt0N6iji1c
+	 xx0EvznP9lsBCo7qXl5ea6vXlxQRSXf1tV+74lfIoxMBLQq2xRIonThtFsAdeQHNCI
+	 2D6qRSRLxuojKZ+buHdznrQRXttOQeo4GgqLb43AGpprrW3PbqwuwYi3Dpq1zhMlp0
+	 Cp6P8TnCD/z61QCkdKC94GNbf5bDnbvUW1w3YvK0tQ8XpN6C8LXgMXla/YxFGsMoQM
+	 Cmvf/UswuexrQ==
 
-rb_alloc_aux() allocates rb->aux_pages before allocating the AUX data
-pages. If the first rb_alloc_aux_page() call fails, rb->aux_nr_pages is
-still zero, so __rb_free_aux() skips freeing the pointer array.
+From: Li RongQing <lirongqing@baidu.com>
 
-Commit ee9397a6fb9bc ("perf: Fix double-free of the AUX buffer") added
-the aux_nr_pages guard because AUX cleanup and main ring buffer release
-shared an IRQ-work callback that could call __rb_free_aux() twice.
+pcim_iomap_regions() has two problems in its error path.
 
-Since commit 95ff4ca26c49 ("perf/core: Free AUX pages in unmap path")
-removed that shared cleanup path, main ring buffer release no longer
-invokes AUX cleanup. The earlier double-free race is therefore gone, so
-the guard is no longer needed for freeing the pointer array.
+First, the rollback loop walks every bar index below the failing one
+and unmaps it, regardless of whether that bar is in the mask this call
+was asked to map. pcim_iounmap_region() matches devres entries by
+(type, bar) only, so it can release a mapping that an earlier
+pcim_iomap_region()/pcim_iomap_regions() call made. The driver is then
+left with an __iomem pointer that has been unmapped and a legacy table
+entry cleared. Restrict the rollback to bars in mask.
 
-Free rb->aux_pages unconditionally to cover the zero-page failure case.
+Second, when pcim_add_mapping_to_legacy_table() fails, the current
+bar's mapping is not released: the rollback loop starts at --bar, so
+the failing bar itself is skipped, and the mapping stays registered
+until the driver detaches. Release it on this path as well.
 
-Fixes: 95ff4ca26c49 ("perf/core: Free AUX pages in unmap path")
-Closes: https://sashiko.dev/#/bug/linux-c1a2bb3b-5d2a-4fca-a697-ce07992a5cc1
-Signed-off-by: Leo Yan <leo.yan@arm.com>
+Fixes: bbaff68bf4a4 ("PCI: Add managed partial-BAR request and map infrastructure")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
 ---
- kernel/events/ring_buffer.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/pci/devres.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
-index 95f4fbdfd2764de5b72d901d778c46302f525fad..687d89c1fd5fe06963ba2a9563887d5f0d693e93 100644
---- a/kernel/events/ring_buffer.c
-+++ b/kernel/events/ring_buffer.c
-@@ -674,9 +674,10 @@ static void __rb_free_aux(struct perf_buffer *rb)
- 		for (pg = 0; pg < rb->aux_nr_pages; pg++)
- 			rb_free_aux_page(rb, pg);
- 
--		kfree(rb->aux_pages);
- 		rb->aux_nr_pages = 0;
+diff --git a/drivers/pci/devres.c b/drivers/pci/devres.c
+index f075e78..9bdb4de 100644
+--- a/drivers/pci/devres.c
++++ b/drivers/pci/devres.c
+@@ -689,14 +689,18 @@ int pcim_iomap_regions(struct pci_dev *pdev, int mask, const char *name)
+ 			goto err;
+ 		}
+ 		ret = pcim_add_mapping_to_legacy_table(pdev, mapping, bar);
+-		if (ret != 0)
++		if (ret != 0) {
++			pcim_iounmap_region(pdev, bar);
+ 			goto err;
++		}
  	}
-+
-+	kfree(rb->aux_pages);
- }
  
- int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
-
----
-base-commit: 2651f6deb3326129a052897df193052dc28ea94f
-change-id: 20261109-perf_fix_aux_page_memleak-9dc37fcb8433
-
-Best regards,
+ 	return 0;
+ 
+ err:
+ 	while (--bar >= 0) {
++		if (!mask_contains_bar(mask, bar))
++			continue;
+ 		pcim_iounmap_region(pdev, bar);
+ 		pcim_remove_bar_from_legacy_table(pdev, bar);
+ 	}
 -- 
-Leo Yan <leo.yan@arm.com>
+2.9.4
 
