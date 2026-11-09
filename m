@@ -1,60 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262725;
-	b=yhXCLXbCOP+TjqtQgb1IDe6szimKRBB1wkbiSKqC2Xq0KIDiT03j8nxsqjETELhpIsyw
-	 a3hJuJI53B3CD/qPO536jGn49VZH3plHdAy3coJBDviSgvFWzr0g6GnEBnmbtZ/kquIyd
-	 9XTCsA+TcteWwEJfDVqJgW+sYTUuj9zm/Iaz3kGKWou0kg1L+X0Y26kOkYojtCe481eRT
-	 PZ5+TH7/uxNeER1cAg0wVbypNeeUTy+OdtcwmQgCzyEY1nbAEwfWw8OQuz2yTFDy+QAEi
-	 +q9sF39Xdtc84eSiccSVvcJZhcycR9tqnTt1uZNdbe9+3rJwSb/zCxpSNr/Mq7oefMQ==
+	t=1794262770;
+	b=IfRbcgiHuI101zUK3Izt7sFmP7VKdAtM5WBoAatm+YOGUa/8ByW0c8iNDvxJAUiIg+pU
+	 DGN39/bvFLPqNU/litaTAM77wdIr4Q/TpJ9OKfG1HfQjt8j7F+y+gMM1FyD5TGI0MaHgn
+	 reV8P5SgGf1eVdujPk4+U36w65qABMvJiSK9mks6jMhwoP3Lb5hIyGdXu7U5ScniLgQV3
+	 u33CxKQ47Z1Vg85PUKcqy6qrwKPAzQYKfCMO65y13w56cy5msSQMqTwCD5aTzuQiSNN2r
+	 Hf2EW86EUJoOIJEOqNUsbMKSQo/DsQUIORKWOnPNlfXA9sc9JcQMi3ecces6x7Er5mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262725;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ggb1gfyBlv33vuZ9Mjxd2uyqGrnys2+maZyswsfEr+s=;
-	b=Ti/b/6Woy9ftzA4GBob1I5op0uRRhS0WXa6BkVTfMPQBJeZ4NaMKfbrqGB48782TyN7r
-	 /FwRHtOA1HN/wyx6hDFxXIJh4m0edkek8unjGAYDhDh/L/vMc3+UFxfdALHN09rcliaR5
-	 cGCrBCfBHGUi9DiAkwtdqtF75eWt7OShn7zTK3pHBOaW7y4uPODqQZt177XyiXYbyY5nW
-	 atAIQ3fhk3dgcccp+F8a6MHllH2fwiIe+ipkEa8lTcOpGDMwaLW5gLqLys5cd3n0N4mgc
-	 gz0ezFEtE8RisVdz0mbb7eg/I8jZes1BWOfbc5lr8zlQ/ha2TrEZWcc8wax2IUD43yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262770;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=uTFq/YGCWeI9DuI1v8pepBGAfTcW7/CO0/S+sak4pCk=;
+	b=Ym4YuYtpwuczITa5pOvG2EIn977zonu1uzpoaXep1ugNw9hp92W+AV9KpZr2jSOITH+d
+	 bti+I3khW6qJcNA4vKzgxXZ2+CTdKso3NxOFV5Wgc41ytm3nBiDwKdz+Mje3xfmOo+fLx
+	 hr5zzQXzbqiSWxhP87aRMMV3qv7SRqXGMAauMa2NZzIa9YNLVdHkkOOsIvpL1t/PmC1n8
+	 3V9ylNSBGnB6YCD69QTuQ+CqCN6PYUhlCYpdUaBb2PO+Sto2B3MjVo8u0iykUI43frCQJ
+	 +LkroNYiZWSCt8yz+Enf6Odvk7mFbxVjb7DZpOmOlTASouJDtDuhSZG7+b3VdkRLIIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGtdjkjg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUaBcCab;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAA3606A325;
-	Mon,  9 Nov 2026 22:18:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB71606A31C;
+	Mon,  9 Nov 2026 22:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGtdjkjg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7421F008A2;
-	Mon,  9 Nov 2026 22:18:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUaBcCab
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61D61F0089F;
+	Mon,  9 Nov 2026 22:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794262725;
-	bh=ggb1gfyBlv33vuZ9Mjxd2uyqGrnys2+maZyswsfEr+s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CGtdjkjgObcx2xc+jBf7GkYaDHdBy6yLZO+nkkGbJEI/ur6SW4uqnHxCp9cbX5yop
-	 YGVOC/xs+0ajAb/uGkQBPsmUgSXUgFRm7B0xJkREGXYDq9exvD17zPyKfC/Y6l9Mv/
-	 YEo26sZ9UOHI3jYUOchjVlyGpV0NPYt9odNc++dYVCiJMFXTh7JpGCvZCkFETfEENK
-	 HUpzsjlsBk1Uc+vfwTBmpB5S8UMUqdbCPmvrhW1MRK6ApMQkUP8oa9mta8+0D2nOxZ
-	 /E/DYwgF3DNUXdOna8n4bOjwIf35SoIxfu2VlTvAUhswE8e3EqgGl/PMpo2AgSMb66
-	 PH28/LfstqAgA==
-Message-ID: <sashiko-outbox-205715@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] rcu: Print CPU that preempted stalled reader wants to
- run on
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <ba4a68a7-3656-434c-a51d-5c312c0924c0@paulmck-laptop>
-References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
- <7a827d0a-1a69-4be6-8b69-9a9769b182b7@paulmck-laptop>
- <0d0974b0-5235-4764-abad-0a665c27a1d0@amd.com>
- <22d0d56c-6cef-47d7-a923-1d888e224b58@paulmck-laptop>
- <ba4a68a7-3656-434c-a51d-5c312c0924c0@paulmck-laptop>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 09 Nov 2026 22:18:44 +0000
+	s=k20260515; t=1794262769;
+	bh=uTFq/YGCWeI9DuI1v8pepBGAfTcW7/CO0/S+sak4pCk=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=FUaBcCabFp9bz/S/qX4sK1bELWbUe3Dl5gVmPbnl/x/hHMyIuMyh9isvb8vKm9Kcr
+	 yvO1o1KQnBp6t9TN8iJ6icHqmGN65LZQxiXcM7TY9TykpDb/9se7LylPQ+F86i11Ab
+	 KcYLM23lmxpmm+vl9TyyzBWf8UxJIptYyizyNjtcADyPePHZGsVQFEFq8sidZyVjbz
+	 LZywpmAyTQaMYOtGMb1ytIbC/HN0ynq6CkKEsuqglyaUDyHZ4gTtUwVqDv0/DRUbDS
+	 YGyB1OrfDhjHKq0NBYQFN95RVncG8RQ2a7Ntci9NS+GZIKTlWkAsutrL4+NvDOlkqs
+	 IpWgVK3dYVPUQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 7631FCE0CC1; Mon,  9 Nov 2026 14:19:29 -0800 (PST)
+Date: Mon, 9 Nov 2026 14:19:29 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: rcu@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, rostedt@goodmis.org
+Subject: [PATCH 0/8] Miscellaneous RCU updates for v7.5
+Message-ID: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
+Reply-To: paulmck@kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,83 +56,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] rcu: unused variable th in check_slow_task() causes W=3D1 build
-  warning
-- [Low] sched: cpu_curr_snapshot_rcu() declared outside _LINUX_SCHED_H
-  guard
---
+Hello!
 
-commit e43a0801750c8342c9f97761eb87e99e324c35d8
-Author: Paul E. McKenney <paulmck@kernel.org>
+This series provides miscellaneous updates for v7.5:
 
-rcu: Print CPU that preempted stalled reader wants to run on
+1.	Enable RCU_BOOST where supported.
 
-This commit adds cpu_curr_snapshot_rcu() and uses it in RCU CPU stall
-warnings to report the CPU and currently running task for each stalled
-RCU reader task, while dropping the get_task_struct() and
-put_task_struct() calls in rcu_print_task_stall().
+2.	Disable RCU priority boost testing on non-TREE03 scenarios.
 
-Link: https://lore.kernel.org/all/a7a21bf3-a7d5-45bb-be4f-0119fe53fa20@paul=
-mck-laptop/
-Link: https://lore.kernel.org/all/e8b6b372-d16b-4939-aa7a-755b7149e0fb@paul=
-mck-laptop/
-Link: https://lore.kernel.org/all/22d0d56c-6cef-47d7-a923-1d888e224b58@paul=
-mck-laptop/
+3.	Documentation/litmus-tests: Add SRCU fastpath anchor-before-scan
+	test, courtesy of Kunwu Chan.
 
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index e4f6323d78555..09e05e2b6c9aa 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -2529,3 +2529,5 @@ extern void migrate_enable(void);
->  DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
-> =20
->  #endif
-> +
-> +struct task_struct *cpu_curr_snapshot_rcu(int cpu);
+4.	Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor
+	test, courtesy of Kunwu Chan.
 
-[Severity: Low]
-As reported by K Prateek Nayak on v1 [1], should cpu_curr_snapshot_rcu()
-be declared inside the _LINUX_SCHED_H header guard next to
-cpu_curr_snapshot()?  Placing it after the closing #endif causes the
-prototype to be re-parsed on every inclusion of linux/sched.h and
-disables the preprocessor's multiple-include optimization for this
-header.
+5.	Add srcua scale type, courtesy of Kunwu Chan.
 
-> diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> index 803a56af3259f..08699652f51c2 100644
-> --- a/kernel/rcu/tree_stall.h
-> +++ b/kernel/rcu/tree_stall.h
-[ ... ]
-> @@ -317,8 +320,10 @@ struct rcu_stall_chk_rdr {
->   */
->  static int check_slow_task(struct task_struct *t, void *arg)
->  {
-> +	int cpu;
->  	struct rcu_node *rnp;
->  	struct rcu_stall_chk_rdr *rscrp =3D arg;
-> +	struct task_struct *th;
-> =20
->  	if (task_curr(t))
->  		return -EBUSY; // It is running, so decline to inspect it.
-> @@ -327,6 +332,13 @@ static int check_slow_task(struct task_struct *t, vo=
-id *arg)
->  	rscrp->on_blkd_list =3D !list_empty(&t->rcu_node_entry);
->  	rscrp->rcu_rdr_running =3D task_curr(t);
->  	rscrp->rcu_rdr_boosted =3D 0;
-> +	rscrp->rcu_rdr_cpu =3D cpu =3D task_cpu(t);
-> +	rscrp->rcu_rdr_cpu_offline =3D cpu_is_offline(cpu);
-> +	lockdep_assert_irqs_disabled();
-> +	rscrp->rcu_rdr_cpu_task =3D th =3D cpu_curr_snapshot_rcu(cpu);
+6.	Consolidate per-writer arrays into struct writer_state, courtesy
+	of Joel Fernandes.
 
-[Severity: Low]
-Can the local variable th be dropped here?  It is never read after this
-assignment, which triggers a -Wunused-but-set-variable warning under W=3D1.
+7.	Print CPU that preempted stalled reader wants to run on.
 
-[1] https://lore.kernel.org/r/0d0974b0-5235-4764-abad-0a665c27a1d0@amd.com
+8.	Document additional RCU task-stall dump information.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/ba4a68a7-3656-434c-=
-a51d-5c312c0924c0@paulmck-laptop?part=3D1
+						Thanx, Paul
+
+------------------------------------------------------------------------
+
+ b/Documentation/RCU/stallwarn.rst                                         |   71 +++++
+ b/Documentation/litmus-tests/README                                       |   19 +
+ b/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus |   55 ++++
+ b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus |   52 ++++
+ b/include/linux/sched.h                                                   |    2 
+ b/kernel/rcu/Kconfig                                                      |   10 
+ b/kernel/rcu/rcuscale.c                                                   |   41 +++
+ b/kernel/rcu/tree_stall.h                                                 |   33 ++
+ b/kernel/sched/core.c                                                     |   13 +
+ b/tools/testing/selftests/rcutorture/configs/rcu/NOCB01                   |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/NOCB02                   |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE01                   |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE01.boot              |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE02                   |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE02.boot              |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE08                   |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE08.boot              |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcu/TREE09.boot              |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcuscale/TINY                |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcuscale/TRACE01             |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcuscale/TREE                |    1 
+ b/tools/testing/selftests/rcutorture/configs/rcuscale/TREE54              |    1 
+ b/tools/testing/selftests/rcutorture/configs/refscale/NOPREEMPT           |    1 
+ b/tools/testing/selftests/rcutorture/configs/refscale/PREEMPT             |    1 
+ b/tools/testing/selftests/rcutorture/configs/refscale/TINY                |    1 
+ kernel/rcu/rcuscale.c                                                     |  129 ++++------
+ 26 files changed, 340 insertions(+), 101 deletions(-)
