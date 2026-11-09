@@ -1,112 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242744;
-	b=pvUhdZFEepiFZi5e3AgcTPB7ISvzhWXp8E/K7vYZQJH1bOPpNUoXSK1kyYvC+jpZ07Oj
-	 g4sY5CIUcfYsbcaXWIQbGf6uw3uIzIn6BorDWsbQcMzQsUULb/WGIUJHQhTj7gw8Pmiwd
-	 Lv3+uEPApkBolsSS5alo3DBrHBlyQcUYCiG+Oqsy9HIQ8G44u+mFyl3RoK6cj6CzT6wjS
-	 EF74N1Vqc1bZJ3kqq2yRNFcN0Yjee927kWsQSVTZ+CGWRQj8p0ToTcseA3UIMjsvnbjk7
-	 sA/eu4m0JB5yiTsSOErawDeKWJRO/iECoVdxIcnmLleWuuT5C6cQqeDy/c9QTXTRBqQ==
+	t=1794242748;
+	b=daPag/k2LWQ4EdR1zcxLofaKVGv+bad533FILV9XYY1LqZPeB/fSELNBjpu289W9Q7pQ
+	 VtV1MZIc4R9SVaDct3X7dM/bXQ2tOJUhP1nQ2AFk1arp1MK/wuTXKuY47wfzovcRS51CZ
+	 H/dwPyP+Vm8AwHQfecueGXMXiVvDySbBmJYf2frEW8Vz1vS4HC3FIHETUVrl/qHpsuDk6
+	 QD6t19F9fjoxd4PvU7c+BpRCid2ie1424FBYyzHgw7CA1ar8YCd+T0KIokQ61pvuEq0mQ
+	 scWcgTvDkFGQADEKgo2qqBI3Ot5w48GcR/mwDY3bBOWL3AiRa5d/RD47uauIwpSUeWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242744;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242748;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=;
-	b=mKIM/fEGaMPNtBD0T087Fh9Cr1DH1F2L2mGOTBU2MagUE9/t0g/tnuq0N+k/R76G3k6B
-	 5wSfs2nxnqWCYznyB9O1WgO26F02E1b5N/SbjQ3IGsf4iRi061SuxrP4mt1PEE0cgjLx3
-	 qc4gD9lcs3tM09sGG/DoG8mMR5eO8c/LPf8pvFa7e05S3btJdQPNl6Ewjj7Rck/vSK0Lm
-	 ug2hqIgDH+5f2zTxmgnAw/VTSf8J78r326d0iQ9vpgB2M3Fsrk4FKZUwoW+GE8FrcaxXy
-	 yCqJGQVQ9UKoNXqZt9ldDjwpyzpccSdIBR8xtL6uPPoe+hvBQVnmkrZfpeRJj7W4ZAA==
+	 Content-Transfer-Encoding;
+	bh=KaxLEDS88ItrKwFFpF3PUgaqHFKPv05h6XZaeYQUHW0=;
+	b=dMaubssZYNAingCu+ESQExICV96/Vhp6zis4q2fOE7D9v0CRwsnmyaTcCNe14jcT7v/C
+	 W8j11QVYwiOIaYG5jsRxFSfzpbibQ77N33zHub5WjJ9f7zwHMCOPdhcM17ke3p1gQ/b0O
+	 uJJcke9SGyxYtqPjnbjGYJ9wQsPj+e31+DOKIiD7VinkX5ClKzZdNuVXqwL1MfF9an22A
+	 QXoEjOYu8n9MrXVCspVaGW6UGRAYBZT1A48GqChFBg8fV3j9JxtPzeO6mBCYjfUPYPfoz
+	 QqlB0xFHXerpZN5GOrjuTtD/QaFipXlncMXLEbtxRZPqr7ru87IK0HOUgTKuU8+yvsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z9znmG26;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kHrtfwZF;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IVc4xmHR;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C65606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C65606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D55B60A2606
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D55B60A2606
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z9znmG26;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kHrtfwZF
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DF9et334886
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 16:45:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=; b=Z9znmG26EPaUKSEV
-	VRmBdJyuq/dFZiiTn1J2Anbbvsi4om2vKXrB51eY2pi22iW3s7MXTtByigsccPqU
-	rOTBswiRDzhk1/Pdgh/sPuXwW0bsjZ89D0S0Cueyfs2L2fxwl7NnhCrSulkvepbM
-	O2KFLbserTnhvUk7KLKVorj2eQNbC0yS5EpJA8vDz2246cgugo9CWPKNh52oKoha
-	QDc0a0ue27Y9ssBfOe8zk7IruUnT3Ku2hSp6rAcOtsCuy7by17IGXgre47d9HMB7
-	Qu97Mp2Hz2vxE/OjDX07IPjKVnTA6BJ1JfSXxKZg1wWHYmEnNiqP0y+LOU4awjtX
-	MLjTXA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hudf594s4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:45:43 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso2381059eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:45:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IVc4xmHR
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so793664f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:45:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794242742; x=1794847542; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1794242746; x=1794847546; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=;
-        b=kHrtfwZFqd47WfddUOdWZKA/pr9I3C0Mjh5EpKkgM5wYv+wYIdMAD8eboLskQ2D+OE
-         R10tXlf+XCJ3U4KLHiCEIl4WJ0z9k/1rpPcU5sIpQveESP2qbB4AqO3Bew05Yqi6JE8c
-         q+Ka8CBpY4U0AFE0+3tw7XK6m9mC5ystpbynrbOYm30NaWyfYNXmQf0OLHUqcDMHU3wl
-         9TKdyZ/pQHrVlhpNdTZZmomKW/TTeDZDgq0bCYcHkffvrPve4iNrtpoqV+o/24XlUK/I
-         LauKMk9O9JYrYRDetrmmhLEFrSgx7W7PGL438LEvR2bMVoRfOnr/erTr1pVWtZ/LDO2N
-         mpTg==
+        bh=KaxLEDS88ItrKwFFpF3PUgaqHFKPv05h6XZaeYQUHW0=;
+        b=IVc4xmHRUI7l0d1aI01B1bf0TgxhgAWqtMAsztsXJDiGo9QYkOa5VcjnsqiEUEW094
+         +obdWRcpaN+j/B14EgCb1KFG4LUdRJV+GvcaWubRrOtQazg82Ix3i4nQYf/jMIEHX2tU
+         ObAWnI3isjfiH/yuAvxeUlSdxCVgZvZqsNiqWudHZdY1CeA0GDvuzZKyEo07VSJB5Ahb
+         AkgMpN2gR8U3WlRYJOmZsZme0ERrSqL4LiPSZuS2JprQ1rmSLrAT4/GHrebv/GqHlMzY
+         v6V4vdWFB2UPahEWWeEq02QTnTWgioPULqgClxAVoK/PJ41XSdFU191pmOOCiiUzrCYI
+         QHHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242742; x=1794847542;
+        d=1e100.net; s=20260707; t=1794242746; x=1794847546;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=;
-        b=I1pDBR+4iaH1NUpUJTSRQHB2PDr/1KdD2kJQ9FtFYb+6dF4J1MPDJDaMM4bpr/Vef6
-         44UbkCyUSN9j4PiCPcMHppX3LLFLwSC0iEnBArQqdgTtZG2WlGvcbMSk2ivILPmjTj0G
-         ls7QBaEq0R28TwYtZC00z8z7OXRvUK63VZJCue+mblCK327QhbgqxGB/ht8b88v6tgFB
-         f0xqZybWqCIBOTsdIAN/h4CU3pch7UA5ccRqIrAD6kAnxmfIObgztu76PRlUNLn+EJCQ
-         WQ+aT/klPhoPhj8ZjJcdgzEMFxvK+A7fQRFyIIPq+y1EYZ42EdZ88mzsdlDQZ7hmwdWc
-         AEdg==
-X-Forwarded-Encrypted: i=1; AL+hErG4nzuPwpMvmCn92H69ha/m/VN6oxhS6GTRQZhwomxdGpjoS3a+9eUiGRW5iYjfhcDVK0+s/5dZzMA4jTw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//+a7Po0nnA15Uv92cIQsNjv0DjE2Ynm2tL1h/JRRSgo9aZj0o
-	38UecB+Y6uvEWBzlUFg9jsGC3d6jvPmrrrSzMuCtjOb7JK+0+KXKEQaTY086PDnZqowsOQj96G2
-	TmaT9Ed3A+QOsefz1z9wTQsKOIoHGAfn4GEKiJFXDxG7ITZOJZjGyJgAz9mGzxmmvrdM=
-X-Gm-Gg: AYBFou3QbAg/WIzpXSBvBQzHkHaCtUjUWo+VAXiBC0jrdo0kBRtW8tEn7DDTPRh5PXa
-	LDD2vc+nVRrNVGvSknVy/f1hqpnJmeW7MrwkbVN2ttGT6LF6f+fQg9l4g5G89wLVFmJqUSvpbX6
-	iv3XbQWHyq0u84jcbzM1tJbS7T1EiB4t6sxsaQDmMv5TAQ99frCtldNHA4YJ5dpkqHV37qeWv21
-	rIr952I5pskQTSPIIaE0xlIYoldayd8sDaE9WMw9VMURBL8CmCpGTvPQnB/bgNv7SW8E55tTIug
-	aH3YuTRZqb5P0miLrPhPhlmPx4FY9Q8bYC2S6T2D46AJ6ODXKOZAJ0TW0Jx1bUUH/ZzpvLlFMnL
-	W5SkQfFKTKp4WcCPlLOlLyMcQr3pRnwijWWtLgnls0WqZptazJNIclF0puMn35usXRU0hiWtjdk
-	e3Y85COChbAwn36fzRJf0Y1Ksk7ZGaByPTGuhqpKYU9vVu+8cs9nc=
-X-Received: by 2002:a05:7300:6822:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-37256bf17efmr8459348eec.23.1794242742024;
-        Mon, 09 Nov 2026 08:45:42 -0800 (PST)
-X-Received: by 2002:a05:7300:6822:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-37256bf17efmr8459297eec.23.1794242741349;
-        Mon, 09 Nov 2026 08:45:41 -0800 (PST)
-Received: from [192.168.1.66] (164-34-238-49.southernonline.net. [49.238.34.164])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372660f385bsm15132197eec.20.2026.11.09.08.45.35
+        bh=KaxLEDS88ItrKwFFpF3PUgaqHFKPv05h6XZaeYQUHW0=;
+        b=ogeHq4WkQLzxYmkM/wyL9atC0hal0jz1NFTrUdoDhBplO5UP1CxFEOK66DLpTEY2ao
+         xA+vMx2/EeWBDMGiF/6OBm1hapmbgJZ13082Xp7k/g74BLlgRfWObM+kSzSGHwOstS93
+         FTZRPceJx2KDOclvS4Bjni/tnjF9H6CWo709fbvd7oWzdE4yLf5ogQjKtZ9itidwzFaa
+         aUnZeBjNUueXizd2BMlHzpgpPFPEIfFOOQ8a7F1PhyBqeVc8MlsLzwm+XZzW0TTzwjiv
+         zDb/dsPjXFkXGZOXhdEMasnKyV54kSg2eNfk9A7/V6zOPV9QneWYNGGDK/njHsknJUCg
+         29iQ==
+X-Forwarded-Encrypted: i=1; AL+hErGAh5aIEFGv0MtCI1rSfAbGG4xzJrVWS13ADPhh1gPVJ+kztFIMylRXw9lYp2oIgNXsUhT11O76yhyjhpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3GIuh1EgBr+nw6yKSbCxi8kQcJ8sUgREr6GU//87NWo4BweDy
+	fmXjaMQjyRIXaFksZkIzO4A0vr2vdJrojcQq/IJUdhcqIaoiPVACIzHaqgVYpuHFG88=
+X-Gm-Gg: AYBFou2+ljrjHrptrldRgfsSKx7RFyMSjn5BAsiiklRe7gFF37ZdLt6OxQSlv+W/xeq
+	1L6ScNl9tBX4kHx0Umr92oyTNkohUvPTXabx6UqfByvIVVobmhpJeVrbANiWsGOxyHT0mqlwOnu
+	kGNb2TkF/FTaj14ePMsY8Cb/Ei34Xt6ZnqxoTjgiUUk4FyRbL09zat4Ou2QWN5XB7euNRM3DQk0
+	z9Aaaea6tDiGsQQiG9/xFNFnbF4aiQ8GDY0pyT5UEe76VCVBt6snllXp+KbcU5ALu9cf1J2lBMC
+	TxCmepf75rVgwsv6rEIUUcPhjFA7mztsqUndgI/V8A3yjyCKpBnWYPpRr9evevCECfwb3D25tu0
+	qXGBjC2iZX8qvcLYzdSGXYv+BNE6asxBr9mnGwBohG2mQlebvzuKRyS1tpgfMxgMJv3QDsYz3a2
+	A8LbnC4W9CN20o7srMF/kcFsiJRcjzjbVVDHkMsW4la9IoMYpeLJ5s4LHP2q+/RSpYcFqAwD6hf
+	wRY8oTz0EZlOVpNzJP+jn8v2VrRbqxNd1d+c7c/bkKUoR8hgOdgjyYAiQv94kPfQFPcXEyO5yMf
+	eFuQlfuuLSuaxDZectZxz5c04R1k1poRsewL/oL1h0h+Dff9SIc7n4jygvmj7TKv
+X-Received: by 2002:a05:6000:2389:b0:491:8462:20cc with SMTP id ffacd0b85a97d-49830d8186fmr7425f8f.37.1794242745831;
+        Mon, 09 Nov 2026 08:45:45 -0800 (PST)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597187162sm11283249f8f.34.2026.11.09.08.45.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:45:40 -0800 (PST)
-Message-ID: <37560f54-ee44-48a2-aa33-5229a4087ccf@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 22:15:33 +0530
+        Mon, 09 Nov 2026 08:45:45 -0800 (PST)
+Message-ID: <b5abb55f-202d-458b-ba6d-92af16f80137@suse.com>
+Date: Mon, 9 Nov 2026 17:45:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,103 +93,173 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] soc: qcom: geni-se: Define the QSPI firmware protocol
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
- <20261106-qspi_upstream_series-v1-4-21f43042dd60@oss.qualcomm.com>
- <8015c245-5bdf-4088-bdce-7e81b3fa440e@oss.qualcomm.com>
+Subject: Re: [PATCH v5 04/11] modpost: emit module descriptors as assembly
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+ linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+ <20261104-build-speedup-v5-4-0f6018be8dae@kernel.org>
 Content-Language: en-US
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-In-Reply-To: <8015c245-5bdf-4088-bdce-7e81b3fa440e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20261104-build-speedup-v5-4-0f6018be8dae@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: eA2L7zeF2_1CReMAGs0XQvoGo8BYhslP
-X-Proofpoint-GUID: eA2L7zeF2_1CReMAGs0XQvoGo8BYhslP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX7tW94GF5lur1
- B2oqCwZF9iQES7BPU8fgBU3kgIs+dmGEkAmijnQl2H4OIUOyDM2Y2wBxVWs3Q32OU7WWrnlDg1F
- uGJtTrjHnlYBmufQF20PjJypiVh5Ycg=
-X-Authority-Analysis: v=2.4 cv=bar+w+PB c=1 sm=1 tr=0 ts=6af1f8b7 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=rh678R6S33b4aGV2lqlmMA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=rLV7qYPEkEEFJh5gh6kA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX5Ii03Ksp09Gv
- KmpMjN4Vo3jz1J1eypWv8aeG/sFYa8xlghHlswMWSREh6sE/LbkC4LM2np5/ynXVYekGj1e8FES
- oesW0hQ87WPZ3UCR9MaSeQT0Yui3hRSeVTc3AXx4XXBnVFmSGxSmjdCMtjLmCvUsUyw8hfSH65L
- 2tNUUVCBGv+YS9MzzQ/m0hdhorsCnZT7HZsh6HZMPwTcxkXc2bmwDsDGhn6UkL8/UewZiKd9BH+
- TKhYv/aSILzKAUmXRZDJv39Wc+5z8i1YZaPcmWFYZ5b5b+lR1gg2DNbCd7X52itiwA55lYDwjrL
- dEJn0WtN+koX4YKGyc8p+UdC59MNuLCc+ddxIxliOHlZCyvnRX14HohZxmB4OVzAjOYYhfrkNer
- Gacs0vEOpNGaCWRkfftzyHaVioLzxSl9GmlUS4piDJl9V0fp58wUsw6CFqsDvI9OcVKCR/e3Dm0
- 20d2TVi9+G47gRN7oiQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0
- spamscore=0 clxscore=1015 bulkscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090066
 
-
-
-On 11/9/2026 8:17 PM, Konrad Dybcio wrote:
-> On 11/6/26 4:01 PM, Jyothi Kumar Seerapu wrote:
->> Add GENI_SE_QSPI with firmware protocol ID 9. The GENI SPI driver uses
->> this value to request QSPI firmware and validate the protocol running
->> on a serial engine.
->>
->> Extend the firmware loader's protocol-name table to accept QSPI.
->> Reject unused protocol IDs in the sparse table before looking up
->> firmware.
->>
->> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
->> ---
->>   drivers/soc/qcom/qcom-geni-se.c  | 7 +++++--
->>   include/linux/soc/qcom/geni-se.h | 1 +
->>   2 files changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
->> index 873bfbd6b2b7..396f3d81d292 100644
->> --- a/drivers/soc/qcom/qcom-geni-se.c
->> +++ b/drivers/soc/qcom/qcom-geni-se.c
->> @@ -122,7 +122,10 @@ struct geni_se_desc {
->>   static const char * const icc_path_names[] = {"qup-core", "qup-config",
->>   						"qup-memory"};
->>   
->> -static const char * const protocol_name[] = { "None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE" };
->> +static const char * const protocol_name[] = {
->> +	"None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE",
->> +	[GENI_SE_QSPI] = "QSPI",
->> +};
+On 11/4/26 7:20 PM, Lorenzo Stoakes (ARM) wrote:
+> modpost generates a descriptor for every module in the form of a
+> <module>.mod.c file with .modinfo strings, the __this_module descriptor,
+> exported symbol tables and (with CONFIG_MODVERSIONS set), the CRC of
+> imported symbols.
 > 
-> Please use designated initializers for all values here
-Hi Konrad,
+> These files are compiled like any other kernel C file with all of the
+> -include preamble, as well as including linux/module.h, header dependencies
+> generated by fixdep of a few hundred headers, an objtool run and if LTO is
+> being performed, a link is performed to generate native code.
+> 
+> On an x86-64 allmodconfig build 11,189 *.mod.c files are built, each
+> taking ~0.24s of CPU time to compile, and module finalisation as a whole
+> 6,300 CPU seconds, or 64 seconds of wall time when run over 128 threads.
+> 
+> It also generates ~1.3 GiB of *.mod.o.cmd files that every subsequent build
+> has to read back.
+> 
+> Avoid all this by emitting the descriptors as assembly instead.
+> 
+> The layout required (size and alignment of struct module, struct
+> modversion_info, the module's name offsets, init, and exit fields and
+> whether the architecture uses PREL32 ksymtab references) can all be derived
+> from scripts/mod/module-offsets.h.
+> 
+> The fields of __this_module are emitted in offset order rather than
+> declaration order, as CONFIG_RANDSTRUCT shuffles struct module so the name,
+> init and exit fields can land anywhere.
+> 
+> An assembly file avoids all of the issues previously mentioned so this
+> conversion results in a very significant performance win on kernel build.
+> 
+> As a consequence of this change, since module-offsets.c includes
+> linux/module.h, scripts/mod is now built after the generated headers in
+> prepare0, rather than before.
+> 
+> Also update .gitignore and make clean to handle .mod.S files, but keep
+> .mod.c files there to ensure that users do not end up with untracked
+> changes/dirty trees after the change takes effect.
+> 
+> The sections were confirmed to be byte-for-byte identical to the C version
+> produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
+> __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
+> __version_ext_crcs, __version_ext_names and their relocations - for all
+> 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
+> and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
+> CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
+> 
+> What differs is what the compiler added around them: the __UNIQUE_ID_*
+> locals, the KASAN constructor for the .mod.c globals, and on x86 a
+> .note.gnu.property that the linker already drops from any module containing
+> an assembly file and the loader never reads.
+> 
+> None of these have any impact on the build, however.
+> 
+> The assembly carries no debug information, so in order to keep describing
+> __this_module in each module's debug information, define it weakly in
+> module-common.c too, in a section which the module link discards.
+> 
+> Nothing initialises struct module::arch from C any more, so
+> MODULE_ARCH_INIT is removed from include/linux/module.h and from m68k, the
+> only architecture that defined it.
+> 
+> x86_64 kernels built with gcc and clang, with CONFIG_MODVERSIONS,
+> CONFIG_EXTENDED_MODVERSIONS and CONFIG_MODULE_SRCVERSION_ALL, were booted,
+> every module and an external one loaded and unloaded, and the srcversions
+> checked against modinfo, i386 and arm64 defconfigs (gcc and clang) and a
+> ThinLTO build were also built as part of testing.
+> 
+> An x86_64 CONFIG_RANDSTRUCT_FULL build with clang, which places the name
+> field after init and exit, was checked the same way and produces the same
+> .gnu.linkonce.this_module sections and relocations as the C version.
+> 
+> On the x86_64 allmodconfig with clang 22, "make modules" with every
+> *.mod.o and *.ko deleted goes from 64.5s (6,306 CPU-s) to 28.5s (518
+> CPU-s).
+> 
+> A consequence of this change is that the make jobs are now so small that
+> make cannot dispatch them quick enough, however the next commit in the
+> series addresses this issue.
+> 
+> This impacts clean and no-op builds with a large number of modules most
+> noticeably.
+> 
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+> 
+>                                          before   after     delta
+>                                          -------------------------------
+>   x86 allmodconfig, no-op make, gcc        12.7s     2.3s    -10.4s (-82%)
+>   x86 allmodconfig, no-op make, clang      13.9s     2.8s    -11.2s (-80%)
+>   x86 allmodconfig, clean, gcc            342.6s   306.6s    -36.0s (-11%)
+>   x86 allmodconfig, clean, clang          340.1s   290.2s    -49.8s (-15%)
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Agreed. I will use designated initializers for all entries as mentioned 
-below in v2.
+Looks ok to me from a modules perspective.
 
-static const char * const protocol_name[] = {
-	[GENI_SE_NONE] = "None",
-	[GENI_SE_SPI] = "SPI",
-	[GENI_SE_UART] = "UART",
-	[GENI_SE_I2C] = "I2C",
-	[GENI_SE_I3C] = "I3C",
-	[GENI_SE_SPI_SLAVE] = "SPI SLAVE",
-	[GENI_SE_QSPI] = "QSPI",
-};
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 
+> +/* The equivalent of KSYMTAB_FUNC()/KSYMTAB_DATA() and SYMBOL_FLAGS(). */
+> +static void add_asm_ksymtab(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	const char *name = sym->name;
+> +
+> +	/* The name and namespace strings the entry refers to. */
+> +	buf_printf(buf, "\t.section \"__ksymtab_strings\",\"aMS\",%%progbits,1\n");
+> +	buf_printf(buf, "__kstrtab_%s:\n", name);
+> +	buf_asciz(buf, name);
+> +	buf_printf(buf, "__kstrtabns_%s:\n", name);
+> +	buf_asciz(buf, sym->namespace);
+> +	buf_printf(buf, "\t.previous\n");
+> +
+> +	buf_printf(buf, "\t.section \"___ksymtab+%s\", \"a\"\n", name);
+> +	buf_printf(buf, "\t.balign %d\n", KSYM_ALIGN);
+> +	buf_printf(buf, "__ksymtab_%s:\n", name);
+> +	add_asm_ksym_ref(buf, sym->is_func ? MOD_FUNC_PREFIX : "", name);
+> +	add_asm_ksym_ref(buf, "__kstrtab_", name);
+> +	add_asm_ksym_ref(buf, "__kstrtabns_", name);
+> +	buf_printf(buf, "\t.previous\n");
+> +
+> +	buf_printf(buf, "\t.section \"___kflagstab+%s\", \"a\"\n", name);
+> +	buf_printf(buf, "__flags_%s:\n", name);
+> +	buf_printf(buf, "\t.byte 0x%02x\n", get_symbol_flags(sym));
+> +	buf_printf(buf, "\t.previous\n");
+> +}
+> +
+> +/* The equivalent of SYMBOL_CRC(). */
+> +static void add_asm_crc(struct buffer *buf, const struct symbol *sym)
+> +{
+> +	buf_printf(buf, "\t.section \"___kcrctab+%s\",\"a\"\n", sym->name);
+> +	buf_printf(buf, "\t.balign 4\n");
+> +	buf_printf(buf, "__crc_%s:\n", sym->name);
+> +	buf_printf(buf, "\t.long 0x%08x\n", sym->crc);
+> +	buf_printf(buf, "\t.previous\n");
+
+Nit: add_asm_ksymtab() and add_asm_crc() emit unnecessarily .previous
+directives.
+
+-- 
 Thanks,
-JyothiKumar>
-> Konrad
-
+Petr
