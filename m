@@ -1,73 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232567;
-	b=qKqfZpBPvF8FRwKeVEFre0xzmip0vDyjiHmTlbRH4zBzkwzJ7LeMugXUcidbQazoJtYl
-	 O7qHW+dPjjzpJKrHjSEeGja1Hy1+mVuARDq9OFvRCyt9vXDqW9IXqmm+zWIFUvp0YbJ6H
-	 VSaNyGWso8ies91YHtkTjtabYKpPv54Ly5mHw9j8eh8cY06tfuxYzsscMcoTEtpwDQoIS
-	 sE4PZzkScpnktwXSaKmSW8qbIbuUEtjrbsOGH2JbOJe/IX0akcu2sC6LafVsrzybSt2zV
-	 RQ/oeY2LN/CDiSGtpDIDzH7d7d0aQXI57sSeo0JMmID87ozjetMebddjl1FoDNCak+Q==
+	t=1794232572;
+	b=wEKIjm2z3x8E0o7OL/a/H49Kse6X/uP0t9kChFc8qLpjI2SVVEyonNnrAMnqRh7LxSUs
+	 RrgIs5AlMahYvZU00bY9oJTdFUBWaMreActCkKhQsmYng+YMY1C2a+SygeHLDIuS6SYvH
+	 xYNLVfskBeWsYDdRwXOkPMoGzBDQs+JrqklAU2ikcfkA7qfCcVrMh2kYGCfDAbmAkPIp6
+	 Nr18Ccn1eq3AdypVbSudJCE0vDDJFfKR3HhsmLNeNmo3kLfVVnfaUlUVhddwELnOIuHaV
+	 RpMf5o3ZIosmz32o6FW3MDYcpOi20rX99A5S2WvcXcCXiDnND7PgiVFJ/RZWlsQcFlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232567;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=B6WcZ6IMkcLgiSPsNKkvOLd/yuLh+SF0+P0jadmaCpk=;
-	b=Iz2vokCHDAlonwXVsDZ4sqwHSbctGl33jtY0A1l9RrYUrWUpjfWhDTs842nZaMJ/G9D8
-	 KVIv9q4e+v8m2pZx8q6tjeF+v2f7om4kzA2p9GM1yG2nHkKOpPwmQv4lEwF3kt0hg+pfI
-	 MGbwCk7YxunogkXeFvpmx5+Fp2FDfaDqiLW7vYipMLVuFJpLDEetWgcGnhjLYQjtjwVsQ
-	 iNMnADW3AhH8cGkRWhZjXC29/NSoEfmWDYeTTm/QqlfFd+L0UhHiB+pAMYNKq87K2oCpj
-	 oRKDk8ug4JunkL1wf60fdG5lHIXjtUyKSn4koRgMIDID3QIvIQ2hZapv34HumKMRWOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232572;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RHv3gURbuO2W+jg43SVbmYLuoiZHrEg+KszD86+zH04=;
+	b=i0R088PgmWr5TjUH1QRXs1FpkcUdV3KW+HBRosTPIFYTBcBibw9f+UJ1V43aRWewitu3
+	 byd22ZBQqbGVZTQz3kp1T0Xe+D6ZqMdZc5KCcCD+j78j/fRTMNg6tRij7dAwgvP0L8w98
+	 /P2ox+rhESMaSs7fjxE8oELeihMxFZUTzC8VN8MJyk0gpkicXngzO4dgKTpJKQ5QgEEWC
+	 wva9Dxe4Tfx2Xi88sgxUJvGEsH+AKwz0V3mGeHNw5nb8/u+/7yRDhsvzOfMoCrcn+r7FZ
+	 1i7exHOecr2aXzVUGpsQzhgwMrfQg3a7ueX4JKy6ZSVFy5VvSIlisH4tw0fiKDsdz6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=e3QgGhPW;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OsIuLNLN;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3996A606A31C;
-	Mon,  9 Nov 2026 13:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3996A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E492606D80A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:56:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E492606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=e3QgGhPW
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=B6WcZ6IMkcLgiSPsNKkvOLd/yuLh+SF0+P0jadmaCpk=; b=e3QgGhPW8XV8DfJb8YQ/4HEgoJ
-	U4IFQYEzqPjouU8aHCMblUV2i+NnRybd8VYi95AKn0ZAqQZy116TWV+YcYLFymNYOYrbi4kdmC5t9
-	NWde+S9aG3YsniqLmJ8M48KmW/GKAvyns5AubTUA7pQ7SYM26svNc0+wn5sRmkER3n+8GgUNubK4j
-	8OnJ+He0SZ5QZot4NKpBpXKKqv9hAq4s/sJTCflv/l9p14krxiIK02vRYPTGHpRBrnh+Bwu/ePDUc
-	hM5Nu7F4r7XyKJILxOU4n47tgmQ9kxtvsuzteQYSX96TrKixzJFIBCOXS1bdrEncV7csV2hIWOa0A
-	oRDLGHNw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQPqk-00000006niR-3sTy;
-	Mon, 09 Nov 2026 13:55:55 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2394E30057E; Mon, 09 Nov 2026 14:55:53 +0100 (CET)
-Date: Mon, 9 Nov 2026 14:55:53 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, mingo@redhat.com,
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
-	sched-ext@lists.linux.dev, qyousef@layalina.io,
-	christian.loehle@arm.com, pierre.gondois@arm.com,
-	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
-Subject: Re: [PATCH 06/20 v3] sched/eevdf: Add min slice check when selecting
- CPU
-Message-ID: <20261109135553.GC2668564@noisy.programming.kicks-ass.net>
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-7-vincent.guittot@linaro.org>
- <au7SabL5pfbsApyB@scheduler.schedules>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OsIuLNLN
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1931ff67a29so2300099c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:56:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794232570; x=1794837370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RHv3gURbuO2W+jg43SVbmYLuoiZHrEg+KszD86+zH04=;
+        b=OsIuLNLNaww9tz5lJyUoPqpk4Lc1G/AO1Wqv/1Y+S+O5X8VY5Hrj8OCu6Xl/019yjh
+         q1ND+5fT6g12NhRlt4hgOfcQvOm8LCBvM5RdvhVR6bGEON/7Jq1w+rJOWvX66fA7bWw3
+         P18uG38RC9qZLBWCF4acC6fg38y7t0EX/krt0ukaLRD5xhY8DPXeNvO7Z8TptWXII2ou
+         qMSMOoZuolmIU/jr1IHWlM6HM2qxT+9ckq/3LrVXdfrmhaAoFoiKzX5f59CIEifQW5tX
+         30dd6b2pkA/t0E6sZhckaDNCYhicdvyQXipUM0TkrLCq5eV10DQWqeh/7zPz2+zbmjD5
+         1sOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794232570; x=1794837370;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RHv3gURbuO2W+jg43SVbmYLuoiZHrEg+KszD86+zH04=;
+        b=M5+Q1gwOo1tp2f98xcbbAvURI4to5hxkkIavP2BhN0Bc00r0xbn/ZpZfwubkfNTvtd
+         ybQkoMcHVOa3m60n9RTvsak3Ie/Txvn3uS4wm3q/wZ1oPBA/meYlwtAH8HONn7SuUWZT
+         fKXvA6OuYLmaK07Au7eWDyqvlJKZb+u6OuBX+LLHpC1EAXabrdSEYnXp8S5SscFZD8kB
+         oo4eTSQlWP8uhh2BryU3aNMcqq/9ECyCVEIHRa9ekXOIN9MpuYYQUKCyRz/uuZZEKEZc
+         +cEM99PpHaZC3xA6C6KIM40IkmC2CcO5nCWBok3D37s5Z1CcwCuBDyBjpyCAUyajTcBM
+         8c0Q==
+X-Forwarded-Encrypted: i=1; AL+hErFnK/CoUZZJjqakPOG414tacztSyii8hXuupOef9vCMLHaw0QEiFGcoON55AdyCOhUrCExeRxoxYhDmGkc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FkcFjfKnvW6fRdL6+GH104rXklmhhFT4SkfOpcy/UJV5BcN9p
+	2CAT35Pvn7TbObyCzRvE257AwZC+JTRxYLA0np3JocOf5E47xzPaf1sI
+X-Gm-Gg: AYBFou32Stq/uk0aN8cEsq//ezyzPZN9jgMuJmtn4fIEQ1RxD46RncuzVa3ZR9WeGTI
+	ZZ+pMJBzeYoLw8jzVNIsa90CpApDtdiSTRKO9bTuPPWo5XtfMC056QbYzTKCQ0c2SUVtQ0gT5bs
+	toSuPhCYuTwTjAzeUlBe2b7udplp65S6uqWZrDl0Socs07y7TBZWXHkeem0ZIdrsv9vE4z7hVu4
+	8qwxS22wHNN2nXuw/r7hz45UhTqeXAPpjTqkC+tnC034Zr8KlTf8sz+x8P19rLmtPvC1IxUdb1b
+	HI6iEacOGrMDFBu6CdQm1+CESrW8IshtiacH2YGodJSFd0FVxfmgYRNp66honRG7jB2joGJ3PAk
+	tYh5eYbuO6DvqBLQKXKpIUdlDpZxmY3/TmaLOSFZV3skIBwujS9l81lKSsA4ysVuP8u+oWL5LrY
+	ENJujT931NdHLcGCGB+n+OaFUaaPrOpGb+1a4B2lWLCTT87K4Pkpl3A/zqyW8CWOKvOnzPAv6O2
+	Sz1+BqX3BZDSssCTDiDmqLnqvfNToCJOHKLWitMUYacfHeVhzF6g7KSR6IVt8veHDRi4UPt2bbA
+	BG85CDUCWC4cOC+gnheKwcw+DSKhzT5tgqVH1iPb3cq6SZ+Q4Q==
+X-Received: by 2002:a05:7301:f10:b0:36e:a11a:b2f1 with SMTP id 5a478bee46e88-372573cd51dmr7024741eec.30.1794232570369;
+        Mon, 09 Nov 2026 05:56:10 -0800 (PST)
+Received: from localhost.localdomain ([103.170.54.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372669d48bdsm21677471eec.28.2026.11.09.05.56.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:56:09 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: kbusch@kernel.org,
+	hare@kernel.org,
+	hare@suse.de,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH] nvmet: reject invalid write-protect feature values
+Date: Mon,  9 Nov 2026 13:55:36 +0000
+Message-ID: <20261109135536.2772-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,38 +100,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au7SabL5pfbsApyB@scheduler.schedules>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 11:57:12AM +0300, Kayra Cizmeci wrote:
+The Set Features handler for namespace write protection currently
+accepts unsupported values. The default case in the write-protect
+switch leaves the status unchanged, causing the command to return
+success even though no valid setting was applied.
 
-> (My editor got crazy, so I had to copy this diff :<)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 262626455497..8b0dd858f332 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -8876,10 +8876,8 @@ static inline int sched_balance_find_dst_cpu(struct sched_domain *sd, struct tas
->  
->  static inline bool choose_sched_slice_rq(struct rq *rq, struct task_struct *p)
->  {
-> -	if (p->se.slice < get_rq_min_slice(rq))
-> -		return true;
-> -
-> -	return false;
-> +	return p->se.slice < get_rq_min_slice(rq) &&
-> +		READ_ONCE(rq->curr)->sched_class == &fair_sched_class;
->  }
+Return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR for unsupported
+values. This also prevents issuing a namespace-change notification
+for an invalid request.
 
-that wants to be rcu_dereference_all() or somesuch, rather than
-READ_ONCE().
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/nvme/target/admin-cmd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The think I noticed is that it will only select one slice_cpu; it will
-not consider another once its has found one.
-
-This means it picks the oldest option, rather than the most recent one.
-And given this is all racy as heck, the most recent one might in fact be
-the better choice. It will have had less time to go stale.
-
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index f12d83098644..ee8be237485e 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -1223,6 +1223,7 @@ static u16 nvmet_set_feat_write_protect(struct nvmet_req *req)
+ 		status = 0;
+ 		break;
+ 	default:
++		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		break;
+ 	}
+ 
+-- 
+2.55.0
 
