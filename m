@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249997;
-	b=S7P9Uxc4Qp2o+Bq64yjXlGh169WMIpt8Pdg5PzQN53qNJdEEha1IiJt6nBMxcY/O+Chs
-	 ltkN5wvchH4FCR1H0wscfpQdcRWBJS2FaFLrGKlZNU+ikKQQA6QDapVhNH9b/bN3Nrwdv
-	 7CcRSX1rTmQvp4ZmrUW7Q8ITOh4x8isRNX8Ibk3VsQxCLzB8rwzZxnC+6qlsK5ohR3ISu
-	 rlXqmranyRHE6Qh4rOp7sWrs6j0bSROwGx8hE1g8x2XM/IhdMB4n3/Ci/DEMPDD/8IAIT
-	 j1FhjGs0q3tseI4Qgimpa+FcSIgAZZaxI0jpRqdejb8rm5xT3rdcUCaq/IWAY/s8IrA==
+	t=1794250024;
+	b=KVq8Ovs2+B39bSEso2vepgeYyrW9qzNdUBQoriko+2eTYQs80t/jyt0Pf2syPaKED3hI
+	 I1oQZ5+XzXfsYuinVvcfXvoEt6cV9T+AkFmBD9bLVyPvqXs0jNFpIGnklo0qQdNex/kLH
+	 ANK52Z8jvP9Qsi9omW+DgnuP48x73oELwqYlVa+6S4QTEOmNPLFZMfTjCa/D1llOWNm0J
+	 ShGXaAxNHl3TVzuZBqYaYv/N1It7tV+jqyEGPqFV/I89tTKeDTNqeFYd6jYpZiLhdgZo9
+	 O/k8BLHKDZQ0F73lD/10e0w7OxQcZcrjCYL8ZmqTLr1xh65oQ8qcCPCua+gLXxppslw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249997;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ruyz/2K4wlVY4cyIFsxKJQ+uv+8W7GCsg6g5SZEw66U=;
-	b=ViM17cQVDaS0UPO0PBh5zvx5qMJXMxj/E0Me1uPSt4/Y9sE5bFcC31lHJZpIQ2EKbRbF
-	 DwrND+nIgrIkvJH7//9RhpPftdREbIl6POA0LQoNZ3p1aRFplh8JBTm2ogq0ZdaiaB0kR
-	 fASQkeQqRsqWnCQyehfW8vufAwjfEdkjoYbzjQPciD3eifWfOcI5mlAIMfEnNzSy1EcmL
-	 mQ7yDj9PMWgxKQ7MDt3MQ5aSkLQSIDep2IdsK64tl5lrHR9/krVhRt0FmxdHwinsYhFcL
-	 M4Dr95IBe8EG4raOsuo1ZEpHhrP7+yOa4QbEgpLXZZ1NvCJp7oKZqCIAvKvyuxp/x/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794250024;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rCrvw5LpzEZ9/PFYR2h5t7QUY2o6lTYln5faL5j979s=;
+	b=kF7+7JTnNvDhuNK9F7go9XX5OMSN2eq3P+8KVFciS9mvVXGQ46MN8fjX+0u0wqun98rI
+	 z1Hum/LUo9O0DZtRR4f14xUyWnKdWx3D00tdXPLAFwRjwaTm9upbtzXi7CI40vZPjlyxz
+	 di5YBgll0C+TxCyxXpz5nbD2Njl8b8EIQzc4G6nrptUaNxtykwFdxsmmT4rhPZar58KKi
+	 3CCczVboImwHagkShK3DD0kk0U4JL7zz6Nxl4Y2NLcp64ETybCM8aexMt+dEeJ/Wbi/jX
+	 TD93YaIrnJc/VAfmqC+EvvzVSu0/B3mKwcEr5Qwl2q0hd8D5VRomCK2XhZA0Rz1egFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hallyn.com;
-	spf=pass smtp.mailfrom=hallyn.com;
-	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=R9+SjjOM;
-	arc=none smtp.remote-ip=178.63.66.53
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD90Y4LG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1C5606A325;
-	Mon,  9 Nov 2026 18:46:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD1C5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683B0606A325;
+	Mon,  9 Nov 2026 18:47:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=R9+SjjOM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1794249993; bh=6kVwTzI1/KcDLMSc20Gf48sZcIqocBBJVzv0nSohHRs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=R9+SjjOMzRhZ05/CIvcJT2p8lmE7XRQKOFIX21zFe9O5hD12H4H1DPMPqDz6CGn/d
-	 +EN7gyBWrcbWHdu58Xgors8T+iHxqYvDpaZLBwZMTV4nKMlOE0JPbIUhUGoav+LpIJ
-	 4cWNeeCAhiLPpXPydpgjO9eowbgGlBdMYCxUUO6GJrf0QUOcyCqBPqWWw3U9/FvmCh
-	 +VJHBAoRWzpOeVcQzbvtlOA/rXPpFxHBCRh1S/bXcX1SbMjIl1MfaCK+LR8WIOMGO5
-	 I5/3Ksz0FyorAPpSh5U4f171zLiOwSWYne3a2fHuMlXz0y1gnhPhbfQErGurC/IGJP
-	 AbMtvKAc199jA==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 8DAE69CE; Mon,  9 Nov 2026 12:46:33 -0600 (CST)
-Date: Mon, 9 Nov 2026 12:46:33 -0600
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: kees@kernel.org, akpm@linux-foundation.org, david@kernel.org,
-	Jinjie Ruan <ruanjinjie@huawei.com>, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, mingo@redhat.com,
-	peterz@infradead.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, paul@paul-moore.com,
-	jmorris@namei.org, shuah@kernel.org, brauner@kernel.org,
-	alexjlzheng@tencent.com, jannh@google.com, jaime.saguillo@gmail.com,
-	elver@google.com, blbllhy@gmail.com, bvanassche@acm.org,
-	pjw@kernel.org, broonie@kernel.org, debug@rivosinc.com,
-	tglx@kernel.org, aleksey.oladko@virtuozzo.com,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, morgan@kernel.org
-Subject: Re: [RFC PATCH v2 2/3] security: Add PR_CAPBSET_DROP_MASK for
- process-wide bounding-set drops
-Message-ID: <avIVCf1ok6Xyfii0@hallyn.com>
-References: <20260929130200.1638343-1-ruanjinjie@huawei.com>
- <20260929130200.1638343-3-ruanjinjie@huawei.com>
- <atjN3JX7sWx9kpQ5@hallyn.com>
- <avHfm5/mVtuN/oPW@hallyn.com>
- <avIKUzCKAkfC-wuk@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD90Y4LG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F521F0089F;
+	Mon,  9 Nov 2026 18:47:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794250024;
+	bh=rCrvw5LpzEZ9/PFYR2h5t7QUY2o6lTYln5faL5j979s=;
+	h=From:To:Cc:Subject:Date;
+	b=bD90Y4LGJaHi9ULBCK00n1aUuQocG2nZYY9yaZdBh5RUnvHrYk5UxOySj83Gj+EqP
+	 jU7hVKoMwey+loTmFox3qUaVB+oZu9m+H/FMktV7IGoCNC83wez96Jp/5j8T7UxGLK
+	 gLqUArTfXgSiczLBvmmIbHIEvYhTP7YsEP9kM8ikQaKma367R0IFcvwpXeDP1rQw8B
+	 y89WwlafNLkK0d7gOQUX3NBJshJ9eFTZFuHzRw34vNpEctZrNDbzjJWzyda8Rh70A7
+	 OZUxN7Xh9aJ3Y+xxx6q24M+dLL1T9R+c7MeDG48DTBYpUQEatRlyoa9j5yNFqIUzKq
+	 X+TBXuqBebS9Q==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Lee Jones <lee@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: mfd: max77620: Add gpio-hog nodes
+Date: Mon,  9 Nov 2026 12:46:53 -0600
+Message-ID: <20261109184654.462128-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,24 +60,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avIKUzCKAkfC-wuk@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 07:00:51PM +0100, Oleg Nesterov wrote:
-> On 11/09, Serge E. Hallyn wrote:
-> >
-> > Hi Oleg,
-> >
-> > please see below.  Do you have any issues with this use of sighand?
-> 
-> Hi Serge,
-> 
-> I already tried to look at this patch, but sorry, can't really comment.
-> 
-> I'll try to take another look, but can't promise much, I don't understand
-> the problem space (I could never reallly understand capabilites in details).
+Some Maxim max77620 users define gpio-hog nodes, so add support for them in
+the schema.
 
-Thanks.  I'm mainly wondering about the storing of this pending capability
-bounding mask in signal_struct, whether that might have any unexpected
-side effects.
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/mfd/maxim,max77620.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml b/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml
+index ac063c2bab73..99014b792a74 100644
+--- a/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml
++++ b/Documentation/devicetree/bindings/mfd/maxim,max77620.yaml
+@@ -165,6 +165,13 @@ properties:
+   regulators:
+     $ref: /schemas/regulator/maxim,max77620-regulator.yaml
+ 
++patternProperties:
++  "^(.+-hog(-[0-9]+)?)$":
++    type: object
++
++    required:
++      - gpio-hog
++
+ allOf:
+   - if:
+       properties:
+-- 
+2.53.0
+
