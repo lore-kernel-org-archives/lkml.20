@@ -1,105 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794254189;
-	b=Z0dUxq7zx6u3hUaCtu5OnOI/HGjP2q9syjcQHjvz14KS1bvkD/SW6hCT4VEEfDYbkeAS
-	 yEPxm3OGiGnuF+JRLWm8//AUNBxsGMploGz++A2qYMMCQHMKMg9FKikAaJV9uOdlnpJGV
-	 r7jyF3GEiDT2YNDUhOeSNzbQWS1BzC9VIuBUNHjlfv3D4pcAqpUbbOKsgpJjR2gYEMZIf
-	 NvZd7dviNTqvUS9lGisMw8Q/3xND7lCuwcqMbdrDzm8S67veopDglxrX5Om1VoPu8xo1m
-	 a4VDTPisOvVh8j4peyTgmvR0B8lhddYAwgA2QCbY0FVl9AblFZan7LKM/LqSXJNCLLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254189;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=UQsWADyvy0RizFTfpkH5RXXR2lFPEQeFdYrL6SMlC7U=;
-	b=0GjKf4WZdsjEdHC/dweunhz1EtczpJLSMF9xi4Vz3ZnSVUSVBfV4bPbm5xrydxwbsSl4
-	 MvVvrQLNEI3hFQHarfS3WUvQK3Yzca1V1YxWOMFTAYfA59hp7+7IH8e1c6TXT7acQymO2
-	 kevJaJJMP2aASmmlt3sSCKFwO2hre4YPiZBaLEgedX+NI6JFc44WyRv9um76Pz2faJq+D
-	 dOrcdiooNvpBAdcrt1rfh1mYJG3QmdgbHDHU4BVDX9RVL1iihZI/1Wn9s63IDPIknzpHW
-	 w8sQkmGjoWFgZeVGP5096KAxKd71FtNc+670g6URmPvQjBQKIluWUc+8W5lW1jWpIKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WSBziwoS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794254187;
+	b=agLzdBHKLvdbK3OfJmHOP93KE5pAseFBl5cjTR/AkoUGPfU7wAwAy39cpbXEW15FE1Cr
+	 pKSb4kGZxvsAXaKQaOA9mbvxAv5Ul3rhUMSsk34SqZHcNb+xSTyCRSVEOqUPSJciWRBlR
+	 Ys3WfZnXzS12yXF8cpqRfTJohWgkEYUatGbsQhujxqg7jHyoBRqczvrjDMgBIwUATLXVD
+	 ktu7NCOV8GZDGIb+cDZLPWPJqLp8LpXpfDMvSci/f50PdoMG845p6WpWLw2VsgrJt4a7a
+	 PZGEmM6TR9IDisbwREzY8GONDwBnrxLuVqYHGhZvBxOiWhazlMobcMFMjcpX03Z2tjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254187;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ZQMhPWgPRNJ2b8c4pHjYuK7vfz0bI1SC6YhKwaZw9mM=;
+	b=sSADM2+00VdWcblQA1UcKnGoMl3wx3I9mpCmRCUfcvlr43LfvOEEhdf5q/URKQLQ65am
+	 ALHtJXsZ7Hqx+FHDKXVYxlDJwUYiuwJPwvF3a/iGHvFBO2eSyU/9tSraRivNKOuYDC7Mf
+	 O9BI1clazP9BGOp+TRXPl6FA0TBpKqNeYW1Avye7WWkJh8H/CvTC+HR26juMAGWjaFlzk
+	 KXH8d3YGi28W/vJAW2Cy5ldQH0ULoPo1bFkdZPSNx4zu0KgdOOgbKLbXPQT27fiIYew2V
+	 5Ew6kzIWhojrQVIiasfxGM687DfQ7SGTP63QPEUTMpLy5tGgcqrqkBO9bb5pTX+e4wQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISiAJyPj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7960D606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7960D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18451606A337;
+	Mon,  9 Nov 2026 19:56:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WSBziwoS
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91eb3fea2a9so12080146d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:56:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794254188; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LTGs0G9zEw0Y+0Ila+t08rQ3NwC6E283bin0vU3+B0GFLMwLyrXiJi9ldfd2tPcINS
-         iwhrTENO36s+ksEi8sTDO0kUTY0LZDlp2Fo0Y9mt8HF0GEso9eIozFCzSq5F3qgbgQ8P
-         G1hMV0+fWB5KK++2hvN8jt0GDSLYjkBnwAPJQR4NVeXkHJ7tZbq0HcvRHsnUKkHcBJyf
-         3pUkZOWB5sjm38tNkCgbExa6IYKk8DYsdyM50bfO5KU42rZACsP7CeDzRt0yyojI7rWf
-         bDxA/qfQOdw3rismEzWtPh837oHaNVS2+5MYPQpEpBhvB4lbydfTil1h0oViKEMqq/6Y
-         rLtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=UQsWADyvy0RizFTfpkH5RXXR2lFPEQeFdYrL6SMlC7U=;
-        fh=yhwzTgiMegdjKmlHGOq+BvePOEuJPxhFE/4Y4/VOsDg=;
-        b=El95hSUIGlI0JXDps9WI+/l2TRWbnQKIgcwiEKxVreMiEhjzDDK/KXBzYc0uiaRTDt
-         7zSDu4LdiTPhiG8eRDjUfZRr0NW+cY+xo1vKMtxhY365GAcQRaDNjLxIVpka9Lpa2wYl
-         g07qQZseNQkBILOVNr+Cl+RHmOlsGJHA24RkLVkO+nu3adorfPAYPaAqDkPU4vSjunLf
-         t3UGPlAiN1rl9RqquTJ+WGUHgHwe+wsfcch7iMawXXRJ/VhyfMjmc4/kOEzRy8z2ff36
-         NCXMmuajIgSQjVxeZiGWH10iwXgtFAWTku+hy9yTSGJbmQ8+NqtcXkCGGn+MUJeT80oo
-         Ad5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794254188; x=1794858988; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UQsWADyvy0RizFTfpkH5RXXR2lFPEQeFdYrL6SMlC7U=;
-        b=WSBziwoS8flyI5lQi9ahqDcBfOHtzvGVIpeip6fPNlY+Ge2i9VvGHvTk0SjAmMj6WY
-         oy8dx9L6dC+9n99kVoiMoAcQJkha2qzfsdf6GmScQeX4Zt6VC4fMOxh+SuUz/Oovgi4T
-         gPTNsc+sseOYkbHCKfQXFAl8Z/EBKmED1IBwpfFZeIhlON5MJwgCVmw0V5UkQ00ZKlR8
-         xiiuDkZs+tv2LGVT+Fo9hBVASg8xUxoubEQcuuHQRwBD+UZ7YCtWrtU7vh77QHMZz3bo
-         U8OowvQTEodhREy5dxVZh7swpTiUFcsF83upkmLtzweXaVRT2ZKpTzmLNh09nL4tt/2s
-         2PsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794254188; x=1794858988;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UQsWADyvy0RizFTfpkH5RXXR2lFPEQeFdYrL6SMlC7U=;
-        b=cZmemOo9Xd2MH4j7h4EvxoVDDVjj5IbluAtAvTH2wDxDh+Tc9s0X04hkzvq45YxSXG
-         GL7pQsVWqXsKuW2I9ozW6/Kcnduauy77bgmVBUXG1Vm5UhI8b0w1T0yURE17234v2t+6
-         z3tfNRvco7U20zFpLuz+NfsPw2GtfiqsLEF2GwR4vNy8TRbhnI8OpzmFGhCLavl5mmIC
-         WkBDyKKelHb4Q4P8E/rSyi480UReAz2+V8my3w7wp/5L/OwDyoUO4apGivJyXbJMIkzS
-         mSqoV+IH0dx1B5r9S60peYQrTDsi3CLZKbS3cE3qb/Yu1RFkTas5KlNuqE5NH+0oomek
-         Couw==
-X-Forwarded-Encrypted: i=1; AL+hErHE2H8mN/YESRmUFxzY4z76ZpS8pS2UyUzzNrsE+8mZ6p8yjcDFEoGdZ0YH5wfsYmfPXeP1TFLuSgxnDf0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sIZxtshHHi8iQhU2It2KFqZSD7bhQMObNoZDhkP/frPEOVoyU
-	ACE5DcuKKgNrbl9zAWocZ9zV6poFX0W3pHHC6y2h+lcMjQLIid8Rn6Gkxc3RDdnTiiQKGpImArb
-	+4UfBTln1QJjD12zN5j+xFrjmOpMGINzkSkU11HnQ
-X-Gm-Gg: AYBFou1OzN+Zoy6R/+E4fWfHyqwfeGJlvIPwPOupVKC+uSpP5ZjJGySGJk+o8VtdUKe
-	guC+8ksqZ8trxKuCpgD3rzjy8IZTKIfnF+5GzJ5zlOpEroJwYL+4g+OcvWOo7f//UrgZU3XmfMW
-	d4dF5plQGCqvoSIkYyNbjJPe4pCHGsrCruRK/083xDorLXybbUfGLFAHxidHTrK2aiz2p5N8qug
-	2f7lmdGZhXmm7zJa66NJZvwNoySX/sVIFK5npK7/bDOV0zAbjey0c2/HA2Z7krdqPYcel6ta6KU
-	u9MyFe73Npg4N0ItKjfEKyKmsVxVYLZsXBkJRlPtlU3JmOrXGd6DqFJsbPOCXkrQTPsfDRnuCB3
-	wDus8GuSF9scHOcWo8tdHywQgT4YcihJHGbPzv0xfckqIHAuv6jUBiOMghd7E2Kww1Fv3/npyeI
-	lCcUFEP4dIOXamAN2J+XdDWo8r1V/40T7iuoiy+hH048xo
-X-Received: by 2002:a05:6214:1d21:b0:91e:9664:4e2b with SMTP id
- 6a1803df08f44-91eef7a3c83mr11733606d6.7.1794254187357; Mon, 09 Nov 2026
- 11:56:27 -0800 (PST)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 9 Nov 2026 11:56:26 -0800
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261105-tdx-selftests-v16-11-2024e8fa517a@google.com>
-References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com> <20261105-tdx-selftests-v16-11-2024e8fa517a@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISiAJyPj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F1A1F0089F;
+	Mon,  9 Nov 2026 19:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794254186;
+	bh=ZQMhPWgPRNJ2b8c4pHjYuK7vfz0bI1SC6YhKwaZw9mM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ISiAJyPjpsTLsUqAdYl0WjdGnYm99YHzViFfWB1CJoPaP40u+LjMh+SpbPo5efv1V
+	 6gbV1drOUtpjcNx4VwEnHBtmR0cBlID5JD3aN+rG5/5ty9BfWuUwODXvex5gQJ9zNU
+	 Rt/FPiLxNp9HPzXvgbxDkS4r+6/S4/FtbmlhFto1gWJEx+wz8hkGC3K2AynWKFP9K9
+	 Un5w0hqbv2d8qOVFx1ZjPg/S9PH1YjRmLw2Eel/p58Nia9UOG8DRnXj2qzbS5ZceXL
+	 3Wgh483cqiiwAD3i4RF552ZkpMAEFCzyquuW9GmD6qo55ckXpLGqQRzMTBl6WpGTRJ
+	 beBBVBsAuCO6g==
+From: Jiri Olsa <jolsa@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH 05/13] kprobes: Add an iterator for address ranges
+Date: Mon,  9 Nov 2026 20:56:20 +0100
+Message-ID: <20261109195620.1091012-1-jolsa@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109194916.1089703-1-jolsa@kernel.org>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,51 +71,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 9 Nov 2026 11:56:26 -0800
-X-Gm-Features: AclHuK-1WjXMX68h1oPEz4A9GDozdAxxlHkeQ9giBYSNuXqnEZTuJ6BoJAHDbqQ
-Message-ID: <CAEvNRgFTor8fZzRRMMv5cXvxu7NCiKEOpbh77HSHGEdRRbt9EA@mail.gmail.com>
-Subject: Re: [PATCH v16 11/20] KVM: selftests: Require guest_memfd for TDX VMs
-To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Lisa Wang <wyihan@google.com> writes:
+Add an iterator that walks registered probes in address order within
+a specified range. Use the kprobe rbtree to find the first probe at
+or after the start address, then advance through the tree.
 
-> Force guest_memfd for TDX VMs.
->
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> ---
->  tools/testing/selftests/kvm/lib/kvm_util.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
-> index d42e201eba76..b73a7bfe8531 100644
-> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
-> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
-> @@ -494,7 +494,7 @@ void kvm_set_files_rlimit(u32 nr_vcpus)
->  static bool is_guest_memfd_required(struct vm_shape shape)
->  {
->  #ifdef __x86_64__
-> -	return shape.type == KVM_X86_SNP_VM;
-> +	return shape.type == KVM_X86_SNP_VM || shape.type == KVM_X86_TDX_VM;
->  #else
->  	return false;
->  #endif
->
-> --
-> 2.56.0.455.g6c5a503b38-goog
+Require kprobe_mutex to be held while iterating and provide a
+for_each_kprobe() helper.
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+---
+ include/linux/kprobes.h | 13 +++++++++++++
+ kernel/kprobes.c        | 42 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
+index 6f16cc01a16c..bdba893cc0b2 100644
+--- a/include/linux/kprobes.h
++++ b/include/linux/kprobes.h
+@@ -95,6 +95,11 @@ struct kprobe {
+ 	u32 flags;
+ };
+ 
++struct kprobe_iter {
++	struct kprobe *next;
++	unsigned long end;
++};
++
+ /* Kprobe status flags */
+ #define KPROBE_FLAG_GONE	1 /* breakpoint has already gone */
+ #define KPROBE_FLAG_DISABLED	2 /* probe is temporarily disabled */
+@@ -386,6 +391,14 @@ static inline void kprobe_ftrace_kill(void) {}
+ /* Get the kprobe at this addr (if any) - called with preemption disabled */
+ struct kprobe *get_kprobe(void *addr);
+ 
++struct kprobe *kprobe_iter_start(struct kprobe_iter *iter,
++				 unsigned long start, unsigned long end);
++struct kprobe *kprobe_iter_next(struct kprobe_iter *iter);
++
++#define for_each_kprobe(iter, p, start, end)			\
++	for ((p) = kprobe_iter_start(&(iter), (start), (end));	\
++	     (p); (p) = kprobe_iter_next(&(iter)))
++
+ /* kprobe_running() will just return the current_kprobe on this CPU */
+ static inline struct kprobe *kprobe_running(void)
+ {
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 6be1430a4ebe..bbd51e0fab7e 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -435,6 +435,48 @@ static void kprobe_tree_replace(struct kprobe *old, struct kprobe *new)
+ 	RB_CLEAR_NODE(&old->rb_node);
+ }
+ 
++struct kprobe *kprobe_iter_start(struct kprobe_iter *iter, unsigned long start,
++				 unsigned long end)
++{
++	struct rb_node *node = kprobe_tree.rb_node;
++	struct kprobe *kp, *next = NULL;
++
++	lockdep_assert_held(&kprobe_mutex);
++	iter->next = NULL;
++	iter->end = end;
++	if (start > end)
++		return NULL;
++
++	while (node) {
++		kp = rb_entry(node, struct kprobe, rb_node);
++		if ((unsigned long)kp->addr >= start) {
++			next = kp;
++			node = node->rb_left;
++		} else {
++			node = node->rb_right;
++		}
++	}
++
++	iter->next = next;
++	return kprobe_iter_next(iter);
++}
++
++struct kprobe *kprobe_iter_next(struct kprobe_iter *iter)
++{
++	struct kprobe *kp = iter->next;
++	struct rb_node *node;
++
++	lockdep_assert_held(&kprobe_mutex);
++	if (!kp || (unsigned long)kp->addr > iter->end) {
++		iter->next = NULL;
++		return NULL;
++	}
++
++	node = rb_next(&kp->rb_node);
++	iter->next = node ? rb_entry(node, struct kprobe, rb_node) : NULL;
++	return kp;
++}
++
+ static int aggr_pre_handler(struct kprobe *p, struct pt_regs *regs);
+ 
+ /* Return true if 'p' is an aggregator */
+-- 
+2.43.0
+
