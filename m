@@ -1,89 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187289;
-	b=yJnLknCj+L1aupnO9tC9dDbIIJSeAPdftBXeafesOojba0Wj6TXXnaAk2liSJsUJQa1K
-	 OkH1gsuaUlVsq/iUERRf5LCux91ztUPuz/5DW55UgvzC5NTkTT1JAWxaYjjAArw77RBE3
-	 NFLle+mXRU15uogejG3wZlnhfLt5ZqX/noYA6+hComNo690jrwo+V5+b1MH90A+Tqnm7l
-	 cZER9nI8nLBKqGiTYhGrWXeah3gEfocLPYxxrpEyprtkWGbMArTBWQ8YY4vATtOekBSv9
-	 qpQGhR6hhcBjitOYdGTMkudBdaXn/EfFh7JBzgyhRddH6cVIRJTb9OxIPB/qp0w0ncg==
+	t=1794187281;
+	b=3nH0t18gpwOvdX8zt+BSmlLkNP8FWlIqr3oIclbUFJqJ2ZhpM+NC/O2Cbd74Gc4dR3e+
+	 w0TlsbfazE0YS+U9VQnKYB4IIJ4SMFStLMBWd0qrwycqp6KIhFnUSSEaR9ZRHFjKVt+h5
+	 ceT33yiWIKQZjgzuvKxFP/pgmeg4v+QINCQfpmEeaM2FlZQVg87229+0dXvIfSUasNu6O
+	 Et8aOeed/iNMf5Se+YHAMMTqZ8kwAGurk/aB7RgltTLkDVTyqyLIN+rV86ZycocfXQMRI
+	 n4jjsEL3+lgYXqYprIP4VlFoPgLs67WnvKtMx1FfGgaFz7HuTAY8VcFTIjoA6QinqKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187289;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=E7RyVZdQRrFYW33Mv02BmWV0i6lT0Z4tqhtPA/W0mTY=;
-	b=jYw863juCLQmF9LVWh/1wItc2S+sCnp2rEChDrTcCLdMfihzVvgjOb30+yUfPq9OsaE2
-	 RbwB1gKKyt3NHrD6XMN/489cvaDyjm8H9zhOQOjjwoyrT0boo2t4viPW1rP249qxx8NWx
-	 kiicUGwepbgRZGRx6S0aEzYeH1pqAJcH+VE6Eh658xJv2UZxlOPkBF6+LtfARMTCpUFla
-	 o0jrbchGGCYVCERwHh90bDOUgibijeEslL+iOnUXKDw1NtQszSurfU4bYgkx2DgRv8sQi
-	 VLrVHXsBukI6oGzG9V2BGVkxPbpGYp4n9HnwCgiacj6yBn8WNOmlZrzDEZYiE6O0l9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187281;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sifTHNrNa2DBCU4nC4S+i036dPkRsfarMXgVCAWsh+8=;
+	b=UqFYMBD1go2BTAK3wQ8DItk1t273KsMQITTbuqal8wfIwvs7Yd/YY9gGRUNL2x/tgpUi
+	 dk2wx1rtbcGUemutxcrPM8tWOpDlFqm/o4rFFtiuFhOU5xZdT8G5fBRKQnYhbxIt9scAu
+	 4ix9sf0YO3mY3Ax5t2dsFAIHJO49Xmopoz308aTy70a1DPQI25UGmmCzbn+P68pvWVn3Z
+	 UQjFNH7ZSCy+b6ZEuJuOXnN8uIwidKj38NrCp/U3PV3zjX5t6yEbLsrEfFxv624itG++K
+	 l94oopzOErt+1i1YnDev+i12OZqM188sv7QLKFfC/R5fB5c9iPWhH72IkoslRVCJZEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=eRTdCHqg;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=networkplumber.org;
+	spf=pass smtp.mailfrom=networkplumber.org;
+	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=q14AXqh9;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE1E606EE91;
-	Mon,  9 Nov 2026 01:21:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DE1E606EE91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C09C606D81F
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:21:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C09C606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=eRTdCHqg
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=E7RyVZdQRrFYW33Mv02BmWV0i6lT0Z4tqhtPA/W0mTY=; b=eRTdCHqga3teHg35lgOR34b6cn
-	q5ONSuVeHNVKKRQhXyunsALN4W0snuo3P9WVT2d7Njg81U3m3z4gQXwrbGBsR9lv2Wf8dJpU7S83M
-	mS4itC92IvwcCfkkkL7fNswxRUZUXwYCmS5TPnc/VqyBmamjBnBTKFmZoaHNNQVdUDN4YMI3S+pep
-	mV1q+heYNq36ool1b3tGlQYF4Z2MKkTHnYtDnzZmJtcIbWycSi/Oq5y8mCLzq28umFgdLXjmZdtaX
-	d4FWYiWkFNy/jOjxliGlMuPCKiag2jMn1tEXHwGnH8sP7zJYqSBVodjBlP4DFFubP9x/c34WmO5IP
-	jISvsmkg==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQE4Q-00000006AYF-29HJ;
-	Mon, 09 Nov 2026 01:21:14 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xQE4P-0000000EKV1-0MD2;
-	Mon, 09 Nov 2026 01:21:13 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paul Durrant <paul@xen.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Jack Allister <jalliste@amazon.com>,
-	Dongli Zhang <dongli.zhang@oracle.com>,
-	joe.jin@oracle.com,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v12 15/24] KVM: selftests: Add library helpers for clock and TSC-offset ioctls
-Date: Sun,  8 Nov 2026 17:21:01 -0800
-Message-ID: <20261109012112.3415328-16-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
-References: <20261109012112.3415328-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=q14AXqh9
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdb628232d2so187572a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1794187280; x=1794792080; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sifTHNrNa2DBCU4nC4S+i036dPkRsfarMXgVCAWsh+8=;
+        b=q14AXqh9xNV12Rolio433oMvftZSMOru0V9VbHpTqATO1pla1rbJVbGuCzwKP1rPOJ
+         SXYoTB2Q/P/fJm80nN3G9ii6alzMHnlBRhlSFOkszdL01U2z6XYIZJm0q0IKEJr3PrJy
+         dVkFP9qeEC4FZSDSDMB75jBSixndq8U1ABACqQm1nqPby1MztHB70gJuiWBZy6cNFafD
+         9wVz5insjz3dKRTOgRpKkIb9Ogal11lQWplcAK2HTlWEwjYgl6uG2nBYQduYu0+vNHQe
+         /eIgl+RRGMI1c2H1u/wZMQNrs/f2QBR2CNK84xCTvLENtq1Jv6uAoDtTyduF2BjgWcyf
+         iIPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794187280; x=1794792080;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sifTHNrNa2DBCU4nC4S+i036dPkRsfarMXgVCAWsh+8=;
+        b=1fJ3o9WcWe7TYLdm1qay3KuKHOE0hQVk0UuuhyoDR7WWq9zDHQD6NUA2WfZfmP/R12
+         8aP0sD9dP+CzHr1GJhgci/rvUnGsWdVFxGoFHD2IR8aNf4Kou5m47Y9zgESgGpgXU2PG
+         uv0rZVqG3UCCDy3yew9v0yT4rq0m07MNgCSzC0PsUR0XP/EXoNrVwUtQsjm3TXykFQJq
+         nsnTjYSx+tUT3hV7WauImrbG8/AN7eksui3WaMi8J+kS1I+9OeEINT1QHkN9HD1BI1pW
+         WnnH16QUIEGdws9X0iXOajaXfOsL4nKH40WZRZX2Y/5SY+vlRzDgIrF000mckyWA+liT
+         fJ5g==
+X-Forwarded-Encrypted: i=1; AL+hErHkSYtqr/zbqRFsBWGmtYthvHYsgNEORI3XjPttrCaveFfI0W2vArFBVPRemFUxsLDNgUk6IWacmGXbQ04=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uNGiB5bWjZZtTlUHw9iGriL8trk3Bg6pvzV1fNCCttA3xQJLK
+	G5keaoMNQhoHE6MjF4vt2GJIft4Ak2LLFgDrfI3y9TrF4lWeP2giL3J3+qavaHc59go=
+X-Gm-Gg: AYBFou1xbZ1lhM0eMmDnGZg+vICcEYzBSX1JScqJCv2uMRUV1QFNTtHwjaKBcYaqfSG
+	29IXZiAw649RxhFYiRyDltutJr49qSr2TciN6naZxM2RTDXjbQ6OJ5zKLsXa7o1+UuO5N674a+O
+	Yu2CRG1CilF6eIwc4yAi7BEBbpX4bTg93LSCsJ8xPDkEqAp2kEN/U3KNa9NQoSzmFKzA2hY9XT7
+	k940vAIfMYBmcdITj50LxSMQAjGxpVMCP3LtvJRBCR9LPehF83dC3pX6U2isRVu6B67n0dyr6PW
+	CLO/khFL+PMe2SXbLfPSW9PzrcvKS+H6e5v3zTBK6yeibQ36kK4pCPNJ3bzL1HF1pVqy7yLAf18
+	eZiHsdo1voTsE7VRgBbuNq/yJ958JMxX+20uFoD3kVUdCxlBUO+WWFg1yPa+lSDsNuD9O8f67uq
+	/2dbyKunQuVUkrLf2oostgkhEiWruYbO1W4sBgUQowGuGty5Db9SrbcjWhqdDUrLhmbwLeUQLrw
+	TBpbgNlFVF5KBw4GmXQC277jIYODvfbs0RQghRzUPGCCkFBalxjPRwVeDOkgdPcWKa+0GleqWsy
+	Gy1hLSPAk/k5hS4wEEOIu5p3/0+XbWQ7uZzz4FuZ7ofJpMaNAa9RpMSZMDMrT+die1qCKJHMS/T
+	ofDVgkOGzzxkW7GGD
+X-Received: by 2002:a17:90b:2890:b0:3b0:d0c5:c10e with SMTP id 98e67ed59e1d1-3b12d3cbdf5mr2565235a91.17.1794187280310;
+        Sun, 08 Nov 2026 17:21:20 -0800 (PST)
+Received: from phoenix.lan (204-195-112-43.wavecable.com. [204.195.112.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b103432e26sm4883217a91.3.2026.11.08.17.21.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 17:21:19 -0800 (PST)
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Andrea Parri <parri.andrea@gmail.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Nikolaos Gkarlis <nickgarlis@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH 1/3] rtnetlink: return EMSGSIZE when first dump entry does not fit
+Date: Sun,  8 Nov 2026 17:13:12 -0800
+Message-ID: <20261109012115.11898-2-stephen@networkplumber.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109012115.11898-1-stephen@networkplumber.org>
+References: <20261109012115.11898-1-stephen@networkplumber.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,88 +112,55 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+If a route entry is too large for the dump skb, the dump is silently
+truncated and no error is returned.
 
-Add wrappers for KVM_[GS]ET_CLOCK_GUEST, the KVM_VCPU_TSC_OFFSET device
-attribute and KVM_[GS]ET_CLOCK to the x86 library header, so that the
-KVM clock selftests don't each open-code the same ioctl invocations.
+For handlers with RTNL_FLAG_DUMP_SPLIT_NLM_DONE, rtnl_dumpit() drops
+-EMSGSIZE and returns skb->len. With an empty skb this is 0, so the
+dump ends with NLMSG_DONE and status 0, and the remaining entries are
+lost.
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+The first dump skb is allocated from __netlink_dump_start() while
+max_recvmsg_len is still 0, so it is only NLMSG_GOODSIZE. On a 4K page
+kernel that is under 4000 bytes, and a 500 way multipath route does not
+fit:
+
+  ip link add dummy0 type dummy
+  ip link set dummy0 up
+  ip route add 198.51.100.0/24 table 100 \
+	$(for i in $(seq 500); do echo -n "nexthop dev dummy0 "; done)
+  ip route show table 100
+
+The dump prints nothing and exits 0, although "ip route get
+198.51.100.1 table 100" still shows the route.
+
+Only ignore -EMSGSIZE when the skb has data, so that an entry which
+does not fit in an empty skb reports the error to user space.
+
+Fixes: 5b4b62a169e1 ("rtnetlink: make the "split" NLM_DONE handling generic")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
 ---
- .../selftests/kvm/include/x86/processor.h     | 50 +++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ net/core/rtnetlink.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 5898a277a2e0..4062bdb32716 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -12,6 +12,7 @@
- 
- #include <asm/msr-index.h>
- #include <asm/prctl.h>
-+#include <asm/pvclock-abi.h>
- 
- #include <linux/kvm_para.h>
- #include <linux/stringify.h>
-@@ -1029,6 +1030,55 @@ static inline void vcpu_xcrs_set(struct kvm_vcpu *vcpu, struct kvm_xcrs *xcrs)
- 	vcpu_ioctl(vcpu, KVM_SET_XCRS, xcrs);
- }
- 
-+static inline int __vcpu_get_clock_guest(struct kvm_vcpu *vcpu,
-+					 struct pvclock_vcpu_time_info *pvti)
-+{
-+	return __vcpu_ioctl(vcpu, KVM_GET_CLOCK_GUEST, pvti);
-+}
-+
-+static inline void vcpu_get_clock_guest(struct kvm_vcpu *vcpu,
-+					struct pvclock_vcpu_time_info *pvti)
-+{
-+	vcpu_ioctl(vcpu, KVM_GET_CLOCK_GUEST, pvti);
-+}
-+
-+static inline int __vcpu_set_clock_guest(struct kvm_vcpu *vcpu,
-+					 struct pvclock_vcpu_time_info *pvti)
-+{
-+	return __vcpu_ioctl(vcpu, KVM_SET_CLOCK_GUEST, pvti);
-+}
-+
-+static inline void vcpu_set_clock_guest(struct kvm_vcpu *vcpu,
-+					struct pvclock_vcpu_time_info *pvti)
-+{
-+	vcpu_ioctl(vcpu, KVM_SET_CLOCK_GUEST, pvti);
-+}
-+
-+static inline u64 vcpu_get_tsc_offset(struct kvm_vcpu *vcpu)
-+{
-+	u64 offset;
-+
-+	vcpu_device_attr_get(vcpu, KVM_VCPU_TSC_CTRL, KVM_VCPU_TSC_OFFSET,
-+			     &offset);
-+	return offset;
-+}
-+
-+static inline void vcpu_set_tsc_offset(struct kvm_vcpu *vcpu, u64 offset)
-+{
-+	vcpu_device_attr_set(vcpu, KVM_VCPU_TSC_CTRL, KVM_VCPU_TSC_OFFSET,
-+			     &offset);
-+}
-+
-+static inline void vm_get_clock(struct kvm_vm *vm, struct kvm_clock_data *data)
-+{
-+	vm_ioctl(vm, KVM_GET_CLOCK, data);
-+}
-+
-+static inline void vm_set_clock(struct kvm_vm *vm, struct kvm_clock_data *data)
-+{
-+	vm_ioctl(vm, KVM_SET_CLOCK, data);
-+}
-+
- const struct kvm_cpuid_entry2 *get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
- 					       u32 function, u32 index);
- const struct kvm_cpuid2 *kvm_get_supported_cpuid(void);
+diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
+index e141340172ce..2777796a4ed2 100644
+--- a/net/core/rtnetlink.c
++++ b/net/core/rtnetlink.c
+@@ -7043,7 +7043,10 @@ static int rtnl_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 	 * Some applications which parse netlink manually depend on this.
+ 	 */
+ 	if (cb->flags & RTNL_FLAG_DUMP_SPLIT_NLM_DONE) {
+-		if (err < 0 && err != -EMSGSIZE)
++		/* -EMSGSIZE with nothing in the skb is an error, as returning
++		 * a length of 0 would end the dump as if it was complete.
++		 */
++		if (err < 0 && (err != -EMSGSIZE || !skb->len))
+ 			return err;
+ 		if (!err)
+ 			cb->data = NULL;
 -- 
-2.43.0
+2.53.0
 
