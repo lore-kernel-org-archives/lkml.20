@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794186712;
-	b=I16RgHXgrSpkNI/qfYDSyU3tR4CuAMzysquFD3tO8p0lateWPdIlcM1hM8X/DXpskovO
-	 l7cDTri3gQtP9COUZF64mvajlqweoVWVU37djqCp8vKM6QrAqBe4sqAXit7kojM9cWe1U
-	 M4GYJ/3lXF65+bWcrkRSVMaFnP2x/KXjmT8d6DD4D5russQT6a3qs2c0M6NHmktZ5Olqx
-	 O5B6nT3UWWST9Akno7vwcrBBDFcqu8Awg5w7kO4Ageba0/u0MP8xrfie/UIrnyn6vBl25
-	 e6ZyedU9do5ArZqfvvvpLOW/MsEgvpZfwEFt2tVbupJzwLjn0d7cL1vBd2kOrymL5XA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794186712;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=9P3WGVRobvf0VOQno0zPnA6gg2epfGNkklCx41pVOco=;
-	b=oGdosESy5TEA5hxe0n8i9TSF6ooLzvqv/8jBrLKX+KB6ftMHrq2MO17g7rJTdC1gADzq
-	 tn4+Xv2kw+hg9D3aD3uziZjwwIwi54ZI+xMohBFKkQpH6DIqx56o2EHH2PU+8OTqiGwOd
-	 kYRcCOdw/QuPyc17ur2x4Z2m6I5uhsyN1rf3771AEgmZCywFgDnKLbD0HN5i2gcYmmz3l
-	 vvbKOrncTpaFGFMZbV4DonR9qls156lutFbS0ooEBvAquk/7MTkG+BS1oFI0ZCd7bo3KC
-	 KRPcwkajyKxlIPI4XUnwFBNoCafJihRyi+/j6ZI5lbtKLUQ7Q5KOZfvrMJTo4riUC1g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA64B606A320;
-	Mon,  9 Nov 2026 01:11:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA64B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8BxbdLLHfFqbqodAA--.21758S3;
-	Mon, 09 Nov 2026 09:11:39 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAx1czHHfFqdxMzAA--.10573S2;
-	Mon, 09 Nov 2026 09:11:35 +0800 (CST)
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org,
- acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org,
- lixianglai@loongson.cn, loongarch@lists.linux.dev,
- maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-References: <20260922121058.972734-2-maobibo@loongson.cn>
- <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
- <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn>
- <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
- <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn>
- <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
- <843a9418-2017-c2c6-45c5-38628e7e0bdb@loongson.cn>
- <CAAhV-H4O07hKyPJ8rTMo=vD=t+qFM7UAJOPDGZDVJ0Ti-gOdEQ@mail.gmail.com>
- <e04352c2-f4ce-d415-72d4-21e03b828843@loongson.cn>
- <CAAhV-H7phy=T1MMNpSnZdjjiQXH41S7jnFcgfZd_4b5aqffB6g@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <c2694499-c1fa-5365-6572-3688ee6b34aa@loongson.cn>
-Date: Mon, 9 Nov 2026 09:12:51 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794186790;
+	b=ng/ec8gRSlc3r25asjw9gFLgcasN/+uxLTYL8vDcTFCbliTCfFz5cw2yhvP9jViKX3bs
+	 VDLnqKeLLnLTskyTnYW9aW7L0NWmV1QojZEI2AUNBnsJs48OTMyiy/ram2awLGpz6AtHX
+	 mZuNsW9oHk/7PPAfpLzofiyjjr5RkVXB4au9jpXZZGhMgzUQa1ksN5xW9/ytEmpqLr+r5
+	 8js+P+8K/hnkIRQy4ihn3qRjSbC6bmtukBtj5ewXTfxZO+shoRJoznbCTpa2ohUllKBVR
+	 qdFYTB+fPIuT3uQYlM9AC8I1KPLqiG8xybz5g9FfTY+34os7tVKyLShwNuVIjwc9rLA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794186790;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=M4WCF4P9vPVA9cU7Tv+J0UseXV6GQroxb3gEfse06vk=;
+	b=xIIsR00dErj6KLm2nocDVHUucb5XUMUHISkuYKfRR2PbmSWgVkRlee9/SBrRq2RCW8yq
+	 KxxsipUzV+MKeXAP8ELnnmjDsPbe/WIu46rWeWJNR8953IpbAc/GsjYfiJ7XPwJdA8Gz8
+	 HLIDPly699TygV7KRqiUQepA+ztzYwTwkmbSnIPKU651aC7h6ODYSDXdCUxOYul1oDLMN
+	 DQEOrhhYarsSDJTGwA9WWyvSg0gJdxxGR4g2swNBeoB8jm85kDiqaVDnNAJXwPC8kAIBa
+	 RqNmCQv9ZTAjQkxxpgewypL1dkRQnD3MZp7LuRxWJPeIiEVanO5v4TJbdCfUActi4mQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jpvTyjk/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1388606A31C;
+	Mon,  9 Nov 2026 01:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jpvTyjk/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794186789;
+	b=HqkDk+o/mRP/jzqyr8a0kQjiVo2O0bzD3K+K297/YODfcHJ5FQMKWHDOZqpdiRaihCrH
+	 tRCX8JFAQKJxkujgV5UhOeCN4uDBShEHPxLrzv/5DHgiguJr1GEioElfqKSKh3fA2L2DN
+	 tDJf5cTcpYajht/2GJzNS0OQsIPjTU1KqxbpiX5mFOo7sVfD+BLKAQkW4NtpoIntXojFo
+	 UEtMAjHS+tcBWAZmBtC4mDo8GAowqJa99Fwp4Ld30JTzMGnQTR6x9HM+9yBN7nyXhgniN
+	 4OycmrkjfBoEGxJXUDP+4ZcCuppJxgpjTl4pnMMw9p2Ewf3ARVgEd02CxFgmkbCoBhw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794186789;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=M4WCF4P9vPVA9cU7Tv+J0UseXV6GQroxb3gEfse06vk=;
+	b=VQo3GHlgP35LXmM7hBUfgV70W2wEUyNH0MnGolCflW0hlwFnQypfLh9uDHaymwYlOSjF
+	 86Rcr+rfRLDat7/4TZ5eWJMvrQKqWI1jJVK3adaPtH1ohwTC657hHto8hHJmk5gajCyOU
+	 58wnCeAYT6KogkXeWp0o/1pvQ6vfEpf8HG56iS3SxyBJgzM9JMl/IV9qS4C1pFj0+Zp5a
+	 Q+iTaHOGHF+xGo8CVT4xbglaIf3wW1tIKwpopn2zulJCzWl+DlcaEPLbOkeMn74ptPKR5
+	 4qr35BH4AbBWiz7SHa44Tx5KRo8lJcCE7lNwmWcjeOCZBHonA1vPlsiTV79cDntWTKw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9D2A21F0089F;
+	Mon,  9 Nov 2026 01:13:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794186789;
+	bh=M4WCF4P9vPVA9cU7Tv+J0UseXV6GQroxb3gEfse06vk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=jpvTyjk/fb0I/liZiqB24WRLZW+AxBb1dpFfOqONpXGH+X2CdbOKBf0xtWf9c0aGz
+	 b2K84UT6bzyNB/ktSdNBIKpWpPNyQbz6iqYut730z+C4jLvdRhx7Qi6Kzi9HEqys8q
+	 GrLfFAXOYqStJD3owU6ZPLTLy/906+fHnFffpux3Za1T8RCZwwkTQMKbvvchD+JA3p
+	 IPkhPGeOWCng9JJw57TzSCUMJ5kiw5hTWRA/V9qmR1bvr/zDZTXQc82ZctC4D//WHw
+	 b785I1BBopf5RLI6i+/b5OQYS0mZp5INxPRcE8s6uOUmh4xPXoViy1x0RM5HQQXV8Q
+	 FvyW7af9dezPg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E5336481E7;
+	Mon,  9 Nov 2026 01:13:07 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Date: Mon, 09 Nov 2026 02:12:47 +0100
+Subject: [PATCH] phy: rockchip: naneng-combphy: fix RK3588 SATA pipe_con1
+ register offset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,355 +83,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H7phy=T1MMNpSnZdjjiQXH41S7jnFcgfZd_4b5aqffB6g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx1czHHfFqdxMzAA--.10573S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Cw15KrWfZF1kJr1xZw48KrX_yoWDuFyxpF
-	4UJFW5tFWUJr47Kr10qw1DCr1Yyr18KryxWr15KryUGrnrKr1rJF4UJFyYkF95A34DGF1x
-	tF1UtrW7WF1UArgCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27wAqx4
-	xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v2
-	6r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1cAE67
-	vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7_MaUUUU
-	U
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-rk3588-combphy-sata2-6g-v1-1-e9135c91de6a@pardini.net>
+X-B4-Tracking: v=1; b=H4sIAA4e8WoC/yXMQQ6CMBBA0auQWTtJO7WEeBXjoq0jDEYgHTQQw
+ t2tsnyL/zdQzsIKl2qDzB9RGYcCe6ogdWFoGeVeDGSotobOmJ/ONw2m8RWnbkUNcyCsWzQuRme
+ st94TlHrK/JDlf77eDus79pzm3w72/QseLD3mewAAAA==
+X-Change-ID: 20261024-rk3588-combphy-sata2-6g-03bb30151552
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Andrew Powers-Holmes <aholmes@omnom.net>, 
+ Lucas Tanure <lucas.tanure@collabora.com>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Yifeng Zhao <yifeng.zhao@rock-chips.com>, 
+ Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3342;
+ i=ricardo@pardini.net; h=from:subject:message-id;
+ bh=jlST7yEBtCPASzfQnAPw8q1ZkwqNOjqfjEA41xMvY/o=;
+ b=owEBbQGS/pANAwAKATteP+Oex+3pAcsmYgBq8R4jm7OV4UEZAdR8JkXG5eZsGJPwj1sBnGC/K
+ PdtxEN5/k2JATMEAAEKAB0WIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCavEeIwAKCRA7Xj/jnsft
+ 6WQWCACpnX6vXbIOFFGIjGte8vXc9/ErH0o2XWlf2nqbLvgp3rSw6bTjqbhrhX2OuywVjojnqh/
+ 6khuk8OfiBwqUFDKqwYmRTGWr4BoABoM87ivNn5mXU8R6p1EugVNX5uNqfvYHzXGp1kRDtZWEcG
+ DHJ2gacTWr5D86YdFw3279g8y+yn1/hXblWc/9e8TR36+3deh/cODH5k8diskaURtUdcMgCseDP
+ j4W0w21u2FWlsKGALXGoTfaHR/H0NgGohEW+dYv59PxHSvnCqUOXy/Fso9MjgvVaF/tfwXWeO2k
+ dPzwqX2nK64jpCTrxJDlRrSJJ+FOFvHLR3KobzP7R+bVxTuv
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
+Content-Transfer-Encoding: 7bit
 
+From: Ricardo Pardini <ricardo@pardini.net>
 
+On RK3588, the sata2 PHY speed is selected by sata2_phy_spdmode in
+PHP_GRF_PHP_CON1[1:0] (offset 0x0004), with sata2_phy_rx_err in bit 2.
+rk3588_combphy_grfcfgs has pipe_con1_for_sata at offset 0x0000 though,
+so the value 0x2 (6.0 Gb/s, rx_err cleared) ends up in PHP_GRF_PHP_CON0
+and CON1 is never written.
 
-On 2026/11/7 下午8:25, Huacai Chen wrote:
-> On Sat, Nov 7, 2026 at 9:43 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->>
->>
->> On 2026/11/6 下午10:58, Huacai Chen wrote:
->>> On Thu, Nov 5, 2026 at 7:22 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>
->>>>
->>>>
->>>> On 2026/11/5 下午6:31, Huacai Chen wrote:
->>>>> On Thu, Nov 5, 2026 at 5:49 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 2026/11/5 下午5:31, Huacai Chen wrote:
->>>>>>> On Thu, Nov 5, 2026 at 5:14 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>>
->>>>>>>> On 2026/10/23 下午3:59, Huacai Chen wrote:
->>>>>>>>> Bibo,
->>>>>>>>>
->>>>>>>>> Now I have applied this series but with some modifications, please
->>>>>>>>> double check and test the code.
->>>>>>>>>
->>>>>>>>> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git/log/?h=loongarch-next
->>>>>>>> In my v4 submit, it is:
->>>>>>>> +               case ACPI_IOVT_DEVICE_ENTRY_START:
->>>>>>>> +                       is_start = true;
->>>>>>>> +                       start_devid = ep->device_id;
->>>>>>>> +                       break;
->>>>>>>> however in rc1, it is modified as:
->>>>>>>>                      case ACPI_IOVT_DEVICE_ENTRY_START:
->>>>>>>>                              is_start = true;
->>>>>>>>                              entry->start_devid = ep->device_id;
->>>>>>>>                              break;
->>>>>>>> Here entry is not allocated and NULL pointer, it is allocated in
->>>>>>>> ACPI_IOVT_DEVICE_ENTRY_END switch case.
->>>>>>>>
->>>>>>>> I really do not know what is aid to modify it and let others to test.
->>>>>>> Sorry, it's my fault.
->>>>>>>
->>>>>>> In theory I should point out the modification (eliminating the local
->>>>>>> variable start_devid) and refresh a new version. But we have no time
->>>>>>> to do this because when the first patch is merged into the ACPI repo
->>>>>>> it is near the merge window.
->>>>>> Maybe our work style is different, I do not care much for the coding style.
->>>>>>>
->>>>>>> If you agree, I will submit such modifications to fix it.
->>>>>> fix is welcome.
->>>>>>>
->>>>>>> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
->>>>>>> index 87cee4f0fc80..4cdac28a1fd0 100644
->>>>>>> --- a/drivers/acpi/loongarch/iovt.c
->>>>>>> +++ b/drivers/acpi/loongarch/iovt.c
->>>>>>> @@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
->>>>>>> acpi_iovt_iommu *iommu)
->>>>>>>             for (i = 0; i < iommu->device_entry_num; i++) {
->>>>>>>                     switch (ep->type) {
->>>>>>>                     case ACPI_IOVT_DEVICE_ENTRY_START:
->>>>>>> +                       entry = kzalloc_obj(struct iovt_device_entry,
->>>>>>> GFP_ATOMIC);
->>>>>> There will be memory leak problem if there are START/START/END in the table.
->>>>> That means a broken table? I think we don't need to consider broken
->>>>> tables, because there may be kinds of broken pattern rather than just
->>>>> a START/START/END.
->>>> yes, START/END/START, START/START/END, START/SINGLE/END. what is the
->>>> relationship between "don't need to consider" and kinds of broken pattern?
->>>>
->>>> what is the policy from your side with such BIOS table? let memory leak
->>>> and continue?
->>> The driver can only work with a good table or no table, but not with a
->>> broken table.
->> With a broken table, software can discard the whole table, or discard
->> the single table entry.
-> Discard a single entry is dangerous because the pairing may be wrong,
-> so if we should handle a broken table, we should discard the whole
-> table.
-> 
-> Discarding the whole table need a rework, the is_start variable is not
-> enough. You can consider the below solution:
-Discarding the whole table is reasonable for me.
-> 
-> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
-> index 87cee4f0fc80..8381de278e3a 100644
-> --- a/drivers/acpi/loongarch/iovt.c
-> +++ b/drivers/acpi/loongarch/iovt.c
-> @@ -73,10 +73,44 @@ static int __init iovt_get_pci_iommu_fwnode(struct
-> iovt_fwnode *np, u16 segment,
->          return 0;
->   }
-> 
-> +static int __init iovt_validate_entries(struct acpi_iovt_iommu *iommu)
-> +{
-> +       int i, done = 1;
-> +       struct acpi_iovt_device_entry *ep;
-> +
-> +       ep = ACPI_ADD_PTR(struct acpi_iovt_device_entry, iommu,
-> iommu->device_entry_offset);
-> +       for (i = 0; i < iommu->device_entry_num; i++) {
-> +               switch (ep->type) {
-> +               case ACPI_IOVT_DEVICE_ENTRY_START:
-> +                       if (!done)
-> +                               return -EINVAL;
-> +
-> +                       done = 0;
-> +                       break;
-> +               case ACPI_IOVT_DEVICE_ENTRY_END:
-> +                       if (done)
-> +                               return -EINVAL;
-> +
-> +                       done = 1;
-> +                       break;
-> +               case ACPI_IOVT_DEVICE_ENTRY_SINGLE:
-> +                       if (!done)
-> +                               return -EINVAL;
-> +
-> +                       done = 1;
-> +                       break;
-> +               default:
-> +                       return -EINVAL;
-> +               }
-> +               ep = ACPI_ADD_PTR(struct acpi_iovt_device_entry, ep,
-> ep->length);
-> +       }
-> +
-> +       return done ? 0 : -EINVAL;
-> +}
-> +
->   static int __init iovt_add_iommu(struct acpi_iovt_iommu *iommu)
->   {
->          int i, ret;
-> -       bool is_start = false;
->          struct iovt_fwnode *np;
->          struct iovt_device_entry *entry;
->          struct acpi_iovt_device_entry *ep;
-> @@ -110,23 +144,22 @@ static int __init iovt_add_iommu(struct
-> acpi_iovt_iommu *iommu)
->          if (np->flag & ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT)
->                  goto skip;
-> 
-> +       if (iovt_validate_entries(iommu) < 0)
-> +               return -EINVAL;
-> +
-the logic about adding iovt_validate_entries() is OK, here kfree(np); 
-should be added to prevent memory leak.
+This leaves sata2 at its 1.5 Gb/s reset value, so the link only trains
+at 1.5 Gb/s, even with a 6 Gb/s capable disk and no SControl speed
+limit. sata0 and sata1 are not affected: their speed fields are in
+PHP_GRF_PHP_CON0 and are set by pipe_con0_for_sata.
 
-Regards
-Bibo Mao
->          INIT_LIST_HEAD(&np->ep_list);
->          ep = ACPI_ADD_PTR(struct acpi_iovt_device_entry, iommu,
-> iommu->device_entry_offset);
->          for (i = 0; i < iommu->device_entry_num; i++) {
->                  switch (ep->type) {
->                  case ACPI_IOVT_DEVICE_ENTRY_START:
-> -                       is_start = true;
-> -                       entry->start_devid = ep->device_id;
-> -                       break;
-> -               case ACPI_IOVT_DEVICE_ENTRY_END:
-> -                       if (!is_start)
-> -                               break;
-> -
->                          entry = kzalloc_obj(struct iovt_device_entry,
-> GFP_ATOMIC);
->                          if (!entry)
->                                  return -ENOMEM;
-> 
-> -                       is_start = false;
-> +                       entry->start_devid = ep->device_id;
-> +                       break;
-> +               case ACPI_IOVT_DEVICE_ENTRY_END:
-> +                       /* START & END are paired */
->                          entry->end_devid = ep->device_id;
->                          list_add_tail(&entry->list, &np->ep_list);
->                          break;
-> @@ -135,13 +168,12 @@ static int __init iovt_add_iommu(struct
-> acpi_iovt_iommu *iommu)
->                          if (!entry)
->                                  return -ENOMEM;
-> 
-> -                       is_start = false;
->                          entry->start_devid = ep->device_id;
->                          entry->end_devid = ep->device_id;
->                          list_add_tail(&entry->list, &np->ep_list);
->                          break;
->                  default:
-> -                       break;
-> +                       return -EINVAL;
->                  }
->                  ep = ACPI_ADD_PTR(struct acpi_iovt_device_entry, ep,
-> ep->length);
->          }
-> 
->>>
->>> Take START1/START2/END as an example of broken table: in your original
->>> code, the END entry will be pairing with START2. But for a broken
->>> table who can ensure they are the correct pair? If the real correct
->>> pair is START1 and END, then (entry->start_devid, entry->end_devid)
->> there is only one policy, software does not know START1/END is right or
->> START2/END is right.
->>> will be a wrong device range. Such mistakes are much worse than a
->>> memery leak.
->>>
->>> If you want to say "I don't care about correct pairing, memory leak is
->>> bad in any case.", OK, we can do it like this:
->>>
->>> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
->>> index 87cee4f0fc80..ebd11e22c9be 100644
->>> --- a/drivers/acpi/loongarch/iovt.c
->>> +++ b/drivers/acpi/loongarch/iovt.c
->>> @@ -115,6 +115,13 @@ static int __init iovt_add_iommu(struct
->>> acpi_iovt_iommu *iommu)
->>>           for (i = 0; i < iommu->device_entry_num; i++) {
->>>                   switch (ep->type) {
->>>                   case ACPI_IOVT_DEVICE_ENTRY_START:
->>> +                       if (is_start)
->>> +                               break;
->> there is still memory leak with START/SINGLE/END pairs, is_start set
->> with false with ACPI_IOVT_DEVICE_ENTRY_SINGLE case.
->>
->> Regards
->> Bibo Mao
->>> +
->>> +                       entry = kzalloc_obj(struct iovt_device_entry,
->>> GFP_ATOMIC);
->>> +                       if (!entry)
->>> +                               return -ENOMEM;
->>> +
->>>                           is_start = true;
->>>                           entry->start_devid = ep->device_id;
->>>                           break;
->>> @@ -122,10 +129,6 @@ static int __init iovt_add_iommu(struct
->>> acpi_iovt_iommu *iommu)
->>>                           if (!is_start)
->>>                                   break;
->>>
->>> -                       entry = kzalloc_obj(struct iovt_device_entry,
->>> GFP_ATOMIC);
->>> -                       if (!entry)
->>> -                               return -ENOMEM;
->>> -
->>>                           is_start = false;
->>>                           entry->end_devid = ep->device_id;
->>>                           list_add_tail(&entry->list, &np->ep_list);
->>>
->>> Huacai
->>>
->>>>
->>>>>
->>>>> Huacai
->>>>>
->>>>>>
->>>>>> Regards
->>>>>> Bibo Mao
->>>>>>> +                       if (!entry)
->>>>>>> +                               return -ENOMEM;
->>>>>>> +
->>>>>>>                             is_start = true;
->>>>>>>                             entry->start_devid = ep->device_id;
->>>>>>>                             break;
->>>>>>> @@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
->>>>>>> acpi_iovt_iommu *iommu)
->>>>>>>                             if (!is_start)
->>>>>>>                                     break;
->>>>>>>
->>>>>>> -                       entry = kzalloc_obj(struct iovt_device_entry,
->>>>>>> GFP_ATOMIC);
->>>>>>> -                       if (!entry)
->>>>>>> -                               return -ENOMEM;
->>>>>>> -
->>>>>>>                             is_start = false;
->>>>>>>                             entry->end_devid = ep->device_id;
->>>>>>>                             list_add_tail(&entry->list, &np->ep_list);
->>>>>>>
->>>>>>> Huacai
->>>>>>>
->>>>>>>>
->>>>>>>>>
->>>>>>>>> Huacai
->>>>>>>>>
->>>>>>>>> On Mon, Oct 12, 2026 at 3:16 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>>>>>>
->>>>>>>>>> This change is already merged in acpica tree.
->>>>>>>>>>
->>>>>>>>>> slightly ping.
->>>>>>>>>>
->>>>>>>>>> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
->>>>>>>>>>       > According to the IOVT specification, define macros for each bit of the
->>>>>>>>>>       > Flags field in the IOVT IOMMU structure.
->>>>>>>>>>       >
->>>>>>>>>>       > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
->>>>>>>>>>       > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->>>>>>>>>>       > ---
->>>>>>>>>>       >  include/acpi/actbl2.h | 7 +++++++
->>>>>>>>>>       >  1 file changed, 7 insertions(+)
->>>>>>>>>>       >
->>>>>>>>>>       > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
->>>>>>>>>>       > index baef525367b5..76e4a5bc79b4 100644
->>>>>>>>>>       > --- a/include/acpi/actbl2.h
->>>>>>>>>>       > +++ b/include/acpi/actbl2.h
->>>>>>>>>>       > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
->>>>>>>>>>       >       u32 device_entry_offset;
->>>>>>>>>>       >  };
->>>>>>>>>>       >
->>>>>>>>>>       > +/* Masks for Flags field above */
->>>>>>>>>>       > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
->>>>>>>>>>       > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
->>>>>>>>>>       > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
->>>>>>>>>>       > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
->>>>>>>>>>       > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
->>>>>>>>>>       > +
->>>>>>>>>>       >  struct acpi_iovt_device_entry {
->>>>>>>>>>       >       u8 type;
->>>>>>>>>>       >       u8 length;
->>>>>>>>>>       > --
->>>>>>>>>>       > 2.39.3
->>>>>>>>>>       >
->>>>>>>>>>
->>>>>>>>
->>>>>>>>
->>>>>>
->>>>
->>>>
->>
+The register layout is described in the RK3588 TRM V1.0 Part1, section
+6.17 "PHP_GRF Register Description". Rockchip fixed this in their BSP
+kernel in 2022 by moving pipe_con1_for_sata to offset 0x0004.
+
+Tested with an mSATA SSD on sata2 (combphy2_psu). Before:
+
+  ata2: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+  Timing O_DIRECT disk reads: 374 MB in 3.01 seconds = 124.45 MB/sec
+
+After:
+
+  ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+  Timing O_DIRECT disk reads: 1266 MB in 3.00 seconds = 421.78 MB/sec
+
+Fixes: a03c44277253 ("phy: rockchip: Add naneng combo phy support for RK3588")
+Cc: stable@vger.kernel.org
+Link: https://github.com/rockchip-linux/kernel/commit/2f5fe2c0bbd4fa95102aadd60da1100989103aa0
+Cc: Yifeng Zhao <yifeng.zhao@rock-chips.com>
+Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+---
+This fixes the pipe_con1 GRF offset for SATA in the RK3588 combphy
+table, so sata2 links train at 6 Gb/s instead of being stuck at
+1.5 Gb/s.
+
+I found it when an mSATA SSD on sata2 would only link at 1.5 Gb/s,
+and traced it to Rockchip's BSP kernel, which fixed the same offset in
+2022 in a commit titled "config sata2 rate to 6G for rk3588" (linked
+in the patch). The RK3588 TRM V1.0 Part1 (section 6.17) agrees:
+sata2_phy_spdmode is in PHP_GRF_PHP_CON1, while the sata0/sata1 speed
+fields are in PHP_GRF_PHP_CON0 and already set correctly.
+
+The misplaced write lands in PHP_GRF_PHP_CON0[2:0], which are the PCIe
+link reset grant bits, and turns on the one for pcie3x2 whenever a
+combphy is put in SATA mode. I don't know of any effect from that, but
+this patch stops it too.
+
+Only sata2 was tested. U-Boot has the same table and the same problem;
+a fix is being sent there separately.
+---
+ drivers/phy/rockchip/phy-rockchip-naneng-combphy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+index 3102a99128f6..c469222dba8b 100644
+--- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+@@ -1395,7 +1395,7 @@ static const struct rockchip_combphy_grfcfg rk3588_combphy_grfcfgs = {
+ 	.con3_for_sata		= { 0x000c, 15, 0, 0x00, 0x0407 },
+ 	/* pipe-grf */
+ 	.pipe_con0_for_sata	= { 0x0000, 11, 5, 0x00, 0x22 },
+-	.pipe_con1_for_sata	= { 0x0000, 2, 0, 0x00, 0x2 },
++	.pipe_con1_for_sata	= { 0x0004, 2, 0, 0x00, 0x2 },
+ 	.pipe_pcie1l0_sel	= { 0x0100, 0, 0, 0x01, 0x0 },
+ 	.pipe_pcie1l1_sel	= { 0x0100, 1, 1, 0x01, 0x0 },
+ };
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261024-rk3588-combphy-sata2-6g-03bb30151552
+
+Best regards,
+--  
+Ricardo Pardini <ricardo@pardini.net>
+
 
