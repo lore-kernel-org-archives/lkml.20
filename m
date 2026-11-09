@@ -1,88 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242405;
-	b=MAA/1qXGEgWJWgrTwufc3ID9d9xa2UpjsRo5bcmihTz0RcDYkYtvK6/GjwHxMKRdBiGG
-	 nWhbrH32fflIGk5ml808cgv1BY5/9JGYuLmDHLfJvmOZlBxXqDyXZUdUZgqxr+KGeuvvA
-	 T+jgNDvBIlVhCSSX1YVmyXvWq47318d5KjlKOlNp0ecUoummW0y08DqhY6+oSn/1oQP31
-	 kWPm1BSjZWROzrwUJggRUZBjTGmNHTUUB5l3yQj1cOkp32twYNeQCBg1KsObGCj764JuU
-	 rWPKQgddOXFHGsc6AVEBa1fhL8j2+k9R4ImKlGIiPfS9kkZmd+u6zn4wlNDktNwAcwQ==
+	t=1794242529;
+	b=fjBQXvnY61blb4tCtIVtcgsIXZ1SZwz535/dLh6vIrCt88OMdMiu3H6B3IkdyIXivXE1
+	 +nCK4YRY+YT4vRJRPBzsYXWQWjBbpBgYCTL/zVG/K3/M+kFeIW527gI9SVAqbxQ2rA7pL
+	 Jnhwhf3KXmbZEHK3Yo5fn78JnVrgFTfuRT/gLEJqEPiBmWuZCsZdmQGHgjNt2lSQ+lObJ
+	 X2ltSGqHwHSVbZx2hUxjDlppDiuS85wQpO6dstYdx7okIwy6i3YuRkN4SM44XFgEt8X4k
+	 WP12B2Wx6qse2X4iFp9lOOpDocJMP49/tNZOdiGkFfro2yazo6vYN+maas4h+iSgn8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242529;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sx1g5ye6adgoDbOeyAiWR4bH+5HwaMNsR4cQud6nf1o=;
-	b=JFBdIzWgrfRpexhUxMVweAHQDC7FAH1wYKXAA/gjzpuzpm/N3QsJMH1mrHtiCkHz6zl7
-	 grb8eYxqGcKWjx+PdvsZlqNWWI6QAajhUvuycouxQ2D+bhdjCcujef0aIIKgFRncRo9N2
-	 ntzJW7CGa9irXFcjwyH+LkAGd3CnuTBBYw3RS3OnjDeWAFPIgCmHRMAsaY0B1Y5+Uc/f4
-	 bKDzYsftmuzfGPG78Q+HAzhUA/5XNC6mcmCaOiK7VbgMu8A2A6mp9vqYSlv087TuMPwHZ
-	 jmtCr0qvCYLirvdI+HyZaMd+zGXqqYdbGq5umjESeiNehRonv3QNqx6rLelp7bIoGvQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
+	b=E624JGWejkzzlBislGQhTZsIUNligI1/YSgI79Qh4I0TjMvYb2wMwDiz7rLAmSQoNiMq
+	 wnPUndC1R9oEpgW661Vfa18FNDxRURS8SXez2aH0NxScEbfo1VInk7/sKom507MbVIOeW
+	 bsJ21hlicFZ5hrq+zVOurj7UbbhVTj09j80HWS80pVzxPI10UNZdkXXDaGdAtSmiuRIvi
+	 25ts0dL3SjonZT+RC1HZf9FQpkQB7kQCRJYfTpyvCTEg3iYXAg7CGnekQH0Heau0JYmJy
+	 bvu8kvZKSQ8Q1n+q45n+F4MCzPKsDb3MVX/t9nfGcD9fmNOfHR9n3423Ks4rB6BHiUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=yjvPFWmp;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fk/Wy5WQ";
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9960606AAE4
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:40:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9960606AAE4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9F6606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB9F6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=yjvPFWmp
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4919a880834so699634f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:40:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fk/Wy5WQ
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a210470b49so8427375e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:42:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794242403; x=1794847203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sx1g5ye6adgoDbOeyAiWR4bH+5HwaMNsR4cQud6nf1o=;
-        b=yjvPFWmptTmbe4nqP5DJRmin7mC8MYiMqcPkWbj+uvYMzdfX+8c7EmRswX3pmykMQk
-         Y0gR0aFbjkofVwypvzIq4bHs98YQ2wsHURDNqzPE/Gv/noL4Um8h3hGvYaCZdeRaQDwI
-         dk4ilNUE8oYtazNIDGMY5MVAFNhOQ6zU2KMwnefUmIrcfZqWU0pzbRPoSXXJaXzWArWL
-         NzplsK6VNRCv+n+UuKQCmht0WRALAbH6f9nA1Q4xXFtv/9Qjy96lj4kNqShg9SIpBtO2
-         hnlHNSQhIUDzvOnrVq9QzRs6oUHRm4oJGDVGuskwIFoioah8GhY5omww546tAq4DdWBP
-         gxvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242403; x=1794847203;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794242527; x=1794847327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sx1g5ye6adgoDbOeyAiWR4bH+5HwaMNsR4cQud6nf1o=;
-        b=EBu6gNFHBw7Sg+t1S+BcxkgQNiel9Hpn/eeSKSIMUl/qVeObbp/VJ5nTuHFt3O+8xh
-         7dzqoYsRGD7zTtzicUas3ZD/CJKIbv3uVg188GUtqOV0k4rp/vJ2YpX4AYuVBSM/tdbz
-         oAe4uY4/pFzZVhx5M9ZhH4BbkE/6AVffs4vKZTi7qYfoftAiwpgBwryAZfe9dqI5jhqz
-         xdI96gJXLIN9lHd5I0NA87CmqFJ9rgTBxYzdAMlJnRQqS4nSQa1YBe6Nwlvz4Zwzc0lD
-         kIOIvXOT22uVkxvIfuM8ZqVkR9K55wclJkq7ZOyMklHvgJd0roXa9ZkNvoHsRJXbOagZ
-         7Ksg==
-X-Forwarded-Encrypted: i=1; AL+hErFPxlZGgncBCeL2bDL2eJZ/KKnT1haGwd99MgP4n+okxvcjT1xXioYFFqI1I1Qomthc7IAvhrpZlDx5JCQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95aGMC8UvKSqsT2D17iLVyJIVhD2oFfnCStEL4xKvvmWUrvyaf
-	ysNyDWx40Rl2WLmBU243XT7zSYYccuURlerFnPRNu4lLF0Eo4rVa6E2z72rc15mYp4w=
-X-Gm-Gg: AYBFou1CTPspCMUOK569s1iNN/2WHMEYXbfR5YbLMfxZopehD87Wv4E8JCLoZiksXEo
-	LnrrcuvMN68UAIZYo3HdIQXuRMWd+WKKuaZ/eeF+G8aeH2Ob/gMirkBTyPcgVDy4ehqzcldyH/K
-	WagZcgPeoBwJBuyJcaJtpvWacaZ66BpkEa38ayUYj56bJbMlARuL7XBqSEr2nsCcazHnO34UOog
-	lIFquUXu8FyZ6FtJGluZFeJDN/23jz0rz0Rnqf52bCRoXAUsZqnRXk11b7WKzG5zWGh2LyNq1E0
-	ff0/Ft73hvMHZb+fh8u+fTRPVm9AajfDDH9quA8fy50yAM1KfuuTJ0SxprhwC09I6tYF/nywss+
-	mRBhJLHFwpOMVnR74uUM56i+sPrVQLZtb3OsvWP5ewN36jvYW2GFztiBE79ZBRIzQr2eHUlHgJp
-	Y8Wj2pJO4SwWdra5w85rWIDAXQkBjOUctjB4eamjtNB4IthwW6GBjIb4CRs5/FR7356Pjktaoee
-	pHn0nVERvp5hOCvpWT02UE+JBWLzGXbCIReteP1P28Q9YTDu6pqLJPwlG6ZL3oWEGsRsR1SypcQ
-	xhWeDSwaHPB89D9zhw==
-X-Received: by 2002:a05:6000:1848:b0:494:bf39:21a5 with SMTP id ffacd0b85a97d-4982e82bf9emr1102f8f.10.1794242402825;
-        Mon, 09 Nov 2026 08:40:02 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596ea5008sm11062337f8f.26.2026.11.09.08.40.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:40:02 -0800 (PST)
-Message-ID: <f8a2f477-2dc7-45a9-a2f0-f6e279ebf8f1@linaro.org>
-Date: Mon, 9 Nov 2026 16:40:01 +0000
+        bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
+        b=fk/Wy5WQCkWdrah+qLMkXKaos3bTrw3VzUEGV9pSdILWJp2hlmbRjEzGBmV1bKwBJy
+         XxBdw6jsIznlDUqJUlEUo3FwW0YnH7+a3nfRimB4b4WzowxYh803gXzalSJFwzfkMXYl
+         1rzi9QoOuS1UTNcE7mQHA6tESqziqaEBvmpsckEZ4PwtXmuwFS84r2vvpl6M50bORGdq
+         IFlGwM4zwaZmLsM3IvPqQ8nPz5tB1tcfuUQvLinXbWruDJFjdNxmUczmwB0r6DF4Ko1Q
+         Jd13Tq9tesDAqI7DZAR8EXNCbZr0F4/K8Z69mU9CiXtpZoOLHmFPUdwq2RMB+GhZ+B1C
+         SH/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794242527; x=1794847327;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
+        b=kxm4oxjDOG1SzXKJD5QGxCDiUHsKJPScYCwbdOUClE7EPT7gUpLYma1sbA+7HKK3Kd
+         UsUD3V8ZoB/vQtEkpvPbg/vi0avqPoC8lK6KF6IsNzQMKzz0y7QDsBV0HUGWVx8bePk4
+         HdgTa2jHqyCiI3iyJqjYlVQqozbf0ene9Qh80nD7fASw3Xg9ncuxTMxVOxGyQcesLYPt
+         4wtd+ciUxiQ16VQqdYJ/o6krZ72RWWjmu9T9yWQyEb7zlNO4NepZnOrsRZr94BLewqRT
+         rhtfcFS5ACeB1pgF2Y0aITnI5tJqpMtUXjWE5FRVa1HdPywYjv5a486XmZYZWE41bZWR
+         Ak+Q==
+X-Forwarded-Encrypted: i=1; AL+hErEVLQDm02bOEm6TJMIhRIYD979oXGbhHGa1wVrcywgO7Gc8sgzkQvIceINOycqpQ2nyZRXFZDNFYCh65ok=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TqmoqvBF0XT8ufe7gxpQbwOc1AYEnPnCQ6ybug6fMuue3lAkP
+	Iuhf25TU7ka2vEzslnnLoyWHx+MztknePUskIXQVxUdhAEkxb9yejJzExr38EkTiuQ==
+X-Gm-Gg: AYBFou2j5cO/aeP65UFvGtVF+OVQf1RVJ6+ybkamG0SwSCiis48uOGN73ZzIss4iebO
+	wj/PNh8c2g5UHchjWkIJi1OIwu57kmlSsTVNXro9ZHTYl7lA8f5lb2loJD+grjAGg5N0pf6XhTU
+	ebJCN0xklK2qTUipyXZ5xXYQOQrveLrMA5Cf4pFpKJGMWFsKLCB5hCVDlbU+bdmdEP4igguncZu
+	0MZNYCQa29y+jfyDMWunzRJNmG7JoY2JCp4+cOTLJ3KksoObm0gtX/fWNN+2wOriyo+KGEhWmln
+	EbMAnRv5WgH58Ai6p3//Lvt5/rZdxldH/ONWAIXZZ0g0uSHa1xev0mRLzq16Vj6taR13+piBoJd
+	alkzfoEL381edNbFFH9x45QRI7oeC+GbqCqg13+Hc0gYB1/ylXjiFDPfqE1VT7ZT8tu4vN5Wx4G
+	jaV3RzhvXrM7SUyIo6W+Pu82FQlB80eW9lJZYDq21Q+R4MRX8DCv5nt4z3mlWSy3YIkSYOsh62b
+	97Lrqc7vNinfPzXowNBsvxbpoh0uugcTosREmJJ6Z1NkSF9dFmYQdkBJmtl853FsWLyxrFJ/Q7j
+	kQotuI32vy5JxknqKw8ifZuIN5X1981AQcqmg88Z90w45y2YHP6tfgnTmX8Q9Pt8Ojms8oIMpxC
+	2pgF9gNe//CcKriRxYCuWcE3uPzk65/FZnHXy32u36DbI36L909n3lUmFL0MkXCgkH0JO73nYKg
+	==
+X-Received: by 2002:a05:600c:8b24:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4b960d9b66fmr79533325e9.10.1794242527085;
+        Mon, 09 Nov 2026 08:42:07 -0800 (PST)
+Received: from chateau ([194.65.85.67])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597371cc4sm10639482f8f.36.2026.11.09.08.42.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:42:06 -0800 (PST)
+From: Sergey Zagursky <gvozdoder@gmail.com>
+To: Arpith Alexander <arpith99@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Jake Steinman <j@metarealtyinc.ca>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH] media: ivsc: csi: Add sensor node in bound callback
+Date: Mon,  9 Nov 2026 16:41:59 +0000
+Message-ID: <ivsc-csi-tested.20261109163952.eaa256f0cc02@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103200226.100989-1-arpith99@gmail.com>
+References: <20261103200226.100989-1-arpith99@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,86 +109,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/23] coresight: trbe: Clear TRBSR status at stop
- sites
-To: Leo Yan <leo.yan@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
- <20261016-trbe_enable_disable_irq_handle_refactor-v2-9-3f57cf3199b1@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-9-3f57cf3199b1@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Arpith,
 
+Same regression on a Dell XPS 16 9640 (BIOS 1.4.1, OV02C10 behind the
+IVSC, HIMX1092:00 in ACPI). I reported it before finding your patch:
+https://lore.kernel.org/r/20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com/
 
-On 16/10/2026 17:55, Leo Yan wrote:
-> TRBSR_EL1 records the status of the buffer that just stopped. Clearing
-> it in trbe_enable_hw() postpones cleanup until another run starts. If
-> AUX output cannot restart, for example when AUX space is exhausted,
-> that clear never executes. Clear the status in arm_trbe_disable()
-> after disabling TRBE instead.
+I tested the same change (identical apart from the declaration of ret)
+on CachyOS 7.2.8, with modules built from kernel.org v7.2.8 sources:
+- 7.2.8 plus only the HM1092 entry from 4fdb0342f05e: no sub-device
+  node for the OV02C10, libcamera skips the sensor.
+- Same plus this change: the node is created, libcamera and PipeWire
+  find the camera, and "cam -c1 --capture=10" streams at 30 fps.
+- This change without the HM1092 entry, so .complete() runs after the
+  node already exists: still one node for the sensor, streams fine.
+No kernel warnings in any of these.
 
-Why is leaving it set a problem though? That's not mentioned. Maybe 
-there is some later patch that requires it?
+Tested-by: Sergey Zagursky <gvozdoder@gmail.com>
 
-It seems like clearing on enable is cleaner because it only requires one 
-call to clear, but this replaces it with two separate calls without 
-really saying what the benefit of the extra complexity is.
+Sakari, if you pick this up, could you also add
+Closes: https://lore.kernel.org/r/20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com/
 
-> 
-> trbe_handle_overflow() can start the next run without calling
-> arm_trbe_disable(). Clear the stopped buffer's syndrome and status bits
-> while TRBE is disabled, before attempting the AUX restart. This also
-> leaves the status clean when the restart fails.
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-trbe.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index 26e7554d6bdd31f8a55a8bc3a7b6d4c49b984b9b..dd9c9330bb0c739795f300dafc6ce34e72fbf280 100644
-> --- a/drivers/hwtracing/coresight/coresight-trbe.c
-> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -655,7 +655,6 @@ static void trbe_enable_hw(struct trbe_buf *buf)
->   	WARN_ON(buf->trbe_hw_base < buf->trbe_base);
->   	WARN_ON(buf->trbe_write < buf->trbe_hw_base);
->   	WARN_ON(buf->trbe_write >= buf->trbe_limit);
-> -	clr_trbe_status();
->   	set_trbe_base_pointer(buf->trbe_hw_base);
->   	set_trbe_write_pointer(buf->trbe_write);
->   
-> @@ -1069,6 +1068,8 @@ static int arm_trbe_disable(struct coresight_device *csdev)
->   		return -EINVAL;
->   
->   	trbe_drain_and_disable_local(cpudata);
-> +	clr_trbe_status();
-> +
->   	buf->cpudata = NULL;
->   	cpudata->buf = NULL;
->   	cpudata->mode = CS_MODE_DISABLED;
-> @@ -1095,6 +1096,13 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
->   	unsigned long size;
->   	struct etm_event_data *event_data;
->   
-> +	/*
-> +	 * Clear the status. No context synchronization is required here,
-> +	 * since context synchronization will be performed before TRBE is
-> +	 * re-enabled (see trbe_enable_hw()).
-> +	 */
-> +	clr_trbe_status();
-> +
->   	size = trbe_get_trace_size(handle, buf, true);
->   	if (buf->snapshot)
->   		handle->head += size;
-> 
+I used an AI assistant (Claude) to analyse the problem; the tests
+above ran on my machine.
 
+Thanks,
+Sergey
