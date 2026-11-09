@@ -1,93 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794185848;
-	b=y9CloeB6ImrPdoBBbR3isW+TwqbrF5wBqSDtLqxoZIhFRhcxyCyJd8NrcGYSmzeBMFHG
-	 WUyHA3LtmAs+OxlofzoQw8jtHoPd1e9buWT3IOn9qFtnOLE4coF3bGrjWWoxT879na6X/
-	 9QTcLdYi8yQ2OK72U3x9VvO482i6AYhOWOGpZAtSNx3Kj0F0Yu6iyCy3BbGA2+9eCf7m4
-	 HBXTfRrxHP+nzfuuN41ooFFkTOrNHsi/XQSq47wjAXkf0LOyw6gDazUZTNujWuvJFSpk9
-	 gjY4NlYfQccU0aLC5r+NMuJq/3JpwKrFvVBRxkm8cwcfj1cHzKtso0AvFvPF+fmTATQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794185848;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
-	 References:In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=uivMuJZoe2S/0CQvYgZGebbq60EIzw0/WQEXTk9GKmI=;
-	b=huUqayBNjceJsXiMNW/MNxIewjc/CaAIRDd1/+qmFKgfCfJyhh9htohQgSe7ofd8wrRm
-	 HbZjqv/SBTU/DiEBzxD75Pk7RGBopDvAv1f9fr48j0NYcEluXIrShrZ1oaR5P+k3HGalL
-	 l6QHoILQbyKu7n77lRcStmwbilu4cFdJy8YNeZqfQc4e2yOLoIvhEex2almjwbqsQC97A
-	 f3uEd8r14c2l4STvJ2fXGnwGjK6e8BMSyAfM8X687uVQ8CLUCACYIAnKlQEfvyXB6/X7T
-	 8uQ7UBk6UmomB75Jd4Z2y9pJJ1VAzmAsatZqHK/HNjk3XDk/EfIdsdWq36uoVnOrV/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=bejh6Pqq;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dhBG7T3L;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794185873;
+	b=Eo3uFDbGfnREQnxPpzxIqMsuxSqfc0vABtAo/8ZB7Tp5pzz3uGB8yYfxheK3zSKsd8oK
+	 i9+2iQEnjMVmK76Mg8N+SLA+l6ONKBhMcnsQfbsYnsYkNbK4Sdpvu7mO1duSpyCzjxyDj
+	 oG9UjiyVL1RMkQ9f6lcMyY3ZIYZM6e0zrn5U42XG6bFMvRyKaTWGFUPtPfUPWNTEzklnP
+	 ORXB15Q2jLyRoE3FpxPmWrcSrQr3X/Z15TLr5pmHBcqj38+xtiNRdzqrDeV60ucpBor31
+	 0vEfnZO2T1zUz4OjaeJITrGkU8gfHSTQ+q2MnxzVgd5cAWvyZLsc6QijY3QWvu8M+mA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794185873;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=w/CDc/ekChpK1MEr5fDIpNGu1oRamZM5e+eEMVQj/7E=;
+	b=f1z4HMtEL9drTHrBYhUoZca5xV1hxaZkPWocBO8xBrywnk+CXe4CB3Aj9JWDOBpDwjoO
+	 /E598ixsc3LTYpbz1lbeOHHoDysj14h9PBpyolqUVJRqpVnJbE3FEUAMO197Q7Xc1sZI7
+	 v5+mfdyLHwAXTUlM+1FiD/30poNKiLQggJhjekfcVIclzCtKQiK0AWqhTiH6Cq1oKxV4l
+	 lrFaIeXLSjw99p4p1Gey7stLDajWsHuRb0tWndzIDEI9wqvvlfMusjBXHt8AQF7ertOwm
+	 uLsoy7MFxnGFDDgS7m3nQmyvS8DEuB2RmjDi3Y9+MMn1/u2bn5S3szEnRD/9SyAhqGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8L9S03m;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4222606A31C;
+	Mon,  9 Nov 2026 00:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8L9S03m
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794185872;
+	b=oFtotlonBixhADIUAaRFb/R9eMIbYHB68t5Dp9YdKn8p035HsN5/CVVW1cl1Vi0VnmdO
+	 hxr2ZDGnNLu06Jy0tDHCr2okQEt97Wks6bw7SukTgqRuKyGCy+MS6kWLnIuezzXYIFvRx
+	 XbLOUX16ehdd1aDSMy0eavAlhe7qZOu/0j4pGoqq+yZpx8297RSPYUaXcTlAC8/wrEszR
+	 TKiZnB1nMhOyGQSzMeMyFAg86C/rxHiQcQVfbWneYh9dzvSNOujiH4o0NSVtWoCIc4Oqg
+	 RXIjlii04MQBATfn1e2W8KGsnN/zPFkxOQhK9h2THfDb6kc8uHu/Slk55PaXmPLlH6g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794185872;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=w/CDc/ekChpK1MEr5fDIpNGu1oRamZM5e+eEMVQj/7E=;
+	b=dV1A4t9XuKShgiXAc+9Ewo1uXYNMlPMZMg2W1DH+56FUCKuPuQxTgKLCFQEBOTbC7AKf
+	 sAaceBnQMilESeUG7ecZppQIaYIs8R5ZyOW4Q/D5k+Eaxz7ZwBBAJUdUXRL5b43ELVpse
+	 6vH/g564dYZj1tAVTC/XTn71ngv9HxdrDltXPwWZ1jWZjaXaSzt9ettwZfjQpSDiV/oa0
+	 9QZzrej2hnIFud6TwhJhWuR9bLwD8Zt8zkV/nmRRjHQl8KUcAojheJAXSDgZlz/zwUcf4
+	 rxL+zmb7VCGi9JHfaoENTZEWPjDeP6KEIU2/qxk8nDCP+UCQp5aCN3r+ZVfdf19Py6A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D28E606A332;
-	Mon,  9 Nov 2026 00:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D28E606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=bejh6Pqq;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dhBG7T3L
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A90Gc2O1672255;
-	Sun, 8 Nov 2026 19:56:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=uivMuJZoe2S/0CQvYgZGebbq60EIzw0/WQEXTk9GKmI=; b=bejh6Pq
-	qLBtToG58kApNgM4JlYldZWDZcQsziO8GrkR3WH/T4RF0eoQ66VxPY8SNO1QEWlB
-	Hk1vP7J3ivZDgv6Vb4EqKlUqpmPzfPuXpbp8FWVeLrCtnrkurjRdB+5LbbzooNkz
-	zRYBXGx6WYOBkNCoEBX8RCenUyg7+rLSZysLr4lN0ROXqNClbE3BwH7o4B6NSWPC
-	52iGYNLFhbSKy6mUIjnNv3irijRl04guaU7rTUyIPY910/OmCLvynWUorWQb6OFA
-	QzBiKziFXNWZEQgJVDCPvsdP5QDGJtH7Bmo9pdxzmvnGGNn35j3jJDv+4rh3E7Wq
-	L6AcsREdlUFhqjw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=uivMu
-	JZoe2S/0CQvYgZGebbq60EIzw0/WQEXTk9GKmI=; b=dhBG7T3LhzKmRyNDSpf78
-	csQW+K8pHB7BiAMMUiyk3c50ZkkqstQ4KoBHr6gmAUHdl7T0LsoF24U+TxrDgucI
-	i1POLLh/I1/tTddegC3Z0oUv0lbTPZtD4ZXP8wKIiBrsx36PNHFBWR/ibDDN/11c
-	RONeOlvw6E3g+DKVWe1AHKKBh+DyfFomfeG58dyAPOQ0qw8C6a+2vlNkfIJ5TO+V
-	J/rMjDXOaIAwyetEY814Qba+pwDYwX4Lj6dMhwKXPt2u0gt2gRjN7leA2aKlrR2F
-	xZWeE/9SnqK8QqcKBID7ZEKbSZKXHpdHfkzDzZDBZFXMuBNEcTz1m4Dx8lFLTI9y
-	g==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4htk6jbx5w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 08 Nov 2026 19:56:49 -0500 (EST)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A90umkM017380
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 8 Nov 2026 19:56:48 -0500
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Sun, 8 Nov 2026 19:56:48 -0500
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Sun, 8 Nov 2026 19:56:48 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Sun, 8 Nov 2026 19:56:48 -0500
-Received: from ATORRENO-L02.ad.analog.com ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A90uNDn028853;
-	Sun, 8 Nov 2026 19:56:38 -0500
-From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Date: Mon, 9 Nov 2026 08:56:17 +0800
-Subject: [PATCH v2 1/3] dt-bindings: hwmon: ltc4283: add ltc4284
+	by smtp.kernel.org (Postfix) with ESMTPS id 3954B1F0089F;
+	Mon,  9 Nov 2026 00:57:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794185872;
+	bh=w/CDc/ekChpK1MEr5fDIpNGu1oRamZM5e+eEMVQj/7E=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=k8L9S03m3BDqv8PczotWE3y1CXKgKWUtkn2VvTC3249n2qgohy+rBLEDsFkOvVj/7
+	 CPc6bkKvRtY3uT/YqDKFtGbDY5FkODbAWC54f53saPt/vj2DU7yBzouDml+Puu5B3Q
+	 56zCjPFefmzNgooLepmCgqPxPnRpeqUs20OMlc7AXfoCM/54N3J2iJSx4LLwx/rf1p
+	 13uIUQF58KpRSf210pruj6kk41tF6ZU1aM3g6F8Gv78gyu/rdEUluLXGgZ0ZxWz54g
+	 a3ovwriD7g0Z1S94keHCjHW2Huj7j6k653L1IG678tGn6CPsdvf0jgRJ5vzxkGRZGf
+	 ioCuA20uyFoxQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A9A7E4075E;
+	Mon,  9 Nov 2026 00:57:51 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Mon, 09 Nov 2026 00:57:49 +0000
+Subject: [PATCH] arm64: dts: amlogic: meson-sm1-odroid: mark the Ethernet
+ PHY as a wakeup source
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,170 +84,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20261109-staging-ltc4284-v2-1-14a270a38f7b@analog.com>
-References: <20261109-staging-ltc4284-v2-0-14a270a38f7b@analog.com>
-In-Reply-To: <20261109-staging-ltc4284-v2-0-14a270a38f7b@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Guenter Roeck
-	<linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
-	<rdunlap@infradead.org>,
-        Linus Walleij <linusw@kernel.org>,
-        "Bartosz
- Golaszewski" <brgl@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>,
-        Alexis Czezar Torreno
-	<alexisczezar.torreno@analog.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794185784; l=3512;
- i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
- bh=hNTQVnQ97p9HrzNo4KRtFvaC8bGXblkMbJn2E7CYo24=;
- b=giLT2mcSmaZZQI+MJpROxzmkJDGOvubDlKydFqkNSa7/7qPY+VhzA+MQPpk3c6WkMVtgAWGQe
- BPSD7R7m6u1CqFy5Cl7UWhV7Mx3Q5aK/IRMvvFT0C3RKvEnmLWRSM5p
-X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
- pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: nAm1AXU2iWxGvF1JkyvbuaPTZ9D6T5BE
-X-Proofpoint-GUID: nAm1AXU2iWxGvF1JkyvbuaPTZ9D6T5BE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAwMyBTYWx0ZWRfX9ToWJxRLm61c
- ftDy48QUBNCUKUQhJ/tsVYK3MbQ2IEQKC1v2p/WxhLPNhjl3d2INIyl7XxtBTaWhQaHbSzIQPMD
- u58zXfnXjwqUKgHMJ5dpU+b1ortWa8F6ftMHNtUbqNZU6R/NWF9E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAwMyBTYWx0ZWRfX4X6q/86a33Pd
- TMV/AfzFRfniMMNA4iqYCaoesUiSOutasEwx25BFv+N+1YvyyAlAzim6U3tvbcbzAr2o9i5Jhbx
- jUELyLVXkn2GaKg2AGLlMmPGkr0s20Cw5Jo5w8RTcKYEKXfBVXdghor+531zniEP1bCRDuJaNfE
- ncq+3/KFjjAOgwUoh95e39xPx3N/lYx3PaM0D9jOF1n9J+spmaCDgEcP3Bn6ryUI0Bt1B6Yt1Pu
- 4MsT2N+H8uziI1+foeZrx3FMmHc2OVKdSBJ3wbQ0xO11wm3BMS7E/UyDSV0APb0kA+BZbiajL1F
- fSIBRUnSLuqEkgVn3Mzjih4vFXlWM9kHGZPepQB9KMdShSpvvJKfyLa0qdqPbLNwSuBow1wSvgU
- eCUWPoMmfmp4ELWpznCAohfcgX4Oqo4nznWwmS0M4+KaTRkctsEe5313uZTWB5ZpvhiJNofMFrJ
- qTcea22dnyncq4NZopQ==
-X-Authority-Analysis: v=2.4 cv=O7+sLx9W c=1 sm=1 tr=0 ts=6af11a52 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
- a=Mr05Dj8HPuIH2qX4H8UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090003
+Message-Id: <20261109-hc4-phy-wakeup-v1-1-d98784ecac88@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAIwa8WoC/x3MSQqAMAxA0atI1gYaJ6hXERe1RhsELS1OiHe3u
+ HyL/x+IHIQjtNkDgQ+Jsq0JlGdgnVlnRhmToVBFQ6Q0OluhdzeeZuHdo7ZU82BMScSQIh94kus
+ fdv37flgHcaZgAAAA
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1953; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=th9XEIxslt9+U3iOsvDowXn3pt6YXgBXd1xZpRrr4n4=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkfpfry3jIbvs9Z9Uatelmny21OjdLSH79fPbD2nPIzI
+ mF67HyGjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCRMCOGf7ofCvuMDwa/vHVx
+ zlTZbeVOSdWZE/2Nv/j83z819/luTRuG/6VWdbxz7a99TLhh3Ngh/o//ywEJu7TgQx/uaf9m9Wi
+ sZgMA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-The LTC4284 is a negative voltage hot swap controller that drives an
-external N-channel MOSFET to allow a board to be safely inserted and
-removed from a live backplane.
+From: Igor Velkov <iav@iav.lv>
 
-Note that this device has a MODE pin that is determined by differing
-voltage levels (VEE, VIN, INTVCC, or left open) and cannot be
-controlled via software or GPIO.
+The RTL8211F interrupt is wired to GPIOZ_14 and described in the PHY
+node, but the node does not declare that it can wake the board. Without
+wakeup-source the Realtek driver does not make the PHY wakeup capable,
+so phylink leaves Wake-on-LAN to the MAC, and a magic packet does not
+wake the board from s2idle.
 
-Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- .../devicetree/bindings/hwmon/adi,ltc4283.yaml     | 56 ++++++++++++++++++++--
- 1 file changed, 52 insertions(+), 4 deletions(-)
+Tested on ODROID-HC4 with Linux 7.4-rc1 and the U-Boot and .config of
+Armbian: s2idle, Wake-on-LAN set with ethtool after the link is up. With
+this change a magic packet woke the board 5 of 5 times, in 8 s, with
+pm_wakeup_irq pointing at the PHY. Without it, 0 of 2: the RTC alarm
+woke the board.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
-index 05e2132ad4d8621ab76ee89aa166c131fed08e85..ca62e76f23f1e32df157f138298a4650493b3f08 100644
---- a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
-@@ -10,22 +10,42 @@ maintainers:
-   - Nuno Sá <nuno.sa@analog.com>
- 
- description: |
--  The LTC4283 negative voltage hot swap controller drives an external N-channel
--  MOSFET to allow a board to be safely inserted and removed from a live
--  backplane.
-+  The LTC4283 and LTC4284 are negative voltage hot swap controllers that drive
-+  external N-channel MOSFETs to allow a board to be safely inserted and removed
-+  from a live backplane.
-+
-+  The LTC4284 features dual-gate drivers with four operating modes (single
-+  driver, parallel, high stress staged start, and low stress staged start)
-+  configured via the hardware MODE pin. The MODE pin must be connected to the
-+  appropriate voltage level (VEE, VIN, INTVCC, or left open) and cannot be
-+  controlled via software or GPIO.
- 
-   https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4283.pdf
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4284.pdf
- 
- properties:
-   compatible:
-     enum:
-       - adi,ltc4283
-+      - adi,ltc4284
- 
-   reg:
-     maxItems: 1
- 
-   adi,rsense-nano-ohms:
--    description: Value of the sense resistor.
-+    description:
-+      Value of the sense resistor. For LTC4283, this is the resistor connected
-+      between SENSE+/SENSE- pins. For LTC4284, this is the resistor connected
-+      between SENSE1+/SENSE1- pins.
-+
-+  adi,rsense2-nano-ohms:
-+    description:
-+      Value of the SENSE2 current sense resistor. This resistor is connected
-+      between SENSE2+ and SENSE2- pins.
-+
-+  adi,radc-nano-ohms:
-+    description:
-+      Value of the effective resistance seen by the ADC+/ADC- pins.
- 
-   adi,current-limit-sense-microvolt:
-     description:
-@@ -195,6 +215,19 @@ required:
-   - adi,rsense-nano-ohms
- 
- allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: adi,ltc4284
-+    then:
-+      required:
-+        - adi,radc-nano-ohms
-+    else:
-+      properties:
-+        adi,rsense2-nano-ohms: false
-+        adi,radc-nano-ohms: false
-+
-   - if:
-       properties:
-         adi,pgio1-func:
-@@ -269,4 +302,19 @@ examples:
-             #gpio-cells = <2>;
-         };
-     };
-+
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        swap-controller@20 {
-+            compatible = "adi,ltc4284";
-+            reg = <0x20>;
-+
-+            adi,rsense-nano-ohms = <2000000>;
-+            adi,rsense2-nano-ohms = <2000000>;
-+            adi,radc-nano-ohms = <1000000>;
-+        };
-+    };
- ...
+The test DTB had two other changes: the RTC alarm interrupt [1] and PCIe
+disabled. With PCIe enabled the board did not resume 2 of 2. In the one
+console capture resume starts when the packet is sent, then a hard LOCKUP
+and a panic follow while pci_pm_resume_noirq() of the root port runs;
+pci-meson has no system PM. So on the HC4 with its stock DT this property
+alone does not give working Wake-on-LAN yet.
 
+Not tested on ODROID-C4, which shares this node.
+
+[1] https://lore.kernel.org/r/20261019-hc4-rtc-alarm-irq-v1-1-078fc79e596f@iav.lv
+---
+ arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
+index e6f02d738a21..9a4684dfbde3 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
+@@ -277,6 +277,7 @@ external_phy: ethernet-phy@0 {
+ 		interrupt-parent = <&gpio_intc>;
+ 		/* MAC_INTR on GPIOZ_14 */
+ 		interrupts = <IRQID_GPIOZ_14 IRQ_TYPE_LEVEL_LOW>;
++		wakeup-source;
+ 	};
+ };
+ 
+
+---
+base-commit: 81e55899e134541583a4e611ff750e1868671c67
+change-id: 20261109-hc4-phy-wakeup-9c15ebaa311e
+
+Best regards,
 -- 
-2.34.1
+Igor Velkov <iav@iav.lv>
+
 
