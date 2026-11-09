@@ -1,105 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253350;
-	b=kzaXpqUyNvfeS3fCOlie+TgzZazwDoXc7QDitxEosTm5qm+QPJLIiKpoFrk6lVBJgwLg
-	 EQ3m6WPhoo4qLPqvO08QV/yPFH4HsJTCr8apxJXLERx8ndlOAaj9n2jKshIgoW2xpgShD
-	 0O3J3du/UgReXDMGC2TrMdL5QmJIH+Le45oaZ+FmBy3TirhcJiUy5HKewlidJGYxeFt9C
-	 bBwnTvm4q2hWO1aZo5WRfI1zX9dhBUxcI7dQW/opkFUGlfND98q1hutnLSQdMPKj5zvin
-	 ZndxywlMYL4NzH0KZM5qs9qpILWtKlrlqbrkWZGLKO5r4CDsvXzkt3EgHM9sFhGkDdg==
+	t=1794253406;
+	b=CE54WvG9C4ikcukOZQPtlcnHevTpvvk/ZZPWfbIWvzvMs7ZDoE3TpgYSriAi6ZRwpZQr
+	 /aMQO7U5j8ZFwKqiIJ3wpfJ8VPEM8gcDuAoVWcw3tQwgdB6OrQlmPUKsiI8xEbroj/eUj
+	 4La19Gtaml6LkIfTNsyScMzc+IAC7eeluLl3iqM+J+iuAOAH47aD23+gLhBkpW0PNF/jw
+	 f0uWHocJNCm5+8r3FLnWJpol+tEudWT2PZbuf1+iX9b2PPh0Sq3eFYdkyEkGEju5r2sTm
+	 u6Kcoge9BnIpvFTLpIHLdL3qZCp6/Ox0E949DCA7a3SKRI6obvVdetlAky/O/c6ANLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UEhZmesMv0jigQ7cD/Kn5QG1oqSQq9Q4U814VKFftdc=;
-	b=cAATgEK3dsBgT4/Xt2bE3Nml5y1FW9p0Hv4nyEoUpcxVIUHGvP6t9HE7zWp37TIGbPt8
-	 QpOWMSol83AZ+UYliRhcTUqhy6g++7DEql7m/i8q0izsxd83uzWhm5WxcEGvLZ1/C/MjS
-	 XusSMSuTcFczSJnYFmS2iiU6ubOm8uiXBRy9B8nVgrUaL9MLZ9PR2/vW/ARe0TtCfpHJC
-	 fAZzaqbA78WFUnoM2gbkX7NSaPUIj8m/KSE2Jx81q5pFCTSZkTOECjDrPFFNHP5iwL0n4
-	 3qz5OCmC1AaaBd8KEukI8FYkV98yuqyxc6qNDGR7/zEzeaLzX74GTLvWJPZEi/UlpOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253406;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gwXVOiQVm4VQi8X9V4vmw3aRHj8H4AwzMc9FpkENiR8=;
+	b=pcUJIPW7Sc9fC/CEr5TtQsnSPDvTeUx5Ns5hlt+Zxr/s6/0g6DiruPUZhjSHEtYH6mMh
+	 +rJ4/eIrAvy2qX4doGyeiBQffZl4LIlYd08jWSSBwBcuf5sYcc7fUVM3RXapNsPTr/P3z
+	 GoSIPoQs0qy5iXUAzBFsFQPrqHQ7SQLMpcrkPVaqNEpkGzzv8Hh26cJLOPBhf1XVpEfhc
+	 +v41QRsqQ87NPQy7UchK1+MR6Ku6hPckNzkRayFUwpeOFajO77HiQiArNmNRas2nw1Id6
+	 zKy0VJAabjkCMt0l6I3FqjYTnpIIByHD58pL/l4ETC20bx/1WMQKHVknJRCCF8r3r5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EKc2b8Wl;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Llvfmm6g;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DA960A261E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1DA960A261E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A44F606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A44F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EKc2b8Wl
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so5210045ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:42:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794253349; x=1794858149; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UEhZmesMv0jigQ7cD/Kn5QG1oqSQq9Q4U814VKFftdc=;
-        b=EKc2b8WlVQAK+QDBBLBJs3pHzNBRz6SdjfsrdP9tAslpxwZc5moiXJfRT9tI5WQCQQ
-         zrAl/FZzen2FYuI3vqvOem38LgmsVVcGmmq90rFjJ6ZO1rFAwz5sT5X5puJiV4QWpf02
-         8dozWpc9Bsb/euLqwJLLlSdltxIUPG50x/JDZ4+YYXlWJpWHuhS8Zp25OqaXxTN+T2OY
-         ANCZ5EQd9Y0k0SH2NgLL5qStUKPB4L6Djwsi6aKpPOZlnpcPDCTZxK379BLIbtSUe4AC
-         S5pNZEF0oE0YUuehpm1rcSf9PK8eL0IuqvHRXvZlWDrsdh7xxTt88VHifS224YuFwXTd
-         PcJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794253349; x=1794858149;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UEhZmesMv0jigQ7cD/Kn5QG1oqSQq9Q4U814VKFftdc=;
-        b=bCUvYGs1BEHfE8Vz7MMVNqlQGS+wUdPV1W7g42lA/TyB9MnQD3jopt5xeigDJJleE0
-         tdFT6eJCtkN4vboUukYXi/50HB0mQFtR5nhJBXS6frv0Ad1EwTOx4IRGsIRikRp3FxOO
-         EG0JEVRiBINGWR0iU+v5o2ntppRYVWOD4EfZR1HN/a136albuLtAeT1IET9YJ+5fWSAQ
-         4wMx2zq3/ITN3BlA2qRekFaAqBMx3D3tg1Tutn9jUaCiQU6seL6N+aLw73HgtYlErInE
-         xaiKjbHgu/zme7l89LAXHdsl1+TR/0JD/55Gq8X5e5qZQuiMXZEG6T/QXDBzCxQK8TdE
-         /PRQ==
-X-Forwarded-Encrypted: i=1; AL+hErGYBmCmJrtMORAoye7MRP5lumFN3gwbPQDonRnnG0hcFt8lUPF/UEXANKIhxmx0RSLSdV1hOiz3V9+E1rA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LWnc/zZFkGDkzsosj60xegbxL7ErM0m71t+gPw8ygXqVtonnq
-	VeZHpOj8YPHgOOb8m+WI46O/wmljCFcx/GO3x5upv8rW6+gcJNq5grTY
-X-Gm-Gg: AYBFou0prQbjjlIkN1x9TEHM+CsY7o0N1af1cNvsRSe3zjBSdLn3gbC0kD7E8/NmaFm
-	AqCjEStf2A6NyVtuV3P26+cqNTplpxuVl+Cjtyne4bnyfQV11rAIbWwdKwnnVZ1LG9jMBT4CEHP
-	a18OcCYgzdpIRmXSbRREPoHp87+/U1hMZN1Ebvrjxxc9zTM3IC7e0azvpItunlni5jbh5Vaplat
-	bRfjfxTFhXfzq8l/SRc8qRFkJt6efRD0FhMOpPQ7wgfr0K4ckiB4vdVrEfqxxR2VPkkyPZrte1e
-	CugY1wvzMseCq+cGLbHQdN3Nx8FgKfG6Il/hk6ei+4sHmjAzlNG9lT33PDWGfHZUDztYNym6DAe
-	jLiW0A9wdC3wYp0Yimh8ni2zFy6BEldhaXvKABdQNnuFJNi7IAqgAzLTkfBcl3kFLYja92BfuUj
-	36LsJmWdHfLfk/01Tejn7KoWg+Qp0ioCTDnd6tVHJVGYoP0+TtNmj5moSBqzfnQg83zMHZu+U40
-	CXDc+Xo0G/ubr3ToIj/qBN6CtML4ZVOIf2VWDvU7nChIKAANrYvGztg+wjcX1tq8CTh7TsejcbR
-	b2wlQ04pPmFXNNmQv2NAOPz1q2ekt0bYWI9vejpUv38dvNGFis05zcAp5xMzZRe0XXe92J9cnaL
-	K050jQRYX6wAGPr7K0jEhASGn+JAeg0TcxCqsNKVMQ7W+9ZbHobmadvE=
-X-Received: by 2002:a17:902:da8b:b0:2e9:9c65:1af9 with SMTP id d9443c01a7336-2edb9227047mr1360425ad.53.1794253348909;
-        Mon, 09 Nov 2026 11:42:28 -0800 (PST)
-Received: from localhost.localdomain (mx-ll-183.88.2-201.dynamic.3bb.co.th. [183.88.2.201])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4b950sm1388585ad.13.2026.11.09.11.42.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 11:42:28 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 6/6] ksmbd: consume the sequence number of a request on a failed session
-Date: Tue, 10 Nov 2026 02:41:44 +0700
-Message-ID: <20261109194144.22814-7-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109194144.22814-1-mike.michalo@gmail.com>
-References: <CAKYAXd-Jo-ObBDs-AdGfaM+QmDsot3gj1g0oJiyDKczoUDg2TA@mail.gmail.com>
- <20261109194144.22814-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Llvfmm6g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794253398; x=1794512598;
+	bh=gwXVOiQVm4VQi8X9V4vmw3aRHj8H4AwzMc9FpkENiR8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Llvfmm6g/KiREzL5vuYnouLQ6UkNN84Ak2B3sscy8uxR7l01uU5dg/KiePVc2WNAi
+	 bbI2hbMOMtOXw5T06SpNcf1ab++c9Xs8eE2MVPE4B6r8XNsBAfl2typLARxaQZklIu
+	 KvEGqltGN/IkH/fws9IKscV6f4MroVVXS/0fBN7PNYfmWPLzXGQ+AIh1lvR8NFZSDl
+	 tDDTkHwPSFmAZSc//psRg3aULUMeO0OC5kRFOAAgy3A74ggsbQt9W1ObkWDoB8r7K1
+	 9atPuhDgNp/rkDGnQWl6Hh+nqbR+RYAy+tT9676Afb60SPoDJO5jXZPkW9L1hh74fm
+	 cmn5EIKISgZIA==
+Date: Mon, 09 Nov 2026 19:43:12 +0000
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+From: Yun Wang <7z0423arsenova@proton.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mark Brown <broonie@kernel.org>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] soc: qcom: rpmh-rsc: Skip read requests on unsupported platforms
+Message-ID: <20261109194231.1358638-1-7z0423arsenova@proton.me>
+Feedback-ID: 227066774:user:proton
+X-Pm-Message-ID: cef2dca80f8bfecc26460e8333b61f889d1cdb66
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,93 +61,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-__handle_ksmbd_work() calls check_user_session() before
-__process_request(). When the session is unknown, invalid or expired, it
-sets the error status and jumps straight to send, skipping
-__process_request() and therefore ksmbd_verify_smb_message(), which is
-where smb2_check_sequence_number() consumes the request's MessageId from
-the command sequence window and refuses a replay.
+Hi Maulik,
 
-Only a signed request on an expired session had its MessageId checked,
-by ksmbd_sign_expired_rsp(). Any other failed-session request (unsigned,
-encrypted, or on an unknown or invalid session) left its MessageId
-unconsumed: conn->seq_low then stays pinned at it while conn->seq_high
-advances as credits are granted, until the window of
-KSMBD_CMD_SEQ_WINDOW ids is full and the connection stalls. A replayed
-MessageId on such a session is not refused either.
+You wrote that you do not have SM8150 hardware to verify this patch, so
+here is a result from an SM8150 phone, plus some measurements that may
+help with deciding what to skip.
 
-Verify the message once at the start of the failed-session path, as
-__process_request() would have, and drop the now redundant check from
-ksmbd_sign_expired_rsp(); verifying twice would consume the MessageId
-twice and refuse a genuine request.
+Setup: OnePlus 7 (GM1900, SM8150), OxygenOS 11 firmware, v7.4-rc1 plus
+a device tree for the phone that is not upstream yet (it describes ldo1
+and ldo8 of PM8150L, like sm8150-mtp and sm8150-hdk do). No other
+regulator or RPMh changes. Only this patch was applied (v2 2/2; it
+applies to v7.4-rc1 with an offset of 8 lines in rpmh-rsc.c; patch 1/2
+was not applied). The kernel was booted with fastboot boot.
 
-The commands of a compound that follow the failed one are still neither
-answered nor consumed, as after any error that ends a compound; that is
-a separate problem.
+Without it the phone never gets to user space. On debug builds of the
+same tree (more logging, a watchdog and, in some builds, a short
+timeout for RPMh requests) the log shows this: when regulators-1
+registers, the read of the VOLTAGE register of ldo1 times out ("failed
+to read VOLTAGE ret =3D -110"), and so does a write to xo.lvl (enabling
+the XO for geni_i2c) that another probe issues at about the same time,
+and everything that depends on RPMh (UFS, display, USB) never probes.
+The log looks like the one Dmitry posted from the HDK. With this patch
+the phone booted 5 times out of 5; see "Test scope" below.
 
-An AI assistant was used to draft the patch and as an independent
-reviewer.
+What I measured on this phone, with a debug interface that issues
+single RPMh reads and writes from user space:
 
-Fixes: fd8c97d7c1cc ("ksmbd: implement the command sequence window")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/server.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ - Reading offset +0 (VOLTAGE) of ldoc1, ldoc8, lnbclka1, rfclka1,
+   vreg.sp and gpioa8 times out. Reading +4 (ENABLE) of the same
+   resources completes. After a timed out VOLTAGE read of ldoc1, a
+   write to xo.lvl times out too (with a debug kernel that gives up on
+   a request after 1.5 s), and only a reboot recovers.
+ - Reads of ordinary VRM resources (ldoa1, ldoc2, smpa4) complete in
+   about 40 us, but VOLTAGE and ENABLE read back as 0 (MODE of ldoa1
+   and ldoc2 reads back 0x80000007). That matches Dmitry's observation
+   that SMPS and BOB reads give 0.
+ - In the command DB of this phone all 64 resources of the VRM section
+   have aux data: 50 have 1, 11 have 2 (gpioa8, ldoc1, ldoc8,
+   lnbclka1-3, rfclka1-3, vreg.sp, vrm.xob) and 3 have 0 (divclka1,
+   divclka2, divclkc1). The six aux=3D2 resources I tried are the ones
+   whose VOLTAGE read hangs; none of the three aux=3D1 resources I tried
+   does. I could not find the encoding documented, so this is only what
+   I saw on this phone.
 
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 7604fdb919a2a..df04b0dd9f2f6 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -109,9 +109,10 @@ static inline int check_conn_state(struct ksmbd_work *work)
- 
- /*
-  * The keys of a session whose Kerberos ticket has expired are still valid,
-- * so STATUS_NETWORK_SESSION_EXPIRED is signed. Check the MessageId and the
-- * signature first (MS-SMB2 3.3.5.2.3 and 3.3.5.2.4), so that the key never
-- * signs a response to a request it did not sign.
-+ * so STATUS_NETWORK_SESSION_EXPIRED is signed. The caller has already
-+ * checked the MessageId (MS-SMB2 3.3.5.2.3); check the signature
-+ * (3.3.5.2.4) too, so that the key never signs a response to a request it
-+ * did not sign.
-  */
- static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
- {
-@@ -125,9 +126,7 @@ static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
- 	if (work->next_smb2_rcv_hdr_off)
- 		return;
- 
--	if (ksmbd_verify_smb_message(work))
--		conn->ops->set_rsp_status(work, STATUS_INVALID_PARAMETER);
--	else if (!conn->ops->check_sign_req(work))
-+	if (!conn->ops->check_sign_req(work))
- 		conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
- 	else
- 		conn->ops->set_sign_rsp(work);
-@@ -288,6 +287,21 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 		if (conn->ops->check_user_session) {
- 			rc = conn->ops->check_user_session(work);
- 			if (rc < 0) {
-+				/*
-+				 * The error reply below skips
-+				 * __process_request(), so check the message
-+				 * and consume its sequence number here, as it
-+				 * would. Otherwise a request on an unknown,
-+				 * invalid or expired session leaves its
-+				 * MessageId unconsumed, which pins the command
-+				 * sequence window, and a replayed MessageId
-+				 * is not refused.
-+				 */
-+				if (ksmbd_verify_smb_message(work)) {
-+					conn->ops->set_rsp_status(work,
-+						STATUS_INVALID_PARAMETER);
-+					goto send;
-+				}
- 				if (rc == -EINVAL)
- 					conn->ops->set_rsp_status(work,
- 						STATUS_INVALID_PARAMETER);
--- 
-2.43.0
+So on this firmware reads are not unsupported across the board: what
+hangs is the VOLTAGE read of what look like XOB-type resources. The
+downstream device trees of two SM8150 phones (OnePlus 7, Xiaomi Mi 9)
+declare ldoc1 and ldoc8 as qcom,rpmh-xob-regulator, while the
+downstream OnePlus 8 (SM8250) tree declares the same names as VRMs;
+I could not check the SM8250 firmware. Skipping all reads on sm8150, as
+this patch does, is enough to boot.
+
+For what it is worth, the same device tree also boots with the v7.2
+version of qcom-rpmh-regulator.c, which has no readback (5 boots out of
+5), and with a small patch that switches a resource to the XOB ops when
+its aux data is 2 (about 20 boots, no failures). If a per-resource
+check like that is of interest, I can post it separately.
+
+Test scope, so that the tag below is not read as more than it is.
+
+Tested:
+ - One OnePlus 7 (GM1900, SM8150), OxygenOS 11 firmware. Kernel
+   7.4.0-rc1 as described above, command line with clk_ignore_unused
+   and pd_ignore_unused, Mobile NixOS user space (systemd). The kernel
+   image is loaded into RAM with fastboot boot, not flashed.
+ - 5 boots in a row, 5 of 5 reached user space: adb answered 11-12 s
+   after fastboot boot, and each boot was checked at about 45 s of
+   uptime.
+ - The same on all 5 boots: systemd "running" with no failed units;
+   /sys/kernel/debug/devices_deferred empty; no WARNING, call trace or
+   BUG in dmesg; no dmesg line with rpmh, regulator or rsc that also
+   says err, fail, time out or warn; ldo1 and ldo8 of PM8150L listed in
+   regulator_summary at 1800 mV, as with the v7.2 driver.
+ - Up in dmesg: UFS (the root file system is on it), DPU/DSI with fb0
+   and the console, USB (adb), the Synaptics S3706B touch controller on
+   geni i2c, pm8941_pwrkey and gpio-keys as input devices. cpufreq: all
+   three policies reached their maximum under an 8 s all-core load.
+
+Not tested:
+ - Anything beyond booting: no suspend, no long uptime (about a minute
+   per boot), and no GPU, audio, modem, Wi-Fi, Bluetooth or camera
+   (not enabled in my device tree). I did not look at the screen or
+   press keys in these 5 runs.
+ - arm-smmu 2ca0000.iommu (the GPU's) fails to probe with -110 on all
+   of them. It does the same with the v7.2 driver and with my own
+   regulator patch, so this patch does not cause it; I have not looked
+   into why.
+ - What the zeros do: with reads skipped, the regulator driver sees
+   VOLTAGE, ENABLE and MODE as 0 when it registers a regulator. Nothing
+   looked wrong, but I did not check any consumer that could depend on
+   the real values.
+ - Other hardware or firmware: one unit only, not SC8180X or SM7150,
+   and patch 1/2 was not applied.
+ - A series of the exact same image without this patch: the failing
+   boots described above are from debug builds of the same tree.
+
+Tested-by: Yun Wang <7z0423arsenova@proton.me> # OnePlus 7 (SM8150), v2 2/2=
+ only, on v7.4-rc1
+
+Thanks,
+Yun Wang
 
