@@ -1,76 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237418;
-	b=tjh9KbyVasvDdS7ron6A2Ik0IlZCi9voqoRwnMulfMN9/4RDQt9+li93IseE9LodLQdE
-	 +2Gm2VQughH1KNrZFwDtkAJmEuiDy3ub+y3YANyop/rPs0Df+My59NXP23pGPpq3S01Fa
-	 +GCSrXqVhmP+mAEfAhoWLXOVH68CcMPWTba9IB5n9nEeFuvUL3houYAZExUAg7lohRYNt
-	 D+v8xPM1m9OcdoYHTO31y00ywowE+qtmwkMES8i7sfK1VLxMCkj71uom7bVNQJx7zmX5R
-	 VZobxF9fHK5uQ8h58MrVeA+bV6xWx90A28d1l80kbvCBBmsMqhCOLMpz/8nbuPsTKGQ==
+	t=1794237447;
+	b=1aenghchzfBd9nputlhR1ElcbwBieXCNEIt7WSIlndH9wF3YlaZwnB/H6ZoVnWdwM7Iw
+	 Y9uu9gWWp7COytP9U3+YwkWLyvkG3/ZefZmy8tm4o3xbk0EPCg3C7wpAYyB+TNBW78ik8
+	 XNsipBFfspWPJImemzoT0Fgx7l9R2bGTCJgBFfwasYoN1qQwBpMtb4x6yIe/S7u/sA546
+	 lfh0AOZ6UH6ta4PfryBEKjsopmqbVYZHZyT8YSS1Wbd7jxbnBkx6RKK+U2peki+OLxeSA
+	 RdjLGk/oDlOPfvuBfCMlhh/EME68n0lZeW1oklVGgn2JjihUivD2s1eEYlh2RpQggLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237418;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
-	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
-	 X-Scanned-By;
-	bh=dIFanPHsi2uzKVkdR3E3+ACI83Kw4fKElWH0D2yD5fE=;
-	b=DGZnF+BmXMgLk2VPgC6GoO+oaCdK55AGQZO66wbeToqh2ABeejq7SNb59fUNXUNN7ARu
-	 zTHqemvlomhUpBN4Gkx12Qspvw3ipupWBHklYWQoiMJ33VaonF9G9LtTUvWJ5yHfu24G5
-	 5f5acHJkZxKqUanAxJkOms3PrZDMvv/I59/4pvqq6nuX983G8W/v8R133jSOgtPdcILND
-	 nsHAd8snEVWchYxKVPrF9kSn6LzivSeLBtVX2bjZn5maYS9BBsbtCIDyTfNqzaNuBUb6z
-	 VAavDHRLUfJOqRlzFVVR3tnMfy0kapOnqb2OjFwC1FVJBczEP1/bKMcbQ3KWAgZxvCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237447;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Xdh9DR4pvP3bPWHM/PE++xfHsGb4NZkwyA7cH/UYfZM=;
+	b=i41+Tvz3ctaGkS4x1nVsvt5nF+BVOIU2uvJ9MMiULAouTiDZf8MpvJDT4gMZPZoSjKSS
+	 eKh+Sam5P2QYxj6sMmdF3CjxgaxjvOOBcFEt83lheCo+xbyjov3g1ksyx4VPSusROLgra
+	 WUbgQvl0nAWaiBJ22OBlyh5+F7BBTIqPhR8bPOk+9X90B7S07ppRuttMtsGQv0Ee90Z0/
+	 nFzQDmg5Lt3e4512hl41WtVErLItjXk7UaXJzr4TLuEh3mK47vlGSXlgv7ZsCvftTfZKG
+	 opALkAWgNBsCeP9QvtHOQ0pStIcqM3gC1tNlrFwKqI5w/60ndZNsQ4ySPxeypPBU9KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BZyn9CyW;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=smartx.com;
+	spf=none smtp.mailfrom=smartx.com;
+	dkim=pass header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nnkIAT9j;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013CB606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 013CB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02132606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:17:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02132606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BZyn9CyW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794237417;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dIFanPHsi2uzKVkdR3E3+ACI83Kw4fKElWH0D2yD5fE=;
-	b=BZyn9CyWPQEF23cpNvfutKPMn38/0dZ2sxPktZP+AwNU+RzabvLLgj8fqaoALTycua9X4j
-	fdtBiqFGI7kygYwyqfEMRo8WW2PUCqcEMyYTX57rn3bhM6JUeixiwyM7m1g8pInCVapKy7
-	j9Z8APVSpKYAyn7gamsj1CfBni3KIVQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-682-tjhm9eS_Me2GEPyqgPmpsA-1; Mon,
- 09 Nov 2026 10:16:52 -0500
-X-MC-Unique: tjhm9eS_Me2GEPyqgPmpsA-1
-X-Mimecast-MFC-AGG-ID: tjhm9eS_Me2GEPyqgPmpsA_1794237411
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8F9B21955F17;
-	Mon,  9 Nov 2026 15:16:50 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4E1F926C;
-	Mon,  9 Nov 2026 15:16:47 +0000 (UTC)
-Date: Mon, 9 Nov 2026 16:16:45 +0100 (CET)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-cc: dm-devel@lists.linux.dev, agk@redhat.com, snitzer@kernel.org, 
-    linux-kernel@vger.kernel.org, 
-    syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH] dm crypt: fix use of uninitialized percpu_counter in
- ctr error path
-In-Reply-To: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
-Message-ID: <0ea4f803-33bf-1ba3-b7f0-a11c676c8086@redhat.com>
-References: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nnkIAT9j
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37198ed3727so1350060eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:17:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=smartx-com.20260707.gappssmtp.com; s=20260707; t=1794237445; x=1794842245; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xdh9DR4pvP3bPWHM/PE++xfHsGb4NZkwyA7cH/UYfZM=;
+        b=nnkIAT9j6W5kjL2AukY6s9LACsUL/7/5/3oeWkfyGSy9CDbNWy7IJd/+qGnPI/Rvrs
+         h8vprcezd8yI62kK0DZeROYl07EOnZQ7yPXw0f+CA9vbvyNqAqKFVhAgS59o2nVboAkK
+         u/5VSHDv0mrWUEOv5AH8tFKnEmbw295JSMmHYA5dPR4YZJ7VDcfaMOOoZDQuvePTlnXo
+         ra3a83LDvmY3qZT2nsnq7zgEm2qGS8ucdse3VXhSCb2kK//HknKd8m8gUmXB/VqYWGIF
+         qk4xqOfqBOrhKKShpRCDXqVJJ1aTtYCR3FBuSuceszHHeKLBdgIKr8c0rb/PjzxS/YOc
+         nrIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794237445; x=1794842245;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xdh9DR4pvP3bPWHM/PE++xfHsGb4NZkwyA7cH/UYfZM=;
+        b=VjDXe/JPuFXLbANiBGDWMzFHA9PWQ54oSHRueU0Fh0nbcTGj/5JKcYjkijLc3yalkN
+         m3SpL25P2l+XJ3L50KJMSPw+/UJpWQTo+YBf5umttr1gOx4MVDpUmohCsahz2P1jmTYZ
+         vCS+TKzGkv/5n65Y9vv0psBsKXI1JF5IcUwS/7ecgNiBkSis/sOslhHKkiKxn9qBdWTE
+         MJQVqwmZjTyXTftRKpN7H128moZ2dx7rzGzUbg1mZiD7sDu8iD9k2SaRHIGc4WKWUgsB
+         MB/P+UU29TVI0x4CLF+99YwWT0gPpfJ1IQTslymRzK4g9J854bgBYCjvF8gRhQc0qZP3
+         8j/Q==
+X-Forwarded-Encrypted: i=1; AL+hErGaOCWoIt2OIOdYJR0fy35XEETz/lL5UJiv2sDiY0DY5Ud3lJdBID85GgZ55BFi/DDUODRXP4dlmaOdk0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8252NM5SM2cLi6BmFBb7drcKfdXPaWTshAQ13LukfgTxQC2ERm
+	41IQjC+ulyaoBscdafIgEemyxtdJqrGKESxkah5DV/tTi3g6ub5PaiRvvryNbPc9xe1rXd2YN0f
+	UDgv9q15T6Ojy1UFk0U1ys1kadJWCd7xX1TpOALoLiXHbgEJRiBEPE6VFKYak2RUYXYQa8QX26p
+	g2WHy/
+X-Gm-Gg: AYBFou2PK90SDIcpaz4CmJ7ZiKkPJYFiSBt7+8N9qMG9msFCnpTOPdjiCGvg8vM2Ino
+	PyorJ1cn1hzOC/q2vIhdFS7UMDrdFaGdZLet9N+SUo7NBOi9UlsBpJ6GYbn0QmpJeYer0LY89J1
+	RMD+LKxVHO17UCVLp1upc7N35/3cSSbQaypO3neGK7Xo4a1RD+KmCI50ttDXOwHXUd2IDl50vyT
+	VEgx0GP8v5wrCk6brmb2tVhvZFkWdPsQziJPX8n7YtaNhGXoZLumG/QvTQytQ7JzGy+uarEfWTc
+	LTdjc1WbBORHhPfynvvy8gZrfkiwDacv50SyThdmgIyjamauQxI2P8x97UtKhZRaxqSiqzcAyBg
+	Ubje/jeQI6CXLLd505xU1ZLK9O02z43bqxQB6R4YEs55e7jPfTPXB+iK4FdsJwhfLpyRzI6Om9u
+	qOxKroQE92CHDFDmNPI9JRvqD1Dfzr2M4oTNEYEHOSNWGm0TkWTLyx8ogjeTryiYm2kUCQU5em4
+	pnEEOd4gnkt9V5/4Mj7EpKhH8Gk6OTFAvY8M9mS5MIjQSVM7cRJ6jbTXJlmlwH3wNq6aM6O5g7q
+	R1yGeb+0w7vTPw5nuHzG61dThKDt0h4KefV4T6IE3A==
+X-Received: by 2002:a05:701b:458e:20b0:1b2:42db:8a5d with SMTP id a92af1059eb24-1b39fe2fcd9mr6125970c88.3.1794237444186;
+        Mon, 09 Nov 2026 07:17:24 -0800 (PST)
+Received: from localhost.localdomain ([174.136.204.24])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3731487edsm15203046c88.2.2026.11.09.07.17.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 07:17:23 -0800 (PST)
+From: Wang Zhan <wang.zhan@smartx.com>
+To: netdev@vger.kernel.org,
+	Yingjie Wang <x-professor@outlook.com>
+Cc: Wang Zhan <wang.zhan@smartx.com>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@kernel.org" <edumazet@kernel.org>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"horms@kernel.org" <horms@kernel.org>,
+	"kuniyu@google.com" <kuniyu@google.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v3] net: preserve rps_default_mask on failed writes
+Date: Mon,  9 Nov 2026 23:17:00 +0800
+Message-ID: <20261109151700.3979272-1-wang.zhan@smartx.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <a235de028cc4160692127c6bf44ac567185b5449.1794143938.git.x-professor@outlook.com>
+References: <a235de028cc4160692127c6bf44ac567185b5449.1794143938.git.x-professor@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,85 +106,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
-Accepted, thanks.
+On Sun, 08 Nov 2026 13:19:12 +0000 Yingjie Wang wrote:
+Two nits, if you happen to respin:
 
-Mikulas
-
-
-
-On Mon, 9 Nov 2026, Zhao Feng wrote:
-
-> If percpu_counter_init() fails in crypt_ctr() (e.g. when the
-> underlying percpu allocation fails under memory pressure or fault
-> injection), the error path jumps to "bad", which calls
-> crypt_dtr().  crypt_dtr() then evaluates
-> WARN_ON(percpu_counter_sum(&cc->n_allocated_pages) != 0) and calls
-> percpu_counter_destroy() on a counter that was never initialized,
-> because __percpu_counter_init_many() returns -ENOMEM before
-> calling raw_spin_lock_init() on fbc->lock.
-> 
-> With lockdep enabled this triggers "INFO: trying to register
-> non-static key" in __percpu_counter_sum(), as reported by syzbot.
-> The console additionally shows "crypt: Unknown error (-ENOMEM)"
-> because this failure path sets no ti->error.
-> 
-> Move percpu_counter_init() to right after the allocation of cc,
-> before ti->private is set and before any "goto bad" can happen.
-> On failure, set ti->error and free cc directly, so that
-> crypt_dtr() is only ever called with an initialized counter.
-> 
-> Reported-by: syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=4b232570d625662eaab4
-> Fixes: 5059353df86e ("dm crypt: limit the number of allocated pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-> ---
-> Not runtime-tested (the syzbot report has no reproducer; the
-> failure requires percpu_counter_init() to fail).  The affected
-> crypt_ctr() code is identical in current upstream master, so the
-> patch applies there as-is.  The Fixes hash was verified against
-> the upstream commit that introduced both the init call in
-> crypt_ctr() and the teardown in crypt_dtr().
-> 
->  drivers/md/dm-crypt.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-> index 1ff16b8264..3e69dcc366 100644
-> --- a/drivers/md/dm-crypt.c
-> +++ b/drivers/md/dm-crypt.c
-> @@ -3249,6 +3249,14 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  		ti->error = "Cannot allocate encryption context";
->  		return -ENOMEM;
->  	}
-> +
-> +	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
-> +	if (ret < 0) {
-> +		ti->error = "Cannot initialize page counter";
-> +		kfree_sensitive(cc);
-> +		return ret;
+> @@ -105,34 +105,36 @@ static int rps_default_mask_sysctl(const struct ctl_table *table, int write,
+>  				   void *buffer, size_t *lenp, loff_t *ppos)
+>  {
+>  	struct net *net = (struct net *)table->data;
+> +	struct cpumask *new_mask = NULL;
+>  	struct cpumask *mask;
+>  	int err = 0;
+>  
+> -	mutex_lock(&rps_default_mask_mutex);
+> -	mask = net->core.rps_default_mask;
+>  	if (write) {
+> -		if (!mask) {
+> -			mask = kzalloc(cpumask_size(), GFP_KERNEL);
+> -			net->core.rps_default_mask = mask;
+> -		}
+> -		err = -ENOMEM;
+> -		if (!mask)
+> -			goto done;
+> +		new_mask = kzalloc(cpumask_size(), GFP_KERNEL);
+> +		if (!new_mask)
+> +			return -ENOMEM;
+>  
+> -		err = cpumask_parse(buffer, mask);
+> +		err = cpumask_parse(buffer, new_mask);
+>  		if (err)
+> -			goto done;
+> +			goto out;
+>  
+> -		err = rps_cpumask_housekeeping(mask);
+> +		err = rps_cpumask_housekeeping(new_mask);
+>  		if (err)
+> -			goto done;
+> +			goto out;
 > +	}
 > +
->  	cc->key_size = key_size;
->  	cc->sector_size = (1 << SECTOR_SHIFT);
->  	cc->sector_shift = 0;
-> @@ -3260,10 +3268,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  	crypt_calculate_pages_per_client();
->  	spin_unlock(&dm_crypt_clients_lock);
->  
-> -	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
-> -	if (ret < 0)
-> -		goto bad;
-> -
->  	/* Optional parameters need to be read before cipher constructor */
->  	if (argc > 5) {
->  		ret = crypt_ctr_optional(ti, argc - 5, &argv[5]);
-> -- 
-> 2.39.2
-> 
-> 
-> 
+> +	mutex_lock(&rps_default_mask_mutex);
+> +	mask = net->core.rps_default_mask;
 
+nit: use net->core.rps_default_mask directly in the read path and drop
+the variable; there are no other users.
+
+> @@ -105,34 +105,36 @@ static int rps_default_mask_sysctl(const struct ctl_table *table, int write,
+>  				   void *buffer, size_t *lenp, loff_t *ppos)
+>  {
+>  	struct net *net = (struct net *)table->data;
+> +	struct cpumask *new_mask = NULL;
+>  	struct cpumask *mask;
+>  	int err = 0;
+>  
+> -	mutex_lock(&rps_default_mask_mutex);
+> -	mask = net->core.rps_default_mask;
+>  	if (write) {
+> -		if (!mask) {
+> -			mask = kzalloc(cpumask_size(), GFP_KERNEL);
+> -			net->core.rps_default_mask = mask;
+> -		}
+> -		err = -ENOMEM;
+> -		if (!mask)
+> -			goto done;
+> +		new_mask = kzalloc(cpumask_size(), GFP_KERNEL);
+> +		if (!new_mask)
+> +			return -ENOMEM;
+>  
+> -		err = cpumask_parse(buffer, mask);
+> +		err = cpumask_parse(buffer, new_mask);
+>  		if (err)
+> -			goto done;
+> +			goto out;
+>  
+> -		err = rps_cpumask_housekeeping(mask);
+> +		err = rps_cpumask_housekeeping(new_mask);
+>  		if (err)
+> -			goto done;
+> +			goto out;
+> +	}
+> +
+> +	mutex_lock(&rps_default_mask_mutex);
+> +	mask = net->core.rps_default_mask;
+> +	if (write) {
+> +		swap(net->core.rps_default_mask, new_mask);
+>  	} else {
+>  		err = dump_cpumask(buffer, lenp, ppos,
+>  				   mask ?: cpu_none_mask);
+>  	}
+>  
+> -done:
+>  	mutex_unlock(&rps_default_mask_mutex);
+
+nit: move this up to the closing brace and add a blank line before out:, so
+the unlock is visibly paired with the lock.
+
+Thanks
