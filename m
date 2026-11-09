@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230885;
-	b=w0XlwO+jZx4n7Ze9sKxfhMLYr/38Q19qSNVBz4EsyXth39Ln/9RUJcmBrBtv0l+dMI9C
-	 AP13x/FLOMGolXL6yyjPjZf2hQLMqi+sbNRJJqcyuELO8iG4KawIpqmNcbxpBj4g63SDm
-	 bQ2dUli2Jq6MgzT7R18+sWAFEss9RM2Ntfk9LLfPbZ7X6RbT41cGwdB4GLSIOrmLsZrNa
-	 PdmANjf72YzlVWG+mVlG+gcB67Ivc6xpxxdVP0LIrFD3KuxO4wDtCIp5zeBgbnDr95Ycg
-	 DhigyRINdzyDOg2rUJuUP6f0YFytmMiL4OTKGTOFTcEa1vEUbyRNrbLm5AxKU/8e3gQ==
+	t=1794230928;
+	b=CQNGmvi+y79irVZ+78+zcsuMbp/GMZWzNANs6NnubzHHVlqTe9IfvzhnasScuArJ513C
+	 SGMGAAFSUo10xW9cyYZbGu+/2YsedZmFN5EQ1soYmzYLrvOtxArtr4Ymgy+Py8PCbDkeN
+	 DerI/+M2OfPQc2Yz6e9NnzvqOelXKoxJkcBL7qJGUSoZ2h8o2vFaJRhxgjQqvjRyXW8Dv
+	 HYckz7EVvwkijghuHvoNlOy9QRriC+MJDt/4sKNzFmad8fZDQwhb/TrcLmFkQl+bKpmSh
+	 4dZ/G1tEJob9dr1NyAYjlu09wMWEZc6Y1QX6VsfFTpMIKFZdRrIjqap7ZL9G412GPRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230885;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=d1CDxwvd6FwMPzqWiptzkkTL3Tfq+jCUCb3bvgTMGjI=;
-	b=qYc3yTJWa6LDOKe6bILgIWH7HPDEVXdOZOgCP6LmCZaZHJpZDhziI/N5nDlLuoxHz3HK
-	 8NgSfXDazix6l8ze9YiMlKrq3wAU5idlDbkkaRUonNkfTfW5Saj3Tz6rqBWeWO+qUInHi
-	 IUk+juy6yFxAyXq9/d5zeZNZ97k9o6XYowFVTApS9YLZSXbhesF9oOIUJaMgC6V1dtXgj
-	 FIHxhYCk9VBiKK5OJgUaomqShjggjQPkcdK/RznabCDTQJa5A1JzyZpuW34R+HX4u9C9X
-	 k2K87hNKO8pHD3xQ/FqQpRR/1kCIe+zTrieAy80hdDjphsQgMLAj7c/p1FGmPG5roAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230928;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=rsswYF+09a+rKyP1kcfLJoXu1lPtWtvOWjlekD34MxU=;
+	b=tf4GLFpZXqIXTaRMt/S65/0f7fW8O/ELqWmQUu9mibWEuUMaBvJvzp6YEyyEFShPPDxa
+	 tj4Alyd/G1c40FTxK+4P8RxA6X3Irzw+jg/nYEM3gRYcM5NeHQmOBPoDS5F8Vf7lmZS2S
+	 wlXk0gjsCKpUG1jhorcPHsKbOdha6/e1mVwblCTD4LnFo83Ln45NlUA8XPNXDkypTrOxv
+	 UX93wgX+j8vRe6x4UoREbaMOnKaK8BJsm3Hr4EPt2Ctn3ybriLntFalfnJEtfAVCg+zHv
+	 xcQiQRINrCiCYmIHAXjPmaWG1ag1hPdVskd3hz07tJtqzRDH78RKCxlsdF9e4CUbadg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nVzjVU8O;
-	arc=none smtp.remote-ip=109.224.244.122
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q2PFAHXV;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A601606A31C;
-	Mon,  9 Nov 2026 13:28:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A601606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45D9606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C45D9606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nVzjVU8O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794230879; x=1794490079;
-	bh=d1CDxwvd6FwMPzqWiptzkkTL3Tfq+jCUCb3bvgTMGjI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=nVzjVU8OkAQj5/qD5urYjmL2pK8F8+9HDrOTDT1+nSYUY+UJU5hBj2SS6P5RwKfT9
-	 h2aFdqPTQ5RC6RYY+n3U2oUWia5S18b2w0q2fs148IfdcyFnQT1N02e6BjJD//KEsb
-	 lAvcTCYW2E9YimJGTuFfVw0TE7nfKc1B3CU2hQVOvup5W8IdH2CCz+oumLuigxDCMk
-	 L1IYwFCfXvm5QuOQg+nTqKVpoK8d0OZyP34yGMYO8ODihmXusbtvX2ddG8StX5qoiA
-	 X/VFM3irnn7RBRgv3Pwj7v9jX+ZxIgWLNVkkiJHem5sv+pGf4KOYiSA9et3WFn1T8P
-	 PjD7zOD7wSHZQ==
-Date: Mon, 09 Nov 2026 13:27:53 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261109132746.22125-1-lsa.uz@pm.me>
-In-Reply-To: <avHDwGAe99WYaty9@kekkonen.localdomain>
-References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-3-lsa.uz@pm.me> <avGwRaKSqXdtXkII@kekkonen.localdomain> <20261109124610.85065-1-lsa.uz@pm.me> <avHDwGAe99WYaty9@kekkonen.localdomain>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: a3bee21ddf5233bc865bcf357b8e7637d7aa5563
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q2PFAHXV
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so8634735e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:28:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794230926; x=1794835726; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rsswYF+09a+rKyP1kcfLJoXu1lPtWtvOWjlekD34MxU=;
+        b=q2PFAHXVc+qNSn8OFchCGNzLImP53bGX9+CY9a8Kj0gIjN9u9C/YHGrLURQqvnPz5O
+         aYyEmxlXRfZeKhc9EfbboBdPCSU0gxrRIma9vyDqInwuKvJ4Hfv0DB01lJIxJNS6XtqJ
+         p0nCs2L+V5cy5m8WyvXKrfoFZKsZloZ0jxREaXC/RWDWa0pEmdmmvkHbArfcEHF88LIR
+         ZNJcueXbCVEVd0XOoHZUziWP817JHum9ki5fIhQ5lLVM6R+kwG1wEv5r4Qffd9qUS725
+         P2s17QJS6scIDiHJWe2/dbnx9cxw6ZI5vChsK+k1UxcbB/L6hRY8Ird58rnqqKWQv+1X
+         x3Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794230926; x=1794835726;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rsswYF+09a+rKyP1kcfLJoXu1lPtWtvOWjlekD34MxU=;
+        b=CTk1+UUZkKIQhpRGwgfrS3dMeCgB43d6+oFNax8lTeMEKU6kpiZQHOKMOltkbx/PLf
+         GEvnfKCn4CdCAw1MHDldu2+sxyFyFk78pwbp4elZp7LxBW4zOr3jCQbt4y6ObAcAIiuT
+         Hwv/NfLWKHvs8W+CZBkzowXNRY6RiaPYRdBvkh4kvyBueqNmf5yFMAnHVUoP8j8aD8/u
+         /sqaL/WoXyBZnOVAdeQn73Nlh6KlnRfenGxaedtqRe7aHRJzp8zOK4R7BVMXp+VpbKwh
+         +fIMeJgLOTQjpZzANKIsSVhOCZkYneRLMV8d979KoijPlrakQ77TWwhbz3y5YaVs6PKO
+         VcuQ==
+X-Forwarded-Encrypted: i=1; AL+hErFipuIvNyMLy9kVH9IbXRY8UwrdNQe8YWD3UAQamw0CEoANuV2LElfbQR+8W+HN9ypBrzOcXb/09EgsN9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3Jc7OtYYYX4bEkjG5TNcio7FxM33X9Q1mVDKjoCLi9OFmreid
+	B59ZBHXL0rUeGLEXxqcABamCY1/sGeVzUlnGCanmF9DDCNUXf6glxQGF
+X-Gm-Gg: AYBFou1Tm2i9FbCvV8ocSF4mQbrO5AUdznzgupAyIwaOHUbKmckqqa7T3DYcYFNm2KB
+	jY2JRjlGQp6IfeS2nRXLDBFf/x+y3iuXb5ugMr3MIkVDtSHDdNXJ7Kn2gA37h876q1Kmbkg6dgs
+	8W08zmMu3otfnNTN3Pk1+fL0jWXQOWGknL5wSL8yJ+Gl7vuIYRp3f+4PKdiyocdsei2NDUXB/gc
+	PobvKfd44GS5Jct4Z2JdeYhxRnqkzkJp4axaFR+tALNAQcjpi4aiZRQydRWtbnjnbXZcQWV0XEP
+	awGyo9Xxigmj+a++1/255Eq1k6gprMQVRRdcN6QBKaL8Rbvg8fiHXIB7jmcruCP2Y1E6VJZOXzW
+	d6holbSv0mIHaozHwzA8TSC3shLkpG3gCZmvz8izjm7iLNC+b/ZCU2x8FGxCsYsenJ4OLqA+xUN
+	ITvpMnO/Cfh8k8gVp7kJcxbuRd1dyIKu3Ed/SyTSEmUU2b0pMQsIktWUc5eQso/rTMJWJd27+jX
+	U0k9PFh4WhxQom2YO4MBOFp/2Yxz8evVoX5aK2KqPhF24JjUVWqUt5uk3AJxJnrqqnDNfJDBDpD
+	SgeMehQx58j5gk4L+CCUfL7owkCWRAHQoR35
+X-Received: by 2002:a05:600c:4505:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4b963c85de8mr77785245e9.33.1794230925937;
+        Mon, 09 Nov 2026 05:28:45 -0800 (PST)
+Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm282951965e9.1.2026.11.09.05.28.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:28:45 -0800 (PST)
+Date: Mon, 9 Nov 2026 13:40:19 +0000
+From: Anton Protopopov <a.s.protopopov@gmail.com>
+To: bot+bpf-ci@kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+	eddyz87@gmail.com, memxor@gmail.com, almagui@kernel.org,
+	john.fastabend@gmail.com, qmo@kernel.org, brauner@kernel.org,
+	kpsingh@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, sashal@kernel.org,
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+	martin.lau@kernel.org, mason@kernel.org
+Subject: Re: [PATCH v1 bpf-next 18/18] bpftool: List and show fmod_ret targets
+Message-ID: <avHNQ00KldUBEM29@mail.gmail.com>
+References: <20261106210314.1767267-18-a.s.protopopov@gmail.com>
+ <148800382a0df555432654e0021a940d6bcd283955b5e1ec88ba885d4f28cfff@mail.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,47 +102,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <148800382a0df555432654e0021a940d6bcd283955b5e1ec88ba885d4f28cfff@mail.kernel.org>
 
-Hi Sakari,
+On 26/11/06 09:35PM, bot+bpf-ci@kernel.org wrote:
+> > bpftool: List and show fmod_ret targets
+> 
+> TL;DR: Nit only: in bpftool fmodret.c collect_targets(), the
+> TAG_FMODRET_RETVAL lookup may be unneeded, since the only caller's list path
+> doesn't appear to read ->retval.
 
-On Mon, Nov 09, 2026 at 02:59:44PM +0200, Sakari Ailus wrote:
->> >> +static const s64 vd55g0_ev_bias_menu[] =3D {
->> >> +=09-3000, -2500, -2000, -1500, -1000, -500,
->> >> +=09    0,
->> >> +=09  500,  1000,  1500,  2000,  2500, 3000,
->> >
->> > Is this
->>
->> The sentence seems to have been cut off here. What did you mean? The
->> table is vd55g1's, in the control's 0.001 EV units.
->
-> Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
+Yes, thanks, will fix.
 
-No, it is the driver's. The firmware has both a target and a
-compensation register (UM2829, 14.7.3, Table 39 [1]):
-
-  AE_COMPENSATION       VALUE  15:0  SFP 8.8  Compensation in EV
-  AE_TARGET_PERCENTAGE  VALUE  15:0  UI       Percentage relative to satura=
-tion
-
-where "100 means saturated image". The driver writes the target from
-this table, 27 * 2^EV, as vd55g1 does:
-
-=09static const unsigned int index2exposure_target[] =3D {
-=09=093, 5, 7, 10, 14, 19, 27, 38, 54, 76, 108, 153, 216,
-=09};
-
-So +2.5 and +3 EV ask for 153 and 216, above saturation; I have not
-tested what the AE does there.
-
-v4 keeps vd55g1's table, unless you or Benjamin prefer the compensation
-register.
-
-[1] https://www.st.com/resource/en/user_manual/um2829-how-to-integrate-and-=
-configure-the-vd55g0-device-from-a-hardware-and-software-perspective-stmicr=
-oelectronics.pdf
-
-Sergey
-
+> [ ... ]
