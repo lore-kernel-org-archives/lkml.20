@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.237
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214138;
-	b=WZhyYIK05zzCzDBtl+D/boaUsaSI9KaMRwWADn9tzrcJH9S9IQWx+qMEGgs/vuaOOw2L
-	 H4o0iRuubN+wG8jWbVQFSsGA3vDoNwCqXdg5Yst6ejuU+6wstfo3nXHq8+ph102eBKEKY
-	 PFzncENdi9+m6tRudjoouUb+8qsg6hfrU0DfaASEOlGrpPlDCppB+Vlec53nFSvTT7kR4
-	 mh/8ScRDMnHJ9fOGV/qYQr/oWZ9JDOBWbVdhVFsgWduuaRu/cUxdD06s3vqJwCErPJuZn
-	 VlMrPCi9uIZdmmmLas4ZiMrk9aJxTBiDZOPLNb0ioJhIa72t5nB2SwX7CgsOn5AfR1w==
+	t=1794214140;
+	b=Ci9uJedIVyIiwmC7jGF1XzVttlc73Jjn+KmitGswpLejybcHSqJMvpZLbGGpYcCrWH3B
+	 buB/F4FuCnukXYhKQE7bqobFLt3V/B3UrYJce+7K0dY1ATFVQXEWuLQ1SFgo1sAcmRMQL
+	 3W6pGOqttaJGfbyt3WEOj3+1LL1ZgMAui96gxUiUg+o7LyPm1ATA3QaizIC8hqZZhqP7C
+	 wYRD2bVkrvaCkdI+idODaquOv/9XV2dZ8T/eebqNwSnaWGa1n3oW1MScYDSFgbtc2ukxf
+	 /6P35/hnL+l6/owbEJcaFiEByGDYfm0xM4fkHj/eH6s9m+bN5rS2mrglsEvyGZQdacw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214140;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9EDiuahpoC5a8fdBVjn+7UwWB1qVxtY459zTXN5uFBc=;
-	b=LN14AFJQQXVQeWDoYTAlvzI+U43d9PZLflLr+KxxfuFAQSAxECtIGrO5cy7bHqL/3PH3
-	 UaPwfuwuBPNw4Xl0ZdnUKeFjMHc/8JMiiVJoPn9QFOoIb2fjcN8DCdt9TmGEuAgwn+CKL
-	 rrKq/pNlbUMZCZOE+IocN/bjeG945/zRBoDFkKCCv6kwDKmF1C8ggj/MAiHxhuComjvLl
-	 dZ83mcFJ4c+UBSwotOBdkO8tr2jxzqrJuTwbdkKxvQnh4MjxXfe6CBheeYRFQDckP8fRi
-	 0Q+mjYOOor9sGd8qnlx1uUPdIn5lTCs/j2WVW7DvIkY1586VD4U3qhT6xWTFwRg5QbA==
+	bh=BcLq5g72+s7ounklw3j61AqvGiqhGMXsRHaqCza01SA=;
+	b=hoWp+XllluAPsDydBgiFvx/D6SCz3U+PvHxM+jUhkQBx4kAPKi2zSeSMx0meX1Y2/iLS
+	 3WGDJM/vKPwAYnsaux0/g/6whnusyBgpoVid3pN3TMgKEZGoOChOsUcSGEHbj/eWRXwDk
+	 7susrpWrWDq3oe3oaFBPVc7gtuQnZcWSA4/KnqS4/OyZr5ioHnXO8Rj9apVFMGOIjRwrb
+	 6hvS8VZsx4a6uw+foqkCGt9lPtl+aOaheV6tsCNjmTuzvM+a/gGXzEufJIso+P1Go43+R
+	 3xu049zphwW26QunXgtCpdLpChi4J5q0B/ylYKBTMuiyOlhNR1rGsR4SQtXOWN8icnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aKniBgn2;
-	arc=none smtp.remote-ip=91.218.175.237
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hkKMsnlC;
+	arc=none smtp.remote-ip=91.218.175.250
+Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9378606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9378606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFFD606D80B
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:48:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFFD606D80B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aKniBgn2
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hkKMsnlC
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zpKaD0TgIJfqXkuMLyaymhMm6AH9D97hWArAafrSB6U=;
+DKIM-Signature: a=rsa-sha256; bh=te8jt4hj3WwWfmT6OnfZqS4yAyifEnlgJtAVzuRwM5k=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794214136; v=1; x=1794818936;
- b=aKniBgn25IHI6/+paezktja3kzUe2XHYTbZvR+c/c7IlRhOWL6NzzF3m11fb8KQs/r5okijz
- /HUM78yf3sesqRmdI2T9Ze8vyBoxAkGO0SMDUqxoZWloB6hglXKhuB9wlHE1fyeWgZUyqlOV3x1
- R8V3eI0h2bytT8Y8YlFyZWJ8=
+ t=1794214137; v=1; x=1794818937;
+ b=hkKMsnlC9YHHEVYjusHC2USNtLneCUCRGfnUXE57MNoPcF5cKR21y6HKN+7+aojhrIwL5or6
+ cUzAO4BopmaYridgsEHWhteuykAVamolvZMOIPMWEHzQCe2N2iqxbVeOD17ew10xebz5rzYPFGQ
+ AQCtipsHJHorr+4+zRcYlF2g=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9a819a32ecff5883;
-	Mon, 09 Nov 2026 08:48:55 +0000
-X-Mizu-Trace-ID: 9a819a32ecff5883
+Received: by smtp.migadu.com with ESMTPS id 1bbb010ddd9ebf9b;
+	Mon, 09 Nov 2026 08:48:57 +0000
+X-Mizu-Trace-ID: 1bbb010ddd9ebf9b
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -68,9 +68,9 @@ Cc: Will Deacon <will@kernel.org>,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/19] KVM: arm64: Hide generic ptrauth from protected VMs without ptrauth
-Date: Mon,  9 Nov 2026 08:48:36 +0000
-Message-ID: <20261109084854.840576-2-fuad.tabba@linux.dev>
+Subject: [PATCH v2 03/19] KVM: selftests: Allow arm64 tests to create protected VMs
+Date: Mon,  9 Nov 2026 08:48:38 +0000
+Message-ID: <20261109084854.840576-4-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109084854.840576-1-fuad.tabba@linux.dev>
 References: <20261109084854.840576-1-fuad.tabba@linux.dev>
@@ -85,36 +85,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A protected VM without the ptrauth vCPU features shouldn't have pointer
-authentication in its ID registers. Commit 3d7ff00700d1 ("KVM: arm64:
-Rework specifying restricted features for protected VMs") gated APA,
-API, APA3 and GPA3 on vm_has_ptrauth(), but left GPA and GPI capped
-at IMP. So generic authentication is advertised to a protected guest
-without ptrauth, and PACGA UNDEFs.
+On arm64, the VM type passed to KVM_CREATE_VM carries the IPA size,
+which the selftest library fills in. The library rejects any type a test
+provides in vm_shape.type. A protected VM is created by setting
+KVM_VM_TYPE_ARM_PROTECTED in that type, so a test can't create one.
 
-Gate GPA and GPI on vm_has_ptrauth() too.
+Accept KVM_VM_TYPE_ARM_PROTECTED from the test, and add the IPA size to
+it as for any other VM.
 
-Fixes: 3d7ff00700d1 ("KVM: arm64: Rework specifying restricted features for protected VMs")
+Reviewed-by: Joey Gouly <joey.gouly@arm.com>
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/hyp/nvhe/sys_regs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/testing/selftests/kvm/lib/kvm_util.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-index 32e82653ebf7e..e5502d5651b05 100644
---- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-+++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-@@ -157,8 +157,8 @@ static const struct pvm_ftr_bits pvmid_aa64isar1[] = {
- 	MAX_FEAT(ID_AA64ISAR1_EL1, JSCVT, IMP),
- 	MAX_FEAT(ID_AA64ISAR1_EL1, FCMA, IMP),
- 	MAX_FEAT(ID_AA64ISAR1_EL1, LRCPC, LRCPC3),
--	MAX_FEAT(ID_AA64ISAR1_EL1, GPA, IMP),
--	MAX_FEAT(ID_AA64ISAR1_EL1, GPI, IMP),
-+	MAX_FEAT_FUNC(ID_AA64ISAR1_EL1, GPA, IMP, vm_has_ptrauth),
-+	MAX_FEAT_FUNC(ID_AA64ISAR1_EL1, GPI, IMP, vm_has_ptrauth),
- 	MAX_FEAT(ID_AA64ISAR1_EL1, FRINTTS, IMP),
- 	MAX_FEAT(ID_AA64ISAR1_EL1, SB, IMP),
- 	MAX_FEAT(ID_AA64ISAR1_EL1, SPECRES, COSP_RCTX),
+diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+index d42e201eba763..96c1e70dba3d3 100644
+--- a/tools/testing/selftests/kvm/lib/kvm_util.c
++++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+@@ -400,9 +400,10 @@ struct kvm_vm *____vm_create(struct vm_shape shape)
+ 	}
+ 
+ #ifdef __aarch64__
+-	TEST_ASSERT(!vm->type, "ARM doesn't support test-provided types");
++	TEST_ASSERT(!(vm->type & ~KVM_VM_TYPE_ARM_PROTECTED),
++		    "ARM supports only KVM_VM_TYPE_ARM_PROTECTED as a test-provided type");
+ 	if (vm->pa_bits != 40)
+-		vm->type = KVM_VM_TYPE_ARM_IPA_SIZE(vm->pa_bits);
++		vm->type |= KVM_VM_TYPE_ARM_IPA_SIZE(vm->pa_bits);
+ #endif
+ 
+ 	vm_open(vm);
 -- 
 2.47.3
 
