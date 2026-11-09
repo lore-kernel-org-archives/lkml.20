@@ -1,75 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213463;
-	b=StWS9yvsIzz/FqNsE4XJIXdY7Z0KkYI2csBDQZNazH+PJ05GlQ+crM0qTJ+c/PWjlPUs
-	 tCHIk+N9D69ZNg35R3CpPXKliKI3wrPSNAmV4GoWWBAIQJlG7/kvGZFTfSh/j+EiNosVP
-	 GNCd5mS72J8SuRhqc2HWwTVcWKIfLlJFKz5M2VL/yIdy/sEfOt9rYuoEi6pobAPSkj19L
-	 0xSPoJXn2IYyGl/c4OdHJZJyaHlKvi96jyYvGuPywZRjbqBCVWAk93NEiiWveTyDGblfg
-	 hYREQDfVt/DmybSDCWrB+QeEDu/grl+FlN7wjcO8waTTsGRBUw0hQQqM8pZNqcf/94Q==
+	t=1794213460;
+	b=gani+FA0xHMM894ieYPXAuWiv2e7jnKSABBNtuhT710W/DMH+A3x+2iGi1oGyuA4wpFW
+	 7YgnH/OUL/V4vbA97sEyn9yKeg+cip2yqrer3a/aT6rxaPD5zrUQ5Ujw4UnPVChTUVAVV
+	 M00KlCXp+7OPM98F7VJrF6Y7TDclIOVeqLCjfCAGM31FreLvTo9dUed5WX/bXlTI/cH37
+	 hF24Dy5zKReIcLUI/xF92S19nNhzioHwo29ZvkrGRhHS6ryY+jbWgR6v62RXQ2Tgsks3q
+	 y5ATESIwhDd4MQySaVOQCOMu8XH75CDCldeF6fR/5N2Ecchj39OJBscn9BUOg8I6phg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213463;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WZoDzXkOMT/5cXIMxLO4BLJijoO3XJv8ed+jm9PnUm4=;
-	b=zGsJYnmjrYSMSZCn3QJekeAm0leiZfwoKvciprXbP/g6ps5rOtQZDdyxItoLAjSH+duh
-	 RaR/jG6S/BvOkCgaPiLPJWOCxVsGduATMTwPm82d25yb6mVKvHwmU8fwLzaabZTxFgNV0
-	 zGCcZ3W/u6/zY1M7kNiNmFIC3Alh/+VLr8jZCwX4ozl9BW/W5jBhPqV5Ui7L03jkfIorj
-	 /6JDMP2cQZQyVN9OY1zJ6bVo0a/0Hq5XEXInH9O5e96JyJ3uDerJE94aRFJsMwG+wYpON
-	 OnpVLSWI0lHwfmSWNGLwBRayaBDM6soK1WvKu81SGhIaytA1oUxtwfS1i2rtvB4H+Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213460;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nC1Wszvh4Y9MkwTmdjUSmc1pvfFIw9wR53jTSHBM7fo=;
+	b=rXMB3b90GuzoV0JAxwo4EctDe23zi2ADNaPqOk4q+C4yPWcfIpajvNUbxBDnCLpZ7M6v
+	 +inllXkmF0nN7s4CCtpWdDQMUbSbTRBwHgx/9yxPrpN2M9GBA+cTaJc8GVyHWZCjYUa65
+	 fNjAgBKh4tS0SMYZFGcXihrKZW/k8WhV87RW5XGLhkqBPStg3nTJZLd3QGDQDjKMWvT2w
+	 PhLzuBgky7ehX2dbe8GOzDu0wCimjakwLSHSgZY0oLsxABmS7T333YLSdiNpf9p6z22yV
+	 2hfQY+KfcwQgpa5QLN7bN9jng2Hdt65J9YulA6iQAaoL7hbn/O3Qvp3K3VmcBtISipQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Seht+aPC;
-	arc=none smtp.remote-ip=95.215.58.243
-Received: from mta1.migadu.com (out-243.mta1.migadu.com [95.215.58.243])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68D9606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C68D9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=zLzYjUX5;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E700606A31C;
+	Mon,  9 Nov 2026 08:37:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E700606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Seht+aPC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WZoDzXkOMT/5cXIMxLO4BLJijoO3XJv8ed+jm9PnUm4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794213460; v=1; x=1794818260;
- b=Seht+aPCpyOK5KXSCO4hctGHBc83Pf1IX6evZliw9wXT2hzR29V45R45VqIyXZvoU9lnx3m9
- FGpE/7CY3NjQY4gNCEjPSt0PIHJjneKfmoxjLnu05U7oPF1VvdOkcgPppVOik3UhpchyIH+Qi8J
- a6fIR97+YZu/Rwi7PALL1ITE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d92dc173b9474008;
-	Mon, 09 Nov 2026 08:37:40 +0000
-X-Mizu-Trace-ID: d92dc173b9474008
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <tabba@google.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=zLzYjUX5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=zLzYjUX5q2OAokroJ266wewJfAlZdbX8Yu8TWv+pWhkhAy0NaATWmXoq6ABRfIAcqU/BUjUsni+RX
+	 3U+Ap6P8w9gqen79WBoA/fgS9MmlOTdDK6wAOYG4Bjrl5lZwoPjj0tmKEQk2ZrREqRBsaTFnFwOYBs
+	 xwqdMiiGPwh0thZI=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af18636a24-c4277;
+	Mon, 09 Nov 2026 16:37:13 +0800 (CST)
+X-RM-TRANSID:2ee76af18636a24-c4277
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af18637b98-8865f;
+	Mon, 09 Nov 2026 16:37:13 +0800 (CST)
+X-RM-TRANSID:2eea6af18637b98-8865f
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	MD Danish Anwar <danishanwar@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Diogo Ivo <diogo.ivo@siemens.com>,
+	Haokexin <haokexin@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Add support for self-hosted debug in protected guests
-Date: Mon,  9 Nov 2026 08:37:39 +0000
-Message-ID: <20261109083739.819288-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102093950.2922035-1-fuad.tabba@linux.dev>
-References: <20261102093950.2922035-1-fuad.tabba@linux.dev>
+Subject: Re: [PATCH] net: ti: icssg-prueth-sr1: Fix device_node refcount leak in prueth_probe()
+Date: Mon,  9 Nov 2026 16:37:09 +0800
+Message-ID: <20261109093500.54322-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <179335102798.3327.13730382084781364050@kernel.org>
+References: <179335102798.3327.13730382084781364050@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,12 +82,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+Hi,
 
-I've folded this into the series that advertises the rest of the
-protected VM features [1], so please consider this posting superseded.
+Please find below the additional information netdev-bot requested
+for this series.
 
-Cheers,
-/fuad
+How the issue was discovered: manual code inspection of the error
+paths in prueth_probe() while auditing the SR1.0 driver for
+probe-time resource leaks.
 
-[1] https://lore.kernel.org/all/20261109083205.806619-1-fuad.tabba@linux.dev/
+Whether the issue was actually triggered: no, it is purely
+theoretical. The affected branches only run when the "ti,mii-g-rt"
+or "ti,mii-rt" syscon regmap lookup fails, which happens only with a
+malformed or incomplete device tree. On a valid DT these branches
+are never taken. When they are, probe() fails with -ENODEV and the
+of_node_get() references taken on eth0_node/eth1_node earlier in
+the function are leaked silently; there is no stack trace or error
+message pointing at the leak itself.
+
+Hardware the change was tested on: none, it was not tested on real
+hardware. The change only re-routes two error branches to the
+existing put_cores label, which is already exercised by the other
+failure paths in the same function (e.g. prueth_get_cores()
+failures), so no new cleanup code is introduced.
+
+Regarding the Sashiko finding: the same leak in the non-SR1 variant
+of the driver (icssg_prueth.c) is real, and it is fixed by a
+companion patch submitted at the same time as this one:
+
+https://lore.kernel.org/netdev/20261030085651.1944-1-laixiangwu@cmss.chinamobile.com/
+
+Best regards,
+Xiangwu Lai
+
+
