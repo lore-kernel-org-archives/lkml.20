@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794248128;
-	b=UiACQkx0eZINIW3c1TSVabd0HjBJ2nw9Gs/jFfVDRstNa9/kFgboTd+bJHKx63AgBvLe
-	 +KjJqHaYIOHwPlj5Bvg2B1IV8QqZFG+L7t/e+fwPWMZBauzeUF2wmHPIV8rhs2WEHDJdW
-	 HwWPxu1SdmQMb1O2YtHSxeQ35XT7BKGsAkBNb2gwhNtjBkpCrPT3ywlCA47YPp+8PXfP8
-	 43HbqkuM3NZU//u+yQTbknb7DuomfiU47DJd37gFTZJ2FAA2gd7BAeEz71gJfEHHhlxZF
-	 D77JvCLhylrnLSoMFBmjHtB6oRHgzknKpb5T9jITmbEE7g8JI+YZ8HuLBnF0JIxYE7g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=A/qVClOCqu/XJfl5OHSDd/IqxT1Vn4LDahzKvulflyQ=;
-	b=H/0jMviPBlAjm4/k0eLsGHVtef1fvRTl70ljAxGxf3nbj5hpwKPvAHFOKrpUPP6bSenQ
-	 TJ6zo7KzwMvdfRSIMGEwja4Va8POvclegK580qc5kSgKhRZofc9nS1Mjs8SGrKy+wGwEo
-	 97Dd6s7KSkwKwF0Ar0ccFoeW8mo3ky5c9Ng2p7/v57YC+v9ZSCLPho+Fh5LUAXD0vrEOj
-	 /J/gEA+OA5EHqJRvnc2GNn7/gHHJJTz6EiTukKA0fOxtaivPO0w7i+z6fExEY2sPDOqZ0
-	 rW8FSmB91M5MLjVjQ9tosBfA10DdkCrS+UgqXYmuqOVFCP/X9pS/eJBv7Pw7QUNntAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0HnyTglw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794248205;
+	b=aTJ/LpwcdFEbGYrcyIdLt8CD5u+GnJgf/NUYiDXaDSChW+OoNvaplA59TVGjYHvMFwQV
+	 pgSX/hHRdSBl/0ch9QacqjB1nCXUQnAxpEPvHcBBVZ7hQJyNP2yoY6eQouT+sEEYfIYz6
+	 OqH9L3EJnjjcly2tXfMUM7it4MwmEnq9BnCklO0lLFkactL+wg2RWi2Buyo15NLq0vpnw
+	 lsrcRW2Skqn6Inb0Us7CgDDuLILrFU1rg1Xgr1MCDTCejHCegwUHyyhKjedbRFv5QYVwa
+	 Vmjc2ay6ydcM3LJe/o+ANfNUV4bjtdx8rzkDmcj3DQ7lSJCYe1+T+JYIVbyzsKsZj+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248205;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:User-Agent:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
+	b=Waa2Qlee3ofiH5LgTFp7sD+XGHH91Rw72eSApbK1IQAMhTH25Qn0iJqNJTZMJiE45BEq
+	 lKEWyyYbCTBIDpTxsvmyM1YG2zQ7mvM+DV1mhJBfgCNIsWsBECdyGPtKmUqxJiUIPSXqg
+	 3SzD8/cP+zpZ73U1xJ0Ct2hviIPAwvyqpR43jhL+pycIoKfGINBnw/3x+IqLDd3e0i6oh
+	 GCcI3GNlEx22/IIKRuOnjOGL0GKHaMkafkekuc2sN2aPPPCmbZXg+szcj3ItSgdpEsv8C
+	 jN2njLOoS2FdglnntCUBZ+dafNasF4AHg04XegbIMt7m32ryciLoRTswUlOvMqbF6lQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=3B2lzBEt;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y9sWCsIL;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="NlIbVV/a";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TyVw7qhd;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6F7606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:15:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E6F7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5852B606A326;
+	Mon,  9 Nov 2026 18:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5852B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0HnyTglw
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab27e45e7cso8790251fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:15:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794248126; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CxXdzSeM5Y7LbW1tbri4elp1FnG4VTicYPY1naV2+164P64xxIskA2zV1x0JHOnTU6
-         mc5Dfp8oasnNLo7Eb+4LfTE5auFN2msW+gtL/uona0eGKPi1pAJAJwqfa/lo/t/QGcy8
-         MyAz9MCV8HrNSoDgku9Ibsl98IOLdPJYS80Im3ZfE2J8VL101oWzeK0lNM46jM3aSTub
-         a7rGTwxQXldvlIf8n2sRlz7Ac81g370Gmvf31ZLiBI+dpDj0/7n+R9NNUhIZLTJxeV6X
-         QC612ceFbXlkrgSDK30Lb2jYaxfUa9qLLvunKHKUcoCXu9METJn8kPDrmM3AXK4TBwUO
-         K8fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=A/qVClOCqu/XJfl5OHSDd/IqxT1Vn4LDahzKvulflyQ=;
-        fh=AmXh9HrZmujUHxJynCzuZdCVQ6/xTOPHsNCGb3PcqBk=;
-        b=afTaVqAgWlqFZiqyQOPq8e02y9l4xer4tfNemxjDzIjU0wtVBI/GW8vaubMD4z82Us
-         D6gv3eRcFOJzR1UNCysmv+GUNPFL6kXFrAL4oiFjX/urS8zTdhiHpUr2BKPjb3KAFuqu
-         OI+ic2U4LMMS7AaXy8uYCcYy/mBmXBKdpegpAcMkmHNfoOjB7C/yUreMW38FlhVD7SBd
-         +/UAFuFad0VPvE/gawKN5+HbC2oKKu8INp67Na870+tmwtlP+9QDZaGMa3VqVul7kMoW
-         rqtMEIva6hvPoUiMVYCZ56Bp1S6u6DiuTmKZ0iK/FeAqOU8+Sg6VLaXZTAD3FwiwcN2h
-         wTBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794248126; x=1794852926; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A/qVClOCqu/XJfl5OHSDd/IqxT1Vn4LDahzKvulflyQ=;
-        b=0HnyTglwTAL8gX+olVe8YavKHfLdVCs/Be3jlhbF7fiJ+BKhmXakYEsD8bV87zN8LX
-         5baMSU6AgQuNEbABjA/yInkUpowZckQGLi5G7NdLcn+Db94+JHJKoSUatxJTey1sUiIT
-         6Cc+a4BNwjPonJI5zoFYFSoxlc1OZu8/khdxk5l+nlPao2z4j3MXOPeLg7Qz3g9rmbxG
-         lT/Pzdl4hmjyBx0aKYC0DXlFboMzZFYWltciUjh9KNDjKugvCvNkvYTc/qgCopKva50A
-         j5/Z+wgveMoD9+aZ1FlmXreaQ+MGFHABZoYLDgqSbjYDrI9xXqGCmseyvdRwjNtX4ois
-         LlwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794248126; x=1794852926;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=A/qVClOCqu/XJfl5OHSDd/IqxT1Vn4LDahzKvulflyQ=;
-        b=voTU2JldRSLhh6IBchnbGxNbb7DtVdMUEgweojBqpRibcztFxusiFUaX0iTX8sJ1lt
-         Zb115f3qi4YHelpYlafnRyZX7Pr2cZIvcoiGA5pEFQdHSkmWvp9CevagUcz66WmzJioM
-         EH0ifnpDnCgwHQzQc8l2ZNpv1Ft6FJ9n4QodRvDJDkYASt4Ht1tAwldJ5mh5m6QXk659
-         n6KG3U6MLwmYMtqQKO0VB0Wi1FRxNJ6YEUdI+Y4Q7nwpWaVsS0gXMdAVkBx2LymqcnKl
-         Lj9+orjnLoOGEJ9tcNYq1sEEWhyWYfPQQzwf+sFk8o2sYFIdULvkh8WjkVvwGmnegXsu
-         3nZA==
-X-Forwarded-Encrypted: i=1; AL+hErGp/WNU9Q44qJ7FNOaTtYZS0Ok/wst4i4gNBD2pcH7EjfJrn+Zy4ykARHMlQHBhrkWy5Vjv7TIzKnPW8kI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/L4spucVFLkrCa3vAgCXqd05mH+rAkfmgFMaCaah+V+v4aJGPD
-	hukqgWHvRTCArOT4pRh/G5gXywHKWkTGgNTbY8l9y2Upu9rPcft6HdqqJ1IJitd/d2rFv1jVqip
-	a67w1G1gmE1HCNfFIwoLc9gBACpAuuAQ=
-X-Gm-Gg: AYBFou2xRJCgDuuYO4M8SspBQQt04f8U+cfJG4Zhb1nNrOJVmknocBpdWWUlp/NsYM6
-	byRxbzaOCsXTDDsVscDcP/hoSsEWYZSkogkwPOj6xWvg9+k1+Covd9kG20a0pADt4nsjJxnpvuQ
-	661IjlB0yTfkJiMj/vJJJITxsOAiGMwFyQFFPQsqxjg+Lao16Ob8qtvfEb6nrV+hD+uGVEe8jpv
-	101rl1Qo7UVunUpHwPogBpfpfA505yCHhzKxBYUNq9WOfWj8Rilyd9oWC4NE0kcFCvuXzS/0q1f
-	r3fZ+oESYgDvy1S89QF9NxAchwXDSv6hLGBanvrAZNOfaucMP7TcPfU0DrnD7QwlaM3zidehFyA
-	V0hS0LJLYSPET5qejlhKUFa5Stwq5wSSa1R5q3I9Y+/g4NQCBDOwDZ5/zJjA=
-X-Received: by 2002:a05:651c:1991:b0:3a9:a1ed:6341 with SMTP id
- 38308e7fff4ca-3ae096266a2mr129721fa.11.1794248125851; Mon, 09 Nov 2026
- 10:15:25 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=3B2lzBEt;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=y9sWCsIL;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=NlIbVV/a;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TyVw7qhd
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 06395220BC;
+	Mon,  9 Nov 2026 18:16:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794248202;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
+	b=3B2lzBEtfxWa4On/eJaIrsC37NbKPW2fT6WkCQrXYyF5l4Qv/MI+/eNZ/PJWj1rFXjK5nT
+	yBtsP4LawaLJW85j18DQ8dCtpDjOlkCv8ufh/wrlIOZPjDq/5vZVaGNTsb0UQVtiQXHGkC
+	Axztq5W0rWJZzAo4gEh8SNYd7/rRdgk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794248202;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
+	b=y9sWCsIL492ZByPiZla7bovZxO5GS/htk45tN0G9T/jb0cn+EBOq3reS0ZGcO0+9X8R/QE
+	kARNc7PbFo7s3SDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="NlIbVV/a";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=TyVw7qhd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794248201;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
+	b=NlIbVV/a3apB6ADiiasMmf6Q5NNjHqIkypLsiMAt7sXuw3y6fCsywykUMjgjUWz5bZMIry
+	6ffwDyHy1Ip/8Zrxe0DUpHX4ohMThM44KEL6x5OrKXFbCrFjY1OjVYu5JPvCofZ0LKSJo5
+	9Frisz5KLIPxSepAk9CbJ0xy+x5n7ng=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794248201;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HwJSxXJdrvN1QjCdMeDzHJsJHoIsw9iASVs7CCOIbc4=;
+	b=TyVw7qhdEMTtx0FSAbWkwIQYAyxK27PSiTnUROj7y2B8TTsXxIZcvckq2KoMyBhNYIEsYv
+	8kZYa+ovdtGyoPCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A200413319;
+	Mon,  9 Nov 2026 18:16:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hlLSHAgO8mrtVgAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Mon, 09 Nov 2026 18:16:40 +0000
+Date: Mon, 9 Nov 2026 19:16:39 +0100
+From: David Sterba <dsterba@suse.cz>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: dsterba@suse.cz, David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>, Chuck Lever <cel@kernel.org>,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] btrfs: fix FMODE_NOCMTIME handling in btrfs
+Message-ID: <20261109181639.GD4186782@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20261105-delegts-btrfs-v1-0-a42a2b93cdc2@kernel.org>
+ <20261109161019.GC4186782@twin.jikos.cz>
+ <ceec68acafcec5d598a47bac4e065e762641c25e.camel@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,37 +115,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106191029.469837-2-oss.patchbox@gmail.com> <4cb58287-4273-4518-8cac-aa3056dc28e2@linux.ibm.com>
-In-Reply-To: <4cb58287-4273-4518-8cac-aa3056dc28e2@linux.ibm.com>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Mon, 9 Nov 2026 13:15:12 -0500
-X-Gm-Features: AclHuK-kA47IWOIX7U2zRiO72EVz0LSCPAeXxYhlYbmsVsJrtKZ_L0q_mB3RhFw
-Message-ID: <CAGG=RgDu7-3g1yTGRYukfhpXnPgqE5BDQ_cAzMN=78QiUrOykg@mail.gmail.com>
-Subject: Re: [PATCH v2] vfio/ccw: Flush notoper_work before returning from reset
-To: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: Eric Farman <farman@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>, 
-	Halil Pasic <pasic@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Vineeth Vijayan <vneethv@linux.ibm.com>, 
-	Peter Oberparleiter <oberpar@linux.ibm.com>, Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ceec68acafcec5d598a47bac4e065e762641c25e.camel@kernel.org>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spamd-Result: default: False [-13.21 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:replyto,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.21
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 06395220BC
 
-On Mon, 9 Nov 2026 at 07:38, Christian Borntraeger
-<borntraeger@linux.ibm.com> wrote:
->
-> Does the the iommufd backend have the same problem?
-> iopt_unmap_iova_range() keeps calling the unmap callback and gives up with
-> WARN_ON(tries > 100) and -EDEADLOCK. So that path is also fixed, I guess.
+On Mon, Nov 09, 2026 at 11:48:12AM -0500, Jeff Layton wrote:
+> On Mon, 2026-11-09 at 17:10 +0100, David Sterba wrote:
+> > On Thu, Nov 05, 2026 at 03:07:41PM -0500, Jeff Layton wrote:
+> > > I tested the delegated timestamp support in nfsd recently. That support
+> > > relies heavily on FMODE_NOCMTIME, and I found several places where btrfs
+> > > didn't handle that flag properly. This series seems to fix them for me.
+> > > I tested mostly with the git regression testsuite, because it is very
+> > > sensitive to subtle bugs in timestamp handling.
+> > > 
+> > > Please consider for v7.5.
+> > > 
+> > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > > ---
+> > > Jeff Layton (4):
+> > >       btrfs: honor FMODE_NOCMTIME in btrfs_write_check()
+> > >       btrfs: honor FMODE_NOCMTIME when punching holes
+> > >       btrfs: honor FMODE_NOCMTIME in fallocate
+> > >       btrfs: honor FMODE_NOCMTIME when cloning
+> > 
+> > There's a comment from sashiko for patch 4 regarding the unconditional
+> > i_version update but this is mentioned in patch 3 as intentional. I
+> > can't tell if it's a problem, it seems more like a suggestion for
+> > cleanup. I'll add the series to for-next, please check if the question
+> > is valid. Thanks.
+> 
+> Thanks, I think the suggestion from sashiko is a false positive and we
+> should just merge this set as-is. That said, the kernel _is_
+> inconsistent in how it treats i_version under FMODE_NOCMTIME:
+> 
+> The generic VFS layer (so ext4, tmpfs, etc.) suppresses i_version
+> updates when FMODE_NOCMTIME is set.
+> 
+> XFS keeps incrementing it. This is because i_version behavior is a bit
+> different there (historical reasons). IIRC they more or less keep it in
+> lockstep with the LSN.
+> 
+> btrfs is mixed -- the write path suppresses it (like the generic VFS
+> does) but hole punching, fallocate, clone, etc. bump i_version anyway.
+> This is probably accidental.
+> 
+> In practice, it's harmless for nfsd. While there is a delegation
+> outstanding, it doesn't consult i_version anyway, and i_version is
+> updated when the delegation is released.
+> 
+> It might be worth making this more consistent at some point just for
+> neatness sake though, or in case we want to use i_version some other
+> way. I'll think about it.
 
-Yes. With iommufd, vfio_ccw_dma_unmap() is reached through
-vfio_emulated_unmap(), so the pages are left pinned in the same way.
-iopt_unmap_iova_range() then retries, and if notoper_work has not run
-by then, it warns and fails the unmap with -EDEADLOCK instead of
-hitting the BUG_ON. With the flush, the pages are unpinned before the
-callback returns on both backends.
-
-> > Fixes: 0c11f61a876e ("s390/vfio_ccw: Move cp cleanup out of not operational")
-> cc stable ?
-
-I'm not sure, so I'll leave that to you.
+Thanks for the exmpalation, this seems nuanced enough for the AI review
+to miss something.
