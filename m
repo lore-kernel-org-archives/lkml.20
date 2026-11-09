@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794236391;
-	b=2aDjOwAMfsFmOAfxOjuBPO5vBMzNfPKHvMrjiTcdPYHUbp2KzYzk5ZA8maEsZon2uHr1
-	 QfviEz42HkI3JHa89+A9EQj0SkT34cAZXdJouIudvEhRMyo1XlibrgPtsS1vDDaazTQ8+
-	 1L1vhb/3hMqWYD5fgLRwQ05dj/3XvbxdYtcFxcNIAw86NDr1DZZO6/RexoyDUltbpFFjO
-	 86sJipswajnWsb6woUeVdBbD35nl18kjf0gvykeN2dSEk/EAZnMedzk1MhRspDSM8150f
-	 hm5+pz/ABJUfy6JqAOX5zqSCLl+IQYNA9AH5SDjETEj7HJDuPkA4WChHmG9rqbuenSg==
+	b=lM3aR+QEQEgjWYhjWqfNK/b8P6Et1QoXAsKzj/87EKGeIpungbz3FxMFXZqi7pOUK6T7
+	 ZdcrQ1TVLQJVC8yVTOy6/O999di1g1foWUugKkuoKrB504oPR2e1plKskYidnZs3b7SHK
+	 1yesA1an5K01X9HVj0gfpsmtInVgXMnezUZBNWxxiQ8GF/pO38+e06s9T6/tP4y7i+vRj
+	 7THXvaKobXGxiHOayUlvXEYKv9fi2Zq2daGA1pKLQNY/l/m4b59ypkhigaFMFIMdnDAT6
+	 87JaN2fHg0IamLVniP69DN2u7ITGHY7pagNcTozG19dvId4EQrceo3rc5/6HXOrg0vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794236391;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=G71sYzjhugH4uQfeqvNsU6Z3tBFA+lN/tz6YjlgWMoY=;
-	b=Qpa/uGCssEsuWAam/kXmR6DK9Uw0Dx9yraIoPWJr9OQ6volW9KTPmS9xXKo1k3U7KV7U
-	 UElJFvVhvvvcAZDN7k7ZqclqeOYYxMC2UH4M7f/IfRy5fgD1NKOjGFPvwkyKg5wNosItj
-	 IhAj15neAZ2ZhLx0q1D8Zm6+KIlUQ2iaeGGsX3Z5HcsE3Uo8qwU3Pp6CGauBy/FSirzaq
-	 Ipe3T9fuYn9ivLNSupSnxMHlMkN2nLBNg7VchVlsbovjJksANhdTdNmKO4YxAV+4PfRRj
-	 R/puY3cOWdYqjaBj+3gV8YAQmBI7NZ8AA+meXR+FpUusdcrVNXuCmoy/WmZIuKQC6ZA==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UQoe9xSGlVbg9gi4dS/A1+AcZ2zXCs/RHnpuopsqhGg=;
+	b=ItBz/7mqDe7rj01t+WFbFbMM4gfn4gMb5LTcvxaSG3GresQ2jd03YeEmUCAnNnfGZglT
+	 iUZcOCUjKOwBXvqHMpiDmD26HjDkUCyMMrH9xDpc/iTSZw11X7bN6yZRbcST2E/T2KiEK
+	 05uVQWQXzRsMnP/eJN4smSXHqOfffgd7KKAN5HuXGGJWUl1uPQgYxHadxXgD+dZYk00b6
+	 KhCmN2MB8R9zBSgiXjIUE2ngkEtNejmixPKOER1dnEDpoFbkzfUoZO4WJHyCfMcs9osV8
+	 joeuysdyi7s9jKVgxfUUod4m4EeKMTSEjalgZHo+CGBIr92/9ROwvNhAKCBYzfGBq5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mdLOCnJ6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=juDJlG07;
+	arc=none smtp.remote-ip=95.215.58.142
+Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EBE8B606A325;
-	Mon,  9 Nov 2026 14:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA74606A33A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:59:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DA74606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mdLOCnJ6
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C176D1F008A3;
-	Mon,  9 Nov 2026 14:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794236390;
-	bh=G71sYzjhugH4uQfeqvNsU6Z3tBFA+lN/tz6YjlgWMoY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mdLOCnJ6f4QR9j5qES6Is1nPTu85ZFqdJ4CD2I2oQ+FTxhEWg7q/tmmMkxGQmqOjl
-	 A+9lvAdp+HczdAYrINk0W4pPS6bC/MeIR99hnxP/fBRwJED8HOsc0f5XySxjR6NQmY
-	 rTVnK+3fRozyEQUzU4WWoOoKCZBpkv38jim0IWgyTDE/ab9K97o8X+L2Sb5tV5bYK8
-	 KzGEKhC63UTgGM25kKuK3DsmIQXaFbwCrxlpqe8ciO5gZIPx+p6d0pFm+vXmNlV4fk
-	 aFa+MWgkMICP34JCM/3REe+Vm9ZsSZJ7I+YL15e4iV5gp1vngsLcx1XWDkAgh7CDgK
-	 wolhnkXUGdDDQ==
-Date: Mon, 9 Nov 2026 15:59:47 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Andi Shyti <andi.shyti@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] i2c: dev: drop unnecessary sysfs device lookup
-Message-ID: <7q2j3fxgj6ara7vkscdo3ryxytpy5huokyjs7edglfjmkfcgwt@23qcn7ceagdv>
-References: <20260827102043.673273-1-johan@kernel.org>
- <20260827102043.673273-3-johan@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=juDJlG07
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jjqFjMRwX/3Zyp4M1rAtDJCjdD5QdxzyEFL+8l8Kywc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794236386; v=1; x=1794841186;
+ b=juDJlG070jTAPGKqfE1EBfSb1WJzhf4tCJC3gFUsDlkchnWwyVOTEjTnPjpUvmusVhXp4mW2
+ JlR3n8uruelwui3+2TP+KX5E7MixU9WTdZAMs7laISH1tJKZSMBPYGJVOIyLoZ6szuPxyRggoNb
+ xBhNX8Vm6vkIlQS1SmRRf9bA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0514942bae641dc3;
+	Mon, 09 Nov 2026 14:59:46 +0000
+X-Mizu-Trace-ID: 0514942bae641dc3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2b164c3b-7642-4c64-9c09-ab7dff5a79e5@linux.dev>
+Date: Mon, 9 Nov 2026 22:59:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,16 +58,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827102043.673273-3-johan@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] cgroup/cpuset: Reset partition data when an
+ invalid partition stays invalid
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261107120100.3587595-1-ridong.chen@linux.dev>
+ <20261107120100.3587595-2-ridong.chen@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261107120100.3587595-2-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 12:20:42PM +0200, Johan Hovold wrote:
-> The sysfs lifetime rules guarantees that the i2c-dev class device is
-> still valid while its attribute callbacks are executing so drop the
-> unnecessary reverse lookup.
+
+
+在 2026/11/7 20:00, Ridong Chen 写道:
+> From: Ridong Chen <chenridong@xiaomi.com>
 > 
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+> When cpuset.cpus or cpuset.cpus.exclusive of a partition root is
+> changed, update_cpumask() and update_exclusive_cpumask() copy the new
+> effective_xcpus computed for the trial cpuset into the cpuset, and call
+> reset_partition_data() only if the partition was valid before and is
+> invalid now:
+> 
+> 	if ((old_prs > 0) && !is_partition_valid(cs))
+> 		reset_partition_data(cs);
+> 
+> An invalid partition root (old_prs < 0) that stays invalid is not
+> covered. Its effective_xcpus is then left with the trial value, which
+> is computed from user_xcpus() and so falls back to cpuset.cpus when
+> cpuset.cpus.exclusive is cleared. As an invalid partition root does not
+> own any exclusive CPUs, and rm_siblings_excl_cpus() treats a non-empty
+> effective_xcpus of a sibling without cpuset.cpus.exclusive as owned,
+> those CPUs can then no longer be claimed by a sibling:
+> 
+>   # A1: cpuset.cpus=2-3, cpuset.cpus.exclusive=2-3, root, with tasks
+>   # offline CPUs 2-3 -> A1 becomes invalid
+>   echo > A1/cpuset.cpus.exclusive
+>   cat A1/cpuset.cpus.exclusive.effective    # 2-3, expected empty
+>   echo 3 > B1/cpuset.cpus.exclusive         # -EINVAL
+> 
+> Reset the partition data whenever the cpuset is a partition root, valid
+> or not, and ends up invalid. As effective_xcpus may be cleared by that,
+> also force update_cpumasks_hier() to update the subtree, so that the
+> effective_xcpus of the descendants doesn't keep the released CPUs. Add
+> test cases for it.
+> 
+> Fixes: de9f15e21c55 ("cpuset: use parse_cpulist for setting cpus.exclusive")
+> Fixes: c5866c9a007d ("cpuset: refactor CPU mask buffer parsing logic")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261101114206.2434398-1-ridong.chen%40linux.dev?part=15
+> Reviewed-by: Waiman Long <longman@redhat.com>
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
+>  kernel/cgroup/cpuset.c                            | 10 ++++++++--
+>  tools/testing/selftests/cgroup/test_cpuset_prs.sh |  6 ++++++
+>  2 files changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3052413e41e7..cf38e8708ddd 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2607,8 +2607,11 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+>  	spin_lock_irq(&callback_lock);
+>  	cpumask_copy(cs->cpus_allowed, trialcs->cpus_allowed);
+>  	cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+> -	if ((old_prs > 0) && !is_partition_valid(cs))
+> +	if (old_prs && !is_partition_valid(cs)) {
+>  		reset_partition_data(cs);
+> +		/* effective_xcpus may be cleared, update the subtree too */
+> +		force = true;
+> +	}
+>  	spin_unlock_irq(&callback_lock);
+>  
+>  	/* effective_cpus/effective_xcpus will be updated here */
+> @@ -2672,8 +2675,11 @@ static int update_exclusive_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+>  	spin_lock_irq(&callback_lock);
+>  	cpumask_copy(cs->exclusive_cpus, trialcs->exclusive_cpus);
+>  	cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+> -	if ((old_prs > 0) && !is_partition_valid(cs))
+> +	if (old_prs && !is_partition_valid(cs)) {
+>  		reset_partition_data(cs);
+> +		/* effective_xcpus may be cleared, update the subtree too */
+> +		force = true;
+> +	}
+>  	spin_unlock_irq(&callback_lock);
+>  
+>  	/*
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index bdca6c471f87..32e1e44fa0b1 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -434,6 +434,12 @@ TEST_MATRIX=(
+>  	# cpuset.cpus is allowed, but those extra CPUs are ignored.
+>  	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
+>  
+> +	# Clearing cpuset.cpus.exclusive of an invalid partition releases its
+> +	# exclusive CPUs, including those of its descendants, so a sibling
+> +	# can claim them.
+> +	" CX2-3:P1    .     .     C3  T:O2=0:O3=0:X  .     .      X3   0 XA1:|XB1:3 A1:P-1"
+> +	" CX2-3:P1   X3     .     C3  T:O2=0:O3=0:X  .     .      X3   0 XA1:|XA2:|XB1:3 A1:P-1"
+> +
+>  	# A child cannot recover until its exclusive CPUs are available again.
+>  	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
+>  	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
+> 
+> base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+
+Thanks,
+Guopeng
