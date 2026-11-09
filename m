@@ -1,125 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794261579;
-	b=AxU91AIydOSmZgnZvNTDVMsODfu7U4NSytHx9A4J2R6A82wUFjJK3j5IcCP78S9xEKbt
-	 xTg3HF5ARUWIWeM7OQ7ckjUVwltOWmB7FSn3HugSh6RcNQqHClubFyMHAhcI/xWp/3dVl
-	 VWpoXIvxzajmbMf2RyGavJD54LJF11zZeZVo/Hk58w+YLAP2ctqMe98QRw6XWDlV0qyVi
-	 58JTTLCoR2ccU7FWT1mEwcT4E8sED3yTxihhU1NOP53xVLJSbvzBHJJg7wpfhquM8q1oR
-	 UbEPoj147f5svc7sZzn7nqEiTiO+SHjNnGhhUJBgRb1RqvVZlcl/J+7HCBxoYozaT2A==
+	t=1794261618;
+	b=CaPucE8in61dPXg6/TdPd7EoUhH3j1/RYVfTnuITZvp1Exw4xUJJZZol24yXPkqVt4Mp
+	 g/Jya8ZF9n6Zq/OMah+DTqwX+x7ZDutQUW+LNyruEWj5BijPNMETDYnsC5rm7E0OXCEky
+	 yDphCmCKsZmkt7ZlCi37XDJEWZMhTXi00s+PmKbZSR68SJGZJs0Wx2Ft9AEeKeGXL5hvl
+	 Jzhbt05+SReXjkH7cYLg+gT55RvVpkp8aDNPDNNs2NTnRr2BEab4TSBrGZvXY+5oKa9Xo
+	 jkwGNjiPL+GogMnU8DXsoP9dfJTukBsm9F93EmLCcm3CuOoFTQmQHCIIvW1gT+HtpEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794261579;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0JHuIrO6HeQW90zGwb8mXlKmQS/KkaD9r735yyDrBqE=;
-	b=AFnZydLdA0wb5QWaOQ7b5SdWerQB9YuDcJtw2t2l7xKFValJWCgoKuaD+aqqXNTUSfDg
-	 nL6f7DSTxCHhxVFxLyXyALPK5DDizNX/nHupa5o2Tb+/kjFZy+Y7ll6slqLDiC1kENxVx
-	 +SnG2Zgj8GdMqZ6DrHMQtqyEZXp+2d98VV1yzQiI562t8n0j4xhbINY0BndqfeHXhGqLw
-	 VF6iabcZTcImYbrZwff0SXx+Sx+WekhCqs2EGt+xvVaj2cvM2rt9xuzhRdhEOW8pvBzSa
-	 nbPNKYV+IJfG2dot0DzXM3QAWPh91XZVCYmeGYbXG4hR9ylJv7F+8WzIXP9FKqewh+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794261618;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+uUNFNsJ/y/TsHe5tSEE2ggVSbT2u5FUwgZN1VUTMzo=;
+	b=Hxdw661Zx98gMQcR78CPsgb5vG8GTqawJORtjh0DYSvIj4IhXYlfhuGziIGTMEAMd6Og
+	 BEMq5UMuXpgQvZtTGCU9a/d4uzqjwJ9zslcITwlwnb60OFf1K5svluDI5Rq+HdBgOsTKH
+	 WWjGvPCuPd0vg/YOnVK7F8h59wYwxWa4BLGsZtz80aOBtQb8xGNydidSkFmHcAJTzmyx6
+	 nlBGurYK+3TLqJ2M8O3YDoLVHhMi43bhyWMhU5lGk57wbCRDXRaEZqeWvsQEjR38THAD/
+	 j4QVIjTIJVvbwNO+xOGbdNh/RusO13T6ONUAPnQNtzT0Twel5GypS9ndDt0KbS3Ztmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ch7ENt1R;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X3wlStDb;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kAxaUji6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E92606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:59:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E92606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C7D606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ch7ENt1R;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X3wlStDb
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9LA29f2018848
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 21:59:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0JHuIrO6HeQW90zGwb8mXlKm
-	QS/KkaD9r735yyDrBqE=; b=ch7ENt1RzDTd0Cy7LxpzaWmCtj9d3F01+Hesh4BO
-	N9/scIG+o0vWI7Afc0J/S+FawtUid/nr8dHGkwsttMKKFtg8PycXQr3b9blscG3A
-	XQbV3K4sLckCt9xGYeyA3WDY3hv7aEeEEpb84ZR7LwXjZ3aIIxbMFxBUZhmUeiCy
-	8an16Vyl773x2e46hibUyNnBozTfG5TanrEmW5CN6oNFZ+sLCeI/RUGLa8GFqwzD
-	oCUY4svEPyRjJoR5sLCtgK/3LVqMUGdjTvLQHHoouKW0O57bUel68STegcYV3mTJ
-	aSzC6kRc9wN4TRFfcI35Z7T9H3ucxJcD8HPtMZw3wh9eGw==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg0ebg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:59:37 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7d2cb77c7abso154497137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:59:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794261577; x=1794866377; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0JHuIrO6HeQW90zGwb8mXlKmQS/KkaD9r735yyDrBqE=;
-        b=X3wlStDbDzUkelKbfNuZ9htfiYQglqCloPyFrmv+wu2BNQziLEP2elRzoY3HEYIv6u
-         WvI8fRvKuR85P4v+g/iF9NTEOLZApHNefT6bMlBnj5ApnfpMjs4WjB563P4LFHTrxrXf
-         xJdOVbSsnMgb04D7Sp0XlgyQm6JkQ2WmA3BWtToLy1dmHm8Os/t6OOf4RSVWxX2V33ID
-         mFV4PL5PX5m0ngfeRYh2mBjOqOYxVLUkP/NL743fRoOKiJVh6/rXBxfDNtQST2VfpgUX
-         1czJkDbbSbO4YXcPAPaMqGKFe+nOC9xDVQhAvCl+Ih5wwWLgDQF+DAtuHDY8k+rVmoLv
-         ipvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794261577; x=1794866377;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0JHuIrO6HeQW90zGwb8mXlKmQS/KkaD9r735yyDrBqE=;
-        b=KK9OVT1udxgvmONDI2pnvtZcCULJFLCVP0C1WgZjvqb9tCjSBJeySv5UB+w32KAVQf
-         Hd3ATAJrrdoXIIWudTKFzXv6XltLFsycFmk44Ql+CeWeMA9rtpYUZ31m3kc95Bka3Wee
-         Egp13N3nB2SV9gWyodBRBf/0JhG6kZBg+Bqq/tiaR5XKRu4/br04qhLdbQ6N0CQMICyQ
-         faXTrLnoRQFvJSj25l1lXumyUO5SqaOGrKsBzY9MAIz+VHrlofK/ETlUYj+PEkpWaSLq
-         r2R1DYXtvlFfMYBCuu9B6u1X3MAuUscZNI/v5kL4mD9FUGj3mNiuqRhlGLYWg3zzPwiY
-         57gw==
-X-Forwarded-Encrypted: i=1; AL+hErEJj1dSm3xZ0mZ2LWqFwLmuc/Yv955P2jrBFmw6x8XOo3ggT1yG+9P00gqJ5hJhgs3JXzy8lvmPxOQegYk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/R0UM8cI7VydSXPaZRkAhNVOZXB+7lNTkawMqzC0iRKLLljDPB
-	HuPaRqn9KygLWo1QDFhVq6oCx3eMd//S3Tj1j5d9rB9K+C8iz4ltUeyzq+6ThN4BHlcyp3ww3c/
-	XdedIE0IOV9CajktQLTPsISZEAH58oNbbo7Mn6D5P/bACAMYQ3Uro9zmCnVzlMbY582s=
-X-Gm-Gg: AYBFou1i7OyThsYKfW3szqEa7PidpS1nxI6UHbIuXsXjEz1VM/0ZQXDfy7NKdJuEClm
-	wnE75NV1FgOGQB5zFWl77P0gZs5uD56lB1r12xDYCU1DwzxQR3WDqSwyMlI7hyxcQeqdwk+IA0N
-	FBszWGEGahcAinSUGxVze5rC7zYGJx3hzS4aRCMgFWyw9km0UNq2lhdYGRhT4GODvtykfeJwa7o
-	X55NksbG/R3y02uVI2V4dNiaZKwhdstI7oFsr6BPDre9kuaLv34UC9GLwZ7fLhLAQYuhfMqxmtb
-	n5j1Q0A/lNYHdws6g+Fzj+Kg9O4ru5O9yJHIYysCiElRQcKjiUoPdwKn000MjU9yhm+U6Qxus6H
-	MuyDoJVJPPTLq9rC73dUlKNOaLTd0vb0MOo054cqms2s0eJkvLjQHKEwwp6+vvI0=
-X-Received: by 2002:a05:6102:3753:b0:7cc:828b:41f4 with SMTP id ada2fe7eead31-7d301c3f850mr257641137.35.1794261576512;
-        Mon, 09 Nov 2026 13:59:36 -0800 (PST)
-X-Received: by 2002:a05:6102:3753:b0:7cc:828b:41f4 with SMTP id ada2fe7eead31-7d301c3f850mr257625137.35.1794261575843;
-        Mon, 09 Nov 2026 13:59:35 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363e0019sm1354173f8f.38.2026.11.09.13.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 13:59:34 -0800 (PST)
-Date: Mon, 9 Nov 2026 23:59:33 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 2/3] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC
- support
-Message-ID: <o55caq7vadrcc6ioc7n7aplbyh55n63mqgno6j2mgcksrjzb35@ptnencuakeo6>
-References: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
- <20261107-t14s-gen7-ec-v1-2-f4a8edaac447@oss.qualcomm.com>
- <44e4ede9-3eb8-418a-b1f1-7e9dc75e2e75@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kAxaUji6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6216E1F0089F;
+	Mon,  9 Nov 2026 22:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794261617;
+	bh=+uUNFNsJ/y/TsHe5tSEE2ggVSbT2u5FUwgZN1VUTMzo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kAxaUji6k2KW8rfSAvXJhJiuO/EZX60VCydj5QPGZtcNUy06hAoNW9MKWzQpV/4uY
+	 142BRjiWbeltdP+9LWvBZfp5X6D9yTvRt07tXHpQJQcdUSLNrdfPrpSOMbUAEzgqTJ
+	 HpoHuTXP9QBCPx6WtPB9860DKqnLXKCenm87BaDg/78/XEw1a1CZdxAudNjGgcTC0q
+	 a5a+b5trvcOnvtXTOE6cSO7RlzSheWSRnx8xcpPWyP7WaNq+puxs1zaPHfh94lUUPA
+	 vzgZD0i0Ir0h7TMIxXspZ4uUgVnKKFn5jCj1KLtemmJsQDjBdqPd4VXe2ZInUO7b9F
+	 xPh8W3FLuSQIA==
+Message-ID: <b47cc8f4-3f8a-4893-8a2a-f88dd5ab762d@kernel.org>
+Date: Mon, 9 Nov 2026 23:00:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,127 +51,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <44e4ede9-3eb8-418a-b1f1-7e9dc75e2e75@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4NyBTYWx0ZWRfX6HlLM1IMaUli
- PHK0QbHzNgvlh9vYQLPsCfC6raEHRrOx7wUQ/wGMPktBUXPR47MTTrnPTgyvooWsaR1p98PgHUF
- Iw0/ohnGz3IsONSio7W9H2hmbqLH7bknhtDzO1FUHTp59UVhxOVL9++nn5s1laB3clnPG3wBNcY
- FH4XpdqHaOULzRiMKdhXd/l9QJOkcg2h0isXo8/6N0iY2CI3z6EMy71eE0beVn36iaC5J0/qGmW
- 9pPIjLkddf8X1LPFck1EmiczHVJS1cb/D0MYouDyu5LJzESHgF7r/Ja2zJip8KzkLLZrimxvkC1
- +BXfI8L1HwLbGUIFLgfPmfgOyJx8sN8IJnk475rn1nIooWluvN6YYTEe0VYHEJq2V6/TeqwPyPn
- ziqCMoOt64AGh5m2Dl0MYTJRhkEHSfrPR1Q7+MuI7cXL5ipDEQjUEJkMgdUO2MOK5kpuVhF6mCz
- dnsh78Tbs1SAJjuDL/w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4NyBTYWx0ZWRfX0S2sLcbMLPoE
- GOf0UMwZ5/P+oDy0gKzhxm5soQ9A0lzNAKU251cj0LnKT3Okc/jv/NAmATztzZ/CkequqmQ+HMH
- 6EJShHNhKcwCEUDwe+udYh3z5fA3AGE=
-X-Proofpoint-GUID: FeTP3Nhlu_XhXhGKYQq1oaGq8QmOJAlK
-X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af24249 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=5kuUbzVnSpjELaQO4TEA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: FeTP3Nhlu_XhXhGKYQq1oaGq8QmOJAlK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_07,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090087
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
+To: Shivank Garg <shivankg@amd.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>,
+ Pedro Falcato <pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>,
+ Borislav Petkov <bp@alien8.de>, Bharata B Rao <bharata@amd.com>,
+ Hrushikesh Salunke <hsalunke@amd.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: x86@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 26-11-09 15:52:16, Hans de Goede wrote:
-> Hi Abel,
+On 11/9/26 20:15, Shivank Garg wrote:
+> clear_contig_highpages() clears the whole range at once under
+> preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
+> pages at a time, with a cond_resched() in between. The batch is 32MB if
+> the architecture defines clear_pages(), and one page otherwise.
 > 
-> On 6-Nov-26 23:01, Abel Vesa wrote:
-> > The embedded controller of the ThinkPad T14s Gen 7 uses the same
-> > register layout and event codes as the Gen 6 one, but a different set
-> > of I2C commands. Going by the ACPI EC accessors in the Gen 7 firmware:
-> > 
-> >   - register read:  write {0x80, reg}, then write {0x80} + read 1 byte
-> >   - register write: write {0x81, reg, val}
-> >   - event read:     write {0x84, 0x00}, then write {0x84} + read 1 byte
-> > > With the Gen 6 commands the EC never reports any event and the LED
-> > and keyboard backlight accesses have no effect.
+> Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
+> modes"), architectures that support lazy preemption only offer the
+> full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
+> one of them, and it is the only architecture that defines
+> clear_pages(). So the 32MB batch is never used: whenever
+> clear_contig_highpages() runs under a cooperative model, the batch is
+> one page.
 > 
-> Thank you for working in this. I've been testing this and my own T14s gen7
-> and also I've taken a closer look at the DSDT leading to a bunch of
-> improvements. Instead of making these as suggested I've just gone ahead and
-> implemented these as fixup-s to be squashed into a v2 patch.
+> Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
+> set, and one page at a time with cond_resched() in between otherwise.
+> Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
 > 
-> For easier review by you I've split the improvements into 4 patches (attached):
+> PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
+> cond_resched() does nothing on any of these kernels. So a build-time
+> CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
+> not needed.
 > 
-> 1: Fix Fn-F12 not emitting a key-press + filter out some EC codes being reported
-> when pressing Fn + Fxx key combos which already send an I2C-HID kbd event.
+> No functional change intended.
 > 
-> 2: Add Gen 7 suspend/resume handling
-> 
-> 3: Cleanup: has_kbd_bl2_and_standby and mic_mute_led_generic checks are
-> really just checks for the original (gen6) support vs gen7 support
-> drop the bools and directly check which variant ec->variant points
-> at instead.
-> 4: Cleanup: has_kbd_bl2_and_standby and mic_mute_led_generic checks are
-> really just checks for the original (gen6) support vs gen7 support
-> drop the bools and directly check which variant ec->variant points
-> at instead.
-> 
-> > Describe the bus accessors and event read per variant and add one for
-> > the Gen 7. The Gen 7 firmware does not use the second keyboard backlight
-> > register or the modern standby register, it drives the mic mute LED as a
-> > generic LED (id 0x0e) instead of a bit in the audio register and, when
-> > the keyboard backlight is cycled with Fn+Space, it also reports 3 for
-> > the high level, so handle those differences too. Also handle the Gen 7
-> > only events as known ones.
-> 
-> So about these differences:
-> 
-> 1: For the spk / mic mute LEDs, on a hunch I tried using std LED controls
-> with a LED idx/id of 15 for the spk mute LED and that also works.
-> 
-> I did not find either way (REG_AUD vs REG_LED) for the spk mute LED in
-> the DSDT, instead the DSDT ends up sending an ACPI notify event, relying
-> on some windows driver to handle this.
-> 
-> How did you find that REG_AUD still works, did you just try the gen 6
-> method ?
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Signed-off-by: Shivank Garg <shivankg@amd.com>
+> ---
+>
 
-Yep, just tried the Gen 6 method and it worked. Nothing in the DSDT
-for it either.
+Thanks, I'll wait a bit for more review before applying.
 
-Re-checked just now: the speaker mute led lights up both via REG_AUD bit 6
-and as generic led 15 via REG_LED. Since the mic mute led is already a generic
-led (0x0e) on Gen 7, I'm fine with moving the speaker mute one to 15 too,
-if you prefer. Otherwise I'll keep REG_AUD, since that path is shared with Gen 6.
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> 
-> 2: For the kbd backlight, again the DSDT ends up sending an ACPI notify event
-> and does not access the EC itself at all.
-> 
-> How did you find that T14S_EC_REG_KBD_BL1 also works on gen 7?
+-- 
+Cheers,
 
-Same, tried the Gen 6 register and it worked. Writes change the level
-and reads follow the Fn+Space changes, which is how I noticed the extra
-level.
-
-> 
-> 3: For suspend/resume the DSDT does have modern-standby handling both
-> making the LEDS glow and setting some magic bit (which presumably makes
-> the EC use less power or maybe makes it send less wakeup events if we
-> were to make the EC IRQ a wakeup source) ?  This is implemented in
-> my second fixup patch.
-
-Squashed it in, thanks. Haven't been able to verify this path on my
-unit though, suspend has some unrelated other issues. Will try tomorrow.
-
-> 
-> Regards,
-> 
-> Hans
-
-All four fixups are squashed into patch 2 for v2, with your
-Co-developed-by and Signed-off-by.
-
-Thanks,
-Abel
+David
