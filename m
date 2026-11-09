@@ -1,65 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208534;
-	b=G72FV3p5Fb4nVDHY6bY9FA1TQoxgoC19i/UcK5pdq4ufeVMqAqYTokka4RJxy2vNwSl5
-	 9o8VFb188RdO3W+XkfJ0GCsluruxykMbhwPi89J373xiv8FiDNlSS8uE9Z0b04ivxyaiM
-	 Bqf1zuf2Hgt1TSWnQBZ2srNBLIPVSW4W+Wkq3hX4r6QuTO95OEfVd/yg+9kMhcquWGogN
-	 bgXxpGzbKOC+jrs8d8olodT/srTWPW7MVhdO3II+o4OMBgf0PbBUgvIAiVIq3Pd4vtKEc
-	 Gvp+mDmiviojB23o+UYHrJsHgm/gy9wnJhmjcvyku13l8nlH/Q1nh2+1xsqlePNSxmw==
+	t=1794208538;
+	b=ocPZefumqZHEiQLzPg6cLxThiFuiK2Ey5jpTgHRWRJpY6/SILOdQitionW7sVD+d9Ip3
+	 xVhMB8Nc5VVtVffxJbV2m0JcJmUrfmVLFSMMCBP4kC+uOU/I46q1mzi0seTVu+iERiA/9
+	 Ycha/T5p2pM1YdzqQVLjptHh1VH19Craap8zvrbArfDAzWgw/EQjZqFQtaWpmrej651OH
+	 9L4rVuFsFTmsrRh4bw1RUsvNpiz/KokPsT50ec6wMjGDKmgZjRjdDZnjdhjagheI3IGvG
+	 mjigXs7slLAE2tKWIzjG7g0tRhfKLdtm+NzZTrFfaIjAYiXBYiZ9otKSrtcRcDrUtkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208534;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NDe69qNLIYTdhsLYqYQaekRTxEOj0NjeZaREVZUZT1k=;
-	b=KGlHre1mcWyRH4QP5WokfBVPus6iUXQ6c/vZWXBZpz8UhvryH/6oSTzuvrxMERdnM7Be
-	 7EZvfju7uPJc919jDpTfJRF87f/z+w9+kjFhXG+9NOxOeScGOSlf0QyuhtK738FC+vM3V
-	 /SOYGeKyF/FCcj5cENxh+AT0l1Q+nAkEzoquOC1TGfxvjfnZRlqz+VBUHrzkm/xNpic6r
-	 3qB9dv4s90NYhl8CuW1lK1Ium8WZgEbkSIHBS+6bCpvpHl2N4P7RuVG9omZ1hq+PZ9UzK
-	 TYv9KYE/NJ7AnrM/OrqZWjz3qMV1yLqR2qR74zWK6CqXVAy2mAC9A0hj+7zvnZBYsvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208538;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IHDmqb3emIFmJ8fO9uRNFSu9XBh3Om7oI46gLrUcn6I=;
+	b=mh4LEpVLy3VMk/v2uvd3i+RUjJA198OP4OGAIaDYWbx3LEMdHeoQV/zkphybWHLoPmzI
+	 XgZyrVMKdC0S3OYNuJGZOPPmyzvhVMzSNrK5Bx1IE5ap33dQxeyBVWFljnwgS+HNGi8CI
+	 nUBY8DEt7BXUZ2kze4GuZigcCiHEoSTB5TU5LZDYTEOxazGQBFVaD9CXHPnd1MS16RQwO
+	 SLcm0l/9a7NRnM+yjOl/10g2FSGaY48kX59JvsKvt+g8L2VzlO6FL002h3i6oXCJI2FMC
+	 GXGe365wGJ1d3/QzeQNlH0Wx7xz8/4ebVAPhIzXTxT+q8q7KSHooEibZlWsERVz+fog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="i2/ox5zl";
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w11j6Mdb;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351C8606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351C8606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0ED1606A331
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:15:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0ED1606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=i2/ox5zl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=NDe6
-	9qNLIYTdhsLYqYQaekRTxEOj0NjeZaREVZUZT1k=; b=i2/ox5zlx48Yc9tPUkPZ
-	myNyvSR8O6TjJ0DwTg3U28GlwBgpxYJQT+kHtERfTPsamq8A8xpaDcWtNVjEB4d9
-	hEZFdzWg8JvsKhlQ3WLS4yCqkCcIk76cVNutKyM8R+OuOBYtL3ZHxpMSCrY2t50K
-	jYTVnWANWRaTLUxUm7l+kekFNa9WZ3akqOPJEmlFyvZSV+NIddtHWfcS4Qx55x0b
-	bqA6Ep/3pWiJvGbQIm08RvQb1+GCjzv2wP97vfcm4jccccuty//1AXN9ZZgyNLNo
-	xjUBWivV7vLWE8TH+pzJ3FadM8rhFuzaVQmYLkKyM3Vi4HPRSgCBjtjmu9e2KD9N
-	IQ==
-Received: (qmail 3136135 invoked from network); 9 Nov 2026 08:15:29 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 9 Nov 2026 08:15:29 +0100
-X-UD-Smtp-Session: l3s3148p1@zC8QutJffLMujntg
-Date: Mon, 9 Nov 2026 08:15:29 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Cc: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	srinidhi kasagar <srinidhi.kasagar@stericsson.com>,
-	Ben Dooks <ben-linux@fluff.org>,
-	Andrea Gallo <andrea.gallo@stericsson.com>,
-	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/8] i2c: nomadik: handle pm_runtime errors
-Message-ID: <avFzEaxgam-UuZH0@ninjato>
-References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
- <20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com>
- <avFwLctRcnJHtINQ@ninjato>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w11j6Mdb
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36ff9c9da34so974819eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:15:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794208537; x=1794813337; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IHDmqb3emIFmJ8fO9uRNFSu9XBh3Om7oI46gLrUcn6I=;
+        b=w11j6MdbsB4L+lfEhx9/QuPWJwJnoR1/635ejpDfK+LKom66v1X4DvzF2uzylOTZ3/
+         Q9Dj95WkZTzj1PFghbcdCfk34yVFx93MMJxz6Fh9PQU2AnN3QRpI90c1HeaM2Cv6sZdy
+         xBne9KiUAxZ9zou72Cnq5p5hXQgOrGnWF+hOz+swqgKABD2dQlZjeqQwhEaAFPH2TQH+
+         lOiMp873AaypR3uky3pBLXoqP5rSu24uKD+dfdobZrN5JZcu5R5G5cAKOY6v8MJcA7uf
+         JrcxMfecrYw4AhM5KcvnGA72DtPG75dQ+8Yk2j/IYMe5Sjmbvxv0MbDYcQJ6+wEX7rON
+         4prg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794208537; x=1794813337;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IHDmqb3emIFmJ8fO9uRNFSu9XBh3Om7oI46gLrUcn6I=;
+        b=KP5AQXpbZ9vPdqOQppU85NEKLpdRZceNXASoKyXRNDCZ+E3sWVU3y4bYdQVYwW+SKM
+         Sk3r3trUtrHO3bDmPA4yHTReXaD77b2So6vz+5fkh6e0td5aSO2j5no/djfvzq7axRpL
+         Cs8SRXMfgZWKvkT5isi7VH0MaENM92VgSgdEW9UhqJR/Zpyvo8IdWz2xDHLdsXbrN36C
+         m98MMuqamSd39sBKmnordJ8dQA58JFPl950tx/Px/S7+EaOx/WG8VkyZHruPYm3qle1G
+         AVZXxGfGvrOE2RhIA4QIKH9FoYX2klit0hcy4yq8alLlPi6RRB8POYzhJAD588p9KsWB
+         9tBg==
+X-Forwarded-Encrypted: i=1; AL+hErGHc/18VpKpAJwqSkRAK/JlsR65eeUQllcr7DkvN9AKO1wOwIKqa2qTgQGtVFP9TBS/+PSuCiRM4CobkBQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9imNLFY8lpbzPaSwWiaTAQtGWD56mrSzSgLyJVAn2dBPGYbxj3
+	8y7sxQfm2A/UVdYk0AH4xPTPsydec4S8yOFFbDfj+FQO4nFDF1LwkNzb
+X-Gm-Gg: AYBFou0+PtJPDLuAacabj1SBQSypRe0EjBqVGp7KGoAKbuhwJ4jAK9on9kx/nkph78i
+	2W/bWh3nG0B3bedaP2eNUlxYSkAflom0COA5j+gzJXHMsiwGqJiyHHv9353tU6y6aQ7Fle7+mLp
+	w75Djb5GAcEiYFTjQmD6AaHA8bBh7tIT/2qpLrD2EYQ3/1EAweAlPAASwr7EIuuzuz18Rp33Ak+
+	HfUKLxrKA2ZnXxIRV5oHRA2T4dQjs5r29FrS77vkMS+S241S/l4mi2ZJ97b4Xi6Xkbrj2Oz9iIx
+	U6pAPdnPEr0A+5JOV13t6ezxvP9AMuQ7/2fbYOz8ilegZ1VXMSIR/wJbcpwO2QRNMHwX/Bd2WhY
+	l7oQkkT6DEQuXF3rdc9jSYMMhZ0lHXCX0jYuKgUBxmhZug5CUTmqs5uN2jxzC64Jc9aEnJ9CumF
+	a4AiBtcey6+zcx0R+YQzg/U78hF5WWjWrUxoyPXUhzlD8WHXsX/uNHlpw/zAvXzpNfze6TyXwKz
+	ZUn2m1+7UVK8BO5+DagKoJfC/UWrx2iENSf4Yk14+/bhQqYDNHoA5Wpls17tky5DRVZo4RGzfns
+	3kg3Uu7tc8hVAS6CNjPCsOAnN1baK+wO97XMt7RDidujft6gNRgCZ2apQehKY2v79yFd
+X-Received: by 2002:a05:7022:3c03:b0:147:a685:9125 with SMTP id a92af1059eb24-1b39fe30253mr4642534c88.2.1794208536573;
+        Sun, 08 Nov 2026 23:15:36 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37314626dsm14607158c88.1.2026.11.08.23.15.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 23:15:35 -0800 (PST)
+Date: Sun, 8 Nov 2026 23:15:32 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: Hans de Goede <hansg@kernel.org>, Bastien Nocera <hadess@hadess.net>, 
+	fangxy@xiaopeng.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] Input: goodix - reject a bak_ref length that cannot hold
+ the checksum
+Message-ID: <avFzEGl-xQxGqN9p@google.com>
+References: <20261106075129.3106093-1-liuc63@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,46 +100,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avFwLctRcnJHtINQ@ninjato>
+In-Reply-To: <20261106075129.3106093-1-liuc63@xiaopeng.com>
 
-On Mon, Nov 09, 2026 at 08:03:09AM +0100, Wolfram Sang wrote:
+On Fri, Nov 06, 2026 at 03:51:29PM +0800, Liu Chao wrote:
+> driver_num and sensor_num are taken from the touchscreen config.  A
+> config with driver_num 1 and sensor_num 0 yields a bak_ref length of
+> 0, for which devm_kzalloc() returns ZERO_SIZE_PTR.  That pointer
+> passes the !ts->bak_ref check and the subsequent
+> ts->bak_ref[ts->bak_ref_len - 1] = 1 writes before the allocation.
 > 
-> > -	pm_runtime_get_sync(&priv->adev->dev);
-> > +	i = pm_runtime_get_sync(&priv->adev->dev);
-> > +	if (i)
-> > +		return i;
+> Reject a length that leaves no room for the trailing checksum before
+> allocating, and skip saving a bak_ref that was never allocated.
+> Without the second check a rejected length leaves bak_ref NULL while
+> bak_ref_len still holds the bogus value, and goodix_save_bak_ref()
+> then writes through the same index on suspend.
 > 
-> Testbots revealed a smatch warning:
-> 
-> drivers/i2c/busses/i2c-nomadik.c:737 nmk_i2c_xfer() warn: pm_runtime_get_sync() also returns 1 on success
-> 
-> I will fix it here.
+> Fixes: 09182ed20c04 ("Input: goodix - add support for controllers without flash")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 
-Like this:
+Applied, thank you.
 
-diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
-index 104da275ff91..8cf1d443a25c 100644
---- a/drivers/i2c/busses/i2c-nomadik.c
-+++ b/drivers/i2c/busses/i2c-nomadik.c
-@@ -734,13 +734,13 @@ static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
- 
- 	status = pm_runtime_get_sync(&priv->adev->dev);
--	if (status)
-+	if (status < 0)
- 		return status;
- 
- 	/* setup the i2c controller */
- 	setup_i2c_controller(priv);
- 
--	for (i = 0; i < num_msgs; i++) {
-+	for (i = 0, status = 0; i < num_msgs; i++) {
- 		priv->cli.slave_adr	= msgs[i].addr;
- 		priv->cli.buffer		= msgs[i].buf;
- 		priv->cli.count		= msgs[i].len;
-
-Note that setting status = 0 is not really required as the I2C core will
-ensure num_msgs to be > 0. But if people really hack around it, they
-could circumvent that. And code checkers will recognize this path until
-we fix the loophole.
-
+-- 
+Dmitry
