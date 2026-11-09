@@ -1,54 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.191
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794190541;
-	b=msAksroulIrHkEdVD8gA/+h8Wh9mXcelBSHyB9M2yjFTypUANttMQiRe5vBn+zeYj+6I
-	 6Jh6qoHKKBn90LnBbVtz0lCHmfjiYejfxuuq88O0QmkWZZTTNJ69ExY8u44eJ4CdMsrO7
-	 eCeDm2FjOcNzrjkyzev+eqE/TVB0Q+73D6Xo9+W13D+Uv7GQVFzkmw74V3pPd/2wIv0Mr
-	 jb6fQAkI6fah/rVuJUuddqYZZhGsAspdj0wyd7eSDSdo5fWYw5xP+iryumpnpTWq7KOep
-	 Me/E7c6LBblABx9MoP4GWZkPj8e4AcPnMThOVC5Ms367OmXw0ArpDQLexB26ShGBH7w==
+	t=1794190599;
+	b=2eBImD0ODTrtA0JniM3r1gA09lpaQR0s7zogCrhypCSVbp1W4oZaOpV2UJwY9DKqW+zr
+	 1sOBxQSCdoPr9man6cRsI/FWXr5I+0Dm76vOd3FieupfzKy6ZCSWfOk1IoeCTPSF9uni5
+	 IrGFzUsLrdyiQ926dJ8b51ZtRVLwfA3UbYxokM9jlmz0GfylOn9IjH5Gad9JVbgv2shYt
+	 TQ23WMpLHVjuP6GgsMLuuMjzHjPXlPButePqprteat/EYouRKU7v1vSiiJjgy8HLBmZuw
+	 tnep2jnmXjME0aEh+F41Dvv0D4KmAVdFmKWKstbfhKY4viT78LM2NONzM1FCpZ52eRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794190541;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794190599;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=42Bgp9QK8SxMu4RaMFo7ITDdz1xu9H4f5I3RqLrzFX8=;
-	b=oibDaMOiwsLoBfNQWf8+MUAwmw9JYXnv+Ol9QDojSz4Y53QusZzz+laECZ/+qwyMKHOk
-	 N4M8rqkycqSOCN09WY3/LGuoccBizO1yy5cFDM/fnE/UMdIvRCbI68Em3BqG7c4Q6BYs9
-	 NURr5rTh970oRRHVSpjPTY4hG8MTxio6M0mknFJpe9yPjNpop9HHk6lu5hzBF9mRl8+SC
-	 6upY8PJjcLw6iLV12hSabK/yQUgKxgCKXmARowR7CItKFu6IITJs98SaGdHxTINu9cO41
-	 +aOgSByL1/HsVSpJ67GYVPURArT9fnIyg73nquUmLf/YfH54SA3IkictSJKcvAbzLvg==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=RweQvyw4NIgsuj4dNi7nK06pAit76GUtp9g8kGTqMg4=;
+	b=x1YaslgB/SQX/sXrIV8E1eSDxKGHWUT6z9rw08YSBSm+iPl/lubuipewJlhQXGCMMVTa
+	 BkmOOp5+wbEoTbLSwMlYhV+4CjeuemI6bgVr0OcR5gLfqgRXI/vWGbY7ivVr01Y+4F5FA
+	 xZoUcCRgIpQzfaQJet+OIvxDTwxXL3SDHSJqwi+zDXaREXT7YylkU8PM01mLDDp7+o6so
+	 KgplYck/7ff1i8FCICVbWgfGlwVhgUUYwjKs8lXUApXseLz/96fLNVCSwMLdVsx6CLX+3
+	 gbr0QK4EcegyCE/fx9ijf7ded6ClBVWe3vHcfsVlQqpAXjgzzqC+ZI/7cmz7UxfHMbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CkqQONWS;
-	arc=none smtp.remote-ip=91.218.175.191
-Received: from mta0.migadu.com (out-191.mta0.migadu.com [91.218.175.191])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NFDf4TDr;
+	arc=none smtp.remote-ip=91.218.175.200
+Received: from mta0.migadu.com (out-200.mta0.migadu.com [91.218.175.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCD5606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:15:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCD5606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036CC606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:16:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 036CC606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CkqQONWS
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NFDf4TDr
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=42Bgp9QK8SxMu4RaMFo7ITDdz1xu9H4f5I3RqLrzFX8=;
+DKIM-Signature: a=rsa-sha256; bh=0vqFp7/7WWiwnx+Zs/qlGOXEjprolacOHKPupS8KY24=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794190538; v=1; x=1794795338;
- b=CkqQONWSG9KB95QZktl/P5f9lasdYz+ixAT14Lq8aTrrFSgJ17oYYEQUzmXfkUVsDouGzGV/
- eFJImttXCM8vc5OiFQrrf+e+SETMZvZLsTb8q2lAdmK2kg1jkvotRh+G26Vvm+JW++zcLNsLoNV
- Rgi/Q4atLWoumpAfVrv9EcPs=
+ t=1794190597; v=1; x=1794795397;
+ b=NFDf4TDrErNLl4AlkmuT4JnT5cGbRlHkE7spyQDd057yfU25J2+yZEjD/pm9Q9Re9XIoGFJ7
+ /dhV8eQb6xW4bTlmN/pH0jzJXtYuPNcQ/Yq+uvEM3TWG+1SZ+g/8h5GDLtpTIkAl28LRRZ9v7u/
+ 1fo5dm8vfWbISM5pXq+nR9+8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8f4563db198ec34e;
-	Mon, 09 Nov 2026 02:15:37 +0000
-X-Mizu-Trace-ID: 8f4563db198ec34e
+Received: by mta11.migadu.com with ESMTPS id 3ba9fe655f2ef269;
+	Mon, 09 Nov 2026 02:16:36 +0000
+X-Mizu-Trace-ID: 3ba9fe655f2ef269
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <47eae9bc-6d8b-4b73-8fe7-869753ef9600@linux.dev>
-Date: Mon, 9 Nov 2026 10:15:21 +0800
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Yu Zhao <yuzhao@google.com>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
+Date: Mon,  9 Nov 2026 10:16:11 +0800
+Message-ID: <20261109021611.22247-1-hui.zhu@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,52 +75,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v3 2/8] bpf, sockmap: Restrict iter-context
- sockmap updates to iter/sockmap
-To: Michal Luczaj <mhal@rbox.co>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Eric Dumazet
- <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
- Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen
- <jiayuan.chen@linux.dev>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Stanislav Fomichev <sdf@fomichev.me>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
- <20261107-sockmap-update-limit-iter-v3-2-7c0bad1ad036@rbox.co>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261107-sockmap-update-limit-iter-v3-2-7c0bad1ad036@rbox.co>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-On 11/8/26 1:58 AM, Michal Luczaj wrote:
-> Among tracing progs, allow only iter/sockmap to update sockmaps and
-> sockhashes. Previously, any BPF_TRACE_ITER program could perform these
-> updates, which caused locking issues in specific scenarios [1][2][3]. This
-> tightening is part of the broader effort to lock down the BPF API [4].
->
-> [1]: commit 4d328dd69538 ("bpf, sockmap: Fix af_unix iter deadlock")
-> [2]: commit 64c2f93fc325 ("bpf, sockmap: Take state lock for af_unix iter")
-> [3]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
-> [4]: https://msgid.link/akRZ_e7DJh2aP-2i@john-p8
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
-> Suggested-by: Jakub Sitnicki <jakub@cloudflare.com>
-> Signed-off-by: Michal Luczaj <mhal@rbox.co>
+lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
+lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
+returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
+clearing the refs or PG_workingset.
 
+A MADV_FREE folio therefore keeps the state it had before madvise(2),
+even though madvise_free_pte_range() has already cleared the accessed and
+dirty bits of its PTEs.  lru_gen_folio_seq() places it one generation
+younger, and PG_workingset puts it in the last tier, so sort_folio()
+promotes and protects it instead of evicting it and charges it to
+lrugen->protected[], which read_ctrl_pos() uses to balance anon against
+file reclaim.  __folio_inc_gen() clears the refs but not PG_workingset,
+so this repeats every time the folio reaches the oldest generation.  If
+the folio is redirtied first, ttu_anon_lazyfree_folio() keeps it and
+lru_gen_eviction() packs the stale state into the shadow entry, so a
+later refault is promoted to the youngest generation.
 
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Call lru_gen_clear_refs() while the folio is still on the generation
+list, as deactivate_file_folio() and folio_deactivate() already do.  Its
+return value only says whether the folio is in the oldest generation,
+which lru_lazyfree() does not need because it re-adds the folio below.
+Keep folio_clear_referenced() unconditional: the classic LRU needs it,
+and it also covers the folios that lru_gen_clear_refs() skips.
+
+Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
+Cc: stable@vger.kernel.org
+Suggested-by: Barry Song <baohua@kernel.org>
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Reviewed-by: Barry Song <baohua@kernel.org>
+---
+Changelog:
+v3:
+Add Cc: stable@vger.kernel.org and pick up Barry's Reviewed-by.
+No code change compared to v2.
+Per the thread discussion, the __lru_gen_clear_refs() refactor will be
+sent as a separate cleanup after this fix lands.
+v2:
+Call lru_gen_clear_refs() before lruvec_del_folio() instead of
+open-coding the flag clears; drop the lru_gen_enabled() branch and
+the comment (Barry Song).
+
+ mm/folio.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/mm/folio.c b/mm/folio.c
+index 35e242b48870b..ea3adb6a89d75 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
+ 	    folio_test_swapcache(folio) || folio_test_unevictable(folio))
+ 		return;
+ 
++	lru_gen_clear_refs(folio);
+ 	lruvec_del_folio(lruvec, folio);
+ 	folio_clear_active(folio);
+-	if (lru_gen_enabled())
+-		lru_gen_clear_refs(folio);
+-	else
+-		folio_clear_referenced(folio);
++	folio_clear_referenced(folio);
+ 	/*
+ 	 * Lazyfree folios are clean anonymous folios.  They have
+ 	 * the swapbacked flag cleared, to distinguish them from normal
+-- 
+2.43.0
 
