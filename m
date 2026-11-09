@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184134;
-	b=z9d06Vb7df6o6n54jBYP05TAUb617592GMf0RU6q52dGarsFiCQmgsELMLm4wXYdelvo
-	 zEOM60pzM6CBScAK22Un7qB5p07ys73BIluVBrypdi/wZv6ZrO2wqQSItfw6r00aPpUlu
-	 wd9FzVI0ugOVDuEisawN5dVUfngdDlPCZaeP+dwOarPJkMESV/L4KHSeQZZC320F6Dh9i
-	 mj3hbareXJ3geOoIUO5YT0Tsi2kj4t2FLYM9YU3LI/kMUbA4qt2oyxSU0Xb7RONGAjuGS
-	 EgtMoTjMhRHGxcjgZQ5Xc2MrPQUkQfEWfJW3+ThHMTrE7wGI36KgCvWeXCTuYvrUV1g==
+	t=1794184151;
+	b=KoKSeMNvgTT5VdBWqS0zNBbsrz2QGMtMevOTMRjHmAVZeRJNFpZDqJc0eUgpGYEfQltu
+	 JtZyt4MShAl0+buX6Bsx8OUSfS87/mAUBWU79vWbO4nBRctEo7d3tFIvBPZ5C4xZtr32a
+	 e31PkqwVw26yKR4PpuIaQrtLFxWH3/EU2lLoD2gRajgeu6NdXMOYnptqw51Hf0sGpW8ZB
+	 fEFdqbs0V/Aeoi3r2WgwC4DDuwYQfnMGSyvqb/sjmLBWJroUV86swP5Cm/qUF2WoeLk7i
+	 rZLWonqq+g/rEwI5t9abGltUmeGRIz4zHHrQ4V9qCXicdlbc4RCT1k/R/5jaOENFUng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184151;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gCrBj/L0nVk0Y4rofc9IruZOjajTmVyTiEHWsaHrV40=;
-	b=IhzINCA1oF6W+yH/Lb8kr/1ZeCYibumXBmXCoUbE6KFxMGmVYB4bRdcpSJZ6UZJGL1nj
-	 vfnHVvF8e6GxF/dY/xT731maj43+OxTcq1AVNE6Bd6afepn5LQ8qEIPd7qxepWdP5N75P
-	 mF4QkhZe9nrYlMa1E+rX6BnZwhaZFTdYBZovFqhxpr7/hrdYo8wzbpK/Vzh3axsdDG7d1
-	 5GCMhTyOlOa9NHYpAqM+oxsMPgEpgxIZj9LVFX6XoDJ84lElGhei/WI+eENXToYyV0GZk
-	 AJN4C343bkqS7EPLvy0F580WdYv0uPzvypiCNe1ISXgXTQm3EcvYGCxiob0sVyG7VtQ==
+	bh=85/R79zRci9a8TpvEfV+raNUQYY5+QIn/8GrIGmCD6w=;
+	b=1Mu8u/hjSk6RQrTNKJsw/ghwCTpfxFHSFBahT0SjYrE/HJW8EFlBRNI1O3kJ8JEhJ8cX
+	 i+92XR2VN8+YMUkW4/u1OM/As4RHHQtfqn+0yJhtYP8KZ6LkQqRsTteIu+q5KSa7COHBE
+	 ulsF1mXDyf6XsDE38KIigPEkgT9Qkc4NyBk/FPuxHjrked0Zsv9FoZ7wIAe+VgOB1m7gU
+	 OQswkDn1PJyAaGhH5VoH5w3x2EkztY3vLjc6RAUqYvvhQ24rnucYi/I6oHwuHSu/EvaMK
+	 RZ5PAkS3/bq9YPVryQBzA67YMjsMY+coUm+AHR8xX3oO/wPpsJqNSm95OfN3VpBtZMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdN0nqEH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZI63uQh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32A606A33B;
-	Mon,  9 Nov 2026 00:28:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63D4606A31C;
+	Mon,  9 Nov 2026 00:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdN0nqEH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B1B1F008BD;
-	Mon,  9 Nov 2026 00:28:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZI63uQh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1CC1F0089F;
+	Mon,  9 Nov 2026 00:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794184133;
-	bh=gCrBj/L0nVk0Y4rofc9IruZOjajTmVyTiEHWsaHrV40=;
+	s=k20260515; t=1794184151;
+	bh=85/R79zRci9a8TpvEfV+raNUQYY5+QIn/8GrIGmCD6w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YdN0nqEHYHW9IXIIsnukUYR498thAEYe0E3NNUWCEYGQcnBOQtjqQwbcKU1x6hb99
-	 4E0S9MMwiMpPuaTwelBuoTh8hR8g7bvfF+hwuPIcLcJZZo6IzItRD0bLBQ+tVrxnUX
-	 HTjFJU79GhZmpQ2QFSJe3QH5FCsF6adP2129vmS/OO7WBS8C7HZKUEK32sxI6CazEV
-	 I0Q5ZaMTRB6Az2Sq//9Hg3lF1iPe6v+ks8z1NyTn9PQxfji2Xh7JTxJ8RSHvTAfTKS
-	 8Qy10cEg6u8Ri03JlMRSss977NeDMO/OLWw7bgisz5XPL7Kx80LlgPhW/QRdzeuelS
-	 dYt81GL4H1aYQ==
+	b=GZI63uQh+6ECdHYZZXjTMOpgzn3LA7xD7s2M59O8v/UrA18RO5fYJWwHdVWRJlesY
+	 wz+O0whXnenQB1gjFPt0MQPDcEuQeShjJPrR8em36ewvwsRRo0Nb0DcMxNGyaGg0BP
+	 1QZiXIpwctV8DLallUm9zo5DddN1jRdMLpN/Qg9meDh8fjcPGHFP7rW321KuLwnAkr
+	 WEBxLFn005P2QCm6GHljhBH+RuREt5AJE9S9k6IelzKZ36eFVcfjq7WMjSPZjypVo4
+	 lJfvpijRdTfMKakNccN4TML8xRDI1kIgk7udMSoiEV9Qzah2KxeUr5IoPbH32s0o6s
+	 0ZYTKcLWo0oXA==
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>
 Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH 05/12] tracing/eprobe: Fix 1-byte signed field fetch in get_event_field()
-Date: Mon,  9 Nov 2026 09:28:49 +0900
-Message-ID: <179418412989.227715.15975346868609035820.stgit@devnote2>
+Subject: [PATCH 07/12] tracing/probes: Fix user-space dereference string array store type
+Date: Mon,  9 Nov 2026 09:29:07 +0900
+Message-ID: <179418414754.227715.9900534226622724613.stgit@devnote2>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <179418408457.227715.1485179201014819821.stgit@devnote2>
 References: <179418408457.227715.1485179201014819821.stgit@devnote2>
@@ -67,51 +67,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Because the kernel is built with -funsigned-char, plain 'char' is
-unsigned on all architectures. Reading 1-byte signed trace event fields
-via *(char *)addr in get_event_field() therefore zero-extends instead of
-sign-extending negative s8 values.
+When finalizing a string array argument (e.g. +0u(%reg):string[N]),
+finalize_fetch_insn() advances the instruction pointer to a new slot
+for the store operation before checking whether the preceding operation
+was FETCH_OP_UDEREF. As a result, user-space dereference string arrays
+with type "string" emit FETCH_OP_ST_STRING (kernel memory read) instead
+of FETCH_OP_ST_USTRING.
 
-Use explicit fixed-width integer types (s8/u8, s16/u16, s32/u32) when
-reading event fields.
+Check for FETCH_OP_UDEREF before advancing the instruction pointer.
 
-Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+Fixes: e65f7ae7f4da ("tracing/probe: Support user-space dereference")
 Cc: stable@vger.kernel.org
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
- kernel/trace/trace_eprobe.c |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ kernel/trace/trace_probe.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index f1590c9af6b2..9defe86f4e8f 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -334,21 +334,21 @@ get_event_field(struct fetch_insn *code, void *rec)
- 	switch (field->size) {
- 	case 1:
- 		if (field->is_signed)
--			val = *(char *)addr;
-+			val = *(s8 *)addr;
- 		else
--			val = *(unsigned char *)addr;
-+			val = *(u8 *)addr;
- 		break;
- 	case 2:
- 		if (field->is_signed)
--			val = *(short *)addr;
-+			val = *(s16 *)addr;
- 		else
--			val = *(unsigned short *)addr;
-+			val = *(u16 *)addr;
- 		break;
- 	case 4:
- 		if (field->is_signed)
--			val = *(int *)addr;
-+			val = *(s32 *)addr;
- 		else
--			val = *(unsigned int *)addr;
-+			val = *(u32 *)addr;
- 		break;
- 	default:
- 		if (field->size == sizeof(long)) {
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index 829fa6559b59..e62acf05a8ee 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -1952,6 +1952,8 @@ static int finalize_fetch_insn(struct fetch_insn *code,
+ 
+ 	/* Store operation */
+ 	if (parg->type->is_string) {
++		bool is_uderef;
++
+ 		/* Check bad combination of the type and the last fetch_insn. */
+ 		if (!strcmp(parg->type->name, "symstr")) {
+ 			if (code->op != FETCH_OP_REG && code->op != FETCH_OP_STACK &&
+@@ -1971,6 +1973,7 @@ static int finalize_fetch_insn(struct fetch_insn *code,
+ 			}
+ 		}
+ 
++		is_uderef = (code->op == FETCH_OP_UDEREF);
+ 		if (!strcmp(parg->type->name, "symstr") ||
+ 		    (code->op == FETCH_OP_IMM || code->op == FETCH_OP_COMM ||
+ 		     code->op == FETCH_OP_IMMSTR) || code->op == FETCH_OP_TP_ARG ||
+@@ -1991,8 +1994,7 @@ static int finalize_fetch_insn(struct fetch_insn *code,
+ 		}
+ 
+ 		/* If op == DEREF, replace it with STRING */
+-		if (!strcmp(parg->type->name, "ustring") ||
+-		    code->op == FETCH_OP_UDEREF)
++		if (!strcmp(parg->type->name, "ustring") || is_uderef)
+ 			code->op = FETCH_OP_ST_USTRING;
+ 		else if (!strcmp(parg->type->name, "symstr"))
+ 			code->op = FETCH_OP_ST_SYMSTR;
 
