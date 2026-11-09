@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228555;
-	b=YLVsW5UFpOLXAoz3IPjkG0Bb9d2sVdQwO/HkixSsliUk/ESAQDITIs/H/EXaobGCigRK
-	 ++HMe9/6Qfus6mO9pImiuhgRC8Y7ZfyVLb4ajWt+YFs4uYLjVULuDsSI1aVyovWZdy2yQ
-	 Yk2gi4y8CNHg2kTqtL90KE1lvNFiiFErjTgZIBt/VWlRYEUvN0q9UTW6sek9ETkw05pbk
-	 WXJ09osG29ruC7FukMGBiAd7p72BoSSQNkflS5tcSGM6QrSSZQmZNxZgGfOIa7iQNQIjk
-	 cNE7lL/irdUa1DXal+zUrDPkDpo48QXMUpEe51wGW19ijJ7/AR6PnyV05EhBeaUtS6w==
+	t=1794228561;
+	b=egrtLrOAigcndw4FGf8EKW+h7EJxu1/OtQBpaGGMPhDyqr3cXozWqY3is4TcqCoaOK73
+	 g/VjK7OYv2H7hGWwBgli+wBI60hM74qZ0Jp7CrdeSO7DtOV/t3zb8nWP8pfAyMSsu8VzG
+	 YgdGNxzSXqBTYv3S7eBks7ZJ/3aFWsf6RbSEFDMyuvAnWp1IXKlmKijxUVvkxc9es9Tq0
+	 FhWbMP/kEAodX9ITDaxvlmCfwNmgIAoW3+3L1swG8X9KAR3w8ZAbqCq3T/V1D7UlOIgfS
+	 TZbnmnu/NwZevPIZCYhwlDVa/nA+e5bCyEuclCnpAPY+TDebOwADLIX23fpfFPxaP9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228555;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228561;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
 	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=nydAJnDSrzQkgGQEp1c7vPOlzVQVWZ8lTHDIck8Byk4=;
-	b=mCBUU1wtfOhh1S79pPA2Wq3N91zqYPtuwiV2axwV0fQQqCjpGkeE0/cDHG1rqkwReHIc
-	 UwhVpRpgUP6xN+p9iNKhiENKEx4kWTcXVbIH60rNGf54madhLPczXEr36aViTx6k9ph/6
-	 p6Ap48TmQ8AIl2K5/IHoWRUWaA1ML87UAVLkXLiQSQd1+/pmiyMujatl1lpY89+mA/MZz
-	 LIZo1m3gxdLy6r1fjd6iZsW4VhqFJ/URud6HTncTyV4yKB+6paQ+9JwDeRYeCXzOP2nsz
-	 n+hs8J7bsgLxwnLVv7vxeiD36bOmlhS88jROeaS83tnK5kzRJl0WGnTmJWNz7MYUTpA==
+	bh=5MjXkTr81XHjJXC4XW9odEr71wejmTyaWWO5F/Vmk0c=;
+	b=qEgT4ewVK36oTLVb1HPReaukvfws/QBz3jfXXL7Cx41kd7bOWlbHu+WuLBGLIsGY9DFS
+	 /mSe2JyBHmSXp0tUeGTpw/XuEfeb4S4gAZVjhOYdoJNtY7+k1o+VjqT2bx2OgeIaN0P+G
+	 SPNiQS1ImUcfworhJOrUl40lI5zdSiQ17YCBeiD7FCGXqFz5H0AK9/JMPcLB+ubCYSAUa
+	 r/TDSqwo0cCiewe7vhowOI8bfJiOvJI5tjDEqtX+sBEW9kqQJtJ1xDajL5qFc6qkSoEft
+	 +K+oQstg7TykboKOBXiwwu5wcVLp+zsm64xdum7jiZRQcTVV9xnDOzHW2+IniySahZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ROA1LBG1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmTWS3OR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EB4606D83D
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:49:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F22E606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:49:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ROA1LBG1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6302A1F0089F;
-	Mon,  9 Nov 2026 12:49:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmTWS3OR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 652511F008A6;
+	Mon,  9 Nov 2026 12:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794228554;
-	bh=nydAJnDSrzQkgGQEp1c7vPOlzVQVWZ8lTHDIck8Byk4=;
+	s=k20260515; t=1794228560;
+	bh=5MjXkTr81XHjJXC4XW9odEr71wejmTyaWWO5F/Vmk0c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ROA1LBG1ksnPG1YTlRobUIHob1IfCk2gvHaKtxCDiuPYoMbSA/SxrtYE4B0MIX8jV
-	 /2uMJ5vsangZECAZdvNybPv0jPqdOssgVAk73i4Crc1ppe7QJKBH9XJC+il3F4koLR
-	 n6GYPCNXO9abZoXkPlvFrrIu4fUHozUHypjTY2ys4ZW3m/iJBGo46elWFs0HWJRKY6
-	 FEoD/3OeNzYlaocZIWs7+LCDBaW8vIFMi28I7kRdPxwHpUTAPJof0TGSPhmd1NVGaq
-	 54qiMunVbfu5OqGSrEFBDthxkflAPnMKqWCaesPNr8IxEvkXxnXlboVCJK4HTFzjA7
-	 AtXPcLnDrQvxQ==
+	b=CmTWS3ORVYMw2uLiRPHXaWL5mptngfXWG5StnNefHJsQCxO2W9w3OCu3Vbx9NV6AH
+	 6UaKiE2i5DkZWyspdLQEvf9C302uhNbCSksMfN0lsXZqW7u1muAdLNDy9vP/+BeQMN
+	 zNfoorjWcGlloIxeLh0FraBcY0XFYg2rP44Dm7iPuMQaV67IJPDNi7dvIKtcBO8IgR
+	 9gvHbgmXe3vQwyhQtvY6l/iAVgYwNhXwJgxC/+HR/8hY2zFFcl8XQYer7iZWCeVSS3
+	 uvanNQEJrcYTV0Wg8/PfjXhLrmYvRpJpaDhXqEvpaHCpzMo+Heroqm+B92+V2ZFKMh
+	 jZbU9z5X0oUww==
 From: Thorsten Blum <blum@kernel.org>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -58,11 +58,13 @@ To: Thomas Gleixner <tglx@kernel.org>,
 	Andreas Larsson <andreas@gaisler.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Thorsten Blum <blum@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/4] x86/boot/compressed: Mark process_mem_region() index __maybe_unused
-Date: Mon,  9 Nov 2026 13:48:20 +0100
-Message-ID: <20261109124816.61438-9-blum@kernel.org>
+	Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	Thorsten Blum <blum@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>
+Subject: [PATCH v4 4/4] x86/boot/compressed: Enable -Wunused
+Date: Mon,  9 Nov 2026 13:48:21 +0100
+Message-ID: <20261109124816.61438-10-blum@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109124816.61438-6-blum@kernel.org>
 References: <20261109124816.61438-6-blum@kernel.org>
@@ -75,33 +77,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=910; i=blum@kernel.org; h=from:subject; bh=lF+vUWjtOPSxElNRk+M6lmdx/K+mhNu4MyPFTkO2EpY=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfD0oE3O+z2tGyaA93/tGc9Nmse248yzC69Gn3tBVOu fOvNt/921HKwiDGxSArpsjyYNaPGb6lNZWbTCJ2wsxhZQIZwsDFKQATWS/FyLDcsvXMnpqzvKws 2t3zbyq/KxH8VMc7O2XJfiW9p4eP7uli+Kd3yEfp7Lu9540DLI94lCzZyjHvlOi690F3lN5f0uO zlOACAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1237; i=blum@kernel.org; h=from:subject; bh=5MjXkTr81XHjJXC4XW9odEr71wejmTyaWWO5F/Vmk0c=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfD0qu9KprNFgSVfrz4eX/r9TmvMhoE/0U6OoeOkd8c VxyIb9JRykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEyk6DUjQ4/A/SkByZ7nn7p0 L5LbIxjuyv/trZDEzOS1+wT+yNpOvsPwm736XSPv+avqmtJ16zn37y88JfcjLdfyguk6iaYXV38 +5AIA
 X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-The local index variable i in process_mem_region() is unused when either
-CONFIG_MEMORY_HOTREMOVE or CONFIG_ACPI is disabled.
+arch/x86/boot/compressed/Makefile resets KBUILD_CFLAGS for this
+directory, but does not re-enable -Wunused. Therefore, unused variables
+and static functions in arch/x86/boot/compressed/ currently do not emit
+warnings.
 
-Mark it __maybe_unused accordingly.
+Add -Wunused to warn about these, and -Wno-unused-but-set-variable as
+well as -Wno-unused-const-variable to match the W=0 kernel defaults.
 
 Reviewed-by: Jan Stancek <jstancek@redhat.com>
 Reviewed-by: Nicolas Schier <n.schier@fritz.com>
 Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- arch/x86/boot/compressed/kaslr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/x86/boot/compressed/Makefile | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/x86/boot/compressed/kaslr.c b/arch/x86/boot/compressed/kaslr.c
-index 290153818d0f..6f95092fa97e 100644
---- a/arch/x86/boot/compressed/kaslr.c
-+++ b/arch/x86/boot/compressed/kaslr.c
-@@ -599,7 +599,8 @@ static bool process_mem_region(struct mem_vector *region,
- 			       unsigned long minimum,
- 			       unsigned long image_size)
- {
--	int i;
-+	int i __maybe_unused;
-+
- 	/*
- 	 * If no immovable memory found, or MEMORY_HOTREMOVE disabled,
- 	 * use @region directly.
+diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+index 680ad803cba7..3ff75bc2239b 100644
+--- a/arch/x86/boot/compressed/Makefile
++++ b/arch/x86/boot/compressed/Makefile
+@@ -29,6 +29,9 @@ KBUILD_CFLAGS += $(CC_FLAGS_DIALECT)
+ KBUILD_CFLAGS += -fno-strict-aliasing -fPIE
+ KBUILD_CFLAGS += -fno-jump-tables
+ KBUILD_CFLAGS += -Wundef
++KBUILD_CFLAGS += -Wunused
++KBUILD_CFLAGS += -Wno-unused-but-set-variable
++KBUILD_CFLAGS += -Wno-unused-const-variable
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
+ cflags-$(CONFIG_X86_32) := -march=i386
+ cflags-$(CONFIG_X86_64) := -mcmodel=small -mno-red-zone
