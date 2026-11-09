@@ -1,95 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216549;
-	b=zkU2+F3Egc3p4p6hOB7o+tuGqNGwcdj/WOFQPE8KwmetoBjiBDBZ5T/mDHsEwlQIdyd7
-	 SVCIWNOsklwQv9ZMR9opB1AZHhzVa7Y46OYKp33ChVNxzz+zkoEpZJqCRRdtobYUEqGpW
-	 4HM1VTkfVPwDZpyXrBMlVVou2QRXmGA+aq18QPolGkQBzFaWwA/5Uwtok1dQTxhXuNyAX
-	 nwvbyqk4XupmLU7Sd+zgwLDrNdhFdiUqr6KxF0oyrdhgVovUbMUgHpTYRZb/Qm0n5/IcX
-	 VCGDhLNBMlKE+837gZ6eV0cws1Q4U2R5bv1Fcyof6cSAoYjwg9FluCTfkrQRU+5ncEw==
+	t=1794216545;
+	b=iVqVraTlcMEWQdPkOW50lTQR2vetedogCQGaS3YCvuUSES2YVC6NlDA74Byish+MWdet
+	 9P1UKvrMmBGYE0neyK8F9LqGTZwfpKaZ83d0npBWLmPDP7HIXV3LpE5EISrbFYkmp438g
+	 txSDaSPX1Ieezl0DBMDBwvvxql37G+Rfilce+GaKA4rs6Rtd++alDaQLEx/7Yue3ZwD36
+	 EojzpS3YgZOMqQViV/VM8n3C8rZ2xxbLvbKxsKP7QKrBgRpbemIEn7QGo4AbC5ZGHvdwc
+	 s/LDHewCqpd8Usoqr90BNGBEI6HP6H6WlFF3s6areOhtzcpjsGsCgoi2PnGO6qMTclQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216549;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MlPpXHGQmMTRzRR6JQE6PvYGk6NnpKFFc4r+AoGuyFM=;
-	b=L8J4qcx03udekD3Rha/hfAKijEUxDpC9IbcsDfxaVGGahw6aiuVgFmKoW4bpb71rFewV
-	 +82SiYF8iyO4AZ3sOa3VqolhUnRI1Ukxx8j7zmndjVjzJuhN/4D/0GpNxS3RpRkYZi09R
-	 vH6Fl31TO78ahwCRPwQMXDV/83w7S1vIxv9FdDVxmZsoMw90pvu60pIUgQuQMxqHF+Nhx
-	 p9d595EFmRrCeD/m0B/S6jiA1StgxfAltC6diDdLN7FDFCbakAPbZ/W75ygKHjWYhWPJq
-	 G7Mh8GF8e81Jk8tkAJJQXUCpCqu3Kv0Rl61TqjvqHuBkO72MkbxYiWR/4WRWi8h2uNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216545;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
+	b=aqLXUtVRL6xZh99Pnai0FIHwwBbmKpmhevmeI75BY2i3Cyfbkowzu5x0KK6bMfpD22sW
+	 grbJ0QFOwfzBA6uQwH09KvPHEAXffV3+huQlWniqIirVsqQymHy9rUcpHFku+r0XE4cl3
+	 EL1KkMowkDeLI2TdIaf1IpCshrg3NaMoRA1kFAdJUswxuopfqO75Xn2tOeujuuVqkIZSo
+	 vjP20EFz/xu2ukYDDVGwRxWfdPFuKItsdaplp98YiBn4v4eN3GnwfrLOAAu7+bKtgu3zi
+	 bXeBVwAgTH2AEvDd5yZepETmXk5ZpfGcHRl/4mgT1N+L8C9swou4D/kF6lblrdQXJWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VeDMrrGP;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="Ow2C6L/T";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bBmyiFj;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22BE60A5BDA
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:29:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C22BE60A5BDA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C326460A381B;
+	Mon,  9 Nov 2026 09:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C326460A381B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VeDMrrGP
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06e79e152so272941b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:29:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794216548; x=1794821348; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MlPpXHGQmMTRzRR6JQE6PvYGk6NnpKFFc4r+AoGuyFM=;
-        b=VeDMrrGPFDw3Ukg5QkZBevZ7ryDTXO/KoaQ82CprffedrPD95w+liomfeUNXGv39YJ
-         9kN7Hhc6Hf8N3Oiod/8nmzJYaV/5+Yf11Af/sPoWf8KYgri5UEBsnJYIJu555UFN8ary
-         CbExgPkfvUymOFthnbocOVvddYtUO+O0kuDsAEItYBsXDfEeVIIRrdHxzvWXd0oeRVQT
-         NHKCpB1U3Tf5aKrc0vropD+0vVgBo8KsAzUpqXIhAWn9ozX+40dvi5xp9CJ4+b5UcOj6
-         OHhFzixk58HURo9bgAbQXfhCr4MrE01A3FnoHCKZlV6Sj2KoDT3Yz560DbdMA7kedj7C
-         PHbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794216548; x=1794821348;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MlPpXHGQmMTRzRR6JQE6PvYGk6NnpKFFc4r+AoGuyFM=;
-        b=fURFTIYTuNQvfhzPPxA03/QFkLhfqWZw04erLwSqEotHNWwoD4xPegjqEWlohy69K7
-         Wp3/Lmdkv8L6hOZl40S0OmDyiAAkmPbXaxpz21SnfhE9MtZRf50Wxhm2fVj1t/BtlHFH
-         sUp9gicYSJ6JQyKRfV2i/MhcEaCPd6WFqz7umMFAiWzOqywQGvqEBIWhw+ClHTSp/Afq
-         OQYg+lUp6tGMq+grClLpJee5avbuDLNWjPAYlJGHG0UuGUFYd3H9oNOsr8N5dxa6Wks9
-         A+om5CSiWlje4Et0V+cy4imONvUy2V77QqxsKBqwQarPi0Cxyx2grYfOi+NWhXvr3WFQ
-         AIBg==
-X-Forwarded-Encrypted: i=1; AL+hErFsGM5/dRT0xj9k3awBdXprEG8DcZsmj4goSJjCJMq71s4Hyf1AP0Wl2S7B9KWkGTNSZoSBkkK7piwGKX0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WpF+2N7vbkZzGwwQt0V9lGdc6Y0i2dUAkm5zRfIl642o8kRdR
-	la/YeJOXTbb9ZtmwsS0IzO2A53LAOZQu9DwTyipZxj301xlgc0w/AzzA
-X-Gm-Gg: AYBFou1LdSNpXxtikKI+q9dEwe+AmT5C85vT+ZGjwXmGMr3QxEKDQHRmId1HMVpzBsp
-	YTVVxga0m3xOKlnBdzXSacvTfa8CMVHFJg12IVk/jC1p86PDayGQmAJZv4aiku+/uRCO8mcTn47
-	TLztBvG72NzL9zrEzhNtmqjDDGdAyPZmK/L0PtitVo/l6mt2R1EVJzJ23iuQZEy5CTDf41Q2s41
-	SjPEfc1YFaQGGvnroTmYn7lqs/2oP3R2wqFm00VV6P2TVreA+uUjEYsXvpmUFMELtmsvO/sWpis
-	xmep9ZOQamVqwrm1MCMJslmDwfdD4PunE8Ldb0+x9QQ7/DZQDof9TyWpTPCy7UoaX2+iww9Z6jc
-	in+uZAkqFEfC0UWG5+euDnT6RiQw2KosXxqyMTAwYMt8w0CiTy3i1J+gc53ybuaoXdMKWnKhfii
-	Jufcd3fGcvVAtB5u8grDU3+uYxe1KrZ/EFGyTNarmxH4ujWsuX8ulBQBq1IIeqOZfLTf3nJOyFf
-	EPlRBA87UWKJtavBwNB2fUjXtrhIOH3291blrHST+Pf5oz+yqZWmQGubR6ESmfYFJtM8xV8KIk0
-	wA6dmThd7GBGOUMO/jo0FO4kbyVvRYlsqJLO+3vywL68Eary8qgsfGZ1K5cFvHI=
-X-Received: by 2002:a05:6a00:13a1:b0:890:bd5c:5710 with SMTP id d2e1a72fcca58-8b6717aef6dmr2691634b3a.41.1794216548030;
-        Mon, 09 Nov 2026 01:29:08 -0800 (PST)
-Received: from localhost.localdomain ([183.62.176.219])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b648e55e85sm1103778b3a.17.2026.11.09.01.29.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:29:07 -0800 (PST)
-From: liuyong <pkfxxxing@gmail.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: [PATCH 1/1] scsi: target: Skip zero-length protection SG allocation
-Date: Mon,  9 Nov 2026 17:27:36 +0800
-Message-ID: <20261109092744.822646-2-pkfxxxing@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109092744.822646-1-pkfxxxing@gmail.com>
-References: <20261109092744.822646-1-pkfxxxing@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Ow2C6L/T;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bBmyiFj
+Date: Mon, 09 Nov 2026 09:29:01 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794216543;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
+	b=Ow2C6L/Tg8g7GzVGLtEVMct4IqP2fv6ez4r+Jz488raiXLsXsIKtXsPAh0fJSqHxfCuZc2
+	I5ZBt+eTFx8ErUaycNWu7xcFyw4MATCasnNEqQ5t7WEpIeNz9/nTNgZiuOPYiJST7xL5Fl
+	BCJECRDCGaSlQDaNiXRlj5V6DNkjlRLy7dH3LWnCSjIg7b44gt0i8SExbMWMlyYy2xX4cn
+	xrySwBD+FnhqTVp+5iRs2TzzjwwhbDQHOth/7D9j1MhpfV2jX8xefUsBC/eRUucp6LQWU1
+	FnpdOYYaPrHxNugnGRb8XRRl1Ln/2WdYAlvbNER7ooV+njoJGIIM4nUaLssMTQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794216543;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
+	b=8bBmyiFjnld/l39mBWcmIKWttu21Tv6cLMSM1MlghrD+EkrPnB4O9ysG5J+Mnx7OxJ1J1m
+	CZpOR+EVifcGZaBQ==
+From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] sched/deadline: Fix spurious -EPERM for
+ migration-disabled tasks
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Juri Lelli <juri.lelli@redhat.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261102135420.244745-1-parri.andrea@gmail.com>
+References: <20261102135420.244745-1-parri.andrea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,44 +82,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179421654135.2093942.2082186434797343921.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-A READ(10) command with its TRANSFER LENGTH field set to zero, sent to a
-LUN with protection information enabled, can select TARGET_PROT_DIN_STRIP
-while leaving cmd->prot_length at zero. transport_generic_new_cmd() then
-passes that zero length to target_alloc_sgl(). This reaches
-sg_init_table() with no entries, so sg_init_marker() accesses an invalid
-last entry and causes a target-side Oops, which can also lead to
-use-after-free during subsequent iSCSI connection cleanup. A logged-in
-iSCSI initiator can trigger this on a FILEIO LUN with protection
-information enabled.
+The following commit has been merged into the sched/core branch of tip:
 
-Require a nonzero protection length before allocating its SG list,
-allowing commands with no protection payload to proceed without an
-empty allocation.
+Commit-ID:     6616bffa9b52da1338cf8bff9882404e02b9e361
+Gitweb:        https://git.kernel.org/tip/6616bffa9b52da1338cf8bff9882404e02b=
+9e361
+Author:        Andrea Parri <parri.andrea@gmail.com>
+AuthorDate:    Mon, 02 Nov 2026 14:54:19 +01:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 10:08:59 +01:00
 
-These issues were discovered and fixed by Qihoo 360's Tulongfeng
-multi-agent system.
+sched/deadline: Fix spurious -EPERM for migration-disabled tasks
 
-Fixes: 5835812f13e5 ("target: ensure se_cmd->t_prot_sg is allocated when required")
+sched_setattr() can refuse to make a task SCHED_DEADLINE with -EPERM,
+even though the task's affinity covers the whole root domain. A retry
+can succeed, but the error blames an affinity the task does not have.
+
+__sched_setscheduler() tests p->cpus_ptr, which is not always the task's
+affinity. When a task is scheduled out inside a migrate_disable() section,
+migrate_disable_switch() points p->cpus_ptr at the current CPU until
+migrate_enable(). On PREEMPT_RT every spinlock_t holder is in such a
+section, so ordinary kernel work opens the window. Elsewhere, seccomp
+filters run in one.
+
+Test p->cpus_mask instead, which keeps the task's affinity and is what
+sched_getaffinity() reports. This should be safe because an admitted
+task's cpus_mask covers the root domain, so set_cpus_allowed_dl() moves
+no bandwidth when migrate_enable() restores p->cpus_ptr.
+
+The following program, run as root, had 553679, 453720 and 424623 of its
+1000000 requests refused on three boots of a 4-CPU PREEMPT_RT guest, and
+236182, 217174 and 237183 without PREEMPT_RT. With this applied the count
+is 0, also with lockdep, and a task pinned to one CPU is still refused:
+
+  #define _GNU_SOURCE
+  #include <errno.h>
+  #include <linux/filter.h>
+  #include <linux/seccomp.h>
+  #include <pthread.h>
+  #include <stddef.h>
+  #include <stdint.h>
+  #include <stdio.h>
+  #include <sys/syscall.h>
+  #include <unistd.h>
+
+  #define REQUESTS 1000000
+  #define INSNS 300
+
+  struct attr {
+      uint32_t size, policy;
+      uint64_t flags;
+      int32_t nice;
+      uint32_t prio;
+      uint64_t runtime, deadline, period;
+  };
+
+  static volatile int stop;
+  static volatile pid_t target;
+
+  static long set(struct attr a)
+  {
+      a.size =3D sizeof(a);
+      return syscall(SYS_sched_setattr, target, &a, 0);
+  }
+
+  static void *worker(void *arg)
+  {
+      struct sock_filter f[INSNS + 1];
+      struct sock_fprog prog =3D { .len =3D INSNS + 1, .filter =3D f };
+      int i;
+
+      /* Reading the arguments keeps seccomp from caching the result */
+      for (i =3D 0; i < INSNS; i++)
+          f[i] =3D (struct sock_filter)
+              BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
+                       offsetof(struct seccomp_data, args));
+      f[INSNS] =3D (struct sock_filter)
+          BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW);
+      syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog);
+
+      target =3D syscall(SYS_gettid);
+      while (!stop)
+          syscall(SYS_getppid);
+      return arg;
+  }
+
+  static void *hog(void *arg)
+  {
+      while (!stop)
+          ;
+      return arg;
+  }
+
+  int main(void)
+  {
+      pthread_t t[9];
+      long refused =3D 0;
+      int i;
+
+      pthread_create(&t[0], NULL, worker, NULL);
+      while (!target)
+          usleep(100);
+      for (i =3D 1; i < 9; i++)
+          pthread_create(&t[i], NULL, hog, NULL);
+      for (i =3D 0; i < REQUESTS; i++) {
+          /* SCHED_DEADLINE, 2us every 1s */
+          if (set((struct attr){ .policy =3D 6, .runtime =3D 2000,
+                                 .deadline =3D 1000000000,
+                                 .period =3D 1000000000 }) && errno =3D=3D EP=
+ERM)
+              refused++;
+          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
+      }
+      stop =3D 1;
+      for (i =3D 0; i < 9; i++)
+          pthread_join(t[i], NULL);
+      printf("%ld of %d requests refused\n", refused, REQUESTS);
+      return 0;
+  }
+
+An LLM helped find this bug and write this patch and its test.
+
+Fixes: af449901b84c ("sched: Add migrate_disable()")
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Acked-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: liuyong <pkfxxxing@gmail.com>
+Link: https://patch.msgid.link/20261102135420.244745-1-parri.andrea@gmail.com
 ---
- drivers/target/target_core_transport.c | 2 +-
+ kernel/sched/syscalls.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index 927861c30..4cda1e610 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -2841,7 +2841,7 @@ transport_generic_new_cmd(struct se_cmd *cmd)
- 	int ret = 0;
- 	bool zero_flag = !(cmd->se_cmd_flags & SCF_SCSI_DATA_CDB);
- 
--	if (cmd->prot_op != TARGET_PROT_NORMAL &&
-+	if (cmd->prot_length && cmd->prot_op != TARGET_PROT_NORMAL &&
- 	    !(cmd->se_cmd_flags & SCF_PASSTHROUGH_PROT_SG_TO_MEM_NOALLOC)) {
- 		ret = target_alloc_sgl(&cmd->t_prot_sg, &cmd->t_prot_nents,
- 				       cmd->prot_length, true, false);
-
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 45a127d..fb8f332 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -628,7 +628,7 @@ change:
+ 			 * the entire root_domain to become SCHED_DEADLINE. We
+ 			 * will also fail if there's no bandwidth available.
+ 			 */
+-			if (!cpumask_subset(span, p->cpus_ptr) ||
++			if (!cpumask_subset(span, &p->cpus_mask) ||
+ 			    rq->rd->dl_bw.bw =3D=3D 0) {
+ 				retval =3D -EPERM;
+ 				goto unlock;
