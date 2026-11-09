@@ -1,77 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794197488;
-	b=TaDEwXZ6TF8WeYZlci7GJMZsE48ng35gmy5fCXGsYn0xZjNhwgOZyA2670/+jGbdMBqO
-	 1sxFJQunEUCA5BO/35/k1S9IEH8Sex5E1EfB9kXSPJTBd2Dgc5tiRSZ0LSoofaLMJcgSJ
-	 3o5jsyd7hb2s4c7RC2oYYLr3/U/VnUpcD8sct7DzfR/1r7x8k3XIVJUtfJk1PEuGNqiz5
-	 yhvpNSR7g5CkHggXD4TlwdX9TX6FYBw8BZaomLOI9WuZjX5uPxeBUWaUGNf4tfu7kf+xY
-	 NRGPOm9Ev8o17F0Y8F69lrLGNjqBj6Qg1qDv3MQoKdRUncOiE0oPKYfeNgKK9qdA9qA==
+	t=1794197532;
+	b=UcVjLou4hvnqRzDfbEVgWQvbxNDbycc7aVtN5QPjPe/yDokq9fGK1jkmc8MJH/9gA+UX
+	 8NFRVlrbccjjXl9D569HjwGGyjn52X9ZTJ5M+LdmugzAji53s0/RXVXBVXynk54NsTefr
+	 Mf/D9bm2n6QzVjj7s1B/ufYLPYmUZMM6miFyGJJv39RzFzP2yTfehWm29pgbiwLS+VDOl
+	 NUUHNblZ5lhpS+2ZFwv79Aj48NsKBN516jhVqKJNNEKhXbeGctYXHpdjHfPlYHKE8//Kl
+	 QRyglmM9nNfMyH1U/5BtbTiRKt1hhPF3ZGCs78taMeJI6/yP2dJKZNdDiRPSRVUAylQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794197488;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=wD5FMo2nPtvrLWfHX1ci93C+4a9ws4m7WGRPTT11aSo=;
-	b=PSS0WSU+cBpiN/ptXRylSQYvw/kRGiIpKZJIENPGn+hg6yk0XUx7HXwjDq1h/KAVDoeI
-	 5meSmpn4zPMGAcHArlruKHvu0Y4CwQ0FAUL3n760Q62g8Bpui1q0yExDR5hjkJDgiEaE2
-	 j2/dJqMKR/HTaN6WLNGFGNG34OdfPMi/vQDzvqB/K1StKz7qrijG8qGUBfm2Dtx0yEjtP
-	 6NoLqJa+P/7nonnecYejPk+QSMlNIe2VRbcEsPXK/c4VUwJK3p9u3ptz9xSZ7yFviTGMP
-	 bfryWWSNZJx0C7VxA4VGojwa7C/y+I6NexU0eSuZwLJvzYKrmyooiLEcL5Ak7DHqhqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794197532;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=IVCjuZZQPo7i/RLyprlQW7kGel9zzof2nAxQQyiVyGg=;
+	b=UfGT4uTCkj0cT+jw+3g2orG6quGWXXYi7FqhOOVlUmb6FT7+IyyIOoZ4QJu0aRToa9uF
+	 d69/lA3muP9kZvwvE8A7MgsSMugbfTFiEEjT5+TjGNHlgWq8cHoGjPfmRY/hgkxR6ZL53
+	 k75n+yzNhMR6DC6XeURpgjcPXQlz+Ns/wxFcZVrpeapbbmQMWodBLds14Z2NSMzp43yGe
+	 APHLDosiyR1ZKsFE/kLuNDeu0zAFQiWVxWPdsYSiNVAs9Oqax5+yOWKo+0AWgOZIvz7W/
+	 Hyo4tkaubNyDGZc6/zStyu9QFlTwneQ0BNOQL7NYILzqZ+IxOghIwh5+Vx1O+ubsvww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rU8ZkZ55;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E02606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E02606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rU8ZkZ55
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261109041125epoutp0427465cd5f4ef46fdf266dca8fc713c2b~mRRtRycDH2923829238epoutp04Y
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:11:25 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261109041125epoutp0427465cd5f4ef46fdf266dca8fc713c2b~mRRtRycDH2923829238epoutp04Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794197485;
-	bh=wD5FMo2nPtvrLWfHX1ci93C+4a9ws4m7WGRPTT11aSo=;
-	h=From:To:In-Reply-To:Subject:Date:References:From;
-	b=rU8ZkZ555gdlOjzK9L5kfbx2ZkvcS49hh6wh7skz+YKFL7peOx0QP2CHNj7MnbBqQ
-	 Lxx0uIPS/nnOKRVMRxXobtuThO/mJqIGZWKVcXXkVaec4OtPvBZoqfChHkz16+sjFz
-	 kktvP67vq/kinJxPQwY24iAvMlAJ/6kbSTJEV9Z8=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261109041124epcas2p45140975b24d56245c1bfb20b661769f3~mRRs3PoJw2413024130epcas2p4u;
-	Mon,  9 Nov 2026 04:11:24 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.203]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jNGYm2g2Wz2SSKm; Mon,  9 Nov
-	2026 04:11:24 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261109041123epcas2p2dc0901804207c6b1fae32d3dfd627555~mRRsFx2FC0244902449epcas2p2x;
-	Mon,  9 Nov 2026 04:11:23 +0000 (GMT)
-Received: from KORCO118546 (unknown [12.80.207.184]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261109041123epsmtip201710ec87ee55488408274bcf5026302~mRRsBgYA_3165831658epsmtip2C;
-	Mon,  9 Nov 2026 04:11:23 +0000 (GMT)
-From: "hoyoung seo" <hy50.seo@samsung.com>
-To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <mkp@kernel.org>,
-	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
-	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
-	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
-In-Reply-To: <2ac84978-3223-44b7-af80-de59def8a0f1@acm.org>
-Subject: RE: [PATCH v7 3/3] scsi: ufs: core: Limit early link recovery in
- the error handler to runtime PM
-Date: Mon, 9 Nov 2026 13:11:23 +0900
-Message-ID: <024201dd7000$61f0b9e0$25d22da0$@samsung.com>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D69F8606A323;
+	Mon,  9 Nov 2026 04:12:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D69F8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8CxPNIZSPFqlbMdAA--.20495S3;
+	Mon, 09 Nov 2026 12:12:09 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxxMwXSPFqQRwzAA--.11813S2;
+	Mon, 09 Nov 2026 12:12:08 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2 0/2] selftests/bpf: Handle some unexpected failures
+Date: Mon,  9 Nov 2026 12:12:05 +0800
+Message-ID: <20261109041207.15221-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,70 +55,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQEkM+dZWAh2IxYDFumpsgtRiqg2ZAMhLHJLAxXuZpoBUKS0a7hbWtKw
-Content-Language: ko
-X-CMS-MailID: 20261109041123epcas2p2dc0901804207c6b1fae32d3dfd627555
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261106061547epcas2p40541421c139d758cdc3633302634d29b
-References: <cover.1793943246.git.hy50.seo@samsung.com>
-	<CGME20261106061547epcas2p40541421c139d758cdc3633302634d29b@epcas2p4.samsung.com>
-	<66ffa35908823d693cde364ef6fbdeef50aa5a69.1793943246.git.hy50.seo@samsung.com>
-	<2ac84978-3223-44b7-af80-de59def8a0f1@acm.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxxMwXSPFqQRwzAA--.11813S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoWruFWrKF13WF4kAw1UKr1ktFc_yoWxtFbE9w
+	40qrykXrZ5ZFyYyF15K3WrCr95C3yrZw4xJrWUX34fCr15Zr15XF4kAryvqry8Wa93t34I
+	yF1DJa4rWr13XosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb7AYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAF
+	wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
+	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x
+	0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8l38UUUUUU==
 
-Hi Bart,
+v2:
+  - Use libbpf_probe_bpf_map_type() in prog_tests instead of
+     handling EOPNOTSUPP globally in test_loader.
+  - Fix unaligned access at the source by applying a bitmask
+     'off &= ~1' instead of skipping these tests entirely.
+  - Modify the patch subjects and update the commit messages.
 
-Thank you for the review and for the Reviewed-by on patch 2.
+Tiezhu Yang (2):
+  selftests/bpf: Skip jit_insns_arena tests if not supported
+  selftests/bpf: Fix unaligned access failure in fexit_bpf2bpf
 
-> Has it been considered to use the runtime PM status maintained by the
-> PM core instead of introducing a new member variable?
+ tools/testing/selftests/bpf/prog_tests/jit_insns.c  | 9 ++++++++-
+ tools/testing/selftests/bpf/progs/fexit_bpf2bpf.c   | 1 +
+ tools/testing/selftests/bpf/progs/test_pkt_access.c | 1 +
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
-I had not, and it is a good idea. In v8 the error handler checks
-whether the runtime status of the WLUN is RPM_SUSPENDING or
-RPM_RESUMING, read with READ_ONCE() without power.lock, and the new
-member and its updates in ufshcd_wl_runtime_suspend() and
-ufshcd_wl_runtime_resume() are gone. runtime_status only exists with
-CONFIG_PM and pm_runtime.h has no helper for these two states, so I put
-the check into a small helper next to the other ufshcd_rpm_*() helpers
-in ufshcd-priv.h that returns false without CONFIG_PM.
-
-Thanks,
-Hoyoung
-
-> -----Original Message-----
-> From: Bart Van Assche <bvanassche@acm.org>
-> Sent: Saturday, November 7, 2026 6:58 AM
-> To: HOYOUNG SEO <hy50.seo@samsung.com>; linux-scsi@vger.kernel.org; linux-
-> kernel@vger.kernel.org; mkp@kernel.org; martin.petersen@oracle.com;
-> stanleyjhu@google.com; alim.akhtar@samsung.com; kwangwon.min@samsung.com;
-> kwmad.kim@samsung.com; cpgs@samsung.com; h10.kim@samsung.com
-> Subject: Re: [PATCH v7 3/3] scsi: ufs: core: Limit early link recovery in
-> the error handler to runtime PM
-> 
-> On 11/5/26 10:11 PM, HOYOUNG SEO wrote:
->  >  		ufshcd_rpm_get_noresume(hba);
->  > -		if (hba->pm_op_in_progress) {
->  > +		if (READ_ONCE(hba->runtime_pm_in_progress)) {
->  >  			ufshcd_link_recovery(hba);
->  >  			ufshcd_rpm_put(hba);
->  >  			return;
-> 
-> Has it been considered to use the runtime PM status maintained by the PM
-> core instead of introducing a new member variable? While
-> ufshcd_wl_runtime_suspend() or ufshcd_wl_runtime_resume() is running,
-> hba->ufs_device_wlun->sdev_gendev.power.runtime_status is either
-> RPM_SUSPENDING or RPM_RESUMING. During system PM it is either RPM_ACTIVE
-> or RPM_SUSPENDED. Reading runtime_status without holding power.lock is not
-> more racy than reading the new flag.
-> 
-> Thanks,
-> 
-> Bart.
+-- 
+2.42.0
 
