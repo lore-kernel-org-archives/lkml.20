@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224021;
-	b=bwtsA80xbV5yEGu0sBM48lHbECz1ljLKysyHqx9ceSYiH2qToXLqmdPoZ5uLW8IuhOop
-	 817KIu412llMeH/HsngyLlgABPO+MkJGyLCjaBj+DOPo3+d7WPGvzjuBOtkBvLbRMRRk3
-	 iE8qx5GBYW6mIoL8lu/9bHVQPk+bDO4S3apYZSygKTH8t3dpOCkQb656PQH4fQvd5jEmg
-	 hBMLqaWz5Tq81Uknednqqf20fZuZWjxVSP2jsQmZ1121Y46AuSLyQqaVX1fX/KPBRmg/0
-	 kLdAoWKlk7Ye2b8m0P7ce6u2rw3Sx4qX/OpDrFxUq+puPalLmshHjyg9K6fpK4lJUiw==
+	t=1794224028;
+	b=af02aUQLMcyhNQV73w+NwE5NNwQlUEFVjMB3Ogu0d+JWPNfLfhgmqVPyt5+x+mF8mx0q
+	 qy9jCBfb/iMzzX9FhphNprHeu+ZoatZvQ4gqnv5NkhcHIZwkpYDiYsiaIZyepV/6aWSOL
+	 EF7xRmq727bdKdmToIbHE5ec9vTbAWYEfg45hxvdJQAW4EDd6nytuy1APaDQvUL5d8b7B
+	 1FpP71T2qVQ5nFEiA1LZG2Nssz8QRO/sPLt+DfeuV4v+x8CSeAKuW1TtqnvEnGDSuHY+q
+	 qQk7J1OFKOoBtaf6ZOrEQBhoXDQYwR49AImU2cmOSPVGYQYtLwv1oQgxmz9J7e9fKiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224021;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C/IN6KS61ksc0rGNEp6x77vvpUWHuUzbVSpcmOuc7/4=;
-	b=cNEb4p5/KmSkMy6/w7HM4da300XjEYWYf+JgADG4tiB0MyZwDlxI+rEd28CBTrgb86EC
-	 P7WX+vAakjX+/RzgOBbENTPxmuWYek1eF/h0Vuo/C0vBZ37AzPrfCTnrv/VGeMMZq/M6C
-	 hOHeGvBdtaOojNqeuCY8s+xTkAwwCZ+cwRRumg/mKXQIObgX3AYYUqGFAQ+Sf8Yll0nW1
-	 Ky5uVM+doKiMjhhWR0XGXGGPjGZlw4348EeUdGZ+F81F398262ok17nY4CYPlFVXgqCCd
-	 oIIehQGUIDRrGCT9Z5oPejqz82Ziw352ZzM/bMsKVdHinh23NBESz6ZMg9X+FGAp03A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224028;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=gkT4fe5CJwp7XAtvSBn0G3WSLvL/1VCPfATmUEKUqdc=;
+	b=o9CN2hkS6vE4tT5M9qSmJAl6danWYz8EK0wJb+Meat8pEA1n7RYRJ0+QB7252GUHnwTr
+	 mX/v9dIbmKRw2veKNR5LcjlnIjKJ2ZkcDnVu/kMixa99cCwEZXaZsSdApZDezhA4GKdka
+	 gbUqqFY9FpaLM384PazofQyuOqPueXYy6+142T75t36mflBwhK2dIuZRedn0z5hc9VJH9
+	 hQyjEj7jDrIs6eucnbPScb55d7y2TscAoLZiV58dx2v0ooF3hG69k7Ic/VQGDwjMj5IG+
+	 6g/WEQAlkbcKKM28D/5LV65Dw4SdEmxcbHLMJ1lxwUJbPsOpJgUJfbKQxSvnNwaEVGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FoeZkdSx;
-	arc=none smtp.remote-ip=115.124.30.111
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRmNFR5N;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FB2606A31C;
-	Mon,  9 Nov 2026 11:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14FB2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85A4606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:33:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FoeZkdSx
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794224015; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=C/IN6KS61ksc0rGNEp6x77vvpUWHuUzbVSpcmOuc7/4=;
-	b=FoeZkdSxuojiMi+sfjdVesGX1MNr25gzlNeATNT2W+2J5qdKy8/iUm0+A74P93/U/Bv0ylepkcNau9bmInyG4BphZa8qxu4kvAo7ijYhw94v6Vnk5qHIwMDjcQ6cjZqtNm2s+f5KDOd5AV7cgC2uzQF8hbzMrdU8wEi623f5fMQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEO4pLh_1794224013;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEO4pLh_1794224013 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 19:33:33 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] NFS: don't raise i_size for DEALLOCATE in _nfs42_proc_fallocate()
-Date: Mon,  9 Nov 2026 19:32:44 +0800
-Message-Id: <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
-References: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRmNFR5N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F0D1F0089F;
+	Mon,  9 Nov 2026 11:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794224027;
+	bh=gkT4fe5CJwp7XAtvSBn0G3WSLvL/1VCPfATmUEKUqdc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TRmNFR5NGdiaeT/EJyT5AIJBFybSfvC+RFqnrxtntPEiIYgXBWWSdY0ZXLbH3u8k2
+	 LM9cUR88CfTS0kd+K+MIADUPeNj8ViurK4Xvt/R0YEXGxmr35td8HjnHvSc9daasPB
+	 vfDsmiS6OXLgcp1GMOQmO9CmLfTBry1jFzABLuITSP2N3h7PBqD8u3RyPLCK7+YvyC
+	 0pOBDNKL9jZLrNm1ICAkZBYP+bg+uv6SyGJ1dDfjvtxthMX9sOaRVOsNhCJMWcTuED
+	 aMNRMX06EaGfcsXVT0f+LOkJeo1AHoXwfcNSR6KpeG3/S2XKWkvDw8G4wNk6PeJ3Hs
+	 ywEmGQB1o6sqg==
+Date: Mon, 9 Nov 2026 13:33:40 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: Balbir Singh <balbirs@nvidia.com>, muchun.song@linux.dev,
+	osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org,
+	apopple@nvidia.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap
+ init
+Message-ID: <avGvlDENwtgUWv-4@kernel.org>
+References: <20261105120615.16817-1-lizhe.67@bytedance.com>
+ <20261105120615.16817-3-lizhe.67@bytedance.com>
+ <au2qhlsxQt3SRwIu@parvat>
+ <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com>
+ <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com>
+ <avGVNISvj-v8IN3g@kernel.org>
+ <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,58 +66,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com>
 
-_nfs42_proc_fallocate() raises i_size to offset + len on success, so
-that the cached size is not left stale when a delegation blocks the
-post-op attribute refresh.  The helper is shared by all three
-fallocate modes, but DEALLOCATE always carries FALLOC_FL_KEEP_SIZE
-and never extends the file on the server, so punching a hole that
-reaches past EOF now wrongly enlarges the cached i_size.
+On Mon, Nov 09, 2026 at 05:52:19PM +0800, Li Zhe wrote:
+> On 11/9/26 5:41 PM, Mike Rapoport wrote:
+> > Hi,
+> >
+> > On Mon, Nov 09, 2026 at 05:22:24PM +0800, Li Zhe wrote:
+> >> On 11/9/26 11:01 AM, Li Zhe wrote:
+> >>> On 11/6/26 6:23 PM, Balbir Singh wrote:
+> >>>> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
+> >>>>> Boot-time HugeTLB allocation has to initialize tail struct pages itself
+> >>>>> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
+> >>>>> gigantic pages, this can cover a large number of tail pages. Most state
+> >>>>> installed by __init_single_page() and prep_compound_tail() is identical
+> >>>>> for every tail page in the same huge page; only PFN-dependent fields
+> >>>>> need refreshing.
+> >>>>>
+> >>>>> Initialize the first tail page normally, copy it into a local template,
+> >>>>> then initialize the remaining tails from that template with
+> >>>>> memmap_init_page_from_template().  This avoids repeatedly doing the
+> >>>>> full
+> >>>>> __init_single_page() and prep_compound_tail() sequence for state
+> >>>>> that is
+> >>>>> identical across tail pages in the same huge page.
+> >>>>>
+> >>>>> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
+> >>>>> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
+> >>>>> initialization time improved by 36.43%, measured with a temporary
+> >>>>> jiffies-based printk modeled after the existing timing in
+> >>>>> memmap_init_zone_device():
+> >>>>>
+> >>>>>     base:             318.4 ms
+> >>>>>     with this patch:  202.4 ms
+> >>>>>
+> >>>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+> >>>>> ---
+> >>>>>    mm/hugetlb.c | 23 ++++++++++++++++++-----
+> >>>>>    1 file changed, 18 insertions(+), 5 deletions(-)
+> >>>>>
+> >>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> >>>>> index da5d04edf7c1..987f16a5ea27 100644
+> >>>>> --- a/mm/hugetlb.c
+> >>>>> +++ b/mm/hugetlb.c
+> >>>>> @@ -3219,19 +3219,32 @@ static void __init
+> >>>>> hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+> >>>>>        enum zone_type zone = folio_zonenum(folio);
+> >>>>>        int nid = folio_nid(folio);
+> >>>>>        struct page *page = folio_page(folio, start_page_number);
+> >>>>> +    struct page template;
+> >>>>>        unsigned long head_pfn = folio_pfn(folio);
+> >>>>>        unsigned long pfn, end_pfn = head_pfn + end_page_number;
+> >>>>>        unsigned int order = huge_page_order(h);
+> >>>>>    +    if (start_page_number >= end_page_number)
+> >>>>> +        return;
+> >>>>> +
+> >>>> Can this actually happen?
+> >>>
+> >>> No, current callers always pass a non-empty range. I kept this to
+> >>> preserve the old for-loop no-op semantics for an empty range, but it is
+> >>> not needed here. I will remove it in v2.
+> >>
+> >> I need to correct this. A local Sashiko run pointed out that the bootmem
+> >> fallback caller can pass an empty range on SuperH.
+> >>
+> >> SuperH supports a 64M HugeTLB page size, and with 64K base pages
+> >> pages_per_huge_page(h) is 1024. HUGETLB_VMEMMAP_RESERVE_PAGES is
+> >> PAGE_SIZE / sizeof(struct page), which can also be 1024 or larger on a
+> >> 32-bit SuperH configuration.
+> > If the only difference is unnecessary initialization of the template on SuperH,
+> > we don't care and you can drop that if.
+> 
+> It is not only initializing the local template. The code first
+> initializes one page with __init_single_page(), prep_compound_tail(),
+> and set_page_count(), and then copies that page into the template.
+> 
+> So if start_page_number == end_page_number == pages_per_huge_page(h),
+> the old loop is a no-op, but without the check the new code would update
+> folio_page(folio, start_page_number), which is outside the HugeTLB
+> folio.
 
-The post-op update would normally restore the size from the returned
-attributes, but nfs_update_inode() applies a differing size only when
-no delegation is held, and then only when no write is in flight or the
-new size is larger:
+A recent patch to arch/sh indicated that hugetlb is never used on sh:
 
-	if (new_isize != cur_isize && !have_delegation) {
-		if (!nfs_have_writebacks(inode) || new_isize > cur_isize)
-			i_size_write(inode, new_isize);
-	}
+https://lore.kernel.org/linux-mm/auJI2blzfpFD9yLe@kernel.org/
 
-With a concurrent mmap writer (nrequests != 0) or any outstanding
-delegation, the shrinking server size is therefore ignored and the
-client keeps reporting a file larger than the server has, in violation
-of KEEP_SIZE, until some later revalidation without writebacks happens
-to fix it up.
-
-Skip the i_size bump for the DEALLOCATE procedure.  ALLOCATE (mode 0)
-and ZERO_RANGE (which nfs42_fallocate() accepts only without
-FALLOC_FL_KEEP_SIZE) do extend the file when the range reaches past
-EOF, so they keep the update.
-
-Fixes: 35168eb947f2 ("NFS: fix eof updates after NFSv4.2 fallocate/zero-range")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/nfs/nfs42proc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
-index ab86246fc364f..d76bface87f74 100644
---- a/fs/nfs/nfs42proc.c
-+++ b/fs/nfs/nfs42proc.c
-@@ -84,7 +84,9 @@ static int _nfs42_proc_fallocate(struct rpc_message *msg, struct file *filep,
- 		loff_t newsize = offset + len;
+And it seems none of upstream sh defconfigs can hit it.
  
- 		spin_lock(&inode->i_lock);
--		if (newsize > i_size_read(inode))
-+		/* DEALLOCATE implies KEEP_SIZE, so don't extend i_size */
-+		if (msg->rpc_proc != &nfs4_procedures[NFSPROC4_CLNT_DEALLOCATE] &&
-+		    newsize > i_size_read(inode))
- 			i_size_write(inode, newsize);
- 		nfs_set_cache_invalid(inode, NFS_INO_INVALID_BLOCKS);
- 		if (nfs_should_remove_suid(inode))
--- 
-2.39.3
+> Thanks,
+> Zhe
+> 
+> >   
+> >> In that case the old for loop is a no-op. So I will keep the empty-range
+> >> check in v2, before creating the seed template.
+> >>
+> >> Thanks,
+> >> Zhe
+> 
 
+-- 
+Sincerely yours,
+Mike.
