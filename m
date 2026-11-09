@@ -1,96 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794238367;
-	b=i7izoycIt2PpOTBKIHWImVfgfU4pCPIBw9ZUp4wZwi0Y+9YL7GxXCPSlbgKafUfitQRt
-	 Vb1e46QUO4JDhxdxBxTLpYL9jgdUYQjVTzipt6ZJ9DKG9ttuz1R+5hHtTOyOe5bn/O7c2
-	 Fokp4rigfYugjs3h8jzIqhsO1e68btpJTHiyQEyo371BLdOqL2OxVvYP4z/PmiPFW5LQQ
-	 XiDopypCg6Nkr61ZYpRSMm0cpRB45bl80J0bE6sAHa7d3za3bn2/SBuIwCBXihYAGzsBi
-	 ANccgAFML1Njg3ePWWlFUgDPoP2IQLDS7gjYsBdKiy2vt4haiULWY7e5sIDtv8RVrCQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238367;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JRRwWfbameCVHtptgrmOT/aq7z3ehbGnOR3u7VnEKf8=;
-	b=zXghOXVwmLpA/hATyIeOn1joMud3sSquW5tK7OQF9Iwg/2ylECHYlwEvwXvJhiCCk3Sh
-	 R80qRC8tENtp4Xkz5vUntD+HZcQHxSGcE+yNg5JrbfkcO6q4YOEyr+sfTnUtwMn+WN5bd
-	 6BZbxCCLVMhQw9MC99GfHkos5yIhr9F2w0sOTRryqPbh/+FMkpC+VszimUcKd3S0JuJ9D
-	 82T/NkP7kTamfYZRaOBdRkHRoWzmwQpf1shpGfuiyfaC+MhR9m9TMuQfYOKDA2dlzjheU
-	 Ql68sNJ44F/1OOZILwZ1k9BlG54DsrsbJ/Z6X/swyuoy8RYeRNdS9WpR7lz0a0CYN8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=baN5DaMG;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794238403;
+	b=5AUTEnQG0/1W1WH6lUWPK8mVWSouD9z3QaOQ1zpfCz8wsIbUXitJLM5jhmYb2O/+Skpa
+	 25Zfq7xbnrTUeHARSbI/9ZtjN3pUt1KDxrAQvkTeB2cjO3x3/u2PTxCtesWnBegcpXDbE
+	 0oS+rAzPQ0hF3urvUfRaUQt0fRrhHTohNQq18J+Ps+wMjR1eJOXlfNscxkKJ/jOP8HCs5
+	 Hae9kBNuSyUH2L3Wmgd9VVpPIU2pOzU4uItu/+2sAqJ8uIwfLUVrgfoogu99vFIomh9oT
+	 mX0V9/iSP6eMGmJb9S4vfFblWPO35fBPGqiNwWaKsMuiRdFoDezFdo9Fue0ga/6YJXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238403;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7+sGbb7wLmzpPKj3UrfbvuHnaatzahMOgWaW76iNjwk=;
+	b=31n4gAvvexIxqDAHT+A8mjYxelwhLc31lgTPF34trqWrxzP0v2nmMh9l+lmzdC4Jp+lv
+	 h2msod89kdZMI0VIhCNQkJrOjh3xtuO/ReBo19DIw44ll1ClI+dBhii0yw8OHDi7Jhecs
+	 B6LVGItOU54ymp48ernmyH043Dn1zIUciJTWWFTN10Gx5251l3SPZj8zGqIWFEogwqzCN
+	 iDD8CCW4BKc3PMNcd24eDAwPGhXBJMx0r5KAe5+zF3hkAziLwXwjcMJboLnxx6LedJmVr
+	 9tJfILZrMALnxd7NjURIsxgjY/Lj0Qs+qvt8WNSuoyQqtdthm3MPvRAZo0KNs8c/idA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZtSbGHh0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.11
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010011.outbound.protection.outlook.com [52.101.46.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587B7606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:32:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 587B7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC24606A321;
+	Mon,  9 Nov 2026 15:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EC24606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=baN5DaMG
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0d09df973so724189a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:32:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794238367; x=1794843167; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JRRwWfbameCVHtptgrmOT/aq7z3ehbGnOR3u7VnEKf8=;
-        b=baN5DaMGiM6qHSdYHDSDoyHaIJOhVwf7Vg4GJegxyqtcXwtspqftwSfIh9oM3oo/ZX
-         Qa0SRA2E9jlqw7hJb24zdbidMde+uXRfeH1b1ZN37+r6Z2DRQC10Qa/wR3n4Tlkefpw+
-         nKHi38g9Ivlvpq1MdFCR9ACJD3Gy/80Nq8vUcutlAVjFzUCtucSoxeXY90hbJ2EdTaB1
-         JQ0WqT547HRVbNWSXh7KTT7b0KL5ybEGVoWDdS4K54v0Ki5sKV5nTwfzc1aiOnfs5JCB
-         8j+HnxD5sq+1t//BA5devnwABKBbQ6gU0Vp9rcEGDTk833oo6MLKSsEzYDIvFV+Pt3X3
-         mGug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794238367; x=1794843167;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JRRwWfbameCVHtptgrmOT/aq7z3ehbGnOR3u7VnEKf8=;
-        b=j+Nuaoj7tdo9db6j7Wa5rk10RYBVANksiKNsCaDh89JexNk8xDNQ6ewXhyGIac4bkc
-         ng7jSg60Ak35o+fe7a1mJSsQ7kAhyV9t1/xuf0UWAVqHflfDufqcjaaYOBFRa3WjhKtM
-         uJHyJjEglNiP1El5qauRmE8wdOJ8x+L8+1SOWuG2/TG0+qw/ayzN0Rt9Nl96Jifu9fhB
-         QV9aXzj+Lupqd25vvU+Yn3HsMxm5XKkNG9dY6sYNRYktg1cUY2pDRSSDyBoDTb89TJQ3
-         T5iFScXOPPKexCb6FHvRKy7PZMSc2CLgPpMKOy4/eLCxA+g8z708EJCg8jzfqGgreU56
-         B1mw==
-X-Forwarded-Encrypted: i=1; AL+hErHvDUfEmr2ZbNMV+wJbIIrCaKmkCaCHmm1O2ETT0uspgcvJ8rs+oc8tnt8YHKWFBz6QH7pwq6aUt08ZUwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Vt1VNv5Ee5UQVPNZIszAXCqu/VAHc3vIxAhkXcgyf+QouRdo+
-	7GNbVT6mD+aR8VWZ60khynz+nG3QKLIrkXpBhgVuZ1AuBN+pTQ2j5eBxs4vi8lyHot4=
-X-Gm-Gg: AYBFou1rZSDQfxmczexVpdXZcOzK0OC0BoIUMIZBlkjM3NdflAHU036LjG15NEOzbHi
-	ga/sgcZ9biSLn5DyREg0g07cLVy1QCCG+qiMl9iGuDIRUfyYidexW6arrzJFHE01yn4ZSrT5x6a
-	IUXtWO3SYViU5oWJ3sgIOiXrpj3iZkthfZBbLhKkaa2tK+lUh/iLgoMM10TDzIM1qVgC6ew4/lT
-	NJ21CUm2PIDsENY/mPAXv52wktoLisv6qy0rBfgHP/fnivuDoAzJjNiiomUjKNBqJ3NZxzud+2+
-	S8Tz5+Ym6f91oJln/XT/IKu19esnaRbawE46Bcmb7X/KmWwetN6JzIg0mhqnvWoOhArIA+j5lo9
-	7v1AuoqXRiyq2YTY0TedoVUhruEHrJJfOWggotQ67RjMMtWsVi26akMzBk0/Uo46Oj5gxTOyFpg
-	eJ8/FQ+U81MOsoUvxScCg3Ncl9UuO3mAiGkkPz0nRk8jcrgc/SMjv8ThhS1aoInZtpZEoYpUo8G
-	IkslvhaY3zyCTE8yBjjQjvLuQxfSVEb8fvjY948mog2oK0PenODdP01WawFWO2fFrIZvY7VEPUH
-	P9ooJijrl6Q1KpW6NbDbrZw+6G1nc3nmIpdnAitoDRBIaUpputk=
-X-Received: by 2002:a17:90b:5307:b0:3ab:e789:ce84 with SMTP id 98e67ed59e1d1-3b12d51ee2emr4031188a91.65.1794238366553;
-        Mon, 09 Nov 2026 07:32:46 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:54d7:1b5:4356:16fb])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd88e5fed3sm315273a12.8.2026.11.09.07.32.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:32:46 -0800 (PST)
-Date: Mon, 9 Nov 2026 09:32:44 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-remoteproc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: stm32_rproc: Do not request reset by index
-Message-ID: <avHnnBUiH-kLOrCU@p14s>
-References: <20261106-reset-deindex-rproc-v1-1-41a03fcc8496@pengutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZtSbGHh0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YV98Skh2Je/u34GdKJSOqYf+eVVXIMGMm59MI4WpRsLCdmzt8tFp9SmqBjMJK3tD5rKGs9mT9hU3BnWu3Hmwyh+cMHOc+g5vK9HgQ5xtZHv+x1aPX9pySktb6eCoR25ksapY7mM+0n2jpnfMiBRkCcDuKJHwnK8uPQ8LiWrnX/W1jhlWvY8c3RT9hBaAJ6GzzNoa3uPeiQnaVfxbquJZp1JmU31U5cdNXxSWTaZjYec3Cemdg1lWFa9jhOnnboVUhaIIP4xa/ClPvKPqy587CwggPxhqakkkETBuHAKqaWytMC0IvUgO9w0eHYjAIGZ1tzBRr0mPujEN31Ok4N6OAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7+sGbb7wLmzpPKj3UrfbvuHnaatzahMOgWaW76iNjwk=;
+ b=VzTnyC41oRaaNHRJNnsRi+8QJuW8qyKkgfcPerwMozWt10kAx6MLC53jdn3gEyd22cubNHQptvhw1DQg9yE1dQ9RoFZaaY144P0EJzAkePdqVk4mHRln7rff+IP9adPd+e6/fsNLDPIgmBdSyLYKVJ7e6FOH3tMLRGVoYdc0Ql0smfiZoh/GbIbLW6QmPvJT1VuVU5RiRjCQS651FHhkNdtqQ7n82xYicQ+ZcOIRL7hNp5keYXylYVKNhZQSBKmXy8Dvut1k6A8QsQ7QuQltSYQLgOsL/fyEmfVP3Dmp7sfwPuXQBEAjut8GGwTkJl6z77VHKIgJKwQHY6ZbcGWZ2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7+sGbb7wLmzpPKj3UrfbvuHnaatzahMOgWaW76iNjwk=;
+ b=ZtSbGHh0VKFplvh3RRnfdSd2hagVUV/OxPvYUNGG0Qq2NvCO83ZukgySyZcAse0BfXEiUjKM922yTB6j0mpaQ1yxCtKyPsRmzQxYFmqhy4ElK4zICt1vM1Ycyyi9wF9Fa0pTRRA0SXRXs38Yl1ZgWqX5r5LGzLxzNWwfKcD53qw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by CH3PR12MB7523.namprd12.prod.outlook.com (2603:10b6:610:148::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 15:33:14 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 15:33:13 +0000
+Message-ID: <94e2852c-e002-44cc-b3e1-ccde8e92ccf3@amd.com>
+Date: Mon, 9 Nov 2026 09:33:11 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] selftests/resctrl: Use bandwidth values for AMD
+ MBA schemata
+To: Reinette Chatre <reinette.chatre@intel.com>,
+ Swapnil Sapkal <swapnil.sapkal@amd.com>, tony.luck@intel.com,
+ fenghua.yu@intel.com, shuah@kernel.org
+Cc: Dave.Martin@arm.com, james.morse@arm.com, peternewman@google.com,
+ eranian@google.com, tan.shaopeng@fujitsu.com, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, x86@kernel.org
+References: <20261022132517.46805-1-swapnil.sapkal@amd.com>
+ <20261022132517.46805-5-swapnil.sapkal@amd.com>
+ <b250f681-5726-403c-86af-cb4bc35b9d1d@intel.com>
+ <e30b8e81-938c-4426-8b4a-2a3a8d5163ad@amd.com>
+ <4f656f59-9f2c-4774-9d9b-3a4d7b7b509d@intel.com>
+ <39598840-29b1-4524-806f-9ef9dc2a3944@amd.com>
+ <857d915f-9439-408b-9109-82143bd96ace@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <857d915f-9439-408b-9109-82143bd96ace@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH2PR14CA0010.namprd14.prod.outlook.com
+ (2603:10b6:610:60::20) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,47 +106,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-reset-deindex-rproc-v1-1-41a03fcc8496@pengutronix.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|CH3PR12MB7523:EE_
+X-MS-Office365-Filtering-Correlation-Id: b203a16c-ef43-4cae-7669-08df3e76c493
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|11063799006|4143699003|56012099006|261021121427099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	4c60ks5EErL/TOEI7LRA4g8KFmHaUuymRwDJs8pBkfWV7/23unYEKzGegEIkOvJg7yRa+gzssaeITwSBwXCngjJqYbLEkEPlR284/Lxn1rhUORJauIBydAM8P2nMaDnL8/dKXYDtnBHN/YzCQDUSRFRbu0rNEiTW0h6+INcnpi3ko1Yap2TLXzgo8SbTRSqeW0aTSc41WDOufXnxqfs2ARW3NgbIRz9TYR5XdsIdEPR2PbP3A89HXZgjp/k5m8PEarqhARdTNQeNov0XS0m5j1MQoAKALdXJy7bojZyFJrub1wvEQJqIL3epOElG6/HLbLJXJEx+shUZ+n7UtekRB/eG/l4V5qTQqPu9XklOt7AXRITZYWRb7jpGBWqDWlm4POH8mREw9ExImvSDU+82+e+UNI77J8BsNJaHvI0EgtJS56rn6ZwvSXajEJTzberxZZZeLOQ2t7mxLrhZlh128947fmbj9oh60ajhMbWnhkFQTApjiFJqZdyKkOo8CFHk7EO+Tzun4S5i5XMDSDjiWvZH4RYMQpDLlRhqV2tLerHYAxlNNWzoB9II5Cl2RZxRGLiEc1ekwjxX+ysOPy7ErvldRFkvC+KzgEF1Rirodub59aS9IiwFBN8hReHuGQOgIGJRDolgp0pdrpI7n47zWsuSXZPtVEIZzjeHmB78vBs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?emZ1VjZoOVptNGlERkxFZjRDdXRJeklnL1E0NmxrazltNjh1d0FyQ1piZlJW?=
+ =?utf-8?B?Q2RzUmo1eGl1ZE8vTU5KK3BIcVowMjBnK2VRWUlCVG14ak9lS1EyLzRvUE1j?=
+ =?utf-8?B?MWVzaHJvWG9hZFkrcFMzeVZjNExtekpwSGRzeXNSR0tBV3NJS1BCbEFjYnAz?=
+ =?utf-8?B?d3ZCSHNVcFBjeXhrSHo2T1NLenJmUW9XTDExdHVvSlVCOWc1ZVBCb3E2YVMy?=
+ =?utf-8?B?RGsxblVnMGt1bHozYVNVQjBmazdVcEEzUXVVZmxKQ080bGltZ3BjNGhJQjgy?=
+ =?utf-8?B?dnZpUW95MW1pTXVUMGF4L2VMYi9QakFIQXh4T2xKb2VQc0d3QXl0aGVaaWRI?=
+ =?utf-8?B?YTdtZmxzUWw1NmJ6QlR3VUJvTUY2eVYzUjRUVnpzNUp5OGNHakxBa2xMWkd1?=
+ =?utf-8?B?WWUxQks4MHpWZFBocEJuZjZ1aXlLRGpHNWxCaFRHRXBVSjhndDZCS2FhcTBZ?=
+ =?utf-8?B?V2FxY0t6bC8zNG9KQUNiRFJ2NzFmczFuTUFZV3NEclNQejdtOEp1cU9WWmdR?=
+ =?utf-8?B?aGJrVUVMdGpJbU9pMy9oY0o3NkhyNlFrZXRSNlpXMC9ET2NnOVhEVGhlOWhG?=
+ =?utf-8?B?NklkZUpLU0FtZ3pGQ0JGWjdkbTRNeUNuR1d6ZmVTT1JLNzN0bFhDNEc1QWFY?=
+ =?utf-8?B?VThySGpkZnQxOFdidU1XRkFPV1F6cThNMkh3bGo1VVVDOGR6eE42ZzFMSGNE?=
+ =?utf-8?B?TVBpaklRK2lSR1VHNDF3SW9IM3hNUWM3Qkx1OFJaWWcwRlBZMkpEdHZJKzdP?=
+ =?utf-8?B?M2s5NmRGLzhqMmVIWDgycnp4UGZDSWoyT3BCNzZYaWV5TzB6NjNQTzRVMFFE?=
+ =?utf-8?B?MlV2YUo2SDliVytHU3VCbnJBQWZxTThJQnZ4VG1UaUxNd05sRUdWWm5nbUl4?=
+ =?utf-8?B?TWlMSFZXWmlZenRLZEJiU0dkMW1IZzREaTU3bEJjMk5IeEtIc0oreXYyR1RD?=
+ =?utf-8?B?WTZ6UGRZVldsZlFJWFJLOEdSRS8vVHRHZE9IWC94WEU0S1BvOGRKeGhESklN?=
+ =?utf-8?B?Z0kvRGQzb29XbjQ2VktIQ0dua0x2SDRHWWNTTVJKbWtjS0R3eURuVytFWWtC?=
+ =?utf-8?B?aHRoaFJ3YjgzVHNFQ1R1cGg1TFRSZFV6cnJxbml6MmkwSW1LWmdGRS9vbnFQ?=
+ =?utf-8?B?VmFXMmRaOUZuZmp4NVFmL0NpWHZOb0JKdW5SMnI0VkxZWFJqNWNBZ1l4M1dE?=
+ =?utf-8?B?TStZektBb1J5S3B1RlRiRVFjbVpUcXk3TytrQXY4QnlJVXJzN3ZHSVJYb1Nx?=
+ =?utf-8?B?bzRLWm5Db0hVZHZiS3hQU09vazRkZFlzS0MrVGpnU0VQWmZobDVWODd4a2xj?=
+ =?utf-8?B?YmxBekI2N3FZYW43d05Ga1RTRzl6NmV0dzB4Q2tDQTdUZXVXYUtyQXh6MWM2?=
+ =?utf-8?B?cGQ4QVpSanVaRzN6QkNLQlgwbWJyRnVtSS9vVzBNU3hMTllhMjNZTWVJWVhN?=
+ =?utf-8?B?MGJxVnU4ZFEwY2tpRC9xRU9LdE53ZGZlb0Z4cUx0THBneVhrc3lwbThIS1g1?=
+ =?utf-8?B?NEZ5eUI5c2U3SG5hOXhXdXFiQ1k2eFI1NUpraTdUaGM1NnhqL0xESlEwd2xz?=
+ =?utf-8?B?ZGlPZE8yalMyVGtZRUZhTEI0WEYrR3hjbHVka2g1d3orTzFZZ1hnSFRqQUFX?=
+ =?utf-8?B?OUt0SGRPeDB3Z3ltdkQyVzhHUHcrbWxiNVdJRUNsY0JPMzdCQVpaWnhkNDlh?=
+ =?utf-8?B?c2gwMVpOTEFVclFWSTExL2dQNTl2MWFUVzErQzA5KzQ2SFFDbFRUbSt0Wkp6?=
+ =?utf-8?B?VjZEdCthRGlsSnNxSldBQmNPNWZzKzFJVVZKcGV0ZlpyeEhYMk1Ta0htNEVy?=
+ =?utf-8?B?VEhzRnIvN0JQV3l3b0docmlKd1BqUVdoRDhwV00vR0k2YnJrWWtXS0xISGhT?=
+ =?utf-8?B?SkNIMW9jL29kMzhWS3JuT0xSNk8xSWRJZG1pZ0JxSWh1M050ZFVjMDJPVEc3?=
+ =?utf-8?B?RUlWdDQ3WEpKTkM5Z3RLa1BjamFLaXhESklTU1JoQTMzSWJVYWtTNEwwb2ZM?=
+ =?utf-8?B?USswRHByK0FYbGxERTAvamt0T3FPL2ZVSEZtbXZ3VURDZ1A3ZlhXUDRaSWJG?=
+ =?utf-8?B?RXlWSm5idUhlYmFWdlg4T2FSMnUrck5pSkJIU3ZoVlRDVkNtQ3c5QnhnUUFz?=
+ =?utf-8?B?YUV5Vnh1VUFSaG5VNlNHaER0WUJ4WUs2b3dQYTdxL3hrL2trUXFwakhRbkhS?=
+ =?utf-8?B?cUVDMW9nNUxKRkFTM0R5YVRkR0V6L25LQWM4WXlKZXNSdWFHKys3Sk56bkda?=
+ =?utf-8?B?ODRocE96aFVSdzExczJTWDU0UTRUN0d3NkNHekRKb3drcjlnemozRWsxT2Nl?=
+ =?utf-8?Q?Mm42K8qXS//hEx/9Pw?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b203a16c-ef43-4cae-7669-08df3e76c493
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 15:33:13.7444
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ecK4h81kbYlxyPL8ektzkuR19YfYe+a3J1X+SouFv1dFFBKxaI/zrPF7dUsl3qX+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7523
 
-On Fri, Nov 06, 2026 at 04:46:15PM +0100, Philipp Zabel wrote:
-> There is no need to request a single reset by index.
-> Use devm_reset_control_get_exclusive() to request the first and only
-> reset.
-> 
-> Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
-> ---
->  drivers/remoteproc/stm32_rproc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+Hi Reinette,
 
-Applied.
+On 11/6/26 17:37, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 11/6/26 1:25 PM, Babu Moger wrote:
+>> On 11/4/26 22:16, Reinette Chatre wrote:
+>>> On 11/4/26 8:05 PM, Swapnil Sapkal wrote:
+>>>> On 29-10-2026 00:15, Reinette Chatre wrote:
+>>>>> On 10/22/26 6:25 AM, Swapnil Sapkal wrote:
+>>>>>
+>>>>>> diff --git a/tools/testing/selftests/resctrl/mba_test.c b/tools/testing/selftests/resctrl/mba_test.c
+>>>>>> index 17ae73d3476c..947735e26099 100644
+>>>>>> --- a/tools/testing/selftests/resctrl/mba_test.c
+>>>>>> +++ b/tools/testing/selftests/resctrl/mba_test.c
+>>>>>> @@ -13,10 +13,51 @@
+>>>>>>     #define RESULT_FILE_NAME    "result_mba"
+>>>>>>     #define NUM_OF_RUNS        5
+>>>>>>     #define MAX_DIFF_PERCENT    15
+>>>>>> +
+>>>>>> +/* Intel MBA is specified as a percentage: 10%, 20% ... 100%. */
+>>>>>
+>>>>> The percentage based interface is the generic interface and not Intel specific.
+>>>>> You can drop "Intel" from references to this interface.
+>>>>>
+>>>>
+>>>> Sure, will do.
+>>>>
+>>>>>>     #define ALLOCATION_MAX        100
+>>>>>>     #define ALLOCATION_MIN        10
+>>>>>>     #define ALLOCATION_STEP        10
+>>>>>>     +/*
+>>>>>> + * AMD MBA is not a percentage but an absolute memory bandwidth value. The
+>>>>>> + * test sweeps the bandwidth from 4 GB/s to 40 GB/s in steps of 4 GB/s,
+>>>>>> + * which the hardware represents in units of 1/8 GB/s (i.e. 4 GB/s -> 32,
+>>>>>> + * 8 GB/s -> 64, ... 40 GB/s -> 320).
+>>>>>> + */
+>>>>>> +#define AMD_ALLOCATION_MAX    320
+>>>>>
+>>>>> The AMD maximum is enumerated from hardware. How can it be ensured this is
+>>>>> the appropriate maximum for all AMD systems?
+>>>>>
+>>>>
+>>>> As Babu mentioned, it's difficult for a single-threaded workload to
+>>>> reach the hardware-reported value. For that reason, I used these
+>>>> values to verify whether throttling takes effect.
+>>>
+>>> Just to confirm, my question was not about needing this value to be the actual
+>>> maximum of a system. Instead, I just wanted to confirm that this "320" value that
+>>> is hardcoded here for all AMD systems is a _valid_ value. Since the actual maximum
+>>> value is enumerated from  hardware it is not obvious to me that all systems will support
+>>> this hardcoded maximum.
+>>>
+>>
+>> The value 320 corresponds to 40 GB/s. I have tested this on several systems and was able to achieve the expected 40 GB/s bandwidth. The tests did not fail.
+>>
+>> There are some older systems where the test is not expected to run because AMD UMC support is not available.
+>>
+>> If you are concerned, since we are no longer depending on the maximum value, we can be conservative and start with the following adjusted values:
+>>
+>> #define AMD_ALLOCATION_MIN    32
+>> #define AMD_ALLOCATION_STEP    16
+>>
+>> This allows the value to reach 32 + 16 × 10(num_allocs) = 192, which corresponds to approximately 24 GB/s.
+>>
+>> Hope this answers your question.
+>>
+> I seem to have trouble articulating my question. Let me try to ask a different way.
 
-Thanks,
-Mathieu
+My bad.
+> 
+> Consider the scenario where:
+> 	#define AMD_ALLOCATION_MAX    320
+> 
+> If the below (kernel code) snippet is run on all AMD systems on which the
+> test could run:
+> 	u32 eax, ebx, ecx, edx;
+> 	cpuid_count(0x80000020, 1, &eax, &ebx, &ecx, &edx);
+> 
+> Is it possible for eax to ever contain 8 or less?
+> 
+No. It has never been below 11 (0xB), so this should be fine.
 
-> 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index a47e040c6db8..1443a4013d6c 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -696,8 +696,8 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
->  
->  	ddata->rst = devm_reset_control_get_optional(dev, "mcu_rst");
->  	if (!ddata->rst) {
-> -		/* Try legacy fallback method: get it by index */
-> -		ddata->rst = devm_reset_control_get_by_index(dev, 0);
-> +		/* Try legacy fallback method: get the first reset */
-> +		ddata->rst = devm_reset_control_get_exclusive(dev, NULL);
->  	}
->  	if (IS_ERR(ddata->rst))
->  		return dev_err_probe(dev, PTR_ERR(ddata->rst),
-> 
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261106-reset-deindex-rproc-3c1aa2e9325f
-> 
-> Best regards,
-> --  
-> Philipp Zabel <p.zabel@pengutronix.de>
-> 
+Thanks
+Babu
