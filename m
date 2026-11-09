@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251104;
-	b=rNEAusi/Lfva+OT24qhgRLKMRDghSTqmq5ngoF9PyX3xoEi2zPU8EinP3p1iIyqd+Q8Y
-	 4Q5P454JNSkIvfBkSuFVYP4IuXK3bmh67DsBJtOG/P8OtpF2kEIrl4yFvZKdGtH5ndsLh
-	 O2I/zTRTB1Su9aYqkwJngUIQjtUv8kh57FQI0ASRg1fCuiKQLoZTmw1igIfvlC4n1lJX0
-	 i71RE36NjYQhxPshsWCoWmCvBoPev/XdN6QIhOr1lE1wIuTJGjCcdXYz7xJz+pFqiJgR3
-	 e1dnlf33+96bi8wT6I9ZX2MB9Sfp8G2F7GNezQjJ5+rdqOFZRlNCyvoMhZ/nyfhEQHw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6Ccwykaou03iEXdgsVl2ojrfIyiLm62r6nS34ODXJLk=;
-	b=dbTusJPrjCfJEdn6UYFG3gvvW90Yhjs3/zc1ajVBV55q1qZuab7P5Fw9ddqvZRx3s6lS
-	 5+Beb2VI9QwOlD32zjBoxuGJ4+TVW/cXucqXk8Kj96JfedacWPFdD/wSXZyq9Z8kRyyuA
-	 8yQyw9gy4McStLf7sEYb1BrpvEPtdPLdq1KL2s2OLGlml2wZIb7G9bYsKS1vo0wHVDZh2
-	 1KMZPLCbpP1JmIRjCqr2nZQSdn4BsNMkmhnI1XEAoOOQLhVL69LEGeroaTNGPyTX0mDGE
-	 lXAYH8H23OrtTocHGIJdT9AX+tnSDDcUbYJ+vyUCGqO2ix8GrG7Y7lOXlCQYPeT75zQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=jv7CoQJf;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794251099;
+	b=CuY/1ynUESSe/V5ymokRZPzHAQ9Y12K8qH3/zkWAvQGfw85192Vv2/r1hG94o7uURuZM
+	 5QdUkRsyepDJxOK1oH2jlbZKIe7WcwWhzJYcMYs70eQvzQSeS9jr0GkAabihP4jVul368
+	 RjDnr1J5A+ay2DA2DtSjaNIIvfMTrWw2Dvno7ankq1P7cOoeaNc8W4gmqrAN4PAIlEsiV
+	 aVQIK+LVR+Qv61WjAi1ExaHglX/IDP1yUAJQZOtqsPkOzyhbNUvSerhuBpigIa8V7Fbtb
+	 dK8DrssEKzC2mY10R0SoR2MbBZE8Je647f1G93RKD6sSf++tOWJzK/MuBqJpFKVNegQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251099;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=P2fmqmmprCAGOSYykgJw6VD4J+cu5F8pWWrtYwCx08s=;
+	b=0k+NQtxcRHCKQEem9KTwt5/rU/ZAw9Ph9gnxW39MgmjqUZlL+VxNL1EWL4CAgbHCTK9o
+	 FBEEg7rz7zrnZZpTWNg/fF4Z30D9GJpuBpuoQwjxaShEHAAYxJIVcKYhwtw9v/YBe6Ipc
+	 5quXeKCJ6OVAzF5CaTtRxZ0Lp4GxTw09jmkkuSaDte2BkqEKeqy1R1JzzFuJjM+e8H8tY
+	 7cWmwk+4MDMocgsk3ulO1tWZsfcA5gkblS3SB48Q91SMulDR+nItwI9Jyh3GwBKJCWLV6
+	 iB7SKY9nk8pHtQ04aMtclpMOV6WEwcZQIibnKvDcdZg9XQrBXwtIcwiwNCJhv2yzE3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY+VfllG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC80606A31C;
+	Mon,  9 Nov 2026 19:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY+VfllG
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794251099;
+	b=ahhBkNHL9kK2sZzL73nrzaU3x5udFFjiFSkLC+BsM7OgCJGEEbIXWyGvvOfhgr99QMCb
+	 yn0ZtnEphq1HLMtmLMj3RXrACxhJWAFJchhNbBNXq2LvmrvYcmKlal/DnW/CyYBEh+Oc1
+	 NEi7spPuI6osQz0cmjb+hRMhFsNHGSzz/Fyd2Zp4t4LYoZTLZWDN8xLVwXG68NGI3ieOc
+	 V7B3UST8c8epxsN9/GWeEUa7lVBeCyerJchGGTCf6F0g25OWnwj79qVpjm/XKAR9ux9EA
+	 BxEje3N81FRuHAuLl/04XGo2LfLGhqcom0p0DO11AAQHwADEa6EunN2Sewq0x9lyPpQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794251099;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=P2fmqmmprCAGOSYykgJw6VD4J+cu5F8pWWrtYwCx08s=;
+	b=JbDkDqERGkqYkG5JbJ0euwvZRa7iwUwmm5ZsY4Ippe5BYg4bqmWbEFfpjGbKHklRa5vU
+	 jcyRQJe9n6ovT8XV/Lp5l7zJH98U93+vCo64CMYTMhMEvrkSvxoauN7NUbowKPJkBOSwp
+	 R3PuVAGPQQua84iqOa2ajHpCOlzipKoWJt0WLHXWDL/9JUbtO5771QvkUAwkB2gUrN8dV
+	 wemx1b3nkvZ0MHUB/XXX0I1J3MSCkL1YSMJqIAokw0UJialhc5wVkcqOejwXt2ahicUlg
+	 SVOZ1LvYxOHf9mVRmLixE3ALQZy29HCwtlNaqykbM9/jo6bs0HnVo3k0i7t2pnxh6Sw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E42B60A3820
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E42B60A3820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=jv7CoQJf
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so13519285e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:05:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mgcrea.io; s=google; t=1794251102; x=1794855902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Ccwykaou03iEXdgsVl2ojrfIyiLm62r6nS34ODXJLk=;
-        b=jv7CoQJftGCU4PBxF1KDzpDlQUH9a8qKtj4O92bLRSO3djfFWCNS1FPah4as/ZdEgO
-         p1HOwXwuJgdCE6rZXINhR7fxok3QUuovGgTfG+CGDPmFFhwd1p5bYlMIGp2TV+d87Omx
-         VEqk2lwx+EYiC2G/yYeLVjsyJO6PHsmHkL1H8yYGfpOi3rApQI3lCnQMficcBNzs6jTg
-         syLYLv1+W77kS1CnuO0iXi1LSilW3fO8LSsGTLA74K0rBtkCWq2aTpTCeFPk6QAv/Jky
-         WCCMP1dmI3MmMIE2klExHJ+omw3u7NxIvq9kmB/BREtssb5sjTqHdJiTXxdok0QifDx/
-         l9Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794251102; x=1794855902;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Ccwykaou03iEXdgsVl2ojrfIyiLm62r6nS34ODXJLk=;
-        b=QNYy1xQF54yjVDTTT0D9iTVeZRwYWD4eakqJRK/ZmPPh0zM1b5o5cE0w3IlGi7CY3m
-         BYChANbBGGNwSaVdHjZQ8oaSHpw48KO5qMiHh/D6lPMfLHNtYH5zk4IjtRqdhkEMNgjy
-         bKRGSD/8toKSLS+fBi5QQfmtdjZH5BdJuc44hYo/vEzF6YponLZ+rnEOEHSfOY9txE+w
-         wfiMokj3XDsVNqr8LnC+blIpt9BImQGqai9JgeFFJyKbw2MvJX7jD7+C5Xjn79a8lhxY
-         b2cbAiE3hvP+vKTN7tqZvObrOQBo9QTxEyfN1xqRtmFDkguvPk/yVBNsgu5JzYsOU0oF
-         ML0w==
-X-Forwarded-Encrypted: i=1; AL+hErFnkrLhCSWY2CeCk4lCyX7Y0Kp7TGUbxApyYSA+2E0usjz/yz2GYOjnuugeZr93Fp3rZMW3sTeVgGjqnSI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9Ibmh+Ax/0tOGK8ekHn8CwK5W3Nmnnvyjd4MsQ5CzCyVDO+iy
-	9tTTDrCkk9GBLBhp0cpsX0L7hXlHHO4HukB0fRFE8DFq6zyjh9ENpdHyPbHJDPs2UJs=
-X-Gm-Gg: AYBFou1rqtGJT3p9J9GRA0L1LkQNg1Bj5Xyit8q8L+M2ybOsBViKxwob4J10dXPNNQl
-	bj+6WoErxoALCNn/qPRJ/UplMaUkxCgNFhFpBUIRhMq5uatzlXJmn452W4fOn9gi3HKslkpRnVd
-	U3fztUUaFU2n1+AsHMhBfOyhKQyhADcMCnaoddLmn4ool8sdlIhKFCUx8Wpab9+kQ3PlZVQT0vc
-	t9g/8Logqbv5dqCud/68n8Dz48M96kt4+/xuQsfGzN3vUUSt0JDU2DWH1L4WsjVK/1OqkHcwFF/
-	5ZlGtqnu79CHeTLuG8FtY29B9gmX0PIl886qid+eEBjNW9T0grgMOPGi1VR7jz1ItNjwT6qgv7c
-	CmnZC2b9kvkypEfLCyxrWzJx0L7Zr4bCJJcM/rZSZWcVJzYXF0fgqQ4MDuiWL1SVEqxQG1KFwZw
-	UcCN6Aqv7obeSSZHwj4o5Ie8TavVMsx2hN2M1XWuYqFoO2+PIxHyNWPbmb2iJzmoe/s+I/UxFYA
-	6KtDNRMi3VhpHV/gLepahb7XR1XCJh959ZCkNfTVPjWGDB2WpM3KynlbMORT/w93QvAXxNfIpzx
-	gYvKE/+TjdDTeWpk8blOphabaR+iyuKxe0fBLAQ940eLoub4fOYvv3RrTjgRRB8=
-X-Received: by 2002:a05:600c:6291:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4ba0234ead8mr3131845e9.22.1794251102350;
-        Mon, 09 Nov 2026 11:05:02 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:e834:fd4d:2ecb:b787])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c4fdsm543440f8f.10.2026.11.09.11.05.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 11:05:01 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
-Date: Mon,  9 Nov 2026 20:03:45 +0100
-Message-ID: <20261109190345.61480-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <at8jCGfp9dKjieoo@zenone.zhora.eu>
-References: <20261024212520.91401-1-olivier@mgcrea.io> <20261024212520.91401-3-olivier@mgcrea.io> <33b5ee36-e293-4356-9906-54e99ba3557e@kernel.org> <at8jCGfp9dKjieoo@zenone.zhora.eu>
+	by smtp.kernel.org (Postfix) with ESMTPS id 686A81F008A1;
+	Mon,  9 Nov 2026 19:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794251099;
+	bh=P2fmqmmprCAGOSYykgJw6VD4J+cu5F8pWWrtYwCx08s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=gY+VfllGE9Yy/nLafpqIvTQSojg1VfdPrajioPJqR8fAtHzexFhtHgqhCVQvM7+Yv
+	 NMJPFOWsaWu5h9Pm7C+KSiTG8K1LWXLcsNEdVgnistJrQCGjMYOHAiHws3shi7bpG7
+	 Wm98FyLYXfpbvVw29NprY5oKHfOMi2jrxmdCmZGYrYdTVmx84FQT5Y1hed2+SMZXkt
+	 NuH4I0crt2+LKcnkU+5AVE6plGlnOigz46C0z8V4DjZ9vyfM7LzjXwIEczVRc4GA6P
+	 RmnTUaiv7hGOJZV7l3k9+w6ee/hGLpAvgvwgkZFXfAu9wP0VLTO9iC7nqzjv6JczTz
+	 UoVeWpqFz3Stg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EB96D485F2;
+	Mon,  9 Nov 2026 19:04:57 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 14:04:53 -0500
+Subject: [PATCH 1/2] nvme-tcp: move the TLS record read loop into a helper
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,17 +82,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-nvme-tcp-live-ctrlrec-v1-1-47ba61670e65@gmail.com>
+References: <20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com>
+In-Reply-To: <20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com>
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Hannes Reinecke <hare@kernel.org>
+Cc: Martin Belanger <martin.nvme.dev@gmail.com>, 
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Martin Belanger <martin.belanger@dell.com>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794251097; l=3262;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=I4tNXDC3YZTae17hei8TZK0tGRXfiT5ZPYdrswIwZ+c=;
+ b=1kbWCQoRGlIaN5Ypz1TLuG8zQn3jMAb+c8snPAK0dO/VssR/HwmDS5nDoV9ZaJnoCKCbU5uLB
+ b1UD11paE1WA6G+Qk0VF55nQQLiYHPCp4E6+rKjJyXEu4AfscHdR5ft
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-Hi Nikolaus,
+From: Martin Belanger <martin.belanger@dell.com>
 
-On Mon, Oct 26, 2026 at 10:54:49AM +0100, Andi Shyti wrote:
-> I'll wait for Nikolaus ack/r-b for applying the patches.
+Move the read loop out of nvme_tcp_skip_tls_record() into a new
+helper, nvme_tcp_drain_tls_record(). The next patch uses the helper
+to read TLS records that arrive on a live queue.
 
-Could you have a look at v2 when you have a moment? It is the version
-after your review of v1: the spike filter programmed on the X1000 and
-later, and the X1600 falling back to ingenic,x1000-i2c. It still applies
-on i2c-host and on v7.4-rc1.
+No functional change.
 
-Thanks,
-Olivier
+Cc: stable@vger.kernel.org
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+---
+ drivers/nvme/host/tcp.c | 60 +++++++++++++++++++++++++++++++------------------
+ 1 file changed, 38 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 7ecc6c007f8d..bf71e6f6a6ef 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -1623,31 +1623,16 @@ static int nvme_tcp_recv_tls_alert(struct nvme_tcp_queue *queue,
+ }
+ 
+ /*
+- * Discard a TLS record that arrived in place of the ICResp. A peer may send
+- * a NewSessionTicket as soon as the handshake completes.
++ * Read the rest of a TLS record whose first part was read into @msg.
+  *
+- * Returns 0 when the record was discarded and the ICResp can be read, or a
+- * negative errno if the connection cannot continue.
++ * Returns the bytes read, or a negative errno.
+  */
+-static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
+-				    struct msghdr *msg, u8 ctype, int len)
++static int nvme_tcp_drain_tls_record(struct nvme_tcp_queue *queue,
++				     struct msghdr *msg, int flags)
+ {
+ 	u8 buf[NVME_TCP_TLS_REC_CHUNK];
+-	int ret;
++	int ret, drained = 0;
+ 
+-	switch (ctype) {
+-	case TLS_RECORD_TYPE_HANDSHAKE:
+-		break;
+-	case TLS_RECORD_TYPE_ALERT:
+-		ret = nvme_tcp_recv_tls_alert(queue, msg, len);
+-		return ret ? : -ENOTCONN;
+-	default:
+-		pr_err("queue %d: unhandled TLS record %u\n",
+-		       nvme_tcp_queue_id(queue), ctype);
+-		return -ENOTCONN;
+-	}
+-
+-	/* the ICResp is in a later record, drain this one first */
+ 	while (!(msg->msg_flags & MSG_EOR)) {
+ 		struct kvec iov = {
+ 			.iov_base = buf,
+@@ -1661,16 +1646,47 @@ static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
+ 		};
+ 
+ 		ret = kernel_recvmsg(queue->sock, &drain, &iov, 1, sizeof(buf),
+-				     0);
++				     flags);
+ 		if (ret <= 0) {
+ 			pr_warn("queue %d: failed to drain TLS record: %d\n",
+ 				nvme_tcp_queue_id(queue), ret);
+ 			return ret ? : -ECONNRESET;
+ 		}
++		drained += ret;
+ 		msg->msg_flags = drain.msg_flags;
+ 	}
+ 
+-	return 0;
++	return drained;
++}
++
++/*
++ * Discard a TLS record that arrived in place of the ICResp. A peer may send
++ * a NewSessionTicket as soon as the handshake completes.
++ *
++ * Returns 0 when the record was discarded and the ICResp can be read, or a
++ * negative errno if the connection cannot continue.
++ */
++static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
++				    struct msghdr *msg, u8 ctype, int len)
++{
++	int ret;
++
++	switch (ctype) {
++	case TLS_RECORD_TYPE_HANDSHAKE:
++		break;
++	case TLS_RECORD_TYPE_ALERT:
++		ret = nvme_tcp_recv_tls_alert(queue, msg, len);
++		return ret ? : -ENOTCONN;
++	default:
++		pr_err("queue %d: unhandled TLS record %u\n",
++		       nvme_tcp_queue_id(queue), ctype);
++		return -ENOTCONN;
++	}
++
++	/* the ICResp is in a later record, drain this one first */
++	ret = nvme_tcp_drain_tls_record(queue, msg, 0);
++
++	return ret < 0 ? ret : 0;
+ }
+ 
+ /*
+
+-- 
+2.53.0
+
+
