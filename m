@@ -1,58 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232534;
-	b=seecbpj82ZCztDoBxGKRvYKMCiiAVlvqqag2mPdvGVEZ1DYkmOiUlmbA379CM6wVj8RU
-	 e0JhhT49PAjMmXtCYwxGdG0la1zyOpVK7nwcifJ+PsD1ue/MRr2rGSH5YzKT3nr7/ei0P
-	 B1rWtNJjpXTA595i3Z6V7eTLGUS15FV4GM5Q8W0jL9gVRBj6gkslRvMHoK3aZUzADfgGs
-	 NzWMry0S/itYvADY1cYd1exEzwD84PS+b7C/R4VLOXteYmCX612uVG/SZlkaPKSKAGLmn
-	 FgWm0H3jNEZdrx8TaEJqGrTgEBZRwVFuXDE+pgDA0x0t0H2it1X0s1lWywMuff11l0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232534;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=ieh4iGWZ+vr9hr8kiPlV7U48pBCHgYhYSusZXJeufN0=;
-	b=q5v6K0Mf/uZZJg56Rs3/7hinRSn7rlkW2RyfF10xUR64uz3cNhCzGe1dJ3hzLzRf0qB/
-	 5Yg1myT7GEAd4E1m9m//1CmNRNfkN90jyI7JNZAxSW4s7HiwiuEtVqwcw+P5JLMrOqODr
-	 vAPW8tLMdI+9xUAEV8usixhmori/LGoMTS6aKaOWX5y6kRhIh+f4vzs7ccPy5dLgY80hl
-	 Xo7AtDSgukDVfleKrt8obhbQh8dKsFgpQgNqhYeC6zbmnofVgeQ6dubWZg4qFBjqZtEci
-	 UvEaaF6cGQ3l1E0Ft6BalTycID+Qxw06OYVqFBcXjuP5fcYbDUDRgHEQK2vhqgm0OiA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=QpRuQKrp;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794232540;
+	b=uUZPYYFJY/r7EfAZN+8HjsWjFj0oXL7L6/1jO10S25JegAKC63OpK2V3yBt5uceLpQaV
+	 eiAfRuE+F2PZgyrUbrnhuGZoCp+iFQqQqUycdTxTTdGcQDnyV87lgCgfeuk408whakoUu
+	 jBHXwzxPtnBuZ/UAzHIvpX08WLZZ9yXiSsXLZ9wKUiOS+ztwHwEulZPA3Dg3FpbXbwRTo
+	 2NGTnpF2vIkqtqwUmlrU+838QmQ6nVdBPOKhwAfWTjsaxvu0PLdWTwuPvtjaHag5HKzYP
+	 U+4MN5gHGpUyy+8CBqAo/HUoDMGGQjnPsjfAo1A4vKuNte7Fr6/3pCbisjUZxk4CxMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232540;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=NBQpXzU3ySaI25xlrBMnFQxxVdhQdx3KwAIpbcylXis=;
+	b=OIGOExmbIwsfh9KLoawPK5K63AmWW2Eg8QRjt4Y2qBFSOaYZxVgkhNjlFFH2JBs+f1nt
+	 5mzaXPOzTquphdUXlRYEkRIEMRMmBrp7uyu4Axp3dNa9n/yU7I8JZ50x0qnTkeDg8tPJY
+	 3eo9OP7tZA4b8/qiEdZixnAAELuHv/X/3diWXreu8N5OYdA4i6KfWzQuDMn5moSOIvKLJ
+	 aCpF/pPmsnGcOrREen7WfjFDniN17YxujH8hBMzOHgL0ZZCew5bFTnzyvSGpQW0gTv/FF
+	 FGbH1NQ3kRZozjC6kYNkTlRKJpZYX40C6mb1UQQputFpOifPOOL1T2DGhrlKIRq6SdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFdtLVTp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3F6606A333;
-	Mon,  9 Nov 2026 13:55:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E3F6606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6AA606D805;
+	Mon,  9 Nov 2026 13:55:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=QpRuQKrp
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=ieh4iGWZ+vr9hr8kiPlV7U48pBCHgYhYSusZXJeufN0=; b=QpRuQKrpHZ8FP9PnS6e6rhEdOF
-	YGMggZND8Zl1F+r40UuWNWGOMdMCxvo5AfbS0OPrubqS412pjTI+eInIUox2nkoxLuFWGG76cxC9A
-	wuBNjgxfr6vhH4GE/ptxN44G0eLry+H9OF64ZHIJQf2yps/KCy2RemQllMhGyWKaDAoDK49JddDCg
-	6NOH00AXzNOwBkQ+zZnymzbFiYBUjpNbi1eTGWvH8NWBdRGbKOQXTZzlqjtP6FQWKc3IrYJH9g5Ti
-	jg1NTpi/FxUqLjiF/IkTNDGGTSM7M91GYSxkNZm29s4wPaKFzBDgR/DsgmJujdKZWN8vcOqFNI5g9
-	PJ/L1hpA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQPqO-00BfYy-0o;
-	Mon, 09 Nov 2026 13:55:32 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Mon, 09 Nov 2026 05:50:38 -0800
-Subject: [PATCH RESEND v2 2/2] nfc: llcp: convert to getsockopt_iter
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFdtLVTp
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794232540;
+	b=mwhAdQQq1UHg8eyzhHa5WlHaqo17HDnb5ADZw6fVhyUOS4MVv8H7pzfGuAjnJqn2QRes
+	 /aFNlHid0KDKCg2inu5t+qgR+LmXMeXSAEva8pBzZoiNHKYifHNw7JMPBH07I8e/6MulX
+	 JtRFTu1b5kcOuhEKjnRQK6X2Zy9jgoqmghmb0uCWeKdZ0f1ZJWfdAl2Gw/YkFoBwke38R
+	 rnNfPNRWnB1FaA1fJZ50BDoL89hqQKc2X6X3dHwRL7LTa1I/sF2IHyVkFydFz/z+9Btsf
+	 8/kcsu9Pcr1xf8fTZVs1NbKYRfbwdRSrPiVGry0Ij77fw9gW4ckBdN0mk1BMenz1Rhg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794232540;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=NBQpXzU3ySaI25xlrBMnFQxxVdhQdx3KwAIpbcylXis=;
+	b=YkoSfDN0oVnZKG5CmW2hSXBh4B0PRX+xsjvuRewR/rSGSlXUly/dYqjVjf3Si271g2a4
+	 9r5APjoxXluwuNanenptHZvLgxh43F/If+1X5zqcpuSHq3t0axedyGFhNZABKsrlNRE49
+	 M0BtAkVLIwnrLN9fFByOcUBAponwRgyAky5qYpykqMQ/L+kAAwDYriTP2ilh3XAM+350t
+	 ba7wQ1xCnmIGsteO3Uo/uctiTABfQnEI2RvtXn+2WCDsG08N/wztCXW0L+QKx1hkH6U2o
+	 ayUwhrWsXwamy5Cqc6jN2yVE20UwzELRCDL5j6ZXt6d7tLdSHN0YhMWYqDq5RHHc9vQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 765A11F008A3;
+	Mon,  9 Nov 2026 13:55:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794232540;
+	bh=NBQpXzU3ySaI25xlrBMnFQxxVdhQdx3KwAIpbcylXis=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=UFdtLVTpZWyghWr5K28FwirwtSk8bwq0ZDE4k4Z0LGieD0SWCv+oaCi5KxuhupsM8
+	 MVbRn4AO0kJtDqNlzb6RGqJ5qtZdwivx1PG1PvQlpORbhPi8f1DdEqv2HdBNBPJsN2
+	 2aj+r1DPNRNREEZ0C7pk6z7dyNAUz3RMxCUj93rdGw7SKDcHEKguj8hMP/Cwjyueqi
+	 AOlysYk/2/cU3rOKh5q0G0wme0Nchh5G3NdUg8F7ibdsrZWRsUK7npfNm5zLcKTAW2
+	 ywzPOHs2CDIEbqJQ7gjM7Qxxz1e4d/SMj+TBBL7Dk69zAwNXZb1FhCK/W0hiFG9pfR
+	 BVoZEUOG/xBSA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 02397484CF;
+	Mon,  9 Nov 2026 13:55:39 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Date: Mon, 09 Nov 2026 13:55:30 +0000
+Subject: [PATCH v2 2/2] arm64: dts: qcom: sm8350: Add the inline crypto
+ engine
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,140 +84,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-b4-sm8350-ice-v2-2-fd5e84985e90@fromdisposition.org>
+References: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
+In-Reply-To: <20261109-b4-sm8350-ice-v2-0-fd5e84985e90@fromdisposition.org>
+To: Abel Vesa <abelvesa@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794232535; l=1535;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=D6BUds9SxEA685Rzubo4gGj7fm7khF99ZYP/XeTNyDQ=;
+ b=0W8t+eSCuo4ppfZiiZgklYWeFq6LPpLSbbeACf7KjIDwos87XAaUwYG8+6kDZngXeKl1IkG9S
+ 1NGoCazcVvGAN2EKY+rOTn92d126IuXWK56/oxVkFT2H+E+nJhiOs47
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-getsockopt_phase3-v2-2-d0f74c6e0f37@debian.org>
-References: <20261109-getsockopt_phase3-v2-0-d0f74c6e0f37@debian.org>
-In-Reply-To: <20261109-getsockopt_phase3-v2-0-d0f74c6e0f37@debian.org>
-To: David Heidelberg <david@ixit.cz>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, sdf.kernel@gmail.com, 
- Breno Leitao <leitao@debian.org>, kernel-team@meta.com
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3489; i=leitao@debian.org;
- h=from:subject:message-id; bh=fGoMic1ySEx1yYGeWCFsHPVeAgro3j+eSMDyCmYAY+4=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8dDHri2mVQunLNX5zzIa1aL2l9vldPQ/C1tWx
- PKIqGOxl4iJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavHQxwAKCRA1o5Of/Hh3
- bamTD/0cjIjkhwOjnw1D92pwMeDkbAwmRX/ehmyYas3bKYVHucCbPEBjq3izrzx4MY8j8FQ91ck
- oE1Q2TqsggsjHAZ3V65pCJ9Xz1Jk6opeRbFAkOesj5Htbakfl+Zm2v2t2ju9VF5tpMGbXrE3/yc
- EzF2Kn2LLAv1VUAA3s0+++1Vk8rtDL2+YSMp5DCL1c1BkWi8u0bzQo7ZPzrp3IzojwW19uYqiFT
- dqm9CyV7+egbBe9UusfsbCwGDrI5Qb6FoNZA2rOEnDZBp9QDBoGXAW14hlWMPlCukWwOFY3igU/
- bgj+ylotEB9VBEqMNqM+F5LDp8e1gDqzD1qvef705f1frP5hcuqjcTlaZmgyBq+1PuwmqAX1NAm
- FNlvg+BHP2VhzfPAzUWjYzwhT8UDOMlwu99IYQBVLHoeTnII5WQ6Ov6DW2/uhmDcvQ3PoMZgWcZ
- uG/orIyYdlcpoIZ0hLokrxZgD/xvzpcxFw002kuttK8/zg/bYSyE82DIO4bfzRGZxvAiiEGofi1
- aigeJlvlOkDG1giXRJK0eVsNrhPc56c+xfqll3JoOebbb+7KJDVpWEpekUWoaEelx5vT9uuOeKo
- OiWdFSxahqI4OCiCxa/3SomqxBbukBV7Qc8biVnP0xcitKS+XnJ5f6flA0n796fjKo6VfAmgCVo
- x4p68FwhX5FdsKg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-Convert nfc_llcp_getsockopt() to the getsockopt_iter proto_ops callback.
-It takes a sockopt_t and writes each value with copy_to_iter() instead of
-a put_user() into optval; the socket layer builds the sockopt_t and copies
-the length back. The socket lock and optlen validation are unchanged.
+From: Demeter Barna <me@fromdisposition.org>
 
-No functional change.
+Describe the UFS inline crypto engine at 0x1d88000 and hand it to the
+UFS host controller with qcom,ice. The region covers the engine and its
+hardware key manager (0x8000 + 0x9000), as in Qualcomm's SM8350 device
+tree; it is clocked by the UFS ICE core and AHB clocks and powered by
+the UFS PHY GDSC, as on SM8450. Without it the UFS driver logs
+"Disabling inline encryption support" and fscrypt has no hardware path.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
 ---
- net/nfc/llcp_sock.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index adb6e06229b4af..8323a0e6a02ea3 100644
---- a/net/nfc/llcp_sock.c
-+++ b/net/nfc/llcp_sock.c
-@@ -302,21 +302,20 @@ static int nfc_llcp_setsockopt(struct socket *sock, int level, int optname,
- }
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index 55b32050c..2b258c4b4 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -1782,6 +1782,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 				<0 0>,
+ 				<0 0>,
+ 				<0 0>;
++			qcom,ice = <&ice>;
++
+ 			status = "disabled";
+ 		};
  
- static int nfc_llcp_getsockopt(struct socket *sock, int level, int optname,
--			       char __user *optval, int __user *optlen)
-+			       sockopt_t *opt)
- {
- 	struct nfc_llcp_local *local;
- 	struct sock *sk = sock->sk;
- 	struct nfc_llcp_sock *llcp_sock = nfc_llcp_sock(sk);
-+	u32 miux, remote_miu, remote_lto, remote_rw, rw;
- 	int len, err = 0;
--	u32 miux, remote_miu, rw;
+@@ -1807,6 +1809,17 @@ ufs_mem_phy: phy@1d87000 {
+ 			status = "disabled";
+ 		};
  
- 	pr_debug("%p optname %d\n", sk, optname);
- 
- 	if (level != SOL_NFC)
- 		return -ENOPROTOOPT;
- 
--	if (get_user(len, optlen))
--		return -EFAULT;
-+	len = opt->optlen;
- 
- 	if (len < 0)
- 		return -EINVAL;
-@@ -337,7 +336,7 @@ static int nfc_llcp_getsockopt(struct socket *sock, int level, int optname,
- 	switch (optname) {
- 	case NFC_LLCP_RW:
- 		rw = llcp_sock->rw > LLCP_MAX_RW ? local->rw : llcp_sock->rw;
--		if (put_user(rw, (u32 __user *) optval))
-+		if (copy_to_iter(&rw, len, &opt->iter_out) != len)
- 			err = -EFAULT;
- 
- 		break;
-@@ -346,7 +345,7 @@ static int nfc_llcp_getsockopt(struct socket *sock, int level, int optname,
- 		miux = be16_to_cpu(llcp_sock->miux) > LLCP_MAX_MIUX ?
- 			be16_to_cpu(local->miux) : be16_to_cpu(llcp_sock->miux);
- 
--		if (put_user(miux, (u32 __user *) optval))
-+		if (copy_to_iter(&miux, len, &opt->iter_out) != len)
- 			err = -EFAULT;
- 
- 		break;
-@@ -355,19 +354,21 @@ static int nfc_llcp_getsockopt(struct socket *sock, int level, int optname,
- 		remote_miu = llcp_sock->remote_miu > LLCP_MAX_MIU ?
- 				local->remote_miu : llcp_sock->remote_miu;
- 
--		if (put_user(remote_miu, (u32 __user *) optval))
-+		if (copy_to_iter(&remote_miu, len, &opt->iter_out) != len)
- 			err = -EFAULT;
- 
- 		break;
- 
- 	case NFC_LLCP_REMOTE_LTO:
--		if (put_user(local->remote_lto / 10, (u32 __user *) optval))
-+		remote_lto = local->remote_lto / 10;
-+		if (copy_to_iter(&remote_lto, len, &opt->iter_out) != len)
- 			err = -EFAULT;
- 
- 		break;
- 
- 	case NFC_LLCP_REMOTE_RW:
--		if (put_user(llcp_sock->remote_rw, (u32 __user *) optval))
-+		remote_rw = llcp_sock->remote_rw;
-+		if (copy_to_iter(&remote_rw, len, &opt->iter_out) != len)
- 			err = -EFAULT;
- 
- 		break;
-@@ -379,8 +380,7 @@ static int nfc_llcp_getsockopt(struct socket *sock, int level, int optname,
- 
- 	release_sock(sk);
- 
--	if (put_user(len, optlen))
--		return -EFAULT;
-+	opt->optlen = len;
- 
- 	return err;
- }
-@@ -966,7 +966,7 @@ static const struct proto_ops llcp_sock_ops = {
- 	.listen         = llcp_sock_listen,
- 	.shutdown       = sock_no_shutdown,
- 	.setsockopt     = nfc_llcp_setsockopt,
--	.getsockopt     = nfc_llcp_getsockopt,
-+	.getsockopt_iter = nfc_llcp_getsockopt,
- 	.sendmsg        = llcp_sock_sendmsg,
- 	.recvmsg        = llcp_sock_recvmsg,
- 	.mmap           = sock_no_mmap,
++		ice: crypto@1d88000 {
++			compatible = "qcom,sm8350-inline-crypto-engine",
++				     "qcom,inline-crypto-engine";
++			reg = <0 0x01d88000 0 0x11000>;
++			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
++				 <&gcc GCC_UFS_PHY_AHB_CLK>;
++			clock-names = "core",
++				      "iface";
++			power-domains = <&gcc UFS_PHY_GDSC>;
++		};
++
+ 		cryptobam: dma-controller@1dc4000 {
+ 			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
+ 			reg = <0 0x01dc4000 0 0x24000>;
 
 -- 
-2.53.0-Meta
+2.53.0
+
 
