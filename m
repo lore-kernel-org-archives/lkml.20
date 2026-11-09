@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209670;
-	b=Od7W2Lv2HeB+uCjmVddRYj8nsO9KZYbFwYn1sSJo2VISaN3S6PBwZRgb2mWWGOPjsHGs
-	 Q+7SB623/Mh9BuXJK1GZhQv+1x3vJ+cXlK91L9Qj33mhUXzNpL8N8Xmf7vSWvVcesZpi/
-	 9LkjPKyqzFn3jgxBZcwE3xmL/M/oObUSlhLo6JqOuD8JJSR77ORB8GhZ8+r1jMHzKrU6Q
-	 vtAoFBXTJGp7V0dNNOKhHh6Ifx0OJ3+E7SeDzE5kFR+P0q1GzGPO+AoTmfx5AElwg1A5D
-	 cCtEtA3B5Avoa3MJlGZTsY/5VJd11EALsD0+ZQp5xPk3yeuM99TCcs7kS1hMmY6KdkA==
+	t=1794209642;
+	b=0VTEjbG0GvErYj+d1hmSiYOmZ184gXCWdcIrheTp7A5Vx3LOlv8dMhDENa9U8Cn+kMMb
+	 eIqTgPOCvLgZG4hejlJY7/SJZhC7qSKvsvHLQ3AC9YX7dTdBJSdp9oi7RMYqQ1MZLlWZ/
+	 W8+pzzoUbWQjBMDtOb/oA7M0/ElSxg+vttBdXyaLSyo2C25aV1PeocN82KdMy6WEn929y
+	 LdxuqIzifxV8hlsSyn+F42QQdOLrJs/BV7ZS6uCPq63vmMaM5YaGL7WBhYYtq2gxcTeaO
+	 UBr7zYrKFCli3a1d0EWbN0hbhCcXiQu/N5jdzWMbLeBOJIgWjna3G7+L8ivjPgDtGOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209642;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 MIME-Version:Content-Type:X-Change-ID:X-Mailer:
 	 Content-Transfer-Encoding;
-	bh=esc9u5h8nOfzpC94QRqfexD7Tae+1nWvmVwsrbhWx44=;
-	b=Ttw+ctwlD7a6au+8A+/8lqj916jxTmC8k2c6G6vykRiNcz/GkONOlOyqvQ2jHu8O26P7
-	 YgQQSqSeJ6s1baj/vCdXNk3z0E/9OJmfErqH4OqEEJaa+OH1HdomGtsJvS8ctxOiGgwOS
-	 g1+H0huFGviO8g2Ks7ndPkVy6IHi5oNt7mrtJqFUh4u63GO7mRay3CvYBeTamsq9E4imD
-	 gK+xtrR7bCUQGdTRkrthhUx+Skpz3CWAQYCTY7XZADethG1jYqsJCC4Z5RbK38jEeFuzV
-	 6HIk5cAUHCGgi3blndiVvzC44TcmC0Pt2xhdvU7NQ3v7SOrfFU+VgKVzfdLE6fyWGdA==
+	bh=BOudLxnS5pVPT2tPMn88TB0pOWjmfO5Gatem6QmrQcA=;
+	b=ufzSu7dIOYzt2fI4maPaYxuvpsMcTADk6Ja5irIMGVlwxE8AENRl87nQdF9OfDF1CVhT
+	 UuhuHEcbh5JJaXxFGNTUhXDhoFLhg4uJJm9UfFLMW3U00MqhCeg6Y60XSn19RWtv0JedK
+	 KvX2A4Y+hJImjaYmwSmlSPZrZN2K/QkDKdN4lK1S3xQ3U99rU7dcqCEnaW6ewnC41KR7o
+	 avLWjYecy/S+f3B7IWxZMOtG4DN4g5IygAmbXcWehPzlPZ8Hh+X9Z7V2QUfU5X8HGZBSv
+	 DBqqxUE0pf8gy+SdOch8mACbDj8y5XpyXd88mC4ukPwgpN4FdM59NqkWQdZRgpo0qKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcRiolhR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhnY8YMd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0138606D816;
-	Mon,  9 Nov 2026 07:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E567A606A31C;
+	Mon,  9 Nov 2026 07:34:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcRiolhR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6BE1F008A1;
-	Mon,  9 Nov 2026 07:34:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhnY8YMd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CCF61F0089F;
+	Mon,  9 Nov 2026 07:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209669;
-	bh=esc9u5h8nOfzpC94QRqfexD7Tae+1nWvmVwsrbhWx44=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XcRiolhRIA0fkin82BnV5Mz7Eg4PU5O+xYrDITtO71vHvH0RwQd8VJblq8+YS4h3T
-	 NOkB+bnPBQXa1v7EuatD5G0/EDIlXbmpoZwzNTxNIGhGRqohn36IiODzdQ7yyWM917
-	 TnAONCGBnLJK7j3fN2SrDeIIPa85cnkng+xOF1KNVZcJMcpv7strjc23rZFjzl1mV8
-	 ahptbyXit3g2EgyF/FpAkJYIZrwFpqJ3mVcNu5B+UwdLNsyJF95LfG8pseXE8pJmBd
-	 8YaxHb266eHE0QJNZQ5+A82Vo2mKkmfOXtn10V3wzJlQ7L2JskhUGREK34/cLTER8t
-	 GYBp7PsFmuKCg==
+	s=k20260515; t=1794209641;
+	bh=BOudLxnS5pVPT2tPMn88TB0pOWjmfO5Gatem6QmrQcA=;
+	h=From:To:Cc:Subject:Date;
+	b=jhnY8YMdt8nGcYBaSKvJbCx3LFW8GkUkfxG2KVQyfFPxlK/zuviCXPcVmAKOjjqep
+	 OJwKBI+522F08dkhOUewjW7oWj3wn3XyzARmmIbVOrDxcxSRGcS40fmfCdvk4AMyhp
+	 MOjTYj5wCRejfz+oJhv1T4pVMKG3/VZeEHqKSqdLPc4a5x8apUuXMnQ1aIaY9WUDP+
+	 qG+bmJlMqJWo98xyXORHh1De0UINQ9Ms5bi+a/yYR9oTHj1OSMGHFyMwzSujrBUncm
+	 Ztid65rG+5tchiq/F8VP8JJGHkylUG+CZBGVjKcamjj2pAddBJRgS+/eioJ1UGNvSY
+	 J5UdD+59m5jow==
 From: Leon Romanovsky <leon@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J. Wysocki" <rafael@kernel.org>,
@@ -82,12 +82,10 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-pci@vger.kernel.org,
 	iommu@lists.linux.dev,
 	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v2 09/19] Input: serio - use the compatibility driver attachment API
-Date: Mon,  9 Nov 2026 09:33:39 +0200
-Message-ID: <20261109-device-trust-core-v2-9-3b12d9a9f861@nvidia.com>
+Subject: [PATCH v2 00/19] driver core: Authorize device trust before driver binding
+Date: Mon,  9 Nov 2026 09:33:30 +0200
+Message-ID: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,60 +96,103 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260915-device-trust-core-12934e618489
 X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Device trust policies need to precede driver setup, including manual
+attachment, so userspace can authorize devices before they operate.
 
-Manual serio binding invokes connect and publishes the binding under its
-own subsystem serialization. Driver core needs an entry point before
-connect to enforce device trust admission.
-
-Use device_driver_attach_full() after the port ID check. Preserve the
-existing locking and let the helper handle probe and binding cleanup.
+Introduce disabled, adversary and full policies with boot-time selection,
+sysfs authorization and lifetime commitment. Apply them to PCI and USB.
+Keep serio and generic PHY attachment under their existing subsystem
+locks through an API restricted to device_trust.default=full. Freeze
+runtime policy changes in that mode and require per-device boot entries
+to exclude driver rules from manual attachment.
 
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/input/serio/serio.c | 24 +++---------------------
- 1 file changed, 3 insertions(+), 21 deletions(-)
+Changes in v2:
+- Replace the serio and PHY attachment conversions with
+  device_driver_attach_full(), restricted to device_trust.default=full.
+- Add USB authorization on top of device trust: export
+  device_trust_set_policy() and convert the USB authorized attributes.
+- Documentation and commit messages fixes
+- Small USB patches rewrote and split
+- Link to v1: https://patch.msgid.link/20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com
 
-diff --git a/drivers/input/serio/serio.c b/drivers/input/serio/serio.c
-index 54dd26249b027..b54072769ab68 100644
---- a/drivers/input/serio/serio.c
-+++ b/drivers/input/serio/serio.c
-@@ -81,28 +81,10 @@ static int serio_match_port(const struct serio_device_id *ids, struct serio *ser
- 
- static int serio_bind_driver(struct serio *serio, struct serio_driver *drv)
- {
--	int error;
--
--	if (serio_match_port(drv->id_table, serio)) {
--
--		serio->dev.driver = &drv->driver;
--		if (serio_connect_driver(serio, drv)) {
--			serio->dev.driver = NULL;
--			return -ENODEV;
--		}
-+	if (!serio_match_port(drv->id_table, serio))
-+		return 0;
- 
--		error = device_bind_driver(&serio->dev);
--		if (error) {
--			dev_warn(&serio->dev,
--				 "device_bind_driver() failed for %s (%s) and %s, error: %d\n",
--				 serio->phys, serio->name,
--				 drv->description, error);
--			serio_disconnect_driver(serio);
--			serio->dev.driver = NULL;
--			return error;
--		}
--	}
--	return 0;
-+	return device_driver_attach_full(&drv->driver, &serio->dev);
- }
- 
- static void serio_find_driver(struct serio *serio)
+---
+Leon Romanovsky (19):
+      Input: gameport - attach manual drivers through the driver core
+      wifi: mac80211_hwsim: lock device for manual driver binding
+      USB: Lock registered interfaces during manual driver binding
+      USB: Release interface claims refused during registration
+      PNP: Attach card devices through the driver core
+      cdx: Propagate DMA configuration errors
+      driver core: Report deferred probes through sysfs drivers_probe
+      driver core: Add a compatibility API for manual driver attachment
+      Input: serio - use the compatibility driver attachment API
+      net: phy: Use the compatibility driver attachment API
+      driver core: Introduce a generic device trust level
+      driver core: Expose device trust authorization interfaces
+      driver core: Accept device trust policy on the kernel command line
+      driver core: Accept device trust policy by driver name
+      driver core: Expose committed device trust level
+      driver core: Cover trust authorization and binding with KUnit
+      driver core: Document trust admission and initrd authorization
+      PCI: Replace untrusted state with device trust
+      USB: Authorize devices and interfaces through device trust
 
--- 
-2.56.0
+ Documentation/ABI/testing/sysfs-bus-drivers-probe  |   13 +
+ Documentation/ABI/testing/sysfs-bus-usb            |   11 +
+ Documentation/ABI/testing/sysfs-devices-trust      |   33 +
+ Documentation/admin-guide/kernel-parameters.txt    |   29 +
+ .../driver-api/driver-model/device-trust.rst       |  289 ++++
+ Documentation/driver-api/driver-model/index.rst    |    1 +
+ Documentation/usb/authorization.rst                |   20 +
+ MAINTAINERS                                        |    2 +
+ drivers/base/Makefile                              |    2 +-
+ drivers/base/base.h                                |   31 +
+ drivers/base/bus.c                                 |    9 +-
+ drivers/base/core.c                                |   18 +-
+ drivers/base/dd.c                                  |  108 +-
+ drivers/base/test/Makefile                         |    1 +
+ drivers/base/test/device-trust-test.c              | 1720 ++++++++++++++++++++
+ drivers/base/trust.c                               |  406 +++++
+ drivers/bluetooth/btusb_main.c                     |   42 +-
+ drivers/cdx/cdx.c                                  |    2 +-
+ drivers/input/gameport/gameport.c                  |   21 +-
+ drivers/input/serio/serio.c                        |   24 +-
+ drivers/iommu/amd/iommu.c                          |    3 +-
+ drivers/iommu/dma-iommu.c                          |   14 +-
+ drivers/iommu/intel/iommu.c                        |   17 +-
+ drivers/iommu/iommu.c                              |   17 +-
+ drivers/net/phy/phy_device.c                       |   29 +-
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c |    2 +
+ drivers/pci/ats.c                                  |    4 +-
+ drivers/pci/pci.c                                  |    5 +-
+ drivers/pci/probe.c                                |   23 +-
+ drivers/pci/quirks.c                               |    7 +-
+ drivers/pnp/card.c                                 |   12 +-
+ drivers/usb/core/driver.c                          |   29 +-
+ drivers/usb/core/generic.c                         |    2 +-
+ drivers/usb/core/hub.c                             |   17 +-
+ drivers/usb/core/message.c                         |   34 +-
+ drivers/usb/core/sysfs.c                           |    9 +-
+ drivers/usb/core/trace.h                           |    2 +-
+ drivers/usb/core/usb.c                             |    5 +-
+ drivers/usb/core/usb.h                             |    4 +-
+ include/linux/device.h                             |   20 +
+ include/linux/device/bus.h                         |   10 +
+ include/linux/device/trust.h                       |   47 +
+ include/linux/pci.h                                |   30 +-
+ include/linux/usb.h                                |   29 +-
+ 44 files changed, 2988 insertions(+), 165 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260915-device-trust-core-12934e618489
+
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
 
