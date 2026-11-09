@@ -1,54 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191586;
-	b=fEQTTOJNjd4/xXKOKNmCg1W/UWCiAfRgEqH65dEPACP3G/KC+yWs8l7HNr1ZWn1HibSe
-	 NG9qaLhJBbmHqr/DYGIW2BPiic7qdWASS14ILwf95pGS09Y0FMS0FzOX8ghBF5+5lV7ZG
-	 yT6JIBaguMvj4gNZBMI5766dT9YdhuHA7PI/STacGkoPTmNaBDHV4j5nTCyiG3eZDJAt+
-	 kiXmipM8RC+64NzQqUlU5gOhN7kyHXcmTpFWtUg5vpnQeigtrEC+Cd3fMfXa4YzUW5wCD
-	 en+BAnDaAK0NIlI7CwKQdUFkx3xtuVJ447sH5QbznDLNfuWgLirc7xTMpb70D1ATsSg==
+	t=1794191671;
+	b=RZ91KOAttDddoPtFLfLyyaR2bZT9KfeXqt93O20AjUr0soLMYik64+9rVF9Jzi2YR6xU
+	 1CIUXLNLLdnP9E7JPQwq2LKptlWEgXjIUB2IH2rsfbWm+aOyNQlElSpvs8yrR8cv8jmf6
+	 COXXRwd0y8wUNIaBB9Yp2xt4WNfzFH3zC8FiAszVy45a4CUpcbo8biV/zwh9sft6/FH4x
+	 U/CoMPD6+rdx6Skm/nIP3xTF99VxLVfnnkanvvshc6FujUiO2aTJm1nw+Nwb6JVavuGPd
+	 83BGPb6Vl+rxX0lbG5JP2zTp7Mvc5w6DGzojh2Ff/tQ5JDK4q7H0VFVt5DAVw/PwDug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191586;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kB3IFpQ0ZIO1cp7bsYqiegxOLRHS/D0OEp5d5P2E9bs=;
-	b=OhJ+kzV0RUHs5rusiZ71Ug8XJbKo3ffy0LOCKUD5ogsGVO+dA/3uVjuF4EWt4NwdVsa6
-	 B0Cjrx87UW/cSjMy04dVaHy6cOVD+GY0lFO88UO0xmqVlCA/e5VlGYB+PaaOa5AZOCxXu
-	 tfkrxCYhA/TuecnPXwaakzRZi6oaRRgbfoH4TRzXb1qVmPl3UJYpEcKUQVVmU2GWljT+h
-	 WR6VyBLamBDnrmia2zFQimRTEW1ivvg/iR3m8924zk9bvZZp74Mck0QzYsFWwej1FbRMc
-	 +PpGVsMgj7w+KMcAYG9uQJc29VqnzkYtON3bEH34NVN/NJAVgdPvOV7KVYhxJfpyBlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191671;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yaOg5jE0A5OJDKzqYaU0N0tlT5DHTRA+lI5J6+ouIOE=;
+	b=nwZPjPLXDN7xqFFUeMtnPKpN/CV1VMBC0Aym+xSLfYJ2b7XtTEH89ukbHfJJIQNoj1Nq
+	 5GnBxGipOLxUvPZUU5tEDPSaY+heeOqYzHDANy8uVBMHKVEMbh0UkiJrd6RKHHvT+zoB3
+	 xxGd/w3AKaWnBRxxxDkOTaIZH7RKJbP0/FIIXQ+VMIy8yERmVBVU+59wkTVt8iEmfgsaF
+	 YBE622xFKZjUDMJ7XIrq/pie83EptzDTvkzPFATgvuNkTbJMvrUKTUJmYIMkhOdamQnkj
+	 3Ji85ga3sBt1XhLqyUyDEd2hKrciFtx1fRHOk+ebmwXz6v4VcbteeQMTZhpIwyWiH7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo;
-	arc=none smtp.remote-ip=95.215.58.169
-Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=strlen.de;
+	spf=pass smtp.mailfrom=strlen.de;
+	arc=none smtp.remote-ip=91.216.245.30
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1818606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1818606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nmqRaiM/EiJNizjn79AmK4k2MmWrkYTwEz2GWquosKA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794191583; v=1; x=1794796383;
- b=ojX0EpIoXW4Q3WWoKTSHFyYfVB5/NGKPMoZkCmCbZqBScUyhu6sLm3yjkz3APWW4PPjlGsGs
- 08BhfDJF0/bIs+cEwtmQZ/pXWdCFPiZK/kLkGbfQD3yI047xH2MZMmKuO4QwBQXVhNIdwf/A+O3
- H3ZmjPkz0bDxno5X6rlhxv2w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa418301c63af391;
-	Mon, 09 Nov 2026 02:33:03 +0000
-X-Mizu-Trace-ID: fa418301c63af391
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c6bf9ef4-5a61-4f4f-ab39-11d1ddf59d64@linux.dev>
-Date: Mon, 9 Nov 2026 10:32:01 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9DE606A320;
+	Mon,  9 Nov 2026 02:34:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E9DE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 3DB7160490; Mon, 09 Nov 2026 03:34:21 +0100 (CET)
+Date: Mon, 9 Nov 2026 03:34:20 +0100
+From: Florian Westphal <fw@strlen.de>
+To: Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: "pablo@netfilter.org" <pablo@netfilter.org>,
+	"kadlec@netfilter.org" <kadlec@netfilter.org>,
+	"netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] netfilter: nft_dynset: reject DELETE op when set lacks
+ ->delete
+Message-ID: <avExLOsc3ZWRF5hh@strlen.de>
+References: <5aybqcVfq3WxYdpbT0Ea6bEWamp-4x10J9FF_5La7SSXJ57a4j176x_t3zUW8Ii2r84MsPX8xx_vNashO2PRWvuO9yNsaxS8YV_4TLc-QHU=@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,98 +52,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
- mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
- vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
- eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
- rostedt@goodmis.org, vdonnefort@google.com, mhiramat@kernel.org,
- jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
- James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
- phasta@kernel.org, joro@8bytes.org, will@kernel.org,
- linux-scsi@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, virtualization@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, iommu@lists.linux.dev,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com,
- robin.murphy@arm.com, mason@kernel.org, aesteve@redhat.com,
- harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
-Subject: Re: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to
- memcg
-To: "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-3-cui.tao@linux.dev>
- <1e18fcfd-785d-43cc-afd6-d181bf8305eb@amd.com>
- <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5aybqcVfq3WxYdpbT0Ea6bEWamp-4x10J9FF_5La7SSXJ57a4j176x_t3zUW8Ii2r84MsPX8xx_vNashO2PRWvuO9yNsaxS8YV_4TLc-QHU=@proton.me>
 
-Hello，Christian，T.J.
+Noah Weinberger <NoahWeinberger2003@proton.me> wrote:
+> Hello,
+> 
+> nft_dynset_init() checks that the referenced set implements ->update,
+> but for NFT_DYNSET_OP_DELETE the packet path calls set->ops->delete
+> unconditionally. Today the only set type with ->update (nft_set_hash)
+> also implements ->delete, so the call is always valid - but any future
+> set type implementing ->update without ->delete turns a rule evaluation
+> into a NULL function call.
+> 
+> Reject the DELETE op at init time when ->delete is missing, next to the
+> existing ->update check.
+> 
+> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), net/netfilter/nft_dynset.c:98-101 (eval), 209-217 (init).
+> Longstanding asymmetry.
+> 
+> This was found during an assisted (AI-supported) static source review of
+> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
+> reporter against that tree. The patch below has NOT been compiled and has
+> NOT been runtime tested, and no reproducer was produced - the triggering
+> conditions are described above instead. Please treat this as a report for
+> verification rather than a battle-tested fix.
 
-在 2026/11/7 01:25, T.J. Mercier 写道:
-> On Fri, Nov 6, 2026 at 5:23 AM Christian König <christian.koenig@amd.com> wrote:
->>
->> On 11/6/26 14:18, Tao Cui wrote:
->>> From: Tao Cui <cuitao@kylinos.cn>
->>>
->>> udmabuf pins the pages of a memfd and hands them out as a dma-buf.  The
->>> data pages keep the accounting of the memfd they were instantiated in,
->>> but the bookkeeping around them does not: the page pointer array and
->>> the pinned_folios array, both sized by the buffer page count, plus the
->>> transient folios array sized by the memfd folio count, are plain
->>> GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
->>> memory, and size_limit_mb defaults to INT_MAX.
->>>
->>> Charge the three kvmalloc allocations so the creator pays for the
->>> metadata it induces.  The system heap in the same subsystem already
->>> accounts its buffer allocation;
-> 
-> Only if the mem_accounting param is set to true. We (Android)
-> currently depend on it being disabled because system heap buffers
-> don't have a single owner for their entire lifetime (ownership often
-> changes immediately after they are allocated), and the kernel doesn't
-> have the ability to switch who is charged for the buffer memory quite
-> yet. Albert is working hard on it at the moment.
-> 
-> Could you update the message to note the mem_accounting param pls?
-> 
->>> the data pages here stay with the
->>> memfd.
-> 
-> memfd / udmabuf is a little special because it uses shmem for the
-> backing store, which is already tracked by memcg under all conditions
-> (except hugetlb). We don't currently use udmabuf, so the lack of memcg
-> charge transfer for udmabuf is not an issue. But once we get charge
-> transfer working for the system heap it'd be good to follow up with
-> udmabuf.
-> 
->> T.J. needs to take a look here, but I fear that this might break uAPI.
-> 
-> Thanks for looping me in Christian. The buffer allocations cost
-> gigabytes, but these metadata arrays are only 4MB per 1GB of buffer,
-> so I don't expect charging them to break anyone. Leaving them
-> uncharged is an accounting gap though, since someone could spam many
-> udmabufs from the same memfd and only pay for the memfd pages once. So
-> this change is ok with me.
-> 
->> A lot of the DMA-buf resources are intentionally not charged against memcg.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> 
-> With the commit message updated to mention the mem_accounting param:
-> Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Thanks, Christian，T.J.
+This would have been fine 1 year ago but we no longer have resources
+and time to reproduce and verify such "fixes".
 
-I'll update the commit message to clarify the mem_accounting parameter
-and pick up your Reviewed-by tag in v2.
+Ask your LLM for a reproducer, run it, show a minimal backtrace.
+We have LLMs too and we can use them to create enough usless and
+time-consuming tasks as-is.
 
-Tao
-
+I have a db of +1k reports just like this one.
