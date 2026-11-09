@@ -1,74 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241775;
-	b=NmEDludg+NY/Xm5zfdbH2wZkrWkqQZCuhoAh/WiYJFcuYx6+dEvoa8GPSJKYCL3moIDk
-	 CxWTbO2UgIUu+ItUZLp6swJVvxiInWKyAS3ACh5we9lvaOrekPt10NEgJMVIOmhhBhrF/
-	 i1rDXLIwSOVgfMOa/O796unnZ/2D/5luh+mZilxrYF5b561jxwPhOiah+tgtj/y0ts0i9
-	 heNrQbm2sDBFFtAhUKHHFpnMWBgq/usx3cLQlGmcxUtol8Gl4Dhle+n0fauuKsEF4rIQW
-	 Wr7hvx4wDFlT94CeJ6A4dK6f5pxXcYPUAf2B2gRRC6/2eeIAhXnGAn1JaxAOzrseWkA==
+	t=1794241798;
+	b=jiytS2CXYaZ+OvTXEpNa0lF4iv0cDIuP43dWM6I66AkqGaXGwVywzW1ZeUGd9aGhYNOI
+	 wVCyEMuHCpL9P3+750Xlvy9gmAamgZ75bYruraKvBwDR4L0GpAvm9LawFVUd5wph5vEFD
+	 IDKY1P/BUmMHv+jSYRyKqjQH5X0Z3/gHSTM1vZbQAsm1FxF1AI2RI2nngc7A29h0GAud3
+	 ejzj61UVYvAwKp6Hn90I9EddogzBQ0Ayv7KgsjbxK8BNXC/JUyAEqyVn7ZjAiOuBBGB7f
+	 xD/kE6FTsQrF26zAQyWw9LtMiLv4+F8NAZFOeaUQnHUPRMEl8LokYcRZN3FBcafgj5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241775;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=EsTOtg1wHLEo0ZTusjGA4+BpHgdpiqnkxhcG+EozUhY=;
-	b=EWE1I4viX9T2O1zw6dl3ujcmoPk+saINPs2XwDWpMhpDq/IMAw0jyocUNMnw1nTIOWJs
-	 KdVNNENUITk99ywkhxA3qzVsEqwzB+Rk/h8WPDNtGnYjxotB28k/LasLszKQyM3Fh4qu3
-	 VP8NIbcYkHPSFW2qyd6hKuajgNBcjV+buZPqkpe5hV7iu5EQH6eyeu7rB68GCkq8l2hOo
-	 mOnKtKbQ/Z+Vg3yRdA6FFPNyqkCC3epExiqVKvLdfE9wNVlsz7g8AfhiodrzsQkIIi1NR
-	 CmV3lOqMsldsOVXlNMoZTyq3UqS24a8fsQ4ELtmoL7tzPI+gPpl8JpdWtOpDakfdy1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241798;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=vxG54koDm80HfHxfLyoAWDitBBKRIo2lMZtZZWNg1hk=;
+	b=nM3HQkaWOLC9c8H1dz1jYciMvvpSdZ0kqgglGdnmyhH5zIpweO9YHRfxKFcEJy4o+QHF
+	 Smikk2GYcNdEDGQAnMBSXRRBN3vHkP91t1iFaN0VMsZaWjJCF3LA5gQvG8bp3TYYrygey
+	 Q2XODK3s873/kME30UcB4FuR1XUY7CReFJdEfc59ZiovJRjiK5z4lxT839hREeQqym+c/
+	 oFAJZqWXAweUoQb4WI+xTkvH29ro6GhroGxDIEajv0PqAKlxdsGE71n05PEfmltIgybfu
+	 JuR8WRH8znxBAi2mXr8aamYEVkynaAwBl3osN3odDQaqrcmC7Wk5QSmbGdW/6DEYuAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RBuPLtZq;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eXfBQd9b;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293F1606EE88;
-	Mon,  9 Nov 2026 16:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 293F1606EE88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1012606A31C;
+	Mon,  9 Nov 2026 16:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1012606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RBuPLtZq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5EF88C5845D;
-	Mon,  9 Nov 2026 16:29:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46E7760051;
-	Mon,  9 Nov 2026 16:29:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 227C410328531;
-	Mon,  9 Nov 2026 17:29:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794241769; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=EsTOtg1wHLEo0ZTusjGA4+BpHgdpiqnkxhcG+EozUhY=;
-	b=RBuPLtZqrGZ04Eym/pFeRTwd2DLY3KznOpoqdIOi4bmj0gCgBXibiaQfcp6sv3S6QyBDut
-	IiiwqzlfMxGQJ3YcFzwSh8BMBdVVRsIRgqsSfpwO0cIvBF9OcXiaZmR9B8mZKcCtw6N13/
-	AQGNnLkKN7EnCQUKsT/LfZAvCUCwWtVpsadHLcatmEuhJ8TVtp7lLCgN1m3xjF9xiL6vwa
-	HMAh6p0bpQbpVJRu0ggsgIIPPHbWNJEQZ6VCp91TeLVl/sbxkZSvjZ1cNZ11+a72h3h9kV
-	6yTfWwM5jGTq0XStRQCtBvpRFJdZUCNAIFXqLD7rzyzHPL5FGkdNsu3eVhefnQ==
-Date: Mon, 9 Nov 2026 17:29:19 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: E Shattow <e@freeshell.de>
-Cc: Owen O'Hehir <oo.hehir@gmail.com>, linux-rtc@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	"ziv.xu" <ziv.xu@starfivetech.com>, Conor Dooley <conor@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v2 2/4] rtc: Add StarFive JH7110 RTC driver
-Message-ID: <202611091629193b8f049c@mail.local>
-References: <20261108212826.15890-1-oo.hehir@gmail.com>
- <20261108212826.15890-3-oo.hehir@gmail.com>
- <ff0906c3-478e-4ad6-ac30-1e0a7cc35a41@freeshell.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eXfBQd9b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794241799; x=1825777799;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Hnvi9iMKOrVTdH9yUBMXKJCbr7+rERZnZmiBjcI/LVs=;
+  b=eXfBQd9bFU787Vj7VrgL7h7W6pW3oxF8wL5IzB3PQfvWA8gDQXfGXD0D
+   z9Fss6y0rq/LbV7fTR//K+6E/y0M0kZZN3kPopS3F5FVXD2fPZ3Xs4Qnj
+   ty1xt4NBwqLZ8y+0P/S1s/CU3KdX42Cyixi5yUOiYr1yJkCQVJN7pvk/f
+   7j6vaiM+lxg0SVoxRfNmqOSvXjOOgFuI5aYr0RelpX7jAcOHAzky6YCQU
+   6PppnpMNFTE6/B1rmqP1QHS899RmHh8fhewYYE/JS7G0rxPy5A9h5XwTB
+   Te4Pn+3C+G66InfXglbR34Qnt3xxpAY41X++dp4Jc8E5+O70RJyowSuiY
+   A==;
+X-CSE-ConnectionGUID: +4h+wM3NQkGwQruPX/CQbA==
+X-CSE-MsgGUID: cN/aBSM9R0qKxE7d+R4qow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2997422"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2997422"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:29:58 -0800
+X-CSE-ConnectionGUID: tJqy7YSSSeySS9oSR51VAQ==
+X-CSE-MsgGUID: dXqXreHNR8WkZXjXwjcOzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7780362"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:29:54 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 9 Nov 2026 18:29:50 +0200 (EET)
+To: Tristan Madani <tristmd@gmail.com>
+cc: Hans de Goede <hdegoede@redhat.com>, Anssi Hannula <anssi.hannula@iki.fi>, 
+    Matthew Garrett <mjg59@srcf.ucam.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
+    Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH] platform/x86: hp-wmi: validate WMI return buffer
+ length
+In-Reply-To: <20261024205519.4029617-1-tristmd@gmail.com>
+Message-ID: <c8985e22-3f00-b32b-3de2-65e486b367db@linux.intel.com>
+References: <20261024205519.4029617-1-tristmd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,38 +81,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ff0906c3-478e-4ad6-ac30-1e0a7cc35a41@freeshell.de>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
 
-On 08/11/2026 19:12:58-0800, E Shattow wrote:
-> > +static const struct of_device_id jh7110_rtc_of_match[] = {
-> > +	{ .compatible = "starfive,jh7110-rtc" },
-> > +	{ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, jh7110_rtc_of_match);
-> > +
-> > +static struct platform_driver jh7110_rtc_driver = {
-> > +	.driver = {
-> > +		.name = "jh7110-rtc",
-> > +		.of_match_table = jh7110_rtc_of_match,
-> > +	},
-> > +	.probe = jh7110_rtc_probe,
-> > +};
-> > +module_platform_driver(jh7110_rtc_driver);
+On Sat, 24 Oct 2026, Tristan Madani wrote:
+
+> From: Tristan Madani <tristan@talencesecurity.com>
 > 
-> I note that JH7100 does not mention RTC in its datasheet. Does JH7110
-> RTC have any commonality with JHB100 and if so then would rtc-starfive
-> be a more suitable name for the code filename and module?
+> hp_wmi_perform_query() casts the WMI return buffer to struct
+> bios_return without first checking that the buffer is large enough.
+> If firmware returns a buffer shorter than sizeof(struct bios_return),
+> the subsequent subtraction on buffer.length underflows, causing
+> memcpy to copy a near-maximal number of bytes and crash the kernel.
+
+Where's the crash output then? Please quote it in the changelog for the 
+relevant parts.
+
+> Add a buffer length check before accessing the return data, matching
+> the validation already present in the sibling hp-bioscfg driver.
+
+More important though, hp-wmi should migrate to using the modern WMI API 
+which would likely allow using WMI core to validate the output sizes.
+
+Somebody tried the WMI conversion earlier but to me that patch looked 
+incorrect (or more like clearly missing pieces) and I had bad experiences 
+with the particular submitter when it comes to converging to something 
+sensible based on given feedback so I've low prioritized that patch.
+
+> Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> ---
+>  drivers/platform/x86/hp/hp-wmi.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-
-The filename has to be soc specific, else we will end up with
-rtc-starfive.c, rtc-starfive2.c, etc... when the vendor choose to change
-the IP.
-
+> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+> index 615b4cf6fc451..81c0acc874f8e 100644
+> --- a/drivers/platform/x86/hp/hp-wmi.c
+> +++ b/drivers/platform/x86/hp/hp-wmi.c
+> @@ -697,6 +697,13 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+>  		goto out_free;
+>  	}
+>  
+> +	if (obj->buffer.length < sizeof(*bios_return)) {
+> +		pr_warn("query 0x%x returned undersized buffer (%u < %zu)\n",
+> +			query, obj->buffer.length, sizeof(*bios_return));
+> +		ret = -EINVAL;
+> +		goto out_free;
+> +	}
+> +
+>  	bios_return = (struct bios_return *)obj->buffer.pointer;
+>  	ret = bios_return->return_code;
+>  
+> 
 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+ i.
+
