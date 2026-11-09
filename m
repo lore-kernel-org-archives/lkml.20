@@ -1,83 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794226340;
-	b=z/bmC4za9sacc55g9syFuUC2ppgeERS546tc2kOA6BtZ9C5AbdG7VDMuRGnAhyfbNbTy
-	 DDHqXZ9mYzhRA7ze46DG9W0Ieeu0Ah6KdfDqIAc/IozOM8R44p2HPV0G9yiRR5+3XUbgr
-	 6sAzRwlsQfZiGhOQUBC5FIQw2pEhVPsLyu2yxbphtd9Dl0+OQCKjYWMlm7oGzIvR97H2L
-	 Nantmp54hYZAr1OSQaOd626mUPN/9qRxtu4w4bUoVmmuaTe2iSNDexaUagNp1Rcu+0yI3
-	 uUaN1Ojr2K7Yw1xJ++vA8X9J0E86idj0FFzGCVTH/R75J1Ls108vycWT7/FFl6V9oVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226340;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6Ahqk8ZpP9+E3a7lm4QE+U0OG00vjkXyfuDjP8/SbDI=;
-	b=Hk6ar+3OlUFA5dnmjTJ29WYllZds+1lGaApqfihI9WZVEkG8EJxnmgWWMNKHlzWAICis
-	 xpGvAl/hEi1nhBR8ou6aw/FNPvIGhDGRPjIxx4baLyJ4gu3VY4JB/MiKLU87lMyJajxSy
-	 irGTh3MnJceDhTTwhBtYk4wvOsn8JX2W0unmW/nzEGL3kpmC450QBzdaynHVkxJjW7qdb
-	 O4A28miJ3lbhd7HkEAMkRLWRuwQw52EhaJtwkjEiaL1yWITkK9KDJytVBMxtbsKvYGq+P
-	 5Uvs6zhNUUjRZBHmkAlXNEaoRBYErw6Ca8uW8sMNpuSQkvz5KQA6lMzk5LT1Dmqe4ZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqIucLVG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794226372;
+	b=wSz4yhryGCbPUtkbsLhJHvQKVINIniVB4Vwni5zNpf31rdemVKlZ/xsHADGvPmKk0lR9
+	 U1GYqdkBFKQdynzS1oPixgUNSsmkPlgw+HtKYGrqiOV0hTYByV4WxTP7ia/dtY6VZpXrK
+	 1vzR5fZwKfZdon883m8QpFCGfGKPzQK7YLDEcQDCj8VfahMMcKJbyaZv9AnQtUSqxtC+W
+	 LgX9MwUzfZI0IEHVgsh5S5MOsN7wAY+3/kicY5ZGQQo1ByX+wad7IprArwePXuUYJ7FBu
+	 ERkcGsdtWhop3D7hpqCCKCO8sMMi4MZARW+h5WtTChBKTqFaGy7SMfCRZQ28RaVYfTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226372;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dYz5XasKnN4TugzUWfM3/cMdAY/x2jzfHlfhQ+galWM=;
+	b=WICK2oiwf/77GTjhHSGFVjr1h7BCjg5oZ1uGjdk6LM5zCC2/zhITM/JsHj9hVzcjYDhe
+	 N+jDqBk6ySC4FNhllwM0OjpqqAzDH91qJleIsFEjDOPBFOTyYS5gXffNZGdp4QANX1E7D
+	 6lY5rNbRPzlaXtAbPbTbtgjwzk3bIzGmwY93SdIm8oR3mllrZiyw9qb6uIrjAdyJvQAwV
+	 3ag8jmUH4bXFXTq8eUwb0mtTDqTfJKivZ9TVvjc9BB060E0KiQ2kVmwixQBIJtRGj5npq
+	 v7nR2SU49tI3Xrqk1qTI1weBvxBP9dXnwD/XGKSV8/h1AJkRNBAI+AAQaObafZVrUwQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHCnSDpN;
+	arc=none smtp.remote-ip=91.218.175.171
+Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3889606A31C;
-	Mon,  9 Nov 2026 12:12:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9280E606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:12:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9280E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqIucLVG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794226339;
-	b=tJz8WwEBG0hJMIfG0A1m1sogIkujJ2XBTPP9hjDXOetrqXo2E6FQsaIZPbaJziNSeFST
-	 grOk887BQMbebBgJtsBSDrvc8i5JkcCC6ArZP5LJwMiaLGxnaC2+dLrMiX2ujTdyjSB+8
-	 ZOzEx7SgT5jBz8F6JLtJg+HbHbDcqQSKRGY8LKburJFoKkpuH/9xllk1d8saej59Upxau
-	 O9HezIH1v4QiHo0gUJLKOdJdu94peNm0i2D7mM6X3GRmL+ysvx1drRfpofDofO9UFNddf
-	 47JABJmhB9Erzii2eKqIU4flfG4d48/uKHa1IQ9vtI7S7KIwwH1QC3bw/qQzPIRTLvw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794226339;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6Ahqk8ZpP9+E3a7lm4QE+U0OG00vjkXyfuDjP8/SbDI=;
-	b=CzRXsX1faeJDN06aYngcaDFxAtzTawAbjM7YADvhZWg77ZtUWhjaMpaM1EVfer5BKl/A
-	 Qee2zwdDGFmVIE9dUNrplHuB96hnfkCVAllj8V746tomX28psKTpqAq71IAsZgbaO7GQ8
-	 2RdQG46McG3iBlA2AzWemGUzK2xfDL/6hoqHi6DhmSN6kWL1NpPlVDicyHJg5/g+t+8dd
-	 iuj5cocsXOO/YNdgHSl8M4UmU7C4pIHZPQDzEKgnSEZWcHvdZEe+fW7PgtYx5BOzHQ+G5
-	 DtF0QB1A3BsDqChl7QfuTSyyh3kqUksIW9hYd2oITBYlgynwh0q8MdN6+9hQyKgyYew==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id CCBFF1F0089F;
-	Mon,  9 Nov 2026 12:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794226339;
-	bh=6Ahqk8ZpP9+E3a7lm4QE+U0OG00vjkXyfuDjP8/SbDI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QqIucLVGJHLAfpODDVaGOCu6CdEu161HwHgPQ8hWtNxYKgY+D2BU+eKHYb1WcpQzI
-	 Syo39g9lIyhVng1aHa9o5w4LdcOIiBQCBOXGKZZdSP0GiHyh6gbDwP5DI23SnR3+yO
-	 gfDtJtdOFboifQaGwl288Y9djUwyHi0h4aVqOcSes0uzJ+veuFEvoh5c7EtP+rA53A
-	 qZh6BFsUS4UkEzGC/6cXQxJokgmMUHq5L0TzjgDmd/w3/CWKIce9sOnrOUBBq4pqnh
-	 uG96iGFwl6sCoMM4X+f2IBEbn94FxSea63D8BzAYBb/add/DI+dvovj76mF1zfrsaD
-	 w1v/mctI1W4jw==
-Date: Mon, 9 Nov 2026 13:12:08 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: raoxu <raoxu@uniontech.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, luiz.von.dentz@intel.com, brgl@kernel.org,
- pmenzel@molgen.mpg.de, pengpeng@iscas.ac.cn, u.kleine-koenig@baylibre.com,
- lars@metafoo.de, mike.looijmans@topic.nl, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: ltc2471: Fix LTC2473 differential offset
-Message-ID: <20261109131208.00006886@kernel.org>
-In-Reply-To: <AD0B78CBE86D2045+20261109100659.3796603-1-raoxu@uniontech.com>
-References: <AD0B78CBE86D2045+20261109100659.3796603-1-raoxu@uniontech.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHCnSDpN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OUZK1hzYgJtzU4nG/ylLO2w+RnFmaiBPq0yD7tkY4Ik=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794226368; v=1; x=1794831168;
+ b=ZHCnSDpNkPq3NM5T6edR1zp/xB7qZJSfbdE8sV6x9s6+F6gMapAVhQb8vrotPpnBD7QpADkY
+ WTDu/1vlU/NAeAbMgHSb/JWlgZKrNLoD5WgTPisGLTBOMXWXkGpqqnnIybhgzxReRESxBteMwZa
+ yFsNK1ZMXAJwN7gJ12G0ML2c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 84c5a36d145168ef;
+	Mon, 09 Nov 2026 12:12:47 +0000
+X-Mizu-Trace-ID: 84c5a36d145168ef
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b2d2255f-c9f4-4c94-a739-b80f9bc49323@linux.dev>
+Date: Mon, 9 Nov 2026 12:12:47 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,41 +58,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] ptp: ocp: replace __get_free_page() with
+ kmalloc()
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>, Vlastimil Babka
+ <vbabka@kernel.org>, linux-mm@kvack.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261108-b4-ptp-v1-1-71160700886f@kernel.org>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20261108-b4-ptp-v1-1-71160700886f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon,  9 Nov 2026 18:06:59 +0800
-raoxu <raoxu@uniontech.com> wrote:
-
-> From: Xu Rao <raoxu@uniontech.com>
+On 08/11/2026 08:40, Mike Rapoport (Microsoft) wrote:
+> ptp_ocp_summary_show() allocates a temporary buffer for formatting
+> PTP OCP device summary information.
 > 
-> The LTC2473 reports its differential conversion result as an unsigned
-> 16-bit value spanning -VREF to +VREF. The IIO scale is consequently
-> reported as 2 * VREF divided by 2^16.
+> This buffer can be allocated with kmalloc() as there's nothing special
+> about it to go directly to the page allocator.
 > 
-> IIO offsets are expressed in raw codes, but the driver currently returns
-> -LTC2471_VREF, which is a millivolt value. This makes the processed
-> reading incorrect: with a 1.25 V reference, the midpoint raw code is
-> shifted by 1250 instead of 32768 codes.
+> kmalloc() provides a better API that does not require ugly casts and
+> kfree() does not need to know the size of the freed object.
 > 
-> Return the raw-code offset so that the midpoint maps to 0 mV and the
-> endpoints map to -VREF and +VREF as intended. The single-ended LTC2471
-> does not expose the offset attribute and is unaffected.
+> Performance difference between kmalloc() and __get_free_pages() is not
+> measurable as both allocators take an object/page from a per-CPU list for
+> fast path allocations.
 > 
-> The supplied fix was reviewed and this commit message prepared with
-> OpenCode AI assistance.
+> For the slow path the performance is anyway determined by the amount of
+> reclaim involved rather than by what allocator is used.
 > 
-> Fixes: 1d3eacbfa644 ("iio: Add LTC2471/LTC2473 driver")
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> Cc: stable@vger.kernel.org
+> Replace use of __get_free_page() with kmalloc() and free_page() with
+> kfree().
+> 
+> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > ---
+> This is a (small) part of larger work of replacing page allocator calls
+> with kmalloc.
+> 
+> Largely, anything that doesn't need struct page (or a memdesc in the
+> future) should just use kmalloc() or kvmalloc() to allocate memory.
+> Removing needless calls to page allocator helps with memdesc (aka project
+> folio) conversion and gives a nicer API without casts.
+> ---
+>   drivers/ptp/ptp_ocp.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+> index 625a85b2dc7e5..decc56892059b 100644
+> --- a/drivers/ptp/ptp_ocp.c
+> +++ b/drivers/ptp/ptp_ocp.c
+> @@ -18,6 +18,7 @@
+>   #include <linux/spi/spi.h>
+>   #include <linux/spi/xilinx_spi.h>
+>   #include <linux/spi/altera.h>
+> +#include <linux/slab.h>
+>   #include <net/devlink.h>
+>   #include <linux/i2c.h>
+>   #include <linux/iopoll.h>
+> @@ -5281,7 +5282,7 @@ ptp_ocp_summary_show(struct seq_file *s, void *data)
+>   	bool on, map;
+>   	int i;
+>   
+> -	buf = (char *)__get_free_page(GFP_KERNEL);
+> +	buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+>   	if (!buf)
+>   		return -ENOMEM;
+>   
+> @@ -5497,7 +5498,7 @@ ptp_ocp_summary_show(struct seq_file *s, void *data)
+>   			   post_ns - pre_ns);
+>   	}
+>   
+> -	free_page((unsigned long)buf);
+> +	kfree(buf);
+>   	return 0;
+>   }
+>   DEFINE_SHOW_ATTRIBUTE(ptp_ocp_summary);
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20260624-b4-ptp-ed56a38a6afd
+> 
+> --
+> Sincerely yours,
+> Mike.
+> 
 
-Looks fine, but please wait at least 24 hours before sending a
-new version. If you spot an issue after sending the patch, please
-reply to it describing the problem.
-
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
-
--- 
-Kind regards,
-Joshua Crofts
+Thanks,
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
