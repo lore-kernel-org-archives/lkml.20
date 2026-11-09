@@ -1,71 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=136.143.169.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794258467;
-	b=gZkiXcXilitjHsxRutoyRj8FCnl1i+Ky2Lnk1kNbI/kiwDk4XFhezgkJyyaTZvQE6jtl
-	 8j4Ha3jSWoqUBkV5VXj1YYDRy3XkeXVGP77tJG9QhWCgxf29B67FX31u2Kpcd4/3i8qze
-	 uLPXAl09360krSoE45Rl7Yfln2PHJtRDjVA2OctQmN5OMKGCY0nAbuSGAPNdCGcuvAyZI
-	 +Cv9kxRZiIemd0ZsPtSl51/JnfFWdosnQEEdctDzwL8wNtUGNd4nmkpaykm3wYXFJTvPq
-	 fp2HSVwQvOKXRNxpLcYgmn+LmygcfotdTv0oIhziTA4/J32p3q/eMyBMAogB7ZGrghg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=yPRUzd/e6bbI1hpT5wCPAxlEpWD7wHgU9SrQajbUCkCCKkxVunpJ4i/3J+Ull0Ic2r7J
+	 Nal93Ey1Dxeo+5u6kHpt8DbdOKSFM5KhTPcEWbraSNXanhvL/xl8nViW5zinBdILhFRZn
+	 ud81b7PiTwm+Oy4Izus06n2QDJz1Mh8bQUmDFUKwygFWR6YehJq4Rm3OhNHSopimH3m9Z
+	 1JICZeF1XVw5T89JWcqdOfARhNsEbiKtygdISoAS/cJL+A2vg+fv/w/FsyA7mxxqoVxK4
+	 lPt8uZLqWnxOPtszB3jMSZY1DXdMuw3ey/AdkM538URykDi/qlfiJxDeYzboBLhjLZg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794258467;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=b9nkg0bUgrEInPraZfEB6T4z0np0Vi/eCDyRJD4LyDU=;
-	b=WaA78P4+nd8mv5OnjKeW1PpfnFbCj/rnf/zaFsP0WN/snDjIqfg/Tl09feulSbLwJkOd
-	 zRfNx1tmV8lVb7c1UD+YsphPK5fVhhAz0RFAGg2cPnL5fQ55ire/9GOAolp7iAs3/G5+2
-	 AqKZGoOJOxgtRPZNHbAwcfwFsphO06cxRghHc0gk1wNg1cXehbWVdzQI7uPH6FUimidjh
-	 xJAR6GvygeoTy95gasxvGN9IJicGtEqdCzDqSuY17QxQm63UemIbM5OiNVeZSpmZRGZNw
-	 +3deATWk4d89cpmTATWRym9CfEKJyijtaPWOK8PRK+HiAnHNJQ8ZCxJk4H3r+tgv68Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Fu4LFQih;
-	arc=fail smtp.remote-ip=136.143.169.17
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qmgeUuLjmJ/wmzQKJYHDJPfMGYHY2ormhPUZcxonf/I=;
+	b=BXesGKJtC9dXNM4HSn+5RBMxwjhUk8DdzRDf+Wq9ADsSXxLQH0mz/L/1SHWw1KxsoCl6
+	 yVx3QJn9XZk7vn3UH5I3I+rDJzp/qAeoT/bnMEi7u/msCs0drtpSwIt5YCgezxRHGj3ed
+	 YqYuzoPPSzmEqOfy82O/yPmbkhQrxhPdoUZkl18v7GNtYO0ksrP4IlnR+5E96P/48CxQL
+	 Mxld/zz23g8XcW/3vWDiVk2nvNskBvbABPyrcV2SXosg9nQScKhwKW6J3eUP2BIWzPv//
+	 NR2rjjpdmkpANZpoRP2kxvaVGu5U4NMgSn5SHjTVJVTwCnpMMBEvKZjusFoiMgzU7Sg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dhcMXdcM;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36444606A321;
-	Mon,  9 Nov 2026 21:07:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36444606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A83606A325;
+	Mon,  9 Nov 2026 21:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A83606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Fu4LFQih
-ARC-Seal: i=1; a=rsa-sha256; t=1794258449; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=jz2EsnWewn02NaUWxMIIzv828qC5NmQF/a2pqF9dSuaxddqeIKD/4RwjQk1/dM4/VC0lJnVWV13dIoUXcnt3l5w7dSWKjJ0O0AsMFmXuw7IQoHl7RE8RkYK+FzuBRejjkX6hKR3Ho2UN4bPKKPVy411FJRJHZNnVcKJ/pyOBEtM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1794258449; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=b9nkg0bUgrEInPraZfEB6T4z0np0Vi/eCDyRJD4LyDU=; 
-	b=G9aE4h3l/2wbrIFodBIzxz2en43ztWTrsGsATJTLYJfStp9Eb+yVqztWXk0X6M1RL2eaImEUXszjnHCjT25CCUsRv3zRwniR2nuLRBS8UqgSO4ZLewdROsXJMs7dCYKlslBcNTRAOpFG9VOyW2TueyFF54IJFJNfptKKc6QL6lA=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=Fu4LFQihBYem2cDlZ7W70Wp7j+nPLzwfZ/1NsdCJZtStypacGZSEjrXauIIvlMpdmXQax/DbjmAsokRpC2SPkDBpmn6hWmp9xWQXD32+DCxav/lVABVjXTaLar3ojHTNzndmPh091NJB1P2I5AE4+JXZPWcDE5X8xT2eriAKMHc=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=b9nkg0bUgrEInPraZfEB6T4z0np0Vi/eCDyRJD4LyDU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1794258448226804.6244202787284;
-	Mon, 9 Nov 2026 22:07:28 +0100 (CET)
-Date: Mon, 09 Nov 2026 23:07:27 +0200
-From: Igor Velkov <iav@iav.lv>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dhcMXdcM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794258467; x=1825794467;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ZDxMxOCsi7Wo7NO2LMxhmoeFjMI1TJ0AWMsIPGM+PYQ=;
+  b=dhcMXdcM4ecptlAi2FtaM64ajjKX02Fudzf+gYywVqKcqx945cisP4Kp
+   Mq7uxBPwJFDCiXG0B+WygQySAAWHJ80vgma6NOyY/+2dHXOKflhgdqm0W
+   bYhjpDchaBSjE/NgI5Qh+1SoB+V7Cr4+Y/+AzDsXSPvOML1tTZwhUxAh/
+   eNeEzydbf8HBGffEV/1QwvZqXYW+Li1S+dr7fWeUe+L/6QzaHag/Opx2n
+   Q7MA9klSGO3YhpJMG6noR6WKNuK4HhBNbysXwBRi8vgsy2qYcqarCNkba
+   aEcQs4ztJisdidAlEZA1boGcJOFueY2uxFRH04Q8eVjYpb9hw15cFlmXC
+   A==;
+X-CSE-ConnectionGUID: XzK/xtZGQ2yxBJcTMrAgRA==
+X-CSE-MsgGUID: cSzM8ltMQsqeDnQZueeVxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3079396"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3079396"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:46 -0800
+X-CSE-ConnectionGUID: Jn5L83FTQ+iMZxnVsJKQ2g==
+X-CSE-MsgGUID: Qx8XpJw6Qj2m6HalaZt08w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8016832"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:44 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-pci@vger.kernel.org,
 	Bjorn Helgaas <bhelgaas@google.com>,
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
-	linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH] PCI: rockchip-host: Enable async probe by default
-Message-ID: <20261109210800.async-probe-reply-2@iav.lv>
-In-Reply-To: <20261109205911.GA292554@bhelgaas>
-References: <20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv>
- <20261109202202.GA265423@bhelgaas>
- <20261109204122.async-probe-reply@iav.lv>
- <20261109205911.GA292554@bhelgaas>
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 02/11] PCI: Use Header Type in __pci_bridge_assign_resources()
+Date: Mon,  9 Nov 2026 23:07:02 +0200
+Message-ID: <20261109210714.3862-3-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
+References: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,16 +86,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 02:59:11PM -0600, Bjorn Helgaas wrote:
-> Mani's already applied it, so I think it's fine.  I'm just trying to
-> understand the commit message and figure out what the merge commit log
-> and the eventual pull request should say.  It sounds like "this makes
-> SD cards work better" is somehow part of it, but it just feels kind of
-> hand-wavey.
+Commit b2fb5cc57469 ("PCI: Rely on config space header type, not class
+code") converted bridge window sizing and assignment to use the Header
+Type but __pci_bridge_assign_resources() still uses the Class Code to
+decide how to program the bridge windows. A Type 1 bridge whose Class
+Code is not PCI_CLASS_BRIDGE_PCI gets its windows sized and assigned but
+they are never programmed into the bridge.
 
-For the merge log, maybe: "Probe rockchip-host asynchronously so link
-training on an empty slot doesn't stall other drivers' probes for
-~0.7 s". The SD card is just where we noticed the stall.
+Use the Header Type also in __pci_bridge_assign_resources().
 
---
-Igor Velkov
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+---
+
+I don't have known failure to point to with this, thus I've not added the
+Fixes tag (the commit ref is available in the changelog if it's needed).
+
+ drivers/pci/setup-bus.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed16ef7c26fa..6209773a35f1 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1636,12 +1636,12 @@ static void __pci_bridge_assign_resources(struct pci_dev *bridge,
+ 
+ 	__pci_bus_assign_resources(b, add_list, fail_head);
+ 
+-	switch (bridge->class >> 8) {
+-	case PCI_CLASS_BRIDGE_PCI:
++	switch (bridge->hdr_type) {
++	case PCI_HEADER_TYPE_BRIDGE:
+ 		pci_setup_bridge(b);
+ 		break;
+ 
+-	case PCI_CLASS_BRIDGE_CARDBUS:
++	case PCI_HEADER_TYPE_CARDBUS:
+ 		pci_setup_cardbus_bridge(b);
+ 		break;
+ 
+-- 
+2.47.3
+
