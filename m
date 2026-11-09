@@ -1,58 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222285;
-	b=hTCC2GVhiNIUmiEt5IBMPuZUeLbGmxgKAF6zLdF1zOiJWId151cAV+P4WtLDKC4U9vVX
-	 tOF7gj9/MArbw82fkjhzHz8CHkVN8dmAzz8dqUsyHF4AhqWXtlmrUjEJ1RLLoerX3zHgo
-	 ibLEr1rkCUzEPWo+2V8fQZdPVEIp5dmJMXPNmY41Ge+W0nzUOl0Zq3EpeAyA9U2GaKPTx
-	 QZGQrEY6zh4HkAo15un8T/E8UU+QXo0uKFFu7Kht7mOimsAU+S1l101GNLWK9leGJ+BJQ
-	 A2Fvb8kgHnw5mKthiAA6wvgB6N6lW+RKEk015/sETiW7jrck+7owxkc12YQVhBLbWxg==
+	t=1794222309;
+	b=GFaXiED/2sRQjrZ73G6jhz/gWsXDi75eDBLWkr1VY2zupEabkHxDBfaVVLmtPOXDleRd
+	 neK1Lsf15tauings59Jlb4YjWQSpBD1ECyJwc0oVMBaMKDOUyNy70BRQBWcgcb9uQmXWl
+	 5HEknpqKH1UX/v82lG+UpIBM7zby+liKhexqcHNxcwwLAzyga2mJPuyPZwAhHKj77mpNB
+	 B/9rFieCLm2xANfxtEVeWqgkAbN1ZEc7Trq1O7uhltRqexxMtTPf5ygZe7XlUSlS+sVVr
+	 eFmlG7HL2AEu4Sn6HKZT1NokrFeAtXe6IeNnzv4Cq1UGEv0e3b3oSAW7K6b263MhYIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222285;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=E3Q0XoZIb01sk4wSPA3kiH5qJ30j+u8OBjPIKDQDvrI=;
-	b=EfN6/sMIvv6q5w2vCbHIGDM5GC8vaukhfYYs/SuG+4Lw5xrffDUjIf4P4p6uuFqWTVVr
-	 /aXxAyblFlXHRKDNhpH/RaAIw0kV9yGMjkGFtqw6FZ7CltqqNFTiofeGTENLlisleBREO
-	 kti2NagOutHYVjxSvUv43z9yRIp16ccVisST9o6bSV8TG8Q27PQ7ptRKPX+YAFM8HGBwv
-	 bVDoCwCQF6/pp0XriRxVvBF5YX7NztGLcN5iVHivc3P1F0XqRvyBKtOWfyNk5N3u7lX8y
-	 fywZ/Wfp/5bl3FHJdW8bC4/RoycB0kTRKlQVvlrkyk0CRnRVjGM2oOqR9gJR6AwA6Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222309;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
+	b=vVWSUMQd+ouBpJ2JAnI511R+B77z+E8MYvkvZgXc92GD3wovGiBcYIWYUFG5ZmqYsvQj
+	 KHLdyQG6Y8OruskEwfq3F6MUmgZCtyRV9pQGoEt/61B0i1RDK/+7HWG1iFhHObCbeUAaV
+	 dEfhIj0Xf0wI5Gka/VV7oo0y3/qtlAhnGBkltzrfiaDRfdEMpmemwiP4F+V59YjME/D2e
+	 tZXlqm373Tm+RkHxfbOIdAYAV977ONbYG/LeTJIMjdW4hGJZdx8KUak/vJk0VKqOPhXDg
+	 iwzeQEMz9WldBYYoDKTcKf8f5DiMrJPeaWEQgSvJ4OGaDHPdHtIFD3qDeUdjKSYhGDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bnvF1RCJ;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NSykZstp;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDA7606A31C;
-	Mon,  9 Nov 2026 11:04:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DDA7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A255606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A255606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bnvF1RCJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=E3
-	Q0XoZIb01sk4wSPA3kiH5qJ30j+u8OBjPIKDQDvrI=; b=bnvF1RCJYUqKimRrtn
-	qZVra1AgmCd+L1W/Cj1GIY8VCjwZzgOlLDlBXflu6mQebTffnSyzoXUcHJ+JhuOt
-	SGNqi7q129Br03QxdL9Xt0eJcZFZQLNWN3O045sulXAcwjOktk5WTkwCCCLaINj/
-	IXmpbTrvwHt26BaNcHwGD09Vg=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDnLyOpqPFq8SLEGg--.44457S2;
-	Mon, 09 Nov 2026 19:04:13 +0800 (CST)
-From: xing1989093@163.com
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hongxing Xu <xing1989093@163.com>
-Subject: [PATCH] bus: mhi: host: pci_generic: Add per-device ACPI reset
-Date: Mon,  9 Nov 2026 19:03:52 +0800
-Message-Id: <20261109110352.1621-1-xing1989093@163.com>
-X-Mailer: git-send-email 2.40.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NSykZstp
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e46e449e8so469164f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:05:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794222308; x=1794827108; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
+        b=NSykZstp9oTiKUgFJ3UzxLehU62aPWxwFq90PnmqrOYywES4i4AcOzHYZySAY1pVwq
+         vwmj6DHH3dVkrhVibCHxQeVt+OxzQ5uX7hZAH05pO/IwWLrsGoc9ifYl79A1NCVf6A17
+         IoynvVz/C3YGak6RNV2fLBOpdZMypVS2K47ZFJrlTWQ990UhOgQWQ3c1ir05/s+hZJS3
+         HRJISrQT5YoW7RzT89EFMH7RBi6fKBzrKxwQ+L19Ps9oopbaBFlubCxu8MnCwlhIeiLj
+         RJjHDHMDIim/9IDvZQ4j4IwWOOMgf0O00+xYtIM6x+s2hBymV3bGjwWA1h8Kw2d4rg5B
+         TqFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794222308; x=1794827108;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
+        b=BILy1McxQJLLnQH6aNMCZkO7mW/TAp1xDcSfps34esL/zY0MpRmacKd2lPTGuyf7cY
+         L4xfEitN3VQgQWEhJVmX4uH693IZNcOWagi5AAL6L0xKguRnxtjHVmZiE0MS5n0QKn6y
+         JnLQnIKyG2juhlBWMtX+SDBFqBLiiz+fVFMBFJi0U4i/IZVU5yxeWbkLoFenct3ykt3b
+         NRfu/PhNry0EaGt2RBAUuroBk1ESNg3Re1w6ZybvlQcYiUNcIEaFnlv1eUu2izThHqCP
+         sQMZ9AQkjZTTfaWXgpUrK4o80zD4/IcAv3diGcO5OqfbXxA96C0PfsPIq6cbYtrqmpqB
+         SIrQ==
+X-Forwarded-Encrypted: i=1; AL+hErH2OjrUZC/1on7f0Pbv1x88Rdv0ME9hJU7b/pmVQChkLKg89+xgwy9zegm23RyGgRZ/jQzfEXkhhO6+y8Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ANaDhtFm/eksApsPjjpWPWoHG4v4+OU+sgg7FYRQL8uZCBpXb
+	Jj/PSswT6+NtR8nPSXCNSe6AAb0vqYkFztIYaPXtUPHduQjMP1giSCbq7SraKS5UAMra/r/7i+g
+	PP/ir
+X-Gm-Gg: AYBFou1mKJ/LI3Y32fpCDEFtqtSiedFY57Yuu6HTnNdfFf5Qq50+8sBhwHI5Y32K8Hm
+	RvRz81y6WNatmvkCiLrwo3Nuq0BxaSbfXvUmEN1qXMti2DaUX4nn4SQzFg2U65mPy203X4E+hHH
+	CfZlTg6t7IlFwmOvEfcQBuJCfz2lbrkqnDCGqp87Fzf59LP7InX5HDb+yWxv2xJLlH8pdKAqPEs
+	EaUEZg3xFBJ/aPmkoaRbYkozIHyvgs46+B+xyovTc9VCtY5AEBObXF9gnuNHKi+gxnxkhvLwJW/
+	ws524+AIZWldpWk512DydzC2WGkPn98N6IkqEyKtm8wgy9y+uAvKOgjqpYim1s+G6uw+RSwSTTw
+	fXl6JXKBJdGLzCkQv+Ma7WhMYhhUv2sKn6QdpuML70zbspmgXNxrQj587jnJxvRZgv+WrNVQKxz
+	MDdKsODBGs9yjRQyhE8Ny3Kgz0Qt1/dIwczKj2kh10usPeRHPlMVSBRVkThkqsQwUqKOJjsvXtl
+	9EpJQrGTNrBj6/gzueBNl/mdzKqOsupTuz4cKyR2tFLSVI8nvS8G+SnncT0OozKJbcdEi5dfY6Y
+	AIdEf5HejI1Nbq7q8g83XbB345teEHnuyAMsrMWoE1E=
+X-Received: by 2002:a05:6000:2501:b0:48d:f460:2c62 with SMTP id ffacd0b85a97d-4958c0beec1mr7604586f8f.33.1794222307486;
+        Mon, 09 Nov 2026 03:05:07 -0800 (PST)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9ab09sm8970489f8f.28.2026.11.09.03.05.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 03:05:04 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Nicolas Belin <nbelin@baylibre.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Shigeaki Asai <y-asai.0816@docomonet.jp>
+Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, John Williams <porschemad911@gmail.com>
+In-Reply-To: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
+References: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
+Subject: Re: [PATCH] drm/meson: encoder_dsi: load ENCL gamma table while
+ ENCL is disabled
+Message-Id: <179422230388.1497673.3746542387809770384.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:05:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,175 +107,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnLyOpqPFq8SLEGg--.44457S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw1UWw1UXF1DCr48JF4xWFg_yoWxXFyDpF
-	s09FsxJrZ5Jry7Cr4DCw10kr15ZrsYv34UtrsrGw1jkwsxKryqqFZrKF15XF4UCrZ3Way5
-	ZF4fKryDWa1qyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piRwZ8UUUUU=
-X-CM-SenderInfo: 50lqwiqzyzimqt6rljoofrz/xtbC4A1sKWrxqK15mAAA3X
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-From: Hongxing Xu <xing1989093@163.com>
+Hi,
 
-Writing the MHI SOC_RESET register is a device internal soft reset: it
-only asks the modem to restart itself, so it is useless once the device
-has stopped servicing MHI. A platform level device reset (PLDR) power
-cycles the module at board level through an ACPI method instead and does
-not depend on any device state, which is why vendor drivers keep it as
-the reset of last resort.
+On Sun, 04 Oct 2026 23:50:17 +0900, Shigeaki Asai wrote:
+> meson_encoder_dsi_atomic_enable() programmed the ENCL gamma LUT right
+> after meson_venc_mipi_dsi_mode_set(), i.e. while the ENCL timing
+> generator was already running (ENCL_VIDEO_EN=1). Writing the LUT
+> during active video stalls the hardware: L_GAMMA_CNTL_PORT
+> WR_RDY/ADR_RDY deassert and the ENCL line counter (ENCL_INFO_READ)
+> freezes, so every remaining write times out (~8s total at boot) and
+> the panel ends up with a corrupted gamma table (wrong colors).
+> 
+> [...]
 
-The out-of-tree MediaTek PCI driver does exactly that. Add the same
-capability to mhi_pci_generic so that such boards can be supported
-without a vendor driver. The method name is board specific, MediaTek
-firmware uses the vendor scoped "MRST._RST" while others may expose the
-standard "_RST", so it comes from struct mhi_pci_dev_info rather than
-being fixed in the reset path. A NULL name keeps the generic SoC reset,
-the same way fw and edl express "not supported".
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-fixes)
 
-pci_save_state()/pci_restore_state() are not used around the ACPI call
-because they clobber dev->saved_config_space, which mhi_pci_reset_done()
-needs; pci_reset_function() recurses back through reset_prepare();
-pci_dev_acpi_reset() is not exported to modules. The call is skipped
-when oops_in_progress is set, since acpi_evaluate_object() allocates
-memory and takes ACPICA locks; that leaves the panic path a no-op rather
-than a fallback, as a device needing this method cannot use the register
-write anyway.
+[1/1] drm/meson: encoder_dsi: load ENCL gamma table while ENCL is disabled
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0cb7f6d9e4b1d0a411b628ccf78695ad41c66570
 
-CONFIG_MHI_PCI_GENERIC does not depend on CONFIG_ACPI, so the path is
-compiled out on such builds.
-
-Signed-off-by: Hongxing Xu <xing1989093@163.com>
----
- Documentation/ABI/stable/sysfs-bus-mhi |  4 ++
- drivers/bus/mhi/host/pci_generic.c     | 66 ++++++++++++++++++++++++++
- 2 files changed, 70 insertions(+)
-
-diff --git a/Documentation/ABI/stable/sysfs-bus-mhi b/Documentation/ABI/stable/sysfs-bus-mhi
-index 8b9698f..064bf6b 100644
---- a/Documentation/ABI/stable/sysfs-bus-mhi
-+++ b/Documentation/ABI/stable/sysfs-bus-mhi
-@@ -29,6 +29,10 @@ Description:	Initiates a SoC reset on the MHI controller.  A SoC reset is
-                 This can be useful as a method of recovery if the device is
-                 non-responsive, or as a means of loading new firmware as a
-                 system administration task.
-+                Devices that advertise an ACPI reset method (for example the
-+                MediaTek modems using "MRST._RST") are reset at board level
-+                through that method instead, which power cycles the module
-+                rather than asking it to restart itself.
- 
- What:           /sys/bus/mhi/devices/.../trigger_edl
- Date:           April 2024
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a38..4e84e10 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -8,12 +8,14 @@
-  * Copyright (C) 2020 Linaro Ltd <loic.poulain@linaro.org>
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/mhi.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/pm_runtime.h>
-+#include <linux/printk.h>
- #include <linux/timer.h>
- #include <linux/workqueue.h>
- 
-@@ -39,6 +41,9 @@
-  * @fw: firmware path (if any)
-  * @edl: emergency download mode firmware path (if any)
-  * @edl_trigger: capable of triggering EDL mode in the device (if supported)
-+ * @acpi_reset_method: name of the ACPI method that resets the
-+ *		      device at board level, such as "MRST._RST".
-+ *		      NULL when the device cannot be reset through ACPI.
-  * @bar_num: PCI base address register to use for MHI MMIO register space
-  * @dma_data_width: DMA transfer word size (32 or 64 bits)
-  * @vf_dma_data_width: DMA transfer word size for VF's (optional)
-@@ -55,6 +60,7 @@ struct mhi_pci_dev_info {
- 	const char *fw;
- 	const char *edl;
- 	bool edl_trigger;
-+	const char *acpi_reset_method;
- 	unsigned int bar_num;
- 	unsigned int dma_data_width;
- 	unsigned int vf_dma_data_width;
-@@ -1111,6 +1117,7 @@ enum mhi_pci_device_status {
- struct mhi_pci_device {
- 	struct mhi_controller mhi_cntrl;
- 	struct pci_saved_state *pci_state;
-+	const char *acpi_reset_method;
- 	struct work_struct recovery_work;
- 	struct timer_list health_check_timer;
- 	unsigned long status;
-@@ -1180,6 +1187,49 @@ static bool mhi_pci_is_alive(struct mhi_controller *mhi_cntrl)
- 	return true;
- }
- 
-+static inline struct mhi_pci_device *
-+to_mhi_pci_device(struct mhi_controller *mhi_cntrl)
-+{
-+	return container_of(mhi_cntrl, struct mhi_pci_device, mhi_cntrl);
-+}
-+
-+#ifdef CONFIG_ACPI
-+static void mhi_pci_acpi_reset(struct mhi_controller *mhi_cntrl)
-+{
-+	struct mhi_pci_device *mhi_pdev = to_mhi_pci_device(mhi_cntrl);
-+	struct pci_dev *pdev = to_pci_dev(mhi_cntrl->cntrl_dev);
-+	const char *method = mhi_pdev->acpi_reset_method;
-+	acpi_handle handle = ACPI_HANDLE(&pdev->dev);
-+	u32 saved[16];
-+	acpi_status status;
-+	unsigned int i;
-+
-+	/*
-+	 * acpi_evaluate_object() allocates memory and takes ACPICA locks,
-+	 * neither of which is safe once a panic is underway. mhi_soc_reset()
-+	 * is reachable from __mhi_download_rddm_in_panic().
-+	 */
-+	if (oops_in_progress)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(saved); i++)
-+		pci_read_config_dword(pdev, i * 4, &saved[i]);
-+
-+	status = acpi_evaluate_object(handle, (char *)method, NULL, NULL);
-+	if (ACPI_FAILURE(status))
-+		dev_err(&pdev->dev, "failed to execute %s: %s\n", method,
-+			acpi_format_exception(status));
-+
-+	for (i = 0; i < ARRAY_SIZE(saved); i++)
-+		pci_write_config_dword(pdev, i * 4, saved[i]);
-+}
-+#endif
-+
- static int mhi_pci_claim(struct mhi_controller *mhi_cntrl,
- 			 unsigned int bar_num, u64 dma_mask)
- {
-@@ -1435,6 +1485,22 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (info->edl_trigger)
- 		mhi_cntrl->edl_trigger = mhi_pci_generic_edl_trigger;
- 
-+#ifdef CONFIG_ACPI
-+	if (info->acpi_reset_method) {
-+		acpi_handle handle = ACPI_HANDLE(&pdev->dev);
-+
-+		if (handle &&
-+		    acpi_has_method(handle, (char *)info->acpi_reset_method)) {
-+			mhi_pdev->acpi_reset_method = info->acpi_reset_method;
-+			mhi_cntrl->reset = mhi_pci_acpi_reset;
-+		} else {
-+			dev_warn(&pdev->dev,
-+				 "ACPI %s not found, keeping SoC reset\n",
-+				 info->acpi_reset_method);
-+		}
-+	}
-+#endif
-+
- 	if (info->sideband_wake) {
- 		mhi_cntrl->wake_get = mhi_pci_wake_get_nop;
- 		mhi_cntrl->wake_put = mhi_pci_wake_put_nop;
+-- 
+Neil
 
