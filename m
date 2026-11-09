@@ -1,100 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.40
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794188369;
-	b=vOhHzaTlKVHPnXzGe045vU+BqLQAhGzoBFLK/61rABI1fMsVXcbvL8ogMU3b+dbQl6Xl
-	 1BJBHHuh6E+lJGb86ofBbBskberNsxtAUM5UZ3V8YLCR/iIhPa1YqyqnFaGngnIB+WMz0
-	 LYwbbleGIoZn2DXe4Q8NR0uR6YwXXn52vK/DHbiLcAAbfLlZi3qCDIPrg1+L50Ukj+pDY
-	 MrMnPGoLH4GGZwaOwTUcj9KCX2Sh4EQF03ArsdM1H9I9j2ZFfXWGWEVQje5RGCMJpjB2K
-	 ionlY1D/+RzUPtKF41vKYZp1smU+KF50LM1vEj46WZGnonIoboS65xbz02OHdS+zGaQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188369;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Content-Type:Date:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UK8FFw6cKcrOdzxm8cDlsKuP7lRmUbXTtYWqhin0FUg=;
-	b=4NkrXzEicT4Q6WIROJxr2/+0KJu3v/NgLJKVGSsE8oS4zxhA+v2hD5E+ZVZLua7k2QIv
-	 efHBsNe0U4plttS28XBooz7UvE+xdZmpC/72Tfpmg7wN2QcTPmmyNJYZ2hSMVgN+t8pS/
-	 hhDGCy4AmsQTfS0SsOOLAN9jIJrtAoGHwa9JQu9F4/5yQw6eXaLk/tRH6dLG+2ILCqRgL
-	 b5x0SlR2NeOsFivbxamUnQKxR8On41hBsTMBiT6F8w1FaK+5bYQqUkz0E99N7hn1e0zB0
-	 PQLAeRdEMsBRfOS5qDRCrL+Eb2Am/YcklUQGXba5xhX8OAU0gfa1Vw0e6FZJJFeUgpw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Ckv6NKQK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.40
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010040.outbound.protection.outlook.com [52.101.228.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A55C606A31C;
-	Mon,  9 Nov 2026 01:39:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A55C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Ckv6NKQK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fQi+QFxNRy38ZdvJVLzm4bG42PN21BGzdvDJXf/Liv6momyA8+N4EDuv01A4WvO5HhmL+n6OaT3RTRId5UiMFVB64oNwyXFwtwn9Ffsj8xp006u8cxTVQv9spq4KuOcULmSMjEOJGaZwI4R3kFFGP8AWkM4FliniHarlOFg4t/5qryCgBGIC1r7pdydrj229RaOHJdhdcqoqhnigPowSI/cos1s0zvdO0mLqGjvsZFH7mDURSgvTKpvYwsmRMnt1V/4XSu4CjciLoOYH4zpkFmc99xxqre3gkl4XRJVB+Fq0yhzPym+R3niETBz0raGBfzjMoFp5/wwoW2HZ9KVS5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UK8FFw6cKcrOdzxm8cDlsKuP7lRmUbXTtYWqhin0FUg=;
- b=DCpta/1vYdiBxdXqIDgNmSGbQH4gSBDf0XYFWt9WMzjVOwrF5hc3DAQcIhxAwlGw0BALAmqa6C/LO0tqjs6enpMRFlnuLYpiP9DSpD4xs+LMJ61odPpACkFo/0RnVkOIEoNKdKgVoBVZ0GnwaMpz6v9y6U2hA5Marngy0/H6IQW7eu/qXkl1GiRcgxvO+W+8p8Cb1q3Rz8QAmC1H81rvy2bxvvYPAC3enrkXIx0GvoYw2mysIPc0RCIvsJpmSmcTkds7+jXwcBqxGl2fHrICpkH9/0hJzWwd9vP8nWKuyWYOCarw/SNpJ36wTrf7qVRS/KJivC8FQBA1S7jBDpn26w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UK8FFw6cKcrOdzxm8cDlsKuP7lRmUbXTtYWqhin0FUg=;
- b=Ckv6NKQKTWlXWZ0gr8mXisrV2lzalpdMkYP+yITUQeFbU5OrbQxr12FF/KYJc7nlrQHmXnhTJECOaxdgB1QxQ7pOZvJm3ydrnXXsmeptZAMhZrsXRtjZKqs95h6M9yTEFSgglAdZ70ZQhWoAl7SW/h6A1ZEV1RdSn8nGWRRK2iM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYYPR01MB15175.jpnprd01.prod.outlook.com (2603:1096:405:27d::8)
- by OS9PR01MB17980.jpnprd01.prod.outlook.com (2603:1096:604:474::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 01:39:25 +0000
-Received: from TYYPR01MB15175.jpnprd01.prod.outlook.com
- ([fe80::9bfd:a110:68f1:134d]) by TYYPR01MB15175.jpnprd01.prod.outlook.com
- ([fe80::9bfd:a110:68f1:134d%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 01:39:24 +0000
-Message-ID: <87y0b2pyus.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Frank.Li@oss.nxp.com
-Cc: Martin =?ISO-8859-2?Q?Povi=B9er?= <povik+lin@cutebit.org>,	Liam Girdwood
- <lgirdwood@gmail.com>,	Mark Brown <broonie@kernel.org>,	Jaroslav Kysela
- <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Shengjiu Wang
- <shengjiu.wang@gmail.com>,	Xiubo Li <Xiubo.Lee@gmail.com>,	Fabio Estevam
- <festevam@gmail.com>,	Nicolin Chen <nicoleotsuka@gmail.com>,	Geert
- Uytterhoeven <geert+renesas@glider.be>,	Magnus Damm
- <magnus.damm@gmail.com>,	Sen Wang <sen@ti.com>,	asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org,	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,	linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev,	vkoul@kernel.org,	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 3/4] ASoC: renesas: rcar: Use dmaengine_get_dma_device() instead of chan->device->dev
-In-Reply-To: <20261106-dma_sound_cleanup-v1-3-5eb8a7b81e87@nxp.com>
-References: <20261106-dma_sound_cleanup-v1-0-5eb8a7b81e87@nxp.com>
-	<20261106-dma_sound_cleanup-v1-3-5eb8a7b81e87@nxp.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 9 Nov 2026 01:39:23 +0000
-X-ClientProxiedBy: OSTPR01CA0011.jpnprd01.prod.outlook.com
- (2603:1096:604:220::8) To TYYPR01MB15175.jpnprd01.prod.outlook.com
- (2603:1096:405:27d::8)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794188377;
+	b=AWWG1z6PrhlvJk9D3SrxJNuexGHESMsQmhpQf/PhX1FwDMR0RG4DVmpD97LK6vMEmdEJ
+	 tD35DF/49z/DjffqjiEfxuskEsyfpDqrCiTxoDkCl8T74aOEPD08+S65PWeVWqX1XeAbe
+	 SL3lz8j96YAz9bqQaUgghiVvir+r68UBjFqB+3IYd/vkQLispd7xcnfS5sgOeDu1aHGjS
+	 E34xbO1vv3YQPcp38NqhvCDP/IgZLpLHa/ES2AiMVFu12vYIcSYInNSKQJtctBMtuCgnU
+	 Xm33tjkvK/EXAa25ttzkyfWeWOtwp4fr+6o/K1RuDMxY8owfiKX0bRylTHvC1UtShMA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188377;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=zwtvQ482gQzLPU1xaJ8sfIK1YdTJJAIepvZMSBZ/xCA=;
+	b=IzTsZgsuOiv2Xcp3cmCUI2zbjH62n7BWdvaflynHt2MCHVWLwfFcUSwpLqsnFwavT9tj
+	 o/lXRp7A7qxlSh4aCf91ZwqrEgJN+9zEu0TGroieUDDF3TkrSd7DUTTvRzOFMrTIffN2I
+	 DLD9LrC4vNZ8Slfs0sUSB+izEYx/Z91fXNlMsMB+qSKmcDBFYVq79r/VvUAsCziZObLyl
+	 icemZiISttYIguvohvu466cd133+beXtsoBQJMmHC9Cx0L7ZxCHRQ+O92wQ16jsntsgYL
+	 knvRhdExyrIGt9Aw//L6uMtRCIZxQVB2ba1OZwEmjDVoiu/Yb+YM+N/3x49nSGaS4eg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=13.75.44.102
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80F1F606A321;
+	Mon,  9 Nov 2026 01:39:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80F1F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMBGD2tUJPFqN5AiAA--.9248S2;
+	Mon, 09 Nov 2026 09:39:32 +0800 (CST)
+Received: from hust.edu.cn (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wAnsjw9JPFqZoQtAA--.37324S3;
+	Mon, 09 Nov 2026 09:39:25 +0800 (CST)
+From: Dongliang Mu <dzm91@hust.edu.cn>
+To: Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/4] docs/zh_CN: translate threat-model.rst
+Date: Mon,  9 Nov 2026 09:39:07 +0800
+Message-ID: <704397edfecc39bf93ea6871aaa149c750adbdab.1794153793.git.dzm91@hust.edu.cn>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1794153793.git.dzm91@hust.edu.cn>
+References: <cover.1794153793.git.dzm91@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,78 +57,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYPR01MB15175:EE_|OS9PR01MB17980:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7d556a8-6ca7-448a-89ca-08df3e0248ec
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|52116014|366016|38350700014|11063799006|4143699003|56012099006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	qcgkK1A/WkrnLalyxKKgpYs1xlSc7iS74XzFDLq5pWLJWC/tjPvMtJkNkDoL5Q3VgJx3OIV6/wrC+u6XZjRtbeZ7bTmSj9t6Nue2QmbVBJ0ijlzDe70ad43PpdKzeYxTjtwTXxCktqGpnsO/J7uCnCG+d/DDgHA3Pk205h/JvRtOq5wR+5NTjJ2vG1OcC/iajHEWtY365RGKp6gifEHfygEXPXWf+PThpF679vInkiTW6wrN8gAf5HL/DkVx9wQx4fTrcLykN/AYtdvkrnBTNb3wz2jsG7VMLIn5JpW2d7HoamGbb+3oDLAYJDYbHmpD87Byp5shsmuRHoPu8i+B8B3jtIRPpOZ21w6qFVyFu5Zv4LgxcVySoTMstAzDS/R6YXaIrETXiUMJM0TFl84GM7ZOs9qmmVWHVowaOkL4EnOH/8ZKCrcrP+N/t1iRazJIlhIzQ3Oe85gaL6onzvYo1P7GmhAk5A/UlrzkpKsOonzk0cSIDL5UW7PMOmn80/sTs4hzb9rxLPXVrt+c62kSQWTJWzX/Blqv4/A0q40D1I1FnRiS8z7eCLgjh481V0Kcgxpx9/BX9U0GXPE4AfvBJ97ZZUobPqo0qa2H7Jv2HWQXD3HvS6MEfWaTc7Yq0K7Xx5rEI9f+aLYIwJwnhZfk60ZAbFMgCJWydbh/MEK3O6ypPSYdtKVupEJMSjt28X5Yedj1gAtv5KhYy5r5XSHCJ+QiR/Fr9acK424naNkzuXE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15175.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(52116014)(366016)(38350700014)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zjZ38FYQ5X4mm1gbEnCW2iXPXtreeX7sR2Jy9jr5hDuNY1S35oPTiLVgWBF8?=
- =?us-ascii?Q?Gs5KXX15afi+UlJJZfeAEkwLqtzSSv7U0zMcbQ7IapNSumBbcY71BftcIown?=
- =?us-ascii?Q?3O96pzfXp4T3pLDmxm01qZyABhhraE7DZ6ktws/PAOZlRUKr0RA4DFBejd/o?=
- =?us-ascii?Q?p722djVPogg4iAbSIGaD3r4GOq2rHqsBBrLm7OCJJ7+fEc/bg+JhT+pmXlKm?=
- =?us-ascii?Q?WOVi92vo2dIPDw8OBYxzJ52kA38dNczl7V2eFDkeiepHjI8jcqVF9FK2/nj4?=
- =?us-ascii?Q?cW3peZHa7xQZQ65d7KfFNzjx7qMSe4jYgUEFN3CCH3crMj7IY3IZBYh+JMO7?=
- =?us-ascii?Q?1w/+PWVBEZIKi04vTJkCZF5kUjDoDHMQzmfxg3471eQ1diSqxQIS/NgmzVoj?=
- =?us-ascii?Q?nRN75tUWyN3n/7IfH6VGdeJ9T/jwBWlUDUDQ57XWF8Npe1yeiYvZTpK92+1h?=
- =?us-ascii?Q?waN27jlB/IsO+cD7hmjRrPWWy+SCASLEg5cQtzaelt6o1twB4NczFTRn9Ky+?=
- =?us-ascii?Q?qCnMSK0wrLnZnyNu9EbeJpKCzKk2UgJvlpXXiDDG+xPHT6RixkkbcSmxmMJn?=
- =?us-ascii?Q?SwoUIaDTI7LY1lJ8TAN3jRlih2ja5coylo4FUhoECZJ+YGVbhiFSn0DpbZZQ?=
- =?us-ascii?Q?1ychgImulMH5agAr4SnYZXi8Xl01piASUE8DNxtm5f5osM46Sr6a+R0SbKFQ?=
- =?us-ascii?Q?PGZsGE+3PXMUnqqYKTiYsEJGINo+JFgLUioJ/Cc0KD4zIfi3C5Y0ZFR6ZUyv?=
- =?us-ascii?Q?mugKxwvmFv0igghuk7kAmBuCrpq9ouFWceeG2Dj7KPDu6ncc6CcIRxBHVz3f?=
- =?us-ascii?Q?EUDysOeAEJqyWvScSuqvlwayGPKdQsYouz9lDuS0DNza+Vv5ktdiUAVyoKe/?=
- =?us-ascii?Q?WQ3/Q0Ly4jX2kSCcVjAg2Bdhy+9i0U8dXy2M6duzRhnRLLxHVvugiH3EQ26b?=
- =?us-ascii?Q?ZzAL92B9Leu8NWMtsqgpG49cQuiC1TuzuzL68xqWJTxJYV0ICQrsgVeKlNaO?=
- =?us-ascii?Q?jzSkoc69wEFUKIKFTYbwm0hb7a64spsbQzNjeGY8y6KiooHAMm9HBiL2qce9?=
- =?us-ascii?Q?5AVkJ87cQ1xgb17JMwYxHtFkPPxjTVC1fVi4cgN3IIrn2wRc+P8r09KRQh8G?=
- =?us-ascii?Q?1nIyvE280N+wCbUstcw6mDQvl8ZvTMyGKtZVZgSXouTuqn7U8VbjE13KaBPL?=
- =?us-ascii?Q?0Zm0hpG2IMoxHdQAR1lQRSyaeopYJhHPVI+mwiKgLzCCQPImFRcCojn1Vnfd?=
- =?us-ascii?Q?lb0WuHmg4SzSnTgWXEN6VlGYyNmwhNk8bPcsc7LiP7YzseqTep1Jo6o+jZg7?=
- =?us-ascii?Q?FBX1fy+jZYhHoVD3tcisqZTE4oTZVq+kGTrqJXYef9XanUinJeZSdw/rXbML?=
- =?us-ascii?Q?adr88fFIkUCyLHPp3aOyqCEk4DC4B/FeCiiynXL2nWhRRXWcMXPFuXtUBiaN?=
- =?us-ascii?Q?FwShyyVaw2C9YrBQDAFiRLmnW1na3jBir74pWXiy+1bnZJvheC6Ene7gBGrv?=
- =?us-ascii?Q?o9M9vEScR41qoQwadyUFFyqKvptf2Syjd4YmljavdnTuFUHsA9x7kdron2nL?=
- =?us-ascii?Q?z1oWklt0LXNX/JL3tVFyh9Wsyv+2DPlSzaT27vFpzZmpylgEzE6SRK2z4D68?=
- =?us-ascii?Q?XhnwSVoL59b0IYL7bitTH92pKsaInpz71r81iYqgqbtFnXO2yB8k5UHTeZf3?=
- =?us-ascii?Q?ee6aohDIWLH5iiRXDJajajg52pyDDl9oU8f3V4UJqDM14I1kN3QiIP05PxCM?=
- =?us-ascii?Q?l47g3ugju1wCvBpHQMvhptlyDEtCQUQ=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7d556a8-6ca7-448a-89ca-08df3e0248ec
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15175.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 01:39:24.5897
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ktcFgn7IbTYBB2t3TuNy3hiCNxsaMx54oNsU+yfHoSoL5Zwx8Hn7+nyg180WsjDDWF+VsbjegUCagFV+ozrILOhBSyyq6pD4u0+z7juzNbKIRHUvlmIACFsR+4UMbIfT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB17980
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IAEQrMBGD2tUJPFqN5AiAA--.9248S2
+Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWfJw4UWw47Wr1rCrWktr17GFg_yoWkZFWkpF
+	W293y3Ka17KFn8AFn3G347Xa1rG393C34akas7Ga4ftr1Fk347Cw47Kr15Zwn3G34UCrZ8
+	ZFWDCFWIy3Wxu3JanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUH0b7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
+	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
+	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
+	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
+	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
+	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC2
+	0s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
+Translate the Linux kernel threat model into Chinese, including English
+changes from parallel history merged into docs-next.
 
-Hi
+Also includes bea79063a351 and 11f46e30e688, combined in merge
+2bdcd6cf2ac4.
 
-> Replace open-coded chan->device->dev with the accessor
-> dmaengine_get_dma_device() to avoid direct access to DMA engine
-> internals.
-> 
-> Prepare to make struct dma_device private.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-
-Thank you for your help !!
-
-Best regards
+Update the translation through commit 60763c2f834d
+("docs: threat-model: fix /dev/kmsg reference")
 ---
-Kuninori Morimoto
+ .../zh_CN/process/threat-model.rst            | 168 ++++++++++++++++++
+ 1 file changed, 168 insertions(+)
+ create mode 100644 Documentation/translations/zh_CN/process/threat-model.rst
+
+diff --git a/Documentation/translations/zh_CN/process/threat-model.rst b/Documentation/translations/zh_CN/process/threat-model.rst
+new file mode 100644
+index 000000000000..4e3f4475a6d4
+--- /dev/null
++++ b/Documentation/translations/zh_CN/process/threat-model.rst
+@@ -0,0 +1,168 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++.. include:: ../disclaimer-zh_CN.rst
++
++:翻译:
++ - 慕冬亮 Dongliang Mu <dzm91@hust.edu.cn>
++
++Linux 内核威胁模型
++==================
++
++对于内核会防护哪些威胁、不会防护哪些威胁，人们有许多假设。这些假设容易让
++缺陷报告的分类（:doc:`安全问题 <security-bugs>` 与
++:doc:`非安全问题 <../admin-guide/reporting-issues>`）产生混淆。如果内核、
++发行版、管理员和用户之间的责任边界不明确，也会使安全措施的落实变得复杂。
++本文试图澄清内核在这方面的责任。
++
++内核的责任
++----------
++
++内核抽象了对本地硬件资源和远端系统的访问，让多名本地用户公平分享获授的
++资源；底层硬件允许时，内核还为通信及处理或存储的数据提供一定程度的保密性。
++
++内核假定底层硬件按照规格工作。包括 CPU 指令集的完整性，分支预测单元和
++缓存单元的透明性，内存管理单元（MMU）的一致性，支持 DMA 的外设隔离（例如
++IOMMU），控制器的状态转换，从寄存器读出的数值范围，以及遵守硬件文档限制等。
++
++如果硬件未能维持规定的隔离，例如存在 CPU 缺陷、侧信道或对意外输入的异常
++响应，内核通常会尝试实施合理的缓解措施。这些措施尽力在硬件能力范围内缩小
++攻击面或提高攻击成本，不能构成内核提供的安全保证。
++
++用户始终在管理员授权下活动。管理员可授予或拒绝各种权限，影响用户对资源的
++使用及其活动的保密程度；也可将部分或全部权限委派给用户，尤其是通过
++capability，但不限于此。这些都通过 sysctl、文件系统权限等配置完成。
++
++Linux 内核采用符合自身威胁模型的一组默认设置。发行版有各自的威胁模型和
++预置配置；管理员可能需要放宽或收紧这些配置，以满足自己的预期。
++
++在具备特权级和内存管理单元的常见处理器上，Linux 内核默认保证以下保护：
++
++* **按用户隔离**：非特权用户可阻止同机其他非特权用户访问自己的数据，包括：
++
++  * 通过文件系统权限保护的存储数据；
++  * 默认不允许其他用户访问的内存页；
++  * 进程活动（其他用户不能使用 ptrace）；
++  * 进程间通信（他人不能观察经 Unix 域套接字或其他 IPC 机制交换的数据）；
++  * 本机内部及与其他系统之间的网络通信。
++
++* **基于 capability 的保护**：
++
++  * 没有提升权限（包括但不限于 ``CAP_SYS_ADMIN``）的用户不能修改内核配置、
++    内存或状态，不能改变其他用户看到的文件系统布局，也不能授予他人自己
++    不拥有的 capability 或影响系统可用性（关机、重启、panic、挂起，或通过
++    无界资源耗尽使系统无响应）。
++  * 没有 ``CAP_NET_ADMIN`` 的用户不能改变网络配置，也不能截获或伪造其他用户
++    或系统的网络通信。
++  * 没有 ``CAP_SYS_PTRACE`` 的用户不能观察其他用户的进程活动。
++
++启用 ``CONFIG_USER_NS`` 时，内核还允许非特权用户创建自己的用户命名空间，并
++在其中拥有所有 capability，但仍受一些限制：不能实施影响初始用户命名空间的
++操作，如修改时间、加载模块或挂载块设备。详情请参阅 ``user_namespaces(7)``；
++本文不介绍用户命名空间的全部可能用途。
++
++内核还提供许多故障排查和调试设施，如果交给不适当的用户，也可能成为攻击
++途径。有些设施设计为允许普通本地用户低风险地访问，例如通过 ``/dev/kmsg``
++访问内核日志；有些设施会暴露足够多的信息，在多数环境中需要由管理员决定是否
++开放，例如 perf 事件和跟踪；还有一些设施原本就不供非特权用户访问，例如
++debugfs。用户在管理员明确授权后访问这些设施，不构成安全漏洞。
++
++允许违反上述原则的缺陷属于安全漏洞。然而，只有在另一项原则已被违反后才允许
++进一步违规的缺陷，只是弱点。内核采取多种自我保护措施，避免某些类型的缺陷
++跨越安全边界，但这些附加保护本身失效，并不单独构成漏洞。
++
++哪些问题不视为漏洞
++------------------
++
++按照 Linux 内核的威胁模型，以下问题 **不** 属于内核漏洞。如果认为内核可以
++做得更好，仍应报告，以便在合理可行时审查并修复；但它们会按普通缺陷处理。
++
++* **配置问题**：
++
++  * 过时内核，尤其是已结束维护的分支，不在威胁模型范围内。管理员负责保持
++    系统更新。只有证明缺陷影响仍在积极维护的版本，才可将其归类为漏洞。
++
++  * 构建时配置：明确记载会降低安全级别的配置变更（例如 ``CONFIG_NOMMU``），
++    或仅供开发者使用的配置。
++
++  * 操作系统级配置：命令行参数、sysctl、文件系统权限、用户 capability 和
++    特权接口暴露等变更，若提供非默认的非特权访问权限，或削弱内核实施保护和
++    缓解措施的能力，就会明确扩大暴露面。例如授予 procfs 或 debugfs 写权限。
++
++  * 仅在使用开发或调试功能时出现的问题，例如 LOCKDEP、KASAN 和
++    FAULT_INJECTION。这些功能已知会带来开销和潜在不稳定性，不适合生产环境。
++
++  * 影响 ``CONFIG_STAGING`` 下驱动或配置中标为 EXPERIMENTAL 的功能的问题。
++
++  * 加载明确不安全、有缺陷或处于 staging 阶段的模块，以及通常任何标记为
++    实验性或不适合生产使用的子系统中的模块。
++
++  * 运行树外模块或非官方内核分支；应向相应供应商报告这些问题。
++
++* **已有过高的初始权限**：
++
++  * 用户已拥有执行操作或修改状态所需权限（例如 ``CAP_SYS_ADMIN``、
++    ``CAP_NET_ADMIN``、``CAP_SYS_RAWIO``、``CAP_SYS_MODULE``），且没有
++    进一步跨越安全边界时所做的操作。
++
++  * 用户在用户命名空间中实施、但未绕过初始用户所受限制的操作，如使用
++    ptrace、发送信号、使用资源、访问文件系统、设备、sysctl 或内存、绑定
++    网络地址、修改系统或网络配置等。
++
++  * 初始命名空间中 root 用户的任何操作，例如写入特权设备时触发内核 oops。
++
++* **脱离生产使用场景**：
++
++  这包括依赖无系统噪声的实验室条件的理论或概率性攻击，或需要不现实的大量
++  尝试（如数十亿次）的攻击；后者早在成功前就会被常规系统监控发现，例如：
++
++  * 只在无噪声实验室环境中才能预测的随机数，如 IP ID、TCP 端口或序列号；
++
++  * 易受测量噪声影响、无法在生产系统中实际复现的概率性活动观察或信息泄露；
++
++  * 只有通过猛烈攻击（例如暴力穷举）才能触发，而且攻击对系统的影响使其
++    不可能在成功前不被发现的问题，例如必须先耗尽全部内存；
++
++  * 只在开发用模拟器、仿真器，或报告时现实系统不存在的配置组合中出现的
++    问题，例如涉及数千万线程、数万 CPU、不现实的 CPU 频率、内存或磁盘容量、
++    网络速度的问题；
++
++  * 触发成本比预期收益高几个数量级的问题，例如为了读取结构体中 7 个未初始化
++    字节而制作功能完整的键盘仿真器，或尝试数百万次连接以猜测端口号。
++
++* **加固措施失效**：
++
++  * 绕过内核的某些加固措施，但没有可证明的利用路径，例如绕过 ASLR，或进行
++    时间测量、探测却无法证明后果。这些只是弱点，不构成漏洞。
++
++  * 缺少参数检查，或未报告某些不产生直接后果的错误。
++
++* **随机信息泄露**：
++
++  指泄露少量偶然存在、攻击者无法选择或受访问限制的数据：
++
++  * 系统调用或其他接口返回的结构体填充字节；
++  * 错误消息中的标识符、部分数据、未终止字符串；
++  * 内核内存地址或指针泄露不能立即被利用，因此不属于漏洞，但须报告并修复。
++
++* **不符合规范的设备和介质**：
++
++  驱动依据规格实现。如果设备或存储介质违反驱动所依据的规格，造成的异常行为
++  属于应修复的普通缺陷，除非驱动明确记载自己已针对恶意输入做了加固。因此
++  以下问题不视为漏洞：
++
++  * 挂载损坏或恶意构造的文件系统镜像触发的缺陷。挂载块设备是特权操作，
++    管理员负责其挂载的介质。这也包括可通过挂载前运行文件系统一致性检查
++    （fsck）解决、缓解或发现的问题。
++
++  * 需要改造或仿真硬件才能复现的缺陷，包括伪装成另一种设备的假 USB 设备，或
++    报告文档范围以外数值的设备。
++
++* **物理访问**：
++
++  需要实际接触机器、改造硬件或使用专用硬件（例如逻辑分析仪，通过
++  PCI-E/Thunderbolt 发起 DMA 攻击的工具）的问题不在范围内，除非系统明确
++  配置了 IOMMU 等用于抵御这类攻击的技术。
++
++* **功能和性能回归**：
++
++  能通过设置适当权限和限制来缓解的问题不属于漏洞。
+-- 
+2.51.0
+
