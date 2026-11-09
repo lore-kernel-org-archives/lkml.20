@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794198577;
-	b=O8syWTBEFsJG2fRwfe3qKrtS3jwfwHBx9ZChOaiEZA9mZghMYRjNscgczbf0rrw5G5Od
-	 cOdwExVSTttu6SRPYw2J1iyyHpXcImacaji9N4vngbQrWVLJ6wf8+/eXuZpbdL2WDZ667
-	 ++x+lMBRlNPGTWOvuDQq1TIhpt68sEqi7zCoMHXr8DJAlUefUi9K4EiyZyQV06cgprjuU
-	 QaOBX5BOEul79j6Kbw8UnTi/uw0BTwG6d48YBv05x23sMGSz3LBIWEe45Cw+uD7O9sI2N
-	 /0GIzJSqJAm8JsUw0c+0HYMXkc+WPmwU18QrKvTYzNDNC2Inv5eHIowNnQ94M24fKvw==
+	t=1794198568;
+	b=k9/S90oPxp8W0qdc8hPRSWc6GfVThXk5XwFkHrKZlXzLB5KTtvIxdJioI8s7hNpISeq3
+	 ssTa1l6B2pEULom4ITzo1ue6oVmTxNgvjCw5SIE7OedudAOqK2v2UryJYIZ1qmE5wes0J
+	 xwZVp/uum0zL9D5Eq3XRszQF+i1KkD7wnHviMcFJtdZ1DI6F4A/sJMM0lSpbKmP9N8x2M
+	 xYQ+fWwVccDgs6rGmucXB80B1aNyEDFsM0LTSLPhiov8A2POosD2gbdBa9mXdic45KK/x
+	 D3330TCnncZo2x/6e3hEJZrrRUqN25dmVxi0MH5o1zxVRxW2CSz0ZASyAs0Xn5+RO5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794198577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794198568;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZdxUSqo+w8YeqJVaUlbjwzQ0LSd0yO3WpZRV2w3VNNE=;
-	b=MTfK9eFYbcOV+Y7ub1oCNrxZHx0oPUXxYSycl19lnOUE3BfwbCqIEZu6F4ta2Vdoulsg
-	 6zvbEHQOSM/SWHvZoK5uIMm0YdtljnFIRTLgJnSFOd59eHJCO7G3fJ/gM9dMGZf+rIL9i
-	 tsM2UBivGsrNvM74NawVYIzJtKyTZf/He2U/Df4dPOA3Vf3vt5Qtb+x/V2IX7B36CysTT
-	 ujCQkpHV+nda1GnnxbSkDEaouO5Unk6QIICP3iMR0bQe3DsyQWWnMgDQvND3E/Yhs+N9C
-	 Z+qiEfAxjXdDVLLd3cGdoG1IAYL2g2RNEYFImVNERh+c1/bE1Jv8IncBv6i7scAALkQ==
+	bh=+vNJkoFdRV0hile3s0HC3gFTuex7879BN3APjkn7jbs=;
+	b=DdXiSI8xE5wJCe55k0X3+4xu8vYRD7X3j+YheB3h/vYf3J9LFVqMunS43wwI0a91EUKy
+	 wEKI9m8Ynb7Ub1JYDyfChhXPg36Dty7I6Xt2oV6GiBmJnd064GtY/77KRE+IDs6NIyVZe
+	 4lPDBT8SzLlDGRl8zhwLZGAJalwzYy5KJ4hYsa0VzZcfdYStQiHkGT2jWuFkEPd2lWQPv
+	 nJ3tJ24mE29QpqcYWyMjHsXay/Y3d8BIKBA9PFWawTwfw0GWQIUPa7IJCBhKVJjpHejJw
+	 xlavlP5huZsptBRSbfgJiP2ks7fucRAPBMvkp18SZW5D1sdMAT/wCK4PNxF2UXGOOsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9X1OVaC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jv1K5saN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7746F606A321;
-	Mon,  9 Nov 2026 04:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF22C606A338;
+	Mon,  9 Nov 2026 04:29:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9X1OVaC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9BF1F008A3;
-	Mon,  9 Nov 2026 04:29:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jv1K5saN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A4B1F008AB;
+	Mon,  9 Nov 2026 04:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794198577;
-	bh=ZdxUSqo+w8YeqJVaUlbjwzQ0LSd0yO3WpZRV2w3VNNE=;
+	s=k20260515; t=1794198567;
+	bh=+vNJkoFdRV0hile3s0HC3gFTuex7879BN3APjkn7jbs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m9X1OVaCDAc4cYxWdCp1DRrs7TEYWz+40Rz7L2cR9+BhwVHch/dpCnpu65A8eFJ9f
-	 knq0IwiPxYlF1+0jtOIiuZAjC1Ff7ZpIdhVero9SuzvU6DVFDnqSwc8ROstRAETTY5
-	 pJ7VOrw1MgYEZ0/1ulU8v5l7WSsMORUCtknsm0hmR/062c2ZwfJXvuVoM2fFyWfufX
-	 ytZm4npSAo3F0qNF43obSSSW/ZW5PEl4HrvWLVqr8/M1kWvfdP4i8sNWzLCKV3WB6u
-	 oiFVAXSp0fyvtzWgNztPKgJlhXFWsXwIT4VHX6ZngXiXcxVrWa8p+rWZE9+BgQ908O
-	 ubqmhlb/hnMUw==
+	b=jv1K5saNkLZW16uHn+dTMyJM5qRf3XimTz3soJZCnus4lSjqOxAUkmwe+1J06v1cy
+	 J3VsJ8EEmB61rvTPJ88cU3QTtmqR9ypNLMVafVMOFGsTg+8Fw1SUllRV+wqMSIMvGY
+	 TUs9CjEJAGs6Kj6a9Q3r/+DmvBrU5L8xmYFnHkWaZ/sBCHHGd2FmP+bU0aO2EfRQKV
+	 HvD47jvOvXYT8tHtL2+L+cNAdsygjZ0eFKVtW6Sv76yortyZm274iL9fZxaQC/1eo6
+	 gYP1gsBUemzUQJaXexUYu0vnt6FTWEnyEAsDognGYFFvYSBO4jRVEsKo0j3ONVpPB/
+	 tgE/vsooMLWbA==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -56,9 +56,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [RESEND PATCH 10/14] iio: chemical: scd30: poll own trigger from interrupt handler
-Date: Mon,  9 Nov 2026 04:28:47 +0000
-Message-ID: <20261109042851.1326940-11-jic23@kernel.org>
+Subject: [RESEND PATCH 07/14] iio: light: vl6180: poll own trigger from interrupt handler
+Date: Mon,  9 Nov 2026 04:28:44 +0000
+Message-ID: <20261109042851.1326940-8-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109042851.1326940-1-jic23@kernel.org>
 References: <20261109042851.1326940-1-jic23@kernel.org>
@@ -75,64 +75,31 @@ Content-Transfer-Encoding: 8bit
 
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Keep a pointer to the driver's trigger in struct scd30_state and poll
-that from scd30_irq_handler() rather than indio_dev->trig. With the
-buffer enabled, the interrupt is only enabled by the trigger's
-set_trigger_state() callback, so it is the driver's own trigger that is
-in use.
+Poll data->trig from vl6180_threaded_irq() rather than indio_dev->trig.
+The poll is only reached with the buffer enabled, which is only possible
+with the driver's own trigger as iio_validate_own_trigger() rejects any
+other.
 
 This removes a dependency on the trig field of struct iio_dev, which
 is to become private to the IIO core.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/chemical/scd30.h      | 2 ++
- drivers/iio/chemical/scd30_core.c | 4 +++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/iio/light/vl6180.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/chemical/scd30.h b/drivers/iio/chemical/scd30.h
-index 1ac9f3f79271..bdec5cf62a26 100644
---- a/drivers/iio/chemical/scd30.h
-+++ b/drivers/iio/chemical/scd30.h
-@@ -9,6 +9,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/types.h>
+diff --git a/drivers/iio/light/vl6180.c b/drivers/iio/light/vl6180.c
+index aef8a5333442..44fd0446b583 100644
+--- a/drivers/iio/light/vl6180.c
++++ b/drivers/iio/light/vl6180.c
+@@ -525,7 +525,7 @@ static irqreturn_t vl6180_threaded_irq(int irq, void *priv)
+ 	struct vl6180_data *data = iio_priv(indio_dev);
  
-+struct iio_trigger;
- struct scd30_state;
- 
- enum scd30_cmd {
-@@ -57,6 +58,7 @@ struct scd30_state {
- 	 */
- 	void *priv;
- 	int irq;
-+	struct iio_trigger *trig;
- 	/*
- 	 * no way to retrieve current ambient pressure compensation value from
- 	 * the sensor so keep one around
-diff --git a/drivers/iio/chemical/scd30_core.c b/drivers/iio/chemical/scd30_core.c
-index 770571c21521..ca824436f60e 100644
---- a/drivers/iio/chemical/scd30_core.c
-+++ b/drivers/iio/chemical/scd30_core.c
-@@ -573,9 +573,10 @@ static void scd30_disable_regulator(void *data)
- static irqreturn_t scd30_irq_handler(int irq, void *priv)
- {
- 	struct iio_dev *indio_dev = priv;
-+	struct scd30_state *state = iio_priv(indio_dev);
- 
- 	if (iio_buffer_enabled(indio_dev)) {
--		iio_trigger_poll(indio_dev->trig);
-+		iio_trigger_poll(state->trig);
- 
- 		return IRQ_HANDLED;
- 	}
-@@ -666,6 +667,7 @@ static int scd30_setup_trigger(struct iio_dev *indio_dev)
- 	if (!trig)
- 		return -ENOMEM;
- 
-+	state->trig = trig;
- 	trig->ops = &scd30_trigger_ops;
- 	iio_trigger_set_drvdata(trig, indio_dev);
+ 	if (iio_buffer_enabled(indio_dev))
+-		iio_trigger_poll_nested(indio_dev->trig);
++		iio_trigger_poll_nested(data->trig);
+ 	else
+ 		complete(&data->completion);
  
 -- 
 2.56.0
