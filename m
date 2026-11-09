@@ -1,73 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245608;
-	b=aPQc398+b5d8dJUjPD5JPCcH3RIcXJHcbP5mwe904R+i54XUWz7G1IwIq9c2IN7an72L
-	 yxLdPV5JlIQg0AB4/J1Hc3uFRX1UwGA1aaWOVuDxrPgsSaX8K3XFtogvIy81yWwRIqymZ
-	 v74i7gmZAwuthCpiquTNZgh7qRYozaOlaa0iqryZzeUdNxlOvPLJf6UiG1JyvAVvMWY+S
-	 C5wURUEepjdep0LaJ0JCoanRqdKHMAP59koP9gl6twURX4FGa/cxXnjuKDo8EPjEHP1l0
-	 omzuGZIGcc7yJ5VltnKnbERcv/36A7JMlLJuZvqzuI9KQfdK+VlKZLQ7UC33YnDdGPw==
+	t=1794245611;
+	b=KBPc2x3HHeRhoO+H61ir95IGo/OEy5/nNmrmtZwo22OrWMkXuJg5qyy+DGX1lw2F3TLs
+	 NVuCDerZwnhng7k1lUzGGTEx086VqWFY9toHsg38RSO7dCfg6xhgPOndA+gMlAY3oBQpd
+	 1ZBrXRd4uWCTj5dLB8M5BA1rTIkIPCDlSMonQ0J+AjPVBKAmlKkqbqwqNwln5HyN53VyD
+	 X/UPBoq7tAxgSRlID55CQW8MsZq6c6729dsCnvl+2Po11DxMdRMRkVPLC3S0R2HDlZPu3
+	 WOEo7Ysnr4/XpFOSwwwBpzu1ZJC7k7V1JkTaBJ2SmyYZXLHXFOMpLp1bkTVzq21T0sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245608;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dUKIJ/XyzMoGqH+elSoxlwUX6nrAsxgspguzZjb2vhk=;
-	b=a2vx5WxmH2X96uPqOPBUUwQpY4Nq5wkXs4bpJYcb+77TIHBUzR5r2oF/3Pho1sJdv27d
-	 1+Twb5M4fIqlpFmtw4wOgx3r1kyG7FuQodwSh4pTCkTWI+0xZ97WHk2tNbkeEb7ZHubdo
-	 oB8ZSD52yYQkz8Mr56miEf010i55+21fuPpuY4hKmz4CJFu41EqGVK63tSMN1cupxIptk
-	 ppNdMdeprI99IDN6cFP7SyPKtcvVsympz7O5p/LB04OaKcr/JT00FGUKRLg41CPehIvTD
-	 gadG61KwEKhGNi5qk3iMuLBAO11qJrXk9daR7ftXStJ4A1EtpLBa+LDo1nzsRaDCkQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794245611;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Inir2BaRnVMDhUyUoteKvoszf0OxlCPGv6CRErVG1DA=;
+	b=PvDvYf8TZwCJZopJDe6z0H0pBSnSvamNDbNEeQDc30JZVAehXD5P8D91DiXrRAAHaqZ0
+	 GQ6ER8Qn8ggx9UgwCWDWNBM8S/ZY7/CFlk0MZswOW1TNvnEBpnNbHuhsa42qY2PbySFsH
+	 JuQ/PcbfXZkNjAxft2yuNU+VLl4neIH48nhbsjGobMOVzZBkttsGBzvJ+aTW6A6Hn5XDU
+	 FIIGjqUTLg9k305Jep8WgpPfEEk+fZR7N2x52UZBP1LCJ79qVW7n+YXjgcOPzzoG8xwaY
+	 UArCjhrVRMo44mUujKEKVcydjoXlQKnkTbHa3WnRnWZ/+miaGjCov36RF/0QGiJJ/iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qHnCBDEa;
-	arc=none smtp.remote-ip=162.62.58.216
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djPySGxs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F20606A321;
-	Mon,  9 Nov 2026 17:33:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F20606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F7C606A332;
+	Mon,  9 Nov 2026 17:33:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qHnCBDEa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794245602; bh=dUKIJ/XyzMoGqH+elSoxlwUX6nrAsxgspguzZjb2vhk=;
-	h=From:To:Cc:Subject:Date;
-	b=qHnCBDEaAMLH7Q8XddFhi6oOved6PquxyDIUwl8+9AIWoqByFUcFMZmAHaRWSjKdA
-	 fvzy5cYzk3vXPTjkMDwLfoqMyu3tAwwblKNMj2jctCSV7GR0cJnTGhlr8dRKNW4d91
-	 Y/czNTh1lvM49f7325fqoP3kea+a4RlNkt+urZCs=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 854B44ED; Tue, 10 Nov 2026 01:33:20 +0800
-X-QQ-mid: xmsmtpt1794245600t9mvu9umj
-Message-ID: <tencent_184425A5E27EBF8CC03B3D988647BDFA5C0A@qq.com>
-X-QQ-XMAILINFO: OeJ9zRfntlNP6oALGb+HWo7FwJX7ssaY9/P9tD1Q1dyMM789M2YlwG88Lst9FJ
-	 b5qrfnGB8RoTi+7j/o4OqE/r5WMMW8GiS+wzIs+yzjjKdMN1gA6U0qeZ/SomCtN8iPWhD0pLKPwf
-	 SM/rwT8v4+rutNMzJhR2Qt8ogzkiew5BFfq9ezc+vv53GTqIMnvC2CyVAH7lzDfes3QmfCrcejqU
-	 FKKHj/TvX9v47ZugT9bsOKZ9mRLpmVj6V34gGRP8/DV36dE0wvh6NKUs80TRPv2h1uSSZEtRfs7r
-	 z9KhJZbd4KSY1a308Kd2/KqAywBfBZ1rWgyHU+D1fLXlG9kWEv2NwmCggh/C2PyZeMG8J5T+VA65
-	 IhNHxw30o/wnAL25DpCaFtf674ehv9KdKzJpfRJIaKbM4a1uidHK/YDEewGvKSqX1/240FaPIWBL
-	 7G3z5KQEyIRSXB/IbVGHc7/RRt7XeSuFcCBVk57t0JIIguQpMpyi6QJ+57GlBVkcvRJH2y6MQTwu
-	 Wwc23VF6i3dacbvzKRSIdKPo3wziPz4asscfJILB0xUNFsP5Wad9AINiw4ZhKkgDZxhX8VKCUh2Z
-	 0spjsNf6IInzo5aJSL3as/e3XYAKPDoTZouC+6XjcSKd3RMCorncUPo6UoUtuUzEEvinE2egC1Zb
-	 23lVgX/lMS4hLmxBawtbWLsYIn2ComnHjW7uRnZyBBJSME6I3oGllETc4zDpqVgWGoRR6fGcP69K
-	 GFlIWrT/Nq0COIjHMSQ/nS7SNrVJHZO9diiutoTbQfWdbd1gvwESQvlnCD8vAFN8pQp0KS3sg1WE
-	 mFTm2+/U0cgdthj+GMRnlsLC0TLCDGdCTaYc9lsJRk9R8s4iWREzXhSqre8vfVW6qI27Vo8RWwbb
-	 boIDFykhpO9tztjxPywoHURtukuIG/Z1O+47WQRRHAXl7++nFiHTel08PdCO6U1+jB7lw2YYpN01
-	 U4BlpvIbwbGyMdjrnJl7mY9LipD/MqZ3p0Lxt3NG/V62F8zWfST1s+ssrnCBuovBulkyBuu+NE9P
-	 JF5wqtO+ojeToxgtuh7Zs66UhkWxsNxlNQyJLhSMzXYZ79zGGrTKtv3Sh2MBSSJ+Jb10g0ReodjQ
-	 nFVTlq0j8y2uUd92nRJLoOL4XkifOgEG3p8fkdAsK4TqHw/WHrOg2QPXx3Dg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- [PATCH] xfs: reject a continuation op with no buffered region in log recovery
-Date: Tue, 10 Nov 2026 21:00:00 +0800
-X-OQ-MSGID: <patch-xfs-wascont-v2-20261110@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djPySGxs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974581F0089F;
+	Mon,  9 Nov 2026 17:33:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794245610;
+	bh=Inir2BaRnVMDhUyUoteKvoszf0OxlCPGv6CRErVG1DA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=djPySGxsZ6iEOQmv7jIjsonj7PjIFm4ls4iJ6JGTnv7gdAXiBEifz5ckdtKAk/DVC
+	 KlhALj0Ws8vGo8pJSMxiay/BLWFRS8fkhDwvwfhSsEMH14sCyvtgOQBXqnO1CrxoYq
+	 yrd2mNGvpHZZ2iklTgiBwq6WI/UxPeNteunEDnLMaP/nwIwg183acu1TsA3wg7GTrP
+	 5k4zBmog6niDLxHxVaRTT8nnQ3JbfyTJSamxZklnW5u7LeWf54WWioccQVqn+4U4RF
+	 varZMkequd4efC7MkflJx2hn0+nZaKADE9BNtQr/cyuJG+EuZhsoDRSf7XzulbiH0i
+	 xAEb5sMVY4LCA==
+Date: Mon, 9 Nov 2026 11:33:29 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH v9 1/9] PCI: dw-rockchip: Fix LTSSM set functions
+Message-ID: <20261109173329.GA252206@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,80 +69,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-rockchip-pcie-system-suspend-v9-1-a2e55846649e@collabora.com>
 
-xlog_recover_add_to_cont_trans() takes the tail item of the transaction
-and indexes ri_buf[ri_cnt - 1] without checking that the item has any
-region buffered:
+On Thu, Nov 05, 2026 at 02:33:09PM +0100, Sebastian Reichel wrote:
+> Before the Rockchip PCIe driver has been switched over to the
+> FIELD_PREP_WM16 macro, PCIE_CLIENT_ENABLE_LTSSM and
+> PCIE_CLIENT_DISABLE_LTSSM were setting bits with a mask of 0xc = 0b1100,
+> which means BIT 2 and BIT 3. After the conversion it only sets bit 2,
+> with bit 3 being handled by a separate define named
+> PCIE_CLIENT_LD_RQ_RST_GRT. Apparently the conversion missed to make use
+> of this new macros resulting in the third bit not being set.
+> 
+> Fixes: 30e919570581 ("PCI: dw-rockchip: Switch to FIELD_PREP_WM16 macro")
 
-	item = list_entry(trans->r_itemq.prev, struct xlog_recover_item,
-			  ri_list);
-	old_ptr = item->ri_buf[item->ri_cnt-1].iov_base;
+This commit appeared in v6.18, so this looks like it might be a
+candidate for a stable tag?
 
-An item created by xlog_recover_add_item() has ri_cnt == 0 and
-ri_buf == NULL - the transaction header itself is copied into
-trans->r_theader, not into the item - so this evaluates to NULL[-1].
-xlog_recovery_process_trans() dispatches to this function for any op
-whose header carries XLOG_WAS_CONT_TRANS, and nothing on the way
-checks that flag sequence against the item state; the only related
-assertion in the recovery code is XFS_DEBUG-only.
-
-A crafted dirty log with a valid transaction header followed by an op
-header with XLOG_WAS_CONT_TRANS therefore faults at mount time on a
-stock kernel, without any sanitizer enabled:
-
-  BUG: unable to handle page fault for address: fffffffffffffff0
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP
-  RIP: xlog_recover_add_to_cont_trans+0xf9/0x460
-   xlog_recovery_process_trans
-   xlog_recover_process_ophdr
-   xlog_recover_process_data
-   xlog_recover_process
-   xlog_do_recovery_pass
-
-Note that reaching it does not require an actual split region: a single
-continuation op right after the transaction header is enough, because
-the dispatcher never checks that the previous region had a buffer
-attached.
-
-Treat it as log corruption and fail recovery, matching the other
--EFSCORRUPTED paths in this file.
-
-Reported-by: Guikun Yang <yangguikun19@qq.com>
-Signed-off-by: Guikun Yang <yangguikun19@qq.com>
----
-Tested on a crafted dirty-log image (real mkfs.xfs, files, sync, crash,
-then the first region op after the transaction header gets oh_flags
-0x08 and the v2 record CRC is recomputed): the modified image now fails
-recovery with the new message, while the unmodified image still
-recovers and mounts. The same image reproduced the NULL deref 3/3
-before the patch.
-
- fs/xfs/xfs_log_recover.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
-index 1111111..2222222 100644
---- a/fs/xfs/xfs_log_recover.c
-+++ b/fs/xfs/xfs_log_recover.c
-@@ -2147,6 +2147,11 @@ xlog_recover_add_to_cont_trans(
- 	/* take the tail entry */
- 	item = list_entry(trans->r_itemq.prev, struct xlog_recover_item,
- 			  ri_list);
-+	if (XFS_IS_CORRUPT(log->l_mp, item->ri_cnt == 0)) {
-+		xfs_warn(log->l_mp,
-+			 "%s: continuation with no buffered region", __func__);
-+		return -EFSCORRUPTED;
-+	}
- 
- 	old_ptr = item->ri_buf[item->ri_cnt-1].iov_base;
- 	old_len = item->ri_buf[item->ri_cnt-1].iov_len;
---
-2.43.0
-
-Resend note: the first posting went out with a truncated Subject line and
-without linux-kernel on Cc - a defect in the tooling that sent it, no
-content changed.
-
+> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>  drivers/pci/controller/dwc/pcie-dw-rockchip.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index bd86e32cc2b1..c35c5583c797 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -322,14 +322,16 @@ static void rockchip_pcie_ltssm_trace(struct rockchip_pcie *rockchip,
+>  
+>  static void rockchip_pcie_enable_ltssm(struct rockchip_pcie *rockchip)
+>  {
+> -	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_ENABLE_LTSSM,
+> -				 PCIE_CLIENT_GENERAL_CON);
+> +	u32 val = PCIE_CLIENT_ENABLE_LTSSM | PCIE_CLIENT_LD_RQ_RST_GRT;
+> +
+> +	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_GENERAL_CON);
+>  }
+>  
+>  static void rockchip_pcie_disable_ltssm(struct rockchip_pcie *rockchip)
+>  {
+> -	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_DISABLE_LTSSM,
+> -				 PCIE_CLIENT_GENERAL_CON);
+> +	u32 val = PCIE_CLIENT_DISABLE_LTSSM | PCIE_CLIENT_LD_RQ_RST_GRT;
+> +
+> +	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_GENERAL_CON);
+>  }
+>  
+>  static bool rockchip_pcie_link_up(struct dw_pcie *pci)
+> 
+> -- 
+> 2.53.0
+> 
