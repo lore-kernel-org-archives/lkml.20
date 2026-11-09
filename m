@@ -1,85 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243894;
-	b=U8e+0xLXGdlv2Xrl6skFJQXT1Rz+mJiWg8dy7uInBYoAyaHZYmEHVnsrpojEjI1QJ667
-	 tZtxPc3mbIPX0+shVDJRaWHdbSNhACy8MHtStT0q0DJ4tNGfRS6V/HU14AM7nSAeXa7QY
-	 dMFCzyRu64xMPNILyumV3xSsxUsVVdX1TAc7d0rjpUrR5glm00LmMhSCxKJmUKDgPpdkQ
-	 JxMq1+FpwYNpF2r/siwue/RYP6eDtF0qqZB0BG13WY5aZ+pYAs/+hMQT8lw6ySkrMG2Wt
-	 GulPAG1CFVVfSA9daYjctolJe0RwZm/3+SrWGden1qT0HW7+i2PLydEi6GW+OzN2hLA==
+	t=1794243975;
+	b=5hfazpOSbl3dCy4j0zjLFEvwCnQxY61siAsrTfUgdc4qfnpKTFd/4oqoF71WLAiZyfjT
+	 85QT0qyeehM9Nmuh1v4o0+Dy9Hzh6PN3gsY9W4eLMIJCAbH4VN2CcXTsNwWneJy46enpy
+	 bG6G3ZEAyKVi/2wffUkngfk92TyA1BXlkfyop1eTLcxHsoNW+GhfagnMF7YgLTcNjAkax
+	 GFMF7JAJwZSb7divxA5dVQ2VwlorTOw+rBougCl+lt3+PgjZ0PZvt5NUcC4d3iY4+YDng
+	 JhysaqroPYPNeu9DWmhOWVCrCEsdmnyFh6EG+uzbjjxcQC4PouZo2ZHhOG+UWV0BF/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243894;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=93TBdXA6VfwaeFyOsaksO5eGGGBGxnvWIH0FYk6LMa8=;
-	b=zyW01840jDqOGKdBJvjlftpJ2irB5wu6ccv/9hFjuHhX1T7t1wWbnFPBlt3SNowuL71p
-	 EduLSFDSp3B5BLQ5RXNG69MeSBO419v4o/bya1WXLZNixKCXlZJjgBBSaRwm8Lo3anIGT
-	 V/phdh6DD9/EcHWoy5pob+ng2wNREoJuFfyWjSSZ659xtubqg7DA7luzDBZy0Ywnzl1Q/
-	 Bgh7rLnyUkGpdkgU8fHduZtqm1P7nyxb8DxNcQ8pY3542iPlR5cM/0IuH6WXLdiOj8y9/
-	 LMeR3VextsRrWiGZ45iURyaGwwc6FDhKB03Fy/rKTLHlFHLXETWwjZdnNOaosbe2UVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243975;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=JyZxIiMEa7i80YYGIuCJFuRQJlQaChaSZ2pdSb11H68=;
+	b=zMbKN8Lw1bDdfoXaUMXx0VcRxRtL242xSIOd5z9czCI5ZxgPQD/C9sbJ1kIqSSl3JBS5
+	 f4oMiJoNgBC46WYYCi6ScsGiFqkXLYvXiS6ZE1ZfAX9StR4lue9+UC3U1JmzNEQ7GOHsK
+	 rYHQ6YFAt+z2IQKYT1+jrEa4tVIdUzlf5U1bS/iGnR2p1LD35zObllODsfAgDxYVN4Cfh
+	 +1wReWGMJq2swWQo0WFjldu3HbQyGLQeiVPTlla7M23btjWIWyD7QpmYtXdKmlJ0CPxdL
+	 obuEZ8oW9Uc8lcPLTRrTdurtz+6jq9IlN1DbHaG1gM0RfY8M4UiwXr/P2bxDlmrA5ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RN+oHVFZ;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=35fhVzPt;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=l9Pee3bL;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD28B606A336;
-	Mon,  9 Nov 2026 17:04:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD28B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D91606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1D91606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RN+oHVFZ;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=35fhVzPt
-Date: Mon, 9 Nov 2026 18:04:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794243892;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=93TBdXA6VfwaeFyOsaksO5eGGGBGxnvWIH0FYk6LMa8=;
-	b=RN+oHVFZwQ2NPQQk9VOl1tZfMbv+3RmVj2ko/T1efzO8XsZmrAZa8Y3eyyZEr5nfr38tdv
-	KEnB1ufoD9n6eY1ZtYptaPnAHf/oW6zuC0U84UAKZ9VGDrzAmpT/5jaxJfYjAt24ys8jH9
-	Nc35jtRE/0Yg42oVdhnkwqhMHT90HOjCif5W8ZeEQVyeuK9qSKWhmtc4G79poG8gpiUOXL
-	M0at766FG1K1sLfnrKC8F/RMVrcZLJY4nWVqVNWAkGgT87GdLq7OMGgtlxhA5b3/24GpZz
-	yLjZwSAoAkOMpFM+IdIUM+1VWRRkamtIFpvHoxU7ZvtSlPo/weQrSSOAMtl5yw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794243892;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=93TBdXA6VfwaeFyOsaksO5eGGGBGxnvWIH0FYk6LMa8=;
-	b=35fhVzPtetsHVOTgVfJ+fvDbzOaNXhaTQrfRJG+Usykq5mzxKHaXLskP3dT/cqhCk4X4du
-	wjp1q/3bgb8sQGAw==
-From: "Ahmed S. Darwish" <darwi@linutronix.de>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Julian Braha <julianbraha@gmail.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>, Nicolas Schier <nsc@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, arighi@nvidia.com
-Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
-Message-ID: <avH9Mo05xQjv5wYq@lx-t490>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <a20153cd-d148-4618-8089-ad81cb16fe23@gmail.com>
- <20261109003745.GA3429615@ax162>
- <avHxmCEdHgyRD7n0@lx-t490>
- <20261109165230.GC1608140@ax162>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=l9Pee3bL
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261109170612euoutp022d46edf0f0de6459ed85abc3bdc2f670~mb2LjCVzz2196621966euoutp02M
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:06:12 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261109170612euoutp022d46edf0f0de6459ed85abc3bdc2f670~mb2LjCVzz2196621966euoutp02M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794243972;
+	bh=JyZxIiMEa7i80YYGIuCJFuRQJlQaChaSZ2pdSb11H68=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=l9Pee3bLAmMtVbBKzoTWDug+SZ3vCGWajGoM+eA8RStshJVtlkO+RK3ORGIkOBak6
+	 g8RP3M8IjvQ1XDMdvR3KL7u/opiuIPTf9Citr/B9oaCVtxd2cJFkWR+zEID4/CPgNF
+	 N3KS4oi10CAK+HOfKvAulhH6t4Vm+x+WRPtu9lDg=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261109170611eucas1p2366f6f6462a0178990e401e35849edd5~mb2LWDbTo2668126681eucas1p2B;
+	Mon,  9 Nov 2026 17:06:11 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261109170611eusmtip21f2fc201cd44cc2a74f1ee08beb62c88~mb2LB0aAx2679626796eusmtip22;
+	Mon,  9 Nov 2026 17:06:11 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, Petr Tesarik <petr.tesarik.ext@huawei.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] dma: swiotlb: Properly tear down the default pool on
+ exit
+Date: Mon,  9 Nov 2026 18:06:02 +0100
+Message-ID: <20261109170603.385791-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,34 +71,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109165230.GC1608140@ax162>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261109170611eucas1p2366f6f6462a0178990e401e35849edd5
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261109170611eucas1p2366f6f6462a0178990e401e35849edd5
+X-EPHeader: CA
+X-CMS-RootMailID: 20261109170611eucas1p2366f6f6462a0178990e401e35849edd5
+References: <CGME20261109170611eucas1p2366f6f6462a0178990e401e35849edd5@eucas1p2.samsung.com>
 
-On Mon, 09 Nov 2026, Nathan Chancellor wrote:
->
-> On Mon, Nov 09, 2026 at 05:15:20PM +0100, Ahmed S. Darwish wrote:
-> >
-> > What about kconfig-audit?  Something like:
-> >
-> >    ./tools/kconfig-audit/audit.py -c .config -p preempt_rt
-> >
-> >    make POLICY=preempt_rt auditconfig
-> >
-> > config-policy-checker does sound good, but it feels verbose.
-> >
-> > Feedback appreciated.
->
-> Yeah, config-policy-checker is a little verbose and might not translate
-> into make rules well. kconfig-audit does not sound bad to me, especially
-> with the rename of RULES to POLICY; at the very least, it is on the
-> right track.
->
+With CONFIG_SWIOTLB_DYNAMIC enabled, the default memory pool is added to
+the io_tlb_default_mem.pools RCU list during initialization. When an IOMMU
+takes over DMA translation, swiotlb_exit() tears the default pool down and
+clears it with memset(), but leaves its node on the pools list. The list
+then contains a zeroed entry with a NULL next pointer, and any later walk
+of the list, for example mem_used() when reading the io_tlb_used debugfs
+file, dereferences an invalid pointer and crashes.
 
-Thanks!
+swiotlb_exit() also leaves the io_tlb_default_mem fields that describe
+the pool. io_tlb_default_mem.nslabs and can_grow stay set, so
+is_swiotlb_allocated() and is_swiotlb_active() keep returning true, and
+swiotlb_find_slots() can schedule dynamic pool allocation after teardown.
+Without CONFIG_SWIOTLB_DYNAMIC, a later mapping can reach the zeroed
+defpool and hit BUG_ON(area_index >= pool->nareas). Before the pool data
+was split out of struct io_tlb_mem, swiotlb_exit() cleared the whole
+structure, including nslabs.
 
-Then, kconfig-audit it is.
+Clear can_grow and cancel any pending dyn_alloc work, then remove the
+default pool from the list and subtract its slots from nslabs, and wait
+for an RCU grace period before clearing it, so that no reader can still
+see it. Without CONFIG_SWIOTLB_DYNAMIC, reset nslabs directly.
 
---
-Ahmed S. Darwish
-Linutronix GmbH
+As a result, with CONFIG_SWIOTLB_DYNAMIC swiotlb no longer silently keeps
+working through dynamic or transient pools after an IOMMU has turned it
+off, so for example dma-iommu bouncing for untrusted devices reports that
+bounce buffers are inactive, as it did before the dynamic pools support.
+
+Fixes: 158dbe9c9a3d ("swiotlb: separate memory pool data from other allocator data")
+Fixes: 62708b2ba405 ("swiotlb: add a flag whether SWIOTLB is allowed to grow")
+Fixes: 1aaa736815eb ("swiotlb: allocate a new memory pool when existing pools are full")
+Closes: https://sashiko.dev/#/bug/linux-f75998aa-65ea-4596-9bb4-fa83773012a3
+Cc: stable@vger.kernel.org
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+The patch was prepared with LLM assistance.
+
+Best regards
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+---
+Changelog:
+
+v2:
+- addressed more sashiko.dev pointed issues: clear io_tlb_default_mem.nslabs
+  and io_tlb_default_mem.can_grow, as well as cancel io_tlb_default_mem.dyn_alloc
+
+v1: https://lore.kernel.org/all/20261026095423.966856-4-m.szyprowski@samsung.com/
+---
+ kernel/dma/swiotlb.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 9b0bc272dd82..786954bc5e6a 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -665,6 +665,17 @@ void __init swiotlb_exit(void)
+ 		return;
+ 
+ 	pr_info("tearing down default memory pool\n");
++#ifdef CONFIG_SWIOTLB_DYNAMIC
++	io_tlb_default_mem.can_grow = false;
++	cancel_work_sync(&io_tlb_default_mem.dyn_alloc);
++	spin_lock(&io_tlb_default_mem.lock);
++	list_del_rcu(&mem->node);
++	io_tlb_default_mem.nslabs -= mem->nslabs;
++	spin_unlock(&io_tlb_default_mem.lock);
++	synchronize_rcu();
++#else
++	io_tlb_default_mem.nslabs = 0;
++#endif
+ 	tbl_vaddr = (unsigned long)phys_to_virt(mem->start);
+ 	tbl_size = PAGE_ALIGN(mem->end - mem->start);
+ 	slots_size = PAGE_ALIGN(array_size(sizeof(*mem->slots), mem->nslabs));
+-- 
+2.43.0
+
