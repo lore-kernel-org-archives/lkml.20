@@ -1,62 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227451;
-	b=Flj4dcF805z4uXGWfqzfVAbz4xKPuGdv7SfBEVVCReg0XqAfmiJ0eAZ9MLH0DD87XQdU
-	 /b+yVB29hp29R1eXrPogRM+yEtSrYIbGezihzV+e+4w3FvGcUHlWiuw9oDrUcOufwQHGQ
-	 b2hd1TpxLSzBZ+hpMwsNMqkmMik8eKKmnP7d4IYGpaiAimNAHJoHeRy0Cy0/NaWUO/7Lg
-	 xvxKyrB+BIR/XHCyR3NEOKA53f/5qXYwOUJ5AkyPqE8Zms1SZS9s5tm5RXleCHa6xfhrD
-	 JECWWF3g9VFdaIe4pXIX4jRFY+TsldY7diVpnBUK8JfGvtdvceF/+RCbOh7HtHT0wRw==
+	t=1794227493;
+	b=tlEVPlumnQ2JmWs0zhYBG6xlBkCyNDwlmZ9VaNGa9XnXd+NAUuDXmbPAQuBZJEiQz4Kx
+	 5iQy3behkQxjEOPmzfcA91MY9WSbPaDpvZznjM3azCEXLBsmQzDkvNSOxXcbkGSgXLxVn
+	 Rf/i4UKvWtoJjasLkPR0dtMkhISPyNGfcG79SMP2vcGQx1V6QlFB8lz/x8gc/3eTZJGb2
+	 AEqKqKNkMiCsj1nZ3MLvSBo2dWBleEgCmvhB9t9cOodZI4RLmL55gP8JRFnZUeGAhgysJ
+	 tNIcGNwVhsO53mqg4ol9SKRfvE3cH8ghBVFqm1eXZxFd3FLWbJCW9VHC6Jc3nNXydfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227451;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jGi2pMPtfaYXbF/EmhxEb446J6+o0fEqR3t7Qd1x19c=;
-	b=B4MkMDOTa0gp2QIikuix7hSZ4BvFAp3Iykh1NGqqR79NW9MddlCu6Mh2A0HGKich1A/X
-	 dQ97F8JzBMYAkdW848yMS9ep5IqPvF3d28j7PXUNOnF3alxI5CZHV0NDL4FoMkoeuz6V/
-	 nEpv7t72epUVCBPV30Ruyf7Fg8rGKQzMeYS+TEZXsBcoheWFOqy5TqGCX449TnaQBRJJq
-	 qOUrRYLW8c+tQT9zv1mj64KreoUqE4DiPmuzgXadamudkQ2tZbKuteLB0LxFYtjjs80kf
-	 Bhs1exa5CwyFgJxfbuFs7z0jr37pD8DPpItRS2l8oEWb80SWBMG3zzVLbyQIAm/35Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227493;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YgqgqGDehFnsb3++oZaHhGGEKE5uuo1rNwYJ7COxNO4=;
+	b=hrWmZ6bbo8quudms6KQlJBSpbaoR3/TfXt9GGUecsHXAwpjpmfdPnp/E70IBJu1vBMpF
+	 3ikOMwy++U2s0DbSnjnOCSkjG34670ulQ4UK/PceNTQPzF/shRzn34tLDhWk9Ub0huImV
+	 JgnyZspMUXV2bDKD7WTW2kysJA/cbfn5VBAkoIUDlnbTMH3Q8Rc4t3H8JJovfI3fxRm/W
+	 rcY6JhlE2LjS8CSfCycB/DtwzQSiRYvlHP3tpVIhXT5X2vfOkjxcgdQrmTEwqpl3wDrx4
+	 lVgyBz+8X20xggYraarnmUSVeLIhr+fRykI26t6jkghoLZdLdMkxKDBH+h2OKYWFDZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZwWXSeG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="BQ/93bE9";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=E9jdT9Eo;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32C606A31C;
-	Mon,  9 Nov 2026 12:30:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC54D606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC54D606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZwWXSeG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C375C1F0089F;
-	Mon,  9 Nov 2026 12:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227450;
-	bh=jGi2pMPtfaYXbF/EmhxEb446J6+o0fEqR3t7Qd1x19c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oZwWXSeG5G4rZwtosAWNOxR+zwE/P+4TdYtBuU4HsoqYv3Ei4ABx8IzSJrnlCXCVD
-	 pS4N9qGMBrA4KbNWuz8xavxeHdUjN82DJSb7D1/EDPddNXSIwlYyu6ErXs+2cODAdb
-	 Erby2ILCouiEja140JEQQse9xfYpHNHFe0he9sUexSdTMy8S4GpU9ueYMl4Aio0EMD
-	 CCIjCwCF9EqidbMGauMFpdKueskkpN/CL87/kYRgh7byOhY9WV3b6s7lqcMzW7Qipa
-	 OpohM5kbvXkAexlu6LKYHTW0/k1dE6heQYYcV74rz68P1z1D4IVm4z6TmzPpCT860D
-	 jsTD//MUdGsCw==
-Date: Mon, 9 Nov 2026 13:30:47 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v3 02/10] dt-bindings: display: panel: samsung,s6e3ha8:
- Add AMB630QY01 panel
-Message-ID: <20261109-tacky-busy-kelpie-cbd5be@quoll>
-References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
- <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=BQ/93bE9;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=E9jdT9Eo
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794227491;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YgqgqGDehFnsb3++oZaHhGGEKE5uuo1rNwYJ7COxNO4=;
+	b=BQ/93bE90EfHq2wmgAC1q5DwDvupQa0evB356ytCfB5ApZbfOFxwsaseHl8YMomQx0OIvi
+	2gNzi1zefTiIlloJg0RW1+HcAgGe+NngaBE/p3fIDrOJH61PqmuYh20rFgn9q9NrHvv2xg
+	FmL7rLo9vzeG9zq0RjwlK/VHJFL+WaJoegTlAx3wPMwHgq7YJDLKip6ijg8asU6r2fHQS0
+	S2yviA5e1aI2qoRfUsxTdSq4zMKG6Fl76W/HnXNyBTCec/hJg+R8ROc6O7OOLqU927vSyP
+	akD+N8QLv3Vs6dBFi/6yZWvFbgZ79GMoKGnZ0bbxX5+JvRcJ0mtyIzKqCkk5vQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794227491;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YgqgqGDehFnsb3++oZaHhGGEKE5uuo1rNwYJ7COxNO4=;
+	b=E9jdT9Eowk8x6Q4wC9gv5s0ipmamOZpOZopFQc3JCerr+LyHRkav4V3enNncI5tBMOgEmx
+	t0su7f8L2jprMYCg==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Breno Leitao <leitao@debian.org>,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rio <rioo.tsukatsukii@gmail.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Alessandro Carminati <acarmina@redhat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Pnina Feder <pnina.feder@mobileye.com>,
+	Petr Pavlu <petr.pavlu@suse.com>
+Subject: [PATCH printk 4/6] printk: Remove nbcon_atomic_flush_unsafe()
+Date: Mon,  9 Nov 2026 13:37:21 +0106
+Message-ID: <20261109123127.489676-5-john.ogness@linutronix.de>
+In-Reply-To: <20261109123127.489676-1-john.ogness@linutronix.de>
+References: <20261109123127.489676-1-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +88,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261108-crosshatch-panel-v3-2-87dd4ec4f7cc@ixit.cz>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 12:32:23PM +0000, David Heidelberg wrote:
-> The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
-> 1440x2960 flexible AMOLED panel.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../bindings/display/panel/samsung,s6e3ha8.yaml    | 41 ++++++++++++++++++----
->  1 file changed, 34 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> index ca250b1b91712..dcf347fe5ca83 100644
-> --- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-> @@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: Samsung s6e3ha8 AMOLED DSI panel
->  
->  description: |
->    The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
->    Samsung Mobile Displays (SMD).
->  
->    Known panels:
->      - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
-> +    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
->  
->  maintainers:
->    - Dzmitry Sankouski <dsankouski@gmail.com>
->  
-> +required:
-> +  - compatible
-> +  - reset-gpios
-> +  - vdd3-supply
-> +  - vci-supply
+There is no need for the special function nbcon_atomic_flush_unsafe(),
+which is only called at the end of panic(). Its functionality is
+replaced with printk_trigger_flush(PR_FLUSH_HANG).
 
-I see no reason why order of this schema should be re-invented. See
-every other binding or example-schema.
+Signed-off-by: John Ogness <john.ogness@linutronix.de>
+---
+ include/linux/printk.h |  5 -----
+ kernel/panic.c         |  2 +-
+ kernel/printk/nbcon.c  | 12 ------------
+ 3 files changed, 1 insertion(+), 18 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/include/linux/printk.h b/include/linux/printk.h
+index c669497bd3378..1c8947fc46411 100644
+--- a/include/linux/printk.h
++++ b/include/linux/printk.h
+@@ -225,7 +225,6 @@ void console_try_replay_all(void);
+ void printk_legacy_allow_panic_sync(void);
+ extern bool nbcon_device_try_acquire(struct console *con);
+ extern void nbcon_device_release(struct console *con);
+-void nbcon_atomic_flush_unsafe(void);
+ bool pr_flush(int timeout_ms, bool reset_on_progress);
+ #else
+ static inline __printf(1, 0)
+@@ -336,10 +335,6 @@ static inline void nbcon_device_release(struct console *con)
+ {
+ }
+ 
+-static inline void nbcon_atomic_flush_unsafe(void)
+-{
+-}
+-
+ static inline bool pr_flush(int timeout_ms, bool reset_on_progress)
+ {
+ 	return true;
+diff --git a/kernel/panic.c b/kernel/panic.c
+index a4dbb6b8cd2bf..7c03a17ba1288 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -765,7 +765,7 @@ void vpanic(const char *fmt, va_list args)
+ 	 * Explicitly flush the kernel log buffer one last time.
+ 	 */
+ 	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
+-	nbcon_atomic_flush_unsafe();
++	printk_trigger_flush(PR_FLUSH_HANG);
+ 
+ 	local_irq_enable();
+ 	for (i = 0; ; i += PANIC_TIMER_STEP) {
+diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+index 513bfd399858c..0c832e33a8f2c 100644
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -1739,18 +1739,6 @@ void nbcon_atomic_flush_pending(enum pr_flush_reason reason)
+ 	__nbcon_atomic_flush_pending(reason, prb_next_reserve_seq(prb));
+ }
+ 
+-/**
+- * nbcon_atomic_flush_unsafe - Flush all nbcon consoles using their
+- *	write_atomic() callback and allowing unsafe hostile takeovers
+- *
+- * Flush the backlog up through the currently newest record. Unsafe hostile
+- * takeovers will be performed, if necessary.
+- */
+-void nbcon_atomic_flush_unsafe(void)
+-{
+-	__nbcon_atomic_flush_pending(PR_FLUSH_HANG, prb_next_reserve_seq(prb));
+-}
+-
+ /**
+  * nbcon_cpu_emergency_enter - Enter an emergency section where printk()
+  *				messages for that CPU are flushed directly
+-- 
+2.47.3
 
