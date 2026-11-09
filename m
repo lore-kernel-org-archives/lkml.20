@@ -1,115 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.130.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794258615;
-	b=CUOEz+k1KnV8GfYSKcFJ3nOl8EsSXaFRSNQYzqVbaXRgBL7MujtSvkxRiXCElqbb/jqt
-	 dOwGlGM0HP3qNFetpa29EZKhc7+MU1vSQ0mdAswDth8GPIll11mzKG4tm80dsWAa8gZWF
-	 E21p0t04Ff6nZmvCs8cZqBE+bNoNd7UN86fxAmrP2zek/+RQuDUO/nz6AK0uYsgR7Eh/b
-	 WwNfAeuuzVXcm7B8b+b9UObIme85w0QalxtWgV41MxBo6AuXrs3zXcQoEueNGOflwYuJ8
-	 ANej4eiz1jPksQHvl8CcRLLHOqjUscEyRsYSRc0B5CtNxoZCI6LcoTWGDFlPjkpmw7w==
+	b=OpdH/ShWIN2yyRF7bYnNsXmR02a2LuT9CpXy0nhLjvO21UijvipMBXnLAKk6hi42vDPF
+	 ISInSSDEueNcANCEviCpOLoDUuvMjIOnbo6cT2db8LmFYisUtIJ0cq0OVjFWm54KqKfWf
+	 2OiI5oTfkOUhxkyGV0LarKullRP2m7v9vNNqkgM6m77BuoG72zkad8Mmw9Vy1U85TgdCk
+	 EfmmybRPfAKMDxVKAlm+ySAONa6BX6C0mbcHF+A3p57x2U3wquTbDSRujaIpsROiWmWQO
+	 2SgAUgYTAeRFJyzbI/5LVhnKwkk9a/+l89eYCp44ptwOSyAH7l2NGOjlMfOOBEgcdNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794258615;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=1H7zaCpieKBLh84LxvwJhxxRE643HHbqTw00oHfOz4M=;
-	b=d+sBp147t8FrcUZ+I5BFv2oXHn+mq3cDX/EFHnZbny3GdOES2TFod2QJDFmI9UACYVq2
-	 8rye2UN8YjcU4t3MEoU+K/loQYWdNCG4EOB7goN6/MwV03VR9WS1O2TnYX3ZiIThddebz
-	 AddK4Q7C/TL/CtK9WqK6+ZeNp1oXUx7AQdHFUzrj+3xt7/lkRGKofatrRfbOS4vr9AvOW
-	 snck2XSAgoHdhjHJzC+WX97gjnpBGYfymxscjupxZ3z+6870QLpmHEYnQKgZM9K5rWH3K
-	 Mad/4iznVk7CRfgFIgFJ2gVPmq5n3NBCjK/FPfSUyv9PimJyKLmUX4Bz18DQRWY54bg==
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=g4f41ef3kWSKX5qXwGEjvgmce7MkNP0+yJw+Z8GwAV4=;
+	b=BHxtDkXFGSterovHEteoOpv0gvI78Huw6OlfbA57pEwqxhVDEkUcVq9IWVywu82O4/nV
+	 nm0tT1Likol3f10vnzZljRguAdLnCysamtAidTgaYnLgSrSlpGwqXE9UoS5vDlljs5lio
+	 kRuoLgBSi47X07eaBtpfc0Rg9gotjHP8dH04W91wize5wu+s7t+iKLa3IElq81Sf6zkJW
+	 OWN36baclInmDd7Tg31nE06fym+63mb8R4rQ6jj4V01cXwS/OZK5H8BoHKjFwBm8DaOY0
+	 rZRZY+uS6jOhkhJ7SQZAwdgIgVb7ImKxNI92agxwpeGqkxozSCcExi+A+IgVTlSuJ2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JMuVRsUF;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=S3jiDS69;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GvQChmxR;
+	arc=none smtp.remote-ip=74.6.130.41
+Received: from sonic308-2.consmr.mail.bf2.yahoo.com (sonic308-2.consmr.mail.bf2.yahoo.com [74.6.130.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF56606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFB9606A326
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:10:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CF56606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFB9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JMuVRsUF;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=S3jiDS69
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794258613;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1H7zaCpieKBLh84LxvwJhxxRE643HHbqTw00oHfOz4M=;
-	b=JMuVRsUFNk9cuIX+zwtr3SP238wHdc6lW0O0zI+JHWiFPxYy/JLIkooU12IGJqP9iPmvdD
-	nejnXcenJ2TEG/QOtg7JBigtGQVw9ivQLRJbcO1MzGbR0SUQPsY/86fcPpgnBMgUB30/Ta
-	MWKAIQggif9ICAhuHo6AE6TIK1ruXZk=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-317-MM29Nh2YNZ6g83pr9_-lBQ-1; Mon, 09 Nov 2026 16:10:11 -0500
-X-MC-Unique: MM29Nh2YNZ6g83pr9_-lBQ-1
-X-Mimecast-MFC-AGG-ID: MM29Nh2YNZ6g83pr9_-lBQ_1794258611
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b2fd108b28so20034797b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:10:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794258611; x=1794863411; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1H7zaCpieKBLh84LxvwJhxxRE643HHbqTw00oHfOz4M=;
-        b=S3jiDS69s2rRCmUyga+BgmMGh924765qbBsVa9HU9yNx2/pyBWZlFu8MB3XoxlrBsR
-         UY2euHDsDZ6Z3NZ+BMjmfncHhzk+9w/BVgW96opx7KSAJx7bh0Lm9LN4LrEnHlnqBzdL
-         6T6Forbbeiv06LpeZmViNJbbdxOc8TgEukT+6i7FUuYsQSWPUPJug1F7MA0f1wMg/DEM
-         NwnhMwfyesTt66yHEKCCLqHd2pLcXIV3o2qWgiMje0VAIOZRm0T9O0JEz4WPe+LWns0v
-         QJ2K9TDkXJPdsYATcOMn2xxDCeTI8piCPB6+DCqdl++9bffOc/ZxOvZggN8sSKmIYFPs
-         XLBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794258611; x=1794863411;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1H7zaCpieKBLh84LxvwJhxxRE643HHbqTw00oHfOz4M=;
-        b=NKB7tTOtr5LelEuARDrYLKEUjRPgUjQ+K2xrFwyXbARFWqqQaOO1ry+3u/SO0nKrE9
-         78H0b4l94jQZqeFw9odWLc3iXI+nM5qK4b7d2sfn+JxhGEBLSzXimTQVEiTcoRIETDAK
-         zJJ2FMiib6cZ2A1IFlMiiklsQ+WLTzMPyo5CAJxV5F1qFx/7WKbwGv4fw9eupbE50TC3
-         ORrwPhGZp5bDcM9mjP22Di8Ls1npaGUsVFlpxJ/YtVL21J7KQd0aCjuzBvOO3fgXM7J0
-         qWpczagQ2hyD9xaUQilpS4M0v2uHAhdzJSG8s7XgakIYvdTrHtWRXginwVpt8zko7mnu
-         HBmA==
-X-Forwarded-Encrypted: i=1; AL+hErGVXYKAd96piSfQAbXl1urxdM+foAysjDd7I10fmcpoO+H7C0+9Ko6vvoaZrgq70W5pB/iEXkv+jAvkIX0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+irmaveJ1KhoYZ10RxFf5ZE6u4HCxcukWXToJ/QflDFb5hT348
-	sHqd/+41VEVhhVD7tT75B9nT5jj0hpr+q5VUOfq9JWh/ynNYNwPs46q+s2h0Bj0hDskJ9LP+GVi
-	PukpByszNgo9HOyZLN2IIIhCpi8VJdHGCeV9jUJxcZjeCxdZf+Mv5Mb0ImSdMkBL03w==
-X-Gm-Gg: AYBFou3lb21cyDHnRkXZv5dPWz2xoX4cdW4e3FFcPxGOOZd0pLce9s78q2f9m2U3loI
-	x193qMzqx4BpKvu2EAt/RqQBK30td8FD2Fuz9qXFz/CqX6auhVZ+C5VsxEHIm55z8svheLtfFiU
-	fR4uIfuuEQkgF0Y2h0oz8jPXWEHT8c+n+R2HAkLrt8NOcMvCIv6Ebc1PROaKulW16v29FT5pQ+/
-	S7JZdjAMZti2yvlh5LsD0rkG++bFDT2hP/fN7YTTC0HiNU8JbEy4nmRze9nB81qBfEkojQBYeHr
-	PoogwIimqRb9gi5itUSZUFHm71nHd0I1tq91MWAEtSe+kr9BjXGHWL1O6/Gpu2xsaddvm4V8+c1
-	+zYL3Q70AN9QCn2VruIf/0mVqRe5YaPUUtapnufRCrihNw8gwFzvTZQDKkTGN3NsUMgzKNMBpeE
-	8R
-X-Received: by 2002:a05:690c:ec6:b0:8b3:361f:5d7a with SMTP id 00721157ae682-8b392aa0a33mr3430097b3.41.1794258611113;
-        Mon, 09 Nov 2026 13:10:11 -0800 (PST)
-X-Received: by 2002:a05:690c:ec6:b0:8b3:361f:5d7a with SMTP id 00721157ae682-8b392aa0a33mr3429887b3.41.1794258610682;
-        Mon, 09 Nov 2026 13:10:10 -0800 (PST)
-Received: from redhat.com ([2600:381:e227:64a:814:7bae:8aaa:cea9])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393421a3esm3583157b3.32.2026.11.09.13.10.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 13:10:07 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:10:05 -0500
-From: Brian Masney <bmasney@redhat.com>
-To: Mark Brown <broonie@kernel.org>, Peng Fan <peng.fan@nxp.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/2] spi: convert to subsys_platform_driver()
-Message-ID: <avI2rf-04L3FOfSv@redhat.com>
-References: <20261106-spi-subsys-v1-0-a51a08f21cf2@redhat.com>
- <e86963ef-6080-4aa2-ac80-e06d16d9b092@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GvQChmxR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794258613; bh=g4f41ef3kWSKX5qXwGEjvgmce7MkNP0+yJw+Z8GwAV4=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=GvQChmxRgEku3EuCZO0g0c9DA78HJFhaGuamu3712P2wl90LMP/+wnG3MxKZHkIBZmVj9mxTdvOaPYmE1oMfC+Wtd0pNS3JepB7v73vHXBr60s7tuuO5icTByIRKp+mfsecQSrSo4DRZ+g6q4nRnf4jis8AWpMSeNYhIMTG/UjixxzEEEtWUSakrd6D1V6+9ankY+UCE7zHCKiBIt+PQ8zp++CCQ8Q3eNn/dLG6WMK0O9AZ54qBcVdrrhE/YiOm3TGPan0jwZIUO+PghtwlGhwX63wXdiU91QBex09EQwTWaFPk8+ZXvsqoXp90i4Rg1OTfbgQsGr6TjXtShkZgjZQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794258613; bh=6gzqf5ffLHRtr6QSoQA+ZF5oKY1b3VvNjkSbtQZA12b=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=aBaTY/BdQQkVqEFtWhg7MfYrgdb+pBGFEg+E4augK+gGwjKFL2hytuXEygeIOqC7WTCJHnBa+zlkJ+l6I6YoFAJVnFpklogEmGZgy3T6j1WcNHsPLNEb1tistLdpp2g1XqD4PhJ9VLOZJlqG2Gq4HJRMy89KPmZksUlzictPhfNFiDJvebNBvsEswMfH6OAEw2e/y2TTC2+gce4jWZUZ5xja1ZS6ua/YrHA17HzepSH8hgBx186kKkJHuPyIl0MgcyOucWjsBP9rkWfaEctuYThtH+l1T4AjY1Ro2xXxzN43GPbWn2SqMOZ1ZFhljSmq0w+GtzHG1LNmESKD6UJURA==
+X-YMail-OSG: g_AOH4cVM1k5T_qXLFrFwkECR1KdiLVxkFoslLlihnIG_86Q2knTttCSBVGxoDX
+ .BP4DiGJgqO6Ah3WokKJSogfHg.dw9yycbK7mtBn1pJer4HT2xLgwziReKHreb2v.SPUmG8tGajZ
+ Km6DdC6MtOTWv60HKd9z2zyzYIie4p6XFqZ4cXwW8eilJhNd.ElDB0t.M_ohep0X3B9RUfbGDG7m
+ A4zqQ_JroC8ZVtmlVi8GIv7Uqncwdo4IVjQDahshi1pHWtWMq6LUat6yVIHg_1BYMMp6ugKIG59r
+ c1du7V5lr6TAe_Lmkecs.ZcvSmGXng5Sw3gCtA3h3umCfqf4.alhcoyS6fDsO63WxBU52TFXEzyQ
+ iMb4we4LF2.OBJIkObfjuTNWtAahB0.aFB3nrZnpyOfCTOoFODpev7IDe621_2feYV1qavJM.G7I
+ 8FJVBL_IlucKZGrGT8O9OzwwqfaYut9qV7.NKak4IFmZyBPVL0l0E.Dh48rtrPKUptStfITYHrH4
+ kAMv5DEFWIULafrNtgtbc.WBlP1WDSq4FbpICnVbQ_XvgPg4VXaNFjc83Foy.INZFFDlx4pCAZ1b
+ Kh_ZFE7i2pqyBHAIsKt7hMVsEOKPm5fnMCXhgS.R4TnwzdAIfNEdR465WE_6vO4LpEv9E9hL6DH0
+ G3KPtkl_t.5Ki8lQkI3TFceOeGaPvvCHh1zb.CnOC9pxTu0mEf..hP8pdZe_WpRlF.CIiuzZaD9w
+ LP4FGiN2SwYWOfA9CX_h.lvvXgE_c3DBH_nd1H2yPK5M2hIM9yH1wCwPZJx8I73_9yG3rJhE06By
+ VLll_fu7KF7TPgI563rXpjBjroJ3tx7SaZHU0jzf5UJobxsz6WtLCp97hdFRFZmuzDzZVLswabdP
+ gSfW0g2Gwmp6iZCbsyy4ktL32WRjTLs3oggjri2JYjdEmxGvbajpKUNWlS0hqSJGUOPTRI.8WwbZ
+ k9B1Ur4PWhgRBr0FeeMTq0VJFMAEnBpwdECB0GOazNGI7kN1pf4q_sXJcJReY9ok5SyTEVTw5jcY
+ ilJBVvndtXmjAULFuySB0OwLIlqr4CKb1CSXynxzmJ0ffVXcPuCQebzVHBKNypmBxqoFOTqXXw8b
+ 8Vahb7wXnjX_CnopeKq88w5G6UceRoL.AZZHk231hJv0aDH5D.ZiH4ghNGnIfl2yb7DEZeigtvl5
+ Gh8y0EpNa0W3workrYrjW3kYnqEpqXCP.ETmVeLOWUA_fNIuF_J65uiWasYzrYCZ5gbvvFrW8OXF
+ KZzBr1DSlRcDUVsXP1afXBElZMjAs6Hke6MoDF9hlF1KZ77YpZGUSW4mnKATW6gjP7p7VjfzMPbl
+ Rm9b6gEVBjtFsYFZRBAm8CdCm8c25GQnJOBstYS.sAL3MEVgOGp9L61ttrDfJM2RaKmZRNr9WmFy
+ DmjbMcH6QweTAe8XZ49JJXMKVYD2ELQmv0yiv2aUHSkTz8wJ_6RFtBE3cm1.imP48qjYaQEMWXgK
+ 6N_te37DZ9I5FGQEWwoH6dhTxnUUvtJeA5OJKkGynAgKnEirpSwTTPJccRtgLLy6rNuvpN4kS3..
+ 2kAjLnTJ_bIwplEgXw0gCe5WkSFFvPdS0WtnHOKXW7UXVoRAUCWytC_1gymgphFAcYHdONHGSehX
+ ZiG_W4gItQpSrEYf4HgigpewfkBhxz0ybe7jrVveVfwkJZNUl0sSOzy.P7POYEZrVa3DUfC9zaie
+ UpDgnAmk7R4WqXxV2EHqaizkPqop7bJ4tN8FhgXZA3Ru6wYsKaaDmo53x97FGVn0w3DBkZxjERIg
+ HNiiVytE5tC7RtzuC.fgLI_0FsH1zgCT3WZm1ogCxyQZRzu65ipbFQLHs10jrEBq9T1h8r6hFW7M
+ qC.rEa016yLwDyctVCtmeSA6tDD9t.dxWk0Jw6jqQWxwvgHxi4Uiz5FMKQoHpKVaT7Jt4zDn91_j
+ X37CHs5jm34hPZDZJ_jNfAEA0aehsZ4iPo9sznxHrwILoI5cxit7_yh8K_Jk0A.5y.xgwVjjPeND
+ m0XWxgE6moRQlIW09M5EwoxKZ21q9tWq4e3AbNTkeeDrLUnH7meKguHXOAywnjcaBeuce8mJKltY
+ cZ7WAqLAePv4JM5F5F8BtXH2kmbKwFCT09u4BhVhPkipfYSrw4dP5lxPVQ_3gzC8btOUkKqdd1nI
+ Li5CtEEIHCpywW80h4Kp6i.DxnRLbs8.oMWyDRkPQIc2Ez3L6gV74rDKovzUPYfZ63.K99H5ooJw
+ xoU984j6aTAjXktJoI22F8khz8XQyU7Ruyt8cUZI_GUC0LIeGCuBzJ6pwLcq_aU5MANcLC6_ummp
+ y_uAzceMlRG4aBXPGw0VL_sOJjYiX7Us-
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: df5fb5cc-4cd2-41fa-94e3-cafebf2495ba
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.bf2.yahoo.com with HTTP; Mon, 9 Nov 2026 21:10:13 +0000
+Received: by hermes--production-ir2-5dd9bf4598-9c455 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 61376fa3b656664a2024a29cceeed25d;
+          Mon, 09 Nov 2026 21:10:10 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: tomi.valkeinen@ideasonboard.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Laurian Iacob <laurian.iacob@yahoo.com>
+Subject: [PATCH v2] media: i2c: ds90ub960: use guard(mutex) in simple register accessors
+Date: Mon,  9 Nov 2026 23:09:40 +0200
+Message-ID: <20261109210940.7751-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,26 +91,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e86963ef-6080-4aa2-ac80-e06d16d9b092@sirena.org.uk>
-User-Agent: Mutt/2.4.3 (2026-10-09)
+Content-Transfer-Encoding: 8bit
+References: <20261109210940.7751-1-laurian.iacob.ref@yahoo.com>
 
-Hi Mark,
+Convert the manual mutex_lock()/mutex_unlock() of reg_lock in
+ub960_read(), ub960_write(), ub960_update_bits() and ub960_read16() to
+guard(mutex), and in ub960_reset() to scoped_guard(mutex).
 
-On Mon, Nov 09, 2026 at 07:14:33PM +0000, Mark Brown wrote:
-> On Fri, Nov 06, 2026 at 07:33:07PM -0500, Brian Masney wrote:
-> > Reduce boilerplate code in these drivers and convert them over to use
-> > the macro subsys_platform_driver().
-> 
-> This doesn't apply against current code, please check and resend.
+With the lock released automatically on return, the error paths can
+return directly, which drops the out_unlock label from ub960_read() and
+ub960_read16().
 
-I see that Peng Fan already beat me to this! There's nothing else to add
-from my series, so there will be no follow up from me.
+The rxport, txport and indirect register accessors are left unchanged,
+as they still rely on goto-based error handling and include/linux/cleanup.h
+asks that goto and cleanup helpers not be mixed within one function.
 
-Peng: Just a heads up that I posted patches across the tree Friday for
-this migrated. I think I changed everything that can be easily migrated.
-I suspect we may have collided in other subsystems.
+No functional change intended.
 
-Brian
+Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
+---
+
+Notes:
+    Changes in v2:
+     - Fix ub960_update_bits() always returning 0 when regmap_update_bits()
+       fails
+     - Don't convert the rxport/txport/indirect accessors, which still use
+       goto-based error handling (see include/linux/cleanup.h)
+     - Drop unrelated blank-line changes
+     - Reword subject and changelog to match the reduced scope
+    
+    v1: https://lore.kernel.org/all/20261106114859.1579-1-laurian.iacob@yahoo.com/
+    
+    Compile-tested only (W=1); no DS90UB960/954 hardware available.
+
+ drivers/media/i2c/ds90ub960.c | 68 +++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/media/i2c/ds90ub960.c b/drivers/media/i2c/ds90ub960.c
+index 7d7ba6d349fc..ee410bae1216 100644
+--- a/drivers/media/i2c/ds90ub960.c
++++ b/drivers/media/i2c/ds90ub960.c
+@@ -748,24 +748,20 @@ static int ub960_read(struct ub960_data *priv, u8 reg, u8 *val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_read(priv->regmap, reg, &v);
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		if (err)
++			*err = ret;
++		return ret;
+ 	}
+ 
+ 	*val = v;
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_write(struct ub960_data *priv, u8 reg, u8 val, int *err)
+@@ -776,19 +772,18 @@ static int ub960_write(struct ub960_data *priv, u8 reg, u8 val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_write(priv->regmap, reg, val);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "%s: cannot write register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
++		if (err)
++			*err = ret;
++		return ret;
++	}
+ 
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_update_bits(struct ub960_data *priv, u8 reg, u8 mask, u8 val,
+@@ -800,19 +795,18 @@ static int ub960_update_bits(struct ub960_data *priv, u8 reg, u8 mask, u8 val,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_update_bits(priv->regmap, reg, mask, val);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "%s: cannot update register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
++		if (err)
++			*err = ret;
++		return ret;
++	}
+ 
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_read16(struct ub960_data *priv, u8 reg, u16 *val, int *err)
+@@ -824,24 +818,20 @@ static int ub960_read16(struct ub960_data *priv, u8 reg, u16 *val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_bulk_read(priv->regmap, reg, &__v, sizeof(__v));
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		if (err)
++			*err = ret;
++		return ret;
+ 	}
+ 
+ 	*val = be16_to_cpu(__v);
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_rxport_select(struct ub960_data *priv, u8 nport)
+@@ -1272,12 +1262,10 @@ static int ub960_reset(struct ub960_data *priv, bool reset_regs)
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(&priv->reg_lock);
+-
+-	ret = regmap_read_poll_timeout(priv->regmap, UB960_SR_RESET, v,
+-				       (v & bit) == 0, 2000, 100000);
+-
+-	mutex_unlock(&priv->reg_lock);
++	scoped_guard(mutex, &priv->reg_lock) {
++		ret = regmap_read_poll_timeout(priv->regmap, UB960_SR_RESET, v,
++					       (v & bit) == 0, 2000, 100000);
++	}
+ 
+ 	if (ret)
+ 		dev_err(dev, "reset failed: %d\n", ret);
+-- 
+2.43.0
 
