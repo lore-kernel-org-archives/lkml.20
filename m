@@ -1,65 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794250092;
-	b=bZXf/8n/ASErGE5rkL1g2XSgD/B6bM+Nk+f+wBbrtcdBv2qYLVUtp0G0KNggdW6MGC23
-	 R+HpPULv8tOyxTigA2omNikbyVC7Q5hRvnElGfJFNNGQYAZ2q39Nv+YJDG4InpnzOaSmP
-	 8c917Ort9MHOxaC4TT3F3w+LRAtRpevjGXPtwDUBuXnZo0HOINypXfAwUKnRfOFqVqJCz
-	 gYC2N7IFQSIJpZo1c2D/JVdDMLLxowz3/T+RewEEkw8FQT1WLxx1d3EOKjKwZQw8vAllw
-	 gHQrHnLHtuifywNEGVPIlrKjoJrvsar8JeSkZ4tupoJJbuU/lmiy7UagIp/3pE9Uuyw==
+	t=1794250117;
+	b=V03lkulq3/Sq4pJE6OGcHjvmhdZoiNZbHDK5ZDsuXL4uFkUN3lgJ5e30QLH2byKxAzPR
+	 sy9/IC4CyRJTFmVal7zG81sbVgxFxuSb0pOXDr7YN2YcInNpss1NDdaasozyeqQlpAuy4
+	 yWdkEyB2hFNRGpszWJvE8xuEVaEVApiVgELd8zUxSQPcThOgS1THC3bPresfnFjQ2h8Jo
+	 sBaHCKT/+TR1MzFkPAQSJONhD4dfJCyqd762JIaIZZfZyn9VqxcanavlzDdu0ybsJbDSv
+	 8JP+bSv8gdwAM8pA9cAjzb+c2F2EzYWGbCQvk7K9HR4B+XaxkorQWTRgVfOcfe1c5tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794250092;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wzcq643kxqzm6dmiI//QkyvyRvgf5SDiG72cWiaVszc=;
-	b=ilQORwLIIG/Plu+7x8+v/PZSjM3BAiDvqZWSDmyFuUdsX0uieGIuMiQjwg1sM+WlzkLx
-	 CUb9ocgZugKtl9odnVQx3/rYu+U7FFPq148MX+MmhrjYSwek/rP7XROHNQZG/CuaMhV0t
-	 ekuD4Bx7/Yy82bwmiwTrS3BxX4ulm6Zah89lcM20B9kjT2wnjBEvLQMlLIFBDPYObSpDS
-	 Azy+zM+6X7ewSmJA95npF2DOJix4WTkk5pw1gMJShzMKXuH1V4nkOap2NpTkIvYldrW46
-	 8V7xpJIBj3q37Y4E+k64ntXjrSRdWGY5Th/9J6hxM7cqaMQdk/BrqQn/jfePAmwaLmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794250117;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=zJgT3Df5RlWXlIKxNLqtWOQBSvcfzp5SoEp+FbB1R5Q=;
+	b=K1Gyorb4h5Ee+RiKD1sRlUMSumycOZzfCZcdZgjvq+MUpS7VFbAewZtjIWE+ImgSr36z
+	 /tYyCPmco1uLrjw6R4/hs8myW2pkcfkvAdCC/WFeYqZTueyaAdn4mgWnYVJnmbjLkF9Mg
+	 ey3vBHDRnplcEfoh/4o/8R5FcugaAhfc7FmpTRjtzey8xouVUNwubFlAexVWWaIhkw51j
+	 N2fO5VgGAXgqN9ZNv/V1II3FBodQaLpHfg+WfeWNzprnvekPumqEWjyyiN3nj9qt9Iww1
+	 8yA4IyE/F8Hfo5Nojwogp0wdBnSjiukaVJApxROC2cVwQPysvYQv2grkrEXx3vEJHjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwBvG3Ku;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BcFXoTdx;
+	arc=none smtp.remote-ip=209.85.219.43
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5221606A321;
-	Mon,  9 Nov 2026 18:48:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B547606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:48:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B547606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwBvG3Ku
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39181F0089F;
-	Mon,  9 Nov 2026 18:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794250091;
-	bh=wzcq643kxqzm6dmiI//QkyvyRvgf5SDiG72cWiaVszc=;
-	h=From:To:Cc:Subject:Date;
-	b=ZwBvG3Ku4ZEwKSKey17VtGpJlOGR7qSBiroi5pBDv8Aw5R1tZ2MCU/eWgnF/33DS5
-	 h/zqFPVc3LQLug14ppeQv8CNu8NpLAY2BCrW4zPdB/CQ/0Bzs94BOHpadBvfwE+EU/
-	 SOcbuPHL3VQouyX0LpqkU8K3pTzhsrIbX3cNouXEzVs900C3ZbuzJUcGAbxZOUTULy
-	 tcOVZ8yYFL5Xu5yeijdEdnBtUBjsAulBNpkYv0OfITgqxP6nmRLYZmx07/j7w59dtp
-	 fVFxaE4Is5/s6PjIETaMJOSGL6/Z2v3G4eHnueTyipoMnLHhvtS3Za2Nuqty0uefsz
-	 2lsBotMH0L9Jw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sandy Huang <hjc@rock-chips.com>,
-	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	Andy Yan <andyshrk@163.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Andy Yan <andy.yan@rock-chip.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: display: rockchip: Allow single 'port' node for DP input port
-Date: Mon,  9 Nov 2026 12:47:58 -0600
-Message-ID: <20261109184759.467215-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BcFXoTdx
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91ebc0351deso9598296d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:48:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794250116; x=1794854916; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zJgT3Df5RlWXlIKxNLqtWOQBSvcfzp5SoEp+FbB1R5Q=;
+        b=BcFXoTdxo+yfjckASKsxogpAjNamyOxhxKZIbqJEfrlC68Fx5vsYLXoR26o9P/E+Cb
+         AxR5g6dgArMzJuQtfi6tYFBwwgD4APDT9E0dE7FumOrFwe9/4l8wGdDgM5OamZk7FQ4Q
+         XZ+YYzuDRYY4GZXNxIdBCI1oCjMcDlP0+cBsBgxJzqPifaiupHziEjU1CE3TE8k14OR7
+         XRTOyK4oTKU66kunlMe3U4UrRQSY7ByX7T4HZFOeNo8vSkbDlHidk4crPJ2Q9t+6bbB4
+         Z2/c/2uzHjQdjnvqmjK7svqpu/TmJ2B+TlSis3P/5nYW4c/kUnxUOD0nlaDEIGpm8RQL
+         0ngw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794250116; x=1794854916;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zJgT3Df5RlWXlIKxNLqtWOQBSvcfzp5SoEp+FbB1R5Q=;
+        b=OZyIak8041gHBkPjCJ0XA68xRA15cS9qaa9GaqeCa/DXgVSxE9dokc18m+tKozB7WR
+         eKbLmbORS4dXB2pIUdhJFI+hHZvSZzjZLZ1dyUJqfgxuAqh71Pz0d6VY6zHP2q/WaZlQ
+         E36Vy/39h8Qwpj+OMMMT8bwfl61njHnHkAzDL87N9+jmVrKFOvcTje8B420sreniauJ9
+         lr7kOYL8U5JB/ufCpFlyzOQeOzvhelpeBi5HBt1Wbf3LKfJHTYr/PbzjQRCzs2WvSGpT
+         sCiLp/W88qtzGLxNMlBPcWXaNJFixRHoH13x4j6gUd8dWCY1yP1Fn7wgK/fLHnaTIiI8
+         V5rA==
+X-Gm-Message-State: APuU4Z8kij5kgedbbDFRGCsFvp0SolyZUtlQoPez6KiFjtMKCe0vhiv1
+	GbP+43m5ulUNpARgSacnvrieIX9MhA1pvO26t7muPaPOSD1E/AJ3DAGW
+X-Gm-Gg: AYBFou2ZvMp7paIH8jogXd+0ymMG0arsxgpkPJrcZnhQsrEHzVefIL/nQgF707AfBYw
+	3rgyiHm81My+GIsBsIMnnJNAZqM29w2AdyXGG6CGJgldn6QmmqVks2dkVtMzIucWRIBrPBsFSLK
+	q0JKgiTFV9OMjc+kkMpNR94kPaWkANzmtU1Ys7NS64lU10T+HePwETpWk9fKYmobQxyAGx5/JwC
+	TU0ck0ba0RYyYqtechZIa3HnvLuytyBZD4y35vfmSSlAteqNUfU46tBfjGeoU4lUxyhut2a8mkR
+	KJ3kuijTh5AQVJfKdiH9Mm1QHKCMd+KgGNft0OjEQxj8J1Pa1aA8bVTDWpRkOXjR9mnDWB194Sw
+	aK7UDbAsyKzbn23wbFkjMfUDFaj6bc8t9U6pGNEZxakzx50Am6v/t0KMf+E0QjNxGYxIIqIZ3gQ
+	2ix5p+0KAkeGUP8JvKXSB1RMoWCfHGAXNQPNwABKdJGYNv5u/oP9kc6ex/mhiYlMPfzqZfo2PJW
+	9QYbr7cBCMVdH0WRYZebitLbeNWLNWJY0ioyrYh/xx4Uisi+33SC3TH6iKKCc3V3oj3dV9VPQLT
+	jOOPycOfe2NxO73B2g==
+X-Received: by 2002:a05:6214:3197:b0:91e:87a9:beec with SMTP id 6a1803df08f44-91eef490879mr10416736d6.0.1794250115930;
+        Mon, 09 Nov 2026 10:48:35 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef052360asm2307396d6.38.2026.11.09.10.48.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 10:48:35 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Alex Dubov <oakad@yahoo.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] misc: tifm: Remove the adapter ID after device_del()
+Date: Mon,  9 Nov 2026 13:48:32 -0500
+Message-ID: <20261109184832.1256641-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,52 +96,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Existing RK3399 users have only a single 'port' node. This was common before
-connector nodes were defined. Allow for this since there are already stable
-users.
+tifm_remove_adapter() removes the adapter ID from tifm_adapter_idr
+before device_del() removes the "tifm<N>" device. An adapter added in
+between, for example by another TI FlashMedia controller being probed,
+can get the same ID, and its device_add() fails:
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+  sysfs: cannot create duplicate filename '/class/tifm_adapter/tifm0'
+
+Remove the ID after device_del(), as the error path of
+tifm_add_adapter() already does.
+
+Fixes: 6113ed73e61a ("tifm: move common adapter management tasks from tifm_7xx1 to tifm_core")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
- .../rockchip/rockchip,rk3399-cdn-dp.yaml      | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+Found with a static analysis tool we are developing.
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml
-index 195f665970bf..425b27346132 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3399-cdn-dp.yaml
-@@ -63,7 +63,12 @@ properties:
-     $ref: /schemas/graph.yaml#/properties/ports
+Reproduced in QEMU (x86_64) with a test module that runs two kthreads
+for 20 seconds. Each kthread allocates, adds, removes and frees an
+adapter in a loop, under its own platform device as the parent.
+Without this patch, tifm_add_adapter() failed with -EEXIST 125066 to
+126356 times per run in three runs. With it, it never failed in three
+runs.
+Not tested on TI FlashMedia hardware.
+
+ drivers/misc/tifm_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/misc/tifm_core.c b/drivers/misc/tifm_core.c
+index 03d1324bc253..91f9b377588d 100644
+--- a/drivers/misc/tifm_core.c
++++ b/drivers/misc/tifm_core.c
+@@ -223,10 +223,10 @@ void tifm_remove_adapter(struct tifm_adapter *fm)
+ 			device_unregister(&fm->sockets[cnt]->dev);
+ 	}
  
-     properties:
--      port@0:
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Output of the CDN DP
-+
-+    patternProperties:
-+      '^port(@0)?$':
-         $ref: /schemas/graph.yaml#/properties/port
-         description: Input of the CDN DP
++	device_del(&fm->dev);
+ 	spin_lock(&tifm_adapter_lock);
+ 	idr_remove(&tifm_adapter_idr, fm->id);
+ 	spin_unlock(&tifm_adapter_lock);
+-	device_del(&fm->dev);
+ }
+ EXPORT_SYMBOL(tifm_remove_adapter);
  
-@@ -74,13 +79,11 @@ properties:
-           endpoint@1:
-             description: Connection to the VOPL
- 
--      port@1:
--        $ref: /schemas/graph.yaml#/properties/port
--        description: Output of the CDN DP
--
--    required:
--      - port@0
--      - port@1
-+    oneOf:
-+      - required:
-+          - port@0
-+      - required:
-+          - port
- 
-   power-domains:
-     maxItems: 1
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.53.0
+2.43.0
 
