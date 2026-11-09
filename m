@@ -1,86 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235401;
-	b=DVaq3rySh3D2vGjENP/jOKYVvMOwyY+fcgdV2TdRCPhMuTpwDG9RbPSMTf32MEwqmVHU
-	 IYhyndkPHc3i0i+D80MtIyKmRCKqaij2TD4Btd7XdFjeumea2DKr7s6Qn1s3onqIxm6S0
-	 IXhmNtX2Ynrb/iFBRSLzbDZ1P0ejk0BcC2ayXR3KZm7wvXAiu/RmRil2jQ8zuKLv545qo
-	 UqVSdS+f328P9MQRVw0qtj7afv7D3RwheRCumhDzWCbQnZIam9uuBzLUFn98ZmxL+MWKG
-	 KbiipsPLOKpyPfP+TZumN7b1yC0405VGoVZ4uhSfyG/vRF+HzbBwr97CBH4SJb+Bq/w==
+	t=1794235422;
+	b=tnGwAbyntWgvgXzLDOOMBtBhag1Ju7z3GACY/VuTeMEiFAaxqnMxiq9HnwhHjUVbaOJp
+	 e+aIg494oXfJYNry0trebSe3DrWnSavVOKcoMkwW597uaq6H1hk8fj7Rj88iIPeULuOod
+	 dftLYfz2AYkDmQBEII9hPho9mBFd4FTXN13wm9QnznI8f3hKnDoAj6LoSNkI5LEInJW/X
+	 o+WTH6QjxXxffEHzS1zD2vWQQqlorIOCZaCGDn9oonwq8jB9pquefnnRjPi079Ap9x49S
+	 5UyFaNkWBPVUO15MSeTzschvgzACJCr05MGxkolsSy8D9QC6Ok0EkwlcsaCo+JHSKzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235401;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235422;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eab7x+/IWkDtBF2+kKHfms5l8bMxSW46Z6JtuZvSMn4=;
-	b=YQ3auv78VZNN/iaiU0uJrJwpDgZWm+OcWHBHKI7E/7YbngIgXjp8SQeLjep87+M92FYW
-	 OIY7hAFgipsfyXE8M4DRqg06TYFCmgN5qH80tXVM4ypW+37RsQ971LcQPzwU5DCZV2YKC
-	 /BAkkj+vYY0W+X4PoTwD9cj8W2XKZxOF32OIRISqQ8JIiGJrUjM98I+eCE73c/2aTKsu+
-	 K+cUXu6oJV0kPn2qSsEaWL/3LAbwX8GPHh44Tb+ixHNQ7R4PC50+MRwm5SrcSdhEvafQw
-	 NnofgQ6pJ7tiHoBlYpEMVAzrL2zu49KrnY1FiKeeWRzRfU2G2lehURByB0rw6RAY2ig==
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=js3PUCSX9RGe+iWVpuwLPjnKS299ziJYM/TNs2sZ3KQ=;
+	b=f/SwO1Iz1LIhuaeugGXOpZ53kfzxxxqyljc8g1awE4Zf8s6DnDj2AuAmLnDOByhmmLMN
+	 QDWPNfQB6YOicb1G6OoO0T2/6blwKURprrnCXJPJzThv0elp48GnWfGKlyco5R5WaXjCx
+	 7hqdtkjI9oB3pbzNHfscKpF4JEcz2KoPcvw1k6HnEyISvXHN/sSjUeVfXS611GbF2MBPj
+	 3dd64qRbStHo9WKgTI9oB0uO2bumNvoD8lATtyrv2ZaMjwmIA4dk1+T9TLogSx4rVNSuY
+	 Yf1CXE+gU8kyKHmv1XUAzet8CsceOsar7ronyBYi2idDbHzmadrgP5LIcS4AESuNgSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=WnvVtmaf;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RA3bYcBw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="kF1vO/0c";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE13606D827
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE13606D827
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300D8606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:43:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 300D8606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=WnvVtmaf
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-714d57774d8so558804eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:43:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RA3bYcBw;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kF1vO/0c
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFMXL3589048
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 14:43:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	js3PUCSX9RGe+iWVpuwLPjnKS299ziJYM/TNs2sZ3KQ=; b=RA3bYcBwND/tNCjZ
+	cLdRZZiLcq9T4Tklbl+Dt6rOJWygToA2gxZOesvz87r8YJ5purBXw4hmnECJLmV8
+	JNno1dtpA/shkpgHDlc0nPGYa2QnJ3eMkSd3uPTk6NA55ELLs2fu8GK9g6gZLpIX
+	mia91lxuavmbHx3G+WBQXIpPXFOizggz8ZEqmvj1/2dB/xcO5gdF8tzSs8dp7i0E
+	Otwdmouv2odcrSLJErRe5e901TkYItRjVrEH9Xo8/67C9qKwprXM8suGai1rEOwH
+	xuW7/FbPLLoiln6bhPuywPK80bb5LRlwVaYzY9ljbx6O7ux/5/YvlTD2kAqxAILJ
+	DtxdyQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hudcj8mxt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:43:40 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b0afbf532eso824745a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:43:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1794235399; x=1794840199; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794235420; x=1794840220; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eab7x+/IWkDtBF2+kKHfms5l8bMxSW46Z6JtuZvSMn4=;
-        b=WnvVtmafzpOEtLJCghvPAp1Yk2EkRfKAcTofbdAd/PD9dKkk0NkVsGGRDUJB8qdxb6
-         7QWgZBEOxNuBvdbPrDDUAw6ycTOABv0xkgQrd3XhWAI8RAbsJyg8ZISzYDUdjc8ygzKx
-         gw9p47qYVFfInjin6l8dseThpuz2KMOIvJuSc=
+        bh=js3PUCSX9RGe+iWVpuwLPjnKS299ziJYM/TNs2sZ3KQ=;
+        b=kF1vO/0c41w+oEce95lRzdSo/125zmTTbMBK/gEKuWnJ3AUUap2TrdhtvZzIwnWJNq
+         +Bh0UI6BjZTqL1aINIuusS1WG9ScQb1bAgOt78eCox2a7Ee5tfgwAJ0r0GVoUxEQU8V9
+         SdiS6pFKiu2oxxeDMwMed028B39dS3KbijljM3TSmCpvoY8XwzeTqZ6njpsM9zRuAF3P
+         jbvDIlqm2RqEzy3igVzl6OyJkkEq9Upj6BjSEfA/0++X3BRUlnjPNDGMWhf7y03Gw/c1
+         GR5DhKRrI+GrLT1N/+RlcAyPuDoQTsgjWJud3hm9c1bnmXID1T0hTXuCPDJYuXzlqSo6
+         1A1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794235399; x=1794840199;
+        d=1e100.net; s=20260707; t=1794235420; x=1794840220;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eab7x+/IWkDtBF2+kKHfms5l8bMxSW46Z6JtuZvSMn4=;
-        b=jsofmvk7hvEmbRXlQbPxLsWFEFqJvrQDbQRw3w4VQ+qlTssWgKFNc+0glPWK1SbmET
-         GpLHfrTjHrb6FUwEJtU39Hmi8AiWi49DzyyT8SvX+clDdq7KDiN7nOSycvQ0KB/hNXal
-         zijueh5eYiz9G7h/lcB1aiG/UKTYspRgiA36Xv/DI3Fa6xP8prrKOjiZVoV2tmgCnYvs
-         nnrmL5EFwxohwcpyHPDVL+tZZeQWRqelkhvpIYkeKWthYv4deLOmhtQO5ZikUT3aXEh4
-         s8vCv41kkX97w1OfZ7jv0U6pkNrH94jwmHfH8oRBtt9gfSfmUizIf+ttC+gexh6J3cfC
-         Zotw==
-X-Forwarded-Encrypted: i=1; AL+hErH11nvFti1NLIfH5EbLKrx+1jAth3pQjjJvkQSMEB76edmo/sKUAcCEOSyBsweUXI0XAiq3I1O7OXiwe8g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YP7LNWv2fQmVjzCdc0OhOzZbiddr2O8ww7bW9pq+PRO+JMEwb
-	7x2JmvHFmP3SYjUvB4qEvpb3+dB8RM21EYuxNbUTTGOwvu2AbQlu55sT/JS4L95klj/INqAnnOA
-	vM4/umg==
-X-Gm-Gg: AYBFou1VonFc/hstzrqFPt+hSB0Zkxx/wZnqeDPT9VEUAsELGfRR8B8vdqk63TQvsXt
-	Q9UDQREc1PI5ETwTIa1IBBpidI6Kusg0DKmSI0r+9qQA/tBvrR2GXHrU4gOworoUxX+oGfwdr0l
-	oQBlsOrw9Q6NubS4z67hKO08YaPu7Si/axpfRfi0TasDK1KaYzffYVg0OsDLAk5wIJ2zXkex5Zo
-	YT/NYw6tIbp/cnK+zg99xEGmZSEj8+wnS3Df1NvHeG4ghJseFZZcVa8W1z7qP5ERdoUHqJlvVyv
-	Tk/GFdG5EAa8HT6KHv1mgdAZqXg71YYcx+ULiGybDzRhujdbg10FlG6VfygsIJzuVXylob9XW3g
-	pcKq/B2ZACDSstmQvBjL9QomTbCX9qjLwvgeiwQn8942Fdgo8GqLP4IT1uMyo9ph3X4d2VO62db
-	0PpcKIy7rStwuZqyahWUi8uMfXuSmzbRpUsePx0ntYijzWzxjZS7rT/dz6ybRgduj39ctPhSzJG
-	oo98BdCTvwKIRDH88wjzlFEusIZqJMZ9EJGxoRGBNzeRx2+LQikWt18Y2Eq6R+0YHtFusz347l9
-	Z2WYhujuF+ixPAPgZ2bqvp8=
-X-Received: by 2002:a05:6820:1c8a:b0:716:db9f:682c with SMTP id 006d021491bc7-7170f34476fmr2344540eaf.69.1794235399476;
-        Mon, 09 Nov 2026 06:43:19 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-85f4fbce9cdsm3779583a34.20.2026.11.09.06.43.18
+        bh=js3PUCSX9RGe+iWVpuwLPjnKS299ziJYM/TNs2sZ3KQ=;
+        b=rLOytGIu0n0XX1UMAZKcOoXRHhIN0wGjXHxAQ9NbLZ5/wM31ugVaUDAnsC/K53XPLm
+         ZR0CDsAnuICeh6a53nv7JK/6cpZXYsjPhMEGxyfjxd8u2OrzkIPxnyVe9QIQTSodvw9j
+         g8ddzRhvZOMPsIDEyywqxdVMXIXCL3HF3lI8n3iyET2CAHAM8fJKYFkfln+2wUROrAjf
+         Twy0i0Id04K5768C9YBiCmQS62S18XGvgLCAy456DjDLPpLpHUbe9wTRbhUDfXkSBXWw
+         K8nhDEzTRWb06MjQiUKcjbERHTe05s4IMx7xuH5VBaprqzEKzt3YViQ0m6LfPOP35+yV
+         XxbA==
+X-Forwarded-Encrypted: i=1; AL+hErFFPo+8pkCGzU0MTlc4CaC1nG4AlTG/sta7+b6s/FOZJ/DJIi/ColU728ouULfLuPBFji266kQnysmqlYI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yI9vciqsuexhDPcLe/ZJ2K/wSq+63UENbsu4nUxM9HgItDdIy
+	TLxNKU0ISR3yCps/8k6aJ94wOTkLXaOPhMfFNqEI3NiIHzhByftm1Jbm61GCQVFeu1SFehceL+k
+	90W+4hG2KmK5Or5sL/HONFTQXwI/8T3AiibgNWG+9dDZehJGSoJ98RUM7058qKFZPW8w=
+X-Gm-Gg: AYBFou1jA3GNxogcgTQvNFesfKxzUDt8d7syfG2UW6zmZfaHDqoKWEMQcuIXycmH+e2
+	6PM3eGHYHZPBqZsiL38d/IKMIy9mq+Xv5QueaiFoPBSIczp4VsrPiBTptvlB2lZD1TrVPjbEqtD
+	62li4Ghjco3altqDNNaHvoWQXH/FWltr4i05yBF7vXwJ7WoETv6M/nLqfgzOJx36w3xBguRObFG
+	QKZoj8XgHn7yFPlP/G9E0DP7eLsYJjH8FywLUvW/Nd3zqsezlxTRN6GWGgUU1FLOhDU8dNZXW/r
+	caCuqBd3BZhA6toDXe+HpaedNWFZk7aZz6Br5iy4T/v5T/lSyTm6XvylAvjsYPBJonsHu2yx4MV
+	EDs2VeQ7J1jhtKoONPP/LbKzqyWoIwYo91hCFsthsN01BG6d+3Xqzt0xYMxI2iVLl4hhxd0CRBm
+	I9Jg==
+X-Received: by 2002:a17:90b:5807:b0:3ac:c98e:345e with SMTP id 98e67ed59e1d1-3b12d3d2aa5mr3285281a91.45.1794235419738;
+        Mon, 09 Nov 2026 06:43:39 -0800 (PST)
+X-Received: by 2002:a17:90b:5807:b0:3ac:c98e:345e with SMTP id 98e67ed59e1d1-3b12d3d2aa5mr3285256a91.45.1794235419245;
+        Mon, 09 Nov 2026 06:43:39 -0800 (PST)
+Received: from [10.218.50.86] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b12790befasm7129841a91.13.2026.11.09.06.43.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 06:43:18 -0800 (PST)
-Message-ID: <ff30d76b-a58c-41d9-a4ab-1fdb7f931f46@ieee.org>
-Date: Mon, 9 Nov 2026 08:43:17 -0600
+        Mon, 09 Nov 2026 06:43:38 -0800 (PST)
+Message-ID: <61646f06-87f1-48da-9b88-8898bb488af7@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 20:13:33 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,96 +117,95 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] greybus: reject messages with claimed size smaller than
- header
-To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>, greybus-dev@lists.linaro.org
-Cc: johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261109013336.1122-1-zhaofeng2@cmss.chinamobile.com>
+Subject: Re: [PATCH 4/6] soc: qcom: geni-se: Define the QSPI firmware protocol
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-4-21f43042dd60@oss.qualcomm.com>
+ <20261109-stimulating-oyster-of-respect-620b7b@quoll>
 Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20261109013336.1122-1-zhaofeng2@cmss.chinamobile.com>
+From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+In-Reply-To: <20261109-stimulating-oyster-of-respect-620b7b@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: bVjH2etc0gV37cYzArDjKm62sUaulwoZ
+X-Proofpoint-ORIG-GUID: bVjH2etc0gV37cYzArDjKm62sUaulwoZ
+X-Authority-Analysis: v=2.4 cv=au0nmiZV c=1 sm=1 tr=0 ts=6af1dc1c cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=rLV7qYPEkEEFJh5gh6kA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1OCBTYWx0ZWRfXxUFcB6cIonez
+ bK9qNbfZz4/nuoVKgJqa4XQqoTxtxVPT06+wJDITLHQGPzbR8Hr7QG71/26WBXu9u2E0DVLTn0v
+ GkAO2HaRRKzrD268sqh0fUxaEFOtV+Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1OCBTYWx0ZWRfXzKCFwfsDE5d3
+ 8lKgftj97e+WZ4a7VLzZ2/7aarRz8kFTrLkCjC7XtE6r8+uNtHhr9pObLQ26LF+2nNLGnArP9VQ
+ CeN9ZKvkmAGZ/ng6yUzx3OkYPKrPIAKhFI8bODKZSSyeA2gPF6D4bGIc1k/Qv0/YfeCYqVY2I6R
+ 1mB1KORtiNWWIyCIpW229JBWQqe6PSL//OBpkEq7CwpDoUG227NZsBPngwUNUtsGH5FAtlWpnAQ
+ G+j60fYoj3CT93y5RFHL/uhaGZShfPKa0d3MmqoBehJyUWtd4MwSBPQ7OhiACYAMEjMgk3+Nw9K
+ rzx+jtIg4+jwdxDDzMbxf52jDXGRDpN9IBooJmZ9kEi40WPycxS27lbAGclWI6Jeqf2iMHC6I0z
+ pyle+zAqX3MR9+N08A9KT1etZxE5vaLMFsNSFrIBzIVbDvh2Ujx48IfELYPxCeaLWpxv6thPGi1
+ SU44hB1aQpj3PvlHLuw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611090058
 
-On 11/8/26 7:33 PM, Zhao Feng wrote:
-> gb_connection_recv() performs two sanity checks on received
-> messages: the receive buffer must hold at least a full message
-> header, and it must hold at least the message size claimed in the
-> header.  Neither check verifies that the claimed message size
-> covers the header itself.
-> 
-> A message claiming a size smaller than sizeof(struct
-> gb_operation_msg_hdr) (e.g. 7) passes both checks when 8 or more
-> bytes were received, and the claimed size is then used as the
-> message size:
-> 
-> - gb_operation_create_incoming() computes
->    request_size = msg_size - sizeof(header), which underflows to
->    SIZE_MAX.  The request handler then reads payload from a message
->    whose payload size is SIZE_MAX; syzbot reported this as a KASAN
->    global-buffer-overflow read in gb_svc_request_handler().
-> - gb_connection_recv_response() similarly computes
->    payload_size = size - sizeof(*header) for accepted short
->    responses, which underflows the same way.
-> 
-> Reject such messages up front in gb_connection_recv().  A claimed
-> size equal to the header size is valid (header only, no payload),
-> so the comparison must be strict.
 
-So the problem occurs when a message arrives that has a bogus
-header.  We verify that the bytes received are enough to hold a
-gb_operation_msg_hdr structure.  But the 2-byte size field within
-that structure lies at the beginning, and there was previously
-no check that its value made sense.
 
-A valid header->size must be at least sizeof(header) (for a
-zero-byte payload).  It looks like gb_connection_recv_response()
-might handle a header whose size field is too small, but
-gb_connection_recv_request() does not.
+On 11/9/2026 7:14 PM, Krzysztof Kozlowski wrote:
+> On Fri, Nov 06, 2026 at 08:31:22PM +0530, Jyothi Kumar Seerapu wrote:
+>> Add GENI_SE_QSPI with firmware protocol ID 9. The GENI SPI driver uses
+>> this value to request QSPI firmware and validate the protocol running
+>> on a serial engine.
+>>
+>> Extend the firmware loader's protocol-name table to accept QSPI.
+>> Reject unused protocol IDs in the sparse table before looking up
+>> firmware.
+>>
+>> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+>> ---
+>>   drivers/soc/qcom/qcom-geni-se.c  | 7 +++++--
+>>   include/linux/soc/qcom/geni-se.h | 1 +
+>>   2 files changed, 6 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+>> index 873bfbd6b2b7..396f3d81d292 100644
+>> --- a/drivers/soc/qcom/qcom-geni-se.c
+>> +++ b/drivers/soc/qcom/qcom-geni-se.c
+>> @@ -122,7 +122,10 @@ struct geni_se_desc {
+>>   static const char * const icc_path_names[] = {"qup-core", "qup-config",
+>>   						"qup-memory"};
+>>   
+>> -static const char * const protocol_name[] = { "None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE" };
+>> +static const char * const protocol_name[] = {
+>> +	"None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE",
+>> +	[GENI_SE_QSPI] = "QSPI",
+> 
+> Why are you creating holes in this array?
 
-In any case, I think this fix looks good.
-
-Reviewed-by: Alex Elder <elder@riscstar.com>
-
+Hi Krzysztof,
+The array is indexed by the GENI protocol ID. QSPI uses ID 9, while the 
+existing entries cover IDs 0–5, so the designated initializer leaves 
+entries 6–8 empty.
+The added NULL check rejects these unused entries before accessing the 
+protocol name. Appending "QSPI" directly would incorrectly associate it 
+with ID 6.
 > 
-> Reported-by: syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=693652ded53d3eb9cb91
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-> ---
-> No Fixes tag: the missing validation dates back to the original
-> greybus import; the introducing commit could not be verified with
-> the trees available to me.
-> 
-> Not runtime-tested (no greybus hardware).  The affected function is
-> identical in current upstream master, so the patch applies there
-> as-is.
-> 
-> This also answers the question raised on the syzbot thread about
-> whether the underflow is reachable: it is, because the existing
-> checks compare the *received* size against the claimed size, never
-> the claimed size against the header size.
-> 
->   drivers/greybus/operation.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 8459e9bc07..83b16c78f7 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -1046,6 +1046,12 @@ void gb_connection_recv(struct gb_connection *connection,
->   	/* Use memcpy as data may be unaligned */
->   	memcpy(&header, data, sizeof(header));
->   	msg_size = le16_to_cpu(header.size);
-> +	if (msg_size < sizeof(header)) {
-> +		dev_err_ratelimited(dev,
-> +				    "%s: malformed message received (%zu < %zu)\n",
-> +				    connection->name, msg_size, sizeof(header));
-> +		return;
-> +	}
->   	if (size < msg_size) {
->   		dev_err_ratelimited(dev,
->   				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
+> Best regards,
+> Krzysztof
 
