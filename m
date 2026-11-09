@@ -1,87 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268567;
-	b=s/+CMhkgVzZUjQvg/q4vU+osC6ZWMI5TRjaPac9GzhWWi7bFWz25JlkO28+3otZCBz4s
-	 Z3PoiVPVouzpm4UP2a7j1qA6n/xvOXJ5QVXP4b9Gj3WG/8DiudnY6ZE1RKouchgF+IZWx
-	 EtWwXIl7JYURt1C4roUhZO42/4jwTSP/6DqeBjkapnbMuSgl/XiplTOAvBne3tRsv9LhP
-	 OV6uYZsSuTsE6MunEzXqBJw893g1qnKNV9WX0wlgnueQ1e4pXj4p58KLJ3Zf2w0xF9nvX
-	 glqxWYG8HWITmxatoSaWsjhVbDFJYY9ckwT6Qq9mloyODtS+6+CUgY5LK/Gn3kMzr+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268567;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:From:To:Cc:Subject:References:In-Reply-To;
-	bh=nlqOFSAQ9H7dnLsW36/WDhDu5EY2v33GDHCwxLLecp0=;
-	b=ZdHMxkpoLTjiKdU+Th+Kj6DHqzsSJT4f6w7IzH6qlLYy6OyfNdK6QL8VxRQES12+RTbZ
-	 lySTq3Y3XzN2PThJjjdlugaa6/NDfwER7qgr1l9ZuJL0oLU5NithRXfZ2kVgsLQrrcf2z
-	 sczjsJnTsARXCEJBIsGXxVKdzjQk0/Wa5AuJKMmcsSnhDIxzzZkr1C6AtGawZ60EeM9yn
-	 wsNZxkpL0Bfmwu3kUuQw2Q7RgKF/W2Q6Fwdw/1OLNrO5ypPU82MJFTdYQ41IoU36kMyHh
-	 ixrrDLJJDZ/62h2/qKASta1ff9W7tlHGQKnBTidnh7do7Ukiexg7+fpR96+/gJQLwoA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=Qz1X22J3;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794268569;
+	b=QisRPq6FjLD/+yJ6ztLTkjP9Lh4WdbZhKPrY9VNrxanuC6f8Jg2QXpTXT+gWDsFrT6mS
+	 isM07KdeIRC+7/ZHN4q7StTYApeD1gHVZxZDo4FnrfWvETf0f8tVf8s4gAVCSr604jeWW
+	 Wbmn8Pn6hFdO2WTGpyVlqPtkNoHA2DPQnvvefnEsERPv5X3sHXgYGNIBY0jcOC8LvPn2f
+	 MJQbpFwpEbO2HtF24a6+geUKlPy6cLXuYuPQOP+/itrRqEk4jk4azDsmntMCvdTdTFQPv
+	 9meAs41xPsHWzWHpnfrWIjHZjQFJPsWC2g0x1twNbcjFaxEX4cyDl1rv3pPPBet89ZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268569;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
+	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
+	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=gim1oJ1ePxJ3vdOAQtzwVGI11fG5kPHKo/ag868og+g=;
+	b=Bv8SU4poQwlLfaiojh1YIvRycM68x2udP4sr4z4W1qGyYpe5xzVJwLj0Qyl8TQ1NKvtG
+	 0x9ZIAIrs/07LAzKXAuA+BswcsSpvdip+5JJBiIPaDZGE9IzHmZcfLW9WrcFHd2mt1f06
+	 Ec3EkYm8xiTfRgSbL8ls0Pg9HzSRcqZ2xmJj8EY4TR4nT6d9n16VAB2bBLHaL12V+ebi1
+	 MwuwpTjFtmIfBBviu4jwydqYyrVGTlqFxZmbRZem0XAsQ8RYB775pfSREPP6+FhBxPvxp
+	 iEoTuf+rmWLQKEcDLZjnTP/TJjSMU9KSieChcfemzO6sjGijtwyTDuSxnXMYP6t+c5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=u5LL0pzT;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qfqHeVMr;
+	arc=fail smtp.remote-ip=185.56.87.7
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3DD606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3DD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F99E606A321;
+	Mon,  9 Nov 2026 23:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F99E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=Qz1X22J3
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91e7fc8265aso18167526d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:56:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1794268565; x=1794873365; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nlqOFSAQ9H7dnLsW36/WDhDu5EY2v33GDHCwxLLecp0=;
-        b=Qz1X22J308Z0pwN4ph/SpbaqCDLhrYfm2/s985T7MYAxMwFI6+WtTal8ogRpJXmDZc
-         YizbP4AaoI7JqwqSum0kIuNYtmrj9bYTw2Z4ZqOUJEMWH8IxZPx8V600M1H4wTQzMG0n
-         dBeqV+zBkY9z6aFUUiYf4j/EHTQUhnR4vW9XpyU5tFEPwjOYWSVYr5d9zhk8GaHU04IN
-         kagJuSxM6qk+XMD87K/Pfrwb+4tZHOEClPvbMnUi+Tx1OoA3pYl5nNvkBfepcZArxHiz
-         yYOoFFVg1IqBYd+IJerZXSrI8KZgtwv9AVnQbWhlmi/VwLbWbKLyLAtQSSaws5TqG/zS
-         p2ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268565; x=1794873365;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nlqOFSAQ9H7dnLsW36/WDhDu5EY2v33GDHCwxLLecp0=;
-        b=IWKq1O8hGbUBpNTniXJWmQIWoInjInSKzYljhyw5CW8D64DkcWAVkhT7H6NaNDUzxt
-         94PhF0zCQo4nKOdt+Npqi6zLV8m4KFKUMWKPXJyRK+vGeAca/sOT3DCBieyT7o0Zp/r0
-         2EXLW5Hg01GCYF9xfhR3n8BkCNB0u+jgmltz67qUBlW7MaNaXprYbTEwUjM/MwOeoi5A
-         nLPxfd5zgk2SlbX3sQsSCBO3z0sKw7ZGn2oHl+jO65/xRgMoAgNt6CPi3SKXQ5pki6yA
-         XTMVakubjslWF1JZRQ0e8dxK2O41OF2QtbXx3+fzLLEAnz4sl0RTLNim2l1VxybW+tkw
-         oBrQ==
-X-Forwarded-Encrypted: i=1; AL+hErHSBDE5lvF8mrtqhsN6nvtIGVzTpbAXJEkGJhhPZokWVxHkmqfbX9qv+1uh72/KafljdU/RqPlWUOlCPJI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qwnqsO7JdxWbBJ3TUWK8MVlNW/ti/KXELqeQaGlZ1YZR/WGPA
-	3da8H0y9mghFczdjQ7EjvJT3VC0NzrhPvgF/dpFTVN5GB0n2FqFDnS7AMoPXYAEsDQ==
-X-Gm-Gg: AYBFou3Mx+TqK8UhTyOLSkszg34BHXy11dQjBCUssZrAjco1x1OSaJ9OXIWP8NFvfrD
-	kZyeZ8x7YPggCXe1d/r0rGK9OfzLg4ut2pKu/NUbvTVhTG42RMHOFqOuqKRJEGYokTsDrEkfotC
-	5+4YImBnOx/PIhEagLHv6TkkP7rSIKMqeoKnIjFWTZqGy7cPpVNoyQW6CkYBD2jJ6LqgHkuZZE2
-	3IDe12DzKhCwokiCtCPz7yUX2ui8drhkcK5Lpa67oS60nfMM/MdTI/qnzAz/kci/H+qBFuYEi8V
-	2bh0xhc+nPmD9xT343HVnhYY7MBkGDc30pAY+UxRVxHsDtGR6EgQf9JES5dFsPeDrNnDNsItwkJ
-	N4BPSKNVVEsGRzbeDLuMclpYyA909bkwt+MMf0cDV2EeejkcqdhfyofJeuH3tJCf5rReSm+ZOP6
-	Ko3EZJ+dAjziG/tXqLc8JTxWjY0WnjZLbvtTjUnFIFPuRmx9SZ0LJhRf+4x7jQIgouL4hvm9LvN
-	rTyrQKXdUA2HCF50EPkpklPxj7PNVolsECrdl5jDhwbxTqSumvassz39epawBdX0nV/V/22Csuu
-	7I97GD8L8C5lwFhy3w9JFRUnfDYIyde/goq99gN6ICIPn0ixi8Ik3teTZbOPmQI/cWLKFahkDDL
-	C/ZBpBipvCLVDAnUNoIgomt2l7MkkdwQ=
-X-Received: by 2002:a05:6214:54c8:b0:91b:5d39:e13c with SMTP id 6a1803df08f44-91eef8650e9mr21004816d6.49.1794268565495;
-        Mon, 09 Nov 2026 15:56:05 -0800 (PST)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04ae351sm7869386d6.12.2026.11.09.15.56.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:56:04 -0800 (PST)
-Date: Mon, 09 Nov 2026 18:56:04 -0500
-Message-ID: <a8542108f56e8cac5c6e65977ee01ffd@paul-moore.com>
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=u5LL0pzT;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qfqHeVMr
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; s=arckey; t=1794268568;
+	 b=HSNWi6VJ4aZB0LkLnCkwf8U3TjIXEOg/+fwnflAdCWXWAwoLYLr1RWtCQKBUAwQHzH0Lqkl1Og
+	  dbx9SqXVwpTiW8W7YnhJ0MokNwqNZiHKjbHwikJo5Aoy/T3qOK3SgfvW26wdFvbRMkbgzC6soN
+	  2ZPAP7QsDJ7GaN0zuhCMxYOWSLO/si+OlDFIv/3KB2AW8FZ1RdtDqTdofWX22UKzFTrDsg9t28
+	  etltaDh8YfRJFmv5lp7ua97xRXobFRZOK6/RiP3FzlvAJb/axDq9gXzk2RsoeOm2Oqohn9FVL+
+	  1Nt+OcDVJgb+J3BkB67hQDmj0qYD2s9QyJBpnOLnmsT5PA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com; s=arckey; t=1794268568;
+	bh=AaYmPzMt1Zbav8ZLszRreNvHb9kTClH06Tlsv278sHA=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=kBN44PLjK1Lg/B8zetsmkOqWzrWEXjbT4HLMLHcKKXmyjCBFfFdu2JBsmZZcZ2JHUXK7Gq67At
+	  t9YFtyjA9zqIBFfooOFhsvR0DMhk4cWuIGbS6t0YSrlA/4RoQ375EztaDsO+EhqPTrfRvLtZ/W
+	  wbUmFdm+hO1t5ORHYtNcAZJRdvuuURrlWUTjCQ9ORu5dkzVsytG9d/Zy+oVVRLfAqbKKsPLRxr
+	  Qrgvqgl4ifJ0ledAMWTwHp6p36qrs7/lFCzJ/7lP1mE5WhkjH/oen9aSPfiZWg4iYQpKktO0Zg
+	  x9EFNekfyaBtdcxV+44XVCrBwgLe8y/zBpudZ9ptZnM/Sg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=gim1oJ1ePxJ3vdOAQtzwVGI11fG5kPHKo/ag868og+g=; b=u5LL0pzTKIBaHpr9h0u93PAbmu
+	ukOQxw10n6GAiTBIZ9vnlAriJm4dnp6TOV/tbjampFxCCAgocdtuuRzLMr/y4sjlG3g8cDNsfVJlW
+	GWQ6IDzONnj7Z7ncvvACuJz/UIzeZENFkJ8+0LsWNZXwXwXi3UhRTJ9h4Ip2/tx71neE=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xQZDU-0000000EVdT-18EL;
+	Mon, 09 Nov 2026 23:56:00 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=gim1oJ1ePxJ3vdOAQtzwVGI11fG5kPHKo/ag868og+g=; b=qfqHeVMrTEDdGbC4Ue/pfvGTKJ
+	dakYiQWrmooe//kH6lzJdjvZDm0X+tpgeGpI8P5YjfVkC+bJtSKvXB5kAs7bZeFPIGRGPgSEyi86s
+	6w1QIVme1fFgL+O/0wG8A3tV0adEungI8lXEdRfqOVzvoyRDdq2hLd7y38kESa7AG+BI=;
+Received: from [79.17.15.196] (port=60430 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xQZDP-000000005KN-2cLq;
+	Mon, 09 Nov 2026 23:55:55 +0000
+Date: Tue, 10 Nov 2026 00:55:54 +0100
+From: Francesco Valla <francesco@valla.it>
+To: Chrispine Tinega <dev@chrispinetinega.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] remoteproc: k3: Recover a crashed remote core
+Message-ID: <avJbc4Aebflkjgap@bywater>
+References: <d22a1ffd-cfbc-4122-b11a-7b680985defd@valla.it>
+ <20261109160431.720498-1-dev@chrispinetinega.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,62 +100,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20261109_1829/pstg-lib:20261109_1442/pstg-pwork:20261109_1829
-From: Paul Moore <paul@paul-moore.com>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>, Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: Ondrej Mosnacek <omosnacek@gmail.com>, Paolo Abeni <pabeni@redhat.com>, Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, selinux@vger.kernel.org, linux-security-module@vger.kernel.org, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selinux: don't label bridged packets in  selinux_ip_forward()
-References: <179216146138.25460.7866279004288174372@gmail.com>
-In-Reply-To: <179216146138.25460.7866279004288174372@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109160431.720498-1-dev@chrispinetinega.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 70194f2650fe92e883fe30848340172b
+X-AntiAbuse: ID - 70194f2650fe92e883fe30848340172b
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xQZDU-0000000EVdT-18EL-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-ssp3.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On Oct 16, 2026 Joas Antonio dos Santos <joasantonio108@gmail.com> wrote:
-> 
-> With br_netfilter and bridge-nf-call-ip{,6}tables enabled, bridged IP
-> packets go through the NF_INET_FORWARD hook, where selinux_ip_forward()
-> calls selinux_netlbl_skbuff_setsid() and NetLabel may add or remove a
-> CIPSO or CALIPSO option.  cipso_v4_skbuff_setattr(),
-> calipso_skbuff_setattr() and calipso_skbuff_delattr() move the IP
-> header and reset the network header, but the Ethernet header stays
-> where it was; when the bridge pushes it back in front of the packet it
-> picks up stale bytes and the frame goes out with a garbage destination
-> MAC and EtherType.
-> 
-> Labeling a bridged packet based on its IP addresses is not what we want
-> here anyway, so leave bridged packets alone.  Add a stub of
-> nf_bridge_info_exists() for CONFIG_BRIDGE_NETFILTER=n.
-> 
-> Tested with QEMU, two veths enslaved to a bridge with br_netfilter in
-> the middle, SELinux and a NetLabel DOI 16 configuration, 5 UDP packets
-> per case:
-> 
->   case                                        before        after
->   CALIPSO packet, unlabeled destination       MAC garbage   5/5
->   unlabeled IPv6, CALIPSO destination         MAC garbage   5/5
->   unlabeled IPv4, CIPSO destination           MAC garbage   5/5
-> 
-> Routed packets are still labeled (an unlabeled packet forwarded towards
-> a CALIPSO destination gets the option, 5/5).
-> 
-> Fixes: 948bf85c1bc9 ("netlabel: Add functionality to set the security attributes of a packet")
-> Link: https://lore.kernel.org/netdev/CAHC9VhS+bdL_YnLQtd0sPmKKfy9BvS-LWV_6EhAuu4qfUFe_mw@mail.gmail.com/
-> Suggested-by: Paul Moore <paul@paul-moore.com>
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-> ---
->  include/linux/netfilter_bridge.h |  5 +++++
->  security/selinux/hooks.c         | 13 ++++++++-----
->  2 files changed, 13 insertions(+), 5 deletions(-)
+Hi Chrispine,
 
-This looks good to me, thanks for all the work you put into this!  It's
-been several weeks with no objections from the netdev folks about the
-nf_bridge_info_exists() dummy function so I'm going to assume they are
-okay with that; if that's not the case, please speak up soon :)
+On Mon, Nov 09, 2026 at 07:04:30PM +0300, Chrispine Tinega wrote:
+> Hi Francesco,
+> 
+> On Mon, 9 Nov 2026, Francesco Valla wrote:
+> > If you share details on the Zephyr side of things, I can test this
+> > against rproc-next on a AM67A (BeagleY-AI).
+> 
+> Thank you, that would help. The AM67A has no M4F, so patch 2 does not
+> apply there. Patch 1 does: the R5F driver uses the same mailbox
+> callback, and it keeps recovery disabled. So on the main R5F I would
+> expect this:
+> 
+> - Without the series, the crash is only logged, and the core stays in
+>   "running" until the next boot.
+> - With the series, the core moves to "crashed", the crash is counted,
+>   and it can be stopped and started again through sysfs.
+> 
+> The Zephyr side is upstream's openamp_rsc_table sample with one file
+> added. The handler sends RP_MBOX_CRASH over the mailbox before it
+> halts, and a thread forces a fault 20 s after boot. This builds on
+> Zephyr v4.5.0 for beagley_ai/j722s/main_r5f0_0, but I have not run it
+> on that board.
 
-Merged into selinux/dev.
+I did run it on the "MCU" R5F, and I think I found a bug... in the Zephyr
+ti_dmtimer code! With that fixed, the functionality seems to be working
+as expected, but I'll stress it a bit before declaring a Tested-by.
 
---
-paul-moore.com
+> 
+> Copy samples/subsys/ipc/openamp_rsc_table, add src/crash.c below, and
+> list it in CMakeLists.txt:
+> 
+>   target_sources(app PRIVATE src/main_remote.c src/crash.c)
+> 
+> Build it:
+> 
+>   west build -b beagley_ai/j722s/main_r5f0_0 path/to/the/copy
+> 
+> Load build/zephyr/zephyr_openamp_rsc_table.elf as the main R5F's
+> firmware. After 20 s, check the state:
+> 
+>   cat /sys/class/remoteproc/remoteprocN/state
+>   dmesg | grep -i crash
+> 
+> To bring the core back:
+> 
+>   echo stop > /sys/class/remoteproc/remoteprocN/state
+>   echo start > /sys/class/remoteproc/remoteprocN/state
+> 
+> It will crash again 20 s after each start. That is a quick way to check
+> that a second crash is handled as well.
+> 
+> --- src/crash.c ---
+> /*
+>  * Report a fatal error to Linux as RP_MBOX_CRASH, then force one.
+>  */
+> #include <zephyr/kernel.h>
+> #include <zephyr/drivers/ipm.h>
+> #include <zephyr/fatal.h>
+> #include <zephyr/logging/log_ctrl.h>
+> 
+> #define RP_MBOX_CRASH 0xFFFFFF02U
+> #define CRASH_AFTER_S 20
+> 
+> static const struct device *const crash_ipm =
+> 	DEVICE_DT_GET(DT_CHOSEN(zephyr_ipc));
+> 
+> void k_sys_fatal_error_handler(unsigned int reason,
+> 			       const struct arch_esf *esf)
+> {
+> 	uint32_t crash = RP_MBOX_CRASH;
+> 
+> 	ARG_UNUSED(reason);
+> 	ARG_UNUSED(esf);
+> 
+> 	LOG_PANIC();
+> 	/* The FIFO can be briefly full of vring kicks. */
+> 	for (int i = 0; i < 100; i++) {
+> 		if (ipm_send(crash_ipm, 0, 0, &crash, sizeof(crash)) != -EBUSY)
+> 			break;
+> 		k_busy_wait(100);
+> 	}
+> 	(void)arch_irq_lock();
+> 	for (;;)
+> 		arch_cpu_idle();
+> }
+> 
+> static void crash_thread(void *a, void *b, void *c)
+> {
+> 	k_sleep(K_SECONDS(CRASH_AFTER_S));
+> 	k_oops();
+> }
+> 
+> K_THREAD_DEFINE(crash_tid, 1024, crash_thread, NULL, NULL, NULL,
+> 		K_PRIO_PREEMPT(10), 0, 0);
+> --- end ---
+> 
+> Regards,
+> Chrispine
+> 
+
+Regards,
+Francesco
+
