@@ -1,61 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239797;
-	b=JhuGRcIJMlSduaCix2TCyOcqzpyMrbJcV+S2UDCnh0MxK9nKAjTcepvwPJ0Btw2hOEU3
-	 6XiTlAX71VLoD/h2NP9ReqKw4fU6q2RTqKr1HIu0UB8JHC8kWQ/h3ZTdOWtnbF4Al9Kwp
-	 nQAKqnCIuL4F2+2qjlt2uBoL7xoUQqfDv5czl1JQWuvfQCN312QuYdYajoWj9zZFQyjV7
-	 whdDX38PcNWy7+TqZlEUcJONQHTlHQyUWhmN4Ycg5tc5EPW/7vxy5dR5ux8U0AD/jUel/
-	 mlEYauypwlC3VlaWFZRt3+WbZYCCwuRCqTdw87jk2HHLFL7qMr7JVGKHhHm4uzFADQg==
+	t=1794239809;
+	b=0fiKEQCi62RmHM2czGrmk/cUC0Aigob2qH4kE3HqPHtZsmVBGtmNC8t2jY8EVWGDCFcw
+	 JlGI4mtaqyRnz7QJvlWEbQ8W/ZAZedOymK0m3NXtnKmsUQWDmFdIMJK/bGppOucCh+tcO
+	 YJCUYkABQhffE7BYcFsoFKaT/yh/uqDWNvyTKKz7j28Wq0H0V+jQg7yajF6423/9nC+4v
+	 +tH5gRH1JLXXpnBn2zW+TgRokZVsd8YISKOeTDcqikHNaNMm3tI1PqQ3dNNoHEfiD9vjg
+	 2duR5ZUyhhVIkEeXLkN84r6OtV3r7Z7iJv8/DZSVZR3cn6XoMSCdIOFBGZo8V67e45w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239797;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LDCJlYvo3vx3tgjCW58/ygfsQ/e8c8gyHXqxxnH8sw0=;
-	b=kjRh+qmYSZYwOVXRbz1XiHHBHqM5jqRGrdQSKexU9/GcYoGy5QhUKpLvbFoejPU0oKh1
-	 gw4kjISRkxe18J32TUngGMEE6RzFbrpRr6K6YERdqbub6RlvP2auGVGMesaLTrEdAQgfl
-	 xlNr3wKRsCXEYHMptGeTnV4+IdBola+w1W2l5qh3tUFfD4VLxguUQXauMOxFmOrwKUgPU
-	 F2S1JAOTMVxJ2fwsosJgWGxRC6bHz/a0p0z4Odaod4g51aFIewBx0m3EXzEtgcjkIyceV
-	 ZmlAnMVJoKiqXpNDAtdG68/Pa6ogVdAiE82NBKQTpziLFTwUCYQYKI7vl/XzriwATAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239809;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=IiHfMjI5UW1C+sBrl6OK0Tos0QEXOpbHcV5EoY3XjNc=;
+	b=4h+h6GPzQIBBP+QP6Z7LihJQ/JkCio7zvSgMVOfacjwLFiZW5h+C3LeE8y5+kEH/xTby
+	 V5ajTuHzrqHuiPl2A+7s2I1hnBy19HyRHa2BlpMb+A5fibdJDWUe6O3pvkL/195w9xy1L
+	 EyVzni7jw9toiZQJytbutaaiCfvA9AtHBHDHeatgUKvu9GTMpC87lWeoF8E3PVUSW9aoq
+	 YlPU9FTVpAKP6q8/oExezjwyk+fPCzC5s+JdlOPjcrTiH4qNfuBzEYes212QUOlc5dgqZ
+	 6cOHcNAFA2sKWuJuN1ydl6GVPD4LsfJCQwEnAi6mRxpbOfQNEIodjOX4r/4F2/24nYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2g5VFot;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="0DcBLZr/";
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F80606A332;
-	Mon,  9 Nov 2026 15:56:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2760606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:56:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2760606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2g5VFot
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E761F0089F;
-	Mon,  9 Nov 2026 15:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239797;
-	bh=LDCJlYvo3vx3tgjCW58/ygfsQ/e8c8gyHXqxxnH8sw0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c2g5VFotjOrPFeuDvt34poEE7tFh32Vv87ULGd5VN8O4oVCl/ga+6no88HJmKJLv6
-	 7fSPBFp+0Z2OyJXAB4t+9czxvkN2rrMorsp8xudAlJOIAz/iTndP1pfXlTWBgp3ROv
-	 hI0FKahkqj5Yk1atUMKKkc4rv/LvJGx8Dz8CsKqGN7l0XPEFBswe79RL3MXu/s1BXa
-	 V16KV5ijiF565TjW5Rml8crmJJ4QG7cQAS1elbwjS+A0ifb6go3cS7w5NO+JYk3iWk
-	 EvsJc/+OfI2M1ClxXqz0mtJL6JO1XYo9KWYknxi6UXYGVv09B0+zi0zA9xldawPqDM
-	 YfsP3j+qe2L/A==
-Date: Mon, 9 Nov 2026 15:56:31 +0000
-From: Lee Jones <lee@kernel.org>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nikita Travkin <nikitos.tr@gmail.com>,
-	Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
-Message-ID: <20261109155631.GA69935@joneslee-macbookpro.roam.internal>
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
- <179198402838.839288.17911568760182808689@kernel.org>
- <5b965360-7121-41ab-94f6-d23b3eace32f@postmarketos.org>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0DcBLZr/
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id QQ1bx525QOOJnQRjex3Jkx; Mon, 09 Nov 2026 15:56:42 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QRjexbqOhSeuLQRjexxOE4; Mon, 09 Nov 2026 15:56:42 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af1ed3a
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=iHwBjlyiAAAA:8
+ a=VwQbUJbxAAAA:8 a=bbxMUrBqG-LWPQ326wMA:9 a=CjuIK1q_8ugA:10
+ a=uNSKXYNwxGiU6LD0JREI:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=IiHfMjI5UW1C+sBrl6OK0Tos0QEXOpbHcV5EoY3XjNc=; b=0DcBLZr/Skrac/9YuaGppdAFJq
+	U4CB7I9WuAnpZlpf5NUrjQGth5l+jsEH1ZZW7/3kuHf/CI1Lp1/3mOZDlnxB4GCnQZYfrQON1aFeJ
+	r1cgrB6r23EF/MUjM+b3QUfIi/HqGMotIs//Xrn5CGhx/Rh7JnSIb/+kUuXskx39f8f4Ut83tfE8k
+	u70/v0zPbLBLic59c6WLJy4LLGi74o9UTIBOghgeO6zBoo2osWPwOk2v3Ttf0yFSAd0BTuzgVlGz5
+	J16JZAT5a8P++Mr+xrR0BKI4bov23ZvgBgKXD0XgMfmFM7QOIvyoWE1no2KLsdo5l0YhVy+glJ4C+
+	LI0w7RUg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:32976 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQRjd-00000001UbS-33TR;
+	Mon, 09 Nov 2026 21:26:41 +0530
+Date: Mon, 9 Nov 2026 07:56:40 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: raoxu <raoxu@uniontech.com>
+Cc: sudeep.holla@kernel.org, cristian.marussi@arm.com,
+	marek.vasut@mailbox.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (scmi) Enable temperature sensors using their
+ sensor IDs
+Message-ID: <25506328-5bef-498c-8e9d-00c33bb8b13f@roeck-us.net>
+References: <AED18609B941BCFD+20261109082854.3739085-1-raoxu@uniontech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,26 +87,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5b965360-7121-41ab-94f6-d23b3eace32f@postmarketos.org>
+In-Reply-To: <AED18609B941BCFD+20261109082854.3739085-1-raoxu@uniontech.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQRjd-00000001UbS-33TR
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:32976
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 35
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNF+H9TF43A8r24mhtoljG4CboM4Si+e85C+sEt0hjSe8g8cI11aDB+mNsWNJMvaqy9irC1KkS30aFcgT5XjZFEKPhZJ5Yjncszsqnu+Mo/xMU1kEtzw
+ Nhq0X3gsqIm4jWKuGvxVwnNlfZVyXc4h+HHPgR260eHama0YRKWkSmnf+gQzS3oyABxikAwyQj1fK++df9RVcNT3C9DYqzAAQfBMYRz2BHneFucrxSkdssbR
 
-On Sun, 08 Nov 2026, Paul Sajna wrote:
-
-> On 2026-10-20 3:16 a.m., Lee Jones wrote:
-> > This is hard to read, I think we can do better.
-> > 
-> > Also, does it need to be a separate helper function when it only has a
-> > single call site?
+On Mon, Nov 09, 2026 at 04:28:54PM +0800, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
 > 
-> The function is marked inline, so there shouldn't be any performance
-> penalty, and I gave it it's own helper function specifically because it's
-> hard to read, and giving it a name helps make clearer what it's doing. Do
-> you have any suggestions to make it better?
+> scmi_hwmon_probe() groups sensors by hwmon type, so the index in
+> scmi_sensors->info[hwmon_temp] is not necessarily the SCMI sensor ID.
+> Passing that index to config_set() targets a different sensor if the
+> platform exposes non-temperature sensors ahead of temperature sensors.
+> The intended temperature sensor can remain disabled, causing subsequent
+> readings to fail. If configuring the wrong sensor fails, thermal
+> registration of the intended sensor is also skipped.
+> 
+> Use the firmware sensor ID, as the read and thermal registration paths
+> already do, so temperature sensors are enabled correctly.
+> 
+> The patch was reviewed and the commit message expanded with OpenCode
+> AI assistance.
+> 
+> Fixes: 72804d1631b3 ("hwmon: (scmi) Enable sensors to assure they can be read")
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
 
-Yes.
+Applied.
 
-- Break it up
-- Add more self-describing variables
-- Comments if the first two aren't enough
-
--- 
-Lee Jones
+Thanks,
+Guenter
