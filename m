@@ -1,78 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218514;
-	b=SFTLUyLSLTUV3A17G8gX9ThO81W/nGFnp22q5bpJuzSbQNGWTMfyjjtoEPu7eAtfJDZb
-	 xQAsUPYeuCwC5fHhn/SJ19rWkE4Hqr1nuvjwQnVm39KWvDhVTe2KC3vm16n8H156ZIZ/y
-	 nGatvhASkHuQ6lkiqISqItCMyD/yTqjqOxMHM6AAKKOrYBP6MMteU8TLhtDkW3LpIQwMz
-	 QELvuLzu3ik/d4vN6L4biWQYEVBR+gQWVVxh3dCd9TzZOVHD4BZi8L4N7dqDvxIW+8pqx
-	 EbLJQJqQirSJG3GhS40VVry829t1SbipDRmEC1d6Ogf3WSRIB9Y2JDjqjgEpi+ZYLmQ==
+	t=1794218525;
+	b=UmAUiLyySOyOOsV3Up96HyWXySpGIaVYZV3U5DdZ+UmhrYMNy3n6HwQczdAozbKhQk9/
+	 0iF6RBzPZev8O33irWrefKo+jfC9hdAIcbZrQ9THcIXziFz1wuiWlVCIgPqChXvzibBNI
+	 SZwJpNghqgPiBhQH9w037p6FX9M7jSRTbxSakkYYkstAt5oglC+Skj+uWjnsijZAU2voV
+	 lIOsLNCCI8Ggv+JLxUK+rnrEitpmVFSoZZe0W65dqvhjErwQNlKTCS9CgBAtfmf4lufgI
+	 x0C2yy376eB4b4dZIYRjPxw86zsZ5P9EU/8+l7W7qBNJECe43vw95l5eqDhs7dVgEww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218514;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Vrn55JPvAQ0yT0p3BRkIJljL3kQLPzmvbjeJapNiYxg=;
-	b=qJJKUKUD8FDgPhrI4uLrYee1f172pBsW0qsatJ4z28F00BsbC/yh9B8pUkknvIM4ZU8r
-	 JP0YGf46kvnYlnox8zREUMeEzU04YtjENHZsc+vtIAXbHy5k5j58HdIaO7WtJjcqt0u6u
-	 csnmt9qPYKRwndUnQtwQp4pTqvm+sg+lroXfHfPuU4A8POoDTaBQLxgM3eTfeg/BqMZIK
-	 nLXRsMJlR7I7BxdA5XnFHiLbwsw2m03R+1tJMs975P4jcSw7jLmLApbVf8OxEo4erFEom
-	 lUFVZ2V3620MvIx0VMPxM+T8XPUKdGtOOAGQoDb5034ibk4eEJYgGoWxHrI8oX8IJJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218525;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=/VYbQoDHN5JxEWJjLKcHZAFrB8RPCsR8XdtuPDWSAnM=;
+	b=W2hecUOjW9qZsCz/32xEbAol+raCtbCnQJNVbZn6s80BtYFQY0E4CdXlK4Ke7vLz6D4F
+	 XIbzXwKPxWVwDH4OSveFl8VNALpzU4HAfH4KJnMFvOYYlK0WEvsyWOwJSq7HEtB6KBrT/
+	 pb9ZXWSoLXSPAOfByivthWzBEK616JSl20S+iM1EHNap1ND6E/vop5p/0SjBEEQyhEeH1
+	 CBiVU2P33Y7eHsawa7ucljiA0N/rpzYMLEhLG+Ul6XqlkXE4ktqDng1Rqv/puyMmEfjOB
+	 DhcqIolAdSe3O2SAA8sSJM5ANW6auQaplF2KjCtvw2REzeInEcmP/HopCK9sbv12LxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CbYyXbN1;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=gLMXQeeO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BCJdphoz;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86830606A321;
-	Mon,  9 Nov 2026 10:01:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86830606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C1B4606D805;
+	Mon,  9 Nov 2026 10:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C1B4606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CbYyXbN1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794218514; x=1825754514;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lwL7Q+nPXqUW0WAtjO+yEB0WR5ea1mPrNXeXX7OmoYI=;
-  b=CbYyXbN1rLQU3ONzAFoos8Lxg0sWREJsPKi24HueXC88lShZ8AXUMmUn
-   QyzRfS/767+I/F4lnSV1mpB+75OA8yIAtRdhAYrb8NdmqWoBwu5TxQqLS
-   fuZNfpx6qFwWjyjxEMtjlA745HHw6SM9hj0NssB30+YnFrp7H1NxghaMp
-   F31EnkvcEG7zjyhWn4wDDBmJQ2twgMdGVhXCsArhRNN+Za+2G4WowX/UY
-   dvb43gkFMYyIN/ed3tt6lnKa8wyTvim5b1nQdLPbi1NL7gj0poOaHwhv4
-   XjxbSzf6uUuUBMnmST7wMWBeKTnIx1Z9NmQ67e6QmL8dZVQarG41YCUpk
-   A==;
-X-CSE-ConnectionGUID: TtFQpuS9SEKhnH3vT6yt4w==
-X-CSE-MsgGUID: XnxrCl3ESieTXD9348BG9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2925933"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2925933"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 02:01:53 -0800
-X-CSE-ConnectionGUID: 3sqQDv2kQFGXyMHcpt5QnA==
-X-CSE-MsgGUID: fKuBgBPZTWq/3OYn5bBY/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7956135"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa005.fm.intel.com with ESMTP; 09 Nov 2026 02:01:51 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 1C6CD99; Mon, 09 Nov 2026 11:01:50 +0100 (CET)
-Date: Mon, 9 Nov 2026 11:01:50 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Li Yifan <yifan2.li@intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>, Li Lili <lili.li@intel.com>,
-	Wang Jie <jie.wang@intel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/PTM: Keep ptm_enable_cnt balanced when
- pci_enable_ptm() fails
-Message-ID: <20261109100150.GI176724@black.igk.intel.com>
-References: <20261104121457.2108515-1-yifan2.li@intel.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=gLMXQeeO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BCJdphoz
+Date: Mon, 09 Nov 2026 10:02:00 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794218522;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/VYbQoDHN5JxEWJjLKcHZAFrB8RPCsR8XdtuPDWSAnM=;
+	b=gLMXQeeOx1PkiVVyWP2DnNivZAxOwfvmdZImAFgOUtexpfyR/ZpYso35C6Xm6xcTaDJXaT
+	XJAncuD10HLdgxLtKF0NMHe1tTkc3aDtxagxSnnaXgXDGgTIOcVKQLY7jihcGr4wzqkHy0
+	nXDfuAf0jIfj3qPj91SUuTGk7/j6DpHHey8/oZNt4IZTPBJ/lUr89Gb7U8vsyZA2yqtIlB
+	dYNbpNLXjEYSxBdh6xTR9H8vSD36HEO6ToAAyEeVbl0sc8T/qvkPHVZ72cu2PeXTInx03P
+	XMzt1GXIrBlS9BOPXAm04SRnghT5OFAta6MDNLEr7KnPGiXTsoSquFkS5dF7WQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794218522;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/VYbQoDHN5JxEWJjLKcHZAFrB8RPCsR8XdtuPDWSAnM=;
+	b=BCJdphoz1FUWjPz+btUxUmZiebuqhHbUuvl8G+Mfmof3OWo2yGjJuoTmQ/3IueE4zulTS2
+	VPF5ekpwlywuT4Bg==
+From: "tip-bot2 for Yury Norov" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] virt: steal_governor: store only the sampling delay
+Cc: Yury Norov <ynorov@nvidia.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261026171252.3860162-1-ynorov@nvidia.com>
+References: <20261026171252.3860162-1-ynorov@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,50 +79,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104121457.2108515-1-yifan2.li@intel.com>
+Message-ID: <179421852062.2093942.15767534565654453852.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 08:14:57PM +0800, Li Yifan wrote:
-> Since commit e1092d5e15e6 ("PCI/PTM: Do not enable PTM automatically
-> for Root and Switch Upstream Ports"), pci_enable_ptm() takes a
-> reference on the device and on each port of the upstream path, and
-> pci_disable_ptm() releases them. If pci_enable_ptm() fails, the counts
-> can become incorrect in two ways:
-> 
-> 1. pci_disable_ptm() decrements dev->ptm_enable_cnt without a check.
->    Many drivers ignore the return value of pci_enable_ptm() and call
->    pci_disable_ptm() unconditionally, for example mlx5 and bnxt. If
->    pci_enable_ptm() failed, for example because the upstream port does
->    not support PTM, the count becomes -1 and stays negative after the
->    driver unbinds. Then pcie_ptm_enabled() returns true, and
->    pci_resume_ptm() can enable PTM on the device after a resume,
->    although the upstream path does not support PTM. Before
->    e1092d5e15e6, pci_disable_ptm() did nothing if PTM was not enabled.
-> 
-> 2. If __pci_enable_ptm() fails for the device after the upstream path
->    is enabled, pci_enable_ptm() drops the reference on the device, but
->    it keeps the references on the upstream ports. For example, this
->    occurs if the device has no PTM Capability and its upstream port
->    has one. Callers that check pcie_ptm_enabled() before
->    pci_disable_ptm() never release these references, so the upstream
->    ports keep PTM enabled with no user. Callers that call
->    pci_disable_ptm() unconditionally release them only through the
->    underflow in 1.
-> 
-> Fix both problems in one change, because a fix for only one of them
-> makes the other one worse. Release the upstream references when
-> __pci_enable_ptm() fails. Make pci_disable_ptm() do nothing if PTM is
-> not enabled for the device, and use atomic_dec_if_positive() so that
-> the check and the decrement are one atomic operation.
-> 
-> The fix for 2 is based on a patch from Wentao Liang [1].
-> 
-> Fixes: e1092d5e15e6 ("PCI/PTM: Do not enable PTM automatically for Root and Switch Upstream Ports")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
-> Link: https://lore.kernel.org/r/20261102222817.GA983941@bhelgaas
-> Link: https://lore.kernel.org/r/20260616141733.1688264-1-vulab@iscas.ac.cn # [1]
-> Signed-off-by: Li Yifan <yifan2.li@intel.com>
+The following commit has been merged into the sched/core branch of tip:
 
-Reviewed-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Commit-ID:     70fed49a29f0cf3806182f70dfbf450e5d5cbd4e
+Gitweb:        https://git.kernel.org/tip/70fed49a29f0cf3806182f70dfbf450e5d5=
+cbd4e
+Author:        Yury Norov <ynorov@nvidia.com>
+AuthorDate:    Mon, 26 Oct 2026 13:12:51 -04:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 10:58:00 +01:00
+
+virt: steal_governor: store only the sampling delay
+
+The governor stores the sampling interval in both milliseconds and
+jiffies, although delayed work only needs the latter.
+
+Convert interval_ms to jiffies in the module parameter setter and store
+it directly in sg_ctx.delay. Initialize the default delay to HZ and
+remove the redundant interval_ms member and initialization conversion.
+
+Keep the read-only interval_ms parameter by converting the delay back
+to milliseconds in its getter. Use the same conversion for the startup
+message. Both now report the effective interval after jiffy rounding.
+
+Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Link: https://patch.msgid.link/20261026171252.3860162-1-ynorov@nvidia.com
+---
+ drivers/virt/steal_governor.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/virt/steal_governor.c b/drivers/virt/steal_governor.c
+index 6e31f99..81e5089 100644
+--- a/drivers/virt/steal_governor.c
++++ b/drivers/virt/steal_governor.c
+@@ -39,14 +39,13 @@ struct steal_governor {
+ 	ktime_t			time;
+ 	u64			steal;
+ 	unsigned long		delay;
+-	unsigned int		interval_ms;
+ 	unsigned int		high_threshold;
+ 	unsigned int		low_threshold;
+ 	struct delayed_work	work;
+ };
+=20
+ static struct steal_governor sg_ctx =3D {
+-	.interval_ms	=3D	1000,	/* 1 second */
++	.delay		=3D	HZ,	/* 1 second */
+ 	.high_threshold =3D	500,	/* 5% */
+ 	.low_threshold	=3D	200,	/* 2% */
+ };
+@@ -74,15 +73,21 @@ static int param_set_interval_ms(const char *val, const s=
+truct kernel_param *kp)
+ 		return -EINVAL;
+ 	}
+=20
+-	return param_set_uint(val, kp);
++	*(unsigned long *)kp->arg =3D msecs_to_jiffies(interval);
++	return 0;
++}
++
++static int param_get_interval_ms(char *buffer, const struct kernel_param *kp)
++{
++	return sprintf(buffer, "%u\n", jiffies_to_msecs(*(unsigned long *)kp->arg));
+ }
+=20
+ static const struct kernel_param_ops interval_ms_ops =3D {
+ 	.set =3D param_set_interval_ms,
+-	.get =3D param_get_uint,
++	.get =3D param_get_interval_ms,
+ };
+=20
+-module_param_cb(interval_ms, &interval_ms_ops, &sg_ctx.interval_ms, 0444);
++module_param_cb(interval_ms, &interval_ms_ops, &sg_ctx.delay, 0444);
+ MODULE_PARM_DESC(interval_ms,
+ 		 "Sampling frequency in milliseconds. default: 1000");
+=20
+@@ -270,13 +275,12 @@ static int __init steal_governor_init(void)
+ 		return -EINVAL;
+ 	}
+=20
+-	sg_ctx.delay =3D msecs_to_jiffies(sg_ctx.interval_ms);
+ 	INIT_DELAYED_WORK(&sg_ctx.work, steal_governor_loop);
+ 	sg_ctx.steal =3D get_system_steal_time();
+ 	sg_ctx.time =3D ktime_get();
+ 	schedule_delayed_work(&sg_ctx.work, sg_ctx.delay);
+ 	pr_info("enabled. interval: %ums, high_threshold: %u, low_threshold: %u\n",
+-		sg_ctx.interval_ms, sg_ctx.high_threshold, sg_ctx.low_threshold);
++		jiffies_to_msecs(sg_ctx.delay), sg_ctx.high_threshold, sg_ctx.low_threshol=
+d);
+=20
+ 	return 0;
+ }
