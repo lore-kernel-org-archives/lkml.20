@@ -1,110 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226828;
-	b=pgAR53E2fEVnBByS/qKmhgSgbBDdAHRbEqgAxpuPoLOMQrM6yKIgWZ0qAb3LKK+eotp9
-	 o8fgQyv0LgKIyVrgrx9wbEDXVwAj01n1QHP+VGrR0hA2d24CJk4toNghZVkchI91Qu2ka
-	 6L7R6xyXyZHD/nx6kdqo9svsnyb2+hGiI7O/Yi6BXfpkjHB7yBDYLhZESpvS8obvIXcpq
-	 mcmjeziHizznSulfF23cBUFlUprwBhlIv11JjGXbZYobt5L26NLj7Ojr7GiFUg/LcNATO
-	 1vZG0QbmipA69lv4/KA1VcFTKHqgJ8yKnp/bqkqU2G3THwHIgXAugAdo6QYDbKVrnhg==
+	t=1794226832;
+	b=03JmE8FswWp48ZkmBPL6IyWPhBKppHRUj0aSKY6rwBIc23gXgb0HQzytX0uDesF1x1Xf
+	 kVbCB3V9qcHDEgAMtuubFAyfYJZngTQIWWotPEkksHJwMP/MKjJKMvKQk0bKsvrbrHNrY
+	 HGU5r7aLVzdacYiCDcjxLn1yecPGoMgrUe5I+uv++Bgujlchef6tRP4iBOn8g7eAAYSQw
+	 KAFC0VmV1j9e6U/pzYLXY+k2NP5ia8BSj5+/w1eR/XhcZRn8qWUfhVsJINqn2zmB2ub3K
+	 0nxkbgP/NGVfK47qf83E12uuHjAbWJQSFOiaDG3ROXxHohcCj3szxjTWmj9Q6kYKhRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226828;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=YcGWRSLO8Yfbujxln+iu8vgkMzCPp+fOVFLW3VDJHEw=;
-	b=tXWVS/G+9qpiE99N2aW59G47bfxBMld2PE98YQEadUHD2mDofKVVncEDvgjZMzS8c5uC
-	 ZNlmgUHS7eNN3sh9k9GHP8m0lWTpVppqdciWIxE8u0lhCCIvEuMsx1/uC9RzqHPNgax2k
-	 JmLLKt5CPMIuHclJtY4NRCWMuVReGXa7p0otPpOQ3U6rKev8DWJT2V7I8rLfTRgBptxNC
-	 qYEpdnIeCZAotTNoJ+K3qcdFwYEyUxCOYCSJtMNZgw8glzwyYFL/43FEJ8TP3NQDEXCAu
-	 RuvHZxSVY1fRNObndBeND0otld7ds5lGNpWxfx3UpAbKn0n4LgqJERTsYs0iDrWM0Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226832;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=kE0/ygUG6OzgulQ1EncC7piIzJkfHZsxcepIiOM66SY=;
+	b=i+T3taSCErKbq61MUKXMjtGgP8/mKbPi6ovg/vhm0cQwBzzQNL7+VNuMF12c2d2je5JG
+	 7CJFCf+eTs+i5Vxog2L9/WlpVWzwFFvE9bEj80vrfDb7SI7bKSbzZpb7JjpxTjG4uShwg
+	 EW+DAqhWdU4lj6gGoGDYkQHygFwMXHimv5PUrx4VDOlxPBf/6eOEKbi4vNTrRQWp7XZeG
+	 cHabBMg8x4QgBjrWPvtuQEVYVZjs1e3xBMqX981nHlR1CUcZOEpwfTtgzdoW6i1JXFTx+
+	 K8nkf82ubc0cJy2WTN94l9b0tePHlCSJYKEiMqRCUStAJPaiHpzQGZhV1RK13uSSozQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ut7+3u6S;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SApFq5WF;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ut7+3u6S;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SApFq5WF;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MgHoO1Y8;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D85C606A321;
-	Mon,  9 Nov 2026 12:20:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D85C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C00606A338;
+	Mon,  9 Nov 2026 12:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8C00606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ut7+3u6S;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SApFq5WF;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ut7+3u6S;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SApFq5WF
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9B4F11F7B0;
-	Mon,  9 Nov 2026 12:20:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794226825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YcGWRSLO8Yfbujxln+iu8vgkMzCPp+fOVFLW3VDJHEw=;
-	b=ut7+3u6SWUn9H8Jk66vEquo6iEFh7zATkMxP+B0KrFpqdOTRAYkB5eSvqIDm4Rftcg06HF
-	f7tCAJLzEpBvUUmWwknN84Sa+PrtyJG9nxQ4uagQy4WqPiSGG6MhXP7Lp3Tpooe8AZqVzX
-	1EqRV98wGShKrD9PbU/12/Bb4A/d288=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794226825;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YcGWRSLO8Yfbujxln+iu8vgkMzCPp+fOVFLW3VDJHEw=;
-	b=SApFq5WFZKP1QJxdXVdmiFrXqZfJWpmJ9J498Q0lnZH6aJAC8jzrJFO5frmz50TRQOq2eL
-	BC6YY8lV1FJQEoCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ut7+3u6S;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=SApFq5WF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794226825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YcGWRSLO8Yfbujxln+iu8vgkMzCPp+fOVFLW3VDJHEw=;
-	b=ut7+3u6SWUn9H8Jk66vEquo6iEFh7zATkMxP+B0KrFpqdOTRAYkB5eSvqIDm4Rftcg06HF
-	f7tCAJLzEpBvUUmWwknN84Sa+PrtyJG9nxQ4uagQy4WqPiSGG6MhXP7Lp3Tpooe8AZqVzX
-	1EqRV98wGShKrD9PbU/12/Bb4A/d288=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794226825;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YcGWRSLO8Yfbujxln+iu8vgkMzCPp+fOVFLW3VDJHEw=;
-	b=SApFq5WFZKP1QJxdXVdmiFrXqZfJWpmJ9J498Q0lnZH6aJAC8jzrJFO5frmz50TRQOq2eL
-	BC6YY8lV1FJQEoCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6BA5E13302;
-	Mon,  9 Nov 2026 12:20:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id TyZzEYm68WqqXgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 12:20:25 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E3A9B21FF2; Mon, 09 Nov 2026 13:20:20 +0100 (CET)
-Date: Mon, 9 Nov 2026 13:20:20 +0100
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
-	lczerner@redhat.com, tytso@mit.edu, hughd@google.com, linux-fsdevel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm: skip empty finite ranges in
- truncate_pagecache_range
-Message-ID: <tbwekv4fqz3w74jgyy3pqvg3hvfi4erosgwnxwao5lwsrc7hp7@aaxxwdkkte4x>
-References: <20261027211505.22044-1-dennylin0707@gmail.com>
- <20261104182700.88789-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MgHoO1Y8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794226831; x=1825762831;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=sAUoNYP2fqQVvNPq10oZ3ofWU7N+A2Mo3q9QoET+I0E=;
+  b=MgHoO1Y8UyLmba0u3FYxRNsDM8OAKhaQvn4rjq20IdE4jLPXsAHsocOH
+   0mseL6CzdDjp9raKHwoPdtbQwM3osWsSjUAOy1CEG/vUGJv6vj5kK+P8O
+   0eVXwH5BzXeUNxxvNvxBjAJkz6j2SEx8drboispyZ2V9ppzpBB+vzwnLW
+   dKVG/olDfxi/wrNixPjI+65iV2k1dRYlQEF6kOU88s3YjwCvl5F2QNclZ
+   IqbEXKshunsKf5nJQ0gYjRCpZ77efZdfCedBBOplzpkdOztkMmMgtju98
+   fwLRmiJ5hxqZUlYckIMhoan6If7paNeAUte3r6kXNJH5ym5vEZJuohEBX
+   w==;
+X-CSE-ConnectionGUID: f6yEzodlTSu7hcoVgdhRag==
+X-CSE-MsgGUID: 56HXQBUJSgeA01yalJgYxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2828824"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2828824"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:20:30 -0800
+X-CSE-ConnectionGUID: L2GkJ3hlRCCgs9mkzPu5NQ==
+X-CSE-MsgGUID: ppIOps2dQbGIrJDpQXi7bA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="9602986"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:20:27 -0800
+Date: Mon, 9 Nov 2026 14:20:24 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Akhilesh Patil <akhilesh.patil@linux.dev>
+Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	robh@kernel.org, crofts@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, alexandre.belloni@bootlin.com,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rtc@vger.kernel.org,
+	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
+Subject: Re: [PATCH v2] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <avG6iHBBDp0ATTsi@ashevche-desk.local>
+References: <20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com>
+ <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,103 +85,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104182700.88789-1-dennylin0707@gmail.com>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 9B4F11F7B0
+In-Reply-To: <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed 04-11-26 18:27:00, Hungyu Lin wrote:
-> For a finite range ending before the first page boundary,
-> truncate_pagecache_range() calculates unmap_end as -1. The unsigned
-> comparison then treats the empty full-page interval as nonempty.
-> 
-> For example, lstart == 0 and lend == 0 cause unmap_mapping_range() to be
-> called with a zero length, meaning unmap to EOF. Punching one byte at
-> offset zero in a mapped FUSE file can therefore remove mappings outside
-> the hole, causing unnecessary page-table work and subsequent faults.
-> 
-> Set unmap_end to zero for these small finite ranges so that the existing
-> unsigned comparison skips the empty interval. Explicitly handle lend ==
-> -1 and lend == LLONG_MAX with LLONG_MAX, preserving EOF handling and
-> avoiding wrapping in the endpoint calculation at the largest inclusive
-> end.
-> 
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Fixes: 5a7203947a1d ("mm: teach truncate_inode_pages_range() to handle non page aligned ranges")
-> Link: https://lore.kernel.org/r/20261027211505.22044-1-dennylin0707@gmail.com
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+On Mon, Nov 09, 2026 at 10:44:43AM +0000, Akhilesh Patil wrote:
+> Move to my new linux.dev email address akhilesh.patil@linux.dev
+> I plan to use this email for kernel development going forward.
+> Also update email address in few yaml and driver source files.
 
-Nice! Feel free to add:
+...
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -1030,3 +1030,4 @@ Zhu Yanjun <zyjzyj2000@gmail.com> <yanjunz@nvidia.com>
+>  Zijun Hu <zijun.hu@oss.qualcomm.com> <quic_zijuhu@quicinc.com>
+>  Zijun Hu <zijun.hu@oss.qualcomm.com> <zijuhu@codeaurora.org>
+>  Zijun Hu <zijun_hu@htc.com>
+> +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
 
-								Honza
+It's not a rocket science to see the order in this file...
 
-> ---
-> Changes in v2:
-> - Compute unmap_end directly as suggested by Jan Kara, keeping the
->   original condition for calling unmap_mapping_range().
-> - Handle the EOF sentinel and LLONG_MAX explicitly.
-> 
->  mm/truncate.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index 733d2713a87..2c1f4a6c336 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -945,7 +945,15 @@ void truncate_pagecache_range(struct inode *inode, loff_t lstart, loff_t lend)
->  {
->  	struct address_space *mapping = inode->i_mapping;
->  	loff_t unmap_start = round_up(lstart, PAGE_SIZE);
-> -	loff_t unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;
-> +	loff_t unmap_end;
-> +
-> +	if (lend == -1 || lend == LLONG_MAX)
-> +		unmap_end = LLONG_MAX;
-> +	else if (lend < PAGE_SIZE - 1)
-> +		unmap_end = 0;
-> +	else
-> +		unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;
-> +
->  	/*
->  	 * This rounding is currently just for example: unmap_mapping_range
->  	 * expands its hole outwards, whereas we want it to contract the hole
-> 
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+With Best Regards,
+Andy Shevchenko
+
+
