@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248882;
-	b=Qm4eeo1QGnyF3FTksoRB9lgUJKYexepWfrDGVwm84nNXrH6sVikxJ/t2eFG/wEYsghyY
-	 X6fOp2jnLEYWfML9gkKRhz+SKluW9JGdQE/eD+nsslr+IiZk+ycTqx7cTR7McureGO0ZW
-	 nMSbMNwnkCWxAaarmzR99aveVDgagDFB6uVmn0v6BTTmgQiMJHgxVlhEvCsqPsAON2PIM
-	 0qMbLqWnFPMvgY0BTzt5YYXmsy+PEB3PI22PKT5OUDsP4UW4zM8HnhGe8fQEhzvP7yRua
-	 9nDgHVt/QoTOkudX7lPKFH/lhoC9OvVPyurSLcQ+n3Y4sndT7oVYytOf/DBsVpGQuiA==
+	t=1794248883;
+	b=1Bkha9vbn1+y+qmud6fGo9N6vul0sQqpTpBttnEYGsG+p+0kSLpSthbR8LNZlAd6vZs+
+	 Ou+MoYAEiBN5POyqhCR30ZsvNyQzrONFHvJONRMBTcs+DjdeP1Zy5nRwBK+fXApT+gIEX
+	 o/qjE7uRd+CgwQXK+ltFk/rXEUI9BL07FlM+BpvzUCKeu4g34kA4RfrEoAeTFRkRK6mAw
+	 xFgwuqbB//PuN621uEIs45pE3h153+kvDv9WiUUqy9fJkVBDNvbavHHHhRa7ssHO610ix
+	 4CFQL/J8gR5x2s3OKG6J5sKuQIBRfl7zdr7WMps12Q9UNPdKVJ8Qhnl7Q5SwnvkxFeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248882;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248883;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=2Km2GSxbHj/FwJWinfGFQrNYNNiuY/aL3TRKRBAUre4=;
-	b=ilDCk5DmxSS7CAkSgs1OmeRhkvN5C9eeIBD//tGpbmW3uq9COfilVfCPMYCcrRFunNBq
-	 jsU3tTls7P2T0qgpFdqSYNKpkqsV/g77ECAb5j8mi6FimEbefG1XFj39dKKdxywzTD+2x
-	 iczCCK7yn+m4pQ109J3i7IjSxOIyA+uAtnFeAsRjzsq6O5f369lvK/YVX1jNFuLzkqqiO
-	 ZaAaT37w5L3iAhLdrxjF4dS/iS6Nd4p85Dy+yPcKoVLecjDHh5Q1SVv+IMHWg9fSBhtXj
-	 lre4l3a9qF2TRoIbnwb5QYpKI7Tnl6dfZS2KWVcetBLdxuWI38UP4Op/QUq03WpNTRg==
+	bh=wz7Jp+PexIzTFHlXctkjuIdtWFHAXhZSXbPSBDeuIFk=;
+	b=U9QLj6j4eXB3lirn/xEc/6i2wrGnSvHFuSC+3bALZgVf+gJZJ3QO5xe3WPCvza0tVqT4
+	 YAvcalS6qRko58tXUDBWuc4tmQyEY5cCbTpy2w6GkT7+HYfBwxsxVXooZ4v2fwpK2P4Ze
+	 WHz9odKYADBJ01aYfSrJCaclM8dJ7r+r3BPQk2Ploxrg9QIIC0HzN+1b4SlAtGbyUUBnv
+	 KcknLa8fmclfb0k8e/l9FWChpj+CTDPw0yhP5mFpsgZ4ZPzhbDqZEOe/5WYyrmIwELBQZ
+	 SpkfFzoChemH3hktzINglyEZnTxVUhDaXCZuBew71vrHVcnm9rMc+iaM+WLM/BG92Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LCpU0slD;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lF9KVjBi;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 125D3606CC7E;
-	Mon,  9 Nov 2026 18:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 125D3606CC7E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A2F9606CC7F;
+	Mon,  9 Nov 2026 18:28:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A2F9606CC7F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LCpU0slD
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lF9KVjBi
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7FAFD1516;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B54A91682;
 	Mon,  9 Nov 2026 10:27:57 -0800 (PST)
 Received: from fedora (LJ9QCPV96V.austin.arm.com [10.118.150.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 67B023F882;
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9B5CE3F85F;
 	Mon,  9 Nov 2026 10:28:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794248880; bh=TezBVMNN6ys0eo1UDXqs5nEWcIgbDf5ZaksL5J9sVA4=;
+	t=1794248880; bh=AWhF8xfjFL5cvpPKw3tBPfCt67J602WNRROlhEqIn9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LCpU0slDYy6FAmTne67yVMyUDseKI/TcfooVukx5cMHtl1ArCnMWZSfeh81vJYbRw
-	 sgikhecqphNp0sHI2P8Rz7m62kxFlqBPYq3fgAaVbjItBepgIINJf+NCh5Vg7sHCzo
-	 NVll1VkJIB0m4llujQkLtv8KQDKuY2/oym8U8lZk=
+	b=lF9KVjBiaGyK0O/yUZWxgoVclBjZ5BmPS1qav4KFT6u7+RVm/6X33XSdYC5pkCcps
+	 h9IXfCi3xSRsObHIL6tzpmE1PLbZJgebO8onMhNQ2dNcUoriChX5sELRMV9C8CptrY
+	 GQuYrTyWmHXoMil89hpvwclSX3kvO3cY0gG1+ur0=
 From: Bill Roberts <bill.roberts@arm.com>
 To: "H. Peter Anvin" <hpa@zytor.com>,
 	Borislav Petkov <bp@alien8.de>,
@@ -55,9 +55,9 @@ Cc: bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Bill Roberts <bill.roberts@arm.com>
-Subject: [PATCH v5 1/6] selftests/x86: fix Makefile dependencies
-Date: Mon,  9 Nov 2026 12:27:53 -0600
-Message-ID: <20261109182758.252223-2-bill.roberts@arm.com>
+Subject: [PATCH v5 2/6] selftests/x86: fix fork bug
+Date: Mon,  9 Nov 2026 12:27:54 -0600
+Message-ID: <20261109182758.252223-3-bill.roberts@arm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261109182758.252223-1-bill.roberts@arm.com>
 References: <20261109182758.252223-1-bill.roberts@arm.com>
@@ -72,44 +72,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The amx_64, avx_64, and apx_64 tests compile xstate.c as an
-additional source file. However, their Makefile rules add xstate.c
-directly to EXTRA_FILES without registering it as a prerequisite.
+The shadow stack ptrace test does not check whether fork() fails
+before proceeding with the parent-side ptrace operations.
 
-As a result, modifying xstate.c does not trigger a rebuild of the
-affected test binaries, potentially leaving stale test executables.
+If fork() fails, it returns -1, which is subsequently passed to
+kill() on the test's error path. Calling kill(-1, SIGKILL) sends
+SIGKILL to every process the caller has permission to signal,
+potentially terminating unrelated processes.
 
-Use the existing extra-files macro to register xstate.c as both
-an additional compilation input and a build dependency.
+Check for fork() failure immediately and return an error before
+entering the ptrace test's parent-side logic.
+
+Shashiko pointed out this fork bug, and the relevant snippets from the
+report are below:
+
+[ ... ]
+> +int test_ptrace(void)
+> +{
+> +     unsigned long saved_ssp, ssp = 0;
+> +     struct sigaction sa = {};
+> +     struct iovec iov;
+> +     int status;
+> +     int pid;
+> +
+> +     iov.iov_base = &ssp;
+> +     iov.iov_len = sizeof(ssp);
+> +
+> +     pid = fork();
+> +     if (!pid) {
+
+[Severity: High]
+This is a pre-existing issue, but could this code broadcast SIGKILL to
+all user processes if fork() fails?
+
+If fork() returns -1 due to resource limits, execution will proceed with
+pid = -1. When ptrace() subsequently fails, the error path is triggered:
+
+out_kill:
+        kill(pid, SIGKILL);
+        return 1;
+
+Since pid is -1, POSIX specifies that this will kill all processes the
+current user has permission to terminate, potentially crashing the host
+environment.
 
 Signed-off-by: Bill Roberts <bill.roberts@arm.com>
 ---
- tools/testing/selftests/x86/Makefile | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ tools/testing/selftests/x86/test_shadow_stack.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
-index 7565d2cf6a3c..407f52ac2628 100644
---- a/tools/testing/selftests/x86/Makefile
-+++ b/tools/testing/selftests/x86/Makefile
-@@ -125,6 +125,9 @@ $(eval $(call extra-files,test_syscall_vdso_32,thunks_32.S))
- $(eval $(call extra-files,fsgsbase_restore_64,clang_helpers_64.S))
- $(eval $(call extra-files,fsgsbase_restore_32,clang_helpers_32.S))
- $(eval $(call extra-files,sysret_rip_64,clang_helpers_64.S))
-+$(eval $(call extra-files,amx_64,xstate.c))
-+$(eval $(call extra-files,avx_64,xstate.c))
-+$(eval $(call extra-files,apx_64,xstate.c))
+diff --git a/tools/testing/selftests/x86/test_shadow_stack.c b/tools/testing/selftests/x86/test_shadow_stack.c
+index 3d6ca33edba4..b52c5420c137 100644
+--- a/tools/testing/selftests/x86/test_shadow_stack.c
++++ b/tools/testing/selftests/x86/test_shadow_stack.c
+@@ -971,6 +971,11 @@ int test_ptrace(void)
+ 	iov.iov_len = sizeof(ssp);
  
- # check_initial_reg_state is special: it needs a custom entry, and it
- # needs to be static so that its interpreter doesn't destroy its initial
-@@ -136,8 +139,5 @@ $(OUTPUT)/nx_stack_32: CFLAGS += -Wl,-z,noexecstack
- $(OUTPUT)/nx_stack_64: CFLAGS += -Wl,-z,noexecstack
+ 	pid = fork();
++	if (pid < 0) {
++		printf("[FAIL]\tFork failed for %s\n", __func__);
++		return 1;
++	}
++
+ 	if (!pid) {
+ 		ssp = get_ssp();
  
- $(OUTPUT)/avx_64: CFLAGS += -mno-avx -mno-avx512f
--$(OUTPUT)/amx_64: EXTRA_FILES += xstate.c
--$(OUTPUT)/avx_64: EXTRA_FILES += xstate.c
--$(OUTPUT)/apx_64: EXTRA_FILES += xstate.c
- 
- $(OUTPUT)/sigframe_fpu_portability_64: CFLAGS += -mno-avx -mno-avx512f
 -- 
 2.55.0
 
