@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249126;
-	b=r8RelPj2HZfjjrnzBPq+eE7qOgvt5Iw7CXQTb3Wr26bmLLAN3J3raCrAS6/gSHqlQCv6
-	 HCxUlmO4RJrCkPeCIt7i5S+ckP0FepjaDOny/mTRRcjW8kNCHBwoZ1fptmE5IelgJ8Vme
-	 a+Xx4qlfYJHjUMqjteUvKhpQl6vjfBll71511Kgq/q8m2HIFeMuBJ9BF6Y3dIK5gBsOXs
-	 ykWhH3rBlSnIUIJky3Cq2tQKn+8uKjVxJKIqfXH067PB632RzuXm3MywE2/4mVTIGUHSK
-	 +2vi5VHLTUgZVthcBbXjGTsjxAVLCgD3vzbRHU6Nk6yhTczIBYnAvbnVQwNVIXIjN1g==
+	t=1794249121;
+	b=AfLRI4z0jF4LuCnFc9qzSRUOrBrvFsG9a9cRW6VTf5lHDA7Wl9YRFAiXJtUlzZIMaAkh
+	 bMgRo2rvAajfGu4XAGF8xew3u5fOKaIaNAZsjJoh2DzG0F93ZY+hBk0tj0vK2IEjMv60X
+	 mr0zrm8AujrYOLxwYj04MUC4+g4E2nzCYVaS6MF31saRTJdKBgPt0PezN+hke20nvwMc6
+	 1oYIHxMihpEdVrRdna9vC4kfYCZuELDjM2b7589RpXc9UnEKu5r1jczoTVkx+XCynpQlh
+	 C/n3RO7R8bdjdXuHJCF8qsyUZkkhYMWkxiado0w/9b4DwbSG2QKYrNra5PdIPOcUY3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249126;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=A1bx3cQBNrnl/+bVhczOhkj1gBe4lxwMh5p/lPOBHw8=;
-	b=y1STiEvWljYQ5XvEdbLcxedrxKtgaxBYNdVMt5xbXjWc11NwjvwPLUcYjG7KCxsD63FU
-	 kubKGz3v7OamCF0LbBHyUWLZA/FD08rCSJr9qmS+FHg2rtKTJl5l4sthh/j/qxIIYt7Ud
-	 ob8/jRN8+cF8GRvyIMrbeGXhNa+z3k60/8XMcc5uYrMFxkCJ1ysoNPKn7S+//8z15JHgg
-	 cMFgKth2Ur62bP09kwgLxcgShb/zP73EvVJCHP3k/hSCEC/AjtQa3E3h85HcgI9Cs43oV
-	 fxmXJV8Q/WkUIOUAnTDURCpePd6w31c71+gJoXYY664v+yRxGDJlg0EhMJJ5hrkRBog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249121;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=NKgS5iWK781d2x9G+ZsCNT2Jy4yL/3koV2y9hvD9NWg=;
+	b=rAdOSPw8+CI2QXeJLKebJs22IL4ipDZ1DTeBoT7/uCKahqdGrXQ5iGahEFHPW+gbkupO
+	 wgLEV7tg/Dorjd8pTAqp+uh1/QgQGPzc6xDgJCXnfkYNmsEu0F3l5oFeGU0GWfM7SZ08C
+	 DQQozZwKhiKuKtCIoHuQcA06PxzEW53H731xgf/AimC+gRHneW/FHzQzc4kZXCNQtrgQN
+	 nULYdbC29Lyd97jNZZ1oo6fekAF/c/nQOeWq4aeYhXG1EGqDk7ocGdyqEjU2HKY0HmjGT
+	 33sxCU99NyK88iS7DPokZYWA/NvOtvslVkX2kJbGg6g9DOSqLR2GJMujxwZD1DWRarQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJkEU9Rz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+iQ6baS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB0A606AFDE
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3545606AFCB
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJkEU9Rz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CF11F0089F;
-	Mon,  9 Nov 2026 18:32:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+iQ6baS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E3E1F00AD6;
+	Mon,  9 Nov 2026 18:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794249125;
-	bh=A1bx3cQBNrnl/+bVhczOhkj1gBe4lxwMh5p/lPOBHw8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=DJkEU9RzMtvmKZEhK4grAJp69GoJfavwGia2y6elsvv3/QPwjrXNjprT+YRhg8e0Z
-	 WIvRQ5xlH2bDM01VN69+0ONW/Ielh37ZoYyzhlrXcvm/XbBPTyvhj2eLbQ5Vx2t+NO
-	 4f/eMQYdSQP8Opmu22YX+SD8pGdb+mBm7+UpniW+T/ReDZiFoN52WuJuBTiLfzrLjF
-	 l+yXgKSB12SWZrHdKPWG7zEBztfWvYeviTlMekgkuDCLwHCeXMTty4oGixEZOTGReg
-	 bZT+5iJ/EvrUTplu/UnmcWxl0DkQ6LDGZgLT5GDz2cR8MAwK3/nXLJ+ESfUaPg8rGj
-	 XgO9PSnKSLf9g==
+	s=k20260515; t=1794249120;
+	bh=NKgS5iWK781d2x9G+ZsCNT2Jy4yL/3koV2y9hvD9NWg=;
+	h=From:Subject:Date:To:Cc;
+	b=m+iQ6baS4CBAxViP/BrHNtR2dFhzNE0HIbhvI7/gSUly9zOHwt9iVwEJs6O4h7nvx
+	 C2GerR6x//d30wyd648/gYw9HP/TPpYoCmB/T2GOsiwffGHlqft7Yx4BL5znBokLA5
+	 ntyYnKbeR+8lOqgGc2IBBCRzdioQyNRybSfZuJjgyleQajFc7P39sir5v77GQB4SrY
+	 lkWtlj6KkfsSCSrO0dN6ThSx4Dff4QiHI0wPiRtySlzKyFLIqyLOhBPM0ewQlORKd3
+	 oa8hTWbAEY1uPxmNBBk/19G9lY6DFclaLMJWAFaCHsu7Bh75DGmz6+qqgIO3TlwH77
+	 mDbhmmy8/j+MA==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 09 Nov 2026 19:31:53 +0100
-Subject: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
- update
+Subject: [PATCH 0/2] MAINTAINERS: MM updates (2)
+Date: Mon, 09 Nov 2026 19:31:52 +0100
+Message-Id: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,9 +55,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
-In-Reply-To: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAJgR8moC/yXMQQqDMBCF4avIrA1MsojiVUQk6lRHNC0zKoJ4d
+ 9N28Rbf4v0XKAmTQpVdIHSw8jsm2DyDfgpxJMNDMjh03loszBo4bmkk2q7jIruxhMGVgy/RI6T
+ fR+jF569ZN3/r3s3Ub98Q3PcDQD7LHXUAAAA=
+X-Change-ID: 20261107-maintainers_mglru-1e0a28d68060
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
@@ -71,50 +72,38 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1310; i=david@kernel.org;
- h=from:subject:message-id; bh=C4p8LDMbx+ZkjajJ+iKnXRHO7ncfgEapbAI+tnp46XM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI+Cc7uWpa3WqFBat19o2T2C0prXJpXPrbllXrKFZDxR
- H9O0i3djlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACaSo83wP3uBXMe9Xd5ht632
- xJksnWS89tbt3s+7OtYqeG3a1VX3O5mRYdGkizLl536nPVxbMtkh03v1mtd2HfxRl1nPJv389Wr
- SK0YA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=536; i=david@kernel.org;
+ h=from:subject:message-id; bh=TA1+wI8uMEcNe/abtsKifPKm/0Cjd9+34i3ZWYsn7tY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI+Cc7aLHf4btC1Gxe3PXYISWMvaJ7D0dJe3OYhqHbix
+ J8lmrusOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiI0ANGhmePc5cLfrr9QCre
+ d4G1Q5aDVmaOS0/PtJoyjXJ18ZzpVQw/Gef2FRRO2+tpU7Vo9bTbj+0177CxSXnrPhE+YnVa7Ck
+ fHwA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-MGLRU is currently the only MM component without a dedicated component
-maintainer. Fortunately, Kairui and Barry have been actively
-contributing to MGLRU and have volunteered to take on more responsibility
-by officially taking care of it.
+Hi,
 
-Given that Kairui is already an established MM component maintainer in
-a related MM component (SWAP), add him as an MGLRU maintainer right away.
-
-For Barry, the idea is to transition him towards a component maintainer
-role over the coming months, starting by moving him to the top of the
-reviewer list.
+some more MAINTAINERS updates with a focus on MGLRU and reclaim this
+time.
 
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- MAINTAINERS | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+David Hildenbrand (Arm) (2):
+      MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU) update
+      MAINTAINERS: remove myself from MEMORY MANAGEMENT - RECLAIM
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..e7ac319a570c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17635,10 +17635,10 @@ K:	(?i:vmemmap)
- 
- MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
- M:	Andrew Morton <akpm@linux-foundation.org>
--R:	Kairui Song <kasong@tencent.com>
-+M:	Kairui Song <kasong@tencent.com>
-+R:	Barry Song <baohua@kernel.org>
- R:	Qi Zheng <qi.zheng@linux.dev>
- R:	Shakeel Butt <shakeel.butt@linux.dev>
--R:	Barry Song <baohua@kernel.org>
- R:	Axel Rasmussen <axelrasmussen@google.com>
- R:	Yuanchu Xie <yuanchu@google.com>
- R:	Wei Xu <weixugc@google.com>
+ MAINTAINERS | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
--- 
-2.43.0
+---
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+
+change-id: 20261107-maintainers_mglru-1e0a28d68060
+
+--
+
+Cheers,
+
+David
 
