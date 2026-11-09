@@ -1,63 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258780;
-	b=m0jdt/d7lDm+uFmo+E5FzSONZ+OfqKF69xt33RZ/Y3NQN2YWxUuXRoOTdwYNeFBT+9aH
-	 Mou1UXMSQ6JV1TLHH60qDX0pJPTZZR7As5fEaZYaH+3Rvs+WISx5lz12+QDstIPRB580E
-	 NWwrEBIOUKoOX9/cvEHUUS/tmot5nJ+GcX89vxQnqlU8VryIEk+3r8Nr9XpBcHevn0vYL
-	 VzuZM1TSFUrrFzyscgJrG7SW5AhfTizEt/g30JKBUc64gaR/0oGzuxz9jFT2i1+FIGoUS
-	 iUpkUkagvhf6LvA0HaujG36pdnR+yZ/bAWPZsX8b5jb1VYGpEZZWGN4Lt3tVbyeY+5g==
+	t=1794258823;
+	b=XD/VwuqyKefVuQUs8nq3JZrUonvhWUmwHnQsVlzekYgeCQDAJrJ34o6FVP2n5cYUHH5m
+	 wZel4JJrDHSNraZUnKiWv8YK01mDwbJJEhwEC4W32vaWqsCxGDbAEbYoy72EQhHGpMBK6
+	 QlqzASwoVs9P0mM+VOKorvSJ+9RI3v+44e66tAiOABpSPe8C02TUy4j7cNgtlwojDzvKv
+	 sSMrTA7qldpqHj2iKrXfc+t+Kgi7M+VbxUVRPuVND82YJTAh96V0ZXk2zja1Qv2NJBKnx
+	 JCrdS8mnsB50KPucJntZCwcqd6ya8reZncQxAL8F+t0RAg98GLocJIoBmASNJRJc4vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258780;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wSH/DQOT88tW+MfhVryjWdaFHOf/OVH5pZJUhCRAHp8=;
-	b=tOAurBsSwXjldRLSQye6RoMMncS2mfGoCrGwDpsgQjb8RLrrSWeYhYK9hRWwRo0WH/8r
-	 +Pqn2srtCP3quZNrC5RR8DoAwYdKshOp9NedG5yunU09EdtR3xks6A2IVLqzb6KPOzxGZ
-	 mhNgAFccW/9BuyIc0VumBz4xNffcilEc3JONfrrRlzi4NGdhJTnK+2ZE7m+ciegUXca8g
-	 toF3dFcZ4MJBMDzJCqBdBB2qNLl4ha+MpxAwnpUMbuTkcYOfIyLkVUYvsUTqtAHvQVyEY
-	 qlshhA/AfEz4BWa7IUcXABj98r+JceC/CbD/VIG/vghtRr3erstBmlY5aqxF/uaCbXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258823;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=V6S6ADLAOTA23gGkcqpm9vsCKsCWK50iy0cw18dDWEY=;
+	b=BnqobjSt6awM7XtBfC0wwCiqXGXP0lllPB19t8wlPGr03LSrZFeq6ckaTDZlr4G70A7R
+	 hO4a62EZq8ZlLCy9ze+hw3z62Un/coaAycCtMBLGNS49p7q1zBhdtLlE+FzQsnFFa8vbV
+	 bOFkjjoH32V9PP2d5U7DegezqcZyDsE2K9Wuv9/0E9s6gir9t9ylpjswNv6gFS8/PQBic
+	 eKK9WMAaxBU2SiJ6CtbB5Jm80pVa7FK22n0t66ppd9anO9JezhKoVG93KxjjYJr66Rmnw
+	 ltD4vbVrNSmYtqfUzB4nexUjF1QiWJy0tOaNU10dXcOJ9DMUx/54WCSgTF9IALFjhew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsxNcMeD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I7V4piKU;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99267606A31C;
-	Mon,  9 Nov 2026 21:13:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39573606A31C;
+	Mon,  9 Nov 2026 21:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39573606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsxNcMeD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B551F0089F;
-	Mon,  9 Nov 2026 21:12:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794258780;
-	bh=wSH/DQOT88tW+MfhVryjWdaFHOf/OVH5pZJUhCRAHp8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FsxNcMeDM08/3I4TV1/3pivquZehCEemjIhTRYxFaI6kxFeDB1UYwsQL3J6bwTuJ6
-	 TpKBKs9yTNmSHzEI2yN4hIpI/+8MbXqrblu3GMGWfmUY0l5+m6OIZfNL6b9jQRw4Ur
-	 yQte2W8uUBh36JH9Bizy/rMO3Z6C2NbJ1TtLn7BR2WCuSi2p7kAfIjqawLSohhvlSU
-	 j/mcvfF1kbDx6by1zEq5LcHbYQSwRIRnluQFM2HsWvuyNneixFMkgIyY6uGzk1LtmK
-	 ysl/YPcmYpJaHxlCYAuvZZGMAuZhtEguVU50UjC9gaVrPbhNxanCW8oqJlyg0aI+3W
-	 cqZSR7IOKKZcw==
-Date: Mon, 9 Nov 2026 21:12:58 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: "Chen, Zide" <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
-	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
-Message-ID: <avI20tEzyvIshy2f@google.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-5-zide.chen@intel.com>
- <au4kyULjUYdqbfIq@google.com>
- <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
- <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
- <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
- <CAO9r8zPVt++jgZD3-Jd-DYKMjYyAfUuQkvEXD4pKqe0bdYE29A@mail.gmail.com>
- <c2844568-f8f6-450e-a718-1e9e3b7b3e4b@intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I7V4piKU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794258824; x=1825794824;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bUFL1VnRt9/kwtxYQqI5cg6sG3sMLWSyuNPbrpq49Yo=;
+  b=I7V4piKUHrUdznyETcrOUv91Bxdfp3shi8VAKBOvpxD7vpIZGgNIeM7N
+   YRVb3o+qAKbT7xV1aJ1f+snsE76FDSsHdQATeGqLV1+nADvLmX0P8v8cR
+   7VTSXvzQo88pEW0bJ5+3gmsNEVXLI6IWUxz56KejTrJ9GvdJzH37oQWai
+   kNrvYBZolIXkuaMjXJ5DMr+u5xUy0HI3OB0SzQJGa+x3hjJze56F+t2mT
+   DqSfE/NFTR7Y+4m2D570HvLlYPkFu7VH2qbAlLLL3qawwylFedhu3DJ5e
+   aiGrEnwf/Um6BglK8yx6AjryYqDo/dFoX+SIRuCDK1TIcZ6LOJUpu+ZYN
+   w==;
+X-CSE-ConnectionGUID: sjV/cByZSJWxPiAnDqgb8Q==
+X-CSE-MsgGUID: W7fG9LQZRBa0NGtKbeRNcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2881628"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2881628"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:13:42 -0800
+X-CSE-ConnectionGUID: YxnrjC0TTP+9AzDlLTW0vA==
+X-CSE-MsgGUID: 4c+5US7AQQ+rz0DKt15Orw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7985628"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:13:38 -0800
+Date: Mon, 9 Nov 2026 23:13:35 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 3/4] software node: pin referenced swnodes while
+ resolving them
+Message-ID: <avI3f7ZK_qx_Rd7j@ashevche-desk.local>
+References: <20261106-swnode-race-v1-v2-0-f8bc7b14d578@nxp.com>
+ <20261106-swnode-race-v1-v2-3-f8bc7b14d578@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,222 +91,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c2844568-f8f6-450e-a718-1e9e3b7b3e4b@intel.com>
+In-Reply-To: <20261106-swnode-race-v1-v2-3-f8bc7b14d578@nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 09, 2026 at 12:59:01PM -0600, Chen, Zide wrote:
-> 
-> 
-> On 11/9/2026 12:07 PM, Yosry Ahmed wrote:
-> >>>>>> +/*
-> >>>>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
-> >>>>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
-> >>>>>> + * so iteration up to KVM's maximum counter count is safe.
-> >>>>>> + */
-> >>>>>> +#define kvm_for_each_gp_counter(i, mask)    \
-> >>>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
-> >>>>>> +
-> >>>>>> +#define kvm_for_each_fixed_counter(i, mask) \
-> >>>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
-> >>>>>
-> >>>>> These are not used in this patch, are they?
-> >>>>>
-> >>>>> They should probably be introduced when they are used. Also, do we
-> >>>>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
-> >>>>> yes, maybe we should pass in the pmu here instead?
-> >>>>
-> >>>> The intent was to group all bitmap accessor helpers together in this
-> >>>> patch for easier review so that the big patch 5/18 could be kept to
-> >>>> mostly mechanical replacements.
-> >>>>
-> >>>> But if you prefer introducing them on first use, I'll move their
-> >>>> definitions to patch 5.
-> >>>
-> >>> Yeah I think it's clearer to see what their definitions are with their usage.
-> >>
-> >> OK, then I can move these two macros to the next patch.
-> >>>>
-> >>>> Regarding passing 'pmu' directly, I initially implemented it in this
-> >>>> way, but I can't recall why I discarded it. I will take another look.
-> >>>
-> >>> Thanks.
-> >>
-> >> How about these? With them, we can remove the {gp,fixed}_mask variables
-> >> that you pointed out in your review of 5/18. The APIs are more
-> >> complicated, but the caller code is much cleaner.
-> > 
-> > I don't understand why we can't keep the macros as-is, but just move the
-> > calls to kvm_gp_pmc_mask() and kvm_fixed_pmc_mask() inside the macros?
-> 
-> for_each_set_bit() requires a pointer (`const unsigned long *`) as
-> input, but AFAICT a loop macro cannot declare a temporary local
-> variable, nor it can use do { ... } while(0). So something like:
-> 
-> #define kvm_for_each_gp_counter(i, pmu)                              \
->         unsigned long gp_mask = kvm_gp_pmc_mask(pmu);                   \
->         for_each_set_bit((i), &(gp_mask), KVM_MAX_NR_GP_COUNTERS)
-> 
+On Fri, Nov 06, 2026 at 12:38:37PM +0800, Peng Fan (OSS) wrote:
 
-Gemini suggested compount literals, and it seems to at least compile and
-I see a few instances around the kernel:
+> software_node_get_reference_args() and software_node_add_links() resolve
+> DEV_PROP_REF entries by calling software_node_fwnode(), which returns a
+> borrowed pointer. The referenced swnode can be unregistered and released
+> between the lookup and the fwnode reference or link operation.
+> 
+> Use software_node_to_swnode_get() for software node references and keep
+> the reference until the argument or link has been set up. For direct
+> fwnode references in software_node_add_links(), take a reference with
+> fwnode_handle_get() and release it after fwnode_link_add() completes.
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index f949fdbf359c6..3930680937577 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -1347,8 +1347,6 @@ static __always_inline u32 gp_eventsel_msr(u32 idx)
- static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
--	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
- 	struct kvm_pmc *pmc;
- 	u32 i;
- 
-@@ -1357,14 +1355,14 @@ static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
- 	 * is intercepted if hardware has counters that aren't visible to the
- 	 * guest (KVM will inject #GP as appropriate).
- 	 */
--	kvm_for_each_gp_counter(i, gp_mask) {
-+	kvm_for_each_gp_counter(i, pmu) {
- 		pmc = &pmu->gp_counters[i];
- 
- 		if (pmc->counter != rdpmc(i))
- 			wrmsrq(gp_counter_msr(i), pmc->counter);
- 		wrmsrq(gp_eventsel_msr(i), pmc->eventsel_hw);
- 	}
--	kvm_for_each_fixed_counter(i, fixed_mask) {
-+	kvm_for_each_fixed_counter(i, pmu) {
- 		pmc = &pmu->fixed_counters[i];
- 
- 		if (pmc->counter != rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i))
-@@ -1407,8 +1405,6 @@ void kvm_mediated_pmu_load(struct kvm_vcpu *vcpu)
- static void kvm_pmu_put_guest_pmcs(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
--	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
- 	struct kvm_pmc *pmc;
- 	u32 i;
- 
-@@ -1416,7 +1412,7 @@ static void kvm_pmu_put_guest_pmcs(struct kvm_vcpu *vcpu)
- 	 * Clear selectors and counters to ensure hardware doesn't count using
- 	 * guest controls when the host (perf) restores its state.
- 	 */
--	kvm_for_each_gp_counter(i, gp_mask) {
-+	kvm_for_each_gp_counter(i, pmu) {
- 		pmc = &pmu->gp_counters[i];
- 
- 		pmc->counter = rdpmc(i);
-@@ -1426,7 +1422,7 @@ static void kvm_pmu_put_guest_pmcs(struct kvm_vcpu *vcpu)
- 			wrmsrq(gp_eventsel_msr(i), 0);
- 	}
- 
--	kvm_for_each_fixed_counter(i, fixed_mask) {
-+	kvm_for_each_fixed_counter(i, pmu) {
- 		pmc = &pmu->fixed_counters[i];
- 
- 		pmc->counter = rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i);
-diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
-index 98e6f2443b82e..37a6664fdb9c9 100644
---- a/arch/x86/kvm/pmu.h
-+++ b/arch/x86/kvm/pmu.h
-@@ -149,11 +149,11 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
-  * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
-  * so iteration up to KVM's maximum counter count is safe.
-  */
--#define kvm_for_each_gp_counter(i, mask)	\
--	for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
-+#define kvm_for_each_gp_counter(i, pmu)	\
-+	for_each_set_bit((i), &(unsigned long){ kvm_gp_pmc_mask(pmu) }, KVM_MAX_NR_GP_COUNTERS)
- 
--#define kvm_for_each_fixed_counter(i, mask)	\
--	for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
-+#define kvm_for_each_fixed_counter(i, pmu)	\
-+	for_each_set_bit((i), &(unsigned long){ kvm_fixed_pmc_mask(pmu) }, KVM_MAX_NR_FIXED_COUNTERS)
- 
- static inline u64 pmc_bitmask(struct kvm_pmc *pmc)
- {
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 6dade9d26d1ad..9b25590469712 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -704,8 +704,6 @@ static void nested_vmx_merge_pmu_msr_bitmaps(struct kvm_vcpu *vcpu,
- {
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
--	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
- 	int i;
- 
- 	/*
-@@ -715,12 +713,12 @@ static void nested_vmx_merge_pmu_msr_bitmaps(struct kvm_vcpu *vcpu,
- 	if (!kvm_vcpu_has_mediated_pmu(vcpu))
- 		return;
- 
--	kvm_for_each_gp_counter(i, gp_mask) {
-+	kvm_for_each_gp_counter(i, pmu) {
- 		nested_vmx_merge_msr_bitmaps_rw(MSR_IA32_PERFCTR0 + i);
- 		nested_vmx_merge_msr_bitmaps_rw(MSR_IA32_PMC0 + i);
- 	}
- 
--	kvm_for_each_fixed_counter(i, fixed_mask)
-+	kvm_for_each_fixed_counter(i, pmu)
- 		nested_vmx_merge_msr_bitmaps_rw(MSR_CORE_PERF_FIXED_CTR0 + i);
- 
- 	nested_vmx_merge_msr_bitmaps_rw(MSR_CORE_PERF_GLOBAL_CTRL);
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 961d16e7f31f5..d3a00ae8018eb 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -57,11 +57,10 @@ static struct x86_pmu_lbr *vcpu_to_lbr_records(struct kvm_vcpu *vcpu)
- 
- static u64 intel_pmu_fixed_ctrl_bits(struct kvm_pmu *pmu, u64 bits)
- {
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
- 	u64 fixed_ctrl_bits = 0;
- 	int i;
- 
--	kvm_for_each_fixed_counter(i, fixed_mask)
-+	kvm_for_each_fixed_counter(i, pmu)
- 		fixed_ctrl_bits |= intel_fixed_bits_by_idx(i, bits);
- 
- 	return fixed_ctrl_bits;
-@@ -85,13 +84,12 @@ static void reprogram_fixed_counters(struct kvm_pmu *pmu, u64 data)
- 	 * hardware, e.g. to ensure the event filter is enforced.
- 	 */
- 	u64 old_fixed_ctr_ctrl = pmu->fixed_ctr_ctrl_hw;
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
- 	struct kvm_pmc *pmc;
- 	int i;
- 
- 	pmu->fixed_ctr_ctrl = data;
- 	pmu->fixed_ctr_ctrl_hw = data & ~intel_pmu_fixed_anythread_mask(pmu);
--	kvm_for_each_fixed_counter(i, fixed_mask) {
-+	kvm_for_each_fixed_counter(i, pmu) {
- 		u8 new_ctrl = fixed_ctrl_field(pmu->fixed_ctr_ctrl_hw, i);
- 		u8 old_ctrl = fixed_ctrl_field(old_fixed_ctr_ctrl, i);
- 
-@@ -369,21 +367,19 @@ static bool intel_pmu_handle_lbr_msrs_access(struct kvm_vcpu *vcpu,
- static u64 intel_pmu_get_global_inuse(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
--	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
- 	bool pmi_inuse = false;
- 	u64 eventsel, data = 0;
- 	u32 fixed_ctrl;
- 	int i;
- 
--	kvm_for_each_gp_counter(i, gp_mask) {
-+	kvm_for_each_gp_counter(i, pmu) {
- 		eventsel = pmu->gp_counters[i].eventsel;
- 
- 		if (eventsel & ARCH_PERFMON_EVENTSEL_EVENT)
- 			data |= BIT_ULL(i);
- 		pmi_inuse |= !!(eventsel & ARCH_PERFMON_EVENTSEL_INT);
- 	}
--	kvm_for_each_fixed_counter(i, fixed_mask) {
-+	kvm_for_each_fixed_counter(i, pmu) {
- 		fixed_ctrl = fixed_ctrl_field(pmu->fixed_ctr_ctrl, i);
- 
- 		if (fixed_ctrl & (INTEL_FIXED_0_KERNEL | INTEL_FIXED_0_USER))
+...
+
+> -	if (ref->swnode)
+> -		refnode = software_node_fwnode(ref->swnode);
+> -	else if (ref->fwnode)
+> -		refnode = ref->fwnode;
+> -	else
+> -		return -EINVAL;
+> +	if (ref->swnode) {
+> +		struct swnode *remote = software_node_to_swnode_get(ref->swnode);
+>  
+> -	if (!refnode)
+> -		return -ENOTCONN;
+> +		if (!remote)
+> +			return -ENOTCONN;
+
+It's always better to maintain when assignment is coupled with a validation
+check.
+
+		struct swnode *remote;
+
+		remote = software_node_to_swnode_get(ref->swnode);
+		if (!remote)
+			return -ENOTCONN;
+
+> +		refnode = &remote->fwnode;
+> +	} else if (ref->fwnode) {
+> +		refnode = fwnode_handle_get(ref->fwnode);
+> +	} else {
+> +		return -EINVAL;
+> +	}
+
+...
+
+> -			if (ref->swnode)
+> -				refnode = software_node_fwnode(ref->swnode);
+> -			else if (ref->fwnode)
+> -				refnode = ref->fwnode;
+> -			else
+> +			if (ref->swnode) {
+> +				struct swnode *remote;
+
+> +				remote = software_node_to_swnode_get(ref->swnode);
+> +				if (!remote)
+> +					continue;
+
+Seems like a dup code, perhaps a helper?
+
+> +				refnode = &remote->fwnode;
+> +			} else if (ref->fwnode) {
+> +				refnode = fwnode_handle_get(ref->fwnode);
+> +			} else {
+>  				continue;
+> +			}
+>  
+>  			/* Supplier not registered yet, or self-reference. */
+> -			if (!refnode || refnode == &swnode->fwnode)
+
+> +			if (refnode == &swnode->fwnode) {
+> +				fwnode_handle_put(refnode);
+>  				continue;
+> +			}
+>  
+>  			fwnode_link_add(&swnode->fwnode, refnode, 0);
+> +			fwnode_handle_put(refnode);
+
+I don't see a context, but it looks like it continues in both cases.
+If so, the above may be refactored for that.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
