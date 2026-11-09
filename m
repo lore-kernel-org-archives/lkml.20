@@ -1,71 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.75.79.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220789;
-	b=eO3nIckAvriehcFX81xg2zYHYu3fOFfl6qsUhEcEXqS5vKd73EMw6+P9rcdDdMF4iePh
-	 SXCk0lPq9U41e4bHBfMBhiqqer5hH0FoczyQghfJHPiNtd4QOUCqrYwblVP0KvXdvzvLC
-	 +1wvj+oy8ilvg2qbfi2PxhT/5biAaqbFA8dULOOIcygdXkuWGycQ/dvBdYx7h3Z8mmoCF
-	 YvWBMPtp+zFrGqk9kzXVxB97/rIDUVKBcGJEjgoJOR/Y6nuv22nShdIi1doZKWB8ReSLn
-	 sbt5eiyOSXRZDIll5oWYgIgYdg22tfdd1WERVB0h5OtCqUGCRFML7dJLL3uqu4guBNg==
+	t=1794220812;
+	b=5SZS41e0UQk0Ac8tELIWjbAfQxV1i62mNknZV2Ekr34Q8l2t5qIXG1utliXAnkfLZ1EL
+	 qtSWnhrjyWI6U33Adjz8ponT9McG0YcXy9rNDvlJHlAxHNQ21EZn0bv3tw4R9C8MDuw/U
+	 PfnqI2wfFktwUE0Dz8G3RVN0ZaW5ZIZmhU3K0QB62jasvMDQ3+U+gVJkZwWJgqz5Wawnf
+	 IXzeyMBXCMRzTdpMQyzwcak11Acsnp9rT0cVP7f7RHW1wv8SBfs2f/P0u3GSSIyWo1AtV
+	 h4poWqJosSTO2FZN01UITBAhcb5DJUVSHoqTQEXr3SoBVFd4pN8VWmdoH+bc2k1tHKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220789;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-Id:Mime-Version:X-Mailer:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220812;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QAvczo67RSfalJeCsyzcJCLsA81gRzj2i73BFxVghM4=;
-	b=5pozRhZ0aWnLWVc6qf7V57Pgmwa+1Hmw0JvW3KUKuiPS2q02XUu44ixxfGQCFncgI7zI
-	 JI1w9fizIFJMuPY4osuUAxKF66TupMVZKEmhAgyjRug96ZdtQkdLCSocTC1pQhgnjds2c
-	 SdrCz7ffXVuyF1Gc57MeosdqHABQXGx47xDWdlgHd/NHbR53y/xw3TE5WDo+PckINA44a
-	 EKeY65clOWyNpSu648nhAtuZOJ2MYCNuC18jV+sV+nmftp+hpCXG52cbpxK5cjMycdGET
-	 NhX6hGKjbP9Z7Sg9M4SKfRYO5B/QKZgUDqrLTCY7ZTSGlFMkqaK3DWEOkQKuhx07cZA==
+	bh=eII2xW9eK+JyhszI/hEYk6b5eDf6K60epLky3hR1lTU=;
+	b=VEvBTVRv3rhKErZnwiCw4hNQjVZlsMU1440zWjKd/GlMpbnReaynMZ70zGIpZts71as5
+	 0iF7P4XdOp30UDrQBVs7BseNK0oibeSUW+zZDNgxJjPjZGHIh8Ay6agPNmJXBprg36wGc
+	 A4eVBQIDa3myHP3veFt+gSH6AemCA3KT9QZewZqBrF7/pRsJjERwTUPWQa75GK92S41fO
+	 DmMe0lO1lC0q/Zv5mGB7KiRoTSLLWaRnXNyNchJjRn0oYbH9ZhMFv7lQIYTVbmaYvL53C
+	 97LpFRfG9L7HyFxYFUTrLhwmB4BcwrO2NS+ov78gtYX7EXSWG+eheY71IScRXIqNHCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=email.cz;
-	spf=pass smtp.mailfrom=email.cz;
-	dkim=pass header.d=email.cz header.i=@email.cz header.a=rsa-sha256 header.s=szn1 header.b=FlElEeVi;
-	arc=none smtp.remote-ip=77.75.79.23
-Received: from mxc.seznam.cz (mxc.seznam.cz [77.75.79.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mIEZRjjg;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFB1606A31C;
-	Mon,  9 Nov 2026 10:39:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCFB1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=email.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=email.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CA3606A31C;
+	Mon,  9 Nov 2026 10:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9CA3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=email.cz header.i=@email.cz header.a=rsa-sha256 header.s=szn1 header.b=FlElEeVi
-Received: from email.seznam.cz
-	by smtpc-mxc-685566bfbf-xlpnn
-	(smtpc-mxc-685566bfbf-xlpnn [2a02:598:128:8a00::1000:9b3])
-	id 0a2fb6b9f4db04130aa138a1;
-	Mon, 09 Nov 2026 11:38:52 +0100 (CET)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=email.cz; s=szn1;
-	t=1794220732; bh=QAvczo67RSfalJeCsyzcJCLsA81gRzj2i73BFxVghM4=;
-	h=From:To:Cc:Subject:Date:Message-Id:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	b=FlElEeVi/y5ot2kn+A79b9hWgIgCoDJpxEsC9bi1TycepDmisqCrPJ3rhrdnLwg6l
-	 uG8WWC4ct6q2xG+QAI4fZOjj8NfdYiOts1KqRA3rlPRUFH4vhkb/ohAXKuytIyFHkd
-	 RItTTrNynfnFo2WBl2ncd/sj1wzYJIN2kNJtnzJAd+LVkbm5LkEL88fEKQSxdBhY/E
-	 PH3mMfDXZF6XsKDyOqEnJhy7AiC0/xvqPchvmuVG5OrHz53ZmOA2/pp9qpNvHsZYA5
-	 AsHimeXL/hQewfv6VPiRXcmz3byNfqLXLVgpciP7aQxSvG+UqJ2YOKyUv8rLJhpNnV
-	 AcVhEn51tpYHA==
-Received: from unknown ([82.144.143.215])
-	by email.seznam.cz (szn-email-ebox-5.1.30) with HTTP;
-	Mon, 09 Nov 2026 11:38:39 +0100 (CET)
-From: "Tomas Paukrt" <tomaspaukrt@email.cz>
-To: "Herbert Xu" <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: "Shawn Guo" <shawnguo@kernel.org>,
-	"Sascha Hauer" <s.hauer@pengutronix.de>,
-	"Pengutronix Kernel Team" <kernel@pengutronix.de>,
-	"Fabio Estevam" <festevam@gmail.com>,
-	"Marek Vasut" <marex@denx.de>,
-	<linux-crypto@vger.kernel.org>,
-	<imx@lists.linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] crypto: mxs-dcp - Fix softirq locking and completion
-Date: Mon, 09 Nov 2026 11:38:38 +0100 (CET)
-Message-Id: <1qB.ZqMy.4DIhrOb2ZPx.1gyQAk@seznam.cz>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mIEZRjjg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794220810; x=1825756810;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=eII2xW9eK+JyhszI/hEYk6b5eDf6K60epLky3hR1lTU=;
+  b=mIEZRjjgH69AJ3Ikqm40jVuVKsw8ClSUay9YIiU+ddJfg1svOWTxbSz5
+   QLWh88Jn3Yb1mC0FW/STQZP0GexBuR82Ov+/ssm3tgpKYKAZO7vnEVmP/
+   muNqNGTGVYITiCF4ZJCsW2P595nlExyV5hnDO6Vx967696jnFPt20sGI+
+   FfD0XApxx6pD4Dqzwbf1So6pA+PWDin+ZLgD79384ntMGe9KSkqNg/RgW
+   OIg59DROEnpo6Q6gZuj4/MgaVLR7jjSpVqYSt4goMrrC26jfd/E4xUmFM
+   yJaaWITPZ6n86PMWBsJhnVCwjmVBtu1M1c6URQmsp3IH8sUYgzzb9hCJI
+   A==;
+X-CSE-ConnectionGUID: hCGfYjPPRLyhe3tPgqglnQ==
+X-CSE-MsgGUID: +SMQPE7GS/2JHIwtFnuweg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2828175"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2828175"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 02:40:09 -0800
+X-CSE-ConnectionGUID: dsf0UpurSGCCWJrR5ePICg==
+X-CSE-MsgGUID: tOpkJ0ZXRV2NcD4A0pGE3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8270311"
+Received: from srf-bkc.iind.intel.com ([10.49.110.107])
+  by fmviesa007.fm.intel.com with ESMTP; 09 Nov 2026 02:40:07 -0800
+From: Tirthendu Sarkar <tirthendu.sarkar@intel.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/time: Enable HPET under ACPI hardware-reduced mode with hpet=force
+Date: Mon,  9 Nov 2026 05:40:05 -0500
+Message-ID: <20261109104005.3391565-1-tirthendu.sarkar@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261005075550.463089-1-tirthendu.sarkar@intel.com>
+References: <20261005075550.463089-1-tirthendu.sarkar@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,134 +86,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (szn-mime-2.2.19)
-X-Mailer: szn-email-ebox-5.1.30
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The request queues are protected by plain spin_lock(), but requests are
-enqueued from softirq context (e.g. by ESP on packet receive) as well as=
+On Mon, Oct 05, 2026 at 03:55:50AM -0400, Tirthendu Sarkar wrote:
+> Let "hpet=force" call hpet_enable() when .timer_init() was stubbed by
+> ACPI hardware-reduced mode.
 
-from process context, while the channel threads dequeue them in process
-context with bottom halves enabled. A softirq that runs on the same CPU
-while the lock is held either deadlocks on SMP, or corrupts the queue on=
+Gentle ping. The patch still applies cleanly to tip/master (v7.4-rc1).
+Is there anything I should change, or can it be picked up?
 
-UP where the spinlock does not provide any protection.
-
-In addition, the channel threads call the completion callbacks with
-bottom halves enabled, although the crypto API requires them to be
-called with bottom halves disabled. With IPsec, esp_input_done() then
-runs xfrm_input() and gro_cells_receive() in plain process context,
-which races with the NET_RX softirq on the per-CPU GRO cell queue and on=
-
-the xfrm state, and defers the NAPI poll until the next interrupt.
-
-This was observed with strongSwan on i.MX6ULL: the throughput drops
-quickly and eventually no packets are decrypted at all.
-
-Fix this by taking the queue locks with spin_lock_bh() and by calling
-the completion callbacks with bottom halves disabled.
-
-Fixes: 15b59e7c3733 ("crypto: mxs - Add Freescale MXS DCP driver")
-Signed-off-by: Tomas Paukrt <tomaspaukrt@email.cz>
----
- drivers/crypto/mxs-dcp.c | 30 ++++++++++++++++++++----------
- 1 file changed, 20 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/crypto/mxs-dcp.c b/drivers/crypto/mxs-dcp.c
-index e1ff6ac8b213..b6749eb8f6f4 100644
---- a/drivers/crypto/mxs-dcp.c
-+++ b/drivers/crypto/mxs-dcp.c
-@@ -420,10 +420,10 @@ static int dcp_chan_thread_aes(void *data)
- 	while (!kthread_should_stop()) {
- 		set_current_state(TASK_INTERRUPTIBLE);
- 
--		spin_lock(&sdcp->lock[chan]);
-+		spin_lock_bh(&sdcp->lock[chan]);
- 		backlog =3D crypto_get_backlog(&sdcp->queue[chan]);
- 		arq =3D crypto_dequeue_request(&sdcp->queue[chan]);
--		spin_unlock(&sdcp->lock[chan]);
-+		spin_unlock_bh(&sdcp->lock[chan]);
- 
- 		if (!backlog && !arq) {
- 			schedule();
-@@ -432,12 +432,17 @@ static int dcp_chan_thread_aes(void *data)
- 
- 		set_current_state(TASK_RUNNING);
- 
--		if (backlog)
-+		if (backlog) {
-+			local_bh_disable();
- 			crypto_request_complete(backlog, -EINPROGRESS);
-+			local_bh_enable();
-+		}
- 
- 		if (arq) {
- 			ret =3D mxs_dcp_aes_block_crypt(arq);
-+			local_bh_disable();
- 			crypto_request_complete(arq, ret);
-+			local_bh_enable();
- 		}
- 	}
- 
-@@ -480,9 +485,9 @@ static int mxs_dcp_aes_enqueue(struct skcipher_request=
- *req, int enc, int ecb)
- 	rctx->ecb =3D ecb;
- 	actx->chan =3D DCP_CHAN_CRYPTO;
- 
--	spin_lock(&sdcp->lock[actx->chan]);
-+	spin_lock_bh(&sdcp->lock[actx->chan]);
- 	ret =3D crypto_enqueue_request(&sdcp->queue[actx->chan], &req->base);
--	spin_unlock(&sdcp->lock[actx->chan]);
-+	spin_unlock_bh(&sdcp->lock[actx->chan]);
- 
- 	wake_up_process(sdcp->thread[actx->chan]);
- 
-@@ -750,10 +755,10 @@ static int dcp_chan_thread_sha(void *data)
- 	while (!kthread_should_stop()) {
- 		set_current_state(TASK_INTERRUPTIBLE);
- 
--		spin_lock(&sdcp->lock[chan]);
-+		spin_lock_bh(&sdcp->lock[chan]);
- 		backlog =3D crypto_get_backlog(&sdcp->queue[chan]);
- 		arq =3D crypto_dequeue_request(&sdcp->queue[chan]);
--		spin_unlock(&sdcp->lock[chan]);
-+		spin_unlock_bh(&sdcp->lock[chan]);
- 
- 		if (!backlog && !arq) {
- 			schedule();
-@@ -762,12 +767,17 @@ static int dcp_chan_thread_sha(void *data)
- 
- 		set_current_state(TASK_RUNNING);
- 
--		if (backlog)
-+		if (backlog) {
-+			local_bh_disable();
- 			crypto_request_complete(backlog, -EINPROGRESS);
-+			local_bh_enable();
-+		}
- 
- 		if (arq) {
- 			ret =3D dcp_sha_req_to_buf(arq);
-+			local_bh_disable();
- 			crypto_request_complete(arq, ret);
-+			local_bh_enable();
- 		}
- 	}
- 
-@@ -827,9 +837,9 @@ static int dcp_sha_update_fx(struct ahash_request *req=
-, int fini)
- 		rctx->init =3D 1;
- 	}
- 
--	spin_lock(&sdcp->lock[actx->chan]);
-+	spin_lock_bh(&sdcp->lock[actx->chan]);
- 	ret =3D crypto_enqueue_request(&sdcp->queue[actx->chan], &req->base);
--	spin_unlock(&sdcp->lock[actx->chan]);
-+	spin_unlock_bh(&sdcp->lock[actx->chan]);
- 
- 	wake_up_process(sdcp->thread[actx->chan]);
- 	mutex_unlock(&actx->mutex);
--- 
-2.43.0
+Thanks,
+Tirthendu
