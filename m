@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195492;
-	b=m/VWeEgcETl5ptmtoL6FBwhFwfk5eHu3V5VTc/L2pMF+zOzx1kX9CKwatieA7EWSGYD4
-	 t3jhJqgswqr0NoZewBpp+LFZE2UsFzF5PXkbqiXYGHzav17OdTVeJy+rjhVzGby4o6/kB
-	 hcJfwQwEZbqjZOgdmFwwdkrU9dbU/JxswWQtcdSmTYJW4IQ9GDGmM209SBZbrsK5wD/8o
-	 Pyo6XWEQkAzzJIstdL64U3JXSnP1Ayx4lAP9WD+XubxjgB/nPuJ6nYI9kYFbBvZZ56SAR
-	 3YETQgcCVlqYaydNS8xdY6Qzj72mUG6gawTqnYMAWwPw4Hq275o3UQ5mhFJ6Rliaghw==
+	t=1794195507;
+	b=iiKdmBOLz3oi4z8OH+R+BgId7PSR4UoKBte2T6aZIT7eQ4C5Sjhzx8ffRo01mo33Fnx0
+	 dbAIkFgppeW2+lfMNKkR7QGyNTyxKaiP3hxPhcxaJUeXkJnhyuzJn6dwohNbJ8PzXgR9P
+	 4Pame+mRUKt9OlEKB8b9Nc1Cgbn+S2s9C5jEEHQzOh/j6XHnCc4MZ8mlp64iDBeVLmdJj
+	 e4aC+7qrI5yX23rRqZgnNLPoAu+pNsV0U0ZiRCGSzNZ1xM5GpxoLzfIQUQ0uoj+s8UYxp
+	 XyGuoyD+iaP/3Ion95tgv13g1uSFoWWbwy+PEfY9mPRKv1CccUFyEapDcDmUodGcAxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195507;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=dDNuQNZ4Q068kBc1irsl4Q24UzIeGT8nB+Lz9WNYUZI=;
-	b=yEi/D5H/BiMhOWQCdTlVDJafX1Ln57d/JEhVZgilDEJakwJuwfe1A4NlSWV/0kqd+A1V
-	 E24HZ71emXGgO+1Y9aSKp5GCPGvGjnY/o0nu5G5sCj6Ca2+bXXXRCHG8DA6tPNrLTooWu
-	 xs34hZszARrCAxZGXl4xXp9wbrHyjbPfs2mFVIB8qdg6Gb/Txw5vvHfjh9cbgt4oSeWba
-	 Vq/84Sju89M5lP4gIpoOV2Za8/JtD2AwTRk5OY64W5DFlkiiTrjj5wbCXTgdNlnODUq9y
-	 HR9QzMEfIDrXfunfZOJr40LLGs1mDM8AZgEsVyHYW6WQtEvERbHO36mEpT34Ws91Z4w==
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=bjmpd2GsLVB9bI9oKuc5xotaF+hmV+/J9JTe1SBkGe4=;
+	b=LpeWKpZmXkMByPDNh14gmj1oGnf+W1+jO8jLaMHGFCxGl8IFwjQNCp/1VY8ZSn33gbsU
+	 2s4OJcSWI1tU6zL4EAsaN/Z+9LjHWiBWGLE6/PjFLbgrkWyW7647HsjG+yLrFp5iEXyU7
+	 JwZI32lRq9wDQwcU1mtwVeBI6qyFc3MGjJv9F4HlYOtfFySJ1mG+UMv6/t5o9CFgq/l0L
+	 VZ86QaFkkBeaTTDA1u85SCS+dsY25z2ukIMaMa/TsAvziv4JeDgIk121xDpJvxx9uOeyb
+	 GHN1kQ3ztiB6VjpUwDSFFqB+TAmALiKszAOq4gTi8sJrvKFSJwU9sfzndFi3YSZoUfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=2LvEJA9C;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=itdM0Tu5;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E18606A325;
-	Mon,  9 Nov 2026 03:38:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24E18606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14F7606A323;
+	Mon,  9 Nov 2026 03:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14F7606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=2LvEJA9C
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=itdM0Tu5
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNFqP4YWjz8Xs70;
-	Mon, 09 Nov 2026 11:38:09 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jNFqX16SSz58fdG;
+	Mon, 09 Nov 2026 11:38:16 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794195489;
-	bh=DJGnq2eXzgUcR8zJRuPb0SOZFdcdyGHn7xiZ7s4VT/M=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=2LvEJA9CWoC1uNjOkOw7i/AMIPzvX0A+u7giKTQYEQFpzujT34NuzFngG/+XJnPhV
-	 c68wEHrF5r/X/MICacL6c4lr0BQB3CcU5MYplzGyx1AeMSG7+2IV0FvyOllA98/mpN
-	 ULacPylBGgZcgjTJPi/pJVt0bRNnkctYij16N/IJzDqa2dMnVvr6Pivxaj4wx1OuBV
-	 z+Z35MYiXHFI2YpfLT7mEPxUi4/xTVMJQwvK4dR1+bgG6MPZsoijPIKYEt/T7vHee/
-	 ghLglatcW9C6Yb4cXcD/BsBI71DMSpAZWYkdCqERNkXtZkK/QlvgRzfKsQb/uTMj5k
-	 Am7Gnivh9WxGg==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6A93bxMx063732;
-	Mon, 9 Nov 2026 11:37:59 +0800 (+08)
+	s=z202610; t=1794195496;
+	bh=5c/92VOtsWXXbGQih7pTvetR3SZsjmzamqI04YkK4t0=;
+	h=Date:From:To:Cc:Subject;
+	b=itdM0Tu5wcHA78l5hQUwg3J4MAOA2zxW5k4Y5dKwHrDDlsVdrP7LlPrceMfuAdO3/
+	 3/NFW8VGNQzMcmKp+CuX9PL1DmEYKOU8GEL4ys4s3EBuijZeNdWMc9F5guD92vz5kC
+	 yE2mU7Mp00Br7tjn9W83MWr5O2H70HEzhp5TkTz8zqfOyjF/UJAoh1sGWKMLsyO/ms
+	 8VBHxu6QPqXLkZJFGjr45wfgy9yrXXi08iinTOZi5SSSNzZGsqOs686c7Ce81/3HvX
+	 53U84kzWjFfPUdHch7mW0fhKa/0bltIIy54ddkWie+Db3rPAkixMnBO4uedlYytJ8z
+	 AWuGyTSR1181w==
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6A93c80H063932;
+	Mon, 9 Nov 2026 11:38:09 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Mon, 9 Nov 2026 11:38:00 +0800 (CST)
-X-Zmail-TransId: 2afa6af1401894c-56b30
+	Mon, 9 Nov 2026 11:38:10 +0800 (CST)
+X-Zmail-TransId: 2afc6af140227ff-419f8
 X-Mailer: Zmail v1.0
-Message-ID: <20261109113800391iViOGp-B7D_jQ82lqt8F4@zte.com.cn>
-In-Reply-To: <20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn>
-References: 20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn
-Date: Mon, 9 Nov 2026 11:38:00 +0800 (CST)
+Message-ID: <20261109113810258gK5WuYWQKt0HsI2ikxmHo@zte.com.cn>
+Date: Mon, 9 Nov 2026 11:38:10 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,41 +71,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <mkp@kernel.org>, <linux-scsi@vger.kernel.org>,
-        <target-devel@vger.kernel.org>
+To: <mkp@kernel.org>, <linux-scsi@vger.kernel.org>
 Cc: <James.Bottomley@HansenPartnership.com>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvM10gdGFyZ2V0OiB0bXI6IHByaW50IHJlZl90YXNrX3RhZyBhcyB1bnNpZ25lZA==?=
+Subject: =?UTF-8?B?W1BBVENIXSBzY3NpOiBwcm9jOiB1c2Ugc25wcmludGYoKSBmb3IgdGhlIGhvc3QgbmFtZQ==?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A93bxMx063732
+X-MAIL:mse-fl2.zte.com.cn 6A93c80H063932
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 11:38:09 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 11:38:16 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF14021.004/4jNFqP4YWjz8Xs70
+X-Fangmail-MID-QID: 6AF14028.000/4jNFqX16SSz58fdG
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-ref_task_tag is u64 but the message uses %lld.  Use %llu, and switch
-the unleveled printk() to pr_info().
-
-No functional change.
+scsi_proc_host_add() and scsi_proc_host_rm() format host_no into a
+10-byte buffer with sprintf().  host_no is an unsigned int, and once
+it grows past nine digits the %d output plus the terminator no longer
+fits; use snprintf().
 
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-diff --git a/drivers/target/target_core_tmr.c b/drivers/target/target_core_tmr.c
-index db7388e207b2..0b719f3f9cdf 100644
---- a/drivers/target/target_core_tmr.c
-+++ b/drivers/target/target_core_tmr.c
-@@ -166,8 +166,8 @@ void core_tmr_abort_task(
- 	if (dev->transport->tmr_notify)
- 		dev->transport->tmr_notify(dev, TMR_ABORT_TASK, &aborted_list);
+diff --git a/drivers/scsi/scsi_proc.c b/drivers/scsi/scsi_proc.c
+index fdc355d783da..d1f474c28720 100644
+--- a/drivers/scsi/scsi_proc.c
++++ b/drivers/scsi/scsi_proc.c
+@@ -230,7 +230,7 @@ void scsi_proc_host_add(struct Scsi_Host *shost)
+ 	if (!e)
+ 		goto err;
  
--	printk("ABORT_TASK: Sending TMR_TASK_DOES_NOT_EXIST for ref_tag: %lld\n",
--			tmr->ref_task_tag);
-+	pr_info("ABORT_TASK: Sending TMR_TASK_DOES_NOT_EXIST for ref_tag: %llu\n",
-+		tmr->ref_task_tag);
- 	tmr->response = TMR_TASK_DOES_NOT_EXIST;
- 	atomic_long_inc(&dev->aborts_no_task);
+-	sprintf(name,"%d", shost->host_no);
++	snprintf(name, sizeof(name), "%d", shost->host_no);
+ 	p = proc_create_data(name, S_IRUGO | S_IWUSR, e->proc_dir,
+ 			     &proc_scsi_ops, shost);
+ 	if (!p)
+@@ -260,7 +260,7 @@ void scsi_proc_host_rm(struct Scsi_Host *shost)
+ 	if (!e)
+ 		return;
+ 
+-	sprintf(name,"%d", shost->host_no);
++	snprintf(name, sizeof(name), "%d", shost->host_no);
+ 	remove_proc_entry(name, e->proc_dir);
  }
+ /**
