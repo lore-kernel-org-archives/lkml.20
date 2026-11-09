@@ -1,59 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234642;
-	b=oNJkK9pLm+UoXA4grSzAOjf5JNrQf+ySP43RABQej8Q/2sRyApaDfQMTBIL7in8IjR0y
-	 RSphpnvBMjBzOfP2s190qYVuW7U/uv1r5b+WwnIP5aO4bAFkQuqscnqWjM5IM4knxnvuA
-	 mGj0M2NKo+R6hLdyONurSZLaHiRoFDpk9+2JvPvwymtpRY++e3YcXFkVxkbdhVty3sjqQ
-	 BZCh3GvFcERz3XnsrKW2ODcsAKmBPfyna1qfH4cGuSqBExfLokkzbwhZs6mW2G8GWuDEk
-	 UhFWZKRl5kj5YrbvUA1JuUe5+mDWQsOIu9QaiklfzeYXV6b1lq0jaOUbN1eDPjvAO6A==
+	t=1794234738;
+	b=tIGBPgRAy0YeKJBKtq2hJHe3CC0dZrij/EpAntiPUngd5jxgLXyFi5vz3jAxF+22tO7S
+	 MRar4dXCZH2sKGAS1gss19YKSW0gKAEhL4F4diz4XDmZDvhGsnFzNCVynSFjuuFF3eWY9
+	 RiLFHOKfc8YuvcLlBcbZk2Lb3QZmzbFAIH5dwyVYigm92jLwF9gsFT0aribqBy17TLtUu
+	 Pe+u+39dAYexHZsdk8BfDh+xatxzvA/wO41BUjPC8PVNpkjbHU4FKa0FUkPKBeMm27W7W
+	 GcPYDXyQEUQxfrfbGDJ8wRSBmrwHhRY1qzsmGxDqLcmfgc8a3T1NzoBQ811hUTm7i9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234642;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SOKa7oEiKxu542q5m/5lCLp86l9043bl/suyY3YQPdI=;
-	b=B8W616r5wW3EEX74y2CgOWyQ0gx0eA+hFNI/sO+TEswIoNZZ40nOpu+uINpmH2gbsygs
-	 O21Sgk7GRfa41MWRXIr6BlQOlY9T7OQquBW8htzvtBERrsmt3x5cM77vdgaLIQEVdoTpR
-	 TqHBlr4ddYTzlxGOL2HtFHbGc3V5wJXNPa360EhJ+y7drGEm/gCCYFzwbendN7mXqPARv
-	 QqDvysCYUOxpHn5Zq6CJBdJOjrNtknUha5shNpm4sNjD6cJomn3vtnH3Tm5S9s1FCWYtG
-	 pBQsjC16VwJWFi6mQl3ZfkDqYTIJWCaXT2ryUwumAegaYDqw55l/N/wolHn9sOu8Y/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234738;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=hy/assV2qCh/Fr1BJVMQll7/sc6E6wbrngW4FxNE0Xk=;
+	b=YI2dKR2xs+wMIX6ANiTj9//8u0HwQ+ZncHo/Wp2JTqmVHO1ACJulLbMmgc3CAuByrzRh
+	 G2MjHZy7H3ewOkECToe13FzHfpnCtYd0IEy4akThPC2Rsw+3UgdcxL1ZI/8Uy1DJ4lpIk
+	 cW33SkoRWCXXfWtqslB280UMS7XdxPQt2DGu4QK7lF9jArM01cNp9+zObdfJ1FdIvYlgt
+	 VepTiMTmalATngJGICB6iEDilGK0WQJh+mlnSNg9js+QSEhG06D0yD5z4tibEIwYJZrih
+	 kyYlUhVCUeWIRfbclz5yX6Fwtp/XQGFezLwd4pob83mOytVATJvXg3Uh9LZw64zA3iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7712O4S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="gX/ki3el";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6C0D8606A322;
-	Mon,  9 Nov 2026 14:30:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB989606A325;
+	Mon,  9 Nov 2026 14:32:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB989606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7712O4S
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2D9F61F0089F;
-	Mon,  9 Nov 2026 14:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794234642;
-	bh=SOKa7oEiKxu542q5m/5lCLp86l9043bl/suyY3YQPdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m7712O4SyxrLKHUcY9x3mrp6AevG6T/EM5E5/gI8vKjS/Wc8mo4jt21j4n/RqMnVO
-	 qb9tvtCoBB4VSSKLamNL6hX9l+4pvngGJkrIeeUaMiPIyKzDiNkXWHZJ4c5y82KP+u
-	 5sEtDqUCC3DWDepmCf3n4nYOPyI1vjR7X5XSGhAznsXYbhYSek7kYBmhYyCV6p7gWF
-	 7WLwUysj4c9aBBuCv5ln9d36QeCk5Af9eqEucxsNrKkTN5jwbBD3LsG+xdrjA//lEi
-	 RuNnAuxdjCV8xp858stpS0UL5Lgndf8/OeRoiCHUlgNVrdPrth2ogGKMikKDtDYlZg
-	 iVO19co4PV/SQ==
-Date: Mon, 9 Nov 2026 15:30:37 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: Re: [PATCH] software node: only let the owner release a managed node
-Message-ID: <zuxfprej3cu63f5a4ljjori2ni5q4onl3qxpweygsyw5lqbdcn@wt2j2n627bop>
-References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
- <avHMhh8ChrFE_b_e@hovoldconsulting.com>
- <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=gX/ki3el
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=hy/assV2qCh/Fr1BJVMQll7/sc6E6wbrngW4FxNE0Xk=; b=gX/ki3elYmC3UDvKyPcEjFv5xl
+	shbpqoOj23faKXZY3r2JeP5Tv4saQeb5MAhUWWsaCX9yhkA8bWaWzKmuuDyrCUew2449iqyUOIFfK
+	IH32KerSQioGRYuVkTL5IGRsh+AIlMNq9151SL2E1nZEsnTbWOvVC3sUAPM2W9qizkuhVyGbLvKGy
+	NxmhNrwiQtWuLm5fYNG7sf/AoPDcIK73PloKTNS7JYDcicTt05ki+nzfykxIU1Fd6l0vsvEYEmKJ5
+	hW7G2FhYTmhQNt0JfuncM3FEFURQqeNcmxtrOLMbpJzMNOlyHtdkdAnbEXnsoVHIbZ4G1/ZWAaRHg
+	7nDV1yMw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQQPn-00Bgj2-1X;
+	Mon, 09 Nov 2026 14:32:07 +0000
+Date: Mon, 9 Nov 2026 06:32:03 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com, Ran Hongyun <ranhongyun1@huawei.com>
+Subject: Re: [PATCH v3] configfs: fix slab-UAF Write in config_item_put
+Message-ID: <avHZTuXp_WatC5nj@gmail.com>
+References: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,112 +70,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org>
+In-Reply-To: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Debian-User: leitao
 
-On Mon, Nov 09, 2026 at 03:10:31PM +0100, Danilo Krummrich wrote:
-> On Mon Nov 9, 2026 at 2:37 PM CET, Johan Hovold wrote:
-> > On Mon, Nov 02, 2026 at 04:25:16PM +0100, Bartosz Golaszewski wrote:
-> >> device_create_managed_software_node() creates a node whose lifetime is
-> >> tied to the device it was created for. software_node_notify_remove() is
-> >> called for every device that has the node as its fwnode (primary OR
-> >> secondary) and, if the node is managed, unconditionally detaches it from
-> >> that device and drops the creation reference.
-> >> 
-> >> This breaks when the node is shared with another device. Example: the
-> >> i2c-designware copies the parent's fwnode to the adapter's struct device.
-> >> When the adapter is deleted, it releases the reference that belongs to
-> >> the owner and the latter ends up with a dangling pointer.
-> >> 
-> >> Record the device's "manager" and only perform the actual release when
-> >> notify is called for that "owner" device.
-> >> 
-> >> Reported-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-> >> Closes: https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivekanandan@intel.com/
-> >> Fixes: 151f6ff78cdf ("software node: Provide replacement for device_add_properties()")
-> 
-> Hm...the documentation of device_create_managed_software_node() does point out
-> the limitation that it shouldn't be shared with other devices.
-> 
-> Now, that's rather fragile and the reason I pointed out [1] it should be
-> changed, but it's technically not a fix?
-> 
-> [1] https://lore.kernel.org/all/DM1FMM3KEYU9.1D26IINII93FO@kernel.org/
->
+On Thu, Nov 05, 2026 at 05:50:54PM +0100, Drif Abdelmalek Mohamed Said wrote:
+> v3:
+>   - Removed redundant null assignment to parent_item
 
-I don't mind dropping the tag.
+Applied to for-next, with that assignment restored, so there is no need
+for a v4.
 
-> >> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> >> ---
-> >> Hi!
-> >> 
-> >> This is my approach at addressing the bug reported by Vivekanandan
-> >> directly in driver core. Please test it if you can.
-> >
-> > This looks good to me, but I think the patch should be simplified somewhat.
-> >
-> >> @@ -1190,6 +1191,7 @@ void software_node_notify(struct device *dev)
-> >>  void software_node_notify_remove(struct device *dev)
-> >>  {
-> >>  	struct swnode *swnode;
-> >> +	bool is_owner;
-> >>  
-> >>  	swnode = dev_to_swnode(dev);
-> >>  	if (!swnode)
-> >> @@ -1206,9 +1208,13 @@ void software_node_notify_remove(struct device *dev)
-> >>  	if (!device_match_fwnode(dev, &swnode->fwnode) && swnode->fwnode.dev == dev)
-> >>  		swnode->fwnode.dev = NULL;
-> >>  
-> >> +	is_owner = swnode->owner && swnode->owner == dev;
-> >
-> > The NULL check here is redundant.
-> >
-> >> +	if (is_owner)
-> >> +		swnode->owner = NULL;
-> >
-> > There is no need to clear the owner field as devices are not allowed to be
-> > re-registered.
-> 
-> I guess that's true, but maybe leaving in a defined state is a bit more robust?
-> 
-> >> +
-> >>  	swnode_put(swnode);
-> >>  
-> >> -	if (swnode->managed) {
-> >> +	if (is_owner) {
-> >>  		set_secondary_fwnode(dev, NULL);
-> >>  		swnode_put(swnode);
-> >>  	}
-> >
-> > And if we drop the managed reference before the notify one, we can drop
-> > the temporary as well and this chunk just becomes:
-> >
-> > @@ -1206,12 +1207,12 @@ void software_node_notify_remove(struct device *dev)
-> >         if (!device_match_fwnode(dev, &swnode->fwnode) && swnode->fwnode.dev == dev)
-> >                 swnode->fwnode.dev = NULL;
-> >  
-> > -       swnode_put(swnode);
-> > -
-> > -       if (swnode->managed) {
-> > +       if (swnode->owner == dev) {
-> >                 set_secondary_fwnode(dev, NULL);
-> >                 swnode_put(swnode);
-> >         }
-> > +
-> > +       swnode_put(swnode);
-> >  }
-> >
-> > The end-result applied for 7.4 (to fix the 7.3 regression) is here:
-> 
-> A previous reply from Balasubramani suggested to adjust the doc-comment of
-> device_create_managed_software_node(), so I thought Bartosz will send a new
-> version.
-> 
+https://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux.git/commit/?id=c971fd2d102e7d081a03c0d2752afa38b58ef5be
 
-I will, I was just giving it some time on the list.
-
-> Also, are we sure this is -rc material? I think the original commit wasn't
-> technically broken and the bug in Xe was fixed otherwise.
-
-We can queue it for v7.5 alright.
-
-Bart
+Thanks,
+--breno
