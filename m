@@ -1,124 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236797;
-	b=2pM7IrB6GuB1RHOmKDSY5ePMZOzIj3wqEVviUA7wUQKosGje4tjMrYYyyw/OQ2ck2Hyo
-	 i5LmvQMoZTP5tY5HO0HkAICg0GWrlEnlYqRlbUFlFS6xM9uNWfzOv5VA+euc7KI+BkR++
-	 e3lN80RICW6H4gB8R9f8F7VPICAshRUV0ZjepmZDQxGi+uo/KieDBDYb/uZglvIPWzk0U
-	 rUjd9NHwOVE2m+W7N9LSQzWZq8XOTDs/i3UfN+3vPAzXoVZWRK6TsWUboj4f9JO+gdrzu
-	 +Ll/7nks+iBNqNyn10/mxovn5OcZOFBu/xeFaXW5uBZhrHlvT+9MYHhNjYUJ4/hnm2w==
+	t=1794236863;
+	b=pZQcnD7P/7gF7z0LOD4Y6mp+dWpaUcJLuZSX787XMsiN7UE2lZP+nia/opBe+qZ+lXO+
+	 fVNmAuzZADmXhfRd5swFmTUqQlyIfJwqgKUr7zUYLWJXBkatv4nWB1IfWVcJ+tQsWSwN3
+	 IKLKYpa2WSY5Wy8iBaOsMzQi3s1FvjlYomoxaAldzWxPmvIT5n5m4R8kd1T208RDZJxrJ
+	 lR11E3Io1CF2KPbGe/7rTaQwadGyBicEB26OaQAP5HLkqvPyfAiMpg1BK4M4WFtQeV6FC
+	 9rKeEJC0G/FrFyy4Cep6+02m/+XDdFl5aJR5ORvPEXpSmXKj+uepjNgchVKf9NqFR6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236797;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BKWvO8qzTjmjevKuD/TnU304VnpW4id+UFVdK+d/vMA=;
-	b=NPXfxz1TDPHbmiNbF2SG4R0JuB/3gJYb8oUJ5vK5Q8Q6O2RVxXOH91m0OpJ8PX5GSh75
-	 S+u7i33pJglovLltb99NzrzJftPP/k1FkE+nzd2izO6x3J3LvAd2Mq1uSysQSdI3sMz/B
-	 JLM95OqTLc0VShSKlngMel9a9r6uc+ezcVOBvEMeVYOoDr1yZxqD7rqwIcfvUxpcyhyC1
-	 0dc6dBn/hI80HfIeNiwqAfh0Vie8pyaCP1FKKY0cLRrQwtawSoBGlfDthULUF9pWecFAt
-	 gPQR9FF6Sn7czfnq9ubiQdFHea3/eln3MDUwPtQlLxXjEu/H/dwTp+ajCJ3Uy/RVjpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236863;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=InNwYIMIJI8yrg6o/8hogQFe84wdeKa70SPggHPT1Ps=;
+	b=TXPDnbj4jiB0iF5k/pGGONaf3WxEPtZNJ6TPOnQfd/XQL/JYzp2L3jQtQdXmSNjthWQX
+	 Z1qBaL3al6u/5ZL8eT1kzSIJu2Pq7Qb99XVIKi2Bw7qIJyjyy09vUhwYF1QlNKegsiTO2
+	 0Ate5+O60PkQvENp7ntLQO+6hIKysiGggS5pabJGcG+lVqGp0ErUiviwjpYGmenBZy7+a
+	 mZ34VB2WsuTuZCdN46nACo3KofaNITguANRHyFkMWd6KAjsyIvOyy4B32ZUu8xACurQBf
+	 PgsC1Z4CXPq7aLP++qhD0O8/haixuKOxpkPcDSG0GdnwyVCuVojHrcKlTodo9v4ce/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CZtTOxdY;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FdOXzUdH;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KrVbrHBa;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CCB606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:06:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42CCB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B184A606A326;
+	Mon,  9 Nov 2026 15:07:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B184A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CZtTOxdY;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FdOXzUdH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794236795;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BKWvO8qzTjmjevKuD/TnU304VnpW4id+UFVdK+d/vMA=;
-	b=CZtTOxdYiOV06/b4G9u/MJS1T/tHIenPkm4Tye5dseKzbgTce6+wQKECgWb4H0RmG347ZN
-	0+QZIRkyslHJemUDm5tbRxNnzXPa9YjyNCYwV7uXxk9BjPd5ifS4Sh4NC0m44RUcyzVk9V
-	LirEs6UCZcoV6J7nX0TDqAU3dhTjrE8=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-135-u5dhFKV8NcW6AnD-CkV6hg-1; Mon, 09 Nov 2026 10:06:33 -0500
-X-MC-Unique: u5dhFKV8NcW6AnD-CkV6hg-1
-X-Mimecast-MFC-AGG-ID: u5dhFKV8NcW6AnD-CkV6hg_1794236793
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48e1d839ddaso671603f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:06:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794236793; x=1794841593; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BKWvO8qzTjmjevKuD/TnU304VnpW4id+UFVdK+d/vMA=;
-        b=FdOXzUdHTQ6m3VUupSZeds4Qvuoru5NQq+B1VZI4v8UFPfBc2l1Rf427Es0mpPgGJk
-         hU5ltrbUU03C/TwDtePz/2TxtmQcnxpylNQF9yAI/bjaJJ83tOkj+Hhso8ZT0/qxhnGT
-         eTLTuldmOzmlD65WMbhJReUkPa5q1Pnl7iKQ+L8uQjRbnrOq+fAvLxvg49JRpzRvgUx2
-         EcTjLS/vuqUS+9vxXxE37fU+zLYERcoqPD211UtMwlUdMnnjU6x6KpQ8rCjLfNqxQYUO
-         AFiwXeZ/YqRcT+xUmXzUzgXlSEtUfNJ1etw1JYFpc20qdlJJFR8KvV8Nt4Cbed0xhjhB
-         pn8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794236793; x=1794841593;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BKWvO8qzTjmjevKuD/TnU304VnpW4id+UFVdK+d/vMA=;
-        b=JYVzSTuDbrzJ0pMcZjQibsNlRsA7HhZZc+tUBDt+CRht1dA4oZkMQkozNEZRbo1+A5
-         MewTytumXrQlsvTByfgvqaBTt6TUUJjSpd4dCPNkmb1lGb3LTo4gf0pT7sbeJEL6TcNR
-         vxz9m8CncrYXK5MMABRSp5EZMQoIX3T0VdqHmJqb76zmqzMEIKujqdxwV5P0t/F3TeVa
-         VDgFInrl08aa9ZxvItxQpVeUlC6Ks8Hhqcq10LK87KUW5XBNfMemEUdNroCSO1O4pBn5
-         vLQeX841kR29Mmu/UYO2lGY4le5LmfRymi2AwZTbA4YHLgEHS+QKgk0JPksm5da+PM9Q
-         qQ6g==
-X-Forwarded-Encrypted: i=1; AL+hErH3CalyJZMLYwmSrzLPdMmxxJXUeoHVDOCZztJsHvA+F4EUroaeVuLV67MBU+nvcWGLgRJ44PwX4ITKz0w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tXil/OWe350sBsw2QWlWbk2LN5siFLJ/6mO7kuwahCB1M1WCt
-	FHgVdhDl0r8ebhuOVcGJsDF/QC4mGhwmYyBVG+MbIwXN+7slYHoutzzV/kkOCQNkHEz80QR/zUT
-	vvD70PZsjig3TZYwCKn6gXsHdr2XJSnqiJ1n+9NYsOnY31AaC2PnpTbRtKmFsoRKFqQ==
-X-Gm-Gg: AYBFou3BDcjhjyi01w7eG1RIEuV9ZjGEK8hAGOOMX23/qZKr/pk4cHwk+5dRnjksPoI
-	F78iqFSkqXPJRKmPXPJ4rDMPBf8T9n4jOZm9rnBTVgpp6X7sv0z3D898wq7aF82gFA5RAwXfjMI
-	mIBJIfN/d9tM/j9q0SGqcgtg59KfiOH2FDv9Ia7I8f0KOGMS+52pA5FTLTKAbyNfIz5b9wSAvJA
-	Q4u5hxJEvR5zu8c+jU5NRKnGtp6AAfCgDxzacz30eCwBW2iZEb+NK6eDIpPHTANaVpHVpoQyM2Q
-	ArYEeUsiBvyV8XFB/TVqPFjtg/FGsaywY0laFUtI5sV6LMAotEZnuy4nIvp8cn3HFGXOi9/5RV9
-	JniqnuWLQq5jrUPjRlcNz+UK7PdaV6w3qnYRwxrTmyYhT912GmSjl5cULG3SHtflEPp/WmC4286
-	gQag==
-X-Received: by 2002:a05:6000:2212:b0:48e:5071:420 with SMTP id ffacd0b85a97d-49586743510mr7911095f8f.2.1794236792592;
-        Mon, 09 Nov 2026 07:06:32 -0800 (PST)
-X-Received: by 2002:a05:6000:2212:b0:48e:5071:420 with SMTP id ffacd0b85a97d-49586743510mr7911029f8f.2.1794236792118;
-        Mon, 09 Nov 2026 07:06:32 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783fd04sm10850687f8f.47.2026.11.09.07.06.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:06:30 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:06:28 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 06/29] sched: Take cpuset_mutex for a deadline policy
- change only with pi
-Message-ID: <avHhdDqeMpe7wAay@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-7-mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KrVbrHBa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=InNwYIMIJI8yrg6o/8hogQFe84wdeKa70SPggHPT1Ps=;
+	b=KrVbrHBatWN5A+oE+H9yy3Vf4NfkgY3u8Rj2HFxCrfy7EdplXfSt70HWWcZLwh
+	/C6WnH1r7rLfVgoW1FY1zaLGFzyd7dn95MxfK1IloYJhY6mNWLvFrOOKJCksyygH
+	nw9KRh5w9N9Ue+WQ5j+8iur5GXJoCi6j7QcxLNX0lZ4Vk=
+Received: from [IPV6:240e:b8f:91b3:d000:f8a3:659e:94ea:8cfa] (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD39xp74fFqmq84GA--.54682S2;
+	Mon, 09 Nov 2026 23:06:36 +0800 (CST)
+Message-ID: <ad7ad5ed-bf3f-40b2-97c4-fbd6f35acd3d@163.com>
+Date: Mon, 9 Nov 2026 23:06:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,121 +54,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-7-mathieu.desnoyers@efficios.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] PCI: Use pcie_get_link_speed() in pci.c
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: bhelgaas@google.com, mani@kernel.org, lpieralisi@kernel.org,
+ kwilczynski@kernel.org, thierry.reding@kernel.org, ryder.lee@mediatek.com,
+ jonathanh@nvidia.com, robh@kernel.org, linux-pci@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org
+References: <20261108094034.679945-1-18255117159@163.com>
+ <20261108094034.679945-2-18255117159@163.com>
+ <43198b7a-b0f7-49e4-731a-807e7d9e5959@linux.intel.com>
+Content-Language: en-US
+From: Hans Zhang <18255117159@163.com>
+In-Reply-To: <43198b7a-b0f7-49e4-731a-807e7d9e5959@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD39xp74fFqmq84GA--.54682S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCrWfAw18uryfWF48GFWUCFg_yoWrWrykpa
+	y7C3WYyF1UJr1fWF4Fqan8ur15X3ZxZrWxJrySka4kWr12yrZ3XFy0q3yayr1Syr4DAry5
+	A3ZIyrs8uan7tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRepBDUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7ByuUmrx4XyrPAAA3d
 
-Hello,
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> __sched_setscheduler() takes cpuset_mutex for a change that involves
-> SCHED_DEADLINE. On success, it releases it only when pi is set.
-> normalize_rt_tasks(), for sysrq-n, is the one caller with pi unset. It
-> runs under read_lock(&tasklist_lock). So sysrq-n takes the mutex in
-> atomic context for a deadline task, and never releases it. Every later
-> change that involves SCHED_DEADLINE then blocks forever.
+
+On 11/9/26 20:03, Ilpo Järvinen wrote:
+> On Sun, 8 Nov 2026, Hans Zhang wrote:
 > 
-> Commit 710da3c8ea7d ("sched/core: Prevent race condition between cpuset
-> and __sched_setscheduler()") took the cpuset lock only when pi is set.
-> normalize_rt_tasks() cannot take it under tasklist_lock. Its changelog
-> accepts this: after sysrq-n, the deadline guarantees are gone anyway.
-> Commit 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex") then took
-> the mutex only for deadline tasks. It replaced the pi test by a policy
-> test, and left the release under pi.
+>> Replace the to_pcie_link_speed() wrapper with pcie_get_link_speed() in
+>> pcie_link_bandwidth_mbps() and pcie_bandwidth_available(), and remove
+>> the now-unused wrapper.  pcie_get_link_speed() performs the same lookup
+>> with bounds checking and is already exported.
+>>
+>> Signed-off-by: Hans Zhang <18255117159@163.com>
+>> ---
+>>   drivers/pci/pci.c | 9 ++-------
+>>   1 file changed, 2 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+>> index 7c6f2aba8144..92ede1768caf 100644
+>> --- a/drivers/pci/pci.c
+>> +++ b/drivers/pci/pci.c
+>> @@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
+>>   }
+>>   EXPORT_SYMBOL(pcie_set_mps);
+>>   
+>> -static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
+>> -{
+>> -	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+>> -}
+>> -
+>>   /**
+>>    * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe link
+>>    * @pdev: PCI device to query
+>> @@ -6048,7 +6043,7 @@ int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
+>>   	if (err)
+>>   		return pcibios_err_to_errno(err);
+>>   
+>> -	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
+>> +	speed = pcie_dev_speed_mbps(pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)));
 > 
-> Fix this by taking the mutex for a deadline change only when pi is
-> set.
+> Readability seems worse due to cramming everything into a single
+> statement.
+
+Hello Ilpo,
+
+Agreed. I'll split the link speed class into a separate local variable
+at both call sites, keeping lnksta intact for the link width extraction.
+
+I'll send v3 of the series with this change.
+
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..594ee7aa4cad 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
+  }
+  EXPORT_SYMBOL(pcie_set_mps);
+
+-static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
+-{
+-	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+-}
+-
+  /**
+   * pcie_link_bandwidth_mbps - get the current bandwidth of a single 
+PCIe link
+   * @pdev: PCI device to query
+@@ -6041,14 +6036,15 @@ static enum pci_bus_speed to_pcie_link_speed(u16 
+lnksta)
+   */
+  int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
+  {
+-	u16 lnksta;
++	u16 lnksta, lnksta_cls;
+  	int speed, err;
+
+  	err = pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
+  	if (err)
+  		return pcibios_err_to_errno(err);
+
+-	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
++	lnksta_cls = FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta);
++	speed = pcie_dev_speed_mbps(pcie_get_link_speed(lnksta_cls));
+  	if (speed < 0)
+  		return speed;
+
+@@ -6074,7 +6070,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, 
+struct pci_dev **limiting_dev,
+  			     enum pci_bus_speed *speed,
+  			     enum pcie_link_width *width)
+  {
+-	u16 lnksta;
++	u16 lnksta, lnksta_cls;
+  	enum pci_bus_speed next_speed;
+  	enum pcie_link_width next_width;
+  	u32 bw, next_bw;
+@@ -6089,7 +6085,8 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, 
+struct pci_dev **limiting_dev,
+  	while (dev) {
+  		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+
+-		next_speed = to_pcie_link_speed(lnksta);
++		lnksta_cls = FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta);
++		next_speed = pcie_get_link_speed(lnksta_cls);
+  		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+
+  		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
+
+
+
+
+Best regards,
+Hans
+
+
+
 > 
-> The policy test reads p->policy before the runqueue lock. It is checked
-> again under the lock only when the caller gave no policy. Otherwise,
-> the task can enter SCHED_DEADLINE in between. The call then takes it
-> out of the class without the mutex. A rebuild of the root domain
-> accounting could run at the same time. So check again under the
-> runqueue lock, and retry with the mutex.
+>>   	if (speed < 0)
+>>   		return speed;
+>>   
+>> @@ -6089,7 +6084,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
+>>   	while (dev) {
+>>   		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+>>   
+>> -		next_speed = to_pcie_link_speed(lnksta);
+>> +		next_speed = pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta));
+>>   		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+>>   
+>>   		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
+>>
 > 
-> sysrq-n on v7.4-rc1, with a deadline task and lockdep on:
-> 
->   sysrq: Nice All RT Tasks
->   BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
->   in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 4356, name: deadline_switch
->   locks held by deadline_switch/4356: 4, last CPU#3:
->    ...
->    #3: ffffffff83006098 (tasklist_lock){.+.+}-{3:3}, at: normalize_rt_tasks+0x34/0x150
-> 
-> A sched_setattr(SCHED_DEADLINE) after it never returned, in 2 VMs of 2.
-> The sysrq_normalize case of deadline_switch_test, added later in this
-> series, tests this with DEADLINE_TEST_SYSRQ=1. It passes with this
-> series.
-> 
-> Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
-
-The change in itself makes sense to me.
-
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
-
-I only have cosmetic/minor comments below.
-
->  kernel/sched/syscalls.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index 56ce2352e89e..0bc778c12af4 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -561,9 +561,11 @@ int __sched_setscheduler(struct task_struct *p,
->  
->  	/*
->  	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
-> -	 * information.
-> +	 * information. Do not take cpuset_mutex when pi is unset: the
-> +	 * caller is normalize_rt_tasks(), which holds tasklist_lock and
-> +	 * cannot sleep.
->  	 */
-> -	if (dl_policy(policy) || dl_policy(p->policy)) {
-> +	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
->  		cpuset_locked = true;
->  		cpuset_lock();
->  	}
-> @@ -654,6 +656,15 @@ int __sched_setscheduler(struct task_struct *p,
->  		goto recheck;
->  	}
->  
-> +	/*
-> +	 * The task entered SCHED_DEADLINE after the unlocked read of its
-> +	 * policy above, so cpuset_mutex was not taken. Retry with it.
-> +	 */
-> +	if (pi && !cpuset_locked && task_has_dl_policy(p)) {
-> +		task_rq_unlock(rq, p, &rf);
-> +		goto recheck;
-> +	}
-> +
-
-For a cursory read this check and the one above look similar. Can we
-maybe have more descriptive comments for them, e.g., for the first
-
- /*
-  * The caller gave no policy (SETPARAM_POLICY): the request was
-  * derived from an unlocked read of p->policy above. If the task
-  * changed policy since, re-derive the request from scratch, and
-  * release cpuset_mutex: the re-derived request re-decides whether
-  * it is needed.
-  */
-
-and, for the second, that this patch adds
-
- /*
-  * The caller gave an explicit policy, so the request needs no
-  * re-derivation (oldpolicy is -1 above). But the decision to
-  * take cpuset_mutex used the same unlocked read: the task
-  * entered SCHED_DEADLINE since, and the change below would take
-  * it out of the class. Retry to take the mutex.
-  */
-
-Also, maybe add an unlikely() to the second check as well?
-
-Thanks,
-Juri
 
