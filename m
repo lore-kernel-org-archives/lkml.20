@@ -1,59 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264337;
-	b=nVpBPMTuCIble53zE0LaW8X6C783m0M1Y3XH3BkaEogAZaGPIS5BXBLydbC2ZYPgXBbP
-	 HefS0ka9UfStG78iPVMFvhbCvvP2Tee4JofCq1DER3ZS5cK3mSufcxAizmaZVsa1G3the
-	 GeLktG1+Mr7RB+Es8WRoie5ol46oZsJCPOAnwL2yX1cyv8jVmqdHLD//xjV59rdvXzHt1
-	 cj9H5nb+HbYLlWOtqu3W7LRxgJ/pC0g8HtAfWPZSHs33Nb8dab1fIBVwiP1gbnoEFekkl
-	 /5HFrfI/lKqaL8+iloofgN7JFz9UPJT+D7HnCh2jAp27tC9EET2ZqmSnFT8HXh9s0mw==
+	t=1794264393;
+	b=ROSGJAwhbRJQ2AjkdOhOSv76hNqHw4dZUj+bLM07e5wKyxhekBT9ke7XFULqpnU+lo7P
+	 ACXfRyr7V+TbvsAO1VzTJAr+c9tcgcGDhmQl6hhBJRudLkztM2uFkAg60Q7zZEuER4OxR
+	 sR42KaKgRQyZC3jfMOSuELB6JsywV8Mk2Iehd5gOWrQWHRvdGFKNyCy5xySvCmh/kZSF/
+	 RxpMoOjCbv9aWILI6EOmQgi5VfgktzT1qejZMvImmWyD7P6eSCIHZeKZe5o//RlHslTr0
+	 4gn06RuCqyGIHrzwb+1jOcreJx2Wz5di+rnfak0FsWTCnG3GUqLT3J213OLmFiZDvYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264337;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=h6aeX/U1bnE7aB2pfkoQSmz3NsjDsVyll8Kpf4skhbg=;
-	b=Pu+qhqw6HVgTKCW6vL2rd+G6+cGkoPa4dA1klJtb0L0fRnphmZnTvZiINVKHQHVWy2Pk
-	 +9hI2Q8K/VW1lqlgyOnmLYHfDb5K+fCTBZ79kigUCMeeWBMVBmGijdhiSssD2XXFu/utp
-	 sXe4Tw3GeqTABNAzaLegpDzLBjBGmH2KHdDHIFHLsrt59HApm1AsfXn2hEVP2r0QElDlw
-	 ZR28h1Dyxbdi9WL1N32RkjVPBxJ3RsqQZ3wef0d8fSeTdKNBeBnZsG7LLfLLPAif46MBc
-	 IdPxnVwppBIK2QXEv8OXK0rtga3jA/doYBRseXbmq4soRS/RYrtlu8TS130C+H6tuiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794264393;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WIZBljhWyOjAV704JqzV8vhFcRwS8d3hm/gLxcJtn20=;
+	b=Pb8Fs1D5sRNEhNkGTEEPTRs00PmfbzqaZK0S8JA2fsT4GTIINOO+9wTI5FKbmogs2qzF
+	 9RaOrKvBIYeCqycmHf3nXW4h6zIRWnaXKY6XmKUzlzOEOBDKUxtXnpjkTNmvee8feGOuf
+	 LCt/8e7AyZtXrRsmnAhdnRoAkTNURiaMkmnNLhoVBsD1QCf0g1E5Xy7MXuWIXrHRWxmev
+	 08MBR4lZIKlofUtTKCwUpfgArL8XIf9cq71MDqfStW8npHAbzTTbOwxnKkgx7WsX5T4SY
+	 6JJHxln4Ci5kN5APlNT7Bqv7Crvdq+QyoZHvzxR+ml62IT8U4nRNqHVqPFt/Xg+XMEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCnr9S7l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=rJPYJ+Pf;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=0enM7fbI;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64482606A325;
-	Mon,  9 Nov 2026 22:45:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7F0606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:46:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C7F0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCnr9S7l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5EA1F0089F;
-	Mon,  9 Nov 2026 22:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794264337;
-	bh=h6aeX/U1bnE7aB2pfkoQSmz3NsjDsVyll8Kpf4skhbg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fCnr9S7lymyWAdX0j3bsa+QM/WOfQ12kL7jS13+r/p68d2x1qHJU36Lwmj3524uCP
-	 XfqRQ5cnT0NZ+hadFQ7vqeH0ufMrItzZn8u0vbKV5ivwYT7hZQn0KhW+FaXvoGx+lr
-	 jPdmw5rtJzOnY6BBud7yh8y8AmxZD/6mId29pbbXJuRGQCoSA5eOydwwKnRSxYUNk4
-	 ZcQmo4D3S9elP0cf2ZmzlClphs0D8JjJlB2R6Pi+4Vn0+hv/RIx65F99nOug08DB3P
-	 dw36UQVy2RmfNg6/+QxqU2u0aH6oKUXj1YyHqrcUJ5dstjXlbdWg1MX66YeWBqacNO
-	 Lz9Na0DELPK/A==
-Subject:
- Re: [PATCH] wifi: nl80211: clear wdev before erroring out of station dump
-From: netdev-bot+sashiko@kernel.org
-To: NoahWeinberger2003@proton.me
-Cc: johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, security@kernel.org,
- kuba@kernel.org
-Date: Mon, 09 Nov 2026 22:45:36 +0000
-Message-ID: <179426433619.994134.16946925386661612679@kernel.org>
-In-Reply-To: <ltwfLZuSH-PEFdqMECEU8rHwZCjSL5--7RG-qrW8a-Fwezdgpb1QYiDm-8aCRNIgwY-laqSmHJWAqV4uI092NLEudhWEABdd3B5iGsV4jJ8=@proton.me>
-References: <ltwfLZuSH-PEFdqMECEU8rHwZCjSL5--7RG-qrW8a-Fwezdgpb1QYiDm-8aCRNIgwY-laqSmHJWAqV4uI092NLEudhWEABdd3B5iGsV4jJ8=@proton.me>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=rJPYJ+Pf;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=0enM7fbI
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9MRlLT3684072
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 17:46:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=WIZB
+	ljhWyOjAV704JqzV8vhFcRwS8d3hm/gLxcJtn20=; b=rJPYJ+PfHhoR2aC5ddre
+	KeX0TdnGyNff0y44edc9qO8omnXiG0NrT5sfljaWfFAbsoL94MHrzXPazE3d+qFT
+	/SKQftG+Rknkszqx3bWtOTlRrOoqsD/qf1W7Pani/bgd3TS8I22tMOP8VJ5rRj10
+	l9M9Nu8XtoWOYmt5kHgVpCOWVmo9hHIiaGFMK8XsGzXv7eVyeq5gtDm9v8p8wJWJ
+	bSzVKEkv/r88EFjHPXlneH6gL9V9wgG7s3ylcsavjTXCEIPoyRKkPBLPwA4foQe5
+	VkG4/vTvUMZWQKljuE5sEeZynPzCtkcnfE372yfe2FTqyT24VAmBfWGBCf405lJL
+	uA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hupvug54x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 17:46:31 -0500 (EST)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91ec0ed4af9so20746146d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:46:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1794264390; x=1794869190; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WIZBljhWyOjAV704JqzV8vhFcRwS8d3hm/gLxcJtn20=;
+        b=0enM7fbIEkgCaPHnwROs1AH+cT8C2XUcCsXLOvY0FNHtdlsJTHTXomRcBL2cs6p99B
+         jwtZ22W0o+vlGDwzmc7juR2+s5sw2UgSUSLcfgsW8SREua//529cOBkGMx72FFyAIaoz
+         m+dhgkl4Ic7F34MIlY1YAoisB6ujfzRxxGO7pKYE6J3qXDedlDM4/ZZPMQfd/TsY1FoF
+         TVfGm9FYineb6HKUXZdXw7+o+EuULwwDBXTiOwaP15VhRDjAWZoTT1vZoqy0OWnWFOIB
+         FlKAtgI8FATZ4nqzVjbnR7HnNJX/CvwrbhXfwXCgbUmBKdhP8nxmak5G7iOLfFqvHOgR
+         QRhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794264390; x=1794869190;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WIZBljhWyOjAV704JqzV8vhFcRwS8d3hm/gLxcJtn20=;
+        b=Z6azaoKHKgjwuzKfXh21n/f1laM37z8kCj7Mgcha8kIDdE8CzlBe7ThOCJCbGIe7wV
+         Sg1mgBE5684nTteL7U3QD47hCBMW3LM6NrWKIcNof2itKRVaEx7x2nOpMLnjbdj9uAs5
+         eOwYwyPUkvWKHNMcIsF16QDhuvu9PmWsFg2jZJdNYzkMFWQFU6jAKfLT4xABHHfl2/QI
+         JtoqqKvUlfZpErjuA2Ok35fxLtWrTYtI7xSRIl4v3wj/7u3MCMixdNqQSO+SbLz+mKBm
+         cOo62E1R+CD6Bw+71ORda2FuF08MLfJ68TQoK2somKE1XQkDsy8eXgRNAwivvbvZIf9f
+         uhAg==
+X-Forwarded-Encrypted: i=1; AL+hErFJI3FdD0M4jDDVQzwiP5cwtkY5R3by8Ld41WfuKtnde6sdLYYfUjWxPRjL8uNzxp0kwfaFvh4QmcdWz9w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kp9P+njHGY/gnmQAYMjEe8O29sz9WlO4B+cU6QN2iFfiCM5Fe
+	pVSliLiltxN0mFokE69s3xN8c1anXGWcZV5+dM9au1fHwXbojEBKdHCZ1uAwKJCx6ufh0IODbmb
+	KYDPIqaPdfy/2ZqOlm1/S9EiMmKpI2wIg8t2HylFywzAzVfJbHoTFvZ3Bfuw8/w==
+X-Gm-Gg: AYBFou0s5xdBlKFbM4hREFFVy534z40QYNRdn9huFijDYMtJnBcCV4P7uJq6PzeWBUY
+	q+gN2vmJbKZ2P8X2Y0wyrdYNLE0Y5aVlk1OMimh4gnbopdZE1cEKeQrhjRlwNvt8ndMH8cIRoqu
+	stKAV3yKjGY7GeQfdKF/AohojfEXlYtco6u/RIwpycKm8WVmh1S5u4hK+EC0qt9g15MDaNVK2u3
+	zN0cq4sYPLnxUMYP9vlyB4hzYl2i+w8WjPHjhinVGpkj7derX09ifsLtz1zkdIBCeP+Fb3jXQFC
+	C+zOUMWS/Nc5a1yBQAOIdA/fb6MDJbJWGDVaaPrdVjRsidydd93chPCmhwoWoHhCKXJoY9Zm88K
+	AwHekX2AAClU2glnxAS8UzNYPR3S19hJM/WWAyS1yWHv9ni3H/4glf+5wBZvwH5gV6lhelyOFpW
+	qATpgAjfLnC7YTUyORBa/RBfg=
+X-Received: by 2002:a05:6214:cc8:b0:914:cdbf:b6e with SMTP id 6a1803df08f44-91ef049b91amr14954486d6.22.1794264390535;
+        Mon, 09 Nov 2026 14:46:30 -0800 (PST)
+X-Received: by 2002:a05:6214:cc8:b0:914:cdbf:b6e with SMTP id 6a1803df08f44-91ef049b91amr14954056d6.22.1794264390014;
+        Mon, 09 Nov 2026 14:46:30 -0800 (PST)
+Received: from [10.207.116.169] (nat-128-59-178-16.net.columbia.edu. [128.59.178.16])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef031aaddsm7023636d6.3.2026.11.09.14.46.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 14:46:29 -0800 (PST)
+Message-ID: <21793564-61f4-4d57-b375-1271ad9bc70c@columbia.edu>
+Date: Mon, 9 Nov 2026 17:46:28 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,82 +116,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] iomap: remove the atomic write length check in
+ iomap_dio_bio_iter_one()
+To: John Garry <john.garry@linux.dev>, Jens Axboe <axboe@kernel.dk>,
+        Christian Brauner <brauner@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+References: <20261107-blkdev-atomic-bounce-v1-0-f66344262096@columbia.edu>
+ <20261107-blkdev-atomic-bounce-v1-2-f66344262096@columbia.edu>
+ <3fc46788-d86d-44c5-8606-385d96fede4d@linux.dev>
+ <c27b9521-7c4f-41ff-88f8-55313b5f395c@columbia.edu>
+ <4022d4f9-5e2e-45d1-b9b8-208c80f82ecf@linux.dev>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <4022d4f9-5e2e-45d1-b9b8-208c80f82ecf@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA5MCBTYWx0ZWRfX4oiujcZwLJL7
+ gPXXuK+aoiTLJ0yW0dadY9QnuZGUZ48MgPrLPsL63wZ/OLjrzKMZdLyllDkFZjfLgBNaioTBhyr
+ PWDZfgY5QmsCbhui3iPkj7NTvQvp22faCCOjaLp2CKA6HoY8Akdc+V5o7ojyPnwPBusTU93Pp2k
+ XXF2vUbA9almZyDlx9MyIZqtc2oJ9DwVyI0a51moTvBIYTZvHjzjajmSDS2JwT9kpt0OCqw9yQ3
+ O5/3mRjsKWT34M2X7gFT4oEy1iqgzUP0Aec0WGSKbYehWwbC2o1IQlW2PW0xvgaRKZEbJ04JTuy
+ bHQm/8TVMCRQT+Nb1Zn7z+P+bIN94yQF11QbsAEH9fz+jQASyDRZPkasIJ9qXf1dS8I5vy1ZA4s
+ vq5H1StIFJZ3kEVck+PoOOavrFJeFlQOy1eoaNNz9X0lYADXZnzVU5oUnsVERI9+pU/AfE+3t+j
+ VCSBebPmV5jlofG/UBg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA5MCBTYWx0ZWRfX+YAxS5oZFTQV
+ eahkzW9x481HP0kyZm4W+LOikDoUiW8uBwKvskyen1fjpVW0fKUeIEMLBXvPnki7JpqSZDxLL2G
+ bjTTyLXETAMXkMCxSwlM/5ivw/HEWZAAHQzgtglrc3tVt9gIzyPf
+X-Proofpoint-ORIG-GUID: nH9ZIGOUcVdbv9vH33pU46u0qAAXCQGP
+X-Authority-Analysis: v=2.4 cv=fcA4WEQF c=1 sm=1 tr=0 ts=6af24d47 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=Gl6UJ28otdLh1ydVN8wMBg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=-APkALjPeVA3zQJKllEA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: nH9ZIGOUcVdbv9vH33pU46u0qAAXCQGP
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11961
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 impostorscore=10 adultscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 bulkscore=10
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611090090
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 11/9/26 1:44 PM, John Garry wrote:
+>> 
+>>> This looks ok. But I am just thinking that a CoW-based atomic write does
+>>> not have the single bio restriction, so we don't need to fail the atomic
+>>> in this case. However, we should have consistent rules for iovec's
+>>> whether it's a block device or regular file for ext4 or xfs, so this
+>>> makes sense.
+>>>
+>>> thanks
+>>>
+>>> BTW, you could be a real hero and add an xfstests case for this also.
+>>>
+>> 
+>> What specifically would you want to see tested? I can do an atomic write with
+>> a partially unmapped buffer, with and without stable writes, and check that it
+>> fails and that nothing is written.
+> 
+> Just something similar to the blktests case which you added.
+> 
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Sounds good, I'll add it to the queue.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> BTW, have you tested this partially-unmapped case for CoW-based atomics
+> on xfs? You can just do that by setting atomic_wr=0
+> 
 
-- [Medium] The commit message is still a draft report, not a submittable
-  patch.
-- [Low] The commit fixes a real ERR_PTR dereference in
-  nl80211_dump_station() (net/wireless/nl80211.c), but it has no usable…
+Yeah, I just tested it. It behaves as expected: returns -EFAULT with the file
+unchanged, both with and without bouncing.
 
---
+The single-bio check depends on REQ_ATOMIC, which only the HW atomic path sets,
+so it doesn't apply to CoW writes, both before and after this series.
 
-wifi: nl80211: clear wdev before erroring out of station dump
+In terms of consistency, the unmapped buffer returns -EINVAL on the non-bounce
+HW path (from bio_iov_iter_get_pages()) but -EFAULT for all other paths. That
+should probably be made consistent across HW and SW and bounce vs. non-bounce,
+but that's a separate change.
 
-This patch sets wdev to NULL in the -EAGAIN retry path of
-nl80211_dump_station() when __nl80211_lock_held_wdev() returns an error
-pointer. Without it, out_err calls wdev_put() on ERR_PTR(-ENODEV) when the
-interface is removed while the dump is running.
+Thanks,
+Tal
 
-> Fixes: [fill in before sending - on a full clone run:
->   git log -S '__nl80211_lock_held_wdev' --oneline -- net/wireless/nl80211.c]
 
-[Severity: Low]
-This Fixes: tag is still the template placeholder. Could it be filled in?
+> Thanks,
+> John
+> 
+>> 
+>>>> ---
+>>>>    fs/iomap/direct-io.c | 14 --------------
+>>>>    1 file changed, 14 deletions(-)
+>>>>
+>>>> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+>>>> index ad041ac3252a..aca7cbaea4af 100644
+>>>> --- a/fs/iomap/direct-io.c
+>>>> +++ b/fs/iomap/direct-io.c
+>>>> @@ -370,15 +370,6 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
+>>>>    		goto out_put_bio;
+>>>>    	ret = bio->bi_iter.bi_size;
+>>>>    
+>>>> -	/*
+>>>> -	 * An atomic write bio must cover the complete length.  If it doesn't,
+>>>> -	 * error out.
+>>>> -	 */
+>>>> -	if ((op & REQ_ATOMIC) && WARN_ON_ONCE(ret != iomap_length(iter))) {
+>>>> -		ret = -EINVAL;
+>>>> -		goto out_bio_release_pages;
+>>>> -	}
+>>>> -
+>>>>    	if (dio->flags & IOMAP_DIO_WRITE)
+>>>>    		task_io_account_write(ret);
+>>>>    	else if ((dio->flags & IOMAP_DIO_USER_BACKED) &&
+>>>> @@ -393,11 +384,6 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
+>>>>    	iomap_dio_submit_bio(iter, dio, bio, pos);
+>>>>    	return ret;
+>>>>    
+>>>> -out_bio_release_pages:
+>>>> -	if (dio->flags & IOMAP_DIO_BOUNCE)
+>>>> -		bio_free_folios(bio);
+>>>> -	else
+>>>> -		bio_release_pages(bio, false);
+>>>>    out_put_bio:
+>>>>    	bio_put(bio);
+>>>>    	return ret;
+>>>>
+>>>
+>> 
+> 
 
-According to git blame on nl80211_dump_station() in net/wireless/nl80211.c,
-the whole -EAGAIN retry block came from commit 599b8a3c549b. That block is
-the __nl80211_lock_held_wdev() call, the IS_ERR() check and the
-goto out_err. So the tag would presumably be:
-
-Fixes: 599b8a3c549b ("wifi: cfg80211: support unlocked station get/dump")
-
-The one-line code change itself looks right to me.
-nl80211_lock_and_recheck() already calls wiphy_unlock() and put_device()
-before it returns ERR_PTR(-ENODEV). With wdev = NULL and locked = false,
-out_err then has nothing left to do.
-
-> Reported-by: [your name and email]
-
-[Severity: Medium]
-This Reported-by: is also an unfilled placeholder. The trailers also have
-no Signed-off-by: line.
-
-Documentation/process/submitting-patches.rst requires a sign-off. Can the
-patch be applied as it stands?
-
-The log also has text that reads like a cover letter rather than a commit
-message:
-
-> Hello,
-
-[ ... ]
-
-> This was found during an assisted (AI-supported) static source review of
-> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
-> reporter against that tree. The patch below has NOT been compiled and has
-> NOT been runtime tested, and no reproducer was produced - the triggering
-> conditions are described above instead. Please treat this as a report for
-> verification rather than a battle-tested fix.
-
-Could this text be dropped, or moved below the --- line?
-
-> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), net/wireless/nl80211.c:9023-9035 (EAGAIN path), nl80211.c:296-306 (__nl80211_lock_held_wdev), nl80211.c:9133-9137 (out_err).
-
-These file:line references only match a single rc snapshot, so they will
-go stale. Could they be replaced with function names, or dropped?
-
-The message says the change has not been compiled or runtime tested. Could
-the respin be build tested, and add the sign-off at the same time?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ltwfLZuSH-PEFdqMECEU8rHwZCjSL5--7RG-qrW8a-Fwezdgpb1QYiDm-8aCRNIgwY-laqSmHJWAqV4uI092NLEudhWEABdd3B5iGsV4jJ8%3D%40proton.me
