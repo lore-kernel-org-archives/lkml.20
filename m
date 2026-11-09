@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794250117;
-	b=V03lkulq3/Sq4pJE6OGcHjvmhdZoiNZbHDK5ZDsuXL4uFkUN3lgJ5e30QLH2byKxAzPR
-	 sy9/IC4CyRJTFmVal7zG81sbVgxFxuSb0pOXDr7YN2YcInNpss1NDdaasozyeqQlpAuy4
-	 yWdkEyB2hFNRGpszWJvE8xuEVaEVApiVgELd8zUxSQPcThOgS1THC3bPresfnFjQ2h8Jo
-	 sBaHCKT/+TR1MzFkPAQSJONhD4dfJCyqd762JIaIZZfZyn9VqxcanavlzDdu0ybsJbDSv
-	 8JP+bSv8gdwAM8pA9cAjzb+c2F2EzYWGbCQvk7K9HR4B+XaxkorQWTRgVfOcfe1c5tA==
+	t=1794250151;
+	b=n6bUwwRYVdLMJ2dQb8tL6ciZoCEHl8gx7YGQqQWQEwcxQH4OvbfPe+rUUxxp3LeazGHg
+	 6BEjJuAZD5mlkmRDqE7N9z7+wVAX0KQTHpkCobbF8TyyOJbaVDTx+++cORdPj+EQXTBGh
+	 +5BmUDOuhh/ydsIxTiLo4PPSrW7iz31M0CUP4vnhwDyfFTKvKk2Y8S7ygCbXn1KQIiyEW
+	 JzRh8HeY8Nb6WM1Qbm2CSH0YU06CdsozD4lvKh+yuhfZuZG8nZaZj/9RwV0ukldMsoiID
+	 bPNsUQbu+4DyVjC2SLp9O4eKEtpnOGX7Agr+SG4kirLKqMiZ8zxQ6A1aTU2w3B/kcOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794250117;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=zJgT3Df5RlWXlIKxNLqtWOQBSvcfzp5SoEp+FbB1R5Q=;
-	b=K1Gyorb4h5Ee+RiKD1sRlUMSumycOZzfCZcdZgjvq+MUpS7VFbAewZtjIWE+ImgSr36z
-	 /tYyCPmco1uLrjw6R4/hs8myW2pkcfkvAdCC/WFeYqZTueyaAdn4mgWnYVJnmbjLkF9Mg
-	 ey3vBHDRnplcEfoh/4o/8R5FcugaAhfc7FmpTRjtzey8xouVUNwubFlAexVWWaIhkw51j
-	 N2fO5VgGAXgqN9ZNv/V1II3FBodQaLpHfg+WfeWNzprnvekPumqEWjyyiN3nj9qt9Iww1
-	 8yA4IyE/F8Hfo5Nojwogp0wdBnSjiukaVJApxROC2cVwQPysvYQv2grkrEXx3vEJHjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794250151;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=dQky7WjEtI31dpNTnPOhPEozQxBYxbvd30Nr4hlihLU=;
+	b=NJ6OVcpnzKvivzErcLle7Ur4KQx0aQSvxyu8GJMFyu91xO/R4OOvozlKii3xsycmf0pe
+	 ar4hUaZHOXM/yfYdD4SenBHvSLu2tHDqt4pCdIrsBHk11wa3b1eh9Fz2TkufsoZncTkgu
+	 kjpa+m0WpNU5EsXf0POjOJomAopkahWSgVEg/Etz3mRaKYWjRGdY/2ysOOUX6Bg7YCBQE
+	 KPz+POr1XSTBrIKqIismBdyL6Irb0qYu0HI0vH0R+jau5joSgLCt8Fkq9kNbd9gPiTqat
+	 ZTeGhnSgXW8niitnWj4VMGqQahzTV9xdgyfJL0bjzsm6qhmyaTLBSl4kgOMi1QYfjkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BcFXoTdx;
-	arc=none smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iDQM6KTh;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B547606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:48:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B547606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78120606A321;
+	Mon,  9 Nov 2026 18:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78120606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BcFXoTdx
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91ebc0351deso9598296d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:48:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794250116; x=1794854916; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zJgT3Df5RlWXlIKxNLqtWOQBSvcfzp5SoEp+FbB1R5Q=;
-        b=BcFXoTdxo+yfjckASKsxogpAjNamyOxhxKZIbqJEfrlC68Fx5vsYLXoR26o9P/E+Cb
-         AxR5g6dgArMzJuQtfi6tYFBwwgD4APDT9E0dE7FumOrFwe9/4l8wGdDgM5OamZk7FQ4Q
-         XZ+YYzuDRYY4GZXNxIdBCI1oCjMcDlP0+cBsBgxJzqPifaiupHziEjU1CE3TE8k14OR7
-         XRTOyK4oTKU66kunlMe3U4UrRQSY7ByX7T4HZFOeNo8vSkbDlHidk4crPJ2Q9t+6bbB4
-         Z2/c/2uzHjQdjnvqmjK7svqpu/TmJ2B+TlSis3P/5nYW4c/kUnxUOD0nlaDEIGpm8RQL
-         0ngw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794250116; x=1794854916;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zJgT3Df5RlWXlIKxNLqtWOQBSvcfzp5SoEp+FbB1R5Q=;
-        b=OZyIak8041gHBkPjCJ0XA68xRA15cS9qaa9GaqeCa/DXgVSxE9dokc18m+tKozB7WR
-         eKbLmbORS4dXB2pIUdhJFI+hHZvSZzjZLZ1dyUJqfgxuAqh71Pz0d6VY6zHP2q/WaZlQ
-         E36Vy/39h8Qwpj+OMMMT8bwfl61njHnHkAzDL87N9+jmVrKFOvcTje8B420sreniauJ9
-         lr7kOYL8U5JB/ufCpFlyzOQeOzvhelpeBi5HBt1Wbf3LKfJHTYr/PbzjQRCzs2WvSGpT
-         sCiLp/W88qtzGLxNMlBPcWXaNJFixRHoH13x4j6gUd8dWCY1yP1Fn7wgK/fLHnaTIiI8
-         V5rA==
-X-Gm-Message-State: APuU4Z8kij5kgedbbDFRGCsFvp0SolyZUtlQoPez6KiFjtMKCe0vhiv1
-	GbP+43m5ulUNpARgSacnvrieIX9MhA1pvO26t7muPaPOSD1E/AJ3DAGW
-X-Gm-Gg: AYBFou2ZvMp7paIH8jogXd+0ymMG0arsxgpkPJrcZnhQsrEHzVefIL/nQgF707AfBYw
-	3rgyiHm81My+GIsBsIMnnJNAZqM29w2AdyXGG6CGJgldn6QmmqVks2dkVtMzIucWRIBrPBsFSLK
-	q0JKgiTFV9OMjc+kkMpNR94kPaWkANzmtU1Ys7NS64lU10T+HePwETpWk9fKYmobQxyAGx5/JwC
-	TU0ck0ba0RYyYqtechZIa3HnvLuytyBZD4y35vfmSSlAteqNUfU46tBfjGeoU4lUxyhut2a8mkR
-	KJ3kuijTh5AQVJfKdiH9Mm1QHKCMd+KgGNft0OjEQxj8J1Pa1aA8bVTDWpRkOXjR9mnDWB194Sw
-	aK7UDbAsyKzbn23wbFkjMfUDFaj6bc8t9U6pGNEZxakzx50Am6v/t0KMf+E0QjNxGYxIIqIZ3gQ
-	2ix5p+0KAkeGUP8JvKXSB1RMoWCfHGAXNQPNwABKdJGYNv5u/oP9kc6ex/mhiYlMPfzqZfo2PJW
-	9QYbr7cBCMVdH0WRYZebitLbeNWLNWJY0ioyrYh/xx4Uisi+33SC3TH6iKKCc3V3oj3dV9VPQLT
-	jOOPycOfe2NxO73B2g==
-X-Received: by 2002:a05:6214:3197:b0:91e:87a9:beec with SMTP id 6a1803df08f44-91eef490879mr10416736d6.0.1794250115930;
-        Mon, 09 Nov 2026 10:48:35 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef052360asm2307396d6.38.2026.11.09.10.48.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 10:48:35 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Alex Dubov <oakad@yahoo.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] misc: tifm: Remove the adapter ID after device_del()
-Date: Mon,  9 Nov 2026 13:48:32 -0500
-Message-ID: <20261109184832.1256641-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iDQM6KTh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794250148; x=1825786148;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tMYyACM5F+lNXcxwo++s8f9YUQLur2eK3nc07ezo0JE=;
+  b=iDQM6KThEqZNXwzgngyqaVeM6CYC4wsm9A4NWs7cliEKg3CM9AshZtjy
+   82sT+nvyGvUJunkQDqOR6XJblzntR0aEgeO6QvyZtfEErowApxuV/lhgj
+   CUKLjMqqTNav/xfISU3JfV3DGwu/hXTaONQfqhPmicNaNLrjgvnAiClU3
+   81mWtIW/Y2+Kg2EuBhx9f1mTNC+ayfPdRdcZ4ZZ3cw9LfNe6IZBshJsoP
+   MBCoGQ/j8N/13LWjQWDZEYarBVCsnkECEJtoXZVHY46VBoMaVo2S9uLcw
+   FxNMSdHqgjb0Vn7nm8Ysn31eT8iA0XBgurAJ4jNrw61EDEm1riNvFopXW
+   A==;
+X-CSE-ConnectionGUID: G3I9DYnjQx6bt5LG3jCC/A==
+X-CSE-MsgGUID: tzhuV/mcS4+gIgatDT1PeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2981615"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2981615"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:49:08 -0800
+X-CSE-ConnectionGUID: txjmXJtOSbiPVdPpFDktug==
+X-CSE-MsgGUID: JtouFjO0T3e9wIpAmod3Lw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="9797587"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:49:06 -0800
+Date: Mon, 9 Nov 2026 20:49:03 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: proximity: sx9310/sx9360: reject
+ out-of-range hardware gain values
+Message-ID: <avIVnx_JRD0d7SY1@ashevche-desk.local>
+References: <20261109165200.305266-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,52 +84,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109165200.305266-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-tifm_remove_adapter() removes the adapter ID from tifm_adapter_idr
-before device_del() removes the "tifm<N>" device. An adapter added in
-between, for example by another TI FlashMedia controller being probed,
-can get the same ID, and its device_add() fails:
+On Mon, Nov 09, 2026 at 10:21:51PM +0530, Arnav Kapoor wrote:
+> sx9310_write_gain() and sx9360_write_gain() squeeze ilog2() of any
+> integer into the register field. Values that don't fit wrap around,
+> and 0 and negative values turn into the maximum code, while the write
+> reports success. Reject those. One patch per driver, as the Fixes tags
+> differ.
 
-  sysfs: cannot create duplicate filename '/class/tifm_adapter/tifm0'
+I would change the error code to -ERANGE which is clearly states that the range
+for numbers is wrong (like mathematically). -EINVAL is way too far overloaded
+with semantics.
 
-Remove the ID after device_del(), as the error path of
-tifm_add_adapter() already does.
-
-Fixes: 6113ed73e61a ("tifm: move common adapter management tasks from tifm_7xx1 to tifm_core")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
----
-Found with a static analysis tool we are developing.
-
-Reproduced in QEMU (x86_64) with a test module that runs two kthreads
-for 20 seconds. Each kthread allocates, adds, removes and frees an
-adapter in a loop, under its own platform device as the parent.
-Without this patch, tifm_add_adapter() failed with -EEXIST 125066 to
-126356 times per run in three runs. With it, it never failed in three
-runs.
-Not tested on TI FlashMedia hardware.
-
- drivers/misc/tifm_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/misc/tifm_core.c b/drivers/misc/tifm_core.c
-index 03d1324bc253..91f9b377588d 100644
---- a/drivers/misc/tifm_core.c
-+++ b/drivers/misc/tifm_core.c
-@@ -223,10 +223,10 @@ void tifm_remove_adapter(struct tifm_adapter *fm)
- 			device_unregister(&fm->sockets[cnt]->dev);
- 	}
- 
-+	device_del(&fm->dev);
- 	spin_lock(&tifm_adapter_lock);
- 	idr_remove(&tifm_adapter_idr, fm->id);
- 	spin_unlock(&tifm_adapter_lock);
--	device_del(&fm->dev);
- }
- EXPORT_SYMBOL(tifm_remove_adapter);
- 
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
