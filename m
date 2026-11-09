@@ -1,49 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192738;
-	b=YKuBntgQnXtQ4liPGLC5580/OBJOtDbBpQbbC9+E0/J4PVt+U1vRw00JHaffRdXxxknY
-	 bv2/9wrZbiZNKGt7AvfsfAZbkI9VJV3WXjEkYlBYBafmmdHC6H/Ljsy4ixMf3kT5lqkt+
-	 oX173l6i8qbZwQ5dNaZlkc8H5nOFdbVSaB/zLmHm3DKc+jeZtDGCmNU1xAKu0KQSayHrk
-	 B4glfj2qmvitiq/e2QBhGb5eRzlS81w6EIJ+ySlriHWDx3Aj9565aT/rWVaxST0YIWcMa
-	 xTwxer0oYbsW8uZhzA2I/xz33CMf9uuc9J8r2eP4aNfw0kHSqCv1TayKX7un2Ro8LKA==
+	t=1794192763;
+	b=blhFAax/bkCkKkkEZ4HFNv6FEVAHOOrdHJIMD07lmgQ7hNa/u6LNwxFcWt4m9qD9/Jzi
+	 cJeMgwmJkQAJO7+g08pzOSInuIKmHFP19vKkcFZNJuvP378H7oNqTAt5XHUUW5TuOsoGf
+	 0smG2KCOA4XqS0aQ8Ym9MxbzlyWRtED8RttlzR4ARTGpnd3CgdgqoSiRGWjsssVjFbZID
+	 UNmUW6t9UWmsCoCW9dFpojpCF9JwqJsOB+SbNWTy+4edxt5vs13HUMS6fBnbYAlsCqW1K
+	 3MXaugfCTCLmFQoBabcDfIe32Wtjxohltdiwtcx4/tYaf2TiL8MqAcZoKYQY0+yLMOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192738;
-	h=DMARC-Filter:DKIM-Signature:References:In-Reply-To:
-	 Content-Transfer-Encoding:Content-Type:Mime-Version:User-Agent:
-	 X-Original-From:X-Lms-Return-Path:To:Cc:From:Subject:Date:Message-Id;
-	bh=yCuez44DIiflK+TgYYvbZf169TnqdyWBhAx5pU0vziY=;
-	b=3448FWe29OL6x9gSpZe8naTHty630M3saKKRaf8hkzV2g1xFME1euR8mrwc/2rpXVaEv
-	 YdCFPfvZZPfF2vEskN1AkWeEYqIaJE+p36wFRQDKosFHBKLQipCB3y/5ckoXOwYs6F6Yx
-	 tc0fUXyyhf8RLAsf/veG3VeQgEqcO6YFxdQrbMEB0LcHqFYbTAgpTSulmi7pSwKvmxcjD
-	 eR4OAgRaUUWI6JnUj/p0FPZEQv0KdY/USePp19xAXsL/BG6A7HrLqoGW/FfMuOxUHJsxQ
-	 Ia3b2+fBQ2n1i35Aczmxcqf55G6yDoNLuleSXhDmbQoos17DCICE1RBds8uyFXoBJFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192763;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=qB2X3p6Fnij6aDtj4F1N9a2CNtZpESRoicBIwPmoEc0=;
+	b=bgvowRq8qbqefc2GrrV0GPu8Oft9/5gJVJC3zQhlV4BBqeD55sise6hA7rXA+yewfTgE
+	 7KaW/XOVcC4N8M2URJM3kcLJi8pi1OgvK4IuWwuJRtGb8xvUxGSQLL5Jngtq0FrRMUm0+
+	 ggeN4x2FHh2c0aQYcp6TohNRGQVZDLBo9CkOnYRMiwTZoamxw/fzUiTwupbjP9bbMm2Ki
+	 dU+M06UccEpSDfvy8HXJWZrguZMv8mZl33+NCvP8ldrWPHH0U/Sbc3tdbhIkeeAY6dihC
+	 /xrciHvKksKaYSWMn+R6vwXBH6Y8vYBvicsnbj60kVjl4C3qwNkdCN785aKAMHtrVuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eC7adzfA;
+	arc=none smtp.remote-ip=95.215.58.87
+Received: from mta1.migadu.com (out-87.mta1.migadu.com [95.215.58.87])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E64D606A338
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E64D606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794192730; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=yCuez44DIiflK+TgYYvbZf169TnqdyWBhAx5pU0vziY=;
- b=KxyNBXOr2WX+/CCiYXTtCYnYklFW1pXMkg0Soddx2vt2uFSbwwoid1xH80xzBzbNaVmNET
- N2JgyDtddaT54CD+S9WoCnsGUv0jb32pKmQD/xskzNSnVrJNvFcJot6ml2WsRCDdA4rqvp
- zmHioFqb2X1+YDZ8AX787x3oZMdhtWgbB081svwSL8YA9V2EoywRJ2lepwVUVLGCZhL6Ts
- ufxQ4zi47HLD+lthy5VmxDNOkKRXQsZlnSv6Pp4ovdH7hjhXYuqVjWBBBAH7m0rGeQNOzJ
- ZBuh/HQszSBTzyUERX/KtS88cxiPlfjaKS858ZLvmR/auaRSukt8cHGKUVNk3w==
-References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-2-lizhe.67@bytedance.com> <au2tQaaMBg3umthq@parvat>
-In-Reply-To: <au2tQaaMBg3umthq@parvat>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E02606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:52:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38E02606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eC7adzfA
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KgVWWAxyr8iPCwiWN8wYMPXLomCb+GIGzWKMLYf37Ts=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794192760; v=1; x=1794797560;
+ b=eC7adzfALQ0L4SM+y+ZdJC3Q5i5q9u43x0RsBuKad2n46bMdwo3ZCSREJmKrjaMErch/haL1
+ BoOt+34GR7eIf7biomoRsJyV6Ao43W3E12J2oque0TezGsDMeDoNmXAec7pBPUv0NtmKHRGOUyc
+ C7Barj8w+Ln8WBELoC6TkfiY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id b67e6ef6822d9ad3;
+	Mon, 09 Nov 2026 02:52:40 +0000
+X-Mizu-Trace-ID: b67e6ef6822d9ad3
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Mon, 09 Nov 2026 10:52:25 +0800
+Subject: [PATCH net v3] ipv6: ioam6: do not modify shared tuninfo
+ eh.nexthdr
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,139 +59,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26af13558+b772d5+vger.kernel.org+lizhe.67@bytedance.com>
-To: "Balbir Singh" <balbirs@nvidia.com>
-Cc: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>, 
-	<akpm@linux-foundation.org>, <rppt@kernel.org>, <apopple@nvidia.com>, 
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Subject: Re: [PATCH 1/2] mm/mm_init: factor out memmap_init_page_from_template()
-Date: Mon, 9 Nov 2026 10:51:52 +0800
-Message-Id: <25a188bf-05e4-4f0e-b670-a9dc88195b21@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-ipv6_ioam_lock-v3-1-a86195859d1e@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WN3w6CIByFX8VxHQ0QnXXVe7TmkCB/aeDAWM757
+ iF10Z/Lc3a+883IKwfKo302I6cCeLAmhnyTIdkKc1EYzjEjRlhJKckxDKGswYpb3VvZ4bKghEl
+ R8B2pUIQGpzQ80uERGTWi06v09+aq5LherbMW/GjdlLSBpvHbwH8NgWKKuWZcctrESXPoph6M9
+ Vtp0ntgn3zxx7PIV5ookRPJtRZf/LIsTzoIe2kEAQAA
+X-Change-ID: 20261103-ipv6_ioam_lock-65102ca54908
+To: Justin Iurman <justin.iurman@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>, 
+ Sashiko <netdev-bot+sashiko@kernel.org>
+X-Mailer: b4 0.16.0
 
-On 11/6/26 6:34 PM, Balbir Singh wrote:
-> On Thu, Nov 05, 2026 at 08:06:14PM +0800, Li Zhe wrote:
->> ZONE_DEVICE memmap initialization already uses a reusable struct page
->> template when initializing compound tail pages.  The template mostly
->> contains invariant state, but a few fields still depend on the target
->> PFN and must be refreshed before copying the template into each
->> destination struct page.
->>
->> Factor that operation into memmap_init_page_from_template() so other
->> boot-time memmap initialization paths can reuse the same helper.
->>
->> No functional change intended.
->>
->> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->> ---
->>   mm/mm_init.c | 29 +++++++++++++++--------------
->>   mm/mm_init.h |  2 ++
->>   2 files changed, 17 insertions(+), 14 deletions(-)
->>
->> diff --git a/mm/mm_init.c b/mm/mm_init.c
->> index 2a0e782a151d..495e20fbdec0 100644
->> --- a/mm/mm_init.c
->> +++ b/mm/mm_init.c
->> @@ -625,6 +625,17 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
->>   	vmemmap_optimization_verify_zone(page);
->>   }
->>   
->> +void __meminit memmap_init_page_from_template(struct page *page,
->> +		unsigned long pfn, unsigned long zone, struct page *template)
->> +{
->> +	set_page_section_from_pfn(template, pfn);
->> +#ifdef WANT_PAGE_VIRTUAL
->> +	if (!is_highmem_idx(zone))
->> +		set_page_address(template, __va(pfn << PAGE_SHIFT));
->> +#endif
->> +	memcpy_nontemporal(page, template, sizeof(*page));
->> +}
->> +
-> Can we make the template a const? Why can't we do
->
-> void __meminit memmap_init_page_from_template(struct page *page,
-> 		unsigned long pfn, unsigned long zone,
-> 		const struct page *template)
-> {
-> 	memcpy_nontemporal(page, template, sizeof(*page));
->
-> 	set_page_section_from_pfn(page, pfn);
-> #ifdef WANT_PAGE_VIRTUAL
-> 	if (!is_highmem_idx(zone))
-> 		set_page_address(page, __va(pfn << PAGE_SHIFT));
-> #endif
->
-> That way we don't update template once it is set, if template is r/o,
-> then we don't need both first page and template in the caller to
-> be different.
-I kept it this way to preserve the memcpy_nontemporal() write pattern:
-update the PFN-dependent fields in the template first, then copy the
-final state to the destination page once.
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-If we copy first and then update the destination page, the hot loop
-would do a non-temporal copy followed by normal stores to the same
-struct page. That is the pattern this helper avoids.
+ioam6_do_inline() and ioam6_do_encap() stored the next header into
+the shared ilwt->tuninfo template and then memcpy()ed it into the
+skb. The lwtstate is used from multiple CPUs without locking, so
+another packet can overwrite eh.nexthdr between the store and the
+memcpy.
 
-Thanks,
-Zhe
->
->>   #ifdef CONFIG_NUMA
->>   /*
->>    * During memory init memblocks map pfns to nids. The search is expensive and
->> @@ -1073,17 +1084,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
->>   	}
->>   }
->>   
->> -static void zone_device_page_init_from_template(struct page *page,
->> -		unsigned long pfn, struct page *template)
->> -{
->> -	set_page_section_from_pfn(template, pfn);
->> -#ifdef WANT_PAGE_VIRTUAL
->> -	if (!is_highmem_idx(ZONE_DEVICE))
->> -		set_page_address(template, __va(pfn << PAGE_SHIFT));
->> -#endif
->> -	memcpy_nontemporal(page, template, sizeof(*page));
->> -}
->> -
->>   /*
->>    * With compound page geometry and when struct pages are stored in ram most
->>    * tail pages are reused. Consequently, the amount of unique struct pages to
->> @@ -1136,8 +1136,8 @@ static void __ref memmap_init_compound(struct page *head,
->>   
->>   	/* Initialize the remaining tail pages from template. */
->>   	for (pfn = head_pfn + 2; pfn < end_pfn; pfn++)
->> -		zone_device_page_init_from_template(pfn_to_page(pfn), pfn,
->> -						    &template);
->> +		memmap_init_page_from_template(pfn_to_page(pfn), pfn,
->> +					       ZONE_DEVICE, &template);
->>   	prep_compound_head(head, order);
->>   }
->>   
->> @@ -1192,7 +1192,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
->>   	for (; pfn < end_pfn; pfn += pfns_per_compound) {
->>   		page = pfn_to_page(pfn);
->>   
->> -		zone_device_page_init_from_template(page, pfn, &template);
->> +		memmap_init_page_from_template(page, pfn, ZONE_DEVICE,
->> +					       &template);
->>   
->>   		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
->>   			cond_resched();
->> diff --git a/mm/mm_init.h b/mm/mm_init.h
->> index 0034e37dbabd..22c465122b47 100644
->> --- a/mm/mm_init.h
->> +++ b/mm/mm_init.h
->> @@ -111,5 +111,7 @@ void memblock_free_all(void);
->>   
->>   void __meminit __init_single_page(struct page *page, unsigned long pfn,
->>   				unsigned long zone, int nid);
->> +void __meminit memmap_init_page_from_template(struct page *page,
->> +		unsigned long pfn, unsigned long zone, struct page *template);
->>   
->>   #endif /* __MM_MM_INIT_H */
->> -- 
->
-> Balbir
+The packet can then leave with an HBH nexthdr that does not match its
+payload (e.g. TCP labelled as UDP, or a local packet labelled
+IPPROTO_IPV6). Set nexthdr on the per-packet Hop-by-Hop copy after
+memcpy instead, leave the shared template read-only.
+
+Making tuninfo as const now since it's not modified anymore.
+
+Fixes: 3edede08ff37 ("ipv6: ioam: Support for IOAM injection with lwtunnels")
+Fixes: 8cb3bf8bff3c ("ipv6: ioam: Add support for the ip6ip6 encapsulation")
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Closes: https://lore.kernel.org/netdev/179336082844.3134.1265197633714491521@kernel.org
+Reviewed-by: Justin Iurman <justin.iurman@gmail.com>
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+The issue is reported by Sashiko. It was confirmed with concurrent TCP
+and UDP traffic through a shared ioam6 inline route on a multi-CPU host.
+
+Without the fix, a packet can leave with an HBH nexthdr that does not
+match its payload (e.g. hbh->nexthdr=17 with a TCP segment after the HBH,
+or hbh->nexthdr=6 with a UDP segment). With the fix, the same load reports
+no HBH/L4 mismatch: nexthdr is written only on the per-packet Hop-by-Hop
+header after memcpy, never on the shared tuninfo template.
+---
+Changes in v3:
+- make tuninfo as const (Justin Iurman)
+- Link to v2: https://patch.msgid.link/20261105-ipv6_ioam_lock-v2-1-8f0ea30c4ffa@kylinos.cn
+
+Changes in v2:
+- Add one missed Fixes tag. No code change.
+- Link to v1: https://patch.msgid.link/20261104-ipv6_ioam_lock-v1-1-4f24c41b261b@kylinos.cn
+---
+ net/ipv6/ioam6_iptunnel.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
+index cfb2c41634a0..a1f954dd7c2a 100644
+--- a/net/ipv6/ioam6_iptunnel.c
++++ b/net/ipv6/ioam6_iptunnel.c
+@@ -254,7 +254,7 @@ static int ioam6_do_fill(struct net *net, struct sk_buff *skb)
+ }
+ 
+ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
+-			   struct ioam6_lwt_encap *tuninfo,
++			   const struct ioam6_lwt_encap *tuninfo,
+ 			   struct dst_entry *cache_dst)
+ {
+ 	struct ipv6hdr *oldhdr, *hdr;
+@@ -276,12 +276,12 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
+ 
+ 	hdr = ipv6_hdr(skb);
+ 	memmove(hdr, oldhdr, sizeof(*oldhdr));
+-	tuninfo->eh.nexthdr = hdr->nexthdr;
+ 
+ 	skb_set_transport_header(skb, sizeof(*hdr));
+ 	skb_postpush_rcsum(skb, hdr, sizeof(*hdr) + hdrlen);
+ 
+ 	memcpy(skb_transport_header(skb), (u8 *)tuninfo, hdrlen);
++	((struct ipv6_opt_hdr *)skb_transport_header(skb))->nexthdr = hdr->nexthdr;
+ 
+ 	hdr->nexthdr = NEXTHDR_HOP;
+ 	hdr->payload_len = cpu_to_be16(skb->len - sizeof(*hdr));
+@@ -290,7 +290,7 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
+ }
+ 
+ static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
+-			  struct ioam6_lwt_encap *tuninfo,
++			  const struct ioam6_lwt_encap *tuninfo,
+ 			  bool has_tunsrc,
+ 			  struct in6_addr *tunsrc,
+ 			  struct in6_addr *tundst,
+@@ -314,8 +314,8 @@ static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
+ 	skb_mac_header_rebuild(skb);
+ 	skb_set_transport_header(skb, sizeof(*hdr));
+ 
+-	tuninfo->eh.nexthdr = NEXTHDR_IPV6;
+ 	memcpy(skb_transport_header(skb), (u8 *)tuninfo, hdrlen);
++	((struct ipv6_opt_hdr *)skb_transport_header(skb))->nexthdr = NEXTHDR_IPV6;
+ 
+ 	hdr = ipv6_hdr(skb);
+ 	memcpy(hdr, inner_hdr, sizeof(*hdr));
+
+---
+base-commit: fafbc4051123d5459ea6950899cec08ed946e278
+change-id: 20261103-ipv6_ioam_lock-65102ca54908
+
+Best regards,
+--  
+Hangbin Liu <liuhangbin@kylinos.cn>
+
