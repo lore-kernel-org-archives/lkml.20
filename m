@@ -1,84 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188583;
-	b=Xo2GB8r6XJTvJIBSLSHNVIH2jAd1N7BxVdn0Dw6q/SlZXEtNRMliCvApAoabHSr4Jv0z
-	 4ZM7akki9y8i6jvQUwKX/7ULPuVPbhF1jCVdWB3iwkmRvbanQpMUv5AcyOER0l/wdLda5
-	 UzWVkVjqMtFAdAI36g6vKCL7iYpP3BgYhc9mNDl4vT+MUnOX+bSxh85o1UzIMEfzqvFGS
-	 nTvagIRRnArZpizCSk4g97/3H+daILWl5+3pHa1oCvoZN6+JrFuyaMQRzB0GWdYAGgDoh
-	 hkbBYaSQQDYRxTq3jF+EFX+gHHFogHkLWb1w0RjO730suIz1EFIQs7H+EUCZK59dxcw==
+	t=1794188702;
+	b=atYZCNBYSMkKZbD6vz9H1i88v7wKGbcisB2iqWi07XtXu6F++b7HTuFxFS9bChq0lV6C
+	 TLJGOawefGmjQ2SZNxuCROHERzvT6HJgQv7ivAFGxfgk1nii6+t9N6AkkPteFEOZ7HJxm
+	 pOq0ArdToNJOmlsKa/4fH5L9iyFdn+0rxDdmQh7AE9wrAHw/GuzGrxj/VXLy8UWlBUBUk
+	 +JndPz6W0xg2Byzv6WKytbX2GPjBLRCOLbFvK/OxCJ9GCsDMWk57adB13+2dDmZBHqoa7
+	 uWw7l5NRsiS7NIq8my85ZXFaJAKntxiQ8nnT3z5g64a0tCniRPXd5oLAnvPZxAV/4Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188583;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lcmDctdGM+ZPmo4n0zBEpFAnirakx/N74Fvc8cihL8M=;
-	b=J2GtegpjdAoUi0s6rien01lVhX1xu6vh8TUzCCfTBp161s57kngUvZAEI0jTvQaGji0g
-	 LuuHJOm7kyyHuGMzHBdqUATkVwpc3fS+qMbJ70PJbRzM0qghtIMKb6xsVWhtSQnlOofRN
-	 Gpz8EyOrpXqDe+DZ65D6jN6f9SToQEX0q4cQXlpY8CyomKzzKg729Z0EImnYsmA3MJzts
-	 76ummiQQjralpD6OqPjfIUnULvZPvPjQ/jgtpVxlxt18ZXIGz0P/AEqv8iwg0XQ2BIptX
-	 lwdfKd5WlcvTj/Tpajzb8Nvb3GuvjfSrzN2M+kmsdomnQL4RzALvszIg5mKj3GuoIHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188702;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=4mItYuat9G2EvtLzqP0BDGrCMfaF2naDoK7jgEQ7BqQ=;
+	b=hN2hD+S8wSV1lY+brhbbdVZ5MAhVxA7d9KCHdzNU3aUfATjx7EeNvT0fnk9yCadyzoq6
+	 LBA/0yiGQ0BbvA+0taXdkttls2Vka6HKejP2jZATLmfnshk8AcI4TSpiMi9CgFaouJ5Rb
+	 NAlV32bgtv3x4LvgO2/vSqJirN6GYpdUNbBopySthv4kH9mqPo7Mia1oP4zE3A7mc8jL4
+	 wIb9en+SajRJmlZS+6iUwX23ty82a/Yh7JCyJzi6xq7+2VrEkQp8N0kBfe+TRE7w1srJn
+	 PaaCtQdIigcE67DxaSiPI4W9gSt5tNQwjYHKnDlp9Bcet9ikThzj3zLlhXgZ0j41Dxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gQ5QmdNJ;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=hMPI7QCz;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02617606A332;
-	Mon,  9 Nov 2026 01:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02617606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BBD606A322;
+	Mon,  9 Nov 2026 01:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85BBD606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gQ5QmdNJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794188582; x=1825724582;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wsAa2/L/mbiZWmbfru9q1ls/zeEYONCiPJqJ3XWh7fE=;
-  b=gQ5QmdNJpwYyo/babJjWUC2iU2U4V0wNFDLkAu7wVXaSNxgF3si2wsJQ
-   XuVBYqCoKFaUBZDmnHUZd3eckmeVAYE2Vo8UJhUxBU0aYXBnq5qFeZBmy
-   9YsDtqRqiehn176D+6UUnBCSSxeUFQPwmUXLFU/qLoZFFrohE6b5v44yW
-   mQaLMsoNJGxBpZwDMfOatJLMWll+kYuHYt2lJDeClfrklqyhxJ3dRSTyr
-   g3k46hFASU16QsZpTfk2Ry2kv0czy3bmci2BS/N9q4gFuziHJmkUF23sG
-   c81WnyYH/xOPPsCt4Dp5j83oemquQ9k9mPcvK6Ni8Lo5e0ZxFGzBt2RtA
-   A==;
-X-CSE-ConnectionGUID: KfF92RuzSF2O7zbYndk7iw==
-X-CSE-MsgGUID: MTx+2aBoT3qkSFaxObw2hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2956319"
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="2956319"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:43:01 -0800
-X-CSE-ConnectionGUID: YOYE8PXER66Ej7YgwIwDNw==
-X-CSE-MsgGUID: VFN7djWGQLKyEGqawQqt8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="9502877"
-Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:42:58 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org,
-	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
-	Madhur Kumar <madhurkumar004@gmail.com>,
-	Fei Yu <fei.yu@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
-Date: Mon,  9 Nov 2026 09:48:52 +0800
-Message-ID: <20261109014852.2127723-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=hMPI7QCz
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A91inxgF3877161, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794188689; bh=4mItYuat9G2EvtLzqP0BDGrCMfaF2naDoK7jgEQ7BqQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=hMPI7QCzSiZYgiEPeA0VlV6nJNZnPQsyssDzIZ5BNI027BYAmkJxfFDlQC5GV/yKI
+	 LvqmCxZNbuqx2J5bibok4JWSnbeTr1f3CaDtJWwsX7ohaAlC9wId1jC34ynxkSA3gU
+	 wKT/v27soow6nTHK5EzTEVln80RIGcHsba5X0krEvcdfFJv3N3metgrcyTAEdZ3KMG
+	 eQsnEurJ4jH/pswRNgVtj2n/lUoqRsoMnOlN/pO/EzOpa103H9TYc5YZ59xPQqF12y
+	 ssaOFOwRRRcVqlZLI14sY/TyLOCxeGWFSwBMYGVb9neaYf5E3XNnwgPFDvtYRvWg8/
+	 5DcihLwyxAoKA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A91inxgF3877161
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 09:44:49 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 09:44:49 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 9 Nov 2026 09:44:49 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX
+ aggregation
+Thread-Topic: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX
+ aggregation
+Thread-Index: AQHda3lL9w2T8fKlSE2DNNuQSInmgLck79mg
+Date: Mon, 9 Nov 2026 01:44:49 +0000
+Message-ID: <e826d25ce74e4d839f2719509494c129@realtek.com>
+References: <20261103095256.949327-1-hjf3108@gmail.com>
+ <20261103095256.949327-5-hjf3108@gmail.com>
+In-Reply-To: <20261103095256.949327-5-hjf3108@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,246 +84,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Fei Yu <fei.yu@intel.com>
+Ho Jie Feng <hjf3108@gmail.com> wrote:
+> Allow RX aggregation of up to 48 pages of 128 bytes or 24 with two MACs.
 
-The syncobj ioctls allocate several temporary arrays whose size is taken
-directly from the u32 count_handles provided by userspace:
+You can describe a little bit how you build separate skb, especially
+the last one.=20
 
- - handles and syncobjs in drm_syncobj_array_find()
- - points and entries in drm_syncobj_array_wait_timeout()
- - points and chains in drm_syncobj_timeline_signal_ioctl()
+>=20
+> Test results (2.4 GHz):
+>    before after
+> TX 5.2    6.4
+> RX 27.1   32.0
+>=20
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 
-These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
-element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
+Acked-by is given, but some minor comments.
 
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
-  Call Trace:
-   __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
-   __do_kmalloc_node mm/slub.c:5519 [inline]
-   __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
-   _kmalloc_noprof include/linux/slab.h:995 [inline]
-   _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
-   drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
-   drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
-   drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
-   drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
-KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
-today, with a warning.
+> +void rtl92du_rx_segregate_hdl(struct ieee80211_hw *hw, struct sk_buff *s=
+kb,
+> +                             struct sk_buff_head *queue)
+> +{
+> +       struct rtl_priv *rtlpriv =3D rtl_priv(hw);
+> +       unsigned int offset =3D 0, pkt_size;
+> +       struct sk_buff *new_skb;
+> +       __le32 *rxdesc;
+> +
+> +       while (skb->len - offset >=3D RTL_RX_DESC_SIZE) {
+> +               rxdesc =3D (__le32 *)(skb->data + offset);
+> +               pkt_size =3D RTL_RX_DESC_SIZE +
+> +                          get_rx_desc_drv_info_size(rxdesc) *
+> +                          RX_DRV_INFO_SIZE_UNIT +
+> +                          get_rx_desc_shift(rxdesc) +
+> +                          get_rx_desc_pkt_len(rxdesc);
+> +
+> +               if (get_rx_desc_pkt_len(rxdesc) =3D=3D 0 ||
+> +                   pkt_size > skb->len - offset) {
+> +                       rtl_dbg(rtlpriv, COMP_RECV, DBG_WARNING,
+> +                               "bad frame at %u of %u, size %u\n",
+> +                               offset, skb->len, pkt_size);
+> +                       break;
+> +               }
+> +
+> +               /* The last frame keeps the original skb. */
+> +               if (ALIGN(pkt_size, RTL92DU_RX_AGG_ALIGN) >=3D skb->len -=
+ offset) {
+> +                       skb_pull(skb, offset);
+> +                       skb_trim(skb, pkt_size);
+> +                       __skb_queue_tail(queue, skb);
+> +                       return;
+> +               }
+> +
+> +               new_skb =3D dev_alloc_skb(pkt_size + RTL92DU_RX_HEADROOM)=
+;
 
-Fix this in two parts:
+What is the purpose of RTL92DU_RX_HEADROOM ?
 
- - Reject more than DRM_SYNCOBJ_MAX_HANDLES (1M) handles with -EINVAL in
-   drm_syncobj_array_find(), which every ioctl taking a handle array goes
-   through. The limit is a fixed number, so it is the same on all
-   architectures. It is above what these ioctls can handle today: with a
-   4 MiB KMALLOC_MAX_SIZE the 8-byte arrays already fail above 512K
-   handles on 64-bit, so no request that succeeds now is rejected. A
-   static_assert() makes sure that the largest per-handle allocation, the
-   wait entries, stays below the INT_MAX size limit of kvmalloc().
-
- - Switch the six allocations to kvmalloc(), so that handle counts up to
-   the limit (64 MiB of wait entries for 1M handles) no longer depend on
-   physically contiguous memory.
-
-Using kvmalloc() alone is not enough: the reproducer asks for more than
-INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
-instead.
-
-Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fei Yu <fei.yu@intel.com>
----
-v3:
- - Use a fixed DRM_SYNCOBJ_MAX_HANDLES of SZ_1M instead of deriving it from
-   sizeof(struct syncobj_wait_entry), so the limit is the same on 32-bit
-   and 64-bit, and add a static_assert() against the kvmalloc() INT_MAX
-   limit (Christian).
- - 1M rather than 64K: with a 4 MiB KMALLOC_MAX_SIZE, reset, signal, query
-   and timeline_signal currently work up to 512K handles on 64-bit, so a
-   64K limit would turn requests that work today into -EINVAL.
- - Keep the define kernel internal for -fixes; documenting the limit in
-   the uAPI struct comments will be a separate patch for -next.
- - Add Cc: stable.
- - v2: https://lore.kernel.org/all/20261104030930.3852781-1-fei.yu@intel.com/
-
-v2:
- - Drop __GFP_NOWARN (Christian).
- - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
-   arrays to kvmalloc() (Christian).
- - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
-
-The vmemdup_array_user() conversion and the points array cleanup Christian
-pointed out are left to Tvrtko's series, which he will rebase on top of
-this fix for -next.
-
-Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
- - syzbot C reproducer: base warns in ___kmalloc_large_node(), patched is
-   clean, the ioctl returns -EINVAL.
- - 1048576 signaled syncobjs; wait, timeline_wait, timeline_signal, query,
-   reset and signal with count 200000, 1M and 1M + 1:
-     base:    200000: wait and timeline_wait fail with -ENOMEM and the
-              warning, the others succeed. 1M: all six fail with -ENOMEM.
-     patched: 200000 and 1M: all succeed. 1M + 1: all return -EINVAL.
- - drm_syncobj.o builds for i386 with W=1 (static_assert holds).
- - checkpatch --strict clean, W=1 clean, kmemleak clean,
-   DRM KUnit 667/667 passed.
- - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
-   202/202 subtests pass, same as base.
-
- drivers/gpu/drm/drm_syncobj.c | 44 +++++++++++++++++++++++------------
- 1 file changed, 29 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index f1d4da168545..c8a8c49d12fb 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -199,6 +199,7 @@
- #include <linux/file.h>
- #include <linux/fs.h>
- #include <linux/sched/signal.h>
-+#include <linux/sizes.h>
- #include <linux/sync_file.h>
- #include <linux/uaccess.h>
-
-@@ -220,6 +221,16 @@ struct syncobj_wait_entry {
- 	u64    point;
- };
-
-+/*
-+ * Upper limit for the number of handles passed to a single ioctl. This is a
-+ * fixed number so that the limit is the same on all architectures. The
-+ * largest per-handle allocation is the wait entry array, which must stay
-+ * below the INT_MAX size limit of kvmalloc().
-+ */
-+#define DRM_SYNCOBJ_MAX_HANDLES	SZ_1M
-+static_assert(DRM_SYNCOBJ_MAX_HANDLES <=
-+	      INT_MAX / sizeof(struct syncobj_wait_entry));
-+
- static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
- 				      struct syncobj_wait_entry *wait);
-
-@@ -1051,7 +1062,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		lockdep_assert_none_held_once();
- 	}
-
--	points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-+	points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
- 	if (points == NULL)
- 		return -ENOMEM;
-
-@@ -1064,7 +1075,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		goto err_free_points;
- 	}
-
--	entries = kzalloc_objs(*entries, count);
-+	entries = kvzalloc_objs(*entries, count);
- 	if (!entries) {
- 		timeout = -ENOMEM;
- 		goto err_free_points;
-@@ -1185,10 +1196,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 						  &entries[i].fence_cb);
- 		dma_fence_put(entries[i].fence);
- 	}
--	kfree(entries);
-+	kvfree(entries);
-
- err_free_points:
--	kfree(points);
-+	kvfree(points);
-
- 	return timeout;
- }
-@@ -1238,7 +1249,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 	struct drm_syncobj **syncobjs;
- 	int ret;
-
--	handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-+	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-+		return -EINVAL;
-+
-+	handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
- 	if (handles == NULL)
- 		return -ENOMEM;
-
-@@ -1248,7 +1262,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		goto err_free_handles;
- 	}
-
--	syncobjs = kmalloc_objs(*syncobjs, count_handles);
-+	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
- 	if (syncobjs == NULL) {
- 		ret = -ENOMEM;
- 		goto err_free_handles;
-@@ -1262,16 +1276,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		}
- 	}
-
--	kfree(handles);
-+	kvfree(handles);
- 	*syncobjs_out = syncobjs;
- 	return 0;
-
- err_put_syncobjs:
- 	while (i-- > 0)
- 		drm_syncobj_put(syncobjs[i]);
--	kfree(syncobjs);
-+	kvfree(syncobjs);
- err_free_handles:
--	kfree(handles);
-+	kvfree(handles);
-
- 	return ret;
- }
-@@ -1283,7 +1297,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
-
- 	for (i = 0; i < count; i++)
- 		drm_syncobj_put(syncobjs[i]);
--	kfree(syncobjs);
-+	kvfree(syncobjs);
- }
-
- int
-@@ -1572,8 +1586,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 	if (ret < 0)
- 		return ret;
-
--	points = kmalloc_array(args->count_handles, sizeof(*points),
--			       GFP_KERNEL);
-+	points = kvmalloc_array(args->count_handles, sizeof(*points),
-+				GFP_KERNEL);
- 	if (!points) {
- 		ret = -ENOMEM;
- 		goto out;
-@@ -1586,7 +1600,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		goto err_points;
- 	}
-
--	chains = kmalloc_objs(*chains, args->count_handles);
-+	chains = kvmalloc_objs(*chains, args->count_handles);
- 	if (!chains) {
- 		ret = -ENOMEM;
- 		goto err_points;
-@@ -1609,9 +1623,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		dma_fence_put(fence);
- 	}
- err_chains:
--	kfree(chains);
-+	kvfree(chains);
- err_points:
--	kfree(points);
-+	kvfree(points);
- out:
- 	drm_syncobj_array_free(syncobjs, args->count_handles);
+> +               if (!new_skb)
+> +                       break;
+> +               skb_reserve(new_skb, RTL92DU_RX_HEADROOM);
+> +               skb_put_data(new_skb, rxdesc, pkt_size);
+> +               __skb_queue_tail(queue, new_skb);
+> +
+> +               offset +=3D ALIGN(pkt_size, RTL92DU_RX_AGG_ALIGN);
+> +       }
+> +
+> +       dev_kfree_skb_any(skb);
+> +}
+> +
 
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
---
-2.53.0
