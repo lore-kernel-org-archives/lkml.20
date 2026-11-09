@@ -1,67 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196047;
-	b=5YZHbXJkpQ4fUu/RU38d1PoGoEKSoNVU3JCIVn4BzbuS3sOts8BZNQEGPyxmEj6DERS8
-	 PP4NFKSRVeKrrVbOG3vz5NMoM48bogpsh9UsmhlUJqKcIbVf2kR4FOP6ZxIohndWd/TwT
-	 bYkUz5Jt8tgdmIwBYxz/xC81JKK2S7IResEs+N1WbF8Sqw3u2sj2lyAnwYsehz9w3ENgL
-	 qdaZVAcLia3kD8neCn4nQ69nQ1z5uSSrAF/aLQ1zGpxN0ET0ZOisb4a/xljK7PfhiUnol
-	 CI32Dm1esBk8rP3YUgkyr1bxS5+hQAaqDlb8hWLTnd1K+moLaplWn8WgUxeFYawx+OQ==
+	t=1794196058;
+	b=eRiidNs9Jtcn03fuYZCo0joy2vh44OPf4VslFG2IHz8Dli6dO0ugDSh9pFkAM0+l7lnR
+	 kSEUdCL2UNrlAnwL+NWf5LjRL70kBBo94/I+1dbpL4TiI5RDx3rAe7hXfez9g4ij/wT4L
+	 9Fba8psoB8dEHVBaiyTfB3RMSFuyzLtyi4rX8hf3hbYl0gnbJ3jS60m28F+oYGcAxfjt7
+	 BeyMxQHSGSSzyzbrw2O4Dgg9ls4iC/5UpZgbkw8yHNv3Hf9ZLEuVKcuUbRWmMMTipCuqN
+	 dhrqk04cbpfQWmpVPozsUBizr3dWMXcIxEpW1ZCpQd09WFIbkxZs/vlE2beX/NOQfCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196047;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-OQ-MSGID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7+1+PZFd2GII1zKvv2aHrH8V0Dvf1LcNr2LNa2B/+bw=;
-	b=anLQN602dof11IpBhSMYM7hcOuodxXU11L5+Rqpqqq6x1UtZ8dCSs/ertXyGDn0KsRTw
-	 +UPKtzOr8vHLhETLJI0M16NAa+SvvRwXrBThjKhfVp7KX76+jCX+akHGaVhbPHpjDEAP5
-	 9PLFbu97x/kXRIo2vl8MIyICD56PenkvjRgDSN2Up4OiJpBPrQDUcnMtW/sDtynDTizYg
-	 em9Vk22oSSnzmAMcbg/gY4BeO4WA9OfvBiHNZib+OFA0wPVDiCKfxz+4kcXEdhlWV6Z6T
-	 Tq4B0gwI2OAm/EtFwNhb93MozKFHP22f71w5xrhY+YfEkOGDnDKYtfBNb9LtkW6uPtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196058;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=MztEFkjcvew5LHyVcIf8mDwoXrDxGrkgX1401uu/1So=;
+	b=tFDKNUTxZIExbCXsHmwvJ6wzd8bEMIT2Qm4jV5cV33dL1TBzgx19c9OtG+yGZY+s/FV6
+	 WTLvdrFkhxMkOvSahkHdnVbpbwMlggUVgM8ZMFHC/RsfjU/Dz35jbK3fyoTzQP1VIgRAE
+	 UtVDnDM2Cofg5IaoM59JgWi7//tczVfEaUMrBwcmX01p9XiohivW4GE5B6E4rRJNHStG1
+	 cgJ+k0rdGwmRpUeb0tZmSRvAuyvH1zj2BPVbVt12/2yQwjYsgeHK0mwQXf5SI5YECDhZG
+	 NV4JuMyfc95MVOKpzhnnQ1/qQi79ycpMWfD/AIJYn8mk2erVoQPIZIXMdiBt5kW76NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KDC2SmH3;
-	arc=none smtp.remote-ip=203.205.221.236
-Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vZfghtxz;
+	arc=none smtp.remote-ip=74.125.229.2
+Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4204606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:47:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4204606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DED606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50DED606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KDC2SmH3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794196038; bh=7+1+PZFd2GII1zKvv2aHrH8V0Dvf1LcNr2LNa2B/+bw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KDC2SmH3UdUqTAj/naxHFvfTao7XlpSet7tQIZzg+YBlYiMajF461CMioKaj/0pCy
-	 I5mx2c1PQD8Rzhbl3Pkk4CTd89aviDffBfYETGfgiPu1svwCEhYLD2QrpQDLYpia7j
-	 FRkDC1GNAEMhw90KrGYcivjnNGgrmoKeF7Ks6ZDI=
-Received: from [100.125.153.207] ([139.159.170.67])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id BCF20465; Mon, 09 Nov 2026 11:47:15 +0800
-X-QQ-mid: xmsmtpt1794196035t0rwr8jma
-Message-ID: <tencent_90CC2DA414E74CDF71D24A6ADAC784336206@qq.com>
-X-QQ-XMAILINFO: NOGirAuTnwHF/KpxD9OFSpM3LriLQs2mH/B0slkH4kz1eDZ9sqIUCKMvAsfqo+
-	 pLJXc/Fu+EW2AJk7AkmtqhruK1se1lIbdRaT9NiNIpMKzN+cQ4ytdg69LVtsoGJ2zywNMaEDW/Ck
-	 g1Om437R3M2X+3/ZDZJTgo8hcARoNJ+oxvMs/xf82IOYx2zxrpKwwHlEQddO31wzmwFuEbwWobm4
-	 ia3HB38VCW+ZMdYN08EgcSQ54ZhJmr79++EaLqp7WSScIH0fe5R5FWP85TGasObfpZwmpEAC8YwT
-	 x6heU80jK0DqyBTCq/KyPeiBnZBPjJqAC0ugnj9hVpLklUP2RaaolOm8NuXdt11ULirrvvi8ExPV
-	 x9x2zlGvUBkD1AsPf62urvPQk8TguPOMS02f4nP+ASVv89HWI8GqtGh/zBU5hraTLHlc2vMxKgAg
-	 vAtcQzjsI15W1aLEDGqx+Ok2w83TVMZIjEQGc0jaRPVHDyUkBMZGw7QTtVZb09J89cgCNLkUQInl
-	 SenKGqMFscDKWuC8YDf/RQBhHH26yyoNWMgszcbL3iJwDfPg6fUxJPTPKVfJHDQoFG9orrnBXFVE
-	 oR+1tBDHrJ6UYNCG0NmynRLjXeAIK5wb+qfvR9/ijVIeo/6osIX4k9Ly9AAmhudAHWPV8Q0SiEuk
-	 9upCL5bS5SfHZkqwQAPuaeLfFTNlyKxpJ8ju5X19NdlGHJrR8tnz4/G/9f1Ek/VCnw88MMtyw2tF
-	 u8FdiMK0529VKzzCLSvURYXbBtmBb/ql5KIez0IvEHhXvPBMLMbJbjLLRvJO0x8GPNyRjd7ZTG1f
-	 pmoIWM4sLzo6p/VSnERfdD0m4tAHON2iExo6kytw8qFu1Lv6zxdGyCFNRRTKJC/9uXGYmWe0d2cD
-	 oatJwXWawuaItDqYTmYNkNv4FYzviFps0f20ZnkchHxYYdm42M3J25tsVJxxtAnYNTCxIrSFa866
-	 OPiobQH68ZigCsfkdH5ZYkz/2YT/Y2svAbsmlQIOjvdop5JpxGZhiKged4rOS85a7d1rOdDFfsdr
-	 tU86MNLAuv06+uUHNXPHpDIP51+4mSMGJvhr34s6X8JjNGPWSsNuCLZgrf9/o=
-X-QQ-XMRINFO: M/715EihBoGS53Pa7FxY/h8cOY8DgkUKgQ==
-X-OQ-MSGID: <676c4f1b-1daa-48d9-b444-11db0fda69fd@qq.com>
-Date: Mon, 9 Nov 2026 11:47:15 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vZfghtxz
+Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-327b1d5824fso459368eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 19:47:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794196057; x=1794800857; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MztEFkjcvew5LHyVcIf8mDwoXrDxGrkgX1401uu/1So=;
+        b=vZfghtxzuBCMNWl7s/CWEuwpEUdKhmZ+LBBSsvmJ16z3IAT4SxZukT5kqM5nKVEj8d
+         SH8ljiNuDTxRTSOzPz6tfN1PSnLUcotJ46n0pgOgPHIl8cr0ioUv+gJYpmZC9Fa9xNvr
+         jxDmzY2YUS2YLIGejF9iniUvmeFmCHkEGgnvOgvYb8MFIQwwmzw47SfRhu2Mmuk5ZI3c
+         o8UFbEuFhw+MGtdl8Xe524QSkAjpv1iV3TaB/LS3vY9ynS1XDiIErMqA840fWeXd+Km6
+         DGQ9cIOdBbySR/O3BNCwSaUcii8iukDVTJUo5j1y5tD+pmePeu3xNVwExFSmZEmpz5mv
+         yKOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794196057; x=1794800857;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MztEFkjcvew5LHyVcIf8mDwoXrDxGrkgX1401uu/1So=;
+        b=QpBb+ah9gHMVeLWPeNisg4QurPAS7GZpAa3Ca63gT6DOSGHhE7yiyFdJt+9JUqHebM
+         veVDIOhdkYrzJb4ar9WeR6crZdbmSTUO7RQRg+wsSqbBErrJbmbFH/t/KziC+zoDWWSf
+         Rczi/S2rQnhylg+wM4F1d14mA25faPgBI8JSAvClQOG5vTO/3BweBB1jNkkYMCJCJXCW
+         HDw9JiSiYuOgf00SjzzCR7xalcNGrbpiJLkE04caOAygpebMb2gBAct1C6O8oQj1DMkR
+         8kR7O1XMoA7eSdKOO26CMwF+mC5tHO+ja9XzPFo+T7WV+IagzPDuqYXbkJixWC7wqn/O
+         O6Vw==
+X-Forwarded-Encrypted: i=1; AL+hErEu5bvN0xBA0ygJE/u/fFxrZeyFfD5G1wNUKP6FwBb4eH99vW56/EQDyvE+a6gKrakl9dFDJJpgsT4B3Rk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sHW2TIjOVbuNGR3xMcpA3HxctJgChaI0qMIeojEQLTWPoN4kh
+	aXzVIQf92Sv6NKnsnMQBWmewykYrx/vuykXC/cJuV6mJMKnbU9oy6ihc
+X-Gm-Gg: AYBFou1ehn6FRrsZ/aM+QF2PoV6Nnf587Tn09wsRYEbuSuyxOcjLpDcClixgbs1dJ7b
+	4CroxLdPQiiWLYI+InwjYcRMtQzfDGf8/JOSXO1kbh51IBGaGKTsL4KKDxXBfKNJ90yHbxuuwrj
+	1YKDC25ze9ptSBO1WI5iUguQzoBmOEUUIxgKum1qm9wXl0oz7YYtmGdmT5+4RiJ4BCPkUKT3eMk
+	3yWcfDZbKGE53+7X/pWFwe2Yauhc0kZ7slx/78CwRAMSImtVjz3yUq9Ei3LUd3hYVIz5gfBECux
+	G5YH/8ODHg6Jduceo55/bRo8BWZRg+9JawRcmLvmgfIsI4jLDk4ZzixJcCm/ey4lW0a2HmxLFIV
+	HeM22vBKK8GGOjkK00R0g0xnoTTI8zgA16l09JwMw2VaSBHB0CJC9qQFgkOeb12aCJ1EzzN0VWA
+	w9EtxnnCPaHDxKoXV0OjyonoRKLV8RwOAgAccKiv7lo0aiVMlvLAo7ACJ9FJG0NNM9lWSgsu2Mt
+	yIx3SZwu2ElKEaMVrlNMFCJybJ34tAKNMV8omRCkGZAnbkSrEOKBnLF7NzsVJvxp48kDxp4oarD
+	Y/gp3n/VraWir3qbdREFsBbg5o4=
+X-Received: by 2002:a05:7301:1c01:b0:369:36c9:5848 with SMTP id 5a478bee46e88-3725d77d5aemr5372886eec.12.1794196057289;
+        Sun, 08 Nov 2026 19:47:37 -0800 (PST)
+Received: from ThinkPad ([192.220.23.71])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16f9csm9684535eec.12.2026.11.08.19.47.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 19:47:36 -0800 (PST)
+Date: Mon, 9 Nov 2026 11:47:23 +0800
+From: Qiling Zhu <kmatzkaczor244@gmail.com>
+To: Rong Zhang <i@rong.moe>
+Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, 
+	mpearson-lenovo@squebb.ca, Derek John Clark <derekjohn.clark@gmail.com>, hansg@kernel.org, 
+	hmh@hmh.eng.br, ibm-acpi-devel@lists.sourceforge.net, 
+	ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, vishnuocv@gmail.com, vsankar@lenovo.com
+Subject: Re: [ibm-acpi-devel] [PATCH] thinkpad_acpi: Add Auto mode support
+ with dynamic max_brightness
+Message-ID: <avEuoeuFSwDUbbgL@ThinkPad>
+References: <CAENjc+w0Rqy=kDSew7XtNJCSvyPiXPJ5faWdmCr5RGYFhpunCA@mail.gmail.com>
+ <a21d1b534d4b7c8cd27811e1c1f5c8be790cbdeb.camel@rong.moe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,110 +101,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8] arm64: kexec_file: Stop using the Image text_offset
-To: Catalin Marinas <catalin.marinas@arm.com>,
- Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: will@kernel.org, mark.rutland@arm.com, pratyush@kernel.org,
- leitao@debian.org, mpilaniy@redhat.com, yeoreum.yun@arm.com,
- graf@amazon.com, pasha.tatashin@soleen.com, akpm@linux-foundation.org,
- baoquan.he@linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, rppt@kernel.org
-References: <20261105125442.2282987-1-ruanjinjie@huawei.com>
- <au4JOjnQlx2aSpiE@arm.com>
-Content-Language: en-US
-From: Jinjie Ruan <2118537295@qq.com>
-In-Reply-To: <au4JOjnQlx2aSpiE@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a21d1b534d4b7c8cd27811e1c1f5c8be790cbdeb.camel@rong.moe>
 
-Hi Catalin,
+Hi Andrea,
 
-在 2026/11/7 01:07, Catalin Marinas 写道:
-> On Thu, Nov 05, 2026 at 08:54:42PM +0800, Jinjie Ruan wrote:
->> image_load() adds text_offset to kernel_segment->mem and subtracts it
->> from kernel_segment->memsz.  For CMA backed segments this breaks the
->> load path: the payload is copied to page_address(cma), which is the CMA
->> base, while image->start is set to the adjusted address, so kexec jumps
->> into the middle of the kernel.  kimage_map_segment() has the same
->> mismatch when a segment has been moved.
->>
->> The adjusted memsz also breaks the release path: the CMA pages are
->> freed using segment->memsz >> PAGE_SHIFT, which is fewer than were
->> allocated, leaking the tail of the allocation.
->>
->> Since commit 751c263bb74f ("arm64: remove TEXT_OFFSET randomization")
+Thanks for the detailed report! I actually noticed that the keyboard
+backlight OSD started working in KDE after applying my patches,
+whereas it hadn't appeared at all before. I didn't look into it
+at the time, so thanks for pointing out the likely reason behind
+this behavior.
+
+
+
+On Sat, Nov 07, 2026 at 11:11:08PM +0800, Rong Zhang wrote:
+> Hi Andrea,
 > 
-> This commit only removed the randomisation. The one you want mentioned
-> here is cfa7ede20f13 ("arm64: set TEXT_OFFSET to 0x0 in preparation for
-> removing it entirely"). Although this removing never happened (see more
-> below).
-
-You  are right!  we should correct the commit.
-
+> ...
 > 
->> TEXT_OFFSET is always zero.  This has been upstream since v5.8, so no
->> LTS kernel carries a non-zero text_offset.  Drop the adjustment and
->> reject images with a non-zero value instead of booting them from a
->> wrong address.  With the adjustment gone, segments stay at their CMA
->> base and the release size matches the allocation.
->>
->> Cc: Catalin Marinas <catalin.marinas@arm.com>
->> Cc: Will Deacon <will@kernel.org>
->> Cc: Mike Rapoport <rppt@kernel.org>
->> Link: https://lore.kernel.org/all/20260921090450.807575-2-ruanjinjie@huawei.com/
->> Link: https://lore.kernel.org/all/20260921090450.807575-3-ruanjinjie@huawei.com/
->> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
->> Suggested-by: Mike Rapoport <rppt@kernel.org>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->> v2:
->> - Split out from the patch set.
->> - Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
->> ---
->>   arch/arm64/kernel/kexec_image.c | 13 ++++++++-----
->>   1 file changed, 8 insertions(+), 5 deletions(-)
->>
->> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
->> index 78b1f956d8d7..7d6baea3d28f 100644
->> --- a/arch/arm64/kernel/kexec_image.c
->> +++ b/arch/arm64/kernel/kexec_image.c
->> @@ -80,12 +80,17 @@ static void *image_load(struct kimage *image,
->>   	kbuf.bufsz = kernel_len;
->>   	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->>   	kbuf.memsz = le64_to_cpu(h->image_size);
->> +	/*
->> +	 * Pre-v5.8 images carry a non-zero text_offset, which is no longer
->> +	 * honored; reject them instead of loading them at a wrong address.
->> +	 */
->>   	text_offset = le64_to_cpu(h->text_offset);
->> +	if (text_offset) {
->> +		pr_err("Unsupported Image text_offset 0x%lx\n", text_offset);
->> +		return ERR_PTR(-ENOEXEC);
->> +	}
+> +CC Qiling
 > 
-> If it's only CMA getting it wrong, can we not just set
-> image->no_cma = true here and continue as normal?
+> Oops, this indeed needs a fix patch for backporting.
+> 
+> Qiling, while you series will fix this, it may be better to add a fix
+> patch CC'ing stable@vger.kernel.org to the very beginning of the series,
+> so that the fix can be easily backported.
 > 
 
-Yes, it also works.
+Thanks, Rong. I'll split out a minimal, self-contained bug fix
+before the refactoring and feature addition, as you suggested.
 
-I tested this cma problem on QEMU arm64 with cma=64M and an Image header
-whose text_offset is 0x80000.
-- Without fix , it jump 512K past the CMA copy and never boot;
-- With the fix, it loads from normal memory and the second kernel boots.
+I'm still learning the upstream and stable backporting process,
+so I'm wondering whether it would be better to submit the fix
+separately or keep it as the first patch of the next revision.
+Submitting it separately could get the fix merged and backported
+sooner, though I'm not sure how urgent this particular fix is.
 
-> While text_offset is 0 now, I don't think we concluded it should be
-> deprecated. There was a recent push back on the attempt to document the
-> always 0 behaviour:
-
-Thank you! I will fix it with your suggestion.
-
-Best regards,
-Jinjie
+I'd appreciate your guidance on which approach would be more
+appropriate, and I'm happy to follow your suggestion.
 
 > 
-> https://lore.kernel.org/all/20260604140839.1930847-1-linux@rasmusvillemoes.dk/
+> My opinion:
+> 
+> If auto mode disables keyboard backlight most of the time, it should
+> report 0. For example, when the auto mode if backed by an ALS sensor, it
+> should disable keyboard backlight most of the time, because most users
+> seldom use the laptop in dark environments.
+> 
+> Same for proximity- or activity-based control, as it only illuminates
+> when the user touches the keyboard.
+> 
+> The ideapad-laptop driver and Qiling's series have already taken this
+> strategy.
+> 
+> Thanks,
+> Rong
 > 
 
+I agree that mapping Auto mode to 0 makes more sense. Besides
+the reasons you mentioned, the Fn+Space cycle on my ThinkPad
+is 0 -> 3 -> 1 -> 2 -> 0, as Andrea also observed on the X9.
 
+Mapping Auto (3) to 2 would make the reported brightness jump
+from 0 to 2, then back to 1 and up to 2 again, which seems
+rather misleading, especially since Auto mode does not represent
+the maximum fixed brightness level.
+
+Regards,
+Qiling Zhu
