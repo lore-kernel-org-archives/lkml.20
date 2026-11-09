@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.122
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794193096;
-	b=1OUtoIi+lM6oGFhp3H37EFaoQQYIMbQY8SVe/1ob/j8UVbSWl86JN8W6LG4WNiQRxyh2
-	 FOK+lQrQhsQZAVAoA8kcMvHKCyuPE2mgefsWJWYwu1sCRMEO5Ktj+WNrePaGr+//gGBLv
-	 OiNpEXkeFGPe4xiE6xYYBKRf5SRz02Zz+aJwC5ZeL99dE9Oe4A5RKGGlXHCk8SZPBnEAV
-	 vj9+Q7YwDpX+lwWx+OGXZPefNdhknvUOejwoSL0A6tT5GoVPa1PpcWgSUzhOX8INc9G09
-	 6A1fe/w0rtO46O23JPpQBm5/LOqL5szaIbVYVRnKZtSRIhgqXehJ+Sk4t5h/IbwrluA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193096;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eW8HjNaXFvBfQWQ/DoxiZeKP0nLYy7HJrQ2yJ/SOw80=;
-	b=I3xdrDDYS95UZ0SaUz7PilgaKNZQI2v3v9e5Md8amKWlOV+uCN5q1D8dOKQTsa82tmAI
-	 +WIPeA7Botvu2xPkSczmGbcWWZeu8P6yj4712sR50iGbgoS30PV7Tl71Onp2u36ULe6No
-	 22a9cUnicL2RVmLHeZx2Byl/A5l+rR2AK10Rwk9lDocWOXWRoxAZnPlBBTrE4YolCP21b
-	 jPjNUvNK788lf6a3uai36dAIvRfKwasW+CiLGI6Ty1Of7v8YGi4JQSZTMlMjVIqmIJyU0
-	 0N8q0TxlgQo5yc4dIRnJrLfSskqifNsGyUE2nGVtH9U6lb/gd15ipL55Mqffos0ZBXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="f84//GZ4";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.122
-Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022122.outbound.protection.outlook.com [40.107.193.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.160
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794193098;
+	b=jGIpMSf1Hbcetj/wIXyTbiBiRRh8OXdhj5E/+jseIATiOP0+RI8saiHsFv5XjCaIJu9S
+	 LqvEY9JOHw7uaasRIK+hf8YC5fAQdd8dZK5CIdnmb0QbWKXhlumxkgjmuX33yHkEW4L1R
+	 n3DqrPKG02E42bgWJEKiFnWDDYJ47nTeU5fW7B8MqnUTA0AaT0F+1YNM0hAY7i19Sa9Hi
+	 K638Mmdc90AQpvNwghxDOby5CCskoWOUd3bF7cQia3Snu/EivavN6q2G/JeapRF2z8Pmb
+	 ei4TEWST4WbBHLSX0mUqFgHnujpkRzYNsYmpqv1ASjH0HQWzTHeRzasEOOpnIpjvMQw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193098;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/ZzxlcdhJK/ud/KyVxq+93rWFaFImo0MKgWgyLOhJCY=;
+	b=gyjPBv+dCKOS0Et80uGKLr7YfLIi+0gs9cWtYkOfgNqW9cDQIodXBssMDcIg2an9Tl+v
+	 lmFoPYevr83+CahdSvGIgAeZ2IDL1cYqRhZ+DgWiRN3aKwIpRUokIeA4ELxg8IORuOXmT
+	 4ySsqiX85LXpAvEQeAWWK29XyNUz9lGh+Q0Hx/NU/9b/9a411pAwYXOFRymz7Sg/5+BX6
+	 5Yb+0T5uhU2DLhWUXLXEjl5ucC5J8DFyA/kinTabbTYZfUoARBgZ6NQi1WeWQlEYyJ9eo
+	 pNMRFPBtPHIeaSMXxLW4IaARFtCK1MA88C8WlJsxjeI7Uz/YsO1YR1x9x5rt2XcEE5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZwZturDY;
+	arc=none smtp.remote-ip=91.218.175.160
+Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135A2606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:58:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 135A2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F95D606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:58:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F95D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=f84//GZ4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c4oZxf/gizjVQ1d7JtXLS9t2zRzWKWiFDChlDqTk/qXmHcxPbWhnOEb1/s7SVxncuTKfJIBzqzkgL6+yTJWXNeFw/qblm+2flUYYWw8V+ZY+im4hLmZ+5vx/SSDzakzbhIwffMR/fD+xLzHgkTs74x99Xz9vDjcPPMSXNxXiEgxkcstGuMHz4JWeZ53gfBfHp4k726JLZIH6kVi1rzAkePpcSdkvP3lNnKgjOaa/kKfX+zFk65V7/b3jIVOpfbPNIbpDFVoJuaozK6xlRoBuFJlXDjV6HWYkJu0DkB5PGMy7EmNw670V6XdLnA1SzfKffCnwDEyZpMi7X7njMXiUaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eW8HjNaXFvBfQWQ/DoxiZeKP0nLYy7HJrQ2yJ/SOw80=;
- b=eprNvLNysigOlVxiKiQ7kUVkrmi5zxw/GWf6aeaqDT3w+Qtx9WNPCKmAXMqKq1z3NkqEneMQtl62vuLoFdIOVroq04uZOuY7JfWwVNWwhnho3+VcTPlLaBV+OeTey44pPov8MxgWoPUBaMRkojcqaDhXwTzGLm8XUXHSfqdHWNlw79G2F+wL1V3Kd0z+UXew+LVFNtBEwkYwBRy6SRBUhrUodySV5hCuJt1zXXr8+2xNEXWA9QKyLDGAukGGoeKbsfZ/8ZtHDjIGN64bQuqSeMbk6G7ZabgUr4+5bMN29Msy4YyciF/zBH+mAOH8x60DhjcJJXbJf0qtWIqYuNgXqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eW8HjNaXFvBfQWQ/DoxiZeKP0nLYy7HJrQ2yJ/SOw80=;
- b=f84//GZ4YwnIHfcfdpagNhzeuRyaTOs3a+26pP/y+WyWKkkO6Z453gw1Bq4shvaUn1wDswfidg4qzhpmVjKeuEtHGAscBYIwOt2fqG4Y12kRI5OgajDNMMT9sI2v9WewcpOx+xYsPvZer7DLH1eG2wvN/Gm0Dvp0cDgXlIch+Lc/mc9potX1OpiJyrQXrKROhu2cc2eVDZe869L3zWPrA655njbcEu4Y8Tz3S+ajZyr/X466iC2cqthiKpkXWxSihPhu1asU2NqU8sy2N3LmZaf91ufPOFLlE+lNCKlwAEybNBMGb8wfN4S152IQv5KR51zLXoX0mfnPLCZSmIklig==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQ1PR01MB376387.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:c8::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 02:58:14 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 02:58:14 +0000
-Message-ID: <cba919a2-c540-44a2-af3a-bbade50501e9@efficios.com>
-Date: Sun, 8 Nov 2026 21:58:13 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 22/29] sched/deadline: Make a rebuild use the CPU
- recorded with a task's bandwidth
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-23-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-203947@kernel.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-203947@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBP288CA0030.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9d::28) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZwZturDY
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VW2UPIRvdm02fMitf8vcWNrGIl0DKTRZ6TxDmEcEySs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794193096; v=1; x=1794797896;
+ b=ZwZturDYVJV0ijfMY4q1v+YvPkjzx4ykHjEuDzRYuFWI4wl9s+G6Izqovag1beThw64sqt4S
+ Fu5nA8Gvk2cCe1ih31TvDCiyhP+wAhuqoUrxEQ7ASoBnLZ4vGk0WKx2T65jnhq90FECAbbfgavO
+ xmoaVEHsSppJvPV2TjpmLmyQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 331d074107720a0c;
+	Mon, 09 Nov 2026 02:58:16 +0000
+X-Mizu-Trace-ID: 331d074107720a0c
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 07/14] mptcp: annotate data-races around pernet sysctls
+Date: Mon,  9 Nov 2026 10:52:06 +0800
+Message-ID: <20261109025425.328445-8-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,93 +101,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB376387:EE_
-X-MS-Office365-Filtering-Correlation-Id: b99f0a1e-d039-46a3-8a45-08df3e0d4c4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|4143699003|56012099006|261022105027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xxIilez1+x9E2aIWfC2Fu1Ur55B3qiKHKOXwnHqWJb+QUtWiNQqMUVgQ4C3riLkiDeQilunSRJJzAam19cHidQR1pVmQEZ0xkCMqn7r+EuROkLmgjh+Aj047vZFoluvLjhP1fZLLtMuF+xfN9/aZ2jqSIA760469e6aU+svAizQCW9ySdzPyu3AGxyxTpuSuRguDpXUUP8DJCaWtHxKq/SNQGPNAeLO3T8FxRVbXy6TEYESwj6J+ncNfebbUQDr+IETsKJOKonzgkbB+LOgo9/7jDJrQXfp63DkOElhhS6aK1MIbAO/16C4L1OZm9ShM9pHk09h3uIg6JxFHPJzLZ22z/0PV5HV3D2rwydPM6hCvC/WkMxLh8WPGEcwuzJcL3k1SZ05ttI1qqK7PD0YLKCfyS15JpHpf21gP8LYK3L7/1TKWJn8DAWXi2DGhxVLN08JWltphcOuHTOYsGagY7TIPdq9T+zq7iQKnxYWaaVXQw0+DXDheEdSh5SkgxTWhO9ETZSM+AeX27teWBn3hM9R84CYAdK//AhumUdm/RG9JNUdxbpSW8zfmzyL6tK689Kn5Dsx85Cokko7i3P3zrPkq11GtZ/usNVWTciFg95o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(4143699003)(56012099006)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0dvZjVzS1krOElHNDZNNkZ3eUxTUzF2eUJ2eUpGVnZIVjQ5dHM0UVk4VWxx?=
- =?utf-8?B?ZE5zRHRWNVdMSUwzaHhFeVJTQjZ2Szg4aklDLzA4VUs2NDZQNlF1REhXMDZY?=
- =?utf-8?B?K1AwcVB6bHE3RzB5bEdLTXFIRWVVb0Y2N0p0bnc4R0JvZkF2bStPejlNQzd3?=
- =?utf-8?B?MEsrVU1GMEpPUmVuWXc2TGNxSjRxbHJFMTdiT3RXSDg0M0xQQVpxYS9FUmFp?=
- =?utf-8?B?WGVXeGEvc3FZamlETjdrMUJBZVNLU2xScVJydTNycDlyMTZOcERscGNJcXYv?=
- =?utf-8?B?ZHlLMUFheFdOYUZIZ3RITUV6Ri82bDk4VFpTQXZiMlVlOGZIbGhaT0IvaDVp?=
- =?utf-8?B?ZzJqQXlUSG00MmFta3Zqa3ZVejNwYi9TYTIvdWE2aEVubEpha0h4KzJUbW9x?=
- =?utf-8?B?RzdKSTMrZ3U5T3FtNWJtclNiRXMrOUoxY3ZrVEJtQS90MkZKd0tnZXZ0VWFO?=
- =?utf-8?B?WTU5Ly82NDdLZ3FUdHNFRGdvSWl5UENjcll3cW1NZzNjNllqQ1FjNXNCVHdS?=
- =?utf-8?B?czc2anNYYVBXZkdJYU9KaUYwb25hTitKSmJCT05GSTZFS1hyNkNUKzM4RFly?=
- =?utf-8?B?MWJQM1NEaG1iYU4zbHorNy93bE9JQXhqM3hWWmhkbnVlUWxhTFRQb2I5bjRL?=
- =?utf-8?B?RlJIZFJJYjdiemVlVzNYOEtBZ0gxZjN2U0JoVkFGbGRweWpZZEtOK3Y1L1JH?=
- =?utf-8?B?MFpNcTdBWElaUEl2TmFCS1hRSklYUDhWdjRPWFBUSGVkdWpReUhvd2haZ1Yw?=
- =?utf-8?B?QlQyMGNEMjRBaFljTnJZZHBsSllJZFQ2Q0pUWktrRkI4NEFEVjRuRHJMb0k5?=
- =?utf-8?B?dzQvVitQdHFpWnFhRDhFbmxZUjgyK0JwTmlQNmNTQUJobmcxSEYrWmtMMDFi?=
- =?utf-8?B?ZEZlMFAvZlQ0cjRCbTFVNW5iZnZIdnpDL2xuTlg1NGtBSVpjdWt5WjJpaTJO?=
- =?utf-8?B?UUt0V1gyUmRXNFZnNmV1T3NjS1p1ZUt1NzQ4eTJaUi9WSmlxR1NDUWFxb3VX?=
- =?utf-8?B?aWFxY1RiYnQyT2IyTHVmYXJNWVNzNXBNcWZmRisvc0t2K002TjVrMS9mWG1U?=
- =?utf-8?B?eFFzenNMSERIZHFpOEN6UGtCeUJ3MUVia0xaWjBhTDVpRG5TUjlXUGYvRWJs?=
- =?utf-8?B?bnRvOGtOSmlRVWNSZmlqejNiamU1YjloTkc5a0dkczUrL2tpYlNHOUZyQXdH?=
- =?utf-8?B?aFNvWHZWMVB1MGRBLzBCVGF5aDB3Q09DZUtqOGpETVlhWVFnOUJOZVdpOVBT?=
- =?utf-8?B?SDYwQ2Z2UEl6QVU0RFAzeC9kSjcxZEZIVmRqdmU4VExFZjU1VElLd0FoWGNE?=
- =?utf-8?B?NTgzVDAvQ2xBR2pVVXVNdy9sZUd1QnRKVXcwM3dHWGp0aEtxcW1CZjVDMHFU?=
- =?utf-8?B?M0Q2aFJLZ2JEOEhOd29kdDJoZndBOWRmYkhYTlNRWkFmbGd6aGFQSk80SDM4?=
- =?utf-8?B?MUwvUDJMdnptSlhNMUYwaExpSUlEdmJuM3VrTEYvNU5Gayt3Rk93eXdxSG82?=
- =?utf-8?B?dHFjWFY4M1pMcUpBK21FUnNxUWltdlMrM0V1VUI4TXZLamE0YTE2THo2UHRv?=
- =?utf-8?B?aUtnL2hwOTRzTDJ3a2hjL1poWUhkeFpzRkNQeGdvYVIvNXVRUDVGTU45am05?=
- =?utf-8?B?WWxSdEwxVFoyWTV6NmRkWFNVT2M1aEsvdzltVG5ZV1c1MFdkOFlrUThLSzBo?=
- =?utf-8?B?ZE1ZOVZoYXVadmsxelZZQkNYMmhLZVArTzIxM2Z3ZGdldUdzLzE0eDJobzNO?=
- =?utf-8?B?TDBGaW5KdnNyWENEVEo2OWpCYXVXUGtZdC9NN1dEQlNoaXRjQXVkaHJIM0xJ?=
- =?utf-8?B?ZFBzZE0rMHZjUm1Rb3UrS1Q0d042TVY2dVBIMGNDZXNQSnZTR21PMVFuL0Fp?=
- =?utf-8?B?akwvU1U3eE8rQ2Zwa0QyaG9BeDMxT0QyQVJPdXlwc3VQZHVjamJXNk1xK2ov?=
- =?utf-8?B?ZTBRdlUwVWJUdUhBQUxBWlprY3Z3V3dxZEVmbFUyYkZzODRKVDk2cVFDTHdv?=
- =?utf-8?B?K1JvT2FHUHJYcEE5ZVUwSWJ2L0N3WmlnTW5EMGRROWJIaHRDM2lkTHd6TFA4?=
- =?utf-8?B?S00rdEFHL2NLMVp3UzF5dnFycmdRdWJsem1ZT1psRFRteUg5Q2s0YnZmdFQ3?=
- =?utf-8?B?eUczQ0FIbFlBQkYxMndGcFZTWXpiWmUwMTFlMm9PTTYxS3FKRE9NcGt1VTU2?=
- =?utf-8?B?bVJ3bDdPZlA3UTJPUzJKY2ZqOWtkSGE1Y08zU1l3bFQxS2p1TnFLaGRCVW4r?=
- =?utf-8?B?TUc4alJVOGw3V0RBREhQdTc5Y05sYnYwbkZYTzZGQVRURldsb1dqMTUyNUJD?=
- =?utf-8?B?NlYxNXBGL2dFU1RhcURVak82VFZsMVBFSkJZSkxtam91QWZOYTZVd3NoenVu?=
- =?utf-8?Q?3/0ZsPQ3aKRcv1ON2RYErfmZPe4bL+ylzH15Z3///Y0kQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: s8NpxL/xBPLmz56/AAhW+lIN72kWWewIfPk=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b99f0a1e-d039-46a3-8a45-08df3e0d4c4c
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 02:58:14.6143
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +C/OOpR35Bsn5SrCsvd8Z7xYdm25W1pCrNBTWJdnsexe8rsdVXjXDhi+m8PJP2Elxh7XL83CzXO/N/KlwoiopfnhJGr/x/ig0HZ0nnjpnmk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB376387
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-08 14:25, sashiko-bot@kernel.org wrote:
- > wrong root domain in dl_task_rebuild_cpu() on empty mask
+enabled, add_addr_timeout, checksum_enabled, allow_join_initial_addr_port,
+stale_loss_cnt, close_timeout, pm_type and syn_retrans_before_tcp_fallback
+are read by their ctrl.c helpers without any lock while the sysctl
+handlers update them with WRITE_ONCE(), and the path_manager handler
+stores pm_type with a plain write. Add READ_ONCE() to the readers and
+WRITE_ONCE() to that handler.
 
-Thanks. The path is as you describe, but the partition is where the task
-runs. At its wakeup, select_fallback_rq() widens the mask of a task of
-the top cpuset to top_cpuset.cpus_allowed, which is cpu_possible_mask in
-cgroup v2. It then takes the lowest active CPU, CPU 0, in the new
-partition. Had the rebuild asked the cpuset, the top root domain would
-count the task. Its wakeup would then move the bandwidth into the
-partition without room. The case also needs admission control off: with
-it on, a deadline task's mask must hold its root domain.
+KCSAN reports it when net.mptcp.enabled is changed while MPTCP sockets
+are being created:
 
-You are right that the test of the record after the cpuset fallback
-cannot succeed. It serves the other path, where the mask has an active
-CPU. The next version makes that an else branch.
+  BUG: KCSAN: data-race in mptcp_is_enabled / proc_dou8vec_minmax
 
-Thanks,
+  write (marked) to 0xffff8d724248abc9 of 1 bytes by task 733 on cpu 3:
+   proc_dou8vec_minmax+0x1ab/0x1f0
+   proc_sys_call_handler+0x282/0x3a0
+   proc_sys_write+0x13/0x20
+   ...
 
-Mathieu
+  read to 0xffff8d724248abc9 of 1 bytes by task 735 on cpu 1:
+   mptcp_is_enabled+0x33/0x50
+   mptcp_init_sock+0x35/0x300
+   inet_create+0x4a6/0x8e0
+   ...
 
+  value changed: 0x00 -> 0x01
+
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/mptcp/ctrl.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/net/mptcp/ctrl.c b/net/mptcp/ctrl.c
+index 63c5747f0f63c..164f79b9deb0e 100644
+--- a/net/mptcp/ctrl.c
++++ b/net/mptcp/ctrl.c
+@@ -50,39 +50,39 @@ static struct mptcp_pernet *mptcp_get_pernet(const struct net *net)
+ 
+ int mptcp_is_enabled(const struct net *net)
+ {
+-	return mptcp_get_pernet(net)->mptcp_enabled;
++	return READ_ONCE(mptcp_get_pernet(net)->mptcp_enabled);
+ }
+ 
+ unsigned int mptcp_get_add_addr_timeout(const struct net *net)
+ {
+-	return mptcp_get_pernet(net)->add_addr_timeout;
++	return READ_ONCE(mptcp_get_pernet(net)->add_addr_timeout);
+ }
+ 
+ int mptcp_is_checksum_enabled(const struct net *net)
+ {
+-	return mptcp_get_pernet(net)->checksum_enabled;
++	return READ_ONCE(mptcp_get_pernet(net)->checksum_enabled);
+ }
+ 
+ int mptcp_allow_join_id0(const struct net *net)
+ {
+-	return mptcp_get_pernet(net)->allow_join_initial_addr_port;
++	return READ_ONCE(mptcp_get_pernet(net)->allow_join_initial_addr_port);
+ }
+ 
+ unsigned int mptcp_stale_loss_cnt(const struct net *net)
+ {
+-	return mptcp_get_pernet(net)->stale_loss_cnt;
++	return READ_ONCE(mptcp_get_pernet(net)->stale_loss_cnt);
+ }
+ 
+ unsigned int mptcp_close_timeout(const struct sock *sk)
+ {
+ 	if (sock_flag(sk, SOCK_DEAD))
+ 		return TCP_TIMEWAIT_LEN;
+-	return mptcp_get_pernet(sock_net(sk))->close_timeout;
++	return READ_ONCE(mptcp_get_pernet(sock_net(sk))->close_timeout);
+ }
+ 
+ int mptcp_get_pm_type(const struct net *net)
+ {
+-	return mptcp_get_pernet(net)->pm_type;
++	return READ_ONCE(mptcp_get_pernet(net)->pm_type);
+ }
+ 
+ const char *mptcp_get_path_manager(const struct net *net)
+@@ -230,7 +230,7 @@ static int proc_path_manager(const struct ctl_table *ctl, int write,
+ 				pm_type = MPTCP_PM_TYPE_KERNEL;
+ 			else if (strncmp(pm_name, "userspace", MPTCP_PM_NAME_MAX) == 0)
+ 				pm_type = MPTCP_PM_TYPE_USERSPACE;
+-			pernet->pm_type = pm_type;
++			WRITE_ONCE(pernet->pm_type, pm_type);
+ 		}
+ 	}
+ 
+@@ -551,7 +551,7 @@ void mptcp_active_detect_blackhole(struct sock *ssk, bool expired)
+ 
+ 	net = sock_net(ssk);
+ 	timeouts = inet_csk(ssk)->icsk_retransmits;
+-	to_max = mptcp_get_pernet(net)->syn_retrans_before_tcp_fallback;
++	to_max = READ_ONCE(mptcp_get_pernet(net)->syn_retrans_before_tcp_fallback);
+ 
+ 	if (timeouts == to_max || (timeouts < to_max && expired)) {
+ 		subflow->mpc_drop = 1;
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.43.0
+
