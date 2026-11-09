@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260985;
-	b=byFxvX7yPbLpZlyhgB/DV2Amx54E74S6tk3+6b95qfS4r3tLBWbraFYNPXkLPhmVZkQj
-	 BskSB1kyeDw6cCBL1DbyxMngsWdIBiPR0tRbhKwk0lg7ibfdyyJ5UjyVOn/Sr+7D10rxs
-	 GVXuQpFRCgQflECVcS/COMfQrgZyx3JtNbuybE9xnIaBCvSDG/bFpRXELQVR2QLv4tZKw
-	 LtxEMxhNkTF6Be40oAbYHwpNp9wQsujJpU19Cw6lMiXP/PG2i7Sb2fRWMH4C57vlQg8+e
-	 SkKA1xysZZPuBDhLGMKIx8xT1fn+zSsA3e+G79tOz7g3HabBv0dLd/XWxl53XrO98IA==
+	t=1794261194;
+	b=1Nbhg6krWU3VvPo1CSC30q1ByIym8WF4fd6f8DSSfRLBo2GA6yzkEf2d61ij5rN3yd77
+	 orcsz6+u+hMZnfLCKgCpyrdEBQR1DrtG2OCASS5+HkYzneDZ1zjlxbq5Jfl+VE78KTJn9
+	 BKJhXCnSy8wTapa4MpsLthIIubEUZ8HiJRlOCnaaZcMmGR+2kfUimOQ3tKM6OoVP8MfKT
+	 HXkyijo+dVaYLIKHJRzxivwbJ4AVX7IBnkcZVUK0e06si0ZzFcXTO6SDg2x3J3meqo0Vn
+	 6RKyrM7gXVOudwK7ba7olBiqKO/zVvIoE3SA7BxekSWxEaP5l4dXbSEOAUfLCQABl8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260985;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=kIPvUyy58FluJNp+/4hObdnVo8Xv8U2P/+DLXfONN+A=;
-	b=gYfWLT9rfWA12BgOVaBS6tnG/BXhmQYSzw+jHR2Y6ddaAWKkEtxzW6Z0wjna2aiI3PuB
-	 Lbh6osTZEcRImlHmsZxBQjn5QRHe7HnpqPJtoFPHjka+j8DxPh3E9wibqq6XtXQhuDcA/
-	 c97rumFrzQP8ezNRU72T2cNkfrbR9yl+ri+4Cuj6o02uc+XPr4v8pS7etq8KGSsn2TROt
-	 J6QKOrDgavLpo+BPYpOPDH25oIjQreYqGfHWuRsJdQVlXSEtUBE02V/xck3uGmorjoobF
-	 owexYahfuDq1u7gvJWICXHKh3cJVAaCbWA+wl6Jpi13SeOtSzwrskXpASh7/cflDUcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794261194;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=+OjU5cpDd0WZsZbOTFKQfY0byW87CeplqtKe+Oidk0k=;
+	b=0c1iNpgWDww/Vmdorb/jsR3Jlu5eTkxRwWylZGQf5ZKVrflM4GTf2oi5k8GLP1L/7H//
+	 5nEfe240YS1oSe2mp4wBZBpxR5YwqEgXnfZz44/ejmvtyqq0/6NO+5XD9OVRm2ZaZN9Od
+	 VIhqAe8hy+TjWhnTBYoz8GX4BD2PYcvdoUxK9nPDekFQpYk/5l2TVgddrFM6l7qngsvbI
+	 tSn01ILUWYECfjqpEXT1htUi3aAe65DfPSkTXfVZ3kRVbpDnI2iajmEX9J2bC/metGL8a
+	 Yi5D1zOc8/BdygUhzwAAjFP8MLOJV/e3k4kJ9Med/irRRIRdYAe55/pIiV1+6zcjBfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="P/5X1NKO";
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=SZ0JMSJF;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BE9606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86BE9606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D837D606A325;
+	Mon,  9 Nov 2026 21:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D837D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=P/5X1NKO
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a60f90a924so517742b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:49:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794260984; x=1794865784; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kIPvUyy58FluJNp+/4hObdnVo8Xv8U2P/+DLXfONN+A=;
-        b=P/5X1NKOtIip1FyBmDSV4p0wl2ud61ENGtVnUGBVCAjEcvdt0YUwj455lJmo9UfqMt
-         vCOhEAmZ4yrEzAb2eT5Iv4n8biEztSWh0scwKCiXrk1MmEA3o2mXwAjpM6ETbakkQYg0
-         vNNye0WeTz+ceNZPeR5hJT2cNv54WQgI7/V5URcrhNbfO9DNd1MAUP/8kj5qivrPUoVL
-         sLAHqfryiGqWxigTQpR/0hk9aw9CHzGbrRJB4zwn7RREdvd4AY17qM8kIfLHJM3z7kuz
-         HGwIQlp3cOYg8a8CznYLh0PlnYU6Ug6wU9OaDqzjVyrTJjusApj909yqk/ur67ohJS5g
-         GydA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794260984; x=1794865784;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kIPvUyy58FluJNp+/4hObdnVo8Xv8U2P/+DLXfONN+A=;
-        b=LAG2N4g620m1aLBzlHgYAbFqntdlyjxuavI53TbcqEfjvaVbRkVh1m53vJzuMGcUIa
-         De4rUeDN+FImS4DQ+4ah3C4PY4fi53Fmkni6y9L5L/0UOS4M7oWuuSVHPiHZwyq9RylH
-         Y0Gp2kVJCu36S9fk+qhsEa7YzzMqZTLr7BPAIVFVQFoC1QaIqKYB1uKA/YbDQYmomFdS
-         OtvzEez5DH1Hem8jgt8QLrS85h9WYC2kzrz+UdEFaMXHo2fbJDIi5njaRDJKq2i0wg1L
-         9GMkmDMUZsi6QiCsbqZT/wYb1gwz7M/RVOX9Cw2xhk6sQLZSllFbk9NZfBwQAmc1zHrF
-         XTmA==
-X-Forwarded-Encrypted: i=1; AL+hErEA2JotMVbn3Jv5TKi1Kz/RvHkVsTO5AqTbPxk5EN3F2ZckW7/1h/WDFNJtFIKY6XmbhyHCwFdKUu4WCs0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uT9gzAIqpvDijkJAqHJ/4HCDaC7ptTv4ULu27ESlMr2LdTIWD
-	EW0xG++VhzsAYFbMRER6QUad3UwjJCEpSy84mFWnP5lAH8R4ydz8kqz3p7f7gyrAnARqDeWAyLR
-	g3TaE6Ic=
-X-Gm-Gg: AYBFou3Dai28L5GXDJS/hSljFzsMczGi8kTX9VjF9LMhaOwJLFRy1+qUSpR9wgHIBij
-	49hobZVOmAA2/5mRMdhidjsB44IPnOBV70klUNNGK7Z1e5RgJk2+f6+iC5JjEjjTVSewIpK/khT
-	rXXy/oL+HYYd9OCqOKlOGqo4+DQlt+/O7WjWNGzFGSJIj61TpfP8O/UrnaFHNtRrB++dZAE8CdD
-	+Xh4vbhIPhaBnnx3/HrfNiWzmeBJZ+5L4/WNeDoRkVOPGxNfX7e/NB4Q6F3BWQ+D/+jE4qQiNyI
-	f72WSvYRG5YT9ybsM52VC0C//ifubvfbi3Ftu2OStSuXFj8XRF63Fck7gaQj2ak0yTOuWpSx4Wd
-	bS1n7sEZOGoYwEzgkh9Ieh42QTgiFbd8LBf0cXjnW8mPe2BWUUcA+ksvYU1NhE4Cf/iZO9sjsgD
-	fJpdSEDkVWnafpezxSiad0AKBEwk7kWreyG8xDicVxtQGPY7TunI9lOaWhk1FPhBX+reLfFm/5d
-	he0VHuGMf1IwZ+czwSMYfOYXAtGJGR8k3Wx5/acRscefSSSXeSYuikAJ5GvVdyjqv6b+7MivUyp
-	detla8ZB5U99Dk8+p0X1lQSQGLJykUbNEg981Gx8NoZ2HalIiu5d1k+1PS/+iQ9ljy4OGaHrg0C
-	EfjVyWV1OY3PI
-X-Received: by 2002:a05:6a00:3e24:b0:8a0:3ed7:939b with SMTP id d2e1a72fcca58-8ba864bf926mr840169b3a.29.1794260983915;
-        Mon, 09 Nov 2026 13:49:43 -0800 (PST)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b2896sm129427b3a.17.2026.11.09.13.49.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 13:49:42 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: Cinq Prairie <notprairie@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Stefan Roesch <shr@devkernel.io>, 
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261027204840.7823-1-notprairie@gmail.com>
-References: <20261027204840.7823-1-notprairie@gmail.com>
-Subject: Re: [PATCH v2] io_uring/napi: don't end the single NAPI busy poll
- early on need_resched()
-Message-Id: <179426098226.155418.4382559329615606121.b4-ty@b4>
-Date: Mon, 09 Nov 2026 14:49:42 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=SZ0JMSJF
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC7C8A1609;
+	Mon, 09 Nov 2026 22:53:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794261191; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=+OjU5cpDd0WZsZbOTFKQfY0byW87CeplqtKe+Oidk0k=;
+	b=SZ0JMSJFDut+1am+/Kvra7d4mFjStNGpw1Q26lIMP6XSF8NbjUmUlTqr0DFiR7d7udcD68
+	E2LG8O8tKSBr2ORsRXzOPUBRENykRPfzkYIWZgahWyh60OE6aExA5TYJN2UfWNZQ33VYRL
+	Kwsr2VW3SDUEO15KPY5PdFNDIQQxZ1/v4g9wHf7m0Od3AwD3+LCSUEduFN4lVtai5VoGwD
+	n13mgWvIidlqxF16wRvl0ocX93gaAgg1b3yhTNIX4ymj3thHdDbcsmsspVSRYrXiTy+Fl+
+	NKnzg9MeCoBbFbxcM5DBcTHD/n9vZ7Uem6q8ErDjJs9bfjqN85Lcm1kxj4VX6g==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Mon, 09 Nov 2026 22:53:01 +0100
+Subject: [PATCH net v2 1/2] net: bcmgenet: cap the Tx queue threshold at
+ the ring size
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,28 +59,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Message-Id: <20261109-nb-genet-txq-thld-net-v2-1-efd8f4be96f2@tipi-net.de>
+References: <20261109-nb-genet-txq-thld-net-v2-0-efd8f4be96f2@tipi-net.de>
+In-Reply-To: <20261109-nb-genet-txq-thld-net-v2-0-efd8f4be96f2@tipi-net.de>
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Justin Chen <justin.chen@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>, 
+ Jason Xing <kerneljasonxing@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
+A Tx queue stops when MAX_SKB_FRAGS + 1 or fewer descriptors are free and
+wakes once there are more. Queues 1 to 4 hold 32 descriptors, so with
+CONFIG_MAX_SKB_FRAGS at 31 they would need 33 to wake. As a result the
+first packet stops the queue and it stays stopped:
 
-On Tue, 27 Oct 2026 21:48:40 +0100, Cinq Prairie wrote:
-> With a single registered NAPI, io_napi_blocking_busy_loop() hands
-> io_napi_busy_loop_should_end() to napi_busy_loop_rcu() as loop_end and
-> runs its own loop once, relying on __napi_busy_loop() to spin until
-> that predicate fires. napi_busy_loop_rcu() sets NAPI_F_END_ON_RESCHED,
-> so __napi_busy_loop() also returns on the first need_resched(). io_uring
-> treats the return as the end of the busy poll period and sleeps in
-> schedule_hrtimeout() for the rest of the wait timeout.
-> 
-> [...]
+  eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 3 timed out 2004 ms
+  eth0: NETDEV WATCHDOG: CPU: 1: transmit queue 4 timed out 2004 ms
 
-Applied, thanks!
+On a Raspberry Pi CM4 only queue 0 carried traffic afterwards. The other
+four counted an error on nearly every packet.
 
-[1/1] io_uring/napi: don't end the single NAPI busy poll early on need_resched()
-      commit: 39c7210e970200f8b17de3767c73efe64173a95f
+Fix this and cap the threshold at what the ring can free.
 
-Best regards,
+Fixes: 3948b05950fd ("net: introduce a config option to tweak MAX_SKB_FRAGS")
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 6 ++++--
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h | 1 +
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 4d2be2a21ed1b..9049822012d13 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2030,7 +2030,7 @@ static int bcmgenet_tx_poll(struct napi_struct *napi, int budget)
+ 
+ 	spin_lock(&ring->lock);
+ 	__bcmgenet_tx_reclaim(ring->priv->dev, ring);
+-	if (ring->free_bds > (MAX_SKB_FRAGS + 1)) {
++	if (ring->free_bds > ring->stop_thld) {
+ 		txq = netdev_get_tx_queue(ring->priv->dev, ring->index);
+ 		netif_tx_wake_queue(txq);
+ 	}
+@@ -2235,7 +2235,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	netdev_tx_sent_queue(txq, GENET_CB(skb)->bytes_sent);
+ 
+-	if (ring->free_bds <= (MAX_SKB_FRAGS + 1))
++	if (ring->free_bds <= ring->stop_thld)
+ 		netif_tx_stop_queue(txq);
+ 
+ 	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
+@@ -2742,6 +2742,8 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
+ 	ring->index = index;
+ 	ring->cbs = priv->tx_cbs + start_ptr;
+ 	ring->size = size;
++	/* An empty ring must be able to wake the queue */
++	ring->stop_thld = min_t(unsigned int, MAX_SKB_FRAGS + 1, size - 1);
+ 	ring->clean_ptr = start_ptr;
+ 	ring->c_index = 0;
+ 	ring->free_bds = size;
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+index e48ce39d3e7c8..6ab3f73475550 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+@@ -546,6 +546,7 @@ struct bcmgenet_tx_ring {
+ 	unsigned int	index;		/* ring index */
+ 	struct enet_cb	*cbs;		/* tx ring buffer control block*/
+ 	unsigned int	size;		/* size of each tx ring */
++	unsigned int	stop_thld;	/* queue stops at this many free bds or fewer */
+ 	unsigned int    clean_ptr;      /* Tx ring clean pointer */
+ 	unsigned int	c_index;	/* last consumer index of each ring*/
+ 	unsigned int	free_bds;	/* # of free bds for each ring */
+
 -- 
-Jens Axboe
-
-
+2.53.0
 
