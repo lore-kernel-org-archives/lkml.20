@@ -1,56 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235447;
-	b=n6EW7kDJVDGiHYhVA1MMDOzNj9b3HBvw/2aoIWhB+2znOqAv8QLTeg+QBYrCRsD6SFtv
-	 GrPsrcZF9c0o/+JxLceeCMS1XClW4gSEuPkIAi+UBec+xYIRuxvkaKZL6VSf6GSTyeJIZ
-	 yFUhK27suwCk3R9qjjywy4OdRMV91shaqixkFpcTHRNAs9NSu59cZZOlWL0kCOP174BHJ
-	 lOR/zLM5z50yDsaxhIQ2+McTOmQ4bI59zq+hMCEgIIvQW9hDsF5OeN2M6mgrWWPIzrh5m
-	 EfFi7VUqRodaOCyjBc61N455nL1staypiE5LSZtruNe2BkjCMr/8bVaJlHH9XDdzjTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235447;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=3rl7LhJNjiKGMy+KoJ8+dPrC9DmEvWGZz/NwltQ/uqs=;
-	b=4WH0p6sMUTTe1j7miuQsR0W76Rt7SKtnS4QxGNtSuTeba6oxmU190RRsT42f9PwTvR59
-	 E3ejBw2DPOlas0HL5nMoSDq//9Nrdm9XqQCi3CrbB4LfkMMrO04TuEuN7CMcqs9TaBlPk
-	 ZGDR89vjdEo/W2Zfm7EB9QnoepNcr5N51Vy6rizsOMQIOx+QpJdHtA5JAxdH/P3cxJta3
-	 Ba7ulnh6nurFPb3hYGFQ+atXWoitNdeALvWWJcjeHvEiYM5E1seuf1OgA/D+HsZGFVOls
-	 Txuq+p0oq3Ltr5xG6U3p1bCUEs+0vXmdCJGboeWEMS00eDVceftvrNSpOyI6fSNfOAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Srb+MIgS;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794235485;
+	b=i5toHNON80/x0Y9N7ZMI70P58qxcy7McXo+VhJ4cn2nzDva3z87uKJJVw1fpJql1Ccsj
+	 HmmX8xqQVLsj6Z4AudErynqWU0CbwXKHqtTf3aAa28/LLrteVQyAPrzUd83fGrlhO+KaH
+	 8BV2qOS/1rXkBknvEaWSNHj0aQQCSAS82WiVhx6KJWWUHlthX2nE3cy5NJnV+RiqWCaiL
+	 qBoQxd51/Fkmp2At80GrqBLrgKCoCfdjGAiKnCMXXzQsJkYISWX0hq6ITgD+9B6EkXPG3
+	 G48uPYjlpy50tbbPn1mn2juKzMgvzOiP1wCgk2A49xMs6CIDWKBrskfaqvB5fDq3IVg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235485;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fsb5m8uyyKxFLJlwAnbap8+GD4wIrFORIE3SZs3ZMVo=;
+	b=Dhj2ZT39y+Z7A3tf+6M9H9oj3mNMuseqFPX8EkNSzE18i6QkxWTa95fKNab/ObIuTdY0
+	 8lOhnVEnxpbWPCKEBzQq320ZNjffF0qQIWmiNJ7CAaCYBFL/ByOYyH2TZYE3Iqz1dnScU
+	 d7Qz7McmQ5qThSbngc1N1Lk/IWFezuwfBZBco81/3qp+7AF6aIo1T3MeLVKq1p8gzqrfv
+	 VFM8+TCe6vKmynxBmOB9SB3ekf+A2UxstwpmmxDetQhvyo4qFqM82ZiSP0bvQ5GY5mgMI
+	 vfrSeubDugwJyAPVn6WMExmi8FWH41mmjKzqzp6lTeR+DGcm+I2mtQsRrvtHGtWmRWQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMBxRQI0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE09606D815;
-	Mon,  9 Nov 2026 14:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7AE606A321;
+	Mon,  9 Nov 2026 14:44:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Srb+MIgS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324BF1F008BF;
-	Mon,  9 Nov 2026 14:44:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMBxRQI0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794235484;
+	b=yhjrbbsh2duDWcroTpZpqxGrJwLlHaQziuooKgtaCJmXPmagxQkrtZWrZwXsVnS60Elw
+	 F24aArwEq4T7NgszDPixHJtLl2dE0Ai/cAI5zZR85D4dpOd64EqV4lVjvlVmylP7QZizU
+	 5DY/vgpIHGEsPEl0SAxaUeDFr1NRpyvSShs3BOiMZACkcZrqAHN1H7SMRIkaNyA2jKySl
+	 g5/76fg498B4erCCQtlIkl4HJ2go/o0urNn6DjiMLMl0JY38/f8wNEL/AnWgYbjdIPWDB
+	 YGluDUChBafY5RbQB7pAWv1REA+Qb2EoU0Vn7E4YQMsRE64QIy1iYPvuKq09jl+H2OQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794235484;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fsb5m8uyyKxFLJlwAnbap8+GD4wIrFORIE3SZs3ZMVo=;
+	b=wjemTBBjOS2RyBSz4sgKIfGQ/s5qQotb8JR0ruUdPP9LzPujivfmYu6xKLDJksaGelun
+	 y0WPFcS+NAA09CGInd0VHcsYLahd1/hAXHKN3/WOLCMc5G5YvpMBzsGGrYw3hoUPFcx0E
+	 3yaJJZEGV6nxwvh9ewx50FfSc6j4+FymGSSjj4w3nFrKk9/sGBOwsdX3oW8TDdFuh0lge
+	 f7/AgvyMoJ2CsNb6EezKYXfY9xMGATY/JqIgCONspggSBN/Bi4tap5b9j2NathP/5xcmn
+	 WGmvDVql74h6R2PjU91omg+cZ49k1GICdtqoMmFMjgbIXkltSRnA6NsGFXNcwF/e0vw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D996A1F008A1;
+	Mon,  9 Nov 2026 14:44:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794235446;
-	bh=3rl7LhJNjiKGMy+KoJ8+dPrC9DmEvWGZz/NwltQ/uqs=;
-	h=Date:From:To:Cc:Subject;
-	b=Srb+MIgSMEv3DACXCyp0n1jC9cd2Bw45MBCzB89+EnaGVH9HfjL/bYjNS6AE3LWn3
-	 k2almqvXyoamMc2GjSguw8gQyaitWCEMrkTrphvVmclWVitvsXI/+iy8exTwttFrDB
-	 kFUYEvi+C73NuHjISrFFCPs2KOmQBCYmTab1uY3XxBa58Tfo/SZmk6g9efHJzFd5E5
-	 2+3DgDoQbJgN7j9fJ9zjaTn+Jiqj31QO2eFtRCs0HGaTMUdU/vUPuRr/L28Mevlman
-	 HFpc+hUxydbhKdQk2GdIoZJVq0we6zGJGUVeQz0ZYBKwvBtXDhDGf9EPEelC9dH0L2
-	 Kb8tjg7wU25TA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id D53211AC5995; Mon, 09 Nov 2026 14:44:03 +0000 (GMT)
-Date: Mon, 9 Nov 2026 14:44:03 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Francesco Valla <francesco@valla.it>, Kees Cook <kees@kernel.org>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the gpio-brgl tree with the origin tree
-Message-ID: <avHcMzeFfcumgrNt@sirena.co.uk>
+	s=k20260515; t=1794235484;
+	bh=fsb5m8uyyKxFLJlwAnbap8+GD4wIrFORIE3SZs3ZMVo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=dMBxRQI0llMdrBh6hP6xnnUoTgY15KtNT57x6NshNioljgg9bEmJIP9yS98SXkqOT
+	 3x1mja5NN4MjYSgIhKLjGb9reHv/1iZ9iUjxJ14m+KVS+e25k8ZflnDgQ1BKPKIlDe
+	 ut0Az7UTPUtztQfy+4RqBTcAQiWVAIsJCtgiG93Q3MT2l6vxcHEN9hNVyg9FOpkrSv
+	 JYR5sVcuAc/J5JRz3rAGghie4kYxu8qpA+UBZN16ef45IiiofOoq9i3Zov2xRhCZny
+	 Qxh6pATLuJq7EyCXZxlAyLM3UWHI+CI5wVtl+FBzpVdMV0xGM3bP4GHMI77UyT5Tv8
+	 KHebWqDxFBYag==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 587FD48501;
+	Mon,  9 Nov 2026 14:44:43 +0000 (UTC)
+From: =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD_via_B4_Relay?= <devnull+cleverline1mc.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 15:41:00 +0100
+Subject: [PATCH 2/2] serial: 8250_dw: Select U6_16550A for 64-byte FIFO
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,184 +82,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gme3rOL+2A7oZixo"
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-8250-select-u6-64bit-v1-2-04bc8332fa34@gmail.com>
+References: <20261109-8250-select-u6-64bit-v1-0-04bc8332fa34@gmail.com>
+In-Reply-To: <20261109-8250-select-u6-64bit-v1-0-04bc8332fa34@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD?= <cleverline1mc@gmail.com>, 
+ Miroslav Ondra <ondra@faster.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794235482; l=1747;
+ i=cleverline1mc@gmail.com; s=20241112; h=from:subject:message-id;
+ bh=tbchbKgf4kvxbU+PFwpYUbA6/5DTF0wZIBoRBHeTq0o=;
+ b=orLP3TrrB5XbdCVxNkTqhcupcoB3GSd2j6ojGBCGcI5BM8ZlnWV2XkvAZBQ9gF2MXQEi7dB93
+ bzVu4JHI50IDYkkU6Rog+KjlWtj92H5Gl/jhz+nmPZdLGYmi7SZsbtx
+X-Developer-Key: i=cleverline1mc@gmail.com; a=ed25519;
+ pk=EJoEbw03UiRORQuCiEyNA8gH1Q6fIpEWnn/MyaWOWX0=
+X-Endpoint-Received: by B4 Relay for cleverline1mc@gmail.com/20241112 with
+ auth_id=275
+X-Original-From: =?utf-8?q?Kry=C5=A1tof_=C4=8Cern=C3=BD?= <cleverline1mc@gmail.com>
+Reply-To: cleverline1mc@gmail.com
+Content-Transfer-Encoding: 8bit
+
+From: Kryštof Černý <cleverline1mc@gmail.com>
+
+DesignWare 8250 ports that describe their FIFO in the CPR register are
+always configured as PORT_16550A, regardless of the FIFO depth. On
+UARTs with a 64-byte FIFO, such as those on the Rockchip RK3328, this
+selects the 16-byte rxtrig_bytes table {1, 4, 8, 14}. The rx_trig_bytes
+sysfs attribute then reports 8 bytes while the hardware triggers at 32,
+and writes to it program the wrong trigger level.
+
+Select PORT_U6_16550A when the CPR reports a 64-byte FIFO. Generic
+autoconfig already assigns this type to a 16550A with a 64-byte FIFO,
+and its rxtrig_bytes table matches the DesignWare FCR RT encoding.
+
+The FIFO size, TX load size and capabilities are still taken from the
+CPR, and the default FCR value is the same for both types, so the
+hardware is programmed exactly as before. The port type reported to
+userspace changes from 16550A to U6_16550A.
+
+Co-developed-by: Miroslav Ondra <ondra@faster.cz>
+Signed-off-by: Miroslav Ondra <ondra@faster.cz>
+Signed-off-by: Kryštof Černý <cleverline1mc@gmail.com>
+---
+ drivers/tty/serial/8250/8250_dwlib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+index 9bb02a4ab11f..ae556b06b03a 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.c
++++ b/drivers/tty/serial/8250/8250_dwlib.c
+@@ -236,9 +236,9 @@ void dw8250_setup_port(struct uart_port *p)
+ 
+ 	/* Select the type based on FIFO */
+ 	if (reg & DW_UART_CPR_FIFO_MODE) {
+-		p->type = PORT_16550A;
+ 		p->flags |= UPF_FIXED_TYPE;
+ 		p->fifosize = DW_UART_CPR_FIFO_SIZE(reg);
++		p->type = (p->fifosize == 64) ? PORT_U6_16550A : PORT_16550A;
+ 		up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT;
+ 	}
+ 
+
+-- 
+2.47.3
 
 
---gme3rOL+2A7oZixo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-Today's linux-next merge of the gpio-brgl tree got a conflict in:
-
-  drivers/gpio/gpio-virtio.c
-
-between commit:
-
-  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
-oc_obj() family")
-
-=66rom the origin tree and commit:
-
-  d5d4132419a41 ("gpio: virtio: convert to immutable irq_chip")
-
-=66rom the gpio-brgl tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpio/gpio-virtio.c
-index d0ae3d57c6403,e2add87d76a8a..0000000000000
---- a/drivers/gpio/gpio-virtio.c
-+++ b/drivers/gpio/gpio-virtio.c
-@@@ -17,6 -17,7 +17,7 @@@
-  #include <linux/kernel.h>
-  #include <linux/module.h>
-  #include <linux/mutex.h>
-+ #include <linux/seq_file.h>
-  #include <linux/spinlock.h>
-  #include <linux/virtio_config.h>
-  #include <uapi/linux/virtio_gpio.h>
-@@@ -243,6 -244,8 +244,8 @@@ static void virtio_gpio_irq_enable(stru
-  	struct virtio_gpio *vgpio =3D gpiochip_get_data(gc);
-  	struct vgpio_irq_line *irq_line =3D &vgpio->irq_lines[d->hwirq];
- =20
-+ 	gpiochip_enable_irq(gc, d->hwirq);
-+=20
-  	raw_spin_lock(&vgpio->eventq_lock);
-  	irq_line->disabled =3D false;
-  	irq_line->masked =3D false;
-@@@ -265,6 -268,8 +268,8 @@@ static void virtio_gpio_irq_disable(str
-  	raw_spin_unlock(&vgpio->eventq_lock);
- =20
-  	irq_line->update_pending =3D true;
-+=20
-+ 	gpiochip_disable_irq(gc, d->hwirq);
-  }
- =20
-  static void virtio_gpio_irq_mask(struct irq_data *d)
-@@@ -512,7 -517,7 +517,7 @@@ static const char **virtio_gpio_get_nam
-  		return NULL;
-  	}
- =20
- -	names =3D devm_kcalloc(dev, ngpio, sizeof(*names), GFP_KERNEL);
- +	names =3D devm_kzalloc_objs(dev, *names, ngpio);
-  	if (!names)
-  		return NULL;
- =20
-@@@ -532,16 -537,35 +537,35 @@@
-  	return names;
-  }
- =20
-+ static void virtio_gpio_irq_print_chip(struct irq_data *d, struct seq_fil=
-e *p)
-+ {
-+ 	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
-+=20
-+ 	seq_puts(p, dev_name(gc->parent));
-+ }
-+=20
-+ static const struct irq_chip virtio_gpio_irqchip =3D {
-+ 	.irq_enable =3D virtio_gpio_irq_enable,
-+ 	.irq_disable =3D virtio_gpio_irq_disable,
-+ 	.irq_mask =3D virtio_gpio_irq_mask,
-+ 	.irq_unmask =3D virtio_gpio_irq_unmask,
-+ 	.irq_set_type =3D virtio_gpio_irq_set_type,
-+ 	.irq_bus_lock =3D virtio_gpio_irq_bus_lock,
-+ 	.irq_bus_sync_unlock =3D virtio_gpio_irq_bus_sync_unlock,
-+ 	.irq_print_chip =3D virtio_gpio_irq_print_chip,
-+ 	.flags =3D IRQCHIP_IMMUTABLE,
-+ 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-+ };
-+=20
-  static int virtio_gpio_probe(struct virtio_device *vdev)
-  {
-  	struct device *dev =3D &vdev->dev;
-  	struct virtio_gpio *vgpio;
-- 	struct irq_chip *gpio_irq_chip;
-  	u32 gpio_names_size;
-  	u16 ngpio;
-  	int ret, i;
- =20
- -	vgpio =3D devm_kzalloc(dev, sizeof(*vgpio), GFP_KERNEL);
- +	vgpio =3D devm_kzalloc_obj(dev, *vgpio);
-  	if (!vgpio)
-  		return -ENOMEM;
- =20
-@@@ -556,7 -580,7 +580,7 @@@
-  		return -EINVAL;
-  	}
- =20
- -	vgpio->lines =3D devm_kcalloc(dev, ngpio, sizeof(*vgpio->lines), GFP_KER=
-NEL);
- +	vgpio->lines =3D devm_kzalloc_objs(dev, *vgpio->lines, ngpio);
-  	if (!vgpio->lines)
-  		return -ENOMEM;
- =20
-@@@ -584,31 -608,17 +608,18 @@@
- =20
-  	/* Interrupt support */
-  	if (virtio_has_feature(vdev, VIRTIO_GPIO_F_IRQ)) {
- -		vgpio->irq_lines =3D devm_kcalloc(dev, ngpio, sizeof(*vgpio->irq_lines)=
-, GFP_KERNEL);
- +		vgpio->irq_lines =3D devm_kzalloc_objs(dev, *vgpio->irq_lines,
- +						     ngpio);
-  		if (!vgpio->irq_lines)
-  			return -ENOMEM;
- =20
-- 		gpio_irq_chip =3D devm_kzalloc_obj(dev, *gpio_irq_chip);
-- 		if (!gpio_irq_chip)
-- 			return -ENOMEM;
--=20
-- 		gpio_irq_chip->name =3D dev_name(dev);
-- 		gpio_irq_chip->irq_enable =3D virtio_gpio_irq_enable;
-- 		gpio_irq_chip->irq_disable =3D virtio_gpio_irq_disable;
-- 		gpio_irq_chip->irq_mask =3D virtio_gpio_irq_mask;
-- 		gpio_irq_chip->irq_unmask =3D virtio_gpio_irq_unmask;
-- 		gpio_irq_chip->irq_set_type =3D virtio_gpio_irq_set_type;
-- 		gpio_irq_chip->irq_bus_lock =3D virtio_gpio_irq_bus_lock;
-- 		gpio_irq_chip->irq_bus_sync_unlock =3D virtio_gpio_irq_bus_sync_unlock;
--=20
-  		/* The event comes from the outside so no parent handler */
-  		vgpio->gc.irq.parent_handler	=3D NULL;
-  		vgpio->gc.irq.num_parents	=3D 0;
-  		vgpio->gc.irq.parents		=3D NULL;
-  		vgpio->gc.irq.default_type	=3D IRQ_TYPE_NONE;
-  		vgpio->gc.irq.handler		=3D handle_level_irq;
-- 		vgpio->gc.irq.chip		=3D gpio_irq_chip;
-+ 		gpio_irq_chip_set_chip(&vgpio->gc.irq, &virtio_gpio_irqchip);
- =20
-  		for (i =3D 0; i < ngpio; i++) {
-  			vgpio->irq_lines[i].type =3D VIRTIO_GPIO_IRQ_TYPE_NONE;
-@@@ -647,8 -657,8 +658,8 @@@ static void virtio_gpio_remove(struct v
-  }
- =20
-  static const struct virtio_device_id id_table[] =3D {
-- 	{ VIRTIO_ID_GPIO, VIRTIO_DEV_ANY_ID },
-- 	{},
-+ 	{ .device =3D VIRTIO_ID_GPIO, .vendor =3D VIRTIO_DEV_ANY_ID },
-+ 	{ }
-  };
-  MODULE_DEVICE_TABLE(virtio, id_table);
- =20
-
---gme3rOL+2A7oZixo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHcMwAKCRAv73Ows9A4
-iVnBAPoDmllbBVBO+cp8PLEraL0c2wujSiowVv1l3y0FSPNYhwEAlq8+VQKiZioS
-ZZclIgsbD+VP/h0La1xyhXXnsC180wo=
-=bXUh
------END PGP SIGNATURE-----
-
---gme3rOL+2A7oZixo--
