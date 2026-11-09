@@ -1,78 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794216289;
-	b=3+RElFHuLwyf6+36zTbKC8Mnk9iSgqkK632o/lHhC6zMIc33t7icL95XVSjGuCqlPlEo
-	 3vt79+n5vxlg+DdZ1nWWdpf876sXOqpsvEI4R+BShE1dZ7MxT+vHO1/Dl/ncRs90URT1P
-	 zCq1DDvq1x9QXFV/zsVLSiFj84/B74KBFnyGwcnLummeIfiHuG6VTNRrZdSFUusc4d4sx
-	 kvUXju9NSbdYL/MuXhiwr3VGsywDKDdX03f/ISSdfMd+WmHQknm1ff9sxPKT+RTPJVb9E
-	 p2UDnoR3PvEILIm6Qzx/nbIERHv71hngsFUKrz3z3u4PGNowlebo9eDcg3+lM59eGZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216289;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Xu12zpNi8g3Ww+jQlbS2EOpBtBf4+Qt+Ls/JoZ5WG78=;
-	b=UZA4IBttwT9UlFm9MjgSnY4qjMz/M7/wMBtbT0fEev4NPFodRJKMT6lUlVhf/R6Y5D0M
-	 XgVYCdmRUVdzkXrVACPzYhJx5YBajf5cXR46Qr01d/msg/+N9K/ljKzNYFcR6asBTFpMa
-	 U1TK0wWTkEiQPEVmX2kb01hVVj61mEortBLENwTvG/A5cfvfj0g8kQVas4+2uljNcgs3D
-	 TQJVlbKHP7FsrTgJKqct6LqEJw3wm/pam9s0NSx6ow/gi6CKS7Dj56bg7v25vsj8EZH9T
-	 OUjxpgxCDsvuVsGKMqleHBHpEYjspBoyix9ZvikW3bZX+heCAADMLsZzKsNTTBPvcYQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nhu7iR0C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794216298;
+	b=JifhURpy+lX8A/cuUpURZrLBK8L33yMFUdRUljINcMipk9/8LTlmPtPZuIwZdbJ3ibj+
+	 hrWVGNdKNA8YiS0RNqEQnRARWAa70Er9raZMyMnr42kye0ZtrnbeSiwoG7bxugyIA38yr
+	 G4xce/+pRD33wjUG3reqS98jnBS/tFyIuoorjoQg5r4wMT4zMO0SQRbW25vHqJbVz2SfO
+	 2csj9+Un7qbclU4oRaKMPEwOgY5c0RlB224OgjLIGey/fNscTz4nsgUDDBjpfdpVswZoX
+	 zYdwreYZSVLhJqEZ3aPG6Tsii4fhKsTTKz8/a7pyvEEmTAqLNjzB3R2YmCctdO6BLvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216298;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=HGALxD8WUQh3k5e3MegYEdBDBQp8GKt6d5KoonnP72I=;
+	b=yA8v1s5n/nR1r3EyvGGDOdgkCkuLVU4tmMI0GEPoBkgEKmSNpNKGn6xiB1MYhBayrCEU
+	 nA+KrHyNGeBQAl2ue3XhvBIicx3DYq5bNpn9dudCb/cWwfk+zpTglLhcfB0PA1YphcpFC
+	 dIGjxsSYAtYG7zRWHjk6qJeluRuhlZM2xAOKvv02WYuRGrw8RnLYDFS+pX9L6hIgKmxYy
+	 xy7qslh0NTmaBoNT2r+oMycbwzLSPdc4W2pObN6KUn8yR7MMbRcMaAWOMSZaY60HgdfIY
+	 WrgYz0GvYoCQXXfwp3aiSbMBPDPYsOwfwsrNqpzd8MbZyMIoTOq7gDS8hIJ7uxqmUWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YpbCzhAx;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB57606A325;
-	Mon,  9 Nov 2026 09:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C8A606D80E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:24:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C8A606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nhu7iR0C
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794216289;
-	b=X2fXWHuataOfVkuBDCJwTK5UTbptMU+YpMwufHE+sz1sC5mToAjKG7XDj1rDMkbEaDyT
-	 pO4IqvbdSoWfmS7K+FFZFITyyqPXZB8ZpUZVYIo+1QBIY1UwwHNwKRhM2HK5eg5fB4Wga
-	 6pZuaRZBNMIAGAqKDxNetYwhICUvXobPLfGuSXrAAM2WoDGdzjr3yj46kxnTO+oHfVcWz
-	 BPJO6qDIY7mdJE54jffd12AFDfDCWzoGTUGZwGA+iihb5VOmV4IXzA9ipFxDE/Dak1W1q
-	 lqYK3is+vWLxKSyqXA9WGGHpgmFeFtnAb7JRx3j5WeYM2rh75zHoY+Jfi1CedOrBcOQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794216289;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Xu12zpNi8g3Ww+jQlbS2EOpBtBf4+Qt+Ls/JoZ5WG78=;
-	b=feoDFSqcGSeYk7un5rCFo6FJ+WlDw5ZakFEsP1jG0j9g/fDizMtbm71m+jopCY/0olXV
-	 udx48UAxgoH5sazpOEhLfWp85+0IyGQ9Iapjr4rjJoiWJU70u985wwXCtkhbr0sfL8gIT
-	 IDWgKtzCGcff+HbTOheM+YLqwWoKoVOI0Emvbk6HHvEVi7+FWlJQfb5WIpwfkamc2PqLG
-	 qzfZrmuTox7lOkKsf5IUuVzSNczZtF+FYWCDO5AXF5F2xIrFq/uI/xmhVqZg2bJyzxbkx
-	 vo/F7aJfEKqaaD32/WdOi7mzStd7Yn0XItxAqPyQrV7xTNyI3/hcxaNbpV4ZYBz8AIw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8D8AF1F0089F;
-	Mon,  9 Nov 2026 09:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794216289;
-	bh=Xu12zpNi8g3Ww+jQlbS2EOpBtBf4+Qt+Ls/JoZ5WG78=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Nhu7iR0Cn+DE1zuBqUTTEqK1YvQ/Q5sZwBlDYwkAqA/cKamoLgYe7gg4jm0R0gZa5
-	 oYzZVrf1x2YSq89Wrst1QvaGXyOUz8bwXNnrdhUY+rTzjeQj+YXOK1KRgFcyux76r5
-	 DDH7UQsFo1XjRXDDcOsnqvHllTmndmnlQb7ZCdYv5jSY1AvyYmUKJ9jicXln4YAaTv
-	 JhA7HvuI/4Es29H/uqBccchSCeOglFiFTz7vG0c2PcvlX/k03nj0fA0R9SeFlRxOGk
-	 U8Fj2rzDFNwz3D9uTEM1dW6LO3YwZlxrQ4goev4fCVBAQfSjsIahBl9BqUVITtDWG2
-	 YkhFAgte4CEAw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1A1344836E;
-	Mon,  9 Nov 2026 09:24:48 +0000 (UTC)
-From: Yu Yang via B4 Relay <devnull+yuyang.kylinos.cn@kernel.org>
-Date: Mon, 09 Nov 2026 17:24:28 +0800
-Subject: [PATCH] PCI/MSI: Skip address mask check for MSI-X entries
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YpbCzhAx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794216297; x=1825752297;
+  h=date:from:to:cc:subject:message-id;
+  bh=kfjgmSMfsPk6Yd4+gNBg3pZU7iF+GpI3egFCB98F2P8=;
+  b=YpbCzhAxDZPvuIsPGYaP3odHP3uXPl787XhB4Oer97jQLoMXigOaKFZC
+   V88jFUAfbcx68BEqm8aRxP9wOaptnDLsl0zHXaFeyFsfLF9BskflKVIuP
+   UCzYNJZVRUPv4L0udcrKfNXe9JL3GaJA5nHVbwqgtTSKzW3iOPQWLYfFB
+   ela2ucuLwAJxUgPq/dp7jsyVTIaBVI6rl9bMJfHFJaH3NGBLGdcpouAzp
+   8roJeHrOasAHt006LL2IJrQU32OVKcmnLghFoetNKgt+tsv1kZEGcD9Sq
+   do/50hlvlcC5Zsz6BAE5YMg0uzeEyVsuz745c7gfQBXwIv59ypif6xrql
+   Q==;
+X-CSE-ConnectionGUID: yXbAyU7qRQmo5B76vaDMbg==
+X-CSE-MsgGUID: 50OeKUp1TumX8C14dFa27A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2830521"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2830521"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 01:24:57 -0800
+X-CSE-ConnectionGUID: lYAG9YVGTQ6H9HmDxXwvhQ==
+X-CSE-MsgGUID: Xy9uimLMT++A69ksgL1ZEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7699383"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1db0d17a343c) ([10.211.93.152])
+  by orviesa003.jf.intel.com with ESMTP; 09 Nov 2026 01:24:56 -0800
+Received: from kbuild by 1db0d17a343c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQLcR-000000000I1-3tFI;
+	Mon, 09 Nov 2026 09:24:51 +0000
+Date: Mon, 09 Nov 2026 10:24:51 +0100
+From: kernel test robot <lkp@intel.com>
+To: Alexey Kardashevskiy <aik@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: drivers/crypto/ccp/sev-dev.c:1496:2-13: opportunity for
+ str_enabled_disabled(data . tio_en)
+Message-ID: <202611091052.6Mr5WKA1-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,89 +79,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-pci-fix-msix-alloc-failure-v1-1-6370c0b84354@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAEuR8WoC/x2MSQqAMAwAvyI5G7A9uH1FPJQ20UBdaFGE4t8NX
- gYGhimQKQllGKsCiW7Jcuwqpq7Ar25fCCWog21sa0wz4OkFWR7cssLFeHhkJ/FKhD4wU+Cho96
- CDs5EWv7zaX7fDxH2mldsAAAA
-X-Change-ID: 20261109-pci-fix-msix-alloc-failure-cdffedf97e82
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
- Michael Ellerman <mpe@ellerman.id.au>, 
- Brett Creeley <brett.creeley@amd.com>, Shannon Nelson <sln@onemain.com>, 
- linux-kernel@vger.kernel.org, Yu Yang <yuyang@kylinos.cn>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794216287; l=2146;
- i=yuyang@kylinos.cn; s=20261109; h=from:subject:message-id;
- bh=fq57q40/5O4bXqj13wzHAYXlVx1mOt/jNhP7ggzzvwU=;
- b=HmUWeekm6t09OjI/k6Xpy3e41nbV6rOobI0E6lAx7TjPCaJo+xung/OaZDLhu3v8VVnLnWEs4
- 9y7toDvn/GbC1cDslIZz2I/OGVc06h4NcnugXpxwzH14DUZ6oz8TcZj
-X-Developer-Key: i=yuyang@kylinos.cn; a=ed25519;
- pk=LQAY8k9sUwvjwxS9P2CQE0GbrKw/MJPJbDHlapWOZ8A=
-X-Endpoint-Received: by B4 Relay for yuyang@kylinos.cn/20261109 with
- auth_id=1458
-X-Original-From: Yu Yang <yuyang@kylinos.cn>
-Reply-To: yuyang@kylinos.cn
-Content-Transfer-Encoding: 7bit
 
-From: Yu Yang <yuyang@kylinos.cn>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+commit: 4be423572da1f4c11f45168e3fafda870ddac9f8 crypto/ccp: Implement SEV-TIO PCIe IDE (phase1)
+date:   11 months ago
+config: x86_64-randconfig-2102-20261109 (https://download.01.org/0day-ci/archive/20261109/202611091052.6Mr5WKA1-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
 
-The AHCI controller on Zhaoxin ZX-200 platforms supports only 32-bit
-MSI addresses, but its MSI-X capability uses 64-bit message addresses.
-pci_msi_init() therefore sets dev->msi_addr_mask to DMA_BIT_MASK(32)
-based on the MSI capability.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 4be423572da1 ("crypto/ccp: Implement SEV-TIO PCIe IDE (phase1)")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611091052.6Mr5WKA1-lkp@intel.com/
 
-msi_verify_entries() is shared between the MSI and MSI-X setup paths.
-When the irq domain assigns an MSI-X message address above 4GB, the
-32-bit mask inherited from the MSI capability causes MSI-X setup to
-fail with -EIO:
+cocci warnings: (new ones prefixed by >>)
+>> drivers/crypto/ccp/sev-dev.c:1496:2-13: opportunity for str_enabled_disabled(data . tio_en)
 
-  ahci 0000:09:0f.0: arch assigned 64-bit MSI address 0x8002a030040
-  above device MSI address mask 0xffffffff.
-  ...
-  ahci: probe of 0000:09:0f.0 failed with error -22.
+vim +1496 drivers/crypto/ccp/sev-dev.c
 
-MSI-X table entries have a 64-bit message address field, so the 32-bit
-limit derived from the MSI capability does not apply to them.
-Platforms that use msi_addr_mask to constrain MSI-X allocation, e.g.
-powerpc pseries/powernv and ionic on PPC64, already allocate addresses
-that satisfy the mask, so the verification is redundant for MSI-X.
+  1368	
+  1369	static int __sev_snp_init_locked(int *error, unsigned int max_snp_asid)
+  1370	{
+  1371		struct psp_device *psp = psp_master;
+  1372		struct sev_data_snp_init_ex data;
+  1373		struct sev_device *sev;
+  1374		void *arg = &data;
+  1375		int cmd, rc = 0;
+  1376	
+  1377		if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
+  1378			return -ENODEV;
+  1379	
+  1380		sev = psp->sev_data;
+  1381	
+  1382		if (sev->snp_initialized)
+  1383			return 0;
+  1384	
+  1385		if (!sev_version_greater_or_equal(SNP_MIN_API_MAJOR, SNP_MIN_API_MINOR)) {
+  1386			dev_dbg(sev->dev, "SEV-SNP support requires firmware version >= %d:%d\n",
+  1387				SNP_MIN_API_MAJOR, SNP_MIN_API_MINOR);
+  1388			return -EOPNOTSUPP;
+  1389		}
+  1390	
+  1391		/* SNP_INIT requires MSR_VM_HSAVE_PA to be cleared on all CPUs. */
+  1392		on_each_cpu(snp_set_hsave_pa, NULL, 1);
+  1393	
+  1394		/*
+  1395		 * Starting in SNP firmware v1.52, the SNP_INIT_EX command takes a list
+  1396		 * of system physical address ranges to convert into HV-fixed page
+  1397		 * states during the RMP initialization.  For instance, the memory that
+  1398		 * UEFI reserves should be included in the that list. This allows system
+  1399		 * components that occasionally write to memory (e.g. logging to UEFI
+  1400		 * reserved regions) to not fail due to RMP initialization and SNP
+  1401		 * enablement.
+  1402		 *
+  1403		 */
+  1404		if (sev_version_greater_or_equal(SNP_MIN_API_MAJOR, 52)) {
+  1405			bool tio_supp = !!(sev->snp_feat_info_0.ebx & SNP_SEV_TIO_SUPPORTED);
+  1406	
+  1407			/*
+  1408			 * Firmware checks that the pages containing the ranges enumerated
+  1409			 * in the RANGES structure are either in the default page state or in the
+  1410			 * firmware page state.
+  1411			 */
+  1412			snp_range_list = kzalloc(PAGE_SIZE, GFP_KERNEL);
+  1413			if (!snp_range_list) {
+  1414				dev_err(sev->dev,
+  1415					"SEV: SNP_INIT_EX range list memory allocation failed\n");
+  1416				return -ENOMEM;
+  1417			}
+  1418	
+  1419			/*
+  1420			 * Retrieve all reserved memory regions from the e820 memory map
+  1421			 * to be setup as HV-fixed pages.
+  1422			 */
+  1423			rc = walk_iomem_res_desc(IORES_DESC_NONE, IORESOURCE_MEM, 0, ~0,
+  1424						 snp_range_list, snp_filter_reserved_mem_regions);
+  1425			if (rc) {
+  1426				dev_err(sev->dev,
+  1427					"SEV: SNP_INIT_EX walk_iomem_res_desc failed rc = %d\n", rc);
+  1428				return rc;
+  1429			}
+  1430	
+  1431			/*
+  1432			 * Add HV_Fixed pages from other PSP sub-devices, such as SFS to the
+  1433			 * HV_Fixed page list.
+  1434			 */
+  1435			snp_add_hv_fixed_pages(sev, snp_range_list);
+  1436	
+  1437			memset(&data, 0, sizeof(data));
+  1438	
+  1439			if (max_snp_asid) {
+  1440				data.ciphertext_hiding_en = 1;
+  1441				data.max_snp_asid = max_snp_asid;
+  1442			}
+  1443	
+  1444			data.init_rmp = 1;
+  1445			data.list_paddr_en = 1;
+  1446			data.list_paddr = __psp_pa(snp_range_list);
+  1447	
+  1448			data.tio_en = tio_supp && sev_tio_enabled && amd_iommu_sev_tio_supported();
+  1449	
+  1450			/*
+  1451			 * When psp_init_on_probe is disabled, the userspace calling
+  1452			 * SEV ioctl can inadvertently shut down SNP and SEV-TIO causing
+  1453			 * unexpected state loss.
+  1454			 */
+  1455			if (data.tio_en && !psp_init_on_probe)
+  1456				dev_warn(sev->dev, "SEV-TIO as incompatible with psp_init_on_probe=0\n");
+  1457	
+  1458			cmd = SEV_CMD_SNP_INIT_EX;
+  1459		} else {
+  1460			cmd = SEV_CMD_SNP_INIT;
+  1461			arg = NULL;
+  1462		}
+  1463	
+  1464		/*
+  1465		 * The following sequence must be issued before launching the first SNP
+  1466		 * guest to ensure all dirty cache lines are flushed, including from
+  1467		 * updates to the RMP table itself via the RMPUPDATE instruction:
+  1468		 *
+  1469		 * - WBINVD on all running CPUs
+  1470		 * - SEV_CMD_SNP_INIT[_EX] firmware command
+  1471		 * - WBINVD on all running CPUs
+  1472		 * - SEV_CMD_SNP_DF_FLUSH firmware command
+  1473		 */
+  1474		wbinvd_on_all_cpus();
+  1475	
+  1476		rc = __sev_do_cmd_locked(cmd, arg, error);
+  1477		if (rc) {
+  1478			dev_err(sev->dev, "SEV-SNP: %s failed rc %d, error %#x\n",
+  1479				cmd == SEV_CMD_SNP_INIT_EX ? "SNP_INIT_EX" : "SNP_INIT",
+  1480				rc, *error);
+  1481			return rc;
+  1482		}
+  1483	
+  1484		/* Prepare for first SNP guest launch after INIT. */
+  1485		wbinvd_on_all_cpus();
+  1486		rc = __sev_do_cmd_locked(SEV_CMD_SNP_DF_FLUSH, NULL, error);
+  1487		if (rc) {
+  1488			dev_err(sev->dev, "SEV-SNP: SNP_DF_FLUSH failed rc %d, error %#x\n",
+  1489				rc, *error);
+  1490			return rc;
+  1491		}
+  1492	
+  1493		snp_hv_fixed_pages_state_update(sev, HV_FIXED);
+  1494		sev->snp_initialized = true;
+  1495		dev_dbg(sev->dev, "SEV-SNP firmware initialized, SEV-TIO is %s\n",
+> 1496			data.tio_en ? "enabled" : "disabled");
+  1497	
+  1498		dev_info(sev->dev, "SEV-SNP API:%d.%d build:%d\n", sev->api_major,
+  1499			 sev->api_minor, sev->build);
+  1500	
+  1501		atomic_notifier_chain_register(&panic_notifier_list,
+  1502					       &snp_panic_notifier);
+  1503	
+  1504		if (data.tio_en) {
+  1505			/*
+  1506			 * This executes with the sev_cmd_mutex held so down the stack
+  1507			 * snp_reclaim_pages(locked=false) might be needed (which is extremely
+  1508			 * unlikely) but will cause a deadlock.
+  1509			 * Instead of exporting __snp_alloc_firmware_pages(), allocate a page
+  1510			 * for this one call here.
+  1511			 */
+  1512			void *tio_status = page_address(__snp_alloc_firmware_pages(
+  1513				GFP_KERNEL_ACCOUNT | __GFP_ZERO, 0, true));
+  1514	
+  1515			if (tio_status) {
+  1516				sev_tsm_init_locked(sev, tio_status);
+  1517				__snp_free_firmware_pages(virt_to_page(tio_status), 0, true);
+  1518			}
+  1519		}
+  1520	
+  1521		sev_es_tmr_size = SNP_TMR_SIZE;
+  1522	
+  1523		return 0;
+  1524	}
+  1525	
 
-Skip the address mask check for MSI-X descriptors.
-
-Fixes: f144d1496b47 ("PCI/MSI: Add device flag indicating that 64-bit MSIs don't work")
-
-Signed-off-by: Yu Yang <yuyang@kylinos.cn>
----
- drivers/pci/msi/msi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 8a0133a6a286..7f34bccc8248 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -338,6 +338,13 @@ static int msi_verify_entries(struct pci_dev *dev)
- 		return 0;
- 
- 	msi_for_each_desc(entry, &dev->dev, MSI_DESC_ALL) {
-+		/*
-+		 * MSI-X entries always use a 64-bit address, so the address
-+		 * limit for MSI capability does not apply for MSI-X.
-+		 */
-+		if (entry->pci.msi_attrib.is_msix)
-+			continue;
-+
- 		address = (u64)entry->msg.address_hi << 32 | entry->msg.address_lo;
- 		if (address & ~dev->msi_addr_mask) {
- 			pci_err(dev, "arch assigned 64-bit MSI address %#llx above device MSI address mask %#llx\n",
-
----
-base-commit: 996a59519af2ef3d8f47479685616bb2278c6cfa
-change-id: 20261109-pci-fix-msix-alloc-failure-cdffedf97e82
-
-Best regards,
--- 
-Yu Yang <yuyang@kylinos.cn>
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
