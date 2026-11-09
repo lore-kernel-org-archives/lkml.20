@@ -1,109 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222010;
-	b=MihS1VBbgwymvos/0Rd6BFda4suRxtBp6U470ePOMMmfV/UV1tOX/N396Mqde5HSre2p
-	 t9jnNHb57N87H/Xpg44hy/uwak8jBcSNMupczvAM7esvP6AcTMKRSEZDlm8nITcsqmR74
-	 JNgOo7cg4Nru75RRPBxF+d/P8TkgN34YHw/8JP8sYr2oEOhNRfv+iNSZl95O3Ln20Indt
-	 jwceEw1RpnOkbAhaCilRYxnfZBmJiiSkGs9BGGHfBn6+/GIX+Q9daYSQiGwZTCSWzdgP3
-	 JUnl7xkwv75VLeTsEPGpOwyOT+KK/5AjUr/lfsD5R34bRGXHttxR96cPvJnsK5k1m9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222010;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794222016;
+	b=Uj7jbAM7qvrb3cpMWthnObu+SgSuwWlUu9UtTVhAq/2EFJk/CxH86eVbIh1iAzTHSEeH
+	 4HHA9aKZiNpec4+Cb7fRTErTbOitJQYH2aEdUa0Tf+I17MEJzoi2zRutiNFH0kua4aXZ+
+	 8FEL2GZvAAqpojT6uFkCNWUHhA2acbe5s9UFSjGvO5tRiQNIzYItVdT1aeq3l9phHwVhu
+	 YwKa8LyVQU4+NQLXKzEDUX+KOhhlZ1CN1gCNpjjOJPIvoKDC6rvD5mBFcj3BbYhtAOpUM
+	 X9QMwbBOap95Ah966MbI0mDb5Jb6aiy6AuWpNdzBRXtdvkxWx08ng2Uwl6IRLoEBDjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222016;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ElXE6Czu3kJtnBp4J8hepfVFWJpvs2+YyAeDoXoHd4Q=;
-	b=AL7e0kHJcrpTzKjmcMMzq/ik1rmWCPqSCalXo09CCcpbRFX6349v45Q0ExXpcFlLG6Rl
-	 1shAFkRi7CCeMWER+G6poDRfGk8pyXzrLthO/NgMkW34CP/Ru+MrK3rtWGA0DOAbfAklW
-	 squLAYYFgj+kDbFUMhzNR0GCpTamJ0II3mtzZMNafhIvuYo23P6CRn7Z3JItxDN0BC0Hg
-	 WVxpGyMyalSb0orTTX1oyVCEmOKEoy1vQy8P+t2sykMdJQ+nqK+1FNCL4ABWGOh5wkdfx
-	 fYnY2K3EBZOthiZmEwneeeBztXDH4jRUgF+Od3koWNc5r2uRu1z5hlBnOUgufjnpadA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QmWofXbWMdEdzs5zr41CSz786HngxOkg4TFJTbqETls=;
+	b=ZWKtOsw/6fBjim8e+yU7gSihEZnQnKnUEuGAtGwdDBAt0OoTriURVD6jROKuQMjvVSx0
+	 zdrHdlRr4ubdE+MfQLmB8/isRybqJlm0x7j2sV65y3oKRiFLL6K7/eqvjb0SSDxgERa40
+	 BMsJsyAhJaVVMpwnpw9JHg0CFkN4JxGD4g+LFit7FCFe1yDk9waze4ge8o/U8kLRvl6am
+	 ttowUGLXNR4HhzREVt7P0g/XTxv2Brs63TuBLvpO3aPqsUwM7LODki81CcVxDAvoMSFrM
+	 ZoK+Ax5Q+M3iecrmD8xZG6JlBtiUOrC4n7er4LKw/mzRv/fOwdifCoCw31inv1UrQVA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oG7oDRzE;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mwMTt8Rc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E88F606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E88F606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6911C606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:00:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6911C606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oG7oDRzE
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36f6295304dso831637eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:00:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mwMTt8Rc
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3712b6d9843so355730eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:00:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794222015; cv=none;
+        d=google.com; s=arc-20260327;
+        b=heuMcCdFPbioQyAAvmJ7DZAKfgbTFw87kyaivGby74hsYMOvsfJXeM0Kzad6KhlIIg
+         Lo0lMpNiq5IHdaN+N6wf/8EzRIbpOA5jjgicTpfTCn0BidXP8chxe97IYbWMkRh8R2DN
+         ltyqk+50VPPEjaOpQPgwvOKSwXm0lO6Dq/qPdxskpxTPRJ84N/7NfAh/tjH6vAh05PD/
+         DObpAxAOww4J8k9bwoJkdnZESwHsmnYRcJQDmAVPWcK5CBr4nhlCI1GwXuH9N0iQOIPH
+         BTTZO7G/JuHRnZXJZJRh1BRFlR4z2RC77BIqtOpjqsQdQGGNTMSVl5+/RNETbKPWPDv+
+         s1/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QmWofXbWMdEdzs5zr41CSz786HngxOkg4TFJTbqETls=;
+        fh=lt3ZwDApGg6rF5Gsf07jVIkvJyTx8ooIaT6VkjHKDxY=;
+        b=nXw6fNK7GZvxeIWtIOjwEbRSp2SV5yi6MRNxHqS4tM5HqzxbQB/CjKZO8y99t7D8e6
+         nboBSPt+xuwxRdZsljSQgnHw9Qo9EouKYiARJHsWLkC65srh/d3XLL72Bzj7FZjLcRnW
+         cSEqXsXjoL6urTkQHTuylPKiFcTyYN1x77NdqjmTTNfDgQl2RpZb2RrNKUoKWIlLPM8k
+         jkek6iA0lqvQIXUUAbESTrwiug43/bDcVZiX2xWILogNmvB/cTrPSnMPqGF14Oxcc9SZ
+         mnC7qy6y2MhLxTE/Z1atoSXuKzdC6eol8gqdqAIE9KIkJv9k2HdqCEsHjEeK5lqgY/9S
+         hfPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794222009; x=1794826809; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794222015; x=1794826815; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ElXE6Czu3kJtnBp4J8hepfVFWJpvs2+YyAeDoXoHd4Q=;
-        b=oG7oDRzEqlj9IqURnOyQtZsM7QJeODStDhyG2uQVdblnfvxu6nLFjyje5IHZeANfIj
-         YrT33mX+0voC65lpjBYHCDwumyWa8uM6W588NL+gKtUSMwWeL+a9FIx/vrsqBWgSLsK3
-         5G/GjFFcA/nGTrRe0AOqmca8DVVsNeVEcXaDex5wOXVtZvvlNWNZDh/BLUPoN0AaZqoF
-         lcDbjw6JfpOu2zjphkQgzlWFa21BDidBGCD7Y48JwojeRIMrJzKBbQmVnobdBfHIdqjc
-         lj/1pdkqVCUZ1jqZTMq0qCB99y/QytEKr7KSfEF4UKWTQVR0j65UnUE2ULpbcJOR+rtY
-         /OiA==
+        bh=QmWofXbWMdEdzs5zr41CSz786HngxOkg4TFJTbqETls=;
+        b=mwMTt8RcMPtSk7wFcmjmnnpmUqobz8k4ncIEnvNn4Blb/UjCaftrN1j2PLwFWQhtCQ
+         oN+kCcKhfA2HTM+B3aiUPBdoPV+PHgQaZDmssSA+z9efn1dFAmE6tBuQZVLMBi0okHQ1
+         BJoMXdmjg2Mq6YleFkDgAThdWHwyKR3zdWfAT0XOoRodHcYxqxSd6vc9r1UT/IU6zfti
+         t7EsZZVlzafPPjl664uMbYY+I+d5OLuU2XsRxeN7bLgFyN7vVhRENS1GGDsigjv5t2km
+         DtLJLZUmA0ffPtJzhrwGodWvBUsSMOYb2tVOHPnpUt96/l9XYEv/fE5j1ATrprd0zzGH
+         OYWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794222010; x=1794826810;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794222015; x=1794826815;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ElXE6Czu3kJtnBp4J8hepfVFWJpvs2+YyAeDoXoHd4Q=;
-        b=VKlQsIbQPE//v8o+cQKwy021H0SLYWt21d2B21ZujbHzseQSfapZQOw6Uavx7iTE5B
-         eSwKnJLE8kwOjURo+aCuDsCFZ2HpZ0zJiuAwKFS52OPgVa5e79TO0Ug9E7YzzF0jgFM4
-         hBa2Aizz5dXT7o6H0iNejSmJZH+jGLydxohzCXEgAHV4h5MW+P4AG+n5/zyEwN4biGgr
-         sMq2QodkC/DLV6MpqysLzMQbJSvVaR3sW/LNDnQFgQiPEuYFqUccLSoZgPb+hRaRZEa6
-         GQGEL9cZD6LXRa6MC6qPoSbqmzZyWrTG5sqFR1EpTVAKZ33WbIU4RIG69aiiCzIO6tAO
-         pQjg==
-X-Forwarded-Encrypted: i=1; AL+hErEpLiHFp7Qk/q0iSBnsz7MbGhZ/rRm5gc91Ls66yHwTkRGN0AlVLlfErTHowU/6uiZr6BVrNmt9QYbzFBE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91C6Pp3lieCRbjjbRH7Ninca6bdfEnmiHtt/3TCZClLw80xq1A
-	FnyPrDaTH2O6QvZFtd+9zfeOHq8IjkG5Wir0P8KWClWMViUDc6hOOFpP
-X-Gm-Gg: AYBFou0mp6r05atNGX5vy9YpjDKCcSEbJ+PUD5Bdvi++PjJMRG/VRvZZrO7X07PcWLq
-	OGSCI0LV4wncinyLz6SjNSprqEPvtCEFOXahfmwiyK9HuB6vFIt6axgsLkQ1faV2bQSrXevxrJj
-	s+zZvlP2Lkj/g7P63glu/WDTFTn+GBbg7EBsB2cpPy8Olgs/Yo76n0/unQx2DDM2LJ6zeR6SVpY
-	k3RyWbHC60VroxnT59U6SS0NKkTyawAVghSfatWUnmKmUlT62rVtveJzh1KnlEJPt/AZwGgX5rs
-	vyOnqEyYk9kVMjep4sDMoMjHGFi4tK/dQrRcZBv+tyILUVnhR4+ZN1qtVBcXsfJIu6IlGUtaRa8
-	d4W53DaIOMrWzPljeV9hnE4N3WpJw5SphyVG3vlZDYxnupD4vAAMwQiPFMWJcxj/82eK5BWVZ3V
-	5tcIRAuDB/adZRNyg9DfQnEYgors2M9A5n9ah1NoCm/BdMD88rW6DyxyZs/uEKqs9YkqbPQSqjN
-	oYG3FgxMR80phA0nIQiKOfDVv6IWriXQaxlBX/P2JyifaUuVHuyXsNXhipyq3f2WeXJHN3/T7N9
-	CJAdcKjU41oU8j+Wu0SWqtcojc2gWzNUIXCxjNS5lETVrja9wA==
-X-Received: by 2002:a05:693c:8808:20b0:36c:9e26:88b6 with SMTP id 5a478bee46e88-37256613f82mr6129121eec.9.1794222009245;
-        Mon, 09 Nov 2026 03:00:09 -0800 (PST)
-Received: from hongfeng.mioffice.cn ([43.224.245.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265c06c61sm11832518eec.14.2026.11.09.03.00.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:00:08 -0800 (PST)
-From: Hongfeng Chen <chenhongfeng0212@gmail.com>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Hongfeng Chen <chenhongfeng0212@163.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Barry Song <baohua@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Minchan Kim <minchan@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Wenchao Hao <haowenchao@xiaomi.com>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	Hongfeng Chen <hongfengchen@xiaomi.com>,
-	Hongfeng Chen <chenhongfeng0212@gmail.com>
-Subject: Re: [RFC PATCH v4 0/2] mm/zsmalloc: defer object free to per-cpu batches
-Date: Mon,  9 Nov 2026 18:59:55 +0800
-Message-ID: <20261109105957.2577351-1-chenhongfeng0212@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAKEwX=M4jTnxmq6cj115Gw4u5jdY7Ex65jPtVTEopW70jGzfuQ@mail.gmail.com>
-References: <20261016120927.3191690-1-hongfengchen@xiaomi.com> <20261023123736.1542117-1-chenhongfeng0212@163.com> <CAKEwX=M4jTnxmq6cj115Gw4u5jdY7Ex65jPtVTEopW70jGzfuQ@mail.gmail.com>
+        bh=QmWofXbWMdEdzs5zr41CSz786HngxOkg4TFJTbqETls=;
+        b=jqCWO8YnsHFGqKGeuly40vyRyHW1One9G+TSs38IJn44afR0Pm8B7ycvwht/1WuH4D
+         KrrWAUMFCN2nJiAMKhOAzn3RroL9rV93dKY76C20nlNCiRj17X1vE5CEwcE59SkPoxK0
+         BUBrx5EXCcdkCeOQ5MsD878BYTXiyEa9q72i/lI5CQsAZg2hhvVBfwgHkOzA+5X8SpxL
+         ajNOMsgqQflc0dNVFH5zYX4yo9asGmyroCG4SPcJspHY8maY6Zs8tAfl0QK/QKaBCdu7
+         xqceDIQtz1nIGpLkjvVfq2xKGdAPBh24vXJkf0mJUQyPyKrRw9vcK/K+7DwS0gPb6yVX
+         lYmA==
+X-Forwarded-Encrypted: i=1; AL+hErGRF0owB4yaClCuZJFB94dIuASclINm3kY2wGSR2Y4AexE7DS46jdMhH4NSl4OS5/lKhfUWN4CXCrvNmEs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8z+FfMWSnZtWVlUTCx5cuAUmJwUlyuLAO6CxYDodvbz3oa/QrS
+	rslja82I0lLYYsDSzhXfGQqpHjtP0lbnDtsX1j1wdvTKvIrWdFhO4o5pFdbTDaZDhWeFCE4nPtI
+	vrA8tSrLg/wSw0cJ08pwciJVDD+/8dpc=
+X-Gm-Gg: AYBFou2NqVUUci6Rn0/iLFjegV0/YN56Y3CjZlDePIpZIwhr/iiL/mliceMxQyi2MF/
+	N2P1euXXlDt8MbrtKqH4UVvdyOPrPqPNmofKA3d7AxLCWXjQpqLqviNhLAX45CWPS4x9jZjmLXu
+	S87tMazKDMuDexdxh/eVUm6G0iZLePLOkBh+3OuV9jF4G4y+9gEJLxkQosdrvtsbBId3qr/6Wj1
+	SzHi7yoi/1PI0lPZtxqRmipiT8h2Gqsny5OKx1gRvtYmLHR+5KMbzEpX9Wo/8G5B25i2EImKL2r
+	MKpDz7NFuYrXYECtvNXVczt1nbYuwQLnJstUFm2N7oRho+8F5aqrF2nOTxK11xCzXtt2ZBscYFP
+	GI934+qny4kmbk/K8K3pgNnGkiaQj5QpOzRNIa0cFubMlC7LNPxrX44XrWPpWvCgotmK7
+X-Received: by 2002:a05:7300:ce01:b0:36d:1b8b:617b with SMTP id
+ 5a478bee46e88-37254d9a78cmr5220410eec.9.1794222015114; Mon, 09 Nov 2026
+ 03:00:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,76 +104,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261105103903.1440114-1-hj351016@gmail.com> <179422158699.994134.3116496415821822388@kernel.org>
+In-Reply-To: <179422158699.994134.3116496415821822388@kernel.org>
+From: khj <hj351016@gmail.com>
+Date: Mon, 9 Nov 2026 20:00:03 +0900
+X-Gm-Features: AclHuK_uWIXsQR62vATDyynpAjlDWywwUTgf0eo8NsCNXBCpdKDDQledVx3Gusw
+Message-ID: <CAGr5VtNzVq0xYfX6_zSjk8fWncgsw=3CmUY3THXeBg7UvTXg4g@mail.gmail.com>
+Subject: Re: [PATCH] nfc: pn533: validate response length before parsing DEP ATR_RES
+To: netdev-bot+sashiko@kernel.org
+Cc: david@ixit.cz, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kuba@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hongfeng Chen <chenhongfeng0212@163.com>
+ Thanks -- the [High] is correct and important. v1 put the length
+check before the status read, so a no-peer/timeout reply (resp->len =3D=3D
+1) returned -EINVAL and skipped the "turn radio off, re-arm polling"
+path, stalling the DEP poll loop. v2 moves the check onto the success
+path (after the status check) in all three ATR_RES handlers, so the
+short failure reply keeps its existing handling and only a short
+success reply (which would over-read the fixed header) is rejected.
 
-On Fri, Oct 23, 2026 at 11:19 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> Is there any more juice we can squeeze from zsmalloc in that case?
+ v2 also adds the Fixes: tags, guards the third parser
+(pn533_activate_target_nfcdep), and drops the inaccurate sentence that
+claimed the other handlers already length-check resp->len (only
+pn533_init_target_complete() does).
+
+ pw-bot: cr
+
+2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 7:53, <=
+netdev-bot+sashiko@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
-> It would be nice if you can perf zsmalloc freeing. And yeah, maybe we
-> can't optimize any further, but let's eliminate that first before we
-> rely on offloading.
-
-Here is the perf breakdown of the free path:
-
-zram:
-
-  __swap_cluster_free_entries        90.28%
-    zram_slot_free_notify            86.01%
-      slot_free                      74.15%
-        zs_free                      56.01%
-          __free_frozen_pages        19.85%
-          kmem_cache_free            10.15%
-          _raw_spin_lock              5.53%
-          fix_fullness_group          3.31%
-          dec_zone_page_state         2.43%
-          obj_free                    2.17%
-          trylock_zspage              2.12%
-
-zswap:
-
-  __swap_cluster_free_entries        94.30%
-    zswap_invalidate                 93.49%
-      zswap_entry_free               73.76%
-        zs_free                      34.03%
-          __free_frozen_pages        11.13%
-          kmem_cache_free             5.57%
-          fix_fullness_group          2.66%
-          _raw_spin_lock              2.45%
-          trylock_zspage              1.75%
-          dec_zone_page_state         1.67%
-          obj_free                    0.96%
-        obj_cgroup_uncharge_zswap    13.90%
-        list_lru_del                 11.73%
-        kmem_cache_free               4.62%
-      xa_erase                       19.27%
-
-Most of zs_free() is returning memory: empty zspages, handles and
-zspage slab objects. So returning memory cannot be avoided, it can
-only be batched or deferred.
-
-In zram, zs_free() is 56% of the time, so deferring only zs_free()
-can speed up munmap() by at most about 2.3x. In zswap, zs_free() is
-34% of the time, so the speed up limit is about 1.5x.
-
-That leaves two places to go further.
-
-1. Async freeing at or above __swap_cluster_free_entries()
-
-Deferring at or above __swap_cluster_free_entries() covers zram and
-zswap with one mechanism.
-
-2. Optimizing zram alone
-
-For zram I would rather go back to v1 [1], which defers in zram. v1
-also uses a single gc_work per device to offer a best-effort service,
-which greatly reduces the impact of the unbound worker on other
-tenants.
-
-
-[1] https://lore.kernel.org/linux-mm/20260412060450.15813-1-baohua@kernel.org/
-
-Thanks,
-Hongfeng
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 3
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] In pn533_poll_dep_complete() (drivers/nfc/pn533/pn533.c, new
+>   check at line 1313) and pn533_in_dep_link_up_complete() (line 1936),=E2=
+=80=A6
+> - [Low] The commit message says 'pn533_rf_complete()-style handlers in
+>   this file already length-check resp->len before use'.
+> - [Low] pn533_activate_target_nfcdep() (drivers/nfc/pn533/pn533.c:1777)
+>   parses the InATR ATR_RES (struct pn533_cmd_activate_response, 16-byte=
+=E2=80=A6
+> - [Low] The patch says it fixes an out-of-bounds read whose bytes reach
+>   userspace through netlink (nfc_targets_found() ->=E2=80=A6
+>
+> --
+>
+> nfc: pn533: validate response length before parsing DEP ATR_RES
+>
+> This commit adds a check that resp->len is at least
+> sizeof(struct pn533_cmd_jump_dep_response) to pn533_poll_dep_complete()
+> and pn533_in_dep_link_up_complete(). The check runs before the response
+> status is read. It is meant to stop the handlers from reading the fixed
+> 17-byte ATR_RES header, including nfcid3t[], past the end of a short
+> response.
+>
+> > A valid ATR_RES always carries the full 17-byte fixed header (the
+> > general bytes, if present, start at offset 17), so reject any response
+> > shorter than sizeof(*rsp) before parsing it. pn533_rf_complete()-style
+> > handlers in this file already length-check resp->len before use (e.g.
+> > the ATR_REQ_GB_OFFSET check in pn533_init_target_complete()).
+>
+> [Severity: Low]
+> Is this description of the other handlers accurate? pn533_rf_complete()
+> only checks IS_ERR(resp), then queues poll_work and frees the skb. It
+> never looks at resp->len or resp->data:
+>
+> drivers/nfc/pn533/pn533.c:pn533_rf_complete() {
+>         ...
+>         if (IS_ERR(resp)) {
+>                 ...
+>                 return rc;
+>         }
+>
+>         queue_delayed_work(dev->wq, &dev->poll_work,
+>                            msecs_to_jiffies(PN533_POLL_INTERVAL));
+>
+>         dev_kfree_skb(resp);
+>         ...
+> }
+>
+> pn533_start_poll_complete() also reads the response without checking its
+> length:
+>
+>         nbtg =3D resp->data[0];
+>         tg =3D resp->data[1];
+>         tgdata =3D &resp->data[2];
+>         tgdata_len =3D resp->len - 2;  /* nbtg + tg */
+>
+> pn533_autopoll_complete() also walks the response without bounds checks.
+> Of the handlers mentioned, only pn533_init_target_complete() checks the
+> length.
+>
+> Could this sentence be reworded so it doesn't suggest the rest of the
+> file already has these checks?
+>
+> > Found by code review; not reproduced.
+> >
+> > Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+>
+> [Severity: Low]
+> The commit message describes an over-read whose bytes reach userspace
+> through nfc_targets_found(). Should the patch carry Fixes: tags so the
+> fix reaches stable kernels? The unchecked parsing in
+> pn533_in_dep_link_up_complete() and pn533_poll_dep_complete() appears to
+> come from these commits:
+>
+> Fixes: 361f3cb7f9cf ("NFC: DEP link hook implementation for pn533")
+> Fixes: 673088fb42d0 ("NFC: pn533: Send ATR_REQ directly for active device=
+ detection")
+>
+> > diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
+> > index f5a6a7c20d5af..63b6032692184 100644
+> > --- a/drivers/nfc/pn533/pn533.c
+> > +++ b/drivers/nfc/pn533/pn533.c
+> > @@ -1310,6 +1310,11 @@ static int pn533_poll_dep_complete(struct pn533 =
+*dev, void *arg,
+> >
+> >       rsp =3D (struct pn533_cmd_jump_dep_response *)resp->data;
+> >
+> > +     if (resp->len < sizeof(*rsp)) {
+> > +             rc =3D -EINVAL;
+> > +             goto error;
+> > +     }
+> > +
+> >       rc =3D rsp->status & PN533_CMD_RET_MASK;
+> >       if (rc !=3D PN533_CMD_RET_SUCCESS) {
+> >               /* Not target found, turn radio off */
+>
+> [Severity: High]
+> Can this check stop NFC polling whenever no DEP peer is in the field?
+>
+> As far as I can tell, a PN53x returns the ATR_RES fields (Tg, NFCID3t,
+> DIDt, BSt, BRt, TO, PPt, Gt) only after a successful InJumpForDEP. If no
+> ATR_RES arrives, for example on a timeout, the chip replies with
+> D5 57 <Status> and nothing more. After pn533_send_async_complete() strips
+> TFI and CC, resp->len is 1.
+>
+> The old code handled this case by reading only rsp->status. With the new
+> check, 1 < 17 jumps to error and returns -EINVAL, so this branch never
+> runs:
+>
+>         if (rc !=3D PN533_CMD_RET_SUCCESS) {
+>                 /* Not target found, turn radio off */
+>                 queue_work(dev->wq, &dev->rf_work);
+>
+> pn533_wq_rf() sends RFConfiguration. Its completion, pn533_rf_complete(),
+> is the only place that re-arms poll_work after a DEP attempt.
+> pn533_wq_cmd_complete() ignores the -EINVAL:
+>
+>         rc =3D pn533_send_async_complete(dev);
+>         if (rc !=3D -EINPROGRESS)
+>                 queue_work(dev->wq, &dev->cmd_work);
+>
+> So nothing restarts the poll loop. poll_mod_count and nfc_dev->polling
+> still report that polling is active.
+>
+> Since commit 673088fb42d0 ("NFC: pn533: Send ATR_REQ directly for active
+> device detection"), pn533_send_poll_frame() sends a DEP poll between
+> passive cycles whenever NFC_DEP is requested:
+>
+>         if ((dev->poll_protocols & NFC_PROTO_NFC_DEP_MASK) && dev->poll_d=
+ep)  {
+>                 dev->poll_dep =3D 0;
+>                 return pn533_poll_dep(dev->nfc_dev);
+>         }
+>
+> So any poll that includes NFC_DEP and finds nothing on its first passive
+> cycle would stall after the first DEP attempt. It stays stalled until
+> userspace stops and restarts polling, and then it stalls again the same
+> way.
+>
+> pn533_in_dep_link_up_complete() gets the same status-only reply and now
+> returns -EINVAL without logging anything. The "Bringing DEP link up
+> failed (error 0x%x)" message with the chip's status code is never
+> printed.
+>
+> The commit message says "A valid ATR_RES always carries the full 17-byte
+> fixed header", but that seems to hold only for successful replies.
+>
+> Would it work to check resp->len >=3D 1 before reading the status, keep t=
+he
+> existing failure handling, and require resp->len >=3D sizeof(*rsp) only o=
+n
+> the success path, before nfcid3t is copied and target_gt_len is computed?
+>
+> > @@ -1928,6 +1933,11 @@ static int pn533_in_dep_link_up_complete(struct =
+pn533 *dev, void *arg,
+> >
+> >       rsp =3D (struct pn533_cmd_jump_dep_response *)resp->data;
+> >
+> > +     if (resp->len < sizeof(*rsp)) {
+> > +             rc =3D -EINVAL;
+> > +             goto error;
+> > +     }
+> > +
+> >       rc =3D rsp->status & PN533_CMD_RET_MASK;
+> >       if (rc !=3D PN533_CMD_RET_SUCCESS) {
+> >               nfc_err(dev->dev,
+>
+> [Severity: Low]
+> pn533_activate_target_nfcdep() parses the InATR ATR_RES (struct
+> pn533_cmd_activate_response, which has a 16-byte fixed header) the same
+> way, and this patch leaves it unchanged:
+>
+> drivers/nfc/pn533/pn533.c:pn533_activate_target_nfcdep() {
+>         ...
+>         rsp =3D (struct pn533_cmd_activate_response *)resp->data;
+>         rc =3D rsp->status & PN533_CMD_RET_MASK;
+>         ...
+>         /* ATR_RES general bytes are located at offset 16 */
+>         gt_len =3D resp->len - 16;
+>         rc =3D nfc_set_remote_general_bytes(dev->nfc_dev, rsp->gt, gt_len=
+);
+>         ...
+> }
+>
+> rsp->status is read without checking that resp->len is at least 1. If the
+> reply carries only TFI and CC (resp->len =3D=3D 0), the trimmed checksum =
+byte
+> is read as the status.
+>
+> The gt_len underflow is rejected later in nfc_llcp_set_remote_gb(). That
+> is the same mitigation the commit message describes for target_gt_len.
+>
+> Should this third ATR_RES parser get the same status length check as the
+> other two?
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261105103903.1440114-1-hj351016%40gmail.com
