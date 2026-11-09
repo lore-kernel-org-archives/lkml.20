@@ -1,75 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213851;
-	b=XmW4TxflSdQA+3UO5hoJknHsrvGClJqvwT+uYh5VpEYu5LFO60pADERVUs1ITA5TrD7X
-	 GIPzFDX01A6nFn03ci+6D6UzBq9sJp0M7AeDvBQdrW9GuuvYb4vJSMcdr3VUsuAhwYcnP
-	 kqV1hrSyB7Jp1ZCG0UOUK5T4gguRIkyIBtpAaDmYI0gweUeZNNiQcJNGVYoQsgJ1CtqT1
-	 ic80jX+3L9yTpPzPCRsVLR+rhrzCI8TaMP/MNtb9mBNWefYaRO44VFjVaJJJOq+cb+aEd
-	 kAVm2enroH9hfWt02PDgO3yjQgzlpGUiWoKKARMUtx9GyHpsLTlwB3N3vTrovwe8AVg==
+	t=1794213853;
+	b=dQBnRFW+1guynwJgnoePqW76q4B69vafpkif0Cthr4b/o9Ikpxd2+93+df/+91e+V3X1
+	 IGWulhqq7TTUCjhRwCF+0juBEANZHY1ffNYXxejPXJEy10jKqxM9MPjTyAn2hKHfCduwN
+	 awbc1A8YGPkW3wadKM9TKWPbhGPifmRLWS/EvgvQd+Y62CmIIE6ao267NZjQHMWXHy7FW
+	 YEaMl3xGf9wcnio7/BI4G5WJyOCFeyM33ePmHCyxNH/T0C3FZjffd9uUVDAjBDpZtQV4Y
+	 sZtDHIN75ip2WprepyfmIZfQDJCKmi7GcG5YqGANYPdUQNux4VnjLH09bTCIofQTdig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213853;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=czr1nWIBAEGJWi1Z3Ut1rrmuz0hxkDa9007Rag5lxHA=;
-	b=uhjKUN97hz7EOtqyfVV2uHY5pNHoazkxXSMDz8+xGk5DwEa3Q9f3VB9Bi1h/sGPbu2bs
-	 0CPc9iRNSDGX9LQRst4Pk5h+O1OqSf34PgsaS4LqJPeZUWoJHxZ6HcoxsbPLNssAZwzoC
-	 xCVeQXOVEyxYgFWOWHqFW1OSQ2xigb38gaIbX1G9lFq7P7M24bwYFxWOcTrOCB+GqwzXz
-	 9da1t6u3NL7fhbDJmeC1ouFdHNzEBo61vQbO/D1fPiy1YiChKo1MnOCODo1/fSdmbaHmt
-	 98SiHG/1T8o/XrNgaUD+PwuiZwC3aFPrv3k+AKAeUuE/6VGPubus+fTTDOm7/9CN13g==
+	bh=K+9PPTcBn+PULHzD/w6nkLJJ5dMDCHhKxeThVtOEyVc=;
+	b=1zfSJ2mrag84JG95T5Amo60Xoovj3ltaoHablCbLMeT5KQDQqfliwGuysBzOs+nRWaH1
+	 oJs+v1X5fw6jEDBcOtCJ/gCofbT0MlzpbdYGqqPgV3jUKsOZ5X6MmjM4zg0rXNJbegpmS
+	 fmupbxte+eMEdFgqiaDHk3FgjpC4W1eP3oSGUMgaJShsHx+j7ZmsAugWU6JAJlHv5Z223
+	 loE5QNlXi+bemI4yQi51/88T1qOAhVlZZQ9G2UkG0Vg8OnhIkg+xDkkTwRH5WEr0C10IF
+	 D9QDiaxgOa1iUnx99qCHHSA7ptTDke1PnSdBBZNcRGT2VOJmhEqTBIL0GCLGRvYesBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RhJOjFwp;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="9Dpqk/aZ";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FNy11VKb;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=NCUTZNMl;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F92C6082BEE;
-	Mon,  9 Nov 2026 08:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F92C6082BEE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C0D6083607;
+	Mon,  9 Nov 2026 08:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C0D6083607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RhJOjFwp;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9Dpqk/aZ
-Date: Mon, 09 Nov 2026 08:44:08 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FNy11VKb;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=NCUTZNMl
+Date: Mon, 09 Nov 2026 08:44:09 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213850;
+	s=2020; t=1794213851;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=czr1nWIBAEGJWi1Z3Ut1rrmuz0hxkDa9007Rag5lxHA=;
-	b=RhJOjFwpNN3g8wpPmmOEgsgG5eE8kqjKvsCdneqctQq9oIEHW2ZVSbG/3BJGyTvZKibIMM
-	4pHfdoVbkfgmNEAvySbiOqrEyeIAIdULC238GfJfwA4JbmV8GnWvOVIndbrhaozTCd8FX3
-	KGgliF9vGLBi53+qqXT/yCu09nbDZhBymscO4I6syXhZIIR/rdbp6ONsHb3AvQg7FHoYVn
-	mMeZRQkDQTDktUrJbV2P3foLIPMIE3LdUB/roS2QA6E7+3gzhvoZBPabZprFdS2EybSDst
-	k/MkemFVDiyA6IcUX0L+lS3K+pEoWQNS9wp+nDg4+2dJzrGgIOdJMpMoj3wnUA==
+	bh=K+9PPTcBn+PULHzD/w6nkLJJ5dMDCHhKxeThVtOEyVc=;
+	b=FNy11VKbyo1mkDcRNRJEzTQdTNpFL8MkMu2bf9oaI0hXqtkO2AuWsZ4ki0dB4iUDSFxoly
+	X/UOMPieMATDsJpOfdbeQ/GJS/6/BB+/1y+kJjDVwgNPe48EKjerkj5IeRYRcNR9wULLMC
+	J7WdZyIz2JhtvjvJDao6+jJ+K0SixTH1z/1bMyAS5HZu3gHnMwKxlGQ6M/x8cL3xiKAcV5
+	ic8DQtDAR4T9SGe2t0eoIqrkSQrlgmTthwHM4IAIKpMEGBaEMMawsOZZmjotVuZ6zXqktY
+	TzzhZbVrwkVgKXNPwlYj70bDodTyr5PDNJ1/rESZTGxmq3UHYF8bjfeVMDtOCA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213850;
+	s=2020e; t=1794213851;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=czr1nWIBAEGJWi1Z3Ut1rrmuz0hxkDa9007Rag5lxHA=;
-	b=9Dpqk/aZMTNzBnYDOlqTOwpJhMEDaQeA6ARI19z+R3v5fqcQiIS4ZpjBunhXY0Xr2oS2MR
-	ATFZ2cEeiGIsQMCA==
+	bh=K+9PPTcBn+PULHzD/w6nkLJJ5dMDCHhKxeThVtOEyVc=;
+	b=NCUTZNMlNdzI/UbNi9qnOtQ3hwyXWS+dvxH1mf7gi9WkZ6n6Vg627R/ACmG6nJQ4jBX/r9
+	47RRCuT/iQkJu1Dw==
 From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: sched/core] sched/fair: Fold cfs_rq_of(se) into for_each_sched_entity()
+Subject: [tip: sched/core] sched: Rename/clarify
+ sched_class::task_tick(.queued) argument
 Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>, x86@kernel.org,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Kayra Cizmeci <kayracizmeci@gmail.com>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260929085320.091427386@infradead.org>
-References: <20260929085320.091427386@infradead.org>
+In-Reply-To: <20260929085319.981147568@infradead.org>
+References: <20260929085319.981147568@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,7 +80,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421384816.2093942.17022883840209529771.tip-bot2@tip-bot2>
+Message-ID: <179421384987.2093942.15101996646487218559.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -89,288 +90,172 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/core branch of tip:
 
-Commit-ID:     aa5ebfa11bb027d8dfd92ec651b265ea8d962081
-Gitweb:        https://git.kernel.org/tip/aa5ebfa11bb027d8dfd92ec651b265ea8d9=
-62081
+Commit-ID:     09ab8d5fce27bc995366754f284347450b8d9085
+Gitweb:        https://git.kernel.org/tip/09ab8d5fce27bc995366754f284347450b8=
+d9085
 Author:        Peter Zijlstra <peterz@infradead.org>
-AuthorDate:    Tue, 29 Sep 2026 10:49:25 +02:00
+AuthorDate:    Tue, 29 Sep 2026 10:49:24 +02:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
 CommitterDate: Mon, 09 Nov 2026 09:39:55 +01:00
 
-sched/fair: Fold cfs_rq_of(se) into for_each_sched_entity()
+sched: Rename/clarify sched_class::task_tick(.queued) argument
 
-Pretty much every for_each_sched_entity() loop does: cfs_rq =3D cfs_rq_of(se)=
- as
-the very first thing. Fold it into the for_each_sched_entity() macro.
-
-This paves the way to have the macro track a backlink transparantly.
+For some reason the sched_class::task_tick() argument that indicates it being
+an hrtick, is called @queued. I'm sure naming is hard and all, but lets fix
+this.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
-Link: https://patch.msgid.link/20260929085320.091427386@infradead.org
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Link: https://patch.msgid.link/20260929085319.981147568@infradead.org
 ---
- kernel/sched/fair.c | 81 ++++++++++++++++++++------------------------
- 1 file changed, 37 insertions(+), 44 deletions(-)
+ kernel/sched/deadline.c |  4 ++--
+ kernel/sched/ext/ext.c  |  2 +-
+ kernel/sched/fair.c     | 12 ++++++------
+ kernel/sched/idle.c     |  2 +-
+ kernel/sched/rt.c       |  2 +-
+ kernel/sched/sched.h    |  2 +-
+ 6 files changed, 12 insertions(+), 12 deletions(-)
 
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dfae086..35345ae 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2879,7 +2879,7 @@ static void put_prev_task_dl(struct rq *rq, struct task=
+_struct *p, struct task_s
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_dl(struct rq *rq, struct task_struct *p, int queued)
++static void task_tick_dl(struct rq *rq, struct task_struct *p, int hrtick)
+ {
+ 	update_curr_dl(rq);
+=20
+@@ -2889,7 +2889,7 @@ static void task_tick_dl(struct rq *rq, struct task_str=
+uct *p, int queued)
+ 	 * not being the leftmost task anymore. In that case NEED_RESCHED will
+ 	 * be set and schedule() will start a new hrtick for the next task.
+ 	 */
+-	if (hrtick_enabled_dl(rq) && queued && p->dl.runtime > 0 &&
++	if (hrtick_enabled_dl(rq) && hrtick && p->dl.runtime > 0 &&
+ 	    is_leftmost(&p->dl, &rq->dl))
+ 		start_hrtick_dl(rq, &p->dl);
+ }
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f74ffb3..ebdf7b9 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4486,7 +4486,7 @@ void scx_tick(struct rq *rq)
+ 	update_other_load_avgs(rq);
+ }
+=20
+-static void task_tick_scx(struct rq *rq, struct task_struct *donor, int queu=
+ed)
++static void task_tick_scx(struct rq *rq, struct task_struct *donor, int hrti=
+ck)
+ {
+ 	struct scx_sched *sch =3D scx_task_sched(donor);
+=20
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index a9da1bc..d5f937d 100644
+index 0c8af1c..a9da1bc 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -317,8 +317,8 @@ const struct sched_class fair_sched_class;
- #ifdef CONFIG_FAIR_GROUP_SCHED
-=20
- /* Walk up scheduling entities hierarchy */
--#define for_each_sched_entity(se) \
--		for (; se; se =3D se->parent)
-+#define for_each_sched_entity(se, cfs_rq)				\
-+	for (; (se) && ((cfs_rq) =3D cfs_rq_of(se)); (se) =3D (se)->parent)
-=20
- static inline bool list_add_leaf_cfs_rq(struct cfs_rq *cfs_rq)
- {
-@@ -452,8 +452,8 @@ static int se_is_idle(struct sched_entity *se)
-=20
- #else /* !CONFIG_FAIR_GROUP_SCHED: */
-=20
--#define for_each_sched_entity(se) \
--		for (; se; se =3D NULL)
-+#define for_each_sched_entity(se, cfs_rq) \
-+	for (; (se) && ((cfs_rq) =3D cfs_rq_of(se)); (se) =3D NULL)
-=20
- static inline bool list_add_leaf_cfs_rq(struct cfs_rq *cfs_rq)
- {
-@@ -2223,9 +2223,10 @@ static void update_curr(struct cfs_rq *cfs_rq)
- static void update_curr_fair(struct rq *rq)
- {
- 	struct sched_entity *se =3D &rq->donor->se;
-+	struct cfs_rq *cfs_rq;
-=20
--	for_each_sched_entity(se)
--		update_curr(cfs_rq_of(se));
-+	for_each_sched_entity(se, cfs_rq)
-+		update_curr(cfs_rq);
- }
-=20
- static inline void
-@@ -4957,18 +4958,19 @@ static void reweight_task_fair(struct rq *rq, struct =
-task_struct *p,
- {
- 	struct sched_entity *se =3D &p->se;
- 	unsigned long weight =3D NICE_0_LOAD;
-+	struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
-=20
- 	if (se->on_rq)
- 		update_curr_fair(rq);
-=20
--	reweight_entity(cfs_rq_of(se), se, lw->weight);
-+	reweight_entity(cfs_rq, se, lw->weight);
- 	se->load.inv_weight =3D lw->inv_weight;
-=20
- 	if (!se->on_rq)
- 		return;
-=20
--	for_each_sched_entity(se)
--		weight =3D __calc_prop_weight(cfs_rq_of(se), se, weight);
-+	for_each_sched_entity(se, cfs_rq)
-+		weight =3D __calc_prop_weight(cfs_rq, se, weight);
-=20
- 	reweight_eevdf(&rq->cfs, &p->se, weight, p->se.on_rq);
- }
-@@ -6547,6 +6549,8 @@ static __always_inline void return_cfs_rq_runtime(struc=
-t cfs_rq *cfs_rq);
-=20
- static void set_delayed(struct sched_entity *se)
- {
-+	struct cfs_rq *cfs_rq;
-+
- 	/*
- 	 * Delayed se of cfs_rq have no tasks queued on them.
- 	 * Do not adjust h_nr_runnable since __dequeue_task()
-@@ -6569,15 +6573,14 @@ static void set_delayed(struct sched_entity *se)
- 	pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
- 	se->sched_delayed =3D 1;
-=20
--	for_each_sched_entity(se) {
--		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
--
-+	for_each_sched_entity(se, cfs_rq)
- 		cfs_rq->h_nr_runnable--;
--	}
- }
-=20
- static void clear_delayed(struct sched_entity *se)
- {
-+	struct cfs_rq *cfs_rq;
-+
- 	se->sched_delayed =3D 0;
-=20
- 	/*
-@@ -6596,11 +6599,8 @@ static void clear_delayed(struct sched_entity *se)
- 	 */
- 	pref_llc_running_inc(rq_of(cfs_rq_of(se)), task_of(se));
-=20
--	for_each_sched_entity(se) {
--		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
--
-+	for_each_sched_entity(se, cfs_rq)
- 		cfs_rq->h_nr_runnable++;
--	}
+@@ -6726,7 +6726,7 @@ static void put_prev_entity(struct cfs_rq *cfs_rq, stru=
+ct sched_entity *prev)
  }
 =20
  static void
-@@ -7262,14 +7262,16 @@ void unthrottle_cfs_rq(struct cfs_rq *cfs_rq)
- 	walk_tg_tree_from(cfs_rq->tg, tg_nop, tg_unthrottle_up, (void *)rq);
-=20
- 	if (!cfs_rq->load.weight) {
-+		struct cfs_rq *cfs_rq_se;
-+
- 		if (!cfs_rq->on_list)
- 			return;
- 		/*
- 		 * Nothing to run but something to decay (on_list)?
- 		 * Complete the branch.
- 		 */
--		for_each_sched_entity(se) {
--			if (list_add_leaf_cfs_rq(cfs_rq_of(se)))
-+		for_each_sched_entity(se, cfs_rq_se) {
-+			if (list_add_leaf_cfs_rq(cfs_rq_se))
- 				break;
- 		}
- 	}
-@@ -8115,13 +8117,12 @@ static unsigned long enqueue_hierarchy(struct task_st=
-ruct *p, int flags)
- 	struct sched_entity *se =3D &p->se;
- 	int h_nr_idle =3D task_has_idle_policy(p);
- 	int h_nr_runnable =3D 1;
-+	struct cfs_rq *cfs_rq;
-=20
- 	if (task_new && se->sched_delayed)
- 		h_nr_runnable =3D 0;
-=20
--	for_each_sched_entity(se) {
--		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
--
-+	for_each_sched_entity(se, cfs_rq) {
- 		update_curr(cfs_rq);
-=20
- 		if (!se->on_rq) {
-@@ -8252,16 +8253,15 @@ static void dequeue_hierarchy(struct task_struct *p, =
-int flags)
- 	bool task_sleep =3D flags & DEQUEUE_SLEEP;
- 	bool task_delayed =3D flags & DEQUEUE_DELAYED;
- 	bool task_throttled =3D flags & DEQUEUE_THROTTLE;
--	int h_nr_runnable =3D 0;
- 	int h_nr_idle =3D task_has_idle_policy(p);
-+	int h_nr_runnable =3D 0;
-+	struct cfs_rq *cfs_rq;
- 	bool dequeue =3D true;
-=20
- 	if (task_sleep || task_delayed || !se->sched_delayed)
- 		h_nr_runnable =3D 1;
-=20
--	for_each_sched_entity(se) {
--		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
--
-+	for_each_sched_entity(se, cfs_rq) {
- 		update_curr(cfs_rq);
-=20
- 		if (dequeue) {
-@@ -11587,8 +11587,7 @@ static void update_cfs_rq_h_load(struct cfs_rq *cfs_r=
-q)
- 		return;
-=20
- 	WRITE_ONCE(cfs_rq->h_load_next, NULL);
--	for_each_sched_entity(se) {
--		cfs_rq =3D cfs_rq_of(se);
-+	for_each_sched_entity(se, cfs_rq) {
- 		WRITE_ONCE(cfs_rq->h_load_next, se);
- 		if (cfs_rq->last_h_load_update =3D=3D now)
- 			break;
-@@ -15281,9 +15280,9 @@ static inline void task_tick_core(struct rq *rq, stru=
-ct task_struct *curr)
- static void se_fi_update(const struct sched_entity *se, unsigned int fi_seq,
- 			 bool forceidle)
+-entity_tick(struct cfs_rq *cfs_rq, struct sched_entity *curr, int queued)
++entity_tick(struct cfs_rq *cfs_rq, struct sched_entity *curr, int hrtick)
  {
--	for_each_sched_entity(se) {
--		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
-+	struct cfs_rq *cfs_rq;
+ 	/*
+ 	 * Update run-time statistics of the 'current'.
+@@ -6741,10 +6741,10 @@ entity_tick(struct cfs_rq *cfs_rq, struct sched_entit=
+y *curr, int queued)
 =20
-+	for_each_sched_entity(se, cfs_rq) {
- 		if (forceidle) {
- 			if (cfs_rq->forceidle_seq =3D=3D fi_seq)
- 				break;
-@@ -15361,10 +15360,8 @@ static void task_tick_fair(struct rq *rq, struct tas=
-k_struct *curr, int hrtick)
- 		unsigned long weight =3D NICE_0_LOAD;
- 		struct cfs_rq *cfs_rq;
+ #ifdef CONFIG_SCHED_HRTICK
+ 	/*
+-	 * queued ticks are scheduled to match the slice, so don't bother
++	 * hrticks are scheduled to match the slice, so don't bother
+ 	 * validating it and just reschedule.
+ 	 */
+-	if (queued) {
++	if (hrtick) {
+ 		resched_curr(rq_of(cfs_rq));
+ 		return;
+ 	}
+@@ -15353,7 +15353,7 @@ static inline void task_tick_core(struct rq *rq, stru=
+ct task_struct *curr) {}
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queu=
+ed)
++static void task_tick_fair(struct rq *rq, struct task_struct *curr, int hrti=
+ck)
+ {
+ 	struct sched_entity *se =3D &curr->se;
 =20
--		for_each_sched_entity(se) {
--			cfs_rq =3D cfs_rq_of(se);
-+		for_each_sched_entity(se, cfs_rq) {
- 			entity_tick(cfs_rq, se, hrtick);
--
+@@ -15363,7 +15363,7 @@ static void task_tick_fair(struct rq *rq, struct task=
+_struct *curr, int queued)
+=20
+ 		for_each_sched_entity(se) {
+ 			cfs_rq =3D cfs_rq_of(se);
+-			entity_tick(cfs_rq, se, queued);
++			entity_tick(cfs_rq, se, hrtick);
+=20
  			weight =3D __calc_prop_weight(cfs_rq, se, weight);
  		}
+@@ -15372,7 +15372,7 @@ static void task_tick_fair(struct rq *rq, struct task=
+_struct *curr, int queued)
+ 		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+ 	}
 =20
-@@ -15446,9 +15443,7 @@ static void propagate_entity_cfs_rq(struct sched_enti=
-ty *se)
- 	/* Start to propagate at parent */
- 	se =3D se->parent;
+-	if (queued)
++	if (hrtick)
+ 		return;
 =20
--	for_each_sched_entity(se) {
--		cfs_rq =3D cfs_rq_of(se);
--
-+	for_each_sched_entity(se, cfs_rq) {
- 		update_load_avg(cfs_rq, se, UPDATE_TG);
+ 	if (static_branch_unlikely(&sched_numa_balancing))
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index e0c10a5..f7dd151 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -542,7 +542,7 @@ dequeue_task_idle(struct rq *rq, struct task_struct *p, i=
+nt flags)
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queu=
+ed)
++static void task_tick_idle(struct rq *rq, struct task_struct *curr, int hrti=
+ck)
+ {
+ 	update_curr_idle(rq);
+ }
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 1535046..adcf5f0 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -2541,7 +2541,7 @@ static inline void watchdog(struct rq *rq, struct task_=
+struct *p) { }
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
++static void task_tick_rt(struct rq *rq, struct task_struct *p, int hrtick)
+ {
+ 	struct sched_rt_entity *rt_se =3D &p->rt;
 =20
- 		if (!cfs_rq_pelt_clock_throttled(cfs_rq))
-@@ -15555,9 +15550,7 @@ static void set_next_task_fair(struct rq *rq, struct =
-task_struct *p, enum snt_e=20
- 	if (on_rq)
- 		__dequeue_entity(cfs_rq, se);
-=20
--	for_each_sched_entity(se) {
--		cfs_rq =3D cfs_rq_of(se);
--
-+	for_each_sched_entity(se, cfs_rq) {
- 		if (!IS_ENABLED(CONFIG_FAIR_GROUP_SCHED) ||
- 		    !first || !cfs_rq->h_curr)
- 			set_next_entity(cfs_rq, se);
-@@ -15764,13 +15757,14 @@ static int __sched_group_set_shares(struct task_gro=
-up *tg, unsigned long shares)
- 	for_each_possible_cpu(i) {
- 		struct rq *rq =3D cpu_rq(i);
- 		struct sched_entity *se =3D tg_se(tg, i);
-+		struct cfs_rq *cfs_rq;
- 		struct rq_flags rf;
-=20
- 		/* Propagate contribution to hierarchy */
- 		rq_lock_irqsave(rq, &rf);
- 		update_rq_clock(rq);
--		for_each_sched_entity(se) {
--			update_load_avg(cfs_rq_of(se), se, UPDATE_TG);
-+		for_each_sched_entity(se, cfs_rq) {
-+			update_load_avg(cfs_rq, se, UPDATE_TG);
- 			update_cfs_group(se);
- 		}
- 		rq_unlock_irqrestore(rq, &rf);
-@@ -15817,6 +15811,7 @@ int sched_group_set_idle(struct task_group *tg, long =
-idle)
- 		struct sched_entity *se =3D tg_se(tg, i);
- 		struct cfs_rq *grp_cfs_rq =3D tg_cfs_rq(tg, i);
- 		bool was_idle =3D cfs_rq_is_idle(grp_cfs_rq);
-+		struct cfs_rq *cfs_rq;
- 		long idle_task_delta;
- 		struct rq_flags rf;
-=20
-@@ -15831,9 +15826,7 @@ int sched_group_set_idle(struct task_group *tg, long =
-idle)
- 		if (!cfs_rq_is_idle(grp_cfs_rq))
- 			idle_task_delta *=3D -1;
-=20
--		for_each_sched_entity(se) {
--			struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
--
-+		for_each_sched_entity(se, cfs_rq) {
- 			if (!se->on_rq)
- 				break;
-=20
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 92134ce..cf5dba1 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2786,7 +2786,7 @@ struct sched_class {
+ 	 * sched_tick: rq->lock
+ 	 * sched_tick_remote: rq->lock
+ 	 */
+-	void (*task_tick)(struct rq *rq, struct task_struct *p, int queued);
++	void (*task_tick)(struct rq *rq, struct task_struct *p, int hrtick);
+ 	/*
+ 	 * sched_cgroup_fork: p->pi_lock
+ 	 */
