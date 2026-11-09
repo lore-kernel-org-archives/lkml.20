@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794238725;
-	b=yXWKrML7FYyQTpSqPBI0jIDenZdVhdNKdeUCttJ7Gx1ASA2h8xnbC31s3Pzt76oNa2By
-	 8JiniwbzeI/NPPb5Vqkt15jOAQESD8CGI/wTwOqa/dWyeGQks17/JQibFQ+cn8AHoGJ+0
-	 7vsmVO8in9zBhLJVhhgPvvTMaJVJ0szN36kTYWTCr22fYnh+VA6HCJpzJeCPdBeR+GgUV
-	 7JRIQas/G45Mp2fBRG17zbX2oy0Er9WXn3cV8YVw0d9vmxueF+gtuHO7gHF/q2KAYkXzL
-	 rLJawJ4xZSwLjVWIfzTvbo7eCTjMs42I68Ix7qM4GKwDbawkAHlg2VlVC/s7oGphCNQ==
+	t=1794238734;
+	b=ltquGtVHIKAtsGZkxZmE8LgnKYIgP+Z8d7WD3aNBhua8JrzjW1V5UP7sz7RnmGo6yHlO
+	 qgHINs1tOs30rStUe6HwEPQAI4BgJMXsxIL1R5u5RTkgrxDoS0Hq1dxdDVkurEm+G8E+d
+	 qpqprl/bT2n4vu/HtxuybqQvYyM4ZFU/jyYRkCa2Xrl7cC3tBrUSdtsy32Rq5ow9/VgTM
+	 IBw2dyHde4T1K3LklZ7cinJRwW4OxUtnYzoKylIWLoUlbfkXLJVCJ4NECYMKIHDXRDBAF
+	 tZe6gx+cmCvI6HWDQZlQSBwxxJUv0+HmTfZe5uHrguIaIU0MBxuqFK5tFll/SUqlk7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238734;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ss4lrhqPmF5SUHU4F1piOVZZ27/MP9CBwo9B8OYXbxo=;
-	b=lBXA++eLdaBuzcVyf0bk5qHCrFpAY4OnfFY544USLjBMw1N3Yi68v0rhTUygo7QTN9Mh
-	 1vgllablfOv7MHGpcbA4dQiUTGf68IoGAoSUSLnfEUjQmEYJdAm2xdm1ZAV0vn4X1HYOP
-	 35Tak0CCWFTsX6oqq5HOwLe+LwISuvWFTEM3GWrUXL6RdtlalZN36jnEigDYFYB4UnUql
-	 lp01uYxaKJ8JXbn7pS77qRSPVQ4d9m1+YVA11dZsC2PhEGNk4p6CfU0D61AtqFPeLMXDl
-	 FEUyX74w6/9A15cYQ/Du4yM2rsR6x3Ff7u1gjSO95+PUbiBC80Hg7gquVSgcl+6ppcQ==
+	bh=4zWJW+JHe3yaJaSnmXKgn3EyBlFrMRC1zmkIqG37kkA=;
+	b=zRBm8C65U2gteJyLu8aEwFCAH4sDaj3Cw9UgBEvw1le1/jxYljCDdyg9xFlx5OVvTIlj
+	 4HEefKO1+mb5K82RJ7R/1tod1aMoeunFzMVYQ3oAdDOxLuD1yvXyJ+oe3TAP7EVpmhyCb
+	 zruWq/p0CP0lLGq4pNzXq/Av9ktbJ4YlvxsC0xsMW9yltRWxSJ9Uv1n4D8/aHzyW6xCOf
+	 MvUszK1EtZyJjX0MwBSxXrEn5hSNQApFKVoQDHgpudxIcsdxkG28z9eXRB2S4pHawjYmB
+	 LU+EQtD4cYVFtlUHZYQSUh8okawT1lHi3v47E6dU6ApneDtQNt74FfPbiBwH+rr3P0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dhbhqgqO;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KqgBKu3T;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1CB606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A1CB606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B76606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B76606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dhbhqgqO
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdd4dafdce9so370098a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:38:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KqgBKu3T
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdb628232d2so571495a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:38:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794238724; x=1794843524; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794238733; x=1794843533; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ss4lrhqPmF5SUHU4F1piOVZZ27/MP9CBwo9B8OYXbxo=;
-        b=dhbhqgqOP7Vq07GCl6pq4R+xXeHTbvQVruGCvp8IveIPKwZIHVS5DzI0pj1ZZF01HQ
-         nz6k9wmQdp1HJT7ACl0J3z05Z2NL6uey0a1xjH5m4B6wGRG/YQgccqws1F8QQpOjjCCj
-         gm6HD7K5aKHiaWTxhMn9HLkwWPzEVfg55TkekR5uYjOGfT9e6N54Lua6fBW2rEEUjFdI
-         AKD102ckvoUdkMMVhM3GB1qMsYpmJubB9cGILKs4FVrJrCIjNgs1o8P/sPX09S5lnL3n
-         3xfxgT2T+VTKsiYK4f00f8H8cJhXhtJA1Rkvy6DUinxNqCD8iZ2Bjiwey6DhKRF+U6HP
-         2DDQ==
+        bh=4zWJW+JHe3yaJaSnmXKgn3EyBlFrMRC1zmkIqG37kkA=;
+        b=KqgBKu3Tb23uNp8jd+Vv9KNds1thY4OJrPh+dnAaLkh/k5DcLOtw6DlIH65AWzmHKw
+         jmXKX4luUsAAwFqoCAhRxL50o73KY2ZnpNL4kasKFznjor8Zjqt3sgoyZXU4Yi7mUCLV
+         lREGLnvNTffgFz8uPNUJ13P/foqIV4/iHtrjuvXNZgdBQd3Ymr1SgMLuOk4934sbjeYN
+         0I2x9YUXbasNrZZ8jF7Ojl4f6h6DaAM84xu5aSpAAGVp+DZc77hCosdHml3AQvQvKL92
+         lQycN+NMOdDNyM4P9pU83zxV2QRdX02QM5+5rmYMg5tYagqdmBvp9k3VOBdYOctuVG3R
+         9u9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794238724; x=1794843524;
+        d=1e100.net; s=20260707; t=1794238733; x=1794843533;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ss4lrhqPmF5SUHU4F1piOVZZ27/MP9CBwo9B8OYXbxo=;
-        b=c1zhqOFue88espLyfGingPHcVl1hIhTyrTrw9Z/NZmKQcUiiDjL8dS5iHR58ogGcnn
-         2fd45Vy9PdiVBJvcAYpct4LEhwbCIxWUOtVMzzswxyLC1N9lLHqYYba+LI6bzRf9lew8
-         z6pMI93c9S/xrl5Mt1Mey4L83O5iV98GsHqipRlQomxh8/ayhvWZZnI4u5c6otXnjXQf
-         zi/tHOwaVVWomYFzUodaAHtoLSLZP/QlBQ9UU5lxLo8SEPWRnq5e7G669GR0jFJ0dtua
-         25fBEzyio+4rp/j/rihxKmuHhKcyRBOn+BpsdiBGcsjvLeIYijquN4RwTsVlcnu9aTz5
-         PChg==
-X-Forwarded-Encrypted: i=1; AL+hErGmE1aCucvO0EPPT/Ts1QvFvF+nvPXtKanC8I9toBswLvJT+EIYWbwwyU9IfndEhOjUpwoGKUfVhAB0irM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80JhKr0C4rSRZ0dJ+JLM9ry5FJgHqkzYhIYHMZTmQTvPOuUvtM
-	FdCP22l2ZOqMuy97Qs4czXqSS27lNvdAQ+8IftkZ7BKEQWRNqpGvg49T
-X-Gm-Gg: AYBFou1voYvzrQnWmRmVCZ4xwy+NSmLdd1Lc9s6ngd7yFkCG6W1p8cPHaqBZO4GEtIf
-	8SYBk9U5fzT7xcpOS/zoISm7pso26o8DJHmb44cG9MBG8W/zVTE62/OxvFcbj3dTlifkL37PCit
-	TYD0R48S2k6yeAfCHrk0qgX3r+UiuEZqT/S0rkNVJicWMYdOfERVzAnhGkgGhw8tXIQezotB+ph
-	Nuwb9QagLkQJ9TDsqjJFGPY3NQdPgW5eYigxqXR9+bwop98pqbOnlzd+ME18IAK9PYlpEvvGevD
-	AaOrODx2Z76oKaPDXMDw37P75cbJDAPgqcPC/d4RjJ7mmSPsX3zG+lW2av6FPpyg3SAUXcUQJgW
-	2Kvph9LqggAY30Km1VsM3doK1ASlwLcw35Cw7v+xDvtFLnB/I0AXC3BEbj8uWuFijooX8Kw+QjC
-	CEMhmedwWucGyGN/Lp37DGkBcqPs9INm+kpw29Nsz09R8TEEUBxNGpaJofaQ3G0sVqjyJotEtQO
-	7czkypEa/P2bm/GOtklvD2DttpEc8JKPT33ZsKaqW5ihL+sfvL8YtB/RXsNDPZlOLoswakLRQM/
-	x9pVzED2GBN302Wj8MDWhvRp7O2WfD+CXP32o54MX81ykOH1p2CVG3u8aLzDkdLUdGZ6Dze4TOH
-	rlGM=
-X-Received: by 2002:a17:90b:3c09:b0:3a7:9045:fe29 with SMTP id 98e67ed59e1d1-3b166ad25ffmr30988a91.4.1794238724301;
-        Mon, 09 Nov 2026 07:38:44 -0800 (PST)
+        bh=4zWJW+JHe3yaJaSnmXKgn3EyBlFrMRC1zmkIqG37kkA=;
+        b=Q3Wx1PGgRwK0wo61WP2RUn4e8ZgmmOTEoH8vZ6BrzoIHjJt/oAcsbEuEzMyJXqOKzo
+         KXi8b/YXc009o9X/l6fQECTOvviZp1czMpXrttNFRlcOPpygrtRc3Zbf/koEK2XZhmiK
+         1P4WoqnOwfcmvWRQSiRv3ElnRM3B4efRzet6QVQW37nWnDxDstNoxb1hyEUfLvZFb7J1
+         kjq1FFTbhUV4UWITPlG+Rie3MMmD1nBI6zA032PrJscIJ4wPCTIBPfeKewLhzUlm/H+j
+         IwkVqCBGwjppgoYQ9voEzLoSSj1A+tVlEIJw96kCrNnWX9rcaZazSm07ZeyuIEgIx5hV
+         tCsw==
+X-Forwarded-Encrypted: i=1; AL+hErG/pTdikb0p6kVIVidUqOH8tkw4422LF/Bx97wesBDJvWnMtxXl94zvfjcNGGhMuxtK4QWlBnU8Q6bexvo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JvRPtcgjlzkbKcKlajzG5Im8jRLQdZ+ozSI7So77P2vxIxglo
+	RQ7seqvXHyoK34Z6cAGK/rTsR+ts7nv1+lwvJRm5d/Ju6d+rP6LWoUJX
+X-Gm-Gg: AYBFou0NbzL5Qlv9tl5tsA82lTjE8Wz3NRfgbXcYqSTgmHNH2Hm7j2xtXaq+KPJ9KNH
+	+YVINvuDsscCD+Z8bEfvs8WVkJMrpm1Gz9KAQkJa8T6WZvMRpY018jAkUfBYgsXR2moLaBukFL9
+	bJ7VassDYPrk/hw8WSpNxVnkJsOgJmudhDvhyTg0AmXS+9FjqeII/++hNFPXvTqJEhcYdm+eAlh
+	oZX0r3J3+YAWM8oAEXm19NONpvLh9iQZQSvqJle0jckjFUBfV0ofYMt5moEKKMESC3PNlzihZic
+	arBeBvMG3QAJqbRqYuO775f7FqMsyaW5ZQSt6iZtSUIPzfJ9zq7nwcsNiw5wEnftDayHcnWS9Xv
+	1S1UY+EktnNUHjxIpgOH4iUz+CIuAVQRiIOUnr7/hdqvFgk7ss5eUOAzhODFMYCNlBfX7PPzUk8
+	F2S/+PKe0ybmDEXl0dwx5RHLHPYHDOCzX/PP+2kdz+Etwva5m42O+TbBOpCaZEbVL9w3M4PkYMM
+	Fjxcg5QVvkSx+Snp5fSqrItesMoVXnhYlAR+VdAPahXlAEXiuISA3oIpeTRKiVMffpW1UJa4Txl
+	TfiLstVyFHrhIMFqMUNGQebZclYOFzVi3NChncdoUgW6eNvYG2HiKsf2zP9ruW0lCjAp+rKrCPl
+	xozHZXGzyAbMiFPDMMabJIU60
+X-Received: by 2002:a17:90b:54c3:b0:3ac:c024:b275 with SMTP id 98e67ed59e1d1-3b166ae44eamr28170a91.9.1794238733346;
+        Mon, 09 Nov 2026 07:38:53 -0800 (PST)
 Received: from 0.0.4.7.1.0.4.2.ip6.arpa ([2401:7400:c804:b668:b272:9904:c32b:2ee5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1054a53e4sm11062029a91.0.2026.11.09.07.38.41
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1054a53e4sm11062029a91.0.2026.11.09.07.38.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:38:43 -0800 (PST)
+        Mon, 09 Nov 2026 07:38:52 -0800 (PST)
 From: Ho Jie Feng <hjf3108@gmail.com>
 To: Ulf Hansson <ulfh@kernel.org>
 Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
@@ -86,12 +86,12 @@ Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
 	linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ho Jie Feng <hjf3108@gmail.com>,
-	Omar Sandoval <osandov@fb.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Hannes Reinecke <hare@suse.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 1/5] memstick: mspro_block: don't hand a finished request back to the host
-Date: Mon,  9 Nov 2026 23:38:00 +0800
-Message-ID: <20261109153832.7377-1-hjf3108@gmail.com>
+	Omar Sandoval <osandov@fb.com>
+Subject: [PATCH 2/5] memstick: mspro_block: wait for running dispatches in mspro_block_stop()
+Date: Mon,  9 Nov 2026 23:38:01 +0800
+Message-ID: <20261109153832.7377-2-hjf3108@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109153510.7161-1-hjf3108@gmail.com>
 References: <20261109153510.7161-1-hjf3108@gmail.com>
@@ -106,38 +106,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a block request ends, mspro_block_complete_req() clears
-msb->block_req, completes card->mrq_complete and returns 0.
-Host drivers take a 0 return from memstick_next_req() to mean that
-*mrq holds a new request, so the host issues card->current_mrq again
-even though it has already finished.
+mspro_block_stop() only calls blk_mq_stop_hw_queues() once it sees that
+msb->block_req is NULL. That marks the queues stopped so that no new
+dispatch starts, but does not wait for dispatches that are already
+running. In this case, a request can start just after
+mspro_block_stop() has returned, causing a race condition.
 
-At the same time, msb->block_req being NULL allows mspro_queue_rq() to
-pass the check and queue another request, causing a race condition
-that rewrites card->current_mrq while the host is executing it.
-
-Return -EAGAIN instead, as the function already does when there is no
-block request.
+Stop the queues before checking msb->block_req, and use
+blk_mq_wait_quiesce_done() to wait for running ->queue_rq() calls to
+return. The existing loop then waits for the current request to finish
+before mspro_block_stop() returns.
 
 Fixes: d0be12274dad ("mspro_block: convert to blk-mq")
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/memstick/core/mspro_block.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/memstick/core/mspro_block.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/memstick/core/mspro_block.c b/drivers/memstick/core/mspro_block.c
-index 4a52830026c50..fe38b42431219 100644
+index fe38b42431219..215f4c3759c41 100644
 --- a/drivers/memstick/core/mspro_block.c
 +++ b/drivers/memstick/core/mspro_block.c
-@@ -706,6 +706,8 @@ static int mspro_block_complete_req(struct memstick_dev *card, int error)
- 			__blk_mq_end_request(msb->block_req,
- 						errno_to_blk_status(error));
- 			msb->block_req = NULL;
-+			if (!error)
-+				error = -EAGAIN;
- 		}
- 	} else {
- 		if (!error)
+@@ -727,12 +727,13 @@ static void mspro_block_stop(struct memstick_dev *card)
+ 	int rc = 0;
+ 	unsigned long flags;
+ 
++	blk_mq_stop_hw_queues(msb->queue);
++	blk_mq_wait_quiesce_done(&msb->tag_set);
++
+ 	while (1) {
+ 		spin_lock_irqsave(&msb->q_lock, flags);
+-		if (!msb->block_req) {
+-			blk_mq_stop_hw_queues(msb->queue);
++		if (!msb->block_req)
+ 			rc = 1;
+-		}
+ 		spin_unlock_irqrestore(&msb->q_lock, flags);
+ 
+ 		if (rc)
 -- 
 2.56.0
 
