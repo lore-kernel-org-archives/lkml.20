@@ -1,99 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209126;
-	b=As/p4I8DhUSbGLZEEF8mYRoeqN2SF5J09ioAUVe/eW84JeSb5hrnWBk0kMpi2lTBlM3D
-	 JoBeBGjC7bYG96kzTfEYS01DU/gxK2QWExJTWTj2KO1Q5iLYwUCfmISUuv7ZXgM42naFX
-	 7x8ozUNE/BxqbXjpMe4qxssttLd8eGXn7cz0f2e7as5msjACimNe+KrTX6fcBe3bVSw1L
-	 6H14Iw9jhIaP01fxublhKdHH4RvZ1l7g6H/02Nw+Ja4YVoCST/1fapn4g+uCbfLHAvBAj
-	 tDagsoi6t97nXhlxvwlRrXOz0x3zCQgGmiFw5Dape7rCTQIxCrZe4Hi7/I9aNOjT5Ig==
+	t=1794209128;
+	b=0PIR3hv5haJmBHNyBiB+B4znEPjeXS8CngTKGRCX1rKSmhMm3++zH+cWqeBKPXBM1wXc
+	 lV8mHa6eXw8rHtuQXkStGTbgQnMlA+bUhc6wr0fiX6l8jv0yJZcrssQqQfiZ2L30XCpO0
+	 +OhguOvjiv2uRVCtMDVtSuVj4BN7kQ6IZoKXOAI/MDFxXt7glVF0w5qWZdg75g6ptcrlJ
+	 xmJY11jkcw7Dg6t5GgAAvNbYr9CbiaZCcT+DrOKPqs7qnia6PH53RsvRPSks1vLJUQDwY
+	 w9ePQuhGMRXAme8SYE51+0EUlJNIP6kVL8zskQ/85w8qNyPAN0LhbCKNj+VhvPmZcIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209126;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=m2+HhGSoLvri6g/jgXlGvQXUh65ejG4bbvdXJ+M0m3A=;
-	b=sIw4x/8vZPdPKzebHVtwrx6yld3QypzqtPel5eIOxjnS95Bu6oLtHmp8bex2PmT1ZkCh
-	 TV4nieuHCQeehQlTew/rXBtqxY/ORC+E1sADK6Vt6hZl0LPzsp26qdsIQZihCtaiI5Nwc
-	 +QV+kxFD9SCdZaWsd/hJwdjKHUbHy5LiXEE9VZUSi8X2V2tKY7MoVIRFUQb6v6Z1ARKm6
-	 C9kPALKZVL60G6+bf1Srq6bLLlfLlf/WmsyTc/Y1oP43YLeNc1QCoqAlJDtnXKSbXS1mq
-	 8IL9uLvSvZtebLG7Je1jpr6uBgl0Qj80bikRYN9TjJDsXoqIk6BA4hKiVeiwP21thKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209128;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
+	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0nDnq4cvLaTvdqNRvbn031d0/DpRXR/V3IIurH9/49U=;
+	b=mXH9erZHEyNxvANimohfOh0eqcw9nFKaSI6Dndb11KNtFKo/Jg9oZyCPV8KRmaKLvJxn
+	 vFfXVKakIZMnFI9n1eaycz328fMByz1C7tISj8j5LprMRw8bGhDnUYUWYvxDdxQuJN7DP
+	 FWO8Bz5GkqLl0G0BkNHlNXjm6rsMnpWO6wUuT9rbRyWFJRpwCJQyCG4cB0AQZ+om0cbla
+	 txD9P3Y9FtWXstN1x6xuNgazKjjTbm+hW5xqkGbiWaOni44Cpljr8ZSsXS6Z8gq7kMzOk
+	 T43Jzvx5vRL1Ftj71KXE+SmbYCrRVGZx/kkHcAlXi9uSkqhdubKCMfXRH4T/yeMOK2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=khUdSO28;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mpEWArZF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXTBZwUP;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC9F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:25:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEC9F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F29606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6F29606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=khUdSO28
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ed06b725fdso3794285ad.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mpEWArZF;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXTBZwUP
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A1RW3611089
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 07:25:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0nDnq4cvLaTvdqNRvbn031d0/DpRXR/V3IIurH9/49U=; b=mpEWArZFeN3e9wgf
+	cvYc9o3ZD4iSHZb4DUnC9ZwwuT+bTjlktay2CcSD5pFS+m8zRJNpeNWVQRdcieig
+	+Ue5bupEGNGqEgzDn4alqvAWOlYnx8WmZMWtN6ANFZVNZDP0EHc5JE5Ejs1JBsTK
+	q9Im0jNzTlLgWlmp65v1Vgqmce6QHLFW/IRQLU6nsumubOPZf8Ya9hSQCtNozFu1
+	xObmQgpXkHfYEfNj5g5nFuvDOd+MHgUyVTJadmkTec4b3drHJBfTatweEzkrJlCQ
+	KvULXB0+tnOujSfWsU8/207O+ZjpQzJjGz1RGqJp9bvbLOW1F8MxFWtlKDekxgIQ
+	04kimg==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hssbnwmsq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:25:25 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1a2b6fab7a6so379537c88.1
         for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:25:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794209125; x=1794813925; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m2+HhGSoLvri6g/jgXlGvQXUh65ejG4bbvdXJ+M0m3A=;
-        b=khUdSO281XpsB78bgJl/LaN7lDl87BekWETEOMsubR/TYBOFGvQI/jhdGJECEqF4lQ
-         KkUTqF5F4XZuaRq34YFzBM5b6Ijr5zxN9kX5MWiCU/sVzL3rh2crtnLrIjg4SJxyWRdm
-         zMBpczu0UVJsiYJYA9R98Q/lgyOgv138DpvoIvmZkNswJgl/eGvjk0vLplbqG+4cMFMb
-         DLDhDR8XTWKVcfU/JgI29bylnvfrMs1GVlLIzHZLngjQwmEzFYSB9y4sC0t/XmeXyI8R
-         Iadd2Xm1hFWFDXPu3PDZipNiV6eSM3vTdtNLvUCy5sXzfJHK9/y2Hr4PAeaD7WDew3h1
-         UwLg==
+        d=oss.qualcomm.com; s=google; t=1794209125; x=1794813925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0nDnq4cvLaTvdqNRvbn031d0/DpRXR/V3IIurH9/49U=;
+        b=dXTBZwUP4BByazQ6kAkZO0qF5CV7ncf8Knxb1xTZK0iqK73Ct478b+MyDPCQMsjBBn
+         jjGQB5RjzK4IEfaUGCANivcz2/KeRNHZE0Rq44DchzA50+LQtn6pYNuzMdzT/7Yc3nlT
+         WudW/EamThvIWaKixH35tARbagxc+Zr6JDeoENT6VafHfAH7e3CAMcb3XPl3ySq3m0iN
+         qRhIuXUAckb1yLtyFyjCj7QUeXobRoZXqvtkF8JknHqkesoB6YAct3Y0k2sJNSIRVz0E
+         oM2R2v6wW8o3sCP0Y5LHOYw+NpA3EcsQGomsWD0PSwm6YTkyO/Qz1lByuropU3ZW3/e7
+         Xeow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794209125; x=1794813925;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m2+HhGSoLvri6g/jgXlGvQXUh65ejG4bbvdXJ+M0m3A=;
-        b=nC7vT9fk9BNPyQlE158LLF5BMCdFKS+kbgPaJSor8RbLmY2Yh1y+7293RrWQtRg8nJ
-         /4tqIfW5mc3rW+0lHIP5UOtv1NY2IojuedTXNxSt+1PTYucKZnX07X2haspYfp2d0yfC
-         M9FMqtQcu2Y8L6OAyz9Y+m+N9LM/BkZ1LuxIVMUnMusubHAWo4NOgE9PSOaTh9nj5SnC
-         cFoJv18+UvjUbWxrMy3PF8ep8/P+oC26B87ucD8WpeSZ4uNBvHLxcxlssu1UAoXpFEpn
-         FVVN81AVsjYFelADUmLbrpcGPF2usP0DVfU5ZJSQOL/TlbkdhGKcQQuaSHf3zJYgVV1c
-         KAXQ==
-X-Gm-Message-State: APuU4Z87UIqvqzm4Hqu7IcvMpJPWVaA2GHv0TVU/IFaWXab1odh1W5qD
-	wXzvZA3ozpAr2nst7yaVCiJNhZLXJ/X3Iaa0YeZCidWi3VOw54oHPsIp
-X-Gm-Gg: AYBFou2NsOMz3Nt+KzxU03YY1u+ERD/ZdsDJWIAbaW1c7DSLscpTIDusE6+g4fdAYde
-	fQwz9PidlgEmLWkwXikdP8ZHKd3sRNaHZ5R/cXsLE2J9DUK1nKfycNfh01y9fj07+WKCq513AmB
-	u7mq159z+SFw6bsUUd7CcUpgVY8kUyZtkO2CYjJ1fEzhV+dhU0A0rZesOdLjeEttsByF9Epa70Q
-	rnA23kJBy/TRQRqhRBhZdqzwVozzc1kPzfd4S4qfNFqjfEi2tWetpjQsPo7VJ0LUY1PPJTf2xU4
-	jFUf5uSL12syie7sU0g2jtgIwIaAx3R1gmDBSGDDDMC5laXdykcFJ3nxom4BDhTJ2UPnaYNmc2C
-	7MV7vFCRx6mu5jEvWIj3YaEIPSD/Xy0+omxOf6tXWDy6Sx44b0WIYn7LBZrTWVpb69hXIOqyboT
-	uv2DUw8PSyQPc4485k26tTH1fdAzSY+C5DEqZs4FCPaIIdK2UxwSJtqxH6v4NswcD8U6ieTDQ0M
-	5i6NJEJqO5OCTVO9bTD4KWazAGcr4SbDe9LA1Cwjpjn08xkHkgRb43yixa3HXFPnQE+WvgRjjWr
-	Kckk634K4VVxpPR0ZiEQMX80+RKFQd/vQSbhrPOfG+pYUeax
-X-Received: by 2002:a17:902:f70f:b0:2e9:528c:b9ea with SMTP id d9443c01a7336-2ed8373fe40mr22868395ad.11.1794209124729;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0nDnq4cvLaTvdqNRvbn031d0/DpRXR/V3IIurH9/49U=;
+        b=bzg8vJRGwTZSRWF30ni1J/CTrDez27hO+M1jO/oKURYAEIXuGMMvaUBqrQkOZbAMwm
+         oW1o9HVCr5F5JGYiSsz38quCj1MwyBSgXozBFddCzG1jGIkNE13Zx8Q7w9+tavk6Q+z5
+         YF53vko0DJxwGqoDgN9JeAb3dsdlhIpFRX1UvmEXmf535nZcuCIWEfn+h9AffXe692Ej
+         gc7ZqwtgODJ52efYOaHfZmY99AMV4BTYGkKpIazPvPwwvUsunxMbuGeMVEFxRIFZ7G3U
+         sksnWt6EU+BUaZtS+HoaU/aDHK8/E0rC9rv8CwwONTXyHCD9BMthsPVDhi8chcL/ReYQ
+         gsbA==
+X-Forwarded-Encrypted: i=1; AL+hErGwLQ6dUbAQOF0pr2fswQL9g/PH8BvythCA+i54pIkZTUgC0OB4kC25y+CjmQ38eoHa8c8GYglhrTqrlHM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zM6U45sLgPluHvc76FipA47Bt7ohov9vl8VeYCBwzZ318YNyv
+	X1b29nh2a/WsKsG/nqojOi7eI7H9fWQuCsadYKOpIZxS5CLh+CQ9fJKsTG5mW3Y/XMxwUAAV4AC
+	oaK1VpAJHCyWg1IydGCzoWSFOFb8lQ7F6nmKm3IM24DnjyykxmP/STU/XJ4dqBpO0k50=
+X-Gm-Gg: AYBFou24FYO5KV26Ft2qYZ3tsU+mmIcUbZHc2xuYbRg9CnCJ3JjaKm3g46DIC+gZy49
+	BA5qJazNFybMCBj8S1KsFWh5ACCGOfLGOZhz+MS0CLKMbh+FNKxji5c3oJJPOqHZqDZardtBWtQ
+	f03HRLoDRwz/pcuF4ULhyRpHJHTLRDOb399I6S481BieNaRlTHycao9Jy5Bq8jqEtq94wAxh4A8
+	pobUgs3Sk1GlXMmJ8O0TEi17dUwZ1XpK3nfsbMAXrH3TQoj8ZDdOIHGTJvgjrOsPpZeqh+MU3xV
+	MrOpcr9KO7bcyXVrsbFp3FjHA3QYjUx/fwsgk4j3NoBwjKLID9DXnKggrUt5viqe8aXoluSCodX
+	wWnxwn+e1Q0ZyTv/Elhs06R8LNVag/Aft2gEHlRqFGSFVvvjMPF1JdmIr/UwFS8OyXSdv8xZAoc
+	mk8yI=
+X-Received: by 2002:a05:7022:2513:b0:1ad:1574:aa9d with SMTP id a92af1059eb24-1b39fdad8a3mr6750741c88.0.1794209124219;
         Sun, 08 Nov 2026 23:25:24 -0800 (PST)
-Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed815e7416sm8144945ad.17.2026.11.08.23.25.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 23:25:24 -0800 (PST)
-Date: Mon, 9 Nov 2026 15:25:06 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: "GUO Ren (XuanTie)" <guoren@kernel.org>, 
-	Conor Dooley <conor@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-csky@vger.kernel.org, Chen Pei <cp0613@linux.alibaba.com>
-Subject: Re: [PATCH v3] perf vendor events riscv: Add C-SKY C930 JSON file
-Message-ID: <avF0-Rp6w1g3ZN9M@inochi.infowork>
-References: <20261105-csky_c930_pmu-v3-1-3f33e6b3d259@kernel.org>
+X-Received: by 2002:a05:7022:2513:b0:1ad:1574:aa9d with SMTP id a92af1059eb24-1b39fdad8a3mr6750694c88.0.1794209123584;
+        Sun, 08 Nov 2026 23:25:23 -0800 (PST)
+Received: from [10.204.100.41] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e936bsm13400998c88.6.2026.11.08.23.25.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 23:25:22 -0800 (PST)
+Message-ID: <1ceec27d-c7b2-91ae-1cce-82e403289ef1@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 12:55:18 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,688 +114,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-csky_c930_pmu-v3-1-3f33e6b3d259@kernel.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 2/3] media: qcom: iris: add error and status details to
+ diagnostics
+Content-Language: en-US
+To: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>, linux-media@vger.kernel.org
+Cc: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
+        abhinav.kumar@linux.dev, bod@kernel.org, mchehab@kernel.org,
+        p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261106153126.120858-1-dipayaan.roy@oss.qualcomm.com>
+ <20261106153126.120858-3-dipayaan.roy@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20261106153126.120858-3-dipayaan.roy@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: VouczY_TA7bgPnjWYdKPv3SSlXsiI2s-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAyOSBTYWx0ZWRfXyiD+6lnPTR1T
+ I9SNYQNmgczpA7Tnf6ehQW2HqvCR4TyTueElQhLHDjnFrgZj+hmkU16+bGW9ZOYaf5Bj5/sa4aO
+ 0XCgxH2HWHchWsd9C2ZMrkvcTkZcfsq7BgS2wfI+tR4fHMfY7YhGlRmimBUdeFhQPte3r/zs5sD
+ pVeUIIck7fhw7EW3w8I2mV6hISOGJmjrs1YKExPHrQgiRvkxYnUhVW/257Y0IDVYY0b+p9V94EK
+ uZw3QSKqrOqoPN6pO3lk3/AZsYFOgpG6zNWOdtt/HUhpxgGyAcO/sVba/R9l6nvbm5+rQYGBpar
+ 5gKfofYHfM2ww+SsE41nF3CKRKFhNdAakpZfXQIQNi9NgHezAN5jd5GquOkMCg8tnSHFLUI4EMq
+ w3l3eFWNcc5Kyc76v+wYHx9+F2J/nZlyfPRpLT5v3EWyTVme5WQtFCVKRu79FP94QXRzmNArKyR
+ FM4BzN+W61+DlIPVlDw==
+X-Proofpoint-ORIG-GUID: VouczY_TA7bgPnjWYdKPv3SSlXsiI2s-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAyOSBTYWx0ZWRfX7w4KFZQso/HE
+ U3lUfDxMDrrAIF8mUI86xemhcaaD/J0VNriZZ2OBakutbds6ioemU7bUHtrqpUcSA8r6cBw5icK
+ 8ei6vLijSJdIvMSfOjUHfYk3H4myhlw=
+X-Authority-Analysis: v=2.4 cv=JtBkP84C c=1 sm=1 tr=0 ts=6af17565 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=95NKR_oHzG1gkGuYyBYA:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 phishscore=0 adultscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090029
 
-On Thu, Nov 05, 2026 at 06:31:20AM +0000, GUO Ren (XuanTie) wrote:
-> From: Chen Pei <cp0613@linux.alibaba.com>
-> 
-> Add PMU event descriptions for the C-SKY C930 core so perf can list and
-> select its hardware events by name instead of requiring raw event codes.
-> The events cover core counters, branch prediction, instruction fetch,
-> integer execution, load/store operations, vector and floating-point
-> execution, caches and TLBs.
-> 
-> Add a mapfile.csv entry matching mvendorid 0x5b7 and marchid
-> 0x8000000009201600, allowing any mimpid, to select the C930 event table.
-> 
-> For example:
-> 
-> perf stat -e cache.l1d.rd.miss,tlb.l1d.miss ./workload
-> 
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
-> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
 
-LGTM.
-
-Reviewed-by: Inochi Amaot <inochiama@gmail.com>
-
-Regards,
-Inochi
-
+On 11/6/2026 9:01 PM, Dipayaan Roy wrote:
+> Several Iris error messages identify a failed operation without showing
+> the return code or state that caused it, making failures difficult to
+> diagnose.
+>
+> Include available return codes, hardware status, queue positions, and
+> packet or session identifiers in these messages. Also report the header
+> details when an HFI response fails validation.
+>
+> Error handling remains unchanged.
+>
+> Signed-off-by: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
 > ---
-> XuanTie is the RISC-V processor brand of C-SKY Microsystems Co., Ltd.
-> [2]. JEDEC JEP106AB lists C-SKY Microsystems Co., Ltd. as the manufacturer
-> associated with ID 0x5b7 [3]. Accordingly, use C-SKY in the patch title
-> and csky/ as the vendor directory.
-> 
-> This revision is limited to the PMU event descriptions from v2 3/4.
-> perf selects the event table by matching mvendorid, marchid and mimpid,
-> so the DT binding additions are not required for this patch. The
-> derived metrics patch is also omitted from this revision.
-> 
-> Changes in v3:
->  - Repost only the PMU event patch. Omit the DT binding patches
->    (v2 1/4 and 2/4) and the derived metrics patch (v2 4/4).
->  - Rename the vendor directory from xuantie/ to csky/ and update the
->    mapfile.csv entry accordingly.
->  - Change the patch title to "Add C-SKY C930 PMU events".
->  - Drop the topdown.* events, uop.spec, uop.ret, ieu.de.inst_cnt,
->    ieu.rn.inst_cnt and vfpu_ex1_rep.
-> 
-> Changes in v2:
-> v2: https://lore.kernel.org/linux-riscv/20251121063439.2545-1-cp0613@linux.alibaba.com/
->  - Vendor name update.
-> 
-> Previous versions:
-> v1: https://lore.kernel.org/linux-riscv/20250910121121.7203-1-cp0613@linux.alibaba.com/
-> 
-> References:
-> [1] https://www.xrvm.com/product/xuantie/C930
-> [2] https://www.xrvm.com/declaration
-> [3] https://www.jedec.org/standards-documents/docs/jep-106ab
-> ---
->  .../pmu-events/arch/riscv/csky/c930/basic.json     |  82 ++++++++++
->  .../perf/pmu-events/arch/riscv/csky/c930/ieu.json  |  47 ++++++
->  .../perf/pmu-events/arch/riscv/csky/c930/ifu.json  |  62 ++++++++
->  .../perf/pmu-events/arch/riscv/csky/c930/l2c.json  |  62 ++++++++
->  .../perf/pmu-events/arch/riscv/csky/c930/lsu.json  | 137 +++++++++++++++++
->  .../perf/pmu-events/arch/riscv/csky/c930/vfpu.json | 167 +++++++++++++++++++++
->  tools/perf/pmu-events/arch/riscv/mapfile.csv       |   1 +
->  7 files changed, 558 insertions(+)
-> 
-> diff --git a/tools/perf/pmu-events/arch/riscv/csky/c930/basic.json b/tools/perf/pmu-events/arch/riscv/csky/c930/basic.json
-> new file mode 100644
-> index 000000000000..a65b90a682ab
-> --- /dev/null
-> +++ b/tools/perf/pmu-events/arch/riscv/csky/c930/basic.json
-> @@ -0,0 +1,82 @@
-> +[
-> +    {
-> +        "EventName": "cycles.hart",
-> +        "EventCode": "0x00000001",
-> +        "BriefDescription": "CPU cycles, incremented on every CPU clock cycle"
-> +    },
-> +    {
-> +        "EventName": "inst.ret",
-> +        "EventCode": "0x00000002",
-> +        "BriefDescription": "Instruction architecturally executed"
-> +    },
-> +    {
-> +        "EventName": "inst.brjmp.spec",
-> +        "EventCode": "0x00000003",
-> +        "BriefDescription": "Control transfer instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.mispred.brjmp.spec",
-> +        "EventCode": "0x00000004",
-> +        "BriefDescription": "Control transfer instructions that mispredicted"
-> +    },
-> +    {
-> +        "EventName": "cache.l1i.rd.access",
-> +        "EventCode": "0x00000005",
-> +        "BriefDescription": "Instruction Cache accesses"
-> +    },
-> +    {
-> +        "EventName": "cache.l1i.rd.miss",
-> +        "EventCode": "0x00000006",
-> +        "BriefDescription": "Instruction Cache misses"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.rd.access",
-> +        "EventCode": "0x00000007",
-> +        "BriefDescription": "Data Cache load accesses"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.rd.miss",
-> +        "EventCode": "0x00000008",
-> +        "BriefDescription": "Data Cache load misses"
-> +    },
-> +    {
-> +        "EventName": "tlb.l1i.access",
-> +        "EventCode": "0x00000009",
-> +        "BriefDescription": "Instruction TLB accesses"
-> +    },
-> +    {
-> +        "EventName": "tlb.l1i.miss",
-> +        "EventCode": "0x0000000a",
-> +        "BriefDescription": "Instruction TLB misses"
-> +    },
-> +    {
-> +        "EventName": "tlb.l1d.access",
-> +        "EventCode": "0x0000000b",
-> +        "BriefDescription": "Data TLB accesses"
-> +    },
-> +    {
-> +        "EventName": "tlb.l1d.miss",
-> +        "EventCode": "0x0000000c",
-> +        "BriefDescription": "Data TLB misses"
-> +    },
-> +    {
-> +        "EventName": "tlb.pf.access",
-> +        "EventCode": "0x0000000d",
-> +        "BriefDescription": "Prefetch TLB accesses"
-> +    },
-> +    {
-> +        "EventName": "tlb.pf.miss",
-> +        "EventCode": "0x0000000e",
-> +        "BriefDescription": "Prefetch TLB misses"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.access",
-> +        "EventCode": "0x0000000f",
-> +        "BriefDescription": "L2 accesses"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.miss",
-> +        "EventCode": "0x00000010",
-> +        "BriefDescription": "L2 misses"
-> +    }
-> +]
-> diff --git a/tools/perf/pmu-events/arch/riscv/csky/c930/ieu.json b/tools/perf/pmu-events/arch/riscv/csky/c930/ieu.json
-> new file mode 100644
-> index 000000000000..7ee0c8e43411
-> --- /dev/null
-> +++ b/tools/perf/pmu-events/arch/riscv/csky/c930/ieu.json
-> @@ -0,0 +1,47 @@
-> +[
-> +    {
-> +        "EventName": "inst.int.alu.spec",
-> +        "EventCode": "0x00000045",
-> +        "BriefDescription": "Completed ALU instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.int.mul.spec",
-> +        "EventCode": "0x00000046",
-> +        "BriefDescription": "Completed MULT instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.int.div.spec",
-> +        "EventCode": "0x00000047",
-> +        "BriefDescription": "Completed DIV instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.int.csr.spec",
-> +        "EventCode": "0x00000048",
-> +        "BriefDescription": "Completed CSR instructions"
-> +    },
-> +    {
-> +        "EventName": "ieu.is.siq.stall",
-> +        "EventCode": "0x000000c0",
-> +        "BriefDescription": "Stall cycles in SX pipe"
-> +    },
-> +    {
-> +        "EventName": "ieu.is.miq.stall",
-> +        "EventCode": "0x000000c1",
-> +        "BriefDescription": "Stall cycles in MX pipe"
-> +    },
-> +    {
-> +        "EventName": "ieu.is.biq.stall",
-> +        "EventCode": "0x000000c2",
-> +        "BriefDescription": "Stall cycles in BR pipe"
-> +    },
-> +    {
-> +        "EventName": "ieu.is.lsiq.stall",
-> +        "EventCode": "0x000000c3",
-> +        "BriefDescription": "Stall cycles in LS pipe"
-> +    },
-> +    {
-> +        "EventName": "ieu.is.vfpq.stall",
-> +        "EventCode": "0x000000c4",
-> +        "BriefDescription": "Stall cycles in VF pipe"
-> +    }
-> +]
-> diff --git a/tools/perf/pmu-events/arch/riscv/csky/c930/ifu.json b/tools/perf/pmu-events/arch/riscv/csky/c930/ifu.json
-> new file mode 100644
-> index 000000000000..a8fedd95659a
-> --- /dev/null
-> +++ b/tools/perf/pmu-events/arch/riscv/csky/c930/ifu.json
-> @@ -0,0 +1,62 @@
-> +[
-> +    {
-> +        "EventName": "inst.mispred.branch",
-> +        "EventCode": "0x00000018",
-> +        "BriefDescription": "Conditional branches that mispredicted"
-> +    },
-> +    {
-> +        "EventName": "inst.mispred.uncond_branch",
-> +        "EventCode": "0x00000019",
-> +        "BriefDescription": "Direct jumps that mispredicted"
-> +    },
-> +    {
-> +        "EventName": "inst.mispred.ind",
-> +        "EventCode": "0x0000001a",
-> +        "BriefDescription": "Indirect jumps that mispredicted"
-> +    },
-> +    {
-> +        "EventName": "inst.mispred.ret",
-> +        "EventCode": "0x0000001b",
-> +        "BriefDescription": "Function return instructions that mispredicted"
-> +    },
-> +    {
-> +        "EventName": "inst.brjmp.branch.spec",
-> +        "EventCode": "0x0000001c",
-> +        "BriefDescription": "Conditional branch instructions that speculatively executed"
-> +    },
-> +    {
-> +        "EventName": "inst.brjmp.uncond_branch.spec",
-> +        "EventCode": "0x0000001d",
-> +        "BriefDescription": "Direct jumps that speculatively executed"
-> +    },
-> +    {
-> +        "EventName": "inst.brjmp.ind.spec",
-> +        "EventCode": "0x0000001e",
-> +        "BriefDescription": "Indirect jumps that speculatively executed"
-> +    },
-> +    {
-> +        "EventName": "inst.brjmp.ret.spec",
-> +        "EventCode": "0x0000001f",
-> +        "BriefDescription": "Function return instructions that speculatively executed"
-> +    },
-> +    {
-> +        "EventName": "inst.brjmp.branch.tk",
-> +        "EventCode": "0x00000020",
-> +        "BriefDescription": "Branch instructions that resolved to be taken"
-> +    },
-> +    {
-> +        "EventName": "cache.l1i.rd.miss.latency",
-> +        "EventCode": "0x000000b8",
-> +        "BriefDescription": "Cycles where frontend issues no instructions due to L1 instruction cache miss"
-> +    },
-> +    {
-> +        "EventName": "tlb.l1i.miss.latency",
-> +        "EventCode": "0x000000b9",
-> +        "BriefDescription": "Cycles where frontend issues no instructions due to instruction TLB miss"
-> +    },
-> +    {
-> +        "EventName": "inst.mispred.brjmp.latency",
-> +        "EventCode": "0x000000ba",
-> +        "BriefDescription": "Cycles where frontend issues no instructions due to branch redirect"
-> +    }
-> +]
-> diff --git a/tools/perf/pmu-events/arch/riscv/csky/c930/l2c.json b/tools/perf/pmu-events/arch/riscv/csky/c930/l2c.json
-> new file mode 100644
-> index 000000000000..4a8698cf5637
-> --- /dev/null
-> +++ b/tools/perf/pmu-events/arch/riscv/csky/c930/l2c.json
-> @@ -0,0 +1,62 @@
-> +[
-> +    {
-> +        "EventName": "cache.l2.wb",
-> +        "EventCode": "0x000000a2",
-> +        "BriefDescription": "L2 Cache write-backs"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.rd",
-> +        "EventCode": "0x000000a3",
-> +        "BriefDescription": "L2 Cache reads"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.wr",
-> +        "EventCode": "0x000000a4",
-> +        "BriefDescription": "L2 Cache writes"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.refill.rd",
-> +        "EventCode": "0x000000a5",
-> +        "BriefDescription": "L2 Cache refills caused by read"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.refill.wr",
-> +        "EventCode": "0x000000a6",
-> +        "BriefDescription": "L2 Cache refills caused by write"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.wb.victim",
-> +        "EventCode": "0x000000a7",
-> +        "BriefDescription": "L2 Cache write-backs caused by cache replacements"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.wb.clean",
-> +        "EventCode": "0x000000a8",
-> +        "BriefDescription": "L2 Cache write-backs caused by CMO or external snoops"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.inval",
-> +        "EventCode": "0x000000a9",
-> +        "BriefDescription": "L2 Cache invalidations (by CMO or external snoops included)"
-> +    },
-> +    {
-> +        "EventName": "cache.l2.refill.inst",
-> +        "EventCode": "0x000000aa",
-> +        "BriefDescription": "L2 Cache refills caused by instruction cache load miss"
-> +    },
-> +    {
-> +        "EventName": "bus.access",
-> +        "EventCode": "0x000000ab",
-> +        "BriefDescription": "All requests sent to the bus"
-> +    },
-> +    {
-> +        "EventName": "bus.rd.access",
-> +        "EventCode": "0x000000ac",
-> +        "BriefDescription": "All read requests sent to the bus (prefetch included)"
-> +    },
-> +    {
-> +        "EventName": "bus.wr.access",
-> +        "EventCode": "0x000000ad",
-> +        "BriefDescription": "All write requests sent to the bus (eviction by the current core included, but eviction by external snoops not included)"
-> +    }
-> +]
-> diff --git a/tools/perf/pmu-events/arch/riscv/csky/c930/lsu.json b/tools/perf/pmu-events/arch/riscv/csky/c930/lsu.json
-> new file mode 100644
-> index 000000000000..eb8d2351dff1
-> --- /dev/null
-> +++ b/tools/perf/pmu-events/arch/riscv/csky/c930/lsu.json
-> @@ -0,0 +1,137 @@
-> +[
-> +    {
-> +        "EventName": "inst.load.unalign",
-> +        "EventCode": "0x00000083",
-> +        "BriefDescription": "Unaligned load instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.store.unalign",
-> +        "EventCode": "0x00000084",
-> +        "BriefDescription": "Unaligned cross-page store instructions"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.wr.access",
-> +        "EventCode": "0x0000008a",
-> +        "BriefDescription": "Data Cache store accesses"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.wr.miss",
-> +        "EventCode": "0x0000008b",
-> +        "BriefDescription": "Data Cache store misses"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.refill.inner",
-> +        "EventCode": "0x0000008c",
-> +        "BriefDescription": "Data Cache misses with L2C hit"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.refill.outer",
-> +        "EventCode": "0x0000008d",
-> +        "BriefDescription": "Data Cache misses with L2C miss"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.wb",
-> +        "EventCode": "0x0000008e",
-> +        "BriefDescription": "Data Cache dirty cache line evictions"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.wb.victim",
-> +        "EventCode": "0x0000008f",
-> +        "BriefDescription": "Data Cache dirty cache line evictions caused by new cache line refilling"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.wb.clean",
-> +        "EventCode": "0x00000090",
-> +        "BriefDescription": "Data Cache dirty cache line evictions caused by CMO from another CPU or snoop from another CPU"
-> +    },
-> +    {
-> +        "EventName": "cache.l1d.inval",
-> +        "EventCode": "0x00000091",
-> +        "BriefDescription": "Data Cache invalidations caused by CMO or snoops"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.load.spec",
-> +        "EventCode": "0x00000092",
-> +        "BriefDescription": "Completed load instructions (prefetch not included)"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.store.spec",
-> +        "EventCode": "0x00000093",
-> +        "BriefDescription": "Completed store instructions (CMO not included)"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.lr.spec",
-> +        "EventCode": "0x00000094",
-> +        "BriefDescription": "Completed lr instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.sc",
-> +        "EventCode": "0x00000095",
-> +        "BriefDescription": "Completed sc instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.sc.pass",
-> +        "EventCode": "0x00000096",
-> +        "BriefDescription": "Completed sc instructions that pass"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.sc.fail",
-> +        "EventCode": "0x00000097",
-> +        "BriefDescription": "Completed sc instructions that fail"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.amo",
-> +        "EventCode": "0x00000098",
-> +        "BriefDescription": "Completed AMO instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.load_acquire.spec",
-> +        "EventCode": "0x00000099",
-> +        "BriefDescription": "Completed load acquire instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.store_release.spec",
-> +        "EventCode": "0x0000009a",
-> +        "BriefDescription": "Completed store release instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.fence",
-> +        "EventCode": "0x0000009b",
-> +        "BriefDescription": "Completed fence instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.fencei",
-> +        "EventCode": "0x0000009c",
-> +        "BriefDescription": "Completed fencei instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.dvm_sync",
-> +        "EventCode": "0x0000009d",
-> +        "BriefDescription": "Completed dvm sync instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.vec_load.spec",
-> +        "EventCode": "0x0000009e",
-> +        "BriefDescription": "Completed vector load uops"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.vec_store.spec",
-> +        "EventCode": "0x0000009f",
-> +        "BriefDescription": "Completed vector store uops"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.float_load.spec",
-> +        "EventCode": "0x000000a0",
-> +        "BriefDescription": "Completed floating-point load uops"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.float_store.spec",
-> +        "EventCode": "0x000000a1",
-> +        "BriefDescription": "Completed floating-point store uops"
-> +    },
-> +    {
-> +        "EventName": "inst.ldst.spec",
-> +        "EventCode": "0x000000b3",
-> +        "BriefDescription": "Completed instructions executed by LSU"
-> +    }
-> +]
-> diff --git a/tools/perf/pmu-events/arch/riscv/csky/c930/vfpu.json b/tools/perf/pmu-events/arch/riscv/csky/c930/vfpu.json
-> new file mode 100644
-> index 000000000000..e60dea102862
-> --- /dev/null
-> +++ b/tools/perf/pmu-events/arch/riscv/csky/c930/vfpu.json
-> @@ -0,0 +1,167 @@
-> +[
-> +    {
-> +        "EventName": "inst.sca.fp.arith.spec",
-> +        "EventCode": "0x0000005b",
-> +        "BriefDescription": "Completed scalar floating-point instructions"
-> +    },
-> +    {
-> +        "EventName": "inst.fp.arith.half.spec",
-> +        "EventCode": "0x0000005c",
-> +        "BriefDescription": "Completed half-precision floating-point instructions (both scalar and vector included)"
-> +    },
-> +    {
-> +        "EventName": "inst.fp.arith.single.spec",
-> +        "EventCode": "0x0000005d",
-> +        "BriefDescription": "Completed single-precision floating-point instructions (both scalar and vector included)"
-> +    },
-> +    {
-> +        "EventName": "inst.fp.arith.double.spec",
-> +        "EventCode": "0x0000005e",
-> +        "BriefDescription": "Completed double-precision floating-point instructions (both scalar and vector included)"
-> +    },
-> +    {
-> +        "EventName": "inst.rvv.arith.spec",
-> +        "EventCode": "0x0000005f",
-> +        "BriefDescription": "Completed vector arithmetic instructions"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.spec",
-> +        "EventCode": "0x00000060",
-> +        "BriefDescription": "Completed vector arithmetic uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.fp.spec",
-> +        "EventCode": "0x00000061",
-> +        "BriefDescription": "Completed vector arithmetic floating-point uops"
-> +    },
-> +    {
-> +        "EventName": "inst.rvv.arith.fp.spec",
-> +        "EventCode": "0x00000062",
-> +        "BriefDescription": "Completed vector arithmetic floating-point instructions"
-> +    },
-> +    {
-> +        "EventName": "uop.sca.fp.arith.bf.spec",
-> +        "EventCode": "0x00000063",
-> +        "BriefDescription": "Completed scalar bf floating-point uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vint8.spec",
-> +        "EventCode": "0x00000064",
-> +        "BriefDescription": "Completed INT8 vector uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vint16.spec",
-> +        "EventCode": "0x00000065",
-> +        "BriefDescription": "Completed INT16 vector uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vint32.spec",
-> +        "EventCode": "0x00000066",
-> +        "BriefDescription": "Completed INT32 vector uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vint64.spec",
-> +        "EventCode": "0x00000067",
-> +        "BriefDescription": "Completed INT64 vector uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.fix_point.spec",
-> +        "EventCode": "0x00000068",
-> +        "BriefDescription": "Completed fixed-point vector uops"
-> +    },
-> +    {
-> +        "EventName": "uop.fp.arith.fdiv.spec",
-> +        "EventCode": "0x00000069",
-> +        "BriefDescription": "Completed floating-point division uops (both scalar and vector included)"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.idiv.spec",
-> +        "EventCode": "0x0000006a",
-> +        "BriefDescription": "Completed vector integer division uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.zvkn.spec",
-> +        "EventCode": "0x0000006b",
-> +        "BriefDescription": "Completed zvkn-type uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.zvks.spec",
-> +        "EventCode": "0x0000006c",
-> +        "BriefDescription": "Completed zvks-type uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vmulu64.spec",
-> +        "EventCode": "0x0000006d",
-> +        "BriefDescription": "Completed UINT64 vector multiply uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vmulu.spec",
-> +        "EventCode": "0x0000006e",
-> +        "BriefDescription": "Completed UNIT vector multiply uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vdot.spec",
-> +        "EventCode": "0x0000006f",
-> +        "BriefDescription": "Completed vdot uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vfmul.spec",
-> +        "EventCode": "0x00000070",
-> +        "BriefDescription": "Completed vector floating-point multiply uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vfadd.spec",
-> +        "EventCode": "0x00000071",
-> +        "BriefDescription": "Completed vector floating-point add uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.perm.spec",
-> +        "EventCode": "0x00000072",
-> +        "BriefDescription": "Completed vector permutation uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.redu.spec",
-> +        "EventCode": "0x00000073",
-> +        "BriefDescription": "Completed vector integer reduction uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.fred.spec",
-> +        "EventCode": "0x00000074",
-> +        "BriefDescription": "Completed vector floating-point reduction uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.mask.spec",
-> +        "EventCode": "0x00000075",
-> +        "BriefDescription": "Completed vector arithmetic masked uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.vlmax.spec",
-> +        "EventCode": "0x00000076",
-> +        "BriefDescription": "Completed vlmax uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.agnostic.spec",
-> +        "EventCode": "0x00000077",
-> +        "BriefDescription": "Completed vector arithmetic uops with agnostic strategy"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.arith.idiv_direct.spec",
-> +        "EventCode": "0x00000078",
-> +        "BriefDescription": "Completed vector integer division uops that produce special result"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.vadd.spec",
-> +        "EventCode": "0x000000ae",
-> +        "BriefDescription": "Completed vector integer add uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.vmacc.spec",
-> +        "EventCode": "0x000000af",
-> +        "BriefDescription": "Completed vector integer multiply-add uops"
-> +    },
-> +    {
-> +        "EventName": "uop.rvv.vfmacc.spec",
-> +        "EventCode": "0x000000b0",
-> +        "BriefDescription": "Completed vector floating-point multiply-add uops"
-> +    }
-> +]
-> diff --git a/tools/perf/pmu-events/arch/riscv/mapfile.csv b/tools/perf/pmu-events/arch/riscv/mapfile.csv
-> index 87cfb0e0849f..372833e0a78e 100644
-> --- a/tools/perf/pmu-events/arch/riscv/mapfile.csv
-> +++ b/tools/perf/pmu-events/arch/riscv/mapfile.csv
-> @@ -21,6 +21,7 @@
->  0x489-0x8000000000000[1-6]08-0x[9b][[:xdigit:]]+,v1,sifive/p650,core
->  0x5b7-0x0-0x0,v1,thead/c900-legacy,core
->  0x5b7-0x80000000090c0d00-0x2047000,v1,thead/c900-legacy,core
-> +0x5b7-0x8000000009201600-0x[[:xdigit:]]+,v1,csky/c930,core
->  0x602-0x3-0x0,v1,openhwgroup/cva6,core
->  0x67e-0x80000000db0000[89]0-0x[[:xdigit:]]+,v1,starfive/dubhe-80,core
->  0x31e-0x8000000000008a45-0x[[:xdigit:]]+,v1,andes/ax45,core
-> 
-> ---
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-> change-id: 20261105-csky_c930_pmu-0eed57291f30
-> 
-> Best regards,
-> --  
-> GUO Ren (XuanTie) <guoren@kernel.org>
-> 
+>  drivers/media/platform/qcom/iris/iris_hfi_common.c |  4 ++--
+>  .../platform/qcom/iris/iris_hfi_gen1_response.c    |  9 ++++++---
+>  .../platform/qcom/iris/iris_hfi_gen2_response.c    |  5 ++++-
+>  drivers/media/platform/qcom/iris/iris_hfi_queue.c  | 14 +++++++++----
+>  drivers/media/platform/qcom/iris/iris_vb2.c        |  2 +-
+>  drivers/media/platform/qcom/iris/iris_vdec.c       |  3 ++-
+>  drivers/media/platform/qcom/iris/iris_venc.c       |  3 ++-
+>  drivers/media/platform/qcom/iris/iris_vidc.c       |  2 +-
+>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 23 +++++++++++-----------
+>  drivers/media/platform/qcom/iris/iris_vpu4x.c      |  6 ++++--
+>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 15 ++++++++------
+>  11 files changed, 53 insertions(+), 33 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.c b/drivers/media/platform/qcom/iris/iris_hfi_common.c
+> index dad906d03fdc..1fd4cecd7956 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_common.c
+> @@ -138,7 +138,7 @@ int iris_hfi_pm_suspend(struct iris_core *core)
+>  	return 0;
+>  
+>  error:
+> -	dev_err(core->dev, "failed to suspend\n");
+> +	dev_err(core->dev, "failed to suspend: %d\n", ret);
+>  
+>  	return ret;
+>  }
+> @@ -179,7 +179,7 @@ int iris_hfi_pm_resume(struct iris_core *core)
+>  err_power_off:
+>  	iris_vpu_power_off(core);
+>  error:
+> -	dev_err(core->dev, "failed to resume\n");
+> +	dev_err(core->dev, "failed to resume: %d\n", ret);
+>  
+>  	return -EBUSY;
+>  }
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> index ffa98139f0eb..1ce7f97d4087 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> @@ -301,7 +301,8 @@ iris_hfi_gen1_sys_get_prop_image_version(struct iris_core *core,
+>  	u32 i;
+>  
+>  	if (req_bytes < IRIS_FW_VERSION_LENGTH - 1 || !pkt->data[0] || pkt->num_properties > 1) {
+> -		dev_err(core->dev, "bad packet\n");
+> +		dev_err(core->dev, "invalid firmware version packet (size %u, properties %u)\n",
+> +			pkt->hdr.size, pkt->num_properties);
+>  		return;
+>  	}
+>  
+> @@ -382,7 +383,8 @@ static void iris_hfi_gen1_session_etb_done(struct iris_inst *inst, void *packet)
+>  
+>  error:
+>  	iris_inst_change_state(inst, IRIS_INST_ERROR);
+> -	dev_err(inst->core->dev, "error in etb done\n");
+> +	dev_err(inst->core->dev, "ETB done without input buffer (session %#x, tag %u)\n",
+> +		inst->session_id, pkt->input_tag);
+>  }
+>  
+>  static void iris_hfi_gen1_session_ftb_done(struct iris_inst *inst, void *packet)
+> @@ -530,7 +532,8 @@ static void iris_hfi_gen1_session_ftb_done(struct iris_inst *inst, void *packet)
+>  
+>  error:
+>  	iris_inst_change_state(inst, IRIS_INST_ERROR);
+> -	dev_err(core->dev, "error in ftb done\n");
+> +	dev_err(core->dev, "FTB done without output buffer (session %#x, tag %u, offset %u)\n",
+> +		inst->session_id, output_tag, offset);
+>  }
+>  
+>  static enum iris_buffer_type iris_hfi_gen1_buf_type(struct iris_inst *inst, u32 type)
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> index f0782c4b1e6e..b82f50458fe1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+> @@ -980,8 +980,11 @@ static int iris_hfi_gen2_handle_response(struct iris_core *core, void *response)
+>  	int ret;
+>  
+>  	ret = iris_hfi_gen2_validate_hdr_packet(core, hdr);
+> -	if (ret)
+> +	if (ret) {
+> +		dev_err(core->dev, "invalid HFI response (size %u, packets %u): %d\n",
+> +			hdr->size, hdr->num_packets, ret);
+>  		return iris_hfi_gen2_handle_system_error(core, NULL);
+> +	}
+>  
+>  	if (!hdr->session_id)
+>  		return iris_hfi_gen2_handle_system_response(core, hdr);
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+> index bf6db23b53e2..ef556e54f6f1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+> @@ -112,14 +112,18 @@ static int iris_hfi_queue_read(struct iris_iface_q_info *qinfo, void *packet)
+>  int iris_hfi_queue_cmd_write_locked(struct iris_core *core, void *pkt, u32 pkt_size)
+>  {
+>  	struct iris_iface_q_info *q_info = &core->command_queue;
+> +	int ret;
+>  
+>  	if (core->state == IRIS_CORE_ERROR || core->state == IRIS_CORE_DEINIT)
+>  		return -EINVAL;
+>  
+> -	if (!iris_hfi_queue_write(q_info, pkt, pkt_size)) {
+> +	ret = iris_hfi_queue_write(q_info, pkt, pkt_size);
+> +	if (!ret) {
+>  		iris_vpu_raise_interrupt(core);
+>  	} else {
+> -		dev_err(core->dev, "queue full\n");
+> +		dev_err(core->dev, "command queue write failed: %d (size %u, read %u, write %u)\n",
+> +			ret, pkt_size, q_info->qhdr->read_idx,
+> +			q_info->qhdr->write_idx);
+>  		return -ENODATA;
+>  	}
+>  
+> @@ -254,7 +258,8 @@ int iris_hfi_queues_init(struct iris_core *core)
+>  						    &core->iface_q_table_daddr,
+>  						    GFP_KERNEL, DMA_ATTR_WRITE_COMBINE);
+>  	if (!core->iface_q_table_vaddr) {
+> -		dev_err(core->dev, "queues alloc and map failed\n");
+> +		dev_err(core->dev, "failed to allocate HFI queues (%u bytes)\n",
+> +			queue_size);
+>  		return -ENOMEM;
+>  	}
+>  
+> @@ -262,7 +267,8 @@ int iris_hfi_queues_init(struct iris_core *core)
+>  					  &core->sfr_daddr,
+>  					  GFP_KERNEL, DMA_ATTR_WRITE_COMBINE);
+>  	if (!core->sfr_vaddr) {
+> -		dev_err(core->dev, "sfr alloc and map failed\n");
+> +		dev_err(core->dev, "failed to allocate SFR (%u bytes)\n",
+> +			(unsigned int)SFR_SIZE);
+>  		dma_free_attrs(core->dev, queue_size, core->iface_q_table_vaddr,
+>  			       core->iface_q_table_daddr, DMA_ATTR_WRITE_COMBINE);
+>  		return -ENOMEM;
+> diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
+> index 8faf709c26c1..b770cd5349b6 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vb2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+> @@ -135,8 +135,8 @@ int iris_vb2_queue_setup(struct vb2_queue *q,
+>  
+>  		ret = inst->hfi_session_ops->session_open(inst);
+>  		if (ret) {
+> +			dev_err(core->dev, "session open failed: %d\n", ret);
+>  			ret = -EINVAL;
+> -			dev_err(core->dev, "session open failed\n");
+>  			goto unlock;
+>  		}
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+> index 0dd33ff447bb..d359d3716ba1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vdec.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+> @@ -529,7 +529,8 @@ int iris_vdec_start_cmd(struct iris_inst *inst)
+>  			clear_sub_state |= IRIS_INST_SUB_OUTPUT_PAUSE;
+>  		}
+>  	} else {
+> -		dev_err(inst->core->dev, "start called before receiving last_flag\n");
+> +		dev_err(inst->core->dev, "start before last buffer (sub-state %#x)\n",
+> +			inst->sub_state);
+>  		iris_inst_change_state(inst, IRIS_INST_ERROR);
+>  		return -EBUSY;
+>  	}
+> diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
+> index 2f2c56bf9122..a7a0f14a78d1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_venc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_venc.c
+> @@ -602,7 +602,8 @@ int iris_venc_start_cmd(struct iris_inst *inst)
+>  			clear_sub_state |= IRIS_INST_SUB_OUTPUT_PAUSE;
+>  		}
+>  	} else {
+> -		dev_err(inst->core->dev, "start called before receiving last_flag\n");
+> +		dev_err(inst->core->dev, "start before last buffer (sub-state %#x)\n",
+> +			inst->sub_state);
+>  		iris_inst_change_state(inst, IRIS_INST_ERROR);
+>  		return -EBUSY;
+>  	}
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+> index 05aab6e3005d..80f0a56712bf 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -168,7 +168,7 @@ int iris_open(struct file *filp)
+>  
+>  	ret = iris_core_init(core);
+>  	if (ret) {
+> -		dev_err(core->dev, "core init failed\n");
+> +		dev_err(core->dev, "core init failed: %d\n", ret);
+>  		pm_runtime_put_sync(core->dev);
+>  		return ret;
+>  	}
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> index c3b760730c98..cd22534c0904 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> @@ -17,14 +17,12 @@
+>  #define NOC_HALT				BIT(0)
+>  #define AON_WRAPPER_SPARE			(AON_BASE_OFFS + 0x28)
+>  
+> -static bool iris_vpu3x_hw_power_collapsed(struct iris_core *core)
+> +static bool iris_vpu3x_hw_power_collapsed(struct iris_core *core,
+> +					  u32 *power_status)
+>  {
+> -	u32 value, pwr_status;
+> +	*power_status = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
+>  
+> -	value = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
+> -	pwr_status = value & BIT(1);
+> -
+> -	return pwr_status ? false : true;
+> +	return !(*power_status & BIT(1));
+>  }
+>  
+>  static void iris_vpu3_power_off_hardware(struct iris_core *core)
+> @@ -32,10 +30,11 @@ static void iris_vpu3_power_off_hardware(struct iris_core *core)
+>  	u32 reg_val = 0, value, i;
+>  	int ret;
+>  
+> -	if (iris_vpu3x_hw_power_collapsed(core))
+> +	if (iris_vpu3x_hw_power_collapsed(core, &value))
+>  		goto disable_power;
+>  
+> -	dev_err(core->dev, "video hw is power on\n");
+> +	dev_err(core->dev, "video hardware still powered on (status %#x)\n",
+> +		value);
+>  
+>  	value = readl(core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
+>  	if (value)
+> @@ -78,10 +77,11 @@ static void iris_vpu33_power_off_hardware(struct iris_core *core)
+>  	u32 count = 0;
+>  	int ret;
+>  
+> -	if (iris_vpu3x_hw_power_collapsed(core))
+> +	if (iris_vpu3x_hw_power_collapsed(core, &value))
+>  		goto disable_power;
+>  
+> -	dev_err(core->dev, "video hw is power on\n");
+> +	dev_err(core->dev, "video hardware still powered on (status %#x)\n",
+> +		value);
+>  
+>  	value = readl(core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
+>  	if (value)
+> @@ -116,7 +116,8 @@ static void iris_vpu33_power_off_hardware(struct iris_core *core)
+>  	} while (++count < 1000);
+>  
+>  	if (!handshake_done && handshake_busy)
+> -		dev_err(core->dev, "LPI handshake timeout\n");
+> +		dev_err(core->dev, "LPI handshake timeout (status %#x)\n",
+> +			value);
+>  
+>  	ret = readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STATUS,
+>  				 reg_val, reg_val & BIT(0), 200, 2000);
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu4x.c b/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> index 90ccdc0d2a07..0369f2497f76 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> @@ -117,7 +117,8 @@ static void iris_vpu4x_power_off_apv(struct iris_core *core)
+>  	} while (++count < 1000);
+>  
+>  	if (!handshake_done && handshake_busy)
+> -		dev_err(core->dev, "LPI handshake timeout\n");
+> +		dev_err(core->dev, "APV LPI handshake timeout (status %#x)\n",
+> +			value);
+>  
+>  	writel(0x080200, core->reg_base + AON_WRAPPER_MVP_NOC_RESET_REQ);
+>  	ret = readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_RESET_ACK,
+> @@ -314,7 +315,8 @@ static void iris_vpu4x_power_off_hardware(struct iris_core *core)
+>  	} while (++count < 1000);
+>  
+>  	if (!handshake_done && handshake_busy)
+> -		dev_err(core->dev, "LPI handshake timeout\n");
+> +		dev_err(core->dev, "hardware LPI handshake timeout (status %#x)\n",
+> +			value);
+>  
+>  	writel(MVP_NOC_RESET_REQ_MASK, core->reg_base + AON_WRAPPER_MVP_NOC_RESET_REQ);
+>  	ret = readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_RESET_ACK,
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> index 243bd845349f..4a56856a8df5 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> @@ -83,7 +83,8 @@ int iris_vpu_boot_firmware(struct iris_core *core)
+>  	while (!ctrl_status && count < max_tries) {
+>  		ctrl_status = readl(core->reg_base + CTRL_STATUS);
+>  		if ((ctrl_status & CTRL_ERROR_STATUS__M) == 0x4) {
+> -			dev_err(core->dev, "invalid setting for uc_region\n");
+> +			dev_err(core->dev, "invalid UC region setting (CTRL_STATUS %#x)\n",
+> +				ctrl_status);
+>  			return -EINVAL;
+>  		}
+>  
+> @@ -92,7 +93,8 @@ int iris_vpu_boot_firmware(struct iris_core *core)
+>  	}
+>  
+>  	if (count >= max_tries) {
+> -		dev_err(core->dev, "error booting up iris firmware\n");
+> +		dev_err(core->dev, "firmware boot timed out (CTRL_STATUS %#x)\n",
+> +			ctrl_status);
+>  		return -ETIME;
+>  	}
+>  
+> @@ -128,7 +130,8 @@ int iris_vpu_watchdog(struct iris_core *core, u32 intr_status)
+>  	u32 wd_intr_mask = core->iris_platform_data->wd_intr_mask;
+>  
+>  	if (intr_status & wd_intr_mask) {
+> -		dev_err(core->dev, "received watchdog interrupt\n");
+> +		dev_err(core->dev, "received watchdog interrupt (status %#x)\n",
+> +			intr_status);
+>  		return -ETIME;
+>  	}
+>  
+> @@ -172,7 +175,7 @@ int iris_vpu_prepare_pc(struct iris_core *core)
+>  	ctrl_status = readl(core->reg_base + CTRL_STATUS);
+>  	wfi_status = readl(core->reg_base + WRAPPER_TZ_CPU_STATUS);
+>  	wfi_status &= BIT(0);
+> -	dev_err(core->dev, "skip power collapse, wfi=%#x, idle=%#x, pcr=%#x, ctrl=%#x)\n",
+> +	dev_err(core->dev, "skip power collapse (wfi=%#x, idle=%#x, pcr=%#x, ctrl=%#x)\n",
+>  		wfi_status, idle_status, pc_ready, ctrl_status);
+>  
+>  	return -EAGAIN;
+> @@ -365,7 +368,7 @@ int iris_vpu35_vpu4x_power_off_controller(struct iris_core *core)
+>  	} while (++count < 1000);
+>  
+>  	if (!handshake_done && handshake_busy)
+> -		dev_err(core->dev, "LPI handshake timeout\n");
+> +		dev_err(core->dev, "LPI handshake timeout (status %#x)\n", val);
+>  
+>  	ret = readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_VIDEO_CTL_NOC_LPI_STATUS,
+>  				 val, val & BIT(0), 200, 2000);
+> @@ -530,7 +533,7 @@ int iris_vpu_power_on(struct iris_core *core)
+>  err_unvote_icc:
+>  	iris_unset_icc_bw(core);
+>  err:
+> -	dev_err(core->dev, "power on failed\n");
+> +	dev_err(core->dev, "power on failed: %d\n", ret);
+>  
+>  	return ret;
+>  }
+
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+
