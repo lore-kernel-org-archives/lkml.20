@@ -1,106 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240434;
-	b=fxz7bO7NTcf25K0uBozv8z2bai6Hxr9qFFs5P8MJTcuGATpC+Qfo0LksT3Moe2rtgpr8
-	 4lkylHckSbB60nlWdkHw4rnAwhPcVzvoIPjTXiOAz6apQUO/GkFSW/zStUDv3DoCJQ5lW
-	 HjPBnlOs5j/0YjOaVntAPVD5tCG+AyVt294arXip70jlm6V1nksW/UikHeI1Gkn5TzLIg
-	 0mROuA2Az3leaIh8zLc8t2zjUcYl6v1EE/52oDz2LkonS+m6gP4afXjxWMpnUay9e5cma
-	 SERymnjuMjE+9Jv0hJtawgCZIx2yW6t8IMK7vLa4m9YcUcZHvZum4wjDCAeyH8PI63Q==
+	t=1794240437;
+	b=azQdm/rH5YBg1aLZ9WHuo8cqk/ZNCbJR182xA6xUjR0r5/Yy3sZPltWUcpWn8BR1GDuh
+	 cuTmPCX7sqzOBvuDeYVtZlwYEzVn58LHENU2lBhCk2+xRCDYWEMpJGU4PuCYexx+RXFGA
+	 ZX6454RJgcZiQd3dTpP2uhbjSp4s1tIuQB5G8FI4NEqpJ1/V0J5awYhQPgjawZmHNdkmr
+	 EfMtqFzLM745wSF48hOGCfJlpy/W/lMzyn0nU9BqV6zm7h1RxoZhefWQUvq+NgSyQP7h4
+	 Bd+RcY15PZP3nu3weDdNEMMEfG7tRdpgY1+6yTLi6tdtbN60FdUInLCiasVB7R7jNZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240434;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GMHTZUTZEeBhMzmR9yLS176DSNdNzj0orFiUqserfBc=;
-	b=gHawz7nROW/2xsUJKi96rkDmsmdfNgPNAyst2ZExDIikzqj4Nbl3q/Zmpi4LuKfzynTB
-	 huLoj0DnnjvB+bF5pA2N3+CVqMLIabgIJJLp4Zdm4uVFoCrPg0co+cB38hQYneOoWuFRw
-	 HPSaGQLrYn8sW4TuyjhadRvLbuH4ZyxSJUzVAWv9ROnam/tN2VFcuGZq/f/DPH5ERqio3
-	 xXkOTHYLtIBUBuSqswwJVNlDhgUrXd4DaPY4GeepHNi9iYqglvHmGwgPQhTN/Jt+Dxdaq
-	 VlmrN8fbNzoFI2wNducXbSPysXReImND0yHM5dspgZIl9XaIGjos9WlVJ7mhMs10vSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240437;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=b6ZiqFg65Q8jcuRQtMgdSgXv1NV9xL4x1lsgIjnPzEE=;
+	b=PGXSmldCHrMySSOgoX9VxN9EjStmOQf6pnrerlpAb+bBFnAJheO2XjaIpridE2zRFEhS
+	 1Yb2p7Jp/8/nix2Evlp/2PJGfvo7KWpG3HV6eKqpGBN6oiAAWJRmP/hWm4vVn+XExEcVD
+	 Hm80Iy3/Bxx1hjX4AYyrbUq1wC08toAHmo6/lHndBkSYnXdKyG0Tqb/EPy1MELDFWoHdx
+	 4CwL4JooZ8LbPDj19Rm25+tPGjiRiKfUBIDSHTjwlqhcQCr2iIeDm+sc8Kb/LJ4XVghvy
+	 9furxXwrPHvOovC/DCahkLqpKAx3OteAqNHQV8VylXJ7pFdufD5bdlQYChqXbogtyog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PsOJVKWO;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELCHzGQ+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2DD606EE81
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE2DD606EE81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B25FC606A31C;
+	Mon,  9 Nov 2026 16:07:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PsOJVKWO
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so12893385e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:07:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794240432; x=1794845232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GMHTZUTZEeBhMzmR9yLS176DSNdNzj0orFiUqserfBc=;
-        b=PsOJVKWOXFsmmhSSRVgz48PowWyv/erowuas4M5LelsS/z3b/xxveqOxWVmVXMQWBY
-         bvtwywdu241mVSeNTHjVRm8/GHyMofq/TYEV92ZTorOuLCL53pRmVziEJZXzxF2GuYvc
-         jx51DWLr93Zqfy4HkqwuYIWJvCCMrmHxBaw/b2rTbYtVcwmbG46gU3iK7utH2354Grds
-         Qob3QmTOoolnw9lULm6sl4dVSfYoQ5mjj9W8qj9UzsxEfzDVa5xH//0IOTcm4KinARoB
-         Zay4ZXjeJfKaF1LGqdszAdJ8CH1bJQB13Qqa5op3jBha9GvQr+fYfHTYE0oi4Hq/6v4a
-         T5nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794240432; x=1794845232;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GMHTZUTZEeBhMzmR9yLS176DSNdNzj0orFiUqserfBc=;
-        b=SxbCb5ve5opFaFcjMm5isVf7kh4RTLJ9uDm6CNiGOEssxlkIYFv3PkCh3bhouhzCC2
-         NvRNVlMTYA5Y9l5Q8oFpm5BQkF2uwE8yJVbNN20G9v8rV1Yk78jDaDsnUaoC40SLbp1k
-         7U9WHp5BBBAWWnxgNCyD6s4bX6pqAGMnUz3hltO5ACzWbByZf12UrNYgHl1Kv1W7QHIi
-         ifafyxsen5jJmxzUpRxDD1BCYlA7FD0CF6/i9Ok4PvBcz9XneKSzokDqUHS95THEB7yE
-         IFI9HZHL0A7TfCJ1ayxzOSnAPhmwM9/AltmbF4UOgb5d/8MabTfHhzLU07pBadasN+wM
-         hd5w==
-X-Forwarded-Encrypted: i=1; AL+hErGRwLjKX0uvdJ/AnBrFNLOEyMZpouK0JDV1aAvm+8AWs0/IOohXNukysPlBjEM/L6sjEv4iYURqN2yEffc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tP8IbOZrrJ8Q2KgiuZSVtxGMgPLJcT10o+Dj49s9M+t8V3bTQ
-	x4ct/hLkZqgNllItYJx8AreHFtehA8wuVNeJZAY7JvxMli4MLl7CW+wa
-X-Gm-Gg: AYBFou1f6FGdSYXxb2fnw1I1RPpGKZk9G3rjwk/PtvYUKERnmkBCjIkIT50vgGFuWfP
-	mQrfZEcRXplFu7JhrdgCikzRijcYZwHSbXpEuXpDFHvLttbndrYbxiRUZroFXabBnBj+oKtQPyC
-	/jgjD8cKAlMp+hGB6nQX2f1Rn4vO3PGjYYo4fx4CnnIbxJiz2P1Q5x3OpOgVVvPnLX0sKwZZVXm
-	wD8NPf8dT14ygxHMZiVVkY9flXzKTZfD01q1a8UCuvEUoH+O3w/dQ2UotXi14ay99CDzb9g2ann
-	uI5iLkCAn6c0imnNODeYT1EoToPPc68bpBjpgWg4QBJTqhH3BeFqcwh2MQa53v0oY4S0QrOytvH
-	1OsCJGk0arjgjsTdCE/QSXKyQnh/+MOZ3kj2Db1+GmEiaeyF0BQh2URP3l/C5+fyb4NZotIup1x
-	4GKz2WH8SoXOki+D+1so4XtMX/u41FmqVxxe4dzQfLFSsyXplMiWFJ8livf9ZQSTngUd6phm6lS
-	b7SWUTpZVsQbg+xCYVQNfcKZdsu3BdZlL05nejhNfI2QlS9Ji/eqb0EITPstSfYwkBmmU5RXKdU
-	RbVEnCgb7PqoV3VScpEshOU3xEyK3Ua9Pxoxgh07u5DCRPNBzWbw+z4Jx0fOeM4BOUvzYOdvZAI
-	+ekyAKdl7kgR5TkfWKjM5K5YcvTW6FCiKkQyXjwWSxg==
-X-Received: by 2002:a05:600c:34cd:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4b960d9c587mr81960605e9.3.1794240432064;
-        Mon, 09 Nov 2026 08:07:12 -0800 (PST)
-Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:863:742:6109:ac9d:152:38c3:6463])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f119b96sm159174245e9.15.2026.11.09.08.07.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:07:11 -0800 (PST)
-From: Romain TISSERAND <romain.tisserand@gmail.com>
-To: Igor Reznichenko <igor@reznichenko.net>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELCHzGQ+
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7574A1F00901;
+	Mon,  9 Nov 2026 16:07:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794240436;
+	bh=b6ZiqFg65Q8jcuRQtMgdSgXv1NV9xL4x1lsgIjnPzEE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ELCHzGQ+PVhJJNpqL5Yc5x3lXv07lJX+TS1VntjMDXbR6xlQ22Fp1J9QOB3dD9WYP
+	 cHKPAbGfzO3G4fT1iHlGOdtiO+03ztJgj8Ce+e9q9hWIWR2pCnG+RqxzjcvhX9qqA8
+	 yI1QTIGXFsTtDpwZRj1CyOIQTfD74gp95elad9mcxBWoAYPn+LYfniUOqGP8JNQ97l
+	 NAPi+rt7l7U2dQgc6V+lyWnYMLj9TiOLdltVu+sAKdVafz7vxMhyq5VUXuViUsuYnX
+	 xH0CyQZh61wuIYMVOXX7e3F7B5eol9Sb6NAAubw4IUVzd5EKD/QXhDuwg5PgyqfAAN
+	 6/NRxfrt2jhqQ==
+From: Nicolas Schier <nsc@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Harald Freudenberger <freude@linux.ibm.com>,
+	Holger Dengler <dengler@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-kbuild@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: [PATCH v2 2/3] dt-bindings: display: panel: ilitek,ili9488: add the PocketGo S30 panel
+	"kernelci.org bot" <bot@kernelci.org>
+Subject: Re: [PATCH 2/2] devicetable-offsets: Get struct cpu_feature from a device-id header
 Date: Mon,  9 Nov 2026 17:07:05 +0100
-Message-ID: <20261109160706.2272332-3-romain.tisserand@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109160706.2272332-1-romain.tisserand@gmail.com>
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
+Message-ID: <179424040477.1704532.18231793404479518924.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <f610c07f39df15f3e7ebdc63bfcd759ca7a687a8.1794233316.git.sashal@kernel.org>
+References: <f610c07f39df15f3e7ebdc63bfcd759ca7a687a8.1794233316.git.sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,29 +74,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The Miyoo PocketGo S30 handheld has a 320x480 1-lane MIPI-DSI panel
-built around an Ilitek ILI9488.
+On Mon, 09 Nov 2026 09:14:41 -0500, Sasha Levin wrote:
+> Since commit cdfdbc11552b ("Move struct cpu_feature to
+> <linux/cpufeature.h>"), devicetable-offsets.c includes
+> <linux/cpufeature.h>, which includes <asm/cpufeature.h> on architectures
+> that select GENERIC_CPU_AUTOPROBE. On loongarch and mips that header
+> pulls in <asm/elf.h>, and from there <linux/fs.h> and <linux/mmzone.h>,
+> which need <generated/bounds.h>. devicetable-offsets.c is built before
+> that header is generated, so even defconfig fails on both:
+> 
+> [...]
 
-Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
-Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
----
- .../devicetree/bindings/display/panel/ilitek,ili9488.yaml        | 1 +
- 1 file changed, 1 insertion(+)
+Applied to kbuild/linux.git (kbuild-next-unstable), thanks!
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-index 016a573893b7..2908808393aa 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-@@ -17,6 +17,7 @@ properties:
-     items:
-       - enum:
-           - focuslcds,e35gh-i-mw800cb
-+          - miyoo,pocketgo-s30-panel
-       - const: ilitek,ili9488
- 
-   reg:
+[2/2] devicetable-offsets: Get struct cpu_feature from a device-id header
+      https://git.kernel.org/kbuild/c/50ccc340
+
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped,
+reverted or modified (e.g. trailers).
+
+Patches applied to the kbuild-next-unstable branch are accepted pending
+wider testing in linux-next and any post-commit review; they will
+generally be moved to the kbuild-next branch in about a week if no
+issues are found.
+
+Best regards,
 -- 
-2.43.0
+Nicolas
 
