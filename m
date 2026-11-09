@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191971;
-	b=MA2sVFkII7l2D1DgWC7M+jpvl9vn2w7F2P2eG0BNPfoDxScmu9ovQDkhGQmTmJAQ2AcB
-	 K7Gdbel3JeHNLCflSqbMv0413sakKbTpc3xK+rABKV3W2LJVOKt97qPJX+wxMVoY3ZtoZ
-	 olzUdnj8QtPqow3E3kg/f6ovGU8ZmfuPtyx2l+J2y/VgDESMl3Of5uDa0am9mM/tcXpEA
-	 RCdiIBgRL8Banjm8c6dBxwffllcxfxTRrDVotiVc/5SrKcuX/UDuFklC548OEypYa5WOo
-	 59SOvY4uSxvuANyAM0CvsOFxT1pMawXm1mYlcmgNV47BdRqh3JyfQi1cw98vg9FQoMQ==
+	t=1794192009;
+	b=zZNMhJoHf/PbBjTTRvbjXgiBWqIV+K+iKAIgB/gISNoytWyn1si6B/8Q4T6nyACOUl5w
+	 wIamvEXvMnQ9Xv+TVEVWOTqdHIdEgpRYbhQ1L5hcFYw8LG8qvf00PqZPNojYQ2IAAe/cI
+	 IloUaf/Fhbc0xmYNemv0gnSwICpyAki5q1+rhBgEitduDBEvV1vI6+AKp71Fjd2t8VqQG
+	 0vf+s3MS7SdjyAdDRCC+s3VDuo/ccDp+KOHzZaOKuoq45mszve8YXzQCIQHjgw/8hzjfz
+	 Meg2ZD5MP+C7R4fdL9qVUHQUeNmwo8cQSGCoMuwEcXrtM69h2SQwxm4Hj0UhoFhEDdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191971;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4GpeMPp9esUWNHQVrf4y4sbUF5AJ0dox7FxpZYGLtcA=;
-	b=bZpy//3GvRuMXosFZVsF2rbJvHumoHrfE4Ovckp1TNE2y6wTkTUJZ17ldtUYsVQdDlwJ
-	 j3RPCNI7D4yEpouZq99c/GbZFIPvGRdjr/yflXItBT0CYhmPEvc3TnMiIcFsa2pVYw4H8
-	 jkkD6KUrfRwCL5FTukeM7qawOCrxN1wWHv6//PhtTMcnRAxqYArMvAm6MkwZ6dolR2P4v
-	 KNPoms0KQph13uDPZ4VXMXnI+/qYQVraJpx4OTF3Q5K/7ogvvtkOMpNjuH2rsuGvv/7hx
-	 72vJ6kOPAFlA34Ps4xJtwz39lRxDED2jn7TwWINcpPkpeSAuEmqgGq79GfuFS6HhkyA==
+	bh=hamfHniDHGCKRAw+vpTUWbv3vFb7E6pjHS73N4V1Z68=;
+	b=0K5gqrz55rs6s8HQ4YQdkz42Co4FQAi3Mbcna/cF4d/3Ybu0uFJZR/3ByZeiq7f7QbjN
+	 +TA+WAo314amf23a0QOhncU9rdKuajCkMiTlJz3ZZhsaUW6tQ+gejPnPdpV9nh+v56iJB
+	 WJO6nc2L2BVw8RObbyhTlhoRW9AErtMwZYMKBUGj3sWKbCC8IU9+ZHxuMc91ubda9WT7o
+	 xZZzzXgx0vsZHXXDi1X3TOMCNYaSLudMbvwAtpaf9nFWe5YsjId0ZtJfZpffr6PE1nBnz
+	 DJSv9MGRuKPfQviJ030khy8HM2BZvd2eUyVEyh4td+PSQSE9s68sfRedBHjh9Lqr90Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LaDROMfk;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B5CC606A31C;
-	Mon,  9 Nov 2026 02:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cS22eW3r;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31804606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:40:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31804606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LaDROMfk
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cS22eW3r
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2eb33b5c067so579995ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:40:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=LaDROMfkLni22zaf2pme8CxZCcy2q29gPFJ3Iu8CC77PRXHnyx46yEIrfy+0GEMznqNR0ueM1AOMU
-	 2v2lZ3gZpOkT3I7bFeeeWQbBfaseSAjflMNP0Q54Z6Xr33VvhTF2J9Pu4abqgcto+h4RZeGIqyVx3b
-	 y8rQi/G7KAqhdpyQ=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af13260230-8b943;
-	Mon, 09 Nov 2026 10:39:28 +0800 (CST)
-X-RM-TRANSID:2ee36af13260230-8b943
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af132011c9-7db93;
-	Mon, 09 Nov 2026 10:37:55 +0800 (CST)
-X-RM-TRANSID:2ee86af132011c9-7db93
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: dm-devel@lists.linux.dev
-Cc: agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	linux-kernel@vger.kernel.org,
-	syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] dm crypt: fix use of uninitialized percpu_counter in ctr error path
-Date: Mon,  9 Nov 2026 10:37:53 +0800
-Message-ID: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+        d=gmail.com; s=20260707; t=1794192008; x=1794796808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hamfHniDHGCKRAw+vpTUWbv3vFb7E6pjHS73N4V1Z68=;
+        b=cS22eW3rsIFu8ZM+yFqshxVxqi0YVotkEQOOqXilZqZjcCJ+1Fz14Tpw/77Tc2Hgb4
+         C+65zfLGJkOkct+HclLyOm925z7l2mUHkgF6kahQYMLxdIzRL5g1UnshAA6beh3+Ef5/
+         IglEBkWdkDDNSy7j285QqwCUV1uLeZgIK8q7g5Ko/9A9rZ4B22uSw81cTqQV36iezZpX
+         OSfCMoe+H0Y0u3NGhorFQT7uz+RlS8I4cZH1d9jEhoUoXdSOHQbsfw1TNaMJjwKAQeI8
+         OJRA2iJZ+3U5axF8+CfVMjPJW0+cu1t7ms20OJZdy3r+/aVNRBjiKFRIgiuD64fJ0nbn
+         HwAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794192008; x=1794796808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hamfHniDHGCKRAw+vpTUWbv3vFb7E6pjHS73N4V1Z68=;
+        b=ndxHc7h1TVJZy4PI9yJFYmGAierQvk/Q4W+RStxsi3yUnNFw8rQtpCGUE3ZApslRdF
+         2osw2xcaFaFDXFBP5Bs9e7lJ9U0UBh3jF1uVTZEHk7G/p8e0M6weF/GzROOUXZlJ2x2r
+         7llZVqENSZ/d8maPlhy5fMntNgxCJnHc8XsBqkLUnl0RVeBRfDc68UIGNbXfqL+usd81
+         Ou1D87c8i8WsoMybhAf5d0gZNq6whaDpBCVqyU8ZMqWWVV7djS8+rL+viKUlSemC6qJE
+         jeG1WT31xNGi0CFbieCRXbIgPsD5ivEQBhBRkyjOpNimsgXSe/I9aMN7Ixsmqu9rVpEu
+         2Fbg==
+X-Forwarded-Encrypted: i=1; AL+hErF5YZhUeUV+G1c7aITKxA9gl9rZu2FSKL4aE0EpSiPUSOk7XpbGHsyOByHDmW0GhY2PPQHfSAHdd8uSNWQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//StpJduv+2ZzmmfVrjp0uikx13nFxdf5R35bhxr7XViyscz4x
+	lHubajL8oFSmFzv8DjrP5M/9kTY35urMxjJQ/2vhYYwyo2RIoDFW1rv9ZruA5bFabQw=
+X-Gm-Gg: AYBFou220OaFrcCjRcP97R6c02xdyiU/qazU5u6R+SN7XyxxIjtu5eRce9b6Av2IFAI
+	5OzJ+Dp2vi460UsC21eney3H+rrKD8vTvZjqmyfFe03hzXHmvfGz3W65/kt8aaV/qqSspbw2NB2
+	kHiZvWaw5a5mKoUk0u0OhREUzsJV4eLY/i3W/lnpQpllqKpsm8869HwtV4cvPSFV1cOySem2ndR
+	rjNRbTo1WiJKW18kgEbV4VPrjqxN6Vgk7ijW6VFUhyNydzSW8kDhLUkC7xvAA/2lBD5l4OCCSoR
+	quf5lQYzeZKON8njyGt80OQvKwVBJ+cooLjINYVPsHUvkCurFGrbdLO5wubVgR7I4gif+svDwX/
+	YKzcEVFQz4s0MSS3Lr31kWrjywaD5jdjUdf9EhxlOZCCg67L7O8uWH8eief43oS483uztyqcECF
+	xaiRk6Z/V8efUIhACMvI5ckz7b1vQUXK+YLmNxtbyUHLcF9dbz4eAgmnP/8PTo2LR2K4UbFMGbd
+	6A1w3CsUrCFXaJG26gmpz7FI35JwU101PiBQv2jrqfGH67I8Y1mJ3/tOXRZU8mBMzK+O2M7JFdP
+	j5JbMsmfcQ2wG6PuiEsgHPh4HmV09cEAsOWTPKvgPItSe9cyuQWDzB5LH/LTf8x0avg4lHobIC5
+	em7+p+kDPwNDtsOEQ
+X-Received: by 2002:a17:903:2289:b0:2df:8ab7:fe3a with SMTP id d9443c01a7336-2ed83786890mr43450945ad.4.1794192008326;
+        Sun, 08 Nov 2026 18:40:08 -0800 (PST)
+Received: from localhost.localdomain ([139.159.170.85])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81600c3esm6172515ad.34.2026.11.08.18.40.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 08 Nov 2026 18:40:07 -0800 (PST)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: German Maglione <gmaglione@redhat.com>,
+	Vivek Goyal <vgoyal@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Miklos Szeredi <miklos@szeredi.hu>
+Cc: "Eugenio Perez" <eperezma@redhat.com>,
+	virtualization@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] fuse: virtio-fs: stop new requests before draining queues
+Date: Mon,  9 Nov 2026 10:39:57 +0800
+Message-ID: <20261109023957.34500-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,73 +103,286 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If percpu_counter_init() fails in crypt_ctr() (e.g. when the
-underlying percpu allocation fails under memory pressure or fault
-injection), the error path jumps to "bad", which calls
-crypt_dtr().  crypt_dtr() then evaluates
-WARN_ON(percpu_counter_sum(&cc->n_allocated_pages) != 0) and calls
-percpu_counter_destroy() on a counter that was never initialized,
-because __percpu_counter_init_many() returns -ENOMEM before
-calling raw_spin_lock_init() on fbc->lock.
+virtio_fs_conn_destroy() drains the virtqueues and then calls
+fuse_conn_destroy(), which aborts the connection.  The abort ends every
+request the fuse device still owns, and each ended request is freed as
+soon as its waiter wakes up.
 
-With lockdep enabled this triggers "INFO: trying to register
-non-static key" in __percpu_counter_sum(), as reported by syzbot.
-The console additionally shows "crypt: Unknown error (-ENOMEM)"
-because this failure path sets no ti->error.
+The drain only covers the requests that were already counted in
+fsvq->in_flight when it started.  A request submitted after it returns is
+not covered, but is still handed to the device before the abort runs:
 
-Move percpu_counter_init() to right after the allocation of cc,
-before ti->private is set and before any "goto bad" can happen.
-On failure, set ti->error and free cc directly, so that
-crypt_dtr() is only ever called with an initialized counter.
+  CPU 0 (umount)                     CPU 1
+  ---------------------------------  --------------------------------
+  virtio_fs_drain_all_queues()
+    /* in_flight drops to 0 and
+       the drain returns */
+                                     virtio_fs_enqueue_req()
+                                       virtqueue_add_sgs()
+                                       inc_in_flight_req() -> 1
+  fuse_conn_destroy()
+    fuse_send_destroy()
+    fuse_chan_abort()
+      /* ends and frees the
+         request above */
+    fuse_chan_wait_aborted()
+                                     /* the device still owns the
+                                        virtqueue descriptors and
+                                        DMA-writes into the freed
+                                        request and its argbuf */
 
-Reported-by: syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=4b232570d625662eaab4
-Fixes: 5059353df86e ("dm crypt: limit the number of allocated pages")
+Stop admitting requests on each queue before draining begins.  The flag
+is set per queue, but that is sufficient: request admission,
+virtqueue_add_sgs() and, on the submission path, the in_flight
+increment are serialized by the same fsvq->lock.  A request is
+therefore either rejected before the device can see it, or already
+counted in fsvq->in_flight and covered by the drain.  There is no
+window in between.
+
+Rejected requests use the existing -ENOTCONN error path and are ended by
+virtio_fs_request_dispatch_work() through end_reqs, so no new request
+completion or ownership state is introduced.  Nothing has to be
+discarded in the completion path, and fsvq->in_flight remains the only
+per-queue accounting state.
+
+The -ENOSPC path needs the same admission check.  virtio_fs_enqueue_req()
+drops fsvq->lock before returning -ENOSPC, and the caller queues the
+request in a second critical section; teardown can finish in between and
+leave the request stranded on queued_reqs, which nothing drains.
+Re-check connected/aborting before queueing, in both the submission path
+and the dispatch worker.  After aborting is set, no request can newly
+enter queued_reqs or the virtqueue, except the explicitly permitted
+FUSE_DESTROY path.
+
+Rejected requests are ended by virtio_fs_request_dispatch_work().  If
+their end callback may block (a DAX release), ending them inline can
+deadlock: the callback may issue a synchronous request that needs the
+same worker.  Offload those endings to a separate work item, like the
+device completion path already does.
+
+The new state is not folded into fsvq->connected because the request
+queues have to stay usable: fuse_conn_destroy() sends FUSE_DESTROY
+through them, with args.force set so that fuse_simple_request() waits
+for the reply.  Clearing fsvq->connected would make that request fail
+with -ENOTCONN and the server would never see the destroy.
+
+FUSE_DESTROY is the sole exception while aborting is set.  It is sent
+only after the first drain, and its completion is waited for before
+fuse_chan_abort() can end requests, so the destroy is the only request
+the device sees after the drain.  virtio-fs exposes no userspace
+/dev/fuse fd (and no_control disables the fusectl interface), so
+userspace cannot inject another request.
+
+virtio_fs_start_all_queues() clears the flag, so a mount that follows an
+unmount starts with admission enabled again.
+
+Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
-Not runtime-tested (the syzbot report has no reproducer; the
-failure requires percpu_counter_init() to fail).  The affected
-crypt_ctr() code is identical in current upstream master, so the
-patch applies there as-is.  The Fixes hash was verified against
-the upstream commit that introduced both the init call in
-crypt_ctr() and the teardown in crypt_dtr().
+V2 -> V3:
+- re-check admission before queueing on -ENOSPC, in virtio_fs_send_req()
+  and in the dispatch worker, so teardown cannot strand a request on
+  queued_reqs
+- offload may_block request endings in the dispatch worker to avoid a
+  self-deadlock through fuse_simple_request()
+- add Fixes: and Cc: stable
+V1 -> V2:
+- prevent new requests from reaching the virtqueue at teardown time
+  instead of skipping completions of aborted requests
+- keep FUSE_DESTROY working: it is the teardown request and is waited
+  for before fuse_chan_abort()
+- drop the per-vq aborted flag and the completion-skip branch
+ fs/fuse/virtio_fs.c | 104 +++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 94 insertions(+), 10 deletions(-)
 
- drivers/md/dm-crypt.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 1ff16b8264..3e69dcc366 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -3249,6 +3249,14 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		ti->error = "Cannot allocate encryption context";
- 		return -ENOMEM;
- 	}
-+
-+	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
-+	if (ret < 0) {
-+		ti->error = "Cannot initialize page counter";
-+		kfree_sensitive(cc);
-+		return ret;
-+	}
-+
- 	cc->key_size = key_size;
- 	cc->sector_size = (1 << SECTOR_SHIFT);
- 	cc->sector_shift = 0;
-@@ -3260,10 +3268,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	crypt_calculate_pages_per_client();
- 	spin_unlock(&dm_crypt_clients_lock);
+diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+index ba8d79c4bcac6..a46536c9fdc8e 100644
+--- a/fs/fuse/virtio_fs.c
++++ b/fs/fuse/virtio_fs.c
+@@ -55,6 +55,7 @@ struct virtio_fs_vq {
+ 	struct work_struct dispatch_work;
+ 	struct fuse_dev *fud;
+ 	bool connected;
++	bool aborting; /* reject new requests except FUSE_DESTROY */
+ 	long in_flight;
+ 	struct completion in_flight_zero; /* No inflight requests */
+ 	struct kobject *kobj;
+@@ -97,6 +98,11 @@ struct virtio_fs_req_work {
+ 	struct work_struct done_work;
+ };
  
--	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
--	if (ret < 0)
--		goto bad;
--
- 	/* Optional parameters need to be read before cipher constructor */
- 	if (argc > 5) {
- 		ret = crypt_ctr_optional(ti, argc - 5, &argv[5]);
++struct virtio_fs_end_work {
++	struct work_struct work;
++	struct fuse_req *req;
++};
++
+ static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
+ 				 struct fuse_req *req, bool in_flight,
+ 				 gfp_t gfp);
+@@ -348,6 +354,7 @@ static void virtio_fs_start_all_queues(struct virtio_fs *fs)
+ 		fsvq = &fs->vqs[i];
+ 		spin_lock(&fsvq->lock);
+ 		fsvq->connected = true;
++		fsvq->aborting = false;
+ 		spin_unlock(&fsvq->lock);
+ 	}
+ }
+@@ -551,6 +558,39 @@ static void virtio_fs_hiprio_done_work(struct work_struct *work)
+ 	spin_unlock(&fsvq->lock);
+ }
+ 
++static void virtio_fs_end_req_work(struct work_struct *work)
++{
++	struct virtio_fs_end_work *w =
++		container_of(work, typeof(*w), work);
++
++	fuse_request_end(w->req);
++	kfree(w);
++}
++
++/*
++ * A request rejected during teardown can have an end callback that may
++ * block (DAX release).  Ending it inline in virtio_fs_request_dispatch_work()
++ * can deadlock: the callback may issue a synchronous request whose
++ * completion needs the same dispatch_work that is currently blocked.
++ * Offload it, like the device completion path does.
++ *
++ * virtio_fs_request_complete() cannot be reused here: it also consumes
++ * argbuf and drops in_flight, while a rejected request has neither.
++ */
++static void virtio_fs_end_req(struct fuse_req *req)
++{
++	if (req->args->may_block) {
++		struct virtio_fs_end_work *w;
++
++		w = kzalloc_obj(*w, GFP_NOFS | __GFP_NOFAIL);
++		INIT_WORK(&w->work, virtio_fs_end_req_work);
++		w->req = req;
++		schedule_work(&w->work);
++	} else {
++		fuse_request_end(req);
++	}
++}
++
+ static void virtio_fs_request_dispatch_work(struct work_struct *work)
+ {
+ 	struct fuse_req *req;
+@@ -570,7 +610,7 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
+ 
+ 		list_del_init(&req->list);
+ 		spin_unlock(&fsvq->lock);
+-		fuse_request_end(req);
++		virtio_fs_end_req(req);
+ 	}
+ 
+ 	/* Dispatch pending requests */
+@@ -593,9 +633,17 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
+ 		if (ret < 0) {
+ 			if (ret == -ENOSPC) {
+ 				spin_lock(&fsvq->lock);
+-				list_add_tail(&req->list, &fsvq->queued_reqs);
+-				spin_unlock(&fsvq->lock);
+-				return;
++				if (!fsvq->connected ||
++				    (fsvq->aborting &&
++				     req->in.h.opcode != FUSE_DESTROY)) {
++					spin_unlock(&fsvq->lock);
++					ret = -ENOTCONN;
++				} else {
++					list_add_tail(&req->list,
++						      &fsvq->queued_reqs);
++					spin_unlock(&fsvq->lock);
++					return;
++				}
+ 			}
+ 			req->out.h.error = ret;
+ 			spin_lock(&fsvq->lock);
+@@ -603,7 +651,7 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
+ 			spin_unlock(&fsvq->lock);
+ 			pr_err("virtio-fs: virtio_fs_enqueue_req() failed %d\n",
+ 			       ret);
+-			fuse_request_end(req);
++			virtio_fs_end_req(req);
+ 		}
+ 	}
+ }
+@@ -1226,6 +1274,28 @@ static void virtio_fs_stop_all_queues(struct virtio_fs *fs)
+ 	}
+ }
+ 
++/*
++ * Stop admitting new requests before draining the queues.  Admission and
++ * virtqueue submission are serialized by fsvq->lock, so a request is
++ * either rejected before reaching the device or accounted in in_flight
++ * and covered by the drain.
++ *
++ * FUSE_DESTROY is exempt because fuse_conn_destroy() sends it after the
++ * first drain and waits for its completion before aborting the channel.
++ */
++static void virtio_fs_stop_new_requests(struct virtio_fs *fs)
++{
++	struct virtio_fs_vq *fsvq;
++	int i;
++
++	for (i = 0; i < fs->nvqs; i++) {
++		fsvq = &fs->vqs[i];
++		spin_lock(&fsvq->lock);
++		fsvq->aborting = true;
++		spin_unlock(&fsvq->lock);
++	}
++}
++
+ static void virtio_fs_remove(struct virtio_device *vdev)
+ {
+ 	struct virtio_fs *fs = vdev->priv;
+@@ -1479,7 +1549,8 @@ static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
+ 
+ 	spin_lock(&fsvq->lock);
+ 
+-	if (!fsvq->connected) {
++	if (!fsvq->connected ||
++	    (fsvq->aborting && req->in.h.opcode != FUSE_DESTROY)) {
+ 		spin_unlock(&fsvq->lock);
+ 		ret = -ENOTCONN;
+ 		goto out;
+@@ -1551,12 +1622,22 @@ static void virtio_fs_send_req(struct fuse_iqueue *fiq, struct fuse_req *req)
+ 			/*
+ 			 * Virtqueue full. Retry submission from worker
+ 			 * context as we might be holding fc->chan->bg_lock.
++			 * Re-check admission under the same lock that
++			 * increments in_flight: teardown may have started
++			 * between enqueue_req() dropping its lock and here.
+ 			 */
+ 			spin_lock(&fsvq->lock);
+-			list_add_tail(&req->list, &fsvq->queued_reqs);
+-			inc_in_flight_req(fsvq);
+-			spin_unlock(&fsvq->lock);
+-			return;
++			if (!fsvq->connected ||
++			    (fsvq->aborting &&
++			     req->in.h.opcode != FUSE_DESTROY)) {
++				spin_unlock(&fsvq->lock);
++				ret = -ENOTCONN;
++			} else {
++				list_add_tail(&req->list, &fsvq->queued_reqs);
++				inc_in_flight_req(fsvq);
++				spin_unlock(&fsvq->lock);
++				return;
++			}
+ 		}
+ 		req->out.h.error = ret;
+ 		pr_err("virtio-fs: virtio_fs_enqueue_req() failed %d\n", ret);
+@@ -1669,6 +1750,9 @@ static void virtio_fs_conn_destroy(struct fuse_mount *fm)
+ 	spin_lock(&fsvq->lock);
+ 	fsvq->connected = false;
+ 	spin_unlock(&fsvq->lock);
++
++	/* Nothing may be queued after the drain below */
++	virtio_fs_stop_new_requests(vfs);
+ 	virtio_fs_drain_all_queues(vfs);
+ 
+ 	fuse_conn_destroy(fm);
 -- 
-2.39.2
-
-
+2.54.0 (Apple Git-157)
 
