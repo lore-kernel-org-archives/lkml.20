@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242847;
-	b=EU+cM/otft1woR4qWScwvxfFe4jKLw33Cyp1hvrj1Vo6O76QaogVPHp7anNxbs65Fv1n
-	 PDeOwnncmcZz+zXCz02XK4//cuRQjVOd89vVIUBk3UXBDqs35/Ecc4i5D0vMbXCCgdrDk
-	 TvweLEc77whCEUTQ/SsKt/u7WrQIeNXB6u2crS0Qd4H1TOdDdxOuXaK1odtczRKSj8Y88
-	 MWee9aWXdVgh9UB6/LD0q5+4ImK5NIJhBXRzTafPskzrcI64907HaOxmA9QkZ66CCLE/Y
-	 tM8cTjnbZ5tIH2ix3O5/WK0Izz3JDuYGif2EXXFAB5LrCeMIxjC/u1Snegb2WsQz5Tw==
+	t=1794242897;
+	b=5emGS7peWgyUbAHj/z6Fs5BroQi+fzpzzzAkfwLUNV0ULlHGu9Ie6SHw5uaSM6FUc7fh
+	 zVflPYjUPgfFkGzlayIjzSgWSfz2sJuEuV6I1/kP9bA9zNy14ipmZs1S6Q6eDaeT8JKda
+	 NJdyGlVuuZlR3xaDgtPYUhrJmzP2GISRoNhwfqODEHCVmJ5ndWBxO9vfMuCpB/mocporR
+	 1GkZ3Fw4E/sHcjHX7mQcJKfdQoyEuBNJTS9Th6tC4MITOCEtYFjG8dE1SdYKVdCeq6vW6
+	 2sHpjzg2o8ssQKWa4Qke115W3fjiNP8HtMmVPTXzGRuA3nE6Fwavh70R8EFIbXABS8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242847;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=7QCQMX1YjQnxjMAljTgB/goZ5DEceQMQpw/VVgpYcMs=;
-	b=WkYvv8oDaKsovz/sOzNS+G01X4b89xCMSLFH8qUVwIZ1avEkz4DiPsvWenf68wXq5VZL
-	 KIWN41xU/yVittOzv7u2ESQfuOVYzzvUiUlPOsFWw0qvBgxKWm6l/u4YLLcdivXwKs/89
-	 h+gEbKosH+4lkPlwKYEOwFuhimR4ga2rhLnksO9UjkFQ1f9hjCVzgIKBoHhhqwo8F+uLU
-	 23+vC6ZLs8GTOpq7VBD3O8blOzL8IE22iZ/alydvHhvTcmaBWB/Y9VE55bZ2NPqQTwMYR
-	 Yyv9UPkZ1p2TSNV7gvUjcNw3qmszCDsMOgP/sBAg2IzPdFeXTsnjwP4VEC7uzwa/QOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242897;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Organization:
+	 Content-Transfer-Encoding;
+	bh=hHaS+ftN8yPzDFvIun/EZKVknOKh7/K5G40GhrJsRd8=;
+	b=jwoPZ9uvQs90xOPnl7kLLKsl/2Fp4j1xA6cKAZBdgQjHhLvXuaREFSGWkzqVPlvB6eIN
+	 NHoc/HdBIrDJ8Oz30iRdUU6KjqDIl7Cg+DlYghbyaoD9FicKXG1XKRHEsaBqoxFjFt+2N
+	 uOy/lJUqvFJOvRRCImbMd9dbEq+k0y+EWZffFJOzroo6HGx+DQJTXdwRYIEZffsGqJqFj
+	 WQp1IwkvHGH0awhyjaak2hhNfp88RPFwLCht4+QIH7ZUrXHH8NsFo6Fwvr0NxYrMxubRE
+	 fQ8ZeGlKFQweRT34METcadef5JpLhCNtvqQe9K6yaYsy/pBun1FvZDrJTjoxUwgz8tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=IciOi2Ea;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dhBhaHWG;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F39606A32A;
-	Mon,  9 Nov 2026 16:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57F39606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EBD606A31C;
+	Mon,  9 Nov 2026 16:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26EBD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=IciOi2Ea
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7QCQMX1YjQnxjMAljTgB/goZ5DEceQMQpw/VVgpYcMs=; b=IciOi2EalUVDjRbB5OUGTXNODO
-	rkV1/LhYzpmiMWNxS0A1xxFKSkiO+QzI9vFplgW24p1OsTEo1caT6bzeikKmDF4Q9X5KhWYJD+/1Y
-	TqF82KfcRoWLVw7tEVIqeo4cEIQjdfc3t5Zz1+GRePy3z2ZiNiWB9lkf3Y/rUQdryHdbgYSEchuBE
-	cILT3sN0O6thFzOaI595Wijdsny8EfeIoGfeYVp2zvtY7gmxkOTcjeI5ymgOtE0DMX0KURnSyEVJv
-	ZaUjQhWtX0593JC4Z8Z7s4Cu2q1QIismwYYjKtu8afkDVizNAruRpmJ90N0G92cy4Z0kY/H5iAuwg
-	vtO5znfw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQSWd-00BlNJ-1a;
-	Mon, 09 Nov 2026 16:47:19 +0000
-Date: Mon, 9 Nov 2026 08:47:15 -0800
-From: Breno Leitao <leitao@debian.org>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Petr Mladek <pmladek@suse.com>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, printk@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH printk 3/6] printk: Evaluate flush policy in
- nbcon_allow_unsafe_takeover()
-Message-ID: <avH1ZVs2Hyx62jgQ@gmail.com>
-References: <20261109123127.489676-1-john.ogness@linutronix.de>
- <20261109123127.489676-4-john.ogness@linutronix.de>
- <avHTDeox8nDGLC6Q@gmail.com>
- <87qzgunkof.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dhBhaHWG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794242897; x=1825778897;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=tCG0G3JVI4tRqcPbvjLwK+Qe1NPh0Vqhwwedp+CSJiA=;
+  b=dhBhaHWG72ZPQLiNcm/vQ28Awqke/DcO1EQUVK8OF0qHYULpw0vUMMYy
+   NK59KbaJ8Rt2BKRTVSxeECT31EtfSrTi+Qb0tj93Jco3irfGmyDU7SbqY
+   1C15VDUhKT+oH1ob5EgGJdQGVytmY9IE/ur6599NiBy6XGfmRO88gUG3U
+   honKeQ6qVyZX6UHfVTyz+lr2tV34Pk4ZXIEoFJtdpNPEVL+dzkk7fXhcT
+   FLU7s3yRQ+c4UNCprSRmowqc1R4gXESuFW9zm3HgWOXEY9p2XS5yxh7Sn
+   FmJNfdSyIMr2+U11Ykiwf9qfNNLKaZz9pCfGoqb3rvOs23+xTPZqm7RVd
+   w==;
+X-CSE-ConnectionGUID: RRm/3NaaSSyZPirn4uhKSg==
+X-CSE-MsgGUID: 00k515ZaTRqE7IEJ8fsg7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3010676"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3010676"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:48:16 -0800
+X-CSE-ConnectionGUID: DjDpGG6OShSaS9F04spwkw==
+X-CSE-MsgGUID: rO5iguyOTg+BaUmM3h/VgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8481199"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:48:13 -0800
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com
+Subject: [PATCH v5 0/3] arm: dts: aspeed: Add Intel AVCRP and JNCRP BMC platforms
+Date: Mon,  9 Nov 2026 18:41:47 +0100
+Message-ID: <cover.1794242015.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,43 +86,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87qzgunkof.fsf@jogness.linutronix.de>
-X-Debian-User: leitao
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 03:34:32PM +0106, John Ogness wrote:
-> On 2026-11-09, Breno Leitao <leitao@debian.org> wrote:
-> > That is coming from:
-> >
-> >    550 static int nbcon_context_try_acquire_hostile(struct nbcon_context *ctxt,
-> >    551                                              struct nbcon_state *cur)
-> >    552 {
-> >    553         unsigned int cpu = smp_processor_id();
-> >    554         struct console *con = ctxt->console;
-> >    555         struct nbcon_state new;
-> >    556
-> >    557         if (!ctxt->allow_unsafe_takeover)
-> >    558                 return -EPERM;
-> >    559
-> >    560         /* Ensure caller is allowed to perform unsafe hostile takeovers. */
-> >    561         if (WARN_ON_ONCE(ctxt->prio != NBCON_PRIO_PANIC))
-> >    562                 return -EPERM;
-> 
-> Wow, you managed to get a hostile takeover. Out of curiousity, do you
-> know how dangerous this really is? Can this basically just result in
-> garbage on the network? Or is there dangers of running into the forest
-> with NULL or garbage pointers? And is the danger acceptable?
+This series adds initial upstream support for the Intel AVCRP and JNCRP
+BMC platforms. Both are x86 server platforms with Intel host processors,
+managed by an ASPEED AST2600 BMC.
 
-Sure, I was playing with different scenarios, and this was done with a
-test module that forces the takeover:
+The first patch adds the board compatibles to the ASPEED binding. The
+remaining two patches add the board DTS files and register them in the
+ASPEED DTB build list.
 
-1) Acquire netcon_ext with nbcon_device_try_acquire(), so the console
-   is owned at NORMAL priority and in an unsafe state
+Changes in v5:
+  - Removed bootargs from the chosen node
+  - Added a description of each platform to the commit messages
+  - Capitalised the first word of the DTS subjects
+  - Rebased onto the current aspeed/arm/dt
 
-2) mdelay() for a few seconds without releasing it (simulating
-   a possible netpoll busy TX queue -- or some other networkdelay)
+Dawid Glazik (3):
+  dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
+  ARM: dts: aspeed: Add Intel AVCRP BMC
+  ARM: dts: aspeed: Add Intel JNCRP BMC
 
-3) echo b > /proc/sysrq-trigger from another CPU
+ .../bindings/arm/aspeed/aspeed.yaml           |   2 +
+ arch/arm/boot/dts/aspeed/Makefile             |   2 +
+ .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 321 ++++++++++++++++++
+ .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 275 +++++++++++++++
+ 4 files changed, 600 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
 
---breno
+
+base-commit: 6767ba3efdda2d27e5eab719db39a7ed98d28b35
+-- 
+2.43.0
+
