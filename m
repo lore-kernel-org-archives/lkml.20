@@ -1,64 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193572;
-	b=QbeLhwv1gX7jKHKQC70LNdF/qLl7bThJa6b7KX7q2r+pqMi2U228AQM6NZ8VFdfh90T3
-	 67I3keUNEFzAYJ/dYJlvbgdOw4/4efzThRtQ7an57JlLzAnPpVf0RCY9G38F2ga5oSTwl
-	 qCb+fR4zHuWVQ0sFpgug8JW+AWWM0Yu4eYE5R3aNF5RRTbf6hbFFqU12ZFCSFw4/xa4bp
-	 2vScXNj0for1vgK2gjJqpwym//4CFV4M/9MJw1/iJ1pIIA+/thA8Xsu00kv8wM9lV11tH
-	 WbXP4n1ZKLObnO91DsV4Jr5bL/N8fPwKnsIns/wjBX65nY3hR1gvunHGexqloSsr8IA==
+	t=1794193626;
+	b=q1oVfFy09jZvfezjS85BG12cB6YZPQWSyP63Pd7HYjXqzZWgBTbB49m4Cd6Vx8M6GVaS
+	 Z6h7Y5a/7JbHaqF8jXGvrN6WgKlh6gvytvHlDGTk3Is0VcgoHa2QrNudWbF/I3JgKaF2N
+	 YtD03mX2swSD1EtjqCSYdGKl7Tr+UQbupC+Uzw+ewOEHD2qAe2paIspgOWItN3U9mqWEp
+	 L8a8fJPatmFt2Fsxx74nPKb4Xsa5pUbs6virSRfzicpDcB6vfhPYhJy1gadfF918gaXG9
+	 CQuabABc7KTT3OuaUdzA8Herbqh1ertml+Bc/VhRy6d2qPxwOmE5z08pANgOfmbbxtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193572;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=o9zafs2e9G51V21FfLQ+Dlq9NfXDTdkSswrg/M4DUy0=;
-	b=qgcJLsyjnkD8M0VHwTNDp0Y5FK7P8mNWLCpIKgqAb5zfARiCOAEnJiy0IETfc44MUstR
-	 3hWprAGh7At5pIqverIL5/AifDx2AtkRhE+RkxPvdgPKi0oNwB6gNbk5kWaAAX1n5n2bS
-	 189+GDADCUgomz15Me49KUtJkxR52amRKRt1Aeb+EisOx4m51ZkNJHxM5hHeNA+ej+8n0
-	 Lr5gbwZXxE5HjG6DVGHZBvq2nQWJ83bstqhNaLLeF8aSUXovMMQU0QLOM/EfwStBIJsCn
-	 MdpwcJErbX3ENr+8updzt0S9zO7Ka+O95TeQ0BxBoqMvApQRR7DHj+PJ3kNjE2G8ipw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193626;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+8OE+2o4zmB6uQB07WmdFdMOzioI3XmtqUaFc1/X3bg=;
+	b=An+sRMN7Vo3xG4drGRhJ3UwgDmew9s8fzAyZzBX/Qetmaudjw78FXlu7XoBeFKYiKxzz
+	 ZYIqVj6g47++Lzz2hOmWH03ZIp/sMExeCRoqAzPb+uxesZXteX/QJqfQWsQ8KtgSsqiUR
+	 KLrczQ66ez4GKSl0nx9HVy+jmiHzaXIUq/v5D91mzsN743NewcYGwlehapEQcd2R4KIEo
+	 ipPYI7BpKNuGyj+SUGfWSaPckUERn+RLS/DTc1TfkI6QNB18xL5LGeP0oS0MsuKFuI1IY
+	 WRHYrcomTlSsHkkajoOqNjTtjkMoREY101/H2bWlHC0aqdMeaX/vDrNAcPSQBgDqfKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=ShHgbWYX;
-	arc=none smtp.remote-ip=91.218.175.77
-Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="ZYQy/uga";
+	arc=none smtp.remote-ip=203.205.221.233
+Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B937606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:06:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B937606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F94606A320;
+	Mon,  9 Nov 2026 03:07:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43F94606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=ShHgbWYX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+dnZV2wn7xOwxVNqzFzRAdBqR7l4CXZ9Yzsru1gMpnU=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794193568; v=1; x=1794798368;
- b=ShHgbWYXa7grYKg0K/1tc42N+DgD8hwLhQ+319eeX6sOgF4OeBIMZDENs6YebW3gHXkviHnw
- MhAXXAtXG0utybwR7pYCtiQycvAO9bdZMsbnhyilMFsYzwkNGsACf7jBZDEGT6X7JTKcT6fYuoT
- XRshYnnMVpjQPfqNsyo2tWkBrE+RsAiDw7sVSAb4y/w2ViRQwE0SGge9h3TPXA93ohsYvLmTMb1
- spvlGDWXI7GAHyzgArPMQ5I4DPht3pJn/K21WTIFzictJoVccmEebwAibTrzXnbnjx4UGC9uzHD
- 2sTZx5+l++XZ386DOFxT4WWfsujD0Nt44LJ2OV/cei6cQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 24f5bc051f22241e;
-	Mon, 09 Nov 2026 03:06:08 +0000
-X-Mizu-Trace-ID: 24f5bc051f22241e
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 11:06:00 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] docs/zh_CN: translate coding-assistants.rst
-Message-ID: <avE4mPgZOx1th2FE@wyuan.org>
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
- <bb985e0f6f0c3e320cadcd007cfd0dbfd4102e46.1794153793.git.dzm91@hust.edu.cn>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ZYQy/uga
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794193616; bh=+8OE+2o4zmB6uQB07WmdFdMOzioI3XmtqUaFc1/X3bg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZYQy/ugar9zJkI2NVO04qOfKc+liyAIrRUfr08VG3OxhrOuPiIgCBhuaaug1jWiLx
+	 wmxWyeZyj4Tth1HcK9d4NiYYaKo66JLPClOlftNsXGhfc0VacWmrl12vrFJnUBk3yt
+	 /vrlFAL0KFWOD4Dmubskb5lesOcWjeRnyOayGfJE=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id 1B5B36AF; Mon, 09 Nov 2026 11:06:53 +0800
+X-QQ-mid: xmsmtpt1794193613te2f741e9
+Message-ID: <tencent_0A65695A966979B026705C7531C809277707@qq.com>
+X-QQ-XMAILINFO: OQac6g2KrvnWS+DndPw3VOlFuGydcieW/MNt6Eefm8wjLa9JdBuIR4fq7U3wYZ
+	 Q+fcwRvxSbYFFX8QkwhM0wtZWAHkcf5CdHJ2zTjG6mXZQKTVC8rm8kc6l3Zlhxm7HE4drsyttln1
+	 GjfHJ+518s2feB2dVwkaLcbC2abXD34l00IPd/3OAntmnjmuw30RUbU5oBhE/Tn0lkbDPkTgssZV
+	 kqB9SpmTBaHqCuK82d14dCy0CUGfNtb+2fspYQLf54XshU/DVAam3OLdcBxyePV7XsgKUsP9MuLv
+	 Ji7S6t8oZFlqWjxCQQQOCmeUUO7PoGwbzZL/ZkRauDyNo5A0T3OkcCZbXfZq/PzaTn9LgP29oKsa
+	 lL1SNx37FGvhUV43en5Mf0gjhhBnztQze6jeKN8kOEoRchsJ4YJB158HQDcB5HzSgNcnkMduRg+m
+	 7flR8M74i9SsYBfxthMWS4qfVeSI0VnybtF4/OkYQtIXlTWEL2h1Oj7D9X6UJX20sm5jc+nD7Awv
+	 Ev1punxzWBIEIZgw8l6jRdvg9TYu/NoCvXoldShhmL3ON1hEZWE75TVbDPeZ2uWW86O63GaW5Gru
+	 pqlZzNGveHzbac+7wXyCTgnBUsF1Mtpbvj6l7urGfBVG/DusBxYNLv0htLOuCyFEomCRFp/FDxhO
+	 D6FpF8yDYOZG6QluayL2As2MlF+3lMPMyZcCwKT0NbbemaTrc5tAE6nPrgeAweAhlUpBOvAjVNpf
+	 1nK74vk4heuisbVQCDG2LA+58fdIPN4ZsU9d7YmtaGIwmc92CzkQyLvAHZYLAm0iuL6tgUZgnGNt
+	 n6CThQBH8/b9W1xEBDgn4lhVpZpjjVI5RVpUygt1HozNN9p8yRtuCT43vfypAI60vKlYphLkxqHV
+	 qPh5MZtXCoUt3Gew3RVRO09FvurZSnKVejvcjv+AEm4o4Wrg920bLMWSdUxyGEV9Zu3rSqLuNJci
+	 hH9B8lYOX+Yc/hd8+LQoT1kq69dQeSJ4/dk6mslvEOZzFm+Bg+V5U32+GXcKO9dxBZCccSl0p3/X
+	 XQZcNMHFhlsTQgFK/0yIcMhYPQO5EzRVYlVLQqsbion8iDKI0Q00cwXRu5kGmdNY/C51ZhYzncZ/
+	 zRSWbZBCJpH4NoODs=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Shuai Liu <847807867@qq.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	vdonnefort@google.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+008851bf625629489e75@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH v2] ring-buffer: Reset per-CPU buffer state in ring_buffer_subbuf_order_set()
+Date: Mon,  9 Nov 2026 11:06:53 +0800
+X-OQ-MSGID: <20261109030653.159638-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-204360@kernel.org>
+References: <sashiko-outbox-204360@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,26 +86,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bb985e0f6f0c3e320cadcd007cfd0dbfd4102e46.1794153793.git.dzm91@hust.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-Dongliang Mu <dzm91@hust.edu.cn> writes:
+ring_buffer_subbuf_order_set() replaces every page of a ring buffer
+with newly allocated empty pages when the sub-buffer order changes.
+However, it does not reset the per-CPU accounting of the discarded
+pages. The stale counters (pages_read, pages_touched, pages_lost,
+entries, ...) continue to describe pages that no longer exist.
 
-> Translate the AI coding assistant guidance into Chinese. Link to the
-> existing Chinese license-rules.rst guide while keeping untranslated
-> document references on their English paths.
-> 
-> Update the translation through commit 1e035297ffda
-> ("docs: remove Assisted-by references")
+A full waiter (e.g. poll on per_cpu/*/trace_pipe_raw with
+buffer_percent set) then causes ring_buffer_nr_dirty_pages() to read
+the stale accounting, and the invariant pages_read <= pages_touched -
+pages_lost + 1 can be violated, which trips the WARN_ON_ONCE() there:
 
-Looks very good.
+  WARNING: kernel/trace/ring_buffer.c:866 at ring_buffer_nr_dirty_pages
 
-Reviewed-by: Weijie Yuan <wy@wyuan.org>
+Since the old pages are gone, the buffer state after swapping in the
+new pages is equivalent to a freshly allocated buffer. Replace the
+manual head/tail/commit page assignment and the rb_head_page_activate()
+call with rb_reset_cpu(), which performs the same page setup and also
+resets all per-CPU accounting.
 
-Thanks.
+Verified on QEMU (x86_64, v7.4-rc2): enable sched_switch events,
+partially consume trace_pipe, set buffer_subbuf_size_kb to 32, then
+poll trace_pipe_raw with buffer_percent=50 while writing events. The
+unpatched kernel triggers the WARN above, while the patched kernel
+does not, and the per-CPU stats report a clean buffer after the order
+change.
 
-> ---
->  .../zh_CN/process/coding-assistants.rst       | 74 +++++++++++++++++++
->  1 file changed, 74 insertions(+)
->  create mode 100644 Documentation/translations/zh_CN/process/coding-assistants.rst
+Fixes: 8e7b58c27b3c ("ring-buffer: Just update the subbuffers when changing their allocation order")
+Reported-by: syzbot+008851bf625629489e75@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=008851bf625629489e75
+Link: https://lore.kernel.org/linux-trace-kernel/6af009ed.4dd4714a.f8d02.000d.GAE@google.com/
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+
+Changes in v2:
+  - Fix the Fixes tag: the stale per-CPU accounting was introduced by
+    8e7b58c27b3c ("ring-buffer: Just update the subbuffers when changing
+    their allocation order"), not 2808e31ec12e5 which only added the
+    interface stub (Sashiko)
+
+ kernel/trace/ring_buffer.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 75cd8df23c1b9..2726eb8cb3eeb 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7548,10 +7548,6 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 		list_del_init(&cpu_buffer->new_pages);
+ 		cpu_buffer->cnt++;
+ 
+-		cpu_buffer->head_page
+-			= list_entry(cpu_buffer->pages, struct buffer_page, list);
+-		cpu_buffer->tail_page = cpu_buffer->commit_page = cpu_buffer->head_page;
+-
+ 		cpu_buffer->nr_pages = cpu_buffer->nr_pages_to_update;
+ 		cpu_buffer->nr_pages_to_update = 0;
+ 
+@@ -7560,7 +7556,13 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 		cpu_buffer->free_page.data = NULL;
+ 		arch_spin_unlock(&cpu_buffer->lock);
+ 
+-		rb_head_page_activate(cpu_buffer);
++		/*
++		 * The installed pages are freshly allocated and empty.
++		 * Reset the stale accounting of the discarded pages,
++		 * which can otherwise trip the WARN_ON_ONCE() in
++		 * ring_buffer_nr_dirty_pages().
++		 */
++		rb_reset_cpu(cpu_buffer);
+ 
+ 		raw_spin_unlock_irqrestore(&cpu_buffer->reader_lock, flags);
+ 
+-- 
+2.43.0
+
