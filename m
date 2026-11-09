@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231921;
-	b=QL6Ocej+9sjU1mZcbCAR7Qmv3B6E1eKLbEaLWX2mf5GPhcrbOsyu7dMr8SFdF4+fuxp4
-	 8zCxPublosUjoxVboJTwGM5naYK5ZVsAjc7/+9VAgGbGwt+K1luojOc/nRwmZZceQyGay
-	 U/l5HO4TEqXsbbNANHyeIiEE+R0Z0RzB67pZGfUIBiadUDCufmP+UMw/K48fZQKp5BiTK
-	 UMUcZSv16XrFXh4dfu/Jc9jZypx/3BZBFoGgCdxJs0GNbek9R/vl7CdEvWUFc6b41hNW9
-	 h+38lixjnv/bPNy3F2VY4h5PywnMd8nRMBzMAzHTTH6+ga8W+YuUABZOPU3oGJy55Zw==
+	t=1794231907;
+	b=H6pJCI7jNlcEpnZ1vPWzyAFaa7gkOBtkTaKLIdE15oTahuB8jmem6NCtrH5iEemCjQb/
+	 AJkPi9PwzDoCc6/uNSDvDmBMrnVAqsEDz5lmHjRMpsNHSYbsMa0oyfBxebA3tM8hSnmHU
+	 L7WxjEg7xrABwFpQWpmZcUButm+7/HD4CxWPNGEFBmrT5B2476yIEf8vGivYnX39++Msi
+	 mTM+P4bomee38acOslTUVRbuCVKIaQLslML4UtAoBAWCXOsKlV9h0paa0D7EwL6Tbm+I8
+	 jYQs0tXwQQd8n6vgU1w6rQ6b9QERamUb7S0b/rT27X5wKl9Ovr4IaohkYjJ0AQBOdUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231921;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZB33fDrAm2+MTpVzqHevrVjMtTfx0w/Sxjvwb8uQmek=;
-	b=cSq1detZSeZvNMCG1gOZjI2h7OK9Ay+v0UuCZ3hnwDIzZioYa3Q9ySrKPeWfYtNUyjTb
-	 0UVRquMXAsLQOTUlh+IQMhM2kbP9Kp/m4hk0pYWRe4H4Qkb8B+0NPsQWG6+F5+kOeHIaY
-	 E8/nllb1UUQtxTXPH3YKdx4CGG6BJkFj3Cj5N3EnsIl/x4r/TgS+R0QEfH6Ynq3qPeH48
-	 4vn4b2ceKjfQQOQTZHF7lO47vvw7siW0oviONNNw15tZ+M9AJhE5qT3/0me265JSu32Hl
-	 6ESJ0CjhizAWD0E5RbB5SkHeVeva/BWzkMewYLVtX4o924na9e49z5i/YdXmj4UZecQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231907;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SjhNGKAFa/LGrtAPePCfHjw2jptgU6AWjXk819xv4y0=;
+	b=fySqSUz65Zfm5mMH+ltjqvVlk+MgNo+Q6rOKqs/ttBoxsF4inkiMXsF5Inay3B8oT81N
+	 9RdegqnCzsd4nRd2mfDBafP4i+AvnV0J/zpawKeajXb3rhdbaT1W2TT9w/qE6lQ7BrL5n
+	 0TayA4OuutGE4c1yS6VQhnO5Nn7zPXYQYbwLK8z1TR4FX7XfTpJ+gkyh/YEOcTrEOteMg
+	 xIjbsqENJiuLBKkXRjYpWKMRUBHMz1e+L8qyMvBGYSnh+R3zGI5rUQUPiXJ4Bu5FNMd5v
+	 zFA2ceQrpwoKBXHa77ml+SPL+QJ0hybhf9Ml2sghRaoFDgUDX36R+MCFCZjxMXV1Q+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vD5Yodr3;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gz5j+IRt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A995606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A995606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656FC606A337;
+	Mon,  9 Nov 2026 13:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vD5Yodr3
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso437004a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:45:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794231921; x=1794836721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZB33fDrAm2+MTpVzqHevrVjMtTfx0w/Sxjvwb8uQmek=;
-        b=vD5Yodr3X1C0rOWGiV4KYpByjyi5NN2U1kf/rt9jVtcRLs+Wh/OK/kef9yZI+La0H9
-         mUkBg1N2VbAN85LyfTRZVjUUEhdGXYeMc90gN0QhtcvWozHmNPKdIbKmjPo233RqkNJl
-         WQPg5mqCPM4ZBmKbZDiLSsFGcvftdrtoFFBOTXPFJRClb0fmwW5a3mCjUED8RTLZ/9gJ
-         aP5DztaUutJ6VNxAResBO2W5MEG82FX3SMrWa5yqZF9N61gLogY5HjLIebxU3x/EV1P7
-         v/0TTBGZ1vF7yOzeMzdYw39D3gTtnwkXksBNtYPa4dZWh/97nVW1rw7enctg3blDPY8e
-         IaKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794231921; x=1794836721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZB33fDrAm2+MTpVzqHevrVjMtTfx0w/Sxjvwb8uQmek=;
-        b=oLKPUVpQll/g+q8DIX//YMefKvROxqkIgO922ewNC+O5IT0z9PBlC9LSIvMdAkXCQG
-         imKAzZDlZGYxs1RTE923XtBaqAE6onAY7HYCftDH16ehOK4fOlPXkVi0yzJ4nYhDJXa4
-         wz7WEXZIIZRUFaCJ/qBkjGHxBN5HuR5INkpxUHywQwIwJL20YnZ1Z1FmSnWuUOTrA5Dq
-         RCtES1miU/6aoNCiEbPY+E7se0vRn3gndnvpTAa7eq1OozJxn8AXvsoX9cAAKYqPjJRK
-         D5vj32FG1HZw/k9B3PWfTc4cdNQc5i97t4ntSYel9wLUcTakKt7yC6dW5UYMqQFXtkk1
-         yN+Q==
-X-Forwarded-Encrypted: i=1; AL+hErHKqJEdXm9sU6IF1Rq9s0Q6JhWm5Rzry376PQxEsHq8wvyvAzOi1m2ktEJFvLvMoDv1X/dlDU5SatIkK2o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XyplqSZsByvLYGySPl8o9CbPhN50wy0oxcuQwO75/q4pE3hZY
-	9X2cAEKA1nNgMG4INvjAhLqh4AOd8Brq1LqFSioSl8pp2N/uJJgd3K4d
-X-Gm-Gg: AYBFou0WHV9h5qslf53fWmP/A0OBZiDapWjAjdlyXWvJ9l0+krxD3s/LmFMtWzM+ffp
-	1iLZUySrkJHqUM7D/fKNYdMGY5zyy2N6+zaMQONovIwNrjOruYhJOIC35MnMLyZUpfz6vfjfGyR
-	nmJR4OcgqZz+m4UeMz54Y25ZCf/PYofjDasy3CtRw9tN1x1kR4qC+cA8jQMYQHPCDIkF72J/IEw
-	a+BOE6by/2SZNsptp4iFS89n0O9GwSVmVXKsVREBEGEwMN79KmelGIkjUevs4bml3GIuHF0yw9T
-	5PnVr8EabslQjxaH6L8x4WhEtMp6uBxPlbkBBZVCDv8TDUv2rr55PrXx79N7y45MDiOvN8CZaB3
-	YvRokM4ypU7DPNnWW9/LWVKkaVY00srVuzmXgAITw/JCaKDUcrbdxWIPCYBP7Hj+5CBMvWwTxq4
-	qAjbMPq4sGi2MGY2jCA3FxgehWJmNciM9+d3+hwz5N6TwICfzIGlpD2JYV+W3xyjd53SqsSF48B
-	5t0NkFN8qATXrq4wqoNOqP5X+Thz1R5tayHy50J/j6Ws7KRRfNkWLUKsiZcO9P5dcVCaPyfAQxE
-	duae1nxE6zqjlcqVBLS8qI6/ZRBo
-X-Received: by 2002:a17:902:f710:b0:2ed:1b02:f6f2 with SMTP id d9443c01a7336-2ed833ee3abmr40925505ad.6.1794231920747;
-        Mon, 09 Nov 2026 05:45:20 -0800 (PST)
-Received: from server227.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81727f9bsm11014285ad.57.2026.11.09.05.45.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:45:20 -0800 (PST)
-From: Zxyan Zhu <zxyan0222@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	maxime.chevallier@bootlin.com
-Cc: mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	richardcochran@gmail.com,
-	muhammad.nazim.amirul.nazle.asmade@altera.com,
-	rohan.g.thomas@altera.com,
-	rmk+kernel@armlinux.org.uk,
-	o.rempel@pengutronix.de,
-	wojciech.drewek@intel.com,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v10 0/3] net: stmmac: dwxgmac2: timestamp interrupt support + Agilex5 fix
-Date: Mon,  9 Nov 2026 21:45:03 +0800
-Message-Id: <20261109134506.2794160-1-zxyan0222@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gz5j+IRt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F641F008A1;
+	Mon,  9 Nov 2026 13:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794231906;
+	bh=SjhNGKAFa/LGrtAPePCfHjw2jptgU6AWjXk819xv4y0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gz5j+IRt16UMA6Uf8i7EiWjJIBV4vUN9Xy0DKD3/t3wCmxXemR+4mZb4wvMKa+MmX
+	 f5HAwCJPOHi3ECi2nnYFk4cj5S/zAPOZ2LN9cK/+ZjkYO2qsnmOqFygzSsugJjLhqm
+	 XGRy5hq8F0U4PLasq04Uo0A8njicFtwJd+tVw9S5/oDT+gwbYpzSWYp9+YFgcFxTSP
+	 lY7NQStpmvJvsKMIHeFroSHfXp3NwGG0it00SCNdbhEez/eZikwWMazkfHuz+638K3
+	 clgUGputwUFM5yxXtCj0F3eWtXusMjSAYPVemwnv/PNJjY3t4VgVd157Fgzi20jQkR
+	 WpW6XsNlxhqFw==
+Message-ID: <ac29cf71-a1af-4ce7-96c3-aea5a771979a@kernel.org>
+Date: Mon, 9 Nov 2026 14:44:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,59 +51,336 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use
+ vma_flags_t
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>,
+ SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
+ David Rientjes <rientjes@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, John Johansen
+ <john.johansen@canonical.com>, Georgia Garcia
+ <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, damon@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+ <20261105-late-2026-vma-flags-v1-7-0d3cd15ab75f@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261105-late-2026-vma-flags-v1-7-0d3cd15ab75f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This series adds auxiliary snapshot (EXTTS) interrupt support to
-DWXGMAC2/DWXLGMAC2, fixes a stale TSIS race on the Agilex5
-cross-timestamp path that the new handler would otherwise expose, and
-guards the shared aux snapshot handler against a zero channel mask.
+On 11/5/26 22:30, Lorenzo Stoakes (ARM) wrote:
+> Replace use of the legacy vm_flags_t flags with vma_flags_t values
+> throughout the madvise logic.
+> 
+> In order to do so, update ksm_madvise() and hugepage_madvise() to take a
+> vma_flags_t pointer, and update their other callers in mremap and the
+> powerpc KVM ultravisor code accordingly.
+> 
+> In the latter case we replace vm_flags_reset() with vma_overwrite_flags().
+> The VMA is write locked at this point, so the atomic flags preserved by
+> vma_overwrite_flags() cannot differ from those copied, and the behaviour
+> is unchanged.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/powerpc/kvm/book3s_hv_uvmem.c | 10 ++++----
+>  include/linux/huge_mm.h            |  4 ++--
+>  include/linux/ksm.h                |  4 ++--
+>  mm/khugepaged.c                    | 10 ++++----
+>  mm/ksm.c                           | 11 +++++----
+>  mm/madvise.c                       | 47 ++++++++++++++++++++------------------
+>  mm/mremap.c                        |  2 +-
+>  7 files changed, 46 insertions(+), 42 deletions(-)
+> 
+> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> index 463aef870c4e..0fa50bee2ffc 100644
+> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
+> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> @@ -393,7 +393,7 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+>  {
+>  	unsigned long gfn = memslot->base_gfn;
+>  	unsigned long end, start = gfn_to_hva(kvm, gfn);
+> -	vm_flags_t vm_flags;
+> +	vma_flags_t vma_flags;
+>  	int ret = 0;
+>  	struct vm_area_struct *vma;
+>  	int merge_flag = (merge) ? MADV_MERGEABLE : MADV_UNMERGEABLE;
+> @@ -411,15 +411,15 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+>  			break;
+>  		}
+>  		vma_start_write(vma);
+> -		/* Copy vm_flags to avoid partial modifications in ksm_madvise */
+> -		vm_flags = vma->vm_flags;
+> +		/* Copy flags to avoid partial modifications in ksm_madvise */
+> +		vma_flags = vma->flags;
+>  		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
+> -			  merge_flag, &vm_flags);
+> +			  merge_flag, &vma_flags);
 
-Patch 1 makes smtg_crosststamp() complete on the persistent ATSNS
-count instead of the transient TSIS bit, waits for the FIFO clear to
-complete, and holds aux_ts_lock across the whole trigger/poll/drain
-sequence so a concurrent EXTTS request cannot flush the snapshot FIFO
-mid-flight.
+Unusual indentation (before your change).
 
-Patch 2 guards the shared aux snapshot handler against a zero channel
-mask: ilog2() is applied to the mask without a zero check, and
-ilog2(0) yields an out-of-range event index that ptp_clock_event()
-feeds to test_bit() unchecked from hard IRQ context.
+>  		if (ret) {
+>  			ret = H_STATE;
+>  			break;
+>  		}
+> -		vm_flags_reset(vma, vm_flags);
+> +		vma_overwrite_flags(vma, vma_flags);
+>  		start = vma->vm_end;
+>  	} while (end > vma->vm_end);
+>  
+> diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+> index c745f7ad2298..8b6f4101eabf 100644
+> --- a/include/linux/huge_mm.h
+> +++ b/include/linux/huge_mm.h
+> @@ -508,7 +508,7 @@ change_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  			__split_huge_pud(__vma, __pud, __address);	\
+>  	}  while (0)
+>  
+> -int hugepage_madvise(struct vm_area_struct *vma, vm_flags_t *vm_flags,
+> +int hugepage_madvise(struct vm_area_struct *vma, vma_flags_t *vma_flags,
+>  		     int advice);
+>  int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+>  		     unsigned long end, bool *lock_dropped);
+> @@ -710,7 +710,7 @@ static inline bool unmap_huge_pmd_locked(struct vm_area_struct *vma,
+>  	do { } while (0)
+>  
+>  static inline int hugepage_madvise(struct vm_area_struct *vma,
+> -				   vm_flags_t *vm_flags, int advice)
+> +				   vma_flags_t *vma_flags, int advice)
 
-Patch 3 adds a dedicated DWXGMAC2 timestamp interrupt handler.  The
-XGMAC hwif entries used the generic ops, whose callback read the wrong
-register and whose enable mask omitted the timestamp interrupt, so the
-clock advertised the aux snapshot channels but no event was ever
-delivered.  XGMAC_TSIE is not enabled by default; it is armed on demand
-from the EXTTS enable/disable path through a new callback, and the
-handler only touches the FIFO while the interrupt is armed and while no
-cross-timestamp owns it.  The interrupt is disarmed on suspend and
-unregister and re-armed on resume.
+Could do two tabs while at it.
 
-The failure fixed by patch 3 was hit while bringing up auxiliary
-snapshot interrupts on a local DWXGMAC2 board (not Agilex5-class):
-enabling an EXTTS channel succeeded but no PTP_CLOCK_EXTTS event ever
-arrived.  After the change the same board delivers EXTTS events on the
-enabled channel.  The races fixed by patches 1 and 2 were found by
-reviewing the code paths that this bring-up exposed; they are narrow
-race windows and were not reproduced on hardware in isolation.
+>  {
+>  	return -EINVAL;
+>  }
+> diff --git a/include/linux/ksm.h b/include/linux/ksm.h
+> index d39d0d5483a2..1ffc69a72a1a 100644
+> --- a/include/linux/ksm.h
+> +++ b/include/linux/ksm.h
+> @@ -16,7 +16,7 @@
+>  
+>  #ifdef CONFIG_KSM
+>  int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+> -		unsigned long end, int advice, vm_flags_t *vm_flags);
+> +		unsigned long end, int advice, vma_flags_t *vma_flags);
+>  vma_flags_t ksm_vma_flags(struct mm_struct *mm, const struct file *file,
+>  			  vma_flags_t vma_flags);
+>  int ksm_enable_merge_any(struct mm_struct *mm);
+> @@ -139,7 +139,7 @@ static inline void collect_procs_ksm(const struct folio *folio,
+>  
+>  #ifdef CONFIG_MMU
+>  static inline int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+> -		unsigned long end, int advice, vm_flags_t *vm_flags)
+> +		unsigned long end, int advice, vma_flags_t *vma_flags)
+>  {
+>  	return 0;
+>  }
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index a2c7c6a0768d..be1f779c8da5 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -363,16 +363,16 @@ static unsigned int collapse_max_ptes_swap(struct collapse_control *cc,
+>  }
+>  
+>  int hugepage_madvise(struct vm_area_struct *vma,
+> -		     vm_flags_t *vm_flags, int advice)
+> +		     vma_flags_t *vma_flags, int advice)
+>  {
+>  	switch (advice) {
+>  	case MADV_HUGEPAGE:
+> -		*vm_flags &= ~VM_NOHUGEPAGE;
+> -		*vm_flags |= VM_HUGEPAGE;
+> +		vma_flags_clear(vma_flags, VMA_NOHUGEPAGE_BIT);
+> +		vma_flags_set(vma_flags, VMA_HUGEPAGE_BIT);
+>  		break;
+>  	case MADV_NOHUGEPAGE:
+> -		*vm_flags &= ~VM_HUGEPAGE;
+> -		*vm_flags |= VM_NOHUGEPAGE;
+> +		vma_flags_clear(vma_flags, VMA_HUGEPAGE_BIT);
+> +		vma_flags_set(vma_flags, VMA_NOHUGEPAGE_BIT);
+>  		/*
+>  		 * Setting VM_NOHUGEPAGE will prevent khugepaged from scanning
+>  		 * this vma even if we leave the mm registered in khugepaged if
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index 61b772bba229..3eb9c1ec2f87 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -779,7 +779,8 @@ static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
+>  	if (ksm_test_exit(mm))
+>  		return NULL;
+>  	vma = vma_lookup(mm, addr);
+> -	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) || !vma_has_anon_rmap(vma))
+> +	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) ||
+> +	    !vma_has_anon_rmap(vma))
+>  		return NULL;
+>  	return vma;
+>  }
+> @@ -3021,7 +3022,7 @@ int ksm_disable(struct mm_struct *mm)
+>  }
+>  
+>  int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+> -		unsigned long end, int advice, vm_flags_t *vm_flags)
+> +		unsigned long end, int advice, vma_flags_t *vma_flags)
+>  {
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	int err;
+> @@ -3039,11 +3040,11 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+>  				return err;
+>  		}
+>  
+> -		*vm_flags |= VM_MERGEABLE;
+> +		vma_flags_set(vma_flags, VMA_MERGEABLE_BIT);
+>  		break;
+>  
+>  	case MADV_UNMERGEABLE:
+> -		if (!(*vm_flags & VM_MERGEABLE))
+> +		if (!vma_flags_test(vma_flags, VMA_MERGEABLE_BIT))
+>  			return 0;		/* just ignore the advice */
+>  
+>  		if (vma_has_anon_rmap(vma)) {
+> @@ -3052,7 +3053,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+>  				return err;
+>  		}
+>  
+> -		*vm_flags &= ~VM_MERGEABLE;
+> +		vma_flags_clear(vma_flags, VMA_MERGEABLE_BIT);
+>  		break;
+>  	}
+>  
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index e9fa4f71efea..1b539e67b00d 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -148,11 +148,10 @@ static int replace_anon_vma_name(struct vm_area_struct *vma,
+>   * Update the vm_flags or anon_name on region of a vma, splitting it or merging
+>   * it as necessary. Must be called with mmap_lock held for writing.
+>   */
+> -static int madvise_update_vma(vm_flags_t new_flags,
+> +static int madvise_update_vma(vma_flags_t new_vma_flags,
+>  		struct madvise_behavior *madv_behavior)
+>  {
+>  	struct vm_area_struct *vma = madv_behavior->vma;
+> -	vma_flags_t new_vma_flags = legacy_to_vma_flags(new_flags);
+>  	struct madvise_behavior_range *range = &madv_behavior->range;
+>  	struct anon_vma_name *anon_name = madv_behavior->anon_name;
+>  	bool set_new_anon_name = madv_behavior->behavior == __MADV_SET_ANON_VMA_NAME;
+> @@ -601,7 +600,8 @@ static void madvise_cold_page_range(struct mmu_gather *tlb,
+>  
+>  static inline bool can_madv_lru_vma(struct vm_area_struct *vma)
+>  {
+> -	return !(vma->vm_flags & (VM_LOCKED|VM_PFNMAP|VM_HUGETLB));
+> +	return !vma_test_any(vma, VMA_LOCKED_BIT, VMA_PFNMAP_BIT,
+> +			     VMA_HUGETLB_BIT);
+>  }
+>  
+>  static long madvise_cold(struct madvise_behavior *madv_behavior)
+> @@ -650,7 +650,7 @@ static long madvise_pageout(struct madvise_behavior *madv_behavior)
+>  	 * further to pageout dirty anon pages.
+>  	 */
+>  	if (!vma_is_anonymous(vma) && (!can_do_file_pageout(vma) &&
+> -				(vma->vm_flags & VM_MAYSHARE)))
+> +				vma_test(vma, VMA_MAYSHARE_BIT)))
 
----
+Another weird indentation. Likely because the spare set of () that are not
+necessary?
 
-v1: https://lore.kernel.org/netdev/20260806-dwxgmac2-timestamp-irq-v1-1-c051c79c9d90@gmail.com/
-v2: https://lore.kernel.org/netdev/20260810100221.9166-1-zxyan0222@gmail.com/
-v3: https://lore.kernel.org/netdev/20260818132722.1852876-1-zxyan0222@gmail.com/
-v4: https://lore.kernel.org/netdev/20260902131441.322167-1-zxyan0222@gmail.com/
-v5: https://lore.kernel.org/netdev/20260910081020.86227-1-zxyan0222@gmail.com/
-v6: https://lore.kernel.org/netdev/20260929073553.4136336-1-zxyan0222@gmail.com/
-v7: https://lore.kernel.org/netdev/20261004120526.2728564-1-zxyan0222@gmail.com/
-v8: https://lore.kernel.org/netdev/20261013033207.1684328-1-zxyan0222@gmail.com/
-v9: https://lore.kernel.org/netdev/20261104125030.1183146-1-zxyan0222@gmail.com/
 
-v10:
-- Rebase on net-next from 2026-11-09 (containing 7.4-rc2, which moves
-  the est_lock initialisation next to the aux_ts_lock one).
-- Wrap two lines that exceeded 80 columns.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-2.34.1
+Cheers,
 
+David
