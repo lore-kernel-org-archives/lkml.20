@@ -1,98 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794206749;
-	b=fDDCVlzemoxjOBVsOpmBDlopTOqp6/02qHKBAphJXw5njR9DdwmL7NZLrFnMz645gVIy
-	 XFRpJ0r3oe7Y9aFSHWvL2o2oHgHjukVTluK81kZsDqvCSC4DUJhkTkvNQVSxpNHimcdns
-	 VQzk12w3xVj3xcgXhQgv0ULQAwN+9g6qZ6GdsJ4T8VNgrYtVSTj3u9wmVDUkGTX/z+Fd2
-	 ORdofUZbPR7Yx3lBpkHI1IVfG/8ziV2fAgkGpWN9i0KyIQuwkM1jP+cyIiALGNDtSYFSl
-	 gQaZ3mn0V8KKxQm3SQS0uv6610idKgKROt8F0Ygde7M+lojU9/U4DULSePdzyt9LqbA==
+	t=1794206811;
+	b=aQwynZ7XzSM5H6idbGalDygTZbWbuijeCxshWR81UnMIwLWIihmmzQuDNny2H20GpgTP
+	 6FnxXYzzWv/alhbvtGVUUDo1CifPrsqeamjgf5XFu/cY2XpIOqfDqY6+iSmSIx13Xdolv
+	 oEhnI0o6P4fc7ujDhJ3IN08p7UTACO4hkBJwh4Wlck9pJNFouFx6XLs/IfIXuNogGWCT2
+	 PR+ihgWESQ4fjQDDFuhV7wEhDF+gwiXbMH9lXnBfSkylzTMKY1ixOJNkftqKvhL7Xv13x
+	 J1Ah/fAbcSFibNfC8nFHv27ZcubwndpsPX6CsCzbgE8a4WrentFQZIb4YUFdRtC0xPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206749;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VbgrA0BhhyOaMNoYIr3wWIPZv+I5yFfOyDuxCpBBfGk=;
-	b=MN1UXRz20pJy1fklr81q/cTFhcHvv4Aqg/JkiDP0b58irhskNUJjRU24S5e6f1leZiLb
-	 M6xFq2oTF4U2ffTZMhhKRjrauPmeDO9XUyex6j7W2LRHNOVf5sfLm2x9yJ04VDDXZo6TN
-	 Vj7wbKrEq4/jDXQBSeu2DCjfabbcN2j3g9kVZ1xYcdzfzgHLQDSttYfvpN6VW5XqzsWgv
-	 RYJLOF0dFyLqqe7qBCjpLnWEUJiV+tHsLbAKedOKlOczrk4rpB6jYtWqT1WCzi7nN9oyY
-	 TZ6xfINn17THDv8uy/+5fAfQuywAvOiD8VaSWoGRYDYNmDvOJ48Pw7a01nNwEJvCzAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206811;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=djs195KZY/BJdEFCgcDSpeR4fu1pIHlWnSTsGITALWI=;
+	b=LNCxViZJOEFXlcdhlsW/HFCtIYIVB/vFl+3C7OMkFp2kLlzFH/M4fp70gdgHaj3dC7hl
+	 feV60+tL7ut+nEW3zUPR3e70m+22drK61SBdqGNib0ZpWW8+UF/9mXY9XMWBLzoouxRra
+	 zHj4+84slyxxly+s+qUuapuFeqggZPSVE95j/11MrzW+keBfh7TZDR/QswyXbP1JFA/M8
+	 XIY6JbGrQGhXVeIg1FL0O000has7edjFhUB46NyBpTj9BxWOfv2U46fk2L45JbhvFU52v
+	 TTzEfiwX+3TdHvrhzk2NsgF3kSQ30zUYl95AcKDpJnvp2dk60QMsdzLTyBftctph/vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wVTyJbIB;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fctk7shm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28C8606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F28C8606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E253606A31C;
+	Mon,  9 Nov 2026 06:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wVTyJbIB
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49134c8509fso402890f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:45:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794206747; x=1794811547; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VbgrA0BhhyOaMNoYIr3wWIPZv+I5yFfOyDuxCpBBfGk=;
-        b=wVTyJbIBW8123YwTpvcYXtYZ2PFI3g3DMU5rLfnSrNe+HxYzRz+SKdSW1fiimbF32t
-         plqF1bSOfaXVme8V1AdPppWM+sVNPic0XqMKTs56dWyGdMo5PKa3aL+ZrCFlb7D+oDrj
-         FveVWWGHm4ABApszy5NPmEOT884aXB0s+eO4jfRhIzJX3TmkM/4M03qCEyCn24Lmrxe+
-         pZLVVhvkm2K3a2fY9Bs82fe0wRe+j0WAYw+trXLNoCQQuuNQTCm1RADlxpY++6iqlRAo
-         UOkbabAvXrf7/D9DnEE6s70XcI7pgicycuil9GZe8fhZ0+NP1FCH6XPvvYRI9pPyXA85
-         tgRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794206747; x=1794811547;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VbgrA0BhhyOaMNoYIr3wWIPZv+I5yFfOyDuxCpBBfGk=;
-        b=aBsoSgDcbIy+CM+XBv8CrqfuXPVwsJ3/94f6IwZkg5bel9/HsAnqt04XXhE2QOEdiP
-         i5EwEtn64Vc+0DZ8sOp0TR9ORFQ2J7ML9I0bNuW1VV7siZ2turbfY3Dk8VipCUMSK6Ou
-         BGWFSOI1NC4jA5nJDuIvRh4GZbTcHuqXpmZatWrn+4LPVSuYvn0KUx4a8YBoADYAmvgY
-         AFXKTS0xnVu/CwEdGnxEyTjkerGdY8at3TZxAqY+JRFcADzZf2Org8gsK7n1XSE4QRIZ
-         HTl5wVcI4I+nG9ODSA7bfILHULH6pjl5nVAGHXKjoib352sEfnEQ5+icRmZ0vyBSpr73
-         n2LQ==
-X-Forwarded-Encrypted: i=1; AL+hErEzQbJpCVGQD6tmLIhlpXDhGp+TJNMA4w6V79zkimG7b0hDCq4jSrRsthMVg2FFsoNLaWrtnuSAbF9En5I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96fQtd2Jq0Zh50QaKSaHu+sS/P66kIwkWVriCrH8S47IQg8iWj
-	S/QItlKSrs43F0QeHpggt1rG14WWq5yMlmrqgAOFUQOdFgwynZh5lZcJrEMQFrzwwKAuuJj8
-X-Gm-Gg: AYBFou2WEn6TnCgfPgghJ2JGojlYs4sOUqj5AayI71HIuQ3VGNtJiuGpe+gagLKH0HR
-	dAwVGjQCagPQ3je8kQc339IvcG/rVMZnPd7vOehy2BPLBQuBcBEoj34wRcYtRIblFhEKgc0fwDd
-	IjNVZftgGmxCH04ATn4ztusiFR9iTKZV/iPiSCXoVCTHPeamqnOVbd45vQAZDlXYpnV7ApAspiN
-	2X3msbEG9oHOm/6McRwB3WLizePtl7KvOxAsYoGbrX3FCDb9CwVMk/CDlS+lcWYhXwBbRczasd7
-	5e8U71UcvOCx49RSG3N+PHC5noCBaxKGr3C9gN8eyu1mHjkt/B6V7THUaJdfr7pqOW45+uxKFa9
-	Bq+cvMmTE+wdVaIq/YK7T4A6Ltq3WPHicN/H+Fq2nw1zdwwkiuyCJzvt359Yn+FSSvD/j0E97Jo
-	oU1zt6gp0ordEjI7DwctTBLD7N9CyMzty4pkJT+NScVUsZEzny2BuF7R/O5v3pne8VnRcmfIqvq
-	zp4fUCG20Drn3QSvFRw+TpoT7B+cZ3snYYrb53xM292bz1rDnjtfMWZBVBYgDcWDOVuloSZzdlK
-	Lxho0u46S6+JLsFobAQdWb978Ik8Jzwm9ilCN+na0du6maacHDS0EPOSLtIEnhKFZUNhsjeIF0V
-	GsFDdy6dDEpHgVgM2QihT2W0JmXx1vxfwPjnLqCZglb1UPaot8Q0Upx3SUr2Tf5EeEVlBN+6Sfr
-	T0BF6BJFINp74=
-X-Received: by 2002:a05:6000:383:b0:492:7d9c:fcf8 with SMTP id ffacd0b85a97d-49585bae5b9mr5438445f8f.49.1794206747118;
-        Sun, 08 Nov 2026 22:45:47 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597186eb9sm7827905f8f.35.2026.11.08.22.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 22:45:46 -0800 (PST)
-Date: Mon, 9 Nov 2026 09:45:42 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Lame Morupisi <lamemorupisi12@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	andy@kernel.org, gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: media: atomisp: Clarify MIPI frame layout
- comment
-Message-ID: <avFsFu5YzloDMbNb@stanley.mountain>
-References: <20261108122840.85622-1-lamemorupisi12@gmail.com>
- <20261109061223.17144-1-lamemorupisi12@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fctk7shm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AE51F008A1;
+	Mon,  9 Nov 2026 06:46:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794206810;
+	bh=djs195KZY/BJdEFCgcDSpeR4fu1pIHlWnSTsGITALWI=;
+	h=From:Date:Subject:To:Cc;
+	b=fctk7shmf9TRh1KwyKD0HX4xz2w8GL0ddf7yz2exNNrNwmmMGGMPC8JtzSwncsOWL
+	 65PqMPlxf5Abs+k4Udx5fTzm5Kp3PtlmMPOAQZM4sUTN7KO6j9DtJRxlZNYh3hD8r0
+	 AW0iGgkeAmFQN+aI9WfZyUioxx7ePizma7edDn15lmohKsv7LDMjCSJPUxJu14yFua
+	 hnIIhJoX12qRdWgPqmhOky02D/hTNWo3F7x/IsxHU7m3sGzB5Av2/AfKcc+fwAa2Qd
+	 ba+16walC9JU9xxmDYgkQUXO+16NG769FhnpJX9oXfZNb4JDQHbuDbXhwGVpKu7K6f
+	 /pd2y/ruiSwcw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 09 Nov 2026 01:46:42 -0500
+Subject: [PATCH] ARM: kprobes: Rename test-kprobes.ko to
+ test-kprobes-arm.ko
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,27 +53,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109061223.17144-1-lamemorupisi12@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-arm-test-kprobes-rename-v1-1-663cdbbb90c7@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQrCMBBG4auUWTuQCTVQryIu0vZXozQtM1EKp
+ Xc36vJbvLeRQROMTs1GineyNOcKOTQ03GO+gdNYTd75IOI6jjpxgRV+Ljr3MFbkOIFdcKMc0bX
+ BC9V6UVzT+jufL3/bq39gKN8d7fsHMRbZyHsAAAA=
+X-Change-ID: 20261109-arm-test-kprobes-rename-060d15e94621
+To: Russell King <linux@armlinux.org.uk>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2513; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=d5ZqSkJGrlvMOK0yRJD5xyXF8O7G7+KdgShpcEY9QEE=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkfc0KbbaJ37974TGDPg9ZPEllvr9XN+252cMH2B1ty8
+ kT4JIy1OkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBELPYw/BV70HuT21/DOPWA
+ jG3OvM+Xre6alN5O3dDAwiS0Ujnm2VVGhjeP1vEoBflvcJ39gHPH101b75Sfetip3D1V3FJ036E
+ 93HwA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Mon, Nov 09, 2026 at 06:12:23AM +0000, Lame Morupisi wrote:
-> Clarify the description of the MIPI frame memory layout by
-> explaining the meaning of optional fields and payload words.
-> 
-> Leave the frame layout diagram unchanged to preserve its
-> existing representation.
-> 
-> Signed-off-by: Lame Morupisi <lamemorupisi12@gmail.com>
-> ---
+When scripts/modules-check.sh is fixed to normalize the module's name
+like name-fix-token does in scripts/Makefile.lib before checking that it
+is unique [1], there is an error due to lib/tests/test_kprobes.ko and
+arch/arm/probes/kprobes/test-kprobes.ko having the same module name.
 
-Why are you sending a v2?
+  error: the following would cause module name conflict:
+    arch/arm/probes/kprobes/test-kprobes.ko
+    lib/tests/test_kprobes.ko
 
-https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
+  $ modinfo arch/arm/probes/kprobes/test-kprobes.ko lib/tests/test_kprobes.ko | grep name:
+  filename:       arch/arm/probes/kprobes/test-kprobes.ko
+  name:           test_kprobes
+  filename:       lib/tests/test_kprobes.ko
+  name:           test_kprobes
 
-The lines are not aligned now.
+Rename arch/arm/probes/kprobes/test-kprobes.ko to test-kprobes-arm.ko to
+make its module name unique and clear up the error.
 
-regards,
-dan carpenter
+Reported-by: Sasha Levin <sashal@kernel.org>
+Closes: https://lore.kernel.org/20261108225808.1809266-1-sashal@kernel.org/
+Link: https://lore.kernel.org/20261103110411.11698-1-info@daylightlinux.ch/ [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+We would like to take [1] for 7.5 in kbuild-next, so we would appreciate
+an ack to take this directly or a stable branch that we can pull in.
+---
+ arch/arm/probes/kprobes/Makefile | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/arch/arm/probes/kprobes/Makefile b/arch/arm/probes/kprobes/Makefile
+index 6159010dac4a..f909a47a01aa 100644
+--- a/arch/arm/probes/kprobes/Makefile
++++ b/arch/arm/probes/kprobes/Makefile
+@@ -3,14 +3,14 @@ KASAN_SANITIZE_actions-common.o := n
+ KASAN_SANITIZE_actions-arm.o := n
+ KASAN_SANITIZE_actions-thumb.o := n
+ obj-$(CONFIG_KPROBES)		+= core.o actions-common.o checkers-common.o
+-obj-$(CONFIG_ARM_KPROBES_TEST)	+= test-kprobes.o
+-test-kprobes-objs		:= test-core.o
++obj-$(CONFIG_ARM_KPROBES_TEST)	+= test-kprobes-arm.o
++test-kprobes-arm-objs		:= test-core.o
+ 
+ ifdef CONFIG_THUMB2_KERNEL
+ obj-$(CONFIG_KPROBES)		+= actions-thumb.o checkers-thumb.o
+-test-kprobes-objs		+= test-thumb.o
++test-kprobes-arm-objs		+= test-thumb.o
+ else
+ obj-$(CONFIG_KPROBES)		+= actions-arm.o checkers-arm.o
+ obj-$(CONFIG_OPTPROBES)		+= opt-arm.o
+-test-kprobes-objs		+= test-arm.o
++test-kprobes-arm-objs		+= test-arm.o
+ endif
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261109-arm-test-kprobes-rename-060d15e94621
+
+Best regards,
+--  
+Cheers,
+Nathan
 
