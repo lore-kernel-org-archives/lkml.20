@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223589;
-	b=Q1ZQN/snMTORmIH6GdzEbxSeQJKXk+j86tGAiTahwVILakuWVIQmlGk5OjjtSW88IV48
-	 PJ+DbUiJur6FfoELkAahL6DJIIO2wOq9AUXroWg1GbhGIaxNshKA2lVrJdHKGe80wjYsF
-	 l3pkKt96iJcy7zFEe9EpepiUVzkEC7tv5+mlppxZ9Y4ftC9/AwTwbRcx+1FsxyIgoOv1r
-	 sdD6KbzQLdJKoPj4F4Kwi4wzHljbuDO1RNUhrz0DQMFf1Sw2bK9bJ3OoVspWXnXAh4sF9
-	 IH71QS5f3noS0BBMVQV0hxRwUVgp/RJhvHUO34OrgcXHujfyKUYodd/gcp959thVeUg==
+	t=1794223594;
+	b=sJjL7sSzO8if3jbdAHjARo/5SHZ+WDn27q1Uk2PJfXVNhNaC79qrzjDQJlSO50XqTHOf
+	 GhkzrOdlqMS7lsv0SnxOCKivEkImwOcfY6pzAAWwJmo0o9FQYJ/sZFgPfetiVs1K30w/a
+	 WE6npZfbS+JUEW6y0pIerH3eEo/AovgbaSawvJ3XrT7b0xVtsun8fU4YaI8/RU3upGW+x
+	 kgTE4MvtaktOswcJN+eqHCOW9e+lbeST6vHAL944KoD/FZaDULM64lDZ61KgfK/xkPrFM
+	 PV3KIoEeDfzhM/NjFJBrMLLBj3y8KumiNKaBJowd/7ibUjR5AYqlIStIBOng2a9/46Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223589;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cWiIJfTA4m6YoCnpWTMnm48t+HL+VdqiKbJWu4IPPdI=;
-	b=ixdPBnsTxKh63Yxo+UxkXgj4TtjBC/sxOgTPU35bLUIkfudeoxs4S28hfh9Sz+2ECNhf
-	 lDYg5VbfWsJvELFHUkMED3fQ7FUs2jSlVxMJP3n6++l7o256wjuQwrZcPmYLYyv3wUK/G
-	 GIwxI5Kt9p6axwkewKnlM4jGdnXFrTOuDvTucVtAXUHHkUrlK7J+B26HVHshF4dlz8wvo
-	 8tCICZovpjFWvZxNwOlnaImFEmEpFemaCBcm14H6yyEaEI2/vlmfbGTbsWFK5SxV9DqX4
-	 lmGYJSHjFcY86A4TzxA720rszTfAufe8TiHmjrIsRKEJaZT/hv6SmETKk8E7am0W3SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SxUNGC6LHFE1YR9ZyIoWZKeW0R1pf1aABtzjxttvXsY=;
+	b=SeVi7c+qK6F/FWb/S1tB7yhEicUrzLyF48Nr9kmNqsQ2kD/wxYttsTzc4uEzhUzggAIb
+	 ckfYgMmcd4mT4bI3bHh7bd2Jkk2K66AfZjH4U3558IOvDmyN6VNRoo2XwRVGtAMoPddTF
+	 +yFpdcYEJmbxgnUhsnxzl6wlc39WoJolDlrni/UNLxiqC7Jg8LLswvw/Ss2LjE/aRA6nB
+	 Zem+/YnPl6BT1QgIqWJgonAvFFx96iSSfzX+EGvXFDvDQFIsE7SFunZbheUegy/fJ6GZX
+	 LC0nX4PZ7rY8U7JkXJ4EsHr2gOPrPpGVNCTsK094HFViL7dhExNXmcJiBvXDxUJld+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWSP1RPk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=fatecpompeia.edu.br;
+	spf=none smtp.mailfrom=fatecpompeia.edu.br;
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="HRvk/q7h";
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B029606D808;
-	Mon,  9 Nov 2026 11:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F6D606D823
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95F6D606D823
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWSP1RPk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464561F008A2;
-	Mon,  9 Nov 2026 11:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794223588;
-	bh=cWiIJfTA4m6YoCnpWTMnm48t+HL+VdqiKbJWu4IPPdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kWSP1RPkS24dEgDNYv4KYac7avJsXtouTvBsfatKfIdfsE80vvUnsGPkW+9Q/DyYd
-	 KkpaXRymRGAeUcF1lSPxl7VSDidJEpOzaBEOKNe6vlhN2E40nn51Wexa0Ce7z0zzW2
-	 dF4s9veVnpkPUIuMxUqkLzzsmM6PNMuZ1tq77xRs+u1jFWqr7BgWl1QTsM3NN1fmQ+
-	 f480dlqWSngyecHYbh0xThW6uaWLYGsAB8PJzknCFTYY5qIXHPnq8ZNcmfgI1/QDQ6
-	 jeKQEefd7e69ETCCvYM33nKDf+j4OnGsE0DqDVmt2UanVUARZ2DErNo8oJo2rFEILF
-	 3uu2anWcXkbvw==
-Date: Mon, 9 Nov 2026 12:26:23 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
-	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HRvk/q7h
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b31fc13124so4643557b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:26:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794223594; x=1794828394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SxUNGC6LHFE1YR9ZyIoWZKeW0R1pf1aABtzjxttvXsY=;
+        b=HRvk/q7hv6GUxA6ex5QAp3j4lsMWUjdxCseq0wkxqkLNanJUBMmVT86O+ISZV4DVUt
+         agZ7fAqjne/fIDciMzkFujvfPOWDPOi9ENgtVCvUOe+X9NaSD6MX0SiCHZQejumyH9hE
+         0JplMJt4OknrPIug7uAxojAkE3CfAz/szXEuk8V6oLXoXDOfAMC8YU1ug52yevy/P16A
+         pJWm+NGoYZSCIMdn0pxjA8NktfBI/J3RrQPwAhIdDtFTTvqP8pbHG/6l7tpFaXbn4wqR
+         V0zoAIMPmvLNDBgTsYcltkD351vEkKT4tjiUO3DGVpynrmZlxKMRzDk2z4QdfkknYr1J
+         LSTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794223594; x=1794828394;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SxUNGC6LHFE1YR9ZyIoWZKeW0R1pf1aABtzjxttvXsY=;
+        b=lrYcdEJkrrswH4lKGm91gjWh9Cm3+mu1iopzhEY/zaXkAwasNBSznGtn+Qv87Zx3r7
+         iskFAbxWiGVWJ9uxMvtsq2dULz0r/fUpgSFMsHjuzWj8KL73roZYSJtJ8UaoN/kHa9Es
+         EtRzLqjEJmQJPkboG9q26NlQz7aF7G7WZABK+3esIiDF0fTQorfR7KleHUDs0l+4c4BJ
+         Ave6joYm2GIVSXSr4oIZo/G9Cj1hHKtOLUiANuif22nURH04bLGkLgUD+bzYPFyguPOK
+         YPJYHIVnnNJLbzqPArX+geldrfufuxC2xj2iK8YTUy9Hoghrx55pQ6ohUwzb3+tr7OzR
+         ruMw==
+X-Forwarded-Encrypted: i=1; AL+hErFYYhvc531HbkcLx2THRLE41SOO6RFzukmo/GmQmDXkHos1pFkl+SqSKffH1R2Lf3CDvGfHYMW3H1nliDQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z862ZuPHug6MqR+xPu4dbK2V8iNaUmBzsJyP6oObUf5Z3yPPVHx
+	N1akcwEjtjr2xHQH6tUliuB8HEtAh+CzEsI0vXW9F0QKQTEcAgj52UDGGe9GPJKPI7s=
+X-Gm-Gg: AYBFou1I46xBkU11fE59ioRvmdGX/MAgUkTKSqurcfA4pqs+dYhttUzXzuQucRKrFZU
+	3gM6fT1jR/LuCBlWGePZyjbQ7pYT5qqxmuhe0Zoq94Kg8FjD38ia3Dyujgd2SMxbhkhyuxMKKnG
+	1h40zjbanPeczhNo9P2ALydCxGfabNWpzSCnE0hYyIgsx2Nnok5iYr2PHGQDLLfqaZoyh9z/x7H
+	6R0n0DTzVZxWJOZ9iE+r80EBVEvjR7UZlxRjo2MWtDQkZxu5sQPByi3UvtShq4Pxw7XuEBxlwmE
+	pRFLu24eyfvCj++y0nawjW1ADFNSu1Wz+xEpbgAbFgAgHxXTAzsRFO+ULYEs+d9M9d2mCBhffnJ
+	CyrsO8eclcoo0cMIhXVWK1TczMu7niTAVm3xgCjBTxjwOq8HcvzxGnLw6vvRixkN8KE1HZa5D9X
+	wM/90bpdSqf2/Ste3FLw+HzwjhAgspdsKa7URG3AjJlpbHxWyZ8GFyWWxbGqbrhRBZrDJMfEt5T
+	nvRJi8D3/FwHhgWbF0YPtSEQ8+l1fsv+XP5+fcstCqIJ9CzCMvV8hvKgU6ASvvDlE4J6YchQJIb
+	7Gw/5AEgYhYLzORcL5wEb9G3GlukkGDWOvgo8iI2kCZ71td3WqroiTLY4Kg5/IH6aKdx
+X-Received: by 2002:a05:690c:386:b0:8b0:d9ff:4f74 with SMTP id 00721157ae682-8b36cb0c321mr27400357b3.42.1794223593551;
+        Mon, 09 Nov 2026 03:26:33 -0800 (PST)
+Received: from localhost.localdomain ([2a09:bac5:dd4:1c96::2d9:5d])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bbffb49sm32385477b3.28.2026.11.09.03.26.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 03:26:33 -0800 (PST)
+From: Allan Siriani <allan@fatecpompeia.edu.br>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Todor Tomov <todor.too@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
- entries (Part 5/7)
-Message-ID: <20261109-hackfleisch-lohnt-konkret-02b5f3dde4f6@brauner>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
- <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner>
- <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
- <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
- <CAHk-=wi-B--TBQuYjz6J6vKtEMpNSm4_wVRzTP_vE=uTLb7P5g@mail.gmail.com>
+Subject: [PATCH v2 4/4] media: qcom: camss: do not fail CSID power up without a matching VFE
+Date: Mon,  9 Nov 2026 08:26:11 -0300
+Message-Id: <20261109112611.94010-5-allan@fatecpompeia.edu.br>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
+References: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,48 +105,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wi-B--TBQuYjz6J6vKtEMpNSm4_wVRzTP_vE=uTLb7P5g@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 12:19:45PM -0800, Linus Torvalds wrote:
-> Ahh, this all goes away in "scsi: core: let procfs copy in writes", so
-> never mind.
+csid_set_power() powers up the VFE with the same index as the CSID
+before the CSID itself, through parent_dev_ops->get(). The VFE
+implementation, vfe_parent_dev_ops_get(), returns -EINVAL when there is
+no VFE with that index.
 
-Yeah, but we can still do what you say in the fix:
+On the ISPIF based SoCs there are more CSIDs than VFEs: MSM8916 (and
+MSM8226) have two CSIDs and a single VFE, and the ISPIF routes either
+CSID to it. Streaming from CSID1 then fails right away with
 
---- v2/drivers/scsi/scsi_proc.c
-+++ v3/drivers/scsi/scsi_proc.c
-@@ -66,24 +66,19 @@
-                            size_t count, loff_t *ppos)
+  qcom-camss ...: Failed to power up pipeline: -22
+
+although the pipeline CSID1 -> ISPIF -> VFE0 is valid.
+
+Return 0 when there is no VFE of the same index: there is nothing to
+power up for that CSID, the VFE in the pipeline is powered by its own
+subdev. vfe_parent_dev_ops_put() already ignores such indexes.
+
+Signed-off-by: Allan Siriani <allan@fatecpompeia.edu.br>
+---
+ drivers/media/platform/qcom/camss/camss.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index c54185c93..532f6d36d 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -4631,15 +4631,16 @@ static int camss_read_version(struct camss *camss)
+ 
+ static int vfe_parent_dev_ops_get(struct camss *camss, int id)
  {
- 	struct Scsi_Host *shost = pde_data(file_inode(file));
--	ssize_t ret = -ENOMEM;
-+	ssize_t ret;
- 	char *page;
--    
-+
- 	if (count > PROC_BLOCK_SIZE)
- 		return -EOVERFLOW;
- 
- 	if (!shost->hostt->write_info)
- 		return -EINVAL;
- 
--	page = kmalloc(PAGE_SIZE, GFP_KERNEL);
--	if (page) {
--		ret = -EFAULT;
--		if (copy_from_user(page, buf, count))
--			goto out;
--		page[count] = '\0';
--		ret = shost->hostt->write_info(shost, page, count);
+-	int ret = -EINVAL;
+-
+-	if (id < camss->res->vfe_num) {
+-		struct vfe_device *vfe = &camss->vfe[id];
+-
+-		ret = vfe_get(vfe);
 -	}
--out:
-+	page = memdup_user_nul(buf, count);
-+	if (IS_ERR(page))
-+		return PTR_ERR(page);
-+	ret = shost->hostt->write_info(shost, page, count);
- 	kfree(page);
- 	return ret;
++	/*
++	 * On the ISPIF based SoCs any CSID can feed any VFE, and there may be
++	 * more CSIDs than VFEs (MSM8916: two CSIDs, one VFE). A CSID without a
++	 * VFE of the same index has no parent to power up: the VFE that ends
++	 * up in the pipeline is powered by its own subdev.
++	 */
++	if (id >= camss->res->vfe_num)
++		return 0;
+ 
+-	return ret;
++	return vfe_get(&camss->vfe[id]);
  }
-
+ 
+ static int vfe_parent_dev_ops_put(struct camss *camss, int id)
 -- 
+2.43.0
+
