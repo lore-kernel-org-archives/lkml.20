@@ -1,65 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794194683;
-	b=oHkTbT5dtzLr4yX7UvwEpmFD6n5BB4os8MeCV7GkE+8u+HWis03f/zd0bbs3eR66AN5c
-	 7TPqHHmxcoT4Z/pGqjchKrVnbeucFWnN1dt8Pz+TgTto41QrzRxep4zRWMsZINEX4VpWv
-	 P3bwgmM96PHY1ReFffgQmsdnqBcqs7s/LWNmxnXGE7VkglXYQtfKmu5mapPBzYUqzbNX4
-	 lnpVJLE+/Osc5HYLs8xtUP+JU/8mOGB5hbNXAk7GYlXKaQXiyd+sQ9h60p4R2FLb2br8Y
-	 PBsCpd8ETKFGYXBiah8mDhIglWUZERTVrqwJUHPLfsP0gomHYKpCEOHEUi0sPjkv9sA==
+	b=aGAHUYLGuxU2PtHU9EoNHGRd/J9BOhnl/dyxdCWCPFTB3r+l1gJ8AFrfbaBvn5Jsdqib
+	 SDt4E9w6EgUTnDuuXHMPm1TxlEXCZ4tQOgS9O+tQ4aVPG4gO1Df4M9nX/iFPQMw/8e5HJ
+	 TycC8MVR7vVHAEUzb9DKX0sVBgE2gdTzQpfZZlzaSFWKdm58D+5XPCw1v/qL3eIUzmby/
+	 Ja0Pp3kjie5wJNNkQB/BelOGG70wSgXdLjblQ8GUnh3w0y9flVVtk8OAHfHFejEyJKHXq
+	 BBfaR7MLV21XGd9WQJtkTNHAdinhyACFt9kZzq4S+IYNg9gA9OLSMsslAxTLybnuJVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794194683;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=lEb/UkQHtVIhpbCwO7ym4SFqqLAa1fydRkJpxU0wHAQ=;
-	b=AqbVaejYe7QCTpnHSam+Hp/KQV46NIIkKoysrZKY5t4IVbElXInXv0w3Qph0o5mjEi8i
-	 Lne2wS8TzqKcdqnwnQBUGUxLLtZZHxCV3xXHEx1fRr0hYlDFF+7C06vJcCbyB5Iecby27
-	 QJdh8QCNkPyYKyUy1htGixjvuY0tz6Vn+ws4HVgYlCd7sMecMOXciK817IjCtGj9B+Afw
-	 HNcU5v58HAZIejtfWk8qbgmDXfPzBJvQahdxT8QMcY9hKqL/FtQ9AKXhV3ucC1SoSMISm
-	 9s6RLMqh3y5iMeguH+3o34/L/ocJmGEjAcPIehDV38xApKK89UZepCW14MDnICcEsxQ==
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-CACHE:X-CID-P-RULE:
+	 X-CID-O-INFO:X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:
+	 X-UUID:Received:Received:Received:From:To:CC:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:Content-Type:X-MTK;
+	bh=JfvogYuBx2ioQGw2JVVRY053U98MXFmHHk44uXXHgBQ=;
+	b=C6MV6ZGnUnNY1OxGFBHfha0cVddPGZa3TnYPAeLIKTgfD367TKUsggayR8jrQ8jZaPd5
+	 MkqOb0OxpSPFUpRHQX1YkBTw0bl7btTvE7n1jNdV7Th9RyBr9wWYl2yIarLkgnsisH3hp
+	 YUerDBcRs906Tpoi7ZissL8Z0Ihc6AaMwMdnsef0TDEllT7R0J0fUyq9bCEUrgrCwe4OM
+	 yfogFDxrbc1TslOi6GiEuaPTAMP18BsO+avjp77gVqk/YLuHk7IBuX/6o57v0NXsFS+u2
+	 y67h+54Tf/4/hajJuSqczPwGJhhyCw6h1w8iWwcMETqhvPr2lDY62ABGbB1pvk/yctg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=O7ebv9CC;
-	arc=none smtp.remote-ip=91.218.175.228
-Received: from mta0.migadu.com (out-228.mta0.migadu.com [91.218.175.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=hDlLcj38;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416FB606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:24:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 416FB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BD7606A31C;
+	Mon,  9 Nov 2026 03:24:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55BD7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=O7ebv9CC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pdVF8YsZ0DoIQCsZWBqcJ9M8G3cpwrzv7QBYlr5nnXo=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794194680; v=1; x=1794799480;
- b=O7ebv9CClWLlq6S81kTd0RPASBPoqJa2F3vT7+CDvvOCrMisbKeuRKA5oyuQvf9J9KLmSrG3
- DjRht585UDJ9f6mM27NUPa+6JKoBK9iMgxcJcZr4wZX268IodocWI7V18eE0wXStGzMbXE+QfLK
- Nd21/oc43N0Q4uB77SqUix8XP+01hlCV9/ITiQmzJ5H0CuJqBDbYMguDiVM+wboNgyRpllJRlcW
- 4sKXHydY1liEGStqr3Al3WneoGktctKsar1Nad046qWFHCqwPqitwKiGis+OL50qtXR+iHZ3O5s
- jxTOcVJiBhOqfaQkffLDcy/w7jDSi6JprdLZTYQ/oImQw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0ca65705dc8ed683;
-	Mon, 09 Nov 2026 03:24:40 +0000
-X-Mizu-Trace-ID: 0ca65705dc8ed683
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 11:24:32 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] docs/zh_CN: link AI guide to translated documents
-Message-ID: <avE88OZ8FRuNe-Ts@wyuan.org>
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
- <1dc2be038d0b172e731105619e3704c9c19b7b58.1794153793.git.dzm91@hust.edu.cn>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=hDlLcj38
+X-UUID: 140511e6dbed11f18dc8c9802ae25ab1-20261109
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=JfvogYuBx2ioQGw2JVVRY053U98MXFmHHk44uXXHgBQ=;
+	b=hDlLcj38NzHbt5/xM8IukqbS2voRoWnNDYFB7oosNNO2/Kr/8Ol14R7z7FX2flngh4Y7R5jsyr/B0i+F5BJwMVPhvs1X5FKHXNlTP575tuE3uCcYXm3PG7MwTnIeq+OfCCSvwHJ0iEG2Ra2BQj7KIyk9jL4k4xyxDwxUEO93+qY=;
+X-CID-CACHE: Type:Local,Time:202611091124+08,HitQuantity:2
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:ad2ffb43-50eb-472e-863f-b980ea9f7104,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:a27788b5-7f9d-4542-82ba-5821e5e353ee,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 140511e6dbed11f18dc8c9802ae25ab1-20261109
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+	(envelope-from <cyril.chao@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 2110271103; Mon, 09 Nov 2026 11:24:31 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 9 Nov 2026 11:24:30 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 9 Nov 2026 11:24:29 +0800
+From: Cyril Chao <Cyril.Chao@mediatek.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Nathan Chancellor
+	<nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill
+ Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+CC: <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
+	<llvm@lists.linux.dev>, Cyril Chao <cyril.chao@mediatek.com>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Cyril Chao
+	<Cyril.Chao@mediatek.com>
+Subject: [PATCH v1 0/1] ASoC: mediatek: mt8189: Use AVOUT for DP and HDMI jacks
+Date: Mon, 9 Nov 2026 11:24:08 +0800
+Message-ID: <20261109032424.625004-1-Cyril.Chao@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,52 +88,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1dc2be038d0b172e731105619e3704c9c19b7b58.1794153793.git.dzm91@hust.edu.cn>
+Content-Type: text/plain
+X-MTK: N
 
-Dongliang Mu <dzm91@hust.edu.cn> writes:
+This single-patch series declares the MT8189 DP and HDMI jacks as AV
+outputs, matching the status reported by the HDMI codec and exposing
+the video-output input switch when jack input devices are enabled.
 
-> Point coding-assistants.rst to the Chinese translations of
-> generated-content.rst and threat-model.rst.
+It is based on ASoC for-next at:
+  c937f492dd40a8398d955cf0f4f9e11d7268bcb5
+No additional patch dependencies are required.
 
-LGTM.
+Validation:
+- checkpatch.pl: 0 errors, 0 warnings.
+- Exported patch applied with git am to the recorded base; the resulting
+  tree, commit message and author metadata match the approved commit.
+- Retained November 7 build evidence: arm64 defconfig with
+  CONFIG_SND_SOC_MT8189_NAU8825=m and CONFIG_SND_JACK_INPUT_DEV=y;
+  mt8189-nau8825.o built with Clang 22. The corrected commit has the
+  identical complete source tree; no rebuild was needed.
 
-Reviewed-by: Weijie Yuan <wy@wyuan.org>
+Cyril Chao (1):
+  ASoC: mediatek: mt8189: Use AVOUT for DP and HDMI jacks
 
-Thanks.
+ sound/soc/mediatek/mt8189/mt8189-nau8825.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> ---
->  .../translations/zh_CN/process/coding-assistants.rst      | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/translations/zh_CN/process/coding-assistants.rst b/Documentation/translations/zh_CN/process/coding-assistants.rst
-> index 2a432d1dc401..eef475b49d52 100644
-> --- a/Documentation/translations/zh_CN/process/coding-assistants.rst
-> +++ b/Documentation/translations/zh_CN/process/coding-assistants.rst
-> @@ -18,7 +18,7 @@ AI 编程助手
->  
->  有关 AI 编程助手生成内容的准则，参见：
->  
-> -* Documentation/process/generated-content.rst
-> +* Documentation/translations/zh_CN/process/generated-content.rst
->  
->  许可和法律要求
->  ==============
-> @@ -66,9 +66,9 @@ AI 代理 **不得** 添加 Signed-off-by 标签。只有人类才能依法作
->  8. 说明哪些工作未能完成。如果修复无法构建或测试，或者无法编写复现程序，
->     应明确说明：维护者目前在分析未经验证的报告和未经测试的修复上浪费了
->     太多时间。
-> -9. 阅读 Documentation/process/threat-model.rst，判断缺陷属于漏洞
-> -   还是普通缺陷，并将结论交由报告者复核（助手绝不能自行发送任何
-> -   内容）。普通缺陷按以下文档所述方式投稿：
-> +9. 阅读 Documentation/translations/zh_CN/process/threat-model.rst，
-> +   判断缺陷属于漏洞还是普通缺陷，并将结论交由报告者复核（助手绝不能
 
-                      Nitpick & non-blocking: AI 助手 or AI Agent?
+base-commit: c937f492dd40a8398d955cf0f4f9e11d7268bcb5
+-- 
+2.45.2
 
-> +   自行发送任何内容）。普通缺陷按以下文档所述方式投稿：
->     Documentation/translations/zh_CN/process/submitting-patches.rst；
->     漏洞按以下文档所述方式报告：
->     Documentation/translations/zh_CN/process/security-bugs.rst。
