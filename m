@@ -1,53 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225855;
-	b=Km51iviepCbycKsEYYnjImIljc95mHAaGMhwZlHCkJ+F9/j3mspzR0XTdSVBHyFG0299
-	 LzJEI/ZeVMtPsnZhl38NPotJbWJa7Wp9uSOXv//EplFi1cCaMaUSlatB/Fmq6Pmr4P9YS
-	 kzphLJWF5anlvripHmCIw6pQ0ae6jf0sYfg/06sMx15oWqtt5GCwCug+heTHmFKpTIIJI
-	 RBjAwdmGOf76IpAFFkjvDwxzSJkPcZQjJz/9yYbLbZnCN1540aw3psSlPsOo3CkWK+8Ik
-	 /+a/GqiNqhmArEpWOCqbZAfTx1hHsnrmcAC8D57g9HifGgs0v2lSadOP1p5la4DpZgA==
+	t=1794225858;
+	b=3CWNCl8bAobzCdzqR1sip4+ZNT9XeR+cWtA0EvkaHb6v/ILUUxDC4+usIY6V6TKcyPMY
+	 fEroo72u87jtkYXF7BldCaMz7v0vr0X6cKTbLmQkcKpMwCsDJXY5Ng4qgAqtkhjEHUWdz
+	 qV8MosI7r2Nn9Vtq8gOsUKQhJe0E+RZmH5YJkeHHPowBTOu4wxJcYjfXMd0+NKD+xUnc6
+	 IFSKDbXG7sODoyOwJyp5eHYcpNgj8Dtx3m7Y3uehOL5zvFtSFWdCw+yMEeiEMgeuWDezS
+	 pjT/muysX0JUOgXR6rgFU0yQokPr6oeSGK1rWBlef5Y6/+PJVBx96zqtjNg5B7r/z7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225855;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=poUHFhBacCIBc6IKxtGxEHUIb6ec3qc6fq+C0UVooSA=;
-	b=2tHKyoVyyH0xf2tSEgjofxvV3+fJmyHkS+KyHLPGtso44BAxup2ogj+XCC86jstzWJv1
-	 lJxOACG/JeG0Em0IWcnabMmIKqLe5axExXt+YDoglJTvD0Mq7YVrNhWNMmjV4y442Iy53
-	 NrT+ktxNUyg7DJc/DAgBIIvGYAXLZdAVs/TgKAVeH0aq9CfkMQUSwhibdLPArdRA+mgJD
-	 N3L+EwBIcQVEpE/o3hW7yiMNTsC0A2E7Yd10DCUubVh0DxQBq4zSZFFE3QG29J0upUKQX
-	 3GzcZBDtb7rHud21Y0ZQPpNsYH8Ojn5a1cv+FPGXGQXLnPmTWiCjqrc2x4Lp8lGvBzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225858;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6MFiKRgYbDh7TYHy8nV42WRITeRtyQvjTK97N2J3pK4=;
+	b=sTLYg0qrXn2g7DumSvLTvSvYxk3zmbFcJyP0p+++ZEaNIExjLBjjRg24ar+SoLRXxA4L
+	 3mhAgyjk0O0/6yHAEwPFgsk0AFJFjkkA81+I2k/y8MOU7ie9RJ+iVy+KC5Pgyl15SfKGU
+	 4pCWUvgF2werpV4vddOZy04//y4UxyUJrxtvcvUcLTW7xLZVVoaDuYJdxQ2xWM1watYsk
+	 svKldmsdI9n3joJAlGgYj1JjZBWg6l4+znBkKAkBdnJMkT9FclLNgSQ+wQ0iQ6cFxIKje
+	 wenKICJWVVzOZYks7ckuk4Z2wBdPJ/1s1iJRA0sIhZfIQdvCM0/UUTuPoSZtI+fdyEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pZeehOCz;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Mt/n0Jtc";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46AC606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:04:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D46AC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B740F606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pZeehOCz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=poUHFhBacCIBc6IKxtGxEHUIb6ec3qc6fq+C0UVooSA=; t=1794225854; x=2109585854; 
-	b=pZeehOCzlSKrTHD+6PZKMYHfb4tEhZR9+FsJX0bApz77iVC7ubtHJO50C2xj1EWeG39n5phzU2o
-	54AGfULaWB56MuWgvk5T4c9N6BYdEXI2bYgjebf3Tn1Qk1QKIUdwLArDYqcKeECss14PMNT1++tf4
-	ZHFd4XAcL0lu7pUBnVhrnDneK9uLpdAqqXG5CqUh9TpLQ6nknbO5ADhou+eBby4zJA4PQ4PLlRmZw
-	p1hEyAS4r5rfoemzzhAzYeJj536ZXfOr186LULDr/5FTSJ+W9lJ0p4BlzAkqZPbBUkFV/TPeRjXLN
-	T7tv16LncKgyUvAAeQ1yEl0SiA5zEZer7fcw==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xQO6V-007FBg-H3; Mon, 09 Nov 2026 13:04:03 +0100
-Message-ID: <9c8f001a-afcb-4b52-b5d5-645289c74513@igalia.com>
-Date: Mon, 9 Nov 2026 09:04:00 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt/n0Jtc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821581F008A6;
+	Mon,  9 Nov 2026 12:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794225857;
+	bh=6MFiKRgYbDh7TYHy8nV42WRITeRtyQvjTK97N2J3pK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Mt/n0JtcC9od8cYxe7uDVecnAvAxzv/cU1Vo0IFHPMpU5MiUkxwu8omUODYV5Zcqy
+	 LPX8//ZdfaIcEutLlmY5Kl1GtVoLj3HA82/9bm1IEnetSW/2or2GYtn3PaLE+MB4f4
+	 WXPnKxkV6rWmcOHXoc5U/1ljClKcmA5xOi2nfngeSgAljF166tDnnUUvHZk+bnGujy
+	 PHOHKmSOOXgU9+C2CM2VhhYkE+B6tXrXGnVSRUZyPBUHBq7kwO2FZK0lXEq1rwwaiG
+	 /P4Q1Zi7GWkjU9CePeXr/asytuVD8lPk2+vkK/lq8NDBGh4XsNjgcYpSSBvnjhcIq0
+	 Eu4SJ9xHJUwVw==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C3CC2198003A;
+	Mon,  9 Nov 2026 07:04:13 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 09 Nov 2026 07:04:15 -0500
+X-ME-Sender: <xms:vbbxas7vTZ344FZodtk9B_zvzXKOzJFB18lU71dHyERZnO88I0_QbA>
+    <xme:vbbxanR68IbNzBLNyT9N8TkeafL1bK9hE0ojWsPXQ3r30Tq_UeOfgS2OaqQYbqSdI
+    sqIVB5TBcuz-wdu75KcqvnG6SxRiWwHSx5oPHe3kP8qQB0xHl_IRVsi>
+X-ME-Received: <xmr:vbbxaj-ZV81kczXXLZ5HYmfOgEUxfILItKX_4OH16YTcSpFP95k9IgoBAvQ>
+X-ME-Proxy-Cause: dmFkZTFNHiUwdQBBta8BQiRQNiL+3aFxYBCGleH13rK/AikNGSSC3QUGqUhmGxAnWboa44
+    Oxa+oNSrcFePVCLQ4GNJqtcYf4GxsV9GMptj5ZrpOImzhEVV24EobsIoaE3cyqt1HUzWKb
+    uvK/vFY8P9JVFvAY4sv/elH4sBbKNz8TiTp9kbnxQZ5ar8JtE1kD6OyBHc5nmptdrKWCE1
+    SHUchB4wZ75gxD0AKiAsvr9dPbzNysAsG0icmsqmjFSwMuBk9eg/M1NxwUGV5B50W5JtPi
+    mSSRdlKYNHyBf92yjckRvTvKXC7OSPkjnpnydQqAEDttujjY9r4EKzHT66M2V7UmWGi5er
+    ikZqmnu1uDnQHyaxkbjc46ZO43YOdBKQ1RH9KKccapbaOK3TTnl40pdbE/fr9DYpMhsTps
+    j7HDy0qRpYPcOYLrtTF/1DiZ5inJTQLs8BJtHHXRT5o3uOQnNATpLAzreKbBQmMaTgZw6n
+    JJM8vVVipFfCsj7/JhuP/uX+ZPPZzqzXlmahs13aSfSACRHNO+KiV0rP04PsMuhmhNVCxa
+    6VEdZqnX1y4cB2i0dapKU/4yUbSBi+QVM7HrT7Yveslwg0KGF7iTSXxum+Teq0KUQ1NQOK
+    eGPOIoU54wqRC/DFCItRABfTGoQHAkcITex6FYgamEzVAu1nbJ3frcEw+1Mw
+X-ME-Proxy: <xmx:vbbxagpYR0bJyBxZ5WUcSDYmTyQPfKgTDoWexdv4F7Y28rMEwFXGWA>
+    <xmx:vbbxahV-Xrm1KZbHFu6yVMLQmpdBhLtQmBHvAIfygaNVaGh5tX-3mQ>
+    <xmx:vbbxat5WYPH6be4un4C-Z1rnHjk0rPA4jLt3YvBnoI_yMDhZyO3vxA>
+    <xmx:vbbxavASrqab1Rwq6GkTNevdpBpjcqA-hV7oQdjlEneqU4vwiVKAVw>
+    <xmx:vbbxahdvpjtgJfsfZzOe8dn5eYMOllmn8MhjVXQxWUJ5zoVw1NEar4-G>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 07:04:12 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Hugh Dickins <hughd@google.com>,
+	Chris Mason <mason@kernel.org>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v2 2/2] mm/memory: refuse to map page cache folios that are not uptodate
+Date: Mon,  9 Nov 2026 12:04:02 +0000
+Message-ID: <20261109120403.82361-3-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109120403.82361-1-kas@kernel.org>
+References: <20261109120403.82361-1-kas@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,127 +101,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/display: hdmi: Use committed state to decide on
- SCDC resync
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
- <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-2-16a9bb3d64a6@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Cristian,
+A page cache folio that is not uptodate holds data that was never read
+in or cleared. shmem fallocate(2), for one, adds such folios and clears
+them only on first use. Mapping one hands userspace whatever the memory
+held before.
 
-On 04/11/26 10:26, Cristian Ciocaltea wrote:
-> drm_connector_hdmi_sync_scdc() uses the scrambler_enabled flag to decide
-> whether the sink-side SCDC status is worth checking on a hotplug/detect
-> event.  That flag tracks the source-side scrambler status, which is not
-> necessarily in sync with what the committed mode actually requires.
-> 
-> In particular, a source driver may deliberately set scrambler_enabled at
-> init to force a disable at boot and resync hardware left enabled by the
-> firmware, as vc4 does.  If the pipeline doesn't get disabled afterwards,
-> e.g. because no display was active at probe time, the flag remains
-> stale.  A subsequent detect (e.g. an HPD event) then finds scrambling
-> disabled on the sink while the flag claims otherwise, and triggers a
-> CRTC reset.  This results in a one-time spurious flicker on an otherwise
-> correctly configured non-scrambled mode.
-> 
-> Verify conn_state->hdmi.scrambler_needed instead, as it is computed
-> during atomic check and reliably describes the requirements of the
-> active mode.
-> 
-> Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-170670@kernel.org/
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Each path that maps page cache checks for this itself: fault-around in
+next_uptodate_folio(), a fault in filemap_fault() or shmem_get_folio().
+Nothing in the mapping code does, so a caller that misses the check
+leaks stale memory silently. MADV_COLLAPSE did exactly that with
+fallocated shmem THPs until recently.
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+Warn and refuse the mapping in __do_fault() and do_set_pmd().
 
-Best regards,
-- Maíra
+__do_fault() checks the folio ->fault() returned while it is still
+locked. do_shared_fault() unlocks it for ->page_mkwrite(), and a
+writeback error can clear PG_uptodate after that; that case retries the
+fault instead. For CoW, __do_fault() sees the page cache folio that
+do_cow_fault() copies from. do_set_pmd() covers MADV_COLLAPSE, which
+maps without a fault.
 
-> ---
->   drivers/gpu/drm/display/drm_hdmi_helper.c | 17 +++++++++++------
->   1 file changed, 11 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> index 872f7e32e8d2..974d5de6d380 100644
-> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> @@ -653,7 +653,6 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
->   int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   				 struct drm_modeset_acquire_ctx *ctx)
->   {
-> -	struct drm_connector_hdmi *hdmi;
->   	struct drm_connector_state *conn_state;
->   	struct drm_device *dev;
->   	struct drm_crtc *crtc;
-> @@ -663,7 +662,6 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   	if (!connector || !plugged || !ctx)
->   		return 0;
->   
-> -	hdmi = &connector->hdmi;
->   	dev = connector->dev;
->   
->   	/*
-> @@ -677,14 +675,21 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->   
->   	/* TODO: Also handle HDMI 2.1 FRL link training */
->   
-> -	if (!drm_connector_hdmi_scrambler_supported(connector) ||
-> -	    !READ_ONCE(hdmi->scrambler_enabled))
-> -		return 0;
-> -
->   	conn_state = connector->state;
->   	if (!conn_state)
->   		return 0;
->   
-> +	/*
-> +	 * Rely on the committed connector state rather than on the current
-> +	 * scrambler status: a source driver may force scrambler_enabled at
-> +	 * init to get a disable at boot (e.g. vc4), and that value would
-> +	 * remain stale until the first disable actually happens, leading to
-> +	 * a spurious CRTC reset whenever the active mode needs no scrambling.
-> +	 */
-> +	if (!drm_connector_hdmi_scrambler_supported(connector) ||
-> +	    !conn_state->hdmi.scrambler_needed)
-> +		return 0;
-> +
->   	crtc = conn_state->crtc;
->   	if (!crtc)
->   		return 0;
-> 
+The fault gets SIGBUS, as for a folio that fails to read in.
+MADV_COLLAPSE fails and leaves the range to be faulted in.
+
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ mm/memory.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/mm/memory.c b/mm/memory.c
+index cc1d0b7d15c7..2324c04d632f 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5684,6 +5684,13 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
+ 	else
+ 		VM_BUG_ON_PAGE(!folio_test_locked(folio), vmf->page);
+ 
++	if (WARN_ON_ONCE(file_folio_not_uptodate(folio))) {
++		folio_unlock(folio);
++		folio_put(folio);
++		vmf->page = NULL;
++		return VM_FAULT_SIGBUS;
++	}
++
+ 	return ret;
+ }
+ 
+@@ -5727,6 +5734,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+ 		return ret;
+ 	page = &folio->page;
+ 
++	if (WARN_ON_ONCE(file_folio_not_uptodate(folio)))
++		return VM_FAULT_SIGBUS;
++
+ 	/*
+ 	 * Just backoff if any subpage of a THP is corrupted otherwise
+ 	 * the corrupted page may mapped by PMD silently to escape the
+-- 
+2.54.0
 
