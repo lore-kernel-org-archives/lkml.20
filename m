@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208355;
-	b=JCyAjvrbUHza+Xa1hho7k0O+tmXs8WCRAOo0FaT/A7eV4OKZhwL1QAXa3q75m2x+hu4v
-	 irCuOkZDRbI/sgPSRAwS60mkLiJNtSjATQxUjS6Wa+7q9k6uJUILXVWfFoSQLwidpGmOG
-	 ma5YXFU/LitlskaGCrRj1kanYoAg0VgrGwHKhuVRGjsCYDgj0Ff0qA+BuGwcSCN7fDTbN
-	 gAkZ/jGAX6dYOFujKnQF3p/GImbRgVOadvBb3T6ULTlxLp7I2MCWgT9BM4fCaD/QoMBPJ
-	 vOSSr9l+5jgqkT+G+ZVj2+jHNYspYxJ8eP4E/Inno1u3AvaM1CXhTm6ZfkEBHELMKug==
+	t=1794208426;
+	b=lNqHNgfe017yf8wc53C9C0h3uyVoo5sXFAp5JYineEFO8RHomkqznBgt+B4yH18JisG3
+	 HjJeA41ugpv1dzxxAckYTa9L0ekOEh3jlW6YUTQK2hYCWwNowyGSmTMJEtBcIN+/BT1Gf
+	 iA6UeA3fVTMT6RgPH1XkMHww7y8W/4K1q8Ph8YQDYDDiQ9Q9aL9s8hGx8JdfMvTSP3AbV
+	 1aPLwTrYQQDF+xDDrQLqOATaj80XYLW3cDPu/gi1ciIqS6fkR0D1WldGPX7C7d0dQPqmn
+	 Vp5zFH+r3MxswY/9TAh8VVxxcBN7W15F2RUNzw6ymjJQpSANIceYJug3hCwV3tsFLLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208355;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jm9engSfdWPrS9dt7pF9UwSBMVA4d9S2cMVwCkkiwKQ=;
-	b=RDNTrXvH4XloAmRKUT0uM+dpvmVmY9D7BNoJU1SouQq0Wa40vyHgSN+TtE1Un9J6lc6C
-	 HEtT2pftqeRUf0FjO57HbgdLCY1XOEm/qAv2jugdH4Xpcr4okc6Tf1tgWZXwlQe1iW1Yw
-	 Cg2WlJr+OQWOY671gr4Ma2nsqJrGFgU4KNiG/ps/pPY9q4sEE50F8LPPJUgsDrDeW70QJ
-	 p86X1RvWKG/V72eWaZd3I3R9j9QyCMBS0C7XZo7ttvkXWOdVvPEOWyDrJ2CAx83pOewUS
-	 kyY2bcJTHbm2nm7JycuadUEZXQnKVEvQL/fj9pEp3BIPdmJWspxRVwAYmzb2wWCOuFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208426;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/LUR4ul85ZfMug8P/Pa9yYRn+q6lloGkvYAGuprMPmc=;
+	b=jXL9SeR6ZE6Shv8VHf13FGjXIaWSPjdzN7rw6V40nKk3L2q1bLfHV7hv4svN+ClOl7/M
+	 aoskhPKpv+/cliNvSoPe9vmgHqTe8hQ9it1mrNn0VIrH2zS0LMP6pGZN2+D34kQ5VGcAX
+	 x+XOu6Xq57Skai26McmUgzwEzYbLLNbtG56dlPK0CiDlZ3vT8xWNLFt817eN0lGwZP8Hp
+	 1jFO6O02061V6DLe11zaBM9qr85IklfRop2r+5VqIzy5RE181I8p8ST5mp7U3yAjP4HuL
+	 b3JRI/NbvHZYXE5CssujGgAfJZhDGrGQVe8tD0r+MN4Q/v2tjWd00eR6kVi7hF+9AHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dSSbULsB;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Vy0p4Tnl;
+	arc=none smtp.remote-ip=91.218.175.47
+Received: from mta0.migadu.com (out-47.mta0.migadu.com [91.218.175.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7B0606A31C;
-	Mon,  9 Nov 2026 07:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD7B0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EA9606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51EA9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dSSbULsB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794208355; x=1825744355;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=vuCWaIlGUKXXEN2eAbbUtujZ8yy68AEkaUI0O7EyVNs=;
-  b=dSSbULsBQWCmEu9/95U1Mh1FqxcjVetyqt9c9pDguXhXBVppDtdrL4I0
-   y0hmTSvgILu8k84g43Myvphs5Phpq6qN8fqBDatf/qeCSi4uCrnmA69b+
-   MJdOzWK8Z0jwmx+bF0F+PDOss5zE6hcRK8rkcCY2Zpf5w1Nni7FzT+6hj
-   nZcp+1vVYpSM4of5IxzjzrXb7wMOZ8s3cj+hIRm+5r0/Q3E/esqI7s2R9
-   HUSXx+Od07yfAaoONLZp6fEZcPhOjHOCnxhnHr1l70TdUx7L7tTVusYwM
-   1FiNOmnhJk4G+L1nqxz4KDekYc7jHlAgz/BYYbS32xmriHh5Dj+601Mrb
-   w==;
-X-CSE-ConnectionGUID: 5CM3MMqxTbSt9bwF+nXnKg==
-X-CSE-MsgGUID: usgmnsTeTsm5t/DUaZjeVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2953950"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2953950"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:12:34 -0800
-X-CSE-ConnectionGUID: cg/ksszfRaWB7nuvOkH03w==
-X-CSE-MsgGUID: jS8vn2vhQOqV6LVelN0C4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8370954"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.60]) ([10.245.244.60])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:12:31 -0800
-Message-ID: <3fabe6b3-1285-4edb-abaa-bedf406b4926@linux.intel.com>
-Date: Mon, 9 Nov 2026 09:13:10 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Vy0p4Tnl
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UkW7kNSIS5yCNx6c/X6046kQz9p3i4/hywXzDevaqLI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794208423; v=1; x=1794813223;
+ b=Vy0p4TnlA24GJ1ZdcqmZv9U090qdaXwu5e1wKLgcXnJzYlTPa2yRfTxuHalffdr0ibRFaQck
+ 62Xi48QtwWqLNu44N6jiCPof6zeCKaz8GI4PReGT670rZo95CC30sduGN2LaWZ8rAr5OJwHOJsZ
+ 4mesDcn8UVabkqSOS4PpZdbE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 79bb73de99acef03;
+	Mon, 09 Nov 2026 07:13:42 +0000
+X-Mizu-Trace-ID: 79bb73de99acef03
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 09 Nov 2026 08:13:38 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Kalpesh Solanki <skalpesh942@gmail.com>, pkshih@realtek.com
+CC: kvalo@kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_3/3=5D_wifi=3A_rt?=
+ =?US-ASCII?Q?w88=3A_ps=3A_trigger_firmware_re?=
+ =?US-ASCII?Q?covery_only_after_consecutive_LPS_leave_failures_on_PCI?=
+In-Reply-To: <20261108142708.489067-4-skalpesh942@gmail.com>
+References: <20261108142708.489067-1-skalpesh942@gmail.com> <20261108142708.489067-4-skalpesh942@gmail.com>
+Message-ID: <84AB3D74-F70D-452F-B621-B5487951B719@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,84 +67,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: SOF: ipc4-topology: Fix pin format leak in
- process widget setup
-To: Baoli Zhang <baoli.zhang@linux.intel.com>,
- andriy.shevchenko@linux.intel.com, Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
- <sound-open-firmware@alsa-project.org>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Cc: stable@vger.kernel.org
-References: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
+Hi Kalpesh,
+
+Thanks for the new version. Two comments below.
+
+On November 8, 2026 3:27:07 PM GMT+01:00, Kalpesh Solanki
+<skalpesh942@gmail.com> wrote:
+                                                                            > diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+> index a74f199a93ab..7009f8ae3e57 100644                                   > --- a/drivers/net/wireless/realtek/rtw88/main.c                           > +++ b/drivers/net/wireless/realtek/rtw88/main.c                           > @@ -638,6 +638,9 @@ static void rtw_reset_vif_iter(void *data, u8 *mac, struct ieee80211_vif *vif)
+>
+>  void rtw_fw_recovery(struct rtw_dev *rtwdev)
+>  {
+> +     if (rtw_hci_type(rtwdev) != RTW_HCI_TYPE_PCIE)
+> +             return;
+> +
+
+The same check is also in rtw_fw_leave_lps_check() below, and the other
+callers of rtw_fw_recovery() are PCI only, so I think this one can go.
+
+[ ... ]
+
+> diff --git a/drivers/net/wireless/realtek/rtw88/ps.c b/drivers/net/wireless/realtek/rtw88/ps.c
+> index add5a20b8432..fa3a4e476cf6 100644
+> --- a/drivers/net/wireless/realtek/rtw88/ps.c
+> +++ b/drivers/net/wireless/realtek/rtw88/ps.c
+> @@ -166,6 +166,13 @@ static void rtw_fw_leave_lps_check(struct rtw_dev *rtwdev)
+>               rtw_write32_clr(rtwdev, REG_TCR, BIT_PWRMGT_HWDATA_EN);
+>               rtw_warn(rtwdev, "firmware failed to leave lps state\n");
+>               rtw_fw_dump_dbg_info(rtwdev);
+> +
+> +             rtwdev->ps_hang_cnt++;
+> +             if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE &&
+> +                 rtwdev->ps_hang_cnt >= RTW_PS_HANG_MAX_CNT)
+> +                     rtw_fw_recovery(rtwdev);
+> +     } else {
+> +             rtwdev->ps_hang_cnt = 0;
+>       }
+
+As far as I can see this can't reach the limit on stuck firmware without
+FW_FEATURE_LPS_C2H, which seems to include rtw8822b and rtw8723d. The
+register check passes once the bit is clear, the failure path above
+clears it, and I can only see the firmware setting it again when it
+enters LPS.
+
+So if I read it right, stuck firmware gives one failure, then the next
+check passes and resets the counter, as long as the registers still read
+fine. Three in a row would need firmware that is still running.
+
+Would it make sense to only count failures when FW_FEATURE_LPS_C2H is set?
+Ping-Ke, do you know if only the firmware sets this bit?
 
 
-On 09/11/2026 02:56, Baoli Zhang wrote:
-> sof_ipc4_widget_setup_comp_process() allocates the input and output pin
-> format arrays via sof_ipc4_get_audio_fmt(). When the following
-> sof_ipc4_widget_setup_msg() fails, e.g. because the firmware does not
-> provide a module matching the widget UUID, the error path jumps to the
-> 'err' label, which frees the process struct and clears swidget->private
-> but skips sof_ipc4_free_audio_fmt(). The arrays are then unreachable and
-> are reported by kmemleak:
-> 
->     sof_ipc4_get_audio_fmt+0xc9/0x420 [snd_sof]
->     sof_ipc4_widget_setup_comp_process+0x8e/0x200 [snd_sof]
->     snd_sof_load_topology+0x71a/0x840 [snd_sof]
->     sof_pcm_probe+0x77/0x120 [snd_sof]
->     snd_soc_component_probe+0x21/0x60 [snd_soc_core]
->     ...
-> 
-> Jump to 'free_available_fmt' instead, as the other process widget error
-> paths after sof_ipc4_get_audio_fmt() already do.
-> 
-> The other IPC4 widget setup functions (pga, mixer, src, asrc) free the
-> audio formats in their common error label and are not affected.
-> 
-> Fixes: f9efae954905 ("ASoC: SOF: ipc4-topology: Add support for base config extension")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
-
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.linte.com>
-
-> ---
-> Changes in v2:
-> - Drop the Assisted-by tag.
-> - v1: https://lore.kernel.org/linux-sound/20261103021710.3647599-1-baoli.zhang@linux.intel.com/
-> 
->  sound/soc/sof/ipc4-topology.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-> index 8b13c97b34804..de03dc58021a1 100644
-> --- a/sound/soc/sof/ipc4-topology.c
-> +++ b/sound/soc/sof/ipc4-topology.c
-> @@ -1313,7 +1313,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
->  
->  	ret = sof_ipc4_widget_setup_msg(swidget, &process->msg);
->  	if (ret)
-> -		goto err;
-> +		goto free_available_fmt;
->  
->  	/* parse process init module payload config type from module info */
->  	fw_module = swidget->module_info;
-> 
-> base-commit: 3ecd14f81434da3b5ff5c44d243715f96d52303d
-
--- 
-Péter
-
+Best regards,
+Luka Gejak
