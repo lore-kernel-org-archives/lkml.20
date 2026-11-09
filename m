@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794208780;
-	b=Cq2Izy54U48vxOKFrm9x7WHQBTTxZZNtHQ0HchOoUSK+PpRMiRztjpaTUDdhPxBwdqYb
-	 HeWj2dANH1ENv6PMT1XfiyLR8LMhxlNT93HuLgzjqRg9vbi4FNOp1Bi1bcDUJj/ynof4g
-	 gOx8NSSix/o551tvfbNpmcPBDIlaItKBx7RojZgFctee2iY0DD2g52Og4ICH7uOHLRYmK
-	 Bmwvx2TWg9XfXp2U4Y0mm3xEpzkKDSFAfY736XPykSAvupqoYFKEG0dS39O9MetE+0mn5
-	 hwJ8fE6uT+A90F7ibcg016UWRssaFpVjFRWeis2AVzLKAg2dH2qPebNUWcH2mYi8tCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208780;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5m/LqfEs2Q6pvjEFjy4I+pXcRPMYw2RSQ8eG1V+I17s=;
-	b=f2NY24vgRGgDMrKWsVhrZzPvNnQN+Y1a9Upp5tj0zftA7gUfKF/juF9/ZdrrvHB42AUf
-	 etNRKvlx/lokCKbSNm2xxZLYxEE1FQSriRxHHZ/nQgjcHqECPTN8fE4fA0gSsGf/nOjOX
-	 CLSZbUk79/iqwtxrSbr5oHIQFh7N/KjaGzbxGOoa+rJhS9UQOScOP5G3WjLUFeyGX7y0x
-	 9Kp/CvPuzeUlwo6pzMoFhDZV+J/JFcaqNO1itJAZn0Wvp4W91qigLaZtX0LdZvSXo0BXj
-	 UvIkw+fzBOj/soFfbEv4likki3OEwLGkHpulQJ6jNQLmHnJi4eoYkGrkkPnKJ6SSQ4Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ukl6dKj0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.42
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011042.outbound.protection.outlook.com [52.101.62.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.221.237.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794208811;
+	b=3/dfEO4b+PlFB3P3HypfWpvcJvdNPcbYK4q/kxjLGD477lQx6lfqtgBstytz1MfSkWMe
+	 5plE2FEZruMXqIk4onuCU/YPMLCarMvIzZCsQVBds/gFIKStnMHLjbjQKWt29vky87Jvq
+	 91OvBogPcdc5oLAtNgYtZtnjnydUCfotdPUNOBp2k7SB/erAa+eiUAG/4j2yB/IcT5HNp
+	 7YLCRI+Q7O5gv4WWnHAGFxXD9DeNoa5arNGfyc2ACUxF/GI62Klkuvdj6coYgL+nihpKu
+	 Fdyy/ZeMMZGbKDYen7F0kjD8xRpnc+whGsIaQyBkix4bF9/EpOp2uySheibDM1Ho6Rw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208811;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailru-Src:X-4EC0790:
+	 X-7564579A:X-77F55803:X-7FA49CB5:X-C1DE0DAB:X-C8649E89:X-D57D3AED:
+	 X-Mailru-Sender:X-Mras;
+	bh=dMP4wTYb/Pg11BCj7xV3nds3L5TCmqfCKGZRvrHr6l8=;
+	b=vgUsICIj9FJsawEvmck/7G3F3k5Ek+eB2sKTuL0gIMon3m2Rw9YWoYpDVBIOoH6wczxt
+	 w8v6aAk6rOCIsm1PB2SddG/rqrTvZ82bAaJcByCvQnXuzypsEI2w8gKPFuR4/Q515p9r+
+	 /8Zth1qnLIHXXj9dL195X0ddnrl49ClhsdN+tw/v8XjnNstPafOWrgtMm8PXyGU9ZSbLu
+	 F1zwHqPjcPZ9LX12RJb3QHZfilheljyCOaOrQrtQ84OQYEIuDuGhBSDsnTxWgE7QXWH4R
+	 hPqwO0XgK2DzaaBs4iUIMYpazhpwkJL6QiO0Qjsq8pqEE8fWB2zpeHLKqCRZG/noiMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=inbox.ru;
+	spf=pass smtp.mailfrom=inbox.ru;
+	dkim=pass header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256 header.s=mail4 header.b=VEOPfg5y;
+	arc=none smtp.remote-ip=89.221.237.176
+Received: from send81.i.mail.ru (send81.i.mail.ru [89.221.237.176])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3B5606A31C;
-	Mon,  9 Nov 2026 07:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C3B5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250E6606A321;
+	Mon,  9 Nov 2026 07:20:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 250E6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inbox.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inbox.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ukl6dKj0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sTNMe90xK+takhjc7EbkwTPyUwkSOq+FQXufQro4Yy7I7YPhN17rC3r8kGnhvbdcqAFPcN6AcgTQuDbCv7uskL+slVSWMUxOGtGZdEwAvJoJdDC7I2ORQqYttt48JCfMuLIuwxncxWTwzhcwIVgbdKgpa+WZvwgx+RMYMjFDI7k2oW1Xpq7Zvx80AJgqGZC3QSKYZ+M9gWdp66ntlqF51VVwX5W/xgBmONVH7331AZOcogvf5I9LfH9uVGgVlzeKnnh+p76d6N5F9+lzV4BTSrMSWLL6OZO8TnK5DQNC1U3mouyMqn4JlLJhmD3U06PL8bpKVss9tSAaC9h1O7XOkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5m/LqfEs2Q6pvjEFjy4I+pXcRPMYw2RSQ8eG1V+I17s=;
- b=ZOo1m1n1GDkjNjAWhh31XeCZbz21f+2zZPK/DRTUCBwnFLZ8aaFhiqSbphbzyJENaqUEaiIeSYPdGjiLg6jQbDBqVh1wkPvd3E6S/jdo2aEPNwy0a3JxmnG99TzslA+1mKzSVXOd95SlhZY//HMdDj+HIWueH/EkVdCDf/0asDYs7xRBx7oCjmilhrLxYB0u0z1Ebbe7LupoidxXtpXPbTCBzwei2qYdzkRbnxM9ja+G6E3VDHMugvJBlNYy7GalLAXwoGLdWqDvfFvcPfrPMfXT6FcB/le9tek5YJvk9a/FygYQ3bQ6ZWEAyxGBSUue9EAqEIUN/YIPzBOXBBhofQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5m/LqfEs2Q6pvjEFjy4I+pXcRPMYw2RSQ8eG1V+I17s=;
- b=Ukl6dKj0ULmO5nwA4y/NU9RoSz/E7LQ/iKrYXPg5J2um9+ye9Z1m0rFXVI+LB17YrUt4Q5kIbRiaet96PqnTWcLXWE2Ii2OYLBe/BfMhKFGafUBSi8xZ2pVLoiEuUDBPGSglUh6YsiRU1F0iPe6mctRYCAi9hZxcix1uhG8lbZc=
-Received: from BY3PR03CA0019.namprd03.prod.outlook.com (2603:10b6:a03:39a::24)
- by LY0PR12MB727857.namprd12.prod.outlook.com (2603:10b6:408:3ba::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 07:19:30 +0000
-Received: from MW1PEPF00018891.namprd03.prod.outlook.com
- (2603:10b6:a03:39a:cafe::1) by BY3PR03CA0019.outlook.office365.com
- (2603:10b6:a03:39a::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
- Nov 2026 07:19:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MW1PEPF00018891.mail.protection.outlook.com (10.167.249.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 07:19:29 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 01:19:29 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 01:19:28 -0600
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 9 Nov 2026 01:19:25 -0600
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
-	<michal.simek@amd.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-serial@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <git@amd.com>, Shubhrajyoti Datta
-	<shubhrajyoti.datta@amd.com>, Radhey Shyam Pandey
-	<radhey.shyam.pandey@amd.com>
-Subject: [PATCH v2] serial: xilinx_uartps: fix runtime PM race during probe
-Date: Mon, 9 Nov 2026 12:49:16 +0530
-Message-ID: <20261109071916.731116-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256 header.s=mail4 header.b=VEOPfg5y
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
+	s=mail4; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References
+	:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To:Cc:
+	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+	List-Archive:X-Cloud-Ids:Disposition-Notification-To;
+	bh=dMP4wTYb/Pg11BCj7xV3nds3L5TCmqfCKGZRvrHr6l8=; t=1794208808; x=1794298808; 
+	b=VEOPfg5yWBtit/9FVQBtdlumBCgJR+vdDIK1j0Afwfcl8YCskaCmDxPUhSBZ9eNXnSJUODaHdCT
+	KQq6B/pzJPU/Lub9WwTlAPjPEA/q+75Hmwi3Xl4Uc+kw8QnOmz8vIpMH1IxJ2qKiI/oDThe3Spzil
+	m0hUUu9CBnkpupV8V7Mg31tRkGMZI//3UbW3jgl9GJ/2ajZ+V7GfZPCcXOytrmWrVs7sRlAy+PLuO
+	Bw/Z+wVb+ifx2BEGNV8hZlG3ErcW7afApES7g0H8FfL4SNWCd2xIhwWqlo6+y5zbsdF+ZuLZhdsFx
+	4U+Q+cw8Hpa7OxQP5Oh+vk02oJcRYZOx+KTw==;
+Received: by exim-smtp-5cc8b577fd-86ggl with esmtpa (envelope-from <fido_max@inbox.ru>)
+	id 1xQJfT-00000000EMy-2inv; Mon, 09 Nov 2026 10:19:52 +0300
+Message-ID: <3be09e84-f36b-4718-aa83-176bce5752c1@inbox.ru>
+Date: Mon, 9 Nov 2026 10:19:47 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,88 +61,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00018891:EE_|LY0PR12MB727857:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f7f09df-d0ea-4929-1e82-08df3e31cb6f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|261021121427099003|261021123027099003|261022105027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|261009220027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	svwkWAL5Id9IwXFa0XOEgdJndz4Xkw90MabQjdItJqNqBn/awfadT9TaDGsh+z7iaAiPlSh62GDigNa+k77ADOUSy1rAQeo5+l9f9gjxYwdlOBRW8e/hgxcr3f/ZOxVLaEVKoO6FWBxeJ73Ol5m/3dDCMd0RC/ZoMLzModGBdycWhtD3Ds2QAE5NIykdCcjgz4EBmWl5E86SW0VZPeaoe9TgtNqeE9izur2aChA61xpBFS/IiwTF5OSgceGpuYAA4KnnS8Jb2FYYZOZ7VdKp/JhWq2SBcjsAZ4EEQpxAE6Po63sIsQRJujXb+fCeZ+wdbhWQzkQylXk02IXRF7JiGFf5+lR6ou+Y7W+g/zrFh2iubutw8XctAMkXVJD3Gho+kVLnqFa64tO38s0CvP26Z6O8R+vqMgScT5NpuzgsjyCCMb3b/dskUsG+lMHdpD2zH1UXjHWJi5ZdiL/qgRhA3kQUAZa/DMP/CwLNKwVUdWXthyH62hBafFk26yODJY+0wEf9pYWg+Y503Trwsfvp/SEEIpE2DcHzJmyvovLZd5wmC/rYm3SkomGa53PpI5e1Rp9Y26rPL80356wjpwrUyBeoKAyRkhgF/iM9gZum8U6n0DmIEL/+hLM6FNUwArm3ggXW0yWlSQO0D7pbTx95tA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(261009220027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TMFaXJO+fD2zlECN/3cvHZvoslIDTcXxc0d8oHaa1rc82E48JNOHp02IAAPzkkZVUUywJeLtKPi2hMPrtFyU2Q5eC0ROOIZ6TaRF3vwEt8H8HUqVj546y2Iy2Ua9q7z3G8N95qmexe+Tyw+FtuIPLk3gtqEomPHxegWblcZWIDeeORlnjbjAG60v9TbQIfV0voNXXCf0CT+b0lP46VbKNqdxq5Nr0NFJIRTyyChPOGBnJECcdeld6tDCGDpkszatQsHY7tZCCJDxodMj+3uamSeLCv5lBii5jvYA6TbWeVdOwF1+4Neyx0Lq6Z+bpo8tWxwXw7DP+jWQilVzvfmIfJ0s3MLkHvqhjHDrlWZUt8OySUNvwXydo5NPFjrzMsl3CFAbGdGzf979RGoeim2EEpxEcCbHqExPXOWdc9YPCh39tKRzLUXYXk/hjr0WrXZm
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 07:19:29.6436
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f7f09df-d0ea-4929-1e82-08df3e31cb6f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF00018891.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB727857
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] ASoC: dwc: Fix error handling in dw_i2s_set_fmt()
+To: phucduc.bui@gmail.com, Andrew Jackson <Andrew.Jackson@arm.com>,
+ Mark Brown <broonie@kernel.org>, Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Tim Bird <tim.bird@sony.com>, Yuri Zaporozhets <yuriz@vodafonemail.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261106112940.53550-1-phucduc.bui@gmail.com>
+ <20261106112940.53550-3-phucduc.bui@gmail.com>
+Content-Language: en-US
+From: Maxim Kochetkov <fido_max@inbox.ru>
+In-Reply-To: <20261106112940.53550-3-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Authentication-Results: exim-smtp-5cc8b577fd-86ggl; auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
+X-Mailru-Src: smtp
+X-4EC0790: 10
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD96F2D5E088614A237978616089160C63AD65C6E03DC92A48B182A05F538085040F18A1CA48A39F5683DE06ABAFEAF6705FF78BDC6B93E6FD0A8A0DEF0E8EF60A0D5DA017CF5BD799E
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE78A0D58E4FC2FF961EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB553375669BFFA6ABF9D5DBB95A36D2F3D00527F3397561947724906D2B78D7A7768EE77F8EEF46B7454FC60B9742502CCDD46D0D1E44367C8E80A7B4F6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C091DAD9F922AA71188941B15DA834481F9449624AB7ADAF372E808ACE2090B5E14AD6D5ED66289B5259CC434672EE63711DD303D21008E298D5E8D9A59859A8B6B372FE9A2E580EFC725E5C173C3A84C3FB9365559B687AC835872C767BF85DA2F004C90652538430E4A6367B16DE6309
+X-C1DE0DAB: 0D63561A33F958A52F0FDEEFFCF7A4515002B1117B3ED69662978CB93988BD73CA7E60A991436CA2823CB91A9FED034534781492E4B8EEAD0AA277257C6A5E3DBDAD6C7F3747799A
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F96AB70F9BE574AE9C625B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D6591BD3A41B7F8C00CB71AA57990E0CA9C9A663A6C4AD9441817F5F3DB075F542C5E9A0CD04E70769A1B8341EE9D5BE9A0A43140BCD153799A8E4785A236961D2435B99B5984E0583BB52EE4E5D9E54FDA4F44A2BDFCEC9DBD87F602240D6CCBEE5D3DA9480BB1E7B08C654B4D7A83FC0F143082AE146A756F3
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWFUCQNkj6yLWDLEd9SnCO68=
+X-Mailru-Sender: 689FA8AB762F73937C9FA53A4753B31389747662B7C6DF869CE8B04861ECA05AD506C299C4DA31BC90DE4A6105A3658D481B2AED7BCCC0A49AE3A01A4DD0D55C6C99E19F044156F45FEEDEB644C299C0ED14614B50AE0675
+X-Mras: Ok
 
-From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+06.11.2026 14:29, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Return early when an unsupported clock provider format is
+> encountered, preventing the function from updating frame_offset
+> before returning an error.
+> 
+> Fixes: 221acc16aee1 ("ASoC: dwc: Add TDM mode support")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-pm_runtime_enable() was called with usage_count=0, allowing the PM
-core to immediately queue a deferred suspend via pm_runtime_work.
-This raced with console write, causing cdns_runtime_suspend to
-fire before the port was fully registered.
 
-Hold a reference with pm_runtime_get_noresume() before enabling
-runtime PM.
+Reviewed-by: Maxim Kochetkov <fido_max@inbox.ru>
 
-Fixes: d62100f1aac2 ("serial: xilinx_uartps: Add pm runtime support")
-Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
-Changes for v2:
-- Add my signed-off tag.
-Link to v1: https://lore.kernel.org/all/20261109070915.727524-1-radhey.shyam.pandey@amd.com
-- Use latest base.
----
- drivers/tty/serial/xilinx_uartps.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/tty/serial/xilinx_uartps.c b/drivers/tty/serial/xilinx_uartps.c
-index e8c4b1fa7658..aa3e820760b1 100644
---- a/drivers/tty/serial/xilinx_uartps.c
-+++ b/drivers/tty/serial/xilinx_uartps.c
-@@ -1799,6 +1799,7 @@ static int cdns_uart_probe(struct platform_device *pdev)
- 	pm_runtime_use_autosuspend(&pdev->dev);
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, UART_AUTOSUSPEND_TIMEOUT);
- 	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_get_noresume(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
- 	device_init_wakeup(port->dev, true);
- 
-@@ -1823,6 +1824,8 @@ static int cdns_uart_probe(struct platform_device *pdev)
- 			"uart_add_one_port() failed; err=%i\n", rc);
- 		goto err_out_pm_disable;
- 	}
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_put_autosuspend(&pdev->dev);
- 
- #ifdef CONFIG_SERIAL_XILINX_PS_UART_CONSOLE
- 	/* This is not port which is used for console that's why clean it up */
-@@ -1841,6 +1844,7 @@ static int cdns_uart_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_out_pm_disable:
-+	pm_runtime_put_noidle(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_set_suspended(&pdev->dev);
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>   	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+> @@ -427,11 +417,11 @@ static int dw_i2s_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
+>   		dev->frame_offset = 0;
+>   		break;
+>   	default:
+> -		dev_err(dev->dev, "DAI format unsupported");
+> +		dev_err(dev->dev, "DAI format unsupported\n");
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.44.4
+
+Should the typo be fixed in a separate commit?
+
+
 
