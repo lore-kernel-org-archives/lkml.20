@@ -1,74 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237919;
-	b=RGxj5YmZ5Ii81leB8PVVGCI0Yhm8P1mqkRivKHpOymuHyT7AE07YitXEl6XIHEPxa2k1
-	 a5+JpxXxnuOIhKPXezvR2I67Q7F3DfU5OzMOlz3Lq0WEJqOqjJvSEHdrReGxAG9eZu6LO
-	 1OWWbLSHnDKkzMOR6tZM11wFMlCOPVDfc0XVH0Gw4/skXfzdTTldQCvV5jzqofghfIK+f
-	 hKhg1lw9+EBIcLjR2i04ziSnaPpx9XbzYtHSECDbdph2X/vrLasgSkbsKBxYfsu/bZ4eT
-	 1uMvfrsZtix+tdfq9C7HLFs09gBLb59835CbRgqpcALiam3t4kGPVgl2on+vzbhcu2w==
+	t=1794237940;
+	b=kbTawJZqJvjxKrbGA8qHHCC7qHk/6BJy3GB9FnvfqLY4dULV/FmFbkCMMlmK30JMkXSY
+	 rd/N4TSiylxf8qYmnSGNDEy5it0KfQ7B7886YSIBV3YOa+2ipzJRj+e3xwr5W003t496V
+	 FLTqMPAGBeltd8Xz5l1omCnKC8odbHmhKpl2iYdMmzrVgbTyfboCdPN24YEssje2JPCMi
+	 da10hx4yUdC9cO2qeAisc9V5cTlJdGDIWOH8MtbLOktu9Lg6IFK4/MOjmd9J59Lwvve4K
+	 pCJK5KlAEIo3OdpLPqcZuuPk5R2fUc9Il77O77aZUVT7CQ48BuSK5V0CKWFI3skQTPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237919;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=iZleujFBvqPqOsleB251CwKn42Cdi9jzvEsFErldcqM=;
-	b=24SpF1Ch3SpSeizfZyzT0B4RckrbE5gTkYM8vNGx4ozJHi461p0YXOByACAKos0qXQ6D
-	 nvsIwfLi/nZ1MKZRtDGEKw+i6mrFC2KHfH3bZik3DHoU6nke6RtuH7xWMJkPFIZ7Sswon
-	 c01BsH4+X4Pat3cb8wi6YSk0FJZBAzLwz1dybLAIEVUzHnZQlmk6L1hC0zBB7LpuN0uS6
-	 qzmqkXXdi013pdQ3AetFSspmVxfrAe91ehkfaLVdyd6QzSgyr1kgcpmxPzVt46LgPSRjo
-	 DCX7Xre02vyHjwlCyscdAlA+b7G/cjBEo8T6V+swDwapF5XLDLaG4nHBNTgvE5Qd7bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237940;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:X-Google-Original-Message-ID:From:X-Google-Original-From:
+	 To:Cc:Subject:Date:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+2eo50vndD4kHyto0T87+2tamN+YBpxl6Kj/Chr71eo=;
+	b=hQYXWoXwSdpVOUADv6Gchxb1fwjcP0xEMTeB+qcqX1En/Rmn19uQNW30CUXQ3onSmwBj
+	 t9ZqOr6iEUjUGfW+XR2PoadcJvwlnmQtHAhYskKIlmwPxtL4QIARI8B0Pxo23ju7XlQlh
+	 M5278gQpoeCmp7HQBnckGQMfDhgwS3WgIkMtjJKuoWH3xSWuGTl4l4yVXUJyZETlGDYXD
+	 HKPgMjuvbFgBJNTsPTMoJ01xxabtNRk1HfhG+URD6d0sA+vlSlekW3IZ50djk12esKC84
+	 GsCtBeN2LqHMVJdqZEVod8gT3d65qJ+EAvsXppuUziSWdhibcUkh39uV2DBadMEwZUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="lO+X2/2V";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Yqwc26Ay;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QAH5Td1V;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEDA606A321;
-	Mon,  9 Nov 2026 15:25:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BEDA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BB5606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:25:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00BB5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lO+X2/2V;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Yqwc26Ay
-Date: Mon, 09 Nov 2026 15:25:15 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794237917;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iZleujFBvqPqOsleB251CwKn42Cdi9jzvEsFErldcqM=;
-	b=lO+X2/2V+Umz8lEaxSgNBkH1F9O3lPmiM9T0BfXWWaS1gADi5o2ysOqUSh/5AhSOq8o8g2
-	h3vMld4OxkTGt3volFttG4J/MjNVnVW6EHdq4lMU4ePwcVG1GXW8dzw+Wa9aDhbu8nGmMJ
-	kiXHrJX2u3b0dNWJ98ReV4r/M4OiAv68B/jvINqcc+ptwJ4KGc2esSIgb9AL0n2uAxKaSy
-	Z/wqLSlxWMZROawAkm/0BG+qYS5dFX6FFt/qLZZ7Pr98ry5EMa9J7gStX/9v0jjrWsGqmS
-	G+lUoWWXfUz0zPPmWFch+0tDkdDMJOCX1q0FTaQftJCkpGp9/JQ1xQyYp1SUFg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794237917;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iZleujFBvqPqOsleB251CwKn42Cdi9jzvEsFErldcqM=;
-	b=Yqwc26Ayjgstgsn2JYBnzfT4glz7AjZNGRhawLEKIWftIzYWv6Y6ntcQr3GrbmSfDb7JjN
-	EBF9EZ2yo6rLD/Bg==
-From: "tip-bot2 for Zhan Xusheng" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/vdso] vdso/gettimeofday: Assert that the clockid fits
- into the u32 bitmask
-Cc: Thomas Gleixner <tglx@kernel.org>, Zhan Xusheng <zhanxusheng@xiaomi.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261016153212.2733798-1-zhanxusheng1024@gmail.com>
-References: <20261016153212.2733798-1-zhanxusheng1024@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QAH5Td1V
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso359205a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:25:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794237939; x=1794842739; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:subject:cc
+         :to:from:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+2eo50vndD4kHyto0T87+2tamN+YBpxl6Kj/Chr71eo=;
+        b=QAH5Td1VVsnMLp74yBsh4npC78p5NNQ1yeYU7wlnu0FWjl/bPOeUPjHSKfgSElKUaY
+         sL7qtgp1plN4TJ3twIW+lQcQWqMV52IR3AswYPfeaf3pHMgWa1T0Vo5v0HVn30K5LzJO
+         AjM6aNGBh0xyNGbzIh8womUFdwHXj0Yu8W20njfgXPOxLfw/5XXyh8shBACc/Ny3dsRc
+         0KUiBokdaY41XjPAnqRokYNmrA63vPfK9OspssxFsn+CpDg8tOFDfl8sfZDIhJhTz+gh
+         jJvN/MglHjaK1X8YBA3Z89RzXSYmdRKI9yxNToQxDj6BnYbU2Mej2WjBdVGkxHAGfRyq
+         tWJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794237939; x=1794842739;
+        h=content-transfer-encoding:content-type:mime-version:date:subject:cc
+         :to:from:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+2eo50vndD4kHyto0T87+2tamN+YBpxl6Kj/Chr71eo=;
+        b=QLXbEOh0uYG2vmsNC3fhxoftLTSqsg60w84gK619hA3j/yMcEx/3HSAYtx3eo5MN5y
+         0S9cKtE6iMlfDjNHXEjkgE7tyeFrmgYQZVVET2tiGnE4IE1lmyKD1AZ7523qywfDYV8v
+         W+3ocIfuz1fHhy6ko8nis08uJ03hCD9/sKXKAsf2V590lTaEN1GThh2udv7ds0V6rcJ6
+         a4dW3tHRFsl0k3IFmnp1JxiC31oXnL+Y7+0TL6OeWIk4NG2xyLM8T1q2hpakA7oFk429
+         G9tMiaMk+lSlgJslZj2jAVVpyxdAx2nQbB8Hj7fOXACY9y/0mrWD6n/lxj5Zjy36znyK
+         z7Zg==
+X-Forwarded-Encrypted: i=1; AL+hErGnDjaybmqSjVdZ7iRKxw8nBJIiBtEpgStmzUWvk2oNSW1iJMneBsyPExAHeyW5REVfjAxB0Kx6mc/Czs4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/iru6PH6ESJb+bhymdrmQF/wMs48qxH1RcVeyy9SnPJFS85XQC
+	OvZVVfv4vy8R5DxqV6kgs3JfrB+OSMuPjM2JT+C5U7Qollfk/cGWiJIq
+X-Gm-Gg: AYBFou12FasVBJqjRexmdQYzoFykEMnSzxv+yYnwJKbRujRQxp2c9Qa+mqv2oEaQLl6
+	OjxhxXNz0SnH7heO5oOgrRP8jcjBjIrKteooZfoLBPuECzthk3jX5Fkvv/n+212iKUnah/+2X2k
+	2/TMbyEhqOfNcW9VTqyHtqTueQibFikWWOxa34VsMP5VKPYf0jirCj8NQ4dMDWc2XfT9c7TDKh/
+	aZwPj4EQZBLAk9o1XTpn9dg1c9PzjTLDCrS9HJgMoC3KYn3JMx7H5aeVBkeJLB2y66Qj3Ot6UvC
+	JisSmOrfn1ZzV6BtbNpDhITCd83F20s6r/wP1sEH96u5nYBjnW6DSoAMEnXTS2fFiafB6TlZWO5
+	JMqm8k2vsvjwl2ic2UmrfWuCnNkMhG3mUYbt96rJm4rVwB47XlnOU2wH7irK1jz0TwJ5g5qC+F4
+	7AU0eUArqAQalQELWFckIj5GGqcdem0ePqUu5nH7Po0LBQsEdiZy7yuo12xNLrQ9ZUfbjEENnmQ
+	8k2czDxfrOBYAbaFKRnDC4obLt5FGz8CJDMZnp+pZHR97T54/dNj5dbr864/iUd+J9dm7JD06uv
+	VdJ6CsvF+kJBE1j+5Z1n+z/wJ+eRxBTNwLEJ+oqURkmRUTiJ62g=
+X-Received: by 2002:a17:90b:33ca:b0:3ac:929e:691 with SMTP id 98e67ed59e1d1-3b12d418819mr4176458a91.17.1794237938727;
+        Mon, 09 Nov 2026 07:25:38 -0800 (PST)
+Received: from hanzj-mi.. ([157.185.136.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105864bffsm11462095a91.3.2026.11.09.07.25.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 07:25:38 -0800 (PST)
+Message-ID: <6af1e5f2.a438010f.130489.ab94@mx.google.com>
+X-Google-Original-Message-ID: <<179423792787.1832964.14629633117175086624@gmail.com>>
+From: Zhijian Han <hanzhijian1991@gmail.com>
+X-Google-Original-From: Zhijian Han <hanzhijian@zepp.com>
+To: bpf@vger.kernel.org,
+	sched-ext@lists.linux.dev
+Cc: daniel@iogearbox.net,
+	tj@kernel.org,
+	ast@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	Zhijian Han <hanzhijian1991@gmail.com>
+Subject: sched_ext selftest enable_cmask fails to load on 7.4-rc2: verifier rejects arena pointer cast from scx_enable_args.cmask_arena_addr
+Date: Mon,  9 Nov 2026 23:25:32 +0800
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,69 +104,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179423791538.2093942.12115550429606898902.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the timers/vdso branch of tip:
+From: Zhijian Han <hanzhijian1991@gmail.com>
 
-Commit-ID:     40b7421a2e85e8d2a4cd1f81939274b397aa4b1b
-Gitweb:        https://git.kernel.org/tip/40b7421a2e85e8d2a4cd1f81939274b397a=
-a4b1b
-Author:        Zhan Xusheng <zhanxusheng@xiaomi.com>
-AuthorDate:    Fri, 16 Oct 2026 23:32:12 +08:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 16:23:37 +01:00
+Hello,
 
-vdso/gettimeofday: Assert that the clockid fits into the u32 bitmask
+The enable_cmask selftest (tools/testing/selftests/sched_ext/, added in
+the recent merge window via d781d1b78acf "selftests/sched_ext: Check the
+cmask cid-form ops.enable() receives") fails to load on v7.4-rc2 and
+linux-next-20261105. The BPF program enable_cmask_enable is rejected by
+the verifier at load time:
 
-__cvdso_clock_gettime_common() and __cvdso_clock_getres_common() turn the
-clockid into a bitmask:
+  libbpf: prog 'enable_cmask_enable': BPF program load failed: -EACCES
+  94: (61) r1 = *(u32 *)(r8 +0)
+  R8 invalid mem access 'scalar'
+  Verification failed: Register Type Safety: Invalid dereference
 
-	msk =3D 1U << clock;
+The test follows the usage documented in kernel/sched/ext/internal.h:
 
-The shift count stays in range because vdso_clockid_valid() rejects
-anything above CLOCK_AUX_LAST, which is 23.  Nothing records that, so
-raising MAX_AUX_CLOCKS past 16 would take CLOCK_AUX_LAST to 32 and make
-the shift undefined.
+  struct scx_enable_args {
+          u64     cmask_arena_addr;
+  };
 
-Assert it in vdso_clockid_valid(), which is where the bound comes from
-and covers both conversion sites.
+  /*
+   * ... The address is a plain value rather than a typed pointer ...
+   * Cast it to struct scx_cmask __arena * before use.
+   */
 
-8 * sizeof(u32) rather than BITS_PER_TYPE(): the latter lives in
-linux/bits.h, which lib/vdso/gettimeofday.c only reaches on
-architectures whose asm/vdso/gettimeofday.h happens to pull it in.
+i.e. enable_cmask.bpf.c:101:
 
-MAX_AUX_CLOCKS=3D16 still builds, 17 trips the assert.
+  struct scx_cmask __arena *m =
+          (struct scx_cmask __arena *)args->cmask_arena_addr;
 
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20261016153212.2733798-1-zhanxusheng1024@gmail=
-.com
----
- lib/vdso/gettimeofday.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+The C cast does not emit an addr_space_cast insn: in the generated
+bytecode the member load (insn 1: r7 = *(u64 *)(r2 + 0)) produces
+R7=scalar(), which stays scalar across the cast and the inlined
+check_mask() prologue, so the first dereference m->base (insn 94) is
+rejected.
 
-diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
-index a324b2f..67c9bcd 100644
---- a/lib/vdso/gettimeofday.c
-+++ b/lib/vdso/gettimeofday.c
-@@ -99,6 +99,12 @@ static __always_inline const struct vdso_time_data *__arch=
-_get_vdso_u_time_data(
-=20
- static __always_inline bool vdso_clockid_valid(clockid_t clock)
- {
-+	/*
-+	 * The callers turn an accepted clockid into a bitmask with
-+	 * 1U << clock, so the largest one has to fit into that u32.
-+	 */
-+	BUILD_BUG_ON(CLOCK_AUX_LAST >=3D 8 * sizeof(u32));
-+
- 	/* Check for negative values or invalid clocks */
- 	return likely((u32) clock <=3D CLOCK_AUX_LAST);
- }
+The same selftest was verified by Tejun on the for-7.3-fixes branch
+(per the v3 cover letter, 20260919002838.1960071-1-tj, 16-CPU VM, three
+standalone runs plus the full suite); the verifier-side arena handling
+that changed during the 7.4 merge window appears to no longer accept
+this pattern. The struct_ops argument path (direct __arena args, e.g.
+ops.set_cmask) still works — only the u64-carried address form is
+affected.
+
+Reproducer (deterministic, two consecutive runs identical):
+
+  # kernel: defconfig + SCHED_CLASS_EXT, DEBUG_INFO_BTF, FUNCTION_TRACER
+  make O=build -j$(nproc)
+  cd tools/testing/selftests/sched_ext
+  make LLVM=1 O=$PWD/../../../../../build OUTPUT=out/ TEST_GEN_MODS_DIR=
+
+  # initrd with out/runner + out/build + libs + busybox + kernel .config
+  # at /boot/config-$(uname -r); then:
+  qemu-system-x86_64 -enable-kvm -smp 4 -m 2G -nographic \
+    -kernel build/arch/x86/boot/bzImage -initrd initrd.cpio.gz \
+    -append "console=ttyS0"
+
+  /root # ./runner -t enable_cmask
+  not ok 1 enable_cmask #
+
+Tested on:
+  v7.4-rc2 (7475ea8b5):          FAIL  (verifier rejects at load)
+  next-20261105 (gddfe51b0a0f5): FAIL  (same rejection)
+  v7.3:                          SKIP  (struct scx_enable_args not present)
+
+Compiler versions tried: clang 18 and clang 19 — identical bytecode
+around the failing insn, identical rejection, so this does not look
+compiler-dependent.
+
+The other 40 tests in the suite pass on both 7.4-rc2 and next (after
+enabling CONFIG_FUNCTION_TRACER, without which the fentry-based tests
+maximal/kick_immediate/reload_loop fail with -EBUSY — worth a note in
+the selftest docs, but that part is config, not a bug).
+
+Possible directions (not investigated in depth):
+  - a kfunc or verifier-supported way to convert the u64 carried in
+    scx_enable_args into a PTR_TO_ARENA,
+  - or an __arena-typed member/alias in scx_enable_args once BTF can
+    express arena pointer members (the internal.h comment already
+    anticipates this),
+  - or adjusting the test to obtain the cmask through a path the
+    verifier accepts.
+
+Full verifier log and QEMU boot log available on request.
+
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
