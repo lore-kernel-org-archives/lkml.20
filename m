@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254605;
-	b=ElnIrFsrdGHETjbKxXd0xTrmlj+Zhl8odQqOIhGm96r4xEMzrceMpa/s6XWBuTEQKY8w
-	 ky/mu8phQTmUUbJK+Erqa8yy1/up0Joj7xR2s457RuSIIFjLC/RPVysh3v7+N8/L0RuoE
-	 /0wVFOuZnm+2JEBtby6s7IOf08bOQlr3evbhAx2pI90ejkTzu9TDztEI6AJKr9V+KcU3c
-	 mxN70m9Pyn/OsJt5aiPmIwP+X1BVNaSOwYS+IXgqaQNljvkY+fB7TOGSmKhK9I6dUUu2K
-	 KT1SQFIFX8a0+fB+Q5T28YlIDx/hLN5Y8CxDOcrwQwkPcZrkFltrjtP7SjC+7qeEaGg==
+	t=1794254616;
+	b=V40rdZupbX//YwRRItkGNZ5Zwa6kic0HO1PcsabliZ8AK3YuZnp9fiPNcGo3sRIcaCh2
+	 aofccr0AV9DROXLI3OwVfX4VgSvbgidcVFS+QCmY9uffNDnH89bNQEaNi64VNY1RKvK/m
+	 bkQyjl/q+vrZXo6FABh/2VUbMTTRFgfQm2L/kphT8VX/y7cR7TyYBtMuxVEcsJSWtNeBY
+	 9lSKcbYXF+xKcZNpn5qW4jsUsAblBEuSkv8Vaqb/4Ll9OcfkYnXpmJap7bFV89n3PT5GC
+	 9QvlN5s3WyOFnhZoFxxMc9JawYEJlEsoARfWnVJ2AzkGmMIAF9mYf0Omq+dHKYIOZGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254605;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=XdJLJbVIQHqVGKpuMShdQSgSFsm+69CBaBnXPW98sOs=;
-	b=vs4pVYePCXhHjIdXpzBQ6tynyAJKBxWp+tkOw7uMUceNrKKOEXlGJkQdM7fPyngEZnaI
-	 jNljZOHTaDDYouyhwyFrTcNbIfhaL9BbSW0Q3y8QDBdEk8KhbKnGi6InJJgqdXv8V9NsZ
-	 djZvU8ob8lUFFLllpBIA2rFwXY/jjfX3ctZmIDRhPGE8HkYlZKGXJcJUQdJagrW8YbWFL
-	 aKhi8E1uLz0wtpHUNBXYrIvKsS6QFrDxTTLfZiDMthzPi6iiHYmLJLqe2F3RwqONy16W3
-	 v5NM/UAcc1torSg7LtA36IQEbC3Pa7IRM6NM7tSeiEP/KF6IRc0toVfYqw4DmU6n6vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254616;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=hO10aJTqcdq/ahujE/caCvdQLD1fV3nWWuPROud/Q5U=;
+	b=YLhKjW2KGedU5r7bTOuy5uisP28L/uUQk5N4DGy5bRr29w22F6u9Ub3Fvp0CLANZTorP
+	 nknbm2uQrahEDb60+BWiadASiiAhEtFXbePRE79HBpRIm8Ac/OTeLoc9G+H5xC3uB0pYW
+	 THajnI47c+Ga+6+gkFLySBqfeuwE7e5TtCdd17fU43XhOV2GxagEYC4wOquqG+TuXIJrR
+	 5CPylYYwrYRu/axg1J/b9Xyejp2dHJnJ+6NvNL2WLV+ugRax2slN2ovpxmuXbrrZcalXp
+	 TJazHr2Ykamq945vk0KDoNIlNCSrIponP2jkyF3X51LpTcUURr0ixIurTNoZ4Kx4h+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CgcfhwZg;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="oNKxcVI/";
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C851606A338;
-	Mon,  9 Nov 2026 20:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C851606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E789F606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E789F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CgcfhwZg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794254605; x=1825790605;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XiFIr4wIIdZ1lLJz6CyLg064mfrzts0usX5vfZ3FSIQ=;
-  b=CgcfhwZgUSX1lY81cRELxJRoEomZ8Wu4haOPqMQ1jS2OqwhSz+hnH+Qv
-   hVsSjm4yjZNXut4e9p+fgsRJcbJWVA1K852M4GxDiqU/o62om20BJ7+Ox
-   985zt2OAk5FfQODDwxmFmcrABzIYq0017USjPxl5jBa4MyofzFX0nHSqi
-   j4yoAcIdIo9AK+EccLpi23pKbo4OqBekWiUWNG4ZPvxbx+msQNUzVBY0j
-   fy4TaV5J5VjFMZEyd0jSUoTNi8WY/6NxDMCJVcum1GlBGtO7j2ZdrRcEy
-   Im7KsEtxeeVTNTEleL331iNBGxXAu/nVHUCVW9CQdX9Nzb7t/lJIlekyH
-   g==;
-X-CSE-ConnectionGUID: bmOTn4s5QE+pSxL+dJUBCQ==
-X-CSE-MsgGUID: pVLlQRE5R6mlk9cbcXU2yQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3024009"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3024009"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 12:03:22 -0800
-X-CSE-ConnectionGUID: Nz1IaT65RqW47aDh6LK3Dg==
-X-CSE-MsgGUID: BKmsxJrwTT6uIgKFs3l55A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7777487"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 12:03:17 -0800
-Date: Mon, 9 Nov 2026 22:03:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Pan Chuang <panchuang@vivo.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Nikita Travkin <nikita@trvn.ru>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] iio: light: ltr501: Switch to read_avail() op
- from manual attribute registration
-Message-ID: <avInA0Qgi841Fd9f@ashevche-desk.local>
-References: <20261108094253.83899-1-clamor95@gmail.com>
- <20261108094253.83899-2-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNKxcVI/
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so842629f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:03:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794254614; x=1794859414; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hO10aJTqcdq/ahujE/caCvdQLD1fV3nWWuPROud/Q5U=;
+        b=oNKxcVI/TeeQxBDAuMqyCn+ZfQQO8blhqL8KlxBC30V65fOpcWXvZ9dfBeAjWf1Q6K
+         oHTBAEMwWh6UGyNWf1v8Ni2+oKmyI+4ri+9bcL/uQ3x6gc+0YuDaIXjQtdQvIChf8gDt
+         NfWoxLCmHPs79FMm+7QWr3wbPyBqSHGn1ZApTHXLNVJrLlNI/RdxjZskVe0gkDGQTabd
+         SEeESi4NtDlXaSfooFQNoTJ/fNUCHE3ElQm674W72D/i0yv+wUB/ZzxPvKFoUy9HslKc
+         2SaNu+jt8xZjWbTP4vo3TFQ+/9ZJPM3XToLKH6q7Vf3meq1ldiOeAMbs6gDvxC5GDgrS
+         Q4Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794254614; x=1794859414;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hO10aJTqcdq/ahujE/caCvdQLD1fV3nWWuPROud/Q5U=;
+        b=ZJUdKn0GmP1NL+jbrMM033rU3VtbtB0WVUkz5v94XnfHmLvHcs3j5Qz3Kg6eGu6V2e
+         FUMCYjp7GPT5PIcd7dHD6IWC/DLTsjjzJO/lfN7lGIXXcYrNTbpxw/8ZBQC7NxyVvlD/
+         dzFcpP7idwfkyEVLcPg43cYy/1QpL2/RhLq6/6URUYzg6/XePzqlp5vaUR3lunzSMSzV
+         fgJOKWNe5VyCwp3wPAHsiTSkmHdLobgKhOju/TWheepVeTXdIX4uIQAyeA78qldhlLAK
+         iAemdc4InQG5k0uNyi7g6bBHywZMoCfjcnKttqG82PbJN3G8rIduzpU++8Ncu6DKbJdE
+         GCfQ==
+X-Forwarded-Encrypted: i=1; AL+hErHyl5avUSL+AHrVbF+S6KLOm3SXWh9VgWx0GoKa5cGH0jjgcZSk0VCkC8wBkIeM8UH5+6O9GlsqmzzkbWY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bha+NzUQjdqo2RSq7xizZHyYB9XLbPt66BTkyN4oF59Ph4jvn
+	1tSJk2R9iwRPv+ofUS3ktS0Y3sEkVXMOCGT2tM5tsDxOi6G+jAbppblM
+X-Gm-Gg: AYBFou2rdd1sK4SLMDNzLlkeFedHv4GIYLpBEinjq7ggVOQhjxeYWsPdhjIBx7zMPmB
+	kV7WkkGid4AJK357axBdP5C9HDhoCYSuzLJBJios/hbla+9EK53EoT4S1e65vMZU5XFlnYiQTSd
+	zmSaY3rFgGt9qKQzcWCBgx1o2TD9dn946hroeXEO9/ssAv0jCeFm3qIRDNHvOBbuktvbUBv/PF3
+	OfDqCSdDnchyCj3ejVBIDIq+69P76yuQplhsBOCA3RYweIjwRZXeHhLDlo/F6ZZrB33XltThCmu
+	MI0fIXQ8lqwu+ImoR0YWMYqO5ahNXJrmMDNjRwb5HZAUHwmiASdTUd9Fl4wxPJ1K7x5KzHngd/R
+	tTiV86zKqsvi/shE8i2cK9fN+ewrS85oeZKA/ccry4J6JxUgKSEuzYxriL6ViNe9BTf9Iq3UEsh
+	sg0BiJqc6HcQXiVwlexVTEBXmVDvM/y/sdMdVyTp1l8Bj1Far+isXHWoskhdCTNm9atp9R+OccK
+	12K5EU04cKoutdPk7iobLfiFudiAuxIM3l27IldLLs5LIQqBHPxBvTR3T60/rqEXOxrRuiszfqd
+	D+AGWI3NTOx0G6/lcNzBJPJ0usor+R9av2Ds7HERA6iXNfziyQQkVi96G8peB59n
+X-Received: by 2002:a05:6000:4549:b0:492:b5e9:4916 with SMTP id ffacd0b85a97d-4982f874041mr553519f8f.24.1794254614069;
+        Mon, 09 Nov 2026 12:03:34 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835858f64sm874068f8f.16.2026.11.09.12.03.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 12:03:33 -0800 (PST)
+Date: Mon, 9 Nov 2026 20:03:32 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Haoran Wang <haoranwangsec@gmail.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ rostedt@goodmis.org
+Subject: Re: [PATCH v3] libcxgb: use raw_cpu_ptr() in ppm_get_cpu_entries()
+Message-ID: <20261109200332.52e2fc0e@pumpkin>
+In-Reply-To: <20261109180748.33682-1-haoranwangsec@gmail.com>
+References: <179241614797.5916.13928836073297916808@whr>
+	<CANZ3JQQrrntu0TefPZC79pKSmsOfwAngRJyuaVm81DYaJNFHFQ@mail.gmail.com>
+	<20261109180748.33682-1-haoranwangsec@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,47 +103,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108094253.83899-2-clamor95@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 08, 2026 at 11:42:50AM +0200, Svyatoslav Ryhel wrote:
-> Switch to the read_avail() operation from manual attribute group
-> registration. This eliminates the need for per-chip attribute_group
-> structures and related ltr501_chip_info iio_info entries.
+On Mon, 09 Nov 2026 18:07:48 +0800
+Haoran Wang <haoranwangsec@gmail.com> wrote:
+
+> ppm_get_cpu_entries() disables preemption with get_cpu(), reads the
+> current CPU's pool with per_cpu_ptr(), then acquires the pool's
+> spin_lock_bh() while preemption is still disabled, and finally put_cpu().
 > 
-> Adjust LTR501_INTENSITY_CHANNEL to account for the new
-> info_mask_*_available layout, allowing the removal of _shared since all
-> intensity channels share the same layout of available entries.
+> On PREEMPT_RT kernels spin_lock_bh() becomes a sleeping lock
+> (rt_spin_lock), so the task may sleep with preempt_count elevated:
+> scheduling while atomic, reported as a BUG by CONFIG_DEBUG_ATOMIC_SLEEP
+> and a deadlock once the lock is contended.  Any iSCSI offload I/O
+> through a Chelsio NIC that reaches ppm_get_cpu_entries() triggers it.
+> 
+> Read the current CPU with raw_cpu_ptr() without raising preempt_count,
+> and derive the global index base from pool->base (initialised when the
+> pools are allocated) instead of cpu * pool_index_max, so the base
+> always matches the pool that was locked.  The owning CPU remains in the
+> debug output, now derived from pool->base.
 
-...
+I think you really need to explain why it doesn't matter that the pool
+for the 'wrong' cpu is used.
 
-> +static const int int_time_avail[] = {
-> +	0, 50000,
-> +	0, 100000,
-> +	0, 200000,
-> +	0, 400000
-> +};
-> +
-> +static const int samp_freq_avail[] = {
-> +	20, 0,
-> +	10, 0,
-> +	5,  0,
-> +	2,  0,
-> +	1,  0,
-> +	0,  500000
-> +};
+You don't need a big explanation of why you can't call spin_lock_bh()
+with preemption disabled, it is probably enough just to say that you
+can't (the most reason would be 'can sleep on PREEMPT_RT kernels).
 
-When an entry is not a clear terminator, add trailing comma.
+This is separate from any issues of acquiring the wrong lock.
+I'm not sure about the trace, if you are tracing the cpu the data belongs
+to - then that should be what you call it.
+Once you hold the lock I think the cpu is fixed (even under PREEMPT_RT)
+so you could trace the actual cpu as well - especially if anything 'funny'
+might happen because the data wor the wrong cpu is being used.
 
-On top of that it's better to use 2d arrays (yes, it will need some casting,
-but this will make it clear that there is a tighten dependency between odd
-and even indices).
+Of course, it the code is just trying to avoid lock contention (and maybe
+reduce cache line bouncing) it may not matter at all which copy of the
+data you get.
+In fact one for each cpu may be excessive - think of systems with 1000s
+of cpu not single digits.
 
--- 
-With Best Regards,
-Andy Shevchenko
+David
 
+
+> 
+> Signed-off-by: Haoran Wang <haoranwangsec@gmail.com>
+> 
+> ---
+> (Resent with the complete Cc list; the earlier copy reached only you.)
+> 
+> Hi Sebastian,
+> 
+> thanks for the review.  v3 below addresses your comments:
+> 
+> - The commit message now describes what the patch does; the review
+>   rationale moved into the changelog below the --- separator.
+> - PREEMPT_RT spelled out.
+> - pr_debug() keeps printing the owning CPU of the pool, derived as
+>   pool->base / ppm->pool_index_max; the global index stays
+>   i + pool->base.
+> - Tested on: x86_64, compile-tested with CONFIG_PREEMPT_RT=y and
+>   CONFIG_DEBUG_ATOMIC_SLEEP=y; no Chelsio hardware at hand, so the
+>   change is not exercised on real offload I/O.
+> 
+> Changes since v2:
+> - Keep the owning CPU in the pr_debug() output, derived from
+>   pool->base / ppm->pool_index_max (suggested by Sebastian).
+> - Reword the commit message to describe what the patch does and move
+>   the review discussion into this changelog; spell PREEMPT_RT.
+> 
+> Changes since v1:
+> - Drop the cpu variable: read the global-index base from pool->base
+>   (initialised at pool allocation) instead of a cpu captured before
+>   the lock, so the base is always consistent with the pool that was
+>   locked.  The per-CPU pools are shards of the global ppod index
+>   space and not tied to the running CPU (ppm_unmark_entries() derives
+>   the owning pool from the index itself), so locking another CPU's
+>   pool after a migration is a cache-locality matter, not a
+>   correctness one.
+> 
+>  drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c |   12 +++++-------
+>  1 file changed, 5 insertions(+), 7 deletions(-)
+> 
+> --- a/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
+> +++ b/drivers/net/ethernet/chelsio/libcxgb/libcxgb_ppm.c
+> @@ -119,16 +119,13 @@
+>  			       unsigned long caller_data)
+>  {
+>  	struct cxgbi_ppm_pool *pool;
+> -	unsigned int cpu;
+>  	int i;
+>  
+>  	if (!ppm->pool)
+>  		return -EINVAL;
+>  
+> -	cpu = get_cpu();
+> -	pool = per_cpu_ptr(ppm->pool, cpu);
+> +	pool = raw_cpu_ptr(ppm->pool);
+>  	spin_lock_bh(&pool->lock);
+> -	put_cpu();
+>  
+>  	i = ppm_find_unused_entries(pool->bmap, ppm->pool_index_max,
+>  				    pool->next, count, 0);
+> @@ -145,10 +142,10 @@
+>  	spin_unlock_bh(&pool->lock);
+>  
+>  	pr_debug("%s: cpu %u, idx %d + %d (%d), next %u.\n",
+> -		 __func__, cpu, i, count, i + cpu * ppm->pool_index_max,
+> -		pool->next);
+> +		 __func__, pool->base / ppm->pool_index_max, i, count,
+> +		i + pool->base, pool->next);
+>  
+> -	i += cpu * ppm->pool_index_max;
+> +	i += pool->base;
+>  	ppm_mark_entries(ppm, i, count, caller_data);
+>  
+>  	return i;
+> @@ -375,6 +372,7 @@
+>  
+>  		memset(ppool, 0, alloc_sz);
+>  		spin_lock_init(&ppool->lock);
+> +		ppool->base = count;
+>  		count += ppmax;
+>  	}
+>  
+> 
 
