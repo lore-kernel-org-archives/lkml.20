@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268646;
-	b=VL/VlJhnnKfdUnWKBM3xYCIZWas7sfJe+bxxRDznqw2HOu83Uspu7fyeOxYRQcBBccpR
-	 KS1T2Fdf6WQc408uAG24QWqvgp1Dakg3/bIv5Iqqq9uoW/rIm1p4AboDRUcK+Ps5Smtpb
-	 MASGD43HQJ54vSVDkNGvKiZBI66lacY0O03fLn1XmmHngOP5OdkpRh415bJa5L0U2aC9s
-	 quLnH6l3TAxhBWfV8vjnuUblctnD/i/bKiwPKenSEMvac5UZUktWtDDaWfNmcqXBvh93L
-	 vb/R2MHjF1yHJFgYEcDBjt7pH0zcyOGYzFDktEtUouok1DOTLY6XHJHUb/3VCMey9dw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268646;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=c2l02lH4CkPIKl8yer1fYXore0VFomr5mbN4wJ3bvKc=;
-	b=4+TyoucO08hvltE+My6XeKdxbriW/fW5JLTMmLb52nCDTw2N4HbDlheHAcmciZh7IQbi
-	 coWPD268onH5kkRh1/gIi8+2DqKNbvHpLHUNPL696nVQTvAHNG9rEcBJJBvISQk8oVBUt
-	 hvLRUbgAV1DigNWZ+gCAIsW9/RrjWhdWlG5B04A9ABA85vTOPRrNgf9lnWtGPoyrWWKJ9
-	 2X3iWgcDv2w5y6obFDKcCAgB6mGZshyUhhDXk18KI1EMOeZMXnLd4jfEbeoA14kQ2eEQL
-	 zFviG5IgungOUmL7avPY/XKKCuzaq/qo+90UjBZO75pxTnLNJzqKns0iiyjm3E6sYfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="K/ookRI7";
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.130
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794268695;
+	b=AURm7XgyA6JDiLLgDlOiHSRnb0/MilrIaR7cs1ZoTluLgonrXncWVfzid9lAfX9oSbDK
+	 l+z93Pl7hx3o3Jko3jdxBY5BynH/SOtsb+GuVLeM0SMHW2wX30t8VWL/968fLdregfz1V
+	 atr2RbmjFW8LgBaGSeJvCQO0B74DWBJfVhpngpiVktQp0ozvx5zOA04BDinBPSJdxFR0L
+	 rr7R6a9tslTgI4obM2RDEWtsrSJmIfERV4y3CRDjVFrStwLI72wXUq4eV14/mKVTQbtJe
+	 i8nJVPlaz7qxHP6j+aJrwvNTzGg2Qxj+WAf77ECy4m0kkOIlLj8QbmZ+xXxt7CmLj9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268695;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=B3xgcv76EQAIc2HtjPQ27DBd3dSBpeYPhZDku4jNZpU=;
+	b=b7dYrVmNC7O/Yoxhlr7kvIxA7qilriMNxWM63LTIIYlPzjyNkz9RnwQDM7Kj06/Ww6O1
+	 dFmLGBXL+oGrTXnM7LV/e+AmN2/fBNE8p4vyVg8OJk7VcyWM2DFDWRTJl2vjeYLbgxfYn
+	 uW1/7TsiAiOqkCiCJGDWq8EwRKiruXHP0Yk0OuDMY8YjHV4ejgGo2PYgYzBSBSnmeZ7rs
+	 LMOV/gik10k1CcQepk70KrQHx3uv81rHQQ6+SAUawF7n0sa66bFZFJzT5Ra80esPJQH4f
+	 l8H2T3j/UnawJ4Ew+3nNwhXjLPe3sAKrxpIplUH/k8nfnC+Gy5RgJ/F9OibmtNxR/Xg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6feYrWZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.130
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3876071819
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B3876071819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25054606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:58:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25054606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=K/ookRI7
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso602118a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:25 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268645; x=1794873445;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=c2l02lH4CkPIKl8yer1fYXore0VFomr5mbN4wJ3bvKc=;
-        b=S7TpDUXcDe5OYOZlPAFQRTYvt4tJEqiQsjmAZjEXjqHDpc4eGSPCKTI9pYRQITYy68
-         DG5QwAucLKiVmm/4T61e81XOGqVpuupDrYD97b95iFklt7pkimrXsdS1wzCA7n6J7tOP
-         8SF0QMkGg5MsnqryyM4HrEXuT3+qz7qSZCscC0oQkIgoLoxXG8NSynjMQR+zhvAawwiP
-         VyguHhovy8egWLQo3mc+JKLf6vHoFx2Jk2yx/8ItVuPWNYtsFW9+8QLwyW4ZfNQxt8sa
-         ICm+CgMemC7MbW6RspkIUbyiY3rr/C1nNrTJJzuoZ3zbMPqMM4T0PZrVXNwNeu+mWBUU
-         wuBg==
-X-Forwarded-Encrypted: i=1; AL+hErGuHDXj4FStUeTzlHvspl2o+4ssz4qf3QF5e/V6BRv9sCJSo/RY3nAFT4C+Te6zE0vMbNJK/bNPaS9wXcU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+v6D2lDpQJtmsAF1sjbguyB6G+b1A6MuSlq0W+MRCrzsu911sa
-	pOZgkvIcG/lxU54xBI7QrOestZGd672ofCt56QlbVJZD2knonfgSgsOAt/LIl4PFVJxCopDGYic
-	X2VZEU94QT6VTHqk4iq8eoD5D59gCU3zDhbcpzi/GZOrj5rNFyKaJ0rW8Rr8J6aLeqxkcH37r91
-	PWRN/yb9dMlvWH3IyTRiT0Y1sFtsWUe4uMAV5fHL1Sz0X5VTsmm8RL9xuTCYl0d1MT2seuW78fX
-	mdfODclYbNZJ9bc+Rt3dBUy
-X-Gm-Gg: AYBFou2h6zsqYZDgwMdbcwJ4NsidPUnDMvIh7Y6cB9pD9mvWw1IeQ1x8+nIRyAs/waA
-	erfyY6u/GXDXi6hSZD58i0XWxuKcqy07XXyktALJjdxwenY1tm9O9K+Txgfe/w/ldFIAFaXziJE
-	xSgQ5QVIDTAqMklA/cGrC81JDyYTpCsM+jhXo90c1hrOhsH1pSP6w2Vu3Qfyliz/2vEvLjUOLYh
-	1zRwpPx0/i/Akt1cfcDk6yk05lsX4ZDc78pW+cK3ENVTEGSz8YBw6MGVNHFQ8oFXUEKdibpWhLT
-	92RdxD4vHhPtmTWXDdF5eJznyNbW58fqJq9/vQxuyxgKJ8oWEYKgshtvVKefIPcMVGbIrzmO2eG
-	HPBigxuLI8bsTw3IginnjzEb/UP0OZ6vnqc9cfhffyY2QetWVB+tReszKNezeOuwnT7GiN6mXrV
-	hD31ZFGraCXpjM/WV7Ye9iTER7vZMfkJLn72s85F2q
-X-Received: by 2002:a17:90b:50cb:b0:3ac:b185:fa16 with SMTP id 98e67ed59e1d1-3b166cc8e64mr1283979a91.43.1794268644714;
-        Mon, 09 Nov 2026 15:57:24 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b16908fa5fsm251465a91.3.2026.11.09.15.57.24
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 09 Nov 2026 15:57:24 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-944138ed63fso249578385a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6feYrWZ
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-84abe8ecec8so641110a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:58:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794268694; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZkYtaqY68xyjNe+RhcicfCVrzPGrP+ipTnoXUHQOSww4N+FakaJSZU625kB9LHuKoZ
+         2ILFy9PDR7d5ET7iuv6g37qkU7niywBTRK31pcy5gdWzsZj90zyCZpv6QqiIPRaemBld
+         xKnludIwRE9Xe4eQTngPQfHDzN0pzy0j8NdgrIppgY+BaJDyxlpByOxkHdLDnfumbZkn
+         SvCyjNZYQZ5ST13uY3t0LXVD24O9CEvLEQb8f4uYXg20F+Q885I4NEkkmDy3ScE6Vrq0
+         aNUVRKP+dmRisb8+2It9hmlzlb/+sI67vbto9SJlKR6hyqTOVTiglU/vi5Q1DJNS9q/U
+         cqGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=B3xgcv76EQAIc2HtjPQ27DBd3dSBpeYPhZDku4jNZpU=;
+        fh=HRmPobKcyrf2WbqFWaKeTYg0z7Xu/QGXXR6XUXqL3Zo=;
+        b=ht0zAa/zu87z8KCzQXk96+J1WonORWDefNIhkaTyDESWAsbBU+TChK31lukL8p3/gi
+         YeoKmKnkTisjVN2p/WmV55P59Nlvg7TU2KEW81YxdYBh7/pMXlnsk3dih893kwM7uM8g
+         F4Z3HJietQ/va99KeykEboMFf2PoprwJlleDdMB6FLT36Zl/Qudb4acglhqWFTjmCfZ7
+         MAKWA7P7Lwk6V+Bes4EnjAWUrBCGU4BKSpg9zwBVJQOAsLZIaUURAqjJVDR67/0KjeRP
+         FdmNhUhf72JWp++PKuxWmz81neJxmGTQRESPe5PAUOVAeo1x65QSBAijsCPOCSC82P+v
+         e4Gg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794268643; x=1794873443; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794268694; x=1794873494; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c2l02lH4CkPIKl8yer1fYXore0VFomr5mbN4wJ3bvKc=;
-        b=K/ookRI7S4LJQIWYZUBH4covA9zZEZL+Vyxe7CkJEHbCcfnMqrigxh8b5MLRjMCK5r
-         N2ZWIto40byAJr0vsNXHwevSBtiahcqeSXmlTrT2pwdUjS2SeI4729iqL5DqsL/PkIs6
-         lXyoTlDVIGcvRMp65u0MCoxQAvJ9Y+fvYOKk0=
-X-Forwarded-Encrypted: i=1; AL+hErEaSqz3+6ruu7KxMQpd3JLiqVaOdmo6DxAmUFQoXuiskBNhDz96nXpoS8JQxZxuiWTKwVt2GrO7aovOMZ4=@vger.kernel.org
-X-Received: by 2002:a05:620a:8089:b0:947:90cc:f151 with SMTP id af79cd13be357-9479f1c07ffmr155202785a.7.1794268643075;
-        Mon, 09 Nov 2026 15:57:23 -0800 (PST)
-X-Received: by 2002:a05:620a:8089:b0:947:90cc:f151 with SMTP id af79cd13be357-9479f1c07ffmr155200585a.7.1794268642539;
-        Mon, 09 Nov 2026 15:57:22 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e734698sm94360885a.13.2026.11.09.15.57.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 15:57:20 -0800 (PST)
-Message-ID: <c7ed60fe-eddd-43b5-9576-f574b5dd80da@broadcom.com>
-Date: Mon, 9 Nov 2026 15:57:18 -0800
+        bh=B3xgcv76EQAIc2HtjPQ27DBd3dSBpeYPhZDku4jNZpU=;
+        b=W6feYrWZzhLEPMNLCKkZKztN/y/rZE1jfr/hKRqc4WAMkDgqRxAGxOxS/xDyzIAtFj
+         HnZa9TbDAfkLFVd6v2WtW6io5YYICRcplYdh90y9/yZMoNvc0sIAP9zZjEcqX5clJwLk
+         3ozbF+3ENRJ3bmQp8HvShuy7i4BCXSD7FbIrRvhx1yMiGvTL7QYowRugak4/uGpr3USC
+         Rz9DemnVrDZ8CxhqFvLk1ecEMOkoIgCm4YuM6gHOTbeLMTIignJs0ADIyDLaFD31dmLG
+         jLaiNhuiVqQdEmB7oBeTzuVenODHuMIp1858FWPYIWB0FIhUv6gfgQNcCOByT9QuFvIr
+         Bvrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794268694; x=1794873494;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B3xgcv76EQAIc2HtjPQ27DBd3dSBpeYPhZDku4jNZpU=;
+        b=1RV5e3VOsiO5OlXOkPpGURPsXqlR2QDs9OnBhGeEOfPjonni512GEM9XC1WkmDoBzO
+         IE8SM9ZvL2lLP9R+Di3jiik9iJ38po2lx0c383YR8R/KF+yS+xk99n++sylud0rC8Y3O
+         TrdlM2HmwzK1Cy8gkuEg42FdjIL5bP6dmh8zKAEUaz4/shptpe9OF27PooO/ZCyaf3IB
+         9zXCgOAShWRrmN3KreFAwE4YaXPHYOJSQewXD4x2dxnTVbOTiDDDyz8vUJMACiqYy8D6
+         aZhdqJwf8HwFy7LGRNp/q3Fp4fW/gPTDiC+hii/bE35j/TP3gR5FrMJJ7h4CZyGSIyry
+         BYnQ==
+X-Forwarded-Encrypted: i=1; AL+hErFAT+fpBC2j5PoChfzt+Ie6bbGFOSHPk9XDc0voWHSfRbMOXlhYgDSJ4Wu7YKi5A9/RjpMRvQgrfdyy2Oo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8btF4uHXa5dg1SlZhERSuotxhBL3VmzQpgNHpIDi/MJJ+2Uw+i
+	MoDnwL5PyjDsfolfYpqPUjh6TnH0zWlrNE4bXp5M6yvIfau+cJ4So45wUNXm2Xrvq2OANPgFm8E
+	CTUz+0FZBhpxrgZ3S14t3ReZJNobsG0EUDpQj/5bunvnX
+X-Gm-Gg: AYBFou08McoqPVWQoI3eKedSIqBAIEJXfhN3j2pY7BYNF9QvTEYqElnT4+UCCcg/WyM
+	6A/h3e/m5/l+CqiebukpM8LX/K2yxy5H4w2G+0rIz5l2ezMwJ59lhKWDskzpp7oO4DLfi1oHwKB
+	gvghrSrMpYgsEkzBoEBNYD0eoOKKkLWAeotsucI7LnwPlFKwLnPYF+10dQ+RD91qj8SnhF5DqVq
+	qALeV5N59EfOgjAaE19CY2xFCdIoosbGpdcO6uBb0Yc3sM8NE1SeIAKH8mHjYPj6bOwOuCTHvjM
+	g7GvMK0jlhpfkWcGEayJ7WP7ZryiUjSyUGnYaMP1LZxxF8hTtVYx7/87kJV+rDCvECirv3h/xjA
+	ss9LW5hllnJl9GO9cSIuxqDxDtuV2HhXsgxTglifJPgDANd1vEnqS06jTURrGHYWDdL1M0XT2tw
+	nbqs1D7lD1taAGJ/dMDTpD6jj0K3HcPhfn77iD7kKDsFUWFAJabq2g
+X-Received: by 2002:a05:6808:1827:b0:4bc:336d:7494 with SMTP id
+ 5614622812f47-5683cd3f882mr943882b6e.30.1794268694027; Mon, 09 Nov 2026
+ 15:58:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,240 +104,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 4/8] net: dsa: b53: reject conflicting mirror
- destinations
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, vivien.didelot@gmail.com,
- linux-kernel@vger.kernel.org
-References: <20261030211617.288562-5-florian.fainelli@broadcom.com>
- <179348376172.3131.11440720201294156466@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <179348376172.3131.11440720201294156466@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20261107211753.75932-1-dennylin0707@gmail.com> <43045fee-e8e8-4f42-a535-8354a53680e8@enneenne.com>
+In-Reply-To: <43045fee-e8e8-4f42-a535-8354a53680e8@enneenne.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Mon, 9 Nov 2026 15:58:03 -0800
+X-Gm-Features: AclHuK-EsFH-ieGfoKqH-PErFZeiy3VtHKi6SqIC9k4pf0Ig9uxdimmnImTZ9Ts
+Message-ID: <CAGEkeHdr73NeT9ig8HrUtQjDN1xdL1JtbkQOdpQmgf+obi7qtQ@mail.gmail.com>
+Subject: Re: [PATCH] pps: require CAP_SYS_TIME to attach N_PPS ldisc
+To: Rodolfo Giometti <giometti@enneenne.com>
+Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/31/26 14:56, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] At this commit, the new conflict check in b53_mirror_add()
->    (drivers/net/dsa/b53/b53_common.c:2553-2557) decides whether rules…
-> - [Low] The commit message says the patch propagates a failed capture-
->    control read, but only the B53_MIR_CAP_CTL read in b53_mirror_add()…
-> 
-> Pre-existing issues:
-> - [Medium] Each per-port, per-direction mirror source bit is shared by
->    every tc matchall mirror rule on that port and direction, but it is…
-> 
-> --
-> 
-> net: dsa: b53: reject conflicting mirror destinations
-> 
-> With this patch, b53_mirror_add() reads B53_MIR_CAP_CTL first. While
-> MIRROR_EN is set, it rejects a new mirror rule whose destination differs
-> from the one already programmed. b53_mirror_del() now clears the whole
-> CAP_PORT_MASK field along with MIRROR_EN when the last source is removed.
-> 
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index c38e8c5838bd8..378f47e7250cd 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
->> @@ -2543,7 +2543,19 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
->>   		   struct netlink_ext_ack *extack)
->>   {
->>   	struct b53_device *dev = ds->priv;
->> -	u16 reg, loc;
->> +	u16 reg, loc, cap_ctl;
->> +	int ret;
->> +
->> +	ret = b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &cap_ctl);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if ((cap_ctl & MIRROR_EN) &&
->> +	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
->> +		NL_SET_ERR_MSG_MOD(extack,
->> +				   "Only one mirroring destination is supported");
->> +		return -EOPNOTSUPP;
->> +	}
-> 
-> [Severity: Medium]
-> Can leftover hardware state make this check reject a valid first rule?
-> 
-> The check only looks at MIRROR_EN and CAP_PORT_MASK as read back from
-> B53_MIR_CAP_CTL. It doesn't look at B53_IG_MIR_CTL or B53_EG_MIR_CTL.
-> 
-> At this commit, nothing in the setup path writes any of these three
-> registers. The only writers are b53_mirror_add() and b53_mirror_del().
-> Also, b53_switch_reset() doesn't soft-reset every chip.
-> 
-> Suppose a bootloader, a previous kernel (kexec or warm reboot) or an
-> earlier driver bind left MIRROR_EN set with capture port X. The first tc
-> mirror rule to any port other than X would then fail with -EOPNOTSUPP and
-> "Only one mirroring destination is supported", even though no software
-> rule exists. Before this patch, the add path just overwrote the stale
-> destination.
-> 
-> The reverse case also seems possible. Stale source bits with MIRROR_EN
-> clear pass this check, so those ports end up mirrored. The same stale bits
-> also stop b53_mirror_del() from ever clearing MIRROR_EN.
-> 
-> The later patch "net: dsa: b53: harden mirror register programming" in
-> this series seems to fix this. It adds b53_mirror_init(), which zeroes all
-> three registers from b53_setup() and bcm_sf2_sw_setup(). It also bases the
-> occupancy test on the source masks:
-> 
-> 	if (((reg | other_reg) & MIRROR_MASK) &&
-> 	    (cap_ctl & cap_mask) != cap_port) {
-> 
-> Could that be folded into this patch, so this commit doesn't regress on
-> its own?
-> 
->>   
->>   	if (ingress)
->>   		loc = B53_IG_MIR_CTL;
->> @@ -2554,11 +2566,10 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
->>   	reg |= BIT(port);
->>   	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
->>   
->> -	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
->> -	reg &= ~CAP_PORT_MASK;
->> -	reg |= mirror->to_local_port;
->> -	reg |= MIRROR_EN;
->> -	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
->> +	cap_ctl &= ~CAP_PORT_MASK;
->> +	cap_ctl |= mirror->to_local_port;
->> +	cap_ctl |= MIRROR_EN;
->> +	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, cap_ctl);
->>   
->>   	return 0;
->>   }
-> 
-> [Severity: Low]
-> The commit message says the patch will "propagate a failed
-> capture-control read rather than making the decision from uninitialized
-> data". Are the other register accesses here still unchecked?
-> 
-> Just above this hunk, the source mask read is not checked:
-> 
-> 	b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
-> 	reg |= BIT(port);
-> 	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
-> 
-> reg is an uninitialized stack variable. On failure, b53_mdio_read16() and
-> b53_spi_read16() return without writing *val. A failed read therefore
-> writes garbage back into B53_IG_MIR_CTL or B53_EG_MIR_CTL.
-> 
-> Both writes are unchecked too, and the function returns 0 either way. DSA
-> then keeps a mall entry that the hardware never accepted.
-> 
-> The source bit is enabled before B53_MIR_CAP_CTL is written. If the
-> capture-control write fails, MIRROR_EN can stay clear, and a later rule to
-> a different destination would pass the new guard.
-> 
-> b53_mirror_del() has the same pattern. If its B53_MIR_CAP_CTL read fails,
-> reg still holds the other-direction source mask, and that value is written
-> into the capture control register:
-> 
-> 	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
-> 	...
-> 	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
-> 
-> The later patch "net: dsa: b53: harden mirror register programming" in
-> this series seems to fix all of these. Every read and write is checked,
-> B53_MIR_CAP_CTL is programmed before the source bit is enabled, and the
-> delete path jumps to an error label instead of writing back garbage.
-> 
->> @@ -2595,10 +2606,8 @@ void b53_mirror_del(struct dsa_switch *ds, int port,
->>   
->>   	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
->>   	/* Both no longer have ports, let's disable mirroring */
->> -	if (loc_disable && other_loc_disable) {
->> -		reg &= ~MIRROR_EN;
->> -		reg &= ~mirror->to_local_port;
->> -	}
->> +	if (loc_disable && other_loc_disable)
->> +		reg &= ~(MIRROR_EN | CAP_PORT_MASK);
-> 
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but each per-port,
-> per-direction source bit is shared by every matchall mirror rule on that
-> port and direction, and it is not reference counted.
-> 
-> dsa_user_add_cls_matchall_mirred() in net/dsa/user.c allows several
-> identical rules, and each one is tracked as its own mall entry. Earlier in
-> b53_mirror_del(), deleting any one of them clears the shared bit:
-> 
-> 	reg &= ~BIT(port);
-> 
-> With this patch, if that was the last bit, MIRROR_EN and CAP_PORT_MASK are
-> cleared as well. Does the remaining rule then stop mirroring in hardware
-> while it is still installed? And would the new guard in b53_mirror_add()
-> then accept a rule to a different destination?
-> 
-> The later patch "net: dsa: b53: reference count shared mirror source
-> bits" in this series seems to fix this. It adds mirror_count[2] to struct
-> b53_port, so the hardware is programmed only on the first reference and
-> cleared only when the last one goes away:
-> 
-> 	if (--(*mirror_count))
-> 		return;
-> 
->>   	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
->>   }
->>   EXPORT_SYMBOL(b53_mirror_del);
-> 
+> Are you sure this is stable material?
 
-Agreed that the conflict check needs to handle stale hardware state in 
-the same patch. I’ll fold the mirror initialization and register-access 
-hardening into this change, along with the shared-source reference 
-counting, so the fix is complete in isolation.
+I added the stable tag because an unprivileged user can exhaust the
+global source pool. I'll reassess it with the narrower fix.
 
-pw-bot: cr
--- 
-Florian
+> Did you check whether this breaks existing setups?
+
+The check would reject that setup. The default capture settings can
+be used without PPS_SETPARAMS, so that comparison was insufficient.
+
+> Also, is pps_tty_open() called only from TIOCSETD?
+
+No. Reopening an existing tty after hangup can reach it through
+tty_ldisc_reinit(). The check would use the reopener's credentials
+and could make open() fail with -EPERM.
+
+> If pps_tty_dcd_change() is never
+> called there, wouldn't refusing N_PPS on a pty be enough, leaving the
+> real serial ports as they are today?
+
+PTYs don't call dcd_change. Rejecting N_PPS on PTYs would block this
+path and leave serial ports as they are.
+
+Thanks,
+Hungyu
