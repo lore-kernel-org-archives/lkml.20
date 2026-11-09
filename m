@@ -1,81 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192939;
-	b=fP09V2MEISAFO01Ct6Jj41rt+GdMS0TcQKeVm1bRPaDo6hJ2i/W6EOH7rNu+F20J3Qph
-	 kRIRjkOs8hiPDSubY4KwcG/8hv3G0xJeI57hV5VI3JHcNtuDyMb12eXPbPUs7LCQCY+E6
-	 Om/y5WTFn/apQtg2bVAkHC/wlEIPEANMokzEjmYPegqd0jB8Wjfr+KTQfXuqc8s8JPf4V
-	 LhbCfV1pUaTsa9jjE27cS82l5BSyWjBq09Nlu39hX/H1d4O+6nuobuf0XWBCIoyaVAaBU
-	 iPTlVtnmPD8+9sP8QDrEtTxJeQw4sMcLcuoviKRIBd0GD1q/qRrOLs3/DRoumalXhfw==
+	t=1794192975;
+	b=vvrKd088HR3b+wn1avAcY9tHM4AxpWtSUGsT8uXjIOFeP5PDL853lg2XklH10NEmo+Hv
+	 GvRvTTGXkoHtCHFm2+I5nXU0B9HmW/+Yz06H4FZnPpSBu7SdGWTvGlJW1J4f+xoS4AZ9B
+	 3yiSELI7YrFCsgzcZGVrNffnu9eAfDHo/t/Cv14RiO2uB/9yyBB0cp/85hA86S525Jx94
+	 zQs4xYD9yMw95NWwRnFRro5CVdO3k4JGYwIpH9u83+aPolfp7D5ivsjiVQmRBEjLDxNaV
+	 tnKB7GC3wZAioo5vuvGKoZ2Xl63sY8lcpAz0sv9DFjybCMuT8fjSuCjRTZ/rneOQFKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192939;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192975;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4ZU4BW5tpDuq5rGEYxp09JU2RCU7i5x6/SS5iCRervw=;
-	b=HLubg2yJHdHa2b9jwrpt5UA0p1J7VhG2N8b2HvvbHBt/aRrWD1fGxz5fffTlKCeyM7lM
-	 szVbvU6CEV0YcrZFi6iLiLwEBpXfa2afb2taOL3LfvPaWtCSJsI3fYHZBRK8BnOIGOXiS
-	 b1C8KVS0MTVTgr9tjDOEyVzYcBWFUWtP8eU+XIAVmLZoHQikqHNshBs8drvtpr94yQFqz
-	 ajC2SM8JleObaB8YQq/DOu77VzoXKA6pjN0C3PEG9icuxqv+jY3L92g/P3ClUecveIW0N
-	 NJqxd+Zgzxr1qhAC0Ron3cVJrsaTvLtvxiAsEXEefwpHRhGjC6mEqg66wSNKsqYdpsw==
+	bh=RaQtkVcxzBk9BCoME2U3bmc9YHf7+BB9h58s0wdq0EY=;
+	b=0oxDmzNPu+zg6D9vMCoXtSAR3PltK54pGkbFOK6ESEfkH6POeGgBzCA3BfoHbF3z9efQ
+	 g4AypOaDbDYULOMSsJn8CbN6MSNR9LJF1Yr8Y5wa40F5jVjyNtZOgl2OyTqP4qr57SG9g
+	 Vr7VdHs6O4C8vhoLJcQWdTmIcfDa5JnFu/wkHJTirI8Ymdeeo6g2aPNHHIFwJyvXFbVEm
+	 ogrOTBz4toyQQ+8zPzQEpCQk1Oufjj/wCy0Tx46SRGOuiQAS9sDrvt9K9O8UCFt4C/xO7
+	 H3cRw5NckDvBuYvpVfU8McAD5IAg/z+T3fiJYoHycs5R8JDuJNGTMSMSr0EuQqmc5CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=SVW0lgn2;
-	arc=none smtp.remote-ip=203.205.221.164
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pPsEyQj1;
+	arc=none smtp.remote-ip=95.215.58.227
+Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1152606A320;
-	Mon,  9 Nov 2026 02:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1152606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E0F606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E0F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=SVW0lgn2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794192915; bh=4ZU4BW5tpDuq5rGEYxp09JU2RCU7i5x6/SS5iCRervw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SVW0lgn2UXY0TiiH0ezn9U3A4t7LfTGB9ZWKpNCOvI3R7AZVLrYPQK9qNKh/2nrQF
-	 N1+7IA0NjlJBYCfP8c1XG0+6gVOkhzqqnI54ng3aV4VRuy1b8cEDKgZVIhRGP6GCxI
-	 AyEAg62nrfrMOGgO4y83PEd4QiPeLa7pSm3Od/ZU=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id DCCAECE2; Mon, 09 Nov 2026 10:55:12 +0800
-X-QQ-mid: xmsmtpt1794192912tju46cxdb
-Message-ID: <tencent_1C5982E4E79A087063C5142622DDF7A4B909@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJm00y6rP0EAb1STJWmk9HRZRoZjB2Cv7iGHIhAnUX0035QRqO5o
-	 0tiXicJbtFhMOjVgz4M54gjQ4+vjOZSXhFT8BRsYknaG6IhxLbjL9BOM8RUHzDXVijEYDnnyuKoN
-	 gL7X4EprYgi0YT3ZNL3mIKQ1XrTzrbfjBECErytW/TIFSd2tDt9yZoqsZr8Dbmm2ar/FXqTjonOT
-	 j9tocBfU+DpLsMOvUAcnc4hyrPdQx89EOxPsyLMALylPejnx9FG6btTgBUQj3MmAQdj3UZYb5Z7U
-	 scbbIKRvEAH7LinKpfoUy5tZi2wWvxjVXDzleflGig6ICvonje7tg01zyYaw3AXU7nOB+Qw1sA/y
-	 LqjfIhV5yWjKnmf8tG7PAiaV3MLtwP7OmnMXN+ItfjD+wm8jfU1mWiEG7g7OmWHR/ASZxwPBxuiE
-	 yZsdTxWXToVa5KtAQ/QB6sIeA82/6IdKIf4pFTm7C3bSYxEmyXCA5PwBkNb4tjEKQOiB6Fe2Iock
-	 3nH9ueBS1q+dcUuR1/fxEMy4VLtykDfsGidG9DQzWht23eEUlW3EUzv91PGFn6jGee6MrPEmQtiB
-	 9HWB04qX+RHkeY+B6Gngn2upJJL8IsYDU57AkicuBb5NFaRYgD1yks70BZPqT6UAN1NWrPbrXWBQ
-	 ldJSSkCSMkME6APcs+tWgJvZ9TLNAgHZ77IhyeulUuz2oyV99fgMqQISdiY+DfOdXeBe3QvcJnRs
-	 phny8Urw0O295tHwcPQnNCsMeW5EobnhomkW7QVhmERbdFOXm9AuthTIlm8eNjvou24g2SFezC31
-	 8Uw9r4BedO8XgWjOwfy2XFT+yy7hfmWBwP+ilajfxNNytxOD/yQp/hBjSX/4TKSchL4UqvjXoR9c
-	 Qk0lpSScKJ7oOt5O281pHDnzvQRpQfQ4fYYivK7Nkp3AZaNpxG2uihnG9S0SpOKlbLF4vIIepUKN
-	 3suCoOjYxyWMtaQwgyAWM5MRnIBuMhiLP/nQD79BwW2erhedHLLg94PDlRnHaHUe2FjhpLQrEuTP
-	 SWpmhfrY4x5J1PzQZs7LV2cbYsvaecue0HG8HQQZHEv76oD5eOW50ysgL/BINIF5aj6IftdQ87fd
-	 R7T1tN
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Shuai Liu <847807867@qq.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	vdonnefort@google.com,
-	linux-trace-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pPsEyQj1
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4k7ckGD6tUfxybB5EnqooZtc5aOl3FhWKSEZts3QU7E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794192972; v=1; x=1794797772;
+ b=pPsEyQj1uqZQPM1Q9MSE773hInHOYi4lRhr43uud/usXlQa6R5ezWeoAYGchkTLlJt1/XYpd
+ TcidCn8H0VNDZm/N5UJBqTXFBRwllm5jMsext23W45FGCUuy0llqHd3RyMTN6oahRbWb76c22Om
+ GJ4d1+tGLQaqRtOXNw94TIy8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 07673be978d49c6a;
+	Mon, 09 Nov 2026 02:56:12 +0000
+X-Mizu-Trace-ID: 07673be978d49c6a
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
 	linux-kernel@vger.kernel.org,
-	syzbot+008851bf625629489e75@syzkaller.appspotmail.com,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH] ring-buffer: Reset per-CPU buffer state in ring_buffer_subbuf_order_set()
-Date: Mon,  9 Nov 2026 10:55:12 +0800
-X-OQ-MSGID: <20261109025512.153242-1-847807867@qq.com>
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 02/14] inet: frags: annotate data-races around fqdir->timeout and fqdir->max_dist
+Date: Mon,  9 Nov 2026 10:52:01 +0800
+Message-ID: <20261109025425.328445-3-jiayuan.chen@linux.dev>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6af009ed.4dd4714a.f8d02.000d.GAE@google.com>
-References: <6af009ed.4dd4714a.f8d02.000d.GAE@google.com>
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,71 +103,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ring_buffer_subbuf_order_set() replaces every page of a ring buffer
-with newly allocated empty pages when the sub-buffer order changes.
-However, it does not reset the per-CPU accounting of the discarded
-pages. The stale counters (pages_read, pages_touched, pages_lost,
-entries, ...) continue to describe pages that no longer exist.
+fqdir->timeout and fqdir->max_dist are read without any lock while their
+sysctl handlers update them with WRITE_ONCE(). Add READ_ONCE() to the
+readers.
 
-A full waiter (e.g. poll on per_cpu/*/trace_pipe_raw with
-buffer_percent set) then causes ring_buffer_nr_dirty_pages() to read
-the stale accounting, and the invariant pages_read <= pages_touched -
-pages_lost + 1 can be violated, which trips the WARN_ON_ONCE() there:
-
-  WARNING: kernel/trace/ring_buffer.c:866 at ring_buffer_nr_dirty_pages
-
-Since the old pages are gone, the buffer state after swapping in the
-new pages is equivalent to a freshly allocated buffer. Replace the
-manual head/tail/commit page assignment and the rb_head_page_activate()
-call with rb_reset_cpu(), which performs the same page setup and also
-resets all per-CPU accounting.
-
-Verified on QEMU (x86_64, v7.4-rc2): enable sched_switch events,
-partially consume trace_pipe, set buffer_subbuf_size_kb to 32, then
-poll trace_pipe_raw with buffer_percent=50 while writing events. The
-unpatched kernel triggers the WARN above, while the patched kernel
-does not, and the per-CPU stats report a clean buffer after the order
-change.
-
-Fixes: 2808e31ec12e5 ("ring-buffer: Add interface for configuring trace sub buffer size")
-Reported-by: syzbot+008851bf625629489e75@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=008851bf625629489e75
-Link: https://lore.kernel.org/linux-trace-kernel/6af009ed.4dd4714a.f8d02.000d.GAE@google.com/
-Signed-off-by: Shuai Liu <847807867@qq.com>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- kernel/trace/ring_buffer.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ net/ipv4/inet_fragment.c | 2 +-
+ net/ipv4/ip_fragment.c   | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 75cd8df23c1b9..2726eb8cb3eeb 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7548,10 +7548,6 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 		list_del_init(&cpu_buffer->new_pages);
- 		cpu_buffer->cnt++;
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 0b8d22ffafca6..ba10aec88cc9b 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -415,7 +415,7 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
+ 		inet_frag_putn(q, 2);
+ 		return NULL;
+ 	}
+-	mod_timer(&q->timer, jiffies + fqdir->timeout);
++	mod_timer(&q->timer, jiffies + READ_ONCE(fqdir->timeout));
+ 	spin_unlock_bh(&q->lock);
+ 	return q;
+ }
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index 36105dd192823..e70ef3fe5e331 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -89,7 +89,7 @@ static void ip4_frag_init(struct inet_frag_queue *q, const void *a)
  
--		cpu_buffer->head_page
--			= list_entry(cpu_buffer->pages, struct buffer_page, list);
--		cpu_buffer->tail_page = cpu_buffer->commit_page = cpu_buffer->head_page;
--
- 		cpu_buffer->nr_pages = cpu_buffer->nr_pages_to_update;
- 		cpu_buffer->nr_pages_to_update = 0;
+ 	q->key.v4 = *key;
+ 	qp->ecn = 0;
+-	if (q->fqdir->max_dist) {
++	if (READ_ONCE(q->fqdir->max_dist)) {
+ 		rcu_read_lock();
+ 		p = inet_getpeer_v4(net->ipv4.peers, key->saddr, key->vif);
+ 		if (p && !refcount_inc_not_zero(&p->refcnt))
+@@ -220,7 +220,7 @@ static struct ipq *ip_find(struct net *net, struct iphdr *iph,
+ static int ip_frag_too_far(struct ipq *qp)
+ {
+ 	struct inet_peer *peer = qp->peer;
+-	unsigned int max = qp->q.fqdir->max_dist;
++	unsigned int max = READ_ONCE(qp->q.fqdir->max_dist);
+ 	unsigned int start, end;
  
-@@ -7560,7 +7556,13 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 		cpu_buffer->free_page.data = NULL;
- 		arch_spin_unlock(&cpu_buffer->lock);
+ 	int rc;
+@@ -242,7 +242,7 @@ static int ip_frag_too_far(struct ipq *qp)
  
--		rb_head_page_activate(cpu_buffer);
-+		/*
-+		 * The installed pages are freshly allocated and empty.
-+		 * Reset the stale accounting of the discarded pages,
-+		 * which can otherwise trip the WARN_ON_ONCE() in
-+		 * ring_buffer_nr_dirty_pages().
-+		 */
-+		rb_reset_cpu(cpu_buffer);
+ static int ip_frag_reinit(struct ipq *qp)
+ {
+-	if (!mod_timer_pending(&qp->q.timer, jiffies + qp->q.fqdir->timeout))
++	if (!mod_timer_pending(&qp->q.timer, jiffies + READ_ONCE(qp->q.fqdir->timeout)))
+ 		return -ETIMEDOUT;
  
- 		raw_spin_unlock_irqrestore(&cpu_buffer->reader_lock, flags);
- 
+ 	inet_frag_queue_flush(&qp->q, SKB_DROP_REASON_FRAG_TOO_FAR);
 -- 
 2.43.0
 
