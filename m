@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243722;
-	b=trotnGuwiKk2AadSlCLsf+LiptdrcL1tbPsUFaLSno2erJ1AIciXhppnsOKcVnZ0GCZT
-	 buvWv/27pBBhbbc7osdzSiVUZcmtZ4LtZbzAj/GrPXKih7HsXQoL33aw9xaOCsBf/LpFz
-	 XpVMglqTUMFlIJBUkUefznhmARYRLs0M4cMSNh4JEvdOEtI2UgioKHbQPMf/TyGFKIDzW
-	 R47C9zksETEwGU1BPfaDBRBKRhTsKYwNNeJpCWRF3EYoQR5QUBlWvdzQdKJFNqVaYu1X2
-	 Z46WqdrwOG2YC5kWi8Xuu532e82CrFyxlur8gFqYc2ynfQTM4fNdaezNttQpDadEFLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243722;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=oG2TQCsxpY9LqxmAzIoNvh0i+sGuT0ezlKI+pPVi9Lk=;
-	b=zPcgigfWHTM4/bNWJiiz4nIQJ7wdzzuiW7GJRAgEWAG14lCD/pMvYui2mRGs3eOSHEHu
-	 8wtYQ7bt7FSOrALqiU4YB7K/yafNdwnaeBHqmrngyOu71yYNpZNi531JV+fpStKptXowt
-	 3SR4JrZO8afD+XColKn5ApJ+bEt65ZS6spcZ9NI75zFAAagWUaPhX38ydLMKJllanxoB3
-	 RMuGes8kqn6Onvv0lT0KbmihxBTcd8aBHtWDCB37TkDIm+uwpP9dcnc6LcCA98azY5dEw
-	 j7jCOyETy9wRe1x/W460QcxcRixYJkJLaePnQhsxL3buKdT+89e6KKtSTkktYXld1dA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b="Zcz5Pw/K";
-	arc=none smtp.remote-ip=185.70.43.172
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794243752;
+	b=Fw+oGbtN2/paxuOQ74zvw/eDzOs9rNdaATSACgpgA/8vnM6GqxLykgGc09XA833OKUCV
+	 HmW/9jlDFBjzOjWZ5YNoxnpdd0OExYmkLpJPPMXOWZRfRE2K733h2VKmTYJx7fTiKkmFb
+	 d2D8rqqblElUe/O3wbqNANNplSPX3tPY+XkfD1xJh/3Q8+YTp/BK0Ht+4FhSrgv4Xv1A5
+	 FmAORYCFmDviw+LLPqIY6wDh3XNVmHgqpSkUJU3HHYtPhwk/aIbCw3YuUAdp+gxJipRNv
+	 HpK5hzw1KhrRCsbrfwO4v4tUD8/M+vWnBW3yYyRPzxmF1vHX9A8OCt+/EyiLAoWnQwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243752;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=+ccDkPggQrAMrKLbEkb1CJN9ak3E69kSIgi6h8tof8A=;
+	b=HIxW6JR+2DCFeJ9gbQSs8R8hHYstXIsiiCKrGCl97XcrDkbez3ifQDt9s4c6vDb+/zKm
+	 lainzhEgZJA2Qte2eyD4tVkcfv6jQ+8YAXRuoBMJjS/lENgkX50ZhmRg1+iloOuhJnK6o
+	 MtsATGi3g5u1A/FrVIzLWFdPryV7FjPfcPGFGaHvzj5Kpq198t/bWZrEL5dSDWgwR3OrA
+	 3SELARbjVQ5qXrIGujP27L3whxJVPzbvjdEpFiacwDavXgx8IF+nyKTuxA2/SApZL6Y3x
+	 KVnREtrlfuHonBK7h2HJpK9Mg+4nrAYcy04HkTCK4I6oPy4pDzgvu+FnIQ4SqVynsXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="HfZiO/Qj";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.51
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E78606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:02:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3E78606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36F6606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:02:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A36F6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Zcz5Pw/K
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HfZiO/Qj
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-999b2b06bd7so484301241.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:02:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794243750; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BFaCjKJqOJ8kVOACT3ftNE9ge/nIL9RAnNu0wvdaiCIimyB1taeD36nfBa6Pp9K73n
+         kgty8oPDQO9GVbovRI4tAVd53hgf6/EpibI0f4RNULXUHGePBi0qXoir+CdV5CKQPoRr
+         yN5RbD8TLnYzdZznaSpvUk2E+GwzpAZTDgNsC1daHMJk3FYIlLXCOSsP03O7a2eAsgzu
+         +Zd5DDk4PcfuQ+FrvRp98PU6E02tiYMSd0N4rvg9l+X5Gt6aXlgLxur8aYlmlYvtjnTt
+         4AIEhPu3icI6/dN3/fTUpxCybV1Bbx+33wZs2G8teB6ko8Jw8BJf7khOx+6VUpMm7Rzs
+         CQyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=+ccDkPggQrAMrKLbEkb1CJN9ak3E69kSIgi6h8tof8A=;
+        fh=k/B+NTM2LBV4Q7E3v9PHY6Gj3f+QWnE+e5IWVxcv7FE=;
+        b=qieSR/LGNkvPIuQP4N0yUcItAPSOZsToumQPKEFm88PjElVyATj8GeQt3arQiVkue1
+         Khat5b056cdfZBmF2PpE2ChBCWQc00RFkVpBfJ9scm8lkqHdH1eGg0u0ImpUOmKgXGtS
+         3qbZeMs62+bstEq9IMZZKkxfYPtlOm1PG2RCFlw2twkdA97KII7565tmU1mzi47z8qSR
+         B9zMzBO0wdc0gZsqZ+vCTN5OKPIRd6Uyhlaa1GzoiuTyR9yg0BSPhE1x1N7SKYErEy9F
+         5FLKJ7V1B/uEgMMPe45LzhoVh3BzgbfkdBMjfkzaFYBkxAmiK6atcsAm6mBh1Irvj4uh
+         LZcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1794243718; x=1794502918;
-	bh=oG2TQCsxpY9LqxmAzIoNvh0i+sGuT0ezlKI+pPVi9Lk=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Zcz5Pw/K/Nb3lm/LjVL2d3V4Czp5fRaoBS8WWx4EAednhE+aadDUSA8XzrdTKH4H8
-	 IMUWYxKkcKrq8Pcc7uVhFZfdOK7aAUEfTNYwrIHy9alzBX8rO2N7WFHE1+cVitlIrp
-	 1lMlR5rKPJAbVtNsrCZw8v/qvO6tx4otFbLd4zv/NqpfWB/T5YiocbYaJqex8tnSMT
-	 ra9aRsyOZw7BcfIUhrIpYamHV3jtOq8SsQhjbyw06GBOa6F7ds+GYH00uk6x1Aj1mu
-	 Hwi4Voenn515X0j6MHHxKI0dZblI1BvrzJpty55OuNQtxvem9kdsdx3oxh/IZZ/Qdt
-	 q1BxQ+xZD5sMw==
-X-Pm-Submission-Id: 4jNbfr2WvNz2ScWs
-From: Michael McAllister <me@michaelmcallister.org>
-To: robin.clark@oss.qualcomm.com, lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm: avoid an unmatched fbdev IOVA pin
-Date: Mon, 09 Nov 2026 17:01:51 +0000
-Message-ID: <179424371125.96483.2462884435294600442.msm-fbdev-pin-leak@michaelmcallister.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        d=gmail.com; s=20260707; t=1794243750; x=1794848550; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ccDkPggQrAMrKLbEkb1CJN9ak3E69kSIgi6h8tof8A=;
+        b=HfZiO/Qjj1Tm+ceYl3TTP7O3Pr83QEFesEPCtxsNgg1w5vyp+X3UEcT5XDnE6iTYyc
+         DYNOWBcF15T46jypa6ql35crJ2QiNzp1/WqfuMfX1P+MtNPwrQLCnVfRXfY7Bua1ck/z
+         SfIDVCR6B6A6iU7diSUaF33k9ORDHCYMemwcTMgt1xWg3Yt2gWznLqhA70zkWCb2Z/Ak
+         Rb4VuXCqLj+2o5zxZW5x8BqvZ/xj+22FDLrJhWplY+gULwUnmtXzEej1yQOU0S3z4iMn
+         AeMUh/EMEiQRzNMd1v3pA5Z4Q6kqR/FVN2ooz0a8qkst+/cuGtT0VxEbFgPkEXNm5r7E
+         Wffg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794243750; x=1794848550;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+ccDkPggQrAMrKLbEkb1CJN9ak3E69kSIgi6h8tof8A=;
+        b=M41jiWrCmyfBie1H+Z4RorgPZh3xbp7m+GBfDt9Ze8i+XlrG9qICJZ76uVdXRie8a3
+         BRK34h5H4ZBGJcn0JGEXOFjLMxDM44tXR1XSLmsJjn/n+hFRRfAWwP5wx8K9UYPvO+y/
+         zyhpBbZ/FguqmfzELAqpRy/ATIak7sbpaSBXIKXb/OJcXP4/N+93xgjmMHaAtxNogxbz
+         VF5kdGN7/6zC3o6cycTbgVXLfzLyJ7UJiZBB5LznHZFBdybt/EmZCHhMwKYLlrAxWGss
+         JTx+XV5U5YwCixfUuEB7BVOefvxi/6GQIqU/OjZlc2LB323+3LsPYXmtb6F+XQBf43ob
+         71sA==
+X-Forwarded-Encrypted: i=1; AL+hErG80UVa27htFZjXB25VljipiLzHKhPf0DkzhGb504jb+rPhqXDZU00CGsfpO0OdlRf3JcIaT1b2ELwdUoc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uH9pogb2YLTyyTkRu7v60TEXQNkUC0yaSiFBAGtNQqDi8Kh9P
+	outQ7y4DFfZ60TBZVzkgXxMGg9tCxTAMgMRp08xM4bR95LwIfZ4a7gZS/mHGWi5mvVGNgD5ucR6
+	YntAQWvBW5MR3f9E8qhxE4Om66e4K5GaydgJXn9c4jQ==
+X-Gm-Gg: AYBFou3+zucIf0mNKuJPQvghhZMT6AmI450Ul7ViFQo9HhnxbFAAsd5RZpgkYDrHODk
+	l/OknhYSMVdbMRFkVQXyyw5BSMnL/0742vr3kNspycXpNj23YOVF6Kst4sQs0QiZoBK6FyyeglF
+	Rwf3IMaw/1K5FGIiOrxf6rZ3SVrLOjXfoptIyBby/bPlIC6kuQFGHiwizVQMwFW+eWIh9jcM9o9
+	Q5LOAvNeO5jmmvQzpKX9JrZBHC35d1/iY1YlOZhV4kjGYreRbjprpgdBLsdjteksblOW/9bMuaL
+	LSusEAAJjzKiDgFFmEijobyi3Nujo8xRfwhC3SdOFdE9hrsG0ILSLVakEA0D7wALZrPCDGj5VGU
+	3gD6LneHdXT9CTyCJIrNO8pbiZKzuMQt8qBjvyStDZEPTUCDXvm7CTKoC
+X-Received: by 2002:a05:6122:2224:b0:5ea:e197:93d9 with SMTP id
+ 71dfb90a1353d-5ece73a936emr1891195e0c.19.1794243749691; Mon, 09 Nov 2026
+ 09:02:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,74 +101,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+From: qvkap <qvkapp@gmail.com>
+Date: Mon, 9 Nov 2026 20:02:12 +0300
+X-Gm-Features: AclHuK_T9CdT9gcFODPQXqQg5OkLrNWefuBwKE95_Exc6nCskp5mn1L_q6DA4S0
+Message-ID: <CAABLQ8qdSC1r=-et0y6qnEjNE-FCvoT8wxbo6R9vmW5=bUOSgA@mail.gmail.com>
+Subject: [PATCH] platform/x86: ideapad-laptop: add no_rfkill quirk for IdeaPad
+ Slim 3 16IRH10
+To: hansg@kernel.org, ilpo.jarvinen@linux.intel.com, mpearson-lenovo@squebb.ca, 
+	ikepanhc@gmail.com
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Unbinding the display on the Moto G10 produces a pin-count warning when
-the console framebuffer is freed. The fbdev probe takes an IOVA pin,
-but normal teardown never drops it.
+Hi Hans, Mark, Ilpo,
 
-Use msm_gem_get_iova() to reserve the address without taking that extra
-pin. Scanout already pins the buffer while it is in use, and the CPU
-mapping holds its own pin. Drop the matching unpin from the error path.
+On newer IdeaPad models such as the IdeaPad Slim 3 16IRH10 (83K2), the
+EC/ACPI firmware reports erratic rfkill radio states through
+VPCCMD_R_WIFI / VPCCMD_R_RF, causing periodic soft/hard blocks of the
+native Wi-Fi/Bluetooth interfaces (iwlwifi) without any user
+interaction or physical hardware switch.
 
-Fixes: 7ad0e8cf6317 ("drm/msm: Count how many times iova memory is pinned")
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
-Hi,
+This patch introduces a no_rfkill quirk and adds IdeaPad Slim 3
+16IRH10 to skip registering defective ACPI rfkill devices. Tested and
+confirmed working on live hardware.
 
-I found another pin-count warning while testing display teardown on the
-Moto G10. This one is in fbdev: it takes a pin when creating the console
-framebuffer, but doesn't drop it when the framebuffer is freed.
+GitHub: https://github.com/qvkap/ideapad-slim3-rfkill-patch
+Raw Patch: https://raw.githubusercontent.com/qvkap/ideapad-slim3-rfkill-patch/master/0001-platform-x86-ideapad-laptop-add-no_rfkill-quirk-for-.patch
 
-I tested this alongside the other display fixes on 7.2.9, including
-unbind/rebind with the compositor stopped. It is independent of the DSI
-command-buffer fix I sent earlier.
-
-Thanks,
-Michael
-
- drivers/gpu/drm/msm/msm_fbdev.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-index dd6d6c507d..c3bec6719c 100644
---- a/drivers/gpu/drm/msm/msm_fbdev.c
-+++ b/drivers/gpu/drm/msm/msm_fbdev.c
-@@ -137,12 +137,8 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 		goto err_drm_gem_handle_delete;
- 	}
- 
--	/*
--	 * NOTE: if we can be guaranteed to be able to map buffer
--	 * in panic (ie. lock-safe, etc) we could avoid pinning the
--	 * buffer now:
--	 */
--	ret = msm_gem_get_and_pin_iova(bo, priv->kms->vm, &paddr);
-+	/* Scanout pins the buffer; only reserve its address here. */
-+	ret = msm_gem_get_iova(bo, priv->kms->vm, &paddr);
- 	if (ret) {
- 		drm_err(dev, "failed to get buffer obj iova: %d\n", ret);
- 		goto err_drm_client_buffer_delete;
-@@ -162,7 +158,7 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 	fbi->screen_buffer = msm_gem_get_vaddr(bo);
- 	if (IS_ERR(fbi->screen_buffer)) {
- 		ret = PTR_ERR(fbi->screen_buffer);
--		goto err_msm_gem_unpin;
-+		goto err_msm_gem_vma_put;
- 	}
- 	fbi->screen_size = bo->size;
- 	fbi->fix.smem_start = paddr;
-@@ -179,8 +175,7 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 
- 	return 0;
- 
--err_msm_gem_unpin:
--	msm_gem_unpin_iova(bo, priv->kms->vm);
-+err_msm_gem_vma_put:
- 	msm_gem_vma_put(bo);
- err_drm_client_buffer_delete:
- 	drm_client_buffer_delete(buffer);
-
-base-commit: 1e59855738454b14021b64115f0090eafc7526ae
--- 
-2.39.5
-
+Signed-off-by: qvkap <qvkapp@gmail.com>
