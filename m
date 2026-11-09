@@ -1,88 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237395;
-	b=Ep80YxZwJEW9azgJ+POhZjsEw58E+yEdJCIa8H4FhPqszzBIrHJELA+bdpi9AmL5lsvP
-	 eyvGsHMHQCj+L6kYuxQnFacBpWYGJ0vKSoZdhCQ8nLb+36tdEIXeaux+F7Trq/N8tso/Y
-	 +LKUAKbAnaUfWSAqNn7eVNIEaH9On2T7jp29QkmewMRfGnfAldm0BK6ye+XBWKWvm+z9x
-	 MgvmEdMUD+1u8EYxB0MSB0Pw/Qo+aFWZ7eTd0Su6oSmJEWRt8cpTEnRosOA18G0FTyCrl
-	 Zpi96fuQBxqfGk4uw8Yi96qMnQ/obw7Lk9Ln/aQVjTrwXwHQHBFksOB8IEOSriIsySg==
+	t=1794237418;
+	b=tjh9KbyVasvDdS7ron6A2Ik0IlZCi9voqoRwnMulfMN9/4RDQt9+li93IseE9LodLQdE
+	 +2Gm2VQughH1KNrZFwDtkAJmEuiDy3ub+y3YANyop/rPs0Df+My59NXP23pGPpq3S01Fa
+	 +GCSrXqVhmP+mAEfAhoWLXOVH68CcMPWTba9IB5n9nEeFuvUL3houYAZExUAg7lohRYNt
+	 D+v8xPM1m9OcdoYHTO31y00ywowE+qtmwkMES8i7sfK1VLxMCkj71uom7bVNQJx7zmX5R
+	 VZobxF9fHK5uQ8h58MrVeA+bV6xWx90A28d1l80kbvCBBmsMqhCOLMpz/8nbuPsTKGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237395;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jkscwoMz/NtwK7adTu7thVWKraeXz1/KWC75TgatP5E=;
-	b=xbgVtwwGka7tx7v7zhGjdVfp+mezVn5TqYX0kywA0WVWqg6iHFp0D30tsrIE61IAoZit
-	 08guzBhVhz/yOehzUI/SmMLRsw5NEqdbcQibkxkTQw+2UgHqATrsN0ZqXdSnt7WPJEdHS
-	 hxAy35fL+AlgrNy4uXVP3bJGKsTXP9K5pAAaOmHzGPK6SWLz6U8qRhoX8PcmEx0xCLM8U
-	 HSbA/kg/mcrnhOvaGRDxJuRMLefnzpbdoWvoINCAye3ASc35azTqbAquftw4jfouV2pKF
-	 nmZVdEOFbumHoiR1Ds531LnXfsWK9DIXuqLEF4Rc3HddQIHaXysTxrl9zygfjeXDVUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237418;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
+	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 X-Scanned-By;
+	bh=dIFanPHsi2uzKVkdR3E3+ACI83Kw4fKElWH0D2yD5fE=;
+	b=DGZnF+BmXMgLk2VPgC6GoO+oaCdK55AGQZO66wbeToqh2ABeejq7SNb59fUNXUNN7ARu
+	 zTHqemvlomhUpBN4Gkx12Qspvw3ipupWBHklYWQoiMJ33VaonF9G9LtTUvWJ5yHfu24G5
+	 5f5acHJkZxKqUanAxJkOms3PrZDMvv/I59/4pvqq6nuX983G8W/v8R133jSOgtPdcILND
+	 nsHAd8snEVWchYxKVPrF9kSn6LzivSeLBtVX2bjZn5maYS9BBsbtCIDyTfNqzaNuBUb6z
+	 VAavDHRLUfJOqRlzFVVR3tnMfy0kapOnqb2OjFwC1FVJBczEP1/bKMcbQ3KWAgZxvCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Xs8Oszdy;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BZyn9CyW;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B12606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:16:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013CB606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 013CB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Xs8Oszdy
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so10941255e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:16:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794237393; x=1794842193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jkscwoMz/NtwK7adTu7thVWKraeXz1/KWC75TgatP5E=;
-        b=Xs8OszdyHPnrMpzHZZO6hjZ6A2iLC0CKaCtZnwgj2MHJPWfpJLEAZq/hLIovII0Air
-         kmQU4uSGZLoloyJyht8LaXc5LLx9E4P4zMskHlDWPz5z8UfByygqX2h6E8P6de2bs7GG
-         zCUNfluH6GdU0bYfhCsy0zIiq/k8rL2bg/uzk4iuR/dmSlfuBGkQb4WTisfpuPXCtojt
-         0htC1DRci+FVRlozeA/telQ8BkSTqzKzE+z3VBq8T3Q5P/+XEE18/TfjE1QsXRP+LERx
-         rzWp+zvRamVhjiYE042jAKv/8+gU5ROH0QeKiDf+pCJ13Y0yVXWwEzlUt1V5UCgg84Iq
-         +ljA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794237393; x=1794842193;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jkscwoMz/NtwK7adTu7thVWKraeXz1/KWC75TgatP5E=;
-        b=UXGh9/uvJRoI82m5Ud7nSGaCZSUVCUW7Gk1mMN8qbak375AIGpbxNxq247J9g4lDjM
-         SDftUh87F4YBnyvoP1Rsaqi/NVLq98mE6+glD4U5jpYX9lUEHZQABxSwiBYEwXFf5bWq
-         hPTcxYk0NjrVHivsBKlYbzZ9zlQ2WX+yu3nhXcAME8pRjSTnKxxxxk9tivbSg4dDBmVd
-         kECgPkVzajJmXOnNJtLKWIkKqS/pkq4wguctIpUAwPPWjgPSwuJn04JS7d6IbN+yDTFG
-         rsp0e1gTFWJttAjDyriyZAK/mitos7q/D/74U9Wmmm/4KSWe4BNCIwth5gFDjkRWpgj/
-         g6Xg==
-X-Forwarded-Encrypted: i=1; AL+hErHCb5PfX/VnPLisJt35ktik1uMdqliYDzw/fJK3qAth/I7uCtwTQtYmZxaFCXu9qTWW7w7hbBFcWSGlF9U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kQVl8CjuE62ZVFxJxbJfEyAesu19UoVch6diVXUO7Xa58NacI
-	HkCTk5dCyQYaAnUXEjvX7tlo1BlsYDkFe+U2Zg7BMPZoxeyh984tdBNKFuCv/JCY+oY=
-X-Gm-Gg: AYBFou1/UXd6W9i70GqAPJqEHqm+yd9kFNu9xlDFJucHKISSFAouyFxZ3ZM319I254s
-	r45X4AcWoSkU0G+KJ3F7VbfOvrxT14R3w2n7o83DLS0jrDZwI+KsvkcEK3qvF9jjsqc0A57mWTj
-	qL2pxg8i7f4JhZXSWuz540MLv1kswcvUCXAMsGZfKlBLrB9lHQ7EFfgiUV0qk4HViUKdG0xhXez
-	6whjAoi84YaeNrN2+bUkLVug8Xi/I09uIqZexkWOVkUeU4c6Rf3PGZ2T0TcIKH15Q47a7s2g7P8
-	8lITVkhqPUITLvrUp507wBMsKjxf4F4ozcVsO4jxrwxoyduu0uwTMRpFzCIxiU9OAedcmArf14i
-	AEcvBCVBQ63msJpK3al1skfCnkxCuNXQuMDTvMQteJWoUxQEOTYvH5auFrkbcA8QjNoyWEwx20K
-	m9xO/6q0aU+rfdBre1mLcZIWTmTxBjVogWfjUanwyhra8B9MuE52Ivod8ulyDzkAKvB1gBvCJO2
-	FJGq5SnCQpg+JcguM4oVBO0t5FKK/YU3oBW4hS4eUB81wxy8N8Mf1MpWtecpTzVvSQXtubER/gK
-	02v70wM/TMVmf5pvcnxJ3VxgbclOqjQAwQepOZjWFWq7kSMWMOFohZv8o7TAqrQR
-X-Received: by 2002:a05:600c:818e:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4b963c85687mr70833595e9.21.1794237392747;
-        Mon, 09 Nov 2026 07:16:32 -0800 (PST)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b79502652csm165199245e9.4.2026.11.09.07.16.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 07:16:31 -0800 (PST)
-Message-ID: <97331297-3f78-4f6d-ab24-61cf329647af@suse.com>
-Date: Mon, 9 Nov 2026 16:16:30 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BZyn9CyW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794237417;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dIFanPHsi2uzKVkdR3E3+ACI83Kw4fKElWH0D2yD5fE=;
+	b=BZyn9CyWPQEF23cpNvfutKPMn38/0dZ2sxPktZP+AwNU+RzabvLLgj8fqaoALTycua9X4j
+	fdtBiqFGI7kygYwyqfEMRo8WW2PUCqcEMyYTX57rn3bhM6JUeixiwyM7m1g8pInCVapKy7
+	j9Z8APVSpKYAyn7gamsj1CfBni3KIVQ=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-682-tjhm9eS_Me2GEPyqgPmpsA-1; Mon,
+ 09 Nov 2026 10:16:52 -0500
+X-MC-Unique: tjhm9eS_Me2GEPyqgPmpsA-1
+X-Mimecast-MFC-AGG-ID: tjhm9eS_Me2GEPyqgPmpsA_1794237411
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8F9B21955F17;
+	Mon,  9 Nov 2026 15:16:50 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4E1F926C;
+	Mon,  9 Nov 2026 15:16:47 +0000 (UTC)
+Date: Mon, 9 Nov 2026 16:16:45 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+cc: dm-devel@lists.linux.dev, agk@redhat.com, snitzer@kernel.org, 
+    linux-kernel@vger.kernel.org, 
+    syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] dm crypt: fix use of uninitialized percpu_counter in
+ ctr error path
+In-Reply-To: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
+Message-ID: <0ea4f803-33bf-1ba3-b7f0-a11c676c8086@redhat.com>
+References: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,99 +80,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] module: Fix use-after-free in module_put() tracepoint
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: mcgrof@kernel.org, da.gomez@kernel.org, samitolvanen@google.com,
- da.anzani@gmail.com, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022184517.66438-1-atomlin@atomlin.com>
- <2fd1031c-7a86-45cc-a595-bbd13e102d43@suse.com>
- <zjuuet74suq7dujrlt4pfeoajtksegfrslsmokgvfjg6o6pghk@dbifrqvwrnaw>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <zjuuet74suq7dujrlt4pfeoajtksegfrslsmokgvfjg6o6pghk@dbifrqvwrnaw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 11/9/26 3:28 PM, Aaron Tomlin wrote:
-> On Mon, Nov 09, 2026 at 02:47:31PM +0100, Petr Pavlu wrote:
->> On 10/22/26 8:45 PM, Aaron Tomlin wrote:
->>> A use-after-free condition can arise in module_put() should a thread be
->>> preempted immediately after decrementing the module's reference count
->>> while the module is concurrently being unloaded.
->>>
->>> In module_put(), the module's reference count is decremented via
->>> atomic_dec_if_positive() before the module pointer is passed to
->>> trace_module_put(). Consider a scenario where CPU 0 decrements the
->>> reference count without reaching the baseline MODULE_REF_BASE level and
->>> is immediately preempted: it relinquishes its reference while still
->>> retaining a local pointer to the module. If a concurrent CPU 1
->>> subsequently drops the final active reference, the module's reference
->>> count reaches MODULE_REF_BASE. This permits the module unload sequence
->>> (via delete_module() or the initialisation-failure tear-down path) to
->>> proceed and invoke free_module().
->>>
->>> Function free_module() invokes synchronize_rcu() and subsequently
->>> releases the memory backing struct module via free_mod_mem(). Because
->>> CPU 0 was preempted outside an RCU read-side critical section,
->>> synchronize_rcu() does not await CPU 0. When CPU 0 eventually resumes
->>> execution, it passes the dangling module pointer to trace_module_put(),
->>> which dereferences mod->name and mod->refcnt, culminating in a
->>> use-after-free. This sequence of events is illustrated below:
->>>
->>>     CPU 0                                       CPU 1
->>>     -----                                       -----
->>>
->>>     module_put(module)
->>>       atomic_dec_if_positive()
->>>       [preempted]
->>>                                         module_put(module)
->>>                                           atomic_dec_if_positive()
->>>                                           // drops final reference
->>>                                         free_module(module)
->>>                                           synchronize_rcu()
->>>                                           free_mod_mem(module)
->>>       trace_module_put(module, ...)
->>>         mod->name
->>>
->>> Resolve this by moving trace_module_put() prior to
->>> atomic_dec_if_positive(). Because the caller holds an active reference
->>> to the module at this point, the module structure and its name are
->>> guaranteed to remain valid throughout the tracepoint invocation without
->>> requiring preemption disabling or RCU synchronisation.
->>>
->>> Fixes: cb0b50b813f6 ("module: Remove preempt_disable() from module reference counting.")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
->>
->> This version #2 looks ok to me. I plan to pick it up on the modules
->> tree.
->>
->> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-> 
-> Hi Petr,
-> 
->> The additional version #3 [1] seems unnecessarily complicated to me. It
->> is ok to report the value of module->refcnt before it is decremented. As
->> noted earlier, other code, such as xfs_group_put() and objagg_obj_put(),
->> takes the same approach.
->>
->> [1] https://lore.kernel.org/linux-modules/20261103163103.13195-1-atomlin@atomlin.com/
-> 
-> Thank you.
-> 
-> However, I do prefer the next iteration [1], since the use-after-free is
-> resolved without altering existing tracepoint semantics or introducing an
-> off-by-one discrepancy in the recorded reference count. Finally, the fast
-> code path is fully preserved when the tracepoint is disabled.
-Why is it important to preserve what this tracepoint reports? The value
-isn't off by one, rather the tracepoint would now report the value
-before the decrement.
+Accepted, thanks.
 
-I'm trying to understand why this case matters enough to justify the
-additional complexity in version #3.
+Mikulas
 
--- 
-Cheers,
-Petr
+
+
+On Mon, 9 Nov 2026, Zhao Feng wrote:
+
+> If percpu_counter_init() fails in crypt_ctr() (e.g. when the
+> underlying percpu allocation fails under memory pressure or fault
+> injection), the error path jumps to "bad", which calls
+> crypt_dtr().  crypt_dtr() then evaluates
+> WARN_ON(percpu_counter_sum(&cc->n_allocated_pages) != 0) and calls
+> percpu_counter_destroy() on a counter that was never initialized,
+> because __percpu_counter_init_many() returns -ENOMEM before
+> calling raw_spin_lock_init() on fbc->lock.
+> 
+> With lockdep enabled this triggers "INFO: trying to register
+> non-static key" in __percpu_counter_sum(), as reported by syzbot.
+> The console additionally shows "crypt: Unknown error (-ENOMEM)"
+> because this failure path sets no ti->error.
+> 
+> Move percpu_counter_init() to right after the allocation of cc,
+> before ti->private is set and before any "goto bad" can happen.
+> On failure, set ti->error and free cc directly, so that
+> crypt_dtr() is only ever called with an initialized counter.
+> 
+> Reported-by: syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=4b232570d625662eaab4
+> Fixes: 5059353df86e ("dm crypt: limit the number of allocated pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+> ---
+> Not runtime-tested (the syzbot report has no reproducer; the
+> failure requires percpu_counter_init() to fail).  The affected
+> crypt_ctr() code is identical in current upstream master, so the
+> patch applies there as-is.  The Fixes hash was verified against
+> the upstream commit that introduced both the init call in
+> crypt_ctr() and the teardown in crypt_dtr().
+> 
+>  drivers/md/dm-crypt.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+> index 1ff16b8264..3e69dcc366 100644
+> --- a/drivers/md/dm-crypt.c
+> +++ b/drivers/md/dm-crypt.c
+> @@ -3249,6 +3249,14 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+>  		ti->error = "Cannot allocate encryption context";
+>  		return -ENOMEM;
+>  	}
+> +
+> +	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
+> +	if (ret < 0) {
+> +		ti->error = "Cannot initialize page counter";
+> +		kfree_sensitive(cc);
+> +		return ret;
+> +	}
+> +
+>  	cc->key_size = key_size;
+>  	cc->sector_size = (1 << SECTOR_SHIFT);
+>  	cc->sector_shift = 0;
+> @@ -3260,10 +3268,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+>  	crypt_calculate_pages_per_client();
+>  	spin_unlock(&dm_crypt_clients_lock);
+>  
+> -	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
+> -	if (ret < 0)
+> -		goto bad;
+> -
+>  	/* Optional parameters need to be read before cipher constructor */
+>  	if (argc > 5) {
+>  		ret = crypt_ctr_optional(ti, argc - 5, &argv[5]);
+> -- 
+> 2.39.2
+> 
+> 
+> 
+
