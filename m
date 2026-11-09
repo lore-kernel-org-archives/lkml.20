@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214195;
-	b=TMXZMknhupjSOJI7eg0rSvT2oVp1NwicXSKhg0ZURu73LmDlG5H2viX1gdPvpOhQ+OJ2
-	 sN9pVhX7/LnLrgM0MgeS69vjCiFfqWi6jWSrdTud6tUlZ9XwXPLMoNJ/H/5JPfCMYPLQ4
-	 uQeLMKVh1VY2shFxqFAikHEFJmF2wImuGKLEXgomWizYtqnZ7Q8I50ka1CA6bVXxe+sXy
-	 wmNg4IOjUEWF4HHImcPM56cg2zH1FZxs3PkNxj6fmGcE0Nn/SqjppDrcLiWxh38VNL9Ii
-	 sn8LoVkv3tkOzq3FCqCiTP4rDmBxSaDtH28R6zFYwP/epoXPKtg8V8cnzT2mRdmLmow==
+	t=1794214201;
+	b=S+IfH8g9tN28JQFDhsfpdUW5b++i/an1Bt4xSNIGEj8uJi5/zv7S4qBLvUI4CJiV/8JK
+	 ZFe4xA6ZfzoxluLRtHhtCeHpR7sbfUnQSKyH8ytm+UTCSmu7hfS8f7yIKGtbDC+lUiYDv
+	 oeypfJlcvXYdUOypsigkDiehpigTBd7RzvgcY65R/YwcGNP+rms9BlPSKs9/1M0DKXcXi
+	 SD8Mo3Pwl82ssKrPxBE+Bv+iVscyW6i09423by5HHe3YkCG4cX0hh84B+vHURi9BDm7yn
+	 L+pkoacJGoSA1101lLROwfm0buuZaV55WtFK6/NzoyJyT+WsU8pt32e7a2z1ZtE8qTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214195;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HQ35mHfqr5BP8Q6j3XzqWeTinQG71M7XJLfQgHXsqNk=;
-	b=Wcsr7TXaXbG7tj5RutPL8MpIvbfbxO3fHKWjzSSqTZaeIS+86fivud4nuzn59x0iyWvs
-	 mUvbK6/W/vEJvn+somH2vmpKZrsQShAUUMlIvzyZbs9mZtV2CqYuQXNzXv/6Dr6kT0LM1
-	 TzcUh4f4I1CSHLa7o+PGF4W2ZtJ/F2fogLqz4YfJ+AW5t+dxkiqOzTOwvHPfjHcVK57Zh
-	 O0gMTtToL5T0Ik1LSGsULbVuyHMTUqPj54FsUFueq9xDv+DP7jTR55bsu+tzVVMsHr0cC
-	 4goj/60L/TJkVqNBQlTqSzeZLuFrwRJZkfZHjLG2u30RQ2PforE5FyTODt32MgHhASQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214201;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1k1iPnwy0Bc6PGE6t+Zl0LM80Ml+GB/glVmXDTikwzo=;
+	b=Zs4j+huZpbLM6Cy0hSdPm4E8vLmwaMt+GYSzPxKNgO42Xo+jr63SAJhsxSavaUb4qO1s
+	 AapU/ZH+6gkF6LIZvjWjiQRMM8/c1Z+s2Of23B+YyyTUj/GeQqAckvhT9Y9nCmmUgstFn
+	 UWt+pIGMiJV2tc/NeXdDTzkW2YFcCKSkwHEAcDpQ/9gtqEce4R/Gyo+hN6B4CvZR0iMAE
+	 PfEcL5CIpL0RLyl3P3p2hlHBm5VDRiHKjt02WD9t/tCH+9bCBPQub1nLmyqRiNNvIhm3I
+	 vonlAOsPLcIn1xrzFTannX6aI7iLhbVlaIfCxeAOLpFB7irSHH9UCBlXogt8qZ2/Zwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=uq8XmEk+;
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=OnOd9a+4;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924D8606D825;
-	Mon,  9 Nov 2026 08:49:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 924D8606D825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FF360A383A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4FF360A383A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=uq8XmEk+
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794214188; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=HQ35mHfqr5BP8Q6j3XzqWeTinQG71M7XJLfQgHXsqNk=;
-	b=uq8XmEk+daPltY+282MUkEKxL9N2QtaK9hJgNfT/ArHWTsQp89eAkLR50cjgNSZnmCEtSaqTBk6DMXeEvW6q+u/CFEdXEfiAcs8AP9m/CoqBGA1M+2cGyRUPkXi1zqP0JcNnqN9DLa2Y1W4fiDCl2yaepH0Gb/QXgPt8D+YtZUo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R661e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEMNcY3_1794214187;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEMNcY3_1794214187 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 16:49:47 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Sasha Levin <sashal@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>
-Cc: stable@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 6.6.y] nfsd: fix NULL dereference in nfsd4_free_layout_stateid()
-Date: Mon,  9 Nov 2026 16:49:32 +0800
-Message-Id: <20261109084932.3861080-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=OnOd9a+4
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e4831c028so664665f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:49:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794214198; x=1794818998; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1k1iPnwy0Bc6PGE6t+Zl0LM80Ml+GB/glVmXDTikwzo=;
+        b=OnOd9a+40cUTIUJd/RPKN6pI46RX5PKhDsWihEr7CJdmnIghpvKcynZLfFAdlmQLUf
+         CkKPJvCDmZ+K9I92oLjkIP6Qegn1s/vMzh6dzqs8Pf92kRp7Czy+deTkYb4CrUeq+Nmo
+         xVgmWZUxKhklinLS64tasb/WZSjPVSiXXuiiwOfz+gGyAn9WAm62TiYODWcJQUnfTMcf
+         6Pu3HRyq++/t2+otcKIe0MtZVq9fATorThVCebMdl2D+yvja7OHaOWHYeK2/f6B3IOz6
+         JWCSOP69cmyql0lrJU3z4Va67GGcrql04GqBwHbtt+v01AzgxHGSjC5tP0hOKjw21+F9
+         J9Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794214198; x=1794818998;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1k1iPnwy0Bc6PGE6t+Zl0LM80Ml+GB/glVmXDTikwzo=;
+        b=sVZLat7R7ANf4beBUhv+k8lhn5VF3Gkq8EMWBoIHYzhg7ffummqTSpkMWeiDP0g2hO
+         Vy+9n40HNJgNu0Qy7uwLiskt6xfG0G6tGuCDCUnmJhJS1xkudzAjsKWEOCYkw5OVIM+A
+         Y7JCVhD/KLwFhS5JoCb2D+QQ02v3HCnwh5/yq3oougwRlanvlDuJxb40IgKjRboacoDz
+         QhZiqeqXUYPFnTfFK/c96ZDd9IUDLK/HZLn6yjV/Lq2NT6t0lUPt1Qs7UMZN0xwNvmnL
+         VVjCWSvf5VoFAEkqoLJDnK3QpNK56C/aifgpZNMz2S01zNFoI4cIrbhXgbbwmmJNihQw
+         f4GA==
+X-Forwarded-Encrypted: i=1; AL+hErGQ+po7RAMifweultqkrP/eaQ4WMMwovGBw81SnXE6nldkLNZeT0/2YTm7c/rTjaWHDC4ORZcVYyIaEt5w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Jyvib6pcDrrymt7dObz1yTcDbV2GQub4WV5dSFVy8W/9630ik
+	BxBTOfkXo+C2wRmiKu1Fg47SGHwXbTP3ZeyddRPqGxKH5wdyWOSVS7Df8S+uCA0vyjw=
+X-Gm-Gg: AYBFou1z0oxYtYuYCQCyFKbXv0MNOv74P6cg6pENQBgbzc6p1dO0u07R3DfX+wA4JHR
+	89nlhgClLqHd5G9rjwZfJxuJH7M25rvNosvQMs0eXK66kme/DCFjDTRo34Rnip/cC1XBlUVIKUU
+	pvNKamtzuvqqjsxyWmRrAANTr7ZOA+tiUlP1GZHqJDr3OyN0gUnsFTPF8GIcMJhN2bo8HEDyKmz
+	r/WLkzpVHIiqR6UYWLKpVGffDnBlWEh9ZzsVuYXNXaqfvPUgBymgt/UxbKdjQMUBWpN8tGlaCPX
+	vujQhr1dbxfS0QcaTHJeOUb1jiMbeSfCRtMD7TAvlZOExZlWY8BvKUktMyClnxiA6FzNOkCKStX
+	WhBMAj83rSDP59aUcoaDVoKSB4xhDJMMJOZoVja6pZrOvGMMobJ4AfLyaKAz4yLHfInws/9CivE
+	sKrxGDWDqFguH/i5zkkO3ZdyUJg7jNccKk+ec34uLNeQX0GXC+HndkL/KupeKAaDTRczxm/b2Ss
+	xf9UDihd7Cta3gdjI46csLM6Mj30PInU3ltzN69esJrQUvWItVcKBav+yI/0QW294zKlygGY4/1
+	XvYh1304Hm5+gblyfLXlRYow76BZbigHZZ+ylbpaco4kis1vjc2L/dv3MaD4hrrZ4BD5r+FKjvP
+	ARjP6F4pwD56CHulqv4YXN2owDjU3mtAzmpNobZ8m9jtuVg==
+X-Received: by 2002:a05:6000:248a:b0:48c:4442:54e with SMTP id ffacd0b85a97d-49584b5afe0mr6225635f8f.30.1794214198288;
+        Mon, 09 Nov 2026 00:49:58 -0800 (PST)
+Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597090444sm9069465f8f.31.2026.11.09.00.49.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:49:57 -0800 (PST)
+Date: Mon, 9 Nov 2026 09:49:56 +0100
+From: Carlo Caione <ccaione@baylibre.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/7] dt-bindings: clock: Add Amlogic S7 SCMI clock IDs
+Message-ID: <avGIMja1yTAkG2X8@macbook.homenet.telecomitalia.it>
+References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
+ <20261106-upstream-s7-clk-v1-1-7d501d62621f@baylibre.com>
+ <20261108-computer-backed-d98862794d18@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,54 +105,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-computer-backed-d98862794d18@spud>
 
-Commit d12af460df27 ("nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on
-racing delegation revoke") replaced BUG_ON(!ls->ls_file) with a bail-out
-that calls nfs4_put_stid() on the partially initialized layout stateid.
+On Sun, Nov 08, 2026 at 23:21:08 +0100, Conor Dooley wrote:
+> On Fri, Nov 06, 2026 at 09:30:24AM +0100, Carlo Caione wrote:
+> > The S7 firmware exposes clocks through SCMI, including sources needed
+> > by the other clock controllers.
+> > 
+> > Define their identifiers so devicetree can reference these
+> > firmware-provided clocks.
+> 
+> Are SCMI clock IDs actually suitable for being bindings? Can't the IDs
+> vary here between versions of the firmware?
+> They're also not a "made up" set of indexes, like traditional clocks
+> are, they're real numbers that come from some document akin to
+> interrupts that we do not have bindings for and no driver is likely to
+> reference these definitions either right?
+> 
+> Is something like this not more suitable for being included as a header
+> in the amlogic dts directory?
 
-nfs4_alloc_stid() leaves sc_count at 1 and nothing takes another
-reference before that bail-out, so the put runs sc_free, which is
-nfsd4_free_layout_stateid().  That function uses ls->ls_file
-unconditionally, both for vfs_setlease() and for nfsd_file_put(), and
-nfsd_file_put() does not accept NULL either.  The new error path thus
-turns the race it was meant to handle gracefully into a NULL pointer
-dereference.  The nfsd4_layout_setlease() failure path that already
-called nfs4_put_stid() was safe only because the BUG_ON guaranteed
-ls_file was non-NULL.
+Right, I'm not strogly opinonated on this, I followed the existing
+Amlogic SCMI headers, but I agree the dts directory is a better fit.
 
-Upstream does not have this problem because its destructor goes through
-nfsd4_close_layout(), which tests the pointer before using it.  That
-helper came in with the admin-revoke series, which is not in 6.6, so
-just add the NULL test here.
+In v2 I'll drop this patch and add the header to
+arch/arm64/boot/dts/amlogic/ with the DT series instead. The examples
+of the two bindings you just acked will no longer include it though.
 
-Fixes: d12af460df27 ("nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on racing delegation revoke")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/nfsd/nfs4layouts.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index bea7513a0de90..7c3f0948a610c 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -168,9 +168,13 @@ nfsd4_free_layout_stateid(struct nfs4_stid *stid)
- 	list_del_init(&ls->ls_perfile);
- 	spin_unlock(&fp->fi_lock);
- 
--	if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
--		vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL, (void **)&ls);
--	nfsd_file_put(ls->ls_file);
-+	/* ls_file is NULL if nfsd4_alloc_layout_stateid() bailed out early */
-+	if (ls->ls_file) {
-+		if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
-+			vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL,
-+				     (void **)&ls);
-+		nfsd_file_put(ls->ls_file);
-+	}
- 
- 	if (ls->ls_recalled)
- 		atomic_dec(&ls->ls_stid.sc_file->fi_lo_recalls);
--- 
-2.39.3
-
+--
+Carlo Caione
