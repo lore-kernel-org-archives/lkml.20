@@ -1,111 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218618;
-	b=4N9qEt9wX7F7uzV4swJQrqL28nHeR3hELFlBAFzgkCFXcQPKojpur8uwkgWJm0zClnaI
-	 Od7sWLIF+U2j2Uljecww6pDaRcQ6sfiTDhZmHF6NVcTBiENM0b8dagUp8cjxdTvLGSGk1
-	 45ptp7XlDzgi8P8O6WLuHaznl1yTlQmJsLvnPeXwNyx1eOHL+Qk7vlBNI5B9AOZZyTgmj
-	 GNg/J2o28Md9+nR2UBk/QqBNdjzv8PgYMSoJlqdRMIFKthUdqRXrTq1gOUFd50d1mBzPM
-	 LnmIiOqYRxA3M8y6M6BExbU0fu8uqk1n7xkUGbkNdlUQZUUp8G0gPjwlcbWVPrTW8lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218618;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=NcBU2cPzzA69TnFKl3QcEWwS4YrVCELU3Z1b9WHRzow=;
-	b=eQlECC6ycE2UALBmmukSSIzEt+AWGfDINgBmS5UgIbqou46f8NtPqF3LRDYhI6rEOFJt
-	 4KrnPjfqItVGIrykkJLIptJtDirwOUlULx510+UhcajKA5R+91ppRXEFiLjtVogBZdQnf
-	 aHP5+c086lRuMpQJGtrn8c6oFQXzanX8VtL5eX29dI3zDD4us8/dnISs5M43v3VGyXyHB
-	 gIsHO9r4/0KPGSWgfpk8+VoSVEab9HK16ZFd0XzYlpaO897+G2yFRYRdrNNwYWgTjPz28
-	 uorOR3S/Sgz3vsa7ARDUNLxebmfPcEhQQIMvlpBe4Yy5CQ1LvmVkW4/I1qV/qaxnvCw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="U/3+jibd";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=yOsGBGru;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794218664;
+	b=TBy0kvTPWz9Wqv8GcoRdr4JFsO39crkRxWkUkm0ihZqXCbRp+/dWpzYOD81TNfX8s59T
+	 tYWNsYsxwbls8ihuTKun+hQGvmJJuWMpjHiWVpDfdHfchLO8BggCTQw/QqZPRfGZyama6
+	 So7lHmogUq2yDOwz9s9lvWYlUul77hjXHK0l/XKlft8CrnojQbvrE+B1Gp7QYdIP6bToq
+	 rDdH7LZuFIcBVkgvn3rdRHvTKiAAfmJ+/R3V2k91Kk4BZrz6uNB3X9Vw+3DNou3qxClqn
+	 VOFR7rl/HLg39kbgI7XofIkECJ1y/jM8djg8cURj9I/K/BCFe89Ik2NiJ4f6gSuwSPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218664;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=caIIRxITMqgnCqMmXIx5dUtk9CcAnLsfPhW3eo3DWTQ=;
+	b=zD8JNJpDI1fzVw9I4tkRmQkhYizPZrPjvAaZYtehvp2ZrcpUt9bkeCgCD9nG0lel/58O
+	 4+zs1nC8sevP7Tx3zErN9gGU+hnEX+RH2EB3aGNd4gzJ3+dRHIyxDhViGsFfq9p3tAY7w
+	 wTS5OwGW2e00HDF+JUy4iNpP2SJU0O9mFqEBe8lyHiPMpPjpy0bmQJRVPh8iYl86ate13
+	 t7lQ3lPz/5kAGEXdMxndOdnT0FHKWo3+mzzTz/xrgX91XHIPe/kdEUyXk47p2mPA3K2IY
+	 MoQQ1Hu+VEPV2zvo6//jrRtBTs6gwLfZ3DQwB1tJyA8Tol97UNUDAgvdDuJ6V9ciPdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TveDsyb2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A49F606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A49F606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C9F606A31C;
+	Mon,  9 Nov 2026 10:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=U/3+jibd;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=yOsGBGru
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id A3D447A0184
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:03:37 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 09 Nov 2026 05:03:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794218612;
-	 x=1794305012; bh=NcBU2cPzzA69TnFKl3QcEWwS4YrVCELU3Z1b9WHRzow=; b=
-	U/3+jibdQ7w09n8aWRpqomoBEXOLgzf9E7RSvnbej+BpSS9jXiTaCxC+rp4EwjB7
-	2+ljXNHVwGmMepBnmucfLh2UcA9Aq/L1wfsP8mIdDKksvQpcrrT+IXiubOQMgv9x
-	w+2iC45jBQhDgymh+T8nMfy5aXmwg1WR37pHlCKT16zP9gxXli4VxYsZ3PN2vd6P
-	Pqi5zZ5f/Zdn0TlpGKwamFQ/ByApdgBYgHZsoQ/ofIFVgnVJTrnBrLTdkgjkHnLr
-	MQZEkCNE0qOirkqX0LboZ2tMgC/Ziwru9M+3ZOGucgXb8DOFhtO4LBpvJTYpamcb
-	AH4O+0RP+E2sQmxqUmb6OA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794218612; x=
-	1794305012; bh=NcBU2cPzzA69TnFKl3QcEWwS4YrVCELU3Z1b9WHRzow=; b=y
-	OsGBGrutSkhSdaQ/ocJkFKrEmFkUOXl4S6P103BxwZ8zsstGhHPRtEGO1GwbGes2
-	OMBAe2FwcaSmQX/O+XBwhT5oZsW5EjG0DVy8v7BrPquJR5uuMzuCURi4IqjmKgcB
-	8QwGeAvxBoVWRohYXXQIOgT/neg2AEOjhLYdjaHegPAJh5epFZnXmJA13yBKLDLC
-	3Wy7B1Lq61GuDRbowUgCuKojMjGHqfUQ9vWGpfhRkYyunycUOz/Ja6riBqhaZvqu
-	JqKWKulhxoaLaYKfl+IVynUB8mnLBEAAQ5mfi3EiZEcym+oENqd/b8uGUkmagRS+
-	V1oHmYgDPPGGuyXHcMIaw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794218612; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:BV3npJMgjqgtmzoeokHmGjiTElu2YkgVrIMU3J73wEVdNa+
-	4KW9fLxXgJiPh4N6SoGvzEniZoKHh8mcbzH6VQrLXj+qMeA2isWrYvoUMDduAQUs
-	GI9XrRRTUaA8DGHPTQF7LbOm0QIxFt6iJv6ytC46ALBYEU5yIwoGqMdKZTzte41l
-	ch77xw83TqFis4MX/fxohmDGqGaj+nPzktcN65ATAF2ph57qIEXHWoubYVfq9jAt
-	j0ClXWFlGuC5KJ/uRgjhuAHv4lcakfjzoMwGhMyIJvcYpPE42gvULcHQyqiGno4B
-	/e97VT9cbUfT66iZ5Ag8jrBlhmROFmi6OXvaKNA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:/T8MQmjz4GgBV8DREY1eJ8DpVLZE+wGw4tn3GSaZ7xU=:57Zn1j/vg5m77olubO1nUZ0hRd4/i5D+ObqZzW2/XIE=;
-X-ME-Sender: <xms:cJrxapzgnQqPss_-TwQrMYbyKTgsEz6hZ8621LCMpyVrbfZOmn0T5A>
-    <xme:cJrxakGeY5By--w60vNj9Wo3ydd-t3hOoDrHtZWN4O-bffoJ5y6tHcPiVc2GH-khh
-    lCZcW_xIZtljhaCardEgnKbIlLCQnsjqlIkHbMcqXD4PmBV7bNjqKvk>
-X-ME-Proxy-Cause: dmFkZTGvWADeWR/cH2ixjH2ih6Shn7KR8b6kzpUoRzcAgWCVZfdu5PxFSNYgCdsaBx4kaN
-    voP7dIVHKYz17En2UcFyHAph/oJuKXxytAVdfU4I8x/F6lTuiqhMeySiQmO4KuXRXZdF6X
-    y65RrVvohm3rtrGxnryzfbyb7+PrWXNZd02w2yJ86QnvVtkrRu39DaIiTVZ8O+fsx6Eo/h
-    mstnA7zFXRRLBJ8EtbIYWMy9ALVMztR49hHA5kQnxdSuWOMsBY518tECWvKFP3uwKMP1Uk
-    qtKLvNyebuxzJRINHjt8OdRLXuZ6RoC3ijSQwIWccFJO1SAcPpM7R75j/bwnWgXjFAgGD+
-    eacF6WdYw8srTH0TxqnS2/AASgz6v10E01ZNPe5Xx1N8h2aI0IP0NBkU9h6SK584V66C68
-    roKXba+DE/MtDgsKiZzrgtfn4U59rzi0fNgPq9A7EDMDmQppcX9YARd3KjraRKt1JRB7N+
-    wwzz6jL4Q6M9cMtrCd2vzH7SBS3If4zTS0PhBuW5MM8TImzSKHxODJQcQP/Y1Rn7UVCaLj
-    I9andH2RXfMutRY5nLTVhI1DhFEDJh0NXF3We+h9z2M50zcS9z3hrN5SfYjWIQ1PW1OhNN
-    mpgaCrPxfvKPkGpNaMoBvMqq9X+FVG3sdBWDd9Afo24nCrLJFuzYjiRqviHA
-X-ME-Proxy: <xmx:cprxavUQ6OAb7GkkSH7a-EuKBsPopbhUTIUUyKARXJsHCKiouD2UPQ>
-    <xmx:cprxajcpzFDVsQ3QyEqRyk9yspa1t22fXjOnuZIaIRsZ-s6vv9AOQQ>
-    <xmx:cprxaoYRdFRSwPwsIcuDgfJLZzqrc6VdZel4tKDFR8lVb0I33GFTEQ>
-    <xmx:cprxavNE41VAk_zq_paGGP-cPuBKMIjA7aYU82M5vnVU8ofljaMy-w>
-    <xmx:dJrxasDgAn3QgTRQ4zX-prmDKdcIj5kwR7Dvp1_aSxo4tlIjF-S4Dy04>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5D2B732A0099; Mon,  9 Nov 2026 05:03:28 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TveDsyb2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794218663;
+	b=rwZbri2t9qw45xIqftBtkqp5A27me8G4KGj2bdLGFcj7GbgJ7frETKaHQPBqzK0hjtR6
+	 SjG2KqY/GEikVs+Nkx7/91VV2ZFvY/4NUl0Ny4RpVcCUXJ704aUc7H7R+uqq9k3ISFjFr
+	 hQRJURx2b25ONYksHLu/Z27HJgmxxalEBvDYaRVlagzqeEV8cbWbPlB8PhnLjPI2LaTNi
+	 wW8+0QbPhKkBOhJ7T5+Ws93dr45LLYDBybqnzUVvGq0efJr11zXrZLkBq132PXamRK+5U
+	 a9fFJ9+iduxVY7NBwF5MRPLkXC59PTIuhJqiKnItqfmOcuTahMjhiWue4FVRoxTVueQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794218663;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=caIIRxITMqgnCqMmXIx5dUtk9CcAnLsfPhW3eo3DWTQ=;
+	b=DjltnSu6PpXKuin+5coIdbKJESMYCX3J3UVYSExR74QOWHv0h6UH09C5Gb5mmrvWKVMw
+	 GF6YXTv7l6+Lo8rYdszgwMHPpHj/6GMMCxtaJMBpUqqrIXJoa5M/z6qvSY7dRiK4GvG74
+	 Se28ojOhGYfJDrwUB38wyP/JjLR+5mHo6sFcB/4DmMxbD0UNHfbCkqG+EfyZbIm+cBHig
+	 rsL+ngC0LvXT+RryCVNlwRAcHCBqm4pYPXuUev+Qdjao5J+4q/6r/t+CA/M/N4UCO0rdm
+	 ltr0H/AcgmVYncS/g/cS+UE+nfB7E5KKFycurx+1skkjArX/fNlbGRRevQqTwYSllVg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 94C491F0089F;
+	Mon,  9 Nov 2026 10:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794218663;
+	bh=caIIRxITMqgnCqMmXIx5dUtk9CcAnLsfPhW3eo3DWTQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TveDsyb2ZtPyNGbI9N0H4sHsS0dxlJdqVQsTH3xg33zRoXWgt2j1gigDpLl5mT/UZ
+	 6oKKfLhjfvWEwwAozmFCZu1Zvd28L0FMiwURQtSK40i3YcNurq8A1YvBctGOdYAxsj
+	 qd/ioRTFYs3OVOv3V3ESdrgmv7Yy/Jj4wyBOCJswVn+PXSmtPucDeMj41gdOQ0Rfnh
+	 TiIiMis0FYlklFY4osb2uLXvHkbya0BNwo+29gecVytUsOq3DXKhaQCXQAZKE428PD
+	 QMk/hwM4m73ffL/x3qKXKedG1qroDGWw2KLwASL/o/jv7IwOE0gOj4bMwex+uYdTPq
+	 poJTxzsDi9R2g==
+Date: Mon, 9 Nov 2026 11:04:12 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: temperature: mcp9600: Bound thresholds before
+ scaling
+Message-ID: <20261109110412.00004f20@kernel.org>
+In-Reply-To: <20261109093518.5418-1-zhujun2@cmss.chinamobile.com>
+References: <20261109093518.5418-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,60 +85,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AW8OeY5oRCck
-Date: Mon, 09 Nov 2026 11:00:31 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Nathan Chancellor" <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>
-Cc: "Daniel Mack" <daniel@zonque.org>, "Russell King" <linux@armlinux.org.uk>,
- "Sasha Levin" <sashal@kernel.org>, linux-input@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Message-Id: <8560bc0d-5687-4b77-ab07-3d6dda465537@app.fastmail.com>
-In-Reply-To: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
-References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH] Input: apm-power - remove driver
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 9, 2026, at 09:09, Dmitry Torokhov wrote:
-> The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
-> events to queue APM_USER_SUSPEND via legacy APM emulation. The only
-> in-tree platforms generating those events are legacy Sharp Zaurus ARM
-> machines (spitz/borzoi/akita and collie), none of which were converted
-> to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
-> deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
-> board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
-> mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
-> of the remaining ARM platforms or other APM_EMULATION targets
-> (MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
-> enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
-> already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
-> CONFIG_INPUT_APMPOWER=m entry inert.
->
-> Normalizing dashes and underscores in scripts/modules-check.sh for v7.5
-> exposes a module name collision (apm_power) between
-> drivers/input/apm-power.ko and drivers/power/supply/apm_power.ko.
-> Remove this obsolete input bridge to resolve the collision rather than
-> renaming a module whose last target platforms are going away in the
-> same cycle.
+On Mon,  9 Nov 2026 17:35:17 +0800
+Zhu Jun <zhujun2@cmss.chinamobile.com> wrote:
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+> From: zhujun <zhujun2@cmss.chinamobile.com>
+> 
+> mcp9600_write_thresh() multiplies the integer part by 1000000 before
+> clamping to the supported temperature range. The multiplication can
+> overflow int, so a request such as 3000 degrees can select the lower
+> threshold instead of the upper threshold.
+> 
+> Clamp the integer part to the hot-junction range before scaling. Keep
+> the existing final clamp for fractional values and the narrower cold-
+> junction range.
+> 
+> Fixes: dea750f8015b ("iio: temperature: mcp9600: add threshold events support")
 
-I missed this one and thought it was still needed, but your
-explanation makes sense.
+You're missing a Signed-off-by tag. Without it, your patch cannot be accepted.
 
-I think we can follow the same logic for drivers/power/supply/apm_power.c
-and remove that once my board removal lands: the only actual battery
-that is ever registered with battery_desc.use_for_apm=1 is for the
-OLPC XO1.5, and that one does not have CONFIG_APM_EMULATION, so that
-can probably all go away.
-
-Maybe we can then fold drivers/char/apm-emulation.c back into
-arch/sh/boards/mach-hp6xx/hp6xx_apm.c and drivers/macintosh/apm_emu.c
-as separate copies. This started out in the mac driver to be
-compatible with x86 and was later unified across architectures,
-but is entirely obsolete now except for the few 20+ year old
-machines that were converted to it in the past.
-
-       Arnd
+-- 
+Kind regards,
+Joshua Crofts
