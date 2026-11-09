@@ -1,115 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222458;
-	b=Ief40aCqvtWqCV9HIiQnZl8WeM7P4Py5dnQCQJHBFesGw1BafN1c3w7BPcjWhb3QnRpF
-	 T/Y5WuhfnRsVEDSth/t4ydCcnl0ow8eXavl8rqwO/wysuuljaHSWNzdPXKwsEPvDnEMh1
-	 wQUsXYDiflGhOAHqAaRG43VQH11omZZoqLNO7HS/hj2R+BRgZexejMUvWdAwFu/my1Dhy
-	 PivGnQFC36xu73yRylPHN1Y5GI3Ozj7zusMXBZ57EhNolOZCB5EXFKxnLYC/enG+TXtpa
-	 XAkZoejQSG9qdGwirp0HOdGBeakfZNIB5Vt3Fc3+JR6S/nFjLNhTfi3x7ojp6RjNrVQ==
+	t=1794222473;
+	b=HzPiwO5d9wVUtbyx991JQosgYXOi26EXH4CG6SgyrVBa48lU5M1qFJ8vAMX9oKndTZe7
+	 OuNwBjCJ7dODS7Bz0Rqend4XG0deYMxAIb9a1f2UOWe/vwHK5bYLDCnUMz2spUHl5+pH1
+	 YNoxyYLhPZKkQLDqjhkTdmc7pYVcD77KdF5sCM2RCbKY4WfSAGWvRBdbMxydZxvtFpQWE
+	 WPAoToPEdcWcAS+qVJuXzYnKFIj0aNbZCZhZjdTqUkiA3510LSHNvwYKwL7sWdAoSlfbc
+	 xaZfJH7FvE5GLvqnA3I0+XxtK5MUaEyEbwRuqTMeIaXTj3UnGtnxGFqDwGGQ5YlGrFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222458;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=yJtaga32g0U9vhTGcK00+DLTorW/Gm6WwE87naWfe3A=;
-	b=4OJbt55nXXtf677Vb2szA5wt4gnStsZSxiOSNslzxd+JxxlaF/lFH9fUbxB1zCBzaAfk
-	 TzCY8StSbSmLjGgLrZUcmSJwZInoQl8c4d/jNEOQYDLDFRirYAV1XBvnGennWYednamVX
-	 ASLPNGKUsDft820rU808S79aKo+ngSPKqeaPrrCd6q9N1rVZ4q5RZTKqxzpcfUnXv63ld
-	 Umm/tXthrGpGI5Bd6BT3b9ldf16hIvRe/+m7fuAz2kfywbX2MrmPfc0ZAvENWGOHpHzvY
-	 8UKLy+zvptmOTcZacGWGETVbpd9K5AyhUqnsd5lsjlZtJjz1i3a1DaGzj625Lv4wyIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222473;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=w1TZas2nUn4Iyhi9A5CEWWZlSF+cg7JudGhxYTHfccQ=;
+	b=kB36hb4i9fs+mSSWCIozRUKA1JAe+fc1KdbacllEmqzkFMK1/FUtojw1EHfI1/kARKcl
+	 rkwksVC55hTPUh5V/ejDUjMTtBLqbg/KI1y6St/0m71WKDAKdIECG6k4G+yOXIfsBaEML
+	 nkvllLgEWx3Kiq4WVvdJlbb2hV9ZnqYpFEyQ5/Jgwiv618DPFGX2GDlWCikyfJZiBBpwL
+	 ZDLAxGkMwut45eGnFsIb7yQng/QjvjRPssXZvEcVbUwY1RM1LfuuO9yqzcbyBgvtbREzY
+	 fIBcbG8o9buc7n08ja+LUTQupn/QhnOUi6em4CioXgM0jcISQttlWl64bj1bdErX25A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=G7ZuuZ7F;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8DZL15mZ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V2lAfJL9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dU77csUp;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=imtvoHwe;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EDBoLGJb;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD51A606A321;
-	Mon,  9 Nov 2026 11:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD51A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D774A606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D774A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=G7ZuuZ7F;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8DZL15mZ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V2lAfJL9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dU77csUp
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9B3CE1F7C2;
-	Mon,  9 Nov 2026 11:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794222456; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yJtaga32g0U9vhTGcK00+DLTorW/Gm6WwE87naWfe3A=;
-	b=G7ZuuZ7Fn1ck/XvjaPXKVk0h/78G8TeEgpDMeWsTDrNvJg6PJWFLL0gIM6Cw9DCPc9o2ih
-	5ukyxnI9eGptqsV/rG4vUQkutOIYUkwerb6BTsdP1T7KVcqO1sWP/edZqNRAC5lApyE2Vj
-	AmTvrp67Kz0l2a3UqQlsCpPBt599boQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794222456;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yJtaga32g0U9vhTGcK00+DLTorW/Gm6WwE87naWfe3A=;
-	b=8DZL15mZ04yr3tJ0OLXjP3HXd/IqZbK7AdcBvl7AINSdXEt3uDTyOKrPqByB3ihBZXm7nC
-	nyRAHwuREoV0CLCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=V2lAfJL9;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=dU77csUp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794222454; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yJtaga32g0U9vhTGcK00+DLTorW/Gm6WwE87naWfe3A=;
-	b=V2lAfJL9VWzQzL+luBdhEbgFQ8l8qNApb9k2VgW/IY1bcjeRILdVEDyrIPal+/Ek2GQKNK
-	T/LkY9XwBxwDeD3i0PG5vOX9/aN5cSHOtGhXvKoEvGHYC1F4VUYN7Ucta7f0cOTQggPQlV
-	UxMXJJBMFkY0+cq6W/q6XMAtV7SAtvs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794222454;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yJtaga32g0U9vhTGcK00+DLTorW/Gm6WwE87naWfe3A=;
-	b=dU77csUpfXQW1WnILoKW+a25yqXqX8jX6JbJo8wIDsAN8sycfcfJ4rBcrftmvjAR0ka/jA
-	b5vzMJkgE8J0itBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F1C6313319;
-	Mon,  9 Nov 2026 11:07:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6kSkL3Wp8Wo0EgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 09 Nov 2026 11:07:33 +0000
-Date: Mon, 09 Nov 2026 12:07:33 +0100
-Message-ID: <87bj7yw9e2.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: soc-core: reset rtd->num_components after allocation
-In-Reply-To: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
-References: <20261109102536.357134-1-ghidoliemanuele@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=imtvoHwe;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EDBoLGJb
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99v6vI562007
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 11:07:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=w1TZas2nUn4Iyhi9A5CEWWZl
+	SF+cg7JudGhxYTHfccQ=; b=imtvoHwe1TePJNqu7ofU5s7Z+PeuiQMjH7T+T6Eg
+	7KuU4BNkH+mMEByIzdcoBf+b07G7+oodUIg8HscksUnb88yKzQ5KSvd5UPp0PEhI
+	X5+Z2DrTnF+gy6xx/STu/TTTiUYbNNtV2pcxfuxObjRqpdbVZXgkHZgMTRbYk1PE
+	JD337eqeHe5vl2u5ULAo5bpP0zGtvDZanQf5BFrRRypA/k3xaU/vBwqXLzV1je4w
+	cpGfF2ujU2opvksfN8+bP+6RAsTHO5HdDQ7ri8XQXCrekzGWRyN3WHkFWBrlx7z8
+	ZayvXzg89jFRfBrzafleEQcpSnq3MZ2Ohvm/0sf7BlnfDQ==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsujxe3ah-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:07:51 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99082f450bfso653031241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:07:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794222471; x=1794827271; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w1TZas2nUn4Iyhi9A5CEWWZlSF+cg7JudGhxYTHfccQ=;
+        b=EDBoLGJbXKlwqaS8YkqHtf8UCv0iuglQip6x3YrR7AvwU8STF+IaysKCH1ULJGvA/O
+         0/pTPE4VQ0hx4xl57SawpeeurSttsw3Eao72r5quJnVLAFc8l2Zap8VYY8LQl/F9FEM1
+         u86D8qPJcWb1S2XY09r+NquH65wAaF9Z/psJ2MMs9qZadm6BatGkKKhc+pYBb9EWdyF3
+         Rhk3r5MrH8NQzhhIGVA2vbnWvsLI/SNySc1JzFEjFFragvtWrvr5Nk/SW0IOO/8RGPJm
+         WPfw8OwD2S0FX71FphluFcK6eObm0iOLjmxfShu6DZc+6qVQsyDA3rTIy/oTv+7UzATW
+         IAMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794222471; x=1794827271;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w1TZas2nUn4Iyhi9A5CEWWZlSF+cg7JudGhxYTHfccQ=;
+        b=2noscy7mlItbt8gbtIZxTnz59TSpoIe8hwKdu77TCKD+qEjt5fR9qhjEMNd14L7WKW
+         0r7xw7hFmSY+CRPsDdYqcU32fwx4S/L/88EA2D1n5n7nrTmHfEF4U+qbJL4dZoZRd3+B
+         DL3gzIUiHIrkoQofldBtJOp9W5hr8dbSXfLEaLqHdx4ph2MyoVUQVG8dMY/+b/1f/Jie
+         Ze5Sm3TUssTxgm9h2+vHJgVaDPXzUkpIysOg7OifvMsiJdJOy4VQh9UDhVAz92D0agS6
+         WM7o0FV2IOYBMhlDWWsuS+6/sM23A4VECgt/36lP8RR4VMvovPcTuPpglS9yRBZ6/40A
+         wXRQ==
+X-Forwarded-Encrypted: i=1; AL+hErGeIjgIedpR0j7rLeZgfBYm0yqXUHOR9ia/sRHbMTH4ppursOLl24mQ0DKGLuDVB3CIpsW8k11tT+4fgD4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/o0+OIAlbolz7zLPnf94QXIRMPHF1KTV1aUZePhPskISKI3ic
+	P4gR2KSccNYk/8v1a4LZq4MmuEXmAg3TZxBkdHgpYrBNXBR6Se2eWUgAl9Tavnud9Z+oRHdwrRz
+	cyLy9ZJzrPds+gGJGiLjxgmqxN2pPS/o2ZhpZFpvKl49lMx+dzWqPP8Fgbxp5hADAWCc=
+X-Gm-Gg: AYBFou2jckEqLc6bnbwkbGme4NdPBgkOw4OYccHRGdKenQknonhqzrM7fUNqZPuF+ZZ
+	smmCQ3Gp7UfBCpvQ1ZFAPxxIfRD/ecRGxXQ2Mn2x9sGHPqhWyjOxRRVIefzjaIx+9M8zpNLNXsz
+	KIlF2G1kTnReTwKYQjJlP494hGXjExgkKqcKCKDkFJN6r2IcjAJd+WWVSWCwSReux0NlSnFKN2R
+	+/c+8ypEoy41iTNa26ImJmUv/LnPmpaWXdbWm3ttgfqbFR4RXGX8Q1F3+GScJvqTNnowrZRwT/d
+	FUvbow0ypnI3pm5/mFZBdEXWZxYFLOW2IrM4OkFqWfrR+KnVKvIjYv+F9BjU/74CUP6Sc1TBaMR
+	bDgMV+VO2xtk4RIinLx4XZaZsBZ3i08ycjtq3TXAG05OeK4I4ommBO5pYU31r37s=
+X-Received: by 2002:a05:6102:6044:b0:7c1:9f20:36ad with SMTP id ada2fe7eead31-7d2dabedb56mr1076590137.2.1794222470966;
+        Mon, 09 Nov 2026 03:07:50 -0800 (PST)
+X-Received: by 2002:a05:6102:6044:b0:7c1:9f20:36ad with SMTP id ada2fe7eead31-7d2dabedb56mr1076584137.2.1794222470405;
+        Mon, 09 Nov 2026 03:07:50 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-496150c6e90sm7740628f8f.2.2026.11.09.03.07.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 03:07:48 -0800 (PST)
+Date: Mon, 9 Nov 2026 13:07:47 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7:
+ Describe the Embedded Controller
+Message-ID: <adkqpnhp3gcxjdot4yratxmnvi3mmkyovbusff5ypl46cqlw42@cd6on7mzjmwk>
+References: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
+ <20261107-t14s-gen7-ec-v1-3-f4a8edaac447@oss.qualcomm.com>
+ <7dae5091-6d51-4bf9-9a94-bb2d98e2ad28@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,201 +128,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 9B3CE1F7C2
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmail.com,toradex.com,perex.cz,suse.com,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,toradex.com:email]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7dae5091-6d51-4bf9-9a94-bb2d98e2ad28@oss.qualcomm.com>
+X-Proofpoint-GUID: l_OTyowxIxCVyDLFPBmsv_H600P8c75e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NCBTYWx0ZWRfX6WCS3e59Dc9t
+ yfNxKgDdOBui8bUMJqoKiX8misUIKeCASOx5uyJkkQFn2e0U04Wxg72KyYSqLpWJY8mjPddf3yz
+ LbgTV6bKOmrbnBSDNxu2A6ip9PNL5bimPfgMaewSNyNDw7GglezyIlcNf1erEZCnWdrf70jMnIG
+ SYj1Sk7bu9jjFGlNSDnGR+fheFYiMy/3DuM73xxaT0FnugFafQKTVQIULsmNwhrwG09I9oDQAlu
+ vOS0V3ifGhvheu/nsp8g3WikwwsLRpCNNZwHp8VkLgnL7vGVIIFpjOGgeTa7myq+1HbPMmLHQ7l
+ c5JUo8pUZqYrDP+1UZLzO5TC2JY1oQ7U8/yIw+jm4bhFLvbT3scu51NyyMhmHOEhV49UNV6A4Do
+ BCGHMJq4YpnQgzXp4ptxuneqCaGOFQDgvz2JQpBV9nnx6vzyBGJrDoEhRymB8LNNSzw/qQwbQs/
+ ec16Smdf5mcv/c/C9wQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NCBTYWx0ZWRfXzyqs2UDVjrSJ
+ 1+Nt3GymUhvuQgUQrriKS+TnVzetWms+uIWgpYL6HEunfRgnXYLIPrwpqbBBb4WuMCpUECQ4pk8
+ gv6ILIFYFi2ZozDhWpyGeuBoCBR5QyA=
+X-Authority-Analysis: v=2.4 cv=TeIDJhQh c=1 sm=1 tr=0 ts=6af1a987 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=FPO0yo-LnFrNtlzATzEA:9 a=CjuIK1q_8ugA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: l_OTyowxIxCVyDLFPBmsv_H600P8c75e
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090044
 
-On Mon, 09 Nov 2026 11:25:20 +0100,
-Emanuele Ghidoli wrote:
-On Mon, 09 Nov 2026 11:25:20 +0100,
-Emanuele Ghidoli wrote:
+On 26-11-09 11:19:46, Konrad Dybcio wrote:
+> On 11/6/26 11:01 PM, Abel Vesa wrote:
+> > The ThinkPad T14s Gen 7 has its embedded controller at 0x28 on QUP
+> > i2c9 (ACPI \_SB.IC10). It uses a different command protocol than the
+> > Gen 6 one, so describe it with the Gen 7 compatible. Its interrupt is
+> > GPIO 66, as on the Gen 6, but the firmware describes it as edge
+> > triggered, active low. Using a level trigger makes the handler fire
+> > continuously while the EC holds the line low, with no event pending.
+> > 
+> > This provides the EC hotkeys, LEDs and keyboard backlight.
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > ---
 > 
-> From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> [...]
 > 
+> >  &lpass_vamacro {
+> >  	pinctrl-0 = <&dmic01_default>;
+> >  	pinctrl-names = "default";
+> > @@ -987,6 +1005,12 @@ &tlmm {
+> >  			       <44 4>,  /* TPM */
+> >  			       <139 1>; /* TZ trigger */
+> >  
+> > +	ec_int_n_default: ec-int-n-state {
+> > +		pins = "gpio66";
+> > +		function = "gpio";
+> > +		bias-disable;
+> > +	};
 > 
-> Commit 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the
-> devm_kmalloc_obj() family") switched the snd_soc_pcm_runtime allocation
-> in soc_new_pcm_runtime() to devm_kzalloc_flex(). components[] is
-> annotated with __counted_by(num_components), so when the compiler
-> provides __builtin_counted_by_ref() the allocation now also sets
-> rtd->num_components to the number of allocated slots.
-> 
-> snd_soc_rtd_add_component() fills components[] one entry at a time and
-> expects num_components to start at zero. Starting from the allocated
-> size, for_each_rtd_components() stops at the first, still NULL, entry,
-> so the runtime has no components: they are not probed, no controls or
-> user-visible PCM devices are created and the card registers empty,
-> without any error message. In addition, each added component is stored
-> past the end of components[]. On the tested board these stores still
-> land in the slack of the kmalloc bucket that devres rounds the
-> allocation up to, so KASAN does not report them.
-> 
-> Reset num_components after the allocation.
-> 
-> Seen on a Colibri iMX7D (simple-audio-card, fsl-sai, sgtl5000): the card
-> is listed in /proc/asound/cards, but /proc/asound/pcm is empty and
-> 
->   amixer: Unable to find simple control 'Capture Mux',0
->   aplay: main:850: audio open error: No such file or directory
-> 
-> Tested on that board with v7.4-rc2 built with GCC 15.2 (first seen with
-> GCC 16.2): the failure is there without this change; with it, playback,
-> capture and the codec controls work again.
-> 
-> The root cause analysis, this change and the testing were done with the
-> help of an AI coding assistant (Claude Code, Claude Opus 5.5).
-> 
-> Fixes: 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the devm_kmalloc_obj() family")
-> Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> ---
-> 4dd10fbbeb9c only reached mainline in v7.4-rc2 (not in broonie/sound yet),
-> so this is based on v7.4-rc2.
-> 
-> The other devm_k[mz]alloc_flex() sites added by 4dd10fbbeb9c were checked
-> too: none of them fills a __counted_by() counter one entry at a time, so
-> this one looks like the only user hit by the preset counter.
+> nit: please keep these sorted by pin #
 
-I guess a bugzilla entry that was reported recently is also related
-with this problem.
-  https://bugzilla.kernel.org/show_bug.cgi?id=222249
-
-My first gut feeling was that it might be safer to revert the use of
-devm_kmalloc_flex() in that code, as it has a significant side-effect
-unlike other straight conversions.  But, if this fix covers well, we
-can go with this fix, of course.
-
-
-thanks,
-
-Takashi
-
+Yep, will fix in v2.
 
 > 
->  sound/soc/soc-core.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 68b54e509b65..06a1d5718997 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -387,6 +387,12 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
->  		device_unregister(dev);
->  		return NULL;
->  	}
-> +	/*
-> +	 * devm_kzalloc_flex() presets the __counted_by() counter to the
-> +	 * allocated size when the compiler has __builtin_counted_by_ref(),
-> +	 * but snd_soc_rtd_add_component() expects it to start from zero.
-> +	 */
-> +	rtd->num_components = 0;
->  
->  	rtd->dev = dev;
->  	INIT_LIST_HEAD(&rtd->list);
-> 
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> -- 
-> 2.53.0
-> 
-> 
-> From: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> 
-> 
-> Commit 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the
-> devm_kmalloc_obj() family") switched the snd_soc_pcm_runtime allocation
-> in soc_new_pcm_runtime() to devm_kzalloc_flex(). components[] is
-> annotated with __counted_by(num_components), so when the compiler
-> provides __builtin_counted_by_ref() the allocation now also sets
-> rtd->num_components to the number of allocated slots.
-> 
-> snd_soc_rtd_add_component() fills components[] one entry at a time and
-> expects num_components to start at zero. Starting from the allocated
-> size, for_each_rtd_components() stops at the first, still NULL, entry,
-> so the runtime has no components: they are not probed, no controls or
-> user-visible PCM devices are created and the card registers empty,
-> without any error message. In addition, each added component is stored
-> past the end of components[]. On the tested board these stores still
-> land in the slack of the kmalloc bucket that devres rounds the
-> allocation up to, so KASAN does not report them.
-> 
-> Reset num_components after the allocation.
-> 
-> Seen on a Colibri iMX7D (simple-audio-card, fsl-sai, sgtl5000): the card
-> is listed in /proc/asound/cards, but /proc/asound/pcm is empty and
-> 
->   amixer: Unable to find simple control 'Capture Mux',0
->   aplay: main:850: audio open error: No such file or directory
-> 
-> Tested on that board with v7.4-rc2 built with GCC 15.2 (first seen with
-> GCC 16.2): the failure is there without this change; with it, playback,
-> capture and the codec controls work again.
-> 
-> The root cause analysis, this change and the testing were done with the
-> help of an AI coding assistant (Claude Code, Claude Opus 5.5).
-> 
-> Fixes: 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the devm_kmalloc_obj() family")
-> Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> ---
-> 4dd10fbbeb9c only reached mainline in v7.4-rc2 (not in broonie/sound yet),
-> so this is based on v7.4-rc2.
-> 
-> The other devm_k[mz]alloc_flex() sites added by 4dd10fbbeb9c were checked
-> too: none of them fills a __counted_by() counter one entry at a time, so
-> this one looks like the only user hit by the preset counter.
-> 
->  sound/soc/soc-core.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 68b54e509b65..06a1d5718997 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -387,6 +387,12 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
->  		device_unregister(dev);
->  		return NULL;
->  	}
-> +	/*
-> +	 * devm_kzalloc_flex() presets the __counted_by() counter to the
-> +	 * allocated size when the compiler has __builtin_counted_by_ref(),
-> +	 * but snd_soc_rtd_add_component() expects it to start from zero.
-> +	 */
-> +	rtd->num_components = 0;
->  
->  	rtd->dev = dev;
->  	INIT_LIST_HEAD(&rtd->list);
-> 
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> -- 
-> 2.53.0
-> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Thanks,
+Abel
