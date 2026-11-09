@@ -1,94 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.157
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192897;
-	b=ubfa3/vGhs4WMgAkvYsrdSEKDJWd+76WdqF3qg27mmOKR7rh7R0SEfdNVFKlUWJvoKpy
-	 Zfmu4A6poxxxYOhS6Xf/tD/y2ubEX99t+6zlXFuwPl5ZcWqwfMkTsBf34t2PE9a+TaaLE
-	 OQlnipLQLFUh5MHW4prFOo51xMHMg99qavO11d/IUYMmfCWxN4FMeWfbSqq7v/2+AS70Q
-	 z9t69pj27XByJM65bQk0ZMxCeBHurCRmkCF8Ed+tF/NoiAhyPOUJM8yHvNl1RYEHNc/3i
-	 16RRE1kcwBAlL/eJ4TSMnjKB1A+NJQ705hEziq6+UX2OBSqkwUm2w42x64J8/hFs9hg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192897;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=hYrJTFeeaJTcrWxyWoGWMilmtuo78RKW5cGiyhOt/fM=;
-	b=NShpD8dN3rKehs25WOXl/XrwDBaRLcSMxas1Ji0dVJk080pwRgbFbQ91ay1o6Bgxk0OX
-	 b9FSFsJlQhMjj0Z299mnZsX38GDwit25DjYH/cVC7qhJbYma0Dyel+cQ3zGMEu8jGtnCt
-	 JWSXtp6us6nHigHr2A41v7LMLeZHiU9gMQ6hUuNhmFsGbt6J8gudeIK8PCYzMPbESjqui
-	 +nuDyI3WnQ7mwb7iv21QJ1WlTC9PqbQBbuonzz3/QycZfDSCXHnrQ84bEMVJglRnF+1kH
-	 0P5i1PB636XZlgtcgJbP1F/rtklQL7OKx8w3IW6zKMk00s0CNZ63x+xtdx/AIn0K9KQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o8byScok;
-	arc=none smtp.remote-ip=95.215.58.157
-Received: from mta1.migadu.com (out-157.mta1.migadu.com [95.215.58.157])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794192909;
+	b=AJf81kR0ubBbC9v4tvQhvEkJKjetuHrVXLPJNU1ebem6zS0VYkRTbxAtfxwXBAqhIy2c
+	 +O/2HjTj3HO2stZojmHs0j5zvCLmJjqbt1f2uBpk/VjA6y00MLQ5KIknVwpbxkzdfYXF1
+	 JZdTb7BFKs0kZifQE+QWAn0RXttG2h3ABgXr0iAPtu0tschWGxsNzBM8Qmbpq1Cambi9r
+	 JE4AXi9v+kmYMf4fxLcrAFdG32XJ/w661xXAup8lBnvb6wRqRMNU8gqefuyGNaH5TaC+9
+	 cEgVb2ek2uEkWeFChfgNTCGwSM+8sUMqKeUhF1QIlTjGCHFTTy0/JEltbFlLN/4M1Hw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192909;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kI7NYgQuuFTeHXrZ9zRhIvS7hLT9PxIJ1Nkc0ImVrAM=;
+	b=PaCkg4hr/KmWNLyXxggh6XJoy3jrcJ0CQDiifTUhhMHjKnnjAKC/TsFbg2hq6QkLICnU
+	 B0nkoHu6swNLqf1ADDz0HFESF7dN90xaNyld2flz8Yyst8s9oEjYbwjsLVG5NXV8669ZU
+	 7hnzoPLmKZSktKk8NAHnNalII+E1yAthDPfd32dq6JFVjyh9IROE/RDwOOCQ1GkXde+m/
+	 vtXwaVa04tPwo4vNnkzepsr44Ix/8FMSxfQrP7UprkDJE6rKF3Yhf+ifYX8smga4Zlpx6
+	 N0iY75xIrKqRY19Z1lyYQazWSRN5PUhbZon2jK+018dgGEmOj50ZkSEeHAJid9U3DdA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDWV4o8v;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCD7606A323;
+	Mon,  9 Nov 2026 02:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDWV4o8v
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794192908;
+	b=DRtARona248pJKiNIYZoO/SE4nyT7gxrHo5O9KA529pM8nkx0PYS8eMIOYepWioMK8v1
+	 tq4RQYFhgh0vE8125MRbYavDzFWRqLvrlyYl5cYBCmSu9KIw1X6axGwmGwR2PWZAFskDs
+	 nHvZvPTva+COtCnLFRZkw/pA50MZPGQ/xTviDhxpM4C1voPABm38v68odwCYjjbKYg7jP
+	 jOW0qcLtUmhgaQ8UmKdUnsoinx0oB4RqPe1RWvLeY8e5hYSck2qXOShtEGkTnDrmBc8kd
+	 Io3IIQDGVybVZcbogVMJPS39bNzeLOruTwTtlGVKNpeoE4YBXHnkIQYb4na4ovB2IZQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794192908;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kI7NYgQuuFTeHXrZ9zRhIvS7hLT9PxIJ1Nkc0ImVrAM=;
+	b=sbiOeQ9iuW7gm+T1CA1C+q2kDQHLRGo4n7itil6Sbv7PwCGF6WKm3fJrDXftSruIsSQT
+	 dy+o/qVgl5PSdgsi0YkgqbOVl5OneRVYpkfbC0BVvzv4S/VYZLep1SpECzYiZOUU15hZE
+	 yYb/w0E7ChYCwiOT3tBOBMWVEQfoJL+yveS9BQqgGo36LBAMZ7Z+MFdo+JZEdMOFZ/fVH
+	 LkOtrD81RF7sMuMbQc2hlYz6c0YhquGwxSJVjiLyxLtXA3oPvnRjgp21U8PHXYtBqkbne
+	 ubLddlkb9MFxQj/4zMuTBi26dBCkbLEPa29EG1W+SpB26hQhcSIpOxOIbJtC45AtEyA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD2606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:54:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABD2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o8byScok
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AklJRutHnCjXFhvSqdKi7qHVk0KLDVHRQgdOQp8cMPo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794192894; v=1; x=1794797694;
- b=o8byScokjp+ULsxsEcyZI40PKGlyJqSpGRqP4vcSIwCXSrrhBoDONhExVlJxSlTTdikAeYQC
- xhln6Y4vnRwQLa49NRuuEVKNyJk2DmR/vJ6tJYRvyuPAOT298kMqpfrXh9/kkeOtD8X8m+nGLFc
- sabLDu4xDbC2LSZYG4cZKbsA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 89474d14179b70cf;
-	Mon, 09 Nov 2026 02:54:54 +0000
-X-Mizu-Trace-ID: 89474d14179b70cf
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org,
-	linux-s390@vger.kernel.org
-Subject: [PATCH net-next 00/14] net: annotate data-races around sysctl knobs
-Date: Mon,  9 Nov 2026 10:51:59 +0800
-Message-ID: <20261109025425.328445-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 842581F008A1;
+	Mon,  9 Nov 2026 02:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794192908;
+	bh=kI7NYgQuuFTeHXrZ9zRhIvS7hLT9PxIJ1Nkc0ImVrAM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LDWV4o8vlT197OPb/RL7gcLCTGTLVJ6+iqF1rPdLukjEqcCv66sdi8Rsrv7N9u1Aq
+	 3bTunV4iPKy+kvBkiuK5dxu7jSLJjJMdLI3THnBWG9sgnhmAjwkQythXv3vW45IX7a
+	 ReNoNEKZSH8NrT0R7978HFpR2IJZKSKWptwWPXthFqwTxfBttGdlY5sqJaMZVlxFIL
+	 fK2uqv3ZQ4p9zBgZdK+/5xYagGumeh6SA/h/6Rg/JUso7K7fPYEvrFu3i7ErP5Xs7O
+	 VkHM2xyI/ynV3/vjPyvryA/TNLQ162z3eS90xklseONztfPmM4vBxFcGF6YR3ZTBCX
+	 DIG2D2UEs/HoA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 067DC4820F;
+	Mon,  9 Nov 2026 02:55:07 +0000 (UTC)
+From: Kohei Otsuka via B4 Relay <devnull+kohei.spacemachines.com@kernel.org>
+Date: Mon, 09 Nov 2026 13:55:05 +1100
+Subject: [PATCH v2 1/2] dt-bindings: serial: 8250: add Microchip Core16550
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,114 +82,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-core16550-rs485-v2-1-a15933c7b907@spacemachines.com>
+References: <20261109-core16550-rs485-v2-0-a15933c7b907@spacemachines.com>
+In-Reply-To: <20261109-core16550-rs485-v2-0-a15933c7b907@spacemachines.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
+ devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ conor.dooley@microchip.com, Kohei Otsuka <kohei@spacemachines.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794192905; l=1517;
+ i=kohei@spacemachines.com; s=20261103; h=from:subject:message-id;
+ bh=tVquJwmRACDuh480fTmlsHeIfkSp7Ofs4+cTK3nRbqo=;
+ b=VIyOrtl+nYTF1R05LAEuQP9NoK+Lhy2kJMg60Iib8Tz2NG5p9x1VmbIxgETfVKy9VrJL4lkNK
+ qKdH4GvU05TCp9YAFJA24IQhfht6sfutY8om5D/nbBZcVtoApSO8ExK
+X-Developer-Key: i=kohei@spacemachines.com; a=ed25519;
+ pk=1kit/vmX5JiLGH9NPcqlvT55ISWaLmNipdL5VrriRt0=
+X-Endpoint-Received: by B4 Relay for kohei@spacemachines.com/20261103 with
+ auth_id=1385
+X-Original-From: Kohei Otsuka <kohei@spacemachines.com>
+Reply-To: kohei@spacemachines.com
+Content-Transfer-Encoding: 7bit
 
-While testing the recent sysctl range fixes I noticed that a lot of our
-sysctl knobs are read with plain loads while the handlers update them
-with WRITE_ONCE() and no lock, so KCSAN reports them as data races. I
-then used an LLM to go through every ctl_table under net/ and list the
-readers that were left behind. This series annotates them with
-READ_ONCE(), and adds WRITE_ONCE() to a few custom handlers and netlink
-paths that store to the same fields with plain writes. Most of it is a
-plain READ_ONCE() at each read; where a function reads the same knob
-twice to make one decision, it now reads it once into a local, so the
-comparison and the value it acts on cannot come from two different
-writes.
+From: Kohei Otsuka <kohei@spacemachines.com>
 
-There are no Fixes tags. Done one knob per patch this would be well over
-a hundred commits, so I grouped them by subsystem and feature instead to
-keep the review manageable. If maintainers prefer, I can split it up
-further with a Fixes tag on each one, as several smaller series.
+Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
+including the fabric of PolarFire SoC. Its registers, interrupts and
+baud rate divisor follow the 16550A, so a driver that knows only
+ns16550a operates it fully: transmit, receive, FIFOs and modem control
+all work. What the generic driver cannot know is that the core raises
+no interrupt on TEMT, which it needs to drop RTS after a frame in
+software RS-485 mode (em485). ns16550a therefore stays a valid
+fallback, with RS-485 RTS control the one feature that needs the
+specific compatible.
 
-No functional change. KCSAN does hit these, e.g. toggling
-net.ipv6.icmp.echo_ignore_all while receiving ICMPv6 echo requests:
+Add microchip,core16550-rtl-v3 with ns16550a as the fallback. As for
+Microchip's other FPGA fabric cores, the -rtl-v3 suffix is the major
+RTL version of the IP, Core16550 3.x.
 
-  BUG: KCSAN: data-race in icmpv6_rcv / proc_dou8vec_minmax
+Link: https://github.com/linux4microchip/meta-mchp/issues/5
+Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+---
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-  write (marked) to 0xffffffff8ee2940d of 1 bytes by task 504 on cpu 0:
-   proc_dou8vec_minmax+0x1ab/0x1f0
-   proc_sys_call_handler+0x282/0x3a0
-   proc_sys_write+0x13/0x20
-   ...
-
-  read to 0xffffffff8ee2940d of 1 bytes by interrupt on cpu 3:
-   icmpv6_rcv+0x99d/0xd40
-   ip6_protocol_deliver_rcu+0x787/0x9a0
-   ip6_input_finish+0xb0/0x1b0
-   ip6_input+0xa8/0x250
-   ipv6_rcv+0x14b/0x1c0
-   ...
-
-  value changed: 0x01 -> 0x00
-
-Jiayuan Chen (14):
-  ipv4: annotate data-races around ip_rt_* sysctls
-  inet: frags: annotate data-races around fqdir->timeout and
-    fqdir->max_dist
-  ipv6: annotate data-races around addrconf sysctls
-  ipv6: annotate data-races around icmpv6 reply sysctls
-  calipso: annotate data-races around cache sysctls
-  sctp: annotate data-races around sctp sysctls
-  mptcp: annotate data-races around pernet sysctls
-  rds: annotate data-races around core rds sysctls
-  netfilter: conntrack: annotate data-races around conntrack sysctls
-  netfilter: bridge: annotate data-races around br_netfilter and nf_log
-    sysctls
-  ipvs: annotate data-races around lblc_expiration and lblcr_expiration
-  net/smc: annotate data-races around smc sysctls
-  netfilter: conntrack: annotate data-races around timeout and tcp
-    sysctls
-  netfilter: cttimeout: annotate data-races around the default timeouts
-
- include/net/ipv6.h                            |   2 +-
- include/net/netfilter/nf_conntrack_acct.h     |   6 +-
- .../net/netfilter/nf_conntrack_timestamp.h    |   2 +-
- net/bridge/br_netfilter_hooks.c               |  20 ++--
- net/bridge/netfilter/ebt_log.c                |   2 +-
- net/ipv4/inet_fragment.c                      |   2 +-
- net/ipv4/ip_fragment.c                        |   6 +-
- net/ipv4/route.c                              |  34 +++---
- net/ipv6/addrconf.c                           |  22 ++--
- net/ipv6/calipso.c                            |   6 +-
- net/ipv6/icmp.c                               |  10 +-
- net/ipv6/ndisc.c                              |   2 +-
- net/ipv6/route.c                              |   8 +-
- net/mptcp/ctrl.c                              |  18 +--
- net/netfilter/ipvs/ip_vs_lblc.c               |   2 +-
- net/netfilter/ipvs/ip_vs_lblcr.c              |   2 +-
- net/netfilter/nf_conntrack_core.c             |   8 +-
- net/netfilter/nf_conntrack_ecache.c           |   2 +-
- net/netfilter/nf_conntrack_expect.c           |   2 +-
- net/netfilter/nf_conntrack_netlink.c          |   2 +-
- net/netfilter/nf_conntrack_proto.c            |   6 +-
- net/netfilter/nf_conntrack_proto_generic.c    |   8 +-
- net/netfilter/nf_conntrack_proto_gre.c        |  20 ++--
- net/netfilter/nf_conntrack_proto_icmp.c       |  12 +-
- net/netfilter/nf_conntrack_proto_icmpv6.c     |  12 +-
- net/netfilter/nf_conntrack_proto_sctp.c       |  13 ++-
- net/netfilter/nf_conntrack_proto_tcp.c        | 110 +++++++++---------
- net/netfilter/nf_conntrack_proto_udp.c        |  24 ++--
- net/netfilter/nf_flow_table_core.c            |   4 +-
- net/netfilter/nf_log_syslog.c                 |   2 +-
- net/rds/recv.c                                |   2 +-
- net/rds/send.c                                |   8 +-
- net/rds/threads.c                             |   4 +-
- net/sctp/associola.c                          |   2 +-
- net/sctp/bind_addr.c                          |   2 +-
- net/sctp/endpointola.c                        |  14 +--
- net/sctp/input.c                              |   2 +-
- net/sctp/sm_make_chunk.c                      |   6 +-
- net/sctp/sm_sideeffect.c                      |   2 +-
- net/sctp/sm_statefuns.c                       |   6 +-
- net/sctp/socket.c                             |  46 ++++----
- net/sctp/sysctl.c                             |  16 +--
- net/sctp/transport.c                          |   6 +-
- net/smc/af_smc.c                              |   8 +-
- net/smc/smc_clc.c                             |   8 +-
- net/smc/smc_core.c                            |   2 +-
- net/smc/smc_tx.c                              |   2 +-
- 47 files changed, 259 insertions(+), 246 deletions(-)
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 50d5c977afa3..6f806b972f5c 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -137,6 +137,7 @@ properties:
+               - ti,da830-uart
+               - loongson,ls2k0500-uart
+               - loongson,ls2k1500-uart
++              - microchip,core16550-rtl-v3
+           - const: ns16550a
+       - items:
+           - enum:
 
 -- 
-2.43.0
+2.53.0
+
 
