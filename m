@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256484;
-	b=iDGNp8cDBRBnshWDapep/2V0Q/Mk5ZknCjLxT4faDXMkzwiP+fVftvbhrV9inmw2szF8
-	 cTvNtlv1+XYZKUSHhM7fM+RiSeO93TxYH03+2MpkiKwW59R4BVvUTJ+a7MY80xvEeVLmQ
-	 f4XZ3CGZM7bSyjjaNGTtOCMO/MknQ31A7fo8EfteJ45W98rjBLGrGXzsXtOv6fFWIg9qB
-	 cTq3xqkYJIkifTPNhGHBXr/1jHZ1MVy+VH47USB9cotOa055j3z/QG7qpPoU+oeSZ08Y7
-	 npxjEFxvyRbntYo0lEfVVI634Mjhe5uI0w2d3AOvHukosT12Flrlh0Hun/cwzKb/K8A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256484;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794256505;
+	b=QzToTjgetFh8ZPkz7eUCc/RJVe8sXOxpi77g6V2pZONlRo8pim90l7P5tm+IKteqMt18
+	 NqRAwk01dco67yqtZd8l69+7Rkn+P88gtgKM9W/wFjHioQb61VLOGW/vQu/aj/yZpPKOZ
+	 3c4jUK8f+4TajBdpDlGE/XJFmpMB/ozHzdLZDyD6xxIUHBehr0BPigadrXnEPBWqRoqnX
+	 zQDSnfZf/co4/Ue0VwgsFFSktUBRG98rDCfrnwKvlbtcJPNrPuxA6OkrI4qMLI7RnSuVm
+	 UDe6Pu3KHaJcy5oQww2ocTz3r9fQty+qsBdZUA4OT1hj7WMhih1yLfawjJ+gkQpUr7g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256505;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IBxWV0bMHBiaBYABre4CeRklD+VEvSYRbNLDT7mR5OE=;
-	b=ElwGfaSwhVJt1VSlpvlhZF9Ec8Be1e1hyYwmZQOhepfk0BNO4YaYrtUlGp/p1Aj24v6s
-	 NZctR/JulRa7hk3el8sMx6l6wPeSnlAZupSt50mXPN+3vif8KZDjMrqW1ve0ZA01H61fR
-	 01HIfeo6b/Q7KBsa64MnaKtJ/TAxBLkLzIUnbi+7RxLapQv8e6bbPr52NVFGeqr9PEg+L
-	 VAaT0DdQwMEeSiRNSNQ3WoTLisbaykPkifmPj/VJ4BKlrMBh22DCmzMm//PsuxJdl6wLd
-	 bjPD5K/JIdXZ6Rfgg9J3qMiT8SXOmhO9U0PjFa1b95lL3OI9rBM9EgHHsMthdXkrQjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pfwLw9rBCjiBO9BkSejRs0pLl7ihPFNRSexH8P18xG0=;
+	b=e6o51z61sZQ58FxAKhh2sgGnX1CKqI4AXcbX2FEJgeIRcFj0jM2OQTKRMMTmtTKlOa9b
+	 DdBDR8H4uBKKviIwZ8ySYl06xnD7lvgnDTvobRFCXqCbg2YhZAjN8wQM8n+hwwmr8Y11X
+	 jDfdxkjS6E4Y95uYdD2SSB1/s4CurqXjVAphhz5rwhcUzfn+DHytprbrsBtVVOLP55wq7
+	 LGcjoddV2siV1Tnw67XlUJ/Ox8iPUMvsFt3LPDGw9WFHKHHZeG5mIKUoxmUDFqMQRWgKB
+	 kBO0BE1CIPKUW26Uu9Y5BypuvJ8bzPef07h0qRtvw/nGxNYQnYIGA3a0YAwoKjTbJeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c9TmK+9W;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YfzV5Uob;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.41
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB31606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:34:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB31606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FF7606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:35:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45FF7606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c9TmK+9W
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso896047f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:34:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YfzV5Uob
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7cc30120465so55662137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:35:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794256504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cofpikNlM6kdvXtgpo6e7EVf1rkwGAIWRRzFK3Xmq1dDr4Mzr+fICh21xYlbJiDhhy
+         pLOeP5QV9ghE2xlqsKyeiN5FhivAhejVFXLRYIfroCalHq2c/RaBfIsSSE5byTChloFO
+         7U3tyDRIYWKVp7cWE0LrLJqv0z5uIw+C0SfyZZSt9WhJWtD80dPpEAVSGvnk2lEtDvBb
+         G1M9csYL//KcTVluQkJigTRqfZUH1NG/urYvnQjy0J9vCOosfBRjjK4IVzjfFw831Sq8
+         zm4iK3Y+tLK1EmJtFijwss8l9kt1Cmvc7/r5vHjb49iCkyw8n6PZOKOdqrAZsbP15r3n
+         33rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pfwLw9rBCjiBO9BkSejRs0pLl7ihPFNRSexH8P18xG0=;
+        fh=9bTo98eTbxhKwnQ/jg3TBVOih3tY8JFK53zTHiHyvwI=;
+        b=MvBuoOkYMjrMlOQ9eiLiQk2LadPAnPTPDWYGFxcWAS9sJfY6HQydNFx9MDJS6LYuWA
+         eo+9YpXBQ442NBJzp8kpJPCJwVsmwZntrKQXmBb9qeIDzvJ/Y6/nTJFJV83zh7mFo1x0
+         M5iuVfDPBTemzLJDUzn7r/NsnXseoOwHT6/uhIYJ6OPwQUPAM8JNePxDGac/YUKWNnvQ
+         0XErbNC04d60AvCMfDPHNKJOjn7Es7vxTXFRZNzfcZOMNteBPzisdtS6KqPhMb/qzHHp
+         fjaN7k7RgOyhyqRKzEzA3WAugjnxXV6QEOaoU5qHh3YuBLKjtyxSneHff/MIaDa3EQAi
+         01nA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794256483; x=1794861283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794256504; x=1794861304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IBxWV0bMHBiaBYABre4CeRklD+VEvSYRbNLDT7mR5OE=;
-        b=c9TmK+9WzrGyvd+dKsPN5CRanNi3KrAxYt7LKAN24BULUbEELTKz9a3REq0gnaF1eU
-         96dkvLHUhT+Dey24BA803kWLvqWppZfKGlgK/KTSDJWb8BEvoi7SQKLyu0+qFBBTQre6
-         c3ApfaIZXvk4P+K3nfi3o4lJT5hPfKjNev4vephwJOukoaCVqawno6zNEU4T8EiQ2QXW
-         9yEl7K8t58m72puXrbI19fiGd0WImOk5Oiyyr49pOh9OIc3MUl6WSRXs2+54rV0TOQsK
-         Ia7OO0PJANNhk8znn9Z2t/YF+YVTLM0vpswHDvvA4LmBeyZ/HMzX3fo3LpnpsBPzg7u7
-         xlGA==
+        bh=pfwLw9rBCjiBO9BkSejRs0pLl7ihPFNRSexH8P18xG0=;
+        b=YfzV5Uobo7HC6w0mibsX/jjc5Tyk34CGlEppxWjjEum/boSGRGai5rPn1AM5GDqZ1R
+         9hyG4/5qJQfMZpm28rAoRskyoXU+RdiQd6tIH3BEUH1U1lvihZg9BdrcJRq0pkq84B/m
+         L+HtldqWbxVGF8FKRhNfcVUg17kpYcdDu8ltb5af3iTppCLtc2Gyk/pqKPumUQA1bwME
+         KEx5rOHXgZNDBdda1VcSKdnlo1IHqUhH0Og/o8oqakE34wvS3egj0pBWFWdSEwhHE/am
+         swMr1Kggob+1Gafkmzq5CAVGSBuOk1BHuc05PZM5wlUWuPQ2jjRviu8x4g71I+lSjujg
+         Ld0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794256483; x=1794861283;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794256504; x=1794861304;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IBxWV0bMHBiaBYABre4CeRklD+VEvSYRbNLDT7mR5OE=;
-        b=gTpTdU6lo81TXeZ49MOXjGXYu5EZ9y1o3OyD5BQQMl32BJOLFq9ey3VQ0OREmH2apC
-         Y08uESupeWtbkLnvcQl6T/2s/WhTgSjMSXSf6e2V3WtlpY47JzT0nXsfVbaB3wcMhCSd
-         9C711PmUnVoFVeccgzijE7V+xhXa2amUxhFUW+95hnvGvgSLqLSuhGw39klTlaE4SNBR
-         51BC4JNn3Briw1hGX674bBwRGAhsAc02y0MiJe6B/V1EkYPEqiRN3iSgj3u9lJHMwMa7
-         K4EvjMhSAodiL3+cTySCCC1P4Hz2osey4boijsOnk3QjHXteM9sqcyBUiD+TsZMvqQmq
-         kWjQ==
-X-Forwarded-Encrypted: i=1; AL+hErGK6Si1TxE9a+3Filb1RfmYFDO6nj7TRiKrHBrYdNij1xHTZWvoPzuhONSHigbCC+LmkGPTJigUtlm2mb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1YaAC2AGetkCzo2Aksj0b77YW4Kxu4j17wVEAB+9bc8c02Qcw
-	CUjHv6k0cg/aPfaCtFh7FXRZR+kkEccI9tCATAeL2MwXrsxQm8dWWgYF
-X-Gm-Gg: AYBFou0GVAfJjyribZQ3YJLijRi6sxwjmOsmQIpm6MJTiyQmFP4iObA2VjpDGWCbUT3
-	+qHPudQI/dthCiyiudkXENxwNJJDOIyfvFljrHLBnDCT9FbfAxOqrt9ADrNbyxXsf/ecrfoZuX/
-	f+aiL35sun2oMHf8t9Ibg0+cxZwYONLs0q4LQnMQhtZ3dgDAHXp6EL5Nvme0gzS4rHoSOwq9V6X
-	9eOishpqzvBW2xXlbNvGbWGhpDhLjBX3iHB24pEwZMY0szBOLbYl5lzPkeHhFx/eNcl5n0QdsDx
-	xHYLSvPRIiNICCuKcmSsXtxdE0+4GTMnl/C251/VbiXmmR3qv0MW0BhcmywdEwOmfJ2sA48IJje
-	0Fo2YYVNeC6k62ORl/vK5k1EYCx8a7rPx1gN+0CVTk6yvMC2X4cHjQaeWYxYnRkTCYEU3fC4qiW
-	cRpw154taBfvbuTqB6M+4lU/nkrHt2JUtUT0aKztt+ihw6MHoD2BJqz1Oc3OYXaAD2C9+MIMvpa
-	hL7pg7fvjq46+zoDHE8dJThRsTINqO3nA/pT3Uhsj0AbgZaFQ4OSbt1iIZSnyMaTSU5kkW/sgcq
-	XceMPi34xKtaiWUJXKGBQQU5EDcjtF/f8zJJ0/QIaqJUOBk2/jmr4uAeAlA=
-X-Received: by 2002:a05:6000:4b10:b0:48e:678d:396e with SMTP id ffacd0b85a97d-4982e362a4emr1059772f8f.9.1794256482703;
-        Mon, 09 Nov 2026 12:34:42 -0800 (PST)
-Received: from foxbook (bfj76.neoplus.adsl.tpnet.pl. [83.28.47.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbfc6sm917789f8f.41.2026.11.09.12.34.41
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Mon, 09 Nov 2026 12:34:42 -0800 (PST)
-Date: Mon, 9 Nov 2026 21:34:37 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, xuhaiyang5@hisilicon.com, xuetao09@huawei.com,
- caiyadong@huawei.com, suzhuangluan@hisilicon.com
-Subject: Re: [PATCH v3] usb: core: hub: Re-guess ep0 maxpacket size after
- reset
-Message-ID: <20261109213437.5c693895.michal.pecio@gmail.com>
-In-Reply-To: <3daf18d4-4936-4ed7-8846-b67f1664be13@rowland.harvard.edu>
-References: <20261106031625.1824732-1-lvpengfei20@huawei.com>
-	<20261109093935.2634235-1-lvpengfei20@huawei.com>
-	<3daf18d4-4936-4ed7-8846-b67f1664be13@rowland.harvard.edu>
+        bh=pfwLw9rBCjiBO9BkSejRs0pLl7ihPFNRSexH8P18xG0=;
+        b=j29R9K7PoW3+c2leLYfR1R7PwRdXiBWZGK7MX4rMhM8VhogwyUHoqmapgAo9LLdHww
+         Ccy+vTcmRlMnuenCLTNAd3Gd8jGuVmFCOKQR5g+FcjHXuRq2zmcPrcBQy+Ha3hVenUDC
+         FevBXh8GUe5XSqa8PeI3SrmwYXES2dPwoMRhpyi+EQv+x39fGcjTp17HEYpexnYX8KPJ
+         uowMvvFav5yxg0fz0weR/x/+uUmlPu2SdLHqZQZmmYACgJDQirvIvl450nV39eVIzKBo
+         zAoZklmLvqda9/IfAccAEiqW+y7sfS2Lf1HXUCA6qzmI9XQWM76HNemCOIDS34RBtoSx
+         KzyQ==
+X-Forwarded-Encrypted: i=1; AL+hErHQeV8HNNhR40JHxxprwCdeNw1fD5/me8o9aWN1DgQt8wk8y+SDxK0yai7PfkMknhSgtvsXBZvB+ATCaCo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YnLYVzC1Kazz8GIoGiTmUcLddu5jei3mBuOg51ljxY5inaX0S
+	O2CkQjAIl8a2MorZJ0EBcbjLhX3yzY/sR4pw2zjlTvTaK4wYMQfdlK022676K6049fAxxOuzOlX
+	Pl/2bb10FS3pkIa3UTyeOW/n2VXWOniU=
+X-Gm-Gg: AYBFou0EThcbYcyyKUYNu3cbN+0YqYP+trv7zjoyjerm2yn6vbYy4umaIU8jP2UNQy8
+	9CvNex4jRPyzKIqL8sqe1FKqCAm/n6bA2gmmHStCTSERNxr9eE8IxAZaTSSj9dhx20JxBoTcmli
+	/dmvk106ZPwV5FH8TeWzT+86gs4x73YbpM2ytSc9RRTurgIpWnPsMBlxQK1Sqn6UPAjMmDokZC/
+	k2j3E5kMYW7uHSYez7Vk97FNGPWJ10gVRbkSwjt+TO7PmzJO1vy2NNzM0rkbm6B2Fi4Lw/nzp5F
+	u2HzsmgQkXUwfVmAOQVMHGTL/nz1OK9AFdn9yqPm8kXMSDgwKZdKGwsaXLN5oHCKjHtT+24DDyn
+	T5oSstnUNR34p0Idefgeo96WeSrPZLkKSOLMBW0stt/kpn7lntO3AhqJQadiw4zNGLNpUvk0Vyq
+	vSHHerCY5rr4mQCGZrAPY9ho2+2nkIns3I3W/S3HOfAkhSLMiw8NfnbSAZ62I=
+X-Received: by 2002:a67:f80b:0:b0:7d2:a064:aeda with SMTP id
+ ada2fe7eead31-7d301b8b63cmr193657137.3.1794256504228; Mon, 09 Nov 2026
+ 12:35:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,89 +105,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
+In-Reply-To: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 9 Nov 2026 15:34:49 -0500
+X-Gm-Features: AclHuK_TD2z4jCOaoy6VhUcvF5q3LaXcr9adQrWeNzozi9jR9qfmBoEWs4Stl4M
+Message-ID: <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
+ PowerPlay for MCLK switch
+To: Richard Lane <richardlanedev@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+	Rodrigo Siqueira <siqueira@igalia.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 9 Nov 2026 11:05:30 -0500, Alan Stern wrote:
-> > diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> > index 199d3f535a89..d86bbba1457c 100644
-> > --- a/drivers/usb/core/hub.c
-> > +++ b/drivers/usb/core/hub.c
-> > @@ -4969,31 +4969,29 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
-> >  	}
-> >  	oldspeed = udev->speed;
-> >  
-> > -	if (initial) {
-> > -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-> > -		 * it's fixed size except for full speed devices.
-> > +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-> > +	 * it's fixed size except for full speed devices.
-> > +	 */
-> > +	switch (udev->speed) {
-> > +	case USB_SPEED_SUPER_PLUS:
-> > +	case USB_SPEED_SUPER:
-> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-> > +		break;
-> > +	case USB_SPEED_HIGH:		/* fixed at 64 */
-> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> > +		break;
-> > +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-> > +		/* to determine the ep0 maxpacket size, try to read
-> > +		 * the device descriptor to get bMaxPacketSize0 and
-> > +		 * then correct our initial guess.
-> >  		 */
-> > -		switch (udev->speed) {
-> > -		case USB_SPEED_SUPER_PLUS:
-> > -		case USB_SPEED_SUPER:
-> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-> > -			break;
-> > -		case USB_SPEED_HIGH:		/* fixed at 64 */
-> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> > -			break;
-> > -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-> > -			/* to determine the ep0 maxpacket size, try to read
-> > -			 * the device descriptor to get bMaxPacketSize0 and
-> > -			 * then correct our initial guess.
-> > -			 */
-> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> > -			break;
-> > -		case USB_SPEED_LOW:		/* fixed at 8 */
-> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-> > -			break;
-> > -		default:
-> > -			goto fail;
-> > -		}
-> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> > +		break;
-> > +	case USB_SPEED_LOW:		/* fixed at 8 */
-> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-> > +		break;
-> > +	default:
-> > +		goto fail;
-> >  	}  
-> 
-> The usb_ep0_reinit() call belongs here, right after 
-> udev->ep0.desc.wMaxPacketSize is set.
-> 
-> >  
-> >  	speed = usb_speed_string(udev->speed);
-> > @@ -5062,6 +5060,9 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
-> >  				goto fail;
-> >  			}
-> >  
-> > +			/* Sync the guessed ep0 maxpacket size to hardware if needed */
-> > +			usb_ep0_reinit(udev);  
-> 
-> Not here.  And not inside the retry loop -- ep0_reinit should be
-> called only once since the maxpacket value is changed only once.
+On Mon, Nov 2, 2026 at 3:31=E2=80=AFAM Richard Lane <richardlanedev@gmail.c=
+om> wrote:
+>
+> When driving multiple displays or tiled panels with identical timings
+> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
+> Core's program_timing_sync() aligns the CRTCs into a timing sync group
+> in hardware during dc_commit_streams().
+>
+> However, on DCE < 12, Display Core leaves
+> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
+> informed that the streams have synchronized vertical blanking intervals,
+> SMU7 prevents MCLK switching at idle or causes modeset underflows.
+>
+> If all active streams belong to the same timing sync group
+> (timing_sync_info.group_size =3D=3D params.stream_count), report
+> all_displays_in_sync =3D true to PowerPlay after committing the streams s=
+o
+> SMU7 can safely downclock MCLK at idle.
+>
 
-Sashiko pointed out that xhci-hcd may not perform ep0_reinit() properly
-until address_device() or enable_device() is called.
+Looking at this a little deeper, the function bw_calcs() in
+dce_calcs.c already calculates all_displays_in_sync using the helper
+all_displays_in_sync().  Can you look into this and figure out why
+that is not working as expected?  My concern with this patch is that
+DCE and DCN have different logic for handling mclk switching so I'm
+not sure it's safe to call dm_pp_apply_display_requirements() directly
+from common code.
 
-So it's either this kludge, or dependency on an xhci-hcd patch which
-didn't exist until today:
+Thanks,
 
-https://lore.kernel.org/linux-usb/20261109112846.04bfeb0f.michal.pecio@gmail.com/
+Alex
 
-Regards,
-Michal
+> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 74cd88d8d580..b4531383437e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_at=
+omic_commit *state,
+>         dc_exit_ips_for_hw_access(dm->dc);
+>         WARN_ON(!dc_commit_streams(dm->dc, &params));
+>
+> +       if (params.stream_count > 1 &&
+> +           dm->dc->current_state->stream_status[0].timing_sync_info.grou=
+p_size =3D=3D
+> +           params.stream_count) {
+> +               struct dm_pp_display_configuration *pp_cfg =3D
+> +                       &dm->dc->current_state->pp_display_cfg;
+> +
+> +               pp_cfg->all_displays_in_sync =3D true;
+> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
+> +       }
+> +
+>         bool frl_stream_found =3D false;
+>
+>         for (i =3D 0; i < params.stream_count; i++) {
+> --
+> 2.55.0
