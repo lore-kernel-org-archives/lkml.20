@@ -1,84 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191478;
-	b=swInWGKiDXfVaJOu7Il9y0+GJcbo2KzNPj+1x0f4EzYIv/e7oL0nbWPPhe1C36RPImqI
-	 k8Z1DVIqFMGV9fJHNSFJBkidNyC/nS9/IlA67Tb97pTi97TEfxrjTriGf7B8WG+d+aIta
-	 i9E51fXpmVDYppDbKhEPuRvDjIDJ2XirMQPCn/fEO6S1/sZsdC21C06W9CNVPTjm+eBMy
-	 w6t3llwixia3JbKZ047zNvdzA3yw7+kZDqgZQveCm1kjBY+/LOLnSmbr/R0Fwk9Kl/spg
-	 oVG+KGet6bWMSwhrh3C7xTDkpVFXDKiXeRuFo8/e0ePc/rvgPI4wftgm52Jxj7RVx0w==
+	t=1794191496;
+	b=UTdvt9O7KoYzwklN9dXPS5aOigTI7Zqr89/yuusHsPqis67MbyyZU0li8MfNEO5PNlt+
+	 OLGNm/TzdcpFzEdOvOjNvEP/AsJJkg/rLCmva7EFhA64fFPeFPxH9+PphfMIMkScQLIQk
+	 nyzJEFZkwqYbTZ3SMe5OnURjgFK2y51RlUAwJj283VsKqq8xDLwVO87i6Gl01bWMc6+LB
+	 1wDrS5bi441W7reHduEQaJRM38JB8P4dBV6CJQAGYyMgPLj68TkiUdcM8AGscEmyHI7FF
+	 t0GIIQC/IKCgN6OiLh1SSDyfgazRHQOqNc/r2OoVSrGDQuJrwXZ0XwMSATgtHaUujUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191478;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=yoJdvXKWXAeO/mChSWyUpzTmife7HhUbhVw0F1oxZiY=;
-	b=c7+71djBZ4F+knmZjeAdiWmX5o3AbKtz6zz/veMLabr1oKjjHnSeL971gl7L0rEsQq7U
-	 ysKu+qcF89VenWmMaXpccbdNJvrdCqxydOwY8swua32GH3S0vogDhyjnMKNft0RE7qnBr
-	 F+mU/LqqpwRnQmUeTcsnnCmRA8TTP7ivRKLMyBLdmkI8ySYSyfcRdnMFT628xd3ULUuSy
-	 kHfwgHoHYzw8T3+PAD8iLxzsn7Llbxf0N5dFstVhhqNauVS7Oajwa9OMY7N+t06gVcDDs
-	 eDxYcdYawBpUDOt4cGeqxZ8hlRrZPZyo6NZ35HRQ4TqizxZ64CtMJ1PqVZwPSM7BqBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191496;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=8zwvWBPtZCtktZYAG541eCPKPuE+/HtLXgXPeBWjtkY=;
+	b=xegrmFuHo8VNkgiGeweAXs8qpdH09h3hk2dDemWOXP+0lI2UDe8sRCkwQFneu+qSKYkH
+	 9rOppJTi/adIFgqHlNSswhzVirbsAirNLNcVFyLORpdB1UYwmNUkXGhrIx2ipccgUPDU5
+	 zwondUY2qbACE4nQpb2tlfV32qrGFYy//i9ndmNvgCUO067sr7swWQk+AwdxHIvJz+A5a
+	 CIHEwXYDIRcxbri+CWnTwUh0XR2MuGwdivExCcupB5hd1Uh4Xd8sVdYRU9KRqDPV5u6W9
+	 tL2c3Q7BieI4lS5VUIeTE1a8/kC0LAulfVZb1BsA2DsehvMwAGNgK7r0h4G7LGgRgMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=M1aIbDtE;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RTssncOi;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C613D606A332;
-	Mon,  9 Nov 2026 02:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C613D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39816606A323;
+	Mon,  9 Nov 2026 02:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39816606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=M1aIbDtE
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A92V4IR03940481, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794191464; bh=yoJdvXKWXAeO/mChSWyUpzTmife7HhUbhVw0F1oxZiY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=M1aIbDtEl2Qc83E7aPNXd+EMpzOnW2BGotOjokF24ifwmU+5sbzBIMmwptuXutVh0
-	 j5se+alXb3UpF+Cy5nKgjO0trNGKJVmTshRdLNEEmR7XFVjZPtNJIZSBbyVYiknTGN
-	 fckDuMLvESsJ6W/+e1M+niC7XqaXY+2Ri3Xc3PKZPJ8MDPexqhC0Psga0i2Y3v8RUX
-	 rK2NhO+rppQIxTwGNdMywKLa1V1DsTkIMKrtifhQfM/WTyd88QZF/oOY1OLIGW2K4j
-	 0Qwz6iV1PgFuZB54xyy1V4iuRnvh+KK7jjFwJsC2yt6Exba4U7/32msNMOtjoQtpra
-	 sN60maKsvv8iA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A92V4IR03940481
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 10:31:04 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 10:30:58 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 10:30:58 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 9 Nov 2026 10:30:58 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Kalpesh Solanki <skalpesh942@gmail.com>
-CC: "luka.gejak@linux.dev" <luka.gejak@linux.dev>, "kvalo@kernel.org"
-	<kvalo@kernel.org>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v3 0/2] wifi: rtw88: firmware recovery fixes and LPS hang
- handling
-Thread-Topic: [PATCH v3 0/2] wifi: rtw88: firmware recovery fixes and LPS hang
- handling
-Thread-Index: AQHdb15tzENGiXbpUkmLg1jSpFrwf7clBUSw
-Date: Mon, 9 Nov 2026 02:30:58 +0000
-Message-ID: <9fd1c42c5df94629a21c41dd08645b96@realtek.com>
-References: <20261108085126.331784-1-skalpesh942@gmail.com>
-In-Reply-To: <20261108085126.331784-1-skalpesh942@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RTssncOi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8z
+	wvWBPtZCtktZYAG541eCPKPuE+/HtLXgXPeBWjtkY=; b=RTssncOiHXO3poyWmF
+	kItN6EuqKb1KNo8KrcgTq2PCrWKIQfyV8USH8FSSsrBQm2XArsXlaqcT/lmyW7VG
+	wRb3CPRlVOwtRR24IzgKmlE5mOtlC+C3QxzLVMB7DFWtSuhiuCqzR6DxHweNyCSc
+	Z+0ZVGkcNdQBrCvwUyxKg7Yh8=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3f9FhMPFq9p_BGA--.58997S2;
+	Mon, 09 Nov 2026 10:30:58 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] md: stop sync_work in md_stop() before clearing pers
+Date: Mon,  9 Nov 2026 10:30:55 +0800
+Message-Id: <20261109023055.2164333-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,22 +65,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f9FhMPFq9p_BGA--.58997S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uw43tF4DGw47JrWxuw4kJFb_yoW8Aryfpr
+	WrXFy5GrWjqw4xAw1qgFy8uFyjyw1aqrWDtry2ga4ru3WYyr47XF1rKa12vFWDCFyktasI
+	vF4DJFZIka4vg3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6yIbUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+gM76WrxMGN3IQAA31
 
-Kalpesh Solanki <skalpesh942@gmail.com> wrote:
-> Changes in v3:
-> - Note: v2 patch 1/2 (DMI quirk) is already applied in rtw-next.
-> - Add patch 1/2 to clear RTW_FLAG_RESTARTING in rtw_ops_stop()
->   with Fixes tag.
-> - In patch 2/2:
->   - Count consecutive failures before triggering recovery
->     (RTW_PS_HANG_MAX_CNT =3D 3).
->   - Reset ps_hang_cnt on successful LPS leave and in rtw_core_start().
->   - Suppress raw register dump on transient failures to avoid log spam.
+From: Li Youhong <liyouhong@kylinos.cn>
 
-The patchset doesn't present in [1] nor [2]. Please wait a while to send
-newer version after it recovered.=20
+dm-raid tears down arrays via md_stop(), which clears mddev->pers
+without waiting for previously queued sync_work. This work may
+then call remove_spares() with pers == NULL, or continue accessing
+mddev after raid_dtr() frees it.
 
-[1] https://patchwork.kernel.org/project/linux-wireless/list/
-[2] https://lore.kernel.org/linux-wireless/
+do_md_stop()/md_stop_writes() already call stop_sync_thread()
+before teardown. Do the same in md_stop() so sync_work finishes
+before pers is cleared.
 
+Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
+Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+---
+v2:
+- Drop the pers NULL check in md_start_sync().
+- Call stop_sync_thread() from md_stop() before clearing pers,
+  matching do_md_stop()/md_stop_writes().
+- v1: link: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
+
+ drivers/md/md.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..eaa20ecafbf7 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -7101,6 +7101,14 @@ void md_stop(struct mddev *mddev)
+ {
+ 	lockdep_assert_held(&mddev->reconfig_mutex);
+ 
++	/*
++	 * md_check_recovery() may have queued sync_work; that work accesses
++	 * pers. Wait for it here before __md_stop() clears pers, as
++	 * do_md_stop()/md_stop_writes() do.
++	 */
++	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
++	stop_sync_thread(mddev, true);
++
+ 	/* stop the array and free an attached data structures.
+ 	 * This is called from dm-raid
+ 	 */
+-- 
+2.25.1
 
