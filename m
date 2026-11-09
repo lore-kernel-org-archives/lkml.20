@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224887;
-	b=lZD3g9UU2i8VWm3xEyowomsqN+gcUOElEaC2ZT4Abi6546+peILpYlLjvuNuE+uWNf/P
-	 +ZWdyLlmzasA5HTe+ZYscD7wGSLnKpe8OQ51uPfX21pjESwMz9XFnJC5e4fASCZFkQcWn
-	 IG9g07b9mvP69I/VdTbC59NEbYtfdeALJKzsPT+CwXmlOyjBpfAqnsLpSdCE1ZfUVpJvd
-	 Pc0qm8qEFqxM/UuYXqPL23gm4OnpLqPHXhvaGwlO7NjUYMeN0NZ8SPha/xw4XU/NCTM7o
-	 zs6WygPdyQRJNjfgoIDEx+G2m1mBDr4exlh4Yq3QxWrj1dcky+5ALAr8768ebLHzt4w==
+	t=1794224915;
+	b=aFPLnKsOfVNnXM7NKNTxB5t4d2AN24VWdmDCZQva0TjeZ4l8L+U1qePCLN6cm1hEjxry
+	 QZ7qLYpUdHHVEAjHE8fD1Uto+WpUj+wSYEP7cMMvomcZV3Ztiw+IyosTOpzCgKbZGFkdn
+	 zrJtxh6jfLUvgMQ1gs2fAPTZV5ueZknVw9QDZ31XNveTHB0ILq8kfRcnRDRaYaua8rcfw
+	 oKqrMPqDebHdT229Ac50ltKC5Rnt3pYj5m29d4pwNNWz/0y+XNXylET4mVcxPJIkI3NmK
+	 TJVvuvMGAXpyMvKkQwTA9T42/0OLH3Sb78TeDrLfLONpz9/gsH6l5dBzpDIlwRin3oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224915;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=NTI6bfaVgGVs6WfACz4lcJC4XYY+Jhtgi4CMSA27Peo=;
-	b=z1siAhz0zCCjTt9+Vk5bochwKkf+zZaIiFEW3RgxW9Ci/ruwVXBFBLFY96gsEb7wPjDZ
-	 e0BMevZM6yaXbRBPcNNWg717O8B2N0N1dfOy1+Xd768ydo2YQLtmIsO8CQS0rDH9Pk4lo
-	 UIUVChNrDvJxeX8x5MQNoSggMcjmuiL9NHKJI4Z+XozLcX5Mnai/z2ehpwv1gJyPkAnSc
-	 J8qDG9wfIzBx6lhDyjDSbupqQHjbcEwhl9GaA+Ebiu0wube6Y+c+2lCbcKYVJG2Wkaoae
-	 dnmCacl57InCvnoFb8yCcgj2uDD3aDRbDXhyrC4zfI6BmjOhBNKiiJVIZF4pmdcxjHg==
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TPfBvZrjONjB9W4HpOM7QG77dFyuYdOPlOcbjIM8DkE=;
+	b=ibPlCwL5H4PsZfOmljUmbdabxy0fMXlDwXM+XR7e+8R1Wa5Fr+vffLk8bpUSKrOVY0ZE
+	 Qw/9+oqUa8mQCheTkmBrHmAj9WMLE1uLX/o7kLrFV3DxRAEHKJNXaXz0vB3nucdHQtu0Q
+	 4ixBc1aFVQ7Iy+o125KQDXkrN/7lIOBFOD1BHOV616YYhlcDKwDO2ek+NDXL28464ABFj
+	 gAMUPdIzPOb5PQlzKjt6xtfSs9Y2/UPK0ESYaLWW9x/Fq9zPo10MVEHJkB8OlCYOKQaf3
+	 L8Gq8tJX95ScipG0BC9NVI5HiV5nFbOcTweLawR2UPky6nKHMJfJ3tdttxsFDn2sJGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TbDK1ELs;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zAdiA/ux";
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFD8606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FFD8606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAC6606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:48:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CAC6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TbDK1ELs
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b6266b5bc4so24365e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:48:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zAdiA/ux
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c49b431f022so123037066b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:48:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794224886; x=1794829686; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794224914; x=1794829714; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NTI6bfaVgGVs6WfACz4lcJC4XYY+Jhtgi4CMSA27Peo=;
-        b=TbDK1ELsNwgjSyqsB9s5n5O12uleUWaZwPIM9TJTbWX5ohw/jgd01+Dez64k9qHLGt
-         JbM1ySYfSd6mIqV0wqMiPR30uy+dUPMCHS3VrS9q05zqwY2G47klcDzj4XO4m5t4yUi7
-         lhlf9GdJv3RQ7AvZ0nibfs2wJRC/DZ7IIA3ytarUfcrWF+EN/8o6snfksYFlOZBV6vRw
-         CaIllEdXDc50htiBhysG2dO7aT4aBEnRgyq3GE59Tcij99i8f3WZVaElfgirJdU/7nZF
-         u89owEYLDNb0Br9Av3Stbi8MI3hxSxzdHKas6dZtYKUhP5YXIqRGCn+Ju9Itpf2yE4Tu
-         vp4w==
+        bh=TPfBvZrjONjB9W4HpOM7QG77dFyuYdOPlOcbjIM8DkE=;
+        b=zAdiA/uxB4dheiXEwywJQCvR2sligV+ahXZgwyNBpeaSoXjVe9zkGP4IwJZDKYx0fx
+         i8laVUyaLSi3GweZ32XP2dNQ/Rx8rwPKNa7xxiy13q7uAspoq8A6yDSv1mRWXMZcOjJr
+         IJPdGnEcbnIDJ2soEG674wWysl+IaXfomHX/EtygTEeTevHHK4vxCT94HqmtIXby390P
+         tShamPIwKSwAXylWJ4s6cMv2UFoJX3RW/beHl9BFfDdDyG9KIguimq1B7yVGrJhWHAVI
+         LZBOojR4dgnYx0MC/jQ0KLCKJ7IXpMTXT9Qgqpu2F0ThvWCMSToRMjzG62xdFo9Je+wa
+         9d9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794224886; x=1794829686;
+        d=1e100.net; s=20260707; t=1794224914; x=1794829714;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NTI6bfaVgGVs6WfACz4lcJC4XYY+Jhtgi4CMSA27Peo=;
-        b=q5hfv8qrzl0WcKfLyUMD81N4Zt/ZlMHgpXNF/zbYRv+IN3lGiBakgEAvMoEqxQE+4C
-         MQzNGfifRRuagX3zgks9HflwOCWFw4gU71ex87ZICm+rUnlyg93nmsz4WqWKfIMM1jwE
-         8q+kEgMsiOx5THo1FxHi8uYVtdj6e5cgfyErNYxx0W1qncYD6Ju/+3NEx/kGLQd0ayVd
-         Ht7SUqzMJwyL/GQ7Z6sjnTGUttyh42FAeoXMsTb7+SYEvSCjwY7cMr607XofI0puTiuB
-         MUVgLyUBJGVNpoH2lEVCzwUQ22inSnQGNakoi/4MIJuNyc+a0biiDXzz951IIPIL7KIs
-         JcSA==
-X-Forwarded-Encrypted: i=1; AL+hErF4CTN5fYxdQmxwKfPBq+BuP/LJZGCADoLYZ9c5k9t/+3/zmfKOhekW3hqujyzNPOMcOEpfTcmkzeLOdds=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9KE+lq34sfwvVFhzlOBf+EFUdeE2Gv1kZ+88ECu4qd+uJhqeK
-	AvqA+RLJtSdgWnO1qAh10Q6ryp5myoCOQkTEs/5InAaWkhgNRvaYUMmzq2f4TzlbBA==
-X-Gm-Gg: AYBFou2YI2yqdZks2Ij5zA2ElV1rj6G/8wGHHDa6IvCVTLn4oZT5Vqp1MolXBsEYgi7
-	DHGkS34+OhyLbdkg8BKGXCoULMd49oiDoT1nTH47Zxa74aYCpi8L1GHdX4EvCrGz0Ssw19f013p
-	N9vcgG4yxFDC2jJxiKygjkNQbQfY9AFRvgNbDoVgIGrIVhYdf9yMOXrqNVcjGpmnsAoyE7BgsxG
-	bpHOwLf0Vb9+dm0GU8YLNLzba/he6Utadt0bhrcWu1jn9n9i10jzJAItSqJE413SXubjfqo0lUI
-	OIpw9e4dIx1RHkWWW7zzwnudVXR80doPADIRg/QOl/hRs9q/TaI2LrcQycinXN9C2lUn0JDHSk1
-	k9wTdkKsuXZH9UlpgNr6JazbkHySpeHkmCbtJP7xnbA+7xiAL9OHLRMOk444e3+TzC7FbHv0cES
-	/kPIwu65//7dUJMRLXo7FnoxByvdlt39QVkgiwRX/pl/1i/VQWQCjkCslG+oUNKKsgnEGIwyPds
-	Mc19GC+6NB/W9/OieE89hM0+Fim2bE3m0/uOhZRaKuPaYep42aojNpbk+Gj4P0FP4digAKi6rXd
-	PwiChRcW5YQFvOQQj8b/cMk6zmiibgzeSjDmOXEFuqY3MkNSp7NmEPAQIyb3sxyODoQTlQ==
-X-Received: by 2002:a05:600c:528f:b0:4b6:5035:d54a with SMTP id 5b1f17b1804b1-4b8aec15d44mr2258615e9.1.1794224885385;
-        Mon, 09 Nov 2026 03:48:05 -0800 (PST)
-Received: from google.com (160.193.189.35.bc.googleusercontent.com. [35.189.193.160])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9a9ffsm9878242f8f.30.2026.11.09.03.48.04
+        bh=TPfBvZrjONjB9W4HpOM7QG77dFyuYdOPlOcbjIM8DkE=;
+        b=a0/9UXVXhRIzSHbbQUMWrjd1fOXkvieSqQEWBfxosi3wf6qREaeFd7Bw1WIxD22Jm/
+         Jis8dNi2Bib5AXYJYXrdKm9ZWAD/ytjV4CotagzpseXS4H+wXKNvxt7HrxiCb2Uq21HQ
+         OZTZXju7c3i6/zxW/9yw6/5ZOq9C4ShTAAgS/8WhW7X6F0L0m72mtvWyRscHVGoqilp4
+         ok9QrW9IB/6cati6bRAqOAu3bCYIauZUdWMlQUgqksXpL7BUiauLhh0iCEOFadqq2bqd
+         F38DIEbYzRn41AgWFQblo483ugdjwh/aru0Sh+GEHKZJLXQKaXNE1gNPKIfeGSqrR6SZ
+         9aaw==
+X-Forwarded-Encrypted: i=1; AL+hErGrDWhqiwTfiTpr6VQ5mOAXOdVK0WE63W61SDZVzD76A1tEXuvZtSU5p61KwS29LzfP4+5QWalb1ycEDzM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xRw4P+n6geKP1730/Aq6uMYiDW6VcEC+SbRSRN6p7roIstMYq
+	i5SV2GJp9wfKFvxgDPOXnODOPwDpCj2K4q/9OTvwfsuJNxhrR6ld/Vfe
+X-Gm-Gg: AYBFou0JuEJMtT4+aiKNyV2IIGrAJ+uQBWDM9pltxSQPYixfhqQVHr4LWzMrSlb0Qa7
+	IOSQZs1ySL87RX6qzcbRbyfN6OR8dGaWJ3CJjzqPmaO0k42Mn0oPQcwasADszPYbN4M36ocf78C
+	RTO41xyZqL4EiYHbxgATkHYxdc6GJIZgBQPtkUB9wAauQ5yrQ9T+JKs79zA12q9OqqUDJSGcCmK
+	U48ah+tkINeRxzt6hjP9Vvgqw0MkSI1HXhLPxDiIVD8itMZJfwdFagityFJwFDK2qiaD4Q0+j5X
+	A7dTaChOXSN70Yw5Pcg+B8Ebhurx5bJLgAsikuP1RZmre1kjzEF67/viC/0V4jDc1Ampkt+gkt6
+	VGao6gmfYH4TvsVIwMHXrJZXEWyY1GnaVDBUS5/VcRCRIIOxJII6GNyDlJ3uEIf7ZYcRUM0N6jy
+	KggVdjwk8AWt3FqK6a0a4Jtqn8HsrrTf2YxvAA+TsrRaPDnCwkBv6U3xv7Wv2XVMZRquNqM9h4G
+	IWuG+hVYxJQMxLB5Ri8tp4eTNkwH5QtgfoxIbaJl8rNGjvbKl5l9F6OwLgw5zO9e/cr
+X-Received: by 2002:a17:907:849:b0:c1c:4a80:30c4 with SMTP id a640c23a62f3a-c4d6d4a2bbcmr263270966b.11.1794224913500;
+        Mon, 09 Nov 2026 03:48:33 -0800 (PST)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a4ae2f7sm155608066b.51.2026.11.09.03.48.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:48:04 -0800 (PST)
-Date: Mon, 9 Nov 2026 11:47:58 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca,
-	mark.rutland@arm.com, qperret@google.com, tabba@google.com,
-	vdonnefort@google.com
-Subject: Re: [PATCH v9 16/25] iommu/arm-smmu-v3-kvm: Emulate CMDQ for host
-Message-ID: <avGy7mS5A0SGib0m@google.com>
-References: <20261015200903.2735565-1-smostafa@google.com>
- <20261015200903.2735565-17-smostafa@google.com>
- <au4lp8sAnWm3/Sw5@nvidia.com>
+        Mon, 09 Nov 2026 03:48:33 -0800 (PST)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Mon, 9 Nov 2026 12:48:31 +0100
+To: Harry Yoo <harry@kernel.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, vbabka@kernel.org,
+	paulmck@kernel.org, qiang.zhang@linux.dev,
+	akpm@linux-foundation.org, hao.li@linux.dev, cl@gentwo.org,
+	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org,
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH 2/2] mm/slab: don't queue the page cache work under
+ krcp->lock
+Message-ID: <avGzD8CAgg9Hif__@milan>
+References: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
+ <20261028134647.3176080-2-zhanxusheng1024@gmail.com>
+ <au2fUYzBLv3uvj_2@milan>
+ <au3ELzm_s9vhs7UO@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,50 +107,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <au4lp8sAnWm3/Sw5@nvidia.com>
+In-Reply-To: <au3ELzm_s9vhs7UO@thinkstation>
 
-On Fri, Nov 06, 2026 at 11:08:23AM -0800, Nicolin Chen wrote:
-> On Thu, Oct 15, 2026 at 08:08:47PM +0000, Mostafa Saleh wrote:
-> > @@ -385,18 +482,51 @@ static bool smmu_dabt_device(struct hyp_arm_smmu_v3_device *smmu,
-> >  		 */
-> >  		mask = read_only & ~(IDR0_S2P | IDR0_VMID16 | IDR0_MSI | IDR0_HYP | IDR0_ATS);
-> >  		break;
-> > -	/* Passthrough the register access for bisectability, handled later */
-> >  	case ARM_SMMU_CMDQ_BASE:
-> > +		/*
-> > +		 * Although allowed to use smaller size, we rely on the SMMUv3 driver
-> > +		 * using 64-bit store instruction for simplicity.
-> > +		 */
-> > +		if (len != sizeof(u64))
-> > +			break;
-> >  		if (is_write) {
-> >  			/* Not allowed by the architecture */
-> >  			if (is_cmdq_enabled(smmu))
+On Fri, Nov 06, 2026 at 12:21:28PM +0000, Harry Yoo wrote:
+> On Fri, Nov 06, 2026 at 10:35:13AM +0100, Uladzislau Rezki wrote:
+> > On Wed, Oct 28, 2026 at 09:46:47PM +0800, Zhan Xusheng wrote:
+> > > From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> > > 
+> > > run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
+> > > callers that may hold more, such as set_cpus_allowed_force() under
+> > > pi_lock, so it kicks the refill work from an hrtimer.  Under memory
+> > > pressure it instead queues the work with a delay of
+> > > rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
+> > > queues it at once, taking pool->lock under krcp->lock.
+> > > 
+> > > With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
+> > > pi_lock after a drop_caches makes lockdep report:
+> > > 
+> > >   Chain exists of:
+> > >     &pool->lock --> &p->pi_lock --> krc.lock
+> > > 
+> > > Use the hrtimer when the delay is 0.
+> > > 
+> > > Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
+> > > Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> > > ---
+> > >  mm/slab_common.c | 8 +++++++-
+> > >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/mm/slab_common.c b/mm/slab_common.c
+> > > index 3729aa7a6156..ef5ff0a20249 100644
+> > > --- a/mm/slab_common.c
+> > > +++ b/mm/slab_common.c
+> > > @@ -1987,7 +1987,13 @@ run_page_cache_worker(struct kfree_rcu_cpu *krcp)
+> > >  
+> > >  	if (rcu_scheduler_active == RCU_SCHEDULER_RUNNING &&
+> > >  			!atomic_xchg(&krcp->work_in_progress, 1)) {
+> > > -		if (atomic_read(&krcp->backoff_page_cache_fill)) {
+> > > +		/*
+> > > +		 * A zero delay would queue the work right here, under
+> > > +		 * krcp->lock and possibly the caller's pi_lock, so let the
+> > > +		 * hrtimer do it.
+> > > +		 */
+> > > +		if (atomic_read(&krcp->backoff_page_cache_fill) &&
+> > > +		    rcu_delay_page_cache_fill_msec) {
+> > >  			queue_delayed_work(rcu_reclaim_wq,
+> > >  				&krcp->page_cache_work,
+> > >  					msecs_to_jiffies(rcu_delay_page_cache_fill_msec));
+> > > -- 
+> > > 2.43.0
+> > > 
+> > > 
+> > Can we just clamp this to 1 - 100 seconds interval?
 > 
-> The spec says the register is RO when CMDQEN=0. So, maybe it should
-> be allowed by just ignoring the write?
+> You mean clamp to [1:100,000] milliseconds interval?
 > 
+Yes. It is now in milliseconds.
 
-Yes, that's possible, I am slightly inclined to be more strict here,
-as this should never happen and if the kernel is buggy or malicous
-it is better to catch the point it goes wrong rather than trying to
-debug the side effects of ignoring the write as most likely it will
-go wrong shortly after (timeouts or commands are ignored causing TLB
-corruption...).
+So starting with 1 - means that it can be configured at least from 1 msec
+whereas 0 is forbidden. Also we can drop the extra "if condition" proposed
+in the patch as it never can be zero.
 
-An alternative would be to ignore it and log something, at the moment
-tracing is supported in EL2, and IIRC, logging to dmesg is also planned.
-
-Thanks,
-Mostafa
-
-> >  	case ARM_SMMU_CMDQ_CONS:
-> > +		if (len != sizeof(u32))
-> > +			break;
-> > +		if (is_write) {
-> > +			if (WARN_ON(is_cmdq_enabled(smmu)))
-> > +				break;
-> 
-> Ditto
-> 
-> Nicolin
+--
+Uladzislau Rezki
