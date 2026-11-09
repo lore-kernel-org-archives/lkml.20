@@ -1,92 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266699;
-	b=xbPjZ7gajw1gsUTBRHB3woNhII12GBZGDkcAmp0yoGKpn6oIw+1HQxP/jXRJNSovraCG
-	 bjYJ/iuRclesnOMFBbuYzoViljG2TbmFybSV2TgT82WbLBRiEtOeML0BHTUjdVDZRuhQx
-	 IIbtMle4/f8A6L2K8KnO6onMb5H1YXFJAFOngpfxczlWYv5LGTyJqYrSZ1ZD6EisEFvpX
-	 IJE8LHIIi1Fj4pO2UcBA1xGSr79BrXbw0rjhBM4KwQz1+OtQLPtGtOnTjAJiVfARDi53M
-	 PMEYKsbB1H56e22QBDZrNjoFEFj7oGnelbBXM32EqBzTpHpO5JaMrewGBhZER7RjTZQ==
+	t=1794266822;
+	b=jho+kTsoXwg4f8NXcCXg6h/G54hJ0aRHIYcYUs0sdQtaxBJl04WAWt67WmdmXjnLyDgw
+	 IMZQ8Z7Mx9zqGSSd0VNub//K7sMv8BYLO7vKWuctEWeS6rXsgQ9YM1ScEb/sTMUHem2Ug
+	 tEWT77YqJHou7vNXlCy3JzL+aUWvWSw9lTuO7hSdN8grNK5pV94sSDGpgTkY6xPf+/p7h
+	 4F38u4P/bXyipujx07z1D35xAg9rEx5arJ61afX4x+BCsBRqNjkTAUlBk156eMxb+Bad/
+	 TX/jAfGhWFwWHnNXLKWze89R7VjRc6hByV2T+lk9owHDcpEUGnUR+EVpg2HbO3cI6vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266699;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=J+68wHIkUnHwz3TivKr0WUSuO34xn3RSmjsxMh6ln60=;
-	b=ZvMhoJc7EmdhDKvL9nMYoeUnP6S1RYHS5uQd4+wKjye7Y17h+NPpP9PHXWwDEVLDj8SF
-	 YzWXJDTmv78jONTcDGp/f5i/c72YSXiA5FBlRnhVfmRAA7deFcOyrHjm2BaeFawWlZtZd
-	 CCghIzptA5/5mZJ5McFWONc0CZg5EV9F1Ps2OIVEnMEQEf8QZeTF0M93nZU7tWxj2qFj1
-	 WhdTaL3ZpwDXIoXo8YdVTZWsss7IoMLVazOt34RWDhX/HxltPYO1FtnwwJIR/qd1W19eJ
-	 FVffexIhjMiD5F0KXtH11XbP/hyAIFB8x/Pdayrsqe1A1IJDaAU67ObF3DUFzqhK+AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266822;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=5T06KjKh3MrPBKKQKkoAa2wQ1L3CjHdGCtg0p/w53Yw=;
+	b=f9ckntXH9HlO5Tbs0UOuORD26GoQzfMM2MCej/ks/y8/+FUKZWu6v9gl4FKx0ysb8BJH
+	 FT9mJxaGS/C0NSoM7CJgEVFel4FH0xZeIz+Whd3/lExIL3XG58q80exhZ8pWa+ljW+GdE
+	 7ydFYmyizfaR/NgVTdxtzT3FQUlI+BRBtbK1PXX1kcPI9toNZovhePjPU8EcnPVqCuwhx
+	 jpF7qvGXiM/BysNcCmly4ziyBJiGdBszyENVXlfdvxU6ggJcKNP6g6hBFuoGbuD7AX2KV
+	 yBGYDVGPbfjz58MdBiBSg9rwBsZo47dORGC70UOYV8znzxlSpdPgdOABpw3gukGbI1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=piHV1Lxo;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGdD74TF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15868606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15868606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D1C606A31C;
+	Mon,  9 Nov 2026 23:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=piHV1Lxo
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id QPRkxNf7lAR1iQYjSxa9qU; Mon, 09 Nov 2026 23:24:59 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QYjSxojmxSeuLQYjSx8qYc; Mon, 09 Nov 2026 23:24:58 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af2564a
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
- a=_jlGtV7tAAAA:8 a=X6MXEInN9CrlbRLakdQA:9 a=CjuIK1q_8ugA:10
- a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=J+68wHIkUnHwz3TivKr0WUSuO34xn3RSmjsxMh6ln60=; b=piHV1Lxota5tnko/Lsecfqv1WG
-	cSQHd75k+wzOZePtR2ZBlYbAnYa767CLXA09Bue5KP/frAws6rpWrLxDno7xMPsdR3R6CNzjgOm3+
-	cofch2KLmvS3hJ1vebizHrCH3ik8x1EpQsMM5ZTEWoV5lhK8rLCKEWijw/0uEqxAvWlVvbwsWg8ZF
-	2pQ63lT/vKqlwMyKiiXuleanAdRR5f1N+ZfxfxcE+RMsjKRkRirqtXY72DAV3Zm/yi2XOPaOC7N5m
-	2zKyS4xlaXAPB1KfusHlQQ1baAU11/gRd2MMSB04++dLIDuE1geYLMAn6MfDMEFk69mafTmZsrFfj
-	HnTtmqgg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51608 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQYjQ-00000000xBF-2QUA;
-	Tue, 10 Nov 2026 04:54:56 +0530
-Date: Mon, 9 Nov 2026 15:24:55 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v8 5/7] watchdog: rzv2h_wdt: Add syscon based WDTDCR
- access
-Message-ID: <835899c7-5dea-4f34-b804-1b6bbb564d71@roeck-us.net>
-References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261001165201.763882-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGdD74TF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755FE1F0089F;
+	Mon,  9 Nov 2026 23:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794266821;
+	bh=5T06KjKh3MrPBKKQKkoAa2wQ1L3CjHdGCtg0p/w53Yw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=NGdD74TFOS5SZwMEeZjGuRSYX7K2YVOZRodbDwe7+e58GU3kCItfqMre0oiWJEt31
+	 bcBwyX0EdWPdxlU2a/jkb22sQrmkp0IvZmAeJQf3fiRUCzA/KAAOKytDwRLRNY2ah8
+	 qQQXLWglsEkndBc8OEx0VBv7iFkQptvD+39jWgr7pTAKEZqGoEcO9qY6QXr7A9rFZF
+	 uC0rkwMIgqDXY9/y7LUYw3iKr3Ko2fnDIVP3IF1jI6pX28poFm8/TP7kQ9Wnlh9tmk
+	 w5dVOgxhecWjbEPw8njHK7nIqS8tKwLhmfT7Dg9QBUTJKp3VZaRS2xm812GjkKSulo
+	 9YlIIz5+PQXYw==
+Date: Mon, 9 Nov 2026 17:27:00 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Mesih Kilinc <Mesih.Kilinc@sony.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 00/14] PCI: Resource placement algorithm fixes
+Message-ID: <20261109232700.GA345907@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,54 +63,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261001165201.763882-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQYjQ-00000000xBF-2QUA
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:51608
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 86
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfId6Bl28/qxAbhhEBbZ3fOuKFW/cvM75A6WLJVQWDzVGcjd2qNYUjCGolltxhm0y63ELu+9x2sTleo62EBsdzdeJvDrCgdZ3vdHnRubveJsg+HJ/yThy
- JP/uVhKSdK118rbahMW8Be8bpf7+jzpunPalnNSm8/KKMqJx0Uh7aQAKmiAjyNLKmrP80Y/oCEqqN8qmu4ZNKrhaqTC/vigWbY6eTXBaekKzY8M+sDn9yvWI
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 
-On Thu, Oct 01, 2026 at 05:51:59PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Fri, Nov 06, 2026 at 03:43:21PM +0200, Ilpo Järvinen wrote:
+> V4 got quite many comments from sashiko, some of them were a bit
+> sketchy (bogus scenarios such as IOV BARs on a bridge) but there was
+> still good feedback hidden under the clearly flawed facade.
 > 
-> On RZ/T2H and RZ/N2H, WDTDCR is located in the SYS block rather than the
-> WDT register space. Allow the WDT driver to access it through the syscon
-> regmap exposed by the CPG driver. Retain support for the existing second
-> WDT register region for compatibility with older device trees.
+> There have been major changes so any retesting is appreciated (the
+> 4 candidates patch is largely the same so I kept the Tested-by tags but
+> everything around has been changing so even that is on the borderline
+> when it comes to the validity of the existing tags).
 > 
-> The syscon regmap uses locks and cannot be used from the watchdog restart
-> handler, which runs in atomic context. Use the CPG helper for this path so
-> WDTDCR can be accessed without taking a lock, while continuing to use the
-> syscon regmap for normal start and stop operations.
+> I ended up dropping the nested window fix which I had anyway realized
+> would not be necessary with the current resource code. I had earlier
+> planned to change the resource side code to only try start addresses
+> that qualify to size+align requirements and had thus kept the nested
+> win fix. But it just makes PCI side more complicated requiring extra
+> tweaks and checks. With that patch dropped, pci_align_resource() can
+> alone decide the placement making the code much simpler.
 > 
-> Keep the WDTDCR start and stop helpers as void and treat the regmap
-> operations as best effort. Propagating errors from these MMIO-backed
-> accesses would complicate the control flow and error handling, while
-> the restart path in particular should make a best effort to restart
-> the system.
+> Second major change is rewriting the gap calculation, which required
+> including pbus_size_mem() refactoring that I was planning on doing
+> anyway.
 > 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> As with v4, the quirk is not included and one approach should still
+> be selected to solve the Genoa/Zen4 iomem blackhole but that's not
+> likely the one I proposed within my series so I left it out.
+> 
+> This series also does not attempt to address cases where user alignment
+> override does not propagate to window size calculations and thus not
+> into the align given to resource placement code (reported by sashiko).
+> These are pre-existing issues and while they should be fixed
+> eventually, I've no plans on increasing the scope and complexity of
+> this series that is focused on solving real regressions caused by the
+> commit 9036bd0efcb6 ("PCI: Align head space better").
+> 
+> For those who haven't read the previous version intros (no changes
+> from v4 in this):
+> 
+> This series generalizes the resource placement algorithm. The commit
+> 9036bd0efcb6 ("PCI: Align head space better") special cased one
+> composite resource remainder case to fix a regression (in a long chain
+> of regression fixes). Unfortunately, it introduced another regression
+> (or a few, to be more accurate).
+> 
+> Instead of building more special tricks, generalize the PCI resource
+> placement algorithm so it returns placement that gives better chances
+> for the greedy assignment algorithm to find suitable space for
+> subsequent assignments.
+> 
+> In short words, the new approach tries to find a placement for the
+> current resource that blocks as little of the free space range as
+> possible, considering both alignment and continuous free span of the
+> remaining free space.
+> 
+> In addition, the series corrects composite resource sizing to account
+> for gaps that have to be added due to alignment constraints and
+> remainder space not fully connecting (filling space all the way to
+> the bridge window align).
+> 
+> More detailed explanations in the patches themselves.
+> 
+> Unfortunately, this also causes yet another regression due to shuffling
+> resources around. I've left my quirk out of this version as it seems
+> the least likely approach to be used to resolve the issue. Some approach
+> should still be applied but that decision seems largely independent of
+> this series. The main part of the quirk discussion is here:
+> 
+>   https://lore.kernel.org/linux-pci/20261013130948.6231-9-ilpo.jarvinen@linux.intel.com/
+> 
+> I find it likely that after this series the resources are packed tight
+> enough to solve also
+>   https://bugzilla.kernel.org/show_bug.cgi?id=220016
+> from more than a year back but that remains to be seen (if we can still
+> get the reporter to test it).
+> 
+> 
+> I planning on making another series to properly honor
+> pci=resource_alignment and improve locking as I realized the current
+> approach allows parameter change to race with the fitting and
+> assignment algorithm.
+> 
+> v5:
+> - Reordered series, "simple" patches first
+> - Added patch to skip resource with IORESOURCE_DISABLED
+> - Added patches to fix __ffs*() (__ffs64 & zero handling)
+> - Fix 2 more 1UL -> 1ULL, renamed roundup/down funcs to _u64
+> - Rework considering user/arch min align, always take it into
+>   account during placement if present (sashiko)
+> - Rename pci_init_pci_resreq_data() -> pci_init_resreq_data() and make
+>   it non-inline func
+> - Drop nested window fix (unnecessary and w/o complexity is less)
+> - Rename .user_align -> .min_align
+> - Use struct to store candidate selection parameters
+> - Rework candidate selection precedence
+> - Calculate odd-multiple starting "2 blocks resource" using both blocks
+> - Add a tie breaker to candidate selection using alignment of the left
+>   edge
+> - Do not use candidate logic if there's no full block or
+>   rr->min_align > align (the latter is due to pre-existing problems
+>   elsewhere).
+> - If no candidate is possible, return right edge of the empty res
+>   (not strictly necessary because one of the candidates is at res->start
+>    and the caller should use large enough align if user align is present
+>    but it doesn't hurt either)
+> - Refactor pbus_size_mem() to support the new gap calculation
+> - Reworked gap calculation entirely
+> - Added debug print to sizing function
+> - Fix many grammar errors / typos / consistency improvements
+> 
+> v4:
+> - Drop my own quirk patch (one approach should still be picked!)
+> - Use 1ULL to not lose bits in 32-bit case (sashiko)
+> - Copy avail flags from full_avail.flags (sashiko)
+> - Always return "resize" from pci_specified_resource_alignment() (sashiko)
+> 
+> v3:
+> - Add roundup/down_pow_of_two64() (new patch) to avoid problems if
+>   resource_size_t is 64-bit and unsigned long is 32-bit + use __ffs64()
+>   (multiple potential issues mentioned by sashiko)
+> - Do not print res->parent in parisc debug code as the resource is never
+>   in the resource tree (found by sashiko).
+> - Do not override user-alignment with the remainder moves (sashiko)
+> - Consider optional sizes properly when sizing bridge window gaps (sashiko)
+> - Move genoa quirk under arch/x86/
+> - Rename quirk's static resource variable
+> 
+> v2:
+> - Add patch to cleanup parisc debug print (do dyndbg conversion)
+> - Add patch to prevent remainder tricks when alignment override is used
+>   (found by sashiko)
+> - Do not use PCIBIOS_MIN_IO/MEM but 1U as min align. The former seem
+>   address space lower bounds even if parisc arch code misleadingly
+>   uses them for ALIGN() call.
+> - Fix res->end + 1 overflow case (found by sashiko)
+> - Tweak debug print formatting
+> - Reworked the iomem black hole quirk (now based on the bridge)
+> 
+> 
+> Ilpo Järvinen (14):
+>   resource: Mark free space assigned
+>   parisc/PCI: Clean up resource debug print & use dynamic debug
+>   PCI: Don't size or assign disabled BARs
+>   PCI: Use __ffs64() for resource_size_t typed align
+>   PCI: Prevent zero align from reaching __ffs64()
+>   linux/log2.h: Add 64-bit roundup/down_pow_of_two_u64() variants
+>   PCI: Derive aligns[] array size in a define
+>   PCI: Honor alignment overrides
+>   PCI: Place resources to either edge of the window
+>   PCI: Separate align/raw size calculation from pbus_size_mem()
+>   PCI: Calculate bridge window with optional sizes from scratch
+>   PCI: Move size/align calculation fully into __pbus_size_mem()
+>   PCI: Fix composite resource sizing
+>   PCI: Add debug printing to window sizing
 
-For my reference:
+It looks like the early ones are straightforward and good-to-go.  How
+many could we just apply in order to get them out of the way?
+I'm guessing at least the first six (up to and including "PCI: Derive
+aligns[] array size in a define")?
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+You mentioned "this also causes yet another regression" so I assume
+there's something we're not quite ready to merge yet?  I'd like to get
+the rest in linux-next as soon as we can.
 
-Thanks,
-Guenter
+>  arch/alpha/kernel/pci.c          |   3 +-
+>  arch/arm/kernel/bios32.c         |   5 +-
+>  arch/m68k/kernel/pcibios.c       |   4 +-
+>  arch/mips/pci/pci-generic.c      |   5 +-
+>  arch/mips/pci/pci-legacy.c       |   5 +-
+>  arch/parisc/kernel/pci.c         |  20 +--
+>  arch/powerpc/kernel/pci-common.c |   5 +-
+>  arch/sh/drivers/pci/pci.c        |   5 +-
+>  arch/x86/pci/i386.c              |   5 +-
+>  arch/xtensa/kernel/pci.c         |   5 +-
+>  drivers/char/agp/intel-gtt.c     |   5 +-
+>  drivers/gpu/drm/i915/i915_gmch.c |   5 +-
+>  drivers/pci/pci.c                |   4 +-
+>  drivers/pci/pci.h                |   6 +
+>  drivers/pci/setup-bus.c          | 263 ++++++++++++++++++++-----------
+>  drivers/pci/setup-res.c          | 246 ++++++++++++++++++++++++++---
+>  include/linux/log2.h             |  52 ++++++
+>  include/linux/pci.h              |  15 +-
+>  kernel/resource.c                |   3 +-
+>  19 files changed, 510 insertions(+), 151 deletions(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.47.3
+> 
