@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.221.237.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208811;
-	b=3/dfEO4b+PlFB3P3HypfWpvcJvdNPcbYK4q/kxjLGD477lQx6lfqtgBstytz1MfSkWMe
-	 5plE2FEZruMXqIk4onuCU/YPMLCarMvIzZCsQVBds/gFIKStnMHLjbjQKWt29vky87Jvq
-	 91OvBogPcdc5oLAtNgYtZtnjnydUCfotdPUNOBp2k7SB/erAa+eiUAG/4j2yB/IcT5HNp
-	 7YLCRI+Q7O5gv4WWnHAGFxXD9DeNoa5arNGfyc2ACUxF/GI62Klkuvdj6coYgL+nihpKu
-	 Fdyy/ZeMMZGbKDYen7F0kjD8xRpnc+whGsIaQyBkix4bF9/EpOp2uySheibDM1Ho6Rw==
+	t=1794208828;
+	b=N/7d8naCwgfjqc8tF1r6TnWPVfEl5MsYV1BYN1CEyXUlwtLfkGv7B8jSr4aGwPXAhnIv
+	 S+vCQhXcoNgw84+RFdYQkdr9J6lhm8pb1Nw1ScAT5yO2Anpy6nH8r3I8ECyz1TgPT6G5D
+	 YzM506ArHO3AZuKkCVyfgQ7Jj0UaLrjP3nm1r1I7B/vxy45NCKac8/5gbUshhfIUA4StK
+	 d6MpxCs0GnmerAa/ZCRhlSLS70X6My9H9ObAjm4LGGrxIAeh22K23vITKsknlM8l2mHRX
+	 gAizjLcjkCwHcLqAiEgKbbg6D/gBZTr/KHG2L7JRVQntODvajA5TdDuleQFdMO1l1Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208811;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailru-Src:X-4EC0790:
-	 X-7564579A:X-77F55803:X-7FA49CB5:X-C1DE0DAB:X-C8649E89:X-D57D3AED:
-	 X-Mailru-Sender:X-Mras;
-	bh=dMP4wTYb/Pg11BCj7xV3nds3L5TCmqfCKGZRvrHr6l8=;
-	b=vgUsICIj9FJsawEvmck/7G3F3k5Ek+eB2sKTuL0gIMon3m2Rw9YWoYpDVBIOoH6wczxt
-	 w8v6aAk6rOCIsm1PB2SddG/rqrTvZ82bAaJcByCvQnXuzypsEI2w8gKPFuR4/Q515p9r+
-	 /8Zth1qnLIHXXj9dL195X0ddnrl49ClhsdN+tw/v8XjnNstPafOWrgtMm8PXyGU9ZSbLu
-	 F1zwHqPjcPZ9LX12RJb3QHZfilheljyCOaOrQrtQ84OQYEIuDuGhBSDsnTxWgE7QXWH4R
-	 hPqwO0XgK2DzaaBs4iUIMYpazhpwkJL6QiO0Qjsq8pqEE8fWB2zpeHLKqCRZG/noiMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208828;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=S4dtTenJXleltLZYycO2fIiw6+tZG5tzNUtyBvNjc9Q=;
+	b=GcXRo/v7CNSmO7CXNab/NewFL3aA0L7GS3oY3ttUVzxM/4Ec/9YuiBRLvEWwFoJeDvJg
+	 NeIpox31OQHc3LIcneQqJOY3oLs1BMWKA9AbSuSsXBY+fVlBycvLqGDLkMNbyFz1+oh77
+	 q7XtmntnqmMMA16q95vZms/JP11/4zb9asNBoubYdTChoiONhlMDVtcyn6OXgI12S2M/u
+	 4DK3q696qVFF1/1EGAfTikgfNIAZw2tHzu774iio/0xcNZPol+PJPJq8iC73HzQiNMhkB
+	 43IkE0Om9r8N6faWmVpDY65PUB7B1HF36RYcwYS+zsvKUf5NmlA1QBydumUqXclS/bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inbox.ru;
-	spf=pass smtp.mailfrom=inbox.ru;
-	dkim=pass header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256 header.s=mail4 header.b=VEOPfg5y;
-	arc=none smtp.remote-ip=89.221.237.176
-Received: from send81.i.mail.ru (send81.i.mail.ru [89.221.237.176])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grNwYsgE;
+	arc=none smtp.remote-ip=209.85.167.43
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250E6606A321;
-	Mon,  9 Nov 2026 07:20:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 250E6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inbox.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inbox.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250BE606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:20:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 250BE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256 header.s=mail4 header.b=VEOPfg5y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
-	s=mail4; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References
-	:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To:Cc:
-	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
-	List-Archive:X-Cloud-Ids:Disposition-Notification-To;
-	bh=dMP4wTYb/Pg11BCj7xV3nds3L5TCmqfCKGZRvrHr6l8=; t=1794208808; x=1794298808; 
-	b=VEOPfg5yWBtit/9FVQBtdlumBCgJR+vdDIK1j0Afwfcl8YCskaCmDxPUhSBZ9eNXnSJUODaHdCT
-	KQq6B/pzJPU/Lub9WwTlAPjPEA/q+75Hmwi3Xl4Uc+kw8QnOmz8vIpMH1IxJ2qKiI/oDThe3Spzil
-	m0hUUu9CBnkpupV8V7Mg31tRkGMZI//3UbW3jgl9GJ/2ajZ+V7GfZPCcXOytrmWrVs7sRlAy+PLuO
-	Bw/Z+wVb+ifx2BEGNV8hZlG3ErcW7afApES7g0H8FfL4SNWCd2xIhwWqlo6+y5zbsdF+ZuLZhdsFx
-	4U+Q+cw8Hpa7OxQP5Oh+vk02oJcRYZOx+KTw==;
-Received: by exim-smtp-5cc8b577fd-86ggl with esmtpa (envelope-from <fido_max@inbox.ru>)
-	id 1xQJfT-00000000EMy-2inv; Mon, 09 Nov 2026 10:19:52 +0300
-Message-ID: <3be09e84-f36b-4718-aa83-176bce5752c1@inbox.ru>
-Date: Mon, 9 Nov 2026 10:19:47 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grNwYsgE
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c14f3dab0cso308118e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:20:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794208826; x=1794813626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S4dtTenJXleltLZYycO2fIiw6+tZG5tzNUtyBvNjc9Q=;
+        b=grNwYsgEl9HzLWn1gn44MnjYOjcM2AMsGDKQbrGRoYdIKerLUtBBT2mRVlDK6RNyHN
+         2H6LkTRz5ws1JHGoJmPnLs+DR8YxK+qagXLZhsRv3CckKrTqBL7gIGZ9d8THkY8ankQQ
+         RAiskOXsV7iV+Ogw9BFclS5f/EO7KWtS1Vu4sorrnRAtrPWDtJfiMeAlX6LUR9X7cfx9
+         JLICJKmqrYJRmpFEAnhBMYVbdYbbVx/ImzTmQzSUyIyDdkVs75Hpxe0O1a+kOPcP+ym/
+         D78wCEJbI/oS9D5nPVlfRiHgPlqez9PBsGa6UydXisLEbjmmlpm9vxqvwYnmA6fHuNZn
+         xtJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794208826; x=1794813626;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S4dtTenJXleltLZYycO2fIiw6+tZG5tzNUtyBvNjc9Q=;
+        b=wJGnrCT4ww1xNqjFwF2QG4u0zEdM8cGKtfF/LoLfey3JpMsFVQNDwe6AiGEd+1xlhQ
+         et8YYFyuHshNvnyhDyVo3PCOZTDps7C5sBsVjsOVFfwH0JJkeYpqKNPfac1PNOTVm+qx
+         XvLIw/Iy0tVpz2VuUen+5OQmJxq1npgHuykvtw7FIDN8bLAxIXjwjVyaDPMLtuLDJdkK
+         XbjF4ZSn84b3cXvRmSdWSf3Y+HlDackf5a1sgXhyZ8i8rcBAzrFfzGckB098tp7aK157
+         lcKWgD9XFGr00Cop0D6IpHamOQsKhPvU0r6yTq11UQJp7cafWv7yJUFUGcikvcX5zPCG
+         PU9A==
+X-Forwarded-Encrypted: i=1; AL+hErG58ekHDRcFnayCNFJMLC3cnAyOCl/tLeVOpR1aSNsvQ/B7J8BZx75WChE3aLc1TRq3fyzKCU4ESysI834=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oAB2GMJrb/q/Czy4kogIEzPXsIZYC+cYru2m9HiMTqXUWQqdM
+	Vs1ZzQc7SQRgbJgwo7blsGnFwJCRxANt/Vo9MYYEOENiZ1E7r9DYlEd4
+X-Gm-Gg: AYBFou1NzF5x1/WA7M7/mHc6n2ODvjzeqYi5tnwfxaQyEizlLkz9ab71/ZMmNOfbwfY
+	knU4KN4/OLg0AI/o85JSJIKDx34aKJFjxaEQ9vZ6KsaGRA8KYDUlcEh/gFsrP7hasXH+IW9r8q/
+	daz27iNZTsar0pKknZqNcLGyIn7pqTldQpvzv/G4+T8nw0bYWz2K1oaXqujf1vf74m7bSX2BXSW
+	+bRI+zoyi6yuWw4yoTeKXHU+kFMZxR6JMMQ7QqI77j3C6tfI0u9U4RmiSIV1LCoGJP23PQLhjzp
+	GWq/7ICUJNAdwVePyYX/zepRt+QjnYPFQJrXO7VYeIHjmfLaNnJWnNwkyEAicBuQR6IHGgu1p3k
+	2aamo7gd8JSVffzX0lF+z+9F5WRvd2RmT/Hput8c8rSCh575l9kOuKGxeJCYfH9ltf48ZUqak33
+	aq9aGg8vzSkINKFLtm7PUc9dleNITCuGL2bn9vtP1N4QtzzuY4xFBNUnVAKXIK4v0RJlepM3Pie
+	PwsN3WcclNG94YO+ZwFzWTQWltW/TVVRV/k5ESQozhQUPYeN528DNmt3lV9Mcp045f+/q+FkfVo
+	qhohJKKSExzofaN/yU8pD7gVgJlLrLGJGNbp
+X-Received: by 2002:a05:6512:838d:b0:5c1:4c83:ce65 with SMTP id 2adb3069b0e04-5c14c83ced1mr504370e87.19.1794208826052;
+        Sun, 08 Nov 2026 23:20:26 -0800 (PST)
+Received: from [10.38.18.54] ([213.255.186.37])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c14b8197c3sm704213e87.57.2026.11.08.23.20.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 23:20:24 -0800 (PST)
+Message-ID: <b7a634b8-b837-4e3a-968a-8389db89b642@gmail.com>
+Date: Mon, 9 Nov 2026 09:20:23 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,57 +93,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] ASoC: dwc: Fix error handling in dw_i2s_set_fmt()
-To: phucduc.bui@gmail.com, Andrew Jackson <Andrew.Jackson@arm.com>,
- Mark Brown <broonie@kernel.org>, Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Tim Bird <tim.bird@sony.com>, Yuri Zaporozhets <yuriz@vodafonemail.de>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261106112940.53550-1-phucduc.bui@gmail.com>
- <20261106112940.53550-3-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: Maxim Kochetkov <fido_max@inbox.ru>
-In-Reply-To: <20261106112940.53550-3-phucduc.bui@gmail.com>
+Subject: Re: [PATCH] reboot: fail run_cmd() before init so hw protection can
+ force the action
+To: Zak Brighton Knight <zakbrightonknight@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>
+References: <20261107143129.875202-1-zakbrightonknight@gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20261107143129.875202-1-zakbrightonknight@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Authentication-Results: exim-smtp-5cc8b577fd-86ggl; auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
-X-Mailru-Src: smtp
-X-4EC0790: 10
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD96F2D5E088614A237978616089160C63AD65C6E03DC92A48B182A05F538085040F18A1CA48A39F5683DE06ABAFEAF6705FF78BDC6B93E6FD0A8A0DEF0E8EF60A0D5DA017CF5BD799E
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE78A0D58E4FC2FF961EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB553375669BFFA6ABF9D5DBB95A36D2F3D00527F3397561947724906D2B78D7A7768EE77F8EEF46B7454FC60B9742502CCDD46D0D1E44367C8E80A7B4F6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C091DAD9F922AA71188941B15DA834481F9449624AB7ADAF372E808ACE2090B5E14AD6D5ED66289B5259CC434672EE63711DD303D21008E298D5E8D9A59859A8B6B372FE9A2E580EFC725E5C173C3A84C3FB9365559B687AC835872C767BF85DA2F004C90652538430E4A6367B16DE6309
-X-C1DE0DAB: 0D63561A33F958A52F0FDEEFFCF7A4515002B1117B3ED69662978CB93988BD73CA7E60A991436CA2823CB91A9FED034534781492E4B8EEAD0AA277257C6A5E3DBDAD6C7F3747799A
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F96AB70F9BE574AE9C625B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D6591BD3A41B7F8C00CB71AA57990E0CA9C9A663A6C4AD9441817F5F3DB075F542C5E9A0CD04E70769A1B8341EE9D5BE9A0A43140BCD153799A8E4785A236961D2435B99B5984E0583BB52EE4E5D9E54FDA4F44A2BDFCEC9DBD87F602240D6CCBEE5D3DA9480BB1E7B08C654B4D7A83FC0F143082AE146A756F3
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWFUCQNkj6yLWDLEd9SnCO68=
-X-Mailru-Sender: 689FA8AB762F73937C9FA53A4753B31389747662B7C6DF869CE8B04861ECA05AD506C299C4DA31BC90DE4A6105A3658D481B2AED7BCCC0A49AE3A01A4DD0D55C6C99E19F044156F45FEEDEB644C299C0ED14614B50AE0675
-X-Mras: Ok
 
-06.11.2026 14:29, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
+On 07/11/2026 16:31, Zak Brighton Knight wrote:
+> __hw_protection_trigger() asks userspace to power off through
+> orderly_poweroff(). It only forces the power-off when running
+> poweroff_cmd fails. run_cmd() waits for the exec only (UMH_WAIT_EXEC)
+> so a successful exec counts as a started shutdown.
 > 
-> Return early when an unsupported clock provider format is
-> encountered, preventing the function from updating frame_offset
-> before returning an error.
+> Before init has started that exec can succeed and do nothing. Usermode
+> helpers are enabled at rootfs_initcall and wait for the initramfs to
+> be unpacked. So a built-in driver that triggers during device
+> initcalls runs the initramfs copy of /sbin/poweroff. On a
+> dracut/systemd initramfs that is systemctl. It finds /proc not mounted
+> and decides it is in a chroot. It logs "Running in chroot, ignoring
+> request." and exits 0. Nobody sees the message because a usermode
+> helper starts with no stdout or stderr. The default
+> CONFIG_THERMAL_EMERGENCY_POWEROFF_DELAY_MS=0 arms no backup timer. The
+> one-shot latch in __hw_protection_trigger() then makes the kernel
+> ignore every later request. The machine runs without its critical
+> temperature protection until the next boot.
 > 
-> Fixes: 221acc16aee1 ("ASoC: dwc: Add TDM mode support")
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> I hit this on a ThinkPad T520 running Fedora's 7.2.15 kernel, booted
+> while still hot from a long memtest run. The ACPI zone read 101 C
+> against a 100 C _CRT 0.29 s into boot. The kernel logged "HARDWARE
+> PROTECTION shutdown (Temperature too high)" and the machine kept
+> running for 90 minutes.
+> 
+> It reproduces in QEMU with Fedora's 7.2.13 kernel and with current
+> tip. The test uses an SSDT thermal zone whose _TMP is above its _CRT
+> and an initramfs with Fedora's systemctl as /sbin/poweroff.
+> hw_protection=reboot fails the same way. Setting
+> sysctl.kernel.poweroff_cmd on the command line does not help either
+> because do_sysctl_args() runs after the initcalls.
+> 
+> Make run_cmd() fail with -EBUSY until system_state reaches
+> SYSTEM_RUNNING. Both callers then take the fallback they already have.
+> __orderly_poweroff(true) syncs and powers off. __orderly_reboot()
+> syncs and restarts.
+> 
+> Firmware that reports a bogus critical temperature only during early
+> boot used to get away with it. Such a machine will now power off at
+> boot, as it already does when the same reading comes after init has
+> started.
+> 
+> A short window remains between SYSTEM_RUNNING and init being ready to
+> handle the request. A non-zero CONFIG_THERMAL_EMERGENCY_POWEROFF_DELAY_MS
+> still covers that.
+> 
+> An AI coding assistant (Claude by Anthropic) helped find the cause,
+> build the reproducer and draft this patch.
+> 
+> Fixes: 10a0a8d4e3f6 ("Add common orderly_poweroff()")
+> Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
 
-Reviewed-by: Maxim Kochetkov <fido_max@inbox.ru>
+Yours,
+	-- Matti
 
 
->   	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-> @@ -427,11 +417,11 @@ static int dw_i2s_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
->   		dev->frame_offset = 0;
->   		break;
->   	default:
-> -		dev_err(dev->dev, "DAI format unsupported");
-> +		dev_err(dev->dev, "DAI format unsupported\n");
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
-
-Should the typo be fixed in a separate commit?
-
-
-
+~~ When things go utterly wrong vim users can always type :help! ~~
