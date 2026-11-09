@@ -1,65 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794199123;
-	b=lVora1UQtDW7T7WH+jiS1XMYJfxwMevyVedKJlueCnfLaH6nFHv6VRjmUuNnlXcwOQIR
-	 i8wgMzJEjEPjTptlYaEVKwcRH6WYa1Du9KtNkks6N9JCGT2J1w9/wFKJ40hM0cPIa8JRZ
-	 QWO/gzddWhoamCE0xfsMWZGfY+izcBlSUPqySDThRlPumCmefrzxxtyMZSNM5F4ooJ/4o
-	 39mujY3+N7CGIErb2HLxRu1KfnxzGYz0inVjCraYfHujc2jSK3NUtWdDC9zazWe7aKHBz
-	 nfCWGhwRdWRaVI7BKLpwTbF40kCfdRjULBXEFE1Mr1Eu/d3ZaNTb/uhANsmYe+oVQEQ==
+	t=1794199261;
+	b=z0TeAetnt6+Z/ha+dXWCF7icLLl01gjDxhxhu2mnyavqi1uAzv1irmxDeNUUb7/CLqQd
+	 AkxJKGtclFdJlWk1HZ/fCeQdBAqj2zrfXKtlDvZKMqWJ3B4mLAvFY/D6XziAVpdA0/+ch
+	 +3pdw/NCBr0V7caFiFBBrD0qE6cWORu01Ec0xzXe04evmrdB5KKpaVgzU+SZ9ueRphO9e
+	 6sGSENAhwQibx30B/JXk9JBVxWY5HuqQHhqECCBeot/lyzvK+iIE2R6xK+ojh4nh85cm2
+	 kZgIjRFCf6TX+0bMoXSateZBhyS27UeHabrqkckeKlc0lrU5VGzOR2ghnOfFT/zbKyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794199123;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VnyGCZlBiCMpGECUC/uuk3qO0l8oc5IWtcXelbxc1Pc=;
-	b=OqrfXKeD9WnAHYkHXOuCKmcnbA9/2/DmALTgU3ZnuC/rp0ShmgRPcr00QbRcuShOdydH
-	 ZebNwtDa0nnba4I14FR2AitowCjTCvAhzfqxRNFhMulwSwcddsKvYHwbRpt18OfTMI9jM
-	 dPezH0ec9HMZdZ6jOVul7gJBVRMm7ioMrkuxdpGlhwOmZkFj79vu2QGY+RodYQuuoBkNR
-	 ABAXDBAWPmzSNaBIdzoGtOYzZh6gxGpkoif3PtMCVpLWhdxWuld+Fq/IAf7aQVc4H3OCn
-	 9QYBK+B/HkphbKFHDnhW4h0yvo9xtKwHWueLus8qwgphCc2VDbNPmW67fXcbuT4d86w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794199261;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=gJ74CSnVzPrkgTLXYkjcVhaLGZAUHvhtJS3ScUpXCvc=;
+	b=xZUClqUpWaUF/1KFotPdYwPtfB5NFHIUs4dk2CgCwdnoa+2Uob4Rzj+lPi6wXSglEC/f
+	 mqUQ+i2gdMLj6uKGWMhwHc0zVmAjkPBbQViJWDXqiJ6qjNMXO9rTVqP86qI/u4iVjETe2
+	 v+dPkdJ1bGziYs7Xxu8NhiG4jVETZkc89q/nFmZODLEnnTFpL3rxKH/ncRkXQWvcC1/Ic
+	 hhuyxa84YFluMQl1iXdm/GVh25bX7TgNrpciG1XFSj/HCMBjgUphfEBGm4qLN9pe6wilZ
+	 UwIAIZVDhzFqtEKs8RjstrhLrE45Ph24EKVKLRK4z31GAqD2myzBxklwsRXWt/l6jmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=efWucSc2;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60764606A31C;
-	Mon,  9 Nov 2026 04:38:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60764606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aN5bLCzk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7642E606A321;
+	Mon,  9 Nov 2026 04:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=efWucSc2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=efWucSc2+npSO4CmuFLi+0YWXEMlBYi0ARIJnAB6y8iO2Wh0xg6fUSdSLf3ffrRTvinoUXjl92yq3
-	 RikUbekUhjLw/4eWrEI21u/MRAgELsbqxM57RDd1FvJB7irUbak5pmXXITGl2/i1VpsDTVpcGMAXaX
-	 vCBdKJOvQyYgRq4M=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af14e4e118-c193a;
-	Mon, 09 Nov 2026 12:38:39 +0800 (CST)
-X-RM-TRANSID:2ee76af14e4e118-c193a
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af14e4cd7b-8170b;
-	Mon, 09 Nov 2026 12:38:39 +0800 (CST)
-X-RM-TRANSID:2ee76af14e4cd7b-8170b
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: linux-input@vger.kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: bcm_iproc_tsc: fix clock prepare leak in close
-Date: Mon,  9 Nov 2026 12:38:35 +0800
-Message-ID: <20261109043837.586-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aN5bLCzk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4FAB1F0089F;
+	Mon,  9 Nov 2026 04:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794199261;
+	bh=gJ74CSnVzPrkgTLXYkjcVhaLGZAUHvhtJS3ScUpXCvc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aN5bLCzkkmHIJ+IHGhJWKRiJJ129JYWlLANhDgCGSZbbBUrlZwblQUxs4DOPAr9z1
+	 v7Dm7LBQ818BSLR5cZWA1b4rsfH8RReWkZLjFtXkGkp3OT0lqLZ6JMLxoYMTJypJbt
+	 EVTrfsvECNkrNjC2yEPEbukP++OGOvrKgiNO0Tz13mc4r06CClXkfVL/tc2rFQLYg0
+	 NxRwMix+6s10xSU2Vsxa3cdXpccH1yZ6lnoQiW65j4NovyooLfphgiZ53fMGxycpL8
+	 hYNQl5JC105e3OjDhMll4/miatP2tGprb2EhP4VDYpdNWnOiZolCX1NIIdflBzWT6V
+	 iVExQCPyn6POg==
+Date: Sun, 8 Nov 2026 20:40:58 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Matthew Wood <thepacketgeek@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] perf unwind: Don't load symbols when the caller
+ doesn't need them
+Message-ID: <avFO2pqMGEkhaK_4@z2>
+References: <20261030193237.1440673-1-thepacketgeek@gmail.com>
+ <au18AJ94dUsE5PaQ@google.com>
+ <CADvopvYeG74khivCbBR=LsFNAuqDzn94Wg+LA4PwscsQue510A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,42 +66,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADvopvYeG74khivCbBR=LsFNAuqDzn94Wg+LA4PwscsQue510A@mail.gmail.com>
 
-iproc_ts_start() (the input open callback) enables the controller
-clock with clk_prepare_enable(), but iproc_ts_stop() (the close
-callback) only calls clk_disable().  Every open/close cycle of the
-input device therefore leaks one clock prepare reference, and the
-clock can never be unprepared again.
+On Fri, Nov 06, 2026 at 04:26:54PM -0800, Matthew Wood wrote:
+> On Thu, Nov 5, 2026 at 11:04 PM Namhyung Kim <namhyung@kernel.org> wrote:
+> >
+> > Hello,
+> >
+> > On Fri, Oct 30, 2026 at 12:32:32PM -0700, Matthew Wood wrote:
+> > > When perf only needs to know which DSOs a callchain passes through (as
+> > > build-id marking does at the end of 'perf record' and in 'perf inject
+> > > -b') it resolves the callchain without symbols. The DWARF unwinders
+> > > ignore that and look up the symbol of every frame anyway, which loads
+> > > and demangles the whole symbol table of each DSO they visit.
+> > >
+> > > On arm64 every frame pointer sample also gets a short DWARF
+> > > unwind to find the leaf function's caller; since v6.17 (commit
+> > > 29be60c93d2d, "perf build-id: Mark DSO in sample callchains") the end of
+> > > 'perf record -a --call-graph fp' loads the symbols of every user binary
+> > > it sampled. On a 128-CPU arm64 host,
+> > >
+> > >   perf record -a -e cycles:u --call-graph fp -- sleep 2
+> > >
+> > > never finishes writing perf.data, with over 1GB of heap growth in 5
+> > > seconds.
+> > >
+> > > Skipping the symbol lookup isn't enough because loading the
+> > > symbols also finds two things the unwinders depend on: the DSO's
+> > > build-id, which libdw needs to fall back to the build-id cache, and any
+> > > separate debuginfo file, through dso__symsrc_filename(), which is how
+> > > both unwinders find a .debug_frame there.
+> > >
+> > >   1: add dso__load_symsrc(), which does the same search for debuginfo
+> > >      and the build-id as symbol loading, but doesn't read any symbols
+> > >   2: pass the symbols flag down to the unwinders and honour it, using
+> > >      dso__load_symsrc() when symbols aren't wanted, which also makes
+> > >      the arm64 leaf frame caller unwind skip symbols
+> >
+> > Please don't.  I've added dso__dbginfo_type() to handle debug files and
+> > that's the correct way to get the file.  Probably dso__debuginfo() would
+> > work for you.
+> >
+> > I was working on cleaning up this area, but sidetracked by other things.
+> > I hope to find time for it soon but you can go with the above helpers.
+> >
+> > Thanks,
+> > Namhyung
+> >
+> 
+> Hi Namhyung, thanks for the feedback. I'll look into those helpers and see about
+> using them instead.
 
-Pair the enable with clk_disable_unprepare().
+Great.
 
-Fixes: d5ae685f1530 ("Input: add Broadcom iProc touchscreen driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-Verified against current upstream master, which still has the
-unpaired clk_disable() in iproc_ts_stop().  Not runtime-tested
-(no iProc hardware).
+> 
+> Can you confirm if the premise of the issue I'm reporting and trying
+> to fix seems
+> valid? Would saving this unnecessary work of symbol lookup when they're
+> unused be part of your cleanup?
 
- drivers/input/touchscreen/bcm_iproc_tsc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Basically there are 3 main use cases for DSO.
 
-diff --git a/drivers/input/touchscreen/bcm_iproc_tsc.c b/drivers/input/touchscreen/bcm_iproc_tsc.c
-index 9c84235327..07176f8631 100644
---- a/drivers/input/touchscreen/bcm_iproc_tsc.c
-+++ b/drivers/input/touchscreen/bcm_iproc_tsc.c
-@@ -330,7 +330,7 @@ static void iproc_ts_stop(struct input_dev *dev)
- 	val = TS_CONTROLLER_PWR_TS;
- 	regmap_update_bits(priv->regmap, REGCTL2, val, val);
- 
--	clk_disable(priv->tsc_clk);
-+	clk_disable_unprepare(priv->tsc_clk);
- }
- 
- static int iproc_get_tsc_config(struct device *dev, struct iproc_ts_priv *priv)
--- 
-2.39.2
+ 1. symbol table - most analysis need symbol names
+ 2. binary contents - for perf annotate or instruction analysis
+ 3. debug information - srcline, inlined symbols, stack unwinding, ...
 
+Due to split files, those information can be found in different files.
+So we now have 3 types of binary type info to handle the cases
+independently.  New helpers will give you a write path name for your use
+case already.
 
+Thanks,
+Namhyung
 
