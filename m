@@ -1,73 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.223
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191712;
-	b=qv+J3sdlXCu5G65ub8DXUCODtH8ljIF1LJkHNP67YMo5n4z4PWAVXv3q5MtMPK1f7pHh
-	 poKbU3N0PzVrcb+lkP78CjLe3BZSKqmJWK7M9ERu4LqtIsylusIo65IcOQHa5EK/6QS5J
-	 EKAIWJNy3Fanm7xnOMIjCUDdhcFOGPGo2y4lVlo7hX8254Dt5U2cY9kiul4LdFPWVtPTO
-	 m5GiNUX24gv6Z89CKE6ej1sexaL3lCgkesCP3Dr3xs6zW2SH7fltIO0v0KZqC+7FJAkMo
-	 pzv9nhLbNcA6296wRUmHJOwXXU3hdXcyQmPSaBA4fWm9Ap918BuqaLjOWPg64eza9OA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191712;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/ikAqP7gpdbBI+hdFB0vTPSMi3bWmtsaCXh9lO0ty1U=;
-	b=Wet74mIxpo9Z13LQnNXr9ITrVaOzmFBhP7E48oRZQLnFs18A/x7D1DXbpuza9Ou+2qF7
-	 mEqgoUl+yBie33CZs8FbrsYWIsPA/ft1UVgM4xM8uoYHJxpTOy7I/C/xIHHgXyUGjFSOS
-	 NnRWVGzIaIMNQvBJn0VKdYCfzuTYuSN0qNt7PKnIw98TpfSljxhHxe2/HQguzOsezBHtT
-	 30XHFIn+zfLjwLNVwTa+tubV/aDhLOnaSOYTkQh7b7xE4gkEKSpLBARA1NcVv6ctyk9n4
-	 CAUVbL0FAJAdfli3NBvgQNyzgoVzL/eeh6lCYS6A/3aJdT9nKVKJNov1lGAFSt9ttyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="M75aPf/F";
-	arc=none smtp.remote-ip=95.215.58.223
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794191709;
+	b=B7ZQcVBeVEkvP1ROvSa6oIwVNthGjMCfyjzwChhTsG1gZ4gzY9PLokEhPn1N8wA0/uXX
+	 +VJRjMgfNqcpoI0R4FR5IlhWt5Py/2XmXVEbVvqqo1nZ7RyvLZw/rIZhxhu2hcB8Xr0bA
+	 jG2cpPjQ62OstYskNhlzIkCEEbM9zkDOpCmbxoWfK+Q1px82cX97AWYZNbLyBZU3U5crk
+	 Z4ZA0V8HyobZ67j1oHAARALfn3ib8CTVKx6Fcjo1T6spvs1E+/JE7Ax+iMX516K0drKIt
+	 CnAK0psdTnAe8DlFRJEJqKEJGchI9B2EUzJRTvTJSAQugV3OZujVfKVTXrNVGm0tzng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191709;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=iPEE4e+FhVTbeOQfC+hq3HXlXhp32T0R1afgEhwbTZY=;
+	b=bvndUnJROlZiBZcgKc/+hvwqhmFrSFU0fHecotNyXKVKx08JCqnrXTV7X7hIqfD0x/lZ
+	 g1/hlEK16LSBa3Q3LBVV+5riYXK3LU6FvXiPKYacUBxO3rhVOl/P5b1PYdbMh/BaIMokl
+	 B9AV9hfl0zWjxHce+XEw2V4vEFH14TYXvSatfeUEYZlOe5wMgFWvJpZG20UF+t2dBABsA
+	 jEN1Fn/JiujzacR/UIdtShgSSckdCyDhLAcYJjgalqtoSHLF48TolBRwBIl/KBxFZh0Kb
+	 bukfrByBqar8i164FsOy2uqgDuI0KHWPIvOeGK8YtOFjm3XT4pv0Cgg9Dwl8BpoL4Rw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eZKm54WY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ACB606A33E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1ACB606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CFD606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:35:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57CFD606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M75aPf/F
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=psUKZVZC7okDpUhR+qBHZvo0Vd9UtjuNKUs9HwCN5Cc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794191709; v=1; x=1794796509;
- b=M75aPf/FXyCfS/8MBflmk0QpORPYRN6M4MksV8HldOSW/4cycR8VsEgQ8QnBVA4jvK3L5Dxk
- jSzmhfyvXHJ4ZVofXVaXCrOCxNB5TFvQYHgrZXKkBncBM5Oh8laRz936jLwoHC0gETmNWY0c+qc
- ZMvPD8UjNP8ZMEkG71bz3NGM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id e7a58ce54b55df96;
-	Mon, 09 Nov 2026 02:35:07 +0000
-X-Mizu-Trace-ID: e7a58ce54b55df96
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 10:34:53 +0800
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Stefan Roesch <shr@devkernel.io>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 5/5] selftests/mm: cover merging KSM pages aged by
- smart scan
-Message-ID: <avExTeM7wyb7PIa6@dgvxl46587.localhost.localdomain>
-References: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
- <20261108-bug-mm-ksm-smart-scan-align-skips-v4-5-86be8fe77e7a@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eZKm54WY
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6f8a519e215so353740eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:35:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794191708; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mtqg8569kDlP0ZZWw3DbqAZ/HVxC/jM9pWNHcqzjKXR5P7bYe4UC63Ekjerk2zUM9w
+         MjcU8pq6gWAfFbrwQQfgyJ5ODqKaB6t+Yjd4ZowM+e/ChvIi87AH5ci5TE3aQITKrPEw
+         bhDOeH2FHTQ/x4GqiNWNy3sYk8fqCGHZyUf8DWv5zPiBsEKFKMZjkSxyDEDBoxLv3gEQ
+         xnm0NMSemVbTsCxpDlHne5Jg+AgVNq9ZN5WRwwSp4zgHNd7GQg7mva3MheTu90eLLUYl
+         UH8ERdCbvqk0/RPQonFNFnhS14ILv8H9Uue2snc9iADu2EncB0H2J0VXwZEE5E1Ikb4d
+         EznA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iPEE4e+FhVTbeOQfC+hq3HXlXhp32T0R1afgEhwbTZY=;
+        fh=Tceclw7l7SYNezjBN+ocKoWYNMklVcG10e27rr0CklE=;
+        b=iGhYV01ZtdxJfLrO8PSeU1i9Rwn6rfGWTJEMjBEN/DMfvmJdFSZVHnwgLlGyhqiKz4
+         av4C/pczvFulwjsJv7+E8eM+WTrUSx+7VtUMxxx91WygI7pg9z5tp7as11E2P6cqGOey
+         mZ+DKpuR1kW2I+ikQGLyC7v6En5mRIRqOmSkE0cxo2b+8FcUvYken/ckcFGLlh6dpobf
+         MgFAvhRzGaqBDaH5uffZd3CX1Utz9TaiMv8xujZrU+aZRtkxBvf4o22TeusovJpQk5gm
+         cv1cMj9vCygBFBlFyvnC/59nPvbU01AwxLJ7vBN7IzA6JJVzfbeUWfB/CuOIDWpE+fmx
+         Ec7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794191708; x=1794796508; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iPEE4e+FhVTbeOQfC+hq3HXlXhp32T0R1afgEhwbTZY=;
+        b=eZKm54WY/ijAlIPxiznq8wqeep7LsgU3WAKgxqCqmAr9oNmREkx1We66q5WLkl3Ddx
+         tDmcH4KNis5hcw008QZVPPMAUSy21pp6qkCi0yatqUfDYtouoRcf0jIYjRJ+exVSDvc4
+         E6mAxrPqVx+/8zShGbDcDNFhFi1OO3WUAgjn68BZGeB7RH072CfRek4ZTHHbQZ5YC1NF
+         2q9KMdUrsZS2zXHXQdA4MbWlKZY2sa0clc8KtyoW4/t9ZqAvR8ob/mm5O+RATpnB8HxE
+         66YCQ3wORdtSC+mznW1di8ps66AiQbDsQEv+4XIucZbnvAWQCbEFAaAE1s7kDqYqN1a6
+         q+JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794191708; x=1794796508;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iPEE4e+FhVTbeOQfC+hq3HXlXhp32T0R1afgEhwbTZY=;
+        b=fpbq7IF28wo0+k+24bgN1JXF57fs76aLVl5BCGSOK11CfApdbRrMEEPW2zylTA/S3M
+         5mW23dVHIKbYCAhXtY2Inwp+NH+Qrhfl3OOYwX3ZNCbqij8VSPL3AkP1Eo9BW7hKpNd1
+         6Sg7lvtVhCynZNIEbEJFV3xT5fAPiGHCWx8CATYA9iqvrRwJo/fDgSCEBcPWVMrHaJV1
+         nTRno5QtHsd6oqoWexYbBF/HCDYcbcIuzRaF2le2vFvk8A8Au7fuzIJSw3H0LwnI+5cZ
+         OtBNJ128LYAowGiTuYLVwgAiLGnF6/zbaCJB07hv+lvaSCata1GVzwQLIkX2IPUc9I5E
+         qUaA==
+X-Forwarded-Encrypted: i=1; AL+hErHfklUEeh1SrVY9cjy7JjAHTmql0VZZtA2k5BzwPu3LnBdS/nNs3yz+5VbAtR5jloymXC8SSP+q9sRhkN8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kLQiUSfm+h8xsNS5vJnS7ubO/0o4mXNfc7a25aTHtFyPVM1Fz
+	Lj0fdEuKT6g5PNdydmB8sdX/bpwhyC2mOEYmR01iBPajnrN/tONmIXNq8wobFQtoqF63JPJRbOQ
+	7X4WahXRJv9a1h1XLwy5TKYDVlJ3euWg=
+X-Gm-Gg: AYBFou0wldC10SpnjAd9xv5Tg9JdQX2NXbC1fl/wh6jDAItSUuRNiRifAdQ7Vg56twO
+	Xo/ZWg6nM9MA+1dUB+fOaiT0wvbVWyRi61paeqY3aSFgx4BFEAPc2C3u+yDSbIPM1S13F10Fi7g
+	hPyS+j1dpjJ4MTrtyGmnJloPypF+ZvJtKLAUvCxidqGboPUSfe38Vu5h147gCIPzhC01M9hNBhI
+	vEb9cOjqXC2yUG7dJTnjxRw575P8M6uflWbCxJZv2dqXVsQUirTRbliklEV4aJ1/B55nj7vosYL
+	SZ9We111twKCirUEWd9C8ksvVstoG2CbofA7QFQgsFyzsy9LVUCk93TMUoOvI80uEqaZVepNnAX
+	gOgTrC6pOPvt0CvIOpQfhaZxvQsVUPZ8Zw83lIEMfTSGPvhCmmFBWwqF8rUDZMLFiI8R/Sw==
+X-Received: by 2002:a05:6820:81cb:b0:703:ad5d:e673 with SMTP id
+ 006d021491bc7-71700ccc4a6mr2488203eaf.30.1794191708251; Sun, 08 Nov 2026
+ 18:35:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,216 +103,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-5-86be8fe77e7a@gmail.com>
+References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com> <88239c31-e161-4623-8dbb-db39f506af6f@yahoo.com>
+In-Reply-To: <88239c31-e161-4623-8dbb-db39f506af6f@yahoo.com>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Sun, 8 Nov 2026 23:34:53 -0300
+X-Gm-Features: AclHuK8y5AYFHGAYTEdMasnfFP8h-556sx1sTmQKK0Jn_aTTYXz0xJVOxMeuACs
+Message-ID: <CAJq09z6UsRtbjF6KCMKuTTC1gcp=4=h024EuKuRYwvgLwSmsFw@mail.gmail.com>
+Subject: Re: [PATCH net-next v7 09/10] net: dsa: realtek: rtl8365mb: make
+ L2/LUT access work on family D
+To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, 
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
+	linux@armlinux.org.uk, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 08, 2026 at 08:22:54PM -0500, Qiliang Yuan wrote:
-> ksm_functional_tests checks merging and unmerging with ksmd's default
-> settings, but nothing there exercises smart scan, which skips pages KSM
-> has failed to merge for a while.
-> 
-> Smart scan used to time those skips per page, so two identical pages
-> that became mergeable some scans apart could end up never being looked
-> at in the same scan, and were never merged. "mm/ksm: align smart scan
-> skips with the scan number" fixed that.
-> 
-> Add ksm_get_smart_scan() and ksm_set_smart_scan() to vm_util, and a
-> case that enables smart scan, lets sixteen unique pages age for a dozen
-> scans, then makes a duplicate of each mergeable one scan apart, and
-> expects every pair to be merged 32 scans later:
-> 
->   kernel               failures, two boots
->   before the fix       20/20, 20/20
->   with the fix          0/20,  0/20
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> Tested-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  tools/testing/selftests/mm/ksm_functional_tests.c | 89 ++++++++++++++++++++++-
->  tools/testing/selftests/mm/vm_util.c              | 36 +++++++++
->  tools/testing/selftests/mm/vm_util.h              |  2 +
->  3 files changed, 126 insertions(+), 1 deletion(-)
+> The L2 lookup table on family D switches (e.g. RTL8367S-VB) differs
+> from family C in ways that make the current FDB/MDB code misbehave:
+>
+>  - An L2 entry is 5 words instead of 6, with a different field layout
+>    in words 3 and 4 (port, age, static and multicast member bits).
+>  - There is no EFID and no per-bridge FDB isolation. The register at
+>    0x0A32, used as the per-port EFID register on family C, is the LUT
+>    aging timer on family D, so writing an EFID there corrupts it.
+>  - In the table access interface, the SPA field is 3 bits wide and the
+>    address register is 12 bits wide, with no address extension bit.
+>  - Only ports 0..7 are present in the LUT and there is no
+>    FLUSH_PORT_EXT register.
+>
+> Teach the table and L2 code about these differences, selecting the
+> layout at runtime with rtl8365mb_get_family(). Family C behaviour is
+> unchanged.
+>
+> Specifically:
+>
+>  - rtl8365mb_table: use the family D port mask and address width, and
+>    read the hit address from status bits [11:0].
+>  - rtl8365mb_l2: add family D unicast/multicast entry (de)serialisers
+>    behind *_any() wrappers, pass the proper entry size to the table
+>    layer, reject ports above 7, report SVL (FID) entries with VID 0.
+>    Use age 6 for static unicast entries as the vendor code does, and
+>    look an entry up before deleting it so that a missing entry is not
+>    allocated by the delete.
+>  - rtl8365mb_main: make port_set_efid() a no-op on family D, add a LUT
+>    init step that clears IPMC_HASH and BCAM_DISABLE and programs the
+>    aging timer, and do not advertise fdb_isolation or
+>    max_num_bridges. Traffic between bridges is then isolated by the
+>    port isolation masks only.
 
-Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
+So, family D does not have EFID support? I'm curious how this will
+work in the FDB table when you have two bridges using the same VLAN
+and receiving traffic from the same MAC address. On family C and
+earlier, the L2 table uses both EFID and FID/VID as lookup keys.
+Without EFID on family D, what are the implications?
 
-> 
-> diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
-> index 31c06c72203fd..135191f99962d 100644
-> --- a/tools/testing/selftests/mm/ksm_functional_tests.c
-> +++ b/tools/testing/selftests/mm/ksm_functional_tests.c
-> @@ -695,6 +695,92 @@ static void test_fork_ksm_merging_page_count(void)
->  	munmap(map, size);
->  }
->  
-> +static void test_merge_aged_pairs(void)
-> +{
-> +	const unsigned int pairs = 16;
-> +	const unsigned long size = 2 * pairs * pagesize;
-> +	int old_smart_scan;
-> +	unsigned int i;
-> +	char *map;
-> +
-> +	ksft_print_msg("[RUN] %s\n", __func__);
-> +
-> +	old_smart_scan = ksm_get_smart_scan();
-> +	if (old_smart_scan < 0) {
-> +		ksft_test_result_skip("smart_scan not supported\n");
-> +		return;
-> +	}
-> +	if (ksm_set_smart_scan(true) < 0) {
-> +		ksft_test_result_fail("Enabling smart_scan failed\n");
-> +		return;
-> +	}
-> +
-> +	if (ksm_stop() < 0) {
-> +		ksft_test_result_fail("Disabling (unmerging) KSM failed\n");
-> +		goto restore;
-> +	}
-> +
-> +	map = mmap(NULL, size, PROT_READ | PROT_WRITE,
-> +		   MAP_PRIVATE | MAP_ANON, -1, 0);
-> +	if (map == MAP_FAILED) {
-> +		ksft_test_result_fail("mmap() failed\n");
-> +		goto restore;
-> +	}
-> +	if (madvise(map, size, MADV_NOHUGEPAGE) && errno != EINVAL) {
-> +		ksft_test_result_fail("MADV_NOHUGEPAGE failed\n");
-> +		goto unmap;
-> +	}
-> +
-> +	/*
-> +	 * Page i of the first half and page i of the second half form a
-> +	 * pair with content no other page shares.
-> +	 */
-> +	for (i = 0; i < pairs; i++) {
-> +		memset(map + i * pagesize, i + 1, pagesize);
-> +		memset(map + (pairs + i) * pagesize, i + 1, pagesize);
-> +	}
-> +
-> +	/* Let the first page of each pair age without a duplicate. */
-> +	if (madvise(map, size / 2, MADV_MERGEABLE)) {
-> +		ksft_test_result_fail("MADV_MERGEABLE failed\n");
-> +		goto unmap;
-> +	}
-> +	if (ksm_start() < 0 || ksm_wait_full_scans(12) < 0) {
-> +		ksft_test_result_fail("Running KSM failed\n");
-> +		goto unmap;
-> +	}
-> +
-> +	/*
-> +	 * Make the duplicates mergeable one scan apart so that each pair
-> +	 * starts out with a different distance in scans.
-> +	 */
-> +	for (i = 0; i < pairs; i++) {
-> +		if (madvise(map + (pairs + i) * pagesize, pagesize,
-> +			    MADV_MERGEABLE)) {
-> +			ksft_test_result_fail("MADV_MERGEABLE failed\n");
-> +			goto unmap;
-> +		}
-> +		if (ksm_wait_full_scans(1) < 0) {
-> +			ksft_test_result_fail("Running KSM failed\n");
-> +			goto unmap;
-> +		}
-> +	}
-> +
-> +	if (ksm_wait_full_scans(32) < 0) {
-> +		ksft_test_result_fail("Running KSM failed\n");
-> +		goto unmap;
-> +	}
-> +
-> +	ksft_test_result(ksm_get_self_merging_pages() == 2 * pairs,
-> +			 "Pages aged by smart scan got merged\n");
-> +unmap:
-> +	ksm_stop();
-> +	munmap(map, size);
-> +restore:
-> +	if (ksm_set_smart_scan(old_smart_scan) < 0)
-> +		ksft_print_msg("Restoring smart_scan failed\n");
-> +}
-> +
->  static void init_global_file_handles(void)
->  {
->  	mem_fd = open("/proc/self/mem", O_RDWR);
-> @@ -720,7 +806,7 @@ static void init_global_file_handles(void)
->  
->  int main(int argc, char **argv)
->  {
-> -	unsigned int tests = 9;
-> +	unsigned int tests = 10;
->  	int err;
->  
->  	if (argc > 1 && !strcmp(argv[1], FORK_EXEC_CHILD_PRG_NAME)) {
-> @@ -753,6 +839,7 @@ int main(int argc, char **argv)
->  	test_prctl_fork_exec();
->  	test_prctl_unmerge();
->  	test_fork_ksm_merging_page_count();
-> +	test_merge_aged_pairs();
->  
->  	err = ksft_get_fail_cnt();
->  	if (err)
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index 8184691211acc..f26f9e4bfdbe9 100644
-> --- a/tools/testing/selftests/mm/vm_util.c
-> +++ b/tools/testing/selftests/mm/vm_util.c
-> @@ -992,6 +992,42 @@ int ksm_use_zero_pages(void)
->  	return ret == 1 ? 0 : -EIO;
->  }
->  
-> +int ksm_get_smart_scan(void)
-> +{
-> +	int smart_scan_fd;
-> +	char buf;
-> +	ssize_t ret;
-> +
-> +	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_RDONLY);
-> +	if (smart_scan_fd < 0)
-> +		return -errno;
-> +
-> +	ret = pread(smart_scan_fd, &buf, 1, 0);
-> +	close(smart_scan_fd);
-> +	if (ret < 0)
-> +		return -errno;
-> +	if (ret != 1)
-> +		return -EIO;
-> +
-> +	return buf == '1';
-> +}
-> +
-> +int ksm_set_smart_scan(bool enable)
-> +{
-> +	int smart_scan_fd;
-> +	ssize_t ret;
-> +
-> +	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_WRONLY);
-> +	if (smart_scan_fd < 0)
-> +		return -errno;
-> +
-> +	ret = write(smart_scan_fd, enable ? "1" : "0", 1);
-> +	close(smart_scan_fd);
-> +	if (ret < 0)
-> +		return -errno;
-> +	return ret == 1 ? 0 : -EIO;
-> +}
-> +
->  int ksm_wait_full_scans(long nr)
->  {
->  	long start_scans, end_scans;
-> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-> index 7e00030077d2f..ab1325dc65800 100644
-> --- a/tools/testing/selftests/mm/vm_util.h
-> +++ b/tools/testing/selftests/mm/vm_util.h
-> @@ -163,6 +163,8 @@ long ksm_get_self_zero_pages(void);
->  long ksm_get_self_merging_pages(void);
->  long ksm_get_full_scans(void);
->  int ksm_wait_full_scans(long nr);
-> +int ksm_get_smart_scan(void);
-> +int ksm_set_smart_scan(bool enable);
->  int ksm_use_zero_pages(void);
->  int ksm_start(void);
->  int ksm_stop(void);
-> 
-> -- 
-> 2.43.0
-> 
+The number of EFIDs defines the number of supported bridges. Without
+EFID, should we limit the number of bridges to 1 (or prevent creating
+multiple bridges with conflicting VLANs)? Turning a used field or
+function into a no-op without handling its architectural consequences
+can lead to subtle bugs.
+
+This highlights why a simple end-user test isn't enough when adding
+support for a new family. Every feature needs to be tested
+individually and aligned with the driver changes. I've had the
+RTL8367R up and running for months, but I'm still testing features and
+finding bugs (and the support is still incomplete). That's also why
+the VLAN/FDB offloading patches took so long to get merged. Alvin's
+original implementation worked well for standard use cases, but
+covering edge cases and verifying all features required a significant
+amount of rigorous testing and bug fixing.
+
+Best regards,
+
+Luiz
