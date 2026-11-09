@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200883;
-	b=T5GFsFTLdJ2tE9I1qtptvCgUZs0xEemMXF6rTXHgb9Pql4W6KyFaEZ5aIRgDi6Endk9y
-	 RhRerVLzU0S6LEhpeHv1Y11YLOjJDnncR38KkxZJ4vQxvQt4Tkp9iCFsg9GZ+NxMfWn67
-	 p9l9jMH+DO2QVS89MVUTlQhvIwEtWmSVJubwcZI47ZxTgTWX28D5/TU4/UvMkUkRgxE/g
-	 6WfPc8BOzuzNu4CNxABcFbZ/kJMX+XO2NT4nUYW479vpSfZ2qVMwD1w/I65xX0pzwvIgt
-	 a8rVCdRJsUrIbVBHNTnjWBtUM86pS7bwUpuK7VxSjcFA0+H2AA11urqdvmU2pxH4YFQ==
+	t=1794200888;
+	b=owS0SHa+QVH0FSYqbgpoZTVYjHR37/z5e49xEDgPSpqqY19fmj0CqQ3ePoViA+wCqmes
+	 /N/J36QR7d5yr7ei73nvz4gdfoE26k9Lo+ypfLQ9zzuiDsZQCNlpiOlDNS1ZaWAnxxHp4
+	 xh+br9zda+YFuY5jRl/94dDegKTd4e1/uqX2Wjs738XbwnWThUtQI2rk+UA8d9q65TFFT
+	 pL0tklWF2JtUg+z4dBHNy1HrSKIZRKQlzQAIsRG6VyPLuUkzJA+L8i02EVutwnI/gNYv8
+	 wXfRJdSeKYory/FuQ7dyeCpe1yiZmRkLWeY2oJjN/TxueNnQTa+hzi8RIbTKXIN/yFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794200888;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
 	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-MIME-Autoconverted:
-	 Content-Type;
-	bh=82SmoDYlovGPPIZPAG07xavpSWWmVSYrhBKvhMdiVEY=;
-	b=syREngJko1s4jOVMlE92ok8R4oLKSCSpNNvuXi8wr6tE+P383plOBwrikYal/5jvdJtB
-	 2PIG1ZWMtti2oZBcv21efeyrvgPnskLNeFddgOMXbrGG7HgGb39OxmYpzG/qRofLXQBRe
-	 CmGClfG+p/zz+ugiJn5oHchEGiGN9ngTTzVoRDefwETShlVpnh5ErlTpu/0O7VWXkaT9l
-	 fLUXgheMFcdxKK1lPmrNCnwjboVI0zZ4TFi7/hFrLXA84KKURZLvqeNnj9z0sg+sdL79Q
-	 25C+FRQFy/aRPijdzvyj4U+JLp3Bj+bLlptUzvYAdTOtBXsJVe1y+Fj3QdFWxaixjnw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-MIME-Autoconverted:Content-Type;
+	bh=7Z5GB7KMsVdvr80fZDQSyd8pLgimkJUbwSwFJkbP3+c=;
+	b=qpPKXJpqTDqy/l2bSNhKixr1gwJejnfSYkdzTXLkUk7dst65dtkRSghPQOkpxF+91mdq
+	 0Bo4jRZ1P6PARqUk3hZ68Ayf4+5yguoOfBpyEt5py5reBiDsPK7T0z/QNZ6D42hAx/iQC
+	 Gg6zM5zoRhx1/AQ8jf8rZjkc+5uErZyXb8Sn67azITY/o34JWRcLNnzPYes0qv7j7jCwO
+	 kVKtFiF+ivqZc7axDANxLAKwLNIcwIE6zPZck9XY42EmtddHSlaWQuA8yv0V0RHgsGu8X
+	 7aCwEbFiv8xP2ndwczGN1TjXuHHtMHddby2QNu74RQ6oHXfTxDpKLP9+EXrNyCzqYaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arkamondal.net;
 	spf=pass smtp.mailfrom=arkamondal.net;
-	dkim=pass header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail3 header.b=CHD7C+Ng;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=RZu9JR0v;
+	dkim=pass header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail3 header.b=jxjF+qan;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=afA633Xb;
 	arc=none smtp.remote-ip=34.202.193.197
 Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F59606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:08:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F59606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53854606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53854606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail3 header.b=CHD7C+Ng;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=RZu9JR0v
-DKIM-Signature: a=rsa-sha256; b=CHD7C+NgYfWjkvxsbhEg74HPDXECg5Zl25RIo5DGZF2yfIVBoWXCt+eCVVJnN3jGz6cWtOVoDTh4PDjj99FE2ShH03GavOTuVqe+GuNkp6P0y9lp+z1dzZimp4nk/geZoiuWW5SGXpG4PM5w+suG7bfU49jUde3CdtRWjNpVXQpsqBUelR95o5zpnW9iZcPpcs9UusF0PhZzAB/MfoU8Y5wWbg7vE5g3pTrmx7q69QCxn808jLN5VDjzHjRK1ynLgiwn+7gnLUVYKjXABI4079tHPQEdYvVi77W0Y77PcP4q32M9C2QOcCWe7zTdEhGTeGauPxqRHbqB6zm9tZv/UQ==; s=purelymail3; d=arkamondal.net; v=1; bh=HaunAnj7cG+OVh5JIrUNiAJGT2BDPbG0sc6MuEKPxiY=; h=Received:From:To:Subject:Date:Message-ID;
-DKIM-Signature: a=rsa-sha256; b=RZu9JR0vB89BMIDb71aCf/HP934dtPf3LAInk8GjMAS93MsOv5fmsp4mWsJIHHAPj3xd79LrvTDU68UTMYoWJHABQ9MQbw8UdSvpLKkV5gL9h0X9ZXxvoxNHbZyyL8aZm7WGXcA4AkvsxCMRDkVW4jB7ec/9jZ24N+l/cYBcB8yhBsfhQ0iI1eHTJBY4SpYXIDoCP6iynpWnd3jX7fCxuF8Jx1rTIDgpyWYh35IfTZYX6hOSBvAKmzHkARg//nS9icDWPRNZgICC+0Vl0riQEO+1mfoXhuNiwhTLOQxp4xOtqDWpbRT7A5gAGgceW8AEb3R0Vm9D2Qh4vCR9hX6esg==; s=purelymail3; d=purelymail.com; v=1; bh=HaunAnj7cG+OVh5JIrUNiAJGT2BDPbG0sc6MuEKPxiY=; h=Feedback-ID:Received:From:To:Subject:Date:Message-ID;
+	dkim=pass (2048-bit key, unprotected) header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail3 header.b=jxjF+qan;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=afA633Xb
+DKIM-Signature: a=rsa-sha256; b=jxjF+qanIipKbz2pNxsO5MTWscrejUfI4E2wyyWv9dVK0WQKNJWM9r/QezXhOiea2hIu8UkYoGvZIR2vGwNazyUzRi3sg2CSFoXCZy6Py+yr46ZkOszCxcCe6kNOZHuGDkDlou+4x50eIpI3sAm4xv7OTDZZ9mfwOq7CrYJk7XF2sIa0BeNJeXYxM5bBUsM0e24u3rPVNtXA6uLrvTj/T3rvq1qb2m+KhwJtAxQRv5jhAlw3N3Unquh5lUh9LjywA8p4xLQJMsx9fJ2JiSzGUVgsE3ucbI2SjSVcFUxTiav6MsA26PGiWopdHk+cK5uCx+n6fAlCDLPzvkilvIYkfA==; s=purelymail3; d=arkamondal.net; v=1; bh=pE/qw8FfkqhChHBlz0WOVn3qQtoKxR6VjHusmcRAR4A=; h=Received:From:To:Subject:Date:Message-ID;
+DKIM-Signature: a=rsa-sha256; b=afA633Xb3cx1g5jL96s+ZdLj6iZQnZUgQ1TAwPrTUfOLtml4JVBrQG0jhLml2RZyN6eY9txBCAMGaMmubht+PvEXnSq0Jy+8sjOnx0GtUH5XVEYHiGJoqpaN+wRUab+FMiF2vnFnGgngUNDulyr4brHQbtXtLVRF+03c+myWM0XPa6SY1Aa3iVdEzI690mGbiyA54/Qsqo4736BoRxhGyZXkAJ6F241ft9IsB3FumVp/G4rZb0fn3/4O0aUU5ADQWUNCBMV6Whw1sxSeniAxe1SQ///sNBXRzUPennWOir+iauEJg48hHGZJ7rUl3Mng6tu+qqBYOxcARkJDwZhxDQ==; s=purelymail3; d=purelymail.com; v=1; bh=pE/qw8FfkqhChHBlz0WOVn3qQtoKxR6VjHusmcRAR4A=; h=Feedback-ID:Received:From:To:Subject:Date:Message-ID;
 Feedback-ID: 1246644:48769:null:purelymail
 X-Pm-Original-To: linux-kernel@vger.kernel.org
 Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1850211063;
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -257840358;
           (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 09 Nov 2026 05:07:49 +0000 (UTC)
+          Mon, 09 Nov 2026 05:07:53 +0000 (UTC)
 From: Arka Mondal <arka@arkamondal.net>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
@@ -53,10 +53,12 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Arka Mondal <arka@arkamondal.net>
-Subject: [PATCH v2 0/2] iio: light: Report the available lists via read_avail()
-Date: Mon,  9 Nov 2026 14:07:36 +0900
-Message-ID: <20261109050738.93424-1-arka@arkamondal.net>
+Subject: [PATCH v2 2/2] iio: light: max44009: Report the integration time via read_avail()
+Date: Mon,  9 Nov 2026 14:07:38 +0900
+Message-ID: <20261109050738.93424-3-arka@arkamondal.net>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109050738.93424-1-arka@arkamondal.net>
+References: <20261109050738.93424-1-arka@arkamondal.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,41 +72,115 @@ Content-Transfer-Encoding: quoted-printable
 X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
 
-These are patches 1 and 3 of the v1 series. Patches 2, 4, 5 and 6 are
-applied and are not resent.
+The integration times the light channel accepts are listed by a custom
+attribute named illuminance_integration_time_available. That name has
+no in_ prefix, so it is registered at the device level instead of
+beside in_illuminance_integration_time, and userspace looking for
+in_illuminance_integration_time_available finds nothing.
 
-Changes since v1:
+Report the list through read_avail() and drop the custom attribute.
+All eight values are a whole number of microseconds, so they go in as
+IIO_VAL_INT_PLUS_MICRO pairs with nothing rounded. The values do not
+change; the core prints them with six decimals, so the attribute reads
+0.800000 down to 0.006250 instead of 0.8 down to 0.00625. read_raw()
+still reports the time itself as IIO_VAL_INT_PLUS_NANO.
 
-- isl29125: the available bit goes in info_mask_shared_by_all_available
-  instead of info_mask_shared_by_type_available, which is the sharing
-  level that names the file scale_available, so the attribute keeps the
-  name it has and no ABI changes. The Fixes: tag is gone with it, and
-  the patch is a cleanup rather than a fix.
+Fixes: 6aef699a7d7e ("iio: light: add driver for MAX44009")
+Signed-off-by: Arka Mondal <arka@arkamondal.net>
+---
 
-- max44009: the list is IIO_VAL_INT_PLUS_MICRO instead of
-  IIO_VAL_INT_PLUS_NANO. All eight values are a whole number of
-  microseconds, so three zeros go and nothing is rounded.
+Notes:
+    No hardware available. Loaded against CONFIG_I2C_STUB under qemu:
+    in_illuminance_integration_time_available reads 0.800000 0.400000
+    0.200000 0.100000 0.050000 0.025000 0.012500 0.006250, and the
+    unprefixed name is gone.
 
-I loaded both drivers against CONFIG_I2C_STUB under qemu and read the
-attributes. isl29125 shows in_intensity_scale and scale_available, no
-in_intensity_scale_available, and scale_available still reads
-0.005722 0.152590. max44009 shows in_illuminance_integration_time_available
-reading 0.800000 0.400000 0.200000 0.100000 0.050000 0.025000 0.012500 0.00=
-6250,
-and no unprefixed name.
-
-Link: https://lore.kernel.org/r/20261102074700.63075-1-arka@arkamondal.net
-
-Arka Mondal (2):
-  iio: light: isl29125: Report the scale list via read_avail()
-  iio: light: max44009: Report the integration time via read_avail()
-
- drivers/iio/light/isl29125.c | 29 +++++++++++++++-------
  drivers/iio/light/max44009.c | 48 ++++++++++++++++++++----------------
- 2 files changed, 47 insertions(+), 30 deletions(-)
+ 1 file changed, 27 insertions(+), 21 deletions(-)
 
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+diff --git a/drivers/iio/light/max44009.c b/drivers/iio/light/max44009.c
+index 82b8a806c5fa..8a57b9812f7f 100644
+--- a/drivers/iio/light/max44009.c
++++ b/drivers/iio/light/max44009.c
+@@ -66,15 +66,16 @@ static const u32 max44009_int_time_ns_array[] =3D {
+ =096250000,  /* Manual mode only */
+ };
+=20
+-static const char max44009_int_time_str[] =3D
+-=09"0.8 "
+-=09"0.4 "
+-=09"0.2 "
+-=09"0.1 "
+-=09"0.05 "
+-=09"0.025 "
+-=09"0.0125 "
+-=09"0.00625";
++static const int max44009_int_time_avail[] =3D {
++=090, 800000,
++=090, 400000,
++=090, 200000,
++=090, 100000,
++=090, 50000,
++=090, 25000,
++=090, 12500,
++=090, 6250,
++};
+=20
+ struct max44009_data {
+ =09struct i2c_client *client;
+@@ -101,6 +102,7 @@ static const struct iio_chan_spec max44009_channels[] =
+=3D {
+ =09=09.type =3D IIO_LIGHT,
+ =09=09.info_mask_separate =3D BIT(IIO_CHAN_INFO_PROCESSED) |
+ =09=09=09=09      BIT(IIO_CHAN_INFO_INT_TIME),
++=09=09.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
+ =09=09.event_spec =3D max44009_event_spec,
+ =09=09.num_event_specs =3D ARRAY_SIZE(max44009_event_spec),
+ =09},
+@@ -284,17 +286,21 @@ static int max44009_read_raw(struct iio_dev *indio_de=
+v,
+ =09}
+ }
+=20
+-static IIO_CONST_ATTR(illuminance_integration_time_available,
+-=09=09      max44009_int_time_str);
+-
+-static struct attribute *max44009_attributes[] =3D {
+-=09&iio_const_attr_illuminance_integration_time_available.dev_attr.attr,
+-=09NULL,
+-};
+-
+-static const struct attribute_group max44009_attribute_group =3D {
+-=09.attrs =3D max44009_attributes,
+-};
++static int max44009_read_avail(struct iio_dev *indio_dev,
++=09=09=09       struct iio_chan_spec const *chan,
++=09=09=09       const int **vals, int *type, int *length,
++=09=09=09       long mask)
++{
++=09switch (mask) {
++=09case IIO_CHAN_INFO_INT_TIME:
++=09=09*vals =3D max44009_int_time_avail;
++=09=09*type =3D IIO_VAL_INT_PLUS_MICRO;
++=09=09*length =3D ARRAY_SIZE(max44009_int_time_avail);
++=09=09return IIO_AVAIL_LIST;
++=09default:
++=09=09return -EINVAL;
++=09}
++}
+=20
+ static int max44009_threshold_byte_from_fraction(int integral, int fractio=
+nal)
+ {
+@@ -464,7 +470,7 @@ static const struct iio_info max44009_info =3D {
+ =09.read_event_config =3D max44009_read_event_config,
+ =09.write_event_value =3D max44009_write_event_value,
+ =09.write_event_config =3D max44009_write_event_config,
+-=09.attrs =3D &max44009_attribute_group,
++=09.read_avail =3D max44009_read_avail,
+ };
+=20
+ static irqreturn_t max44009_threaded_irq_handler(int irq, void *p)
 --=20
 2.56.0
 
