@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242381;
-	b=gLpgqyM5Sa4Uj4PTey1QJzLRwCsp1SMREqMVDRjeuHfYF63aOvFDsxiKs8Qa5ERNYhGC
-	 xMU87bdoW6j+Hrp4Mic+QQam+zyBHmrFD0YEW5KIgzq0jPveqjimcFfNzXiy5Pzncr5nT
-	 22zr+QeJ2OCHYzX5H9UwQnb4sGHqZfIK7FKfK50luWQ9+7x8wL4oIjKqdrTi+8a/PkrdE
-	 rTOLGb70FbDZIof+PTp7bAEhJD2XV/N821Gb2RfKs3oQ9begDPyaP/OqWMxmN2FErqXOu
-	 BEWnL2u3z59A0d6WdvvCldYt+YPKgoSXWURAGUDLgv/O9LYQKzYPzHxpjJjH75TTPPg==
+	t=1794242395;
+	b=4UVN9MIxYO4eKLQq7VXVN8gtQhUMH1+Qfj4yvjb0SLPbNIk39zJw+d6bMNNcUSYGU75k
+	 ybH+VCzcT2CiLgYskVMYQSCd+okCkxJ9UFbdTBIDO46Obf44cI+WmjXY2llRh2od7hFX3
+	 HSz9rKuGAMED7t9Sag4bwmECjR71V3Ml3JmqmK8oApowAk7KFf0B28fMPtxCGykiOjyvI
+	 8ryfvfiq4vyNLZhF+5Y6TdoGe0uqwOf3SWMJhUEQV90ubU+mrEBMNAJwCOQWFk95cv5R1
+	 z3nhiukCzXKK1zaZ2kJ0vnCf6UvZyL5JZrGKz1YikHBs914yhHXbQseOePJoeIumJvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242381;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XczfXdyyzzvBMaK7H65uC8tHQp56fcZp9lsoW/OvEfE=;
-	b=Eo2zqEh4LWDxCqRao+DY6DI/OMaYwFYVDmOlVL+tFvmsiGWPLn2QkOjYCoLzXVtMX9o9
-	 +bfHtOPTzbOrFz+snW0MCz1K4JSOBKEK+HQXpIN6cVuswxxNAWZhpNMfAVMXtuiCQKwhf
-	 2UHl7NRdGHWqrBdYu30NB+LOKxBtwxPL1hEG59Vb7B1NjcEmiXDY3azCAJPHZVBZWcehA
-	 WxHFPL2oRsBZrygUVxHXIS/MhtQVgyCYLsMn82m3kYyz3xswfgVY1PwDzfYPk68s8Y6ID
-	 YbFYEjN/sL0PHPzEn6FxhlILe3ijah1oXr3ckVp44PQdqXjce5rUnIxpQ5QRR5MYnuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242395;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WB+NnUFeCMCsVOxK+oV+Ndnf6qqRZy22YpXN6vlA5YI=;
+	b=yxM5QMUhQ5PLccr276pSi84qFZXModijWnFpZRfPWPynGRzdsYDuFars/vOHVe90oGn8
+	 UqcMefljtRVYbDx3RLDomM+PgpxJXNpfCVv6jD6en42rwCTIT6G7vCMOdsOEN0ngo5bPf
+	 PbyipMXbbZD4aedl+aUm3QLzHyIAzY7JSBTQ9+adsFOSzYSVcyMGpJ/aMkzMM39Y4sLE9
+	 /idWegpmv1yTynZ7pwiCrWx8cc+68/1dtxyfpL+AHbOlSwBCdlFdXPHnzpsg4x24Bndos
+	 TwpxX9fvnYPnkfOfUyEfEjDaojHp+azTpKa2Ybjih+w0S7t7S3Bpoqx7z/3PJeyzJyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzQCkfBN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c5+bp0TX;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C94606A331;
-	Mon,  9 Nov 2026 16:39:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EC9606AAC4
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:39:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29EC9606AAC4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzQCkfBN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADC11F0089F;
-	Mon,  9 Nov 2026 16:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794242381;
-	bh=XczfXdyyzzvBMaK7H65uC8tHQp56fcZp9lsoW/OvEfE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dzQCkfBNoJ/MVAxSdeMblCLGbyp28LvZG01v1zKrZrtXTBVis3aecojY4BHBAI+SB
-	 Q/6wVxPELdYDD6h3Q/LQ3/cLXZJL2iG13cY2wqB+16w+S8iGlSZ5sslPD8l7f3vDWJ
-	 kCpMiUqqqSJCQVsAyJkGRnkWXSOhUsZRYQj3gpyzYSlXvzYZtNEwmDvy1N8UGBv0KU
-	 XZkgwntXskeFWHQeWIGoTcqTFBiGGiSCF04ngPGuIl1oN3qXynibboHUHkeV8FAbFJ
-	 jKzflO/PU8SW2T00yhydFwJQJQkJz6vZsCvQ/5bum7BmzY0DkOtMUSy1tKgfj2CP3F
-	 t5LeqTADIH3Ag==
-Date: Mon, 9 Nov 2026 11:39:36 -0500
-From: Nathan Chancellor <nathan@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Nicolas Schier <nsc@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	linux-input@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH] Input: apm-power - Rename to apm-power-input
-Message-ID: <20261109163936.GA1608140@ax162>
-References: <20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org>
- <e9cf3745ebc09bf04ce0bf75b67a31f0@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c5+bp0TX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794242393; x=1825778393;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qH7YxGJ9MhlbamqziXGD7CqNVxvvHmoJYm/8MPEQnoQ=;
+  b=c5+bp0TX27FhS9VqBt8es5gs7A3bDKHIKAgN4Ix8/BFJU8Aeb7gZ+fYg
+   TqnCc7MI2TEkdqAd8lQB2IYAadBUO1q8JBnCEZQ9zqt89q8Oq1W+D0SEw
+   Y/vGpI2QVJ18vUAlkLM//RV+2+ssbi7tX67XEy6a4FnZiBeFpeMMpIy9q
+   J6chRdPtF/LtLD3hJdNJBYT7gPj0gyRjbCyIl7LNkg0SmyX17t/NfOwGi
+   ryKZj9Zb5o+KqYMalRZk7bzs4xSt6QC3uM4hqBgLKKgEpfFWcYh3Ikj9z
+   0nMqTiUv3IL2Gj3RFEdfibRzOvikiRw424n4VETLMr51+8gx1Pc30ZiiE
+   g==;
+X-CSE-ConnectionGUID: CIS0BKZ4TNacZA4P2Em3og==
+X-CSE-MsgGUID: lycaT5jCRYKOuAWm6MHzDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3003919"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3003919"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:37:59 -0800
+X-CSE-ConnectionGUID: GmDWVMvLTauuUilaK9NuLg==
+X-CSE-MsgGUID: r/dUjpvoQKy3cqvMwTbmrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8073800"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 09 Nov 2026 08:37:52 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQSNQ-00000000uud-40BN;
+	Mon, 09 Nov 2026 16:37:48 +0000
+Date: Tue, 10 Nov 2026 00:37:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: John Ogness <john.ogness@linutronix.de>, Petr Mladek <pmladek@suse.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Breno Leitao <leitao@debian.org>, printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Bradley Morgan <include@grrlz.net>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	"Cen Zhang (Microsoft)" <blbllhy@gmail.com>,
+	Petr Pavlu <petr.pavlu@suse.com>, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH printk 1/6] printk: Introduce and specify flush reasons
+Message-ID: <202611100015.e1CNRy54-lkp@intel.com>
+References: <20261109123127.489676-2-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,49 +105,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e9cf3745ebc09bf04ce0bf75b67a31f0@gmail.com>
+In-Reply-To: <20261109123127.489676-2-john.ogness@linutronix.de>
 
-On Mon, Nov 09, 2026 at 12:09:33AM -0800, Dmitry Torokhov wrote:
-> Hi Nathan,
-> 
-> On Mon, Nov 09, 2026 at 01:25:26AM -0500, Nathan Chancellor wrote:
-> > When scripts/modules-check.sh is fixed to normalize the module's name
-> > like name-fix-token does in scripts/Makefile.lib before checking that it
-> > is unique [1], there is an error due to drivers/input/apm-power.ko and
-> > drivers/power/supply/apm_power.ko having the same module name.
-> ...
-> > Rename drivers/input/apm-power.c to apm-power-input.c to make the module
-> > name unique and clear up the error.
-> ...
-> > We would like to take [1] for 7.5 in kbuild-next, so we would appreciate
-> > an ack to take this directly or a stable branch that we can pull in.
-> 
-> drivers/input/apm-power.c only reacts to EV_PWR/KEY_SUSPEND input events
-> to queue APM_USER_SUSPEND via APM emulation. The only in-tree users that
-> generate those events are the legacy Sharp Zaurus ARM machines
-> (spitz/borzoi/akita on PXA alongside SHARPSL_PM, and collie on SA1100
-> via locomokbd). None of them were converted to Device Tree, both
-> mach-pxa board files and mach-sa1100 were marked deprecated in 7.3, and
-> Arnd (added to Cc) already has their removal queued up for 7.5 after
-> holding it back from 7.4 LTS:
-> 
-> https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
-> 
-> None of the remaining ARM platforms or other APM_EMULATION targets emit
-> EV_PWR input events or enable CONFIG_INPUT_APMPOWER (and pxa_defconfig
-> already dropped CONFIG_PXA_SHARPSL in commit cc7852314abd, leaving
-> CONFIG_INPUT_APMPOWER inert there).
+Hi John,
 
-Ah, thanks a lot for doing this archaeology!
+kernel test robot noticed the following build warnings:
 
-> Since you are targeting 7.5 for the modules-check change anyway, let's
-> just drop drivers/input/apm-power.c altogether instead of renaming a
-> module whose last users are going away in the same cycle. I will send
-> out a removal patch shortly, and either you can take it directly through
-> kbuild-next or I can put it on an immutable branch for you to pull.
+[auto build test WARNING on d01f86a7da8161aac8c6304b377cf58fb75861ca]
 
-Sounds good, I will reply on that patch.
+url:    https://github.com/intel-lab-lkp/linux/commits/John-Ogness/printk-Introduce-and-specify-flush-reasons/20261109-133718
+base:   d01f86a7da8161aac8c6304b377cf58fb75861ca
+patch link:    https://lore.kernel.org/r/20261109123127.489676-2-john.ogness%40linutronix.de
+patch subject: [PATCH printk 1/6] printk: Introduce and specify flush reasons
+config: openrisc-defconfig (https://download.01.org/0day-ci/archive/20261110/202611100015.e1CNRy54-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611100015.e1CNRy54-lkp@intel.com/reproduce)
 
--- 
-Cheers,
-Nathan
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611100015.e1CNRy54-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: kernel/printk/printk.c:4735 function parameter 'reason' not described in 'printk_trigger_flush'
+>> Warning: kernel/printk/printk.c:4735 function parameter 'reason' not described in 'printk_trigger_flush'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
