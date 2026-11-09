@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191682;
-	b=2wNDzXAGd0yXpB5jFATYFjQaXpfaWQSLGacHhGf13J+VfO8mOeI18FXgXJGfofm31Els
-	 cSALad/3ePMxOV2gcOAy3zorEzPlEl6Zz2mD34YWjRwrDl+ZEWBQIFEovA18UUQjra8JO
-	 Yi85SsiM0bMuTNyo24Gp84YOhNqxYsYOSHOLpoQhcXwuLG9Ra6onKs+I+UzCGoDG2ziTe
-	 x4hJYGRxhTJ9FaCjObXDNqfHoYm421o8DKG5jpyacA5C9sBhSjYg3aHtd2YknG3B4NyJU
-	 ZWlQVFJYewyWCqCaNmsy62LzZSdy6upviaH7G1rFSwI64iALzZNMAjdnU8yIacSgGiQ==
+	t=1794191712;
+	b=qv+J3sdlXCu5G65ub8DXUCODtH8ljIF1LJkHNP67YMo5n4z4PWAVXv3q5MtMPK1f7pHh
+	 poKbU3N0PzVrcb+lkP78CjLe3BZSKqmJWK7M9ERu4LqtIsylusIo65IcOQHa5EK/6QS5J
+	 EKAIWJNy3Fanm7xnOMIjCUDdhcFOGPGo2y4lVlo7hX8254Dt5U2cY9kiul4LdFPWVtPTO
+	 m5GiNUX24gv6Z89CKE6ej1sexaL3lCgkesCP3Dr3xs6zW2SH7fltIO0v0KZqC+7FJAkMo
+	 pzv9nhLbNcA6296wRUmHJOwXXU3hdXcyQmPSaBA4fWm9Ap918BuqaLjOWPg64eza9OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191712;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=17hrMgRLWHFMxzi/w8AjQ1hc79wxooWOGGXrIHOf1cE=;
-	b=R9lD621ZvT/lFoOwkViLZngM4hC2JNnWKALJhnNqOBOnzhMXd6WbpJqFKDBE8b3Xc41B
-	 KzFZDJyQ1dvXVVL3WsdujZq9r2ToasKwik1i/E0diWZ10zCIJe67rLsJicaLKzJL907jp
-	 nABVjk7APbj16ghCftz+nRMmlKVTXhQnX9XXTXzbmiBIPCpJH1D24WWEclkRa+1dtCJGi
-	 RG4kfMBCSRjZFQljexCe0zoM5XaTct+l4NxFzjYrY1rzRMUqFgj0w6cnycoq1VCSFj9sw
-	 3V6lVRVDCMogmAcE2YEvdw4MFvzxiZRqM4j8HrbIoKDFtu45+aOwdnn/fXBiDBtEZXg==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/ikAqP7gpdbBI+hdFB0vTPSMi3bWmtsaCXh9lO0ty1U=;
+	b=Wet74mIxpo9Z13LQnNXr9ITrVaOzmFBhP7E48oRZQLnFs18A/x7D1DXbpuza9Ou+2qF7
+	 mEqgoUl+yBie33CZs8FbrsYWIsPA/ft1UVgM4xM8uoYHJxpTOy7I/C/xIHHgXyUGjFSOS
+	 NnRWVGzIaIMNQvBJn0VKdYCfzuTYuSN0qNt7PKnIw98TpfSljxhHxe2/HQguzOsezBHtT
+	 30XHFIn+zfLjwLNVwTa+tubV/aDhLOnaSOYTkQh7b7xE4gkEKSpLBARA1NcVv6ctyk9n4
+	 CAUVbL0FAJAdfli3NBvgQNyzgoVzL/eeh6lCYS6A/3aJdT9nKVKJNov1lGAFSt9ttyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E1kYaEH6;
-	arc=none smtp.remote-ip=95.215.58.204
-Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="M75aPf/F";
+	arc=none smtp.remote-ip=95.215.58.223
+Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD94606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:34:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BD94606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ACB606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:35:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1ACB606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E1kYaEH6
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M75aPf/F
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5+eXtFOPw8ri8zVpqqb1XMOQVeMGX4sPLIb3BO8RS5s=;
+DKIM-Signature: a=rsa-sha256; bh=psUKZVZC7okDpUhR+qBHZvo0Vd9UtjuNKUs9HwCN5Cc=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794191679; v=1; x=1794796479;
- b=E1kYaEH6geZzRwSNpJrbVowY52bR/Gl+rBzc2FmVZw4opA/3j74cqrHLhGZeiHPlS+VZ3xp7
- jTq/g0+e9GhGcqRh1Fq69ENp8y4v3w1lfF7MLjz2IueEs7rPga97rVYfX/15zvySxtFsGvp/CLN
- Tw7sjx/gzOcNDTCYJszTiX8s=
+ t=1794191709; v=1; x=1794796509;
+ b=M75aPf/FXyCfS/8MBflmk0QpORPYRN6M4MksV8HldOSW/4cycR8VsEgQ8QnBVA4jvK3L5Dxk
+ jSzmhfyvXHJ4ZVofXVaXCrOCxNB5TFvQYHgrZXKkBncBM5Oh8laRz936jLwoHC0gETmNWY0c+qc
+ ZMvPD8UjNP8ZMEkG71bz3NGM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 9205fe4f08972061;
-	Mon, 09 Nov 2026 02:34:39 +0000
-X-Mizu-Trace-ID: 9205fe4f08972061
+Received: by mta10.migadu.com with ESMTPS id e7a58ce54b55df96;
+	Mon, 09 Nov 2026 02:35:07 +0000
+X-Mizu-Trace-ID: e7a58ce54b55df96
 X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+Date: Mon, 9 Nov 2026 10:34:53 +0800
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Stefan Roesch <shr@devkernel.io>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 5/5] selftests/mm: cover merging KSM pages aged by
+ smart scan
+Message-ID: <avExTeM7wyb7PIa6@dgvxl46587.localhost.localdomain>
+References: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
+ <20261108-bug-mm-ksm-smart-scan-align-skips-v4-5-86be8fe77e7a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,184 +76,217 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2] dax/pmem: fix unaligned compound devmap initialization
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <cxseojgn.ritesh.list@gmail.com>
-Date: Mon, 9 Nov 2026 10:34:18 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Dan Williams <djbw@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Joao Martins <joao.m.martins@oracle.com>,
- Pavithra Prakash <pavrampu@linux.ibm.com>,
- stable@vger.kernel.org,
- nvdimm@lists.linux.dev,
- linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1672E495-DED0-4475-B17E-DB63D10DD529@linux.dev>
-References: <20261107030126.90894-1-songmuchun@bytedance.com>
- <cxseojgn.ritesh.list@gmail.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-5-86be8fe77e7a@gmail.com>
 
+On Sun, Nov 08, 2026 at 08:22:54PM -0500, Qiliang Yuan wrote:
+> ksm_functional_tests checks merging and unmerging with ksmd's default
+> settings, but nothing there exercises smart scan, which skips pages KSM
+> has failed to merge for a while.
+> 
+> Smart scan used to time those skips per page, so two identical pages
+> that became mergeable some scans apart could end up never being looked
+> at in the same scan, and were never merged. "mm/ksm: align smart scan
+> skips with the scan number" fixed that.
+> 
+> Add ksm_get_smart_scan() and ksm_set_smart_scan() to vm_util, and a
+> case that enables smart scan, lets sixteen unique pages age for a dozen
+> scans, then makes a duplicate of each mergeable one scan apart, and
+> expects every pair to be merged 32 scans later:
+> 
+>   kernel               failures, two boots
+>   before the fix       20/20, 20/20
+>   with the fix          0/20,  0/20
+> 
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> Tested-by: Andrew Morton <akpm@linux-foundation.org>
+> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  tools/testing/selftests/mm/ksm_functional_tests.c | 89 ++++++++++++++++++++++-
+>  tools/testing/selftests/mm/vm_util.c              | 36 +++++++++
+>  tools/testing/selftests/mm/vm_util.h              |  2 +
+>  3 files changed, 126 insertions(+), 1 deletion(-)
 
+Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
 
-> On Nov 9, 2026, at 09:57, Ritesh Harjani (IBM) <ritesh.list@gmail.com> =
-wrote:
->=20
-> Muchun Song <songmuchun@bytedance.com> writes:
->=20
->> Static pmem Device DAX namespaces reserve space for namespace =
-metadata
->> before the user-visible data range, and may also include padding =
-needed
->> to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
->> dax_region range to start at the data range, but the dev_pagemap =
-range
->> still starts at the beginning of the namespace.
->>=20
->> That is not valid for compound devmap mappings whose memmap is stored =
-in
->> system RAM. Compound page initialization requires the start PFN to be
->> naturally aligned to the compound page size, because the head and =
-tail
->> struct pages are initialized according to that geometry. If the pgmap
->> starts before the aligned data range, memmap_init_zone_device() can =
-build
->> compound page metadata from an unaligned PFN.
->>=20
->> The resulting struct page layout is inconsistent with the Device DAX
->> mapping. A later mmap fault can then resolve the user-visible PFN =
-through
->> invalid compound page metadata and hit a kernel panic while inserting =
-the
->> DAX folio.
->>=20
->> Fix this by rounding the pgmap start up to the Device DAX alignment =
-for
->> non-altmap mappings. This gives compound mappings the required =
-naturally
->> aligned start while retaining full-section vmemmap savings when the
->> original start is already aligned. The altmap path remains unchanged
->> because memmap_init_zone_device() skips the altmap reservation =
-itself.
->>=20
->> Fixes: 14606001efb4 ("device-dax: compound devmap support")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->> Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
->=20
-> Tested v2 also on my Power dev test setup. With this patch the =
-reported
-> problem is fixed. I am no more hitting the following warning and =
-crash:
->=20
-> [    3.071811][    T1] WARNING: mm/mm_init.c:1175 at =
-memmap_init_zone_device+0x144/0x470, CPU#0: swapper/0/1
-> [    3.082276][    T1] NIP [c000000000596604] =
-memmap_init_zone_device+0x144/0x470
-> [    3.082763][    T1] LR [c0000000006d72b8] =
-memremap_pages+0x3b0/0x974
-> [    3.083345][    T1] Call Trace:
-> [    3.083629][    T1] [c000000006d86e00] [c000000006d86e40] =
-0xc000000006d86e40 (unreliable)
-> [    3.084975][    T1] [c000000006d86f10] [c0000000006d72b8] =
-memremap_pages+0x3b0/0x974
-> [    3.085449][    T1] [c000000006d86fe0] [c0000000006d78b8] =
-devm_memremap_pages+0x3c/0xa4
-> [    3.085891][    T1] [c000000006d87020] [c00000000125c084] =
-dev_dax_probe+0x264/0x3d0
-> [    3.086339][    T1] [c000000006d870c0] [c000000001259a28] =
-dax_bus_probe+0x140/0x1c8
-> [    3.086778][    T1] [c000000006d87110] [c0000000011ce640] =
-really_probe+0x108/0x580
-> [    3.087218][    T1] [c000000006d871a0] [c0000000011ceb84] =
-__driver_probe_device+0xcc/0x284
-> [    3.087668][    T1] [c000000006d87230] [c0000000011ceea0] =
-driver_probe_device+0x5c/0x10c
-> [    3.088123][    T1] [c000000006d87270] [c0000000011cf05c] =
-__device_attach_driver+0x10c/0x1e8
-> [    3.088582][    T1] [c000000006d872f0] [c0000000011cab70] =
-bus_for_each_drv+0xc0/0x13c
-> [    3.089035][    T1] [c000000006d87350] [c0000000011cf65c] =
-__device_attach+0xdc/0x2b0
-> [    3.089467][    T1] [c000000006d873f0] [c0000000011cfaac] =
-device_initial_probe+0x80/0x98
-> [    3.089910][    T1] [c000000006d87420] [c0000000011cac44] =
-__bus_probe_device+0x58/0xf4
-> [    3.090358][    T1] [c000000006d87470] [c0000000011c8030] =
-device_add+0x850/0xa78
-> [    3.090778][    T1] [c000000006d87530] [c00000000125b040] =
-__devm_create_dev_dax+0x1c0/0x638
-> [    3.091236][    T1] [c000000006d875d0] [c00000000125b6c8] =
-devm_create_dev_dax+0x44/0x7c
-> [    3.091676][    T1] [c000000006d87600] [c00000000125dbe8] =
-__dax_pmem_probe+0x238/0x27c
-> [    3.092120][    T1] [c000000006d87770] [c00000000125dc4c] =
-dax_pmem_probe+0x20/0x44
-> [    3.092542][    T1] [c000000006d87790] [c000000001237a14] =
-nvdimm_bus_probe+0xcc/0x370
-> [    3.093097][    T1] [c000000006d87830] [c0000000011ce640] =
-really_probe+0x108/0x580
-> [    3.093610][    T1] [c000000006d878c0] [c0000000011ceb84] =
-__driver_probe_device+0xcc/0x284
-> <...>
-> [    3.099405][    T1] ---- interrupt: 0 at 0x0
-> [    3.099837][    T1] Code: 7c0802a6 fa8100b0 faa100b8 fb8100f0 =
-7d574030 7d4a4030 f8010120 fbe10108 3917ffff 7d294038 3109ffff 7d284910 =
-<0b090000> 3d2201c5 7bb53664 7ed607b4
-> [    3.101209][    T1] ---[ end trace 0000000000000000 ]---
-> [    3.104702][    T1] BUG: Unable to handle kernel data access on =
-write at 0xc00c000000210000
-> [    3.105209][    T1] Faulting instruction address: =
-0xc000000000596394
-> cpu 0x0: Vector: 300 (Data Access) at [c000000006d86aa0]
->    lr: c0000000005962c4: memmap_init_compound+0xac/0x2a8
->    sp: c000000006d86d40
->   msr: 8000000002009033
->   dar: c00c000000210000
-> dsisr: a000000
->  current =3D 0xc000000006d33e00
->  paca    =3D 0xc000000005010000   irqmask: 0x03   irq_happened: 0x01
->    pid   =3D 1, comm =3D swapper/0
-> Linux version 7.3.0-17056-gc0944ee4a2c4 (powerpc64le-linux-gnu-gcc =
-(Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #111 =
-SMP PREEMPT Mon Nov  9 07:25:29 IST 2026
-> enter ? for help
-> [c000000006d86e00] c0000000005968f8 =
-memmap_init_zone_device+0x438/0x470
-> [c000000006d86f10] c0000000006d72b8 memremap_pages+0x3b0/0x974
-> [c000000006d86fe0] c0000000006d78b8 devm_memremap_pages+0x3c/0xa4
-> [c000000006d87020] c00000000125c084 dev_dax_probe+0x264/0x3d0
-> [c000000006d870c0] c000000001259a28 dax_bus_probe+0x140/0x1c8
-> [c000000006d87110] c0000000011ce640 really_probe+0x108/0x580
-> [c000000006d871a0] c0000000011ceb84 __driver_probe_device+0xcc/0x284
-> [c000000006d87230] c0000000011ceea0 driver_probe_device+0x5c/0x10c
-> [c000000006d87270] c0000000011cf05c __device_attach_driver+0x10c/0x1e8
-> [c000000006d872f0] c0000000011cab70 bus_for_each_drv+0xc0/0x13c
-> [c000000006d87350] c0000000011cf65c __device_attach+0xdc/0x2b0
-> [c000000006d873f0] c0000000011cfaac device_initial_probe+0x80/0x98
-> [c000000006d87420] c0000000011cac44 __bus_probe_device+0x58/0xf4
-> [c000000006d87470] c0000000011c8030 device_add+0x850/0xa78
-> [c000000006d87530] c00000000125b040 __devm_create_dev_dax+0x1c0/0x638
-> [c000000006d875d0] c00000000125b6c8 devm_create_dev_dax+0x44/0x7c
-> [c000000006d87600] c00000000125dbe8 __dax_pmem_probe+0x238/0x27c
-> [c000000006d87770] c00000000125dc4c dax_pmem_probe+0x20/0x44
-> [c000000006d87790] c000000001237a14 nvdimm_bus_probe+0xcc/0x370
-> [c000000006d87830] c0000000011ce640 really_probe+0x108/0x580
-> <...>
->=20
-> Feel free to add:
->=20
-> Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-
-Thanks for testing again.
-
-Muchun
-
+> 
+> diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
+> index 31c06c72203fd..135191f99962d 100644
+> --- a/tools/testing/selftests/mm/ksm_functional_tests.c
+> +++ b/tools/testing/selftests/mm/ksm_functional_tests.c
+> @@ -695,6 +695,92 @@ static void test_fork_ksm_merging_page_count(void)
+>  	munmap(map, size);
+>  }
+>  
+> +static void test_merge_aged_pairs(void)
+> +{
+> +	const unsigned int pairs = 16;
+> +	const unsigned long size = 2 * pairs * pagesize;
+> +	int old_smart_scan;
+> +	unsigned int i;
+> +	char *map;
+> +
+> +	ksft_print_msg("[RUN] %s\n", __func__);
+> +
+> +	old_smart_scan = ksm_get_smart_scan();
+> +	if (old_smart_scan < 0) {
+> +		ksft_test_result_skip("smart_scan not supported\n");
+> +		return;
+> +	}
+> +	if (ksm_set_smart_scan(true) < 0) {
+> +		ksft_test_result_fail("Enabling smart_scan failed\n");
+> +		return;
+> +	}
+> +
+> +	if (ksm_stop() < 0) {
+> +		ksft_test_result_fail("Disabling (unmerging) KSM failed\n");
+> +		goto restore;
+> +	}
+> +
+> +	map = mmap(NULL, size, PROT_READ | PROT_WRITE,
+> +		   MAP_PRIVATE | MAP_ANON, -1, 0);
+> +	if (map == MAP_FAILED) {
+> +		ksft_test_result_fail("mmap() failed\n");
+> +		goto restore;
+> +	}
+> +	if (madvise(map, size, MADV_NOHUGEPAGE) && errno != EINVAL) {
+> +		ksft_test_result_fail("MADV_NOHUGEPAGE failed\n");
+> +		goto unmap;
+> +	}
+> +
+> +	/*
+> +	 * Page i of the first half and page i of the second half form a
+> +	 * pair with content no other page shares.
+> +	 */
+> +	for (i = 0; i < pairs; i++) {
+> +		memset(map + i * pagesize, i + 1, pagesize);
+> +		memset(map + (pairs + i) * pagesize, i + 1, pagesize);
+> +	}
+> +
+> +	/* Let the first page of each pair age without a duplicate. */
+> +	if (madvise(map, size / 2, MADV_MERGEABLE)) {
+> +		ksft_test_result_fail("MADV_MERGEABLE failed\n");
+> +		goto unmap;
+> +	}
+> +	if (ksm_start() < 0 || ksm_wait_full_scans(12) < 0) {
+> +		ksft_test_result_fail("Running KSM failed\n");
+> +		goto unmap;
+> +	}
+> +
+> +	/*
+> +	 * Make the duplicates mergeable one scan apart so that each pair
+> +	 * starts out with a different distance in scans.
+> +	 */
+> +	for (i = 0; i < pairs; i++) {
+> +		if (madvise(map + (pairs + i) * pagesize, pagesize,
+> +			    MADV_MERGEABLE)) {
+> +			ksft_test_result_fail("MADV_MERGEABLE failed\n");
+> +			goto unmap;
+> +		}
+> +		if (ksm_wait_full_scans(1) < 0) {
+> +			ksft_test_result_fail("Running KSM failed\n");
+> +			goto unmap;
+> +		}
+> +	}
+> +
+> +	if (ksm_wait_full_scans(32) < 0) {
+> +		ksft_test_result_fail("Running KSM failed\n");
+> +		goto unmap;
+> +	}
+> +
+> +	ksft_test_result(ksm_get_self_merging_pages() == 2 * pairs,
+> +			 "Pages aged by smart scan got merged\n");
+> +unmap:
+> +	ksm_stop();
+> +	munmap(map, size);
+> +restore:
+> +	if (ksm_set_smart_scan(old_smart_scan) < 0)
+> +		ksft_print_msg("Restoring smart_scan failed\n");
+> +}
+> +
+>  static void init_global_file_handles(void)
+>  {
+>  	mem_fd = open("/proc/self/mem", O_RDWR);
+> @@ -720,7 +806,7 @@ static void init_global_file_handles(void)
+>  
+>  int main(int argc, char **argv)
+>  {
+> -	unsigned int tests = 9;
+> +	unsigned int tests = 10;
+>  	int err;
+>  
+>  	if (argc > 1 && !strcmp(argv[1], FORK_EXEC_CHILD_PRG_NAME)) {
+> @@ -753,6 +839,7 @@ int main(int argc, char **argv)
+>  	test_prctl_fork_exec();
+>  	test_prctl_unmerge();
+>  	test_fork_ksm_merging_page_count();
+> +	test_merge_aged_pairs();
+>  
+>  	err = ksft_get_fail_cnt();
+>  	if (err)
+> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> index 8184691211acc..f26f9e4bfdbe9 100644
+> --- a/tools/testing/selftests/mm/vm_util.c
+> +++ b/tools/testing/selftests/mm/vm_util.c
+> @@ -992,6 +992,42 @@ int ksm_use_zero_pages(void)
+>  	return ret == 1 ? 0 : -EIO;
+>  }
+>  
+> +int ksm_get_smart_scan(void)
+> +{
+> +	int smart_scan_fd;
+> +	char buf;
+> +	ssize_t ret;
+> +
+> +	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_RDONLY);
+> +	if (smart_scan_fd < 0)
+> +		return -errno;
+> +
+> +	ret = pread(smart_scan_fd, &buf, 1, 0);
+> +	close(smart_scan_fd);
+> +	if (ret < 0)
+> +		return -errno;
+> +	if (ret != 1)
+> +		return -EIO;
+> +
+> +	return buf == '1';
+> +}
+> +
+> +int ksm_set_smart_scan(bool enable)
+> +{
+> +	int smart_scan_fd;
+> +	ssize_t ret;
+> +
+> +	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_WRONLY);
+> +	if (smart_scan_fd < 0)
+> +		return -errno;
+> +
+> +	ret = write(smart_scan_fd, enable ? "1" : "0", 1);
+> +	close(smart_scan_fd);
+> +	if (ret < 0)
+> +		return -errno;
+> +	return ret == 1 ? 0 : -EIO;
+> +}
+> +
+>  int ksm_wait_full_scans(long nr)
+>  {
+>  	long start_scans, end_scans;
+> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
+> index 7e00030077d2f..ab1325dc65800 100644
+> --- a/tools/testing/selftests/mm/vm_util.h
+> +++ b/tools/testing/selftests/mm/vm_util.h
+> @@ -163,6 +163,8 @@ long ksm_get_self_zero_pages(void);
+>  long ksm_get_self_merging_pages(void);
+>  long ksm_get_full_scans(void);
+>  int ksm_wait_full_scans(long nr);
+> +int ksm_get_smart_scan(void);
+> +int ksm_set_smart_scan(bool enable);
+>  int ksm_use_zero_pages(void);
+>  int ksm_start(void);
+>  int ksm_stop(void);
+> 
+> -- 
+> 2.43.0
+> 
