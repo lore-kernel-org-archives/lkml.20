@@ -1,102 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794207816;
-	b=KhF2poCbjiA98YriFRbbYC2Bp1i8lJxJ/9UlNUsdK9hOv4wJ6/OgFVYyrso1gPzc1qHc
-	 zIIOSgwZ7gW/1ZNy78BJrh/KVtF1b/to67DNs31syVJLj4K15B1S7hnxc12ItYeBf+//q
-	 UhJX5s1prXRLhZ2pKkdBElxdIAPceYWoJZsOjQoFl7z27vEJU/MNV8mZZgu9xlmkk4d3m
-	 i33ZJT6tldks5QkstRIn3BxfcZ40XnYTdy6MffcWGHtO+No2KD2tpqWPhgTWymO92FXHV
-	 87iSNUEddIdK+WaTXnP6EQ8MUJwF5RaXsRpptW0IOtQLtPvKgXjh/n8etOLrCYK0GqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794207816;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eHkCRfwYbfVaOSn1Fu1U3NToRAfPEzPZvJ+JjBhFGsE=;
-	b=HpOMq8Z4LZ86zIWbLToxVaQGrSr7wKYVcHt8kwiGoudUDZ5JWBDNXMaDaqtcp7YNBgum
-	 vubIwAwSjxEVMHYUjd0ME+0IVqhUugHUQyKWUzPzwMDuf9z1P9foZ0M9zgOSLBtYfEr/4
-	 MZ7W+eiRFFenO7PUx0YxO9MvjqK5aBOjytB1F5VduDgJ0LZETdjnpGsFzwZcNm7D+1EyV
-	 s+eFuTqyAkTx+TEWNdUVM1FXdMMUtDxePImfI2W1+so3ZGvmtdN5tOz7B+NCKmUC0my4R
-	 ljvTPR6lMuVEUhA09IABfMoYpS5W0F5QqOg425jaVXF73gq7Bee3staTHu23ev3GQmw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tu5dqDuO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794207858;
+	b=IaJRuIjUfIJHwWPIK2GjWbnIDwJneLCvfQq1op94mr8uyo2Ogr+TuzplfGlTCZ+G16fB
+	 z0Lm8+VrP9OpireMvMGtCZHaSQ63bmKrUDyb7VyvDoTWEEPpoNa6F0VtOBZik+9jOt8+2
+	 +BcyJzTSTYfVt7+6C9cKLbPblJZIbVLPLbF4IOtxHfbSyNOGmcqVNGDpU9jJ/9XmRsK8n
+	 i8KOoXzwFIHkxaQ92gBtU8WMaqEl8hCuz72GXomQeSN1PYzdxxl5oEzTXATvEoOhk5SNJ
+	 YFLfOBOnKVvIX2an2mAblT+zhweChXIJeK/O8Wwa35HJGL9nQHyyfAZAavflZ5KnTlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794207858;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=4djJwUp2KDOzPyE+2SoRQotxdrTIk9E7zGQoNV5uat4=;
+	b=rA9CNqu+eaAo5ULa4kqtrW8f0fchmnJiMIrsufX8earz4wFY7HE+/YQRSxO1+hWpG76y
+	 AiJ0KWicuDG2omVpDtYp+r1HVTDkhiIWQEo3Fcr1/uVsSm/PILgV/8ghXzefF538KBEWU
+	 KOFNUT7bjUkTtfi8q8v9zMd/GLaTyOc9NtFfoCDXwc36gYykG/C0MHUGYiC6e6jlRmAJC
+	 L+xl4tFiQkVHC+56yFteplVIJRyQ29PSONpgbPw+UdJIy3Jyi3bOwr0vgrH3Xvwnr3TPS
+	 eTp4sDK7+qK6KJCJCCzOtGsBSvPAqQ4RjLN9lRE8IyMAKsWrh10kVpB/yafrcMuP5FA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=IALyzZxe;
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D411F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:03:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D411F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13E9606A323;
+	Mon,  9 Nov 2026 07:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A13E9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tu5dqDuO
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b3653df740so377607b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:03:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794207815; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ho2yJCjAJgpHPO5eim4aGFAnHz8FQNEULCCYV3NRrc+V0M2eWG7yQhZxNhPoHmsmHK
-         paICnZ30snPYaRGp9JuJy8Kcz8joNRhhh96heXozLZ4n/2WOTXsMdg4XjNUZLhjioBLS
-         fNHcoEzyaRiOQS13SFYxA0pKo/YtPGZRTwEMeSyHwDeajxKmXOT3yEzJgoXC1eUPcqIK
-         OurmfsnJSkPFQXdk/r3pJ9QLcUJ+HVJLTE7yo43b0NBnDxYFM+G3I4tcDxWyEfBuEZ1F
-         rQDfMlXde6jj4YvWiWq1dM4YfYvug0MrUV/a18dRe6c00T2ixBTdafdA12WHt6Ym2rTW
-         pNoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eHkCRfwYbfVaOSn1Fu1U3NToRAfPEzPZvJ+JjBhFGsE=;
-        fh=puSbLOwFgrr/wKZycTaNB1TQ444RO2fi0DqWsWeArDo=;
-        b=NTLrIEQ1JfxnHH7Cf1HZ9qPbYhYcbdqJHMeeBBrWxi/D2OMtrjBFSaIh8EhEFMiqKY
-         dGIb/h75IN63Pog240JxAAFOj1RmN8Q8X7yQ9dMmqcMySe0Eqh4ARNKq6HU330w6075Q
-         ZzTGAptaarN7JyhwpluohjTIVtdOxPZlaQEVuvJKctBUrn1ruk/F92js15Vm9W2/3JxR
-         uDc0NMiNlkvleNLVmUM1oBpHn3BNs53ZL2Ahy2kcslBuuVWaBkS8aTBq5i3YA0+VZBFy
-         q+NdJ0Pf7Qt3YcGw4WuvREzy9oSaeydb4Xr1DNQXts1mxbQ+39Aih+pVh19orpIoNj3K
-         Plwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794207815; x=1794812615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eHkCRfwYbfVaOSn1Fu1U3NToRAfPEzPZvJ+JjBhFGsE=;
-        b=tu5dqDuOEbrBz14lFIEeiwU6TsjPrUS44yqFCMW3UfvV+yAOy6HbEEaLkZldFTuD52
-         IpKZfC8ZFSn4yzvqA5M9caLL6SmVxQym6tOS9/v84WKHTlkIOoQjHU6upPAsojv7amvB
-         k9TLUZqKl7thhrsZzhWGIn+19SS7yTXLweZrSXfZ829xA7dLIlbpT2F57GmNUpBogAh+
-         LTFLfelaBL+Ihc8DwQK7Elf+GpUFssuxsRtYEOpOZTAxNCNUyKmHWBzSAM53UDeeUQ+J
-         IkmSyhmr4abYaKrZCAEX/0IIihZIU0/us/1NGAYQk7cdViCf7M7cAU8GNv/LTCbVS6Km
-         U9pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794207815; x=1794812615;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eHkCRfwYbfVaOSn1Fu1U3NToRAfPEzPZvJ+JjBhFGsE=;
-        b=VEuuFjVPzqUfnUCRcFljMkwPq+bp0DElfjPbf6CQHA010I9n7wWXHAPxaViCHvjfE7
-         Orbi/i+aM9WVuOPSNpY0x7+H0vV+WoduaGtFzU7f7QTk/MqotnjIvXhKs5xyQj/m2cph
-         9QfPKK2EazyePKDog9xfHXhtuIMblVYFteYGqpxCcrv8poEH0ciwcin3OylqFcUE32/K
-         5aGC2t+CZA7LOexMyk/1pQ1FldRlZ0dFXB3Fh/WuBuIZmWd0w5mMYxgWIzM4qypWxI+d
-         YP9fAdqIMb3mIcdq9pS1eNgXvGD7Wqul+Tkf7SiJ6cIFBCbW9+9PXq7eJyg5JXBdpy77
-         n29g==
-X-Forwarded-Encrypted: i=1; AL+hErGC/ZOKhw8t8VY8zSG0Swl+6HZojJBY52EHCYj/9f3l+nRTSIJ510otgqdgS3sIpswm4WubcMjDoeKJ2Nc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WpNuy/GoEyNGfxIcqoexoCoXMdaz+hyEnKxpU4PPhXCdjKMjR
-	I4HcGVpay6qAO+gBMFRmrAHeCj48S3R9LEuIpC6QU7ETG0ZmyaEEQmXaKiEevDaYnFr0O0FFN0Q
-	dJIae24G9LhsAR+AJqiIxGIT+76QO8Hk=
-X-Gm-Gg: AYBFou0E2vDQo7DuwCstJEYzVH+ORqcRJ5PV6La331mApyYMI0fMJepLPlUiQyfBTR5
-	/xhHKPmDbMJD/BrLF+rQ2XuO3/8MC3xIVVnwhGeOll/YZ8k55TWvJZPzTXEX9Za0zulYS9Mu6iU
-	IigOzzor+d90AMY7gt6lsuHznRH+qOw6AQx9fpOQevIlIeu+Zm++Sz2fkFhXQxFeJLWbDH4q75u
-	xOjlYP4nWlgr42R3pC5w+LUt0Yk1ek3PPJJegQnV73ErBHcNwZ2PG96z5TdXgSJuMraZQdckvYS
-	Ovt2BYLbhU0oDwRMch9uRD+3/LlObuQCYvoX7AJds7Wt8Q9zZ8+R16xDBzHHddN0VJNGBrVcuiL
-	P1YtmQ4Tb3545RmFHu9da896emqpQP7aCRK95gIo97J0d/edNHTw+V4NmTSg0IuUPoXxhepwNOH
-	2tvR7LNnClhxtnkjy7YidColi/BKFZ8kmuX0br6ytP348yZww88MsbyzyD78d4K/y8fn9MbK9Sx
-	VauSHOSHGSQEobUcRZEUZLYxvzjSyrO85UcN9QdAfgQ4KAz+oY1PmjBcU0CsQ==
-X-Received: by 2002:a05:690c:660c:b0:8ae:87e7:9ab8 with SMTP id
- 00721157ae682-8b36cc76c39mr19329247b3.67.1794207814910; Sun, 08 Nov 2026
- 23:03:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=IALyzZxe
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=4djJwUp2KDOzPyE+2SoRQotxdrTIk9E7zGQoNV5uat4=; t=1794207856;
+	x=1794812656; b=IALyzZxeSY/vEBSaV9CnT/UiMUuHWQC/+4fA9qmyRXs7mX+YQs8uDdJbL7NKV
+	2Xie5IM3vWn621NqFiIX69PNuvB/2quaaVA3Dnnd2EkbH+OkOOFjcwcVX84c5BB1rM+qkH4QxdUQz
+	ltZoWTB7zFWaAFeeGkMdF9KK0hFDPA2tBqvuiflPua4uXCq9Tu1gkDRo7gRLhJjOk/ilxUby+J2CG
+	r20g6Ryi22urHwMFLbf+Cya1ESpZ2xSiX6iO+CowkxEGHH74fl7ok2xc4WqSDvDj8B2+k3ouzGjGt
+	drz1FCl4r3dnngoMdy3CkFElqlgmWLqTyttbWOnCKM6U8dq2ig==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xQJQF-000000013Jr-3oWA; Mon, 09 Nov 2026 08:04:07 +0100
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xQJQF-00000003H1R-2whf; Mon, 09 Nov 2026 08:04:07 +0100
+Message-ID: <469a405f0a447cf433e9449016551cb408fd11dc.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v2 0/2] sh: add initial SH7305 CPU support
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Artem Novak <artem122novak@gmail.com>
+Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 08:04:07 +0100
+In-Reply-To: <CAPufuhaE=pg9yzqZYaDcfkxooZeQPzSNsKQw-kX7PHN99yZyQQ@mail.gmail.com>
+References: <20261002041220.133911-1-artem122novak@gmail.com>
+	 <CAPufuhaE=pg9yzqZYaDcfkxooZeQPzSNsKQw-kX7PHN99yZyQQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,68 +78,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108122840.85622-1-lamemorupisi12@gmail.com>
-In-Reply-To: <20261108122840.85622-1-lamemorupisi12@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 9 Nov 2026 09:02:58 +0200
-X-Gm-Features: AclHuK8X-gGg83Rocy9patxQxAua7aQBhheDPf_NlOZbCapPhnChNHY7jAPPHQE
-Message-ID: <CAHp75Vf4FFLvGCZ8PxwLXDuv9GNAC3Pw0ud=KCdgdsQnbs6AKw@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: Fix block comment formatting
-To: Lame Morupisi <lamemorupisi12@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com, 
-	andy@kernel.org, gregkh@linuxfoundation.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Sun, Nov 8, 2026 at 2:29=E2=80=AFPM Lame Morupisi <lamemorupisi12@gmail.=
-com> wrote:
->
-> Align the multiline comment describing the MIPI frame memory
-> layout with the kernel coding style.
->
-> Move the opening comment delimiter to its own line and align
-> the subsequent lines consistently. This is a formatting-only
-> change and does not affect driver functionality.
+Hi Artem,
 
-It's most likely one of the very first patches to LKML by you. See my
-comments below.
+On Mon, 2026-11-09 at 00:43 -0600, Artem Novak wrote:
+> I wanted to follow up on this patch series,
+> as it's been a little over five weeks since the v2 submission.
 
-...
+I'm sorry, but there has been too much else on my plate in the
+past weeks. And before I can get to your patches, there are a
+few others still lingering on Patchwork for SH that I need to
+review and pick up.
 
-> +       /*
-> +        * a frame represented in memory: () - optional; data - payload w=
-ords.
+See: https://patchwork.kernel.org/project/linux-sh/list/
 
-While at it, make it consistent with the requirement for multi-line
-comments, id est start the sentence with a capital letter.
+> I'm happy to revise and resubmit if necessary.
 
-> +        * addr         0       1       2       3       4       5       6=
-       7:
-> +        * first        SOF     (SOL)   PACK_H  data    data    data    d=
-ata    data
-> +        *              data    data    data    data    data    data    d=
-ata    data
-> +        *              ...
-> +        *              data    data    0       0       0       0       0=
-       0
-> +        * second       (EOL)   (SOL)   PACK_H  data    data    data    d=
-ata    data
-> +        *              data    data    data    data    data    data    d=
-ata    data
-> +        *              ...
-> +        *              data    data    0       0       0       0       0=
-       0
-> +        * ...
-> +        * last         (EOL)   EOF     0       0       0       0       0=
-       0
-> +        *
-> +        * Embedded lines are regular lines stored before the first and a=
-fter
-> +        * payload lines.
->         */
+Not necessary. I will let you know.
 
+Adrian
 
 --=20
-With Best Regards,
-Andy Shevchenko
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
