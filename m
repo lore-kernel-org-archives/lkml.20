@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223226;
-	b=Y6nNi2deXgnV+WqynSc12sVdxRcHSFzrYLW4rLxS3qyxsSdqDdQTTpQhZ+N/PrQG7mqj
-	 nP96D3kslEsb8/Ts3y0OcZOyJUrRLVB9umoI31brdL6rH4n5JHYUWBjd6CPjN2hAobZjQ
-	 JZKncVRoG8gKX4TXRhzmlMueIQ+qmm2WGfcAneqOdvelJhM5Xq9d9PVMeQRdu6CyCcdT8
-	 zKy6mzu4ICdvi/kdV8045QL4ZBu7uMirXl0RedOmxPf7ARkiOaHXAWKK0RmZiE25B3BOE
-	 /gFWTOAG7lKNfk3Pow3gUrgK7EVJL9ZtO+rSaDmoEV4vrvrc/jejyFW15uy+KnX00Mg==
+	t=1794223332;
+	b=YCecEu9/4SIhNirdrROnBE4VnUM8THTe5JyE7d/oSND2L2Pb9zj6XQ+e7UFw1xSZD1Lu
+	 g3vxyjKONjl77ZTDXtad6c+/HpauSO1G3RhvnNfGz8nC33Ej66/DxlPmmzvkJHON5EKs9
+	 wPQBI6ukdh6v7/+23cvj5Cm4QcOzVSl5Vj6+VQXVAzj6Ibu7djeINrBMnJwg5PopQfPpy
+	 PlEyb+Yyspxu6XlgGCGNi6eFjFdDlAIAzMitR5oG3I8DrB+YBn6sPoQkvq9RqFdQqMKWo
+	 SVFBAqYqP543oiINvX+6N8ZjRcCbtTlfn7aR5ir/E/EWziDmPrvdysEPyAIwCDb+GkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223226;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+Lu9vavZpewMGIe7sT0xaOfi/XcEQNMU46Rb1px6xaQ=;
-	b=eVdtb9GnaNF4VAo50hmWJozH5VjYkAgyangd62GH3OE5f/dtSccKGLNdBKIC2SCdUqpt
-	 E1FO7NM2LXPWX/iob6IiEgU2F6kcKlfzpjRb8OlV8OYQCZQtw4g5E0nxXG9yhf/LPfqES
-	 wq5ZMbGHEgMBdMadGIbmQRxgrZkei+6Re5dkC6lR/GIElMJN9MHHTWZjKY08WW+o/4PN5
-	 6D2ywBTj61kVguM3c7UA60jNqYbsTBBxcDu4ImOgRFcP6eBbEhVl/n981g9EBqv/gSI+7
-	 oBJ6thnHVW+HBByRDeU5h5geCRTQtvJ5yCvDqvKc/kXXit5jdagW2UZg+ybbpEnPv3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223332;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/EGlkjnTPXViKqQZVNQ5OhXpwdoUkAoPNRSYCRrjUm4=;
+	b=4Ssg+ZmYAsXVuZugT/YTZm7eexz5rNTlvXlX8DQpEyZQ/4YCpdo16IYvUSyYjhqlIczh
+	 GrbODU0FOcZBPFF/3xzswcr3n0Vv4r8FC5cd38rFPQIfPIPTusFPwEgBP3jRLHyoBpg+W
+	 sg67G3dRGy5o1SyTLUzR/OIt/e8bxnK0bqBL0Ulh9ftBsnre2XI3hhUElMYRCRCVbCbqo
+	 tJy6tiC7N+4V1uLBGR9LOXI8yZjkbPDH9Ek780MSwEfhxYq9Hns1k06grs3DpWpSx9yai
+	 0ZVTYT6bmPeqB8LYGbdKFFTD7BLZbHitSETx3/nbYYshX+KPr9fyoxfThVPzstRPygg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ji8tEq2k;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htltHbUS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9C9606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:20:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9C9606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B67606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:22:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ji8tEq2k
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+Lu9vavZpewMGIe7sT0xaOfi/XcEQNMU46Rb1px6xaQ=;
-	b=ji8tEq2kl3yMJVCyXuhKV5kQUxqmdEtqB/WIbQEDENZlGB1aLIwIZBLhAPbSEpXEvp1e4QHlJ
-	YvvoTfgf8BOy9tyg9DyfdNGYiGTBmljLSMJ9WjKEpdzit6YKOm7Kdn5xDVg6mlKrZjdqrWGOkKQ
-	ZiXwFxNoiRHc3vRPapN22mI=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jNS4W0r7wzKm76;
-	Mon,  9 Nov 2026 19:20:11 +0800 (CST)
-Received: from kwepemk300013.china.huawei.com (unknown [7.202.194.231])
-	by mail.maildlp.com (Postfix) with ESMTPS id E49AD4056C;
-	Mon,  9 Nov 2026 19:20:19 +0800 (CST)
-Received: from huawei.com (10.50.163.32) by kwepemk300013.china.huawei.com
- (7.202.194.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
- 2026 19:20:19 +0800
-From: Jinqian Yang <yangjinqian1@huawei.com>
-To: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<kvmarm@lists.linux.dev>
-CC: <maz@kernel.org>, <oupton@kernel.org>, <fuad.tabba@linux.dev>,
-	<yuzenghui@huawei.com>, <joey.gouly@arm.com>, <seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>, <yangjinqian1@huawei.com>,
-	<liuyonglong@huawei.com>, <wangzhou1@hisilicon.com>,
-	<prime.zeng@hisilicon.com>, <tangchengchang@huawei.com>,
-	<zhengtian10@huawei.com>, <linuxarm@huawei.com>, <liujian222@huawei.com>
-Subject: [PATCH] KVM: arm64: Register irq_bypass consumers only with GICv4
-Date: Mon, 9 Nov 2026 19:20:18 +0800
-Message-ID: <20261109112018.241298-1-yangjinqian1@huawei.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htltHbUS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931A91F0089F;
+	Mon,  9 Nov 2026 11:22:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794223332;
+	bh=/EGlkjnTPXViKqQZVNQ5OhXpwdoUkAoPNRSYCRrjUm4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=htltHbUSacOuNqzjJ9rauWTrqcdykKX6USyqFGrUK9Xsa38SnEMQxb7T/ZjiCXkEa
+	 Q3m4xjJ9yNTSt0qsBs0OHMh2c3NiQTo/IkQbsECjBb82KMmTcgAvO/htFjpHzCaGRE
+	 Dr34Ia6Ph2F0gzzJYkwD9mERLqFmcNp0qIXlhazhqzYMvO6QdiHSxnhmhYnRS3wVX7
+	 aMdc9NiJL+XVYIbIVwTb5UEWJUq9mHr/u/UYPehQ14rEs0B4NUXfyGGzQsJQACdAUa
+	 SvBWUQdAlhi4419n9w5EnjfN/FsofQ4t5bL/MY/OybcPVK/0yI0aCReWdGkuwdNUco
+	 TSHC0IPQ2kIDg==
+From: Mike Rapoport <rppt@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <kees@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Changyuan Lyu <changyuanl@google.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	kexec@lists.infradead.org,
+	Mukesh Pilaniya <mpilaniy@redhat.com>
+Subject: Re: [PATCH v4] memblock: don't allocate new reserve_mem regions on a KHO boot
+Date: Mon,  9 Nov 2026 13:22:03 +0200
+Message-ID: <179422331231.3350534.16388829888932023722.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109075733.9051-1-azpijr@gmail.com>
+References: <20261109075733.9051-1-azpijr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,45 +70,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk300013.china.huawei.com (7.202.194.231)
 
-kvm_arch_has_irq_bypass() on arm64 returns true unconditionally, so
-every irqfd assignment registers an irq_bypass consumer even when the
-hardware cannot perform GICv4 direct MSI forwarding. In that case
-kvm_vgic_v4_set_forwarding() bails out at its very first check, since
-vgic_supports_direct_msis() is false without has_gicv4, and the
-registration becomes pure overhead: every KVM_IRQFD ioctl takes the
-global irq_bypass mutex, which becomes a contention point when many
-VMs boot concurrently.
+From: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Gate the registration on kvm_vgic_global_state.has_gicv4, the way x86
-gates on enable_device_posted_irqs. Functionally this is a no-op:
-without GICv4 the consumer registration never did anything beyond
-acquiring the lock.  On a GICv3-only host booting 100 microVMs
-concurrently this cuts the average boot time by ~5 ms, matching the
-gain observed with CONFIG_HAVE_KVM_IRQ_BYPASS=n.
+On Mon, 09 Nov 2026 08:57:25 +0100, Jose A. Perez de Azpillaga wrote:
+> On a KHO boot, a reserve_mem region that can't be revived is allocated
+> from KHO_NOPRSRV memory, which includes the bootmem the next kernel
+> boots out of. With CONFIG_KEXEC_HANDOVER_DEBUG, preserving the region
+> then fails:
+> 
+>   WARNING: kernel/liveupdate/kexec_handover.c:1245 at kho_preserve_pages+0x168/0x180
+>   failed to prepare memblock FDT for KHO: -22
+> 
+> [...]
 
-Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
----
- arch/arm64/include/asm/kvm_host.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to for-next branch of memblock.git tree, thanks!
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 97332ffcb130..785d57388032 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1744,7 +1744,7 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
- 
- static inline bool kvm_arch_has_irq_bypass(void)
- {
--	return true;
-+	return kvm_vgic_global_state.has_gicv4;
- }
- 
- void kvm_idregs_enforce_dependencies(struct kvm *kvm);
--- 
-2.33.0
+[1/1] memblock: don't allocate new reserve_mem regions on a KHO boot
+      commit: d9a27fa1050902a6e38bdb780b0277cbf1dfa5a5
+
+tree: https://git.kernel.org/pub/scm/linux/kernel/git/mm/memblock
+branch: for-next
+
+--
+Sincerely yours,
+Mike.
 
