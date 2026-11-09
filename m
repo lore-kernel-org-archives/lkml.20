@@ -1,89 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223699;
-	b=CvqjI2DJZW6U1zvS9lfJALh6Qy610t467qxx3UA4dPVO+XLOBzb0ZC1PFDVTLjpUTVqO
-	 r34kZWZb2m1kk0yhcEPNz926w/xSSajElxqsBt6ybeStByCAASF57QjJ+fOBpYx9PIMMH
-	 CTpn4DAK2maGL1E1OA/jRSTCK0+MtKYMT+zWMTXNOfXRRMBZBqJN7wab1JItXaUh2+exO
-	 VG03+yTKayZsNzRYsg0xAT27wXSj8uwXGYO6+7wbqyjTftNPDkzdaAu/WvwDHX8bqeajK
-	 0Clv57uMq18Ymxok6YBKg8crNXxbnnoP8HVifulTqGscgDKpa3NEUYa959gYUf09YoQ==
+	t=1794223702;
+	b=vowOyrQJo5C4zzucuktrB15wCEjwVi9H8KSaaUCmYrnw4SGjT11HiC+acA52C7w+O4ij
+	 yWZP4AAdGy1Sb+v04e0y2Ysl5YMsboHw/OoA+/kyfC9fkHjBpvWqbCFmomkhTSSbyMWCN
+	 j4IAY5ypoZY3dGT0mROE2E8hmDWh+v2eOzJGf40JB5S06TpVKeNx1+8tc6GL9gX6M71oF
+	 4PPClRLbC16rgWQRtUyapOqMKnxbeXBikemcqbf2z7uQNFfy7X9elb3Tvzqsj6NPdV8Y5
+	 BOd3iqJV+UwSHh+3+NmjD0opfa3x9rn8wV5OAfHZj9xGFK4jCLydDB3d+8GCmQ2c1Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223699;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223702;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer;
-	bh=UT0+yQBOsayLrN6atTLY8tyBSlVzPffLUJWWTKwuDcw=;
-	b=lRu9g3x4n85RxcdlDdyUCFg2X/B3ibS3E/ws6T9FgCLKvHXNK3FMLIPaHDYw1eoR4ScH
-	 lQcBkK6AMxZ6XsA/CGRlGjWzXM2e3Svg6gxF1gmsB5VrTbbbzp36uHJddfxHjWzOZfNbc
-	 t/c4Q+VO6BR9l3Vk7WDhJfxybDooJHUPUagNU39z9wOLnwCrkdwSXvWx0NzkHt9zXdDsm
-	 e70ex4sZTgJ3SR/E0A2BsJOHlgFpwS5XF6aQCZPrAz/4frDs6h59DryB6b/egl3a2Zjmd
-	 PCcqaVxODrSKnd8wizCkdqFh/wiLp361PjYuFH4urGm8dgzSYfypxIeOgwLoKyLxXUw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References;
+	bh=vJt9Zs++3CIsxa31Uc83wqlGjxi+OPKamW3/Vd5hqVQ=;
+	b=po6SMaGKdT7TBwN1b6myWp1lSnsXQsQ6pSYcnADsD9JH8ML/P4Kz+k8xqKIzBbODK0qm
+	 UKmvHYmR/ttmwYvM9XYFlqCqmU7xI9OT6N96sFcFnA7TNgZQaXSNa+5fDuIXoVY0wzY/M
+	 +2IDKmEpB780bT9rhsM8qlf4dTPqmq/BNshxuqdfEWdAYohlgt1si50j9+2Fi5fMZBgyO
+	 wYVSpNq8jcLE2JJxHFUkY9UQMzI8UT/J+0iRLUn+5ORHiDsYwAH6T9WfTi7DucM78AjR/
+	 ECf5T6D9gR94kFVkZFCfkuylz0gLyuvORnFqrWyMIUdJxcd8PnaV7P+nAzpm/qP0MwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+s6opWt;
-	arc=none smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cvhH9O6W;
+	arc=none smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B0E606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:28:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28B0E606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34DB606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34DB606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+s6opWt
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3acff56a300so6547731fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:28:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cvhH9O6W
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3adfd5771ccso5336981fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:28:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794223697; x=1794828497; darn=vger.kernel.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UT0+yQBOsayLrN6atTLY8tyBSlVzPffLUJWWTKwuDcw=;
-        b=g+s6opWtgnjK5WYgifmev//GuvXWxo1+PM2sVXOfWCfvDDT23YshSv7/5A2f/70oq8
-         MU4A3GU2/2jdcwTfnNqD6qfgHpgOV9GGFCNl06GS0grWN7J0tUMtHT3gKrXlhh7kEPsg
-         LFpNIldKHYZ0rNMLMjcZg2PJ2VJs6Gvhg0Fl9XvgytG2hW+Edmod+bWOXtGc/7acBnA3
-         l9SZd7mJisV0//4dAPL85kCzmdiWQwWXOUUzmV+NMNHwd8gzxCEtaKye7zIX0A6BGzDr
-         yNOJygAIsnhQj7pv2VBaB6StPQE+AUNV3C1SVHFMF++3Jj4LU5DDYWW3oxvDGpe83Lx6
-         EnPw==
+        d=gmail.com; s=20260707; t=1794223700; x=1794828500; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vJt9Zs++3CIsxa31Uc83wqlGjxi+OPKamW3/Vd5hqVQ=;
+        b=cvhH9O6W5Zb6EK4yiSboc1ulF5Mq0KyzynrSJupT38KF2OGAuZwCspGWv6ePQHVHZp
+         XjH/4qbeN7lv7uXnYqHCs72jGEMH4OtW/m26dT6mz6i03kY+aO6iKyJ65geYo3HPTv5S
+         S87/8eU2slkjSnUQDYVVpmdDG2UnI2nLIkwcndB9zS8Fw+5xF0ptFNhi3W9CZDaW3MgB
+         pUH43FxhOAanGAMMtIewpteiCp93JqV7Vt3en/tlfK/tK6it98Pq0lYgWriXHiIRXxdg
+         rSnqITXI869l7XnCmy4bOZVFymNYiHHTuk21da/xJ4QvJWdKFUCu26t7UXR0EFcqrGFp
+         ODhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794223697; x=1794828497;
-        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UT0+yQBOsayLrN6atTLY8tyBSlVzPffLUJWWTKwuDcw=;
-        b=Jx9pYTSBp2VUusEUUZUCslWeXpfx/siPNrH1ODS8q7W1yuYC07pYV4dG7qnxI6uwpd
-         H0C2892v8GWfEuNG8AzRUO4TPBsXzVdT35zfgCkihe+af8+4PxZ7EZfg5dNlRQ8Xhjvy
-         012DlGa0kJnbXd84KKdx48UWF9FAPe2n+NDK/LRXHBc3EqZ02YZ02toe8rcP5bvg/etV
-         VaOOUpgHWKWORVlzEy7BdIqsUWINLX3Q2MTNJ0aewq+jskMYG8Ko+DtZp9J3FhS3mvzS
-         wtrr/eFqOJIYwrAnZNYct53cn2GW07QGTN4bWhkkIm71YS5cQDbaW4os2p1aVA/IwlBw
-         R3Pg==
-X-Forwarded-Encrypted: i=1; AL+hErGzy6HmFY3W4kBMTCvLTMjaqyLjvpSNMDyat3Q4Ap6RN7R3uFsXv+jf7Cgrk20yv1fIHNVAbTTu50EwL/s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P2mNdfu3m6ArieBK1mAhMhj3G6KOKs7qsLO758GpAMAj8CKEk
-	yOtsCnAZTDCdimnN33NXYfjYwlF8dFt/IK4w3QPvqanIfJBZj5ZPs+7G
-X-Gm-Gg: AYBFou2VsjrG+iXctZsDhCIX7Fo4M0jqOe8iD17OgwTQkQOVQ6MxTatHV0Pw3ycgQpo
-	OpfLIRzX872JRJXuI4yXfAH8bTZ9abLf2RRqIbhkylnzac1imEQDXy6V7m7FZGRxGdhEpOTJjyG
-	sbNGWL9ULiE4jsTT1yYF38l+GbX91hLW5RYiGiJ2IG+I5uWlFLXqy2tZZ42lTk+r8KdMs34lxad
-	PL2B8eCB5NWGWSPNXd5FSCKUhwTGV4XKm0B6XzqLQBqYnmXEBCLPV7n6pjyJP35uU0ojVf39WUK
-	lfUqUFR5dqmLqtJDHrs3mLU055MRrfgNaXKLgDMDusZYX5N1D0btB0o7Ws/7QMXbmRRAHbej3l/
-	+GzDXjldo0qHn0ilkJ8peKw6aJ65VNuawGkHe1H/Vd9v7G/xuiWxS/lOdAAyzMJATUvM8Y4fIvB
-	pLsde1I/MhhPGdeAXgiy4xsJow1CMWdU9LsDDSB7TxJ4Vza56nFKsdfZONE3/6qk6anqN1yeO5k
-	rMa5PcSxOZ5vSN9KZtR7Z/mytCJJrNkywzsIl/zr1qLDOi1jFjy6apsTIFHdx6GOea+xxb+v/Rr
-	gGGh8Dm0L2VfhR7Tnyx1FpKoao778MRjtupJ6SsTTr8EIMgHPWuXXihL
-X-Received: by 2002:a05:651c:e17:b0:3ac:8a38:130e with SMTP id 38308e7fff4ca-3adfa47a013mr9515911fa.21.1794223697143;
-        Mon, 09 Nov 2026 03:28:17 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794223700; x=1794828500;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vJt9Zs++3CIsxa31Uc83wqlGjxi+OPKamW3/Vd5hqVQ=;
+        b=vfsa9G7Iex5T+ts6WwlrmEd47z1lbg/FrWNXjlgttoC2c3dG++wteI7x5j/5pKvqqH
+         HIUphomf88hCsGhBwUgmfIshG6xFD9+9VHP+Pc5rBKGwn4tJe1ZNRx4HXZI/nFCe8QLB
+         g5MtVjZMDZuYmb6yoB5TwF07rzaLjpQRhzaUVB7gE4ThNCzwqs5gXnf14DaOxH+SypUQ
+         nmx02Qxb98oriDYWCiNVwuvEqgQ7lTmHB+3Yn1pPkWXOpxpL09us7wPPNdNWFz6GSteM
+         R7noNsD1j8LQ/JsROEhCuUNKg7f7xuoAhHDARJYEVsgUa7QbSWuhF4qyhtvImrsuWNoa
+         Y1eA==
+X-Forwarded-Encrypted: i=1; AL+hErH48yYK5WudA7Eog4bJ3/S32DHOJ70wNZglDYwG8gnOWDJun8cIp/ru/LVvOFT+JcydUGIxunlQ+ey6sqw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Mb6+5usi+XsZeehHnoNcMeCOMuJ0FjRZ2vtngbgDiz+/vpdts
+	9DQ1Q0eqpKPJNC60DP7fTuax1qQ3YsnjDzYW7N37JQGI+WxLZkWyyu946HkU+Q==
+X-Gm-Gg: AYBFou3lfDqGYKa1QG9nimPKtBE7WgRrilJdWKPKRSnCN5CQFdb5G4r2IVL+YALxT5m
+	72ch+rbtWc1XsMhZ1DgxsEw8+ewG4Xfn35GR3AE1Lni2f8pziCwn+cHAZur0ky57utf+ayiVcvK
+	Z3+UsBv+7F8VuT3etTvJCghInE505pugvkUkBa1ULJNvYUR9DXfwynSdAF/jj85NZPCDi1qICfI
+	W6cIsd5ndwT0Z8E+diLJlgAL28e6kUwzCppDKGhQwrVZftPGw/XppAZj0Q0h/EGLfN0LZU0seZI
+	VYH4sQo2H/TDfIpiIqa9GxdPsSzq7hqZhXcLcoExfozHFkK5kJuz71uairVGERBPGlEPV27S8RB
+	wDz5qnZu7/Od1s6nvG+f6NaIweCPdPsF+uxo3rPWPuKYkE/AcSs318pegepoC3mD/WWL8xVpwGr
+	nEcVlfw0RXO3nkdWg4Xss1ijBpKAMdiJ1F8+7+8eJCgVeh7m+Q5k4DbBmQ+Ke9r6slJntZXecHZ
+	sE05lr9lBW8FLxpaNMGVRDzCgHCWIyg+kj/dQ2qh6tdIc+FXubgGDOOWsggd62RhsQlpNU/yip6
+	FNfDTHZPJKsaCdkVP2s4sLCWQTYwvZeH1Krl6CYcZ/Dzw7toXF/R4dTj
+X-Received: by 2002:a05:6512:234f:b0:5c0:da4:7806 with SMTP id 2adb3069b0e04-5c14bff2f1cmr1076625e87.11.1794223699768;
+        Mon, 09 Nov 2026 03:28:19 -0800 (PST)
 Received: from localhost (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3adf9f43a15sm8477161fa.35.2026.11.09.03.28.16
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c14b81ad1fsm803057e87.61.2026.11.09.03.28.19
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 09 Nov 2026 03:28:16 -0800 (PST)
+        Mon, 09 Nov 2026 03:28:19 -0800 (PST)
 From: Eli Billauer <eli.billauer@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: arnd@arndb.de,
 	linux-kernel@vger.kernel.org,
 	Eli Billauer <eli.billauer@gmail.com>
-Subject: [PATCH 0/8] char: xillybus: Fix issues reported by Sashiko
-Date: Mon,  9 Nov 2026 12:27:52 +0100
-Message-Id: <20261109112800.48663-1-eli.billauer@gmail.com>
+Subject: [PATCH 2/8] char: xillybus: Safer access of unaligned pointers
+Date: Mon,  9 Nov 2026 12:27:54 +0100
+Message-Id: <20261109112800.48663-3-eli.billauer@gmail.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261109112800.48663-1-eli.billauer@gmail.com>
+References: <20261109112800.48663-1-eli.billauer@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,34 +96,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-This series is a follow-up to the previously submitted patchset [1].
-It addresses Sashiko review comments on surrounding code.
+Use get_unaligned_le16() rather than dereferencing unaligned pointers
+directly for portability.
 
-No functional or user-visible change is expected.
+Assisted-by: Sashiko-0.2.5:gemini-3.1-pro-preview
+Link: https://sashiko.dev/#/patchset/20260805093436.59740-1-eli.billauer%40gmail.com
+Signed-off-by: Eli Billauer <eli.billauer@gmail.com>
+---
+ drivers/char/xillybus/xillyusb.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-The issues addressed here originate from the initial submission of each
-driver (Xillybus first, and XillyUSB several years later).
-
-Regards,
-  Eli
-
-[1] https://lore.kernel.org/all/20261009074557.19996-1-eli.billauer@gmail.com/
-
-Eli Billauer (8):
-  char: xillybus: Use unsigned int literal
-  char: xillybus: Safer access of unaligned pointers
-  char: xillybus: Return error in fops read method handler
-  char: xillybus: Rely on FMODE flags in poll method
-  char: xillybus: Refactor flush function
-  char: xillybus: Correct handling of wait queue
-  char: xillybus: Avoid indefinite sleep of work item
-  char: xillybus: Cancel delayed work items before teardown
-
- drivers/char/xillybus/xillybus.h      |   3 +
- drivers/char/xillybus/xillybus_core.c | 109 ++++++++++++-----
- drivers/char/xillybus/xillyusb.c      | 170 ++++++++++++--------------
- 3 files changed, 159 insertions(+), 123 deletions(-)
-
+diff --git a/drivers/char/xillybus/xillyusb.c b/drivers/char/xillybus/xillyusb.c
+index 56afb0a577af..4c53d808737a 100644
+--- a/drivers/char/xillybus/xillyusb.c
++++ b/drivers/char/xillybus/xillyusb.c
+@@ -17,6 +17,7 @@
+ #include <linux/device.h>
+ #include <linux/module.h>
+ #include <asm/byteorder.h>
++#include <linux/unaligned.h>
+ #include <linux/io.h>
+ #include <linux/interrupt.h>
+ #include <linux/sched.h>
+@@ -1960,8 +1961,8 @@ static int setup_channels(struct xillyusb_dev *xdev,
+ 	new_channels = chan;
+ 
+ 	for (i = 0; i < num_channels; i++, chan++) {
+-		unsigned int in_desc = le16_to_cpu(*chandesc++);
+-		unsigned int out_desc = le16_to_cpu(*chandesc++);
++		unsigned int in_desc = get_unaligned_le16(chandesc++);
++		unsigned int out_desc = get_unaligned_le16(chandesc++);
+ 
+ 		chan->xdev = xdev;
+ 		mutex_init(&chan->in_mutex);
+@@ -2108,7 +2109,7 @@ static int xillyusb_discovery(struct usb_interface *interface)
+ 
+ 	/* Phase II: Set up the streams as defined in IDT */
+ 
+-	num_channels = le16_to_cpu(*((__le16 *)(idt + 1)));
++	num_channels = get_unaligned_le16(idt + 1);
+ 	names_offset = 3 + num_channels * 4;
+ 	idt_len -= 4; /* Exclude CRC */
+ 
 -- 
 2.17.1
 
