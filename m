@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248443;
-	b=Y6ENj6n+0tTJCAXXiS+IpaM0ZmojLqLzRpOrqmM4u/fAm9rQenu3u6ChUQ8n8mRU6X9o
-	 Vd5OqI/UUPXkyze4eWk/T7o9+zS5iwd24ZuwIntwk7Krn7f4PDxoqtBd7rJqrzOdSqSoL
-	 QkJ5nNIFQizFGmVYlZLXuIWLMlacq+mb/TImlAIHaDJeNPXe1iK20Cp4q6yjh3Gkhqr4f
-	 1Hl+zv2ortm7LZYZofvsjJUmxTMaylxNt6I1HsUycLhxYUfju49dHg+vi0d+eEVPl43VO
-	 f3mS2RVcMeRcSnWE/gpFCN6bWsaHhcbGQ2f2K66K/YTXVB3D8AunJc6A4licw6AKgPg==
+	t=1794248444;
+	b=VUYXsf+T/tTYW9dQO+uyv+U+Ls6M1RYb+SjNn0IIOtKqfjIh0kO1M1jUHMVjJsRRG4Ss
+	 DhXXlx6tcCnMAtUhhFPPrhnhB2ciPWtlV00gZZOhie1vz2mRckncVxosae17ChLQZ7T6G
+	 t7sDMdcrA0PrTviq7lLsc4MoLzNTCZ8dlfne4vOQu8sc9n6zboEuDxM+JqMR6Xq+7VhQl
+	 8GIbhgj80282/2epiQRIjYgpoXHpJDrCmSFCVGfn8ERqSy5Og0XE3uZdwHsdeAdSazwwP
+	 fdyUZivo74pNmHxO1pVLq4ZYrjlT0kPu+jl3D8r9dwRsJg+im/DWLXP+DGoFJfv77hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248444;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=hb1e5T/1/BrBF37EIpY7Y1LmfoCtKyJu5XTK4YaH3kg=;
-	b=Sl2EtcqzL+YXtkCyRtt92XasjOELExwr1SPbtSV37Nle27dbxoUJZiHKUhrnxvMSCLYA
-	 F1GAiV/q5+vgJWZnOEKABkjkfoCoDJeiEp1FovtH/Gbr4crESIVKUvJbPM4XuWoQJGevK
-	 1EGgFgZOJGFk8afI1wp6i99pcWHACVFRJig7T9qs2T3F/dBiEPM0YCTXnvNQr5yzva5qz
-	 EpdhRdBxm+fFdL6rj5pD13rQKB4DI7e6vrRH35xsIEhKnWmd0c4TiYOpQJJBjmpFp+e5a
-	 c4PT5R7HkGmPxmmPSCZ1yrMJTCVkcs+YUE5v8qWRMKC9maHx5uCaoUcQExxZJ5p0Lkw==
+	bh=ymhL8xoF/8YKzsevUnnZhRK3yv2uatdwTABN3AakMkQ=;
+	b=DC+7iAsWf8jsArQEzosw+7FNIvn4vFUTX5yjtcaUiSizlzivdzjpvvVKUzcaV917tB5j
+	 DQmRnKJojNuGLf3w4ARp54UMYh/v7ZURqHB0W3n9JKhKpbVWEHT5ddW02mnDe5y6L26Df
+	 2ABx2VZEuoE7SF6IB/dkT6DPHbZSdq9PI+QEklNUMkyy0oFvwqshorgDpqo6T/+K0PRi0
+	 qcONfvec1E08nEs7GdA2f+72zeA/xR8/aTZmpB/n+fXtUBNFWDcst/7bFlV/FOkszf3xs
+	 PixSgkced2tKF1Zw01ETtg7NwlVnHjywCscVAC1yKFGAb/v/Mje1HFWidu7TfwPfGwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NcdrjhzZ;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CJHYz34j;
 	arc=none smtp.remote-ip=209.85.214.200
 Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D718606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:20:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D718606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D8C60A2627
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D8C60A2627
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NcdrjhzZ
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e95f8543c9so16217065ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:20:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CJHYz34j
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eaae8d29e0so16517605ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:20:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794248442; x=1794853242; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794248444; x=1794853244; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hb1e5T/1/BrBF37EIpY7Y1LmfoCtKyJu5XTK4YaH3kg=;
-        b=NcdrjhzZG1AAEURh3INjyF7trYPywuNZJj61GltKZL/KQzlCeznRo7EcVRTr9E/kIK
-         YRgYHTp6i0CIaEtXTuOx/4ZZMDZ1nRvM4nI9YNoBlw+nvZFL6o4gB4V2JIOyYFKtBvOh
-         2DPAdI7IAERyOhqJHZ7mkHtfrbS0Sr+7yp7L/OKW66++YM01bEymYKV1P70C06znzs14
-         OpNeGxxGY2a58FA6z0wOt+b5/W1eVW5I3VPJWUaqiIsmOKtGTde396EuoFZ5fTk7nTYM
-         ZIihSMBKeSZsQEDaoWQwoQU73hAUGIdMQvL70MP7rcrjAjqfBBAK5mROCDfy0KodwCYy
-         u3Vw==
+        bh=ymhL8xoF/8YKzsevUnnZhRK3yv2uatdwTABN3AakMkQ=;
+        b=CJHYz34jsEx7m78zSHP7Fy/nLPotJiE0m+bcwDDnbRGhV/T0Yop9isyjwlCibxqwkc
+         n0EB0WOmgkNMEtQy7M2RWUcUXCWlt1Qga7B0pk3aX5g14hiEablqVIeQsn09TVRrXYk9
+         zWNgc2MkoCZyV8UWWYwrazkm0V7AQ7QcUvNnDZnewliir8x8PUDSENnCmfMYFn8jmxNl
+         XNMLzAC7nGosUXGhVxc4nYBVHHvuuO8ZIhd4dTq8i0AmiGphX1KbIeYbtxmDUYd5oO6F
+         gLBjMNPMCqvClMENtiO2VSB6VAsIIKIp0mW7hAJyaWh4PhbU3t1yNAo8V6JpDr7RIeZK
+         uGyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794248442; x=1794853242;
+        d=1e100.net; s=20260707; t=1794248444; x=1794853244;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hb1e5T/1/BrBF37EIpY7Y1LmfoCtKyJu5XTK4YaH3kg=;
-        b=FwV7Fz4FujlmqzAJaWzjCn2EzrR/d/59XCwH0FoDkvXsK1vfMXLDFcI8BWxPYOS5hH
-         Sfe6FkMsK8Qkl62Z6rLSmJa2VtcOj7p8JS42GrvnTbzRwRfeusIsJu/DtNcOBMXqJ+ub
-         em55O+TgLt1bKidD9uFBV42KAJayhnvmtrWHbna5xF+1m2HlNSH+en9z+EkjRyiSgr45
-         MRJi1wLWgPfN6FLQQETisFdaZGsP/8jphzq0UMmedLd5VWplQL0GqduE1oRBNWZhZ/bP
-         sCo7xQfn75a6Ur9t+FMjoQBuOoS7w81PHb2jb617Ns6bHdYMjFwpT1oH41EOFtudGEMH
-         ju5w==
-X-Forwarded-Encrypted: i=1; AL+hErHorK3wm20AR//wceqtEtdoB1Ct1RtU51U8M0So+/U3qlsr8O7LYqRfxyasAWka6ixMtY2/w16wX2RiITE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LEiyjoe7XSpLdAmoqFzdQKCzK6W8rhmJvkNuUquHjXAJ6b0PC
-	keNTaUuCzOSY8k6pb30+AyPzRUW01BSdR82oRkDZx1UfldzVZpDTxzMu0ulMd1WDkpOtXnwl6BZ
-	emU8CMkZZmCBUXYMCkEhGneqphg==
-X-Received: from pjuj5.prod.google.com ([2002:a17:90a:d005:b0:3b1:29ae:3c64])
+        bh=ymhL8xoF/8YKzsevUnnZhRK3yv2uatdwTABN3AakMkQ=;
+        b=2UJr18cECFjTVNUL3bQlgIk9pBwMYIwu4Nis8YVj+I0yZgSRr8EAKRtt5GFxPiPHKo
+         OIcvjfro40gctftsJSGfqvmKHgywZrsYUIh/Eby/Lv0Zz3hzr4F9ZuCWVG8Smjt0zYJa
+         vyDXnqDWcAyE7VX269BVEN87OBy1+nc/jwSMSiENEidz0YZ3Q0NOsdA3Wq0J5ZGScVol
+         /Hia2hqiHil02/TMNN/4TRzTk8cg+1pVyY2V6SDhY4rKjfHWUnD7oAr/begAHiuZViAp
+         Gy507KpfDyawcu0fCLt38sNF7wT2rulSGXC3vtDEdqru8qTzLKeJwyE6KHkK0hP7o32x
+         /GzQ==
+X-Forwarded-Encrypted: i=1; AL+hErEAL3r3IQ2otIn9nrypQSz0qLJVKJYe4dii85hy60oSVbhTklW1X5rLlIftMerH14wtPld/6msT2koHdvM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Vbmc5hsi6flIpT4OVqvU4GGJ+vJv8Qsyq0mDpd92CHm/IY8kr
+	Mrmvk31lpUOBKLe67CNntS6mTQ+UA3MoFPszV+9vuCut4jNdltXWsyEsH6MzyF2UN3H3Ryxphro
+	8CM5AYaAwqWYnZdXhBMeOiruIRw==
+X-Received: from pjbob9.prod.google.com ([2002:a17:90b:3909:b0:3b0:9a80:7971])
  (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:2b44:b0:3ac:4e18:237c with SMTP id 98e67ed59e1d1-3b1668deba8mr553043a91.0.1794248442209;
- Mon, 09 Nov 2026 10:20:42 -0800 (PST)
-Date: Mon,  9 Nov 2026 18:20:34 +0000
+ 2002:a17:90b:51c1:b0:3b0:e2a9:3466 with SMTP id 98e67ed59e1d1-3b166cd48afmr429025a91.16.1794248443749;
+ Mon, 09 Nov 2026 10:20:43 -0800 (PST)
+Date: Mon,  9 Nov 2026 18:20:36 +0000
 In-Reply-To: <20261109182036.2910559-1-hramamurthy@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261109182036.2910559-1-hramamurthy@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261109182036.2910559-3-hramamurthy@google.com>
-Subject: [PATCH net v5 2/4] gve: Fix backward stats when interface goes down
- or configuration is adjusted
+Message-ID: <20261109182036.2910559-5-hramamurthy@google.com>
+Subject: [PATCH net v5 4/4] gve: Fix link flap after ethtool ops
 From: Harshitha Ramamurthy <hramamurthy@google.com>
 To: netdev@vger.kernel.org
 Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
@@ -93,274 +92,179 @@ Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch,
 	pkaligineedi@google.com, yangchun@google.com, patricion@google.com, 
 	awogbemila@google.com, csully@google.com, jonolson@google.com, 
 	lrizzo@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Debarghya Kundu <debarghyak@google.com>, Pin-yen Lin <treapking@google.com>
+	Pin-yen Lin <treapking@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Debarghya Kundu <debarghyak@google.com>
+From: Pin-yen Lin <treapking@google.com>
 
-gve_get_base_stats() sets all the stats to 0, so the stats go backwards
-when interface goes down or configuration is adjusted.
-ndo_get_stats64 has the same problem, since gve_get_stats() only sums
-the live rings, which are freed when the interface goes down.
+When modifying device features via ethtool, GVE causes a short link-down
+after the ethtool command completes, which can break scripts that use
+the network interface right after the ethtool command.
 
 This issue was discovered and actually triggered by the
-drivers/net/stats.py selftest (check_down test case). Bringing down the
-interface caused statistics counters to reset to 0, triggering selftest
-assertion failures because netdevice stats must not go backwards.
+drivers/net/ping.py selftest. Modifying checksum offload features via
+ethtool caused a transient carrier drop ("Lost carrier", DHCP lease lost),
+causing the immediate ping invocation to fail.
 
-Fix this by persisting baseline stats across queue teardown in
-gve_queues_mem_remove() and single-queue stop in gve_rx_queue_stop().
-The baseline is reported by both ndo_get_stats64 and
-gve_get_base_stats().
+Fix it by calling gve_turnup_and_check_status() in gve_queues_start()
+instead of deferring the link status update to the service task, so the
+carrier status is updated synchronously before returning to userspace.
 
-Also report the live XDP TX ring counters in gve_get_base_stats(), as
-those rings are not exposed as netdev queues.
+Take netdev_lock() around the link status update in gve_service_task(),
+so that it is serialized with the synchronous update. All other callers
+of gve_handle_link_status() already hold the instance lock.
+Still queue the service task after the synchronous update, so that a
+reset requested while the service task was disabled during gve_reset()
+or suspend is handled once the queues come back up.
 
 This change was tested using the DQO RDA queue format.
 
 Cc: stable@vger.kernel.org
-Fixes: f5cedc84a30d ("gve: Add transmit and receive support")
-Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
-Signed-off-by: Debarghya Kundu <debarghyak@google.com>
-Co-developed-by: Pin-yen Lin <treapking@google.com>
+Fixes: 3b7cc73628ff ("gve: Use link status register to report link status")
 Signed-off-by: Pin-yen Lin <treapking@google.com>
+Reviewed-by: Joshua Washington <joshwash@google.com>
 Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
 ---
 
 Changes in v5:
-- Move the stats_lock around the priv->rx[idx] writes in
-  gve_rx_queue_stop() and gve_rx_queue_start() to patch 1 (Sashiko)
-- Mention the ndo_get_stats64 counters in the commit message and add a
-  Fixes tag for f5cedc84a30d (Sashiko)
-- Document that stats_lock also protects the baseline stats
+- Keep queueing the service task in gve_queues_start() so that a reset
+  requested while the service task was disabled is not delayed (Sashiko)
+- Clarify which cases the service task kick covers in the comment and
+  the commit message
 
 Changes in v4:
-- Report the live XDP TX ring counters in gve_get_base_stats() (Sashiko)
-- Take stats_lock around the priv->rx[idx] writes in
-  gve_rx_queue_start() (Sashiko)
+- Take netdev_lock() around the link status update in
+  gve_service_task() to serialize it with gve_queues_start() (Sashiko)
 
 Changes in v3:
-- Drop u64_stats_sync for the base stats and use spinlock to protect
-  them instead
-- Save base stats in gve_queues_mem_remove() instead of gve_close()
-- Save base stats in gve_rx_queue_stop() for single-queue restarts
-- Drop unused rx_dropped and tx_dropped accumulation in gve_add_base_stats()
+- Retitled from "gve: Make ethtool config changes synchronous"
+- Fix the Fixes tag
 - Refined the commit message
 
-Changes in v2:
-- Add a NULL pointer check in gve_get_ring_err_stats() (Sashiko)
-- Use local variable to prevent inflates from u64_stats_fetch_retry()
-  (Sashiko)
-- Add u64_stats_fetch/begin to protect base stats (Sashiko)
+ drivers/net/ethernet/google/gve/gve_main.c | 73 +++++++++++++---------
+ 1 file changed, 43 insertions(+), 30 deletions(-)
 
- drivers/net/ethernet/google/gve/gve.h      |   7 ++
- drivers/net/ethernet/google/gve/gve_main.c | 125 +++++++++++++++++----
- 2 files changed, 110 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index 1911d05eb697..e509488a3d3e 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -871,6 +871,10 @@ struct gve_ctrl_ops {
- 	int (*report_link_speed)(struct gve_priv *priv);
- };
- 
-+struct gve_ring_err_stats {
-+	u64 rx_alloc_fails;
-+};
-+
- struct gve_priv {
- 	struct net_device *dev;
- 	struct gve_tx_ring *tx; /* array of tx_cfg.num_queues */
-@@ -960,11 +964,14 @@ struct gve_priv {
- 	/* Protects the priv->tx/priv->rx arrays, the in-place rewrite of
- 	 * priv->rx[idx] and the queue counts against stats readers that do
- 	 * not hold the netdev instance lock.
-+	 * Also protects base_net_stats and base_ring_err_stats.
- 	 */
- 	spinlock_t stats_lock;
- 	unsigned long service_task_flags;
- 	unsigned long state_flags;
- 
-+	struct gve_ring_err_stats base_ring_err_stats;
-+	struct rtnl_link_stats64 base_net_stats;
- 	struct gve_stats_report *stats_report;
- 	u64 stats_report_len;
- 	dma_addr_t stats_report_bus; /* dma address for the stats report */
 diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 45868cc4dd25..b5e2f39a903c 100644
+index b5e2f39a903c..76ab304f1905 100644
 --- a/drivers/net/ethernet/google/gve/gve_main.c
 +++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -61,16 +61,44 @@ static netdev_tx_t gve_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 		return gve_tx_dqo(skb, dev);
+@@ -17,6 +17,7 @@
+ #include <linux/sched.h>
+ #include <linux/timer.h>
+ #include <linux/workqueue.h>
++#include <net/netdev_lock.h>
+ #include <net/netdev_queues.h>
+ #include <net/sch_generic.h>
+ #include <net/xdp_sock_drv.h>
+@@ -1431,6 +1432,37 @@ static void gve_queues_stop(struct gve_priv *priv)
+ 	gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
  }
  
--static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
-+static void gve_add_base_stats(struct gve_priv *priv,
-+			       struct rtnl_link_stats64 *s)
++static void gve_handle_link_status(struct gve_priv *priv)
 +{
-+	struct rtnl_link_stats64 *base_stats = &priv->base_net_stats;
++	bool link_up;
 +
-+	s->rx_packets += base_stats->rx_packets;
-+	s->rx_bytes += base_stats->rx_bytes;
-+	s->tx_packets += base_stats->tx_packets;
-+	s->tx_bytes += base_stats->tx_bytes;
-+}
++	netdev_assert_locked(priv->dev);
 +
-+static void gve_add_tx_ring_range_stats(struct gve_priv *priv, int start_ring,
-+					int end_ring, u64 *packets, u64 *bytes)
-+{
-+	int ring;
++	if (!gve_get_napi_enabled(priv))
++		return;
 +
-+	for (ring = start_ring; ring < end_ring; ring++) {
-+		struct gve_tx_ring *tx = &priv->tx[ring];
-+		unsigned int start;
-+		u64 pkts, byts;
++	link_up = READ_ONCE(priv->link_up);
++	if (link_up == netif_carrier_ok(priv->dev))
++		return;
 +
-+		do {
-+			start = u64_stats_fetch_begin(&tx->statss);
-+			pkts = tx->pkt_done;
-+			byts = tx->bytes_done;
-+		} while (u64_stats_fetch_retry(&tx->statss, start));
-+		*packets += pkts;
-+		*bytes += byts;
++	if (link_up) {
++		netdev_info(priv->dev, "Device link is up.\n");
++		netif_carrier_on(priv->dev);
++	} else {
++		netdev_info(priv->dev, "Device link is down.\n");
++		netif_carrier_off(priv->dev);
 +	}
 +}
 +
-+static void gve_get_ring_stats(struct gve_priv *priv,
-+			       struct rtnl_link_stats64 *s)
- {
--	struct gve_priv *priv = netdev_priv(dev);
- 	unsigned int start;
- 	u64 packets, bytes;
--	int num_tx_queues;
- 	int ring;
- 
--	spin_lock_bh(&priv->stats_lock);
--	num_tx_queues = gve_num_tx_queues(priv);
- 	if (priv->rx) {
- 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
- 			do {
-@@ -84,19 +112,41 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
- 			s->rx_bytes += bytes;
- 		}
- 	}
--	if (priv->tx) {
--		for (ring = 0; ring < num_tx_queues; ring++) {
--			do {
--				start =
--				  u64_stats_fetch_begin(&priv->tx[ring].statss);
--				packets = priv->tx[ring].pkt_done;
--				bytes = priv->tx[ring].bytes_done;
--			} while (u64_stats_fetch_retry(&priv->tx[ring].statss,
--						       start));
--			s->tx_packets += packets;
--			s->tx_bytes += bytes;
--		}
-+	if (priv->tx)
-+		gve_add_tx_ring_range_stats(priv, 0, gve_num_tx_queues(priv),
-+					    &s->tx_packets, &s->tx_bytes);
++static void gve_turnup_and_check_status(struct gve_priv *priv)
++{
++	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
++
++	gve_turnup(priv);
++	ops->report_link_status(priv);
++	gve_handle_link_status(priv);
 +}
 +
-+static void gve_get_ring_err_stats(struct gve_priv *priv,
-+				   struct gve_ring_err_stats *err_stats)
-+{
-+	int ring;
-+
-+	if (!priv->rx)
-+		return;
-+
-+	for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
-+		struct gve_rx_ring *rx = &priv->rx[ring];
-+		unsigned int start;
-+		u64 rx_alloc_fails;
-+
-+		do {
-+			start = u64_stats_fetch_begin(&rx->statss);
-+			rx_alloc_fails = rx->rx_skb_alloc_fail +
-+					 rx->rx_buf_alloc_fail;
-+		} while (u64_stats_fetch_retry(&rx->statss, start));
-+
-+		err_stats->rx_alloc_fails += rx_alloc_fails;
- 	}
-+}
-+
-+static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
-+{
-+	struct gve_priv *priv = netdev_priv(dev);
-+
-+	spin_lock_bh(&priv->stats_lock);
-+	gve_get_ring_stats(priv, s);
-+	gve_add_base_stats(priv, s);
- 	spin_unlock_bh(&priv->stats_lock);
- }
+ /* The passed-in queue memory is stored into priv and the queues are made live.
+  * No memory is allocated. Passed-in memory is freed on errors.
+  */
+@@ -1494,7 +1526,11 @@ static int gve_queues_start(struct gve_priv *priv,
+ 			  round_jiffies(jiffies +
+ 				msecs_to_jiffies(priv->stats_report_timer_period)));
  
-@@ -646,6 +696,9 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
- 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
- 
- 	spin_lock_bh(&priv->stats_lock);
-+	gve_get_ring_stats(priv, &priv->base_net_stats);
-+	gve_get_ring_err_stats(priv, &priv->base_ring_err_stats);
-+
- 	priv->tx = NULL;
- 	priv->rx = NULL;
- 	spin_unlock_bh(&priv->stats_lock);
-@@ -2690,9 +2743,19 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
- 
- 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
- 	spin_lock_bh(&priv->stats_lock);
-+	priv->base_net_stats.rx_packets += priv->rx[idx].rpackets;
-+	priv->base_net_stats.rx_bytes += priv->rx[idx].rbytes;
-+	priv->base_ring_err_stats.rx_alloc_fails +=
-+		priv->rx[idx].rx_skb_alloc_fail +
-+		priv->rx[idx].rx_buf_alloc_fail;
- 	*gve_per_q_mem = priv->rx[idx];
- 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
- 	spin_unlock_bh(&priv->stats_lock);
-+
-+	gve_per_q_mem->rpackets = 0;
-+	gve_per_q_mem->rbytes = 0;
-+	gve_per_q_mem->rx_skb_alloc_fail = 0;
-+	gve_per_q_mem->rx_buf_alloc_fail = 0;
- 	return 0;
- }
- 
-@@ -2850,12 +2913,30 @@ static void gve_get_base_stats(struct net_device *dev,
- 			       struct netdev_queue_stats_rx *rx,
- 			       struct netdev_queue_stats_tx *tx)
- {
--	rx->packets = 0;
--	rx->bytes = 0;
--	rx->alloc_fail = 0;
-+	const struct gve_ring_err_stats *base_err_stats;
-+	const struct rtnl_link_stats64 *base_stats;
-+	struct gve_priv *priv;
- 
--	tx->packets = 0;
--	tx->bytes = 0;
-+	priv = netdev_priv(dev);
-+	base_stats = &priv->base_net_stats;
-+	base_err_stats = &priv->base_ring_err_stats;
-+
-+	spin_lock_bh(&priv->stats_lock);
-+	rx->packets = base_stats->rx_packets;
-+	rx->bytes = base_stats->rx_bytes;
-+	rx->alloc_fail = base_err_stats->rx_alloc_fails;
-+
-+	tx->packets = base_stats->tx_packets;
-+	tx->bytes = base_stats->tx_bytes;
-+	/* XDP TX rings are not exposed as netdev queues, so report their live
-+	 * counters here to keep the device totals consistent with
-+	 * ndo_get_stats64.
+-	gve_turnup(priv);
++	gve_turnup_and_check_status(priv);
++	/* Also kick the service task. When the queues come back up after
++	 * gve_reset() or resume, this handles a reset requested while the
++	 * service task was disabled.
 +	 */
-+	if (priv->tx)
-+		gve_add_tx_ring_range_stats(priv, priv->tx_cfg.num_queues,
-+					    gve_num_tx_queues(priv),
-+					    &tx->packets, &tx->bytes);
-+	spin_unlock_bh(&priv->stats_lock);
+ 	queue_work(priv->gve_wq, &priv->service_task);
+ 	priv->interface_up_cnt++;
+ 	return 0;
+@@ -1570,26 +1606,6 @@ static int gve_close(struct net_device *dev)
+ 	return err;
  }
  
- static const struct netdev_stat_ops gve_stat_ops = {
+-static void gve_handle_link_status(struct gve_priv *priv)
+-{
+-	bool link_up;
+-
+-	if (!gve_get_napi_enabled(priv))
+-		return;
+-
+-	link_up = READ_ONCE(priv->link_up);
+-	if (link_up == netif_carrier_ok(priv->dev))
+-		return;
+-
+-	if (link_up) {
+-		netdev_info(priv->dev, "Device link is up.\n");
+-		netif_carrier_on(priv->dev);
+-	} else {
+-		netdev_info(priv->dev, "Device link is down.\n");
+-		netif_carrier_off(priv->dev);
+-	}
+-}
+-
+ static int gve_configure_rings_xdp(struct gve_priv *priv,
+ 				   u16 num_xdp_rings)
+ {
+@@ -2064,15 +2080,6 @@ static void gve_turnup(struct gve_priv *priv)
+ 	gve_set_napi_enabled(priv);
+ }
+ 
+-static void gve_turnup_and_check_status(struct gve_priv *priv)
+-{
+-	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
+-
+-	gve_turnup(priv);
+-	ops->report_link_status(priv);
+-	gve_handle_link_status(priv);
+-}
+-
+ static struct gve_notify_block *gve_get_tx_notify_block(struct gve_priv *priv,
+ 							unsigned int txqueue)
+ {
+@@ -2406,8 +2413,14 @@ static void gve_service_task(struct work_struct *work)
+ 	gve_handle_status(priv, status);
+ 
+ 	gve_handle_reset(priv);
++
++	/* Serialize with the synchronous link status updates, which all run
++	 * under the netdev instance lock.
++	 */
++	netdev_lock(priv->dev);
+ 	ops->report_link_status(priv);
+ 	gve_handle_link_status(priv);
++	netdev_unlock(priv->dev);
+ }
+ 
+ static void gve_set_netdev_xdp_features(struct gve_priv *priv)
 -- 
 2.56.0.455.g6c5a503b38-goog
 
