@@ -1,84 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284359;
-	b=4GB3WlDfuUYGYyH1D/c78KgZb0i4I5EUlvsmgv4aOLY68FsIv3ZtOa68cschV//Hysjj
-	 Ger1BsbiNPGM/+DbPvQe9yoQvi1ykGzlXycHq18zex1iU5zKc4NVyAbj6VQbtgsNOfJd+
-	 SuEFiagcq6HUYEWh/vMrpES0QglM5sVehhnfaLDRZ6JTNa0Ieo0Y+/h7Q2bHNXAlVNRu2
-	 Od2VrgfuOVPD8BAAirGDl/C2bbMEZTiBSSGiefqp+0cWN8f4rCkqExgo1tvohmYXJdGi6
-	 dWkParLTij+KIsaZVad0zr/R8KQVaLZ/+ONXd/vq0gQgjZUucSI/QqW4I4QwcsrhbPw==
+	t=1794284377;
+	b=BhVm7koiSaeU3JwRkw6jP46CY6bZ6GkGmCaE1YmouYOD4nfvkW0etU5Pmvn76AX9/47A
+	 ovIWYDTW+uC/LACpg8yBg0TyyhlpDpKo7c4iqB8cpNzwrHPdFS55fwg0x1IlA5xWw1sZg
+	 SMqFz1pIGjispJYccni8ce89sgtD7wlon8W8n9bRatqBJz+L8xOSQC0QIEqJaP6hl3Sez
+	 uBDdbDZw9q8rksmI2se2BBIWmvCvnu2bzkQYwqHU+gY5FKyXgsO2Wka5xm/zy8OY3LdEy
+	 X/Cedcwm91bKyv6Wxf6HG0WeLukoRM9t/3NFmzf6GhK7Iu/2GpZRffMtDhH3+7VKPuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284359;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=D6I+9mOh63hZoFlVcPImYCerGlblTsLsV4DNO+WiNiQ=;
-	b=5GbXcVtaO69L8wmUffZA+kBE1Jmj8OYn7jJONVc5z7xeyhjYKr+yBtNSMgnWw1vr2yX+
-	 fmqy+3BfvBeZQGGDMKvrLBHzXSZ/MnqjPLHitMtlH0gVG5rD1EO0saW3nobTfiQ2QYxgq
-	 Zind38+LwkmZORWLu5hhI9QbY7EUXP8mCbNkJ1KuJQkwS7QZRWFJ5TSuDjZWNY0Y2dLDx
-	 3IcwW95NFb2LiSmNBgLRJa5gysWLQIMdQYZkg+mCd8MzVMhHyGSXNaNp4AtF+9oS/F4nt
-	 OA4T4Tz755HjZ7HRvcC/I/4zEhFQ8AyCdbq/1l8PurBDmBG4eqT+QQ4oeLMX6xCPBpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284377;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=akOgOFZaJ6AkC9My1p+5ZWxqR31Lz10lBBUyVueJ0Ek=;
+	b=THunJhMVIjQGdhNLpIlwGjYofpkYagqPLrudSKaWBdL8R88yt7WPudZpSlIBEKTFxAhN
+	 3Sy8j4hNB6+0n0sAUO61PeCDBHS/EOivXey6C9YSjzHxV9iE+JSZb9KsvU/6YqlMf2mUA
+	 /rEqB2QR+pHqsmggdCOxvZ3HRkGuBvPBZ/zmQwsEc5twt8fALHKqWIPQmLR90FfRdcfg0
+	 kCWKrVWL6KuWjGswRUlP/OBbwCwlLUfBROLNvG9hGy0fX646m/b1IOBfbzom7s2vF8Frk
+	 aV7QIKlVaTctX2FdgTxo1ItrCx2qtTmUePoa7oe633pnq2RfFLr8YOWTBJgPYEGJc0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bxEOLT6z;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BYW6ru18;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF66F606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF66F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9246260A6F7B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9246260A6F7B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bxEOLT6z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794284356; x=1825820356;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=M1DlmdfP/qnqzTDgZw6h2TGWtbHGaNHnFQKtmH0THtY=;
-  b=bxEOLT6zdBGGyLuXYgByQly6SSbQ4nGHpoP+3CTfb65vz47YKlicZJoQ
-   yUeWqYSMokzJEZZUEO/24GpuwSoCDy1dSn2iJudQqptSZCfJwPhuauUdo
-   qDe2Mugf/LWWIOBlVM83niJSN75xPh7oOzSBHKL+of+M67q9vRdH7/yzO
-   w7XBgdpsLzx+tgJkSQbAym9ExV2Zpr5UhW/+icYfIwZXzwgUSPrPWUj+v
-   SZTEg38X2Aq0bPFrVc45XjIDvqabuz8IdF/cXUAG03zVq7MU1u4tM0yWV
-   0f3Y19ggNlsgjIDRXG9cjytyPerJu4bN656rX7sA+v/WG58sIPjkPzu8M
-   Q==;
-X-CSE-ConnectionGUID: szyAPMLUR1y0AufP3rpqdg==
-X-CSE-MsgGUID: TpWWrttKQ9eUh7XrcLPMdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901278"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2901278"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:14 -0800
-X-CSE-ConnectionGUID: 203t+MEKTmimaDAVzZuetw==
-X-CSE-MsgGUID: 6Q/XI7PzR9mFU4x8bWf6KA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7856905"
-Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:14 -0800
-From: Reinette Chatre <reinette.chatre@intel.com>
-To: ben.horgan@arm.com,
-	james.morse@arm.com,
-	Dave.Martin@arm.com,
-	fenghuay@nvidia.com,
-	ruanjinjie@huawei.com
-Cc: tony.luck@intel.com,
-	yu.c.chen@intel.com,
-	babu.moger@amd.com,
-	fustini@kernel.org,
-	tan.shaopeng@fujitsu.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BYW6ru18
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-18818daa3e7so405032c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:19:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794284377; x=1794889177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=akOgOFZaJ6AkC9My1p+5ZWxqR31Lz10lBBUyVueJ0Ek=;
+        b=BYW6ru18H3XBx3AsTpAR8Xqn7UK+BaL7xpqsLxLhqN2QvvOiWbVZxKkyqDcuQPdzVW
+         2+gpsIN6qgJie5m6wTOQRhX+fUPxLjgcxBll/ZY5p5UUbL0d50ye8w6dG9XoY+qrh79S
+         vVkCKtAvNEplr6QFFbhPl5rlOHja0HaBtUjHnvmCGW4fMecoJaMuo0sRvS36ezUY3TJn
+         rpl5lcuLVLu+51qXKbkEETsCX/Rp45x3aXYPZ5W9ze4MZOYCpD/pPMmfcTFNTa4MM7O4
+         pVBCqfOAZdqwjRZmG0VMJWPLnctGlbgb+BcQqD5NJ7ofHiuG6bpYKdyv2tR/xhNzr2NN
+         taMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794284377; x=1794889177;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=akOgOFZaJ6AkC9My1p+5ZWxqR31Lz10lBBUyVueJ0Ek=;
+        b=sNR2YRlsb0zA20IQLHgjZBDWVImMdZkBpkOVvGIwGoUHzauQJ2nqY+AunTOIG1X2ld
+         555/XxDOw7khjLZaZZCH1wcm0WzNc28UTG9DeQURbaf/rk4ajL/03infiEpHIl6TpNlg
+         U28O/UW9TJ2c4IPLHbq2UUBgs7Tjsk5oTKNCNgv92watGGh1gP64DbEOApP4jSee+BRR
+         3ltqY7t+YTZlxyBja8V00l+34oDPkVvdpAmhxUmlJtucaCpnhKMRkEZ9cjcHRPzKR5O/
+         qtxTaZSTwRGQraF675yqYCDmQNJw/BSu3LVgFTxne1JTA7be0DlS8S4+cRTkRpzUxBCl
+         ODQg==
+X-Forwarded-Encrypted: i=1; AL+hErG/FmHXvy0QIeWrwp+l/6eYJdP/c4vrv/0YTYyefjF12zi0AMfbL6q05/HHjyrPVL+Ks82HtDqbLmpxflI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EnSERDCSVKjv8eC/DhyNxqTapQibyQkzYcGtlkx4Mv3jy7E/H
+	/B1YMNrIi2oLj/Aj3DHLj3cro7qgaE9N2IcFYERpBdbAMehvByKlhjjT
+X-Gm-Gg: AYBFou0hrV9QgKxnRf3psWj33tioxf41Nd9+vJR6nyhmwzhAhGYHWL3pKDpP1N2bram
+	mS8M1ktLRJRfEe8Hd2JzJncvHVwJPiPH3xEUzDVdWBGgaeu/rnr/5H0SiBRoO2ovLkEPM6DiRV+
+	7fbaLNAmeIaTDQY7Q6pdnXDi1SZM42X8vEt20isCkAp+p05lmxnfY5sv3nGe5oC5Uu6yjd8Wqtp
+	aTFsLpKjdfDH3bnqSW2idSq8LgOl7P5XkurHuZCGHUTVMoFE+XpLzqLNW89LQLLV11pM5MRr1Su
+	fDtB1ySafgasQGeN6oB5eqvOSXWMnA1x8baoZ0uoZHWJLNDRfmGBzCGPzAsziqfQikMg1EaNzC5
+	wyRoYZtGqWxZaKG5ur2rlTEh7wDXc6Qd1Y9qbN+D1YvDl5KBSXoM2yx1/kb+W0878XgpN6NCBvN
+	9jhR8RA/O+bAnF5BWT15y9mOtKt97r2L2B2Oidy9xKhy10rXuRA3A5I6ZUq3EsOaf/D29FU77TW
+	pfWRAB5d7nZugHmMmknnTffIfO2oQ+4dw4xug8ZnM3kH4SRmHd+do5NyetY5eJRWtvvcVmbL94n
+	FxjpJbaiznJbmhaxRZ+n45oe6Ky94oIcYEulr+buh9N+ubI=
+X-Received: by 2002:a05:701b:4502:10b0:1ab:90a8:87a2 with SMTP id a92af1059eb24-1b3b5e25dbcmr1978641c88.11.1794284376568;
+        Mon, 09 Nov 2026 20:19:36 -0800 (PST)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.19.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 20:19:35 -0800 (PST)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: bhelgaas@google.com,
+	lukas@wunner.de,
+	bvanassche@acm.org,
+	linux-pci@vger.kernel.org,
+	alistair@alistair23.me,
+	linux-cxl@vger.kernel.org,
+	linux-coco@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	reinette.chatre@intel.com
-Subject: [PATCH v3 0/8] arm_mpam: resctrl: Separate MPAM domains
-Date: Mon,  9 Nov 2026 20:19:00 -0800
-Message-ID: <cover.1794283825.git.reinette.chatre@intel.com>
+	jic23@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	jgg@nvidia.com,
+	akpm@linux-foundation.org
+Cc: gary@garyguo.net,
+	a.hindborg@kernel.org,
+	wilfred.mallawa@wdc.com,
+	tmgross@umich.edu,
+	ojeda@kernel.org,
+	boqun.feng@gmail.com,
+	alistair23@gmail.com,
+	gregkh@linuxfoundation.org,
+	aliceryhl@google.com,
+	bjorn3_gh@protonmail.com,
+	benno.lossin@proton.me,
+	alex.gaynor@gmail.com,
+	Dan Williams <dan.j.williams@intel.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Subject: [PATCH v6 06/25] X.509: Move certificate length retrieval into new helper
+Date: Tue, 10 Nov 2026 14:18:13 +1000
+Message-ID: <20261110041832.1730924-7-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
+References: <20261110041832.1730924-1-alistair.francis@wdc.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,86 +124,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Thank you very much to Ben, Jinjie, and Shaopeng for reviewing and testing RFC v2.
+From: Lukas Wunner <lukas@wunner.de>
 
-Changes since RFC v2:
-  - RFC v2: https://lore.kernel.org/lkml/cover.1792443633.git.reinette.chatre@intel.com/
-  - Patch 1 is new. It adds find_mbwu_mon_comp() to replace the duplicate
-    code found in resctrl_arch_cntr_read() and resctrl_arch_reset_cntr(),
-    as suggested by Jinjie.
-  - WARN when domain allocation fails. (Ben)
-  - Squash three patches into the patches they build on. (Ben)
-  - Move "Require a component for each monitoring event" ahead of the
-    structure split so the check it adds precedes its first user.
-  - Fix the mpam_resctrl_get_mon_domain_from_cpu() function comment that
-    still referred to the control component.
-  - Add tags from Jinjie and Ben.
-  - Please see the individual patches for their detailed changelogs.
+The upcoming in-kernel SPDM library (Security Protocol and Data Model,
+https://www.dmtf.org/dsp/DSP0274) needs to retrieve the length from
+ASN.1 DER-encoded X.509 certificates.
 
-Changes since RFC v1:
-  - RFC v1: https://lore.kernel.org/lkml/85ca29e89eacf12cfa7071249419e7cadb8f0691.1788220029.git.reinette.chatre@intel.com/
-  - Give each type of domain its own structure instead of duplicating the
-    shared one, set up each domain independently instead of undoing one
-    domain when setting up the other fails, add additional verification
-    checks.
+Such code already exists in x509_load_certificate_list(), so move it
+into a new helper for reuse by SPDM.
 
-The MPAM driver represents a resctrl domain with a single structure,
-struct mpam_resctrl_dom, that holds both a control domain and a
-monitoring domain. On a system that supports both allocation and
-monitoring, one instance is created for each domain and its two
-domains are added to the resource's control and monitoring domain
-lists.
+Export the helper so that SPDM can be tristate.  (Some upcoming users of
+the SPDM library may be modular, such as SCSI and ATA.)
 
-Holding both domains in one structure requires control and monitoring
-to be done at the same scope, and ties each control domain to a
-monitoring domain. This does not fit the proposed support for multiple
-controls per resource [1]. There, each control of a resource, for
-example a "min" and a "max" memory bandwidth control, has its own list
-of control domains while the resource keeps a single list of
-monitoring domains. With one structure for both, every control domain
-would come with a monitoring domain of its own, which does not reflect
-the resource.
+No functional change intended.
 
-This series gives control and monitoring domains their own structures,
-set up and torn down independently as CPUs come online and go offline,
-in preparation for supporting multiple controls per resource. Along
-the way it stops failing CPU online when a domain cannot be set up,
-and adds checks when setting up a monitoring domain.
+Signed-off-by: Lukas Wunner <lukas@wunner.de>
+Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+---
+ crypto/asymmetric_keys/x509_loader.c | 38 +++++++++++++++++++---------
+ include/keys/asymmetric-type.h       |  2 ++
+ 2 files changed, 28 insertions(+), 12 deletions(-)
 
-  1     Share the lookup of the component counting an event
-  2-3   Preparatory cleanups of domain allocation
-  4     Do not fail CPU online when domain setup fails
-  5-6   Preparation for separate domain structures
-  7-8   Separate the control and monitoring domain structures
-
-Transitioning this submission from RFC to PATCH after gaining more
-confidence in the changes thanks to Jinjie and Ben's reviews and testing.
-
-The series was rebased onto v7.4-rc2 since the for-next/mpam branch
-of the arm64 tree does not exist at this time.
-
-[1] https://lore.kernel.org/lkml/d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com/
-
-Reinette Chatre (8):
-  arm_mpam: resctrl: Add a helper to find the component counting an
-    event
-  arm_mpam: resctrl: Use find_component() when allocating a domain
-  arm_mpam: resctrl: Rename ctrl_comp in mpam_resctrl_alloc_domain()
-  arm_mpam: resctrl: Do not fail CPU online when domain setup fails
-  arm_mpam: resctrl: Split control and monitoring domain setup into
-    helpers
-  arm_mpam: resctrl: Require a component for each monitoring event
-  arm_mpam: resctrl: Give the monitoring domain its own structure
-  arm_mpam: resctrl: Rename struct mpam_resctrl_dom to
-    mpam_resctrl_ctrl_dom
-
- drivers/resctrl/mpam_devices.c  |   2 +-
- drivers/resctrl/mpam_internal.h |  11 +-
- drivers/resctrl/mpam_resctrl.c  | 384 ++++++++++++++++++--------------
- 3 files changed, 220 insertions(+), 177 deletions(-)
-
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/crypto/asymmetric_keys/x509_loader.c b/crypto/asymmetric_keys/x509_loader.c
+index 0d516c77cc26a..174451b93edad 100644
+--- a/crypto/asymmetric_keys/x509_loader.c
++++ b/crypto/asymmetric_keys/x509_loader.c
+@@ -4,28 +4,42 @@
+ #include <linux/key.h>
+ #include <keys/asymmetric-type.h>
+ 
++ssize_t x509_get_certificate_length(const u8 *p, unsigned long buflen)
++{
++	ssize_t plen;
++
++	/* Each cert begins with an ASN.1 SEQUENCE tag and must be more
++	 * than 256 bytes in size.
++	 */
++	if (buflen < 4)
++		return -EINVAL;
++
++	if (p[0] != 0x30 ||
++	    p[1] != 0x82)
++		return -EINVAL;
++
++	plen = (p[2] << 8) | p[3];
++	plen += 4;
++	if (plen > buflen)
++		return -EINVAL;
++
++	return plen;
++}
++EXPORT_SYMBOL_GPL(x509_get_certificate_length);
++
+ int x509_load_certificate_list(const u8 cert_list[],
+ 			       const unsigned long list_size,
+ 			       const struct key *keyring)
+ {
+ 	key_ref_t key;
+ 	const u8 *p, *end;
+-	size_t plen;
++	ssize_t plen;
+ 
+ 	p = cert_list;
+ 	end = p + list_size;
+ 	while (p < end) {
+-		/* Each cert begins with an ASN.1 SEQUENCE tag and must be more
+-		 * than 256 bytes in size.
+-		 */
+-		if (end - p < 4)
+-			goto dodgy_cert;
+-		if (p[0] != 0x30 ||
+-		    p[1] != 0x82)
+-			goto dodgy_cert;
+-		plen = (p[2] << 8) | p[3];
+-		plen += 4;
+-		if (plen > end - p)
++		plen = x509_get_certificate_length(p, end - p);
++		if (plen < 0)
+ 			goto dodgy_cert;
+ 
+ 		key = key_create_or_update(make_key_ref(keyring, 1),
+diff --git a/include/keys/asymmetric-type.h b/include/keys/asymmetric-type.h
+index 1b91c8f98688d..301efa952e263 100644
+--- a/include/keys/asymmetric-type.h
++++ b/include/keys/asymmetric-type.h
+@@ -84,6 +84,8 @@ extern struct key *find_asymmetric_key(struct key *keyring,
+ 				       const struct asymmetric_key_id *id_2,
+ 				       bool partial);
+ 
++ssize_t x509_get_certificate_length(const u8 *p, unsigned long buflen);
++
+ int x509_load_certificate_list(const u8 cert_list[], const unsigned long list_size,
+ 			       const struct key *keyring);
+ 
 -- 
 2.56.0
 
