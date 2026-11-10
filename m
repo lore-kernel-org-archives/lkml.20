@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294830;
-	b=yEDD7kkxE1K0kzv388qgwMqjSzf3U5I7mzEWpZITSO/wh1Dzrjty7zb7bJAuvSv7enEr
-	 4FmLuEMKqsdLGubGGuWmBu/57SoqaxTJWVpwzH/mLZ1+aZNmCN5rfFvuciMVH9U82O4uZ
-	 Zthj/ilVrmY+bJ668uhAdsSNdpC3Qlo43GgwbsDpx9KaNSIX/+1DMoj0ztk3oVUK4bwsw
-	 OwNwMDwoIdHvHJV/tpq9Ut1qj5KJP7t30ViEcFmunEMcdb0+VA98q+8SpWjTcLNPbCk8r
-	 M/kQ/ZnJ++/gHgGBtAsS5eoL3646hVEare05p8QtLzubzKr+r7gtvEIP1qUt+VRiBgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294830;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SDBSF1CPeygm0VdecI9guopnBcw61ly6rjuYP2l/6b4=;
-	b=u2lDfFZY8Ix6Fjo3MsSZk1JsqHMtLjREYVU94WJVvxhmQJQS+cGhxjA5ta3wYVu8fD7o
-	 XfhW74K9aL+UIL7Bgt1Iw3+RcAAoF7lbmaSURqCIEHMlPR5pdDWxn+PumEjjpItHqqC4M
-	 uE5ZyRqPEI7vdg3vbc1qAa6rOuSvd0HhS3WHCgurs5mAdrBRRrT3Njdq9elprrmIiRy84
-	 AILE4OKgDrpRJhM5dElbh3hMSOvXGOkgmZ0/d/6DkQ6B3qqlmtwhfFDW260ts1maTLIut
-	 SOkA/aXsNo+1GRzn2uKlF7na3w81bUhZ5inMCsniT2nQiD14exWqDkgL52DtBR6tH2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2T+UH8i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794294873;
+	b=36HKM7N1CaaKFQ28/ZGJSXkuCz/5sfwcbDfSuo3nAMVile2c49y9rmq5pSUOMKbb8aHg
+	 gnkjIoOEAoA2XwoAzOD+c0jl0JKhEtf/SS2eXLjDSTHU4oeOFyUdgvFlwpK3bzQKDE7mf
+	 NKws5FuLNIP/cJt/hHJb+fHRHv9EAWd/WIGC0d7CdX9IQukCvTHVawNjORjgUMcfPDa28
+	 nnsQVssNR6ipLtubQQAQM7AdhmP7e6EQ4Y2Bu3df3uOyo6sBgDuzuvZIiM84hpag0D/6x
+	 Kuwh41SA/wZ2cuFagnZHKUyijGYtzMDD2fnjV4AZacU6fsh/jmivYkI2U+hGGHejbRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294873;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=JeBczRWUIYEnZGuPHhbnKleDwqSoORE3VajfVV+2ChI=;
+	b=Prfn3uViOcP+D9c+gjhh4RVx5vuOhzp9vwTzqbISXctAgnLJpS5ChWmF8sWc8Csk0/Hy
+	 bpGSNPohjAZpnDDp10LrnZrefMMvAZezSNInGAcXYmJpUbzsP+/sXuW/lOelBHDViIXFh
+	 5VTkOL+81mvNT3WHsLPLcb0zgt5zeF6grwssyUqkieL1etyyvgrmR+hgco4NnQH+dNXu9
+	 +zPkCpdqck/q1hSSQgrvg44t0+KvQ3bPfnDPA0exB85b1EiGK3+xNXscbeLBrdjIWPxl0
+	 HXPhduPod9BcIGtYis0lcvpaoxd1zb+jvnza2RU7Rp9oVNlU67XeIVSTey6aOgmDmbA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKPLbiiv;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BAE606A31C;
-	Tue, 10 Nov 2026 07:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A750E606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:14:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2T+UH8i
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294829;
-	b=wfJOruME3eAuQjTlRp+QD43tR8O4SXp8KN/YAR1HpFjpZUBZ6z54LjcZoaZe/U+04/Ex
-	 t80yZ4kKYxVvu5ZXwK6ed5qpNFzPAIoMI72k8bFSoudjmgU7+G1iFQxi2AfpdzP3VIfyy
-	 3ep9mIEqEpJ92B+Ol1F0MvLm8q4ztF3bVtLbUDI64qHOojrS8lBUdLlCDt2xS7gL2CbV0
-	 xCDLElER/pmVtBhNwtL5A2G761W84gC24WmU4LZgPlgBuuqkkvXbNiCCBBx+zfEJ7H6yP
-	 aag3Emwma6y8apVl1MACv1JrGw695HaoRFyKl/pwRfPMd3DyoDSMINrs9suuNPcm1AQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294829;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SDBSF1CPeygm0VdecI9guopnBcw61ly6rjuYP2l/6b4=;
-	b=e7Xv3WWfijGO0TC4OPHA7VCC8LcLlpgkHirsjyTLw3jTvVmxyeo2CAJE77kHL8tg44Gt
-	 rTMi/5BsSlX4ErC/ed3WLMMCwTJuIeiBsWG68XnNwoE/2KBl/FlFLQ21/O02gJPZTbk9l
-	 U+EjQ8xLytBkooR+IKmIdIIOQ9XDBrHkzgjvn8WgUvYb7JxMIwBNg70f9/FHwJ0S4lyTw
-	 wJpcXhLcTgCk4G9NRma0/Led0uPZeTVPsGyBzGmKrmA6cOlAOPJPlFiMflSwtoDDddS15
-	 GEqauHQ+cHcBGpJlrww/N8N35CssF6PoA7Tz79Kv3N3Qez0wRQa04XQktFRCXshvRZw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3227C1F008A2;
-	Tue, 10 Nov 2026 07:13:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKPLbiiv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89DFA1F0089F;
+	Tue, 10 Nov 2026 07:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294829;
-	bh=SDBSF1CPeygm0VdecI9guopnBcw61ly6rjuYP2l/6b4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=a2T+UH8igbONT9THktJjVMmWqd5md7tj8RDkHrejbwHuZenxEhXZsO6HIVsj3sYpN
-	 ZBQJBis/iYEpnWf2YhKlOWDIaOZZjPE6AE1auQW8PdqUOqIV5Fh6oBKpLG+3XCT/O2
-	 N23mpDNSItIhr42k6fXNjMvjKBHYtW7djsu6Cl/NNO+HaiOl/ROhCMbLGvqGTZJVXO
-	 KGltMWA5v99YFJwRFTvDMFtMQieutD2lN6sayxAWRWmauNLxp9cu2OrWo15nD6jrDw
-	 0BSeZ/8txSvt7TOxsYFLYP1/J8yZvWw6+FdnGt8pZBISOHlg/9ATEQECxFynUZv4Vv
-	 UFsCSbL+NoQ3w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A53EA488E6;
-	Tue, 10 Nov 2026 07:13:46 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:13:47 +0000
-Subject: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds down
- into the past
+	s=k20260515; t=1794294872;
+	bh=JeBczRWUIYEnZGuPHhbnKleDwqSoORE3VajfVV+2ChI=;
+	h=From:Date:Subject:To:Cc;
+	b=fKPLbiivanrEzD0lDTSnLnW+s/csuy7zmF/rQB69ecBnZGkkMcGW82NV5pFLA16bh
+	 84z8u8ZKsezk0gYvkBpaWKmkB/ti1yMKn+uXWxAze4muXfT6Q9+ylkElk9VeSLKbd3
+	 3URD86VRiixps3P+Z8PM+90U+NYNcy2eMdKeOMdHhJ++2/mcCNMufVBbVJJMfzG/p2
+	 mc28TlVdjw+vnhpCmNyhtsqkpeGz5K5ogqQGT0HmG2L8a3nUHWOjuOA6DL49rUoXRX
+	 vkQgdAghDuSKqy1+cSnm7w8cRkNFX/e5T8W6ZAVKr5foh+Vkwbr1ayP8ewc73Vd0Fp
+	 DzSaXhkrVZFZg==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Tue, 10 Nov 2026 09:14:27 +0200
+Subject: [PATCH v2] xen/events: replace page allocator calls with
+ k[mz]alloc()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,124 +54,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1wUhD1KsVFTEY7RdMyiVIQ7
- 26qy7f4f4fIKhyhK3ZQ3iTKJ2RQWYB72TAxis8GU5maiCrU5HCRsCZGO1tdkHxjx7ZuWm8ekLO
- v8ii/a/nsb8d1eLNL/w8cxwmebj5FdAAAAA==
-X-Change-ID: 20261110-rtc-minute-alarm-1d8af9689d23
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294826; l=3842;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=hx7EEY3IfQIk7dUR86H3++IsY8ALA3UcN3TSCzhHjd0=;
- b=jsAqaqf+rioQFbEmgC1MQTpbqOEw0nvDj0vKgQlAUhFxbXy8FVL42jE+0/0dIMuRh6fr1HkQO
- am01n5PFKwOBB5dwYkgDj/243VL/DH6EvsecEk05+o3OeEOoJZMcA9t
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-b4-xen-v2-1-21ece28be7d4@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWOzQ6CMBCEX4X0bJU2pYon38NwaMsW1p/WbJFgC
+ O8uxXj8ZmZndmYJCCGxczEzghETxrCC3BXM9SZ0wLFdmclS6lJLxa3iEwRuhGu1rB3UXrE1/CL
+ wOG1F1+bH6W1v4IZ8nRPWJOCWTHB9liJhh+HwNGkAyn6PaYj02T4ZRe7ZRoUoT//RUXDBj7qsK
+ y8rZ7263IECPPaROtYsy/IFeJUJSc8AAAA=
+X-Change-ID: 20260624-b4-xen-a1cd629ce9f4
+To: Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org, 
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+set_evtchn_to_irq() allocates a page for the event channel to IRQ
+number software lookup table and xen_init_IRQ() allocates the PIRQ EOI
+bitmap that is registered with the hypervisor in PV domains.
 
-For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds the
-alarm down to the start of its minute, so that it never fires late. When
-the alarm is less than a minute away and in the same minute as the
-current time, the rounded time is already in the past.
-rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
-the timer from the irq work right away, and the hardware alarm is never
-armed.
+These buffers can be allocated with kmalloc() as there's nothing special
+about them to go directly to the page allocator. The PIRQ EOI bitmap is
+passed to the hypervisor by its frame number and must occupy a whole
+page, which is guaranteed for a PAGE_SIZE kmalloc() allocation as it is
+naturally aligned.
 
-That loses every short wake alarm. With a HYM8563, which has minute
-resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
-software before the system suspends, so nothing wakes it: with the
-alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
-"alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
-suspend-to-idle until something else wakes it.
+kmalloc() provides a better API that does not require ugly casts and
+kfree() does not need to know the size of the freed object.
 
-Round the alarm up to the next minute when rounding down would put an
-alarm that is still in the future into the past. It then fires at most
-59 seconds late instead of never. Alarms that are already in the past,
-or that round down to a time still in the future, are handled as before.
+Performance difference between kmalloc() and __get_free_pages() is not
+measurable as both allocators take an object/page from a per-CPU list for
+fast path allocations.
 
-Fixes: d87f741dddab ("rtc: handle alarms with a minute resolution")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+For the slow path the performance is anyway determined by the amount of
+reclaim involved rather than by what allocator is used.
+
+Replace use of __get_free_pages() with kmalloc(), __get_free_page() with
+__GFP_ZERO with kzalloc() and free_page[s]() with kfree().
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
-Tested on an Orange Pi 5 (RK3588S) with a HYM8563: "rtcwake -m no -s 15"
-now reads back the alarm at the next full minute with "alarm_IRQ: yes",
-and 47 consecutive "rtcwake -m freeze -s 15" cycles all woke from the
-RTC interrupt. Before the fix the alarm was lost whenever the 15 s
-stayed inside the current minute, and the system never woke.
+This is a (small) part of larger work of replacing page allocator calls
+with kmalloc.
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
+Largely, anything that doesn't need struct page (or a memdesc in the
+future) should just use kmalloc() or kvmalloc() to allocate memory.
+Removing needless calls to page allocator helps with memdesc (aka project
+folio) conversion and gives a nicer API without casts.
 ---
- drivers/rtc/interface.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://patch.msgid.link/20261108-b4-xen-v1-1-76095f25cbf4@kernel.org
+---
+ drivers/xen/events/events_base.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/rtc/interface.c b/drivers/rtc/interface.c
-index 96626f8068f9..004819c9a846 100644
---- a/drivers/rtc/interface.c
-+++ b/drivers/rtc/interface.c
-@@ -535,18 +535,39 @@ int rtc_set_alarm(struct rtc_device *rtc, struct rtc_wkalrm *alarm)
- 		rtc_timer_remove(rtc, &rtc->aie_timer);
+diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+index fd16d652c81f2..9828ed41d7a7f 100644
+--- a/drivers/xen/events/events_base.c
++++ b/drivers/xen/events/events_base.c
+@@ -230,7 +230,7 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
+ 		if (irq == -1)
+ 			return 0;
  
- 	alarm_time = rtc_tm_to_ktime(alarm->time);
--	/*
--	 * Round down so we never miss a deadline, checking for past deadline is
--	 * done in __rtc_set_alarm
--	 */
--	if (test_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features))
--		alarm_time = ktime_sub_ns(alarm_time, (u64)alarm->time.tm_sec * NSEC_PER_SEC);
-+	if (test_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features) &&
-+	    alarm->time.tm_sec) {
-+		ktime_t down = ktime_sub_ns(alarm_time,
-+					    (u64)alarm->time.tm_sec * NSEC_PER_SEC);
-+		struct rtc_time tm;
-+		ktime_t now;
-+
-+		err = __rtc_read_time(rtc, &tm);
-+		if (err)
-+			goto unlock;
-+		now = rtc_tm_to_ktime(tm);
-+
-+		/*
-+		 * Round down so we never miss a deadline. If that puts an alarm
-+		 * that is still in the future into the past, the timer would
-+		 * expire right away and the hardware alarm would never be
-+		 * armed: whoever relies on it, e.g. to wake the system from
-+		 * suspend, would wait forever. Round up to the next minute
-+		 * instead. An alarm already in the past is left alone, it is
-+		 * handled by __rtc_set_alarm.
-+		 */
-+		if (ktime_after(down, now) || !ktime_after(alarm_time, now))
-+			alarm_time = down;
-+		else
-+			alarm_time = ktime_add_ns(down, 60 * NSEC_PER_SEC);
-+	}
+-		evtchn_row = (int *) __get_free_pages(GFP_KERNEL, 0);
++		evtchn_row = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 		if (evtchn_row == NULL)
+ 			return -ENOMEM;
  
- 	rtc->aie_timer.node.expires = alarm_time;
- 	rtc->aie_timer.period = 0;
- 	if (alarm->enabled)
- 		err = rtc_timer_enqueue(rtc, &rtc->aie_timer);
+@@ -241,7 +241,7 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
+ 		 * thread was faster inserting it, we can drop ours.
+ 		 */
+ 		if (cmpxchg(&evtchn_to_irq[row], NULL, evtchn_row) != NULL)
+-			free_page((unsigned long) evtchn_row);
++			kfree(evtchn_row);
+ 	}
  
-+unlock:
- 	mutex_unlock(&rtc->ops_lock);
+ 	WRITE_ONCE(evtchn_to_irq[row][col], irq);
+@@ -2314,11 +2314,11 @@ void __init xen_init_IRQ(void)
+ 		int rc;
+ 		struct physdev_pirq_eoi_gmfn eoi_gmfn;
  
- 	return err;
+-		pirq_eoi_map = (void *)__get_free_page(GFP_KERNEL|__GFP_ZERO);
++		pirq_eoi_map = kzalloc(PAGE_SIZE, GFP_KERNEL);
+ 		eoi_gmfn.gmfn = virt_to_gfn(pirq_eoi_map);
+ 		rc = HYPERVISOR_physdev_op(PHYSDEVOP_pirq_eoi_gmfn_v2, &eoi_gmfn);
+ 		if (rc != 0) {
+-			free_page((unsigned long) pirq_eoi_map);
++			kfree(pirq_eoi_map);
+ 			pirq_eoi_map = NULL;
+ 		} else
+ 			pirq_needs_eoi = pirq_check_eoi_map;
 
 ---
-base-commit: 7485659ecb81d5fce3a3edf2cae9fcb29c17b1cd
-change-id: 20261110-rtc-minute-alarm-1d8af9689d23
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260624-b4-xen-a1cd629ce9f4
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+--
+Sincerely yours,
+Mike.
 
