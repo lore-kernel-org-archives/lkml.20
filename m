@@ -1,44 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308115;
-	b=AKV1fLyj6DbpPYEegqC+G7m8vJcfwvvymc69ooGHjPRXV6eDpxOXskSYD8xYEpwTFWOh
-	 mT5pxAdgwXsaEgaxCKK1b7XkH9lTtDafSjMFso0A4aiSoEZSmMFXCWZRXoaM4XD6bfsGj
-	 QHOrj+RXx9JLtuWaxUE6vsulqmphnN7HyTU1t0UhVvd+kFPJ69khv21kPuzQB9puUL7TB
-	 3zGBCXFdjHQvtKDGZqZLyIYnE+3wL3J0rknKnaxCE65k1I0Dj97AdPJLVlTHf9ubR2+uG
-	 374G88lh9+RUcPb2KxKsATErnClm/okrLziYQ0kdNzMyvKSUo5vYVU0HInkAJhbIqTQ==
+	t=1794308121;
+	b=okW0guk/y53ER0Td4NNS5z5iaTb+LG8dlK252n7xX3701MnG2LTnHH0O56SO+QpoEdiN
+	 A3wmcm/VLU2G5A2W+uwNL1CXUNWWihjpEa5BPBIXPI3ig0tHx7JTN2LzFOML7R1Ag+den
+	 T6kjItwXcaKv/MUqq6EleeEWiW30p0xBknyuWpDiF7nTdDod0Lnyk/n04zOiGOonhtefP
+	 MkCUrJ4VE4/Qb2ntcIrgEA40pwSjniLnk/rp4YAjZSoFz3mDAT6gCUsmQOrqqjUc8toKq
+	 mRpLduLSbJl/t+tv7RFFE/a0x0gmThDiWR3xriNNKU322e/M80IWMHlSg0SYdqGb8wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308115;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=WxMxVqCanhe7Ngs86MSptXojYhzvFxvRax2Dii2VAMI=;
-	b=yg0EDBw8GNvBloJ/qHE0bmLdJ010/SZbeWaRXVneJzy3uGFDsRfM4jQDv+J33+tSxZTJ
-	 7OF40hrqhQdcrQniaXMUycTyTgaaldDITmiCSaKxPT0TGILDqBUsKZ0RsL81u3LpgqJqm
-	 wYiincrZLC4cY2df4t/OwTrR62AFi1Ln4vom93fuluOFStE3fT5D74Ba72oHmVMZs5sWZ
-	 JAYcHJ1YHjHWftnEPFM2BxbVQrx/P7YwiSkztRvG1X5Tvzi5mo664AUIGLbjHdp3yoTUX
-	 41IrcE2mybCKCaBmFWvFfp6q5+6RCWUZNCvZBMtG7QrS9G3BWfm9VYjBiBg/489jM4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zm0AvIJOmifRUI1enIfd/m/5IgggtCc9iLAPgeXHvVs=;
+	b=wDm2ltiPKK+ilNE2gvLA7hFt17r2uwI7TkeDDuEb36NoJ4W8wUvlx6iAUqrdLqr8D7i9
+	 CwGEIvWWT/wrs01uDSBtEnDVuoUfVGlvCd6UW059axUnTF5Jfu+oNSPKXP9jKL+lVr5Lu
+	 K5Tqwv2Ss/fVE8gFEhUlEguTcJwBaauFryBQO7+2w1MFOPppj/ke78cc0O6dcLtfm8Ctl
+	 tIss2xvZq7rcMSj77COO8oYbl5z9PTCvovkAGrrGVtxmVSJLWKj2EbzvP/9oP84/DU1NA
+	 M392S6dg0m4rINepaFVSFCSr39+ACowQT7RCXsFM+ut6quvH505sqPFeQnH3LVcVdmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=cGlrPuje;
-	arc=none smtp.remote-ip=103.209.128.222
-Received: from mail-m128222.netease.com (mail-m128222.netease.com [103.209.128.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M136hZAl;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8A560A2606
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8A560A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9375260A260F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:55:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9375260A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=cGlrPuje
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5428b394e;
-	Tue, 10 Nov 2026 18:55:02 +0800 (GMT+08:00)
-Message-ID: <2a2a1c1f-643e-4348-b4ae-503ed8ff54f4@rock-chips.com>
-Date: Tue, 10 Nov 2026 18:54:57 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M136hZAl
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3720addb068so3314397eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:55:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794308121; x=1794912921; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zm0AvIJOmifRUI1enIfd/m/5IgggtCc9iLAPgeXHvVs=;
+        b=M136hZAlbjy3s7YeZo1K7+86Ec8kn8yxcbu1/dOGL1CUN7tX534EL7MuqNB3LkbOQU
+         ZYV1mKhMazwV+tyVUu8xfIr7durTHTJSnf8L40VUlERTQ04eFnZXV1q31Fys5o02I8FL
+         ybyP0HuaJPZavSsEutaRWMOGTVGHQwi4ISjB+ahMZtFbbGiO98kllAmBh8f2rMSki7rT
+         UfKbfWeIvYEgsX5R8BHuiJ6fM4DCOAUT+4nqFlmYpbw1HMZ4thpTDQBlDJunkHghpmC2
+         s0X6fZ9dG2jcR602sAewdaELfL+gbRiCLz5vvNh/FjmhMqMyJFfTLiv8GK7zhNNx5sUi
+         jbdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794308121; x=1794912921;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zm0AvIJOmifRUI1enIfd/m/5IgggtCc9iLAPgeXHvVs=;
+        b=WjozX7076xpkmf4Xo8e7wiA1ClMAWO8jhP6PBV9f3DpXSW4Iy0KhN1jtQhqB1WYtRD
+         +DyXRavhsFG9SIXTXcBb9X4Yrg4MbR30mz5VZGzZVLmnwJuvQ3BgizWfzaivLjUcsY0p
+         B/IsilEKnzqNInhF24AIWlUeYKY0pJzCk/Fln3e8t7aPAiVw6yAyvMgk1FPduYs1zW7C
+         PjfsfGVmSYfsZZCVE41qRmtPtxaiJQW2iFu8XZgJw/+yp4Hssn80beNy2mk/2j6C1abe
+         YCz0/A9KFjRTuz1xq+n675wYbI4Xy6HzM3vfgAhoqogvb0juwDCH1tRevHRrlFBqymdh
+         GXlg==
+X-Forwarded-Encrypted: i=1; AL+hErFNx79fiYJMQD4ZxC9VcVppTcQmD/R61arhD5q7tprDCHcC3qCxiU9sbDBFDMxF0TnwkCq745sdjME1mV0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R6X+CfG9mxRyffYw8eRcGqTZPM5yqws5cOESpqdYyrMLfPCcM
+	EWG/gIuTgdtbYo+ZDYmuj3aaKDxqLLwk8orLassuG+Osppv0WlBTYlV0
+X-Gm-Gg: AYBFou2vXF6pzOW0tvoh16Mj8P2PvT5gipGtUcF1uMopYojfyiXOZQGHYGWC4aOUGuU
+	73xLaBrD4pRPBxRLFfw/nOljZi30GYQFCWN7C3phxCv/oyzwa/vSTgSoiLCYDKleazz4NqG8z5Y
+	MatDw7tJ8xo6UG+bDaZPYUyOgaXyh18UH49BV29XMBMLjmKBvUTDHO2Qt7AnY72rKdHr7J26unT
+	WUUfbAQ9hZ+IPiacich62aEeBpbkRj2RqT1+DZIAL4xe5h55xgnaPQe9qsXbLKojyHjfh857Iq/
+	7Pt9tDS9hOjTFr0zzQUEOCAZl2A0UFyAZoC8+/J6UWO8/tirsx3kRV6YRouhBgtWaQX+JEDscbT
+	BIsTbEb2lpvGyTwa+Fd/ivPiB9r411NXgUfril/+zVJsJ0fY+aA6u0qd1pZZuUM2CJXIet6FFaQ
+	lHV4K5NdDlq20+/jym2eNRaodfeelmnT3n6hTFb48nwv0NihEYcqrW7BEFU8Svv7EGk4AQllaw2
+	OGe61wwMPEmFzn5QMYyquUXj4pwIXEPmXeCohxhzbowSyjmH73T1zsdrROQAMXXGjp7bfHoPumQ
+	mRMjKRhp0PxMPJKf3BaCCDVJ6aHoc4HDn/kpHJY1Yk99pjs5
+X-Received: by 2002:a05:7300:d20d:b0:369:f9da:a70f with SMTP id 5a478bee46e88-37520120294mr3038993eec.17.1794308120201;
+        Tue, 10 Nov 2026 02:55:20 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060c4b6sm6358690eec.15.2026.11.10.02.55.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 02:55:19 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] intel_th: msu: drain the window-switch work on removal
+Date: Tue, 10 Nov 2026 19:55:11 +0900
+Message-ID: <20261110105511.2488300-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,231 +97,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] drm/rockchip: vop2: Report POST_BUF_EMPTY at most
- once per frame
-To: aiyengar1990@gmail.com
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
- <20261110-vop2-fixes-v1-5-d336e9dd90d3@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261110-vop2-fixes-v1-5-d336e9dd90d3@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1c518d91803a7kunmdf10dae7723114
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHh1PVhhKSEofQktOGR5PTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=cGlrPujeT9H3vYmO1lQ0mRWVFHUy06oljfmhyU+3qWQtMrWnhJKxDmp8DbFWRrJ9oKM01euCWetTugulvb5ENE0c7phW5Y0QjQysusVhRXezIz0O43U3v8RwVILExb5Ad9otj+gxmizQ4yK2x/iMX12di2sc2jNIk4vA6HEI8sc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=WxMxVqCanhe7Ngs86MSptXojYhzvFxvRax2Dii2VAMI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-Hi Arun,
+msc->work (msc_work) is scheduled from intel_th_msc_interrupt() when the
+next window is locked and the trace has to be stopped from process
+context; the handler dereferences msc and calls intel_th_msc_deactivate().
 
-On 11/10/2026 3:18 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> POST_BUF_EMPTY is raised for every line on which the post processing
-> stage of a video port finds no data. The interrupt handler only
-> rate-limits the error message and leaves the interrupt enabled, so an
-> underflowing video port keeps the CPU in the interrupt handler 50000 to
-> 300000 times per second, for as long as the configuration that causes
-> the underflow stays in place (e.g. 120000 interrupts per second for
-> 3840x2160@120 with two full screen layers on one AXI port).
-> 
-> Mask POST_BUF_EMPTY when it fires and unmask it at the next frame start.
-> The frame start (FS) interrupt is enabled for that frame even when
-> vblank reporting is off, and disabled again once POST_BUF_EMPTY is
-> re-armed. A new per video port lock serialises the interrupt enable
-> bookkeeping between the interrupt handler and the vblank callbacks.
-> The error is still reported, now at most once per frame and video port.
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 63 ++++++++++++++++++++++++++--
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 10 +++++
->  2 files changed, 70 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> index 9aeb90c6aa4b..3323e50224c5 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -841,6 +841,48 @@ static void vop2_crtc_disable_irq(struct vop2_video_port *vp, u32 irq)
->  	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id), irq << 16);
->  }
->  
-> +/*
-> + * POST_BUF_EMPTY is raised for every line the post processing stage finds
-> + * no data for, so an underflowing video port can raise it 100000 times per
-> + * second. Report it at most once per frame: mask it when it fires and
-> + * unmask it at the next frame start, using the FS interrupt even when
-> + * vblank reporting is off.
-> + */
-> +static void vop2_crtc_enable_post_buf_empty_irq(struct vop2_video_port *vp)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&vp->irq_lock, flags);
-> +	vp->post_buf_empty_masked = false;
-> +	vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
-> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
-> +}
-> +
-> +static void vop2_crtc_handle_post_buf_empty(struct vop2_video_port *vp)
-> +{
-> +	struct vop2 *vop2 = vp->vop2;
-> +
-> +	spin_lock(&vp->irq_lock);
-> +	vop2_crtc_disable_irq(vp, VP_INT_POST_BUF_EMPTY);
-> +	vp->post_buf_empty_masked = true;
-> +	/* don't clear a pending FS, it may carry a vblank event */
-> +	vop2_writel(vop2, RK3568_VP_INT_EN(vp->id),
-> +		    VP_INT_FS_FIELD << 16 | VP_INT_FS_FIELD);
+msc is allocated with devm_kzalloc(), so devres frees it after
+intel_th_msc_remove() returns. remove() deactivates the trace (so no new
+work is queued) but never drains a msc->work that the interrupt has
+already queued. That pending work can then run after msc has been freed
+and dereference freed memory (msc->buf_mutex) -- a use-after-free.
 
-Do we really need this? Disabling the POST_BUF_EMPTY IRQ should not
-affect the FS_FIELD IRQ, because this register has write mask.
+Cancel the work in intel_th_msc_remove(), after the trace is deactivated
+so it cannot be re-queued, before the device is torn down.
 
+Found by static analysis; not runtime-reproduced (needs an Intel Trace Hub
+with the MSU in stop-on-full mode and a window-full interrupt racing
+removal).
 
-> +	spin_unlock(&vp->irq_lock);
-> +}
-> +
-> +static void vop2_crtc_rearm_post_buf_empty(struct vop2_video_port *vp)
-> +{
-> +	spin_lock(&vp->irq_lock);
-> +	if (vp->post_buf_empty_masked) {
-> +		vp->post_buf_empty_masked = false;
-> +		vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
-> +		if (!vp->vblank_enabled)
-> +			vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
-> +	}
-> +	spin_unlock(&vp->irq_lock);
-> +}
-> +
->  static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
->  {
->  	int ret;
-> @@ -1668,8 +1710,12 @@ static const struct drm_plane_funcs vop2_plane_funcs = {
->  static int vop2_crtc_enable_vblank(struct drm_crtc *crtc)
->  {
->  	struct vop2_video_port *vp = to_vop2_video_port(crtc);
-> +	unsigned long flags;
->  
-> +	spin_lock_irqsave(&vp->irq_lock, flags);
-> +	vp->vblank_enabled = true;
->  	vop2_crtc_enable_irq(vp, VP_INT_FS_FIELD);
-> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
->  
->  	return 0;
->  }
-> @@ -1677,8 +1723,13 @@ static int vop2_crtc_enable_vblank(struct drm_crtc *crtc)
->  static void vop2_crtc_disable_vblank(struct drm_crtc *crtc)
->  {
->  	struct vop2_video_port *vp = to_vop2_video_port(crtc);
-> +	unsigned long flags;
->  
-> -	vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
-> +	spin_lock_irqsave(&vp->irq_lock, flags);
-> +	vp->vblank_enabled = false;
-> +	if (!vp->post_buf_empty_masked)
-> +		vop2_crtc_disable_irq(vp, VP_INT_FS_FIELD);
-> +	spin_unlock_irqrestore(&vp->irq_lock, flags);
->  }
->  
->  static enum drm_mode_status vop2_crtc_mode_valid(struct drm_crtc *crtc,
-> @@ -1977,7 +2028,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
->  
->  	vcstate->yuv_overlay = is_yuv_output(vcstate->bus_format);
->  
-> -	vop2_crtc_enable_irq(vp, VP_INT_POST_BUF_EMPTY);
-> +	vop2_crtc_enable_post_buf_empty_irq(vp);
->  
->  	polflags = 0;
->  	if (vcstate->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
-> @@ -2535,6 +2586,7 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
->  	}
->  
->  	if (irqs & VP_INT_FS_FIELD) {
-> +		vop2_crtc_rearm_post_buf_empty(vp);
->  		drm_crtc_handle_vblank(crtc);
->  		spin_lock(&crtc->dev->event_lock);
->  		if (vp->event) {
-> @@ -2552,6 +2604,7 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
->  	}
->  
->  	if (irqs & VP_INT_POST_BUF_EMPTY) {
-> +		vop2_crtc_handle_post_buf_empty(vp);
->  		drm_err_ratelimited(vop2->drm, "POST_BUF_EMPTY irq err at vp%d\n", vp->id);
->  		ret = IRQ_HANDLED;
->  	}
-> @@ -2591,6 +2644,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
->  			}
->  
->  			if (irqs & VP_INT_FS_FIELD) {
-> +				vop2_crtc_rearm_post_buf_empty(vp);
->  				drm_crtc_handle_vblank(crtc);
->  				spin_lock(&crtc->dev->event_lock);
->  				if (vp->event) {
-> @@ -2608,6 +2662,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
->  			}
->  
->  			if (irqs & VP_INT_POST_BUF_EMPTY) {
-> +				vop2_crtc_handle_post_buf_empty(vp);
->  				drm_err_ratelimited(vop2->drm,
->  						    "POST_BUF_EMPTY irq err at vp%d\n",
->  						    vp->id);
-> @@ -2984,7 +3039,7 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
->  	struct vop2 *vop2;
->  	struct resource *res;
->  	size_t alloc_size;
-> -	int ret;
-> +	int ret, i;
->  
->  	vop2_data = of_device_get_match_data(dev);
->  	if (!vop2_data)
-> @@ -3102,6 +3157,8 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
->  	mutex_init(&vop2->vop2_lock);
->  	mutex_init(&vop2->ovl_lock);
->  	spin_lock_init(&vop2->axi_lock);
-> +	for (i = 0; i < ARRAY_SIZE(vop2->vps); i++)
-> +		spin_lock_init(&vop2->vps[i].irq_lock);
->  
->  	ret = devm_request_irq(dev, vop2->irq, vop2_isr, IRQF_SHARED, dev_name(dev), vop2);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> index f1e35967e67f..7de32bef8d7b 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> @@ -272,6 +272,16 @@ struct vop2_video_port {
->  	struct drm_pending_vblank_event *event;
->  
->  	unsigned int nlayers;
-> +
-> +	/** @irq_lock: protects @vblank_enabled and @post_buf_empty_masked */
-> +	spinlock_t irq_lock;
-> +	/** @vblank_enabled: the FS interrupt is enabled for vblank reporting */
-> +	bool vblank_enabled;
-> +	/**
-> +	 * @post_buf_empty_masked: POST_BUF_EMPTY is masked until the next
-> +	 * frame start
-> +	 */
-> +	bool post_buf_empty_masked;
->  };
->  
->  /**
-> 
+Fixes: 615c164da0eb ("intel_th: msu: Introduce buffer interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/hwtracing/intel_th/msu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
--- 
-Best, 
-Chaoyi
+diff --git a/drivers/hwtracing/intel_th/msu.c b/drivers/hwtracing/intel_th/msu.c
+index 84d99d7..902e7d2 100644
+--- a/drivers/hwtracing/intel_th/msu.c
++++ b/drivers/hwtracing/intel_th/msu.c
+@@ -2174,6 +2174,14 @@ static void intel_th_msc_remove(struct intel_th_device *thdev)
+ 	intel_th_msc_deactivate(thdev);
 
+ 	/*
++	 * msc->work (msc_work) is scheduled from the window-switch interrupt
++	 * when stop_on_full is set and dereferences msc; deactivate has stopped
++	 * the trace so no new work is queued, drain a pending one before the
++	 * devm-allocated msc is freed.
++	 */
++	cancel_work_sync(&msc->work);
++
++	/*
+ 	 * Buffers should not be used at this point except if the
+ 	 * output character device is still open and the parent
+ 	 * device gets detached from its bus, which is a FIXME.
+--
+2.43.0
