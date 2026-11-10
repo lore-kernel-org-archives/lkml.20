@@ -1,100 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284606;
-	b=NvXBgKEIEhgG7W1Hbaz1QUOO0Aaqz9C6u0HPif0KMsYW6OpTAa78+XkddzXRO77pjJ1S
-	 aPV3zzWpbELaWnaYiN9TRwKUlJ48G0Px0QNeD2Vt0+q80aVrfOQcg+gqXK5E94e1Bvooa
-	 EF0CIwA9C+Cv43UEqveyI3URgVClrnRA8FhSFL1Ys4bow3cRAlZ8A2/JPp0gpFioEsVgD
-	 4PH+iwtpjc52HV8aY5W+j32XvJPgwL16QDVpssD12w9/eb0JVyA0ZiEW4OPssc9JCMIq1
-	 NhAggEIlevU27N0F+iVbIw/mG4Fp9HAgzkFBstV2tiYA6bOfZryuy0Bim6w6JssGXCQ==
+	t=1794284654;
+	b=Nu7hqW70apJFGrs9V12LtOWWv2A57y7t/IFTTlyIhfOnW8WPH5NAOgOypiNCLnOH5PeT
+	 l4hy9hjtUyILuhzU3TkuY26bOfVn3UD9TIEt2f/F8gS/LMDP1fJjLzuGBMCtGtu50MVJu
+	 nf8VD3c6xXjYyi8SdzN1wbXUHxXH5kJ37JRw/hhhnx+xoQessz6hwAKJFB/+bopj/kCvL
+	 6ia7vU1I34SpgaFaxdb9zSTN1AnTjrG329vGB4crkhrWFerPtVzx2fGDMpHDtN8cMJsF4
+	 9WPh1u70uB+O5a+7geOPKvnaodVS67GmqTxtfTUtgakuVEbytRUZRufznL9MOI+T36A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284654;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3KmBFIU1iR/HTXXXArEC7zokn13fH3rMiHXgEuMLclw=;
-	b=a9qmb5ZsOonk6ar8pJPhBavrXbwaP1Ry16FC0VoWz4gLzRpUHEhASv18gno7Ri7Zkf6V
-	 F/68gLbTaVqqtMO93Wc4tC+lhn662MlNJfQ8C2M7N7uGviYgA2WmAisxg5L+eEhPUfpPX
-	 A33ujhuH1o30yho/Cckl08v2Eq4Od+/wCHQWq3+4U39pWT/WzJtkS5qr1yKq2PQvWFAav
-	 L8UXD4DjWutiuc9/Im0AH7KwAkVhj7FxrbAFWIhXSWTZNPWdSOsS/eF8cN3MZH5nFt366
-	 5P5SLPrqOqpqAOViA69XS7C8CcjyM3D2/wujbTGslx5OTRzez242u58zq734hKSEhmA==
+	bh=KtQ7MYeLVAuI+S3wrzryY9ksbyCrYV9o4wIQkIktrO4=;
+	b=MzA6pByFBMigvyy2NvG7zHAPcjDNp0aeG09kMARdFaAGTewtTUAIAcj2IGTDdd+cJv4/
+	 Nlk948LWY4YwtFYSoxCWExKngX3yA+YnZx/DmvvsWQ5GpJYmfnNjX1bUzEb3bh6jDApNx
+	 2vNRXwlWF5p/THrbKqQaV6tghjymb3FGEwQMYz3NTg2bncN349Z2uxM4Ltf6hUJZ8QX7v
+	 5AvuhPQnH2RZd8F89iKv7WEr2btawJ2nm3ZvNOVjpRBZkbxrnSJFNKMSfQahQopwSZJYb
+	 lHAHkomhle9rxfFpzkd1ViFaHrwMC3ASRD20Xdf4zMGTt8B9Od33IdN6Lh25aw/1vsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=amxcvFZ+;
-	arc=none smtp.remote-ip=209.85.222.171
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	dmarc=none header.from=jclark.com;
+	spf=pass smtp.mailfrom=jclark.com;
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=h9I8bgys;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E68606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E68606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9CF606BB00
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A9CF606BB00
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=amxcvFZ+
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f20c3aaa5so144649685a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:23:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=h9I8bgys
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-372bdb942dbso2198023eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:24:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284605; x=1794889405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3KmBFIU1iR/HTXXXArEC7zokn13fH3rMiHXgEuMLclw=;
-        b=amxcvFZ+yYIuOdKwkN2xnglpeYEzUceWfDk0sXsZWfi4Tgk7U4Y94J3BirlGkoodk3
-         OtCVY1xD8ZejCQa6T+WtTSvOumR0yx4AAtVRwQavvTt9lPcJZFd626jGe9T9K3jDIO6X
-         nFYv7dEA/yLCQ1KmdI/l/LAiriaD1Lu32bzp6okQ04iviXkMxdD8T5MNhThcf/l8Fg1s
-         RjTYJWw5RItGLOXnfHwgS10cpdTUMMHWL5i4YLb2dpZqfuxehsMhb7AAYfekCrl/tFT0
-         GpzD8rTfE48nQr6X5i2whvkK52jnEHJH/rsJErtDeMAeIJ/S/aRYLL4UPG919liPLVw5
-         b/ng==
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1794284652; x=1794889452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KtQ7MYeLVAuI+S3wrzryY9ksbyCrYV9o4wIQkIktrO4=;
+        b=h9I8bgysoRZzEi6t8lGPtPIabGW/3UTAJ0n/QkNhXiqoivFsAFS1YplzBF1jBvdUyx
+         zPoGIa+DiMCVE5K8EOZiy3O10CLCiKvZFZhrxoxfPRQcgTTsZG8zOn/miUQf3pDAYlYQ
+         fWies2/r+vXax4gGGrS/rRRBouQNbMDe6ZoEKOXdUA4zZzUEUQ5xLlVh6F2f804fKzWW
+         kuBQhi8+J6dxpzeqwuZ7CNZIZA0UPEJkcjoY08+vJy3PcL7ZVtJhtP3y5FDWgYWyPJh6
+         566ZqNJQwshB2u35fhs3OiJBUhxK2YHgO6VcqlWyIbVwacOPNt1dNFw19ueLdS5cTQ7V
+         sWXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284605; x=1794889405;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3KmBFIU1iR/HTXXXArEC7zokn13fH3rMiHXgEuMLclw=;
-        b=UE0++mPU7K50HksheTQ3tnnoCZ1LDphhyQPXSjGV0RjDV0FeUYXYwoLDZe7ERHO0pj
-         yUPDD1Tq2JekeJnSXcxLz+n6HBacbUnL3rhhoBYr5ZJhUA2krJ4eO/IENVdldAWn0vJ2
-         +lH32bWiuETUnYHFavR6Gc8vC1u5Rws2RBpxpTpXVucOWYRf415SfNJ4fchY/m1GBn+a
-         92BzC/ka1QdAztaA7niRfi7sP72z3OCPjdS0VozQ2/8niQHmKKoFX+iv5931pWA0qFDx
-         EO+ATlRR3umBSHjQN0hTJ77F+8IXVx8mLKD7NWoP4B9rYDldIm8SPn6rH5uIn8d64BFL
-         ZfxA==
-X-Forwarded-Encrypted: i=1; AL+hErG5e3LiPUSiKRFkQqavZ1DtpBQhxWe9Sd3FEHwikqNHutoZrkoeGfIOaCH/tzg2PXOTR2XC+zHiOQbjYZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y50hmsDTb+KR1vGHb2NAsosUybIPBYLt2llWR/Gp7mtCCH51+
-	TWKA3W8wk73Mo2B22OY323ovPevsad29hUBJVjW8Oqthr9Jdhy+FL2M=
-X-Gm-Gg: AYBFou349PH4KQRifpeu3sxazBtQxqETdJRelagTDPipyILishD+ur4j73mNPJwQShb
-	d6mf1mOsY0YsQKU8m2SaZZFxu5jM+3xFXr8Wrnb9a8te9QOmuqpyiXt/dmYJaTDzD+r+760YxLh
-	JfgegWjNiBOeqBVHh576XzoAEEBkyHCDpfN5bsD9tHA/K2/OVbjFZ4da/D8Pu3tKqLPovdMJ5E3
-	3FCaef4lfUGFu5RteAmYH17M2Ob/l3xc+5rBsJBQVlcipli+42jf6OA1yr8TlMqNOJUbgpGE5WF
-	x3fkynCgJZRosEEZRVEsYBYQ1CFlZ8AP8oc83qaC4qPWso3cVNVNhB72sde+3QopZhhhyBsBjWb
-	UluCpcBYwZo/9QVP7AHB2w6geuN9vWXXoSt6TWKVgExyKPaGM421PZcZhCWBWbuSuMhrhuxmVuv
-	4+EHQoY0KX86ythwX3eN6WiNrJ9hCe46bnwTYkuHL3vLk03RHAWQWwkhJO1jBmk44nnm5DuSYPa
-	eC6v+AfllOm1iPgK46M/ewUegVz4mr72wYD5X8/nw5upt2rAqfwS1uJUZnOxmGIlcunlJPGO0ns
-	Aok9yan0WSH577lYarrCzotvaHBNqkSDCZcAMA+ywRqYlLfbm95k8KaaZJYKzGzMtDlBrRiANAh
-	iMovd1o8sphx67dDGIoPJVXqR69nE04Wp0M2WK2win2N+p0qjhvPomgfAUZ7YXec6
-X-Received: by 2002:a05:620a:28d6:b0:93f:35fc:5253 with SMTP id af79cd13be357-9479f34274fmr240626485a.31.1794284604776;
-        Mon, 09 Nov 2026 20:23:24 -0800 (PST)
-Received: from localhost.localdomain ([104.39.152.7])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e61b8f8sm136682085a.1.2026.11.09.20.23.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 20:23:24 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-sound@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1794284652; x=1794889452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KtQ7MYeLVAuI+S3wrzryY9ksbyCrYV9o4wIQkIktrO4=;
+        b=E5VlVapOJo9MgbGnHjUAizkEAYmBpGiVp4yDaMqqE0QLKz1KNhjpbCIbBNZ5zpOJaA
+         wirB15k2xhdDTNg44Z5Cc1+prPWTcB0mosMHYUidyiPceIomvmffmJJwmoQKgwrTkp2n
+         xaV/IRUNO6BXMSg8kK68S/wJHN4gsUCqMbKIY/XX6cfL2xa2CmF3/8ex8S34ckj4+lbt
+         cMmwvpxAXndUrGnCrXARJf/apeEjZgBBwptIrIDQ5Ft5gjmEBB2afbFnOmViNm/uFhx4
+         79gklvt9ncFlkHaCgDdlGsSyj5kZ65bpaGkjNQsNNRTFivdkom2mCIIazn/EKJIqFn5b
+         TPug==
+X-Forwarded-Encrypted: i=1; AL+hErGJpvyNWTlHxmSa4uRISQHLK6NFIu2+YUYiclG2kNMo8K0iYstI89wN47higRD0xdmapcojDBZBaVk6SOQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cTu2hnQf2tkGYwcs71uRvkYnCpdbkX5sKgkwgoMiuB0KtjZYr
+	4P5FW1JHKv11aw2kEJSK2DurJC/RHrT7nVtmOCzuOSs69Zs7ZEd3hy2lad3EsuuIKw==
+X-Gm-Gg: AYBFou02130VtmVtbWMvhygQ7PFBniyTdzZ6geIUnUnsOmvWzNBzvhf7K6uT/Lz8cNg
+	+xvW0sQk2fQX8dJV64A/rCIr9qPZt5syxibPMLfSLG7gHFb4nfOWgArkjo2WWTOwSBXw+5Gn/fY
+	ltwfkN+HR/QK/VdulCiheArLWayRFUVm7VT7bmbYufrLh5z3dVkH4ap6xoZMU5MDbNJWhqy6nT8
+	UU0S61bHwU2kdZDNjQYEirHvUY1lYJGCWU5yh16ddpVhf6ZVUPQUSJyUu3oXpUZy4yxSbQbd2AC
+	99T47/QwIf77ANwZpl7xTN1td5zZ+DBwZ6Md24Nr/F3i1GuMcBGymatIPEUA+/ReqPwLLKGUe5i
+	aMstahzqhBCKqcwEX/pFe0DABXyEwqgs1jxxR6WduLkpenoYLtH7CzSQfs6Fk+BFaRq/vJ4a3Tm
+	ln5yRW1N9SFFn5iQeyml2aPJoF+DJpiDLsaN89F8zknCGyugsrgRVC9YgS6YoattfRULRR2+7KW
+	IhKuQsO20ivwxjwY6oiMbbjm8ckK4jLbuqRp3BamLcYe0HOXSLSBuQFL6a1FTdAHAsReQOQlCYq
+	RqRvr3afcrcErruyYzD2ITBi4m4Tj2j67lgNDV6d2dukDBiwvZO6iZ5o1UhrsW/mB2a8s7qXmL7
+	RKwnx3GWQMJX4O+tR
+X-Received: by 2002:a05:7300:fe43:b0:360:d4c5:7243 with SMTP id 5a478bee46e88-3751ee7bee3mr1721070eec.11.1794284652163;
+        Mon, 09 Nov 2026 20:24:12 -0800 (PST)
+Received: from cantal.lan ([58.136.75.91])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe32276sm3116950eec.8.2026.11.09.20.24.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 20:24:11 -0800 (PST)
+From: James Clark <jjc@jclark.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>
+Cc: Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Rahul Sharma <r-sharma3@ti.com>,
+	Robert Nelson <robertcnelson@gmail.com>,
+	Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Chintan Vankar <c-vankar@ti.com>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2] ASoC: mediatek: mt2701: initialize IRQ dependencies before requesting it
-Date: Mon,  9 Nov 2026 23:23:21 -0500
-Message-ID: <179428456134.51374.1588994696516825613.mt2701-v2@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH net-next 0/3] net: ethernet: ti: am65-cpts: add PTP_SYS_OFFSET_PRECISE support
+Date: Tue, 10 Nov 2026 11:24:00 +0700
+Message-ID: <cover.1794284248.git.jjc@jclark.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,106 +117,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The ASYS IRQ is registered before the regmap, memif arrays and clocks
-are initialized. It also remains registered while remove and probe
-unwind disable those clocks, allowing the handler to run without its
-dependencies.
+This series adds PTP_SYS_OFFSET_PRECISE to the CPTS driver for TI K3
+SoCs. This brings a similar hardware-supported level of precision to the
+transfer of time from the PHC to the system clock as already exists for
+the transfer of time into the PHC, whether over the network using
+hardware timestamping of packets, or from a GNSS receiver using hardware
+timestamping of its PPS signal.
 
-Request the IRQ after initializing handler state and successfully
-resuming the device. Release it before PM and clock teardown on component
-registration failure and remove. Check runtime resume errors and avoid
-running clock cleanup twice if the manual resume path has already
-unwound a failed clock enable.
+The system counter of these SoCs, the Global Timebase Counter (GTC), can
+export one of its bits on a push event output. The Time Sync Router can
+route that output to a CPTS hardware timestamp input. The CPTS then
+timestamps edges that fall at known counter values, so each timestamp
+gives an exact pair of PHC time and system counter value. This is
+similar to the PCIe PTM integration on these SoCs, where a selected bit
+of the PTM timer drives a push input of the PCIe CPTS.
 
-This issue was found by our static analysis tool under development.
+Patch 1 adds a syscon compatible for the GTC register frame that selects
+the bit. Patch 2 adds a ti,gtc-push property to the CPTS binding, which
+names that syscon and the CPTS input. Patch 3 implements getcrosststamp.
 
-Fixes: 43a6a7e71063 ("ASoC: mediatek: add mt2701 platform driver implementation.")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-No hardware testing.
+The series does not set up the Time Sync Router. Mainline has no binding
+for it on the J722S, so for now a board overlay sets the route, as it
+does for ti,pps. With Rahul Sharma's proposed binding for the router
+[1], the CPTS node could select the route itself. ti,gtc-push would stay
+the same.
 
-Changes in v2:
-- Rebase onto current code.
-- Replace devres actions with explicit IRQ release.
-- Check resume errors and preserve CONFIG_PM-disabled unwind.
+Tested on a BeagleY-AI (AM67A / J722S), a BeagleBone AI-64 (TDA4VM /
+J721E) and a BeaglePlay (AM625).
 
- sound/soc/mediatek/mt2701/mt2701-afe-pcm.c |   27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+With this series, phc2sys steering the system clock from a free-running
+PHC sees an offset that never varies by more than 1ns, whether idle or
+under memory load. Since the PHC and the system counter run from the
+same oscillator, this is the noise of PTP_SYS_OFFSET_PRECISE itself.
+Without this series, phc2sys falls back to PTP_SYS_OFFSET_EXTENDED and
+the offset has a standard deviation of 2.5 to 10ns when idle and 22 to
+31ns under load, with excursions of up to 200ns.
 
-diff --git a/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c b/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
-index 3c5a76591..4054083e3 100644
---- a/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
-+++ b/sound/soc/mediatek/mt2701/mt2701-afe-pcm.c
-@@ -1620,11 +1620,6 @@ static int mt2701_afe_pcm_dev_probe(struct platform_device *pdev)
- 	if (irq_id < 0)
- 		return irq_id;
- 
--	ret = devm_request_irq(dev, irq_id, mt2701_asys_isr,
--			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
--	if (ret)
--		return ret;
--
- 	afe->regmap = syscon_node_to_regmap(dev->parent->of_node);
- 	if (IS_ERR(afe->regmap)) {
- 		dev_err(dev, "could not get regmap from parent\n");
-@@ -1684,15 +1679,22 @@ static int mt2701_afe_pcm_dev_probe(struct platform_device *pdev)
- 	if (!pm_runtime_enabled(dev)) {
- 		ret = mt2701_afe_runtime_resume(dev);
- 		if (ret)
--			goto err_pm_disable;
-+			return ret;
- 	}
--	pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret < 0)
-+		goto err_pm_disable;
-+
-+	ret = devm_request_irq(dev, irq_id, mt2701_asys_isr,
-+			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
-+	if (ret)
-+		goto err_platform;
- 
- 	ret = devm_snd_soc_register_component(&pdev->dev, &mtk_afe_pcm_platform,
- 					      NULL, 0);
- 	if (ret) {
- 		dev_warn(dev, "err_platform\n");
--		goto err_platform;
-+		goto err_free_irq;
- 	}
- 
- 	ret = devm_snd_soc_register_component(&pdev->dev,
-@@ -1701,21 +1703,28 @@ static int mt2701_afe_pcm_dev_probe(struct platform_device *pdev)
- 					 ARRAY_SIZE(mt2701_afe_pcm_dais));
- 	if (ret) {
- 		dev_warn(dev, "err_dai_component\n");
--		goto err_platform;
-+		goto err_free_irq;
- 	}
- 
- 	return 0;
- 
-+err_free_irq:
-+	devm_free_irq(dev, irq_id, afe);
- err_platform:
- 	pm_runtime_put_sync(dev);
- err_pm_disable:
- 	pm_runtime_disable(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		mt2701_afe_runtime_suspend(dev);
- 
- 	return ret;
- }
- 
- static void mt2701_afe_pcm_dev_remove(struct platform_device *pdev)
- {
-+	struct mtk_base_afe *afe = platform_get_drvdata(pdev);
-+
-+	devm_free_irq(&pdev->dev, platform_get_irq_byname(pdev, "asys"), afe);
- 	pm_runtime_put_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
+When the PHC is disciplined (by ptp4l or ts2phc, to within 4 to 7ns rms
+of its reference), the offset seen by phc2sys with this series has a
+standard deviation of 2 to 5ns, whether idle or under memory load.
+Without this series, it has a standard deviation of 5 to 12ns when idle
+and 22 to 29ns under load, again with excursions of up to 200ns.
+
+PTP_SYS_OFFSET_PRECISE has a fixed bias, the capture delay of the push
+event through the Time Sync Router and the CPTS input (about 11ns, plus
+an undocumented delay in the GTC), which did not measurably change under
+any load or CPU clock. This series does not correct for this bias. The
+driver similarly does not correct for timestamping delay on extts
+inputs, nor for ingress/egress latency in hardware timestamping of
+packets. It turns out that the bias in PTP_SYS_OFFSET_PRECISE and the
+delay in extts timestamping largely cancel each other out. The offset of
+PTP_SYS_OFFSET_EXTENDED relative to PTP_SYS_OFFSET_PRECISE is about
+-50ns when idle, and moves by up to 40ns with memory load and by up to
+60ns with CPU clock frequency.
+
+The implementation was also stress tested by using ntpperf to load the
+CPTS (-D 0 -M at 15,000/s and -N 0 at 5,000/s). No errors or wrong pairs
+were seen.
+
+To try it on a BeagleY-AI, apply this overlay:
+
+	// SPDX-License-Identifier: GPL-2.0-only OR MIT
+	/dts-v1/;
+	/plugin/;
+
+	&{/} {
+		#address-cells = <2>;
+		#size-cells = <2>;
+
+		wkup_gtc: syscon@a80000 {
+			compatible = "ti,am654-gtc", "syscon";
+			reg = <0x0 0xa80000 0x0 0x400>;
+		};
+	};
+
+	&cbass_main {
+		#address-cells = <2>;
+		#size-cells = <2>;
+
+		timesync_router: pinctrl@a40000 {
+			compatible = "pinctrl-single";
+			reg = <0x0 0xa40000 0x0 0x400>;
+			#pinctrl-cells = <1>;
+			pinctrl-single,register-width = <32>;
+			pinctrl-single,function-mask = <0x000107ff>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&gtc_push_route>;
+
+			gtc_push_route: gtc-push-route {
+				/* input 11 (GTC push event) -> output 14 (CPTS HW5_TS_PUSH) */
+				pinctrl-single,pins = <0x3c 0x1000b>;
+			};
+		};
+	};
+
+	&{/bus@f0000/ethernet@8000000/cpts@3d000} {
+		ti,gtc-push = <&wkup_gtc 4>;
+	};
+
+I used an LLM coding assistant to help prepare this series.
+
+[1] https://lore.kernel.org/all/20260828100615.1700223-1-r-sharma3@ti.com/
+
+James Clark (3):
+  dt-bindings: mfd: syscon: add ti,am654-gtc
+  dt-bindings: net: ti,k3-am654-cpts: add ti,gtc-push
+  net: ethernet: ti: am65-cpts: implement PTP_SYS_OFFSET_PRECISE
+
+ .../devicetree/bindings/mfd/syscon.yaml       |   1 +
+ .../bindings/net/ti,k3-am654-cpts.yaml        |  17 ++
+ drivers/net/ethernet/ti/am65-cpts.c           | 289 ++++++++++++++++++
+ 3 files changed, 307 insertions(+)
+
+
+base-commit: fa5196392691051963726787944db872420dfa75
+-- 
+2.56.0
+
