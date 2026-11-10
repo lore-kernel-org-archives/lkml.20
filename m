@@ -1,105 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285103;
-	b=QIk2AEd+8/1U2qoxIeZy69uLQVduzjnRDeo6Yin36zhsJd+IAJ6pduqvtUq5ammQFkut
-	 1tTKvZShhWaJ0K5xRvxoFcCvQPEUgyDGNNhetGPXVIDP6mL1WPBoD7qhya51wLuLTW4L1
-	 SuIRu+HzuTBtobMtth0I9c5cV/uS0SWIUv2qMFpHhp6OepsyjsGbxynV9087j/keoe8yi
-	 avLp/miEl8apgfzLt7pe4PF7ltxtdBWiSZsjYIBGRLkalT/ShoU6tn3rclY2wrlpE7Dbx
-	 MsBi4eq8/QFkDwm1SgJeaHC4Ns4HZhTCdsanad10kJcCp/jKJJL5u3w3HhQyM335bZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285103;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RwxD/kp0MCQ652BLhqihyWShn3kE3wujbUgCK3EzeE4=;
-	b=Xj9hrRMKFerxEzjeFfAgLfa3Itzg45De5zfARcLwm+HfEgqXwvR44OVzeWawJHSt0Kou
-	 JfXD172QgayNum1iaWvMjb0h2Lz+JlNSGP5j8DHNAmrac6PAzwfwSFHVDO2ExaM9rddta
-	 S7LZsXrOTdcZZhvXlm6z6xcB71YKAwAz6l/m7CGAMiTCqwtt34kZ6ngNFjzaWIcGrPhPt
-	 LoYmYSFs1CzHHdSr0K0NVfFGexK23QHsjh1u36ibRRUXXlUkPBHncgsfFVJYYlz7cvfch
-	 ciY5FtVVTiV7tOB8Kllik5dxZszSCmEI7d5fcg8lkuF9fzGOl3K5uB+GgMXZm7UfE7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jBDLkMGE;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794285167;
+	b=P5TcUdnhFRypWFSP4ak3xgpMs1+NOjoIVD1FizkD2hBH4z8TKGWqUkRheEfGoVSJRWWT
+	 SmXCSqwwHG2qF3hvJdq58HkGM3e3jH0poXDGMkZzxeU43DrdiZgI0e06pkvezXeGxRePT
+	 KlSk4HwaKdpNMvcup/upSk+vseLihwvlwvdfkNEuPm7zpe70O3Pus81QXfVC1ft8Qon8U
+	 H7a+cq953A6Un0TasijKZ04par2GdmDRSQW+Vr+DoUmEp5Kh9hykaT/O0L2SZz94s26jM
+	 KqDsIzKMlXLaH5zvCoM1wWR8W4mUGSX4M/gPMv3Z6xS73D7a0Xodu91biFMIO95c26g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285167;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LAR7UG07ENN+2lb2kJivg6c45tgcctR261e0OwsJsJo=;
+	b=nuW2BrIjMp3zoEzaT/qHfUx7S3UTSiNxuWdgYvKXSTv/QZMcci8Qa5E24Nb5Jbld27/q
+	 latbsaw/Er28StwlRXfwjiT57wp9Nqn7r4DaYcOcX9R49uQh9tvojmwRladOxHDitwG/t
+	 J95fgOBLLKOP1IFepY+Lyhm5cKFsAVNqpykNGLt6ajc/m6/HUjTAWY74nYDtLRSWHdOks
+	 4l2DRhK/hWINkj8V3jfr7XpPRFafjxtG+KqOHGBVk8pTh8e+sxrHY3wTlZMKHwru5ibQQ
+	 qhlyFxEQR0kFVxr483+g5KGp9n0kf1L+5gbZb1wccTxYGUS8KBvZvFytE65+iDSfKcw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgnXt6gl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416C8606A336;
+	Tue, 10 Nov 2026 04:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgnXt6gl
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794285166;
+	b=Z378CStSMwTIZc/P5aYbQsazLh9BRp4b+nLORvtNB/A+2BIX0s+6BYX8uk2SL1Qidab2
+	 0xfCocerkydMUpNC2MzAHq/MuE5idmC0mnnebMVI5jC/7ziGV2bAKO6obkWVvhKwAPF25
+	 WvQs56fmnVrX3BzKauAKlDZxPdyivI80lBWJFGyfJxAdszrfV2ahBECEdckTqterV2W4/
+	 F1xSCnlwBg8HGS1RnvfK+zbJnbScggbkf9DQv/VzL8N7U2UipcEuebisrnDGrNIIW4M+m
+	 cvAl3GliVdwTJPSDNhiNcviI24rXHbcoo10+0VQgPqbC3GnTwVU73Ku1bhfc8QJuGUA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794285166;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LAR7UG07ENN+2lb2kJivg6c45tgcctR261e0OwsJsJo=;
+	b=DpAQ+Aa8Ac2U1Dvy/Cu2/IPlfaMlIbH7V3zuSnwSwyhbMtsJEst68eCWAJLbBKdNBy1u
+	 HzQrQrAqYO5xpSS49mjKqW7LLVRTkX0HYdQ0xuaTY4whwxWIEdY8jfQaax+apNoX4CEGN
+	 sTDs6AwhC9vdIaomIY2vzjjrGaK8HRGNpYLpE3a0CdEgf5Tlv32CaEdAcI9mYADaHr2xl
+	 nVMfWUkOaYRFDrzZUwCG1p0Qz+rhuF9Fq7pWhjT60VFp2OHBwEN/A2ubWVs8I6eninOpB
+	 dCTmVZAitdErkK5Q0UnzaGjy5h1Q56XvuSNmpP/z9lk0n7W8Yf65Z9rHbha0ziBanig==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD58D60A2614
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:31:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD58D60A2614
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jBDLkMGE
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-37000e7234bso2523616eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:31:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794285102; x=1794889902; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RwxD/kp0MCQ652BLhqihyWShn3kE3wujbUgCK3EzeE4=;
-        b=jBDLkMGEiDBhFC1CIgcwJTC7ITQrTgcQC8+F6btEqq9jzX4wL++sytXmcrTwqjF7rw
-         G5KsbbSO2RB39VxpEb8ngouHVGGpf1BFFhdAhokCKKoQHCBVEnuNQnrecpPpWLlEcA+1
-         hkKMkB1dTRwlgNNa+oq+C7nxqP6HJOd6zryzBNdh4SHVF95S09ZDDqQx4AqRicHOAAZV
-         XwIGhwYHedxFaeAaKeOJoULgbdTUcaHP2NibCWg7U0yhuXoi9UwCCs1TF0ifz0VGT2KX
-         uPgrrHObBfnZggK2S3vbmu4Mgr4PEmvj4vCFaeRuXIAzdG+WBLW/EUVdmyDC6ZZIBf6S
-         iJ2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794285102; x=1794889902;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RwxD/kp0MCQ652BLhqihyWShn3kE3wujbUgCK3EzeE4=;
-        b=m0Ei3oGmyxDiGh//ao/dNFdmJYG/uItgLMDbzdtCDCw8kcmaHg9zgyWA6DerAqiZNT
-         RIywx4xVkURBHx4FVX7jfxYYxfJlkpqSpe5nlGM9JRt8NkLhGP9EUd5cN84OcdF4tKNp
-         Kvsj66Xa7DxSjm73QqIuqqkXtGkNR7kK1Elc8/5hb22iB2nXc2STOUrJanqk+n7TBE+O
-         tPvtJwFhhh34vdMrnyurwR53KSPYysecr+IOL7ae4t/B1Lbg1bgc1S4kPV7tUi0IRtuk
-         t/iXJXFVPFul8Fu3namiyhKazNF+zEfFl+KNL/pgzgo0trajFAUgtXSKcOb/MsVhL3hZ
-         a39Q==
-X-Forwarded-Encrypted: i=1; AL+hErHfYXWRz8lEaGvjlmDBKM4JKQwI7U9FFCP7jH88T7J9RrtxsKPiFok+KQIV6hbB7Vr1N8RNf626NNUPQy0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OQOnbUWB++wJagAajOsxY48wnYeYXE9icVfAKyjFXs2HYn5Qv
-	qtUL5JDQlYdSc0lq8zlTLKz2FjLlahYfLGQpN8c+ToVAMo7LwR5D59Lq
-X-Gm-Gg: AYBFou2OcTQditVHAHUakgmob5D+G5XPOZ89wn6pRGGd+iWoR0RXWeYY3sy4Ackzz8e
-	JEUMDhNYnqQJo88+en1pmTzI1XQWPIt+i57GXnX2MCRdorMEV6hL7QJcV8Uuo9KvDeV21nPUzKz
-	HN1qOpHYQD0pOJv0Gv0UKk99oZzEJVA6diCT9/b2bbkhxk7Gedrqe2G66DKh3f5XUusxSR3sVNY
-	Iv5DUEKSNrx+zRl4mh85Afgvi3DXf0BzoPRi019I4NFFz4IHi1eeYDja+IFkfLOhvAn+9wwiOoQ
-	bz7wR3XDy5f15quJkOc9aDPJ74W5Ul/9ZPnlHsVB8vGS6OMGFE35MtBqDJcdcCdYi3HGRL5a7xv
-	rOjlik4RZDc3kANfdnf6Ln0wBSwxxSXp1Q5DcXeqXH3C6h/Lkb4aM8KnMi3Gv7k76RS9ZMgTqYf
-	xSX41cGoSrfPb03KeeRaeg4nc+eic+3VeiI3tXzElVcPKs2w+TP6euQbT9T2kBscBMIqqd+VQf+
-	BeqSXmo41Wb/esmhc71xIGAxhgLO3tIw11wIwY6x5Q7UXAtNGyHskToakJfEEzXWQBPJpmpZ5jy
-	PZuOBOZDhQ==
-X-Received: by 2002:a05:7300:8815:b0:351:207d:bff4 with SMTP id 5a478bee46e88-3751c53685amr2202305eec.4.1794285101599;
-        Mon, 09 Nov 2026 20:31:41 -0800 (PST)
-Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9d78sm3340996eec.25.2026.11.09.20.31.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:31:40 -0800 (PST)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: =?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0=20=28Zhou=20Yanjie=29?= <zhouyanjie@wanyeetech.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Paul Burton <paulburton@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
-	hns@goldelico.com,
-	paul@boddie.org.uk
-Subject: [PATCH v2 3/3] MIPS: CI20: Enable SMP with two CPUs
-Date: Mon,  9 Nov 2026 20:31:31 -0800
-Message-ID: <20261110043131.1985993-4-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110043131.1985993-1-f.fainelli@gmail.com>
-References: <20261110043131.1985993-1-f.fainelli@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 488501F008A5;
+	Tue, 10 Nov 2026 04:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794285166;
+	bh=LAR7UG07ENN+2lb2kJivg6c45tgcctR261e0OwsJsJo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=AgnXt6glt27Z8uemQPwxjODeGgM6+uRQnOo7BTbOwVh5qo9w7e2/Z8mzGRCJa9Y+n
+	 rsZL7FcSbxGvr/zI5P7x4cRhYMQMz0vaUuilvrBqZgu7OE3vjbNw+y5rJss0KyAWpj
+	 0fLt3vniLxOqYPOa3q3YC6X5/a8pShSJzS8IbpB3j0e5PZkWtJspLPBW2QryrKBwke
+	 WQHDNSBjJR3FQY3iP8HwMK+hWng3bE7IhAOoXufBldttcPaKtwJlZjQt4rkM6+f4/f
+	 aoxdpXlS3wNjwxDO07exVK6VHXufY68lHH0l5N8KuCO39LH4aEd7fh/Vqae+LPabH8
+	 kE9LK5rGz4apg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C625A4885D;
+	Tue, 10 Nov 2026 04:32:44 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Tue, 10 Nov 2026 12:32:29 +0800
+Subject: [PATCH v14 04/14] gpio: pl061: drop redundant pending check in the
+ IRQ handler
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,35 +83,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-cv75-gpio-v14-4-e586aad0467a@ambarella.com>
+References: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
+In-Reply-To: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Mika Westerberg <westeri@kernel.org>, 
+ devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794285162; l=1082;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=3XWHZond2pOFeGIXcPtw+mHYxFL9WC432M4BN6DutlY=;
+ b=eaFAUfP4vaZ2PfPolFZj7JveFBZiYQbjbetYBLL31HHus+sapJGy1TnNFjczsi6KFP6LhcWur
+ nx1PwEx8QkfDNXTHLgspWLoR5MbEPqjQpCNuKMzF91XKErG3wgQoh0g
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
+Content-Transfer-Encoding: 7bit
 
-From: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
+From: Long Zhao <longzhao@ambarella.com>
 
-Enable both JZ4780 cores now that the generic Ingenic platform provides
-secondary CPU reset and mailbox support. The existing device tree
-already reserves TCU channels for both per-CPU clock events.
+for_each_set_bit() does nothing when the mask is zero, so the
+if (pending) wrapper around it is redundant.
 
-Link: https://lists.openwall.net/linux-kernel/2020/05/19/739
-Signed-off-by: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- arch/mips/configs/ci20_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpio/gpio-pl061.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/arch/mips/configs/ci20_defconfig b/arch/mips/configs/ci20_defconfig
-index 90536cab417e..09d65094b1bd 100644
---- a/arch/mips/configs/ci20_defconfig
-+++ b/arch/mips/configs/ci20_defconfig
-@@ -22,6 +22,8 @@ CONFIG_EXPERT=y
- CONFIG_MACH_INGENIC_SOC=y
- CONFIG_JZ4780_CI20=y
- CONFIG_HIGHMEM=y
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=2
- CONFIG_HZ_100=y
- # CONFIG_SUSPEND is not set
- # CONFIG_SECCOMP is not set
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index 919cf86fd590..721f14cf404e 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -219,11 +219,8 @@ static void pl061_irq_handler(struct irq_desc *desc)
+ 	chained_irq_enter(irqchip, desc);
+ 
+ 	pending = readb(pl061->base + GPIOMIS);
+-	if (pending) {
+-		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
+-			generic_handle_domain_irq(gc->irq.domain,
+-						  offset);
+-	}
++	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
++		generic_handle_domain_irq(gc->irq.domain, offset);
+ 
+ 	chained_irq_exit(irqchip, desc);
+ }
+
 -- 
-2.53.0
+2.34.1
+
 
