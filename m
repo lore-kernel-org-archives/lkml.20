@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309875;
-	b=dtkW4V9V5Rm9LhGjuM0X867qXoAJd0q2qtynG59w4USVmxk5wbypT3DA1FxpkVdYgXAU
-	 3Fvmmi+xNEvmGl8lSjFG47Zj9Ajs1Z4MV/5tsf33YfSHBJQGxJaRULnuZNTGfwdFdG+YV
-	 MNQrs4o4028++wYDYBCR0ESHwSkfkzzbYct8gobkbfFmLhhG5xAO2sVC5xpB8kNX1gE92
-	 un2zoHFEfzglB3w+/l8FOU+LqlQcc0UUYCWhuhSVYv4dULFRJQew1wBRsPiKJ09FR2q9l
-	 zM2JmDyOEXZaSArnzSqKSm/Vm80MKuHFb1aN6hExsED/94VFx9jnE+6rduk0oBujcWQ==
+	t=1794309881;
+	b=pR5FipwL1J9fdtmLlUcqoMCz10CSzUiJ7U86iwSnnkVUb0sheieFSBLSG3vibcshx8aF
+	 4k0Ilmbe7s9UEuZ3h1kJp1jdHrm5FSNCEy0VVOW+VD30b/PX7QvosOZt07XuwTOgyWewz
+	 KAuf6gPB6BC3UUl9CC8VKbmljJbifDNdO0HZr3WouVu/Q+NF81UinRnMY/aayNSWSxCdZ
+	 OEDy3U2/QiZushzBIubcp05eA6tvldCHoqIsSKPXLKUEQHrK+mEfmG1RPTEpABT/r4D/4
+	 0xp6+ma84hQH4S6w0dN+S7OhAkn9zHpYOehG1MVHtEeInZ+p/8ylNfIRLsaaeYZiqGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309875;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309881;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6ZVwT9JPvcRTq2+d66tI0z/MQ/l0urBNTSlvpkLaL2M=;
-	b=svVAMnVWYO/sbtVoUOWJKufwH8pwDF33hB+njRLL9TypX2tEyOo8dTSbMsvrbwjtguhj
-	 ta22YcYXKpu3q1Qc/4Zs11mTajeTeu/yNkpXes0Dw2LZnnqpmNbbwbdjPil+Qoay+0XU7
-	 e60S3C/lKYMbjO9ifHpLu2CLG3oTjzeanA0tvungthz/A+KqOXzbsEZnFEXQ7TMVJl8ss
-	 8sYHt0gx8HoimnYswuvTku25fuKfpUrcMP0iTso3Sl+1cxB/pjgLLTUcFe/5HwrZWzrSD
-	 JT7QiqXA4Md35xNv9d8kM7ZBwS81Fr/clUS3fm+QhidY2MRkvi1MnuRdyP1wfluBq7Q==
+	bh=uAYaxeqiO3EFcx6b3dV/TijEGWqi49tfP8usMyM8q/8=;
+	b=Bbv3YmpsNSqFeshZecqaWCna5M2IRIcc7qLVzA2w3OCWNRquhqpyqaaZdR8s7hZaHkcV
+	 txAKiqVcm9NoZ2qGIQ4j4y4zwGW42DmH1BIsHQ/Q9LCApnOcQBaQVSj3CqvIDD6YW2JUu
+	 1fc1ZT/gQlgPobOfSnfsr5jpogoJjkCEJOTuFGRgUX4gx3B14hwsTY9jqNlhqZodvc/Aw
+	 yhS3oTpHqHUBh7BKj/ipmZzj02eSsyfgIxxor5jUr6l45jA2mACte+TAUB8r7eWibiPW+
+	 RKiQj0FOxyi65pf42q/o4Rb7hUWZdp9QqImzdT/gVIJ9G4ipDE1DSsZZEn6+3ctopww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d42QnZwE;
-	arc=none smtp.remote-ip=91.218.175.165
-Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eGebV1oP;
+	arc=none smtp.remote-ip=95.215.58.86
+Received: from mta1.migadu.com (out-86.mta1.migadu.com [95.215.58.86])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559AE606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:24:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 559AE606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F99606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:24:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F99606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d42QnZwE
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eGebV1oP
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jkqaTN7aNaAhIxRpBgAN2fcj9pQU8jMWqyvdyAyPO+g=;
+DKIM-Signature: a=rsa-sha256; bh=M2vUNFESdf8UcymT8hZpLIfWSeAjBKgtnQoCKkOWGtA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794309872; v=1; x=1794914672;
- b=d42QnZwE/WUex9hyCFK+onRk/zm7eIFT8JL5ZzEBQjF6wv/5LUNkcW1452q7+jBGpM/61zy8
- 2qFjJD3ycPtGdP2Xu80odf+Qi8AJqkOVIRJjw1M7QfoacnfSGPaHXvRiIZR7lhUddg/s8e1KheQ
- ZcmADtPZGwdbi19tOnzD2V9Q=
+ t=1794309878; v=1; x=1794914678;
+ b=eGebV1oPyx6afFuHuI/2Y2t3YTlleYH6W+PMr+X9IniPEeUceuoQo5pQ9DLWos8ezbAotpOJ
+ XPSmVLWtcnb2CsCMYNz1UYwiXlcHj6paESxKt79lCqEe5iTQx5gnr8wpb9/DclB0fPI2C3mrNeZ
+ jDNTD+VYwefaoLtuKqBY1cdc=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 272fed88d5b8e528;
-	Tue, 10 Nov 2026 11:24:32 +0000
-X-Mizu-Trace-ID: 272fed88d5b8e528
+Received: by smtp.migadu.com with ESMTPS id 195e13a19fbd8c13;
+	Tue, 10 Nov 2026 11:24:38 +0000
+X-Mizu-Trace-ID: 195e13a19fbd8c13
 X-Migadu-Flow: FLOW_OUT
 From: Hao Ge <hao.ge@linux.dev>
 To: Uladzislau Rezki <urezki@gmail.com>,
@@ -69,10 +69,10 @@ Cc: linuxppc-dev@lists.ozlabs.org,
 	kasan-dev@googlegroups.com,
 	linux-mm@kvack.org,
 	Hao Ge <hao.ge@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/9] mm/kmsan: undo the shadow mapping when the origin mapping fails
-Date: Tue, 10 Nov 2026 19:25:38 +0800
-Message-Id: <20261110112546.261415-2-hao.ge@linux.dev>
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v4 2/9] mm/kmsan: skip vunmap_range_noflush when KMSAN is disabled
+Date: Tue, 10 Nov 2026 19:25:39 +0800
+Message-Id: <20261110112546.261415-3-hao.ge@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
 References: <20261110112546.261415-1-hao.ge@linux.dev>
@@ -87,41 +87,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-the origin pages. If the second mapping fails, the first one is left
-mapped, and the callers do not roll it back. The next vmap of the
-same metadata range hits the stale PTEs again and fails with a
-WARN_ON() and -EBUSY in vmap_pages_pte_range().
+kmsan_vmap_pages_range_noflush() returns 0 when kmsan_enabled is
+false.  The unmap side does not, so it still walks the shadow and
+origin page tables even though KMSAN never installed any metadata
+there.
 
-Undo the shadow mapping on that error path, the same way
-kmsan_ioremap_page_range() cleans up after a partial failure.
-__vunmap_range_noflush() only clears the PTEs; nothing has touched
-the shadow mapping, so no TLB flush is needed.
+Add the matching early return.
 
-Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Reviewed-by: Dev Jain <dev.jain@arm.com>
 Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- mm/kmsan/shadow.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/kmsan/hooks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-index 0c88d89bf0d6..2166086d3dc3 100644
---- a/mm/kmsan/shadow.c
-+++ b/mm/kmsan/shadow.c
-@@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
- 					    o_pages, page_shift);
- 	kmsan_leave_runtime();
- 	if (mapped) {
-+		/* Undo the shadow mapping set up above. */
-+		kmsan_enter_runtime();
-+		__vunmap_range_noflush(shadow_start, shadow_end);
-+		kmsan_leave_runtime();
- 		err = mapped;
- 		goto ret;
- 	}
+diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+index a706666db097..107f66841274 100644
+--- a/mm/kmsan/hooks.c
++++ b/mm/kmsan/hooks.c
+@@ -138,6 +138,9 @@ static unsigned long vmalloc_origin(unsigned long addr)
+ 
+ void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
+ {
++	if (!kmsan_enabled)
++		return;
++
+ 	__vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
+ 	__vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
+ 	flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
 -- 
 2.25.1
 
