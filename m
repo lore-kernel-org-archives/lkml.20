@@ -1,111 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314642;
-	b=GwcLv1+uCq7g6n0G470jVna9t8fCGaQ7GD1usJFqB2Yomt7CAs6WQRFL1iUF7ubVSN6l
-	 DAbCfzSArOCPxmsd7ZsQMEb+P7U6/z1MgHROxIu9epAXerYfjernsKgbtjZJFk6DDCGw3
-	 pptnSpb9wSuVnRk9zUtMIAiFa4o8O0pFtgEsJ2jvJBsdLJcBFULaxEOR1TitO68Q8aGFU
-	 olI8JpsO58vcYrr7f9hvXme6onEEjEa6+w/SYBOpNkof4A2X+r8FbNU4bNaiGs+cbYVEl
-	 CC62DKByO5LWhy37emvpC6eFbt7yJo5+33XFFpDKUmS2wSpBpqY60L5UlS2cGAxatUg==
+	t=1794314729;
+	b=ezsigb4bzV/EpWPaM8L71ohSclkfDHEtDMI2tqzCvm0l55MM9l1+iZXZwiCP/qaHsmXt
+	 tw//lpXljPay1YoeUd3uOeXmwXdZ/btk6yIW4qX+rofOPsxuI3LXZorhwVdMPa5qeiY0B
+	 Xe9gTTMWJFwYyidDjaXqMORHLx1AUF8rkBncDhVsL+zQ5B3QfH1O60AaC9xkKyQFPSdbo
+	 yyh+6bbI7GqU7n2+fx5Y0d/FNCOuTCeMrelNzp48e4Oxbtw4BYx2juYjQRu1d8tEyEXna
+	 3Jh5LuKQua7jRNC/6k6kPSEZuSmSC40DQT+56Xlo7JkUxYXqJ1mL9HKQUdItgn12zFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314642;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=izXQc1m6uJs2OWW2AxpmmxzIFdzwjCtP0swelOYB4Bk=;
-	b=Oc4Zu4IdL0S1X3Lnuu5pOFPW3bfWmCdcjkjyvP+sRjYyNd639n4TW6zOihasiHGiWGRG
-	 CqSLknMPPEIvFczNk76ZwBQNgnxlndwP722XmOktjcnYOiFnFWXXyCxzzeuxA0utMRFL5
-	 fYMOv3Y/E0SpFZs3hjUzz2zXSNZZ2BClw6L1JCxMV/RYijux0yCGO0kFGb/+DABD61h9k
-	 wl58JENjA3YJ06dGApRXFL5RqIzQ0PgNrlSkeqsdw5QsRlsh3ZaOsI+Qo5/AsB0+RS2Ru
-	 PdBePrPCZnoLaGH8ZUYISePvI8fZ8iGI7XXYMD2PCPrC1ndkZbIR8X1x+ifw/bOU7Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314729;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SVZpaCs3v/sBrxut5K0oJJA2z/xOJJAdv8TBSqGnsnw=;
+	b=q0MIlR9oPj9PWuuj/KnBRsZvGoNvCF2mcAUmhBCoPPLbWh95HR1o148d9U0iz2DlEMjz
+	 l5um9YRsquAtJy/noWkUw549BFEeKZCLo9KS/McrNs3BMdexR6jHYejjQXY9BOwqiP+Vz
+	 2BSEnwVnrEjg/Lpj+QPu6LHTT91G9nJjQWO6gKiGP3PuRkvlVU1jmQcLgvpzvI4zzs+Rj
+	 LVgDGNWPrf5hVUHTI2CwkBBvFHR+su3wewWWbZLpBiZt5g6RSqeL59uYJo2u4oCVfc44G
+	 WDvaRa/XcVFOjBiNQpPgr0Dh7FF0y8v2Nb8rwLz1brsw1XFu5onxN//kvt/eeTum4IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a6P0WZkg;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Rxw7IcyI;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YZ/IDAw5";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39C0606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:44:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F39C0606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C25606A321;
+	Tue, 10 Nov 2026 12:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a6P0WZkg;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Rxw7IcyI
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABAH8J2688087
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:44:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	izXQc1m6uJs2OWW2AxpmmxzIFdzwjCtP0swelOYB4Bk=; b=a6P0WZkgTx1O2z5a
-	eWvoXeu/0YND7aUSKP5NBPSFRKeZ2/KKO5D4w29QG8P3UQWrpBMkVqdskm5O5oEA
-	efin8cyC/TZr0KiA18DPQXtTztS7HpioE9p2D7D+xk3B8H3WAWRJuEhXlzRAvc9R
-	21XrmnF8MtzVpxfGWnCbNzzD5fXjZXsB4RQMSoTmmpvo6zMv5okZwuxJCFu7BRaF
-	TNhYLXWyfh/DR2BltLc7Ehdxq6cDHTPwr+Jq0rm5XMHJsNkTXiLlYIcrWsVKqzEM
-	AJoywVsm+kaFybTO1z7gRkOMQOC0+Ck8qC5FfVto1fD3jSCOheE6rdWGp/isb6Ge
-	8E70FA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huucp1yuq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:44:00 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2bdebfc5so55741285a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:44:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794314639; x=1794919439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=izXQc1m6uJs2OWW2AxpmmxzIFdzwjCtP0swelOYB4Bk=;
-        b=Rxw7IcyICV1Nr1du+X4UmRZyOKKscSeudv+bLOnojMafCKBT3tmR24I9zROAB0bIXw
-         nbEeSXgiU1AqokLBwOYV+sSLCu8qSEkqFvipOL/87hx9T/ZCjrAOhkBO6/sfUhQTR9uu
-         DebtlrkLfWyOxFMPvMSjWcAnD8xrxYrsJ1cYuFeaYhhN23vS/rxhi4Wtojmu7nEfhrVi
-         G2k+Y0uVNInB6lYKFBW2kGIdaMTD51JGyXr6xz+s5+oY6USFFRJ8/p8nwvufIpZK/7La
-         OV1YSvn7iXiQauhlIrbGeX2nsKs6UMadS+81MhFZKUilyXljBeKvnQ587gLgMUmZhGjE
-         +RFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314639; x=1794919439;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=izXQc1m6uJs2OWW2AxpmmxzIFdzwjCtP0swelOYB4Bk=;
-        b=oSp/itI8u8xMvKHhVCx8wypQ/ANrbAlRKDrcUtCrt8j81Hrt0/dZC4eYyoDaF6E3MI
-         /M2qo0ap6g+qrY7HmhyXo959UgoTfKSmIs3OlbTGsE3BoTQwPy3jqbN2BuqcugnlYvm5
-         /4RXCBYgp6x3hW4XPc7YKaap7b0CF3OVGYY10Fu56NDAurFMAD4hfoLEjnvw7s9udSVy
-         bmumUH/g9TsTxPTOSZdueb1A/1n6/vZBFziLIJz8DGTqApQC8zgrw+riS4FxsJWrgcJa
-         B+rVkKmvjcVCdmXon/dCVSgmlAq6vcSSMa45s+2LTK8GVu2f5QxyhUAUisdDR95JiPqG
-         pRlA==
-X-Forwarded-Encrypted: i=1; AL+hErFUztexs818VotJG/1klhsibspgzsmt3C6kBNq3uj1JqPaxRSbdcNd6o7x1HzTcGYD4trF89jcdNu17f2g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sNNT4aPOaMP7LV8xsYOG8Bp1yQsKgHxigcNOyib6HU1D0sjXB
-	PTpFnK3q+2ZhBKVe4aKaBvRd4dusl+O8ZatZo1VsMQdgb3eroJpkRUw3D6Qqf7bGbHE6yc5QTNv
-	agQE9kJeF5yeGSU/hqnitopDt9ajpe0pKwOzOT6ReoAtoMCBA5RE9MSw4LZtI5O6i6Z0=
-X-Gm-Gg: AYBFou1H8r2ovqtuw7uebMKJNysxyFUpQI5vDI9O1162RxhCt8qC5dnT2o+PDh/+Hn7
-	o7QsBly8pZDyx11pnHVS7vM4ATEyjEnWiju9+vhvfA+emvtKzNCBMEXmDHb+Oy/pB+AYR7kRTRt
-	eTrI2/6EU+SFzj7FJCn8yBx37VhNJtzV4IJLvVYpwzdrG3STbgZaun53FPjBhu7PUa/R9/tuSOk
-	q7itlJMkshldPZ/L3hmkgrhm9vUperEpdHSF+TVOM+CTLCrYz0YNEBp5MVaBzO3CTup0X5Up/1K
-	wcDH4gs5eZTMSVGaJ2XQWZlrmW2DSW3Qi7E0De1EqCByFcZXDWZyBxqbUUyl4aukyjwJnb8txoK
-	tOwTDFH6rVWIOZWhwgfhngz7bi1T2QIeCgmZmSFvH7b1Qu4E/Gn+HmiT4FZib7ART9ay8NgE=
-X-Received: by 2002:a05:620a:a2d5:20b0:945:cfbe:816e with SMTP id af79cd13be357-9479f3d6b39mr352549685a.4.1794314639211;
-        Tue, 10 Nov 2026 04:43:59 -0800 (PST)
-X-Received: by 2002:a05:620a:a2d5:20b0:945:cfbe:816e with SMTP id af79cd13be357-9479f3d6b39mr352546185a.4.1794314638695;
-        Tue, 10 Nov 2026 04:43:58 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a6551efsm103736966b.68.2026.11.10.04.43.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 04:43:57 -0800 (PST)
-Message-ID: <830a0984-8938-40f6-9400-5962dfbbf274@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 13:43:54 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZ/IDAw5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF781F0089F;
+	Tue, 10 Nov 2026 12:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794314728;
+	bh=SVZpaCs3v/sBrxut5K0oJJA2z/xOJJAdv8TBSqGnsnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YZ/IDAw5kTQN8T16yrZOI/9JLS/BYMIEnaAYwEogjl1aOlG7sfGF3dLhC6PsdYlS9
+	 EG3SB48+EZum9ANIUh09V6sJhvGXcU7WeyMuFeNETFZfnqoJQOO7B3eEwrFHm3+2np
+	 XW4DfA/F6nxXvZ3byZ+jDzotl5+NhypIyEtYV5E2+bZGt/Aycjxd4RrAh9BbzFyx8X
+	 mlI1I/AyolCp0EpsRQpu3UYUc9qXoab6fTonzR6MmuidTva3g/uFoCg+xKSoyHkRhM
+	 wAuPHP4fD1OTuOoScAVH4cg6/ET3IxoFXgQzhRcEKzI0eYSzZ/rMcDFShiZBmt4dng
+	 WOTUOQrVSZtlA==
+Date: Tue, 10 Nov 2026 12:45:16 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Uladzislau Rezki <urezki@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
+ entry for THP
+Message-ID: <avMRk95T26rsq4JK@gremlin>
+References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+ <avMKVYORkTQfdVB9@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,86 +73,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] thunderbolt: add platform NHI driver
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>,
-        Mika Westerberg <westeri@kernel.org>
-Cc: Andreas Noever <andreas.noever@gmail.com>, Sven Peter <sven@kernel.org>,
-        Yehezkel Bernat <YehezkelShB@gmail.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org
-References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
- <20261110114925.722014-5-chunfeng.yun@mediatek.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261110114925.722014-5-chunfeng.yun@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: O9PBhwSBlAN932GYL2-LNb34Z_apbkjT
-X-Authority-Analysis: v=2.4 cv=U4oHnuru c=1 sm=1 tr=0 ts=6af31190 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=mpaa-ttXAAAA:8 a=1GaHgJMAeWfMa6zh5XUA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1MCBTYWx0ZWRfXxyRoZoVggefM
- B+V9GTp2AJf/d9mjjNrPBq7KHWY83Q2XZOmDarbbxaeEaSgNA80EKCAGAylhYJk3aZsO3RW3C8q
- vmwOs1lZjixvtgEtJGV9Fhm3hEgsRs9W5sZDevpOS9WTD2FV5lntU/E7rMFH8rURwZmGI9zDHz4
- EuSAKCclgWL9v6uUBl5P7/cml18UYfsp6Ge+KU2BmJCoceAawZ/45772SRTLmG2jGBQDo4E5uWK
- KhfuKu4bwQugFTnzmBfG3lze4qzmqjGAw8VbKOXbYL4v5pO9YGx/NtakG75P4+c3CS5HwBWbe0e
- ow6eBMgiIVal/Wl5UOesGa5d6QbcAltykq5xwjNjn3DJAeNOw1GeAdnYduDWU3xtVUKdrZIcYv+
- LMedXG+c5n71wGapQdTtSNXXXQT7Vr156D3tInjwYgKWEq6GqBiy2BdfElGwoRk2p6Wab9o9mhk
- 0BAE2qKbZiZtPh7LXaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1MCBTYWx0ZWRfXww9kwq8Ft4vm
- Rs8yv6t2d+Gbt5f7eNkYUSjf35m4iTmm34Q4120XpUhxuRrnpsCgcc45e69K6YpEoktIYehuuVo
- UIWVbD+fDQStV2cxm7y+htri5o865+8=
-X-Proofpoint-GUID: O9PBhwSBlAN932GYL2-LNb34Z_apbkjT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100050
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avMKVYORkTQfdVB9@thinkstation>
 
-On 11/10/26 12:48 PM, Chunfeng Yun wrote:
-> Historically, the Thunderbolt/USB4 Native Host Interface (NHI)
-> controller has been exposed as a PCI device handled by
-> drivers/thunderbolt/pci.c. However, some SoCs (such as MediaTek
-> mt8901/mt8992) integrate the NHI as a memory-mapped platform device
-> described via Device Tree or ACPI.
-> 
-> To support platform-attached NHI controllers:
-> 
-> Introduce platform.c to register a platform driver matching
-> "usb4-nhi-platform" (OF) and "ACPI0015" (ACPI);
-> Implement platform tb_nhi_ops hooks for pm, interrupts related;
-> 
-> Support an optional dedicated wake interrupt: on integrated SoCs,
-> the MAC/PHY reside in a power domain whose clocks and power can be
-> gated during sleep, preventing the primary NHI interrupt from
-> acting as a wakeup source; so add an optional dedicated wakeup
-> interrupt which comes from the always-on power domain.
-> 
-> Clean up the unused nhi_enable_int_throttling() prototype.
-> 
-> Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
-> ---
-> v2 changes:
-> * Added CONFIG_USB4_PLATFORM to build the platform driver as a separate
->   module (thunderbolt_platform.ko), instead of statically embedding it
->   into thunderbolt.o.
-> * Renamed plat.c to platform.c, renamed internal functions from nhi_plat_*
->   to nhi_platform_*, and updated the Device Tree compatible string from
->   "thunderbolt-platform" to "usb4-nhi-platform".
+On Tue, Nov 10, 2026 at 12:14:18PM +0000, Kiryl Shutsemau wrote:
+> On Tue, Nov 10, 2026 at 12:03:06PM +0000, Lorenzo Stoakes (ARM) wrote:
+> > Given the current throughput in the kernel resulting from AI-generated
+> > series, I unfortunately lack the bandwidth to generally be able to offer
+> > review except in those areas I maintain.
+>
+> Oh. Sorry to hear this.
 
-There are still no dt-bindings for this meaning it can't be merged.
-You also haven't answered Sven and mine's concerns about this being
-actually used.
+TBH I'm still likely to dive in here + there (just did in KSM :))
 
-Konrad
+But want to do something about my inbox...
+
+>
+> Thank you for you job.
+>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+Thanks!
+
+
+--
+Cheers, Lorenzo
