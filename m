@@ -1,64 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332555;
-	b=0epUUxDuNDYD3aBgHUZJk5d+AOFLmiy12xZaOGrIPdeTqSCJDxussOCPoOwD+4H/m6Zn
-	 s+FW4G/KK1qmXKpuxfU28kyT37YIJ1G8LXOobTQNFgMFBA3xLr1irUATpfQzOTl7Sewix
-	 6/dqpAb0uXnB2aL0MlwDLKGBo2pOSCz61/eBwsP8SJyZE9QbQXoDjbSee5w17LojG2h56
-	 kjcqxzkfneAx0Z+oAoUzz0vlLcgd2DcsExd2JPytXLKCIeykT9UIhTYwuAZRQ9E1ESZLx
-	 3EpMKFV00UeQyeaNRMKrkJpImoGAGdDHJ1p8BqfWc3ZksLeME0Sp5zu9/D/py1S6Ieg==
+	t=1794332572;
+	b=k+SFdlupy7a/N0omrXJZC0Y0Xpk4NEIMwbd//2MeQZqheiWPBI4aHcAs8o2yV2l2jDK4
+	 6GIqUG33Kqw/HaXcWNMCJZxHshLI9a3efTSR/CfCD0zwWku3GIR0XI6QucsqbSfSnjKF7
+	 JYIhf0NU9ZE2aEa9ztQR9/TO2g9DFddH25pwFf0QATvScs53LwYBGxYVNWa1Rd0Cu9KFO
+	 8PbBGqviNvyWHjSf3jvoQcOy36ZdkMB6s0ewJOKkR3j761Q1RqFmIqx+ewk5ilPEDfrA/
+	 wxpJb+wOrqSkg8R0c151HI3MewToRPP7aIyfaInLcewu85lvDNsl7S/XCnW4P//RDMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332555;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jbgSuxD4CgBXy0cbPyYVRCuYyNpAOZN/+jBRNG++0S4=;
-	b=sZfg4UEi1/3OTL8fWaf6ppXDNmo8wjIw9A2XmornjQYbU4Iu9p096iDYp1tSswHNDaGv
-	 yRGYgcSBImBhWveB7KUKEDKeW1K4BTau5xeIr/Eb4Ax77nypvbN/YHfFiTyzcjKe9oQO3
-	 JVEpNQCNiAWd/lbI38GLDYTwq6i60nmO+vEHPXnMQfxdi8++Q7hz3XwvE/MWNEqntg5oH
-	 w07LYB4opBfKyiTXCaskWBr5/GcSl6RBLxBQANNKxEQW0NNfLSpoPn2I4oY4Ye7TRe7fC
-	 /lgtSl6VZ0L6wX/tHMAEyb8zadhSbQS22GBbpZHvxuOhTI3z2Cy3fSgyJXqawr2aX5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332572;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WJ2VhX1zIunziDo8+1yMjNUGG0cVlFTY9J5xCG4anBY=;
+	b=k6pDMHmobRH++cPIaE8MjytE1UeOWXvfAoqVOqKOQk5PiWofJu3S7cxsjJjwW65mySSa
+	 LE/BF+ZFshzCYO/DkmqAL4APpCQyFiJrr4xiFPSUxTMWAie0I9lhAItgYMBHvyKv0WxKM
+	 qjK3bi8ytcQqjBO5CEwWUAalUJtoWHNFIEBGzzm7vvG2zf7c90F+WK+EPbIhkKPxis43B
+	 BAqMOiqFmmQlP/eDFQVug6ttTmmTJ5cPmHyNlvEzqCmJinQq8jLHJawCIH6aFzBP5rEXL
+	 xjPtWQIDB2u5inS/U5QSdXLsZ0IkKkU01RXjq8/dWmWmt1dkff4l/JB4f3E7b7HMg+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhTxZB6I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rrs1g4bI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC0160A380D;
-	Tue, 10 Nov 2026 17:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9BA60A2607
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhTxZB6I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CB61F008BC;
-	Tue, 10 Nov 2026 17:42:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rrs1g4bI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3261F00900
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794332554;
-	bh=jbgSuxD4CgBXy0cbPyYVRCuYyNpAOZN/+jBRNG++0S4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NhTxZB6IUedUgovEJg9k6mNFtic5HShCTAb6tXk4BdWSsCiIN1b6LDe6G1FFY5Fxd
-	 CUS74SGGPpbCakr6xBU0nermj8YvhF1OdK6PrY4t+ZYwfySr/dktF8GC+xvIV+ae1I
-	 ZdkVQgIeMT09omFxbgO44Yv4EE24Pq1ADmYYT8r5invSLkATq0ms1UCUhBRk/68XWW
-	 rqC0UK552RYWxSvGpy25Gy8CihoB/taDsFkBXlTI7WfxksrtnbY7Jg0LnepX3josy2
-	 QesjmYIF+h4Zs5Xhjxo8OC5zvRvrhNEhLPR8H9IL4UDnLusWa/KCkxh4a7GOcy8rlc
-	 nrkLfAjHSwzcg==
-From: Chuck Lever <cel@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"kernelci.org bot" <bot@kernelci.org>
-Subject: Re: [PATCH] SUNRPC: Load the GSS module by OID only when the mechanism is missing
-Date: Tue, 10 Nov 2026 12:42:29 -0500
-Message-ID: <179433250776.39465.13251097480716731768.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110030947.179738-1-sashal@kernel.org>
-References: <20261110030947.179738-1-sashal@kernel.org>
+	s=k20260515; t=1794332571;
+	bh=WJ2VhX1zIunziDo8+1yMjNUGG0cVlFTY9J5xCG4anBY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Rrs1g4bI3bealFFCrTKGzgW7nULJYNNq0U8n1ryvUN1UTexowUObEe4GzxWkm0SVc
+	 bax9c4VqNOuEFa5aCuIQGmbq0iwqZmNUIXBpc90R5VJ0fHsKlZl3na6po4egT9VG7D
+	 jtlhGQhkLMDEX0jg1gynA1aA7kFPMbeeR1DaSii57Ixd+aeAvRgN/mkorgUsybNxHP
+	 xNAaNSJU4BMfro1OFEf9Z6vET8jPzpijibNpWVc/4zw+DFeeGZRc1wi3wX4sT9251/
+	 vVKENhp0EPpTtxUtfH5VVaUXMTig6S6wNV21t/BtY/aA8tQu0NxOM5nEqZ2zMM493i
+	 lKxn8PQ7h4sgQ==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab30b3212aso17920101fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:42:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFjxb8cb7duUmzs7l0dXxBc/T4ZE2p3cXGxlhm/8mKX5XM9sM9cJYkNIzpUq612W3bh/pHWg0qbn5+WaeI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cMARkyazlGpiBsxO6Ou0+t0uZahSVzSj7R2Gjpqii6wJ2iSep
+	/fgus/QcFOzOq0CrvdPOLnznBU2Rbj14w1lPgb10GnSTelkCXAFiYifuNXwakUhkd1xi7zGIDm7
+	qVLjz3waN/z4xGzQYXhUaqMuiM9mX2yc=
+X-Received: by 2002:a05:651c:2110:b0:3ac:f258:6191 with SMTP id
+ 38308e7fff4ca-3ae0964afcemr8335641fa.23.1794332569598; Tue, 10 Nov 2026
+ 09:42:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,28 +59,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261103114143.75756-1-k.chen@smail.nju.edu.cn>
+In-Reply-To: <20261103114143.75756-1-k.chen@smail.nju.edu.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 10 Nov 2026 18:42:36 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0huO=PGM60O=e-SmVdGpevFH0JWXb4vaVNAiJL-9wOUPQ@mail.gmail.com>
+X-Gm-Features: AclHuK8Vk8YduiLbbVx_kyTD4Z9jZoc1RuwBnQppkz7Vu3gLKg-vqQlNv_eOdGY
+Message-ID: <CAJZ5v0huO=PGM60O=e-SmVdGpevFH0JWXb4vaVNAiJL-9wOUPQ@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: property: verify nested _DSD packages
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Josh Triplett <josh@joshtriplett.org>, Hanjun Guo <guohanjun@huawei.com>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, Grant Likely <grant.likely@linaro.org>, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 09 Nov 2026 22:09:47 -0500, Sasha Levin wrote:
-> gss_mech_get_by_OID() calls request_module() before it looks at the
-> list of registered mechanisms, so every lookup forks a modprobe, even
-> when the mechanism is already registered or built in.
-> gss_mech_get_by_name() and gss_mech_get_by_pseudoflavor() only load
-> the module when the lookup fails.
-> 
-> The read handler of /proc/net/rpc/gss_krb5_enctypes uses this lookup,
-> so every read() of that file runs modprobe, two per cat. The file is
-> present in every /proc/<pid>/net/rpc and /proc/<pid>/task/<tid>/net/rpc
-> directory, and LTP read_all gives each read one second. On a slow board
-> in KernelCI its workers stall on this file and the test times out.
-> 
-> [...]
+On Tue, Nov 3, 2026 at 12:42=E2=80=AFPM Kang Chen <k.chen@smail.nju.edu.cn>=
+ wrote:
+>
+> acpi_properties_format_valid() and acpi_add_nondev_subnodes() inspect
+> the package.count of nested elements before checking that those
+> elements actually are packages.  In union acpi_object, count aliases
+> the length of a string or buffer, so a Buffer(2) or String(2) element
+> passes the two-element test and the following elements[0]/elements[1]
+> accesses read past the small allocation.  In the non-device subnode
+> path, the resulting string pointer can reach acpi_get_handle().
+>
+> Test for ACPI_TYPE_PACKAGE before using package.count in both
+> functions.  Also require an even number of entries in the _DSD package
+> before reading paired GUID/link elements.
+>
+> Fixes: ffdcd955c307 ("ACPI: Add support for device specific properties")
+> Fixes: 99db5ff7fe0b ("ACPI / property: Hierarchical properties support up=
+date")
+> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 
-Applied to nfsd-testing, thanks!
+Applied as 7.5 material, thanks!
 
-[1/1] SUNRPC: Load the GSS module by OID only when the mechanism is missing
-      commit: f7ef2ce48812080b87572a2f0fdec93cb2d2a629
-
---
-Chuck Lever <cel@kernel.org>
+> ---
+>  drivers/acpi/property.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
+> index 8ee5a1f0eb48..f5e0dc87edde 100644
+> --- a/drivers/acpi/property.c
+> +++ b/drivers/acpi/property.c
+> @@ -194,7 +194,8 @@ static bool acpi_add_nondev_subnodes(acpi_handle scop=
+e,
+>
+>                 link =3D &links->package.elements[i];
+>                 /* Only two elements allowed. */
+> -               if (link->package.count !=3D 2)
+> +               if (link->type !=3D ACPI_TYPE_PACKAGE ||
+> +                   link->package.count !=3D 2)
+>                         continue;
+>
+>                 /* The first one (the key) must be a string. */
+> @@ -262,6 +263,9 @@ static bool acpi_enumerate_nondev_subnodes(acpi_handl=
+e scope,
+>         int i;
+>
+>         /* Look for the ACPI data subnodes GUID. */
+> +       if (desc->package.count % 2)
+> +               return false;
+> +
+>         for (i =3D 0; i < desc->package.count; i +=3D 2) {
+>                 const union acpi_object *guid;
+>                 union acpi_object *links;
+> @@ -331,9 +335,10 @@ static bool acpi_properties_format_valid(const union=
+ acpi_object *properties)
+>                  * Only two elements allowed, the first one must be a str=
+ing and
+>                  * the second one has to satisfy certain conditions.
+>                  */
+> -               if (property->package.count !=3D 2
+> -                   || property->package.elements[0].type !=3D ACPI_TYPE_=
+STRING
+> -                   || !acpi_property_value_ok(&property->package.element=
+s[1]))
+> +               if (property->type !=3D ACPI_TYPE_PACKAGE ||
+> +                   property->package.count !=3D 2 ||
+> +                   property->package.elements[0].type !=3D ACPI_TYPE_STR=
+ING ||
+> +                   !acpi_property_value_ok(&property->package.elements[1=
+]))
+>                         return false;
+>         }
+>         return true;
+> --
+> 2.34.1
+>
