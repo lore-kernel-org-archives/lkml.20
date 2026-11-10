@@ -1,54 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312690;
-	b=0tJ0kg9MqUGyw/r+1sV/IqbAGLQ13JLEcDJS/9YYDIwVJcZ67CzvAXtv65q3sPiFawY6
-	 dcBps1ZmbXgCdHYbjy4ZXd5/v8s0jZ4jI9hbHrjWZAskFVZBE1YCoa+cpa6L4RT9hWmd8
-	 ImiP98oHrT68dz4/HnlRXN3AabG8xTJRCAsUtxpOTKVBvz/0LGu/vaBrfBZFG7kclVLiV
-	 V/CXPr2qdPtBFj5CAiscR99TjzWYPwR93VHd/aegtuu5eTG4ZfOvGb2XBBDDiZNuDW5BA
-	 rL94581ZUjXlZP0ext8YAOmSeHr8KnDMg+nfx91krKDLuwPPDxrWEi0kEG0uWKSC1KQ==
+	t=1794312716;
+	b=RlJPVJrH4dcT9SB0G1V+jXKDTLCv9v2XAMely12oJQlB1vF1/W2SFbTHVMUPoX4buPIi
+	 3+yB6XSESikseSO+MRhYEn9ox5eH01ylgA99erZ6HaBaQ7KDhgjD0N8+nsWmXEbaGEYrF
+	 VxicrgjmAaXKvuytlGSnfrawx42QILKzU/UNHdXfsGXIqqkTE5baCXxTAzIRtf4uwob+6
+	 sAHu+GH7Umq7mlJxfsXTSbr+Dul1wC3hgpsZjJ+IsBP/sADQ2W5ZDfFmVINfs7B+nMlw+
+	 SgooHnWyRxj1KQdaKkSuOBpu08miqyYDXIrhLnfSV9CdC40r51wozfLVLjLo6o5cUzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312690;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=V6y3oj1wdghgriG30314q44VQVQpH2RHL0HCcz8YFiY=;
-	b=ggvBjWt41WmjIbxFo4kPrrNjA7I9WpokSSJ5UlbIvsKRiv3I09OTiRO+ZFmCOS7pZLG0
-	 M7OebcMuSJHYiyAwSo3RJhO/1gaiKzrWlEAkvmuMqgcexysv0obalX1BZDL2Ye4tCpmC4
-	 MtwQR3U+1+6ayDNh8NDiGe4YaD58iOgtOPFCaoPc1p4UCnQkzH4J5NcCoSpTkRO67e43B
-	 eWH9i4vS/KEnSL9GP/1Oeu6ta5AHwzUFypdudzNPpO1616JfFB6Qe0IC27feUy/aDpq0B
-	 hDGxmBCYHF2BtD8hOkPkesGnt2WtV0XiPADWDePj+/A3N0NmH9G4y+7S7cvI6MQS1MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312716;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=tD7qGW/s5oeJ2DBBIRje4FsXgEysjpoBnFMFva+fOTE=;
+	b=DtAz0A4CmkMUHNB+pbsJpJjeP44GLaxbVU8IrD12I8rikY970CrOle15qYdNSs0WYqgU
+	 4Ho11cjz20yOAZzI4qzIGYEOjZBRasz/i6NJDnMUSJPZ9OfMdg24rBUFeNunUzmlnCJFE
+	 B/rxSRiUXsEjY4qGOatB1GqSKlQqJuEByMwcVsKN0vhjspxfVQwOwAiaHVWFqcnK6er+M
+	 hWrCVsp2SENolvSJIpo3SggMXOPcfu61a54IE16C+79NyyQzlVqYQiAa5wO3HRVTRXUWm
+	 5ye6c0BT2qAChcVyUYxHsN1yZ6Kdt0gqQ16SCthyrYZTOY3tU6jYpLQK6qyqMHSxf1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=anirYGOP;
-	arc=none smtp.remote-ip=95.215.58.166
-Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WphPGQT6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F593606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F593606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473FA606A338;
+	Tue, 10 Nov 2026 12:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=anirYGOP
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EMm/A2BN1q75zo8IDzHb8rOAGXmZADLMHipKeX0V8hQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794312687; v=1; x=1794917487;
- b=anirYGOPNjpzWZekw3oE7YQCf1/CI3cOZ3UScO+Ewr3Bdf6WOgspTJpVw/fw9fapKtcqGlc/
- Ulhc+VU74O1ZouEDCQLoY0X5YMW0gcH5RnTmerr/+gPSpy5ja8lbxpHRJ+PCbKxzuir5omPSEqF
- rrEZwdycF+2arc74U3+aPMvA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cbcdfaa187e3d225;
-	Tue, 10 Nov 2026 12:11:27 +0000
-X-Mizu-Trace-ID: cbcdfaa187e3d225
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d615a099-5369-4e34-8f48-17152ce000d6@linux.dev>
-Date: Tue, 10 Nov 2026 20:11:18 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WphPGQT6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6BFB1F008A1;
+	Tue, 10 Nov 2026 12:11:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794312715;
+	bh=tD7qGW/s5oeJ2DBBIRje4FsXgEysjpoBnFMFva+fOTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WphPGQT60ndSl/fT00up4p6UOmimSvHl+Z4QGCnkEQD5emXwGRlQfEZAP8meg3xtt
+	 Vfyn1mKfvMGxvORVblLnZRa7PrvVFGCKsJl5TTJQRtfecAoz1uBwMqbEhh6dDuRwgx
+	 smN8cIIAgE/2IC+XLvD1oipdAj95dyH8+yMw2dfDE4om6EY4OBOKc3BblzgCT4DYH+
+	 XvQ+jg2aNOIChY32qbMh1JIvK+2hI03zOAO7Ov6o7qgS2q6yb39Iv/2X7s1D/GGrWV
+	 X9DTO07ATWUenxnzR2d2Rj7VAG46kr865p8ttVyGTSzcjmgPfReLKEkyhxcLjh4xrm
+	 k0p4UEKD5Hekg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 93976310C14A; Tue, 10 Nov 2026 12:11:52 +0000 (GMT)
+Date: Tue, 10 Nov 2026 12:11:52 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	shengchao.guo@oss.qualcomm.com,
+	mohammad.rafi.shaik@oss.qualcomm.com,
+	bartosz.golaszewski@oss.qualcomm.com,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ASoC: qcom: audioreach: support multichannel PCM
+ formats
+Message-ID: <7195c2b6-e1d7-4816-b86c-55e1936e11a2@sirena.org.uk>
+References: <20261026082534.986449-1-zhangfei.gao@oss.qualcomm.com>
+ <20261028024720.981971-1-zhangfei.gao@oss.qualcomm.com>
+ <CAFkd8hvXor7A5zaRtH5iQm6NsphzsxrjbADcRwedsONo=6J2gA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,126 +71,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] cgroup/cpuset: Allow top-level partition CPU
- replacement
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20261110050324.173461-1-guopeng.zhang@linux.dev>
- <20261110050324.173461-3-guopeng.zhang@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261110050324.173461-3-guopeng.zhang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Z5PpBErLLgIutFTu"
+Content-Disposition: inline
+In-Reply-To: <CAFkd8hvXor7A5zaRtH5iQm6NsphzsxrjbADcRwedsONo=6J2gA@mail.gmail.com>
+X-Cookie: Whoever dies with the most toys wins.
 
 
+--Z5PpBErLLgIutFTu
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/2026 1:03 PM, Guopeng Zhang wrote:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> 
-> When replacing a partition's CPUs, tasks_nocpu_error() checks whether
-> the parent's current effective_cpus is a subset of the new exclusive
-> CPU mask. The parent mask does not yet include CPUs being returned by
-> the update, so this can invalidate an otherwise valid partition.
-> 
-> For example, on an 8-CPU system without boot isolation:
-> 
->    echo 2-7 > A/cpuset.cpus
->    echo isolated > A/cpuset.cpus.partition
->    echo 0-4 > A/cpuset.cpus
->    cat A/cpuset.cpus.partition
->    isolated invalid (Parent unable to distribute cpu downstream)
-> 
-> The update should return CPUs 5-7 to the parent and leave A as a
-> valid isolated partition.
-> 
-> Skip this subset check for top_cpuset. top_cpuset_sd_nocpu() already
-> accounts for returned CPUs and ensures that an active boot domain
-> housekeeping CPU remains.
-> 
-> Add a regression test for this case.
-> 
-> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
-> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+On Tue, Nov 10, 2026 at 03:59:44PM +0800, Zhangfei Gao wrote:
+> On Wed, Oct 28, 2026 at 10:47=E2=80=AFAM Zhangfei Gao
+> <zhangfei.gao@oss.qualcomm.com> wrote:
+> >
+> > AudioReach currently rejects PCM streams with more than four channels in
+> > the PCM and shared-memory media format paths.
 
-Hi Guopeng,
 
-Patch 2 depends on patch 1. Skipping the cpumask_subset() check for
-top_cpuset is only safe because top_cpuset_sd_nocpu() added by patch 1
-now covers it. Without patch 1, patch 2 alone would let a partition
-take away all the CPUs of top_cpuset. So patch 2 can't be backported
-on its own, and the two have different Fixes tags. I think it would be
-better to fold patch 2 into patch 1.
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
 
-Also, the fix in patch 2 seems incomplete. The same false PERR_NOCPUS
-happens when the parent is a local partition, as cpumask_subset()
-there doesn't take the CPUs given back by the update into account
-either. On an 8-CPU system:
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
 
-	cd /sys/fs/cgroup
-	echo +cpuset > cgroup.subtree_control
-	mkdir A1
-	echo 1-7 > A1/cpuset.cpus
-	echo root > A1/cpuset.cpus.partition
-	echo +cpuset > A1/cgroup.subtree_control
-	mkdir A1/A2
-	echo 3-7 > A1/A2/cpuset.cpus
-	echo isolated > A1/A2/cpuset.cpus.partition
-	sleep 1000 &
-	echo $! > A1/cgroup.procs
-	echo 1-4 > A1/A2/cpuset.cpus
-	cat A1/A2/cpuset.cpus.partition
-	isolated invalid (Parent unable to distribute cpu downstream)
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
 
-A2 takes CPUs 1-2 from A1 and gives CPUs 5-7 back, so A1 still has
-CPUs for its task. Instead of skipping the check for top_cpuset only,
-how about making the check in tasks_nocpu_error() account for the CPUs
-given back by cs for all parents? The hotplug caller would then need
-to not count cs->effective_xcpus as given back, similar to what patch 3
-does for top-level partitions.
+--Z5PpBErLLgIutFTu
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> ---
->   kernel/cgroup/cpuset.c                            | 4 +++-
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
->   2 files changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index c405719ccd12..8b6831983803 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1232,8 +1232,10 @@ static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
->   
->   	/*
->   	 * A populated partition (cs or parent) can't have empty effective_cpus
-> +	 * The top_cpuset check above also accounts for CPUs being returned.
->   	 */
-> -	return (cpumask_subset(parent->effective_cpus, xcpus) &&
-> +	return (parent != &top_cpuset &&
-> +		cpumask_subset(parent->effective_cpus, xcpus) &&
->   		partition_is_populated(parent, cs)) ||
->   	       (!cpumask_intersects(xcpus, cpu_active_mask) &&
->   		partition_is_populated(cs, NULL));
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 0288af1c2eb3..ee4d57b7e35b 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -554,6 +554,9 @@ TEST_MATRIX=(
->   	" C2-6:X2-5:P1 CX3-6:P2 \
->   	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
->   
-> +	# A CPU replacement must account for CPUs returned to the top cpuset.
-> +	" C2-${CPULIST#0-}:P2 . . . C0-4 . . . 0 A1:0-4 A1:P2 0-4"
-> +
->   	#
->   	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->   	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Best regards
-Ridong
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavMKBAAKCRAv73Ows9A4
+iRDrAQDAqT8DpX9wcQEUCFKrlo0Xwf8FZARYHt5LPoZ2z1CcWgD+NhReofjPRdwd
+dPFIv3Vl2sj2YB9DDPXF7UF478xUYAU=
+=3j0y
+-----END PGP SIGNATURE-----
 
+--Z5PpBErLLgIutFTu--
