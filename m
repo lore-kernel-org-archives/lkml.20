@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.26
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308597;
-	b=BqHjYuHJiD5jqYr6D921D47QVVo0uIPv8RwrzNGEOa9J0LMqLgYLaO09O8CTYIPA5tHi
-	 pzaZ44AjS571i0hST1JoZ6R/7Fepvp73fsOJ1sdH8w0urMsUpYIsffzO94n4UdALB3pvh
-	 0hJM4Fur3uZAW+C3XVQQaAVF/3pAsYnG++TlpYwBd3+cg7lMs0mH/Wu6IKvLiQD1jqjd1
-	 GH8KmSdNwUKzS0BImMeT5IGzjOwMWCHTBNF+co4W3ZXzUIzDebmALxyUD/mkMPIbXBNZX
-	 /cvZa/MBRmdy9DWBpsshBOp7aYl6vyd0RtyPBSle45FTnBVR4rBrZJYy2h9lq1vEFgA==
+	t=1794308591;
+	b=cuTGJJjCFgoO+QWZhP9L16tzclfKQqHkWUVFSaknIJ/UWCM5T17sdSyr870m6aXfXdJr
+	 80Ec4/R15mJIJ1wGfgEqG8PLQ+KQ/bJE3aVpHZNUkW6No03HL9P5gjTTiYeFUIDzsDC+9
+	 uXOXC7Qjfymiwd6P0QxxFM8zMA719pcslUxXKkE35NV+gaUIAhFnrBez30bq7Z1qRCojI
+	 ongIqRSlp/ktszV27u4FV7w/KSYhqLw6Sj/NvNJuO4OG8CSGR7mmVrIOVbJjneRAVknPK
+	 /vrw9/lB/NFBA7VHHZl9Ip8HIJtxEiyZaNz+dQGms/L3aEpB+Qpm/XCLezlV8B4o2sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308597;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zJqoM5byy7t2oJnrolNTZNqtxc09Si1RLmF8E4lHkmc=;
-	b=OMUthagpJbpQA05IhBFCf1R0ShiYdO5ccO17lKGsLiVJvlcxgTfMh7hXVek3PtTIVpBF
-	 jNukrc69y7tA7IurJy9Z02XJ2ylfByovKgUYfaFH7Q3Vyvdh8fzlK90vvrVirJHaemlrD
-	 1Mt/sBcpm341E+ATccWzj0oGH5i/SpiPZjRdiemdhO1bTSfSDkHcWHrX8ilPl/RcbD7DV
-	 mLYPd9f9PNoGINqn+f9W96shmxftB5DCPAfqz0vIUFlP/+hA3oujvDdzoVDeI5F07EnWz
-	 snnQUpqt4y1IGttRX0MXLsUETLpVc63CwFPcFkIsbDP8JBLo0Zbxrky2nFWSde2uGag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308591;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=BZRqNPkVHbDtKON6wv6OQaO7er0kYUMxGcWb88xBRWU=;
+	b=pwXBH/DGrbcbCXzyNxvdNDA9H8smmT/Vg15kOzoVZ3IiOert7tJ8rlJSu8aQW4O1nHus
+	 1/dWwRcHFSLAEp2GZrAgE7c70zt6cYFnETsXJ43G7qIN09oOPdFOrh3TyoS/kpQhi1IzG
+	 mO3POfkkh7o7XBhxy6pjE2y02tprSYiCoPJSNtzpm0eTiMY+kHzh8i+uP/HTpqvDntbgx
+	 lXelib6jzi8VjgZEzocdi2b/bL1ONt54/tNxPWEgyrmQZkX0PmlklYt3BvRRf2Xi97q3r
+	 5IWYh2GQtLgPkJNgf8vFTZykGHnlhubk3TTvOmzrEJ8zbxOB9+jRqC4w4F91Q6G9giA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YANA8zpl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=Wf3JovIS;
+	arc=none smtp.remote-ip=79.135.106.26
+Received: from mail-10626.protonmail.ch (mail-10626.protonmail.ch [79.135.106.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FEF606A31C;
-	Tue, 10 Nov 2026 11:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF07606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:03:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF07606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YANA8zpl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558691F008A1;
-	Tue, 10 Nov 2026 11:03:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794308597;
-	bh=zJqoM5byy7t2oJnrolNTZNqtxc09Si1RLmF8E4lHkmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YANA8zplr5ixeJhh0AM8kWaDEpgWrinnTQE5LawdfgLFWTMxt5ac2dOiWa2uHAMWT
-	 ECRyCaV5UcHiP0DAo950O9Dmg0eiMieX5pblSLm5iCsk5XT3a9DATsrRof7z/6txrQ
-	 mwJ76n3z4xZHT0rB0l8oFErQFtc54rlSYNYJ5NS5nwj6xa1ameGYDGdHgXlRk/01r8
-	 bZANPsfP8Swcja4QTEWwCPFJkEUzh7Fdsp5RiafyRFQLtUGpl5OvmRJugN4TQbo7/U
-	 Q/1lOVg0My+24NrLBHq5Z1LHUVmtllX3g3t3W6cC1YtpP7IgN0+ncBEq4UwiLL9fTs
-	 HUPvecaa/x0jA==
-Date: Tue, 10 Nov 2026 11:03:10 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Seunghyun An <san55@wisc.edu>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Suren Baghdasaryan <surenb@google.com>, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm: avoid redundant reads of the vm_refcnt cacheline
- in anonymous faults
-Message-ID: <avLxcf8KaFP_XPnM@gremlin>
-References: <20261110000002.1834454-1-san55@wisc.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=Wf3JovIS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794308588; x=1794567788;
+	bh=BZRqNPkVHbDtKON6wv6OQaO7er0kYUMxGcWb88xBRWU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Wf3JovISJQKvxIHhu4gnnOUOlHwAjFvXnojjbYOeSYw01J5lrYINFyJ+RxZ2KD1OC
+	 k2YkS30LrYMAIWavXGmgHc9cz2HsIyG/zE9d9KI1qFGaKD+1YPBfEkpAD3FoLMu71p
+	 aUgE7KtGlriELzcJMLE2tuwxwBrzrfTJOKMDFSE2IpSkJzud18e2+UVmQVgYDZRN/L
+	 G7JcMBTbxM5V9usJrC4weOlRyErtjCD6YWvHhj7Ciev3LtvdMJ9ry0k5xZ7ejoihp0
+	 zbTVa4wTEWVD190XyKFEm6yU1Jha9hUR2DlxR6RDOmFCnn1roHFMYfGAvRRbJehZSz
+	 6Ss0tkRHhxQzA==
+Date: Tue, 10 Nov 2026 11:03:01 +0000
+To: Cen Zhang <zzzccc427@gmail.com>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH] Bluetooth: vhci: Flush suspend work after removing debugfs
+Message-ID: <20261110110253.1118214-2-ca@modelmiser.com>
+In-Reply-To: <pm-bluetooth-objects-candidate-0146-v7-4a901c7fb65111f006fe@gmail.com>
+References: <pm-bluetooth-objects-candidate-0146-v7-4a901c7fb65111f006fe@gmail.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: d83fc3b1e44738560cbe08a5fe327f6227997fd9
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,30 +64,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110000002.1834454-1-san55@wisc.edu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the report.
+On Sun, 25 Oct 2026, Cen Zhang wrote:
+> Runtime testing of this change was not performed.
 
-You are a complete newcomer to mm, and you are sending very subtle changes
-to a core part of it, so I am not confident that you have the depth of
-understanding the kernel requires for such work. See
-https://docs.kernel.org/process/generated-content.html
+The use-after-free in your report reproduces on mainline with the two
+test-only delays below, and your patch removes it.
 
-I'll therefore take over this change and treat this as a bug report.
+Tested on mainline d48723711bae (v7.4-rc1-672), whose hci_vhci.c and
+hci_sync.c match bluetooth-next at 983f3fcb1282 (hci_core.c differs
+only in rfkill handling), on x86_64 in QEMU (4 vCPUs) with KASAN,
+lockdep, DEBUG_LIST, kmemleak and hung-task detection. A test program
+opens /dev/vhci, answers every HCI command with a Command Complete,
+brings the controller up with HCIDEVUP, then closes /dev/vhci while
+another thread keeps toggling force_suspend in debugfs. One mode keeps
+answering commands until close() returns; the other stops answering
+before close().
 
-I will give you due credit for reporting the issue of course.
+Unaided the window is too narrow: 300 cycles in the answering mode on
+the unpatched kernel gave no reports. Both kernels therefore carried
+two test-only delays, not for merging:
 
-I'd like to collaborate on the perf measurements however, so if you could
-re-run your test results on my series when I send it that'd be appreciated.
+  vhci_release():
+  =09cancel_delayed_work_sync(&data->open_timeout);
+  =09flush_work(&data->suspend_work);
+  +=09msleep(50);
 
-In general it seems that the actual issue is the debug assertion, given you
-state only vma_has_anon_rmap() as a problem here.
+  hci_suspend_dev():
+  =09hci_req_sync_unlock(hdev);
+  +=09msleep(200);
+  =09hci_clear_wake_reason(hdev);
 
-In general in future - while we're fine with you using LLMs, newcomers
-should work on small, incremental changes to mm to build up understanding
-first.
+With the delays and without your patch, 30 cycles in each mode gave
+834 and 621 KASAN reports (kasan_multi_shot, so one bad close gives
+many). Two objects are hit. The hci_dev is accessed after free from
+hci_suspend_dev(), including the __mutex_lock() site in your report; it
+is page-backed, so KASAN shows no free stack, and once the page is
+reused the same accesses show up as slab-out-of-bounds against
+unrelated slab objects. The vhci_data (kmalloc in vhci_open(), kfree in
+vhci_release()) is read by vhci_suspend_work() and read and written by
+process_one_work() after free, because suspend_work is embedded in it.
+hci_resume_dev() was also reached, with an hdev pointer read from the
+freed vhci_data, so it dereferenced an unrelated address.
 
---
-Cheers, Lorenzo
+With the delays and your patch, 160 cycles (130 answering, 30 not) had
+no KASAN, lockdep, DEBUG_LIST, kmemleak or hung-task reports. Without
+the delays, 150 cycles with the patch (answering mode) were also
+clean; since the unpatched kernel was clean without them too, that run
+only shows no regression. As expected, release can now also wait for
+suspend or resume work that is already running, including an HCI
+command timeout inside it, as the existing first flush_work() already
+can.
+
+Not tested: suspend with force_wakeup set, with connections, or with
+scanning, advertising or discovery active (the controller was brought
+up with HCIDEVUP and no bluetoothd, so hci_suspend_sync() had nothing
+to pause), mgmt, real controllers or btvirt, module unload (Bluetooth
+was built in), other architectures, and a build of bluetooth-next
+itself (compared at source level only).
+
+The harness and this report were produced with an AI assistant (Claude
+Opus 5.5), which also did the earlier runs, including the unpatched
+comparison. I ran the final version on the patched kernel myself and
+got the same results. The harness is available on request.
+
+Tested-by: Chad Aldreda <ca@modelmiser.com>
+
