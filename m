@@ -1,100 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794292508;
-	b=gVqq03Yz5AqRg+aRrzYQit9K0qa2vwxWJ0mevGMbBNB5Oxipro8/mjY+pjpKbqSdGa73
-	 ojlAFij63e4QRu+bjcSfN78BZncmFawqxcrNhuRCZBkQF5N9ymiJ1oSj43bxmbmlyjsWG
-	 jG+EQbjQON3MdiLR6efVjsPMe7yQV4sTng2bxhz2TiXb5+Ob4NXFMUF86FX7flg/RP/H5
-	 WIgSAFX47dg7kLs6hYud3nq3/EEG0Q76npKzOt59aBqViACn0zVrqA7ljjji/XXYGZ/TA
-	 GJyxReKwC6fFBGMLHDyiDm6WXZHczvT4Afpo8AQArl3hKqXVgPeCw7syp9+vbUI4K0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292508;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794292513;
+	b=pVglvfqUz2C8f7bxZIpD6BdPAGMCKsqqRmkV6hTshpDYoxAX1pOd9x21YnNkWiS0j4cO
+	 i3dbREcx7fFrZoXOF60tv7ZxvuAropmdCAUUcDhhz/BoZDnzUFqJt13oHicP+NyOZIZyb
+	 2IqL5DElH3WvdOpZz8ilRJf3Vm0+7NJbihcW+U0gyTHkZ2OaqaZkMS5P3CDS47rVy05vV
+	 IKEau/IwFWdD78yF1S/UqKZy6tDjjPFpHk068SuHoFe70LwyWKs7bumhSAyQhkTUsDTdx
+	 KrQG6Lz2aFJ9cpa2yIOdyDbuan07DEzokFVppAiWrT2HGXmVjnje6Kmvwqpnn7vEeRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292513;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
-	b=nNvZgQ0EgqK1AQtoz5ScKHy3GzLXp5NvSldH3pgfzL053jtrGydSNswmN3c0Xb56ok6v
-	 Rhwwkqa1/Xbbr20U6GAZQRcSLlEc0udiUkothRy5PFbpaPywhDE08Up3N8iOa+yA08uKV
-	 BI1mLyhJh1Hc8oI5oX1WgsLL3Ktpbb/maidjdMnfO4h5otWP6ehw0LwWMYHr59ZjV4pqW
-	 j+WBTNkjp7SWp4nmgNyIG6N7KH2eBWRMC35NSE+KAB10m+tS4u1E4c0cSttf1gM7R5DcL
-	 33PxS9LrvE8v2SYXw7LMNNRAqmGvq8U5WeA+mvs8vyMCn9dcKm4ZDTs7zVa2xEwkKZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=QS5LM1FM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SrAtUp9emSKSwdDhGVp75ycz8yJkKPQkr0AQDP+R5XY=;
+	b=vRMWH80zr5lAwcBekj4bcUujH5ehneWzPBHHA+3SnXA+m+r2nuSBRtxtZxEw1B2hgAsA
+	 XnT3hPS34KygHGE8Ik25p1UHK/XScV927m/YQHAaaSN1LcVhJkgWgTLpE65bR1BPdLzEW
+	 D+IP/7uVVXOlGfF0e44BpSDgcBb3GYmunLXYqAvD/oUBVowVRdK7kkG1JrVi7rY9HWTyu
+	 vuFnlcHfPfAZVlUy/bvNd/NP21H9o0pL5UFH42hih25eQgdAWebKWQeo0fw1rNxG3yjvH
+	 UB48vbJRjKIknO7of/oF2MjG2nZD7l+FoJLXrqcfLfS3pA9hG+c/70w5Y5ie8ebjsjg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KvZh9KkF;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BC1606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:35:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3BC1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAFF606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:35:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FAFF606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=QS5LM1FM
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so244242466b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:35:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794292506; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Br07NiPGrwlSKlwdDu38kug58c919f/+IQdp3h0WTUUpEZ4uA1nS03e24iPg/kyMyX
-         mXtFdhfZTmtK5dUPEslIrUTEp3+FbolhwK0lEU7kPvTGk+WtZndEOQJgQRwz/MdAYOrf
-         ilinWLJREm1/07nU08IEWphLMK4ERUn3jDSFxrPHJbgkkLidw475pYueFJw6h4MLzPHu
-         VVsWHkdEmZlBjx3NESisbmasG0qH+WP5TwYh66XL3Xp62WvoZr4mAF1ilL3Dag6uGNrJ
-         p1HAqvtZ3lB3c1iZCvfQwpJfeO8U9GlNzdHokBXfRvuKUk/01RNt+az6xMJk3R3C+PON
-         lehw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
-        fh=Wx+SW0JJfzTKlQAqYSHtP81jpwOvFvpAfh7Vb/m1IVA=;
-        b=aBXgYzdJbuCS/WGvs9pW8apzio8iU8B2UBaA1eMKQguRz76sfqqg14FQvsJBYKWB2p
-         xGdyZqGKpuJhQ3EygnLXtr1afxAYvXolDA02v+OtjUgKJFVLPI5qXZNf7Pl4PZxncbmF
-         tFAApmeAUxozs6bdImdtLogXhL+QBgs7E8cfRGOJ+83y9dIflpEGUwHobqvqYlF8+Xyc
-         J9GU9YI/Jav+B79IaO0+f/WhbOjNY/GSRu+GtXwNLPKzdLbx9ABxlSFJzQ9sEBI59Xv6
-         u5U59EtPhmRuV2Gc2GdmRGenk0MKdNGcg/uCDAlgOAo2glLgDtnOrt0TRv+Eh5qHsSSk
-         3P/g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KvZh9KkF
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-492f0a1b685so1093073f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:35:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794292506; x=1794897306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794292511; x=1794897311; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
-        b=QS5LM1FMbPzdChydpLxU58IliuEhNfcDAqRmHDm3mMZ+MiOC+MSUpLE3DoccfzLbjd
-         sXv34iMGUGocJKpYUubaa4NqZqW1qXomZfuCt3ecdYJFS8RWAtwz+EfSB24j4ZVzbvbv
-         9TWfhX3lHYswm0aUabBkuTkhlSn0v3v9qmnPPfnE3IllO+t++8BwB8PjTD+ZYYGEjs/C
-         dh00ORY+lxY7YQrcHnOrvAgsWSfzQRDRyc+PJ/uQJELdw3nM/uhaklNbaX2iJQUb9Ehi
-         1uXNHWzk5etVguBlml5Lal8RJ6vNZGuG7EoHkKyKuBUvoUMXCFSk4QQi5myJmMYSHvV8
-         ATXQ==
+        bh=SrAtUp9emSKSwdDhGVp75ycz8yJkKPQkr0AQDP+R5XY=;
+        b=KvZh9KkFCB0l/6Bmr8nRlFNiNAYwTuU4bAbREFGDiprWKCca1D9gjGF60eGJA+3F1m
+         /bv5d5Tc5eWM5D865wZT1/xR3NEMOOdRqy4g1KkEy4dNN0ai3E7ZEOXBKCO9AA5jrZON
+         81noRzABdcThsTx/uPfWP2XKO8tbYcZNnqcldty/UzrmzSJt6LP+9II6IP/t+90m35A4
+         cHdS20nAQY6nLpp4JCwaxwmfEkKJkszzwHAQ0RkC24pcwIC8g2itd/wYEPWH0RU5LloK
+         +jxZ0egu/5nUvtzeuP+y0T3PHWti68rhJPt30aoXkp9b4h0G+AWEqtc8wek4WNU9qfaJ
+         cryg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794292506; x=1794897306;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794292511; x=1794897311;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yms/MOW/VAClKSYhrX3DCCuORfSDHh04cVmGAJVZ3jk=;
-        b=sYM77fzV5GwfhJxnVYdkK6ychhWE0gkWWLcgapRYBI8KFuL+ObeY7NNynuociRKEYQ
-         OKBpWOpXgiXHcFmyiSaA4putWTF2BQYFpKF5c42GNtyc87HnJ9xP615SnARHTPbUxARb
-         Ix3CyOdqaSN5zzMqF/K2FWuXlNQlv5Q02K5OJ+BvhT5cDkyReZq98CuH8SBnkvWYSq8s
-         6Q06iE8fycnWK/zxc1GH4ko6fIdRv8NsWH/AeEQ7a1Acl3UZ9t9ayw8r4Ediw7CRHbSr
-         q2CCgJxPdO7V/gx5WHaeztmJzANaIW+OEbuTan81Ys0Qjw3i+4FTfdAUAQLKyvnwnoXt
-         CMyA==
-X-Forwarded-Encrypted: i=1; AL+hErHfw8rOIglV9Mesa2qRx4ZbUBj3v3h44jUc4mhbJH7gkSorXbVWJQaT6GPCQ7e4IqyaQQ84fvlT02uND7w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yqwGv+CMN2AWlOnGZfmgamsFHG5qQa/ZIYRuWaCsYjz3sZGBu
-	oen3TTQK5SN+zsvUPD1TfKSw4U1g+VlBoxKrOxHN63Z3l+abVUuBrOu25Go6SzNpk6VqnjLAOdw
-	8z87nKF9H36muyNR0+xlpTlDMX21+6RhtTkUO+DsX0w==
-X-Gm-Gg: AYBFou3cG6us6BNTmAyhV9eE/IBUBqKnllQHoYVgIIfpMQ0GksJqV1qAbk3j5FmrwtA
-	jQmm2AwiEODCd6yuJgJU50r/lF7PCICmOJ07BzgNTuPu+CHo3VJHh0yTrCJMl3aQw84Umu4ZKXQ
-	AMh43N8QZOXPf9if6j7GiqymNJXLeosdQeI1zIrQb3mQBK+5e4U6FbikcAR8ZtTVoDK3qhffc37
-	j2F8KwEeSxjRNQHt5edgo5kI1798Ux11uHLbs94bLAPxLRG4W+iZWKEMn4wBhsgHN+mjLaNyuVl
-	SW3FPSxZVH8qavdDxhN8xsRV+YLGUgiBTm69cGgceKVMj3i90VrbYj/aZvk/hgyJZPlMEm5B8Hf
-	xGq1lih/nYrGrSNs2Qk0yH3eVokxXy0vRFAROPvTDUN+Ddpx390zzxPfQoxM79V6eqKIa
-X-Received: by 2002:a17:907:3f0d:b0:c2e:4a61:d436 with SMTP id
- a640c23a62f3a-c50495d6ee1mr127887266b.36.1794292505807; Mon, 09 Nov 2026
- 22:35:05 -0800 (PST)
+        bh=SrAtUp9emSKSwdDhGVp75ycz8yJkKPQkr0AQDP+R5XY=;
+        b=ayuTeBFYife3isQ99ZjSsLYH2h9E6UVu4F6YOBiYhwvBVAHFZ5YzJ9Xugy/D+n/tLZ
+         xKez1srvB5R8gWrOg/Fxa5MjgjVsl7QjZLxSgBtt+PpoQLYpzvs7vBtT4eCGWes+D0W2
+         rX8t1lL8FKplqNEfFpdk71FLw7sSnQZ8YWxyWaenRx9SfUlARcifoT9wSf75/pqRNoi3
+         DjGjLrZts+AAJ7JoN32UdLUHv16Ayy13g+rYMQnh7h84GaLVbrKDHF2jt1eCGk3nz9+Y
+         WUz1hrX79ZEYwtIaw07tH3R+O6VlBx2ZEjMOuYeRq6gpZBAdBhFOqPVFzO1B9q8c11O/
+         Kucw==
+X-Forwarded-Encrypted: i=1; AL+hErHdG6CE3P85rgQfc2mgSqCxAvSCO4qDU1AiMHf7RdcMPucrFD1P+BIiqGQ3igsDDXM8VoJZAL4sNRnVPLg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WxyaZcRD23ZCJ2NznjMSwMEiGrz7nGjKgEMI3dmZYYtAFQ1Fc
+	0uIEuR4nKM09TaZ1o+F/lhSzMUNXfFHW48CLY5kViQvquewMQzUGGCRE
+X-Gm-Gg: AYBFou2XARRKAlr1njKVmx4IS7T2vZ1/1X6l2UzYyOA2h1WvX/ezQWF/G6EiBleio+p
+	ijD6i4c6E/1eTOCDEhnZUxdTnle+3kLepwOjUCroksZuMWP61Ri5ntjwJl7GcJpq253ewl7gQCH
+	81nczLZ0QF48OfRvWvLCK3K0/7S/eu6A1INi+qFfD5aZUMG8B/Wb/vn7ojrSxkGrv/w0GcVne2Q
+	9QxMJhmqchYp+T02a/tPgUmmA/XcX32F7wSsn/GyBg0hwce9z8IKSbCAOFDu3z2ZGpSl99OUxC2
+	63gGyd1Muw16AyPcRjwYYyvIWyii9iVXSw1GBuNIta0d3x+6f72qvx24EFWnCsZ3vDG45RGywju
+	l5FU6F1ydCqSZtBJhRtWRLZlJzQHdRP+/x82ECL8wkD6iRQTMWEjwDFkjxuAxj9BYl5WY8rTLqr
+	XEsDGAMJCBOekBX5XiTsvyTWkPWWilyQwelgQbagY45jqTURZfSSwcsbfXwtAcEg8XL/qoBU/4S
+	4Jfqr2G2fuUv7SDPNZQHwGMnNQQ2HYgsG0Eja0eOI53PkxEKcxJhXHg0GYy6+QnjnAv4Nc+FHRM
+	HvtAbxH9/MD1t+K0WQ26KBPb7MZUNTWSq7Jk56HFhwl0mkAh5pn4IxjqdRV0W5msdJQgH3NRG1h
+	+Y+oST4SaCH2gLax/qL9TndpFeQaFnOfm8Et9+nfuJ8XlpiQtnPLjp+a7huGXdSXnzH3rOTAf7W
+	vMz/aMI3Z8evP25ntGb/tFGjqfk2daUdk=
+X-Received: by 2002:a05:6000:288f:b0:48e:3cec:b852 with SMTP id ffacd0b85a97d-498306d02e3mr2957082f8f.40.1794292510590;
+        Mon, 09 Nov 2026 22:35:10 -0800 (PST)
+Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-a0e9-dc01-c402-36c1-c306-953c.310.pool.telefonica.de. [2a02:3100:a0e9:dc01:c402:36c1:c306:953c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c500asm3241156f8f.48.2026.11.09.22.35.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 22:35:09 -0800 (PST)
+Date: Tue, 10 Nov 2026 07:35:07 +0100
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Shuai Xue <xueshuai@linux.alibaba.com>
+Cc: palmer@dabbelt.com, pjw@kernel.org, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, linux-riscv@lists.infradead.org, oleg@redhat.com, 
+	rostedt@goodmis.org, mhiramat@kernel.org, mark.rutland@arm.com, peterz@infradead.org, 
+	mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, 
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
+	james.clark@linaro.org, jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz, 
+	pmladek@suse.com, joe.lawrence@redhat.com, shuah@kernel.org, mpdesouza@suse.com, 
+	martin@kaiser.cx, oliver.yang@linux.alibaba.com, zhuo.song@linux.alibaba.com, 
+	jkchen@linux.alibaba.com, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v7 00/10] riscv: Add reliable stack unwinding for
+ livepatch
+Message-ID: <avK6oydgmtsa_Sjg@gmail.com>
+References: <20260914092648.51254-1-xueshuai@linux.alibaba.com>
+ <20261110013750.36800-1-xueshuai@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,36 +108,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-bq25792-v9-0-65f223e95fbc@flipper.net> <179426549236.3711751.6417012163300457231.b4-review@b4>
-In-Reply-To: <179426549236.3711751.6417012163300457231.b4-review@b4>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 10 Nov 2026 10:34:54 +0400
-X-Gm-Features: AclHuK9pc8-UGCoY8qoJMcDm1W89S8IUmtpee84nm2Kphvd-KkvUPWFG9vri-8g
-Message-ID: <CAKTNdwFsC+o_vAztfBZHyxDT499eOeQ4VxTr2xjAF2Xca7D2Mw@mail.gmail.com>
-Subject: Re: [PATCH v9 0/3] Add support for the TI BQ25792 battery charger
- (regulator part)
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Chris Morgan <macromorgan@hotmail.com>, 
-	Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110013750.36800-1-xueshuai@linux.alibaba.com>
 
-On Tue, Nov 10, 2026 at 3:11=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> > This adds support for the TI BQ25792 battery charger, which is similar =
-in
-> > overall logic to the BQ25703A, but has a different register layout and
-> > slightly different lower-level programming logic.
-> >
-> > No cross-tree dependencies here, as the MFD part is already in master.
->
-> This doesn't apply against current code, please check and resend.
+On Tue, Nov 10, 2026 at 09:37:40AM +0100, Shuai Xue wrote:
+> Changes since v6:
+> 
+> * Rebase onto the current riscv/for-next (based on 7.4-rc1).
+> 
+> * Fold in Karl Mehltretter's two patches [1] as 1/10 and 2/10. Patch
+>   1/10 stops arch_stack_walk() from reporting the walker's own frame as
+>   the first entry, which corrupts the skip-frame accounting of
+>   stack_trace_save() users (page_owner, perf), and adjusts
+>   return_address() level accounting accordingly. Patch 2/10 adds a KUnit
+>   test for the start frames. Both patches keep their original authorship;
+>   I added my Reviewed-by/Tested-by and sign-off. I asked Karl on
+>   3 November whether he would like to see his patches folded into this
+>   series; he has not replied so far. Since 8/10 reuses the walker
+>   extraction from 1/10 for its !CONFIG_FRAME_POINTER fallback, his
+>   patches are included here to keep the series self-contained.
+> 
 
-Thanks for the heads-up, I will rebase and resend. In the meantime,
-I've also added some further functionality to make it safer to use
-while sourcing >5V over USB PD, so I'll restructure the series a
-little bit while at that.
+Thank you for folding those patches in. I'm fine with that.
 
-Best regards,
-Alexey
+Regards,
+Karl
