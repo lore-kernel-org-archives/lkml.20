@@ -1,99 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307817;
-	b=J74wWUPFcezz2oHgN6rBB01YwmhMEghMudud5kpfRryKAn3h9l4TeEzmQQ2W9RTP+j2M
-	 GSBkT0aumxJSceL6oN2g+Bqtq1WunNPhJMlEqleCqOVNtg+bqKQkyc/lOpiKVom+G1WxL
-	 NoF0ONX+e6p4AP827CrgxxCynF6ni/52/TgnXgUYHn6jRZ67s6B+d06L4xJic9LIMcijq
-	 2rTgxQ7So/L1UbCNgDSQOOpqqq+lhvIl+LX653L1pPADM3jrppp6jrUCliL5HlIImsXxp
-	 q2OZZsNdjADUD976O1Yq0JxWA7RAZx597XbdBN4v/rHT4pLgbgpnaR9lWWMEAwOgdfw==
+	t=1794307851;
+	b=n2eMPFM1D3hhtyF2N+ZFK/NkurxsWJbiTqBXSU7uoVmGxRyNbMIgQis3FFWxXxHgQRdB
+	 tTyja0d+PJk1OqKfDHdh7n4xD8j1ZDJYBMB0qqsQ4W4YHdxBUe2h3J8u7qA0JEaTdD0mo
+	 JXuB1go8dpuf4WPiIPNNGC0C20iBAO3dRv/iWPSim39Izzr7Vov/VsYKxhazVkGTuBGam
+	 tC7vb1lBqyugmYft1jediEyw1e91UuMCd7taXs3oYOpGs0OEnX9Hwm7wl5Rk8aaFMXNrN
+	 tuTg/uABmxUpCzdeewt8S+Vool+zxKNhsdLW/Y/ElPDfTQ1k192YTG31pKY5ufUxA3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307851;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=RVTkGzwp8ckIzdQmxfwAcPBKin5d3z25DmdwwACLOEQ=;
-	b=aiJuBP7DOHWL9qe8trVuqp8FHTynMbiO6Ord6FlEJS3jTKN0xVHvS7IcrKYMibh7ypMO
-	 LXZ9mU3ujOeoN01nD00WUVenWd310k2tG3edLTi2Ah+j+g1HcnDOgrT/p2zztusKFq8N3
-	 hlwYzEul1vK5rUiEJl+KOy7sDlhUwMUs3WnIrzvhIwaa3Jy+0bM6/daG4aHhZFPaa5gBd
-	 Mx6cZsAiUipCYjUaqKH/4tJTGXZkNGW0oOjt2JhVywVbYlyDwFOImkt3psqZfAM7BnvRz
-	 mgj3D0PUaBn7id+9dRWndjDvqQKjEX7a7cBxRGUMECiZucoS8bp5vJdCvygAhK7zJMA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
+	b=wAUi6kb0iR80PVQx18Bjint+n/XQSZKq1PyQm4BaO+I+ozGvXaKyDNXhsiU4h4rifjYm
+	 2NtO0uHJ6ts9Y6/mDSShHM7xBvsugOofM/ey31122V3UKsFlmtwupDSmFi3topOzlmJ8r
+	 FPNIX1ThGWyGzB3GG49Hm1GIKfbZwNXaErkArGoSLZtbwdojLajEQxIRoWLmofwb1t4Jh
+	 BvN/63CtRjajMB4y2v75fUDCO6c9VtBqbQYlT9VPYGgEMNaWBj0WTlFzcoDlvLQ51ksGb
+	 KEjmn4DvvoA69UPfNOQKPLdJqyaO9DpD3CUSp9TkbXYXzCvR058MKN8kbujdaxHssJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="P/jUBQCJ";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7oOBOLJ;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE43B60A2605
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:50:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE43B60A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86A3606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E86A3606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=P/jUBQCJ
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so15130095e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:50:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7oOBOLJ
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so2830018c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:50:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794307815; x=1794912615; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RVTkGzwp8ckIzdQmxfwAcPBKin5d3z25DmdwwACLOEQ=;
-        b=P/jUBQCJoeTzk8ENZY21IS6gDU+Zdyc3XCOAcCfNMmq10lkR8U6IsmhN6Xm3LtJm8c
-         57Lsbw3/yyD/WCd7dwlAtYB4m5l5PDLR8WQN55qbEKB3A1ar0X0i4ayXtpEkZSm/eleM
-         6n9AJ1zMuI6fPQNhL7pK4RYhwuyzARnCAXY8ukjpWK0dVMLxQkE0hnzi++H5U5WHivPK
-         7u53LDz9nSTrMJHmZ7FzqqwECFmbIJQlD68etYr8cZaqjQOw2vAxdFNZrBnmAKEJV3gn
-         +8hObpVZccBlXWQdyg7IrVvXM3egRtxOSiTfU5PxSJb7YuQjs8akDrMWE61qu3NyeNvD
-         /6jA==
+        d=gmail.com; s=20260707; t=1794307850; x=1794912650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
+        b=S7oOBOLJgkm5j3tpXKpiwJK8P5y+iQiS8q2DMIqq1hbNqUzm3Dk9Nt3P44CdaCrFnC
+         NP1lvXmBMlAZLOlnIfUtw/GDGqi+w1LuNye8okF2f3p0ztePm1n0Pwhdry4x7bQ5Qk+k
+         L/mhIwUJT75aXGy9Cr82QMvFE7QF9OzoYoCmNt1uqiJ/VtTHPbqHCYey1HDMra8+WsKY
+         UTT9n9segkNKlcyfDUmqglN0a3BdUI3nlcSbj2+zZqkBoF+pZ+kXkeGvqIFaqOyoFaQZ
+         rMQlfgtW9dZc07qCWSy+dKhp138PASsfNg8ulKkUOytLlUrqKw6VzftrgIOyvWwqE2Bu
+         2HiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794307815; x=1794912615;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RVTkGzwp8ckIzdQmxfwAcPBKin5d3z25DmdwwACLOEQ=;
-        b=k6CsIfV6FTVsSGF/06el1w1U8QD+P1VHfJueaWl7lnt5E/cd+KyiDSK7F5iUUX4Rqm
-         vPYwcJM4tH0MaTZUxHBAQklGzgWP/nAuArH3NSV6Q7DJIlQ8SxMDffnsBFXLAHQyVYrS
-         7tiChyh5aYPOKg825n7SsW0JODpgSb3P5W8DU47RdtsdPKJbpN7YrM2CbL2QIZ3aqDee
-         2e3g5mHfMDcq8N/TV0TxfNaNSf7w2/kCS+PK/2Cbmu2ZsWqotAoLJo3rYqwmpXxnScrY
-         TInSoiE4PPynfrZ1jNNRJzQfWzJkzYErN+Qmxcs98DjpRtQ4K/b5tFGnaoRiFaZREKgZ
-         fLFA==
-X-Forwarded-Encrypted: i=1; AL+hErGY/nBVGS2vdyIV+fpqTxVkK2e/mdH5Dbtqn43EaXa1y6ci8ES5ilaQIo2QpomJ9rqlQ1Jxn2ZFs8/+Mec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iZAAiAPQgv0iLIRY4iA0BydkBLOOTMIrVDbaMTktlde09YEMm
-	KhF+HfGGcU27k4x9e1lzbOrzqIOeAqipC9Wii+ciZ5yoQ4PQKi6u2CFBGjULc+jJXWY=
-X-Gm-Gg: AYBFou2ZwoGxiU6ZKOnJH7DIrx5RszM/800I+MgiEoiVVIG2IjEw2u/FHK6mmzErJLG
-	krdMrl7vkxjaMpX+6g9RXP7ndlqCW4PmTb6i6ShWDpM/R8A3HehSKzTI/c+hnva2IdD3U7di+G6
-	6GL2MhfZb+WCPwkpZFrEsBOaLE8lumQ2qWQZdcvt4Pb3L5xC0YStwferorhTzVcooW5RXB5vazK
-	MmgwnxsJBpU4Xv+Z/hRNTMl1wvu3Y1P4W1FyZAfGsFZooXuComqoAnpCow2AGgU2l17GmeFt1WZ
-	JtdQGu6EQEZcwKlrI2AjgoHGSPCDfVm86GlV+AU6rIi1MYGqKnRJzSxXhHcf0vuh3BP7UZoZ88Y
-	GWBT2/taFXMpM9UBxsW3D8VEPyvvJkesk6ZtMYe+uXUk+FtbFPVhsLrN1NIrLcgHjYT9sTGqjAr
-	aRWFKuESqlQrGaNtcrOqqRu3xWqBFH3OaKm/OPi1E46FPRjW1kLsO8npegFF2jxf8pb05qQYdbL
-	fKpjdznhGd0Mm/fNBSqvPXsQuqgbwfYqBJUTWMMXeo9mlsIhjkMVR6I9ZU8xdCjbg0nFJduep5U
-	fuykfdxEAWeLV6ARY5OEfUG7T+NDX/bb1D0G+45nIRYewA==
-X-Received: by 2002:a05:600c:4e14:b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4ba0233b8b5mr35312615e9.7.1794307814843;
-        Tue, 10 Nov 2026 02:50:14 -0800 (PST)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c37bdfsm4522648f8f.22.2026.11.10.02.50.13
+        d=1e100.net; s=20260707; t=1794307850; x=1794912650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
+        b=FNPok7ISbmmEZm+Ot1S6vkNP07yrXfv0W0Koss5GBxmSgXdjd5QSkp9lwGW9pMVJ2m
+         Hgg3zqsTQVre1gm2D9k9mneqjtHl+idAPSgAyd+piO42UPja4ruPPESN6SQI/tC1Ps34
+         n7KXYPSZXMHTQy0TrVrTKsEFn1xEuX2CZAK71Gwzl+zWIZC8QonF2gBIMB3nrinM77ST
+         IkGMaWuo2TFiU5shjsLZoNhQR7Z+5lPCEFixQekRtCgg7h4ju2FFUM/C8p+klVsFovxE
+         IDHwacIoeSCHVyP4NGrl5/Fts0kMi68345OsY7Xbf0aQlIPbXuSWK0rr9q8ffEt0bUx8
+         gQQQ==
+X-Forwarded-Encrypted: i=1; AL+hErGCmUtAn3zMhZmraCC4Z3/ogqEH7Ywn49n9+0J2TiIvyjgX2I8W2CFRfexmRfaHO13mLEEbFAY1EGNHitU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IncBypuHphcL6uYb5ue54D6PK5cCPFg4k69hm9zxzTG4/BdwL
+	BDgEsy07Il57Jhb4LoNq1rW6J3BBmLtli6+k+bJwkMG/x8FpiO+vf9g+
+X-Gm-Gg: AYBFou0EJRLBp98b3flFt6xUxJniMk1RKFRpT1jVSIwH/DCL2DTiezu6K/2Syge1cUj
+	8LDFCmJju6QO6vgjeeWkAd9HrwcPgLuVcS6ubhA9J0WUkaGJDusPV6y42Gv0ZmqFHr13kZsFc3v
+	nbRvSKP3FlxivAERLyDa9CweT6hEpiWhplGCdn2mEkJGM25ISQ9rbVURam6yAklLuqQIr553tcg
+	6H+KkVe0JXkdS+piuLJY9GNnasTbzVE/st+C2r2dKACyhEZGaSrtOfmIZssPRlwjGLV8kRTydtX
+	zkTfFSapePs/7OzCVCLfCFRvg67jgA6fZVcjA+RgFTximADzsk7goak+NU7zAEKDPFXerQC5AKu
+	bPYRAnJg/YPYoZfoOoxpxQVaIVIwBBAiXodVUWiudWorfZvGOYCcsKWStm2N1TtJ49H+qb14rcz
+	InKVuOota4/R6Vxkw6n3hDNqirTfUWinhKfr9AygoNt5n/LB3WaWn0qf4d1mI1j3rRGyF7UglCx
+	bZH2nyPDk4zgaVCt/EJO1/9gx6tBDmDXu3mQ0MFDy/PL/oPHWEVYboNSptMWYYt7o+Cqe8Eu/i1
+	nLGNcIxh03OksQgyfYB7Y0opaIPu+oHszi5GfUCf9+d6caAovhCNmYOt+tsncZ1VD/1hMw==
+X-Received: by 2002:a05:701a:815a:20b0:190:b2de:1549 with SMTP id a92af1059eb24-1b3b5e6524dmr3147999c88.1.1794307849889;
+        Tue, 10 Nov 2026 02:50:49 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2ff3bsm7899356c88.11.2026.11.10.02.50.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:50:14 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:50:12 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Miroslav Benes <mbenes@suse.cz>,
-	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	Yafang Shao <laoar.shao@gmail.com>, Shuah Khan <shuah@kernel.org>,
-	live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] selftests/livepatch: skip based on the test
- modules instead of KDIR
-Message-ID: <avL25NFPU_pJ2tXJ@pathway.suse.cz>
-References: <20261103222706.1642224-1-sashal@kernel.org>
- <20261103222706.1642224-3-sashal@kernel.org>
+        Tue, 10 Nov 2026 02:50:49 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v4] ata: libahci: delete the SW activity blink timer on port stop
+Date: Tue, 10 Nov 2026 19:50:40 +0900
+Message-ID: <20261110105040.2483806-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,59 +97,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103222706.1642224-3-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue 2026-11-03 17:27:06, Sasha Levin wrote:
-> setup_config() skips every test when there is no kernel build directory
-> at $KDIR or /lib/modules/$(uname -r)/build. The test modules are built
-> together with the selftests and the scripts load them from
-> test_modules/, so nothing needs a build directory at run time. A
-> machine running an installed kselftest tree usually has none, and the
-> tests are skipped there although the modules were built and installed.
-> 
-> Check for the modules that __load_mod() loads instead, and remove
-> has_kdir(), which has no other users.
+The software activity LED support arms a per-EM-port timer (emp->timer,
+ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
+callback re-arms itself while the LED is blinking. The timer lives in
+struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
+with devm_kzalloc() and freed when the port is torn down.
 
-This is another a bit cryptic LLM generated commit message.
-IMHO, it will be much more strightforard to say that this patch
-allows to run livepatch selftests with pre-built test modules
-without a need to install kernel devel files.
+ahci_port_stop() never deletes this timer - nothing in libahci does - so
+when the SW activity LED is in use and the AHCI port is stopped (driver
+unbind / module unload) while the blink timer is still pending,
+ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
+dereferences the freed ahci_em_priv (use-after-free).
 
-> Fixes: 54ee3526796f ("selftests: livepatch: Avoid running the tests if kernel-devel is missing")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/testing/selftests/livepatch/functions.sh | 16 +++++-----------
->  1 file changed, 5 insertions(+), 11 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/livepatch/functions.sh b/tools/testing/selftests/livepatch/functions.sh
-> index 8b26b70f92d8c..14fc9cade4de3 100644
-> --- a/tools/testing/selftests/livepatch/functions.sh
-> +++ b/tools/testing/selftests/livepatch/functions.sh
-> @@ -44,16 +44,10 @@ function is_root() {
->  	fi
->  }
->  
-> -# Check if we can compile the modules before loading them
-> -function has_kdir() {
-> -	if [ -z "$KDIR" ]; then
-> -		KDIR="/lib/modules/$(uname -r)/build"
-> -	fi
-> -
-> -	if [ ! -d "$KDIR" ]; then
-> -		echo "skip all tests: KDIR ($KDIR) not available to compile modules."
-> -		exit $ksft_skip
-> -	fi
-> +# Check that the test modules were built before loading them
-> +function has_test_modules() {
-> +	compgen -G "test_modules/*.ko" > /dev/null ||
-> +		skip "test modules are not available"
+Shut the timers down in ahci_port_stop() before the port private data is
+released. Iterate every em_priv slot and skip the ones that
+ahci_init_sw_activity() never set up (emp->timer.function is NULL), so a
+timer armed on a fan-out link whose port multiplier was detached before
+port stop is not missed. Because the callback re-arms itself, use
+timer_shutdown_sync() so a concurrent re-arm cannot resurrect it.
 
-I would prefer to keep also the original tests as a fallback
-and report:
+Not tested on real hardware (needs an AHCI controller with SGPIO
+enclosure management and the software activity LED enabled).
 
-		echo "skip all tests: test modules are not available and KDIR ($KDIR) is not available to compile them."
+Fixes: 18f7ba4c2f4b ("libata/ahci: enclosure management support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+Changes in v4:
+- Iterate all pp->em_priv[] slots instead of the current links, so a blink
+  timer armed on a fan-out link whose PMP was detached before port stop
+  (e.g. by sata_pmp_detach() on failed EH recovery) is still shut down
+  (Sashiko AI review). This drops the now-redundant ATA_FLAG_SW_ACTIVITY
+  gate, since the emp->timer.function check already skips unset-up slots.
+- Correct the Fixes tag to the commit that introduced emp->timer
+  (Sashiko AI review).
 
-Best Regards,
-Petr
+Changes in v3:
+- Shorten the code comment (Niklas Cassel).
+
+Changes in v2:
+- Gate the shutdown loop and skip em_priv slots whose timer was never set
+  up (Sashiko AI review); superseded by the all-slots iteration in v4.
+
+v3: https://lore.kernel.org/linux-ide/20261110090303.2415681-1-hj351016@gmail.com/
+
+ drivers/ata/libahci.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 001a6f5..6d73c7f 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2605,8 +2605,23 @@ static void ahci_port_stop(struct ata_port *ap)
+ {
+ 	const char *emsg = NULL;
+ 	struct ahci_host_priv *hpriv = ap->host->private_data;
++	struct ahci_port_priv *pp = ap->private_data;
+ 	void __iomem *host_mmio = hpriv->mmio;
++	struct ahci_em_priv *emp;
+ 	int rc;
++	int i;
++
++	/*
++	 * Stop the SW activity blink timers before devres frees pp, skipping
++	 * the slots that ahci_init_sw_activity() never set up.  Iterate all
++	 * em_priv slots rather than the current links, so a timer armed on a
++	 * fan-out link whose PMP was detached before port stop is not missed.
++	 */
++	for (i = 0; i < EM_MAX_SLOTS; i++) {
++		emp = &pp->em_priv[i];
++		if (emp->timer.function)
++			timer_shutdown_sync(&emp->timer);
++	}
+
+ 	/* de-initialize port */
+ 	rc = ahci_deinit_port(ap, &emsg);
+--
+2.43.0
