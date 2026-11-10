@@ -1,104 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316826;
-	b=S5bAS5BppiX9FYJia/tyjtuhSdCgK3cL4MLkllQiueuzJP57phOeXv34IshkiZDmsR/l
-	 5rsTG6T/0fU9oITHuODDI01JsIeD/TsskoduCkHndBn+OJhf3ioR/vqA7IA1KIgPmgFAk
-	 2vb1nmmbSFRrwPvZvEwb2CfujjUfCKC9Xc486o/GJSUwP3fPdI6G4PRuclNk0H3BJ09Br
-	 6z+TkZmlHxaapi7GWBurnYwkoIo+tedVfJLnQSGNnywUKWuYjR2i3l/Ec+53grhoSwGRm
-	 udx7iHyrE8ub+8LVwC9M8pp1C60J48JybPhDsjO3vrod7tgiAEDKsg3CJuBVqbzqkXg==
+	t=1794316822;
+	b=Es+pLSYQ8au+DTDVva0zHhFQ2HE6E5gMs8YPVdmTXLLLxsGwpvO8xyj1kaH+Ct4ytf/X
+	 Fw7t63wK1YkJbiOOhMtdHUsvLZdgPk30lbIAkmd0oFt6QAkMwVBmg9q8h//hYsEzJCQGc
+	 buMexXIm2M/2BcGhx64fzOLyIGHj3NYCKtHioCIy7udGSjG7jHF2GgUYzvdFjwoYnDBYA
+	 rkG+QSl7pHAO4fWTi1uYHJynY620T6yDCZBipAKLWzRXeE4PPMANVfh5pL3dXgdhe2bHN
+	 /SL2suka7TbSofebb39cb9GVI4njaU0YuXLMvh2B2elVbR/vUK3jZW2QbukGwYDHoZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316822;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1yXxbEsc5Qxia0KRluRo/goytXSVlB2bBLwxeDAnqXM=;
-	b=EXVqCQdJDzUmf2gGOxkyHBvY6IQFzwjKukmO1rtryGt1cuuNvUtA9W+BsWni7oyAUZ77
-	 8DRgwf+nTnJCnP7j131OcV6E11kQleP2bakmpowQN10CAcZ6EvT1JnEPE8ViTfxgr5ObL
-	 BaFcvsad1/oaqJyobohYe3ksb8lMVsSpzojOcE9VJ7WqXW5hymiUKjMpU3OdFFLXGGcgN
-	 yFSpS+/7BvpzGtUkTg1GnMtGspeTZciXtVsIc5zr3pRxdQyHIP7dDjkY2Od1usSbMm0XP
-	 He52FRdAB4JKw48IvQpl1q19NIC+Tq+D3Wc5aVKnOJxpGPMmtwEalPPyIJyJorNqd/Q==
+	bh=ycl2dCdRSG2yNQWq4oKpeINj85pJ+uFg5E+mDg9A5Js=;
+	b=gP4P3psteuCcTa7R0jZSBGv7Yz79o7iCgPgHM27DQeWZV+lGoKLK46SBabGd5wXKFfpg
+	 Mkiz555clgCtYlTJ42zyjTIaa7+PSMfEC7px25rm1UFfEMeUCf2GJ47OhN2oGVztCsQFG
+	 eO9GcyZgnphJo2XL6trD4YseCArCHluO/dSg+sYazo41l0GSWzdbxPQNS0pgX2uXqXnNn
+	 PmlJLy379TCCeJd4x2WHUonoZkFqly+bXAckIxJ+UP5huQHgwfKfvBrQCU5iozyPdz5Kl
+	 vzR3YSBl3zZJw0VaPgYaTVckePMBmMek6H6zrplesQxLKNVsp3sHvkKwqHYzbUoKCIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ec9pKMXz;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=R+6G40ql;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BLRV0NqZ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IuEkdQBu;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045D360A5BE6
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 045D360A5BE6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B14960A381D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B14960A381D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ec9pKMXz;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=R+6G40ql
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BLRV0NqZ;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IuEkdQBu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794316824;
+	s=mimecast20190719; t=1794316820;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1yXxbEsc5Qxia0KRluRo/goytXSVlB2bBLwxeDAnqXM=;
-	b=ec9pKMXz0AUiJn32jOiUzGcZQwwzQdhmCxoix7wKUvfINpXCr1qo2ot9+oscYcKLhrv012
-	sxIZLbOLQROtLQCGQeIU7tYt0PibUfkubHvXqZs5a/ksbZY87SPFxrK6zgq59TP2MSvsz+
-	F2wnVCbjKwm5axdoh++azl2ZJQqgGQA=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ycl2dCdRSG2yNQWq4oKpeINj85pJ+uFg5E+mDg9A5Js=;
+	b=BLRV0NqZCO7aDEVRqHyQVuTtOJ7b689gNA68Y/038P1Gg2TMFzRMSUQhZ0EiVMdhqOa/Xd
+	HUYWwRDXT/vHtqR0xaDebf5UQJU+0+7K+MVuBWV4XLIDxt/NxBQiceXSbBdGycRcZvlgmy
+	561FIvntadIxVO0+3/hYhkK77nGGhr8=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-14-Pu8WPW5-M0qd4z1KCkIw8A-1; Tue, 10 Nov 2026 08:20:22 -0500
-X-MC-Unique: Pu8WPW5-M0qd4z1KCkIw8A-1
-X-Mimecast-MFC-AGG-ID: Pu8WPW5-M0qd4z1KCkIw8A_1794316822
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c504991a35eso89633766b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:22 -0800 (PST)
+ us-mta-553-r7tXCVIYP0KmPOh-7X3ISg-1; Tue, 10 Nov 2026 08:20:18 -0500
+X-MC-Unique: r7tXCVIYP0KmPOh-7X3ISg-1
+X-Mimecast-MFC-AGG-ID: r7tXCVIYP0KmPOh-7X3ISg_1794316817
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c4d34d6082fso192514466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794316822; x=1794921622; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1794316817; x=1794921617; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1yXxbEsc5Qxia0KRluRo/goytXSVlB2bBLwxeDAnqXM=;
-        b=R+6G40qlmv83QMyID3GfL7Ymbx3l57F3VUkeVuvE2aULQSDcc85V7oM2teE+MfcqJV
-         oxBE58xM0+xrOnvUNuYgAPWjj/Fdt7Nrw/plF4K/48LG0utNSHAg2y7x+LWBMnKI+08B
-         7ErnKCy7r9Xar23xVha1wrMSQg0IfYE/RwpDtOpcdTnlctx+MSxqlF8JfX8F5zqDybL5
-         FddWzM6KJhk5g9VZcQAH+k6udUa27gyiCd74u+s03hG63rJg6+rOwUSmPnbKOKfxOFap
-         Drq2YNNzbZcPLJWs1d47UvIBcSAQQI+qAHDp49aJI7Rh/n5UhIJvw1rzVm47PN9EHX0q
-         Jz3Q==
+        bh=ycl2dCdRSG2yNQWq4oKpeINj85pJ+uFg5E+mDg9A5Js=;
+        b=IuEkdQBuscKxm7cqqUX21Eblb8RDTlcLUVoVtmWoQJFc6w3uoWLxGqS1qn51STUq1I
+         x7PYkEd7YisvXoI9ny8+3YwxGYgy3cELK1UjkfxDywOgEhUke4ZKY+mq5d5tKHeNDGrK
+         CQqe1EgWu0vR6mXPAmCEgyPAHb11Ii2n0VhDYAOwU4A/+4AEhXxYRY+AMiQ9YBG3xDMs
+         TXBB5gHp8Pu/lGdhG0bknnxdpEU3f57n6B2/yTcXoldLSOeg7yEqZ3qo6H19muEZPm8u
+         raKeLkbLCgf1jahiuU6XNA+YReUfqObdCK/yJLDzgEQ14WRQCPuQGzVMG2we/lxH3Wnb
+         oIjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316822; x=1794921622;
+        d=1e100.net; s=20260707; t=1794316817; x=1794921617;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1yXxbEsc5Qxia0KRluRo/goytXSVlB2bBLwxeDAnqXM=;
-        b=0f9L49u+r0d3U00X7HMFeXeua9x5dAy5Fmqu+zOdnLUqvtqnKHcrfDVhEvVlDuliKZ
-         RFI0MVwoIdlZa1uH5jWWzm0e3siSKjawgfvgWfDum7x/dt2UFYw1QXrZU+F0XK4Q8cAL
-         FKGs8CqN/BGliXM4rka2rXqAzrro24e0UCqtGgGYkvZ+rncUsLQxcRqcOplf9010AL2B
-         LlphJpqW18xXdySecyAMh/GqVMyXyjObKUZeQpdJt+bWRy7RxTDIsI2mHARu4gk2QLhC
-         5uU0fAM+N4x7AQic/wha2Zz0le5BanCGDoSxKe58nXqD+lyhrEu9cj1MF0W8FY7lG6t6
-         JTAA==
-X-Forwarded-Encrypted: i=1; AL+hErEkBMFsrp5gIeJRC1eOAQcn3vtcC6J2H4r5fLdkP2/LvAM56U52qEJsceb8k94qJSWJK1b2o5Q5y8v4GKU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pFyQZoVM4VLuQRcgdjjyOqmEfkniVCzv1KEQE91xYStr+FBdV
-	BceQluHZ5G7yPlUtSzUDA9907+hAZoJp3l+nBEyT6SV1cfoAAzuKEvSQ/Z3K59z4lNlyT6YUim7
-	39vPRL/CZvvhfn5cKCmMN9xAwlZGE5s+gevvwAk1E6keWuSnRd4JtfKuLIa9H8m/gaQ==
-X-Gm-Gg: AYBFou0om4KRBo+dvQwxcBSp3Tt2LDfz+nK3Qr3xxMujNo6FxuCVyXY5mpxnzhIfWy5
-	DPNhgfjh8KpRTFtuGUxsMdWw6c58rJdkj6VoZQRA5fQn+mAH2klShCPRpkmkc9a8ruVbYvavwjs
-	tnFFYecCfI3utw28AEAWcMMkiUudFp7Y4MlADz2jHB8blgem992wL3EtZZ+Daphv1ZKs+zPD8be
-	vUuRIDheWBOynlyfitkdywyDAbEsXPD7BwRzegC8jphSRopwg7a798Ngf/wq506mo+ZmCSaIDt+
-	bd9aWTdnCzg3c9NAXtX5zDs5A+/pIwrrCL7TBHmWCxB7Uy1XAQwvWMo5XPoxKyVtt0Z2fm015RX
-	DOQUMtR5tnZLw2Uc9oLdxkl/cYxDPlQyt9cz4Ntw9zAPHaMz7v/TVgUiZ88iaBoXfI0/sXQb/Mt
-	/+QNZJxsV1m3q/oGXWloKdlVMmMXJfa7QUuAzOsNt6EYCADvHpljnb1blaxqioD7ONEYn9sPoK4
-	YZtwdDvh8gF2qWR0uP/3It9TABxErC+b6iXskubYoRfkNtucIMY
-X-Received: by 2002:a17:906:7cf:b0:c33:9fab:5f61 with SMTP id a640c23a62f3a-c504956a911mr166702966b.29.1794316820952;
-        Tue, 10 Nov 2026 05:20:20 -0800 (PST)
-X-Received: by 2002:a17:906:7cf:b0:c33:9fab:5f61 with SMTP id a640c23a62f3a-c504956a911mr166698566b.29.1794316820256;
-        Tue, 10 Nov 2026 05:20:20 -0800 (PST)
+        bh=ycl2dCdRSG2yNQWq4oKpeINj85pJ+uFg5E+mDg9A5Js=;
+        b=NEFboPNlLHIxUNaLkGTJTTFirUu9ifmkAcTkiJbUa8gvNdG4rEXxJe6Xv2yoCIwZ6u
+         pgSaYr1sYgXSPctnNm7Z9XjyOnXqYMduAPXJ2DoQ6scwkTD2x2Wcw4BOzpvaZ0hmhgec
+         q92y+RS38jsPQpcfaUa64lEp2KeNn62lCXgd8D37U3a0XcbAwDPpxDUiciPphYCIhvkh
+         8G0rYveh0KXTGWYXf+xoCWsCerKcsAdX5kvpAiNouP7tU5de2oPeHE82oBCajfsUWNA8
+         QUMW7TsKZoSejYru3FVmcVSK6GrmhI+wlpU5k7LJeyDnutPyNh49lMOg40BSnKTKzrSH
+         XK8g==
+X-Forwarded-Encrypted: i=1; AL+hErGX80Q0rr3eP9R2iZ7trLJS9Qj1bK5YQCh9FCH9O6XOltYh0Mw9Cy52eC0ADaPlVD0Nbv83g3+zd0mZGao=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8vf1W4OLWEfNJenCKwLnNDVbRnOe0if3XQEJKIrN1bosaRcCU
+	tl5CHzlbOiBObMA6gx4L35W6NwcU1Lzy+iQ9gsGmPc5iTsYSLpM7b9CccDeiARzEhG9kqQsE1Of
+	vzF8f73FWHVU9X7JWnU7UfP2MHAiqjhWLdzKBph4Okgb+m6LNR89RgGJVwEq5K0C69A==
+X-Gm-Gg: AYBFou2XVfxY4rXZXHVvvU42i6MKjg9CnnH5mZJ9hzaBLhQm4hf8jqp6sck0MHLMRcj
+	lY396gVjRCFnmwvuvn7BoJruNjamECK3y/D5u/qcC7T/A5SjrULcxIbB5+c2Fr9przgUzwxxyZx
+	4ALga4DEQCfKUNp1J6Hm7Xw7JVj/YvMP4jw1m97C+b+UACZy45FRNRAL7FzXN7/38hRigtpqFfQ
+	7sWQub+22chhgpeYa0052XKvzq200GvfxBL7D3IYzKCPqlyA4clztdhU26SnR3eXaWArXk2fj3O
+	5V2QqdZjJMlSyxtBhhUM3GQnzBabecCdSf3X6LJOc2P2PuKt3mDEtqlFujIP+aDadfynn6Na8Y2
+	EJbCoLtEjE5rHLqZ252AeqSfHqDXOghwN325nrrq7Pmm+/m8IKtEMC1mkb2GNfLxPlKt1NKpzGV
+	j8xRP2tCKiszJh/lPnWmEvUIGtLZ+9yOuS05lGxLUZCI9e+kx1XFUWiQvFJiLxBmcgZ2ShIokya
+	ayeZFuk+ap9dd0ltBdyEQye93dA2wexkAhTmFx/6mRu3unsviHu
+X-Received: by 2002:a17:907:1b20:b0:c3f:d912:ff8e with SMTP id a640c23a62f3a-c504954982amr202619066b.16.1794316816132;
+        Tue, 10 Nov 2026 05:20:16 -0800 (PST)
+X-Received: by 2002:a17:907:1b20:b0:c3f:d912:ff8e with SMTP id a640c23a62f3a-c504954982amr202615166b.16.1794316815406;
+        Tue, 10 Nov 2026 05:20:15 -0800 (PST)
 Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm107791166b.48.2026.11.10.05.20.18
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm107791166b.48.2026.11.10.05.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:20:19 -0800 (PST)
+        Tue, 10 Nov 2026 05:20:15 -0800 (PST)
 From: Alex Markuze <amarkuze@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	"David S . Miller" <davem@davemloft.net>,
@@ -117,9 +117,9 @@ Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	netdev@vger.kernel.org,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 08/12] io_uring/opaque: add vectored IORING_OP_OPAQUE_OBJ_SEND
-Date: Tue, 10 Nov 2026 13:20:02 +0000
-Message-Id: <20261110132006.3280986-9-amarkuze@redhat.com>
+Subject: [RFC PATCH net-next 05/12] io_uring/opaque: add store registration and IORING_OP_OPAQUE_OBJ
+Date: Tue, 10 Nov 2026 13:19:59 +0000
+Message-Id: <20261110132006.3280986-6-amarkuze@redhat.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110132006.3280986-1-amarkuze@redhat.com>
 References: <20261110132006.3280986-1-amarkuze@redhat.com>
@@ -134,616 +134,1598 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow one send request to concatenate several object ranges, amortizing
-request, queue and CQE work across small objects.
+Add IORING_REGISTER_OPAQUE_STORE and the object controls, together with
+their request and store lifetimes.
 
-With SEND_VECTOR in sqe->ioprio, addr points to len entries and off must
-be zero. A vector contains 1 to 1024 io_uring_opaque_send_entry records,
-each with a handle, offset, nonzero length and zero reserved word. Handles
-and ranges may repeat. The optional frame wraps the concatenated body;
-prefix, body and suffix together must fit in INT_MAX bytes.
+Registration requires DEFER_TASKRUN and either CQE32 or CQE_MIXED. The
+configuration supplies limits for backing bytes, object size, objects,
+streams and extents, with optional watermarks and a reply reserve.
+Creation accounts the hard byte limit against the ring's user and mm,
+as registered buffers do. The creating task's live memory cgroup owns
+the backing charges; the store retains that reference for its lifetime.
+Flags and reserved fields must be zero. An xarray assigns the ring-local
+store ID, removed if copying the registration result to userspace fails.
 
-Preparation copies the entry array when the kernel consumes this SQE.
-Keep the array valid until that consumption, including across short or
-failed submissions. The resulting request has one queue entry, one
-cursor and one completion; retry and ordering follow single-range sends.
+IORING_OP_OPAQUE_OBJ takes the control in sqe->ioprio, the store ID in
+sqe->opaque_store_id, a handle or stream token in sqe->addr, a byte
+offset in sqe->off, a length in sqe->len and a user pointer in sqe->addr3.
 
-Admission resolves and validates every range under the table mutex before
-taking any reference. Indexed segment lookup uses short walks and binary
-search; ranges together may span at most 4096 backing segments. A second
-pass acquires references and, for LAST, removes each distinct handle once.
-Acquisition is all-or-none; the queued-byte result may still be short.
-Repeated entries retain the references needed to use the same immutable
-version.
+- INSPECT copies up to 64 KiB of retained stream bytes without consuming
+  them, waiting if no byte is available at the requested offset.
+- AVAILABLE returns the contiguous retained length without copying,
+  stopping at the next pending receive or discard decision.
+- RECV_OBJECT reserves a slot and assembles a declared stream range.
+  Its completed CQE returns the length, handle and forwarding-only flag.
+- DISCARD consumes a declared range without retaining an object.
+- READ_OBJECT copies up to 64 KiB from a published object; FREE removes
+  its handle without invalidating references already held by requests.
+- STAT, OBJECT_STAT and STREAM_STAT return size-versioned statistics.
+- STREAM_CLOSE ends a stream.
 
-One request-owned block holds entries, pinned versions, range starts and
-cursor segments. If it must grow, admission drops the mutex and resolves
-the handles again after allocation. Cursor construction uses only the
-versions already pinned by the request.
+Pending receive and discard ranges are non-overlapping and ordered by
+offset. A failed or canceled receive returns its private prefix while
+the stream is open, allowing inspection, retry or discard. Cancellation,
+linked timeouts and request cleanup release all acquired references.
+Request state is cached per ring.
 
-Ordinary-sized blocks remain with cached requests for reuse. Cleanup
-frees blocks exceeding 256 entries or segments, and frees every block
-under KASAN. The VECTOR flag identifies the operation independently of
-whether a recycled request still carries a block. As with single-range
-sends, final version release occurs after the socket is unlocked.
+Handles carry a slot generation; stream tokens additionally carry a tag.
+Stale or wrong-kind names fail with -ESTALE. Exhausted generations retire
+their slots. A store stops when its user count reaches zero, closing its
+streams and releasing table-owned objects. Its reference count retains
+memory and accounting until outstanding requests finish.
 
-Vector admission uses the same already-reserved TX FIFO position as scalar
-admission. Reference/cursor construction may finish after a head fails;
-cleanup retains the linked failure barrier and socket identity until the
-position drains. The vector caller never overtakes an earlier admission.
+The ring lock serializes issue, task work, cancellation and cleanup.
+The table mutex protects handle tables; the stream mutex protects one
+stream's extents and decisions; wait_lock protects request phases and
+wait lists. The order is uring_lock, then tables or stream->lock, then
+wait_lock. The table and stream mutexes never nest.
 
 Signed-off-by: Alex Markuze <amarkuze@redhat.com>
 ---
- include/uapi/linux/io_uring/opaque.h |  12 +
- io_uring/opaque.c                    | 405 ++++++++++++++++++++++++++-
- 2 files changed, 407 insertions(+), 10 deletions(-)
+ include/uapi/linux/io_uring.h |    5 +
+ io_uring/Makefile             |    2 +-
+ io_uring/cancel.c             |    5 +
+ io_uring/io_uring.c           |    9 +
+ io_uring/opaque.c             | 1200 +++++++++++++++++++++++++++++++++
+ io_uring/opaque_register.c    |   90 +++
+ io_uring/opdef.c              |   16 +
+ io_uring/register.c           |    7 +
+ 8 files changed, 1333 insertions(+), 1 deletion(-)
+ create mode 100644 io_uring/opaque_register.c
 
-diff --git a/include/uapi/linux/io_uring/opaque.h b/include/uapi/linux/io_uring/opaque.h
-index 2a862d76a40e..c04eaed8ce5f 100644
---- a/include/uapi/linux/io_uring/opaque.h
-+++ b/include/uapi/linux/io_uring/opaque.h
-@@ -61,6 +61,18 @@ enum io_uring_opaque_op {
+diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
+index b456f45fa8de..081f30605410 100644
+--- a/include/uapi/linux/io_uring.h
++++ b/include/uapi/linux/io_uring.h
+@@ -91,6 +91,7 @@ struct io_uring_sqe {
+ 		__s32	splice_fd_in;
+ 		__u32	file_index;
+ 		__u32	zcrx_ifq_idx;
++		__u32	opaque_store_id;
+ 		__u32	optlen;
+ 		struct {
+ 			__u16	addr_len;
+@@ -319,6 +320,7 @@ enum io_uring_op {
+ 	IORING_OP_PIPE,
+ 	IORING_OP_NOP128,
+ 	IORING_OP_URING_CMD128,
++	IORING_OP_OPAQUE_OBJ,
  
- /* IORING_OP_OPAQUE_OBJ_SEND: sqe->ioprio contains these flags. */
- #define IORING_OPAQUE_SEND_LAST	(1U << 0)
-+/* addr points at len struct io_uring_opaque_send_entry, off is zero: one send, many ranges. */
-+#define IORING_OPAQUE_SEND_VECTOR	(1U << 1)
-+/* Entries of one vectored send, as many as SEND_ZC takes iovecs (UIO_MAXIOV). */
-+#define IORING_OPAQUE_SEND_VEC_MAX	1024
+ 	/* this goes last, obviously */
+ 	IORING_OP_LAST,
+@@ -724,6 +726,9 @@ enum io_uring_register_op {
+ 	/* register bpf filtering programs */
+ 	IORING_REGISTER_BPF_FILTER		= 37,
+ 
++	/* register, import or export a kernel opaque object store */
++	IORING_REGISTER_OPAQUE_STORE	= 38,
 +
-+/* One range of a vectored send, named as addr, off and len name it in a single one. */
-+struct io_uring_opaque_send_entry {
-+	__u64 handle;
-+	__u64 off;
-+	__u32 len;
-+	__u32 __resv;
-+};
+ 	/* this goes last */
+ 	IORING_REGISTER_LAST,
  
- /* Optional SEND sqe->addr3 framing; size includes zero reserved extensions. */
- struct io_uring_opaque_frame {
+diff --git a/io_uring/Makefile b/io_uring/Makefile
+index 191316972e04..912b1861c0a5 100644
+--- a/io_uring/Makefile
++++ b/io_uring/Makefile
+@@ -17,7 +17,7 @@ obj-$(CONFIG_IO_URING)		+= io_uring.o opdef.o kbuf.o rsrc.o notif.o \
+ 					query.o loop.o
+ 
+ obj-$(CONFIG_IO_URING_ZCRX)	+= zcrx.o
+-obj-$(CONFIG_IO_URING_OPAQUE_OBJ)	+= opaque.o opaque_compact.o
++obj-$(CONFIG_IO_URING_OPAQUE_OBJ)	+= opaque.o opaque_register.o opaque_compact.o
+ obj-$(CONFIG_IO_WQ)		+= io-wq.o
+ obj-$(CONFIG_FUTEX)		+= futex.o
+ obj-$(CONFIG_EPOLL)		+= epoll.o
+diff --git a/io_uring/cancel.c b/io_uring/cancel.c
+index 6f7a6cf356c2..e35720f41721 100644
+--- a/io_uring/cancel.c
++++ b/io_uring/cancel.c
+@@ -19,6 +19,7 @@
+ #include "waitid.h"
+ #include "futex.h"
+ #include "cancel.h"
++#include "opaque.h"
+ #include "wait.h"
+ 
+ struct io_cancel {
+@@ -130,6 +131,9 @@ int io_try_cancel(struct io_uring_task *tctx, struct io_cancel_data *cd,
+ 		cd->running = true;
+ 
+ 	ret = io_poll_cancel(ctx, cd, issue_flags);
++	if (ret != -ENOENT)
++		return ret;
++	ret = io_opaque_cancel(ctx, cd, issue_flags);
+ 	if (ret != -ENOENT)
+ 		return ret;
+ 
+@@ -582,6 +586,7 @@ __cold bool io_uring_try_cancel_requests(struct io_ring_ctx *ctx,
+ 	mutex_lock(&ctx->uring_lock);
+ 	ret |= io_cancel_defer_files(ctx, tctx, cancel_all);
+ 	ret |= io_poll_remove_all(ctx, tctx, cancel_all);
++	ret |= io_opaque_cancel_all(ctx, tctx, cancel_all);
+ 	ret |= io_waitid_remove_all(ctx, tctx, cancel_all);
+ 	ret |= io_futex_remove_all(ctx, tctx, cancel_all);
+ 	ret |= io_uring_try_cancel_uring_cmd(ctx, tctx);
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 8ffe0c9a4e29..fddf9e0ebc8b 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -88,6 +88,7 @@
+ #include "msg_ring.h"
+ #include "memmap.h"
+ #include "zcrx.h"
++#include "opaque.h"
+ #include "bpf-ops.h"
+ 
+ #include "timeout.h"
+@@ -220,6 +221,7 @@ static void io_free_alloc_caches(struct io_ring_ctx *ctx)
+ 	io_alloc_cache_free(&ctx->rw_cache, io_rw_cache_free);
+ 	io_alloc_cache_free(&ctx->cmd_cache, io_cmd_cache_free);
+ 	io_futex_cache_free(ctx);
++	io_opaque_cache_free(ctx);
+ 	io_rsrc_cache_free(ctx);
+ }
+ 
+@@ -267,6 +269,7 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
+ 			    sizeof(struct io_async_cmd),
+ 			    sizeof(struct io_async_cmd));
+ 	ret |= io_futex_cache_init(ctx);
++	ret |= io_opaque_cache_init(ctx);
+ 	ret |= io_rsrc_cache_init(ctx);
+ 	if (ret)
+ 		goto free_ref;
+@@ -287,6 +290,10 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
+ 	ctx->submit_state.free_list.next = NULL;
+ 	INIT_HLIST_HEAD(&ctx->waitid_list);
+ 	xa_init_flags(&ctx->zcrx_ctxs, XA_FLAGS_ALLOC);
++#ifdef CONFIG_IO_URING_OPAQUE_OBJ
++	xa_init_flags(&ctx->opaque_stores, XA_FLAGS_ALLOC);
++	INIT_LIST_HEAD(&ctx->opaque_waits);
++#endif
+ #ifdef CONFIG_FUTEX
+ 	INIT_HLIST_HEAD(&ctx->futex_list);
+ #endif
+@@ -2294,6 +2301,7 @@ static __cold void io_ring_ctx_free(struct io_ring_ctx *ctx)
+ 
+ 	mutex_lock(&ctx->uring_lock);
+ 	io_unregister_zcrx(ctx);
++	io_unregister_opaque(ctx);
+ 	io_cqring_overflow_kill(ctx);
+ 	io_eventfd_unregister(ctx);
+ 	io_free_alloc_caches(ctx);
+@@ -2638,6 +2646,7 @@ static __cold void io_ring_ctx_wait_and_kill(struct io_ring_ctx *ctx)
+ 	xa_for_each(&ctx->personalities, index, creds)
+ 		io_unregister_personality(ctx, index);
+ 	io_terminate_zcrx(ctx);
++	io_terminate_opaque(ctx);
+ 	/* Drop these now, rather than async, to unpin the files */
+ 	io_sqe_buffers_unregister(ctx);
+ 	io_sqe_files_unregister(ctx);
 diff --git a/io_uring/opaque.c b/io_uring/opaque.c
-index b62c4be92fea..0c58900073f7 100644
+index 2fd9db898e67..81fbf2011446 100644
 --- a/io_uring/opaque.c
 +++ b/io_uring/opaque.c
-@@ -29,13 +29,23 @@ bool io_opaque_cache_init(struct io_ring_ctx *ctx)
- 				   sizeof(struct io_opaque_req), sizeof(struct io_opaque_req));
- }
+@@ -21,6 +21,20 @@
+ #include "rsrc.h"
+ #include "tw.h"
  
-+/* Frees a request left in the cache, with the vector block it may carry. */
-+static void io_opaque_req_destroy(const void *entry)
++bool io_opaque_cache_init(struct io_ring_ctx *ctx)
 +{
-+	const struct io_opaque_req *op = entry;
-+
-+	kvfree(op->vec);
-+	kfree(entry);
++	return io_alloc_cache_init(&ctx->opaque_cache, IO_ALLOC_CACHE_MAX,
++				   sizeof(struct io_opaque_req), sizeof(struct io_opaque_req));
 +}
 +
- void io_opaque_cache_free(struct io_ring_ctx *ctx)
++void io_opaque_cache_free(struct io_ring_ctx *ctx)
++{
++	io_alloc_cache_free(&ctx->opaque_cache, kfree);
++}
++
++static void io_opaque_ready(struct io_tw_req tw_req, io_tw_token_t tw);
++static void io_opaque_stream_close(struct io_opaque_stream *stream);
++
+ static bool io_opaque_budget_ready(struct io_opaque_req *op, unsigned long now)
  {
--	io_alloc_cache_free(&ctx->opaque_cache, kfree);
-+	io_alloc_cache_free(&ctx->opaque_cache, io_opaque_req_destroy);
+ 	struct io_opaque_store *store = op->store;
+@@ -33,6 +47,30 @@ static bool io_opaque_budget_ready(struct io_opaque_req *op, unsigned long now)
+ 	       atomic_read(&store->extents) < store->config.max_extents - 2;
  }
  
- static void io_opaque_resume(struct io_tw_req tw_req, io_tw_token_t tw);
- static void io_opaque_ready(struct io_tw_req tw_req, io_tw_token_t tw);
-+static void io_opaque_vec_cleanup(struct io_opaque_req *op);
- static void io_opaque_stream_close(struct io_opaque_stream *stream);
- static void io_opaque_tx_put(struct io_opaque_req *op);
- 
-@@ -783,7 +793,8 @@ static struct io_opaque_req *io_opaque_req_alloc(struct io_kiocb *req,
- 	op = io_uring_alloc_async_data(&req->ctx->opaque_cache, req);
- 	if (!op)
- 		return ERR_PTR(-ENOMEM);
--	memset(op, 0, sizeof(*op));
-+	/* Not the vector block, which a recycled request brings along. */
-+	memset(op, 0, offsetof(struct io_opaque_req, vec));
- 	op->op = U16_MAX;
- 	op->req = req;
- 	op->store = store;
-@@ -794,6 +805,18 @@ static struct io_opaque_req *io_opaque_req_alloc(struct io_kiocb *req,
- 	return op;
- }
- 
-+/*
-+ * A finished request goes back to its ring's cache, with the vector block it
-+ * carries, or is freed with it when the cache is full.
-+ */
-+static void io_opaque_req_free(struct io_ring_ctx *ctx, struct io_opaque_req *op)
++/* A DISCARD at the capture cursor consumes TCP bytes without allocating. */
++static bool io_opaque_discard_ready(struct io_opaque_stream *stream)
 +{
-+	if (!io_alloc_cache_put(&ctx->opaque_cache, op)) {
-+		kvfree(op->vec);
-+		kvfree(op);
-+	}
++	struct rb_node *node = rb_first_cached(&stream->decisions);
++	struct io_opaque_req *op;
++
++	lockdep_assert_held(&stream->lock);
++	if (!node)
++		return false;
++	op = rb_entry(node, struct io_opaque_req, decision);
++	return op->op == IORING_OPAQUE_DISCARD &&
++	       op->offset + op->progress == stream->next &&
++	       op->progress < op->length;
 +}
 +
- /* The ring lock protects enrollment; wait_lock arbitrates remote wakeups. */
- static void io_opaque_enroll(struct io_opaque_req *op)
- {
-@@ -1675,10 +1698,12 @@ void io_opaque_cleanup(struct io_kiocb *req)
- 		if (op->frame_charge)
- 			io_opaque_uncharge_frame(store, op->frame_charge, op->frame_reserved);
- 	}
-+	if (unlikely(op->vec))
-+		io_opaque_vec_cleanup(op);
- 	io_opaque_data_put(store, op->data);
- 	io_opaque_stream_put(op->stream);
- 	lockdep_assert_held(&req->ctx->uring_lock);
--	io_cache_free(&req->ctx->opaque_cache, op);
-+	io_opaque_req_free(req->ctx, op);
- 	io_req_async_data_clear(req, 0);
- }
- 
-@@ -1776,17 +1801,154 @@ static void io_opaque_send_resolve(struct io_opaque_req *op)
- 	op->resolved = true;
- }
- 
-+/*
-+ * Check @nr entries copied from user memory; return the body they add up to.
-+ * A handle may repeat, and a range may too.
-+ */
-+static int io_opaque_vec_check(const struct io_uring_opaque_send_entry *ent, u32 nr,
-+			       u32 *total)
++static bool io_opaque_collect_blocked(struct io_opaque_req *op)
 +{
-+	u64 sum = 0, end;
-+	u32 i;
-+
-+	BUILD_BUG_ON(sizeof(*ent) != 24);
-+	if (!nr || nr > IORING_OPAQUE_SEND_VEC_MAX)
-+		return -EINVAL;
-+	for (i = 0; i < nr; i++) {
-+		if (ent[i].__resv || !ent[i].len ||
-+		    check_add_overflow(ent[i].off, (u64)ent[i].len, &end))
-+			return -EINVAL;
-+		sum += ent[i].len;
-+		if (sum > INT_MAX)
-+			return -EINVAL;
-+	}
-+	*total = sum;
-+	return 0;
-+}
-+
-+/*
-+ * Make room in the request's block for @nr entries and @segs segments, keeping
-+ * its first @keep entries. A block that is big enough stays as it is. This
-+ * allocates, so tables must not be held, and the send must hold no reference
-+ * yet: what admission recorded about the versions is not carried over.
-+ */
-+static int io_opaque_vec_grow(struct io_opaque_req *op, u32 nr, u32 segs, u32 keep)
-+{
-+	struct io_opaque_vec *old = op->vec, *vec;
-+
-+	lockdep_assert_not_held(&op->store->tables);
-+	if (old) {
-+		WARN_ON_ONCE(old->pinned);
-+		if (old->cap_nr >= nr && old->cap_segs >= segs)
-+			return 0;
-+		nr = max(nr, old->cap_nr);
-+		segs = max(segs, old->cap_segs);
-+	}
-+	vec = kvmalloc(size_add(sizeof(*vec),
-+				size_add(array_size(nr, sizeof(*vec->ent) + sizeof(*vec->pin) +
-+						       sizeof(*vec->start)),
-+					 array_size(segs, sizeof(*vec->bv)))),
-+		       GFP_KERNEL_ACCOUNT);
-+	if (!vec)
-+		return -ENOMEM;
-+	vec->cap_nr = nr;
-+	vec->cap_segs = segs;
-+	vec->ent = (void *)(vec + 1);
-+	vec->pin = (void *)(vec->ent + nr);
-+	vec->start = (void *)(vec->pin + nr);
-+	vec->bv = (void *)(vec->start + nr);
-+	vec->pinned = 0;
-+	if (old) {
-+		vec->nr = old->nr;
-+		memcpy(vec->ent, old->ent, array_size(keep, sizeof(*vec->ent)));
-+		kvfree(old);
-+	} else {
-+		vec->nr = 0;
-+	}
-+	op->vec = vec;
-+	return 0;
-+}
-+
-+/*
-+ * The @nr entries are in the block: validate them and make the request what
-+ * its length and offset say about a send, a body of their total at no offset.
-+ */
-+static int io_opaque_vec_commit(struct io_opaque_req *op, u32 nr)
-+{
-+	struct io_opaque_vec *vec = op->vec;
-+	u32 total;
-+	int ret;
-+
-+	ret = io_opaque_vec_check(vec->ent, nr, &total);
-+	if (ret)
-+		return ret;
-+	vec->nr = nr;
-+	vec->pinned = 0;
-+	op->handle = 0;
-+	op->offset = 0;
-+	op->length = total;
-+	return 0;
-+}
-+
-+/*
-+ * Whether entry @i of an admitted vector holds a reference of its own. A LAST
-+ * vector takes one per entry. Any other takes one per run of entries that name
-+ * the same handle: within one hold of tables the same handle is the same
-+ * version, so the rest of the run shares the first entry's pin. This looks at
-+ * the entries, which never change, and not at the pins, which may be freed by
-+ * the time the run's owner has been released.
-+ */
-+static bool io_opaque_vec_owns(const struct io_opaque_req *op, u32 i)
-+{
-+	const struct io_opaque_vec *vec = op->vec;
-+
-+	return (op->send_flags & IORING_OPAQUE_SEND_LAST) || !i ||
-+	       vec->ent[i].handle != vec->ent[i - 1].handle;
-+}
-+
-+/* Drop every version reference the send holds; one that took none drops none. */
-+static void io_opaque_vec_release(struct io_opaque_req *op)
-+{
-+	struct io_opaque_vec *vec = op->vec;
-+	u32 i;
-+
-+	for (i = 0; i < vec->pinned; i++)
-+		if (io_opaque_vec_owns(op, i))
-+			io_opaque_data_put(op->store, vec->pin[i]);
-+	vec->pinned = 0;
-+}
-+
-+/*
-+ * Request cleanup: release what a vectored send pinned and let go of the block
-+ * unless the request takes it back to the cache. A big block is not worth
-+ * keeping, and under KASAN an entry in the cache is cleared when it is taken,
-+ * which would leak it.
-+ */
-+static void io_opaque_vec_cleanup(struct io_opaque_req *op)
-+{
-+	struct io_opaque_vec *vec = op->vec;
-+
-+	io_opaque_vec_release(op);
-+	if (IS_ENABLED(CONFIG_KASAN) || vec->cap_nr > IO_VEC_CACHE_SOFT_CAP ||
-+	    vec->cap_segs > IO_VEC_CACHE_SOFT_CAP) {
-+		kvfree(vec);
-+		op->vec = NULL;
-+	}
++	lockdep_assert_held(&op->stream->lock);
++	lockdep_assert_held(&op->store->wait_lock);
++	return op->phase == IO_OPAQUE_BUDGET_POLL &&
++	       !io_opaque_budget_ready(op, jiffies) &&
++	       !io_opaque_discard_ready(op->stream);
 +}
 +
  /*
-  * Find the segment of @data that holds byte @off, and return how far into it
-  * @off is. @seg is a segment of the object that starts @pos bytes in and not
-  * after the one wanted: the walk goes on from there, and leaves @seg and @pos
-  * at the start of the segment it found.
-  *
-- * A segment within IO_OPAQUE_SEEK_STRIDE steps is walked to. A farther one
-+ * A segment within IO_OPAQUE_SEEK_STRIDE steps is walked to, which is all that
-+ * a range after the previous one in the same object ever takes. A farther one
-  * is reached by jumping to the last anchor that is at or before @off, if that
-  * is ahead of where the walk is, and walking on from it: under a stride more.
-  * No seek takes more than two strides and a binary search over the anchors,
-- * wherever it starts, however large the object is.
-+ * wherever it starts, however large the object is, and so a vector of any
-+ * ranges keeps tables for a time that its entries bound.
-  */
- static u32 io_opaque_vec_seek(const struct io_opaque_data *data, u64 off, u32 *seg, u64 *pos)
- {
-@@ -1822,6 +1984,39 @@ static u32 io_opaque_vec_seek(const struct io_opaque_data *data, u64 off, u32 *s
- 	return off - at;
+  * Let in the waiters for budget that the budget lets go on, at most
+  * IO_OPAQUE_WAKE_BATCH of them in a hold of wait_lock. Those left over are for
+@@ -84,6 +122,31 @@ static void io_opaque_wake_budget_all(struct io_opaque_store *store)
+ 		;
  }
  
-+/*
-+ * The segments of the range of @len bytes that starts @skip bytes into segment
-+ * @seg of @data, as a cursor over the whole object would visit them: the first
-+ * starts inside its extent, the last ends inside its own. They are stored at
-+ * @bv, and all of them counted, unless it is NULL: then only the count is
-+ * wanted, and it stops at @room + 1, since a caller that has room for no more
-+ * has no use for how many more there are. The range must lie within the
-+ * object.
-+ */
-+static u32 io_opaque_vec_span(const struct io_opaque_data *data, u32 seg, u32 skip, u32 len,
-+			      struct bio_vec *bv, u64 room)
++static void io_opaque_retry_work(struct work_struct *work)
 +{
-+	const struct bio_vec *src = data->bvec;
-+	u32 n = 0;
++	struct io_opaque_store *store = container_of(to_delayed_work(work),
++						   struct io_opaque_store, retry_work);
 +
-+	while (len && seg < data->nr) {
-+		u32 take = min(src[seg].bv_len - skip, len);
-+
-+		if (bv) {
-+			bv[n] = src[seg];
-+			bv[n].bv_offset += skip;
-+			bv[n].bv_len = take;
-+		}
-+		n++;
-+		if (!bv && n > room)
-+			break;
-+		len -= take;
-+		skip = 0;
-+		seg++;
-+	}
-+	return n;
++	io_opaque_wake_budget(store);
 +}
 +
- /* The handle must hold a version, and the range must lie within it. */
- static int io_opaque_send_range(const struct io_opaque_slot *slot, u64 off, u32 len)
- {
-@@ -1849,6 +2044,8 @@ static struct io_opaque_data *io_opaque_send_pin(struct io_opaque_store *store,
- /* Drop the references a send took at admission; a no-op when it took none. */
- static void io_opaque_send_unpin(struct io_opaque_req *op)
- {
-+	if (op->send_flags & IORING_OPAQUE_SEND_VECTOR)
-+		io_opaque_vec_release(op);
- 	io_opaque_data_put(op->store, op->data);
- 	op->data = NULL;
- }
-@@ -1861,11 +2058,28 @@ static void io_opaque_send_unpin(struct io_opaque_req *op)
-  * last reference frees the version, every extent of it, and that is not for
-  * the lock to wait out. Nobody can take a reference on a version whose count
-  * is one, which is not in the table, so the last one is still the last then.
-+ * A vector's entries that were put are cleared, so that the rest cannot put
-+ * them again.
-  */
- static bool io_opaque_send_unpin_cheap(struct io_opaque_req *op)
- {
- 	bool left = false;
- 
-+	if (op->send_flags & IORING_OPAQUE_SEND_VECTOR) {
-+		struct io_opaque_vec *vec = op->vec;
-+		u32 i;
++static void io_opaque_wake_stream(struct io_opaque_stream *stream)
++{
++	struct io_opaque_req *op = stream->collector;
++	struct socket *sock = sock_from_file(stream->file);
 +
-+		for (i = 0; i < vec->pinned; i++) {
-+			if (!vec->pin[i] || !io_opaque_vec_owns(op, i))
-+				continue;
-+			if (refcount_dec_not_one(&vec->pin[i]->refs))
-+				vec->pin[i] = NULL;
-+			else
-+				left = true;
-+		}
-+		if (!left)
-+			vec->pinned = 0;
++	lockdep_assert_held(&stream->lock);
++	if (!op)
++		return;
++	scoped_guard(spinlock, &stream->store->wait_lock) {
++		if (!stream->closed && !READ_ONCE(stream->store->dead) &&
++		    io_opaque_collect_blocked(op))
++			return;
++		list_del_init(&op->wait);
 +	}
- 	if (op->data) {
- 		if (refcount_dec_not_one(&op->data->refs))
- 			op->data = NULL;
-@@ -1887,16 +2101,130 @@ static void io_opaque_send_iter(struct io_opaque_req *op, const struct bio_vec *
- 	iov_iter_truncate(&op->iter, op->length);
++	wake_up_interruptible_poll(sk_sleep(sock->sk), EPOLLIN);
++}
++
+ int io_opaque_memory_mode(struct io_opaque_store *store)
+ {
+ 	unsigned int seq;
+@@ -284,6 +347,17 @@ static u64 io_opaque_extent_release(struct io_opaque_store *store, struct io_opa
+ 	return charge;
  }
  
--/* Resolve what a send names, take its references and set its cursor, under tables. */
-+/*
-+ * Admission of a vectored send, under tables; every entry sees the versions
-+ * as they are in this one hold, and nothing in here sleeps. Pass one resolves
-+ * and counts, and fails without having pinned or detached anything, so a
-+ * vector that cannot go consumes nothing. It finds where each range starts by
-+ * walking the segments of its version, and an entry that follows another in
-+ * the same version, not before the segment that one started in, walks on from
-+ * there instead of from the first: ranges in ascending order walk each object
-+ * once. One that is more than a stride from where the walk is jumps to the
-+ * version's anchors (see io_opaque_vec_seek()), so that ranges that go back
-+ * or alternate between large objects cost a few dozen steps each, not an
-+ * object. Counting the segments of the ranges stops as soon as the limit is
-+ * passed. What tables is held for is therefore bounded by the entries and the
-+ * limit, whatever the ranges. A block with too few segments is not grown here,
-+ * as that allocates; the number needed is returned, and io_opaque_vec_finish()
-+ * grows the block and asks again. Pass two takes the references and looks
-+ * nothing up: pass one recorded every version in pin[], and tables has been
-+ * held since. A LAST vector detaches each handle at its first entry, and an
-+ * entry that repeats the handle takes one more reference on the version it
-+ * found. Any other vector takes one reference for each run of entries that
-+ * name the same handle (see io_opaque_vec_owns()), so eight ranges of one
-+ * object cost one reference, and a handle that returns after another one pins
-+ * again. Nothing can fail from there on. The cursor over the combined segments
-+ * is io_opaque_vec_build()'s, once tables is dropped.
-+ */
-+static int io_opaque_vec_acquire(struct io_opaque_req *op)
++static void io_opaque_extent_free(struct io_opaque_store *store,
++				  struct io_opaque_extent *extent)
++{
++	u64 charge = io_opaque_extent_release(store, extent);
++
++	if (charge)
++		io_opaque_uncharge(store, charge);
++	else
++		io_opaque_wake_budget(store);
++}
++
+ /*
+  * Free the extents of @list. What they held is returned to the store in one
+  * step, and the waiters for budget are looked at in one go: each look takes
+@@ -385,6 +459,32 @@ static u32 io_opaque_index(u64 handle)
+ 	return handle & IO_OPAQUE_INDEX_MASK;
+ }
+ 
++/* Stream tokens carry IO_OPAQUE_TOKEN_TAG; strip it to get the generation. */
++static u64 io_opaque_token_generation(u64 token)
++{
++	return (token & ~IO_OPAQUE_TOKEN_TAG) >> IO_OPAQUE_INDEX_BITS;
++}
++
++static u32 io_opaque_find_slot(unsigned long *used, u32 count, u32 *cursor)
++{
++	u32 index = find_next_zero_bit(used, count, *cursor);
++
++	if (index == count && *cursor) {
++		index = find_first_zero_bit(used, *cursor);
++		if (index == *cursor)
++			return count;
++	}
++	if (index < count)
++		*cursor = (index + 1) % count;
++	return index;
++}
++
++static void io_opaque_release_slot(unsigned long *used, u32 index, u64 generation)
++{
++	if (generation != IO_OPAQUE_GENERATION_MAX)
++		__clear_bit(index, used);
++}
++
+ struct io_opaque_slot *io_opaque_lookup(struct io_opaque_store *store,
+ 					u64 handle)
+ {
+@@ -397,3 +497,1103 @@ struct io_opaque_slot *io_opaque_lookup(struct io_opaque_store *store,
+ 		return NULL;
+ 	return &store->objects[index];
+ }
++
++/* Drop handle visibility, transferring the table reference to the caller. */
++static struct io_opaque_data *io_opaque_detach(struct io_opaque_store *store,
++					       struct io_opaque_slot *slot)
++{
++	struct io_opaque_data *data;
++
++	lockdep_assert_held(&store->tables);
++	if (!slot || !slot->data)
++		return NULL;
++	data = slot->data;
++	slot->data = NULL;
++	store->nr_objects--;
++	io_opaque_release_slot(store->object_used, slot - store->objects, slot->generation);
++	slot->compacting = false;
++	list_del_init(&slot->candidate);
++	return data;
++}
++
++static int io_opaque_slot_reserve(struct io_opaque_req *op)
 +{
 +	struct io_opaque_store *store = op->store;
-+	bool last = op->send_flags & IORING_OPAQUE_SEND_LAST;
-+	struct io_opaque_vec *vec = op->vec;
-+	const struct io_opaque_data *prev = NULL;
-+	u64 segs = 0, pos = 0;
-+	u32 i, seg = 0;
-+	int ret;
++	struct io_opaque_slot *slot;
++	u32 index;
 +
-+	if (store->dead)
-+		return -ESHUTDOWN;
-+	for (i = 0; i < vec->nr; i++) {
-+		const struct io_uring_opaque_send_entry *ent = &vec->ent[i];
-+		struct io_opaque_slot *slot = io_opaque_lookup(store, ent->handle);
-+		struct io_opaque_data *data;
-+		u32 skip, n;
-+
-+		ret = io_opaque_send_range(slot, ent->off, ent->len);
-+		if (ret)
-+			return ret;
-+		data = slot->data;
-+		if (data != prev || ent->off < pos) {
-+			prev = data;
-+			seg = 0;
-+			pos = 0;
-+		}
-+		skip = io_opaque_vec_seek(data, ent->off, &seg, &pos);
-+		vec->start[i].seg = seg;
-+		vec->start[i].skip = skip;
-+		n = io_opaque_vec_span(data, seg, skip, ent->len, NULL,
-+				       IO_OPAQUE_SEND_VEC_SEGS - segs);
-+		segs += n;
-+		if (segs > IO_OPAQUE_SEND_VEC_SEGS)
-+			return -EMSGSIZE;
-+		/* Not yet a reference: pass two takes it, and a repeated handle needs it. */
-+		vec->pin[i] = data;
++	guard(mutex)(&store->tables);
++	for (;;) {
++		index = io_opaque_find_slot(store->object_used, store->config.max_objects,
++					    &store->object_cursor);
++		if (index >= store->config.max_objects)
++			return -ENOSPC;
++		slot = &store->objects[index];
++		__set_bit(index, store->object_used);
++		if (slot->generation != IO_OPAQUE_GENERATION_MAX)
++			break;
 +	}
-+	/* Within the limit, so it fits an int. */
-+	if (segs > vec->cap_segs)
-+		return segs;
-+	for (i = 0; i < vec->nr; i++) {
-+		struct io_opaque_slot *slot;
-+
-+		if (!last) {
-+			if (io_opaque_vec_owns(op, i))
-+				refcount_inc(&vec->pin[i]->refs);
-+			continue;
-+		}
-+		slot = io_opaque_lookup(store, vec->ent[i].handle);
-+		if (!slot->data)
-+			refcount_inc(&vec->pin[i]->refs);
-+		else
-+			vec->pin[i] = io_opaque_send_pin(store, slot, true);
-+	}
-+	vec->pinned = vec->nr;
-+	if (last)
-+		op->consumed = true;
++	slot->reserved = true;
++	slot->generation++;
++	if (op->data)
++		op->data->forward_only =
++			io_opaque_memory_mode(store) == IORING_OPAQUE_MEMORY_LOWMEM;
++	op->slot = index;
++	op->handle = io_opaque_handle(index, slot->generation);
++	op->slot_reserved = true;
 +	return 0;
 +}
 +
-+/*
-+ * The cursor over the combined segments, from the starts that admission
-+ * recorded. It takes no lock and is done without tables, which is the point of
-+ * it: each version is held by the send's own reference, and the segments of a
-+ * version never change.
-+ */
-+static void io_opaque_vec_build(struct io_opaque_req *op)
++static void io_opaque_stream_put(struct io_opaque_stream *stream)
 +{
-+	struct io_opaque_vec *vec = op->vec;
-+	u32 i, filled = 0;
++	if (stream && refcount_dec_and_test(&stream->refs)) {
++		io_opaque_extents_free(stream->store, &stream->extents);
++		fput(stream->file);
++		mutex_destroy(&stream->lock);
++		kfree(stream);
++	}
++}
 +
-+	lockdep_assert_not_held(&op->store->tables);
-+	for (i = 0; i < vec->nr; i++)
-+		filled += io_opaque_vec_span(vec->pin[i], vec->start[i].seg, vec->start[i].skip,
-+					     vec->ent[i].len, vec->bv + filled, U64_MAX);
-+	io_opaque_send_iter(op, vec->bv, filled, op->length, 0);
++struct io_opaque_store *io_opaque_alloc(struct io_ring_ctx *ctx,
++					const struct io_uring_opaque_config *config)
++{
++	struct io_uring_opaque_config cfg = *config;
++	struct io_opaque_store *store;
++	int ret;
++	u32 i;
++
++	if (cfg.flags || cfg.__resv0 || cfg.__resv1 || cfg.__resv2 ||
++	    !mem_is_zero(cfg.__resv, sizeof(cfg.__resv)))
++		return ERR_PTR(-EINVAL);
++	if (!cfg.hard_limit || cfg.hard_limit > SZ_1T ||
++	    !IS_ALIGNED(cfg.hard_limit, PAGE_SIZE) ||
++	    !IS_ALIGNED(cfg.compact_headroom, PAGE_SIZE) ||
++	    cfg.compact_headroom >= cfg.hard_limit ||
++	    !cfg.max_object_size || cfg.max_object_size > INT_MAX ||
++	    !cfg.max_objects || cfg.max_objects > 16384 ||
++	    !cfg.max_streams || cfg.max_streams > 1024 ||
++	    cfg.max_extents < 4 || cfg.max_extents > 65536)
++		return ERR_PTR(-EINVAL);
++	if (!IS_ALIGNED(cfg.reply_reserve, PAGE_SIZE) ||
++	    cfg.reply_reserve >= cfg.hard_limit - cfg.compact_headroom ||
++	    (!cfg.high_watermark && cfg.low_watermark) ||
++	    (cfg.high_watermark &&
++	     (!cfg.reply_reserve ||
++	      !IS_ALIGNED(cfg.high_watermark, PAGE_SIZE) ||
++	      !IS_ALIGNED(cfg.low_watermark, PAGE_SIZE) ||
++	      cfg.low_watermark >= cfg.high_watermark ||
++	      cfg.high_watermark > cfg.hard_limit - cfg.compact_headroom - cfg.reply_reserve)))
++		return ERR_PTR(-EINVAL);
++	store = kzalloc_obj(*store, GFP_KERNEL_ACCOUNT);
++	if (!store)
++		return ERR_PTR(-ENOMEM);
++	refcount_set(&store->refs, 1);
++	refcount_set(&store->users, 1);
++	store->config = cfg;
++	store->objects = kvcalloc(cfg.max_objects, sizeof(*store->objects),
++				  GFP_KERNEL_ACCOUNT);
++	store->streams = kvcalloc(cfg.max_streams, sizeof(*store->streams),
++				  GFP_KERNEL_ACCOUNT);
++	store->object_used = bitmap_zalloc(cfg.max_objects, GFP_KERNEL_ACCOUNT);
++	store->stream_used = bitmap_zalloc(cfg.max_streams, GFP_KERNEL_ACCOUNT);
++	if (!store->objects || !store->streams || !store->object_used || !store->stream_used) {
++		ret = -ENOMEM;
++		goto free_store;
++	}
++	ret = io_account_mem(ctx->user, ctx->mm_account, cfg.hard_limit >> PAGE_SHIFT);
++	if (ret)
++		goto free_store;
++	store->user = ctx->user ? get_uid(ctx->user) : NULL;
++	store->mm = ctx->mm_account;
++	if (store->mm)
++		mmgrab(store->mm);
++	/* The registering task's memcg owns backing charges, including after import. */
++	store->memcg = get_mem_cgroup_from_current();
++#ifdef CONFIG_MEMCG
++	if (store->memcg && !mem_cgroup_is_root(store->memcg)) {
++		struct mem_cgroup *old = set_active_memcg(store->memcg);
++
++		store->objcg = get_obj_cgroup_from_current();
++		set_active_memcg(old);
++	}
++#endif
++	mutex_init(&store->tables);
++	spin_lock_init(&store->wait_lock);
++	spin_lock_init(&store->tx_lock);
++	spin_lock_init(&store->transient_lock);
++	seqcount_spinlock_init(&store->transient_seq, &store->transient_lock);
++	INIT_LIST_HEAD(&store->budget_waits);
++	INIT_LIST_HEAD(&store->copies);
++	INIT_LIST_HEAD(&store->candidates);
++	store->txs = RB_ROOT;
++	INIT_LIST_HEAD(&store->txs_idle);
++	for (i = 0; i < cfg.max_objects; i++)
++		INIT_LIST_HEAD(&store->objects[i].candidate);
++	INIT_DELAYED_WORK(&store->retry_work, io_opaque_retry_work);
++	return store;
++free_store:
++	bitmap_free(store->stream_used);
++	bitmap_free(store->object_used);
++	kvfree(store->streams);
++	kvfree(store->objects);
++	kfree(store);
++	return ERR_PTR(ret);
++}
++
++void io_opaque_stop(struct io_opaque_store *store)
++{
++	u32 i;
++
++	if (!store)
++		return;
++	/* Close enrollment before draining the compaction dispatcher. */
++	scoped_guard(mutex, &store->tables) {
++		guard(spinlock)(&store->wait_lock);
++
++		if (store->dead)
++			return;
++		WRITE_ONCE(store->dead, 1);
++	}
++	cancel_delayed_work_sync(&store->retry_work);
++	for (i = 0; i < store->config.max_streams; i++) {
++		struct io_opaque_stream *stream;
++
++		mutex_lock(&store->tables);
++		stream = store->streams[i].stream;
++		store->streams[i].stream = NULL;
++		if (stream) {
++			store->nr_streams--;
++			io_opaque_release_slot(store->stream_used, i, store->streams[i].generation);
++		}
++		mutex_unlock(&store->tables);
++		if (stream) {
++			io_opaque_stream_close(stream);
++			io_opaque_stream_put(stream);
++		}
++	}
++	for (i = 0; i < store->config.max_objects; i++) {
++		struct io_opaque_data *data;
++
++		mutex_lock(&store->tables);
++		data = io_opaque_detach(store, &store->objects[i]);
++		mutex_unlock(&store->tables);
++		io_opaque_data_put(store, data);
++	}
++	io_opaque_wake_budget(store);
++}
++
++void io_opaque_free(struct io_opaque_store *store)
++{
++	if (!store)
++		return;
++	io_opaque_stop(store);
++	WARN_ON_ONCE(atomic64_read(&store->bytes));
++	WARN_ON_ONCE(atomic_read(&store->extents));
++	io_unaccount_mem(store->user, store->mm,
++			 store->config.hard_limit >> PAGE_SHIFT);
++	obj_cgroup_put(store->objcg);
++	mem_cgroup_put(store->memcg);
++	if (store->mm)
++		mmdrop(store->mm);
++	free_uid(store->user);
++	bitmap_free(store->object_used);
++	bitmap_free(store->stream_used);
++	kvfree(store->objects);
++	kvfree(store->streams);
++	mutex_destroy(&store->tables);
++	kfree(store);
++}
++
++void io_opaque_get(struct io_opaque_store *store)
++{
++	refcount_inc(&store->refs);
++	refcount_inc(&store->users);
++}
++
++void io_opaque_user_put(struct io_opaque_store *store)
++{
++	if (refcount_dec_and_test(&store->users))
++		io_opaque_stop(store);
++}
++
++void io_opaque_put(struct io_opaque_store *store)
++{
++	if (refcount_dec_and_test(&store->refs))
++		io_opaque_free(store);
++}
++
++static struct io_opaque_req *io_opaque_req_alloc(struct io_kiocb *req,
++						 struct io_opaque_store *store)
++{
++	struct io_opaque_req *op;
++
++	if (READ_ONCE(store->dead))
++		return ERR_PTR(-ESHUTDOWN);
++	op = io_uring_alloc_async_data(&req->ctx->opaque_cache, req);
++	if (!op)
++		return ERR_PTR(-ENOMEM);
++	memset(op, 0, sizeof(*op));
++	op->op = U16_MAX;
++	op->req = req;
++	op->store = store;
++	op->retry_at = jiffies;
++	INIT_LIST_HEAD(&op->wait);
++	INIT_LIST_HEAD(&op->cancel);
++	req->flags |= REQ_F_NEED_CLEANUP;
++	return op;
++}
++
++/* The ring lock protects enrollment; wait_lock arbitrates remote wakeups. */
++static void io_opaque_enroll(struct io_opaque_req *op)
++{
++	lockdep_assert_held(&op->req->ctx->uring_lock);
++	if (list_empty(&op->cancel))
++		list_add_tail(&op->cancel, &op->req->ctx->opaque_waits);
++}
++
++void io_opaque_wait(struct io_opaque_req *op, enum io_opaque_phase phase)
++{
++	io_opaque_enroll(op);
++	guard(spinlock)(&op->store->wait_lock);
++	op->phase = phase;
++}
++
++void io_opaque_queue_ready(struct io_opaque_req *op, int result)
++{
++	guard(spinlock)(&op->store->wait_lock);
++	op->result = result;
++	op->phase = IO_OPAQUE_QUEUED;
++	op->req->io_task_work.func = io_opaque_ready;
++	io_req_task_work_add(op->req);
++}
++
++static struct io_opaque_extent *io_opaque_extent_split(struct io_opaque_store *store,
++						       struct io_opaque_extent *extent,
++						       u64 at)
++{
++	struct io_opaque_extent *right;
++	u32 left = at - extent->start;
++
++	if (!io_opaque_extent_reserve(store))
++		return ERR_PTR(-ENOBUFS);
++	right = kmalloc_obj(*right, GFP_KERNEL_ACCOUNT);
++	if (!right) {
++		io_opaque_extent_unreserve(store, 0);
++		return ERR_PTR(-ENOMEM);
++	}
++	*right = *extent;
++	right->embedded = false;
++	refcount_inc(&right->backing->refs);
++	right->start = at;
++	right->offset += left;
++	right->length -= left;
++	extent->length = left;
++	list_add(&right->list, &extent->list);
++	return right;
++}
++
++static int io_opaque_available(struct io_opaque_stream *stream, u64 off, u64 len)
++{
++	struct io_opaque_extent *extent;
++	u64 end = off + len;
++	u64 start = off;
++
++	list_for_each_entry(extent, &stream->extents, list) {
++		if (extent->start + extent->length <= off)
++			continue;
++		if (extent->start > off)
++			break;
++		off = min(end, extent->start + extent->length);
++		if (off == end)
++			break;
++	}
++	if (off != start)
++		return off - start;
++	return off < stream->next ? -ENODATA : 0;
 +}
 +
 +/*
-+ * Resolve what a send names and take its references, under tables. A send of
-+ * one range also gets its cursor. A vector returns 0 with its references taken,
-+ * a negative errno with none taken and nothing removed, or the number of
-+ * segments its ranges span when its block holds fewer, to be settled by
-+ * io_opaque_vec_finish() once tables is dropped.
++ * AVAILABLE must not count bytes reserved by a pending decision, even if
++ * pressure has left that decision's prefix in the stream extents.
 + */
- static int io_opaque_send_acquire(struct io_opaque_req *op)
- {
- 	struct io_opaque_store *store = op->store;
- 	bool last = op->send_flags & IORING_OPAQUE_SEND_LAST;
--	struct io_opaque_slot *slot = io_opaque_lookup(store, op->handle);
-+	struct io_opaque_slot *slot;
- 	u64 pos = 0;
- 	u32 seg = 0, skip;
- 	int ret;
- 
-+	if (unlikely(op->send_flags & IORING_OPAQUE_SEND_VECTOR))
-+		return io_opaque_vec_acquire(op);
-+	slot = io_opaque_lookup(store, op->handle);
-+
- 	if (store->dead)
- 		return -ESHUTDOWN;
- 	if (!op->length)
-@@ -1907,13 +2235,58 @@ static int io_opaque_send_acquire(struct io_opaque_req *op)
- 	op->data = io_opaque_send_pin(store, slot, last);
- 	if (last)
- 		op->consumed = true;
--	/* The cursor starts at the segment that holds the range. */
-+	/* The cursor starts at the segment that holds the range, found as a vector's are. */
- 	skip = io_opaque_vec_seek(op->data, op->offset, &seg, &pos);
- 	io_opaque_send_iter(op, op->data->bvec + seg, op->data->nr - seg, op->data->length - pos,
- 			    skip);
- 	return 0;
- }
- 
-+/*
-+ * What admission of a vector does without tables, after the hold in which
-+ * io_opaque_send_acquire() returned @ret. A block with too few segments (@ret
-+ * of them are needed) is grown here, where allocating is fine, and the vector
-+ * is resolved again in a new hold: nothing was pinned, and the versions may
-+ * have changed meanwhile, so every entry is looked at again. Once the vector
-+ * is admitted, the cursor is built.
-+ */
-+static int io_opaque_vec_finish(struct io_opaque_req *op, int ret)
++static int io_opaque_unclassified(struct io_opaque_stream *stream, u64 off, u64 len)
 +{
-+	while (ret > 0) {
-+		ret = io_opaque_vec_grow(op, op->vec->nr, ret, op->vec->nr);
-+		if (ret)
-+			return ret;
-+		scoped_guard(mutex, &op->store->tables)
-+			ret = io_opaque_send_acquire(op);
++	struct rb_node *node;
++
++	for (node = rb_first_cached(&stream->decisions); node; node = rb_next(node)) {
++		struct io_opaque_req *decision = rb_entry(node, struct io_opaque_req, decision);
++
++		if (decision->offset > off) {
++			len = min(len, decision->offset - off);
++			break;
++		}
 +	}
-+	if (!ret)
-+		io_opaque_vec_build(op);
++	return io_opaque_available(stream, off, len);
++}
++
++static int io_opaque_snapshot(struct io_opaque_req *op)
++{
++	struct io_opaque_extent *extent;
++	int ret = io_opaque_available(op->stream, op->offset, op->length);
++	u64 end;
++
++	if (ret <= 0)
++		return ret;
++	end = op->offset + ret;
++	list_for_each_entry(extent, &op->stream->extents, list) {
++		u64 first = max(op->offset, extent->start);
++		u64 last = min(end, extent->start + extent->length);
++		struct io_opaque_extent *copy;
++
++		if (first >= last)
++			continue;
++		if (!io_opaque_extent_reserve(op->store))
++			return -ENOBUFS;
++		copy = kmalloc_obj(*copy, GFP_KERNEL_ACCOUNT);
++		if (!copy) {
++			io_opaque_extent_unreserve(op->store, 0);
++			return -ENOMEM;
++		}
++		*copy = *extent;
++		copy->embedded = false;
++		refcount_inc(&copy->backing->refs);
++		copy->start = first - op->offset;
++		copy->offset += first - extent->start;
++		copy->length = last - first;
++		list_add_tail(&copy->list, &op->data->extents);
++	}
++	op->data->length = ret;
 +	return ret;
 +}
 +
-+/*
-+ * A vectored send: addr names len entries and off is zero. They are copied
-+ * now, like SEND_ZC's iovecs, and the array need not stay valid. The request
-+ * still holds the SQE's addr, off and len in handle, offset and length; the
-+ * commit turns them into the body, whose handle and offset are none.
-+ */
-+static int io_opaque_send_vec_prep(struct io_opaque_req *op)
++static int io_opaque_take(struct io_opaque_req *op)
 +{
-+	u32 nr = op->length;
-+	int ret;
++	struct io_opaque_stream *stream = op->stream;
++	u64 off = op->offset + op->progress;
++	u64 end = op->offset + op->length;
 +
-+	if (op->offset || !nr || nr > IORING_OPAQUE_SEND_VEC_MAX)
-+		return -EINVAL;
-+	/* Every entry spans a segment; admission grows the block if some span more. */
-+	ret = io_opaque_vec_grow(op, nr, nr, 0);
-+	if (ret)
-+		return ret;
-+	if (copy_from_user(op->vec->ent, u64_to_user_ptr(op->handle),
-+			   array_size(nr, sizeof(*op->vec->ent))))
-+		return -EFAULT;
-+	return io_opaque_vec_commit(op, nr);
++	while (off < end && off < stream->next) {
++		struct io_opaque_extent *extent, *found = NULL;
++		u64 last;
++
++		list_for_each_entry(extent, &stream->extents, list) {
++			if (extent->start + extent->length <= off)
++				continue;
++			if (extent->start <= off)
++				found = extent;
++			break;
++		}
++		if (!found)
++			return -ENODATA;
++		extent = found;
++		if (extent->start < off) {
++			extent = io_opaque_extent_split(op->store, extent, off);
++			if (IS_ERR(extent))
++				return PTR_ERR(extent);
++		}
++		last = min(end, extent->start + extent->length);
++		if (last < extent->start + extent->length) {
++			struct io_opaque_extent *right;
++
++			right = io_opaque_extent_split(op->store, extent, last);
++			if (IS_ERR(right))
++				return PTR_ERR(right);
++		}
++		stream->undecided -= last - off;
++		if (op->op == IORING_OPAQUE_RECV_OBJECT) {
++			struct io_opaque_extent *tail;
++
++			tail = list_last_entry_or_null(&op->data->extents,
++						       struct io_opaque_extent, list);
++			if (!tail || tail->backing != extent->backing)
++				op->data->charge += extent->backing->charge;
++			extent->start -= op->offset;
++			list_move_tail(&extent->list, &op->data->extents);
++			op->data->length += last - off;
++		} else {
++			io_opaque_extent_free(op->store, extent);
++		}
++		op->progress += last - off;
++		off = last;
++	}
++	return off == end;
 +}
 +
- int io_opaque_send_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- {
- 	struct io_opaque_store *store = io_opaque_get_store(req, READ_ONCE(sqe->opaque_store_id));
-@@ -1925,7 +2298,7 @@ int io_opaque_send_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 
- 	if (!store)
- 		return -ENXIO;
--	if ((send_flags & ~IORING_OPAQUE_SEND_LAST) ||
-+	if ((send_flags & ~(IORING_OPAQUE_SEND_LAST | IORING_OPAQUE_SEND_VECTOR)) ||
- 	    ((send_flags & IORING_OPAQUE_SEND_LAST) && (req->flags & REQ_F_CQE_SKIP)) ||
- 	    READ_ONCE(sqe->buf_index) || READ_ONCE(sqe->__pad2[0]) ||
- 	    (msg_flags & ~(MSG_MORE | MSG_DONTWAIT)))
-@@ -1943,6 +2316,11 @@ int io_opaque_send_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 	op->msg_flags = msg_flags;
- 	if (op->msg_flags & MSG_DONTWAIT)
- 		req->flags |= REQ_F_NOWAIT;
-+	if (unlikely(send_flags & IORING_OPAQUE_SEND_VECTOR)) {
-+		ret = io_opaque_send_vec_prep(op);
++/* An unsuccessful KEEP returns its private prefix to the undecided stream. */
++static void io_opaque_restore(struct io_opaque_req *op)
++{
++	struct io_opaque_stream *stream = op->stream;
++	struct io_opaque_extent *extent, *next;
++	struct list_head *before = &stream->extents;
++
++	lockdep_assert_held(&stream->lock);
++	if (!op->data || !op->data->length || stream->closed)
++		return;
++	list_for_each_entry(extent, &stream->extents, list) {
++		if (extent->start > op->offset) {
++			before = &extent->list;
++			break;
++		}
++	}
++	list_for_each_entry_safe(extent, next, &op->data->extents, list) {
++		extent->start += op->offset;
++		list_move_tail(&extent->list, before);
++	}
++	stream->undecided += op->data->length;
++	op->data->length = 0;
++	op->data->charge = 0;
++	op->progress = 0;
++}
++
++static u64 io_opaque_dense_left(struct io_opaque_req *op)
++{
++	struct io_opaque_extent *tail;
++	u64 left = op->length - op->progress;
++
++	tail = list_last_entry_or_null(&op->data->extents, struct io_opaque_extent, list);
++	if (tail && tail->backing->copied &&
++	    tail->offset + tail->length == tail->backing->filled) {
++		u32 room = PAGE_SIZE - tail->backing->filled;
++
++		left -= min_t(u64, left, room);
++	}
++	return ALIGN(left, PAGE_SIZE);
++}
++
++static bool io_opaque_overlap(u64 a, u64 alen, u64 b, u64 blen)
++{
++	return a < b + blen && b < a + alen;
++}
++
++static int io_opaque_range_insert(struct io_opaque_req *op)
++{
++	struct io_opaque_stream *stream = op->stream;
++	struct rb_node **link = &stream->decisions.rb_root.rb_node, *parent = NULL;
++	struct io_opaque_req *other;
++	bool leftmost = true;
++
++	while (*link) {
++		parent = *link;
++		other = rb_entry(parent, struct io_opaque_req, decision);
++		if (io_opaque_overlap(op->offset, op->length, other->offset, other->length))
++			return -EBUSY;
++		if (op->offset < other->offset) {
++			link = &parent->rb_left;
++		} else {
++			link = &parent->rb_right;
++			leftmost = false;
++		}
++	}
++	list_for_each_entry(other, &stream->reads, read)
++		if (io_opaque_overlap(op->offset, op->length, other->offset, 1))
++			return -EBUSY;
++	rb_link_node(&op->decision, parent, link);
++	rb_insert_color_cached(&op->decision, &stream->decisions, leftmost);
++	return 0;
++}
++
++/* Validate a blocked TAKE without taking and restoring its retained prefix. */
++static int io_opaque_defer_take(struct io_opaque_req *op)
++{
++	struct io_opaque_stream *stream = op->stream;
++	struct io_opaque_extent *extent, *tail = NULL;
++	u64 off = op->offset, end = min(off + op->length, stream->next);
++	u64 charge = 0, left;
++
++	/* Allocation backoff can leave an already private prefix in place. */
++	if (op->progress)
++		return 0;
++	list_for_each_entry(extent, &stream->extents, list) {
++		if (extent->start + extent->length <= off)
++			continue;
++		if (extent->start > off)
++			break;
++		if (!tail || tail->backing != extent->backing)
++			charge += extent->backing->charge;
++		tail = extent;
++		off = min(end, extent->start + extent->length);
++		if (off == end)
++			break;
++	}
++	if (off < end)
++		return -ENODATA;
++	left = op->length - (off - op->offset);
++	if (tail && tail->backing->copied &&
++	    tail->offset + tail->length == tail->backing->filled)
++		left -= min_t(u64, left, PAGE_SIZE - tail->backing->filled);
++	return charge + ALIGN(left, PAGE_SIZE) > io_opaque_rx_limit(op->store) ?
++		-ENOBUFS : 0;
++}
++
++static void io_opaque_stream_process(struct io_opaque_stream *stream)
++{
++	struct io_opaque_req *op, *next;
++	struct rb_node *node, *after;
++	int ret;
++
++	list_for_each_entry_safe(op, next, &stream->reads, read) {
++		ret = stream->closed ? -ECANCELED :
++			op->op == IORING_OPAQUE_AVAILABLE ?
++			io_opaque_unclassified(stream, op->offset, op->length) :
++			io_opaque_snapshot(op);
++		if (!ret && !stream->eof && !stream->closed && !stream->error)
++			continue;
++		list_del_init(&op->read);
++		if (!ret && stream->error)
++			ret = stream->error;
++		io_opaque_queue_ready(op, ret);
++	}
++	for (node = rb_first_cached(&stream->decisions); node; node = after) {
++		op = rb_entry(node, struct io_opaque_req, decision);
++		after = rb_next(node);
++		if (op->op == IORING_OPAQUE_RECV_OBJECT &&
++		    op->offset + op->length > stream->next &&
++		    stream->collector &&
++		    stream->collector->phase == IO_OPAQUE_BUDGET_POLL &&
++		    !stream->closed && !stream->eof && !stream->error)
++			ret = io_opaque_defer_take(op);
++		else
++			ret = stream->closed ? -ECANCELED : io_opaque_take(op);
++		if (!ret && op->op == IORING_OPAQUE_RECV_OBJECT &&
++		    op->data->charge + io_opaque_dense_left(op) >
++		    io_opaque_rx_limit(op->store))
++			ret = -ENOBUFS;
++		if (!ret && !stream->eof && !stream->closed && !stream->error)
++			continue;
++		rb_erase_cached(node, &stream->decisions);
++		RB_CLEAR_NODE(node);
++		if (!ret)
++			ret = stream->error ?: -ENODATA;
++		if (ret < 0 && op->op == IORING_OPAQUE_RECV_OBJECT)
++			io_opaque_restore(op);
++		io_opaque_queue_ready(op, ret == 1 ? op->length : ret);
++	}
++}
++
++static void io_opaque_stream_close(struct io_opaque_stream *stream)
++{
++	struct socket *sock = sock_from_file(stream->file);
++
++	guard(mutex)(&stream->lock);
++	stream->closed = true;
++	stream->error = -ECANCELED;
++	lock_sock(sock->sk);
++	write_lock_bh(&sock->sk->sk_callback_lock);
++	if (sock->sk->sk_rx_owner == &stream->owner)
++		WRITE_ONCE(sock->sk->sk_rx_owner, NULL);
++	write_unlock_bh(&sock->sk->sk_callback_lock);
++	release_sock(sock->sk);
++	io_opaque_extents_free(stream->store, &stream->extents);
++	stream->undecided = 0;
++	io_opaque_stream_process(stream);
++	wake_up_interruptible_poll(sk_sleep(sock->sk), EPOLLIN);
++	io_opaque_wake_budget(stream->store);
++}
++
++static int io_opaque_copy(struct io_opaque_data *data, u64 off, u32 length,
++			  void __user *dest)
++{
++	struct io_opaque_extent *extent;
++	u64 end = off + length, done = off;
++
++	if (end > data->length)
++		return -ENODATA;
++
++	list_for_each_entry(extent, &data->extents, list) {
++		u64 first = max(off, extent->start);
++		u64 last = min(end, extent->start + extent->length);
++		u32 pos = extent->offset + first - extent->start;
++
++		if (first >= last)
++			continue;
++		if (first != done)
++			return -ENODATA;
++		while (first < last) {
++			u32 offset = offset_in_page(pos);
++			u32 chunk = min_t(u64, last - first, PAGE_SIZE - offset);
++			void *mapped = kmap_local_page(extent->backing->page +
++						      (pos >> PAGE_SHIFT));
++			unsigned long left;
++
++			left = copy_to_user(dest + first - off, mapped + offset, chunk);
++			kunmap_local(mapped);
++			if (left)
++				return -EFAULT;
++			pos += chunk;
++			first += chunk;
++		}
++		done = last;
++	}
++	return done == end ? length : -ENODATA;
++}
++
++static int io_opaque_publish(struct io_opaque_req *op, u64 *object_flags)
++{
++	struct io_opaque_store *store = op->store;
++	struct io_opaque_slot *slot = &store->objects[op->slot];
++
++	guard(mutex)(&store->tables);
++	if (store->dead || READ_ONCE(op->canceled))
++		return -ECANCELED;
++	if (!slot->reserved ||
++	    slot->generation != op->handle >> IO_OPAQUE_INDEX_BITS)
++		return -ESTALE;
++	slot->data = op->data;
++	if (op->data->forward_only)
++		*object_flags = IORING_OPAQUE_OBJECT_F_FORWARD_ONLY;
++	store->nr_objects++;
++	op->data = NULL;
++	slot->reserved = false;
++	op->slot_reserved = false;
++	slot->born = jiffies;
++	slot->retry = jiffies;
++	return op->length;
++}
++
++static void io_opaque_ready(struct io_tw_req tw_req, io_tw_token_t tw)
++{
++	struct io_kiocb *req = tw_req.req;
++	struct io_opaque_req *op = req->async_data;
++	struct io_opaque_store *store = op->store;
++	int ret = op->result;
++	u64 object_flags = 0;
++
++	io_tw_lock(req->ctx, tw);
++	list_del_init(&op->cancel);
++	op->phase = IO_OPAQUE_IDLE;
++	if (tw.cancel || READ_ONCE(op->canceled) || READ_ONCE(store->dead))
++		ret = -ECANCELED;
++	if (ret >= 0 && op->op == IORING_OPAQUE_INSPECT)
++		ret = io_opaque_copy(op->data, 0, op->data->length, op->addr);
++	if (ret >= 0 && op->op == IORING_OPAQUE_RECV_OBJECT) {
++		ret = op->data->length == op->length ?
++			io_opaque_vector(op->data) : -ENODATA;
++		if (!ret)
++			ret = io_opaque_publish(op, &object_flags);
++	}
++	if (ret < 0 && op->op == IORING_OPAQUE_RECV_OBJECT) {
++		mutex_lock(&op->stream->lock);
++		io_opaque_restore(op);
++		io_opaque_stream_process(op->stream);
++		mutex_unlock(&op->stream->lock);
++	}
++	if (ret < 0)
++		req_set_fail(req);
++	if (ret >= 0 && op->op == IORING_OPAQUE_RECV_OBJECT)
++		io_req_set_res32(req, ret, 0, op->handle, object_flags);
++	else
++		io_req_set_res(req, ret, 0);
++	io_req_task_complete(tw_req, tw);
++}
++
++static struct io_opaque_store *io_opaque_get_store(struct io_kiocb *req, u32 id)
++{
++	return xa_load(&req->ctx->opaque_stores, id);
++}
++
++static bool io_opaque_stream_op(u16 op)
++{
++	return op == IORING_OPAQUE_INSPECT || op == IORING_OPAQUE_AVAILABLE ||
++	       op == IORING_OPAQUE_RECV_OBJECT ||
++	       op == IORING_OPAQUE_DISCARD || op == IORING_OPAQUE_STREAM_STAT ||
++	       op == IORING_OPAQUE_STREAM_CLOSE;
++}
++
++int io_opaque_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
++{
++	struct io_opaque_store *store = io_opaque_get_store(req, READ_ONCE(sqe->opaque_store_id));
++	struct io_opaque_req *op;
++	u64 end;
++	u16 cmd = READ_ONCE(sqe->ioprio);
++
++	if (!store)
++		return -ENXIO;
++	if (READ_ONCE(sqe->fd) != -1 || READ_ONCE(sqe->rw_flags) ||
++	    READ_ONCE(sqe->buf_index) || READ_ONCE(sqe->__pad2[0]) ||
++	    cmd > IORING_OPAQUE_AVAILABLE ||
++	    cmd == IORING_OPAQUE_COMPACT || cmd == IORING_OPAQUE_SET_POLICY ||
++	    cmd == IORING_OPAQUE_CREATE ||
++	    (req->flags & (REQ_F_CQE_SKIP | REQ_F_FIXED_FILE)))
++		return -EINVAL;
++	op = io_opaque_req_alloc(req, store);
++	if (IS_ERR(op))
++		return PTR_ERR(op);
++	op->op = cmd;
++	if (cmd <= IORING_OPAQUE_DISCARD || cmd == IORING_OPAQUE_AVAILABLE) {
++		INIT_LIST_HEAD(&op->read);
++		RB_CLEAR_NODE(&op->decision);
++	}
++	op->handle = READ_ONCE(sqe->addr);
++	op->offset = READ_ONCE(sqe->off);
++	op->length = READ_ONCE(sqe->len);
++	op->addr = u64_to_user_ptr(READ_ONCE(sqe->addr3));
++	if (check_add_overflow(op->offset, (u64)op->length, &end))
++		return -EOVERFLOW;
++	if (cmd <= IORING_OPAQUE_READ_OBJECT || cmd == IORING_OPAQUE_AVAILABLE) {
++		if (!op->length || op->length > INT_MAX)
++			return -EINVAL;
++		if ((cmd == IORING_OPAQUE_INSPECT || cmd == IORING_OPAQUE_READ_OBJECT) &&
++		    (op->length > IO_OPAQUE_READ_MAX || !op->addr))
++			return -EINVAL;
++		if ((cmd == IORING_OPAQUE_RECV_OBJECT || cmd == IORING_OPAQUE_DISCARD ||
++		     cmd == IORING_OPAQUE_AVAILABLE) && op->addr)
++			return -EINVAL;
++		if (cmd == IORING_OPAQUE_RECV_OBJECT &&
++		    (op->length > store->config.max_object_size ||
++		     op->length > io_opaque_rx_limit(store)))
++			return -EMSGSIZE;
++	} else if (op->offset) {
++		return -EINVAL;
++	}
++	if (cmd == IORING_OPAQUE_FREE || cmd == IORING_OPAQUE_STREAM_CLOSE) {
++		if (op->length || op->addr)
++			return -EINVAL;
++	}
++	if (cmd == IORING_OPAQUE_STAT) {
++		if (op->handle || !op->addr)
++			return -EINVAL;
++	}
++	return 0;
++}
++
++/* Resolve resources when links permit execution, never while preparing SQEs. */
++static int io_opaque_resolve(struct io_opaque_req *op)
++{
++	struct io_opaque_store *store = op->store;
++	struct io_opaque_slot *slot;
++	u16 cmd = op->op;
++	int ret = 0;
++
++	if (op->resolved)
++		return 0;
++	mutex_lock(&store->tables);
++	if (io_opaque_stream_op(cmd)) {
++		u32 index = io_opaque_index(op->handle);
++
++		if (!(op->handle & IO_OPAQUE_TOKEN_TAG) || index >= store->config.max_streams ||
++		    store->streams[index].generation != io_opaque_token_generation(op->handle) ||
++		    !store->streams[index].stream) {
++			ret = -ESTALE;
++		} else {
++			op->stream = store->streams[index].stream;
++			refcount_inc(&op->stream->refs);
++			op->req->file = get_file(op->stream->file);
++		}
++	} else if (cmd == IORING_OPAQUE_READ_OBJECT || cmd == IORING_OPAQUE_OBJECT_STAT) {
++		slot = io_opaque_lookup(store, op->handle);
++		if (!slot || !slot->data) {
++			ret = -ESTALE;
++		} else {
++			op->data = slot->data;
++			refcount_inc(&op->data->refs);
++			if (cmd == IORING_OPAQUE_READ_OBJECT &&
++			    (op->offset > op->data->length ||
++			     op->length > op->data->length - op->offset))
++				ret = -ERANGE;
++		}
++	}
++	mutex_unlock(&store->tables);
++	if (ret)
++		return ret;
++	if (cmd == IORING_OPAQUE_INSPECT || cmd == IORING_OPAQUE_RECV_OBJECT) {
++		op->data = io_opaque_data_alloc();
++		if (!op->data)
++			return -ENOMEM;
++	}
++	if (cmd == IORING_OPAQUE_RECV_OBJECT) {
++		ret = io_opaque_slot_reserve(op);
 +		if (ret)
 +			return ret;
 +	}
- 	if ((!op->length && !op->addr) || op->length > INT_MAX ||
- 	    check_add_overflow(op->offset, (u64)op->length, &end))
- 		return -EINVAL;
-@@ -2036,13 +2414,20 @@ static struct io_opaque_tx *io_opaque_tx_alloc(struct io_opaque_store *store,
- 	return kzalloc_obj(struct io_opaque_tx, gfp);
- }
++	op->resolved = true;
++	return 0;
++}
++
++static int io_opaque_range_start(struct io_opaque_req *op)
++{
++	struct io_opaque_stream *stream = op->stream;
++	struct rb_node *node;
++	int ret = 0;
++
++	guard(mutex)(&stream->lock);
++	if (stream->closed)
++		return -ECANCELED;
++	if (op->op == IORING_OPAQUE_INSPECT || op->op == IORING_OPAQUE_AVAILABLE) {
++		for (node = rb_first_cached(&stream->decisions); node; node = rb_next(node)) {
++			struct io_opaque_req *other;
++
++			other = rb_entry(node, struct io_opaque_req, decision);
++
++			if (io_opaque_overlap(op->offset, 1, other->offset, other->length))
++				return -EBUSY;
++		}
++		list_add_tail(&op->read, &stream->reads);
++	} else {
++		ret = io_opaque_range_insert(op);
++		if (ret)
++			return ret;
++	}
++	io_opaque_wait(op, IO_OPAQUE_RANGE_WAIT);
++	io_opaque_stream_process(stream);
++	/* A decision, or an INSPECT still waiting for bytes, may let collection continue. */
++	if ((op->op != IORING_OPAQUE_INSPECT && op->op != IORING_OPAQUE_AVAILABLE) ||
++	    !list_empty(&op->read))
++		io_opaque_wake_stream(stream);
++	return IOU_ISSUE_SKIP_COMPLETE;
++}
++
++static int io_opaque_stat_copy(struct io_opaque_req *op, const void *stat, u32 size)
++{
++	if (!op->addr || op->length < sizeof(u32) || op->length > PAGE_SIZE)
++		return -EINVAL;
++	return copy_struct_to_user(op->addr, op->length, stat, size, NULL);
++}
++
++static int io_opaque_stat(struct io_opaque_req *op)
++{
++	struct io_opaque_store *store = op->store;
++	struct io_uring_opaque_stat stat = {
++		.size = sizeof(stat),
++		.backing_bytes = atomic64_read(&store->bytes),
++		.hard_limit = store->config.hard_limit,
++		.copied_bytes = atomic64_read(&store->copied),
++		.compacted_bytes = atomic64_read(&store->compacted),
++		.compact_count = atomic64_read(&store->compactions),
++		.extents = atomic_read(&store->extents),
++		.framing_bytes = atomic64_read(&store->framing),
++		.framing_copied_bytes = atomic64_read(&store->framing_copied),
++		.memory_mode = io_opaque_memory_mode(store),
++	};
++
++	/* Framing in the reply reserve is charged outside bytes. */
++	stat.backing_bytes += atomic64_read(&store->reserve_framing);
++	mutex_lock(&store->tables);
++	stat.objects = store->nr_objects;
++	stat.streams = store->nr_streams;
++	mutex_unlock(&store->tables);
++	return io_opaque_stat_copy(op, &stat, sizeof(stat));
++}
++
++int io_opaque_issue(struct io_kiocb *req, unsigned int issue_flags)
++{
++	struct io_opaque_req *op = req->async_data;
++	struct io_opaque_store *store = op->store;
++	int ret;
++
++	io_ring_submit_lock(req->ctx, issue_flags);
++	/* Pair with the cancellation search before any opaque wait enrollment. */
++	if (io_wq_cancel_seen(req, issue_flags)) {
++		ret = -ECANCELED;
++		goto out;
++	}
++	if (READ_ONCE(store->dead)) {
++		ret = -ESHUTDOWN;
++		goto out;
++	}
++	ret = io_opaque_resolve(op);
++	if (ret)
++		goto out;
++	switch (op->op) {
++	case IORING_OPAQUE_INSPECT:
++	case IORING_OPAQUE_AVAILABLE:
++	case IORING_OPAQUE_RECV_OBJECT:
++	case IORING_OPAQUE_DISCARD:
++		ret = io_opaque_range_start(op);
++		break;
++	case IORING_OPAQUE_READ_OBJECT:
++		ret = io_opaque_copy(op->data, op->offset, op->length, op->addr);
++		break;
++	case IORING_OPAQUE_FREE:
++		mutex_lock(&store->tables);
++		{
++			struct io_opaque_data *data = io_opaque_detach(store,
++						io_opaque_lookup(store, op->handle));
++
++			ret = data ? 0 : -ESTALE;
++			mutex_unlock(&store->tables);
++			io_opaque_data_put(store, data);
++		}
++		break;
++	case IORING_OPAQUE_STAT:
++		ret = io_opaque_stat(op);
++		break;
++	case IORING_OPAQUE_OBJECT_STAT:
++		{
++			struct io_uring_opaque_object_stat stat = {
++				.size = sizeof(stat),
++				.length = op->data->length,
++				.backing_bytes = op->data->charge,
++				.extents = op->data->nr,
++				.flags = op->data->dense ? IORING_OPAQUE_OBJECT_F_COMPACTED : 0,
++			};
++			struct io_opaque_slot *slot;
++
++			if (op->data->forward_only)
++				stat.flags |= IORING_OPAQUE_OBJECT_F_FORWARD_ONLY;
++			mutex_lock(&store->tables);
++			slot = io_opaque_lookup(store, op->handle);
++			if (slot && slot->compacting)
++				stat.flags |= IORING_OPAQUE_OBJECT_F_COMPACTING;
++			mutex_unlock(&store->tables);
++			ret = io_opaque_stat_copy(op, &stat, sizeof(stat));
++		}
++		break;
++	case IORING_OPAQUE_STREAM_STAT:
++		{
++			struct io_uring_opaque_stream_stat stat = { .size = sizeof(stat) };
++
++			mutex_lock(&op->stream->lock);
++			stat.rx_next = op->stream->next;
++			stat.undecided_bytes = op->stream->undecided;
++			stat.flags = op->stream->eof ? IORING_OPAQUE_STREAM_F_EOF : 0;
++			stat.error = op->stream->error;
++			mutex_unlock(&op->stream->lock);
++			ret = io_opaque_stat_copy(op, &stat, sizeof(stat));
++		}
++		break;
++	case IORING_OPAQUE_STREAM_CLOSE:
++		mutex_lock(&store->tables);
++		if (store->streams[io_opaque_index(op->handle)].stream == op->stream) {
++			store->streams[io_opaque_index(op->handle)].stream = NULL;
++			store->nr_streams--;
++			io_opaque_release_slot(store->stream_used, io_opaque_index(op->handle),
++					       io_opaque_token_generation(op->handle));
++			mutex_unlock(&store->tables);
++			io_opaque_stream_close(op->stream);
++			io_opaque_stream_put(op->stream);
++			ret = 0;
++		} else {
++			mutex_unlock(&store->tables);
++			ret = -ESTALE;
++		}
++		break;
++	default:
++		ret = -EINVAL;
++	}
++out:
++	if (ret != IOU_ISSUE_SKIP_COMPLETE) {
++		if (ret < 0)
++			req_set_fail(req);
++		io_req_set_res(req, ret, 0);
++		ret = IOU_COMPLETE;
++	}
++	io_ring_submit_unlock(req->ctx, issue_flags);
++	return ret;
++}
++
++static bool io_opaque_cancel_req(struct io_opaque_req *op)
++{
++	enum io_opaque_phase phase;
++	bool queue;
++
++	if (op->stream)
++		mutex_lock(&op->stream->lock);
++	spin_lock(&op->store->wait_lock);
++	phase = op->phase;
++	if (op->canceled || phase == IO_OPAQUE_IDLE) {
++		spin_unlock(&op->store->wait_lock);
++		if (op->stream)
++			mutex_unlock(&op->stream->lock);
++		return false;
++	}
++	WRITE_ONCE(op->canceled, true);
++	/* A queued copy is owned by the shared worker until it reports readiness. */
++	if (phase != IO_OPAQUE_COPY_WORK)
++		list_del_init(&op->wait);
++	/* Claim task work before a remote TX head can promote this waiter. */
++	queue = phase != IO_OPAQUE_QUEUED && phase != IO_OPAQUE_COPY_WORK;
++	if (queue)
++		op->phase = IO_OPAQUE_QUEUED;
++	spin_unlock(&op->store->wait_lock);
++	if (phase == IO_OPAQUE_RANGE_WAIT) {
++		list_del_init(&op->read);
++		if (!RB_EMPTY_NODE(&op->decision)) {
++			rb_erase_cached(&op->decision, &op->stream->decisions);
++			RB_CLEAR_NODE(&op->decision);
++		}
++	}
++	if (op->stream) {
++		if (op->op == IORING_OPAQUE_RECV_OBJECT)
++			io_opaque_restore(op);
++		mutex_unlock(&op->stream->lock);
++	}
++	if (queue)
++		io_opaque_queue_ready(op, -ECANCELED);
++	return true;
++}
++
++int io_opaque_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd,
++		     unsigned int issue_flags)
++{
++	struct io_opaque_req *op;
++	int nr = 0;
++
++	io_ring_submit_lock(ctx, issue_flags);
++	list_for_each_entry(op, &ctx->opaque_waits, cancel) {
++		if (!io_cancel_req_match(op->req, cd) || !io_opaque_cancel_req(op))
++			continue;
++		nr++;
++		break;
++	}
++	io_ring_submit_unlock(ctx, issue_flags);
++	return nr ? 0 : -ENOENT;
++}
++
++bool io_opaque_cancel_all(struct io_ring_ctx *ctx, struct io_uring_task *tctx,
++			  bool cancel_all)
++{
++	struct io_opaque_req *op;
++	bool found = false;
++
++	lockdep_assert_held(&ctx->uring_lock);
++	list_for_each_entry(op, &ctx->opaque_waits, cancel)
++		if (io_match_task_safe(op->req, tctx, cancel_all))
++			found |= io_opaque_cancel_req(op);
++	return found;
++}
++
++void io_opaque_cleanup(struct io_kiocb *req)
++{
++	struct io_opaque_req *op = req->async_data;
++	struct io_opaque_store *store;
++	bool close = false;
++
++	if (!op)
++		return;
++	store = op->store;
++	list_del_init(&op->cancel);
++	scoped_guard(spinlock, &store->wait_lock)
++		list_del_init(&op->wait);
++	/* Waiters have stopped accessing this request before cleanup. */
++	if (op->stream) {
++		mutex_lock(&op->stream->lock);
++		if (op->op <= IORING_OPAQUE_DISCARD || op->op == IORING_OPAQUE_AVAILABLE) {
++			list_del_init(&op->read);
++			if (!RB_EMPTY_NODE(&op->decision)) {
++				rb_erase_cached(&op->decision, &op->stream->decisions);
++				RB_CLEAR_NODE(&op->decision);
++			}
++			if (op->op == IORING_OPAQUE_RECV_OBJECT)
++				io_opaque_restore(op);
++		}
++		if (op->stream->collector == op) {
++			op->stream->collector = NULL;
++			close = !op->stream->eof && !op->stream->closed && !op->stream->error;
++		}
++		mutex_unlock(&op->stream->lock);
++		if (close)
++			io_opaque_stream_close(op->stream);
++	}
++	if (op->slot_reserved) {
++		mutex_lock(&store->tables);
++		store->objects[op->slot].reserved = false;
++		io_opaque_release_slot(store->object_used, op->slot,
++				       store->objects[op->slot].generation);
++		mutex_unlock(&store->tables);
++	}
++	io_opaque_data_put(store, op->data);
++	io_opaque_stream_put(op->stream);
++	lockdep_assert_held(&req->ctx->uring_lock);
++	io_cache_free(&req->ctx->opaque_cache, op);
++	io_req_async_data_clear(req, 0);
++}
+diff --git a/io_uring/opaque_register.c b/io_uring/opaque_register.c
+new file mode 100644
+index 000000000000..9e39d1ee5072
+--- /dev/null
++++ b/io_uring/opaque_register.c
+@@ -0,0 +1,90 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Ring-local registration IDs for shared kernel-resident object stores. */
++#include <linux/anon_inodes.h>
++#include <linux/file.h>
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++#include <uapi/linux/io_uring/opaque.h>
++
++#include "io_uring.h"
++#include "opaque.h"
++
++static void io_opaque_unregister_user(struct io_opaque_store *store)
++{
++	io_opaque_user_put(store);
++	io_opaque_put(store);
++}
++
++int io_register_opaque(struct io_ring_ctx *ctx, void __user *arg)
++{
++	struct io_uring_opaque_register reg;
++	struct io_uring_opaque_config config;
++	struct io_opaque_store *store;
++	u32 size, id;
++	int ret;
++
++	lockdep_assert_held(&ctx->uring_lock);
++	if (!(ctx->flags & IORING_SETUP_DEFER_TASKRUN) ||
++	    !(ctx->flags & (IORING_SETUP_CQE32 | IORING_SETUP_CQE_MIXED)))
++		return -EINVAL;
++	if (get_user(size, &((struct io_uring_opaque_register __user *)arg)->size))
++		return -EFAULT;
++	if (size < offsetof(struct io_uring_opaque_register, __resv) || size > PAGE_SIZE)
++		return -EINVAL;
++	ret = copy_struct_from_user(&reg, sizeof(reg), arg, size);
++	if (ret)
++		return ret;
++	if (reg.size != size || reg.__resv0 ||
++	    !mem_is_zero(reg.__resv, sizeof(reg.__resv)))
++		return -EINVAL;
++	reg.size = sizeof(reg);
++	if (reg.store_id || reg.flags)
++		return -EINVAL;
++	if (reg.fd != -1 || !reg.config ||
++	    reg.config_size < offsetof(struct io_uring_opaque_config, __resv0) ||
++	    reg.config_size > PAGE_SIZE)
++		return -EINVAL;
++	ret = copy_struct_from_user(&config, sizeof(config),
++				    u64_to_user_ptr(reg.config), reg.config_size);
++	if (ret)
++		return ret;
++	store = io_opaque_alloc(ctx, &config);
++	if (IS_ERR(store))
++		return PTR_ERR(store);
++	ret = xa_alloc(&ctx->opaque_stores, &id, store, xa_limit_31b, GFP_KERNEL);
++	if (ret)
++		goto put_store;
++	reg.store_id = id;
++	ret = copy_struct_to_user(arg, size, &reg, sizeof(reg), NULL);
++	if (!ret)
++		return 0;
++	xa_erase(&ctx->opaque_stores, id);
++put_store:
++	io_opaque_unregister_user(store);
++	return ret;
++}
++
++void io_terminate_opaque(struct io_ring_ctx *ctx)
++{
++	struct io_opaque_store *store;
++	unsigned long index;
++
++	lockdep_assert_held(&ctx->uring_lock);
++	if (ctx->opaque_stores_dying)
++		return;
++	ctx->opaque_stores_dying = true;
++	xa_for_each(&ctx->opaque_stores, index, store)
++		io_opaque_user_put(store);
++}
++
++void io_unregister_opaque(struct io_ring_ctx *ctx)
++{
++	struct io_opaque_store *store;
++	unsigned long index;
++
++	lockdep_assert_held(&ctx->uring_lock);
++	io_terminate_opaque(ctx);
++	xa_for_each(&ctx->opaque_stores, index, store)
++		io_opaque_put(store);
++	xa_destroy(&ctx->opaque_stores);
++}
+diff --git a/io_uring/opdef.c b/io_uring/opdef.c
+index cf3aa2242cd7..256c7c533118 100644
+--- a/io_uring/opdef.c
++++ b/io_uring/opdef.c
+@@ -38,6 +38,7 @@
+ #include "futex.h"
+ #include "truncate.h"
+ #include "zcrx.h"
++#include "opaque.h"
  
--/* Resolve what a send names and take its references, under tables. */
-+/*
-+ * Resolve what @op names and take its references: the handles under tables,
-+ * and then, without it, the block and the cursor. A vector leaves tables once
-+ * its references are taken; one whose block is too small leaves it earlier, to
-+ * grow the block, and is resolved again.
-+ */
- static int io_opaque_tx_acquire(struct io_opaque_req *op)
+ static int io_no_issue(struct io_kiocb *req, unsigned int issue_flags)
  {
- 	int ret;
+@@ -591,6 +592,17 @@ const struct io_issue_def io_issue_defs[] = {
+ 		.prep			= io_uring_cmd_prep,
+ 		.issue			= io_uring_cmd,
+ 	},
++	[IORING_OP_OPAQUE_OBJ] = {
++		.audit_skip		= 1,
++		.ioprio			= 1,
++#ifdef CONFIG_IO_URING_OPAQUE_OBJ
++		.async_size		= sizeof(struct io_opaque_req),
++		.prep			= io_opaque_prep,
++		.issue			= io_opaque_issue,
++#else
++		.prep			= io_eopnotsupp_prep,
++#endif
++	},
+ };
  
- 	scoped_guard(mutex, &op->store->tables)
- 		ret = io_opaque_send_acquire(op);
-+	if (unlikely(op->send_flags & IORING_OPAQUE_SEND_VECTOR))
-+		ret = io_opaque_vec_finish(op, ret);
- 	return ret;
- }
+ const struct io_cold_def io_cold_defs[] = {
+@@ -849,6 +861,10 @@ const struct io_cold_def io_cold_defs[] = {
+ 		.sqe_copy		= io_uring_cmd_sqe_copy,
+ 		.cleanup		= io_uring_cmd_cleanup,
+ 	},
++	[IORING_OP_OPAQUE_OBJ] = {
++		.name			= "OPAQUE_OBJ",
++		.cleanup		= io_opaque_cleanup,
++	},
+ };
  
+ const char *io_uring_get_opcode(u8 opcode)
+diff --git a/io_uring/register.c b/io_uring/register.c
+index 2ce36623e25a..1e450554ca38 100644
+--- a/io_uring/register.c
++++ b/io_uring/register.c
+@@ -32,6 +32,7 @@
+ #include "msg_ring.h"
+ #include "memmap.h"
+ #include "zcrx.h"
++#include "opaque.h"
+ #include "query.h"
+ #include "bpf_filter.h"
+ 
+@@ -1013,6 +1014,12 @@ static int __io_uring_register(struct io_ring_ctx *ctx, unsigned opcode,
+ 	case IORING_REGISTER_QUERY:
+ 		ret = io_query(arg, nr_args);
+ 		break;
++	case IORING_REGISTER_OPAQUE_STORE:
++		ret = -EINVAL;
++		if (!arg || nr_args != 1)
++			break;
++		ret = io_register_opaque(ctx, arg);
++		break;
+ 	case IORING_REGISTER_ZCRX_CTRL:
+ 		ret = io_zcrx_ctrl(ctx, arg, nr_args);
+ 		break;
 -- 
 2.34.1
 
