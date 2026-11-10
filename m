@@ -1,112 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345823;
-	b=pOKI3FnF1j2+yR3rxSq6BN6VVTGhngFgDQySWGXreSjgVAQNQN8OwPPUrfkMzqVuqfXQ
-	 ADGpCk8z64SNObpWXlDfmc8jiI0diKiYoz9+Bz7sCVJ1XgT63P0ByS2uz1I0rHii66eUV
-	 njzcJIkR5qEp0FsJskcF5rsfcvfnSf78pP88R7vweyVIz644z7ry1IqOQduD8VEDPH+g5
-	 Z9zbOdgIq6WIvIXtUZ7afUfWydHpKsG6HU3tVCrIBVINi/ckkLYUuI1cyUOrzch+xmtQq
-	 vDdubUEgsUUO/ns4use26Br9KfjOescO/2yl7WuuCOC8eCzWRzzYLI/wgYJ9sPRPzsQ==
+	t=1794345864;
+	b=jJ1diZucYYcgbBpe4cf87TnRSgCjZeoxIVdp8DwleRGtF2Vt+hwO4Q4YYGJ8i2YiuT0g
+	 aci3R0q2dC/YuHVp1iXjFCCpmFqDLQxXM6aaDYW1sgqXiPhCT4oNrxFbxnyX+FB6QIpF6
+	 l8pXc/XwR7RTnJVS+uKQ3Z2k67PbbUYaESgZj1jF6e1DR1/OpoQ6dyoPKL/v7SBYQgYSr
+	 xBQOp9ba0Hd8/wHp92ZeYf1FxbtLJUIiviGKLCbgRtWi+V0xnm/3SZmWnk8TAkQdloKYS
+	 Glttgc3egLH/wPIn50o8KC/V+4kbwNmxUbg0RXGcEIzqgWTScT33dt1gMZztrdOH4QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345823;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=UqMCwshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=;
-	b=1VjsNfD0QIXzmigFAOKIUy1teo4gdCJRGuZ8W2G2baDkL1rI0FzSEa/DPrsqAIk7jeHd
-	 zYNKmtYKjLNSqqdy97lFm+mHoHNV0Pod6GkLnZXY8rJQ2C5vQZFPU539d7Vm88xFL7bHn
-	 8cDY8wZAA8Cr+y9kK0dGLB+0iuRCZOTqFTOfy8IV/PZEFfFfSsGUHq6pD5nNFst997S+s
-	 l3LU89Vf79Lb04KASeigx8pWaGF2IgTMPBUY4fdR/FTseTwvqCqmCGLsW4z0hMEDcXO+T
-	 WpeQjrWw09A8MqyWtJNCWKEkAU7AH3cVI4RM6vfhp63ChXcMbEfFgDp4WPCO5FVJRNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345864;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=WjjLn9OW/dh8Ooz1Del+NUReCfrVoH+dbIK19cMu41M=;
+	b=tV6Ev1yWM9zfHnsZ6G1QaC4fkwohHNluPO2vPe1+ogG9U+l93uC/HVAR1TcJdNYlbrQZ
+	 VWW8OI6S6QOpcK//vag+E4fCnCjLsXwuIyh6t4SWXL5BEnj66ZES/lpcFtN5+rbpsxHN0
+	 bmsF5R3FnMfVVZ3yZ8Sh3Ci684WUBTR0e+qkB1axl0VtZt9jOxOy6BScZY/p8YtrLqd+K
+	 AJv6LCOQ9XNq+Qlv0EjgF8Am1+GLfKf+3eoFkTuxwRVs/n3GeqyCfHKEhPWZPneTuT8B9
+	 X3iLs06DaqClPtZdYlAhsAHOOC6SUQVkdqW5dpWOzlf392u/HJfDRlJIpBLqJEvdNWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="JkQg+/q/";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=wno2rYlK;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LZeIR7jz;
+	arc=none smtp.remote-ip=74.125.231.133
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B21606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:23:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3B21606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66F6606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:24:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D66F6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=JkQg+/q/;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=wno2rYlK
-Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAKRvK42313339
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:23:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=UqMC
-	wshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=; b=JkQg+/q//eAizRed3iyI
-	3R9Ao+cFbGzDw7QDNrDmlVRK3E58riHZAvsAe9YXZdOdmMzoPYnStwwXDT03TVyT
-	3lFkAFSU9qZlzZfX4IhzclItvBsahMy5BS8GRO3vsOoMedTn62hwX9c+MIQQfQEz
-	gF89TLh+eUSJfchcN0lCAuleryRLK8/jdqKr1E6HGDRQs7YymRVhRQFcCFSLRTtv
-	04KFrWDDHXAQEWlXsRr8afOmN8ke6g3UOj2Fr5iTFE9Oybow7w2p+Jgu884Ezrh9
-	Pgsy2BpTN//LJxeLEh9wOjQa87DFHAKdV50nHA6D92Q34cnYwlixO+wvrTLTUiD2
-	2g==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hv7nyt8jt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:23:42 -0500 (EST)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91e9a0eae11so37105166d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:23:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LZeIR7jz
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-8458555b6a8so794195a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:24:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794345821; x=1794950621; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UqMCwshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=;
-        b=wno2rYlKE/PNyCVrqV5/QETWerOyBWKxg7KkH3y+50ZsDZpjMThHY2OU4I6uEJhpbl
-         Z+Yj+MYrPo0wLdass3gzvpRlHWi+3G/DlF1CXgSMPROYFItpwcai2FS8DJFNW7rlHoid
-         By/tF3/ZDVPnd1Ru/Y+UtMTrGosvf84CEYdzJPj0Tk86GsFttlS2gN48k8NsVT5S0RKf
-         gbHnNAYQ5he9qmX0qA0AA1C+fmXME/D6OrhH0dX5vQAV/obzErmrX3Ct1TH5zQbIu9ud
-         mOemFwLRojozHVCnLr5hmn9cUFKfbcFiDpnNZ39qXQWPM1lW6gAGKgcMPlNW82hfF6CD
-         HKtA==
+        d=gmail.com; s=20260707; t=1794345863; x=1794950663; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WjjLn9OW/dh8Ooz1Del+NUReCfrVoH+dbIK19cMu41M=;
+        b=LZeIR7jz+8PUTZOKod2uSPWTzAwELN5uiGu3KaHEfc9cwVEX6Q6WyMgKPfVv1IfFlH
+         EM4w8UXaeiFNWUPfd6XbrV+lYhxvTE05jNP6CHVP/cSZE5JaNOyQkSTdlTdbkt+ZI9hv
+         HRYtN30DFzuYzCVYLciROC0/i2nW/QtfNXSFjxkXrHJfB5l85Z/Vgkt9XpuG73NOmpE4
+         cIq4sar+RMgAtXnejeWfLUb7aXn2e0crn4ZOZXCK0c4cu+yYEyHDMxdYw+DH1uvrfzUN
+         AwCJMMUYn4N25gLjH9ylrC5SZS4IlaKRgwdpIGzCuHdFRKfx+QuzyCmijidEp1pzXV1j
+         YCVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794345821; x=1794950621;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UqMCwshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=;
-        b=S7W7tiBrPaobHTcxsb0uAh3dhAjY9N97DmRIWKKv0agb2sixiApBmNpu7GrRdwIyT8
-         w/vJKtoNMj69zjwVRe4mW5Y1j/ucocEh1XWsXLYOwFmni9wpRKvE4Eaf2Rh2MpPfBF2b
-         RtfVyheC0fI8eAlUqH7t6hJusUa5UZvbDAWYilvdQBvHeEOXBSuKFpjaEIUk7kvF4ZeD
-         Dm8uYAmJkuVraaKgb88nx08vGrNuuvPzK6+b4fgA4DRxrqh2KhiLV9921xuyqse3T5E1
-         0kp1yyGlEXo2aRw5PiZzeXCcW8GL/lWfjKDbnSCtIVnxlRirxfy8ybkl413nIltbf5mT
-         ezUQ==
-X-Forwarded-Encrypted: i=1; AL+hErFRRbY2j7RvPf4XMokse9jq1SI61h7t403IB7WT8KUaWvsvKTssNcVQmNTLm6/TsGOrQnp4Qks+TO7stJU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vcBUPx9DJ1DaizYSY7Nx88frTe2ZRbo4hxL57Nz774ifXP5Fx
-	Ay06eD4orqZ1N/NtaeWqJYQXikkbotdq74uKjWjytlyhptEozrtY3l5I4v31/WZAS8Uqeyxm9vz
-	NAXrcxUF4rtHkp9YtwBXENXgxfN/9S+JjG6GQ/E1lElZTWBVu/z0c8TGpHR1RpQ==
-X-Gm-Gg: AYBFou0l8oX7z/yWTG5/z5igCw6k42ZGPQXiw5v+B8XDXutVorkKpHqV6lBhd+2Ybek
-	KJ0oHbJUoYWb6Chu1agbzGwDveYcjjexCLCchajQT9g+c/BNErCJrhf4k5aGw5FtgkCz8eBVpM9
-	0zIaKvXezsjO900F1DpxR6nFlgKWD6X4hz0FDz7JLf3MQwXUDUwsNEvrLMa9YbkmezYoEhDlMJs
-	pHFgixudXnhxdTX20l7ciibQyxD2ThqBCYgBPiT3DsvOKUxdZ+34EtR2hxoUg3dtvFQTUR7P+HW
-	QMu1llRATNVDtUslcipbizPTgfiSXxW2/1BBv0HYXU9tSm6Wt9DkiHLiBHm2w5R3mc7VRmGyyBL
-	vC8zJkBlBBhLfIJ2esQuX21c0fkLZ1kIUc+tojH9P+yLuu4g8caIFqwDR3Ks=
-X-Received: by 2002:a05:6214:2c10:b0:91e:b360:1b11 with SMTP id 6a1803df08f44-91f0402319fmr9636876d6.13.1794345820945;
-        Tue, 10 Nov 2026 13:23:40 -0800 (PST)
-X-Received: by 2002:a05:6214:2c10:b0:91e:b360:1b11 with SMTP id 6a1803df08f44-91f0402319fmr9636566d6.13.1794345820506;
-        Tue, 10 Nov 2026 13:23:40 -0800 (PST)
-Received: from [127.0.1.1] ([129.236.231.168])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f00f6eb88sm10024766d6.39.2026.11.10.13.23.39
+        d=1e100.net; s=20260707; t=1794345863; x=1794950663;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=WjjLn9OW/dh8Ooz1Del+NUReCfrVoH+dbIK19cMu41M=;
+        b=wPvArT+ilySy7deZUBsjNHaJhLcK51ZzvG2aHc8MXJoqlGodCmuTBw/+fAIFRK2RV1
+         9G4UX8EO73fJnQ/78CM+7th+fLzzho161labKLq0ds8hD8sj0rn2b9Ti02TfGrgBHV1b
+         Q0kiOe6fr0jrhO4+35KP8KMrP2W2TcWdCLJVlhbwsrStoD/h6FfKSJAB0Y3EVnotc9AH
+         uaj9fsA9MajaKxv7AKRAU8gmTapDS57zE8055QyN7wnCnd6fxZaaOV+V0iQkw7pRg4Zx
+         EBuRZd+XIYe0v+JzvE6P6bYnAf3OM+xWCOJiqoMYd0EfteHIHsVyPNu1xjuyGWrvejGC
+         MFBg==
+X-Forwarded-Encrypted: i=1; AL+hErGJ2iFrz1Yb8J1VxCagg40B3xU+hPlYlz8lo2/IeU5LYnZSPS7IfhkNIU3FqM9Nejcev9nnWz0f8/ku0hs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cYT96QKcawXh9aOOqSrfpXkguUA/PubpdfwdL4yktkAshMb/U
+	sYCd9wzSKdzZ8M7dRv/hhJ2CO9wRHaJ6jhC8h0mU8R5DA5UfNWgTkdbQ
+X-Gm-Gg: AYBFou2c348r0O9SIRRuw0ESpj8ZRz+iucp4szgRK2MirpSGDmJkOcs9e223XamOLCy
+	rSDnHQm7TDTTqA/hLj2ZMzj+0KtGy3svWIjNItOKX9X6kh4vBBZC/p2VrRwvSL1OW2PJmYq6y+7
+	ZV6Yp9BeeU3CniOEd0Ee25FW+YiGtd36KYFhmzWWeerNPsFsjL7+xB3GOSpCUtrFDoCUFvkq6d1
+	9S23V8yuqdGdx4potmS4eVRup4eog/xBRCsIjRYui4UpLgxpFDK8HsLrVlFmjFupSQa9lWp3m6e
+	OmBlZwtpnjOFwKomB9jYfy3X6wU1DjCrH15a6lCjC10mc0LCyXV6O0P3UT1Ox+CmZcse/tcD8kG
+	TCWkdbRAQnttNwBtFR1x9l2jZakoJIdAzddJQ41ECNSayKTTk0MtXHnX2fOI9q1NhVMXHF7XoE3
+	Pru+nVb2POQgYip6L5dROIeiP0ZlhBOK8EtSB8TWk42J4zd1H2EqfLELzM27+GIEIv8EO88/mAg
+	lViNACEojk7pXhQ7pAxXJo3PnVt+OtpIz92jrfDZUQ+4Lvfk6RRwWcgSVzD9Qus2dU5bHGYypBz
+	OUxlztwZAyYMDw0MeSnsNv1kFdnhOHlEaS+gveHPe5kHbA==
+X-Received: by 2002:a05:6830:4424:b0:80b:6f52:3629 with SMTP id 46e09a7af769-860f25e8e97mr185419a34.1.1794345862778;
+        Tue, 10 Nov 2026 13:24:22 -0800 (PST)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcb5f7b4sm2845528a34.4.2026.11.10.13.24.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:23:40 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 10 Nov 2026 16:23:30 -0500
-Subject: [PATCH 1/2] scsi: scsi_debug: wrap around the store when zeroing a
- reset zone
+        Tue, 10 Nov 2026 13:24:22 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Tue, 10 Nov 2026 15:24:16 -0600
+Subject: [PATCH v4] pci: Add broken-GPE quirk for some Lenovo Legions with
+ Nvidia GPUs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,138 +94,193 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-scsi-debug-zone-reset-v1-1-28cb9184b5ea@columbia.edu>
-References: <20261110-scsi-debug-zone-reset-v1-0-28cb9184b5ea@columbia.edu>
-In-Reply-To: <20261110-scsi-debug-zone-reset-v1-0-28cb9184b5ea@columbia.edu>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-        "Martin K. Petersen" <mkp@kernel.org>,
-        Douglas Gilbert <dgilbert@interlog.com>,
-        Damien Le Moal <dlemoal@kernel.org>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794345818; l=3280;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=ZV3u5z5TV2jDpiHsg1XVxc6l7ohlFCN7yss5BY4N0Lg=;
- b=gvRR9CdVlsgtJtSlFTYA8Y4JnxWyeJU+hOwE1upjGKMZoJjmmlOM4MvbdWI5gpiYmY75JeeAD
- ht4FNsJw+2RDly925plZtVFSAFQk9Erv9zac1sDZ6o/7P0LmZIxWEkR
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4NSBTYWx0ZWRfX9q1h7Mrcw7BE
- WGnwu4331dylZckVI85WfqcVGVmZ+9O0HTc3JWyCHQgDCy1Xc3/yo0TEbweHHJShL90T2zO/e2n
- rq7ZXq1L0ZLBnj7LD7ABvnrUQLDyepF01REH7aOA9vMHwgbJlUDE
-X-Proofpoint-ORIG-GUID: h-qX_joh7xcwsdXg5nP3ncH_B1OSlA0H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4NSBTYWx0ZWRfXwLUZxmdUuyFA
- p7Un3KRwHMuVbKB6r3fSOJlBL0+yXkPYwCYYqHYbN3KFfco5F/zAG1Q97eYkSb4v1eWNNL85RXS
- MHB4eaXs44uxa7qzAEhFbMM40kfen1zt69Yekid2jsJhofabs4FYdD3E1LYybpoeEfUaFF5vhG2
- aTx/mE5Xe/pqo2o+C94oak+7XUmvRus4DyU0DD1KaB7ewp4qhtjm2xD3F1UDJDqcqaDF84mGZM0
- SEQYDS5lXElLye7ETrA/G4EfrBRYE6xMUg0oVlDN7I/inq3g2egwynRskfrKvHySL2p4TYYXwD1
- 2RDBFcm8JARZq+ZNNhLvbS761eg60xd2czNGSw1xLtkfNzOSoNL90TrkxybPnunVzbDxfvzKIDM
- yXQVptGv8s1hemJkSbev3gnEY7U7qCu+n7k4X5aK3GTqO09dBv0CSX+GZZM08ANHzO815oZ7TX3
- Sjdt3LyhtdbfzSfg85Q==
-X-Authority-Analysis: v=2.4 cv=Vc5ir1p9 c=1 sm=1 tr=0 ts=6af38b5e cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=lHGGv15rhlN7Yv6qcqrt9g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
- a=9cs-aK8SJTO5rNEwzvoA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: h-qX_joh7xcwsdXg5nP3ncH_B1OSlA0H
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11962
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=10 lowpriorityscore=10
- adultscore=0 phishscore=0 suspectscore=0 bulkscore=10 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611100085
+Message-Id: <20261110-broken-gpe-legion-v4-1-c672bb1c4d91@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/32OQQ6CMBREr9L8td+0pWBh5T2Mi1p+oQrUtEgkh
+ LsbMHHpcpKZN2+BRNFTgootEGnyyYcBKqYODGxrhobQ11AxkFwWgvMcbzE8aMDmSdhR48OApS2
+ dPplcl9rCgcEzkvPvnXm5fnN63e5kxw20NVwMPY5tJPNjcy2F5Lzgp2MhRaYECuzmV03nSHVrx
+ qMN/TZtfRpDnHffKdsu/qlNGQp0qnSqyGulyZ6b3vhuh13Xdf0Ap2dkPP8AAAA=
+X-Change-ID: 20261005-broken-gpe-legion-9c9f87a5898c
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>, 
+ John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Lyude Paul <lyude@redhat.com>, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794345860; l=6414;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=4fzh2Kt6hyJZoUipRYGxY1lLhGP5S0v640iNKn5d27A=;
+ b=9YJQTspVWw3SNIHz6DL8fo+E22qGFlOGPsa0xkwd+6tDhnlXfgCbGXQcYPGp4N3hDZTZY7I7z
+ YY7fTaOLSYWCVHkiWRKOfP4aVMy0h7QLlgwP6QYEzPL6vHuIQCvyKv/
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-zbc_rwp_zone() zeroes the blocks of a zone that is reset, using the
-start of the zone as an offset into the store. With virtual_gb set, the
-device and its zones can extend past the end of the store, which is
-only dev_size_mb in size. Writes wrap around in do_device_access(), but
-the memset() doesn't, so resetting a zone that has been written to can
-write past the end of the store.
+From: Lyude Paul <lyude@redhat.com>
 
-On a device whose fifth zone starts exactly at the end of the store,
-write to that zone and reset it:
+On certain Lenovo Legion devices (including the 16APH8, 16AHP9, and
+15AHP9), the firmware appears to enjoy firing a GPE on the parent PCIe
+port of the nvidia GPU very shortly after the GPU enters D3Cold. This means
+that every time the GPU is runtime suspended, ACPI firmware immediately
+wakes up its parent PCIe port, which then wakes up the GPU. Once it falls
+asleep again, the cycle repeats.
 
-  # modprobe scsi_debug zbc=managed sector_size=4096 dev_size_mb=16 \
-        virtual_gb=1 zone_size_mb=4
-  # dd if=/dev/urandom of=/dev/sda bs=1M count=1 seek=16 oflag=direct
-  # blkzone reset -o 32768 -c 1 /dev/sda
+Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
+nova as well, and it even seems possible for this to happen without any
+driver loaded.
 
-The memset() starts at the first byte past the store, in the guard page
-after the vmalloc'ed area, for the 1 MiB that was written:
+This seems to simply be a bug. Luckily, there is nothing that we actually
+need ACPI wakeup events for on the GPU. Events such as display connector
+hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
+affected by this quirk.
 
-BUG: unable to handle page fault for address: ffffc90002c00000
-Oops: Oops: 0002 [#1] SMP KASAN NOPTI
-RIP: 0010:memset_orig+0x33/0xb0
-RDX: 0000000000100000 RSI: 0000000000000000 RDI: ffffc90002c00000
-Call Trace:
- zbc_rwp_zone+0x1a7/0x2a0 [scsi_debug]
- resp_rwp_zone+0x19c/0x450 [scsi_debug]
- schedule_resp+0x2dd/0xbc0 [scsi_debug]
- scsi_debug_queuecommand+0x1286/0x2950 [scsi_debug]
- scsi_queue_rq+0x1d74/0x3200
- blk_mq_dispatch_rq_list+0x3ad/0x23c0
-
-The command never completes, so the reset returns EIO to userspace and
-the device is unusable afterwards.
-
-Zero the blocks in a helper that wraps around at the end of the store,
-and that stops after one pass over it for a zone that is larger than
-the store.
-
-Fixes: f0d1cf9378bd ("scsi: scsi_debug: Add ZBC zone commands")
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Link: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
+Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/scsi/scsi_debug.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+Bjorn, please pick this up if it looks good. Derek J. Clark graciously sent
+a message to the Lenovo team on my behalf, but noted that the Legion side
+of the business doesn't have a fully fleshed-out Linux team, and that Mark
+has been helping out in their free time.
 
-diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-index a922c8318a2f..1c27ea0f9b69 100644
---- a/drivers/scsi/scsi_debug.c
-+++ b/drivers/scsi/scsi_debug.c
-@@ -6612,6 +6612,29 @@ static int resp_finish_zone(struct scsi_cmnd *scp,
- 	return res;
- }
+I imagine this patch has been missed by them. The patch has been tested by
+many users in the linked issue, and I have been running it personally since
+the patch was made.
+---
+Changes in v4:
+- Rebased onto v7.4-rc2. No functional change.
+- Ccing stable, as well as other addresses I missed when taking over the
+  patchset from Lyude.
+- Link to v3: https://patch.msgid.link/20261005-broken-gpe-legion-v3-1-f49f465d48ec@gmail.com
+Changes in v3:
+- Add the Lenovo LOQ 15AHP9 to the quirk table (@jindalpratik on GitHub)
+- Also match Nvidia RTX 4070 Max-Q (0x2860), which similarly refuses to
+  stay in D3Cold (@inigo001 on GitHub)
+- Link to v2: https://patch.msgid.link/20260821200607.621341-1-lyude@redhat.com
+Changes in v2:
+- Don't forget to actually use parent_adev with acpi_remove_pm_notifier()
+- Check if parent_adev is NULL (could happen if booted with acpi=off), just
+  consider it a no-op if it is.
+- Base the patch off Linux master instead, I based it off drm-misc-next by
+  mistake because I'm too used to working on DRM drivers :).
+- Link to v1: https://patch.msgid.link/20260821181203.82722-1-lyude@redhat.com
+---
+
+Tested on all the modified Legion devices. The Nvidia dGPU properly goes
+into D3Cold with the patch, whereas without it, the dGPU will wake up
+shortly after going to D3Cold. See the linked open-gpu-kernel-modules
+issue for more details.
+---
+ drivers/pci/quirks.c | 88 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 7f1f47ea2ee4..c2269c367279 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6336,6 +6336,94 @@ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x13b1,
+ 			      PCI_CLASS_DISPLAY_VGA, 8,
+ 			      quirk_reset_lenovo_thinkpad_p50_nvgpu);
  
++#ifdef CONFIG_ACPI
++#ifdef CONFIG_DMI
++static const struct dmi_system_id nvidia_dgpu_broken_gpe_quirk_table[] = {
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "15AHP9"),
++		},
++	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "16APH8"),
++		},
++	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "16AHP9"),
++		},
++	},
++	{}
++};
++
 +/*
-+ * Zero the blocks of a zone that is being reset. The store can be smaller
-+ * than the device, so wrap around at its end like do_device_access() does.
++ * On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
++ * firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
++ * GPU enters D3Cold. This means that every time the GPU is runtime suspended,
++ * ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
++ * the GPU. Once it falls asleep again, the cycle repeats.
++ *
++ * See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
++ *
++ * Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
++ * nova as well, and it even seems possible for this to happen without any
++ * driver loaded.
++ *
++ * This seems to simply be a bug. Luckily, there is nothing that we actually
++ * need ACPI wakeup events for on the GPU. Events such as display connector
++ * hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
++ * affected by this quirk.
++ *
++ * So, workaround this by disabling wakeup events for the parent PCIe port of
++ * the GPU.
 + */
-+static void zbc_zero_blocks(struct sdeb_store_info *sip, sector_t lba,
-+			    sector_t num)
++static void quirk_nvidia_dgpu_broken_gpe(struct pci_dev *pdev)
 +{
-+	/* One pass over the store zeroes all of it */
-+	num = min_t(sector_t, num, sdebug_store_sectors);
++	struct acpi_device *parent_adev;
++	struct device *parent_dev;
++	int ret;
 +
-+	while (num) {
-+		sector_t block = lba;
-+		u32 n;
++	/* Just to be extra safe and make sure we don't try this on an eGPU */
++	if (pci_is_thunderbolt_attached(pdev))
++		return;
 +
-+		block = sector_div(block, sdebug_store_sectors);
-+		n = min_t(sector_t, num, sdebug_store_sectors - block);
-+		memset(sip->storep + block * sdebug_sector_size, 0,
-+		       (size_t)n * sdebug_sector_size);
-+		lba += n;
-+		num -= n;
++	ret = dmi_check_system(nvidia_dgpu_broken_gpe_quirk_table);
++	if (ret == 0)
++		return;
++
++	pci_info(pdev, FW_BUG "GPU PCIe port has broken wakeup events, disabling\n");
++
++	parent_dev = pci_physfn(pdev)->dev.parent;
++	if (!parent_dev) {
++		pci_err(pdev,
++			"Can't find PCIe parent? Your Nvidia GPU will have broken runtime PM\n");
++		return;
 +	}
-+}
 +
- static void zbc_rwp_zone(struct sdebug_dev_info *devip,
- 			 struct sdeb_zone_state *zsp)
- {
-@@ -6629,8 +6652,7 @@ static void zbc_rwp_zone(struct sdebug_dev_info *devip,
- 		devip->nr_closed--;
- 
- 	if (zsp->z_wp > zsp->z_start)
--		memset(sip->storep + zsp->z_start * sdebug_sector_size, 0,
--		       (zsp->z_wp - zsp->z_start) * sdebug_sector_size);
-+		zbc_zero_blocks(sip, zsp->z_start, zsp->z_wp - zsp->z_start);
- 
- 	zsp->z_non_seq_resource = false;
- 	zsp->z_wp = zsp->z_start;
++	parent_adev = ACPI_COMPANION(parent_dev);
++	if (!parent_adev) /* No ACPI? That means no GPE, and nothing to do here. */
++		return;
++
++	/* The spurious GPEs will be sent from the ACPI device for the PCIe port this GPU is
++	 * connected to, so remove our PM notifier to turn them into a no-op.
++	 */
++	ret = acpi_remove_pm_notifier(parent_adev);
++	if (ACPI_FAILURE(ret))
++		pci_err(pdev, "Removing PM notifier failed: %d\n", ret);
++}
++DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x28e0,
++			      PCI_CLASS_DISPLAY_VGA, 8,
++			      quirk_nvidia_dgpu_broken_gpe);
++DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x2860,
++			      PCI_CLASS_DISPLAY_VGA, 8,
++			      quirk_nvidia_dgpu_broken_gpe);
++#endif
++#endif
++
+ /*
+  * Device [1b21:2142]
+  * When in D0, PME# doesn't get asserted when plugging USB 3.0 device.
 
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261005-broken-gpe-legion-9c9f87a5898c
+
+Best regards,
 -- 
-2.39.5
+Ryan Brue <ryanbrue.dev@gmail.com>
 
