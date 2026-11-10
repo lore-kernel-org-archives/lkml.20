@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343683;
-	b=q3w5C4uuQ/KTHdQFW3Qzmk9wFkEK/6cFY8/TDUX+mLnfpLvsDSwgGP+zg5o5of+Z+Nto
-	 B228gT2o9Fg7dyUHbl+bX6reTSrBDsOLtpbKiEjZjhW8f4R0NQRB7XLKlrb0iZt94ovq2
-	 FGHq1vfZYVy2U9+kXQLT3cDvF2ivY+PDKXKil60D8hr6CpXwoJm8w9H98rxaCtxBnfYMP
-	 VPqFnqFP5s+7x8ucTvvCSi+7Fv9sHzAbRSt3FaiCrechKfZTFrXLsgmvNn2/TX0F0K1PP
-	 vkZ+M3qqevA2hWZ969SP9HJ/Piy7mGWCP1eSy4FVDfKnvpJeHJuSlBt/a6vamJQQ8cQ==
+	t=1794343680;
+	b=xcNtmmD5tcKTMpuV57NOLaU5IOsh/wsflkZ2mPBEdsUE3d5qbrsgU36fg0F814DP6ga7
+	 GOZ81SFPZ6tq4l+A6/oTalwpWN9RFixeMX5CosxtSDwYgzMbEDivYAG7uNn/qdpf4UwGu
+	 dSa+iFFyOmUY1jge4QeVxkd7BBI1+mmTLI26mHjF8h2Inwv79pWprAa8HGH9WZ72pOVV3
+	 dL6pcAvTC1HQYWJY75e7FNXLULt3P8zKzqgkWE9x+5s0ACNz8c5bIiYg6sbxnS5D7PjA1
+	 bUG0leddStKEzYDj5KHmDiI5Vbys+pvtiDcMTu4oQE+ureC5Yy/7oEwZHqyqrxxBMTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343683;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=UO82q6iNuDIraHALZoCBcx9Y5TlfaVRGt/dg0S5SmX8=;
-	b=KbfuqVFSm2uDgoPLcXT8Wnc3vgL2A2tA8bsDBM8f3EyjrgUOGLrP1mgxGBKW3+T+KuaQ
-	 QvKZi+DfdSV0DdpdegaNdTaIEGCyc7ttP/An0qsWiXsSF3HsLftBKaXpTvGALodSn98sD
-	 LprAgCKlLfxpubHViOYnSegFDhGuNYDXXl+/gPPRSB0wpxVBtAKOJyh5oBhD/4kfJCYit
-	 wc+DRuiLIhbpdHVKB5LTDA5uYzIlWWYHFhi0+lReyDMmIfUM+z6S/UtUTtFTasOMYfZBd
-	 +o3WagJueaG/4t53RYS6ALamCpwgcFDZ2wbVDPF4ChTEUvc8xMNBFqWXeIWpGiNTVAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343680;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=MvH6bQIHpFycqgPpUViybiO128+Y08u2M2CcFeNKsjI=;
+	b=umIYPQ87xCNEOP2NWImzhVI/GIJAorg07GlAfbypVhwkXCwcx9afIebV30kjSOg8KQ8V
+	 XW4oMJBM+Kw4UsJVDlkQ27S3u7VCxwO5nB6aisyv332PcEye1oc25jEw45ZCEpxa+GjgQ
+	 ox0behey7l/f9v9nCYQujaViq4+6PGQps6MnBnAHHSDYlCavp/XMJldIpyIGhVw+x8Pht
+	 3sBCU2BY3K8ncSwUF41oibWceQfNfP7jvmqx5/KSuKs2KuinStEZj0fz51lfHy8/dWHp3
+	 qJzWXta9q8mx5gW0nIZi7iCsb9xAQhPf6FVW8+lf+JuHQJWSqXu6xZjVzueiC/I8YjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=uzC0TMvU;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBF8606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBBF8606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-547ae874949so3162425b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:48:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794343682; x=1794948482;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UO82q6iNuDIraHALZoCBcx9Y5TlfaVRGt/dg0S5SmX8=;
-        b=Txua2VO/0FG34mQrxyfcLa2DTwgKuFQkPPC/8CxaGQr6XexIUP0UOrjFVNLorDISQ9
-         oOEfcdTb5TYEiasD4ILLsHiqQG5RFk6y4+RUm+dLfmpmftTkGeR4rEpxFOcCg+zusvFI
-         cu+3nUmeqxW3Fl4kGnKsnfr0hmar7RPSXadlKJltvoeRen+GNSAwsPuhpIs8JBBd4D/6
-         qzmJvzVOB17ylvcKIaFY/KpuJRzA7/gUpRexw01shiyXUaP8Nk13QhRY/eunuxatKCuT
-         GzryED1YgwlnX94oo/W6++C9AsITQI+TP6hOzt+ruBc4OrgC02DD3kIU7rzxR/+ZJJYi
-         1IxA==
-X-Gm-Message-State: APuU4Z8HJzDH+VMvijynYRuNIfJp8dTiPHat0TJ5Im5oGXQr4Caq2qaI
-	bP76XoKLowAJWakqMvWM7BbDqftNnGBUmQX4f7U4K78wBjzgK5IWxjDDh9HmmDytUgOIHYOu8n9
-	LoPL7Ry4S9F+ZDtwHTSYv5FI0Ifeiqmyamx1Dfk8jYdnHiOptYNylLT1Bu3w=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FD9606A320;
+	Tue, 10 Nov 2026 20:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=uzC0TMvU
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=MvH6bQIHpFycqgPpUViybiO128+Y08u2M2CcFeNKsjI=;
+	t=1794343680; x=1795553280; b=uzC0TMvUxeb2252SwsW/0FTwVWhy5vTZ8QYK+yEv/5BoAbH
+	hwIqzn95BPieiDTLv2yg13C5ZUwjf4TmZ33j4qmTSEwFWlqNz2tvbhXaO3Zwj1DPtee+qpXdHBg5w
+	mD+mKM35ZmACFGvZNs+I8FEGhi9JM1x0UjHobisZ3i0LvAZivnPP2Q0FeBhztoR0IzAm/0SRNzhlG
+	KHUZrkj5D7ex3LdbY8Fn2Zz5JltJl8T6xfG+WidbPoIl6xSYR/AvpNNJWoghqWHoXJVE/uqP+YklO
+	lnXspEzJAx5Ulx7rjQqt4maCkMt3B2vnovK/B227Wt/F3XFJKH2o/+Wwa6LHBMaQ==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xQsl3-00000002KdB-0vAr;
+	Tue, 10 Nov 2026 21:47:57 +0100
+Message-ID: <9ee5e8e45152b4f50b3cc6f583bf3a2c6a49a10e.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 20/21] wifi: mac80211: add mac80211
+ support to handle NL80211_CMD_GET_SMD_CTX
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 21:47:56 +0100
+In-Reply-To: <20261106-smd-v4-20-62e39487f51a@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-20-62e39487f51a@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,33 +69,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a0a:b0:4cb:f21c:a79f with SMTP id
- 5614622812f47-56b96197d83mr124999b6e.39.1794343681880; Tue, 10 Nov 2026
- 12:48:01 -0800 (PST)
-Date: Tue, 10 Nov 2026 12:48:01 -0800
-In-Reply-To: <CAPVpPLv2=M8PnxHs_hba6qEhFwLF7JOXyHoEWRk9ayVjwbmYeA@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af38301.6ea51c61.3838e6.0016.GAE@google.com>
-Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	vrpcloudbughunter@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot tried to test the proposed patch but the build/boot failed:
-
-owned.c:1: error: VRP_SYZBOT_SETNS_HOSTPROOF_V1
+X-malware-bazaar: not-scanned
 
 
-Tested on:
+> +void ieee80211_get_smd_ctx_done(struct ieee80211_vif *vif,
+> +				const u8 *sta_addr,
+> +				struct cfg80211_smd_transition_info *st_info);
 
-commit:         02e4cad6 Record local setns host proof validation
-git tree:       https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-setns-hostproof-1110-02e4cad
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8bdeea7ee6735f91
-dashboard link: https://syzkaller.appspot.com/bug?extid=c22bb42560ec86726aba
-compiler:       
+Given that we have ieee80211_vif_to_wdev(), this doesn't really need to
+be an exported function, maybe it doesn't need to exist at all, but I
+guess an inline could be justified.
 
-Note: no patches were applied.
+johannes
