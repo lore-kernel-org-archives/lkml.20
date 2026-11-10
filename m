@@ -1,45 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318967;
-	b=rZXGeiocbWNvXalcLyLxu0gEiKzBK8Fo6grJcDqhnv+zFKSRIF9jOXJE4TB4NiumiZXe
-	 jRzpx5igKhGzBP30sO1aGt0Q/7dwpKZ8y0EBxKJW9DXId7x7ja3gYQiRwxjOLkebEnkFK
-	 7zwiralAJISZBkr8gfRL7iToBgv/hs+o8+pX2Dn7xGLAMPDgYYLslR5/LvqIDf0PRxo41
-	 XfKDln5KK4LP94S24/x+mOrhR6O/h8XINcvoX1dT8Lql+oOLcUotSuuWevO3SYKcfKnO/
-	 sF6iabDhSWPH4Bm4+EdkcNsYsug/Hfrcemoet9kvGUW3mijNwwGMVlRjf2sgYkJH/bg==
+	t=1794319017;
+	b=yAwkUdGM6jnXI1L/vUEXAaQEW3dHlnwrfNK1a4sbkrEoH36KyRZNiJE6xv3FAwNk/1Ti
+	 Nk+tK9/35nk+CO/BeYlRhr+2XRzRHgQjUfNfDS/CKETmc/qdKZqTNsxYp1SU6SXG9KopV
+	 CxDNPD/zU5EGkqVkVINGu4LeJozIIPQQopU9Ho0vV4s2dxW9ksNqLpRFnJQNlwpD9WDrO
+	 TnJWDVr1WYQosf1bPkvPnP8/WcRhI1fdri0Y+GToXK332GxyoHACP4Bimsmv+QIghqD8P
+	 /qMCpWqU/dj52BeLDl9oLRW4AnGGEKXRRjdnUt1X+efimkcxDoV47sOuKYm5+bakabA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318967;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=CYVCeh2uxfSFPv0xirYoRVJZdsUpsEprYDSIaHZqDVA=;
-	b=JqkzkULXCufxNhF7+64UzZNkkjTZb9HBHnl4DUJI/kapX2ZYILbdHVzIhDX9nmdXtccU
-	 v4SnUdKKsk4Nm8JIqk+SLN03rN2RlgCdps3k0ONrqJUFwtiJxADY/npUd14Sg5+YMvk6i
-	 Y28KO475bXHQ7lKYqgeabtSJBfpyzKBBlGgM9TqBeBkzS0RSDekm1dzoQO8VHs0zdC3DT
-	 hO+Gs0LF5FYwJcPl3U9/f5O4mui0Z8neDbjafkk/6EJGTEDwRnV1EbuWx0BzgIKfrHDpo
-	 RMzBv2uGwZHwPUfzhmnPDfzEupT02HfmlUt/Y9DYHrYP/NomsJZSetOj/1F4c13FZ0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319017;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=94ndYM1kjVKgjoAVq0PUDULzxUfWRci365+JE1N7eR0=;
+	b=nqQt00dt61f9PtdyNG4nMOtwYcEwD+seiE/dZ7DJVIB4HRkmGxKr/Qyh4xkBTS8uDxPg
+	 GubbaoNnVTO8mXh3/om70r4o2OGOZlzAN/inNcBbzwXew1CPPx5+KzvKTh8nD7tpGF7j1
+	 aTC39WlAN4q36SIqWik1XK4WCBKy+l1CSSObl77Z7hGO7l+5gbv4VJ39t49ET01wRcywv
+	 k7h5PgTw6MDVa6YdMrJrR+qsGSJJPrxMgk8Q9Y3Q6lnl3XQG1Km+4j7/hTlLxovB9spla
+	 MmxvRWD5tNeC1XbjZ/oSJenPxMevWVjwaLc7dsiw4bNPa5aIS4loubcJkiWmRmj1xtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RS/KgQmr";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=mails.ucas.ac.cn;
+	spf=pass smtp.mailfrom=mails.ucas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE51B606A31C;
-	Tue, 10 Nov 2026 13:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RS/KgQmr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1071A1F008A2;
-	Tue, 10 Nov 2026 13:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318966;
-	bh=CYVCeh2uxfSFPv0xirYoRVJZdsUpsEprYDSIaHZqDVA=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=RS/KgQmrp7lZSEi/at8qJaBKjsWgevSSR/P1c2Md8EZ4Ws8jxuN7MBUCmivrhnkXi
-	 Ydf7aVVhV144CSCsgoNm1GaUEvG+b3NLmswMuNMmnLeXLxmvFtK4awq4lyu9RwxdeR
-	 YL8Mp6p/TAwvuWgaPyR/J2QiH9Vi7nLFE4FJrrqWE0CkEfJ8nQ7DdVYsHs9LCaHYbG
-	 wTx8WLNKeLMnqdurRgbFtyLaN+YA/6kxi9pnFOLZkK66dC7xjuBsXcE5uo5im7BND4
-	 bAsqIekTHgt2aYaMADFtiLaZhpHzghVH237B3qZzVI3mb73Wsa2Nu49S1Hcc0NpmOt
-	 IxucmEX+5Wo9w==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA59E606A325;
+	Tue, 10 Nov 2026 13:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA59E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from k3-03 (unknown [159.226.43.8])
+	by APP-01 (Coremail) with SMTP id qwCowADnEPuAIvNqimC3AA--.4018S2;
+	Tue, 10 Nov 2026 21:56:17 +0800 (CST)
+From: Tan Chi <tanchi25@mails.ucas.ac.cn>
+To: gong.shuai@sanechips.com.cn
+Cc: jgg@ziepe.ca,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	anup@brainfault.org,
+	atish.patra@linux.dev,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	kevin.tian@intel.com,
+	andrew.jones@oss.qualcomm.com,
+	fangyu.yu@linux.alibaba.com,
+	wu.fei9@sanechips.com.cn,
+	zhao.qingye@sanechips.com.cn,
+	gsh517025@gmail.com
+Subject: Re: [RFC PATCH v2 9/9] iommu/riscv: Add riscv_iommu_attach_dev_nested
+Date: Tue, 10 Nov 2026 21:56:15 +0800
+Message-ID: <20261110135615.8073-1-tanchi25@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110115137.184160-1-gong.shuai@sanechips.com.cn>
+References: <20261110115137.184160-1-gong.shuai@sanechips.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,58 +73,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 14:55:57 +0100
-Message-Id: <DMRKZHFKVKZ8.1ZCH8L9CDK07D@kernel.org>
-Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
- entry for THP
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Liam R. Howlett"
- <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
- "Michal Hocko" <mhocko@suse.com>, "Johannes Weiner" <hannes@cmpxchg.org>,
- "Qi Zheng" <qi.zheng@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>,
- "Uladzislau Rezki" <urezki@gmail.com>, "Zi Yan" <ziy@nvidia.com>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>,
- "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
- "Barry Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>,
- "Usama Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
- <rust-for-linux@vger.kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
- <e1b0d6b4-f7ec-44df-a9f0-0e3a3722a973@kernel.org>
-In-Reply-To: <e1b0d6b4-f7ec-44df-a9f0-0e3a3722a973@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADnEPuAIvNqimC3AA--.4018S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUOb7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j
+	6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxV
+	W0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWl
+	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
+	8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
+	jcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY02Avz4vE14v_Xr4l42xK82
+	IYc2Ij64vIr41l4c8EcI0Ec7CjxVAaw2AFwI0_GFv_Wryl4I8I3I0E4IkC6x0Yz7v_Jr0_
+	Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
+	CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
+	I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
+	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
+	UjIFyTuYvjxU4QJ5UUUUU
+X-CM-SenderInfo: pwdquxrlsvqzpdlo2hpxfd2hldfou0/
 
-On Tue Nov 10, 2026 at 1:06 PM CET, David Hildenbrand (Arm) wrote:
-> On 11/10/26 13:03, Lorenzo Stoakes (ARM) wrote:
->> Given the current throughput in the kernel resulting from AI-generated
->> series, I unfortunately lack the bandwidth to generally be able to offer
->> review except in those areas I maintain.
->>=20
->> I have separated the patches into areas maintained by David, Andrew, and
->> Alice + Danilo, so each can take the patches relevant to the subsystems,
->> for convenience.
->>=20
->> Apologies for doing this, but given the current trends I'd like to do
->> something to make my inbox a little more manageable :)
->
-> Yeah, it's crazy.
->
-> Thanks a lot man!
+Hi Shuai,
 
-Thanks Lorenzo!
+On Tue, Nov 10, 2026 at 07:51:37PM +0800, Gong Shuai wrote:
+>   2. Use the guest PSCID directly, but allocate a separate host
+>      GSCID for each vIOMMU.
 
-> Andrew can just queue the whole series I guess.
+I agree with option 2 as well. My earlier suggestion did not account
+for independent PSCID namespaces across multiple vIOMMUs sharing the
+same S2 parent.
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Allocating a separate GSCID for each vIOMMU seems simpler than
+maintaining an additional PSCID mapping table.
+
+Thanks,
+Tan Chi
+
