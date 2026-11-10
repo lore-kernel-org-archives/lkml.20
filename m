@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294710;
-	b=WMJ17OkLU6hQOrJ4OLP4fCwJuggnC7usyWz2wQTIhyuMhuhq1rdjK09PrFfJHjIELxmr
-	 lqZgt+laeYtpfN/jBYTHvNDUYDr3oIIqkX2W8QyxuJvymAYY22zrrJGk2Dnr4fsqc5hBI
-	 VQFU+foE4KXwarINgJ69Jb5VqxmqI5xkl0JNUSmHPR0VsadF3D36yEavuBROqFIWzL8a3
-	 ltNCTGGfspDlpxFbjqvvkkybwL+1H+HC/cveClF51ZX66gpA7+ds0p67YEg4tznMu2bDd
-	 i++IItYHbnL4TqmV5CEXCil/g89I31IztjegUUE1qRVCU8ifNkACYlzQgElROPCE1Zw==
+	t=1794294721;
+	b=fOoBOH0j7BU2gg4k4FxnhZcpu4YWCC6jjVM5g6FYsuwuFU/R5sKUHsDMRF65jK3V2MS1
+	 bQMFLRP0FsGFciT+INmIHGHwGiMtYDf384ELCpZHViKr65eCazhbVHGReaeGo4Y3OVC1s
+	 w6KKGZ1Cazj3Pm1M2fcUyGVH4PDOddwWOH3wduE1Dr1jrhwP388Emx84viDhXM8oOgEAW
+	 bdcQE1eBzFvrHY5SUqTd986WBlN27YFLRpfNQ5IqAKurlEKiEmszPYlgtvK3ZgHBbhnQg
+	 5zQ5oThg9Bsv70DF+SOSzXFBYuiq+VsSwnIh7hjHL5kehMqM2mQSx3+YiHXJRE3qTtA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294721;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lgsY04AReAKTLU8j5Sx8DG+/2fT14QzESzN7pVjzbt4=;
-	b=CJ+CVzdmPGES/mFsH+PDKTvfhFzQ/0R8j7cgP0QDhu1SKRHQzjEiNvIQ7Dq7RxcBHaL1
-	 oIv3ofi0IrGQe8afxwfQPywtlLrWS3zOQoUX5bcZBuDEb1dvDLntWGHz7HFDOP7Z9Hzc/
-	 XUFYzEfzdP439HnE3PWu+2NQWpjbOLM+3jPWM3iyRIUpwaITHtAU39cICRiSa15P8OmXs
-	 5zg+hM5kTK5N76wDOMiqQ9fD8VXx3kgcV2uvKDNELdsHAOrpZoRRGVdwSE4+mHRBbPI5y
-	 Fp3R6xAHSWvzB86e/Hu/5+Iujo9aPCaWt2a54DJaxj6O2L2pF+DJkRFqWjRKEBmQj6g==
+	bh=H7fK2Woj0IQZx7iLg3FEGBdfVw3+fs6khAnVlrNRDdo=;
+	b=dfMXtCYQW8trz1xe42a8mFX7ZDq5aM1Jhcwh/qsw33Hoj57REQ3FG0vctVGs4/zPDibu
+	 kUecX7nAaSBZlQVuFvkkDcSV4sqGq84FN4WOnw+rug4GNHK0JPyUYrj7mt4I95IJDwFw1
+	 sRvvvK/aO5WmE7DyKLB0U0fHjSvXWMLd0DVZO/1wt0SM9QDL7Ls1N4nEB1mqAsNLrDUb7
+	 mrSbl+vzuu45o0Y/V+gI4dv5l/jze/Zy6sK20tc2Wa1EfalGDm8yBhR+QjJVo2Iw7g2VG
+	 rdahqzZXeqUtmEOfGSIxScRP5yxi1iGLM0p8mHqwm0I8ZFgzz/k1I52GZuT4gelyBTA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Vnm/FEgh";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJIdZx0i;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9883D60A2629;
-	Tue, 10 Nov 2026 07:11:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D41C60A3802;
+	Tue, 10 Nov 2026 07:12:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vnm/FEgh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJIdZx0i
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294710;
-	b=K87UOr3H4LNJH/yeDPezOmu16w9nnNhGn99wiwATmdoM1ZkLL/WwRcIR97/c3Fj0eK2m
-	 kZXGjr7ue3Jr/V6vVcXU/gRpsR+hhe8UykGcOjx9dZdXD9R469yS6uwJZO5iNSZ90lJuG
-	 h3QDauE67LqnGir0NVbEMbp71ATKEhCDk89ZA7YvREJrM3wFxaZzCgqk1qPa2U7stVXeG
-	 rJI5S04ubuGY7cfe2Kqq3+fjjzJMLbRGlH9179w6QWQDVeYiG6lJnMYhXU2QaBfocMac8
-	 ZmaPRp9arGU6QdupARHlfsXN3i/0yj6CUu4F1s7qaRxFJMwA3ob2T0k3Mc3/wCfhqPw==
+	t=1794294721;
+	b=raj4a4ooXizr44OhoqD2Z/goUFVAICmeZqpo12fj+fCX+M4hzMxdJayu2PA0EETZ3M7V
+	 ojTbmNu6RrOwRyX/9HRYarQwBhs0bMieLBWiwwnjEmdkm08WcOUQXBhO0tUUpUQFSRBwZ
+	 kzSzVoTSmeA9NGlSH5gxUJCA+CVdtjgCXGdF8zmOU2g1SN67q78vl1Z52k5fy4Ppdcj60
+	 hmYtRPkPocuRRICvl+LFBGPxvsaPX7boyTDteS9jvqjPkJ4aABnsz4b7LzxxY9ktqah4L
+	 B0c9FHybWfpROUICWMVIy0ZOinjCX7lo1rvAhT9EfoHyRXKokDVF5URP4cSMP0dUVIg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294710;
+	c=relaxed/relaxed; t=1794294721;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lgsY04AReAKTLU8j5Sx8DG+/2fT14QzESzN7pVjzbt4=;
-	b=Cp9GxAspq4OzdOocEe+mEU5jUboZbG6YoqprqUZ3lQ1qZMcjufc8tJNq3wsdC7/pWdIx
-	 X+8d12Q/h6G0w94ps4nCQ8Nw8RwQsev3S1wiWt3TGHDF3f0IasqTyVVSgpYOtrjEYNTzd
-	 nMgBSKQWG4Gp9tTCvSM98RxpK/4c9g3lSv/z7RTWas67/E5jcL9ZywzMKVvvwYjCPdy2N
-	 mk9VS71X5x8Z0jnCLIpQtBgce875fubfzJXY7a2c/6879uFmsWgSo8JfWMS10rdCegZdC
-	 CEFR5DjLp91gpfZlOHpiBnlUjA2EWv8JRZhP9yrExWUCPLTzz142xsO14DjNxyGNAtA==
+	bh=H7fK2Woj0IQZx7iLg3FEGBdfVw3+fs6khAnVlrNRDdo=;
+	b=jIKtVi7QBdGfM+IjESPXQE1qS5WBgAsFUWpysSyBLb8bRCm6wPzV+rf3lS+nYRI91ByW
+	 VokdBouHsTbY2RtZ5JPPmmXgpOScGzYUAttarwligTvaw10sFl9/p0WZuDwjSYUcBriHW
+	 iG2X80qzPLceP3hEzJ6waEK2a5QvJQAJVYteMHKK5x3IavKr/HKoZUN2FRNJdq9dYgde/
+	 LCrofF3Ym3DgRXPaz4Qp5Ss7RqQqGZbsi8qXN4M2agzGUbpLX+6UwoTourglmh7f3JaVp
+	 JisSE12CyjVgMDzWSFXFq2N6WqErFTE6K2x603OBCCCwMgTyghD1JpMf7GSnuJNiydw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4F83D1F008BC;
-	Tue, 10 Nov 2026 07:11:49 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 76F571F008A1;
+	Tue, 10 Nov 2026 07:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294710;
-	bh=lgsY04AReAKTLU8j5Sx8DG+/2fT14QzESzN7pVjzbt4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Vnm/FEgh1XG18ZuKEXvI2zwEbBs4Fm19wberHlrABra3AYOHbCaX4XUUQsiYppsxL
-	 ZI2d/tXYeRtRHWsO9W+TJE75k5OC6alyAkTNKuFOWSYzjmEu3JNj5smC8MSImCblww
-	 Isl7HSmCocnYaWDyy6arTUXM6y2Vz0YxaEzlksoS9i1EkatobMnUuwbsSRCJyGfPzK
-	 Jka8axIlVi7QQhL/J+xZe95drEc+9jNKwBT6XUCh9BEM8frO+wgD2ZHvLUBzTv+sLS
-	 JGZw68QyLUFesUll5XWcZhISI48M2GWfvi1Sia9NzLXgZi8K73b6wizeImr0ifTTOq
-	 wm0lDcgCZrfFg==
+	s=k20260515; t=1794294721;
+	bh=H7fK2Woj0IQZx7iLg3FEGBdfVw3+fs6khAnVlrNRDdo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=YJIdZx0iPKh41hYHUYE4gRcq5h1FndL/qw1a5L6bi/cvW0Wsuzk1PW3PIQ4urY6KH
+	 PEn/9v8V/vs2sP7B76BJIemm6S8oTnge/QtZ3slRTqyYOwvz4emapYFWkKN9fSdKNl
+	 T6aUmsF2/ws9pTBOn9vSRhPj0Tut2tSBi714oXwTa0k2C8VhG4K7blJj3IYW2y17IX
+	 /CPmvWDrO1fm2bvGdOpzADtNfZveniESPXahAI0gmqfq2wRko5BbyPyLHIcb/FP6MW
+	 Zt6DEXRwovcFjc92fqwkdGpceYCyIaNnpfwqyCA/2EcCepuRmykljGjIByI33/gepe
+	 EgQGh92Fyko9Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D6F7B4894B;
-	Tue, 10 Nov 2026 07:11:48 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0C0FB488E6;
+	Tue, 10 Nov 2026 07:11:59 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:11:50 +0000
-Subject: [PATCH 3/5] iommu/arm-smmu-v3: enable optional clocks
+Date: Tue, 10 Nov 2026 07:11:59 +0000
+Subject: [PATCH] driver core: fw_devlink: Don't report refused
+ sync_state-only links as errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,23 +84,22 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-smmu-v3-pcie-pd-v1-3-628819ca44b9@gmail.com>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Niklas Cassel <cassel@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rockchip@lists.infradead.org
+Message-Id: <20261110-fw-devlink-sync-state-v1-1-6385be961c2b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPduEcgDxVYyHdXRSNNOsEzWEd
+ 2fK8Tv8/wImScXgVC2QZFbTRyygQwV+dPEqqEMxNHXTElGN4Y2DzHeNN7Rv9GjZZcHQETvm0Ld
+ HhtI+kwT9/L/ny2578SQ+/2awrhuYv127eQAAAA==
+X-Change-ID: 20261110-fw-devlink-sync-state-f71babbf968b
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294708; l=1852;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294718; l=2670;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=1jSKUYxMXlwd6GjaT82AOfCUOwP/umlQOFLtJr1OQVY=;
- b=NrU8nzbqEB6wQaUAemybLdDL7kdPwIu8BxlTC7zaLyd7fjp+gpXYyH0f5a1eD0GhcLxN6zqQW
- UGlU3FMVIS+CZDY6N1NEw78+vVRiw0iJPL/wm35Eu334rP7gbRSahB3
+ bh=im/hNd0AVyCdDuE0XZG+ciJxIyRE1L2sv39Qoyr9F+k=;
+ b=VlzWbbYyVi5WPSTZS/BfGJ70oOOrABy71NP7acb8J651n3NHp51NssB8U8cUA0L5Xh6DiflGJ
+ B/3mufVOdNNBMn8grQFkm+tFxd/kXn7sjYrp7Tb6dvnIKEEMys5j2bx
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -110,55 +110,66 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On some platforms the SMMU's clock is controlled by the OS, and without a
-consumer the clock framework gates it as unused late in boot. Any later
-register access, for example the CR0 write in the shutdown path, then
-stalls the interconnect. This happens on the RK3588 when no PCIe
-controller keeps the PCIe MMU-600 clock running.
+A SYNC_STATE_ONLY device link is refused by device_link_add() once the
+consumer has already probed, since such a link only orders sync_state()
+callbacks and would be useless. This legitimately happens when a consumer
+that probes early (for example the Rockchip power domain provider, whose
+domains reference a PMIC regulator through domain-supply) is inferred to
+depend on a supplier device that is added later, and results in boot-time
+"Failed to create device link (0x180)" errors for a harmless condition.
 
-Get and enable all clocks described in the firmware node before the
-registers are first accessed, and keep them enabled while the driver is
-bound. Nodes without clocks are not affected.
+Log the refusal of a sync_state-only link at debug level and keep the error
+for links that matter for probe ordering.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tested on an Orange Pi 5 (RK3588S): the three "Failed to create device
+link (0x180)" lines that the Rockchip power controller logged on every
+boot (suppliers: the RK806 PMIC on SPI and an RK8602 on I2C, referenced
+through domain-supply of two of its power domains) are gone, and the
+regulators are still acquired and held by those domains.
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 6d4520c47308..cce66db93219 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -12,6 +12,7 @@
- #include <linux/acpi.h>
- #include <linux/acpi_iort.h>
- #include <linux/bitops.h>
-+#include <linux/clk.h>
- #include <linux/crash_dump.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-@@ -5786,6 +5787,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
- 	resource_size_t ioaddr;
- 	struct arm_smmu_device *smmu;
- 	struct device *dev = &pdev->dev;
-+	struct clk_bulk_data *clks;
- 
- 	smmu = devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
- 	if (!smmu)
-@@ -5800,6 +5802,11 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	/* Optional clocks: keep them running for as long as we are bound */
-+	ret = devm_clk_bulk_get_all_enabled(dev, &clks);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to enable clocks\n");
-+
- 	smmu = arm_smmu_impl_probe(smmu);
- 	if (IS_ERR(smmu))
- 		return PTR_ERR(smmu);
+This patch was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit message, and I reviewed and tested it
+as described above.
+---
+ drivers/base/core.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
--- 
-2.55.0
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index bf97b06337a1..4cdfc156ffbc 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -2241,8 +2241,20 @@ static int fw_devlink_create_devlink(struct device *con,
+ 		}
+ 
+ 		if (con != sup_dev && !device_link_add(con, sup_dev, flags)) {
+-			dev_err(con, "Failed to create device link (0x%x) with supplier %s for %pfwf\n",
+-				flags, dev_name(sup_dev), link->consumer);
++			/*
++			 * A SYNC_STATE_ONLY link only orders sync_state() and
++			 * is refused once the consumer has probed. That is
++			 * expected when a consumer that probes early (e.g. a
++			 * power domain provider referencing a regulator
++			 * supplier that is added later) is linked to a late
++			 * supplier, so don't report it as an error.
++			 */
++			if (device_link_flag_is_sync_state_only(flags))
++				dev_dbg(con, "Not creating sync_state-only device link (0x%x) with supplier %s for %pfwf\n",
++					flags, dev_name(sup_dev), link->consumer);
++			else
++				dev_err(con, "Failed to create device link (0x%x) with supplier %s for %pfwf\n",
++					flags, dev_name(sup_dev), link->consumer);
+ 			ret = -EINVAL;
+ 		}
+ 
+
+---
+base-commit: ec1db86e7bb3ec13c90456efac43659a723ac068
+change-id: 20261110-fw-devlink-sync-state-f71babbf968b
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
