@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286934;
-	b=tNziRQ60I/D1fzlo7bw/wA9BNsSLeMVLgHonWgA+U+I6+eoxIlSzDrwpF3Rg1CLZHHmR
-	 qa5Q6/eVsg0CoQoywtXqu7Nbw1SOdvWW8S3hKEt6lyEBPYuau7b5A+r3I7qr80gGIf/pf
-	 9laa8FIpnnSewngbiovnja+kcgMtautQMd5TJ8F2yXi/Y/0Z3QAomofTeqQYAH3jz2ndX
-	 QryJ7BB26tBKgTwM1VKX6Lg0jHK8qWsLuYKht3j3RYdc1xnS2Hq1oageTeiJ983dep2UO
-	 sdpK2oe99zcMc+qm1ooWpglcLX0y39cfYEcGBHJoke9y7Qp8CpmaFGrvtZMdCLEauJQ==
+	t=1794286939;
+	b=AT6xLXdQjCnYo4Gf1WrdRCPN7XlD/DxSyvl9Yarm85W24oI6tNoDq3l9KJUw9xCr92bc
+	 Krl+nI82vBTfuif5hNUFxPAgrimdS94gbWY9UX8zr1oeDzv8cQAjrRvzNEPejjhzppyb3
+	 8vuzpiMU1ywAzE8P3IbUD9tp6iA99AvsKkEJUHjQXXhKaokaDoo7Ej3Bq/N/ROA0s2TKN
+	 oRpoEXofYQS89TCDGlI4DaibOsdyaoRsakzff5R53DIlTeIS7siFcs6VG/wSPr5G1qpij
+	 7CHiVXV9qD3o6UEqXdsPB2V2qaF5fnCYUFuSWO65WcISit4qpbU/y0Pm1exvLSCU9Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286939;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=7IgLF3AO1jBgBbxTE6gThjrdHr/S4nDjr0YcBANCh54=;
-	b=R6n3tNQyCqgeah37Lp810axW8ZaTnPg8tEzadTwWmOsqOWi0nZqnEKETHiGwtvC+ODHx
-	 fFlUqpL2v9S/GWkc7mxF4ftHrLGiD1+p326UnUmxiNqaKONDLLbjKHmuuAbJGmoyHp0wx
-	 l7kdajnAQqmlNaO+GbHYSSw3kx5OLDuzdheyzwEONveQn4RrfE7rCiisn3o/7C3g9tBCq
-	 RpXBzcG8Zx/fdIZJeTI/UL/SaixfHPT9OggTxlwhhfj5ZNx9a7Kpe94fNOh9xErGZZ7co
-	 FVTV7jew1WORRMRECbSvnDcx/+3XssSTn9g3gofy0D9NAak6h0eABPI0k2dZr1r68Zg==
+	bh=bPe/n/7OHPWH7BQXApvZomY3AKt9T7o7Wopgeakkuns=;
+	b=J/xw4EKrE0IWRsHJd83TIJcE7IXukWslEj03xWarpiW5mwES15CNGO3catW5i9JmXNiy
+	 4/Ct+vbcbJKy3uaaOBX8M1+FZ9OQwICeEdygcAvxAetAPD27Y7NLelaieE7rtKRmGPzJi
+	 jptGIV484xZ6y7uf7fhsOO08UPjkC67HVWkmWzhffaW68FrhUJlZZ0DeLn9t50xUC96In
+	 DLB1YFuy6voyXHeEfFE2fqTxRpo52z8T1FCaHaenaI3LYiSm5/hHCm0fuz/yf0Q1msv9K
+	 OVvJCystbLaxnMwvjp5FUjZlcKSoKUPJDt2/F7ACkloTGXjKrQkAMEO8BNBZSuTUQSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RK98XkIM;
-	arc=none smtp.remote-ip=209.85.218.71
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FiOEcCvK;
+	arc=none smtp.remote-ip=209.85.208.72
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C4B60A5BD5
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C4B60A5BD5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D854A606B88C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D854A606B88C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RK98XkIM
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c504991a35eso44686366b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:02:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FiOEcCvK
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6b70b9f6e0aso2089457a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:02:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794286932; x=1794891732; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794286937; x=1794891737; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7IgLF3AO1jBgBbxTE6gThjrdHr/S4nDjr0YcBANCh54=;
-        b=RK98XkIMArO5krnjlZsSPUNp58bEz7fkWGksIzf/a4YyyV6wR8+oHD+evYV99pLhUf
-         pNBkBUY+Pl612sERdsqtIxSba65O89Bmzv9755S3WKvQmfF5z6w0si2gTD9U5CrblayS
-         MINQ0Mo4EpmOaAHD4UB3m8DsxAFl7vKWOfB7UcpnAJkU5ypysemMiaeyUPVzak4rDzqB
-         8gMeeQvUwawzaHCCNTKyZ7G8EwLrSXkpAUsFhno4lL4r9EMV3TdhXjSrao4uzXgMw3pH
-         uIoJojUFcGxgWYBi7mx7VtM0WMcYjsqk5B4Uau8dWWnIkzA6BdfGyRWenXuTRmkQtNdT
-         dE2g==
+        bh=bPe/n/7OHPWH7BQXApvZomY3AKt9T7o7Wopgeakkuns=;
+        b=FiOEcCvKt8hD5XQASYW/7fiH9SckLOo5T1b4DEmVCLpCFQFZXC4REpnWaK4Iax/5dc
+         h+sJ1frhT11FIgtDCI0vyzBTRQesHQ6dbzx/LA5qcNW6kVSAntx039PzXxZ9nXDlMGDI
+         i1vl0N5Xgw+bqFys8nWpj5VofpBx5swGGK0NjUURLekhQNjXMJvu5wF9yR4IoYTGnXfm
+         0VkesjThVCQZuBk8RSp35U4DXGjbLN5kiqZ26ufPAmvG+qR2SpSP1yU/Vzt+HeFRi9HC
+         I1yQjhcj6pFNNyLe/VBYDvCnvL84nbrLD959p/DZZkjAMX7a9edF6g8URdE0+1Bvxsaa
+         uDoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286932; x=1794891732;
+        d=1e100.net; s=20260707; t=1794286937; x=1794891737;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7IgLF3AO1jBgBbxTE6gThjrdHr/S4nDjr0YcBANCh54=;
-        b=GXN2Z3GwVE9GJtGZedXKSgJ/llW2gAif/LyAzBdUbL78XsvVaEVhTlVyVaPo7Gppeb
-         2g+9vmRwrUhRUtNkw59OdloxY4V+oFshv1P96Lzv2RN6Falhva56Z4O46xqOFc01mzIw
-         evJM41Xqj+rN+WpgfUJyy5DG/92woA2cYrlszSDyX2E0++7GWtsCSB1dGkepzaTn1BJ2
-         t9qdoIxGR5YtUE4DBb0xfyO7t+nTQidHVIJVYtfOj/ypqG37D/1wkHmmEG333J+b566W
-         sSy9Zp/bKawpexjlsUPMCq6CLCmIaM+c0MTtPwOPK13UXftb9FkFUbjq4C/hvoGI8l1s
-         sIEg==
-X-Forwarded-Encrypted: i=1; AL+hErFYDTG4tezgfro8KmAGg/PXHKJUkHNvUvTccTBZ+65rlMp+NAL6JSTfh48EZuWn9noVt484qnw+C4GRbBE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98oiU4OYN57Ic92M6CyczODjM/2Y6kzXyNvRZbB+JGoaVlSVWT
-	rnqvfrQI9yrpAcH6MscqAonEMfhaVOjYsxmdKx1WLBfA32AgwWBIdESxo1GJUu+yEb5M70G1CyQ
-	8MGYvrIwcEd9CLHlg8g==
-X-Received: from ejbwr20.prod.google.com ([2002:a17:907:7014:b0:c3f:b33c:8124])
+        bh=bPe/n/7OHPWH7BQXApvZomY3AKt9T7o7Wopgeakkuns=;
+        b=ySY7Z7PO9ztDKXkz9mKCJSMtL8Ro53/J9tPekU3bOu4vtF31kf12pLf5lPOIE0PSur
+         ecrkrQROQowtHW3WBxoLfu4OJEvBX1OvbCnD/omDhQtXCK38wxbVum3MPE2KUT1AsjoP
+         GBucxKEty/4/EW8BDIdJO06EfymlYALDvqWhdUxnN6+E+DHhAlhDbZmFHTSY19Peg2q3
+         ZFhrYbzxiROoBoLJxgm7ELLtnEhWubZqcJo+Rg07w+4EZTB+iXew6gH7dQnQbA0zN6U+
+         A4sY0E0r3RkS86mlkgo6rYjiVQ7JYP5Tt3/ShplA5qETCtGz4QKldyLcHdcfdyxwpAtr
+         YbVg==
+X-Forwarded-Encrypted: i=1; AL+hErHRFt9c5P3P9yztW8w0hTfmPjOGEU9I/+2D5sNpaIG4zR1Am9h4SfbdOMwP2+BovMjG3JewrpMCrnrkH1I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nVarfCT42rZLOjAk6uH1sSCua9Ao1uMaJNGwo8eFA0NZEqKdx
+	uFd8c3zjFSJhFTh7VspIoNMh/KdBZEzJYdpHKhGemzJT+NixRn+3ZyG13cob+h0nmB77xD2VjgT
+	DD40ysS2wM17x28wY3Q==
+X-Received: from edcp5.prod.google.com ([2002:a05:6402:43c5:b0:6b5:8717:e943])
  (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:3f0d:b0:c2e:4a61:d436 with SMTP id a640c23a62f3a-c50495d6ee1mr114117566b.36.1794286931810;
- Mon, 09 Nov 2026 21:02:11 -0800 (PST)
-Date: Tue, 10 Nov 2026 05:01:49 +0000
+ 2002:a05:6402:3907:b0:6b5:5fca:3d5 with SMTP id 4fb4d7f45d1cf-6b756ad6f48mr1260878a12.19.1794286937148;
+ Mon, 09 Nov 2026 21:02:17 -0800 (PST)
+Date: Tue, 10 Nov 2026 05:01:54 +0000
 In-Reply-To: <20261110050202.529473-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261110050202.529473-1-tarunsahu@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110050202.529473-7-tarunsahu@google.com>
-Subject: [PATCH v4 06/19] kho: kexec_metadata: Add the feature header
+Message-ID: <20261110050202.529473-12-tarunsahu@google.com>
+Subject: [PATCH v4 11/19] liveupdate: Add feature header to struct luo_file_set_ser
 From: Tarun Sahu <tarunsahu@google.com>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
 	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
@@ -99,154 +99,254 @@ Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org,
 	Tarun Sahu <tarunsahu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The kexec metadata subtree currently uses a monolithic u32 version field
-to identify the metadata structure layout. Any change to the structure,
-even an optional additive field, requires incrementing the version and
-breaks compatibility between adjacent kernels.
+Precede struct luo_file_set_ser with struct kho_ser_hdr via
+DECLARE_KHO_SER so future file-set metadata features can append fields
+to struct luo_file_set_ser without breaking compatibility between
+adjacent kernels.
 
-Replace the u32 version field in struct kho_kexec_metadata with
-struct kho_ser_hdr using DECLARE_KHO_SER. Later fields can be appended
-under new feature indices without breaking compatibility across kexec.
-Also make the 3-byte padding hole between previous_release and kexec_count
-explicit as reserved[3].
-
-During deserialization, validate the blob size against the header size
-and reject unknown required features. A legacy v1 metadata blob is
-ignored with a warning.
+Reserve space for both the session feature header and the file-set
+feature header in each session block-set entry, initialize the file-set
+feature header in luo_file_freeze(), and validate incoming required
+features in luo_file_deserialize() before accessing payload fields.
 
 Signed-off-by: Tarun Sahu <tarunsahu@google.com>
 ---
- include/linux/kho/abi/kexec_metadata.h | 17 +++++++-----
- kernel/liveupdate/kexec_handover.c     | 38 ++++++++++++++------------
- 2 files changed, 31 insertions(+), 24 deletions(-)
+ include/linux/kho/abi/luo.h      | 15 ++++++++-------
+ kernel/liveupdate/luo_file.c     | 32 ++++++++++++++++++++++----------
+ kernel/liveupdate/luo_internal.h |  7 ++++---
+ kernel/liveupdate/luo_session.c  | 14 +++++++-------
+ 4 files changed, 41 insertions(+), 27 deletions(-)
 
-diff --git a/include/linux/kho/abi/kexec_metadata.h b/include/linux/kho/abi/kexec_metadata.h
-index e9e3f7e38a7c..316b3e5ad01b 100644
---- a/include/linux/kho/abi/kexec_metadata.h
-+++ b/include/linux/kho/abi/kexec_metadata.h
-@@ -18,28 +18,31 @@
- #ifndef _LINUX_KHO_ABI_KEXEC_METADATA_H
- #define _LINUX_KHO_ABI_KEXEC_METADATA_H
+diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
+index 425c52c494f1..bd19211c64e1 100644
+--- a/include/linux/kho/abi/luo.h
++++ b/include/linux/kho/abi/luo.h
+@@ -112,21 +112,21 @@ static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+  * @count:   The total number of files that were part of this session during
+  *           serialization. Used for iteration and validation during
+  *           restoration.
++ *
++ * Preceded by &struct kho_ser_hdr.
+  */
+ struct luo_file_set_ser {
+ 	u64 files;
+ 	u64 count;
+ };
  
-+#include <linux/build_bug.h>
-+#include <linux/kho/abi/feature.h>
- #include <linux/types.h>
- #include <linux/utsname.h>
+-static_assert(sizeof(struct luo_file_set_ser) == 16);
+-static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+-	      __alignof__(struct luo_file_set_ser) == 8);
++DECLARE_KHO_SER(luo_file_set_ser, 16, 0, 0);
  
--#define KHO_KEXEC_METADATA_VERSION 1
--
  /**
-  * struct kho_kexec_metadata - Kexec metadata passed between kernels
-- * @version: ABI version of this struct (must be first field)
-  * @previous_release: Kernel version string that initiated the kexec
-+ * @reserved: Reserved for structure alignment; must be zero
-  * @kexec_count: Number of kexec boots since last cold boot
+  * struct luo_session_ser - Represents the serialized metadata for a LUO session.
+- * @name:         The unique name of the session, provided by the userspace at
+- *                the time of session creation.
+- * @file_set_ser: Serialized pointer to the files belonging to this session.
++ * @name:          The unique name of the session, provided by the userspace at
++ *                 the time of session creation.
++ * @file_set_fhdr: Serialized pointer to the files belonging to this session.
   *
-- * This structure is preserved across kexec and allows the new kernel to
-+ * This structure is preserved across kexec and allows the target kernel to
-  * identify which kernel it was booted from and how many kexec reboots
-- * have occurred.
-+ * have occurred. Preceded by &struct kho_ser_hdr.
+  * This structure is used to package session-specific metadata for transfer
+  * between kernels via Kexec Handover. An array of these structures (one per
+@@ -137,7 +137,8 @@ static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+  */
+ struct luo_session_ser {
+ 	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
+-	DECLARE_KHOSER_PTR(file_set_ser, struct luo_file_set_ser *);
++	DECLARE_KHOSER_PTR(file_set_fhdr,
++			   DECLARE_KHO_SER_HDR(luo_file_set_ser, *));
+ };
+ 
+ DECLARE_KHO_SER(luo_session_ser, 72, 0, 0);
+diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
+index a39992da504f..02d09a80d785 100644
+--- a/kernel/liveupdate/luo_file.c
++++ b/kernel/liveupdate/luo_file.c
+@@ -440,8 +440,8 @@ static void __luo_file_unfreeze(struct luo_file_set *file_set,
+ 
+ /**
+  * luo_file_freeze - Freezes all preserved files and serializes their metadata.
+- * @file_set:     The file_set whose files are to be frozen.
+- * @file_set_ser: Where to put the serialized file_set.
++ * @file_set:      The file_set whose files are to be frozen.
++ * @file_set_fhdr: Where to put the serialized file_set.
   *
-  * __NEW_UTS_LEN is part of uABI, so it safe to use it in here.
+  * This function is called from the reboot() syscall path, just before the
+  * kernel transitions to the new image via kexec. Its purpose is to perform the
+@@ -472,12 +472,14 @@ static void __luo_file_unfreeze(struct luo_file_set *file_set,
+  * Return: 0 on success, or a negative errno on failure.
   */
- struct kho_kexec_metadata {
--	u32 version;
- 	char previous_release[__NEW_UTS_LEN + 1];
-+	u8 reserved[3];
- 	u32 kexec_count;
--} __packed;
-+} __aligned(8);
-+
-+/* Register kho_kexec_metadata with KHO serialization accessors */
-+DECLARE_KHO_SER(kho_kexec_metadata, 72, 0, 0);
- 
- #define KHO_METADATA_NODE_NAME "kexec-metadata"
- 
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 4b1d173d48ff..641a3b4c88fb 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -1762,6 +1762,7 @@ static __init int kho_out_fdt_setup(void)
- 
- static void __init kho_in_kexec_metadata(void)
+ int luo_file_freeze(struct luo_file_set *file_set,
+-		    struct luo_file_set_ser *file_set_ser)
++		    DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr))
  {
-+	DECLARE_KHO_SER_HDR(kho_kexec_metadata, *fhdr);
- 	struct kho_kexec_metadata *metadata;
- 	phys_addr_t metadata_phys;
- 	size_t blob_size;
-@@ -1773,27 +1774,28 @@ static void __init kho_in_kexec_metadata(void)
- 		/* This is fine, previous kernel didn't export metadata */
- 		return;
- 
--	/* Check that, at least, "version" is present */
--	if (blob_size < sizeof(u32)) {
-+	if (blob_size < sizeof(*fhdr)) {
- 		pr_warn("kexec-metadata blob too small (%zu bytes)\n",
- 			blob_size);
- 		return;
- 	}
- 
--	metadata = phys_to_virt(metadata_phys);
--
--	if (metadata->version != KHO_KEXEC_METADATA_VERSION) {
--		pr_warn("kexec-metadata version %u not supported (expected %u)\n",
--			metadata->version, KHO_KEXEC_METADATA_VERSION);
-+	fhdr = phys_to_virt(metadata_phys);
-+	if (fhdr->size != blob_size) {
-+		pr_warn("kexec-metadata size invalid (%u != %zu), ignoring metadata\n",
-+			fhdr->size, blob_size);
- 		return;
- 	}
- 
--	if (blob_size < sizeof(*metadata)) {
--		pr_warn("kexec-metadata blob too small for v%u (%zu < %zu)\n",
--			metadata->version, blob_size, sizeof(*metadata));
-+	err = kho_ser_validate(fhdr, kho_kexec_metadata);
-+	if (err) {
-+		pr_warn("kexec-metadata feature validation failed: %pe\n",
-+			ERR_PTR(err));
- 		return;
- 	}
- 
-+	metadata = kho_ser_payload(fhdr, kho_kexec_metadata);
-+
- 	/*
- 	 * Copy data to the kernel structure that will persist during
- 	 * kernel lifetime.
-@@ -1813,23 +1815,25 @@ static void __init kho_in_kexec_metadata(void)
-  */
- static __init int kho_out_kexec_metadata(void)
- {
-+	DECLARE_KHO_SER_HDR(kho_kexec_metadata, *fhdr);
- 	struct kho_kexec_metadata *metadata;
++	struct luo_file_set_ser *file_set_ser;
+ 	struct luo_file *luo_file;
+ 	struct kho_block_set_it it;
  	int err;
  
--	metadata = kho_alloc_preserve(sizeof(*metadata));
--	if (IS_ERR(metadata))
--		return PTR_ERR(metadata);
-+	fhdr = kho_alloc_preserve(kho_ser_size(kho_kexec_metadata));
-+	if (IS_ERR(fhdr))
-+		return PTR_ERR(fhdr);
-+	kho_ser_init(fhdr, kho_kexec_metadata);
++	kho_ser_init(file_set_fhdr, luo_file_set_ser);
+ 	if (!file_set->count)
+ 		return 0;
  
--	metadata->version = KHO_KEXEC_METADATA_VERSION;
-+	metadata = kho_ser_payload(fhdr, kho_kexec_metadata);
- 	strscpy(metadata->previous_release, init_uts_ns.name.release,
- 		sizeof(metadata->previous_release));
-+	memset(metadata->reserved, 0, sizeof(metadata->reserved));
- 	/* kho_in.kexec_count is set to 0 on cold boot */
- 	metadata->kexec_count = kho_in.kexec_count + 1;
+@@ -506,6 +508,7 @@ int luo_file_freeze(struct luo_file_set *file_set,
+ 		file_ser->token = luo_file->token;
+ 	}
  
--	err = kho_add_subtree(KHO_METADATA_NODE_NAME, metadata,
--			      sizeof(*metadata));
-+	err = kho_add_subtree(KHO_METADATA_NODE_NAME, fhdr, fhdr->size);
- 	if (err)
--		kho_unpreserve_free(metadata);
-+		kho_unpreserve_free(fhdr);
++	file_set_ser = kho_ser_payload(file_set_fhdr, luo_file_set_ser);
+ 	file_set_ser->count = file_set->count;
+ 	file_set_ser->files = kho_block_set_head_pa(&file_set->block_set);
  
- 	return err;
+@@ -519,8 +522,8 @@ int luo_file_freeze(struct luo_file_set *file_set,
+ 
+ /**
+  * luo_file_unfreeze - Unfreezes all files in a file_set and clear serialization
+- * @file_set:     The file_set whose files are to be unfrozen.
+- * @file_set_ser: Serialized file_set.
++ * @file_set:      The file_set whose files are to be unfrozen.
++ * @file_set_fhdr: Serialized file_set.
+  *
+  * This function rolls back the state of all files in a file_set after the
+  * freeze phase has begun but must be aborted. It is the counterpart to
+@@ -534,13 +537,13 @@ int luo_file_freeze(struct luo_file_set *file_set,
+  *          the reboot() syscall, after luo_file_freeze() has been called.
+  */
+ void luo_file_unfreeze(struct luo_file_set *file_set,
+-		       struct luo_file_set_ser *file_set_ser)
++		       DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr))
+ {
+ 	if (!file_set->count)
+ 		return;
+ 
+ 	__luo_file_unfreeze(file_set, NULL);
+-	memset(file_set_ser, 0, sizeof(*file_set_ser));
++	memset(file_set_fhdr, 0, kho_ser_size(luo_file_set_ser));
  }
+ 
+ /**
+@@ -780,8 +783,8 @@ static int luo_file_deserialize_one(struct luo_file_set *file_set,
+ 
+ /**
+  * luo_file_deserialize - Reconstructs the list of preserved files in the new kernel.
+- * @file_set:     The incoming file_set to fill with deserialized data.
+- * @file_set_ser: Serialized KHO file_set data from the previous kernel.
++ * @file_set:      The incoming file_set to fill with deserialized data.
++ * @file_set_fhdr: Serialized KHO file_set data from the previous kernel.
+  *
+  * This function is called during the early boot process of the new kernel. It
+  * takes the raw, contiguous memory block of 'struct luo_file_ser' entries,
+@@ -804,12 +807,21 @@ static int luo_file_deserialize_one(struct luo_file_set *file_set,
+  * Context: Called from session deserialization.
+  */
+ int luo_file_deserialize(struct luo_file_set *file_set,
+-			 struct luo_file_set_ser *file_set_ser)
++			 DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr))
+ {
++	struct luo_file_set_ser *file_set_ser;
+ 	struct luo_file_ser *file_ser;
+ 	struct kho_block_set_it it;
+ 	int err;
+ 
++	if (!file_set_fhdr)
++		return -EINVAL;
++
++	err = kho_ser_validate(file_set_fhdr, luo_file_set_ser);
++	if (err)
++		return err;
++
++	file_set_ser = kho_ser_payload(file_set_fhdr, luo_file_set_ser);
+ 	if (!file_set_ser->files) {
+ 		WARN_ON(file_set_ser->count);
+ 		return 0;
+diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
+index dac6644bfb18..e22a8cf39d91 100644
+--- a/kernel/liveupdate/luo_internal.h
++++ b/kernel/liveupdate/luo_internal.h
+@@ -8,6 +8,7 @@
+ #ifndef _LINUX_LUO_INTERNAL_H
+ #define _LINUX_LUO_INTERNAL_H
+ 
++#include <linux/kho/abi/luo.h>
+ #include <linux/liveupdate.h>
+ #include <linux/uaccess.h>
+ #include <linux/kho_block.h>
+@@ -104,14 +105,14 @@ int luo_session_deserialize(void);
+ int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd);
+ void luo_file_unpreserve_files(struct luo_file_set *file_set);
+ int luo_file_freeze(struct luo_file_set *file_set,
+-		    struct luo_file_set_ser *file_set_ser);
++		    DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr));
+ void luo_file_unfreeze(struct luo_file_set *file_set,
+-		       struct luo_file_set_ser *file_set_ser);
++		       DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr));
+ int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
+ 		      struct file **filep);
+ int luo_file_finish(struct luo_file_set *file_set);
+ int luo_file_deserialize(struct luo_file_set *file_set,
+-			 struct luo_file_set_ser *file_set_ser);
++			 DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr));
+ void luo_file_set_init(struct luo_file_set *file_set);
+ void luo_file_set_destroy(struct luo_file_set *file_set);
+ 
+diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
+index 641bd67ce76e..6513fde3ecfe 100644
+--- a/kernel/liveupdate/luo_session.c
++++ b/kernel/liveupdate/luo_session.c
+@@ -132,7 +132,7 @@ struct luo_session_global {
+ };
+ 
+ #define LUO_SESSION_SER_SIZE (kho_ser_size(luo_session_ser) + \
+-			      sizeof(struct luo_file_set_ser))
++			      kho_ser_size(luo_file_set_ser))
+ 
+ static struct luo_session_global luo_session_global = {
+ 	.incoming = {
+@@ -227,7 +227,7 @@ static void luo_session_unfreeze_one(struct luo_session *session,
+ {
+ 	guard(mutex)(&session->mutex);
+ 	luo_file_unfreeze(&session->file_set,
+-			  KHOSER_LOAD_PTR(ser->file_set_ser));
++			  KHOSER_LOAD_PTR(ser->file_set_fhdr));
+ }
+ 
+ static int luo_session_freeze_one(struct luo_session *session,
+@@ -235,7 +235,7 @@ static int luo_session_freeze_one(struct luo_session *session,
+ {
+ 	guard(mutex)(&session->mutex);
+ 	return luo_file_freeze(&session->file_set,
+-			       KHOSER_LOAD_PTR(ser->file_set_ser));
++			       KHOSER_LOAD_PTR(ser->file_set_fhdr));
+ }
+ 
+ static int luo_session_release(struct inode *inodep, struct file *filep)
+@@ -560,14 +560,14 @@ int __init luo_session_setup_incoming(u64 sessions_pa)
+ static struct luo_session_ser *
+ luo_session_ser_init(DECLARE_KHO_SER_HDR(luo_session_ser, *fhdr))
+ {
+-	struct luo_file_set_ser *file_set_ser;
++	DECLARE_KHO_SER_HDR(luo_file_set_ser, *file_set_fhdr);
+ 	struct luo_session_ser *ser;
+ 
+ 	kho_ser_init(fhdr, luo_session_ser);
+-	file_set_ser = (void *)fhdr + kho_ser_size(luo_session_ser);
++	file_set_fhdr = (void *)fhdr + kho_ser_size(luo_session_ser);
+ 
+ 	ser = kho_ser_payload(fhdr, luo_session_ser);
+-	KHOSER_STORE_PTR(ser->file_set_ser, file_set_ser);
++	KHOSER_STORE_PTR(ser->file_set_fhdr, file_set_fhdr);
+ 
+ 	return ser;
+ }
+@@ -601,7 +601,7 @@ static int luo_session_deserialize_one(struct luo_session_header *sh,
+ 
+ 	scoped_guard(mutex, &session->mutex) {
+ 		err = luo_file_deserialize(&session->file_set,
+-					   KHOSER_LOAD_PTR(ser->file_set_ser));
++					   KHOSER_LOAD_PTR(ser->file_set_fhdr));
+ 	}
+ 	if (err) {
+ 		pr_warn("Failed to deserialize files for session [%s] %pe\n",
 -- 
 2.56.0.506.g506a7eabc5-goog
 
