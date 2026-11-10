@@ -1,62 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341913;
-	b=243Y7FTi/WQwprGTM+/fPhXskemlOiEABsnjfVk7Zsu7m6g5bV009y2wF36IuuHG9okM
-	 zMOrOFZbN4kOpEEyqWIDMViNXjelP1Z97qdjk/miqoY3pQC8GzTd+V1X5R8aaUp55eY74
-	 rngCn88+RMrtAmCAyZha0emsyAcdZCLJ4zUpzOoj6ufE2OT03O3fTeR5BJbqTuR8UttcS
-	 3X3fD/6x1PWEAssj7Q5eQAvan61jHGNGSCGdlA4NLKh5HrwP8Tfdohd92QlORxRqSrUzv
-	 vcRO/J74vYCinOyT7yIfiX7hDv/Iv3PATI1I/aelCbdd2vax8x0GkCehc2/A9+aZwHg==
+	t=1794341942;
+	b=KSjElKu85t4MIpOvO2EcD1+JntV3D+xG9a7Kr13qs3mnQ+UbOFv2sRYeevzY0K9c/Zl0
+	 f7jbTS2ltPBp5oGqO+ipOKguJUFTkuCP19ErNWzynbdXHv7+u5890KleagiWmQlodIOn2
+	 f1yyzaUUB0YW/89dMLayq2F6wyMQFAYEQdreOWesiX8dMJ+TarA72eeso7LLmLkQ5nXei
+	 zn6t0QZ/VhL224wk+r7jp/iG734OT1tAN+gbkGOt4iqm1Owxc5jhEFRjUl+Tlqx27lIo+
+	 1Lnfm4TjeAW8moUtrZw2WsA1xdwmrF9WHVRjpF3bEVLRNZb5KVwZdAdlRE2+CevvWAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341913;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TxVuIEOGQmZTsx8ngNcKeGQ7erzVJ0HzNh0Tj25sa3s=;
-	b=0JKbF+guraZI7iFg+VgLcrPDuQRHaPNrYJtIZjtrZAL8ZmThk+h9yDqniZiG3DDsww2D
-	 Yd4k+SbIrjMIkyQ463NLikOzo4GKgtI9suwkHmF45SEpffteWCVlwFZlR3+/NQlnOpkrs
-	 n216c3lWlEFyVEtmzhBHOmul/Se0jQSzrEVoBztA19GqDB1QBTTzHAE9THVY2+n2MkLom
-	 hm3S7rlVmZ89fzarqjggsO1fSR1lzIJI8zff1QY8nu41k8NcY3696I2qdxTSmbNqomFqa
-	 Y+Mo9gon1+Cb2cDfAAUrWf9UKKjUJ6B94AFctsalOMyEw7BfKoDzJDfoXmVEWaYR8Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341942;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
+	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/95DCKLnTjjSvDhq1lx6rNnEdA1D65FoSfzmnFJ5zBw=;
+	b=Qa3d06DmylYIoeiXrD8H2JSVzMJKMXfqD554jD+iOgIY4BYDXD3dYY9LfR60tIu0n3CJ
+	 mDOxKDZhnBtSetXK+OygOcat3+vKPQ+7LaXzOeZA2n/ve5DFArMRKu1mq+vYSGvkqnwsH
+	 x/ruxCrfyGLTzl1dI9nWv9sjSLfGYnJ+KfgfibdqePrbn76yEvyBQxUhtNlnJTvGQHxDV
+	 udc+xEC21vu8pxI0M6wGSSRqhByinuvOA+vOv920ElQpMcdb4XOTBo67ghIB2PqaKIKE8
+	 7zgjHpNCaPX8Kut9rJwPWb4xRjJGTvKuDCGfaOTDkPhZ6Y+S0QOnKl4A4sQlRbKWUxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Tqo4/OpT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=VhW9qk50;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C836606A321;
-	Tue, 10 Nov 2026 20:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7078606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:19:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7078606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tqo4/OpT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304901F0089F;
-	Tue, 10 Nov 2026 20:18:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341912;
-	bh=TxVuIEOGQmZTsx8ngNcKeGQ7erzVJ0HzNh0Tj25sa3s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tqo4/OpTuC10duAuZLgLVydNoNEgDijjEoa3zYu+8MU+rfTQZwyHJwawOi/aDtgKx
-	 smrQuqnYF6tH3nXG7l1wlbICDFemYExKwnqFgsZWOt4SLVy/n1ecW0nbGd9pRDIowK
-	 JqCon1e1flBxjtsHUqi6j85q8YmXeSTkcFAwI1w2+Cz4CqG7oZB7CpB4bye4mWt6gy
-	 a7/2tiZ1ODesTARDwm/TE1YT2aX5/ptKQIlO2n1g9FmO2EdiOlASHg/W6rhcRK7GSf
-	 PlyuM7A5opC/mWuaa62MfRZxfWEGgdNDAWrmK4CFaA/puzVIZjqpMkUwscBNESVWUN
-	 ZxBwv38k6hleA==
-Date: Tue, 10 Nov 2026 12:18:31 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Anil Kaushik <anilkaushikwireless@gmail.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, Ido Schimmel <idosch@nvidia.com>, Nicolas
- Dichtel <nicolas.dichtel@6wind.com>, Jacob Keller
- <jacob.e.keller@intel.com>, Jiri Pirko <jiri@resnulli.us>, Florian Westphal
- <fw@strlen.de>, Mat Martineau <martineau@kernel.org>, XingWang Xiang
- <v3rdant.xiang@gmail.com>, Alice Ryhl <aliceryhl@google.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 2/2] netlink: Check a group again if it was
- released while joining it
-Message-ID: <20261110121831.01412fb9@kernel.org>
-In-Reply-To: <20261104092125.211537-3-anilkaushikwireless@gmail.com>
-References: <20261104092125.211537-1-anilkaushikwireless@gmail.com>
-	<20261104092125.211537-3-anilkaushikwireless@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=VhW9qk50
+Received: from ehlo.thunderbird.net ([172.59.161.232])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6AAKHuUT285035
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Tue, 10 Nov 2026 12:18:05 -0800
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6AAKHuUT285035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026102901; t=1794341892;
+	bh=/95DCKLnTjjSvDhq1lx6rNnEdA1D65FoSfzmnFJ5zBw=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=VhW9qk504QfVWNDRqC3QQ7xPaIx+qquriOzz6Ea+ClKoiRF3ZQZiNsWfDFJ4wKUVG
+	 cx9WDodcNwKMXV6flih73TARDeHGunGu2N+6LOWZKnawU4t6lH6sdIgOBxEUXE4V1e
+	 3k/LmL+lGnbQJWo47xQn9Mee0zirictONqJBbjRpwqhiWP+zpjmWinQFL3VN1Jf9kg
+	 LPGbRaMd60RIXuUtXM4r18nsS2XCGaAB+d9FfzwcrQq85SaaX2C5IPGgiup2Ob3pDn
+	 bxfDFGZGex+nzgIhz5qrnKc7SxXiR75chJJv3/1X5gZaYF5rpyLd2qu+QxpTVd+1Op
+	 Op3u/79mBDDBw==
+Date: Tue, 10 Nov 2026 12:17:51 -0800
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+        Usama Arif <usama.arif@linux.dev>
+CC: david.laight.linux@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com,
+        dsterba@suse.com, linux-kernel@vger.kernel.org, mingo@redhat.com,
+        terrelln@fb.com, tglx@kernel.org, x86@kernel.org, kas@kernel.org,
+        hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+        kernel-team@meta.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_x86/lib=3A_Use_REP_MOVSB_for?=
+ =?US-ASCII?Q?_large_memcpy=28=29_on_ERMS_CPUs_without_FSRM?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
+References: <20261104222806.1826508-1-usama.arif@linux.dev> <CAHk-=whPF8CD9zC960jPUi2rMrJ_pq9ytdSYqWoef-R6AHsfXg@mail.gmail.com>
+Message-ID: <719584E3-A730-474D-9061-BFF35EA4B02B@zytor.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,14 +73,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed,  4 Nov 2026 09:21:25 +0000 Anil Kaushik wrote:
->  net/netlink/af_netlink.c | 110 ++++++++++++++++++++++++++++++++++++++-
->  net/netlink/af_netlink.h |   1 +
->  2 files changed, 110 insertions(+), 1 deletion(-)
+On November 10, 2026 9:53:07 AM PST, Linus Torvalds <torvalds@linux-foundat=
+ion=2Eorg> wrote:
+>On Wed, 4 Nov 2026 at 14:28, Usama Arif <usama=2Earif@linux=2Edev> wrote:
+>>
+>> +       ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb =2ELhandle_tail), =
+\
+>> +                   __stringify(rep movsb; RET), X86_FEATURE_FSRM
+>
+>Let's not do that=2E
+>
+>Putting magic things like RET in alternatives is just a bad bad idea=2E
+>
+>               Linus
 
-This fix is way too ugly to be accepted
--- 
-pw-bot: cr
+Why is that, *given that it is in assembly*?
+
+For C (or Rust, or C++, =2E=2E=2E) it is obviously bad chicken=2E
