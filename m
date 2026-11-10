@@ -1,87 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284362;
-	b=xAjuhLizaCfupi8jhhSVZkBan3+/uNk8vZxrj/WxInZNMBWvW9tw61nE6LHQ+oFx2sw0
-	 y/uxDVsVrjNBy/5i2BfuRJjaIhGKEWRpy84jps2Njzrksz5vIX0RJyuBHKHCsa/rGTBkM
-	 Bw9NCwncwdPaCrI15h+cWnB1ZM/W3GawRACUIubNfJFsS6ohyAYjuT7/KoEgl3tDt8rIQ
-	 +N44wCrWpzj2clCZxike2Raz7r3VVs3Ou7J4CKckpM4NLQXvLHvHf0l4D3R3fyP2lFVaz
-	 zIQRy5noZ3JGkSImQmfJU5Ne/Y4hQ9Car+6kC3sqtZasLodnwHIc/3RtMOQ/zmT/FTg==
+	t=1794284386;
+	b=K+BSceubcoZfYm9ePi1zOWm0CepvPMwLEqPlLLf/whH+FWVZ/6MXVD4csgmcBwSv4im7
+	 IKKDpO61v076Q1zDEKD0aSMOZAc6H8jW9iqLj5HIrHYgnnziOdnzdcyev3egevXBId+mY
+	 J5JGyCx64KHJDjwLr00yxCrMTHD+yryQeQO0zf/ulu+gCjzu2yQn1vlHngdZktXddYZTn
+	 JoMc6afAHSwjyIcF+CrGrVIG6f6+9O3N4BOYXf5NwqvlS6QjCxGMdpeIjNs5PV0lT4Prw
+	 zo8dWS8EFi1KVc8aL4t2RJwN9haS/bcDPLG1B9/UOX/c5YLJGCdb85o5qmbladynvAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284362;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uNkodtGfaGvK/RnG0tWJFxtQ8S5QNvRorQlF1x98Yas=;
-	b=B9/k/T12E+p4fKq/W3YFCGgbXnHxD0BimNsEP6OEJBXbqtT8RCRXesTSVRq10VcpraqA
-	 nVpVFKaQUaS6vJaL46qfmumFBY9PaKo9syQ6jOrNj9aVzoIXyE/pBsl+vMdbTtIsHXDrN
-	 BUCQc1FYwyHppkXL6foQs5ZLllMHCMipDE27BzhB2zUurR0WQGfETUZHtmNF184w47KbU
-	 3KTip4w62s+OWCDkxBIP7RkH940zt60WEg5Qpv4O8c+jx/SkmHS/aJ3c/0bLv7JI96vZK
-	 5JvYlKrhrotEWWRO2iKDyWUcmhvbXSgj+yb5ooiXS/I9eJx2jQLexPRzZ5eMW4uGaeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284386;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GWNZ8zQxqiZGzpWyot+03nwu4qhuEeSDcx/Yq9DH+WA=;
+	b=Zn4kaMhlM7hHWJIDEWdiwPYTRmqH1qXKvmeaqtqpxDyapQSB8aTDcxZm9/ggDdNOpfZ5
+	 XpGBwRejpUYalvKLopFZwDw9CW69e6mvugt3xSw6vbsEtveBfo9RS5H3mpyDBeTO8pkpi
+	 2A5NSEy0kNg48KVawFWnhluP2R4ZdYm3yYoHbmU0eR5dPdv//4vlbHaBJ0YClMJ9tyM4N
+	 +4xrGyuKEBSUzmOfEg6IAKkMChRN6SQXNzxX/81y5elADzncb3eXtw85lNwS0Snd9mg1T
+	 LMNVvOxHASpVGxb5BQd1BTlAHLFOHMfi0JRrQmj/xXjRP9IVQUKXvZC2Y/a8uwWo93g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E5c6rLkH;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGtenEbZ;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123BB60A3810
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 123BB60A3810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F4F606E8EE
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5F4F606E8EE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E5c6rLkH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794284361; x=1825820361;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=XdIHGTi4CqhY3nClCkwX8TaottA7wlWhLKc1dTggAuw=;
-  b=E5c6rLkHabkAWkywx+7+Ko0oL5Rr/gdI6IYgPwhXbHflH5L8eh1d/nRh
-   4wh2A8E0gq9gATsEpTqvGBN322mm01vOK8KmdXB5qNqlg8NAQeethVOk5
-   yIZ2mLWRVdCRHno6ghtQI4+3RcbInxckuL8dYs0WUGPE/NZBrQzy4Ni0F
-   xyrx2HTBP2n0X/+i3v/hIZr4ulfuNXwjawNTuLnNg8CDgua17JUnY7hQr
-   9rBpvA2OTgvTaxcSV4li9zlRH7Xv524albDeD0NmxSuB42K6AD8mH0mii
-   C0PPwKCQzG2p5rXD0jK4iiQsvUOw734Y6GIRbMWAHqkGouzDM5s0XsRyU
-   g==;
-X-CSE-ConnectionGUID: ECHDbRI+S5e123yXS1JrMA==
-X-CSE-MsgGUID: gIIOt1MhQUCq8v9cHWde0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901339"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2901339"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
-X-CSE-ConnectionGUID: bTsbRN/3QQW59vmY1UC2vQ==
-X-CSE-MsgGUID: 66zk+XnuRym5L/Lgq4xe/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7856927"
-Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
-From: Reinette Chatre <reinette.chatre@intel.com>
-To: ben.horgan@arm.com,
-	james.morse@arm.com,
-	Dave.Martin@arm.com,
-	fenghuay@nvidia.com,
-	ruanjinjie@huawei.com
-Cc: tony.luck@intel.com,
-	yu.c.chen@intel.com,
-	babu.moger@amd.com,
-	fustini@kernel.org,
-	tan.shaopeng@fujitsu.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGtenEbZ
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so2710289c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:19:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794284385; x=1794889185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GWNZ8zQxqiZGzpWyot+03nwu4qhuEeSDcx/Yq9DH+WA=;
+        b=yGtenEbZG7Qy6TLOfNHH0y5Y07HDUztMPNGH3pc770I1r2cy3ZaH19A2RVmEr0UI/O
+         NZeYX9CpwtGDlWb0S9HZyajA8d25SmnVgJ4F6kjH4/q45zPIe1zefUOfIaqHT0g3hwFK
+         Cn6+z73Wn3D/7ZIxwbuXvB0QWjr96G80mTxU2EXqHyigkYPy0OKly1nGOk5paCbWlat3
+         Qk2roQcaq3Gvka9pimS3DGiW9wA52FY8ZRCFgkmUQEq86+1KQeoXmZW/nju7ed4FzWuB
+         NbXDttmUANX+suQLHNmfzHEMZ0+Kzh8LhSxP+wbrlgmKTAIxym4xWpgfOT7EiNtfWu01
+         T+Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794284385; x=1794889185;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GWNZ8zQxqiZGzpWyot+03nwu4qhuEeSDcx/Yq9DH+WA=;
+        b=uBiMurBguGxHmQnkbCFlB7D5DTEFJ71/F1U2Kay7fEWRVXktjmxPIGe30fr+O2GL6O
+         xJ27AH4qJRFwjfEZ1rm9dpMfaVkOTVKQ2uueGkFwNZxMIrkUaxmy1iqjq3dRXQDUJkCs
+         b4gMYC60d+0z2miF+nhNwWrmtbbVqf5aWBBU3eAXRLdxjDxEVV0C6yqqrRk/F0gqiR8B
+         FOS+tCfA+c6985OsSWR3FZNQM5xZ0h4aUaG4Sz2FuJjk+7mdehkPgDMSlWChq2Eg4lzh
+         D+GJtFOPaNK27EcqGWNNgVljUj8FlEEpDau6PDwu6Km6JLpUfuMQEUG4RiY2viMDyxmq
+         aVMA==
+X-Forwarded-Encrypted: i=1; AL+hErFQGggDg/EJiurn96q0r5cy7YLz6KoBWO1Fp1aR2n8kw1Q/MqqZ7sK1Jq8HbkEA1ukJEb7e0T/rA4YZDag=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9J/29JhJrMw0QYOSbepDop3+D9CxqF6kl4b8mGK38cEhhTl8HZ
+	wILSN31PxoKKNvcfZEBW/2QABzFaIXSOLllKSmr0hmfI7A/oVisdYP7U
+X-Gm-Gg: AYBFou0CfIEDTfC1ELab+GeXJGD33yBKnuvsOn5hWWQ781Sb9Aexyxr7evuNGPmq+My
+	l5ypKu1Fhm++aN2+HFJGI/xD9yybddkc3HVHEkL54QBHciohfGJ3L6IDKS+X8s9ume4/ifkHQLp
+	7sXxwIAeqibZ/rJte0cz6yl2BMGNnVQfzSVUC7oLjXV3dfGeXwp+ZfQ051FPGToOyARKITDy3/N
+	eXXdwBL3EGIVAWRXatw3SLBiR/ToMKjUyGvIGmef0dSztc8ujtTO6x+YiKi9XUIZpljhEklRHeL
+	XmIC//WMDW7CAin+uwJs5PjvBChhR3SpiQftgwXL1EHboK02gZDn0J+gkHQHF8ThVAnOlcK5N7T
+	+12tYmWMzHfcL/q2CqEDQU50XaS042iN1G0rHyBxr+eauuFpAzm37VM7/TIGtutqoKoLzMCtww9
+	68vulvNzNz19ErL+eLzKAKQYmpQNsKX4hdxP2IC+B0WvTaVw55Ad3eVx5dF2STcS0Zfvdu2W3qS
+	R/RkCx0u1SHmPu/nyeGe96GxRhSBbg5UBe4nCBAeCUrCx6gm88FuDNWzGJ8I+sKSW6s7l3ShuRM
+	040bngtYF1NyMwovQ/K+aNAu2KfsFDPItuyGlXupsjI2/5M=
+X-Received: by 2002:a05:701b:450c:10b0:149:49c:233 with SMTP id a92af1059eb24-1b3b603e878mr2107744c88.27.1794284384921;
+        Mon, 09 Nov 2026 20:19:44 -0800 (PST)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.19.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 20:19:44 -0800 (PST)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: bhelgaas@google.com,
+	lukas@wunner.de,
+	bvanassche@acm.org,
+	linux-pci@vger.kernel.org,
+	alistair@alistair23.me,
+	linux-cxl@vger.kernel.org,
+	linux-coco@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	reinette.chatre@intel.com
-Subject: [PATCH v3 7/8] arm_mpam: resctrl: Give the monitoring domain its own structure
-Date: Mon,  9 Nov 2026 20:19:07 -0800
-Message-ID: <1fb52d1c2b854e917fa14240f8f0905cd7ebc850.1794283825.git.reinette.chatre@intel.com>
+	jic23@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	jgg@nvidia.com,
+	akpm@linux-foundation.org
+Cc: gary@garyguo.net,
+	a.hindborg@kernel.org,
+	wilfred.mallawa@wdc.com,
+	tmgross@umich.edu,
+	ojeda@kernel.org,
+	boqun.feng@gmail.com,
+	alistair23@gmail.com,
+	gregkh@linuxfoundation.org,
+	aliceryhl@google.com,
+	bjorn3_gh@protonmail.com,
+	benno.lossin@proton.me,
+	alex.gaynor@gmail.com,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v6 07/25] rust: add bindings for hash.h
+Date: Tue, 10 Nov 2026 14:18:14 +1000
+Message-ID: <20261110041832.1730924-8-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
-References: <cover.1794283825.git.reinette.chatre@intel.com>
+In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
+References: <20261110041832.1730924-1-alistair.francis@wdc.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,440 +122,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-One structure holds both the control domain and the monitoring domain of
-a resource. The two domains are allocated together when the first CPU of
-the domain comes online and freed together once both have lost their
-last CPU. A failure to set up the monitoring domain undoes the control
-domain.
+From: Alistair Francis <alistair.francis@wdc.com>
 
-Apart from the code that manages domains, nothing uses both domains of
-the structure. Keeping them in one structure nevertheless ties each
-control domain to a monitoring domain, which does not fit supporting
-multiple controls per resource.
+Make the functions crypto_shash_descsize(), crypto_shash_digestsize()
+and crypto_free_shash() available to Rust.
 
-Move the monitoring domain and its components into a new structure,
-struct mpam_resctrl_mon_dom. Manage control and monitoring domains
-separately when CPUs come online and go offline: look up, set up, and
-tear down each domain on its own and free it once it has lost its last
-CPU.
-
-Do not let a failure to set up one type of domain affect the other. Keep
-a control domain that was set up when setting up the monitoring domain
-for the same CPU fails, and set up the monitoring domain even when
-setting up the control domain fails. This is consistent with domain
-setup failures not failing CPU online: only domains that were set up are
-exposed through resctrl.
-
-Look for a component of the resource's class that contains the CPU only
-when setting up a control domain, since that component backs the
-control domain. Setting up a monitoring domain already fails if no
-monitoring class has a component for the CPU.
-
-Look up monitoring domains by L3 cache ID on all systems, as was already
-done on systems without controls. Monitoring domain IDs are always those
-of the L3, so this finds the same domain as looking it up through its
-control domain did.
-
-Fail setting up the monitoring domain, with a warning, if the components
-backing its events do not all cover the same CPUs, since an event's
-counts would then not belong to the CPUs the domain represents. Compare
-each component with the one found before it, instead of naming the
-events, so that the check applies to any monitoring event.
-
-Drop the debug messages about resources without controls or monitors.
-They reported which of the two domains in the shared structure was left
-unused, which no longer applies now that each domain type has its own
-structure.
-
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Tested-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
 ---
-Changes since RFC v2:
-- Add Jinjie's Reviewed-by tag.
-- Add Jinjie's Tested-by tag.
-- WARN when control or monitoring domain allocation fails. (Ben)
-- Squash "arm_mpam: resctrl: Require monitoring components to cover
-  the same CPUs" and "arm_mpam: resctrl: Update the comment on
-  monitoring domain setup". (Ben)
-- Update the mpam_resctrl_get_mon_domain_from_cpu() comment that still
-  referred to the control component.
----
- drivers/resctrl/mpam_internal.h |   5 +-
- drivers/resctrl/mpam_resctrl.c  | 242 +++++++++++++++++---------------
- 2 files changed, 128 insertions(+), 119 deletions(-)
+ rust/bindings/bindings_helper.h |  1 +
+ rust/helpers/hash.c             | 22 ++++++++++++++++++++++
+ rust/helpers/helpers.c          |  1 +
+ 3 files changed, 24 insertions(+)
+ create mode 100644 rust/helpers/hash.c
 
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index 84c7adbb1a40..1df439ecb055 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -434,15 +434,16 @@ struct mpam_msc_ris {
- 
- struct mpam_resctrl_dom {
- 	struct mpam_component		*ctrl_comp;
-+	struct rdt_ctrl_domain		resctrl_ctrl_dom;
-+};
- 
-+struct mpam_resctrl_mon_dom {
- 	/*
- 	 * There is no single mon_comp because different events may be backed
- 	 * by different class/components. mon_comp is indexed by the event
- 	 * number.
- 	 */
- 	struct mpam_component		*mon_comp[QOS_NUM_EVENTS];
--
--	struct rdt_ctrl_domain		resctrl_ctrl_dom;
- 	struct rdt_l3_mon_domain	resctrl_mon_dom;
- };
- 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index ca90b293b697..263bbbc27dac 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -516,7 +516,7 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
- 			   u32 closid, u32 rmid, enum resctrl_event_id eventid,
- 			   void *arch_priv, u64 *val, void *arch_mon_ctx)
- {
--	struct mpam_resctrl_dom *l3_dom;
-+	struct mpam_resctrl_mon_dom *l3_dom;
- 	struct mpam_component *mon_comp;
- 	u32 mon_idx = *(u32 *)arch_mon_ctx;
- 	enum mpam_device_features mon_type;
-@@ -530,7 +530,7 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
- 	if (eventid >= QOS_NUM_EVENTS || !mon->class)
- 		return -EINVAL;
- 
--	l3_dom = container_of(hdr, struct mpam_resctrl_dom, resctrl_mon_dom.hdr);
-+	l3_dom = container_of(hdr, struct mpam_resctrl_mon_dom, resctrl_mon_dom.hdr);
- 	mon_comp = l3_dom->mon_comp[eventid];
- 
- 	if (eventid != QOS_L3_OCCUP_EVENT_ID)
-@@ -558,7 +558,7 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
- static struct mpam_component *find_mbwu_mon_comp(struct rdt_l3_mon_domain *d,
- 						 enum resctrl_event_id eventid)
- {
--	struct mpam_resctrl_dom *l3_dom;
-+	struct mpam_resctrl_mon_dom *l3_dom;
- 	struct mpam_resctrl_mon *mon;
- 
- 	if (!mpam_is_enabled())
-@@ -568,7 +568,7 @@ static struct mpam_component *find_mbwu_mon_comp(struct rdt_l3_mon_domain *d,
- 	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
- 		return ERR_PTR(-EINVAL);
- 
--	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
-+	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
- 
- 	return l3_dom->mon_comp[eventid];
- }
-@@ -1663,7 +1663,7 @@ static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
- 
- static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
- 					 struct rdt_resource *r,
--					 struct mpam_resctrl_dom *dom)
-+					 struct mpam_resctrl_mon_dom *dom)
- {
- 	struct rdt_l3_mon_domain *mon_d = &dom->resctrl_mon_dom;
- 	struct mpam_component *any_mon_comp = NULL;
-@@ -1672,11 +1672,12 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
- 	int err;
- 
- 	/*
--	 * Even if the monitor domain is backed by a different
--	 * component, the L3 component IDs need to be used... only
--	 * there may be no ctrl_comp for the L3.
--	 * Search each event's class list for a component with
--	 * overlapping CPUs and set up the dom->mon_comp array.
-+	 * The monitoring domain takes the L3 cache ID as its ID even when its
-+	 * events are backed by components of other classes, see
-+	 * mpam_resctrl_pick_domain_id().
-+	 * Find the component of each event's class that contains the CPU and
-+	 * set up the dom->mon_comp array. All these components must cover the
-+	 * same CPUs.
- 	 */
- 
- 	for_each_mpam_resctrl_mon(mon, eventid) {
-@@ -1689,6 +1690,12 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
- 		if (WARN_ON_ONCE(!mon_comp))
- 			return -EFAULT;
- 
-+		/* All components of a monitoring domain cover the same CPUs */
-+		if (WARN_ON_ONCE(any_mon_comp &&
-+				 !cpumask_equal(&any_mon_comp->affinity,
-+						&mon_comp->affinity)))
-+			return -EFAULT;
-+
- 		dom->mon_comp[eventid] = mon_comp;
- 		any_mon_comp = mon_comp;
- 	}
-@@ -1706,64 +1713,16 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
- 	return 0;
- }
- 
--static void mpam_resctrl_alloc_domain(unsigned int cpu,
--				      struct mpam_resctrl_res *res)
--{
--	int err;
--	struct mpam_resctrl_dom *dom;
--	struct mpam_class *class = res->class;
--	struct mpam_component *comp;
--	struct rdt_resource *r = &res->resctrl_res;
--
--	lockdep_assert_held(&domain_list_lock);
--
--	comp = find_component(class, cpu);
--	/* class has no component for this CPU */
--	if (WARN_ON_ONCE(!comp))
--		return;
--
--	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
--	if (WARN_ON_ONCE(!dom))
--		return;
--
--	if (r->alloc_capable) {
--		err = mpam_resctrl_setup_ctrl_domain(cpu, r, comp, dom);
--		if (err)
--			goto free_domain;
--	} else {
--		pr_debug("Skipped control domain online - no controls\n");
--	}
--
--	if (r->mon_capable) {
--		err = mpam_resctrl_setup_mon_domain(cpu, r, dom);
--		if (err)
--			goto offline_ctrl_domain;
--	} else {
--		pr_debug("Skipped monitor domain online - no monitors\n");
--	}
--
--	return;
--
--offline_ctrl_domain:
--	if (r->alloc_capable) {
--		mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_ctrl_dom.hdr);
--		resctrl_offline_ctrl_domain(r, &dom->resctrl_ctrl_dom);
--	}
--free_domain:
--	kfree(dom);
--}
--
- /*
-- * We know all the monitors are associated with the L3, even if there are no
-- * controls and therefore no control component. Find the cache-id for the CPU
-+ * All the monitors are associated with the L3. Find the cache-id for the CPU
-  * and use that to search for existing resctrl domains.
-  * This relies on mpam_resctrl_pick_domain_id() using the L3 cache-id
-  * for anything that is not a cache.
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 3791af0aadc73..4992bc3194e7e 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -28,6 +28,7 @@
   */
--static struct mpam_resctrl_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
-+static struct mpam_resctrl_mon_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
- {
- 	int cache_id;
--	struct mpam_resctrl_dom *dom;
-+	struct mpam_resctrl_mon_dom *dom;
- 	struct mpam_resctrl_res *l3 = &mpam_resctrl_controls[RDT_RESOURCE_L3];
+ #include <linux/hrtimer_types.h>
  
- 	lockdep_assert_cpus_held();
-@@ -1783,7 +1742,7 @@ static struct mpam_resctrl_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
- }
- 
- static struct mpam_resctrl_dom *
--mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
-+mpam_resctrl_get_ctrl_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
- {
- 	struct mpam_resctrl_dom *dom;
- 	struct rdt_resource *r = &res->resctrl_res;
-@@ -1795,11 +1754,97 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
- 			return dom;
- 	}
- 
--	if (r->rid != RDT_RESOURCE_L3)
--		return NULL;
-+	return NULL;
++#include <crypto/hash.h>
+ #include <linux/acpi.h>
+ #include <linux/gpu_buddy.h>
+ #include <drm/drm_device.h>
+diff --git a/rust/helpers/hash.c b/rust/helpers/hash.c
+new file mode 100644
+index 0000000000000..1e50fe16c5031
+--- /dev/null
++++ b/rust/helpers/hash.c
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <crypto/hash.h>
++
++#ifdef CONFIG_CRYPTO_HASH2
++
++__rust_helper unsigned int rust_helper_crypto_shash_descsize(struct crypto_shash *tfm)
++{
++	return crypto_shash_descsize(tfm);
 +}
 +
-+static void mpam_resctrl_add_cpu_ctrl_domain(unsigned int cpu,
-+					     struct mpam_resctrl_res *res)
++__rust_helper unsigned int rust_helper_crypto_shash_digestsize(struct crypto_shash *tfm)
 +{
-+	struct rdt_resource *r = &res->resctrl_res;
-+	struct mpam_resctrl_dom *dom;
-+	struct mpam_component *comp;
-+
-+	lockdep_assert_held(&domain_list_lock);
-+
-+	dom = mpam_resctrl_get_ctrl_domain_from_cpu(cpu, res);
-+	if (dom) {
-+		mpam_resctrl_online_domain_hdr(cpu, &dom->resctrl_ctrl_dom.hdr);
-+		return;
-+	}
-+
-+	comp = find_component(res->class, cpu);
-+	/* class has no component for this CPU */
-+	if (WARN_ON_ONCE(!comp))
-+		return;
- 
--	/* Search the mon domain list too - needed on monitor only platforms. */
--	return mpam_resctrl_get_mon_domain_from_cpu(cpu);
-+	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
-+	if (WARN_ON_ONCE(!dom))
-+		return;
-+
-+	if (mpam_resctrl_setup_ctrl_domain(cpu, r, comp, dom))
-+		kfree(dom);
++	return crypto_shash_digestsize(tfm);
 +}
 +
-+static void mpam_resctrl_add_cpu_mon_domain(unsigned int cpu,
-+					    struct mpam_resctrl_res *res)
++__rust_helper void rust_helper_crypto_free_shash(struct crypto_shash *tfm)
 +{
-+	struct rdt_resource *r = &res->resctrl_res;
-+	struct mpam_resctrl_mon_dom *dom;
-+
-+	lockdep_assert_held(&domain_list_lock);
-+
-+	dom = mpam_resctrl_get_mon_domain_from_cpu(cpu);
-+	if (dom) {
-+		mpam_resctrl_online_domain_hdr(cpu, &dom->resctrl_mon_dom.hdr);
-+		return;
-+	}
-+
-+	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
-+	if (WARN_ON_ONCE(!dom))
-+		return;
-+
-+	if (mpam_resctrl_setup_mon_domain(cpu, r, dom))
-+		kfree(dom);
++	crypto_free_shash(tfm);
 +}
 +
-+static void mpam_resctrl_remove_cpu_ctrl_domain(unsigned int cpu,
-+						struct mpam_resctrl_res *res)
-+{
-+	struct rdt_resource *r = &res->resctrl_res;
-+	struct mpam_resctrl_dom *dom;
-+
-+	lockdep_assert_held(&domain_list_lock);
-+
-+	/* The domain may be missing if its setup failed. */
-+	dom = mpam_resctrl_get_ctrl_domain_from_cpu(cpu, res);
-+	if (!dom)
-+		return;
-+
-+	if (!mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_ctrl_dom.hdr))
-+		return;
-+
-+	resctrl_offline_ctrl_domain(r, &dom->resctrl_ctrl_dom);
-+	kfree(dom);
-+}
-+
-+static void mpam_resctrl_remove_cpu_mon_domain(unsigned int cpu,
-+					       struct mpam_resctrl_res *res)
-+{
-+	struct rdt_resource *r = &res->resctrl_res;
-+	struct mpam_resctrl_mon_dom *dom;
-+
-+	lockdep_assert_held(&domain_list_lock);
-+
-+	/* The domain may be missing if its setup failed. */
-+	dom = mpam_resctrl_get_mon_domain_from_cpu(cpu);
-+	if (!dom)
-+		return;
-+
-+	if (!mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_mon_dom.hdr))
-+		return;
-+
-+	resctrl_offline_mon_domain(r, &dom->resctrl_mon_dom.hdr);
-+	kfree(dom);
- }
- 
- void mpam_resctrl_online_cpu(unsigned int cpu)
-@@ -1809,33 +1854,21 @@ void mpam_resctrl_online_cpu(unsigned int cpu)
- 
- 	guard(mutex)(&domain_list_lock);
- 	for_each_mpam_resctrl_control(res, rid) {
--		struct mpam_resctrl_dom *dom;
- 		struct rdt_resource *r = &res->resctrl_res;
- 
- 		if (!res->class)
- 			continue;	// dummy_resource;
- 
--		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
--		if (!dom) {
--			/*
--			 * On failure the CPU is left without a domain for this
--			 * resource, which mpam_resctrl_offline_cpu() tolerates.
--			 * resctrl_online_cpu() still adds the CPU to the default
--			 * group because the CPU is online and runs tasks.
--			 */
--			mpam_resctrl_alloc_domain(cpu, res);
--		} else {
--			if (r->alloc_capable) {
--				struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
--
--				mpam_resctrl_online_domain_hdr(cpu, &ctrl_d->hdr);
--			}
--			if (r->mon_capable) {
--				struct rdt_l3_mon_domain *mon_d = &dom->resctrl_mon_dom;
--
--				mpam_resctrl_online_domain_hdr(cpu, &mon_d->hdr);
--			}
--		}
-+		/*
-+		 * A domain that fails to be set up leaves the CPU without that
-+		 * domain, which mpam_resctrl_offline_cpu() tolerates.
-+		 * resctrl_online_cpu() still adds the CPU to the default group
-+		 * because the CPU is online and runs tasks.
-+		 */
-+		if (r->alloc_capable)
-+			mpam_resctrl_add_cpu_ctrl_domain(cpu, res);
-+		if (r->mon_capable)
-+			mpam_resctrl_add_cpu_mon_domain(cpu, res);
- 	}
- 
- 	resctrl_online_cpu(cpu);
-@@ -1850,40 +1883,15 @@ void mpam_resctrl_offline_cpu(unsigned int cpu)
- 
- 	guard(mutex)(&domain_list_lock);
- 	for_each_mpam_resctrl_control(res, rid) {
--		struct mpam_resctrl_dom *dom;
--		struct rdt_l3_mon_domain *mon_d;
--		struct rdt_ctrl_domain *ctrl_d;
--		bool ctrl_dom_empty, mon_dom_empty;
- 		struct rdt_resource *r = &res->resctrl_res;
- 
- 		if (!res->class)
- 			continue;	// dummy resource
- 
--		/* The domain may be missing if its setup failed. */
--		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
--		if (!dom)
--			continue;
--
--		if (r->alloc_capable) {
--			ctrl_d = &dom->resctrl_ctrl_dom;
--			ctrl_dom_empty = mpam_resctrl_offline_domain_hdr(cpu, &ctrl_d->hdr);
--			if (ctrl_dom_empty)
--				resctrl_offline_ctrl_domain(&res->resctrl_res, ctrl_d);
--		} else {
--			ctrl_dom_empty = true;
--		}
--
--		if (r->mon_capable) {
--			mon_d = &dom->resctrl_mon_dom;
--			mon_dom_empty = mpam_resctrl_offline_domain_hdr(cpu, &mon_d->hdr);
--			if (mon_dom_empty)
--				resctrl_offline_mon_domain(&res->resctrl_res, &mon_d->hdr);
--		} else {
--			mon_dom_empty = true;
--		}
--
--		if (ctrl_dom_empty && mon_dom_empty)
--			kfree(dom);
-+		if (r->alloc_capable)
-+			mpam_resctrl_remove_cpu_ctrl_domain(cpu, res);
-+		if (r->mon_capable)
-+			mpam_resctrl_remove_cpu_mon_domain(cpu, res);
- 	}
- }
- 
++#endif /* CONFIG_CRYPTO_HASH2 */
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index d62c7be1ca7bd..0dcdad905f0ef 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -67,6 +67,7 @@
+ #include "fs.c"
+ #include "fwctl.c"
+ #include "gpu.c"
++#include "hash.c"
+ #include "interrupt.c"
+ #include "io.c"
+ #include "irq.c"
 -- 
 2.56.0
 
