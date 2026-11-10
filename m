@@ -1,96 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297648;
-	b=agG+BB063GiebyRBbP1zQNA5jiM8xCCpbQ7V4fKgzTaN7pJColjewu6Mq9BUcSuDdx9x
-	 o60YMBVxO3dk0Nz9vdRIYZkaVD5IiOpoAr5viigRAOVy+hI3hU+0hhwd8gOEFHw9NCvUa
-	 gMsScGP4EDlfzS5ZXuU/jJuK67vjuvN/co8Go+mlrkh+OS0HRqE1h9Fwjb368ysHKM+/L
-	 hu8FzHDy+YHaum8IUu/0ITVyZS6UFPmVcYdevGHJLPr4pO/lbJg139oRERPUCey4NLcUG
-	 bVg11gtV+MFRyBcMBgCoPf3a6s77V8dY5S+JT9v79kEPG0ehWTDv/OYVITYn6pFAF3Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794297658;
+	b=eNAodc8BTRrS3pm7TsSvSqqLIV7po+iAxSptBPSSd/6dNtEIKzPhL5LDhyGZcCsBA6YT
+	 sk6xlWJCCyle6U+AQjfIJFfgPQOQD4zau4VFBaik3Kry0lAsqbzdZPU0CqwW3kQCCNz+k
+	 l9qFnKwsZdnQI/C1jcPUHG3W04wtapMQSeQu8/n4MG+qrASkQkGT1BzZ0b2nNLnUApwUD
+	 2dFKB+tDMYb/4IbmN/q09xGQA0gSOlpclsSQ/ZBkfJWdO3qQU0ZVtRSdZOJkYGbV6fxEc
+	 w/VryvwpkNrXiRiLYPdHAa5KlfG4e4XznEwNE0dbrqTdEUovH/tfSFQ6AiVbM1KvRqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297658;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5kzvaJFH6D0JkFePj4/JdbhL4yB346ZGpt0bPSGFrK8=;
+	b=lEQDZ0dMsIHsDkgrvLbpkaOeenEt58EiDbbtLtQrbmBeMO0UQVuaQ3u2+8Z3lVpSnSJt
+	 L1/yXw32cwmUTmnYEHkY+iyRaSr2ZVJXBtA+AJy7lnP1gNuVFX1NqBCJLHwil5db2lP3j
+	 tauhejSMQyalkFe1sGW/u8l/KbOzrA9s58Cgkpw+KGPjvTTe/dHy2BTadvjn30+BzkSMH
+	 dT0LOyXeP3WSewd0QEH1LV/dnvgQd/gRkvIgYwt6p7GN2VKa3vu2bM7VWyJfphEZZmhiC
+	 IeciLOzY6LioFO5Dgksbzyz+tSVRQRz8AlqHWAuFGcs+BgxiRzNWfn8SOmEpQeY4uyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VL2tV7//";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A627606A720;
+	Tue, 10 Nov 2026 08:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VL2tV7//
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794297657;
+	b=QEZVuy12grBsGGkAaVKWR1y4nQAuiJh/xLmQf+s8Z4j7atkWjbnA60vr480rjetLROS4
+	 dPbY+Vh4SgZGTfORU1WSAImpTyTKe9dYYkZnMOYXgInj2Y6sl5KdXLUrynTLg2ZwRRw47
+	 0BbB8+S+t9aXbGf5wW+YdwYDHokLLXiagMKjYs2LvaVOCMZib9w8frRS2sxODsHvQSraQ
+	 yTX+7gp8pq85oamxpkBMSdQg1Gv3HmP9tBpxIOi3VF6VoujIL3Q7F9QPMgrB52OYj4rJE
+	 92gy0rlzhmVMMpb3NSX1mFCXtzWHdsIKG86zMYr+8XE5kLbjgTxmMP9qBrvkJIjDqdw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794297657;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=80sWobsat/u+kRGlRXvi1m7JgYp74udJYP3vLOxAEw8=;
-	b=Afn15qeY7egJUvLyLv/8hatVPe5YcysEucHiaRLbWCrEy/lhbbQ2N+vVWYJal3gWY4p+
-	 HkSPe+hEFBm5dfNsuTJPJqRE/TRNcQaI6aXTIVEhJ1ARnCnd6wmMAulPzfu7HxrMnlBgI
-	 j0VFAt25e1jHO32m6D46/wfIqtXUhu2F1RoR4cpYgQwNLLUtqRHBExR69re1bEgv3kvVf
-	 sN9pn7pqLBms87Axk2ISNxWaRk5pLaFPwN3CyMqfru5+UrLtyoitetObsCxH8Odd7K3/j
-	 9nMzktJW22goCLbos4vGij9cV6DQjZuqI/x28RDH6wCWJdcV6gwlSyrJv26WxEB6+gw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHjdBMpW;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=5kzvaJFH6D0JkFePj4/JdbhL4yB346ZGpt0bPSGFrK8=;
+	b=Br8+rm9RfoIduyQwd8vtjKRd7DsFsE4IbiATXlh/IlD0MzdH9g7ba8RZKrwjGUaznZZy
+	 Vlh388oJuUHruTjAPo5bvmt4m1eppGnvzd5CmSIlM1ZUH6pQ0RnUkEbin7lSfACOKqGn1
+	 DerRAPqSg04ZtUItQodN6/jOVk1YRTjEAcgVmgj9JDt8oNTwpWw37ESSlpA/Ns8YytWDM
+	 9dXBzAIUxvDURuz/eX09zm7+QlHpCmVLT3hef042fyvpHuIqKIWoZBPBPQjtehkBaMhnP
+	 Alx1MuEmQKPEDuMgc3mSr5teom1KpebxFuNx9x2EN72m2QhzGVQrpiZDEm0jaalv6pA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE161606A723
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE161606A723
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHjdBMpW
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1a2761c69fbso2451536c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:00:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794297646; x=1794902446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=80sWobsat/u+kRGlRXvi1m7JgYp74udJYP3vLOxAEw8=;
-        b=xHjdBMpWhSG+Kdu2FDryC2I3YpxM/MYVW27W7uevJDEpit0PBWkyd78AqN9ELhiA4T
-         xcvrK35BDSKEBLZP9SpyFOKa8qLI31SP0XRNw/p4XDH9d0+lp2H0Z4KDr7j7ONvA9QR4
-         qAzk2bXs04TLpRHq7v/SpWaeg+/AN4KKxNmUbPA+lU01zh+VxlpbTtTbxnNLPLU5LzxP
-         KAtUgL8YnkxElSsqwKaBfvKKbgDqEvolc8vIzJYojvPXgEvXamTJwMTQUKLotmK8hgjI
-         RKQ8ieVXqaGQlkSYf2jxHR9ldOa5fp2RfKbL+tBgeSfY7NIMDD/ARgytCCgZsFlZ+/5K
-         GFAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794297646; x=1794902446;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=80sWobsat/u+kRGlRXvi1m7JgYp74udJYP3vLOxAEw8=;
-        b=ZYGqTlPXGxFF6LYCjAVGNGVzoiBD12TReHrEFBo9EEwjzI5SyfKWUZRSgkanw5R4gL
-         0aLheKP75MHBD3MxVQqpuOTKUuH0byo/XLwA8OB8+P791V62DsmI6Nc1WqSNILQJvUk9
-         RpQ3+uhBGOUE//E3miusrng8tJljWYP0CPjzktb4oDDWuuqhBpAKZ54kRgHLhy27aYW6
-         Ry4X/6JZvjNpNuv4L4Oz9o854r0BGboJ8CppAMqvf6cHdUrCCgshA2avCpknLhRXMmN3
-         Dj1k24oWFw7rDI3AnOe9wEMXGWiYL+lSwbBEqQTekrL+C69J7R+3DBOL50cZmOB384q3
-         PrQQ==
-X-Forwarded-Encrypted: i=1; AL+hErFxl1waSgDGyX1ssSfEPMhfqjIw3eQ5EP3OuNWWWK0chcFCxdF0IVs41iEB7HWPamCka+W3oPcC+JgKNDY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9e48OV2IoaNkFdI22LQDmuI0TqP5NBKEYmyez2KUZZTZPZcFgq
-	IlELR+Y0rf1kSVGi1MVRB0ouHaN1wKamzi/YhmAz3W9k3OXZ6DQAUC/L
-X-Gm-Gg: AYBFou1KauBWDEDQ4EBz/ehTQeFmkGGV2QbrhlJJSqIwq9Unwau++Ke11qzfCdDyGrJ
-	OrEGGL5HuZBL5sNbgqcL/ID3ilg5P0nyho5OuZQPcGwkvMhwC5AAJnzRQwHKftA+Oihes7hnFCH
-	jLyDa4z98DGcj2SqCProODKrIonuNu+I2hfhhidikyDEh2a/aXIPXjQj9NISNCkBYQXtUPQDTZO
-	vwXY4jktN8xbDvImXWvWgC3Bqff6j8q+A23Xc66oIaDvuTt1glDiMxHiU6nDCGdghjydaU/G+8D
-	S2BkHfHSeOb5TMT2zxUWy31p26toz4PjFWKaqc3lsWmIVq2oSNobg3s4hzFV3N1FxZ+/h0CYdly
-	QWEPVCsLQZczDjlMRBL1AKA4saX9ZA5D/H3aLD1V7uPbmi9z+MymlseAj7BPWdI0tsXVRQwZ9iD
-	aHig70onmxYlzKvkKE8TxvC1Uguguk7yNiDKZM963khoZuEIAG2UQzlU8uoGkMGkZmztneEm9Nd
-	r+Ia9K47vHFyiZ9lXsw9l8uRCTG3KxZ9T9WOFsxz2Q1npvFmOQBowE10Yn/zyacU+VBq1bByZdA
-	xfGNq2PmfN3pFl4smxFugAFVCQyEOZe7RnqFJBqvopGnBps1GMVbwxbBTJZwMZHEI5G4
-X-Received: by 2002:a05:7022:b0c4:b0:144:f089:b189 with SMTP id a92af1059eb24-1b3b618588fmr2363514c88.36.1794297645661;
-        Tue, 10 Nov 2026 00:00:45 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm6139313c88.7.2026.11.10.00.00.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:00:44 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: cel@kernel.org,
-	jlayton@kernel.org
-Cc: neil@brown.name,
-	okorniev@redhat.com,
-	Dai.Ngo@oracle.com,
-	tom@talpey.com,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH] nfsd: don't block on a file lease while holding the parent lock
-Date: Tue, 10 Nov 2026 16:00:38 +0800
-Message-ID: <20261110080038.232210-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 633271F0089F;
+	Tue, 10 Nov 2026 08:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794297657;
+	bh=5kzvaJFH6D0JkFePj4/JdbhL4yB346ZGpt0bPSGFrK8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=VL2tV7//jBw0NfpUJ5/RPJGSESGTE6Srd25mA+fQ1bgy9ab74cGSk79Bi5PXZ3RwQ
+	 ghxZJob+Mwf8i1E+n1OYe7LWOxAPyhYmv6V2kUDqwRsV5j2W3LzJsbhea5C45mXUHY
+	 QE7PpUyaDYJ3XMnF4UiV3lJ4ax5NPSArEJ8h+rfWWgASceDIKGxeWweMBhIbBzwbWr
+	 b0QjGGO05YeKaS87ubCNf4mZ/ofeGyVOBzqGedVuOwsP3sXzIkt22ftTR+byExLrLs
+	 wYqb7WTq2qoBRKpNZNFnIaHTiGglieQ4n8/5YYhw7EJFSSuu0yRUAcB6mOf6YylPAh
+	 M7XBkeRJxosFA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B652848A16;
+	Tue, 10 Nov 2026 08:00:56 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Tue, 10 Nov 2026 17:00:57 +0900
+Subject: [PATCH] xfs: check the disk address for hardware atomic writes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,56 +82,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-xfs-hw-atomic-align-v1-1-2274b169c32e@samsung.com>
+X-B4-Tracking: v=1; b=H4sIADjP8moC/x3MQQ5AMBBA0avIrE3S0iCuIhaDwSSUtEKTxt01l
+ m/xfwTPTthDm0VwfIuXwyboPINxJbswypQMhSoqrbXCMHtcH6Tr2GVE2mSxqJiGqilLY2qCVJ6
+ OZwn/tevf9wPrfuLTZQAAAA==
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Pankaj Raghav <p.raghav@samsung.com>, 
+ Pankaj Raghav <pankaj.raghav@linux.dev>, John Garry <john.garry@linux.dev>, 
+ "Darrick J. Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+ Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794297656; l=2023;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=F8iIbd6Eszp+I6y7W1YZ0heXUAQ4Tct/8s2wppk82FQ=;
+ b=kS+BsKaUWKZesCUse7dkx23u/LG0MNFq7np4APEH+yrpLvythgqWsOXGgFYwtntkZPK591kGu
+ v94W6w3YdiwDUe3qCVwGnLxZoPZwqBgp9MZY+WsfZJEXYYp08dsI/Op
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+From: Daejun Park <daejun7.park@samsung.com>
 
-Since commit 2a60db3525d4 ("nfsd: (almost) always open file in
-nfsd4_create_file()"), an NFSv4 OPEN with create that finds an
-existing file opens it with dentry_open() while start_creating()
-still holds the parent directory lock. The open flags lack
-O_NONBLOCK, so break_lease() in do_dentry_open() blocks. Before that
-commit the file was opened later by __nfsd_open(), which breaks
-leases with O_NONBLOCK, and the client retried on NFS4ERR_DELAY.
+xfs_bmap_hw_atomic_write_possible() checks the alignment of the encoded
+br_startblock, not of the disk address. The two can differ outside the
+first group.
 
-A lease on the file now stalls an nfsd thread for up to
-lease-break-time with the directory locked, and other creates,
-unlinks and renames in that directory wait for it.
+Since commit ec8f62cc109a ("xfs: don't limit software atomic writes by
+the group alignment"), a misaligned write can reach the hardware path.
+The block layer can fail it with -EINVAL, and XFS does not retry it
+through the COW path.
 
-To reproduce, set fs.lease-break-time=15, take F_SETLEASE F_WRLCK on
-/srv/g from a local process and keep it, and run "echo x >> /mnt/g"
-on an NFSv4.2 mount of /srv from localhost. The nfsd thread blocks
-in break_lease() for 15s, and "touch /srv/other" on the server takes
-13s.
+Check the disk address instead.
 
-Pass O_NONBLOCK so that break_lease() returns -EWOULDBLOCK and the
-client gets NFS4ERR_DELAY again.
-
-Fixes: 2a60db3525d4 ("nfsd: (almost) always open file in nfsd4_create_file()")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Fixes: ec8f62cc109a ("xfs: don't limit software atomic writes by the group alignment")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-With this patch the same test hits break_lease_noblock and the touch
-takes 20-30ms (QEMU guest, f66469d9905b).
+Affects a group size that is not a multiple of the device's atomic
+write unit max. mkfs.xfs 6.16+ rounds agsize to it, not rgsize.
 
-NeilBrown's "nfsd: switch NFS4 OPEN to use vfs_lookup_open()" (v2
-12/14) makes the same change; that series is not merged.
+Tested on emulated NVMe, 64 KiB atomic unit and boundary: 64 KiB
+atomic overwrites in AG 1-3 (mkfs.xfs 6.6.0, agsize=262142b) and
+rtgroups 1-7 (xfsprogs 7ebfc20eb88e, rgsize=65534b) failed with EINVAL
+before and use COW after. fstests -g atomicwrites, xfs/838 (rt): no
+change.
+---
+ fs/xfs/xfs_iomap.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- fs/nfsd/nfs4proc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index c3465204b8d..cfa2f7ac03a 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -848,8 +848,11 @@ xfs_bmap_hw_atomic_write_possible(
+ 	 * atomic writes are required to be naturally aligned for disk blocks,
+ 	 * which ensures that we adhere to block layer rules that we won't
+ 	 * straddle any boundary or violate write alignment requirement.
++	 * Check the disk address: br_startblock carries the group number in
++	 * its high bits, so it can be aligned when the disk address is not.
+ 	 */
+-	if (!IS_ALIGNED(imap->br_startblock, imap->br_blockcount))
++	if (!IS_ALIGNED(xfs_fsb_to_db(ip, imap->br_startblock),
++			XFS_FSB_TO_BB(mp, imap->br_blockcount)))
+ 		return false;
+ 
+ 	/*
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 3a82af381a8d..e95258b44c72 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -312,7 +312,7 @@ nfsd4_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 		.na_iattr	= iap,
- 		.na_seclabel	= &open->op_label,
- 	};
--	int oflags = O_CREAT | O_LARGEFILE;
-+	int oflags = O_CREAT | O_LARGEFILE | O_NONBLOCK;
- 	struct dentry *child = ERR_PTR(-EINVAL);
- 	struct path parent = {
- 		.mnt = fhp->fh_export->ex_path.mnt,
+---
+base-commit: 48326a2382d80715475d10ce98734ac65d2d2150
+change-id: 20261110-xfs-hw-atomic-align-0eab6833447a
+
+Best regards,
 -- 
-2.43.0
+Daejun Park <daejun7.park@samsung.com>
+
 
