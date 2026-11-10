@@ -1,64 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.215
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337301;
-	b=MBJTOj7m2o+UlSXPyn3tqO86s1lo/VdTDm8D/IdxsW2fEVmDCB+QxndviworaHrHRCuC
-	 Ac+mAXQhbVyXnU0MxR4rTRbR7Cqy/r44mEgZ0F70iGAuwV3yVXvjitvznoDdO6lMFCXWI
-	 3GNMvCFL6yGt/5LwezSWFMARYuwNhBW310EXy2NU9cUyqbfbudzOnNEHIJLmHxWn70SL5
-	 o8Qn/omqOYI3RbtBlrNWVZ4BuIRqbK4sTVHGwK19rk5BOrSn+SpOA5Cfy8+cqkQ6pV5tx
-	 2rsV03AdmM+hxkWj+aamy1NbrwEF6N0Y40GQLMVNUoH43ZAln6HLZWlAFNxU9fw5f5A==
+	t=1794337325;
+	b=JbL2KKwoT3/GH0YDz7FBiaSwIHrAV6W1fAdjHm1ExWZNbnTOrk/cPBv59rC9iexcyLQe
+	 1OZ4zq01NoyVKqVS6L6CuNeSp97AJ/gjvYnhATKwwA22aqfm5i03hC/8BWwgLxOivz7/1
+	 maILz1neW6/VKE6SvisCFnE1vs70ZxwptT7b7R2G3WAT1l1wadUiM6S7lRLkcOkctslPw
+	 40f2i3ilTKbyH2CuX5/Ie5etArJjLUemJHj+QkBA5WLOmuzBY+3v/P33M+0Ow+r75ES+f
+	 Q0aPhr46fFgh9nXOQUryYSByK9ryJM/Q8m9d1/Lr6bxX1st9vkofEzkTm0pQdDUz8Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337301;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ANGsAW3ddISCEyK4d//HKeoYe5zuJzrn5kEwLtvmkDM=;
-	b=cnn0JdywYPJRyAvGXnuvH00Ti5YJCjZlDrxVVYWQ8ZUqviug0zlPatVarWk3UO89uPAm
-	 6Q+CLDnUp8+/6evFgH0n4CktNiWsvUIlyB4ndARFBgQ6m0V8V84pPnweARQcJBqNyIaug
-	 xgHk99/ifCj5WvB+h6Gc/Co7oC/8bdJtDKP/NdfvgUSxkz0qkvZ5JPbjRJponTeu55ToU
-	 YVefk9d0Pmp41bNn4R9jDRhMhkkP8tj5K3cxCTU7L1ghKilNL2gHCreHH4tJC6bqbs39v
-	 uBB6fQPchZWOb9ClgtPsg3pk1AnYNuqdzC0S7UFxSZPc56n9injzDpVbmh7MHtdNrcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337325;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=m+Mg2pmSN+BG2xokzdSJfneMVVdXbskQcyg2u8EG8MU=;
+	b=XCYHzj8MlYc96kJj5QB6r+5t28GYbWWhGCodzea8P3QF9xGMw1JkMCo7EJHbAS3LZykd
+	 FnhUY21A7W6KPD9xYrIKJJt2bW1wxV2APBY5qLI5JMC2Ozc6O5VHJHPdbtXBik2CUChu8
+	 6QzbleUEwsyMrifBClKFyMRKM5ln20lKze3fxKk5pvWv15OtLGfPbSrEiE1EXuoDPRJRJ
+	 T6LJBx4ZFk1MxxH05CN1k/Aog/NNX9ZVnK/icvcRQSuzFPAbnqpF6hY8HViGjhXAN4BQj
+	 f0X4VRjH0M2iOAXpmgFbwbJkTo2hqoLzufXZH9Kfsw/mHd04+QrdJZq4kVf56gtlblA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="NM4fPjp/";
-	arc=none smtp.remote-ip=95.215.58.215
-Received: from mta1.migadu.com (out-215.mta1.migadu.com [95.215.58.215])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EbEQZYms;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD0D606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BD0D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA25606A33B;
+	Tue, 10 Nov 2026 19:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NM4fPjp/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n6jhI9QzIIOuQuMEhfxCfvU9Cq83yhTDFf2khKzfCyE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794337296; v=1; x=1794942096;
- b=NM4fPjp/sbmXwdluLfrGssAHuGDwa+jb0vEg+XMsHN5BzNu8wwgpkGMXlfpxKIBvulLq44Ac
- z7pqKobaPD75I0rf9HmJCefysNwsto2/PWweEscxIVo8Zno6wBPq78DhU9cv6SNIOq/cDoazlDC
- f3kFPY/+8+XhhIKss+yNOCTA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9b3cd5053f99a7d5;
-	Tue, 10 Nov 2026 19:01:36 +0000
-X-Mizu-Trace-ID: 9b3cd5053f99a7d5
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 19:01:36 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: paulmck@kernel.org
-CC: boqun@kernel.org, christophe.jaillet@wanadoo.fr, dan@cryspen.com,
- dave@stgolabs.net, frederic@kernel.org, jiangshanlai@gmail.com,
- joelagnelf@nvidia.com, josh@joshtriplett.org,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, neeraj.upadhyay@kernel.org,
- qiang.zhang@linux.dev, rcu@vger.kernel.org, rostedt@goodmis.org,
- urezki@gmail.com
-Subject: Re: [PATCH] rcuscale: Constify struct rcu_scale_ops
-In-Reply-To: <b6f19ac5-1336-43f4-8bb3-a891984adb19@paulmck-laptop>
-Message-ID: <CE48A881-9AAF-467F-A0FF-C8F853643888@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EbEQZYms
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB301F008A1;
+	Tue, 10 Nov 2026 19:02:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794337324;
+	bh=m+Mg2pmSN+BG2xokzdSJfneMVVdXbskQcyg2u8EG8MU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EbEQZYmsiV+CwZPSKhwsGVnIZd75BetlSFkt7NHcBffbaKVP2/TkY23QXNN3Clolo
+	 abc7ybU7CMsSYFnt8xNr9d/UySv4qAwypcO5LtrrusJib1wz+egSYqq8ueaQC57FtJ
+	 tAkGDIja4G1AbC+nbwUByLb3kNBi7UEYCzlW3YgGlyU30PYMQmyyMkdBGdWFjjXPoz
+	 OthuZlSPkoC3SbxAT7LruVAzF6G/HxJqlGb+UgiBOUZQEeDR/f/QO7d7ChWlxioCUe
+	 /obJwbUHcL01lXtXbJiKnNjaGW3MKtcedGJOrQEStsAidjoUSKyKHskaN6eNyUt4L6
+	 4JSF6bjDCosdg==
+Date: Tue, 10 Nov 2026 19:01:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	Cyrille Pitchen <cyrille.pitchen@atmel.com>,
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] ASoC: atmel-i2s: fix clock error handling
+Message-ID: <a236085e-5ccb-40f4-ac59-75e0249267bf@sirena.org.uk>
+References: <20261002043856.97295-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,84 +65,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jx4O88Jzwpr7VcWr"
+Content-Disposition: inline
+In-Reply-To: <20261002043856.97295-1-phucduc.bui@gmail.com>
+X-Cookie: You can't take damsel here now.
 
-On 10 November 2026 18:34:00 GMT, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Tue, Nov 10, 2026 at 08:06:59AM +0300, Dan Carpenter wrote:
->> On Mon, Nov 09, 2026 at 10:44:16AM -0800, Paul E. McKenney wrote:
->> > On Mon, Nov 09, 2026 at 06:32:15PM +0100, Christophe JAILLET wrote:
->> > > Le 09/11/2026 à 00:06, Joel Fernandes a écrit :
->> > > > On Sat, Nov 07, 2026 at 10:02:25PM +0100, Christophe JAILLET
->wrote:
->> > > > > 'struct rcu_scale_ops' is not modified in this driver.
->> > > > > 
->> > > > > Constifying these structures moves some data to a read-only
->section, so
->> > > > > increases overall security, especially when the structure holds
->some
->> > > > > function pointers.
->> > > > > 
->> > > > > On a x86_64, with allmodconfig:
->> > > > > Before:
->> > > > > ======
->> > > > >     text	   data	    bss	    dec	    hex	filename
->> > > > >    45585	  24946	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
->> > > > > 
->> > > > > After:
->> > > > > =====
->> > > > >     text	   data	    bss	    dec	    hex	filename
->> > > > >    46545	  23986	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
->> > > > > 
->> > > > > Signed-off-by: Christophe JAILLET
-><christophe.jaillet@wanadoo.fr>
->> > > > > ---
->> > > > > Compile tested only.
->> > > > 
->> > > > rcuscale is a test kernel module, is it worth adding boilerplate
->for
->> > > > non-production code sighting security reasons?
->> > > 
->> > > Oups, now I better understand Bradley Morgan comments.
->> > > 
->> > > I didn't notice it was a test module.
->> > > My patch makes no more sense, as it is not hardening runtime, so
->feel free
->> > > to just drop it.
->> > > 
->> > > Sorry for the noise and not seeing it by myself.
->> > 
->> > Although the header comment does say "Read-Copy Update module-based
->> > scalability-test facility", maybe there is something that should be
->> > done to more clearly mark code that is not to be used in production.
->> > And maybe to inform the LLM review bots of this.
->> > 
->> > But this is bigger than just RCU.
->> 
->> Christophe has been constify things for years and years.  There is
->> an argument to be made that it's just the right thing to do whether
->> this is test code or not.  Someone might copy and paste it, for
->> example.
->> 
->> Of course, everyone is overloaded with AI.  I feel like normal cleanup
->> patches are more likely to get NAKed because everyone is just totally
->> overwhelmed.
->
->Fair enough, though rcutorture.c (in the same directory as rcuscale.c)
->*does* write to its counterpart to this structure.  The point being that
->this is an optimization-like thing rather than a prohibition-like thing.
->
->So we might want some way to differentiate between these two cases.
 
-Well, I'm not saying "no this shouldn't happen", but the benefits are
-negligible ISH. Well, Paul, what do you reckon? I'm not fussed, just a bit
-"ehhh..."
+--jx4O88Jzwpr7VcWr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
->							Thanx, Paul
->
->
+On Fri, Oct 02, 2026 at 11:38:51AM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+>=20
+> Hi all,
+>=20
+> This series fixes clock error handling in the Atmel I2S driver by
+> propagating errors, using optional clock APIs, and simplifying probe
+> error reporting.
 
---- Thanks!
+This doesn't apply against current code, please check and resend.
+
+--jx4O88Jzwpr7VcWr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzaiYACgkQJNaLcl1U
+h9Djlgf/V/gElCZDZ2VSQGSm5CRyeWp1zE0bW51v2sBWGhM3Oxkt2yTcCnIENuWj
+L+TEeDNt2hiwRTsd1U3OOluIqWJXy9HTdqVDfvn5mLlKDl33vrEbFwrx3O3Oet36
+p2oEONoOjq+GD0Cu46z1rZeMXQZn0F5wJg/YxDgQGO88pxsR7R1AxcFj5GSILNGu
+mqR6t9sBzEdVOpqPhoFoy8Xo0VFrILtZJdjUU1JItMpaxa8RQilIyXvP2/CU8Fd2
+v80iKAI4CUY/1z0a1ASZNCQMCCOVbLPwop7Ys+zDQlxZOByMCR816d/hNG8RGx6d
+D1ISdJata6AvCyRqC20n6d1v/o5joQ==
+=4SwU
+-----END PGP SIGNATURE-----
+
+--jx4O88Jzwpr7VcWr--
