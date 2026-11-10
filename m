@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.111.35.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271704;
-	b=qr9wHyRP9K2IliXP7Ck69OqTSiZuZJjqxNWJxE0ylco0ACu4TFVI+0BrR09NY2Oqu4t6
-	 pD7BbH3NezqV12RoQP3jYOginfNLBVxQnXHigEBY9mfoHwA625gqXZTMWfciphXwxT4Cy
-	 iJgpzxIBQVRV0Yj0BzbXshk0nWKlYnUOa0JiClEdPBYBkqfdBaPffz6SiLbPidgKm/gzA
-	 AL7Tx2ZTTmYRjyKpRiIaK1VkXcvI578qrAukuooPj01lU6FsTH0LdKcZu6csvf06sandH
-	 4SLapj1I4kw6vY0QQkTAO+Sf0apM4lEs8jmCXOU43jNnqVZpdOnXHcPwY+mXV+Ib7Pw==
+	t=1794271766;
+	b=tdYcy/jOXAiGtOEcOnVHUo1Nu/f+d0MJBMWDzCqNeB/kWtnzTt4ABFrLin/ejfolCLMd
+	 rwl4u3HPIEQ+TiiM23iJXjGNEHZcoO5J13WmhXe5qgXlDVSQdeqL6ywvxi9lMIOb5i8Se
+	 i+rQaX7PYkx4iEadcaeO7ak6/rY+zjpQBcRqe0KPR/zaYNxV+M7oI3xRnB0pe9awtg3rT
+	 sOFI1PdS+6NUgSIeNnqacebMf+e/eVVwZWCdFvwOqIXGQoe6cmiAsFcQDWpnJgiqypR6E
+	 71qZFeJo9EWg+C/Bwyf6c7xdFY/eHbN2bzY8HTmp8ddDgWyR329JPap2BypMNcTyl4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271704;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3Xo6pRfKtJUGUHdPK++9LnJKDE8puj/5ez9TES0+7xw=;
-	b=kduJTO4YCIRgtSYYCa4fNL4ci/IDsLWi/FTJzgTmX+g9CuBc0bzJXpIOD1HlV4nhCq44
-	 x2CecUZM8un87fmrdEID6UlGniDZXWD59zhygwMYin3jdWpfEYqHtENqtsgUclgJ1HM9F
-	 S2I2o/wjYmuuF5RNfiv6z2nrGQr4lXc8yxM0K7cUFMNdwf69CF5XLfuMOG+tMj1XRhsX4
-	 x/DzX87WWPTN3LWY5SkBMbI1Hz46subFsUge/4ALRe5oY19ex2KpLMFURswEEsqSLQ0mH
-	 BxWA7gPqJfFU2sd4v7rV4WZQuUlHRW6Vl1nwppRyiHV2sQUpy5hgrRTp4nBsAVJVRsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271766;
+	h=DMARC-Filter:X-Originating-IP:X-Works-Smtp-Source:Received:
+	 DKIM-Signature:X-Session-ID:MIME-Version:Message-ID:Date:From:
+	 In-Reply-To:References:Importance:To:Cc:Subject:X-Originating-IP:
+	 X-Works-Send-Opt:Content-Type:Content-Transfer-Encoding;
+	bh=bsgjQJ3EYXzJGz3xRscjU4VTksEqDVhrhriqpZCPFik=;
+	b=x+pQ5tPRjTvnV7ztndzVWgeOe7G5HCTCTdzQtL+mW7pSlQw5Jo7iuR7RcG9xGNnXmXWl
+	 ug1ZwThGI+kvw2lSB6Wi/kuPOVgplGbw2VABg0mQwgyRlSrsJGh2H35KiFD3EUAKWbMhQ
+	 9HhBsFeWzc2nG/f9URwCI1Mwo08sHfLluOBsk3Px8J0X6sQjodTu/cTMER/+yGJz1vODI
+	 sRuorONpDxerobR+YVdO/206g5LlL7A9RK7rMwd46OICWyJDrZUSG5ToKqTNjRfO0bF36
+	 w69YxQZZdiQaGY4JjrU9YKOKbn4bBYyLB9THYx+5cwp6819BBkBG8sM7H1nLtHsm72g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ecr7oeSg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=naver.com;
+	spf=pass smtp.mailfrom=naver.com;
+	dkim=pass header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b=WNb8fLhx;
+	arc=none smtp.remote-ip=114.111.35.29
+Received: from cvsmtppost09.nm.naver.com (cvsmtppost09.nm.naver.com [114.111.35.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F13E606A325;
-	Tue, 10 Nov 2026 00:48:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A13C606A321;
+	Tue, 10 Nov 2026 00:49:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A13C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ecr7oeSg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53451F008A1;
-	Tue, 10 Nov 2026 00:48:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794271704;
-	bh=3Xo6pRfKtJUGUHdPK++9LnJKDE8puj/5ez9TES0+7xw=;
-	h=From:To:Cc:Subject:Date;
-	b=Ecr7oeSgvsJKzDeMDBpc7QEOPzDe6UTbRKUtx0+XnFGQ4sMMlyG5Nopq9bwUm46VP
-	 cLnLW9iB5UycYapqZA0RFitW0YvfVm4VzBfKhoU/MWtwFHVTRP66MBiD5Bh8cl6T+R
-	 vugK3lQjpmOcfTxaiqonolaKG219lLKHAfC/GeZSsOHEl7xG1j23C4G4KP9TwI1dF2
-	 b7pX8nfG4A3dFRdyWW0ftaayxauJ94zTFXlHxndzj6mYjMb8BlNyKL5yOcB3MB1B2P
-	 rFIzvAGNm0UVDoUiQ5UX6lKvxtRECMn6HWJk6eXH+NUUFjuuFRjGuFwuHZRo4HJOWa
-	 vLH5y4vEcl+Pw==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Wang Guangke <gkwang@linx-info.com>,
-	stable@vger.kernel.org,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH mm-hotfixes-unstable v3] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
-Date: Mon,  9 Nov 2026 16:48:14 -0800
-Message-ID: <20261110004816.100066-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b=WNb8fLhx
+X-Works-Smtp-Source: PXYqKotlFqJCpNmXFxKlWHF0
+Received: from nv1s-hmac-real-35 ([10.180.31.91])
+  by cvsmtppost09.nm.naver.com with ESMTP id wgnGdBkoSfKe8lF1iOXH3g
+  for <multiple recipients>;
+  Tue, 10 Nov 2026 00:49:17 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1794271756; bh=bsgjQJ3EYXzJGz3xRscjU4VTksEqDVhrhriqpZCPFik=;
+	h=Message-ID:Date:From:To:Subject:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=WNb8fLhxEBp1860EYpdJzxnND8WXrbm7nC3C9Wv0nm9zm9lLqP3ZZXvFf/V4Mz1j2
+	 4vUQ7isPb8BT65Hhm7Rk1kiCLgHOXUMPNisDRzhcZ4NaDsyWjUHUFfG+ZfZYz7beon
+	 O53Yy/YqGdQOCMA9qsMXZ26BKo8gArDycpj7/ec87vWUKkJCvwzwWGsIaOHkPTcIkB
+	 80vAQGg+iba4PQmsfwvnEeuWZFFraq/8fbc7iGC536iYftoJllvj92C/MmLNncwuGH
+	 gnssj+7KPIeTx/1cLUpyyTd3XOQjH9faRYMdldVVfqDRECgYJMnlx+375HWyaOnhr5
+	 oMtNCMkXIl0lw==
+X-Session-ID: a39ff1babf02021ea48d0645a846145596af51b8900248f4feaf74578daa0da2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,85 +59,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <e360517ba7fa8262912a5c01b224ad9@cweb016.nm>
+Date: Tue, 10 Nov 2026 09:49:16 +0900
+From: =?utf-8?B?7JaR7Iuc7J2A?= <didtldms2525@naver.com>
+In-Reply-To: <20261109.iej8biD4ohph@digikod.net>
+References: <20261106120004.90041-1-dennylin0707@gmail.com>
+	<20261109.iej8biD4ohph@digikod.net>
+Importance: normal
+To: =?utf-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>,
+	=?utf-8?B?SHVuZ3l1IExpbg==?= <dennylin0707@gmail.com>
+Cc: <hannes@cmpxchg.org>,
+	<surenb@google.com>,
+	<peterz@infradead.org>,
+	<mingo@redhat.com>,
+	<juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>,
+	<dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>,
+	<bsegall@google.com>,
+	<mgorman@suse.de>,
+	<vschneid@redhat.com>,
+	<kprateek.nayak@amd.com>,
+	<cerasuolodomenico@gmail.com>,
+	<linux-kernel@vger.kernel.org>,
+	<sashiko-bot@kernel.org>,
+	=?utf-8?B?R8O8bnRoZXIgTm9hY2s=?= <gnoack3000@gmail.com>,
+	<linux-security-module@vger.kernel.org>
+Subject: =?utf-8?B?UmU6IFtQQVRDSF0gc2NoZWQvcHNpOiBDaGVjayBDQVBfU1lTX1JFU09VUkNFIGluIHRoZQ==?=
+	=?utf-8?B?IGluaXRpYWwgdXNlciBuYW1lc3BhY2U=?=
+X-Works-Send-Opt: +wedpz0vjHmZFxiqW63nFBmmjAuljAudKxt/KxKXKq0YEu9YKBmm
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-From: Wang Guangke <gkwang@linx-info.com>
-
-estimated_memory_bandwidth is calculated by access_bytes *
-USEC_PER_MSEC * MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval,
-and users read it via
-/sys/module/damon_stat/parameters/estimated_memory_bandwidth.
-
-On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned
-long once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC),
-so users get a wrong value.
-
-Fix it by doing the calculation in 64-bit and splitting the division
-into quotient and remainder.
-
-The issue was reproduced on a 32-bit system (qemu-system-i386): the
-parameter estimated_memory_bandwidth reported 362 instead of the
-expected 1926150; with the fix, the value matches the expectation.
-
-Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Wang Guangke <gkwang@linx-info.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from v2
-- v2: https://lore.kernel.org/20261103034034.7978-1-gkwang@linx-info.com
-- Collect R-b: from SJ.
-- Rebase to the latest mm-new.
-Changes from v1:
-- v1: https://lore.kernel.org/all/20261101180001.167198-1-gkwang@linx-info.com
-- Clarify the issue and its impact on users.
-- Add Cc: stable@.
-- Rename variable bytes_per_interval to bytes_per_us.
-- Use USEC_PER_SEC instead of 'USEC_PER_MSEC * MSEC_PER_SEC'.
-
- mm/damon/stat.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/mm/damon/stat.c b/mm/damon/stat.c
-index b05b68f73e10d..e44f5bf3645cc 100644
---- a/mm/damon/stat.c
-+++ b/mm/damon/stat.c
-@@ -32,8 +32,8 @@ static bool enabled __read_mostly = IS_ENABLED(
- module_param_cb(enabled, &enabled_param_ops, NULL, 0600);
- MODULE_PARM_DESC(enabled, "Enable of disable DAMON_STAT");
- 
--static unsigned long estimated_memory_bandwidth __read_mostly;
--module_param(estimated_memory_bandwidth, ulong, 0400);
-+static u64 estimated_memory_bandwidth __read_mostly;
-+module_param(estimated_memory_bandwidth, ullong, 0400);
- MODULE_PARM_DESC(estimated_memory_bandwidth,
- 		"Estimated memory bandwidth usage in bytes per second");
- 
-@@ -55,15 +55,18 @@ static void damon_stat_set_estimated_memory_bandwidth(struct damon_ctx *c)
- {
- 	struct damon_target *t;
- 	struct damon_region *r;
--	unsigned long access_bytes = 0;
-+	u64 access_bytes = 0;
-+	u64 remainder, bytes_per_us;
- 
- 	damon_for_each_target(t, c) {
- 		damon_for_each_region(r, t)
--			access_bytes += (r->ar.end - r->ar.start) *
-+			access_bytes += (u64)(r->ar.end - r->ar.start) *
- 				r->nr_accesses;
- 	}
--	estimated_memory_bandwidth = access_bytes * USEC_PER_MSEC *
--		MSEC_PER_SEC / c->attrs.aggr_interval;
-+	bytes_per_us = div64_u64_rem(access_bytes,
-+			c->attrs.aggr_interval, &remainder);
-+	estimated_memory_bandwidth = bytes_per_us * USEC_PER_SEC +
-+		div64_u64(remainder * USEC_PER_SEC, c->attrs.aggr_interval);
- }
- 
- static int damon_stat_idletime(const struct damon_region *r)
-
-base-commit: 09f140d2cb078edfcd08a40a23ead0bdceea30a4
--- 
-2.47.3
+T24gTW9uLCBOb3YgOSwgMjAyNiBhdCAxODo1MDo1MiArMDEwMCwgTWlja2HDq2wgU2FsYcO8biB3
+cm90ZToKPiBUaGlzIGlzIGRpcmVjdGx5IHZpc2libGUgd2l0aCB0aGUgbmV3IExhbmRsb2NrIGNv
+bnRyb2wgb2YgY2FwYWJpbGl0aWVzLgoKCkkgcmVwb3J0ZWQgdGhlIFBTSS9MYW5kbG9jayBDQVBf
+U1lTX1JFU09VUkNFIG1pc21hdGNoIHByaXZhdGVseSB0bwp0aGUgbWFpbnRhaW5lcnMgb24gTm92
+ZW1iZXIgNCwgMjAyNiwgYWxvbmcgd2l0aCByZXByb2R1Y3Rpb24gcmVzdWx0cy4KCkkgdGVzdGVk
+IEh1bmd5dSdzIHBhdGNoIG9uIExpbnV4IHY3LjQtcmMxIHdpdGggTGFuZGxvY2sgQUJJIDEyIGFu
+ZApjb25maXJtZWQgdGhhdCBwcml2aWxlZ2VkIFBTSSB0cmlnZ2VyIGNyZWF0aW9uIGlzIHJlamVj
+dGVkIGFmdGVyCkxhbmRsb2NrIHJlc3RyaWN0cyBDQVBfU1lTX1JFU09VUkNFLgoKTmljZSBjYXRj
+aCBvbiB0aGUgdXNlci1uYW1lc3BhY2UgaXNzdWUgYXMgd2VsbC4gVXNpbmcKZmlsZV9uc19jYXBh
+YmxlKCkgd2l0aCAmaW5pdF91c2VyX25zIHJlc3RvcmVzIGJvdGggdGhlIGluaXRpYWwgdXNlcgpu
+YW1lc3BhY2UgY2hlY2sgYW5kIExTTSBtZWRpYXRpb24uCgpSZXBvcnRlZC1ieTogU2lldW4gWWFu
+ZyA8ZGlkdGxkbXMyNTI1QGpudS5hYy5rcj4KVGVzdGVkLWJ5OiBTaWV1biBZYW5nIDxkaWR0bGRt
+czI1MjVAam51LmFjLmtyPgoKVGhhbmtzLApTaWV1biBZYW5nCg==
