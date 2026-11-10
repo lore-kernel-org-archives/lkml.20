@@ -1,55 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794315264;
-	b=UF4WCY41HAnwsJbrWXTfvGOlyt9jNQIpNmURK9FdWNy/vMBeqNpHJQz/6f9bG2HWCVxv
-	 nx7W4D62xgjncUQEis4UFOWvm/jQ2BHtgX2hYPpOUbzz8IAJtqhLnH7p2MIeCnP1H2Blt
-	 n1mcPIaUAvBXMryKsLVUVunlADK0YvIl/K+VhxIUzcvXVgbP/y6q6ukPnomSopioNRPVa
-	 DmDHCKNDxz4mOcOaQK1gPWR+/VTZART/ZL8Fpg+8U+YMuYH2TR86RZ9JiiX7kpkYUIbyz
-	 6BQ2F2C7SAnna+rpIxEYuJRuGIoFMtWWaZ/XqhQiZQ8gNjv7VUJNKEmIvEiSqbSTXLA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315264;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=esbC5ATjtJfqtnYU3IOp26sxPPOT8ocXoJeczCT8Gt8=;
-	b=HIIuT5C2nzfa7ra4NCj5UpZx4wSZqgv0B/gxR6PKpMFrTNUH3P2FwkRnqjgekKEfFwNn
-	 cYiQwyUdSARoQs8Dbm6k3L8CrOhAlwDV5dfJKTdaK6gwtf94Z3pLkYXRjtEeOSet1bc4/
-	 NKW/yoh8yHVL0FQ4mpskaGW/iUNLEcqkguuTV7tjSWk6N4yVZvcE7zIu9yUETLeckFAZw
-	 hDB0gBw+PipWnJsLtSlVbqQwgNjo9sUsZGtnlzl4tnYcTGkbzJirnmhcrCko/e8NEMw5+
-	 uhH/rlOvxKZCB3pM8pEBWIP+kXzMEMUUADEB/Y96x/S/wr4HLM/KwxAF8fWij6PKvjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=YbiMBpJM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794315273;
+	b=V+L6jiAaA7Vani9rutz5lTm6u5EiXT5QielEbWEIjBj2O3x2cO6BUSrCHCP0e1tkwduA
+	 Eg2YrRB2T/4qsaxDp2qBV+8MIVVutG61men8NVHFEdI7e9m78xkItphmqL5JC8188R2mV
+	 rKQTSuC7qiMElonasrJotP4xZthiUfeTk8hmj8ij5v2A70EBNvVajKmHD4r7P3BWzs/LP
+	 cet9ReADJDWPMfupTSjbMN00hRwSe2jRB+JAtjQBKyj2m0tebPcPEn1Gqv3a34pkVNvCc
+	 lwFiqdOI68bEz3+wpOqGTPJHi9ceZZNIe3HsQ/aQWwx7WDdqv7HDw0pPUeYUq/1cqiQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315273;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=OJ/prrn965jMvrgfLjF+vFRorAc5HNvJ6Vj8L/XmMbo=;
+	b=lwn2EBfqcPEyb3G3X3pSc6m1tlW55aSS35+kSSHwjGfJtKJ9+vEj1yMU3A1z3CviY8JG
+	 462Kyu+DVWLXsj99L538Pr0j+XC9WSIEJNsK7Lnd/ufv80qAFwhUlzMCUZdAkT/SDzyfX
+	 qKhcX4X6kkGqrfLX+lKSfpSB07950fcgEpDPC9G+7z4zXeaUss3ODKDSJ8QDbpR05H+jM
+	 OiN081MRcht8i302l1w/l9PQsyoaoz9xCIsWkJDnI4dmO5C7MwBXDb9WTJNzge0pz6Hl3
+	 MPNi4qadAusWwnaXkI1U/epZdKzh8dqiTORjxBn07W0PA0M5mJ2sFgDiQNrrIGer5Mg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Q2H6Mk4O;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=29N3zImF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Q2H6Mk4O;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=29N3zImF;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF49606A337;
-	Tue, 10 Nov 2026 12:54:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF49606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F273E60A260E;
+	Tue, 10 Nov 2026 12:54:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F273E60A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=YbiMBpJM
-ARC-Seal: i=1; a=rsa-sha256; t=1794315247; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=L2of3fjnq3qQavquma1tO69BfxKQS5MZGP05JaJiM9lniyCdxD7tg/k5RIqlSo9Vd8HpumM9xWZP0tRfJs85wdwRQCTxwsO+wpC76RlvRnLRKN4eKkadnOasR8t39nWHZqbHpy1w17XaX3q1Ys5Vppj9KGTX6eXSQ0qPXZgrcuE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794315247; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=esbC5ATjtJfqtnYU3IOp26sxPPOT8ocXoJeczCT8Gt8=; 
-	b=jm3yICeTeAxF267qKupaVcBKxysaL020dl1Yn0HFyHwZCwOvE7ZL30yRcV6Om3lgXMFslQJlfNJKqKtdy9gw2nll5186RY2QrOaQOkUWOuw8OnNxAK75d3nqmGquFPUGG9oYMTp1ZgLotz+GvkeY1NzA3i2Pq8zPAE4+gzLGuW4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: a=rsa-sha256; b=YbiMBpJMXQXCFOUBEL96diq98ZGrg+lA9DsK2zRDJzFxXgQruxkj++qzHH4ps4JXmb1yBnjbR6GiAgx9bx+KmUiLZ/1laj+6akRuoifoOkQ32XtLo5Lz4sSJrKyTRkw+ogQmj/dfExKbJ+PbcpG3z/2ZkcgWMBYovDutM6FCG9s=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=esbC5ATjtJfqtnYU3IOp26sxPPOT8ocXoJeczCT8Gt8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794315245080595.5681826489314;
-	Tue, 10 Nov 2026 04:54:05 -0800 (PST)
-Message-ID: <9d83fe6d-025d-4c18-8741-24f685c1b0a7@zohomail.com>
-Date: Tue, 10 Nov 2026 20:53:58 +0800
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Q2H6Mk4O;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=29N3zImF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Q2H6Mk4O;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=29N3zImF
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5BBCB21EC3;
+	Tue, 10 Nov 2026 12:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OJ/prrn965jMvrgfLjF+vFRorAc5HNvJ6Vj8L/XmMbo=;
+	b=Q2H6Mk4O1KaxEREOj5DevP2kMmH/Jidslcr1s6/vZIMu9WIDtdkSn5EG2n6fd0LuRLcdyR
+	OsFZv9uv7UMWguBVt0RqvpxAGlKN3MHZdrq5jMlTWssQy62BIT2qg2AoLOn1LWDhgCr5PN
+	XMWF0Y0SpbRpnTpFBSi/pSKP5wkCCts=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315270;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OJ/prrn965jMvrgfLjF+vFRorAc5HNvJ6Vj8L/XmMbo=;
+	b=29N3zImFuoXZ3FcTPq5PwxpXmvPvhMRlDBfBJL8lW84IsbdkpNdw1G7KrJbgDQqTwApVDr
+	s36m1YzU5P2ufNAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OJ/prrn965jMvrgfLjF+vFRorAc5HNvJ6Vj8L/XmMbo=;
+	b=Q2H6Mk4O1KaxEREOj5DevP2kMmH/Jidslcr1s6/vZIMu9WIDtdkSn5EG2n6fd0LuRLcdyR
+	OsFZv9uv7UMWguBVt0RqvpxAGlKN3MHZdrq5jMlTWssQy62BIT2qg2AoLOn1LWDhgCr5PN
+	XMWF0Y0SpbRpnTpFBSi/pSKP5wkCCts=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315270;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OJ/prrn965jMvrgfLjF+vFRorAc5HNvJ6Vj8L/XmMbo=;
+	b=29N3zImFuoXZ3FcTPq5PwxpXmvPvhMRlDBfBJL8lW84IsbdkpNdw1G7KrJbgDQqTwApVDr
+	s36m1YzU5P2ufNAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2EA8D1339F;
+	Tue, 10 Nov 2026 12:54:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LWGGBQYU82p9QQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 12:54:30 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id D65A3224DC; Tue, 10 Nov 2026 13:54:25 +0100 (CET)
+Date: Tue, 10 Nov 2026 13:54:25 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 03/41] target: fileio: check that the backing file
+ supports ->{read,write}_iter
+Message-ID: <7gknb2zk5u322p4hwxmbkwko4oqnmtroz6evgxcfgaqv43e2lf@4ys3f4ojdwvu>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-3-4c998976c6c7@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,100 +120,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] cxl/edac: Skip event records marked NOT_REPAIRABLE
-To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261108022022.3352-1-ai@linux.com>
- <20261108022022.3352-3-ai@linux.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261108022022.3352-3-ai@linux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu080112275f163ad227a945618359f5e5000039a5f8aec6dabf01a0e0bc743aeb9c84f0fea1b6b8cef5fe5b:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-work-loop-pseudo-v1-3-4c998976c6c7@kernel.org>
+X-Spamd-Result: default: False [-16.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[31];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	R_RATELIMIT(0.00)[to_ip_from(RLdu9otajk16idfrkma9mbkf9b)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email]
+X-Spam-Score: -16.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
+On Tue 10-11-26 10:14:19, Christian Brauner wrote:
+> With fd_async_io=1 the fileio backend calls ->read_iter() and
+> ->write_iter() of the backing file directly. The synchronous path goes
+> through vfs_iter_read() and vfs_iter_write() which check for them but
+> the aio path doesn't. So a backing file without them calls a NULL
+> pointer on its first I/O.
+> 
+> Refuse such files when configuring the device. On the synchronous path
+> every read or write that needed the missing method failed with EINVAL
+> anyway.
+> 
+> Fixes: 769031c92c8b ("scsi: target: target/file: Add support of direct and async I/O")
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-在 2026/11/8 10:20, Jongwon Lee 写道:
-> Bit 1 of the DPA field in General Media and DRAM event records is the
-> NOT_REPAIRABLE flag. The device sets it when the memory at that DPA
-> cannot be repaired.
->
-> cxl_find_rec_gen_media() and cxl_find_rec_dram() do not check this flag.
-> A repair request that matches such a record passes the lookup and is
-> sent to the device. Since the records are keyed by the raw DPA, this
-> happens today when user space writes the DPA with bit 1 set.
->
-> Skip these records in both lookups, so the repair request fails with
-> -EINVAL. The trace events already show dpa_flags='NOT_REPAIRABLE' for
-> them, so user space can tell before it asks for a repair.
->
-> cxl_find_rec_gen_media() now reads the record, so take the xarray lock
-> there too, as cxl_find_rec_dram() does. Also make it return bool, since
-> its only caller just checks the result.
->
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-Reviewed-by: Li Ming <ming.li@zohomail.com>
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
 
 > ---
->   drivers/cxl/core/edac.c | 27 +++++++++++++++------------
->   1 file changed, 15 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index 4624ab4644..42683b7c54 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -918,24 +918,27 @@ struct cxl_mem_repair_attrbs {
->   	enum cxl_mem_repair_type repair_type;
->   };
->   
-> -static struct cxl_event_gen_media *
-> -cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> -		       struct cxl_mem_repair_attrbs *attrbs)
-> +static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-> +}
+>  drivers/target/target_core_file.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
+> index ab9824a4852f..a5391e57e9aa 100644
+> --- a/drivers/target/target_core_file.c
+> +++ b/drivers/target/target_core_file.c
+> @@ -144,6 +144,14 @@ static int fd_configure_device(struct se_device *dev)
+>  		goto fail;
+>  	}
+>  	fd_dev->fd_file = file;
 > +
-> +static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> +				   struct cxl_mem_repair_attrbs *attrbs)
->   {
->   	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
->   	struct cxl_event_gen_media *rec;
-> +	bool found;
->   
-> -	if (!array_rec)
-> -		return NULL;
-> +	if (!array_rec || attrbs->repair_type != CXL_PPR)
-> +		return false;
->   
-> +	xa_lock(&array_rec->rec_gen_media);
->   	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
-> -	if (!rec)
-> -		return NULL;
-> -
-> -	if (attrbs->repair_type == CXL_PPR)
-> -		return rec;
-> +	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
-> +	xa_unlock(&array_rec->rec_gen_media);
->   
-> -	return NULL;
-> +	return found;
->   }
->   
->   /* Caller holds the xarray lock. The record may be freed once it is dropped. */
-> @@ -949,7 +952,7 @@ __cxl_find_rec_dram(struct xarray *rec_xarray,
->   	lockdep_assert_held(&rec_xarray->xa_lock);
->   
->   	rec = xa_load(rec_xarray, attrbs->dpa);
-> -	if (!rec)
-> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
->   		return NULL;
->   
->   	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
+> +	if (!file->f_op->read_iter || !file->f_op->write_iter) {
+> +		pr_err("FILEIO: %s lacks ->read_iter or ->write_iter\n",
+> +		       fd_dev->fd_dev_name);
+> +		ret = -EINVAL;
+> +		goto fail;
+> +	}
+> +
+>  	/*
+>  	 * If using a block backend with this struct file, we extract
+>  	 * fd_dev->fd_[block,dev]_size from struct block_device.
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
