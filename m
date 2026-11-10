@@ -1,73 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353339;
-	b=Jc1thpF3Z1WJ+iyiA2TmGs087YBiT4KMAYUwac+8XA6v8hzqfDjfRBArsKuVTULA3M+F
-	 xwdwR+fcO3q7ZyP2c7D1Oz5DeYYrrhfyhg2nLp0mxY3xpCcSxrbQUoNZdR+sS2xlulKCd
-	 2nNjXymq+yW+3CAvBtopYuSpUQfgqNqKaUQaXypFLxeUmZDzag8ifktEdYmPUC+7BMkma
-	 e19AgYwVh3KFGD94d89qvhehZYadnFFs0Sk8Y3zgLA8wgSHa1TEhOvQK5gBYv5iLuSs3t
-	 7f/WsqYpSkBZ/ih53B1FeE9C6u/G492sYI3kAgddnN6xIac68FMEYMng+Sdt7BxPIgw==
+	t=1794353629;
+	b=ITaZ4dppzhTgk5dPvJ2btKnmLOj5btWqttQUBNNlwsP2ezPTQP+BelbQM9410VZvbrhO
+	 FOcyfo3jOiBHQu27UMEttotF0uYsAAgwPOlS9vwLJmAnnBfgprfgzU7Mwmunp6jDD0XFm
+	 z0h74r4GZQmGOwto5axW7foD6M3cbHlnLAxJaB65tffEAoe3U3igZnV0M+1jm5ZzqZ7O/
+	 sC5IMVK3e2FWtmuHBEogA9ku1TI1RTNH/BjLBocJxz5aYWOZ1xEmxE65u0KOYs3Ez5Syr
+	 iID5cW+u26znNyQY3ZpkozdFleOVS17jNxUh11GQb7p9MijsIXMkXM77xCa41kWKwdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353339;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ynUwHadLmvdOhAgnzO1JkFQi8taE5cJ+NHtIgb7JTBE=;
-	b=Ihms5HIJvODZwGFLfCWC1zKDjYlv2hj6wsoIX+GnBfmlIx0ReMD2f5w0RltdmCpWwNBT
-	 uLG64+GgUw4hkiIphd8GvdPzJNOZ7rJIBYafdu3cz1hbDtZF624yBrcbMZRuvCQ3ctAmV
-	 OtxwgThNYMC4CDmm0kuwplHkSOrmhA0J7mci1nVHRcDNwXYIgCiNOoDDsEwJT8L4mzUVs
-	 C3QoMJCZaADw+1g3nqXtoNSRUs1oLNs2UBRL5DtsCWpvLsVIemvpBVVjizfvNtCh+eg8x
-	 LBH7XvsxSSG/Td+FQYCo1cEJ64rZzXusKwLUgU9UW/4i0I8SR76EoHeTag/wFUBxBHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353629;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=16O4fMiI2fl7wUGY/maE6Aam1B9zKeQnyFQjkcZdqbI=;
+	b=iXU7GYpDp+saOkcCcFIsoiXTYiX2H8CZToLQ1AQ83Ffjz7atrfrPb8Kn5Aq1HCZUzIad
+	 0IXVtEwxurWNqG180qrZr+sxE1LCkvFbKQ8aakvCdnxcXJJgj2cxQYJbOWI4jayYPDolU
+	 kYPrrMkY/0VPM4kuSVKyIip/kJDs1naGPKfYxazUKcCas9Ww+WLdvoKvZ9f2frkPcI8n+
+	 0aYYdxbEquwbjeRJqCbT8RMu4zGPbsPL/KTL6cxfbW6AN65TkZprBrHUuispKFfko8Lmr
+	 0ckaCC9+1rVSYYcPa5NyzXTMJ/mptYmCQ9h63iTfsOIKuYtSLUBLzwQb6u9Q+Mdp7IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h07Ay6kK;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mw+CAmRm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A424606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:28:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A424606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80FD606A320;
+	Tue, 10 Nov 2026 23:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h07Ay6kK
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e954d87b48so39160535ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:28:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794353339; x=1794958139; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ynUwHadLmvdOhAgnzO1JkFQi8taE5cJ+NHtIgb7JTBE=;
-        b=h07Ay6kKiqs/bNZ8GfvFs1KrZP6EFshDiQhOPI54SAezvPp49j9L97za2FiyBixRV+
-         lYIJjWy6z2E4cCKYTaTv/aCTD/E6P/jvLsd7AdOIxb/ppaqFUna3uqwNlmPWgIEy99cj
-         QihCA2v7WZk4xZAPazNr1YTx2967I71U8dlrsL4kcMgAxwmhkuPX14D0Tc32J4kvTnJV
-         b6rwDhq6Qgd/2wNoBY220AW6JyETO2NO/UAvoL5kX4LD+MOEd7oBZLPrXVy4ERWqwIih
-         XhCuueenyn4qYm73fv8wVEy/JSjDNRXoaOvGDxOQn/eR/hwGuJsnpB7Qzw/WTitqV8MM
-         JbFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794353339; x=1794958139;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ynUwHadLmvdOhAgnzO1JkFQi8taE5cJ+NHtIgb7JTBE=;
-        b=diQ51XNQ0lOwc4qJPP4hMGPyc+1RYg8XT5GHbj6m9NOtlUX8bwAmmYCrThsSg8pjq1
-         XsjKM1naj0/gpLQfyTDJ5265hCAn89FqElICNw3vlO86Irn9TjbQCE9Ezv2c1KfmcqoW
-         1WPFWLXC/ZKyZ/T6YKHYzqgANYssxyQAj43b2/HnDLWFBusuoGlaqQ5yGEOjuI9p85zp
-         hWuoarar2Gu/kXYPzfuukq2yIXwsiInH85Uui2n/Xs40uXd68KL062nCAs+mdp/6ShQO
-         GuF/GumF6uMaCdI8CY+R+Ri+JSPjSYXb3dKxU6R5rxVuPMZK3PmadxyOdpj+jYuFmWVX
-         dM4A==
-X-Gm-Message-State: APuU4Z/QznOfde4ecCtXO1p0HGRMXsABY8GwegeAMqqcetHwAdNVwfUO
-	/VRq1b1slNCErM8uvGGPEsgPDvvniu0eom7BsesI3DcQuEDZOuzARHTSn69vORqrDu1ANjP9ucQ
-	UTp8DBA==
-X-Received: from plfu10.prod.google.com ([2002:a17:902:e5ca:b0:2ed:40f0:5f81])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ce02:b0:2df:4876:50d9
- with SMTP id d9443c01a7336-2edd76d1b3cmr7615645ad.18.1794353338477; Tue, 10
- Nov 2026 15:28:58 -0800 (PST)
-Date: Tue, 10 Nov 2026 15:28:57 -0800
-In-Reply-To: <20261105164531.313849-5-pbonzini@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mw+CAmRm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6587E1F0093C;
+	Tue, 10 Nov 2026 23:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794353629;
+	bh=16O4fMiI2fl7wUGY/maE6Aam1B9zKeQnyFQjkcZdqbI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mw+CAmRmiISb/eKKgFF6nzJENo5LfWq55rIT+U4iDpKVZix/ugOPfGTsXP4fIQxFE
+	 Jf4QJCfMJNibFdgHy73/u+n0qJx63ftSjvxWjBQOpVjEYT5+Ro5I0xPLeAb5+CuM4C
+	 FV3MVnUPbj+ne0VOcRvOxulbWfR35rOwhMIpBy8oMhzxnYRi5e24elg22FmwJLBs8h
+	 PIZzEs2ZVOgKoQJdcXB6mkIy0JHaNT/axYyyOF1CJYc/btIuervE7zi3rUcOcx37PM
+	 D8op1h/uMlsLDLuPwnPqfMXwfEXGgSFJ+StGsOSq7elnJHAa+9b55ZcIBg6Rmr/Whj
+	 So7AQSEuV0fwg==
+Date: Wed, 11 Nov 2026 00:33:45 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
+	Alejandro Colomar <alx@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3] seq_buf: Mark a seq_buf overflowed when terminating
+ it loses a byte
+Message-ID: <avOpWXrMYrJz8ETU@devuan>
+References: <20261104033110.out.418-kees@kernel.org>
+ <ausTcdh966BNVA-_@devuan>
+ <20261110220602.272c5b-kees@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,23 +61,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105164531.313849-1-pbonzini@redhat.com> <20261105164531.313849-5-pbonzini@redhat.com>
-Message-ID: <avOoucIBV59_ELE9@seanjc-mac.roam.internal>
-Subject: Re: [PATCH 4/5] KVM: x86: allow handle_exit_irqoff to return EXIT_FASTPATH_*
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	Hillf Danton <hdanton@sina.com>, Steven Rostedt <rostedt@goodmis.org>, Harry Yoo <harry@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zzbkid7pe7r2xd4x"
+Content-Disposition: inline
+In-Reply-To: <20261110220602.272c5b-kees@kernel.org>
 
-On Thu, Nov 05, 2026, Paolo Bonzini wrote:
-> Let handle_exit_irqoff() pass what it did to vcpu_enter_guest() and/or
-> handle_exit().  This will be needed to trigger async page fault handling,
-> and to suppress reflection of APF #PF exceptions, once vcpu->arch
-> will no longer have a host_apf_flags field.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
 
-Reviewed-by: Sean Christopherson <seanjc@google.com>
+--zzbkid7pe7r2xd4x
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
+	Alejandro Colomar <alx@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3] seq_buf: Mark a seq_buf overflowed when terminating
+ it loses a byte
+Message-ID: <avOpWXrMYrJz8ETU@devuan>
+References: <20261104033110.out.418-kees@kernel.org>
+ <ausTcdh966BNVA-_@devuan>
+ <20261110220602.272c5b-kees@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <20261110220602.272c5b-kees@kernel.org>
+
+Hi Kees,
+
+> Date: 2026-11-10 14:06:07-0800
+> From: Kees Cook <kees@kernel.org>
+>
+> On Wed, Nov 04, 2026 at 12:17:00PM +0100, Alejandro Colomar wrote:
+> > > No current caller checks for overflow after terminating a seq_buf that
+> > > can be left exactly full, so none of them behaves differently.
+> >
+> > Okay for this patch, but still some question:
+> >
+> > Since data truncation is almost always wrong, is it a bug that those
+> > users are not verifying that no overflow happened?  Or do they have a
+> > good reason to not verify?
+>=20
+> Right, this would need a case-by-case analysis. Some expect it and some
+> don't. This change to the API is to make it defensive in the general
+> case without making existing truncation worse.
+
+Agree.  In shadow-utils we have the same approach.  We're first
+hardening the writes to avoid overflows, and are leaving the truncations
+unreported as they were before, since that needs a case-by-case
+analysis.
+
+I won't give my reviewed-by, since I fundamentally think this is
+building on the mistake of having sizes and lengths instead of pointers.
+But I _think_ this patch is good, FWIW.
+
+
+Have a lovely night!
+Alex
+
+>=20
+> -Kees
+>=20
+> --=20
+> Kees Cook
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--zzbkid7pe7r2xd4x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrzqdkACgkQ64mZXMKQ
+wqmSQg//Q/+A73PLV73CVv55LrNmsBxE37N5gmuSEBL7r3KH78MXJ4/V8Qu86jJs
+IVK/oIEP5UDLW3/q87QprhR/QDmbvzzi9zqLJMLs2GyO23zfo074a+9qpGsgktGi
+29i8GycZ9GB6f4iFWoux4YESzzItA+ruE/Pav6MdeJ+JonEXcLxvyI/0Wrqojz+A
+mLp9JgfitAtWiYMGlLhHTAC74I0l5WgjlJzRVZeJuJks/cenkjbfoCxJmLsshw3w
+vfJMZTgRpX1YoT2S1RC0cSDxXON4t/R68RQdrbnveU+TXrh1fMfw2aIkMqs+sh6b
+tV7VIl89GG+K+bjQhiLnO8sPeOWasxBkUaHbM+ixjiUfHb0Z1WwchN2bTUdKqAo6
+cGBGB0bxhfRQbDk8S0QC1xL5hF5MN9W+26EgjZ8r/WV4Ct9uelfUvQE42EV30Alu
+OENr6DIwlrlbvljEAkI3utLDnM+uMnOkihiDahjbg5mISuE11F1LAhnHVjoTf86G
+InoJLao5GjJPR1ScWyTWA3vyaODmpa4+cddUuPePl0+NYkjVwwx1nEUAjiaTE81L
+elhkToqsoaI/pabc4mjcmLmuycBCz0BUREyZ2oFVqWdiO01vSzp2/PiWHbORyXOR
+udZCqCEveTE9S0biaep20Xi0ZrFphKTDOprML1rwhxpknMWR1DU=
+=lPCQ
+-----END PGP SIGNATURE-----
+
+--zzbkid7pe7r2xd4x--
