@@ -1,51 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794276969;
-	b=MJ41hs3xOhXhleeJg9af0swQz1a54WhsjsVmuxLeC9bGfgxbHUfxJVNtgaDhoqJlMSWT
-	 QueZK5yATTr3+sHeBi8hZLWjOpta5JPjTHYhHwgG39PO3KhvKV7laDn3pDNYNawjPzgQw
-	 YD1WaQQn0tflgStl2RobKNerAAvqNAzefeo9ZYVwTAHIi6tZRmmGmGmrl2tFLEJCnLV2z
-	 ZAEs1DfPZcgFSuDu/XeL1WNIBRZD0/qKSxwlVObWcrbMxP6owRdUM9FSPK7EHqLT7ZLIn
-	 saL9X4atw83nbKk+8u/l/omFqOhGKuWFGOGD/8iYAKpDakXES2wGrfFE7qOD3oVenYw==
+	t=1794276988;
+	b=dlYD676lXqRvSVx3yWTe59qVCQLXp8333jGhy9fhTPAigq2qCExEC6V2M5pXVr1aHqO7
+	 4+4/hR0g61f6/Vf7HaNMBnuCAY6riU8wbwE1NZlRYlS/rdoB9qiGM24vvMRGEnt2qCWk+
+	 YEvjXXbe6ZojgqDDgtNbN7W3SZHXFKwmUlw1zV4AoZqD/sCVgkGhMOC5vr9RBOrOAE27F
+	 WhHOyPPjD4nb/ZOIHimS4FRl9g3J/P/m4CY1v30NkvMbv6A2vDQMk78zKyKq7cNNqPYYN
+	 DcFSLpK1KbRSkafP9dkVfh7NPvaqw1sRs096JEm0Xk5L9HzPTtF+AMs4SsJefnAqNyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276969;
-	h=DMARC-Filter:DKIM-Signature:From:Content-Transfer-Encoding:Subject:
-	 Mime-Version:Message-Id:X-Lms-Return-Path:X-Original-From:In-Reply-To:
-	 To:Cc:Date:Content-Type:References:User-Agent;
-	bh=9HIPwNYvbOarmnCqPR7DA23o7bO4fjUXE8B8nsiUVuw=;
-	b=t3OpgWmq0FAITWhNsgAynZjXHP9Hdn+JCQE0zUYZeZ7O4mAH1LsDz/zcPYInyhrZjh/Z
-	 102AjEA3Gm6qWRAf+tPG1lsiWIzJu4e116l3gPyrPMiNQo4XjlD8pVzjzVhPLIHXySGKR
-	 a1qfpZz+Uc2L1vJNHZNsRK86aDnMP511jx65OWo7N+/i+5Lt29AaLvDaQEPcA5Nw08at2
-	 pPSKfwDeih9YfGsqEPfxxhrn122HUv228Ez6NmSChkVddai59PIoG5EQlU67yD7odq6WX
-	 NJH8bqRH2nstyWuFwsU/0a14fAiFvV+apOA0xgoeFvi4F5t8igTYOPcTCpr0MG8G+4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276988;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=t5iHwKqCBQH6cGu8i0WtqCh8MXIsDvoUDWbirdC0v3I=;
+	b=B/3CGiTbdlYMcCZK4KCVKoYYsH1YbpMlgiDo6/R4YW6misJipMiL3Bj9ErQ042cIhTmN
+	 8M5ScxOOQYfrbYtrhstTUSHhCJ2UOvl+Z3+tUeXNGb8sShG5eNjcHNMJGI41ewKdHiHIJ
+	 nljcTCRq3CH/Zn60jryvsXGzKIWS3aEhfi7HgQD7OIcMoUaPWfasY7LuvSA71KaO3lhp2
+	 fLAU9Hb2AQ4BFIRrOIVrG6OmtjSvPBlixRYkgAbYTW3Q8lip/9CioYtbzeHqMJl/pXIET
+	 YP7Y43+dEU19ak9IQpiD+WN9bIwYSoMkHLjRKwvnoxFniApXxOGzTe1fWI7CDP9KabA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gCUC3LYO;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LGvmsVH2;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F20F606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:16:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F20F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCC2606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCC2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gCUC3LYO
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794276957; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=9HIPwNYvbOarmnCqPR7DA23o7bO4fjUXE8B8nsiUVuw=;
- b=gCUC3LYOsR+wYxX/DzTp99RfgGOUN0Yg5EZV0Aag13kLWls0TEv2azhQ34y62yh4khWxEI
- s5e3+F580AOsIhYrktNRcEP5dgGTO4VExo7pezOxN2JT7pmqOFupUEEcqyUfYOdAXd/czW
- Zx+NfmJhL5fB5nuygggfn9/jmE30HyOlyubB9M24g8byqtBcC6h/xWo4ejkddacVa3r2WF
- c3xGV3+gji+yc/nxjlvqgvzM5GiF6627AnqD5GIgD2xRbuY952JvGCsun1JSSftfgSiNto
- vACtI4TlJkRwh73CO7Drfgz2WSQVtWiPklhZ5Xt6EkaeXSq5RkD3+jTu3ATUrw==
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LGvmsVH2
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so13237155e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:16:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794276987; x=1794881787; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t5iHwKqCBQH6cGu8i0WtqCh8MXIsDvoUDWbirdC0v3I=;
+        b=LGvmsVH2kb5LvFBz93PKj99CSkDIVjp5oSn6zmzfU0Lz4RHK9c5OtBlHkMrkD3HEKT
+         zo0Hp/rb3EHAW7cJ6a4LmjHBGkdU6sOn47npTN7cz2TebjA7A7sMCYfhF9QdI6B0X1AW
+         HuL8R95+F4oA47yVZc9L8Rs6S2umQfFKIzYdk3l6KOBkMzMwhzeEVFttVGpYFpQKRfKU
+         T4B093S9p1fQ+1hC3P6yko6dDMhrVNUElDhGiEEQCNSwypwQLpo4y9W1VxC2hmjbJVCN
+         dOLeGSIUDsVVSk8bQqU4occzpYU87YM34r2ILcgCdyRWRI7VeAZ8zzSiBv+KOdBr0rXe
+         MPaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794276987; x=1794881787;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t5iHwKqCBQH6cGu8i0WtqCh8MXIsDvoUDWbirdC0v3I=;
+        b=Z1ByA9Qw9JWiEsCd4vSkPqKL7QnvlNxkMsmpnBa6aIzsPH9RhUmWr9M2lDiPw8HHSs
+         i983m3cNZ0QbbTaDilK9GbhcZXiuLKMfRcxtLoHjP9JmZL4Zs3aWY45aQ2JUn6ubWZzH
+         fuSDNt5XRbHVxB1nvIi6DshB3pnFFnQ1ISOQlgEGgTXgiBKmfCgXjgGgSaHLbe3CGnc8
+         mPzV5JIHL1lruDkqUg94BqSsx+KB3MxkcAbdtOH6EgwhrcTBDqT4S1uFLKdrUGcsOATr
+         NxQ8DGEK6Vvh6MKZ4SmUR5DgeTxO4WKTE0pY1O3U7kIXOuQAHViRnXoGc9g7KUfijQf0
+         Fg7w==
+X-Forwarded-Encrypted: i=1; AL+hErEO83o1nomN4GqcwNmQZfkEL96AWohAyv+YuXcUX251YRRD/HmnfQZAkdMSCWihPIyBYCECRVxbOsGXWPQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kkpUeGmvrRNXXsOrueWAXL9lrYseyA8qB/e1WETX/ps5yP3HA
+	X/n89Q1OiPddyWCKZq90kGKKtlnde3rb5Yf0GbfGoysR1y1qXgMVkIez
+X-Gm-Gg: AYBFou3Na227NfMHAacxhet/HXA855yAsxGu0b9i8Av0wN15Y/p6nZtvr841fHTIwZ8
+	8avXepCxtx00VLvuac9d5BL8Kz8tGZ1ME+FsHMN5hK/XIpcxPyHfGWIFwCOkyrePX28zpwKljMb
+	dZZLkJUN+EtKgKwerZvNFSOaFZmVFGxsMIGsph01oTqmTyJBCt6JdvpXlBhIXGqhC/vKU/kjpvO
+	kShF0rI+qJ2/0veRZD9i788Gg1RcSs4v1Uqz3D+89RdGYv3P9uDxBWgWKWQgfm7AzzeT01feZJ7
+	DoyrwDbHPagxWTDfkpJOfbzXbb+mTgfhgxC1fBs3Fsb2QD3xjpH4RJd+xerpJNqXKD/8ExbdO/n
+	vxj1o+UHFwJEB8HwmxQ9Codsls2DDFf/I/SxtJbcuVT7act0cQmkPWGYsUQKua/QNO38HDYwwDx
+	ScxF8BBIK1FpzP3GYGAGUupf0lURrbseTtuYv/1p+DIZDEAOSfwLdCAVuXTxWQeJH/J1RU7KolK
+	M7NmzvG3AFT7vcaBntY2pjCavTeKy7Bcv1W8IDUOQpbpRAGrJRqXmyHfabaXv+VBjRON73xCLC8
+	wgbRutgzLVWCtBpwWEECa+gIhL0kZVCL3jjBEuOmLj7mAsYxQyay6kiUL3M/RIYskg==
+X-Received: by 2002:a05:600c:8b58:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4ba02349ddcmr13740545e9.24.1794276986688;
+        Mon, 09 Nov 2026 18:16:26 -0800 (PST)
+Received: from asahi.teknoraver.net ([195.182.211.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba023690f5sm20124365e9.3.2026.11.09.18.16.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 18:16:26 -0800 (PST)
+From: Matteo Croce <technoboy85@gmail.com>
+To: Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Laight <david.laight.linux@gmail.com>
+Cc: linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7] kunit: memcpy: Add benchmark
+Date: Tue, 10 Nov 2026 03:16:22 +0100
+Message-ID: <20261110021622.122490-1-technoboy85@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,135 +96,236 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Message-Id: <c82be2c1-b890-42dd-9966-72e6c7a95b25@bytedance.com>
-X-Lms-Return-Path: <lba+26af27e5b+635ad9+vger.kernel.org+lizhe.67@bytedance.com>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-In-Reply-To: <avGvlDENwtgUWv-4@kernel.org>
-To: "Mike Rapoport" <rppt@kernel.org>
-Cc: "Balbir Singh" <balbirs@nvidia.com>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>, 
-	<apopple@nvidia.com>, <linux-mm@kvack.org>, 
-	<linux-kernel@vger.kernel.org>
-Date: Tue, 10 Nov 2026 10:15:39 +0800
-Content-Type: text/plain; charset=UTF-8
-References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-3-lizhe.67@bytedance.com> <au2qhlsxQt3SRwIu@parvat> <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com> <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com> <avGVNISvj-v8IN3g@kernel.org> <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com> <avGvlDENwtgUWv-4@kernel.org>
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 11/9/26 7:33 PM, Mike Rapoport wrote:
-> On Mon, Nov 09, 2026 at 05:52:19PM +0800, Li Zhe wrote:
->> On 11/9/26 5:41 PM, Mike Rapoport wrote:
->>> Hi,
->>>
->>> On Mon, Nov 09, 2026 at 05:22:24PM +0800, Li Zhe wrote:
->>>> On 11/9/26 11:01 AM, Li Zhe wrote:
->>>>> On 11/6/26 6:23 PM, Balbir Singh wrote:
->>>>>> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
->>>>>>> Boot-time HugeTLB allocation has to initialize tail struct pages it=
-self
->>>>>>> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.=C2=
-=A0 For
->>>>>>> gigantic pages, this can cover a large number of tail pages. Most s=
-tate
->>>>>>> installed by __init_single_page() and prep_compound_tail() is ident=
-ical
->>>>>>> for every tail page in the same huge page; only PFN-dependent field=
-s
->>>>>>> need refreshing.
->>>>>>>
->>>>>>> Initialize the first tail page normally, copy it into a local templ=
-ate,
->>>>>>> then initialize the remaining tails from that template with
->>>>>>> memmap_init_page_from_template().=C2=A0 This avoids repeatedly doin=
-g the
->>>>>>> full
->>>>>>> __init_single_page() and prep_compound_tail() sequence for state
->>>>>>> that is
->>>>>>> identical across tail pages in the same huge page.
->>>>>>>
->>>>>>> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugep=
-ages
->>>>>>> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
->>>>>>> initialization time improved by 36.43%, measured with a temporary
->>>>>>> jiffies-based printk modeled after the existing timing in
->>>>>>> memmap_init_zone_device():
->>>>>>>
->>>>>>>   =C2=A0=C2=A0 base:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 318.4 ms
->>>>>>>   =C2=A0=C2=A0 with this patch:=C2=A0 202.4 ms
->>>>>>>
->>>>>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->>>>>>> ---
->>>>>>>   =C2=A0 mm/hugetlb.c | 23 ++++++++++++++++++-----
->>>>>>>   =C2=A0 1 file changed, 18 insertions(+), 5 deletions(-)
->>>>>>>
->>>>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->>>>>>> index da5d04edf7c1..987f16a5ea27 100644
->>>>>>> --- a/mm/hugetlb.c
->>>>>>> +++ b/mm/hugetlb.c
->>>>>>> @@ -3219,19 +3219,32 @@ static void __init
->>>>>>> hugetlb_folio_init_tail_vmemmap(struct folio *folio,
->>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum zone_type zone =3D folio_zone=
-num(folio);
->>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int nid =3D folio_nid(folio);
->>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct page *page =3D folio_page(f=
-olio, start_page_number);
->>>>>>> +=C2=A0=C2=A0=C2=A0 struct page template;
->>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long head_pfn =3D folio_p=
-fn(folio);
->>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, end_pfn =3D hea=
-d_pfn + end_page_number;
->>>>>>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int order =3D huge_page_o=
-rder(h);
->>>>>>>   =C2=A0 +=C2=A0=C2=A0=C2=A0 if (start_page_number >=3D end_page_nu=
-mber)
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->>>>>>> +
->>>>>> Can this actually happen?
->>>>> No, current callers always pass a non-empty range. I kept this to
->>>>> preserve the old for-loop no-op semantics for an empty range, but it =
-is
->>>>> not needed here. I will remove it in v2.
->>>> I need to correct this. A local Sashiko run pointed out that the bootm=
-em
->>>> fallback caller can pass an empty range on SuperH.
->>>>
->>>> SuperH supports a 64M HugeTLB page size, and with 64K base pages
->>>> pages_per_huge_page(h) is 1024. HUGETLB_VMEMMAP_RESERVE_PAGES is
->>>> PAGE_SIZE / sizeof(struct page), which can also be 1024 or larger on a
->>>> 32-bit SuperH configuration.
->>> If the only difference is unnecessary initialization of the template on=
- SuperH,
->>> we don't care and you can drop that if.
->> It is not only initializing the local template. The code first
->> initializes one page with __init_single_page(), prep_compound_tail(),
->> and set_page_count(), and then copies that page into the template.
->>
->> So if start_page_number =3D=3D end_page_number =3D=3D pages_per_huge_pag=
-e(h),
->> the old loop is a no-op, but without the check the new code would update
->> folio_page(folio, start_page_number), which is outside the HugeTLB
->> folio.
-> A recent patch to arch/sh indicated that hugetlb is never used on sh:
->
-> https://lore.kernel.org/linux-mm/auJI2blzfpFD9yLe@kernel.org/
->
-> And it seems none of upstream sh defconfigs can hit it.
+Add optional benchmarks for memcpy() and memmove(), enabled with
+CONFIG_MEMCPY_KUNIT_BENCHMARK.
 
+Each function is run over several buffer sizes, up to 4 MiB, with both
+aligned and unaligned buffers, to spot platforms where unaligned
+accesses have a noticeable performance impact.
 
-Thanks for the information. I will drop the empty-range check in v2.
+The copy length is hidden from the compiler, so the architecture's
+out-of-line implementation is always measured rather than an inlined
+constant-size copy.
 
-Thanks,
-Zhe
+Sample output on a RISC-V machine:
+	# modprobe memcpy_kunit
+	KTAP version 1
+	1..1
+	    KTAP version 1
+	    # Subtest: memcpy
+	    # module: memcpy_kunit
+	    1..8
+	    [...]
+	    # memcpy_bench_test: memcpy: aligned copy of len 2: 3 MB/s
+	    # memcpy_bench_test: memcpy: unaligned copy of len 2: 4 MB/s
+	    # memcpy_bench_test: memcpy: aligned copy of len 64: 127 MB/s
+	    # memcpy_bench_test: memcpy: unaligned copy of len 64: 117 MB/s
+	    # memcpy_bench_test: memcpy: aligned copy of len 256: 508 MB/s
+	    # memcpy_bench_test: memcpy: unaligned copy of len 256: 542 MB/s
+	    # memcpy_bench_test: memcpy: aligned copy of len 4194304: 848 MB/s
+	    # memcpy_bench_test: memcpy: unaligned copy of len 4194304: 699 MB/s
+	    # memcpy_bench_test.speed: slow
+	    ok 7 memcpy_bench_test
+	    # memmove_bench_test: memmove: aligned move of len 64: 121 MB/s
+	    # memmove_bench_test: memmove: unaligned move of len 64: 104 MB/s
+	    # memmove_bench_test: memmove: aligned move of len 256: 445 MB/s
+	    # memmove_bench_test: memmove: unaligned move of len 256: 410 MB/s
+	    # memmove_bench_test: memmove: aligned move of len 4194304: 1419 MB/s
+	    # memmove_bench_test: memmove: unaligned move of len 4194304: 1360 MB/s
+	    # memmove_bench_test.speed: slow
+	    ok 8 memmove_bench_test
+	# memcpy: pass:8 fail:0 skip:0 total:8
+	# Totals: pass:8 fail:0 skip:0 total:8
+	ok 1 memcpy
 
->  =20
->> Thanks,
->> Zhe
->>
->>>   =20
->>>> In that case the old for loop is a no-op. So I will keep the empty-ran=
-ge
->>>> check in v2, before creating the seed template.
->>>>
->>>> Thanks,
->>>> Zhe
+Signed-off-by: Matteo Croce <technoboy85@gmail.com>
+---
+v6 -> v7:
+- subject: "KUnit: memcpy: add benchmark" -> "kunit: memcpy: Add benchmark"
+- memmove: make the aligned case actually aligned
+- fix int overflow in throughput calculation, cap max size to 4 MiB
+- hide copy length from the compiler (OPTIMIZER_HIDE_VAR)
+- always register the bench cases, kunit_skip() when disabled
+- Kconfig: move under MEMCPY_KUNIT_TEST, reword prompt and help
+- update sample output
+
+v6: https://lore.kernel.org/all/20260302023052.73943-1-teknoraver@meta.com/
+
+ lib/Kconfig.debug        |  12 ++++
+ lib/tests/memcpy_kunit.c | 120 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 132 insertions(+)
+
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 6b24a2c89b84..7884a9a0f78f 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -3006,6 +3006,18 @@ config MEMCPY_KUNIT_TEST
+ 
+ 	  If unsure, say N.
+ 
++config MEMCPY_KUNIT_BENCHMARK
++	bool "Benchmark memcpy() and memmove() functions at runtime"
++	depends on MEMCPY_KUNIT_TEST
++	help
++	  Adds benchmark cases to the memcpy KUnit test suite, measuring
++	  the throughput of memcpy() and memmove() over several buffer
++	  sizes, with both aligned and unaligned buffers. This helps to
++	  spot architectures where unaligned accesses have a noticeable
++	  performance impact. Results are printed in the KUnit log.
++
++	  If unsure, say N.
++
+ config MIN_HEAP_KUNIT_TEST
+ 	tristate "Min heap test" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/tests/memcpy_kunit.c b/lib/tests/memcpy_kunit.c
+index d36933554e46..7b7103a72ada 100644
+--- a/lib/tests/memcpy_kunit.c
++++ b/lib/tests/memcpy_kunit.c
+@@ -11,6 +11,7 @@
+ #include <linux/mm.h>
+ #include <linux/module.h>
+ #include <linux/overflow.h>
++#include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/vmalloc.h>
+@@ -493,6 +494,123 @@ static void memmove_overlap_test(struct kunit *test)
+ 	}
+ }
+ 
++#define COPIES_NUM	100
++#define BENCH_MAX_SIZE	min_t(size_t, SZ_4M, KMALLOC_MAX_SIZE)
++
++static void memcpy_bench_size_align(struct kunit *test, int size, bool unalign)
++{
++	u64 start, end, total_ns = 0;
++	char *dst, *src;
++	int ret = 0;
++
++	/* Prevent constant-size inlining: always call the arch memcpy() */
++	OPTIMIZER_HIDE_VAR(size);
++
++	dst = kzalloc(size, GFP_KERNEL);
++	if (!dst) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	src = kzalloc(size, GFP_KERNEL);
++	if (!src) {
++		ret = -ENOMEM;
++		goto out_free;
++	}
++
++	for (int i = 0; i < COPIES_NUM; i++) {
++		local_irq_disable();
++		start = ktime_get_ns();
++		memcpy(dst + unalign, src, size - unalign);
++		end = ktime_get_ns();
++		local_irq_enable();
++		total_ns += end - start;
++	}
++
++	/* Avoid division by zero */
++	if (!total_ns)
++		total_ns = 1;
++
++	kunit_info(test, "memcpy: %saligned copy of len %d: %llu MB/s",
++		   unalign ? "un" : "", size,
++		   div64_u64((u64)COPIES_NUM * size * NSEC_PER_SEC,
++			     total_ns * 1024 * 1024));
++
++	kfree(src);
++
++out_free:
++	kfree(dst);
++
++out:
++	KUNIT_ASSERT_EQ(test, ret, 0);
++}
++
++static void memcpy_bench_size(struct kunit *test, int size)
++{
++	memcpy_bench_size_align(test, size, false);
++	memcpy_bench_size_align(test, size, true);
++}
++
++static void memcpy_bench_test(struct kunit *test)
++{
++	if (!IS_ENABLED(CONFIG_MEMCPY_KUNIT_BENCHMARK))
++		kunit_skip(test, "not enabled");
++
++	memcpy_bench_size(test, 2);
++	memcpy_bench_size(test, 64);
++	memcpy_bench_size(test, 256);
++	memcpy_bench_size(test, BENCH_MAX_SIZE);
++}
++
++static void memmove_bench_size_align(struct kunit *test, int size, bool unalign)
++{
++	u64 start, end, total_ns = 0;
++	char *buf;
++	/* Keep the destination word aligned in the aligned case */
++	const int shift = ALIGN(size / 10, sizeof(long));
++
++	/* Prevent constant-size inlining: always call the arch memmove() */
++	OPTIMIZER_HIDE_VAR(size);
++
++	buf = kzalloc(size, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, buf);
++
++	for (int i = 0; i < COPIES_NUM; i++) {
++		local_irq_disable();
++		start = ktime_get_ns();
++		memmove(buf + shift + unalign, buf, size - shift - unalign);
++		end = ktime_get_ns();
++		local_irq_enable();
++		total_ns += end - start;
++	}
++
++	if (!total_ns)
++		total_ns = 1;
++
++	kunit_info(test, "memmove: %saligned move of len %d: %llu MB/s",
++		   unalign ? "un" : "", size,
++		   div64_u64((u64)COPIES_NUM * (size - shift) * NSEC_PER_SEC,
++			     total_ns * 1024 * 1024));
++
++	kfree(buf);
++}
++
++static void memmove_bench_size(struct kunit *test, int size)
++{
++	memmove_bench_size_align(test, size, false);
++	memmove_bench_size_align(test, size, true);
++}
++
++static void memmove_bench_test(struct kunit *test)
++{
++	if (!IS_ENABLED(CONFIG_MEMCPY_KUNIT_BENCHMARK))
++		kunit_skip(test, "not enabled");
++
++	memmove_bench_size(test, 64);
++	memmove_bench_size(test, 256);
++	memmove_bench_size(test, BENCH_MAX_SIZE);
++}
++
+ static struct kunit_case memcpy_test_cases[] = {
+ 	KUNIT_CASE(memset_test),
+ 	KUNIT_CASE(memcpy_test),
+@@ -500,6 +618,8 @@ static struct kunit_case memcpy_test_cases[] = {
+ 	KUNIT_CASE_SLOW(memmove_test),
+ 	KUNIT_CASE_SLOW(memmove_large_test),
+ 	KUNIT_CASE_SLOW(memmove_overlap_test),
++	KUNIT_CASE_SLOW(memcpy_bench_test),
++	KUNIT_CASE_SLOW(memmove_bench_test),
+ 	{}
+ };
+ 
+-- 
+2.56.0
+
