@@ -1,66 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322997;
-	b=yVRU336iDsB5Gi0sJvvGGUA0IS8Zg6bPPuyIARl4juGPw6gXRYgRi1wqcxFJ/HX94TdS
-	 BCFH5JITCnuqxzWYzZefLnD/5AklLr8Qc0gI/bCSrCfZwF6DSGSxQ6UNq68yNryypUXRE
-	 e/vHXWXM+VqpxfGKABLaD5VZs/cUJjJ4IaCkO8dDQLEHt0eJ+MDr3tVHSbHWrUY8nGule
-	 dY92s9LMZmLR3eeGjFtoRzXa+DJVNmyjFmRHv1UkbHUrjeQJWwh1kgGO8t6xYYjvhDAD/
-	 XF2ghgVoJgD+ABJDrBrd3mJebrDjt3Qi05qzh/dptcD2c5JDeXMq6V2TJvQiv8KRtrg==
+	t=1794323021;
+	b=pJSgexrQIk0SRdx8Bg/RvWnEfag54r2angvgKU5m5WIFkWAA/NzgNxo7oBkk9gVFAT4c
+	 WO2QAvRn2ZDk9B2Bl07ELhnPVgazjfnDWFJlisDjscg4X8jDC9aHN99njZg+p/wiEKTas
+	 KKoRbpBfiSBIFyvKUiFYMVa3ukMZQ4iXEPL/nKATdKRhHJSu3gQIo6Ynfyc4VSlTJEpCx
+	 7/S5ctDtDlMatQkwJv4PvHvqRNJG5SdHewoZMiRgHthhvpb1rvfNtlXguYm/oK0nSg+t+
+	 BAryvGmS/KpcbA/fOQBFuQz5Earmei02i+xxaSHEDb40nQaPMxwT62/YzJso9AqSEnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322997;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323021;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=F0CMn0G18tWa/Iz5/6L3Q85B7oHt15XFmTZTtpw7n8Q=;
-	b=wuDJywis1EsxoCjXlhpi+kE2tPKPjf1TFBK3nHSAIFdzggKf/rUwvv8jftYCT6R6GDIx
-	 SXxhD8wz1GgnHmkG+zBhEyivRWZFfftrzRoh62Vr0+3A9Q3WRBCXNLt36hMfw6eEDVbUJ
-	 RSGPBzsKXNOFGD0g3H4zppZJBl1jM/JTaOunM0sLu1D+BM5YJB15lmPvhx4PD9WJ3ZBXw
-	 zq2R8jXEyNYsWBRSzlKelBmtPKVW0iNbTtrdLuLCUwdwf77iOnLGh9JWAVY5s8Cu8mqID
-	 jYBIH5Fu3kIOn/5f7G8PojUtFK23N+t5G4a26qKmkfYcyQ1a51nH307l7DLz8XlH/iQ==
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=ggJPbILCYL46WuX1BBPeY3Wpb3fsoNxyA10edzKi5X8=;
+	b=STGAuvj130HSvryBFguHBW6ZsTAv12pvwz8Kus2z6R3Jt4jzWPjXDGIkeZohJhzcg8Ke
+	 qjX/g8GTNDjOokS/p+IA3CGumsdmjXgVopZXq4GFwngpXvbK/DFyK/TFKcWItjRI4x7Ra
+	 ckEuJEWrZFZGSgp78ktCFp9uc/z2NEJuyBMGk7qJ2IfqySvUB8ClAoN8aHxiY77O06g5b
+	 C8hAfo4Dh5ktzDBq4gvfSAJxBmXc19THnuw3TJk/++mkA2M9+2ChAu5OttTq5pdYLma2p
+	 +y+kJdaDaUURDy01hA8V2nZgRV13g1YYRunrRYy6fqo+ivctNKq5a350bP1OGbIxR7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="Z8kdV5w/";
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=pQI17GVq;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4604A606A336;
-	Tue, 10 Nov 2026 15:03:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4604A606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2663760A2627;
+	Tue, 10 Nov 2026 15:03:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2663760A2627
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Z8kdV5w/
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=pQI17GVq
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jP8zJ5lM4z6FK1f;
-	Tue, 10 Nov 2026 23:03:08 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jP8zq42Zwz52SGb;
+	Tue, 10 Nov 2026 23:03:35 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794322988;
-	bh=7X663BhplGetURYCfC415YTYFX63LQtL9sJ7Cgul2HU=;
-	h=Date:From:To:Cc:Subject;
-	b=Z8kdV5w/6bExDk7KHO4RMqUob0T2F56lmdrJv1yHH78vYH6bBmpepHXcC7xIeB/ao
-	 A4o57fq2obescz2XaI9UVcsyPGNZkc1M6naxzsLEveF1G+b0LZwXv5ZnEk5b4VYkmd
-	 0ViQZrPAZikSXJUHFWbzwQcyW1OlXXy9j+BmxSXc1LAXX722R6fIh3WFnOvDVl5Ypv
-	 DQlsMFZ9AE/oZxd9bJuzEYSMLx+24zmshKKF8QXS6QK6WgCVNhAVpkHXkXfqdf5FKH
-	 gaaOD0jBGq1GLjnyWcBCWk/Bqj7weFtxFda6W+fHRBDOfNRGlnobnfR5ILFwdbUf7l
-	 wjvbg0xaHhrYA==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6AAF30um030610;
-	Tue, 10 Nov 2026 23:03:00 +0800 (+08)
+	s=z202610; t=1794323015;
+	bh=OEKQR5Ol/enBUiw6cnVbeWG4AEsmfCb0Af18zShHpS0=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=pQI17GVqRiWsk6qMcI+HzWGa48sLrm4UafYNLMFaCapU1KDvMcgwNYiV86Z5r56kl
+	 G6uIlA0X9tEqanHLTUFrnqRTMQEdk0h724oXrxJjRqif9wH0AuG9iz4fxZPjmrkIWk
+	 ztRSwtM3MbbpWjjLA2VdnCqC2/W+hTbZRhplfrW6QrnNxUvb4ww6Fju63RAdUxH/+Q
+	 s2XkqvjYznIbJySNrBxxvK5EHiH9qaYDYvzQ8ZT8uugNRX+gIslr/Q35+AUBvK1iFy
+	 i9VSuedcDB4MY83EwT+Jnio77bxxVgYz55witR9XZDy1dUxirRUKYv6g6O6dXoghF9
+	 3fycid4EFVY8w==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6AAF3U9L030948;
+	Tue, 10 Nov 2026 23:03:30 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 23:03:04 +0800 (CST)
-X-Zmail-TransId: 2afc6af33228054-01698
+	Tue, 10 Nov 2026 23:03:33 +0800 (CST)
+X-Zmail-TransId: 2afb6af3324561a-07c58
 X-Mailer: Zmail v1.0
-Message-ID: <20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn>
-Date: Tue, 10 Nov 2026 23:03:04 +0800 (CST)
+Message-ID: <20261110230333900hZfrwSglqwIg7teONyzzq@zte.com.cn>
+In-Reply-To: <20261110230327212pqd9rWq5IWa4wD-Ckj5C3@zte.com.cn>
+References: 20261110230327212pqd9rWq5IWa4wD-Ckj5C3@zte.com.cn
+Date: Tue, 10 Nov 2026 23:03:33 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,68 +74,78 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>, <kch@nvidia.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvNl0gbnZtZTogZml4IHRyYW5zcG9ydCByZXF1ZXN0IGFuZCBxdWV1ZSBlcnJvciBoYW5kbGluZw==?=
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <hansg@kernel.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDIvMl0gYXRhOiBhaGNpX2R3YzogcmVqZWN0IGludmFsaWQgRFQgcG9ydCBudW1iZXJz?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AAF30um030610
+X-MAIL:mse-fl2.zte.com.cn 6AAF3U9L030948
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:03:08 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:03:35 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF3322C.000/4jP8zJ5lM4z6FK1f
+X-Fangmail-MID-QID: 6AF33247.000/4jP8zq42Zwz52SGb
 
-The six patches fix independent error paths in the NVMe transports.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Patch 1 releases the target request in nvme-loop when SG setup fails.
-nvmet_req_init() has already taken the queue, namespace and reservation
-references, and blk-mq retries the same request, so each failure leaked a
-set of references.
+ahci_dwc_init_dmacr() reads the "reg" property of every available child
+node and uses it directly as a port number, both to compute the port
+MMIO base and as an index into dpriv->dmacr[], which has AHCI_MAX_PORTS
+entries.  ahci_platform_get_resources(), which runs earlier, checks the
+same property against hpriv->nports and skips invalid child nodes, but
+this second walk does not.
 
-Patch 2 makes the TCP target wait for in-capsule data only when the SGL
-is really an offset data block descriptor.  The old check looked only at
-the descriptor length, so a transport SGL of the same length was treated
-as in-capsule data; the same check is used when request initialization
-fails.
+A device tree that describes one valid port and one port with a "reg"
+value above AHCI_MAX_PORTS therefore makes the driver write past
+dpriv->dmacr[] and access MMIO beyond the mapped region.  Apply the same
+check as the resource loop and skip invalid child nodes.  That loop has
+already reported the invalid port number, so do not print a second
+warning.
 
-Patch 3 requires the R2T offset to equal the number of bytes already
-sent.  A larger offset let the host advertise an offset past the data
-that its next H2CData PDU carried.
-
-Patch 4 frees the fcloop LS request when nvmet_fc_rcv_ls_req() fails
-before taking ownership.
-
-Patch 5 publishes an FC target queue only if its slot is still free.  A
-duplicate Create Connection replaced the old pointer and leaked the queue
-and its controller reference.
-
-Patch 6 rolls back the SQ binding and the controller reference taken by
-nvmet_install_queue() when the CQ is already bound to another controller,
-and destroys the CQ binding when the transport cannot install the queue.
-
-The six patches are independent and can be applied in any order or as a
-subset.  All carry Fixes: and Cc: stable.
-
-Shao Mingyin (6):
-  nvme-loop: release the target request when SG setup fails
-  nvmet-tcp: only wait for in-capsule data for inline SGLs
-  nvme-tcp: require the R2T offset to match the data sent
-  nvmet-fcloop: free the LS request when delivery fails
-  nvmet-fc: reject duplicate queue IDs on Create Connection
-  nvmet: roll back queue bindings on connection failure
-
- drivers/nvme/host/tcp.c           |  2 +-
- drivers/nvme/target/fabrics-cmd.c |  3 +++
- drivers/nvme/target/fc.c          | 13 +++++++++++--
- drivers/nvme/target/fcloop.c      |  2 ++
- drivers/nvme/target/loop.c        |  1 +
- drivers/nvme/target/tcp.c         | 35 ++++++++++++++++++++++-------------
- 6 files changed, 40 insertions(+), 16 deletions(-)
+Fixes: 33629d35090f ("ata: ahci: Add DWC AHCI SATA controller support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
 ---
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+v2:
+- Do not print a warning for the invalid port number: the resource loop
+  has already reported it (Niklas Cassel).  The validity check itself
+  is unchanged.
+- Send as 2/2, with the libahci_platform patch as 1/2.
+- Carry Damien Le Moal's Reviewed-by from v1: the only code change is
+  dropping the redundant warning (confirmed by Niklas Cassel).
+- v1: https://lore.kernel.org/all/20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn/
+
+Tested on 7.3.0-next-20261030 (QEMU/TCG arm64 guest, KASAN) with a
+TEST-ONLY device tree.  The DT adds a snps,dwc-ahci node with port@0
+and port@100; the TEST-ONLY printk hook in ahci_dwc_init_dmacr() is
+applied to both kernels.  mem=512M keeps the fake MMIO window outside
+System RAM.
+
+  unpatched                            patched
+  KASAN: slab-out-of-bounds            no KASAN report
+  in ahci_dwc_probe                    port 100 skipped, boot
+---
+ drivers/ata/ahci_dwc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/ata/ahci_dwc.c b/drivers/ata/ahci_dwc.c
+index feb8a8539b8e..0ace0baa2b94 100644
+--- a/drivers/ata/ahci_dwc.c
++++ b/drivers/ata/ahci_dwc.c
+@@ -225,6 +225,10 @@ static int ahci_dwc_init_dmacr(struct ahci_host_priv *hpriv)
+ 		if (of_property_read_u32(child, "reg", &port))
+ 			return -EINVAL;
+ 
++		/* Already reported by ahci_platform_get_resources() */
++		if (port >= hpriv->nports)
++			continue;
++
+ 		port_mmio = __ahci_port_base(hpriv, port);
+ 		dmacr = readl(port_mmio + AHCI_DWC_PORT_DMACR);
+ 
+-- 
+2.27.0
