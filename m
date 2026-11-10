@@ -1,79 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794276269;
-	b=WCK3bRU0ZfG5UbwQFdB0cSKdcDFgI+1PJXBDLna4bshoyCNfx3VgF5W309RNn9+oIq4a
-	 2BOEaMBgo8UKXOcHtgegajB1KwXnNUoZyCgUd3+2V9vQWecpNi9WBPAU8c1eHvC0ejvKI
-	 4tXM69DnVyaEnfqwuB0CUfQ6ygAa8FL7cgQkxjlrf2PYS4+CxA9NIzAH2MbPCkkyPis3R
-	 sQa8z6Ql276mxft9lckqB+yZ6JhVYI+l632ZfVVUV/OdOJE8kLO8oPjiuOncwFAlE15TW
-	 nmZWQf5l1kfk+Bynxz8LDTwUHg0NJYq91Y6R0cksdBgYQCgqQzcqD5s7vyjGUR4eM9A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276269;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QL5/saREYS2ytipt1kpYCkZKYDA0eyUnzzTzKFGrWZE=;
-	b=cABeUSkiTHF7BAqYRq8/ypXRNUjAFybMnK54wzlzjZqW2RtmEP5h1s8Sg1PoONe9yp7g
-	 o555/ZJBGYTa5Ztt0hyTdCLVK5q75uYZFVJssMUzde1mE7+w7n857vvEWuTszR2FnFcVN
-	 NrquDzh3Vf1/EJAKUwAYTsBCr68zi2xyhXJDcIf4Jmseoex0snkIE9SgsNG5JO47SZhdS
-	 LWya9fAhPpFWCQbwvOuEuRxjUbQUXZob4aqdFdOpC/aJK4DNUY71ZZfjUtiH8nngWA/ve
-	 LDaMVlCBIoHm/op8JsPGq09qtLh6ZOLyQRvska4msWIswlvh31TuES3DDbEzPuth6Yg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SakcjKrb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794276320;
+	b=p/lbSKudYwsEw9n4IrC92coq/3O8QFoWAgQnjSiCEpbriMgsvRHGEl2hsarBbIqP+3go
+	 Bzejfkve48jNbZJad+YcjjqrJ3egn59jc6LHdPeEw6sT6YRbxucWTuSCPzkWmmdV7lk/d
+	 90dpppg2TQSL2K7yx3HXMpfPcDqjG+fcgktcTiXN4C5FMwwPIMqcIkFPubey1ZOhIbDaz
+	 Pa/NbwdjBhsxJvGVbkN9UZTWfV4E6l0GdQLi64dBmr+ULpzAseiAxD1a7X2OdtOhZfgdO
+	 4/sbWB8zBO2I/74FxLRd3BpcwxJ7zoNpF6gnk2AcQaDMPNu59ISLSW2iwCk5eOnpWEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276320;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=PHi2s2f16mLfxcR4BhP+bBJMxU0LcZFpYGFigSfV9Kc=;
+	b=PczFDfLQ9NsViZOdW2Yp33lpoecyQxxpS1u1Z8iW8wYP7s334DLcxv39vV7ZCqCL7paW
+	 6ZmLr+mMFzGOczlwW7q6oocbdFwGegg6nHDvSDkDyVt2a9J837k8hULF+v+sH5rhHYDYi
+	 FSIj5IdMo8TNJppC2/LA5WLgtFyjJDWig9JllNX+9K0kDFKfLycTND/EOufzAlz4b+I5l
+	 7ZJiQiluxXJ/mV3gkp0CwSn5GFUcbBBNCgt1ZN1D1SogTGzn00op9SVo51ePYGTiiZRaD
+	 0tAK2ehBDy41dqC125o4/t8eeUbrzX6aT7JFyhHAN3H3Y4umzPtkcdZv5MXA8NW7GOA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PNExLYqp;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B88A606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:04:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2784606A321;
+	Tue, 10 Nov 2026 02:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2784606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SakcjKrb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794276268;
-	b=ryu4lPEWi0na9AzqshXhH8nlhGd/Dir2MgPascJwVKi4q6QEGC6YEeJj8OHWKXgcb8j0
-	 2tVvimVw2Y7Wv0CyQjy9Not87yhcmq8viU0E0A0FmOxlWlMPt5V0mvdcmPP96sCGeOaFT
-	 RTCk1SKoxRVjj54f91D7EayX/TrJ6H9bq9dzPC7bR0cQgyjaufaLNfREyTGA5p8t8X8bI
-	 0pkibxLG90wbFtdW4EEmHrrzCo1WK/EbPNJUxDEZYje9FlDEyuxWnTDQBxS6SQaSKJBU1
-	 fxiNl5R0ElEwTarbseptwv6fBj33v8wiSJD3LkFzQ9j3GgLPzWakJbp7EDtf3AKG2xQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794276268;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QL5/saREYS2ytipt1kpYCkZKYDA0eyUnzzTzKFGrWZE=;
-	b=Z+9W4nUpGjRtGtvtdi3IBkPZEYt3SCGd/1VoOYnX7tpk7upcp54zqRjtuuhHnMl+xKG7
-	 bwZJCWlGVx2ZANCU9FaPuxNXAa3kJEmp7vkvttoDqRK/zzGge88B/7LjApFIOAfnNlgCn
-	 NV9yOXN9kMNc69686Ead9S/EBg9IrvzD7Zphoiqrf5u7eoB2iH+/Y4R1cva595Ve8ISf5
-	 MMVyl+FevLsstdPQmqSgLBWSkfikGDwl9Rv0PCPwYaJ+p1FkSlBMrotFNfhNqN0VmivCD
-	 wxb9ECtV2tBHnz+2erlJsx5WuqE7R1B2lb3lJGwd3a9p5kGt79P/G8GjheydB9Cx4dA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 11F411F0089F;
-	Tue, 10 Nov 2026 02:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794276268;
-	bh=QL5/saREYS2ytipt1kpYCkZKYDA0eyUnzzTzKFGrWZE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=SakcjKrbS4xHKcuIGHFDW9gLdt2xr8z2vg63CFCKQvE2mR7kNL7IKNc3qw6Y3ey25
-	 bWy2xLEWBBC21Z3Sr+BmBqTIer7CgfNPK00ssaO8zaACprPXOe53WeOu5zK7r+oQJ0
-	 9vXorVXDVpAIFZBx1svu5r7Sk0V0wCoesyXbw2n+LAvxofiPvklhlM+KcvaQMagEhm
-	 E1ZeoeWY3QELVjFVYi8qh8ok1Saa22vUJvdNzWbniVW0wRWk93Ca4xvjiO9s5vF5YN
-	 JvsnqNDXtdRVfSpxdZLA2Rjby+lBVIctFgvwGtdb32i7qLCnRwcxercSSTchld58fI
-	 oOCWxT+qC57YQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 644E94875B;
-	Tue, 10 Nov 2026 02:04:27 +0000 (UTC)
-From: Joshua Horne via B4 Relay <devnull+hornejd.etsu.edu@kernel.org>
-Date: Mon, 09 Nov 2026 21:01:45 -0500
-Subject: [PATCH] drm/amd/pm: send smu8 sclk level indices, not the level
- mask
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PNExLYqp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794276319; x=1825812319;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JH5OURTQMWE/CgnqxOwW+e2/FmEhQm7dl5QFh/wnna0=;
+  b=PNExLYqphRkAGY4JS7CQaWowBvdEenHF93a0U941BZlFEs2yaa8nTi/P
+   kRsVCbA5y3qMh030z5hY4clmALEdhVYBfWmLywnQbDg8O3RmqlcFqsA/C
+   r7B4jlWgg/Ro1bovqDCY/yBes9WOvG7cpsHmxdK8YUZDmo7+tBtI5SN8f
+   90dU3z9S8SMf+eZRja3aKWudIzZICjj/NWu8cPiaoADQwaVOtQXZkuYZ7
+   B2yvRAZC5niCpUuMNDVQHbda1gyrNHBpm5FOWIbDDD9zPtlU0RX31u79H
+   tvU3hHbRpNoYocvMmtDsofCneLJOeAxM1RMyhFYEljHOiy+fX6tcnLuTz
+   g==;
+X-CSE-ConnectionGUID: Q35Vtw33StCXQuM6CEfKYg==
+X-CSE-MsgGUID: i8pDznOuSmulP9+tMjBkPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3049264"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3049264"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 18:05:18 -0800
+X-CSE-ConnectionGUID: /OxRHji+Q2y9+mcZM02zYQ==
+X-CSE-MsgGUID: oGV6OJz6TbGQxzY2j+rwaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8332004"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 09 Nov 2026 18:05:15 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQbEW-00000000vkN-2Vje;
+	Tue, 10 Nov 2026 02:05:12 +0000
+Date: Tue, 10 Nov 2026 10:05:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: Chenghai Huang <huangchenghai2@huawei.com>, herbert@gondor.apana.org.au,
+	davem@davemloft.net
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	liulongfang@huawei.com, qianweili@huawei.com,
+	wangzhou1@hisilicon.com, linwenkai6@hisilicon.com
+Subject: Re: [PATCH 2/4] crypto: engine - add acomp support
+Message-ID: <202611100938.hePDEbMz-lkp@intel.com>
+References: <20261109073556.2517351-3-huangchenghai2@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,109 +85,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-smu8-sclk-fix-v1-1-47c6c0c8c2c9@etsu.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwNL3eLcUgvd4uScbN20zApdo9TE5KREo+SktGQDJaCegqJUoDDYvOh
- YCL+4NCkrNbkEZIhSbS0A6099aHEAAAA=
-X-Change-ID: 20261109-smu8-sclk-fix-2eacba2cbfc0
-To: Kenneth Feng <kenneth.feng@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Eric Huang <JinHuiEric.Huang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Joshua Horne <hornejd@etsu.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794276267; l=3289;
- i=hornejd@etsu.edu; s=20261109; h=from:subject:message-id;
- bh=58O5MHeXCEaVD9HsyyZFkQq4n4nbwD/ow9aQHlfmGAI=;
- b=7NCjH5LDUPWBhzAljm0F65Im6wf9GUvisZyEkg17V/rX8UK+kyCSlYt68xZyk4rCmJRF7jaLM
- Uw13hNjQa9bD3HQbVNQ4VUXfHUjJlhwfDY+OtCcgmAqm6N/JfXh4qna
-X-Developer-Key: i=hornejd@etsu.edu; a=ed25519;
- pk=HNOtiwerBbrJhfhzLHLxj3GDsUH9udRXflqnaI8sQmQ=
-X-Endpoint-Received: by B4 Relay for hornejd@etsu.edu/20261109 with
- auth_id=1469
-X-Original-From: Joshua Horne <hornejd@etsu.edu>
-Reply-To: hornejd@etsu.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109073556.2517351-3-huangchenghai2@huawei.com>
 
-From: Joshua Horne <hornejd@etsu.edu>
+Hi Chenghai,
 
-smu8_force_clock_level() passes the pp_dpm_sclk level mask straight to
-PPSMC_MSG_SetSclkSoftMin and PPSMC_MSG_SetSclkSoftMax, which take a
-level index, as the other smu8 callers do through smu8_get_sclk_level().
-In manual mode, "echo 0 > pp_dpm_sclk" thus selects level 1, "echo 2"
-selects level 4, and masks above the highest level index are out of
-range for the SMU, so e.g. "echo 3", "echo 7" or "echo 0 1 2 3 4 5 6 7"
-do not select the requested levels. The original single level version
-sent 1 << level and had the same problem.
+kernel test robot noticed the following build errors:
 
-Send the lowest and highest level in the mask, as smu10 does, and reject
-levels above those the SMU has enabled, as smu10 and vega20 do.
+[auto build test ERROR on herbert-cryptodev-2.6/master]
+[also build test ERROR on herbert-crypto-2.6/master linus/master v7.4-rc2 next-20261109]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Fixes: d7341ef66870 ("drm/amd/powerplay: add some hwmgr functions for sysfs interface on Carrizo")
-Signed-off-by: Joshua Horne <hornejd@etsu.edu>
----
-I found this while working on overdrive support for Carrizo/Stoney on my
-laptop (ASUS X555DA, A10-8700P); that series will follow separately.
+url:    https://github.com/intel-lab-lkp/linux/commits/Chenghai-Huang/crypto-engine-clear-busy-and-recheck-running-in-the-retry-pump-loop/20261109-153553
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git master
+patch link:    https://lore.kernel.org/r/20261109073556.2517351-3-huangchenghai2%40huawei.com
+patch subject: [PATCH 2/4] crypto: engine - add acomp support
+config: arm-gemini_defconfig (https://download.01.org/0day-ci/archive/20261110/202611100938.hePDEbMz-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project b3e2466a7ef2bbc97d31230c3bf39a6fa50a608a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611100938.hePDEbMz-lkp@intel.com/reproduce)
 
-Tested on that laptop, 7.3.1 with this patch applied to amdgpu. In manual
-mode:
-- "echo N > pp_dpm_sclk" for each N from 0 to 7 moves the current level
-  marker to N
-- under GPU load, "echo 2 3 4 5" keeps the clock between levels 2 and 5,
-  and "echo 0 1 2 3 4 5 6 7" lets it reach level 7 again
-- "echo 8" and "echo 0 8" fail with -EINVAL and leave the level unchanged
-Without the patch, "echo 0" selected level 1, "echo 3" and "echo 7" did not
-select the requested level, and "echo 8" was accepted.
-On amd-staging-drm-next the patch applies unchanged and builds without new
-warnings with W=1, sparse and smatch.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611100938.hePDEbMz-lkp@intel.com/
 
-I used an AI coding assistant (Claude Code) while working on this. It
-found the bug, wrote the change and a draft of the changelog, and wrote
-and ran the build checks and test scripts. I reviewed the change and the
-changelog, ran the tests on my hardware, and I am responsible for the
-patch.
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-index 8f82d7c07e8c..5a3f697a37a2 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-@@ -1483,15 +1483,25 @@ static int smu8_store_cc6_data(struct pp_hwmgr *hwmgr, uint32_t separation_time,
- static int smu8_force_clock_level(struct pp_hwmgr *hwmgr,
- 		enum pp_clock_type type, uint32_t mask)
- {
-+	struct phm_clock_voltage_dependency_table *table =
-+				hwmgr->dyn_state.vddc_dependency_on_sclk;
-+	uint32_t low, high;
-+
- 	switch (type) {
- 	case PP_SCLK:
-+		/* the SMU takes level indices, not a mask of levels */
-+		low = mask ? (ffs(mask) - 1) : 0;
-+		high = mask ? (fls(mask) - 1) : 0;
-+		if (high >= min(table->count, smu8_get_max_sclk_level(hwmgr)))
-+			return -EINVAL;
-+
- 		smum_send_msg_to_smc_with_parameter(hwmgr,
- 				PPSMC_MSG_SetSclkSoftMin,
--				mask,
-+				low,
- 				NULL);
- 		smum_send_msg_to_smc_with_parameter(hwmgr,
- 				PPSMC_MSG_SetSclkSoftMax,
--				mask,
-+				high,
- 				NULL);
- 		break;
- 	default:
+>> ld.lld: error: undefined symbol: crypto_register_acomp
+   >>> referenced by crypto_engine.c
+   >>>               crypto/crypto_engine.o:(crypto_engine_register_acomp) in archive vmlinux.a
+--
+>> ld.lld: error: undefined symbol: crypto_unregister_acomp
+   >>> referenced by crypto_engine.c
+   >>>               crypto/crypto_engine.o:(crypto_engine_unregister_acomp) in archive vmlinux.a
 
----
-base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-change-id: 20261109-smu8-sclk-fix-2eacba2cbfc0
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
