@@ -1,92 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312173;
-	b=PvvgvNc/DySnYO5jJMoWww+fVtZJpOHcRCbJ/9LSuaSS7dnLelQiPrMfe57TjlknPr7B
-	 8L6mei/c0W7uDS9xPg/P0GwfwP2R483KZl1eWFnFLn9W/tfEPMU8h6cTV9oSTnoVw9EWc
-	 Z01/uWUKsJkGfV10JwIvUrV7ZndFbrzq3kHvOmogLflpCTD0DwMXEkmSwh2875qx2tHC0
-	 71xAbXHs8Q/TWj5Ij7Qp69bPMvExb7TcNg/eVH55CZpVe/itk9xpsbWTrGGbLxiavwTmO
-	 J4SNEcrC2HpWo9Q1kNKh0b0NU7Nv4ARRf9rXlbIN/BlbMxmt+WCfTAPWWx+Q8TEIgQA==
+	t=1794312213;
+	b=qqWfgSXMTtUp3oOPbrs42ZAwJ0pTxrpXyshIaRG/y6VswGyCdmaY8F+qO6k1lGAn51l8
+	 V3eGn0wIP8baBzb8L+9Ymsc/BPTs3CdRVcCN6tOJbTAVoiOc4IdR7AzmQQ9QkBTdQzf/Q
+	 37TsetLhQ6qMRAfhIxiTUNo1U9BXjq2ZV5pNnTwNRe1fyI3pt0XDyPZUj6mn1E6eB/DJe
+	 ACBQNVxSztGULOzXGVmCf1RuMcqNGTHuyVwK4Z0q19BaTWvINYDBqfj2MgR1ZMH9wqecO
+	 FbnZ2Ns6tvp0kc07YAYBaVgV3xtixa6dPkaQ00HcU/fTvrKj/EGIBq3S0dSwHEKPWfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312173;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=w5IMEhy4okHKxHyGpwkRamhqKC6oRcjh0YGoxUqp7KY=;
-	b=xtbIHdFi/QKsbS+vwakxWS2ZBHv5apvXKt+LORyTOna/gfF70RPDypSnHQWNSznJ+FPe
-	 ha9wJYyZtC1e8feJcU9x1HwvI+MyK0ONjGK3w9dsCW/99Mbw0hvlBAveEEp9wnVCtIWHM
-	 cBjr7zoylNWo0rXTmc+AqLig6TVF9FBNYBDncQGbQBIV7Dc7Br+JQv+vFuQwTavlrDLNh
-	 VdpkZvXMo5xyZPIamAyc2rMAEprHxYQ3TPeYL9Cj4d4yd+OaXwBQuhqqXvhNj/XGfgIiZ
-	 78DJmsRP2oj+DW109VtSnWpJC21myQS7qpT7W+/nA0kxggW50G+7SZIT15wGOJhKxhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312213;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TI1T5UEakcFCW/hN65+9GVK1NvkYkGyn8kT8/oGVat4=;
+	b=AYFKezmEHKgpu6xm7335wixeFn6VapSqskxmdzkQR/XmtCKpMabEwnEuK5g/4Tw1oxXk
+	 +G4RKNQB/cXLpyFkb3ovfD1ngShY5ByPEiOWjM8IGAO2qOOURFFLTrsfpCAVk7QNNHeRU
+	 JYhLcPnB4v3JTysIuToDpLpN+r9MnRJPo/JfP7VgpE1upsjGDdDFbXpvFWS3/RGOrEGoe
+	 fyMe+YIlSdc1EjvT7I6mPVvDyYI32mEcudGsHOsLjq9fIIjA4uzgwudtjC6K9w9PM53ca
+	 3nnshdzw5dapzWD620BbcJF0CrvXn76d7PSiFawHC/CWG+on5EfoG/89qQg7nphL2RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="W4W3Ie/Z";
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPocwhfr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5C3606A332;
-	Tue, 10 Nov 2026 12:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E5C3606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0ED606A321;
+	Tue, 10 Nov 2026 12:03:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W4W3Ie/Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794312173; x=1825848173;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HhAUpNuzDozuVjdF12LqWeLLpGws7iUzN3G4eEtCwpk=;
-  b=W4W3Ie/ZTOhfDceUYt/hfGTR9WEnF3IxHLCZROpY0nzYhYadsW0UBL22
-   FJZMVpnqdZGL8YulX+F93KbHjrzM0s/dQsXWktfqmBAOydBOizj03Shz0
-   9+Ie+4gytcOFmzh/2qWXKB378vCqnsZJ2L6c8fUe9wL2ku/aYTiN4ELGK
-   BCDYqpcE2F6Y/KHOrN0HuBWMTjMotGO/WonZQ1GoY+BZOzx+CG7Zx7W2s
-   9jXxNH6dBpXb9afRxeScTYil3WsLKsFToTPsO0FkrN0G14Ms5zENofq88
-   kEW3RQdQ5mGJBD16qMeNgQWfPZQYX6+3mMA6mCRpAiSQ+gPpmuRV/Rhph
-   Q==;
-X-CSE-ConnectionGUID: 9xoshxrkT6Gfb1+SnOyFSw==
-X-CSE-MsgGUID: 3BTVNRAsTjuo04ME/zTAbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3156162"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3156162"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:53 -0800
-X-CSE-ConnectionGUID: ZqmuHCDMTKyLwUC/7lBmqg==
-X-CSE-MsgGUID: A8Fj9ojISPexeUfkUXUf7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8174905"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.11])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:48 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 0CCB6121B7B;
-	Tue, 10 Nov 2026 14:02:46 +0200 (EET)
-Date: Tue, 10 Nov 2026 14:02:46 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Cc: Mario Limonciello <superm1@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
-	Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
-	Caspar Adriani <caspar.adriani@proton.me>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Arec Kao <arec.kao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
- (OMNI13B1) board configuration
-Message-ID: <avMH5glolytc9L86@kekkonen.localdomain>
-References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
- <20261103155313.114347-3-saif.elden.hatim@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPocwhfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38B51F0089F;
+	Tue, 10 Nov 2026 12:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794312213;
+	bh=TI1T5UEakcFCW/hN65+9GVK1NvkYkGyn8kT8/oGVat4=;
+	h=From:Subject:Date:To:Cc;
+	b=UPocwhfrTcka6Jg9F8LF7zn2qR/0V9QoQoXrd3GozUtn5Hk0w1nDCmDSEp4+87mBE
+	 3WFAAzcj+rgUdlirlEo1Mgn97Se9rCjIiJRh/jCDf5qAtl8+PqC4HRTd70YK78XeC5
+	 4BghLIMT1BcaHMlHkU/KRF/63RovlWUFT1VTz0/Wnsx9BB8uqFcyvWauI1Wh98paJn
+	 VT8jN47ZwM+o+DUcD3THeQEj2JJH/hTu8h/+fZULBTTuZirj+VKGC+WWjjk82CKMDB
+	 M9vmeDN6jfjsy9yDBousXx06QjAZFr8O/BESOqB3I7zggOdTjG9pMIwoF/viFrWqn1
+	 K+qsluotQw7/w==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
+ entry for THP
+Date: Tue, 10 Nov 2026 12:03:06 +0000
+Message-Id: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,23 +54,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103155313.114347-3-saif.elden.hatim@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAMAzAviI9O7BjKvgV8eC0ai9ztKDC2N+dH
+ gNJEigJk8JQJRC6WPkMBbCuYDnmsJPhtTDYxnaI2JhVzmg+k24SPTiqsZ1betd6RN9CCaPQxs8
+ /HaecX89JO6dkAAAA
+X-Change-ID: 20261110-drop-reviewerships-264c745b11b5
+To: David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Uladzislau Rezki <urezki@gmail.com>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1291; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=dCVSMtwDwE7/hcxW0886EMv9/VrEruWg6lsa6zaZd68=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI+c3Be6f/26HzVeq+JU8/vM5fUY/1mb6KfoHhgefdhx
+ uO53FzlHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIwmqG/ymsz79EHL8mran3
+ uVx+iWiWmGgou2Lu6eiv8xm4OZP4BRkZVv85HZgX99aSgyf9qmER4/57m6zS9A6ZTxfOnGj6c8Y
+ 1TgA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi Seifelden,
+Given the current throughput in the kernel resulting from AI-generated
+series, I unfortunately lack the bandwidth to generally be able to offer
+review except in those areas I maintain.
 
-Thanks for the set.
+I have separated the patches into areas maintained by David, Andrew, and
+Alice + Danilo, so each can take the patches relevant to the subsystems,
+for convenience.
 
-On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
-> +#define AMDISP_OV13B10_HID		"OMNI13B1"
+Apologies for doing this, but given the current trends I'd like to do
+something to make my inbox a little more manageable :)
 
-Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
-"OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
-AMD? This is not the first time something like this happens but it would be
-good to avoid it from happening in the future.
+Also add a CREDITS entry for THP, as, since Zi's rightful and well-earned
+appointment as co-maintainer there, I have no fear of needing to step in
+there, and so would like to record my time in that role.
 
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+Lorenzo Stoakes (ARM) (4):
+      MAINTAINERS: Remove myself from MM core reviewership
+      MAINTAINERS: Remove myself from MM misc, reclaim reviewership
+      MAINTAINERS: Remove myself from MM rust reviewerships
+      CREDITS: add entry for THP maintenance
+
+ CREDITS     | 6 ++++++
+ MAINTAINERS | 5 -----
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-drop-reviewerships-264c745b11b5
+
+Cheers,
 -- 
-Regards,
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Sakari Ailus
