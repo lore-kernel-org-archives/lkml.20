@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794303836;
-	b=BU6Ac37ycEG/5w8kTX8iDMZy2t29HEBa+UudmDEJOlB0mfeRIib+hs3GQ8FAirancd1W
-	 zTKiBUWXl81RLfFtK1YhBYm3X/w85yYYGEy9GKRXyK3QWslwcr+UmWyxkhu65FkyRLctc
-	 m/UNny+E8a+ddEqKrZ1UUajai2ugyNdVtvnyaKsv9BulVQ+24d1iRPEX9WJpXPXOVGmIU
-	 gHfAFLxUrzhabiErru/HJRg5RmCyy739nkolyj/ft5i2WUaS6qndavka8B/37uLvCi4Id
-	 6xqb52dBn1hP12eIdcj2Tgi9aU2JYns4d2wwphbMtRVzlgmKyC0g8tburiKPkyVrDUA==
+	t=1794303839;
+	b=jz+F2pwXg4ytfY725qhSYbQxlJIcrGcnZy8MMpqlUynkt8CO+ggZ8ys6myM1681a6H92
+	 HVpUySPdTOK/Wlr0GH5b1wXuxTpYYsIASiFK77CvWtim7JjN19euu/nMmkY+HAXgl+aqm
+	 F86LT4bkYkqVsb8/ZhCG3FtvxuohnAxJYvue/78604K1bi8yzJYgG5GIf90jXnsXeyE0w
+	 K29CaaAcAvT+yFzBGM+YXhXKTvW5ZiTF3xY8j23ng0rVR2e/eEzgAtbulq6WuuZFIQq+C
+	 /t5im2ExM3zOwzT29M7bigIeDlBOtoFHz/pq3Y1lMc160AU6nEC4lST+14kwa13rtjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303839;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 Content-Type:X-MTK;
-	bh=8n98LZOnT/eVXjJpv+jjYxJns6Yez0iBLvcPCYBn6qY=;
-	b=KnqTQHBo7pKM8J1Sl44k6WQLi5uIgcREYvgkhVhdn/LyEOFmJc4fXyF4CQfqQxfZTW0O
-	 y0ZLmhd+4FhMDcEg1vlnLJIWQ9hEoSh2NBRCnbWh2NSXU22hiL5hgsrX1CuHi4xPn638v
-	 xVAelfGifn4bKRPg5yUFXscB9RSAIS0ISFrAxaxyvsv4lZD9WjMQetBtchrIbnXFZzswQ
-	 P2qmHJ/AMTMD5Ye4GZ9YgecUSZ9Q/KtVcYdo5PwpaSOiDznxA3IJL9/zvckDqLq7XLzXZ
-	 a5WJ6pdvz2As+2oKRHtCR8OWtBM06xf7Nsb1DFJazNkTb4oEeo8qdJof9laKS44bQcg==
+	bh=kVg+gpGYrwDRmuav1eKjcZD2FYpE/e02RG++bvbvwM4=;
+	b=ZtdHuoe0W9DvC0LhB30V0wX7hwLzi0C8kl7/HkRFJ/80b4KhrAAlfhWQbf/yg2tgFrfx
+	 eZr/coDfddkPnwl+URH2atE7bD0nPecV6P2fHmwaXARI6dIZ7E5qHFJsVU7iGzMbEJXdR
+	 n2mjVCAk/FPoYxVF88iX9Fi9uCggHcMTFSFqYflri5Usv5YCS+ELK60QLQaIawVNIGYKC
+	 pkQNizklBNS5iP/d1ZX5zW8HNgCncBcRdfVwB4H32vXWkf0PeKz+SHev+Cr6IiSzMYSm2
+	 gqLnkTO1Xv1ZG9SlEexm9ri/UjoMVkI2H1UPQ+A4wgKTg6lLN61yIz2vlIGFckeDdDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=airoha.com;
 	spf=pass smtp.mailfrom=airoha.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=NjfN8Q3o;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ZmRGRUMy;
 	arc=none smtp.remote-ip=210.61.82.184
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B89606BF09;
-	Tue, 10 Nov 2026 09:43:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60B89606BF09
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C519606BF2B;
+	Tue, 10 Nov 2026 09:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C519606BF2B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=NjfN8Q3o
-X-UUID: 3baf2598dceb11f18dc8c9802ae25ab1-20261110
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=ZmRGRUMy
+X-UUID: 3c13f9f0dceb11f18dc8c9802ae25ab1-20261110
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=8n98LZOnT/eVXjJpv+jjYxJns6Yez0iBLvcPCYBn6qY=;
-	b=NjfN8Q3o9G7KCVvXRzgbqCenkjrAXsI9Valbmn3Pn66ybpGCOjOvPG55BWbJlWgAZgIzfYA0uPzQ6sos1JPa+EL/+wfsWPjJqyTjvXpM06P2uBUa/oWJL/gvbgRUqEkxFRFBg54Hi5iwtkCBVDZMrddmLs1iUZHwlM5VVe6hjn4=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=kVg+gpGYrwDRmuav1eKjcZD2FYpE/e02RG++bvbvwM4=;
+	b=ZmRGRUMynB1ADAyKgrSCyiPEDDyCpR/WblyDS6BVKOzOfcElV6CxMqoteq6DkBOcpC0/vddswF6ji39ZrcgXH0FbpPyJAlYTypEWskQWTPpCTXy59z6gxu7wqdwaCRJHIehOyqqm4qQSepJg4MSBfCS+48QzEZK1MMFOd/Pf5ng=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:7b177a16-00ef-42e9-9b44-28f0dc140c99,IP:0,U
+X-CID-O-INFO: VERSION:1.3.21,REQID:95099534-c233-441d-9a02-d58ff06fd7af,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:63e61766-4b51-4c95-bb1b-80ac6aad9c96,B
+X-CID-META: VersionHash:b0318ac,CLOUDID:147d1357-a87d-42b7-8ffd-9e23ca174329,B
 	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
 	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
 	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -51,18 +51,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3baf2598dceb11f18dc8c9802ae25ab1-20261110
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw02.mediatek.com
+X-UUID: 3c13f9f0dceb11f18dc8c9802ae25ab1-20261110
+Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
 	(envelope-from <zhengping.zhang@airoha.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 975642470; Tue, 10 Nov 2026 17:43:50 +0800
+	with ESMTP id 518144137; Tue, 10 Nov 2026 17:43:50 +0800
 Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 10 Nov 2026 17:43:49 +0800
+ 15.2.2562.29; Tue, 10 Nov 2026 17:43:50 +0800
 Received: from mediatek.com (172.18.153.129) by mtkmbs13n1.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Tue, 10 Nov 2026 17:43:49 +0800
+ Transport; Tue, 10 Nov 2026 17:43:50 +0800
 From: Zhengping Zhang <zhengping.zhang@airoha.com>
 To: <linusw@kernel.org>, <lorenzo@kernel.org>
 CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
@@ -71,9 +71,9 @@ CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-mediatek@lists.infradead.org>, <lei.dong@airoha.com>,
 	<ansuelsmth@gmail.com>, Zhengping Zhang <zhengping.zhang@airoha.com>
-Subject: [PATCH 03/12] dt-bindings: pinctrl: airoha: describe all EN7581 GPIO mux groups
-Date: Tue, 10 Nov 2026 17:43:30 +0800
-Message-ID: <20261110094339.749110-4-zhengping.zhang@airoha.com>
+Subject: [PATCH 12/12] MAINTAINERS: add myself as Airoha pinctrl co-maintainer
+Date: Tue, 10 Nov 2026 17:43:39 +0800
+Message-ID: <20261110094339.749110-13-zhengping.zhang@airoha.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110094339.749110-1-zhengping.zhang@airoha.com>
 References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
@@ -90,115 +90,36 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-Expand the GPIO mux groups from GPIO47-49 to GPIO0-49 to describe
-explicit GPIO mode selection across the controller's GPIO range.
-Allow multiple GPIO groups in a single mux state.
+Add myself as a co-maintainer of the Airoha pinctrl drivers alongside
+Lorenzo, providing support from Airoha for patch review,
+hardware-specific issues and ongoing driver maintenance.
 
-Correct the PHY LED pin groups to match the EN7581 pad assignments:
-LED0 uses GPIO43-46, while LED1 uses GPIO33-35 and GPIO42.
-
-The corresponding driver support is added in subsequent patches.
+Expand the file patterns to cover the entire Airoha pinctrl driver
+directory and all corresponding Device Tree bindings.
 
 Signed-off-by: Zhengping Zhang <zhengping.zhang@airoha.com>
 ---
- .../pinctrl/airoha,en7581-pinctrl.yaml        | 28 +++++++++++++------
- 1 file changed, 19 insertions(+), 9 deletions(-)
+ MAINTAINERS | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-index 0cf1826c691fc..fa7b3dc58a3ea 100644
---- a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-@@ -194,7 +194,17 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio47, gpio48, gpio49]
-+                  items:
-+                    enum: [gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6,
-+                           gpio7, gpio8, gpio9, gpio10, gpio11, gpio12, gpio13,
-+                           gpio14, gpio15, gpio16, gpio17, gpio18, gpio19, gpio20,
-+                           gpio21, gpio22, gpio23, gpio24, gpio25, gpio26, gpio27,
-+                           gpio28, gpio29, gpio30, gpio31, gpio32, gpio33, gpio34,
-+                           gpio35, gpio36, gpio37, gpio38, gpio39, gpio40, gpio41,
-+                           gpio42, gpio43, gpio44, gpio45, gpio46, gpio47, gpio48,
-+                           gpio49]
-+                  minItems: 1
-+                  maxItems: 50
-           - if:
-               properties:
-                 function:
-@@ -225,7 +235,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio33, gpio34, gpio35, gpio42]
-+                  enum: [gpio43, gpio44, gpio45, gpio46]
-           - if:
-               properties:
-                 function:
-@@ -233,7 +243,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio33, gpio34, gpio35, gpio42]
-+                  enum: [gpio43, gpio44, gpio45, gpio46]
-           - if:
-               properties:
-                 function:
-@@ -241,7 +251,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio33, gpio34, gpio35, gpio42]
-+                  enum: [gpio43, gpio44, gpio45, gpio46]
-           - if:
-               properties:
-                 function:
-@@ -249,7 +259,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio33, gpio34, gpio35, gpio42]
-+                  enum: [gpio43, gpio44, gpio45, gpio46]
-           - if:
-               properties:
-                 function:
-@@ -257,7 +267,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio43, gpio44, gpio45, gpio46]
-+                  enum: [gpio33, gpio34, gpio35, gpio42]
-           - if:
-               properties:
-                 function:
-@@ -265,7 +275,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio43, gpio44, gpio45, gpio46]
-+                  enum: [gpio33, gpio34, gpio35, gpio42]
-           - if:
-               properties:
-                 function:
-@@ -273,7 +283,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio43, gpio44, gpio45, gpio46]
-+                  enum: [gpio33, gpio34, gpio35, gpio42]
-           - if:
-               properties:
-                 function:
-@@ -281,7 +291,7 @@ patternProperties:
-             then:
-               properties:
-                 groups:
--                  enum: [gpio43, gpio44, gpio45, gpio46]
-+                  enum: [gpio33, gpio34, gpio35, gpio42]
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065d..15599bca4d125 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21990,10 +21990,11 @@ F:	include/linux/pinctrl/
  
-         additionalProperties: false
+ PIN CONTROLLER - AIROHA
+ M:	Lorenzo Bianconi <lorenzo@kernel.org>
++M:	Zhengping Zhang <zhengping.zhang@airoha.com>
+ L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
+-F:	drivers/pinctrl/airoha/pinctrl-airoha.c
++F:	Documentation/devicetree/bindings/pinctrl/airoha,*pinctrl.yaml
++F:	drivers/pinctrl/airoha/
  
+ PIN CONTROLLER - AMD
+ M:	Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 -- 
 2.43.0
 
