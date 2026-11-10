@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324913;
-	b=sn5IRmotAgKARZdh2Ll4rXVfY2X9zOTFaP8sRImPJ1v3pUKHQgl2ZfRiQyCX9J9Nw+Q+
-	 CLtsFRxUmU6eqCrBwVf67sNsmR2UUlYn/OHSEbXXtM/uthwJ4OivZctOnRHTiYxEUZM04
-	 YTWYKl9829lEgcINkbIhvtc0+1hjPF2xaqOk852DvEUiqav2UZxIJFV/CHuC4YMyKbDu0
-	 yOmKkeAGep2i+sybzSs8cAwgz6SnmKMPljKs73H5fOTzwazZp//iVhzxkpafTmmlT7/AA
-	 u4xi1TIHhVyLFdFJCiLUr4S4peIBqFViUKYFDNDZPBUH73x835A+VqUhJHj5YOstWfA==
+	t=1794324908;
+	b=4L0mGSUnta4AFEYDlo+Qyg5VRvINyulLwuFcB/cfepmBy053BlnjnyDFFGblSy2ZNPVh
+	 r/R8VST5DbKmOIh5Mq804SOh5f4Y9AMIvVspZ0mtAsLIfSetMDZSQ9uHf1IkcL/DaVZ0e
+	 Dhmhbim0ya3oCdwNnXAjFYxTwSkYiJRjTsgtjbRMqb2Sjc44Z4k6dNLDy1FPIZbsEuVjp
+	 MLoXjX6CQiVVoaDdzu6Taa2SIESMTMs4mM7YVr5d41i6rJ7iDkxGdlvYyZ7I4nZCsIQwT
+	 INtgF0lu+4Dr1YvceWWhOD1llcBwa29Yh+7xSdDU6PFgNCJ/HXrF478ZRAFlX+ANL5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324913;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=H6y3PWhbhmjJH8XU6/GXMjP5//jRrDgQxTjcYvOrbII=;
-	b=0qwCYQLq0/sUGkrLe83tV/HG3q7riyJI9NGOn8Q6EzJR7ml+vy7E+aO1E/r251I/s69N
-	 LaXUjymmgrrlYq3FdiZRX15bUSLUQf/Co4SI/vwVLcfwXKomgv+jKKY1UiemxQQ9+VZOD
-	 HLedh0sj9ucXnMiL1LPiE0fQ3ZEBSj4OxkHWkEPXYy0Yfs/b0bh03+W02qt/urtJiBSZb
-	 L46b1eLuAI42afsaeJHCGNS7q0uKBR9FrANtqu5yOaMFYZ/Ypt3vaOOSecNORJZI4aLB6
-	 erlBZzxaozrJdlWD0YWNCOxu58KEeTfiIq2yBbYFcpFvt6EeJirgTO1yBSlkwCwLQsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324908;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=ayUZrHPtgAcHc+0mRQFYPo9FqMxMF0x0I2geL/esqpQ=;
+	b=ZIObLirM13AjbWoG9ZF5ZxZ2YinckUt36AtWP8IOw2X0gT2q4BTFsQEccRnPzwG4iR/w
+	 QOPYxj/J4jrsNPB29aPTfvM1YZrKlXo6Px6RQtTC5ZN6d+Ne4EcE1eEcswY50/A64MgC4
+	 BJnfW9aTX/fqMvIfi0fmWaOO8VcyVuSz6bno2cTP6c9rpIXLeamuJT/pZFn52XflNbtTF
+	 IRHOwItpi0HGBKLgSHfL5iv5NExLHA7tn9QuV/l2orzRgFFFzKNX1Tg+/MbeLes8NEcgj
+	 BLedvhtHGBxCUz1wBCYm4mYifrFpmhZ9bjgdIldGn2187wu28sfQ2wk+cHnExMZP1pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gUpB7Ms6;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C62CC60A3834;
-	Tue, 10 Nov 2026 15:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62CC60A3834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=nv19DY8M;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5BD60A2606;
+	Tue, 10 Nov 2026 15:35:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C5BD60A2606
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gUpB7Ms6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 22C1B1477;
-	Tue, 10 Nov 2026 07:35:09 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6FCD83F85F;
-	Tue, 10 Nov 2026 07:35:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794324912; bh=carP3vbUYgr8qsVNCpHh1imjnhtxGTpLlqbqJ7iqKl8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gUpB7Ms61i05bC8pBOCmVktL30n76DdrZCKYLCh8SWObKFPJerLKXPU/SaDxKV/x9
-	 esE5Z9dOguoSs7rVsiuV5wFfhNxTC/ivfdnVUn3IVcDEvTgceqBYhUkGeUXdVHfgQG
-	 X4wRc8iZlpvOnHotbK6aaCzF0hZg8GKH9L4tbHQs=
-Date: Tue, 10 Nov 2026 15:35:08 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
-	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/11] pinctrl: scmi: report an off setting as not set
-Message-ID: <avM5rBHedZDn45kc@pluto>
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-4-52d92843ad97@baylibre.com>
- <avL-4lquUqW9lUNh@pluto>
- <7f613b00-bafa-4f4d-889b-4e37f5009b6f@baylibre.com>
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=nv19DY8M
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jP9hB47K2z6FK1k;
+	Tue, 10 Nov 2026 23:35:06 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794324906;
+	bh=2zeJZwiD9yu0+B+pRLIcxWVCQ/GI8BQOlaQgqT/leTo=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=nv19DY8MljQocFN4vyiWRTqOETh8IUJT1aMtsFi0v1dIXKTjhZLoUN0MKNSTuEgAF
+	 FF1ORcb75CqsTi+bZRYK3VajKPwW+R9AVV3J2Em/pwtUB51xm9bOID9LHSIp9MUMOb
+	 JZPC6wzMUwrr3EXrl1UBxrPrRrVBU0OUjldk0Bu1ue0bDtLMwv1HVMuNc7TyP7PtS6
+	 yGveQ9s+LvZb3zn6OkQ6HFIRZ/4LBX+6KbBQLVHGwNG5UE7DIrKCtii4Sy51+pbV1Y
+	 NgXlYht9f2mxcNjdKPgIbyuTISwotPLK34MHHwuaHz02DUfrYIA+5KByHJ1jMQ3fS5
+	 o7kV2zvr9s4fQ==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6AAFYt2v047673;
+	Tue, 10 Nov 2026 23:34:55 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 10 Nov 2026 23:34:59 +0800 (CST)
+X-Zmail-TransId: 2af96af339a3f4c-22570
+X-Mailer: Zmail v1.0
+Message-ID: <20261110233459277eFsXn1VXUPZl1EA9CCa5Q@zte.com.cn>
+In-Reply-To: <20261110233450305Smji446Uhvoxa7r8SHEgl@zte.com.cn>
+References: 20261110233450305Smji446Uhvoxa7r8SHEgl@zte.com.cn
+Date: Tue, 10 Nov 2026 23:34:59 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,31 +72,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7f613b00-bafa-4f4d-889b-4e37f5009b6f@baylibre.com>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <broonie@kernel.org>, <linux-spi@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+        <pjw@kernel.org>, <samuel.holland@sifive.com>,
+        <william.zhang@broadcom.com>, <kursad.oney@broadcom.com>,
+        <jonas.gorski@gmail.com>, <bcm-kernel-feedback-list@broadcom.com>,
+        <anand.gore@broadcom.com>, <florian.fainelli@broadcom.com>,
+        <rafal@milecki.pl>, <linux-arm-kernel@lists.infradead.org>,
+        <sven@kernel.org>, <j@jannau.net>, <neal@gompa.dev>,
+        <asahi@lists.linux.dev>, <ryan.wanner@microchip.com>,
+        <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
+        <claudiu.beznea@tuxon.dev>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDMvNV0gc3BpOiBiY21iY2EtaHNzcGk6IGZpeCBkaXZpc2lvbiBieSB6ZXJvIGZvciBkZXZpY2VzIHdpdGhvdXQgYSBtYXggc3BlZWQ=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6AAFYt2v047673
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:35:06 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF339AA.000/4jP9hB47K2z6FK1k
 
-On Tue, Nov 10, 2026 at 03:47:33PM +0100, Clément Le Goffic wrote:
-> Hi Cristian,
-> 
-> On 11/10/26 12:24 PM, Cristian Marussi wrote:
-> > On Fri, Oct 30, 2026 at 04:58:35PM +0100, Clément Le Goffic wrote:
-> >> A get of a setting that is on or off, the flags and the pulls, returned
-> >> 0 as a value, so every one of them showed as set on every pin. Return
-> >> -EINVAL when the platform answers 0, which is how pinconf reports a
-> >> setting that is not active.
-> >>
-> >> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl driver")
-> >> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
-> >> ---
-> > 
-> > LGTM.
-> > Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
-> 
-> I'll apply Andy remarks. Can I keep your Reviewed-by with those fixes?
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Sure.
+A SPI device whose max_speed_hz is zero (no spi-max-frequency property,
+or created through the spidev sysfs new_device interface without a
+speed) leaves the transfer speed at zero.  spi_setup() would only clamp
+it if host->max_speed_hz was set, which this driver does not do, so
+bcmbca_hsspi_set_clk() divides by zero in DIV_ROUND_UP().
 
-Cristian
+On arm64 the division returns zero instead of trapping: the inner
+DIV_ROUND_UP() yields zero, which is then used as the divisor of the
+outer one, so the clock control register is programmed with a
+meaningless value.
+
+Clamp the requested rate to 1 Hz before computing the divider.
+
+Fixes: a38a2233f23b ("spi: bcmbca-hsspi: Add driver for newer HSSPI controller")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+
+---
+
+diff --git a/drivers/spi/spi-bcmbca-hsspi.c b/drivers/spi/spi-bcmbca-hsspi.c
+index 8c01475886e8..84015110557a 100644
+--- a/drivers/spi/spi-bcmbca-hsspi.c
++++ b/drivers/spi/spi-bcmbca-hsspi.c
+@@ -196,6 +196,9 @@ static void bcmbca_hsspi_set_clk(struct bcmbca_hsspi *bs,
+ 	unsigned int profile = spi_get_chipselect(spi, 0);
+ 	u32 reg;
+ 
++	/* A device with max_speed_hz == 0 must not divide by zero */
++	hz = max_t(int, hz, 1);
++
+ 	reg = DIV_ROUND_UP(2048, DIV_ROUND_UP(bs->speed_hz, hz));
+ 	__raw_writel(CLK_CTRL_ACCUM_RST_ON_LOOP | reg,
+ 		     bs->regs + HSSPI_PROFILE_CLK_CTRL_REG(profile));
