@@ -1,76 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324696;
-	b=sciDHMIcpgwBMw3s7mxjrMmTSyObnMgL3H1fAn4la0E8wpVUzHIab8A0/CEN2NRnpMlr
-	 QWEWnC4P4ITnoysavy2ZWUAwSPrC/IvYBhMfybtm5W+J0hl7eEzA9K7f5BN2uyOlHpzt1
-	 DxApljF0ouv1HxkxJDdpRoJKbB2VFOzxtgu/64JppSV4gKxg1/ZdESoKfFTjfloo44dba
-	 81gaV2yG0ifvXKQ79gfd0eNgo60+UCcjSuoQvCTJPdJkR/J2Q2/rjurmvUYSQXVuG4yTH
-	 3BSf71tNw+NL3PHW0obKXXxYrcz3Y8eUoljLIBHgUVn8oe40UavC99PhHU/o7e5PDrQ==
+	t=1794324697;
+	b=IUDx61hMSJMCUMOs+ldhMuga8QmPyKjxwoXIAOHsdDTSCHgZaud8FyDnB8BD9c0gqDSM
+	 P7nvvVBZ7UdyqB4Z5I3EYN7NLUudZ069R/5fgmdnRNWSTRxQ3tr0RiiSxryGnI7TUyXFc
+	 tvHe1FxJpOf30j+WatS4/e8ZI40+houRdDH9upo3wqZL5tCDqVN4257vn50pcsCrotTy/
+	 373g/n7izajBZ7ig3EdmUzcDGlmvJuvZ4p2AJ/nJ0N/ZnIzfGfMW30zJOkXQlSclYNp9p
+	 nPlQDT6b8N4kd+CXJTDC2xYqo+EirYdeEfIP//1aZgqD+RfJ727vO6k4sCkND4TpUsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324696;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324697;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=SJjtzkP+sBHxUstFA6XSyOLuoy/E3cjaVl7XAdp7TZ4=;
-	b=HS5+D2iHPBubgRqngNYYeW3bKfoC/Pz4zJkhVUafN/ujVkiaWhzTHyiGyChXxE8vZDxZ
-	 sEBOtrm5a4Rctwf4+zz0KDFfaoUAETIgWpO91gXXrozhUi8QtGvOFOPIOjZLJEIsxSyWz
-	 uOiCd7rhzU5OqixIa+E8ZNI0iNNou8GFA1aLdWjlqpuhpe6yhFxh4ZJgAgiIDWj9h4nPd
-	 /auzSFU/l9VkN2dixOy86JiPC3rqZSd3PzqnLltFs4FgIkYCMO8XcrKvV5163VIvQTrog
-	 uZYWXaXvGbumQ72zFPpWQZtLJszPQCJfDBm/KYGS01Pyy0nRV2ZJC0dKUoPBFENj4WQ==
+	bh=P9CCZPVFgS03WxJsvAf+y67MqFmcRV8SPG30b8JscMs=;
+	b=aPqzVOdSGkN/6Zt/nhPoky0eo9Z/HNZTQpzGprCl39nmRPs40/8Nf7iKbulfFbufGtd0
+	 Piwd8VJTm7/j9+jV4OG4OBKWfo5Aj6McOfKbq7y97RiR8HkKsy7Ouaxgzh49tzuTDH6Nv
+	 pZXhi0nCdNL6mF4Ahe7027XS4ddoZX/8Ch1APS8qR3uEZmjLfUI4LRAKDACpvo3dCXikP
+	 0eGr5hezI6A6+zzbKuefSU/o3engSIC2CME/r+wV6xvIVH2L5fWwkvlQRe4YIcF3fAmvp
+	 PG5zu9dEimFkIEIbwLADooUGQtdEByDsItTfFgHdm4Bh9mqfcUl4OgYZukWM4ciliCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--halg.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EbaSWAnJ;
-	arc=none smtp.remote-ip=209.85.218.69
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JVgMNZQn;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94352606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1A2606A333
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:31:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94352606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--halg.bounces.google.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B1A2606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EbaSWAnJ
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c505ee61160so29012466b.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JVgMNZQn
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4b467581b98so20219185e9.0
         for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:31:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794324695; x=1794929495; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SJjtzkP+sBHxUstFA6XSyOLuoy/E3cjaVl7XAdp7TZ4=;
-        b=EbaSWAnJ7A533qGpAvii2NS3I9zxkDKlvnsqDPtzIBKMTuzOPF5jRLHhwfsyK6diIL
-         2En3fr/6Wz2Zy14HVjG0BjTT6HzN+p6NPYlr8unPhlA6m2umktQnoqp2AYSjldSAJssk
-         xHzbOcqVaFfuuKFkgO7UgDfRrsaoBkRPDiUM6rHPYGDOR3M31dOOpz5vbhmi2t4d+DUT
-         jeFEACxiutXh0J7ifsM5tXZOXkDouo9+ARx8MVQmgZYMid1HxFVWY6jc0+kGfKGLmr9K
-         dwtVL5ln+2ptHee8NSHeS1SxVprCYBr2xvsLYm8F3UiIKYeFqvbgvqwm4UzA816ruQV6
-         HNoA==
+        d=linaro.org; s=google; t=1794324695; x=1794929495; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P9CCZPVFgS03WxJsvAf+y67MqFmcRV8SPG30b8JscMs=;
+        b=JVgMNZQnda/esBJSbxZastldfZFtg2sN/fllpzn9JJhrBhTSoVal1oXjSGvQl6/XwP
+         S5AfN/IIDvXHU0fkOjdbwNk3DPDhLETzeff9K4qZqnw6RmXPS8tQrkSgRIzGKJMOnr1i
+         sBxZHE2Y4ZEpZBzaBSuqCkCfZEaiNL2JwvMOlag6O8pSyWyZgEPM35NkIkxmJgHpa/DV
+         2xaXep2VGEZa7vbIcUlBQyll0qtufH8sHSsWCu2jqaaN6Lfur0eBFVazOoVQ0UglwLcT
+         uG3SFYQp0sPoMKyrQMPP2mTcYZyhFnboKZt9DojznA446DJPg6wgt/bP+Nj2M0LiRAkF
+         1U2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794324695; x=1794929495;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SJjtzkP+sBHxUstFA6XSyOLuoy/E3cjaVl7XAdp7TZ4=;
-        b=LrKiaxRB9GxBlRYznMCriEQK26ccPT7n3+veWHkkD4Sj1YoalHOiOsMkLHywg4aPwW
-         9PWeJoprtMeSFRY7W9Ma2Loodmsb4VpijaQl9J7IGoLECpeaJvot2EatXyb1cp1zIzn0
-         HSPXsQW7mU1Q2eNswytpjeAVjNBnNDXU7IvRaS7Q1FbMjE4NgXG690q+Nv6S/ejtEskV
-         JdSSJ07UNSqzTe//Ky/U3qfokBXZ6etrHPaDnki4XEcOjHwF+qgnaiQyblj6Yge116pc
-         FjOOsied2BUGJpFWuDw6/n/nsFOzDcA4XGHTZ96U2OC1wPgOGytrRanPv0cT+KFSZTke
-         WL7Q==
-X-Forwarded-Encrypted: i=1; AL+hErG8YNcevBavLKlNGvngeyVcRlP8AFAWy55j0x7JEDS36DVXl0vQPukIU+y3J6r8ikxyZVjUT4aDTPlRlnA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8iuCzJx4AhIG6h4qVzGNwklujopu8+MljckjvXwR/vMnilmo1d
-	Hd+mOyAT9nRVyYt9tidRCTE+BC0fcMb/FqVpjFSCi8vbgIq5rQtWhOJECv3xI/NaaCKiaBm60w=
-	=
-X-Received: from edsw12.prod.google.com ([2002:aa7:da4c:0:b0:6b7:834:31d9])
- (user=halg job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:68a:b0:6b7:675e:7a2f
- with SMTP id 4fb4d7f45d1cf-6b7675e7a95mr879624a12.1.1794324694693; Tue, 10
- Nov 2026 07:31:34 -0800 (PST)
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P9CCZPVFgS03WxJsvAf+y67MqFmcRV8SPG30b8JscMs=;
+        b=q6vzgRbAvnvdnbaXMA+5OavMHLyEJfdhIkplv6fpn1V60qMskuWr5mQi3CZFJzVH75
+         f1LtUFN16+efA6urpZIFyqGWsUO3S1i4e0SMMJs65ltJI+mRlw258iiWAxrk+nYrR03Z
+         DEDREtLzlCLFSxiB2rZYymxXJXp1YB3u2AdXUPw3nIhSVWkCcCDx5/9cJB8LM/lwza3X
+         W9c/kXlzQt14jN3Lca3pZCUpLcE0A5ME4A2wbSLGsQj8wMQkIJYvYSrfNPHO+v+mA6N6
+         VLNsPuhfdu+q7gdQQMorHVJuQHrFPM4ZOof710Ki/qYTPdD3I4/uvK3mEjyI9qS9bw9z
+         xW0w==
+X-Forwarded-Encrypted: i=1; AL+hErEtqtnSGvQXNFOJb+6w47Ufn4xk4DuYDwrUvsTG3DuMxPbjNu9s/ofaIFzmQbPGUgKqmXS5Fgufpo7b/Bc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kWN1qEv6XKBtWgJD/brsej+1XkK1VdwYY2iMAyAZHLr0Cd1vM
+	CYhlD683JkfplUR9QihrFzrZkTE5K9kVjA+soo9qUmPErajPQUWshLJIrZDNIrC7mUM=
+X-Gm-Gg: AYBFou1IVLEvhNiZBVFtTZGWCrDCUx717hD45LJT1mJp2ygQD6xJbXiUPWMDEQjoL3K
+	diyBu6Cd9qfO5qxZQaNE7kS4UTdrHoSzcSKqmxywadSobAtIW2mCYkpQz9rlzMJRq6JnN+QzJOT
+	38bhljL3nphys1Zaz5P5CeOzhB92pPc+f39PTGmSBxJBDPtvqRMaDnWnZEKeVBsgiJlZZDDXl6e
+	wBi85LimE4Qsscvdd7PQbXNfNa1xcdgDK3sN+K6J4BA0glCciFiv+t/7th6SS1EujyDDjSCnk3j
+	/usHMZBnxE6hszcCt1m746ygU95yFT/kI1fF/mReM+gK0crdCbxKerwxd1WIAFzbXi9C+nMqCwm
+	MkobXACONjfwYTeGfZFHP4Y/P7ykSgaHYrV++mqCjh9AuOsvIBhoGwi47mVMQr2Gr5CPM8rSwsF
+	/TZFyQu6xVA1RkLRaO1XQGmLkm/A2YfUGqEj3jotvHZGu/A7iPLtPTKc7q3dXYaVJ6UN/NF9AlR
+	tWiOn7tVFa2fkz5Aykru457rlUM63+c8SGrL3N+GifQF6bge8wPUFO20Z3hNdVXq56IwwGGyKVh
+	1auNfbSOTJL+qj9hizLVX1Rz+Li5qa8E5g==
+X-Received: by 2002:a05:600c:190f:b0:4a6:30c3:1114 with SMTP id 5b1f17b1804b1-4ba0233c53fmr49950065e9.12.1794324694886;
+        Tue, 10 Nov 2026 07:31:34 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0236f03esm55774305e9.3.2026.11.10.07.31.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:31:34 -0800 (PST)
+Message-ID: <002dcf66-ace9-4973-b163-81e79315ce32@linaro.org>
 Date: Tue, 10 Nov 2026 15:31:33 +0000
-In-Reply-To: <CALCETrWa1SBLcb5oWjqjgzZvKvCoHjmYFk=Lf5ytEM9uqm5jYA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,152 +91,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028221705.3915340-1-halg@google.com> <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
- <20261106-befreien-addieren-eislauf-e09212803534@brauner> <CALCETrWa1SBLcb5oWjqjgzZvKvCoHjmYFk=Lf5ytEM9uqm5jYA@mail.gmail.com>
-Message-ID: <avM41a80aig2de-R@google.com>
-Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
- opt-in netns loopback
-From: "Hallgrimur H. Gunnarsson" <halg@google.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
-	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jann Horn <jannh@google.com>, "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
-	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
-	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-api@vger.kernel.org, containers@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/23] coresight: trbe: Drop redundant disables
+To: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-10-3f57cf3199b1@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-10-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 07, 2026 at 10:47:41AM -0800, Andy Lutomirski wrote:
-> On Fri, Nov 6, 2026 at 5:13=E2=80=AFAM Christian Brauner <brauner@kernel.=
-org> wrote:
-> >
-> > On Wed, Oct 28, 2026 at 03:56:11PM -0700, Andy Lutomirski wrote:
-> > > The whole unshare/clone flag situation is getting out of hand, IMO.
-> > > And this new thing makes logical sense but is really about reducing
-> > > exposure.
-> > >
-> > > Perhaps we should instead have a small list associated with a userns
-> > > (extensible in the future) of things that the ns's admin (i.e. whoeve=
-r
-> > > has CAP_SYS_ADMIN relative to the ns) may do.  That list could
-> > > include:
-> > >
-> > > - Create loopback with sensible defaults for ipv4 and/or ipv6 (i see
-> > > no obvious reason to separate them)
-> > > - Create tun/tap interfaces in that ns (and attach them, etc)
-> > >
-> > > And add a very simple new API to do these things.  Actually, the
-> >
-> > We've had this idea in the past and I think it is reasonable. I had
-> > always thought that we should expose a system call to create empty
-> > namespaces ot any type. Usually I'd be excited about that but I think
-> > that point is a bit moot and I'd really like see whether we can turn
-> > cells (or whatever other name) into a first class api.
-> >
-> > The problem I have with the patchset as written is that adds a lot of
-> > moving parts. And yes, I find the CLONE_* and UNSHARE_* flags plus
-> > sysctl to be suboptimal as well.
-> >
-> > So the TL;DR is that CAP_NET_ADMIN + userns =3D
-> > CAP_NET_PRIVILEGE_ESCALATION 10+ years later. And this patchset wants t=
-o
-> > put it back on a leash.
-> >
-> > So why isn't an aggressively stupid solution to this problem to split a
-> > new capability out of CAP_NET_ADMIN so it covers the absolute minimal
-> > set of things that should be allowed instead of doing effectively the
-> > same thing but split over multiple apis?
->=20
-> Because we don't actually have a clean way to make a list of
-> privileges that are, in theory, harmless but are hazardous from an
-> attack surface perspective and assign them only to tasks that ought to
-> have them.
 
-Exactly. Furthermore, even if we split a minimal capability out of
-CAP_NET_ADMIN, create_user_ns() still grants CAP_FULL_SET to new
-unprivileged user namespaces by default. Without a mechanism to
-withhold capabilities that are namespaced in scope but carry high
-attack surface risk (like CAP_NET_ADMIN and CAP_NET_RAW) and only
-selectively grant them to tasks that really need them, an unprivileged
-userns would still receive the full set of capabilities.
 
-Providing that mechanism is the core goal of the per-userns capability
-bounding set in this series. Even on its own, without any loopback
-changes, it can be configured to prevent unprivileged users from acquiring
-CAP_NET_ADMIN and CAP_NET_RAW when creating a new userns + netns, while
-still supporting sandboxes that use a completely disconnected netns or
-containers whose networking is configured externally.
+On 16/10/2026 17:55, Leo Yan wrote:
+> The IRQ handler has a common point that disables TRBE before dispatching
+> the fault action. Once execution reaches the overflow handling or
+> truncate path, the trace buffer has already been stopped.
+> 
+> The __arm_trbe_enable() error path does not need a disable there either,
+> as TRBE is already in disabled state.
+> 
+> Remove TRBE disable from the truncate helper and from the overflow
+> failure path. The truncate helper only needs to mark and end the AUX
+> output, so rename it to trbe_truncate_event() to reflect its remaining
+> purpose.
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-trbe.c | 15 +++------------
+>   1 file changed, 3 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> index dd9c9330bb0c739795f300dafc6ce34e72fbf280..4a041bbc6e970d72a7d735e15f7221037cb091d6 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> @@ -301,18 +301,10 @@ static void trbe_report_wrap_event(struct perf_output_handle *handle)
+>   	perf_aux_output_flag(handle, PERF_AUX_FLAG_COLLISION);
+>   }
+>   
+> -static void trbe_stop_and_truncate_event(struct perf_output_handle *handle)
+> +static void trbe_truncate_event(struct perf_output_handle *handle)
+>   {
+>   	struct trbe_buf *buf = etm_perf_sink_config(handle);
+>   
+> -	/*
+> -	 * We cannot proceed with the buffer collection and we
+> -	 * do not have any data for the current session. The
+> -	 * etm_perf driver expects to close out the aux_buffer
+> -	 * at event_stop(). So disable the TRBE here and leave
+> -	 * the update_buffer() to return a 0 size.
+> -	 */
+> -	trbe_drain_and_disable_local(buf->cpudata);
+>   	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+>   	perf_aux_output_end(handle, 0);
+>   	*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
+> @@ -1024,7 +1016,7 @@ static int __arm_trbe_enable(struct trbe_buf *buf,
+>   	trbe_enable_hw(buf);
+>   	return 0;
+>   err:
+> -	trbe_stop_and_truncate_event(handle);
+> +	trbe_truncate_event(handle);
+>   	return ret;
+>   }
+>   
+> @@ -1117,7 +1109,6 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
+>   		 * is able to detect this with a disconnected handle
+>   		 * (handle->event = NULL).
+>   		 */
+> -		trbe_drain_and_disable_local(buf->cpudata);
+>   		*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
+>   		return -EINVAL;
+>   	}
+> @@ -1208,7 +1199,7 @@ static irqreturn_t arm_trbe_irq_handler(int irq, void *dev)
+>   		trbe_handle_spurious(handle);
+>   		break;
+>   	case TRBE_FAULT_ACT_FATAL:
+> -		trbe_stop_and_truncate_event(handle);
+> +		trbe_truncate_event(handle);
+>   		truncated = true;
+>   		break;
+>   	}
+> 
 
-Finding a solution for loopback simply makes this bounding set more
-practical, as it allows us to also support sandboxes that rely on
-localhost networking without forcing them to retain full CAP_NET_ADMIN.
-
-With a way to withhold CAP_NET_ADMIN from unprivileged userns, splitting
-out a minimal capability (as Christian suggests) is a very appealing way
-to handle the allowed subset for loopback, though the main challenge is
-defining a scope that justifies a capability bit without re-introducing
-LPE risk.
-
-Looking at the CAP_NET_ADMIN LPEs from Google's kernelCTF, most are
-concentrated in netfilter and tc, with a smaller number in virtual
-interfaces and routing. Simply bringing up loopback at netns init
-shouldn't carry any LPE risk, but something like CAP_NET_LOOPBACK_UP
-is obviously too specific to warrant a capability bit. Conversely,
-broadening it into something like CAP_NET_IFCONFIG (allowing link state,
-L3 address and basic route configuration on existing interfaces) might
-justify a bit, but even such a basic subset would still re-introduce
-some LPE risk (see e.g. CVE-2026-53259 / commit f723ccaff2fb),
-although it would drastically reduce the risk by excluding the most
-high-risk components.
-
-Furthermore, I think splitting out a smaller CAP_NET_ADMIN would also
-run into some practical difficulties when it comes to clean enforcement
-in rtnetlink. Currently, rtnetlink_rcv_msg() relies on a coarse
-CAP_NET_ADMIN check at the beginning before any complex message parsing
-occurs. To support more fine-grained capabilities, we would have to push
-these checks much deeper into the stack, spreading security checks
-across many locations, which could easily lead to mistakes.
-
-Given this, I was hoping to have a minimal mechanism to just allow
-bringing up loopback without going for a new capability bit. Ultimately,
-it's a pragmatic judgment call. Maybe something like CAP_NET_IFCONFIG
-offers enough value and risk reduction to be worth the trade-off.
-
-Otherwise, if we want to avoid consuming a capability bit just for
-loopback, we could also consider other alternatives, e.g. a small nsfs
-ioctl on the netns fd (e.g. NS_NET_LOOPBACK_UP). This would align with
-Andy's earlier suggestion of adding a "very simple new API" dedicated
-to these safely scoped operations.
-
-If we drop CLONE_NEWNET_LOOPBACK / UNSHARE_NEWNET_LOOPBACK from this
-series and handle loopback separately, do you think the per-userns
-bounding set is a reasonable approach for withholding capabilities
-(e.g. CAP_NET_ADMIN and CAP_NET_RAW) from unprivileged userns, or
-would you prefer a different mechanism?
-
-I think the single-deep case we were discussing on the other thread
-could also be cleanly built on top of this. The per-userns bounding
-set provides the underlying enforcement mechanism. How we configure
-and trigger that bounding, whether via sysctl and clone3() as proposed
-in this series, or via a per-task securebit to handle single-deep
-containers in init_user_ns as discussed on the other thread, is a
-policy control interface decision that can feed directly into the
-same mechanism.
-
-To address the concern about the number of moving parts, I am also
-happy to simplify the control interfaces. If we decide a per-task
-securebit is the cleanest way to drive this configuration for both
-single-deep and nested cases, we could focus on that and drop the
-clone3() and sysctl from this series entirely, or only expose whatever
-subset you prefer.
-
-Thanks!
-
+Reviewed-by: James Clark <james.clark@linaro.org>
