@@ -1,76 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313536;
-	b=Slz9pHLSgfJDT+1dX4T4nZT+MIthv4+fCBkeM4R++VkbAvdS29UVHlnXw1rIW9zSZAMM
-	 XHHm5c/meI2nC/9XsEBQuPaawFl6j2DACsGfqUi4fYGkZdn9HI6j1IyvmWt57zzKg1ngJ
-	 h/zugw2FYEit68S5jjHYFdHNJ5508DSJEtMW4TI73J5FcePKaNMu927fpLaZzVmLpt358
-	 1wVbSPXLp/+p+3ipEBCyb2XRbB3dpIK/V/vcuW8GIqxzh+/HwmAeTIYAJrfM2bDOcSPYt
-	 EClQ1z4XCKFYNYcT2ITyE6ZaRlvwQnfsI1uKQumgj8TIz1xcWWhF+3YB4GfHuy643Wg==
+	t=1794313541;
+	b=GViurdNefIl8QgCLTA65JJLyPuUYByX1oLI+zuT/N7tQCewxaHRtYnCo1m6Mu7IHYl2l
+	 vcRIdhjCWDLOmacE/B9MlMOOaHUUOIgZy1ln276QzfVNt1VhGwhgjihYL3Cm837+Syfbv
+	 1TL6HCqqP/w9PEdnPY0/2Z25NbvNmbZZaFPYKhqXZ7j0oxz5NA3BSXUMltdbPToHh0kgk
+	 CdJJfVyLwDTDziSpXdVgk6gBA0F3WGLVcddHR8RgvHxwJYMKnXpOnIE47KMZjjNn1rFvF
+	 rx/q5FLWmpMDHWXJM4OlMMiHmwCMuOeCjWpqIZEzd7zK1mcCsI1dGKCmHJAlb22YTWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313536;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=8lWCiB0JHEA7qzkmIFqBVO/U/0hIioLfNPjh2IrIufs=;
-	b=bm/4GTjkXfE+PK0RGXN4fZljO6A8yHcWyHwbhWp45n5Vsy58CQ6yxbAudx7fl77QyAfU
-	 rGVlFPd8M8Axgg8uN4VKLejYnCZJVErJXeOxofnXS+E8YA5xKWD2OpeuJi74Pb+e7f5O4
-	 f1OU/nX9UcRgK/Qnx2599t1IeNmf52KZw+fKuBlxV/3zj61fb0/U+hq9gxetk1MMVmOOf
-	 k/qDoKzX3MwfU+m3Gm6KLK1fJm1Dh/CDwzxe2uPhfBYmV1IFlUyyzfKpcvCIf4Sbb2sEp
-	 jZrvNgyEbSWfldaoi5jZSXalX86QITXJEfMvU/yrCdx3J9RedKba0wrYI5PMrC1busw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313541;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zZXxM4HEyoaJX4T3a3caTpShXA4lo/iWwvyoGfJLbaY=;
+	b=BzxUJCDHUhrSBeg9X6vifWBhVTfTTdPriFJtZ9eYLUB2hGnczOB0KabrGp7jLYfMYlw9
+	 T8IIvfzS3KfrdJjL7U8q/QhGw7+FbBMnlsB/xX4phzwdsLJuV/OeZdYmOqzsbtW9NVzMj
+	 Q6kg02TfiwgyOk3HG0aKahBqVnjxODE5XFMhJNvUmwcyzyarXHoPYm4CnTCudtRbVCQzw
+	 V/adEZK2GbPtHMqpNJzXqllQJr3qLgZT0YjNsKOSW1ntkAtLIkyIivDwdxW5bsq5666FD
+	 BRGfyA9tgUuWvlfREcxSn3d5LOIGabSJ9+kVExoDb3CiIUiq3g97q2ZWG6Rp+pbXohQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=SI4Wmh9i;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=Q4lY9wEt;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E58B606A31C;
-	Tue, 10 Nov 2026 12:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E58B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788AA606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:25:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 788AA606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=SI4Wmh9i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794313477;
-	bh=8lWCiB0JHEA7qzkmIFqBVO/U/0hIioLfNPjh2IrIufs=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=SI4Wmh9iiZypCLWl2/XmG5ygxz0S3I5Z10l+nJIgGIVpILB4LN2UlWwSRzb31TfoQ
-	 x/B+HSOe+aDRdA5c9OzxJvq/SBnj3tP9j1rHR9EJEUjmEr5dxQvZON4ThYtB+Beu1H
-	 TBxAbaI6dNtJYDvkK+tHjnEdiyr/7dxfu37cS3GY=
-X-QQ-mid: zesmtpgz8t1794313460t52fdad64
-X-QQ-Originating-IP: 7YJuLs4em+I2CqTud3IbnSVjn7y41TF7S7cgnCx37EU=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 20:24:17 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10375027920850177401
-EX-QQ-RecipientCnt: 16
-From: raoxu <raoxu@uniontech.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	pmenzel@molgen.mpg.de,
-	brgl@kernel.org,
-	u.kleine-koenig@baylibre.com,
-	lars@metafoo.de,
-	mike.looijmans@topic.nl,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org,
-	Joshua Crofts <crofts@kernel.org>
-Subject: [PATCH v3] iio: adc: ltc2471: Fix LTC2473 differential offset
-Date: Tue, 10 Nov 2026 20:24:14 +0800
-Message-ID: <B29B7229F9C3B748+20261110122414.373459-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=Q4lY9wEt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1794313531;
+	bh=ipM5fTfNI0Rmu8+MMBSJkTcic1CBXOK8H8okZwMxFBQ=;
+	h=From:Date:Subject:To:Cc:From;
+	b=Q4lY9wEtJY1vjDBi2B8lKmNQpRYIrOCWh5fLL4dsaww6Mx6o7EVCE/65RwBNzyj3w
+	 tmI1cmyg9cATwb4wqwpsqga1jjQwIbnp1vt/ddI5cPzaS2GCD0NR1PdSsSsZCF+yzT
+	 ccvk03IZbkJY4Zgmxz0A8ivn63HNPhyE26M0ydeM=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Tue, 10 Nov 2026 12:25:20 +0000
+Subject: [PATCH] alarmtimer: Initialize the device wakeup after the RTC
+ device was chosen
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,86 +53,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Nc4Sv39/e83WFeryTqrHNtJMOj01Y+f0ORTzGpEKG9K0/C7vSde8aTRX
-	y/qMc8n/tgq+FMlEVe/lRS9F0KkGjR3APk0ev9oxRLubtn3yqwsgYusnb8cVywJaE4UZvwV
-	i5E5xqio9BD2SAQA9BmhyHwIctS/G304cjq9Ompv9GKJgdwAHLT7J2BTpmJKcgknghVshgw
-	tkf5eFiuFk+CpFBnoshnkwle3c+keK+tQJIzLZbpiAH3VcUK/iSkdxgK+SG6ii+izKmNHoF
-	ulmGGT0f+0a7dYEWzI1I3AWepIao5fTPgXbVQWoho0de2byMm9OIKda7QMo8DkdXfzxk/A5
-	1+xquYHAlIXNwGmUJh33GCQmqD5ALlcMCbphGzXdiRVPcxET5YTlV0dRrbtdGagXSiS7Zy6
-	yR70M3Ec9jBLjTY+ZZsz04VWHgBAfbQRxdxKTUyg8vmIuSe8154gFZMvYewJnXUg2A88STa
-	jv0ddqh1t3FVg9TN+vYkH0kVdMcYhaqGZywYbEcIga/l4XuGiqiaNopkQEoztvzS58bbqv3
-	X3kZRDDRH+ywiABL53LcCmr9nf2g6PkkhqfKSw7f7TjW6tdITacG6LzVVOCIIcd25q4K1PP
-	baCGg3AIwvuHUdL8jdq++7xWjFSij+b/alWWX0dxd+Ct35wiuDcl5hr8x4NmwzxGZ96twF1
-	Xismda0KS0Ie09Pu7I9KswrbzhrOSbziulVOJQ5nT6L/GGQvUyK7+AqKY2zuYHNBaETd5UN
-	TadUTiXM2cq38YPRi8ul5RoyRWDcDCbh8w0oKywt/h46VNxODnr38k6+w+iIaAV+l/Q1RJV
-	go0t2TyLIhS5fLo3YYy3adv9TKUvE2N5nQXcACAs14e+EFjzrNw9YqbisSB2uu8/dTE3phq
-	t0OcPDPw6FWKf+EuBN9ISVASKVVXbHJ/IT4GWFUuYOtnTLejMSOKDmeIk5MUrmj9WP9xTNd
-	IDMT+p4Kw36e+p1Cbd27YC/1hl7cR+qQgFdP9/m+4C/gP652tXy+10VSmQmirXpmRuBf2Oo
-	QKXpkgkQx0SUUjhVtXqGegBCBtjX+PZOGz/poUvMQOvayUvoUmT+wS6IUnjpzpHUcdjQR38
-	fhES24ep8VKgzg0e8r1J/5oTLJNMnc/0+Nt8zPOgx2e
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20261110-alarmtimer-wakeup-v1-1-af4269645dec@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWduEVgqJVzEuhvKLI4JkWtSEc
+ HerLL/FeytFqCDSqVhJ8ZIozynDHgoKN556GOmyyZWuttaWhh+sY5IRat48YJmN99UxMGrfuEC
+ 5mxVX+fyf58vuuLR3hPQb0bZ9ATZuISl1AAAA
+X-Change-ID: 20261110-alarmtimer-wakeup-5543cae6572c
+To: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>
+Cc: linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794313524; l=1246;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=ipM5fTfNI0Rmu8+MMBSJkTcic1CBXOK8H8okZwMxFBQ=;
+ b=6qpcNBRkeufNTVfSv/Yr1uOyWgo0oOL9mPsgof8wH8i0HEFIsfKQIpP9z2ccpUsYWMfbGzwRE
+ ZAv4FAHnyJpC4Y95bDb7I9ou+AFncpoif8FFBTp4JSTcqsoNcpZvuzu
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-From: Xu Rao <raoxu@uniontech.com>
+Currently device_init_wakeup() is called before try_module_get().
+If try_module_get() fails the wakeup enablement has been pointless.
 
-The LTC2473 reports its differential conversion result as an unsigned
-16-bit value spanning -VREF to +VREF. The IIO scale is consequently
-reported as 2 * VREF divided by 2^16.
+Only call device_init_wakeup() after the device has been chosen as RTC
+device definitively.
 
-IIO offsets are expressed in raw codes, but the driver currently returns
--LTC2471_VREF, which is a millivolt value. This makes the processed
-reading incorrect: with a 1.25 V reference, the midpoint raw code is
-shifted by 1250 instead of 32768 codes.
-
-Return the raw-code offset so that the midpoint maps to 0 mV and the
-endpoints map to -VREF and +VREF as intended. The single-ended LTC2471
-does not expose the offset attribute and is unaffected.
-
-Fixes: 1d3eacbfa644 ("iio: Add LTC2471/LTC2473 driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://lore.kernel.org/lkml/878q31vl8g.ffs@fw13/
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
-Changes in v3:
-- Add Reviewed-by tags from Nuno Sá and Joshua Crofts.
-- Move the AI assistance disclosure out of the commit message.
-- No code changes from v2.
+ kernel/time/alarmtimer.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Changes in v2:
-- Replace the raw -32768 literal with the named LTC2473_DIFF_OFFSET
-  macro.
+diff --git a/kernel/time/alarmtimer.c b/kernel/time/alarmtimer.c
+index ecf8c89f7eaf..da6b3024406c 100644
+--- a/kernel/time/alarmtimer.c
++++ b/kernel/time/alarmtimer.c
+@@ -91,13 +91,12 @@ static int alarmtimer_rtc_add_device(struct device *dev)
+ 	if (IS_ERR(pdev))
+ 		return PTR_ERR(pdev);
+ 
+-	device_init_wakeup(&pdev->dev, true);
+-
+ 	if (!try_module_get(rtc->owner)) {
+ 		platform_device_unregister(pdev);
+ 		return -1;
+ 	}
+ 
++	device_init_wakeup(&pdev->dev, true);
+ 	WRITE_ONCE(rtcdev, rtc);
+ 	/* Hold a reference so it doesn't go away */
+ 	get_device(dev);
 
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
+---
+base-commit: 0359ecff58853a491dd0f09792fea8e87235ae06
+change-id: 20261110-alarmtimer-wakeup-5543cae6572c
 
- drivers/iio/adc/ltc2471.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
 
-diff --git a/drivers/iio/adc/ltc2471.c b/drivers/iio/adc/ltc2471.c
-index 369af700969f..eb418c0fa732 100644
---- a/drivers/iio/adc/ltc2471.c
-+++ b/drivers/iio/adc/ltc2471.c
-@@ -25,6 +25,7 @@ struct ltc2471_data {
-
- /* Reference voltage is 1.25V */
- #define LTC2471_VREF 1250
-+#define LTC2473_DIFF_OFFSET (-32768)
-
- /* Read two bytes from the I2C bus to obtain the ADC result */
- static int ltc2471_get_value(struct i2c_client *client)
-@@ -69,7 +70,7 @@ static int ltc2471_read_raw(struct iio_dev *indio_dev,
-
- 	case IIO_CHAN_INFO_OFFSET:
- 		/* Only differential chip has this property */
--		*val = -LTC2471_VREF;
-+		*val = LTC2473_DIFF_OFFSET;
- 		return IIO_VAL_INT;
-
- 	default:
---
-2.50.1
