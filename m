@@ -1,65 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343773;
-	b=AsC6KhhcP6ZMMNeJcxN84jzF3AuMJ5vPC5daQaEH8IazNQknRCXP7orXEOe9+iiKzWAq
-	 BGTdnbiFK6S3gw0FB/Fthn82nLGevQNj+WrYuAhtmpy6v1KbSGEOtTLDpebg3TFTuHUTp
-	 /GJG77PUHuXixG/xkMcQev9mHdBwc5u2ikJJ6ilF8KyK681KXziEG2UX3i//XLyeqZmbu
-	 Sk07hXZEfnMTEaC/PzvK2UGXKSH/DIP+QdczvlXxX1dDcmWcx5D5wJ+KXptEFxU50NfMg
-	 0xewPYmIz4hXid62DI65+dPNmRpzVJL0yoN/PS4cS1QXipAEpP58BaAgmDpWjxJqCSQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343773;
-	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-malware-bazaar;
-	bh=QZUYTVrEmnGgtZwJSdwQjuf+Kfj1I1WqfbMiipHwxpc=;
-	b=M4lXY6neEkk11GslnIJQo/HhGtRJB27moWK9pU+kugHwFlnVs6LkW5Ljmhhqn5dQMSSC
-	 B8qNUXXHOADtJ7U+iZIvhR0Bhi83dKiwsgusilCFK3ScwYqIV7mTwgHYrQDzGRKIFre1p
-	 qFLdoH4DQpGz19RrCkhxJZe44ggZtId1InGMcZMf/L3uXP3R7SkHcZdKfKxAB72UaLNHb
-	 Aa5Nl4jcpsykk779RmIfe7XLvKfZxYYrhs9QWQXP/7+MYKpUQnvJxiOYmB1IoUXBqcAVq
-	 3M54ioNrT42B53mSlX4Wg8V8NhvFTFGSzrrIwOH5PNoq+K+wskG6rRfC5K2Qrca129g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=permerror header.from=sipsolutions.net;
-	spf=pass smtp.mailfrom=sipsolutions.net;
-	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=D3hZTb9Y;
-	arc=none smtp.remote-ip=168.119.38.16
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794343853;
+	b=FZQGGfDHe8Q69qdyOaE38xFDHr/mPXY09pO/gsh1KNs8Vt7r4nUuEcKgRCzC2ATysgRB
+	 t2NZEu+qfFVwqqfusAveRUTXOAqYRm9Oum14v0+UJAEXXhe6oI+M4GJVbFXp73KIm7oew
+	 bacoMtE7tgMywG4FiwE0JHA8Fh/iVjtYNqtgsXC49KvOeDHOjmPy2PDeffLJ9c8BDWy2V
+	 BXZoru9tEkA8uMupLIruzaUi3X99wLOXdVNT1giyZlb9SyKvebA90k83tWUkK1rBs/C1N
+	 lw847KtS6/Gno/V4CrFIfk1qb84NI90+/wkERJ3q3SGeDWtesgIs2bHRo8h955PWeVA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343853;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TbsdfhqjFLljt1j9XKpzR14n5eX7CPQSs2eqVapLe3s=;
+	b=V5vnQI5ZS3SeX1QMP4tKv8hZJJkrjIPRedGerphC7znf+aQpStcRcMY2XW7cltLJILEm
+	 DujR0BlSFrZw0NQn90u75hMDQF7sxq5n0XoFe1NFu9Vm3Izl37Fhf2/EtunsQIkHtO1mx
+	 0rt585hppwoXjyWSvlUc/lVHTLum7dtjxHP+NF7ydZxBNj9dyhxtkikazXnnx2oFXR9/I
+	 2OqxTEO2Scn+qBU+h546WLEme7EuU+3al4fW+7dpB/UQw7ARWddPAjwcaPrqYShDEf4+f
+	 z/fg36e2q7eP31PnNMHZtT/oSHvK9WlZB1+Pgbf2qDK4q8fQyLw65nJeiEtoI4i1qBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=STw2x4z5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.68
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013068.outbound.protection.outlook.com [40.93.201.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35288606A320;
-	Tue, 10 Nov 2026 20:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1B6606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D1B6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=D3hZTb9Y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=QZUYTVrEmnGgtZwJSdwQjuf+Kfj1I1WqfbMiipHwxpc=;
-	t=1794343772; x=1795553372; b=D3hZTb9Y+x1TGozMfaDu/KzK3Cb3RgQmZuBXfHWVZHJgbLO
-	iWUGK9cZ2MscOKmq95gLlxbUhpnfQGR8IHj/EV1jao2RaYZnQ27geqLSCmv9UgyqsihsJV2KVUNTT
-	AfpvkcNVkO7AHbVLq/Uub/Ew0P7PFEnrwI76Zzl2IeiBLW+Oecg/sUuAfGhyv9nU/XuqfVmHVsqyB
-	5YulmhdE7YGWboj9JMPKjmARC2C/Ukn22PJre/qzEgn5MkDWNF0+NbQ7LYRZiJuxx/w4vxiYqdneK
-	pXUfIP3ggBIv95RUFgltKF70WcF6eJFaQZoKkibKgbAoa6Aa+KytCM7h+QqibTbg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xQsmX-00000002KmY-2fIx;
-	Tue, 10 Nov 2026 21:49:29 +0100
-Message-ID: <60c815e5020502b91215a6c89c589d881e80d67e.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless-next v4 21/21] wifi: mac80211: define API to
- invoke SMD Drain Completion event
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 10 Nov 2026 21:49:28 +0100
-In-Reply-To: <20261106-smd-v4-21-62e39487f51a@oss.qualcomm.com>
-References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
-	 <20261106-smd-v4-21-62e39487f51a@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=STw2x4z5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jJNYEwQ/Vj+ujJX+/rCUx056F1ms9gQr8MV4iJGFmZW9a10/sDNY27vWv4DxcQFYNE0ZY89fejPy5AsUh8Vg/9UnwGPPGrIcLkukHpOEm5RnxNC44lhZh1oi1ok9U9dXlWWpt5BaGBX7shsCRL6rIsPXWCvsX9hLqBj+/O5rh3Tq66TtFePjf+FUMq6InQt4boP8U1nfFM6F2oYS1khgB4fW/1zw/DsOhgW3V8TXQOHJGRgRJZko90gNlDH+mQBfZxbBILAQvWOEdu+cbtH2BrMwNCadDj7R3jci1K/C/cuvMqkqzRueId0WMr0VFVD/wKxd9D6BQ0A/eHwGGKRcrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TbsdfhqjFLljt1j9XKpzR14n5eX7CPQSs2eqVapLe3s=;
+ b=ytC/PO7/aXUOH8XhL5uktEa2DfGE/W9jN1cFLI+FCWPpXZTs/Sknd4it6uNYk1DlRtiBrWvrPmg3LXbZ4GmLhkupF8rA6Mjr70FSjuS6SNpgPz3GJ5JGWCaBPzMEFl3dB8hNwMS9sJY2FZQ7m4HPpl8ED6L80jsgTSN0BO/6WD9EBr6nCatwQGOatNfuC7BSvhftchOMSDz7KVG1dAXc+zpjn8kH5r2sI4iPuFuI4M4bbfFlLqQ1PUVAntwzon5kZlx6HDWQOAJHYZFlGe61MYJeYjUAqbwgDWxrZ2lPKEB4iQBGVUAb5JgWPbsD+pxmQb7uJq4FH0TnQG48qJSKwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TbsdfhqjFLljt1j9XKpzR14n5eX7CPQSs2eqVapLe3s=;
+ b=STw2x4z5OPN9ZdkLb+jQeBun8I9nSMoMirCTy7pgyxO8nOwRiv7wejJJl1jylKKzJMZUbtA+THmxKKEoSJHba1XgW/+TVFj1HcpUmElZw7tVtBLpb5C2rpnUbnFbLlslcWKxBqw1+hccvUhGxHkCE1ryxbBg5ZPavWzLjTspHbzO67Vz+zfASjiQuQChl67265XggftJyTkZohcl3IomJ0uUBngaYk7O6iivZ3s4VmBgz1EC7BbAESzKeO/tz/U4OMriUCPCyPeCiYdAvsmJWhwKmLCcuF2xhFzTfAvUDqEOGaXpqxcTPpyx3WazqhBHqqsYXFbgaPSFPAFT/yv4fA==
+Received: from BY3PR05CA0010.namprd05.prod.outlook.com (2603:10b6:a03:254::15)
+ by DS0PR12MB999290.namprd12.prod.outlook.com (2603:10b6:8:424::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 20:50:49 +0000
+Received: from PH4PEPF0000B610.namprd21.prod.outlook.com
+ (2603:10b6:a03:254:cafe::3f) by BY3PR05CA0010.outlook.office365.com
+ (2603:10b6:a03:254::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 20:50:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ PH4PEPF0000B610.mail.protection.outlook.com (10.167.243.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.0 via Frontend Transport; Tue, 10 Nov 2026 20:50:48 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 12:50:28 -0800
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 12:50:28 -0800
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Tue, 10 Nov 2026 12:50:27 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>, <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, <rafael@kernel.org>, Danilo Krummrich
+	<dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
+	"Mostafa Saleh" <smostafa@google.com>, <linux-kernel@vger.kernel.org>,
+	<iommu@lists.linux.dev>, <driver-core@lists.linux.dev>, Sonang Patel
+	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
+	<shameerali.kolothum.thodi@huawei.com>
+Subject: [PATCH v3 1/7] firmware: arm_rmm: Add VSMMU commands and fields
+Date: Tue, 10 Nov 2026 12:50:06 -0800
+Message-ID: <efc402ba59961b271c2d7ce26f3b91d717f7392d.1794343501.git.nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794343501.git.nicolinc@nvidia.com>
+References: <cover.1794343501.git.nicolinc@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,31 +122,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH4PEPF0000B610:EE_|DS0PR12MB999290:EE_
+X-MS-Office365-Filtering-Correlation-Id: 599a366f-e750-4b14-1edd-08df3f6c4cd9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|23010399003|376014|82310400026|1800799024|260925022911599003|260925021911599003|260925021311599003|56012099006|261021135927099003|11063799006|261021121427099003|261022113327099003|261102123227099003|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	2mJMRXFRm8/1tiigNYOGrcsafo2YHfTdCXZ5di0QkD1VRNlq4xQQrofFQduR1f7yDg3CdSxD0f+OiLTc4H+Uqx/qlB4YTPO00BlTFH0eDDXPpgKGllTjoSJisop95IfT8SNOFJdUPan91lUcnse1FCnTms59mF5YmvKRhNHnqELmGTrfyshI/GG1r5FIa4a6YBYd/6DE87+KPaHNioIZQzXdOY2/gl/dM5fevTxQiYMLq2v7dON7ruOkm7+rnxrWPGenWdSVUZODJwkdKCbU0SrkwBvzNBYz5ChbjXTwc8gq9yrhERjTFMjtrjdMUjdVHbLvWR0nw81AQHLJjXMC093KUgf0JqAiq04Khx98mZDhHY9ZxHox/bC4E/wAzEmSB4DKruH1kkeHJi0b14KyDuRdrX35FolOBdHp+qlTS+DIOR2Ks5Exf0s2Cz8LHMr7lkleSNkA+iO7xKeBriQdm095qExcWurYZj5CigHVmrAegtl0bKxxkcunlJTV8vYwjDFpgKRGWxv4lxVwCejVb78VhYMLyPje/SkEZ/K8CHoryt29puyzZHW+392dhEkY21pGT64ARZC7shC6pturoE1VzgM+7oURBbKR4yV5/f01OKX1HZhU6ohuebJnJcCrw/KlpwBWlODkYymovKzS0+XAU22ORVOzVkynNY6VWnRKd5c8OQnsZqgIjQDXbgqbhS+/CQIql7Hvk+ATCkRVfw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(82310400026)(1800799024)(260925022911599003)(260925021911599003)(260925021311599003)(56012099006)(261021135927099003)(11063799006)(261021121427099003)(261022113327099003)(261102123227099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jC7/ynIt+d3PxJTVezpJw9MBpmjCZYs9bslsHMl+ytZ5afCjES5XcKKt8Mtf0n3nH9PF3+406mky3jb1xkypF4Qy2hzrb/FZIdrz/RWYbahUuAVyrLfOTk3PrsDl85+ZhydN62qzjokWd4WGsOIbGIRhDXPiXMyoiwmrsMVzXtl9V/2lWXerHZnIxJ3VIlP8netdgoQIIPPKnCRiAfL45oMuIdsDMaF1fgFoVuIncuYdskPxnZ6zMirKj+8+GA4RPEdCcBp1fLkCNinDEUZHef5fLjT6Pi17fYMW3fZIZtwJlMztz4HxmvY+m6vYA7vmjZgKfxGy1HZ8aB2xbxxOrEFSkQMV3ZVAdSS2tHQkWDbfTH5XI5NJpmKlNek+4pIJquDhhsw9G7mLLIly+OrL87I4eHqRk9sV1J2s5f+dYQefif+OofDQroPTfiASRnPx
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 20:50:48.7278
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 599a366f-e750-4b14-1edd-08df3f6c4cd9
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH4PEPF0000B610.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999290
 
-On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
->=20
-> +int ieee80211_notify_smd_drain_completion(struct ieee80211_vif *vif,
-> +					  struct ieee80211_sta *station)
-> +{
-> +	struct ieee80211_sub_if_data *sdata =3D vif_to_sdata(vif);
-> +	struct sta_info *sta =3D container_of(station, struct sta_info, sta);
-> +
-> +	lockdep_assert_wiphy(sdata->local->hw.wiphy);
-> +
-> +	/* doesn't make sense to terminate if we are not draining already */
-> +	if (sta->smd_state !=3D IEEE80211_STA_SMD_DRAIN)
-> +		return -EINVAL;
-> +
-> +	cfg80211_notify_smd_drain_completion(&sdata->wdev, sta->addr);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(ieee80211_notify_smd_drain_completion);
+DEN0137 2.0-bet3 adds the RSI_VSMMU_GET_INFO command and replaces the old
+RSI_VSMMU_ACTIVATE command with RSI_ARCH_DEV_ACTIVATE.
 
-I don't really see anyone checking the return value of this, and if we
-don't think we need to protect hostapd from broken drivers, then this
-could also just be an inline (or not exist). Anyway if it goes wrong the
-client will just hit the timeout without much loss.
+Add the command IDs, return codes, SMMUv3 device type, and helpers for both
+commands.
 
-johannes
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+---
+ include/linux/arm-rsi-cmds.h  | 29 +++++++++++++++++++++++++++++
+ include/linux/arm-smccc-rsi.h | 20 ++++++++++++++++++++
+ 2 files changed, 49 insertions(+)
+
+diff --git a/include/linux/arm-rsi-cmds.h b/include/linux/arm-rsi-cmds.h
+index 3f7a6a833993b..a1836b19c1556 100644
+--- a/include/linux/arm-rsi-cmds.h
++++ b/include/linux/arm-rsi-cmds.h
+@@ -236,4 +236,33 @@ static inline unsigned long rsi_attestation_token_continue(phys_addr_t granule,
+ 	return res.a0;
+ }
+ 
++static inline unsigned long rsi_vsmmu_get_info(phys_addr_t addr,
++					       phys_addr_t *top)
++{
++	struct arm_smccc_1_2_regs regs = {
++		.a0 = SMC_RSI_VSMMU_GET_INFO,
++		.a1 = addr,
++	};
++
++	arm_smccc_1_2_smc(&regs, &regs);
++	if (regs.a0 == RSI_SUCCESS && top)
++		*top = regs.a1;
++
++	return regs.a0;
++}
++
++static inline unsigned long rsi_arch_dev_activate(phys_addr_t base,
++						  unsigned long dev_type)
++{
++	struct arm_smccc_1_2_regs regs = {
++		.a0 = SMC_RSI_ARCH_DEV_ACTIVATE,
++		.a1 = base,
++		.a2 = dev_type,
++	};
++
++	arm_smccc_1_2_smc(&regs, &regs);
++
++	return regs.a0;
++}
++
+ #endif /* __LINUX_ARM_RSI_CMDS_H_ */
+diff --git a/include/linux/arm-smccc-rsi.h b/include/linux/arm-smccc-rsi.h
+index cca881ddfdbab..fff0073622153 100644
+--- a/include/linux/arm-smccc-rsi.h
++++ b/include/linux/arm-smccc-rsi.h
+@@ -37,6 +37,7 @@
+ #define RSI_ERROR_STATE		UL(2)
+ #define RSI_INCOMPLETE		UL(3)
+ #define RSI_ERROR_UNKNOWN	UL(4)
++#define RSI_ERROR_DEVICE	UL(5)
+ 
+ #define SMC_RSI_FID(n)		ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,      \
+ 						   ARM_SMCCC_SMC_64,         \
+@@ -190,4 +191,23 @@ struct realm_config {
+  */
+ #define SMC_RSI_HOST_CALL			SMC_RSI_FID(0x199)
+ 
++/*
++ * Get information about a VSMMU.
++ *
++ * arg1 == Base IPA of the VSMMU
++ * ret0 == Status / error
++ * ret1 == Top IPA of the VSMMU
++ */
++#define SMC_RSI_VSMMU_GET_INFO			SMC_RSI_FID(0x19A)
++
++#define RSI_ARCH_DEV_SMMUV3			UL(0)
++
++/*
++ * Activate an architectural device.
++ *
++ * arg1 == Base IPA of the architectural device
++ * arg2 == Architectural device type
++ * ret0 == Status / error
++ */
++#define SMC_RSI_ARCH_DEV_ACTIVATE		SMC_RSI_FID(0x19B)
+ #endif /* __LINUX_ARM_SMCCC_RSI_H_ */
+-- 
+2.43.0
+
