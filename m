@@ -1,86 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319122;
-	b=khCVYeUX2kX8Zo+GSFO5CT+jLGKv3iseyYbXa/vuMRUZOe1u3VPc1P0OuMLXmT2fwjgd
-	 NqSO6xwl3GUwDNB+oV+7v2t07ZMOvEDSvE5IpUSAUofNc8b22XGnjxYacFKCVE6X1Xf9t
-	 E4vcMELmroaavjcWJ1cWABjYd/9ednspglUQxn1cy4noYM1eK16dwUTkcEyUXZUK8VT9C
-	 vRmd0f7C120KFLjMEhZ/Z5tvlS6m5b+w6Z8G1rJWIP0bHEL4LR9a+gUjbUmC14VUSRhWP
-	 V3gG9DVnwemmuYMOTfcxXdRksrh9fE1V2fL0jaNgps1SifGDB7ZDxg7USDi1jlIYTiQ==
+	t=1794319140;
+	b=QvDQchiV+xXLsxbiVt3iNsdY5zrajee5l69eQLqZf6KWNoZKx3MCjB2ZsM1xExCK+S7F
+	 aGTFXMuQX7/r+hqIqXNmoyVrTykRwQx4rdHhODaC+uLHdTk0yLH6Q9fjNYjABqr4O3htz
+	 r5rrjXqHSeQ3MsJEr7jct6xE1IteIXayA4KBCdNAa1DjrV8vrkF+Me5gTx86gDQ7Blk65
+	 1RR7knJC5PQapCztB3UfNpGywojA8EQ5MSYz0GIf/8Wfkdah+wyIF//JcUHMBi3aHXoE0
+	 QVUZNXXlDtRl4NENhfuHUnbEZzTsa+/zp4SurBu9XFyz+N5Uktoex2UdyH/kxA6PRZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319122;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4AuBCb/I7k73HlQgjzDYi07i0QVcp76kIK/7/UWRP9M=;
-	b=K80yilUJ/cJOcc9GVvfx5lDjBJo4cYvgrgOJxBBe7CDK9YHkgfMzk35dW1xtNHEoEg+9
-	 CNFVCvcUvFeuukeFl1WYVz+IkXILLHNlSv2sGtN3fjY0I6NzuukW84RjGUbE5WbDttVLo
-	 51Rx9z+zs2HM7bKMkBX0iF7lfziBs0bJRG5Djaafer+zy6faJa/q5ryuw5tcJ+TVx4exH
-	 bUJphRtuXWqYHOSvqEo8vPSC2E2cbNw4BLsZuzOt+m9atWtSlstXQ1zbT3W4urX0cvF77
-	 r+A+ZP8t2fylvLKP4OyqN9Rphz7OeDcPQgqp/BD3k/iAPz20iF3WufyXedo+ABOfQ8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319140;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=McJ7EzdjpZoZ9QnIZAXd1sj3iExgLNGvctdfccvpYpM=;
+	b=vBG+TnH4rDDH7Ka1On8pWuRBEfyrvZGID2oqS+iLSR1naYvpnPWc7gspKVgsO+1GXkAW
+	 kJ4EXr+Cjvx65xuPBcrMhPdc4+9QxAQV6fpMye8lJo3NiBRqiXudvlVnj3XhtTkZCUByE
+	 Cmk7vkrItqjiVX9y5v+rQoR7rdbma/002hayA6+dAfVGfMxqs2xH15lVwZpN4IL+BBffp
+	 ujINZunLXNcnWdQI5rPIX70p2eEYQlYRr2eCjb8rHHmKSTINK7mh/zDJlPAb0gn96DoAF
+	 P1GWGGIS4tz1x2fiuotEpbtI4aM2kZL2FR83jfDbzWanrFdXdIBxfOYwxnYndq9+Iyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=S62sLQx+;
-	arc=none smtp.remote-ip=91.218.175.139
-Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA92606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:58:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCA92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Bo+daxnJ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9240C606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:58:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9240C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=S62sLQx+
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4AuBCb/I7k73HlQgjzDYi07i0QVcp76kIK/7/UWRP9M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794319118; v=1; x=1794923918;
- b=S62sLQx+LhnmDLUJhCz6HfRLqoEgB53G28YeYUfqm/sJ8OaI6ayyqNncZ/XA4lBMPS1JaX9W
- SRK/9GVmYZED6mtbEeyY8mOE4Z9B+Lc4ORbd1NaT90zIha3O+toW1jtzLJ/WCi7EBPx/7Bhgoxz
- xExlXvlJym6+jtHWz/2+W8Jo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 68181a37af8247a7;
-	Tue, 10 Nov 2026 13:58:38 +0000
-X-Mizu-Trace-ID: 68181a37af8247a7
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Qiliang Yuan <qiliang.yuan@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Bo+daxnJ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AE22B143D;
+	Tue, 10 Nov 2026 05:58:55 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 664113F632;
+	Tue, 10 Nov 2026 05:58:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794319138; bh=Stqf/UeMkAaff9pue0Ee0wx6NrZ9dhCynge/n1sKPss=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Bo+daxnJU7wVO39qjldL1mCt8K2l43nW8A4EEFDG2BDw2X9yQ4sVkQEEnUQJeGIth
+	 seQjpsPN0+sL7sV49A5Wzf5Cf5Eiyuca3I6uLoZrElWR2oFoxcmnHu64gcmo+CFsRO
+	 nXgKaFX1Y2fv6Z4E5kUG1KcyVND612FsKVUjed0k=
+Date: Tue, 10 Nov 2026 13:58:53 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Rik van Riel <riel@surriel.com>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
 	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Mike Rapoport <rppt@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Michal Hocko <mhocko@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mm/compaction: stop repeating failed async compaction on every THP fault
-Date: Tue, 10 Nov 2026 08:58:24 -0500
-Message-ID: <20261110135824.3264904-1-qiliang.yuan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102-bug-mm-thp-async-compact-defer-v2-0-b407e974db54@gmail.com>
-References: <20261102-bug-mm-thp-async-compact-defer-v2-0-b407e974db54@gmail.com>
+	Andrew Morton <akpm@linux-foundation.org>,
+	Yuan-Hao Hsu <aa9736195201@gmail.com>
+Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
+Message-ID: <avMjHS81ani_PtQ6@e129823.arm.com>
+References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
+ <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
+ <7627c0d90188b581e7740bf8d17c8dd07b460f89.camel@surriel.com>
+ <avLqwIWHa5CAbHO2@e129823.arm.com>
+ <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,17 +72,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
 
-Hi Vlastimil, Johannes,
+On Tue, Nov 10, 2026 at 02:04:43PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/10/26 10:58, Yeoreum Yun wrote:
+> > Hi Rik,
+> > 
+> >> On Mon, 2026-11-09 at 12:32 +0000, Yeoreum Yun wrote:
+> >>> This is preparatory patch to make gup_fast_pte_range() batchable.
+> >>>
+> >>> Introduce gup_unshared_pages() to count consecutive pages within a
+> >>> folio
+> >>> that do not require unsharing, and use it to implement
+> >>> gup_must_unshare().
+> >>>
+> >> Could gup_exclusive_pages() be a better name?
+> > 
+> > Yes. This seems much better for me. I'll change it in next-spin.
+> 
+> Not quite the right semantics. For pagecache folios we simply don't need
+> unsharing in MAP_SHARED VMAs. That does not imply that these are exclusive.
+> 
+> So it's all about "number of pages that don't need unsharing".
+> 
+> Any idea for a fitting name ? :)
 
-Could you share your view on this series when you have time?
+Might gup_pages_without_unshared()..? otherwise I couldn't image 
+better name than origin...
 
-One known issue in v2: the cc->mode != MIGRATE_ASYNC check added to
-2/2 blocks clearing stale skip hints once sync compaction is fully
-deferred, so local THP may not recover after the pins are released.
-I'd drop it in v3, but won't send one before hearing from you.
-
-Thanks,
-Qiliang
+-- 
+Sincerely,
+Yeoreum Yun
