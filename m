@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342051;
-	b=Xm7k6//yIkBs8iR4cE9mblYMaz/KcMiYdPysEb5adeONjtDA35+k3kLtLQhwWSFSJ7QA
-	 Lad+icaiCszvupsGlL8IjlDyWgohMvmI8gNRXoSJcB8xn9T6R1gAdYt5G7L01+T+w5Q2J
-	 yxh4jB5JbjCI+PwSoJfHvPbazQgY6SGK5t12eCbjhL0dfBGzYBnlKxvvqbZ6pFO/6c0us
-	 +G8TY28gJUJGAT0ahYdU1sU+meBCagSeNPDtR4WFFPjzpo+wSrZsvRf6+YxVrA6OqdTES
-	 VDKJT7SSbXMNUEvbx+Vj9zBHtftudX1tYz95/bCS8MBKc4ibPUtxOJHUKXJbVcLHJdA==
+	t=1794342056;
+	b=sCUT9zg0Y/Bu31lnAAfIfeJx1+2mLiyjWbR+PFAZVBozniRVmuRx+P+NY2Lo6KGr7DH+
+	 u8TyC7XWZRhjA+eq0GkLqOUGZwX7ani0TCW2SyBKYhaewWm0afCo4pxC3FEH49Tek4y/N
+	 nzcSjI4HHp8o1MkTGO5e0xtTyBu562w6UMquTnE90DkqvNyE3tzZJ1hx/3mEeoJ9tDrFc
+	 Wfgk+LLXnthGjOTA55gn9YPydKZBzALlXPHQdxSTeoXl63aaRcpTcz8Nn7a+wf5fR6UkA
+	 rmIPfzUG3nzB0ZCI29Ynbxu1KE575I9ZjmonsJdp5LiGRmOypiarwBcT01Fct44LEJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342056;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wkOurhuE3F+xoJ1NIf+lBrhllBPRtPbJRVx8vBGAF64=;
-	b=CcNyt7UkuPe3NepsUChODyqde8TwKJuomTzHtXE3pFowLhG0iazqXzfdvbEmzN0G77yq
-	 AU+4jnEsKs2QUTUQbvKZzD1lTnPa6kEH31IgzBppJoGUix67sTZyv8xLgGIAbytk3aSmP
-	 yXorIrSpbvSWSOlUw5QzZ+77fRvdQ/fJUcfqeR/46WktPMN+lbqRqdA7y/QKjQLbxMl7N
-	 CthyShNoplVms0rSRy6NNPya/a0dGDUkj7PbT3pY8che/u41ftqjjoCPm/ECDWqCt0N4t
-	 8Y5u0JPShBPoRXmTBE/P1dCZc+5SqT4ZwtbOlTQeYp8ihFqIp2rKzhtZprlCaoE81Ew==
+	bh=DuTthrTZtfu6mc4h+uORvcmjei37v2/cFoPsDNmHnVU=;
+	b=na9BB9Zc7da+lEidJOrI0XWppGxPDy77U+9Rn2B62TUIRfe+cYRauxpkV5XYxPQbd2xA
+	 gVf0b6OzHeUPgE2wCgwnKBx2Qlun5mgKh77BVWBjRE0w5RD7jgwJhJ7zWAAe40epsTqf2
+	 7M4zwE+CJKCVUxNxuuFypwCh8xJgUDA5guU387OQiPrpuWMrFm4pc5vQ7lJD4B5nShtL9
+	 9kr8thNDsvcNIG34IlGHyZBHSg6fF2cfGaEPU8HYSV7EEOlJHjzxgC31aQXkpfsIIeAZh
+	 KtsS1Oy7TM3NnYHpA3HEGWyV8coaW3ofJveepoLEddKzlGLlJk/+caRjehRWdcdmb5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIN1dvfo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOagy4FC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254C060A262A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:20:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BEB606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:20:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIN1dvfo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DF91F0089F;
-	Tue, 10 Nov 2026 20:20:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOagy4FC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670C71F008A1;
+	Tue, 10 Nov 2026 20:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794342051;
-	bh=wkOurhuE3F+xoJ1NIf+lBrhllBPRtPbJRVx8vBGAF64=;
+	s=k20260515; t=1794342056;
+	bh=DuTthrTZtfu6mc4h+uORvcmjei37v2/cFoPsDNmHnVU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JIN1dvfo7VTI5Hp2AI1OZkrS98xwyT0b0AKLVFfd90XTjdKzbsbOXNLZByf1xxS2U
-	 SXbQ9lBHQyyDJBkVEAzCvefxEqJejE32CludX4bnTTwaB/WXZ4xT0lW5vHpExvEnib
-	 gULl31rFja/5eRo+zeUinXKdQqHgvLz2kelB81SvURBmAgfssoj48/6GmdQchfzVHc
-	 FELFrd5oghsZXDOarpO5ErBTmlNU0FiPIa8phZoe5Vj2zkjNyuCwxHL18NMK0nkcdQ
-	 vxlWgVMj34D5iyjbm3RLdmirEc9bFRxVSDh6faQafo0mNXCo7VPLLgZy2IDmT4V7Pt
-	 LKvN9xtZxeBSw==
+	b=lOagy4FC8ahWxXOGTkQf/7Gp+OrrGe1HhaN/s9q2VxATymnNgTUzRXeEBNtzcfRkY
+	 h4knSA36o8dqCZTpSfU2F2qBxLzApdWl1+wKKw5bDq8hovuONUAAFLEgT65g16T5Um
+	 vr7Fr9NNmLYR46s2Ivt4mEgQJC+ND7u4FGXtzSyHNXP95HD1OWrxV74qCtVapMCyPa
+	 VaYKegSztFSfdw170sQ3UYU0QDBEbcWkSevVnj9RLA+EnYKhKVqLkWmC+mO0N3NxH+
+	 OAVsNWDQjpZ7k5HMKWFdksUKR6wATzsdzrohstLzcqGG9C0df9MsAS3YyvMnPY780p
+	 gKrZ3iURCIGrg==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -69,9 +69,9 @@ Cc: axelrasmussen@google.com,
 	zhuhui@kylinos.cn,
 	sidchintamaneni@gmail.com,
 	Barry Song <baohua@kernel.org>
-Subject: [PATCH v6 03/15] mm/mglru: reclaim from the oldest populated gen
-Date: Wed, 11 Nov 2026 04:20:13 +0800
-Message-Id: <20261110202025.25736-4-baohua@kernel.org>
+Subject: [PATCH v6 04/15] mm/mglru: lift the forced protection of reclaimer
+Date: Wed, 11 Nov 2026 04:20:14 +0800
+Message-Id: <20261110202025.25736-5-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261110202025.25736-1-baohua@kernel.org>
 References: <20261110202025.25736-1-baohua@kernel.org>
@@ -88,139 +88,130 @@ Content-Transfer-Encoding: 8bit
 
 From: Kairui Song <kasong@tencent.com>
 
-Currently MGLRU tries to keep the gen numbers of the two types in sync,
-avoiding reducing the gen number of one type when the other type has
-more gens, as described in the comment in try_to_inc_min_seq().
+When a type is drained down to MIN_NR_GENS gens, the reclaimer will
+fail to make any progress on that type without aging.
 
-This makes scan_folios() stuck reclaiming the type with fewer gens: it
-always scanned the oldest gen of the type, even when that gen was
-empty, so reclaim made no progress on that type unless forced aging
-created a new gen and eliminated the dead empty gen.
+However aging comes with a cost, and it will take time to finish. Even
+if we do aging more proactively, when under great pressure, gens will
+still be drained very fast so the new gens produced by aging can't catch
+up with the consumption. With MIN_NR_GENS setting blocking the reclaim,
+we will run into OOM. This OOM can be reproduced by the previous test
+program [1] used for fixing another aging problem [2]. When running in
+great pressure, certain workloads will keep seeing premature OOM with
+MGLRU, and never see any OOM with classical LRU.
 
-There are other approaches, like lifting the gen number
-synchronization [1]. However, that would break the gen layout used by
-lru_gen_folio_seq(): newly added folios would no longer have a
-well-defined hotness according to their gen number, which reduces
-accuracy. It is also not pressure-aware, since with gentle reclaim we
-still want to respect the gen layout (hotness).
+This might get worse if we implement async aging, or avoid hotness
+inversion in aging, as they will slow down the aging process even more.
 
-Instead, reclaim from whichever populated oldest gen is left, but only
-when the default reclaim priority can't satisfy the reclaimer's
-requirement. This is typical for swappiness limitations: e.g., low
-swappiness asks the reclaimer to reclaim from file, but file gens are
-drained, so the reclaim cycle fails and priority is raised.
+To fix this, let's first drop the get_nr_gens() == MIN_NR_GENS early
+return and let the raised-priority scan bound cover max_seq itself.
 
-At the default priority the scan quota is 1/4096 of the evictable
-size, and the old behavior is kept there to respect the hotness
-distribution. Once priority is raised, the quota is at least 1/2048,
-so the hotness bias introduced by reclaiming from a younger gen is
-bounded by that quota, which seems fair. Global reclaim for MGLRU may
-start with DEF_PRIORITY / 2 (1/64); the ratio is still reasonable at
-that point, and when global pressure is more critical, we should
-reclaim harder.
+Mapped folios will still survive as the rmap PTE check will keep them.
+Unmapped cache folios may thrashing more when under great pressure,
+which is really a problem that should be fixed with refault distance
+and frequecy aware promotoin instead [3].
 
-Note that scan_folios() still refuses to reclaim a type left with only
-MIN_NR_GENS gens, so a completely drained type still requires aging.
-This change only avoids scanning empty gens when populated reclaimable
-gens remain.
-
-Link: https://lore.kernel.org/linux-mm/20260726122123.7614-4-baohua@kernel.org/ [1]
+Link: https://github.com/ryncsn/emm-test-project/tree/master/file-anon-mix-pressure [1]
+Link: https://lore.kernel.org/linux-mm/20260428-mglru-reclaim-v7-0-02fabb92dc43@tencent.com/ [2]
+Link: https://lore.kernel.org/linux-mm/20260502-mglru-fg-v1-0-913619b014d9@tencent.com/ [3]
 Signed-off-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: Barry Song <baohua@kernel.org>
 ---
- mm/vmscan.c | 30 +++++++++++++++++++-----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
+ mm/vmscan.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 4ac80968e634..593f407c0668 100644
+index 593f407c0668..db0a8a3e8887 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -3311,11 +3311,9 @@ static int __folio_inc_gen(struct folio *folio, int old_gen, bool *increased)
- }
- 
- /* protect pages accessed multiple times through file descriptors */
--static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
-+static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio, int old_gen)
- {
--	int type = folio_is_file_lru(folio);
--	struct lru_gen_folio *lrugen = &lruvec->lrugen;
--	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
-+	int new_gen;
- 	bool gen_increased;
- 
- 	new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
-@@ -4674,7 +4672,7 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
+@@ -4672,7 +4672,7 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
   ******************************************************************************/
  
  static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_control *sc,
--		       int tier_idx)
-+		       int min_gen, int tier_idx)
+-		       int min_gen, int tier_idx)
++		       int min_gen, int max_gen, int tier_idx)
  {
  	int gen = folio_lru_gen(folio);
  	int type = folio_is_file_lru(folio);
-@@ -4692,14 +4690,14 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+@@ -4689,12 +4689,22 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+ 	if (!folio_evictable(folio))
  		return false;
  
- 	/* promoted */
--	if (gen != lru_gen_from_seq(lrugen->min_seq[type])) {
-+	if (gen != min_gen) {
+-	/* promoted */
++	/* promoted, or moved due to reparenting. */
+ 	if (gen != min_gen) {
  		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
  		return true;
  	}
  
++	/*
++	 * We are reclaiming the last gen left. Folios in this gen can no
++	 * longer be promoted or protected, so just isolate them. The one
++	 * exception is lru_gen_reparent_memcg(), which is handled above.
++	 */
++	if (min_gen == max_gen) {
++		VM_WARN_ON_ONCE(zone > sc->reclaim_idx);
++		return false;
++	}
++
  	/* protected */
  	if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1) {
--		gen = folio_inc_gen(lruvec, folio);
-+		gen = folio_inc_gen(lruvec, folio, min_gen);
- 		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
- 
- 		/* don't count the workingset being lazily promoted */
-@@ -4714,7 +4712,7 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 
- 	/* ineligible */
- 	if (zone > sc->reclaim_idx) {
--		gen = folio_inc_gen(lruvec, folio);
-+		gen = folio_inc_gen(lruvec, folio, min_gen);
- 		list_move_tail(&folio->lru, &lrugen->folios[gen][type][zone]);
- 		return true;
- 	}
-@@ -4757,17 +4755,27 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		gen = folio_inc_gen(lruvec, folio, min_gen);
+@@ -4749,15 +4759,16 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		       struct list_head *list, int *isolatedp)
+ {
+ 	int i;
+-	int gen;
+ 	enum node_stat_item item;
+ 	int sorted = 0;
  	int scanned = 0;
  	int isolated = 0;
  	int skipped = 0;
-+	unsigned long min_seq;
++	int gen, max_gen;
+ 	unsigned long min_seq;
  	unsigned long remaining = nr_to_scan;
  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
++	DEFINE_MAX_SEQ(lruvec);
  
  	VM_WARN_ON_ONCE(nr_to_scan > MAX_LRU_BATCH);
  	VM_WARN_ON_ONCE(!list_empty(list));
- 
-+	/*
-+	 * Respect the gen hotness distribution at low priority to avoid
-+	 * aging and scan cost, but prefer to satisfy the reclaimers request
-+	 * when under pressure to respect swappiness more and reduce IO cost.
-+	 */
-+	if (sc->priority == DEF_PRIORITY)
-+		min_seq = lrugen->min_seq[type];
-+	else
-+		min_seq = lruvec_populated_min_seq(lruvec, type, lrugen->max_seq - MIN_NR_GENS + 1);
-+
- 	if (get_nr_gens(lruvec, type) == MIN_NR_GENS)
- 		return 0;
- 
--	gen = lru_gen_from_seq(lrugen->min_seq[type]);
+@@ -4770,18 +4781,24 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	if (sc->priority == DEF_PRIORITY)
+ 		min_seq = lrugen->min_seq[type];
+ 	else
+-		min_seq = lruvec_populated_min_seq(lruvec, type, lrugen->max_seq - MIN_NR_GENS + 1);
 -
-+	gen = lru_gen_from_seq(min_seq);
+-	if (get_nr_gens(lruvec, type) == MIN_NR_GENS)
+-		return 0;
++		min_seq = lruvec_populated_min_seq(lruvec, type, lrugen->max_seq);
+ 
+ 	gen = lru_gen_from_seq(min_seq);
++	max_gen = lru_gen_from_seq(max_seq);
++
  	for (i = MAX_NR_ZONES; i > 0; i--) {
  		LIST_HEAD(moved);
  		int skipped_zone = 0;
-@@ -4785,7 +4793,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		int zone = (sc->reclaim_idx + i) % MAX_NR_ZONES;
+ 		struct list_head *head = &lrugen->folios[gen][type][zone];
+ 
++		/*
++		 * If there is only one gen left, rotating the unreclaimable
++		 * zone become meaningless, just skip them.
++		 */
++		if (gen == max_gen && zone > sc->reclaim_idx)
++			continue;
++
+ 		while (!list_empty(head)) {
+ 			struct folio *folio = lru_to_folio(head);
+ 			int delta = folio_nr_pages(folio);
+@@ -4792,8 +4809,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 			VM_WARN_ON_ONCE_FOLIO(folio_zonenum(folio) != zone, folio);
  
  			scanned += delta;
- 
--			if (sort_folio(lruvec, folio, sc, tier))
-+			if (sort_folio(lruvec, folio, sc, gen, tier))
+-
+-			if (sort_folio(lruvec, folio, sc, gen, tier))
++			if (sort_folio(lruvec, folio, sc, gen, max_gen, tier))
  				sorted += delta;
  			else if (isolate_folio(lruvec, folio, sc)) {
  				list_add(&folio->lru, list);
