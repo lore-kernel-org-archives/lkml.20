@@ -1,74 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336785;
-	b=AAzrfQSXb0YMlAD8UuSZrPJPXFeSfjHersa9jGfmlMBIz5Ek3lTB2ehcp2OiVI+tK1mm
-	 EAu4+XUWEWj6RcA3eQ3h1LUIMYmISSd+o4mHqrJ7ebEUNSlofbkrnFuLp1fGVAyeE7pDI
-	 Ca3YJOP3Z6KH708eFPYjwl1kIZ25wkvgCTetvcJ6EKK8Mi5W2cnpqf9WAt61/AspCgu3x
-	 4qRuDi3TcPT666uAo5KbyQ9upf6x+ZAK2kfM3KUccvN6OJC3DfeK6p3oyZ+RX8pav/ThQ
-	 niaDEdLvC3FGse4it/apBIkztsYRHIFEHxqf9Qug7eGvbBGm0kd881o6SDfLeE1fCMw==
+	t=1794336794;
+	b=yEuFo2KOkGLplVVDI6fL0EdWqgSYWSJLuKIc457LjvPs/R4f2No/c9rSrhRLnwsiRyGp
+	 47cO7An76QTgKeGRSCSr902BzoZ63JTBQRLFrKauIW0c8i+xCGKgwy5K+/vjeZZJGw8fY
+	 bN7ZIrfP6ibT8GdC3UsS1yfP9HdffhcfDJvwKbs3p8a/FuPygRXLUL7mlUUAdqjs9BnUC
+	 Z2q1UJSGLZ9GiqGNBfmZlHQ22nig4Eld+a7YkLPXb6pDD+FcaP1g/sLlsVMRPhpn6bwF7
+	 aZug8UjkS6vA/c6gLkO1RKUn7KUwDDeudnC+J5C+NotV5z9++k5MKrG6UUSEst5m2Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336785;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=mA4YNX8Ydg/CPBY9GGXckgAP+pIFlnhDeHY6Iu8MWSg=;
-	b=EoY9yLymRa/cW/1x59cX3ac8JuRkmb08lzvJ3FT/fH4Z3YvKq8GzDOYgnxn7Rz+whxvb
-	 3cd+woxEb4JKXuFNCW3/HAy0hpUJ1DGksF3oGSU7EKWCpPq1tQ1JDioqlIcu56erptHpS
-	 No90/58ycc21n+dBb5V3E5uFNmRx9+xPuG0DBClkY/TjM6UR6BkKu+7pTurE0zd97iWts
-	 ELY3xtFQU/a1OLchAWBx+Lmn/To6v6DYTyitSR3D0RsZ6QKu2Bb6UW7CqC8OrYiWlUw4L
-	 52wsqrDwzMGTComWusN78YjCBxPu4zDNE7UlcuOu9DYG2Eos87LZvxnLAARBDfgyGRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336794;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=qCtHkLQV1QPmcRdOglLIVfj2T2vVGmdYJSqGUnXVjnI=;
+	b=MbxLyWQ9xr1npwR9qWyJgEVntDIAHPTFpIOj5gC2/m9fmDKLCtAAg6kmSS7VuQtiO+zp
+	 cJjtMHsFtEvzBmZB1pP36QXVOIkYcf5zvcKBwdw7fK3bXQ+AqdFRdg1qSPURQRlW7jhuO
+	 onxX/Hw8sWGKuo0YFYQ/Rf9p3yc9hLoQ4Q3e0/HHJ71nJG32e1Qc9WrHExfrHetH7nsNe
+	 YsGC62q7cVo2anlz1eqffwDZ04ypqTH0nyFk0xhTJLEGBhQGvfkFZRErBnFv/6QbXN7Hu
+	 YoVFfa1hoT2Trl9pHWERBiL3KRdPqCy2Skm8+wdLAA9MRc5wkaDYud6ZMH9McWz9cIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M3JvO+7G;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DRj0zqli;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F0A606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5F0A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8392606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8392606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M3JvO+7G
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8b847ab3fd3so3060320b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:53:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794336784; x=1794941584; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mA4YNX8Ydg/CPBY9GGXckgAP+pIFlnhDeHY6Iu8MWSg=;
-        b=M3JvO+7GQPB6JuXsOL6dD6S2qMQ8HSXO40UTXzOGHaosOJil5GSywRu8zwDCG+9hVx
-         5MdX0NUxml/hP3/YB/yMiXXRNSYqTsMhSKLVVwiA8dSXDlMQw5TUI1Sofgu6ppMUxnfj
-         eyAB4ctx/oe7q1aHXivzDosHGDaZyZQnQDotXvjxTrLPuASiGta1cPo5H6NSUHl/0l5E
-         6ODAWPpzWqMwolBqB35WMHwkk0b6tccTVY3D9K3y5PkQ8FNLO/lo/wci8zWtcKGzw0MR
-         7pAnJa4dz5dHshE2RfrkdGTZ0ir8lrCNmYW8qmMbGDdN8uBxnaffyEeJHsXTLkOyrTSD
-         S9Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336784; x=1794941584;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mA4YNX8Ydg/CPBY9GGXckgAP+pIFlnhDeHY6Iu8MWSg=;
-        b=lVbnZDveDHTBNedGS9769YPNFb9bVordvDdfstLiv/2O5bYkFNFm78rYYV9xgFNZGq
-         M2VBBTLatP4zJzSTzP1g1N4b+UTbcGZEFlmfByPZ7tKlfAvJGJgLkw+/B2tJ45RDQi+F
-         EYVTtXDWUvNsDXolA1jA7fEK4fkq3NERg9SLowRKXBiJ+pjDhL48mDpSaEqgHVlpGrao
-         oeO11qdcvKIXrL7y/zv1vPC4bA6aC7La7v35DBnnPz3Ctj+ijgdAL6SgTestxbediIcH
-         ZiIBfAN+shr+yUR6VLwdccIOW+eOKbzgLqf7KLwSbBOpATcRLY8R+NwuIoAHNjmxHvDs
-         6hfA==
-X-Forwarded-Encrypted: i=1; AL+hErF35QCjEaRTHaCVknyGGYcOyn1sirkzmX6OqGKUaNjUbqOqaRkSPrEV/MHt+EaCJfqilJFk9SWSDluBzlg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91Mv2szWwYbGh7lCdkfmIWAYPnU7UeDiprEKP7CieFlka0A3Ey
-	GeRpMekyEtN29CdL3x2plfgt8r434ySVRrBXuHW/oqp7TjnQ1qEghaykJoVzSfPi7SRkRusd/9a
-	XkWzFkg==
-X-Received: from pgme3-n1.prod.google.com ([2002:a05:6a02:6c83:10b0:cdc:b85b:3d46])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:918f:b0:3eb:a4ae:3aa9
- with SMTP id adf61e73a8af0-3f190086a4cmr3473914637.63.1794336783796; Tue, 10
- Nov 2026 10:53:03 -0800 (PST)
-Date: Tue, 10 Nov 2026 10:53:03 -0800
-In-Reply-To: <CAEvNRgGHUL4-KSMCsOHznKK3fpvwh=D-H7OwSaqk2A2T0nL6ww@mail.gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DRj0zqli
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AAAEA40E04D4;
+	Tue, 10 Nov 2026 18:53:10 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id BVIe70Ns5zVT; Tue, 10 Nov 2026 18:53:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794336787; bh=qCtHkLQV1QPmcRdOglLIVfj2T2vVGmdYJSqGUnXVjnI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DRj0zqliS66Eb31ZeCh4V0hQ6sP33FUElB30wto3pwImbw9OFPXFXqvt4cLaA7+c9
+	 tifrFqiQ2Iwth11SQ3CuQjV3DBHRQMvp7N+WoyftT9sQJG6S+o1RNBCOut2fKDQ2G/
+	 lBpxKpIf7fuS4KsjEjan5fOltL61CMEZIAo7FsdYQ+2PMOT8HSG6ZDtMN4hz7uzs1c
+	 LvQjF1O3Eo0SCD1cVNs+8CD6JP+yPcWftXhTqziPu7xUN+psThIw/ZLfTHdqoHvc0q
+	 oK3F88RTw6+3VdoOM1pwqoZmv3zr5ohGoazOoYrg+EaeqxgYVbOGi3ePDSrs0pzsXq
+	 b0DZjx+s3qUrFdffCFffrCvbGwcB+0qHKVQmrgNkX0xRANruJNsPisJSUYdG467KyP
+	 hF43Tv+xwpRhyFdZz71+WxX039a9rEpo4zKvT1ytpGzTRB/lzR5aa8JAECdHGJEkgR
+	 QvWWxbB2LL6IfyLUtE6qp7HuRHa00zjbhTMk5+gxv6VKwV2v8eM5+NFIPQY514dgGB
+	 Z9n2hwM8RgaKKGVA8Lr3xE8OSu2MVEjiBCMH+93ttmOvu/yWk1rcgwcpDBUoShKtvB
+	 Gh5yanL7hoFmfzHgzN5qEhzYOEXHIWesPdeVrHBvZbQ12wlyFLbs0BaAfGd2BszjCP
+	 b82Cez0www3lcd3ttoQ+JIe8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 186E640E02A0;
+	Tue, 10 Nov 2026 18:53:00 +0000 (UTC)
+Date: Tue, 10 Nov 2026 10:52:57 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Dario Ackermann <dario@darioackermann.ch>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	x86@kernel.org, tglx@kernel.org
+Subject: Re: AW: [REGRESSION] x86/microcode: boot hangs bringing up first
+ secondary CPU on i7-6700HQ, avoided by dis_ucode_ldr
+Message-ID: <20261110185257.GFavNoCWszSXhRkaOV@fat_crate.local>
+References: <mw9nsyuj.70b4b79c-e987-49da-abe1-0164defd8d5a@darioackermann.ch>
+ <630330232567670562275469.6204.202611921938@darioackermann.ch>
+ <8a0a9e63-54c2-4e5d-9479-1e39946328c4@leemhuis.info>
+ <691747894523180440145931.1352.2026111016821@darioackermann.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,44 +83,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com>
- <20261106164732.3939387-1-seanjc@google.com> <CAEvNRgGHUL4-KSMCsOHznKK3fpvwh=D-H7OwSaqk2A2T0nL6ww@mail.gmail.com>
-Message-ID: <avNoDzycqd3PN9gE@seanjc-mac.roam.internal>
-Subject: Re: [PATCH v16.1] KVM: selftests: Add support for TDX ucalls, via TDVMCALL_REPORT_FATAL_ERROR
-From: Sean Christopherson <seanjc@google.com>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sagi Shahar <sagis@google.com>, Lisa Wang <wyihan@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <691747894523180440145931.1352.2026111016821@darioackermann.ch>
 
-On Mon, Nov 09, 2026, Ackerley Tng wrote:
-> Sean Christopherson <seanjc@google.com> writes:
+On Tue, Nov 10, 2026 at 04:08:17PM +0000, Dario Ackermann wrote:
+> Sorry for the thread-mixup.
 > 
-> >
-> > [...snip...]
-> >
-> > diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-> > index d41a1efc8a63..9982aaaba885 100644
-> > --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-> > +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-> > @@ -4,6 +4,13 @@
-> >
-> >  #include <linux/types.h>
-> >
-> > +/* TDX hypercall Leaf IDs */
-> > +#define TDVMCALL_GET_TD_VM_CALL_INFO		0x10000
-> > +#define TDVMCALL_MAP_GPA			0x10001
-> > +#define TDVMCALL_GET_QUOTE			0x10002
-> > +#define TDVMCALL_REPORT_FATAL_ERROR		0x10003
-> > +#define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT	0x10004
-> > +
-> 
-> No objection, just surprised you'd add all the others that aren't used
-> in this patch.
+> I tested v7.4-rc2 (7475ea8b5861). It still hangs while bringing up CPU1,
+> with both default AP bringup and cpuhp.parallel=0.
 
-It's nice to have, e.g. provides additional context to help understand what types
-of things TDVMCALL does "natively.  And I almost always do lookups for things like
-this and MSR indices using kernel headers, e.g. versus trying to hunt through a
-PDF (assuming I even have or know the "right" PDF). 
+Ok, so I don't understand: which kernel did work fine, without any cmdline
+switches?
+
+Pls send full dmesg from that one. IOW, did any kernel at all load microcode
+successfully on your machine?
+
+Also, send one from 7.4 with dis_ucode_ldr on the cmdline.
+
+Also, check whether you're running the latest microcode packages by updating
+your distro blobs.
+
+And put your reply under the text you're replying to, like I just did.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
