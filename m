@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286757;
-	b=A6Fv7F+lIVspXLBBBJVTpPmIE5zxhQdIAk/casNslRq3BiksdGTFI1oHCxgqRHydQ9nT
-	 /DcRD/ocrRjtdWO35kmTDFT7mfioLNmb39XJlaW+aXUqLdfUcC6EHoo6dx1WSLDlt9QDI
-	 qhQZ76sFlgNdCWLBYbyGn8qrTf6J1gKoYXLR30EENjCVitxrLfiJDuSLbzjhbCpQINpYp
-	 OlO3n16uTND6m8N/du49regSmjTgxHQe1+cz0HXAyiKVE8p4Bt5jIaUKMCWYMfaAcx1gU
-	 rd/UxxJP1kj5SX6Na+KvCvT4fNklHz4RdNbTbfxFLAzE5pS6zCBCzp5gAEW74Aqb1dw==
+	t=1794286834;
+	b=ydimj9aErood67gilKYKJ0Af6CrB3E1emQMJyPweLQ0FdU2KDKgNsE22ZRLvKiB/RQPx
+	 RfQcgE718h4kHkAoSOlxpkvv6wlkPSCq2bvdc5o2kQwM4BQgbnfbp8obGA4YImolEElrU
+	 gh5RRP5XnLBnWUQlaWblhrGMf7xOas6yh7McRBajBlrszTcVyEUNG89V9a+3Vxk/v4hU1
+	 1soG9Vq/N/wiBYiPNsbYc+BI1pHILMAodg0H+vd2WiN4/gMCe/7cmRFJ9MV73/G1bhKC7
+	 1/P+FOm/cNXfb0tOL1iWJw5OUh8mlfilVplncWTSAUrG6HD5ZEKRVMJiDNpKUgSe1xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286757;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=qJbNoqsip7jFQTTyYO1PvCgo3Jpyt4cYcx4AXHsZFe0=;
-	b=QvRGOQ1qrPDwcCivN1U9O/j71K7FPmzBohq4qwC74JGp2jnhQnx8yViSSfnraP8Itw71
-	 Tg77veUTz0XCxPBXulprY54Tqnl0uFo6S9WfBqpTuidAY1FMqr3FsUbAOhUELnJ/Aofhc
-	 Bv6XAsQ77IBwUPnZll6OPYLN0V9DOS1JyMccEQePq7S2wGdBQLb3PyIth1hK4gg727lVv
-	 722GEk5GMhLnkFlxQElSsAxRQP/eZcV4wGabuXSvqEZC7VOiERRsCY/bv5nKszmgY/ntV
-	 QSLGl3Q/5shPY2PLP0MprsZIi1ljpE3uidoiccKPhqymgKU7YiJjeGkvF09MBfpsqFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286834;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4O0eqh0/2N6SuevRIz4jY1zAOHwLnJqMFnfAmlKu68o=;
+	b=SPqUB58C1i/Rs/s8AoxGWJOnnUxtX9T/MHY28R45GqYd0JEt02NFyijfZ3SPco65FZRj
+	 1U3zey2Q3mmLEpWZM716Q2wWIwm2C1+pmmbl3qq/vbybKbV3UiwmJ9ZEKqWEaKp+GNFcn
+	 IeYUJg8XOeSlodW444tWC3N9z10goyo28ncizDD4BGVd1KKXPq5q6bg/P0XhQUYzzbyzC
+	 BWh3bFUeyEkSkWtVG5P32KY756Mjrb6G6oXzIvUgCC0wGp78Y3ou6iX36KV+3cy0SSZgB
+	 VbUYeRKkK0FltHnUaNQYmuZuAoIqtESCxAzkZVSbSQT5wN7TY/j08bt/oWAru+rqqnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE26C606A31C;
-	Tue, 10 Nov 2026 04:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE26C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=qJbNoqsip7
-	jFQTTyYO1PvCgo3Jpyt4cYcx4AXHsZFe0=; b=5UTbWVVSHAAVpN1cXNyCDsefAG
-	MW3aU/vfRnlvwREBYzIo3mlihlg/m1Fn6xBszaIav+lTM16NF8WfclBDt4gpr7iI
-	I0OIXLmTR4N0SP2srdD81pB1XOaNFbmaDxLgiy6DwZXQTXeUCqoLZIVyUIjT2nlV
-	9SouzluSXSbowgev0=
-Received: from LAPTOP-FRMFRHCN.localdomain (unknown [2408:8670:ae1:0:3c71:2a19:707f:720e])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmjQOMpPJqb59kAQ--.63138S2;
-	Tue, 10 Nov 2026 12:58:53 +0800 (CST)
-From: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+37e1793bdb0061ea3a47@syzkaller.appspotmail.com,
-	Haoli Zhang <26031212468@stu.xidian.edu.cn>,
-	Jinning Zhang <25031212117@stu.xidian.edu.cn>,
-	Bin Yu <byu@xidian.edu.cn>
-Subject: [PATCH] tracing: ring_buffer: wait for writers before removing pages
-Date: Tue, 10 Nov 2026 12:58:50 +0800
-Message-Id: <20261110045850.2786-1-26031212468@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=none header.from=cryspen.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E3A606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01E3A606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-490c1d337d8so1085250f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:00:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794286832; x=1794891632;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4O0eqh0/2N6SuevRIz4jY1zAOHwLnJqMFnfAmlKu68o=;
+        b=UIMjgcKGSV9aJ4FPz7hSLhMGx+/WZhAJkne2SSQdYBgVzF2CXLRHvIfV7yJxgGkfdt
+         lknBSsdchlFB9sGkPFYNMcFueaefRHJ1Xoh1llK9HWRgtqD6e1d14GpGOxyViiwVbAfL
+         GFPtKH8JE6gDI7OyCnIBMt1psorY47CyCM1VV4LRUSYQ/EEB0o4cGQVu0KcJ2DX3npZ+
+         tFIDHslRjdbmHzIKHPIRqlwxgY0CIPbQJPz5wolIRhndxoCPamKarF5sCYtxKlDtl9/9
+         4aEV4vqp/Ms5pb9DbZWr36aoAKoK/ATfM581Z6/fhv4p/jGQ/+rk8IoCoXkWb77dHdGd
+         aeqw==
+X-Forwarded-Encrypted: i=1; AL+hErEpQhWthrPjWTyd05r8b+B/xF1jN1clXYzHmnJ2aSuQmwRSH7oLxgl5A+J/BWAsqZThiIRlKKGK60n9Qf4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9dKCCOS+0BulR8uXppIm/meH1rYL+h1H69ZGOm8bWSrx6PVCJ+
+	PQ/LDlICM9d26Fxf22EC1c+5GuKFuiwhcHnO1lZZ1x7igK+X0xm0DsUE
+X-Gm-Gg: AYBFou3W3AxzStch8YPdLHGeuc0HhWD62gSosxW1xar4W1aX6YXVRKWFXQgefJ/uNTa
+	4zzBaIaD6crv70Sw4J30aur7Y0wPMc6m3Jy3F8OhjvnyYjghWA3wPAJthCK6Vi2ZgucdbPz72In
+	PtJBn3uOW9fzVmt/NWndRJ7SngikJTVhk5vrMeGAMp6E2PGVM+jRFsuZMNwo2YV+T+5lGC3bDgr
+	c3uvgDXkXmNWO0ewPsoh0s1k1cePXZbsZL6UrMU8rcQjE39Z5Uukj/ZcwtK/RSxtI7Xf1YRGDk7
+	qroWuXR9MjA5o0owy8TNVXPe/S8Y4tb8XrKKEim7td6tQ4p6HmGtfua4ISqftBkoegPAFOQQNHK
+	bJMmdArswPITCtVs3osg9bzDXjf2ZRM4hrltsdU48x3Wz4kLKjnD7/fDgfn0N/HkTtT0hDdcwk4
+	Dqw3k/EdMhs1dx6Xs9vgsxyR3iYrA+QD5+imD/e5+CmwQMuGeMWAoySPLDr4ap8vIgZa6BklJFO
+	Uj4EuFGwu0T8GQdFfh2QLZNKjLBGt1O7Ss09eWTf7NdQleKliuXwIP1+0wQMhWCY58A8Bou/wSP
+	OxFRjB3SEXLDxUxxaOMQ8PrakdUt8ViqFgF9l6yzuzhbqfsS6Xu/+2dtgOW5O+YydI2/E0OOtAq
+	tJv7n9fyaDVYkSPpn/ppY53C2GVrzNzdvKpParOEkc8hmr3EytWGv2sNpKIiSBnou
+X-Received: by 2002:a05:6000:2006:b0:48e:5e20:1371 with SMTP id ffacd0b85a97d-4982b28a89bmr2510103f8f.4.1794286832242;
+        Mon, 09 Nov 2026 21:00:32 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498361f674fsm2715343f8f.33.2026.11.09.21.00.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 21:00:31 -0800 (PST)
+Date: Tue, 10 Nov 2026 08:00:27 +0300
+From: Dan Carpenter <dan@cryspen.com>
+To: Platon Miller <platon.ksenzenkokk@gmail.com>
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com,
+	gregkh@linuxfoundation.org, linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: sm750fb: remove unused macros in sm750_cursor.c
+Message-ID: <avKk63Z5_ofZZcGk@stanley.mountain>
+References: <20261109231414.25021-1-platon.ksenzenkokk@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,77 +83,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkBmjQOMpPJqb59kAQ--.63138S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tryUGF4xJF18ZF4rGF4Uurg_yoW5JF1fpF
-	4rKFWYqayqvF42kw1DCrs3ury2ya1DWay2krW7Xw1xXwn8JF9YqryfXr17uFWYkFy7trZI
-	vr45uryrCa15ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Gryl42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JU-F4_UUUUU=
-X-CM-SenderInfo: yswqjiasrskluy6v33wo0lvxldqovvfxof0/1tbiAgUNEWrx5EWAbwAAsO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109231414.25021-1-platon.ksenzenkokk@gmail.com>
 
-A writer can still be using the ring buffer page list when a concurrent
-resize removes and frees pages. Disabling recording prevents new writers
-from entering, but it does not wait for writers that are already in the
-reserve/commit path. The reader lock protects reader-side page operations
-and does not provide that writer-side synchronization.
+On Tue, Nov 10, 2026 at 12:14:14AM +0100, Platon Miller wrote:
+> The macros HWC_ADDRESS_EXT, HWC_ADDRESS_CS, HWC_LOCATION_TOP, and
+> HWC_LOCATION_LEFT are defined in sm750_cursor.c but are never used
+> anywhere in the driver. Remove them to clean up unused code as
+> specified in drivers/staging/sm750fb/TODO.
+> 
+> Signed-off-by: Platon Miller <platon.ksenzenkokk@gmail.com>
+> ---
 
-Disable recording before waiting for a grace period, then wait for
-pre-existing writers to finish before taking the reader lock and changing
-the page list. Keep recording disabled until after the page list has been
-updated and the reader lock has been released. The removed pages are
-unlinked and subsequently freed.
+Leave this sort of macro.  It documents the hardware and doesn't
+hurt readability at all.
 
-This adds a grace-period wait to the resize path; it does not add
-synchronization to the normal ring-buffer write path.
-
-Reported-by: syzbot+37e1793bdb0061ea3a47@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=37e1793bdb0061ea3a47
-Co-developed-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Signed-off-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Haoli Zhang <26031212468@stu.xidian.edu.cn>
----
- kernel/trace/ring_buffer.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 04bb94c..d92e001 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -3078,8 +3078,11 @@ rb_remove_pages(struct ring_buffer_per_cpu *cpu_buffer, unsigned long nr_pages)
- 
- 	head_bit = 0;
- 
--	raw_spin_lock_irq(&cpu_buffer->reader_lock);
- 	atomic_inc(&cpu_buffer->record_disabled);
-+	/* Wait for in-flight writers to finish before unlinking pages. */
-+	synchronize_rcu();
-+
-+	raw_spin_lock_irq(&cpu_buffer->reader_lock);
- 	/*
- 	 * We don't race with the readers since we have acquired the reader
- 	 * lock. We also don't race with writers after disabling recording.
-@@ -3132,8 +3135,8 @@ rb_remove_pages(struct ring_buffer_per_cpu *cpu_buffer, unsigned long nr_pages)
- 						struct buffer_page, list);
- 
- 	/* pages are removed, resume tracing and then free the pages */
--	atomic_dec(&cpu_buffer->record_disabled);
- 	raw_spin_unlock_irq(&cpu_buffer->reader_lock);
-+	atomic_dec(&cpu_buffer->record_disabled);
- 
- 	RB_WARN_ON(cpu_buffer, list_empty(cpu_buffer->pages));
- 
+regards,
+dan carpenter
 
