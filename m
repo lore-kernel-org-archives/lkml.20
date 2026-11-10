@@ -1,111 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327196;
-	b=K2OTJawCpYHyHS42dAuHRo1+9dCC+RP09k0ixB3PCLiD832JC12714ZF8umMZqTbZbM6
-	 mcZVaqQjeiGevF0dccPt108d3M5sdYb74X815LEnKWk94rEcFQr97FvtvBGoNstn7bDDl
-	 pUHyDPt0AEHOgfRkRoaVak62Fjb++ljrvO5sLEyEXW9m5NUV7+GOWrI3pm6dYOQkyJFFj
-	 sPXPjIKII0+2AjBBm+hgmu7JVRBkMsKAA7rPz5uxX/0FbVIrXyzIMse7rjpSwIvDg/Mom
-	 th1bNTcXTBI5DwIWsGRktfK6tEfstLdLRLD7oeLDjqtHXtC3sE3hGhknQm6imvkuawQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327196;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=;
-	b=0cgN657wQnB27xsa1bqHNsf6rn1mqCNp7z2O+MOlsYFuWwtG5OnwClAdglN01EDQHqCH
-	 EqXX/BfsqX1maJyVom1tufOOOtbytWWV5LKAumdhZexw8xuvj1g2WuhjBEqKs/uJYfA/3
-	 Q7Tuz+HMqhqZ3O3nCZAU8Nt76Zvls2swgls09XfGFnoyL8yT3ULplrFeGL+naX8iLwlxk
-	 5BwCe5zKlV7FqHiav3GtlZcNqOzxXo+upIv9dC0ahr8EqVMhoR5MUNL8fUbqGmqiiaHw5
-	 tNTTFSlDJqawQoK7udTjoSOl3KRaOJTp2vTmnuvoTnxN4sqe+NFW1598y3iA+sZgmiQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794327227;
+	b=n0bEI2BKV/172hYmHf7VAet/DBeGvLMH3loZ9Dz1ibguWmIv0HOYN27yUhxB3KNUYrxP
+	 X0YTt6NT/xQSPv/Lt90+ikw1IEvLN1c/DwLFY7TWso7RhP+L6V66BaIs2WTUeNMzpYfnP
+	 4KlpNbStFX9kb0F047kPdaaVVHsqtJyMHMhxwNBPStm6oCHKNN0m38duh89IVb+CbqB0Q
+	 7oVpEwgxUte51tA1UKesjghaTQ32N88c1VvB3l3vjdWW+tEX/1C6Cz+tOQ7KWI7sl04zm
+	 VAeodHcbf54B+FmUGlaBtrFZXoTfNMXsG4bnjGr+QcFSNh7FtCr13bHBDMQjloLLG8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327227;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-Sent-From:
+	 X-URL:X-Accept-Language:X-Accept-Content-Type;
+	bh=lFL08heJopZr805d+tHWGDO+sHIhnW9x2eSKI6krkuc=;
+	b=Lur/ks3BDapTHotLYBHl2IK192e7Swb7zbHSvRYW+7mf/3MP1sTgGhj2ltAZR4B1yzfi
+	 feZpLNeFfsoXUr0wNnruAy2950pkFGXFev8Z7j+M3ab6T3XT+Wypptx8eKRpT6bFTYJIp
+	 jBsk61yChvuhJf67pSq5wqtyVgo1HUkogKd8iv8eFZ1pBUbqEU04JOyE80FkhWvMN71zE
+	 OY2rUkqZjDm98VKesS127/pFEeRqPx9LtNpjcK9AcpDygKduAwCdlq9wM4wFGoJx9pYtB
+	 2qgpEt5QS4txh4jMJmiIVN6ESnPBmGMGAsm5GMqSSOiOzjCGzV17ESVOMaxm3m4l8Bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Lg1kQnDK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E745D606A33A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E745D606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87335606A31C;
+	Tue, 10 Nov 2026 16:13:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87335606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.phl.internal (Postfix) with ESMTP id 1EFB213813E8
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:13:15 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 11:13:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794327177;
-	 x=1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=
-	asQC+qHDAv/I83EYngLJ0bkBe+uuEnPcLg0jrc2OX9kVtaPYAd/md3quox9jqmy4
-	S/jELTpXjA2k1IxJWtdK3HZW4IriVAHis0xufJR256BBPAzbfZ5QsGw2eqYq1k/I
-	S4qzaUtb3Ob4GAV2mxThnKp0r/zG0TfcXAK+eUmyQOHhHqtyGONG7gkgzRBQG2d0
-	/gzJT11LHsGNvLKSZnn9JL3iytYjrT3V7KZt2FZsHfjjQeZHywjaesrjJhD0e7vN
-	Y6/iN3Jg7w8xS8OVdYMBSUZOfxDnVhVfPJGqKe/oSxsAZXPn7y2e4GOOItdMLZ2R
-	LLVckhHoSzC+MGE1iJu5eg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794327177; x=
-	1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=p
-	jDZKFBWlX484yfO06iZThedU7MnSaqyMkXKHKaXomC5/xVavgZU65SsCjokZJWML
-	GjeTj8Lq4+LWeI1CWzzxuQj2m4isbVa0ssa9g7eZhXilCypVINe5kxTBiobUF6uZ
-	Gtle0jaTmJtlAyGlrtNmbTTDPt9uAjbADo1dgbyzsDA47ykOoKjYt1o87LKBSqHb
-	mP2YIbspjWDiF2EJOgZRHTKT7VhzsY0TtBEN2nWcPAnRSw5Q7HRlPmorpTONvfpP
-	auvP37j94bGeH1y2GQ4LwX12DjFEZi+3xGQave3kINRA2PBRPI5FXxcFzbhhhvXR
-	Tsc8Y3Jb1FgwsS6Y0dcjg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794327177; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:NcVXXBQZMi4XwwY91rH6Qc9EzwFTiAa/z6Ko1lYN2VKm+bq
-	9wtCnKHHzlxDqs6icn8Lpr+rziUqfEqchcLy+jCc28PTQjtS61dd8MzyIlLrVVW6
-	W0c6rEYhYGrrCcybFG5P9pIatkOkVUcpTJ+VYguWDLJrbJSdIKbruxWepNbAejgI
-	tnhzz/Jl7W9sjEgHlFwKBifagdrW1FWIow8AxOuJrSc81XTg64ev80/q/jfCif64
-	fnyBg+aqXVP25/ucvrnnNzEfmGf2rbFvUQCMNKM1RNxaYU+pMs7Geyw3On89JEe+
-	w/P3E9hqPh5tknfKwTnHCNNt81/iy7frygH9PxQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:NY+qH6VFe1gb9eaYka4u3Pju9dQg6z2rB5jHAxzea+M=:YUoKa4y1cAE3r8AhMFawDzVW7orX9AEZ4cmB97mmTGA=;
-X-ME-Sender: <xms:gELzat-KhdG49YOXD28knxP-wmxhvouurLuqg65ijoK_1PztTiM67w>
-    <xme:gELzashOw3MORHNRaj5VZYoHPjgRatChT2__Hps4-a7QS4ExIju8qL8_9B3SiDtB2
-    sGKQug7JFF_lfIFqrxv09JzfzrzZWKrRlvdLjWPWqavJafwb6XI9q0tBA>
-X-ME-Proxy-Cause: dmFkZTEwJqmeu88i0D1P4NSr1o0RdeyL0ncQrpwlZpsRiyH4mGhKK76jqiY9/AURvmAyKQ
-    Xh2LjT8fovpOgpIQnvH5QYWZs5UCg8lDhPsbwXo4GfEZeWp/aOvfLOYPWjqnmAFI1BwG/q
-    XyZG43p0HoLIgnysLFo6MzsLlgysOWgB08DJdha5yxDuEjeXR7MU6VvvNb4tgDJLpz9WaL
-    DOmlUn0Mje4CQssJm+pxYVCWPCE7uxZNBjliBSIc14Pa1+Q+euFKNdLxxVitjY9vJ+1g1T
-    +rig9iVkFuoti3t+qEcHMM2vh4+G+ag1IzrG3We9+FcQnC6cOfB1bItA6vAPi6A+u1KULf
-    wxoJ36bIqa+kM9OWApvgKo4MId3H8RRe0FCkMwp8Cj2i2hPzQqFijO+zALFklT7XBp4yQ4
-    D0Bsmvzif3sMMCJY2OSk1bwCPIIRPEFuJI4Mi/vpw7sfUa+jfrhN159tiieQQE7aztSV43
-    DlSawBFw+hJYm5oAPkD2NlBoL/gRh3vgmwf+Y/GbihlHM/o3EcsWCertLTOcD6iStWXR7G
-    LAS2aVSdVtxoGSiZj2/kYUSfLhEBFCn05KpxcrFYCW/FmzT2YT72YPVx3p0wR8sMiJ3lAW
-    x+8+3z8XttowLJjfinG9ew4R0xJsilSkEkmhmN5AqofFDl0uTCDo7P0ixMQQ
-X-ME-Proxy: <xmx:hkLzak2BPEyGi10FxxkrY3byRVHSjq_0wLclV2jUuSmkyRE3xcj4fw>
-    <xmx:hkLzakkySXPgYGwh_r1Ql-VHDAdYXcQ3p0tjVOV29OCOWQo8MbFMmw>
-    <xmx:hkLzavloJp1yUj6WriMMnPneQ8pVgU9Ew-sH84r-kdZ-OdXPheHDYw>
-    <xmx:hkLzarPnZB-B1EOixQtLefzjQeDp3wnHNrTbJ3SPpTKyjOvpO-EsFA>
-    <xmx:iULzajThipr-UxTyuQQEJ7jWDCsE73KlfzXTf41eZRpd8Rpi4a2MNCT2>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AC32432A0097; Tue, 10 Nov 2026 11:12:48 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Lg1kQnDK
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 58C18201F43;
+	Tue, 10 Nov 2026 17:13:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794327219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lFL08heJopZr805d+tHWGDO+sHIhnW9x2eSKI6krkuc=;
+	b=Lg1kQnDKiBlvjcWBFMbu85dr5l5u6fFurA9o3sJXI9SAWON9h/OOne0FEmmCHdbryqbxmO
+	jsgxsQdjVbe29xlBEtTpULQ6ksbqKuh2JpKJ08Pqez8vRV7/f49zbztLdhLERxurSAkXNP
+	0hMk8JhzuIa8qOauKMCTAJPXUq5tLQJZ2C23W4T6pxncl03hKtDz4Z9Zjrd7hPOjQlvv56
+	PS+ctYgG3U7GLTrxAFPpsJmRRLwFG/Xup+AJcmWumxnH1h38WShMbVfir5iBg38Si1+VRy
+	ghPwKSxQ23EmJQsT9pKlwgG5oeQhlQ7waScSxVZlZJ1eD+YwToNLRzg5NsLJcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794327219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lFL08heJopZr805d+tHWGDO+sHIhnW9x2eSKI6krkuc=;
+	b=Dt1ZXJeCmMJeQkI8G2Dgguhg5uzlcHH2wHlvlJIPxtccXZjn1EAMB407WlpTZlDzQ/WBoT
+	5P7DKJTgS6fo3rxK5eIPH4ZcJd4f69gjpqudyc2LJIQxGppK6Yx9BzV5e/1C2vVfMFAXCF
+	n+yRBVQvjtHZkOntNgLLiSviSm02oTQroXnpAWQR/NkQqc5khdqKly7at7U4kYMObUy88f
+	QTrrxj6ck/B6GGWl8p8lU6/WBq6WpVLXpyFrsseHhOrMQx8fXk1ByWlE5LnBshphv9K1m/
+	peamLPy3aaoMm542pHmhir+/QJl7ecdouQZLA4k1d/G9VD2bKUwwFlXJjruDfQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794327219; a=rsa-sha256;
+	cv=none;
+	b=gO1u6YbOidmUa2BIAMYAWcMyzESRTFVrR7SEyjKj8RqsYeXHpynQGTMxe7rQRNGsEncpIw
+	if0lc2I+bXT2OMdc1HStb+jWqwpXLo0ZzZn+5lLWY+Dnp9N0cx1/T8U5gTdqz3UZDP3lDM
+	9XzCFLqVBIoVKtmq/mhzyUL+sC2ulQDiqpJ5qbNHDbLXWM/hJHgJAJq/qdpbZnLyn0HtO+
+	I0EJ7WylsYeurWvueKsKNqeJRe9IEYs5DyH5EqYwx5lrIyXhqptGHMY81BATJ6QbKLz9H/
+	4xtwi40sKwFweveSIja+ANO60cpyo54D50F3IFbEhDNQYNwTE9Vedfg9OVn+XA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xQoTb-003WP0-0v;
+	Tue, 10 Nov 2026 17:13:39 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xQoTb-0000000CVHQ-0iZS;
+	Tue, 10 Nov 2026 17:13:39 +0100
+Date: Tue, 10 Nov 2026 17:13:39 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net-next v1 6/8] net: dsa: realtek: rtl8365mb: add QoS
+ baseline and DCB default priority
+Message-ID: <avNCswwpqAHHpAma@pengutronix.de>
+References: <20261002115850.962676-1-o.rempel@pengutronix.de>
+ <20261002115850.962676-7-o.rempel@pengutronix.de>
+ <CAD++jL=tuGRjbKqLhSLTobRC00UJkG0XhWxguxRRwDOTQLHd2w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,97 +108,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AK-jVwBtQCQR
-Date: Tue, 10 Nov 2026 17:12:28 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson" <danielt@kernel.org>,
- "Helge Deller" <deller@gmx.de>, devicetree@vger.kernel.org,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
- "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- "Guenter Roeck" <linux@roeck-us.net>, linuxppc-dev@lists.ozlabs.org,
- llvm@lists.linux.dev, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- mfd@lists.linux.dev, "Michael Hennerich" <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
- "Support Opensource" <support.opensource@diasemi.com>
-Message-Id: <991009b6-e62b-46bd-9a0b-43c3b7a6d10a@app.fastmail.com>
-In-Reply-To: <avM5EnC9yujUZcCO@nsa>
-References: 
- <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
- <20260912232047.19c4cb10@jic23-hlaptop> <avM5EnC9yujUZcCO@nsa>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jL=tuGRjbKqLhSLTobRC00UJkG0XhWxguxRRwDOTQLHd2w@mail.gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On Tue, Nov 10, 2026, at 16:39, Nuno S=C3=A1 wrote:
-> On Sat, Sep 12, 2026 at 11:20:47PM +0100, Jonathan Cameron wrote:
->> On Thu, 10 Sep 2026 20:14:15 +0200 "Arnd Bergmann" <arnd@arndb.de> wr=
-ote:
+Hi Linus,
 
->> > drivers/iio/adc/ad7793.c
->> Maybe. Analog devices ack needed.
->>=20
->> Production part but this one indeed fails to probe.  Analog
->> folk, do you want to fix this one up?
->
-> Given it's production we should fix. Looking at platdata seems to nice=
-ly
-> fir in DT. Issue is that I don't have HW with me to test. So I'll maybe
-> just remove platdata and assume some defaults.
+On Tue, Oct 06, 2026 at 01:18:11AM +0200, Linus Walleij wrote:
+> Hi Oleksij,
+> 
+> thanks for your patch!
+> 
+> As mentioned I think the main logic of this DCB stuff needs to go into
+> common code.
+> 
+> Whether to use rtl83xx.c or create a new file rtl83xx-dcb.c with just this
+> QoS DCB stuff is up to you.
+> 
+> Some detailed comments:
+> 
+> On Fri, Oct 2, 2026 at 1:58 PM Oleksij Rempel <o.rempel@pengutronix.de> wrote:
+> 
+> > +#define RTL8365MB_QOS_QMAP_IDX(_nq)                    ((_nq) & 0x7)
+> > +
+> > +/* Internal priority -> queue-id map. Eight tables (one per queue count),
+> > + * indexed [table][prio]; four priorities per register, 3-bit qid. An N-queue
+> > + * configuration uses table N-1 (1Q is table 0 at 0x0904, 8Q is table 7).
+> > + */
+> > +#define RTL8365MB_QOS_PRI_TO_QID_TABLE(_nq)            ((_nq) - 1)
+> > +#define RTL8365MB_QOS_PRI_TO_QID_REG(_t, _pri) \
+> > +       (0x0904 + ((_t) << 1) + ((_pri) >> 2))
+> 
+> (...)
+> 
+> > +static int rtl8365mb_qos_setup_queues(struct realtek_priv *priv,
+> > +                                     unsigned int nq)
+> > +{
+> > +       int table = RTL8365MB_QOS_PRI_TO_QID_TABLE(nq);
+> 
+> Prio to qid table is nq-1
+> 
+> > +       struct dsa_switch *ds = &priv->ds;
+> > +       struct dsa_port *dp;
+> > +       int tt, ret;
+> > +
+> > +       dsa_switch_for_each_port(dp, ds) {
+> > +               u32 reg = RTL8365MB_QOS_PORT_QUEUE_NUMBER_REG(dp->index);
+> > +               int off = RTL8365MB_QOS_PORT_QUEUE_NUMBER_OFFSET(dp->index);
+> > +
+> > +               ret = rtl8365mb_set_field(priv, reg,
+> > +                                         rtl8365mb_qos_sel_field_mask(off),
+> > +                                         RTL8365MB_QOS_QMAP_IDX(nq));
+> 
+> This sets qos port queue number to RTL8365MB_QOS_QMAP_IDX(nq)
+> which is nq & 7.
+> 
+> > +               if (ret)
+> > +                       return ret;
+> > +       }
+> > +
+> > +       for (tt = 0; tt < IEEE8021Q_TT_MAX; tt++) {
+> > +               u32 reg = RTL8365MB_QOS_PRI_TO_QID_REG(table, tt);
+> 
+> This finds the reg for table nq-1
+> 
+> > +               int off = RTL8365MB_QOS_PRI_TO_QID_OFFSET(tt);
+> > +               int tc = ieee8021q_tt_to_tc(tt, nq);
+> > +
+> > +               if (tc < 0)
+> > +                       return tc;
+> > +
+> > +               /* QID field holds the traffic class */
+> > +               ret = rtl8365mb_set_field(priv, reg,
+> > +                                         rtl8365mb_qos_sel_field_mask(off), tc);
+> > +               if (ret)
+> > +                       return ret;
+> > +       }
+> 
+> And sets it.
+> 
+> In a code dump I have for RTL8370 writes the same index into both registers,
+> so something like:
+> 
+> {
+>    int qmapidx = RTL8365MB_QOS_QMAP_IDX(nq);
+> 
+>     ret = rtl8365mb_set_field(priv, reg,
+>      rtl8365mb_qos_sel_field_mask(off),
+>      qmapidx);
+> 
+> (...)
+> 
+>     for (tt = 0; tt < IEEE8021Q_TT_MAX; tt++) {
+>       u32 reg = RTL8365MB_QOS_PRI_TO_QID_REG(qmapidx, tt);
+>       int off = RTL8365MB_QOS_PRI_TO_QID_OFFSET(tt);
+>       int tc = ieee8021q_tt_to_tc(tt, nq);
+> (...)
+> 
+> So we compute index once and use it both for port selection and
+> table programming.
+> 
+> Can you check this in the RTL8365MB manual, this old RTL8370 code
+> could be wrong but it's also the way RTL8366RB does things.
 
-Sounds good. I already dropped my removal patch for this one.
+Hm... good question. After some investigation, I think the register
+naming is misleading, and maybe the RTL8370 code too.
 
->> > drivers/iio/frequency/ad9523.c
->> Maybe. Analog Devices ack needed.
->>=20
->
-> Hmm we definitely use this one and we have OF support out of tree with
-> likely some DT abuse of what can be in DT or not. Not sure if I have
-> some HW around but we'll need to fix it.
->
-> In general for ADI parts, I think we can drop the ones that are not
-> recommended for new designs. All the others I tempted to say we should
-> keep. Naturally we need to fix all the drivers that do not compile
-> without platdata. And for the ones with defaults we can also just remo=
-ve
-> platdata and use the plain defaults.
+The switch has a pool of 8 prio-to-qid tables, and the 3-bit port
+field is an index into it, not a queue count: field value v selects
+table v - 1, and 0 selects table 7. I tested all field values on HW
+(RTL8365MB-VC). The field does not limit the queues either: with field
+value 1 the port uses whatever queues table 0 holds.
 
-Ok, I'll leave it alone as well now.
+See e.g.:
+https://github.com/openwrt/openwrt/blob/c46ccb69d17e584479df849a107423175a143c83/target/linux/mediatek/files-5.10/drivers/net/phy/rtk/rtl8367c/qos.c#L45-L92
 
-I currently still have patches to remove adp8860/8870 (backlight), ad7877
-(touchscreen), ad714x (touch) and adxl34x (input, not the iio one), which
-are currently unusable with DT but are all listed as in production.
+In v2 I'll treat the field as a table index.
 
-I assume you want to fix all of these and keep them in the kernel,
-but possibly still remove the adxl34x and only keep the IIO driver for
-that part?
-
-I also have patches to remove platform_data probing from ad5761, adf4350,
-ad5791, ad5421 and ad5504, these all have DT support.
-
-See=20
-https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/=
-?h=3Dboard-remove-7.4
-for the updated series. I hope to slowly get through that. Let
-me know if you want me to skip any more of those patches.
-
-Thanks,
-
-    Arnd
+Best Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
