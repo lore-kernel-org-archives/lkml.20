@@ -1,99 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268856;
-	b=SdX9mwc8fJ2nsUhNKItuE7KSgsgb0vrI62KByRShfzBrz5OwYbh0FTYuW/sD+5XKi1Iv
-	 I667gFghU/0KrGDCuqTBpQ0sYdtOgSUPuwQP2Z72Br1h6AogAMqkGMG0caPtsgsPdDFgy
-	 HMyuEm6+cOZ0H5v4ywSSn/Pay6RmZWiEgVgnnNzVsTSbglt9q2nQ3NMVXWvwpqstZlaF7
-	 tgZQo9iojJOjIrNGwoiG7A2em/MSKtoQytobF36bUtXQHb4n61CqpOKHRtkNT/VwNTzqt
-	 /ZSeJzZhDSbYjqxcFh12KXDIzFcfrWYoWvOWBHfBlHa2nUBmkkwmjTmKmKWj8sqNftw==
+	t=1794268857;
+	b=Z8fTYvkJ18HVofG1BIwGjVLvWEk3iCxj0l6RVx3T1NOaV5LRocdfxLmTVL7G1+26GEdK
+	 VprG7LhZzodpVZyOCnGOPJbi/JpYcpt/jnxOu2rfPjJ99uX7/pQ1BHjBNNa3uhSzGvh0F
+	 G/MOQaqIVVei1Ik7KndqfFY7cXYCqtt3pVTkp2ndVyAUTiyg2hBmD90jfdcdkNiGhjO6S
+	 tmGaEpOpQGT0+7btpsFIDU2Et2QUZXqcThplY3168Ddc1eP+7c1x0Kxpe914gLMPh/CtW
+	 ZW6V8Z26iXSQOQvGEQq/ZYx6zYZGPTBI84+XIdBL12lDnqmIq18pu5Jf0m/Bn0gUiIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268856;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268857;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=C6v8yQiRwIXyjVO4a2RoDhFAswA1B+x9SGkBxm38Q8M=;
-	b=Zn8vo8WBUFNnNobhsR9ANqn1xETmRa5jCB/u+4W9oG2B/9PoN+EEHr7ki8Xsr7iVrUzR
-	 nJF6KOO/O4B3odZFUUNO4ZjxkRYXZ7GIDmJVmVOhw7VPkXgseX4Ek2t1ur5IEBugLc+ms
-	 pm6i4cRbLZLX2fSMx1gKefXs2vHvqttWUA3uo55ocQ0pWSvursVrZ8NNhi70LgpUEtwiL
-	 AESnlpcsYcPn5OcMDhjvNOxgdLDXdvfT/wy3/0wfuQTPJBd6jQZQqy4m8RrPJl+tOjCVJ
-	 8JBULeKoW+a16cNVbqrsfhh+kRH9g+4Q4q2Gk1ESXFi6GIlVNZYnuPF2g3uxF7S9DGg==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=S6Ki4zlbzehwsQUYNDGHpittBTiQ7SrejFTBf5yJLpI=;
+	b=cyU4RNjOglIo1M9Hnad170sKoTmKsG42w4LN9THqDmJv0DNTyTuEnEoJkz1Ggty2DVeW
+	 ivcAYYUv8g6q9oMyK/k3JpGO3UrVQxDflsHTsdd/jDDEv5UXsBKH0tz4iw7ftwUvWtugS
+	 tuhceY0KFmKwdOASWm05Zl+JApgB4v5E3hZWUYOnI46G5HIOndXZZGAXIqpnHw97Zb8gz
+	 /rMYzzqGP50/oFR6EEwm1Fk5BbDvsNtBEpnLnd4PppOgiHfc4NrqH1qvzCJ0tZ+DpxDeU
+	 9zgoRF0l04pz4u6nm4PZTl5JteeaykexXuIjnD44I7SyYWnu0vZseVgelrMiRLU8Ngw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPJnytAt;
-	arc=none smtp.remote-ip=209.85.167.180
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="deozIxz/";
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D486606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:00:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D486606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE66606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BE66606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPJnytAt
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-53dbe9b8d6eso1192613b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:00:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=deozIxz/
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso959110f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:00:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794268855; x=1794873655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C6v8yQiRwIXyjVO4a2RoDhFAswA1B+x9SGkBxm38Q8M=;
-        b=OPJnytAtrZ+lmd5q6j8qQvodlISbdEptBXRcHBqqmcF6HwF0V3HZzMzJzqmTbLq3O+
-         fP18zRwfcJTF7Ax8klYWwgkGSyHJghSWj+1eHnxTYZrCt2+SDtbPoblWDYdfv4V5zZQa
-         GXhcRcBUrmLEriYbS11Q2zWio4d2UIDit8p1a3RVxtr5R/lswQbcWH7gKRIXB+nzQsTb
-         ncT+uL2KXQY5H8Kepkt1ENSIihkznYwDz23S+FIW4gqh+q/crCMZI7kY7tQwHNnOa6ZE
-         E0bdOdkVnmXSoX0EwieICtSLbLULCfHEl6iwJyv/p12pVKhQa1V3SMEkKoSAuTYo/y8/
-         yjqQ==
+        d=linaro.org; s=google; t=1794268856; x=1794873656; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S6Ki4zlbzehwsQUYNDGHpittBTiQ7SrejFTBf5yJLpI=;
+        b=deozIxz/aGLnxTDbgoDjHa8Nq0xmOsMrD8iijQkW1P4nF7hUt3TN6minRfpOckwpEP
+         MH8cy2KjdHGt16ApzZLcpoe+zhdeksal5/pnr6I+TcQRsTCklK2ct7oVvoeflkq0l5cL
+         OzQ85Dgs6+w3/9mQwalx+mc491efpiATwmjfct78qe7gA0CFA1q0ZOlQaauNpMBQp7K+
+         Oj9dj5lmjukGVHglA8CHXKMpdD0XmZfI29qoy+pGOEslgCu8USE8/FRmf/FYwZFW+3Vc
+         3h2a90My3w4IF2oP5UJKDZDIv+ULOx6KAwmIhCIW773jtJliQNO3c/GGW3MCixqqmSK9
+         2Ypw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268855; x=1794873655;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C6v8yQiRwIXyjVO4a2RoDhFAswA1B+x9SGkBxm38Q8M=;
-        b=bEa7Yfe+ui7MLobSYWIigR8rlpRAG7SWQb7QUjmD6dTQC4vc5H7wFO/aS1v79sDSYi
-         o1xXKaCOidsNOJV/nNcMwO9J8M6Dosz1wjDoCUXcYn9PQi3Ut5iK18oinFWs8l7iQyl8
-         XEqsTQPSel4CAX64Iyr+ozDIblGRgW69wcX+a/NkRKF6tIuMQnCkne1r+3qpeI5z040c
-         pAPe36dYlEIUwX34PhS+gxptaxAToC4kW5f8S+eUsPWusU3j6R7JsqjRf5Gi2aAah/ts
-         0jB6anWvqx9fy52MqwdMj2uQsuRAXaVJ3lEK0VbdvFWWZXFMTw4z5wTLKNOIWoZFDDFz
-         tstg==
-X-Forwarded-Encrypted: i=1; AL+hErEesJnnggeSf6HxjSOLr2Teg7ILt90N0+zuCuKDGax0Xu4ZGIqLOOJnne9I5Wtkh5KJYOchqnr4hAlAJrk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zXz6re/IdotKGrmHZOpFhhc73gtD+gQ3ziQwPnw/Hyq7H9vHQ
-	wMcLPy4U+ES9aRQpknVocd8JIGZdanv6h95ePrKFDxREbs3vi8GHj4KL
-X-Gm-Gg: AYBFou10jGsvauGP8VJYl1X6mGn088lnmvUCEq0LXfxHtyZuSsE95M7SAOyimUkDX4p
-	WrqOqqj6HE81XSYyXXmJ7MeKLo4m2SzL8ILjVkKjYqNrJ7A3fCVOQ3q/Yyb2H2dKkejLe+4x+Yx
-	kK4INK2Qm+rBrA1v011p5rP8+4hufSzMZv+5DesxqX6iuVJACB0uMIB0ObaUZ4PKMwEoWsEva+2
-	dXa2zcY2h7f2BlDLJ+SJpSPeAe64kRfSGKSkHinZ/Ob8Do0IxspVosRio81egP2GPXufxYToUZ3
-	r1PnMi2BG58C1RsVUEp6Vk9gMc3DQiqFlK/B0Bbj+cejIFPzqMT/oCJCljZ7kC9gAt4W0Ji486h
-	wW77drE61ScaWyY/hrW59N74cXzlXuex3ajnXf6kpmY8xqYVOG0kMr8HGKWXEEhG6EtF7jfVxgJ
-	7Dav3ls6obrLnWNMA1W/7yIhKd7kmrVUujyPiEoA6ScsHQ1xnldherr1QPUfxvTg875IF7IV2gb
-	Uuk53ARrfqRR/aAZZ8yNsQzRUiujHGpkWHeYmG6VvlFaiGCI994c2GDR01zFMUBYRuyJ3QetWYm
-	pQRBygn3/t4abdchj9dTF1TwghV8Zx6VZBgJJ6042XE=
-X-Received: by 2002:a05:6808:124d:b0:4b8:4703:db92 with SMTP id 5614622812f47-5688130178dmr490167b6e.27.1794268854914;
-        Mon, 09 Nov 2026 16:00:54 -0800 (PST)
-Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905735edasm623697b6e.7.2026.11.09.16.00.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:00:54 -0800 (PST)
-From: Leizhen Zhang <lzsx618@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: masahiroy@kernel.org,
-	ardb@kernel.org,
-	rostedt@goodmis.org,
-	hpa@zytor.com,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH v3 1/6] genksyms: fix infinite loop on declarations with parameter lists
-Date: Mon,  9 Nov 2026 17:59:58 -0600
-Message-Id: <20261110000003.1719966-2-lzsx618@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110000003.1719966-1-lzsx618@gmail.com>
-References: <20261110000003.1719966-1-lzsx618@gmail.com>
+        d=1e100.net; s=20260707; t=1794268856; x=1794873656;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S6Ki4zlbzehwsQUYNDGHpittBTiQ7SrejFTBf5yJLpI=;
+        b=Au3iHwjzzaBtxj3DP0FrwphloNACgZykiKyUolPJARaHFhjfPT19uxca4hSZ0OIvG6
+         okoI8Mzxl/Sd/+ARDf73r7qWmQvQTmn/IGnW5fOFvXDFPxWid90lDYPiEpJbA10oavXn
+         4argGFNikexFYJgvP2yO5ncj56dhxIbj/ShGCO1HDb+M3zzN7Yo/jZH89Uhq05v+rVCY
+         Adwetd+x1DUw15ZLWvLi+1isyIBFkyIdIaRtiQB7rsdU2a2bkPKYNV5jzVNQpnwIzPJe
+         CJAQf2MLX9rRcByKuDxw8JVRxYE7OpVQXOAHIoHjOBvfhdJVETo3/Sfd+8W2emW68bY+
+         yZ+A==
+X-Forwarded-Encrypted: i=1; AL+hErEK6R8l5d8rKCPbKeGYx+TciY9+ErKT6zy/px70IBBcAxD+syVJi7au5CKwP67KDnBgsdxjF/kPU07T2ow=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/t9x73c4fDdHZstPpEzGCG6MUByHF6+LDWNdd/oYr2AjDr6/mx
+	E3z5Xx/7jdbdENMu2dfMhu6iHS8sqHDwChyYpV/BwWeOIft8Fka5IvFo0dBtuOd5fKg=
+X-Gm-Gg: AYBFou1NSLpFvkfrarCb6MthudOitoiKqFFbwdvVHuJRS8xfxKdTKWi2mSz5634C3Sg
+	swe+O3lTNcS0I1QQZgGOcpQHPysqarnqtsVEBlhq5+RUWVVmqq4mkXb2VLMjhzAX6tzI4HjZ6FU
+	EvcA4FlG3oDS38vhQe1aBt+cLYCwVPNhKkK99rDiDmrPWRo5NHb3Guea7HCllqTzVXS6khuBiE4
+	7NfiIcKlk9a/Gl9P4zV9ECcTrjeaxGXNGbUUstZaFrOj1y6WgqY/il2ssKORDsR8h9UjQtXSpPt
+	H/KKeoNozIQuO9O8XVwxdUEE1m5V6XS49MHDcJX4VVgf9hamwGVMhKbHe/uQNeCinU/jVow9CP1
+	xwNX0DDqGhZpKtbMIVOfbyeS4sMWoXsxP9RHOD/KMOVV3A5H52Is9UMBgc1EDj8VG3fzuCUcz8x
+	6i/xGA6UVLPvOmA6Xv4GNy/phqIRYyhh4ToJXF64i8l4ASrVWP33zlhM8hwpJdCxoyNw5Fn6zJY
+	fYk0j2srL4XZa8JTTLajkfRsA9OfURC3TGM4OP3TDyF3On2BXkl1tfKvAjjS5DqOKRGx0SPS9I5
+	/01AW6GSLWzDYHCMYudY+yiQAeCD9PjDMdj8y5s=
+X-Received: by 2002:adf:f391:0:b0:48e:d7c:4bc3 with SMTP id ffacd0b85a97d-4982f2b5ce0mr1045706f8f.21.1794268855287;
+        Mon, 09 Nov 2026 16:00:55 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.74.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbbe5sm1882531f8f.42.2026.11.09.16.00.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 16:00:53 -0800 (PST)
+Message-ID: <5d775896-5c7e-4830-862e-a9b02b840177@linaro.org>
+Date: Tue, 10 Nov 2026 00:00:53 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,95 +90,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] media: qcom: camss: Add SM8150 support
+To: gauravsuman007@gmail.com, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
+ <20261109-sm8150-camera-v1-2-3d2e7b407516@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261109-sm8150-camera-v1-2-3d2e7b407516@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-decl_specifier_seq updates the global decl_spec, which is used by the ','
-action of init_declarator_list to give each further declarator the
-specifiers of the declaration. However, decl_specifier_seq is also used
-for parameter declarations, so for a declaration such as
+On 09/11/2026 22:38, Gaurav Suman via B4 Relay wrote:
+> This was written and tested with the help of an AI coding assistant
+> (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
 
-  int a, f(int);
+Right, well please review patches on-list before sending duplicates.
 
-decl_spec is clobbered by the specifiers of the parameter "int" by the
-time the ',' action runs. The action then links the parameter's own token
-node back into its chain, creating a cycle, and copy_list_range() loops
-forever while allocating memory:
+https://lore.kernel.org/linux-media/20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev/
 
-  $ printf 'int a, f(int);\n' | scripts/genksyms/genksyms
-  (hangs)
-
-Before commit 45c9c4101d3d ("genksyms: fix memory leak when the same
-symbol is added from source") the same corruption did not hang but
-silently recorded a wrong type for subsequent declarators (e.g. for
-"int f(long), a;" the type of "a" was recorded as "int f ( long a").
-
-Only set decl_spec in decl_specifier_seq_opt, which is used at the
-declaration level, and let decl_specifier_seq just return the last
-specifier. Struct and union member declarations use a new
-member_decl_specifier_seq_opt that does not touch decl_spec, so a
-struct body nested in a parameter list cannot clobber it either.
-
-The generated symtypes and CRCs for 149 preprocessed kernel source files
-(1128 exported symbols) are unchanged, and no new bison conflicts are
-introduced.
-
-Found by fuzzing genksyms with ASan/UBSan.
-
-The problem was found with ASan and UBSan, and the analysis and fix were
-prepared with the help of an AI coding assistant; I reviewed and
-tested the result.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
- scripts/genksyms/parse.y | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
-
-diff --git a/scripts/genksyms/parse.y b/scripts/genksyms/parse.y
-index cabcd146f3aa..7cc0336a7954 100644
---- a/scripts/genksyms/parse.y
-+++ b/scripts/genksyms/parse.y
-@@ -201,13 +201,28 @@ init_declarator:
- /* Hang on to the specifiers so that we can reuse them.  */
- decl_specifier_seq_opt:
- 	/* empty */				{ decl_spec = NULL; }
-+	| decl_specifier_seq			{ decl_spec = *$1; }
-+	;
-+
-+/*
-+ * Unlike decl_specifier_seq_opt, this does not touch decl_spec, so that
-+ * a struct/union body nested in a parameter list does not clobber the
-+ * specifiers of the enclosing declaration.
-+ */
-+member_decl_specifier_seq_opt:
-+	/* empty */				{ $$ = NULL; }
- 	| decl_specifier_seq
- 	;
- 
-+/*
-+ * Do not set decl_spec here; decl_specifier_seq is also used for parameter
-+ * declarations, which would clobber the specifiers of the enclosing
-+ * declaration, e.g. "int a, f(long);".
-+ */
- decl_specifier_seq:
--	attribute_opt decl_specifier		{ decl_spec = *$2; }
--	| decl_specifier_seq decl_specifier	{ decl_spec = *$2; }
--	| decl_specifier_seq ATTRIBUTE_PHRASE	{ decl_spec = *$2; }
-+	attribute_opt decl_specifier		{ $$ = $2; }
-+	| decl_specifier_seq decl_specifier	{ $$ = $2; }
-+	| decl_specifier_seq ATTRIBUTE_PHRASE	{ $$ = $2; }
- 	;
- 
- decl_specifier:
-@@ -456,7 +471,7 @@ member_specification:
- 	;
- 
- member_declaration:
--	decl_specifier_seq_opt member_declarator_list_opt ';'
-+	member_decl_specifier_seq_opt member_declarator_list_opt ';'
- 		{ $$ = $3; dont_want_type_specifier = false; }
- 	| error ';'
- 		{ $$ = $2; dont_want_type_specifier = false; }
--- 
-2.34.1
-
+bod
