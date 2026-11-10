@@ -1,77 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278825;
-	b=jXHxzT8u84ALym4x8cno9yNS4VV3mzBUj53FJEQ1dxgdiE2jB7qK1ZakpVFgzWOu6B9/
-	 Y+7X8j5fWLCvw5EhaNVFZJfxktaY1VmHciNYhjU5gzspf6xs73WO3JbJf6ZY1rNvErhhV
-	 BNRCMJBRbQDtkLIUJGX+XqNKrrgDxmGUY7Tny2JLoSIcPl65cpL+d0wy3HQ5oNSon6V1V
-	 hbLV1GGYkfgb5rlhTBWiH38+P8guAj+SqzSRJRPTEOUn8A6YITuyDTkoWxwEyt7Ppv8SA
-	 VpS1QPP5QAaWPuatqh6aGOhiuCzavwLh5OFJdZs0q2ZWgPZKLF7niH3Ge0zFytLmBzQ==
+	t=1794278862;
+	b=HVpMRvM4x6rvr9TWUTJaRkw+OBJJfM268q4WKSng3R6v0v4cAHNJBUnLDex0XwqiDUtN
+	 ns0+gEOp5dA78lkunuZGbXP4Ng9Mc7zpNrm/jFKmzq7nkIR7EV6t9hbDnu+/zrgPy5bQ5
+	 mk8rq4JeQwWVrsH1BQseCyC+eQMi8mlvalRpkCqpJHg/yxX1BVsMJ34djvlRk8sLKZs4j
+	 jMGRqFO6dB1906z8EwGszRzkdCHoOcus/tjTN8imNUU8n7YZdgQj1dMHctyVCU4p7Ue5E
+	 +7T7LJU195TGrKlW7A/3gcdvha112REOYa+kRlOQ/UpP7jpUK5JoVq7PaahIzeN8dYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278825;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Wr08ML3Rij0GWlEMxlionTZbgmIcPOoLHTVZ3u5AxBY=;
-	b=hNzIuhn5kFW/mxHEzSVJ7YZUIcFSQ7jg3IzXSXPNJQeSMAhaaRGZQrr05gMlWnJUiAox
-	 Q1Y/gdf+Vl5E8hepk51YfanT37attc3xS8hCGmwZikl/CVE8TZnM70ZTW7I/RtruiAF7b
-	 HqTcSV/Eepnn58kKfEeHN/WrmldmsC6vpgVmYeKJpuv6iwJ2+IrPJHq3PhqElNODERcPT
-	 lcOOCjrp3iANy9gTLfNW8uTG/IHbQ7NmvTR+AKpQzih8KP9gtY9X0KmnkkDfoPLrIoROU
-	 y6AAlazfxslQoVDwjAFmI6k9MOmGrdTDjFkbt4PLMFrcSXVpL3PuUByPtk9b11A3n4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278862;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=OGI87JTmKxRRfHEIswCBbT6wa5pP+uXrDb2vu3bdzdI=;
+	b=vwIqhWvuBk0hC4e+1n68fpwiTH+HNIzx+SH3q+PWHQYwoV2XOQcydK6U62K/AOFObztq
+	 KtFsBlMrv3u9ocUXyM8waaB45hPfxzKj+sJjU+abwWBkEy5OfclbtSAOAxadanEvbzx2o
+	 NJSsf1Onl7i1lWP7E1sQop75JICzikYNyyG9fwRKowBdZTbFQgFayxB3dZhYQI9o79rbN
+	 /SxnW1E8xz1qlnCuVjqcZ7z42PluNO/LrBsQ36qjjNnWRWOZq9I8SbYivau5z6QPajmw2
+	 7et1I6ur8wFYdbASmAIkaV3i/DfE/XRJ/IHBW4zYOogDscmZnYK0oRt6WqgLqOO12EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=koHBjNFN;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xXDhpVPK;
+	arc=none smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A34606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48A34606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64CA606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B64CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=koHBjNFN
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 31F4240E04D0;
-	Tue, 10 Nov 2026 02:47:02 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id OI2spkjCGtsn; Tue, 10 Nov 2026 02:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794278818; bh=Wr08ML3Rij0GWlEMxlionTZbgmIcPOoLHTVZ3u5AxBY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=koHBjNFNAdAygyyatnZ2Fg3iHhIPml1922KYf07hGnYn4kdvLHoSBxPJM3UqTtvXL
-	 Ou35UCk3BFKN60CAV2hkAEIpzIeTA01TKK5vmSEKeKywAfIjdMjIvnwUH5faaS/s1V
-	 yEo13Yuyh2WNEBrDwWb9mpW1/kvIYiosBHeBJJEwlRfvB0ZYsVFQqeyjT5FS74EbvF
-	 IE5nmnE54YJc6MSlN998RNsmLhgTU7Wp5s6CWxcGlSUBlGS2O8+XNkaw9lMdJFxj/r
-	 vPVpbq49zXgFGkLWiEbS3g6eQ0WNqnm5K6nQUGGick/Z770/zOQdpNCsnpXjQ0HODY
-	 W6mLl2gnj5VEvbMEkKTYnfu87Pc6U4EKVRFCXtdMeyoXFveJlQf41TeOEqsRA8M8p7
-	 vlcFwwYXO5kLO0tgCl9DDgPY/gv8/IHH4W/I5o8F/fUoienucD0eGqhquN8jBbNSba
-	 244pPbIxFc7KwXgYEBr7nOjV86CpfNJ+o63ofeGWGDr9iM6Jt12t4Crugnjk22nvdY
-	 JLqiPekLZOfK+y2g5SJtOYVVui+X4uVx1nchmTo7DMil4Rls/aiV1e9a0DaG1vyPhX
-	 13LV3pL1aan/7nQ3RVv0EDGMshhfSrPaUMRkyNg2md/dR+MVKBGeyzYSyL6pBG97SS
-	 yws83ao8toTRxXaP+QfBApOA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7CA4940E015B;
-	Tue, 10 Nov 2026 02:46:49 +0000 (UTC)
-Date: Mon, 9 Nov 2026 18:46:46 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, peterz@infradead.org,
-	david.kaplan@amd.com
-Subject: Re: [PATCH v4 2/9] stop_machine: Add NMI-based execution path
-Message-ID: <20261110024646.GGavKFllskPQiLrNOK@fat_crate.local>
-References: <20261104182322.578066-1-chang.seok.bae@intel.com>
- <20261104182322.578066-3-chang.seok.bae@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xXDhpVPK
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7d2e1abf3eeso1206503137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:47:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794278861; x=1794883661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OGI87JTmKxRRfHEIswCBbT6wa5pP+uXrDb2vu3bdzdI=;
+        b=xXDhpVPKhEwmXYlSdgVQWRD0yKtOa/0Jw/dE9lGk+00h/qpIBRBu6nYBUWXUzsBIKu
+         Mk8lf9mhxkiuZuVqgGV/DcNb6gN+cqUzzGaoVl5hEoVetgWT1Qa6qEvst+uqueb0Rluy
+         rBpM45G0Kgmf7f7iLFzxPiXDygzfN35egxwAa8x2ibzfO5rHCUYA8aFVS8vz4Sid4MJh
+         tx52lBzwWWNdu2Bllk8DdCHnir32H9HeDfZcmF9poJ44gPcpBRnEuLO/ceeQNmo9So/9
+         ZnR5bGpZAXa1CAiDxN+3JKm0XU4q8b6B+hCLP1i5opauNmPLdkxI/Vd+TEPrE4qYv449
+         BA5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794278861; x=1794883661;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OGI87JTmKxRRfHEIswCBbT6wa5pP+uXrDb2vu3bdzdI=;
+        b=OVis3MIl6vJw8UvPOUFSaqYccOQ8XqELoHExksi/BMGoZCV9OkFcdQZgQdGzp1mzs3
+         pOT1YkaWewp/X2+kSGZIRsth9YzMCliGQEj29tCgNvITE9tgHbowzilc8zU0T/fOIeyI
+         6JzMUaiPulHy4i2jGCLhUjopcVDg2ogqN+ba+bhINsM2yVYyTtiUSUwDfYHbsVQRpFqh
+         eCfBpqsfevDPYDk2brHQsxkzzdUOBqT+1tU9nQGyB72ysrA9/WsbzwphxYUvr7gWNuPe
+         ZqaUTiQkE+pzS3tOvH3j/NK66xchiWdS4anZVym4u4DUmdKMNEyC6yG0cam1/BUIHhOc
+         7LSA==
+X-Forwarded-Encrypted: i=1; AL+hErHKB4Fid0hkkBxQwOQozDyBcrXthXG6j1H5Rk6SS+BFEhlUWrmkwGbAh12xPdUGkMsccAI96+DeQaH/I3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gUL7D1qGx2N6z4DEfH8mH2pgNY0NuK14e+66MJPQM442gvMl/
+	CvYiu1gg/QcGVx/jeqvw+PrPBBjerdu9CiBkWpQ91krqCtFB50d7zSSl
+X-Gm-Gg: AYBFou0XA6hrllvrW8WctUbw9pQTyXZlTyZLxtgIYutVEUTKcKTkTmLioABNcFlk01g
+	UTlkH++aXTs1+wObIoHroG/wqNyz4NFAEwkyEToRN7nyGYJFr0bHtr6NOnhncp+Z9Xi3pJ3n+9g
+	hcm5vVFSiirPtNckkxSjLXGruaGBw7+homrJ4bWr11eHCf3vSOenG0GFsxip8MJ4I0zVWWrbX1B
+	1o5WOq2YvRStmsI0OJhzjjR83Q7yMzgDfKsq8MfNSiFfQwlj0XJvnin11g17TFPJ1ClVqcz2NK0
+	xUUTrBzFPWxcyIWMYg+Jb1lJNU28UAOjkYkmWYPt1dyY5Vi7eIG2vT612A9zLF6SQ9snEJU/yYA
+	0PwiuEPHq09le/gDl0e15+30SvDblN/TgZFOkCvTbhqc2Du9lL2Kfx7pM+XMH4d5bDkf9QGL86e
+	tOp1FUtKoregWGmd9tjNRuNQFUZdK3Vz1LnTJdDQLuD7YaBaLCLH0tTDw67hk42FEGDiUAOT84y
+	KkV9a6Zb4AqyDRCLb2dprUsoM34V0cb/NCZMT79ehWvCsCWYywsIKJbvFjqy0ZkhD1gNo3+mh6h
+	d3YrEUfIUnzLVIZQwXQ/J2DcOFzZ5KNAEuKrrmViBduan3U7ITifOWhoHf1kAQaRBk5R5O7XFVu
+	/3M8I4Yo8qqjvlNIM2Wm16/+jX66Fh11vjqvOvau7RE4nvESHPSW7UwsNn0NwC29KvQGChQU=
+X-Received: by 2002:a67:e116:0:b0:7d2:d876:fb3c with SMTP id ada2fe7eead31-7d3011e2755mr389213137.35.1794278860666;
+        Mon, 09 Nov 2026 18:47:40 -0800 (PST)
+Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c2019bf87sm1116873241.11.2026.11.09.18.47.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 18:47:40 -0800 (PST)
+Date: Mon, 09 Nov 2026 21:47:39 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Xia Yan <yanxia@cmss.chinamobile.com>, 
+ netdev@vger.kernel.org
+Cc: dsahern@kernel.org, 
+ idosch@nvidia.com, 
+ davem@davemloft.net, 
+ edumazet@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ willemdebruijn.kernel@gmail.com, 
+ linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ yana06070@163.com, 
+ shuah@kernel.org, 
+ linux-kselftest@vger.kernel.org, 
+ willemb@google.com, 
+ tpluszz77@gmail.com
+Message-ID: <willemdebruijn.kernel.2c8d7027641a5@gmail.com>
+In-Reply-To: <20261109014400.9025-2-yanxia@cmss.chinamobile.com>
+References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
+ <20261109014400.9025-2-yanxia@cmss.chinamobile.com>
+Subject: Re: [PATCH net v3 2/2] selftests: net: exercise SO_MARK on connected
+ sockets
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,288 +114,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104182322.578066-3-chang.seok.bae@intel.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 06:23:15PM +0000, Chang S. Bae wrote:
-> Currently multi_cpu_stop() executes the stop function in the
-> MULTI_STOP_RUN state. But NMIs can still preempt the execution. For use
-> cases requiring stricter isolation from them, provide an option to run
-> the stop function from NMI context.
-
-If that were the case then we should not use stop_machine(). But
-stop_machine() prevents NMIs indirectly by simply not running anything else on
-the CPUs, thus leading to no NMIs. Well, mostly. We can't do anything about
-firmware gunk and so on.
-
-David's original justifcation makes a lot more sense to me:
-
-https://lore.kernel.org/r/20260125014224.249901-2-chang.seok.bae@intel.com
-
-> Then, the NMI stop function must be built without instrumentation, as
-> exceptions may re-enable NMIs on return via IRET. Annotate the NMI
-> handler entirely with noinstr.
+Xia Yan wrote:
+> cmsg_so_mark.sh sends to explicit destinations, so it does not test the
+> route cached by connect().
 > 
-> However, objtool cannot reliably determine whether the indirect call
-> target is located in a noinstr section, so it may emit false positives.
-> To avoid this, temporarily lift the instrumentation restriction around
-> the indirect call site and document the intention.
+> Add -k to cmsg_sender to connect first and send without msg_name.
+> Check connected IPv4 and IPv6 UDP, ping and raw sockets with equal,
+> prohibited and zero per-message marks.
 > 
-> The x86 microcode loader is currently the primary user for this.
-
-> But other architectures are not expected to use it.
-
-This does not belong here.
-
-> Add a build option to make it opt-in.
-
-Also drop all text that explains the patch. Audit your whole set pls.
-
-> Originally-by: David Kaplan <david.kaplan@amd.com>
-> Suggested-by: Borislav Petkov <bp@alien8.de>
-> Suggested-by: Thomas Gleixner <tglx@kernel.org>
-> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-> Link: https://lore.kernel.org/lkml/20260129121729.GRaXtP2aeWkQKegxC2@fat_crate.local
-> Link: https://lore.kernel.org/lkml/87wm0zl8p2.ffs@tglx
-> ---
->  arch/Kconfig                 |  3 ++
->  include/linux/stop_machine.h | 16 ++++++
->  kernel/stop_machine.c        | 99 +++++++++++++++++++++++++++++++++++-
->  3 files changed, 117 insertions(+), 1 deletion(-)
+> Add an exact mark 0 prohibit rule before the connected cases. Connect
+> with an allowed socket mark, then require rejection of a mark 0 cmsg.
 > 
-> diff --git a/arch/Kconfig b/arch/Kconfig
-> index 1163736de1f9..a4b62f83efb6 100644
-> --- a/arch/Kconfig
-> +++ b/arch/Kconfig
-> @@ -1824,4 +1824,7 @@ config ARCH_HAS_CPU_ATTACK_VECTORS
->  config HAVE_ARCH_GET_SECUREBOOT
->  	def_bool EFI
->  
-> +config STOP_MACHINE_NMI
-> +	bool
+> The same test fails four IPv6 cases before the kernel fix and passes
+> all 54 with it.
 
-What is the real point for that ugly ifdeffery introducing, yet another
-Kconfig option in the zoo?
+nit: empty line before Signed-off-by block
 
->  endmenu
-> diff --git a/include/linux/stop_machine.h b/include/linux/stop_machine.h
-> index 84e7fb627ba4..b53b028296e0 100644
-> --- a/include/linux/stop_machine.h
-> +++ b/include/linux/stop_machine.h
-> @@ -20,6 +20,12 @@
->   */
->  typedef int (*cpu_stop_fn_t)(void *arg);
->  
-> +/*
-> + * Stop function variant runnable from NMI context. This makes the
-> + * noinstr requirement explicit at the type level.
-> + */
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 
-I don't see what the point of that comment is.
-
-> +typedef int (*cpu_stop_nmisafe_fn_t)(void *arg);
-> +
->  #ifdef CONFIG_SMP
->  
->  struct cpu_stop_work {
-> @@ -186,4 +192,14 @@ stop_machine_from_inactive_cpu(cpu_stop_fn_t fn, void *data,
->  }
->  
->  #endif	/* CONFIG_SMP || CONFIG_HOTPLUG_CPU */
-> +
-> +#ifdef CONFIG_STOP_MACHINE_NMI
-> +
-> +void arch_send_self_nmi(void);
-> +bool noinstr stop_machine_nmi_handler(void);
-> +
-> +#else
-> +static inline bool stop_machine_nmi_handler(void) { return false; }
-> +#endif /* CONFIG_STOP_MACHINE_NMI */
-> +
->  #endif	/* _LINUX_STOP_MACHINE */
-> diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
-> index 8dcd5be67b85..ad01b7c5266c 100644
-> --- a/kernel/stop_machine.c
-> +++ b/kernel/stop_machine.c
-> @@ -23,6 +23,7 @@
->  #include <linux/atomic.h>
->  #include <linux/nmi.h>
->  #include <linux/sched/wake_q.h>
-> +#include <linux/delay.h>
->  
->  /*
->   * Structure to determine completion condition and record errors.  May
-> @@ -175,6 +176,15 @@ struct multi_stop_data {
->  
->  	enum multi_stop_state	state;
->  	atomic_t		thread_ack;
-> +
-> +#ifdef CONFIG_STOP_MACHINE_NMI
-
-I hate this ifdeffery.
-
-> +	/* Used in the NMI stop_machine variant */
-> +	bool			use_nmi;
-> +	/* A separate function type to highlight noinstr requirement */
-
-What?
-
-This is the function that stop_machine_nmi calls. Pls keep commenting to the
-point and at minimum.
-
-> +	cpu_stop_nmisafe_fn_t	nmisafe_fn;
-> +	/* cpumask of CPUs on which to raise an NMI */
-
-Kinda obvious from the name, right?
-
-> +	cpumask_var_t		nmi_cpus;
-> +#endif
->  };
->  
->  static void set_state(struct multi_stop_data *msdata,
-> @@ -198,6 +208,8 @@ notrace void __weak stop_machine_yield(const struct cpumask *cpumask)
->  	cpu_relax();
->  }
->  
-> +static int multi_stop_run(struct multi_stop_data *msdata);
-
-Get rid of this.
-
-> +
->  /* This is the cpu_stop function which stops the CPU. */
->  static int multi_cpu_stop(void *data)
->  {
-> @@ -236,7 +248,7 @@ static int multi_cpu_stop(void *data)
->  				break;
->  			case MULTI_STOP_RUN:
->  				if (is_active)
-> -					err = msdata->fn(msdata->data);
-> +					err = multi_stop_run(msdata);
->  				break;
->  			default:
->  				break;
-> @@ -713,3 +725,88 @@ int stop_machine_from_inactive_cpu(cpu_stop_fn_t fn, void *data,
->  	mutex_unlock(&stop_cpus_mutex);
->  	return ret ?: done.ret;
->  }
-> +
-> +#ifdef CONFIG_STOP_MACHINE_NMI
-> +
-> +struct nmi_stop {
-
-If you already have "multi_stop_data" then this is "nmi_stop_data".
-
-Please try not to come up with weird naming willy nilly.
-
-> +	struct multi_stop_data	*data;
-> +	int			ret;
-> +};
-> +
-> +static DEFINE_PER_CPU(struct nmi_stop, nmi_stop);
-
-static DEFINE_PER_CPU(struct nmi_stop_data, nmi_data);
-
-> +
-> +/*
-> + * Instrumentation may trigger nested exceptions such as #INT3, #DB,
-> + * or #PF. IRET from those would re-enable NMIs, which opposes the goal
-> + * of this NMI stop-machine facility.
-> + */
-> +bool noinstr stop_machine_nmi_handler(void)
-
-stop_machine_nmi()
-
-> +{
-> +	struct multi_stop_data *msdata = raw_cpu_read(nmi_stop.data);
-> +	unsigned int cpu = raw_smp_processor_id();
-> +	int ret;
-> +
-> +	if (!msdata || !arch_test_and_clear_bit(cpu, cpumask_bits(msdata->nmi_cpus)))
-> +		return false;
-> +
-> +	/*
-> +	 * The indirect call to @nmisafe_fn() is indistinguishable at
-> +	 * post-compilation. Temporarily enabling instrumentation avoids
-> +	 * objtool false positives.
-> +	 */
-> +	instrumentation_begin();
-> +	ret = msdata->nmisafe_fn(msdata->data);
-> +	instrumentation_end();
-
-This is just silly. We should fix objtool here.
-
-Peter?
-
-> +	raw_cpu_write(nmi_stop.ret,  ret);
-> +	raw_cpu_write(nmi_stop.data, NULL);
-> +
-> +	return true;
-> +}
-> +
-> +static bool wait_for_nmi_handler(void)
-> +{
-> +	/* Conservative timeout */
-> +	unsigned long timeout = USEC_PER_SEC;
-> +
-> +	/* The handler clears up at the end */
-> +	while (this_cpu_read(nmi_stop.data) && timeout--)
-> +		udelay(1);
-> +
-> +	return !this_cpu_read(nmi_stop.data);
-> +}
-> +
-> +static int nmi_stop_run(struct multi_stop_data *msdata)
-> +{
-> +	/*
-> +	 * Save per-CPU state accessible from NMI context and raise a
-> +	 * self-NMI to execute the stop function from the NMI handler
-> +	 */
-> +	this_cpu_write(nmi_stop.data, msdata);
-> +	arch_send_self_nmi();
-> +
-> +	/*
-> +	 * Ensure the handler went through before reading the result.
-> +	 * Otherwise, make no stale state left behind.
-> +	 */
-> +	if (!wait_for_nmi_handler()) {
-> +		this_cpu_write(nmi_stop.data, NULL);
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	return this_cpu_read(nmi_stop.ret);
-> +}
-> +
-> +static int multi_stop_run(struct multi_stop_data *msdata)
-
-Call it what it is:
-
-	stop_machine_callback()
-
-or
-
-	stop_machine_fn()
-
-or so. Naming is very important.
-
-> +{
-> +	return msdata->use_nmi ? nmi_stop_run(msdata) : msdata->fn(msdata->data);
-> +}
-> +
-> +#else
-> +
-> +static int multi_stop_run(struct multi_stop_data *msdata)
-> +{
-> +	return msdata->fn(msdata->data);
-> +}
-> +
-> +#endif /* CONFIG_STOP_MACHINE_NMI */
-> -- 
-> 2.53.0
-> 
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Reviewed-by: Willem de Bruijn <willemb@google.com>
