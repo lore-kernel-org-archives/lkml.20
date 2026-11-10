@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292685;
-	b=Wsq+y/0CMuQX9gKKZvk0FPSZ06a/N6GW06xhRI2PNwrvNq3EmOuZbUCXTHmWpgesEP7J
-	 YTtYJiJoGJCWKhVU3Mg5VNOZ7R399tjpP1k5ofJpRr3fLbU2ivvTH4Z7CKbxRY+9a2/v2
-	 rJBjLoqwAZtxm9BL8zrkuzzHI2HTEwct5Kzj5EWFLbIYKzw1GHxVbS/qYDFgiGC/7CN8t
-	 Z+LdyUvyF3j/dT0pYBL6RRzVCka1yUfriu5e/qMODHtRvp994fj5ItXa9mUQ/1gUKvUY1
-	 5IGwHVzxbcBQf/M6+IIzX1shC6WV8Q13XUpHkVJdlhyNMA12nh6D5EzKTSFZ9rRcoaQ==
+	t=1794292695;
+	b=amCScaUXSDxbKWF3SQ81PEM5NXatfNQ7/wHSwM3zRkcK2b9Qc0nLxWxmxDWYYjXBwjnO
+	 pWpbaumk9pPUn38uDqSQ1hyt59xSkRumTjbOQZGUTtg7G1iUPF0UcuePxTg1Ems6Y2Hqw
+	 Ui+JJTYsUIMQaBAAo9pVcNxLAff0mPpbxvZA5FAYOYF9w4eLjLxcfVajn9zvPnGC5b7/k
+	 pL3tp3PVemzabYzBX2hl+USMHsk66yFtXdsqwZHQDHCqFIuIupLmw1CF4rTbW4ZS3kdI9
+	 X1QYKWFX6xhybC3dO2bLW5UKUH5vAfMt9J387EujceJWxzQENXuHqIn0v7CajP1L1jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292685;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=788eD6EYFiPFkFjsWwu7gXMD/5pQr2HRYw9Oa5iyE+c=;
-	b=NVPxuc+Acdrc/ajOtv0Xy3FIZxHrPcs3XBEY/Y7k9d9bscqqXxRVdTn+MWELZAJv7oO7
-	 10gD0OHpvVwF7962nP5r8cv+1P7x23CLYztj4oaUdntj1MGZR8g8bLaM00ZSdFCT877sA
-	 /i/d+HHRvEy5q5EMajokZ+x3n8MSCc752BOkUvwdXhVRleXIraxW0jse6IBeTmOFbiTWY
-	 u7NYeEgyMceslraWviA2j+CeSI2Y7ZulYjZDEmikKZ29aWtZQsdqJ8De8AFBEin+bX02K
-	 dPue6uX3GoFMy8PgnmnCTKB/bWs70Wazb3gD3CQB4TYYrilMxINfM9nNuv/TrnueP/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292695;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=uQfJDAzqv74OQj9PgNOrl2GZBw4mpbzbCmwJl/TcAx8=;
+	b=IZW/wgRM2NN/0ktuBCEjQnc+3EGPTFMzhJqWqg6HNIdG1NIOtx/WaeugIwX51F2UR/6V
+	 XMS1y2pYJ+9Ej6TlonHuJIGtxuafVBPgQpNN24xALvEQCEvfueYxzQ/AjOtrCMvP6Eg+D
+	 HudENgZ6frkZLb75YNVvv6glR4NxG94IOfCQWq3p/PwGcknI3PfGfWCbQlYYYjVNc70Lx
+	 sCVyUBRYMzYB5dCfyuHJSgr8jdgsSWjOM75X1OiUBAO3DDOD/UQ6+7MY6DwE0957KMsPx
+	 UzQK840JnxXv9TDduhfydcYI2arLy9nXjjKnvRF1YDIL3eH+BYGO7QTg6/cd4Ge7jIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fdMM5zPn;
-	arc=none smtp.remote-ip=115.124.30.99
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="q6j/KNAO";
+	arc=none smtp.remote-ip=91.218.175.80
+Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB42606A31C;
-	Tue, 10 Nov 2026 06:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB42606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7082B606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7082B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fdMM5zPn
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794292681; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=788eD6EYFiPFkFjsWwu7gXMD/5pQr2HRYw9Oa5iyE+c=;
-	b=fdMM5zPnLkC66yxP9Oz6oBKyzALrZKMlKpF10HZlg6pyVrVAiRf5jEx25KkQVvEQTPYi6k0/b+9bBG6G13BO/plE/f5dlQ6ZCDx7fT9woTVfEZdKSCIrAsI4R5Z4PJC1NKUzjOoQySScn7nKhiXzkq0dEIZbvtRo1lFqgX6sjuc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XEUOs81_1794292679;
-Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEUOs81_1794292679 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 14:38:00 +0800
-Message-ID: <f0ff3284-53a6-4555-9e8b-fc6198be84eb@linux.alibaba.com>
-Date: Tue, 10 Nov 2026 14:37:58 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q6j/KNAO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1MH47SrJNKyrBlImZVUKfskfdpHDxxkHzS/Ye+6eADU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794292691; v=1; x=1794897491;
+ b=q6j/KNAOpCDbT4nm7weTjZHADonNjBKLBCX5P7Od22VxLV6IfVe5/HqDFMdLyWe/Fb0yWvxm
+ H+eyIHPZLFwpyfMMh6AoxXkvahHdL9PJUNRC10zOGZAwzplOYXJTO378nlsSAExW1ZqwW4o9juD
+ zNxvUVGXDT8FCRm20FkwBNPE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2597cb3cd0548d62;
+	Tue, 10 Nov 2026 06:38:10 +0000
+X-Mizu-Trace-ID: 2597cb3cd0548d62
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4d46e469-e3b8-4ea6-a85d-b2aa3d750210@linux.dev>
+Date: Tue, 10 Nov 2026 14:38:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,50 +59,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by
- do_set_pmd()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
- <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 3/4] cpuset: settle isolation state when CPUs are given
+ back to parent
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261107120100.3587595-1-ridong.chen@linux.dev>
+ <20261107120100.3587595-4-ridong.chen@linux.dev>
+ <c2ab6077-750e-48cb-bfd0-18882c807de5@linux.dev>
+ <d7fef280-a076-42c6-a6c6-cf355bbbc29f@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <d7fef280-a076-42c6-a6c6-cf355bbbc29f@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
 
-On 11/6/26 8:36 PM, David Hildenbrand (Arm) wrote:
-> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-> deposited page table, such as PowerPC with the hash MMU. If the PMD is
-> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-> without consuming that table.
+在 2026/11/10 14:24, Ridong Chen 写道:
 > 
-> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-> userfaultfd operation can install a PTE table before taking the folio
-> lock. If that races with set_huge_pmd(), the unused preallocated table
-> is lost when its local vm_fault goes out of scope.
 > 
-> Track whether do_set_pmd() allocated the table and free it after dropping
-> the PMD lock if it was not consumed. Preserve any preallocated table
-> supplied by the caller for PTE fallback. Successful PMD installation
-> consumes the table and clears the pointer.
+> On 11/9/2026 11:20 PM, Guopeng Zhang wrote:
+>>
+>>
+>> 在 2026/11/7 20:00, Ridong Chen 写道:
+>>> From: Ridong Chen <chenridong@xiaomi.com>
+>>>
+>>> partition_xcpus_del() only updates isolated_cpus when the partition that
+>>> gives back the CPUs has a different state than its parent. CPUs that were
+>>> further distributed to descendant isolated partitions are not taken into
+>>> account, so isolated_cpus_release() has to be called afterwards in
+>>> several places to walk up the ancestors and fix isolated_cpus.
+>>>
+>>> Make partition_xcpus_del() always set the isolation state of the given
+>>> back CPUs to the state of the parent that receives them. As the
+>>> effective_xcpus of a partition covers the CPUs distributed to its
+>>> descendants, the isolation state of those CPUs is settled at the same
+>>> time. Boot-time isolated CPUs are still preserved by isolated_cpu_update().
+>>>
+>>> compute_partition_effective_cpumask() invalidates a child partition
+>>> without going through partition_xcpus_del(), so do the same there: the
+>>> CPUs of the invalidated child take the isolation state of its parent.
+>>>
+>>> As the parent may be shrunk and its effective_xcpus not updated yet,
+>>> only do so for the CPUs the parent still owns. This is to keep the
+>>> isolation state correct for now, the in-place invalidation here will be
+>>> removed later in the partition rework.
+>>>
+>>> isolated_cpus_update() assumes the old and new states are different,
+>>> which no longer holds now that partition_xcpus_del() proceeds regardless
+>>> of the states. Drop its @old_prs argument and the WARN_ON_ONCE() so that
+>>> it simply sets the isolation state of the given CPUs, and use it
+>>> everywhere. The state check in partition_xcpus_add() is dropped as well,
+>>> as setting the state is a no-op when the states are the same.
+>>>
+>>> isolated_cpus_release() is no longer needed and is removed.
+>>>
+>>
+>> Hi Ridong,
+>>
+>> Would it be worth briefly mentioning in the commit message that this patch also fixes the issue described here?
+>>
+>> https://lore.kernel.org/all/20261105130344.664336-4-guopeng.zhang@linux.dev/
+>>
+> Thanks, Guopeng.
 > 
-> Returning without a preallocated table matches the existing behavior on
-> architectures that do not need a deposited table. All callers
-> already handle that case.
+> As I replied to Longman, I will add it.
 > 
-> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Sorry, I just realized that my comment duplicated Longman's. I had some email connectivity issues and only just received the review emails.
+
+Thanks for the clarification!
+
+Cheers,
+Guopeng
