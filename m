@@ -1,68 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328156;
-	b=obSVCqmTZ/O7+8TDfPI8x5bh8kHjAKZPf5cI2psur04wJdFVVTAzAMEQjlQ+zJVUyhNK
-	 1p7ltnaKQG83e6al4pIhXByeHGmymQJeom6yRnkAtGLl1MLFdH+lnQDuB2Yc18yLdlbe9
-	 BHI2gxrUXBiXiyA1yQoZU6kh03hS0Nn/dC/JGp9lBqXHIvm1rOO+5nUCNKYj0IgpRv2PP
-	 buusvOW6LVGqaxZ8Ps4OAnyzv2AR8IUb+HcfO0v2RiBIs9PVQMWOZREbDZWojfN99sJMv
-	 7ZN2L3AOuQJxRsTgtmnPiRXUd3f0MvrAzQeXMCXk54aotv3FbjKSgC380rzpQaTZCJA==
+	t=1794328161;
+	b=BORntQgSCTEzpF91xgg7UQK9Yn2B5uqGfwnwzXNQNRsGj9Is+Yo217+WddNfCvNCYPnX
+	 kPA6YqcKAaRWxpgNE88v6Z/BBYZ/PfgcdW4l+eyRD78ooZ8VNnDRBrnCl/wwV56cRwYCT
+	 UX0Pt6x2TEKCe2BJuygt2T23ae1OeThy5YbJZP6nPFuKhOJROiNEVbbs7nL/zcKl0sjXS
+	 kSbTsFe2xs7G2hbOkUorbIhrI5gMoRrtGwLLJc1Y1qbBDCGPwK9S6tmY6wZrI5BiJJy2F
+	 y83N2VulPHz03wcIsNSf0NR+psh/otSk78QkGBABJhQHbNYDXMFkJrye2a+5guZwEMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328156;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=+E9BQxBpAXcPRNo1Ybi/jYn5qRwnyAzD2avHbDcjlBQ=;
-	b=DceU1oB1sQQLMYn9iK/Ekv99n5ZSnvTT5iCsIsTGemoy2bvvaDyVulXhdGXnBOruYb+W
-	 Kwk3Cu4XKO/3zItwuqzVolgQ/I0m/5a4u0WsLq2HI0IDA3K0XXGBNtxOnhiSnELIrluQO
-	 +2/nivVb/Z/yZiBT7BoTkaZZDwIbpNr2+cmDkIM7QgKo1OExDsIyOPfdIhowhWQRA6Pq1
-	 VJ1rNwg8g/EYF9vCAGUcLAMllTm26ByKg5dawcAt+Oqmg/mL3ZYWzGcBg9ww3NeG4BJHw
-	 wndXbWruocWbyjgUDa7CP/zQ9LWiUY+EIdlitDaoKXEvWSRRnX3gyKfaFN5LKwGn9wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328161;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=156pRIpY6brhI/zqInQk7DLrhtOytpIGDOtBYOeD85w=;
+	b=xd9qJO1TWcQ3MWjkQkimFA5LD4Dl1CLi3vJVzSCgJDrHRtRxn7yAWrDSkzStdeoAd3Wy
+	 NYbYxpcPH0ce77UAO+Wdvg54zUBmRqmPIGaYTUZG02lqPJHJcjnnsVTg4r1Ln0Kl0TiQO
+	 hydxShm8EZemomySvnvWsc3geUA0KbNqBR2N1ci6vExuChP6Gp6l6yY+H+sGRSPdLKLbC
+	 fEtPCavjRJwE77W6qzH3RquCOZ4zJMtojGGOgcKzCPDPZ3ba0X1tlqWE0v0rSppftB085
+	 SKl1mliO2O1yZXNXc7y6JBO73HxMmFT0kpPTUW8DodE8OrGZn1yOBL791INFvIEbmSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jL6ukbKa;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pgnAhCHk;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CA5606A200;
-	Tue, 10 Nov 2026 16:29:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61CA5606A200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B918A606A20F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:29:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B918A606A20F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jL6ukbKa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794328155; x=1825864155;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=2gBxwoDRUGadueQkivfRE2boh1VzodrRaTQrgu4WoN4=;
-  b=jL6ukbKaybNcISz/JssdOherRoXU8Ny17NszB3e65rKk4S1JoFtSIGQj
-   1E4qcVZeeHAmP/PsmsKoJgNQS/ypBes4c3mSnBNFmZyCPBrbC6G+pFlpy
-   7Rj32+JGKUOSrD6NFi49e7Byp3+cKAv81HTlALmemdN9pLT9CxMmv0rtm
-   RFTXFhppGPlCCyzrKTD7cXXvWPaId9BU0pTXQtyJ8SMW25inFeZvgA+5x
-   82E/hiloLjOCu6xCBIcgrPkoQ8l+5XhFWbgmaiKLV1vM86jKwmmWIU/wZ
-   H0Hz7tHEabTGAnM/Dc6cV3t9lRSJcN0uMikfHqi4M/fmw7wVwCgmWQkVa
-   g==;
-X-CSE-ConnectionGUID: jt3YthWxRo2/PayLS+myXA==
-X-CSE-MsgGUID: EvXTooiNSkm7vcNXd/mjzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3083025"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="3083025"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:29:14 -0800
-X-CSE-ConnectionGUID: AJErk0/tTzyAGpnKRhUKVg==
-X-CSE-MsgGUID: 1pWss2dMQnKEDL3zKuzz+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8157400"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:29:14 -0800
-Message-ID: <5f129d63-10c6-414b-86a9-a604e42038ce@intel.com>
-Date: Tue, 10 Nov 2026 10:29:13 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pgnAhCHk
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a214af2076so16546385e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794328159; x=1794932959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=156pRIpY6brhI/zqInQk7DLrhtOytpIGDOtBYOeD85w=;
+        b=pgnAhCHkR2N6oOrt594HWoFvbgcD/pfHIj7SouCpA9ZqbPxZZuB1w+PhzGGv6D5kxn
+         q/Vj3JcrwNWXH084YbXqO6myqqv/YolKGs4vPwa0g+TxvaKmlB6a4PtnRUyJTLXhzbV8
+         BjvNVCRYWz1Wbb3RBMQTAQUlhyCUoRq36JWmJB+VWwTEHGvNk4IGL9rbadYM/xxPk32h
+         cQk/9yQXy8bUtidO17F8Y4zvuCImBuKBZ6pWvBL5vcXTMAQFm7t1vUMjJsefJ+M7CfYJ
+         lBCK4p27CmZ8/bVjX36Lt9dUqBb7Uiaxlf2d+7YDpAsQQwv3f6bvcyTP+xhB/xGhZF44
+         7AIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794328159; x=1794932959;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=156pRIpY6brhI/zqInQk7DLrhtOytpIGDOtBYOeD85w=;
+        b=iUA091/RC6td8fKHhVCutWSbVl9YAtCca+39eHwBjIlSBHL1NOFjnp8CSFq+s1j16a
+         AP8VAgyvdQ3gwF0xZO7MRhxOp8j/fVyWYxRqS/k8cp9M63ONTZjKrtBMNZ6CHuHSVilG
+         gLNRU012j8VKbvh7Y2xUECcFtvd6jqaVLg7p+0bStJAybXv0bEyo1vzGHmo5HjQxoA+V
+         3Q8mMNo4proxXB0NE1Q9ILxXKsqNcyqbTR70HZokwAyoFeMYR1okYYKe72X2kCmjQ894
+         XaCHheuso8KXOsxAcJWe7FoXNfpsbgIJOkd7aO7WH3ouyzmbnYJoQJzMQQAH3ZtUsRSO
+         Khmw==
+X-Forwarded-Encrypted: i=1; AL+hErEs4DwCpPZnJ+opHEZ4fZXBs989ohJwgnichYyZQjYtr9dZsnuE33k9rEuEjaHPGxHxaLZoIvN65D9Jg/8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vlnosxXsOnUx7Vgc3H53KvPm3ICrii7x+HQcm0pNs0RaIffPz
+	qww9VTjrT5AVCDisFmqFXoiNleOIK2RvNd9cy+NDhPuapsQ4CJG+kUH5
+X-Gm-Gg: AYBFou2W8gU2U3VctwlXr78xL6vkYkvSQnwRoIPBdSPnvh000uhCjffTAIWAlUYHBQ5
+	CdRH2Uu4MYiIPOValEBd69EZ+j9XdfXUX163ST7/mgaSTQMM7sMb/lnegNpr04hHLbVvi0csrYb
+	zPGdJhUz+dVHe8MZaWV+aRWA94iYYhLONLb1O8BuFJUEDaETKRVx8REPQkbV8KH72tXftM9JDsg
+	m5hOkGPi/DM7HhjhFmnMMflQFdLthCEonjV5RjfUrOzwfIsrO0jsZ7QbyH335hurtc8jkOj58ek
+	EGDKfXIlmepArrHOpZ6+cSLW29B+V9XCu5d4501MUcJPVhFvrVAIOPe25vG1dP5KRG9SPISpm5p
+	itZ41LSKs8SjEy+8QwJBISQPe0tL4dLwVsSW9ikbz+QhjkxYIJxwJWHx6kK9oQICTn7OBzrsu0q
+	/3HN+HXcajsoft0c3/iwz68mFJPgekwNPFETuFT+rsKwbO7VtB4S0GgxVu8zxzRkbiRvNphS2rT
+	tqnsPCyZD9Crkp54btWoeFcVbyeQRWiYf6yadjKOm2qRtHq6hGc8dJScUuHk9t0YnEN0pIwfR41
+	SLMNw1hDwhRCooJ1B077Cd9BlzIDjieXZ5KQlm6GYhubIqAsJCyE5+FfuvkQPZsXpGNG
+X-Received: by 2002:a05:600c:6387:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-4ba0234a056mr53477435e9.20.1794328158827;
+        Tue, 10 Nov 2026 08:29:18 -0800 (PST)
+Received: from localhost.localdomain ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm71287485e9.10.2026.11.10.08.29.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 08:29:17 -0800 (PST)
+From: Anton Protopopov <a.s.protopopov@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Alan Maguire <almagui@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Quentin Monnet <qmo@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	KP Singh <kpsingh@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Sasha Levin <sashal@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Anton Protopopov <a.s.protopopov@gmail.com>
+Subject: [PATCH v3 bpf-next 00/18] Auto-detect BPF fmodret targets
+Date: Tue, 10 Nov 2026 16:40:20 +0000
+Message-ID: <20261110164046.454431-1-a.s.protopopov@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,157 +109,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/18] KVM: x86/pmu: Populate CPUID.0AH:ECX
- fixed-counter bitmap
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-14-zide.chen@intel.com> <au491iiV7koeP0t6@google.com>
- <f20b59bb-a3c6-4129-ba61-5cec4d975601@intel.com>
- <f12bcb27-9c17-4b8c-b48c-c36a17e70ab6@linux.intel.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <f12bcb27-9c17-4b8c-b48c-c36a17e70ab6@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Due to recent changes in software development, security fixes and attack-surface
+hardening increasingly need to land on production systems _now_. BPF has proven
+really useful for producing mitigations, but its error-injection capabilities
+remain limited: the list of possible fmodret hooks is static, which no longer
+matches reality.
 
+This series allows more kernel functions to be targeted by fmodret BPF
+programs. New functions are marked as fmodret-attachable _automatically_, if
+CONFIG_CLANG_PLUGIN_BPF_SCAN_IR is on. The latter is off by default, but can be
+enabled with CLANG >= 19 with a matching llvm-config and host C++ compiler.
+Supported archs are x86_64 and arm64. (The existing static lists are, of
+course, still supported.)
 
-On 11/10/2026 12:28 AM, Mi, Dapeng wrote:
-> 
-> On 11/10/2026 4:41 AM, Chen, Zide wrote:
->>
->> On 11/6/2026 3:00 PM, Yosry Ahmed wrote:
->>> On Thu, Nov 05, 2026 at 06:39:22PM -0700, Zide Chen wrote:
->>>> PerfMon v5 adds a fixed-counter support bitmap in CPUID.0AH:ECX.
->>>> This is the superset of EDX[4:0] which indicates the contiguous
->>>> counters starting from 0. For backward compatibility, it's recommended
->>>> to use the following to determine if a fixed counter is supported:
->>>>
->>>> FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i);
->>>>
->>>> Originally-by: Yang Weijiang <weijiang.yang@intel.com>
->>>> Signed-off-by: Zide Chen <zide.chen@intel.com>
->>>> ---
->>>> v3:
->>>> - Remove '&' when populating entry->ecx. (Jim)
->>>> - Gate entry->ecx on kvm_pmu_cap.version >= 5 in intel_pmu_refresh() to
->>>>   avoid enabling v5 fixed counters on hosts where KVM caps PMU at v2.
->>>> ---
->>>>  arch/x86/kvm/cpuid.c         | 5 ++++-
->>>>  arch/x86/kvm/vmx/pmu_intel.c | 8 ++++++++
->>>>  2 files changed, 12 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
->>>> index 3310c370c5fa..00a2ca6d3049 100644
->>>> --- a/arch/x86/kvm/cpuid.c
->>>> +++ b/arch/x86/kvm/cpuid.c
->>>> @@ -1554,7 +1554,10 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
->>>>  
->>>>  		entry->eax = eax.full;
->>>>  		entry->ebx = kvm_pmu_cap.events_mask;
->>>> -		entry->ecx = 0;
->>>> +		if (kvm_pmu_cap.version >= 5)
->>>> +			entry->ecx = (u32)kvm_pmu_cap.fixed_cntr_mask64;
->>>> +		else
->>>> +			entry->ecx = 0;
->>>>  		entry->edx = edx.full;
->>>>  		break;
->>>>  	}
->>>> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
->>>> index 1372091dc1f8..37b34b588601 100644
->>>> --- a/arch/x86/kvm/vmx/pmu_intel.c
->>>> +++ b/arch/x86/kvm/vmx/pmu_intel.c
->>>> @@ -597,7 +597,15 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->>>>  				  find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
->>>>  						      KVM_MAX_NR_FIXED_COUNTERS));
->>>>  
->>>> +	/* FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i) */
->>>>  	fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
->>>> +	/*
->>>> +	 * Do not enable fixed counters via the v5 ECX bitmap if KVM caps
->>>> +	 * PMU version below 5 (e.g. when mediated PMU is disabled or on
->>>> +	 * older hosts), matching KVM's advertised CPUID.0AH:ECX capability.
->>>> +	 */
->>>> +	if (kvm_pmu_cap.version >= 5 && pmu->version >= 5)
->>> Having to check both versions is confusing. Can they go out of sync?
->>> Should we clamp pmu->version to kvm_pmu_cap.version and only check the
->>> former?
->> Yes, actually, other fields (bit_width, mask_length, and
->> nr_{gp,fixed}_counters) in intel_pmu_refresh() are clamped to
->> kvm_pmu_cap as well.
->>
->> pmu->version = min_t(int, eax.split.version_id, kvm_pmu_cap.version);
-> 
-> I'm not quite sure if we could do such clamp. I remember Sean ever said KVM
-> should allow user space to set the PMU capabilities which KVM doesn't
-> support, like what currently kselftest pmu_counters_test does, e.g., KVM
-> only supports up to PMU version 2 in non-mediated vPMU mode, but
-> pmu_counters_test can set PMU versions larger than 2.
->
+The decision on "if this function is safe to inject error" left to BPF program
+writers.  The motivation/discussion can be found in the recent talk [1].  The
+safety/operation model of this new functionality can be briefly stated as
+"a trusted operator can already do this with live patch". However, the BPF
+approach is more flexible. See the recent talk on shirudo [2] for more details
+on how to build a trusted system managing such policies.
 
-KVM's principle of "not policing guest CPUID" means KVM allows userspace
-to configure an arbitrary guest CPUID without rejecting the ioctl or
-mutating the vCPUID entries.
+The changes introduced are as follows.
 
-However, KVM's internal vCPU state (pmu->version) tracks the "effective
-PMU version" that KVM can actually virtualize.
+The first part of the series changes the way the lists of fmodret-attachable
+functions are passed to kernel, namely, now a function is considered as a
+fmodret target if it has a bpf_fmodret BTF tag. This tag is generated by the
+resolve_btfids tool. The sleepable hooks are in addition tagged with
+bpf_fmodret_sleepable. The old-style static hooks, explicitly defined in
+kernel/modules, also get the bpf_fmodret tag. The security_*, syscall, and
+error-injection hooks are _not_ all marked with the tag, and any new rules do
+not apply to them.
 
-This distinction is documented in commit 4f1bd6b16074 ("KVM: selftests:
-Test Intel PMU architectural events on gp counters"):
+Currently static hooks are defined using sets (BTF_FMODRET_START/END).  When
+the minimal versions of GCC and pahole will support tags, the sets will go away
+in favour of just declaring a proper tag.
 
-"KVM only officially supports up to version 2, but the behavior of the
-counters is backwards compatible, i.e. KVM shouldn't do something
-completely different for a higher, architecturally-defined vPMU version.
-Verify KVM behavior against the effective vPMU version, e.g. dvertising
-vPMU 5 when KVM only supports vPMU 2 shouldn't magically unlock vPMU 5
-features."
+The second part enables automatic search and usage of fmodret targets:
 
-pmu_counters_test itself explicitly mentions this rule:
+  * The search is performed by a new compiler pass via a compiler plugin.
+    The candidates are written into a new .BTF_fmodret_candidates section which
+    is dropped later in the final object.  Roughly speaking, a candidate is a
+    function with a clean (side-effectless) path to "return -errno".
 
-/*
- * Return the effective PMU version, i.e. the minimum between what KVM
- * supports and what is enumerated to the guest.  The host deliberately
- * advertises a PMU version to the guest beyond what is actually
- * supported by KVM to verify KVM doesn't freak out and do something
- * bizarre with an architecturally valid, but unsupported, version.
- */
-  return min_t(u8, kvm_pmu_version,
-this_cpu_property(X86_PROPERTY_PMU_VERSION));
+  * After the compilation is done, the resolve_btfids tool scans the candidates,
+    drops some of them (redefined weak, non-ftracable, etc.), and assigns proper
+    BTF tags: bpf_fmodret/bpf_fmodret_sleepable and bpf_fmodret_retval. The latter
+    lists all possible return values the analysis found. The verifier rejects
+    the values outside this list. (An alternative approach, maybe a followup,
+    is to auto-convert all negative error values returned by a BPF program with
+    a value from this list.)
 
-In my understanding, clamping pmu->version perfectly reflects the above
-rule, and it's similar to other KVM code, e.g.:
+The following selftests are added:
+  
+  * Test fmod_ret BTF decl tags and attach permission: the declared targets get
+    the right tags, and fmod_ret programs attach only to tagged functions.
 
-        eax.split.bit_width = min_t(int, eax.split.bit_width,
-                                    kvm_pmu_cap.bit_width_gp);
-        eax.split.mask_length = min_t(int, eax.split.mask_length,
-                                      kvm_pmu_cap.events_mask_len);
+  * Test fmod_ret candidates found by bpf_scan_ir: functions in bpf_testmod
+    annotated with the values the analysis must find, checked against the
+    generated tags. The verifier allows only these values on every path and
+    rejects extensions and tail calls of such programs.
 
-Without a PMU version cap, guest resource validation could become
-increasingly complicated as more advanced PMU features are supported, as
-KVM would need to allow the guest to access PMU resources only when it
-satisfies both the vPMU version and the KVM capability.
+Finally, the last patch adds a new `bpftool fmodret` command to simplify listing
+the functions having bpf_fmodret* tags.
 
->>
->> Without this, as more advanced PMU features are supported in KVM, we
->> will have to manually validate guest features, and it seems this doesn't
->> violate the general principles of "not policing CPUID configurations"
->> and using the "effective vPMU version".
->>
->>>> +		fixed_mask |= entry->ecx;
->>>>  	fixed_mask &= kvm_pmu_cap.fixed_cntr_mask64;
->>> I see why this is needed now, to re-apply KVM's fixed counter mask after
->>> reading it, but if this is only needed there, it's probably clearer to
->>> do:
->>>
->>> 	if (version >= 5)
->>> 		fixed_mask |= (entry->ecx & kvm_pmu_cap.fixed_cntr_mask64);
->> Agreed, this is cleaner. Will update accordingly. Thanks!
+Planned follow ups, more or less in order:
+
+  * LLVM LTO support
+  * GCC support
+  * Allow injecting errors into functions returning pointers
+  * More complex logic to gather more candidates (mainly, error propagation,
+    left out for now to reduce the number of commits in the series)
+
+Build times with and without plugin enabled are nearly the same:
+
+  with:                   without:
+    real    5m48.377s       real    5m47.543s
+    user    136m7.002s      user    135m57.994s
+    sys     10m13.739s      sys     10m12.635s
+
+Links:
+
+  [1] Scaling BPF LSM hooks and error injection across the kernel,
+      https://lpc.events/event/20/contributions/2435/
+
+  [2] Shirudo: BPF live-patching infra for the agentic era,
+      https://lpc.events/event/20/contributions/2437/
+
+v2 -> v3:
+   * verifier: accept a range in R0 at exit if all its values are
+     allowed. Reason: in between v1 and v2 a change was merged:
+     the verifier now joins states, so two allowed constants which
+     meet at one exit, like 0 and -1, became a range and the program
+     was rejected. (bpf-ci bot)
+   * do not tag kfuncs with KF_IMPLICIT_ARGS, because the trampoline
+     is built for the prototype without the implicit arguments and
+     would not save them. (bpf-ci bot)
+   * count and log every function with a shared name (sashiko)
+   * fix a comment and rename a variable (bpf-ci bot)
+   * simplify code in bpf_scan_ir (bpf-ci bot)
+   * bpftool: fix man page (bpf-ci bot)
+
+v1 -> v2: https://lore.kernel.org/bpf/20261109170550.141443-1-a.s.protopopov@gmail.com/
+  * Rebase onto bpf-next, as upstream removed mark_chain_precision()
+  * Move tests into their own bpf_test_retval.ko from bpf_testmod.ko.
+    The problem was with pahole, which can't properly find symbols in
+    modules build from two or more objects (was only prominent with GCC,
+    which reorders sections while linking objects together)
+  * Fix the fmodret/extension test for GCC (force a const return)
+  * resolve_btfids: dedup and cleanup code (bpf-ci bot)
+  * bpftool: drop dead code (bpf-ci bot)
+  * Rename two tests properly, remove dead code (bpf-ci bot)
+  * Exclude KCSAN and UBSAN instrumentation from tests (sashiko)
+
+v1: https://lore.kernel.org/bpf/20261106210314.1767267-1-a.s.protopopov@gmail.com/T/#t
+
+Anton Protopopov (18):
+  bpf: Add BTF ID sets for fmod_ret targets
+  bpf: Add a btf_id_set8_entry helper
+  bpf: Build fmod_ret target sets from BTF decl tags
+  selftests/bpf: Declare bpf_fentry_test1 in tracing tests
+  bpf: Declare fmod_ret targets with BTF_FMODRET sets
+  selftests/bpf: Test fmod_ret BTF decl tags and attach permission
+  scripts: Add LLVM plugin infrastructure
+  bpf: Add the bpf_scan_ir LLVM plugin
+  bpf: Find fmod_ret candidates in bpf_scan_ir
+  bpf: Allow writes to private stack objects in bpf_scan_ir
+  bpf: Follow PHIs in bpf_scan_ir
+  bpf: Follow integer casts in bpf_scan_ir
+  bpf: Check the return values of fmod_ret programs on found targets
+  bpf: Require the JIT for fmod_ret programs on found 64-bit targets
+  resolve_btfids: Tag fmod_ret candidates as targets
+  selftests/bpf: Test fmod_ret candidates found by bpf_scan_ir
+  selftests/bpf: Enable bpf_scan_ir in the config
+  bpftool: List and show fmod_ret targets
+
+ MAINTAINERS                                   |   10 +
+ Makefile                                      |    6 +-
+ arch/Kconfig                                  |    1 +
+ arch/arm64/kernel/pi/Makefile                 |    1 +
+ arch/x86/boot/startup/Makefile                |    2 +
+ arch/x86/um/vdso/Makefile                     |    2 +-
+ drivers/firmware/efi/libstub/Makefile         |    2 +-
+ include/asm-generic/vmlinux.lds.h             |    7 +-
+ include/linux/bpf.h                           |    6 +
+ include/linux/btf.h                           |    9 +-
+ include/linux/btf_ids.h                       |   24 +-
+ include/linux/compiler-version.h              |    5 +
+ kernel/bpf/btf.c                              |  124 +-
+ kernel/bpf/syscall.c                          |    1 +
+ kernel/bpf/verifier.c                         |  151 +++
+ lib/vdso/Makefile.include                     |    3 +
+ net/bpf/test_run.c                            |   12 +-
+ net/mptcp/bpf.c                               |   15 +-
+ scripts/Makefile                              |    1 +
+ scripts/Makefile.btf                          |    1 +
+ scripts/Makefile.llvm-plugins                 |   10 +
+ scripts/Makefile.modfinal                     |    1 +
+ scripts/Makefile.vmlinux                      |    3 +
+ scripts/bpf/fmodret.lds                       |    6 +
+ scripts/bpf/fmodret_metadata.h                |   29 +
+ scripts/gen-btf.sh                            |    4 +-
+ scripts/link-vmlinux.sh                       |    7 +
+ scripts/llvm-plugins/Kconfig                  |   33 +
+ scripts/llvm-plugins/Makefile                 |   21 +
+ scripts/llvm-plugins/bpf_scan_ir.cpp          |  363 +++++
+ scripts/mod/modpost.c                         |    1 +
+ scripts/module.lds.S                          |    5 +
+ .../bpftool/Documentation/bpftool-fmodret.rst |  111 ++
+ tools/bpf/bpftool/Documentation/bpftool.rst   |    4 +-
+ tools/bpf/bpftool/bash-completion/bpftool     |   31 +
+ tools/bpf/bpftool/fmodret.c                   |  896 ++++++++++++
+ tools/bpf/bpftool/main.c                      |    3 +-
+ tools/bpf/bpftool/main.h                      |    1 +
+ tools/bpf/resolve_btfids/Build                |    1 +
+ tools/bpf/resolve_btfids/fmodret.c            | 1203 +++++++++++++++++
+ tools/bpf/resolve_btfids/fmodret.h            |   28 +
+ tools/bpf/resolve_btfids/main.c               |  187 ++-
+ tools/include/linux/btf_ids.h                 |   24 +-
+ tools/objtool/check.c                         |    1 +
+ tools/testing/selftests/bpf/Makefile          |    2 +-
+ tools/testing/selftests/bpf/config            |    2 +
+ .../selftests/bpf/prog_tests/fmodret_retval.c |  211 +++
+ .../selftests/bpf/prog_tests/fmodret_tags.c   |  155 +++
+ .../selftests/bpf/progs/fmodret_retval.c      |  254 ++++
+ .../selftests/bpf/progs/fmodret_retval_ext.c  |   55 +
+ .../selftests/bpf/progs/fsession_test.c       |    2 +
+ .../bpf/progs/get_func_ip_fsession_test.c     |    2 +
+ .../selftests/bpf/progs/tracing_multi_check.c |    2 +-
+ .../testing/selftests/bpf/test_kmods/Makefile |   15 +-
+ .../bpf/test_kmods/bpf_test_retval_main.c     |   12 +
+ .../selftests/bpf/test_kmods/bpf_testmod.c    |   11 +-
+ .../bpf/test_kmods/bpf_testmod_retval.c       |  328 +++++
+ .../test_kmods/bpf_testmod_retval_strong.c    |   28 +
+ 58 files changed, 4353 insertions(+), 82 deletions(-)
+ create mode 100644 scripts/Makefile.llvm-plugins
+ create mode 100644 scripts/bpf/fmodret.lds
+ create mode 100644 scripts/bpf/fmodret_metadata.h
+ create mode 100644 scripts/llvm-plugins/Kconfig
+ create mode 100644 scripts/llvm-plugins/Makefile
+ create mode 100644 scripts/llvm-plugins/bpf_scan_ir.cpp
+ create mode 100644 tools/bpf/bpftool/Documentation/bpftool-fmodret.rst
+ create mode 100644 tools/bpf/bpftool/fmodret.c
+ create mode 100644 tools/bpf/resolve_btfids/fmodret.c
+ create mode 100644 tools/bpf/resolve_btfids/fmodret.h
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/fmodret_retval.c
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/fmodret_tags.c
+ create mode 100644 tools/testing/selftests/bpf/progs/fmodret_retval.c
+ create mode 100644 tools/testing/selftests/bpf/progs/fmodret_retval_ext.c
+ create mode 100644 tools/testing/selftests/bpf/test_kmods/bpf_test_retval_main.c
+ create mode 100644 tools/testing/selftests/bpf/test_kmods/bpf_testmod_retval.c
+ create mode 100644 tools/testing/selftests/bpf/test_kmods/bpf_testmod_retval_strong.c
+
+-- 
+2.43.0
 
