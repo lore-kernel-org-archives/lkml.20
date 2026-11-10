@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312871;
-	b=FB1TVO5ogXWH50YlK/3aO0wiLxwOoqeSTi1AetTwtZv/wBV7tfgOawd+5pZ8WoBy8QLX
-	 GPA4waotA8nf6bJcdn30HMsgYrp2QcRc/eHY3QdRpwZIQomJIRrTpXHtSAd4Z64sv2GB3
-	 ij60dX8gmfMlRIRw3I/XSsuFBk29cP4k+Y4zz2UlIN24pI8Vb5EkNgz5sHnK64XIQaJDi
-	 8Mj3i11LadME0E2zXYuih5EyJXPveoYjgmgmC53T9egTFnX4bI+hO7ELzbhDbO664K8Qu
-	 db4G4xK9jXntmZKESewNWO3EOum33mJ0aiah9ikUQPhtgt+S0jeakrAZc0dIi5jHe9A==
+	t=1794312889;
+	b=aGPSjrJ9rA9+f7cYM6izMMEPYjLxPVgkvBlhmn+r3dWqjC1wCmHys1V5alvkgLH1HdoN
+	 sx1rXyJCGx92FzMHZl28+A9DehDthmex4lsPTII1EZD1ptZHvNz1ctTuzhly97O0Dan1J
+	 YSJENmSTaxR0gssnBpzGW2W9ycQwxMrvxNHFd4emsoB9y8+grK72UHO8hz+g8gKmZ8D3N
+	 BGgylq+g0wZjbkXgnFje4FEuxC9Ox/TgmqK4AWnrJnzrh3ev3imK/q8DfXFHOQF0dXzGY
+	 4otJR9OI8kfMrGGgcz16WSZOR0NBUpWM4BRDXdi0rrMoEhChMeTl7hRQb9l1DaE2brA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312871;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iP7ihblxE57Xx8rjE7fq3FQri1E1LvdLUGQwTbaBM2w=;
-	b=jlUz2UbDgmPpiZ0BBxXA1t+mRSiD7OPaAsvZ6DLaxJj7//i4ySu8UKAknGRcXGNxWe1g
-	 vtliPFa2vj/D8VfRsvYsb0l/pELvoDgqZkcsWtN5FuAm9egNa8tT4/jFbuE1luWYbDsVC
-	 RRqTy9G+49WUe4DBEA0ZX5R+1Qk/Ekizd60VFj3pl08h54DYpOXyif2sDF1l2LHGK/CMr
-	 frRCjt/A2XRRdkgOJMg5CcG0zTgkcTHVOsIDCPqgfTb6d6Qjq07/JOKhjXy4GIx7RXCVv
-	 58OnBs41x9xFgtIcSDUZTQgXeAnKYtTxN8sPAKdyFblaoMm3ZOu1dfPVRxyTik2NJfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312889;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=x5lhyeWppTmeVCGlG4TUa8XBfP0xo9dqljDJjmh0tBg=;
+	b=Xsp2NG8EXoIsxrqbkEMGbg5WPVBmvgVD6vJwHseYoU4TMgjWsElS4qtEALQU5FJJTRM8
+	 z04FGLHL0XbqtFRa9WYSAWzOe+vHgFuEcWAliqZ/O6zdH1Qz4WQ7NsA/IDL8KjStNwkfw
+	 CCJqbGp9FBMm87g/rRnFxngcELmmDrzr4B//LYZagEhmZu69QDgowRl4LkU3IWZaIV4EL
+	 RLLwCEbHK8bmZWtjrO2nvEVFiJhqEfW9CWQj9WKH+zM4zxL4BIkO3GHFeBpi91v+2HvTU
+	 7keHsm3z18fwCwZO+kOu1nTobVOyyBm5vu+Sr5PQ2O+Ta2tFeNJXR40vwsGLxcDWVFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKVck9DA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HhLm2d6W;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="4bH/HafF";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HhLm2d6W;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="4bH/HafF";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B17606A31C;
-	Tue, 10 Nov 2026 12:14:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661FB606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 661FB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKVck9DA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A202C1F008A1;
-	Tue, 10 Nov 2026 12:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312871;
-	bh=iP7ihblxE57Xx8rjE7fq3FQri1E1LvdLUGQwTbaBM2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GKVck9DAyjJRwF6HuQpkK7AbBrIq+eQ3cPUnGzG1Gq6VuJ8UdC/rCB6CSKkKcIn5Q
-	 aRteYVwg0E/vjLAXAgSdndPFJbm2kW7UBAXPX2wxyItnKElyEsLD/JgTWO8DtW5Dh3
-	 h3jcYUcQVTzLucvFJrStVxZQYgRn0K2azySx1VuMNH8H+8ewWXtkM6vCbuFPilzsPN
-	 NSvLuLl8hwNDOj7EqwhE6MCfb1dosSfzqmEaasFJc7Whkck+lVyJ4XXZBZBJcTx8Qd
-	 XGZ0iAu3gUthpEeOCBdSh9mvjej8lNkfPGb0llFg+KFxSchaArzxL3km1wwecp/SCl
-	 SZ6Yu7OkzoWBA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7494D198003A;
-	Tue, 10 Nov 2026 07:14:21 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Tue, 10 Nov 2026 07:14:27 -0500
-X-ME-Sender: <xms:nArzanSpIIwG51tsHxoNjg4cx6XZb8fKe9mFQiaStEaiiWGXacBybg>
-    <xme:nArzakaVN84v7aVb-PegN2kbNzRsB3CRvMureoDByD8I5xamajVLlGpz647xE3fm3
-    51B8K8DIgvq8gUblQ1_wtJPjuOKxEnDGaUv3u-nc8ErEhpB3-Hwsxog>
-X-ME-Received: <xmr:nArzanTpMal-hQi5JzOJnpszvHZD8_1RlukXgFm8HSGeIx7gjB6EKJdzoew>
-X-ME-Proxy-Cause: dmFkZTGpbVzkrelYKxT3HOk2p4weC4oCcSZPW/rpHgt9mwOOujexV3ntOnbLy9kT90zWH2
-    X4R/Pc7He9zKvvIIHknrJ6jmRqd+GEiC5OJ1/9zKSazJXODPTmBjL5gTrOW05ZhonWrI0U
-    H7BGU8fq4gRtYPJHKGaPFUfd+hhqfZs0WJnuKaF+0z1+xy9ewLL2avPysZ0hBftBGgc1ji
-    WNjIvzjtJS6O1t8aThrFrTYaX6K2a/nHsjYlaSHjs0ddkvqo5ZzGQQwxlvpOQpp6n9RdMq
-    LUyGL1B9cM4bURzCmIX/QZAKp+9nxEgKsjUMOYTJUoyJO1N1eTM0iZVOZQxVws8ePh1gf5
-    u3NT1w0HRepOqC6jxxdIbkR0OIlfn08JNCqChvaiOat1qs/Hvs4BeuDHJ+03E4GxBLn7AO
-    9iaWFSdMmsDwlTfkeYfju8yOlYi22QNnwJ+V7OmWCOi9D2Qgdp7rMn0ILlObukPllx8sp6
-    sgtZnaDrpNVkntf/YPmW6nW2IwRTwVszcOKhtCnGhQn68O5yLhgSQvPSdVi/TWcO5aJME1
-    AEY2vAPdhKIz5yKKlYXlb4TNn/LlK8U8Y7KG9HvGrQdaItlAJAEARWVtXQQmQULCTORKOG
-    tQUdCQhsBV3Keoy0kZLDn2YA5jCy79U1wRJL8S9SH4wnTl0B20/HB6fTGrIw
-X-ME-Proxy: <xmx:nArzak63XRT07vEmPmWdj3UQk19LRBHMl5JrY5kevBf3xCYTpbZ34g>
-    <xmx:nArzaiT_kk--095o0kgnoe_C38SrCC57yVH7d8pyGoRFenBerbO_5w>
-    <xmx:nArzamTn6p9WWzTEKKy5ym9NJMOSo0Usfg-Cs0u9knPk_yDjYCeNgg>
-    <xmx:nArzaoNTDpTG50M4xFTa42zG1GDWh9eEqtpP7nfOAgtsLCIUoCitng>
-    <xmx:nQrzav1UKN_6PhSRRpxLt3yvag5XAx38k6QE3cFnxbcCpC6V8RwR5kkj>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 07:14:20 -0500 (EST)
-Date: Tue, 10 Nov 2026 12:14:18 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Uladzislau Rezki <urezki@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
- entry for THP
-Message-ID: <avMKVYORkTQfdVB9@thinkstation>
-References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HhLm2d6W;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4bH/HafF;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HhLm2d6W;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4bH/HafF
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 63C4521EFE;
+	Tue, 10 Nov 2026 12:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794312886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x5lhyeWppTmeVCGlG4TUa8XBfP0xo9dqljDJjmh0tBg=;
+	b=HhLm2d6WOaEowFf+lsUkANYhFaK1ZQe0ijH5djJ8h6/9gKbCquDO5wmMDiHAPfJnpzgWmb
+	Y/8siuCSGcEx+umUqFehsSFlqJLEIsQS3B8x80TlFuDUPVRA7TRyt2z3Xc89O+OCM2+AmO
+	e0Vvq4039GbsKuu6Shx9GnMPQPseLo8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794312886;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x5lhyeWppTmeVCGlG4TUa8XBfP0xo9dqljDJjmh0tBg=;
+	b=4bH/HafFA617tLEn+gF04fUTbZCJU2rOnbzLv2Fw89+q1C+ZNf0fBN+1QpI4Te26b3Q1uM
+	FFfbnw0phxiLaKBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794312886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x5lhyeWppTmeVCGlG4TUa8XBfP0xo9dqljDJjmh0tBg=;
+	b=HhLm2d6WOaEowFf+lsUkANYhFaK1ZQe0ijH5djJ8h6/9gKbCquDO5wmMDiHAPfJnpzgWmb
+	Y/8siuCSGcEx+umUqFehsSFlqJLEIsQS3B8x80TlFuDUPVRA7TRyt2z3Xc89O+OCM2+AmO
+	e0Vvq4039GbsKuu6Shx9GnMPQPseLo8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794312886;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x5lhyeWppTmeVCGlG4TUa8XBfP0xo9dqljDJjmh0tBg=;
+	b=4bH/HafFA617tLEn+gF04fUTbZCJU2rOnbzLv2Fw89+q1C+ZNf0fBN+1QpI4Te26b3Q1uM
+	FFfbnw0phxiLaKBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B76113479;
+	Tue, 10 Nov 2026 12:14:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HuGhAbYK82onGQAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 12:14:46 +0000
+Message-ID: <4ff74c54-7478-4ea5-9e26-32101acd4556@suse.de>
+Date: Tue, 10 Nov 2026 13:14:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,20 +106,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmet: synchronize DH-CHAP secret removal
+To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>, hare@kernel.org,
+ hch@lst.de, kbusch@kernel.org, kch@nvidia.com, sagi@grimberg.me
+Cc: linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
+References: <20261110075733.2578-1-sreekuttan2156239@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261110075733.2578-1-sreekuttan2156239@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,lst.de,nvidia.com,grimberg.me];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_DN_SOME(0.00)[]
+X-Spam-Score: -13.29
 
-On Tue, Nov 10, 2026 at 12:03:06PM +0000, Lorenzo Stoakes (ARM) wrote:
-> Given the current throughput in the kernel resulting from AI-generated
-> series, I unfortunately lack the bandwidth to generally be able to offer
-> review except in those areas I maintain.
+On 11/10/26 8:57 AM, Sreeraj S Kurup wrote:
+> The empty-secret path in nvmet_auth_set_key() modifies and frees
+> host authentication secrets without holding nvmet_config_sem.
+> 
+> nvmet_setup_auth() accesses these fields under the read lock,
+> allowing concurrent secret removal to cause a use-after-free.
+> 
+> Acquire nvmet_config_sem for writing while clearing the secrets
+> to synchronize with authentication setup.
+> 
+> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+> ---
+>   drivers/nvme/target/auth.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+> index ccba84b1344e..8fe521690ccd 100644
+> --- a/drivers/nvme/target/auth.c
+> +++ b/drivers/nvme/target/auth.c
+> @@ -26,6 +26,7 @@ int nvmet_auth_set_key(struct nvmet_host *host, const char *secret,
+>   	char *dhchap_secret;
+>   
+>   	if (!strlen(secret)) {
+> +		down_write(&nvmet_config_sem);
+>   		if (set_ctrl) {
+>   			kfree(host->dhchap_ctrl_secret);
+>   			host->dhchap_ctrl_secret = NULL;
+> @@ -35,6 +36,7 @@ int nvmet_auth_set_key(struct nvmet_host *host, const char *secret,
+>   			host->dhchap_secret = NULL;
+>   			host->dhchap_key_hash = 0;
+>   		}
+> +		up_write(&nvmet_config_sem);
+>   		return 0;
+>   	}
+>   	if (sscanf(secret, "DHHC-1:%hhd:%*s", &key_hash) != 1)
 
-Oh. Sorry to hear this.
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Thank you for you job.
+Cheers,
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
+Hannes
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
