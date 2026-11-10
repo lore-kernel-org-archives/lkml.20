@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287078;
-	b=RdU3XW5ghvOzLc8p2BJdS2wWgISVj70bZCY4t1Qv4JRlYa0I6MioKe3OyzpasO9+GWLA
-	 o6njcL0XvcL4cv6A/b9Rg639qoI+82ZMGje+SoWQwp7Cq5mbRQ42aGJNt3TO054KAgAcq
-	 NeupJcjfDcKBdlI5TQ6eqcmNkH0JsG3XMynto7u+w9l0iSWVUMGB98rTlYgADvFpIrC4S
-	 f5xdHTmktRRrgmTdN82kMCxcLo1t/c3ziKhtYitTr9hzPeE5lJK6FjeGAxRRim/WUkiUH
-	 Bv2ZeYECD93Col1pqCwaZSt5t+dGkKPZy6F8LnK6oHEViJHz9t7cQPxgjeV2sFZRhnA==
+	t=1794287145;
+	b=SxsYwdJ0MnUY7+RQ2LcXARYN6C16QVyWTaErqiLPI1pKpr6tziFSvzlfbzlhz68dU5cG
+	 /hjnz28wTWQVl6t1g3lCSPwr943spjp17JwZQsew+Y6I+17dgYYbqPOMlZivxxeITW2oA
+	 6M6qSc+pGd7Ms/OkpzHt3U0LQR+vpVahpwBkn672QTDWDY/maBuiJ/jaREHNhJsEXYMuk
+	 bXwRUSjuBy8dcKgGH+HZ3C6l9/XRPu36X+Dtav4+ZCyWGTbKi6SxG0uYO28MReJthCWYv
+	 1FQgcb+rM/DejwJHFCcVX32ZGeSJrz/Eb0wM56RR4coPOlQCU8Ssjr6bDfp2QH2+BqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287145;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	b=A7VAmT/5Fjf2UiwXcrHSxHtn7vt9TlSiYB2Kmii8p9ZCcwp0IpbgvhEja9sCb6xobMaB
-	 sBXw1YozxKg192QtBV20cuFf/mU/DjwJIDBgAviZy7GdKG38A81zbDqfkRhKe8mzsiL0H
-	 ThcqQwiR4ioYcJ3lXMPUM5AlZH3+OhHbz9b/4X+d2gJFZ/zlxOV9sn64vhpLBBG70co/7
-	 O2cZkweJt2GZBpDRn3NauuSRcZIe5xRk/vxQaE41N4dV4uouf1AyMVw4VGzhbQJAWun/W
-	 ZEbAvi613q0sPYl7ck3DhJ9iKzbxeDRJfQjoOG76Pr2G1UqOaQ86aYBeeRzlpZ2BR2w==
+	b=JXud/i/G594RocafvzntSmc6cPRyxN8Ntjn9zxfaaixI+APml+LUC4xjGSJ1QdvMKlBD
+	 H5LSPQpYXCGKy1vwchtw0AsTRp9bDU3aWvJoiffeLhEjEmPoT597Oa1fj4yJCkYznVHf2
+	 I5Zp8MCUJ16kbTgRV+K7ugfWieCr51QVpSEdCbc9glwxkKCtm6cf8W9Ilfa+CpMdjNGpV
+	 jRhpgeYwV7UugpG+6mPZPXkUi/0RgeMvGiWPf8uIHZXYuCAf4E3m3jMwwwipTYjMHCLex
+	 OW6Ls8anfuiLxAaA5/5/0AP3f20GSRch8WiA3prwn0WUrPb8ybrduEbm4NXbACXwywA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V543rgRt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFsv2B1I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227D9606A331;
-	Tue, 10 Nov 2026 05:04:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F60606B098;
+	Tue, 10 Nov 2026 05:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V543rgRt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7CF1F008A3;
-	Tue, 10 Nov 2026 05:04:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFsv2B1I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C11F0089F;
+	Tue, 10 Nov 2026 05:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794287077;
+	s=k20260515; t=1794287144;
 	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V543rgRtMchqg9yVcmkLQFPKzHTcPL30ryMDIZcfY5drnfr6Lx8RBk6u3oSoQ1Lde
-	 V0VV0AH+/U1w6YmxGDYTswXQO0Jw2cfj/+O430bUPPvqQD1dGfs5CKYEbZ/WCM7o6K
-	 viliuVgFma09zK+bRrgJgrcOPGP7dB/GVd6fNzE+d3rSO84iGNrTivig4lKOI35ZBS
-	 3ro1qIQ9MLzu+/S3CQUJXyxKm+36NQgyY/v/v3fDZbThwafiTNqBiesdWRfkY10+n3
-	 VWqmtU/HHhTD9gWAOgtMKVqtvvf4fqTB+fqmXmuscJYu3/b/si+dAu5XdZbTP6PSfh
-	 NBkNQKuxaT+OQ==
+	b=AFsv2B1I3QyNnV7/JQ0jSizapoJW0uKmA7uOrhNWOqhM8zAJP3SXXlJ37nEYPPYyu
+	 YwSB32Hj2LreLe/NAOt/fCajjHI5LcKDN7MaqHbWMXmXqdPJ/DCDLVKMKAWTGVnKri
+	 PMQByd4QZtDjsd+Q38/SN1PYGkxrOsswG4LEPACt9EM/bwCRAB9OncCe/l44C54Wrv
+	 4zisxjVojRa9sQ+HqeHijLpIIWH2+mWRGeQz0M6GTfNORO83xw1q3EKvmBL3NUOqVQ
+	 f9pXlYRkL805m260ZYT9n5iTNwyYkLDo/I/rGGa3kJSQAIrR6j2gFkaLrm/D03XpB/
+	 hikRnxrQxt00A==
 From: netdev-bot+sinfo@kernel.org
-To: joasantonio108@gmail.com
-Cc: david@ixit.cz, krzk@kernel.org, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND v2] nfc: s3fwrn5: validate firmware header pointers
- against file size
-Date: Tue, 10 Nov 2026 05:04:36 +0000
-Message-ID: <179428707695.488859.7152705179257041373@kernel.org>
-In-Reply-To: <20261110-s3fwrn5-v2-v2-1-e8f154a5613e@gmail.com>
-References: <20261110-s3fwrn5-v2-v2-1-e8f154a5613e@gmail.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Johannes Berg <johannes@sipsolutions.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+Subject: 
+ Re: [PATCH net] net: wwan: mhi_wwan_mbim: disable rx_refill work on removal
+Date: Tue, 10 Nov 2026 05:05:43 +0000
+Message-ID: <179428714382.488859.13396024041020604951@kernel.org>
+In-Reply-To: <20261110043006.56681-1-mhun512@gmail.com>
+References: <20261110043006.56681-1-mhun512@gmail.com>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
