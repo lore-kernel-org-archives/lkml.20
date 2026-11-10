@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333229;
-	b=UQkT/BamszcX398fzWpJbSC0rhI7q6+QOX/FclcQX3UPXUfXLOfSwQoWMr+rUYT939gu
-	 siZiupnKRbzu2CT4Opo4MQGOMeBN+X4y8cE+I3K0XfKb9osWJAzGduSazB2rvjHgZl3WI
-	 YnGeFb63bqjKK9akREKVCGzDZYhN+J3JCfaXKp3qyunvkGj4M3z/D1/A1lM1kZDM1wRe7
-	 RyAIYmIv3k/FxW0lY9BCayOxx+M6/qGds0kJeAxKVOfvqgdMMoRhAlPaDNLuzXc1ggnnP
-	 09uDTeqtqmpwfBqD6z0R8aQKARhmvf3hUAuYWb6IvrUrxUrZ0BpJLZZvq2iP+zJiv1Q==
+	t=1794333246;
+	b=u7KlV87YtsVJNThGv/t081m4/GpbBP94lVE0HUwsM2XN5kMVcXlq/04rgDQfDvR/RbVv
+	 tolZ/iNX/ELIZyi/I6SeOo29iQPLDXQhFqLyOq9FGPp1/4ab78fCyD5v9N3fLuIMdsfIl
+	 QExhlaFB8BgWDKlhtwS/oAFxkykkF43BVvhr6Ng6Ip4Srzs8+Mx7MhF4KZMns2hUDpupT
+	 F+Ut1IXsMxwZTXI1aolLY0H4uuMPUi0pwbFnJmJuhQhSbeb2ne8q9WePTOwDfb1/nBdG+
+	 VUPzkriFoGQtR53dCTCYWTagmQVcZ8CLb3sCFpcrXzUj8wc4+sHbgQSHIkLCfqTSeEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333229;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333246;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=S/qZucqkzx7qvX/YIWrg59XYaPpYXxILWqLaRuMZDDE=;
-	b=Q4u0DvCyFjQcu1kPC6YMzGrwbbYUZcomuaQ3mnlS3OHPwtKDg9mZGbgNqLPEcRs2iGPQ
-	 RL/AHdeyB4w1lSMQgWLn5s9QzG2qXqMlC7WAsXJmnfUEQjK0E0MNeU2m9HzvhoeNp4g6I
-	 QfjnzeIqTsBJ6CETa/n2EM8DGgLfEXGBzlH0nhGVTF0TjGOROgEOEb8xPaP2Yg6XtP+6X
-	 b1Xiue5vri1x2tGd+9lI+/jPB3SYFpAzcMMHH//oxOhXOTHPUPR4BzlkOjKhffBi/Llze
-	 g0haAVS6I8WSOx4UWtb1gm1X8ir925pOQZZiK4j6kOJXclPMpoc0YrMHxZ0zcB4LjMg==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EWyUegrb38WBeDiaL/HzG3HTGpRVVOl2V2uFzvvGvWE=;
+	b=J0VpnCKND29s2F7PJP1NH4hzwn+reVAv3dwLFHQ8BBKz92dbANbXtWETLH8M1S7F+uJt
+	 p6Lmzg4QWy9jLPUngc5PS5HJ34LLuH12RxadJV2wu3a1yVuaAJP5T8rvzBHEkGRwHedpb
+	 hI55LNaAox4hgn8hDrivB1iVpvehs71g2+kVmiryixLwO5iTQ+xDMTfEVBTFzqG6TFaY5
+	 k0WT2Yyc75GXf+URXbpW3kvbtmIfvZ0KP0mLB4WnOBDb3ztVWm2s1bVkAnuwl8U43lO69
+	 RurOWSiwxn/2WCo3DJaIH79AcVP0iVrFsz7Fc7W04I+4KKzyOS8/UBJ0Ua9S5H+ADgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iiitd.ac.in;
 	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=F81bdru5;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=MMzEiEXv;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8968D606A206
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8968D606A206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D78606A222
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36D78606A222
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=F81bdru5
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so131119c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:46 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=MMzEiEXv
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37000e7234bso4260078eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1794333225; x=1794938025; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S/qZucqkzx7qvX/YIWrg59XYaPpYXxILWqLaRuMZDDE=;
-        b=F81bdru5i5Uk13C1W73IUc5oYBUw0hva8q/A6WiRDjjevSNUfVxTfTWiD/EqXTe2Q/
-         5px8Y88dTNUdrMIoSIdtvjWBC13tcpNh2ejssns0Xjsj1sBkHUZrIGQYIeP5h8mCTn7e
-         cbjtwDFH1ql7TwTE/5AQ//Sq6V+4Q09CSI5EM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333225; x=1794938025;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=iiitd.ac.in; s=google; t=1794333242; x=1794938042; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=S/qZucqkzx7qvX/YIWrg59XYaPpYXxILWqLaRuMZDDE=;
-        b=Vb+Y2ICRsDdkXw4BBllGarCWsiGkIDNr6wf41fZ4hqpIMHhMUy442umwyCKVS6vdAZ
-         Y4dz/yCPyYG9AV+kCJnOjGzjGIXGBhP8qFOEW+Gqsf4d7V6wqR8fZnbEneT+1yDPT7sF
-         GNxNondeHi28lM0zIpVWyKFBuKhFPHtzfd0YBmFmrj1Kn1KbBeYHoEIEvPat7KoFTe1g
-         NNm3bExcxpiI8h41j7ov3WGk5e/EVXjUkOE2xpvxz/TQgDzwQdabzX5fPDVqSfqsHmgu
-         Qle9OFrjOrybIx/6WI8Vrq8/tYsVTmQGVfMLKvbEnYLpKKIWtRVDW8Akg7bpmF8axP/U
-         K+bQ==
-X-Forwarded-Encrypted: i=1; AL+hErFZ4A+N/nx40tTNjp3F51XR7aFbt2k9UMAn9nfawnvz9s1NrV1FnoBvcc/sjaEVdjS2D1LSvZ/ZHis9LaU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gsfUy3AW2hdQlXXdT6of/Mvgp+/zONruAtNTV/K4DSqWUMDKe
-	eIOzsp21ytPpny4VJYrWaQx9BUskrB23xKG7DFhmxTqRc+CdMHrU664tWYAYpXQov2c=
-X-Gm-Gg: AYBFou2rz51zwme+mNQ14MdRQnusx64OGrwDdr/ZS98s8LPqVgFSQred3O1CYBcdlRB
-	DX1tK9ZPIL166y7cJbrWVpdV7rurX0yjagakAwanoLqSQ+fYMCXpp3s4GdWKYO3SaJijqWeHE7u
-	69AmRBmQpQTDCNbKtflW/k2X4vzMv6Hs/u1+tsPiwrzljgbFK0cbVh4+kFlDildSTixuaRtp+CD
-	8Hs9hbxfiL5BGHdQkBHIn2dU9ZdGsozZ23K5RhFjNmn/lvj4aS/E9eRXYGi1+3pZz3Gyuplvl1R
-	prVWOHnBFYcA2q+f3uZxGWd0Q83gsmgQIDVYwKv+yqsQI98g5ekfFUZx3sjwtArOTrGIsR2GcRD
-	6M68flPiszpX5zjLrxghRFEYsBkteblLQ+w/iRIdlnIf5BlKnHHlYuAXCsjK3rZ05rwM0/BH+4U
-	/DXbwcXtfbJCVcDOjkDFwlJWwdQHX2rnOe/m++weYFE4zwJ/qaxxq7e7YUhPHbnKo/swMPCLz3Z
-	o5bw0q0pFl23nZ+Ctg7ZqQzswCjwCZj9MOTSv+dD5Gu1PDmcle/p0IaPbMhVfHE+0os00pojISs
-	ty/LcEIUr7p/u0eJ0gXt+miHxszDf68vhLuL2ZVszLAKJ9787yU2VoHvEJ4WXf4F0mO19FIGscx
-	Sf5q9D44elTHWcJYHbSbPJsJ9E6QofAzxnAdSJ+98WmDJAGGjKhJnMBEqlGw5ijUn
-X-Received: by 2002:a05:7022:ea8b:b0:143:8860:afa1 with SMTP id a92af1059eb24-1b3b619fde1mr4282234c88.46.1794333225326;
-        Tue, 10 Nov 2026 09:53:45 -0800 (PST)
+        bh=EWyUegrb38WBeDiaL/HzG3HTGpRVVOl2V2uFzvvGvWE=;
+        b=MMzEiEXvFOif7JcyED/VTrHGWAmrz9sVbe2WvjhdzoUO06U9CnL9Z4HXaF94yk4AFO
+         EkVh+Qo3VL9XZrinppLR8Q6yIMdYa8PmKRg7Emkkpbh1d0Z/JoR5rNW9hUTMtOzza8tr
+         zP7lfFDfShQl8QLZMfsrjAbiXcbj12PVGdaGk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333242; x=1794938042;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EWyUegrb38WBeDiaL/HzG3HTGpRVVOl2V2uFzvvGvWE=;
+        b=Wrq6hyltIggZtnE9DYVNf490JJ5NwjZJmgtFaYkfkg94oO/JtqmhV7wPZyYeckE0jG
+         mfuBxpmDUJT/JYxgofoy2LxxhN6ezrrSWKcYLqYHQpgXTWcdCYw2ls3sjnt24rv8sVDp
+         mpvB27mwU1M7EaBMU1WWl7itO9tyROe/LYVWw5zauJQVVFUnm5rsT0iG22TrQSyseapT
+         muhmkB501TYlEVUZThr5e0VZowC1feMtZj45oxVZGXHuYtO/97lCCKH4Gv9V6ACIC8Vf
+         86T5PwZ/r2bcvE0uzxu6+VbauvGzp01VcZkhRU9w6XtTUR4GKkUd3akLj2drHFrZ0Nwx
+         dw5Q==
+X-Forwarded-Encrypted: i=1; AL+hErGQSP9lxwKcvD0qPhMozzL6ezak7CN4RbICGxhh/4svCGLCQ1cCNTZEVlaDQrMf6SIlvZVULb6GfP4Hv5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/tHfriZk+fbNcYpbICruXcsfbMVOxbXSCNYzqFztZIutv1O2gr
+	rm4K2MGuTXtiF3UebPdqzZJLJ/K0qV0Ci3qaB7vblh5DOlIhdNc57jwABZYO/4vPDTo=
+X-Gm-Gg: AYBFou0iv6dbiT2h0PnkZR+nZMo3fnlAdiGKAYHNUnFkcM6dFXlML6ZMArL/9kPikuX
+	+ohV1FPSdr73YzqP9/UwvTdYif654X2B92nzTGZOHP8Re85fBx5Lpma5TzqVYJCTUqFuto0Kxtp
+	7BhL1zxEaYn4SXUkEy9SdmqTS+5EyEX9JNibYSC1NMP4+F662pCAxmkvytP2IsRviNrAnUWxwft
+	kBEBfHV/q3nWVFbc4cEM5nuOyNXLgEPwHBVQDSPpUhtks9Oe9jEb3s/j5l4lQMPgf0PqmCRLTPm
+	q2OLH5Wy72WoQQxmXx5R3QVLA78lmygACCR8IObb6yo8qMl27Im8JwXZPEk1OczLvxQ0GXtfUx0
+	ybcInchIuDAVxVxqMAg9tnSiloScrQoftQEp0TFrsw+0I+9luAnvyN0uhva3mdaRd83f4NMflEk
+	UMQsk3m/QgLoYWmOKwG5XDQhiNDvnWPq1LiM6imSjtm3BETlyKxUHxamfejd7Fhlo/rRs15m8i7
+	m2wOForTP+e/urp4k2agd/JTnudCfLtI2amQtUr/k+2xlHc7V0cmWgHv3qPvAnwv32E6XMScsCa
+	T5NGmvg1QiRBeEPhg+c5cvJw5rEr17WdifyA/lk+zqlGsn/N0wd8dPwjKHRKZoHM7fPjybFFR9t
+	1cilkdUDr/bqgQWCsIhALYlLNA6VhRypKj7ne98eWuAfE5oR9QVVdT4067RvhIKmv
+X-Received: by 2002:a05:7022:e1c:b0:150:c9c5:1ca1 with SMTP id a92af1059eb24-1b3b5fe3b41mr6356459c88.18.1794333241526;
+        Tue, 10 Nov 2026 09:54:01 -0800 (PST)
 Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm11875452c88.5.2026.11.10.09.53.42
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm11875452c88.5.2026.11.10.09.53.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 09:53:44 -0800 (PST)
+        Tue, 10 Nov 2026 09:54:01 -0800 (PST)
 From: Piyus Kedia <piyus@iiitd.ac.in>
 To: Marcel Holtmann <marcel@holtmann.org>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
 Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Kapil Vaswani <kapil@presceralabs.ai>,
-	Piyus Kedia <piyus@iiitd.ac.in>
-Subject: [PATCH v2 0/1] Bluetooth: fix stack OOB write in the legacy adv data path
-Date: Tue, 10 Nov 2026 23:23:33 +0530
-Message-Id: <20261110175334.676816-1-piyus@iiitd.ac.in>
+	Piyus Kedia <piyus@iiitd.ac.in>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/1] Bluetooth: hci_sync: drop adv instances the controller cannot carry
+Date: Tue, 10 Nov 2026 23:23:34 +0530
+Message-Id: <20261110175334.676816-2-piyus@iiitd.ac.in>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110175334.676816-1-piyus@iiitd.ac.in>
+References: <20261110175334.676816-1-piyus@iiitd.ac.in>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,41 +101,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+An advertising instance stores up to HCI_MAX_EXT_AD_LENGTH (251) bytes
+in adv_info. How much of that is accepted when the instance is added is
+decided by max_adv_len(), which depends on a feature bit in the
+controller's LE Extended Advertising support:
 
-We would like to follow up on the stack out-of-bounds writes in
-eir_create_adv_data() and eir_create_scan_rsp() we reported earlier.
+  ext_adv_capable(dev) ? HCI_MAX_EXT_AD_LENGTH : HCI_MAX_AD_LENGTH
 
-The patch we suggested earlier bounded the copy in eir.c. As Luiz pointed
-out, the stale advertising instance is the bug rather than the missing
-bounds check, so this new patch unregisters instances that no longer fit
-the controller's capability, at power-on, and reports them with
-MGMT_EV_ADVERTISING_REMOVED. Userspace can add them again with the right
-size.
+ext_adv_capable() reads hdev->le_features[1], which is re-read from the
+controller on every bring-up, while the instance list is only freed in
+hci_release_dev(). Instances therefore outlive a power cycle, and an
+instance added while the controller reported LE Extended Advertising
+can be far larger than the capability now allows.
 
-Verified at runtime: with this patch applied, the reproducer completes
-cleanly on both the adv_data and scan_rsp paths and the instance is
-removed; without it KASAN reports a 220-byte write into the 31-byte
-buffer at eir.c:303 and eir.c:360. The tree it was verified on has
-net/bluetooth/eir.c and hci_powered_update_adv_sync() byte-identical to
-this base.
+hci_update_adv_data_sync() picks the writing path by that same bit.
+Without it the legacy path runs, and hci_set_adv_data_sync() writes
+into struct hci_cp_le_set_adv_data, whose data[] is HCI_MAX_AD_LENGTH
+(31) bytes on the stack, while eir_create_adv_data() copies
+adv->adv_data_len bytes into it. A controller that reports the feature
+on one bring-up and not on the next overflows that buffer. This can
+happen when, for example, a USB dongle answers LE Read Local Features
+differently after a reset. scan_rsp_len has the same problem against
+hci_cp_le_set_scan_rsp_data.
 
-Apologies for the form of our earlier submission: it was a bug report
-that patchwork picked up as a patch, which is why the whole report ended
-up as the commit message.
+  BUG: KASAN: stack-out-of-bounds in eir_create_adv_data+0x2ab/0x440
+  Write of size 220 at addr ffffc90006b679c1 by task syz-executor
 
-Link to v1: https://patchwork.kernel.org/series/1206772/
+  BUG: KASAN: stack-out-of-bounds in eir_create_scan_rsp+0x119/0x1a0
+  Write of size 220 at addr ffffc90006ca79c1 by task syz-executor
 
-Thanks and regards,
-Piyus Kedia
-Kapil Vaswani
+Both are reached from HCIDEVUP by way of hci_powered_update_adv_sync()
+re-arming a stored instance.
 
-Piyus Kedia (1):
-  Bluetooth: hci_sync: drop adv instances the controller cannot carry
+Bounding the copy in eir.c would leave the instance registered and
+unusable, to be retried on every bring-up. Unregister it instead, once
+the features have been re-read and before anything is scheduled, and
+report it with MGMT_EV_ADVERTISING_REMOVED. Userspace can add the
+instance again at a size this controller will accept. Dropping the
+instances before the list_empty() test below also lets the default
+instance be set up.
 
+The removal is under hci_dev_lock() because
+hci_schedule_adv_instance_sync() sends commands, which cannot be done
+with the lock held.
+
+Fixes: 112b5090c219 ("Bluetooth: MGMT: Fix always using HCI_MAX_AD_LENGTH")
+Cc: stable@vger.kernel.org
+Co-developed-by: Kapil Vaswani <kapil@presceralabs.ai>
+Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
+---
  net/bluetooth/hci_sync.c | 28 ++++++++++++++++++++++++++++
  1 file changed, 28 insertions(+)
 
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 9213e3ef9f26..ee8b1cd9dee5 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -3608,6 +3608,34 @@ static int hci_powered_update_adv_sync(struct hci_dev *hdev)
+ 	if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
+ 		return 0;
+ 
++	/* An instance's data was accepted against max_adv_len() as it was
++	 * when the instance was added, and that is a branch on a controller
++	 * feature which has just been re-read. Anything too large for the
++	 * current capability can no longer be rendered: drop it and tell
++	 * userspace, so it can add the instance again at a size this
++	 * controller will take.
++	 *
++	 * This is safe as long as there is no command send while the lock is
++	 * held.
++	 */
++	hci_dev_lock(hdev);
++
++	list_for_each_entry_safe(adv, tmp, &hdev->adv_instances, list) {
++		u8 instance = adv->instance;
++
++		if (adv->adv_data_len <= max_adv_len(hdev) &&
++		    adv->scan_rsp_len <= max_adv_len(hdev))
++			continue;
++
++		bt_dev_warn(hdev, "instance %u too large for this controller",
++			    instance);
++
++		if (!hci_remove_adv_instance(hdev, instance))
++			mgmt_advertising_removed(NULL, hdev, instance);
++	}
++
++	hci_dev_unlock(hdev);
++
+ 	/* If RPA Resolution has not been enable yet it means the
+ 	 * resolving list is empty and we should attempt to program the
+ 	 * local IRK in order to support using own_addr_type
 -- 
 2.34.1
 
