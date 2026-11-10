@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341629;
-	b=mIc5zG09weBHdJCI7LH0Lp8ofeXGYZPsUCTz3lv4sdIHWmntxLl7xYZu0ErSH7l8sdsq
-	 62PowVJsxOqA+CAMmoH5frz9b4DLIMVK3VFE7/HUPLlidXpNoWyUtsaaMnYpAyDErEOjo
-	 74PSt0fVUHGcHB7gurQE4taeaWUm8n7EwKfrUC9MBWRRwStK0UEfP5XZ+6Mo03IkOSt4/
-	 co648SLWPi25fyrlUQtlHSIJUX+4RNzRUYDFZGybjugEUijtsV6XbV8pDfzcTkaAq9BVd
-	 XF+a7cUKvSsCkx8wv+1vvJ32xj8fk9ivWEqpcPsTgOKPQfbI497HT+WEzfPGx9v3nSA==
+	t=1794341695;
+	b=PGyCLP0F3nzJPLvycnvIE+0L79bltggj7VvFCH8W69kHSb5f43r/+OyliA+drRvWO8r+
+	 cRwsNq72On14ZsAq04DbejF0HCzOL89prZezQAKKydfTSEmMMEm5aRlcAvFSJUU6NtLMP
+	 uYGMOHRF2fXWcWxC3oNguBYOni5xn45GsXbvF2oOxvPbuk/licOXmpFt+WDr6NCNo9Kq5
+	 VpvRw75uk827/orkSehtk9uQJsVy+emdqy0dI59pp3SGDckI423IaOA/9tZVLgFj3HRRl
+	 +plyA9+z+ZgBdbJxtwK+vD1uxqSVLBsZV7fEP7/18PWM8jDpj5at4SrlbgqSe0CQOGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341629;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aKfx/NE84qHCttWloNJhMf81vJASf9iP8Q1rv6pkwHg=;
-	b=fDhP0MgWooBbtQgye4mYGwcVO+TXbUgA8n57VL1iiXseN5/FZgX2/3PB4G54iEa272NV
-	 tIKs4rSoPDOzeAkHCgTRG7+UXNR+4giQQv1UzVUM3e/T7Cs++25fAx9Y21nNs+52+K+WV
-	 GgsaYRbbjor8fmHYbR6TRKNNxH7G8CuXrS7ACNWzo74sB10PIJgwGR4cxdVn0Nxc/DXKg
-	 lP7qfvZGR6GcplEKuGDaJLusfZ1VtOnLezQtRMuqgyzqyV47+X/+ynpd2pT2IZI+jQMhW
-	 HV8xgVfQrSafNGrg/DbK0K2Xz7pillJL7WgafYsv3C2XOyNCSSQ41KVSfQWJH6NqmIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341695;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=14T1p32+VtvUlhSErH4xscJ3EXnpusJwKW/S5Km45yo=;
+	b=3CE8dW4GPWfzLNTIikhwnjpRjxFtppuuVPJXbOgN8oEXDp8IpjgjQCA/KvxmgDpZkMp9
+	 JGUcGVLCH82F7VVzwz0PUnIBnIVUHuL4xn/UI3gZyJsUO5S1r7G0+c25MjFXdMq8/jlzF
+	 hK4iumcIfnUs1dKJiCpIU7u2OtjO6tktH1ijza60zMmtcZZa+BG7cn9AYy8xsxEdANeZQ
+	 xx2eEqvOnQEznZ5oQggWdm3e9suBrW7OlrXtw3XiBQUef6bjYTfhhQa5gaO3gUrXqgiLL
+	 ZS5SMT3PqXmE8E+4sGo/Wkg+o5618dzhX9SumXSBGakt6ubSSvMzk3NHWmp4nVV53Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxRMZ+qI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LwiHVhPi;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE857606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9633606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9633606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxRMZ+qI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE6D1F008A7
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341628;
-	bh=aKfx/NE84qHCttWloNJhMf81vJASf9iP8Q1rv6pkwHg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IxRMZ+qIdULUaqhxaYCFebt3OHeoF01CSIjhZrVmB5c9pQhF0VHgTv1ai8yb8OKHV
-	 K5pxXi4gnlJeIGVEcoan1JnvF72XGClpr6eU2mYdBoW/TaeMLgBsIECLu5szmbXUOM
-	 E3uvN0nTF44pZv67aFSM/KYX8rBpiEK950EhuOad1cg+aFWBZnQAGa6nibMKHgcq1P
-	 K2qKN1h+DrwggXpPY4lgCG5jgp6QNHLJBvULy0bJMrWeMKLsDFOWlSjBXQ3jzlwJEj
-	 9x8Tcs/IYMctbGgHw8BMA9hGI6GtpKqMpYn+1F25LYxu6zCql0pjk70UDYhbfFhiOb
-	 fEelk32qYY0ZQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c10dc41270so2257305e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:13:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEDK9vtuN6sAVJj8tzcno+tuI81KfhZTxAab3cGmp2fKbAH99I1utJg/740q4RaUeaZRl8UYYJQ/Ev4Ndk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yboE2qfOO3MRAWEwsaSphIYsVejneO1KLOhQZpoM+TALUHjWf
-	eDOi8+teaNKeJm4s2RZr64A0sdlefy+wfWKwxGJxfFT7jBz6HCG+3w7BQ8bEIZLJTnsJHFheQKJ
-	OggFcq8c9hNNiTITx78VvsuwgaWL4ez4=
-X-Received: by 2002:a05:6512:304c:b0:5c1:597d:aa93 with SMTP id
- 2adb3069b0e04-5c15d5cc5efmr65814e87.24.1794341627024; Tue, 10 Nov 2026
- 12:13:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LwiHVhPi
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5ca3840c5so2514341a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:14:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794341694; x=1794946494; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=14T1p32+VtvUlhSErH4xscJ3EXnpusJwKW/S5Km45yo=;
+        b=LwiHVhPi4e5g2jJg7nU1IvdqBzyzYhNnzRG143klAGsgg4KHx0IBXebsdt84Xu5Wib
+         pbMwqJaPfbwnguC+Mk7Hu3177pzJha7j+Y4TK2uP5Y7okUMxO4ta7nITVUPnHABZumeg
+         T+wn42JzHhCRHQee7bZsxmBKWD6nQCMAMg4lQUlnz6OHbvFnMZKaCk56W56QHoYY4wP+
+         iZocqzGgiPMwgfKo/aw2+eU4rJAV5XwrBOh9Vte7vRub8IzOZBgupShNuriPaxh5E901
+         WUyjRGkBqGpcuqaCMUGMygsykzGNluKAO+h9nIzTMTaG66Ma0ZSMUslT9ux5MlM560ku
+         qcVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794341694; x=1794946494;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=14T1p32+VtvUlhSErH4xscJ3EXnpusJwKW/S5Km45yo=;
+        b=bSnK6kCNzdeTs/IjU8x/KltboyVJU2L/KgoXlJufgzUptoar4XcJ5cablPrHdrlBMl
+         IFUnXCsxin52ZLBvsw4eluE5nDiD418t86uCeZoG3ZsL2HHfbLQMkn+mRPqhI9yAZwTB
+         RYk8CRslJDGZVTGum/Yy7malWvLjNN9+sqmIGBTXu+cajE+RIXp2CXpTD/anA6dNnaOC
+         gQBvo5KnOHJDJrezEHiSGQh5nKwJ8gXn1DkA7DHDjaVPJff8k3dRqwWlkshHqxcCWg52
+         vLbeVQuhjEdZDMUvoS436ZHR6EN1Ux+hU2LjE1ril7ixbHNWEAOnhUmqSm1EL53uT4KP
+         3+Mw==
+X-Forwarded-Encrypted: i=1; AL+hErFLaisoFgz+u2k57ricJGpFvRMhQoSCNkg57dNBIchRbSb4A/qt0+OaRiQxnghHitw+1lcNyi62hyIfef4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LXrGPfx9Gr4WKB3tQKjD4hHqJcZAymbkzyMvtL4sB/MLQ1Jjb
+	szHueNYjJr3qLRKhYbBhaadcSZHTw3pFvRIcFVZnD7H1QrwHWPW0MATqvCyGxo9WMAVbewLbI6w
+	XoBJdVw==
+X-Received: from plim16.prod.google.com ([2002:a17:903:3b50:b0:2e3:bd2:38ec])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:904:b0:2e9:4048:3031
+ with SMTP id d9443c01a7336-2edd7a1102dmr2284595ad.39.1794341693808; Tue, 10
+ Nov 2026 12:14:53 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:14:53 -0800
+In-Reply-To: <cd458ee9a0c2405349cd2aaecb180f0b2e757aa3.camel@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,77 +79,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261030083633.1699270-1-christian.loehle@arm.com> <20261030083633.1699270-3-christian.loehle@arm.com>
-In-Reply-To: <20261030083633.1699270-3-christian.loehle@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 21:13:35 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0g2wqNDxe-R9fSQW4uF5XE1uW+8UP1u2UjnDDEWRO3LpQ@mail.gmail.com>
-X-Gm-Features: AclHuK9UnPvQW1QMfGoXRDr-59ymytGmkJorhdLTB4yqTC_2fvJfuC9eRqkhPnY
-Message-ID: <CAJZ5v0g2wqNDxe-R9fSQW4uF5XE1uW+8UP1u2UjnDDEWRO3LpQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] cpuidle: Respect latency constraints when accounting
- below misses
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <20261105020104.2507083-1-dwmw2@infradead.org> <cd458ee9a0c2405349cd2aaecb180f0b2e757aa3.camel@infradead.org>
+Message-ID: <avN7PfMdfZcYl7Gt@seanjc-mac.roam.internal>
+Subject: Re: [PATCH v2 00/20] KVM: Use atomic SRCU for gfn-to-pfn cache,
+ reinstate guest mode for x86 nesting
+From: Sean Christopherson <seanjc@google.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, rcu@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, Paolo Bonzini <pbonzini@redhat.com>, 
+	Paul Durrant <paul@xen.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, Fred Griffoul <fgriffo@amazon.co.uk>, 
+	"Paul E . McKenney" <paulmck@kernel.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Kunwu Chan <kunwu.chan@gmail.com>, 
+	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 9:36=E2=80=AFAM Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> Only count a below miss when an enabled deeper state meets the latency
-> constraint. Save the applicable limit before entry so QoS changes during
-> idle do not affect accounting. Continue checking disable flags on exit.
->
-> Fixes: 04dab58a39d4 ("cpuidle: Add 'above' and 'below' idle state metrics=
-")
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->  drivers/cpuidle/cpuidle.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
-> index faa29f58738e..e9195ea8cfb6 100644
-> --- a/drivers/cpuidle/cpuidle.c
-> +++ b/drivers/cpuidle/cpuidle.c
-> @@ -219,6 +219,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device=
- *dev,
->                                  int index)
->  {
->         int entered_state;
-> +       s64 latency_req;
->
->         struct cpuidle_state *target_state =3D &drv->states[index];
->         bool broadcast =3D !!(target_state->flags & CPUIDLE_FLAG_TIMER_ST=
-OP);
-> @@ -244,6 +245,8 @@ noinstr int cpuidle_enter_state(struct cpuidle_device=
- *dev,
->         if (target_state->flags & CPUIDLE_FLAG_TLB_FLUSHED)
->                 leave_mm();
->
-> +       latency_req =3D cpuidle_governor_latency_req(dev->cpu);
-> +
+On Tue, Nov 10, 2026, David Woodhouse wrote:
+> On Thu, 2026-11-05 at 02:00 +0000, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > Based on v7.4-rc1 (kvm/next doesn't have the atomic SRCU flavour yet),
+> > this series:
+> >=20
+> > =C2=A0=E2=80=A2 Converts the GPC to use atomic SRCU, ditching the rwloc=
+k which was a
+> > =C2=A0=C2=A0 scaling and latency problem, and which PREEMPT_RT hated be=
+cause it
+> > =C2=A0=C2=A0 turned the rwlock into a sleeping lock=C2=B9.
+> >=20
+> > =C2=A0=E2=80=A2 Fixes the pre-existing bugs which torture-testing that =
+conversion
+> > =C2=A0=C2=A0 shook out: a guest-reachable dirty ring overflow from the =
+hypercall
+> > =C2=A0=C2=A0 page write (128 pushes of the same gfn against 64 reserved=
+ entries,
+> > =C2=A0=C2=A0 without PML), and a lost TLB flush request in record_steal=
+_time().
+> >=20
+> > =C2=A0=E2=80=A2 Adds KVM_XEN_VCPU_ATTR_TYPE_WRITE_HYPERCALL_PAGE, for V=
+MMs which
+> > =C2=A0=C2=A0 intercept the guest's MSR write and need to replay it from=
+ host
+> > =C2=A0=C2=A0 context=C2=B2.
+> >=20
+> > =C2=A0=E2=80=A2 Cleans up the intentional lack of dirty-tracking of Xen=
+ shinfo and
+> > =C2=A0=C2=A0 vcpu_info pages (Sean).
+> >=20
+> > =C2=A0=E2=80=A2 Converts steal-time / preempted status to use gfn_to_pf=
+n_cache.
+> > =C2=A0=C2=A0 (Carsten)
+> >=20
+>=20
+> I love it when sashiko-bot finds things which my own local runs don't.
+> I'm still iterating on the latter part of the series; I think it
+> probably makes sense to merge the first half (patches 1-9 above), and
+> the nested parts (below) can come later.
+>=20
+> Sean, what do you think?
 
-What if this is different from what the governor has used?  The limits
-may change at any time.
-
->         /* Take note of the planned idle state. */
->         sched_idle_set_state(target_state);
->
-> @@ -327,7 +330,8 @@ noinstr int cpuidle_enter_state(struct cpuidle_device=
- *dev,
->                         }
->                 } else if (diff > delay) {
->                         for (i =3D entered_state + 1; i < drv->state_coun=
-t; i++) {
-> -                               if (dev->states_usage[i].disable)
-> +                               if (dev->states_usage[i].disable ||
-> +                                   drv->states[i].exit_latency_ns > late=
-ncy_req)
->                                         continue;
->
->                                 /*
-> --
-> 2.34.1
->
+Ya, I'm definitely in favor of that.  Even if Sashiko didn't find anything,=
+ I
+think I'd want to grab the GUEST_USES_PFN stuff separately.
