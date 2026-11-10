@@ -1,107 +1,107 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333281;
-	b=eN2qcHk846SGme4xqCTdigdYcgI2vyWmHjIne0QpYIHDg6mVDUFqKF+HdwVcDT2RLne8
-	 LLKjiKXrB2GqvPBEiqxlHaCwoMMtCqIGGXDjNAcmFDSSUC8T7JZ6JODxCfO1Sx4XkvbUv
-	 ANoXRTqU0sLaI4TYGF1IC4ATcYgx4zNm0dNu3Smh6SVp1KGTC6/fXsBYnFttdxiznfzW4
-	 nTgQ+oKj9gw7RhC/YeM69ytefZ34gfOMcM64LLm0I/a8mdSD7Cb5meFjw/qqPebH2iFUE
-	 p4SSkBJ2gGZtMlLsMVeT/1Ph5UVMjrPraO8epc6qnO2i1JEErYqFzbkbcDDkVBNwRaQ==
+	t=1794333277;
+	b=tNYe5cFonLCC2tumsnI1sAcjeQ2yIR+9B5RJ8Dz/4ipg4+RJzpHLPIlVZpJ2MRy3wXfr
+	 zgOFB06q+jgy2J7fcggf4zIEx0Rn35Zv8IwQDX1iuxikXwQcyP85OEO18+DKzlXQcp1f4
+	 igfu8B2Ao8/GrLOuv6rAWvPN8+H4KRVe/qaMvCZMbJi622RB3ryIMVw3r8bxAyhvdF+XN
+	 D2vxEO1BxhWZPqUC/s6RtpTDZsRrAQL2yiowpfUCs7I+xKs9pLNI7isvxXOifs8+cfJNd
+	 MLkVV24pKtC8JZTHHAz4Di93t205s1Y147TyviyCitXFhNkbnKiD+Xtws1TGOSNOs/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333277;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=UDVDDTqM7qW9WUKRjzUggikRl97rZJtI3Mq2et/Up5Q=;
-	b=DfBgJE/UOjZ1KRAb88OUHzdFMCo0mvadyRGQyztPRkOfSGdI0K0K2ecFpJExEYfY+qPq
-	 dWM2DUtljduB6AkN68V1BuKkWifWWr8VtnX4HrunWkv/BXpAa2gKoVwM1es/I5FcWRiR/
-	 +4/IhUSUasg+cLNh2csLFh0RwS/MOW+3h7P4Wa2z8Jc09F6ZcrGiBZEydq5oZ33s4GmBD
-	 qbfFBolwgu0DvjnqcRfChMryyT2kcxL+QK9iQw9EweX9N0/CvC8ZeGmgNM2QZn0lnkRTW
-	 Kro3Z15VJYfnPQPf0edBSLrww4LrvCUuShNneeXW0rxWv8JowVPx3YBN2qnvnukGVNQ==
+	bh=XartqBx0tjNe00fIZ99h8anaxL0zIppXq+ESoLfpk04=;
+	b=a1ekuHxKSi+hPaPlJcUnfRUGRUSxfTjhmpNOZvrkP/s8i5gmp2GAPL+YzjXDNSTa2PQ1
+	 BeVLJHscrt7IYmYWdcfNyILKYIq1gDt51k1iTg1WWmbUKu3jYqtveHI6i/VM+0rpF97Rt
+	 WaPT9WeuJb8xcYb/obaJbJ9A7OoGLo3WLlysG1vILzqTbOrXePxOCq5dR6tnOTqRbrQMl
+	 YCdNqvDEGYESAQhr9RiDAwHUIOB3lGg1f/mVW7deAkHIzFl24fa4skzdfA8K94JGK6WYi
+	 /YlxNFUCpTkl9VllXSkADUFvwiJet0iJ0JmUe+l5ru+q1vb0kO3MEGmWM3SrfChxSpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kgATETlH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VKEQOFcO;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k2QcxLev;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ga3ktfXp;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D453860A5BCE
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D453860A5BCE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAE760A3825
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAE760A3825
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kgATETlH;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VKEQOFcO
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF0BOd3183380
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:40 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k2QcxLev;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ga3ktfXp
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAExvLt2748366
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UDVDDTqM7qW9WUKRjzUggikRl97rZJtI3Mq2et/Up5Q=; b=kgATETlHuJduGH32
-	VWDGbcDeiywG90BY71yrQCHJ3wAtDNVx+6zM7wdLerN+yiR2A1eqN8gvXf65pwwK
-	x0uTQ/evzNOVV5S59OAVUWeXsbMwyEcMmtDFEFXnhvZtUgpt4woHEiVMNohW6pqz
-	ONXAeUFF3kY7dtOt0x6z2F1REZkJzl1YtOkIr6MYXdmtJAXDlbCR6VgMqLm+7N7Y
-	7ZfkG+KbHioKqGiDI4cYc3CXD7g+oY3GIL8Do0YFKzLhWmmLtggo55ooNXlW8SwT
-	FNbh68yUOo+rlM9v3UgNFySvZTyrRunr3x/J6L1xCxRjRf6XZsVCd1iENT/CH0Bu
-	IOfCXQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huucp37bv-1
+	XartqBx0tjNe00fIZ99h8anaxL0zIppXq+ESoLfpk04=; b=k2QcxLevJbJOzp8H
+	axk7JwKMC+hS9Pj2zI+LlegiASNOwO5NUacVgI6Wts892fEPCDlxR3pkw4jno+u5
+	Y9QkO4SkxfKJMOkX+U6WQVtmZHXVnJ543QNNvyAjjg6TQ0EBB9IfGBQf9MHEdVnZ
+	pG5zgik99E+v3O99AQkHypgikNwS1Gr3PGnJv+KTBCqQXMIHoS61L0yxtkwP05UU
+	kvC9J7VJEvqHqMm+96B34cMRoYrrEXCe6g1QNdCYtyL1HdlwfHhHGx9CUfVlU43C
+	cfwbsTrmy+eCrvQNmif295cniprX3Fz6VZdNS0x6Clvytnxn9mfVr2GSD77t9KvI
+	qM061g==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw4a35e-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:40 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e92aad34aso586997285a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:39 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:36 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-99be6943b20so1888306241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794333279; x=1794938079; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794333275; x=1794938075; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UDVDDTqM7qW9WUKRjzUggikRl97rZJtI3Mq2et/Up5Q=;
-        b=VKEQOFcOufNDJjC5+boyL9KaQO76Se7s5ez+PI1QLSq4mrdwpsHtj9YMdBFp8fHLGg
-         fDEK4N+H0LELt+HFlEKdaVhV1jhbDrXwxoQXu0ttxkqGrKD8yYn3HnZhlYbNp0pIxXmw
-         vRgWBAn2oprPc/uFlNvPUjPLViCtevK+0J4qD9Y12xVoGPR1CVesw5pgvaLcBEFzDwuR
-         jiDgVT3qdER3kQX06aOVVbj0e/8qfQ8sts/U9I+k0eubbSICcx2KK+jLtMy+6X9JCBDH
-         yz+4gGN7SCEP4H+QfRAExChs3KItQBO1fa8owWXNwG70wdVPN1QLmhnhFwnFgR5BOW/j
-         Ex4g==
+        bh=XartqBx0tjNe00fIZ99h8anaxL0zIppXq+ESoLfpk04=;
+        b=Ga3ktfXp7U1+hZhOoIXAtu4/aSmoHgbAWw8bE7PU+aFe4QVzBLb+7G5h5W4ffEEJCB
+         73prSTxoY7j3GYoTGwEQYrfRqdJf6h4EA9sJliuT1UQszjw8wa5T0b6h2uPwolvjfU67
+         pzrg2y0Tx2iZdxhPJjTm78eDlg2h5Lgryu77evGs2F6fDO0uNWdjDyWIWTwrACM31vt2
+         rKVUEyL02zhU7L7RNaFZE+BjFiWydi2eSCWD6zv+BdSXToSj2j5j6jmH2qtnGRUxFrez
+         Meyr90lfruWCguTy/+bzN8Yd7Mr75TY8/jDAXI+OXdG/SPSTJJ0zul/QLkZUGXTS86/9
+         Qi+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333279; x=1794938079;
+        d=1e100.net; s=20260707; t=1794333275; x=1794938075;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UDVDDTqM7qW9WUKRjzUggikRl97rZJtI3Mq2et/Up5Q=;
-        b=c4T+L/KmMSfPMWBxh8sm94ktc02E2/VWHpCLksj3FLH4j4Hlz2Cqp/SPO6ls1EIGK+
-         Om6NriODlC960ItZDcXshoyCCRK44/BEl58gOy0X9gFh2OA5ueXV8eSMFz09fzipzmx9
-         vbxsq9gQRAF+R5bLqMWF5O2H/lDJAIijTGUv9mNv+Y2/I/ffK7jvkd8tfY8HxWD9Qcz0
-         IjT7zZTJLsYu/CY5s0DvJxUsHw0izHnkGGRYL8huW/2Wek28I2laThyFqPYFdFEgPIsd
-         dJCCzCKo/ykUwYFJiahRcKzfYoz0QZcWTRpsoxtGUMhHFsNKjNEFtr8KXoY8oRvLFWcx
-         /kYg==
-X-Gm-Message-State: APuU4Z/7g7e9YD3vSbCgRqczi1OO0IzrpVBIiEQxkcgb3SC6AYPZMwtm
-	AIINhZYNL+8r5kSdEiktmxhlmJ9J9BUFGj7pqijYmVLf4lglNWeA48LX58K0Krc6iOQOeMjciNX
-	jTus6REOqqY0fclHd4Hpnu3+WZEmO5unX8fjASKvmZXQ9FCo5ZHimRHAdl801mQaROio=
-X-Gm-Gg: AYBFou3oAj+pnMvtP+/qVmdXI5hriSVfrszDpTKzF/gvze0wMWW9PPE77FM6sg9RMzx
-	2HBY3WCMR/iC+a3cbNfa3TEM3DuuQEuk/f+M4lKjKay13GVwqB53k+cQ6JDDkXQnAoRTnQ2dxv1
-	uWzBbTFR4QMqQbJgq0Hbqu/SfZl/+joQIq9tRnijefKgr2CqCm0FmUYxdTcBJC8Dix5lG14zued
-	OtnI++hJIUPGWAnwA6nHFXjzdA+zNRcYa5SeFBBPMv3optEfufBFZTd5Ago2GSpS+ptpXwNT4fd
-	fnwahSkbmz6E5IrbmRVz8z7/4x4YcxxCq/BGMJ9MwdL1g7766vjFBH2KRCwZT9iFCSlcCg9Ct0S
-	FukmBkZn7Hck6rduW6A8X1B+qkFQ0UApD3jxCqYj6G0/BZX+QDsy1o3qH/JKYlL09S7+3kaUroN
-	do1KaFRcgcvSA=
-X-Received: by 2002:a05:620a:4886:b0:93e:9508:8360 with SMTP id af79cd13be357-9479f2b5063mr586635285a.27.1794333279139;
-        Tue, 10 Nov 2026 09:54:39 -0800 (PST)
-X-Received: by 2002:a05:620a:4886:b0:93e:9508:8360 with SMTP id af79cd13be357-9479f2b5063mr586631685a.27.1794333278537;
-        Tue, 10 Nov 2026 09:54:38 -0800 (PST)
+        bh=XartqBx0tjNe00fIZ99h8anaxL0zIppXq+ESoLfpk04=;
+        b=kBbWbkB/sLOZZN/aFjI30J+XRse+DmKTdNDaEnuLg+MfKQhZNb+aKJ7uobtE4aNADg
+         oNW4BCOVS4ygUi4bBHPgx/LULnES96VQNWvA9vdo2dMSYPM8bqumKMqyucIEySypUu46
+         WIM7dY177900imghvUKSELta4h5N00tsjs2uxg85PgphZZh+j/Yc8rfMllDYdtWsp3tO
+         Em3VIfgyvV3wh8WAkTwj2Ci3DBiXA8nNA5V1vARj7z1FHonGuxWi9Tjz2ADtRUpGd4Zw
+         yT5mIyphFpRNCr4JDTYSPoJZl7qJfEOxhDW+JC0NXetmY2JSqReBWwJSMdpX+ewFzxvM
+         KxDA==
+X-Gm-Message-State: APuU4Z/3UFfhpXe+66XO400QLj6otjBSlLuJ3IlZRegj1X4THvo6ZNFJ
+	uV9oelaEdmq/EuPulZOGSirkgLHNhn1pZ1S7VGVAvO4M6taK64ZfjpQ0lLHpKC8wYmt/5kWjX6Z
+	R9tGPZmXVZbVphzRt4eInoUN3TYnQyndleHWmBZwsS6pkRNfkpZtxJHID1iOZr5k44ho=
+X-Gm-Gg: AYBFou0O2s8Xq2MtwTMzL/EXXy7PHpX+2S74VQOqkm8M4NrFLQw/3/xaCAtc33oRawY
+	Vhnlrl8EaSty3Cxyxdka+FMVVAS8jtzH0FxCp4Gg2QQWJ2SFqD5FJRU5jLYCByCQz676DAjQeGF
+	OuMWniP4xv10WbWX0iUwuJ1+9nWW2eaJ6yixjFyErXwzT1LcI7977o9PeMMyqSkVFrzNXqMnka6
+	tDgJz9bunanm0UkF7o2ubDgpY9MCPHK58/WU7J6X4RJVbVwX65tpkAd/a2bcMoyk9a1hywWN4u2
+	bGRMdFAyoUzlqbyE5IAQZ8aBvjhu1CwWHZBnqGg2RJQF1E0peBMeSKDESvZPM653pQ/Us6P72yK
+	Ar263vdnuujMVFO/CTi0Pvk9NzFXdVZGyvpV74dEfqaaFq0xqJperfu/QdoSGsGonU8gzykEkRy
+	EH4thhNYDhxBI=
+X-Received: by 2002:a05:6102:511e:b0:7c3:872c:8be6 with SMTP id ada2fe7eead31-7d301c1980cmr1624060137.25.1794333275191;
+        Tue, 10 Nov 2026 09:54:35 -0800 (PST)
+X-Received: by 2002:a05:6102:511e:b0:7c3:872c:8be6 with SMTP id ada2fe7eead31-7d301c1980cmr1624046137.25.1794333274758;
+        Tue, 10 Nov 2026 09:54:34 -0800 (PST)
 Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4989a2a505asm4713009f8f.13.2026.11.10.09.54.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01ff3428sm89774265e9.15.2026.11.10.09.54.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 09:54:37 -0800 (PST)
+        Tue, 10 Nov 2026 09:54:34 -0800 (PST)
 From: =?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>
 To: linux-riscv@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org, Paul Walmsley <pjw@kernel.org>,
@@ -110,10 +110,11 @@ Cc: linux-kernel@vger.kernel.org, Paul Walmsley <pjw@kernel.org>,
         Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>,
         Zong Li <zong.li@sifive.com>,
         Charlie Jenkins <thecharlesjenkins@gmail.com>,
-        Andy Chiu <tchiu@tenstorrent.com>
-Subject: [PATCH v2 5/6] riscv: hwprobe: Report XTheadVector only when available
-Date: Tue, 10 Nov 2026 18:50:47 +0100
-Message-ID: <20261110175048.82208-6-radim.krcmar@oss.qualcomm.com>
+        Andy Chiu <tchiu@tenstorrent.com>,
+        Guodong Xu <guodong.xu@oss.qualcomm.com>
+Subject: [PATCH v2 3/6] riscv: hwprobe: Report Zicfilp and Zicfiss only when available
+Date: Tue, 10 Nov 2026 18:50:45 +0100
+Message-ID: <20261110175048.82208-4-radim.krcmar@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261110175048.82208-1-radim.krcmar@oss.qualcomm.com>
 References: <20261110175048.82208-1-radim.krcmar@oss.qualcomm.com>
@@ -128,76 +129,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: PbXfZtNO39J6HfLo7tp3Tyi9YPR55Ne2
-X-Authority-Analysis: v=2.4 cv=U4oHnuru c=1 sm=1 tr=0 ts=6af35a60 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX9n7gUhenatL1
+ khaZ221oFUG0us8IBUwuDP/o9byT/0UGBXQJ5KTsbUNBdG4dhslA4HHPzmhIJzYCgVljqutCsfe
+ pjg2W85OG9k47bm4m2HuosuBtAzLpZErBII8t7+jNxiK8ODRAY2wzNgABES3Nv7gbRmtE8l+680
+ iUxbr6ti+ReuLnYHJUY8ohA8fyS+u8TbyKKITQjl/9Kk0xy59qQIhcEXoxtHgUxoQRA+AKwaEaM
+ mvLOPN35tvUd4BTV4jZoaVHlsemZq5EvacZnWYXhQLssguHCFwSXD3eUz05LK04opf9brouiIJG
+ QlPzqIr7JKItbGNfUJcz6HEY0i2dYugljlbSEfv2bRu8KbuxKgt65pZQFuU+BzV1hBuPYTLssql
+ Vk8s5V+H5Ko0iutd5ttim+PGVSkHZi9SqFBXfryAfx7+CTtzcnbuwxOIgrRcMKioz+nXEtHQNmx
+ fPgdiXoeaS1iyu2KZCQ==
+X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af35a5c cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=t9496tuAAAAA:8 a=EUspDBNiAAAA:8 a=07GccxXRkLxfzaV0jD8A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=4wQ91nGE5lQcD7eh5OX0:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX59uP31tnclv7
- O/eauMnxNuCa8YZlFzugNQeZRqpfYF4NRqfaI1cI/AfiRnpTnSQH1fub+c0Pn1QEdYi6PrIFq2c
- xL9oD1CmnbFNQUF+CWXoFDi2/a4ZV640R8Hp9BA/GOOB8+VwM44TPjz23eGjUBU9SCJZpe6aULm
- +MqbFiT6cra54wXxPK6xn7AZNqMpRd5R4rzqXwf613lCZfpDMXYdg7eXVYIn7G08rETTq0QMDyW
- UdjVQMD9nTHn3m6sa5A5nK14FiVAM+PGYx4qGHMB3Cx4hxZO5MumVv/U5tKlaNb9bXmHqdTvjnx
- G7lAqpKRfNDcQiWJPZd5YKHw4hGQ8phmboNZcR4W8S8IIBieZwsN9tcxBEkvM71PdYUopsjqyJO
- Q3f4YPYrF3Tf26Kia1ha1KUm7iY7LwmfVWo11dXT2Eh8YOFI48E91m1Y+baAIw86Q9f3ednLwSw
- Dk2ijM2bVEEh8XW5HvA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX4clVzWiEZQsE
- LJtrA21hsLv0Y0XU1XwKXL5DtmnPP39lS9tWy/+7g+KVK04dw5Msw9LC+v/aA+yQJapHhXYVkJ3
- cptM6k7pSgDz8FJTuQdjDanF9S04fxI=
-X-Proofpoint-GUID: PbXfZtNO39J6HfLo7tp3Tyi9YPR55Ne2
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=pGLkceISAAAA:8 a=t9496tuAAAAA:8 a=EUspDBNiAAAA:8 a=Evxct9gNaP-SXZPfde4A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
+ a=4wQ91nGE5lQcD7eh5OX0:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX7hReUqqH5Bgr
+ otJdILQffkoDzx8/REHHG1oQK5PGw3Q+YS5YS/fs1gX2xpIU0KeRyk+s4ipXjZq3JSx84Vk3f/N
+ EimapJczmJa5PvvGxZ41JCa/HPLzq4Q=
+X-Proofpoint-GUID: FXDenwmUFND2rGQ9HfSaFUmAvBBQRsyt
+X-Proofpoint-ORIG-GUID: FXDenwmUFND2rGQ9HfSaFUmAvBBQRsyt
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100071
 
-User-mode use of XTheadVector requires non-Off sstatus.VS, which we set
-only when has_xtheadvector() (XTheadVector on all harts).
-XTheadVector also bundles operations with floating state, which
-additionally requires non-Off sstatus.FS and hence has_fpu() (D on all
-harts).
+User-mode use of Zicfilp and Zicfiss requires senvcfg.LPE and
+senvcfg.SSE, respectively, which we set only when is_user_lpad_enabled()
+and is_user_shstk_enabled() (CONFIG_RISCV_USER_CFI, the extension on all
+harts, and not disabled by riscv_nousercfi).
 
-hwprobe currently reports XTheadVector from the per-hart ISA bitmaps
-alone, so it can advertise XTheadVector when always disabled in
+hwprobe currently reports the extensions from the per-hart ISA bitmaps
+alone, so it can advertise extensions that are always disabled in
 user-mode.  Report correct environment to user-mode.
 
-Fixes: a5ea53da65c5 ("riscv: hwprobe: Add thead vendor extension probing")
+The changes to arch/riscv/include/asm/usercfi.h avoid
+IS_ENABLED(CONFIG_RISCV_USER_CFI) guards in the conditions.
+
+Fixes: 30c3099036a9 ("riscv/hwprobe: add zicfilp / zicfiss enumeration in hwprobe")
+Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
 Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+Reviewed-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
 Signed-off-by: Radim Krčmář <radim.krcmar@oss.qualcomm.com>
 ---
 v2:
 * slightly reworded commit message
 * added r-b
 ---
- arch/riscv/kernel/vendor_extensions/thead_hwprobe.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/riscv/include/asm/usercfi.h | 9 ++++++---
+ arch/riscv/kernel/sys_hwprobe.c  | 9 +++++++--
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/arch/riscv/kernel/vendor_extensions/thead_hwprobe.c b/arch/riscv/kernel/vendor_extensions/thead_hwprobe.c
-index 2eba34011786..f07aa1c8acac 100644
---- a/arch/riscv/kernel/vendor_extensions/thead_hwprobe.c
-+++ b/arch/riscv/kernel/vendor_extensions/thead_hwprobe.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
+diff --git a/arch/riscv/include/asm/usercfi.h b/arch/riscv/include/asm/usercfi.h
+index 61ee02cee297..bbde171bccde 100644
+--- a/arch/riscv/include/asm/usercfi.h
++++ b/arch/riscv/include/asm/usercfi.h
+@@ -48,6 +48,8 @@ bool is_indir_lp_enabled(struct task_struct *task);
+ bool is_indir_lp_locked(struct task_struct *task);
+ void set_indir_lp_status(struct task_struct *task, bool enable);
+ void set_indir_lp_lock(struct task_struct *task, bool lock);
++bool is_user_shstk_enabled(void);
++bool is_user_lpad_enabled(void);
  
-+#include <asm/switch_to.h>
-+#include <asm/vector.h>
- #include <asm/vendor_extensions/thead.h>
- #include <asm/vendor_extensions/thead_hwprobe.h>
- #include <asm/vendor_extensions/vendor_hwprobe.h>
-@@ -14,6 +16,7 @@ void hwprobe_isa_vendor_ext_thead_0(struct riscv_hwprobe *pair, const struct cpu
- {
- 	VENDOR_EXTENSION_SUPPORTED(pair, cpus,
- 				   riscv_isa_vendor_ext_list_thead.per_hart_isa_bitmap, {
--		VENDOR_EXT_KEY(XTHEADVECTOR);
-+		if (has_xtheadvector() && has_fpu())
-+			VENDOR_EXT_KEY(XTHEADVECTOR);
- 	});
- }
+ #define PR_SHADOW_STACK_SUPPORTED_STATUS_MASK (PR_SHADOW_STACK_ENABLE)
+ #define PR_CFI_SUPPORTED_STATUS_MASK (PR_CFI_ENABLE | PR_CFI_DISABLE | PR_CFI_LOCK)
+@@ -88,10 +90,11 @@ void set_indir_lp_lock(struct task_struct *task, bool lock);
+ 
+ #define get_active_shstk(task) 0UL
+ 
+-#endif /* CONFIG_RISCV_USER_CFI */
++static __always_inline bool is_user_shstk_enabled(void) { return false; }
+ 
+-bool is_user_shstk_enabled(void);
+-bool is_user_lpad_enabled(void);
++static __always_inline bool is_user_lpad_enabled(void) { return false; }
++
++#endif /* CONFIG_RISCV_USER_CFI */
+ 
+ #endif /* __ASSEMBLER__ */
+ 
+diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
+index 73d5e25677a5..a9aa1e193840 100644
+--- a/arch/riscv/kernel/sys_hwprobe.c
++++ b/arch/riscv/kernel/sys_hwprobe.c
+@@ -14,6 +14,7 @@
+ #include <asm/switch_to.h>
+ #include <asm/uaccess.h>
+ #include <asm/unistd.h>
++#include <asm/usercfi.h>
+ #include <asm/vector.h>
+ #include <asm/vendor_extensions/mips_hwprobe.h>
+ #include <asm/vendor_extensions/sifive_hwprobe.h>
+@@ -97,6 +98,9 @@ static void hwprobe_isa_ext0(struct riscv_hwprobe *pair,
+ 	if (riscv_isa_extension_available(NULL, ZICBOZ))
+ 		pair->value |= RISCV_HWPROBE_EXT_ZICBOZ;
+ 
++	if (is_user_lpad_enabled())
++		pair->value |= RISCV_HWPROBE_EXT_ZICFILP;
++
+ 	/*
+ 	 * Loop through and record extensions that 1) anyone has, and 2) anyone
+ 	 * doesn't have.
+@@ -127,7 +131,6 @@ static void hwprobe_isa_ext0(struct riscv_hwprobe *pair,
+ 		EXT_KEY(isainfo->isa, ZCLSD, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZCMOP, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICBOP, pair->value, missing);
+-		EXT_KEY(isainfo->isa, ZICFILP, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICNTR, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICOND, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZIHINTNTL, pair->value, missing);
+@@ -197,6 +200,9 @@ static void hwprobe_isa_ext1(struct riscv_hwprobe *pair,
+ 
+ 	pair->value = 0;
+ 
++	if (is_user_shstk_enabled())
++		pair->value |= RISCV_HWPROBE_EXT_ZICFISS;
++
+ 	/*
+ 	 * Loop through and record extensions that 1) anyone has, and 2) anyone
+ 	 * doesn't have.
+@@ -210,7 +216,6 @@ static void hwprobe_isa_ext1(struct riscv_hwprobe *pair,
+ 		 * configuration, as no other checks, besides presence
+ 		 * in the hart_isa bitmap, are made.
+ 		 */
+-		EXT_KEY(isainfo->isa, ZICFISS, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICCLSM, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICCAMOA, pair->value, missing);
+ 		EXT_KEY(isainfo->isa, ZICCIF, pair->value, missing);
 -- 
 2.55.0
 
