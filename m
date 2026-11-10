@@ -1,48 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302192;
-	b=O5v5l9fiYYSAahvVTriZnovUEhbQwZuB1YcO3fh2EUMombrZsgDNatH+8q7btV6RSZCQ
-	 kMs5n87G4/X1hCGpggKBmE2Ely7sR6dKnzOdtFdkm9Jb2lNlx7Ez+fS8YWRF7C5QN/vNk
-	 mSAz6X0yJ173vBkvx8wgyBrwOEZkryisdfZV+HM+kU9KOH6fnDbZXjx/qKk8tDO4F6z2k
-	 KpoF2xdO6RepSwq1v+mRnyPFsKDv6kwDMkreGkM4BtpMpXIPonWDPA3qmDuL8n+q0J0YH
-	 OqJHCtrZaWX2SPTziQtEREPOrDQurs04+rmEDrqsHGJx0LtIIxqsnHlxZ8gJZR2E+IA==
+	t=1794302204;
+	b=UtNyAHznWaxfEqVXNOMja7xXo6hW0gHpGFZoBESqKgOJYRNPoaTlByPDD3GP4iNkR8Od
+	 6rqhAqyzR66qT9HU/bvfLekIH0DWtWHGGp5UstD7ZONIVbzrjLCSihKMfLxdF4eWJVCML
+	 yRh1bwCWApzHU5YkRyoOsbK8DinbqP8Om03tlTivnivcbfSw51rgWCUqTe7fB1ZRzByXv
+	 x/ERQz7Emn8RJ8oSRMZEH+5jcUlDMsKNTvze9aEUgED8xUISnEA5+GAu4WcbnRNCKzWER
+	 IR1u5G+Q/a8v+IrN3hQdGZKrqOlAHxXYzPxZxTRzOE7wJwmu/dsUMT5JLqtn31/3gbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302192;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=eGG9W0yWfKzRivIQZoE53ERZFH3qHATHiSAlm/rfViI=;
-	b=NMbOlSXECiHXQDZsfb4n+hLapM2xhdpHv6upVwy4xzPpZrwFsPSkbq7yRlxBw1X6K/lv
-	 77RF/qFd18L5il/8akaswLoBccbKjBBIqRDl4kEx78BuGXN/qTzBK0ESznT3RADK2PHht
-	 KJlS020feEOMckJkS2r2W1w8ErGRKphq1kKIJhw6PO3DZfG2vligZ+oVj2LEduGM/ybLt
-	 wuL542qUbh7KTSfgQDmZjqupG9y4LwTpIjsJT6Xu8uyy+GBLKLzetOYfGReonXN074mNE
-	 BcEaitVoScli4C+DvaHwCkbcmFu0+a3CKLLZs7YxbTvEzwVmj86x2a8Feiz/0+3hSaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302204;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=BvvMubdD0ab9qXTzvi78Wzx6n/mu2aOjNES6c6xFfUo=;
+	b=TXfhTz/x/y5CE4vZ2M90xszN5RBfJDi0rZi8z9DkG9EN8X8BMrXYlhQXynSHoTJ0u8YT
+	 /pYLg3DKaWAFAWvQ/0AG3Ss58BhvV+3L3mTJU1uMjddSoAary5SOXiH4jwRsUBT/YtpxW
+	 NLbV/b3cGtWfDA8EW+VM+uEU4kPkRKG4F9XQWjaHAlZW+v0P7utadhCBX8xg0SimGCdaO
+	 pof7B1h/oU0fY5LDFNBY/TOQJKMuScvNTxFTkxLlK3zAbQnvpuNETf/ZnHuUex/B4GzKn
+	 dGtZ9gwJLCmRuN1lzGZvqYJX3G85T5pGuNCznYIDDUO1D36mjk3QTfYaWx1JssQs9eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjYzYxSG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=V0JuNsqt;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCA9606A334;
-	Tue, 10 Nov 2026 09:16:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBB3606B165
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FBB3606B165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjYzYxSG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8126C1F00902;
-	Tue, 10 Nov 2026 09:16:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794302191;
-	bh=eGG9W0yWfKzRivIQZoE53ERZFH3qHATHiSAlm/rfViI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CjYzYxSG4MF/PYOuhfPotw8YsrgHpqEMmvVsealc1nZYA5sYB8ePEA/BT0law6L4c
-	 H4DwOy7PJ6PWOuylSpgYpzMq2zQGYiIT8+FEalpf9CzWwtAbdti5C3COkrTAoZVyOC
-	 98zYnncAcJul/uKitX7mc2xPlqIIYPds4N05d66Wgi6oSv9azb1TV2yyF+MJgyG+uT
-	 +q4Aq0251HvqT0ZVS0wHPkEhV8CPEhOZQuBNIukUVbH00aNshGt3HqKek36mnvJebH
-	 4omkN8WkJOC0ohRp48kohw45G0TEI0wyMWnb2yC/I1jgI5cFhMlDgFavrTXU4YWzSj
-	 7d78+YdkJ4mOA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 10 Nov 2026 10:14:21 +0100
-Subject: [PATCH RFC 05/41] kernfs: use fc_init_pseudo()
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=V0JuNsqt
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=BvvMubdD0ab9qXTzvi78Wzx6n/mu2aOjNES6c6xFfUo=;
+	b=V0JuNsqtcvHvWZar8RQGhcZaYErUdAWqJ1nV312WRgaycNnJ1zsFEq4gL5SRY2frvA0hfpC1l
+	+o01tk/z0saf3sDH7onJDGrLuaaZUu7YfpRbV38fFrR23kuY4Ztb4i1hCOOJLP9hHD2sNLbaSku
+	cALfpikEjxvECDHlXpMIiVM=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jP1HL05wvz1K96b;
+	Tue, 10 Nov 2026 17:16:30 +0800 (CST)
+Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
+	by mail.maildlp.com (Postfix) with ESMTPS id A668140561;
+	Tue, 10 Nov 2026 17:16:38 +0800 (CST)
+Received: from [10.174.177.243] (10.174.177.243) by
+ kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 10 Nov 2026 17:16:37 +0800
+Message-ID: <3a66ba8f-96dd-4215-8c4d-0cc3c286375a@huawei.com>
+Date: Tue, 10 Nov 2026 17:16:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,78 +62,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/20] arm64: Support hugetlb vmemmap optimization
+To: Muchun Song <muchun.song@linux.dev>, James Houghton
+	<jthoughton@google.com>
+CC: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+	Oscar Salvador <osalvador@suse.de>, Andrew Morton
+	<akpm@linux-foundation.org>, Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu
+ Cherian <linu.cherian@arm.com>, Mark Rutland <mark.rutland@arm.com>, David
+ Hildenbrand <david@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, Nanyong
+ Sun <sunnanyong@huawei.com>, Yu Zhao <yuzhao@google.com>, Frank van der
+ Linden <fvdl@google.com>, David Rientjes <rientjes@google.com>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mm@kvack.org>
+References: <20261003002123.505555-1-jthoughton@google.com>
+ <20261003002123.505555-14-jthoughton@google.com>
+ <CAF9824D-CDC5-48E6-A1F6-840CB299EADB@linux.dev>
+Content-Language: en-US
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+In-Reply-To: <CAF9824D-CDC5-48E6-A1F6-840CB299EADB@linux.dev>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-work-loop-pseudo-v1-5-4c998976c6c7@kernel.org>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-In-Reply-To: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-mm@kvack.org, bpf@vger.kernel.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
- ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
- linux-kselftest@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1308; i=brauner@kernel.org;
- h=from:subject:message-id; bh=oxvnYqP+iDvCdTKHYHpfovNIFRCjsigYBDc/6gG4KoE=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9ejDzzd/Z9nGXbsVbBqjycnSqNVW8nKT5dary583xR
- 9dNDt3g2VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRjaGMDOv3/hK7rKMoLKFw
- cJvq3Wdf7eI+x+zYPCvtnPsBx+pD2VMYGd6l2F1wrJl6IHntnnLtfb/v/1wpEWL5tkZ74nuPD8z
- fDFkB
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk300003.china.huawei.com (7.202.195.93)
 
-Initialize all kernfs based filesystems as pseudo filesystems in
-kernfs_get_tree() instead of raising SB_I_NOEXEC and SB_I_NODEV by hand
-in kernfs_fill_super(). This adds SB_I_PSEUDO for sysfs, cgroupfs and
-resctrl.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/kernfs/mount.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index a0be784bfb06..6b60d212b003 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/fs.h>
-+#include <linux/pseudo_fs.h>
- #include <linux/mount.h>
- #include <linux/init.h>
- #include <linux/magic.h>
-@@ -298,8 +299,6 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
- 	struct dentry *root;
- 
- 	info->sb = sb;
--	/* Userspace would break if executables or devices appear on sysfs */
--	sb->s_iflags |= SB_I_NOEXEC | SB_I_NODEV;
- 	sb->s_blocksize = PAGE_SIZE;
- 	sb->s_blocksize_bits = PAGE_SHIFT;
- 	sb->s_magic = kfc->magic;
-@@ -388,6 +387,7 @@ int kernfs_get_tree(struct fs_context *fc)
- 	info->ns = kfc->ns_tag;
- 	INIT_LIST_HEAD(&info->node);
- 
-+	fc_init_pseudo(fc);
- 	fc->s_fs_info = info;
- 	sb = sget_fc(fc, kernfs_test_super, kernfs_set_super);
- 	if (IS_ERR(sb))
+On 11/7/2026 2:45 PM, Muchun Song wrote:
+> 
+> 
+>> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> wrote:
+>>
+>> Support HVO if HW AF and BBML3 are supported. These are the required
+>> features for the vmemmap to be modified in place.
+>>
+>> On arm64 systems that do not have the required hardware features to
+>> support HVO, the HVO sysctl will not appear, and any attempts to enable
+>> HVO (either via the command line or via
+>> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=y) will have no effect.
+>>
+>> Signed-off-by: James Houghton <jthoughton@google.com>
+>> ---
+>> arch/arm64/Kconfig               | 2 ++
+>> arch/arm64/include/asm/hugetlb.h | 7 +++++++
+>> mm/hugetlb_vmemmap.c             | 4 ++++
+>> 3 files changed, 13 insertions(+)
+>>
+>> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+>> index b51d23a62c92..e4c87487bc7f 100644
+>> --- a/arch/arm64/Kconfig
+>> +++ b/arch/arm64/Kconfig
+>> @@ -92,7 +92,9 @@ config ARM64
+>> 	select ARCH_WANT_DEFAULT_TOPDOWN_MMAP_LAYOUT
+>> 	select ARCH_WANT_FRAME_POINTERS
+>> 	select ARCH_WANT_HUGE_PMD_SHARE if ARM64_4K_PAGES || (ARM64_16K_PAGES && !ARM64_VA_BITS_36)
+>> +	select ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT
+>> 	select ARCH_WANT_LD_ORPHAN_WARN
+>> +	select ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP if ARM64_HW_AFDBM
+> 
+> Because vmemmap optimization depends on compound_info_has_mask(), before
+> enabling HVO on arm64, its vmemmap start address needs to be aligned to
+> MAX_FOLIO_VMEMMAP_ALIGN. Therefore, a prerequisite patch is required.
+> 
 
--- 
-2.53.0
+Agreed, we tried to enable ARCH_WANT_OPTIMIZE_DAX_VMEMMAP[1] on ARM64.
+If the alignment is not performed, a warning will be triggered with
+DEBUG_VM, see sparse_init(). The same issue applies to 
+ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP.
+
+
+[1] enable ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 1075bc661833..649244e55c4b 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -94,6 +94,7 @@ config ARM64
+         select ARCH_WANT_FRAME_POINTERS
+         select ARCH_WANT_HUGE_PMD_SHARE if ARM64_4K_PAGES || 
+(ARM64_16K_PAGES && !ARM64_VA_BITS_36)
+         select ARCH_WANT_LD_ORPHAN_WARN
++       select ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+         select ARCH_WANTS_EXECMEM_LATE
+         select ARCH_WANTS_NO_INSTR
+         select ARCH_WANTS_THP_SWAP if ARM64_4K_PAGES
+diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
+index 4e7682dfe366..6808529873a9 100644
+--- a/arch/arm64/mm/init.c
++++ b/arch/arm64/mm/init.c
+@@ -91,11 +91,9 @@ phys_addr_t __ro_after_init arm64_dma_phys_limit;
+   * has a direct correspondence, and needs to appear sufficiently aligned
+   * in the virtual address space.
+   */
+-#if ARM64_MEMSTART_SHIFT < SECTION_SIZE_BITS
+-#define ARM64_MEMSTART_ALIGN   (1UL << SECTION_SIZE_BITS)
+-#else
+-#define ARM64_MEMSTART_ALIGN   (1UL << ARM64_MEMSTART_SHIFT)
+-#endif
++#define ARM64_MEMSTART_ALIGN                                          \
++       max_t(u64, 1UL << max(SECTION_SIZE_BITS, ARM64_MEMSTART_SHIFT),	\
++               PFN_PHYS(MAX_FOLIO_VMEMMAP_ALIGN / sizeof(struct page)))
 
