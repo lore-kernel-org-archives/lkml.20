@@ -1,62 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.95.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306848;
-	b=uZr2uv5FDQX1i9XJXyQIrwm8IQHFObcKJb/y/0PDS8FodeXXbyya9oJ0m7Hb3iVg2566
-	 J+G56XPvdBwbvLetJJfPxvQgMs88m2rlWpDZSOQ4nxXG9dNPuyGaTAeLpxDlO43xT5SOG
-	 uPWMFIeltOO+8f/wo6jPNdUuFE4bBJ/M9qvFdvXx7Q2PEEftxR6YbEV5h64W25nW4S5ZH
-	 Ax2qWl0KL8oiyJRb7lwfFYjHbJDZkPxWIUocvNosH+3AvxsmOrHFlceY5hZqHGcy/UWea
-	 1TdfARvt3xtxjP7hTEXBK7R7HvcaTloF88wpat3ju50exuEMTXnQ+5Lm/ViTw0/b5Jw==
+	t=1794306855;
+	b=Zfb6Vpm0yG0U2Ui6VawzrKEnj6u1E3+U1SUH0Py6urs2gGSdJSVtzXZ4wWR93Tph0M+Y
+	 41ns8kaPyTNrm6BMMBPQ7y1LlLh4HQK8ne8eVvrTTUAphQ7XyGsuLZt6p0/XGf/3WzocT
+	 tGD0G54xp1taX8UhBaThlpTokycrdlmhoTGimqwYVx4+wNt//Rd6bPGhZEiZ1DWm65HKv
+	 S6LFActzD+u5Au0En//WcPQrG6Z96lGJyuICGG0adcfe2D1CtCGNgLUGd4EafCVApWlBt
+	 FxycM/0VJXpSIHoXRv2vtb+wnvAmXhQ7/T6CLAO8qZ6AXzGsxKVohBXBN+nbQiBACBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306848;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BDVHJjgxJtB0Z/B1mCS5I7G7TbCELKDyuTGiy+fw8dk=;
-	b=18IpDRiEw2GGxQcnWVzXwWP2fHE/5stgoLBKlBJnnIYEJYOPAGyGIHVKvCNvaA2z2xxl
-	 RnzNkt5U7ADmr/aLxyDd1CG4fXVfcXpFWI3j4RpH2btdte2Wo3We8Nuj0pauIjH6kQ8CN
-	 8y4A6z+rAkFAGHoWzC6mBreSdIzLnHsWDh1R2jOmEtedia6zqofX820JJNz7v72dq4bCp
-	 f35ri+pgKC33C5k/Xzi/EThZoP3NL62PIkyRR5Z8cLSLNIbw4WwxDvJA9+s/3sFJ4S7Ke
-	 m3vENzsER7BKQW5h5K2B0hxh415y0n2kbw7z+xLZMxmlqN5WfGQ9fIZx1bB1pdX1NRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306855;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:Date:Message-ID:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=uMsKrHrfZchhh/m6IXY34VKZHA3ZjPvsm6XnygmGsDE=;
+	b=gKbAg9UGQvWGviEuADqoHFCjVfiWae/JliRb48NCN9rZelT92Gw99CFu3y1TKeJnwHxh
+	 qF97AT+/t3DpOmJ3OANy79J25PnE873tLyaArDtZiEsAMgeFd6zxNyLQ4VoTaKSSgQMl5
+	 IfRCJEZiOMXI+fSzLhE8GsUavZutLxKu+f/LWCqzx3JaLM4MuWvEKzc+x2vr7wfcDWXeS
+	 t1eYBfEYbVHoMfAD9KtL60iVKxWG89gYG7VT57AIIYDEwCeEu68qq5ZrTkiaF20ZwYYzs
+	 Okma4IBglEuNu5E645g24Nk/+wDxLvbn2laD13PUXxbIVT5BPXWt4dKvJ4LVqMn8Itg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wunner.de;
-	spf=pass smtp.mailfrom=wunner.de;
-	arc=none smtp.remote-ip=83.223.95.204
-Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D388606A321;
-	Tue, 10 Nov 2026 10:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D388606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout1.hostsharing.net (Postfix) with ESMTPS id B2938276D;
-	Tue, 10 Nov 2026 11:33:59 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 9D07D6138C94; Tue, 10 Nov 2026 11:33:59 +0100 (CET)
-Date: Tue, 10 Nov 2026 11:33:59 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Cole Leavitt <cole@unwrap.rs>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] thunderbolt: Don't resume the software CM if the
- host controller is gone
-Message-ID: <avLzF-e6lTqrQM-7@wunner.de>
-References: <20261018163750.130470-1-cole@unwrap.rs>
- <20261018163910.132231-1-cole@unwrap.rs>
- <20261018163910.132231-2-cole@unwrap.rs>
- <20261019042920.GX176164@black.igk.intel.com>
- <20261108051829.152803-1-cole@unwrap.rs>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBA5606A31C;
+	Tue, 10 Nov 2026 10:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBA5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnf7US8_Jqc87HAA--.1727S2;
+	Tue, 10 Nov 2026 18:33:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, linux-kernel@vger.kernel.org,
+ workflows@vger.kernel.org
+Subject:
+ Re: [PATCH RESEND] wifi: ath11k: release the rproc reference on teardown
+In-Reply-To: <a39b1918-5d04-452b-8b5a-0703963f4587@oss.qualcomm.com>
+References: <20261103102915.1341148-1-vulab@iscas.ac.cn>
+ <a39b1918-5d04-452b-8b5a-0703963f4587@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,29 +54,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108051829.152803-1-cole@unwrap.rs>
+Date: Tue, 10 Nov 2026 10:34:05 -0000
+Message-ID: <179430684554.3011466.3431045638041318447@iscas.ac.cn>
+X-CM-TRANSID:zQCowADnf7US8_Jqc87HAA--.1727S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYs7k0a2IF6F4UM7kC6x804xWl1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAK
+	zVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwIxGrwCF04k20xvE
+	74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+	sGvfC2KfnxnUUI43ZEXa7IUb_-PUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIHA2ry1-1guAAAs1
 
-On Sun, Nov 08, 2026 at 12:18:29AM -0500, Cole Leavitt wrote:
-> For 1/2: the trigger on this machine is gone with the new BIOS, but the
-> ordering problem is in pciehp itself. A device replacement detected in
-> pciehp_resume_noirq() still starts the removal from the IRQ thread in
-> the middle of the noirq phase, unserialized against ->resume_noirq() of
-> the drivers below the port (on today's mainline, fa4ad798f6f6,
-> pciehp_core.c:310 calls pciehp_request(), and pciehp_ctrl.c:145 wakes
-> the IRQ thread directly unless pciehp_poll_mode is set). Bjorn, Lukas:
-> if that is not worth changing without a reproducer on correctly
-> configured hardware, I will drop 1/2 as well.
+Hi Jeff,
 
-I think the proper solution is to hold the device_lock() in
-device_resume_noirq(), i.e. this needs to be addressed in the
-driver core's device power management code, not in pciehp or
-individual device drivers.
+I'm sorry for taking so long to reply and for the confusion and extra
+work caused by sending patches from a shared address and failing to
+follow up on review feedback.
 
-However as you're saying there's no reproducer anymore and
-changing device_resume_noirq() is a bit risky.
+To keep the existing discussions clear, I'll continue to reply from
+vulab@iscas.ac.cn under my own name in the threads for patches I
+submitted. I will not send any new patches or revisions.
 
-Thanks,
+For context on this submission, static analysis flagged the candidate,
+and we used DeepSeek and GPT-6.1 Sol to assist with reviewing it and
+preparing the fix.
 
-Lukas
+Again, I'm sorry for the confusion and the extra work this caused.
+
+Wentao
+
