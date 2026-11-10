@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322459;
-	b=04qoExmc3cQ5fAlgQgRcewVNjzROe75SiM7qdaPcI2v0/l+2dbgqALW/f1IjY6L8S4hS
-	 Lv4vqpj18lUsL339kBzfwzBwnk4MB4EMfucYIOfHIBxqj/hyooOo+n/UM2wyNULEN2sh4
-	 0Q34dQQfjwXhMIHP3BJ8tE4c3rZaTDPI6qjhrrIOez+p1u0Rkb4DUAHqhw9rOdF/s0ney
-	 ShalAzSfRrXW5qbvVppThdv433H4OcKbJjJnniPZyNL+OmG1Dnp0K7K2lqmZyug/ybMqZ
-	 X48gWn8yaIxR3LXFQY62TTnpdAmIfZ1/JlqhK91R8jMCjVhTqWhSLjWTtVmo9hofLlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322459;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tU70rkAg+574vgu487sbjgQCUDsnSlr+Ix8M/GBIFUk=;
-	b=oiciJOzqNMxy+tW8bEB6KwLgeJqly0oC60T3awtQayzUNArgjhGgBg1rS0LdOoALTzmI
-	 Cmt0++cI9hxOPalQGycl0KgsrJVysBSWDFOGd+Bqvf1bxfBmVZvmlXK/be7emHRieerhE
-	 lb39UB4kgpZ3ut3GoNtJfA43wWaQE/nTujKrRnk40Pl5MU03cLW78xYL81YfC+YtDpavj
-	 ZJJ3M0aKmeI8BaQOhopCfT5r519HhKZeKDuz2A3TfjCL1qvigsMJQSFLxDaowg1XAWIxx
-	 6y7FEZA7Jm7QeUxr5Fse/JTioUd/C2FmJM6sdqENFSKonAqd0YAfFzIOWeInFghrV6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP6aS3o6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794322542;
+	b=HgQhPX56okyuKxWxaIgud6zMJX8i2tgm84qDJvHxo4JqtmdpG6lDkCWO7f3qUWZwfo9R
+	 +i2YC2ZzEwBhEcIhLisEGWWuaNV5OXYx5J/s+8IkWLIRB14LCnUIzvHR7T5kJt18N5QSJ
+	 CKKMMNKGuPQWjl1boJygmDKn5jEKbRC0r30AVP/bpMz+MNT9EwgeoDZOYgJ659SgU+D7p
+	 1t5F8EqbQMZ9mh+GuHwJpAZ1icmT/o3G4IvJSsnG0mJtW7MFZMMNkwvr9nW26/XRBxenW
+	 LfP9MMHVbU1T+un5Ez4MGkw8kAJ6PBAFcDojsdL+b2wMx4CCUXxaRmVDHYCe/+hS99w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322542;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=9iTzNvY7Uy2wxh4/yC+c64lgqi3vm9WV/SAUoSR7IP4=;
+	b=OeKQJKC5gZokmAGI7RuJjk81QN9kX8OPkYH23DT5bGhk+gi5W0OlLW9oo3173hse5Fkr
+	 HJxdQ5CjQnnRRk7U5N7WZgSP5fhgB7Mt9Q8gJB7p9b8dPlLvq+7dDLc+lzIrQ+NHEkvT+
+	 0Fn5tyjL+P1CQOyvAsovIUeRuftGfN0MTuYr3HmlnXAYwZaZqTG/vWyfvmTryoFslcTM4
+	 VkOhwDy8tzxF1dtWbVi6XDm8BVCaC4ymaZ8xmc7KoVi8KXppH6InaaSIATesfT7pUhq9o
+	 5NOB4EVnTMZgFVUHTi+nJxUJmW7u1Tbiq9Csf9pM6om9+treJfTXzRueIHRZmfgMzWA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AZfAP+WA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD4B60A260D;
-	Tue, 10 Nov 2026 14:54:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA6C606A320;
+	Tue, 10 Nov 2026 14:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA6C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DP6aS3o6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA411F008A4;
-	Tue, 10 Nov 2026 14:54:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322458;
-	bh=tU70rkAg+574vgu487sbjgQCUDsnSlr+Ix8M/GBIFUk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DP6aS3o6jpTl7p6kQ+3Ohzu6vewKiJu6Y3pMPcN4g9pzxnDVvCQuE5ceRMSFrX+a1
-	 3AXrcPapKJ1EmYUjLxBCCI4T2UoH1u9a9qoucrm0WNVciYasEQpHu0iJWFE7pWWS6j
-	 boWcIX6a0VePN5jszwb7jxXJDVB7TPVMhOz5TXPepwo4PeGrrni6RtQHQU/iQZQTL7
-	 dWUuWbLL+rs0bw2izuJpK4h4c0eX4+ht4/1FURWsMIupUkRmqepWvygDwPSUatg/8O
-	 vcxDKawh8ysJan2gNwT45AwHSJNAaGYC586psdionq5lb3hYxnaVGlfNDjlxSqSqRx
-	 cM/QUFefl6NjQ==
-Date: Tue, 10 Nov 2026 08:54:14 -0600
-From: Rob Herring <robh@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: linux@roeck-us.net, krzk+dt@kernel.org, conor+dt@kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
-	UNGLinuxDriver@microchip.com, nicolas.ferre@microchip.com,
-	claudiu.beznea@tuxon.dev, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	luka.perkov@sartura.hr
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add Microchip LAN969x fan
- controller
-Message-ID: <20261110145414.GA3828324-robh@kernel.org>
-References: <20261109133609.810876-1-robert.marko@sartura.hr>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AZfAP+WA
+ARC-Seal: i=1; a=rsa-sha256; t=1794322518; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=P+nid//XTmhX1bkpQjiWlLCC/jZue1QxH2DjzJoB9BLs/o0whE7Jwrhud1S/B9SJagyjI1S6YMVi2DKk7KZm3oWlf7ye8Try18aW7YwogrMmJdSAVO94TGxariIpjZfyeCxV2QoZJO2RYyY7aDRWwUzy65cVBe1sCmmqgycoGsg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794322518; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9iTzNvY7Uy2wxh4/yC+c64lgqi3vm9WV/SAUoSR7IP4=; 
+	b=E/o2LlsUDPGK18ieTU/Qs4wYz/6yyR9UY+1C01o6W7mXZtF2lyRSKMPDayCFpFfxYZZ3czi3E+TCg1ayGBT+saMjMfX6rn5QMElQzWJeXTCtpzlW9TUEpTaA3dugxgA/Zfm/ByBkv5KqflvHDxY8KRaPn3kcQQoE4xzI9+I2Av4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=AZfAP+WAKnLO/LgAor/UnG4BaxlcChZXI4bVO+Xq7/TrvsfcnB55tJWiQML2aL9/QJzKCkKr9QlEiwK/tHL3bBf+9FfcydxJPIWwSuuEWtxs0w8T+FptYdziyfM6YluZfr0ScPqN5Yy2+nMoRJLTEQVrOoFkoZpPFOAL3aNnZJQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=9iTzNvY7Uy2wxh4/yC+c64lgqi3vm9WV/SAUoSR7IP4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179432251690026.33458305795125;
+	Tue, 10 Nov 2026 06:55:16 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 7AF03180354; Tue, 10 Nov 2026 15:55:09 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:55:09 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 2/5] dt-bindings: iommu: arm,smmu-v3: allow clocks
+Message-ID: <avMv7fQuNJZpE_zr@venus>
+References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
+ <20261110-smmu-v3-pcie-pd-v1-2-628819ca44b9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,101 +72,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="apkvvzaxcdcph66e"
 Content-Disposition: inline
-In-Reply-To: <20261109133609.810876-1-robert.marko@sartura.hr>
+In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-2-628819ca44b9@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
+X-ZohoMailClient: External
 
-On Mon, Nov 09, 2026 at 02:35:05PM +0100, Robert Marko wrote:
-> The LAN969x fan controller has a PWM output and tachometer input in a
-> register block separate from the Sparx5-compatible temperature sensor.
-> Describe it with its own compatible and binding.
-> 
-> The optional fan child specifies PWM period and polarity, tachometer
-> pulses per revolution, and thermal cooling levels.
-> 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+
+--apkvvzaxcdcph66e
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/5] dt-bindings: iommu: arm,smmu-v3: allow clocks
+MIME-Version: 1.0
+
+Hi,
+
+On Tue, Nov 10, 2026 at 07:11:49AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> Some SoCs feed the SMMUv3 from a clock that the OS controls. On the
+> Rockchip RK3588 the MMU-600 for PCIe runs from ACLK_MMU_PCIE, whose only
+> other consumers are the PCIe controllers. When no PCIe controller is
+> enabled, the clock framework gates it as unused, and the SMMU can no
+> longer be accessed.
+>=20
+> Allow up to four clocks, so that such a clock can be described and held
+> by the SMMU driver.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 > ---
-> Changes in v2:
-> - Describe the fan controller in a separate binding and compatible.
-> - Keep the existing temperature-sensor binding unchanged.
-> 
->  .../bindings/hwmon/microchip,lan9691-fan.yaml | 83 +++++++++++++++++++
->  1 file changed, 83 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
-> new file mode 100644
-> index 0000000000000..0b7d38a6d20ae
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
-> @@ -0,0 +1,83 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/microchip,lan9691-fan.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Microchip LAN969x Fan Controller
-> +
-> +maintainers:
-> +  - Robert Marko <robert.marko@sartura.hr>
-> +
-> +description: |
 
-Don't need '|'
+This does not explain why a maximum of four clocks is allowed.
 
-> +  LAN969x fan controller with a PWM output and tachometer input. The fan
-> +  child's pwms property references this node to specify the PWM period and
-> +  polarity.
-> +
-> +properties:
-> +  compatible:
-> +    const: microchip,lan9691-fan
-> +
-> +  reg:
-> +    maxItems: 1
-> +
+Greetings,
+
+-- Sebastian
+
+>  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
+ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> index c8f22dfdb1db..f8a74730667c 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
+> @@ -63,6 +63,13 @@ properties:
+> =20
+>    msi-parent: true
+> =20
 > +  clocks:
-> +    items:
-> +      - description: System reference clock
+> +    minItems: 1
+> +    maxItems: 4
+> +    description:
+> +      Clocks needed to access the SMMU registers and to keep its transla=
+tion
+> +      units running, if they are not managed by firmware.
 > +
-> +  '#pwm-cells':
-> +    const: 2
-> +    description: |
-> +      Number of cells in a PWM specifier.
-> +      - cell 0: PWM period in nanoseconds
-> +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
-> +
-> +  fan:
-> +    $ref: fan-common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      cooling-levels:
-> +        description:
-> +          PWM duty-cycle values corresponding to thermal cooling states.
-> +        items:
-> +          maximum: 255
-> +
-> +      pulses-per-revolution:
-> +        minimum: 1
-> +        maximum: 4
+>    power-domains:
+>      maxItems: 1
+> =20
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+>=20
 
-Drop. That's already the max in fan-common.yaml. minimum should be added 
-there too as 0 would never make sense.
+--apkvvzaxcdcph66e
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +        default: 2
-> +
-> +    required:
-> +      - pwms
-> +
-> +    dependencies:
-> +      '#cooling-cells':
-> +        - cooling-levels
-> +      cooling-levels:
-> +        - '#cooling-cells'
+-----BEGIN PGP SIGNATURE-----
 
-The dependencies should also go in fan-common.yaml. Perhaps 
-cooling-levels without #cooling-cells might make sense sometimes?
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMEwACgkQ2O7X88g7
++ppLEw/+MNtpw8yw9i0ZkKzRkK8q/EzZMGPQ599QxbdAR88xtnYi6Htl4uE73QyK
+WkyMrX/NIplWZu5I44J68aJC+H+jWvOxTEO6apPIQFOuK0dznO/Y6m0GRtFz7p4s
+4od00k+xpLP/76wW0Ib4d9sSXxyeMv9lXq+1Auv3YkA5a7p+hcpzRDejRrg0udag
+xPUiy4++1yAAkaYlBZyR71EqgXkRRTM9a2sDqwlQfK3nsnrWuoPxl4S6Bk67cfOT
+U7JRIGKBiKTmMjOU5D0ESw5czT+O9R/bVHdeUnDtSrLyAMxfvjBQv9YLarCHkYmh
+5keolQEbb8OzeyEKaj/gFhi9C6eqh5d5D538Zs1Q6pCrSs5BnzN+3BP3CFrhk39G
+xjbb2XCo3L+zz0zaiE43XkqsLIz2XujWpWt3HrKSiAQuga0vDZ701isJ/wwYbFbX
+WlG+e7XtUKDgbux0s07qRP0dW+/i5jdIx+qW6o/KtGAx4QRgoogiEhxQC7GE8ut8
+DTKO3GyJg3oGVbdR2IsEDnhkWpgIJlSRh/GbK5SmMUtzQS+veirXv5rd7QvmXXle
+yi3i50b1eY17V2SDt1GuITSD7bfqfd5oZOYnWazdDEdiX0nTlBfDxFH82eu/TlzG
+p08cMLFJp/9F2TjNoK0NyMzF6Wx22nxxoj54u0RLkMgJlXa6j8E=
+=kunh
+-----END PGP SIGNATURE-----
 
-Rob
+--apkvvzaxcdcph66e--
