@@ -1,110 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335914;
-	b=JQOBdLmBbB452jqQpjloSqRTEhhMebSbxE++lqGQri8FK2T4sOGY/+i4Tbe5LkuXIHz3
-	 5bJ/t4tFyQ5SHYIVjjdk196CJWdWbCJpUM1RcDStVBcnVy5kR8beos81JwvR74sO9B+sQ
-	 URZfiiMNnNvgkTEGgfbXDhS3BMrFS0v1MIKdXTZjVIhs/jWLIduJ7mTcUur8tIoFYafRx
-	 xPpGaHMXRniPbPtZ+AFkwlm634Eoh+CLgAJBtXQBFiajROj/cn3ZnnwXYL4YKHcACEPgr
-	 H7fpO9RsCq7HrGd06JWcKyZuVHi0ulL5nGe3Jm/+bBuFsLPPO91DN//cGOmeuxNtEYg==
+	t=1794335905;
+	b=N1aPTjcDYLjVMWVy9lbi2uzWPah6QdqG97xLwVs9sgyySFmPuf+2xh7m34aXyWR03hHs
+	 CzeWSbaNWktmzu00Zb2AkCZu8KAtvBn85JEaM53JnOmF06oOyDN+tQbjs8umwOlv21hky
+	 fOu+bTRUJec4PP/VXqxxUiQQIJnLkjFoV1F/WWm07G3C1mse8gPl1eTQydwbWuFNIbY6j
+	 Xn+GoFzr8mfid9EcZ9s+vcLVaA3Qu1YK9cqNA2G92/iWcB9l5r+mojs+WNtsluC/7kUFs
+	 5SHIYEjsL+SE8FsZ7YPgzcmAe7mqTqj0dM/OtScK83EY3ErVz31naTA8tAAGExCWdKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335914;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Z5AvJ6uZvQp8gnIz/IJVqXh+TtL12nMC9fd5jn1sHhE=;
-	b=1YpWnjTCJdR58qYNi33fqpKfTSvjMwLjqXoU2nxbpE0cDpPz6uy+Bx81D6/+TQpiFkUI
-	 YRJGnTTgHOPbXo08z4Sq0MFdtxF3pEhJgE4chgnyzURaWgWnhKuODYkdGQSHYSDjs8GZG
-	 aW6pJ5rTLP4h+LmH2QhxB5YHYvzHxHfTEo1ttgWKhQXLlHJXSOvZ1YL6JohNHVpr1EBPe
-	 yaNVJgcIWVvxS0C6Yk7+A2bLpxuljY1WkwFeHhRDw7xIfRUinoSbbE10SBv6HICcIRfhc
-	 TfR9jkRIIF41jN1ETQh2DIHIc0DRCXWp6xxZeZ2hVFVuS5diakQEcSVWTlwNDdQ+/Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335905;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=mKdOvaOn4HSWA9Ds2Oo+Efh7wRd4xkw0x8BsJCaM+C4=;
+	b=ikzGcOH/DeRE32hjj09LX8YEWeOpHk60RSZcZNq+GWv1uLcT3nDRGp+8pF2J6od20kcn
+	 dSrnv6tcgOUIfE42xxVqZ4LI3O6X82tpvMxcRJwnOFcrhfSsKqlGNIllfBWY1a6YI0uBc
+	 1DDkxiX1SsS/awSmNS5poLbGvYIShsNklQ/Jvt7rL+1kDiEoePa1Irp7kyNinXnHbc9lG
+	 lR2Zft4TUPlrbzWdm1HY8fioboIIbKuBtD+pkGTKl9qq6fMbsVEaAzJ+zz6TtSxmdmUYW
+	 nFKeZnYX9yqzEVS1l4EVfVvj5q05xWrBl9aMMA+WHNw7y0CECiuMdYQ2OClAqqLLeEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pzf5V2M1;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiYUVWFJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A736D606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A736D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07569606A32A;
+	Tue, 10 Nov 2026 18:38:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pzf5V2M1
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b600fae14dso963632b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:38:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794335913; x=1794940713; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z5AvJ6uZvQp8gnIz/IJVqXh+TtL12nMC9fd5jn1sHhE=;
-        b=Pzf5V2M1N+cyzs/l8rtwogl5Pm8dH2/nyX/0zzuXAw2q7JjEhR4cgAs8WAaYMHU9Tp
-         BoYnxTo/jDg+mL0JlBmUsqjI63QEtDVSOK6GwQQChIali19YT9YoW0i7PQIwiDsu+L/O
-         WoQoYcSnNmcFzFV2zXc4F4ZJmUftu0wlxBx+wmrs4efQfvvk0IUooQSrPOfD0lhR1U0F
-         Z4/7WToP6Zv3HyFOwm7CX6PdJCs4CUeczqFS+9I8jgomvgCKVHYrJkY6fgk/4vNtyiN6
-         eFQZ8k1GZd6Y6yAdwzEPJIH+4YyBPv41/6CWesEeDID+Ow9Pxd0+UfnpERAQtkoqgOAx
-         IQQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794335913; x=1794940713;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z5AvJ6uZvQp8gnIz/IJVqXh+TtL12nMC9fd5jn1sHhE=;
-        b=02IHYGgMgx3iDqrzzGXmUZMWCootAwteBmjx2SZpCqbB+XAkcHi0ndoH4FzLJ4zscp
-         Yak+BdPXniNB8NDIzoPKssiByKUCR5HDVqurr1gnNp6INnEOmuX5BI7C2lcHW//aTChk
-         goF2gVAZt6kJDRKPI3h6FNrjEADYtDo8hWxdW2xVF1I0/D4xxRlvj5dUySIg7j3aFS3G
-         1KsGzmxixMqIn/woBykl4Qry2XgaxNb5CLyoby1/p/+2wixkVI96XOWfMjJccmCT+4kD
-         2MuwYiCujhJ6bhLH+EaZS7ZSvtyOD5OcrCbj0LBRyaJkyUFtB+dQAD0f3wWMDsyv4SsV
-         Nt3A==
-X-Forwarded-Encrypted: i=1; AL+hErFvdGL2jwIfLH+KNC9wG6mGUYhaXtPCaf0lPnnzEtcM9KRiQEK2ABFUL1HAFTipPAzNlegQ2KCBZqOmr7c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8BQ4m8MxCVzYwvNj9JvsfeNAWoQndCdxYSlQBqftn0sJgXsLXh
-	kteke5Y/bIQ6LByJWd1YC6Cm8SHePlnJVDABfX4CvrZz7z/KlGrZohu3
-X-Gm-Gg: AYBFou3uJgvmKKxqM/iFd+XClRxgWHqAKWWIwaNa4fsq/qSZsK3yYLZqCRKqlsQAgH+
-	nnjidKchLcwGGBAfG5eCsXs4lswdgOqlbyjcZC3TgD4a4UTgkJqS9tbh8S4a10Df7vP8CdMJkyq
-	lt7F4CosIe8LNfad1FXY2u3Lzuw/+Qjm97v2KGok8Gd3g3TBr1iMbhcUKolSPmJWRWFv1rEHWz9
-	acVwVrgWQVMjOImB3i1NVEqX/fAwxImgWCmQLXjLS+zuW1/om4Nn716tzMW/9UB0spbjX38hLBC
-	vR9mFAUZzjzqGPYdTs4CKqHMlZDwyzbdsRMNlC5Yq2OrdRoBdc1pZf6F8gCJfZlberlsrsbTF4C
-	+I5pqLjAt7yXQf7vYijis1raAYPGUUmRt9gRBHYN6vWtsKkITURUIyaayyQ7U+yO6jzmzkkfSjs
-	pGXT3dJhkDpQxRdvOmE0pZm+dWqJtjX6vXE8VRDydwj9kXc9mbJApmLyY/gsLXBSGZ8x3GsbWw+
-	KRnokgJYhvmG5NhPsttK8uKPL1Wbhf7p6pwDGlmXgLvb5cpHFxbNY99yi1QnCDI7/rHg+H3us5W
-	FpS/Ynt/ZpPJ0nvfDGUoCkot8mmlwbPiwXS9iYqquQny4YeJoaPHJdulh2I989hh8SdqjOFn6M/
-	f2w==
-X-Received: by 2002:a05:6a00:4097:b0:8a0:3ed7:939e with SMTP id d2e1a72fcca58-8ba8764538fmr3337017b3a.60.1794335912831;
-        Tue, 10 Nov 2026 10:38:32 -0800 (PST)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa963bd1sm1257490b3a.29.2026.11.10.10.38.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 10:38:32 -0800 (PST)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Kees Cook <kees@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org,
-	co+cab19e2ebe4d535a@bugs.sh
-Subject: [PATCH v3] sched/mmcid: Synchronize MM teardown with affinity updates
-Date: Tue, 10 Nov 2026 10:38:08 -0800
-Message-ID: <20261110183809.3308868-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiYUVWFJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF831F0089F;
+	Tue, 10 Nov 2026 18:38:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794335904;
+	bh=mKdOvaOn4HSWA9Ds2Oo+Efh7wRd4xkw0x8BsJCaM+C4=;
+	h=Date:From:To:Cc:Subject;
+	b=aiYUVWFJWKeG3tH3E+k37w82TGrQarjmZz+VOsM7wOZ3yi4F5tnyWuFX5azofG/h2
+	 QGVlLprJTr7tFZkM2BEwO6sr5npagG+FTpSg4oec15bdAfw7A5G8WjvGItILwL5OB5
+	 rjsj5OT1mK6lMRd05sQ3AGzEp3sgI5wFYKUh709DusP3YSswgw3bWKWmLNRaNnF7Pw
+	 rKvCXeoXslZNkF/96Ehx73rxANPEdSUzGPZh0A7TD047OFUUYLntVCOK8TVHSy0KdV
+	 aUjYNEOSaX7lQCRdsyMFmp2h9AR330Y9Ix1eEvqXjCnQBKc7Tlg/psvC+78vdPylVQ
+	 WgitzpvGpzzsQ==
+Date: Tue, 10 Nov 2026 18:38:20 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Johannes Berg <johannes@sipsolutions.net>,
+	Wireless <linux-wireless@vger.kernel.org>
+Cc: Johannes Berg <johannes.berg@intel.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the wireless-next tree with the wireless
+ tree
+Message-ID: <avNknAkxmfCcf4Ra@sirena.org.uk>
+Mail-Followup-To: Johannes Berg <johannes@sipsolutions.net>,
+	Wireless <linux-wireless@vger.kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,179 +63,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="13qAi4U3V0gvNGsk"
+Content-Disposition: inline
 
-set_cpus_allowed_common() passes a remote task's p->mm to
-mm_update_cpus_allowed() while holding p->pi_lock, but that lock did not
-stabilize the pointer against MM replacement. A same-owner
-sched_setaffinity() caller can therefore retain the old pointer while exec
-replaces and frees it. On architectures which shoot down rather than
-refcount lazy TLB MMs, exit_mm() and kthread_unuse_mm() have the same
-lifetime gap.
 
-  BUG: KASAN: slab-use-after-free in set_cpus_allowed_common
-  Read of size 4 at addr ffff888123155e4c by task poc/5132
-  Call Trace:
-   set_cpus_allowed_common (kernel/sched/core.c:10835)
-   set_cpus_allowed_fair (kernel/sched/fair.c:10046)
-   __set_cpus_allowed_ptr_locked (kernel/sched/core.c:3224)
-   __set_cpus_allowed_ptr (kernel/sched/core.c:3258)
-   __sched_setaffinity (kernel/sched/syscalls.c:1161)
-   sched_setaffinity (kernel/sched/syscalls.c:1239)
-   __x64_sys_sched_setaffinity (kernel/sched/syscalls.c:1275)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+--13qAi4U3V0gvNGsk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  Freed by task 5127:
-   kmem_cache_free (mm/slub.c:6757)
-   __mmput (kernel/fork.c:1204)
-   mmput (kernel/fork.c:1215)
-   setup_new_exec (fs/exec.c:1395)
-   load_elf_binary (fs/binfmt_elf.c:1024)
-   bprm_execve (fs/exec.c:1865)
-   do_execveat_common.isra.0 (fs/exec.c:1963)
-   __x64_sys_execveat (fs/exec.c:2047)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+Hi all,
 
-  Kernel panic - not syncing: KASAN: panic_on_warn set ...
+Today's linux-next merge of the wireless-next tree got a conflict in:
 
-Affinity paths hold p->pi_lock across the p->mm load and its complete use.
-After publishing a replacement or NULL p->mm, take and release that same
-lock before dropping the old MM reference. For an updater that is already
-using the old pointer, the ordering is:
+  net/mac80211/mlme.c
 
-  affinity updater                     MM teardown
-  ----------------                     -----------
-  raw_spin_lock(&p->pi_lock)
-  mm = p->mm            /* old_mm */
-                                       p->mm = new_mm or NULL
-                                       raw_spin_lock(&p->pi_lock)
-                                         /* waits */
-  mm_update_cpus_allowed(mm, mask)
-  raw_spin_unlock(&p->pi_lock) /* release */
-                                         /* acquire succeeds */
-                                       raw_spin_unlock(&p->pi_lock)
-                                       ...
-                                       mmput/mmdrop(old_mm)
+between commit:
 
-The teardown-side acquire cannot complete until an updater ordered before
-it has released p->pi_lock, so old_mm remains alive throughout that
-updater's access. If teardown is ordered first instead, its unlock is a
-release that orders the preceding p->mm store before a later updater's lock
-acquire. The later updater therefore observes new_mm or NULL. An updater
-that acquired the lock before the store but has not loaded p->mm yet is
-still ordered before the teardown-side acquisition; it may observe either
-pointer, but teardown waits for its complete use before dropping old_mm.
+  4af2b71495a3f ("wifi: mac80211: fix use-after-free on TTLM disconnect")
 
-All runtime callers of set_cpus_allowed_common() hold p->pi_lock across
-this access. The runqueue lock is not part of the p->mm lifetime ordering,
-so the grace period only needs p->pi_lock. Place it after publication and
-before the old reference drop in exec_mmap(), exit_mm(), and
-kthread_unuse_mm(). The last two paths matter on architectures which shoot
-down rather than refcount lazy TLB MMs.
+=66rom the wireless tree and commit:
 
-This change was developed with assistance from an LLM.
+  1d8b10787a3d3 ("wifi: mac80211: mlme: partially handle UHR updates")
 
-Fixes: 7e019dcc470f ("sched: Improve cache locality of RSEQ concurrency IDs for intermittent workloads")
-Cc: stable@vger.kernel.org
-Reported-by: <co+cab19e2ebe4d535a@bugs.sh>
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
-Changes in v3:
-- Document the p->pi_lock grace period and acquire/release ordering.
-- Use p->pi_lock directly and cover exit_mm() and kthread_unuse_mm().
-- Refresh the KASAN trace and provide a standalone reproducer in reply.
+=66rom the wireless-next tree.
 
-Changes in v2:
-- Replace the schedule-in deferral with an exec-side runqueue-lock barrier.
-- Keep affinity expansions synchronous, including expansions narrowed before
-  the next schedule-in.
-- Avoid changes to the MM-CID fork, exit, and scheduling state machine.
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
- fs/exec.c             | 1 +
- include/linux/sched.h | 2 ++
- kernel/exit.c         | 1 +
- kernel/kthread.c      | 1 +
- kernel/sched/core.c   | 9 +++++++++
- 5 files changed, 14 insertions(+)
+diff --cc net/mac80211/mlme.c
+index b5efc6ccc9853,456b289bb072b..0000000000000
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@@ -8488,9 -8983,12 +8985,13 @@@ static void ieee80211_rx_mgmt_beacon(st
+  					       elems->cisco_dtpc_elem);
+ =20
+  	ieee80211_ml_reconfiguration(sdata, elems);
+ -	ieee80211_process_adv_ttlm(sdata, elems,
+ -				      le64_to_cpu(mgmt->u.beacon.timestamp));
+ +	if (!ieee80211_process_adv_ttlm(sdata, elems,
+ +					le64_to_cpu(mgmt->u.beacon.timestamp)))
+ +		goto free;
++ 	if (!ieee80211_rx_mgmt_beacon_uhr_param_upd(local, link, link_sta, elems,
++ 						    config_bw_out.ap_non_dbe_width,
++ 						    dbe_enabled_before))
++ 		goto free;
+ =20
+  apply:
+  	ieee80211_link_info_change_notify(sdata, link, changed);
 
-diff --git a/fs/exec.c b/fs/exec.c
-index 8d2b14e1d455..3196421cb81d 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -905,6 +905,7 @@ static int exec_mmap(struct linux_binprm *bprm)
- 		BUG_ON(active_mm != old_mm);
- 		/* Defer teardown to setup_new_exec(), outside the exec locks. */
- 		bprm->old_mm = old_mm;
-+		sched_mm_cid_mm_barrier(tsk);
- 	} else {
- 		mmdrop_lazy_tlb(active_mm);
- 	}
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 1c93da75226e..f88ab0445be3 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2358,6 +2358,7 @@ static __always_inline void alloc_tag_restore(struct alloc_tag *tag, struct allo
- #ifdef CONFIG_SCHED_MM_CID
- void sched_mm_cid_before_execve(struct task_struct *t);
- void sched_mm_cid_after_execve(struct task_struct *t);
-+void sched_mm_cid_mm_barrier(struct task_struct *t);
- void sched_mm_cid_exit(struct task_struct *t);
- static __always_inline int task_mm_cid(struct task_struct *t)
- {
-@@ -2366,6 +2367,7 @@ static __always_inline int task_mm_cid(struct task_struct *t)
- #else
- static inline void sched_mm_cid_before_execve(struct task_struct *t) { }
- static inline void sched_mm_cid_after_execve(struct task_struct *t) { }
-+static inline void sched_mm_cid_mm_barrier(struct task_struct *t) { }
- static inline void sched_mm_cid_exit(struct task_struct *t) { }
- static __always_inline int task_mm_cid(struct task_struct *t)
- {
-diff --git a/kernel/exit.c b/kernel/exit.c
-index d5e7bc2af804..5f9979d6216c 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -582,6 +582,7 @@ static void exit_mm(void)
- 	local_irq_enable();
- 	task_unlock(current);
- 	mmap_read_unlock(mm);
-+	sched_mm_cid_mm_barrier(current);
- 	mm_update_next_owner(mm);
- 	mmput(mm);
- 	if (test_thread_flag(TIF_MEMDIE))
-diff --git a/kernel/kthread.c b/kernel/kthread.c
-index fdb8fb07f40b..e7b393cfdcee 100644
---- a/kernel/kthread.c
-+++ b/kernel/kthread.c
-@@ -1682,6 +1682,7 @@ void kthread_unuse_mm(struct mm_struct *mm)
- 	enter_lazy_tlb(mm, tsk);
- 	local_irq_enable();
- 	task_unlock(tsk);
-+	sched_mm_cid_mm_barrier(tsk);
- 
- 	mmdrop(mm);
- }
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 04b62c16fa8c..d78a174b5405 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -11128,6 +11128,15 @@ void sched_mm_cid_after_execve(struct task_struct *t)
- 		sched_mm_cid_fork(t);
- }
- 
-+/*
-+ * Pair with set_cpus_allowed_common()'s p->pi_lock critical section. Call
-+ * after publishing p->mm and before dropping the old MM reference.
-+ */
-+void sched_mm_cid_mm_barrier(struct task_struct *t)
-+{
-+	guard(raw_spinlock_irq)(&t->pi_lock);
-+}
-+
- static void mm_cid_work_fn(struct work_struct *work)
- {
- 	struct mm_struct *mm = container_of(work, struct mm_struct, mm_cid.work);
--- 
-2.56.0
+--13qAi4U3V0gvNGsk
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzZJwACgkQJNaLcl1U
+h9BjAwf/ew+L+dUwmMO18voeptA+nJNY8kpCO/ji9x+Saf3ajXjdurRSbsZNjLzz
+zJm9K+BDLJL11C0JfPhIet0QdUSTg4KSwjy/+BKoZput+kkjcKFLSdZZzpYqT9DN
+8RyHLkRDANi+edBB2mnfToUbYGtCXw4C62F73jbtGAf5ZLG+tMD/1ZDQ+j75A671
+mlfWV23G0HHxOdc+sM293yfi3wfDDFca0ILgC+aJuSaFNb6daXL9XNAoEkqa58Sk
+5pSLkDNb6UVjF1+u3X8ZHSafsqypSiovaH9d6REaD/WHnXGiHFBWRfQY30N9vFDJ
+yKWmMk7fJoXFF5zBHhHBp4DdZrzVXg==
+=MqN3
+-----END PGP SIGNATURE-----
+
+--13qAi4U3V0gvNGsk--
