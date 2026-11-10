@@ -1,57 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351494;
-	b=407gU1woT3zDX67IagBMr0RfIfwiFiELKaeo5lXCYPzhgUliwSkv/Uz9b/H77o366+lv
-	 5TymZH1NsWBSwZskMUTJ8Wo8yFKKX1FCQd80lIN0GviBgUfWL5zT2v7Av1niqseLVUQ0o
-	 FkHNAPBrAav+W+A+vltaGza7aprC/o4G0F+e0yyyj9D8XPglZw7MCZfyLZ9FAwpFMFQtw
-	 AXub1zRGHUxGKYQLfNAebqWSoQUrViImOer0BlEhJ+hK1d9EOXsInxcITQdrjIDQSQmow
-	 7vuCbLE+71WAHMZnJkXL2zupsmiQRSsa79l8k6EpoXWZyCuu3Nt9ZTHzNYSs9PecJ7A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351494;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NyqK5t5Jucqd/1TA7Y4odc+MHM7utrQ3droOuvmbCwI=;
-	b=I+IlOBno7ZDQYcqxyOglqgeYUiqbE62qgeJJti3AuDiunLptyJqQam2Y2cQ7fwJtM+Bk
-	 8/dX05TMW1nOv9aETwp5o78sR8aDG07PYeNq8Mo1m/WRywOJ4936RcFKL9uEbwZ5JwMU8
-	 qbEyNZgc5Xpi4wOH6SY/rLC7ZR5LQcpElOMI8iSJKNXdD05WIzbaAyVYoBWytFqwYC8kH
-	 eFdewRJRGbrZF8E73JpwkfVSyGtocFCM0cdbo8nyQAm7kiXFgTsV5V14kuWnAvluUGCnU
-	 Tb+ygvt23a+1E0t+MIo6CIqlbWIoMPz5KTRe6Zo0EqF4JJV9PjlZphDKrEDT8RljWAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2x1ERak;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794351715;
+	b=yaI1N4i7MO2GF2aRF5dCr0khqj16fao9nEXAGr+QqnZy3kI40ho8igBoIJM2rnfd9uyf
+	 sz0ZNHI8T42rRQONsm/b3dxCY766U3wJ0tCeRp20PLvdohjm6ekYq71GfSMq3m/QRKFk+
+	 djaOIRbwp4x5RecoyUo+7o0ODYJdBKchskMtqhR0lnbj4pGPygLGDCGtQQ4r9XmKkZtYO
+	 YU9OtVaM0XVfekOHRgywLkhT/NHVtwJqQ5sWsq41pLQOiLQjXVFSFnyipEfopwZ9rA0EC
+	 iB/jH6QfII3NDSg43nWh/+7M3frZ4Py8UD3HlDionUwokN9L/fj1QR+mxbSwiom5qVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351715;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Content-Type:Date:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=pZee+KzChQw/h9ewmpwQaoj+eV3S7ffC1hCMvrWt4Ms=;
+	b=mQnpRsRwwDXsCpW4oIEuWvo0XsGeKtaqLZiDSaXw3FBj5+YusZEmqwWUTT7uXAB9govI
+	 AD7t3608QJKhdHUxPwJK/dT6148c/17Wz5ekdCZJJfrAWcJp9tliwkBKPolIHZgJntgPJ
+	 4RMAx0T+LdLE/h4nx9b7k93t4xRQVSkfA15ullgFxw8WQfR5YbXSxYDw8DcSE8xXywZ+f
+	 ZgVyeEbgbkMGlUj+EDFL5CoMlTZE7VrtmJWgqafnZg+aws0o/jLFWw7WDvUC5k3698mlT
+	 qzgX9oQKEHdADA3jDRc09/ohPV8KJj2ZFpvy3OTtdcSFz8UhZX5uVygjpEu8iRWWaEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=k2Vtas+S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.16
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011016.outbound.protection.outlook.com [52.101.125.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381CA606A321;
-	Tue, 10 Nov 2026 22:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB3F606A31C;
+	Tue, 10 Nov 2026 23:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBB3F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2x1ERak
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A991F0093C;
-	Tue, 10 Nov 2026 22:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794351493;
-	bh=NyqK5t5Jucqd/1TA7Y4odc+MHM7utrQ3droOuvmbCwI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k2x1ERakUGIOYvpFHgC8OdnRlEpp1ikz4h9fxSXMzBZKpbGgg9mlM0nSlpbKBHqMH
-	 H8pUPhqObfSgITg26xZ+GUau24ZYlXi37eXluVuRKI+gab5RP65EBbObIurw9082S3
-	 QFvZhLeJGKgz7xuV8VL40u4ykpUgrnRfJfA/Aqb/8sfUyFntsfzsaoK72fsLrTPpPR
-	 JxCQp7dQeKw4mckN75URZFl1njX2yPagEx//pAzthsLM5mCbYQGP9BZdx42sN6p5Hq
-	 J9KhUjKWHBzx5PqyuTT/heNxCt8BsCuGtkY0ERYRTrmsf2LTfm516kZRwwsghZVnnw
-	 LE5y8ihlBYlUA==
-Date: Tue, 10 Nov 2026 14:58:12 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, adrian.hunter@intel.com, bvanassche@acm.org,
-	elver@google.com, james.clark@linaro.org, jolsa@kernel.org,
-	justinstitt@google.com, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, llvm@lists.linux.dev,
-	mingo@redhat.com, morbo@google.com, nathan@kernel.org,
-	ndesaulniers@google.com, peterz@infradead.org
-Subject: Re: [PATCH v11 00/20] tools/perf: Adopt kernel
- compiler-context-analysis.h annotations
-Message-ID: <avOhhIL1EExpcJBi@google.com>
-References: <20261107044102.1506626-1-irogers@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=k2Vtas+S
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YbIuiidzXE/gyPEPgY5qzdflRjzjfMnEUIOB5mqUi6Erza4UqJQ9S8UKYqcvwMINqg2Kn5j13Z/hSfHGnXWPZkJlx3GBReuGrxc4swKMxBEOrNXPCm0jOdM+VciqjqewWfnUCx2JTDJi+oiVxJ4Sye1GM/vcVm0yRlzfjxDyCldiEn/Vka7c+6IzX3gqHquoTMo26MSDlk8oC7wn7IAfge70psPyo47MNEW/QIY10cFDm4DnL8Qmin7aRbCKVQ6ZezKt9n27qUMae/0FkyoKMio/kderkaWC5i06oTqZ1UJHKOraqvr8mAJcXP9Cn0Abe9TCo0F9KvuxRAfcXnDr2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pZee+KzChQw/h9ewmpwQaoj+eV3S7ffC1hCMvrWt4Ms=;
+ b=hPPdSK4FFXLP4K/t6F0iFjXP0Uqf6B6xACAPFpU9iB4SFKoRq/MYqMijjqHdSmzCXvV8IJS7OfEBdDyWNGamgxRDGfvqjYQ3EfUyLELxgjZR3P+fNwHnwse8R9yTc0JB9J4pqhTASVA5/pF27pTSJo5ssekkzmTDVa0sLsdjIO3oIF5PqJNoHBywKkqrg3X0zsjoTvUXBLyB1xxZHxNDNuRIOU4SMueZmoBo2Y23i0q/uMYewHslAVn/yh1cNQiiScrbZdI4hKZ1pBjydzCpTlxL3MmtFmJWZcQOwmejHrt1eE0rjNK/4tN4nZsoP35YfPWJtlgrWyAnjpxOa+rxzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pZee+KzChQw/h9ewmpwQaoj+eV3S7ffC1hCMvrWt4Ms=;
+ b=k2Vtas+SUMi13FeKbDKHcgAp9KQvd07dF4uZkr771KIS76zEuugR38PNPDf1wZwf6lArHudVTMWCrWFtJu+3kQl/rWJ49oywHKH37DPNoC/HStu26XzgNQZPciM9Yb1xQzzw61127x7Kbxt4KoKNdNSNIN0MKSJf57s5GPKuTCY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYYPR01MB15175.jpnprd01.prod.outlook.com (2603:1096:405:27d::8)
+ by TYYPR01MB7877.jpnprd01.prod.outlook.com (2603:1096:400:117::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 23:01:52 +0000
+Received: from TYYPR01MB15175.jpnprd01.prod.outlook.com
+ ([fe80::9bfd:a110:68f1:134d]) by TYYPR01MB15175.jpnprd01.prod.outlook.com
+ ([fe80::9bfd:a110:68f1:134d%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 23:01:37 +0000
+Message-ID: <877bik2svk.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Hyunjung Ko <hj351016@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: ak4613: cancel dummy write work on component removal
+In-Reply-To: <20261110054453.2286414-1-hj351016@gmail.com>
+References: <20261110054453.2286414-1-hj351016@gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 10 Nov 2026 23:01:36 +0000
+X-ClientProxiedBy: TYCP286CA0369.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:79::13) To TYYPR01MB15175.jpnprd01.prod.outlook.com
+ (2603:1096:405:27d::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,241 +100,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261107044102.1506626-1-irogers@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYYPR01MB15175:EE_|TYYPR01MB7877:EE_
+X-MS-Office365-Filtering-Correlation-Id: 730cb563-eda2-42a2-0d46-08df3f7e9287
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|23010399003|5023799004|11063799006|56012099006|38350700014|18002099003|22082099003|6133799003|10067099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003|261028144727099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	hA69dsXzaLXHubXuoMMdrqdKVCdQOfwckNV0J6S/hWAdZgroCe3PB5vbQx/3ujZfYMwJXm+MkXjaonPs1a7ncauKulOLfKBbf6TM+Jr2bPE+b4ASrN1to4/6Ftqz5BSHU0xwC4iL3d5kWCCHhHZaBpiyod50/8SSspEXV4UEBmn8evD5hw1trsml/WZYfnGPf264xYhbnY3SbWYIa6qbiyCLf+6UqCgNJnsdXnEAoncELjquQBbWOOpOHtF62B4mleNnfV/+rWtqFeDRRqmzJtIWuNLdWcVYT51S2+N74keHiULoJnNOIilqEp8rFgypqZTxtuFRU9JTjM/UWXaed4uI4PVtBSo1xPK5zcRpJzmkAEpGS1ZGjXGVpqp7C7X4sLt2vXsgBUBpGr3btyxuWQyd2ML+MU0Doq6P1pEPwsDmF+OiSx/+k13AFjCKfcjpnlEqsbuIFZ2AEpWVwkBuMRGoX6XNfs9ZMWImq6/wdkKBappMQolzU/v6sPJMiVDRheSJo1QZCnZ1w8jWoXGX9Ys0mW6fYTAU9ykj7Z5qx+cwV7SpLPQynQpvXCIE+fvhW8hsw2q3qfN6GxBcQjwfbFmQxI1CJwd01QH3BfwTZXqErqPdoVSo1vSmXTyImM0/ANlASkuhqHkAk9pNi56YqflqVoLpnki+CYd4Zh/G+WnEFQ+0+5Bo+wYIfRwX6bS13RU3fawU5AustQEzhtlUz9cdJDizWnG/SpYqPOK6oxA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15175.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(23010399003)(5023799004)(11063799006)(56012099006)(38350700014)(18002099003)(22082099003)(6133799003)(10067099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261028144727099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?jqhK0nmQOm5P5Npfc+ql3Ej8QEHNwm54DqhsymMT0TPY+Y3n1bjC3qqfBMa2?=
+ =?us-ascii?Q?7b31/dOEvPnk65SIsa5K+ttpy50c49tVE1b/PP0U0mavoHGsoN4Gcyoz7E/v?=
+ =?us-ascii?Q?mRe1QBS476f207STsMECXmVuDMDSMpEo7xBcHGaDAskeOKLRvbXZEPVjVGt0?=
+ =?us-ascii?Q?BRWxx0BXRvdZ6lGLz4tYv0qr7VsyQgUEzpd4iMfYs+nt+3/fg7YgkSCrTVP4?=
+ =?us-ascii?Q?jYRbnqp8qCBC2aZPFzeEXjACMgvgSYdzu7tmQVrOvC6RTltdt8uw2LQ3dcMC?=
+ =?us-ascii?Q?07OP8RHQifpF25wBExmdtFajIory5cnZ1uLWSZ55b1fNob8xU2zXS+HLLjjQ?=
+ =?us-ascii?Q?b5+jOQR7zWm67WeUlgmQOdG0EUMTJnLawX9NtGh1BCQcm5mfRIA0MMHeS6Ft?=
+ =?us-ascii?Q?BHia3ZOAE0jrgB6hNNKcap4jMaUW4kANca4WYtjNXgv51dkFaL6Wme51Hu2J?=
+ =?us-ascii?Q?ywdVgmCLMdfFLLtz6gMkpSeLwRS0zHTmjuDudeaIoTqunGF5EzhDlurkf66g?=
+ =?us-ascii?Q?R1dZ6e/wY3jzTMCccBDqlOSkMTK+qICCE6MuotTcv4kJqiVtFWdlMdOfdv1G?=
+ =?us-ascii?Q?Y0NrjIyhaWaoOYqJrGW8qx0bEPQZzTrNY4Xlzqrf75I+y6ksVbntNto6c6tW?=
+ =?us-ascii?Q?boCIhSvDAYkYYEoBiPeT/mK0WZlZKVt7KAAD0WU123ee46/YYGaN4QMjFItX?=
+ =?us-ascii?Q?mx1N/ki6oXnm0pcirDvzOAagoJjjZ2ggnNagxUG3RnDJfU+UD4hakAK1+H8R?=
+ =?us-ascii?Q?vg1lyNV78DIaQCq8dOvOK/b1sxq8pDO6RxonPj6mzNlNXxC9uDH1sUP2/Jlg?=
+ =?us-ascii?Q?Xyvv/EBqTucV9BzTI3krluD4/Qz0m3RqdZFvD1S2qHXVqkJ39h1wRLKDfBp/?=
+ =?us-ascii?Q?g8ZBGNFyXoH7yxL8g392hvuqgu6nztG05VSYM+olcosynMYudEgU4XZimVGN?=
+ =?us-ascii?Q?jeQBT9SklxEoh7hSPqGf0tK1StOYCxtfuHL8jI5Gie2barlyQrnwPRBHFLoz?=
+ =?us-ascii?Q?NSvTSkDQ/Afk/CvSvLjpeyUGAqs6QulI5udsa6umxNZLOTTFngTwXfeMYMTB?=
+ =?us-ascii?Q?QJK91IN5AdpOHJj86LOUsYbgJLgKFdUq0oVL6GtbpE1WCPl8XdYro93iqDFk?=
+ =?us-ascii?Q?OpIkU8Ouef2MjhtdESko8jX6Sq9DmXCbcbw1hY9RmtC8U/rLy8f6G1UXT8Ys?=
+ =?us-ascii?Q?8tpLKiRs/dunC4+dx6m9Wu412O0av37daagzRmvVPoBDb8ekC6ZIYtmtIos2?=
+ =?us-ascii?Q?plXBNhq0P+fDKe7JNHtJsVSYVBO9UhVYs/NvM+hhCl+wqes4CSgr1BvdvE4N?=
+ =?us-ascii?Q?iWfNzHfxQkVYqo/vTtwLeOMl8xTnUSEtAX7M3LC4ZnMs9OuFyxKZXmHExEE+?=
+ =?us-ascii?Q?oFlSOV3MfjZciO8Zj4P9Iv8dj/sVLrk5oSCj1jzJYP6NkuatyfcLEc+QSJTD?=
+ =?us-ascii?Q?5xOKzVy24xoa6YgrrSzsvpmWKz1Hoo8r/SwxfiLg/G7ZGbeuCle417V9GTxa?=
+ =?us-ascii?Q?oA4N+y5YFXG/m4LC+qIhfW8ehk0lOi7TbiBh5lBV4+5etn5g5pnqJmF/3ETs?=
+ =?us-ascii?Q?xlxVto+DkZiaPWSDaY/2dV+oeyCGCAOi4WRhnH2NvwQiP66Qqard5O7YVHfw?=
+ =?us-ascii?Q?GZO84gt1o95THZ0z9oZGRUVI8YuoC7Q82ezYbxG6l8AepzP9gqlZ3o1+ZC2y?=
+ =?us-ascii?Q?KgdiVKLdieBR1eb/ruPi7/bmo6ykvlK0Z+4U3AnbV/LkfF4Gey3QMnondV28?=
+ =?us-ascii?Q?H3BuVh2cxMjmYfU47LPLISF2ISgW1R3OHjO3gcqWugDwyAL4+uov?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 730cb563-eda2-42a2-0d46-08df3f7e9287
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15175.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 23:01:36.9973
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h3XrJ2tyVmP63GF04/OQgIC7AiAYPhhpWGarEFSbNtNAAjlmSw0Bli6klLK7sf6UdOJ392pouXG8sT8ALu3BNMjDUgVr8tpZSTcWQ5eOwVSM7yEIyrOQPXYDpu3swnAQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB7877
 
-Hi Ian,
 
-On Fri, Nov 06, 2026 at 08:40:41PM -0800, Ian Rogers wrote:
-> The perf tool previously added Clang thread-safety annotations in
-> tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
-> UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
-> unified set of static context analysis macros and attributes in
-> include/linux/compiler-context-analysis.h (context_lock_struct,
-> __guarded_by, __acquires, __releases, __must_hold, etc.).
-> 
-> This series makes tools/include/linux/compiler-context-analysis.h
-> functional by synchronizing it and the required compiler_types.h helpers
-> with the kernel headers, converts tools/perf from its custom mutex.h
-> macros to the kernel-style compiler-context-analysis.h annotations, and
-> expands context analysis coverage across comm, dso/dsos, thread/threads,
-> config, intel-tpebs, env, and maps. Along the way, separate preparatory
-> patches fix an unlocked __dsos__add() call and TOCTOU race in
-> __machine__addnew_vdso(), skip BPF and OOL DSOs in
-> dsos__find_kernel_dso(), ensure DSOs created in auxtrace, machine, and
-> symbol helpers belong to a dsos collection, avoid dropping
-> _dso__data_open_lock in dso__list_del() under REFCNT_CHECKING, switch
-> dso__data_open_lock and tpebs_mtx to DEFINE_MUTEX(), add a read-lock
-> fast path to dsos__findnew_id(), fix an unlocked read of
-> tpebs_reader_thread and double-close of tpebs_cmd.out in intel-tpebs,
-> avoid a potential read-to-write deadlock in maps__load_first(), and fix
-> map index lookup fallback and removal in maps.
-> 
-> This series was developed and reviewed with assistance from an AI coding
-> agent (Gemini 3.1 Pro) and reviewed with Sashiko.
+Hi Hyunjung
 
-Is there any chance other tools than perf can be affected by this
-change? 
+> ak4613_dai_trigger() schedules priv->dummy_write_work on playback start
+> to issue the PW_MGMT1/PW_MGMT3 dummy writes from a non-atomic context.
+> The worker dereferences ak4613_priv and accesses the component over I2C.
+> 
+> priv is allocated with devm_kzalloc() and the component driver has no
+> remove callback, so nothing cancels the work on unbind. If the device is
+> unbound while the work is still pending, the worker runs after priv has
+> been freed by devres, resulting in a use-after-free.
+> 
+> Cancel the work from a component remove callback, which runs while priv
+> and the component are still valid.
+> 
+> Fixes: 03bbf9f5e4eb ("ASoC: ak4613: call dummy write for PW_MGMT1/3 when Playback")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> ---
 
-How can I check this?  Does it require specific build flags?  Does it
-work with GCC as well?  Can we extend the build test to validate this
-automatically?
+Yes, indeed.
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Thanks,
-Namhyung
+Thank you for your help !!
 
-> 
-> v11:
->   - Rebase onto perf-tools-next.
->   - Add Fixes tags to patches 7, 15, and 18.
->   - Serialize tpebs_send_record_cmd() with teardown via
->     tpebs_cmd_in_flight and tpebs_cmd_cond, check
->     check_if_command_finished(&tpebs_cmd) under tpebs_mtx only when not
->     stopping, guard evsel__tpebs_open() against a concurrent tpebs_stop()
->     with a generation counter (tpebs_gen) and tpebs_stopping across
->     closing the fds and finish_command(), and annotate tpebs_cmd,
->     control_fd, ack_fd, tpebs_stopping, tpebs_cmd_in_flight, and
->     tpebs_gen with __guarded_by(&tpebs_mtx) in patch 17.
-> 
-> v10:
->   - Split the maps__load_first() lock inversion fix (patch 18) from the
->     maps index lookup and removal fixes (patch 19).
->   - Fall back to the linear pointer scan in maps__by_address_index() and
->     maps__by_name_index() when bsearch() returns NULL, check
->     map__start(prev) < map__start(new) in __maps__insert(), factor out
->     __maps__remove_at() so maps__remove_maps() removes at index i
->     directly without risking an infinite loop, guard against -1 index
->     wraparound in maps__find_next_entry(), refresh sort invariants in
->     maps__fixup_end() and machine__create_kernel_maps(), and add a unit
->     test in tests/maps.c.
-> 
-> v9:
->   - Rebase onto perf-tools-next (resolving the conflict in
->     tools/include/linux/compiler.h with ASSERT_STATIC_STORAGE() and
->     converting the newly added dso__set_symsrc_filename() lock
->     annotation in tools/perf/util/dso.h).
->   - Move __must_hold_shared(&dsos->lock) on __dsos__find() from patch 13
->     into patch 7 where __dsos__find() is introduced so every commit in
->     the series builds cleanly with -Wthread-safety.
-> 
-> v8:
->   - Set DSO_BINARY_TYPE__BPF_IMAGE for non-OOL ksymbol DSOs in
->     machine__process_ksymbol_register() and skip
->     DSO_BINARY_TYPE__BPF_PROG_INFO, DSO_BINARY_TYPE__BPF_IMAGE, and
->     DSO_BINARY_TYPE__OOL in dsos__find_kernel_dso_cb() so that
->     dsos__find_kernel_dso() does not match ksymbol DSOs in
->     machine->dsos (patch 8).
->   - Split the dsos__add() additions in auxtrace, machine, and symbol into
->     a standalone patch (patch 9) before "perf dso: Pass dso_data to
->     close_data_fd() and dso__list_del()" (patch 10).
-> 
-> v7:
->   - Add newly created DSOs in machine__process_ksymbol_register() and
->     dso__split_kallsyms() to machine->dsos so assert(dso__dsos(dso)) in
->     dso__list_add() always holds.
->   - Add __guarded_by(&config_mutex) to function-local static parser
->     buffers in parse_value() and perf_parse_file().
->   - Remove from maps_by_name before calling
->     map__put(maps_by_address[address_idx]) in __maps__remove() so
->     callers such as maps__remove_maps() that pass maps_by_address[i] as
->     map do not use a freed handle in maps__by_name_index() under
->     REFCNT_CHECKING.
-> 
-> v6:
->   - Rebase onto perf-tools-next.
-> 
-> v5:
->   - Hold machine->dsos.lock in write mode across machine->vdso_info
->     initialization and temporary file creation in
->     machine__findnew_vdso() and __machine__findnew_compat(), and
->     annotate __machine__addnew_vdso() with
->     __must_hold(&machine->dsos.lock).
->   - Reset tpebs_cmd.pid = 0 and return early without setting
->     t->started = true if start_command() fails in
->     evsel__tpebs_start_perf_record().
-> 
-> v4:
->   - Place the DSO loaded in addr_filter__resolve_syms() into a dsos
->     collection so dso__dsos(dso) is populated.
->   - Join tpebs_reader_thread on error in evsel__tpebs_open(), document
->     why tpebs_cmd.pid is cleared before pthread_join() in tpebs_stop(),
->     and include <pthread.h> and <signal.h> in util/intel-tpebs.c.
->   - Include <string.h> in util/maps.c.
-> 
-> v3:
->   - Rebase onto perf-tools-next (converting the newly added
->     dso__find_binary_type() lock annotations in util/dso.c).
->   - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso,
->     dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
->     tpebs_mtx, maps) from the annotation patches.
->   - Move AI coding assistant attribution to the cover letter and drop
->     per-commit Assisted-by tags per linux-next
->     Documentation/process/coding-assistants.rst.
->   - Add Marco Elver's Reviewed-by to patch 1.
->   - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
->     ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h.
->   - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
->     Makefile.config.
->   - Pass write_locked to __dsos__find().
->   - Pass struct dso_data * to close_data_fd() and dso__list_del() to
->     remove the REFCNT_CHECKING dso pointer from struct dso_data and
->     avoid dropping dso__data_open_lock in dso__list_del(), and include
->     <assert.h> in util/dso.c.
->   - Re-validate DSO lookup under the write lock in dsos__findnew_id()
->     via __dsos__findnew_id(), and handle NULL dso_id in
->     dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp().
->   - Reset tpebs_cmd.out = -1 if start_command() fails and include
->     <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
->     util/intel-tpebs.c.
->   - Bounds-check the index in __maps__remove() (freeing maps_by_name if
->     out of bounds).
-> 
-> v2:
->   - Use -c rather than -E when probing for
->     -fexperimental-late-parse-attributes in Makefile.config to avoid
->     -Werror,-Wunused-command-line-argument.
->   - Acquire machine->dsos.lock in write mode across duplicate checking,
->     dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso().
->   - Avoid dropping dso__data_open_lock in dso__list_del() under
->     REFCNT_CHECKING.
->   - Pass tpebs_cmd.out directly to __sample_reader() and set
->     tpebs_cmd.out = -1 in evsel__tpebs_open() to avoid a double-close in
->     tpebs_stop(), and clarify the config_set_mutex comment.
->   - Drop maps__lock before calling map__load() in maps__load_first() to
->     avoid a read-to-write self-deadlock when loading kernel maps inserts
->     additional trampoline maps.
-> 
-> Ian Rogers (20):
->   compiler-context-analysis: Avoid unused parameter warning in
->     _context_unsafe_alias()
->   tools headers compiler: Synchronize compiler_types.h with the kernel
->     sources
->   tools headers: Synchronize linux/compiler-context-analysis.h with the
->     kernel sources
->   perf mutex: Use kernel style compiler-context-analysis.h annotations
->   perf build: Enable additional Clang thread-safety flags
->   perf comm: Add __guarded_by annotations to struct comm_strs
->   perf vdso: Fix unlocked __dsos__add() and race in
->     __machine__addnew_vdso()
->   perf dsos: Skip BPF and OOL DSOs in dsos__find_kernel_dso()
->   perf dsos: Ensure DSOs in auxtrace, machine, and symbol are in dsos
->   perf dso: Pass dso_data to close_data_fd() and dso__list_del()
->   perf dso: Use DEFINE_MUTEX for dso__data_open_lock
->   perf dsos: Use read lock fast path in dsos__findnew_id()
->   perf dso: Expand context analysis annotations
->   perf thread: Expand context analysis annotations to threads and
->     namespaces_lock
->   perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
->     handling
->   perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
->   perf config, intel-tpebs, env: Add __guarded_by and __must_hold
->     annotations
->   perf maps: Fix lock inversion in maps__load_first()
->   perf maps: Fix map index lookup fallback and removal
->   perf maps: Add context analysis annotations
-> 
->  include/linux/compiler-context-analysis.h     |   2 +-
->  .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
->  tools/include/linux/compiler-gcc.h            |  72 ++-
->  tools/include/linux/compiler.h                |  50 +-
->  tools/include/linux/compiler_types.h          | 206 ++++++-
->  tools/perf/Makefile.config                    |   8 +-
->  tools/perf/builtin-sched.c                    |  16 +-
->  tools/perf/builtin-top.c                      |   4 +-
->  tools/perf/check-headers.sh                   |   1 +
->  tools/perf/tests/dso-data.c                   |   4 +
->  tools/perf/tests/maps.c                       | 140 +++++
->  tools/perf/util/annotate.c                    |   4 +-
->  tools/perf/util/annotate.h                    |   8 +-
->  tools/perf/util/auxtrace.c                    |  16 +-
->  tools/perf/util/bpf-event.h                   |   5 +-
->  tools/perf/util/comm.c                        |  10 +-
->  tools/perf/util/config.c                      |  47 +-
->  tools/perf/util/dso.c                         | 140 +++--
->  tools/perf/util/dso.h                         |  17 +-
->  tools/perf/util/dsos.c                        |  34 +-
->  tools/perf/util/dsos.h                        |  12 +-
->  tools/perf/util/env.c                         |   1 +
->  tools/perf/util/env.h                         |  19 +-
->  tools/perf/util/intel-tpebs.c                 | 206 ++++---
->  tools/perf/util/libbfd.c                      |   4 +-
->  tools/perf/util/machine.c                     |  34 +-
->  tools/perf/util/maps.c                        | 216 +++++---
->  tools/perf/util/mutex.c                       |   4 +-
->  tools/perf/util/mutex.h                       |  90 +--
->  tools/perf/util/rwsem.c                       |   8 +-
->  tools/perf/util/rwsem.h                       |  10 +-
->  tools/perf/util/symbol.c                      |   4 +
->  tools/perf/util/thread.c                      |  10 +-
->  tools/perf/util/thread.h                      |  30 +-
->  tools/perf/util/threads.c                     |   4 +
->  tools/perf/util/threads.h                     |   6 +-
->  tools/perf/util/vdso.c                        |  53 +-
->  37 files changed, 1477 insertions(+), 536 deletions(-)
-> 
-> 
-> base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
-> -- 
-> 2.56.0.455.g6c5a503b38-goog
-> 
+Best regards
+---
+Kuninori Morimoto
