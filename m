@@ -1,66 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324513;
-	b=3aT4V1Yf774GqES8UTO9G3Amzb2ewDMMBNdDqE7KeDixfH4kBI8tTX9M/V2WXgR+1iCI
-	 OQWLkte6HTiHVLMzl2nmCf6dzttEhgSvcR4JboUc93krackHazZkzySduBNeivmnwNxB/
-	 ns2GolMOjt02inI8POGftmOTt7Gl8eQemoqiMnMizDJaTCmrkf7jZfFHnWIJd+QTclQ8s
-	 zE2/8f8wMTnJ/iXxCvk3QTy0ouSKPVviiLPfhEw6sTFEqIf6gA/UYbtvvXN7P4LTHsaGj
-	 almIBUn7QEc+LRF+c8vTV+qVdVSQsUUgG8E6r4Ocf54+4a2vV3jn5+CThuWddqKaBHw==
+	t=1794324517;
+	b=z9NDTqkSizjNKjCFs5ZyjYWNtYMerh/EhNaniW13xZ2D8+nIn2oVYUhkYORNCwCgkZ9C
+	 orf11tBcrmPnKEgGpmgSM7W2tuOUvTnIhhtd5Et212a1pXsDH84OTBTmT6SBOCoTEdtUL
+	 cfBl9nnEoPdj/fTrJl+vxz0rulLXKXNVQ6asj9o1QkuHm/Sc7qJVEQVubbohNdUPD8E8b
+	 UIMTtv6Nx159Mq8Uqb2SK22GT2NW2RTzP3pafacXF5VSooLQm+gnyVIeIJYuLOOc7Ih3G
+	 VJ3Zq70qzUUUyyXIN1j5mtd2+YBdyIEBmgLwNZHl1fwYj9avgF1opap5565lBqSrvWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324513;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=o6QztJNcMLb+3r+A/33tYDWhHoFXbgz4LvPYWOb+ua8=;
-	b=xZVeHgiViEnhBc0cF4b/z0RQMOry34NBDNqTnRgES40qLh/gcrsQvW9jIkggRbGo2AfF
-	 D2K5wMJC7IDkFRYDtMMWQPxwgBs1dt0B1x75Heabiohv/7V5UhmB3e7AKXf5RFE3nhNfk
-	 qOeqvxi4CerwlTOSK6La180GgO05JYve7N3Bpi4QHXeCb2/pcbJ1MN7SoGySphLUqjY/V
-	 EgTpDuB3pl1cUDYbYOnPrwRybB+hCHyBsf5AG4vFz79AMmnyqlro1/wpPABpH1CVXTAIb
-	 WDZqucPPZfFIDaS1Gz5leYkSch3N65z8J0kgUQ/6jqbZ6QTEesk3Z9m1Ismg2CLbTEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324517;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=6PM7dc9ky7du4QTlvZgvbasvK1Gnn9m7N3fjC8dVD4U=;
+	b=VRaXSOWHpyKGLO6arg6mYxa5TI5KiPLZjF2nnk+kfi4Lv/zxSrdXczMAvAccOZpNGzA5
+	 HPcUFSp+7oF1piCUOhnxpCXJuM0KU/3InoNdAEQ03eeCBX4Ba7rlgmsg1rA5WxjyfMQDg
+	 cahNNA2OPrndNbIb+SOsgi1ylzfFf9H49Oj9AzFUkq6VitESu2iwZa9iDFvg1wczAir5c
+	 8yP/RkBwZCG11biqfqO5TbYHXd42F31jZH8rqbZeyGw0dFGDNGfyEH1Wffusd/v9S+8Xo
+	 z0cRgmbWc8iR01EpA1r4EhB4tJQ4rPaLB4TQ2s74pWth8PFH01zUa+29gYC5sXtPRMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Zs4Hgng4;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pV0ZF1ef;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0345B606A31C;
-	Tue, 10 Nov 2026 15:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0345B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B81E606A32A;
+	Tue, 10 Nov 2026 15:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B81E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Zs4Hgng4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794324511;
-	bh=jO4u7WBmBDYq8GnBWne/sGH31cOQS9UMls67gM39wcg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Zs4Hgng49EW72YQW0r6BfuksYOtEDmwGLTab4TFuK38YNEu1T8U0b6+btt3b+ZYGB
-	 5YZiUES3UWQSRwhffH1jSKyxnFzlH7CLr8O/BDkahhdvPDW0wVJt/yjK8KCW+xHZXc
-	 Ea9R5lQC/vIQFFg5OdNRBG/nbiEcLb9tVAGx9RoPRnUjHyoXqvvkeSvyaD+wweEvKj
-	 iHdcUN7PT2GLLvfjgpSjGBm6L3SWU42hr3k5Ucy4K2H0xLcf7JeRuLPgx5EpmmhIt5
-	 T+zXH/rpFPhxH1CTybWVg/+rubC+kAdbUMum226SjueczJpjkmAHV1F+KfN+e+E5Qs
-	 63DspjmpILZCw==
-Received: from benjamin-XPS-13-9310.home (unknown [100.64.1.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 172CF17E080B;
-	Tue, 10 Nov 2026 16:28:31 +0100 (CET)
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: mchehab@kernel.org,
-	nicolas.dufresne@collabora.com,
-	hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Subject: [PATCH v1] media: codecs: vp9: Add tile_info control
-Date: Tue, 10 Nov 2026 16:28:26 +0100
-Message-ID: <20261110152826.128259-1-benjamin.gaignard@collabora.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pV0ZF1ef
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=6PM7dc9ky7du4QTlvZgvbasvK1Gnn9m7N3fjC8dVD4U=; b=pV0ZF1efuRrC/FIGPn3u9+LEH7
+	+JgJH7g9y4lcv8jEyU/UEEbDiPKtQuSGG6Tn4BjC21YfNT69zGPfv63BUi/GhEJ7cVs6TLd69snKN
+	EAfrOm5DKCyIZOI6GyuSQ4N2MDrbVjEikQL/iB3oL/XXAvGthfUrtW2XifcDWpTpGQqGVPKgnZAfB
+	PJUjs8ESscBQCzQAoZ09Q5emzngERfoCNV8ZA4ynkcQ927Fj9nAHPSua3tzt1O8hHjOFJXr001WYu
+	GvNVTFARMmPLlEgjKM0OBoy6DUz4ABNvej3nVqAgl/6Tb3LgzmRcVEp4jhcBy1Bxx4Jm3TLzBEMNF
+	GK3PJc8w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQnlu-00CV18-1w;
+	Tue, 10 Nov 2026 15:28:31 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 10 Nov 2026 07:24:34 -0800
+Subject: [PATCH] reboot: halt when power off fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,234 +62,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-reboot-make-task-dead-v1-1-af88a3f37bf7@debian.org>
+X-B4-Tracking: v=1; b=H4sIADY382oC/x3MQQrCMBAF0KsMf92BTAS1uYq4SM1Xh2IjSRGh9
+ O6C7wBvQ2dzdiTZ0Pjx7nVBEhsEt2deHlQvSIIY4tHMgjZOta76yjN1zX3Wwlz0fAqR4xRHOwQ
+ Mgnfj3b//93Ld9x/oGIveZwAAAA==
+X-Change-ID: 20261110-reboot-make-task-dead-8702e9b29130
+To: "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+ Nicholas Piggin <npiggin@gmail.com>, 
+ "Eric W. Biederman" <ebiederm@xmission.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, kernel-team@meta.com, 
+ syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com, 
+ Oleg Nesterov <oleg@redhat.com>, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3891; i=leitao@debian.org;
+ h=from:subject:message-id; bh=a8Z6bBQP7KM9Q5t/M4tExBaQEE62leoxfyQqdfsXka0=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8zgawRH9/kLkf5RWr8QkrLuhwWZcPFYLaIVD4
+ QxJTlPMskiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavM4GgAKCRA1o5Of/Hh3
+ bQrLD/9BHtznr1ZOsNPcDyKV39CtBJpiAZ5NBpwNdXNOkjTZL4Nj54jxHQ4o5QzpfJzhG5Eg3Fa
+ nLDuKWPm7DEkfal+9zzBvim41vXwX0ad+3vYNYlqs2WpNMxR/lC0DzpGf67yWA1KaUcLmISITDc
+ l5jkVdghaghSqGt6yCDSLq/ZrRTDWu7s1xfwROb+8bldShOypYGp+9bYFvtCLUvQ8m3Gi+sB6wr
+ 3N6pGR+imSH5odard30MbG69e8ZO/s6lbAAXsXwGiqjeKEegJekQ4wRidPDT1mF9NUfKVed6f1C
+ Q3EkWlal56O9CcEUo9fMKt03ZQnDCK/D8KxmQN0UUQ2M1LFmNB1UjpXS8lBviVubQplN1S8mCAb
+ 4TD+QCt7lYij9hMtq+d9fr3ZaS8gHFUCLz9jf5ubH2A2fMfG5pPxEEXtNNT+CcStdY28/UgMRv6
+ ZBl7qEGzb0jbRoH/J20OfV/+VtnNSPSnXbIbu9apezI16tHfYMNGnKjLdJ9bWd/PhVNQ9MTaNMf
+ ThGfYQs/ofQZIO37YNvZVOHRJZ54Pa+hZ2vSvX9WuUs49aROksNKfk2xhjobdxhFhSpjYhO+CQJ
+ RrcmOI/n3l1e2lf9FM06xDYsm775lUHAQPdzSgUp2FrZ3KZchiC8EP2BMCzwCipqHQT2dodZlNp
+ AOgFkrE1yHotPzA==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Some hardware accelerators needs to know tiles location and size
-in the bitstream.
-Tiles size are coded inside the bitstream so it is up to the
-userland to provide theses information by calling
-V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY control.
+The reboot syscall calls do_exit(0) when kernel_power_off() returns.
+That happens when no power off handler takes the machine down, since
+machine_power_off() returns to its caller on x86, arm, arm64 and sh.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+For example, an x86 kernel built with CONFIG_ACPI_REDUCED_HARDWARE_ONLY
+cannot power off QEMU's pc and q35 machines. Their FADT is not
+hardware-reduced, so acpi_power_off() is still registered. But the
+legacy sleep code is compiled out and the FADT has no sleep control
+register, so acpi_enter_sleep_state() returns AE_NOT_EXIST.
+
+On x86, arm and arm64, interrupts are disabled by then, and do_exit()
+warns. syzbot hit this on a GCE VM:
+
+  ACPI: PM: Preparing to enter system sleep state S5
+  kvm: exiting hardware virtualization
+  reboot: Power down
+  ------------[ cut here ]------------
+  irqs_disabled()
+  WARNING: kernel/exit.c:930 at do_exit+0x1cf7/0x2ae0 kernel/exit.c:930, CPU#0: init/6193
+  CPU: 0 UID: 0 PID: 6193 Comm: init Tainted: G             L      syzkaller #0 PREEMPT(full)
+  Call Trace:
+   <TASK>
+   __do_sys_reboot+0x36e/0x400 kernel/reboot.c:784
+   do_syscall_64+0x115/0x840 arch/x86/entry/syscall_64.c:94
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+
+If the caller is init, do_exit() then panics. Exiting does not help
+the other callers either: the devices are already shut down, and the
+task still holds system_transition_mutex.
+
+Halt instead, as the syscall already does when no power off handler is
+registered, and as most other architectures do in machine_power_off().
+
+Use machine_halt() rather than kernel_halt(). kernel_power_off() has
+already run the shutdown sequence, and kernel_halt() would call the
+reboot notifiers again with interrupts disabled.
+
+Keep the fallback in the syscall. hw_failure_emergency_action_func()
+relies on kernel_power_off() returning, so that it can try an
+emergency restart.
+
+Fixes: 001c28e57187 ("exit: Detect and fix irq disabled state in oops")
+Reported-by: syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8fdf0d8e10bdde1c2e88
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/all/20250404152006.GF3720@redhat.com/
+Link: https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- .../media/v4l/ext-ctrls-codec-stateless.rst   | 42 +++++++++++++++++++
- .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 ++
- drivers/media/v4l2-core/v4l2-ctrls-core.c     |  8 ++++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  5 +++
- include/media/v4l2-ctrls.h                    |  2 +
- include/uapi/linux/v4l2-controls.h            | 27 ++++++++++++
- include/uapi/linux/videodev2.h                |  2 +
- 7 files changed, 90 insertions(+)
+This is my second attempt at fixing this. The first one silenced the
+warning in do_exit() pre LLMs:
+https://lore.kernel.org/all/20250403-exit-v1-1-8e9266bfc4b7@debian.org/
 
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-index d7a3b8ef03a7..effd3eb47e29 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-@@ -2050,6 +2050,48 @@ This structure contains all loop filter related parameters. See sections
-       - When set, the bitstream contains additional syntax elements that
-         specify which mode and reference frame deltas are to be updated.
+Bradley Morgan tried twice, first enabling interrupts before do_exit(),
+then calling make_task_dead():
+https://lore.kernel.org/all/20260712125300.31501-1-include@grrlz.net/
+https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
+
+Tze-nan Wu hit a related init panic during power off:
+https://lore.kernel.org/all/20250410143937.1829272-1-Tze-nan.Wu@mediatek.com/
+
+All of these still let the task exit. In those threads Oleg and
+Christian said init should not exit on power off at all, so this
+version halts instead.
+---
+ kernel/reboot.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index 9a84401adde5a0..bc71183d4ad870 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -791,6 +791,9 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
  
-+``V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (struct)``
-+    Specifies VP9 Tile Info entry as describe in section 6.4 "Decode tile syntax"
-+    of :ref:`vp9`.
-+    MiRowStart, MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
-+    v4l2_ctrl_vp9_frame using tile_row and tile_col.
-+
-+.. c:type:: v4l2_ctrl_vp9_tile_info_entry
-+
-+.. raw:: latex
-+
-+    \small
-+
-+.. tabularcolumns:: |p{1.2cm}|p{9.2cm}|p{6.9cm}|
-+
-+.. cssclass:: longtable
-+
-+.. flat-table:: struct v4l2_ctrl_vp9_tile_info_entry
-+    :header-rows:  0
-+    :stub-columns: 0
-+    :widths:       1 1 2
-+
-+    * - __u32
-+      - ``tile_offset``
-+      - Specifies the offset from the tile data after frame header,
-+        i.e. where the coded tile data actually starts.
-+    * - __u32
-+      - ``tile_size``
-+      - Specifies the size in bytes of the coded tile.
-+        Equivalent to "tile_size" in :ref:`vp9`
-+    * - __u32
-+      - ``tile_row``
-+      - Specifies the row of the current tile.
-+        Equivalent to "tileRow" in :ref:`vp9`
-+    * - __u32
-+      - ``tile_col``
-+      - Specifies the col of the current tile.
-+        Equivalent to "tileCol" in :ref:`vp9`
-+
-+.. raw:: latex
-+
-+    \normalsize
-+
- .. _v4l2-codec-stateless-hevc:
- 
- ``V4L2_CID_STATELESS_HEVC_SPS (struct)``
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-index d78328152b75..836b227c10c9 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-@@ -258,6 +258,10 @@ still cause this situation.
-       - ``p_vp9_frame``
-       - A pointer to a struct :c:type:`v4l2_ctrl_vp9_frame`. Valid if this
-         control is of type ``V4L2_CTRL_TYPE_VP9_FRAME``.
-+    * - struct :c:type:`v4l2_ctrl_vp9_tile_info_entry` *
-+      - ``p_vp9_tile_info_entry``
-+      - A pointer to a struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`. Valid if this
-+        control is of type ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``.
-     * - struct :c:type:`v4l2_ctrl_hdr10_cll_info` *
-       - ``p_hdr10_cll``
-       - A pointer to a struct :c:type:`v4l2_ctrl_hdr10_cll_info`. Valid if this control is
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 6e751a043a21..a426a716f3d4 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-@@ -425,6 +425,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
- 	case V4L2_CTRL_TYPE_VP9_FRAME:
- 		pr_cont("VP9_FRAME");
+ 	case LINUX_REBOOT_CMD_POWER_OFF:
+ 		kernel_power_off();
++		pr_emerg("Power off failed: System halted instead\n");
++		/* kernel_power_off() already ran the shutdown, only halt. */
++		machine_halt();
+ 		do_exit(0);
  		break;
-+	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-+		pr_cont("VP9_TILE_INFO_ENTRY");
-+		break;
- 	case V4L2_CTRL_TYPE_HEVC_SPS:
- 		pr_cont("HEVC_SPS");
- 		break;
-@@ -1415,6 +1418,8 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
  
- 	case V4L2_CTRL_TYPE_VP9_FRAME:
- 		return validate_vp9_frame(p);
-+	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-+		break;
- 	case V4L2_CTRL_TYPE_AV1_FRAME:
- 		return validate_av1_frame(p);
- 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
-@@ -2135,6 +2140,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
- 	case V4L2_CTRL_TYPE_VP9_FRAME:
- 		elem_size = sizeof(struct v4l2_ctrl_vp9_frame);
- 		break;
-+	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-+		elem_size = sizeof(struct v4l2_ctrl_vp9_tile_info_entry);
-+		break;
- 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
- 		elem_size = sizeof(struct v4l2_ctrl_av1_sequence);
- 		break;
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index e062f2088490..f7a98925027b 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-@@ -1228,6 +1228,7 @@ const char *v4l2_ctrl_get_name(u32 id)
- 	case V4L2_CID_STATELESS_MPEG2_QUANTISATION:		return "MPEG-2 Quantisation Matrices";
- 	case V4L2_CID_STATELESS_VP9_COMPRESSED_HDR:	return "VP9 Probabilities Updates";
- 	case V4L2_CID_STATELESS_VP9_FRAME:			return "VP9 Frame Decode Parameters";
-+	case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:		return "VP9 Tile Info Entry";
- 	case V4L2_CID_STATELESS_HEVC_SPS:			return "HEVC Sequence Parameter Set";
- 	case V4L2_CID_STATELESS_HEVC_PPS:			return "HEVC Picture Parameter Set";
- 	case V4L2_CID_STATELESS_HEVC_SLICE_PARAMS:		return "HEVC Slice Parameters";
-@@ -1602,6 +1603,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
- 	case V4L2_CID_STATELESS_AV1_SEQUENCE:
- 		*type = V4L2_CTRL_TYPE_AV1_SEQUENCE;
- 		break;
-+	case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:
-+		*type = V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY;
-+		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-+		break;
- 	case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:
- 		*type = V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY;
- 		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-index cec9217d97ac..286e72a00a9d 100644
---- a/include/media/v4l2-ctrls.h
-+++ b/include/media/v4l2-ctrls.h
-@@ -45,6 +45,7 @@ struct video_device;
-  * @p_h264_pred_weights:	Pointer to a struct v4l2_ctrl_h264_pred_weights.
-  * @p_vp8_frame:		Pointer to a VP8 frame params structure.
-  * @p_vp9_compressed_hdr_probs:	Pointer to a VP9 frame compressed header probs structure.
-+ * @p_vp9_tile_info_entry:	Pointer to a VP9 tile info structure.
-  * @p_vp9_frame:		Pointer to a VP9 frame params structure.
-  * @p_hevc_sps:			Pointer to an HEVC sequence parameter set structure.
-  * @p_hevc_pps:			Pointer to an HEVC picture parameter set structure.
-@@ -83,6 +84,7 @@ union v4l2_ctrl_ptr {
- 	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
- 	struct v4l2_ctrl_vp9_compressed_hdr *p_vp9_compressed_hdr_probs;
- 	struct v4l2_ctrl_vp9_frame *p_vp9_frame;
-+	struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
- 	struct v4l2_ctrl_hdr10_cll_info *p_hdr10_cll;
- 	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
- 	struct v4l2_area *p_area;
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index d17e41d51d2e..8eb8da0073cd 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -2642,6 +2642,8 @@ struct v4l2_ctrl_hevc_ext_sps_lt_rps {
- 
- /* Stateless VP9 controls */
- 
-+#define V4L2_VP9_MAX_TILE_COUNT			512
-+
- #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED	0x1
- #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_UPDATE	0x2
- 
-@@ -2924,6 +2926,31 @@ struct v4l2_ctrl_vp9_compressed_hdr {
- 	struct v4l2_vp9_mv_probs mv;
- };
- 
-+#define V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (V4L2_CID_CODEC_STATELESS_BASE + 302)
-+/**
-+ * struct v4l2_ctrl_vp9_tile_info_entry - VP9 Tile Info entry
-+ *
-+ * Represents a single VP9 tile inside. Note that MiRowStart,
-+ * MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
-+ * v4l2_ctrl_vp9_frame using tile_row and tile_col.
-+ * See section 6.4 "Decode tile syntax" for more details.
-+ *
-+ * @tile_offset: offset from the tile data after frame header,
-+ * i.e. where the coded tile data actually starts.
-+ * @tile_size: specifies the size in bytes of the coded tile. Equivalent to
-+ * "tile_size" in the VP9 Specification.
-+ * @tile_row: specifies the row of the current tile. Equivalent to "tileRow" in
-+ * the VP9 Specification.
-+ * @tile_col: specifies the col of the current tile. Equivalent to "tileCol" in
-+ * the VP9 Specification.
-+ */
-+struct v4l2_ctrl_vp9_tile_info_entry {
-+	__u32 tile_offset;
-+	__u32 tile_size;
-+	__u32 tile_row;
-+	__u32 tile_col;
-+};
-+
- /* Stateless AV1 controls */
- 
- #define V4L2_AV1_TOTAL_REFS_PER_FRAME	8
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 5373dba640fa..b4338af93a39 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -1903,6 +1903,7 @@ struct v4l2_ext_control {
- 		struct v4l2_ctrl_mpeg2_quantisation __user *p_mpeg2_quantisation;
- 		struct v4l2_ctrl_vp9_compressed_hdr __user *p_vp9_compressed_hdr_probs;
- 		struct v4l2_ctrl_vp9_frame __user *p_vp9_frame;
-+		struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
- 		struct v4l2_ctrl_hevc_sps __user *p_hevc_sps;
- 		struct v4l2_ctrl_hevc_pps __user *p_hevc_pps;
- 		struct v4l2_ctrl_hevc_slice_params __user *p_hevc_slice_params;
-@@ -1984,6 +1985,7 @@ enum v4l2_ctrl_type {
- 
- 	V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR	= 0x0260,
- 	V4L2_CTRL_TYPE_VP9_FRAME		= 0x0261,
-+	V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY	= 0x0262,
- 
- 	V4L2_CTRL_TYPE_HEVC_SPS			= 0x0270,
- 	V4L2_CTRL_TYPE_HEVC_PPS			= 0x0271,
--- 
-2.53.0
+
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261110-reboot-make-task-dead-8702e9b29130
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
