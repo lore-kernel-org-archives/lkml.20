@@ -1,90 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296713;
-	b=mHoH+II89BhoiXiz0jOG/jWFwqemqB4+Yu4oWcHiRsce6X+nsxdBZsSkwaqfVOegcLV3
-	 F2ImhUiAotx+v4wQF8jexyZhC5SGyEQN1ZPJY0wW/R+j2J5VJB6oXEv9INIsAMrj2epv4
-	 Mxi5drDxmdVXZj7LiCzy6+N8EdpvlNm5jW8BxXsbjNpShhRdOBQEVhU0RRl+v7Xo50x81
-	 DQa7yT+xaHSZzN0uTbUoR8SBILLy32vS33mUUVjvmbrwCAKdvh3fPHq2RyhO8jl2FC7Vg
-	 UeL/SS9hTyMEoyE/0nlXxDGqMrdm3kpNnLm42Hu3ClT4E8XFeqjPyFb1GKCIkwFX5MA==
+	t=1794296710;
+	b=BPYB3e7fTocGEk7wO5eDgnAC5GEJ34NesA0BPNVXw5lU3H6M4MrNyHYbntwSavt7JXkP
+	 lehXJAaHF+cLURcejcuhDWzFqNSKtaaRt5a7vh7+sxo6zyE/tVmHqY+CSqcuuq8lKZiJP
+	 nxRtEe7hT7p9sWAS6xhR24HrqdRieWZ3z3A+0fopalL0xyOFxhK1gOFDDw7DF47pjxqw0
+	 qmyDoTKSZKf2EeSiUDh51+3V9LnBpJiNZPwimuftka4S7T20meQAhY0w5a3r+J79KeDwj
+	 75LP8x2rbsSUshVsotvFuts6tbpfGZHwMBqd75/vGJfIK4eUDQ8ubLNCcKU2OTyn3VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296713;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=MLnGLzTCg3KFo3iPJRR+p8d3VN6v2zJ6pgf1CAq58N8=;
-	b=R0eyZ/7FwNuAjE9AAh6vISA0CH6tZkg5ToREbCERZQ4KfAhV37FPC1rI+3EAPkWg4Bte
-	 Mc+wQer1VIKe0Rv+PdBaxCENV9rceKx5YO72hTuXHXa5cF0uzW+/KKMeFBGb2mBTW/cs3
-	 3WaFpZVJxZfXf77APSuCPfW9IYMSOxboXvgr94lmF11lagiv6jrLVSIto/yuKPkfzpVFy
-	 56tLso5h8DIu5sWNRNFW9QOYKRMT5eBlCheEY/gAFYMzos7/dM5xWI3R+8kuA+91R5fSX
-	 jn7LbTR8cQ3X265rDBKaaQDsbDHvQ7jA9lRbAvkfeQCj8rq+aH7OeuJpbxsw9DMMD+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296710;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3dI0t/SwdqvYchxdAM18dF6Ej68UZ7/5g2MyxsU/FwM=;
+	b=256Px1AX/I4Qn5Z/WmhajGTX1wd3p61oEZjqHk2eMk1t3hXUK1K62PnAKvTNk2TageQa
+	 8mFRMiDQd5MHl0cQl6aHs43YQ9iu60RocpA9toP52nCYeWFdnRdCwMX6CAKf3iJ3Um1+R
+	 qK6rJ7CQqI3AyjCw1Lx9EHnsrOzsIKVPOYvjkEyZ65BKXzienbKfV4VtOzpsPT4QYg4F5
+	 N7+M2//CGGbnwIFDH4sje2zsdfIYLT8DesmspDGtPKeetC9rJoMwokE3ZaUK9psLYbNe0
+	 jxCUuC6fDIxPbuU+FINizWNLPt+IxVzeTgP/eS9Ei6JIHFJj4wbkTGWj/V3ROzxrbWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eIurOWNJ;
-	arc=none smtp.remote-ip=209.85.167.181
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RelAKPru;
+	arc=none smtp.remote-ip=95.215.58.77
+Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571BD60725AE
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 571BD60725AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97CD60711C6
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C97CD60711C6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eIurOWNJ
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4e4a4d77e5bso997382b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296712; x=1794901512; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MLnGLzTCg3KFo3iPJRR+p8d3VN6v2zJ6pgf1CAq58N8=;
-        b=eIurOWNJTe7rS1rNHI2+tyAPlz0o5gQKlTh55ZCkZpCdToW9cosAbhY799JL9tZFG1
-         lROrtIywBYm/Accc6NYN49oB3EeF3RSgbW86J39PujF8Gs9NTpn8UO/6Xpt8b8Rjl9Ha
-         9xxpGZ/LpyMQY/XnAfdIokr9oboBB5aBbx+kvTRfFqJiziPR8PduNb8PuNU9nPCjVW7P
-         81B4eeICwdLLIQve4myiLyOy2i0FeZWvykIBRjupk/9wCkRLsuzQFAWYY7BJPrjhxmKw
-         RKXwOel5zu0EaedMnGlxxjFyLdIpnunCFcYBSZ6uizC0HqcZ3+eedzoU+dA0PcR71g0k
-         Ehmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296712; x=1794901512;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MLnGLzTCg3KFo3iPJRR+p8d3VN6v2zJ6pgf1CAq58N8=;
-        b=zgzkk8dcAlK4AA0PP2BLj18CmgZ2ugjObGrzWA+18o5pivqvWEhnuLZZWLF/gW+tAa
-         /MPyeWmm4cjtswPTp4Za2aLVP3jIzVY2941TNIJgHXVR0AtigRdPkbC6nfyo/hDprnTi
-         H+zfYwpQEB68Rp4Hr6w5yMGu2XxNrrwM4L97bVfKhnJ/q7Ub/zAWrYlecbJuEEI0oLCx
-         1vEb23lMVOvfUuho1nV3DdjbpCF++JbUHYG0DVPuGRXdB5i8qw/nfWPvioTonBcapvXn
-         vGjYrmqik068cyxatIq3Y9GGmnm+aS3gMGs6hE3Ahmrcet1ZpSI+SGULfP5craoZnkfm
-         tULw==
-X-Forwarded-Encrypted: i=1; AL+hErFfJEygLYJ1rHJJRb8t6AxYT5Ya8McGOG7wjr+rRGB2J9QMctk5shHsCGRxGB0cgeQEQLnPSo9Mm43K5ig=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RHSdY29PUbv2eOyPzl0G+FWcJltQd0PJqACkfmdk4MvcybE4o
-	0Xny9CethYQvShmJIPo1QDr34cI9vfEymdZ/BlrnDE6nWOWClqpFm7nbOa3teqxR
-X-Gm-Gg: AYBFou0pKANfKxOCDPU7ZyLKyaTP1nVHvqxc4LpboJYkUzhiu/qnLHf7AE+/eIDWwph
-	Aw9VympWW9EXnmRWBSfs9O2zw+RK9eDSkHy3puKqultLJtN5BX675kLUFJ9AOR13HStC/Iw7zNE
-	5rGuDZ+WrvJWxM5BYVguYlE6fSnEE8SssqOyIZVKx0GiCdPnCkpj17WSXpJ2F11SLug7S2PEeXH
-	uqnG2hsOVogEQAAP/CPKsLUDUeHwCPBPQl3xac1AJb5z6LvctoWvYWOeg0fET4W7wfoDF3Yto4z
-	ky+Izke682m5SYByOhqaFF9uty2sHqT2vU/UJirJ2mmB7uuQJ2jugJYVHT+gotEP1BDm7eI23nr
-	6NZXCTtZQAezqKWNFtqV96beH4IKfNexfrysjP9ErMZeDbkrH6RCx8Eqt8QyQ4qb0mVmsg3wrZj
-	ZDqwrlw8iBT5k9+Hmae2B8BqUylMcP5A86SOrBnXOkSZMpKysuvcn12rg1BtLq+s2CpHDburUUK
-	Brkodt1htn0AdpVXnyQb1+y3WhdGm7k7puZQe8HUlYTR+NZdEFF+wCqaQbaOTC6dFBpmFZ4VPuY
-	oxZfGG0MQFfoKnPG7SlDAby8IIjXkR0hHE/AG2fvpAkIOa5FqWMeMoISEVRYouvW8yfHWl2L6HA
-	gswaDzbHWXv2un2Iu6a9pbMakohAgs834cn/Ti8Ha2lPfb1tYoBeoYjPdcZhBP+qWptj1MPfH4T
-	uBl5UCpk3PPQtA2u7wDmSQBm6RTlUl6v0akqO83Js7ANhY+QZwFRE=
-X-Received: by 2002:a05:6808:3097:b0:4d6:9133:cff6 with SMTP id 5614622812f47-568764d22b6mr889637b6e.29.1794296712310;
-        Mon, 09 Nov 2026 23:45:12 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:45:11 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:49 -0700
-Subject: [PATCH v2 46/58] mtd: rawnand: lpc32xx_slc: retain chip state
- across removal
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RelAKPru
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4FYYcIMsWui5FEtbJc216IVCEEljsCSq2dMO0ldq0m0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794296707; v=1; x=1794901507;
+ b=RelAKPruwzUF0dmqfLH7UcqhLAHJBe4St9VpbqdmnCc+DYgKLU4RMGWOyVIbsVjDgG4G2OVb
+ VfQQHxevQ0ZlZjAmk2Fd30hEHJEkcHfFKzBe+fGwHqlqKEe6F6+Z0VD4NqJ53KFlwtWkgANbt2P
+ e5YK62pI/ktysaItN4T5S29s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 0f38bc380dfc5c8d;
+	Tue, 10 Nov 2026 07:45:05 +0000
+X-Mizu-Trace-ID: 0f38bc380dfc5c8d
+X-Migadu-Flow: FLOW_OUT
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: xu.xin@linux.dev
+Cc: akpm@linux-foundation.org,
+	chengming.zhou@linux.dev,
+	corbet@lwn.net,
+	david@kernel.org,
+	link@vivo.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	odys.yuan@gmail.com,
+	rppt@kernel.org,
+	surenb@google.com,
+	tujinjiang@huawei.com,
+	vbabka@kernel.org,
+	xiao.wang@vivo.com
+Subject: [PATCH 1/4] ksm: add only_merge_zero_pages to merge only empty anonymous pages
+Date: Tue, 10 Nov 2026 15:44:48 +0800
+Message-Id: <20261110074451.220524-1-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110074312.219847-1-xu.xin@linux.dev>
+References: <20261110074312.219847-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,102 +80,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-46-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, 
- linux-arm-kernel@lists.infradead.org, 
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
- Vladimir Zapolskiy <vz@mleia.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Drain chip operations before releasing DMA and changing the controller
-and write-protect signals. Retain the embedded NAND chip and controller
-until the final MTD reference releases their metadata.
+Add a new sysfs attribute, /sys/kernel/mm/ksm/only_merge_zero_pages,
+which, when enabled, makes ksmd merge only empty (zeroed) anonymous
+pages with the kernel zero page and skip the stable and unstable trees
+entirely for pages that carry data.
 
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Cc: Vladimir Zapolskiy <vz@mleia.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+The attribute requires use_zero_pages to be 1, and the two are kept
+consistent by symmetric constraints: it cannot be enabled while
+use_zero_pages is 0 (-EINVAL), and use_zero_pages cannot be turned
+off while it is active (-EBUSY). Both store handlers take
+ksm_thread_mutex around their check-and-set so that a concurrent write
+to the two attributes cannot leave use_zero_pages=0 and
+only_merge_zero_pages=1, a state in which ksmd would scan and checksum
+pages but never merge any. The new attribute can be changed at any time
+and is only effective for pages merged after the change.
+
+Benefits in three aspects
+=========================
+- Memory saving:
+  On memory-constrained systems such as Android and embedded devices,
+  zero-filled anonymous pages are the largest source of duplicate
+  anonymous memory. They are produced by userspace allocators: the
+  zeroing of freshly allocated Java objects and buffers in the ART heap
+  (new byte[]/int[], Bitmap buffers), calloc/memset in native code, and
+  preallocated media buffers. Merging them with the kernel zero page
+  frees a significant amount of physical memory, which matters as DRAM
+  costs keep rising. With this enabled, we measured 100MB–300MB saving
+  tested with several popular applications on aarch64 (Android).
+
+- CPU overhead reduction:
+  Merging only zero pages also reduces the overhead of ksmd. A page that
+  is not merged with the zero page carries data and can never be merged
+  with the zero page, so there is no point in searching the stable tree
+  or inserting it into the unstable tree for it. Skipping those tree
+  operations for data-bearing pages reduces both the CPU time and the
+  rhashtable memory footprint of ksmd, which makes zero page merging
+  practical on low-resource devices where full KSM scanning would be too
+  expensive.
+
+- Security:
+  Finally, this shrinks the KSM side-channel attack surface: only zero
+  pages are ever merged, so the sharing status of data-bearing pages is
+  no longer observable through KSM timing side channels.
+
+Note
+=====
+- Suitable for Android, embedded and low-memory devices, where zero-page
+  deduplication is wanted but full KSM scanning is too costly, and reduced
+  KSM side-channel exposure is desired. Many handset vendors may prefer
+  this knob, which can be used as a default fallback policy.
+
+- Not suitable for server and virtualization workloads containing many
+  non-zero duplicate pages, where vanilla KSM provides better memory
+  savings.
+
+Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+Reviewed-by: Huan Yang <link@vivo.com>
+Cc: Wang Xiao <xiao.wang@vivo.com>
 ---
- drivers/mtd/nand/raw/lpc32xx_slc.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
+ Documentation/admin-guide/mm/ksm.rst | 40 ++++++++++++++++-
+ mm/ksm.c                             | 67 ++++++++++++++++++++++++++++
+ 2 files changed, 106 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/nand/raw/lpc32xx_slc.c b/drivers/mtd/nand/raw/lpc32xx_slc.c
-index b4d90afa9267..85945e1dd25a 100644
---- a/drivers/mtd/nand/raw/lpc32xx_slc.c
-+++ b/drivers/mtd/nand/raw/lpc32xx_slc.c
-@@ -817,6 +817,12 @@ static const struct nand_controller_ops lpc32xx_nand_controller_ops = {
- 	.attach_chip = lpc32xx_nand_attach_chip,
- };
+diff --git a/Documentation/admin-guide/mm/ksm.rst b/Documentation/admin-guide/mm/ksm.rst
+index c329ca747b8c..7c2cbac4b020 100644
+--- a/Documentation/admin-guide/mm/ksm.rst
++++ b/Documentation/admin-guide/mm/ksm.rst
+@@ -128,10 +128,48 @@ use_zero_pages
+         KSM for some workloads, for example if the checksums of pages
+         candidate for merging match the checksum of an empty
+         page. This setting can be changed at any time, it is only
+-        effective for pages merged after the change.
++        effective for pages merged after the change. Turning this off
++        while ``only_merge_zero_pages`` is enabled fails with EBUSY;
++        clear ``only_merge_zero_pages`` first.
  
-+static void lpc32xx_nand_release(struct nand_controller *controller)
-+{
-+	kfree(container_of(controller, struct lpc32xx_nand_host,
-+			   nand_chip.legacy.dummy_controller));
-+}
+         Default: 0 (normal KSM behaviour as in earlier releases)
+ 
++only_merge_zero_pages
++        specifies whether ksmd should only merge empty (zeroed)
++        anonymous pages, with the kernel zero page, and skip the stable
++        and unstable trees entirely for pages that carry data. This
++        requires ``use_zero_pages`` to be 1; it cannot be enabled while
++        ``use_zero_pages`` is 0, and ``use_zero_pages`` cannot be turned
++        off while it is enabled (the write fails with EBUSY).
 +
- /*
-  * Probe for NAND controller
-  */
-@@ -829,9 +835,14 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
- 	int res;
++        This is useful on memory-constrained systems (e.g. Android and
++        embedded devices) where the main source of duplicate anonymous
++        memory is zero-filled pages produced by userspace allocators
++        (for example the zeroing of freshly allocated Java objects and
++        buffers in the ART heap, ``calloc``/``memset`` in native code,
++        and pre-allocated media buffers). Merging only those pages
++        avoids the per-page cost of searching and inserting into the
++        stable and unstable trees for data-bearing pages, which reduces
++        the CPU and memory overhead of ksmd. It also shrinks the KSM
++        side-channel attack surface, since only zero pages are ever
++        merged and the sharing state of data-bearing pages is no longer
++        observable through KSM.
++
++        - Suitable for: Android, embedded and low-memory devices, where
++          zero-page deduplication is wanted but full KSM scanning is
++          too costly, and reduced KSM side-channel exposure is desired.
++          Many handset vendors may prefer this knob, which can be used
++          as a default fallback policy.
++
++        - Not suitable for: Server and virtualization workloads containing
++          many non-zero duplicate pages, where vanilla KSM provides better
++          memory savings.
++
++        This setting can be changed at any time, it is only effective
++        for pages merged after the change.
++
++        Default: 0 (normal KSM behaviour)
++
+ max_page_sharing
+         Maximum sharing allowed for each KSM page. This enforces a
+         deduplication limit to avoid high latency for virtual memory
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 5e24b5ca8dc8..49f3728a3d03 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -295,6 +295,13 @@ static unsigned int zero_checksum __read_mostly;
+ /* Whether to merge empty (zeroed) pages with actual zero pages */
+ static bool ksm_use_zero_pages __read_mostly;
  
- 	/* Allocate memory for the device structure (and zero it) */
--	host = devm_kzalloc(&pdev->dev, sizeof(*host), GFP_KERNEL);
-+	host = kzalloc_obj(*host);
- 	if (!host)
- 		return -ENOMEM;
-+	chip = &host->nand_chip;
-+	chip->controller = &chip->legacy.dummy_controller;
-+	res = devm_nand_controller_init(&pdev->dev, chip->controller, lpc32xx_nand_release);
-+	if (res)
-+		return res;
++/*
++ * When set, ksmd only merges empty (zeroed) anonymous pages with the kernel
++ * zero page and skips the stable/unstable tree entirely for pages that carry
++ * data. This requires ksm_use_zero_pages to be enabled.
++ */
++static bool ksm_only_merge_zero_pages __read_mostly;
++
+ /* Skip pages that couldn't be de-duplicated previously */
+ /* Default to true at least temporarily, for testing */
+ static bool ksm_smart_scan = true;
+@@ -2323,6 +2330,14 @@ static void cmp_and_merge_page(struct page *page, struct ksm_rmap_item *rmap_ite
  
- 	host->io_base = devm_platform_get_and_ioremap_resource(pdev, 0, &rc);
- 	if (IS_ERR(host->io_base))
-@@ -915,10 +926,16 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
- 		goto release_dma;
+ 		if (!try_to_merge_with_zero_page(rmap_item, page))
+ 			return;
++
++		/*
++		 * A page that reached here was not merged with the zero page this
++		 * round. Under only_merge_zero_pages we do not insert it into the
++		 * stable/unstable trees.
++		 */
++		if (ksm_only_merge_zero_pages)
++			return;
+ 	}
  
- 	mtd->name = "nxp_lpc3220_slc";
--	res = mtd_device_register(mtd, host->ncfg->parts,
--				  host->ncfg->num_parts);
-+	res = nand_set_release(chip, NULL);
- 	if (res)
- 		goto cleanup_nand;
-+	res = mtd_device_register(mtd, host->ncfg->parts,
-+				  host->ncfg->num_parts);
-+	if (res) {
-+		nand_disconnect(chip);
-+		mtd_put_master(mtd);
-+		goto release_dma;
+ 	/* Start by searching for the folio in the stable tree */
+@@ -3697,12 +3712,63 @@ static ssize_t use_zero_pages_store(struct kobject *kobj,
+ 	if (err)
+ 		return -EINVAL;
+ 
++	/*
++	 * only_merge_zero_pages depends on use_zero_pages: refuse to turn
++	 * the latter off while the former is active, so the two cannot
++	 * silently diverge. Take ksm_thread_mutex so that this check-and-set
++	 * is serialized against only_merge_zero_pages_store(), which reads
++	 * ksm_use_zero_pages under the same lock.
++	 */
++	mutex_lock(&ksm_thread_mutex);
++	if (!value && ksm_only_merge_zero_pages) {
++		mutex_unlock(&ksm_thread_mutex);
++		return -EBUSY;
 +	}
+ 	ksm_use_zero_pages = value;
++	mutex_unlock(&ksm_thread_mutex);
  
- 	return 0;
- 
-@@ -944,7 +961,7 @@ static void lpc32xx_nand_remove(struct platform_device *pdev)
- 
- 	ret = mtd_device_unregister(nand_to_mtd(chip));
- 	WARN_ON(ret);
--	nand_cleanup(chip);
-+	nand_disconnect(chip);
- 	dma_release_channel(host->dma_chan);
- 
- 	/* Force CE high */
-@@ -953,6 +970,7 @@ static void lpc32xx_nand_remove(struct platform_device *pdev)
- 	writel(tmp, SLC_CTRL(host->io_base));
- 
- 	lpc32xx_wp_enable(host);
-+	mtd_put_master(nand_to_mtd(chip));
+ 	return count;
  }
+ KSM_ATTR(use_zero_pages);
  
- static int lpc32xx_nand_resume(struct platform_device *pdev)
-
++static ssize_t only_merge_zero_pages_show(struct kobject *kobj,
++					  struct kobj_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "%u\n", ksm_only_merge_zero_pages);
++}
++static ssize_t only_merge_zero_pages_store(struct kobject *kobj,
++					   struct kobj_attribute *attr,
++					   const char *buf, size_t count)
++{
++	int err;
++	bool value;
++
++	err = kstrtobool(buf, &value);
++	if (err)
++		return -EINVAL;
++
++	/*
++	 * Take ksm_thread_mutex so that this check-and-set is serialized
++	 * against use_zero_pages_store(), which reads ksm_only_merge_zero_pages
++	 * under the same lock. Without it, a concurrent write to the two
++	 * attributes could leave use_zero_pages=0 and only_merge_zero_pages=1,
++	 * a state in which ksmd would scan and checksum pages but never merge
++	 * any.
++	 */
++	mutex_lock(&ksm_thread_mutex);
++	if (value && !ksm_use_zero_pages) {
++		mutex_unlock(&ksm_thread_mutex);
++		pr_warn_once("ksm: only_merge_zero_pages can only be enabled "
++			     "when use_zero_pages is 1\n");
++		return -EINVAL;
++	}
++	ksm_only_merge_zero_pages = value;
++	mutex_unlock(&ksm_thread_mutex);
++
++	return count;
++}
++KSM_ATTR(only_merge_zero_pages);
++
+ static ssize_t max_page_sharing_show(struct kobject *kobj,
+ 				     struct kobj_attribute *attr, char *buf)
+ {
+@@ -4028,6 +4094,7 @@ static struct attribute *ksm_attrs[] = {
+ 	&stable_node_dups_attr.attr,
+ 	&stable_node_chains_prune_millisecs_attr.attr,
+ 	&use_zero_pages_attr.attr,
++	&only_merge_zero_pages_attr.attr,
+ 	&general_profit_attr.attr,
+ 	&smart_scan_attr.attr,
+ 	&advisor_mode_attr.attr,
 -- 
-2.53.0
+2.34.1
 
