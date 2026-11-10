@@ -1,58 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304470;
-	b=VcFkV0Z2Rjd8xMxvBJ9Rmauxbj+X9clNia0Q98/rxJPAn6cwOI6KsOsCygWvYRg98UvW
-	 tfMtyYGgWLns0iwlQTMxSeLkOSVRSDlWwG6vpUkJI1wi1309lSvJuyo7BGjU23x4FiunP
-	 GI4pXlajXCs1ne8zBApUT/otjxrVFcXUIbElVVNmUolYWKfBCdjlSNZM05ckW17Y+iE84
-	 0gCLFBk+RuIaPolBw9tknJ1VnWrswUeas0+yBNgdtdCZjpw0172fmTd4YcFyBU9ziGJnR
-	 BCoEStPkfHerX9VdSzUpZTVQnEWgWFVjrkYnUSNQfdQ40Po9Vb2U1oFW7KZZouN/P2g==
+	t=1794304482;
+	b=MPpaXYe6qQwseek1BPV7qKpFIgxSoc5zzEq6HwF1UVuTgLjApXhTfnEeg93dzBkxwJab
+	 /v4DZ0L+e70yWc4Dvmn0lJ/Q5DxcCabMp2V9msM9niKOIZqMGHkVWl4NjzVQa9SxNX1C3
+	 ROERFOTeiGwx9FpRkrg6lAtZMYRT/0EKH2hRZp9aTgDZjUYK4J8TtXvp0WzKTqpyv8bLj
+	 wHRi1MHsp02lWPnkqBeJE7Or8x1uIL5vqy2FYs27jZlxM2snOer1b3aUPSGzqZCRy3djN
+	 ic/6DxdRdNN0dJlTE9CSSsDeB5RKJVO3Mbbmcc+FdT8BWI9ac8mvJ/XP4gBh9juG+FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304470;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+1i1sVyMH9ad9wsU8jFlrzIKrGOD1X4RL8nm+PYmu6A=;
-	b=AVPm9Em3Gwhv0bUDHKHgPKkHzr/qlqNjW3CCf3aYsQf/Mj2fPfKW0koiNpjW1cxFpTbb
-	 bJlVtXLL0jA8k0FXYj1Hvjj9LlRjgQKkGPRwU1fiwhHaYku1XJASbtT1Ve9ksEG0pLwt8
-	 SPLqhyFmMCnSN/0PbICmWxNQJ4JnqwFDkY6e+GOV/iDN5n1K8n1cpfrX9fPQQEs7mOxn4
-	 wW7+gXBAhFu0Bm/oB1iKIo/VQ3HqZf9zEgPuRtXy2U7uPQKURn1rKtgqnv+0JZd47WOUP
-	 w5GZuNZqnjPGanqSPNbntkubjtMAI0VGT8SromwV1yqrIRR8LlPh96K0d6B4rLzhotw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=XoornKh9z5jpJH7j8+EuQEpUcX1Rogb6YE7C2nngtQ0=;
+	b=20KV+BDy9x1p8s/dkYR/1zu0Eb5VMQqyiZzuRJO1saEpoJfR6hu6tRoL+3o4J60eBXq+
+	 bUW4liKfiXBuQ9MWuciV5yld6a15fyFffqZuQ4qJMvQDF8/6yfKVCJp/cfDzPuKrEWqqg
+	 5JxnQvnq5jkSxEx9l3fjd621BXFVz6jZw9osD5A+Ku7/qFHPXepHfsrgEGQSDkrtXyUud
+	 /EUp4Fc/r8rxzu0TW6EsKvl3tXlUQhPBdG0xku/YVUjQEsADrO2jqSnyXJWs5sgigBe2t
+	 5SCAIeEXNPH9w1JV874whtx/HnCbeOTvd0ng3luwXJWSqaNqxHibPw12QSVuGWeHToA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dxG7dKRj;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CldSljc2;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3B2606A900;
-	Tue, 10 Nov 2026 09:54:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3B2606A900
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EEE606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82EEE606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dxG7dKRj
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+1i1sVyMH9ad9wsU8jFlrzIKrGOD1X4RL8nm+PYmu6A=;
-	b=dxG7dKRjQbGQ7VRuW2iwYcZFB00Gynna4dL9BbZdnTflV/D1Wg/cpTkNn9dAnZ2hKAz8J4QjI
-	KPKEz1S6B3O3KKTsJLIY/ciq/IYEqpjZZCDDkY03eaKBWPYRrV39a++e65rCmS5GV/CWyDb0P7N
-	yv54i+EUDCR4VE0ISK3e4iA=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jP26n00cczRhT3;
-	Tue, 10 Nov 2026 17:54:08 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id CA43C40561;
-	Tue, 10 Nov 2026 17:54:18 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 17:54:17 +0800
-Message-ID: <46e25aa5-4db5-4322-961c-95ac8a2c40d4@huawei.com>
-Date: Tue, 10 Nov 2026 17:54:16 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CldSljc2
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so11799655e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:54:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794304481; x=1794909281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XoornKh9z5jpJH7j8+EuQEpUcX1Rogb6YE7C2nngtQ0=;
+        b=CldSljc2YDB1K8RmxJDeFZjd2LVdS9NaIH4OGfpHmMJoctX3GM5a9xvVKV4saZJWu/
+         BWGeGNMj6H2n24m0+PY0cdqD7OSFs20lSGZGBRMLMCh8mRBiiSvJFyhpvCmkDsMH5g9N
+         tqiu3KwHxHqtctw5+o+K2gERzbelRMd2UvmNhuvC4mt+nC7t+U2nYGTfkVTRHlWfOQU4
+         TmHYxhwruyXtOIEsbu9VYPvrPi4iEJkKJhr4CMe1GgKcmGSxTJEAUcJOdxK0wttfKSAc
+         NqujhOFc14aMK+XJ+iA2tuRJkUBDtt63tBeySZ4zeBV+eOrAPGw9l0AdctTGmK57HUXm
+         PG3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794304481; x=1794909281;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XoornKh9z5jpJH7j8+EuQEpUcX1Rogb6YE7C2nngtQ0=;
+        b=ctCtapQ4nKvVfXv4gVA/QwdTF4ct0BuzBMkreneRdfA7MPJXciyE0HTbqqsKvMKYlE
+         W888AsgWccv+exm3rGcpUyBzMYn9/apCZ896T1S59X4fzQ4k7dgF/4pU0uGQKIgRK4x9
+         1fgvH0dB4uhDLGnlXASB44t3J0KDLWZz2cO8JB/7bBKhP7vQZLFyFKnX2Kp3eObtMDvh
+         D0xAqJogBhybTuKEuKqP+1n8vpRCD/FPBsovzEtp9VyogFm1hv3q77c3xxOuYg46GR0K
+         YOuXaUGPozA8Q2PVbWyzzbnjNuNv5uARo+5FfVo79Q3eDnDvmUkahxWrjloo59GMWIhd
+         z5gQ==
+X-Gm-Message-State: APuU4Z/Y1GUbzhJtVKRU6s/JlJosnxeelFNaod8//v2tYMu6AK2lHB4T
+	fN9PBa0vCS/1e8WXFIo93ktsIpIPBTbvkCZy/YLnPx7q18yGf9ASOfqN
+X-Gm-Gg: AYBFou1mJFCnnmU8Fa4wk6ib2wFBKM+GE7hOOougl72teu/pNDK+U1UvZv8TKK7/N92
+	nhZjI3dMIQjyffMG00uBx974dytYgdVZfnz0s8fBZWF7cfLzBRh6O/CF9H5K8+ZynA99SQndFBD
+	I5jXgtHBy3p6z++dW12hdCkjcIZIW8Xdt9bKDfIZ+uU7V7bDIfxuQWg9bpu8glx8ZeK+B6KuLlX
+	Uq/GtcZSVtbhvjBAgLV2c4ylEE5bP21hb1WuHg9WTbWpqQopliTSQxXIrT3hWBsMjGHvdfsmNq4
+	/A9571p+JNS+lkjDL9WQk/9fH434HSKOqZPWanbYwp//gjuvGlvq0c+vwAcLT1ABc2QP12s95Sr
+	Ltg8TR5FQ8F4aQuVOB8MEXG1Ca5uiQfmNsooJmIvTWkcW8Thiqf1pj6A0CE6VjfhitYwJh4B3f+
+	wppezFvsCYsC322pXd7zVZYGZMcSg0RIh64ho0YYD3EAD4/BT2RfDlwRDcRZU67Tl4bJpbD5UBi
+	iWeFSm1lmmXv/LCpxQpBzAzfKzh05/MnmC6xBrGT0KfaxqUdFhrDXRRCmZbVc3DkMq+cy5WeP1E
+	dn/Z9FeE2LDKMOcSqs2VaIHx36+o/2v1IIRuipuQ2akYp5q9tltUuDovQxxdxWHXJj3XZMP+6yx
+	khHI1rg==
+X-Received: by 2002:a05:600c:4f4b:b0:4b1:32c8:27db with SMTP id 5b1f17b1804b1-4ba0234bd12mr43740995e9.22.1794304480565;
+        Tue, 10 Nov 2026 01:54:40 -0800 (PST)
+Received: from ?IPV6:2a02:e98:40:8091:e8d5:38f4:f7b3:6dbc? ([2a02:e98:40:8091:e8d5:38f4:f7b3:6dbc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204e22csm48483805e9.12.2026.11.10.01.54.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 01:54:40 -0800 (PST)
+Message-ID: <873c22a2-fd3f-4927-a06f-16a73c30de86@gmail.com>
+Date: Tue, 10 Nov 2026 10:54:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,148 +92,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/6] resctrl: Support mba_MBps on MPAM
-To: Ben Horgan <ben.horgan@arm.com>, Jinjie Ruan <ruanjinjie01@gmail.com>,
-	<babu.moger@amd.com>, <bp@alien8.de>, <corbet@lwn.net>,
-	<Dave.Martin@arm.com>, <fenghuay@nvidia.com>, <james.morse@arm.com>,
-	<rdunlap@infradead.org>, <reinette.chatre@intel.com>,
-	<skhan@linuxfoundation.org>, <tony.luck@intel.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-References: <20261109132621.3862497-1-ruanjinjie01@gmail.com_quarantine>
- <dc1398f4-b81c-4ad8-b706-df89a1622e6c@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <dc1398f4-b81c-4ad8-b706-df89a1622e6c@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v8 00/11] serial: 8250_dw: share RX trigger setup and
+ describe Allwinner UARTs
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
+Content-Language: cs, en-US
+From: =?UTF-8?B?S3J5xaF0b2YgxIxlcm7DvQ==?= <cleverline1mc@gmail.com>
+In-Reply-To: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-
-
-在 2026/11/10 1:50, Ben Horgan 写道:
-> Hi Jinjie,
-
-Hi Ben,
-
+> Based on tty-next at 6628e7d4c6b2 with the posted RX trigger callback-lifetime
+> fix [0] and DW BUSY-safe divisor fix v4 [1]. Platform setup runs before
+> installing the BUSY-safe divisor setter.
 > 
-> On 09/11/2026 13:26, Jinjie Ruan wrote:
->> From: Jinjie Ruan <ruanjinjie@huawei.com>
->>
->> Resctrl offers two ways to describe an MBA policy:
->> - The percentage interface writes a fraction of the maximum bandwidth
->>   into the hardware control register
->> - The MBA software controller (mounted with -o mba_MBps) takes
->>   an absolute target in MiB/s and adjusts that percentage based on
->>   the MBM counters sampled once per second.
->>
->> The problem is that a percentage alone isn't enough. How much bandwidth
->> a percentage actually corresponds to depends on the memory frequency,
->> the channel count, how many threads are generating traffic, the access
->> pattern, and the traffic of other groups. Neither MPAM nor x86 resctrl
->> reports the maximum bandwidth in MiB/s. So an administrator who wants
->> to enforce an absolute budget (a tenant SLA, a noisy-neighbour limit)
->> has to measure and re-tune the percentage on every machine. x86 resctrl
->> has had this software controller since 2018; MPAM has never been able
->> to use it. This series makes it work on MPAM.
-> 
-> I see that you are enabling the software controller at the same time as
-> assignable mbm counters. This means that if you enable the software
-> controller and create too many monitor groups then the software
-> controller will stop working. Any user applications already using the
+> [0] https://lore.kernel.org/r/20261024-submit-serial-8250-rxtrig-lifetime-v1-v1-1-731b78d5003d@gmail.com
+> [1] https://lore.kernel.org/r/20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com
+Hello,
+thanks for the work, I wanted to upstream my changes [0], but got 
+redirected here instead. This fixes the issues I have had in a better way.
+I have tested the whole series, so I reply to the cover letter, didn't 
+make sense to me to reply to all messages with tested by, but I am not 
+sure if that is the right way.
 
-Thanks for the review.
+Tested on Unipi G110 controllers (Rockchip RK3328, CPR-described
+64-byte FIFOs, ttyS1 and ttyS2) on top of tty-next 6628e7d4c6b2 with
+the two prerequisites. rx_trig_bytes now reports 32 instead of 8 by
+default, and 1/16/32/62 select the matching hardware levels, checked by
+chunk sizes in internal loopback and over a real RS-485 bus between the
+two ports at 9600 and 115200 baud. Changing the level mid-transfer
+kept all data, and the level survives termios changes and is kept when
+set while the port is closed.
 
-You are right, once the mbm counter pool is empty a new monitor group
-has no counter, the software controller cannot see it, and it can then
-raise the control above the user's target. The warn was not a fix for that.
+Tested-by: Kryštof Černý <cleverline1mc@gmail.com> # RK3328
 
-> software controller would be broken.
-> 
-> Would instead teaching MPAM about the mbm_default fixed allocation of
-> counters be better? If a platform has sufficient bandwidth counters then
-> we can ensure there is a counter for every monitor group. If necessary,
-
-Right, if the MBM assignable counter is assigned at the time of group
-creation, the MBps mechanism can be prevented from failing due to a lack
-of counters.
-
-> we can also reduce the number of CLOSID/RMID the driver reports so that
-> there is one per monitor group.
-
-I tried this method, and it works fine on QEMU.
-
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->> What this series does
->> =====================
->>
->> MPAM refuses mba_MBps in two places:
->> - Its MBM counters are assignable, and supports_mba_mbps() refuses
->>   the option when they are.
->> - Its maximum bandwidth control is a soft limit by default, which
->>   can't hold a single requester down to the target.
->>   MPAMF_MBW_IDR.MAX_LIM reports whether the hard limit exists.
->>
->> MPAM also makes two generic defects reachable:
->> - Writing the control register sleeps (smp_call_on_cpu()), while
->>   the worker runs under the RCU read lock
->> - A 16-bit fraction lets the minimum control value reach zero, which
->>   divides by zero in the estimator
->>
->> The patches:
->>
->> - Patches 1 and 2 fix the two generic defects.
->> - Patches 3 and 4 make the loop runnable on MPAM: the worker takes the
->>   CPU hotplug lock around the sleeping control update, and assignable
->>   counters are accepted with a fixed assignment mode.
->> - Patches 5 and 6 handle the maximum: the driver sets HARDLIM and
->>   records the MAX_LIM behaviours, and mba_MBps is refused where only
->>   the soft limit exists.
->>
->> x86 has no assignable counters in the mode where the controller is
->> allowed, and does not set the soft-limit flag, so its behaviour is
->> unchanged.
->>
->> Testing
->> =======
->>
->> With the MPAM MSC model in QEMU:
->>
->> - From a 9606 MiB/s baseline, a 7000 MiB/s target converges to
->>   6888 MiB/s and a 9000 MiB/s target to 8766 MiB/s.
->> - The memory-side MSC register shows MBW_MAX.HARDLIM set.
->> - A modelled MSC that implements only the soft limit refuses the
->>   mba_MBps mount, while a plain mount succeeds.
->> - With mbm_assign_on_mkdir forced on while the controller is in use,
->>   a write of 0 is refused, and the user's value is restored after
->>   unmount.
->> - The KUnit tests for the MPAM driver pass.
->>
->> Jinjie Ruan (6):
->>   fs/resctrl: Avoid division by zero in the MBA software controller
->>   fs/resctrl: Do not update bandwidth from a failed counter read
->>   fs/resctrl: Take the CPU hotplug lock for software controller updates
->>   fs/resctrl: Allow mba_MBps with assignable MBM counters
->>   fs/resctrl: Reject mba_MBps when the maximum is only a soft limit
->>   arm_mpam: Program the hard limit for the software controller
->>
->>  Documentation/filesystems/resctrl.rst | 13 +++-
->>  drivers/resctrl/mpam_devices.c        | 55 +++++++++++++----
->>  drivers/resctrl/mpam_internal.h       |  4 ++
->>  drivers/resctrl/mpam_resctrl.c        |  9 +++
->>  fs/resctrl/monitor.c                  | 86 +++++++++++++++++++++------
->>  fs/resctrl/rdtgroup.c                 | 48 ++++++++++++---
->>  include/linux/resctrl.h               |  5 ++
->>  7 files changed, 179 insertions(+), 41 deletions(-)
->>
-> 
-
--- 
-Best regards,
-Jinjie
-
+[0] 
+https://lore.kernel.org/all/20261109-8250-select-u6-64bit-v1-0-04bc8332fa34@gmail.com/
