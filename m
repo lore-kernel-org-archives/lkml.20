@@ -1,55 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315522;
-	b=ye7IRCGTNvNY65/8huP0DarrAX3g0j+08PQSNymoqe679O5BO66MNRJ2x9UQjuDx7d6t
-	 XI5lvX3YBIEyueUgyBzJWnt6fr4/kLhIXBSQbUjENCuRCNGH9Y1Nd4WKSCeBp0zR2rlhy
-	 KizEYjnYpHBgOrAnF2NowTsv5z863+McPUYPhf1jtueys3UyXje4cBE/OGpNkdBCSo1on
-	 xoBEsIp2r4uu+U485G2Z+AlXN79JGpLiJ7W+7srUv3Egp9Aha7lV48Qa+cxY6TMAVy1UO
-	 SFzC12YeUlrpMPWsRfa3k0ISnSPx7kDz8TuPRkelccIj4d9dCiYtBODjNe4ojflairw==
+	t=1794315544;
+	b=bV0f/HW8zV+7Q0eYqDuqSwkc8i5Pka8ktNeQaVT984ojRLipkoeD2NvyS5qCFOHqzT4L
+	 AAH10VYrEsr0IdkuoimBBPCCS7jfszt5VXOyNUG49+pBqJpWZP9HvR5t4AIwpKtlRuRcK
+	 5BMPe0VKiRM6B0X4CO0STxUhtkXSH06LpWvjweurczqemJfzkHbm18rOqfBZeG2vPArfe
+	 V592HYFX+st500q/L7KD1tEOeqHDXc7WY7Xr9mjmMrPdmcsDxLqjV70KFMverHwE4DINO
+	 OoeYOQyHbBZWqyJjXrvR2gQxXF0z4kCmlNokIdD0YvBE4BF8MgETzJePklY0WexIecg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315522;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4pmFjEsbdeyTNA61FOh5B6D8bCLWmzzoCQ3gdMGZrYI=;
-	b=ReXFExS6sMwWjuHE4/5Qi1vG7woKpBDJ03PAq8v1QZKdFlakXt4qGkD8vbH4ecxlZURE
-	 sc+Kir0d9/Fuu/c8B0NTP1aU37Yy9Reh+V6o4MselwgdfZcv7AoUobNW4SSvY8CpFIeBL
-	 m9Eju6urZHRMnEyyL4u/mkmvI0FTsEQAtpwBUb9/rBgHdlVSx+U7NF8SKyXtXVVva5mBs
-	 yhznF+PYOPkXuPAUDImI/qixKuG2HyWU885UNWGUTgD/9tuBbHfkXWiWFDipP1m76b6vI
-	 X9UD7rgiQX1X+Ot8bPmPswLCIaXSPNSDAgP1lydNX8Q+e5d5hbYBjuCoYq0kyVwj6UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315544;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=uXIEEsQfVTIPoYksjJrq5Bxki7KhKYAms5GVjwoGo8Y=;
+	b=dBMSO/pCqdB2kMbK7i5A2mIWY0VvtzZ8wC8weyRa7JLpAIkUvQtaSZ8My94oxWSvAgDg
+	 effdv70J6dkQm3O4enigNr407KxFYrZm9A9AUyAj9bIKJvi2UKyPoNm6IA5d6cqCGEWp9
+	 nOjNu8JTGY+QjoW4v1GKgh0I3+RHfwaQbL1/tdrZQvwh4ugaMKrHu6OJAGeVNmn8RodX1
+	 jOyZd7Jl6EVh/Z6FgZ7daWTRJ8GVX3dR0XquJipLDyIPeimhNYlNW3QlhcpVDutlXI+nh
+	 kuwAVAdllMqusmxlmzkWkMnv2OOj5DvODW/LhKy60xq3UB1hOkh+C5FkJiDNKvHs8kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfBiL1yV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=c9mE+CRT;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kal9kkyQ;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=c9mE+CRT;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kal9kkyQ;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9FF606A754
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47776606A321;
+	Tue, 10 Nov 2026 12:59:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47776606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfBiL1yV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5511F008BE
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:58:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315522;
-	bh=4pmFjEsbdeyTNA61FOh5B6D8bCLWmzzoCQ3gdMGZrYI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XfBiL1yVVMydVhlcM2sFH/6xfcdj5QdY4dzAmed7soVfdGsyWn1uW81wCNwmnUtLA
-	 vsUUdBamI1FpiaVRcayYGj+x4BvMLb+ukZ/PLAYVabaHx/uiY0/f6sy54W+QG7EOTl
-	 Ixe+Rr0+bR33rTEIA5g1c0j4kNEMqr1oYn2tt9jNELLb/f6rDq2FZha+kqGrtkMN37
-	 mUJ3nzJ/op7XbZEGcsmHbb0yOPvCQ1cHdLwqUwrRYje/WdPhSY1oEZcKfub3IO2F4J
-	 TRbRRZp6Y5yWhZ6koBTmjnPpzzu7Qr8U9Jd6b6ydiDefoNWnBO3iiXohe7eBnlK+T8
-	 qqfpfKjMQxAnQ==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso1698300e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:58:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHjBJ5Hy4p/4di8nUaH/OH7x2CUKzeJ1faXhl90yWiiiFT94YJQWuWIYr3bHGLRP3FEflzdYVLPu1zuryo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+e3XcustvYBIr4HfCtNP6XJd4fqa2cawkvzbSAq22nxBAHL1Cn
-	J+Kh+aFGApqtwsbgCwQfW1ecCKaG7greKZsEp5NCr5vy+3wFBE1PfK/ubZ1mwvFIjREgcj2DNCP
-	oRznWRFfI/ml6Ab35K3kWKjcBhJXOBfM=
-X-Received: by 2002:a05:6512:1113:b0:5c1:5a36:b041 with SMTP id
- 2adb3069b0e04-5c15a36b1a8mr418657e87.52.1794315520002; Tue, 10 Nov 2026
- 04:58:40 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=c9mE+CRT;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kal9kkyQ;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=c9mE+CRT;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kal9kkyQ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 96EA721C3C;
+	Tue, 10 Nov 2026 12:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uXIEEsQfVTIPoYksjJrq5Bxki7KhKYAms5GVjwoGo8Y=;
+	b=c9mE+CRTtVzWwHCARJ1vd96Xho3nI/pS4LksT/7Mtmz/enT3ot6Jv+ishWlr43gZSQip4n
+	SM34HuYF7Cvf9TdHqnHerexkyr7m27gwbghlt5kBxleXZTpWWWludIkY/uX/1xq2ZGF1Cl
+	84ZWSnV4g+NJIksQj9LF3uDbQvrtb1Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315541;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uXIEEsQfVTIPoYksjJrq5Bxki7KhKYAms5GVjwoGo8Y=;
+	b=kal9kkyQ8SEr1Uo3AFh1O8jXLtIAjDTFZiXwnabICsxjbUs+efcLTV1NmhR9cGdyfqXeRJ
+	S89Jh74CnobXgdBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uXIEEsQfVTIPoYksjJrq5Bxki7KhKYAms5GVjwoGo8Y=;
+	b=c9mE+CRTtVzWwHCARJ1vd96Xho3nI/pS4LksT/7Mtmz/enT3ot6Jv+ishWlr43gZSQip4n
+	SM34HuYF7Cvf9TdHqnHerexkyr7m27gwbghlt5kBxleXZTpWWWludIkY/uX/1xq2ZGF1Cl
+	84ZWSnV4g+NJIksQj9LF3uDbQvrtb1Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315541;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uXIEEsQfVTIPoYksjJrq5Bxki7KhKYAms5GVjwoGo8Y=;
+	b=kal9kkyQ8SEr1Uo3AFh1O8jXLtIAjDTFZiXwnabICsxjbUs+efcLTV1NmhR9cGdyfqXeRJ
+	S89Jh74CnobXgdBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6DE921339F;
+	Tue, 10 Nov 2026 12:59:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id B0aKEhUV82qHRgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 12:59:01 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 0FDA5224EF; Tue, 10 Nov 2026 13:59:01 +0100 (CET)
+Date: Tue, 10 Nov 2026 13:59:01 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 14/41] debugfs: use fc_init_pseudo()
+Message-ID: <tqopv6vbmzwwjyp24wch4hw526xibknezzimun4tniww2dq7wu@ajdlmym5ihdu>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-14-4c998976c6c7@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,66 +119,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930222650.1883805-1-jordan@brough.org> <20260930222650.1883805-2-jordan@brough.org>
- <3cd06bed-83bd-425a-387b-f1d3b073cb47@linux.intel.com> <CAJZ5v0hxx-jZxgD+2aJXy2Y_LLz0_aeU4wgpx6+Bkq-YqvHmkw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0hxx-jZxgD+2aJXy2Y_LLz0_aeU4wgpx6+Bkq-YqvHmkw@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 13:58:27 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hzZV+ys7WgAqaCkF4mP_BAuhRm_v6zX4_=0207W4UA-Q@mail.gmail.com>
-X-Gm-Features: AclHuK_2ewbjDRrI7vEm7qW4Gexy4KQhsFqwIuWKeOk5jHlI8WSPgXqyHRQNZ1A
-Message-ID: <CAJZ5v0hzZV+ys7WgAqaCkF4mP_BAuhRm_v6zX4_=0207W4UA-Q@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] ACPI: battery: add acpi_ prefix to the battery
- hook API
-To: Jordan Brough <jordan@brough.org>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, 
-	Denis Benato <denis.benato@linux.dev>, Hans de Goede <hansg@kernel.org>, 
-	Antheas Kapenekakis <lkml@antheas.dev>, Matthew Garrett <mjg59@srcf.ucam.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
-	Armin Wolf <W_Armin@gmx.de>, Jonathan Woithe <jwoithe@just42.net>, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Ike Panhc <ikepanhc@gmail.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>, Matan Ziv-Av <matan@svgalib.org>, 
-	Nikita Kravets <teackot@gmail.com>, =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>, 
-	Joshua Grisham <josh@joshuagrisham.com>, Jeremy Soller <jeremy@system76.com>, 
-	System76 Product Development <productdev@system76.com>, Azael Avalos <coproscefalo@gmail.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
-	Sebastian Reichel <sre@kernel.org>, linux-acpi@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-	ibm-acpi-devel@lists.sourceforge.net, chrome-platform@lists.linux.dev, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-work-loop-pseudo-v1-14-4c998976c6c7@kernel.org>
+X-Spamd-Result: default: False [-16.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[31];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	R_RATELIMIT(0.00)[to_ip_from(RLdu9otajk16idfrkma9mbkf9b)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -16.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Mon, Nov 9, 2026 at 7:29=E2=80=AFPM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
->
-> On Wed, Oct 14, 2026 at 11:18=E2=80=AFAM Ilpo J=C3=A4rvinen
-> <ilpo.jarvinen@linux.intel.com> wrote:
-> >
-> > On Wed, 30 Sep 2026, Jordan Brough wrote:
-> >
-> > > Rename battery_hook_register(), battery_hook_unregister() and
-> > > devm_battery_hook_register() to acpi_battery_hook_register(),
-> > > acpi_battery_hook_unregister() and devm_acpi_battery_hook_register(),=
- so
-> > > that the exported ACPI battery hook API has a consistent namespace, a=
-nd
-> > > update all in-tree callers.
-> > >
-> > > No functional change.
-> > >
-> > > Signed-off-by: Jordan Brough <jordan@brough.org>
-> >
-> > Acked-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> >
-> > With one known caveat! There's c72dd9994952 ("platform/x86: add Acer
-> > battery control driver") in the pdx86 tree so if Rafael takes this like=
- he
-> > proposed in his reply to patch 2, that needs to be handled during merge=
-.
->
-> Well, I haven't applied it yet, so no worries.
->
-> It's in my 7.5 queue ATM.
+On Tue 10-11-26 10:14:30, Christian Brauner wrote:
+> Initialize debugfs as a pseudo filesystem. This raises SB_I_PSEUDO and
+> also SB_I_NOEXEC and SB_I_NODEV. debugfs never holds executables or
+> device nodes.
+> 
+> SB_I_NOEXEC also refuses PROT_EXEC mappings. The debugfs files that
+> can be mapped, kcov, relay channels and powernv's memtrace, map data.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Patches [1-2/3] from the series applied as 7.5 material, thanks!
+OK, makes sense. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+> ---
+>  fs/debugfs/inode.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/debugfs/inode.c b/fs/debugfs/inode.c
+> index b4915551ad31..f163f0bc5703 100644
+> --- a/fs/debugfs/inode.c
+> +++ b/fs/debugfs/inode.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/module.h>
+>  #include <linux/fs.h>
+>  #include <linux/fs_context.h>
+> +#include <linux/pseudo_fs.h>
+>  #include <linux/fs_parser.h>
+>  #include <linux/pagemap.h>
+>  #include <linux/init.h>
+> @@ -317,6 +318,7 @@ static int debugfs_init_fs_context(struct fs_context *fc)
+>  	fsi->mode = DEBUGFS_DEFAULT_MODE;
+>  
+>  	fc->s_fs_info = fsi;
+> +	fc_init_pseudo(fc);
+>  	fc->ops = &debugfs_context_ops;
+>  	return 0;
+>  }
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
