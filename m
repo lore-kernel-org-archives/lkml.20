@@ -1,74 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292738;
-	b=h1KwXNo7/hmzy9V+jgaQrLHFI0D5u5wDfjH0wYlBXggSU4D4Ysl9G8+rafRbr2533KZC
-	 djwZpfZIjbw33c6YI/0MnOq5oyOlT/Z72IHxoDoZzXFmzT4uWQbuDOJ7WqB9DdNWDmmBN
-	 hZoau7bTiIU/w8dLW8aa00EX2jt9L/tH44YKz09w/4DLG/sFraiHWzi6luEj7lSfPSuGG
-	 03++XcnIMFnVhT5SRCzSzYJv4RS1sWZSqiMSM7cQcbdwJTvZZFx8MSPAKUeLLOjCXC/eL
-	 ef/5MdOVoq606vk1cFZS6rayMNJple0jME3P1qzD4ioAV43RU0ZRaAE+JzhNvWatqKA==
+	t=1794292819;
+	b=sacfhufEL+9J6G5D/O0zTa2Fk9ow3pAzbivVbCYws89BRuq/fixd7cZFJEV2oczqwoVE
+	 QLuQm9lid4pxSJMv5wnUbehH6GbKTqGIWv0dsRbI1lbpgjfHTt9eCGWTODAuU0hW/bjrM
+	 ClbmiUliQI6CVAw0pLn2zuFInZU2D/9XP5Fq+tQw48ef4ofyYLBNQjY2OkKlWcPf+agxY
+	 AdbxtsIjntZlzAzUEf1kPnUnu2FtQQCrxb4qKBN2u7aqnJtOGlWBLKpLFGP8EniI1kpUv
+	 pfURkNgRUdvxrLr268UVVjNEbASl9Jt7jSfCcs+VtF0LRAsarRuzesFnhWlbPb9lUeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292819;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=xGnzNpbW5HBJowHbelE8TIAH0CHLKv+3lpr5Rd0UybU=;
-	b=oyEaQgRTBKS5dz2JvmyanSolLuhImhdUHYy0cVgDrbjW4wibqvWsbqijuLoVysRmq+fm
-	 avz542Na0w0ANeGcd7oZqyYsKfeQ/fNURNVAPaLtNZkBNMvXLI7DxoV0oVUTWQCyUn5VO
-	 iwwg8L9rYFPqbKrNoMaRvBA0wB3mcBms1DVTebtKcRybVJi7LY5Wa6fXKt6eqa/pPqYzx
-	 APL+iWfAnGjYstVRBxREIaCqNbL+tXj3QAKbZVYKdQ5frVRL/qUWFu/gK0jm+wnFHbvjS
-	 FjhqLeOqNh7Ht/I6hL4tn8UnSwIubYBLLFBVfM5ToDT5JCB2LQEMhI0iOXigMoUznww==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=30Y3+K4f1eGRVFoUBblLntMtWkSSsaPfJrriyA8Q1b4=;
+	b=eLbSOoXn4NCa5IGn8HZzUJwy/h73/hogd5wuWIdpjaTHikYH9IifO/6GanEiCTrXVb3+
+	 1iZifOOOXtJj5iuUv5ZKwPgOR2aAGvG8m5itJNqbldBEyQrLNdgglVRVr9lPhw9zwSGNh
+	 6PHKPl3o5OJweWf7emMNEbPStF3/hrv0LNnv5hrd32k/ns6/UwExjKKfa7h0ISn2wwtyS
+	 KnWiAjmrWF1/uRls8X7eflzfjzDu+kiIKXDpLvbgMSWz0GoXITieShzrCeS7o82w4JqiR
+	 NZizg+wRoh+bhZM36MsPMbU7N6GgCCDew5+RnaesYysfsBqGPPv9/7vM/h4dwoBbGLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUjbyjdq;
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ju1LXvaL;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0628606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0628606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CA0606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:40:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94CA0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUjbyjdq
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4216aee8fso1877651a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:38:57 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ju1LXvaL
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e987a2ba0cso9674365ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:40:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794292737; x=1794897537; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xGnzNpbW5HBJowHbelE8TIAH0CHLKv+3lpr5Rd0UybU=;
-        b=lUjbyjdq0Cdy/5hmHfWdhJaKgFI7fDoSFMrmNdT1apdPUGgqHYEJPpK602EQgZubA8
-         lI5KHZU8Baq2CSU7na/Plt9wQEnHzajJ1QzZlUEi34qjWkKzxqExnCpGW0YHA4AljIvg
-         wX3ZtrFSbSGq46i6xgqbhdxIyzwP6i0o2Mw3d4DdZsOqIw57bS5eVSo2GbBKFCFgEcdK
-         AlvrGGoqmqcR3R0LDxkFNvbnlEIpdT9im9A37TihAhOjc5WTrd65PRbnrZvdM8WZvVGB
-         +aqz47nKcu3/P9gsdfAhMVxiY4EN1qK+NBbQF1ahO+m2wUwYjqZVDjvBR0ZGLTNAl49+
-         mNgQ==
+        d=chromium.org; s=google; t=1794292818; x=1794897618; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=30Y3+K4f1eGRVFoUBblLntMtWkSSsaPfJrriyA8Q1b4=;
+        b=ju1LXvaLqBO5kgzybhsbv3zRgCGu8niOwIDhEXiGbLiUasjW+BBbiBvEr02X3zBkXy
+         5k+Dllxj8Zim/zlv/qvEAiAlTS9UPoddJpxd5i3sCYJ8/S8Vqc0cM46mlokO4TLTeFov
+         dyGfkFuCNuAy0dLC/g3M3DKMtzFoYBvle/qQg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794292737; x=1794897537;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xGnzNpbW5HBJowHbelE8TIAH0CHLKv+3lpr5Rd0UybU=;
-        b=BZSBpBh1ijW7tdfFtxUF/9CvXs7ERQ2nPUSKwjk3zqwfN9T0vNhcwjA7H0GhquBOQM
-         Pyri0VGxe0VFBCLT0DcULezAkVnSRDPS4BSuHMFR38XBsLL453iBa0VuEryNTP9neKxs
-         YvJuldAuIvEN3zuboPoREpppp7giM60Mim1+YFrGQjNCE5ztn+K9r7xTtzYu9Csfmb0f
-         5GwXL3GdbX6T8I/S8A3jqb2JN3q3hvSryi2fcOq9mkgHX/zT3WdgURvWVgMnRR2DXOLz
-         yJdPGsthljLinuf5PIPw32UoVZ5obC7He8PbtGSOpuX1tyQJ6yczyfKS6T367DgbOvrm
-         za3Q==
-X-Forwarded-Encrypted: i=1; AL+hErFZmCCZSmtXGYjvCedwTCxYKHE0ALTi2Lr8oYX1NqCszJSJ+oivF5tsaza0EHIPMfMChp5HxFnN+FL4LH4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cGfGsTeSyp9xn7ERWRznIvKPPVBCIO6/wt5U8+Zqm5nTLohvV
-	hvylL58AzhzjJdGj86ogm/1nMDPx+ALFx/Pu10GNfME6KNdfYuKZvOUUYFtMPBVp8+AIkiR0twX
-	t7farZA==
-X-Received: from pjsd12.prod.google.com ([2002:a17:90a:bf8c:b0:3b0:994b:db90])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3889:b0:3ac:3e42:60a2
- with SMTP id 98e67ed59e1d1-3b166cebaa7mr2018376a91.33.1794292736895; Mon, 09
- Nov 2026 22:38:56 -0800 (PST)
-Date: Tue, 10 Nov 2026 06:38:56 +0000
-In-Reply-To: <20261106051905.218638-1-sidchintamaneni@gmail.com>
+        d=1e100.net; s=20260707; t=1794292818; x=1794897618;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=30Y3+K4f1eGRVFoUBblLntMtWkSSsaPfJrriyA8Q1b4=;
+        b=xiA/h04wUydUvaIH4E+1UCSRws8UpUi+zAH+pyfu/dks+kKaH/uMpZnP/H5g6AKLSG
+         jLPIVxtMidZwx3idps6RrPEFtMY06AzOEXTIySNCBtHQSdAbEAAE8bJ4eBFAv+I7WSqE
+         A0+TRICBHuvC+2HpSbCS/6S4FKQt5KFuGSIF0IaiITeZ5AwE3JjbFUl1H/Oatx/3MAq8
+         /PNo7axPMravNbFxyiDCRtGd3GJD9elbP/eNwJ6lqrYLUtL06FhQ4OoiipC0iKdqIJZn
+         q13a1PND5JKWc9cocG91b/seZEe3q4PMpIlJ7xYtDeyjKDC3SUCnMpxI8Do5vcbkIc0l
+         fsCw==
+X-Forwarded-Encrypted: i=1; AL+hErHaQdn3ceJzSbO2cP0uwECrsbiPqpM70DUrxbBaz3kbGPpmgSrq0l7p24h9EotYtDLXtRL6SHfo85zP0GY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ivJFjFfIOj8qxKEGs1E1ZJXPcWWhy6IT/pFZav63yebR6e4H6
+	yKMjR9eDn8mi4mcUs5iWHe4Ff4MyEmZi2J3rDAn+oQ82TuyNaDi1TLLUwnws5NA7Aw==
+X-Gm-Gg: AYBFou18xcW1xug/UHtrQ3GEyffYxn+W613QMslq2pfnIfBUNUvdjcAo5Ymja17r1k/
+	BrD6qSxQh1k3NHJKZ91OphbNstusgP8oqY+YskHpaPgKkjEQ+Udy3+q7uLBLsx3tYfcKnIDq156
+	9vU2sG3bmoAgCUh3znbee2JT5+RNzjS2EsnY3A90mzl0aMYUd4wqkipOfXDGN4ob3IiVe6gVS84
+	ocAdUEeCWjNZuqcz0deiFn42i9LOl5Hzqi3UikUQxueFmzNfG1SjpbdFyed0/xKFwZ7Pc0CZ//4
+	dNnNgG6lugho5SUpYQcJlBTDa5qUKZwrlELfNW20rRtJn8EfGV+Ll2BrJFz3Hw9pQf3VS+aaJY0
+	Alhnigr85b3vyS8IX96YzC03481ZRbxtRZRxnK+Nvxl63u5ww8cIAuwnemxuyIRpe28rW/bH7UA
+	qqeWKsXW3QLUU5ptiSv2OY7dp6ZcC0yD6Cmtaad8DLiwvwpO6hDbZU4RZsQMQh7fTwQoioe5w0c
+	j0K7Qrd+4tvszGws4auwRBXVBVkZDcN10P+cGxom5oABjaV0/MG3wmlM/1n4rTTQp3FR8G2eL3X
+	ABaTHdErYJ6EqU7oisAO6u5ULmqD4ApoOR2Rso+UFXs99jGO0FeaoAxc2H0M7Hf0pgWrwQ==
+X-Received: by 2002:a17:90b:224f:b0:3a7:82ef:bcdd with SMTP id 98e67ed59e1d1-3b166d0512cmr2059326a91.41.1794292817853;
+        Mon, 09 Nov 2026 22:40:17 -0800 (PST)
+Received: from google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16fea4243sm595945a91.14.2026.11.09.22.40.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 22:40:17 -0800 (PST)
+Date: Tue, 10 Nov 2026 15:40:13 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	Jens Axboe <axboe@kernel.dk>, raoxu <raoxu@uniontech.com>
+Cc: minchan@kernel.org, senozhatsky@chromium.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+Subject: Re: [PATCH] zram: Avoid duplicate slots in batched writeback
+Message-ID: <avK6Y1VmIYIBrorl@google.com>
+References: <F24EF6333964B482+20261110061830.272091-1-raoxu@uniontech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,53 +93,31 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106051905.218638-1-sidchintamaneni@gmail.com>
-Message-ID: <avK7nGo4aGxJ7QiU@google.com>
-Subject: Re: [PATCH net 0/4] af_unix: Fix inq_len and scm_stat.nr_fds
- accounting leaks
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, Jann Horn <jannh@google.com>, Kirill Tkhai <tkhai@ya.ru>, 
-	apais@microsoft.com, rlmenge@gmail.com, hargar@linux.microsoft.com, 
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <F24EF6333964B482+20261110061830.272091-1-raoxu@uniontech.com>
 
-On Fri, 06 Nov 2026 05:19:01 +0000, Siddharth Chintamaneni wrote:
-> This series fixes receive-queue accounting leaks of u->inq_len and
-> u->scm_stat.nr_fds in AF_UNIX sockets, along with selftests:
+On (26/11/10 14:18), raoxu wrote:
+> The writeback interface accepts multiple page_index and page_indexes
+> parameters in one operation. Their ranges can overlap, but
+> scan_slots_for_writeback() only excludes slots that are already being
+> written back or marked as same-filled.
 > 
-> - Patch 1 fixes a u->inq_len leak in manage_oob() when an unconsumed
->   out-of-band (MSG_OOB) skb is skipped and dropped during a normal read.
-> - Patch 2 fixes u->scm_stat.nr_fds leaks when an OOB skb is skipped or
->   freed in manage_oob(), unix_stream_recv_urg(), and
->   unix_stream_read_skb().
-> - Patch 3 fixes a u->scm_stat.nr_fds leak in unix_dgram_disconnected()
->   when purging queued skbs from sk->sk_receive_queue on disconnect.
-> - Patch 4 adds SIOCINQ and scm_fds (/proc/self/fdinfo/<fd>) checks to
->   the msg_oob and scm_rights selftests.
+> A slot selected by an earlier range is placed on the post-processing list
+> and marked with ZRAM_PP_SLOT. Without checking that flag, an overlapping
+> range can enqueue the same slot again and submit it for writeback more
+> than once.
+> 
+> Skip slots already marked ZRAM_PP_SLOT while holding the slot lock. This
+> keeps each slot in a writeback scan session represented by at most one
+> post-processing entry and leaves the existing release and reuse paths
+> unchanged.
+> 
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 
-I planed to drop MSG_OOB support in this cycle.
+LGTM.
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-Could you repost without OOB changes ?
-
-
-> 
-> Siddharth Chintamaneni (4):
->   af_unix: Fix inq_len leak when skipping unread OOB skb.
->   af_unix: Fix scm_stat.nr_fds leaks for OOB skb.
->   af_unix: Fix scm_stat.nr_fds leak in unix_dgram_disconnected().
->   selftest: af_unix: Test SIOCINQ and scm_fds with OOB and dgram
->     disconnect.
-> 
->  net/unix/af_unix.c                            |  69 ++++++-----
->  tools/testing/selftests/net/af_unix/msg_oob.c |  12 +-
->  .../selftests/net/af_unix/scm_rights.c        | 108 ++++++++++++++++++
->  3 files changed, 161 insertions(+), 28 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+Jens, do you want to pick it up and route via block tree or should
+we route via "more traditional" tree (Andrew's tree)?
