@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300576;
-	b=AjoAqKtWc1+/UnTzAliUpyM+X8M1T9XFesSbOfa68VUwR2tsw2ER/et6Qe5oQUMFUjfR
-	 spOlyZx+4SRhVCU3HvUMbgjDiAV+mKSMHKqgth0AHfX7nlOf7dtrg/ulsSQE8jIBqL/in
-	 Paazy5RjfTadcRxxaMM8OpdIoVVZwcAbwLFj+Rt8iaPCq7VBOrfj2oWhe2KBeOR2BeyR9
-	 r/u20Unx6AFRXWJccTJ8WgCKcfbMrYeQnMIoZRalJpw1nR+pNd74q4YAeR/de9DUMTNVJ
-	 mFamdYtpoNWtxSh4/E0qgUI4Peh5e2JF8WymVh1my4Wz9wcmGn3i1TXbBY8rdpGhMSw==
+	t=1794300651;
+	b=Cf6UfDRSYG1X3ijDkx8tZgmxPhP4vWXQx5wg4eksjYYpPCFJsmgePM3WS6HwJGMpXuSw
+	 dlHiqcgNsL2GWNC8twwg3oT8PJVbeyWh3ZXZ8j7GL5J9iMXqS0BbNg2r3lal+D4WPLHbB
+	 UkamouHA5GYc9AXbygbR+bNeFEvKwZLi+NUxDJWcdvEqyH/l96ysKuhuEndTsBYkZC+Su
+	 c7IYp067XXLv+DYv5bjZ83y0aSvzU7Ob8HvCL4uwAotIt0WwfElc0Gi1PBCL9+NoIIbXF
+	 PqQT0n7wZpPEq9ejNSf+uWiQ0hjAZt86t23lopmUMVMnrklFC9G3Wkom54WnpGQ3ZHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300576;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=aHn8KcgHhLcXL95P9INTAmVAeZpvAJPCq7Suu5pEHwk=;
-	b=cDFwRT3MIDxvq0mrBB3Kq/6VfFnFDDXiB1/UqEgkB/q2pcYm2RHYyzZ+nM3KYmby8vF6
-	 GmwYjnNUPyhZP1UvtZKvBnc/camkOzHqKvYTRT1tgROUWSTrgosuodjYM0yD75NrdcNYs
-	 o3OMDdsRD5TkbwdYmWoWki+C3Bt6Friz8HiwA/djvAlcI7CfGag+rTGDlKcuTgTeG28W9
-	 idpkGZsKnQ89QNI4EBnU6fXezVzH1pP0e0WTqqRvsbiZNOEWFE8JXKKelofU4VKfyjG1A
-	 uk4ztcDBmDg2UzlaGqdeunmmB1ErRtRoUdCxQhxqzDzAtBYoKdjxAOo0DpqSIO6Shfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300651;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=o3VdPSRK9H0HuvqvVAIiSd+1PkVCf5x+okbObysvyMQ=;
+	b=aJPjDKHix5qN79nCUbf+SaSf62//vQ4iW/ZRbNkGO+DeHpxGDQtMWcLJ39xjof7rIjA5
+	 H99BQfOAOAbCuqELH7hfKjA8lqN+nDrQIF5oc3DXb/hZAiHwRLa5fJLZaIU8q0h28MbXO
+	 QOEpr5mWDniNJ9hQ0CGCuHFyaunE0ujf7BhF/Qa8b5qxx8iPcXZr3i9yE0EfPVtyU4AyS
+	 rNwp+mKg/VdNhMaYBpVXMHEFa7PatMzeGAToBDhWHCWnWWO5fs4LEHEfMF68I9J/4eWVJ
+	 JMSo5922s6rJjYoxSonC/Z0+bIp8nRBMhcCD5m77xSfegfXFIQxJITEx2KQNAsUzvYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=KZ7GbPpj;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+weE6s5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC80606A31C;
-	Tue, 10 Nov 2026 08:49:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC80606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 52D29606A321;
+	Tue, 10 Nov 2026 08:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=KZ7GbPpj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=aHn8KcgHhLcXL95P9INTAmVAeZpvAJPCq7Suu5pEHwk=; b=KZ7GbPpjr8rhjj9TeCSN3isJMo
-	4d122GgaAflfPr6ZO4ozp74l8SzqGjVsu5H6TFM2vMhzmL0KHht4wMTwld3FIKNZ8RCqHqHs4jcgV
-	v83dvQpMXC0J35H4CocMuWLe3GQWQip4RgxB9bd28fy1oU+bREnQbTP6s89Rxpecyd3teH+M5USVw
-	ZhnyQ/EhBeB8TNton7OX7iwnUvu+OQeTaHKe12xysLOnzjUoTwOovZI5eCPjfEW3Tjn10GDXQjiUk
-	sMmsr7Jx78SnG58k0FIX2G0gYSMFPfijeXJxkR4cFyERpEqF35KcnYXRp1JFGQaq61Ii8HYqvm/vU
-	7OtWoU3A==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: aiyengar1990@gmail.com, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Shawn Lin <shawn.lin@rock-chips.com>
-Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Simon Xue <xxm@rock-chips.com>, "finley.xiao" <finley.xiao@rock-chips.com>
-Subject:
- Re: [PATCH 0/5] iommu/arm-smmu-v3: power domain and clock of the RK3588 PCIe
- SMMU
-Date: Tue, 10 Nov 2026 09:49:29 +0100
-Message-ID: <10924894.NyiUUSuA9g@diego>
-In-Reply-To: <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
-References:
- <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <7e053777-31ee-4127-af53-0820e852d375@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+weE6s5
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 46E381F0089F;
+	Tue, 10 Nov 2026 08:50:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794300650;
+	bh=o3VdPSRK9H0HuvqvVAIiSd+1PkVCf5x+okbObysvyMQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U+weE6s5MD/8387GBJImcLeu74R630SpRdsqVYTBfryEGucgGQ7K1EiUWw7LeqzxM
+	 +E+Pna221n3af+qRE+0hRsugcutMutEM2c85ArD3MBlnFAgoPxWo7VI9L446NuduSs
+	 mZahv+mW2Q0QB8G20UldXUGA1bkPDy+GtLHTq9ym1/D6mFH2/PAh2ptOxaC+N0HbGq
+	 cnnF8gcCTnyihRD5CGAZe1hEjpFH4tEZH76pN8tGWwE8fb6AdVSwxyk0fFBa8g0Ype
+	 yaWyIxI+aH8wlz3d8pbp5yfwGuStiCAxEfjcDyehJEH1bBqg9xiOIVWi+ZR7o5WJYd
+	 jgvmIsCNiOKHQ==
+Date: Tue, 10 Nov 2026 09:50:47 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 5/5] gpio: ppc44x: tidy up includes and probe
+Message-ID: <avLZsjdbASMaYN1L@monoceros>
+References: <20261104215959.24035-1-rosenp@gmail.com>
+ <20261104215959.24035-6-rosenp@gmail.com>
+ <cw32kfja4uifaotvodb7cfxrpzawt4zqcuzf4k3hvjgxwutxqu@gyaayjuyq3j4>
+ <2d9d1da9-0d2e-461b-9c9a-eaf3dc512035@kernel.org>
+ <CAKxU2N-oA_EQ-nC4y6E+Y1XCaai_QNmicobvJZ03mRRDikZ5RA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,41 +60,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hu5qy6ejaulp5gcl"
+Content-Disposition: inline
+In-Reply-To: <CAKxU2N-oA_EQ-nC4y6E+Y1XCaai_QNmicobvJZ03mRRDikZ5RA@mail.gmail.com>
+
+
+--hu5qy6ejaulp5gcl
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Subject: Re: [PATCH 5/5] gpio: ppc44x: tidy up includes and probe
+MIME-Version: 1.0
 
-Am Dienstag, 10. November 2026, 09:40:44 Mitteleurop=C3=A4ische Normalzeit =
-schrieb Shawn Lin:
-> Cc: Simon and Finley
->=20
-> =E5=9C=A8 2026/11/10 =E6=98=9F=E6=9C=9F=E4=BA=8C 15:11, Arun Iyengar via =
-B4 Relay =E5=86=99=E9=81=93:
-> > The MMU-600 in front of the PCIe controllers of the Rockchip RK3588
-> > (mmu600_pcie) is enabled for every RK3588 board, but its node describes
-> > neither the power domain it lives in (RK3588_PD_PCIE) nor its clock
-> > (ACLK_MMU_PCIE). Both are held by any enabled PCIe controller, which is
-> > why nobody noticed: on a board that enables no PCIe controller in that
-> > domain (an Orange Pi 5 with its M.2 slot in SATA mode, or any RK3588
-> > board without PCIe), genpd powers the domain off and the clock framework
-> > gates the clock as unused after boot, while arm-smmu-v3 stays bound.
-> > At reboot, arm_smmu_device_shutdown() then writes CR0 and polls CR0ACK =
-on
-> > the dead block, the interconnect stalls, "reboot: Restarting system" is
-> > never reached and the board only comes back ~90 s later when the
-> > watchdog fires.
+On Mon, Nov 09, 2026 at 12:46:13PM -0800, Rosen Penev wrote:
+> On Mon, Nov 9, 2026 at 3:30=E2=80=AFAM Uwe Kleine-K=C3=B6nig <ukleinek@ke=
+rnel.org> wrote:
+> >
+> > Hello Bart,
+> >
+> > On 2026-11-09 10:01, Bartosz Golaszewski wrote:
+> > >>  static const struct of_device_id ppc44x_gpio_match[] =3D {
+> > >> -    {
+> > >> -            .compatible =3D "ibm,ppc4xx-gpio",
+> > >> -    },
+> > >> +    { .compatible =3D "ibm,ppc4xx-gpio" },
+> > >>      {},
+> > >
+> > > Uwe: is this in line with your recent cleanups?
+> > The change is fine, I'd appreciate to also do
+> >
+> > -       {},
+> > +       { }
+> >
+> > at the same time.
+> {} was done by clang-format IIRC.
 
-We have a work-around for that in some boards, manually disabling the
-smmu until now. As the SMMU is part of the SoC and always present
-the general DT practice is to have it always enabled, as it does not
-depend on the actual board design.
+I saw that already, too. I'd argue that clang-format is wrong here, with
+non-empty initializers we want a space after the opening brance and
+before the closing one.
 
-Hence we end up in the situation described above.
+Last time I looked (and IIRC), the kernel intended to still work with an
+old version of clang-format and that doesn't distinguish between a space
+between { } and ( ). For the latter we don't want a space, so there is
+no way to configure clang-format to do the right thing. That's better
+with newer clang-format versions, but I didn't find a way to specify { }
+and () without breaking older clang-format.
 
-So this series fixes the actual underlying problem, making these
-workarounds unnecessary in the future :-)
+Best regards
+Uwe
 
+--hu5qy6ejaulp5gcl
+Content-Type: application/pgp-signature; name="signature.asc"
 
-So definitly thanks a lot
-Heiko
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmry2uUACgkQj4D7WH0S
+/k6Z3Af/Ukihvr6an8xoXI2ftoIc2p51BSO0igI0VAtExDpb6IR+1D+Krj+nA4fE
+SzlUgDZPNUXkXm/RLhOi2UY4Ax8spKGumwiVTFzHE/yu12N9Jt6ze5gu6vubTsrm
+YqNd0Lv7WSNiJNeivLBKdSa1UkoDLGnF0XjPkemgosVdbB767BsTQ5xSdGl+wy2H
+GuysSB9aZdHU51P9mTP63HvNZRS47lK/pdVNE8z3Xzv3ajsShn4P7Yplv7csj6m4
+ChjCjHTfXOllzT83T/sqn42TiRCioWrbvt9SqlnKXqQCboy9fjwd8BPZNA5lbHZf
+ziuUR23Q9F5kG8ECYpRieF6SwRGzFQ==
+=uXlP
+-----END PGP SIGNATURE-----
 
+--hu5qy6ejaulp5gcl--
