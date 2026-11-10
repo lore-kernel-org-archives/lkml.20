@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794328457;
-	b=Jqx+cJf0aiOqCB4Q3v1hwAqg9hlk2OkrQOvn5gHo4HcC0TQ8BBAJ2Uk/i68yebvI8RCJ
-	 N8EdBD1MNJhyHxWIEtislpheRyPZ3pMAuZGHOzPBAHtsKR55xDgZBOjiX+2b6ga66LFpH
-	 bG46h1UOZNQJMuaxZ8Gxve18Snnh9Thk9+x2dqLogDzSkEVaDPpU3iRPmFZG5h/D+o8Nz
-	 5jvlPz3AyEHrzpggu7xV1/6lapvy38EMsDs+5BluHfeiWNsxW/w1WH3lwXSgtWu7WxGKc
-	 99hwSjiUWET+bdbqM94v4kiY2uBtwUUmRdV8KCdutB0NKuH8Fw1FWa5KYkZo4/b/z3A==
+	b=0x07lFjXvtZHd8JKMzDjHaWgpzb5be/X946yq2Ruqv7i66KrAsxE2H5HhxG0GsgaFLrV
+	 VDKxZSn6jX7yJVLdjzu4807qKSVAPI/SHzVPV2aiicw+HDBHIiH5yPcVI80p4xa7BuqJV
+	 kvdPiIfJ2bRLldOYv+6vtTbQKI76Is2q9ven7oV/R/gnIpVrFHJCkN3yNdPEEJ52j1j1m
+	 cUxsb2SyUCaodwF/kpCLXPqnPHbkMFIHW4n8Vl2zYo/5nFjkSdzuHLJXHP4AdJ1DqUzmj
+	 8C8Kv58nzKlJWkHSAfZ4eRHefbwuY5Xjzh7fmPAQcddR6NqQ9vI1zsmevA1B+P+kPXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794328457;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=858hpGP/emzJlDPR0OjXj8v8qO8aVnb7/CS0vxybbl4=;
-	b=lKhkyTogrLxM/jJHou0SttwRycG08PVz1B6TEGXhWQbphS0B0sUKoDhEAxO6bySpmQoE
-	 6d1KjtjQq3dmEvwh1y2S7pmkfo827ZxUk40qL8VYkrAlNru7iYZR2BiBbcpM7reks2N1A
-	 cxBR3Dp8MHRVIfJwnlIS2ktf8K49KPcvJzjb22jiVCgrzBJM7FYvJgWuRdLqRRvmWE/Yy
-	 kLYfgIX3dpqj/y/NrLbgZ06SjJRpMZuQsR72QpLJprdUYIRmhkeszW3SB5ynyg0mqTeNs
-	 I1hSm0krx2aG3oetij+/29rvuXVTsNCxnhko/kp0W+VFq4sT/1g3D650DlQ32JgEpgg==
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=L5OI5FX7JL+kgNYLtItHyl+SG6enyYh3fOM8vlFTvoY=;
+	b=rhDyAYqsh3ZKftI3BOGeBjJuOBeZQZkg7zmSCDs4MjOwxGoiJIcvwHs9sHzCFES7VDDK
+	 1iTSOhHvofQ/gsiaJSmVsR7tMS+vRuRMis9ojLkyeb/aifndprSQKEZHt9W8xFLpafy0z
+	 B4XNVtW4IZv0mQfrsTgxZUEu52KLKXF9+xTQrqrMql39EdiwmgbZLCCnM+MyL8JauLwls
+	 9uOLPdfC/PZdT4v45CLHjlM+yeLie0c02uv6pKk1kwKjpCNn4oJL+mzNy8ZN8o6uOUm8f
+	 pXWGwSOBiVsFFLWFPB1wjEB/G9bA9gKf+qz8iVfH2S6mY3/L7OFDjE7iW4Q3VTm5sKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e+z/YEIW";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=D0jxqckK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=nctSQOq7;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9F160A5BD5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC228606A338;
 	Tue, 10 Nov 2026 16:34:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC228606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+z/YEIW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05AA1F00921;
-	Tue, 10 Nov 2026 16:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794328456;
-	bh=858hpGP/emzJlDPR0OjXj8v8qO8aVnb7/CS0vxybbl4=;
-	h=Date:From:To:Cc:Subject;
-	b=e+z/YEIWQh4JMXcMkub/EEBYz3ntqVTpbR6QSSLk7EIXrg5HAzMf4E4w7DaSALw3d
-	 K2pBq4/1YUO8EdhCCowaCQgUBeKe1SQv0fSAAXGAOgV4olpY1f2FogvJE6CwwdPOKh
-	 SshbNO/EPD08Lh9wNUZkN3XSbKeLaIpXbPDSou3eBludhjqEbQMjJ3kX4vlDwqN/Hz
-	 YFn6NEJ4C5c5dXbjqAqoeJlXaDcmGZugewHHHVEEvkf1a0K2/faJqg/L+Wvw0MWWA/
-	 EWvlvGaBRzG1InBDPucLVgHAfSsDbFPBJfblSqvH3HhlTe2yZ552A8coJQhGCYYbdL
-	 f00eBYx0eGkFg==
-Date: Tue, 10 Nov 2026 16:34:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Colin Cross <ccross@android.com>, Thierry Reding <treding@nvidia.com>
-Cc: Aniruddha Rao <anrao@nvidia.com>, Kees Cook <kees@kernel.org>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the tegra tree with the origin tree
-Message-ID: <avNHhMIj5RxlO8Ce@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=D0jxqckK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=nctSQOq7
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794328455;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L5OI5FX7JL+kgNYLtItHyl+SG6enyYh3fOM8vlFTvoY=;
+	b=D0jxqckKK6Xk8R6hFho6o3ukNf2TUCRtXNtZPkLnKnnkta8oMv/gYZVbgZMjvpMjcgBGQg
+	aw6EINY/4YIcXrCuNpjH1lY8poCK7On8A5KsW8rVmvNRPvmQQFXiM383UxIq97FyUTGRda
+	5iAH3Vi0ohgAsIrZl/UtPsdvXroXd1NMqv4U0f8Z1B/QtfNtpDwYhMDW9jbbv4PW2RHB6Q
+	9d5menNIwgnS15dSywGEuj4OMX5ha90p7730PIrrpCNL0xZFhdPJVi0cGAk27UfEdRznv6
+	ia4/v1kAkecBp4IKPaJVCjrq9kLs5rdb6hK/lHoE2rZKy9NRHeOHhCR/m14jNQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794328455;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L5OI5FX7JL+kgNYLtItHyl+SG6enyYh3fOM8vlFTvoY=;
+	b=nctSQOq7y6pW8i+2azc6S2Ra3wI+JYWrSup+tTJOAnWhXA2AbZTQYSiWgiIyET6kYkMlbD
+	Ehhu7MqQn4k+vvCQ==
+Date: Tue, 10 Nov 2026 17:34:10 +0100
+Subject: [PATCH v8 11/12] ARM: multi_v7_defconfig: Enable the raspberrypi
+ otp driver as module
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,71 +69,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qOQS4AEnW0x6v/a6"
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-rpi-otp-driver-v8-11-797e0577d414@linutronix.de>
+References: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+In-Reply-To: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794328449; l=921;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=nV4q/fY0ggdL9jLjY9jN7SpLOC/gVRnDvW9cn+372lk=;
+ b=sNChvnfgs3UBEWxu3bTAj95LK9Eaj+c0VksXtEtrWUZ3aXq6QKuXvpywXAnR2hAiAFN6IqMvQ
+ k4YEigxkBXcCIMsv9dfkur4p1Ig98fTS1Rrdxrylw+orREd8GaM9gmu
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
+Enable the newly added Raspberry Pi OTP driver as module to allow access
+to the otp registers. This driver provides access to the OTP registers
+present on all Raspberry Pi boards.
 
---qOQS4AEnW0x6v/a6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Enabling this in the multi_v7_defconfg allows standard upstream kernels
+to use these registers out of the box.
 
-Hi all,
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+---
+ arch/arm/configs/multi_v7_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-Today's linux-next merge of the tegra tree got a conflict in:
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 069d5a49f01cb..e9720a22a7c44 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -1262,6 +1262,7 @@ CONFIG_NVMEM_ROCKCHIP_EFUSE=m
+ CONFIG_NVMEM_STM32_ROMEM=m
+ CONFIG_NVMEM_SUNXI_SID=y
+ CONFIG_NVMEM_VF610_OCOTP=y
++CONFIG_NVMEM_RASPBERRYPI_OTP=m
+ CONFIG_FSI=m
+ CONFIG_FSI_MASTER_GPIO=m
+ CONFIG_FSI_MASTER_HUB=m
 
-  drivers/firmware/tegra/bpmp-tegra210.c
+-- 
+2.47.3
 
-between commit:
-
-  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
-oc_obj() family")
-
-=66rom the origin tree and commit:
-
-  ee98ea41ee3fb ("firmware: tegra: bpmp: Add ACPI support")
-
-=66rom the tegra tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/firmware/tegra/bpmp-tegra210.c
-index a33bb027c8b8d,fdc26c66f7c2f..0000000000000
---- a/drivers/firmware/tegra/bpmp-tegra210.c
-+++ b/drivers/firmware/tegra/bpmp-tegra210.c
-@@@ -166,7 -166,11 +166,11 @@@ static int tegra210_bpmp_init(struct te
-  	unsigned int i;
-  	int err;
- =20
-+ 	err =3D tegra_bpmp_init_channels(bpmp);
-+ 	if (err < 0)
-+ 		return err;
-+=20
- -	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
- +	priv =3D devm_kzalloc_obj(&pdev->dev, *priv);
-  	if (!priv)
-  		return -ENOMEM;
- =20
-
---qOQS4AEnW0x6v/a6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzR4MACgkQJNaLcl1U
-h9DwqAf9HmSzWIkc+5bjy0HsAEeeskuCDFloZ/Ptyfb7wVT8dk95Ry3GYVFk+MS8
-uJtJ1WnwM8Sc80jRdq2HCi/dK1oJsjQDoG2HFG4AJFNd74SMuC1raPJ0M8eDEeN4
-xVKjPaY5HIRrzE/DsCGF8/a9ircXnd8474VR74YSPXt0xOmbzKOzXJyke0U18lPe
-zX+Ax5LFrY9zLNssaYSl4QOMB3CtsUpXQ+gtu8AtinyOb1wZPcxfqyFCAqufNkpK
-XibkKwYZmh+5sEPbW7nxRR6RUbCq4wINA03Bf1OONL27As5m/P3htCPPANoG7YAX
-icnuEmSQ4WmTU1mC2iSv22r/kwZFRg==
-=K2yh
------END PGP SIGNATURE-----
-
---qOQS4AEnW0x6v/a6--
