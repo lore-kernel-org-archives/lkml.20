@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794290719;
-	b=5IIyDzSIspFS9+1m6zPOnvsSwyB4sOBVufNus4LrdZkQcX8CPRvAO60TvgTlVjXHfPKX
-	 a8pWK6WbGd/9269w78dlPO6htC7ZfwuG9I3Ddj2B+OAsSXSY+2EDPQ0h4evE8vumviSRH
-	 0ce740PeFxY5VfN2p0ZzqDiR/b1d4p73R/chgh/KAA8kro3EkY8ovuzKCz97upipkSrNN
-	 kfUTtnorooej0FZkN+ObtlTHAUs1Dt8BEc2wGE3pKj3oo49dRM7TLiPgcsgZXPzSDTSPN
-	 ExbGP4c0pTpWKJYITg/tDG8NdCJyzpfrLUDuONh4kI2QMyvrgG6ptdiJ7egxZLGsnCg==
+	b=Rirx4LG27/Lj8y7PWUdxQ/OLc2A/9aZusuHOtyB9sl9Lv8dUAzlHmt5Hn32+B8nYMIw0
+	 iwmnV1ralFhzlS3QfXlbj7EofrmqlY4qr++p1ff47ZdlMyjy/tYkBAavRgjgVlmb2WOh+
+	 g4FkaRzLs6/axQzoeq/o/IPqhKMxiLzDRinhG68RKaZinX6490cG/gTbaLBsjzGHivfBE
+	 BBjBjCg63/tns6VoK0y1/s9bUGDxZpErs7oL5E8lmVgt+Y29wICxzFbQfwb+8uyPgwCym
+	 hW9QqiSQipiN2ab15SKGVU6PFz3j7h2cstQLNZGSOwnQnpuoSb7lONi3394WALQDXyg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794290719;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=pp5MsRRltuiHJXQeY+Ua4pR86P0Yv7OH4I2Bnu8FfDM=;
-	b=xodi9UU060HSb8LgG02YhDUj5jEROrL0f5G6xISUsKZrlOW1CAKcIA3tEVM5iHaphOlj
-	 4tj1bJIlCLFD2cTuAEmGgVcBHe1dSxAr19rpY+Qxpb1/f5lqM2HV8AKckEdu3sTIVFUED
-	 d85MNweSiLu4iqXtL9Rb0Ytb3MiX5mjG1o24D6bYDHnh04PmW/r/OA9sP7tNP9A44myRz
-	 32FvSdFu2WWHlxoIFtzuw346wAR69gq8ImnuorkKLrXW+BPbgpcCugSUHELkCQKLRzLgP
-	 682uTchXw8jg2hmTyG32zC5yPPCmjC+deZ00pWbRkaUDhzw5qqEjy5IHIpA7oLt2xFw==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=isj8QmDoAv2l5fg1HSQfo6B6XERKWEnEINwxmN+yGVQ=;
+	b=RMAFoTjY950NLgrH7cu1Emqw14YAHTpFsFOR1dNHJnq8hXbIy54LQZWQ0WDcXc1EuxyF
+	 A2+CRVliI5m0vJ8hwJrH7dPfT3jMedk5xaBG1e55RJyXzatG5LyAVCRu7Y2CDfw+uT7Hn
+	 fdUY7uqSqQ3UsC+63wmahJw612t0KnTsRswagnCM+RLHY8wESXDDxv/v/wgkoorpGef/K
+	 IyRuiN7MpQyKACRjm8ygpCENwkF4wUta1MMBaT2unGk55xpiIjT9Z6cHjpYtWZTIZIvDB
+	 zGcME1nxHCrntm3BXgKOYejUJOpYYQd1phzpnCv/OQjj2agPS78B0ssBS2Vmbeiub6Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duAOvrgs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQbbbDeG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB46B606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB52E606A325;
 	Tue, 10 Nov 2026 06:05:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duAOvrgs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQbbbDeG
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794290718;
-	b=PDYS413xF1kCBf+dBRjvDJJyXZ2X83jGIGCcNpiJo8twsZV/ddbwTzRuD8/NkvzovKh9
-	 OWsr99oIoS34cvMn3ZDbcEtF/OxIbyfJ4pzwGUvZp3simvN1wa0swk+EZptwpR7p+MRpl
-	 pH9T/SyTnVFvjXnRKZ25Kvzs8fDURo/kkzGdxVaBHe8DcRN5w9Lgv6kIToYUupyVZIssn
-	 OE2DUpZmjy4NPjGjdujvv4+LW7ZHZKYxAQTH05ATxeXCyeHgk7jHQ8MeoTTodQ9RZ/3Gy
-	 ijftP4pKFUcWZc0D5ZiXI2ajoiNjg9z/bdkiaYubYr7KyjwDp0qEjJ5PBsFjqRYmbBQ==
+	b=FpJsAeTy7CbyxhwjhEXAGXDL3NuNl8Xfk5v+RDmFob9wV3mIrrPlQ4R8pSOEWZ+YeuTP
+	 aqtHqObpYPNmWdLDySlen0qHmjwGNURK0WP1CK16Zyqn96oUP8B6fVYKbpLf/MzipFQ2k
+	 Xj94ptofHUMxzzQNTuKyYfHIx4OE0YeY6zuyVjNEq+rEuWd6YQSSSMA2FEv4EPmGMW00U
+	 aipHfFXOUdHYw0sUvMAW1689/yoJuV8xK0w3ZePG1SfOcaWb1rKzi7CEFVDYJhrVxUXif
+	 mpHOqR/bpCeJF4Iv/KDWa+MDifaBPy05eGm7Ae2hu7jxSOXhq5P2C/YcpnRq7S7nTgw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794290718;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=pp5MsRRltuiHJXQeY+Ua4pR86P0Yv7OH4I2Bnu8FfDM=;
-	b=FFhr2cqWqGI6moeweRigvS0YierLK1LEq60kDxmxgRVdu6rPYDtD8UTyoBuJhWbF57L0
-	 Z7I44zf1DAfKUSZup7Rbcs1nUDgobZsXneJRYJfQKfI2wb6USeGsDpJ20x/DEmGe9Crtk
-	 fo4qCQNMTktWLo1jSR5GTAH9KLYbL8dWtmGEiDxlSs8oanSJQLT/A7MqNF24a/0TUooKz
-	 BLfEe+qz8CVRI4XO3KByJyPQ+IoLAhGordCthWpqmmPTqHn3g0CmSEK2SQLGX7OqnI8cS
-	 vmx7YruIhszALq5ip+PVtQJkihRFDuDqS3pFKZqKCUHEpWHhrV7PBmfDMHOqPbI573A==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=isj8QmDoAv2l5fg1HSQfo6B6XERKWEnEINwxmN+yGVQ=;
+	b=uuMGALfJxD8G9dsjPPGHhOCtfSfaZNr9JgB2m1vcxdgU/umikHSWGXvXDqEV3BXS7fmI
+	 mdrmbYTxgI22zJK4ehrOaubOeqLnc4Jvt/MnPPXFtuKIxHUuYEqCxk/WUuCXEJNISvJyF
+	 Zy1fKl+94sTViqcXg1PHODK0Dh8ZsWDG+CLVqhehKf9OVdJwZNHsTJweDYZhVLZ2+dTEF
+	 efKu5qlOaalUebmwCRpr3fqGof95fpRKQTMIhF0mx2FB3nA4S1uvxRhNC7xSQveUMWIFg
+	 dIY1/Fodc/HOBTftXUB6BQjjiTEdaX9zSS1kodjOJrEox4xgBuhT6M3MjuFBpzUFDaA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E01DE1F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id ED1F31F008A1;
 	Tue, 10 Nov 2026 06:05:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794290718;
-	bh=pp5MsRRltuiHJXQeY+Ua4pR86P0Yv7OH4I2Bnu8FfDM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=duAOvrgs0bjFuyz8vmehk3SuH+fOCbTDVNN8Tz67LSwbycY8TK0R51RzQk/pLhaFR
-	 Dfldv/+KMXxBcOUtToS5Wbo1odPN5hI2vv68W71rPSS47q43BV3tX+LIj6yTlTA6ce
-	 jwatAaGuduHd+muAT4Ba/V1cTveWe0tLSXy6aKYGOnGtRRGFP+R8PEbxz9GgIoavFC
-	 E0VXEWGZzdPZuH7mpUldgpxWDSwaYmu8ve7PxWHx/UiN7VUXDObNMiYuj+eWQq2yDg
-	 /gJlWOZNC3nUJX981zFWKvH80CsVUtPsQmcEk4mhUrmFkQ/A4rlagbBFWl3xxVinlM
-	 XWFDH3wDnfj/A==
+	bh=isj8QmDoAv2l5fg1HSQfo6B6XERKWEnEINwxmN+yGVQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XQbbbDeGJPEkijR+PANK2i0N+5nZw9uZO7emzRSVW86HN4it8UxEvwKwDp9i7izg4
+	 GnV4efxY6Hx9ia9HU9St4ueVIy6cos/wJkSN2Gyjdye/07jYsSP2M6kPACANtIYq99
+	 sN6NFeqgflbWTrsOlwMdGFZfl0wljwcPtES1dfHDIhpEwxvSrt3gZAlQwpP1Fgrfcl
+	 fXiWlzobOnMJlV/Z5Mu6KbsP/Bie3s51KDHq7OrUdilwka1Cd8z7hfSYXljOlUIby/
+	 +eMykFG9YyUl4u09Qs0hTqgJqso2gU8+63bJMg7jBm9iShVVL8IXRudZ9P/CujuKDR
+	 kupzcOUfBM9EQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5E50C488D7;
+	by lkml.kernel.org (Postfix) with ESMTP id 71183488DF;
 	Tue, 10 Nov 2026 06:05:17 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH 0/2] iommu/sun50i: Don't report TLB prefetch walks as page
- faults
-Date: Tue, 10 Nov 2026 06:05:16 +0000
-Message-Id: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
+Date: Tue, 10 Nov 2026 06:05:17 +0000
+Subject: [PATCH 1/2] iommu/sun50i: Don't report TLB prefetches of unmapped
+ pages as faults
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrB1IhIj2KsWFTid1BKNkjAji3
- Rvt8uPx/hOUo7DCqzgh8i4qS8iwZQE09uHLKJ9sqExVW2sNagrOCMoyzwnXyJ43GrFxRC2T986
- 1kL/3IMfTfXd/axompu2OwXX9AGmBtZx5AAAA
-X-Change-ID: 20261110-sun50i-iommu-prefetch-85cc9ecff559
+Message-Id: <20261110-sun50i-iommu-prefetch-v1-1-43428e792ef6@gmail.com>
+References: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
+In-Reply-To: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
 To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
  Robin Murphy <robin.murphy@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
  Jernej Skrabec <jernej.skrabec@gmail.com>, 
@@ -97,55 +94,98 @@ To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
 Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290717; l=1731;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290717; l=3445;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=1HWI9g6TGPVRDjXZAWrid5CsNT0iypzvfoEB9OnZ4/c=;
- b=Me2JoZVpnSuI1KduurX44yUYuz80n91+47NwqBz+j+T3bVEoG7PhKHnEjJfE8zjJcNgdtG7T2
- 8Wl1d/2jJAJBB7ZByCyazwlMv3D1Qz9I5yxRgcMdAEAXNW5IDAMiBqp
+ bh=yLoe2znns7P0Nlmxz+qhOed7bJSPIV/igjF81whNh8k=;
+ b=7OZXIY/FUo+0ssrRcC5PVK4pgBVfPVCGENntFR4oujOO4H4aYnqjXuNlSiLoiimQAbHlN1eXl
+ lGGYmF9UU/zDufC7H+GTKls3rXhjGA1bAxCCLdmCvb20Mn2ibWiwLtH
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On an H616 with a display scanning out, the IOMMU reports page faults
-with master -1 at the IOVA right after the end of the framebuffer: once
-at the first fbcon frame, and then once per frame for a while after
-each TLB flush, e.g. while a video decoder frees its buffers. They are
-failed walks of the TLB prefetcher, which the hardware flags with bit 31
-of the page table interrupt registers and no master bit. Patch 1 stops
-reporting them. Patch 2 makes the remaining fault messages say which
-walk failed and what the interrupt register held.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Tested on an Orange Pi Zero2 (H616) with HDMI forced on at 1024x768 and
-three 4K H.264 decodes through cedrus, on 7.3 kernels with and without
-the patches:
-- without: 214 "Page fault ... (master -1, dir rd)" lines;
-- with: none, no "Page fault" line at all, and no decode errors or
-  timeouts.
-Since the patched kernel prints every fault that is not a masterless
-prefetch walk, this also shows that the hardware sets bit 31 for these
-walks.
+With a display scanning out, the driver reports
 
-These patches were developed with Claude (Anthropic) as a coding
-assistant. It investigated the problem and wrote the code and the commit
-messages; I reviewed them, and they were tested on an Orange Pi Zero2
-(H616) as described above.
+  sun50i-iommu 30f0000.iommu: Page fault for 0x00000000fff00000 (master -1, dir rd)
 
+on an H616 once when fbcon takes over the framebuffer (the first
+scanout frame), and again, vsync-spaced, after TLB flushes while a video
+decoder frees its buffers (every unmap flushes the whole TLB and PTW
+cache in this driver). No device accesses that address: with the IOVA
+allocator handing out addresses from the top down and size-aligned, the
+3 MiB fbcon framebuffer of a 1024x768 mode is the first allocation and
+lands at 0xffc00000-0xffefffff, and the top 1 MiB of the IOVA space
+above it is never mapped. 0xfff00000 is the page after the end of the
+framebuffer.
+
+The walk that fails is the TLB prefetcher's, for the page after the one
+the master is reading. The H616 user manual (3.12.6.50, 3.12.6.51) gives
+the L1/L2 page table interrupt registers a bit 31 next to the per-master
+bits for walks that no master started, and Allwinner's sunxi-iommu
+driver treats a page table interrupt with bit 31 set as a prefetch of an
+unmapped page ("It's OK to prefetch an invalid pagetable") and does not
+report it. This driver masks the register to the master bits, gets no
+bit, and reports ilog2(0) = -1 as the master.
+
+Return early for a page table interrupt with the prefetch bit set and no
+master bit: no master read anything and nothing is stalled, so there is
+nothing to report, reset or zap. Print such walks with dev_dbg so they
+can still be counted.
+
+Fixes: 4100b8c229b3 ("iommu: Add Allwinner H6 IOMMU driver")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Arun Iyengar (2):
-      iommu/sun50i: Don't report TLB prefetches of unmapped pages as faults
-      iommu/sun50i: Print the page table level and status of a fault
+ drivers/iommu/sun50i-iommu.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
- drivers/iommu/sun50i-iommu.c | 50 ++++++++++++++++++++++++++++++++++----------
- 1 file changed, 39 insertions(+), 11 deletions(-)
----
-base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
-change-id: 20261110-sun50i-iommu-prefetch-85cc9ecff559
+diff --git a/drivers/iommu/sun50i-iommu.c b/drivers/iommu/sun50i-iommu.c
+index be3f1ce696ba..1b7a7f0d9b62 100644
+--- a/drivers/iommu/sun50i-iommu.c
++++ b/drivers/iommu/sun50i-iommu.c
+@@ -73,6 +73,15 @@
+ #define IOMMU_INT_ERR_DATA_REG(i)	(0x150 + (i) * 4)
+ #define IOMMU_L1PG_INT_REG		0x0180
+ #define IOMMU_L2PG_INT_REG		0x0184
++/*
++ * Besides one bit per master, the L1/L2 page table interrupt registers
++ * have a bit for a page table walk that no master started: the TLB
++ * prefetcher's walk for the page after the one being accessed (H616 user
++ * manual 3.12.6.50 and 3.12.6.51, bit 31, "debug mode"; the vendor's
++ * sunxi-iommu treats a page table fault with this bit as a prefetch of an
++ * unmapped page and does not report it).
++ */
++#define IOMMU_PG_INT_PREFETCH			BIT(31)
+ 
+ #define IOMMU_INT_INVALID_L2PG			BIT(17)
+ #define IOMMU_INT_INVALID_L1PG			BIT(16)
+@@ -891,6 +900,20 @@ static phys_addr_t sun50i_iommu_handle_pt_irq(struct sun50i_iommu *iommu,
+ 
+ 	iova = iommu_read(iommu, addr_reg);
+ 	blame = iommu_read(iommu, blame_reg);
++
++	/*
++	 * A walk the TLB prefetcher started for the page after the one a
++	 * master is reading fails whenever that next page is not mapped,
++	 * e.g. for the display engine scanning out a framebuffer that ends
++	 * at an unmapped IOVA. No master accessed the page and nothing is
++	 * stalled or cached, so there is nothing to report, reset or zap.
++	 */
++	if ((blame & IOMMU_PG_INT_PREFETCH) && !(blame & IOMMU_INT_MASTER_MASK)) {
++		dev_dbg_ratelimited(iommu->dev, "page table prefetch of unmapped %pad\n",
++				    &iova);
++		return iova;
++	}
++
+ 	master = ilog2(blame & IOMMU_INT_MASTER_MASK);
+ 
+ 	/*
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
