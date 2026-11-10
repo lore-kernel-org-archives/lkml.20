@@ -1,49 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332407;
-	b=dM2T9f67S1OfT+zDjzvNeTFRBgDcKmJcr4p3YLg2eyPOaalHDIgzB13g4QnwJ63aIj4B
-	 rfmQlaUDc8VSA8YSfoxES0Fc71t5kATFuopdm1eHfrIMf7W6uDV0UfB4ejMLdGFu/4BNa
-	 nF2zYmytTm4qsyLETNMV1l2S/z0eSE6xZIFA9o4vBFzvpE/8G2qEgmTD0tkbfEfxb7nUe
-	 xPvtTx49lSIqDPfpqVd/BQ0qEMFxxcwz5cMhK27FQ+925yDqvJOw5O0WamSbKm7duA/5F
-	 AsYWqZ24tfKPi7Zq7/oBSoZ+iIYU/DSiFKG8WCmxh0f6OGYH9JVqU6RQYebi5veacZQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=vDIdWDqCs7bQzZm4Myzs55AdA8xj+ko5T/nZrnXBCKE=;
-	b=G8ayJaZPf3W0ipD8e2ULmoTKXJxqS42mXCOX36GvFXdyVU0Zo6hiAD4cTNNfbPj9JQvl
-	 Ocki7xZslxtQCvfBAyxSV3tiocu3PY23epghK9UfaWgImJko5UXFLP07qxTvXHkRzKVh7
-	 MFs0KcdluXhgrDhwN09qXB4lTN6/hk9RfhqSOEvkcm19DwCq5PhR/9uGvEAG2gkUP3Am4
-	 +VNJs3nCm0LvGuNn7PpnWxBxIZvzSret1a76oXue0FsqKiRDrdMqV+1ZcJnttqCHeLSsF
-	 OHBJx3w3eOC2i+Dp8ccBbUXuSBcifuMqC32D4fAvuz04KcuWNj0BgzdYCUgfiZyqOVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XnvYMYZ4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.165
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794332434;
+	b=v4Lqx46t95+LqmttdDJ8fj0Nx2d+HROikiT7pkcq5SuApDq4TCYaWNRi1YBQIErCOUhe
+	 6bE/aQCqe33fl7NgedW7zid3cJ4y3m5IsvPRWbvbUjrmgYoWlhsbRqjpxya+TcUe4KiKB
+	 w/V13a5ZRKJXxYOZJEpo7Lhqk17YEiQBAejp/VAeeluVqbE6pgHRrKeWXDE5pp7Uip+rX
+	 kPMbS0efC7Xv1Ky124eBQoUUvQyjat6GNR4e+GyGuAYvf6uKpWgz2K1Nn9Nvbe+TRvUP6
+	 aMd5Gbx5/fvDNQpr9ANiBcMZJC/OfqInbnHIzP8kcwVuO6VlXN23VpYVQ3kxmdB7wWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332434;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Subject:To:Cc:References:From:Organization:Message-ID:Date:
+	 X-Mailer:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
+	b=cJx8I6gOfhsW1pQC1zGNEqBJfAt/WUiFZmedfxu4BS4qlWNImMLp82E1QXZ7KrrIZLUK
+	 R5Pc1kKM1q9D/r0AO5dVAVUoX0TdMtVDKxj79rRMXL1PliJ+k4InYNi81otH7gysWe4UY
+	 ir9ChFqxO0upjCt8Q9+4AXJ9gS2AAX41dYVHJSkbXdjE9XglWwNG6mq5W0+7bE7V2ZvtD
+	 WdJy6TrDjXS53oQGEXNN+/H8z7ogK9vyXhwIXz0e3lAbxAaauJQDHgtQbkeH9yfd5plB6
+	 g0RVlsaGkQVcHhzUtW53TKuX3TubLRydcn141aaXdkwVA5dx2TdJzmGEroeYpQux2bQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=xenosoft.de;
+	spf=none smtp.mailfrom=xenosoft.de;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=LFB9YLC0;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VWAHcmuN;
+	arc=fail smtp.remote-ip=81.169.146.165
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E490460A5BD4;
-	Tue, 10 Nov 2026 17:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAB8606A33C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FAB8606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XnvYMYZ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CAE31F00937;
-	Tue, 10 Nov 2026 17:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794332406;
-	bh=vDIdWDqCs7bQzZm4Myzs55AdA8xj+ko5T/nZrnXBCKE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=XnvYMYZ4G8cIRDuO7q4ftQDGNfQCYbcw4Y0r+Sx9Ury9+EeXu1Ofk80fTxwxNRu7Z
-	 EIT4s+RAXmlsN2Dvpu/tkOpnjC+REH2LhaEaF4gyOki/5LJzMBps6l3RyLf/CYU2El
-	 jLNRFePMY25wEJ1AV+DvvmiJmclMZs7SHlChygHHzsgqpIlH+vhIWBM6osWL+mD89H
-	 9tBXhTdjLEkmP16EpsNPWzCpAwX4BsGLyHQ1yh5I++DR4aCCmziJJcvATJ1iWP2N8g
-	 ud5byP66KBVWAcND/DXN4y2eSfTH56fw8ZUZaZ5+gw16gVE++mJMw0exNIHSUO8aQM
-	 Z88Xri6zAsfYA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2111839D6088;
-	Tue, 10 Nov 2026 17:40:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=LFB9YLC0;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VWAHcmuN
+ARC-Seal: i=1; a=rsa-sha256; t=1794332395; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=sPHXkF/RBruqZgEMLsmbH7+0xniN5TVzzvtuEe1lYfaiFdNe0+FD5t9WFO+HefaAeI
+    fIpZ6l6SW8EQ+jWrI8uftQRiadYRDHiCEiyHh20kg12FHefwZr4xTs8kcHEzTymu4U0T
+    J3ZfTxcrq/rKzsYD+RcIcFXWvm/ZFHpha3WSN1UKnFiSHKGG6LYwZrFC2BalKiQgEZuv
+    0v1iAIjeamdWb4VG1gee5tRGlXwe63AXonxbyZUPqG388WpqAL9nyaPXX1/pmvkgQELj
+    zdiOmfMeaXD3Etn6adD7xWsipuIIv7JClB8JvG2aNuVyIevNNl8raCvQDFFsCfBWDIVF
+    XeuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794332395;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
+    b=m08KbpvwgsN2bx268zW9fXuyhLVGwcM8vy/gt/FUjSmK378Kc76Ui1+I9BLY1i1B0n
+    splNLdYy0THd99k9/BJqARnKxlAY9DLvq0S4jkjLVAQAqZmhHMEYPsJaLjPDEGLI5J+B
+    qXH0D55H4bk325VD7UFhJs/6MkOushJyrLAmkPi4dsBpaGZ7HcDRg87SzySCi7eF9aXO
+    LPnAhEcrgS0bDup0O9s0TzcrADglfhLIuHhkdK04SXsUhP2a4bLvFJt8RaWrNLDfimnc
+    8k09yYR619X6mjkm7aAMjxpD+eiIVCj43G3ACaKxXV83CgJdNOkmSq5clFZdAt7dEPdD
+    UoMA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794332395;
+    s=strato-dkim-0002; d=xenosoft.de;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
+    b=LFB9YLC0+d82j0Crw0Cj/NzFyDCb7IJhCvq2LJZhuwu5e8e6tG9U8m7cNFBQM7+SPR
+    Du3uvZtzkLhDWbKYc8jpMkFYwMgUbluZWu4FMO+GYaP5PhJzBlFZ6GGBdEdEoNJROIVD
+    h+mCpBCRec+xIYWZxFbMXoFgp1XoFWFZ3sj9okIVNy9gN86wcq9TMoaydbRmPwWYJ43l
+    e6huYo/16aYsyWWl+ELUwMLpyrwuVO/Cb6WVpZ9hqMOG1vCjlTjmS+DFQzDlunWDwRfX
+    xB7YgOp9NLze+eeyGIhvzzlJbEKz8L9ozx26ammgrqWDQE224P76cKlgG4l9PlF1bH+M
+    bvpw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794332395;
+    s=strato-dkim-0003; d=xenosoft.de;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=TfBLrrNXwj9PDzJLXqf9MPbdj5kOF5LdyfVsHqX5orE=;
+    b=VWAHcmuNxt67l+OLByVVf+oFGjQtveIzuLDwfhBm1q6T8SQVIrRFp5+/mNaXrkO/4y
+    sThiQYB6+1Kvk6HG+/Ag==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIC+l5Bzg"
+Received: from void-ppc.a-eon.tld
+    by smtp.strato.de (RZmta 55.6.3 DYNA|AUTH)
+    with ESMTPSA id e825d92AAHdrhx0
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 10 Nov 2026 18:39:53 +0100 (CET)
+Subject: Re: [PATCH v2 0/3] KVM: PPC: BookE: Fix boot hang on preemptible
+ kernels
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
+ linuxppc-dev@lists.ozlabs.org
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+ linux-kernel@vger.kernel.org, msuchanek@suse.de, ritesh.list@gmail.com,
+ harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
+ venkat88@linux.ibm.com, nnmlinux@linux.ibm.com, mkchauras@gmail.com,
+ "R.T.Dickinson" <rtd2@xtra.co.nz>, mad skateman <madskateman@gmail.com>,
+ Damien Stewart <hypexed@yahoo.com.au>, Christian Zigotzky <info@xenosoft.de>
+References: <20261110053238.3794500-1-sshegde@linux.ibm.com>
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+Organization: A-EON Open Source
+Message-ID: <519cb2b2-5c3d-a75e-6919-d5d0784bae63@xenosoft.de>
+Date: Tue, 10 Nov 2026 18:39:52 +0100
+X-Mailer: BrassMonkey/35.0.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,55 +109,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 1/2] net: pass the XDP action to generic_xdp_tx() for
- tracing
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179433240494.4112524.1031731452606255276.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 17:40:04 +0000
-References: <20261030114753.185281-1-vladimir.oltean@nxp.com>
-In-Reply-To: <20261030114753.185281-1-vladimir.oltean@nxp.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, kuniyu@google.com, wang.zhan@smartx.com,
- mkarsten@uwaterloo.ca, makita.toshiaki@lab.ntt.co.jp,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, mst@redhat.com,
- jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
- virtualization@lists.linux.dev, willemdebruijn.kernel@gmail.com
+In-Reply-To: <20261110053238.3794500-1-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On 10/11/26 06:32, Shrikanth Hegde wrote:
+> Christian Zigotzky had reported that preemptible kernels don't boot on
+> his FSL Cyrus+ board. The board freezes on running either full/lazy
+> preemption and has been an issue for a while now (years!).
+>
+> https://lore.kernel.org/all/b897b0fd-90f2-4215-bcd4-3714e497d773@xenosoft.de/#t
+>
+> After 7.0, there is only preempt=full/lazy which removed the
+> preempt=none/voluntary workaround used to mask the issue. There was
+> challenge is getting the console logs which made the fixes difficult since
+> one couldn't know where the issue is.
+>
+> Thanks to Michal for helping in getting the logs. That pointed at few
+> places where the issue could be. This series is an attempt at fixing
+> those.
+>
+> Christian, I haven't taken the tested-by tag since patches have
+> changed quite a bit.
+> Please help in *testing* the patches again.
+>
+> v1->v2:
+> - Re-order to avoid preempt count dance (Narayana Murty N)
+> - Do only hard_irq_disable on PPC64 to avoid second warning. On PPC32
+>    use local_irq_disable to acheive the same. (Ritesh Harjani)
+>
+> v1: https://lore.kernel.org/all/20260928110411.844582-1-sshegde@linux.ibm.com/
+>
+> New API ppc_hard_irq_disable could potentially be used in other places.
+> There is similar pattern of doing both local and hard irq disable and
+> likely not all callsites need both. But it is a larger effort and due to
+> my time limit, it will be taken up subsequently.
+>
+> Shrikanth Hegde (3):
+>    powerpc/irq: Add ppc_hard_irq_disable()
+>    KVM: PPC: BookE: Load FP and Altivec before enabling the interrupts
+>    KVM: PPC: Use ppc_hard_irq_disable before guest entry
+>
+>   arch/powerpc/include/asm/hw_irq.h | 17 +++++++++++++++++
+>   arch/powerpc/kvm/booke.c          |  7 +++++--
+>   arch/powerpc/kvm/powerpc.c        | 14 +++-----------
+>   3 files changed, 25 insertions(+), 13 deletions(-)
+>
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+I patched the RC2 of kernel 7.4 with these three new patches and 
+compiled it again [1]. The patched RC2 preempt kernel works with KVM HV 
+without any problems.
 
-On Fri, 30 Oct 2026 13:47:52 +0200 you wrote:
-> When generic_xdp_tx() fails to transmit an skb, it reports the drop
-> through trace_xdp_exception() with the action hardcoded to XDP_TX.
-> That was right when generic XDP was added, and XDP_TX was the only
-> caller. Since then, two XDP_REDIRECT paths have started to transmit
-> through generic_xdp_tx() as well:
-> 
-> - xdp_do_generic_redirect(), for a redirect to an ifindex
-> - dev_map_generic_redirect(), for DEVMAP and DEVMAP_HASH redirects,
->   including broadcast
-> 
-> [...]
+Tested-by: Christian Zigotzky <chzigotzky@xenosoft.de>
 
-Here is the summary with links:
-  - [net,1/2] net: pass the XDP action to generic_xdp_tx() for tracing
-    https://git.kernel.org/netdev/net-next/c/655978fc71fa
-  - [net,2/2] net: validate xmit skbs in generic_xdp_tx()
-    https://git.kernel.org/netdev/net-next/c/67b0cca9ba88
+Thanks a lot for your help! :-)
 
-You are awesome, thank you!
+[1] https://github.com/chzigotzky/kernels/releases/tag/v7.4.0-rc2-2
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Sent with BrassMonkey 35.0.2 (https://github.com/chzigotzky/Web-Browsers-and-Suites-for-Linux-PPC/releases/tag/BrassMonkey_35.0.2)
 
