@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305286;
-	b=TL1+ZX5P+Sh4snyQ/Awy501ALt6++9u0hibB8QTCRmir/v1oLSwlq1+27A0rKdrjeIy2
-	 1JycEZBf4FE0Qq7hZWpAVFHjR2LZJbaNr1SXEYLY3aSpq8Uzv8Jt11DXGumqM+ZxqBQxR
-	 DmSsTUAFgDiFFnUNOPIHnL/Yrv9h6dhsdf6sPhxrFXiufRvDBQWM8yY5Tcqdc0X13ufhv
-	 smpTWyVxx5KqjZsgaVK4WSYiaP5GxTt22MMqb56nULfeWhv1K5MIf4/Q1KxQVACFgAVdE
-	 Au8ZYBaGOrUYr9r0s5WpkpIUIWS8MQOSMLgs0v4okz5VakOwVWoCfYdG5PoEqXFgmFw==
+	t=1794305288;
+	b=qjqUfwWBKz82g/UhIov/SQ2GL2oSxX60V/0liWvxTQ8vQetNMHiC5p/dcfyCKjfHvlNr
+	 PGRkhGDnYLfBi5ZJz407+HuNI66gPxVE+XC4fOALzO+IY6FVcnHNof2/sUZJNkW2r7Vei
+	 7Ox2qZ5AECaiE/4SqDg1dsbDAo52GeW5H9D4v+jV4tskwO29HbLt2JccQ6fNR+tPpmk57
+	 eoVzEoHK30kJZsaeohfyamcKD3QxTgm7t4qr3gEqDkQsDCBTjG2u9TrRGZWgKlsYocWi4
+	 taOG6OXj3NE5uygupt2rn3U2YuLs5X6tdx9dnCc2MK5UrE79KS74k3UDJ1GMlOhDEMw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305288;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1v5MOvJRb0ZumFsnpO/7N7S2x7bW1RJdhbdwRNR3VDE=;
-	b=JPz1CY4pIcAmV7QI3FMhgZ8G4a11A/5DNfX6I6nxUuvdRRHkIRRYvjpgn0l70uRUL0tu
-	 SQ7w63GWT4yxJ26enMyL7/IbvkdVHq37a1csWFKHnBsipPnbooqpj6ufyvpBXskvhvvdR
-	 3uKRElHORNzutBCidOpsKKkm+U2dBjKWExwB7OsW6FxzQOJCnp7R09Ezht8eXWH/sssp1
-	 vmeJ9eeDOtA81vmZM+B9bZtq3vbDp5ftJa6TURX/fXunvc/MOU9ie+IrpsmRf+N2ZD1Sj
-	 PjR8tNAnvI0DuA2M4/XozNxXAzLvJGw0pERhZ/qwx9bEuBA5f1ItDT6dbyNBlLKKtrg==
+	bh=OIAwUPeDgVAUQjZJJHRxiVdb/6E99UF+PPnk9SItYZU=;
+	b=LMx6MaTk8jWvrxN14o2CU0riXb/NLfpmvdBOtk++PmenOX4h/lD4VGCQM2FSVhGa7k73
+	 KNCgjiX48j5iHY83ZJgyfWV3dJvb9fS3qfiBagQOO63WSKCuhMXKPZPkOpHQduxyekUsy
+	 Or59F01pvFLeUkWmlZXV6kYn1DiNjNSdlE6ex+Z+qkURcmndiAqexbMgJsiDztMutf1W8
+	 qX+/RsZenQGYvNJ0lnj+cmjMH/bpn8f4c8WcDyInrG9Me2CoAv1rpKqXj4iyvdN/j5ZJ/
+	 g1rGOlCmvkecEBURMR62aC33705GH+0RM1KiRKTfDmedukyZTYmeBu/X+cMIOAPYlDw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ic5Lvv/r";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M60kRYMi;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20895606A32E;
-	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B04606AA58;
+	Tue, 10 Nov 2026 10:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ic5Lvv/r
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M60kRYMi
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305285;
-	b=igSDVUHZ1oMxCYbB6adbC20Q6mZuul4ciVbLSsNy09+/gRhcD0731gRD2RY1W4GGZ82T
-	 fTUZ2J0NDx2lI9vTKSQ4kTdcrzv7oY+/2NyO7GIKLbB5clqYvmK80I3brW/ItYKul2ceZ
-	 /UeIbtGxAA/B5nQUc8VQusI3ZXrsyGrbi7KVvsY6ZTOrsifLSJMXdvAO7mTfGHNSArBcj
-	 DbEiShPbX0GbfxdtgZTBSe07b+vythv9vP102mynN9GWDBXYhySa/Xs4p/f3t+0q57pUb
-	 UhlSuycihKiOdu0JqXUI8kcwa71DGu6RcCEwEeuHW7kdV+o0SoLeBJrhonN4XF/1L6g==
+	t=1794305287;
+	b=Pdir/ogTOow7zQtWloTf1PBjv/W5je8sWZiG9TlmP/idzdnOM+HCdptHCGqq1BOVIte6
+	 +0dlP73C1O/aCQ2Brn5Ae48PeFiab6u0zm1tK6BXd7LS1XTRemdGhyk0l0jkQvKYHxZdi
+	 3P16c5V0knRrToPMoPySdI2FYsBKfEe4Y2JTMckj4tl3G908uO3/WbHYDgVNDiFQKxguc
+	 mn7JatlIRH7SFk59UoAnfr45sT5t+3cNIAkrTg5y2ufUGaczeuTT8tE4jA43eo6KX8cNA
+	 Mbon+oNvPQ8EmBCmmMsW7gu5K0X6x1BjfMd8aMuNAilxF/uF5QYiFXkNOmuG+2ExnYg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305285;
+	c=relaxed/relaxed; t=1794305287;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1v5MOvJRb0ZumFsnpO/7N7S2x7bW1RJdhbdwRNR3VDE=;
-	b=XVxMAOTY4L+WljYG4locFxnHVpVnpd/eTSmPwyLXnjV56dGo02LRRV8TI8ORqNF2qJnX
-	 RdVFcs01a/VmU44bs+U5rVSYLZr6VxAwsL+cvCBiNYvKZ4HfrlyUUJL2uJugn4RDLP6n9
-	 73X34gONmYO6cnX83Va+sqdQRA5ZPqzjQrK2mGte4DHfQ42bKEfTDeuNN9jeZKYVkBgkU
-	 g1yZNsMPC17NKgpwkNaOsgRg0utSM1q4uomNRKL6rdn3xv8KuJLf1mjM1CvErmDhwaNEj
-	 MVKeP7/d6wxa8r3LuC3rcKiTasQvfmkjwfYyHlT46cI8nxNmkPXYYCiOsTLWkPwHjDg==
+	bh=OIAwUPeDgVAUQjZJJHRxiVdb/6E99UF+PPnk9SItYZU=;
+	b=VdlDaI+FYAaVEsX/YuuQXli5wO1KcdRRgi2FkFl1jBooomG6jUpHdDHB/+ntj81kOk1f
+	 nA2xLpm1WvdyU52v3esO6W0DOV3MqMqqXGd0EweUbPRJTts1slicBwxS0uVA7GZHRyVdt
+	 Sam8k4LcjH0s8gb+0RbAGjFR2Y5YigYDl7xlkGQoO1VgR1FO8nIPusR8LFvRI8GSiHyve
+	 myPKP3Fp7hM6yWXN48UvqJBYJEiSEg0VSe0xurPQdimBqHcqKfUnucf5zgBwwkL6sy08H
+	 ayqBR7tksDcFTARBU28oUw2iOKA6TCwS7rHsMKSDmhdDqsfmWHsghh6AcjnufltcGHw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ADB091F008A3;
-	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id EC0331F008AB;
+	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305285;
-	bh=1v5MOvJRb0ZumFsnpO/7N7S2x7bW1RJdhbdwRNR3VDE=;
+	s=k20260515; t=1794305287;
+	bh=OIAwUPeDgVAUQjZJJHRxiVdb/6E99UF+PPnk9SItYZU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Ic5Lvv/r6yv/QygkzefpHR1vASoSz/dCqM7iu1Zh9ObqVt0Wu67DBPCWwyVLprmql
-	 +jLGVY3jvSYU9WVc3anyrXnQBOJ73uEUF7RPnEpLYQ/4a+1QaxLPcs7XOr1atwfmQu
-	 bUwM0iWSrs8nNmjeIvQtelMVrFkKI73E1h3Fa3Eo4UhNgROrgTe127hzpi4KF9TqN5
-	 sopE3UissfzoGpDIMCBvefqjIdV98Z8MvzUzMBP+Sav/jNzy5oG6O8K0sdQeEgdkJf
-	 /eXjHMKH9MVngNfjQ/PHjIV28UTTAHpZHuqSfehyVRMqE07tGbqqVq6PxA39LRCQc7
-	 4gqNMsuBJ2++g==
+	b=M60kRYMi/Wgxu81XaBo+pna3RfTAmoy7boC4YFN81lzf23rSKS/yO1DBPJlgKmLxe
+	 o6rQaewquSrobtFeoHheAZNkRd/fdEOzqCXh/r4rC9UUMBg2kHl2HCj94EdxT3q4wK
+	 H527Y+iaxOrAqjHprCYOt2BXBNE5F5MUrvtmS1aY5FMZVixs4FSmcrn8f1HtREUjkH
+	 ZokoqXCU4sTI06k58q8nVqJ3XUw6e4ZHCc4HJsuZ8UBlTL2f2ZXyVRK/vCehOJw5Gs
+	 vRn6422SKVdkMPTzjj8brgsC7OJS2MtUciWI7Uj5z69d2aHRCNeve+ntX+AwgbGd2u
+	 h14BXRP/sFMfw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4198D48AB2;
+	by lkml.kernel.org (Postfix) with ESMTP id A49CB48AD7;
 	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:08:03 +0000
-Subject: [PATCH RFC 01/12] dt-bindings: media: Add the Rockchip VEPU580
- video encoder
+Date: Tue, 10 Nov 2026 10:08:08 +0000
+Subject: [PATCH RFC 06/12] media: rockchip: rkvenc: Use MPP's moving-scene
+ H.264 RDO tuning
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rkvenc-v1-1-ea8b47122d8c@gmail.com>
+Message-Id: <20261110-rkvenc-v1-6-ea8b47122d8c@gmail.com>
 References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -100,11 +100,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=4162;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=10003;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Ts7pMXWf/I5T8ZMd/4JVnE7tMKOGl43GA03EZ8jGtCE=;
- b=slS1xDOmb7x2dV8Ky2vEl4BO6JnpFvJGs8WnFNXv8Ue3qqE3ADlkIEU//HEdSPQ4V/S8GfyUI
- cOlq1p3EPn7DzHGsqpNh9qy+2prvMs8j7jgP9nUz5sTvEKpa6asd/HH
+ bh=2mw4fp9eMoAO0CrQU4c2+B4z7EEsgAFGVFEXM/O20kw=;
+ b=paoNF5ZudwK6p2Tk8iSHdHtRSgGEssYY+DzItu9+ZFZHhMj3nI7cnOo7udY2cJ6Aa+qMMDax7
+ csnbLh0nHsCBmefgjQ4Hux9wTu+dQZSZGref7gjPs7QmraPewaUy/I8
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,138 +115,193 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The VEPU580 (RKVENC) is the H.264/HEVC video encoder of the RK3588. The SoC
-has two identical cores at 0xfdbd0000 and 0xfdbe0000, each with its own
-clocks, resets, power domain, interrupt and IOMMU.
+The H.264 mode decision and motion search registers had the values of
+MPP's still-scene tuning set. MPP keeps two sets and switches per picture
+from a motion detector (hal_h264e_vepu580_tune.c): the still-scene one
+biases the decision towards intra and skip blocks and toward the zero
+motion vector against flicker in surveillance video; the moving-scene
+one is neutral: ATF weights 16, ATR weights 20, CIME/RIME cost
+multipliers 4, no anti-flicker skip or intra, zero PMV off, no CIME SAD
+early exits, move lambda 8, P dead zone 341/1024, ATR QP threshold 51,
+intra cost thresholds 0 and the intra chroma weights.
 
-Describe each core as an independent node. Unlike the vendor kernel, which
-groups the cores under software-only "mpp-service" and "ccu" nodes, nothing
-in the hardware ties the cores together, so how they are used (one job per
-core, or both cores on one stream) is left to the operating system.
+Use the moving-scene set for every picture, and start the RDO lambda
+table one entry lower than MPP (index 5, lambda / 2^(1/3)). At a fixed QP
+(22-36, 1080p60 clips) this needs 7% (animation) to 11% (natural video)
+fewer bits for the same PSNR-Y than the still-scene set with MPP's
+lambda.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../bindings/media/rockchip,rk3588-vepu580.yaml    | 93 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 100 insertions(+)
+ .../media/platform/rockchip/rkvenc/rkvenc-h264.c   |  3 +-
+ .../platform/rockchip/rkvenc/rkvenc-vepu580.c      | 79 +++++++++++-----------
+ 2 files changed, 41 insertions(+), 41 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3588-vepu580.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3588-vepu580.yaml
-new file mode 100644
-index 000000000000..2b52b17de93d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/rockchip,rk3588-vepu580.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/rockchip,rk3588-vepu580.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip VEPU580 video encoder
-+
-+maintainers:
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+description:
-+  The VEPU580 (also called RKVENC) is the H.264 and HEVC video encoder of the
-+  Rockchip RK3588. The SoC has two identical encoder cores, each with its own
-+  clocks, resets, power domain, interrupt and IOMMU. Every core is described
-+  by its own node; the operating system may use the cores independently or
-+  together.
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3588-vepu580
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AXI bus clock
-+      - description: AHB bus clock
-+      - description: Encoder core clock
-+
-+  clock-names:
-+    items:
-+      - const: aclk
-+      - const: hclk
-+      - const: core
-+
-+  resets:
-+    items:
-+      - description: AXI bus reset
-+      - description: AHB bus reset
-+      - description: Encoder core reset
-+
-+  reset-names:
-+    items:
-+      - const: aclk
-+      - const: hclk
-+      - const: core
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  iommus:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - power-domains
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/rk3588-power.h>
-+    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
-+
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        video-codec@fdbd0000 {
-+            compatible = "rockchip,rk3588-vepu580";
-+            reg = <0x0 0xfdbd0000 0x0 0x6000>;
-+            interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH 0>;
-+            clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>,
-+                     <&cru CLK_RKVENC0_CORE>;
-+            clock-names = "aclk", "hclk", "core";
-+            resets = <&cru SRST_A_RKVENC0>, <&cru SRST_H_RKVENC0>,
-+                     <&cru SRST_RKVENC0_CORE>;
-+            reset-names = "aclk", "hclk", "core";
-+            power-domains = <&power RK3588_PD_VENC0>;
-+            iommus = <&vepu580_0_mmu>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..57d899b1229f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24322,6 +24322,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+index 227d341d060b..665c54278029 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-h264.c
+@@ -333,8 +333,7 @@ static void rkvenc_h264_setup_syntax(struct rkvenc_core *core,
+ 	rkvenc_set(core, VEPU580_H264_SYNT_REFM2, 0);
  
-+ROCKCHIP VEPU580 VIDEO ENCODER DRIVER
-+M:	Arun Iyengar <aiyengar1990@gmail.com>
-+L:	linux-media@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/rockchip,rk3588-vepu580.yaml
-+
- ROCKCHIP XPCS DRIVER
- M:	Coia Prant <coiaprant@gmail.com>
- L:	netdev@vger.kernel.org
+ 	val = VEPU580_RDO_CFG_INTER_4X4 | VEPU580_RDO_CFG_CHRM_SPCL |
+-	      VEPU580_RDO_CFG_CCWA_E | VEPU580_RDO_CFG_ATR_E |
+-	      VEPU580_RDO_CFG_ATF_INTRA_E;
++	      VEPU580_RDO_CFG_CCWA_E | VEPU580_RDO_CFG_ATR_E;
+ 	if (sps->profile_idc == RKVENC_H264_PROFILE_BASELINE &&
+ 	    sps->level_idc <= 30)
+ 		val |= VEPU580_RDO_CFG_RECT_SIZE;
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+index 86703dc659f6..f14d5ae0b7f7 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+@@ -336,12 +336,18 @@ void vepu580_setup_h264_tuning(struct rkvenc_dev *rkvenc,
+ 	const s8 *aq_step = intra ? vepu580_aq_step_i : vepu580_aq_step_p;
+ 	unsigned int i;
+ 
+-	/* Intra prediction cost / mode decision */
+-	rkvenc_set(core, VEPU580_IPRD_CSTS,
+-		   FIELD_PREP(VEPU580_IPRD_CSTS_VTHD_Y, 9) |
+-		   FIELD_PREP(VEPU580_IPRD_CSTS_VTHD_C, 63));
++	/*
++	 * MPP has two H.264 tuning sets and picks one per picture from a
++	 * motion detector: one for still scenes (surveillance cameras), which
++	 * biases the mode decision towards intra and skip blocks against
++	 * flicker, and a neutral one for moving content. The neutral one is
++	 * used for every picture: at the same QP it needs 7-11% fewer bits
++	 * for the same PSNR on moving clips. With it the intra prediction
++	 * cost thresholds are 0 and the chroma weights start at entry 0.
++	 */
++	rkvenc_set(core, VEPU580_IPRD_CSTS, 0);
+ 
+-	vepu580_setup_klut(core, intra);
++	vepu580_setup_klut(core, true);
+ 
+ 	rkvenc_set(core, VEPU580_MADI_CFG, FIELD_PREP(VEPU580_MADI_CFG_MADI_THD, 25));
+ 	rkvenc_set(core, VEPU580_MD_SAD_THD, pack4(4, 9, 15, 0));
+@@ -363,23 +369,23 @@ void vepu580_setup_h264_tuning(struct rkvenc_dev *rkvenc,
+ 	rkvenc_set(core, VEPU580_LVL16_INTRA_CST_THD1, pack2x12(9, 36));
+ 	rkvenc_set(core, VEPU580_LVL8_INTRA_CST_THD0, pack2x12(1, 4));
+ 	rkvenc_set(core, VEPU580_LVL8_INTRA_CST_THD1, pack2x12(9, 36));
+-	rkvenc_set(core, VEPU580_LVL16_INTRA_UL_CST_THD, 0);
++	rkvenc_set(core, VEPU580_LVL16_INTRA_UL_CST_THD, 2501);
+ 	rkvenc_set(core, VEPU580_LVL32_INTRA_CST_WGT0, pack4(48, 60, 40, 48));
+ 	rkvenc_set(core, VEPU580_LVL32_INTRA_CST_WGT1, pack4(48, 60, 40, 48));
+ 	rkvenc_set(core, VEPU580_LVL16_INTRA_CST_WGT0, pack4(48, 60, 40, 48));
+ 	rkvenc_set(core, VEPU580_LVL16_INTRA_CST_WGT1, pack4(36, 42, 28, 32));
+ 
+-	/* Quantisation dead zone: 683/1024 (I) or 583/1024, 171/1024 (P) */
++	/* Quantisation dead zone: 683/1024 (I) or 583/1024, 341/1024 (P) */
+ 	rkvenc_set(core, VEPU580_RDO_QUANT,
+ 		   FIELD_PREP(VEPU580_RDO_QUANT_F_BIAS_I, intra ? 683 : 583) |
+-		   FIELD_PREP(VEPU580_RDO_QUANT_F_BIAS_P, 171));
++		   FIELD_PREP(VEPU580_RDO_QUANT_F_BIAS_P, 341));
+ 
+ 	/* Adaptive transform (H.264 only) */
+ 	if (intra) {
+ 		rkvenc_set(core, VEPU580_ATR_THD0, pack2x12(1, 4));
+ 		rkvenc_set(core, VEPU580_ATR_THD1,
+ 			   FIELD_PREP(VEPU580_ATR_THD1_THD2, 36) |
+-			   FIELD_PREP(VEPU580_ATR_THD1_THDQP, 45));
++			   FIELD_PREP(VEPU580_ATR_THD1_THDQP, 51));
+ 		rkvenc_set(core, VEPU580_LVL16_ATR_WGT, pack4(16, 16, 16, 0));
+ 		rkvenc_set(core, VEPU580_LVL8_ATR_WGT, pack4(22, 21, 20, 0));
+ 		rkvenc_set(core, VEPU580_LVL4_ATR_WGT, pack4(20, 18, 16, 0));
+@@ -387,19 +393,15 @@ void vepu580_setup_h264_tuning(struct rkvenc_dev *rkvenc,
+ 		rkvenc_set(core, VEPU580_ATR_THD0, pack2x12(4, 16));
+ 		rkvenc_set(core, VEPU580_ATR_THD1,
+ 			   FIELD_PREP(VEPU580_ATR_THD1_THD2, 81) |
+-			   FIELD_PREP(VEPU580_ATR_THD1_THDQP, 45));
+-		rkvenc_set(core, VEPU580_LVL16_ATR_WGT, pack4(22, 19, 16, 0));
+-		rkvenc_set(core, VEPU580_LVL8_ATR_WGT, pack4(22, 19, 18, 0));
+-		rkvenc_set(core, VEPU580_LVL4_ATR_WGT, pack4(22, 19, 16, 0));
++			   FIELD_PREP(VEPU580_ATR_THD1_THDQP, 51));
++		rkvenc_set(core, VEPU580_LVL16_ATR_WGT, pack4(20, 20, 20, 0));
++		rkvenc_set(core, VEPU580_LVL8_ATR_WGT, pack4(20, 20, 20, 0));
++		rkvenc_set(core, VEPU580_LVL4_ATR_WGT, pack4(20, 20, 20, 0));
+ 	}
+ 
+-	/*
+-	 * Motion search quality / cost multipliers. Where MPP's tuning differs
+-	 * per scene mode, the values of its default (non-IPC) mode are used.
+-	 */
++	/* Motion search quality / cost multipliers (neutral set) */
+ 	rkvenc_set(core, VEPU580_CIME_SQI_CFG,
+ 		   VEPU580_CIME_SQI_CFG_SAD_BIG_BLOCK |
+-		   VEPU580_CIME_SQI_CFG_PMV_SET_ZERO |
+ 		   FIELD_PREP(VEPU580_CIME_SQI_CFG_PMV_NUM, 3));
+ 	rkvenc_set(core, VEPU580_CIME_SQI_THD,
+ 		   FIELD_PREP(VEPU580_CIME_SQI_THD_MVD_TH0, 32) |
+@@ -407,49 +409,48 @@ void vepu580_setup_h264_tuning(struct rkvenc_dev *rkvenc,
+ 		   FIELD_PREP(VEPU580_CIME_SQI_THD_MVD_TH2, 128));
+ 	rkvenc_set(core, VEPU580_CIME_SQI_MULTI0,
+ 		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_LO, 4) |
+-		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_HI, 7));
++		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_HI, 4));
+ 	rkvenc_set(core, VEPU580_CIME_SQI_MULTI1,
+-		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_LO, 20) |
+-		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_HI, 20));
++		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_LO, 4) |
++		   FIELD_PREP(VEPU580_CIME_SQI_MULTI_HI, 4));
+ 	rkvenc_set(core, VEPU580_RIME_SQI_THD,
+-		   FIELD_PREP(VEPU580_RIME_SQI_THD_CIME_SAD_TH0, 50) |
+ 		   FIELD_PREP(VEPU580_RIME_SQI_THD_MVD_TH0, 3) |
+ 		   FIELD_PREP(VEPU580_RIME_SQI_THD_MVD_TH1, 8));
+ 	rkvenc_set(core, VEPU580_RIME_SQI_MULTI,
+ 		   FIELD_PREP(VEPU580_RIME_SQI_MULTI0, 4) |
+-		   FIELD_PREP(VEPU580_RIME_SQI_MULTI1, 16) |
+-		   FIELD_PREP(VEPU580_RIME_SQI_MULTI2, 64));
+-	rkvenc_set(core, VEPU580_FME_SQI_THD0,
+-		   FIELD_PREP(VEPU580_FME_SQI_THD0_PU16_TH, 2));
++		   FIELD_PREP(VEPU580_RIME_SQI_MULTI1, 4) |
++		   FIELD_PREP(VEPU580_RIME_SQI_MULTI2, 4));
++	rkvenc_set(core, VEPU580_FME_SQI_THD0, 0);
+ 	rkvenc_set(core, VEPU580_FME_SQI_THD1,
+-		   FIELD_PREP(VEPU580_FME_SQI_THD1_MOVE_LAMBDA, 1));
++		   FIELD_PREP(VEPU580_FME_SQI_THD1_MOVE_LAMBDA, 8));
+ 
+-	/* RDO lambda, intra prediction weights stay zero for H.264 */
++	/*
++	 * RDO lambda, intra prediction weights stay zero for H.264. MPP
++	 * starts at entry 6 (its lambda_idx); entry 5, one 2^(1/3) step
++	 * lower, saves 3-4% of the bits at the same PSNR.
++	 */
+ 	for (i = 0; i < 52; i++)
+-		rkvenc_set(core, VEPU580_RDO_WGTA_QP(i), vepu580_h264_lambda[i + 6]);
++		rkvenc_set(core, VEPU580_RDO_WGTA_QP(i), vepu580_h264_lambda[i + 5]);
+ 
+-	/* RDO intra / skip thresholds and weights */
+-	rkvenc_set(core, VEPU580_RDO_SQI_CFG, VEPU580_RDO_SQI_CFG_ATF_PSKIP_EN);
++	/* RDO intra / skip thresholds and weights; no anti-flicker skips */
++	rkvenc_set(core, VEPU580_RDO_SQI_CFG, 0);
+ 	rkvenc_set(core, VEPU580_RDO_INTRA_CIME_THD0, pack2x12(28, 44));
+ 	rkvenc_set(core, VEPU580_RDO_INTRA_CIME_THD1, pack2x12(72, 0));
+ 	rkvenc_set(core, VEPU580_RDO_INTRA_VAR_THD(0), pack2x12(25, 64));
+ 	rkvenc_set(core, VEPU580_RDO_INTRA_VAR_THD(1), pack2x12(25, 64));
+ 	rkvenc_set(core, VEPU580_RDO_INTRA_VAR_THD(2), pack2x12(70, 100));
+ 	rkvenc_set(core, VEPU580_RDO_INTRA_VAR_THD(3), pack2x12(70, 100));
+-	rkvenc_set(core, VEPU580_RDO_INTRA_ATF_WGT(0), pack4(22, 21, 20, 0));
+-	rkvenc_set(core, VEPU580_RDO_INTRA_ATF_WGT(1), pack4(21, 20, 19, 0));
+-	rkvenc_set(core, VEPU580_RDO_INTRA_ATF_WGT(2), pack4(20, 19, 18, 0));
+-	rkvenc_set(core, VEPU580_RDO_INTRA_ATF_WGT(3), pack4(16, 16, 16, 0));
++	for (i = 0; i < 4; i++)
++		rkvenc_set(core, VEPU580_RDO_INTRA_ATF_WGT(i), pack4(16, 16, 16, 0));
+ 	rkvenc_set(core, VEPU580_RDO_SKIP_CIME_THD0, pack2x12(10, 8));
+ 	rkvenc_set(core, VEPU580_RDO_SKIP_CIME_THD1, pack2x12(15, 25));
+ 	rkvenc_set(core, VEPU580_RDO_SKIP_VAR_THD(0), pack2x12(25, 40));
+ 	rkvenc_set(core, VEPU580_RDO_SKIP_VAR_THD(1), pack2x12(25, 40));
+ 	rkvenc_set(core, VEPU580_RDO_SKIP_VAR_THD(2), pack2x12(70, 100));
+ 	rkvenc_set(core, VEPU580_RDO_SKIP_VAR_THD(3), pack2x12(70, 100));
+-	rkvenc_set(core, VEPU580_RDO_SKIP_ATF_WGT(0), pack4(20, 16, 16, 16));
+-	rkvenc_set(core, VEPU580_RDO_SKIP_ATF_WGT(1), pack4(16, 16, 16, 0));
+-	rkvenc_set(core, VEPU580_RDO_SKIP_ATF_WGT(2), pack4(16, 16, 16, 0));
+-	rkvenc_set(core, VEPU580_RDO_SKIP_ATF_WGT(3), pack4(16, 16, 16, 0));
++	rkvenc_set(core, VEPU580_RDO_SKIP_ATF_WGT(0), pack4(16, 16, 16, 16));
++	for (i = 1; i < 4; i++)
++		rkvenc_set(core, VEPU580_RDO_SKIP_ATF_WGT(i), pack4(16, 16, 16, 0));
+ 
+ 	/* Flat quantisation tables */
+ 	memcpy(&core->shadow[VEPU580_SCL_START / 4], rkvenc->h264_scl,
 
 -- 
 2.55.0
