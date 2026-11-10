@@ -1,74 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285719;
-	b=K/RyumEPMQnZsSVr356VyO8ymoQzffXM0p9juvRzMvlCIAstCEFU41cq7xc7uCPngY8U
-	 fpTx4O0mtNzEdGsNbicnOTA0kRSYwc85PFGZHkVqFRQf4o9+Q73ZpjaB9/MHvBkHsESQQ
-	 2+AxlidAqHqcmvBZzk4r3zRbIa1NwAaI2KAMFjBCI6V/kSkKo7v46ej97UyTsXjkxw8SW
-	 t7VZrXmVY91k0+kf6ysU5MQhOz5kmndonyMWytDH5Kgf6IAu8OvFenqwSfnSbPN2WxxDS
-	 RmkYfaoi5YlkJ9JLA18sUt9VeiRu1zrHQyNN10L7fIf15KToTB2HOlSKx2Bs9gsDHQQ==
+	t=1794285761;
+	b=yV8/cwjYsJU3YECSx69vfksC44VTHIik7h59lY4oGb7S912YZ5ncfQtJFXsBpvXTZu4G
+	 JCDd0dLtopccA4rTJ6HU6H4DKJFz2DaGG37SSbGr4F2Wgr3+wHS1QKGfKofiFq1tj/kX5
+	 7MuZcfG/2StK0RWVIC9XVJ3V+SpQ5rElxYo1egzWSHo3W1QWUcA90oJDtYDqeC8H+1N5a
+	 7AqxXC93FSeJPNfQrVYDJFdj2MUepTh5AgBGY9teBy8a5RRcB+ux4oiOrgRv9mAHCg6bD
+	 0vtudttfwZ5XZedXXBH/x/W6zO+n2dP3+gYSMoJg/1ky6/yvN0QGzNT477i2ynkWxKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285719;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=YLK5mI2HZycNCt7rWXOxxTr/V6sJotmzO0iIyiajJns=;
-	b=5kflr8i8Q2V/OsyUhK7mpEKBZnudjOcz8xYf1LBk+D9Bp9rlkrnYHbcrqOXtYBeVICrg
-	 XSq/TzJqQw+YSynbGsK880ZStFOiOr70zBBrrlabyjTpPCSj1Q11UgRLD2nhDer5FO9Rt
-	 RE/VM0BCg/H7RlKTJUujWwu+Szc0ggSV6881vg/Ee1VieuLFaK+gbF1CeF13K3NemkKd7
-	 hMCFqeDqjqb0KMPOEI0CwVWTHpO59UDcnmrJwQcEyemMltfN2h25c3xhhUzLzqxEadp9l
-	 1kU1cL11QR9/mxjqJ6jnTHWo0VHmG7DYt6wvSE/Svm87wWAsbHnV4L7u8Ic3a4GLNww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285761;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=zjN9AV5mzraDlHKgRwS5EnbdBlxMZ/ilvo3TRXjmvng=;
+	b=CT+tX+kYG66BI4//hhHmI5RK5I0C4aKjg9/nTL7nQTk07GFLACse47G2lXzt7gMqy/D/
+	 UoknEchhI+qLBeHdwB+BwmrIl4xs7JQXODUIVSBKWivV1gWopOGXMwWkn33ZTUkNT/msm
+	 ITpbYoEe6Gf8kDO3E3Pj4LGlIDijc86eRr/C3YsfJAlAi/jTOWdq0vB2UpsfKFMhVb1hA
+	 c+NfLW1j6aRN0AdsfMkfXs79aPqx9N2w+z1HG+nKuISVob0JDm0Qd4gUYNAw7ut7uG5tA
+	 o09IdUJslEZVxJLUaypCuUjpK8KvPwy1pUFuyzvK40Vk1b8a8HQNonn4FseK0GaNZ5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="w/dHZ3Xl";
-	arc=none smtp.remote-ip=203.205.221.164
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--bcochrane.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="WI/UlvPU";
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34E6606A31C;
-	Tue, 10 Nov 2026 04:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B34E6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781DB606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:42:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 781DB606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--bcochrane.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=w/dHZ3Xl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794285708; bh=YLK5mI2HZycNCt7rWXOxxTr/V6sJotmzO0iIyiajJns=;
-	h=From:To:Cc:Subject:Date;
-	b=w/dHZ3XlgRAHpBXE9zDSwqcT5okc/2Er95os8cz1NjjHwnMl/jt8U7bCNWdpnqsa+
-	 sr3r+DlpaytzwHydm2wmagXK+oA+SD6okrh+JDRJ6xcBH7CAnQP5BzNiyPwOCRtinV
-	 zXQtDHyqHJ1yfc9JUaWN25jRDXpCxtaczurStP94=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id A6E0DCFF; Tue, 10 Nov 2026 12:41:46 +0800
-X-QQ-mid: xmsmtpt1794285706tdgv82nho
-Message-ID: <tencent_B079992E4541FB5447D9A4067D6F8D40380A@qq.com>
-X-QQ-XMAILINFO: Nd44/NwdEDGNCRXJWmaAImJ1WaHgNzn0zQTgN4YTy6Ac1myxw9oGBE7VHBTrHd
-	 YPJTWXs5eH1kPzdXgSj53VDoNsy5tn6ka8taauu9xWjA5de0FzG60CmIF/UxEbYyImV0y2Ak2qXk
-	 1gv+J9XFV3UwWZk+FnvCL+N/tJEwebWG64VAGK5xua/XHm+Xn7w83aT6EhfxoNoAP2RdzKwqb7XI
-	 EEsCk7tcEBatHvRIksVng2KPdO7mQi8fzswabQpM65TxYxlfjOXDgJyk048+VR8j1sG0Ko3lK9QL
-	 PN5s/ZndFpUNDV4JXcd6rrCrdjCJRifEkU3YESb/Uiqnqzm5a50sOThDzDKPMDfA4uFxyxSqtncx
-	 pmN79LuQE1GpFSmGSKsRCZU2meSbQvVPNkvnTWM5W5z980VSkalIKNbH80ZfAL43JaufvRv+P+8K
-	 868Dn2pr4CpO87lNEbxPmP8onMOyihKjCgF4BZlP+Spt8nMTPon1dJDD5v7Y/7RwYasYnkUH/nor
-	 oJpE/WGDA8+bLSXQRuQGOmm2bKvh+t4CtkKpv3qoHqAycOuGh299sfyN9KSL61FabuT8K8dEKbe1
-	 NhIGuPJGc8scmGgDiVhVrGv8BOdC3DOCLRXeo5D1KHnK3Gugtc7EpF6OJEFflwaAJAa236Vu66uj
-	 Eql+1jW/xARHDBL4O+xGD+MJN1oEWvskOENXGS367rUNqp35PsG7wCMoX58SeCvVl15vFzUbmjc1
-	 g1wTVkjhTBzxyHeZ7zRD1dWy9yzpp8uvWCZDuUNwFsULp9YkPf9GYM1YpTYLvqzQr1I/EbxkELtN
-	 gX7O4PYJ65swYDHF188H7dRPh4Tku2z0PZ0f7wWosk1899a6xptiQwDC0+tuM/l8NR5MsnDW3UN4
-	 X6Gd96m/UPaxSxliOd7+etbtbqsNNcDUPSfQgSrRBJO5/Iki2Vd+Ewpdh1dyCpoJhSWLogGuud7D
-	 R8w2drNwoQNP0V4PDSu4QabaIT7V7MX5uw0uxnpb7Tdu455L3zNsKKDp2iQ7bcFCASZD4BH63ZVc
-	 QHmLbF1U0Ljx+bbrvS8SAv+2b8M/qtJv83JIvSzowwQ4Ddh9GtykQW4tF+9jQ=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.cz>
-Subject: [Bug report] ext4: enabling casefold online leaves s_encoding unset -
- null-ptr-deref in utf8nlookup()
-X-OQ-MSGID: <c43-ext4-online-casefold-null-20261110@qq.com>
-Date: Tue, 10 Nov 2026 23:50:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WI/UlvPU
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso3449744eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:42:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794285761; x=1794890561; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zjN9AV5mzraDlHKgRwS5EnbdBlxMZ/ilvo3TRXjmvng=;
+        b=WI/UlvPUiH99hwfokb7hBw4ILgHuJUtg5j2pqsIyI1BJqcDVjWQWQTvgH9O8TnZNX6
+         Uhfn9wE1UhN3+94cOVss869k0nZluI1Vl1NNaSjwu+0mwF198zMDNOyArHZaIeVwcTVQ
+         KfHCUKRUEo0hM5VolgE/r9bT0149vDH3GBHM6PUqEPqE5LDOTYGMN53nH3qSy1Sfuunn
+         SVbLvjRDfVA4qXLvAZJmrI4X9wpIbyS2rIuwzAw2Xsr41/1VLXb1/UuwWNO+b7JYLhJZ
+         17uAUa4Htg4OGFuYQc4cTqxXX0XntrGvIbyR3ZH+ZlNfV/c9T4KnPBS4+Itm41Gry+SQ
+         HmFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794285761; x=1794890561;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zjN9AV5mzraDlHKgRwS5EnbdBlxMZ/ilvo3TRXjmvng=;
+        b=n+/R26639Bfv53Zr1PuOzDmSJHG6/tex1Gz9f/v3OsZ4E8WHnn9rgo+lQTv3zElmhY
+         vSnOF2p0kkvIeTZYOvOu4btlvKiVmFB5D3Oun866+S1y4VIEYD0awkyRWoLezZUOCexi
+         2z65X+w7nXEYi1uEzPDJxJYNnORwt5XRfScG+k4UK9Aiw7z9ja5VahGHMr326+dC6X3x
+         La4UZcXrkgXSH4d3MT0iepXUdD8v+CEKIuDLXV7vBnChmOwdsIFdMKDpajHQ0YAHjbTB
+         stOAIOZYzHwHx6aTDMS3rJbAwS5Fkpvib+qchC68g15XSa7KrVQlhfC3AD6253wTVK3v
+         EykQ==
+X-Forwarded-Encrypted: i=1; AL+hErFHU5olIl3P8NvLKB8M6H1LKuhSWF5LBt8czCebZagrH8xAq9L5NWjgqq1m9voVHxbV/AdDs0EvhFGXp6I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ziZWUMBubiT1EAtC18jzHLibyFoDTk0rsrlID0XoYewr1GT/E
+	8Hskb4uEUkB/GhwkfA33ym7PRNYtR6ApJjr+6ulD+96hri5XN6YWjTRCgrCKGZGIX3cfMTplq2O
+	vaXOEB4ZLuoEJkszrPA==
+X-Received: from dled18-n1.prod.google.com ([2002:a05:701b:42d2:10b0:1b2:4d89:1614])
+ (user=bcochrane job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:b90c:b0:1b2:471f:c4c with SMTP id a92af1059eb24-1b3b607b931mr2215434c88.19.1794285760256;
+ Mon, 09 Nov 2026 20:42:40 -0800 (PST)
+Date: Mon,  9 Nov 2026 20:42:35 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,105 +75,174 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+Message-ID: <20261110044235.204386-1-bcochrane@google.com>
+Subject: [PATCH net v5] bnxt_en: Take RTNL before netif_close() when aborting
+ FW reset
+From: Bryan Cochrane <bcochrane@google.com>
+To: Michael Chan <michael.chan@broadcom.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>, 
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
+	Bryan Cochrane <bcochrane@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+netif_close() must be called with RTNL held in addition to the netdev
+instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
+and NETDEV_DOWN notifier chains it runs rely on it for serialization.
 
-EXT4_IOC_SET_TUNE_SB_PARAM can enable the casefold feature on a live
-filesystem, but nothing rebuilds the runtime state that the feature
-depends on. A lookup in an already casefolded directory then
-dereferences a NULL unicode map.
+Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
+replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
+bnxt_fw_reset(). That is sufficient for the paths that only tear the
+NIC down internally with __bnxt_close_nic(), but the abort paths close
+the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
+path in bnxt_fw_reset() calls netif_close() directly. Those now run
+without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
+aborted:
 
-## The gap
+  RTNL: assertion failed at net/core/dev.c (1740)
+  WARNING: net/core/dev.c:1740 at __dev_close_many+0x1be/0x1f0
+  Workqueue: bnxt_pf_wq bnxt_fw_reset_task [bnxt_en]
+  Call Trace:
+   netif_close_many+0xb5/0x190
+   netif_close+0xa2/0xd0
+   bnxt_fw_reset_task.cold+0x8d/0x213 [bnxt_en]
+   process_one_work+0x19d/0x3a0
+   worker_thread+0x1af/0x320
+   kthread+0xe3/0x120
 
-The ioctl allows CASEFOLD to be set online (fs/ext4/ioctl.c):
+followed by the same assertion from call_netdevice_notifiers_info(),
+fib_rules_event(), inetdev_event(), rtnl_fill_ifinfo(),
+devlink_compat_phys_port_name_get() and ip_mc_down().
 
-  #define EXT4_TUNE_SET_INCOMPAT_SUPP \
-          (EXT4_FEATURE_INCOMPAT_EXTENTS | ... | \
-           EXT4_FEATURE_INCOMPAT_CASEFOLD)
+This was observed on a machine in real use with a BCM57504 (4 PFs,
+FW 236.1.153.0) running v7.1.6: the firmware crashed, announced a
+"Fatal firmware reset event" and then failed to come back within the
+advertised max wait, so bnxt_fw_reset_task() aborted the reset on all
+ports:
 
-and the callback only writes it into the in-core superblock copy
-(ext4_sb_setparams(), fs/ext4/ioctl.c):
+  bnxt_en 0000:c1:00.1 eno16905np1: Firmware reset aborted
+  bnxt_en 0000:c1:00.1 eno16905np1: fw_health_status 0x448100
 
-  if (params->set_flags & EXT4_TUNE_FL_ENCODING)
-          es->s_encoding = cpu_to_le16(params->encoding);
-  ...
-  if (params->set_flags & EXT4_TUNE_FL_EDIT_FEATURES) {
-          es->s_feature_incompat |=
-                  cpu_to_le32(params->set_feature_incompat_mask);
-          ...
-  }
+Take RTNL (before the netdev instance lock, matching the OPENING state
+which already uses rtnl_trylock()) in the fw_reset_abort path of
+bnxt_fw_reset_task() and route the POLL_VF abort through that same
+path.
 
-es is sbi->s_es, so ext4_has_feature_casefold(sb) becomes true
-immediately. sb->s_encoding, however, is only ever assigned in
-ext4_encoding_init(), whose single call site in the tree is the mount
-path (super.c:5468). The ioctl does not call it, and nothing else does
-either.
+In bnxt_fw_reset(), only a PF can reach the bnxt_get_registered_vfs()
+error path that calls netif_close(), so take RTNL up front via
+bnxt_rtnl_lock_sp() when BNXT_PF(bp) is true and keep bnxt_lock_sp() on
+VFs. That avoids dropping the instance lock mid-reset (which would
+expose a transient BNXT_STATE_IN_FW_RESET and let a concurrent devlink
+health recover set BNXT_STATE_IN_SP_TASK), avoids racing with
+bnxt_sriov_configure() updating active_vfs outside RTNL, and keeps VFs
+from contending on RTNL during recovery while PFs already run on the
+single-threaded bnxt_pf_wq.
 
-After that, the inode-level check in ext4_iget() no longer rejects a
-casefolded directory, the inode gets S_CASEFOLD, and a lookup in it
-reaches
+The bug was found by inspecting the kernel log of the affected machine
+and the driver source; the fix was prepared with the help of an AI
+coding assistant (Gemini based) and reviewed by the submitter. It is
+build tested (allmodconfig with W=1, plus the same change on top of
+v7.1.6 built as a module for the affected BCM57504 host). The aborted
+reset path itself only runs when the firmware fails to return from a
+reset, which could not be reproduced on demand.
 
-  utf8_casefold(dir->i_sb->s_encoding, ...)
+Fixes: 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryan Cochrane <bcochrane@google.com>
+---
+v5:
+ - In bnxt_fw_reset(), take bnxt_rtnl_lock_sp() up front when BNXT_PF(bp)
+   is true (keeping bnxt_lock_sp() on VFs) instead of dropping and
+   reacquiring locks on the bnxt_get_registered_vfs() < 0 path, and drop
+   the bnxt_in_sp_task() change from v4. Dropping netdev_lock mid-reset
+   exposed a transient BNXT_STATE_IN_FW_RESET, while guarding
+   clear_bit(BNXT_STATE_IN_SP_TASK) in bnxt_[rtnl_]lock_sp() risked a
+   deadlock with devl_lock during devlink health recover (reported by the
+   netdev Sashiko review). Using BNXT_PF(bp) rather than active_vfs avoids
+   racing with bnxt_sriov_configure() while still keeping VFs off RTNL.
+v4: https://lore.kernel.org/netdev/20261108222942.1233295-1-bcochrane@google.com/
+ - Return to the synchronous close in bnxt_fw_reset() from v2, using
+   netdev_unlock() + bnxt_rtnl_lock_sp() as suggested by Michael Chan,
+   and guard BNXT_STATE_IN_SP_TASK in bnxt_[rtnl_]lock_sp() and
+   bnxt_[rtnl_]unlock_sp() with current_work() == &bp->sp_task. Deferring
+   the close to bnxt_fw_reset_task() in v3 still hung when entered via
+   bnxt_fw_recover(), raced with bnxt_hwrm_if_change() clearing
+   fw_reset_state, and marked the reporter SEVERITY_FATAL (reported by
+   the netdev Sashiko review).
+ - Omitted Michael's Reviewed-by and Stanislav's Acked-by from v2 due to
+   the new bnxt_in_sp_task() check.
+v3: https://lore.kernel.org/netdev/20261104045534.79783-1-bcochrane@google.com/
+ - Do not drop and retake the locks in bnxt_fw_reset(). Route the
+   bnxt_get_registered_vfs() failure through the bnxt_fw_reset_task()
+   abort path instead; this also restarts the ULP after that abort. The
+   v2 unlock/relock window let a concurrent devlink health recover set
+   BNXT_STATE_IN_SP_TASK via bnxt_unlock_sp() and hang the close
+   (reported by the netdev Sashiko review).
+v2: https://lore.kernel.org/netdev/20261103042210.2984373-1-bcochrane@google.com/
+ - Keep bnxt_lock_sp() in bnxt_fw_reset() and take RTNL only on the
+   bnxt_get_registered_vfs() error path, to avoid RTNL contention when
+   many VFs recover at the same time (Michael Chan).
+ - Dropped Stanislav's Acked-by because of the change above.
+v1: https://lore.kernel.org/netdev/20261029032832.1511180-1-bcochrane@google.com/
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-with a NULL map, i.e. the same null-ptr-deref in utf8nlookup() as
-reported previously:
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 33c4cacc8ffe..8b7ebf2eefaa 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -14838,7 +14838,10 @@ static int bnxt_get_registered_vfs(struct bnxt *bp)
+ void bnxt_fw_reset(struct bnxt *bp)
+ {
+ 	bnxt_ulp_stop(bp);
+-	bnxt_lock_sp(bp);
++	if (BNXT_PF(bp))
++		bnxt_rtnl_lock_sp(bp);
++	else
++		bnxt_lock_sp(bp);
+ 	if (test_bit(BNXT_STATE_OPEN, &bp->state) &&
+ 	    !test_bit(BNXT_STATE_IN_FW_RESET, &bp->state)) {
+ 		struct bnxt_ptp_cfg *ptp = bp->ptp_cfg;
+@@ -14884,7 +14887,10 @@ void bnxt_fw_reset(struct bnxt *bp)
+ 		bnxt_queue_fw_reset_work(bp, tmo);
+ 	}
+ fw_reset_exit:
+-	bnxt_unlock_sp(bp);
++	if (BNXT_PF(bp))
++		bnxt_rtnl_unlock_sp(bp);
++	else
++		bnxt_unlock_sp(bp);
+ }
+ 
+ static void bnxt_chk_missed_irq(struct bnxt *bp)
+@@ -15547,9 +15553,8 @@ static void bnxt_fw_reset_task(struct work_struct *work)
+ 		bp->fw_reset_timestamp = jiffies;
+ 		netdev_lock(bp->dev);
+ 		if (test_bit(BNXT_STATE_ABORT_ERR, &bp->state)) {
+-			bnxt_fw_reset_abort(bp, rc);
+ 			netdev_unlock(bp->dev);
+-			goto ulp_start;
++			goto fw_reset_abort;
+ 		}
+ 		bnxt_fw_reset_close(bp);
+ 		if (bp->fw_cap & BNXT_FW_CAP_ERR_RECOVER_RELOAD) {
+@@ -15682,9 +15687,11 @@ static void bnxt_fw_reset_task(struct work_struct *work)
+ 		netdev_err(bp->dev, "fw_health_status 0x%x\n", sts);
+ 	}
+ fw_reset_abort:
++	rtnl_lock();
+ 	netdev_lock(bp->dev);
+ 	bnxt_fw_reset_abort(bp, rc);
+ 	netdev_unlock(bp->dev);
++	rtnl_unlock();
+ ulp_start:
+ 	if (!rc)
+ 		bnxt_ulp_start(bp);
 
-  Oops: general protection fault, probably for non-canonical address
-  KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
-  RIP: 0010:utf8nlookup+0x38/0x890
-   utf8byte -> utf8_casefold -> ext4_fname_setup_ci_filename
-   -> ext4_fname_prepare_lookup -> ext4_lookup
-
-## Why this path is not covered by the earlier fix
-
-The same crash was reported by syzbot in 2023 (9cf75dc5) and was closed
-by 6f861765464f ("fs: Block writes to mounted block devices"), with the
-comment that this series would "ultimately be the fix for this class of
-issue". That fix blocks user writes to the page cache of a mounted
-device. This ioctl does not write through that path - the kernel itself
-changes the feature bits, inside the fs code, with the write protection
-in place. (Journal replay reaches the same state and is reported
-separately as <c15-ext4-replay-casefold-null-20261103@qq.com>.)
-
-The removal of the NULL checks in b81427939590 ("ext4: remove redundant
-checks of s_encoding") rests on the invariant that the feature bit and
-sb->s_encoding are always consistent. This path is one that breaks that
-invariant.
-
-## Reproducer
-
-Needs CAP_SYS_ADMIN, but no crafted image:
-
-1. mount a filesystem whose superblock does not have the casefold
-   feature, containing a directory whose inode carries EXT4_CASEFOLD_FL
-2. GET_TUNE_SB_PARAM to read the current feature set
-3. set EXT4_FEATURE_INCOMPAT_CASEFOLD in that set and SET_TUNE_SB_PARAM
-4. lookup an entry in the directory
-
-Two things to know about building it:
-
-- set_feature_*_mask in the SET request is the complete target set, not
-  a delta; sending only the new bit makes clear_feature_*_mask clear
-  everything else and the call fails with -EOPNOTSUPP. Read the set
-  first, then OR in the bit.
-- the ioctl writes the feature into the superblock, so the second mount
-  of the same image initialises the encoding normally and does not
-  crash. Each run needs a fresh copy of the image.
-
-Deterministic 3/3; a control run with the ioctl skipped mounts and reads
-the directory without any report. The reproducer is available on
-request.
-
-## Suggested fix
-
-Either rebuild the runtime state when the feature is enabled online
-(call the encoding setup after a successful feature change, and handle
-failure by rolling the superblock back), or restore a NULL check on the
-namei side so a casefolded inode with no encoding fails cleanly instead
-of dereferencing a NULL map. The first is the general fix; the second
-also covers the journal replay path.
-
-Thanks,
-Guikun Yang
+base-commit: a45dbf182137275f44ad7c8bc8acd23f7af6b2cf
+-- 
+2.56.0.506.g506a7eabc5-goog
 
