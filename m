@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324718;
-	b=pzxH8D09/N9enqKgOt9Po5+u7SYSaMFVpexQ06alX+IOhPQmL9e0+5Rnw1BKf34RSzdN
-	 bPG9x2TRzNGNMHtqgeXIWf1e9QDkMwE+FV5oTw0LemqK0odnLLTLy/Ybv/FZg0Wm0BB4l
-	 lKHZHGGQfnsvj2IP0MDacR9WwyIHYRBarAJU8+6ZbYd8GyD4I4hESxHAY9tf+kMz2vfVc
-	 aoWxPIQFg06Wsem3MaP5oL2hvW5rsGs7gtVVdAo63S+2lp7MSYybnuymlNfJ8xrKUmmEr
-	 8NuIixAX3NKRSTBUetnn29/llOP0iHPe3fwYK3LYfG258ZZFv/kXMb+WamXZTQNnv8g==
+	t=1794324733;
+	b=LExAn+J5/XAGWnJ9tv2Kq4N9nhvc0h/PzLIWE1YMx0GT1UIcQNwaWZu71RLnB5I4mnoS
+	 /BCzjYV0PyI8eIf7fnB/OgFHzOJluu0zYgNDqFnO7dzx5KRLz3WlWUNhuugSUskN4tDr/
+	 2hy+ChRPnUU+9bNmcmaHuMwUDY6lz70ygDI0VXR3eRFW3fXgE5Au5tYQCipEgWsDsKvqM
+	 C0w+TBLq+S9bJflIALCTt8/BHAT1dVgkoZynzTP364Z1VYNTa7T1FkyT3hyIDoe/SMzDc
+	 xDM7R7OV1KWaGSYvn5EceOlS+1vv5wsU2t43/O1nW0LbFJN5C3CyPtL3IFTlQssGtVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324718;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=rJjgX6E2Iz7NtAxo/Ej78l7jtNhnUtuzxHSnkCpGCgw=;
-	b=VWSH4jM72I+TrGsfGJwWUa3RMhcqIVQaAi9zo4DDK1gtdU1TMYQ1HT0zfM/WJVZEAuZp
-	 wPEaU3yL4N2ai2mLPcQ5WzInjqc1+NG+aRDrI7niiFRu0oaRTAYPXHOv16ufwxAEu2US0
-	 88a4k65X1cBu2yedXMQUCacvbK6QJiZPCTXmZsu6T26zC0uw+FYGmxCxUWVb2JItFX/hz
-	 sJ7td9eQkBqiYCqeIQmWYHlS6iYqbbSjYUVlUsCKDPpDjVohFcq973mH2AA3zbAY5Hlya
-	 sxJze36H9Het0Bw014i5u08CiZb2ngU5GkfhsV3+pttLaHF9D/QSeHsJmapE+oFHzTA==
+	bh=RVA7NkT+pOc7QldUcgD3Ut/OY6lkzgXsVYxQOxndJ94=;
+	b=J8p7BqhO+tjM7/r+Bi1yAY9JDjcS3VKcBErMAjYVoedf4BS7bWBGLUkSHjZbQ3hJulCQ
+	 3y7FKnVaf3Xc3Sf1Fjl6Y5OwDRUHoyTNROaOI6JMi2QihvqbDMRe6k32dLBOTqfr9F/0W
+	 LxFOOVTMW9XJG0VpIkkzRxw4A6+prt1Eu8yrndLA9urx0edmAwjrAU7o8/lbNv/qlNBQj
+	 TGku7fmaqzNWxgZYU1uDiCMOtq1YyVjJYaDkmDlejU8wdep7KUD04Y88tfjKEMe1w2x7C
+	 WcBunSTi3fGX4NPwAeih+7iStWj0fl06UuY5OnVUpD4wRARNNyjU7hMaNfiSf4Y7XLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="qdk1/GAg";
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EOXu+KhC;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC6360A2617
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:31:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFC6360A2617
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAC4606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AAC4606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qdk1/GAg
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d58c50743so140761866b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:31:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EOXu+KhC
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1261799f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:32:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794324716; x=1794929516; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794324732; x=1794929532; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rJjgX6E2Iz7NtAxo/Ej78l7jtNhnUtuzxHSnkCpGCgw=;
-        b=qdk1/GAgnPdfBW0blGc59nzK/yavphqI/dYgYV5J4KwPKWYvIMN9mgMgzetooBKAo4
-         /R16WXP0YW6Cjo2ZetiGP7SDRdPW2RX3bkQmtMBv0TAyLeOgfqe9C41cMlK38R2sFPpG
-         qY4whmVLoei9RQTIKvdu0YIKpy5iNxkXE9lofjy/fN8XC2FgxCHqsnzN8U76hXe3AHFT
-         NKnY3U/AmB/O1FC4sdHeVkjwkZmKzjSBiO6LstVFmMuB0+xiKEfJ9FOPOL9MafxcfPzL
-         ZrSYXz9UNXNLoXR5Senra0OU3zlAZvh/dx3uiEC2kEsHD3LMSdbyzEzO3szoqMzYw7Q4
-         p0AA==
+        bh=RVA7NkT+pOc7QldUcgD3Ut/OY6lkzgXsVYxQOxndJ94=;
+        b=EOXu+KhCSHVRwG/0sTeqvfzBcpXnYji0qlo4myFiPJMHgaVKONf6cl0dX3rW8JB6m8
+         AgL4lButMo0QBjCWnA+qcJORn7Z8RxaK6c1HrqCxPAJ/N4HSjGMB4xyP2tdWehgoDg5/
+         oYKZ2aKDDFczs0Xd2CcpKi68F85RDdpYwXMnLSMvd+Al7ZdEmvRGE+sUZhl7A2PmUg24
+         flYXD2ZFfzfcvjHocYOWnyf5M3iEHtVXB5dwdkhGBPSLy19rP97PAN8ri2zRmoqz7FwL
+         vDeS8lYjGcY78P2frMrM/GWiaejkSARwUD0p8wzaUrXGYhTfoXVPmHQZat+rmDIweGFB
+         BYxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794324716; x=1794929516;
+        d=1e100.net; s=20260707; t=1794324732; x=1794929532;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rJjgX6E2Iz7NtAxo/Ej78l7jtNhnUtuzxHSnkCpGCgw=;
-        b=EjsMBr05j4Nyb+kEf/DiuXpgBuQa6FOhwpv1eCN4E0Uw5AmNMJF7zXQr6PexohCfVu
-         imyJzaam1NUjvx9KhcH4gUUzojqMl6n2w4pPaWzEiqQc3mEh/g17iQ3Y7B2SydEhuAyg
-         QZTpHYFzS0nyihW1P19nB7REIZETsYrrzyxZOE4RQqlcZQqy7A4OqQEtYTWuq9p34jwh
-         g80smRbyhKEmZh2Y/t4wxELduEqZ2FtQKc4IAioKM++B+Knqf3VQjeSXq0AvRdy9WN4Z
-         coOMSPWfHpPBhwctIKlH9leRhQEm9W6a4z+xQV8RVHJ0Yz3MyY5mjPozFY4Qi1gdAK8C
-         76sg==
-X-Forwarded-Encrypted: i=1; AL+hErEEm2YcYBA88HL9GUyBtSFenDGrc96+FNdPUsXbG/wZv8d8G2pw69X7IrGEK6OZWgX/00CRp2d5h+Hj+J8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+K9DnGLNWnrRyTmhfY9WoKMExiDilTVAlofEl7hAwihfQ/eUp5
-	cc5ueE1Dor4uZ2ljqZKUYjR9Ub0zwv+Vv4PDquJVDRbPWXEEWjnfNFFa+txnlq7+lvAOD1Gy1bg
-	aFcxgtVw=
-X-Gm-Gg: AYBFou3HRSHXrqTM+uywYA0osQS5kyLvupP5b7wP2njxeXeVKqmSiOUPGddsPdkAbJQ
-	NxX90Tp4tlHLryuL/IexfTYyBAn7pHk3Ky7FE3GfOPfr2qukrKG0zntJPmM8CJ2P1gOrAFhXAah
-	javXmuuqc5+x192plM0Q/Sc4oObIYJJRrr0+3cpL4H22A4cCTF+jSAr3t7XjvZB3P8TnUQ5qsVw
-	192HktIZqqkpZ5PjhSK+msDR141gAjhgT0tTbCpq6goSHpagPyMNQ2NXd7sg5ANKozLhaz7qAsp
-	cnq8GP7ofrKT1SLMf+sxImVXkD8Z9kXD7GW8lMrPBFnBnWxUV0+GO9CE+FwbSRoCLPOvjX4CDB7
-	IMyXkr3M4Ty5tAsj/qugo8fhNuqnRBTRRRgY6z+YBOazvJF+biHQtQhdSzZ3186BdJ33h29BcRd
-	Sv3avyXfBK5vDU1YSJ2/5RVJGgut0IlK0meC0CQjsfXAOyt8mK0zVicB1xRz5pFmHb3rmlz6qDz
-	05jyl0Ke3tQd+w9mhW6QW+esaQSUyVdnI+cglme80Gi9cGugwTcvnUG2VRzOZfSho4J0tJsr37M
-	C4YVAsh+HXGzLf30rMlvoUxGJqG2RWhBml8=
-X-Received: by 2002:a17:906:8a6f:b0:c48:ddac:7eb1 with SMTP id a640c23a62f3a-c50496e7f98mr179676266b.45.1794324716129;
-        Tue, 10 Nov 2026 07:31:56 -0800 (PST)
+        bh=RVA7NkT+pOc7QldUcgD3Ut/OY6lkzgXsVYxQOxndJ94=;
+        b=seuOb8LBnWh/zyWnIsQdnuf8jngZ2hGZGVePVZITLAa3WjhjAOEe+Ga5WwECVZS8DZ
+         Pom/GRGHqib//QMkfK0FmibaolxAxdNWe+1ZvbCUA3TrHHiCm7gQwfBnuYZlqXfNo1eq
+         vIbvmDTul07BRHe4MxaXTHHBlErTk1rwvC+pg6CrEs49jd2DSDUyC54OvaDaUJDi0Gir
+         ZyF/H7GzRCq4AifT56VH1VanPOSpT2CCyp/VZpAwiZQju00E+lgiqZ7lFrweyqZ0MKdU
+         yldqZEK0GXayEMHGnc2BvmDUenhUPm/cz2FQSBC2byCt4qkMaVmqO59rKbNpiJQwpmKv
+         YCLw==
+X-Forwarded-Encrypted: i=1; AL+hErEhi990YHqkFWrVLdIiR4sTEFJ5vckD3jL4qCQwekygooeglVROlWYoZug2PGjBO8yIeUfz6CNBVElMcCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9guv/tz/NDzuK270aSiRa5dxYPp1CzjaKjZgQgh0D80IiyNupZ
+	zb78u/p0G8/NYhejSGa3odJsFG9sqpEOTUTSDuTYLltvkCRIXp/227DNgMXRt+fqitM=
+X-Gm-Gg: AYBFou07PThnNIE20KoFYQbCJ69fz2C5NuT75aaH654vL4HTtTfrIgEvO+fTbN53SUt
+	e6oFYr/ICoyn05OykWeCntM8mdkaOkpw1Rjl/c2py8w9kQWju0TrYls+9LZSIe/U5BSeeAkqFIs
+	276rSACC3AXSmETJT/rxZml2VS56WpX7A1X6soq9gBH18SuZS3+BGJoAiuSM5Rq6OoghNwpP7zt
+	XlmQMahHN9VXXBxId/OvSRlVgbTndQGazgIYom+vTtN1qivS+Ish1Ua6gV7ii4iLim/un9C5aga
+	y4yzksMfqLkr3wOxWOYI1DHOdfyUoYA+tNmWhmQU7isMSDIoA+MRK4BABSrKFvhzwBsM3IfyoKi
+	CFhEYuOe+7d4iLRHua1iaMnsajmtmlUSUx3awKTymaJvfHp2F9fYNdBKrQmDlWY+8l3TFp55Vhy
+	w/Y/GlX25Nu9C4x7Vj0pjpoVr2l6zmghSd3gkpSZT7LuTeG9pkfB7kahAevFeg+YB0XOOe/NRpK
+	KQkJQDgnxRULclb9myZQdzV72jQYytEPnp+nfiv0mD9zsHp9FqDn+bKnl/igE8q7UTPQFmKpBCn
+	jH7L/baPZBLmixRg/H1N5Q+Wi7dKVTlxDQ==
+X-Received: by 2002:a05:6000:1862:b0:493:fdf6:14aa with SMTP id ffacd0b85a97d-49831cd1d94mr5937057f8f.56.1794324732002;
+        Tue, 10 Nov 2026 07:32:12 -0800 (PST)
 Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4984e26f8e3sm4917105f8f.1.2026.11.10.07.31.54
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367b99bcsm5881429f8f.51.2026.11.10.07.32.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 07:31:55 -0800 (PST)
-Message-ID: <1b528cd9-eac0-43b3-8166-db9f78c9f044@linaro.org>
-Date: Tue, 10 Nov 2026 15:31:54 +0000
+        Tue, 10 Nov 2026 07:32:11 -0800 (PST)
+Message-ID: <671491ba-388c-4817-bdae-7348d5220cce@linaro.org>
+Date: Tue, 10 Nov 2026 15:32:10 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,8 +93,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/23] coresight: trbe: Assign the perf handle in
- enable and disable
+Subject: Re: [PATCH v2 12/23] coresight: trbe: Decode TRBSR status codes
 To: Leo Yan <leo.yan@arm.com>
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
@@ -105,102 +103,169 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
  Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
 References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
- <20261016-trbe_enable_disable_irq_handle_refactor-v2-11-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-12-3f57cf3199b1@arm.com>
 Content-Language: en-US
 From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-11-3f57cf3199b1@arm.com>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-12-3f57cf3199b1@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
 On 16/10/2026 17:55, Leo Yan wrote:
-> etm-perf owns the perf output handle embedded in its per-CPU etm_ctxt and
-> passes it to TRBE through arm_trbe_enable(). TRBE binds that handle after
-> successful sink enable and unbinds it in arm_trbe_disable(). The handle
-> object remains valid throughout this interval, even if the current AUX
-> transaction ends or a new transaction begins.
+> trbe_get_fault_act() currently handles only a small set of TRBE stop
+> reasons: external aborts, trigger events and stage 1 and 2 aborts. Other
+> TRBSR_EL1 EC/BSC values are reported as spurious events, which hides
+> useful failure information and makes the status handling hard to extend.
 > 
-> The inner enable helper currently publishes the handle, while truncation
-> and failed rollover clear it. Sink disable leaves the handle installed
-> after dropping the buffer association. These assignments track the AUX
-> transaction rather than the enabled sink session.
+> Decode the EC and BSC fields explicitly. Keep the normal fill-mode
+> handling unchanged, but treat unsupported or unexpected status values as
+> fatal and report them with a ratelimited diagnostic containing TRBSR_EL1,
+> TRBPTR_EL1 and TRBLIMITR_EL1. Use %p for the buffer pointers so the
+> printk diagnostic hashes their address values by default.
 > 
-> Publish the handle only in arm_trbe_enable() after successful setup and
-> clear it in arm_trbe_disable() before dropping the buffer association.
-> Remove the assignments from the inner enable, overflow and truncation
-> paths so the handle association follows the enabled sink session.
+> Stop using is_trbe_trg(), instead, use TRBSR_EL1_BSC_TRIGGER_EVENT as
+> the unsupported trigger case. This keeps the stop-reason handling in the
+> EC/BSC decode path, the driver can validate the status fields safely.
 > 
-> A valid handle object may have no active AUX transaction, so the IRQ
-> handler continues to check perf_get_aux() before accessing the
-> transaction's configuration.
+> Move the TRBSR_EL1 BSC definitions to the arm64 sysreg header, and use
+> the common TRBSR_EL1 EC/BSC names in the TRBE driver.
 > 
 > Signed-off-by: Leo Yan <leo.yan@arm.com>
 > ---
->   drivers/hwtracing/coresight/coresight-trbe.c | 20 +++++++-------------
->   1 file changed, 7 insertions(+), 13 deletions(-)
+>   arch/arm64/include/asm/sysreg.h              |  6 +++
+>   drivers/hwtracing/coresight/coresight-trbe.c | 57 +++++++++++++++++++++++++---
+>   drivers/hwtracing/coresight/coresight-trbe.h |  8 ----
+>   3 files changed, 58 insertions(+), 13 deletions(-)
 > 
+> diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+> index 7aa08d59d49448cfa3bb61f5cb42e0a6f1aa8a89..0e602f07625b3c4fe6cd3fd71a658ebae768d8fd 100644
+> --- a/arch/arm64/include/asm/sysreg.h
+> +++ b/arch/arm64/include/asm/sysreg.h
+> @@ -357,6 +357,12 @@
+>   #define TRBSR_EL1_BSC_MASK		GENMASK(5, 0)
+>   #define TRBSR_EL1_BSC_SHIFT		0
+>   
+> +#define TRBSR_EL1_BSC_NOT_STOPPED	UL(0)
+> +#define TRBSR_EL1_BSC_FILLED		UL(1)
+> +#define TRBSR_EL1_BSC_TRIGGER_EVENT	UL(2)
+> +#define TRBSR_EL1_BSC_MANUAL_STOP	UL(3)
+> +#define TRBSR_EL1_BSC_BUF_SIZE		UL(4)
+> +
+>   #define SYS_PMINTENSET_EL1		sys_reg(3, 0, 9, 14, 1)
+>   #define SYS_PMINTENCLR_EL1		sys_reg(3, 0, 9, 14, 2)
+>   
 > diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index 4a041bbc6e970d72a7d735e15f7221037cb091d6..1f51c33de83638479436683fd96e31d69c3b860f 100644
+> index 1f51c33de83638479436683fd96e31d69c3b860f..a851f09d806a6b6a6386d6f7547b01a17f61b88e 100644
 > --- a/drivers/hwtracing/coresight/coresight-trbe.c
 > +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -303,11 +303,8 @@ static void trbe_report_wrap_event(struct perf_output_handle *handle)
->   
->   static void trbe_truncate_event(struct perf_output_handle *handle)
+> @@ -658,29 +658,76 @@ static void trbe_enable_hw(struct trbe_buf *buf)
+>   static enum trbe_fault_action trbe_get_fault_act(struct perf_output_handle *handle,
+>   						 u64 trbsr)
 >   {
-> -	struct trbe_buf *buf = etm_perf_sink_config(handle);
+> +	const char *err_str;
+>   	int ec = get_trbe_ec(trbsr);
+>   	int bsc = get_trbe_bsc(trbsr);
+>   	struct trbe_buf *buf = etm_perf_sink_config(handle);
+>   	struct trbe_cpudata *cpudata = buf->cpudata;
+>   
+>   	WARN_ON(is_trbe_running(trbsr));
+> -	if (is_trbe_trg(trbsr) || is_trbe_abort(trbsr))
+> -		return TRBE_FAULT_ACT_FATAL;
+>   
+> -	if ((ec == TRBE_EC_STAGE1_ABORT) || (ec == TRBE_EC_STAGE2_ABORT))
+> -		return TRBE_FAULT_ACT_FATAL;
+> +	if (is_trbe_abort(trbsr)) {
+> +		err_str = "External abort";
+> +		goto out_fatal;
+> +	}
+> +
+> +	switch (ec) {
+> +	case TRBSR_EL1_EC_OTHER:
+> +		break;
+> +	case TRBSR_EL1_EC_IMP_DEF:
+> +		err_str = "Unexpected IMPDEF buffer management event";
+> +		goto out_fatal;
+> +	case TRBSR_EL1_EC_FAULT_GPC:
+> +		err_str = "Granule Protection Check fault";
+> +		goto out_fatal;
+> +	case TRBSR_EL1_EC_FAULT_WRITE_S1:
+> +		err_str = "Stage 1 data abort";
+> +		goto out_fatal;
+> +	case TRBSR_EL1_EC_FAULT_WRITE_S2:
+> +		err_str = "Stage 2 data abort";
+> +		goto out_fatal;
+> +	default:
+> +		err_str = "Unknown error code";
+> +		goto out_fatal;
+> +	}
+> +
+> +	switch (bsc) {
+> +	case TRBSR_EL1_BSC_NOT_STOPPED:
+> +		break;
+> +	case TRBSR_EL1_BSC_FILLED:
+> +		break;
+> +	case TRBSR_EL1_BSC_TRIGGER_EVENT:
+> +		err_str = "Unsupported trigger event";
+> +		goto out_fatal;
+> +	case TRBSR_EL1_BSC_MANUAL_STOP:
+> +		err_str = "Unsupported manual stop";
+> +		goto out_fatal;
+> +	case TRBSR_EL1_BSC_BUF_SIZE:
+> +		err_str = "Buffer size was too large";
+> +		goto out_fatal;
+> +	default:
+> +		err_str = "Unexpected buffer status code";
+> +		goto out_fatal;
+> +	}
+>   
+>   	/*
+>   	 * If the trbe is affected by TRBE_WORKAROUND_OVERWRITE_FILL_MODE,
+>   	 * it might write data after a WRAP event in the fill mode.
+>   	 * Thus the check TRBPTR == TRBBASER will not be honored.
+>   	 */
+> -	if ((is_trbe_wrap(trbsr) && (ec == TRBE_EC_OTHERS) && (bsc == TRBE_BSC_FILLED)) &&
+> +	if ((is_trbe_wrap(trbsr) && (ec == TRBSR_EL1_EC_OTHER) && (bsc == TRBSR_EL1_BSC_FILLED)) &&
+>   	    (trbe_may_overwrite_in_fill_mode(cpudata) ||
+>   	     get_trbe_write_pointer() == get_trbe_base_pointer()))
+>   		return TRBE_FAULT_ACT_WRAP;
+>   
+>   	return TRBE_FAULT_ACT_SPURIOUS;
+> +
+> +out_fatal:
+> +	pr_err_ratelimited("%s on CPU %d [TRBSR=0x%016llx, TRBPTR=%p, TRBLIMITR=%p]\n",
+> +			   err_str, smp_processor_id(), trbsr,
+> +			   (void *)read_sysreg_s(SYS_TRBPTR_EL1),
+> +			   (void *)read_sysreg_s(SYS_TRBLIMITR_EL1));
+> +	return TRBE_FAULT_ACT_FATAL;
+>   }
+>   
+>   static unsigned long trbe_get_trace_size(struct perf_output_handle *handle,
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.h b/drivers/hwtracing/coresight/coresight-trbe.h
+> index 45202c48accec7c86ba56130e2737bc2d1830fae..8ba9ef4056e4dc3968816c6a7cbf2859f2bbed36 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.h
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.h
+> @@ -35,19 +35,11 @@ static inline bool is_trbe_enabled(void)
+>   	return trblimitr & TRBLIMITR_EL1_E;
+>   }
+>   
+> -#define TRBE_EC_OTHERS		0
+> -#define TRBE_EC_STAGE1_ABORT	36
+> -#define TRBE_EC_STAGE2_ABORT	37
 > -
->   	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
->   	perf_aux_output_end(handle, 0);
-> -	*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
+>   static inline int get_trbe_ec(u64 trbsr)
+>   {
+>   	return (trbsr & TRBSR_EL1_EC_MASK) >> TRBSR_EL1_EC_SHIFT;
 >   }
 >   
->   /*
-> @@ -1012,7 +1009,6 @@ static int __arm_trbe_enable(struct trbe_buf *buf,
->   	if (ret)
->   		goto err;
->   
-> -	*this_cpu_ptr(buf->cpudata->drvdata->handle) = handle;
->   	trbe_enable_hw(buf);
->   	return 0;
->   err:
-> @@ -1042,6 +1038,7 @@ static int arm_trbe_enable(struct coresight_device *csdev, enum cs_mode mode,
->   		return ret;
->   	}
->   
-> +	*this_cpu_ptr(drvdata->handle) = handle;
->   	cpudata->buf = buf;
->   	cpudata->mode = mode;
->   	return 0;
-> @@ -1062,6 +1059,7 @@ static int arm_trbe_disable(struct coresight_device *csdev)
->   	trbe_drain_and_disable_local(cpudata);
->   	clr_trbe_status();
->   
-> +	*this_cpu_ptr(drvdata->handle) = NULL;
->   	buf->cpudata = NULL;
->   	cpudata->buf = NULL;
->   	cpudata->mode = CS_MODE_DISABLED;
-> @@ -1102,16 +1100,12 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
->   	trbe_report_wrap_event(handle);
->   	perf_aux_output_end(handle, size);
->   	event_data = perf_aux_output_begin(handle, event);
-> -	if (!event_data) {
-> -		/*
-> -		 * We are unable to restart the trace collection,
-> -		 * thus leave the TRBE disabled. The etm-perf driver
-> -		 * is able to detect this with a disconnected handle
-> -		 * (handle->event = NULL).
-> -		 */
-> -		*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
-> +	/*
-> +	 * If trace collection cannot be restarted, leave TRBE disabled.
-> +	 * The etm-perf driver detects this through handle->event == NULL.
-> +	 */
-> +	if (!event_data)
->   		return -EINVAL;
-> -	}
->   
->   	return __arm_trbe_enable(buf, handle);
->   }
+> -#define TRBE_BSC_NOT_STOPPED 0
+> -#define TRBE_BSC_FILLED      1
+> -#define TRBE_BSC_TRIGGERED   2
+> -
+>   static inline int get_trbe_bsc(u64 trbsr)
+>   {
+>   	return (trbsr & TRBSR_EL1_BSC_MASK) >> TRBSR_EL1_BSC_SHIFT;
 > 
+
 Reviewed-by: James Clark <james.clark@linaro.org>
+
