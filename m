@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285574;
-	b=NbEHFpjMipYT0aP6W9jdu5kCXP05fZnmv4miu0g9zp6hmLaa36FVVNE/a7y8syFn8bCb
-	 QOvz0iE6oR/2NVvVVT9ZUs6ngppdSB0I9hlZ4XXWAjveqmU2x82D0pT/0oWjpWBoPgB8+
-	 q9MjUYBCKaXsCUG1bb82ZzKIutgtmFdkx4AZat7CRNwOEsZXW4kHFToeR91QQJ+d6oP7M
-	 dXXXVwHSdN+YCjpqZ4nzG97AwZ/fG58Neuk+h/yRWVIypzBSy+kRN4O0dNqmathm3J7Mg
-	 9HolDbaChihYN4mtsB8PGWeix4mDL07SzqNdMNHtywR4+b9VOwkqyfOLVcJj/sE67TQ==
+	t=1794285654;
+	b=srpie5yEk5zjZSzqW9+ZziziMKEkO4mMOj3NNJ7kyL8ilDAvWt/lMHh2ysaUFC9hmi7i
+	 Nthhe92uJ+CQnw7Z8iGVlghOKa8Frfm8AJeCJHplD0boKe2uEvIPQV1e8H8fYbs7rBFsl
+	 TZNxAwmaw5pNdEl7GYSj/5aORtxI99YdxfpgYw+nn4rOZcF0tUZbGk8TzxrIS/6WoGq0W
+	 OAkh15Tb/eJrXUktKIBCN9OHvqKZ+MtUKo0FtMeK1qyFPKLtUZsrI0KJei4+gs3KzMcwA
+	 9S1vJYuWQsFTAxG1iIhMNCpAIAYsOKemyUyOu9JAlim6s0luXD+A/PdVx6I6qZ3c0IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285574;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=ZTaaMQzGS8QNSoGQ53tnXJ4N7sHJOtT6oTrtA5AXGsc=;
-	b=LFM1JfhftXOmMqx+h5L8a7fcGziZm8jvaEizHwDfJGM8B65ijLcJGX6IHYuiFhgfLzAi
-	 opkRlXPqvhYxPAi6DkIJpxE8owlZ5EgRX0Adu0mIH5R2w3a2Hhn/HnD1KSxwrLvT2zOq3
-	 UCr/yhvDDkLsz9TsdEOVdJk74GoGaYWtI1vaVxC1rPPoo3tyNGWwwzA48KXoznn/P/EdU
-	 5JAsJp9Cosf/+tLg8x69oDY2pHPhZ0FOkw/POjzLc4pCZPS+WrZex9CpMewsMbYcZOfud
-	 Vtc9e3RC5CMs5HLNshysiQhWxw8+0SiOBd+PjetIpAgUvUe23p1RewOVXx4Oc220NYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285654;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=l3mgB4Ev1EUFaUriPeIG+9VrVzzDcSV4X6hThy1L/KU=;
+	b=V7QI2pLgPhesu8Fj3M+ej0Dxfw9RxhwSKBqOEEcD1SiX55pOIgM2AEg23ZK+DeuJx/vo
+	 L79pHhVpZ313ubpCpmBc7h9e1oILq+kHaOAi8H8pAEw/FVY+pVqHgBFdymDvY1Y8L7zOb
+	 PbV8c9R0XGsP7cB8u7eSNwLqVCDNsihHig5Q5zM/GusvGTMetjVWPHMtuOeV4UuBaQrF5
+	 49FHqngf12Blia8+UG5/v7igiwoJTZ0lqtTet/uK5J88blmFu5sgCV5Xfm3OwaxuHnZq6
+	 9iLyu1aTr22FdBoHW6m9rOPgOsJkSbjiF7Ll+UI7gR0pcievrtpP9P3LYdsJ3MAZG6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YTofFLaf;
-	arc=none smtp.remote-ip=209.85.160.98
-Received: from mail-oa1-f98.google.com (mail-oa1-f98.google.com [209.85.160.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WV99Vgnw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B1E606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:39:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B1E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 07D2C606A334;
+	Tue, 10 Nov 2026 04:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YTofFLaf
-Received: by mail-oa1-f98.google.com with SMTP id 586e51a60fabf-4a77dcc4ca0so1058636fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:39:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794285573; x=1794890373;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZTaaMQzGS8QNSoGQ53tnXJ4N7sHJOtT6oTrtA5AXGsc=;
-        b=SMsmt5rK0A5PamygvLyhcaEh/cevPsEDJC4uhNfdVAnm242Zb54xJxVIh4n17lyclC
-         /Gv4BkfRpqzkREe2r+zsTdv/6Iua1bQVkUTQW3ekEb94/MEjcdwYJ6H5LyFtXNWM1Akh
-         T/873bGG2SWJuUfOH0L1+c5B1j1tc/G48iRujE8/0xEBMYZEwoG2QjMnw3EgDhWHB441
-         jggzMzU9Cp7FZmaJSugF8cuixvoQ0MLk2w848wxM2HgBGndnjiSjJB09BXCPk2Tc4bQC
-         dqzhZbauS+bugYfRSgzk3tEnB/2qPGYMmDz4cd8M03h6YEoat/bGAnUDx9h6Q3JNCwgS
-         M2bw==
-X-Gm-Message-State: APuU4Z/MzAeD1u7Y2KoXFMCa6sh60Fa1TWRAX4OevTFIfZMHDigxo6K8
-	cfGvjrqd+szkL5/23zQZDYrNd2Shynpn092ryTuuPKSiiGc9Facaa+QdLe7jAh+3Wpa4BCBN7hP
-	tjR9070xaewRJN9G1JiLs+XCSkq5qUwwX+5VzYPSAWck0MQ6pYP0l1xHkku4kE0t9Yjv1mnYt78
-	POUMsPyYuPLH9MhuIrGoZjoTEFUfYUAgINzPwLjm5UOLn/QFvvvE0Na1KFnzAQcs/yRn50NM7K+
-	BkmSDaz1xBYi7AjoWRntGEg
-X-Gm-Gg: AYBFou2bFO9QpgkVTGpKbY1GbrEZjy0O8dHGSB+BEHZOPcFePR5drjDQ/q/ivd0EbFJ
-	M2hmizoM31PrFBPzZPdcMjAbmjGLS4FDklNoukLMf0rptqgzdIS1X6SATBXAHP1mYFm7RPX2tIF
-	0wC7VsKJJ5Jlh+TVe3dD4MJupYe4NKiHlTKDg98cT61OX92zY6o83lEkqVnwjOUAaijv5UgqbND
-	lqSQMohyNOFFRvQOGeeF14V7jaKk9PmGwKf2P1Y+RsUYsFB9+WFf8DE4UUUQQ/ctFl3gi0b2js7
-	4Qlhf9xBHkbyfF1K/h5I7qHM3fXQejwXTE6qIKP4qdC9vTHIeBSzVz5WcQ97C82HVVghd4+aXOR
-	cM+XmarALVLrckX83Cf/zg+DLlfMI32hA0uPJl5VukrwHKr4P9wZWXRg/vwtZjTGpQ3u9tlkLdD
-	V1fRMZPgKrKOHPcXNlQhy6E4KWW25sSLI4K+wYS4Wn
-X-Received: by 2002:a05:6870:c0c:b0:494:396:1205 with SMTP id 586e51a60fabf-4ae22587c9emr819758fac.14.1794285572912;
-        Mon, 09 Nov 2026 20:39:32 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-4ae22d281cdsm12973fac.1.2026.11.09.20.39.31
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 09 Nov 2026 20:39:32 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36ecd5db581so857688eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:39:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794285570; x=1794890370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZTaaMQzGS8QNSoGQ53tnXJ4N7sHJOtT6oTrtA5AXGsc=;
-        b=YTofFLafwRDlrOxoYwhV/HcHf2FlSAVCoau3G2jEYYTSXRaro7btfU9QIKGgK1g0KE
-         uVe4TQjXluXoirWvpcMeR6WUWwqHx3+UapBdXhJ9fPGg3/e5A7wcsAFSp/jl+faoPPBf
-         9nvuY1xYpuLFTF3XMo6iVBD5dDX4wBo6Z6a0E=
-X-Received: by 2002:a05:693c:80ce:b0:372:1be6:110b with SMTP id 5a478bee46e88-3751f0780d9mr1623972eec.15.1794285570319;
-        Mon, 09 Nov 2026 20:39:30 -0800 (PST)
-X-Received: by 2002:a05:693c:80ce:b0:372:1be6:110b with SMTP id 5a478bee46e88-3751f0780d9mr1623924eec.15.1794285569697;
-        Mon, 09 Nov 2026 20:39:29 -0800 (PST)
-Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm3604548eec.17.2026.11.09.20.39.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 20:39:29 -0800 (PST)
-Message-ID: <5766e56e-b98d-4df8-9378-4efc078ef1e8@broadcom.com>
-Date: Mon, 9 Nov 2026 20:39:29 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WV99Vgnw
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DC3D41F008A3;
+	Tue, 10 Nov 2026 04:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794285653;
+	bh=l3mgB4Ev1EUFaUriPeIG+9VrVzzDcSV4X6hThy1L/KU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WV99VgnwiP9CvjHFd3oYdGUKuU3SUBaaHSVAgehdz+I7xnGn6yTHyAOCNRkhAPQWy
+	 9U3ng7zxKBWV46P7F85x0Z9H1iCk6OqpG2Wh0h8ovb+0NprbWzePoogwtg78QyWmP+
+	 m6yRClZ7Kp+I9WexLtJ99OLoLMEdxseQ6AUV3XLShwu4/eV3irrjZg/EI248J9aq2g
+	 PWIwhbhGm1TDfI5GGWhguEKlIDwQdXpv7NRpezf8CL2EUCEWXF5Uu7WHubOPdSc8eq
+	 EqqdhfFXHq+RgnpbIQDKWRGN6Qex/sPwbguXdw9Ylh5au8RX53biEODZauwjMNs2x8
+	 Mjbhx0BUZkppQ==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ignat Korchagin <ignat@linux.win>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>
+Subject: [PATCH v8 1/3] KEYS: Introduce keyring_is_empty()
+Date: Tue, 10 Nov 2026 06:40:40 +0200
+Message-ID: <20261110044043.2608600-2-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110044043.2608600-1-jarkko@kernel.org>
+References: <20261110044043.2608600-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,70 +93,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] gpio: brcmstb: don't turn platform_get_irq errors
- into -ENOENT
-To: shao.mingyin@zte.com.cn, linusw@kernel.org, brgl@kernel.org,
- linux-gpio@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, geert+renesas@glider.be,
- andrew@codeconstruct.com.au, wbg@kernel.org, opendmb@gmail.com,
- bcm-kernel-feedback-list@broadcom.com, jelonek.jonas@gmail.com
-References: <20261107161256805UKbBUjg-wlWpCWzE2fBjl@zte.com.cn>
-Content-Language: en-US
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261107161256805UKbBUjg-wlWpCWzE2fBjl@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
+Introduce keyring_is_empty() in order to decouple for BPF, dm-verity and
+fs-verity how keyring internally manages the keys.
 
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Ignat Korchagin <ignat@linux.win>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ drivers/md/dm-verity-verify-sig.c                      |  2 +-
+ fs/verity/signature.c                                  |  2 +-
+ include/linux/key.h                                    |  1 +
+ kernel/bpf/keys.c                                      |  2 +-
+ security/keys/keyring.c                                | 10 ++++++++++
+ .../selftests/dm-verity/test-dm-verity-keyring.sh      |  2 +-
+ 6 files changed, 15 insertions(+), 4 deletions(-)
 
-On 11/7/2026 12:12 AM, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> When the "interrupt-controller" property is present, brcmstb_gpio_probe()
-> maps any platform_get_irq() failure to -ENOENT.  This swallows
-> -EPROBE_DEFER (the parent interrupt controller may not be probed yet),
-> so the device never gets retried and the GPIO controller is permanently
-> unavailable.  Return the original error code instead.
-> 
-> Fixes: 19a7b6940b78 ("gpio: brcmstb: Add interrupt and wakeup source support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
+index 0c65c7a31da8..bd5143aae4fa 100644
+--- a/drivers/md/dm-verity-verify-sig.c
++++ b/drivers/md/dm-verity-verify-sig.c
+@@ -153,7 +153,7 @@ int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
+ 	if (ret != -ENOKEY && ret != -EKEYREJECTED)
+ 		return ret;
+ 
+-	if (dm_verity_keyring->keys.nr_leaves_on_tree &&
++	if (!keyring_is_empty(dm_verity_keyring) &&
+ 	    dm_verity_keyring->restrict_link)
+ 		ret = verify_pkcs7_signature(root_hash, root_hash_len,
+ 					     sig_data, sig_len,
+diff --git a/fs/verity/signature.c b/fs/verity/signature.c
+index 2f49c5d9d987..b45b39b829b2 100644
+--- a/fs/verity/signature.c
++++ b/fs/verity/signature.c
+@@ -70,7 +70,7 @@ int fsverity_verify_signature(const struct fsverity_info *vi,
+ 		return 0;
+ 	}
+ 
+-	if (fsverity_keyring->keys.nr_leaves_on_tree == 0) {
++	if (keyring_is_empty(fsverity_keyring)) {
+ 		/*
+ 		 * The ".fs-verity" keyring is empty, due to builtin signatures
+ 		 * being supported by the kernel but not actually being used.
+diff --git a/include/linux/key.h b/include/linux/key.h
+index 420412aab926..9ff10b780865 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -439,6 +439,7 @@ extern int restrict_link_reject(struct key *keyring,
+ 				struct key *restriction_key);
+ 
+ extern int keyring_clear(struct key *keyring);
++bool keyring_is_empty(const struct key *keyring);
+ 
+ extern key_ref_t keyring_search(key_ref_t keyring,
+ 				struct key_type *type,
+diff --git a/kernel/bpf/keys.c b/kernel/bpf/keys.c
+index bffc356839ac..24e0416abc99 100644
+--- a/kernel/bpf/keys.c
++++ b/kernel/bpf/keys.c
+@@ -29,7 +29,7 @@ struct bpf_key *bpf_lookup_keyring(void)
+ 
+ 	if (!bpf_keyring)
+ 		return NULL;
+-	if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
++	if (keyring_is_empty(bpf_keyring) ||
+ 	    !READ_ONCE(bpf_keyring->restrict_link))
+ 		return NULL;
+ 
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index 5281da9d5bf7..ac48d6204915 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -443,6 +443,16 @@ static void keyring_destroy(struct key *keyring)
+ 	assoc_array_destroy(&keyring->keys, &keyring_assoc_array_ops);
+ }
+ 
++/**
++ * keyring_is_empty - Check whether a keyring is empty
++ * @keyring: The keyring to check.
++ */
++bool keyring_is_empty(const struct key *keyring)
++{
++	return READ_ONCE(keyring->keys.nr_leaves_on_tree) == 0;
++}
++EXPORT_SYMBOL(keyring_is_empty);
++
+ /*
+  * Describe a keyring for /proc.
+  */
+diff --git a/tools/testing/selftests/dm-verity/test-dm-verity-keyring.sh b/tools/testing/selftests/dm-verity/test-dm-verity-keyring.sh
+index 1f9601ef22f8..792449d356cf 100755
+--- a/tools/testing/selftests/dm-verity/test-dm-verity-keyring.sh
++++ b/tools/testing/selftests/dm-verity/test-dm-verity-keyring.sh
+@@ -746,7 +746,7 @@ test_keyring_inactive_when_empty() {
+     log_info "TEST: Verify dm-verity keyring is inactive when sealed empty"
+ 
+     # When keyring_unsealed=0, the keyring is sealed immediately while empty
+-    # This means it should NOT be used for verification (nr_leaves_on_tree=0)
++    # An empty keyring should NOT be used for verification.
+ 
+     log_info "Keyring state (should be empty and sealed):"
+     list_keyring_keys
 -- 
-Florian
+2.47.3
 
