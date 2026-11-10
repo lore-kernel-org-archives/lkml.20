@@ -1,89 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280406;
-	b=TOLIPGqPI2ZYcXEVxEKGuWkFSYhG6440qRPMB5wwY9smToPX/7HIs+rq3n/QNOypGtsa
-	 LOCsMfetkeqtUju6ogUlYLMkJa6/5BnNB72D3TGwe69BJy3wsrlLY98RKnLNeLjAHWClI
-	 IBOgVqKRD1dFPGxBnUg4u1prp8v57cQ9TCBNxAmVt4MtNiFVo81if04j0mkyVTdcXlB0P
-	 e23ngFyq7jF7afra+Va9e9EDXKaDPtZMjMSB3UwhEty+Xx2coVNyEpgbSiU2aC37OnaIP
-	 oT2W06y5ORPWRLuVRXp53impNEFBxW5WqbiiCpGybpRSsvVn2xPXQr6LEFUwD4Ffi6A==
+	t=1794280448;
+	b=WYbDqvF6ALKrI6046Cq4mnmRnfPPvW/LRxov8KRnVTo93K612BQV7HoqEwCZP4zyoqGe
+	 cAvSwcaO8JA+ULuPJlT8TtXFJvYmzvjUVrXwrT1B1xvesZ0kEo0JrQxcfblQs/uxNs+sA
+	 c8PA2UNEPEz0UQnh9iNS570sKEENDxCd9Wuz2im+dFedw+hXdTJud0R/yHFko9J4rMmZN
+	 lGPyZPacxXDB0OwPcpU81rrfxdo4VXxGeSFgGvr6wNivkJlz5C4OVOuqPI5MfWdp/ganB
+	 6PMWzUbRc0N2/S+rlhefY5XtSgx6n0eBv0n4uGzgz087ZOabNNr1NxpiC4q/oWV41ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280406;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=RD1jkN1QvH2Z5B6Q5iIjFx4HZtCXt5GvWjpjCwZzO7s=;
-	b=ex1JPXDY3v15Fej1BPpiWXWkWjtxTy+IzDBfxC0ZIV/tda0L5Kc1lhfUmfdL9G/Wl79w
-	 H19am61NNmtPYyfWOvhstjRaYFZsjPTFoDthQhQJn4vqLTZRJFmgCrr9eUgL8DSKJT0WZ
-	 SSvFWDAlbrreZ/6qHA0StcSzBtd6j0Q4p6mr+mREsWuPYIIFw0uu6lPy1kDPG2naGVKFn
-	 64qEwXcwHLZ5qKb7CrdJ4hQrwSwiLvyoWdBcFasbISf38GxS2nK3YSxbYVtBIdphLFhIm
-	 8vAb5HyMOsrXxTTtCCOO8MiF6H6uZvqka3DjIdiRf11LfGqYU71bMbesAVHOhWh96Ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280448;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=CbN16mwkgK9F6G/Di5zJrLdhBzzUcEl4Z6zcZAy4sKI=;
+	b=FjUr7BLdXipeVM/+f9H2SVsKKzZEVNDZKqUVu6GNPyH6yuozJH5k+Zg8qQ0ExNx5dBei
+	 NH4+69i/2UVAkic5Q6vJwNfRA4D63FIWVjFgtR0j9YjZF2qSzrvi2qVxmnmqYXSV4J3e0
+	 OWsahLTTIXlN7JFen1MOhmROy0QpUaqd6olsNVMqgUgDKB50xUii/qKbXonnjHd9TyC7l
+	 qZZL0BNEdxiV1BH8q8iGAkgWMH0TmWCV4CPgVCApkTPVdL41BKaYTBywsL5OzmJTJnY1f
+	 bvtQwHgE168/4wf+z9S/jwzF3J3VAH3nA0xyWELoItqYBC0prIgt7h80bGEC8rVIBsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nsHgNnaD;
-	arc=none smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IvulfXzy;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122CE60A5BD4
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 122CE60A5BD4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72E9606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:14:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C72E9606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nsHgNnaD
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-53656465d1dso736593b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:13:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794280405; x=1794885205; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RD1jkN1QvH2Z5B6Q5iIjFx4HZtCXt5GvWjpjCwZzO7s=;
-        b=nsHgNnaD2HOBw7xy3XK+XyVqyXJd8qQ5zML/Lw2bZM2GRcXMg9fmedY74R/2tFK3le
-         5wYelxRFo235aTFkzKSa/FRtfalRDF5R4meubBagm31YKAFt2FbnG/D9mps/JvBjttm+
-         AihKGxeBi5te0mqgZk4ksGDTmH1wJpNcLZ8KbuMb+EyrXFmg4Q1QUuwpNpRoUBza1imY
-         6ZjLI4znoJ2kp5LLvJh/+zhatpvJIud3xT8qnYI1YtNPEP2YwCOdoQ15CzeOpKSVH0re
-         SEbQAdYz0VVyJhCDiPWb9oxzfXbaJDaS0ojda8IcmyNVL5J0fstmElKyLc0h3B1BitJ0
-         01qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794280405; x=1794885205;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RD1jkN1QvH2Z5B6Q5iIjFx4HZtCXt5GvWjpjCwZzO7s=;
-        b=XJZ6Ts/FBKkcS53n6XKEILTvWBqB1WQFFD9xcKP/mRsESdcG23bQQNMWiXY9tEfvyZ
-         Hi196WY9GMCEP6e4cKiKxacCDmRdOqNqDFv07yqRdWanAU+jB+uq/8951doIytRzV2ip
-         lVoZFAg8h0CGeK2898XDMf3abhuTBe/j1MF+OrGqPkHGE5W2ZobX0o/UoIQJmZTD4u3z
-         JTyj3a7KzoxJdKLVekgIcQUDveAL67YEU38t/r0zubz0YOpBDVzaDsUuaYLA0tZIU/6X
-         aXJWiNDvxrzyGRROCQ7Bh41pCFBKRmpfz7mAb9Dqjwxr7aeSif8K3td67o0FhAKKqmqo
-         SgAA==
-X-Gm-Message-State: APuU4Z8BlhYnrV9Pe1eBJtvM2r4Jqe2E9xotXNp6hZWl7s6EoGMk7wtu
-	xc65fyXaz9Wj3P1nBM3IIl6mbv/RPhVlfADRlW2kgVmoJAXcTv1gIX8+
-X-Gm-Gg: AYBFou0kmgdtymp5EQXdYTVqM21Byo64/1olgdPtVxhCGgRFvzbYQAYToUmYcsZB7+L
-	/oaBPUshCjl2tXPpfADKCxnkO4IzZoeUDxoIhkYiV1+NWF7+aJwEawzxcATFhhOTtEMe2Ld8cmr
-	+WQN/htOf0Ed00F4FYR7LB996x0DnrGwxMDiF6+9fMhNCch5YycEEFk0ThFR/q7940e5N335uFj
-	fMZj5ulbMlUlzzDBA8569PXFOJPQOoEEVUr42eiZ9t+7VBCNAnV24QYOUDC0XxeN7uBEIXFaTkl
-	6quXNp/ixjhYdQ2mYLq5sypTMZDB24Yiruo9+tPDIO7KUC1pLHZAmoDkaitdNq+3kCFnGUoVJjN
-	XBd/2Dziyb39Q7aIc/JYr/wzVeijPiG3fPGl1RcCM6koWTStfdh/9qpNM4CEmE7RxfJW2bdUh5A
-	Jje+09esGIrVUFa/nt4/sGBYugLH0m/8ci54sroo8ESxiWfH8jg+JqvHvViiA77OEuRnefeVRaN
-	p0bT0WJMgY1RqMMbfySk6KyTyrwDBsw9c1MADtNwjZ+YPOf9VFndXOc28uSQyb/UZCj7xOz60Y/
-	w+JKPq3GaS8j/bdhzjzk1GqEJR8PSWe21BSe0lw9ztvmZ38ecTr9ZN41AtWWKTzptUIzGObXtnY
-	47s8EiawgaM5OqvIi53PY39iSg7oDeXqmUKvCguE//NoPjbmMxLlsBSQACk6jkNRm0APINKAUyB
-	HygcqH/O1XKWzSDpEKs0LQkfzfk1j9/6cunMiWhsjiEfaGEcgoUg8O
-X-Received: by 2002:a05:6808:508e:b0:4d6:90f4:48ab with SMTP id 5614622812f47-5683cd1b07bmr1294602b6e.45.1794280405078;
-        Mon, 09 Nov 2026 19:13:25 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905736b92sm1019236b6e.8.2026.11.09.19.13.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 19:13:24 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 09 Nov 2026 20:12:59 -0700
-Subject: [PATCH v9 10/11] serial: 8250_dw: discover Allwinner A523 FIFO
- depths through FCC
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IvulfXzy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=CbN16mwkgK9F6G/Di5zJrLdhBzzUcEl4Z6zcZAy4sKI=;
+	b=IvulfXzyUJOtsPQr72CGOLAVCdEFXGLmw/m+SP2GbF+wZWVKB17YRrfTsGepTs
+	syBYUEnS9HJ0f/tt7hxF9hfuhSDBoqlnzF3/1pUYT8TKh8PBR2g9gNoGZGcWxvGk
+	Aczv6Qnj4XYeSFkz5J+eDmCjIYrZc8xqqrps6xhl/JJv0=
+Message-ID: <5f5302d9-729b-4008-b19e-f7012232e755@163.com>
+Date: Tue, 10 Nov 2026 11:13:41 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,113 +51,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-submit-h616-uart-fifo-v1-v9-10-3f03961dae8a@gmail.com>
-References: <20261109-submit-h616-uart-fifo-v1-v9-0-3f03961dae8a@gmail.com>
-In-Reply-To: <20261109-submit-h616-uart-fifo-v1-v9-0-3f03961dae8a@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/31] ntfs: handle source record removal failure
+ during attribute moves
+To: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Xuewen Wang <wangxuewen@kylinos.cn>
+References: <20261102073532.98873-1-wangxuewen_ky@163.com>
+ <20261102073532.98873-12-wangxuewen_ky@163.com>
+ <avEwnT6CAgeCj2oo@hyunchul-PC02>
+From: Xuewen Wang <wangxuewen_ky@163.com>
+In-Reply-To: <avEwnT6CAgeCj2oo@hyunchul-PC02>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X1Xli_JqaAO2GA--.18829S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4rZw4rGry7Cw47tF1kXwb_yoW5GF1kpF
+	9xJF9xKa98Jr12y3ZI9F45ta40v34xG3WUXry5Kr12kFs0q3WIqrW8tF10gFyIkF95Kw4U
+	Zw4UW39xCayUZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jsJ5OUUUUU=
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbCzQdzXGryi+c5oAAA3I
 
-The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
-on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
-its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
-offset 0xf0. The field holds a byte count, not a logarithmic encoding.
 
-Read this field in the sunxi setup callback when platform data does not
-provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
-its 256-byte configuration without accessing FCC. The probe has already
-enabled the clocks and deasserted reset before invoking the callback.
-Leave the FIFO clock-control bits untouched.
 
-Use the shared DesignWare trigger setup to validate the depth and build
-the FIFO-relative threshold table. Invalid depths fail probe before
-registration instead of producing zero or truncated thresholds. The 8250
-core derives the transmit load from the discovered depth.
+在 2026/11/9 10:31, Hyunchul Lee 写道:
+> On Mon, Nov 02, 2026 at 03:35:12PM +0800, Xuewen Wang wrote:
+>> From: Xuewen Wang <wangxuewen@kylinos.cn>
+>>
+>> ntfs_attr_record_move_to() ignores failure to remove the source attribute
+>> after copying it. It can update the attribute-list reference and report
+>> success with both copies present.
+>>
+>> Check removal before changing the list entry. On failure, attempt to
+>> remove the destination copy, mark its record dirty and unmap it, leaving
+>> the list pointing to the source. Report destination cleanup failure
+>> separately.
+>>
+>> Shrinking a record to zero needs no extra space, so failure indicates
+>> inconsistent record accounting. Return and report EFSCORRUPTED even if
+>> cleanup also fails.
+>>
+>> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> 
+> This patch has the Fixes tag, but it calls
+> ntfs_report_file_metadata_error(), which is introduced in patch 3.
+> If this patch is backported to a stable tree with patch 3, it could fail
+> to build.
+> 
+Hi Hyunchul,
 
-Select this setup for the A523 compatible. Like H616, this integration
-has Allwinner-specific debug-divisor and RS485 registers overlapping the
-generic DesignWare feature probes. Use the common sunxi PIO setup,
-BUSY-safe integer divisor programming and software RS485 handling. Keep
-the APB clock gate enabled during termios updates with SKIP_SET_RATE.
+Thank you for your review. You are right about the dependency.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/tty/serial/8250/8250_dw.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+Would it make sense to reorganize the series so that the bug-fix patches 
+come first and use the existing error-handling mechanisms, without 
+depending on the new reporting helpers?
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index a55f60330a51..257baab5a3ed 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -44,6 +44,10 @@
- #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
- #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
- 
-+/* Allwinner FIFO Clock Control register */
-+#define SUNXI_UART_FCC			0xf0
-+#define SUNXI_UART_FCC_FIFO_DEPTH		GENMASK(31, 8)
-+
- /* Quirks */
- #define DW_UART_QUIRK_OCTEON		BIT(0)
- #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
-@@ -63,6 +67,7 @@
- struct dw8250_platform_data {
- 	u8 usr_reg;
- 	u32 cpr_value;
-+	/* Fixed FIFO depth; zero selects discovery during setup */
- 	unsigned int fifo_size;
- 	unsigned int quirks;
- 	int (*setup)(struct uart_port *p);
-@@ -666,7 +671,15 @@ static int dw8250_sunxi_setup(struct uart_port *p)
- 
- 	p->type = PORT_16550A;
- 	p->flags |= UPF_FIXED_TYPE;
--	p->fifosize = data->pdata->fifo_size;
-+
-+	/* Apply given FIFO size or try to autodetect it */
-+	if (data->pdata->fifo_size) {
-+		p->fifosize = data->pdata->fifo_size;
-+	} else {
-+		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-+
-+		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
-+	}
- 
- 	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
- 
-@@ -913,6 +926,12 @@ static const struct dw8250_platform_data dw8250_h616_data = {
- 	.setup = dw8250_sunxi_setup,
- };
- 
-+static const struct dw8250_platform_data dw8250_a523_data = {
-+	.usr_reg = DW_UART_USR,
-+	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
-+	.setup = dw8250_sunxi_setup,
-+};
-+
- static const struct dw8250_platform_data dw8250_octeon_3860_data = {
- 	.usr_reg = OCTEON_UART_USR,
- 	.quirks = DW_UART_QUIRK_OCTEON,
-@@ -965,6 +984,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
- static const struct of_device_id dw8250_of_match[] = {
- 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
- 	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
-+	{ .compatible = "allwinner,sun55i-a523-uart", .data = &dw8250_a523_data },
- 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
- 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
- 	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+I would then add calls to the new helpers at those sites in a separate 
+patch at the end of the series.
 
--- 
-2.53.0
+Would this approach work for you?
+
+Thanks,
+Xuewen
+>> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+>> ---
+>>   fs/ntfs/attrib.c | 12 +++++++++++-
+>>   1 file changed, 11 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+>> index 5af8ac41af17..f1c99e0d8dca 100644
+>> --- a/fs/ntfs/attrib.c
+>> +++ b/fs/ntfs/attrib.c
+>> @@ -3578,7 +3578,17 @@ int ntfs_attr_record_move_to(struct ntfs_attr_search_ctx *ctx, struct ntfs_inode
+>>   	nctx->attr->instance = nctx->mrec->next_attr_instance;
+>>   	nctx->mrec->next_attr_instance =
+>>   		cpu_to_le16((le16_to_cpu(nctx->mrec->next_attr_instance) + 1) & 0xffff);
+>> -	ntfs_attr_record_resize(ctx->mrec, a, 0);
+>> +	err = ntfs_attr_record_resize(ctx->mrec, a, 0);
+>> +	if (err) {
+>> +		err = -EFSCORRUPTED;
+>> +		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
+>> +		if (ntfs_attr_record_resize(ni_mrec, nctx->attr, 0))
+>> +			ntfs_report_file_metadata_error(VFS_I(ni),
+>> +							-EFSCORRUPTED);
+>> +		mark_mft_record_dirty(ni);
+>> +		unmap_mft_record(ni);
+>> +		goto put_err_out;
+>> +	}
+>>   	mark_mft_record_dirty(ctx->ntfs_ino);
+>>   	mark_mft_record_dirty(ni);
+>>   
+>>
+>>
+> 
 
