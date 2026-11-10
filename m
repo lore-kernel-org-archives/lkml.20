@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321609;
-	b=Ah1MhWGuoRzKmIVd5D47NSGG7KtHG6rBklGYGS46yG3YWPpt+pkuVGlZT65tiUsRrX6j
-	 +sPC/f6phNcAgkNMLkBfGRFWUMTYrFymunQ4kpawXf8eHCnhC0wBgZhoOUy1BaxNVRwwz
-	 oyquvN1Z8Ll/yIVAJy4UxkjHjoHDLc04b9wixVZ2fqN2R9nude0pGCa9iAOk0rwEYPjhD
-	 3Sxx6TajhABa2A1bMizukVEX6plj9tc1LESIgXcXq+rbi8PP6mVl5dUtDIszzc6GOKqq/
-	 ff/yTccYfBp0yXDG1rY+KKEIS8VTMui+UGi+Xe+Vq70VdZosQUdVoyUQW47YLu8FWIw==
+	t=1794321620;
+	b=xRDdAXmJsj3ZnJIOrBm4J3Z5Z8yi8F3cw+NfefOv+LVgt1FmBIRahXXO1iS8tbHafxcF
+	 xBb/JQSZsOdoXzcz2Yz4ZjUtmeOZ/2jE/ti8IBhFa/GIfuBrmSXSF4ODolaYY9gkw4Uij
+	 LXBrDNf1rGx9Z5NzYl3RfsZsx8N3XgPzp4/aMkbBhsqqgMEyMYnH0R5HYgPrz9zGFo5Wy
+	 U2DXQ0vekdzaBXXMjMwYZ7LVMV9wYC1RvxyHy/TwBk9u8om4XTUXsf+CA9OQHHGVf+bhN
+	 8aXyyvON6tPO6Pp8g4gTYNqAFtOSz/Hn5ktwRUGjfSnr+kho4ewX9igFJraNUQO840w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321609;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=zBf1r9G6tN4PCGIwYFRHeaYpu6V24z2k/HtpPlR30Ug=;
-	b=MHO/AomeOq+rVYf/EqUA3jz9FApnRE1uT8zFMGdQp5Pfc2OyiyDFvZBw5vRCD7vrWm/1
-	 w+Hau6sg+IeaNQmjqmn3+f4X4GpZHIhdq3iMucRNqHz3AUkK6MNk4qfjWcQFJ13lZR92a
-	 NrqV42lykS+r+cPScnURAJ2uJ87SPgTzkVMSgCAIqqGiii0ww/qYmqgZ9hgVzJTEStnL9
-	 JpQjJ6SnKVOxWefE3sw3l5sil3fNkOSnOBSmybcQdhSvo7I/ZHtKF7Ivvjx6b8udTr2QR
-	 3t3b4tm64Schq1ePDPOVGKvSdWbPOkWaXNOk9vQ35AsbX43LJlIfIWh0DDhb+ZPZi5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321620;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=9FkP82NSjfPVkGjOtRXyI/+qz+a0r2i1CKeWvx3C2dI=;
+	b=qVplwBYdQPW3HyUMvZIRx3TNs5r68fxUg1OzsEHwSQa8FxeNTV5Tmgi55yjS+ZTWCb6R
+	 FP/p3l4uqtm0z8tSLI0aecAGZMV6gPeubu8A+qNvy8E3eT3Btof5/9YKNw1g9Gifk+Idq
+	 kCI4505mTqXZftftnrJEuM6KFQnh2Fwne8SfODC6sNq1FYQ/jbWNO8dtRa84HrPc86d3X
+	 159IKzLZz/HGCQZ66formQIvzxwSZeA3zF5fCQRrywJG5HcfvXjXMKKNBBntVW9A0YiqT
+	 QIyCcv2GSpDGsm0cvPPWLfCqDJWql7herEcsTYIYBTO01B+rXBe588JnWGOQ1MxP6/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pSOxUHET;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVp3+fJi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9775606A31C;
-	Tue, 10 Nov 2026 14:40:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9775606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77569606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:40:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pSOxUHET
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 82FF5C79A8B;
-	Tue, 10 Nov 2026 14:40:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 29B1D60012;
-	Tue, 10 Nov 2026 14:40:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B66210329446;
-	Tue, 10 Nov 2026 15:39:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794321604; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zBf1r9G6tN4PCGIwYFRHeaYpu6V24z2k/HtpPlR30Ug=;
-	b=pSOxUHETAlFXI+QxO0WW4FSJeKEr49FdqteBMPfEWL9KNskt/L/e3a1+LI/AQszsy21LOC
-	1NlT0H0HWtfK7Uv+GJVVShyw3iLtz3RJP9EnUPdgZDIcu404+Kra9omYZcJJ6FP/07d4dB
-	gw+sxlsz/yd8NwY5Xcd152RP5ZfQ3457JmWq0R7BsLnd0C7hUtafcRkHfMuQT5y8MyJcPw
-	KEuZWxhpLrdRaSGGrLm564bOifDacEA1Ueh1k5Hb6onexyivMRFUttRIIpMAC7v1o5005T
-	BN4G+ai1XlVkiEsxqBir7KO4J5pU9NWMEV5Q7UYT2Tv5PHbXsBm2mLPZK9kZ/Q==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVp3+fJi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F761F008A5
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794321620;
+	bh=9FkP82NSjfPVkGjOtRXyI/+qz+a0r2i1CKeWvx3C2dI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NVp3+fJiEximT8Zz8H9I9iDtFgXJtSm0JEe6oETmFM6825eYdosvMOkxIiXBSyuF4
+	 cIWC7WzCxX4/v5wcnhJo5IpCvTD+TZQ10hnCFBjd2bmL7t6KxQHWvtlts8U90a4j0f
+	 rkaPWcBplJHF+FC3agcB8RNEwLq+IF+bOvj/SDhCaWDCa22XnfTsyQ6TZU+yd3lVmx
+	 IZd5J/DBnlk4q4/KY1Sj4LhTFU7/Lyrakj7SRh1MTbnAe+1uyzDSPwofUKZCDNzrzK
+	 TdeZO/lpDtNSHtWD/Xtd8gTUfd8Pt4x9mUtxlGoWupbWpaW6xC4z3vBaglrJ1fhbfo
+	 ILx3ZulylFCeA==
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1678066a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:40:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFgRiKWBubROQkVnB3m/n0aVjna15QQgpQN+9Xr+h1nnw7BhI9ilHm3xtIGyKIinkcXaTNc1Dfj0uF4/oc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Frb7xNwozSkG66mkPVCUTIYyFH5XSlgb+ednHRt2C7PRA9Khw
+	Y5sr0o6R3V18rB99UhT5M2KxeM9GTY8xfEmqKYwzHwTt7YSoTAjYwXae/cGrAEGR4SWVXVt9a2F
+	aqb1Hc7SYrsbDCf49NXwpgOi4zkIiGhI=
+X-Received: by 2002:a05:6402:22d0:b0:6b1:b97b:745 with SMTP id
+ 4fb4d7f45d1cf-6b756af0889mr1703428a12.29.1794321618978; Tue, 10 Nov 2026
+ 06:40:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,71 +58,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 15:39:57 +0100
-Message-Id: <DMRLX6IMODXH.1Q23T2VEIJVWI@bootlin.com>
-Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
- separately
-Cc: "H. Nikolaus Schaller" <hns@goldelico.com>, "Paul Boddie"
- <paul@boddie.org.uk>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs"
- <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>
-To: "Paul Cercueil" <paul@crapouillou.net>, "Florian Fainelli"
- <f.fainelli@gmail.com>, <linux-kernel@vger.kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261105203517.2293404-1-f.fainelli@gmail.com>
- <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
-In-Reply-To: <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+References: <CAKYAXd-Jo-ObBDs-AdGfaM+QmDsot3gj1g0oJiyDKczoUDg2TA@mail.gmail.com>
+ <20261109194144.22814-1-mike.michalo@gmail.com> <20261109194144.22814-2-mike.michalo@gmail.com>
+In-Reply-To: <20261109194144.22814-2-mike.michalo@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 10 Nov 2026 23:40:05 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-nhvaQPNF_=nTTwxa=umN24WfpWgvN8X_UE_P1Vk=dEA@mail.gmail.com>
+X-Gm-Features: AclHuK-v7gL0EmbkbxKvWxJdfqe3QqJFytqQDKQtYVZUM0-qKu6IoLKDEwC3iso
+Message-ID: <CAKYAXd-nhvaQPNF_=nTTwxa=umN24WfpWgvN8X_UE_P1Vk=dEA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] ksmbd: verify the signature of session binding requests
+To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Cc: stfrench@microsoft.com, icb@fastmail.org, senozhatsky@chromium.org, 
+	tom@talpey.com, chenxiaosong@chenxiaosong.com, ematsumiya@suse.de, 
+	lsahlber@redhat.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon Nov 9, 2026 at 8:46 PM CET, Paul Cercueil wrote:
-> Hi,
->
-> Le jeudi 05 novembre 2026 =C3=A0 12:35 -0800, Florian Fainelli a =C3=A9cr=
-it=C2=A0:
->> The LCD controller's internal bridge is embedded in an object
->> allocated
->> with drmm_encoder_alloc(). This initializes the encoder but leaves
->> the
->> bridge's reference count at zero. Since drm_bridge_attach() takes a
->> reference, probing the CI20 display produces addition-on-zero and
->> underflow warnings and fails to attach the HDMI bridge chain.
->>
->> Allocate the internal bridge with devm_drm_bridge_alloc() and
->> register
->> it with devm_drm_bridge_add() before attaching it. Keep the encoder
->> in a
->> separate DRM-managed allocation: encoder cleanup can drop the final
->> bridge reference before it has finished accessing the encoder. Find
->> the internal bridge through the encoder's bridge chain during mode
->> setting, and use the bridge argument directly in bridge callbacks.
->>
->> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
->> drm_bridge_attach/detach()")
->> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
->
-> Looks like I lost my commit rights to drm-misc-next, I guess for
-> inactivity.
->
-> So I'll ack it (LGTM) and let someone else (Maxime?) commit it.
-
-Ah, OK, I'll add it to my pipeline then.
-
-> Reviewed-by: Paul Cercueil <paul@crapouillou.net>
-
-Thanks!
-
-Cheers,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> +static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
+> +                                       struct smb2_hdr *hdr,
+> +                                       struct ksmbd_session *sess)
+> +{
+> +       struct ksmbd_session *prev_sess = work->sess;
+> +       char signature[SMB2_SIGNATURE_SIZE];
+> +       int ret;
+> +
+> +       memcpy(signature, hdr->Signature, SMB2_SIGNATURE_SIZE);
+> +       work->sess = sess;
+> +       ret = smb3_check_sign_req(work);
+> +       work->sess = prev_sess;
+> +       memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
+Could we restore hdr->Signature inside smb2_check_sign_req() and
+smb3_check_sign_req(), using the existing signature_req buffer? This
+would eliminate the extra signature backup and restore code in the
+session-setup helper in patch 1/6 and __process_request() in patch
+3/6.
