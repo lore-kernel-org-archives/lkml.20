@@ -1,98 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794306067;
-	b=ImCP8JRETtIUlnh/wc5yK1Jo/UnYjVr0t8aLn9Dkb6QLb1DoBqxid/NEHUB4W4bnABaI
-	 CE4UU1TiCU6WxaMKA7OdmhqWTMaLc366v9340nymbMQrgGzYau7fzOPehqmnEXx1Isyxs
-	 2g4GpqKmFr8W8Q/vMpxaeUWTOEjpTTmqntKIfJUVwsAGmA9vfr4qL/4IKnCh3UPf4RPgl
-	 Tk9sBqOIkwlaXqeE6Lbr6pvhxwFN8YJgbkVFDXtDRkExaWbgL+wzxnLoaCqRKZS7nNPc/
-	 sDr49lkmK2tyJxLfXyCV6TPKEVggI0OjJzar6eaSeXJnG4OszzpbYsHcPG9IhvgB6Kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306067;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zaLdDmdC3IldOYeT7qkcbgEonM38hUE88Lc6TpvPoiU=;
-	b=iNMwaGGIloJ8A4Ak+L0Av3CJ5XPldJCXwV7ff6Z5KzNIP6JtLeGlyYcuDaOatFGIbbRq
-	 2Tav2hSdjwd8gDKpyCtKgxdJxvhN2Mu8FcWTFvz0asoZO9mbzvkPj+2dKqhgJ7JSIFqnO
-	 rlpuadviv+/+hQ/kxA09lhFkpjlVDFuPtXafDGZ9hgBRk+NvofXIex0JiHNUxPDX7tGQz
-	 a1oYYSs9t786ngtvM8OIoxT21RVdI6NYoZgJipokyCT+UZdX4UxT34b0zspsYNhatD+zE
-	 +RVSWfTfRS9WtDchEdNmldw3xk/QIkzqhDvbzheoYx2ywO3RN+prv+hRw3IauC+UAqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mg8KKAS6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.55
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010055.outbound.protection.outlook.com [40.93.198.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794306062;
+	b=VbDTDEH2XspTFv/gwCqGJ5ctqefOn2CYcDSytK3cUKkL1NTTQnlw6yJyySGm5FJ1xqMf
+	 DnC+Wja2r62iEybYmevhThO1xL+gY97DxJGgdvX289UFBhD3wUoAEaHMoM2t8kl3Y12Oc
+	 sdbIQDKMeagYvtzpTRMvIQDUDEPkxdAOx4g+xAao9f3h0HdroLbF6uq+kTM4MuQH5H7GK
+	 lHa4GAAdU8pCMRqunIsj2CoKV4A4iyui2FfqoZQ0rA7rSvY0S15WDaeyxPbdBF4mbvxcs
+	 UMKBbQ5+aalCdVkyR1gmLb/Z41xVPX1HmyCq+KIZRKbNW6cQhZ4zdVzT2n2HuMLha6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306062;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dO8C4ggxuopS/+6zAbnax7EkePGJAuvyfP9itW1DLkc=;
+	b=4kFzj4QxVGfRCgLq3nNUNwGb/Zjmv61U8JDfd53mDtBn+aegpE+lf69uCw6CjKhPyLz2
+	 sPVv7nv046D99Ks9u+djFCoj66zbCVMegGGVf0yb1oEn8Dlr3I/VHbWMs3f/kP9tKVuHb
+	 SFdJYJprbbzpH901wVziKcxajhNOYIuUBRP3+3oiHIpX3zCKgNQI3fYPmaRgacz2paYj1
+	 OgB9NE0GRtuOkeYv1DS+uvN/8NmtP4USeZq4MQKYDoe6UBh8bnQwrk7Tyms/ra9ELuklF
+	 dQU1JzYfqFskwuPYz9R9NC0SSJIgDdP33o1odvR0N/EjkGvWp3dLltJzM4r7tblNTfw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtDjioK9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB46260A383D;
-	Tue, 10 Nov 2026 10:21:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB46260A383D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301A1606A33C;
+	Tue, 10 Nov 2026 10:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mg8KKAS6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lNUA2ji+mJZMsM4YWdy3p0xRfhdYqqPF21bTZ7AjO5LuCTyOc4Gs5upcVaGF1ns5uWH3HTGlC/8weMq/NF8IA26I9V0CZuJXPG1/cmQkDAr7vyd7THHPeyiKAfwu9XsxUynvYDgEo7UYr0G9M1R6H62OYNb0jlQ/kQLHblESh4WYrEGEW3JbLXpb5MimHRnXxeD6e+eXfx2ZiCTy0A4Le6PRb0eKPYypvctCcba20Dj5LgFBm//BEeh0ZU0UgZm+XgZGnUwKcZ07ppmVYvJv0wBBBK5uyj6ckdK9Wx31ZqKchOtGG/JZwOY3QQNlGdYvs1+tprg2x/4So2N7agJnBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zaLdDmdC3IldOYeT7qkcbgEonM38hUE88Lc6TpvPoiU=;
- b=nqHGL/2h9VZQ3JjY7JskQ8yzAcswx/sgdNJPVganyeCixy+nOsxOgO7E3uALAsCHoP7DH8cRYPPMzhEwgBvrEy0t6OSTy3P68jJFuQZ0WO8dMiBbcEpw2Qh287WUuAuUuUpFZQ/L9Jct8IPdZSe9PJ1vNQifiFxeVFmo1g8EPzyFrNQle+FA08kuDiGv2keYwPjcLc7o0CCQEV2t9fwfye6etoijmpS5CpAJAskLJl2t0cKvDL6ZIOZJ5LfjVe8YkJLu2XHr9puSO2bpKlKk5yIyl7tAGVyr1+yLtKqCiW7Bf3O81e45vVnOVVwgvQ0dizxm/+PPiy0xxxOJF+ftfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zaLdDmdC3IldOYeT7qkcbgEonM38hUE88Lc6TpvPoiU=;
- b=mg8KKAS6ZhY+M+fZGn0mx7Iy23kpx5SzC3SX/zXqUvIXXxgqG+fmVczyRfKtc3d9EBMYmC1yJPvVyqHjqWqFO9HcZu8lqEVIDPn0rJJFsw9D77//+mE4+v/qb/qb+B6YWapfRYwh4o8yVL9Ivu1OxbRB7zhq8vCaITCiqc9gLQ6O77+FxUsfFNuCxtP9g69tzKsdulM0H4yZALFYxTTU7L/fSBbQ3aZO9bUFslfSXzQBB8KqWtM4ASItjCuuvz1DkLNvDTTiGd17yFEL7wL1ktBHsGo3NLjQsHYwKgO3t967oDes1WPPm7vv11H5AynPMHlNDy/pmSoLW4OvCDkmMQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SAEPR12MB328447.namprd12.prod.outlook.com (2603:10b6:802:209::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 10:21:04 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 10:21:04 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 10 Nov 2026 19:20:51 +0900
-Subject: [PATCH v3 02/13] gpu: nova-core: falcon: widen the IMEM PIO offset
- to 24 bits
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-r000-fw-v3-2-20d79ebb646f@nvidia.com>
-References: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
-In-Reply-To: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0176.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::18) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtDjioK9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9951F008A2;
+	Tue, 10 Nov 2026 10:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794306061;
+	bh=dO8C4ggxuopS/+6zAbnax7EkePGJAuvyfP9itW1DLkc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dtDjioK9wVMfRqljj6xCHH58w9Nv6IhPylKB2jvocyzRxrwGz8gXMmFAUi2xm2xtC
+	 LVm3aMYDyINLDnS+Q9+1ygatUGX/Q8IUTk/6lGHTX5WpEoOeieUpqDzZ9rC6KsaVQc
+	 wPP1OSCU+gREvCirtdit0aPB4ADQ8rV2BM0qk4x/kI4Dy/FfySpW4e8hZmh1eY3CKT
+	 bLSu2EvZftBrYuKKtULg9pTCeHIst3W8fj5BnYN5EEihvgSBh9gGIzgJXboBR4xU1F
+	 PZOHzqM5zb0PTsdlyBQKtxoy65NCl+0Inv+74VlFG0JXierGeZQdxu28Ch1dL6pQAL
+	 7fs4Z0HQ34TyQ==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	Mina Almasry <almasrymina@google.com>
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	David Wei <dw@davidwei.uk>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stuart Clark <stuclar@meta.com>
+Subject: [PATCH net-next v1 01/11] net: Get skb fragment addresses through netmem
+Date: Tue, 10 Nov 2026 11:20:22 +0100
+Message-ID: <20261110102039.1002605-2-bjorn@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110102039.1002605-1-bjorn@kernel.org>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,179 +99,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SAEPR12MB328447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bf02c59-b5e7-4f58-d4d8-08df3f14537a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|10067099003|11063799006|56012099006|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	dGILhL3THTuUFTaTUWkWRHNqF6KpRndMGi8AjNwz+FCq36b5X0K7BZaOiQEwk473oBaJlqYL1ihDBaATPXOE/MsxKyWznf8dOKS7jz8pGJvQOpXAAo9+iz5q4xoIkBHz0lRxTCFJ/0npKoMrndfcv7zeKKHqEaav+Of38sFVh48Txx7j9YoeD9smM2AZ34LnUndP/pNDahxnzdGZNYULg9PX/7t3weJPsWQFqoD0vyvKpFy3izquwPPjuX2nLY9No9Lq6GXVkFihcWUn+jd8QatWQ/8ya/0d3spG6E8ZF/D6ueU3dsD+WwIbCzIlyqaOBCCTEwAj9QvsTOqNm8qIRn6g7graiOUePxrF9VpMzosqtuMQ/KpnLpKfzNAO1GWXnb2GLO+GhcOrCK5OqZ39icYsjDOoX/35EPfAS5pbl2xO9TqRk6nzMXyNTXtJHcKPC+uVws7foFys84laIPauIP63Siw9/feBWgL/wBvrbdsEUvYtZs2wY3ahV2i8vVqp808Qmf3CS4Q6OQ9SkWAr7XWL8LFfUGxNjh7RI1qAQ4MDzzeJaN70fXBqm25N/fDKp+4A/72hPCpphebzTYftUOOEoeeEGvMtK33Vb2n513vbxoCLC30sL6ktnKDWTgBFHiJgsLPGO2mw9FfIICfbvgoReRUYOJbVJbhFPvT2mjg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UUpmSUlOUXZRRUhvMWI5UGRTUUZ6elJRZjl6aXNLcXkyZGNZUk11S2grSDUw?=
- =?utf-8?B?L1J1TjF2U1NuL3ZGL016WGcvNHdTVVJPZjZnN21CMzYrTWN3enF6c0dVeVh5?=
- =?utf-8?B?dW1VSmRSNTdadkZacjNHNXJDdXFGNkhIVHVISGRmRUgrNzNqdjhCdGJ5WXRp?=
- =?utf-8?B?cE1BbDVwRml6Wll2UTdhbEIvNlNmU1h1V0JOaTRHNHd5YWVxT2NhTTBGd2hS?=
- =?utf-8?B?N2hZNVYvVnN2QjAxR0hhUDRpbkNIMmNiRzVXMHpVM3lsRGVjbWtkcEZUclFr?=
- =?utf-8?B?R0Rva2dvZmRmNlA2ODFoT2hobGRGTEg1VVhXaWkyK3R2bkQxSm4vQjlFL3Vm?=
- =?utf-8?B?TjY2TEVWUWYxVlVYTTkySzVIeHNKeCt6WFY3dEg3dWJaVU5jMkZpdEZUQktS?=
- =?utf-8?B?ODhwTDRzdjdvRk5WdG5pQnErQzduNzRSeDlGWS9Qb0YxcFNoUjhHcUxuT09m?=
- =?utf-8?B?dG1QbThUOHlnWm9aU2I0N2dnL1cxeGM0N1FkNFZwOHFLS0FHa29vblNicGVG?=
- =?utf-8?B?dDF2bE1JMmQxOCtmcjdzYUpnVHg0ZFh1UElBUHNFSTNqRWxuSWRNWGM2UTFj?=
- =?utf-8?B?Y20xU3dBNXpxaSthV0UzZWxLVndGWkdrbnZjMVl0QS8yV1dtQTlUWUFlR1V3?=
- =?utf-8?B?ZU9nMUhpd0pPemZDSXRZcjkrME56dFNpVGFyUnczZ3l4STlSMVhtWlVBV1I3?=
- =?utf-8?B?Wk0ySDVlSXUydG5BcFplcHBDL1lvR0ZvTWVvK3ovZHV2TVBMMFRFVUI5Vllm?=
- =?utf-8?B?aWlTOUtXUTFRdDdLem9XWFFkWVVxZ3JzNDZpaGk5aExwYTBOdmtpcmk1NStm?=
- =?utf-8?B?d2hjTzZpMWJkakdtdjh4ZkNrdUM5QjJiSDVKUm1SU2FGQ2FLaWtDRktCSm1C?=
- =?utf-8?B?enhJK3JzaVljdkRsbGRZWW1zbDZiNjdqTnprOC90YWwyQjI2WkRRaldQdkRh?=
- =?utf-8?B?NjBGbFJhN1hDazVXK3hyMjhSVldjV0ZJK2JyZmN1czExVjY1QW93WUx5dnl3?=
- =?utf-8?B?dGdVekU2SHNsNXZ2NGUxZkNtaCtBNWhrSGtnYUk2UVFhZzM4RTh3dThBd2Mx?=
- =?utf-8?B?bEVVME5sbjNod25QTnE4emV3MmVnM3k0QkNaQ1NXdk5DQXZrTksrNE5aa1JM?=
- =?utf-8?B?WWRxQUJGN0svaWNySVZwUjAya3F5STF0UmI3c0o4NUZhL0pjN3NoN01aeDZU?=
- =?utf-8?B?d0tMWExGZ3cvQU01MnRyMTRYTUJkTW1iaHRDNFJQRlVUbERxZ3JWTTdDNkdQ?=
- =?utf-8?B?WDVEOWtSa2sxdm9nbHA1Ui9RMkZQcTFSRGVaTVZlTUIyN0s1N3BTMm9hZUVo?=
- =?utf-8?B?di8xRkNHM2xCWUp0S1JIeUlvMWdBMmNnSUxuYVh3OWl4L21NaUJ3YXByZXVo?=
- =?utf-8?B?UjlZZWJJanp6cE9DRGwzRTNFNGFuZmt3U0xEaTJDSllSMGRqMFVrdnV0VUdt?=
- =?utf-8?B?cnhVMTBJaXNVeHJOWVcxc2UzNFFZcWlMT1lLWTJ4OTkxekIySDEwMlFVZ2o2?=
- =?utf-8?B?MWNsaGJrMmIxRllaMkpoMXFoYXNRVHNlSlVDNWRIVlVpbnNmREliMHdTdnFx?=
- =?utf-8?B?RUxMck9XNDZiVEN6OGc5WDRxaFJCYWhCak1ybFBnaGxaUjhkMmt1aSsxNGU4?=
- =?utf-8?B?QVRiSU1YQ2dFMjZlc1BxQm1qa2IyVjloS2FHYitQTXkxR2hjanNEcmdMSnlP?=
- =?utf-8?B?M1NRSnJ6bURoV0tSNDdsQ2hSWFcwckZqZ09XcVVTTDB0Mk9OemxZOEZTYjBP?=
- =?utf-8?B?V1ZkVUxGNWpLR1VPcWlxOWxMT05VMGQyZ0FUNHdLTmx1dkpkNkNTbnhxNk14?=
- =?utf-8?B?dEZ0eHJzakdBaXhmME1WbVpoVENOYjV5OHp0UmhQcWQ2VzRTVktXcnlEYnZR?=
- =?utf-8?B?T3ErVnlNNzlkS2M2T21SUUV0RG5ueHZDYkpMYmNxL0JVZWF2N3J3NkxWdG1s?=
- =?utf-8?B?ZGlhMDJqRkIzMnZBYmk1VGVrUlF3ZjlQd1lsMjIzdUcySlQza2p3cW9RRDd4?=
- =?utf-8?B?OEF0eFkvd01RYkF1bzJnQmxIeXBuRFJqZWlYTVhTbkpuSWtTSllHc1QxRzZN?=
- =?utf-8?B?VEw2Snh6TkMzUnN0SXhGeGt6SHBtZk45VVBjalZXK3FESCt6RGpHY1JxTUpn?=
- =?utf-8?B?aXdvYUhlRjZoM3A4Z1lPZmRMOHJmdVFQb3RNY0srdDFnZjN4WnhmTU9lSFpC?=
- =?utf-8?B?YUsvV2hmQ0RVRUJrS3AvWEpiQll6STY5dEdKNmQ2Vitwc0sxRHhneTlxWDUy?=
- =?utf-8?B?cHJqckNya1ljUE1ZWXNOT1dydWZNczRPUFZnYlUxVkxzVzFZSDd1UlJaQmdx?=
- =?utf-8?B?T3dLMWVXaHRWcFhPNkpFbTAxYjVlNWd0RVg5bUlpUGlGT1oxbFgzS2hvQ2FK?=
- =?utf-8?Q?uZvbO16EGaXZDbQtfMpF0ryaB/POP2+1YFyjG17OSYEaV?=
-X-MS-Exchange-AntiSpam-MessageData-1: /z9th3OAsW6dtQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bf02c59-b5e7-4f58-d4d8-08df3f14537a
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 10:21:04.3782
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +Kpt7Fs9YC4c0aEdDcspXs8ryioXkOmsfBw/UddRp1Cj3q5k/yXDubA7q2jCMch+bIuvUbIhCpsjL73d+hRvLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAEPR12MB328447
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-`NV_PFALCON_FALCON_IMEMC` addresses IMEM with a 24-bit offset since GA100
-(16 bits on Turing, with the following 8 bits unused).
+skb_frag_address() goes through struct page, so a net_iov never has an
+address. Only unreadable memory should lack one: XDP and BPF read
+fragments through this helper, and AF_XDP UMEM will back readable
+net_iovs. netmem_address() also returns NULL, not a bogus pointer, for
+an unmapped highmem page.
 
-Nova declared it as 16 bits and carried IMEM PIO destinations as `u16`,
-which prevents loading anything above 64 KiB of IMEM, a scenario that
-becomes possible once the generic bootloader is placed at the top of
-IMEM.
+Generic code needs the size of a net_iov to find its address, so keep
+it in struct net_iov_area instead of the devmem binding.
 
-Widen the register field and carry the destination as a 24-bit `Bounded`.
-
-Suggested-by: Eliot Courtney <ecourtney@nvidia.com>
-Link: https://lore.kernel.org/all/DMNAN7KX22SC.QQ5HURCU332A@nvidia.com/
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Mina Almasry <almasrymina@google.com>
+Suggested-by: Stanislav Fomichev <sdf@fomichev.me>
+Signed-off-by: Björn Töpel <bjorn@kernel.org>
 ---
- drivers/gpu/nova-core/falcon.rs                  | 10 +++++++---
- drivers/gpu/nova-core/firmware/gen_bootloader.rs |  8 ++++++--
- drivers/gpu/nova-core/regs.rs                    |  2 +-
- 3 files changed, 14 insertions(+), 6 deletions(-)
+ include/linux/skbuff.h | 21 +++++++++------------
+ include/net/netmem.h   |  6 ++++--
+ io_uring/zcrx.c        |  1 +
+ net/core/devmem.c      |  8 ++++----
+ net/core/devmem.h      |  4 +---
+ 5 files changed, 19 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 0b377bd6524a..a34748abc74a 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -18,6 +18,10 @@
-         Io,
-         Mmio, //
-     },
-+    num::{
-+        Bounded,
-+        TryIntoBounded, //
-+    },
-     prelude::*,
-     sizes::SZ_4K,
-     time::Delta,
-@@ -230,13 +234,13 @@ fn try_as_pio_loadable(&self) -> Result<FalconDmaFirmwarePioAdapter<'_, Self>> {
-             let end = start + usize::from_safe_cast(params.len);
-             let data = self.as_slice().get(start..end).ok_or(EINVAL)?;
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 73365c5de6f9..8b0039d49905 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -3759,33 +3759,30 @@ int skb_cow_data_for_xdp(struct page_pool *pool, struct sk_buff **pskb,
+  * skb_frag_address - gets the address of the data contained in a paged fragment
+  * @frag: the paged fragment buffer
+  *
+- * Returns: the address of the data within @frag. The page must already
+- * be mapped.
++ * Returns: the address of the data within @frag, or %NULL if the CPU cannot
++ * read it.
+  */
+ static inline void *skb_frag_address(const skb_frag_t *frag)
+ {
+-	if (!skb_frag_page(frag))
++	void *ptr = netmem_address(skb_frag_netmem(frag));
++
++	if (!ptr)
+ 		return NULL;
  
--            let dst_start = u16::try_from(params.dst_start).map_err(|_| EINVAL)?;
-+            let dst_start = params.dst_start.try_into_bounded().ok_or(EINVAL)?;
- 
-             Ok::<_, Error>(FalconPioImemLoadTarget {
-                 data,
-                 dst_start,
-                 secure,
--                start_tag: dst_start >> 8,
-+                start_tag: dst_start.shr::<8, 16>().into(),
-             })
-         };
- 
-@@ -272,7 +276,7 @@ fn try_as_pio_loadable(&self) -> Result<FalconDmaFirmwarePioAdapter<'_, Self>> {
- #[derive(Clone)]
- pub(crate) struct FalconPioImemLoadTarget<'a> {
-     pub(crate) data: &'a [u8],
--    pub(crate) dst_start: u16,
-+    pub(crate) dst_start: Bounded<u32, 24>,
-     pub(crate) secure: bool,
-     pub(crate) start_tag: u16,
+-	return page_address(skb_frag_page(frag)) + skb_frag_off(frag);
++	return ptr + skb_frag_off(frag);
  }
-diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-index 1e7ff9699174..16ef2c79a6b1 100644
---- a/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-@@ -7,6 +7,10 @@
  
- use kernel::{
-     device,
-+    num::{
-+        Bounded,
-+        TryIntoBounded, //
-+    },
-     prelude::*,
-     ptr::Alignable,
-     sizes, //
-@@ -30,7 +34,7 @@ pub(crate) struct GenericBootloader {
-     /// Bootloader code, zero-padded to a whole number of falcon memory blocks.
-     ucode: KVec<u8>,
-     /// Byte offset in IMEM at which the code is loaded.
--    imem_dst_start: u16,
-+    imem_dst_start: Bounded<u32, 24>,
-     /// Tag under which the first code block is loaded.
-     start_tag: u16,
+ /**
+  * skb_frag_address_safe - gets the address of the data contained in a paged fragment
+  * @frag: the paged fragment buffer
+  *
+- * Returns: the address of the data within @frag. Checks that the page
+- * is mapped and returns %NULL otherwise.
++ * Returns: the address of the data within @frag. Checks that the memory
++ * is mapped and readable and returns %NULL otherwise.
+  */
+ static inline void *skb_frag_address_safe(const skb_frag_t *frag)
+ {
+-	struct page *page = skb_frag_page(frag);
+-	void *ptr;
++	void *ptr = netmem_address(skb_frag_netmem(frag));
+ 
+-	if (!page)
+-		return NULL;
+-
+-	ptr = page_address(page);
+ 	if (unlikely(!ptr))
+ 		return NULL;
+ 
+diff --git a/include/net/netmem.h b/include/net/netmem.h
+index fb693bc1702a..f196b014184c 100644
+--- a/include/net/netmem.h
++++ b/include/net/netmem.h
+@@ -72,8 +72,8 @@ enum net_iov_type {
+ 
+ /* A memory descriptor representing abstract networking I/O vectors.
+  *
+- * net_iovs are allocated and used by networking code, and the size of
+- * the chunk is PAGE_SIZE.
++ * net_iovs are allocated and used by networking code. Their area sets the
++ * size of a chunk, see net_iov_area.niov_shift.
+  *
+  * Examples include imported dmabuf memory and imported io_uring memory. See
+  * net_iov_type for all the supported types. While current net_iov types are
+@@ -104,6 +104,8 @@ struct net_iov_area {
+ 	/* Array of net_iovs for this area. */
+ 	struct net_iov *niovs;
+ 	size_t num_niovs;
++	/* Each net_iov covers 1 << niov_shift bytes. */
++	unsigned int niov_shift;
+ };
+ 
+ static inline struct net_iov_area *net_iov_owner(const struct net_iov *niov)
+diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
+index 6d7abb1636e7..555f27e6c1ba 100644
+--- a/io_uring/zcrx.c
++++ b/io_uring/zcrx.c
+@@ -542,6 +542,7 @@ static int __zcrx_create_area(struct io_zcrx_ifq *ifq,
+ 	ifq->niov_shift = buf_size_shift;
+ 	nr_iovs = area->mem.size >> ifq->niov_shift;
+ 	area->nia.num_niovs = nr_iovs;
++	area->nia.niov_shift = buf_size_shift;
+ 
+ 	ret = -ENOMEM;
+ 	area->nia.niovs = kvmalloc_objs(area->nia.niovs[0], nr_iovs,
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 5c7d9640e9d1..b9146b1f294a 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -287,8 +287,8 @@ int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
+ 	u32 xa_idx;
+ 	int err;
+ 
+-	if (binding->niov_shift != PAGE_SHIFT)
+-		mp_params.rx_page_size = 1U << binding->niov_shift;
++	if (binding->area.niov_shift != PAGE_SHIFT)
++		mp_params.rx_page_size = 1U << binding->area.niov_shift;
+ 
+ 	rxq = __netif_get_rx_queue(dev, rxq_idx);
+ 	err = xa_alloc(&binding->bound_rxqs, &xa_idx, rxq, xa_limit_32b,
+@@ -342,7 +342,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 	binding->vdev = vdev;
+ 	write_pnet(&binding->net, sock_net(nl_sk));
+ 	binding->uid = sk_uid(nl_sk);
+-	binding->niov_shift = niov_shift;
++	binding->area.niov_shift = niov_shift;
+ 	xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
+ 
+ 	err = percpu_ref_init(&binding->ref,
+@@ -605,7 +605,7 @@ int mp_dmabuf_devmem_init(struct page_pool *pool)
+ 	pool->dma_sync = false;
+ 	pool->dma_sync_for_cpu = false;
+ 
+-	if (pool->p.order != binding->niov_shift - PAGE_SHIFT)
++	if (pool->p.order != binding->area.niov_shift - PAGE_SHIFT)
+ 		return -E2BIG;
+ 
+ 	net_devmem_dmabuf_binding_get(binding);
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index c4f476947dfa..448521990ad7 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -83,8 +83,6 @@ struct net_devmem_dmabuf_binding {
+ 	 */
+ 	struct net_iov **tx_vec;
+ 
+-	unsigned int niov_shift;
+-
+ 	struct work_struct unbind_w;
+ };
+ 
+@@ -127,7 +125,7 @@ static inline unsigned long net_iov_virtual_addr(const struct net_iov *niov)
+ 	struct net_devmem_dmabuf_binding *binding =
+ 		net_devmem_iov_binding(niov);
+ 
+-	return (unsigned long)net_iov_idx(niov) << binding->niov_shift;
++	return (unsigned long)net_iov_idx(niov) << binding->area.niov_shift;
  }
-@@ -76,7 +80,7 @@ pub(crate) fn new(dev: &device::Device, chipset: Chipset) -> Result<Self> {
  
-         Ok(Self {
-             ucode,
--            imem_dst_start: u16::try_from(imem_dst_start)?,
-+            imem_dst_start: imem_dst_start.try_into_bounded().ok_or(EINVAL)?,
-             start_tag: u16::try_from(tlv.get_u32(b"STRT")?)?,
-         })
-     }
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index df2eddc58efb..bf3a43f1c09e 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -236,7 +236,7 @@ pub(crate) fn usable_fb_size(self) -> u64 {
-         /// Auto-increment on write.
-         24:24     aincw => bool;
-         /// IMEM block and word offset.
--        15:0      offs;
-+        23:0      offs;
-     }
- 
-     /// IMEM data register. Reading/writing this register accesses IMEM at the address
-
+ static inline bool
 -- 
 2.56.0
 
