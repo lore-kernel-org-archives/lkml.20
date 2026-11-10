@@ -1,53 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309844;
-	b=GySpmd938dVShz6fcXii4phFxqnAi1lB3fHoquI1HfsBsXJsHagF9Od1FtaBjlzx1sM6
-	 Dzj3Mwc+5VnIjNvp4gRil1+ph12HWw1/LjW+V26hiMTQNQUdsAh8cym3oH5UneSMRLElh
-	 8tOGili5Dgkx7aT4vmEF3DamTcnIeMtwtaQ6tgUfCrZ2gorJxR3aW9N5ZOMa/SB9vvga/
-	 nVf2KSC1y6cj03Eq16dm9lCH3F1aPIfR4qALg3QeaEVmifeY0gNmkC8VG+bTwSHeB3Wkh
-	 ZWBy/w/31eRnNkdIJWI6EMQVA8hLkUumpCOB0aCBOLBDetavy1j7kShusqh/S2jLkgQ==
+	t=1794309853;
+	b=jWK73NSIAbWBlAfupurdx9ANPUopN1i9G2i112P/RO3rGIogiBd2XkAGtoeQuw6gEf6n
+	 huCJAwSfhvjLWxoVzsn4M6quq42cs+0i15iSObYXHQyYGJWDDIMIE3uv4kpLRmLSrvAsd
+	 G7+ojb5IsF6NwXy5+M9PzoHGDLKjk3irChWHQ3XPZuaNCipJdekmrhqM5bDLOhQlrTSXb
+	 Va2BDLXb9FXtiQZ9IJ6947Gn8Vl6riCXqbA37CkZ5hzWfL96DA77VeZxeRw+bPgZ7Iw0f
+	 obwcJbv45tyxaGG5D8lM7VtuhpkoV51L9YQSV2vpJv8V0pwePXt7zX3f0Gdae8E/4NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309844;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=28tgvZD6jDuSjDvNE7CeCXO7pTXXWKJeJ62pTJpKuAw=;
-	b=VVc8XTGuMn1hlqYgR+qr+Bm67AiMBkNt41JpWBTxp/uijjXN0SgL+WrOM5VswlbRuntO
-	 roCp0wz56B3Of+J4P/+c6EWw3kylBnMkhDvFV6wqwulQPZDYuauKaySTP3w23Kx9p3Tgi
-	 GYbAzQrSFJpC6/g2oqlG0L2S+rqnNOOVBW6+CKVTpJ9hxTHLQ4O8gL+kN/BnCm49jcmkx
-	 ZZuqiV7TjEKEOI4B167H8BeTcsCOiSnFVTWA75dz1C4k0zlk3v7QyDcW+JZ0VgF0AkAdu
-	 T6FnMLPehKpw5v5IJlrklqwgUppyT5i2nZupltBgYm+kautAsy8Bm7OHmE6MNz1uiDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309853;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GSxk5inLl6eR4GxLhrbpF5X6yIIQQwy8bOFEMuCfqd8=;
+	b=1uKgzff33MYYlo9jDBOgmDL3Ry6T3HV9YdOISAWSlTfj+6KPq6gONrMVex95/N7SL7qR
+	 svKB/CqXsXipHSj0l0uYfl6U1t343lPVfrUP2yhJKCNgmqs0oyIg4a1wfwqQa9+opjpkw
+	 AeQ/9mAqKBNLGt8ILRXvH99sf8bt/hQwsGnk98vObExnfXBEJi/8MHkl06x2by3dJXjCW
+	 r5q99ys+yfRPTUTcgbtJA0iwwqs+Lb+LpReKtsCClJ/pFEw0iv+1RL+68ubXcOutagc+9
+	 NtDgnRAzYDBhWgr6C9M73g413IPgdmrNBsaUsxa2P2bAvKHox601zeA/nJV3PhQkTZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=NjfWmHze;
+	arc=none smtp.remote-ip=95.215.58.29
+Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FDE606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:24:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04FDE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so2250926b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:24:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309842; x=1794914642;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=28tgvZD6jDuSjDvNE7CeCXO7pTXXWKJeJ62pTJpKuAw=;
-        b=z1NV63+6otTxlksqJuHVPB0dQn/W50rXMse6NAHvrX7HaNEOUxaedv8Jvf2/I2BzDk
-         6PtH6RLvRSry3GMhqE0K3bH71rxAJx5pgEulS4prwvl+WDGrWSilR9oYsxak/mi3G5v/
-         bHCy1ul/iDl4v9Kx4txjjCaH20lRHK7uE7bqHLV/4Y9F/gpdYnlk9oxoHB89WzVbRciG
-         cqkJ0TjSbTlfY+B914zNrXOhcNTDA0Z5Q1OFnICR//8Jx+CsZJnjiFnSJtV0zIytdjuR
-         0BXdhzCaxeshp6n/Z6x/76I58bbj1xbD2jNkUQjV8xwl4wT64KGkjawSnlv673tEVXsD
-         Ez9Q==
-X-Gm-Message-State: APuU4Z8EVsZtuamaiBHWMPzXQvD+KPPWd+ElcvNGcMlpVIamq8/GhCfP
-	bCHaIXpt4hWZIAF7zckEwvhR/+hdhVbg7pIbrCIUkpPgL+N7la8XLa+Z0EvkCcMKqBIKNNSM+0W
-	k7hFYKk3V32JhLqau8uWchBewQI1l2Axg3uer+LbeJiTxkQypjXobAqOKyC8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4301606A33F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4301606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=NjfWmHze
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pG5FGwoCSwf/iv1r5DaRTDh4G8eWrNNp8X/5/qREznI=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794309850; v=1; x=1794914650;
+ b=NjfWmHzeDdBfnmge9uZgVOEZkphkXRev4Sjx+vRFNp27hn8Lnw2F9o00rRRLjmF0CowcWohZ
+ ZsrYQ7BJ7mORu0NrBreWra2Hw29XaXOJha0ppObLsvu4cAjH9gevaILMkqrvYnzYalu6DFw9jCf
+ 9Lp5D4AqMfIIXJgv4X7TVGzcmKDIf4ziWhp9uNxC4b7rCeCFN9e3Jk4uoVgrdyRzkjd+SXRRkAW
+ 8gyos4XsHhEMa/eHDc6v2kwrl6A/I52o3pMeD1mstlV8bodGp5ZJnK4EP/QLO4yV5LLYNdFds6Q
+ BOkWFhE1ABX9+0bMofeT+u4C/lyP/1o1GYJpcXeLrRo8Q==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a1e9ec0d085fc574;
+	Tue, 10 Nov 2026 11:24:10 +0000
+X-Mizu-Trace-ID: a1e9ec0d085fc574
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 19:24:06 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/13] docs/zh_TW: process: add applying-patches.rst
+ translation
+Message-ID: <avL-1n9EnJlmeT3n@wyuan.org>
+References: <20261106113545.708896-1-chenyou910331@gmail.com>
+ <20261106113545.708896-4-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,33 +68,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1307:b0:4f6:6041:f0a2 with SMTP id
- 5614622812f47-5683cc18827mr1832149b6e.27.1794309842763; Tue, 10 Nov 2026
- 03:24:02 -0800 (PST)
-Date: Tue, 10 Nov 2026 03:24:02 -0800
-In-Reply-To: <CAPVpPLsExzz8wh_b4WYpFqCHYhXq8w5OpvTSOssbF2UzuQpvtw@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af2fed2.ba456586.26086c.0000.GAE@google.com>
-Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	vrpcloudbughunter@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106113545.708896-4-chenyou910331@gmail.com>
 
-Hello,
+Chen-Yu Yeh <chenyou910331@gmail.com> writes:
 
-syzbot tried to test the proposed patch but the build/boot failed:
+> Translate Documentation/process/applying-patches.rst into Traditional
+> Chinese from the current English text, including the "Normal patches"
+> and "Incremental patches" subsections of "The 5.x.y kernels".  The
+> zh_CN translation was consulted for wording only.
+> 
+> List the new file in the toctree of process/index.rst, after
+> email-clients as in the English index, and drop it from the TODOList.
+> 
+> update to commit fa04150b8ef7 ("Documentation: describe how to apply
+> incremental stable patches")
+> 
+> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 
-owned.c:1: error: VRP_SYZBOT_CROSS_ACCOUNT_NFS_create-b
+Reviewed-by: Weijie Yuan <wy@wyuan.org>
 
+Thanks.
 
-Tested on:
-
-commit:         b8ee9ef9 add secondary-owned shared NFS marker with sa..
-git tree:       https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-nfs-1110-b8ee9ef
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8bdeea7ee6735f91
-dashboard link: https://syzkaller.appspot.com/bug?extid=c22bb42560ec86726aba
-compiler:       
-
-Note: no patches were applied.
+> ---
+>  .../zh_TW/process/applying-patches.rst        | 392 ++++++++++++++++++
+>  .../translations/zh_TW/process/index.rst      |   2 +-
+>  2 files changed, 393 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/translations/zh_TW/process/applying-patches.rst
