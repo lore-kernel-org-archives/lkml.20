@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324497;
-	b=veZ3m6ORXjnDw+tfFmPdg+wpyVCanaMWEUQqNVXKOoDKM4BblAHsEAztKx8nE005S3Jk
-	 9jgwzFTnjiiKbZaAZBY2KH2OwrHEi74q8+VHbA2DgcdY6mec1Wng4ISHZgaSLG1cMf0K9
-	 BRX89SBUdWXwL5ZTwr9zn9oXxlScBUwE5ZJW/tj2jZaint9ZGEB7h0JI8NuAt+65ic11P
-	 pDKLrMiUFCMh3qmPXg1S0TU9yOX1qDjRtOnItJMYztdt33JfC5d9xdeK+BValrnXwYC+L
-	 oRT+L8GSsF0yDKWIMUzHmCJjhwBRsKrHlKTJuxHsVg14oUZp+wek6PoRgwfOQHtRSkQ==
+	t=1794324506;
+	b=hs8DeKVciO92e55jV0dDG2QjDYDgonM5uxzBohpXY2zolEgICvec5hnMnrUdyGUMTiuT
+	 +cT3ZmfmuG0GyWp+5/jkrgJVHfy3xm9GT7yLRZNk7lRBUrKZO6q96J8QF5y6ePjHP/VId
+	 7MTNpXcHQtErsjJ42Gw2W1w4WsGbDOSfIdbcS+wB16njm+QFDthBM5uixxqZpr04YI6qN
+	 M2j8mHWw2ga645QUySirlGC52+mzK4XqptvlYIgO74fhUKgc83F9Am+GErzmHir07Ncj7
+	 tRJXEukzFwYaSMzbCA9jfEm4LR+zhdakKKAE7Lerk6u/PeyzbfWlIYO+TYahSbkh2IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324497;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8WCab1dfQGKFIAtl8TPq0xziMBqlNKmEQVjXJ5qrQKw=;
-	b=TGd3HcYHF5BeDxg9ZGFf6BUeEV7M9vqD8Vh575QcBolqT0iKfJ3u2bwkC2Pmp1DAA5eH
-	 fhCIp0ZbZG/0cPb0U09THQzxS7OJY2sAIC/V5F5sazAmC1hpwea64vUE/7fS1dnIJ6Nig
-	 pVDb0MIFQgwfLJlM7yWzqVVyN0e3zF25w72Cho+yvakSnahdfT2e8JW14JofI1FD03k6N
-	 ManykBf3Hmrt8cmw0zEM6Sw54ha+i4Ekbe3D0LKYKkaX5nOzx9eWibGVG4Pn9zll9qoCG
-	 D+vzvWSIuNA7bBLASEaLLbjzwW30OBYve1KXCQV7qdxA9DrlcxiK4ma4ZAtSxLxP9Uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324506;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sRyt7J57B8/qpsnQyP3hNPb+3Du63I5pPZg0XUFrV5o=;
+	b=UuAoT4judty/LTakEZesDMQJGcGVU2KmRTiaqjstcfY1zwi5oJu3fv2Q3picZondT/9v
+	 XBWXgtM5vc1/10hVNc6V/9KENKbeE1QXHhwZBfpaBTn25tL5MA8Qbb0GteQHH2CnoGB9q
+	 ISO7wPcMH4X/CeYfKskDu9NBFBX8a738QYn9l198+VSIwksrn5K0i5jwhvJ8HMZFz7jL+
+	 CCaBEhUubZU0IKH59xdrSsbO9WfgXJRzovkiv65oiAoOWu3DPgjFUsAv1qgJb6FLxc/rf
+	 M7vE+5zK+IpEVoekaVyp31rurh2nmXXyi0ObPimM4FUh8WRScNVXh0PNYz0lg7ggWiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dviUlrjS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HtReASzd;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB80606A321;
-	Tue, 10 Nov 2026 15:28:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56FB606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:28:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E56FB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dviUlrjS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7B1C1F0089F;
-	Tue, 10 Nov 2026 15:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324493;
-	bh=8WCab1dfQGKFIAtl8TPq0xziMBqlNKmEQVjXJ5qrQKw=;
-	h=From:To:Cc:Subject:Date;
-	b=dviUlrjSk4hmIbCuQ1Fe0URP6IMPl6PJNPrXc+qgC/fj09d1x86f8uDqvNYdon3ja
-	 Ep/3eVsYCAnVg4P9jrNJWDSd+YFWZxE3QZpVtnPygASvgFBJvSRlqcaJbLX5ZZH2NL
-	 z+DYnSPxVLC/utkUc0GPY9IEkT6jhkOke/Qhy4l3DAHHbh13WK5TypSMBRwB5e8TS3
-	 tYv23RQSLFYYLhaCHOL8hwaC8jVehISV+3GJatDFckmdU7CSlGYyhqpK3xi0t/lBZ+
-	 0shBSVARVeknRzZaDgL2/lvulAs6+J5eUkWjCrLIo+f6dMRclK/xzZA2T69KNcKqiz
-	 q6breSk0e/lEQ==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org,
-	acourbot@nvidia.com,
-	aliceryhl@google.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	lossin@kernel.org,
-	gary@garyguo.net
-Cc: nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] gpu: nova-core: use pin-init self-referential support
-Date: Tue, 10 Nov 2026 16:27:31 +0100
-Message-ID: <20261110152746.140351-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HtReASzd
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so492745f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:28:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794324504; x=1794929304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sRyt7J57B8/qpsnQyP3hNPb+3Du63I5pPZg0XUFrV5o=;
+        b=HtReASzdYCgpeAnWxqoYdsHPCk/Yrl8OshA4V5JpxnqDkaqbcX6jexCEqEFt7YheK6
+         YBGQg96tX1WCen0FtbW5j/nIqqx6jY0SUmw/pGrYvNvsx16T5F71q9LoF+cHy8Lb0pPC
+         qEVSCQh4gV3F8VtpRR7YfWzNG+mmZ2KZJjySAchk45rTt6hdqi+50PZj1sd2TYmS2tcc
+         GaALURFIY8c/6X2gBtyFpJ1a3hz3Be+mFDhcIj3zo1tA+pEttWU7hBP8DixWhLJVCBdX
+         pjUQZOmxLcA2Ggnc1MtsTfTh3dJnPM7WU6ZeB8pqe5uhioDTkEWLsnODYmDSI5RUZhgU
+         5LIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794324504; x=1794929304;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sRyt7J57B8/qpsnQyP3hNPb+3Du63I5pPZg0XUFrV5o=;
+        b=tE5W4/+rJqJDQjxaoUbbUKTJP3xWUbb8VWB7k2X832QP0EUcOQrKcdcc/jpwMhZwnH
+         m9hE506mTBBGZpxscuzTWuCVyl8rCo6oZTFockbzm64PSWkzahR99ztmqSjYQ5eW7F72
+         S39s9pRnUTcrjzHZLnewQUZtXA0DCK2yaeTd0erARX/1dlQI2jzx6IR8BIkdq9rQY42z
+         wS7j7dIiH3s6aFKEVn80C4JjORRZUKxW4DYCyqZdhFcoyEHp+1a3RhYGRGI0UossOi7I
+         Sel6+f8LpxORcg1bj/duD21+IuzwDQ2nxFORjFvlC+WulU5GL1bFKYaKx0qW7dfeUQ9l
+         GRRg==
+X-Forwarded-Encrypted: i=1; AL+hErHPPORhumq9ZjfUVSYcu7QsImFh19ZX5tROoaY0Ta1IM0UdRm1udL62unVY5JBbQdAl2Xlwv951GBgg80s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tOEDK0cZVG8uO/NnnOx28RVnvK8UbNKNdsUamLrSapIAwM/RS
+	h/4TUATn0KpcWdX9dcNLR+cEbzM4gYHNm3n8AlFfAT9waX0yPCc1pbZ0JJ+8o73RfTg=
+X-Gm-Gg: AYBFou3oeCHA5FzBOLdi8s8vjtTabcLJKTpHBwWWjuFZm4dZOcSsFlb+bUVEl1yaODu
+	Abe+Js/pF1/ytB5PN9HgLrBZvME10zeACsE6UQ8q1iyB0S8Oft2wwFBYz9d6TuuF6pfcKaOuQqk
+	3Apkf7VKhsN9BLUYyA6CBFevWop52H0ZMkpR4BhjPsLlSVnkoLPqn4+zgaj+gBoDMKWEcrCwSs/
+	Djl70+8q/pDFIxIyHJK73dgb8szciDd7Jj2GtrYyyN9qMXSqlaq6zNnEEfklYVox2ocavE8xzDu
+	15VAbPi8ZJo4FP4D9JgL9yvCdzDFgvmIr89oTFkE3J/2S/ng46CZlrM8kNUhpxc1jXahMsIQSzQ
+	ZAAMJxAsjL/LxhTLBMzlmOgS7cM3zIGGHJpXRTqN75fvfAEGxF/b/U60bu6fPjT8e35sj51iyge
+	E6GY9bdJJDBAhOFWZaG2LmkSvKPahvSRXNoeIjWRJkkN+kInYqDTbu446eqxd8EZrdhEhsFwvVc
+	BC+HM11Ax01+xfcWHjg99Nyb2dDGVYCsFLthAEAKmpj/S1dvG76UakLjjskNOarwAtEom4dwi4C
+	xR4wGhJw0OafI5ATxoNrow0W7pF1kX/jSQ==
+X-Received: by 2002:adf:e001:0:20b0:48b:1296:52ec with SMTP id ffacd0b85a97d-4982ecf642cmr4316594f8f.18.1794324504256;
+        Tue, 10 Nov 2026 07:28:24 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c37bdfsm5786450f8f.22.2026.11.10.07.28.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:28:23 -0800 (PST)
+Message-ID: <4371d707-dbe3-4ea4-be1d-c69c38b4012e@linaro.org>
+Date: Tue, 10 Nov 2026 15:28:22 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,297 +92,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/23] arm64/sysreg: Define TRBSR_EL1.EC event classes
+To: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-1-3f57cf3199b1@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-1-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Express all self-referential borrows through pin-init's self-referential
-support [1], replacing unsafely derived references.
 
-Cc: Gary Guo <gary@garyguo.net>
-Link: https://lore.kernel.org/all/20261008-dev-selfref-v2-0-e280b3c8fba5@garyguo.net/ [1]
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/nova-core/api.rs     | 24 ++++++++++++---
- drivers/gpu/nova-core/driver.rs  | 53 +++++++++++---------------------
- drivers/gpu/nova-core/gpu.rs     | 32 ++++++++-----------
- drivers/gpu/nova-core/irq/gsp.rs | 17 +++++-----
- 4 files changed, 59 insertions(+), 67 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-index eec69aace3b2..94808af3886d 100644
---- a/drivers/gpu/nova-core/api.rs
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -22,11 +22,27 @@
- };
- 
- /// API handle for the auxiliary bus child drivers to interact with nova-core.
--pub struct NovaCoreApi<'bound> {
--    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
-+#[pin_data]
-+pub struct NovaCoreApi<'bound>
-+where
-+    // `Gpu` is invariant in its resource lifetime, which outlives this API borrow.
-+    exists<'gpu_resources>: 'bound,
-+{
-+    #[uses('gpu_resources: invariant)]
-+    gpu: Pin<&'bound Gpu<'gpu_resources>>,
-     pub(crate) pdev: &'bound pci::Device<Bound>,
- }
- 
-+impl<'bound> NovaCoreApi<'bound> {
-+    /// Creates an API handle.
-+    pub(crate) fn new<'gpu: 'bound>(
-+        pdev: &'bound pci::Device<Bound>,
-+        gpu: Pin<&'bound Gpu<'gpu>>,
-+    ) -> impl PinInit<Self> + use<'bound, 'gpu> {
-+        pin_init!(Self { gpu, pdev })
-+    }
-+}
-+
- impl NovaCoreApi<'_> {
-     /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
-     /// by nova-core.
-@@ -36,12 +52,12 @@ pub fn of(adev: &auxiliary::Device<Bound>) -> Result<NovaCoreApiHandle<'_>> {
- 
-     /// Returns the GPU [`GetGspStaticInfoReply`].
-     pub fn gsp_static_info(&self) -> &GetGspStaticInfoReply {
--        &self.gpu.gsp_static_info
-+        self.with_gpu(|gpu| &gpu.gsp_static_info)
-     }
- 
-     /// Returns the GPU [`Spec`].
-     pub fn spec(&self) -> &Spec {
--        &self.gpu.spec
-+        self.with_gpu(|gpu| &gpu.spec)
-     }
- 
-     /// Returns the size of the PCIe BAR used for accessing VRAM, typically
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 560a70c4f5a7..ac5a9d9f8331 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -33,9 +33,11 @@
- #[pin_data]
- pub(crate) struct NovaCore<'bound> {
-     #[allow(clippy::type_complexity)]
--    _reg: auxiliary::Registration<'bound, ForLt!(NovaCoreApi<'_>)>,
-+    #[uses('gpu: invariant)]
-+    _reg: auxiliary::Registration<'gpu, ForLt!(NovaCoreApi<'_>)>,
-     #[pin]
--    pub(crate) gpu: Gpu<'bound>,
-+    #[uses('bar: invariant, 'bar1)]
-+    pub(crate) gpu: Gpu<'bar>,
-     bar: pci::Bar<'bound, BAR0_SIZE>,
-     bar1: pci::Bar<'bound>,
- }
-@@ -129,44 +131,25 @@ fn probe<'bound>(
-                 crate::irq::doorbell_test::run_selftest(pdev, bar, spec.chipset)?;
-             },
- 
--            // TODO: Use self-referential pin-init syntax once available.
--            gpu <- Gpu::new(
--                pdev,
--                // SAFETY: `bar` is initialized above, pinned, and outlives `gpu`.
--                unsafe { &*core::ptr::from_ref(bar) },
--                // SAFETY: `bar1` is initialized above, pinned, and outlives `gpu`.
--                unsafe { &*core::ptr::from_ref(bar1) },
--            ).pin_chain(|_gpu| {
-+            gpu <- Gpu::new(pdev, bar, bar1).pin_chain(|_gpu| {
-                 #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
-                 _gpu.run_selftests(pdev);
-                 Ok(())
-             }),
- 
--            _reg: {
--                // TODO: Use `&gpu` self-referential pin-init syntax once available.
--                //
--                // SAFETY: `gpu` is initialized before this expression is evaluated
--                // (`try_pin_init!()` initializes fields in initializer order), lives at
--                // a pinned stable address, and is dropped after `_reg` (struct field
--                // drop order).
--                let gpu = unsafe {
--                    Pin::new_unchecked(&*core::ptr::from_ref(gpu.as_ref().get_ref()))
--                };
--
--                // SAFETY: `NovaCore` is dropped when the device is unbound;
--                // i.e. `mem::forget()` is never called on it.
--                unsafe {
--                    auxiliary::Registration::new_with_lt(
--                        pdev.as_ref(),
--                        c"nova-drm",
--                        // TODO[XARR]: Use XArray or perhaps IDA for proper ID
--                        // allocation/recycling. For now, use a simple atomic counter that
--                        // never recycles IDs.
--                        AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
--                        crate::MODULE_NAME,
--                        NovaCoreApi { gpu, pdev },
--                    )?
--                }
-+            // SAFETY: `NovaCore` is dropped when the device is unbound; i.e. `mem::forget()` is
-+            // never called on it.
-+            _reg: unsafe {
-+                auxiliary::Registration::new_with_lt(
-+                    pdev.as_ref(),
-+                    c"nova-drm",
-+                    // TODO[XARR]: Use XArray or perhaps IDA for proper ID
-+                    // allocation/recycling. For now, use a simple atomic counter that
-+                    // never recycles IDs.
-+                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-+                    crate::MODULE_NAME,
-+                    NovaCoreApi::new(pdev, gpu),
-+                )?
-             },
-         })
-     }
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index d185e927233f..cbd720a4d11f 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -342,15 +342,15 @@ struct GspResources<'gpu> {
- /// The two drop as a unit, the handler first, on the drop of [`Gpu`] and on the error path of
- /// its constructor alike, so that the subtree is disabled only after the handler is freed.
- #[pin_data]
--struct GspSubtree<'a> {
-+struct GspSubtree<'a, 'gpu> {
-     #[pin]
--    irq: GspIrq<'a>,
-+    irq: GspIrq<'a, 'gpu>,
-     /// Must be kept declared *after* `irq`. A handler still in flight enables the subtree again
-     /// through its rearm.
-     _top: TopEnableGuard<'a>,
- }
- 
--impl<'a> GspSubtree<'a> {
-+impl<'a, 'gpu: 'a> GspSubtree<'a, 'gpu> {
-     /// Returns an initializer that registers the GSP event handler and then enables its subtree at
-     /// `TOP`.
-     ///
-@@ -362,7 +362,7 @@ unsafe fn new(
-         pdev: &'a pci::Device<device::Bound>,
-         tree: &'a Tree<'a>,
-         falcon: &'a Falcon<'a, GspFalcon>,
--        cmdq: &'a Cmdq<'a>,
-+        cmdq: &'a Cmdq<'gpu>,
-     ) -> impl PinInit<Self, Error> + 'a {
-         try_pin_init!(Self {
-             // SAFETY: this function's caller must not leak the `GspSubtree` that owns this
-@@ -383,7 +383,8 @@ pub(crate) struct Gpu<'gpu> {
-     /// any in-flight run of it has finished, before the command queue that it drains and the
-     /// falcon that it reads are freed, and before the GSP is unloaded.
-     #[pin]
--    _gsp_subtree: GspSubtree<'gpu>,
-+    #[uses('tree)]
-+    _gsp_subtree: GspSubtree<'gsp_resources, 'gpu>,
-     /// Static GPU information as provided by the GSP.
-     pub(crate) gsp_static_info: GetGspStaticInfoReply,
-     /// GPU memory manager owning memory management resources.
-@@ -403,9 +404,6 @@ pub(crate) struct Gpu<'gpu> {
-     /// Must be kept declared *after* `gsp_resources`, as the latter's `PinnedDrop` implementation
-     /// requires the sysmem flush page to be in place.
-     sysmem_flush: SysmemFlush<'gpu>,
--    /// Borrow of `tree` that `_gsp_subtree` holds. A field that borrows a sibling field is
--    /// self-referential, which `pin_init` cannot express, so the borrow is taken by hand.
--    tree_ref: &'gpu Tree<'gpu>,
-     /// The GIN CPU interrupt tree and the PCI vectors that deliver it.
-     ///
-     /// Must be kept declared *after* `_gsp_subtree`, which holds a borrow of it.
-@@ -456,10 +454,6 @@ pub(crate) fn new<'a>(
- 
-             tree: Tree::new(pdev, bar, spec.chipset, irq::gsp::GSP_SUBTREE.into())?,
- 
--            // SAFETY: `tree` is initialized above, is pinned at a stable address, and is dropped
--            // after every field that uses `tree_ref` (struct field drop order).
--            tree_ref: unsafe { &*core::ptr::from_ref(tree.as_ref().get_ref()) },
--
-             _: {
-                 let dma_mask = hal::gpu_hal(spec.chipset).dma_mask();
- 
-@@ -513,19 +507,17 @@ pub(crate) fn new<'a>(
-             }),
- 
-             _: {
--                irq::gsp::quiesce(tree_ref, &gsp_resources.gsp_falcon);
-+                irq::gsp::quiesce(tree.get_ref(), &gsp_resources.gsp_falcon);
-             },
- 
--            // SAFETY: the GSP falcon and the command queue are fields of `gsp_resources`, which
--            // is initialized above and pinned, so both references outlive the registration. The
--            // registration is a field of `Gpu` and is never leaked, so its `Drop` runs, and field
--            // drop order runs it before either is freed.
-+            // SAFETY: The registration is owned by `Gpu`, which is dropped when the device is
-+            // unbound, so the registration's `Drop` runs.
-             _gsp_subtree <- unsafe {
-                 GspSubtree::new(
-                     pdev,
--                    tree_ref,
--                    &*core::ptr::from_ref(&gsp_resources.gsp_falcon),
--                    &*core::ptr::from_ref(&gsp_resources.gsp.cmdq),
-+                    tree.get_ref(),
-+                    &gsp_resources.get_ref().gsp_falcon,
-+                    &gsp_resources.get_ref().gsp.cmdq,
-                 )
-             },
- 
-diff --git a/drivers/gpu/nova-core/irq/gsp.rs b/drivers/gpu/nova-core/irq/gsp.rs
-index 1abde8e0a405..f4fe7b5d691e 100644
---- a/drivers/gpu/nova-core/irq/gsp.rs
-+++ b/drivers/gpu/nova-core/irq/gsp.rs
-@@ -50,15 +50,16 @@ pub(crate) fn quiesce(tree: &Tree<'_>, falcon: &Falcon<'_, GspFalcon>) {
- }
- 
- /// Threaded IRQ handler for the GSP event.
--pub(crate) struct GspInterrupt<'a> {
-+pub(crate) struct GspInterrupt<'a, 'gpu> {
-     falcon: &'a Falcon<'a, GspFalcon>,
--    cmdq: &'a Cmdq<'a>,
-+    // `Cmdq` is invariant in `'gpu`; the handler borrows it for the shorter `'a`.
-+    cmdq: &'a Cmdq<'gpu>,
-     tree: &'a Tree<'a>,
-     /// For logging.
-     dev: &'a device::Device,
- }
- 
--impl GspInterrupt<'_> {
-+impl GspInterrupt<'_, '_> {
-     /// Clears the latch of every host-routed cause in `status` other than SWGEN0, and logs them.
-     ///
-     /// Returns the causes still set after the clear. A cause driven from outside the falcon stays
-@@ -83,7 +84,7 @@ fn clear_faults(
-     }
- }
- 
--impl irq::ThreadedHandler for GspInterrupt<'_> {
-+impl irq::ThreadedHandler for GspInterrupt<'_, '_> {
-     /// Top half, in hard interrupt context. Services the GSP vector only, so another vector
-     /// pending in the same leaf stays pending.
-     fn handle(&self) -> irq::ThreadedIrqReturn {
-@@ -145,13 +146,13 @@ fn handle_threaded(&self) -> irq::IrqReturn {
- /// The declaration order is the drop order, and it is required: the vector is disabled before
- /// `free_irq` runs. See "Enabling the GSP event" in `Documentation/gpu/nova/core/interrupts.rst`.
- #[pin_data]
--pub(crate) struct GspIrq<'a> {
-+pub(crate) struct GspIrq<'a, 'gpu> {
-     _leaf_guard: LeafEnableGuard<'a>,
-     #[pin]
--    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a>>,
-+    reg: irq::ThreadedRegistration<'a, GspInterrupt<'a, 'gpu>>,
- }
- 
--impl<'a> GspIrq<'a> {
-+impl<'a, 'gpu: 'a> GspIrq<'a, 'gpu> {
-     /// Returns an initializer that registers the threaded handler and then enables the GSP
-     /// vector at its leaf.
-     ///
-@@ -171,7 +172,7 @@ pub(crate) unsafe fn new(
-         pdev: &'a pci::Device<device::Bound>,
-         tree: &'a Tree<'a>,
-         falcon: &'a Falcon<'a, GspFalcon>,
--        cmdq: &'a Cmdq<'a>,
-+        cmdq: &'a Cmdq<'gpu>,
-     ) -> impl PinInit<Self, Error> + 'a {
-         let dev = pdev.as_ref();
- 
-
-base-commit: a7cdb17ca0d7ce67e9f3a52d39edd60f03223729
--- 
-2.56.0
+On 16/10/2026 17:54, Leo Yan wrote:
+> TRBSR_EL1.EC identifies the cause of a trace buffer management event,
+> but the sysreg description does not name its architected values. Define
+> the five encodings as an unsigned enum so TRBE status handling can
+> refer to each cause by name.
+> 
+> The values cover other events, Granule Protection Check faults,
+> implementation-defined events, and stage 1 and stage 2 Data Aborts on
+> writes to the trace buffer, as specified by Arm ARM (ARM DDI 0487 M.c).
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   arch/arm64/tools/sysreg | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
+> index 94bf065c8ac71f20f482c91a5147cb6e001dfba2..f68c23dd4e83ee4d00610e097d9188d3a2c9ed15 100644
+> --- a/arch/arm64/tools/sysreg
+> +++ b/arch/arm64/tools/sysreg
+> @@ -5834,7 +5834,13 @@ EndSysreg
+>   Sysreg	TRBSR_EL1	3	0	9	11	3
+>   Res0	63:56
+>   Field	55:32	MSS2
+> -Field	31:26	EC
+> +UnsignedEnum	31:26	EC
+> +	0b000000	OTHER
+> +	0b011110	FAULT_GPC
+> +	0b011111	IMP_DEF
+> +	0b100100	FAULT_WRITE_S1
+> +	0b100101	FAULT_WRITE_S2
+> +EndEnum
+>   Res0	25:24
+>   Field	23	DAT
+>   Field	22	IRQ
+> 
+Reviewed-by: James Clark <james.clark@linaro.org>
 
