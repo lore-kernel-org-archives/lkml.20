@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794335766;
-	b=LPgtvs9yqDj9OJSpKwhZWbTUE+DBv6IDdrdpvhgL9yoQuycZtHp7W+tSIpWgMemz8qtf
-	 56WtCu/sQCR74BbdkSqEgpNRreLhwmp31KtmYU4ejZP6lGr1Hda2xsVNjrSqFlLNj8CRu
-	 8V1GcwpFb34qE+39CPYy4c71YzkKRI8mNZ6okNEBGv0Q4cp62Jaj+21iFs+XoiP8U7bQi
-	 l+ULe+wP94UQnFe5T9U/jUwktZzTJDA4/0nNWHafh9uqpjqjF1ERgbZJS1TIai7sXnxWq
-	 08nyyFqSYZph/Y9H+++HnlYfMeXpgt/QzxBANdxuilfacuZN1mcKdzk9y7xX0ghLyOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335766;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gX54iKe7U3rHK7fz3Yv5uuHDS1kraRODZUfBXc9xtno=;
-	b=YrZ4A0X6CI84IhSR3BBC7O3UBVdAvkTfLbYAOX5b3HTNzfWqjKr23GPw4dQVpsKLTtfI
-	 bt7xf8LL1VWNgGgCGDxi3pkZU1x5aRh4g9ha6kZNEelGKUZVbmfujFnwtAXR3Q8455Bi9
-	 oqm6HfQFhsHbjxjOh0jyF5AlddfqWTeGNOCJF0GFKpIjAiMuL4pstK8iiKJAuR4vHILcl
-	 sT7/R9zawwfiNBtfVK7nDWhzcKOb54okqnpWETh5sIa0bxDB064biNpw7FA5ASJm9dN3l
-	 1A43fIC2bySq4ayA7oE56I4r27kcM5T6ExreDSo1ZSSKyrLRiPvmBH62wWxFfahLGig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=w+LYlzeA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.67
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010067.outbound.protection.outlook.com [52.101.61.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794335804;
+	b=k+qPFCsNfunl8qagT+ePBp9LpXtrOqTKtedB0ygsp2VrOaiGsM2QfuBw3qzfkKg+qoHI
+	 F1MBr3gcc9zexwk2cfv9KlCE2v3pQgWtD/bamPUl70DCYlCzPnybh1LVxDn+RofKTUBrs
+	 X1xaWAb0vm1mWQhYMu/ftfdXfhYRvTnYvCWyBLB9vVAEp4TnCM0iui3X/VaRnRPMEA/IL
+	 RPG47LhnFbJthDr+XgB6jCiL6R0OFwOYa4gJdZDAukHzKpuZd4i7hClEFfPwJ2VunUhEj
+	 +6JR8eqUuJZhx8HDz9jRu7jgZSkyz+WD1yfJ/kPUnmUkz1Lidt58Ih4H3CSPrB/mCMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335804;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=nq8v7VJ5VqpFS97EP72RtDwjUZHtXRoVpvPyoM9R8Ys=;
+	b=AJ2E6hBNOM5VOFOBV72LP4XfewZGP6xehC+Xf85oqxy7Osd9SvjTQQrKSIJzKAod22DP
+	 JmMj8Zlc/k3VQccSo21tUjdfLnp3WadCNJ1LriPcTi+tonLvB2KzipVdKyDP1WOfo7iEK
+	 UAxDil+2Bs/qSbp0hLq8MIgZMIlalF2JeQgfXU1Itf6ZmUHsy5uv9PkN2m4R2IhIpIEcR
+	 evunBCANtcSl8FHHi+4phzhgpubfWc2okVPvazUBdN8sARSr3XT4mYtyBz2WSffOiHcI3
+	 B82BPMyCZLNaUznjXEnx/l0SbC7MT1nu7M2bOYTS/H6hM1DUMgw06SdV5GvHFFREx0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="mfEd/YJ9";
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F1C606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37F1C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367AE606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 367AE606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=w+LYlzeA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E/wjZs8rLRN8i9yrf+bbjmMM1PIHw8Rxsl9jR6wQ2hWKSutiu6SrIDKPiq1y4CaX8rkRHDXBHJWxdgEggaNjsGiwU5ahUzUaoNfYA2Bld13mWDwtzNfqA3UTtmX12izdGzI9EfLCpm7HBft2JNrKU8RszXGSpKpotEeQSn5D6wTisn4Uguv11XTRKfurJC0VtX4nK8YEJXXvEeY1tr3bC4cW/zkUX2bjjzfhuxzSbLQhNAMekWNBb9vx4mVV3ZNOmecEj8Ia14ywFxWOfGpFRFl3BpAKd8dZV3IyhddIaxjfhae44G0/ob4aw7tz24TUOXQP8pSOUGB5LnkrBASwAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gX54iKe7U3rHK7fz3Yv5uuHDS1kraRODZUfBXc9xtno=;
- b=QLFVBwKmJyLmdoM+v+NkycEDvGA7/20Faec8ULrno7bKs+jIWVejVIvktn8XokmUP6mX6ydgmDRHIwvd19eYwWIlDWSclQWx2Loe4k3ix4fP/WttsYMqSgV7zddRKK1/V/XfoR7ek/DnSKYJLccrlZB3O81533Cr56XyB2oDuT3raELAyfVcRySSbS8xzNJpCFsj5IECUYQvlMol75Fn4ZYGiO+OSk+NzgX7iYScLsTUxB0kECGCKc/C7I4xBODx2nHKxAJMq/5ydeGtwtBK3kwMgnZuY4iFPxXxX/d+pepR82dCtBjGhnjijzZGlkZj47/JvmEjAeQDhdQUFby65Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gX54iKe7U3rHK7fz3Yv5uuHDS1kraRODZUfBXc9xtno=;
- b=w+LYlzeAn+qLdQzLLDAmOKJoAEWdoQ0wR+3B+O2RmlkIWyPtJv5vuvEZNmGg3N8/GRyKL8KYLM9VICh4pq9T9NMEaLUlYxP4u8WQyU8eHRC0ZrK4128FNwDOhqjeYzik7QXVs/gP0w/TJPmoKZNYei3dWbkoEQyudnAk3qpM6Ro=
-Received: from SJ0PR03CA0077.namprd03.prod.outlook.com (2603:10b6:a03:331::22)
- by SJ0PR12MB6941.namprd12.prod.outlook.com (2603:10b6:a03:448::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 18:36:01 +0000
-Received: from CO1PEPF00012E61.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::7b) by SJ0PR03CA0077.outlook.office365.com
- (2603:10b6:a03:331::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.11 via Frontend Transport; Tue,
- 10 Nov 2026 18:36:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00012E61.mail.protection.outlook.com (10.167.249.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 18:36:01 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 12:36:00 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 12:36:00 -0600
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 12:35:59 -0600
-Message-ID: <83a0f138-8692-62fc-8d27-b3b6b2d25d4a@amd.com>
-Date: Tue, 10 Nov 2026 10:35:59 -0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mfEd/YJ9
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ed3f563739so4385ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:36:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794335803; x=1794940603; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nq8v7VJ5VqpFS97EP72RtDwjUZHtXRoVpvPyoM9R8Ys=;
+        b=mfEd/YJ9LQD1MZMqGZ2wZBI6gqwjAUFPg+du9duIbyrgF76IEg8Fg18WL42GoVD3X6
+         T6JPOKxGNXfZMgysXHYFPgOAhagTGknB3RhTEiazFzlja93znJY20lBLCw4qZmI1Q+mO
+         yCV821AStoADY9CiXn62Gu1Po36veC3q5hBxe5UycKKLLj3bC3DhnvFfvK+0iKagTxfd
+         ET6AO4kcast6roTwa6F2FwSv/wkNuAnTmjBqePosjc9Sb0hoRZnUlRCbv6Li5/vy4Rx7
+         AvZ63le228l/HnUo2770nZsrtsOT01Dzi5QiKJFFfhumVh79jzjeR8XRu/wjtslUmwel
+         Uj6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794335803; x=1794940603;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nq8v7VJ5VqpFS97EP72RtDwjUZHtXRoVpvPyoM9R8Ys=;
+        b=1zMDk5ve5iUN6KsTrU4EhBSXtLsHjOQLajsjhExpuZmwXjtxUxTSPnq8u8FKPvW5lO
+         DsljOiz9TLiguGDQlK+I5qyff8PaoUEzmL3FEJY5iDWEUS7jZvCWiqw8JbUJ5tEAhNuK
+         xG0zakBAIaJ8io01WW0F25Z8uKGPEw14CFm1TPF7gFV0DW9d85Zy9oLBCfEuLt0kLFHk
+         AEYN/65bUX8PADQfKO5KekQ2a1QQn581TAad5bHw4QOfLUOpNXvcg3J/F6t6+hhgIDr+
+         yAzqh4RQgA4KAo0TwH13ESRlhkWT6ovJrMLF2jLHgvP6+TlM4fQHKWQPDXPq5vmolFBt
+         5dRA==
+X-Forwarded-Encrypted: i=1; AL+hErG1+/SS51IU9/bwTX16F7uldRbXV2x1deVCSzMagAGebXMOiYrsLnO7HBk/fadAh2kwJa1UluexzwOmJWM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YJBfipYqi7aThigllJPK6N6/DDSDJ2+C8IQ/0pHe9ziEC7VrH
+	Atzd/sYg+t0s/fXCDae37GhVN7WJQjUs4gY00kLr4vdLLdsW3sRSNmMvbEAGmMxHVQ==
+X-Gm-Gg: AYBFou2Os+UUewkUsBa2ayRhsjqKUwlcbMccnan9yCDXBGDSmZC+ZO7LBdjQUM4XipS
+	jY2ShuK0L4kC+T8VGtHKMiyNInTLvd44RJiFDoZxyaF2t74p/a3Hw8QS9P1ctnlTZ7pumDUhvLC
+	qKYUWPCsFYWgej15pm8INsHmBU6odaSyiGOuYFMv+W4/L1vVtWXiYjt8jCslvba1X/DIIhOZCjz
+	3wC5TUk7meY5RTZSmXgugQdQIh+0Tr4xZ4tTI/lDvLs7gopzdAd+IUCXjZnwN3+wG/Ff9Tzf+JH
+	OOntcbkictmpHkNK9bhYoKbUJFl5XcxOJ09T+dMNw4DXID3xA5rBHBQzXfeuEq/MXWK29x61zqJ
+	56QXpG0EKS4Ws6AX6bB+PJKXpWjuzv33iwPsfN6VrdbJObkOY2SPdXJw813mZrSFB6EHr97wSnC
+	KMBLP6mqKwO4AOAxzSGv080FpF4ePTHsBvkU6CCIVo7AJDLYtBf9sLjqeOggLw1dwXX0Vd3Vvjs
+	BH0UMZAkvsN7MRyOoWlFnPoCI3k+aEVEi1U+I8WZc1nFSA6zPKNMx1nLqALfgem+2HwIfa+4Nou
+	6teMvzu61ALoO76DOUczfSPQCDpqpSqnlIhciQpTODh/T1QAuLhLSTmCUGSkkm+7Wkl6kPwzPjg
+	koD1zWxY8NfqxpTs1FE6PtoXwUCs7BD86bHX5vq5eNqk=
+X-Received: by 2002:a17:902:ef50:b0:2e5:9bdf:6b65 with SMTP id d9443c01a7336-2edd6b65b7fmr241375ad.0.1794335802929;
+        Tue, 10 Nov 2026 10:36:42 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d7bf46sm12827355ad.31.2026.11.10.10.36.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 10:36:42 -0800 (PST)
+Date: Tue, 10 Nov 2026 18:36:39 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 2/2] mm/memfd_luo: keep memfd frozen until finish
+Message-ID: <avNkLp6z8MUdjgRc@google.com>
+References: <20261110175855.2437084-1-pratyush@kernel.org>
+ <20261110175855.2437084-3-pratyush@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,72 +99,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH RESEND V1 2/4] accel/amdxdna: Bump driver version to 1.0
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <20261104224302.643329-1-yidong.zhang@amd.com>
- <20261104224302.643329-3-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261104224302.643329-3-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E61:EE_|SJ0PR12MB6941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13dbdf2e-df7a-4199-664f-08df3f597837
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|4143699003|261102123227099003|56012099006|11063799006|261021121427099003|261021123027099003|261026140227099003|261022105027099003|261009223027099003|261026121527099003|261022075727099003|261028144727099003|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	2nUS602/ZelUg6+45lRjmL0hdeWzsE/r4WrTpIJ76UgYXF+tgHn7F1deuf+wJHQxQTgxOMf4O7Fe5HQPDmEeedD6KyOUjY+W50FibkcsxK59OswIRV4DrvWj93tSLDT5+Y4loeyuXqxiojDkGrzIyNqBhZv5Uc/iCkZJ8zIZgN3i6dlAzJt4MhBhU9iC5gX1Tp/JXx8J62N2/OWn/fnQ88TQnIXxUbLJHLiWrjBSA2iOzP1A0dBVncK4uCf5sj7XwravZFYb6+bxEHGip0yJvHgU4EW2MGckYvUvAKerAD+07iN4tF70nBj1e67W5jRhkR2B/RK80y1GgywzVQSygnoGZHOusVwFn6Uylx9eVg4oXafNd+KDYlCN72J1eN4mo/tgSIusXwTwu4o6MqIQjYk1mASNA/CqX16PcERrh9DHwxla2orKYR/icbZBONfrQn85xUpG/nyiqTdD6f6Jw+Q6lVlBdTYFygG8Q8IBrLdcLrXOt4XpDgK6eoiIwj1SenjLE0UdP5g0a4NrZlvmIMXLZ+/qkiz2rjaaJL+sYJmLosdSEL5wvzZ24auceAzNhfeJGNq5HftO60+6IgjWGXb2wYHHeaIvB4iDsdnt5RwZqWzKduD+Lg7kPP/xWBNpAqgWSJZCCN4WyAcznJKisGhqlkApba/Y7jwrj4B7x3hG3p2iwAHIC87LAlTrpHf5I9Xukpofe8MPitTw6LNe8Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(4143699003)(261102123227099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(261009223027099003)(261026121527099003)(261022075727099003)(261028144727099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8s96BTzcIEQJByVKCNBiy6aHvjOoAjYOSZUcdYtavwFyEIHYcVf3VO0O4PR/bvSEECoU7PhDDr28DoQz2TqBuRlcyz/SI8MYvXW0KwcE7okrkuoNCQ4WEbBKsHAmg0iECReCONUgmtRQj/9jzZgTq8lORJJiQE9d/54A5X7emIxBSRiXuAwaTiV8Fh2sguWgDYksQJhFqv6JHTLxm2jzN5NJplVuCAoVrjFYyKTiAMSpvS83glE43KnQzmIjMy6c2SbZ6/ZdnjbaMgZdUl8Z2m8Op8t7+gyOjI6YLaxYi++aGjTfESw7tgReaLlQ8Xf1qxlESKdXHyewmxL2d88mrpmSP1iDvBXAfNeS6S7s5cUm6SkhoJ9wsywH4uQ2kNfmw8OoS7DMejkVyG75uWPFEmyNnnL+NqWrchykp4xTUGvUXHzLldEnY1cVEZuUwjH/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 18:36:01.0316
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13dbdf2e-df7a-4199-664f-08df3f597837
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E61.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6941
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261110175855.2437084-3-pratyush@kernel.org>
 
+On Tue, Nov 10, 2026 at 06:58:53PM +0100, Pratyush Yadav wrote:
+>From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+>
+>After a memfd is retrieved, it immediately goes back into "normal"
+>operation. The file comes back unfrozen, and its pages can migrate, it
+>can be truncated, and so on. If the memfd is depended on by something,
+>like iommufd, that can open a window for folios to move around before
+>the consumer can re-establish its references.
+>
+>Finish is the conceptual point when a retrieved file can start to behave
+>as "normal". So take an extra reference on the folios and freeze the
+>memfd on retrieve until finish.
+>
+>Suggested-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+>Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+>Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+>---
+> mm/memfd_luo.c | 87 +++++++++++++++++++++++++++++++++++++++-----------
+> 1 file changed, 68 insertions(+), 19 deletions(-)
+>
 
-On 11/4/26 14:43, David Zhang wrote:
-> The driver supports AIE4 devices for the official release. Bump the
-> driver version to 1.0.
->
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index 685fe1a7dd56..0dc156a1c0c0 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -58,9 +58,10 @@ MODULE_FIRMWARE("amdnpu/17f2_15/cert.sbin");
->    * 0.8: Support BO usage query
->    * 0.9: Add new device type AMDXDNA_DEV_TYPE_PF
->    * 0.10: Support AIE4 UMQ
-> + * 1.0: Official release with AIE4 device support
->    */
-> -#define AMDXDNA_DRIVER_MAJOR		0
-> -#define AMDXDNA_DRIVER_MINOR		10
-> +#define AMDXDNA_DRIVER_MAJOR		1
-> +#define AMDXDNA_DRIVER_MINOR		0
->   
->   /*
->    * Bind the driver base on (vendor_id, device_id) pair and later use the
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
