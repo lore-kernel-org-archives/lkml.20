@@ -1,68 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346866;
-	b=hjRwvMuxrbRidPAjVkzQtLYCn6Hkr6AglNTXXFhzySUp17DD5MGdJ8awrm3vZHR8D5ro
-	 Km0STFH4ElAKcd1UkpcQmzNAwwuC457UbKB1ybSaXgOhyUPWO7kMHo2t2+pDfH1wVsI/E
-	 qcCOSbY3rQLf7yds//SR0fxWFOB4E87nVOdkt7yH41Ywt6HMm8tMU2FnQzyyVrQ3ni5fl
-	 yAiPXdru8N1QfqdOpsV+sf03A4ECej78oGV8Nih6DHVWcVrZuHk/J36KqjGpss29Ow9nb
-	 7MyhnmQafnbkpnr+xz79sBhpwZFg5HSWhULqFR/npn1XNcl8Aur0GK2JWoaDTOG6ycg==
+	t=1794346959;
+	b=qI7RRzTqyNpsyjf0yC3a5TknToftUB23HVOZnYLtfJhNefEkZ0oDcFL0l0xiYlUupkkT
+	 K7nQsW7hV527kiukS/86DNcNqOsPVndWtSYC1U+20GXTZlO2i7ZiK3mzb+CKRCmcgBiXh
+	 VBSaDen3u6XRBXQxGiPGInUpjTmxxHvYCh+HIOyilAEvKmqhNAFE1epC7plCIrjyMAQKU
+	 BD6AZAqlelNmZbS7nXHcwej+RKyeLm7OL+yCO9OwU+IFVyymG/3GBBZLQ85RC9QyUJqsR
+	 yi6RYRMdC7EP5/k3XsHxdBlT/vHzIxDKRKN9qOrK/QhlTNuJCOQ4SSEiJmbsHZqkHWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346866;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ixtMpyKuVqmLfVyWTMJcyq03enkowkj0Yu9R7AxinZw=;
-	b=Vwv6gapqNScUJt7Ts4aEcaYE9KGCLm+JWH3mzmee5h3+mFflRrdn3xp6Ru46T2UNW26j
-	 bnsSRQRKaLuRFr20c/59gmxru2JfNAxOgXRblKlnoarIgCwgR/64NCdXYnOERuSgpdizo
-	 Pg22G4plzGwVxnEZfILyaZW2wyORQ2Yny/gyijfMZzZs/6QFmMbxo1BOjyxoNqbwM7Y1Q
-	 yyzhIOxPynioMx5QPuGuIgruc//aPwXbkx6dgl6m2USMTxZOw6WENyrb5QDKA1X2/Aah9
-	 3yHfUbCDDCrKA7ppplnoopagvqwHi7Lyt1KSBgpLfAfmhlhTJ7BSPXk+SYNftnzhzpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346959;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5RCtVbPz+qIXu1i5cf+OFt0akM1iFcHbAtV0XVQiBYU=;
+	b=5YluYo82dIMzzrvtas5ZBpqXAo9/7z24i5obLKjfPB837gQAq8aMZmwOZQKA2TJf63ba
+	 TAZO9P16AFTrO/Lytwuw5zK30zd0OvLaUBc2LhqjY0PuFqAcxRg6Ejs988aCLjLv7DHAA
+	 CCV4oappsU14DAhfBU30zFbhzbfk6WlBd+sOYDmmGUvTwLFaQasSjagmSFL4DmaQE1Eig
+	 TQyE6QlhDruI5NQ/0xJNwPFIp6CdC6xdRXf5IAsTpwis3Kfw9lO6Xy1OloEYJZyYXInl+
+	 c0yJKg+WTQdiyFfkkeootnoWaOHGhvEeoQw40UOMLPajxArQo4vuGA9nw0tmXRlEFwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KqmIHHbt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="k6H/qLF4";
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CB9606A31C;
-	Tue, 10 Nov 2026 21:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437E0606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:42:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437E0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KqmIHHbt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ACD21F0089F;
-	Tue, 10 Nov 2026 21:41:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346865;
-	bh=ixtMpyKuVqmLfVyWTMJcyq03enkowkj0Yu9R7AxinZw=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=KqmIHHbt+4MlcGinjX1CG7dHiX9tx+oK36luFINyilzOaq5cJJApc11n3HySfT7yf
-	 zpGRr83a0DNMuyIPmAGLrbJim0iBYy0tsjvszsevhKKEdL/G4/VhqaW35upQeMQU95
-	 Kh/KRrwWPYgDMZQDJunIi9JuoPi0aaq/iV/OQ6b4TQOABSIqT11Vd8/DOajxKSJ9K8
-	 q+kvvJ0qltSMVaOVuvnfLLh1NZXtwxrxsBxbw2aFHE7v0T79MFvAcNiTixyG2/sV4T
-	 Ec8FF0wDq9R3A6LGZ/SQdXKUp/eKTcMpRlcoKKaIlookEGnZ7ylssapLz78U3skVEa
-	 m1p5VNVBIM3ag==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 334F8CE0AD8; Tue, 10 Nov 2026 13:41:05 -0800 (PST)
-Date: Tue, 10 Nov 2026 13:41:05 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, corbet@lwn.net, mingo@redhat.com,
-	frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org, urezki@gmail.com, dave@stgolabs.net,
-	stern@rowland.harvard.edu, parri.andrea@gmail.com, will@kernel.org,
-	dhowells@redhat.com, j.alglave@ucl.ac.uk, luc.maranget@inria.fr,
-	akiyks@gmail.com, dlustig@nvidia.com, joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev,
-	brads@mainlining.org, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org, rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 08/28] hazptrtorture: Add slowpath and lockdep scenarios
-Message-ID: <3433f88a-027a-4f70-be5b-2c35f9318fd4@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
- <20261104165504.2430480-9-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k6H/qLF4
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-84d5e56f876so1649483a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:42:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794346957; x=1794951757; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5RCtVbPz+qIXu1i5cf+OFt0akM1iFcHbAtV0XVQiBYU=;
+        b=k6H/qLF4bbf7rcyUJTTOVrtLQg1T4mQisUqZqTOptcR9ySMlXow2jQgdbUvSY2ZN3G
+         wQEj+U2eBJ7apPFknmoofTcmAR5+g6JbMuuQIqc0aRkb4ars5n7dbyB1LPmPKf6cn/7M
+         7rl1i0h4T/v36yR1UJXxaJTdS3NJlA4pyW4xZW2V3NWRAbguVUQl/a01nLVQzcWBATc+
+         yeyk53L0xKKE6u/kq2zj8m8tfi+FnmWWl/GWc9hPD6Zh/zkHpOgnBPYQBBum+Uadey9g
+         i5tuu17OP0qYFk8Aq1NK7Y/LYAEHa6UK8rVXQr0puM7Wjf877vnPpmHmCUcPBIlNln7f
+         0Hcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794346957; x=1794951757;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5RCtVbPz+qIXu1i5cf+OFt0akM1iFcHbAtV0XVQiBYU=;
+        b=Z/VyXbd2u5HqtJbBXFIz+p/CLmVqpwJbrqNTUXzi0Pmy2yV52coubetmtmn01+spKU
+         9UTFO0Xd61S+Xs7bLsvgIKC6qHWKN+P4R6gyXCKaKYh01TapVDiX7SGKjOeSSgsZSkX3
+         zB2+MMx/uhPNCSwo7xsAR2MXUXaG1FstLbRrIR/R5tZvltQ1Ukvs3On5QLCkzVo0ythW
+         J7ucgk1avbrU/t1cP3ldybfz90ToUWFTsFp3ErRTwu1UCMCS2+ceeO02RyRmqqNuFXP4
+         FuPBCEBI1UYcbMP0N1TNMI/aup+AwdbH4TWdEFzId74fjBDakrr+6OemQ3KyN85mUFxl
+         C0mg==
+X-Forwarded-Encrypted: i=1; AL+hErHjE8hrP8daHkai+psGi+t+zoYD1aHl3/TWFFSa1NowDPJKYlncugQXXTqvMrL19tKxJUy+wLbaZbYaqDY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RWbFxqJOqO8Bkh6FP0jGMG8RZZUrhe/HWnoMZy9TNMzoMdjgD
+	PBZSGhhGxVzpLk0QPOQal7K+cOs74X+FrKewLIK3wOvWKTS7B1NQ3AjKJWYYILpvchA=
+X-Gm-Gg: AYBFou1TNEQ1RMWKah3jucgiOd5zbTmq30JhqqoxK4oBCnCeU2iZkrQAqhvJGux35x6
+	eB807XZQ2LvXFRB4hqf4w0g8NrZzutDKIIbModhu/CGhojJR/om9gKHWp6gA48feMZeAuZbUCJR
+	JxZhMV+Q1KA38NZhLS80gynfB+tVjLs1l5YmHq9QNW3LJM7BObpWB5pZF8091wJ/T5ZJjRGABSg
+	jVCvCKM90FUFybSWYtmI+Kb0tLRyKq0f1Yin3Ir54rHWmOzHwLUeYYvaD4b3HAQXEaTDORpHQUB
+	ugDGwnDtsV8vi64QfGjRYIqsBnvjjo+QZBJdxbduvUk1hcmLfarKv3pzHTi+bVZ/cNGgwijplkp
+	kl5kJ32Xpb4QohJsP9MggfMYXDioNWqW+EVloR3NZBZqZNXmeOMLcu3RmwaEgCMGqpBNLRD4+14
+	T2l8vCdQ/0LR21AWN/H0BY16fAWLblHwnS3oOiVqI7LFdY+r10TlHLck/WkvRKx7NI9LLa2M4nK
+	LBvTRsM8p9zL09CQmCukiwNogr9wg2infZegg3dLwR8U4X79EjsI4lKPaQHngINgYJ7oV+1oXpk
+	clvS+6er4c5JDFJqb86vTFz3
+X-Received: by 2002:a05:6820:1518:b0:70b:8379:c145 with SMTP id 006d021491bc7-719177cc79fmr245993eaf.28.1794346957078;
+        Tue, 10 Nov 2026 13:42:37 -0800 (PST)
+Received: from en1.. ([204.144.167.9])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718a945ceebsm2575322eaf.8.2026.11.10.13.42.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 13:42:36 -0800 (PST)
+From: Amir Abudubai <amirabudubai@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Amir Abudubai <amirabudubai@gmail.com>
+Subject: [PATCH] Bluetooth: L2CAP: Increase default socket buffer to hold large SDUs
+Date: Tue, 10 Nov 2026 15:42:30 -0600
+Message-ID: <20261110214230.3646539-1-amirabudubai@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,199 +96,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104165504.2430480-9-kunwu.chan@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 12:54:26AM +0800, Kunwu Chan wrote:
-> Add SLOWPATH and LOCKDEP configs: SLOWPATH enables
-> CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH for slow-path stress; LOCKDEP
-> combines PROVE_LOCKING with wq_churn=1 so each alloc_workqueue/
-> destroy_workqueue pair exercises the lockdep hazptr paths.
-> 
-> Suggested-by: Boqun Feng <boqun@kernel.org>
+The L2CAP send path requires a full SDU to be assembled in the socket
+buffer before transmission can begin. Therefore, the socket buffer must
+be large enough to hold a worst-case SDU.
 
-Could the --kconfigs and --bootargs kvm.sh parameters be used here
-as well?  My concern is the proliferation of almost-identical scenario
-files.
+Derive the required buffer space from the worst-case parameters:
+Maximum SDU plus length field: 65535 + 2 = 65537 bytes
+At MPS 24:                    2730 full PDUs + 17-byte tail
+With 4-byte L2CAP headers:    28-byte full PDUs, 21-byte tail
+At HCI MTU 27:                2730 * 2 + 1 = 5461 fragments
 
-							Thanx, Paul
+MPS 24 and MTU 27 are chosen because they produce the most fragmentation.
+Apply a 4x safety factor because SKB_TRUESIZE can underestimate actual
+usage because of class-size rounding and minimum allocations.
 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> ---
->  kernel/rcu/hazptrtorture.c                    | 48 ++++++++++++++++++-
->  .../rcutorture/configs/hazptr/LOCKDEP         | 16 +++++++
->  .../rcutorture/configs/hazptr/LOCKDEP.boot    |  1 +
->  .../rcutorture/configs/hazptr/SLOWPATH        | 16 +++++++
->  4 files changed, 79 insertions(+), 2 deletions(-)
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot
->  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH
-> 
-> diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-> index c8b7c208775b..fe09280d063c 100644
-> --- a/kernel/rcu/hazptrtorture.c
-> +++ b/kernel/rcu/hazptrtorture.c
-> @@ -23,6 +23,7 @@
->  #include <linux/torture.h>
->  #include <linux/hazptr.h>
->  #include <linux/rcupdate.h>
-> +#include <linux/workqueue.h>
->  
->  #include "rcu.h"
->  
-> @@ -51,6 +52,8 @@ torture_param(int, shutdown_secs, 0, "Shutdown time (s), <= zero to disable.");
->  torture_param(int, stat_interval, 60, "Number of seconds between stats printk()s");
->  torture_param(int, stutter, 5, "Number of seconds to run/halt test");
->  torture_param(int, verbose, 1, "Enable verbose debugging printk()s");
-> +torture_param(bool, wq_churn, false,
-> +	      "Churn workqueues to exercise lockdep dynamic keys");
->  
->  static char *torture_type = "hazptr";
->  module_param(torture_type, charp, 0444);
-> @@ -62,6 +65,7 @@ static struct task_struct *preempt_task;
->  static struct task_struct **reader_tasks;
->  static struct task_struct *do_pending_task;
->  static struct task_struct *stats_task;
-> +static struct task_struct *wq_churn_task;
->  
->  #define HAZPTR_TORTURE_PIPE_LEN 10
->  
-> @@ -83,6 +87,7 @@ static atomic_t n_hazptr_torture_alloc;
->  static atomic_t n_hazptr_torture_alloc_fail;
->  static atomic_t n_hazptr_torture_free;
->  static atomic_t n_hazptr_torture_error;
-> +static atomic_t n_hazptr_torture_wq_churn;
->  static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_acquires);
->  static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases);
->  static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_acquires_irq);
-> @@ -668,13 +673,14 @@ hazptr_torture_stats_print(void)
->  		atomic_read(&n_hazptr_torture_alloc_fail),
->  		atomic_read(&n_hazptr_torture_free));
->  	torture_onoff_stats();
-> -	pr_cont("acq: %lld rel: %lld acqirq: %lld relirq: %lld reldefer: %lld relundefer %lld\n",
-> +	pr_cont("acq: %lld rel: %lld acqirq: %lld relirq: %lld reldefer: %lld relundefer %lld wqchurn: %d\n",
->  		torture_sum_pcpu_atomic_long(&hazptr_torture_acquires),
->  		torture_sum_pcpu_atomic_long(&hazptr_torture_releases),
->  		torture_sum_pcpu_atomic_long(&hazptr_torture_acquires_irq),
->  		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_irq),
->  		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_defer),
-> -		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_undefer));
-> +		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_undefer),
-> +		atomic_read(&n_hazptr_torture_wq_churn));
->  
->  	pr_alert("%s%s ", torture_type, TORTURE_FLAG);
->  	if (i > 1) {
-> @@ -788,6 +794,38 @@ static int hazptr_torture_preempt(void *unused)
->  	return 0;
->  }
->  
-> +static void hazptr_torture_wq_churn_fn(struct work_struct *work)
-> +{
-> +}
-> +
-> +/*
-> + * Repeatedly create and destroy workqueues.  Each workqueue creation
-> + * registers a lockdep dynamic key and each destruction unregisters it,
-> + * which exercises both is_dynamic_key() and lockdep_unregister_key().
-> + */
-> +static int hazptr_torture_wq_churn(void *unused)
-> +{
-> +	VERBOSE_TOROUT_STRING("hazptr_torture_wq_churn task started");
-> +	do {
-> +		struct workqueue_struct *wq;
-> +		struct work_struct churn_work;
-> +
-> +		wq = alloc_workqueue("hazptr-torture-churn", WQ_PERCPU, 1);
-> +		if (!wq) {
-> +			torture_hrtimeout_ms(10, 10, NULL);
-> +			continue;
-> +		}
-> +		INIT_WORK(&churn_work, hazptr_torture_wq_churn_fn);
-> +		queue_work(wq, &churn_work);
-> +		flush_work(&churn_work);
-> +		destroy_workqueue(wq);
-> +		atomic_inc(&n_hazptr_torture_wq_churn);
-> +		stutter_wait("hazptr_torture_wq_churn");
-> +	} while (!torture_must_stop());
-> +	torture_kthread_stopping("hazptr_torture_wq_churn");
-> +	return 0;
-> +}
-> +
->  static void
->  hazptr_torture_cleanup(void)
->  {
-> @@ -880,6 +918,7 @@ static int __init hazptr_torture_init(void)
->  	atomic_set(&n_hazptr_torture_alloc_fail, 0);
->  	atomic_set(&n_hazptr_torture_free, 0);
->  	atomic_set(&n_hazptr_torture_error, 0);
-> +	atomic_set(&n_hazptr_torture_wq_churn, 0);
->  	for (i = 0; i < HAZPTR_TORTURE_PIPE_LEN + 1; i++)
->  		atomic_set(&hazptr_torture_wcount[i], 0);
->  	for_each_possible_cpu(cpu) {
-> @@ -960,6 +999,11 @@ static int __init hazptr_torture_init(void)
->  		if (torture_init_error(firsterr))
->  			goto unwind;
->  	}
-> +	if (wq_churn) {
-> +		firsterr = torture_create_kthread(hazptr_torture_wq_churn, NULL, wq_churn_task);
-> +		if (torture_init_error(firsterr))
-> +			goto unwind;
-> +	}
->  
->  	torture_init_end();
->  	return 0;
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP
-> new file mode 100644
-> index 000000000000..f0ff29925a54
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP
-> @@ -0,0 +1,16 @@
-> +CONFIG_SMP=y
-> +CONFIG_NR_CPUS=16
-> +CONFIG_PREEMPT_NONE=n
-> +CONFIG_PREEMPT_VOLUNTARY=n
-> +CONFIG_PREEMPT=y
-> +CONFIG_HZ_PERIODIC=n
-> +CONFIG_NO_HZ_IDLE=y
-> +CONFIG_NO_HZ_FULL=n
-> +CONFIG_HOTPLUG_CPU=y
-> +CONFIG_SUSPEND=n
-> +CONFIG_HIBERNATION=n
-> +CONFIG_DEBUG_LOCK_ALLOC=y
-> +CONFIG_PROVE_LOCKING=y
-> +CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-> +CONFIG_DEBUG_KERNEL=y
-> +CONFIG_HAZPTR_DEBUG=y
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot
-> new file mode 100644
-> index 000000000000..7b16720214bd
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot
-> @@ -0,0 +1 @@
-> +hazptrtorture.wq_churn=1
-> diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH b/tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH
-> new file mode 100644
-> index 000000000000..4d13028ca84c
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH
-> @@ -0,0 +1,16 @@
-> +CONFIG_SMP=y
-> +CONFIG_NR_CPUS=16
-> +CONFIG_PREEMPT_NONE=n
-> +CONFIG_PREEMPT_VOLUNTARY=n
-> +CONFIG_PREEMPT=y
-> +CONFIG_HZ_PERIODIC=n
-> +CONFIG_NO_HZ_IDLE=y
-> +CONFIG_NO_HZ_FULL=n
-> +CONFIG_HOTPLUG_CPU=y
-> +CONFIG_SUSPEND=n
-> +CONFIG_HIBERNATION=n
-> +CONFIG_PROVE_LOCKING=n
-> +CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-> +CONFIG_DEBUG_KERNEL=y
-> +CONFIG_HAZPTR_DEBUG=y
-> +CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH=y
-> -- 
-> 2.43.0
-> 
+Signed-off-by: Amir Abudubai <amirabudubai@gmail.com>
+---
+The L2CAP send path deadlocks waiting for buffer space if it cannot fit
+a full SDU in the send buffer. Using the system default typically causes
+that to happen before the max allowed SDU. I didn't address the deadlock.
+I just scaled the buffer so it is unlikely to happen unless the socket
+gets resized after initialization.
+
+ include/net/bluetooth/l2cap.h | 4 ++++
+ net/bluetooth/l2cap_sock.c    | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index 54eddcdd341f..0cf1ca4ec3cd 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -26,6 +26,7 @@
+ 
+ #include <linux/unaligned.h>
+ #include <linux/atomic.h>
++#include <linux/skbuff.h>
+ 
+ /* L2CAP defaults */
+ #define L2CAP_DEFAULT_MTU		672
+@@ -41,6 +42,9 @@
+ #define L2CAP_DEFAULT_MAX_PDU_SIZE	1492    /* Sized for AMP packet */
+ #define L2CAP_DEFAULT_ACK_TO		200
+ #define L2CAP_DEFAULT_MAX_SDU_SIZE	0xFFFF
++#define L2CAP_MAX_SDU_FRAGS		5461    /* Sized for worst-case CoC fragmentation */
++#define L2CAP_DEFAULT_SNDBUF \
++	(4 * L2CAP_MAX_SDU_FRAGS * SKB_TRUESIZE(SKB_DATA_ALIGN(HCI_MIN_LE_MTU + BT_SKB_RESERVE)))
+ #define L2CAP_DEFAULT_SDU_ITIME		0xFFFFFFFF
+ #define L2CAP_DEFAULT_ACC_LAT		0xFFFFFFFF
+ #define L2CAP_BREDR_MAX_PAYLOAD		1019    /* 3-DH5 packet */
+diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+index 7a2551ef7f50..5f4fde8b4a6d 100644
+--- a/net/bluetooth/l2cap_sock.c
++++ b/net/bluetooth/l2cap_sock.c
+@@ -2046,6 +2046,7 @@ static struct sock *l2cap_sock_alloc(struct net *net, struct socket *sock,
+ 
+ 	sk->sk_destruct = l2cap_sock_destruct;
+ 	sk->sk_sndtimeo = L2CAP_CONN_TIMEOUT;
++	sk->sk_sndbuf   = L2CAP_DEFAULT_SNDBUF;
+ 
+ 	INIT_LIST_HEAD(&l2cap_pi(sk)->rx_busy);
+ 
+-- 
+2.43.0
+
