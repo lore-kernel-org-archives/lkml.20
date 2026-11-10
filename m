@@ -1,72 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324160;
-	b=YqvlvyiNRL+qiwbV1BBG5ifPTNkFdS2GqSPc+rClSlJT5sdJiwL5mhWzsorkBHGmjfG6
-	 hh/JAaTIngVGf/HcimQMr4Cm0mZKi3bJF3hnv8EVKN0sD5Cp9rh0088hn9VBNrUFs4/C3
-	 9xlQlq3feKihLH0CLxpCbipI8kxKBQWtBxjRiMqXjWVZ9wB/HdOm0FA2aygo/mritedgf
-	 +MSin6Lp92Q4YcCUC2Y0N3kfzooaJFK5plyCFQUsf/UhYD+xQw3oKeyWVLwlzhJNphhkr
-	 PSMm9apLTku+szwoP8c5EP7alnhwJ221eshpJUCAiiKgTL0eiDlUiUzNIqHSiRVc+Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324160;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=OAce0CBAN3GtzGnv5CfUsNZro3HCLUdMOg5tLbPBU9E=;
-	b=Q0kI3wUjLKHSWLg4hB0LCD1HmbA+7L2ueLZf1/1n8DoDwFcwa8qMhZM7z1IvB6sHkfPR
-	 8pu3xsJgxs6dwbjNYJY6ERRwNYWGXGs3bDST7T4bfZiQnecVv93LSPxzlQzClI7uOfM1o
-	 tWXojxn0Nmf6niBopOjWvQn1Pic6CBcSN5rOTiponmqShjjW8hck8MAqkI66bFZXGAVqd
-	 ALakWXOLS8bzKqQ0ywYhkSR3UDpNebV/ag70G6trimiGpLmm9P8eI7jWIovjJYProD0Ff
-	 PQkQnAoSgxpDexGLm3OUingJsKFoNAX7g0aYv0ZTCrfYFst1moPqKW1UjbE0oRz0AVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=e38LNXra;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794324164;
+	b=EgFEr8NMfOQIl5JhwvdXEITxurydSnFXCnF2sThd/IJs5Uq6BcNeHnzEtYZMO3hy9X1S
+	 t+QCVatPtl8TRj+zfPiyq0Oc4x0UcwFGJTGHVCKelgAEf719RJLcqljJ+A2qqSksqOtNT
+	 zc0AyM7HXSZkEmFKC1rL0toqP2YnFDKIcHEtNAFKohEkCPyzJNmmP9EBCgIFFfz9VWTZr
+	 CoPtMxOidF5gpOVXrKGe4CUTRt31+lnaDTdN2TeHJANqzT5Sok5t7EcjAfXAKTcTfq9W3
+	 aZTYZxxpqq7rKHOBZlsYhMSvGFh4iQ0fsSstAcIjvqaTsfQKyPHvUjkdOBtiX/7B7rQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324164;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CJiQL5sKqyZVeUNg8rOn7a2I+JT7y6AYk1VYUPMSMjA=;
+	b=y4U8yLxxFDEXPrX7QOfcSjlTcbQLQqLvTHID07uALVIKBl0/jsKj2E2mP/yrilB8W21+
+	 D5p/8toGH8R6zX0uymUSuAR5FxrYU8ZqCU7Ypwmt98jIRVpmdfQJimKmgHK2ssD1sVlFS
+	 TfmJYU63m02EjPA3rCznv6G3XzcdvWMc4Gdp8VD6uKqhAK2RdqKoj4RuF6LxZ74thBcXQ
+	 x7Dq1acTFsmcv4u73l06zAASGWmR6Yyn0wIziLJf7PMjpslp7PVwBVHmcAe/tpKQ4J/4D
+	 UK/Q9c03d9XpA/d+ujRDhw0/k9+KtuGYhgl4zsIm51QKK9PsIOc91FSzHgmE8mQ7hHQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vpPk5dhh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.44
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E3E606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:22:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E3E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D81606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58D81606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=e38LNXra
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id QmPoxG7aXyb4YQngGxwTZ2; Tue, 10 Nov 2026 15:22:40 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QnZLxifPtFhzrQnZMxvTGy; Tue, 10 Nov 2026 15:15:32 +0000
-X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af33515
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=p-LfKV-GAAAA:8
- a=RRSeb3MyvwmVutVlTdYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=97BuGM4RKn6GwmfqMd6i:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=OAce0CBAN3GtzGnv5CfUsNZro3HCLUdMOg5tLbPBU9E=; b=e38LNXra+eyP
-	nkYaLpOx7nJhvyEYwHl2D8iiSBeT9O39AI2Ps6ozjFicpvxAKBUk8u3UKBDcbY6cSYTwOwgJdj+mW
-	gdglvpMfe2A96sy8tbpZu5uDju+eK1ghOtH9Q0u63qWfkFON31yHQ9tya0B631bhWfUTSqWQkrnWT
-	hpO5JEIQ2UgfkQiyAawhHuxdPIuYehLSTgtNUzcMhJcmN87V0I0dumGe3+mbDoPESV13LnPhnQC6a
-	fNx5Y3l+Tllx2CdM4UyrefGx2a3k/LJgg0yMTbZCEj7SblUTX+ww3RreLrFPofzbSB1nhZGhDzVNb
-	b7SGuSYt/BeYSnZcfB//Xg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37486)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQnZL-00000001MYS-2AG5;
-	Tue, 10 Nov 2026 20:45:31 +0530
-Message-ID: <20b8e15f-70fb-4844-abb6-d91d7d7e9849@roeck-us.net>
-Date: Tue, 10 Nov 2026 07:15:30 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vpPk5dhh
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so568736241.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:22:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794324163; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T70Qbc7TFxji8STYVrSZ/uvZOZmgNPjwUdxvZomEZhEXO+WdJr20jp8JO43vWH/KFh
+         Vqi/BexoLvDODUMcROS6kHQf9MS4fFs5OfT6YZ/j29DET4J4tBFaW5qSu3IZzKHqn6L4
+         bvMRPW6/sVO+Oa6Te/SOw8UuA18h+GUPTzW1Jgt6yt1/TtU0o3XFlHjYEJ7MxDTwzo/M
+         GBejIEFGI69xenQmiy4lCyqv8QE7BYTuyTywQQ/HyH+mpHLMkWj1PhBV/vdhfD/vHnFF
+         WBVqOyxXs7fShg6n2wzPSpoTpxIDZLAk5erwxKYhc/meLqH79806AWcwwy7whTy6TRvb
+         tgEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CJiQL5sKqyZVeUNg8rOn7a2I+JT7y6AYk1VYUPMSMjA=;
+        fh=ouF8IFnFxYldN6Xjp/FqrbRi5tnH7UpIDhc88CByLJo=;
+        b=RRM31vnndNipJcnBubwOfsfnY/MY9Im4BPPWPXRQCZHnuWeyINUgNPyuiJbPqgiQRB
+         w6JHb00PBjQhyWfnKaYFDjXzWLz5ojY9rOFRbSXohTRsoIbEmbtU8FSUHp57kuFqitQU
+         /07SFuspVDm3I0Dps4v3gp39GSgvUWyTpZB6papg+H8CSNIkytJSI/7M5xi7J9c8DjY1
+         Tq5H24WogpX4sKAoKBlxeQVJgfylEYGgQEADvoUzrpMjaeK6J5xP9TcXYxp/Scaxc4+X
+         kLeQzY8Z52pHUpHhjIMaX2ap6T3kYpPpZhHNH0FzzfqqPLj4jfwHKMXrbSDxGyeN/CWB
+         16Rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794324163; x=1794928963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CJiQL5sKqyZVeUNg8rOn7a2I+JT7y6AYk1VYUPMSMjA=;
+        b=vpPk5dhhI/RU6k/kmNTxujQ8ynYzj/ulpvfjhDI8C4HfIDgv9TpbrH9qB2B6IhOLhb
+         XnJC6w49DVW62pNYEsgW+CICmDNSLQ89K7ocLHaXQIcQzxN1VuNR61e/wfH+r47HD72j
+         9fNs4c80+R+6KUQ6lIaIRzSsljX9OoaRPiH883FIRRx9gNJBx6X3oOLDGIuvEd0U7eYr
+         Lx5ztZC7X31XPNfaVZMaUTc5gtFrUhu4cotfxnYYjbutuy1VOnRacmaslrgMI87MSrZ7
+         2XxwoFiZn3HHv1AED277aqYeuIFlkEX/tI3JV3g81UDiqIDlmo/b9wXlbqAvCiqjgm3b
+         VXug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794324163; x=1794928963;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CJiQL5sKqyZVeUNg8rOn7a2I+JT7y6AYk1VYUPMSMjA=;
+        b=WjwTpfeA0ymNR2FRZOWVzU0ovzxMF+nT0zYOK6Y/DRhlSP8T7/tlsxGm7R4ygsYHpr
+         L26KzKKMNnvb9q+3uuDVWj9a/Cflfr/5bmDKX3awfnQvQ6sUSsAkc25g+liGUg9Spli9
+         R+SfZe6js4KFuQ2OOrTNVJLmzvb0gFajb4phIU9l5SeogK9NEI2N0vFxll1d/Tlqm/fB
+         NF+eRpgfxn7UImOibomGrcalMOkJG/TWgbOu4WlcuD+gUiIRmjXJp6BgN4vp78671tSt
+         ZipWSgIzIAY82MbT3Ii5cLdr+2ZMzvYIms7601xNs2LUO6iGwGrx58FoaXP0sqgtzqzs
+         a6jg==
+X-Forwarded-Encrypted: i=1; AL+hErEonSMFSjp8qiueFkoenSJ9+T0buQ9CT0KTyShiENkYo5sUiu4+HYGoguZwjpyiMPMUtYE8CfaOnG33PVQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tSz0Bhy2Nb0F1aQXQ0vWTLdKF2G+/xz5Rzi75pj3Pe6fvCCY+
+	eQbsozQDWHS1DSZiQojU6sjSVXGvNqjaso1/KyRqLwIsqVn9VIUBA5PKAoe6MUyAmVjwqrUl5A+
+	ReW9cb9CdelH1yLjiZZMqtm3+tcSiU/w=
+X-Gm-Gg: AYBFou2QWAZHPqyVmZck87dyPir9tQ4ETwg7vzdVbNl2zyE98ZrdgxaV+ddEoznvm3V
+	WRHrm1Id3ROPDcWZ+ejNB5IH4mg7LoPM5DApzyHB/Ev2oCeX90nv/uMynP+XnwM+WG+i0lD5M0S
+	zUrJy6y0PbFqEPX4U/Vw0tMpMaNXQmSqUkGwRjox0K4w8JsXy6j2Pyf/9xXOUGgD+LBUuz1NagG
+	/wcZby6bhdGPtfC8RSYhoE+873ObuJgd+Qvt3q5QBX2wT477bpeo7l7ADVph2zDlzPRFVsfT+Np
+	XVuMKeNvnetQHmVXuspYmsjcSCG2DqibFAF4ryMXWM9v7nHpwbyJvDqZ3xr8vMjTfNK6yNecqYD
+	70MdloWtEBfjWhtljqNybsMsML9wzqR6/Y+7LEbbYDYx+EPpMv/cgKioxryDEuWzMSKtOHPiFKu
+	RASLG+whV9oKfByxbCaiHbunLZzqbzQ6Bx4k7tPA==
+X-Received: by 2002:a05:6102:5087:b0:7c8:1fd5:82b5 with SMTP id
+ ada2fe7eead31-7d301bc9d82mr797847137.14.1794324163139; Tue, 10 Nov 2026
+ 07:22:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,112 +105,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: trivial-devices: Add National lm77
- temperature sensor
-To: Lukasz Majewski <lukma@nabladev.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261110150243.1531953-1-lukma@nabladev.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261110150243.1531953-1-lukma@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQnZL-00000001MYS-2AG5
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:37486
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGevUcJ2C+XLcZW4Su4jmnGvyTALLlvCYNSGQxoQcCuNA1yRQ9IzvuiNlHQPbZ9piikcvjAEkXP0yfqDEhRogwPiRLOKrrUpM5EsWOhL2ITw8qUr+Urm
- KwCiPXmnSnovqtJUOf02RrmLjKYZ9uIAH0Hcwmhn6GYBFg3/6Bfg/uWZS9SL0JK6zZyvuyRlYMC72ZVYOfRjuWlTE/GxPEl5E7pxX3MMx3LpTzNRzdqqSVGu
+References: <20261107030532.32310-1-kylebot@openai.com>
+In-Reply-To: <20261107030532.32310-1-kylebot@openai.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Tue, 10 Nov 2026 10:22:30 -0500
+X-Gm-Features: AclHuK_as0CyVKCysZAXlMmcRhg8HgWxQZlIW2p68ZFwPAUogqt6LAxG2x9OdwQ
+Message-ID: <CADvbK_eK=sgA5Yvm9fpFjmREg61Aof5ci6J_zFNp0wbQHJiLzA@mail.gmail.com>
+Subject: Re: [PATCH net v3] sctp: avoid requeueing pending control chunks
+To: Kyle Zeng <kylebot@openai.com>
+Cc: linux-sctp@vger.kernel.org, marcelo.leitner@gmail.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/26 07:02, Lukasz Majewski wrote:
-> Add "national,lm77" as compatible for the National (now TI) LM77
-> digital I2C temperature sensor.
-> 
-> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
+On Fri, Nov 6, 2026 at 10:05=E2=80=AFPM Kyle Zeng <kylebot@openai.com> wrot=
+e:
+>
+> The T4 and RE-CONFIG timeout handlers take a reference to their cached
+> control chunk and submit it through SCTP_CMD_REPLY. A previous
+> transmission can still be on the control outqueue when output is corked
+> or suppressed, or when sctp_packet_transmit_chunk() could not append the
+> chunk.
+>
+> sctp_outq_tail() then adds the same list node a second time. Re-adding a
+> non-tail entry can corrupt the list without being caught by the
+> insertion-time list checks. A subsequent flush or association teardown
+> can access an already freed chunk. The ASCONF path is reproducible by an
+> unprivileged SCTP socket owner in a user/network namespace, with KASAN
+> reporting a use-after-free in __sctp_outq_teardown().
+>
+> Check sctp_chunk_pending() in both timeout handlers before taking the
+> extra reference and issuing SCTP_CMD_REPLY. If the chunk is already
+> linked, leave the existing entry for normal output processing. Keep
+> the remaining timer and error-handling commands unchanged. This also
+> covers RE-CONFIG retransmission after sctp_assoc_rm_peer() moves the
+> request to another transport and starts its timer.
+>
+> The issue was found by an LLM.
+>
+> Fixes: 2e3216cd54b1 ("sctp: Follow security requirement of responding wit=
+h 1 packet")
+> Fixes: 7b9438de0cd4 ("sctp: add stream reconf timer")
+> Cc: stable@kernel.org
+> Suggested-by: Xin Long <lucien.xin@gmail.com>
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
 > ---
->   Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-> index a8b2b9deade4..9413ee0626f5 100644
-> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
-> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-> @@ -387,6 +387,8 @@ properties:
->             - national,lm85c
->               # I2C ±0.33°C Accurate, 12-Bit + Sign Temperature Sensor and Thermal Window Comparator
->             - national,lm92
-> +            # Temperature sensor
-> +          - national,lm77
+> v1: https://lore.kernel.org/netdev/20261030042321.74407-1-kylebot@openai.=
+com/
+> v2: Move the pending checks into the T4 and RE-CONFIG timeout handlers.
+> v3: Drop OUTQ_FLUSH and use the two pending checks as suggested. Leave
+> already-queued chunks for normal output processing.
+>
+> I have a reproducer for this issue and can share by DM.
+>
+>  net/sctp/sm_statefuns.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
+> index b2f609f177fb..64519fd8f943 100644
+> --- a/net/sctp/sm_statefuns.c
+> +++ b/net/sctp/sm_statefuns.c
+> @@ -1122,9 +1122,11 @@ enum sctp_disposition sctp_sf_send_reconf(struct n=
+et *net,
+>                 return SCTP_DISPOSITION_DELETE_TCB;
+>         }
+>
+> -       sctp_chunk_hold(asoc->strreset_chunk);
+> -       sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
+> -                       SCTP_CHUNK(asoc->strreset_chunk));
+> +       if (!sctp_chunk_pending(asoc->strreset_chunk)) {
+> +               sctp_chunk_hold(asoc->strreset_chunk);
+> +               sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
+> +                               SCTP_CHUNK(asoc->strreset_chunk));
+> +       }
+>         sctp_add_cmd_sf(commands, SCTP_CMD_STRIKE, SCTP_TRANSPORT(transpo=
+rt));
+>
+>         return SCTP_DISPOSITION_CONSUME;
+> @@ -6197,9 +6199,11 @@ enum sctp_disposition sctp_sf_t4_timer_expire(
+>          * chunk, it MUST be the same (including its serial number) as th=
+e last
+>          * ASCONF sent.
+>          */
+> -       sctp_chunk_hold(asoc->addip_last_asconf);
+> -       sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
+> -                       SCTP_CHUNK(asoc->addip_last_asconf));
+> +       if (!sctp_chunk_pending(asoc->addip_last_asconf)) {
+> +               sctp_chunk_hold(asoc->addip_last_asconf);
+> +               sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
+> +                               SCTP_CHUNK(asoc->addip_last_asconf));
+> +       }
+>
+>         /* ADDIP 4.1 B5) Restart the T-4 RTO timer. Note that if a differ=
+ent
+>          * destination is selected, then the RTO used will be that of the=
+ new
+>
+> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+> --
+> 2.55.0.openai.911.g06873a30d2f3
+>
 
-I'd suggest to retain alphabetic order.
-
-Having said that, is there any evidence that this chip is used
-on a system supporting devicetree ?
-
-Thanks,
-Guenter
-
->               # Nuvoton Temperature Sensor
->             - nuvoton,w83773g
->               # NXP ISP1301 USB transceiver
-
+Acked-by: Xin Long <lucien.xin@gmail.com>
