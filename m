@@ -1,83 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.95.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306784;
-	b=iKby86NSr+OqXCHSPEPnV75zrh6iUZkTYlRsxZMm9otF69OziQ6iFxwn8hhdwkMuLyh2
-	 G8oLQNEWCUdfQnMYO7ozxvNIYm7NmV8kLpWi0gGXw85wcVqpCDOEcTR+dNS0iaTMfchIz
-	 UN3KHOPq/TzpsFuZcZab3I58qrUeN1xFn3KduI4I9mCdjk5Xu8gDlRe9jPdB3NihmE0MW
-	 fpCK0xN6TT0Xr1goc2p5ybaZUFcdy8Xs98HTI+ARQBzhzGwXEho07sGnb+QvPe5VbcHsM
-	 smsvYWkchTDsitRRZZkwW2Cw0OjXCIGgpaANDappshNkMnsgb3amtSZMt+fPSIKFhFA==
+	t=1794306848;
+	b=uZr2uv5FDQX1i9XJXyQIrwm8IQHFObcKJb/y/0PDS8FodeXXbyya9oJ0m7Hb3iVg2566
+	 J+G56XPvdBwbvLetJJfPxvQgMs88m2rlWpDZSOQ4nxXG9dNPuyGaTAeLpxDlO43xT5SOG
+	 uPWMFIeltOO+8f/wo6jPNdUuFE4bBJ/M9qvFdvXx7Q2PEEftxR6YbEV5h64W25nW4S5ZH
+	 Ax2qWl0KL8oiyJRb7lwfFYjHbJDZkPxWIUocvNosH+3AvxsmOrHFlceY5hZqHGcy/UWea
+	 1TdfARvt3xtxjP7hTEXBK7R7HvcaTloF88wpat3ju50exuEMTXnQ+5Lm/ViTw0/b5Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306784;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=1esiKew9Kf5TdFkOZuL2gNQgmtiuW4sLpwZ5+tozEFM=;
-	b=efVsMbu0drHDvIEUWheT1rY8+nuCYf7mfO0ay/sLAyRjIuCAuAQ5ekx8CYm3yDy0UouG
-	 YYyrOCYmHm0iXoM+ANfpZgz3R/2jbNbSnw9KaRtTEcfF48tAGUAfJZ5NKAPlLoJ5lkLoI
-	 IG6IimWzjoCTZnQf++LgAb8/J8Iirzltszv9TC1144SgFtuQXee/v8fzTva23Vf8vxOeN
-	 PQLbr4Y4GP2sP6t2x2me3e0sPDnPQLUqGHTEGFRewh87xgTmsa3HIzp7/pc0p27BU6Cm1
-	 mjTIL/fFkgsJF/aQx+dl0XRaEuRIREeFOTNe0Vxs8qTloH/dItFjuE2+LqaZrE0mFbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306848;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BDVHJjgxJtB0Z/B1mCS5I7G7TbCELKDyuTGiy+fw8dk=;
+	b=18IpDRiEw2GGxQcnWVzXwWP2fHE/5stgoLBKlBJnnIYEJYOPAGyGIHVKvCNvaA2z2xxl
+	 RnzNkt5U7ADmr/aLxyDd1CG4fXVfcXpFWI3j4RpH2btdte2Wo3We8Nuj0pauIjH6kQ8CN
+	 8y4A6z+rAkFAGHoWzC6mBreSdIzLnHsWDh1R2jOmEtedia6zqofX820JJNz7v72dq4bCp
+	 f35ri+pgKC33C5k/Xzi/EThZoP3NL62PIkyRR5Z8cLSLNIbw4WwxDvJA9+s/3sFJ4S7Ke
+	 m3vENzsER7BKQW5h5K2B0hxh415y0n2kbw7z+xLZMxmlqN5WfGQ9fIZx1bB1pdX1NRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=none header.from=wunner.de;
+	spf=pass smtp.mailfrom=wunner.de;
+	arc=none smtp.remote-ip=83.223.95.204
+Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B13606A332;
-	Tue, 10 Nov 2026 10:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00B13606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 15c8d2bedcf211f19a56ed5b684f684d-20261110
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN
-	HR_FROM_NAME, HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
-	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT
-	HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, SA_EXISTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1a293c53-9673-4b91-ac18-ef98a3b68ccc,IP:10,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:1a293c53-9673-4b91-ac18-ef98a3b68ccc,IP:10,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:25faa09c7e82dc7887a3db5e65bd8bf2,BulkI
-	D:261110183256F07CCLLB,BulkQuantity:0,SF:17|19|38|66|78|81|82|102|127|136|
-	153|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil
-	,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,
-	DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 15c8d2bedcf211f19a56ed5b684f684d-20261110
-X-User: liuzhe1@kylinos.cn
-Received: from localhost.localdomain [(114.244.3.119)] by mailgw.kylinos.cn
-	(envelope-from <liuzhe1@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 607355249; Tue, 10 Nov 2026 18:32:53 +0800
-From: Zhe Liu <liuzhe1@kylinos.cn>
-To: axboe@kernel.dk,
-	tj@kernel.org,
-	josef@toxicpanda.com
-Cc: yukuai@fygo.io,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	Zhe Liu <liuzhe1@kylinos.cn>
-Subject: [PATCH 3/3] blkcg: account cgroup v1 I/O before checking throttle activation
-Date: Tue, 10 Nov 2026 18:32:01 +0800
-Message-Id: <20261110103201.762861-4-liuzhe1@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261110103201.762861-1-liuzhe1@kylinos.cn>
-References: <20261110103201.762861-1-liuzhe1@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D388606A321;
+	Tue, 10 Nov 2026 10:34:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D388606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout1.hostsharing.net (Postfix) with ESMTPS id B2938276D;
+	Tue, 10 Nov 2026 11:33:59 +0100 (CET)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 9D07D6138C94; Tue, 10 Nov 2026 11:33:59 +0100 (CET)
+Date: Tue, 10 Nov 2026 11:33:59 +0100
+From: Lukas Wunner <lukas@wunner.de>
+To: Cole Leavitt <cole@unwrap.rs>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] thunderbolt: Don't resume the software CM if the
+ host controller is gone
+Message-ID: <avLzF-e6lTqrQM-7@wunner.de>
+References: <20261018163750.130470-1-cole@unwrap.rs>
+ <20261018163910.132231-1-cole@unwrap.rs>
+ <20261018163910.132231-2-cole@unwrap.rs>
+ <20261019042920.GX176164@black.igk.intel.com>
+ <20261108051829.152803-1-cole@unwrap.rs>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,78 +66,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108051829.152803-1-cole@unwrap.rs>
 
-Commit a3166c51702b ("blk-throttle: delay initialization until
-configuration") made throttle policy activation conditional on
-configuring a limit. However, blk_should_throtl() returns before
-updating the v1 counters when the policy is inactive. A cgroup v1
-workload that only monitors I/O therefore gets no accounting until a
-limit is configured on the device.
+On Sun, Nov 08, 2026 at 12:18:29AM -0500, Cole Leavitt wrote:
+> For 1/2: the trigger on this machine is gone with the new BIOS, but the
+> ordering problem is in pciehp itself. A device replacement detected in
+> pciehp_resume_noirq() still starts the removal from the IRQ thread in
+> the middle of the noirq phase, unserialized against ->resume_noirq() of
+> the drivers below the port (on today's mainline, fa4ad798f6f6,
+> pciehp_core.c:310 calls pciehp_request(), and pciehp_ctrl.c:145 wakes
+> the IRQ thread directly unless pciehp_poll_mode is set). Bjorn, Lukas:
+> if that is not worth changing without a reproducer on correctly
+> configured hardware, I will drop 1/2 as well.
 
-Now that the counters belong to the blkg, move their updates out of
-blk_should_throtl() and account immediately before blk_throtl_bio() in
-both submit_bio_noacct() and bio_submit_split_bioset(). This records I/O
-even when the throttle policy has never been activated.
+I think the proper solution is to hold the device_lock() in
+device_resume_noirq(), i.e. this needs to be addressed in the
+driver core's device power management code, not in pciehp or
+individual device drivers.
 
-Keep BIO_CGROUP_ACCT byte deduplication and count each split-remainder
-submission as an I/O. Throttle worker dispatch continues to use the
-nocheck submission path, avoiding a second accounting update. The
-inline hierarchy check skips v1 accounting on cgroup v2.
+However as you're saying there's no reproducer anymore and
+changing device_resume_noirq() is a bit risky.
 
-Fixes: a3166c51702b ("blk-throttle: delay initialization until configuration")
-Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
----
- block/blk-core.c     | 1 +
- block/blk-merge.c    | 9 ++++++---
- block/blk-throttle.h | 1 -
- 3 files changed, 7 insertions(+), 4 deletions(-)
+Thanks,
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 8836c7028568..013d806efb43 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -924,6 +924,7 @@ void submit_bio_noacct(struct bio *bio)
- 		goto not_supported;
- 	}
- 
-+	blkcg_account_v1_bio(bio);
- 	if (blk_throtl_bio(bio))
- 		return;
- 	submit_bio_noacct_nocheck(bio, false);
-diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 501ddc01c449..8bc996002646 100644
---- a/block/blk-merge.c
-+++ b/block/blk-merge.c
-@@ -131,10 +131,13 @@ struct bio *bio_submit_split_bioset(struct bio *bio, unsigned int split_sectors,
- 	trace_block_split(split, bio->bi_iter.bi_sector);
- 	WARN_ON_ONCE(bio_zone_write_plugging(bio));
- 
--	if (should_fail_bio(bio))
-+	if (should_fail_bio(bio)) {
- 		bio_io_error(bio);
--	else if (!blk_throtl_bio(bio))
--		submit_bio_noacct_nocheck(bio, true);
-+	} else {
-+		blkcg_account_v1_bio(bio);
-+		if (!blk_throtl_bio(bio))
-+			submit_bio_noacct_nocheck(bio, true);
-+	}
- 
- 	return split;
- }
-diff --git a/block/blk-throttle.h b/block/blk-throttle.h
-index 02c08daf3dc3..73f0d4bbdc71 100644
---- a/block/blk-throttle.h
-+++ b/block/blk-throttle.h
-@@ -170,7 +170,6 @@ static inline bool blk_should_throtl(struct bio *bio)
- 		return false;
- 
- 	tg = blkg_to_tg(bio->bi_blkg);
--	blkcg_account_v1_bio(bio);
- 
- 	/* iops limit is always counted */
- 	if (tg->has_rules_iops[rw])
--- 
-2.25.1
-
+Lukas
