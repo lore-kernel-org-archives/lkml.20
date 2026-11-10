@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.78.233
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305066;
-	b=Ml4sM8R8kFF5jMnzVKynqvrnZF98prNN+z9VqfRmCuR9wdtfzrsr+WA5KqfvxPjggt0s
-	 uOCHuqUDF5s3hfYKIyoZqg+J/83xX9REfadQKq+JXJ9f2kGMweQSAlAYQzA0m6E1QKIYa
-	 cejguoxd1VCJpaKCGhf0P8c8/8bUqWXhBl2O2Sw03MasfYueY5i0p6WHz3X8D/seKMONB
-	 +YLUJZneu6xiR4dqahyiqDX7jQMhWhxJYOK2rs/xplubeXzmk1AGgNHaCDgFHx3wjSw4Z
-	 aU6gM5rVMqscBwrWq2JTSGytahycFBb0hrujc4fWFDdmMptxz55SgKhH2N6Hub4uuNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305066;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GoNOJqcRqjeQb2g2/l4ayWzBoE+3dxWfsruAyLz+/qo=;
-	b=ycpu/mzrTS0HXlGnthUJS4oGlOb+2uMGDmZHYW+fiMR9p82ac+Z5Kr5aQ5/XrsF+UJ04
-	 fN+h9g+D890Vp9brMSz0qvwUWBaLXzSbvcMCVQJft+xb3/rDtJZSAVfxtUX3naQdgBZya
-	 2UMhiar+mhzMbMIpZqNFSRNMS9P75OSWSYYQFwOf7PgJTe4XLXdIlDqb9gR1q9c/VZVlL
-	 DJb0YErsbtCpmAontEHU3BPkJBIP8XlZbQ14fxKyHAEhjuqB93VtF7kBDeVPffjBGsJQ8
-	 c5nb9ceTK+RoTn4nilhk4HQzNsSPqSVttUqtVNtMxmCDPKVPue8x6wjgrnlxQcbLCWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wunner.de;
-	spf=pass smtp.mailfrom=wunner.de;
-	arc=none smtp.remote-ip=83.223.78.233
-Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794305088;
+	b=WeCpL40CbCnFdtYpafWKwHU2Q5BvHnzqXAZ9xONEkuzDUkN3bgPATXDVDmpEBwA1XQpK
+	 4LzWTTDdc/I6/wQ4jriibJhX8LwkONecEYA/7gXelP8KtM5JGQcCTBPKXvWncb42BIPaS
+	 RvIHVsaLs2nad7WQB+tJB8TE6xnzR5Z0DF06iABqr1tvsiMk4rP5PAHChEQosLo5+O4fL
+	 aevYxZdpFC7Fz7voAlzfR/azHxGjkCOq5QqvrvIeoOQAgUIBjbllV2jsDbZKC/AWEvG+O
+	 gVMGvIjtiq13L+nyAuxLpQNePNP8bCQB+85T4nTKQXujGcTdlP2MC5vuiM3DSsoSlsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305088;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=c8SH9EDnCkmjUHGPR0P2Z3gz/VtKXf2f2iywxNQfoIM=;
+	b=UCIFODByZnxZlfQEuTcZQRa/Mx1DcBimH9XkdRIo/xonsrE9PC0vzdEK4KmXt0D49jNe
+	 L65vtw9ehpvD/tVvbA5YbPdE5dpauZ+CtYOFRHZvqWWhu4IDMJwcRLLME9mK/xUnYFvug
+	 +i7jNRdMK2YkiW/ImC/g4dP4KczncYsivk4/SqM9UbfT7517ddbEB/tOCuAlvBQtpwfHj
+	 +MNpc45GqyiCPEltY+oV4DEJPuIbI/5XDRJ9eLIiGV/T9nQULD3sLr9TrCKCRXkUIyf8+
+	 Z1UAuhwzDh5UvOUiN4otHkGhh/0gtI8acFWA1VZUcXy3suTgTDLVL++s/UF/e21N0Vg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcSkI3ou;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5BD606A32E;
-	Tue, 10 Nov 2026 10:04:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A5BD606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout2.hostsharing.net (Postfix) with ESMTPS id B7F461AFD;
-	Tue, 10 Nov 2026 11:04:15 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 9ED4F60FC73F; Tue, 10 Nov 2026 11:04:15 +0100 (CET)
-Date: Tue, 10 Nov 2026 11:04:15 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Priyank Rathod <rathodpriyank@google.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Ricky Wu <ricky_wu@realtek.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: pciehp: Fix NULL pointer dereference in
- pciehp_configure_device()
-Message-ID: <avLsH4a-l_uxlWfU@wunner.de>
-References: <20261012-pcie-hotplug-nullref-v1-1-6e21c2e89ea4@google.com>
- <sashiko-outbox-168676@kernel.org>
- <20261109215339.1841223-1-rathodpriyank@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D206D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:04:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D206D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcSkI3ou
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6df0b02fe91so1042132eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:04:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794305087; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cUPIRMsoWGNKwcZUlOVMqPc35YmcHui6Trt59e9K+P1TFLoBU4vKc19wJD/ZUQW+E+
+         944SEaIUxCGayFB2H8BYTcPBIZMQR5CX61/o48x0oSU5d7xZ7f8fLZb+xcpVi1/ir0/U
+         N4DevS0hcbZdcmjm+QYkvq9wHx5l72SLXZ0QJ9yb4imwcT2/H4MEtoZA3Z9ykhgayBj5
+         kqcbNl3RCTjaKENycKZP6S7Cn7QNQK9j1RugWLX7v1Yzgi0pse6HC5xsHVzqhBtYFL7R
+         mR5MOgosxtiLJLPR6QsLBdRHydMsxOpF+6TThPirWYhcsFBMlIP9Xmwwtf3Jt0e4BDDw
+         NKkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=c8SH9EDnCkmjUHGPR0P2Z3gz/VtKXf2f2iywxNQfoIM=;
+        fh=kcXHKRQT4xHAs6Knr/adus18tnuI0OB/zDSZ6D5Wo8k=;
+        b=XMZ/JGniNGqkvhtgXDVKv6/fdIAHEikTSINkZXD8g1t1PZCrFIkm9vM39VXAck2V7M
+         tu1p9ZHbNxSt40CbZyLBIRYsWdYjrziWqRqF3Ng8ipU1zPb8dcv22+5MC4/qu7oPjXfy
+         NJzu9ffwpxVc1EAf/TMeKOds3vqvQu8xjLaSuyY+Q3oyVhk3oCdQ6ov6GGhxpn6lFwvG
+         /595dBoFMzx3av8F1GXEMwf42P7hefc/2F7OgbLGvClnO1snpjClkTdsrqXkOd5cYD4m
+         5o1NOInLQGb/BpKPCXljEiR8l171aWTPNvbprbEU1suRM4BlSItsurigCPK+RejENVvc
+         6Kcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794305087; x=1794909887; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c8SH9EDnCkmjUHGPR0P2Z3gz/VtKXf2f2iywxNQfoIM=;
+        b=OcSkI3ouRW9vs2LVKGDINf3yMFDOmmg31mz72m3rL8PkscnCWSry26doTrToWEx5Qf
+         gSyD/P15uxrBzs7tQxF6aiYUxQaqMniPE42cAZzKntQFlisY9gXNto0j2mLA/uEgTIEr
+         Ekhk9TD0X7fdJ35AYJA+k2/d8jJkt6tIjfg4T8UKXLc64qrvFYSyocIyWG+PpqXUP51b
+         jSAK8GvC0TbcAOgT8AafDEn/49BPkIcXMnqJ5hi1gnop2IXZ6U0e+We28buIwv6e5vRr
+         Pp+13VPfJ14rB9SjSFDBfY57KDwNYTyW4uuLyLsxy15BxKm5C0FI7W2NwrH4X1aPM4BU
+         vnlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794305087; x=1794909887;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=c8SH9EDnCkmjUHGPR0P2Z3gz/VtKXf2f2iywxNQfoIM=;
+        b=YSe1FcaN9rAzKKC2TSoLy+Awi1d+m1CnGozOI0gYN8bliiaCKh7oSNkAj3y0oGIJCI
+         EV/jqOKmT/HP+yPJi78mFvGCdt8VbiEHCk1PYXddiZHMcMi9dd+mNKzyBpvze66khtmU
+         bB3stYPFI/nOe3ui05T70rcOK7D/f02vqmRWg6z+feOQdI+IeHVltyVRZcOCtAVRN+He
+         uc1PR+Jf9phJlYHnaC0VFjWtfNhlJLkdwa1j4fFO4ei34EABT5ZMTijcbg7wWoj1mqJG
+         UCHkKdukLvnPKe3ELhraVgLjAyLX/mZetXCRNefojF6VV361xpJtnfHUnzD5yWNCnRyM
+         naLw==
+X-Forwarded-Encrypted: i=1; AL+hErGvQiGEUagLEyl3IYnBA40uua/i06mm57JSn/zpGxyLSz7Bm98d6t/1Z8UlK7K/nPE+vOrpGElLS4zG/II=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+58JasZb+ZDiV/6ArUGaKr1zU0g+kv15jpo/e/JPCY1EwYzt9I
+	DgjwmzSzbKbbe6JptmB557NrVDMdVFFKT3ceOimar8q+wSm/ReXac7F0pcb16ycIc8RHy15+UMi
+	JIR4+hNPyFYiGYn8mI6GSzSl1hmy0nYE=
+X-Gm-Gg: AYBFou3oak/puby5N/xsZM1Tc50CEh/rqr/2gMUQDBCR9fk8UM49DtbLK4qd/NAdxgV
+	JXWgGV9uOyxGfKHCJ+xaom7VkGdW/T2cRXQzNAtSCpZz3em3VWwLapWRQaXS6hyrXSD9zwU7px+
+	SpkVaCM1tELpUwaKxXVNe1cAetTt7LIszA6npi76HFFkqg9PF//CdvcrAIFasL5vuzalRZ50HYG
+	aGwszDNHPnoCKunGvAImP3uEYEV08qAzCADDoAM7Jk7FFhK82hSqI01HTXqYgWTMjBpZCtRmLJN
+	TdCHeP4hFL+KhAWbUvGwniTlU3Mkq6rTB//ZMcuF50P2i5ZBw/HBHIWQXg/rhTymfy7UTvPs1iV
+	EFJITTzkxhOpCn0ThocvTJooVEnrKwzzJ8jsA7Q7o8gxvkG0MolDBehXyy3pnSugQ22K+04bVgN
+	cdvEsq7sQUn19Y/zaZt3fZrASdV3gmPlmbOC6umlUv45fubWi9hklfriJReMgarv/eVspsIaQK
+X-Received: by 2002:a05:6820:c0d4:20b0:6f7:e193:8326 with SMTP id
+ 006d021491bc7-718a70211bcmr533260eaf.32.1794305086687; Tue, 10 Nov 2026
+ 02:04:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,40 +104,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109215339.1841223-1-rathodpriyank@google.com>
+References: <20260925112850.189302-1-danividanivi@gmail.com>
+ <179068206160.434549.1717741783856466607@kernel.org> <02c36d47-ad50-4f2c-88cc-6c91f62bba00@intel.com>
+In-Reply-To: <02c36d47-ad50-4f2c-88cc-6c91f62bba00@intel.com>
+From: =?UTF-8?Q?Daniel_Via=C3=B1o?= <danividanivi@gmail.com>
+Date: Tue, 10 Nov 2026 11:04:35 +0100
+X-Gm-Features: AclHuK8llmPJAPoIuNJK-9z_1ADOqNSF_GH_KJ9E3vYufuFCOTh_YkEnA-aSzHQ
+Message-ID: <CAD6rab8LEfZcQgcZLmeiDzd-PUi56h=9aBEsuOS2qnoyZEsdxA@mail.gmail.com>
+Subject: Re: [PATCH net] igc: Disable PCIe L1.2 substate on I225-LMvP and
+ I226-LMvP devices
+To: "Ruinskiy, Dima" <dima.ruinskiy@intel.com>
+Cc: netdev-bot+sashiko@kernel.org, anthony.l.nguyen@intel.com, 
+	przemyslaw.kitszel@intel.com, intel-wired-lan@lists.osuosl.org, 
+	netdev@vger.kernel.org, bhelgaas@google.com, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kuba@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 09, 2026 at 09:53:38PM +0000, Priyank Rathod wrote:
-> On Mon, Oct 12, 2026 at 10:16:29PM +0000, sashiko-bot@kernel.org wrote:
-> > While this allows devices without Function 0 to be successfully hot-added,
-> > will it lead to spurious teardowns upon system resume?
-> ...
-> > Could this spurious teardown issue be avoided by modifying
-> > pciehp_device_replaced() to handle missing Function 0 devices correctly?
-[...]
-> Regarding the bot's question above: pciehp assumes Function 0
-> (PCI_DEVFN(0, 0)) represents an occupied slot across all four of its
-> lookup sites -- the -EEXIST check at the top of
-> pciehp_configure_device(), pcie_init(), pciehp_device_replaced(), and
-> the DSN read at the end of pciehp_configure_device() (consistent with
-> PCIe r6.3 sec 7.9.3 requiring Multi-Function Devices implementing DSN to
-> expose it on Function 0).
+On 09/11/2026 12:45, Ruinskiy, Dima wrote:
+> I think this patch might better be split into several patches.
+>
+> 1. Adding the missing IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226().
+> This was probably an accidental omission.
 
-I'm not even sure whether pciehp is actually used with jailhouse,
-s390 or loongarch.  pciehp assumes in multiple places that function 0
-is present, so guarding against a missing function 0 in a single place
-doesn't really make sense.
+Agreed, I'll send this as a separate patch. Note that it also changes
+the TSN code paths in igc_tsn.c for I226-LMvP (they will now get the
+i226 behaviour), so it would be good if you could confirm that this
+is correct for 0x5503.
 
-Note that there's a patch pending which moves the cached dsn from
-pciehp's struct controller to struct pci_dev, so the days are numbered
-for the lines you're changing:
+> 2. Addressing the locked vs. non-locked call to pci_disable_link_state
+> (the possible deadlock noted by Sashiko) - this should be looked into a
+> bit more, I don't know off the top of my head what race is / isn't
+> possible.
 
-https://lore.kernel.org/r/20260902133933.2992457-7-terry.bowman@amd.com/
+I believe the deadlock is real and already present for I226.
+pcie_do_recovery() runtime-resumes the affected devices through
+pci_walk_bridge(bridge, pci_pm_runtime_get_sync, NULL), i.e. with
+pci_bus_sem held for read. If igc is runtime-suspended at that point,
+igc_runtime_resume() -> __igc_resume() -> pci_disable_link_state()
+takes pci_bus_sem for read a second time, which can deadlock if a
+writer queues in between.
 
-Are you actually observing a crash in practice because of a missing NULL
-pointer check?
+The L1.2 disable done in probe is sticky (link->aspm_disable) and the
+PCI core honours it when restoring state on resume, so I plan to drop
+the call from __igc_resume().
+
+> 3. The actual problem with L1.2 substate this patch aims to solve. I
+> checked with the HW team and there are two conclusions - (a) it is
+> strange that L1.2 is enabled somehow for I225_LMVP - this is not
+> expected.
+
+You are right, and I was wrong about the mechanism. On my setup (HP
+Thunderbolt Dock G4, I225-LMvP rev 03 behind a Goshen Ridge
+downstream port) the NIC only advertises L1.1:
+
+  L1SubCap: PCI-PM_L1.2- PCI-PM_L1.1+
+            ASPM_L1.2- ASPM_L1.1+ L1_PM_Substates+
+
+and the upstream port has no L1 PM Substates capability at all, so
+L1.2 can never be enabled on this link. I will drop the I225-LMvP
+part and investigate the dock errors separately with AER enabled.
+
+> (b) generally it is probably best and simplest to remove any
+> device ID checks and simply disable L1.2 across the board in this
+> driver.
+
+I can add a third patch doing that if you prefer. Otherwise I'd leave
+it to you, since I have no I226 hardware to test it on.
 
 Thanks,
+Daniel
 
-Lukas
+pw-bot: cr
