@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329707;
-	b=jMNJ2Vk1svpqZvsB7n1akCnBibmrHdQpvH3u1wGMWDmYk0gcT4E8iRZ0sr+dyDk0cUxF
-	 sdbrer/e+UtHkYsQb9420wWIiiz/wVdZsv2+5/7oXTIX4x4aU9eXYdLnIe0hSVYFmJkdf
-	 5HoknrQPAfpEA5cU6gBkY5CYUUgGr6N6mdqMaHQaQ84yKn8rb9IcxJ5O8pdKywEM7zqDk
-	 G+jwlYj7bRvLNf5rqcaINVTqvXgfzB9z0G2ZV72pocsx2TsCD2bsuVmrNPFDIJrnC6Udh
-	 k/+wUEbbHFBZz2/aTLZH/F9qAv57RdACUCMsWj3ykLTUIbOT3E2xSbZBux6Mi5fgDtg==
+	t=1794329708;
+	b=NrnR/iNQdp8lZP7P/0XQJ2y5ACo/VqVjWbpdnLClypV6y9ERkW3C1+Ro4J7dmAg3TRG8
+	 Pa8UYl7mHDZzI964Ce3DvlFuFr6te6DYuTLKdUPtbci6+AG0h59jtfkae3aMvQ/gTA4Zc
+	 kDMeDVtbpEngQ3LmLJz4iGtxkuuxw+IYBnSl2gkfCIdB9MPaZVzYJtu/1x/mFeLmMTg4K
+	 o/TczMlg6kUoacOZwZkagBJFogJip0OdJFke52Y1k5bXy2Pqlgrl/H95PEHIFzq6mLCkm
+	 FHWvX/EXYIUNQ3cbTQGMNLT2m1/+18Nj+vI0NqfLCgihK2Dbhxn5stZJxL0Lkj5PFtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329707;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=md+g1Mn70lLLdOLh0WK7BFL83o0AsS7eFKgJ4bZ+xOc=;
-	b=ISQX0M7vqUfNVg+uPcBTKJbqzVRvm/kJ9jhTO72VnRtfv/4b6dKbd9aoxcczNJCsLU9E
-	 6YkNg0V/EeAhDuIn5pPj9ZRynOe76/FUgSnel/8OC3YaQ6n+S3M4JclqFUAVhgu6mKfsp
-	 9n7oUd1RS62b7cbB+PmtbzJ6pc0y1iXOv+o6F8SVNjFEq9XlqoGWg7GN1qupv+whSh/Gd
-	 hVfsps9VjvK62fNFx6zQAFBzEV9u9q6HTAeC8A1p/gDFcBx3JfCVirP2wpDyUicemJpql
-	 sJyWCOuG1A0NPmNPe0fD5eBMzOyRotOH49nuAS/zeVlj+eL6sGrXKqxeIanugfdFg6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329708;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Uc4O8pK5nK8LeAYmaSGivWLqbt10i/bY+fluzSA22pM=;
+	b=H8TlJ55UC13K4tzuKkOnHKzAHjO/2haF64UObj892F0+0TQkLEZiWZs5ZKcbcNPjHxQI
+	 6IbMQZ/V24fcu+OJxs+WO6aSHwfEhF45rbiZ+HcIgKQQJ8IiqtZ81KLL375WCgRm50GU5
+	 Qrz7QFwOMQO4KNdWMEwK3ZATj7qRPQI4awExk2Il/YYKxEw7QJWTPwLmMIkN25hM9JnNX
+	 8TFFloRO3izCKz8WY0jLGaBwZEB8szcFe2LiJxJ5pCM0nYbeS8fh0bSwkflZFRGGnM0K+
+	 e1/ruKcWO8BADNm3d6uOjshbHl5Kj5SBH87YyuxLvzsKRkuOuEsMlMWvCKOBp6w01Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ru3DSI1J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D098360A263E;
-	Tue, 10 Nov 2026 16:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ru3DSI1J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48A61F008A2;
-	Tue, 10 Nov 2026 16:55:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794329706;
-	bh=md+g1Mn70lLLdOLh0WK7BFL83o0AsS7eFKgJ4bZ+xOc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Ru3DSI1JtOvz1pz0p79Q21P9c/g0n6OobX9gSnI2to6yPqXyqv7OClz0s5fQ/RafU
-	 Ar5W8KAQkdNyinf3mYJre4tTQkvbrHXpVQ5t+AmEdfcmOMSEFxKH1DIWwZg8x5NdF6
-	 wC5JpNUEqCRrl5tl91d+CyoB/rwVuArrsutgzHGAPWdhKQ9OwSlhnh6UYN5fr1TvDQ
-	 IoSpAp9Epowf9ReFqyFY9hZtRZStY/T2cqbcdDWr2LJKCGDlf56uZJ5S+wtEh7vEKC
-	 h5aKWMYotcL65pKD29f9mGsW4Wo4wTzLlVym0byZox/2z1Tv2D4ei7gWuM3M8mcI6m
-	 R05podtcK/jdg==
-Subject:
- Re: [PATCH net-next 4/5] net: rnpgbe: Allow changing the primary MAC address
-From: netdev-bot+sashiko@kernel.org
-To: dong100@mucse.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, yaojun@mucse.com
-Date: Tue, 10 Nov 2026 16:55:05 +0000
-Message-ID: <179432970545.994134.2511152521699003993@kernel.org>
-In-Reply-To: <425F4F0858D134DD+20261106112544.44210-1-dong100@mucse.com>
-References: <425F4F0858D134DD+20261106112544.44210-1-dong100@mucse.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=13.76.78.106
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E522A606A333;
+	Tue, 10 Nov 2026 16:55:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E522A606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMA2XcVlTPNqf_8NAA--.17770S2;
+	Wed, 11 Nov 2026 00:55:01 +0800 (CST)
+Received: from 51f0e866aafc.ntu.edu.sg (unknown [155.69.197.24])
+	by gateway (Coremail) with SMTP id _____wBHQDdZTPNqhKI0AA--.54723S3;
+	Wed, 11 Nov 2026 00:54:59 +0800 (CST)
+From: Suyuan Wang <stevewong@hust.edu.cn>
+To: iwona.winiarska@intel.com
+Cc: openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	joel@jms.id.au,
+	gregkh@linuxfoundation.org,
+	Suyuan Wang <stevewong@hust.edu.cn>,
+	stable@vger.kernel.org,
+	Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Subject: [PATCH 1/2] peci: Fix use-after-free in unregister_controller()
+Date: Tue, 10 Nov 2026 16:54:48 +0000
+Message-Id: <20261110165449.1996921-2-stevewong@hust.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110165449.1996921-1-stevewong@hust.edu.cn>
+References: <20261110165449.1996921-1-stevewong@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,68 +58,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMA2XcVlTPNqf_8NAA--.17770S2
+Authentication-Results: app2; spf=neutral smtp.mail=stevewong@hust.edu
+	.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar18JrykWr13XrWxXrWUurg_yoW8uw1Upa
+	yrGa1aqF4FgF4agF4jkF4xuFy3WanrGFWDua9rJ34UCFnxW3s2g345AFySqFy5JrZ2gF1U
+	Ar45tayxXFWDAFJanT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQYb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1ln4kS14
+	v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l
+	5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxVW8Jr0_Cr1UMcIj6x8Erc
+	xFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWU
+	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82
+	IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0k9N3UUUUU==
+X-CM-SenderInfo: jxsqimirwzmmo6kx23oohg3hdfq/
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+unregister_controller() keeps using the controller after
+device_unregister():
 
-Low priority / nit picks for your consideration:
+    device_unregister(&controller->dev);
 
-- [Low] The commit 'net: rnpgbe: Allow changing the primary MAC address'
-  adds two entries to rnpgbe_netdev_ops in…
+    fwnode_handle_put(controller->dev.fwnode);
 
---
+    pm_runtime_disable(&controller->dev);
 
-net: rnpgbe: Allow changing the primary MAC address
+The child devices are already gone at this point, so device_unregister()
+normally drops the last reference and peci_controller_dev_release()
+frees the controller. The fwnode read and pm_runtime_disable() that
+follow then touch freed memory. This runs every time a PECI controller
+driver is unbound or its module is removed.
 
-This commit adds ndo_set_mac_address support to the rnpgbe driver, so the
-primary MAC address can be changed while the interface is up or down. The
-new address is validated with eth_prepare_mac_addr_change(), written to
-RAR 0, and then committed to the netdev.
+Fix it by saving the fwnode pointer first, disabling runtime PM before
+unregistering, and putting the fwnode only after device_unregister().
 
-> diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-> index 31871b244882d..09d499dc10eeb 100644
-> --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-> +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-> @@ -160,6 +160,8 @@ static const struct net_device_ops rnpgbe_netdev_ops = {
->  	.ndo_stop		 = rnpgbe_close,
->  	.ndo_start_xmit		 = rnpgbe_xmit_frame,
->  	.ndo_set_rx_mode_async = rnpgbe_set_rx_mode,
->  	.ndo_set_mac_address	 = rnpgbe_set_mac_address,
-> +	.ndo_validate_addr	 = eth_validate_addr,
+Found with a static analysis tool and checked by hand.
 
-[Severity: Low]
-This isn't a bug, but should the commit message also mention the
-ndo_validate_addr hook added to rnpgbe_netdev_ops?
+Fixes: 6523d3b2ffa2 ("peci: Add core infrastructure")
+Cc: stable@vger.kernel.org
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+---
+Compile tested only, I don't have PECI hardware.
 
-The commit message only covers ndo_set_mac_address:
+ drivers/peci/core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-  Add ndo_set_mac_address support to change the primary MAC address
-  while the interface is up or down. Validate the new address with the
-  standard Ethernet helpers, then update the primary receive address
-  filter and the netdev address.
-
-The "Validate the new address" sentence refers to the
-eth_prepare_mac_addr_change() call in rnpgbe_set_mac_address().
-
-eth_validate_addr is a separate change. __dev_open() calls it on every
-ifup, so opening the device can now fail with -EADDRNOTAVAIL if
-netdev->dev_addr is not a valid unicast address. Before this patch, open
-did no such check.
-
-As far as I can tell this check cannot fire today. In
-rnpgbe_add_adapter(), probe either sets a firmware MAC that has already
-passed is_valid_ether_addr() in rnpgbe_get_permanent_mac(), or it falls
-back to eth_hw_addr_random(). After probe, rnpgbe_set_mac_address()
-rejects invalid addresses.
-
-Could the commit message mention the open-time validation, or could the
-hook move to its own patch?
-
->  	.ndo_get_stats64	 = rnpgbe_get_stats64,
->  };
-
-[ ... ]
-
+diff --git a/drivers/peci/core.c b/drivers/peci/core.c
+index e14995b1bf7f..247a287f87ca 100644
+--- a/drivers/peci/core.c
++++ b/drivers/peci/core.c
+@@ -88,6 +88,7 @@ static int unregister_child(struct device *dev, void *dummy)
+ static void unregister_controller(void *_controller)
+ {
+ 	struct peci_controller *controller = _controller;
++	struct fwnode_handle *fwnode = controller->dev.fwnode;
+ 
+ 	/*
+ 	 * Detach any active PECI devices. This can't fail, thus we do not
+@@ -95,11 +96,12 @@ static void unregister_controller(void *_controller)
+ 	 */
+ 	device_for_each_child_reverse(&controller->dev, NULL, unregister_child);
+ 
+-	device_unregister(&controller->dev);
++	pm_runtime_disable(&controller->dev);
+ 
+-	fwnode_handle_put(controller->dev.fwnode);
++	/* May drop the last reference and free the controller. */
++	device_unregister(&controller->dev);
+ 
+-	pm_runtime_disable(&controller->dev);
++	fwnode_handle_put(fwnode);
+ }
+ 
+ /**
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/FB722C2F25FE9005%2B20261106112420.43050-1-dong100%40mucse.com
+2.34.1
+
