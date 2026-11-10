@@ -1,61 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316048;
-	b=0pwLXc5xB8LjjDH0r9ZJCmmKmZkVK5UoPzy3tNPUDt3E7uA+MgcH6wMhhH7SOBnBwL96
-	 XmuK8594qoFrKvByMh2j7T0nm8s+t0P8tHqGvTlHxu3t7iofnXwflVXQD6/beL3OEWiOf
-	 6P1iH5ieQxpooUO7KDrTkxWhmzbN+dqkrYj0iPzem4fjvbXBRV1cTylMybE0LyVbxXNy8
-	 nbJCQOj7xh8+Sr+wnMsc3YG5K8jP1S8Yq605ihV3Chy/gg7KAgSxGj2ZrLNjP8tNYnPTa
-	 Dj6mcRkTcFc5ni1t6f9gvmjWtqlL5VLDydzNQKinPwHrjC6ykG4RvknPVLLNH80TApw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316048;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=ld7tlpB+QzKUKDfK4FSxy2dA1rDs18hbb1XMFoIOhuI=;
-	b=VSf4fTZes0veiLZ5dc4CaPVUDvj/T52zqcJdWyL+czO9ivAxZlt+vRazgWNEjirwtbp3
-	 TpCEEHOGq8iRS805SK83x46DpFb7+IcCKUJo6UzYUc+VCWk+lNQdr1IKGnenHyUIY48D/
-	 2hkqhQRecyaO0c9EcpGNC0c6os1BsEWDqVErnX2BKtfG82QC5wpI9rV0PNmROKVA0HaOP
-	 SO3cfsWiiB8FTdfZ4YbBV6mbRBEPqk4463DceDo48SBXvwYwFjS9HM5MyipaY2vYAVRjz
-	 Y3X3BEWsAhvSxI0BbTZvcFSQnXFPNzGEPVVtUHdizQpPxoX5UhdMwJwjSAJerQIluOg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=23.90.104.144
-Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90556606A33E;
-	Tue, 10 Nov 2026 13:07:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90556606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1794316052; x=1825852052;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=FZcWkIhdyH5Ehmankjtvhx6cnha9ocIFxpZgxmcPbeA=;
-  b=QZcalDd8Mjf4tv7216mvRiZ7hk7+V1moeJd8xCME+NjZRvozihDHuCMr
-   LmhpZaYEbfGybqHuc73mJjFdDF2BXZk9hhpIe7OG5vVKTx4tgEXK91BHV
-   iLVTZ0jvto7TEm9KevBEZzaeDde3kGXqgxBxiwM43GQXYsAEQMHhQ/bNs
-   /9FZmiyoSF2H0Ooo0we5RLbYdsFD06nEfCK+QsmIHrY3huv15TpUhXwx8
-   jjEeroq0w5aKGIhzWaOddq6MsZy745z4/f08ZJP0if5ARAwQtQZ0etCxb
-   L4bdClvHohugYbcxl0ddIv46703ENUTetA7euZCMnn+4Z68rmJsfaQ3YH
-   w==;
-X-CSE-ConnectionGUID: oz70YvFpTLmcpvIlRBAtVw==
-X-CSE-MsgGUID: fNuTcHKpTeWL7Y0p/xkBOg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
-  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 15:07:24 +0200
-X-CSE-ConnectionGUID: pPHsg/CST7OIaJsAEVnfQQ==
-X-CSE-MsgGUID: wg6sKAfvTLS91yli0OgcOw==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
-  by ces03_data.me-corp.lan with SMTP; 10 Nov 2026 15:15:11 +0200
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Tue, 10 Nov 2026 15:07:15 +0200
-From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Tue, 10 Nov 2026 15:06:16 +0200
-Subject: [PATCH] i2c: nomadik: handle pm_runtime errors
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794316129;
+	b=lnH6S3PLtEE/JjFfOWShnnAFp/LjlhtxezbgZuyqmyGMPG4Bn+et+WPazERI+ShNJSp1
+	 0xi1RSrwnipgcyA2K8EUSU794AW9vhs2nBzHdu5/scoSKCLpXmhqocIHWBnuLGPcQjhOH
+	 m40WnMyWUT7JldTCUzarLCixQ3rGw4Y3udV7NmqgpEQ6JipLtxk7UeABQaGEIh6XdvXsp
+	 SNLAgm31Cx/1VzkQJKkDYG0b4f3kOnYQaI9eYBZW5TLYDjMQ9Gcsiu0qqW4uCbhuFQcQ4
+	 P/jpw69t7UEDZNm03VhIasvfXqR3A47DNjvdZYyk+y+GtRXxjoR9iyCkjMx1huZxf8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316129;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lwPNVSNlkew3F2R4ktcD0VMpp5KsF+JMgwZJdVfC8n8=;
+	b=QWF/ps3y3mBf+hmtOQHoovvKsNuy5jfSFdgceUUj5I3QM4czK8c3WlDajTbpoyFZFUuA
+	 vB+5KEXoQy/ira1vYLLabtSBYAwa+mS5dC/wju/TSe7h6M9w2j/5VwIUJgH81UF2rjNJg
+	 1xCmjAzKq0cUea2Rebk2Ojwx9lrvKG+uwzocprVCIscjDheb+BSkFTIsHCFHAM2tdRzrR
+	 jFGIot6wMPGhMNbd/kS8BW+1k7k6xuFohpA+ITXYKUFtnrSVYTglKRn9COiWmt9NcNvSo
+	 ok5/xr1vUR2UOdSH7GSjHToSDlHBcswT3t7xQIX8EB9seIpACFi4RiWEuZK43kK5DUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mVrT8KBO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79C6606A749
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:08:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D79C6606A749
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mVrT8KBO
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36e90071735so332106eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:08:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794316128; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SOpszzuncClpPNNV4XTGYNF0MvjE+v/nZdn2XNycCovvnc9oMdMBl0HuHN+bfz71yA
+         bwckVM+OuVrbw6BDA87mFcAuTnyeJ/9Yhn83IAqSlSoj6E1mazsjnfcXI+7CwOkhpbKH
+         pd36Viog75R1PGKy/adUb4pZWY+ksFwSz6r5donWamRBKMHiSs6wQtEMASDH3qljhh0N
+         ftMY0kd01IaXPV1EYRyoOrl4YqbfVLYKlgkKgdB7P8ZTIOFA3FaZyKkKeNLO9GiHhdZL
+         EyQ/Ka5+bWkXqK8ODo4AduAwODhBe6dJI+ED+2Lgn8McxbT3gRZBM1ddNDVhDQMIslc3
+         BF5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lwPNVSNlkew3F2R4ktcD0VMpp5KsF+JMgwZJdVfC8n8=;
+        fh=DHljwFALkA0SGnIEs1oKX7w+6YuwNUhrtMd+jQL0BfI=;
+        b=f8StkGepeO9JhRfDTWYHpdW3e6uXSk4nbSoCBMNX6GFSkOF2UrSzs0x/a0mtdiqThW
+         LgXxipjkDThjF4E4hwiP72gFiHDHQNARlBuDWGwRx03F60qT9I+52DyrRragJGgF6h8c
+         NZkDPaBULtINLqsfIgL+NqTPn9EN8tvyfz+SBpQVddaMNNfsz7G5/jkPuU+Q00PPXRav
+         ZMbgilNIEEhpRd2Tc83kjOMzam6O0EEKAE4Z7hyyNzmzStC9aQQb+rNcNmRo3onBdfiY
+         edFNJN8IJYgZdJ4uhBBLGWCThOokczU5JjagdfnOlVySmL0NhP/1koyNywRwBBO0dLZH
+         tv8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794316128; x=1794920928; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lwPNVSNlkew3F2R4ktcD0VMpp5KsF+JMgwZJdVfC8n8=;
+        b=mVrT8KBOFQHiA7z4fuQ6WmH3JBtWXX0xakj+PEnmgXuvburxdf7+xNvhCVNwZCYPKm
+         yl+8VzZG73JbyIkcsj0wJdc3kiBnfzZgpncHr3EJbCwvuupX+HGbpiG54UkrvaR0Lxh7
+         0kKFypU/SmpBmn2C6nnoLsG7/8U3JAFF4XZgTzWzTpQZGq/GihDd1Y1YD22s9PMYkRmN
+         ZOhG+2Xtx3lNnpsOOVK/X+5WCk21xSGd1ms1sIk22eQ5QIzMCwEH0756mDhvkuYIaVgA
+         9CA8MJzzILlmPdFwcujOxaL2EbwwHO/F9vyi+kGK1V3iUHrtDiVzU+dlqUDxe709/HZW
+         i9UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794316128; x=1794920928;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lwPNVSNlkew3F2R4ktcD0VMpp5KsF+JMgwZJdVfC8n8=;
+        b=eoivHjOj+LMBvCD/XaYzx7MvBPmO/q2ekYkmHkoFl3qBzaez2dMu22YpnD24Ls7WSV
+         67Tr4lYfgXD9R5HpvOpd3JokeE752f1rNxL9fJ8wZfROqjDyDGfkgVwvVMAWk0rm2bH8
+         tHJ7UaIixbFZsHcvWKt+QDp2tkbft2+bpdtABjj4wrBrLbXlX4arw3ty8SAWV+xRd/vO
+         89Jn4/6OXlRgIYR8XptH3N4Ffhw4Azyckcn8tdkgEjVsze4wT/SlVfbKgTzxq7euy3Ps
+         wnTnIjEt7r9bVTrwYC0wUbVwm/tlQk9BEB0v7QG7Qmh9bUxKCxqFdmI1r9fXNstFUQww
+         uOEw==
+X-Forwarded-Encrypted: i=1; AL+hErFGXG+vmLueHS7KxXhEB/4HNsFQfQaNBZjYJMaBqGSm36FPzPwkmI9hc9QV2lTi+qWlFd6sSmEJi6XVh84=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OKiz7xu6sBVoiYF9to0uMCqfTcoC4AFD0aVqpAMFhzp4JOPku
+	g1LMcx6y8TI/jUbmX3NVSApUxbKHTVNdGyPd9b0Z0OT66PvpG+PSTS2CGc7ohdjDHFvpQU7TF5k
+	UeSTTWQwBSsB8yQQloeKWFIr4SbSW3fw=
+X-Gm-Gg: AYBFou2ZwF0YlL1XXdtu+OD4xJfjhSCLzojZOVQ5aZPDqm4zArsQtkklDKVDCvPD6dM
+	Z+24zsneTgeFSjylkuMHuqf9N2jDrvMpEU4lczV/muTgXOJDoG1f2P8C9ACkUdfIFMV2WMIVTI5
+	jo/9aWOkJg+CiYgNvP8Jdca8Xjf5smRu8sjN4V3dEiS8PEGV0tyQmdREuze2KOs/AFzhib9QRf4
+	Ec6y0kdrakDx5e6LFLCyFOmFYq7D/hDxJHzwyWtvLObDHf2PH0zh089O/NVqqY3Q/tDmPCLE/uZ
+	hiemUJi+wvwwyehl5O1XlqT6TkckGo+AyCD0+AgC89jDBAOvLiDcasH844hyeiFUTKNsDkJMSUu
+	gMXN3O7KDnptL91Ly+To1vve0lqeyLIG3jhcjGZmAMOMUBRWpGhJezykc99keib54jkEMm69ebg
+	EX5iGrEvsDiwpqBSgkjuHmvPkydkN5F8ZsahTuW/ENvVSQhU02mnZefihyqql7OZxHT/cYJFIji
+	MPWLWnYJzebrIIjhJlZNZKq6zkOkXWWP2iuOe4IwZqbymfdV9Me98rd
+X-Received: by 2002:a05:7300:fb94:b0:375:f846:5b3f with SMTP id
+ 5a478bee46e88-375f8465fb3mr1784796eec.0.1794316127719; Tue, 10 Nov 2026
+ 05:08:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,76 +106,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-i2c-nomadik-handle-pm_errors-v1-1-ea1ac92af8f4@mobileye.com>
-X-B4-Tracking: v=1; b=H4sIAMcW82oC/y2NQQrCMBAAv1L27EISmop+RUTSZKurNqmbVoTSv
- zdqjwPDzAyZhCnDsZpB6M2ZUyygdxX4m4tXQg6FwSjTaK0VsvEYU+8CP7AI4Uk49BcSSZKxPhj
- b2tpZtW+gJAahjj+//On85zy1d/Ljt7kZQq+pfMdNW5YVNuTAA5UAAAA=
-X-Change-ID: 20261110-i2c-nomadik-handle-pm_errors-4925b54a5076
-To: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-X-Mailer: b4 0.16.0
+References: <20261105-ringbuffer-v3-1-b5d74efa8dc6@kernel.org>
+In-Reply-To: <20261105-ringbuffer-v3-1-b5d74efa8dc6@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 10 Nov 2026 14:08:34 +0100
+X-Gm-Features: AclHuK8StyFCt2vkuC3IByfxwDTE13qSe3P14U_9mHZMBq8D7aACpxOFRqzfsdM
+Message-ID: <CANiq72kXZVxqwf9m24qGBXEyZi=dM9Zr9D0XiZGCYaEuYvDVyA@mail.gmail.com>
+Subject: Re: [PATCH v3] rust: add a ring buffer implementation
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In nmk_i2c_xfer(), pm_runtime_get_sync() is called on start and then
-the controller registers are accessed without checking the return value.
-If pm_runtime_get_sync() fails, access to the register of the device that
-was not correctly powered on may cause a bus fault or other unpredictable
-system behavior.
+On Thu, Nov 5, 2026 at 11:38=E2=80=AFAM Andreas Hindborg <a.hindborg@kernel=
+.org> wrote:
+>
+> +//! A fixed-capacity FIFO ring buffer.
+> +//!
+> +//! This module provides [`RingBuffer`], a circular buffer implementatio=
+n that
+> +//! supports efficient push and pop operations at opposite ends of the b=
+uffer.
 
-Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() that
-always return 0 on success and automatically restores PM usage counter
-on failure, and return immediately if it returns any error.
+Please add at least an example here :) Maybe reusing part of the tests.
 
-Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
----
-This is fixed version of patch #6 in a set of fixes in i2c-nomadik
-driver:
+i.e. this is simple enough that we can use it as a simple showcase of
+how to write a module with docs, examples, and tests.
 
-https://lore.kernel.org/linux-i2c/20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com/
+(And ideally on each method that may fail showing their `Ok`/`Some`
+and `Err`/`None` paths.)
 
-Please replace that patch with this one.
+> +/// # Invariants
 
-Changes in this version of the patch:
+Sashiko seems right: this is missing `// INVARIANT:`.
 
-- use pm_runtime_resume_and_get() instead of pm_runtime_get_sync() in
-  order to automatically restore the usage counter on failure and always
-get 0 on success (pm_runtime_get_sync() may also return 1 if the device
-is already active).
-- use variable `status` instead of `i` for its return value.
----
- drivers/i2c/busses/i2c-nomadik.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+> +    /// Returns `true` if the buffer is full.
 
-diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
-index c3878670da9c..74ecf188c9eb 100644
---- a/drivers/i2c/busses/i2c-nomadik.c
-+++ b/drivers/i2c/busses/i2c-nomadik.c
-@@ -713,12 +713,13 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
- static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
- 		struct i2c_msg msgs[], int num_msgs)
- {
--	int status = 0;
--	int i;
-+	int status, i;
- 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
- 	int j;
- 
--	pm_runtime_get_sync(&priv->adev->dev);
-+	status = pm_runtime_resume_and_get(&priv->adev->dev);
-+	if (status)
-+		return status;
- 
- 	/* Attempt three times to send the message queue */
- 	for (j = 0; j < 3; j++) {
+[`true`]
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-i2c-nomadik-handle-pm_errors-4925b54a5076
+> +    /// Returns `None` if the buffer is empty. Values are returned in FI=
+FO
 
-Best regards,
---  
-Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+[`None`]
 
+Cheers,
+Miguel
