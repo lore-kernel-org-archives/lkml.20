@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311654;
-	b=ZeVhNkhMPPk4AJ9imDHJUOfmf11vxc+1kqQKbwxahK3DaoJGOhIC1Yt/UfSp70KlFp2+
-	 ZzPVdg4pKnBv60ziz6aTunD8xgYQAuG9SyauKWb/VOlFao0CWSW+bJKcCQKUMRpRTBd60
-	 jmfdpKpbAHse5DmpzIfLUA7LsMHwwXPf7F/KKhGn3qAPJFgS2yHIc7EYgb62qvtJ+HPQF
-	 tRwmyELSCnvPyb9L8oTAZaiwII6m/rvX/Qo7/97bNt/2KLyVYKd6br/0uhN1vn5K4wpRu
-	 M3CMRQXagSrEPbYl97+ue8CP1x6nQs9/G8Nt9kgb4i1gXY4ZmtGXOxrpjKCC9dFPz/Q==
+	t=1794311663;
+	b=PqWARbdbFFUIZny5R4Q/ilHE8mVAlhKy1WfYU97+dIiTm7G5hSIw8W4Y+bys4B4Ik0Zq
+	 1Gi/ulQqzD66UTKTO7WWnbO5BHxnT2zFo9OD1W5CnUTYWE7lZgYRE81JgBqRF9PUxxKT8
+	 uBzDsLhoKqjEDqaVzqAYUwfyeMc6yrMW2UZntwravQoFmzUhaHSsF618cXwEP3VOQImF2
+	 8WgyRmv2ncwD2PZSvf/jkswNIYz4meScEatnpPJgr/OqW3yLKPQL9Cs7m8VSDxhg3Lzw4
+	 LauGCGs3O6otu1VQZGmGG6iak8M8ynuOFJuDJlCKhhrnqntm+LFYHNEgMx5fGbMAh1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311654;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=00Fdwn10rGQVzKW8pjIVBgoz/XU0RjZKEKOP68LF8SA=;
-	b=dhBCx6ddPYRiHttxke055AACcUGMSZXzyP08klZmJsjQNmkWxvy0dZsIoEtUXyRJ1Ibq
-	 AGXuCXAbQG5ayJqIvzeLFqMepSAMF+uSEDHetEOwDhVo8ELoQ4wlWitCXXxwDIVNYv4FA
-	 ufrZTDzr9IeXjPwOLW8zr4vE9f7AmQ+bQaISdBSj0zRsAdiOvJg8eERkDe+ZNzbC41GBz
-	 P69pMqb3MzzDuS2b/RVdJPcn58Btxjs3Zom+9lPNv5RGlRT18LwOMSRzup1a0DxvbV8v2
-	 s9u2SEaiggbFwcqxsGMncNm72gDQTmUJik6KCCt5pejOyX6/4BmNZtmu+XCRIlTbs1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311663;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=xpa/lg9njdRQQ0b6uyNUAGO+MuLiJ9/osTOM3IJ8JTE=;
+	b=DFM+PHxcdT/VkYOeAONc+flhprQka12thZJ6oOF6dAa6inaSJKZ3fiR5ZTYZ4LZeGV9X
+	 YSSzerwAXfMGkgN+dJ5VdIdx5X6mqveq2P9V7YLnYmo4c5klItICRJn5WsSX8RglgO9pL
+	 099sFtxlKuFTHyxh7UpZqQ8+xYJkHrapZqrRem1dVm3LaEpp9VTAIuVQXWxuC8jfnw8+7
+	 5NeTxg6JBrkJ83QrfuyV2osMjplltMJQcOzOWeOYYWC+pcEyDXOS3Dv9QxQ2N2HPc5MY1
+	 9+/6m2XOIDqiem+WmQLEuE5rinx/R+plFSC1mqz02nWLSVkNM2x9vKXisrTDhwiSRjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=fGDDh90F;
-	arc=none smtp.remote-ip=50.112.246.219
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041F3606A32E;
-	Tue, 10 Nov 2026 11:54:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 041F3606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ITjlHVP6;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 129E0606A998;
+	Tue, 10 Nov 2026 11:54:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 129E0606A998
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=fGDDh90F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1794311654; x=1825847654;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=00Fdwn10rGQVzKW8pjIVBgoz/XU0RjZKEKOP68LF8SA=;
-  b=fGDDh90FeQwzuXd2dGDIxVaLAUTC34HC9UalHX5/m2sE2R+4O/NarqTE
-   psn8lpE8LH/5EEICMjFbeRfy+AzDXBtyGkKEmG664Pmf24VGp2VdoOAnR
-   pCU6bVlW46OjAXy+SQYmRICAcVDM28U1hF7GhZjRgKX77DrHkx/uemiB9
-   RVyAMtq8CA0xsy3+qy42v24XHXvMj+7vWO5dCKq7O8raKa2fuYFZ2nRKd
-   EdbAIk88/oJhKSx1pnvtdC/7387UMMo//OFqumRTZLia0k1q6dDwYRCPr
-   Sblp/U2PeWbJqFwouEQaiaRfloL5uWWUhOG3c7fIHUtOkXNyBdMweHcXS
-   g==;
-X-CSE-ConnectionGUID: SVXNrMN+THCX9A4p6AfVrw==
-X-CSE-MsgGUID: k3mSKaVWSnKq2dUmFntIYA==
-X-IronPort-AV: E=Sophos;i="6.27,205,1787011200"; 
-   d="scan'208";a="33384274"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 11:54:11 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:22431]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.141:2525] with esmtp (Farcaster)
- id 739f06b5-ed38-4d68-8e1c-236e5caac1a0; Tue, 10 Nov 2026 11:54:10 +0000 (UTC)
-X-Farcaster-Flow-ID: 739f06b5-ed38-4d68-8e1c-236e5caac1a0
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Tue, 10 Nov 2026 11:54:10 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Tue, 10 Nov 2026 11:54:09 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-CC: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Shuah Khan
-	<shuah@kernel.org>, Hangbin Liu <liuhangbin@gmail.com>, Liang Li
-	<liali@redhat.com>, <netdev@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] selftests: bonding: feed link monitor to deflake prio_test
-Date: Tue, 10 Nov 2026 11:53:52 +0000
-Message-ID: <20261110115354.2250237-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <auvnnIXQV2zufxtF@fedora>
-References:
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ITjlHVP6
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 35E8A14BF;
+	Tue, 10 Nov 2026 03:54:19 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B54D43F632;
+	Tue, 10 Nov 2026 03:54:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794311662; bh=7Pp0tIVrm11vJlC7ulH2AYa6UOT1xWrcSbC9dxxfAhk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ITjlHVP6O2P61WozfihQOEfxkHjfXrATDkC42kjSKChCmKg2q0nUsHR3oxlVJY3cN
+	 LLUdsVldsb//VjfcccwBi4m+wiy47PufgMctazzoNNB8ZVR7+yT8oCQq92ibtztQcM
+	 0AheKLHynihg17TZo6MF95c97MHoJPUoKOm+qIbU=
+Message-ID: <e9bc3885-4e29-44a0-a186-463337f57d9e@arm.com>
+Date: Tue, 10 Nov 2026 11:54:17 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,28 +53,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/11] KVM: arm64: CCA: Prepare Realm memory management
+To: Kohei Enju <enju.kohei@fujitsu.com>, Steven Price <steven.price@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+References: <20261102141304.126883-1-steven.price@arm.com>
+ <avLgdqlfUPMAI-r9@FCCLS0092175.localdomain>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <avLgdqlfUPMAI-r9@FCCLS0092175.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Hangbin,
+Hi Kohei
 
-On Thu, Nov 05, 2026 at 10:19:08AM +0800, Hangbin Liu wrote:
-> If the kill fails for some reason, will we wait here forever and hang the
-> entire test?
+On 10/11/2026 09:24, Kohei Enju wrote:
+> On 11/02 14:12, Steven Price wrote:
+>> This series adds the memory plumbing for CCA building on the basic
+>> plumbing[1] that has just been merged.
+>>
+>> These patches add the internal realm VM state and RMM feature checks,
+>> prepare realm stage-2 setup and teardown, and provide RTT mapping and
+>> invalidation helpers. Realm memslots are now contrained to the lower
+>> half of the IPA space, because faults treat the protected and shared
+>> halves as aliasing. The final patch then connects these helpers to the
+>> KVM stage-2 MMU operations.
+>>
+>> There's also an integration branch[2] that builds on this series and
+>> includes the realm descriptor creation, REC entry/exit, activation and
+>> the new uAPI. This series by itself is also available as a git
+>> branch[3]. However the new code isn't generally active without the full
+>> integration branch.
+>>
+>> [1] https://lore.kernel.org/all/20261007073537.2454351-1-suzuki.poulose@arm.com/
+>> [2] https://gitlab.arm.com/linux-arm/linux-cca
+>>      branch: cca-host-mm/v1/integration
+> 
+> Hi Steve, thanks for your work on CCA upstreaming.
+> 
+> For testing purposes, could you clarify which TF-RMM revision (or commit
+> hash) you tested with? Although this MM series itself doesn't seem to be
+> particularly sensitive to changes in TF-RMM, testing the integration
+> branch could be affected by subtle changes in the RMM.
 
-No. bash keeps a terminated child's exit status until it is reaped, so if
-the ping already exited the kill fails but the wait returns immediately.
-Only a genuinely unkillable ping would block, independent of kill. The
-idiomatic form is kill_process() from net/lib.sh, which short-circuits
-the wait when the kill fails.
+Tip of both the repositories should work (tf-a and tf-rmm).
 
-Let's disregard v1 anyway. Your question made me look again, and it only
-treats a symptom: the Sashiko review was right that the mechanism in my
-commit message was wrong. I'll follow-up.
+Cheers
+Suzuki
 
-pw-bot: cr
 
-Thanks,
-Bjoern
+> 
+> It would also be useful to know the TF-A revision, if possible.
+> 
+> Thanks,
+> Kohei
+
