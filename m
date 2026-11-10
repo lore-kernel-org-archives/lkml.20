@@ -1,60 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333380;
-	b=lVc8C6SBdadAOyO08ADMR9GBCHl0FLksloQk8M/DOglxPP035duq34xyRVKV/17vnILO
-	 rU6cTunacdaP6yJIk/IrC+urqrB97kDTcTQiQH3Hn+ijvsMvFvwuEMJ9Q/PWURjq3/Ftx
-	 LwCYlVMFSPBJWjJ6Zs3QXDzPRQ6kE/hlloBzhJQs0qROO6KEqfPyW+YegUHIuKGQ92oyU
-	 abjj9nRdICXmAeuKpGDP1o7h+CKwgkY4uaSK92cejWp4g2t4CCvyBf3U6yKWu/CV0eGK+
-	 /pE/HOWIaHnuhq3VO0a4kWS0HAxn+aKiZpmjlsQFbwXHnoEHqXXLHQZGBbwjgsomGvg==
+	t=1794333383;
+	b=e7OIUUzQkh65ctNtRJiYZ7EYY6HihNwZ+eiRGQ2gN3MDSdVLdibuQoEQGnOGM2twsANj
+	 INv0+WSO0jd2e1TbH91/u4q4dPp5ctOBrszAmRUZTPdbz66QWe3kPm2l7uGR/KYx/g25p
+	 1MYbZoC9y+j6ZwOEofYSaFARO/ht8lsYb09czT/+hCsVSZ3pyojeRQqJu6wb7c9mQKT6t
+	 lnt0EuDonn7yrkWa7OljEU7x4Jv3yNGIAAqBzSBg72ZFSMSw7OFNq3yNIp7lDRtGuuYe6
+	 krwFIrswefZlxh/f162wsleHTAp4fZzWN3HmI3/bgPf9yDYVjqK7ReAXgsyxaKc1R9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333380;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pMm1+EQQovWR5YqKZWrJrY9fn+qMfjdL+fLalt4okXQ=;
-	b=naXPwscuPyB1+9OP8piwkGeR/ZsVL8Sd11xmH4o1k1nyJhSOXUIeFS7nIVr11XYTaPnO
-	 TpsU45HjT5dwUBfk4an2SJSsLkSrsiT/xzzfuZt+wX4FGgLEyHsseq2pRwBVP6bT8Trsi
-	 9V18Mj2Ph5s/FXHzMS5eSHf7IrI8h2AZNc4f9V9xneS2YpFCWKxPeODb3JNErolDsprIQ
-	 eo5oMrhbWA5Xz0/QcPMR9wqI7AA/uuoQU896/zl2MWNHhz/Ms8KvjmPhfVf1BdpnptHoe
-	 6GmYXX2RjnV51i6bOAkANSSkZNE/qUed0tq02nbBpKrcbmZtTN9tB7dUMUf3lG+EAYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333383;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8h442lZ4wNJ1w4XsRGE4609ntkN6o+zH0apnUFRmJBU=;
+	b=vmfmYiChDxUv9zqqyuIrc0FaiocmX9B3ZfHEYxDpE2FYptmS1V4wgNOtC571BO3FKoS0
+	 t5SnE0bhSgR03TOfvOP7AzWqF4IHvcOEvu4UL1UwFFO4Sy1+lKJYS0cABogXCa/yVmb2d
+	 +geLGmbQPgsfwYpSP17CA97Pu/pcSc+K7hRQBYxaTwYiCZVH9UZfxuoc0SmsHC1lEJATw
+	 OwOWJ1fejjZ+Lwc2AsxhkgE10c5aTg37ZWG35G/BbaIGTKpWTJyDDB4vKXGwYPNgQ3rGu
+	 liqDyqCYPJhT6BzDzMnIDG6b2SuPYrHuW58z5BmR2Gc7ksHrA5RN/J7NIr0HfaN0Fhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=JNzlhz2W;
-	arc=none smtp.remote-ip=185.70.43.17
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R8bRuklk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADEB606A20F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ADEB606A20F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1781606A21E;
+	Tue, 10 Nov 2026 17:56:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=JNzlhz2W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794333377; x=1794592577;
-	bh=pMm1+EQQovWR5YqKZWrJrY9fn+qMfjdL+fLalt4okXQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=JNzlhz2WxvdE/A2wtA9pt2dd/9kqoXVKUEUg6/sGM+foT/orsV9RgcCAoHvt0Sf+u
-	 ekF0DwsvvKWm9zr+Rx9tvYWooxVgm+7skfPEV+AdNzZPGe0W2i0SZMzfzDnw9aQjdM
-	 8Vmmq5r4po7bzvmSLj2I9y7LhJ58Q1o6XQKC9roQitk/uWNtIiypl58TXw5UmmqHqa
-	 tQjnZlO8O+ealsFpa0qWvaSzrwiWYaqD4dh0RYfxZi25hNgp9x/MbQfLQpb/uCJZa4
-	 DrTI8b6wCdZjkbuRrsL62C7c3Xt6+BfzatLPNPWI+GQ6BO08NZMcIz9ouQEh/QKsvm
-	 N+JxQRT7hystQ==
-Date: Tue, 10 Nov 2026 17:56:12 +0000
-To: Julia Lawall <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: cocci@inria.fr, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] coccinelle: api: add a checker for device nodes in devm memory
-Message-ID: <20261110175607.1617450-2-ca@modelmiser.com>
-In-Reply-To: <20261106193517.3267013-2-ca@modelmiser.com>
-References: <20261106193517.3267013-2-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 7328148d371cae6b74cc8b5197c3167d78f810c7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R8bRuklk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B45B1F008BC;
+	Tue, 10 Nov 2026 17:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794333382;
+	bh=8h442lZ4wNJ1w4XsRGE4609ntkN6o+zH0apnUFRmJBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R8bRuklkb9RAyuJ2CAj13kJOBVYMMbTETIRTMFgHvnTltu0Y8W/lwpIfDbYNIA2NY
+	 MSzhvbh8WavSS2Irslvhf1AKwbuBQaha/BKG3Wsr6c/Gy3wuZOD7kslc4hVmfNdG/s
+	 1XfyhNXrqTIN0jDnMxlk8372e5Z/SZpDrdO2XxSWt2o68xMzqS4rHpCWtBo+C+TTs6
+	 10M54nrrRBz5ZEa5iDuRiP0Q1lbU6D/7W3lXgkaVHfG3J2Mw+BQmuWK/Mkc+AgHPrR
+	 i/0ZN1ye/X2Q8sbC84f+ijlKxcBAffAMGi4h6X8j4YsMeW9JvM8/v4+kyUhPO5g813
+	 G2z/aSPnbQkmw==
+Date: Tue, 10 Nov 2026 17:56:20 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, John Allen <john.allen@amd.com>, Chao Gao <chao.gao@intel.com>, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: nSVM: Add missing CET VMRUN consistency checks
+Message-ID: <avNYjOevOv5s2o5k@google.com>
+References: <20261110004037.125692-1-jmattson@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,231 +57,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110004037.125692-1-jmattson@google.com>
 
-A struct cdev, miscdevice, video_device or v4l2_device embedded in
-memory from devm_kzalloc() and friends is freed when the driver unbinds
-(Documentation/driver-api/driver-model/devres.rst), but a file that user
-space holds open on the node outlives the unbind. Its later file
-operations use the freed memory, and for two kinds of node so does the
-core on close(). For a cdev, __fput() calls cdev_put() on it after the
-driver's release(). For a video_device, v4l2_release() reads it and the
-v4l2_device it points to, then drops a reference on it; at the last
-reference v4l2_device_release() follows it to the v4l2_device again.
-For a miscdevice, nothing on close() touches the miscdevice except the
-driver's release().
+On Mon, Nov 09, 2026 at 04:40:37PM -0800, Jim Mattson wrote:
+> Per the APM, "Canonicalization and Consistency Checks,"
+> 
+>   [t]he following conditions are considered illegal state combinations:
+> 
+>    - CR4.CET=1 when CR0.WP=0
+>    - Any reserved bit set in S_CET
+>    - CR4.CET=1 and U_CET.SS=1 when EFLAGS.VM=1
+> 
+> Check these conditions in software before trying to VMRUN vmcb02, so that
+> the illegal states result in a #VMEXIT to L1 rather than an exit to
+> userspace with KVM_EXIT_FAIL_ENTRY.
+> 
+> Fixes: c5ba49458513 ("KVM: nSVM: Save/load CET Shadow Stack state to/from vmcb12/vmcb02")
+> Signed-off-by: Jim Mattson <jmattson@google.com>
+> ---
+>  arch/x86/kvm/svm/nested.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> index af0ef678433d..20ede403b62d 100644
+> --- a/arch/x86/kvm/svm/nested.c
+> +++ b/arch/x86/kvm/svm/nested.c
+> @@ -469,6 +469,21 @@ static bool nested_vmcb_check_save(struct kvm_vcpu *vcpu,
+>  	if (CC(!__kvm_is_valid_cr4(vcpu, save->cr4)))
+>  		return false;
+>  
+> +	if (CC((save->cr4 & X86_CR4_CET) && !(save->cr0 & X86_CR0_WP)))
+> +		return false;
 
-Report such allocations in two ways: when the allocation and a
-registration whose argument uses it (x, &x->f, ...) are in one function;
-and by type, when the allocated struct embeds the node directly and is
-defined in the .c file or in a header it includes with #include "..."
-(spatch's default). A node registered through a pointer copied out of
-the allocation first is found only by the type rule; one nested in
-another member or in an array only by the first rule.
+Why aren't we checking X86_FEATURE_SHSTK here as well? Do we know if
+older CPUs that didn't support CET had the consistency check?
 
-With Coccinelle 1.3.3, on 7.4-rc1 it reports 124 sites under drivers/,
-47 of them only through a v4l2_device. Known false positives: drivers
-that cannot be unbound while a file is open short of removing the
-device, such as open-dice (platform_driver_probe() sets
-suppress_bind_attrs, and the open file pins the module); nodes no file
-can be opened on, such as the miscdevice in dw-xdata-pcie, which has no
-file_operations, or a v4l2_device that no device node points to; for the
-type rule, an allocation whose node is never registered; and a
-registration of memory only reached through the allocation, such as
-misc_register(x->ptr). Coccinelle 1.1.1 found 116 and 115 of the 124 in
-two runs, and nothing else: it loses some structs defined in headers
-when run with --dir, and cannot parse one probe function.
+> +
+> +	if (guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK) &&
+> +	    CC(!kvm_is_valid_u_s_cet(vcpu, save->s_cet)))
+> +		return false;
+> +
+> +	if ((save->cr4 & X86_CR4_CET) && (save->rflags & X86_EFLAGS_VM)) {
+> +		u64 u_cet = 0;
+> +
+> +		if (!__kvm_emulate_msr_read(vcpu, MSR_IA32_U_CET, &u_cet) &&
 
-Fixes sent for sites it reports:
+If X86_FEATURE_SHSTK is not enumerated by the vCPU, then whether or not
+the consistency check is done depends on ignore_msr. If ignore_msr=0,
+the MSR read will fail and we won't do the consistency check, but if
+ignore_msr=1 the MSR read will silently return 0, so the consistency
+check will be done but will always succeed.
 
-  misc: nsm: https://lore.kernel.org/r/20261107114433.3789830-2-ca@modelmis=
-er.com
-  ptp: vmclock: https://lore.kernel.org/r/20261107150344.3946529-2-ca@model=
-miser.com
-  platform/chrome: cros_hps_i2c: https://lore.kernel.org/r/20261110123230.1=
-251547-2-ca@modelmiser.com
-  platform/x86: dell-smo8800: https://lore.kernel.org/r/20261107204950.8895=
-2-2-ca@modelmiser.com
-  ACPI: pfr_update: https://lore.kernel.org/r/20261108233900.4043941-4-ca@m=
-odelmiser.com
-  ACPI: pfr_telemetry: https://lore.kernel.org/r/20261110144436.1529000-2-c=
-a@modelmiser.com
+Instead of this implicit dependency, should we check for
+X86_FEATURE_SHSTK explicitly?
 
-The script supports the context, org and report modes. It has no patch
-mode: the fix is a lifetime change (a kref, or a reference held by the
-open file) that differs per driver.
+Also, if X86_FEATURE_SHSTK is enumberated by the vCPU, and the MSR read
+fails, the consistency check will silently be skipped. But I don't think
+this can/should happen. Maybe we should WARN in this case.
 
-The script and this message were written with an AI assistant (Claude)
-and checked by hand. The six sites with fixes linked above were
-reproduced in QEMU under KASAN before each fix was sent; the other sites
-were not tested.
+One last question, in the restore path, the MSR may have not been
+restored yet, right? Can the consistency check mistakenly fail in this
+case?
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
----
-v2, for Julia Lawall's points:
-- Accepted fixes: links in the message; their status is at the end of
-  this note.
-- -I: two things lost ipu6 line 990 for us, and -I fixes neither.
-  Coccinelle 1.1.1 misses it with --dir, with or without -I; and v1's
-  Options line (--include-headers-for-types), which make coccicheck
-  applies and a bare spatch run ignores, makes 1.3.3 miss it too. v2
-  drops that line; with 1.3.3 (git 11b93adb6), spatch --dir drivers and
-  make coccicheck M=3Ddrivers, which passes -I, give the same 124 sites,
-  990 among them.
-- Header cut to two lines, and depends on org || report dropped.
-
-v2, for Markus Elfring's points: the two allocation rules are one rule
-with a disjunction (x is now an identifier, so x->f =3D devm_k*() is
-reported by the type rule); the argument pattern is <+... x ...+>;
-context mode added; one report helper; f-strings; "devm" without the
-underscore; the close() paths per node type are in the message. With the
-same Coccinelle and options, the report over drivers/ is the same line
-for line before and after these changes.
-
-Counts are for Coccinelle 1.3.3; v1's used 1.1.1. The 47 replaces v1's
-50, which was measured with v1's script, 1.1.1 and the old Options line.
-
-v1: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com
-
-On your question about accepted fixes: Rafael Wysocki applied the
-pfr_update fix to linux-pm (bleeding-edge) for 7.5, as dacb7cef6f32.
-The cros_hps_i2c fix is at v2 after Tzung-Bi Shih's review, and
-pfr_telemetry at v2 after Rafael asked me to address an automated
-review of it; nsm, vmclock and dell-smo8800 have had no reply yet.
-
- .../coccinelle/api/devm_file_reachable.cocci  | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
- create mode 100644 scripts/coccinelle/api/devm_file_reachable.cocci
-
-diff --git a/scripts/coccinelle/api/devm_file_reachable.cocci b/scripts/coc=
-cinelle/api/devm_file_reachable.cocci
-new file mode 100644
-index 0000000000..09d139eb6d
---- /dev/null
-+++ b/scripts/coccinelle/api/devm_file_reachable.cocci
-@@ -0,0 +1,114 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/// Find a cdev, miscdevice, video_device or v4l2_device in devm memory,
-+/// which a file still open after unbind can use.
-+///
-+// Confidence: Moderate
-+// Comments: Drivers that cannot be unbound while a file is open, and node=
-s
-+// without file operations, are false positives.
-+
-+virtual context
-+virtual org
-+virtual report
-+
-+@initialize:python@
-+@@
-+seen =3D set()
-+
-+def warn(print_fn, p, msg):
-+    key =3D (p.file, p.line, p.column)
-+    if key not in seen:
-+        seen.add(key)
-+        print_fn(p, f"WARNING: {msg}")
-+
-+@alloc exists@
-+identifier x;
-+type T;
-+expression e, e2;
-+identifier fn =3D~ "^devm_k[mzcr]";
-+position p, q;
-+@@
-+
-+(
-+x =3D fn@p(...);
-+|
-+T *x =3D fn@p(...);
-+)
-+... when !=3D x =3D e
-+(
-+misc_register@q(<+... x ...+>)
-+|
-+video_register_device@q(<+... x ...+>, ...)
-+|
-+v4l2_device_register@q(e2, <+... x ...+>)
-+|
-+cdev_device_add@q(<+... x ...+>, ...)
-+|
-+cdev_add@q(<+... x ...+>, ...)
-+|
-+__video_register_device@q(<+... x ...+>, ...)
-+|
-+video_register_device_no_warn@q(<+... x ...+>, ...)
-+)
-+
-+@embeds@
-+identifier S, f;
-+type T =3D {struct cdev, struct miscdevice, struct video_device,
-+          struct v4l2_device};
-+@@
-+
-+struct S {
-+  ...
-+  T f;
-+  ...
-+};
-+
-+@bytype@
-+identifier embeds.S;
-+struct S *x;
-+identifier fn =3D~ "^devm_k[mzcr]";
-+position p;
-+@@
-+
-+x =3D fn@p(...)
-+
-+@depends on context@
-+identifier alloc.fn;
-+position alloc.p;
-+@@
-+
-+* fn@p(...)
-+
-+@depends on context@
-+identifier bytype.fn;
-+position bytype.p;
-+@@
-+
-+* fn@p(...)
-+
-+@script:python depends on org@
-+p << alloc.p;
-+q << alloc.q;
-+@@
-+warn(coccilib.org.print_todo, p[0],
-+     f"devm memory registered at line {q[0].line} as a device node or a v4=
-l2_device")
-+
-+@script:python depends on report@
-+p << alloc.p;
-+q << alloc.q;
-+@@
-+warn(coccilib.report.print_report, p[0],
-+     f"devm memory registered at line {q[0].line} as a device node or a v4=
-l2_device")
-+
-+@script:python depends on org@
-+p << bytype.p;
-+S << embeds.S;
-+@@
-+warn(coccilib.org.print_todo, p[0],
-+     f"devm allocation of struct {S}, which embeds a device node or a v4l2=
-_device")
-+
-+@script:python depends on report@
-+p << bytype.p;
-+S << embeds.S;
-+@@
-+warn(coccilib.report.print_report, p[0],
-+     f"devm allocation of struct {S}, which embeds a device node or a v4l2=
-_device")
---=20
-2.43.0
-
-
+> +		    CC(u_cet & CET_SHSTK_EN))
+> +			return false;
+> +	}
+> +
+>  	if (CC(!kvm_valid_efer(vcpu, save->efer)))
+>  		return false;
+>  
+> -- 
+> 2.56.0.506.g506a7eabc5-goog
+> 
