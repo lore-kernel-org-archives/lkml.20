@@ -1,61 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794348430;
-	b=DIqJ5BFqsJ/YNJOz0M9/LzUMHPUuzfpaKZWpyCP2fPzSHUMpU/9L/ZYQcuWv/Flp9vgK
-	 02GhDeQ1ZD5uxcAegn7WT6f0/DmY66yTYWRd8p/v7/0hQcdU1UvvmyZH4+FxwEcbJt/HI
-	 dABwEm+KltWQucAEtDDX3ZvK6vqVhKEsdY7yoQPsrmiEg16OteUfGJGXgn8AHVzi2T04b
-	 +2PiJZxjTk7+UvB8X2leJDGcp0J5GFEJ73wvxA/EYjqD0wMkoUBXl8JLlDfNpqRQ3I9Qm
-	 ZAz+WqlZqg6mJB7XpRgedvqHgLz67RO0H8GWUPKWXKKn5V6JpMabyxaljTfM1US3uyg==
+	t=1794348442;
+	b=iHegeaZIDsGxj2bFEmHD0S3lPHGKc5OkV91PCD+CjIxuLPWBVgOjh9R5TxvdITzhFcRw
+	 zTja/TNit/45JfyeGkputE45hsALGFYtn5vUfVhHQn/YwS2OO43anqx8yCW6aEgmxc6QQ
+	 qY6IK7VmcHhwFf0ko1oo58pgi+OcT1+68tSwHYS5yY6zi1YNbrGD0jXuqsWLCvOkg/CLj
+	 Esq25QJnyZdW8seOAQ4y2wujle3r/2HXKKDeang8Nrp2RDWZyyYSMu/1jwRcZyzoQ+KU4
+	 +HW1PeH3xOejE97FdFJ2TNDQD4GeHqeKrTs/lYU55ObSL8zhw0vIpFC60p55+/4PwNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794348430;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vZ0g/FzovkvxTWd4Wk5Itwu89T8MT44mf5XsIEyYYrc=;
-	b=Xv+/dd4/5zK0ZWmJ1ONMT3XawwgnEyig5wO4hMQNtGxG4diOlgaTcnHOR0JtAmPZr2TD
-	 d1w4Hx1U6nDzOjALeNPDudMUyCfpkUsHcnNXvk5mjui6KR5zGgne5qhL1uHt8OdxQ7y7X
-	 ufTVumhiQjqQOHHUZER4qYdVt3/yDBS735jeH1tih9eTiWz4wOaM6Ih2Vglqx/A701idZ
-	 /CpHoWmDEFU61RL14Qpwopj+dQ9VgGs2yhSbG0ak71L/5qQWp+s1AC4x7dplG8e8IFnW7
-	 pI2fPmDVfTdWezApPJ5t1GaVhLz9eu+PXGoMirHTrD70a9781SMQG5FIs1xeT4ipjSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794348442;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=bjz/TYDXrY+0Pzooj+S3lI8weymUBei7pJvsgkB1Zc4=;
+	b=r6NXBM8Cp8l1TBitFzioOIXbwlBw5chayFtrqRsmE9TsMPkWomSKevJMcdILExumzB6H
+	 zN9YL+bHw9uryd1mQ/vstlqEEstddrZaI3eMRw7TXBqMnFQswvge4MwFvqgDcX3udUsyB
+	 yA9j+6X4sH/ShaZ+i6u6dHMzrFdtKSiw+9UiUdGS4j4fYusiI9/SETnnVmzaiMu5dkJU+
+	 Dq2Xy+gXZ9wQKVU/QxRpM3Mx3CcLLNHEdLZAJ3j/0hzPlorq2NCmdUQ9kOVe6T+jfHTKQ
+	 C1BJ7YfvrIcH3dBeOXhXwaxzmSpD3BY6RZ+DD3falltWiRXbo1OylgY/hYKYMdDtrtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhf0SZ8L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.71
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41879606A325;
-	Tue, 10 Nov 2026 22:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhf0SZ8L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2D31F0089F;
-	Tue, 10 Nov 2026 22:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794348429;
-	bh=vZ0g/FzovkvxTWd4Wk5Itwu89T8MT44mf5XsIEyYYrc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hhf0SZ8LsQ4XzQPLkOaIhbR2UsNod9O99izG6C/a2lqzInVF6otY8auYQm0WV1gJN
-	 XwgVuretnH8UMEQVaGSGpcAK2QzE8EfJdXBWaMIaSmmTtYuhy4WkaFx3EBNRwBKRIA
-	 bt/DR5+6QNKSMkSyeIfz5T7c52XF5Lr2iWPwI9NNCB82GrKu+xkx3rfK0fIKQ/YK8O
-	 6dSt5VY+hOdxiSnB09n/5ofG+4pp9qbyXVIT7dDYNQxCaxmeE3WMNLKvEwwhz6LXfx
-	 rgmds+HgvA9TZIvnURXWK83BxrQzLWS2ahzHEnKdnNrShP6nOfH4TlU/DkPRWR1Y1x
-	 csyCa8SFz7Mug==
-Date: Tue, 10 Nov 2026 23:07:05 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
-	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
- entries (Part 5/7)
-Message-ID: <20261110-goldkette-zugzwang-woher-1d6f21b4ddca@brauner>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
- <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner>
- <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
- <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
- <CAHk-=wi-B--TBQuYjz6J6vKtEMpNSm4_wVRzTP_vE=uTLb7P5g@mail.gmail.com>
- <20261109-hackfleisch-lohnt-konkret-02b5f3dde4f6@brauner>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BDA606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:07:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20BDA606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-492f39f29c4so2516899fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:07:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794348441; x=1794953241;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bjz/TYDXrY+0Pzooj+S3lI8weymUBei7pJvsgkB1Zc4=;
+        b=wQU5X/I6a/vKQMTlvqW328DIUoSfi33KWd6jULH9oYLtEZhY0VdjH8RELUS0Tzm8z8
+         m561JUU8c7sjQXf1zgoiDwxBsHNgVSouZTJwt6HBuD9Baq6xSrgzRWGtYNigxovbU9tZ
+         yotm7M3utd5nIOqpdFHZk1XuU6YkZKxLUlV2BHnGsq7udAUdqHPG1x4PNPXJNdR0zNuf
+         ACwuk+qngFyPh+qmyaMtfT6a+HOIXlHZFxzMTQbau9wZc3WI8HwLStfwjYjkr2R+AKR6
+         jUBPtKagnV9Y3dc2HJ3O9HO1yqdQpxR8wU9g1tUHNa6jj8yohKHGO9Y51AAuVfcEKEk/
+         91+A==
+X-Gm-Message-State: APuU4Z83t0bhBjLR0p7+YcN1x649/cIKO0H1SGtSnvKo7hhrAOVi66S0
+	AsCUQJDuqteO1V5+R2BflCCdzh9XmP16bJ1hXm8q5o6xvqeP4MFUMDcnsjeLxAhOHu0lb6zhPXQ
+	KwR4NtZd+H0hN5ooeuQdpzdf35kxH2YuiuXMq9gfYafGPG5rudc7BgspAEYo=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,19 +57,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109-hackfleisch-lohnt-konkret-02b5f3dde4f6@brauner>
+X-Received: by 2002:a05:6808:6605:b0:564:347c:5aa3 with SMTP id
+ 5614622812f47-56b9344c04bmr312340b6e.2.1794348441146; Tue, 10 Nov 2026
+ 14:07:21 -0800 (PST)
+Date: Tue, 10 Nov 2026 14:07:21 -0800
+In-Reply-To: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af39599.17ff5aea.1b027f.019d.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [block?] BUG: unable to handle kernel paging
+ request in blk_mq_complete_request_remote
+From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 09, 2026 at 12:26:23PM +0100, Christian Brauner wrote:
-> On Fri, Nov 06, 2026 at 12:19:45PM -0800, Linus Torvalds wrote:
-> > Ahh, this all goes away in "scsi: core: let procfs copy in writes", so
-> > never mind.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-I updated the tree incorporating all the review items I acked on-list:
+***
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/log/?h=work.procfs.cleanup
+Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
+Author: nenkov2004@gmail.com
 
-The overview is in the umbrella:
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+58c1eb84e97701c583605ba2fd553b69afba2245
 
-    https://patch.msgid.link/20261104-work-procfs-v2-0-b45cd5789ac5@brauner
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -538,6 +538,8 @@ bool nvme_cancel_request(struct request *req, void *data)
+ 	if (blk_mq_rq_state(req) != MQ_RQ_IN_FLIGHT)
+ 		return true;
+
++	if (!(nvme_req(req)->ctrl->quirks & NVME_QUIRK_SKIP_CID_GEN))
++		nvme_req(req)->genctr++;
+ 	nvme_req(req)->status = NVME_SC_HOST_ABORTED_CMD;
+ 	nvme_req(req)->flags |= NVME_REQ_CANCELLED;
+ 	blk_mq_complete_request(req);
+
+On Tue, 10 Nov 2026 13:49:04 -0800, syzbot
+<syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com> wrote:
+> Hello,
+>
+> syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+> KASAN: null-ptr-deref Write in fib_insert_alias
+>
+> ==================================================================
+> BUG: KASAN: null-ptr-deref in hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> BUG: KASAN: null-ptr-deref in fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> Write of size 8 at addr 0000000000000000 by task syz-executor/5244
+>
+> CPU: 1 UID: 0 PID: 5244 Comm: syz-executor Not tainted syzkaller #0 PREEMPT
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+> Call trace:
+> show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+> __dump_stack+0x30/0x40 lib/dump_stack.c:94
+> dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+> print_report+0x58/0x84 mm/kasan/report.c:485
+> kasan_report+0x8c/0xc4 mm/kasan/report.c:595
+> check_region_inline mm/kasan/generic.c:-1 [inline]
+> kasan_check_range+0x17c/0x1ac mm/kasan/generic.c:200
+> __kasan_check_write+0x20/0x30 mm/kasan/shadow.c:37
+> hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> fib_table_insert+0x5dc/0x12bc net/ipv4/fib_trie.c:1352
+> fib_magic+0x26c/0x344 net/ipv4/fib_frontend.c:1147
+> fib_add_ifaddr+0x2e0/0x500 net/ipv4/fib_frontend.c:1184
+> fib_netdev_event+0x35c/0x49c net/ipv4/fib_frontend.c:1529
+> notifier_call_chain+0x1a4/0x4cc kernel/notifier.c:86
+> raw_notifier_call_chain+0x3c/0x50 kernel/notifier.c:558
+> call_netdevice_notifiers_info+0xb8/0x120 net/core/dev.c:2313
+> call_netdevice_notifiers_extack net/core/dev.c:2351 [inline]
+> call_netdevice_notifiers net/core/dev.c:2365 [inline]
+> __dev_notify_flags+0x288/0x438 net/core/dev.c:10051
+> netif_change_flags+0xd0/0x15c net/core/dev.c:10080
+> do_setlink+0xc28/0x32d4 net/core/rtnetlink.c:3294
+> rtnl_changelink net/core/rtnetlink.c:3942 [inline]
+> __rtnl_newlink net/core/rtnetlink.c:4113 [inline]
+> rtnl_newlink+0xf48/0x1390 net/core/rtnetlink.c:4252
+> rtnetlink_rcv_msg+0x66c/0x9bc net/core/rtnetlink.c:7169
+> netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2584
+> rtnetlink_rcv+0x28/0x38 net/core/rtnetlink.c:7196
+> netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+> netlink_unicast+0x73c/0x934 net/netlink/af_netlink.c:1361
+> netlink_sendmsg+0x670/0x98c net/netlink/af_netlink.c:1920
+> sock_sendmsg_nosec net/socket.c:800 [inline]
+> __sock_sendmsg+0xc8/0x188 net/socket.c:818
+> __sys_sendto+0x250/0x328 net/socket.c:2283
+> __do_sys_sendto net/socket.c:2290 [inline]
+> __se_sys_sendto net/socket.c:2286 [inline]
+> __arm64_sys_sendto+0xec/0x10c net/socket.c:2286
+> __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+> invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+> el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+> do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+> el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
+> el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
+> el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+> ==================================================================
+> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+> Mem abort info:
+> ESR = 0x0000000096000044
+> EC = 0x25: DABT (current EL), IL = 32 bits
+> SET = 0, FnV = 0
+> EA = 0, S1PTW = 0
+> FSC = 0x04: level 0 translation fault
+> Data abort info:
+> ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
+> CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+> GCS = 0, Overlay = 0, DirtyBit = 0
+> user pgtable: 4k pages, 48-bit VAs, pgdp=00000001173dd000
+> [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+> Internal error: Oops: 0000000096000044 [#1] SMP
+> Modules linked in:
+> CPU: 1 UID: 0 PID: 5244 Comm: syz-executor Tainted: G B syzkaller #0 PREEMPT
+> Tainted: [B]=BAD_PAGE
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+> pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+> pc : hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> pc : fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> lr : hlist_add_before_rcu include/linux/rculist.h:744 [inline]
+> lr : fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160
+> sp : ffff800096b86750
+> x29: ffff800096b86780 x28: ffff0000c8fb8528 x27: ffff0000eb35fc20
+> x26: dfff800000000000 x25: 0000000000000018 x24: ffff0000c8fb8210
+> x23: ffff0000dcc87660 x22: 0000000000000000 x21: ffff0000c8fb8528
+> x20: ffff0000c8fb8218 x19: 1fffe000191f7043 x18: 0000000000000000
+> x17: 3d3d3d3d3d3d3d3d x16: 3d3d3d3d3d3d3d3d x15: 3d3d3d3d3d3d3d3d
+> x14: 00000000000006f9 x13: 0000000000000001 x12: 0000000000000000
+> x11: 0000000000000000 x10: ffff70001161f92d x9 : 0000000000000000
+> x8 : 0000000000000000 x7 : 0000000000000000 x6 : ffff8000804a0c38
+> x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008030c9a8
+> x2 : 0000000000000000 x1 : ffff0000c1fb1d80 x0 : 0000000000000000
+> Call trace:
+> hlist_add_before_rcu include/linux/rculist.h:744 [inline] (P)
+> fib_insert_alias+0xb0/0xb08 net/ipv4/fib_trie.c:1160 (P)
+> fib_table_insert+0x5dc/0x12bc net/ipv4/fib_trie.c:1352
+> fib_magic+0x26c/0x344 net/ipv4/fib_frontend.c:1147
+> fib_add_ifaddr+0x2e0/0x500 net/ipv4/fib_frontend.c:1184
+> fib_netdev_event+0x35c/0x49c net/ipv4/fib_frontend.c:1529
+> notifier_call_chain+0x1a4/0x4cc kernel/notifier.c:86
+> raw_notifier_call_chain+0x3c/0x50 kernel/notifier.c:558
+> call_netdevice_notifiers_info+0xb8/0x120 net/core/dev.c:2313
+> call_netdevice_notifiers_extack net/core/dev.c:2351 [inline]
+> call_netdevice_notifiers net/core/dev.c:2365 [inline]
+> __dev_notify_flags+0x288/0x438 net/core/dev.c:10051
+> netif_change_flags+0xd0/0x15c net/core/dev.c:10080
+> do_setlink+0xc28/0x32d4 net/core/rtnetlink.c:3294
+> rtnl_changelink net/core/rtnetlink.c:3942 [inline]
+> __rtnl_newlink net/core/rtnetlink.c:4113 [inline]
+> rtnl_newlink+0xf48/0x1390 net/core/rtnetlink.c:4252
+> rtnetlink_rcv_msg+0x66c/0x9bc net/core/rtnetlink.c:7169
+> netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2584
+> rtnetlink_rcv+0x28/0x38 net/core/rtnetlink.c:7196
+> netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+> netlink_unicast+0x73c/0x934 net/netlink/af_netlink.c:1361
+> netlink_sendmsg+0x670/0x98c net/netlink/af_netlink.c:1920
+> sock_sendmsg_nosec net/socket.c:800 [inline]
+> __sock_sendmsg+0xc8/0x188 net/socket.c:818
+> __sys_sendto+0x250/0x328 net/socket.c:2283
+> __do_sys_sendto net/socket.c:2290 [inline]
+> __se_sys_sendto net/socket.c:2286 [inline]
+> __arm64_sys_sendto+0xec/0x10c net/socket.c:2286
+> __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+> invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+> el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+> do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+> el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:797
+> el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:816
+> el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+> Code: aa1603e0 52800101 f90002b8 96d8b07a (c89ffed5)
+> ---[ end trace 0000000000000000 ]---
+> ----------------
+> Code disassembly (best guess):
+> 0: aa1603e0 mov x0, x22
+> 4: 52800101 mov w1, #0x8 // #8
+> 8: f90002b8 str x24, [x21]
+> c: 96d8b07a bl 0xfffffffffb62c1f4
+> * 10: c89ffed5 stlr x21, [x22] <-- trapping instruction
+>
+> Tested on:
+>
+> commit: 067c5c24 Merge tag 'page_alloc-for-7.4-rc2' of git://g..
+> git tree: upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=12c7b1fd580000
+> kernel config: https://syzkaller.appspot.com/x/.config?x=c06331d9bb9c8204
+> dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
+> compiler: Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> userspace arch: arm64
+> patch: https://syzkaller.appspot.com/x/patch.diff?x=16dccebe580000
