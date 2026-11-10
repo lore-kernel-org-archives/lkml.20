@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298240;
-	b=Q7JOfvjKdV/moPvuh8WL6txRuAek/iKccjow75ck1MfO6BU2VJ9MAnOVvQLTvvC9h19N
-	 aEpC0HbhHZzWBCe8BvnhJHUbfFIn8JE+NCMOqc69lRgTLJhIZty3iVc6aEROWLOUzdgX5
-	 dyT2mX8aM/xD3VI+OyjzqMytaJMCay1/kEQk3h7TlnHbC5udqtWcBCSxHnSow6h2aRUP3
-	 jZ1GWMFvFYp2vYl014Sz+8Kvp/pAT1UdNR0u2WjzLSru1X4J/eRs2hotNw1MAENSSVshV
-	 Wfyeeoovz8SSxBzTRYL084M6/hE1IHwCZlv4YDxDMSef27+ojQ+O07CmWu0gsMkQ5YA==
+	t=1794298289;
+	b=HUuy6hJoVYCXEkt7HT0WyWVc+EaefuZcGIfb89x1JjBINPJbV3Q1IKSmluxOsLYL5zUR
+	 Y9qmpxtlgcYLIo85mJ5Rab6gVO3hR3ELnfdhZKMLZDVqYwWLJLh/7ROauauQ5RGmQEUix
+	 5hooYlZiM/4fLUt7KinIHBsf7T1gcolSecc3wcE9Azx8mIa9gcHmD0/iu0NlBbA3COuiw
+	 IFoyOb8O2j+y5g3TvD8S5kim5hPi/IHTfVVUUOSVqOUgQO23I3nlImEz6ZflhNSbvQZt6
+	 UyORzM4Vs6u4iuTkvAWUpcdU3ZGatOosguWul/TupVMsXFzNvT+8UqxKHTYfTGo8Qtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298240;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ui3CpIlEJ97q+nx0KroTiGNw6xa+MjE5Cl5DE9+vJM8=;
-	b=h24hHU8/aAtu7RmcvAhfUHnTmpCV1OsNN/KgvGnXuXdzH8UF9SeJ0u0Zh3GRbtK89A8d
-	 kU7OEL+s10pqaruX4nT7HBizWvypyTlXVfNN63GqqVVAd846XSkVudfa+77JzsZHWQ7Hl
-	 SR4zKUs/mSbUFcwGx6xAtTM0eZKGqkk1tXxxziGRnvUmPcU1IGVS0CAnEDe8muvasfR5M
-	 72qM6kb5G/09DvEc0oCEWADZhjvcMNMnx5xNC9gG2tARGU6LyCCgHftg3kHaTL1/qhOad
-	 SrmYPuZK+MZ2NBVu/xaE2nyVQ8n1CA6C+rnYN9UedLIR6eNpDWOeu3NsM4eDy7Glwgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298289;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=jOh7ZgnccO4L8Qeh1oaXwjE5S2FwXwDj1PkxCIz2bvQ=;
+	b=M4R4Xmlz5Qx6oQ6zpbV3JFCSIWRxAUENp2/FdWlYx7oWcRu3u8ZC/aeuFY2ZYPRggjAS
+	 /XjGhBRmZbp65t3SFs5BAXb5ozjCG9AP1okQjjBh/Hp2Z1pCwjZi50rXBoVd2OMYv2JCR
+	 TtO11U7PTb+H6Dyyw6MwTXcivZF0br1mgOFzx5wwNb4WN/Mp+//+gWF2XkPUv477GAMqN
+	 lb6IAWgVaLWZb+bydY8BtCNlQxixi/ixayTaTUWvH9pDi0rBuvc/FJdI6EVna3rpEGNIo
+	 Y5ZhBRcH1Rg2IeGXpIxo+BVtrqiSn/+9PAKujY8dotu8ohLYE5u7Fll4XAQzIEt5bzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxFnCQ1v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXwyv7k7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E10D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:10:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822FE606A31C;
+	Tue, 10 Nov 2026 08:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxFnCQ1v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8BAC1F0089F;
-	Tue, 10 Nov 2026 08:10:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXwyv7k7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ED01F0089F;
+	Tue, 10 Nov 2026 08:11:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298240;
-	bh=ui3CpIlEJ97q+nx0KroTiGNw6xa+MjE5Cl5DE9+vJM8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bxFnCQ1vPDFtFhBtQXiw1XsFAyyZg6NDQfzLHIRS/5b13h5u4kxxfAjjPkKbKvBe2
-	 jhlpGMLgkSD9sxDvSMWVG4LyQEueUBCf1S8+y03mKbbkRPIT9aaYtnyG4LMZGTaqZH
-	 ZbIy4osRecG4YG+xtlQgRFUZYnhFVS4oc8s2lJ3ps7+ywH2RhrsgHy1ox6TrXOVZWN
-	 K1iZSFF5NdfNaC0ngnKtFtrzC7ZCEet1bpagm3ORVeAPera5uPloH3yhsY4MrTlBEx
-	 vZ/nvI32EiOiBtPEzh3d7FrmhSARS93F/rMbBvOffiE4/oCTeL/2PLtvbBLzPaBdJr
-	 NrvGVJnjSPnYA==
-Date: Tue, 10 Nov 2026 10:10:33 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Ivy Lopez <skunkolee@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/cma: simplify cma_declare_contiguous_multi()
-Message-ID: <avLReYfv2iMARmk2@kernel.org>
-References: <20261106-cma-multi-v1-1-054eae6e2c1c@kernel.org>
- <4acf6df8-8cdf-4f71-830d-9233db151b2a@kernel.org>
+	s=k20260515; t=1794298288;
+	bh=jOh7ZgnccO4L8Qeh1oaXwjE5S2FwXwDj1PkxCIz2bvQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lXwyv7k7RCG1HZme74th2ZxaF60JVoYGpIkmDSEOIFN6vqgK3Yccn5edW3L5+wkJK
+	 Ul7q5eJUI7wSyqpf8Aet2p/e+2pirXuVxKhFMW60jLth/4+LneVxd+08xmCVaC8nFd
+	 AghlxIPxCVm8HXERn1OkiAIZkP7PxINXaKr8FNX9/NjH42Z53DuD8Ptt+jkBe5QlDw
+	 ZbJ9ON9vwXSxNNQrwpNrxaQ2gS6PTFsWBIBOAIht7NNucADubplptxADnmkfem79aQ
+	 GMfEqqmDZqvrB2+PFgxCGiHvdxJOZQ2uKxthP+mrjlzsCICwt2DUac77opsFue9xrX
+	 Xow4LQrsrJLLQ==
+Subject: Re: [PATCH net v3 2/3] net: dsa: motorcomm: Resolve the flower action
+ list to one ACL verdict
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 08:11:27 +0000
+Message-ID: <179429828784.994134.6502837547336557554@kernel.org>
+In-Reply-To: <20261106073806.112122-3-mmyangfl@gmail.com>
+References: <20261106073806.112122-3-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,153 +63,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4acf6df8-8cdf-4f71-830d-9233db151b2a@kernel.org>
 
-On Mon, Nov 09, 2026 at 09:56:20PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/6/26 13:56, Mike Rapoport (Microsoft) wrote:
-> > When cma_declare_contiguous_multi() cannot allocate a CMA area as a
-> > single range, it falls back to collecting a list of up to CMA_MAX_RANGES
-> > largest free ranges above 4G, reserves them in memblock and adds them to
-> > cma->ranges.
-> > 
-> > The list and subsequently cma->ranges are supposed to be sorted in the
-> > order of base addresses of the "allocated" ranges.
-> > 
-> > This implementation has two bugs:
-> > 
-> > * The allocation may fail even when there is enough free memory because
-> >   list_insert_sorted() sorts the list in the wrong order.
-> > 
-> >   When the list is full, the largest range is evicted rather than the
-> >   smallest, the final list is not sorted by address, and the smallest
-> >   ranges are used first.
-> > 
-> > * the function may report success while it reserved less memory than
-> >   requested because sizesum accounts for ranges that were skipped.
-> > 
-> > And overall it is a lot of list management and open coded range
-> > selection for no real gain.
-> > 
-> > Replace the current code with a loop that finds the largest free range
-> > above 4G, reserves as much of it as needed and repeats until the entire
-> > area is reserved or CMA_MAX_RANGES ranges are used.
-> > 
-> > After successful alocation sort the cma->ranges by their base address.
-> > 
-> > The new code scans free memory once for every range rather than once
-> > for all ranges, so it is slightly slower, but it is way simpler and more
-> > robust.
-> > 
-> > Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
-> > Reported-by: Ivy Lopez <skunkolee@gmail.com>
-> > Closes: https://lore.kernel.org/all/cover.1792032699.git.skunkolee@gmail.com
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> 
-> [...]
-> 
-> 
-> Quite the simplification :)
-> 
-> >  int __init cma_declare_contiguous_multi(phys_addr_t total_size,
-> >  			phys_addr_t align, unsigned int order_per_bit,
-> >  			const char *name, struct cma **res_cma, int nid)
-> >  {
-> > -	phys_addr_t start = 0, end;
-> > -	phys_addr_t size, sizesum, sizeleft;
-> > -	struct cma_init_memrange *mrp, *mlp, *failed;
-> > +	unsigned long size_mb = (unsigned long)total_size / SZ_1M;
-> 
-> Nit: could be const.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Ack.
- 
-> > +	phys_addr_t size, remaining, size_align;
-> >  	struct cma_memrange *cmrp;
-> > -	LIST_HEAD(ranges);
-> > -	LIST_HEAD(final_ranges);
-> > -	struct list_head *mp, *next;
-> > -	int ret, nr = 1;
-> > -	u64 i;
-> > +	phys_addr_t start = 0;
-> >  	struct cma *cma;
-> > +	int nr = 0;
-> > +	int ret;
-> >  
-> >  	/*
-> >  	 * First, try it the normal way, producing just one range.
-> >  	 */
-> >  	ret = __cma_declare_contiguous_nid(&start, total_size, 0, align,
-> >  			order_per_bit, false, name, res_cma, nid);
-> > +	if (!ret) {
-> > +		pr_info("Reserved %lu MiB at %pa\n", size_mb, &start);
-> > +		return 0;
-> > +	}
-> >  	if (ret != -ENOMEM)
-> > -		goto out;
-> > +		goto err;
-> >  
-> >  	/*
-> >  	 * Couldn't find one range that fits our needs, so try multiple
-> > @@ -572,151 +556,56 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
-> >  	 * aligned to @align, and a size that is aligned to
-> >  	 * both @align and @order_to_bit, things will work out.
-> >  	 */
-> > -	nr = 0;
-> > -	sizesum = 0;
-> > -	failed = NULL;
-> > -
-> >  	ret = cma_new_area(name, total_size, order_per_bit, &cma);
-> > -	if (ret != 0)
-> > -		goto out;
-> > +	if (ret)
-> > +		goto err;
-> >  
-> >  	align = max_t(phys_addr_t, align, CMA_MIN_ALIGNMENT_BYTES);
-> > -	/*
-> > -	 * Create a list of ranges above 4G, largest range first.
-> > -	 */
-> > -	for_each_free_mem_range(i, nid, MEMBLOCK_NONE, &start, &end, NULL) {
-> > -		if (upper_32_bits(start) == 0)
-> > -			continue;
-> > -
-> > -		start = ALIGN(start, align);
-> > -		if (start >= end)
-> > -			continue;
-> > -
-> > -		end = ALIGN_DOWN(end, align);
-> > -		if (end <= start)
-> > -			continue;
-> > +	size_align = max_t(phys_addr_t, align, PAGE_SIZE << order_per_bit);
-> >  
-> > -		size = end - start;
-> > -		size = ALIGN_DOWN(size, (PAGE_SIZE << order_per_bit));
-> > +	remaining = total_size;
-> > +	while (remaining && nr < CMA_MAX_RANGES) {
-> > +		size = cma_find_free_range(align, size_align, nid, &start);
-> 
-> That's more a memblock helper than a cma helper :)
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-I'd keep it here in order not to encourage broader use :)
- 
-> [...]
-> 
-> > +	/* allocate from lower addresses first */
-> > +	sort(cma->ranges, nr, sizeof(cma->ranges[0]), cma_range_cmp, NULL);
-> 
-> That's nice.
-> 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks! 
- 
-> -- 
-> Cheers,
-> 
-> David
+- [Medium] This patch adds a claim to both the commit message and a new
+  comment in yt921x_acl_rule_ext_parse_flow_action()…
+
+--
+
+net: dsa: motorcomm: Resolve the flower action list to one ACL verdict
+
+This commit changes yt921x_acl_rule_ext_parse_flow_action() so the flower
+action list resolves to its first terminal action. Before, every action was
+accumulated into the ACL verdict. After a redirect only a drop is allowed.
+Any other action after a redirect falls back to a CPU trap, or is rejected
+when skip_sw is set.
+
+> diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
+> index 90b017a11a1b1..5c82719e461f3 100644
+> --- a/drivers/net/dsa/motorcomm/tc.c
+> +++ b/drivers/net/dsa/motorcomm/tc.c
+> @@ -1030,55 +1030,56 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
+
+[ ... ]
+
+>  	memset(action, 0, 3 * sizeof(*action));
+> -	flow_action_for_each(i, act, flow_action)
+> +	flow_action_for_each(i, act, flow_action) {
+> +		/* Only a drop can follow a redirect: a drop is an empty
+> +		 * destination set, so the software verdict is the same
+> +		 * whichever control the redirect carries. A second redirect
+> +		 * would only extend it if software continued past the first
+> +		 * one, and the flow action entry carries no mirred control
+> +		 * verdict to tell that.
+> +		 */
+> +		if (redir && act->id != FLOW_ACTION_DROP) {
+> +			reason = "Action after redirect";
+> +			goto fallback;
+> +		}
+> +
+>  		switch (act->id) {
+>  		case FLOW_ACTION_ACCEPT:
+> +			action[2] |= YT921X_ACL_ACTc_FWD_EN |
+> +				     YT921X_ACL_ACTc_FWD_FWD;
+> +			terminal = true;
+> +			break;
+>  		case FLOW_ACTION_DROP:
+> -		case FLOW_ACTION_REDIRECT:
+> -			if (redir_act != NUM_FLOW_ACTIONS &&
+> -			    redir_act != act->id) {
+> -				reason = "Different redirect actions";
+> +			action[2] |= YT921X_ACL_ACTc_FWD_EN |
+> +				     YT921X_ACL_ACTc_FWD_REDIR;
+> +			terminal = true;
+> +			break;
+
+[Severity: Medium]
+Is the software verdict really the same "whichever control the redirect
+carries"? The commit message makes the same claim:
+
+  Only a drop can follow a redirect: a drop is an empty
+  destination set, so the software verdict is the same
+  whichever control the redirect carries
+
+This seems to hold for pipe, and for the controls that
+tcf_mirred_can_reinsert() accepts (shot, stolen, queued, trap). For pass,
+continue, reclassify, goto chain and jump, software looks different.
+
+In net/sched/act_mirred.c:tcf_mirred_to_dev():
+
+	dont_clone = skb_at_tc_ingress(skb) && is_redirect &&
+		tcf_mirred_can_reinsert(retval);
+	if (!dont_clone) {
+		skb_to_send = skb_clone(skb, GFP_ATOMIC);
+
+With these controls a clone is redirected and the control is returned
+unchanged. Then net/sched/act_api.c:tcf_action_exec() ends the action list:
+
+	if (ret != TC_ACT_PIPE)
+		break;
+
+So the trailing drop never runs in software. A jump control skips over it.
+
+Take a rule like this:
+
+  flower ... action mirred egress redirect dev swp1 pass action drop
+
+Software sends a copy to swp1, and the original frame continues into the
+stack or on to the next filter. In hardware, the FLOW_ACTION_DROP case keeps
+FWD_REDIR together with the DPORTn bit set by the redirect. The rule is
+therefore programmed as a pure redirect, and the original frame is only
+forwarded to swp1.
+
+Before this patch, this action list hit the "Different redirect actions"
+fallback. It was trapped to the CPU, or rejected under skip_sw. Does the
+patch now offload a combination where hardware and software behave
+differently?
+
+A standalone redirect with one of these controls already had a similar
+mismatch, as the second half of the comment says. But
+tcf_mirred_offload_act_setup() only fills in entry->id =
+FLOW_ACTION_REDIRECT and the device, not the mirred control. That means the
+driver cannot check the equivalence this gate relies on.
+
+Should a drop after a redirect go through the fallback path as well? And
+could the comment and the commit message be narrowed to the controls where
+the equivalence actually holds?
+
+[ ... ]
 
 -- 
-Sincerely yours,
-Mike.
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106073806.112122-1-mmyangfl%40gmail.com
