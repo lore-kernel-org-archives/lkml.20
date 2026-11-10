@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319442;
-	b=LU7Id7SOsxY5U9X65OOHX6fmGtRtw1a58THDTfBBM+AqeCb4bkNw5RCMYWZgnkPZQpxQ
-	 6aqEglyCmv2OQ32E1BppodlRn22Sz3SIDwr3Rk3vnZIdZheprOxyAmlgNjG87/eKX+cD2
-	 uE22XMT9sUQnEE3mFDU8xKd/JjpQo3HOqu2P7pcK/WU/ZTLVJXwMtzeVB2ooYHTRWRj/4
-	 bwyfOFaqmyhp4zquFBiZfmy2W/YfIIvsGQw5Uwy4pZoKz6PR20AFUQo8G8s2/rkwXEnPV
-	 iR8yGCTrAVkIZ7JDfypE/UzRrwyTir4LCn2bDb3li4BaeQezF+P+ydgJMVHSPdzcUKw==
+	t=1794319436;
+	b=v0xGFmH0YixyTbVAJHWSXqVr71ygS2exUtelmM1Ymyaag/PGSy8HkCySUmdX194g9VCL
+	 wTpvnEK2tafd8F3Mvh67yGz1yEvZdcD/pNAkjSdXBTB/g7eiQRadQOhkCdgCVzTC+fVat
+	 SZ0HDKcLD7NRIMAJTH8xb9xKyIz4EVKeFlvor5Ts+dtovA7DGgggrZYgOg517A+HkQb4h
+	 w7nYwAezmNWSCFSASl/F+xpNXNg1l/uKMHpAsR1WaX76k1spYC/ZdH5yDETEsLGV9qmzw
+	 0SVN9pLhtU0DUsqkOvWEHWCue/bIVQBZhtlFFNZEfi69j2RhKDaRp0lZfDRQ4skjl8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319442;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7SNMRn19gqfsW+FItqWvv1LuPX61ETlQLvBBtwgnLk8=;
-	b=pQYljiXG2AD7/zJo6y8AgUyAMlNHEpN5+UqpXaLC/oPBdFu4/FOcZr9OTgxthKkOLvz7
-	 m09Co1zA1Jjt6KF2yp9s1Blt+bNFeostLmwzBNe7ImzHnsenYjmFdnKVNeVR6TMC+CP1M
-	 tfgjC096oOK77aVAUvCHhzmxLEV6CpdlaUFaI4uq6pQP+iUCasMkiHgD7G7HvWDCeeOho
-	 4PoBusnx++/Wq48QCJETFG1Euq066jFWDLKQyecb7h+5rFUC2wR909p2JJJp+GLLcWcIn
-	 6jVfrY5X9w0u9iHJ/HJDiUCjVFaADEzujJ6j8kxpD+ndRimxYgyqHM5A6Tuql64wAsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319436;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=LmeHeiyAlUzpahmPYHz4GdQzrqGVFRf1t8/WmrIMmcY=;
+	b=YC5U34I4I+BHRW2c+AWecPUsB6XxbSGHJIy1svJxsr5YmiyMYKL5BE0oiEpr3wOJhEL5
+	 uULTE72ojCsgrceJneRw1V4rO9GWERUxjK/flskHP5pPcmnIb++FKQ/OoIKU2vgnQJAgR
+	 GF1HjNdvTcN24K/w5zwGOwBf/fQhEM2fJWtePsHYCJhn8ZDHG0fs2nu3TPWj/u0pcU2BX
+	 v0htmx9ZPXtIkvFbAsoitc2mHRp1EW3Mn6RPF8q+McS3w3Xm95KGXBxND+29FDPKuQmQx
+	 dVP/c3pO9Ukx3cQrnzcdOVP9eNxcdT8LE05LZTfQp9YwH57Ywbzh3esCriL4fLgHSzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bu7n3QLm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YZKsHvp+;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7549260A3801;
-	Tue, 10 Nov 2026 14:04:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5CD606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C5CD606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bu7n3QLm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE7B1F008A4;
-	Tue, 10 Nov 2026 14:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319442;
-	bh=7SNMRn19gqfsW+FItqWvv1LuPX61ETlQLvBBtwgnLk8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Bu7n3QLmvgnBFxAUzsXp+zBHdfasZrfsr9bEVGDoCCjE6tOPhomgenywWBEyUi8Md
-	 XmWunn1fAt4ODGkOfS2Sdf8Pku7sgb+05xdakzQVzBmWPYICKs3SICmmREuyB8Gizn
-	 vKZhJhBugOu3gfuTIIF2sxj0B37DoyzyGv0BRsSg1i5KsRrYxVw33iIwDRq54uBrIx
-	 1+CPpF0w4GhGRPEMRb7GEhGPu4jJeP3TOjaQtNOmIgBWTw8INq/FmAXNDpHsnxKRWG
-	 Ycuaeu43jve+QNzy9jr6q9JuHf4ev2Jkl5FSG7RdzHqx1PF+Rf0z9OFJfCQ8VBIlGa
-	 MG+VJZfIq9dyQ==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Tue, 10 Nov 2026 15:03:49 +0100
-Subject: [PATCH 3/4] media: i2c: vd55g1: remove redundant
- pm_runtime_dont_use_autosuspend() calls
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YZKsHvp+
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1ae58d17cd9so1553008c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:03:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794319435; x=1794924235; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LmeHeiyAlUzpahmPYHz4GdQzrqGVFRf1t8/WmrIMmcY=;
+        b=YZKsHvp+EItbb/BTe4Cp0uBR8CbFsw8A3fZCL2aJae79uogkg9eTX4pi21wbFUOM4Z
+         5avHORvRexE2FxVzOTNW5yBBVVOZOFkAsgPcpH8OccxLAibaWpPrcUA8/Yhif2cP5g07
+         s6YTelElwItOizFHZ5VDp/i/yj9jrOat2L7MidsOX52PBIQe6UEAd/1/g4C5eMETx8hR
+         q+15EpJ1T9b++Aw2MC01OijLj+CZ7AIusX9pcpot6O6I8f8Ur/PQ+bNmnUIMhiJB/wG5
+         bIDfxmrDgNOZY+X+eWq+8NMGmIxLB+Yjg41eBSdW1hMOAGlLattlkyV9cTkq9zs9UmPE
+         SawA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794319435; x=1794924235;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LmeHeiyAlUzpahmPYHz4GdQzrqGVFRf1t8/WmrIMmcY=;
+        b=E/G/CF04Ouid2OGLRJCSlyPNzIIikkFa49CFgLfS1IXhmvcCkdyPR45VX/HRGdkzVc
+         Mv91RU6UaxCbvPTKQPjvTzKiMTO/koI8YlGAlQKUXiv0g9dQkq5fWNnIbyTTam96ibBT
+         n3UCGnHa1J9KS031k/BOv80hop+eVKXdSMLbYe9hV0Cz/0TQM3uWSfVrw1JRcaBYghbd
+         jNLPw+l7V6NGeEWh21Cq82UdamFg30SXpDB3rq2UxQ1EsMSjwiAgj7IG7ybafkpHEANw
+         r/ePiRF0ZXg3bphOXH/T0bRZMGoHUApFJlE95Ic9YiI6RGpKe8mlSPORVvsQFybg8fKr
+         aebw==
+X-Forwarded-Encrypted: i=1; AL+hErF8+iihFHYxlTaVQ+xLK8yN+MFNKTq3PAzAE81XH3KSKdYexaXqegYC4e05c5B+6/GdgIhJ4HXaak9j6DM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8T5ft1RgmDPb7AhT7Z86zm6IM0dGcB1wnk0Pgyt8nFwGSdaf90
+	WQbhpFad+Y2YytLUv+jH+KsxEeRNjrEHOne4L9wnakITNPDZMEpIt2uU
+X-Gm-Gg: AYBFou1g1azrgvkWDv76FIaXdtE1vJrUrrwKPfvIYpQHxQrHGlXu2pCl3QrWMktJFjq
+	LwtljXfIblMe7/nlwD4iSnNayEj/HTIYooLI4Twt5/yl50KiErw+QjnQTQv/wYqSPom4324avwm
+	cRatMN69TDSVZlmS2mc2JZMfJF+gCrlJyhOag28bN+qKr7sOLYx2/Nj206Wh5xHzKn2KFwDDVnE
+	3CQDWgTcOoe2xhZeEcl5sJiCsQKOjC34ZovlmRIaj9dlrSn2qcEsl9GJ2qBSuFNq1Q4YVMOhivf
+	oJCj81MMDGElfksPuydwqKR7heeStAj8OArXNunxZwndcR8DVJErI3Ifu1MDF7ztsOOWUjuYSCS
+	zHxImvXqnzr8OcT1oC0vurRgg522C+Wz3o+W+gRBye4VNlYjEGAKf1GBO/ogZP7KwIV8KDP2qif
+	Nj+l+bnSJCXS490xJmPOHLfa9TvtBtdemuUCJe+ljBvNqT0mkD1EtOCwCByLhUcRlCYxqxoW2BI
+	FrkIDtS3mtk/rfpOdt2bE2QleU/C3dWFM90n1+seUEkqiDShe/1N9NvwmmAdFwkLVHv3W75b12E
+	sUTL6qwjkcIgey64mk5sHv5XomjVUgK30w==
+X-Received: by 2002:a05:701b:2089:20b0:159:2c6d:fcc3 with SMTP id a92af1059eb24-1b3b602d056mr3655380c88.33.1794319415066;
+        Tue, 10 Nov 2026 06:03:35 -0800 (PST)
+Received: from user ([2405:201:c052:b00b:e920:f0ce:52ca:a7ce])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5ba8426sm6831793c88.23.2026.11.10.06.03.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 06:03:34 -0800 (PST)
+Date: Tue, 10 Nov 2026 19:33:04 +0530
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: dsterba@suse.com, mason@kernel.org, fdmanana@suse.com,
+	josef@toxicpanda.com, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
+	syzbot+55d1814e49f1fc0ba542@syzkaller.appspotmail.com
+Subject: Re: [PATCH] btrfs: Clean up delayed inode items on transaction abort
+Message-ID: <avMkGGHSH2scfa0t@user>
+References: <20261109202914.64371-1-pavankumaryalagada@gmail.com>
+ <d3e07f45-58f3-4668-b9c2-e0cf63decd4c@gmx.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,60 +100,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-3-cc07e71b30f9@kernel.org>
-References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- David Heidelberg <david@ixit.cz>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
- Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <crofts@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1167;
- i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=3JtUFHLngK+Z4hf+nqLJAp9bQMJ0gI/2RWoh+fAZLO0=;
- b=WYB/9H7CQlpn6Jo1yOxwDAXkqL645vFB+dzQlNEh53uJVV9drXuFAiZXn7pBZpewo66ItZEGi
- OcGIuZdIdPdBh9AdUTBotZEU5ZaGmEdYRNTVQn6FMMr6vaTUzQ9JW7Y
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d3e07f45-58f3-4668-b9c2-e0cf63decd4c@gmx.com>
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
+On Tue, Nov 10, 2026 at 08:37:16AM +1030, Qu Wenruo wrote:
+> 
+> 
+> 在 2026/11/10 06:59, pavankumaryalagada@gmail.com 写道:
+> > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> > 
+> > When a transaction is aborted, btrfs_commit_inode_delayed_inode()
+> > fails because btrfs_join_transaction() returns an error. This makes
+> > btrfs_evict_inode() skip btrfs_kill_delayed_inode_items(), leaving
+> > pending items in the delayed node.
+> > 
+> > Move the error check after btrfs_kill_delayed_inode_items() to
+> > ensure pending items are removed when the transaction is aborted.
+> > 
+> > Reported-by: syzbot+55d1814e49f1fc0ba542@syzkaller.appspotmail.com
+> > Link: https://lore.kernel.org/all/6af131f2.44d55313.247daf.0001.GAE@google.com/T/
+> > Fixes: 2adc75d61203 ("btrfs: move btrfs_kill_delayed_inode_items into evict")
+> > Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> > ---
+> >   fs/btrfs/inode.c | 5 +++--
+> >   1 file changed, 3 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+> > index abaa33471456..397aa64b4816 100644
+> > --- a/fs/btrfs/inode.c
+> > +++ b/fs/btrfs/inode.c
+> > @@ -5623,8 +5623,6 @@ void btrfs_evict_inode(struct inode *inode)
+> >   	 * the inode update is released.
+> >   	 */
+> >   	ret = btrfs_commit_inode_delayed_inode(BTRFS_I(inode));
+> 
+> What if btrfs_commit_inode_delayed_inode() failed but without a transaction
+> abort?
 
-Remove the redundant function calls.
+If the transaction has not been aborted, we shouldn't remove pending delayed
+items.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
- drivers/media/i2c/vd55g1.c | 2 --
- 1 file changed, 2 deletions(-)
+> 
+> E.g. btrfs_alloc_path() failed inside btrfs_commit_inode_delayed_inode(),
+> then the transaction is just ended regularly without aborting.
 
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 3a3ce32b0610eb23d42b622f2173a505df120176..8ea68dc9b1d99d11a7678138a5b6f7147b595f0a 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -2053,7 +2053,6 @@ static int vd55g1_probe(struct i2c_client *client)
- err_power_off:
- 	pm_runtime_disable(dev);
- 	pm_runtime_put_noidle(dev);
--	pm_runtime_dont_use_autosuspend(dev);
- 	vd55g1_power_off(dev);
- 
- 	return ret;
-@@ -2070,7 +2069,6 @@ static void vd55g1_remove(struct i2c_client *client)
- 	if (!pm_runtime_status_suspended(&client->dev))
- 		vd55g1_power_off(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
--	pm_runtime_dont_use_autosuspend(&client->dev);
- }
- 
- static const struct of_device_id vd55g1_dt_ids[] = {
+Agreed. In this case, -ENOMEM is returned, but the transaction hasn't been
+aborted, so we should keep the pending delayed items.
 
--- 
-2.47.3
+> 
+> In that case, won't the btrfs_kill_delayed_inode_items() call causing
+> problems?
 
+Yes, calling it unconditionally could remove pending operations even when
+the transaction hasn't been aborted. I'm thinking of making the cleanup
+conditional so that delayed items are removed when the commit succeeds or
+the transaction has been aborted, but are left untouched on other errors
+like -ENOMEM.
+
+	ret = btrfs_commit_inode_delayed_inode(BTRFS_I(inode));
+
+	if (!ret || BTRFS_FS_ERROR(fs_info) ||
+	    test_bit(BTRFS_FS_STATE_TRANS_ABORTED, &fs_info->fs_state))
+		btrfs_kill_delayed_inode_items(BTRFS_I(inode));
+
+	if (ret)
+		goto out;
+
+I included both checks because TRANS_ABORTED detects whether a transaction
+has been aborted, while BTRFS_FS_ERROR() checks whether a filesystem error
+has been recorded.
+
+Since the TRANS_ABORTED bit can be set before the filesystem error is
+recorded, checking both ensures that we also catch that case.
+
+This way, we clean up the delayed items if the commit suceeds or the transaction
+is aborted, but keep them on recoverable errors like -ENOMEM.
+
+I'll send this as v2. Please let me know if you see any issues with this
+approach.
+
+Thanks,
+Pavan
+
+> > -	if (ret)
+> > -		goto out;
+> >   	/*
+> >   	 * This drops any pending insert or delete operations we have for this
+> > @@ -5634,6 +5632,9 @@ void btrfs_evict_inode(struct inode *inode)
+> >   	 */
+> >   	btrfs_kill_delayed_inode_items(BTRFS_I(inode));
+> > +	if (ret)
+> > +		goto out;
+> > +
+> >   	btrfs_init_metadata_block_rsv(fs_info, &rsv, BTRFS_BLOCK_RSV_TEMP);
+> >   	rsv.size = btrfs_calc_metadata_size(fs_info, 1);
+> >   	rsv.failfast = true;
+> 
