@@ -1,45 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271678;
-	b=xnklyReFoPZVV3TBiZ/8qljSxqo5SWv+5PAngGTey1Wwt0e6yl31lJxsjnk42RViQ3PZ
-	 RiHFJwoivnD/IhhRLiKeLsbKAbBpun89ZeSAJ0L7/eKXV4DYQQC5gvpEK1J9ake6tQhtt
-	 soL+eASAGHFc+UufWy8IILSdSOlC/T4a1rRc34Ku2aqkDUZqRmS/TXlvsTMiNuy6vHTo9
-	 p0u6ieH/26Mtqn6IH3PY2c/CCO7GdqZtupX98K2WaBk26xsW5KTbn/QnFy3jxr8Mxx7xs
-	 Q0NNq92URmw4iEyv1luz/JJausWoZ/AEtaza3cd0CKcLJfltdRTwLgZsyxOIG/MA8sQ==
+	t=1794271704;
+	b=qr9wHyRP9K2IliXP7Ck69OqTSiZuZJjqxNWJxE0ylco0ACu4TFVI+0BrR09NY2Oqu4t6
+	 pD7BbH3NezqV12RoQP3jYOginfNLBVxQnXHigEBY9mfoHwA625gqXZTMWfciphXwxT4Cy
+	 iJgpzxIBQVRV0Yj0BzbXshk0nWKlYnUOa0JiClEdPBYBkqfdBaPffz6SiLbPidgKm/gzA
+	 AL7Tx2ZTTmYRjyKpRiIaK1VkXcvI578qrAukuooPj01lU6FsTH0LdKcZu6csvf06sandH
+	 4SLapj1I4kw6vY0QQkTAO+Sf0apM4lEs8jmCXOU43jNnqVZpdOnXHcPwY+mXV+Ib7Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271678;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To;
-	bh=/v7Lk8oO1TnQwIeXyiFCZJA2BdIlQJEIsX7ukbQLF7A=;
-	b=5XdFgMH5LXEVAzWJDLQMJexz4VyW5BGWZ1kE91HXEpbVSHRBtrhEHsN1JslFqLy7s7kN
-	 JLzSggZQnryLYo/gBHwdv8AGLwcc1wJJko/9oe4DKOhWovHex6P66OQQeetgsSeVjycIm
-	 +QuSLGCaB26Z8gph8jNv4JrHcM24PzmEri4S+dJw9GkkP0K0ZepFpkJZXJBKwecoCrfip
-	 EWH+dwFro7zwE5GHzcEk6qG7rGgW8emaK4KFZ5Oy22MDHQdu0OzGXZbUaPT4J8+q9bxic
-	 M2MOL+0AGFSgn8QnVShU1a4g1c0mPj+ofMvrfR8l4QnULCSn3fbeguORhdB3kPTtj9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271704;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3Xo6pRfKtJUGUHdPK++9LnJKDE8puj/5ez9TES0+7xw=;
+	b=kduJTO4YCIRgtSYYCa4fNL4ci/IDsLWi/FTJzgTmX+g9CuBc0bzJXpIOD1HlV4nhCq44
+	 x2CecUZM8un87fmrdEID6UlGniDZXWD59zhygwMYin3jdWpfEYqHtENqtsgUclgJ1HM9F
+	 S2I2o/wjYmuuF5RNfiv6z2nrGQr4lXc8yxM0K7cUFMNdwf69CF5XLfuMOG+tMj1XRhsX4
+	 x/DzX87WWPTN3LWY5SkBMbI1Hz46subFsUge/4ALRe5oY19ex2KpLMFURswEEsqSLQ0mH
+	 BxWA7gPqJfFU2sd4v7rV4WZQuUlHRW6Vl1nwppRyiHV2sQUpy5hgrRTp4nBsAVJVRsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rLG1ZE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ecr7oeSg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3826606A31C;
-	Tue, 10 Nov 2026 00:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F13E606A325;
+	Tue, 10 Nov 2026 00:48:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rLG1ZE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36221F008A1;
-	Tue, 10 Nov 2026 00:47:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ecr7oeSg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53451F008A1;
+	Tue, 10 Nov 2026 00:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794271677;
-	bh=/v7Lk8oO1TnQwIeXyiFCZJA2BdIlQJEIsX7ukbQLF7A=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=K1rLG1ZEHoNXAsQPyaiZDlHextA0PwC/XEZxrHa/HQZfaSnARzEtMt8fUkpc8uR5J
-	 a11J68iI74SfPU5FabImCTr/IVE3qHi+WURhy/mQ6EGyOZGDGKuXufULXGvDwdCytg
-	 ASTOp1hM3YcSJi93nK4vM95LGOd5wpJcfTLZ+SNb2BXcEBU9mN49VoZdSp9WGAs0U/
-	 X1wrQiKBCN1TH2wTPCdP1Y8P36nfRaBkl/SjCh4JMpGmMcxOD7GFyJ0gxHN7M/ZwOj
-	 fuhhN+A6+EvK8U56KIMO1l7bEJyndnrxqApxcdytF9pWmAKlYAOf+fLh2ju20LJNCW
-	 QUMYR4PaftjWw==
+	s=k20260515; t=1794271704;
+	bh=3Xo6pRfKtJUGUHdPK++9LnJKDE8puj/5ez9TES0+7xw=;
+	h=From:To:Cc:Subject:Date;
+	b=Ecr7oeSgvsJKzDeMDBpc7QEOPzDe6UTbRKUtx0+XnFGQ4sMMlyG5Nopq9bwUm46VP
+	 cLnLW9iB5UycYapqZA0RFitW0YvfVm4VzBfKhoU/MWtwFHVTRP66MBiD5Bh8cl6T+R
+	 vugK3lQjpmOcfTxaiqonolaKG219lLKHAfC/GeZSsOHEl7xG1j23C4G4KP9TwI1dF2
+	 b7pX8nfG4A3dFRdyWW0ftaayxauJ94zTFXlHxndzj6mYjMb8BlNyKL5yOcB3MB1B2P
+	 rFIzvAGNm0UVDoUiQ5UX6lKvxtRECMn6HWJk6eXH+NUUFjuuFRjGuFwuHZRo4HJOWa
+	 vLH5y4vEcl+Pw==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Wang Guangke <gkwang@linx-info.com>,
+	stable@vger.kernel.org,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH mm-hotfixes-unstable v3] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
+Date: Mon,  9 Nov 2026 16:48:14 -0800
+Message-ID: <20261110004816.100066-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,158 +59,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 01:47:48 +0100
-Message-Id: <DMR481ABCB7M.27TE44YRCBZK2@kernel.org>
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-To: "Simon Song" <xinmengs@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 07/12] rust: pci: add an error_detected callback
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
- <20261023154009.2246627-8-xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-8-xinmengs@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
-> VFIO PCI variant drivers will use error_detected() to notify userspace
-> of PCI errors through vfio-pci-core.
->
-> Adding error_detected() to pci::Driver lets VFIO variants reuse the PCI
-> adapter's error callback dispatch. A following patch removes the
-> duplicate vfio::pci::Adapter.
->
-> Suggested-by: Zhi Wang <zhiw@nvidia.com>
-> Signed-off-by: Simon Song <xinmengs@nvidia.com>
-> ---
->  rust/kernel/pci.rs      | 33 +++++++++++++++++++++++++++++++--
->  rust/kernel/vfio/pci.rs |  6 ++++++
->  2 files changed, 37 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index 1951b3c8a5c..ddc28099087 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -109,7 +109,7 @@ unsafe fn register(
->              (*pdrv.get()).remove =3D Some(Self::remove_callback);
->              (*pdrv.get()).id_table =3D T::ID_TABLE.as_ptr();
->              (*pdrv.get()).driver_managed_dma =3D T::DRIVER_MANAGED_DMA;
-> -            if T::HAS_RESET_PREPARE || T::HAS_RESET_DONE {
-> +            if T::HAS_ERROR_DETECTED || T::HAS_RESET_PREPARE || T::HAS_R=
-ESET_DONE {
->                  (*pdrv.get()).err_handler =3D &Self::ERROR_HANDLERS;
->              }
->              #[cfg(CONFIG_PCI_IOV)]
-> @@ -223,8 +223,27 @@ extern "C" fn reset_done_callback(pdev: *mut binding=
-s::pci_dev) {
->          };
->      }
-> =20
-> +    extern "C" fn error_detected_callback(
-> +        pdev: *mut bindings::pci_dev,
-> +        state: bindings::pci_channel_state_t,
-> +    ) -> bindings::pci_ers_result_t {
-> +        // SAFETY: PCI error recovery holds the device lock.
-> +        let dev =3D unsafe { &*pdev.cast::<Device<device::CoreInternal<'=
-_>>>() };
-> +        // SAFETY: The device lock prevents removal of installed driver =
-data.
-> +        unsafe {
-> +            Self::callback_data_with(&raw mut (*pdev).dev, |data| {
+From: Wang Guangke <gkwang@linx-info.com>
 
-Please use Device::drvdata_borrow().
+estimated_memory_bandwidth is calculated by access_bytes *
+USEC_PER_MSEC * MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval,
+and users read it via
+/sys/module/damon_stat/parameters/estimated_memory_bandwidth.
 
-> +                T::error_detected(dev, data, state)
-> +            })
-> +        }
-> +        .unwrap_or(bindings::pci_ers_result_PCI_ERS_RESULT_CAN_RECOVER)
-> +    }
-> +
->      const ERROR_HANDLERS: bindings::pci_error_handlers =3D bindings::pci=
-_error_handlers {
-> -        error_detected: None,
-> +        error_detected: if T::HAS_ERROR_DETECTED {
-> +            Some(Self::error_detected_callback)
-> +        } else {
-> +            None
-> +        },
->          mmio_enabled: None,
->          slot_reset: None,
->          reset_prepare: if T::HAS_RESET_PREPARE {
-> @@ -461,6 +480,16 @@ fn reset_done<'bound>(dev: &Device<device::Core<'_>>=
-, this: Pin<&Self::Data<'bou
->          build_error!(crate::error::VTABLE_DEFAULT_ERROR)
->      }
-> =20
-> +    /// Handle a PCI error and return the PCI recovery result, with the =
-device lock held.
-> +    fn error_detected<'bound>(
+On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned
+long once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC),
+so users get a wrong value.
 
-This can use #[optional].
+Fix it by doing the calculation in 64-bit and splitting the division
+into quotient and remainder.
 
-> +        dev: &Device<device::Core<'_>>,
-> +        this: Pin<&Self::Data<'bound>>,
-> +        state: bindings::pci_channel_state_t,
+The issue was reproduced on a 32-bit system (qemu-system-i386): the
+parameter estimated_memory_bandwidth reported 362 instead of the
+expected 1926150; with the fix, the value matches the expectation.
 
-This should be represented as a Rust type, maybe something like:
+Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Wang Guangke <gkwang@linx-info.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from v2
+- v2: https://lore.kernel.org/20261103034034.7978-1-gkwang@linx-info.com
+- Collect R-b: from SJ.
+- Rebase to the latest mm-new.
+Changes from v1:
+- v1: https://lore.kernel.org/all/20261101180001.167198-1-gkwang@linx-info.com
+- Clarify the issue and its impact on users.
+- Add Cc: stable@.
+- Rename variable bytes_per_interval to bytes_per_us.
+- Use USEC_PER_SEC instead of 'USEC_PER_MSEC * MSEC_PER_SEC'.
 
-	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-	pub enum ChannelState {
-	    /// The I/O channel remains operational.
-	    Normal,
-	    /// I/O to the device is blocked.
-	    Frozen,
-	    /// The device has permanently failed.
-	    PermanentFailure,
-	}
+ mm/damon/stat.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-> +    ) -> bindings::pci_ers_result_t {
-> +        let _ =3D (dev, this, state);
-> +        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
-> +    }
-> +
->      /// Enables Single Root I/O Virtualization (SR-IOV) for a PF.
->      ///
->      /// Called when userspace writes a nonzero VF count to `sriov_numvfs=
-`. The token carries the
-> diff --git a/rust/kernel/vfio/pci.rs b/rust/kernel/vfio/pci.rs
-> index db30dbce6a8..0fbc6a920dc 100644
-> --- a/rust/kernel/vfio/pci.rs
-> +++ b/rust/kernel/vfio/pci.rs
-> @@ -1096,6 +1096,12 @@ pub fn reset_done(&self) -> Result {
->          // SAFETY: This owner keeps the pinned registration data alive.
->          unsafe { self.dev.registration_data_with(T::reset_done) }
->      }
-> +
-> +    /// Signal the VFIO error interrupt and return the PCI recovery resu=
-lt.
-> +    pub fn error_detected(&self) -> bindings::pci_ers_result_t {
+diff --git a/mm/damon/stat.c b/mm/damon/stat.c
+index b05b68f73e10d..e44f5bf3645cc 100644
+--- a/mm/damon/stat.c
++++ b/mm/damon/stat.c
+@@ -32,8 +32,8 @@ static bool enabled __read_mostly = IS_ENABLED(
+ module_param_cb(enabled, &enabled_param_ops, NULL, 0600);
+ MODULE_PARM_DESC(enabled, "Enable of disable DAMON_STAT");
+ 
+-static unsigned long estimated_memory_bandwidth __read_mostly;
+-module_param(estimated_memory_bandwidth, ulong, 0400);
++static u64 estimated_memory_bandwidth __read_mostly;
++module_param(estimated_memory_bandwidth, ullong, 0400);
+ MODULE_PARM_DESC(estimated_memory_bandwidth,
+ 		"Estimated memory bandwidth usage in bytes per second");
+ 
+@@ -55,15 +55,18 @@ static void damon_stat_set_estimated_memory_bandwidth(struct damon_ctx *c)
+ {
+ 	struct damon_target *t;
+ 	struct damon_region *r;
+-	unsigned long access_bytes = 0;
++	u64 access_bytes = 0;
++	u64 remainder, bytes_per_us;
+ 
+ 	damon_for_each_target(t, c) {
+ 		damon_for_each_region(r, t)
+-			access_bytes += (r->ar.end - r->ar.start) *
++			access_bytes += (u64)(r->ar.end - r->ar.start) *
+ 				r->nr_accesses;
+ 	}
+-	estimated_memory_bandwidth = access_bytes * USEC_PER_MSEC *
+-		MSEC_PER_SEC / c->attrs.aggr_interval;
++	bytes_per_us = div64_u64_rem(access_bytes,
++			c->attrs.aggr_interval, &remainder);
++	estimated_memory_bandwidth = bytes_per_us * USEC_PER_SEC +
++		div64_u64(remainder * USEC_PER_SEC, c->attrs.aggr_interval);
+ }
+ 
+ static int damon_stat_idletime(const struct damon_region *r)
 
-Same for bindings::pci_ers_result_t.
-
-> +        // SAFETY: This owner keeps the initialized VFIO core device ali=
-ve.
-> +        unsafe { bindings::vfio_pci_core_aer_err_detected(self.dev.core_=
-device()) }
-> +    }
->  }
-> =20
->  impl<T: Operations> Drop for Registration<'_, T> {
-> --=20
-> 2.43.7
-
+base-commit: 09f140d2cb078edfcd08a40a23ead0bdceea30a4
+-- 
+2.47.3
