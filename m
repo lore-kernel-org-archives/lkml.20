@@ -1,100 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338493;
-	b=t3Ps9kUBxAS5LRw5M0pbx7cUMkFRshT9Y9rwR9JdDL/oUIp4EELD/RPYy/xWariwGBG4
-	 7MQdYeOEs5bjnQCuu2iaoJatc6B7XlnA4OS8iEznzLQRKCRKGnYhIS/eDRQGbGuD+GQYk
-	 YbFrftNTl5IA30urwlIzFb2b76yM032hQU3MAdb5euFnGfi0OGqCzve6Y+zAIaqYlaADM
-	 +k8AhfPjV+s3whgM3APgcRX8OE5vVRlfENYPY/5la71u/uP54IbpK4G9sv1GN4jdAcSnR
-	 uauS5UpMc253DofstOcmSCbMmQbZLjZzBQe+pb1Upj0zXEA+7uoIi8Cld8Fd2/C34/w==
+	t=1794338550;
+	b=F7wqSht+R6BV1XMyfNbtrtg5n8whqp1jzkSG4ocViAeFcAlXuJaWWtkx+eA78a8MJWvS
+	 6IqeBc1QwLEW6cfVjLhG/1ORAXj49B6oqm4NU4IoxqDRZ3TeaY4FlwkGi96tatRy8Z88Y
+	 idb9zuhtQSttZ1Gg68C/3jhxNdPJQn1mUBSTpUk23zfYD5K6Mq97awt6ADqQKUttjuKTp
+	 BihdHHTEaTp0/h4zD0g/55Rjpyl+1DES1nP6uUYkazNMf2aFZF1gkwzKQkIR8HDm/ofEV
+	 TtBnPWSWNXHCSijwh6zsen1LI7p2w//a56JNm0oSvgMz9VX0bKCa6ict5lnRmmKjVgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338493;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=1t73b5ZSa12OsN3iPrfbLNmR1n1bS9CZocRd+GhLFbo=;
-	b=Uiky9+J57+s9JOBoCFv4nwNa4ur3kW73Nlbttv8rwMFm/QghyHuuNgjxgSe0+Jyb+tGd
-	 9YlMXtJaZtI6eWihFhe3tRADyaKF7N1Y0cxRjeFSNni3mVkQheuvilAASI+ethQuljD22
-	 AiO3SzuhTiQ2o35KTLy9gCbOlOjpq8/RjR7mkZqdIrg8XAJbU8ukKMtbtCj5btFP8ngOF
-	 6bmJKwj/JrAbQopfVoCvbOPi3Q/SO4wF4L3UB0OHsTc1uw7zNExVZvR/rT6/1S91B0MKo
-	 RbqdDeHzXlf7rB8i6wy+PAGrttSGc5x8eWdHGggYYXWeoDmjpoH+TgYNxT0bJtNrDgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338550;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=w82bV3O4CTnUIOtRe4QKHo0rl8s7//SUTJbVojJ2aQs=;
+	b=4cU5pTILA3eX5ngXbct4hQPGHMGuhjyuPeIVdZLa+EmmUPVtyzBzhteY2CoYnC1nBwF7
+	 dtKGRQ4s23pzKAhLIP5lND5oWiUfEDF/6lT9FV/XfVUIXeW0NuQrKgbDRXnxr11lsZ5Ye
+	 ZIaCA4bOGSVhenk0emGMka4D7GErb/hxhuWOtoIpuSiKgqOjOMKtv6tDLQTH+EIJkA5HX
+	 yh0rGDf+CR28d2LDMZzUJKWCjDDE9jrLK9DOjOZm+85GcQUYtanpp+uQHjxSJmdBHgmb2
+	 XqY1G1mHhlvHAQQTmuiE4U3XaOn8f/rJcAKmHLAO6eZxcpLYZXUKU0QS+DHeD8W4N/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=La82y597;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kuJa6fLa;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E28C606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:21:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E28C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11669606A323;
+	Tue, 10 Nov 2026 19:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11669606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=La82y597
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=1t73b5ZSa12OsN3iPrfbLNmR1n1bS9CZocRd+GhLFbo=; b=La82y5
-	97ml0CQGynNL0ie1/M+r2AMEH6r0CUjXrEOt8hBih5Yayt9jYw5yR2vnqfofWCOo23FjTfexiCHqH
-	Aoct88cTpSYIbbhnnU3p97+EeDxJDGsdZv4cegHk2SXkSlecCxPlX4JQi13Fb+p1sQIYly/M5CY1A
-	PyPXgHDfUPBaUOgKH6Y3spdl/56HRudd37a/zhjET2rumoAxrCFyhaujJgQkvLIkmTjUGvqiy+BYk
-	2UK1jpdqYo95Daomv5UtIuJrnNYP75/8+gH3Ng4k/ufLRE6O/RTXGqVV+2GZZwEZfnehLqgi0BCyD
-	CLiddLOdwCa4KrJN13Zk/KWbC4oQ==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xQrPC-00000003grc-2AWO;
-	Tue, 10 Nov 2026 19:21:18 +0000
-Message-ID: <699499e46ace0875fd0f32052399e665c8209ea9.camel@surriel.com>
-Subject: Re: [PATCH v3 5/6] mm: gup: introduce gup_unshared_pages()
-From: Rik van Riel <riel@surriel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Yeoreum Yun
-	 <yeoreum.yun@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, Jason Gunthorpe	
- <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>,  Lorenzo Stoakes	 <ljs@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka	 <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan	 <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Andrew Morton	 <akpm@linux-foundation.org>, Yuan-Hao Hsu
- <aa9736195201@gmail.com>
-Date: Tue, 10 Nov 2026 14:21:18 -0500
-In-Reply-To: <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
-	 <20261109-refactor_gup_fast-v3-5-2aaef02df0e1@arm.com>
-	 <7627c0d90188b581e7740bf8d17c8dd07b460f89.camel@surriel.com>
-	 <avLqwIWHa5CAbHO2@e129823.arm.com>
-	 <aa227fea-d22b-4c0f-bd11-bf9ec36b0767@kernel.org>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kuJa6fLa
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAJEiA83166888;
+	Tue, 10 Nov 2026 19:22:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=w82bV3
+	O4CTnUIOtRe4QKHo0rl8s7//SUTJbVojJ2aQs=; b=kuJa6fLar1e7+5FXvFx71T
+	l2aYvUWNOeqjOHugZA4fd163QOCM1TOXTXeHY9MKywgiQhE36dEmwnmo4rcGpVW9
+	L8isjWhvlr0C1YwjvmxVXdaK+ZZrJHGj+yWKIYDHQZR7JZejMWJnl6D/UUuNSAKv
+	5eJqSaBAg8YnJy6g7+PUDvvwONmQo0DXQEulfUCgKAuJOcHf9Hempx2eu6AtXGZX
+	oR/b9bMfqv6V5KVtRZ/4ETONHoSRNJNDq59pHmEokUtrx1qaInopTwMb41McW36B
+	YfUOmNxxpuYCARlPnumS65F2nAf5N6wvhTukK0XiCNnvDaEYNrgrHP7wO8JQZwJQ
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumuwyu3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 19:22:06 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAJ6sZ82228193;
+	Tue, 10 Nov 2026 19:22:06 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepw03kt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 19:22:06 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AAJLxwL31392392
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2026 19:21:59 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 99B892004B;
+	Tue, 10 Nov 2026 19:21:59 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0567E20043;
+	Tue, 10 Nov 2026 19:21:56 +0000 (GMT)
+Received: from [9.124.212.251] (unknown [9.124.212.251])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 10 Nov 2026 19:21:55 +0000 (GMT)
+Message-ID: <b6a7ba26-e3f1-4dfe-a429-8dd3379e665a@linux.ibm.com>
+Date: Wed, 11 Nov 2026 00:51:54 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,37 +86,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/5] powerpc: Add RTAS based error injection support
+ for pSeries
+To: Narayana Murty N <nnmlinux@linux.ibm.com>,
+        Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Oliver O'Halloran" <oohall@gmail.com>,
+        Timothy Pearson <tpearson@raptorengineering.com>,
+        Alex Williamson <alex@shazbot.org>
+Cc: sourabhjain@linux.ibm.com, Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org, sbhat@linux.ibm.com,
+        harshpb@linux.ibm.com
+References: <20261023073642.59657-1-nnmlinux@linux.ibm.com>
+Content-Language: en-US
+From: tasmiya <tasmiya@linux.ibm.com>
+In-Reply-To: <20261023073642.59657-1-nnmlinux@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3NiBTYWx0ZWRfX8sIjR/YGNfAH
+ M/JUOPs4R6h2I+sNX7xbP8FUV9RErvctybBoEwtKvZ2V+oYwI4nf2Qyjw6jzJIqKlWN7Y6CDS19
+ hKOpENFmabpTuuc5euBtG6YNWnLZnxg=
+X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af36edf cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=wt1o8H50IsT6fsVrqxAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: bF2VkZfhLSNJRRigfk4ZzzsrTrbZ4s-V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3NiBTYWx0ZWRfX3+76r3m+rW4K
+ j0IqymTxuc9aQAgLVFtT6932MCMg93b9WiqIZwhmYwfrqlX02R/mWtsIzKuN2n47JLvYGVK92kE
+ KaBpKwUxUYHXwXEMS3HJ5t5lT127GEG7bwMUgPATHmchIa4NkKWF/BN6FZNjF6TXbNqYjibjYLM
+ Ndh9MsXhZuamwtqAf1kIXRzBkoX3VJxutSvoFZH65B/dzi5hSDpZsIwloRO3jcxdpHV+ryEe+0j
+ PnPeA6pRR5oftFdAemdT6Mj3FjU9e0sPrcK5QwbRGAM3roqRQYIzPyRJy6l7wCaP1koCt1e63j0
+ cA5SdwcKZVFc4znLcMJFFKFIxJEcdFbn+DnDLFsJvumAYgH+RuyQzaS495qaiyZsFhnoo3tI+T5
+ 38iMhlBPFQT928XVmHqe7AOsPVDve/ya84Y2tQHvHWrFPh6FchRtNswMVA/LZZ0XIJ9xlNv7tiu
+ Dmsvv6nJlwNhvzWty1Q==
+X-Proofpoint-ORIG-GUID: 4wOdbhRt4fq1tVao8zd49rlv59CDfrtr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100076
 
-On Tue, 2026-11-10 at 14:04 +0100, David Hildenbrand (Arm) wrote:
-> On 11/10/26 10:58, Yeoreum Yun wrote:
-> > Hi Rik,
-> >=20
-> > > On Mon, 2026-11-09 at 12:32 +0000, Yeoreum Yun wrote:
-> > > > This is preparatory patch to make gup_fast_pte_range()
-> > > > batchable.
-> > > >=20
-> > > > Introduce gup_unshared_pages() to count consecutive pages
-> > > > within a
-> > > > folio
-> > > > that do not require unsharing, and use it to implement
-> > > > gup_must_unshare().
-> > > >=20
-> > > Could gup_exclusive_pages() be a better name?
-> >=20
-> > Yes. This seems much better for me. I'll change it in next-spin.
->=20
-> Not quite the right semantics. For pagecache folios we simply don't
-> need
-> unsharing in MAP_SHARED VMAs. That does not imply that these are
-> exclusive.
->=20
-> So it's all about "number of pages that don't need unsharing".
->=20
-gup_no_unshare_len() ?
+Greetings,
 
-a little awkward sounding, but it describes
-what it's doing?
+I have tested this patch on my KVM guest environment. I am able to 
+inject EEH errors from host console as well as on guest console using 
+location code for a VFIO passthrough device.
+
+Tested-by: Tasmiya Nalatwad <tasmiya@linux.ibm.com>
+Reported-by: Tasmiya Nalatwad <tasmiya@linux.ibm.com>
 
 
---=20
-All Rights Reversed.
+
+Thank you
+Tasmiya
