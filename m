@@ -1,114 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316936;
-	b=A6UOBYsOAg3rG1evHI3D+Hgi63+EGhvgPFrivxcGS+f4DllkoU2srBssMVaVs7WgM0GV
-	 osAdT27l3NDFccdd8A3uILKDGf3ANLtuZJX7OOau8pcSzQCCLlZ7Z4pXO7qGIJgfrKwk/
-	 Hrf/WCI8YzlCRS5ZiQNNQH1EbmoqOtWH+OzYYC86ZWm4vHBjxmVSJ/oDytdWCObCa2uZF
-	 /ygTRJWlT889myGPqV0xoBzhykuu7oZ02rxykFV49qm+vxrjsNr83qzEdCmlCsTyLwm/Y
-	 ot493asJHrGqrSZ3f/WvpJjeiP3Waao8lB6HVaAyS8U6c8JcNZK12DT6defYHmlj1Jw==
+	t=1794316946;
+	b=soJ5iLSDD9Wy87JeEu3+546mhaSYYNIXDzCtsbV+CD/J+AXEI3MwRigsjxNlilYp4isg
+	 4ur39H1RwiYiwReDq1azNB2o8lJKHqMWmiyfa+1LVGnUnfztSUrQjET3cmLc2wQX0jN2J
+	 XZoyCe/XxMmDP9Tm+3rN51NS7HeDOcjEtVs50DbUFXTj6dv7w6icLPOn9sSwkRtQUHG20
+	 U8xuD0ALotSIsekmmQa4+p/QJpYyvBe4b6N2Mav1JEGHSOJpNbZw0PAr9WHFDQBp5d9v4
+	 efbHezuuNQrMsRgGXZymILasuFIqNDZO09rbdxINdT4w4GhEeetJd/32JccGfdgrlIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316936;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316946;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1D2OMakjENy2CCg5zoH16kIpqUwoSYvl8dD8pwUKqpo=;
-	b=no/25Pl73maJRacLzPhRgIgm1NKycb/WoX9Y956vGbvdxlGFz0fwqdwz1jd0xBlASgah
-	 acNxgTa439ljCf9jZfLNi/RRpeTJdIYqc29Uugbaejm1nwZYQoMLBLkUDFTZU9PgpPzns
-	 jHshUmwTWRp3sw8r5x6EJloT16WbaWC0cnioZkJ4FftViZ87cSzAKDW/P2RUUOPtNSzJO
-	 CZGOBVWIst7oxiqICzmuewI1xFRT4w+GI8psGkNccZVbOgiHa1YsrnUHz7dH8ATfbXYx5
-	 jyMgfr3GEZUCbmKi3jdatOMcgR1liJVvcJIpU3H8kMQPbzcqsNaONdXGFUvt7nXUeQQ==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=g75W/bT+6sBq3ZuteoFUFS+Co7pEE7nkrsl0KkNU8Gs=;
+	b=iRrvq58G5MVwJoyWwCLZ/OgitR8mxWB59f590f506lwy/Z33EgWmTGfDSbr61Jf5/NaB
+	 YcaFuylGPdy4q7RdW2PgLcPcb9KEAY/Jj3uEQtaziNAEjJj+LmrU6bU7whgWC+2FTub7Z
+	 cSlx2y77mlM5NfVEkn/ABLgnQmlpWkClmkSCaou84GL6gjzekUhGyeNOcG/Chg/0zDtpW
+	 3n6Rzyg7a0t2LYfk4FFmqvh81G0pn52ZwnnJUPTn9fobd7uZKbb5i/Qe8QSMSEFl/HFj+
+	 cK807SidXJRFJ2Ce4fHF8c14Jpm1aCwbsB9sPXv926ngDTpMqiNU1LS0NndQWIsub2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Th590W8O;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=FHvsNgog;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D30606A768
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:22:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D30606A768
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82D6606A768
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82D6606A768
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Th590W8O
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9eb579c0eso11119945ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:22:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=FHvsNgog
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-930c0f9c1b1so203439585a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:22:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794316935; x=1794921735; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1D2OMakjENy2CCg5zoH16kIpqUwoSYvl8dD8pwUKqpo=;
-        b=Th590W8OG5dZUoLPtRCpkWnbFR/BORsCeoqr8ft7J/tMy9HArk8fsPjdhUxmcy0gk1
-         iKacQCT8jgGWg6BIOfa5pYndrgNqoHPgFCgN8kL+CqI0lF2dzkFNuuSA/3eAbdgp2rWP
-         ieCYGoCs0G7mgDu6neM1o5tH5H2br8TMW51chw8CxBM39TkTEfLhHDiTwYP5mdKR/aQL
-         YnhSHEqCV3874Pb6m6Et6KN7JGxF708PTrBarJF7+uLlM3ZxoB/XyA3eK2OjsAf+U+xG
-         c932JRmZsvqYUVZLuiWf7RAlfSR2IzVgOqyTYbfl+vsChtORVby1OdpVPNVZQ71N9E2c
-         qocg==
+        d=ziepe.ca; s=google; t=1794316945; x=1794921745; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g75W/bT+6sBq3ZuteoFUFS+Co7pEE7nkrsl0KkNU8Gs=;
+        b=FHvsNgogAjEacq7zoQCQutH3H2rY/Mp6nn0PQAx6XhH7dqAsY4gCPt7R9BdbuXPKAi
+         wxpxDLfikqVcN5xM1VY/H/v/NFQ6nTNQYbBjTB9Y+X54YQTUKZWiCbPrue0kUPKLvs0B
+         SWItP2scQqWO4gEug+/zO85bmIDyfB5gy06RbKUkHIRG6Td26af+dAAfFxPpJhtVkzxI
+         RTY8q4wfOVoj8Mo0U14wRoJwsgbjTWIxlmNGak378mVQpNEb8y5wGLQ5tkNTHEct8BTD
+         2QLJqKjtduDf7mQ4NLfWes8q0X9CZ1SxAGlG6dddpQmRt2wbHKc2ucYJzj5kuQNmJupi
+         3xxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316935; x=1794921735;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1D2OMakjENy2CCg5zoH16kIpqUwoSYvl8dD8pwUKqpo=;
-        b=KEdxag50CPBgDqihdZBl3VnWcm9LLAA/UHu3aE4uFMgPVdoEymbdXgyn7oMNAipw0I
-         EE71lvWYLYeNAVoEjmQrm9OQIdiVOh42ayLERgFUjtcYizUo+DRhYzKNb32Au251syer
-         9gdTrt0YhB6iW9WBw2xkx6DHN6Ka5ZH7KeVhwEtzuog2G1wWGSGigHjfXVX+MCGSAAxH
-         DdHfN5Bw4csicRPX9yDEYpt5v80B0ZDpORlBC8Bjhs9b79v7EoBhEJacmGJTZPxN4T6v
-         pSr7VEkw1/qbZfl284lUxwjQYgMBFo5tMl8meE5Y2riV3h87ze/BWCIk1+CC8MawPg7a
-         Z6TQ==
-X-Forwarded-Encrypted: i=1; AL+hErEzMi79UgQW3v/Jeo3n4e/dl1x0thAqV1SU4s+UWCoOGhxR26T/jRpi3eQbzVsqI6eQfA4dYQ8cLr8Ei3s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VbVu6APqcUcSOEpjGANKxDKlF4XcskrdvZXfmD53hevOqvlvm
-	//CXNiu/OOK9xDjg6fZeHug8HWMLpkDOhtQ1SJ5QO5Q8y03Nzu9C5aPX
-X-Gm-Gg: AYBFou27MxNtPe7Azy4H3aYkpMwsPQyVyah4ZgiMQAieA44cE0lK/+WpyJrDyjdOmzk
-	wVRXR/F1gfUoK+0TXyGzKbOSja0mBj0RUyWE180FEWhnqTYRGfAl+AuaZ4iZUm/mFM4eyHIeUhM
-	zRG7VOv+Yx6sA4nZ3y5oz4Zr0arLVdEbL+wTc/gS7lZOZj5QJiivHJkOUoKs+zsGrg4zjg/97rP
-	94XqV58Lg2VqPKPof+n9kxvugp2AGnFKuTW8/05DbE0X47dEXuh0XF7tfIpo9K6IhwosupRgfgD
-	9GA3Yuho4cN8W2Jn/nExn5MJZaTD4QjQw9jSFLh5er8wq/58GTbk4UovWL9I2ZrUyCvDYJRrSbB
-	74rrVeF2CAl/Y/EdOfBxc23FsQrzgW0AapgCfPkGtLQ4Ufe65Yq3CJ01O+WCoAkzYk2AzDo5mGC
-	dnleIpPQid1vnuhrfpcXW9WsmfKri5wsTnDNGVW1aTqPbMup/khfPk5Ni606DYKda8DdoAWEQGN
-	3upuFJy7M/UBjRwIl8atIbICMpjvqxYLLsJzl6WhNsZhbPKUspSEHavfvU7y7O/v0CyQHjEKxqb
-	bgVasPSYe15XIHnwMqOjb5hrnfOJ7SzPAij1L7EuVUTe6l8chdcNahkobC3DHS0=
-X-Received: by 2002:a17:902:ea03:b0:2e9:7dda:bfc7 with SMTP id d9443c01a7336-2edb932f59bmr23584575ad.66.1794316934806;
-        Tue, 10 Nov 2026 05:22:14 -0800 (PST)
-Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4a31esm8861065ad.22.2026.11.10.05.22.07
+        d=1e100.net; s=20260707; t=1794316945; x=1794921745;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g75W/bT+6sBq3ZuteoFUFS+Co7pEE7nkrsl0KkNU8Gs=;
+        b=Qoa14kEAjMhbpq30Ju3tKeE646trTeLOi5jZdhQ6YLpIJTh6r3Rcyb+xFo5hiUZ7BG
+         RKEhPJW/HPJTlqmt1mYdvANtbdOzbe95JMicpsIo8Axqvd3I3MP2JOexK6LAA0xvHWM4
+         yD/5QPC8850TB4cUSdUTyY8yj//aiFAn7zkzpCzCtRDMVYYYcVodganIjL/0kqdjV3fF
+         7sUui534+X7ccZyqm24PIXV6JqvABRHbs8bxdhoXfC8jlPRj/gKrUPV8ukpM72hFrpIy
+         pyIEwFlO1a6rBSIgUvhiyR6IiHf0vcAwS2rsHn9n/ByRD7415gZiZ9GPmSvvXwDbVCaC
+         H7Ig==
+X-Forwarded-Encrypted: i=1; AL+hErHV757ffm5d6mtdeQr/iG3mQm2GXfpAyfFZjluZCi+cZiVrxCHOUHjIuN0X2hCLGcaX/e9OsPRshqMzgJs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87QiyKt09tyz7KZIrrMh1G9X0xwEWsS9cmvLkixnI3oG7Mqi5B
+	kpRT1TgAqvyrPG05MgPbPuu/fuJTo/nhJaYMF9/WMWt5YcQCgFLUbjW4d8zmYvjTmiw=
+X-Gm-Gg: AYBFou3oi/OJBWLlKt9DhPHOUc++FjP/OFM5kwZGviGBTGeit7VAb20c0tnPfPfvZoK
+	wDmPJHUWWLtFwkDUBK6PlusG4R484cxeO3EE8iWO90/RUd9i0eRoPxIZGr3TsEIKIeqHqa91B2Q
+	Ae2lgpBqO9z1J2DE6MmkKXiGZb+Mg3Kns+oU3Xjw7YA14BSzAMzgbqkeg4PLO2YK0jjykKWVO7V
+	ggIZrC5lqsjBlWZSyowhTWgAN6ENCsqqMtW4lf6j/JyUaVHnL6QHhY5+Y+gzxyZSscmOaLVdEw4
+	xS9Ll/pcXZvjzOp6K07qJ+9o9VDD9v91TmCtwBMp46oVByTgYqdl4wmwGUE8rn1Agu77Pgd4Dkg
+	0DMnBV5oFki61GCn79py1WaVfjq1fPy1KszkUS9lLsJq2Yv+TYqn7nDo/vdIJakpn0U6kSORsJr
+	TQVf/mTrePHe/Izc2QBE5RagNtlDoXRuIWVIGUuDUoXLBtDp6SzRfu+ev6+RqU9mOgU1+7Qtycr
+	3knUjVkIdqzI0IZYJWheJIzx955hC1AJ8XFm+mva+OAYZZWX5l/9YW6pTLMwH9drcWHeOFyjw5d
+	vjTAosbyAWQ6J8KKlNHsUVJY0U/5u54pc8as+CYVegtbbXW/ZcBKGDPXT1D8PR8nq0OAyoJ7Dz4
+	YtMYGAzL1mV0=
+X-Received: by 2002:a05:620a:1a21:b0:93e:c12c:43fd with SMTP id af79cd13be357-9479f373debmr404603885a.74.1794316944696;
+        Tue, 10 Nov 2026 05:22:24 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7915e2sm220546385a.23.2026.11.10.05.22.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:22:14 -0800 (PST)
-From: Jinjie Ruan <ruanjinjie01@gmail.com>
-To: babu.moger@amd.com,
-	ben.horgan@arm.com,
-	bp@alien8.de,
-	corbet@lwn.net,
-	dave.hansen@linux.intel.com,
-	Dave.Martin@arm.com,
-	fenghuay@nvidia.com,
-	gshan@redhat.com,
-	hpa@zytor.com,
-	james.morse@arm.com,
-	jic23@kernel.org,
-	mingo@redhat.com,
-	rdunlap@infradead.org,
-	reinette.chatre@intel.com,
-	skhan@linuxfoundation.org,
-	tan.shaopeng@fujitsu.com,
-	tglx@kernel.org,
-	tony.luck@intel.com,
-	zengheng4@huawei.com,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: ruanjinjie@huawei.com
-Subject: [PATCH v5 7/7] fs/resctrl: Add info/moveable_mon_group
-Date: Tue, 10 Nov 2026 21:20:54 +0800
-Message-ID: <20261110132054.3702-8-ruanjinjie01@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110132054.3702-1-ruanjinjie01@gmail.com>
-References: <20261110132054.3702-1-ruanjinjie01@gmail.com>
+        Tue, 10 Nov 2026 05:22:24 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xQlnr-00000005hfb-1yLA;
+	Tue, 10 Nov 2026 09:22:23 -0400
+Date: Tue, 10 Nov 2026 09:22:23 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jacob Pan <jacob.pan@linux.microsoft.com>
+Cc: Mostafa Saleh <smostafa@google.com>, iommu@lists.linux.dev,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Wei Liu <wei.liu@kernel.org>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+	linux-hyperv@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Mukesh Rathor <mukeshrathor@microsoft.com>,
+	John Starks <John.Starks@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <eahariha@linux.microsoft.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: Re: [PATCH RFC 1/9] iommu: Introduce external attach domain type
+Message-ID: <20261110132223.GX663069@ziepe.ca>
+References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
+ <20260925190742.1575380-2-jacob.pan@linux.microsoft.com>
+ <atiakDqtuED2cTM5@google.com>
+ <20261026161003.00003b71@linux.microsoft.com>
+ <ausIn5Txiy1uRjkY@google.com>
+ <20261104170816.GS3889730@ziepe.ca>
+ <20261106130352.0000638d@linux.microsoft.com>
+ <20261110005259.GU663069@ziepe.ca>
+ <20261109224200.000033c6@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,98 +125,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109224200.000033c6@linux.microsoft.com>
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+On Mon, Nov 09, 2026 at 10:42:00PM -0800, Jacob Pan wrote:
+> Hi Jason,
+> 
+> On Mon, 9 Nov 2026 20:52:59 -0400
+> Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> 
+> > On Fri, Nov 06, 2026 at 01:03:52PM -0800, Jacob Pan wrote:
+> > > I am not stating that it will break UAPI because of blocking domain
+> > > is used. What I am trying to say is that with the blocking domain ->
+> > > external transition, we do not need a new UAPI for external attach
+> > > for non-CC. It will just reuse the existing UAPI.
+> > > VMM:
+> > > 	do_ioctl(vfio_cdev_fd, VFIO_DEVICE_ATTACH_IOMMUFD_PT,
+> > > &attach, "VFIO_DEVICE_ATTACH_IOMMUFD_PT");
+> > > hv-iommu-root: external_domain.attach_dev() will do the hypercall.  
+> > 
+> > You've basically described a wonky NESTING domain.
+> > 
+> > I think you should just use nested domains for this. Even though there
+> > is no S2 make it possible to create a nested domain through the
+> > viommu..
+> I didn't use nested domain since the current parent hwpt is a paging
+> domain which cannot be used to express the external attach semantics.
+> 
+> Are you saying that we create a parent-less VIOMMU (in Aneesh's patchset
+> and my RFC), and modify the iommufd core code to allow nested domains
+> to be formed with an externally managed parent? or we expose a
+> opague parent S2 that is not paging domain?
 
-Moving a MON group into the mon_groups directory of another CTRL_MON
-group changes the CLOSID of the group while its RMID stays the same.
-Where the RMID is only meaningful together with the CLOSID, as on arm64
-MPAM, the move changes the RMID index of the group and is rejected with
--EOPNOTSUPP.
+Just use a null S2 for this. If the viommu was created without a S2
+then the nesting domains should be created that way too.
 
-Userspace cannot tell whether the move is supported without trying it.
-Add "info/moveable_mon_group", which reads 1 when a MON group can be
-moved to another CTRL_MON group and 0 when the move is rejected, and
-refer to it where resctrl.rst describes the move.
+Once you do that you have a normal HWPT representing the S1
+translation in the guest (identity to start) and everything works the
+normal way.
 
-Suggested-by: Ben Horgan <ben.horgan@arm.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- Documentation/filesystems/resctrl.rst | 11 +++++++++--
- fs/resctrl/rdtgroup.c                 | 23 +++++++++++++++++++++++
- 2 files changed, 32 insertions(+), 2 deletions(-)
+The only wrinkle in your setup is you don't have a S2 at all. Not even
+a placeholder.
 
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index fecb2cd2b343..4be0508c18f7 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -526,6 +526,12 @@ conveyed in the error returns from file operations. E.g.
- 	# cat info/last_cmd_status
- 	mask f7 has non-consecutive 1-bits
- 
-+The top level of the "info" directory also has a "moveable_mon_group"
-+file, which reports whether a MON group can be moved to the
-+"mon_groups" directory of another CTRL_MON group. It reads 1 if the
-+move is supported, and 0 if the move would impact the monitoring data
-+and fails with -EOPNOTSUPP.
-+
- Resource alloc and monitor groups
- =================================
- 
-@@ -553,8 +559,9 @@ Moving MON group directories to a new parent CTRL_MON group is supported
- for the purpose of changing the resource allocations of a MON group
- without impacting its monitoring data or assigned tasks. This operation is
- not allowed for MON groups which monitor CPUs, or when the monitoring data
--or assigned tasks would be impacted. No other move operation is currently
--allowed other than simply renaming a CTRL_MON or MON group.
-+or assigned tasks would be impacted, which "info/moveable_mon_group"
-+reports. No other move operation is currently allowed other than simply
-+renaming a CTRL_MON or MON group.
- 
- All groups contain the following files:
- 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 2dfb3b54338a..a3362f8ad13b 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1200,6 +1200,22 @@ static int rdt_num_rmids_show(struct kernfs_open_file *of,
- 	return 0;
- }
- 
-+static int rdt_moveable_mon_group_show(struct kernfs_open_file *of,
-+				       struct seq_file *seq, void *v)
-+{
-+	/*
-+	 * Moving a MON group to another CTRL_MON group keeps its RMID but
-+	 * changes its CLOSID. Where the RMID index depends on the CLOSID,
-+	 * the RMID index changes with the CLOSID and the move is rejected.
-+	 */
-+	bool fixed = IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) &&
-+		     resctrl_arch_alloc_capable();
-+
-+	seq_printf(seq, "%u\n", !fixed);
-+
-+	return 0;
-+}
-+
- static int rdt_mon_features_show(struct kernfs_open_file *of,
- 				 struct seq_file *seq, void *v)
- {
-@@ -1975,6 +1991,13 @@ static struct rftype res_common_files[] = {
- 		.seq_show	= rdt_last_cmd_status_show,
- 		.fflags		= RFTYPE_TOP_INFO,
- 	},
-+	{
-+		.name		= "moveable_mon_group",
-+		.mode		= 0444,
-+		.kf_ops		= &rdtgroup_kf_single_ops,
-+		.seq_show	= rdt_moveable_mon_group_show,
-+		.fflags		= RFTYPE_TOP_INFO,
-+	},
- 	{
- 		.name		= "mbm_assign_on_mkdir",
- 		.mode		= 0644,
--- 
-2.43.0
+> But if we go with the nested domain route and let hyperv iommu driver
+> handle the nested domain attach, it still would not work for pKVM.
+> pKVM's root SMMU is emulated, so it cannot do the external attach
+> hypercall in the unmodified SMMU driver.
 
+Yeah, I think it is fine that the hypercall is not part of the smmu
+driver..
+
+> So I am willing to entertain Mostafa's approach to park the device in
+> blocking domain, then use hypervisor provided viommu/vdevice ops to
+> invoke device external attach hypercall. Basically, move the
+> attach_device to external S2 operation out of iommu driver to the
+> hypervisor code. It does not need domain ID or anything IOMMU specific.
+
+Right, though in your case some co-ordination is probably helpful
+since things might go strange if the hypervisor side and iommu driver
+side disagree on what the translation is
+
+Jason
