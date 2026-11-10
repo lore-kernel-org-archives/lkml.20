@@ -1,79 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326020;
-	b=IRPrhJy5N5C2OF7MBCwYRI75NZQWnN9V7ZE1rjDwK5/yzUpScPxLTjqIxsE2fO77R7LT
-	 SPFKEHImIGXdn18vMDL4UC5fCqPyw4ciT9nXh4hlQ0VY9xwtAaXp/JGGJ7Vbow/qVM+EZ
-	 20c2hLV+iglphD4VVIdeZIJPjbCfGEXFE5ipechlGhF8e6BmMNsAioCFrzuy+vhu7VqBJ
-	 OJS2En2ONfX/Jhu27C3O6UnBl7q6x43LpYuSMknVgTaCAT4DcHhrB7rakkBF0XmSLqUHa
-	 geeSaETDj218sMjeaBCjokWVa/xSzyTm07QT0p+kZ2Jnb97yl+5HL0uhrhLdN77giyw==
+	t=1794326138;
+	b=DTaQuXnm3Ze04WFzxSIBebVBk9DhwuN6U9VJWOQr4RmHPPCQ0TloESphV/4Tz3OH1MUa
+	 l/hyjErqDHGmKxJA8cwjI2n4j1/D4xAwRu51dnwxo23UAImQYZ0egtl4BTDo/jpmonhpE
+	 UZJCNRxgZEeRW2WBers/A2QwqtzfG55DJ1W6mS1YKG8WoFN8SS/nCmmJw3cHtBpC5rIga
+	 y7JzZTXRh/71hD0TES8rRhhIqoI3tZk05eZo5PEvGQT16Kxt7InCrDBp4adkfxewxoBle
+	 1Hu/dDx5c/zOKhG1zW1pfI46L8vjG+QMwppLJQGGTXsuvK/gb+kPknhJGBuQOpwVLhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326138;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=4qaBcoJhuip85HNRKTiRsc6cXmbUnKal0wM/bMhZ1/4=;
-	b=n2AL5ggXs4aRilrw4Kjj0CstkIBmYvbSjNGczKYvacj47+W9vY59Kz4kAPHKdPy2YAdS
-	 TN3W6KlFxshiT4d9w8TLAF4bb6lzJA1pqHYYx5+7puN+JwnDGwTcWHgJ1U6+8SVOGzq2U
-	 xGn/2VNnWlbqBwhjJRt8GTsZEeM2apjUAPRQh28jflGcTJhw7fYHv5DoSNFeU3fJth35z
-	 QtzBcLtUFOgo2tezZ0sG1ODDls/0MquPqTTNE9ZEaWKasXbmLJYg6/BOCNhAFbq4S7Z2u
-	 gLeZHdy0ziPG4wPw91XzjnE6hIiWMaJMYroPsBLShFaLtKdSW9vxzwS/TzlJRXNMNxA==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=SvIe1dTA5bgP0oOOky8Z1uVZhZTsydnSnODkTILXkXw=;
+	b=p/g4jx9xwtDMDKuklICSM6fK0KcGcKByPt/CKqep6ufHRILEuHHScLXikD0VZ2UWQgwl
+	 7EAjNOWq8LyMJSBX+ChtXJINOj0lmO13LoX5ncqan22r3M/W+qm/I6JZN3kFa+DxWC684
+	 4Ee8NDFFxmEVh2fiWqdq6iFMLhNTKQvEzxHG9QiknyLv0KSHblhZV1Np45wpzFzy4FujL
+	 SpWVg2110lz4JY1inmTUSNP0Mdo3UUx8eW1xpsfWwX0t5WEt8hCxiiGP/QIkIPl097SN8
+	 bIG8E6+Mx4oxYNzvxme86Ukcj2sRlgFILQqvot5VhGqbUKDJXDEr+3/3RBobsm4Ok7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSgH+nQG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxozIhHm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DD360A260A;
-	Tue, 10 Nov 2026 15:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370BB606A323;
+	Tue, 10 Nov 2026 15:55:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSgH+nQG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B92A1F008A3;
-	Tue, 10 Nov 2026 15:53:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxozIhHm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD06D1F0089F;
+	Tue, 10 Nov 2026 15:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326020;
-	bh=4qaBcoJhuip85HNRKTiRsc6cXmbUnKal0wM/bMhZ1/4=;
+	s=k20260515; t=1794326138;
+	bh=SvIe1dTA5bgP0oOOky8Z1uVZhZTsydnSnODkTILXkXw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kSgH+nQGYPhpecDT9RjX6A/Px+LoAnOuAhiSotnuroSbtWAmzKYW4psaCtAgm3HTu
-	 Ud6V+EHkVE3/ElaMQwFldGXubSt6xnnZ/H3lgzIXO1EM8FVi1btcbv6Q58NdTqn5kX
-	 VSwm6LEMTkaplsK5V9TVhOGb77Pc7h/AvO0sKyFHmtojeCKTH7meWA2i2lB3xJQORv
-	 LLCXQjH6SckaZOufXYpZi4+dMGxI7LRSKGENk099kRFe/hVqBoPU2XdsQ5DcgYensD
-	 /N1jMWwlSmjxHjQj70tuBOg1mUKeFDv3uHaSqSd+3wj7rolN0iCh/5JK3PXXFiZxS4
-	 +LKdNCB+uEhVw==
-Date: Tue, 10 Nov 2026 15:53:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-hardening@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ard Biesheuvel <ardb+git@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
-	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Maxwell Bland <mbland@motorola.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pierre Langlois <pierre.langlois@arm.com>,
-	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	Yang Shi <yang@os.amperecomputing.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH RFC v10 07/22] arm64: Initialize POR_EL1 register on
- cpu_resume()
-Message-ID: <be361be8-c5ad-4ff7-a6db-7b0815bfe1d0@sirena.org.uk>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-7-aa6c4d9603bc@arm.com>
+	b=hxozIhHmmpI0orJHynU5GErfujgQcajB7c5xDfVJaCwJou8oudZLuQk/PhicbS0K7
+	 XNmgvLHiXxVpurT9ttEcApD8O0aIbqdrPmJHZNjpuRaLyqXmSQ5+Uf32xSIiKjIic0
+	 Ic5+0xgvDdFUuxitJ/dzD6YM7jV20SLaKKRi2ebOQPBPACLThIMab3dl3LbKXvLZUz
+	 5irq6W8mI0FPPZB7SGVHrNurymQtdA7AXHGWGNoomKzVQFgiiPkAq4bW2qx7B3fFcs
+	 pkwz/3s/25vWVBP7mKxlgp5d8PcnhH6WqiIQkZRln0vpFOV8I/KugDXhXFIZ9Qc4qc
+	 SvD8pzcRJX39Q==
+Date: Tue, 10 Nov 2026 16:55:32 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Eneshan Karaca <Eneshan-Karaca@yandex.com>
+Cc: kees@kernel.org, rostedt@goodmis.org, viro@zeniv.linux.org.uk, 
+	jack@suse.cz, mhiramat@kernel.org, mathieu.desnoyers@efficios.com, 
+	jkoolstra@xs4all.nl, farid.m.zakaria@gmail.com, linux-fsdevel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org
+Subject: Re: [RFC PATCH v2] binfmt_misc: add binfmt_misc_select tracepoint
+Message-ID: <20261110-gefruchtet-singt-allabendlich-ff8653eb8631@brauner>
+References: <20261029185849.8016-1-Eneshan-Karaca@yandex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,52 +60,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="y6i2pjiKjCxCKcN0"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109-kpkeys-v10-7-aa6c4d9603bc@arm.com>
-X-Cookie: You can't take damsel here now.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261029185849.8016-1-Eneshan-Karaca@yandex.com>
 
+On Thu, Oct 29, 2026 at 09:58:49PM +0300, Eneshan Karaca wrote:
+> From: Eneshan Erdoğan Karaca <BoxStrikesTeam@proton.me>
+> 
+> A binfmt_misc entry can select an interpreter for an exec.  With a BPF
+> 'B' handler, that selection can be made by a BPF struct_ops program.
+> The kernel commits the decision in bprm->interp and bprm->flags, but it
+> does not emit an event at the selection point.
+> 
+> Existing observers have to reconstruct the decision from
+> /proc/PID/exe, AT_EXECFD, AT_FLAGS, or /proc/PID/maps.  These sources
+> are mode-dependent: a transparent dispatch still reports the original
+> binary in /proc/PID/exe, and a short-lived process can exit before the
+> observer reads it.  A classic dispatch reports the interpreter, but
+> not which handler selected it or which invocation flags were used.
+> 
+> Add a tracepoint after the interpreter and the invocation flags are
+> selected.  The caller passes the matched entry and the raw flags; the
+> trace event resolves the handler name and masks the flags with
+> MISC_FMT_INVOCATION_FLAGS.  The event reports the binary filename, the
+> selected interpreter, the handler name, the invocation flags, and the
+> pid.
+> 
+> The tracepoint is observability only; it does not change exec
+> behavior.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Eneshan Erdoğan Karaca <BoxStrikesTeam@proton.me>
+> ---
 
---y6i2pjiKjCxCKcN0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Nov 09, 2026 at 03:58:32PM +0000, Kevin Brodsky wrote:
-> From: Yeoreum Yun <yeoreum.yun@arm.com>
->=20
-> The POR_EL1 register is reset to an unknown value after cpu_suspend().
-> Since POR_EL1 always holds POR_EL1_INIT when entering cpu_suspend(),
-> initialize POR_EL1 with POR_EL1_INIT before cpu_do_resume().
-
-> +#ifdef CONFIG_ARM64_POE
-> +alternative_if_not ARM64_HAS_S1POE
-> +	b	.Lskip_por_set
-> +alternative_else_nop_endif
-> +	mov_q	x2, POR_EL1_INIT
-> +	msr_s	SYS_POR_EL1, x2
-> +	/* isb can be skipped since cpu_do_resume() will do it. */
-> +.Lskip_por_set:
-> +#endif /* CONFIG_ARM64_POE */
-
-cpu_do_resume() will update TCR2_EL1 to enable POE again, a sufficiently
-unhelpful implementation could potentially decide to do that before this
-POR_EL1 value takes effect AFAICT given that there's no barriers.
-
---y6i2pjiKjCxCKcN0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzPfoACgkQJNaLcl1U
-h9CfMQf+KE7tK9rhq506LXhS8qhdHDevtfZx2qtai6oaI8ROe6CSxZZ/PYZX/AxQ
-RB6TsZs/ebSJ8cn//ARFNZTWaspOHI13wG87Laj48QjwPVZuyBAE0MV4dlqlxM8S
-SUaN2cQ+xL/+x75htSgmDnA6NBZi/NXn8Ln2hpoiO8FO2oPSFY4l4xT9lMCvlol/
-4g9degQsFMatI+eteIErPUBMjUrTr+jpSK6zC65gIHerzlhXvpQmwro7KV4njpMZ
-zD2uA/+8YKidz8WAbiX8M9XETgaqWCGaTex5RrzWMqls1c0DvV4mFFlewowBTtEl
-CC0tUcjeb2jQhyVBZSQ3m48X0DCWPw==
-=ZUNG
------END PGP SIGNATURE-----
-
---y6i2pjiKjCxCKcN0--
+This is whitespace damaged. So Sashiko can't look at it.
+Resend it properly, please.
