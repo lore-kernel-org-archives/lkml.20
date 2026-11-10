@@ -1,101 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794336100;
-	b=crWo35l9cElGwx5xkNKpeEuQAne1bvi0AmgC54ah0A0CHysi+cveiuidr8cU4RuLwYVO
-	 lswdcCWzDC/oNfGk9j6pF8ris72Tm9INBHDgT+PQ/icoOCGKG6ZC8Gsqm9rWYGkdAviTe
-	 FUTsl5KnDUZDsPbQR8Yvf67NmR3R82PhNLxyw44OGWRwMxAI8KU/muP46Wa7GlJI05WkB
-	 XtW/8U4OFyd3QEOxkZYZeBNtHS8/GC4V0fQNvpQCSS0esvkb9qdZQAmbh8ouevyOAeKxk
-	 cGCqADFffep57BqswOzyi5uihepQETawzpUySRibI7ax3u7m6UKAfvGH7UMAjYOIOIQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336100;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ii1+nM+f1eJjLbqIcC37Klii0Mrk0KJoMJUC1r8XMmY=;
-	b=JaMftZgocHEAqMRHKeTC8+cg1s8oDuLpHpPB4nUXTqBiHSngbJbc2ZUOz8G+gCQlpJ9C
-	 GUn99eYFIl1nMU+dtaXjmN4ZCOirowbYIwn1+5M4HegZNFQKfXUUQvo1tOY8cWvE8nJqU
-	 cfbC7QjPowitIOPfyKtxzWEXY4dWl0Dcz922DqCAzbYg8IRBoo3j0WtfrZKWX0RYXY2YE
-	 9FR6wjTLii58P9Rlsonn+sBOqktr5aTrcdM45WoqWlzV5cSKTWaVMhJKh/J6QxgLLBeRP
-	 5Hnqg5klP7jTPEpWegHUhx44kysns5wj26er3ayTNz2ehKekERdY6u1gJOiRVjA2iPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+oRdJKn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794336116;
+	b=TD1amNhorAxORhvYPMnVTMSiAlO2WNmzv+ui+pKeVEOBtMhDxYIf1Am2BGBlEvLSmHdE
+	 tkWOlqMXUQmjblgYft7GgND2CPZXTMetSkm/YUvYA7Sgg7fLJYYFyA7Hh4cVWO8JX5/07
+	 vbNlRtf1TXaRB7rKOyy831lXURtLb60QJ+tIjYGZKQnmgdXrD4JMSFCaklO50+0nTdY7W
+	 NZa4abPlSufCDVMPrkNcuQNNi3ly2JnNdd+FJmdGTqO1hQcsWn1hUvcyvqOd2LDCbp5To
+	 +qbIqE5xdOqcmjjgeoqKvUcuMh7cgVJh/xmd7OSl+Trq3Xgh2g3lob9tp9R+WZBP2EQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336116;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=8wcorGQR2HiBVbL9to1uyCRJ7JujFQe4DI/FxRdi+rw=;
+	b=CH2bXeXloPrV4O9rKRYKTb1xWj8vix3YWZwxkcDW5GxgWEhlakqB3o/9PIIYZ8nnau3i
+	 rYNiDQC8e18Bq7dKkUNvuDr+ezse7ztBBNka/UckTiXsOzRazkuHxD+kI6zuPiIPKu6ur
+	 eOD6T1uepDTQm9CR2JcC+WCMZBZ0v/eoWWU6uV2CYV2JfLzcmJc5yNB4J2vMxJmw4A2rN
+	 eYpZ7L0Q+M6YI5daBnSjFh4pYp/AEB2xq2k9bdfu3zvsSp01qaB6jxwChk+t0PTRHxWu/
+	 XZ8jZt9NmBNY8Y5o1hQLxUktYQyuEbOyxCXkVR9L/9Nwapx7F1rJ43qwEM2+3Twilzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EFF606C6C0
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83EFF606C6C0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+oRdJKn
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14a204305so1987758e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:41:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794336099; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dO6u7oeYvgcHbR7fREyJBlAe6k/Hbt87/95O0qgUNLTeE7uEa58ck87xcpn2ErLZTG
-         6e1nOF8ZQo1F6hUuZpMFsVDQBmjBWCf9I9jui2hkqzoet8gDp6ulGgR/7ytwpYyYxEX1
-         nmguGf9TOAgARlVEHt5GylCRnpNrOtjLsFYRSpqPHUHjPCksdcB/Df6SXoYefgjcN25J
-         +Fn4ZL1eO91EL3jR6dXUeqcg/7YE6WYBPLIpd8d/sUoGTVUQaK5H1aAziZTEvI2qIF8+
-         GFlK0SGwdcWrElm/my8FzrrOGrdLYojaZmafWC9xPpsyrDqFxmEjfhAS/MHp3xQD/ZaZ
-         +z8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ii1+nM+f1eJjLbqIcC37Klii0Mrk0KJoMJUC1r8XMmY=;
-        fh=8lQ2TheNLnctCltvFMdZvosMHN8FvMy2eN15mG90szU=;
-        b=WT8lSIpZ4HZjuhLzejHsmRBd5YTVctCbzdG6X331g2pen8fHtIh9WBhxWxbb0odY4K
-         vcDqSE/D6N5Eg/zFnuDr+tNVzky5b73S5PAa9CAeUR8OnxE/WSN8HwuWbeFzZ3GQ+RlD
-         fvG5ZlrumDx7RW+qNSI+iJaZ7r2p1/DnWEYfQLDhfoTUs5N70C2+Ml3xa4+uwfZh0o0S
-         Qb1NBRjib+IiM6rPlFF7iR2kqkTx4x18dOUULzlLlApGiAu2CgqADHPUXIqq1rcl2qcP
-         IJoYfwN27Ed/PtFWDh22qS94epK4tOtcubCM6tpkHIkwgQozdRykbOr88XkldiOnp2sI
-         SFwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794336099; x=1794940899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ii1+nM+f1eJjLbqIcC37Klii0Mrk0KJoMJUC1r8XMmY=;
-        b=W+oRdJKnzbnhAx23a797Cs166q8KUYecssliDZThq98kl1vc+IUDIXLauH9mazRliL
-         abW/QptM9Zg9AyZOLB29dX32hVHoRQ0BLoeIgdiZzEOGxupAkZo6CmYu5naphLS+2HyW
-         6FBo0tus+fFHBkQgrrlOi+RUWXyCO8yiTxEICP3VKlOWvHa57/Fpjb4H7r6FT+aNuyOw
-         gpCzIWd9KXnkYJ+lZc+3YlxNyQTsQKh2f3Je73aG4X17XOYKvBOdSGyWnY3hmdPV+Bnu
-         nI2qzsecjRQdrAVH/jAQEFUauzgkPNN5Dw5qKaQp8HrfCeAuJNWwUHHOJ4CStk7SE5Nk
-         Af6g==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12143606A902
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:41:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12143606A902
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a41f46d629so3249008b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:41:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336099; x=1794940899;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794336115; x=1794940915;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ii1+nM+f1eJjLbqIcC37Klii0Mrk0KJoMJUC1r8XMmY=;
-        b=UNNkSfEBWuXAhMuYMIPgt5jwMVJRj1hsxItniTH6Lr+P4Cw5QhKeF6FQNN2Fxd3zNo
-         TzFuBTLlzANPDWhLhsRL0PcIuvnGeXswXBunSVgy1GM4QfEtAYygGbJE9EEUHXDPW+7w
-         LH+4TTLyH5pHFvX6oXnGLAsGcfRIKddN2VCcWo2wISu+H4Eedta2Nf5qAgESXTQH04Tx
-         R4nrhLnFvqZnbN2hUCBefcmOB2dPZ+sWfAoVgws5qxEqFjGodLEFqqhfHLtBX956mwO0
-         AhP2PBoT/p4Ya/awM8NiO5yiT1eDn2CylVjyZwztVOROiAE1psDfyts7baNVjFuTDBBL
-         qgCw==
-X-Forwarded-Encrypted: i=1; AL+hErGLlNhD0+o2Dz8aLCPJMnuPgERgqxt/PEhzV6njerH4feuAdER87S9CHxSniz0H7EwO/T7JBUNodjjE6kw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+etZdD/BN/MxEfKs46f+SUQjVyolstFEAul/7NlldfJQIlXi4m
-	GvYxhP/eZv9v76HcN9zEP9O8mlYwsmDrmnZ99H68dR5QbbO43Z8xF6niA+DPv+ML22dzMrMOdKF
-	YsmM5YchQmffjBatONN2qIvISe06+rXhkB2Qh
-X-Gm-Gg: AYBFou3AIlZDXvRXA/u1axyq8TqPXSJwwJg/rz+nR0HmT0hD3gBC+NFRwKtqZL2LL6v
-	Vv+GmettEjoC/ErffdPv7ignB86Q5mOxEUAkkv+ixc6jvVphm1tzFkJWF/gi01fzNQUVM/cnLoK
-	XN2XkZS79qJ2uMOfeoOTBlPY0azWNvyOrZ3es+NX1Bkt1YGGrikIj1YXdeC68Lq48gOyvTvFflQ
-	G+ncG+GcKpV7YzizAOjhm29PQh+u6t6S9C7JyKp5xgKgQxrbDWxK2H9pFUEXj8U43TbJ95PTyhO
-	tCFV1LWiOC4qVu++0+4H221xOGRT5O/M6WEbj/wBIk0WNZSR8kKf7eC6DkYzm0IZ5m2qlRMCPl/
-	zupENc2J3ipfxqqJ461oa7i05MzvOIbADKN+LPMQmjUXp3BrNlP6ndOZjQBuOm1flfyqePDuc2J
-	GyU0N8VXJCbk2t8ERJ5CrtQGhJqg==
-X-Received: by 2002:a05:6512:2506:b0:5c1:5b62:8bc8 with SMTP id
- 2adb3069b0e04-5c15b628e54mr429046e87.35.1794336098639; Tue, 10 Nov 2026
- 10:41:38 -0800 (PST)
+        bh=8wcorGQR2HiBVbL9to1uyCRJ7JujFQe4DI/FxRdi+rw=;
+        b=CfiC5I7ARPLrmv2053b0hwTWJyLiHZm7UjKhqfGJ/9Hgx6DcdenJ2gQoTy6mX/PrEa
+         J3+Bg4cW2yI7XscQH6+4bniWNJYkzq4P1624MoHRiyoihUQipV/iWc25vNZCvTzy9Uy5
+         hgMJaXCU2pTaYtaE266e13cT4yJyLUCJEjRFjDpzHfdmV2jGuazCFiIFeooHl06I0mXa
+         I+ZpzgKCfitLjxUlK+Y9wNz+MfKfrT81VVQkUOYaMXcer16f8QHCNf5gwxZRqLRqmW0K
+         JNNtnjZE3RWQVcizpWPEfpCMkct9gwAKQ+QCMZqzxV5xN7b7FzbJ87c7nIwd2o7hvkrT
+         M5DA==
+X-Forwarded-Encrypted: i=1; AL+hErGAIpV2wboXEGBR1GA9HHH0gGJqvuFDaNAJB0dxNy7EaVzKZLS7hihVqA+EtRu9kuZomawMpbsny3gHmMI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sfw3oIezi667uAdKXQHj4lx6u9duPiGYrZnl6EKI7KOcui0Og
+	gGnuH/HHytbL0Vr68ja/2brYA7izXgcrJKmYLlall3coAZOwMTXcknzemRRnMYCTtXzH6qx0wrr
+	0qsKGzaN+RFEANdwe8c0R4BY/JLK6wdOZ0DC3IRHvQCugvntzAr8wxRRy0Pc=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,38 +58,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110150546.1535950-1-lukma@nabladev.com>
-In-Reply-To: <20261110150546.1535950-1-lukma@nabladev.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 10 Nov 2026 15:41:27 -0300
-X-Gm-Features: AclHuK-B10Ha5eqEFsmLjifrfjCOeHNDcssKsSt9aMG-Ic6xnxgK7qKCRscUdio
-Message-ID: <CAOMZO5D0Eq0FDJq00x1aitQe1HoSzXk+DEfMo2Qv=nJB=Njdkg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: freescale: Add device tree definition for
- Cloos CBASE with i.MX8MM
-To: Lukasz Majewski <lukma@nabladev.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:c1f4:b0:54e:31cd:dcd2 with SMTP id
+ 5614622812f47-5683cd3d902mr3434677b6e.44.1794336115099; Tue, 10 Nov 2026
+ 10:41:55 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:41:55 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af36573.c2a1e073.10a5a1.1171.GAE@google.com>
+Subject: [syzbot] [ntfs3?] KASAN: slab-use-after-free Read in ntfs_iget5_flags
+From: syzbot <syzbot+62769d828b0914efeb09@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, linux-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Lukasz,
+Hello,
 
-On Tue, Nov 10, 2026 at 12:06=E2=80=AFPM Lukasz Majewski <lukma@nabladev.co=
-m> wrote:
->
-> This commit adds support for CBASE board, which incorporates the TQMa8MQM=
-L
-> module.
->
-> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
-> ---
->  .../arm64/boot/dts/freescale/imx8mm-cbase.dts | 577 ++++++++++++++++++
+syzbot found the following issue on:
 
-You also need to document the board in
-Documentation/devicetree/bindings/arm/fsl.yaml
+HEAD commit:    7475ea8b5861 Linux 7.4-rc2
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11634ebe580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3cc6a7ee2d24d208
+dashboard link: https://syzkaller.appspot.com/bug?extid=62769d828b0914efeb09
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-Make sure you run 'make dtbs_check' and that your patch does not
-introduce any warnings.
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-7475ea8b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d9e65074cbc3/vmlinux-7475ea8b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/5b6a12c6fb21/bzImage-7475ea8b.xz
+
+AI-generated root cause summary:
+A slab use-after-free occurs in the ntfs3 filesystem due to a synchronization
+flaw between directory enumeration and background writeback. In
+fs/ntfs3/dir.c:ntfs_readdir(), ni_lock(ni) is released before invoking
+ntfs_read_hdr() under the assumption that root->ihdr inside the primary MFT
+record buffer (ni->mi.mrec) has an immutable lifetime bound to the inode under
+shared i_rwsem. However, background writeback (ni_write_inode() ->
+ni_try_remove_attr_list() in fs/ntfs3/frecord.c) only acquires ni_trylock(ni)
+without taking i_rwsem, and on failure executes swap(mrec, ni->mi.mrec) and
+kfree(mrec), freeing the original ni->mi.mrec buffer. Consequently,
+ntfs_read_hdr() continues iterating over entries within the freed buffer,
+passing &e->ref to ntfs_dir_emit() and ntfs_iget5_flags(), resulting in a
+use-after-free read at ref->seq.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=62769d828b0914efeb09
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+62769d828b0914efeb09@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in ntfs_read_mft fs/ntfs3/inode.c:86 [inline]
+BUG: KASAN: slab-use-after-free in ntfs_iget5_flags+0x441a/0x4780 fs/ntfs3/inode.c:735
+Read of size 2 at addr ffff88805403523e by task syz.0.0/5348
+
+CPU: 0 UID: 0 PID: 5348 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ ntfs_read_mft fs/ntfs3/inode.c:86 [inline]
+ ntfs_iget5_flags+0x441a/0x4780 fs/ntfs3/inode.c:735
+ ntfs_iget5 fs/ntfs3/ntfs_fs.h:804 [inline]
+ ntfs_dir_emit fs/ntfs3/dir.c:396 [inline]
+ ntfs_read_hdr+0x793/0xc10 fs/ntfs3/dir.c:444
+ ntfs_readdir+0x68c/0xf00 fs/ntfs3/dir.c:573
+ iterate_dir+0x3db/0x880 fs/readdir.c:114
+ __do_sys_getdents fs/readdir.c:324 [inline]
+ __se_sys_getdents+0xf1/0x270 fs/readdir.c:309
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0f0ad9fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f0f071f4fe8 EFLAGS: 00000246 ORIG_RAX: 000000000000004e
+RAX: ffffffffffffffda RBX: 00007f0f0b026090 RCX: 00007f0f0ad9fb19
+RDX: 00000000000000b8 RSI: 0000200000023900 RDI: 0000000000000004
+RBP: 00007f0f0ae37b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f0f0b026128 R14: 00007f0f0b026090 R15: 00007ffe5a93e948
+ </TASK>
+
+Allocated by task 5347:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5531 [inline]
+ __kmalloc_noprof+0x366/0x710 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ mi_init+0x76/0xe0 fs/ntfs3/record.c:105
+ ntfs_read_mft fs/ntfs3/inode.c:61 [inline]
+ ntfs_iget5_flags+0x67e/0x4780 fs/ntfs3/inode.c:735
+ dir_search_flags+0x2d7/0x560 fs/ntfs3/dir.c:318
+ ntfs_lookup+0x1d9/0x450 fs/ntfs3/namei.c:96
+ __lookup_slow+0x1fb/0x2f0 fs/namei.c:1925
+ lookup_slow+0x59/0x80 fs/namei.c:1942
+ walk_component fs/namei.c:2288 [inline]
+ lookup_last fs/namei.c:2795 [inline]
+ path_lookupat+0x3f5/0x8c0 fs/namei.c:2819
+ filename_lookup+0x265/0x5d0 fs/namei.c:2848
+ do_fchownat+0xfa/0x250 fs/open.c:849
+ __do_sys_chown fs/open.c:873 [inline]
+ __se_sys_chown fs/open.c:871 [inline]
+ __x64_sys_chown+0x82/0xa0 fs/open.c:871
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 13:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2780 [inline]
+ slab_free mm/slub.c:6630 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6923
+ ni_try_remove_attr_list+0xda6/0xf40 fs/ntfs3/frecord.c:-1
+ ni_write_inode+0xbf1/0x1200 fs/ntfs3/frecord.c:3266
+ write_inode fs/fs-writeback.c:1629 [inline]
+ __writeback_single_inode+0x69d/0x1220 fs/fs-writeback.c:1872
+ writeback_sb_inodes+0x9de/0x1af0 fs/fs-writeback.c:2120
+ __writeback_inodes_wb+0x114/0x250 fs/fs-writeback.c:2196
+ wb_writeback+0x42f/0xad0 fs/fs-writeback.c:2307
+ wb_check_start_all fs/fs-writeback.c:2433 [inline]
+ wb_do_writeback fs/fs-writeback.c:2480 [inline]
+ wb_workfn+0x980/0x10f0 fs/fs-writeback.c:2518
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff888054035000
+ which belongs to the cache kmalloc-1k of size 1024
+The buggy address is located 574 bytes inside of
+ freed 1024-byte region [ffff888054035000, ffff888054035400)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x54034
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x4fff00000000040(head|node=1|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 04fff00000000040 ffff88801c841dc0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 04fff00000000040 ffff88801c841dc0 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 04fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5347, tgid 5346 (syz.0.0), ts 105458573353
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1859
+ prep_new_page mm/page_alloc.c:1867 [inline]
+ get_page_from_freelist+0x2224/0x2290 mm/page_alloc.c:3940
+ __alloc_frozen_pages_noprof+0x1fe/0x410 mm/page_alloc.c:5464
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab+0x7d/0x5e0 mm/slub.c:3499
+ new_slab mm/slub.c:3550 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ mi_init+0x76/0xe0 fs/ntfs3/record.c:105
+ ntfs_read_mft fs/ntfs3/inode.c:61 [inline]
+ ntfs_iget5_flags+0x67e/0x4780 fs/ntfs3/inode.c:735
+ ntfs_iget5 fs/ntfs3/ntfs_fs.h:804 [inline]
+ ntfs_extend_init+0xff/0x510 fs/ntfs3/fsntfs.c:230
+ ntfs_fill_super+0x44a0/0x49c0 fs/ntfs3/super.c:1742
+ get_tree_bdev_flags+0x436/0x500 fs/super.c:1821
+ vfs_get_tree+0x92/0x2a0 fs/super.c:1881
+ fc_mount fs/namespace.c:1282 [inline]
+ do_new_mount_fc fs/namespace.c:3910 [inline]
+ do_new_mount+0x325/0xb00 fs/namespace.c:3986
+ do_mount fs/namespace.c:4350 [inline]
+ __do_sys_mount fs/namespace.c:4565 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4542
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+page last free pid 5347 tgid 5346 ts 105440119943 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1403 [inline]
+ __free_frozen_pages+0xc97/0xd90 mm/page_alloc.c:2957
+ stack_depot_save_flags+0x41e/0x810 lib/stackdepot.c:735
+ kasan_save_stack mm/kasan/common.c:58 [inline]
+ kasan_save_track+0x4f/0x80 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:351 [inline]
+ __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:377
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4720 [inline]
+ slab_alloc_node mm/slub.c:5033 [inline]
+ kmem_cache_alloc_lru_noprof+0x29e/0x5f0 mm/slub.c:5066
+ ntfs_alloc_inode+0x28/0x80 fs/ntfs3/super.c:681
+ alloc_inode+0x6a/0x1b0 fs/inode.c:338
+ iget5_locked+0x4a/0xa0 fs/inode.c:1391
+ ntfs_iget5_flags+0x19a/0x4780 fs/ntfs3/inode.c:710
+ ntfs_iget5 fs/ntfs3/ntfs_fs.h:804 [inline]
+ ntfs_fill_super+0x38e3/0x49c0 fs/ntfs3/super.c:1594
+ get_tree_bdev_flags+0x436/0x500 fs/super.c:1821
+ vfs_get_tree+0x92/0x2a0 fs/super.c:1881
+ fc_mount fs/namespace.c:1282 [inline]
+ do_new_mount_fc fs/namespace.c:3910 [inline]
+ do_new_mount+0x325/0xb00 fs/namespace.c:3986
+ do_mount fs/namespace.c:4350 [inline]
+ __do_sys_mount fs/namespace.c:4565 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4542
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff888054035100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888054035180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888054035200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                        ^
+ ffff888054035280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888054035300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
