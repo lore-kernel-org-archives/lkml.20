@@ -1,82 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336557;
-	b=Rh5iMlCgLwBd4l/8ZvnmLhFJCl17xIs/UfIDWH2Y2ymoIDUfQviRxYKVKLXq1DY028Xd
-	 01LeXZLUq5Omy5D4DcXDHaa2mZomC/E72+4/bMjbrtcp2Dg+N9s4IHBTv5pp2j91GlmaK
-	 2YmWE/1URx/nIPUqqDtGhkvO+namyzFAPkcqf+I4w2FLR+tQ2VXCTjBwAfjAyXV00LQH/
-	 hUoKiMzJdjArXkkqdJTL24osOiiXooOwq7QegVbuz1FR/xdZr6Jv8V14kt7aocsqW9AD1
-	 bGnRJ+LLRD7+onffkiAllaEVw7ydIHg5f2FzM8tKQH+2P5zL6FgLmxYlsd0PBHCB2iw==
+	t=1794336590;
+	b=xjlicVE5f2hhU7n1CexaKwukY7TNW7pdcSlxpJNj8hVI4GIfHt48OWowpqHJZo5Uk53Q
+	 EzAfMvlggewJXLIPTNGEb+/WgAxMhR8emNfsaavt3Zbq0D8DKiFdDXn2WXwBQWAnj+98S
+	 XxzMw/FQCwhhYDr+V7mSB3P2DKQWUGOUODtcjlZcohDrT0MGOTAbU54pnsAoKWeGQoWuK
+	 43p1ew2B6eZd/9fllyGgE3ZQqi6NwlKkgui96Xw2NOBulnH2wl+TuRq56sCUr87NY6pL8
+	 RRD7l0m7TTfWvOaMYUV7bXzwC6gk55eTga9/zM+306KIoUKm8ZzMEvN+/LFy9kJ5IYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336557;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
-	 X-SRS-Rewrite;
-	bh=rXScTNCXqFq3sLDC+i2sEI2KgYTrUkV3jyz0WjIg0Bc=;
-	b=ZOYWjhieqeyJtGr8HC3tEF0SNSQWSP433lO6Hqqw+dpnDsGj346HDm/dyGVu6I/WBt3k
-	 dcRaDxvD/k/9nMdGRSsuhOFP70GNW8CAKWb8J8MZzufkscXijPheZAXKd8bqll6oLiDcx
-	 9Hhw2+y3Apxozi0fJrr+E1GXOaWQiCOq/dyA6Jo4NFsOGO7bqtxOxpRszxY/E6vKg+ODx
-	 +Zq/8r/KZoHwpswaTC8vfJDF6XCwChBNDsACc1h83AUnI/IV/41b2Lb0qnEetFzcRN0R8
-	 SZfSxIdU7d9yToe7LSd14AxxgMF2OZ00Jf1iaw6P1Gj8r4Cq1qGevxS0iJacYHeyRxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336590;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=;
+	b=oSVeZXhePoH5zTNkXdmtYZx5bVqjAIudOTpuSEtlmBbNLmHBr2nYsPag32GHpmGNnZDQ
+	 WUWEIUIaTY1UxCvBI0CtIW3mLiJcVVgyIo+RDVLP8h47j1Y7ROM+HUTYpCV3B3xDQSfBC
+	 vrmqMhgVHx43P2dqtRN7fZbP383hup2O9bM1tLnZOqjyTGJeN309M+L58OLwKJQhag+l4
+	 lS+H1SgTJxhmEIYlsOp2e6GJWwmwclTP9YvkehDE/iw22Tzc3p9svM7qWcsm2V2er+T2Z
+	 qBNgu1rtsgPgU32uclrVEQb35QOggG7SAJL1ds8hqUdGICLwZU8UpRj/TaXOxmyVzLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="aNf4/BD4";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+XOPo5s;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CFhrGMPr;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B385606A330;
-	Tue, 10 Nov 2026 18:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B385606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B576606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B576606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=aNf4/BD4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=rXScTNCXqFq3sLDC+i2sEI2KgYTrUkV3jyz0WjIg0Bc=; b=aNf4/BD46HYrv+yanfWfmMRc9O
-	sYCw/9vFkO7pUOEqN7RZiGQizM9qLGhWdNmcvSzuS3CRw+w3xph9k3AOYa1cjfS0QfwoDkg/+K3ZW
-	272vL1p025N5FMSNk08kO2n2hH510Oxrm9hsooyitN0TL/v7g7/qMB6X6z5ugmYGXr+euLlByh5J0
-	ihP8/8hzt/eHJvq2u4GOQNrABX/anG5DDkjowhSo7pPhF36q1lKMQYtjbJ5EBtD8iKeS/e4CrgRQ+
-	HM/jqnW4krRxp/qvAw33t3F+L10rgYiPWPB5FUOXLZiYunmirvyYFgoqiD1L/FOT3oADiEg6TlC0N
-	yDGc9hVw==;
-Received: from [205.251.233.52] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQqu6-000000002ke-0mQv;
-	Tue, 10 Nov 2026 18:49:10 +0000
-Message-ID: <84fdca577207092bd16fc8f3949c9b7a776750ba.camel@infradead.org>
-Subject: Re: [RFC PATCH 00/12] RCU pseudo-transactions
-From: David Woodhouse <dwmw2@infradead.org>
-To: paulmck@kernel.org, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org, 
- Boqun Feng <boqun@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Frederic Weisbecker	 <frederic@kernel.org>, Neeraj Upadhyay
- <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt	 <rostedt@goodmis.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang	 <qiang.zhang@linux.dev>,
- Linus Torvalds <torvalds@linux-foundation.org>,  Matthew Wilcox
- <willy@infradead.org>, Christian Brauner <brauner@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, "Liam R . Howlett"
- <liam@infradead.org>,  Lorenzo Stoakes	 <ljs@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Andrew Ballance	 <andrewjballance@gmail.com>, Peter
- Zijlstra <peterz@infradead.org>, Will Deacon	 <will@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Ingo Molnar	 <mingo@kernel.org>, Thomas
- Gleixner <tglx@kernel.org>, rcu@vger.kernel.org
-Date: Tue, 10 Nov 2026 10:49:03 -0800
-In-Reply-To: <3cb75140-1d10-4de3-86e6-c9d70edd2da5@paulmck-laptop>
-References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
-	 <20261023181940.457424-1-puranjay@kernel.org>
-	 <f785237c-ee5e-4ad3-8ee9-79474f5f45c8@efficios.com>
-	 <9667c08c-333e-4fe5-9812-c5ccaa183e36@efficios.com>
-	 <853d8469-94a4-4b33-a0d5-d6d2138fe3ef@paulmck-laptop>
-	 <597586c9-35ae-43bd-9b79-7abf62057838@efficios.com>
-	 <3cb75140-1d10-4de3-86e6-c9d70edd2da5@paulmck-laptop>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-cdoCXILoyYRJoFh5thUV"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+XOPo5s;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CFhrGMPr
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAIcMqX007338
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=; b=Y+XOPo5sh17BDAvJ
+	nfpDK75yQgj6nL0Xk2giaKLnNdnKo6OTUstdAfHMLjPDtuJegrWc6VzQTOJOlwTk
+	jediEOjLx4GjeE1F+UrlB22Pyiya0u7op6Lk/2pdCXc37PWVgZ2djhrh/MrNBRc5
+	FdrYSIG5IT7CIGgfE/UYVq4vqBHyfdZDFVPaK01QQ5Gx3I6JtYVQbbGVGrMAzPJD
+	dWX0szOzxXQlmEFe15FE7ZhP54hqQ2Vinzw87Py9rbC6yateKJ5BFOSGQXr/JqLS
+	1SfyfyNFilw+dcdvmkvu4T9AjU45omESi53oMEeWOUCv9CmTlW0DCMuhdpTmXLqz
+	z8EFzQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huvtdb81k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:49:49 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso3079494eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:49:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794336586; x=1794941386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=;
+        b=CFhrGMPrE69kpHXfP7J9rAvIxyurOxvyVZ0BmHa6VnZnqsrTRnak2RY407qsPqq6qz
+         mzt3BZ/tcPgVork+ACLG4J5DdUc7lOwMZ7LFr3oTwl8T8DeyhittDt1BXazI4UaIVokw
+         09ezWSOEcCmm42EB9bmRszFZBn+WfYmq2ll2+X/GsPWBg3gPE1zMQc8B5YO/HB8lKQkW
+         VBbId3nIQw9WaGlE2/hsP4CCDeO5syFp0TOO/Xnq1UtlwPD5JfZcsjd+Gn/Z/JU8vj0U
+         JAfu+HhxKYhYTJgv2jvyIVwVv64yzo8wxHEToJZICQV2Psoz+Ze1SNveuYy6B7hlMEvM
+         9vKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794336586; x=1794941386;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QlOMOYWweaD3rhIBYK0FxaPkexbukY9Q5FW/PQSKho0=;
+        b=JC1O9Wh1xA+MD2lB2waZ+1dp08s9PicrNDDdC1fYSuIn8AseG/mVxkpfEca7YwuQqS
+         V9P345BxDgulNoUjhxrhpD966GYU4IdeIm59u8yfveqEITZufMYLQQj3vW7caNG+2Eob
+         lWuOKpqrNg/N6NnEdut3NjPDXSiAx7volM0ujK50IeLUeHdGpd6Tig67lHZgY6Cn0B7C
+         9p/WVvlAO58APR9AclnTniH6YS2+vgiR6QKClaFVC6PF4uyLE11pK+A3PLeqlkhEagLa
+         KVbDfkOlSgzNd62iSRx8Gxxo2JaHvkW4kXYp2zH/u421GJ9pvgzaXWAjju4kMFfviKI8
+         nxvA==
+X-Gm-Message-State: APuU4Z/71aC/dkhZEtU5YgIkgvQ5GdZGfxBRFD9U7QG1QtvqkCx1+OH7
+	aB6D6o0Tr65/6vzPfYw47m1m655NWIJ/L09dZu5TM9kU2m7IqyCkUXiRlL2M+Z7iIUSS4y082nz
+	A1oNUA1k52/y/+UrtBKnfeuTQW+jlj5cOqZBA4ywQFwGXO6cTYZInHnzHq5UBwqf3znM=
+X-Gm-Gg: AYBFou3c4IPW9f06aC1R9mgQ+pm2K32uqJlf5HwMIf4yNINFsjSWXvR4sBrNnEV3STm
+	zeuE4hAocU/SGk095pYmLo/3jNVUD5v2OD4F16StW2/pHSbp11xa0OnwalyOmji4inLnQSGb0L+
+	TIHDNM69foeQD6t6mVJ29MDrCXSlai+ZRqu44LgE59Jt4R/mdUrNs/fk1hTLrLcOWRPzxb4LgzJ
+	QsTJ4VjEwEwuFqIgCLBoNMpIGsSAn7qneLmNCiM+iaaiqMUHAfgJepvRfku402/dU6rnNLsz5Ql
+	4ZlW7XiHlRkseSyhrG0ftj3BX6YRKVezPmjHbU34Qs2RCeYipzdgvozt7oGWJl0RaHAk1P/3MgF
+	guot8D8f4p9H7deZltNDtKHevAiSf50ha02hOv+4gY1eKTcz2qLZx3sF/3nU/8ow2T4Mj3C+H43
+	vT8UmisGUm2OURPEmlgr/mmG4EUn+L
+X-Received: by 2002:a05:693c:66d2:10b0:36a:1f:9b74 with SMTP id 5a478bee46e88-3768636e4b1mr198779eec.27.1794336585327;
+        Tue, 10 Nov 2026 10:49:45 -0800 (PST)
+X-Received: by 2002:a05:693c:66d2:10b0:36a:1f:9b74 with SMTP id 5a478bee46e88-3768636e4b1mr198736eec.27.1794336584648;
+        Tue, 10 Nov 2026 10:49:44 -0800 (PST)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512ec1sm7990922eec.12.2026.11.10.10.49.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 10:49:44 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:49:25 -0800
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+        f.fainelli@gmail.com, vincent.guittot@linaro.org,
+        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
+        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
+        usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 16/35] firmware: arm_scmi: Add Telemetry TDCF
+ parsing for UUID lines
+Message-ID: <20261110104925.00001db6@oss.qualcomm.com>
+In-Reply-To: <20261109091221.2532706-17-cristian.marussi@arm.com>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+	<20261109091221.2532706-17-cristian.marussi@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,148 +131,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: A03xKfD7xEF8eBQWqjhrjhpvfgu5elhA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3NCBTYWx0ZWRfX39jOyaBmD4Xe
+ NNSSPRy7NyQ4iNG6BFNUcwNjBIjC1uUw65i8FOg4zFDu20XAX/HnlMAza/pj9lasXaA03n0ucQU
+ sAvAuWG1dO7mvv0H8ZPTz9OfR88ZL0w=
+X-Proofpoint-ORIG-GUID: A03xKfD7xEF8eBQWqjhrjhpvfgu5elhA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3NCBTYWx0ZWRfX45qAVDAchdLB
+ ana/ZvfjHbwIOziLGLG4TB5llnUfi82YvLZyE6tFyKVDwK0wrmRsexFDx2w+xYZAke73HFNQTZ8
+ pGKLO+zUxpGz3Zmh04zg10Snbx87EqYOAwPwtoyHc+J0UJPFxnjF8c6OMnqP3d4yY8zMIAm3+ZI
+ bvMhxa1ccr9sSmr6ptuwDIObq+yHxde6lunACXts8rOSBRSWdAm0LpyUKEOQC37z+yEtZJNSSWM
+ vMSArFTJ2AYN54uxM4MXMtDPEn7GlSS76v8ep+jC9Rw2AsB8zsz9dbNoO5NQXz4GVM/CQsM+cxC
+ bMY34hrheTiEsXTtlPqKzfbV1+DDwU8fevRmO+GDNW2opLz/IRLFnMf9IZZCtmZ8wgdxX7nCbVa
+ NJTUEt5OMQTXJslF42G5+WynMuFuBZlPViqX6Wdig5b+9LGk0v5DTno+D7Xo5P+P7tCxZbzeWPL
+ Yfeo6jO6IXWKl8wvzpg==
+X-Authority-Analysis: v=2.4 cv=ArR7T+9P c=1 sm=1 tr=0 ts=6af3674d cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=7CQSdrXTAAAA:8 a=gDUTI9D6LIilfzPf5l8A:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100074
+
+On Mon,  9 Nov 2026 09:12:02 +0000
+Cristian Marussi <cristian.marussi@arm.com> wrote:
+
+> Add support to parse, track and link TDCF UUID lines to the related
+> discovered DataEvents.
+> 
+> Maintain also a central list of discovered UUID lines.
+> 
+> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+Trivial stuff + a follow on about how you are handling the
+devm_ cleanup for the de and it making your code more complex
+than it needs to be.  I think a simple helper will get
+you to a better state (and my preferred approach of fine grained
+management is probably overkill!)
+
+Jonathan
+
+> ---
+> v14 --> v15
+>  - use proper casting in tlm_collect
+>  - use snapshots to collect UUIDs during full scans
+>  - stop tracking UUIDs lines singularly..it's useless
+>  - use UUIDs line hashing for lookup
+>  - clarified UUID/DE binding are permanent
+>  - fixed WARN_ON invocation on missing active_uuid
+> v13 --> v14
+>  - split out of previous single patch implementing parse SHMTI routines
+> ---
+>  drivers/firmware/arm_scmi/telemetry.c | 277 +++++++++++++++++++++++++-
+>  include/linux/scmi_protocol.h         |   2 +
+>  2 files changed, 277 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+> index e3fbcb1e6ea7..38a94d66116f 100644
+> --- a/drivers/firmware/arm_scmi/telemetry.c
+> +++ b/drivers/firmware/arm_scmi/telemetry.c
+
+>  
+> +static int scmi_telemetry_uuids_update(struct telemetry_info *ti,
+> +				       struct telemetry_uuid *uuid)
+> +{
+> +	uuid_t **cur_uuids;
+> +
+> +	/* Resize array if needed ... */
+> +	if (ti->info.num_uuids + SCMI_UUID_DB_THRESH >= ti->uuids_len) {
+> +		uuid_t **new_uuids, **old_uuids;
+> +		unsigned int new_len = ti->uuids_len * 2;
+> +
+> +		new_uuids = kzalloc_objs(*new_uuids, new_len);
+> +		if (!new_uuids)
+> +			return -ENOMEM;
+> +
+> +		old_uuids = rcu_dereference_protected(ti->info.uuids,
+> +						      lockdep_is_held(&ti->uuids_mtx));
+> +		/* Copy/move old allocated UUIDs */
+> +		for (int i = 0; i < ti->info.num_uuids; i++)
+> +			new_uuids[i] = old_uuids[i];
+
+memcpy?
+
+> +
+> +		/* Expose new UUID pointer */
+> +		rcu_assign_pointer(ti->info.uuids, new_uuids);
+> +		ti->uuids_len = new_len;
+> +
+> +		kfree_rcu_mightsleep(old_uuids);
+> +	}
+> +
+> +	/* Store new UUID reference into the globally accessible UUIDS */
+> +	cur_uuids = rcu_dereference_protected(ti->info.uuids,
+> +					      lockdep_is_held(&ti->uuids_mtx));
+> +	cur_uuids[ti->info.num_uuids] = &uuid->uuid;
+> +	rcu_assign_pointer(ti->info.uuids, cur_uuids);
+> +	/* Update UUIDs count */
+> +	smp_store_release(&ti->info.num_uuids, ti->info.num_uuids + 1);
+> +
+> +	return 0;
+> +}
 
 
---=-cdoCXILoyYRJoFh5thUV
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-11-09 at 17:34 -0800, Paul E. McKenney wrote:
-> > Could the atomic flavor count its readers as srcu_read_lock_nmisafe()
-> > does? Then a reader could also enter from NMI. The code I have for the
-> > next version keeps one counter per NMI nesting level for this. With
-> > SRCU, the sums of locks and unlocks handle the nesting already.
->=20
-> The other user that I know of is David Woodhouse, now CCed.
->=20
-> David, would you be OK with srcu_read_lock_atomic() using NMI-safe
-> counters, similar to __srcu_read_lock_fast()?
+> @@ -2362,6 +2554,7 @@ static int scmi_telemetry_resources_alloc(struct telemetry_info *ti)
+>  	}
+>  
+>  	INIT_LIST_HEAD(&ti->fcs_des);
+> +	hash_init(ti->uuids_ht);
 
-I can't see any reason why I should object to that, as long as the
-synchronize_srcu_atomic() stays in the 4-16=C2=B5s bracket which was our
-major criterion for this approach.
+Why init the hash here but the mutex at the caller? I guess
+maybe you wanted it to be obvious the mutex was valid, but to me
+just doing mutex_init up here is easier.
 
-I'm still iterating on the KVM GPC use case=C2=B9, as sashiko-bot keeps
-finding things that my own local sashiko runs don't.=20
+>  
+>  	ti->shmti = no_free_ptr(shmtis);
+>  	ti->info.shmtis = no_free_ptr(shmtis_info);
+> @@ -2427,6 +2620,37 @@ static void scmi_telemetry_lines_cleanup(struct telemetry_info *ti)
+>  	}
+>  }
 
-=C2=B9 https://git.infradead.org/users/dwmw2/linux.git/shortlog/refs/heads/=
-gpc-srcu-v3
+>  static void scmi_telemetry_tdes_cleanup(struct telemetry_info *ti)
+>  {
+>  	struct scmi_telemetry_de *de;
+> @@ -2471,6 +2695,7 @@ static void scmi_telemetry_instance_cleanup(void *arg)
+>  
+>  	scmi_telemetry_groups_free(ti->rinfo);
+>  	scmi_telemetry_tdes_cleanup(ti);
+> +	scmi_telemetry_uuids_cleanup(ti);
 
---=-cdoCXILoyYRJoFh5thUV
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+See below.  The monolithic approach to devm cleanup is making
+your setup code harder to read.  Suggestions down there on how
+to avoid that.
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-W8k7m0Qfx5ZGBcU2f71l59MAAAAAAAA=
+>  	scmi_telemetry_lines_cleanup(ti);
+>  	scmi_telemetry_resources_free(ti);
+>  }
 
+>  /**
+>   * scmi_telemetry_instance_init  - Instance initializer
+>   * @ti: A reference to the telemetry info descriptor for this instance
+> @@ -2563,6 +2805,8 @@ scmi_telemetry_resources_enumerate(struct telemetry_info *ti)
+>   */
+>  static int scmi_telemetry_instance_init(struct telemetry_info *ti)
+>  {
+> +	unsigned int uuids_len;
+> +	uuid_t **cur_uuids;
+>  	int ret;
+>  
+>  	ret = scmi_telemetry_resources_alloc(ti);
+> @@ -2571,6 +2815,35 @@ static int scmi_telemetry_instance_init(struct telemetry_info *ti)
+>  
+>  	xa_init(&ti->xa_des);
+>  
+> +	/*
+> +	 * Always allocate at least one slot for the primary and anyway at
+> +	 * least enough to avoid immediate resizing, assuring uuids_len
+> +	 * always greater or equal to one.
+> +	 */
+> +	uuids_len = max(ti->num_shmti * 2, SCMI_UUID_DB_THRESH + 1);
+> +	cur_uuids = kzalloc_objs(*cur_uuids, uuids_len);
+> +	if (!cur_uuids) {
+> +		xa_destroy(&ti->xa_des);
+> +		scmi_telemetry_resources_free(ti);
+This sort of dance of not using a goto block because we
+have unified cleanup at the end always suggests to me one of two things.
+Finer grained devm_ callbacks, or a helper that can have a clean return
+to this outer function with no side effects, those having all been
+cleaned up via goto based unified error handling in the helper.
 
---=-cdoCXILoyYRJoFh5thUV--
+I personally prefer fine grained devm with each element clearly
+being paired with the undo, but the helper is perhaps easier to
+introduce here.
+
+> +		return -ENOMEM;
+> +	}
+> +
+> +	mutex_init(&ti->uuids_mtx);
+> +	/* Expose new UUID pointer */
+> +	scoped_guard(mutex, &ti->uuids_mtx) {
+> +		rcu_assign_pointer(ti->info.uuids, cur_uuids);
+> +		ti->uuids_len = uuids_len;
+> +	}
+> +
+> +	/* Initialize the first UUIDs in the global list with the primary */
+> +	ret = scmi_telemetry_primary_uuid_init(ti);
+> +	if (ret) {
+> +		scmi_telemetry_uuids_cleanup(ti);
+> +		xa_destroy(&ti->xa_des);
+> +		scmi_telemetry_resources_free(ti);
+> +		return ret;
+> +	}
+> +
+>  	atomic_set(&ti->des_enabled[ENA_STATE], 0);
+>  	atomic_set(&ti->des_enabled[ENA_TSTAMP], 0);
+>  	mutex_init(&ti->des_enabled_mtx);
+> diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
+> index b7b8bd77b37d..3973779c0aba 100644
+> --- a/include/linux/scmi_protocol.h
+> +++ b/include/linux/scmi_protocol.h
+> @@ -981,6 +981,8 @@ struct scmi_telemetry_info {
+>  	unsigned int active_update_interval;
+>  	struct scmi_telemetry_intervals *intervals;
+>  	struct scmi_telemetry_shmti_info **shmtis;
+> +	unsigned int num_uuids;
+> +	uuid_t * __rcu *uuids __counted_by_ptr(num_uuids);
+>  };
+>  
+>  /**
+
