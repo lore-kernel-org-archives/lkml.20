@@ -1,104 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316818;
-	b=tW3xrkOr6iZSwnQHUfChtVwt73AWEediZuzRRDICCTXiRhVcOrMSEeo4q/67vlGIOv/7
-	 16uDmDN3vKeAWt8x8vOb2Ilhjj8ycVRB4wX0+ZVn6q8ERrCUBoMFpQxCc+o1WAOM6/Yp+
-	 gePY6YLO0HlR4Geua75vucIumeIEqb5FPwHAjgl0gl30I5f0/gLuVs9c+iNjg/herzVFR
-	 PJi9TwVk8SjQ2dg6LKCWt0Wm6XTxeCvX7qkDZI3KA6JfNURtDdF4I0XzGqohJP/44Ty9L
-	 D+eXPnrkjAEhCNBm/z/s6D9TtI5D69f1Xm8NyMcmuSazPQn6V7q4BHOJJuuyrer4vUQ==
+	t=1794316819;
+	b=lXpJ6/tammWjWt7nwdo+5vWYAGBWIArCaIEiXFQxZIh3o1KEg7vsWVT2eZvZCxsZ1f+0
+	 vT/quX+Ro4Kf/Cy7oosfSHCNl2XrtNgXwe4TcnSp2PomM+VCYHPk1KuUpv8MpzKxhPB2y
+	 o6skTdIKZXBZQhEsvTIfDbfJkrTZjJsa/kPotXMSM416+VFi0ViOci7uRCUERD6DDSSLO
+	 ayrZvbqL8ek0C1oUaT81BstvjBOEMpNzRsGhmwXEJLjlz6OKNOunEEFO9XtdnM98CnwJI
+	 GpjwOQgm6WLOpTF2+pZHJevYElTvzTP0CSCGYJ1C8LB/MU+NHSg2v51XRaBM5NVAxfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316819;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=o3j8ZSLUlMW9spzjCj6Lf6ZyTqWduSvktrPcGEoHNnM=;
-	b=isIITcCqnqUXvk2GZPg+kPYiZWE7bphHfuk9qRP3uiY61nuwoBU0oMnDF7tBS3NQmhnK
-	 UqxtChCPdwMnKTzqSBOU+Gd5i+kpcHI5RCNyayu2adtn8DKqeDTTymeyNqFy+tOCcpJfA
-	 dF0/NBEk8GVc3zuAeOxnLnS24LCJqBZHvYNpzhc9hxYiUY5UEOfCB1AglfryhmKRvVixy
-	 3D0yl5QLEiaqiK6qR7nI6ZhEsqLRUjsPcwIKLbNI7CWM0Y6jt0Ye3nf0k3HrkfKN9MzPb
-	 HSkcbMTLRxg6DD7Fr9N/DDn4eG1EzQyvjf8t4qfW3sOdyEHo9Ca3jd05rRWVx/CnzIA==
+	bh=CQPixXX46SSei/PaZ3yIw0VntsQHSpf9e3B9af0Elag=;
+	b=1gh1oHCSYUr9PpkQg8jUQTXO/hO9lhSWoDLgEHJqawlIOWAQZ6NEF66rHJ6d2dzaEiNw
+	 /gM5vQgmq6HeK09bY8vUTIMdMC3F/4QrA25O69RdyXav4Mt/TlGfgSbS8NcJj+8AVaFwX
+	 BgFbU94EGe1Xc9QBnYTYUnTOIKoV0Uqy/1Zaa5RmyevQCextgJ/Q5jZab96C5BuFndG6C
+	 P96eHgFZc6DW57NbzunWrFN6jyzaLWrtbj+H6v7/xKTovLzUjlNBTTd1kTGSS/1avP4Mf
+	 hCObVIy7V/CUy0zYWkDsq0oPo0K5UmeVgcD5qCZrqPbvg4y0royA2Qc13yuEHusz4qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bolY8nWU;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=i+5XCEtm;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DBcbiXgG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BfNNuOr3;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A1A60A260D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4A1A60A260D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E086B60A2629
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:20:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E086B60A2629
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bolY8nWU;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=i+5XCEtm
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DBcbiXgG;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BfNNuOr3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1794316817;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=o3j8ZSLUlMW9spzjCj6Lf6ZyTqWduSvktrPcGEoHNnM=;
-	b=bolY8nWUSU3xix/y00mMJGQIeehEiXvMWCOMiF+3QHdCT6yTgJL6w1WYMvWeBNoPRjxbBZ
-	PsnXEtRfm/2CQYokiRvWZhH6S6/5Wt7mu3keoORqdm7WY2ohMLTzFrmmQAqh37EO/4gktt
-	Gh1j4yMkvaZ27WHF/51o57HBLs8GoIo=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=CQPixXX46SSei/PaZ3yIw0VntsQHSpf9e3B9af0Elag=;
+	b=DBcbiXgGx46HGoU3O1U5aG0x8Yyp5N6ebRew2xKdLJyW3V2cqyP/E5PMV+rMgiTEq1BDT5
+	IQxUqozHSAPge7lVdTshe4ojVYyzcorE86L/LeX9Z/TfPsltoVEdUqeD1bUYtYGRZnmxCk
+	aC+/+zRPOvbyp88QHt05SVr52r7jlRc=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-461-Ukbzf4XWNr21H8pSNUO65w-1; Tue, 10 Nov 2026 08:20:15 -0500
-X-MC-Unique: Ukbzf4XWNr21H8pSNUO65w-1
-X-Mimecast-MFC-AGG-ID: Ukbzf4XWNr21H8pSNUO65w_1794316814
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c505ee61160so14955566b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:15 -0800 (PST)
+ us-mta-620-T4MBF0IMN6-63Vd84TeSJA-1; Tue, 10 Nov 2026 08:20:14 -0500
+X-MC-Unique: T4MBF0IMN6-63Vd84TeSJA-1
+X-Mimecast-MFC-AGG-ID: T4MBF0IMN6-63Vd84TeSJA_1794316813
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c4d4d132bbeso237307766b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:20:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794316814; x=1794921614; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1794316813; x=1794921613; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o3j8ZSLUlMW9spzjCj6Lf6ZyTqWduSvktrPcGEoHNnM=;
-        b=i+5XCEtmpFWipFgZNLE/fMc723DK5Ny/xxXGHMwawP8OlJErf09CL2Kd6S1HWtelVY
-         0zuny+/muaJNJ88KY68zQHVVG9rHZ+MM5Ol1hIrYV3EbejqvN/SlDmdkKKCkM5sGJZbw
-         3Pt4Jh+b8OXbZ6IEOtO62/Q9QIGkkxlrHZEBib1vjauncP8CRsER39qLbpU+PIN27fuH
-         cbTyBBpeEz+/4O4bSV3vEmKdMKM4qQNCqAQWTfJFpl1xJUc40dWzRhueU/nCSn4DA/u6
-         hju+8l8mYQJsSUTfCExcYwzApOkH09e06ykd90tqOEJ5B3cCyFzjuXIgreztbKVEIIt7
-         WZmA==
+        bh=CQPixXX46SSei/PaZ3yIw0VntsQHSpf9e3B9af0Elag=;
+        b=BfNNuOr3SMGPtD6SYG6M03lPaysC68itQ5pf9wq/ns6PD4Jgsi33X2nMwBzaheotFN
+         DwxXoG3CnbWBH3zTnuZr34iv2d73zskH1Wp5ywwMbP9haM1XWbvJ0mFJNmf/lKZSX2/v
+         ALNtqNQXGh+BY5czRB9LgaxMbjhfyS+XwLCpNxwZ907C2kRfPSJrKmdYLaDhjnWMdLXS
+         0/dcFXgMsCS405cND3iR66pO2wVBeTZDZxnKjpUDjoV+F25fJdIiB/KL8s8SXdyt2rTl
+         SiaqbOGNxBMcV3HoABz08mirSwF1/1LUfdp4bZfnxuW+XBF2R1R9GlmIuTXPBCEWzXd/
+         eUkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316814; x=1794921614;
+        d=1e100.net; s=20260707; t=1794316813; x=1794921613;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o3j8ZSLUlMW9spzjCj6Lf6ZyTqWduSvktrPcGEoHNnM=;
-        b=eawZebq8ahZtAomw2UbHnnBvqRWcx4svX0yTJH9uP+FrNiQ5D9oHRZNVc/ABsK8v7F
-         n22VLb6WO8rTzyie1XmqRw9fo0LUuI+KNYXoH03lTsc4IlNA/5piwo0D1tgKqt9jitgN
-         hVpbleQ71WAVDZvi+yR3dcp++jLFKwiqU6nEK0mhkwFxLi1Qq9Lkvh0tO1PX1VMDV39h
-         GNlBAlpcSDTRoOmXnhAuO2DNDkjSNhno5ZoHGtqWCODyHi9YOO2cwWT3rCLiLFYliLPI
-         TF3cnZKB7sSWUsnw9UiAF9ddIpcAoeYpkZPE8CwCLAJVY2xyq3Cw50K4u04cSeLY+y2v
-         oukQ==
-X-Forwarded-Encrypted: i=1; AL+hErHnNMUxUB0NOkOvc+hp4KU7i7BIWkzzwgmvqO/No/jFPZz4b1CkWozduMfkA0woojJT8toCq98AwxsumXw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bFpq+MTdMbfUJ77cP4jBs4AA0BXI/neQKx3ukYh4jeh3WVgZ3
-	ZQMomPF5C9YbhEHE6uarzo1sAdmngwtAdotee9S8SxzWpCwgvN6y1q2NqZFcY/PhQijLUFITZjk
-	dblyaTRZ4eLXzhO0nnjzKts+rvcj90ZDb2z6IKQw8FVP2L6pqqY+ZS6QC4UtFvwZfRw==
-X-Gm-Gg: AYBFou3TS9nEzQgWlZB81iWy9WqHoy1ZL1VPXfOsLJRuNDMrnAW9le4JMh3K5vbX9ur
-	TmRq/Sfwx1zABHWdRrOIaCarKeDqR5sPv3l2A8kcZAPzdd2v9wLmLwsPpEp7ea8ct6j+R6ZtfP+
-	dIlZsD9faOlUFthYJSMwWwSIWZDS1RHCKsaS5rH9/+0QyaoRgrdHdoLnQfPrF/TWiOtMVUwxUzg
-	k6Jo99wCCsU2oAuwj/xt0qh4u5RU74zvHDHykSRCplyf1E3T97RrwfYsWVPrHNZ/QnOBiLx0ycc
-	Pem2VPUuosQqQXoz8WCrdK64Ys/Wkrk60cWP8iferWuY916KimrEPFxbFd8J1gttch28kle5jVl
-	/xOXzaAeVU1YLL8iz8mKhBqAcG154fxy2RzIs9J37Ei+eXSH95v2AIALP8e30Wz+KKisFWeofza
-	zmM15zCg62ryLb7pM/dnbnGPs3L6tIO3JO2wR8AkQLAkyWP3vRBFToi3NZpi8c6bvehguJsfNeU
-	7zVkgd0Be7jXdfYm1vxyQB/CFnsJgZ1JLw50j6JgkvyCQHFYHbz
-X-Received: by 2002:a17:907:d7c9:b0:c2e:2252:6ddb with SMTP id a640c23a62f3a-c50495dfb72mr227137666b.10.1794316814432;
-        Tue, 10 Nov 2026 05:20:14 -0800 (PST)
-X-Received: by 2002:a17:907:d7c9:b0:c2e:2252:6ddb with SMTP id a640c23a62f3a-c50495dfb72mr227134966b.10.1794316813994;
+        bh=CQPixXX46SSei/PaZ3yIw0VntsQHSpf9e3B9af0Elag=;
+        b=RnYrtoG/X9xymom9WJ9Dns+DPWSKLMB0aebMTSoPHEQpbb6TbodMoOYGyRDiSF+oXl
+         mSSUjJvczK5tMWBOlZgngh4rEB0jv6xi2i8RduW915t/y72JjVSem3QiQKp680Os5nJh
+         PG/TYmWPbsLggQMBMDIV0MJiGtgB5eiEHR2UzxL3WSxklhcAkZsmOhTBkT54f3GWwckE
+         Bo/76tOARGm2SGYWOpne3F4is9x0B38R0OZ3immtgOLvs0UvPI1+HaDvqOJFVwfkzDEl
+         U+3QUhSEPVsnJ1wC69h2QDhdMibOgM54QDFonhfnlEw2mS8XEwBj0euQmZf8r3hg0iKT
+         rFyw==
+X-Forwarded-Encrypted: i=1; AL+hErFUmScO/fh7eNLTCmPkWsiG5QkoNY8LfZAgJYzQ2Ls3OHA1NKuLsGV772AeJF+qqHcTnFHDjodZMhbl2rg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AHSdYEzsm8Y/rEdxD5MKWj39u76po/FaQOFJsPjsDgasUO0/7
+	8+G+twrrKRXvuIPsfwNM/S1ngXPtS78/hhnCzW8dk1m/Lc87tjD0jtjLAaK1s/QNdN+OKPVAGx0
+	PmSWJSKWANN/6NoExqtci3GMbpgtuu+YaV6BemKuBtsZRiLWV2cCxbnkaXNYSZlt0Jw==
+X-Gm-Gg: AYBFou2hHAcPZ3y0+F2H+O+R/XGe0wy90zqT7WNV+sPwtsHLYeq53PO3pronxu9Kiw6
+	krOlMxZQ+eTV6yQu3VWcxAg146QQFwzM140EwTCCO5xHBNDUVs8ybxynPQ80RfX5xKVi43cHkIq
+	nMx7oF1Ggcib3EuzcJhLxs2VwgAgn2uQpNpPEHtUXqy2PQTFLF4beG4en5FG03is27cVjeVjSop
+	+WlD30hpG318CD8orhe+LGeyO/eIlGM2Ph2Ah2VE2PMbjwlXtCzYPjySsG9tKHz5VQ9z8kk2kAo
+	g2f19dol105injP9YMNuDI0iR1m4Fu/epqB/u1rFceoiFHAR33f0wX7Zk+64htFE2iuRQJ4t32S
+	SYBrVcOSpny0IYNtmO4hgSVp2LA/EWgGlnbpstYNdwB+EivhJ00anMrbx9qnyypOJ3b/tP7h5gi
+	u0uQoKu5Z6qLtU8EOdG9Hb6IdoNxxbxIafLTFj6Mvj6kp0rY7/8BfyrSAtBGEvlk9w3M9HAX0jR
+	ChpV0ReOG5uT8wh4UjRifn97B2j0G0PL5gpNt8j7nPTGcHNFwgi
+X-Received: by 2002:a17:907:608a:b0:c4d:939:526b with SMTP id a640c23a62f3a-c5048c7308cmr238324266b.0.1794316813131;
         Tue, 10 Nov 2026 05:20:13 -0800 (PST)
+X-Received: by 2002:a17:907:608a:b0:c4d:939:526b with SMTP id a640c23a62f3a-c5048c7308cmr238321866b.0.1794316812677;
+        Tue, 10 Nov 2026 05:20:12 -0800 (PST)
 Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm107791166b.48.2026.11.10.05.20.12
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm107791166b.48.2026.11.10.05.20.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:20:13 -0800 (PST)
+        Tue, 10 Nov 2026 05:20:12 -0800 (PST)
 From: Alex Markuze <amarkuze@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	"David S . Miller" <davem@davemloft.net>,
@@ -117,9 +117,9 @@ Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	netdev@vger.kernel.org,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 04/12] io_uring/opaque: add owned-page helpers for dense copies
-Date: Tue, 10 Nov 2026 13:19:58 +0000
-Message-Id: <20261110132006.3280986-5-amarkuze@redhat.com>
+Subject: [RFC PATCH net-next 03/12] io_uring/opaque: add backing accounting and immutable versions
+Date: Tue, 10 Nov 2026 13:19:57 +0000
+Message-Id: <20261110132006.3280986-4-amarkuze@redhat.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110132006.3280986-1-amarkuze@redhat.com>
 References: <20261110132006.3280986-1-amarkuze@redhat.com>
@@ -134,68 +134,458 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the accounted destination-page allocator used by CREATE and compaction.
-Prefer compound allocations up to 64 KiB, or one base page when larger,
-and fall back to smaller orders.
+Add bounded backing-byte and extent accounting, immutable version
+references, vectors and generation handles. Separate ordinary capacity,
+reply reserve and transient reservations; update byte/transient pairs
+coherently for watermark hysteresis. Capacity returns precede batched
+collector wakes. The feature selects the exclusive receive-owner support.
 
 Signed-off-by: Alex Markuze <amarkuze@redhat.com>
 ---
- io_uring/Makefile         |  2 +-
- io_uring/opaque_compact.c | 33 +++++++++++++++++++++++++++++++++
- 2 files changed, 34 insertions(+), 1 deletion(-)
- create mode 100644 io_uring/opaque_compact.c
+ io_uring/Kconfig  |  11 ++
+ io_uring/Makefile |   1 +
+ io_uring/opaque.c | 399 ++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 411 insertions(+)
+ create mode 100644 io_uring/opaque.c
 
+diff --git a/io_uring/Kconfig b/io_uring/Kconfig
+index a283d9e53787..5b696cf266f6 100644
+--- a/io_uring/Kconfig
++++ b/io_uring/Kconfig
+@@ -15,6 +15,17 @@ config IO_URING_BPF
+ 	depends on BPF
+ 	depends on NET
+ 
++config IO_URING_OPAQUE_OBJ
++	bool "io_uring opaque TCP payload objects"
++	default n
++	depends on IO_URING && INET
++	select SOCK_RX_OWNER
++	help
++	  Retain immutable TCP payloads as kernel-resident objects that can
++	  be inspected, transmitted and compacted through io_uring. No network
++	  device zerocopy support or mapped receive area is required.
++	  Applications manage payload lifetime through generation handles.
++
+ config IO_URING_BPF_OPS
+ 	def_bool y
+ 	depends on IO_URING
 diff --git a/io_uring/Makefile b/io_uring/Makefile
-index 81710127046c..191316972e04 100644
+index 965bb60e9f7b..81710127046c 100644
 --- a/io_uring/Makefile
 +++ b/io_uring/Makefile
-@@ -17,7 +17,7 @@ obj-$(CONFIG_IO_URING)		+= io_uring.o opdef.o kbuf.o rsrc.o notif.o \
+@@ -17,6 +17,7 @@ obj-$(CONFIG_IO_URING)		+= io_uring.o opdef.o kbuf.o rsrc.o notif.o \
  					query.o loop.o
  
  obj-$(CONFIG_IO_URING_ZCRX)	+= zcrx.o
--obj-$(CONFIG_IO_URING_OPAQUE_OBJ)	+= opaque.o
-+obj-$(CONFIG_IO_URING_OPAQUE_OBJ)	+= opaque.o opaque_compact.o
++obj-$(CONFIG_IO_URING_OPAQUE_OBJ)	+= opaque.o
  obj-$(CONFIG_IO_WQ)		+= io-wq.o
  obj-$(CONFIG_FUTEX)		+= futex.o
  obj-$(CONFIG_EPOLL)		+= epoll.o
-diff --git a/io_uring/opaque_compact.c b/io_uring/opaque_compact.c
+diff --git a/io_uring/opaque.c b/io_uring/opaque.c
 new file mode 100644
-index 000000000000..b59c7cb95d42
+index 000000000000..2fd9db898e67
 --- /dev/null
-+++ b/io_uring/opaque_compact.c
-@@ -0,0 +1,33 @@
++++ b/io_uring/opaque.c
+@@ -0,0 +1,399 @@
 +// SPDX-License-Identifier: GPL-2.0
-+/* Workers copy immutable backing without holding object table locks. */
++/* Kernel-resident immutable TCP payloads. */
++#include <linux/bitmap.h>
++#include <linux/bvec.h>
++#include <linux/file.h>
 +#include <linux/highmem.h>
 +#include <linux/memcontrol.h>
-+#include <linux/mm.h>
 +#include <linux/overflow.h>
-+#include <linux/sched.h>
++#include <linux/rbtree.h>
++#include <linux/sched/mm.h>
++#include <linux/skbuff.h>
 +#include <linux/sizes.h>
 +#include <linux/slab.h>
++#include <linux/workqueue.h>
++#include <net/tcp.h>
++#include <uapi/linux/io_uring/opaque.h>
 +
 +#include "io_uring.h"
++#include "cancel.h"
 +#include "opaque_internal.h"
++#include "rsrc.h"
++#include "tw.h"
 +
-+struct page *io_opaque_owned_page(unsigned int *order)
++static bool io_opaque_budget_ready(struct io_opaque_req *op, unsigned long now)
 +{
-+	struct page *page;
++	struct io_opaque_store *store = op->store;
++	u64 limit = io_opaque_rx_limit(store);
++	u64 used = atomic64_read(&store->bytes);
 +
++	lockdep_assert_held(&store->wait_lock);
++	return !time_before(now, op->retry_at) && used <= limit &&
++	       op->need_bytes <= limit - used &&
++	       atomic_read(&store->extents) < store->config.max_extents - 2;
++}
++
++/*
++ * Let in the waiters for budget that the budget lets go on, at most
++ * IO_OPAQUE_WAKE_BATCH of them in a hold of wait_lock. Those left over are for
++ * the retry work, and that is why this says whether there were any: a caller
++ * that wants them in now repeats it. The work comes a jiffy later, or as late
++ * as a timer that is already pending, which queueing never moves earlier.
++ */
++static bool io_opaque_wake_budget(struct io_opaque_store *store)
++{
++	struct io_opaque_req *op, *next;
++	unsigned long delay = MAX_JIFFY_OFFSET;
++	unsigned long now = jiffies;
++	unsigned int woken = 0;
++	bool stopped, more = false;
++
++	guard(spinlock)(&store->wait_lock);
++	stopped = READ_ONCE(store->dead);
++	list_for_each_entry_safe(op, next, &store->budget_waits, wait) {
++		struct socket *sock = sock_from_file(op->req->file);
++
++		if (!stopped && !READ_ONCE(op->stream->closed)) {
++			if (time_before(now, op->retry_at)) {
++				delay = min(delay, op->retry_at - now);
++				continue;
++			}
++			if (!io_opaque_budget_ready(op, now))
++				continue;
++			if (woken == IO_OPAQUE_WAKE_BATCH) {
++				delay = 1;
++				more = true;
++				continue;
++			}
++		}
++		list_del_init(&op->wait);
++		/* A wake is not a reservation; the collector rechecks on entry. */
++		woken++;
++		/* Native multishot polling also observes FIN, RST and urgent data. */
++		wake_up_interruptible_poll(sk_sleep(sock->sk), EPOLLIN);
++	}
++	if (!stopped && delay != MAX_JIFFY_OFFSET)
++		queue_delayed_work(system_dfl_wq, &store->retry_work, delay);
++	return more;
++}
++
++/* As io_opaque_wake_budget(), until the batch leaves nobody behind. */
++static void io_opaque_wake_budget_all(struct io_opaque_store *store)
++{
++	while (io_opaque_wake_budget(store))
++		;
++}
++
++int io_opaque_memory_mode(struct io_opaque_store *store)
++{
++	unsigned int seq;
++	int mode, next;
++	u64 used, transient;
++
++	if (!store->config.high_watermark)
++		return IORING_OPAQUE_MEMORY_NORMAL;
 +	for (;;) {
-+		page = alloc_pages(GFP_KERNEL_ACCOUNT | __GFP_COMP | __GFP_NORETRY |
-+				   __GFP_NOWARN, *order);
-+		if (page || !*order)
-+			return page;
-+		(*order)--;
++		mode = atomic_read(&store->memory_mode);
++		/* Watermarks measure payload held: compaction copies and framing are not. */
++		do {
++			seq = read_seqcount_begin(&store->transient_seq);
++			used = atomic64_read(&store->bytes);
++			transient = atomic64_read(&store->transient);
++		} while (read_seqcount_retry(&store->transient_seq, seq));
++		used = used > transient ? used - transient : 0;
++		next = mode;
++		if (mode == IORING_OPAQUE_MEMORY_NORMAL && used >= store->config.high_watermark)
++			next = IORING_OPAQUE_MEMORY_LOWMEM;
++		else if (mode == IORING_OPAQUE_MEMORY_LOWMEM && used <= store->config.low_watermark)
++			next = IORING_OPAQUE_MEMORY_NORMAL;
++		if (next == mode)
++			return mode;
++		/* Recheck occupancy after winning a concurrent mode transition. */
++		atomic_try_cmpxchg(&store->memory_mode, &mode, next);
 +	}
 +}
 +
-+/* Destination allocation for dense copies and CREATE. */
-+struct page *io_opaque_dest_page(struct io_opaque_store *store, u64 pages_left,
-+				 unsigned int *order)
++bool io_opaque_charge(struct io_opaque_store *store, u64 bytes, bool rx)
 +{
-+	*order = min_t(unsigned int, IO_OPAQUE_MAX_ORDER, ilog2(pages_left));
-+	return io_opaque_owned_page(order);
++	u64 limit = store->config.hard_limit - store->config.reply_reserve;
++	s64 used = atomic64_read(&store->bytes);
++
++	if (rx)
++		limit -= store->config.compact_headroom;
++	for (;;) {
++		if (bytes > limit || used > limit - bytes)
++			return false;
++		if (atomic64_try_cmpxchg(&store->bytes, &used, used + bytes)) {
++			io_opaque_memory_mode(store);
++			return true;
++		}
++	}
++}
++
++/* Give bytes back to the store, and let nobody in on them yet. */
++static void io_opaque_uncharge_quiet(struct io_opaque_store *store, u64 bytes)
++{
++	atomic64_sub(bytes, &store->bytes);
++	io_opaque_memory_mode(store);
++}
++
++void io_opaque_uncharge(struct io_opaque_store *store, u64 bytes)
++{
++	io_opaque_uncharge_quiet(store, bytes);
++	io_opaque_wake_budget(store);
++}
++
++/* Restore both budgets before waking collectors after a failed reservation. */
++static void io_opaque_extent_unreserve(struct io_opaque_store *store, u64 bytes)
++{
++	atomic_dec(&store->extents);
++	if (bytes)
++		io_opaque_uncharge_quiet(store, bytes);
++	io_opaque_wake_budget(store);
++}
++
++/* Charge bytes that watermarks ignore; bytes and transient change in one write. */
++bool io_opaque_charge_transient(struct io_opaque_store *store, u64 bytes, u64 limit)
++{
++	s64 used;
++	bool charged = false;
++
++	spin_lock(&store->transient_lock);
++	write_seqcount_begin(&store->transient_seq);
++	used = atomic64_read(&store->bytes);
++	for (;;) {
++		if (bytes > limit || used > limit - bytes)
++			break;
++		if (atomic64_try_cmpxchg(&store->bytes, &used, used + bytes)) {
++			atomic64_add(bytes, &store->transient);
++			charged = true;
++			break;
++		}
++	}
++	write_seqcount_end(&store->transient_seq);
++	spin_unlock(&store->transient_lock);
++	return charged;
++}
++
++/* Uncharge and stop excluding transient bytes; the two amounts may differ. */
++void io_opaque_release_transient(struct io_opaque_store *store, u64 uncharge,
++				 u64 transient)
++{
++	spin_lock(&store->transient_lock);
++	write_seqcount_begin(&store->transient_seq);
++	atomic64_sub(uncharge, &store->bytes);
++	atomic64_sub(transient, &store->transient);
++	write_seqcount_end(&store->transient_seq);
++	spin_unlock(&store->transient_lock);
++	io_opaque_memory_mode(store);
++	if (uncharge)
++		io_opaque_wake_budget(store);
++}
++
++static bool io_opaque_extent_reserve(struct io_opaque_store *store)
++{
++	int nr = atomic_read(&store->extents);
++
++	while (nr < store->config.max_extents) {
++		if (atomic_try_cmpxchg(&store->extents, &nr, nr + 1))
++			return true;
++	}
++	return false;
++}
++
++static int io_opaque_memcg_charge(struct io_opaque_store *store, u64 bytes)
++{
++#ifdef CONFIG_MEMCG
++	if (store->objcg)
++		return obj_cgroup_charge(store->objcg,
++					GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN, bytes);
++#endif
++	return 0;
++}
++
++static void io_opaque_memcg_uncharge(struct io_opaque_store *store, u64 bytes)
++{
++#ifdef CONFIG_MEMCG
++	if (store->objcg)
++		obj_cgroup_uncharge(store->objcg, bytes);
++#endif
++}
++
++struct io_opaque_extent *io_opaque_extent_new(struct io_opaque_store *store,
++					      struct page *page, u32 offset,
++					      u32 length, u64 start,
++					      bool reserved)
++{
++	struct io_opaque_chunk *chunk;
++	u64 charge = page_size(compound_head(page));
++
++	if (!io_opaque_extent_reserve(store))
++		return ERR_PTR(-ENOBUFS);
++	if (!reserved && !io_opaque_charge(store, charge, true))
++		goto no_space;
++	if (!reserved && io_opaque_memcg_charge(store, charge))
++		goto no_memory;
++	chunk = kzalloc_obj(*chunk, GFP_KERNEL_ACCOUNT);
++	if (!chunk) {
++		if (!reserved)
++			io_opaque_memcg_uncharge(store, charge);
++		goto no_memory;
++	}
++	refcount_set(&chunk->backing.refs, 1);
++	chunk->backing.page = compound_head(page);
++	chunk->backing.charge = charge;
++	chunk->backing.accounted = !reserved && store->objcg;
++	chunk->extent.backing = &chunk->backing;
++	chunk->extent.start = start;
++	chunk->extent.offset = offset + (page - compound_head(page)) * PAGE_SIZE;
++	chunk->extent.length = length;
++	chunk->extent.embedded = true;
++	INIT_LIST_HEAD(&chunk->extent.list);
++	return &chunk->extent;
++no_memory:
++	io_opaque_extent_unreserve(store, reserved ? 0 : charge);
++	return ERR_PTR(-ENOMEM);
++no_space:
++	io_opaque_extent_unreserve(store, 0);
++	return ERR_PTR(-ENOBUFS);
++}
++
++/*
++ * Let go of @extent, and of its backing if it was the last to use it. Returns
++ * the charge of the backing that went, for the caller to give back to the
++ * store: giving it back lets those waiting for budget in, which one free does
++ * once and a list of them once, not once per extent.
++ */
++static u64 io_opaque_extent_release(struct io_opaque_store *store, struct io_opaque_extent *extent)
++{
++	struct io_opaque_backing *backing = extent->backing;
++	u64 charge = 0;
++
++	list_del(&extent->list);
++	if (!extent->embedded)
++		kfree(extent);
++	atomic_dec(&store->extents);
++	if (refcount_dec_and_test(&backing->refs)) {
++		charge = backing->charge;
++
++		if (backing->accounted)
++			io_opaque_memcg_uncharge(store, charge);
++		put_page(backing->page);
++		kfree(container_of(backing, struct io_opaque_chunk, backing));
++	}
++	return charge;
++}
++
++/*
++ * Free the extents of @list. What they held is returned to the store in one
++ * step, and the waiters for budget are looked at in one go: each look takes
++ * wait_lock and walks the list of them, and a 1 MB object that is not one
++ * mapping can have 700 extents. The look is repeated while it leaves ready
++ * waiters behind, so that they are let in by the free and not by the retry
++ * work.
++ */
++static void io_opaque_extents_free(struct io_opaque_store *store,
++				   struct list_head *list)
++{
++	struct io_opaque_extent *extent, *next;
++	bool any = false;
++	u64 charge = 0;
++
++	list_for_each_entry_safe(extent, next, list, list) {
++		charge += io_opaque_extent_release(store, extent);
++		any = true;
++	}
++	if (charge)
++		io_opaque_uncharge_quiet(store, charge);
++	if (any)
++		io_opaque_wake_budget_all(store);
++}
++
++struct io_opaque_data *io_opaque_data_alloc(void)
++{
++	struct io_opaque_data *data = kzalloc_obj(*data, GFP_KERNEL_ACCOUNT);
++
++	if (data) {
++		refcount_set(&data->refs, 1);
++		INIT_LIST_HEAD(&data->extents);
++	}
++	return data;
++}
++
++void io_opaque_data_put(struct io_opaque_store *store,
++			struct io_opaque_data *data)
++{
++	if (data && refcount_dec_and_test(&data->refs)) {
++		io_opaque_extents_free(store, &data->extents);
++		kvfree(data->bvec);
++		kfree(data);
++	}
++}
++
++/*
++ * Build the version's segments, and for a version of more than
++ * IO_OPAQUE_SEEK_STRIDE of them the anchors that find one without walking
++ * from the first, in one allocation. Both are made once, when the version is,
++ * and never change. The anchors follow the segments at the next multiple of
++ * eight bytes: a segment is 16 bytes, but only 12 on 32 bits, where an odd
++ * number of them would leave the anchors four-byte aligned.
++ */
++int io_opaque_vector(struct io_opaque_data *data)
++{
++	struct io_opaque_extent *extent;
++	struct io_opaque_backing *previous = NULL;
++	u32 nr = 0, anchors;
++	size_t bytes;
++	u64 at = 0;
++
++	data->charge = 0;
++	list_for_each_entry(extent, &data->extents, list) {
++		nr++;
++		if (extent->backing != previous)
++			data->charge += extent->backing->charge;
++		previous = extent->backing;
++	}
++	anchors = nr > IO_OPAQUE_SEEK_STRIDE ? DIV_ROUND_UP(nr, IO_OPAQUE_SEEK_STRIDE) : 0;
++	/* Where the anchors start. An overflow saturates, and the allocation fails. */
++	bytes = size_add(array_size(nr, sizeof(*data->bvec)), sizeof(*data->anchor) - 1);
++	bytes &= ~(sizeof(*data->anchor) - 1);
++	data->bvec = kvmalloc(size_add(bytes, array_size(anchors, sizeof(*data->anchor))),
++			      GFP_KERNEL_ACCOUNT);
++	if (!data->bvec)
++		return -ENOMEM;
++	data->anchor = anchors ? (void *)data->bvec + bytes : NULL;
++	data->nr = nr;
++	nr = 0;
++	list_for_each_entry(extent, &data->extents, list) {
++		if (anchors && !(nr % IO_OPAQUE_SEEK_STRIDE))
++			data->anchor[nr / IO_OPAQUE_SEEK_STRIDE] = at;
++		bvec_set_page(&data->bvec[nr++], extent->backing->page,
++			      extent->length, extent->offset);
++		at += extent->length;
++	}
++	return 0;
++}
++
++/* Handle encoding is internal; zero is never a published handle. */
++u64 io_opaque_handle(u32 index, u64 generation)
++{
++	return generation << IO_OPAQUE_INDEX_BITS | index;
++}
++
++static u32 io_opaque_index(u64 handle)
++{
++	return handle & IO_OPAQUE_INDEX_MASK;
++}
++
++struct io_opaque_slot *io_opaque_lookup(struct io_opaque_store *store,
++					u64 handle)
++{
++	u32 index = io_opaque_index(handle);
++
++	lockdep_assert_held(&store->tables);
++	if (!handle || index >= store->config.max_objects)
++		return NULL;
++	if (store->objects[index].generation != handle >> IO_OPAQUE_INDEX_BITS)
++		return NULL;
++	return &store->objects[index];
 +}
 -- 
 2.34.1
