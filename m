@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319446;
-	b=N7naAwud888Ca5Oz0MlStEBVOS/UqIZNkK1mPX2T8x5zF375dH3mKmgpX8vv5bM0J6Se
-	 v0O2lGP1a4pE1Pgys+1TbAyl5xNB0rPMs0Wgh2COyM8leaVbcZ7L4J23NxHWqmbYgAl3r
-	 qFhXY8MigEOAeSvU7URChrNsd/rjcrzJ+ZlF+QFxzkM9vY+XpXYh6SbQf913oSEGGU9hy
-	 v2aro8rozmNFT/NKLesTW14aXhXvfz+LIWM8QBNEmQtooABO0Xiv2Sq4gRF7QYEVyZmKU
-	 9HNj42cJ6a3k8Urpbd5ap11gEFwAF0MRo2hP+G41YlSMuMoARPhBiOhzmiCcp4j6vDw==
+	t=1794319486;
+	b=WDiX/+riF7K+xGUSiS4j3QHNO7N5gz/rAHwiUkJ1CaC7xVjGkXmvWddptHRblK/2/XnZ
+	 wt7w8iCrHIGYohEwNbvRl0DuCt6o+Lkl8osAWUfvA9wI54NjDoX5pSoaEZs/NyczS+WnG
+	 yFBiHzcHu3xcMSm8dbggUY5qqVYejLwZqQo9oHVgpiUdHpAMQzlchkNcFqjQekQHkO4NH
+	 nanzhN++lOVuRQAfvaYhYBN+N3UhWOQ4EOIXz79p4cfdAhOd053mh67VK8e0cyG3Y/Yfa
+	 wn6Z4jEpCQebU8T5o88qx8mbUEsT4aY33hvPwucGJBxdMSb9Wouu891OLHoTUdRM/QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319446;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=jBJ0xr9s4TDhGS4dXYDJWJFbpc87NgnKnIA5mNyiSzY=;
-	b=x18cLGUYgoKlazbBywkw/Q3YemmcH3C+CjjJnl3SPlQeuutOh4qFrGiyY0Qagr7NbXUN
-	 5H+IHZ5Bm0YkatS9PkwDUW6xiBJHz07ovcUbuO9/L1kYLMadeuUxF98xk1sPB1qBFS5ZF
-	 O+gTJgZAwtmwfJfy5Icqw/AaJiTDhH68G2yQhEsKJtO2NvjEIOGyFMoaHkxN6IXlYt70O
-	 tATfom5yjVYNiu66amBruGFVwCgw+NRjS2XUVTPfKMI+62j7jzoAjqhLdTqjg0WeLOYrL
-	 Nhe/EeFY3llulxDepu/OZ2aa8RdZiku4h/J6PfH0dY6RpIrKcQ9JZlerVYtI+xlqWdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319486;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=i3BnkwwX1QpJuZSXpGnT1o2/p8maiFIvIlJFgd8ousU=;
+	b=0ZBwK/bditIvjGJ7OgSs502h/yV/xhtqNsULRZEEUpcAKUMmB0POXIxbFhJuexLA0oXx
+	 aaiLa0+Jf/wqIUT4CBr5lEiqDUXbXZ7TsJhYEifGaM8D5W7BXTltsDlURmGB7OTxBhzYn
+	 oyqoftahnQNpRCqlFuT7lnW+/NeKnNwGDfOVNEy+925GMIUQtmokw7odvnfSS2BJhRCQ8
+	 7HJIbCl7bGrIOjP9ngbsx8u8+8YCiHp8hKDWsPAcGwb09kUeiCaXjwRf85yuYj+Pas9VL
+	 UuMh9PEdIRq+brPP26FwQOfTDsSAaMLBRkbBqmHb/pNaQdMJyUskWO+p8lz8LeFUp1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LWX006/k";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33DF60A2603;
-	Tue, 10 Nov 2026 14:04:05 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="dv/Ghu2h";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71CA0606A32A;
+	Tue, 10 Nov 2026 14:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71CA0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWX006/k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316141F0089F;
-	Tue, 10 Nov 2026 14:04:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319445;
-	bh=jBJ0xr9s4TDhGS4dXYDJWJFbpc87NgnKnIA5mNyiSzY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LWX006/k50e/zo/KIHRIDuJV+keMqzJwIjmlbo/f3X5Up9tZ5PsyfL7nD1kEjorrJ
-	 tZOVSzsC9FkPlZfUq23UtI8ad1QTniAFoJ40mUAADDL14GisFH2aVRhwfjSAaJXwbu
-	 XWWUj9U39zhb5w5vJiWoleJjvzdhzbgTQmjyGRSzRWOF23Trby6kDx6kLojUNJbVQL
-	 Vil/q4nWwCze8LSQl16IymqBD6sUuVdATG13GLXrWnvCVD0f3KlQ0sJqQq9EmSdMCt
-	 eNaEBrBoabfCrj+ud6cLnuI6IWoEYuVHlxuSZeUadfy7SE9Jdldj3hIho9lwiiZjld
-	 VQAqvQivewuQg==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Tue, 10 Nov 2026 15:03:50 +0100
-Subject: [PATCH 4/4] media: i2c: vd56g3: remove redundant
- pm_runtime_dont_use_autosuspend() calls
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dv/Ghu2h
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B314F143D;
+	Tue, 10 Nov 2026 06:04:41 -0800 (PST)
+Received: from [10.57.10.132] (unknown [10.57.10.132])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A51853F632;
+	Tue, 10 Nov 2026 06:04:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794319484; bh=BlHcBR7XX57WikFwdYmvtykbeUsCkBngls9+R/yKh6Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dv/Ghu2hcXhyZsdzum0Qj+KYMSpRnrdxXFCaVwePrPvToPowei/9jMA30yVCil2dK
+	 49YFj+/dj03TnWCuz3fzCHb54refDhICi9kVBS42rqgHZdXMjO3Vmh92IDnY4sG6/s
+	 sg7dxeAcKd5AvJ2pG41DCd3as0OkbuWM47N62woc=
+Message-ID: <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
+Date: Tue, 10 Nov 2026 14:05:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,60 +53,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-4-cc07e71b30f9@kernel.org>
-References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- David Heidelberg <david@ixit.cz>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
- Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <crofts@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1163;
- i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=rNohVn5PccJKHfqSx+Gswt1OdxA+A4uAaVBJFien/yQ=;
- b=zEWAvwqHvWbN8bXGudlf4KULxgTX8p/b32D8/V5sCP2VqZwTuWtcwL7L/dMTwik1ZjfyEjjFB
- QbwjHmOPw0SAtorqgtLxFTCMZ5XYOwvvqQv7mb/m30cvo26llchQ4aM
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
+ ranking
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Guo Chen <guo.chen@oss.qualcomm.com>,
+ Vincent Donnefort <vincent.donnefort@arm.com>,
+ Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+ tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
+References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
+ <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
+ <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
+ <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
+ <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
+ <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
+ <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
+ <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
+ <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
 
-Remove the redundant function calls.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
- drivers/media/i2c/vd56g3.c | 2 --
- 1 file changed, 2 deletions(-)
+On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
+> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> wrote:
+>>
+>> Hi Rafael,
+>>
+>> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
+>>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com> wrote:
+>>
+>> [snip]
+>>
+>>
+>>>>
+>>>> That's fine, please continue.
+>>>
+>>> I have a couple of questions though.
+>>>
+>>> First, why is the ondemand governor mentioned in the changelog?  In
+>>> the mainline, the ondemand governor cannot work with EAS, so it
+>>> shouldn't matter for this issue, should it?
+>>
+>> The ondemand is affected by the EM setup code and set 'inefficient'
+>> flags for some OPPs. The EM is also present for cooling devices
+>> and can work w/o EAS and schedutil, w/ just ondemand governor.
+>>
+>> Because EM marks the OPPs kind of 'globally' as inefficient, then
+>> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
+>> In the EM code we have:
+>> cpufreq_table_set_inefficient(policy, table[i].frequency);
+> 
+> So maybe this is the one that needs to be fixed?  What about simply
+> skipping boost frequencies in it?
+> 
+>> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
+>> pass to __cpufreq_driver_target() with that flags as well.
+> 
+> Thanks for explaining and all of that needs to be said in the patch changelog.
+> 
+>>>
+>>> Second, why is the issue regarded as a defect in the code and not in
+>>> the energy model?  Arguably, boost frequencies should be more costly
+>>> than the non-boost ones.  At least the idea behind the boost is making
+>>> higher-cost OPPs temporarily available.  If they are sustainable,
+>>> treating them as boost OPPs is rather pointless.
+>>
+>> IMHO it was a bug in the commit mentioned in this patch fix tag.
+>> It is affecting more than just EAS or EM, since the EM is working with
+>> all generic code and all cpufreq governors.
+> 
+> To be precise, the EM initialization may affect cpufreq in general
+> because inefficient frequencies are used for CPU cooling.  Fair
+> enough, but I'm not talking about this.
+> 
+> I'm talking about a reason for giving boost frequencies lower or equal
+> cost relative to non-boost frequencies in the energy model because
+> this doesn't make sense to me TBH.
+> 
+> And I get that such energy models were there before the commit in
+> question and now they are not working properly, but IMO they are
+> broken, not that commit.
+> 
+>>>
+>>> TBH, I'm too comfortable with looking at cpufreq frequency from within
+>>> the EM code.  If that needs to be done, something is amiss at the
+>>> design level.
+>>
+>> I think this edge case is special, as I described above.
+>>
+>> I'm happy to hear your view on this EM influence to some global
+>> setting in cpufreq. Maybe it was too far to establish this
+>> 'inefficiency' flags in there for many usage?
+> 
+> There's nothing wrong with using the information from the energy
+> model, when available, to amend cpufreq, but the patch goes the other
+> way around: It tries to amend the energy model with information taken
+> from cpufreq (in order to avoid making mistakes later when amending
+> cpufreq with the energy model information).
+> 
+> I think that cpufreq should simply refuse to set
+> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
 
-diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
-index a42210d0ab8d54a9132a5077875138c2440152bb..e4ad01973a24201a20dd43c86ac6de9817889049 100644
---- a/drivers/media/i2c/vd56g3.c
-+++ b/drivers/media/i2c/vd56g3.c
-@@ -1538,7 +1538,6 @@ static int vd56g3_probe(struct i2c_client *client)
- err_power_off:
- 	pm_runtime_disable(dev);
- 	pm_runtime_put_noidle(dev);
--	pm_runtime_dont_use_autosuspend(dev);
- 	vd56g3_power_off(dev);
- 
- 	return ret;
-@@ -1555,7 +1554,6 @@ static void vd56g3_remove(struct i2c_client *client)
- 	if (!pm_runtime_status_suspended(sensor->dev))
- 		vd56g3_power_off(sensor->dev);
- 	pm_runtime_set_suspended(sensor->dev);
--	pm_runtime_dont_use_autosuspend(sensor->dev);
- }
- 
- static const struct of_device_id vd56g3_dt_ids[] = {
+I see your point now, about the direction. Yes, you're right.
 
--- 
-2.47.3
+Since we are taking the information about 'boost' from the
+cpufreq, then refusing to set OPPs inefficient in the first
+place makes more sense.
+
 
