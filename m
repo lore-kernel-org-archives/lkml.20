@@ -1,96 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335400;
-	b=SVwMf4XnBQfk/QmTMjJv/k74zdrudlcroqh3VKhnRSBBRLMhwt7lM3pjteF2vZGeVs4g
-	 CzKvVR4kyoE59pFyIGLEsAkiqxsFtpSGsLRN2tBOtVirXx0F0KzRsF4t7gserojUr8bET
-	 ud5cXPBBw06iGswZ0VthXR1SIiQFD+K8nky5dSNISb7hmLJ7m/Kd3/nzzyaShWyXUfTpA
-	 U0MzJXQa9f57FvwQRX59tJegRjLter3FiUdcN7qE8rApl1NaInxMxTVuSH2v/NyM6YjqZ
-	 2W9M2kUsVP1vybGiWYOzWoax6Em2jMc9QDaBLomKpNShmQ02sIAX/oveDv7rZuVuI+g==
+	t=1794335407;
+	b=GK/OGI85xu9RM4llqWdqW4jWKCKM6FwnL2qoboPu9iHZBDNZZLFTVO76+kZ06RNwr444
+	 eDrkBGPbcE0RbFBjQpdtyZBXSsvGQl8/8FiQUQa+m190CTZLbTN87VvqP0SdACU9OKygP
+	 lhsboRMvM1ad0OmVLqS64ZxaObp5aF1kzlbwBVH+QMaqAFqwqPlE3WOrZ2bGYNa1F1IZF
+	 GKSLhof4zPn/ZSikkF+N5IMfJeN1nF/GqUg+J2g0FuzebdoEOspVrcu19REC3y1MHnGL8
+	 9a/ch1jJgaXmB+jGXKT4m7JdXaLBt0BPw3AP3BCyc0aPAhEKfoRZrL3Rz5a6xZ5iC4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=h/fDqdjeF2qNLQi3iaEH9vKqxnzXslPVSp3ugOVQ8hM=;
-	b=ME9o0TpBDTdVjevys+kCfvIggOySAnqfJlAjRritFinsufj/RC1u9w6V0zgQuFQPJpKz
-	 ldvfO54rVyIP0HFTvSX36I2N/QMX7awVA4P2CPBeewZZ2A2TRMseRntxRDzBjm6F36Z89
-	 YqhvdcpN7Cpc+EXhz7jkPDDWBhTfxEwXyaxxXfqOPUPg+gXy0kRyf2bw300onW+reZx9V
-	 rg2o8mGSOqiULPM1drEXX4e7IMzfn7KU16he/sbc1/ag+8Q1vPBjRavhhA1w3296AqoYK
-	 uHtPEq81NhWBHNY5X+T9rLBRIfzlfjoPtAm1i+Vc6lVUuwnGrWNBf5I67ES9OnakVHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335407;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=PJIIA10gwRhxx0yWXx8JIAgfxJvcr9pmGGek8WJIWn8=;
+	b=qEENTq5x5aR7lAe5498SCp3KehwO1s4PuOHwvbvpL6zYbYT9zDlw0zJCBaj/uZiC/GID
+	 zR8aSckC0g0aum7BLGaKZe2EXaaxOY2FmhRd0U5dswMOD4RLLIHNDgnaE8d6GlHu04Fnt
+	 EisfEDAzP6zaFnj9nS/pmoBcFG3HtpXM7F0WNz/J7NLy1giKnK6wSKoMSdFGynXJZFFP/
+	 gmGlz64I80B6CSam2Hc5BNoeZo3UuDMduhaSUuqnNKGDS5zXjvMrLgSo8yr88h7QrALkt
+	 FmijRRjzEzGVGn105XctPaCGohfQ8W4TA40tki47Au3PPNWxFmODRkiegEpkV4nWtuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UdZdxJ6r;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hTDTLBwF;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CA4606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:29:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88CA4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AA1606A334;
+	Tue, 10 Nov 2026 18:30:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1AA1606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UdZdxJ6r
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9f6a16afcso2455ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:29:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794335399; x=1794940199; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=h/fDqdjeF2qNLQi3iaEH9vKqxnzXslPVSp3ugOVQ8hM=;
-        b=UdZdxJ6rNZ3/kHowGOj5UNEdj7VsXtZug1Xb+yHljvFikFaUgmIpizg0NW0XHdGMVV
-         PPOFVU7beNKvrmucaZ5hxkrE7+2gYv/Wka3wiiiieRRHtX7lLKr3F6yUarxVPYUCA2Fj
-         Bpz74oq39RsKDrsPVzn3PUk3xfuts/+HurVfedeOrGe9i+CW4cWXOdvLTuo7XhLvznwx
-         dW5VF0GzV1IAqpt8bwmJRvW47AlpZrWOnW2zL2euvhNvY8C0QjB2jkjLxUwfpXYjVcLD
-         QQBazrZjNYXOhQU3wC76bm8PgtoYUn+bfik8AWnFXvJCKAj1FGejcs0ZgJO22cDIkdUb
-         oLGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794335399; x=1794940199;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h/fDqdjeF2qNLQi3iaEH9vKqxnzXslPVSp3ugOVQ8hM=;
-        b=TFU5lKU7/Y3sz4mtHAEdEHKSyTbmHm3YP9dHQQ+fHxpHjR1mUp8X+iEDv0qJc6vDvD
-         Q7k5j0Pcyi26UFtujjPfD+YRMhE2m/v8ehMdS7sRAL31cC1X6vhSVx+XAtqEp/3tgpRd
-         e6ESl5lHBd2YCpPfS3FtrVEXvcLmOtTaaM7xz7n59JeJ4iMZsPQVsdioOP4/zM/EKGm7
-         7dRqDjJADD7uRJCcwbJ1RBlMAGVhewW8BRBNUPjuw2E0JwYD/OTnd8N2+7WRbuJtXz+I
-         OZZBuYx5Q/yxGN2zZuCR9V3UFs6k21ycFyraHdxXDfKfApmjvoLgUR89/y3055E9o9qD
-         BsnA==
-X-Forwarded-Encrypted: i=1; AL+hErEA3i8gMPnWC1W0+1xBicB/VNCRr63WaQVbaarBu3NF2mQQH8Dd0iCDqjtnh86D3Cus07BqZAr8Txu1nZk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/n1lMf+ePA3F1ipoL9Qq3Ig2mS6mJGXEPavZ8qLzW9kckIuCjf
-	bTbG9EHeQDmvXsvQ7GtOVo7tXijLehLtH0wmN0Sr2j3Z02Wf3Ky+Fdej5W4GQReZWA==
-X-Gm-Gg: AYBFou0BuaTxp7Vzgcf0ODvYDZW1mmxkQnOSJWvqxL3VCoQbysESMfgb31qw2Hi3JG8
-	aE9Btl2ebFgeS6P9DDJuB/xZNMYih205sj4Km1Tksii2Os5L+ufT85QCA6ZppkeJ2oQBBbSv4cD
-	OORbtActdG2mq4yhwxIl7d9as94YUT0IamrNXCaLgF3uKKvJ9RyDj8AQMRfTbXYY2dfTTl3IBoO
-	RMwGoDOhJgd/vZ3Iyyi/GbbURaThPIqk5JSG8VMFmDua1S9NYqqO5hhNHEx0WNca1Q/sZos2v5k
-	r4durWFhokxtt3HJ87oNAmrFhi6NpHTAdmkLjt9gl2SJ9KHX9Yh2QgLSvuZYitfQlKx9sYifLBj
-	DzPD5cX3pxilUSq1m4Qt5YX9DQj5txNcY/orOTDXFl7HN8nODSbgdT0AEuUX3yJHgatD8ad5+Ah
-	BbZQZwQjWrvhtcnXN9+2ImFkSUrsbBzSYQEygGOsWu1JxkJLZ0GRGLbh2wZkGlD9loraaZZwxkV
-	ipplO70AAIdUoB2cesFekkwqHuu651VLAMQqj6AA42xtr2BuEMwB2MzhnT6KjxiJErK8ESjMPMz
-	mBewfGZmj1hW1JF8o85JC8/upr9SsIKpiqq2D6ddaoKPSXmYfW3Sj1Q07MZZaO44PAOww5Z3KIR
-	0PJOetBYyPpTxciHFspVimZIBP1bcrL209dhUJsL7BvE=
-X-Received: by 2002:a17:902:ce04:b0:2c9:b404:b55 with SMTP id d9443c01a7336-2edb81c27e3mr6143235ad.6.1794335398359;
-        Tue, 10 Nov 2026 10:29:58 -0800 (PST)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6a4013csm12795005ad.1.2026.11.10.10.29.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 10:29:57 -0800 (PST)
-Date: Tue, 10 Nov 2026 18:29:54 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 1/2] liveupdate: luo_file: allow keeping private_data
- from retrieve until finish
-Message-ID: <avNilY9saqTlNZNn@google.com>
-References: <20261110175855.2437084-1-pratyush@kernel.org>
- <20261110175855.2437084-2-pratyush@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hTDTLBwF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794335407; x=1825871407;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=lR7NR20MiUrJbWgNmq4dQF+sJRZEbWOcR410rH65ktQ=;
+  b=hTDTLBwFAXvT3VG3mk4OgguzgWV0FeLEjlaBQbLpzZwtpnY+nrHy8p1G
+   aGWDch5GwAo+0a1ECXJHU9Pw9wA5w6BEDMXHAC5thqbBU3C+23lMnMzh9
+   TupFin9NgoB9QZ1nPzvft/8mPauZFHaGq1P+p1p0OxgZ97LE/N3ZyPoXR
+   B8sxLfEdm7Z3/oPaq9I3ONoZdidnkgkq9YkMIikbk1M/GkwxGk1W8S1o4
+   RqW9rrl+1K0TReUxO5EZoBfdQzfQ037jYJY5S9IxqnY2tW7l3azKIocIR
+   qaOvWqG4IZ3Zfr2lAPGz6cgUz3ZusG70ujMzP1tU7g1Yt99BnYz1D9ceO
+   A==;
+X-CSE-ConnectionGUID: gipJwHutQ0CJ/plrn7uyrA==
+X-CSE-MsgGUID: KJHrKLc+SDSLnVMWKgr90g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2993795"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2993795"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 10:30:06 -0800
+X-CSE-ConnectionGUID: NbhgJh2eQ6WwlTgMLgDaaw==
+X-CSE-MsgGUID: QI9yerIBSVawsa3mqo0LFA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8357111"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 10:30:01 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 10 Nov 2026 20:29:58 +0200 (EET)
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+cc: linux-hardening@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+    Andrew Morton <akpm@linux-foundation.org>, 
+    Yury Norov <yury.norov@gmail.com>, jorge.lopez2@hp.com, 
+    Hans de Goede <hansg@kernel.org>, Muhammad Bilal <meatuni001@gmail.com>, 
+    platform-driver-x86@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>
+Subject: Re: [PATCH v1 1/1] string: Export strnchrnul()
+In-Reply-To: <20261110164222.698745-1-andriy.shevchenko@linux.intel.com>
+Message-ID: <cec3aee0-a075-bec2-b487-2e28991f2d23@linux.intel.com>
+References: <20261110164222.698745-1-andriy.shevchenko@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,37 +82,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261110175855.2437084-2-pratyush@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Nov 10, 2026 at 06:58:52PM +0100, Pratyush Yadav wrote:
->From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
->
->The private_data field of struct liveupdate_file_op_args lets file
->handlers keep runtime state that is not preserved. It is set by
->.preserve() and passed to the later outgoing callbacks, up to
->.unpreserve(). But in the new kernel, nothing set by .retrieve() is
->kept, and .can_finish() and .finish() always get a NULL private_data.
->
->Handlers might need to keep runtime state from retrieve until finish.
->For example, memfd will need to remember the folios it holds on to
->until finish so it can release them there.
->
->Save the private_data set by a successful .retrieve() in the luo_file,
->and pass it to .can_finish() and .finish(). The handler must free it in
->.finish().
->
->While at it, update a stale comment under struct
->liveupdate_file_op_args. There is no 'data', but there is
->'serialized_data' and 'private_data'. Refer to them instead.
->
->Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
->Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
->---
-> include/linux/liveupdate.h   | 11 +++++++----
-> kernel/liveupdate/luo_file.c | 11 ++++++++---
-> 2 files changed, 15 insertions(+), 7 deletions(-)
->
+On Tue, 10 Nov 2026, Andy Shevchenko wrote:
 
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+> Export strnchrnul() for users that may be compiled as modules.
+> 
+> Reported-by: Armin Wolf <W_Armin@gmx.de>
+> Closes: https://lore.kernel.org/r/1969fb5a-38ef-4b4b-9d2f-cb9a4348b968@gmx.de
+> Fixes: 0bee0cece2a6 ("lib/string: add strnchrnul()")
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+> 
+> Assumed to go via PDx86 where the first (wow!) module user wants to use it.
+
+Thanks guys,
+
+I'm so surprised by this, sashiko did warn about this so I even checked 
+myself and saw an export after the closing brace so thought sashiko was 
+just wrong... Maybe I was looking that the strrchr's export, can't think 
+of anything else to explain it.
+
+>  lib/string.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/lib/string.c b/lib/string.c
+> index a3778d5aab4a..cc8982a93afc 100644
+> --- a/lib/string.c
+> +++ b/lib/string.c
+> @@ -352,6 +352,7 @@ char *strnchrnul(const char *s, size_t count, int c)
+>  		s++;
+>  	return (char *)s;
+>  }
+> +EXPORT_SYMBOL(strnchrnul);
+>  
+>  #ifndef __HAVE_ARCH_STRRCHR
+>  /**
+> 
+
+-- 
+ i.
+
