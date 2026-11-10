@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794290719;
-	b=Rirx4LG27/Lj8y7PWUdxQ/OLc2A/9aZusuHOtyB9sl9Lv8dUAzlHmt5Hn32+B8nYMIw0
-	 iwmnV1ralFhzlS3QfXlbj7EofrmqlY4qr++p1ff47ZdlMyjy/tYkBAavRgjgVlmb2WOh+
-	 g4FkaRzLs6/axQzoeq/o/IPqhKMxiLzDRinhG68RKaZinX6490cG/gTbaLBsjzGHivfBE
-	 BBjBjCg63/tns6VoK0y1/s9bUGDxZpErs7oL5E8lmVgt+Y29wICxzFbQfwb+8uyPgwCym
-	 hW9QqiSQipiN2ab15SKGVU6PFz3j7h2cstQLNZGSOwnQnpuoSb7lONi3394WALQDXyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290719;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=isj8QmDoAv2l5fg1HSQfo6B6XERKWEnEINwxmN+yGVQ=;
-	b=RMAFoTjY950NLgrH7cu1Emqw14YAHTpFsFOR1dNHJnq8hXbIy54LQZWQ0WDcXc1EuxyF
-	 A2+CRVliI5m0vJ8hwJrH7dPfT3jMedk5xaBG1e55RJyXzatG5LyAVCRu7Y2CDfw+uT7Hn
-	 fdUY7uqSqQ3UsC+63wmahJw612t0KnTsRswagnCM+RLHY8wESXDDxv/v/wgkoorpGef/K
-	 IyRuiN7MpQyKACRjm8ygpCENwkF4wUta1MMBaT2unGk55xpiIjT9Z6cHjpYtWZTIZIvDB
-	 zGcME1nxHCrntm3BXgKOYejUJOpYYQd1phzpnCv/OQjj2agPS78B0ssBS2Vmbeiub6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQbbbDeG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB52E606A325;
-	Tue, 10 Nov 2026 06:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQbbbDeG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794290718;
-	b=FpJsAeTy7CbyxhwjhEXAGXDL3NuNl8Xfk5v+RDmFob9wV3mIrrPlQ4R8pSOEWZ+YeuTP
-	 aqtHqObpYPNmWdLDySlen0qHmjwGNURK0WP1CK16Zyqn96oUP8B6fVYKbpLf/MzipFQ2k
-	 Xj94ptofHUMxzzQNTuKyYfHIx4OE0YeY6zuyVjNEq+rEuWd6YQSSSMA2FEv4EPmGMW00U
-	 aipHfFXOUdHYw0sUvMAW1689/yoJuV8xK0w3ZePG1SfOcaWb1rKzi7CEFVDYJhrVxUXif
-	 mpHOqR/bpCeJF4Iv/KDWa+MDifaBPy05eGm7Ae2hu7jxSOXhq5P2C/YcpnRq7S7nTgw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794290718;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=isj8QmDoAv2l5fg1HSQfo6B6XERKWEnEINwxmN+yGVQ=;
-	b=uuMGALfJxD8G9dsjPPGHhOCtfSfaZNr9JgB2m1vcxdgU/umikHSWGXvXDqEV3BXS7fmI
-	 mdrmbYTxgI22zJK4ehrOaubOeqLnc4Jvt/MnPPXFtuKIxHUuYEqCxk/WUuCXEJNISvJyF
-	 Zy1fKl+94sTViqcXg1PHODK0Dh8ZsWDG+CLVqhehKf9OVdJwZNHsTJweDYZhVLZ2+dTEF
-	 efKu5qlOaalUebmwCRpr3fqGof95fpRKQTMIhF0mx2FB3nA4S1uvxRhNC7xSQveUMWIFg
-	 dIY1/Fodc/HOBTftXUB6BQjjiTEdaX9zSS1kodjOJrEox4xgBuhT6M3MjuFBpzUFDaA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.196
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794290772;
+	b=U9kYOyeAtW1QlIgL+pHOTz6d3Wf3EBOoqDsoHaF0g9zdt6c6Po99V/JAgGHSW/GjWgAd
+	 /DwDrLUWLWiG6ocR79Y1mmVVSqM0LT02ZFff6KLFIkikrOBPBZtoCiybjMCj0Thu1g+l5
+	 XZeC/RPsBUs3dqIhm1WQ5koZ7QPuuoR+O6mBUkkZqChhiBvmMwuX6585ZGA7Tt20mNjpM
+	 cNn2Mbgd89QGWc3yU5cMy3W97UMLRPXbBHI9b1XrlZbij0xfgOh89mJqjvHx3NELTGBdc
+	 RL4mOHcoeiWN+mJY9Ka1YOxlV14tvRpT9Yu/B5vKdws8WnR37UGK75bntq3CyDqwZAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290772;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=782GmxyFzfSf9cS8To0AwNPsA3l9Ic+2fBQKfnHkhgs=;
+	b=vSydk1+1GKzLL4QvTDp8ftzcT0da7XBIsGbqGcksIkRB1GkydMfyqvTcvrVee4a3zzCx
+	 8P6ITrXibNU/I9iUu6VvHIILDXyNuNR3Gr0cZtvb/mCg57ct2E6aC3Tp6+6k8zH154hRq
+	 s6N2W0LYGeHB0dQUPGvMNUcmG/XaNHprs3fUEZt2TjjKE5rIYWc5PXvOWQMGqjF+IINNe
+	 Dy+41RqK4wLly+WBTZ/WDNmN55BQQpXn3BRUOiBmoG+tgHfJWJVAT8TJbj9CjMbuGIqvC
+	 qNl3uj8o1j3BHc5Gjo+pqHf7EoDUeiAakGUjy/jpPAgHKKwItPykSeH7HcjI6DmfUew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LNL3ving;
+	arc=none smtp.remote-ip=95.215.58.196
+Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ED1F31F008A1;
-	Tue, 10 Nov 2026 06:05:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794290718;
-	bh=isj8QmDoAv2l5fg1HSQfo6B6XERKWEnEINwxmN+yGVQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=XQbbbDeGJPEkijR+PANK2i0N+5nZw9uZO7emzRSVW86HN4it8UxEvwKwDp9i7izg4
-	 GnV4efxY6Hx9ia9HU9St4ueVIy6cos/wJkSN2Gyjdye/07jYsSP2M6kPACANtIYq99
-	 sN6NFeqgflbWTrsOlwMdGFZfl0wljwcPtES1dfHDIhpEwxvSrt3gZAlQwpP1Fgrfcl
-	 fXiWlzobOnMJlV/Z5Mu6KbsP/Bie3s51KDHq7OrUdilwka1Cd8z7hfSYXljOlUIby/
-	 +eMykFG9YyUl4u09Qs0hTqgJqso2gU8+63bJMg7jBm9iShVVL8IXRudZ9P/CujuKDR
-	 kupzcOUfBM9EQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 71183488DF;
-	Tue, 10 Nov 2026 06:05:17 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 06:05:17 +0000
-Subject: [PATCH 1/2] iommu/sun50i: Don't report TLB prefetches of unmapped
- pages as faults
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF61606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEF61606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LNL3ving
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Qn99IbL0tjCg14t3VJn4RbTaLqaX5gh8tDLA/0sbaFA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794290762; v=1; x=1794895562;
+ b=LNL3ving+fxbEK9pr8Ym7VT41SGSHfO6hW43i4RWxp10cdVP85ocYorX7C1VsZANtL29sEmF
+ c3OUG+OaNVUQKdf4o+dJ3kZj56lx3j0zLHFvykdw4mT/S8H4n2wdV44p/Y4cOvVuNO7f+Wv9k/+
+ Vg3hfSPxXPDnSJvDTgjwOJnc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0dab969928a6af50;
+	Tue, 10 Nov 2026 06:06:02 +0000
+X-Mizu-Trace-ID: 0dab969928a6af50
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Date: Tue, 10 Nov 2026 14:05:34 +0800
+Subject: [PATCH v2] mm/hugetlb: charge hugetlb cgroup and memcg in
+ alloc_hugetlb_folio_reserve()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,108 +61,152 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-sun50i-iommu-prefetch-v1-1-43428e792ef6@gmail.com>
-References: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
-In-Reply-To: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290717; l=3445;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=yLoe2znns7P0Nlmxz+qhOed7bJSPIV/igjF81whNh8k=;
- b=7OZXIY/FUo+0ssrRcC5PVK4pgBVfPVCGENntFR4oujOO4H4aYnqjXuNlSiLoiimQAbHlN1eXl
- lGGYmF9UU/zDufC7H+GTKls3rXhjGA1bAxCCLdmCvb20Mn2ibWiwLtH
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM4QpAMBSG4VvR+W21rQi3ImmOg6Nl2pCSezf8f
+ L763gsCeaYAVXKBp4MDuyVCpwngZJaRBPfRoKXOlZKlGJwXxlqH7bSPtNlOfLNENJgVlJe9gnh
+ ePQ18fuG6+R32bibc3hrc9wOwAr27egAAAA==
+X-Change-ID: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>
+Cc: hongfu.li@linux.dev, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ackerley Tng <ackerleytng@google.com>, Daehyeon Ko <4ncienth@gmail.com>, 
+ Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290755; l=4187;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=+K2qRQIWYp4nrXE3VguRotyo4IOkkSIXCtrdykxyQqY=;
+ b=GIgizEEZ8nTXph1cEv8EAm4eZob/if3HWtcDVOQuQ8Y1ipBOyHd1Ve5iF5KaqD2pZBsnrHSQt
+ GVWYlvdbewwAQxFS6W9BWVtRueBeUwMacw9TH+qNQmisMWHLXl3N+eP
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-With a display scanning out, the driver reports
+alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+consumes a global reservation, but unlike the fault path it never charged
+the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+bypassing the accounting: they are never charged to the hugetlb cgroup
+usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
+so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
+bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
+folios are also not accounted in memory.current and are not bounded by
+memory.max.
 
-  sun50i-iommu 30f0000.iommu: Page fault for 0x00000000fff00000 (master -1, dir rd)
+Charge the folios to both the hugetlb cgroup and the memcg, just like
+hugetlb_alloc_folio() does.
 
-on an H616 once when fbcon takes over the framebuffer (the first
-scanout frame), and again, vsync-spaced, after TLB flushes while a video
-decoder frees its buffers (every unmap flushes the whole TLB and PTW
-cache in this driver). No device accesses that address: with the IOVA
-allocator handing out addresses from the top down and size-aligned, the
-3 MiB fbcon framebuffer of a 1024x768 mode is the first allocation and
-lands at 0xffc00000-0xffefffff, and the top 1 MiB of the IOVA space
-above it is never mapped. 0xfff00000 is the page after the end of the
-framebuffer.
+Test with a process that creates a hugetlb memfd and pins pages through
+UDMABUF_CREATE. The counters were read while the folio was still pinned:
 
-The walk that fails is the TLB prefetcher's, for the page after the one
-the master is reading. The H616 user manual (3.12.6.50, 3.12.6.51) gives
-the L1/L2 page table interrupt registers a bit 31 next to the per-master
-bits for walks that no master started, and Allwinner's sunxi-iommu
-driver treats a page table interrupt with bit 31 set as a prefetch of an
-unmapped page ("It's OK to prefetch an invalid pagetable") and does not
-report it. This driver masks the register to the master bits, gets no
-bit, and reports ilog2(0) = -1 as the master.
+Before this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+0
+$ cat /sys/fs/cgroup/test/memory.current
+1351680
+$
 
-Return early for a page table interrupt with the prefetch bit set and no
-master bit: no master read anything and nothing is stalled, so there is
-nothing to report, reset or zap. Print such walks with dev_dbg so they
-can still be counted.
+After this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+2097152
+$ cat /sys/fs/cgroup/test/memory.current
+3313664
+$
 
-Fixes: 4100b8c229b3 ("iommu: Add Allwinner H6 IOMMU driver")
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
- drivers/iommu/sun50i-iommu.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Changes in v2:
+- Rebased on a tree that includes Daehyeon's "mm/hugetlb_cgroup: prevent
+  use-after-free during cgroup offlining", as suggested by Andrew Morton.
+  No functional change.
+- Since 268d64fabbf1 ("mm/hugetlb: fix NR_HUGETLB accounting for surplus
+  folios") reworked the NR_HUGETLB accounting, use mod_hugetlb_memcg_state()
+  instead of lruvec_stat_mod_folio(), called after a successful memcg
+  charge.
+- Return early once a folio has been dequeued, instead of falling
+  through to a shared return.
+- Corrected the Fixes tag to 89c1905d9c14.
+- Updated the commit message to qualify the memory.max claim: only in
+  cgroup v2 with memory_hugetlb_accounting enabled.
+---
+ mm/hugetlb.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iommu/sun50i-iommu.c b/drivers/iommu/sun50i-iommu.c
-index be3f1ce696ba..1b7a7f0d9b62 100644
---- a/drivers/iommu/sun50i-iommu.c
-+++ b/drivers/iommu/sun50i-iommu.c
-@@ -73,6 +73,15 @@
- #define IOMMU_INT_ERR_DATA_REG(i)	(0x150 + (i) * 4)
- #define IOMMU_L1PG_INT_REG		0x0180
- #define IOMMU_L2PG_INT_REG		0x0184
-+/*
-+ * Besides one bit per master, the L1/L2 page table interrupt registers
-+ * have a bit for a page table walk that no master started: the TLB
-+ * prefetcher's walk for the page after the one being accessed (H616 user
-+ * manual 3.12.6.50 and 3.12.6.51, bit 31, "debug mode"; the vendor's
-+ * sunxi-iommu treats a page table fault with this bit as a prefetch of an
-+ * unmapped page and does not report it).
-+ */
-+#define IOMMU_PG_INT_PREFETCH			BIT(31)
- 
- #define IOMMU_INT_INVALID_L2PG			BIT(17)
- #define IOMMU_INT_INVALID_L1PG			BIT(16)
-@@ -891,6 +900,20 @@ static phys_addr_t sun50i_iommu_handle_pt_irq(struct sun50i_iommu *iommu,
- 
- 	iova = iommu_read(iommu, addr_reg);
- 	blame = iommu_read(iommu, blame_reg);
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index da1c17f14a62..256bb2095b59 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
+ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask)
+ {
++	struct hugetlb_cgroup *h_cg = NULL;
++	size_t nr_pages = pages_per_huge_page(h);
+ 	struct folio *folio;
++	int idx = hstate_index(h);
++	int ret;
 +
-+	/*
-+	 * A walk the TLB prefetcher started for the page after the one a
-+	 * master is reading fails whenever that next page is not mapped,
-+	 * e.g. for the display engine scanning out a framebuffer that ends
-+	 * at an unmapped IOVA. No master accessed the page and nothing is
-+	 * stalled or cached, so there is nothing to report, reset or zap.
-+	 */
-+	if ((blame & IOMMU_PG_INT_PREFETCH) && !(blame & IOMMU_INT_MASTER_MASK)) {
-+		dev_dbg_ratelimited(iommu->dev, "page table prefetch of unmapped %pad\n",
-+				    &iova);
-+		return iova;
++	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
++		return NULL;
+ 
+ 	spin_lock_irq(&hugetlb_lock);
+ 	if (!h->resv_huge_pages) {
+ 		spin_unlock_irq(&hugetlb_lock);
+-		return NULL;
++		goto err_uncharge_hugetlb_cgroup;
+ 	}
+ 
+ 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
+@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 	if (folio) {
+ 		folio_set_hugetlb_restore_reserve(folio);
+ 		h->resv_huge_pages--;
+-	}
++		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
+ 
++		spin_unlock_irq(&hugetlb_lock);
++
++		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
++						gfp_mask | __GFP_RETRY_MAYFAIL);
++		if (ret == -ENOMEM) {
++			folio_put(folio);
++			/*
++			 * Skip uncharging hugetlb_cgroup since the charges
++			 * were committed to the folio and freeing the folio
++			 * would have cleared those up.
++			 */
++			return NULL;
++		}
++
++		mod_hugetlb_memcg_state(folio, nr_pages);
++
++		return folio;
 +	}
-+
- 	master = ilog2(blame & IOMMU_INT_MASTER_MASK);
+ 	spin_unlock_irq(&hugetlb_lock);
  
- 	/*
+-	return folio;
++err_uncharge_hugetlb_cgroup:
++	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
++	return NULL;
+ }
+ 
+ /* folio migration callback function */
 
--- 
-2.55.0
+---
+base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+change-id: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
 
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
