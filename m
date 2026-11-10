@@ -1,61 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302787;
-	b=fxx1CWjD4zBn9ELx3e/6uHRFtM3QhDdK5mc3scYiD65Zp+XtEWkxHBtrexKX83Nkpfcl
-	 gFX7KzwO0JtTqsyKK800vEBec+InfsTFAkI/j/BWNPGclGCkGlKsJoF8qrsZRTFpgvJkT
-	 rScrtPtmg2ZPyWXsrNUcjj3TE6lXOeGuZQUOYSGyUXiGbqiwkXE5fy4CypkadK09SvXGz
-	 kgiYmtKAbU2OB2f9carvg1owMSKcTasyshhQsBHZZ1kL4kLRcPtgDR2qojNZwVIOvDYXK
-	 TGeJL2bm8FLR0OpA+8mUgXHPEHs8sjTKgzY6/5qWnUgnPm7B4xd98xAf1V0TNndTlHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302787;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=tJNhHzwB5LcleXTM/9uMvCleiUrNIQKHQSO/1T92eLo=;
-	b=pN0nE7G/lYCn45VEC8xsso5HB3nb2wQ61TeUd7Nqu9kaITaBJS/kvNkYGq+b8K4idESs
-	 aDcJer0vGhYOAK3pUtpa0ZBSRCZmVP0mLJ2AQng+X1B9vK6u0DzQwgy7Pn2hJRIpmeLrr
-	 29PrZvSmVqQ9vq0g00Uv8PyIHsG1UfF4xm+GTKUmuuksyGthWbiDLkemqT5lmRl9wB4JC
-	 HAWlPSBjWY3Y3jckLhbX54cbPBw5DzJVu0tKekePIWDFPWlbFxQ7B97z8YERUoJVQMsVK
-	 eqODIQK6NB/4yn/S0yFIz3sNr6nEm3U5nK/wnG2w+rKoKyAEdcEVaLXuLEBfO9mWXUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BD66606B16F;
-	Tue, 10 Nov 2026 09:26:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BD66606B16F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.172])
-	by gateway (Coremail) with SMTP id _____8Cxf9M_4_JqVCMeAA--.21363S3;
-	Tue, 10 Nov 2026 17:26:23 +0800 (CST)
-Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJBxrM4_4_JqmHUzAA--.21469S2;
-	Tue, 10 Nov 2026 17:26:23 +0800 (CST)
-From: wuqianhai@loongson.cn
-To: chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	tzimmermann@suse.de,
-	deller@gmx.de,
-	bhelgaas@google.com
-Cc: ardb@kernel.org,
-	ilias.apalodimas@linaro.org,
-	javierm@redhat.com,
-	loongarch@lists.linux.dev,
-	linux-pci@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wuqianhai <wuqianhai@loongson.cn>
-Subject: [PATCH v3 6/6] PCI/VGA: Enable firmware default device detection on LoongArch
-Date: Tue, 10 Nov 2026 17:24:26 +0800
-Message-Id: <20261110092426.2647976-1-wuqianhai@loongson.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
-References: <20261110090203.2631481-1-wuqianhai@loongson.cn>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794302836;
+	b=tDtudyOe6+jPdesKlgk0SUSISXq9ABogoE7tWFnUUqa4QPFtolyEovkSVON2N4QMuWvU
+	 A2d3gXqrqp6sBeTpXopenBaUFTC0Gm2CgDtpwRkellEyUThDYtrdLeKNas2oaY/bUP+HY
+	 ipeSsiqY4ruyzeewOP9N+nqSMkOzkkY4epHudcRofeShnRdTVKNVte0Nc1f9NY9wv1Fcx
+	 eQcov46RRQ6wZr0NLoDK1SiOZF6fweHg3o5BlYoK8gmt3U/po9+qKNDti3dY6PzutVe4p
+	 oFgF3NogRed0Mp1dXCA0gb7AcC7aw5QTsX7xiP89LNAsjfXxktrcjVVnHZCBO8hJ1ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302836;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=w4Nx67jGl7TawAw/9ngW0wl/i/twF4QXG/m8XRpFxxI=;
+	b=vnroCti/dC3L6Tu9KRZVYfyOruHJHfYnoegDiEsPTgw4VhreE4uZV3DM9JbXDGsHq3f9
+	 EAfdwaxrS35kBL6OAxotXsS1ChgKEE180PWwpSQWG2DTVhv2/lJuO+ihLt/L7ZQvMdckn
+	 AcPOKQoGXrlWzdriwF+O2u3ANTKeFgq353Ql6L0csbUf44tvblO7BGKIfr6kOq02laCO8
+	 oIq4eFt8HDYMur+65wmNtxNR2aJa2lU49DMUN/lL3CQFjz+7mbNCniywasRvilaP7CyS0
+	 UmRAOL72/QEhHA8vtIxsz/UsooSLYUmu1HdXWPdV/65yU9/Jk1GF2dmjXdY6OVyxwNQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FnUGYmYW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.47
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F41606A938;
+	Tue, 10 Nov 2026 09:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98F41606A938
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FnUGYmYW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jO1i1+Ke6QMtKz03uQrm3ZOVMQDMhW5QJH/AgoovPn6i2Ys3FNnQz8LjK2GknPp959Mh18H2/WzfnJ/p6XbV/vq++3BoMyA5pbI5FWRP7aDz7teI06M+w9j/1lrAfXWp053weWcXSnW8rdj25PVHCqGNoi41Mw61FRADM1fmJem2wThA/HZGkXS7+jAKjKlZM9e8xkc9lfTKy9DaBGwDtb8Aqc4PGRymDi07qvIG9JqZDKzZceV2CtscntmoAkkwhmEoU0eROigBCk++//vTsruNQPeJCLoDBBzZ/sEeFlmjNdpcAh4BMDKsWwqK1VXhNAN+HS1vgEAdMo16tSRHgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w4Nx67jGl7TawAw/9ngW0wl/i/twF4QXG/m8XRpFxxI=;
+ b=Fe0SGNW9oIRaKxGbCy8Kh9KsG83Et1Z0Q/dcifQboSAliLVzP2OGtpTVXG6+CAlnWfb4MDAg7yn2rnY18ErXRISj9tqCKWmoh487WdOBrrxgeFsd+J+g5CyXOxq7jqpeTrIX9WXjzjpbJmr7A56mSZIDWFsOYEQKa13EBgMhWWKMaIZCMMrwmDZhBR9dBb41NvWAdSfSbhIBL0u+g424fPjwH1Uy9IltgftYEeFc4ptxNzDeX4YJ1o9ojLn4FbXIlopcZU1JkugNSGXu70UOubHZVX2DSdNc5GA8+4v7cOCvtj1KLD8Sh7dyuukWWZZLTO98sQfm1MOwvxCFdaG8dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w4Nx67jGl7TawAw/9ngW0wl/i/twF4QXG/m8XRpFxxI=;
+ b=FnUGYmYWPcAilsSdCvzayxAPjPUzc0kpRB0B7GjGleBTzNkn/27b0ufsjALBeHHjX7OrL96xfDwZ7d9dxtExB67DwcqONM9Y/WWl/0UWuQi1XGxA1tKcZz/tXUapxBnLlrXT09jI4h2XNKzAMbsTm1HXcv5UUrnc5oIhsJp+X3b5RFWLg1jTO9TY3iDCK/DWshrAvXV/TRBmN2yCGk9GN6R8yyp4V99YbFaLEkeH+W8jX+QrGQdGmMim/hkgz/LR2S93jvp/9HV+4jcGnp8v+uD9ocSDQcKKqVA4LwHFby3zQU9HR8iqJbruTYllOS3S36EZ8aKIUqFtYRp3fx0HYg==
+Received: from BN9PR03CA0052.namprd03.prod.outlook.com (2603:10b6:408:fb::27)
+ by CYXPR12MB9442.namprd12.prod.outlook.com (2603:10b6:930:e3::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 09:27:12 +0000
+Received: from BN1PEPF00018073.namprd04.prod.outlook.com
+ (2603:10b6:408:fb:cafe::2d) by BN9PR03CA0052.outlook.office365.com
+ (2603:10b6:408:fb::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 09:27:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 09:27:11 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 01:27:00 -0800
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 01:26:59 -0800
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.8)
+ with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Tue, 10
+ Nov 2026 01:26:55 -0800
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Adithya Jayachandran <ajayachandra@nvidia.com>, Gal Pressman
+	<gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark Bloch
+	<mbloch@nvidia.com>, Moshe Shemesh <moshe@nvidia.com>, Saeed Mahameed
+	<saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, Uri Dar
+	<udar@nvidia.com>
+Subject: [PATCH net] net/mlx5: E-switch, Query port function mac only when vport is enabled
+Date: Tue, 10 Nov 2026 11:26:48 +0200
+Message-ID: <20261110092648.2511196-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,70 +119,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxrM4_4_JqmHUzAA--.21469S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cw1kJr1kKr1xWr4kJw1fGrX_yoW8Wr1fpF
-	WkJFyIyF48XFs8J3y7X34kWF98uan7CFyIkFWYkwnxua43A3yjk34ftasxtr9rXrs5ZF1S
-	vFn3t3WUAayrGFgCm3ZEXasCq-sJn29KB7ZKAUJUUUjr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUmCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1q6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVW8ZVWrXwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvrVCFI7AF6II2Y40_Zr0_Gr1UM4kE6xkIj40Ew7xC0wCY1x0262kKe7AK
-	xVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267
-	AKxVW8ZVWrXwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5Jw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x07bcManUUUUU=
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|CYXPR12MB9442:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad94be12-d1d1-4e54-28e0-08df3f0cccee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261021135927099003|261028144727099003|261102123227099003|261009223027099003|261026140227099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	CNWCH6Enb+gUvTCjwDnxtvmFkgjYN+k4nLe5/Flmo/r7Y9N91gdODjjKOYtTXocvQBY0aVKDxPzHfCSEZ/SdtLCyTPJvkHCrzvKwwVOHbIS9SgPkZYziUdhxt2WxsmTyfT6NMdgZhUBVY/DB8nVMwmEPH4paptYUmymgdp3p17QfKl1b4056kKvCydEmKyTgZ/uVLJkUK7YAo4V1SElzCZJM5bsBZW99VzsHab1xql2UV27vmgsKvLOOphGED808iBb7pUv9x4GD+w4K4+1+THlVg0t8uVDBoxVJS2i1P5obCmJytS4N3d2Q9c5Gv/0QD3+YZHB68k5AHS1URsNOFWupYXbcpt+zFhAhmCBB0NsDJB72E1b/rMSLdEG9l+/HqxBFhjpjkS63XGg2oVIsEEBr2uQjaJ1RriAmYEO4sVS5bHUvUcNSxFeoCGUfjx4AAyhoZVzsx1VRGrqXOY1qhtLM0AFVM1Nf+CmH9n8MlBXkkFgA10Rk1KZk2zPnuqC6WujmZD4SD6XpeG7PvD7GuDpkkB7jQFwf4kNmJV4t8rRXWDwmgP1pneWUhZdPobZP542Yyro9YbPcHlumgHNNy5EgO4xqTvrCIn7XNsJ8pT/WODjkT3Dd96i/EAavCH8wQJGFZI6mz+WEdmIVcof2zAkOdJAwefbIteXiK3BwZc7fCIAq0qfoM2FfW8h/kekLDgYhjHUyQb0Y/+whT7qa6w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261021135927099003)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	e1LD1xOIMIdBSxnjyHtu6C334iKjCWqK4odAhXDKJ/9XiDJAWYcRqsz+FnftNYKFnZZUIiEidf/0AH3nmQsN/XD2EUcPor4UdimgrP3etVefqhOcE3MfaSp2HgYIi7RNnJL1yChtzY02UMcJyu6n8lw4l7kPJU/Z6jYmcleXn7ETMsS24jfTz2g/j0b5w2iRhzd+70ErFPxL7A8lN81o1JQsqd7245XBDImvhdRZXJsdl3udL75ZJp40dDva37xFoCdTbGo7MyeSDSy6ZIX+MJl0UzlHDP7zyySgC8PlYfK8Pkm9D4hLrhOq/SjJuvFx9s7L6s3vuoy9uiKeGDHKKMl/c8r8kAbPwyJDeEU5FGNwIxv+AYJG6mo6YwEAD/3f2d8Hh3yaFL3aRsJZ1nJEn53EmqhJJd7A7NobQpbrsqxoIkKubxU6Bb/jJA0uhcRA
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:27:11.8345
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad94be12-d1d1-4e54-28e0-08df3f0cccee
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018073.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9442
 
-From: wuqianhai <wuqianhai@loongson.cn>
+From: Uri Dar <udar@nvidia.com>
 
-Use CONFIG_SCREEN_INFO rather than an architecture-specific condition to
-guard vga_is_firmware_default().  LoongArch now provides
-sysfb_primary_display whenever CONFIG_SCREEN_INFO is enabled, so have
-VGA_ARB select SCREEN_INFO on LoongArch as well.
+Commit eea31f21dce1 ("{rdma,net}/mlx5: Query vports mac address from
+device") added a call to mlx5_query_nic_vport_mac_address() in
+mlx5_devlink_port_fn_hw_addr_get() without checking whether the vport is
+enabled. A port function can be dumped while its vport is not enabled,
+for example when SFs are created or destroyed in bulk, and firmware then
+rejects the query for a vport it has not allocated:
 
-The screen_info staleness is handled by the PCI resource-assignment path
-in the previous patch, so vga_arb_device_init() no longer has to refresh
-screen_info itself.
+ mlx5_core 0000:03:00.0: mlx5_cmd_out_err:840:(pid 25225):
+ QUERY_NIC_VPORT_CONTEXT(0x754) op_mod(0x0) failed, status bad
+ parameter(0x3), syndrome (0x29d722), err(-22)
 
-Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+Query the device only when the vport is enabled; vport->info.mac is
+updated under the state_lock already taken here.
+
+Fixes: eea31f21dce1 ("{rdma,net}/mlx5: Query vports mac address from device")
+Signed-off-by: Uri Dar <udar@nvidia.com>
+Reviewed-by: Moshe Shemesh <moshe@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
- drivers/pci/Kconfig  | 2 +-
- drivers/pci/vgaarb.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-index 0c7408509ba2..01e6378effae 100644
---- a/drivers/pci/Kconfig
-+++ b/drivers/pci/Kconfig
-@@ -255,7 +255,7 @@ config VGA_ARB
- 	bool "VGA Arbitration" if EXPERT
- 	default y
- 	depends on !S390
--	select SCREEN_INFO if X86
-+	select SCREEN_INFO if X86 || LOONGARCH
- 	help
- 	  Some "legacy" VGA devices implemented on PCI typically have the same
- 	  hard-decoded addresses as they did on ISA. When multiple PCI devices
-diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index 3e58b2c05c85..4528ad038610 100644
---- a/drivers/pci/vgaarb.c
-+++ b/drivers/pci/vgaarb.c
-@@ -566,7 +566,7 @@ EXPORT_SYMBOL(vga_put);
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+index c712848b202d..b83c6c02670f 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+@@ -5121,8 +5121,9 @@ int mlx5_devlink_port_fn_hw_addr_get(struct devlink_port *port,
  
- static bool vga_is_firmware_default(struct pci_dev *pdev)
- {
--#if defined CONFIG_X86
-+#ifdef CONFIG_SCREEN_INFO
- 	return pdev == screen_info_pci_dev(&sysfb_primary_display.screen);
- #else
- 	return false;
+ 	mutex_lock(&esw->state_lock);
+ 
+-	mlx5_query_nic_vport_mac_address(esw->dev, vport->vport, true,
+-					 vport->info.mac);
++	if (vport->enabled)
++		mlx5_query_nic_vport_mac_address(esw->dev, vport->vport, true,
++						 vport->info.mac);
+ 	ether_addr_copy(hw_addr, vport->info.mac);
+ 	*hw_addr_len = ETH_ALEN;
+ 	mutex_unlock(&esw->state_lock);
+
+base-commit: 1d5e2c57e9ffc134e14b3f837c8d7c53b508bd22
 -- 
-2.34.1
+2.44.0
 
