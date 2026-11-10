@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293415;
-	b=x6UfAGV64nBRMqBDIXM3Irz/v3h59o+jZ7TkmISCgSThzhm4m7x7lskSSpdBO/MWe+87
-	 tyOXe+LHyDqmBKvMRxj7Tuy94mR3HPXSAYvlAmF4e/alSBywzr798b5we/Lf4NOXbMEVH
-	 qaYfcqEZh35aJq1q/1uSbwJ+PxN8lOk12Lk1zuAj/rH1GWz8TPU6WMu6qed/kTIhbGfyk
-	 NFmmgsjZIm4rm2MRdoxp4JSl1B1k2dSPC1OG/9tL6lip2BVlUiQBGg2he+PDuW0BetgBM
-	 KLvSmPsJIy0GIo4gZ/sBztmbsq55LDIXFZywOSvEVMNhMmaBJsOEwpqhUYnLngpEdjA==
+	t=1794293457;
+	b=1YsZ1aoW/Jd7wpAUxlpTpdUqZsO+XOwsAJnUghQpFLvGEgVbNCUB6zTHmcuERdYT8BY0
+	 cnlv/bwRak19H4+fvpeVEQktT0wc0VClhxAdgnE+/w72m08tDysEnwx8voL+69n25GH+s
+	 o8eeABX6sKMt/xsoSo5BTZ4XulyHvFeq5pyX1m5OHgi92ZZAvORe2+NOtFBY2J6mmyZJv
+	 S4hqVdlUsFOXYXp5UuijJdM4ihI4GBBJSjrwX0/GgEMfAU4ZROzFtEMKbHeQudBwdOgjh
+	 US2T14fcQ/3eq5HeGVa1VLNIjP2RxfKE8Hsi1h3ilbyv4XYaXb5o04DhcIynq0O8/ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293415;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7l7admDhKHWRr+9KKiexEyCEJJRCMQKRjoREwqhnmEA=;
-	b=wUBfAfCWRLhsHVQQDj0R8nBXF0jzaYbbj+EaY39eyZCRAn/RzVLQd1MPnDbdRpMEkFoI
-	 8Vbxh4+tnJkYxJRteO+WplEzyqmdeTW2NiI94d3icvXomHPDZXPHKX0wHnAsOfGgcigco
-	 4XmBsa6jZCAe2kZfdtylA2F3vpYjW+V/4AgMnlt18/GsbQc2PlFskYRmDVpQqkdUq+eLB
-	 oD2uM42EqmVZg27/eEFVy11PbGFSQqempWsXlkjOu4NDcckE8CrEelrym2WJSsm8jouxR
-	 EHo2rC/8Tr7/VhowJntM8DNEEN+/fEcmbNvnk9rYD3emG24txxmd7dVCiWsNf49spFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293457;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=/w5jL5vyA9upjdnw5WddL4HeRqRVj2qfta9DH6HupIw=;
+	b=NLdms9NhbVB98KmQMwwTtj1kq4p0N5ejvg7Rw7npnrVySFkesn3p2qB7rWMHXQ5Xwr+m
+	 cXKJZjMYPz9wIezK4f00lY+0pCBYQEzi5ZnCFzOTl81e5gd+Td6x6bOjffHJU0h8+qoXT
+	 Ye7NLsHTdV9Oecc+BQtUHYx4KXcyj8GzgnnvMh0ygvM8vwTN1oZqjYLxbTNaUTgeTMleS
+	 KEc3mLw8LEdLVK09QAOu3ZSwB3Ip2OH0WIqRifURIJrHAFJJcWX4HtnSX6gFAU6F0HLqx
+	 IH6BXpMPZMxqqSqw9U9GbbQuI9lNonUte57y5gP8VAqooYtFUUpGQS9vOiGPHMoX0nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5lIyDTs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=uB1g4tXl;
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA91606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:50:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374B4606A31C;
+	Tue, 10 Nov 2026 06:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 374B4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5lIyDTs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505411F0089F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794293414;
-	bh=7l7admDhKHWRr+9KKiexEyCEJJRCMQKRjoREwqhnmEA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Z5lIyDTso0dF3UTryjxNYWMRH9OmA/ZuLb84XvtfphPqhUsQr+y0qxJI/Cq9jc/hA
-	 gP80q6F4jpRCWYMqgx03e2FXUDFDFxGezx56SfTIRHGcR7T6hohamHjK5GBVgJxHBY
-	 L7eHEIKkkwNeKbuT+LmNGBT8iOKN9bwe6Zb5i+eASIrYDF+H8xTgEdGy/Zn2WLgtAy
-	 HlcbCwLTLwiDqhjjbQoG/d+J1GNgK0XUzaoASCW9NV3q+y0hdFaFZn+ytSXlPTZQNG
-	 Zi5YhcrR5eDmZVhg/pwNdIk2TmZtjESPz4qPNmSHooh6nTS2UyL13fbmynZMRYYTKE
-	 u0e1t3wFgxMOw==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c14f6f58aeso1441930e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 22:50:14 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEb0u5obfwAd4R332bMgpNleqhp3niPYTmwjBduUKoNFy14dawfpSYWQ3TG/uSTYKV9otopK6BOwCSKkdA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uUpiN/wFM0B3MZ4h9hoxvxD3Twzb3+OmTHqTS4JZRAXP8QPz3
-	PZ+P6qQXsalSeINT/rzVTQj18bqRt/GBDnIxcwkq4XI+LR4zOjmUsIdMA+p2Q62ZVkFMJekOEH6
-	ihQcpS65pny1ZQmOM+dViPAq+L+b4HtI=
-X-Received: by 2002:a05:6512:39c7:b0:5bf:e31f:2f63 with SMTP id
- 2adb3069b0e04-5c156e9ee81mr556739e87.24.1794293413101; Mon, 09 Nov 2026
- 22:50:13 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=uB1g4tXl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794293378;
+	bh=/w5jL5vyA9upjdnw5WddL4HeRqRVj2qfta9DH6HupIw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=uB1g4tXlDMNofQmaN4I4jIg7gmJ03AUnk5YUdQvy2CnsHntCb9Ge4czCH84OSR45c
+	 A4juJcWRrj7XHhVj2HOhXqMYElcpu/gldwOXCVx3TNawb9Df2xMVw0hANHR2U/SKQ6
+	 zjXMqkjgfaYu8nEPTos3AyTavjmYf8hfjtvmn/FE=
+X-QQ-mid: zesmtpsz4t1794293371ta564256b
+X-QQ-Originating-IP: FdOqUzZJzmmhkbZlIxz+KiVbEzGEuHwXiZl6I0gqZv0=
+Received: from = ( [183.48.247.17])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 10 Nov 2026 14:49:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14734344013771177668
+EX-QQ-RecipientCnt: 12
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +58,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109202339.1380828-1-neilb@ownmail.net>
-In-Reply-To: <20261109202339.1380828-1-neilb@ownmail.net>
-From: Xiubo Li <xiubli@kernel.org>
-Date: Tue, 10 Nov 2026 07:50:01 +0100
-X-Gmail-Original-Message-ID: <CAOuZWzxQEsqSS84ERExczbLBeyoh8RR=8L6sYMUw-nPj=sS9cw@mail.gmail.com>
-X-Gm-Features: AclHuK-LP0O68yT8RI-LwSnATqskCGt2zIjV7x8_J3ygMTkIzQUs4KmXHF1ZVvc
-Message-ID: <CAOuZWzxQEsqSS84ERExczbLBeyoh8RR=8L6sYMUw-nPj=sS9cw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] cephfs: prepare for changes to VFS locking
-To: NeilBrown <neil@brown.name>
-Cc: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
-	Viacheslav Dubeyko <slava@dubeyko.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel@vger.kernel.org, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 10 Nov 2026 06:49:28 +0000
+Message-Id: <DMRBWY2S42EN.1CNW1DNHJOKKD@linux.spacemit.com>
+Cc: "Alex Elder" <elder@riscstar.com>
+Subject: Re: [PATCH v1 1/2] i2c: spacemit: Avoid sleeping during bus reset
+ in atomic context
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Anand Moon" <linux.amoon@gmail.com>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "Andi Shyti" <andi.shyti@kernel.org>,
+ "Sebastian Reichel" <sre@kernel.org>, "Yixun Lan" <dlan@kernel.org>,
+ "Aurelien Jarno" <aurelien@aurel32.net>, "open list:I2C SUBSYSTEM HOST
+ DRIVERS" <linux-i2c@vger.kernel.org>, "open list"
+ <linux-kernel@vger.kernel.org>, "open list:SYSTEM RESET/SHUTDOWN DRIVERS"
+ <linux-pm@vger.kernel.org>, "open list:RISC-V SPACEMIT SoC Support"
+ <linux-riscv@lists.infradead.org>, "open list:RISC-V SPACEMIT SoC Support"
+ <spacemit@lists.linux.dev>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261110061429.2036-1-linux.amoon@gmail.com>
+In-Reply-To: <20261110061429.2036-1-linux.amoon@gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OAHLEV5KK0ozoH9/EFcv2XP7SqQJgHnczDhCiuw/ZfP1Mw6LrY2OWrpO
+	HpbQkU2OqdbZSFxP/0uyeTx9HxmTQT6Yjsjf2/xxf98xAswq7la0KCdmZagnPoIe0ERvhHn
+	iP44ybOHog0hj/KyspHL0ZzvmTDvDQTjSRspzCN7y6LJylkKIl6htCJTs5MEvM/IftQj3M7
+	hob9moKn0uDu8D9d8rRbzCjRYT6Igzk+UewAdG3W2huL0QJvTw74fcITTPZ+VqGl4Xdp2N9
+	jLCtjZSraANL6r3jy2ulILdEVOjWSGS/i1llC+hFB5AGunzdLWsqMKNwHPHrFPnR3ABZaLT
+	/Y6MffxtTC97wk9qvwEKdpoCg/6FHRxa8UGAfHGz/RKr4nJ1F9kw4UgNIGwsQkUG1RsK47K
+	TgqJB1ATuUROmRcpIp4dUPU1ZjLhFniHntJfb/rISHbFmcUhNfaFplpd7af4lypsCuhfE2J
+	T4NQp4HXGQ1u5m5okgeWepjdKxzO3slg+J/rv2eqz+w0Zdj0/VpQCT1iV4AKygg7XAUplVk
+	w9FKyxUrdT6sfDOlAS2HKdVnBqDrV4WWSEHUhQ+j11D4OaKtyCSO6RBoEcxqUHNioRGuCYe
+	b1dAuTpahEJrHeqbpGPOw+YCzg17CYtzrHArfnZBrACSF7AtANAGriBna7bRLBl1OnPD1nS
+	yPyuBmXT/261Qq1AbPDX1Z8Tf3BMLFZUtll0nwqwGIKH0NfF1sd5p8YV51QfE/kFWThSZhO
+	Ark4k6lw4k3WPGnholYAxUK5DgntuAcdCkXx/fWR14T/xN+NATnm47DWlhmnj2DFj89/6rP
+	cNl0/cX7Eoqwf8IOrFYvSvI7UBTexhy41bGFiAPeb4iE1iprw3FVZ9m7WZAfvNzC0lz+HcG
+	fqlwZHgCNJKoO7aict8IGFHC7S1cpFW4x7lcpPVVzP+3+RVNq5Z43E/Mx4wvlz5m3vHGjux
+	uBXSBKqieTSdbUQq5CNMqVWO0tInnZXMhsHk5BIwPBQYpBqJfMQ/DB9F/8qm1cLesnUw1pc
+	lZ83OMrAOBc2LuwNWmLNOxB+s/EfrBjDbar4pJE2vaM/LU1EUNFCjSf3vZp6GfYTnoJfiT7
+	UZ9l09B0KaNURMiC52qyb58f23/byhYGg==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
+
+--73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, Nov 10, 2026 at 07:20:23AM +1100, NeilBrown wrote:
-> @@ -2230,7 +2226,7 @@ int ceph_readdir_prepopulate(struct ceph_mds_reques=
-t *req,
->               if (inode_state_read_once(in) & I_NEW)
->                       unlock_new_inode(in);
+On Tue Nov 10, 2026 at 6:14 AM GMT, Anand Moon wrote:
+> The spacemit_i2c_conditionally_reset_bus() function uses usleep_range()
+> to wait after triggering a bus reset request. However, this function can
+> be invoked during atomic I2C transfers (such as power-off or restart
+> handlers running in atomic notifier chains), where sleeping is illegal.
 >
-> -             if (d_really_is_negative(dn)) {
-> +             if (d_in_lookup(dn) || d_really_is_negative(dn)) {
+> Replace the sleep operation with the driver's internal helper,
+> spacemit_i2c_delay(), which conditionally uses udelay() when running in
+> an atomic context, avoiding "scheduling while atomic" bugs.
+>
+> Assisted-by: LLM
+Also, please drop this tag. The same applies to patch 2.
+See commit 1e035297ffda.
 
-Nit: An in-lookup dentry is always negative: __d_instantiate() warns on one=
-,
-and __d_add() ends the lookup before it sets the inode.  Here dn can only
-be in-lookup if d_alloc_trylock() has just allocated it for us, so
-d_really_is_negative(dn) already covers that case and the old test could
-stay as it was.  Feel free to keep it if you prefer it spelled out.
+--=20
+Troy Mitchell
 
-Otherwise this looks good to me.
 
-Today ceph_readdir() runs with i_rwsem held exclusive (WRAP_DIR_ITER),
-so the -EWOULDBLOCK branch cannot be reached yet.  To exercise it, I ran
-a test-only build that drops the parent's shared lock in ceph_lookup()
-and sleeps 300ms while the dentry is in-lookup, which is what the lookup
-side will look like once d_alloc_parallel() moves above i_rwsem.  In
-that build, readdir replies met the in-lookup dentries
-(d_alloc_trylock() returned -EWOULDBLOCK 64 times over 4 rounds), and
-afterwards:
- - the first and the second (cached) listing both showed every name,
- - every lookup returned the inode the other client sees,
- - there were no duplicate hashed dentries in the directory (checked
-   with drgn),
- - the MDS cap count matched,
- - KASAN and lockdep stayed quiet.
+--73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Tested-by: Xiubo Li <xiubo.li@clyso.com>
+-----BEGIN PGP SIGNATURE-----
 
-Thanks
-Xiubo
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavK+eCEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8WuwEAp7T345IGTixk
+luS0mGzMpY26JPDPOjGWsAUNq6ZoV1gA/RWwn34/Jxu8vWe3risrvjxT8VoYL1gt
+bpegaV9zkQME
+=3GOU
+-----END PGP SIGNATURE-----
 
-NeilBrown <neilb@ownmail.net> =E4=BA=8E2026=E5=B9=B411=E6=9C=889=E6=97=A5=
-=E5=91=A8=E4=B8=80 21:25=E5=86=99=E9=81=93=EF=BC=9A
->
-> This v2 drops 3/3 which was deprecating d_add() - there is no rush for
-> that so I'm not going to push it at present.
-> It also fixes the first patch to increment "skipped" when d_alloc_trylock=
-()
-> returns -EWOULDBLOCK.
->
-> The VFS patches that this series depends on are upstream, so this can
-> land in any tree.
->
-> Thanks,
-> NeilBrown
->
-> original intro:
-> I am working on changes to directory locking.  The medium term goal is
-> to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
-> can be run unlocked, and consequently cannot be called when ->i_rwsem is
-> held.
->
-> The requires:
->  1/ that d_alloc_parallel() not be called while i_rwsem is held and also
->     that d_alloc()/d_splice_alias() not be used (unless the filesystems
->     doesn't support creating objects).
->     cephfs uses d_alloc()/d_splice_alias() when priming the dcache from
->     the results of readdir.  A new interface d_alloc_trylock()
->     is now available and can be used instead.
->
->  2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
->     unlocked d_alloc_parallel() would then be able to create a new
->     dentry with the same name.  cephfs calls d_drop() in couple of places
->     before d_splice_alias() but this is no longer needed as d_splice_alia=
-s()
->     handles spliced aliases now.
->
->
->  [PATCH v2 1/2] cephfs: Use d_alloc_trylock() in
->  [PATCH v2 2/2] cephfs: Don't d_drop() before d_splice_alias()
->
+--73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645--
