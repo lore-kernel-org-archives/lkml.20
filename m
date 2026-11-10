@@ -1,72 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311907;
-	b=XZbVn82SMmD/GjKKiJDvDo5oiu0sJq4ImkJaXEmXXubeetF0KBbTH8iS0b43GWTddiYd
-	 4I4ZuvwvSlLdxyIXxCU4+6xImJ01PZXgrFEeFbMXgMh1hWInjVOzNjuUncsVzgzDZgldq
-	 F1uZgWFjB06q8SjKoKs8AmlekOnvMOyRdL2wX/nSVpoM4x9fse1md+EqlbiWw9bHxaFa8
-	 hBRYHQ9LyMDADqVRvoFawMJdeai5g9LT6RRvEiBYL6anAwHJ/LYj6HWAZN5jiVjUya33Z
-	 x14cA6fe3VLKBa1zCmtWHZ7uucc7bmwi2JSii4c9YV95U3Tkjqh2CFVx40S0qhVcgLQ==
+	t=1794311927;
+	b=qKjjDBp/bXzYcqgxYe3rT27tb3uwSYxtq0e+D0qfGjgq47mRcDGIPpoxqg7x4Bf1W4Km
+	 V7UchlWN8jhQ77HU9OcGPuhuVzaqsfztZUXmqEF8vbc/MsRUJXQ62Jm7JqP3OVsU9Mvel
+	 kI5N7JfOiuvHjltmxgA7Pp3m9V5FWSIl/7G7F7V5u36Hg/mEmsUlmbk4MMJTj4/moyU5i
+	 F0YW0iFQt3TSX3eahzyfds+DSRTDqYziQlRWDfOn0obDnjfo4alG/x41ui6XGPnQ37zT6
+	 q683Tj9EQ6dTY6Xa4p2y2b3iNIij5awVR7Lo67oB1hnxG4WFwlaq9/FAseNhzpCsTZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311907;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=5MjXkTr81XHjJXC4XW9odEr71wejmTyaWWO5F/Vmk0c=;
-	b=UlwhwpWY75vQ0ZiWLBNdud5YN8vq4YQl45P59blSvDXcRxP3qtVSN2ba3xE2Tp56OXFR
-	 lmT/QaalKOzF9ybsrF6D1l2tYjQd+ZwsLNR9q98Z4m6KnxdBdqqx1Y2Xgf4UWLvCXBoeq
-	 bGB8cvBrRtY0PXICWXPMt3yF4a21MD2LlNpjVEjr3AyMYuuhnUVXnZQWa66EgTcVJRppi
-	 QG5sk+oAJfbWy2u9wwY22M71/jeEGvlFgizGhKtunO706h250NQQekXrcVq/rRiz+T/OX
-	 zIC9UqMrKOQFx0Hzs4kACcEOulTKYojkOuszlyTZlMeMgopZXTM7suSsXVJM3RApu6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311927;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8xrzXhTL0WVs+COqTlijJQelSK0Qwyr/ovJyC3RLEII=;
+	b=bgLVUdCiJ91xKOk+5rg+ZDxjywu+1/yDONxY2wJ9MRAXEWTAmN22gd/ffXtxmrhbK6tH
+	 7pMk/ME7PBQQ7FetaN9quirV0ldcvUPyMxcYkOnvUWcjmGoyxHHkqm5e1ZUpY+mBHYbN/
+	 3Z7wT3ukJ5toLtpXRPdSDHqJz5Brz5P2jq1U/owQqABi1ctyAIH7HvPMpwNF/qt3/P7m7
+	 GGlO+T2RiXjnZFMOGYKzo6qlw7HgdiBO2VmLzTZhpo9+0HG+7BZJ8+jXW/UAyxzAwYugF
+	 poHgfO1skPt4ZNpjm/eJJqGAio1ALCnOvYx+o044Ds65/t+aVpDW+EN1mWNdkmmmEwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efxMryQx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emMxNhtQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829E7606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE61606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efxMryQx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC201F0089F;
-	Tue, 10 Nov 2026 11:58:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emMxNhtQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CD831F008A7
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:58:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311907;
-	bh=5MjXkTr81XHjJXC4XW9odEr71wejmTyaWWO5F/Vmk0c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=efxMryQx22jsxU1qqMuK3rjmB+4S8Uhu9KHfHISCF34tTtSeonxsR6lPU/zXVqKcn
-	 TB6YE4CeXq1yxBIo+6KAszJcXKjndfMDVSOQBCK6fAqOXj0FeCgUXWJ5TKuWumD0/p
-	 kPItMzBBnj3tA7uwRH77uzcYn4nIExPSvF/D1KNmGwmmG5fHN3vt5GFpfd9cj3iin7
-	 xLQcrEOt5b3sI41B5tcq4b+/gHOkAc1qF1hqvBeNhxjH1ZpNOE7TxlIPnPk+l2DfMm
-	 5ZLmJhgjJrN+LcVkbP85pC06dfLAKlFQz+7G+I7RfjxW2a9y+rKvP8Qf3GhcCYCBif
-	 rKHlLgd97vf7w==
-From: Thorsten Blum <blum@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nicolas Schier <n.schier@fritz.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Jan Stancek <jstancek@redhat.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	Thorsten Blum <blum@kernel.org>
-Subject: [PATCH v5 4/4] x86/boot/compressed: Enable -Wunused
-Date: Tue, 10 Nov 2026 12:56:11 +0100
-Message-ID: <20261110115606.133611-10-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110115606.133611-6-blum@kernel.org>
-References: <20261110115606.133611-6-blum@kernel.org>
+	s=k20260515; t=1794311926;
+	bh=8xrzXhTL0WVs+COqTlijJQelSK0Qwyr/ovJyC3RLEII=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=emMxNhtQXT6GeTvh+kRkYwEWLH00HiNJERy3KvUu1oP+Jo823ihfoYWMD4dWQ8b3E
+	 D0PKYmvBaybuB0d57/MYtPdxyy4SiFEw5FXFGmhFYvVkK2RJtp3I1S9+mBSR/k3Dv3
+	 f01ILM37j7MCQsznWJh+JlhOj+ohzsv472o4Gfozjnx2hkqfju4OIeFeP395+l3Qld
+	 8p9rfS/OiakXatmNF4PYWIUBV24HVxbyvA5uW6jLZ1Z/FJv3ssc5ctzqjC9UByWLPY
+	 21FQLvDjtxcBFETPHRDCV5rEnM/2XbOHpdgeqRG/ARr54N7RGDN8AILQE1zJbuSwWB
+	 3Odo42VY0GyqQ==
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso290653566b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:58:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEUlADW9iwokW32sSS5sAqsCy61gBvQfzyNP+e6LBW2Y7gTj9NAfZ8MP/K1mdgfnGxp9msg/Qw5gbcHvVc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xMF41+FQNhNB+MY3jVYm8dKBlG737VPEclvgL5CeRFZx6g6Pn
+	jvGg24vl8XkUWp6pXCajeLqCKfSe5kTkJAWing6o85pan2jRRNDnbOjA3FL5DT54w3P0G1v/yxt
+	pxhpeKAQbeJe/Tqfb8r7yZ9Xd3uG3ULs=
+X-Received: by 2002:a17:906:3f97:b0:c46:8909:963b with SMTP id
+ a640c23a62f3a-c5049548348mr132813666b.9.1794311925102; Tue, 10 Nov 2026
+ 03:58:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,36 +59,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1237; i=blum@kernel.org; h=from:subject; bh=5MjXkTr81XHjJXC4XW9odEr71wejmTyaWWO5F/Vmk0c=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmf2bJXetU1GiyJKv358PL/V2pzXmS0iX4KdHUPnSO+O C65kN+ko5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACbiNZuR4aJ56Sr7686HYzZN SDm+Jjl4QcKCdKv82ak3LhZtnz3n9DNGhsfT6nmcsyf9m1knkX3/Rin/dT5O8d8NT0+Jbzt5ci2 LKwcA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+References: <20261110084613.2746641-1-maobibo@loongson.cn>
+In-Reply-To: <20261110084613.2746641-1-maobibo@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Tue, 10 Nov 2026 19:58:33 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6DetSReoZviN_JuJzuzs9ZvUxXg9UXqKg-nfCu-+eRWQ@mail.gmail.com>
+X-Gm-Features: AclHuK84cDWlYHFN5XyFvyk3vWEarUjoMDQprQZIFAhcunkS7NK99kky2uOcYIo
+Message-ID: <CAAhV-H6DetSReoZviN_JuJzuzs9ZvUxXg9UXqKg-nfCu-+eRWQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] ACPI: LoongArch: Fix IOVT table parsing and add
+ checksum validation
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
+	Pawel Chmielewski <pawel.chmielewski@intel.com>, Len Brown <lenb@kernel.org>, 
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	lixianglai@loongson.cn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-arch/x86/boot/compressed/Makefile resets KBUILD_CFLAGS for this
-directory, but does not re-enable -Wunused. Therefore, unused variables
-and static functions in arch/x86/boot/compressed/ currently do not emit
-warnings.
+Applied, thanks.
 
-Add -Wunused to warn about these, and -Wno-unused-but-set-variable as
-well as -Wno-unused-const-variable to match the W=0 kernel defaults.
+Huacai
 
-Reviewed-by: Jan Stancek <jstancek@redhat.com>
-Reviewed-by: Nicolas Schier <n.schier@fritz.com>
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/x86/boot/compressed/Makefile | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
-index 680ad803cba7..3ff75bc2239b 100644
---- a/arch/x86/boot/compressed/Makefile
-+++ b/arch/x86/boot/compressed/Makefile
-@@ -29,6 +29,9 @@ KBUILD_CFLAGS += $(CC_FLAGS_DIALECT)
- KBUILD_CFLAGS += -fno-strict-aliasing -fPIE
- KBUILD_CFLAGS += -fno-jump-tables
- KBUILD_CFLAGS += -Wundef
-+KBUILD_CFLAGS += -Wunused
-+KBUILD_CFLAGS += -Wno-unused-but-set-variable
-+KBUILD_CFLAGS += -Wno-unused-const-variable
- KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
- cflags-$(CONFIG_X86_32) := -march=i386
- cflags-$(CONFIG_X86_64) := -mcmodel=small -mno-red-zone
+On Tue, Nov 10, 2026 at 4:46=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wrot=
+e:
+>
+> In acpi_iovt_init(), hdr is already a pointer, so passing &hdr is
+> incorrect. Pass hdr directly instead.
+>
+> Also add checksum calculation/validation for the IOVT table.
+>
+> Bibo Mao (2):
+>   ACPI: LoongArch: Fix incorrect pointer argument in acpi_iovt_init()
+>   ACPI: LoongArch: Add checksum support with IOVT table
+>
+>  drivers/acpi/loongarch/iovt.c | 24 +++++++++++++++++++++++-
+>  1 file changed, 23 insertions(+), 1 deletion(-)
+>
+>
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> --
+> 2.39.3
+>
+>
