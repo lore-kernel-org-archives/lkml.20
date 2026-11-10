@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333210;
-	b=U+9qVhIU2QTEoK20ED11O95yoSMapKzs1MTeVUp6d6q4zy9gBTv9qMaj9j//82uG7QLt
-	 7qVXvYJYBuB3FjWsJmpY2bBHxiBXncU1gQ7pU4L9/3/+t8BeC8YI+CFQhFXuDUIpnxP6N
-	 DMHmKeonj8lnE6vFXYUEDiM74QQfMw/DYGTP/f9KI9n3Mnqgw+9p7MbV626sDS2t04I4L
-	 R8BSfz3ONiuoNdYdBXnhrLzmVe0l/4u4qaEr7RLujFeJSp0vHlWUFjmg+VaGa/l9DPrZK
-	 8PvPgwNeyT0DDy17+wd7uD2kYlEYPleUBYNA1BuN4nAolSLVyzF6Zw50rZ6FkrzM4NA==
+	t=1794333212;
+	b=bmGFqXh65PheQe86Pl5HREUmtvjqCuRM9Cp+z9YpJeZffs2jTrJa4YHcVta4zsAuHGXV
+	 p4eB1Dmxsf23X+gEXVOVt24EABtsrZ2KVrWVjNNubCiAg03yn30bisnY1kVzib9WqN42F
+	 sapnZPxPihF7bBLWc4LSHd7aCU9avTuz7VBBP7xx4YSQGZsHnMw4zM2Ta+l1f+q+NAEly
+	 fPa/g6dFs2iHR/srPBG5EzYELySvbmgEHNn/3Z0JzkdYMWUiVx4sQlVr48U3TwCrQpMxp
+	 9HqRhLEcJzFLb0miz7VV5OPbjGEk+00h25OOlquaxIniOCxbGTUqcV6G9cYwnVFFEEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333212;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=hI4Ha1kxt9IoMVYOSTGtQXQwpIXjsw2bWliwYAlRPPg=;
-	b=Rf7txOcRwUcmP9eSGeb/or2gJ9cCfVmMz5V9UPzJhaHb1Z2yrhp+EWIA2JTHX71hk5Gq
-	 /VSV44tHx29z4YKNi1zY9yo6Y8VvJEWsa6hzxS1XjCJbLodJQVqdY/IjjPLtNE6tDfGY6
-	 vlV62qFrxWI9iBX3OUqyNkbMTxjPbZK0NOMSchaUo8rK0BRap+fMWdFMC5BFl9+9s6D4d
-	 mYNp5ZZ9TiNchEn8yq8AX3TQnM2A5iQYOvnB3MVKjcN5pysDDxjmxF7S+3dLeQP1q/xKI
-	 xliAO5fvx48NgL42i2xoL9vJjeZgmAEtY5HxCn5SBl5mcmhr9BhSvOsP/f+qr+Cr5GA==
+	bh=prM24RVAgH9/rVvP/UPAQ2Jyid3RkVoNiG2WeGLgs8I=;
+	b=m9jBjFw74yIHLs8eZOIGqweZJK/sXj6GqF1yrklhJqX3t/oeyCFni2VAh49pC5IpIddL
+	 Tye7n8xmmL/HNywRSz4MKkd3t95aRGaq0GaOkMJfWDFI5cpU1HktmO3Yp6DQpuLRlcX/A
+	 xyc+5MYycGQAN6r9TsQsJdH9ajzEi9snPig6MnzZ7g9+rImEcxxt5kUptuA2HlSsZT4zI
+	 XhH/O+rfZuOq7isN4o9dRWKqrLcL4ul6O7RzO8FOesfQVJYrFw7NXiY5UBmtSDNC4lBIa
+	 +AxFF8sL59WHL8WQO6poplDzIgVMaDD9qKyFRZxtIqQJBHxY5QDvKgtQCJjeedkrz0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FydZvlHo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Chjelwlj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F93260A3822;
-	Tue, 10 Nov 2026 17:53:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C02D60A3832;
+	Tue, 10 Nov 2026 17:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FydZvlHo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D971F008A1;
-	Tue, 10 Nov 2026 17:53:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Chjelwlj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E887E1F0089F;
+	Tue, 10 Nov 2026 17:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333210;
-	bh=hI4Ha1kxt9IoMVYOSTGtQXQwpIXjsw2bWliwYAlRPPg=;
+	s=k20260515; t=1794333212;
+	bh=prM24RVAgH9/rVvP/UPAQ2Jyid3RkVoNiG2WeGLgs8I=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FydZvlHoIgAht0xMmulA4f5PoyF7lYoKg/cKKVcSunAa4QmK7nihh+MARdFVA02wW
-	 WlckplXlmEZYnDfodWDl+qr5zExS8Pe/UJhDECYzExQp0pCQuUk1qbfSvL3plwmZBD
-	 kbeXnsyWG9Q6MgtGvhf9uSqqRQGZpMEsHVvmy/eB4iP4HmkHBWF9FjptHJgLFkeF7c
-	 PFBP4sN6bLvmhZI6KMjjdHcLjOJZdexUrk+k1sGrSfsmITUZSVmqkdmu6Tu/IPE9M3
-	 KIeSR97nwg6F9hRdX/FCVEIcMZp5dtkADK7Qr7lgCXkBYSCgB9tNf/nJe8EmoRHCl8
-	 k4Blb2juux4KA==
-Subject: Re: [PATCH net-next 09/10] ice: dpll: update locking comments
+	b=ChjelwljJAkJ1/9aGT22N16FIq+Jf78o76D140u1tvzYzqM675Fahto8yBlaEvdJd
+	 1Y9IJjlQlMkmfN5eo1N7GtynfgR7MmxEpbdr0ll1CA0ZIFrgysb2ApioDNYrYzq18w
+	 UNo4DK3l8JONLlFUN6PWnNbyKQgZDKu+mxwt4R3UvIf1x3ogHnps46CPxQh0BaY8wB
+	 34XZIJYyF6qgHIUpjSmojjQyDNdtay97TeYCTWhJHnAIXx01TZK91CCoLiG0LWezs/
+	 vTmOrHWIth0FN5xPey5o2QLBH59p++jfYpPeduH2rGkOumAbFvLnBuXuW3SA9tb/H+
+	 /75vSIjFyX3cA==
+Subject: Re: [PATCH net-next 10/10] dpll: document locking rules
 From: netdev-bot+sashiko@kernel.org
 To: ivecera@redhat.com
 Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
@@ -53,10 +53,10 @@ Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
  intel-wired-lan@lists.osuosl.org, grzegorz.nitka@intel.com,
  karol.kolacinski@intel.com, saeedm@nvidia.com, tariqt@nvidia.com,
  poros@redhat.com
-Date: Tue, 10 Nov 2026 17:53:28 +0000
-Message-ID: <179433320858.994134.3648996641880038315@kernel.org>
-In-Reply-To: <20261106121005.1327603-10-ivecera@redhat.com>
-References: <20261106121005.1327603-10-ivecera@redhat.com>
+Date: Tue, 10 Nov 2026 17:53:30 +0000
+Message-ID: <179433321053.994134.15233379643090486121@kernel.org>
+In-Reply-To: <20261106121005.1327603-11-ivecera@redhat.com>
+References: <20261106121005.1327603-11-ivecera@redhat.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -76,79 +76,145 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The locking note this patch adds to the struct ice_dplls kernel-
-  doc (drivers/net/ethernet/intel/ice/ice_dpll.h, lines 168-170) is…
+- [Low] The new Locking section in Documentation/driver-api/dpll.rst
+  covers three cases where a pin callback reaches private data owned by…
+- [Low] The new driver rule in Documentation/driver-api/dpll.rst (lines
+  716-718) says notifications for objects outside the callback's domain…
 
 --
 
-ice: dpll: update locking comments
+dpll: document locking rules
 
-This commit updates the ice DPLL locking comments now that callbacks run
-under the DPLL core domain locks instead of dpll_lock. It also adds a note
-saying that callbacks of the external DPLL's pins run under that DPLL's
-domain, so only pf->dplls.lock serializes them with the rest of the
-driver.
+This commit adds a Locking section to the dpll driver API documentation.
+The section describes the dpll_lock and per-domain lock levels, the domain
+each driver callback runs under, and the rules drivers have to follow. It
+also adds matching notes to the kernel-doc of dpll_pin_register() and
+dpll_pin_on_pin_register().
 
-> diff --git a/drivers/net/ethernet/intel/ice/ice_dpll.h b/drivers/net/ethernet/intel/ice/ice_dpll.h
-> index 4ba76e2e2e0b0..39e041a30090d 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_dpll.h
-> +++ b/drivers/net/ethernet/intel/ice/ice_dpll.h
-> @@ -165,6 +165,9 @@ struct ice_dpll {
->   *     tx_refclks usage map), acquire pf->dplls.lock first, then
->   *     ctrl_pf->dplls.lock. Skip the second acquire when pf == ctrl_pf
->   *     to avoid recursive locking.
-> + *   - Callbacks of the SYNCE and TIME_REF pins of an external DPLL run under
-> + *     the DPLL core domain lock of that DPLL, not of the TXC and TSPLL DPLLs,
-> + *     so only @lock serializes them with the callbacks of these DPLLs.
+> diff --git a/Documentation/driver-api/dpll.rst b/Documentation/driver-api/dpll.rst
+> index 7c117ae37cc1b..40d5037ff3bb0 100644
+> --- a/Documentation/driver-api/dpll.rst
+> +++ b/Documentation/driver-api/dpll.rst
+> @@ -675,6 +675,50 @@ In the error path we have to rewind every allocation in the reverse order:
+
+[ ... ]
+
+> +Callbacks of a dpll device run under the domain of the device. Callbacks of a
+> +pin run under the domain of the pin, whichever driver registered them:
+> +
+> +- A driver registering a pin of another driver with its dpll device has these
+> +  callbacks serialized with the driver that created the pin, not with the other
+> +  callbacks of its device, so it has to protect the state they share by itself.
+> +  A callback stuck in such a registration stops the domain of the pin.
+> +- The parent pin of a pin registered with dpll_pin_on_pin_register() and its
+> +  dpll devices can belong to another driver, so the callback must not
+> +  dereference their private data.
+> +- The frequency monitor belongs to the dpll device, so only callbacks of a pin
+> +  of the same domain registered with dpll_pin_register() can include
+> +  ``.measured_freq_get``.
 
 [Severity: Low]
-Could this note be clearer that TXC and TSPLL are not in the same core
-domain either?
+Should reference-sync pairs be in this list too?
 
-As written, it presents the external fwnode pins as the special case. A
-reader could take that to mean the other ice objects share one core
-domain, which would serialize their callbacks against each other.
+dpll_pin_ref_sync_pair_add() only does an xa_insert() into
+pin->ref_sync_pins. It never checks that pin->domain matches
+ref_sync_pin->domain, so a pair can span two domains.
 
-Looking at ice_generate_dpll_clock_id(), each PF gets three different
-clock_ids:
+When the ref-sync callbacks run, only the domain lock of the pin is held,
+but they get the private data of the paired pin:
 
-drivers/net/ethernet/intel/ice/ice_dpll.c:ice_generate_dpll_clock_id() {
+drivers/dpll/dpll_netlink.c:dpll_msg_add_pin_ref_sync() {
     ...
-		if (d->dpll_idx >= E825_DPLL_TXCLK_BASE_IDX)
-			return mac_clock_id;
-
-		if (d->dpll_idx == E825_DPLL_TSPLL_BASE_IDX)
-			return mac_clock_id | BIT_ULL(63);
-	}
-
-	return pf->dplls.clock_id;
+	ref_sync_pin_priv = dpll_pin_on_dpll_priv(dpll, ref_sync_pin);
+    ...
+	ret = ops->ref_sync_get(pin, pin_priv, ref_sync_pin,
+				ref_sync_pin_priv, &state, extack);
+    ...
 }
 
-dpll_domain_get() keys domains on (clock_id, module). That gives three
-separate domains on one PF:
+dpll_pin_ref_sync_state_set() does the same for ref_sync_get() and
+ref_sync_set(). It then calls __dpll_pin_change_ntf() only for the pin, not
+for ref_sync_pin.
 
-  - TXC, plus the EXT_EREF0 pin, which ice_dpll_init_txclk_pins() creates
-    with the TXC clock_id
-  - TSPLL
-  - the DSN-based objects, such as the rclk pin
+Under the rules above, the callbacks from ref_sync_pin's own registration
+run under ref_sync_pin's domain. If the two domains differ, nothing
+serializes these two sets of callbacks.
 
-Each PF's TXC and TSPLL domains are also separate from those of other PFs.
-The struct dpll_domain comment in dpll_core.h says only one domain lock is
-held at a time.
+The in-tree implementers zl3073x_dpll_input_pin_ref_sync_get() and
+zl3073x_dpll_input_pin_ref_sync_set() do dereference this data:
 
-So the core does not serialize TXC callbacks against TSPLL callbacks, or
-either of them against rclk callbacks. pf->dplls.lock (with
-ctrl_pf->dplls.lock and cgu_synce_lock) is what does that, and the fwnode
-pins are one more case of the same thing.
+	struct zl3073x_dpll_pin *sync_pin = ref_sync_pin_priv;
 
-The new sentence is accurate per DPLL, and the first bullet still says
-@lock serializes all DPLL state mutations. Since this patch exists to
-document the domain-lock rules, though, would it make sense to say that
-TXC, TSPLL and the DSN-domain objects are each in their own domain?
+No in-tree driver creates a cross-domain pair today, since zl3073x
+registers only its own chip's pins. The first bullet partly covers the case
+where one driver registered both pins. It does not cover pins that
+different drivers registered on one dpll.
 
->   *   - @txclk_notify_rwsem is held for read across
->   *     ice_txclk_update_and_notify(), including the out-of-lock
->   *     dpll_*_change_ntf() calls. ice_dpll_deinit() takes the write side
+Could the documentation say whether a ref-sync pair may cross domains, and
+whether ref_sync_pin_priv may be dereferenced? The parent pin case in the
+dpll_pin_on_pin_register() bullet already has an explicit rule like this.
+
+> +
+> +Device drivers have to follow these rules:
+> +
+> +- A callback must not call dpll_device_change_ntf(), dpll_pin_change_ntf() or
+> +  any function changing the topology.
+> +- A callback notifies about objects of the domain it runs under with
+> +  __dpll_device_change_ntf() or __dpll_pin_change_ntf(). Other objects have to
+> +  be notified from a context that holds no domain lock, for example a work item.
+> +- A driver must not call dpll_device_change_ntf(), dpll_pin_change_ntf() or any
+> +  function changing the topology while holding a lock that its callbacks take.
+
+[Severity: Low]
+Can a driver follow the work item suggestion safely without two more rules?
+
+The first rule is about waiting on the work. The deferred work ends up in
+dpll_pin_change_ntf() or dpll_device_change_ntf(). Both take dpll_lock for
+read and then the domain mutex:
+
+drivers/dpll/dpll_netlink.c:dpll_pin_change_ntf() {
+    ...
+	down_read(&dpll_lock);
+	mutex_lock(&pin->domain->lock);
+	ret = __dpll_pin_change_ntf(pin);
+    ...
+}
+
+Callbacks already run with dpll_lock held for read, for example from
+dpll_pin_pre_doit() or dpll_pre_doit(). A callback, or code holding a lock
+the callbacks take, might wait for the work with flush_work() or
+cancel_work_sync() while a writer is queued on dpll_lock. Could that
+deadlock?
+
+callback                  writer                  work
+down_read(&dpll_lock)
+                          dpll_pin_register()
+                            down_write(&dpll_lock)
+                                                  dpll_pin_change_ntf()
+                                                    down_read(&dpll_lock)
+flush_work()
+
+Here the writer waits for the callback's read hold. The work's down_read()
+blocks behind the queued writer, and the callback waits for the work.
+
+The last rule above only bans direct calls to dpll_device_change_ntf() and
+dpll_pin_change_ntf() while holding such a lock. It does not cover waiting
+for a work item that makes those calls.
+
+The second rule is about lifetime. The text does not say that the work has
+to be cancelled or flushed before the target pin or device is unregistered
+and released with dpll_pin_put() or dpll_device_put(). __dpll_device_put()
+ends in kfree(dpll). A work item that keeps a struct dpll_device or struct
+dpll_pin pointer and runs after the final put would touch freed memory.
+
+Would it make sense to add both rules next to the work item suggestion?
+
+> +
+>  SyncE enablement
+>  ================
+>  For SyncE enablement it is required to allow control over dpll device
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106121005.1327603-1-ivecera%40redhat.com
