@@ -1,52 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.255.198.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278321;
-	b=U/i14iaAaMHnpsAClqqIhN92gH5odZ7MaOqX3cXcgHnffCcigk+dbLwwiwzuvdTehwxv
-	 eHCDKExZn7daCmLihjhTBYhJ0An4l5fLdi61tfZO3yWz5xcjb/fV/ZVLZhyODb97RFIH0
-	 VKd7aDqN7Y5IyyLL3OTe/pJmmB4szRN142W0aWNp2Tnyildmx8DR144M1WaZqpMG/6hrX
-	 9miMi9avv5z7hX2H14eTyp4SOQ/59VQQGOqsSqmtSCaIa3xKLIWd7AIhSYYBd6std+rf0
-	 9WRerz4PaTTBIf/TLQq7PUSF2nrXdc171mZ/qLE/iTkhzYtG9NB7UJDLP/ZrWDBsrbg==
+	t=1794278318;
+	b=LpL2A4O3LmcDERfT6dIo6WV36hQd8Ic1SIN4oDgRXasAWAG2dS4UB2k5tBRv6+eY4NCC
+	 CwDNMaSacVcf7zlIibe6Q6UrPfYNvXC1Ia4zkuuHJvRaLAo2ED1O6KrQLyGYEdvMDNSLz
+	 27TvgW2h8XAcLN+mxowswiEw4A9sWHrHBfmX4r1ZaShuP4nYNYBVOdMKfeHUmrxJFUKIk
+	 sVzriy02og9vNzrDPV5X/FPB5Mu+NuFwdM26BAB9rs0FWh7+l/35xaBpULROmtT8DacQE
+	 C7DO+mv0qFncFDIlb/C/CP5HKQMdl7X6Pi8dPLJ1m1UxPBpAmX6ME9mQqCw9tYMDVHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278321;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=KWDm0GjzCY+hCrlut+QKv8rvj0gWTSM4ovAgsAx3GME=;
-	b=R5OpyZFnL5naHqKsDamPmM+0HUy+IBWol60w8QoHwGy/uioRoIEkiz2T61tsYVVBoafw
-	 HJ+1DWSBA3LStmDvIIfKcm/gdDHHmTVcmknboJzUPu5I6dSvTLzQaCwMR/vKPWUglu1EO
-	 ulXhxOlhPrunPs7Km7HM/23GRV7Mv+wWIyg21UsamWgNMHUibXrQMD5oPs9GpMIS10HPs
-	 a5bdxAzWtj7V9K3D5nk+tO3mSNn8CBIuUMgaCoWGFwoBbEXxEIk5tZQuWWNIDeZPRzCuk
-	 jsOWeqlvub8+4Eo5qQQmFQ5vgwpOH4OSY7w1coLfvxIzWbeEOQG1jB60P6CtBRKbvOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278318;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=eVM5XFxpTekZI/TznZd5JXWHYNNpDG15hrmiBUopk64=;
+	b=wIFDAPyFcBiGjzo6eN7V02jsi91l1NG35VskQuPzFI2m+JzTiEKpjaM8yILKxc/Gqzra
+	 WxXu8ARzNkfKn7tZ5sj7Pa7+bZ1+gTaghBc5XXRD7HZeb8FaI0eq0rp7SsGOrnJImxPFP
+	 jggshNF2LH/mvv0AcRXb8r3aZopFn9rUXpVVikNEHFaJLc9TvEJuQpXyLw2e2wjfmNp/x
+	 Dj6P3irNjC/82K+aeykfgvNqaGojVjyEGy9y4weebuJgpZ1VLqcvhP4hgMvp0FTrdx2Gl
+	 tfZIEw/FA5Mkbr4eJKnGhXY1mgqZbt3kGEpSDHhF9aaw/pFRqsCRey4gZ9ssSFEhdHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=endrift.com;
-	spf=pass smtp.mailfrom=endrift.com;
-	dkim=pass header.d=endrift.com header.i=@endrift.com header.a=rsa-sha256 header.s=2020 header.b=edoDrpHw;
-	arc=none smtp.remote-ip=173.255.198.10
-Received: from endrift.com (endrift.com [173.255.198.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E1F60A260B;
-	Tue, 10 Nov 2026 02:38:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9E1F60A260B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=endrift.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=endrift.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=co5amkzN;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 369AB60A260D;
+	Tue, 10 Nov 2026 02:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 369AB60A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=endrift.com header.i=@endrift.com header.a=rsa-sha256 header.s=2020 header.b=edoDrpHw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=endrift.com; s=2020;
-	t=1794278314; bh=O2ftx/z9zONc9bNAjf/AotNbgJmqhjvAIasLxsAIseY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=edoDrpHwVmfum70TW0OeqQzztWmEKIlpXQEiTztgLw+dhMXzpwEIZsBpGq2JkUIrp
-	 kbvmPPm0fWoThXvW8Rjn87d9yy/LkaisyQEgLtQLfi5BRT+/T27chXH0w4vs+tZB6d
-	 SFNKwoOC5LmTD8LPuxf4vyPVLUWs41Rexqm8wdEzRXTDO2om0woZ1t8iQ0ZJHMM82f
-	 0NtfWk3MQ/wQwg82AWjD8BP3fwyFfwVb2o56ZzlB9wJTvld8RmHTukS1BTny9hLlqf
-	 nOjUUYZIdojTHBn0vxZJxNPN5MtvlvPlvPFnK5L5oO/S4N5SXXS5pFTEj2yYRj7g4J
-	 FhqD5Yhx9vCOQ==
-Received: from [192.168.0.22] (unknown [97.126.138.172])
-	by endrift.com (Postfix) with ESMTPSA id 0A9BEA04D;
-	Mon, 09 Nov 2026 18:38:33 -0800 (PST)
-Message-ID: <a2dc00e7-9cab-4315-87a4-795f256c1e03@endrift.com>
-Date: Mon, 9 Nov 2026 18:38:33 -0800
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=co5amkzN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=co5amkzNgSM4eSt5maBYOipTvdJoD6KKIekUMjO8V3MWhhzeyX9HKO0FPrl7hK+x6rW87jGNkhQv1
+	 g2Mj+zIRy1+f7dzbSNu8JqA0UpxsDc5rFRGiPSTc19Onygrz2M6IEz9LAxzagDCIwyHqQD0+7K6Miq
+	 1EQC0kK4WHuGSd9o=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af283a8b65-c70bd;
+	Tue, 10 Nov 2026 10:38:34 +0800 (CST)
+X-RM-TRANSID:2ee56af283a8b65-c70bd
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af283a8745-a37b7;
+	Tue, 10 Nov 2026 10:38:34 +0800 (CST)
+X-RM-TRANSID:2ee56af283a8745-a37b7
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: Simon Horman <horms@kernel.org>
+Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	MD Danish Anwar <danishanwar@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Diogo Ivo <diogo.ivo@siemens.com>,
+	Haokexin <haokexin@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: ti: icssg-prueth: Fix device_node refcount leak in prueth_probe()
+Date: Tue, 10 Nov 2026 10:38:30 +0800
+Message-ID: <20261110103000.3141-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261109165902.GS18859@horms.kernel.org>
+References: <20261109165902.GS18859@horms.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,122 +81,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] HID: nintendo-switch2-usb: check URB before use and reset
- state on free
-To: Noah Weinberger <NoahWeinberger2003@proton.me>,
- "djogorchock@gmail.com" <djogorchock@gmail.com>,
- "jikos@kernel.org" <jikos@kernel.org>,
- "bentiss@kernel.org" <bentiss@kernel.org>
-Cc: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <HP2LhXZGIipAd2XxKx7dDh8q3SopkJRAxo8IQkuyMxTlR0YfO3rS3CT9NqUkg3ispO72yfhC7Oa4MoZdXgo6lNIEjC1WvQFlrKreFzCnmFM=@proton.me>
-Content-Language: en-US
-From: Vicki Pfau <vi@endrift.com>
-Autocrypt: addr=vi@endrift.com; keydata=
- xsBNBFtJAmYBCADmRIN9O/aBbYc93lUMvG2hPip++otLit+65EwNHB1y9BmbVr0Q8Tz7rbAM
- K2mB0EiA4Z3DesoLIOzlJq0E4fgDsAi8ok/i7aTx35d0Qeab95GEdkCMcL98xNJE0agq+KYk
- pnvFlhdyC23K32KdOijsUqqbd86GgxRZmuf/Yf932KxKAj+n0aFBw5y6i0ep7WQBF6ytpqah
- Uzy04D//smiTr6rrXg+C09MX0XZ2Fvcv3gmimnoV6C/ZCO1Zecqyhrs0YFfdIhFEBp2ItYim
- MoeU4g6y726gyRO/+wwzZkryJMU8hHootzW1gUylZeELSwx8uIJSHFiLE7AK+M5soPtDABEB
- AAHNG1ZpY2tpIFBmYXUgPHZpQGVuZHJpZnQuY29tPsLAjgQTAQoAOBYhBNj+0QMp9OPSosB4
- 6X72E7X7Nb0rBQJbSQJmAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEH72E7X7Nb0r
- WIcH/0GnIOkmAyy2UlgS/VKi193ZRWYJjBfUncIBf57gLt1KYY0PvUoR9MVvkLqcx8vaCxWh
- bVSqzxT6WU1ECp/URdQV2W4IGB6W4B8rT3VGw0QzbVVQRmt6vReEMFVL+vBfgHKTRBItiy7x
- Bd+JZDusiyrrGok9TqqkBYlZPWE29ajiOAe05N1UhuRq7y8w/bOkzFD36ohMtfqV4hByWV+q
- d0LujqgZm1AkM1FqpJ4j8h1Gox5rpmWfaHJmBQ8HcKqQfwACQCvDNHS2vlTXJYfxlh+mVerL
- YKZgWnyvqx4pLKqJOXQKssIaDjnDfTu6bQgXvhaKb1+piBUYuoe9/+3E15TOwE0EW0kCZgEI
- AL/KzT+NR1/LbJ7Kuv3gAHFp+S7cfyyPSamN6i6/X135vNSawG7g81iWUweAW6YahFA2haqw
- t+8/Bm9Dzc8rF6RHCElK1GoHiF4SIYQxjqPo2wwqvTad9FblWTfaYRKfVDvNz2Rz4i681JrR
- 8gizvzJPX+gocH7FMzPwb1DAwL2kKA5wilgAGSv8nZqeG55hNt2t/XiT6Yd97DJv86D24UUP
- BetLTq2jUWtX+omt+JhF3QzMjnyGQYKHNXUB/ipBxNSkwnDrWg/f1EjDtNzuOHManJDC9Bqi
- qhi1abiTNlmmewI5iLEnnxzfSKS5HO9nCC1szl229DHwIMH7jA+G+z0AEQEAAcLAdgQYAQoA
- IBYhBNj+0QMp9OPSosB46X72E7X7Nb0rBQJbSQJmAhsMAAoJEH72E7X7Nb0roioIAM0oDKEU
- QH7Og4+AXm35uklIiCX6cFQPgDVlQn7M/QFLnEhhCfPTt8PkIIN4dLgs4lIJxExpgQWgOLUX
- h+ZLLupzZXoysAXfdwNLf/RqRed/zTZbUjssy4D7yeNIJThzU32kDy0Hx3pMNM/Hd9yaXmHL
- LDkfwcyQuqA9+eeOogkDC8inLNLfYQ8JtVQZuWppNcbOZkBxfMVAmPHg6C9fe2biQFojoLPe
- 4nQheprKfBp5QsY2cIjP8kaWPpfJEJ5i2aNgtrfebEzjYoWWLkK78Lo8qABdxkVhH6rhAlw2
- rVf41cHNCfHF7ddvOb9IItWacXxYn7ql+dI/Se3+ISWDboQ=
-In-Reply-To: <HP2LhXZGIipAd2XxKx7dDh8q3SopkJRAxo8IQkuyMxTlR0YfO3rS3CT9NqUkg3ispO72yfhC7Oa4MoZdXgo6lNIEjC1WvQFlrKreFzCnmFM=@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Noah,
+Hi Simon,
 
-On 11/8/26 2:29 PM, Noah Weinberger wrote:
-> Hello,
-> 
-> Proposed-fix limitation: the checks below do not establish URB or
-> interface lifetime across the pointer check, lock release, and subsequent
-> use. These proposed changes may therefore not resolve the teardown race
-> or the late-work use-after-free described below. Please review the
-> locking and work/interface lifetime before treating this as a complete
-> fix; this is an incomplete proposal for maintainer review, not a
-> validated resolution.
-> 
-> switch2_bulk_in() calls schedule_work() after dropping bulk_in_lock, so
-> the work can be queued after switch2_usb_free_in_urbs() has returned
-> from cancel_work_sync(). free_in_urbs() NULLs bulk_in[i].urb but never
-> resets bulk_in[i].state, so the late work still sees NS2_URB_IN and
-> dereferences urb->urb->transfer_buffer / urb->urb->actual_length on a
-> NULL pointer - the existing !urb->urb check sits after those
-> dereferences:
-> 
->     if (urb->state != NS2_URB_IN)
->             continue;
->     spin_unlock_irqrestore(...);
->     if (ns2_usb->cfg.parent) {
->             err = switch2_receive_command(..., urb->urb->transfer_buffer,
->                                     urb->urb->actual_length);   <-- NULL deref
->     ...
->     if (!urb->urb)   <-- too late
-> 
-> A malicious or misbehaving controller (or an unplug racing active
-> traffic) wins a narrow window to trigger this; the outcome is an oops
-> in workqueue context, and a use-after-free if the work runs after the
-> interface data is released. The patch re-checks urb->urb under the lock
-> before using it and resets the URB state when freeing, mirroring what
-> switch2_usb_shutdown() already does.
-> 
-> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), drivers/hid/hid-nintendo-switch2-usb.c:51-121 (completion), 209-240 (free path), 288-316 (work).
-> New driver merged in this window (zero prior field exposure).
-> 
-> This was found during an assisted (AI-supported) static source review of
-> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
-> reporter against that tree. The patch below has NOT been compiled and has
-> NOT been runtime tested, and no reproducer was produced - the triggering
-> conditions are described above instead. Please treat this as a report for
-> verification rather than a battle-tested fix.
-> 
-> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
-> ---
-> diff --git a/drivers/hid/hid-nintendo-switch2-usb.c b/drivers/hid/hid-nintendo-switch2-usb.c
-> index 8b3b684..c846cef 100644
-> --- a/drivers/hid/hid-nintendo-switch2-usb.c
-> +++ b/drivers/hid/hid-nintendo-switch2-usb.c
-> @@ -231,6 +231,7 @@ static void switch2_usb_free_in_urbs(struct switch2_usb *ns2_usb)
->  
->  		ns2_usb->bulk_in[i].urb = NULL;
->  		ns2_usb->bulk_in[i].data = NULL;
-> +		ns2_usb->bulk_in[i].state = NS2_URB_FREE;
->  		spin_unlock_irqrestore(&ns2_usb->bulk_in_lock, flags);
->  
->  		usb_kill_urb(urb);
-> @@ -298,6 +299,11 @@ static void switch2_usb_message_in_work(struct work_struct *work)
->  		urb = &ns2_usb->bulk_in[i];
->  		if (urb->state != NS2_URB_IN)
->  			continue;
-> +			/* urb->urb is NULLed by switch2_usb_free_in_urbs() while we
-> +			 * may still run; re-check under the lock before using it.
-> +			 */
-> +			if (!urb->urb)
-> +				continue;
->  		spin_unlock_irqrestore(&ns2_usb->bulk_in_lock, flags);
->  
->  		if (ns2_usb->cfg.parent) {
+Thanks for the review, and for looking into the neighbouring error
+paths.
 
-NAK this approach. This doesn't actually close the window (assuming it actually exists), it only narrows it, which should be pretty apparent by looking at what locks are held during freeing the URBs. The code is pretty aggressive about not scheduling the work after shutdown so I'm unclear if this is even possible. Furthermore, it makes sure the work is canceled before it frees the URBs. Just because the LLM says so doesn't mean it's true.
+On Mon, Nov 09, 2026 at 04:52:35PM +0000, Simon Horman wrote:
+> But I wonder if this nearby check also leaks a reference,
+> because while it drops one, wouldn't there be two if the
+> condition is met?
 
-I can add an additional shutdown check in the beginning of the work, which would resolve this if it's possible.
+I don't think that branch can be entered at all, so it does not
+leak in practice. eth0_node and eth1_node are both initialised to
+NULL, and each iteration of the port scan loop assigns at most one
+of them (the reg == 0 and reg == 1 cases are mutually exclusive),
+while for_each_child_of_node() visits each child exactly once. So
+the same node can never end up stored in both slots, and the
+both-NULL case is already handled by the preceding "neither port0
+nor port1 node available" check. As far as I can tell, the equality
+comparison is dead code.
 
-Vicki
+The DT error the check describes, two port nodes carrying the same
+reg value, does leak a reference though, just not through that
+branch: if both ports have reg = <0>, the second assignment simply
+overwrites eth0_node, the reference taken on the first node is
+lost, and eth1_node stays NULL, so the equality check never fires.
+
+On Mon, Nov 09, 2026 at 04:59:02PM +0000, Simon Horman wrote:
+> Sorry, one more thing. Which is not strictly related. But as we're on the
+> topic of error paths in this function, I am not convinced of the validity
+> of the value of reg being used even when the call to of_property_read_u32
+> fails in this loop:
+
+You are right, the error is only logged and the uninitialised value
+of reg is then used to select eth0_node or eth1_node. Depending on
+the garbage, the node is routed into one of the slots (including
+the overwrite case above) or, when the value is neither 0 nor 1,
+the reference taken by the of_node_get() right before is leaked, as
+the node is not stored anywhere. This is the pre-existing loop
+issue I mentioned in my reply to the bots: the "port reg should be
+0 or 1" branch leaks the reference even for a valid out-of-range
+reg value.
+
+Understood on the patch-set, and thanks for the hint. I will send a
+v2 that combines the fixes for the two drivers, keeping them
+unchanged and adding a per-driver patch for the port scan loop that
+skips a port when reading its reg property fails, only takes a
+reference for reg values 0 and 1, and rejects duplicate reg values,
+which is what the existing check seems to intend but never actually
+catches. Happy to adjust the split if you would prefer the loop
+changes as a separate series.
+
+Best regards,
+Xiangwu Lai
+
+
