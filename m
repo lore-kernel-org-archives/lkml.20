@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318216;
-	b=JnURt89hVlNAu77ZUokf3t5EeAhyCGIU99N0lUA4frfUQih7opxo9NL4hXFlsOORWPhW
-	 akwn+IbDx2vE8aE2cHqaoo2C//w0gLJpEQur2vcgjjR37hz42NOXC3XkrD3HYJvE630+J
-	 eOGDie5MZNhG/mr36f2Z+iNHMmm8DDs3pwAXDCWTJaE2gkvb0ooT3XKTbT4iSFLTKhbV7
-	 5B00/z1BMwh4chkRBGFXDNGaP8hYL6m4USbNL4Z270Lvnn85ahiKstMFOxNBDIvjBd4TQ
-	 TZ4St0I5ccHkD7zLv7YhUGF9qf/I2ui5uHPwucLVtobKy1oY7wERpGRktk8gC41Dlkw==
+	t=1794318221;
+	b=Kch+t7ntCF08iH86E7rQ6oV7MAeeQjRIXMQLQz1jjExbr1A7oPCnrSpdnfSX/rqFtFHZ
+	 dRBIu0HuaE/4uzJIdaDk2GxxDF0Xaubj0IHPM1rcgAVYQjhIE1xTXe8blo1+dIuIhHb5b
+	 XLGAxCl5z14Dzbkup6+Ypj+mtWr6WpyFpPDFbZvxJmsp7oufRswAw1m6LRy6L32lyfMTi
+	 3IcTeM/bj7KLV62zdkbAP7EyF6FCvq6qBlBHB9NJrSBG0s6i9QyGzFIDFAZUJ99lklSuo
+	 iZ5jSu3WSYSIKAIx1boyFdBjYQMchmIz9Qf/GUMcOHs+F3yxJKGWc4jJvT30VSRhCFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318216;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SF0VorXBRqQHhsbCyIkGXlS2ClFfeF3LBlFw4KZVLng=;
-	b=B74WpEFQuQlRKGFGfQZ/ZjSSINzismdATCsMvUpNxdITx97/J5IcEnzjhSlKL0nhjh1a
-	 7N8EvfOrXaGtJiG3vTBeeMgHLoo5l5OLuD4ZAwP18NgurwD1qJ+/2vvVcs1+2Cj75SqbL
-	 Ht7fBOZP6Apu7XbwTZJH5bimDTSSt96UcVeIpN7P+VPF+ouBm6ouslrcAIgTA/PKrsdW7
-	 Ju8EA+Ny5mEdk3qEcMl4Um6HESUXgLHcSdVP59OXeEjwAIFWHzK1tm+VW904KO8HgGmQ9
-	 cC8Xy8Tk0XBLRx+HO8PfyMXm7n0ssGcLghPQ02M7PgVhHxq/MkhWl5asBd3BHALX+VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318221;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=O/pJHAniufO7T+Qw3N8oZy2xDYQiP7/ckPKZfGD+HG0=;
+	b=1D3k/c+Urg+LjaZkHedA8HicKU4HCUA6cfKHmfPIzYK/JGWtTuwSrQKJdKpS3FJL2Kp+
+	 zLtcNxIWTlGg4aBoVr7GExYrQoLfuBX/CjQKgEaX4xnsXiu1yZvmdzglb8cQVM2Na6aby
+	 25NwWxTcR9DT2coYm659V8XjdeYIhJT3wKA7SFhBpnW+dO/n31y9sf3Im7Bsua27dbBNf
+	 B80WLfI9tlPzEaJTMfkdYqaDvjBtEAYS3yqDJeU7eUESgRM/kgaFb11gDo7AgQG8YLrMN
+	 6/fBLKLgVFKd6kQJJVmWWKlmzcij8PwKzf3YbPgNw3x/RHdmeJo9BXnsXNT+fbHJR/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zs9EIAfz;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35Ie0l6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A555F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A555F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D25606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zs9EIAfz
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so3106339c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:43:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794318215; x=1794923015; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SF0VorXBRqQHhsbCyIkGXlS2ClFfeF3LBlFw4KZVLng=;
-        b=zs9EIAfz/Ty4GxANOrmMJkA3b40lypTXNPYlC/hoa5kpBgUKxBsuZpl+n+/K7asrv3
-         fhpY0Z41XPKlGB01KpjNFmMC9+Fw0DupscRll9lvx2dXJTp2jTka8jBMYm/PmTdEW1k/
-         F2abVvZyqr1+m3I5PBzdnEDfWS575PdFY5Oi7cktiirxiJHESq3eoD4dmCK2ocLVJtsD
-         gG+2yRTubtOir3pFCOfoLY9y0FT+ppo4FhPugt5K2NCL3om0gMLAHKhCIMSfJBZLlif9
-         pTpIV9uipZ8/PHrvnpqbnnvyHQQkBmijof9fClIn/bar/wYbQA4eCdUvLLVIByK7rLM9
-         t9cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794318215; x=1794923015;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SF0VorXBRqQHhsbCyIkGXlS2ClFfeF3LBlFw4KZVLng=;
-        b=0Gm8yfQuUfYZ3qrbs5RZKssG+C7TRutC4T4JiYrdkNPez6EKlsF393wYuTGbkLOdKx
-         VZ7l0MhG21b8HLH3g40elRVn9aKu/URweIPwwSuFXXewg5eBTUwsysZiDb7H9toU/ZiG
-         Flrt33IYwbCnpAhh6582ysuFnatVopJSTR23/ZJ9IE0xHs0KF1aQyhmKThGwb4FLcIPq
-         vvrAYrV4HFC5WYuQqQNS4aosj/FDmMB3yVRPT3uk1+Wz49Ckipj0mQIjiCqiamCIUufa
-         bdECKr4kKAP6AvCWte7ixEiOd7OXOMWVB0/nvgsI2qyZ3PMaHBV9pzPAi7oniXxh/xSU
-         v7JQ==
-X-Forwarded-Encrypted: i=1; AL+hErH8+zhALIJnUjxx4132TBlkDRnF9w9M3jyRMlZe1H6t6IK0ZMb8EIpDfDqbbyWT4O9zKI5SkjPEKrl57II=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/reiFcN5px2wCwbetlCGJeDSrPepC5lHGVxUirWOaptgao5qAB
-	G+gqvJp8kET5AG8jVinp+9EsgUfFtvYyZQAwmhyKa9yfEin1iVqvJyAbJNK11BJe
-X-Gm-Gg: AYBFou19Zhf2AY0/oOnKibcN7DedaKSCa77KDfKMpi4HoKGD5yNdKyw/YOfiS6aouPj
-	PVScX9JD0NF41iQaS/iPkZdkyclY/2TOdQCs3YXLsVvlrkMxsytwdTrIlgfrC9gfZgCLiCk6l5l
-	cvSbFt/vXIPufmDx3SzvMFkdig7ZJvwyIjN+oCXWzWBX4IaDHGTAKL5v/KLSkPd285jYqfrLNaD
-	xwTW9u4+dMHFNbayQuYlasoKEKZo3lif9JvAwSLQTpQxv0SIvPyOhmcI/SAI/WeOx+U0U8zLLUG
-	TxM7HRojLmXdGpGPYL6TZXkGWRMtA9s0KybtUBwOXROzf7b803yAKisp+gGH0pci48tDGCq2tPU
-	gIuElKQdZSG4XoWuyqCWUgnRN3lfLuGeyJTp5T67SljIQNHMahgbfQvavNIGoQ3JWsh6yKIeasi
-	Cv8V3iJhs/ci2GJ+sh5mx8Ffar9E9MxG4S6foMI7JhFk1KUvIMbX96hRB62vVVGYBQPTJ2YGPNa
-	oD1YcoZBU2cf0VFO0FpGJM2AJ41T/Mq2d8ZWkBZVvXkZSejfcggGUguMmpgyJ3qa8RkgF0NAbmw
-	ea4PhsMLWn0El1aeNvju6DikFP/LWzOANw==
-X-Received: by 2002:a05:7022:458e:b0:1b3:b131:6a22 with SMTP id a92af1059eb24-1b3b5fcdbefmr5046056c88.7.1794318214706;
-        Tue, 10 Nov 2026 05:43:34 -0800 (PST)
-Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ff2ab59sm7500065eec.6.2026.11.10.05.43.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:43:34 -0800 (PST)
-From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	chleroy@kernel.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH] powerpc/smp: Handle missing ibm,thread-groups in parse_thread_groups()
-Date: Tue, 10 Nov 2026 19:13:24 +0530
-Message-Id: <39282c731de90f47678952e471236ef22e9d4b15.1794317777.git.ritesh.list@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35Ie0l6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82E91F008A6
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:43:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794318220;
+	bh=O/pJHAniufO7T+Qw3N8oZy2xDYQiP7/ckPKZfGD+HG0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=X35Ie0l6xxvw4jnrTxdLHJi5zZXKxSS5FgGv1NVilkBAlR4KrJMIpS2P7mLKkb1Xt
+	 DS0r8i0Q7z5BdtLQE5PXIh824UuNYowXk7WbYZJJkHuA0OUzodC8pI3ClQPZAf30aY
+	 sZIuaUv4NrelZB8undh/sLPU6UwYhTT8m1ig9prMT33gh3ic3CgI0NfO/O8jKriGjY
+	 j8uTR/5jLwEw+FWkSpG7TJq5qN88J0lK3QGTEOC5HFrY3eqn5l2E3b4z60QjA7kvMY
+	 ISzQG0xl9PkNP6gwfmWjGTgrf+zK1hdaFsJAydCJt84EX3rVty54gIOR06D+KshCWR
+	 avqEYshnjFd/g==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so1982088e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:43:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE0YhaQW1xmX0WYMW8eZEGzpHbH9u4VIC+si/feJCf7D71DcYaJRVKxtiVvSFJm3v5giCLNqVtj4XmCUao=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nL8Tjm9zrU/J3ILf1lulRJeIP8tXvb91+xmO7X/xruv7/RLZD
+	FAO6ZP0X5Wyk0FAgmDMQTm6o8ibLcmx1ji8PfMguGzmh26VWXRvYurHYLghidefTwSDCoG4L8Cg
+	Kmdw4St46vgQEhGO+tGyotJ1S/0t4b0w=
+X-Received: by 2002:a05:6512:138f:b0:5be:409b:9456 with SMTP id
+ 2adb3069b0e04-5c156df0efcmr715179e87.34.1794318219335; Tue, 10 Nov 2026
+ 05:43:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,57 +59,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
+ <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
+ <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com> <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
+ <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com> <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
+ <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com> <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
+In-Reply-To: <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 10 Nov 2026 14:43:26 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+X-Gm-Features: AclHuK-pcwwNwXj_L6iW3-vvSkvrQjC7ziz7J5YFE42wW0pgOcr3E-9SlUnpCf4
+Message-ID: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency ranking
+To: Lukasz Luba <lukasz.luba@arm.com>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Guo Chen <guo.chen@oss.qualcomm.com>, Vincent Donnefort <vincent.donnefort@arm.com>, 
+	Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com, 
+	tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Power systems can have ibm,thread-groups properly absent like in one of
-the PowerNV Power9 boxes where there was a warning splat reported on
-7.4-rc2:
+On Tue, Nov 10, 2026 at 2:11=E2=80=AFPM Lukasz Luba <lukasz.luba@arm.com> w=
+rote:
+>
+> Hi Rafael,
+>
+> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
+> > On Tue, Nov 10, 2026 at 10:58=E2=80=AFAM Lukasz Luba <lukasz.luba@arm.c=
+om> wrote:
+>
+> [snip]
+>
+>
+> >>
+> >> That's fine, please continue.
+> >
+> > I have a couple of questions though.
+> >
+> > First, why is the ondemand governor mentioned in the changelog?  In
+> > the mainline, the ondemand governor cannot work with EAS, so it
+> > shouldn't matter for this issue, should it?
+>
+> The ondemand is affected by the EM setup code and set 'inefficient'
+> flags for some OPPs. The EM is also present for cooling devices
+> and can work w/o EAS and schedutil, w/ just ondemand governor.
+>
+> Because EM marks the OPPs kind of 'globally' as inefficient, then
+> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
+> In the EM code we have:
+> cpufreq_table_set_inefficient(policy, table[i].frequency);
 
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x174/0x1a0, CPU#124: swapper/124/1
-  ...
-  Call Trace:
-   __kmalloc_noprof+0x490/0x690
-   _kzalloc_noprof.constprop.0+0x1c/0x7c
-   init_thread_group_cache_map+0xd0/0x2d4
-   smp_prepare_cpus+0x2bc/0x484
-   kernel_init_freeable+0x168/0x3c4
-   kernel_init+0x34/0x1ac
+So maybe this is the one that needs to be fixed?  What about simply
+skipping boost frequencies in it?
 
-This happens because today we don't check for whether the properly is
-present or not and directly pass the return value of
-of_property_count_u32_elems(), to the allocator.
+> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
+> pass to __cpufreq_driver_target() with that flags as well.
 
-This went unnoticed because earlier kcalloc() caught the overflow due to
-check_mul_overflow() check and returned NULL.
-But since commit 0af298e62e5c ("treewide: refresh kmalloc_obj()
-conversions") switched this call to kzalloc_objs(), size_mul() saturates
-the size to SIZE_MAX instead and we now get a warning at boot.
+Thanks for explaining and all of that needs to be said in the patch changel=
+og.
 
-Bail out early if the property is missing or empty. Follow the return
-value as documented in kernel doc of parse_thread_groups() function.
+> >
+> > Second, why is the issue regarded as a defect in the code and not in
+> > the energy model?  Arguably, boost frequencies should be more costly
+> > than the non-boost ones.  At least the idea behind the boost is making
+> > higher-cost OPPs temporarily available.  If they are sustainable,
+> > treating them as boost OPPs is rather pointless.
+>
+> IMHO it was a bug in the commit mentioned in this patch fix tag.
+> It is affecting more than just EAS or EM, since the EM is working with
+> all generic code and all cpufreq governors.
 
-Fixes: 790a1662d3a2 ("powerpc/smp: Parse ibm,thread-groups with multiple properties")
-Reported-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
----
- arch/powerpc/kernel/smp.c | 4 ++++
- 1 file changed, 4 insertions(+)
+To be precise, the EM initialization may affect cpufreq in general
+because inefficient frequencies are used for CPU cooling.  Fair
+enough, but I'm not talking about this.
 
-diff --git a/arch/powerpc/kernel/smp.c b/arch/powerpc/kernel/smp.c
-index 7a25eaa59e62..9a0f63e43821 100644
---- a/arch/powerpc/kernel/smp.c
-+++ b/arch/powerpc/kernel/smp.c
-@@ -824,6 +824,10 @@ static int parse_thread_groups(struct device_node *dn,
- 	int i = 0;
+I'm talking about a reason for giving boost frequencies lower or equal
+cost relative to non-boost frequencies in the energy model because
+this doesn't make sense to me TBH.
 
- 	count = of_property_count_u32_elems(dn, "ibm,thread-groups");
-+	if (count < 0)
-+		return count;
-+	if (!count)
-+		return -ENODATA;
- 	thread_group_array = kzalloc_objs(u32, count);
- 	if (!thread_group_array)
- 		return -ENOMEM;
---
-2.39.5
+And I get that such energy models were there before the commit in
+question and now they are not working properly, but IMO they are
+broken, not that commit.
 
+> >
+> > TBH, I'm too comfortable with looking at cpufreq frequency from within
+> > the EM code.  If that needs to be done, something is amiss at the
+> > design level.
+>
+> I think this edge case is special, as I described above.
+>
+> I'm happy to hear your view on this EM influence to some global
+> setting in cpufreq. Maybe it was too far to establish this
+> 'inefficiency' flags in there for many usage?
+
+There's nothing wrong with using the information from the energy
+model, when available, to amend cpufreq, but the patch goes the other
+way around: It tries to amend the energy model with information taken
+from cpufreq (in order to avoid making mistakes later when amending
+cpufreq with the energy model information).
+
+I think that cpufreq should simply refuse to set
+CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
