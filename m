@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316583;
-	b=TqpiTEQ9XdYUgV/tWWPpXSDSpFr2hJDnG57KQMuW/M1z21/wZ5qbwWWksX1m3KMh8xqA
-	 UPncMGApdm5FN+hhVJC1+1tn+N6OwOWBkIn3TL6WkLH1wXQxGA9VcZxRWcu76uwCZ7A/7
-	 uzWyqSXDtufWGOiKjfOkPtrNTh3GU1p1Zo2DJehbtGB91jekTNJoB/isqt0jUFrkhXE9Y
-	 BJoVkjw92yQL0yWjIxNQOCqTp038HsXp92lGhAU6Tg2riNsye9ABBCAhCLmsugbCIamKT
-	 90KJ9xHY+qPDOyJpBFyBuIULuNWme1oC5K4UWSd+kVSzuBNNwc0E3G71wuC3VIObwiw==
+	t=1794316579;
+	b=Aq9tWetCtDNB+0fzAWdPaSUUSjP0sZPsLqStLCLbsuG8NJJ4RepFAzYtAwTF7jV3UBCJ
+	 A0xUH1HmFHVnOR7pX+9IJoLN2LyJR/aH8SLymCqXa9w2QCo8g7uBeS0aB0UuE/GTROmB3
+	 h87laSmdCdB7LPJ2aVW+e1QqXeUyejPNUhbp2NO54AE+WkeNgFIWsNT0vtvR7NqxTt9Ey
+	 HhfZic2APzjhee4tUsX9WLLg4/1h94unyUdkE2nfNRDTivYCj+zkpKDanK5BV1TQw7Ha2
+	 3ryyqmj57+2rktKGRTqx/VeeRe8/zSVYFRdzTzUuk7DFe2RMrHTyjqW6xReiD6f1Y8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316579;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tNHJn9+12fNEQ34eO/c7NVFW+pmN+XHfboLXouQB4y0=;
-	b=iKNQBufGaC3eOtrbCyVhZde0Ruo6m78mEczub2L6tEWn4N2JAtjaYWqVoJWpDvvU3RlL
-	 w928Z9k8q4UIUd3+Indw/bz7pvQ3ky3HeqO82P9xc+X1cmarKNKFhePkjpCvdDGyNP6KX
-	 u4vX3l4YY27lwmtgGdU9G9pO1uTnJ0XE47sZ9ki8Qy8FGN5rkNhNVN6bqY6Tu1/9I9OnN
-	 SlLFYf0o3m8Hnmkao1PSvmTxvG+mWVWq8WJ2kDP9vIy117NTBHFwn6AVAfycGIhxGRUlO
-	 CLoPfiXIiEg4OKbd5wMc86kJ8ngHBbOYKSho6ijGAMkkC1KZch2OMet1+T2lubsAffw==
+	bh=+LrMmR+vkKu4p9kzNlmH8/RuG63V3SyOhjhj9/0YiBo=;
+	b=UTfg6oEARdPhoroGhUI1yl21WVS7HtXI+WOd+dBQl2VhcjZWgk32JwaVJhGs3WQtKpJa
+	 kQKmoRVMIsC+ebbJpGnupC+hNVPc6qI7c6wpK9U41yo+/xPVEeqBmakRY1uFtB4VAmQ1Z
+	 f0f9j/6V/30seXDiAepauy3ATxt7+Z2ZqsbYBOF3zvorr/lCalCHz24MFJC3NWsSa8Lo+
+	 RRh92gGL+2g/GKPhNgq/lLHxn5i+L+zykChmOOabF5fx+yoJVYo7lx70eafP7OiTvN/cu
+	 c/5GGBDHEstEHWOab5XqrstqJIpX8cd4zxcu8f/A0b4xS4fCnJfth+AGYrnghY5Jyig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uto3P2Fr;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ujHf7F8v;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2BB606A7CC
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D2BB606A7CC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B21D606BFFB
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:16:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B21D606BFFB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uto3P2Fr
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so1106762a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:16:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ujHf7F8v
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so1122049a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:16:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794316583; x=1794921383; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794316578; x=1794921378; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tNHJn9+12fNEQ34eO/c7NVFW+pmN+XHfboLXouQB4y0=;
-        b=uto3P2FrRcUyUWnOnqTIDAYdUJE49YsFpMVsnZPQKj2mAhRRsf7IXwc4aZzoZHnaaY
-         1SHReAuEMltlv/vxT5LifSs3Nf/Hfo3Vmk6KsNCYuDZL3ssnI4afTNX6a+ifGK36By7M
-         iisInZH55a9U6uXDQwR2M14orKTvjgqmZ0Vwl8ZAxZysOb6nriyvzE2bYxlUn2Q40CIn
-         frgW2uVG2HzATzoY/smOLwbwQ3rj3kNqBOyrp9NjiNhwtHdQJQsHpdKASYOVQf8qKgRT
-         rghLPDlqdKMv980bDOnQ69u3IHoNGyeiItQU5uwoh46He4HU5uy5I3slp5EPtxHmNmEO
-         xd7A==
+        bh=+LrMmR+vkKu4p9kzNlmH8/RuG63V3SyOhjhj9/0YiBo=;
+        b=ujHf7F8vbBL9mJIIbCDBDy172NhqabWtc4jQ1OoIaP+P001lSlq10qIjBhKQq13AOf
+         pDH2AfJz8b0xTnz66v6Gj5y6UIVXLM7zifrvXpNo4SREqE1WSoxZCDZmNnZI3nZ87+cn
+         RFFR+SyLVI8dYr+Rm+mu7D7NiGPJGEdeOxrG5KeTT+DAiCYwWHujGHdMyNqXQmt+laIY
+         AwiqzvUDwSbJwZ44SH6rAWFjyHUDkhYOreuBk6ex/6BJpsUeeb+8gsalHEt77L0NBZ6/
+         GZP7gTWuZfwxxiL4JZH3V6iDKoAyRefhjYPU1ATRJ7ExP6dUlj5ZlApUcks8oE+7XtTs
+         erjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316583; x=1794921383;
+        d=1e100.net; s=20260707; t=1794316578; x=1794921378;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tNHJn9+12fNEQ34eO/c7NVFW+pmN+XHfboLXouQB4y0=;
-        b=ak1wZ+zPX1Kb0DBtte/14CamqX0HjkUpGRV9Vk+5X2Cm29s8lHctvjSicNRXUdJPwT
-         xYcDqmo9KbOEzU/BBQUfWWszBr4Bki++ebsLRI/hGQ6rfBzTvwbt44J1UyupgP3qIXiE
-         aYOSSmM3TXdwPkSqaxfyPhG5q8xxJodl7BCdJ+yJfXebUrAiDY5iwJZD6o+oqWL2dLhx
-         XUrNU/ovReRmDMFlTzCLpHlQfITGl+A2iODV5U9YCUe/xTu5WOapAhHChqqOy4fJ+WIt
-         7eSWvWScYGgrPeHxTxkpRpkt+7klGW+2faoqnNzFagpSmg8TWfvMtqvrMVLvl6OK6Pcx
-         mJnQ==
-X-Forwarded-Encrypted: i=1; AL+hErHNzUCrbMARwPsHfXRBATErq9aLvcMeGzOyCK4UdIkAvj9UEppgNo+b537gorF8tirWL4Nwhl0RqRF2JTM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+G3GKGjuxczK3VuO836y8rArn0LNmMuQ9e0J0GWLOD3GW5rw8Y
-	5SQ3aj0pfWJKuUCSPrxnBoSlCePV+jFslqJL8HH6G0WtNLyrTpqigzI5ZxLkMA==
-X-Gm-Gg: AYBFou1HyqEnXiKzfWYynU6eHRqL98yNkgt5KbeMPWu95KpLCHaqOAYhi+hMQrwUQgJ
-	SvdFrlBODty66ddeMERweD0Z9wco+relUNcgmuOUbXMACRWrnt2mYmj+uV7bvSj5au672xFJInL
-	J/7wvN6fI2qVPcP+4SKYv7Me86izdHKDceOjAZnOFXisX4oYUuUrDM1NaxcVRR2/AAjAHK2V4Ts
-	tKXMt1j6S8OlM/a65R2HEUvmBpZxwEZkwZkuRQgAykd3sWPHK+sQ1UiNTfYpYIu03Z7vGISnpPF
-	STlOtgwnTZ68CpydusedCpi9A2J74XYVbD/djcSbkUU16NTK/Kn+1hNzR8tgf242OYbKzuAa6dK
-	I/olrRZLxwCatTEtwLSQ1MBWL+pfPXVXC2DPPj5K0aPdnB/HakWCJxb/6xufzlkRpMSpGdMp37t
-	thMzI1W4K4X6DolFnlwYRjdxHDY/RjJrqaV37vqt9rN2MgwFSulOjqAclSRPPQVjXS1wE6Gv481
-	RfP4j8M21aumNgCkzadON1lBL0BogrlFjZJrTNfZ19Duv9jK8l8n1xHVfLkIDsjw/cnif6JnePi
-	o3U4N93DFGF05u/se6NCuLlnD7KQpMkGnjWu8Fm60VAZbdKCyAwX7w==
-X-Received: by 2002:a17:90b:564e:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b1678cf0a3mr1857467a91.3.1794316582495;
-        Tue, 10 Nov 2026 05:16:22 -0800 (PST)
+        bh=+LrMmR+vkKu4p9kzNlmH8/RuG63V3SyOhjhj9/0YiBo=;
+        b=q8NrMZbsmZzI6sYDLZDdt8f1TzQmaNWykXGyD0lEMj2TY+FNDj5dg9U62h8gx/iGAD
+         AYh4kgUdvXOYwYYZeXhWyL/ra6QYJUmJI5SBvCM7Dj3DOJG+YsrfRge2wcOPhkL0Z8CL
+         ey5YpHcxXv9esCscuy8JhJOblIIQQSCybxLLTTtEfsnCgX5xgPG440ppCT2NBcMFuu55
+         Y693sRj7e5vRogh2LOh5fiOsVZW3pvxKbm2TYocy6FnkyhKmKQS17Xj1fCC6ohdPNMcX
+         1XcSU1rvUUXbfBzmxNzPoIRSNB898q2VOkHy7MrpENWC3I+dfXgviclz6U9wP/kLXCrj
+         3lyQ==
+X-Forwarded-Encrypted: i=1; AL+hErFk8LQPOv8jFjRxrA/7A94XTkbpsK9oCCjudbyGvmu3zpz9AXSC6PGlJO4Ss2WxEXTAOsswv9VThSVZVBE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uaQavpY0w2gC/Nyo2RnSWDdZizM70N1JJCOv+3ZVkyaG2W1z6
+	ndnbW1uPwZYCWjSl3IllpU2ezBg2/lTjRX2Po3nhjv0pPElGywK17nzb
+X-Gm-Gg: AYBFou2WiHkRz6zWPno2K39T6yjqXUPRGPtHtY+8gPY7lN/oKC6YlqhhvQMt+ATks2y
+	7H/+VDxNqzkHKz456MadtA2Q05LtQwkTQyF+iSsKsy+qBcwN3nhIkyd4izSMHDH6oMSz/QiPDa3
+	VLXjbKMLqdQ1aUhl5RShsJIsiTuhzztNhEysbGgIQ7UC/F0W7aLY09UOtA6mAfy2kOlYN+jsEwm
+	t9+Edg7rszYq1M84EJLEQhecq2deiF4aFVro1aNYdrNoBY6K/Mhh2YEI5BF4LGFtY1+KG6VVPWD
+	wnL/NwdPLbs3C3nvlpnisHQfWuJBH0NP6r5rQwIxQnTMS4Y//4UVr93UULAMczbFXT9icBJUCBe
+	qVHbm5iOw9ZDyVhUZf4rj1gECV5tmZGHBsJtItuMgEk4f1krHKf6sjGB1VaaS1xPtPAPt8ioPs4
+	qNCHI8UDS37poDI+kqRw6amQVmGazwGxZU3Izs44vFlrvOMBR62V01jBbbAxWp+7eY5kz4kZaLv
+	+6uL6/AoS0Zv3CJf4ZZNv6gbOM1grQ3F8FOl+uM/9ryl6meZjeuq5tyFsj+13W2Be4MjKFzbFjf
+	aU6uu/+Tb2MlXj6zFGk4fFZxLH0CmAX6Ej3AR/zgY1+cxlXOD/Hc
+X-Received: by 2002:a17:90b:35c6:b0:3b0:9e2c:9b60 with SMTP id 98e67ed59e1d1-3b166cd47b6mr2411498a91.21.1794316578225;
+        Tue, 10 Nov 2026 05:16:18 -0800 (PST)
 Received: from cryptic.lan ([2001:569:7077:be00:8191:2bfc:aa6d:704b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.16.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm3806975a91.5.2026.11.10.05.16.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:16:22 -0800 (PST)
+        Tue, 10 Nov 2026 05:16:17 -0800 (PST)
 From: Allen Pais <allen.lkml@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Allen Pais <allen.lkml@gmail.com>,
@@ -86,9 +86,9 @@ Cc: Allen Pais <allen.lkml@gmail.com>,
 	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Frank Li <Frank.Li@kernel.org>
-Subject: [PATCH v4 11/33] dmaengine: mmp_tdma: hook completions to dmaengine BH
-Date: Tue, 10 Nov 2026 05:13:11 -0800
-Message-ID: <a2c1dc1636f90da881567ff0166f32bab68e6cef.1794315350.git.allen.lkml@gmail.com>
+Subject: [PATCH v4 10/33] dmaengine: mmp_pdma: replace per-chan tasklet with dmaengine BH
+Date: Tue, 10 Nov 2026 05:13:10 -0800
+Message-ID: <e0e306bdccfa7c8da6e9bed0bab9f8848db3bc64.1794315350.git.allen.lkml@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794315350.git.allen.lkml@gmail.com>
 References: <cover.1794315350.git.allen.lkml@gmail.com>
@@ -110,51 +110,56 @@ the common scheduling and teardown mechanism.
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/dma/mmp_tdma.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/dma/mmp_pdma.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/dma/mmp_tdma.c b/drivers/dma/mmp_tdma.c
-index d7dd58970060..873b383e405a 100644
---- a/drivers/dma/mmp_tdma.c
-+++ b/drivers/dma/mmp_tdma.c
-@@ -102,7 +102,6 @@ struct mmp_tdma_chan {
- 	struct device			*dev;
- 	struct dma_chan			chan;
- 	struct dma_async_tx_descriptor	desc;
--	struct tasklet_struct		tasklet;
+diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
+index 6045d6d1cc79..abea70dea890 100644
+--- a/drivers/dma/mmp_pdma.c
++++ b/drivers/dma/mmp_pdma.c
+@@ -115,7 +115,6 @@ struct mmp_pdma_chan {
+ 						 * is in cyclic mode */
  
- 	struct mmp_tdma_desc		*desc_arr;
- 	dma_addr_t			desc_arr_phys;
-@@ -320,7 +319,7 @@ static irqreturn_t mmp_tdma_chan_handler(int irq, void *dev_id)
- 	struct mmp_tdma_chan *tdmac = dev_id;
+ 	/* channel's basic info */
+-	struct tasklet_struct tasklet;
+ 	u32 dcmd;
+ 	u32 drcmr;
+ 	u32 dev_addr;
+@@ -373,7 +372,7 @@ static irqreturn_t mmp_pdma_chan_handler(int irq, void *dev_id)
+ 	if (clear_chan_irq(phy) != 0)
+ 		return IRQ_NONE;
  
- 	if (mmp_tdma_clear_chan_irq(tdmac) == 0) {
--		tasklet_schedule(&tdmac->tasklet);
-+		dmaengine_schedule_bh(&tdmac->chan);
- 		return IRQ_HANDLED;
- 	} else
- 		return IRQ_NONE;
-@@ -346,9 +345,9 @@ static irqreturn_t mmp_tdma_int_handler(int irq, void *dev_id)
- 		return IRQ_NONE;
+-	tasklet_schedule(&phy->vchan->tasklet);
++	dmaengine_schedule_bh(&phy->vchan->chan);
+ 	return IRQ_HANDLED;
  }
  
+@@ -1045,13 +1044,11 @@ static void mmp_pdma_issue_pending(struct dma_chan *dchan)
+ }
+ 
+ /*
+- * dma_do_tasklet
+- * Do call back
+- * Start pending list
++ * dma_do_tasklet - BH worker to process completions and kick pending work
+  */
 -static void dma_do_tasklet(struct tasklet_struct *t)
 +static void dma_do_tasklet(struct dma_chan *c)
  {
--	struct mmp_tdma_chan *tdmac = from_tasklet(tdmac, t, tasklet);
-+	struct mmp_tdma_chan *tdmac = container_of(c, struct mmp_tdma_chan, chan);
+-	struct mmp_pdma_chan *chan = from_tasklet(chan, t, tasklet);
++	struct mmp_pdma_chan *chan = container_of(c, struct mmp_pdma_chan, chan);
+ 	struct mmp_pdma_desc_sw *desc, *_desc;
+ 	LIST_HEAD(chain_cleanup);
+ 	unsigned long flags;
+@@ -1168,7 +1165,7 @@ static int mmp_pdma_chan_init(struct mmp_pdma_device *pdev, int idx, int irq)
+ 	spin_lock_init(&chan->desc_lock);
+ 	chan->dev = pdev->dev;
+ 	chan->chan.device = &pdev->device;
+-	tasklet_setup(&chan->tasklet, dma_do_tasklet);
++	dmaengine_init_bh(&chan->chan, dma_do_tasklet);
+ 	INIT_LIST_HEAD(&chan->chain_pending);
+ 	INIT_LIST_HEAD(&chan->chain_running);
  
- 	dmaengine_desc_get_callback_invoke(&tdmac->desc, NULL);
- }
-@@ -583,7 +582,7 @@ static int mmp_tdma_chan_init(struct mmp_tdma_device *tdev,
- 	tdmac->pool	   = pool;
- 	tdmac->status = DMA_COMPLETE;
- 	tdev->tdmac[tdmac->idx] = tdmac;
--	tasklet_setup(&tdmac->tasklet, dma_do_tasklet);
-+	dmaengine_init_bh(&tdmac->chan, dma_do_tasklet);
- 
- 	/* add the channel to tdma_chan list */
- 	list_add_tail(&tdmac->chan.device_node,
 -- 
 2.43.0
 
