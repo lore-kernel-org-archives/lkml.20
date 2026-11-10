@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343603;
-	b=N1O3t7zjNwITRAKqQDpW0l++06T5l/UMGuVcqykErCUzYiIY5FQJ4xjOyaZuhn1y23WG
-	 9BEYV87Qwwql4IX7j8SxWbWF/TTDM926IrWIL0rbcNYeF8RqB/YffVTaZdVrZnjsecLOO
-	 OFSEx78sutrttYHDLRTrjiOw4pr6lDj/HOgbev4yOMxC4ZAT7dDkhN9UqPKlKk5ZetVJN
-	 P8N+nkn/8sBeokC+Ijftq+QGN/+/MP4A56/i0XmVWxrPTnbjv7FROWT0pJ93/mcOTjyQr
-	 pR8VUi5ED9myfdu0N0eyJ+ceD15IdJeqAfa+yZwEoCU+YO+kaKjgTsBAZc756bdS75Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343603;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794343661;
+	b=28nLiK3XY0kl0FQnnV5kNoOfiQTOLZjJ7EOol2tSaWPgLJCFFqGVx+/FmiN4HLoa6jyD
+	 3c1CzCsaEB4qCRy/wLnHvBeC0flzMdCYH5vmZlkLv/44qszEtzsYrnlwxXFHdMzthpN5O
+	 6vGKsdYsRgexI4naT6H4TYuKMwCBDmCvoJwX+B9wJEqtjUvXjRgH/4c9Vhh1jEucgOdr2
+	 z6p0a/7yTiE632ZDeHhMoWDnNVtvFYNlWWWauXtSHLLlmjkGpoiDpR1R8PDARdrvEjV5e
+	 Qo/g4xN/3GJNOoi3WKg6cvS69OOzKHnl5s7qBdPKbh3MQ0N4vxtIsOMHJ6tQ6x4O2GA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343661;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=+RTsY+hReKg5lt2wgpCxfAldMdqWp33FHZKP52N/M7M=;
-	b=QvYlG2Tsxts+wC3B7LRx5rFkP+TtRCi3NWb5bvf34tV/pqF0L5OoE6gHp4wL9sVEX0Sx
-	 qaX+rz9bEzfqegR52JLQXuvQLkVWgVSAJRCgByvLB6z3kbqTuS56FxyaDYpHOa4O0nXc7
-	 NPaNDEEsJbpsxC7Gk+D3D0FRwy9JAwIwLvp3K2TzUyYiKhXVr4q8dBJTjVR4wQZTudNef
-	 j9xF9d2SqAzE3CWOFIL5xKYV1KiWbryksO6BKy96sWq8fwNAK0oQiHk1DmKSK7s40zulR
-	 mD3kPJZ/vzSIDTk1TH3ilo93cV3nLgDZpCvMGzBv7PqiWqh2rqxSr6z5S2H4+e/DidQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eWItCu8w;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
+	b=kjh/cw7+Q7BfNClyeOizJ8qSgj41ZTjp1FNjzlrf3VR+zdtAW1B04EXDAr8WfLvNl3Dq
+	 I2lyYEuLWzpB7iSSrfRoJWCDl3eDBC+g32vf2tHpsFBsPHGc8BDtVsozY4AojcOO8Uu9v
+	 za5cZ7MyHFlxflWxXR1ZL/yvED/M52gShH1qMR3u780F2yxZS0p9QIV8KgpLDe9EQhFhX
+	 eN0rP33F2aRvLSrr1PzoArCCG0BgNufS4U+H5H+vMIbJokZ4t37fRgLRR2mynzECKhQ3F
+	 SSVMEEVm7E2bSSOU+TOVwUdYka8Rpdv8RX3mqM3aZQKioj90nVMfo3nj5R2b2L3+uxA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyTgKKe+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACBD606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:46:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DACBD606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C47606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C47606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eWItCu8w
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40f29667e6so367569966b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:46:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyTgKKe+
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4697404c2bso349412166b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:47:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794343659; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lo91EUkJJ8ubVT2pLFEnnvaNKQAuHf8gQddH5a+08zcTVoBiWNojyMNKkvO+WeehrM
+         qE3SjhycauH6BIHzMRNmAPG+BlyuQ2WqnB4FAQul9aBkwT94z1Xss4IcztNjZlOFBJ3a
+         cbDzXMQPXkl/OkEvGIjQ9agOG5AsAQ/Zrs2v8lwV8oHh5VpBtGaE/0CoHl/I1ZQny2LQ
+         m9XXyS6eVXpJ5Uucsd8Aj+CC8zCuOAoGSUOkrWnuSaRpLKhNrly9luATmcao829CQnGz
+         dl3Gp9aUuFiGES5Aj41kXIURhs5QIQiC2qapHXrrwt+ewD5TIw5lLJSl8XJYTIV3UJgp
+         1sOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
+        fh=eubU/5qmOni96aGoAh+hwjQK/fC6s34hiX44vJo7D2w=;
+        b=N0Gp6UwQSz/pQDttSe5LdwwU5nq9o+2uZ+c+f+mNDFQOyoQ3l/bsQVg40cogAXXINt
+         M8dcyPB0oc/WVIqyrihLf0xtECEIrSHD17M7yRQgt8t1aO03sgIf+FX0rCKRLF1Lc8rC
+         nkf9gpaR72aeWg6VoxqjXbRdO5Rp5PxT+/zUe2vjsG7i7wMzDR/TNFgOyerRXu0GaDWD
+         2/qtdKNjGtJyl2QXPAkNBDGvtssYZohyDtizDzjo3Homx918UJjZOxCTb2GJaD0EkEfy
+         bC0LopPLUbKPePBVBFRNEBtwhghCUsPWcNInd+6LPJJImeI430jWaU+KyWnNptctrWSl
+         9BKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794343601; x=1794948401; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+RTsY+hReKg5lt2wgpCxfAldMdqWp33FHZKP52N/M7M=;
-        b=eWItCu8wScwYJCdvcrAzJHdYdkHinkYkRmBX0DtR1T8i0hZ5ZJ99hmoLq8rHGOF7e8
-         hxJwwDrd3O/8r+zxL6sY12Pq21vXcsBwR/qg/pgdpYGYMxl3WiUZCwXtYLQhzuVN9HwG
-         9v4iCFgH3yYC0IflCmPQSE+ofPSGpK7MCrW1/w1nZRBfhpcSSa3/9Mq6gooqdoAfV5GN
-         CORVzRiurfchluSnqmIZpHJzKKJWZ04x+dNJXtAz4v3txXUBG2xvfO/CPkg2FvhrXDNc
-         vPbjqkUn4Sh+zMAlgs8Yv9IonZcR7vFjgvfhQCyegNYfmtFl9B6wCkvW76a7NY4evvN8
-         LBcg==
+        d=gmail.com; s=20260707; t=1794343659; x=1794948459; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
+        b=kyTgKKe+EjpbrhUk5Et4nVWbjvTgPhhAiWlXDPWD5e2simWlTxywGmwH5T1bIxsNSK
+         YButoRRKyFjPlChndRNNeyubyhrugPo6xA5G/wXVpMYWd6TQKcL0/4ewmjAPXM/snxLx
+         TFwe8K53CMZVeugFg5+u8f/2rGawWSw/ov3X+c6jRgwc/zuuD0W/9gy42uhoLJEvl5Qu
+         rIbpo8pHk2s/4c2y0PiuUQQtToYykA7573bsFPi25bQAvn84fu7CnT75Laeb/wKII01c
+         47jcrtGpGsJU5RlurWSC87FmanH3NtEptf00DrR3tzx/fiH3QWNOCv3mX+c7eC4+vdS5
+         hGgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794343601; x=1794948401;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+RTsY+hReKg5lt2wgpCxfAldMdqWp33FHZKP52N/M7M=;
-        b=HXnV0XKkmzZeXYSLg6ZqOBrefL5WmxNkj5KbmBFhfp1EswbVeTbUv8NRGWxRfm3gJ8
-         i5UlHwqKpCwj9TcPG9tUuntkYwifFrp2IO1lfhhi4/m7Z7p0DsO7dEfsrH/T4kzSQ4G1
-         kNR50rqmfE0x3/HQ2FYKZQ2XV9elzL8km9dHL5BhBsco9EY1e2u5cTmLiQ26Twdlxmgc
-         vvlG2HGeziOlEeVvdBN5UchZNOwpL9Qti7pMN8nzGryuWQ8IGgSFHu7bZzY7X2wEhzCU
-         j1nNavIULvPqZt4MFmo4qd2Yli1a6TcQ12nAm2ONZ0ey19hBo3F/k7UuQ8WbI1RtDU3i
-         hgrQ==
-X-Forwarded-Encrypted: i=1; AL+hErE3NxHzw5tighTmygFs6J9s0Qx4m4Xc0T29kQo6H/hWYbUxyf7wDjtBFFlS5sKrJ3r1d5tqeGznua16Pj0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DCy724KxxwjB2XWtZabnazQtXgEOfH8cD+09JGDPxpP9p4b44
-	4Ahdzvf2Robe5KEpJGdn3E/KXiSdOoHKo5tCgmpYrFDJiWns0f1BBgjo+tt0u8OQO3a5zlyXYQg
-	T82WFAA==
-X-Gm-Gg: AYBFou1Q5mNG0MXRqi3YpQfVcbpo1PzdEH+t/W6P39VaOGMQ3bhY47NhhiiimmntFZn
-	OiVl7LXmWOnzqlBnc0FcjHzhQ5DYJZ07ZeAZKOr3PjqEJ62XqEwBu4OF50SUmm/z7j5G3RtPGm+
-	QeXTc6m4pskKVaVA45zrA1Cx4Ee3xNuO2y3J1PEnU5spDoyDF5EFQMwPD5bF/koc3RgMw6ksbCa
-	ch+nkDkxPj2TbGTpaHXpZk/a9l9cbICn6kZ0q5993leLhEf3/ZGjPjjPLivfaZfW2tvdLYoAdyi
-	UguXtACWPDM1lilLkyn9XonwQd8Owp0L9CZljbh3mMy6l0GEhcRO38vCRXOgiQNPWQrnyYSx5G8
-	xsuAlkeoYmvGubArGQWzQeXCI3MFW8svEfhUg2Ez3OWyaFy8YSF/vqF7hTD4QyKRQSgDz8+dZDg
-	U5zhZSyd8AcB/Q9J+vYfB+JrKQOz1aTA1c1XcZ227QqOoYfF5Ec120hBu4y+ADTeRBf89H6biOu
-	aCvEKo14xW+kRe8XSq7rv0OX5LVGS/oX7wGaXai57atmHWpgMyR1fHir7VLIWRMMC73Vcz1nmAc
-	O1QHJnBhUAIOLwhua8oL7MtN26qLOc9IIni8FjvCalmHZCJLD6e43KcsZVMIkSQ2
-X-Received: by 2002:a17:907:e98a:b0:c50:5e0a:fbad with SMTP id a640c23a62f3a-c5066c9ecefmr20452666b.39.1794343600726;
-        Tue, 10 Nov 2026 12:46:40 -0800 (PST)
-Received: from google.com (202.70.147.34.bc.googleusercontent.com. [34.147.70.202])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7579031e0sm1579058a12.29.2026.11.10.12.46.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 12:46:40 -0800 (PST)
-Date: Tue, 10 Nov 2026 21:46:36 +0100
-From: =?utf-8?Q?Pierre-Cl=C3=A9ment?= Tosi <ptosi@google.com>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 05/24] arm64: Check MTE once per fault-handling section
-Message-ID: <avN-XAMZ4bZ72vTO@google.com>
-References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
- <20261107-mte-kasan-split-v1-5-d84ea5f30f94@google.com>
+        d=1e100.net; s=20260707; t=1794343659; x=1794948459;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
+        b=Ro8uEDwhvlyadQ8KlOw3GeVFKNWSfusU1ru7ErsrSsNC5tUvtS1TWHEjwzOgs3S7Ji
+         CpUZglxBES2on6YP5vfQcAvxW8Y9UbCLCF7+N9A30rds0nq+p43+on2blmJH1xOY1/Wv
+         RtvBtyxYmZ4Lqsi5g7zntwaGkodYt+OJdX00YVp3ynAG9GIe73UJ+CghYmfrjQWh4E8j
+         xoDrIRu7JmqhRMO6/Pk9ZLpJ9ZdopuSMVGVgKHwYWvuYdbikBv36FZM8KvmWvjy6CIYL
+         DH3yDfjcGSztlZ9L1kdaClilFqJQBkH5NtBEBL7QI+BA0jAbsWDAroH9Yv/lCtaICSXB
+         Rtew==
+X-Forwarded-Encrypted: i=1; AL+hErHk8ugBLtw1xr+Js0docjUpMbt2ZFbFHbgnPN+/u8SkSjpMjFODug4nK0gcHedJp8y0dJcCRJGilCDWzto=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ucRTQMdkoPbY2X/gK9tImG38MKEsmFfcyUlfTJOGj0mRLTzHz
+	bID5UKj0hwpTx5mQQFiU03TndhR+o8F06EAwhW9u6FZbAJZA5qeoHnCtlFlmUbt7C/E8yggB5Dd
+	pediKcpZXMkpCIP+2DmkNmifjMp1s06g=
+X-Gm-Gg: AYBFou26OXUP4WZ1HxhjYwT3AXs9GM7t/pBqJNf8pzXrqMisPn8pqWpykH7ZhEdYfuB
+	lqJrdtGk76yMfllV5cFk5qlVhopUljhjwCn8HRVfKhrCOMb6KWD7Lx3WLQpfOo1SJA6gy3EEiaH
+	DT673yGhcUirtlNw0oMAsR7pwuEcriwYbGob7iQkNJPW5GjE7E1MOTLHelXIabAUpUXT5pYQNzK
+	qOMPhItw86fD1t8lmeFmtTzlC1STJ0sXd9CXmNWVlAWxGQtj0KOy04CctVmH+s6/7iGhaHWnRtU
+	x7WxEzJ++QOAcgVnI26sJbN8rq9Z9jH7LbEvnNAydTGS5Dl4Q3RBNpzxe+drBb/2M4O131lai66
+	rgWwPsE7lseIipeY0SBTVHuJxolX6tkCJT6wDHm8STu+lARc4e4VIVbpY8NFpzwPk7WfPctE1pc
+	eGZuHyBIveuRSymfJ/gj45oZ7bNS2sry7+yLFy8GHkGDzvZmrocldzbYfVhJe7oSUfDLrbj2oHZ
+	Bfb+aBLYU8BtHbd3AnXYqZ/hRkcYIme1q+Hg1dND07g1b8bow==
+X-Received: by 2002:a17:907:9629:b0:c4c:ddd1:d006 with SMTP id
+ a640c23a62f3a-c5066ca17a0mr19662266b.38.1794343659272; Tue, 10 Nov 2026
+ 12:47:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,256 +106,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261107-mte-kasan-split-v1-5-d84ea5f30f94@google.com>
+References: <20261110013646.1582970-1-rosenp@gmail.com> <avKAhjtbi85dpGoV@x1g10>
+ <CAKxU2N9Rdw1vWtfxEzaiFgyzWZufWxKNQvWmW=QeCtGFa=813w@mail.gmail.com> <avKHVDJJkhGgyBsI@x1g10>
+In-Reply-To: <avKHVDJJkhGgyBsI@x1g10>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Tue, 10 Nov 2026 12:47:26 -0800
+X-Gm-Features: AclHuK9U37xyg1UGTBVZdBBrLCrGhl3O6c9YzBYNAJfL0Ndc_wBpWSkIc42JL4I
+Message-ID: <CAKxU2N-ZxfMs-6gTiaYthNt5aun0wt0qH9HJy_xaUdkhHYQ5Ng@mail.gmail.com>
+Subject: Re: [PATCH v2 0/6] clk: add a driver for the ath79 PLL controller
+To: Brian Masney <masneyb@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Alban Bedel <albeu@free.fr>, Antony Pavlov <antonynpavlov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 07, 2026 at 04:36:11PM +0100, Pierre-Clément Tosi wrote:
-> Call system_uses_mte_async_or_asymm_mode() only once per section. This
-> improves performance (fewer instructions at runtime and fewer static
-> branches needing to be tracked and patched), correctness (no theoretical
-> race between the execution of the section and the static branch being
-> toggled, which could leave TCO in an unexpected state), and code clarity
-> (no 3-level indirection with redundant checks to flip one PSTATE bit).
-> 
-> Signed-off-by: Pierre-Clément Tosi <ptosi@google.com>
-> ---
->  arch/arm64/include/asm/mte-kasan.h      | 25 -----------
->  arch/arm64/include/asm/uaccess.h        | 80 ++++++++++++++++++++-------------
->  arch/arm64/include/asm/word-at-a-time.h | 22 +++++++--
->  3 files changed, 67 insertions(+), 60 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/mte-kasan.h b/arch/arm64/include/asm/mte-kasan.h
-> index 467d1d41a392..b474fca3ea56 100644
-> --- a/arch/arm64/include/asm/mte-kasan.h
-> +++ b/arch/arm64/include/asm/mte-kasan.h
-> @@ -48,23 +48,6 @@ static inline void mte_enable_tco(void)
->  	asm volatile(ALTERNATIVE("nop", SET_PSTATE_TCO(1), ARM64_MTE));
->  }
->  
-> -/*
-> - * These functions disable tag checking only if in MTE async mode
-> - * since the sync mode generates exceptions synchronously and the
-> - * nofault or load_unaligned_zeropad can handle them.
-> - */
-> -static inline void __mte_disable_tco_async(void)
-> -{
-> -	if (system_uses_mte_async_or_asymm_mode())
-> -		mte_disable_tco();
-> -}
-> -
-> -static inline void __mte_enable_tco_async(void)
-> -{
-> -	if (system_uses_mte_async_or_asymm_mode())
-> -		mte_enable_tco();
-> -}
-> -
->  /*
->   * These functions are meant to be only used from KASAN runtime through
->   * the arch_*() interface defined in asm/memory.h.
-> @@ -197,14 +180,6 @@ static inline void mte_enable_tco(void)
->  {
->  }
->  
-> -static inline void __mte_disable_tco_async(void)
-> -{
-> -}
-> -
-> -static inline void __mte_enable_tco_async(void)
-> -{
-> -}
-> -
->  static inline u8 mte_get_ptr_tag(void *ptr)
->  {
->  	return 0xFF;
-> diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
-> index f0924dc0bd64..9e3957ee3642 100644
-> --- a/arch/arm64/include/asm/uaccess.h
-> +++ b/arch/arm64/include/asm/uaccess.h
-> @@ -240,6 +240,24 @@ do {										\
->  	(x) = (__force __typeof__(*(ptr)))__gu_val;				\
->  } while (0)
->  
-> +/*
-> + * We must not call into the scheduler between setting and clearing TCO. As `x`
-> + * and `ptr` may contain blocking functions, we must evaluate these outside of
-> + * the critical section.
-> + */
-> +#define __raw_get_mem_tco(ldr, x, ptr, label, type)			\
-> +do {									\
-> +	__label__ __rgm_err;						\
-> +									\
-> +	asm volatile(SET_PSTATE_TCO(1));				\
-> +	__raw_get_mem(ldr, x, ptr, __rgm_err, type);			\
-> +	asm volatile(SET_PSTATE_TCO(0));				\
-> +	break;								\
-> +__rgm_err:								\
-> +	asm volatile(SET_PSTATE_TCO(0));				\
-> +	goto label;							\
-> +} while (0)
-> +
->  /*
->   * We must not call into the scheduler between uaccess_ttbr0_enable() and
->   * uaccess_ttbr0_disable(). As `x` and `ptr` could contain blocking functions,
-> @@ -286,27 +304,18 @@ do {									\
->  
->  #define get_user	__get_user
->  
-> -/*
-> - * We must not call into the scheduler between __mte_enable_tco_async() and
-> - * __mte_disable_tco_async(). As `dst` and `src` may contain blocking
-> - * functions, we must evaluate these outside of the critical section.
-> - */
-> +/* We handle synchronous exceptions so only use PSTATE.TCO in non-sync MTE. */
->  #define __get_kernel_nofault(dst, src, type, err_label)			\
->  do {									\
->  	__typeof__(dst) __gkn_dst = (dst);				\
->  	__typeof__(src) __gkn_src = (src);				\
-> -	do { 								\
-> -		__label__ __gkn_label;					\
->  									\
-> -		__mte_enable_tco_async();				\
-> +	if (system_uses_mte_async_or_asymm_mode())			\
-> +		__raw_get_mem_tco("ldr", *((type *)(__gkn_dst)),	\
-> +		      (__force type *)(__gkn_src), err_label, K);	\
-> +	else								\
->  		__raw_get_mem("ldr", *((type *)(__gkn_dst)),		\
-> -		      (__force type *)(__gkn_src), __gkn_label, K);	\
-> -		__mte_disable_tco_async();				\
-> -		break;							\
-> -	__gkn_label:							\
-> -		__mte_disable_tco_async();				\
-> -		goto err_label;						\
-> -	} while (0);							\
-> +		      (__force type *)(__gkn_src), err_label, K);	\
->  } while (0)
->  
->  #define __put_mem_asm(store, reg, x, addr, label, type)			\
-> @@ -337,6 +346,24 @@ do {										\
->  	}									\
->  } while (0)
->  
-> +/*
-> + * We must not call into the scheduler between setting and clearing TCO. As `x`
-> + * and `ptr` may contain blocking functions, we must evaluate these outside of
-> + * the critical section.
-> + */
-> +#define __raw_put_mem_tco(str, x, ptr, label, type)			\
-> +do {									\
-> +	__label__ __rpm_err;						\
-> +									\
-> +	asm volatile(SET_PSTATE_TCO(1));				\
-> +	__raw_put_mem(str, x, ptr, __rpm_err, type);			\
-> +	asm volatile(SET_PSTATE_TCO(0));				\
-> +	break;								\
-> +__rpm_err:								\
-> +	asm volatile(SET_PSTATE_TCO(0));				\
-> +	goto label;							\
-> +} while (0)
-> +
->  /*
->   * We must not call into the scheduler between uaccess_ttbr0_enable() and
->   * uaccess_ttbr0_disable(). As `x` and `ptr` could contain blocking functions,
-> @@ -383,28 +410,19 @@ do {									\
->  
->  #define put_user	__put_user
->  
-> -/*
-> - * We must not call into the scheduler between __mte_enable_tco_async() and
-> - * __mte_disable_tco_async(). As `dst` and `src` may contain blocking
-> - * functions, we must evaluate these outside of the critical section.
-> - */
-> +/* We handle synchronous exceptions so only use PSTATE.TCO in non-sync MTE. */
->  #define __put_kernel_nofault(dst, src, type, err_label)			\
->  do {									\
->  	__typeof__(dst) __pkn_dst = (dst);				\
->  	__typeof__(src) __pkn_src = (src);				\
->  									\
-> -	do {								\
-> -		__label__ __pkn_err;					\
-> -		__mte_enable_tco_async();				\
-> +	if (system_uses_mte_async_or_asymm_mode())			\
-> +		__raw_put_mem_tco("str", *((type *)(__pkn_src)),	\
-> +			      (__force type *)(__pkn_dst), err_label, K); \
-> +	else								\
->  		__raw_put_mem("str", *((type *)(__pkn_src)),		\
-> -			      (__force type *)(__pkn_dst), __pkn_err, K);	\
-> -		__mte_disable_tco_async();				\
-> -		break;							\
-> -	__pkn_err:							\
-> -		__mte_disable_tco_async();				\
-> -		goto err_label;						\
-> -	} while (0);							\
-> -} while(0)
-> +			      (__force type *)(__pkn_dst), err_label, K); \
-> +} while (0)
->  
->  extern unsigned long __must_check __arch_copy_from_user(void *to, const void __user *from, unsigned long n);
->  #define raw_copy_from_user(to, from, n)					\
-> diff --git a/arch/arm64/include/asm/word-at-a-time.h b/arch/arm64/include/asm/word-at-a-time.h
-> index d7a3b69dc8c6..ec72126210d1 100644
-> --- a/arch/arm64/include/asm/word-at-a-time.h
-> +++ b/arch/arm64/include/asm/word-at-a-time.h
-> @@ -10,6 +10,9 @@
->  #include <linux/bitops.h>
->  #include <linux/wordpart.h>
->  
-> +#include <asm/mte-kasan.h>
-> +#include <asm/sysreg.h>
-> +
->  struct word_at_a_time {
->  	const unsigned long one_bits, high_bits;
->  };
-> @@ -41,12 +44,10 @@ static inline unsigned long zero_bytemask(unsigned long bits)
->   * and the next page not being mapped, take the exception and
->   * return zeroes in the non-existing part.
->   */
-> -static inline unsigned long load_unaligned_zeropad(const void *addr)
-> +static __always_inline unsigned long __load_unaligned_zeropad(const void *addr)
->  {
->  	unsigned long ret;
->  
-> -	__mte_enable_tco_async();
-> -
->  	/* Load word from unaligned pointer addr */
->  	asm(
->  	"1:	ldr	%0, %2\n"
-> @@ -55,7 +56,20 @@ static inline unsigned long load_unaligned_zeropad(const void *addr)
->  	: "=&r" (ret)
->  	: "r" (addr), "Q" (*(unsigned long *)addr));
->  
-> -	__mte_disable_tco_async();
-> +	return ret;
-> +}
-> +
-> +static inline unsigned long load_unaligned_zeropad(const void *addr)
-> +{
-> +	unsigned long ret;
-> +
-> +	/* We handle synchronous exceptions so only use TCO in non-sync MTE. */
-> +	if (!system_uses_mte_async_or_asymm_mode())
-> +		return __load_unaligned_zeropad(addr);
-> +
-> +	asm volatile(SET_PSTATE_TCO(1));
-> +	ret = __load_unaligned_zeropad(addr);
-> +	asm volatile(SET_PSTATE_TCO(0));
-
-Note that Sashiko identified that nothing prevents the compiler from re-ordering
-__load_unaligned_zeropad() w.r.t. the SET_PSTATE_TCO() and the presence of the
-exact same expression above is probably inciting it to do so!
-
-I believe that the most robust approach would to use the "memory" clobber in
-set_pstate_tco() so that it always acts as a full compiler barrier. I'll address
-this (and reorder the patches to introduce the macro first) in the next version.
-
->  
->  	return ret;
->  }
-> 
-> -- 
-> 2.56.0.455.g6c5a503b38-goog
-> 
-
--- 
-Pierre
+On Mon, Nov 9, 2026 at 6:54=E2=80=AFPM Brian Masney <masneyb@kernel.org> wr=
+ote:
+>
+> Hi Rosen,
+>
+> On Mon, Nov 09, 2026 at 06:35:32PM -0800, Rosen Penev wrote:
+> > On Mon, Nov 9, 2026 at 6:25=E2=80=AFPM Brian Masney <masneyb@kernel.org=
+> wrote:
+> > > On Mon, Nov 09, 2026 at 05:36:40PM -0800, Rosen Penev wrote:
+> > > > The clocks of the Atheros/Qualcomm ath79 MIPS SoCs are set up by
+> > > > arch/mips/ath79/clock.c, a CLK_OF_DECLARE driver that registers eve=
+ry
+> > > > clock before the driver core is up. This series replaces it with a =
+new
+> > > > driver in drivers/clk.
+> > > >
+> > > > Only the reference and CPU clocks are registered early, with
+> > > > CLK_OF_DECLARE_DRIVER(), because the MIPS timer needs the CPU rate =
+from
+> > > > plat_time_init(). A platform driver bound to the same node register=
+s the
+> > > > DDR, AHB, MDIO, UART1 and PCIe clocks. Until it does, the early pro=
+vider
+> > > > returns -EPROBE_DEFER for them. clk-mt7621 uses the same scheme.
+> > > >
+> > > > Patches 1 and 2 move the two remaining non-clock duties out of the =
+arch
+> > > > clock code, so that it only uses its own registers and the clk API:=
+ the
+> > > > QCA956x timer interrupt workaround, and the reference clock that is
+> > > > read from the bootstrap pins when the device tree has no rate. Patc=
+hes 3
+> > > > and 4 add the UART1 and PCIe PLL clock IDs. Patch 5 adds the new dr=
+iver,
+> > > > and patch 6 removes the old code.
+> > > >
+> > > > Tested on a TP-Link Archer C7 v2 (QCA9558) with an LLVM build. The =
+CPU,
+> > > > DDR, AHB and reference rates (960, 800, 266.67 and 40 MHz) match th=
+ose
+> > > > of the old code. The serial console, both GMACs, the PCIe PLL with =
+a
+> > > > QCA9880 behind it, and the WMAC all work, and no devices are left
+> > > > deferred. The other SoCs are not tested on hardware. For each SoC t=
+he
+> > > > rate calculation was compiled in userspace together with the old co=
+de
+> > > > and fed 2 million random register sets. The results are identical,
+> > > > except where the old code overflowed 32 bits with register values t=
+hat
+> > > > no real setup uses.
+> > > >
+> > > > Changes in v2:
+> > > > - Post the new driver as one patch, instead of moving
+> > > >   arch/mips/ath79/clock.c to drivers/clk and cleaning it up over si=
+x
+> > > >   patches (review feedback).
+> > > > - Register only the reference and CPU clocks with CLK_OF_DECLARE, a=
+nd
+> > > >   the others from a platform driver (review feedback).
+> > > > - Describe the SoCs with match data, and read the CPU, DDR and AHB
+> > > >   selection of AR934x and later with one function.
+> > > > - Keep mapping the AR934x SRIF block from its fixed address. It lie=
+s
+> > > >   inside the wireless MAC registers, which ath9k claims, so it can'=
+t be
+> > > >   a reg entry of the PLL node.
+> > > > - Drop the clkdev registrations, which have no users.
+> > > >
+> > > > Claude Code (Claude Opus 5.5) was used while preparing this series.=
+ It
+> > > > wrote most of the new driver from the old one, together with the
+> > > > userspace test of the rate calculation. I reviewed and tested every
+> > > > change and take responsibility for it.
+> > >
+> > > 40 minutes elapsed from when I asked for changes to when a fully form=
+ed
+> > > new driver was posted with major changes. Your cover letter says this
+> > > v2 was tested on real hardware, however I am honestly a bit skeptical
+> > > given the short time frame. On top of that, that's not enough time to
+> > > also go through what all Claude did for you. Please slow down!!
+> >
+> > This was tested with a linux-next kernel on an Archer C7 v2 hooked up
+> > through serial and two ethernet cables (LAN and WAN). There's no
+> > difference that I can see between the old and new driver.
+>
+> The clk_summary debugfs entries would be a good place to compare as
+> well.
+>
+> > That being said, I only have two pieces of hardware on which testing
+> > can be done. Both are rather new relatively speaking. Older version of
+> > this series is currently live on OpenWrt with seemingly no ill
+> > consequences.
+> > >
+> > > I'm going to pass on reviewing this version. I want you to take some
+> > > time to test this on real hardware, and understand the code. If after
+> > > that you truly have no additional changes, then I'll reconsider
+> > > reviewing this version.
+> >
+> > Sashiko had two complaints. I'll fix those in v3.
+> > >
+> > > Also, if you want to help, then consider helping with reviews on patc=
+hes
+> > > from other people, in particular with the large series for the new So=
+C
+> > > vendors. It's a lot of work reviewing the flood of patches from
+> > > everyone. You can see the backlog for the clk core on the kernel.org
+> > > patchwork server.
+> >
+> > I agree. It's quite unfortunate and have no solution to it.
+>
+> Just some friendly advice: If you keep churning out AI code as quick as
+> you can generate it, then your stuff will end up at the very bottom of
+> the review queue. There's a long backlog of other changes that need to
+> be reviewed.
+Sure. I'll wait a bit.
+>
+> I'm not saying that you need to go review patches, but that goes a
+> really long way to building goodwill in the community. Maybe if you post
+> a large series like this go help review 2 or 3 patch sets that's in the
+> backlog from other people.
+>
+> But seriously, the main ask from me is to please slow down before you
+> post new patches. Provide some more details about how this was tested on
+> real hardware.
+Sure.
+>
+> Brian
