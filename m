@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314551;
-	b=TJVb+xrbIFX4ZGD/Pw6MIt81mwxRuD1amfdJqqWSiSYHTunWk+e/6kBBTnHTi1uD0JBD
-	 4F62AZEXKMmKN0fbumcpKMfnTB646/u9oI6OYquhjR8KvVqvT6Ql3RCx7p2VB6i1l6T/B
-	 do1XpnTK585dASs+4EJzUf7HfSnjGyVZoSK6UwP+IMt6pKbWluOCMN/qFTwwzIXbNQtE6
-	 o1UDSJ9s3bkCRshX5XQolE13qKPKlgsfDsMRTTyEb4DxpkNybk6oRFfyhizYVRzsWJnZ+
-	 O4xJtv6zoKGUBs6bEzVrMbncLB+xixaY3CCGVHNMnxuO8P/4PJDr1YslFLNJkXUDRBA==
+	t=1794314619;
+	b=aGknWJXS8bSPyYqmb3k2tedU4E34TDcpVDaM76RIyFlcN1St00GlXFODPudtT73DYUgw
+	 eVivy0X3m4ZD2AsnmEFjVsx3FploproW8DAWjPdqZL9DNFuM5GGTnbfTn+L0DRR+KjHYY
+	 Rzn4ushhwP2CE05HWTiAjy/55OrmJQV0Sei2eCwzUbjb7kF9q3n5p62b4uap8lcbKDIRT
+	 HiMYWIuTeeW82dR8yd4ClG1bALFh6ZaH5a+0qGtjkxP7D+byQ/QB7vYzu70HYK/xdKLLX
+	 UqH1Q0BgqJ7ibXbgoj85FMpyMV9uvgGhCfVTCNLBdjPY1bzX4bWPmScuzNlRqC0cmXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314551;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VvGa/vNgW0rJ7zFWoIOl85EbUBmvssYymFcRLlY1920=;
-	b=GBYtJOCY8w1oGtwS2cRIWEV760K0fCMrqGPf2p5HddvtagANZgLhzTJWlf5SmCcxm95Z
-	 bU8gCxC/TjqwfF6rD7HhJbY7s4kivcFewHNU2Z3iqbJnurGPeFr4x8yCi8tgie8yI8bFZ
-	 ST7R7VNOVL3ROEEjNE7H4hK4V4SKpsUiHeayzF1x71h48n+dUyWnc1pd3iSdLUfzhsG1Y
-	 wX+r4mHfQeuFGXohqaorEuDjSpEErdGB17ZfKOuXX9qgULUZTIosTj0Cu9e/gJM/xx5H0
-	 VDDg3nNttP3JQVQbELuprFxZt98GJw14V4vWS5GUHyzQcKpWDPFrZhmbB1YY60e5LSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314619;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=5h+m068mdSPRsv8veOTCpVhqXXE2IddgZEqLEh31UcQ=;
+	b=IQjJQdgxdU0fk0UbYSMXEiFvmNDqqT4Gy9B+djeDshsQiSsCWgozHIpv4MlrvD92sQLu
+	 8jVH545v/aVWjev5AZ9d0etAEljgLQrkT0DpmQG5L323414LFR/2jM95DCDfc9zRVt5UZ
+	 gr8Q1arOVxp+0/OEx0sCjV93DuiiwVulesUAf1weCKAsN6lmaxRcCQFGHDF9EhxGERB8B
+	 4L+nnmpLdr4V5jv9BMIh5tdbOZ8ofyLQScK1f4LRJZ3Us01X04Tua7LCEwknXZrhRL6kL
+	 aN4Sx8rLi1eZ1q2hVSMQLp1K0XIwdShZ/WJ6Tq3P4T1W7mxWHUKWP7qNuDizvbjC7tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S55fLCHL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841FA606A32E;
-	Tue, 10 Nov 2026 12:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S55fLCHL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6874A1F0089F;
-	Tue, 10 Nov 2026 12:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314551;
-	bh=VvGa/vNgW0rJ7zFWoIOl85EbUBmvssYymFcRLlY1920=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S55fLCHLaYAuVJX3vKHpeG6EnPqhnsESYfgKNKbQ9+HXC9FKsEBneyhp3NVjvFZwQ
-	 1wbcvihFn1iMwXozty+rTci29N93Fr+t54CbMzZKfLwELR38xGeoHrycf4r2NsT5gX
-	 2x64WHx8fmD52UbzEaOI39Au08IiHI9MnnjxE76tTxTjLtRmq4hkeu1LqXtoqQOUI3
-	 gGfslI4DcGYD2CEG4av40+ApARwkJ93bLid1z/t12iGlVQYR6sAFzDqK5Ye08qnmtn
-	 Ck7x6cFKXyid7MJM3c8sXQ/13S4hRm7Mm7MX361tyHBDI+CAOanBy1e/4WLsNHVzyl
-	 DPtJsRi64TZGw==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xQlBF-0000000Avoq-0WcT;
-	Tue, 10 Nov 2026 13:42:29 +0100
-Date: Tue, 10 Nov 2026 13:42:29 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] i2c: dev: clean up registration
-Message-ID: <avMRNeDGriRh6D1N@hovoldconsulting.com>
-References: <20260827102043.673273-1-johan@kernel.org>
- <20260827102043.673273-4-johan@kernel.org>
- <avMFCwqx2X6pl4hP@shikoro>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4EA606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:43:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D4EA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4eb0b989f0eso2542215b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:43:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794314618; x=1794919418;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5h+m068mdSPRsv8veOTCpVhqXXE2IddgZEqLEh31UcQ=;
+        b=VXsZMw8VpiD2JX7p09wxxKs/Qj00jz0/dpj+zq7RNxFxl0+bBTfDn/5kXb0DWPfLSC
+         siKhYWbSZEeBhLX6Ch+bzdh3AZR2JaK5fTUS6GgPsiKHbhYN1GxCUtlasHlfbAlq23EI
+         8gYnLn6UYjPPzY6mqtct85xsUn5XOznlEgkzwclhMUusS78D+yscZRefJYyOjIKG0x7E
+         9YD8LPCrtg1Lfzcz8frlb/DHnNs4zFsYvX8ChafMiRCHd7KpdX6LS8CR6IL1kCRCZebA
+         Ib+A2/gMLuQ0FVLX37eg9tmPMWQwkIKH87JkIfOl7KTTKb3HB6F1bJVWigjpaWarLKLZ
+         zDIQ==
+X-Gm-Message-State: APuU4Z8fBf6c3BZVgj5f1d0h0Yn81gTEjefrIq5D5Fz8O8w3hwJz+lsT
+	jla7FlWtIvRGBA4vzDJ+KIjpxuWlNGfMDVVfqYwS7qfDJuAbt4Rm0k36PxKL0nWGu84kHq1dq+m
+	PbpvzzAyVQEBad5HJSHnHSCdB6U6tkjBKSSUA7wZq5H7F7RkZqIXHdfVTDv8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,40 +57,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avMFCwqx2X6pl4hP@shikoro>
+X-Received: by 2002:a05:6808:1308:b0:53a:1c29:cb37 with SMTP id
+ 5614622812f47-56881356266mr1177419b6e.38.1794314618391; Tue, 10 Nov 2026
+ 04:43:38 -0800 (PST)
+Date: Tue, 10 Nov 2026 04:43:38 -0800
+In-Reply-To: <6a8c5208.dbb3a75c.7844.0005.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af3117a.6ea51c61.3838e6.0008.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
+From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 10, 2026 at 12:50:35PM +0100, Wolfram Sang wrote:
-> On Thu, Aug 27, 2026 at 12:20:43PM +0200, Johan Hovold wrote:
-> > Drop the get_free_i2c_dev() and put_i2c_dev() helpers and do all setup
-> > and teardown directly in i2cdev_attach_adapter() and
-> > i2cdev_detach_adapter() for consistency and to make the logic clearer.
-> > 
-> > Note that the device list is only used at detach so the i2c-dev can be
-> > added after registering the class device.
-> 
-> Can we have the last sentence as a comment in the code, too, please?
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Sure.
- 
-> > Signed-off-by: Johan Hovold <johan@kernel.org>
-> 
-> Other than that, I think this patch is an improvement. The logic is more
-> explicit. I didn't like 'put_i2c_dev' having a bool parameter, for
-> example.
-> 
-> So, only patch 1 needs a bigger update, it seems. Rest is looking good
-> to me.
+***
 
-I had rejected that Sashiko finding as being too outlandish for us to
-have to worry about. As I just in a reply to Bartosz:
+Subject: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
+Author: gbughunter8@gmail.com
 
-	If a malicious actor has physical access to the machine, we have
-	bigger problems than worrying about them going out of their way
-	to cause a USB hub worker thread to hang. :)
-
-Limiting the critical section can possibly be done as a follow-up, but
-it may not even be worth the effort doing that.
-
-Johan
+#syz test:
+https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-host-google-chain-1110-2424fa6
+2424fa6f78ae910235de4ab1fd42e5d36d81ca13
