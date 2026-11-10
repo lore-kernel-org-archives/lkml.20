@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327010;
-	b=i5y62gKAvCem6nGCSqyEC5QRLflKKMVCOs1OGaskIjrNRCs0fA1Eo/fQvccIThx/Ilv1
-	 0m+5jRLbvNrSm22VsQ2Hxx58qTk46+htsTZFmKEQVG+gApW+KpVOrDrLQmsIpu5E4YoqR
-	 jFqL/M7j3f4jBOdYqAW3DoZ0nEn3YTc5G2BPOux7Flpk77ojnKlfRObmHNRVldfVqoMMh
-	 iZPD0HjbL1ysXLv2c6QgpoEYaf8SBhR8Qe24Vog4IBHdwKDj8deAnbJkVIk8jBTyPay0o
-	 WuX92rVWybom0gsVSFFcWZuvhoLOJMk24L3B0mNwlmq3FDscgn82GhrbtePQSrwJ3Zg==
+	t=1794327008;
+	b=gS3T7rJRzgf75ZJ+VYHWD7ASbVtmW0qciTKZk85a+X2b0Ah524B2PinxSMjj4Ct35+UU
+	 KX+glJZHFZAUl8UMMfGtV3YK3qMg6ywmxCvs3B5RAgP1DUHsFfOuP0Cfn5HkKYKVDS4GU
+	 uNXfeGaRv7YQX1oQNt6OG0CI9GTuru+eoqPAcJR3Op2vcgbknlB+N8NmhSbvlTTqqyKvr
+	 5oEufY2JCtJLOa6utU0hlkcA60yyFCZSVYVVWuLy09ENp6zzQjc7++fsDo6bjVDiXV++v
+	 DbvB0eCE8lPRnmyW5BR/tD2ZwFSV+7irLKR1TjbT73BDSCGVYa7rhEilULRh9A6xr0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327008;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=LvtwQ3qjKJ7hJQFkAMWUe7ov+nTg/5q48Rt8Dv4swxM=;
-	b=Wv1Y5uh+ZYnDkyqNHfQCvvg6KE9ISkNgCbgRqu1K+z1NdlDZmaaNc9WkqFYeanLd9NIy
-	 2jrbEvFru++Iv6hKG1TExITr4sLp22jWECTc0czkJ1M4u5GUYDLEcbnvYKcasU/2LQs1O
-	 tUuRJjK8RaAuFjHelHatQNfx0PMUOTTXshiOGUZ8VMmWo0kh5Sd7/vvUt4FV58hxoB8cg
-	 4a/wh0jsVPnFJFFHI89M6cLkaMK0ZT8GKJ5vqrvgH84Z7VOEpWSW1tcYQ7aIxYMAG444J
-	 PHvAnjPNH05LKx/cIXX4HDKYRW8SknnTyE8oI2j3YobZBZHupOBEyKRHziEBkmYKomw==
+	bh=QE0akMupOU6kvmoPQWpMe8qJ3jt3YgwRHPsEPnaHOYo=;
+	b=oePZIss+TdZ4FtiM6QeScdU6I+alUwiT5Q7Ilk24UsgDBGwc4VWD1pZIWwZ274XXj7HC
+	 OLU32kEcOPwyg3yAzor5ZUfX/ImLgzQ4GPZgmU99jJlQvMtp7XkUUITFb+eBRXuvnA7yy
+	 85Bh9MUbSaGaMOsYqwFIv2lhN13PgpcwUZBW9GLbBufbwIcUc3zPh0yZt0YOdFhem/yXt
+	 97bHMm0TQ6Y2QP1+4af3GFJNO2lwdwAaBrf0U0vJg/0Ns4kfUejqzwMqaq8mkW7djiLPc
+	 RmnyhqWz28XvZKav81IHOF6n0j3fZ1KelMadTg446Ex77hZCZcaqFvRQowoSEeNPZdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nsLpCg6I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVnxVKX7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE73606A32D;
-	Tue, 10 Nov 2026 16:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B4F606A31C;
+	Tue, 10 Nov 2026 16:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nsLpCg6I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FB61F0089F;
-	Tue, 10 Nov 2026 16:10:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVnxVKX7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310671F0089F;
+	Tue, 10 Nov 2026 16:10:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327009;
-	bh=LvtwQ3qjKJ7hJQFkAMWUe7ov+nTg/5q48Rt8Dv4swxM=;
+	s=k20260515; t=1794327008;
+	bh=QE0akMupOU6kvmoPQWpMe8qJ3jt3YgwRHPsEPnaHOYo=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=nsLpCg6IV6ACWUe83fTmTFplzjWgz6295EAsfXCpVABpXdS+To9gs6GKalR8DEcHG
-	 BOM4zko5TaVgIRlBc+L1RLkGQEmiab4uGFM/3XLpqeTD8JjhhERvpV022/qZ4nsjX/
-	 myyEQa5WmrPAtZBYLaR28EFTzKHOmRd180WBS6jF1iMvLXyzhbFZauJ3wakdY5CtNe
-	 x54mZJqZAbhLUgXhhRYWAuZyfPBUwmNJ2jvdydPIbEOrjPa8kLe26XD2FtRl2XzNOH
-	 nJ0yJHDpk5jcCUIf8nPaNcJi5jNSDKvR0AskAkCJ6dhzC00a6czanoKilQy0fMU6pg
-	 Ro3raEWLO+mLw==
+	b=RVnxVKX7TB0CtmbUpXpo/tpUsnICUXHpTwg/EVcRkpLdfLrNo7m2S+WpLS4C7uCQF
+	 Q/XJ7uenR6n2ho+HvSI9+y2R049tUNAd7kvlTO1sN8cBIpTbg1ol9ialWKbk+ob+Fs
+	 08shlqJKnCmHZ6SG+S8iv3uKh7NgGSHBEz6FB3/VqZGxi8+9eWss7XklH9s/KJ/can
+	 h7/IBe3uScmw8V56GxoaewtXMgRMfalQ4kvSjkAYaUqecpNp86Q1AgG3dZzVXML+va
+	 lL770Pa9ebXbKzMzMokOnKxGPFuiIpl8jGSkcoM/6HRmscTfMPirRReOc6Ge3tOYse
+	 uCN8pTHCogHQQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B0AF39D267B;
-	Tue, 10 Nov 2026 16:10:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2102839D267B;
+	Tue, 10 Nov 2026 16:10:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,41 +54,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 0/2] Bluetooth: hci_qca: Reopen the UART after enabling
+Subject: Re: [PATCH v3 0/2] Bluetooth: hci_qca: Reopen port after power on for
  QCA2066
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179432700817.4062787.1917987587860059113.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 16:10:08 +0000
-References: <20261110092929.234617-1-shuai.zhang@oss.qualcomm.com>
-In-Reply-To: <20261110092929.234617-1-shuai.zhang@oss.qualcomm.com>
+ <179432700692.4062787.5940023737695374841.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 16:10:06 +0000
+References: <20261028111839.2148515-1-shuai.zhang@oss.qualcomm.com>
+In-Reply-To: <20261028111839.2148515-1-shuai.zhang@oss.qualcomm.com>
 To: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
 Cc: brgl@kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com,
  linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, cheng.jiang@oss.qualcomm.com,
- xiuzhuo.shang@oss.qualcomm.com, wei.deng@oss.qualcomm.com,
- jinwang.li@oss.qualcomm.com
+ linux-kernel@vger.kernel.org, chejiang@qti.qualcomm.com,
+ quic_chezhou@quicinc.com, wei.deng@oss.qualcomm.com,
+ jinwang.li@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com
 
 Hello:
 
 This series was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Tue, 10 Nov 2026 17:29:27 +0800 you wrote:
-> QCA2066 does not reopen the UART after the controller is enabled, which
-> causes RX/TX out-of-sync errors. The UART has to be reopened once the
-> controller is powered on.
+On Wed, 28 Oct 2026 19:18:37 +0800 you wrote:
+> QCA2066 needs the serial port reopened after the controller is powered
+> on, otherwise the host and the controller run into RTS/CTS
+> synchronization issues.
 > 
-> qca_regulator_init() already enables the controller and then reopens the
-> UART, but QCA2066 does not go through it. QCA2066 was added with its own
-> SoC type and handled in the default case.
+> Patch 1 reopens the port in qca_power_on() for QCA2066, as in v2.
+> 
+> Patch 2 keeps HCI_UART_PROTO_READY in sync with the port state, so that a
+> port which failed to reopen is not closed or flushed again.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v4,1/2] Bluetooth: hci_qca: Reopen the UART after enabling QCA2066
-    https://git.kernel.org/bluetooth/bluetooth-next/c/a57a255ce204
-  - [v4,2/2] Bluetooth: hci_qca: Don't use the serdev port after a failed reopen
+  - [v3,1/2] Bluetooth: hci_qca: Reopen port after power on for QCA2066
+    (no matching commit)
+  - [v3,2/2] Bluetooth: hci_qca: Don't use the serdev port after a failed reopen
     https://git.kernel.org/bluetooth/bluetooth-next/c/45e28b01e4d0
 
 You are awesome, thank you!
