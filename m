@@ -1,91 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289454;
-	b=S7By2sBcUk4dkRZjVxWNYWlu3k8d9AXZrBzvswGJi+3qtdfgmNnNRPEYd2VCl4w0GtFE
-	 k5OC1gdYa9rqsnr8GmA9AWk+rh8ti6JnYBcVh9bMBOpp7jD7yoVTNrQOp6h/0gLf6H67j
-	 qXd8pD+98Fcu+2VmWMJIIckTr8oufYz45hT0wZDk8sG40lyuiz5VzO779p4VwdAoAsvQa
-	 sAzvAhddbIrNQxmhF477REtJ3iuJfz554wZMMS2YXMt4KlX3tG5vleBovDf82dTeFAFS5
-	 OM5RGEaaOmxn45v7UjhuaqhnA+x1S3aEmTZU+uzoCma51uaOXdaDd1KNgb5oiDqatqQ==
+	t=1794289506;
+	b=bar8jRIha1yvNAADKyWcr/kc1RWp8FJGK3qAtqIi6uAPYw6CsXHQqhY6cCwkMbATv4hW
+	 gcBm9Fg2Yknd1iSMj+ZEdA0XHB0Ddxu5W9G3YG0NmaO2OFuSbQpRs3eixUTfanvkCsamH
+	 Krex+W7o/3UFEMxGag+eV+Q6DsrfTTXGwVQDVYeqXBMPktnERy9Wys/r3zrTKoGGLpB5N
+	 Ki6NlMbSIOAOSfi8644GmMKBeY0hfh1wkEcbjTb3+fP+gsQExLQ9jlQYVPgQ8DVgOZrAh
+	 wsRRCgTeey+Q+bhuKgQzeunmZNeO5pVR+ZB0w49BhFK32y4b4E7PLJIRhdlywBuJsUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289506;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9ljX0hqkFpVdDO4bWmsipvvF8GC2kb5FdkDBtLth2A8=;
-	b=1EGzHssb7qqIGcjlbrJlUZ1RMdyGU+JTc5iz5uN4XHcf5G4cn3pob8xOnWZcYC9cavFW
-	 NGcQf76uwnicEdjerQl+HcrzzVACsnQgxYVCoBSgNXalYK4j38aOSeAnKKnYA2RiJokeq
-	 a6WHqFVuQWimzGPUEELITdHH2CbBtDJJX0bQdJPAhCcCPX159P+xeqfAyBpoVgtYDLx05
-	 cFndOxE6XX+sALOGV6jLVS4WfdloQfE4biyGGChJlJ/X0uvdjmg1haqatP3K/dlk1U2gr
-	 r6itYzp0X8XPjvKnDaMwBF2xVHruTKVp2Mgc+cmsCfHaZed5E/uYo+1PSx1ScHzJiBQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p+m90ZHP6p5x4AVs4ojsWRq2UWvQJVYuVb7I16eMYE0=;
+	b=ntceCZiyr5FTvt3XbFXdwaLLmU2NFh0sk775nmdIhNDtTFVeMGJw5R3l67UZolbLFDrA
+	 8oPEWgoruHVhfDQAIbSOVJK40uT9/1dvdHGfhmiu5cAD+5X1YxjGKWMxG9GCHmB+VmVZ5
+	 U0dHfCWSpK10fw+iZQ/sTLydKREkRVc34h0PJAwInP1hOTaDZ0ayaIOXRRuHS001uYtr3
+	 AohiOLQoKgVBqVVjlRNg2N+xBcESSB4O2KYzQqOr5He4C0ugMDV3M+cxveE4q440rAdWJ
+	 At34TBH5KAgja36O2uFpaXULREBsuEXyL4ikeCDlcY2EdLp8+O3thqfkt9qzadCVeFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=RhJ++tfx;
-	arc=none smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CnZ8C7h5;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B2F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78B2F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E16606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:45:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E16606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=RhJ++tfx
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-55e02e89f78so484727b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:44:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CnZ8C7h5
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-492f6b7f70dso991141f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:45:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1794289453; x=1794894253; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9ljX0hqkFpVdDO4bWmsipvvF8GC2kb5FdkDBtLth2A8=;
-        b=RhJ++tfxyGJGDpKIOJ8gZfcgR0zcVVMYBoUUA1kFSVONTcW6gFCeveaHqWVII/dTTU
-         hexjA6eF414ePESlgAYZmU6NyQ8JgEaGpanTuQIWjPatc9XaMyWOtVa4mm3z/teCA97m
-         GatEe5tRuO2YgD2i6GFxHINJ7pAlNrdpacZs0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794289453; x=1794894253;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794289504; x=1794894304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9ljX0hqkFpVdDO4bWmsipvvF8GC2kb5FdkDBtLth2A8=;
-        b=g2Xp9ocI3VccS1YF1phulEYqfz3U0iSBs9d6aj5UVIi4weigE1jxUogvgyLJ3JXvr3
-         RrmqjIraDzm7FDrv7QDzxvIiDI+RNGrTOih7/PyP4yTHUuT1b/HNM6w93GkwYU7ywcMf
-         khmaXH1jIRbAug6KQDfMncMCqqqJv/U5298TAE5wvVRafMj4pG04P1Ob5W1kiqn6oRYR
-         v+uvKlQQFrzbzJLaS5rYoCJwURCixERRyI/5M+IFIUJVEUYaiPO5YNCiHg4Jf0pwJhbl
-         6a/2m93sGshVJy7fovxn3YGKha1x/Zf2d+X5Tsk3DydKHk+2TKNQSEZ7uMC6Ni2rLL5E
-         +8uQ==
-X-Forwarded-Encrypted: i=1; AL+hErH0lKp/D0X+vxiCZQbXEKO/JJ5GdyHBQ3/Tw8lBHSk906p2OQwfE3w/zVOPXCVC6l3WWoSfX1qiZEEHHgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QOwVw7TI/Y/aPmiYsV+m8VDfQ7ARZpoTca+248bDN12S31ruC
-	s5FjdpCqnpdIybiiUUFYPHNrg5LndJAdTCsklcLdPW3T+DdpAa6xfRoNM/hQhj6+cqEJk44jbUq
-	+rA5hkz8=
-X-Gm-Gg: AYBFou29J4LG/4NfzkAv0bkzeJ3h+X/0b7GOP/Y0123/aHRLtQc3IgvVgbHO6LwBlRC
-	z+23oo1KJTLN3Uuc+SKbAgs7DngkGwXSgg/n9x8WWOZMvUVAltmRTnGPQUg4VCeyxiz3oILUEzs
-	QPGPy12mX+mnVsO8FM7JvZV5q2yKSN7BCOowEvMnswwHYLTnDbd9MFsZcdAo+nG0kXxGS9RgprD
-	IsvdRQcKOEQ5/+VBA8bhE6jTfjx9pDcs01APyKDRrNja81sXIx1UHDOnFSHBCoMTnMGycbVWc66
-	L99qWVymczF8p3J9zz6znirr8t/zFWztsC7ft2NgmCfsHtVuKyhghr5U3Er6wQdg2fq1zmwjdpX
-	TilY2NqP2rfTGCsTGqiyZEjWGtRsaz1eQe0maTd7qYsd1TKuoyQJEoTpED8x/mhLdkmuZ7e+6WW
-	unA0jJgK1UjcAguTEwxVy9Cuz19YuKnPfJURS0zt8OXKRWYe27zY4xoe/0EjjcSexkeQkF4aeYw
-	RLaDzIvzeEH7QkLPK3XJeXWdvEd8gbBXKFq51XG/RCYvbQgrt102q9GUnxsK5gjdoJTnhgtHwvg
-	cQVkY1L6cBcIxoO9j4SHbaMVeLsqTL+8M7gnXEgLv2GVDJSyGFpm+FGvXK49vGwi/7SOsTpuG/G
-	KfXgKbt4BIg8khjdiagjMFimzCLhCUA==
-X-Received: by 2002:a05:6808:3209:b0:4a4:744:a4ff with SMTP id 5614622812f47-5683c99ce5bmr1527259b6e.4.1794289453346;
-        Mon, 09 Nov 2026 21:44:13 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905735edasm1258958b6e.7.2026.11.09.21.44.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 21:44:13 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-trace-kernel@vger.kernel.org
-Cc: rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] tracing: Validate user addresses in faultable buffer copies
-Date: Mon,  9 Nov 2026 21:44:11 -0800
-Message-ID: <20261110054411.75788-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+        bh=p+m90ZHP6p5x4AVs4ojsWRq2UWvQJVYuVb7I16eMYE0=;
+        b=CnZ8C7h5094DmlshNeGptAMnvcSxnLAeyMg8K/R3q+alRDLFABRomdJnRcergKmB3S
+         51RfVxdzAx82FnvV3pyNPgZcTOcTei24JRyX4rc5R+0h5RDUc/Dt9iTqrob60+wuwzBz
+         ZpMM4yiGR0SZ7TlAjZLozlqJbWctfFkfa7yeHINDvW41NcJN/Frae+iLfbX8OBnJZHqh
+         2wMLhFOlWcp/DI23lfYsIQ+062ENiDQPILuRF8eMUu5IjwhyRf3sT8HBBLwHOZuenMDn
+         11mcSyLPcR1eDkjPct+01O2JlNKgiEYjfI41OdXC8KJ0obKKrprZHdHl1xdHGru0rZLv
+         63mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794289504; x=1794894304;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p+m90ZHP6p5x4AVs4ojsWRq2UWvQJVYuVb7I16eMYE0=;
+        b=yzkwTPZ8ARVa8MeqNtdmbwEMZbo1o3c8n/lusNGKKb8scrXz4qLC9v1izlgUYOhzqu
+         isgUNajWAyMnTkk/2L5lfCwSutR/EieXrH0PHeH2ovrOQRDfC3QAj5iBHHrpkw8HNm7o
+         AlXJQ6XcMo4Uul8xsFNfKAEmCEkoo5Shpec2vJHWQxTxC1QPnCXmu/PRcUs8h16nlssr
+         t5VHYRyg0MfE2wGj8/RYtPuVuUetsHVgVV+gryBFtbrdmNyJSFqpVCiC6OIX8FDyO+Bq
+         kwdIHbPkcImBAiBL7hOw96veoEG+PNKD4TcsebZqD94ktraWycCdGAFC51/6kMVAaHL6
+         DNyg==
+X-Forwarded-Encrypted: i=1; AL+hErEmQa4bIBWLL+jLNxxrg4en0NseR5F7RfoDPftMiIPUoOnrEIp3hGg9quwyVu6sg9nzmAcmt4z8ddtbHU4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YPS4xAjx5Ni3JfzYWTh43oDdjYXFjd4lkUQ6vMO9G/uhVkuNq
+	9Xuqn5PezeXqhEoYW3r7qoM44dEvQnaZjDJGiBOHuvZUvtR2Ica8QRMZ
+X-Gm-Gg: AYBFou1oVjp6KRkWFdM2dOLvDaUOWsdUhOogUxq5doghoTUG5HQ756YRTTt+uOPT/B8
+	uAxm0MOUazdYCf1ku5/qiXaCWURV0zK+ZEUcvX/WWNJwCwQndTnOAd7hPeJgjj3VpHqDhF5fPjD
+	XEXLbLhAbzlSzK5Ko/tm4q2LZuZhiCsDxEXIM/lhhaT9/8fWLQIcP7fn0wMCbP9TB/pXNwVD42r
+	+Ph0P0+HiF/TnwdhZODeifsFRG5MWw1lD/+jhdI81lgBwMlKm55DwbHxLOjtcTAn6YdgbKHcqMV
+	o6KrcRGvpCxqqGdlIEFb3iXvXpgurdkaa1hKjn9dRyr401BNzj1AbboiOhhkzLdumJX3XEsKCLb
+	nNzAlzg07cRexb9YGD6MilOgNt3MCUDBuonYuyrDHyXid+Wu/+7vG2AVZFaFsWRogAffeqel4tv
+	2npPStkWvWt1YNMnZ8CJChWW0qmYFmIfQtUGLNXwsa5X06joZil+QmXyyYkHItBPHaIL37cdPg2
+	9uS7OcEhMalaig5POzcS6HJx8H8D8nM4bbP2N9G29QeBlSLqHWm0S9XAVOmD/x9WJghh8P8RZHH
+	IcEYRgM8TOWE0XpLDqaWz0p6PLYs4zFI656tg1PIZ1/n/VSgr2IXKVJSDDmk+nOB3d5p6kW5dut
+	MLEAFJ+XZ3ZayjA==
+X-Received: by 2002:a05:6000:2482:b0:48e:353b:9f28 with SMTP id ffacd0b85a97d-4982b28ac5emr3169751f8f.1.1794289504112;
+        Mon, 09 Nov 2026 21:45:04 -0800 (PST)
+Received: from DESKTOP-OL07BOP.localdomain (109-92-113-33.dynamic.isp.telekom.rs. [109.92.113.33])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbfc6sm3083123f8f.41.2026.11.09.21.45.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 21:45:03 -0800 (PST)
+From: Hristos Nenkov <nenkov2004@gmail.com>
+To: Song Liu <song@kernel.org>,
+	linux-raid@vger.kernel.org
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	syzbot+8b22a0459202f76b4096@syzkaller.appspotmail.com,
+	Hristos Nenkov <nenkov2004@gmail.com>
+Subject: [PATCH] md/raid10: preserve recovery flags on reshape abort
+Date: Tue, 10 Nov 2026 06:44:56 +0100
+Message-ID: <20261110054456.625-1-nenkov2004@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6aec6738.059f5055.2712e4.0005.GAE@google.com>
+References: <6aec6738.059f5055.2712e4.0005.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,47 +111,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-trace_user_fault_read() uses __copy_from_user() when no custom copy
-function is supplied. That primitive assumes the source address has
-already been validated, but the helper only checks the destination
-buffer size. A caller that passes an unchecked kernel address can
-therefore cause mapped kernel memory to be copied into the tracing
-buffer. The original syscall-array tracing implementation exposed this
-path to syscall arguments before the syscall validated them.
+raid10_start_reshape() can fail while resizing a bitmap before it
+changes any recovery bits on its success path. Its abort path nevertheless
+clears the entire mddev->recovery bitmap.
 
-Use copy_from_user() for the default copy as documented. Non-user
-addresses then fail the copy and follow the existing NULL-return path.
-Successful user copies, buffer bounds, and preemption and migration
-retry rules are unchanged.
+dm-raid keeps MD_RECOVERY_FROZEN set across suspend and resume. If RAID10
+reshape setup fails, raid_preresume() logs the failure and continues with
+resume. Clearing the bitmap removes MD_RECOVERY_FROZEN and makes
+raid_resume() hit its invariant warning.
 
-Fixes: 64cf7d058a005 ("tracing: Have trace_marker use per-cpu data to read user space")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Do not clear mddev->recovery from the RAID10 abort path. The error paths
+reach abort before raid10_start_reshape() modifies the recovery bits, so
+there is no personality-owned recovery state to roll back there.
+
+Fixes: bb63a7019df9 ("md/raid10: resize bitmap when required during reshape.")
+Reported-by: syzbot+8b22a0459202f76b4096@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8b22a0459202f76b4096
+Signed-off-by: Hristos Nenkov <nenkov2004@gmail.com>
 ---
-v1: https://lore.kernel.org/r/20261006225221.54513-1-kylebot@openai.com
-v2:
-- Drop the trace_syscalls.c change, already fixed by 097fd0050089d.
-- Keep only the trace.c change requested by Steven Rostedt.
-- Point Fixes at the commit that introduced the shared helper's copy.
+ drivers/md/raid10.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- kernel/trace/trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 4ccdefb5c3ef..e1127768c074 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -6289,7 +6289,7 @@ char *trace_user_fault_read(struct trace_user_buf_info *tinfo,
- 		if (copy_func) {
- 			ret = copy_func(buffer, ptr, size, data);
- 		} else {
--			ret = __copy_from_user(buffer, ptr, size);
-+			ret = copy_from_user(buffer, ptr, size);
- 		}
+diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
+index 066c43154..1fd3f5f4f 100644
+--- a/drivers/md/raid10.c
++++ b/drivers/md/raid10.c
+@@ -4490,7 +4490,6 @@ static int raid10_start_reshape(struct mddev *mddev)
+ 	return 0;
  
- 		preempt_disable_notrace();
+ abort:
+-	mddev->recovery = 0;
+ 	spin_lock_irq(&conf->device_lock);
+ 	conf->geo = conf->prev;
+ 	mddev->raid_disks = conf->geo.raid_disks;
 
 base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
 -- 
-2.55.0.openai.911.g06873a30d2f3
+2.43.0
 
