@@ -1,79 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794296700;
-	b=rca65QBiXlOv3sQu2+NBsfNAH2Mr7Vpa62SDL+BXtGX/Lh8gPd77yv8OelvGtzf2AvJG
-	 gMnvyRh8gj5tJ2xMw+xgE6XzNPKlKTTZQ9NOxFoe4rSxrfWrkmgl/j+TOL83NUnmUpUXk
-	 38x9/iucv7GpIAQpCnCc69cPUd9q508vDrNp34fqmG6d4pE+f/9WEVhTfAdblj7HTsqOr
-	 XTN5fVh4Y/E9fZ3s0xendPwLcjgOTigwAvIyiVRPeXjuZrbm1BymH05tpAZscuga3Y4UI
-	 r7KBqOx6K9cPdw4ygJY6L/alLOP+FK2M2fygwVjZfnFzsRuLSB9MWxTAOtFOjquQNgA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296700;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hM5Y3UKyTTBxfSlTJTGUNszVKAm0qhVvKu+GIeLvcu4=;
-	b=xoq32V9BoxzJGrphm9yjgaVzKDAhFYk5HjeRD3oMtlSpy0MZoZW5fKbDgYpwa5UMzs48
-	 bTALFoBtFeRoKMMiqM9OswefAEUcLHJH7QEbxSH4YfdB2L9YMu+TrxbCLWvxWU8ia7gTE
-	 arD2jyxvEw/D4UGUZ2+Vn+HgQm260qqclHeHwQ/QbH2JH77gZMDNoeZKq6XuPApsAwx3L
-	 V53yQ8LrdbP0D4X4BBCBZmPxiZQ+Ps30hPtPyr3BraYbiJRjxtYb6VsFPsppQDkPvUQcz
-	 K0M8rLgMZPst3yLTm9t6a6hioIMN8rwjeGlah1sE697EHxxM+95aGu92XlLZAaEuv4w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ul93LtzQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55958606DF2B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ul93LtzQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794296700;
-	b=sSi2v1D6lpcZOexEppnFLCjAnqZNpyeGcKDxmfe5sjLg++MAxUfEe0uHwjLwDzce136w
-	 XDbDv1xBoxKYACOeqLTFmzJQXlFzoF7VKJKxT/idj/akZr7lzfPL+UatfX0FGpSSfI4z2
-	 FGUd1Ey1dUqyj3ldVyNVQRfYGCvaObcriPSe0pozL1lpyAgKO76yusDLd6FPdTJ7TNmys
-	 JdkbwyleunfRewWAM5fpfO7kQcM4GhHqBugj1lDJz3hB369BP/sIcY2lbCpBL3DbKtaGO
-	 PLj7scEwqN2zgCO2kWONCyzKS2qSd3E15U1nyEuewWiJHEC7/2iD91alKMfHu8dMQPA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794296700;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hM5Y3UKyTTBxfSlTJTGUNszVKAm0qhVvKu+GIeLvcu4=;
-	b=iy8t+u1+0LFE0bxShh+Z5tydFduuHFxw0hohcNfX5R9jSbSi9Nay6sVoXzERsiVgkA6s
-	 oousmnrwcGS1GhWtuoCD3KFrsAzsnctQEYuNkVSrvPXgtcsvPKu0zJcevJJ4eHdpcu5Bt
-	 0BFWixiOg89O1UzJk5eaq6D4ln5pNiq50wXuPP4gN0kip5VZyGCyAQ8gBP9EWTNQ0IFxC
-	 OgXpgkhS4GNIvvy2+l6lkGYWWlXc5o6Oq3FnFERwo1zSjuyDV/PwKX04/i1Zts1nrDebQ
-	 gN3FFgMthHzG90Owgy8PNrQqpxPTslp4PHXVsmf0kL/SjlzNZpuZbcMYPtPAET/5U8w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794296697;
+	b=vFWITFulHr3A3f7qxdbZjfqmSs2ksFOvhblHQ+J3lAgY1Jd2SaM4QZxoMmvraqUj81ju
+	 qv9zXu2oQlHyZhCtamk8/CcyuviifgBN40Q/xT3ayHAY2ZHyKIxA9VljAQDNqmR+yPcY/
+	 ImYlMHiDhADi6BLgVWjKSgR11eJ+hgH/ZEwm1kArwFXEVyDafMjuHobkG7w6WllloZjJY
+	 gi5HOglF8SGFxuqCDwfs9R2BK4NG9LVR2kfZUJiQ880zuEnu55qlTtl8CL6Ett14iYNZU
+	 qkpDqgCOnErhwvDbie5S0NUdFVnLgbQYI0xSV2dspOlWsZxel+HYAHXqpTqogVb85zw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296697;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=ZpsePWqmYNTbWvoSp5jGUgvnOP7GU6uaxozkU4/R0Do=;
+	b=iQAz90VnTDepmQ++sPaphoifmcBFIPcoSCxVD4HqDYF6mWBopA+hkiiYMt+xR/QQOEsF
+	 Wz314/w9dR0PZzwyyzPL7YxKmQRzl2wHP25t17b55dvmH5r3hgxbOkyP5cm4ucZTEckSF
+	 c8a3kX9d1jnsV0dzRlGP5SPjFAQtcBoTXWEXo9NHr4GhcrPfVQVC/WwOYGLIsi01R9qCP
+	 nuq2JdJOky5h1goR7efBiw8XAw+Pd1D130F4BN6OQ08eq86iI4mQftnES2qrmSXtaNzAI
+	 CLZOeBqjmxQFWxBpTZyBOHWe+XGt/BoOiHEC0/Zc5rYJkkoKoLxMQ6jeAuclwuC33Xw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CXPlKFu5;
+	arc=none smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 077DD1F0089F;
-	Tue, 10 Nov 2026 07:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794296700;
-	bh=hM5Y3UKyTTBxfSlTJTGUNszVKAm0qhVvKu+GIeLvcu4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Ul93LtzQsOod6SFfPl5Fj4eqpeo/yOG1BzH6kQMZ9l1nmadbn7NX5cFE7vcqZLCe+
-	 8jGq2rl+m/szdTyKcsDdM13q9FfaGp0O7f42bHDvVs2WRGWwzrxigTJSpn7BbM9rlx
-	 r497Xo6/ZkSotqR+GaMj/mmd4r2mKi5VzQWK7L6nSw39jESUd2lMLcQC9Rd0UpKCPN
-	 jwmf+dXxbgshhtvxoOTcHR8yIcWKDuNUdKVgi/HMNo3dKby7FaDZ+t4W6HX6LPAYmU
-	 AiLSoQd7Ckx0l1kO6detkzWgaKV4JVrCWW8KGGLjQtOkxA+h4CRylpx4gypjZhTDTa
-	 N7QmXBwNglHaQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A37B048A26;
-	Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:45:02 +0000
-Subject: [PATCH 7/7] drm/panfrost: Name the BOs around an unhandled page
- fault
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14DD606D29E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:44:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C14DD606D29E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CXPlKFu5
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b1afdf5196so627288eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:44:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794296696; x=1794901496; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZpsePWqmYNTbWvoSp5jGUgvnOP7GU6uaxozkU4/R0Do=;
+        b=CXPlKFu5sxntUilu0XCY5PrFyCtm0xVWyocXQJ12aqe3z01bXROiDGKrZQkjsmLPfv
+         oaWbowNjGFzzUEUKMujsXngEHtb1skHuHu0XUiNxLpjAYHjBoUI1x6hr5zpiPvQOiUte
+         0GVl9uLYEEMf3VqQdp73pfoRh7YD6wXmnVGrZs3ER5fnB+VPHAo94pV1CG6FVjaaBSGh
+         jHv2xHZpU5+V0KarlsIWtSSXEyKEX3gixVY7pW66I24TZksCdI4NmWbtsFGVDu3npV6H
+         KqCxqU40DTo4+7jYbvp9HfFSZyPO2I6A+/GWyl9WiuMjHlMXcrmrDelHmLwQ04xsvIg4
+         fq0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794296696; x=1794901496;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZpsePWqmYNTbWvoSp5jGUgvnOP7GU6uaxozkU4/R0Do=;
+        b=H2GhER4kXQfuT6zq6OYKFfO4CKr+TnYBQY+J4+wX0J+n+CUEp4TelxEBZdttmUn2Ck
+         9FNNL2nzbecdREoBYm8MsuuoazwonlyQNqp2xvVFds+qbVHHZ12KwBrv/FqzYW+ySNNG
+         jYVUMISLeOSdWRbknD9BBRgCU1V01xHTApJKdbeBwUvDTIj9CxtvbPvD7Zur849flKZD
+         6VkNV3LJc2+Bxqw21ICBobVkX8Bu1z8AIWDNSR6jXZU4B620dvKkvWUoui+foL3t34Vc
+         3W/0xxuDT+5WXa795ki6CTFEfK/d6//NsTkcwvZUzm1i6dy7u2EPYQj7HE6j98fgz/ug
+         vhpA==
+X-Forwarded-Encrypted: i=1; AL+hErG44zFJYLIMZmO+wY/ypPGmxjv6hPEATky5nxN2KxlEqg9GsCjnNOfNX8OGiknD2O/WQkFUUQeZi5H6ZmE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WfTO5t/S7igfMZVgdkmPSgox5YSnv2pQ5Mffi2Qh0lBa22s2e
+	ulAnNU4La8rkj4Nu0wklOt7objK7D2baCnuJu5tpv7hcxiCzL4Inhr16ZRBJXEni
+X-Gm-Gg: AYBFou0WP8ex/0GBavmn10GuUJGhbk0IHGpWAn/WWnGu9m505TB1I+H+wQDDAJD/XYU
+	x36OVGqyZaJ4B5ZfxRKvX1lKUkHvGbNumwluy0oHLAJ81NymvuVS9jLbcYs3le+g8FN3VZd4YTZ
+	Cggnwd4yi8hVY0BKFGom6MZ1znmkVHpV9ESzDz2VPcoXYZL0VMFThF8sq0TBjAaGEKDvBYbOx5j
+	QFvCEI5gp5D1S45gCXJHD7J0m9kRvhbHYUVd1/EjzwiXnCYIEh8BV+QD45BTHhVyUmXhATkx7OG
+	AB/lLg4mt1F9bOyxzkfE+On5ICFpwSk07MC+Yqq4QtTMa1+PrCfxk73fzboOUCq17l8/V/SaS5x
+	TKFN/p8N8d8jtjd/aVQlwUBhHWjeLJ4ZTXN91oBnUw84XSCjGOPeJPTDKY25db/5BPOpzU3BSgK
+	57ZaB03dSBoY4sr9+VXvvF8azRUlZm45pjUTYgMh4/SAKZhenqKoq/jWwZHKxQB0EvcPNQ6LMsO
+	OTKXjuSTKGJisUU+C1ySb4jAnFrn/zZN66XhT7r1VtEsgtaA89JgfwTqOq5CyxT/Ss0yf0kBu8q
+	rrSrHTRI8toBSt2PLShq9cm3JHpNgVHh7xvtQvDXGQ4H/CZhnBSNR0cpol9KlaMUzw8D3Oqmbtt
+	C1oyaGfSMHQYBnWADSZG2z/f9SMcziGMILpzWgQU/nVQFnSLmO82ILkkNz26LItN1hMBfebx56p
+	O0GfcyNAUpf1ERGyqcZN0srlDUJR3kuYRRtobf8tg+DO+6hIKFYuxQx8hkXMvyFRwEPeaOQn2m
+X-Received: by 2002:a05:6808:138a:b0:4c4:9f7e:92ce with SMTP id 5614622812f47-5683ccd9ef8mr1560560b6e.38.1794296695733;
+        Mon, 09 Nov 2026 23:44:55 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.44.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:44:55 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 10 Nov 2026 00:44:35 -0700
+Subject: [PATCH v2 32/58] mtd: rawnand: fsmc: retain open-handle state on
+ removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,161 +95,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-panfrost-long-jobs-v1-7-24508939ae8d@gmail.com>
-References: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
-In-Reply-To: <20261110-panfrost-long-jobs-v1-0-24508939ae8d@gmail.com>
-To: David Airlie <airlied@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Maxime Ripard <mripard@kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794296695; l=4912;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=9pt+9zxspvcPYoCvJUbuQTbXv7CjJ23ldIGjznYrXko=;
- b=20c9Asou0gkJSeCspFzbAB/rV/bY4dYlFVnBFG4iz2cujTFukeTUQnoNjIuiQYonBmSs3tZ2X
- ghlJ9YHCD/DAkXcNHf/EbkLUG/hscnxePuPCODy2Q/ek7e+iQcwDCbN
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-32-9137d08f05df@gmail.com>
+References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
+In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Keep chip metadata and controller storage alive until the final MTD
+reference is released. Unregister and disconnect each published chip
+before releasing the resources used by its hardware operations.
 
-An unhandled GPU page fault only reports the faulting VA. That does not
-tell a GPU access just past the end of a buffer (a userspace or hardware
-overrun) from an access to a buffer that is no longer mapped (a kernel
-bug) or from a garbage pointer.
+Disconnect before controller disable and DMA channel release.
 
-After the fault report, look the address up in the faulting address
-space and print the BO that contains it, or else the nearest BO below
-and above it: VA range, size, the distance of the fault from it, whether
-it is still mapped, heap/noexec, and the label userspace gave it (Mesa
-labels its BOs with their use, format and size). For an OpenCL image
-read on a Mali-G31 this gave:
-
-  panfrost 1800000.gpu: Unhandled Page fault in AS0 at VA 0x000000000A181000
-  ...
-  panfrost 1800000.gpu: fault bo: below: VA [0xa041000-0xa181000) size 0x140000, fault at end+0x0, mapped, noexec, label "Texture format=r32g32b32_sint extent=25x128x32 array_size=1 mip_count=0 samples=0 modifier=0x0"
-
-that is, the texture unit reading past the end of a 96-bit-per-texel
-texture, which userspace can avoid by padding such textures.
-
-Only the unhandled fault path is affected; heap growth faults are not.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 81 +++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ drivers/mtd/nand/raw/fsmc_nand.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 13728b0c4..b0319d680 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -595,6 +595,86 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
- 	return mapping;
+diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
+index 0b1817cdfc5a..d9cdb03e8149 100644
+--- a/drivers/mtd/nand/raw/fsmc_nand.c
++++ b/drivers/mtd/nand/raw/fsmc_nand.c
+@@ -1020,6 +1020,11 @@ static void fsmc_nand_disable(struct fsmc_nand_data *host)
+ 	writel(val, host->regs_va + FSMC_PC);
  }
  
-+static void panfrost_mmu_print_fault_bo(struct panfrost_device *pfdev,
-+					struct panfrost_gem_mapping *m,
-+					u64 addr, const char *where)
++static void fsmc_nand_release(struct nand_controller *controller)
 +{
-+	struct panfrost_gem_object *bo = m->obj;
-+	u64 start = m->mmnode.start << PAGE_SHIFT;
-+	u64 end = (m->mmnode.start + m->mmnode.size) << PAGE_SHIFT;
-+	u64 dist = addr < start ? start - addr : addr >= end ? addr - end : addr - start;
-+
-+	mutex_lock(&bo->label.lock);
-+	dev_err(pfdev->base.dev,
-+		"fault bo: %s: VA [0x%llx-0x%llx) size 0x%zx, fault at %s0x%llx, %s%s%s, label \"%s\"\n",
-+		where, start, end, bo->base.base.size,
-+		addr < start ? "-" : addr >= end ? "end+" : "start+", dist,
-+		m->active ? "mapped" : "NOT mapped",
-+		bo->is_heap ? ", heap" : "", bo->noexec ? ", noexec" : "",
-+		bo->label.str ? bo->label.str : "");
-+	mutex_unlock(&bo->label.lock);
++	kfree(container_of(controller, struct fsmc_nand_data, base));
 +}
 +
-+/*
-+ * Report the BOs around an unhandled fault address in the faulting address
-+ * space: the one containing it (if any), else the nearest one below and above.
-+ * An access just past the end of a BO that a hole follows is a GPU overrun of
-+ * that BO (userspace or hardware), a fault inside a BO whose mapping is gone
-+ * points at the kernel, an address far from any BO at a stale or garbage
-+ * pointer.
-+ */
-+static void panfrost_mmu_report_fault_bos(struct panfrost_device *pfdev,
-+					  int as, u64 addr)
-+{
-+	struct panfrost_gem_mapping *below = NULL, *above = NULL;
-+	u64 offset = addr >> PAGE_SHIFT;
-+	struct drm_mm_node *node;
-+	struct panfrost_mmu *mmu;
-+	bool inside = false;
-+
-+	spin_lock(&pfdev->as_lock);
-+	list_for_each_entry(mmu, &pfdev->as_lru_list, list) {
-+		if (as == mmu->as)
-+			goto found_mmu;
-+	}
-+	spin_unlock(&pfdev->as_lock);
-+	dev_err(pfdev->base.dev, "fault bo: no context holds AS%d\n", as);
-+	return;
-+
-+found_mmu:
-+	spin_lock(&mmu->mm_lock);
-+	/* The node list is sorted by address. */
-+	drm_mm_for_each_node(node, &mmu->mm) {
-+		if (node->start > offset) {
-+			above = drm_mm_node_to_panfrost_mapping(node);
-+			break;
-+		}
-+		below = drm_mm_node_to_panfrost_mapping(node);
-+	}
-+	if (below) {
-+		inside = offset < below->mmnode.start + below->mmnode.size;
-+		kref_get(&below->refcount);
-+		if (inside)
-+			above = NULL;
-+	}
-+	if (above)
-+		kref_get(&above->refcount);
-+	spin_unlock(&mmu->mm_lock);
-+	spin_unlock(&pfdev->as_lock);
-+
-+	if (!below && !above)
-+		dev_err(pfdev->base.dev, "fault bo: AS%d has no BO\n", as);
-+	if (below) {
-+		panfrost_mmu_print_fault_bo(pfdev, below, addr,
-+					    inside ? "inside" : "below");
-+		panfrost_gem_mapping_put(below);
-+	}
-+	if (above) {
-+		panfrost_mmu_print_fault_bo(pfdev, above, addr, "above");
-+		panfrost_gem_mapping_put(above);
-+	}
-+}
-+
- #define NUM_FAULT_PAGES (SZ_2M / PAGE_SIZE)
+ /*
+  * fsmc_nand_probe - Probe function
+  * @pdev:       platform device structure
+@@ -1037,9 +1042,12 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
+ 	int i;
  
- static void panfrost_heap_put_chunk(struct page **pages, pgoff_t start,
-@@ -965,6 +1045,7 @@ static irqreturn_t panfrost_mmu_irq_handler_thread(int irq, void *data)
- 				exception_type, panfrost_exception_name(exception_type),
- 				access_type, access_type_name(pfdev, fault_status),
- 				source_id);
-+			panfrost_mmu_report_fault_bos(pfdev, as, addr);
+ 	/* Allocate memory for the device structure (and zero it) */
+-	host = devm_kzalloc(&pdev->dev, sizeof(*host), GFP_KERNEL);
++	host = kzalloc_obj(*host);
+ 	if (!host)
+ 		return -ENOMEM;
++	ret = devm_nand_controller_init(&pdev->dev, &host->base, fsmc_nand_release);
++	if (ret)
++		return ret;
  
- 			spin_lock(&pfdev->as_lock);
- 			/* Ignore MMU interrupts on this AS until it's been
+ 	nand = &host->nand;
+ 
+@@ -1128,7 +1136,6 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
+ 		nand->options |= NAND_KEEP_TIMINGS;
+ 	}
+ 
+-	nand_controller_init(&host->base);
+ 	host->base.ops = &fsmc_nand_controller_ops;
+ 	nand->controller = &host->base;
+ 
+@@ -1140,9 +1147,15 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
+ 		goto release_dma_write_chan;
+ 
+ 	mtd->name = "nand";
+-	ret = mtd_device_register(mtd, NULL, 0);
++	ret = nand_set_release(nand, NULL);
+ 	if (ret)
+ 		goto cleanup_nand;
++	ret = mtd_device_register(mtd, NULL, 0);
++	if (ret) {
++		nand_disconnect(nand);
++		mtd_put_master(mtd);
++		goto release_dma_write_chan;
++	}
+ 
+ 	platform_set_drvdata(pdev, host);
+ 	dev_info(&pdev->dev, "FSMC NAND driver registration successful\n");
+@@ -1176,13 +1189,14 @@ static void fsmc_nand_remove(struct platform_device *pdev)
+ 
+ 		ret = mtd_device_unregister(nand_to_mtd(chip));
+ 		WARN_ON(ret);
+-		nand_cleanup(chip);
++		nand_disconnect(chip);
+ 		fsmc_nand_disable(host);
+ 
+ 		if (host->mode == USE_DMA_ACCESS) {
+ 			dma_release_channel(host->write_dma_chan);
+ 			dma_release_channel(host->read_dma_chan);
+ 		}
++		mtd_put_master(nand_to_mtd(chip));
+ 	}
+ }
+ 
 
 -- 
-2.55.0
-
+2.53.0
 
