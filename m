@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351076;
-	b=I8SaXYa6fkNeKaJsydf3ht++JMYeGqo2p5vPQNErBExlK6rk/Sf4c1o5n8HVSEak77NY
-	 4tDi1PGERo+KWsJIFVrKdBiWzipjm7kI75gqf8o/TeTneUq8iG6PHGWd4ijOo2B5o5kPd
-	 bUM5ilDJTu1fEQRs86kS4Bsobw11zROzDXXqq49m9hjyWsvnilEsGKIRMZNX/1esRILth
-	 EFFV5Bm/HVLajpPxiPS8AMY4TxN9fy387s9BuyUkNZSuynGLA4zm6r/i5niYR0G5beKRX
-	 qCVXi5xfXJCY88uTLvOUaFAmcvpP6kTC/67zev5fSYG6nXrWOwGc3yredfBDp41NUMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351076;
-	h=DMARC-Filter:DKIM-Signature:Date:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eM62stGlO9Wse+nXJb2nhJ+ESqdO/DZ9KfICfYRljao=;
-	b=lLlnKShOvgm4XlaDqxwpC1DuHJ6c7ScaaKOdeZqCh9BOOnsJo9mndH8qcRWStA+UpHWD
-	 mHuLxBOzEpNgbo6MM0x1PZF8U7qFC3/sY4+t1lfftjHlTeo1BFpp6kEz8A5fj8ocqG3KX
-	 vJvB9PKxDHxAJMSXElby1ZeazFySYnS5Q11tHZ40+DF/tdwaQyQ0f/WDy/5HssU4h0qH/
-	 oFv5gPLxp8zXmFF0u7HOlwnQq7Jogn5dF9nCVTOTkK8oC/ASqrlMmEzcQ5Hj0jIujMCHO
-	 HCSdFHIbVbVre+FF7ekhfzqq9wGsQG/VWNnOFBrNCZ+9j/BKj/BYloJHbLSGMxtcQ8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.ch;
-	spf=pass smtp.mailfrom=protonmail.ch;
-	dkim=pass header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=j3ilvKbE;
-	arc=none smtp.remote-ip=79.135.106.31
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794351157;
+	b=1d3vLjOkJhLzy7bqmrDu1J1ZPP/EhCNQoLA7QvjYPO+n2Otzti5+YKQ+3a9qB1CT1XyX
+	 sTGjugXutW0Nps7Kv/TaNdViv6QnghmpwWSf1D8ejGQ6dvvGtIIm2G2Y/6onBajJoOLgl
+	 zX4t5+/62zTM0Z9IK3BwmsE/CNE7Q/fyVQ+8e+FKwo16Ggow7NMbIHILXUuOEmn3fpcPF
+	 y+e64K/1zSPIyhHbmkBl/zS8zQPTq3xIc3QajfarQTuAMsU78mlQsPXbROcGhdUwnivM1
+	 oExUl+xoVNizgPdR9vpUl5sDRX8HrnpF4yd3r0NfWjebgpqNmMrSvZA1J1ripnX5vkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351157;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=DyQQHjoEJxULnN5Ajvw4LYytjIvxD+0flCCAvCCl9Bg=;
+	b=KJCe7IbcALdFS0pMLk9tQmO16kD2jmMfzVZbrfNTBWlR9njDW+4laWakgzyh0MYrxGGr
+	 xbBz8WPULa0hguUT3XwnykSKlRPvJZ656cj5XV9Vu4j/5ftz9TEua3OXGbBusFVAjeAip
+	 UQ2fFUbewgOlmOGgXMw5zwvF0uJQM+dWI85GY1WEQ2kvdZZzcU1EkBvP8DhAvWS1ltOnF
+	 f+5jOc7Rly+2LUvvBxifiq1aUdK/aOuUUKCnoCPBW4vE3ahDWkGfahr+yJRl1Qy1/wv7S
+	 CBEDb0TmgTbiCx68R2EMV9ZvTY4PwMzbb0bJiYtTci0Me5M1p3G+GBoPXvwLImpkHjA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4hvvhv9i;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.57
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7B6606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:51:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7B6606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46B2606A31C;
+	Tue, 10 Nov 2026 22:52:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E46B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.ch header.i=@protonmail.ch header.a=rsa-sha256 header.s=protonmail3 header.b=j3ilvKbE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.ch;
-	s=protonmail3; t=1794351072; x=1794610272;
-	bh=eM62stGlO9Wse+nXJb2nhJ+ESqdO/DZ9KfICfYRljao=;
-	h=Date:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=j3ilvKbE2p1jKmPfpCdK0zEPr3YJ3hayhKXluJHGBtP5M3UKofViNrz9AbcvmWSRz
-	 cZaL52hH2CCbe6bgtttj6bMcLoW4d9e1CCA0SWsm0U6laeaadKb1UzfR2TWLcoa9Z7
-	 qWdlOirI1vxzj9rwWd7WOqMSlaWHiyx0mReowbWG1KTwKn4HpP+cdRehBdmPT1oo+T
-	 cXTfK048v8RTJRae8tL4B1CJSCPaSuipXI6KmrOTuuoKrQ9s8fk0ImTd7lQsvWdNHG
-	 qh4oVCIeKind0iWdshxvQs08PlpjQizcZ8MmOSbF4BctmC6DzhDBlU+jnCvCuBdJy0
-	 O4VAORjL/Btww==
-Date: Tue, 10 Nov 2026 22:51:07 +0000
-From: Ben Grisdale <bengris32@protonmail.ch>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>
-Subject: [PATCH v2] mfd: mt6397: Use PMIC specific interrupt count for domain creation
-Message-ID: <20261110-mt6397-irq-num-fix-v2-1-9d5853a00437@protonmail.ch>
-Feedback-ID: 27291966:user:proton
-X-Pm-Message-ID: b6e27d1989934072699f0422e290035781386c66
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4hvvhv9i
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xXzCmeVKcyNjayT2gX3UlugI6TefKJpvoVhFR8dYtTxOBv8HuP0Yj7Vgl0zJwRkJik7D37fhqZpDe5yfLjXj4OjGaWMIXwwRFYvsqOFp5NIOTdzTZDt8nT51NPlAx4X7w/Hvg/dQuMzc8v7aqFUmuucbQ3dI04C6DcXTNx9LAEj86RVlTFImkZxGp3TxfTcLnBUy9xCQ2G+cOdC8WhJB0d+IofsqNAXg5ICC9jvqSVeoX7M46tbZWrzoqgMrj09PE0sitdoibUaI44bkhVXo+UXokzZl2+m8xeG9EnfXnFPk6g8NmHDd6z0w2j44KR5ZA4pOr+A4a2d4wKTNv0kb1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DyQQHjoEJxULnN5Ajvw4LYytjIvxD+0flCCAvCCl9Bg=;
+ b=nsv58n6LAIPIMk2G6h+KNaj4eRqLuT7HOcp8pJmv1YpDhNnTbMhyvqAFTMSnb1pLV6OIvd66bV3V6bI/kdVGA68880pFF3JHCtBHzYTKxm44nJ69yHGwVxql7XE9lfLWjPkv3h9BrrNh7eL+arwvTFkwkg5VWLMfGyJZtTczpgiEsbb8bH6KJrN2+1ers85bg5nx/+eOV5k0JNhGrMwYNLmyjtamliH9GTG05o4iC9Lz02nAPkpZaO+tkVAWgwdOhgNfvz1hlbhegR5KwyECvHrrV31IRLyRGQ+FcrJBFet1M1l2W9y0Twhz01L1UZfx9W8MprMA8F0V61HPcrU15Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DyQQHjoEJxULnN5Ajvw4LYytjIvxD+0flCCAvCCl9Bg=;
+ b=4hvvhv9iGJIkRA28HblzdIthkMr0EK6kEu8t8Y73kOr1uEzmdyqNKEuWNHllVMCjeolar1dus9zTRjdNUNz2A1Pxhhq+N10PO/V0kaAWf1XSMHBIpN2OQuFJ5lYsjYmj13b5m96WKCKAqP2Vb/KQPmfu0tjvlUwDvsnqfJ8/Vc0=
+Received: from BN9PR03CA0542.namprd03.prod.outlook.com (2603:10b6:408:138::7)
+ by SA1PR12MB7409.namprd12.prod.outlook.com (2603:10b6:806:29c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 22:50:16 +0000
+Received: from BN3PEPF00022BC0.namprd04.prod.outlook.com
+ (2603:10b6:408:138:cafe::9) by BN9PR03CA0542.outlook.office365.com
+ (2603:10b6:408:138::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 10
+ Nov 2026 22:50:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC0.mail.protection.outlook.com (10.167.248.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 22:50:16 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 16:50:09 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Tue, 10 Nov 2026 16:48:22 -0600
+Subject: [PATCH v5 2/3] drm/amdgpu: Match VFCT using initial PCI bus number
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,108 +99,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261110-vfct-regression-v5-2-f49fae981bf3@amd.com>
+References: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+In-Reply-To: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+	<alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, Mario Limonciello
+	<mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC0:EE_|SA1PR12MB7409:EE_
+X-MS-Office365-Filtering-Correlation-Id: f94b86d8-d701-4b97-5a71-08df3f7cfd08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|22082099003|56012099006|261022115727099003|11063799006|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261102123227099003|261021123027099003|261022075727099003|261021121427099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	fWFNHuHqJCKnxfXnFdJv69+Dox6aSZzmAFvvGyr98BFLRhT8MCUVC3CRq2114ByUXcmMw/fxMlW1rw54e0kgSnlKNO6UGlVsLL8IxZwbCkJlVcnZBZwniphgMxk6YIycFeBxaxRbft/2Y+1hTIK1ce67KK/nidB1XKcPz+lsemaQpmsulDa5mV8qkKmYELf+cD0WCRdjMKG47UNhPqtom/6CnxBoFxYFqns7YJAAUtGtCewFlsIkoIY4PLYPOtAFpkf2ghunuXQmrZj0qeB+4MFPjM27Vr80RFeqlk3cnHOkxyAefXZndZVlxe0YHWN33p9Z8j0qs1LqgZGWHWxCvlcTmeYZs+djvUozDsXS/YDdSNSuTEAY5ZAM9qyc+6Wd1/0vpmqhahBP7hs8bwIJ6xj6w2ZCDkWkuSpsjOcb22jUONWEtkDMPMzIRds8L6QuUL0Cpkce9xWaoYrCrKy5wBOpnMaW6WZCM3kvglz0XrvfGbovJVbWRWuylix6wxUtl/UH5OHKLFAkDKW3Z24SO4JVHJN332tiDLsB+3OSNbanVBa4CIVqDT/icHJkGxLzZMbBMhG9gLN5072RU1442uizgADfmr1irvrAl3Tw7QZKBkEMakIbRD1fb6ommYCjzTjVRt1Z9w23F7RjZ4CbQ2+8qQXIALXthGeX8ixzECA=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(56012099006)(261022115727099003)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261102123227099003)(261021123027099003)(261022075727099003)(261021121427099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ULv1m76mWvlXFe6S99EyGfAHa9JA4UNmuRHs8aM0CGmAtlU4UkKksIfz3Ox3AoH+7FS2xStoTNGHwJYtwhr/FEc2AwJQfs9f2EU1WAxZ/LPazMUG6EyGJ9dMtpMEvWFjfwQfMn+BxxY0Oq7fPm0roHvmmBnm1xyM0K1Tgyl+PzUSlKTnJTbj1loQ+girq3CKgj3Ps5KNXL4aPta0gzOkMX1cF3yMQuitrDXZ7d9qnNfhVxNJsO+tUI6DxvS/VVRXrE3vhZKxy+dmnnvq7zueDmWpxv6unDWpuI9HO1m8Pc0w8kKpTz54AzIiDSAU82I3nFlaCMNfrsQhzJhrEis/o6gS0y9OluNeceHjBiIANWKn3qlTdeZA4QchmqkiPz+pGsIN33FdhmRAPDs8EOJIOm7OSvoFtSeqV+yNLpWtMTWOq+nZbj1ZmfnRr9c1jws+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 22:50:16.3139
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f94b86d8-d701-4b97-5a71-08df3f7cfd08
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7409
 
-mt6397_irq_init() currently creates its IRQ domain with a fixed number
-of interrupts (MT6397_IRQ_NR). However, not every PMIC supported by this
-driver has the same number of interrupts as the MT6397. The MT6328 has
-47 interrupts, so its interrupts above MT6397_IRQ_NR (32) are currently
-unusable.
+VFCT records the PCI bus number from BIOS POST. The current bus number
+can change after PCI core renumbers the bus, while accepting a mismatch
+based only on device identity can select the wrong VFCT image when
+matching devices are present. Compare against the bus number captured
+from the firmware bus assignment before bridge renumbering.
 
-Correct this by passing the PMIC's actual interrupt count to
-irq_domain_create_linear() based on the chip ID. Define the missing
-interrupt count for MT6328, as the other supported PMICs already have
-it defined.
-
-Fixes: 6e31bb8d3a63 ("mfd: mt6397: Add initial support for MT6328")
-Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
+Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
+Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://patch.msgid.link/20261110-mt6397-irq-num-fix-v1-1-81d=
-17454194e@protonmail.ch
----
- drivers/mfd/mt6397-irq.c        | 7 ++++++-
- include/linux/mfd/mt6328/core.h | 1 +
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/mfd/mt6397-irq.c b/drivers/mfd/mt6397-irq.c
-index 5d2e5459f744..783be9f5c9c3 100644
---- a/drivers/mfd/mt6397-irq.c
-+++ b/drivers/mfd/mt6397-irq.c
-@@ -171,6 +171,7 @@ static int mt6397_irq_pm_notifier(struct notifier_block=
- *notifier,
-=20
- int mt6397_irq_init(struct mt6397_chip *chip)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 08ed1eb695586..a562265eafd26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -386,16 +386,17 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
+  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+  * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+  * resource conflicts), the runtime bus number may differ from the POST
+- * value.  Match by device identity (vendor + device + function) and use
+- * the bus number as a preference: exact bus match is preferred, but when
+- * the bus numbers disagree we accept the entry if the device identity
+- * matches.
++ * value.  Match using the bus number captured when the device was
++ * discovered, before any bus renumbering.
+  *
+  * Returns: 0 on match, -ENODEV on no match
+  */
+ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+ 				  VFCT_IMAGE_HEADER *vhdr)
  {
-+=09unsigned int irq_num;
- =09int ret;
-=20
- =09mutex_init(&chip->irqlock);
-@@ -181,6 +182,7 @@ int mt6397_irq_init(struct mt6397_chip *chip)
- =09=09chip->int_con[1] =3D MT6323_INT_CON1;
- =09=09chip->int_status[0] =3D MT6323_INT_STATUS0;
- =09=09chip->int_status[1] =3D MT6323_INT_STATUS1;
-+=09=09irq_num =3D MT6323_IRQ_STATUS_NR;
- =09=09break;
- =09case MT6328_CHIP_ID:
- =09=09chip->int_con[0] =3D MT6328_INT_CON0;
-@@ -189,12 +191,14 @@ int mt6397_irq_init(struct mt6397_chip *chip)
- =09=09chip->int_status[0] =3D MT6328_INT_STATUS0;
- =09=09chip->int_status[1] =3D MT6328_INT_STATUS1;
- =09=09chip->int_status[2] =3D MT6328_INT_STATUS2;
-+=09=09irq_num =3D MT6328_IRQ_STATUS_NR;
- =09=09break;
- =09case MT6331_CHIP_ID:
- =09=09chip->int_con[0] =3D MT6331_INT_CON0;
- =09=09chip->int_con[1] =3D MT6331_INT_CON1;
- =09=09chip->int_status[0] =3D MT6331_INT_STATUS_CON0;
- =09=09chip->int_status[1] =3D MT6331_INT_STATUS_CON1;
-+=09=09irq_num =3D MT6331_IRQ_STATUS_NR;
- =09=09break;
- =09case MT6391_CHIP_ID:
- =09case MT6397_CHIP_ID:
-@@ -202,6 +206,7 @@ int mt6397_irq_init(struct mt6397_chip *chip)
- =09=09chip->int_con[1] =3D MT6397_INT_CON1;
- =09=09chip->int_status[0] =3D MT6397_INT_STATUS0;
- =09=09chip->int_status[1] =3D MT6397_INT_STATUS1;
-+=09=09irq_num =3D MT6397_IRQ_NR;
- =09=09break;
-=20
- =09default:
-@@ -216,7 +221,7 @@ int mt6397_irq_init(struct mt6397_chip *chip)
- =09=09regmap_write(chip->regmap, chip->int_con[2], 0x0);
-=20
- =09chip->pm_nb.notifier_call =3D mt6397_irq_pm_notifier;
--=09chip->irq_domain =3D irq_domain_create_linear(dev_fwnode(chip->dev), MT=
-6397_IRQ_NR,
-+=09chip->irq_domain =3D irq_domain_create_linear(dev_fwnode(chip->dev), ir=
-q_num,
- =09=09=09=09=09=09    &mt6397_irq_domain_ops, chip);
- =09if (!chip->irq_domain) {
- =09=09dev_err(chip->dev, "could not create irq domain\n");
-diff --git a/include/linux/mfd/mt6328/core.h b/include/linux/mfd/mt6328/cor=
-e.h
-index 9a08aed72b9f..18e000cf5d29 100644
---- a/include/linux/mfd/mt6328/core.h
-+++ b/include/linux/mfd/mt6328/core.h
-@@ -48,6 +48,7 @@ enum mt6328_irq_status_numbers {
- =09MT6328_IRQ_STATUS_FG_ZCV,
- =09MT6328_IRQ_STATUS_SPKL_D,
- =09MT6328_IRQ_STATUS_SPKL_AB,
-+=09MT6328_IRQ_STATUS_NR,
- };
-=20
- #endif /* __MFD_MT6323_CORE_H__ */
++	struct pci_dev *bridge = adev->pdev->bus->self;
++	unsigned char initial_bus;
++
+ 	/* Vendor and device IDs must always match */
+ 	if (vhdr->VendorID != adev->pdev->vendor ||
+ 	    vhdr->DeviceID != adev->pdev->device)
+@@ -405,16 +406,12 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+ 	    vhdr->PCIFunction != PCI_FUNC(adev->pdev->devfn))
+ 		return -ENODEV;
+ 
+-	/* Exact bus number match - preferred */
+-	if (vhdr->PCIBus == adev->pdev->bus->number)
+-		return 0;
++	if (bridge && bridge->fw_sec_busnr_valid)
++		initial_bus = bridge->fw_sec_busnr;
++	else
++		initial_bus = adev->pdev->bus->number;
+ 
+-	/* Bus mismatch but device identity matches (PCI renumbering case) */
+-	dev_notice(adev->dev,
+-		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+-		   vhdr->PCIBus, adev->pdev->bus->number,
+-		   adev->pdev->vendor, adev->pdev->device);
+-	return 0;
++	return vhdr->PCIBus == initial_bus ? 0 : -ENODEV;
+ }
+ 
+ static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
 
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261110-mt6397-irq-num-fix-2de78da5695e
-
-Best regards,
--- =20
-Ben Grisdale <bengris32@protonmail.ch>
-
+-- 
+2.43.0
 
