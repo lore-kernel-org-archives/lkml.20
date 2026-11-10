@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315323;
-	b=IUBuYMfe2Hw86ntHPzn4sWMQ7M/WqKKlhm+SUkHh0kB3PDeNc/OEo/82RI7987bQ5x0p
-	 iu5mZhROkWJGyUgPRCNFqqMnFFGHP4ZGnzX3Ebtw0Wtv6pfL5jvLy8cCngracFtb55pra
-	 Tqv/2CrUace5jNqrXRpEaAfX7IqVTB6n8/h1zN7uYxzxJszTtUcPZPV34zPOQdMq3B0iw
-	 Ar4qfgR3wnfMbvDZRoKBIsE06S/ZHUuFj54RWYFhfJnkZp73fdEKe+mTA/3mnmmCk7pjs
-	 SHgGA3PzUZCbuiq0v8Cn38EU94O4trLWCXh6uZVDzXCLCbVthNZQe3INSdV+tPTBamQ==
+	t=1794315341;
+	b=zhQ6lwv0XEyc4e4hsDQTNlhnwBXMPXGle0J/1T75ZZHHeRFwil6Gj7jMEcwJx764iaxY
+	 mSgfBy47QtXsxrqHwl5EEZzzQnLD1kA/Y0Rd2con93fEIZKH02pTA/OrnJtpqXTGVgu0H
+	 +U2t2r1n2/rRPhurjQCXEd2SIipf1bU0QFZdh5d3TqHaKy3+Y/bT/S+cDHJDQdcZfDMgD
+	 AUGu72j32WzuWVdkSXksAAjmE73O6dJWvIVVIZkW5qj2apbIU+cSU7zRP3/4JduBHn4MG
+	 uTCD+VfmCQbd+HVHL9FI4TDWEbWeXH2zUsV3szDa89iQPssVVbXj7BQJ1IK969UkVhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315323;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TwRZuvAXgLAEcFSDE6vuvRmvdHxyqb0LUu/3ZbgkOwo=;
-	b=vqg/X8z25FGuCBgBhhqCPjb5T1OOm2Lwb6OCHry7KOZWDeIrAPeQbNCXWy0Od1QXcegm
-	 N8tAfIOIMEL2qPsvjK5suUUYbbRqc6dT+koSoxF9qfdGFqnLT9M3x0P2VuIyjDxHlnPbj
-	 GegbHu5uCDrTbpFOrR3U9SV1Etil1a6IuuLQBdCLEx1Pg8Ix531xg4sYbCux2KYGwzllu
-	 YQmt51cEFXSb+QEKEgNCpr1Hc3O7aT7DsZ7U5FvwM1BsJs/slXJnMgwB+EnMU3RNnClOY
-	 +MgrhzzKuntiMIF/NRmvAeACxcQf8LIQn++I/uocEg2LdkEFnNC5KJA2ATysovi3Wyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315341;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0YrNyvOkrO10J37Rz2X2JIGF70cIhICM0P7YzECl+1k=;
+	b=MzSCDTepFJKITxuRV32i8OJRRmBD7VTPDvVUT2m9lQ9hOxABbJpr62t/LUCEJe2rDPIW
+	 L9cYa79F9cO7uGUtFE+r0qfu7ShoEqVYcKWGd+MIBJn/Bmp8UGVKryOCpHCFsUz5QoMO1
+	 ziTyV+EcHRuF4iUh7GLYA7LfiCVOExIH3W4rw/G8jxKwYfE8FTNYd+DHlfE+NtjoCBnsr
+	 Ku+d8Tl8cZRY8n6XGB5g5ZNIJaOcjbRGUe5+TNmXFho4Q2kwjxM+aiBLK8/jcqzBgGhqG
+	 D83rzhaFlK1mxgub1M5Y6b3OVGRwcbp0WmqoMlZaPhfQgJZHf/o5riEhG+yJLQLLmzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dankook.ac.kr;
-	spf=pass smtp.mailfrom=dankook.ac.kr;
-	dkim=pass header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o+dkBeZ9;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kXnyNkFd;
+	arc=none smtp.remote-ip=95.215.58.113
+Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386D160A3820
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 386D160A3820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dankook.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dankook.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388F860A2618
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 388F860A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dankook-ac-kr.20260707.gappssmtp.com header.i=@dankook-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o+dkBeZ9
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3720addb068so3507572eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:55:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dankook-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794315321; x=1794920121; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TwRZuvAXgLAEcFSDE6vuvRmvdHxyqb0LUu/3ZbgkOwo=;
-        b=o+dkBeZ92Heur0Y/ge5JcPI2o/HVPQgIjxuuRVsitAoburkYeB3B4JeMEvzcgtAY2K
-         svAsrgxqnAHZagQKq52bPHWuRQt4CWJKCcOwDj6x4FUeFkTtBhQIG93zMeZsQVxHElhT
-         8KXeUSa1xRZpAr3mbYcAH4U5lTsqL+ygKY507GDrBor89KR+hp8KPGPJ8XFNwWMmX6NK
-         6G4PV0X+24jjFh+nXo1IUuKDYMXser8FrU0th34YLw8X6yHKPu+4HIrz2j9aT5H5beYu
-         uEJyArnh2G2HQQVYWd8KqBqKs3rt4xo7Pfsa8Nh7/SZ/TFKAQyDqbjINev4WOiuwvTJ7
-         m+Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794315321; x=1794920121;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TwRZuvAXgLAEcFSDE6vuvRmvdHxyqb0LUu/3ZbgkOwo=;
-        b=FaRN/7htbBCHW5yowC0PZCIW7mUGNVcdJacJkNguFX1spVNGOJ83Wzr9AhRO4hqQEX
-         hqvxq+Cm0Eqao0qLWpwoB+OY/E1Y+uuPWtZFZQFpK/X2wdpaNPfism0S1Z3OEXuluZ8l
-         l89cMnjgP+sVotT45MQtMQUx2DZLvF0fB/3bCm68RK5qxIARuLyMsuM6+0XXH4eWIYTx
-         WZRZp2b/esOgB4JUQzCsVZsmIsVoA/L0Jdge6lsvd5zBLaTeyVLTggp0tpfXps+Q+0Ls
-         q+bMliKO+JDSbXGrVxnN8Dg/vAXCUqiNS7zBMIFlRy3F8/FI2CLuFvdxseCd++y7+d8A
-         pf2A==
-X-Forwarded-Encrypted: i=1; AL+hErGqYWlQCUqwDeKzqrjyr6j6r0QhjG0/iO3EUxutWr76NEYFkpgwhbd+/hkTY5as8RlEZSDPgM+NmikOm7I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uwMm/N1Mg6z2U85SFA7RNQ05cEBG9SR4VMOCfC/RdnQ0wsvbK
-	AKmPlyMhxmWnX+w0EjTOkUXkSIwyZFBU2y8rYGHEiYScSF4pyoIskaJ+wWcwi+nhhMk=
-X-Gm-Gg: AYBFou0ZDREffuj1tarbl66nLNZqR2eeEpmR2LEL/NjS3LMdabPsYCszaWYtwnK9edl
-	CquICTNHrMNzx0STh7+7ex+yI3pBcwGbmT+trI2a0E/TGEPHCgIebwaJUCNsOPDscVDbHEHhkVc
-	X6JguzSCFRhCdBPSe8N+ZsK3LzkRlG5eC6hY89/CKNo3JNtbB7opbVelJ2O8SSzYEslS+59pf/H
-	0pALsc2SXKTQmIfGLK6bagL0eRAIdumDGMObmRWivDwfBBDolYvhFgA6hDY7v/cNXtKZZRsrLDk
-	+OKpIriSMK9l2KFRl3k8baIE8BOxLrEfR7/ITvopG7Ejp4SvBBxyoLAMyo2wTF+czIQz4EKbUsU
-	IdRUi01agnIDBqHepjhmJXETmbly4XgTMkJ0TyycnsabQfprgugmDaVefZNcTWSWWsstuAARLgK
-	fH/8NLwI+BDOkS1DY2n4dm4h6UFPiQzOAGCZ1KJJdUq7ms+DtjOU2knjBt4vlHXymSUDKznVA2/
-	ayW7tkBBSxUDh0NCnhMuT9FdhOnSUXsQiD0xAg6fL8QWTuz0MTutWHN2RBMhaHM/1njqzefzumE
-	k8L8geUERyZRWPx40l7RIw5J
-X-Received: by 2002:a05:7301:fc0b:b0:36a:18d2:8c79 with SMTP id 5a478bee46e88-37520216c5fmr2704198eec.19.1794315321086;
-        Tue, 10 Nov 2026 04:55:21 -0800 (PST)
-Received: from myarch ([121.165.40.114])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751dae63a6sm6855380eec.1.2026.11.10.04.55.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:55:19 -0800 (PST)
-From: fixca <jaehoon1744@dankook.ac.kr>
-X-Google-Original-From: fixca <jaehoon1744@gmail.com>
-To: broonie@kernel.org,
-	Vijendar.Mukunda@amd.com,
-	shumingf@realtek.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jaehoon Kim <jaehoon1744@dankook.ac.kr>,
-	"Claude Fable 5.2" <noreply@anthropic.com>
-Subject: [PATCH RFC 2/2] ASoC: amd: acp70: Add rt713 + rt1320 SoundWire machine for LG gram 16Z95U
-Date: Tue, 10 Nov 2026 21:54:29 +0900
-Message-ID: <20261110125459.3924-3-jaehoon1744@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110125459.3924-1-jaehoon1744@gmail.com>
-References: <20261110125459.3924-1-jaehoon1744@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kXnyNkFd
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YXNTJ8EvTAje+v+yw6YmnQb/hbXtkj5MXzXnPyCZFEE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794315338; v=1; x=1794920138;
+ b=kXnyNkFdHwMGIlKryzmC4olwC6vefPlrAb0PMxl8pelBVcW/khfy6ZMjoOR0KC84KFYqFmlp
+ xgWcUp2wBaKWZeuUdxB+TXHgyquHuPNG4QTflGjFXltI5xk/ppabVx5upvJk9BsKgHpCe1pg3ta
+ TrBg2Rpjglrv2BaazhpfSQ7c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 425a090c15f8c4fd;
+	Tue, 10 Nov 2026 12:55:36 +0000
+X-Mizu-Trace-ID: 425a090c15f8c4fd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <19708635-67de-45ab-9539-8d686caa7132@linux.dev>
+Date: Tue, 10 Nov 2026 20:55:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,147 +58,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] cgroup/cpuset: Keep the top sched domain non-empty
+ on CPU hotplug
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
+ <longman@redhat.com>, Tejun Heo <tj@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261110050324.173461-1-guopeng.zhang@linux.dev>
+ <20261110050324.173461-4-guopeng.zhang@linux.dev>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261110050324.173461-4-guopeng.zhang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Jaehoon Kim <jaehoon1744@dankook.ac.kr>
 
-The LG gram 16 (16Z95U) uses an RT713 jack codec on SoundWire link 0
-and a single stereo RT1320 amplifier on link 1. There is no matching
-entry in snd_soc_acpi_amd_acp70_sdw_machines[], so no machine device
-is registered even once the SoundWire path is selected.
 
-Add two machine entries:
+On 11/10/2026 1:03 PM, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> 
+> In cpuset_hotplug_update_tasks(), the local partition check passes only
+> the partition's own effective CPUs to tasks_nocpu_error(). For a
+> top-level partition with children, top_cpuset_sd_nocpu() treats the
+> children's CPUs as being returned, although hotplug does not return
+> them. This can leave the top sched domain empty when its last boot
+> domain housekeeping CPU goes offline.
+> 
+> For example, on a 32-CPU system with isolcpus=domain,10-31:
+> 
+>    echo 0,2-9 > A/cpuset.cpus
+>    echo root > A/cpuset.cpus.partition
+>    echo 5-9 > A/B/cpuset.cpus
+>    echo root > A/B/cpuset.cpus.partition
+>    echo 0 > /sys/devices/system/cpu/cpu1/online
+>    Oops: general protection fault
+>    RIP: 0010:build_perf_domains+...
+> 
+> The remote hotplug path does not check whether the top sched domain
+> is empty.
+> 
+> Check the full effective_xcpus of top-level local and remote partitions
+> without assuming any CPUs have been returned. Only invalidate a
+> partition to restore the top domain if it can return an active boot
+> domain housekeeping CPU. Partitions holding only boot-isolated or
+> offline housekeeping CPUs cannot do that.
+> 
+> Add hotplug regression tests.
+> 
+> Fixes: 9b496a8bbed9 ("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> ---
+>   kernel/cgroup/cpuset.c                        | 23 ++++++++++++++++---
+>   .../selftests/cgroup/test_cpuset_prs.sh       | 19 +++++++++++++++
+>   2 files changed, 39 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 8b6831983803..0b392d50df27 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -4043,6 +4043,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>   	static nodemask_t new_mems;
+>   	bool cpus_updated;
+>   	bool mems_updated;
+> +	bool nocpu;
+>   	int partcmd = -1;
+>   	struct cpuset *parent;
+>   
+> @@ -4054,9 +4055,24 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>   	if (!tmp || !cs->partition_root_state)
+>   		goto update_tasks;
+>   
+> +	if (parent == &top_cpuset || is_remote_partition(cs)) {
+> +		/*
+> +		 * Hotplug does not return CPUs held by child partitions. Only
+> +		 * invalidate a partition for an empty top sched domain if it
+> +		 * can return an active boot domain housekeeping CPU.
+> +		 */
+> +		cpumask_and(tmp->addmask, cs->effective_xcpus,
+> +			    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
+> +		nocpu = cpumask_intersects(tmp->addmask, cpu_active_mask) &&
+> +			top_cpuset_sd_nocpu(cs->effective_xcpus, NULL);
+> +		nocpu |= cpumask_empty(&new_cpus) &&
+> +			 partition_is_populated(cs, NULL);
+> +	} else {
+> +		nocpu = tasks_nocpu_error(parent, cs, &new_cpus);
+> +	}
+> +
+>   	if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
+> -				       (cpumask_empty(&new_cpus) &&
+> -					partition_is_populated(cs, NULL)))) {
+> +				       nocpu)) {
+>   		WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
+>   		remote_partition_disable(cs, tmp);
+>   		compute_effective_cpumask(&new_cpus, cs, parent);
+> @@ -4069,10 +4085,11 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+>   	 * 2) parent is invalid or doesn't grant any cpus to child
+>   	 *    partitions.
+>   	 * 3) subpartitions_cpus is empty.
+> +	 * 4) top_cpuset needs an active boot domain housekeeping CPU from cs.
+>   	 */
+>   	if (is_local_partition(cs) &&
+>   	    (!is_partition_valid(parent) ||
+> -	     tasks_nocpu_error(parent, cs, &new_cpus) ||
+> +	     nocpu ||
+>   	     cpumask_empty(subpartitions_cpus)))
+>   		partcmd = partcmd_invalidate;
+>   	/*
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index ee4d57b7e35b..f345696e5b53 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -648,8 +648,27 @@ ISOLCPUS_DOMAIN_TEST_MATRIX=(
+>   
+>   	# An invalid partition can recover once it leaves a top-level HK CPU.
+>   	" C0-9:P1   .      .      .    C0-6,8-9 .      .      .     0 A1:0-6,8-9 A1:P1 7|"
+> +
+> +	# A local root must not count its child's CPUs as already returned.
+> +	" C0,2-9:P1 C5-9:P1 . . O1=0 . . . 0 A1:0,2-9|A2:5-9 A1:P-1|A2:P-1 1|"
+> +
+> +	# A remote root must return CPUs when the top domain loses its last HK CPU.
+> +	" X0,2-9 CX0,2-9:P1 . . O1=0 . . . 0 A2:0,2-9 A2:P-1 1|"
+>   )
+>   
+> +# Keep an online boot-isolated CPU at the top so hotplug does not
+> +# clear subpartitions_cpus before checking the individual partitions.
+> +if [[ "$ONLINE_LAST" -gt 10 ]]; then
+> +	ISOLCPUS_DOMAIN_TEST_MATRIX+=(
+> +		# An offline HK CPU cannot restore the top domain. Keep this local
+> +		# partition valid while its sibling returns active HK CPUs.
+> +		" O2=0:C2,10:P2 . . C0,3-9:P1 O1=0 . . . 0 A1:10|B1:0,3-9 A1:P2|B1:P-1 1-2|2"
+> +
+> +		# Check the same active-CPU rule for a remote partition.
+> +		" O2=0:X2,10 CX2,10:P2 . C0,3-9:P1 O1=0 . . . 0 A2:10|B1:0,3-9 A2:P2|B1:P-1 1-2|2"
+> +	)
+> +fi
+> +
+>   # Test matrix to be run when boot time nohz_full CPUs cover all CPUs except CPUs 0-7
+>   # This also means that CPU 8 is available and is a nohz_full CPU.
+>   NOHZ_FULL_TEST_MATRIX=(
 
- - rt713 (jack + DMIC endpoints) on link 0 and rt1320 on link 1, used
-   when the RT713 exposes a SmartMic SDCA function (rt712-vb check).
-   On this machine the internal microphones are routed through the
-   RT713 SmartMic function; the ACP PDM controller is not used.
- - a fallback with only the rt713 jack endpoint and rt1320.
+Hi Guopeng,
 
-Tested on LG gram 16Z95U-GS59K with kernel 7.2.14. The "amd-soundwire"
-card is created with these PCMs:
+Looking at patches 1-3, the same check is changed back and forth in
+several places, and the places don't do it in the same way. I'd prefer
+a single helper that is unified and easy to understand, so that every
+place can just call it.
 
-  SDW0-PIN0-PLAYBACK-SimpleJack  rt712-sdca-aif1
-  SDW0-PIN3-CAPTURE-SimpleJack   rt712-sdca-aif1
-  SDW0-PIN5-CAPTURE-SmartMic     rt712-sdca-aif3
-  SDW1-PIN1-PLAYBACK-SmartAmp    rt1320-aif1
+As tasks_nocpu_error() is shared by the CPU mask update paths and the
+hotplug path, patches 1-3 end up checking the same thing in several
+places with different masks. How about making tasks_nocpu_error() take
+the CPUs to be returned as an explicit argument, the same way as
+top_cpuset_sd_nocpu() does, and use it for all parents? Something like
+the following (not tested):
 
-Headphone playback and internal microphone capture work with the
-stock alsa-ucm-conf (1.2.16.1) HiFi profile; headset microphone
-capture was not tested. Speaker playback through the RT1320 is still
-silent although the stream starts without errors; that is being
-followed up separately.
+/*
+* tasks_nocpu_error - Return true if tasks will have no effective_cpus
+* @parent: parent partition, NULL for a remote partition
+* @cs: the partition
+* @xcpus: exclusive CPUs that @cs will hold after the update
+* @del_cpus: exclusive CPUs to be returned to @parent, can be NULL
+*
+* @del_cpus may include CPUs that are also in @xcpus and will stay in
+* @cs. They are skipped by the @xcpus check, so callers can pass the
+* current effective_xcpus of @cs without masking it first.
+*
+* top_cpuset always has tasks, and its sched domain needs an active boot
+* domain housekeeping CPU.
+*/
+static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
+							const struct cpumask *xcpus,
+							const struct cpumask *del_cpus)
+{
+	const struct cpumask *mask = cpu_possible_mask;
+	int cpu;
 
-Signed-off-by: Jaehoon Kim <jaehoon1744@dankook.ac.kr>
-Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+	/* A populated @cs must have an active CPU in @xcpus */
+	if (!cpumask_intersects(xcpus, cpu_active_mask) &&
+		partition_is_populated(cs, NULL))
+			return true;
 
----
- sound/soc/amd/acp/amd-acp70-acpi-match.c | 85 ++++++++++++++++++++++++
- 1 file changed, 85 insertions(+)
+	/*
+	 * A populated @parent must keep an active CPU in @mask, either from
+	 * its effective_cpus or from @del_cpus, that isn't taken by @cs.
+	 */
+	if (!parent)
+		  parent = &top_cpuset;
 
-diff --git a/sound/soc/amd/acp/amd-acp70-acpi-match.c b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-index ccd0115..2a6d829 100644
---- a/sound/soc/amd/acp/amd-acp70-acpi-match.c
-+++ b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-@@ -553,6 +553,80 @@ static const struct snd_soc_acpi_link_adr acp70_rt722_l0_rt1320_l1[] = {
- 	{}
- };
- 
-+/*
-+ * LG gram 16 16Z95U: rt713 (UAJ + SmartMic) on link 0 and a single
-+ * rt1320 SmartAmp on link 1.
-+ */
-+static const struct snd_soc_acpi_endpoint rt713_vb_endpoints[] = {
-+	{ /* Jack Playback/Capture Endpoint (AIF1) */
-+		.num = 0,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	{ /* DMIC Capture Endpoint (AIF3, SmartMic function) */
-+		.num = 1,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt713_vb_0_single_adr[] = {
-+	{
-+		.adr = 0x000030025D071301ull,
-+		.num_endpoints = ARRAY_SIZE(rt713_vb_endpoints),
-+		.endpoints = rt713_vb_endpoints,
-+		.name_prefix = "rt713"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt713_0_single_adr[] = {
-+	{
-+		.adr = 0x000030025D071301ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt713"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1320_1_u1_single_adr[] = {
-+	{
-+		.adr = 0x000131025D132001ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt1320-1"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp70_rt713_vb_l0_rt1320_l1[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt713_vb_0_single_adr),
-+		.adr_d = rt713_vb_0_single_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1320_1_u1_single_adr),
-+		.adr_d = rt1320_1_u1_single_adr,
-+	},
-+	{}
-+};
-+
-+static const struct snd_soc_acpi_link_adr acp70_rt713_l0_rt1320_l1[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt713_0_single_adr),
-+		.adr_d = rt713_0_single_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1320_1_u1_single_adr),
-+		.adr_d = rt1320_1_u1_single_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_adr_device tas2783_2_adr[] = {
- 	{
- 		/* left */
-@@ -714,6 +788,17 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[] = {
- 		.links = acp70_rt722_l0_rt1320_l1,
- 		.drv_name = "amd_sdw",
- 	},
-+	{
-+		.link_mask = BIT(0) | BIT(1),
-+		.links = acp70_rt713_vb_l0_rt1320_l1,
-+		.machine_check = snd_soc_acpi_amd_sdca_is_device_rt712_vb,
-+		.drv_name = "amd_sdw",
-+	},
-+	{
-+		.link_mask = BIT(0) | BIT(1),
-+		.links = acp70_rt713_l0_rt1320_l1,
-+		.drv_name = "amd_sdw",
-+	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
- 		.links = acp70_4_in_1_sdca,
+	if (parent == &top_cpuset)
+		  mask = housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
+	else if (!partition_is_populated(parent, cs))
+		  return false;
+		
+	for_each_cpu_and(cpu, mask, cpu_active_mask) {
+		  if (cpumask_test_cpu(cpu, xcpus))
+				  continue;
+		  if (cpumask_test_cpu(cpu, parent->effective_cpus) ||
+			  (del_cpus && cpumask_test_cpu(cpu, del_cpus)))
+				  return false;
+	}
+	return true;
+}
+
+The callers then become:
+
+/* update_parent_effective_cpumask() */
+nocpu = tasks_nocpu_error(parent, cs, tmp->delmask,
+			is_partition_valid(cs) ? cs->effective_xcpus : NULL);
+						
+/* validate_partition() */
+if (tasks_nocpu_error(is_remote_partition(cs) ? NULL : parent, cs,
+			trialcs->effective_xcpus,
+			is_partition_valid(cs) ? cs->effective_xcpus : NULL))
+					
+/* remote_partition_enable(), instead of top_cpuset_sd_nocpu() */
+tasks_nocpu_error(NULL, cs, tmp->new_cpus, NULL)
+
+/* remote_cpus_update(), instead of top_cpuset_sd_nocpu() */
+tasks_nocpu_error(NULL, cs, excpus, cs->effective_xcpus)
+
+/* cpuset_hotplug_update_tasks(), hotplug returns nothing */
+nocpu = tasks_nocpu_error(is_remote_partition(cs) ? NULL : parent, cs,
+						&new_cpus, NULL);
+							
+In the hotplug path, @del_cpus is NULL as nothing is returned to the
+parent. new_cpus can be used as @xcpus for both checks, as the CPUs of
+the child partitions of cs are not in the parent's effective_cpus
+anyway. The check that cs can return an active boot domain housekeeping
+CPU before invalidating it can stay there.
+
+This also covers the local parent case I mentioned in patch 2, so
+patch 2 won't be needed. Could you give it a try with your test cases
+and that reproducer?
+
 -- 
-2.43.0
+Best regards
+Ridong
 
