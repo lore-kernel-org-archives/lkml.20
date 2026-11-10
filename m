@@ -1,121 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794314366;
-	b=hnaYm4jXKTYQKcXu/jCCWrVj4LEp8V3yTuWX5dBkSWmoVDAAmYHbflagbr5Y0kFoVvuo
-	 RXa5a6ghejqbEObsRXw6brp1Vv7ZEKIbsZBYdAdqiUlp4+jgEhcHX8rCzsA7MivhcjeKQ
-	 bu6UzLNbtnTzwvvQL62q4Dd8GlCDXOkxd+OGopcO5o0S50UCNBHGaVyAJVsl+H0re4Ia5
-	 Ahm1U1pmQY18neKey4e36wlLCmHZuoWdgg7Rl4jSBiHf3Q1I6Tlz7b3ZUmys8APX7ZHaz
-	 5ML9IOboq3H19vyVo+zCVw/h2NwMY5JEiiQHFS95WGoEBdsc750DZNgAHBRiAGsc5og==
+	b=l0vBERhBfyGebXWcLg6fUGGnf74swGDThdL2UmWMIKbmWaWyw8M9PszRkBb7RdsfBsrO
+	 G3BX64vZxcXkuTn20L/JVKkpACadSt5t9VdnvzOQaiQCMWy5/DTHqZyrUSVnARsTwnjV1
+	 Y6Ptj6qOObUv1QAvwSLAe+Acrf7VhxBMFl4jWMaKdaE68C3huIGRje3Y+Pk0cIxcx+NUL
+	 uisq01658yL8vJBx+c0QG+LTcl6LZHxxwesE/FfrF+ZeKVAccXjc+yJrghCwU0+TSS6Xr
+	 0IQiobXaC+qLvEcZRXOdnB9Gud7q1fsd4nt7Kh8eNjQ4564VrnPM2EscedcciLJRgmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794314366;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pwtPeU2sWzznNclKxCvFDxDPXTNBdV+ezO5+7hunkSs=;
-	b=QJ2NnjyckNIS40/S+ykhX2kHcV2yCUq5L0hoJG7Ss9fgmD2IoZXIgK8bu7Q2RzWCEDc7
-	 Zv+zrIroZQ9g85elnwMPP3aTDVMcVcKgo4J79EVQVlf3NjWiDwcjpF/1TxInczJQoMqzq
-	 r/6PMQ7/ZuhYWQapIZT/OTtD3WR1P/ZaPd6qhl30yrXmr4F9Js0zwEgnNnyL/2X4QN3uy
-	 2WY2ecsF9aPJ/25y/MS2eI+z0rd9T6lkXSCXpa2UCNVgY3H9X3HdP2MbL5Fa3LXgN3F9j
-	 j+UHLww5dw0cUHtZkkxj1bU7aQjS30gNMnnBroQ0YocASuIZtJOIsYQl23CUY7snZqg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=HF3shcz+KksloJNRLeQSS2sTiHKjaNkcjpmTc658boM=;
+	b=IF34JZj+pwesukxmA7QXctgCJ9FwYSm5/qYI3Jw3ZxQZOfHSyEfiGNLCxGubKktBebe0
+	 KcqMJevLCYeWo9NQTKX2KkalC4pyC4d5zTFOsVaJyjeDOHuIw4jMYaI97tDyQqC+Y1sA/
+	 lADExWZT5mhjJ0vCWHsvt1uYdAFaiYUhpQ+KRYbEbTK4RYMaxHdK6d/7TeFU6oY1vJ6T1
+	 JR5MmHh+TjBxclugFsFjKFxktr439d7P8IGD4IH/0yb7VcPDp5T5AD9VRWRqTIDSPt6hw
+	 X3qYEqeGElOLWe4yl92HyW8wNVfx4sPqolfx1nVzPds+QQ64r0LcOy3rq/SeXQ2ZKfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cL359F03;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AuX5FvWj;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oM+sbEHx;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A5760A3826
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41FD60A3820
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A5760A3826
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A41FD60A3820
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cL359F03;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AuX5FvWj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794314364;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pwtPeU2sWzznNclKxCvFDxDPXTNBdV+ezO5+7hunkSs=;
-	b=cL359F03eNTqNFOVRuhDGFzbdZpEw7Q2bl2VY8e/7Gpd1cRzmZ2txxwaRgVxKWa7Qe7vPE
-	e2ez82P1BSir9oMjMKX7QJhRQ3xI/3A9fp/WDvmWyE3rM3WVf5kQ8PCM/TKcBUmrABPP5H
-	Sww4o+6MHNeqHM2v7JCY/MFCjZLSfEk=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-654-RAOPVPZFNgKaR98V1R6lLA-1; Tue, 10 Nov 2026 07:39:23 -0500
-X-MC-Unique: RAOPVPZFNgKaR98V1R6lLA-1
-X-Mimecast-MFC-AGG-ID: RAOPVPZFNgKaR98V1R6lLA_1794314362
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a16dc2323cso15565505e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:39:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oM+sbEHx
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-49412eb1474so1246859f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:39:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794314362; x=1794919162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794314364; x=1794919164; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pwtPeU2sWzznNclKxCvFDxDPXTNBdV+ezO5+7hunkSs=;
-        b=AuX5FvWjl+Me2dms8Ev/mdJ8tZDZAWDAV3jQ4GVnMddEGpvyNd+RFh9Xn0zO1objDs
-         DurEA6siye4zmPHKbmiBlmglmVQwMUJxdPOn3BaIwCAGfYbr7J/C7C9k2yULMzOkcGbF
-         890ImdV8BtAOiUZg4A1GP+se4Y+CXhg2uYeHpqttxhicPe8mudvma9AXrkcesp/J770e
-         LcR7eDA7OPq/HGKt9iCXB5Kq7DLz7acfpoHDsQCuJXFq9zzZWcQS4cqegp+CermqH83v
-         IlS4wmntcWrvna8oH9ef+mDOBbPh/LqUhwiIxC33gWW1qBvKNUTD+sDVlj3JnrnI4wJm
-         YEbQ==
+        bh=HF3shcz+KksloJNRLeQSS2sTiHKjaNkcjpmTc658boM=;
+        b=oM+sbEHxgeep4E1/WSL78xYKJMJmf61gIjvuNsamtwPBLooV5Z1KH0D7sRrHW2Mx9w
+         QM2//cd7owTL8gvqMrSUAiN3K0nIilxdaEu+b8DQVOaVyBkhotgpVFYrkKMYsiBYGHnE
+         eoFMtkMe36IUM1I+hpHLPGDPf7BHIzxxvmFATZ06/A31pd01fpSfOxnDVChckVnxeC/L
+         OkHMmsLFbov5ZGfYFysNtxxq8UERvPNVIHfUTWcul9kznoExgAsAIBG8kGZv4RRf5hl7
+         0u06LPcZG7927rbKt+RVY4+otgbdlK1elhJT1xPyIOaFk2vxhhOx5lo/8bJUagNTsnpX
+         6aiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314362; x=1794919162;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794314364; x=1794919164;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pwtPeU2sWzznNclKxCvFDxDPXTNBdV+ezO5+7hunkSs=;
-        b=kwqCmmB3awTrrwCLDDpWOSznB42nhczfbInQJ0Wfk4sy2dHrvZNZLVC1eUGKXCjp2a
-         WbbNIh38FzmotfoPe1ExTv/yeboSsIQoyEYZNTxZbP/HMwKYOGagJ08Hut3/wIUUJGyU
-         jhVdwLVG1WhQnW/d0q5V/+XSZS3bft0QeES7ih5DDo7zow3yvo9/AjA9mjqjINt30vTF
-         4Rc7h9GDqeZnPSShQiOW0MTHazJ52sisgQYal8DPYv3ML6laGrELd4vsfSW2p+yD/JKx
-         aXNtjOeMaZTNP9SnlvpMqWQKbNxiP6DsIdHOHXHCtmtzEMXHmBIN9/LMZK3JYldMcpz1
-         QzVw==
-X-Forwarded-Encrypted: i=1; AL+hErGuba9CIjgwM4nTV6dADIq6ww5rNZ8xaJp9lGe9MEWkIyFDIVfWDqBO1V6VmXLkSqlNam8gAjzw8DCkXy4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fR0SkHbOInrFeeky27j+6iH4cJOnD5lMZVN5Ck38W94oywlJG
-	QXZJrYf7OT8uC6gjO7qAa56/gKCR8bXkQwIVDimnYMxD0YrGahb8ju+sQ8j0UkWjiOOJGnx3HoB
-	/cdxjVzhabSjCGrsDxUooBYYEk/AeBx2yiiLNmiOwGxwpkorz3EpJePg6+zVhPRQQNg==
-X-Gm-Gg: AYBFou334QeZJKAQp3SfK172XaWld753VLAloM8VI6bJ/CZavwQh+rf0WS6VBrNyrha
-	23reNOn2gnk3ZLxA8Uj5SU7rPaqbPBcw+f5HN5j6Y9KqF1Oi/L13ytBdUiE5sekFHAoq5NV76T6
-	LG7HhVG+UsWhMUkckZwAfQ7bXtr8katVihR6ey0ScUj69hclb7NqpsjX8EPQp8FlS1iObEdDv7b
-	NuBXYF0aWI7ELHvGHgYRb7L37xWsJmuSrjVCXQKl+D1Ztsr/KqB4XsTrnqJT2fXu52beuQKk1lx
-	kxmSILqWvAsC/RaNnLnnqYo9ALsydagrcgGKP7nppzQnnoayiPPy3Lvz/Vy+o3XB1buPYnQ1igD
-	RQDTkOA4w/Y55/SBfSoEDIq8sDt4CWp7yOWxQdvPuOAI4q6ooo7aIP6l2qDOEoHf9rHrbIlrQVX
-	0F/LhJ+HqHhkcQGBagkgeOV0Nl2Halz1SjTieqpKA=
-X-Received: by 2002:a05:600c:818d:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4ba023584f5mr45491445e9.35.1794314362110;
-        Tue, 10 Nov 2026 04:39:22 -0800 (PST)
-X-Received: by 2002:a05:600c:818d:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4ba023584f5mr45490665e9.35.1794314361627;
-        Tue, 10 Nov 2026 04:39:21 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204342asm71937455e9.6.2026.11.10.04.39.20
+        bh=HF3shcz+KksloJNRLeQSS2sTiHKjaNkcjpmTc658boM=;
+        b=LO+KYvppxgwOgIPWQP9OciofqNAce14jIe6xbAYJckGpDHBuvGb3NCupItKGfE5WZs
+         1lFywkvK17651VIZKY7tH/XaPMu6Z1O4SZVNa70oAQ8mnbeI0jUOTG2+xgt3YqDYUL+T
+         bfwW0oMcrupQ5yHFHt1WirVMUv37p1Cks/dXDIqu0ZYFVMzrly9QwXTyib4dNNaJHBCt
+         vTDBZWQLxpC0j3Hv2qEk5MlUyb844NaZG8HLctk355bros/jd74jc4G7Q9uN28jKgnfl
+         dYyKfP8zsFJfxsXBcPRQPeaaLzkmGpHiD1nPJSL8jaa2bYnO+CGBylmU5RU1X0QXJEw3
+         lRSA==
+X-Gm-Message-State: APuU4Z/on4oYNR15h9Fk+dwhrFOIFpcFy++rOE6cDX3kchp7KL6yf09S
+	DcqDOrJWI8yonxF2sSK2c9iSaEwVSUVN5H/0cRClxaff3TGel5cGvCwM
+X-Gm-Gg: AYBFou0R+k6YIf/n8vF+Lk5+lmnk8uTFKm0KVjoi5rrd133bZ4LgMNCe4bTX/SE6xfc
+	E8rekMah9XhJS+ZjQr0hNQQokngu8UNffuta3yaSduZXzSIdtlB85E+3FbupuPJDwUssZQbS6UN
+	/F6e8iZRWWN6oaw9gHMAnUFzLkD6fEvl97+yfrOz/uObqAzRNxPCO02X7qKFGTo203K2LdhdfVX
+	2HOpyqqSHPgJGiXCUXXHCGuqL9m1VcmUmVEfFVgPF1KMKEx9AMPC+oAz27YUosVzqz0gqrLfRVM
+	fhPusd2ZcFg3vFyo+k0EOM2YbqF+P/1GHhxLqUrrP6iugaSCrs85Hc3jkBM3knM4dlGpeLldZrp
+	kNk2fAFchfLBjcTIb+3xXqtVNy1MkqqulKjD9EtsfCG8aoyJMugmWuF7t8SPgLehO04kPopzyoK
+	CPeZ1mf3L1R53YLLeqVtlJfI9QpohTsJcFEJ4LHu/jIOolNor3Zfqzg6G/aPQEUw/9SkUrITjyG
+	u+NF/gcNBZJO1buUW4FpwrJbOUcoC9mlKJ30ycNUQPzD75CCLP+5JfrjX4sD+lloPUwsDeMUSNZ
+	+Aa2wGA4EfdAGXrURBdPkP0vQr7LSJZjH9+KwMOMo8RkxZGRc5N0D5j+rL0Mvg==
+X-Received: by 2002:a5d:5f47:0:b0:498:be72:6370 with SMTP id ffacd0b85a97d-498be7263e8mr2599460f8f.10.1794314363923;
+        Tue, 10 Nov 2026 04:39:23 -0800 (PST)
+Received: from [192.168.0.15] ([2a02:a312:c59b:a180:251a:f25f:80fa:af1d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363e0019sm5050033f8f.38.2026.11.10.04.39.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:39:21 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Devarsh Thakkar <devarsht@ti.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero
- Kristo <kristo@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devarsht@ti.com, LiangCheng Wang <zaq14760@gmail.com>
-Subject: Re: [PATCH v3 00/14] Add DRM driver for Solomon SSD16xx e-paper
- display controllers
-In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
-References: <20261019213726.4145532-1-devarsht@ti.com>
-Date: Tue, 10 Nov 2026 13:39:19 +0100
-Message-ID: <xlv1o6bweu88.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+        Tue, 10 Nov 2026 04:39:23 -0800 (PST)
+From: Artur Kowalski <arturkow2000@gmail.com>
+Date: Tue, 10 Nov 2026 13:39:10 +0100
+Subject: [PATCH 5/6] soc/tegra: pmc: Add a partition power off notifier
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,41 +91,241 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-t20-for-upstream-v1-5-5923449951fe@gmail.com>
+References: <20261110-t20-for-upstream-v1-0-5923449951fe@gmail.com>
+In-Reply-To: <20261110-t20-for-upstream-v1-0-5923449951fe@gmail.com>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, linux-doc@vger.kernel.org, 
+ clamor95@gmail.com, Artur Kowalski <arturkow2000@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6965;
+ i=arturkow2000@gmail.com; s=default; h=from:subject:message-id;
+ bh=qF8CXXbZUQJjzOTRVbw07s4VS5+pdb02OBLUNzvZ+sk=;
+ b=owGbwMvMwCVmYeTc/TaVxZzxtFoSQ9ZngaKupkAftk1HIzJfhZtNnLfM6Y9YowF3EuP03TesW
+ JnbWz53lLIwiHExyIopspg9FPrCM8/r/YaXWzth5rAygQxh4OIUgIlULGf4n5fsYmi2X3qt5U/D
+ 1f0Jq0NKWzk6DQ+kzWvy53gWHjeDi+F/+JZNkYfeLd5WHJZf/ay9b8mMe8bfX3O0uny+aOKleuI
+ pGwA=
+X-Developer-Key: i=arturkow2000@gmail.com; a=openpgp;
+ fpr=F60710C8D69E03A01A2801CD87A47D20C2709637
 
-Devarsh Thakkar <devarsht@ti.com> writes:
+After a watchdog reset, which doesn't reset the PMC, Tegra20's boot ROM
+hangs if the VDE partition is powered off. Unless booted with
+tegra_pmc.vde_always_on=1, the PMC driver powers the partition off when
+it registers it, and genpd powers it off while the VDE is idle. The
+Tegra watchdog driver will need to stop the watchdog before that
+happens.
 
-Hello Devarsh,
+genpd notifiers can't be used for this: they only reach devices attached
+to the domain, which the watchdog isn't, and the partitions are powered
+off before their genpds are registered. Add a notifier that is called
+before a partition is powered off, from tegra_powergate_set(), which all
+power off paths go through.
 
-> This series adds a DRM driver for the Solomon Systech SSD16xx family of
-> e-paper display controllers (SSD1673, SSD1680, SSD1681, SSD1683), starting
-> with support for the Gooddisplay GDEY042T81, a 4.2" 400=C3=97300 black-an=
-d-white
-> e-paper panel driven by the SSD1683 controller.
->
-> The driver is designed and architected keeping the bi-stable nature
-> and low-power requirements of epaper display based systems in mind
-> along with having adequate flexibility to support varying use-case
-> requirements for the e-paper display use-cases.
->
+When a notifier is registered, it is also called for every partition that
+is already powered off, except one kept powered on with
+tegra_pmc.vde_always_on, which the PMC driver powers on when it registers
+it. A lock is held across both the notification and the power off, so a
+partition can't be powered off unnoticed while a notifier is being
+registered. Registration uses the early PMC, so it works before the PMC
+driver has probed, which is when the partitions are first powered off.
+The notifier, including the hook on the power off path, is therefore only
+built on 32-bit ARM, the only architecture with an early PMC.
 
-[...]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Artur Kowalski <arturkow2000@gmail.com>
+---
+ drivers/soc/tegra/pmc.c | 104 ++++++++++++++++++++++++++++++++++++++++++++++++
+ include/soc/tegra/pmc.h |  19 +++++++++
+ 2 files changed, 123 insertions(+)
 
->   drm/solomon: ssd16xx: Expose refresh mode as plane property
->   drm/solomon: ssd16xx: Expose color mode as plane property
->   drm/solomon: ssd16xx: Expose session management as plane properties
+diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
+index 807977f52449..1d9a6aeb0e57 100644
+--- a/drivers/soc/tegra/pmc.c
++++ b/drivers/soc/tegra/pmc.c
+@@ -31,6 +31,7 @@
+ #include <linux/irq.h>
+ #include <linux/irq_work.h>
+ #include <linux/kernel.h>
++#include <linux/notifier.h>
+ #include <linux/of_address.h>
+ #include <linux/of_clk.h>
+ #include <linux/of.h>
+@@ -520,6 +521,34 @@ static struct tegra_pmc *early_pmc = &(struct tegra_pmc) {
+ 	.base = NULL,
+ 	.suspend_mode = TEGRA_SUSPEND_NOT_READY,
+ };
++
++/*
++ * Notified before a partition is powered off. The lock is held across the
++ * notification and the power off, so that a notifier being registered either
++ * sees the partition still powered or is notified.
++ */
++static DEFINE_MUTEX(tegra_powergate_nh_lock);
++static RAW_NOTIFIER_HEAD(tegra_powergate_nh);
++
++static void tegra_powergate_power_off_begin(unsigned int id)
++{
++	mutex_lock(&tegra_powergate_nh_lock);
++	raw_notifier_call_chain(&tegra_powergate_nh,
++				TEGRA_PMC_POWERGATE_POWER_OFF, &id);
++}
++
++static void tegra_powergate_power_off_end(void)
++{
++	mutex_unlock(&tegra_powergate_nh_lock);
++}
++#else
++static inline void tegra_powergate_power_off_begin(unsigned int id)
++{
++}
++
++static inline void tegra_powergate_power_off_end(void)
++{
++}
+ #endif
+ 
+ #ifdef MODULE_PARAM_PREFIX
+@@ -730,8 +759,14 @@ static int tegra_powergate_set(struct tegra_pmc *pmc, unsigned int id,
+ 		return 0;
+ 	}
+ 
++	if (!new_state)
++		tegra_powergate_power_off_begin(id);
++
+ 	err = pmc->soc->powergate_set(pmc, id, new_state);
+ 
++	if (!new_state)
++		tegra_powergate_power_off_end();
++
+ 	mutex_unlock(&pmc->powergates_lock);
+ 
+ 	return err;
+@@ -5166,6 +5201,75 @@ int tegra_pmc_cpu_remove_clamping(unsigned int cpuid)
+ 	return tegra_pmc_powergate_remove_clamping(early_pmc, id);
+ }
+ 
++/**
++ * tegra_pmc_powergate_register_notifier() - get notified of partition power off
++ * @nb: notifier block
++ *
++ * The notifier is called with %TEGRA_PMC_POWERGATE_POWER_OFF and a pointer to
++ * the partition ID (unsigned int) as data before a partition is powered off,
++ * from a context that may sleep. Its return value is ignored. It is also
++ * called for every partition that is already powered off before this
++ * function returns, so a partition is either still powered once the function
++ * returns or the notifier has been called for it. A partition that is kept
++ * powered on (tegra_pmc.vde_always_on) is never reported, as the driver powers
++ * it on when it registers it.
++ *
++ * This works before the PMC driver has probed, as the PMC is set up early on
++ * 32-bit ARM, so it covers the partitions that the driver powers off when it
++ * registers them.
++ */
++int tegra_pmc_powergate_register_notifier(struct notifier_block *nb)
++{
++	unsigned int id;
++	int err;
++
++	mutex_lock(&tegra_powergate_nh_lock);
++
++	err = raw_notifier_chain_register(&tegra_powergate_nh, nb);
++	if (err)
++		goto unlock;
++
++	/* the base is switched to the driver's mapping under this lock */
++	mutex_lock(&early_pmc->powergates_lock);
++
++	if (early_pmc->base && early_pmc->soc) {
++		for (id = 0; id < early_pmc->soc->num_powergates; id++) {
++			/* powered on when the driver registers it */
++			if (tegra_powergate_is_always_on(id))
++				continue;
++
++			if (tegra_powergate_is_powered(early_pmc, id) == 0)
++				nb->notifier_call(nb,
++						  TEGRA_PMC_POWERGATE_POWER_OFF,
++						  &id);
++		}
++	}
++
++	mutex_unlock(&early_pmc->powergates_lock);
++
++unlock:
++	mutex_unlock(&tegra_powergate_nh_lock);
++
++	return err;
++}
++EXPORT_SYMBOL(tegra_pmc_powergate_register_notifier);
++
++/**
++ * tegra_pmc_powergate_unregister_notifier() - unregister a power off notifier
++ * @nb: notifier block registered with tegra_pmc_powergate_register_notifier()
++ */
++int tegra_pmc_powergate_unregister_notifier(struct notifier_block *nb)
++{
++	int err;
++
++	mutex_lock(&tegra_powergate_nh_lock);
++	err = raw_notifier_chain_unregister(&tegra_powergate_nh, nb);
++	mutex_unlock(&tegra_powergate_nh_lock);
++
++	return err;
++}
++EXPORT_SYMBOL(tegra_pmc_powergate_unregister_notifier);
++
+ bool tegra_pmc_core_domain_state_synced(void)
+ {
+ 	return early_pmc->core_domain_state_synced;
+diff --git a/include/soc/tegra/pmc.h b/include/soc/tegra/pmc.h
+index 53f6d02889db..c574a6e81a1a 100644
+--- a/include/soc/tegra/pmc.h
++++ b/include/soc/tegra/pmc.h
+@@ -231,14 +231,33 @@ static inline void tegra_pmc_enter_suspend_mode(enum tegra_suspend_mode mode)
+ #endif
+ #endif
+ 
++/* event of the partition power off notifier, data points to the partition ID */
++#define TEGRA_PMC_POWERGATE_POWER_OFF	0
++
++struct notifier_block;
++
+ #if defined(CONFIG_ARM) && defined(CONFIG_SOC_TEGRA_PMC)
+ bool tegra_pmc_core_domain_state_synced(void);
++int tegra_pmc_powergate_register_notifier(struct notifier_block *nb);
++int tegra_pmc_powergate_unregister_notifier(struct notifier_block *nb);
+ #else
+ /* needed for COMPILE_TEST */
+ static inline bool tegra_pmc_core_domain_state_synced(void)
+ {
+ 	return false;
+ }
++
++static inline int
++tegra_pmc_powergate_register_notifier(struct notifier_block *nb)
++{
++	return -ENOSYS;
++}
++
++static inline int
++tegra_pmc_powergate_unregister_notifier(struct notifier_block *nb)
++{
++	return -ENOSYS;
++}
+ #endif
+ 
+ #endif /* __SOC_TEGRA_PMC_H__ */
 
-There is a fundmental issue with these 3 patches. They are adding custom
-device-specific plane properties, but the KMS/DRM subsystem requires all
-KMS properties to be generic and standardized:
-
-https://docs.kernel.org/gpu/drm-kms.html#requirements
-
---=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+-- 
+2.56.0
 
