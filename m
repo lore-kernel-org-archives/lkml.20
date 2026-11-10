@@ -1,55 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331613;
-	b=tlxw8rJWRaOut8Axsf2HKMGas2EbaUNRfr0lge1jG62z1xA2PGJfqolcdXb/13uJULIv
-	 ycZB6kvGSHHLpDFmWu/zq31E80ctfSHeE0HrDe0XicdiFuC0aMTK+mISCxktTJ6+VHMIZ
-	 b7pUP7hwbVjvyQixNl90HPv5ik618xYia/vFz1nf4aL0tv8lvIit06KRMlXQ+MmwxJl35
-	 W1tIV6damw8ZYCsoQbVz0XF/pkSgdfvMuZixcoUieroNZkE5NquumvOIYR5h8le4Ftfo8
-	 2eBowxExOIOAhNe/qRI/01wEWIAeyxNWtSTVt1Z+eMs8jkdUGijY0IRivvXFCXOCiYw==
+	t=1794331698;
+	b=WqBMj/hca4ceojJwOrUii2vmzpKoafqm6UmnSpiBGiuIuhH9Dk21h9JR02/0GLGR9ZZZ
+	 6d+F23W1r81tCJ5+wcR+kbi7VdfnJ6b4TEb8ECexhZwyUaToqOLanEv26AECKNCa7S25n
+	 UoYlXXHHdwE3BbTXIhD3IWFDLy9RT6wADNq9gXt34VXsROFnla8mAgQHiz06aoEmwiZ8V
+	 O+8aeKS0IwSb1P8vaeJrt3wkLxN9aI/9PNlCvx03/eeT0T2/GHdUeb2wgosf7s8rmAGwX
+	 u5px0vc8Y3zeQ8JppoTPafegOGFul13md9AQS2GNc8zOJ9wawYX9IOR+Qeoqete1d0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331613;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cmQoUl9fujoMKZGwxPMJk/W1qqjVzAa+dA0fv2IKSMw=;
-	b=iG6Ac6KXLFmwVvqFIdM9z4p9Kdf9NQcdatSiyzW15zkP+k62rELau6rOG+NOYorSqg2H
-	 pwved4HafiEyCRWrAAaw1D4Mud56wf+5IpOUcAEcVnsL78HwllHU2ItYk3W0fuPkqIAzr
-	 gQGGD1hYxnqugUE4gODD7KDKtfyWxYQPPnXR4Z82vDgM2/Kpv4b3mp9n2w5zZbL9FUuYj
-	 ODBjNtgnKc9GFvwojtMuMVowiWNze1xJdVTPxV1Ol0TPux8NO/y11Lb6fbgR0YPaajucd
-	 Jyjk27xEiF0nLxbMLKRyZ2HST5TYdwboBrWpxjdy5m7atfKF8gW+afLA0lusyUG7ZDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331698;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+yZhs6ZDC6QJyZznmfCr4E8e0ia6+c834e+dfc1J9VY=;
+	b=JI87KmNdd7lVllbyS21a9xGPDSMiSlA9D+bo4waov5WQJu7XL5VDculNJSyJKZ6F5BtA
+	 26Qpf9RXb0826lMRJoSr1hVVHsa8RBWWbxA/vwEKMPv/JBPxeDUzvu/RqTTN1hscHPu6q
+	 cdecDmdyeXTsoYkUPnjzgzORjnNpIDzXyy9hApugFKyXwLABMDjLLADJvUTH+gH2V8elq
+	 gs74QuRg4gSbTHBnoa+MJMSgkSkYfaPhbt20cPb2Vvvo3uaDGen86zR4YzEfVeF2u/5W5
+	 +mQ86Sozr7SfjnHDJwYUM6KGRpXsSRXAxHky9N5A4JvJT/YzQGT1gq/61PQ/A/najYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XWKVhwUY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fgwTT27Z;
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814D7606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF354606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:28:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF354606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XWKVhwUY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE8B1F0089F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:26:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331613;
-	bh=cmQoUl9fujoMKZGwxPMJk/W1qqjVzAa+dA0fv2IKSMw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XWKVhwUYw2SyrkUSuYDPn4wNX/g3itQ/zZfFoGqSrdWTMTTQu/Z8wcQ0+HicaZQG/
-	 ML0VK7tPHlid9zxNjAm7/Dv/6XYHyBeQF+fosNQxvSfN/biQogigY2LFmIdsJmWPJC
-	 Z7WxUGjaj17kKXOOEq8MJG/7AgiXnt/lKWJsSEEFiRJbAjIlsLIgKYj7uQDL6vy1hL
-	 0HwNNSBjWJaUr7a48LT5xzgKvXkyViWf8kMsMLbwSifTBL0r6Mspqs4/oNUWx9yhRf
-	 PFj9Rf4QERfbGNppxoeDi/AqK3Em5W+1GNpZ8Gl8hxSV7y9KPrA3rtoZbqVe1jVZTL
-	 gABomlT8sJjug==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3aced9804e8so19939881fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:26:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEPIgvBymoCvElTJ0YPKgLYsjQeitAFOZ+gyPmG5aFhK0DB8FzOI+b6z7bVAHgYdJhNN17MsW1XgS1zjzw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IOTzP89WR9cyywnV+0yzn0qGmzTKPDlez1Iw3OcR4sSlgjcEF
-	MSYiLU000zJFIQhIwLIq4doD0HBsSL71D0W+Zm9JgjgAJNxC+I2MOJLfg/5QGSYnKLhQDUEFLKa
-	zcQ7uOcej1qxyUKak+hiwuYcP6NYky/k=
-X-Received: by 2002:a05:651c:2214:b0:3ac:ff0a:9d86 with SMTP id
- 38308e7fff4ca-3ae096202efmr6674061fa.15.1794331611570; Tue, 10 Nov 2026
- 09:26:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fgwTT27Z
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c4163a5400eso49360266b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:28:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794331696; x=1794936496; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+yZhs6ZDC6QJyZznmfCr4E8e0ia6+c834e+dfc1J9VY=;
+        b=fgwTT27ZEHO8Zor9nHQ6ZTNIcAITVVSiZLZEA1unn4+IRDU37edYkEwPqFX3hbwj1d
+         a/zhFQo/ErrbVLNsSb3ret8hlQX44drlL7hrbzadCUe9exKsYRgc/qO5FEQpspCU4Q+e
+         cCpk4odLTHX9nvc9aM3gpKzUy0CJgcLiIg5rgSVYA2h7/H9io8l5duFt8ahruEvx3R1z
+         pKS/QNO9N7z4h9XQalUTYMzkkn4anhbHXPAU6Wzm3uATLUCyW/gOXZhea85VjXynq3Xg
+         eqFs7h+rJ80ColGg8eWunxZhDpTKvkbgOxVi+cedLoC0bGTxW87V2t+2IGkWf1uF1jKu
+         GVhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794331696; x=1794936496;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+yZhs6ZDC6QJyZznmfCr4E8e0ia6+c834e+dfc1J9VY=;
+        b=EDmw+p7/nIW+9aR+UDH6OL1vh/RDp6p+O2NQD3d3y3HA4WxIj+dbauWEivc4ZYuUnv
+         iwazpgvLexqB02YJkZ8t2vxfS3uLSAZVcavno2+wSlh/zP0y4MfwyoMpQf3i6XNjdsEZ
+         MHjfIpv+zCUVJjmUDkHe33n2jwMoxq2ujTlZvl+qgSEQjdHq7Km30FWBBhEoFio/3xSS
+         ya2dIZtXY0hsCXdArzyejunEe/6e+LZ1BnNNbNX6Ok4GCserTDg4XXDKhYiTVlga8RFM
+         x7DxTPlkXRvxQUii7jkaXSFmTOJaoHYMN1QFhSJM82gHJ7yq8vpVju+9W7C8u/7WEM+G
+         kjnw==
+X-Forwarded-Encrypted: i=1; AL+hErHv5hfoIiyOIbB31HQ8VQhG36I8JMVGQ88gHYnFfQxNQnKmlm26gU1DcJOeOO2c+lkRA/FkI01l0SspqcE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HSrXa7SISdvBpOAGP/eQHRbPMNrDJtrgVZzDRDw9kqjtZnsDW
+	PZQBC9hsM9A/3SNHWUFE1iaT/ixyAUaX7P+Ej44SxGyYax+nbG3P7lWYA+BohfJzE2kQ8/EFJo4
+	7BlHxqPbyz/iYPGEMLQ==
+X-Received: from ejrk24.prod.google.com ([2002:a17:906:6818:b0:c46:7e9b:6a1c])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:dc91:b0:c41:1781:a2af with SMTP id a640c23a62f3a-c506338c761mr23579166b.9.1794331695882;
+ Tue, 10 Nov 2026 09:28:15 -0800 (PST)
+Date: Tue, 10 Nov 2026 17:28:14 +0000
+In-Reply-To: <DMRJQ42LR1D3.1GZKU9EX48KZU@soleen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +77,243 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261103114118.74782-1-k.chen@smail.nju.edu.cn>
-In-Reply-To: <20261103114118.74782-1-k.chen@smail.nju.edu.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 18:26:39 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iCfDR341Barrui1TSiY6o7ePYd2f7aZYXvo3aper2pvA@mail.gmail.com>
-X-Gm-Features: AclHuK9Olaj_vF-OXIzinsrYt4nJo78Pj_uJi8sT6dq3T9Ngf7ytgRHpahlG2po
-Message-ID: <CAJZ5v0iCfDR341Barrui1TSiY6o7ePYd2f7aZYXvo3aper2pvA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: video: reject out-of-range _BQC indexes
-To: Kang Chen <k.chen@smail.nju.edu.cn>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Aaron Lu <aaron.lu@intel.com>, 
-	Danny Baumann <dannybaumann@web.de>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20261110050202.529473-1-tarunsahu@google.com> <20261110050202.529473-2-tarunsahu@google.com>
+ <DMRJQ42LR1D3.1GZKU9EX48KZU@soleen.com>
+Message-ID: <9huzbj7wtx3l.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v4 01/19] liveupdate, kho: Remove __packed from KHO, LUO
+ and memfd ABI structures
+From: tarunsahu@google.com
+To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
+	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
+	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, loganodell@google.com, 
+	arnd@arndb.de, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, oupton@kernel.org, alex@shazbot.org, 
+	gle.com@google.com, pbonzini@redhat.com, 
+	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com, joro@8bytes.org
+Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, 
+	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, kvm@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 3, 2026 at 12:41=E2=80=AFPM Kang Chen <k.chen@smail.nju.edu.cn>=
- wrote:
->
-> acpi_video_bqc_value_to_level() indexes brightness->levels[] with the
-> value returned by _BQC once the index quirk has been armed, but does
-> not verify that the value is inside the array.  A firmware that behaves
-> consistently during the quirk detection and then returns a large value
-> can make the driver read out of bounds; the reversed branch also
-> underflows before indexing.
->
-> Return an invalid level when the index is out of range, so that the
-> existing callers disable _BQC.  Also guard against a brightness table
-> with no usable levels, and tighten the range check in the quirk
-> detection before its reversed subtraction.
->
-> Fixes: 994fa63c5b12 ("ACPI / video: Fix applying indexed initial brightne=
-ss value.")
-> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
-> ---
->  drivers/acpi/acpi_video.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-> index 2a2822516665..44af7ffb9a81 100644
-> --- a/drivers/acpi/acpi_video.c
-> +++ b/drivers/acpi/acpi_video.c
-> @@ -533,6 +533,13 @@ acpi_video_bqc_value_to_level(struct acpi_video_devi=
-ce *device,
->                  * items with special meaning (see enum acpi_video_level_=
-idx),
->                  * so we need to compensate for that by offsetting oursel=
-ves
->                  */
-> +               if (device->brightness->count <=3D ACPI_VIDEO_FIRST_LEVEL=
-)
-> +                       return U64_MAX;
-> +
-> +               if (bqc_value >=3D device->brightness->count -
-> +                                ACPI_VIDEO_FIRST_LEVEL)
-> +                       return U64_MAX;
-> +
->                 if (device->brightness->flags._BCL_reversed)
->                         bqc_value =3D device->brightness->count -
->                                 ACPI_VIDEO_FIRST_LEVEL - 1 - bqc_value;
-> @@ -781,7 +788,7 @@ static int acpi_video_bqc_quirk(struct acpi_video_dev=
-ice *device,
->
->         if (level !=3D test_level) {
->                 /* buggy _BQC found, need to find out if it uses index */
-> -               if (level < br->count) {
-> +               if (level < br->count - ACPI_VIDEO_FIRST_LEVEL) {
->                         if (br->flags._BCL_reversed)
->                                 level =3D br->count - ACPI_VIDEO_FIRST_LE=
-VEL - 1 - level;
->                         if (br->levels[level + ACPI_VIDEO_FIRST_LEVEL] =
-=3D=3D test_level)
-> --
+"Pasha Tatashin" <pasha.tatashin@soleen.com> writes:
 
-Applied as 7.5 material, thanks!
+> On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
+>> All structures in include/linux/kho/abi/block.h (struct
+>> kho_block_header_ser), include/linux/kho/abi/luo.h (struct luo_ser,
+>> struct luo_file_ser, struct luo_file_set_ser, struct luo_session_ser,
+>> struct luo_flb_header_ser, struct luo_flb_ser) and
+>> include/linux/kho/abi/memfd.h (struct memfd_luo_folio_ser, struct
+>> memfd_luo_ser) have naturally aligned fields on 64-bit architectures,
+>> with no padding holes between fields or tail padding. Assert both the
+>> structure size and 8-byte alignment under CONFIG_64BIT at compile time.
+>> Any future unaligned field addition should come with reserved field to
+>> keep the structure aligned.
+>
+> Just state:
+>
+> Remove __packed, as it may break natural alignment. Instead, ensure that 
+> all padding holes are explicitly covered by reserved or similar fields, 
+> as is already done for KHO/LUO serialized data, so no functional changes 
+> are intended by this change.
+
+This look good. I will update it. Thanks.
+
+>
+>>
+>> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+>> ---
+>>  include/linux/kho/abi/block.h | 10 +++++++--
+>>  include/linux/kho/abi/luo.h   | 38 +++++++++++++++++++++++++++++------
+>>  include/linux/kho/abi/memfd.h | 16 ++++++++++++---
+>>  3 files changed, 53 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/include/linux/kho/abi/block.h b/include/linux/kho/abi/block.h
+>> index d06d64b963be..36bdbaf9b3b8 100644
+>> --- a/include/linux/kho/abi/block.h
+>> +++ b/include/linux/kho/abi/block.h
+>> @@ -12,7 +12,7 @@
+>>   * pre-update kernel to a post-update kernel.
+>>   *
+>>   * This interface is a contract. Any modification to the structure fields,
+>> - * compatible strings, or the layout of the `__packed` serialization
+>> + * compatible strings, or the layout of the serialization
+>>   * structures defined here constitutes a breaking change. Such changes require
+>>   * incrementing the version number in the `KHO_FDT_COMPATIBLE` string to
+>>   * prevent a new kernel from misinterpreting data from an old kernel.
+>> @@ -26,6 +26,8 @@
+>>  #define _LINUX_KHO_ABI_BLOCK_H
+>>  
+>>  #include <asm/page.h>
+>> +#include <linux/build_bug.h>
+>> +#include <linux/kconfig.h>
+>>  #include <linux/types.h>
+>>  
+>>  /**
+>> @@ -49,6 +51,10 @@
+>>  struct kho_block_header_ser {
+>>  	u64 next;
+>>  	u64 count;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct kho_block_header_ser) == 16);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct kho_block_header_ser) == 8);
+>>  
+>>  #endif /* _LINUX_KHO_ABI_BLOCK_H */
+>> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
+>> index 288076de6d4a..721949374fa1 100644
+>> --- a/include/linux/kho/abi/luo.h
+>> +++ b/include/linux/kho/abi/luo.h
+>> @@ -58,6 +58,8 @@
+>>  #define _LINUX_KHO_ABI_LUO_H
+>>  
+>>  #include <linux/align.h>
+>> +#include <linux/build_bug.h>
+>> +#include <linux/kconfig.h>
+>>  #include <linux/kho/abi/block.h>
+>>  #include <uapi/linux/liveupdate.h>
+>>  
+>> @@ -82,7 +84,11 @@ struct luo_ser {
+>>  	u64 liveupdate_num;
+>>  	u64 sessions_pa;
+>>  	u64 flbs_pa;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct luo_ser) == 32);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct luo_ser) == 8);
+>
+> Please remove the two assertions above throughout this patch, as they 
+> are replaced later in the series. In general, introducing add -> remove 
+> -> add churn across a patch series is discouraged, as it indicates a 
+> lack of planning.
+
+Got it. Will remove it.
+
+~Tarun
+
+>
+>>  
+>>  #define LIVEUPDATE_HNDL_COMPAT_LENGTH	48
+>>  
+>> @@ -98,7 +104,11 @@ struct luo_file_ser {
+>>  	char compatible[LIVEUPDATE_HNDL_COMPAT_LENGTH];
+>>  	u64 data;
+>>  	u64 token;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct luo_file_ser) == 64);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct luo_file_ser) == 8);
+>>  
+>>  /**
+>>   * struct luo_file_set_ser - Represents the serialized metadata for file set
+>> @@ -113,7 +123,11 @@ struct luo_file_ser {
+>>  struct luo_file_set_ser {
+>>  	u64 files;
+>>  	u64 count;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct luo_file_set_ser) == 16);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct luo_file_set_ser) == 8);
+>>  
+>>  /**
+>>   * struct luo_session_ser - Represents the serialized metadata for a LUO session.
+>> @@ -131,7 +145,11 @@ struct luo_file_set_ser {
+>>  struct luo_session_ser {
+>>  	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
+>>  	struct luo_file_set_ser file_set_ser;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct luo_session_ser) == 80);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct luo_session_ser) == 8);
+>>  
+>>  /* The max size is set so it can be reliably used during in serialization */
+>>  #define LIVEUPDATE_FLB_COMPAT_LENGTH	48
+>> @@ -152,7 +170,11 @@ struct luo_session_ser {
+>>  struct luo_flb_header_ser {
+>>  	u64 pgcnt;
+>>  	u64 count;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct luo_flb_header_ser) == 16);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct luo_flb_header_ser) == 8);
+>>  
+>>  /**
+>>   * struct luo_flb_ser - Represents the serialized state of a single FLB object.
+>> @@ -175,7 +197,11 @@ struct luo_flb_ser {
+>>  	char name[LIVEUPDATE_FLB_COMPAT_LENGTH];
+>>  	u64 data;
+>>  	u64 count;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct luo_flb_ser) == 64);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct luo_flb_ser) == 8);
+>>  
+>>  /* Kernel Live Update Test ABI */
+>>  #ifdef CONFIG_LIVEUPDATE_TEST
+>> diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
+>> index 08b10fea2afc..376a724a1d8c 100644
+>> --- a/include/linux/kho/abi/memfd.h
+>> +++ b/include/linux/kho/abi/memfd.h
+>> @@ -11,6 +11,8 @@
+>>  #ifndef _LINUX_KHO_ABI_MEMFD_H
+>>  #define _LINUX_KHO_ABI_MEMFD_H
+>>  
+>> +#include <linux/build_bug.h>
+>> +#include <linux/kconfig.h>
+>>  #include <linux/types.h>
+>>  #include <linux/kho/abi/kexec_handover.h>
+>>  
+>> @@ -20,7 +22,7 @@
+>>   * memfd uses the ABI defined below for preserving its state across a kexec
+>>   * reboot using the LUO.
+>>   *
+>> - * The state is serialized into a packed structure `struct memfd_luo_ser`
+>> + * The state is serialized into `struct memfd_luo_ser`
+>>   * which is handed over to the next kernel via the KHO mechanism.
+>>   *
+>>   * This interface is a contract. Any modification to the structure layout
+>> @@ -54,7 +56,11 @@ struct memfd_luo_folio_ser {
+>>  	u64 pfn:52;
+>>  	u64 flags:12;
+>>  	u64 index;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct memfd_luo_folio_ser) == 16);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct memfd_luo_folio_ser) == 8);
+>>  
+>>  /*
+>>   * The set of seals this version supports preserving. If support for any new
+>> @@ -85,7 +91,11 @@ struct memfd_luo_ser {
+>>  	u32 flags;
+>>  	u64 nr_folios;
+>>  	struct kho_vmalloc folios;
+>> -} __packed;
+>> +};
+>> +
+>> +static_assert(sizeof(struct memfd_luo_ser) == 48);
+>> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>> +	      __alignof__(struct memfd_luo_ser) == 8);
+>>  
+>>  /* The compatibility string for memfd file handler */
+>>  #define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
+>
+> -- 
+> Pasha
