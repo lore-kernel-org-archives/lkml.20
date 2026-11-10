@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345830;
-	b=GmV0uz6qzVhvGma8Q7Dzkf+KygQ8ADCLAQQkn6Hf1LoSUM/mrL6ZIppeGT9guXHgf8m2
-	 /dMARc5sTEIj9HBY6VBJRXb61+/TITX/Sgl0Mzcr5HF1iR8x7feTUtlw6pYOnyB0zNcNi
-	 9Hn/Aw/MhiSZ/ds+JqGY2h1iDErMNnPRby2e9l8tcLyZKmERfRr+swz3Ui397XKVctFto
-	 gAs9Niw5fPWRyfA4CvJkETO+SUfU4vRPHNo+VptKW9RC9e4YAgLwiSRaVhWsbfruQ0WPo
-	 rz/2t/4fLadbJDHVgtSdd3GpZcmxztfPwnh2eQOz0+JtJu0oiTRglGWyKOHjIdlNUoA==
+	t=1794345823;
+	b=pOKI3FnF1j2+yR3rxSq6BN6VVTGhngFgDQySWGXreSjgVAQNQN8OwPPUrfkMzqVuqfXQ
+	 ADGpCk8z64SNObpWXlDfmc8jiI0diKiYoz9+Bz7sCVJ1XgT63P0ByS2uz1I0rHii66eUV
+	 njzcJIkR5qEp0FsJskcF5rsfcvfnSf78pP88R7vweyVIz644z7ry1IqOQduD8VEDPH+g5
+	 Z9zbOdgIq6WIvIXtUZ7afUfWydHpKsG6HU3tVCrIBVINi/ckkLYUuI1cyUOrzch+xmtQq
+	 vDdubUEgsUUO/ns4use26Br9KfjOescO/2yl7WuuCOC8eCzWRzzYLI/wgYJ9sPRPzsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345823;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=HLb61peR27MkY2qCBFOd5z+gHtFg3eAJpgTGyWlH/SI=;
-	b=AAkE5vfkCVOx9EHfjCce6LlLDwTJWvCipWzY5oFkSj49jannnqjv+vpLJkQva8PUyeHz
-	 pBfSJugcAdFi3UxOm/2y0/azIqct2Vsx9DiU5yRcLzS9RkKwDPoezBj+jyRUBeCIHeh1G
-	 veQvvfrOo9YrdPUOSDfn/D9zi1zhKDqFzL5aSK3hd2XdJTAOt1u9uL1lQ4UH1ZGr+gYm+
-	 OgWadz9l+X7ZKvFmmaSxto4UIkwAjr7Zu9WgJVEholeFzzuzPHAY9BvWNgESHVYXiuUGN
-	 c0JKTwd6uu5KF+kyl+uOwY0x9z+9Jz3Arw/ErFDdOXA/jCmTCexMInRXd2QlpcnNQew==
+	bh=UqMCwshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=;
+	b=1VjsNfD0QIXzmigFAOKIUy1teo4gdCJRGuZ8W2G2baDkL1rI0FzSEa/DPrsqAIk7jeHd
+	 zYNKmtYKjLNSqqdy97lFm+mHoHNV0Pod6GkLnZXY8rJQ2C5vQZFPU539d7Vm88xFL7bHn
+	 8cDY8wZAA8Cr+y9kK0dGLB+0iuRCZOTqFTOfy8IV/PZEFfFfSsGUHq6pD5nNFst997S+s
+	 l3LU89Vf79Lb04KASeigx8pWaGF2IgTMPBUY4fdR/FTseTwvqCqmCGLsW4z0hMEDcXO+T
+	 WpeQjrWw09A8MqyWtJNCWKEkAU7AH3cVI4RM6vfhp63ChXcMbEfFgDp4WPCO5FVJRNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=columbia.edu;
 	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=qEHHdNGm;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=2jXrm+PA;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="JkQg+/q/";
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=wno2rYlK;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A705960A2617
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A705960A2617
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B21606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3B21606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=qEHHdNGm;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=2jXrm+PA
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAKRsjE1716114
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=JkQg+/q/;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=wno2rYlK
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAKRvK42313339
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:23:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=HLb6
-	1peR27MkY2qCBFOd5z+gHtFg3eAJpgTGyWlH/SI=; b=qEHHdNGmVxzJYizHcgl+
-	OBICv6oBfreg1xs1v5biIqk+cRY5uyai1cGwUVuPkFqFSJbIutQPGJFs6bE/C1Y1
-	8MT+i1LdOcLo1vo3CxtPurZYZDuMi1nf+PvdjFlAKMmv+Q9K1NEp8mkupU8JLfoB
-	JL4gvdYtGn70NAhpvE3graaPoWQPSuyF6x08kvU74I2hbiRQ1PjoweNv4hYHqXRk
-	lsFKVP1Q0wcZMB3znHBLnNelAHwCV19fVlRWVwopigNYZBosqrjIEkFca/f/xEFC
-	y7VLk2mJ5GZYMPavFIwzS2Dg62OCgsrcME2cYX4qnU6HDvONdO3QJzXCjpCrKHJc
-	4w==
+	:message-id:mime-version:references:subject:to; s=pps01; bh=UqMC
+	wshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=; b=JkQg+/q//eAizRed3iyI
+	3R9Ao+cFbGzDw7QDNrDmlVRK3E58riHZAvsAe9YXZdOdmMzoPYnStwwXDT03TVyT
+	3lFkAFSU9qZlzZfX4IhzclItvBsahMy5BS8GRO3vsOoMedTn62hwX9c+MIQQfQEz
+	gF89TLh+eUSJfchcN0lCAuleryRLK8/jdqKr1E6HGDRQs7YymRVhRQFcCFSLRTtv
+	04KFrWDDHXAQEWlXsRr8afOmN8ke6g3UOj2Fr5iTFE9Oybow7w2p+Jgu884Ezrh9
+	Pgsy2BpTN//LJxeLEh9wOjQa87DFHAKdV50nHA6D92Q34cnYwlixO+wvrTLTUiD2
+	2g==
 Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hv4nj4c1e-1
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hv7nyt8jt-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:23:42 -0500 (EST)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91f01fccd3fso5601826d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:23:42 -0800 (PST)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91e9a0eae11so37105166d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:23:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794345822; x=1794950622; darn=vger.kernel.org;
+        d=columbia.edu; s=lionmail; t=1794345821; x=1794950621; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HLb61peR27MkY2qCBFOd5z+gHtFg3eAJpgTGyWlH/SI=;
-        b=2jXrm+PAcBHEV1FvVUMzZSLW6A+k0QEH0YUiZfz9YKbEMCOJbZzQIolI8M2Eqok8xm
-         iZhuI0t5to+M7PCz7JEgHq29xxSTSqRGa8kVMTsy9B6IgByBvWEThtT0K8K/vpoXYtHM
-         NmuBb+NBGctauhtMJx0OTLKsJmF/KXmlMXZxLzg/q05YGzdPNdqn56v4CEi2clwBc8IU
-         1nBH4ag9Dy4fgmwKnZBJrNLlKnZ6gcQmSoLyDVQUk9cGIAINqGFCiWHEauTL9FZTuxBj
-         BuNX7fc9bN6M1prTWIGhl/3cI6TiHxUvwYUksidydX3bopQjTp2LM02otRE+gl7zn1Fm
-         07Ew==
+        bh=UqMCwshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=;
+        b=wno2rYlKE/PNyCVrqV5/QETWerOyBWKxg7KkH3y+50ZsDZpjMThHY2OU4I6uEJhpbl
+         Z+Yj+MYrPo0wLdass3gzvpRlHWi+3G/DlF1CXgSMPROYFItpwcai2FS8DJFNW7rlHoid
+         By/tF3/ZDVPnd1Ru/Y+UtMTrGosvf84CEYdzJPj0Tk86GsFttlS2gN48k8NsVT5S0RKf
+         gbHnNAYQ5he9qmX0qA0AA1C+fmXME/D6OrhH0dX5vQAV/obzErmrX3Ct1TH5zQbIu9ud
+         mOemFwLRojozHVCnLr5hmn9cUFKfbcFiDpnNZ39qXQWPM1lW6gAGKgcMPlNW82hfF6CD
+         HKtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794345822; x=1794950622;
+        d=1e100.net; s=20260707; t=1794345821; x=1794950621;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HLb61peR27MkY2qCBFOd5z+gHtFg3eAJpgTGyWlH/SI=;
-        b=hRgPuw0Ozxx+xKHtvRH+PKUkElpa/kIqfN+x2wo/WHdSmXdPLZq7g5Sppx5cv1QrUl
-         iixulhyY5edBZ7XNlHQ2jvi7aaow6R8GQGCaOWQ9vU2XzJImJP4L0F/HUoKrqJKEs5JM
-         vvDDsKI9SN2nosxCXp8NTR0fwJBi9Z724nfGc8M6ORC/0v7l3zHsH7sM3HVT0FgKNLQQ
-         q2FY1eUXKaWGA5+trT5q8q3o07Pvg3PaD3J7FVtHp6DJgKHTgX0HfSRJmVEVBdn/hQvS
-         NsHUK2GtNg7rgFLG3lTdNUFBrvCfj/rI6pZPUV27HY5Qc/H7MfDZivJu9Ku9238dPjph
-         eYNw==
-X-Forwarded-Encrypted: i=1; AL+hErEKoiDeYsL4A5XxNoA1b1TPa5kQCFcT2rEAymu4VcyEcIdS5opHBgwI83/RTn9D4GsEfTEuR4hpIDI5qzs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9w634fltvQ4KERO7RHpOgJeoESuKlI3Gbfk5DDl3i2IYs+hsNv
-	WxaWhV4VQ8XsGDEzcPmHe1JDBCRPAmX1FJyCDcQXK3RGLyv1PSa04FX72VeEYA2VnHchQ+aPeWT
-	KIrSbjZXJ6R9iF+SDeV4Mrki5b8DogA+xPtrkUmKEd6Y8EglXmHbpqfVBegyZaQ==
-X-Gm-Gg: AYBFou0QQ24M2oYQs+c6ii2vHUasgM2B0MnaXvQky0NVjEfhUUc2ROcLeM+IT+JvuoP
-	G5WQGlahYj7KtAiLmyIrq8aTRySgwcgmCkDUsbuDrAPOz7hB6j7ty9ypZroMSIcJiBzfssUEDan
-	HXAm9OZPvb393ah1J5sBE67hEBt4B5ZHKqBNNj5NpyH6N4hiCmM9EeeO0tmH4YHot+XqoROfU7W
-	A/OFygVtuPNyA3SOgE1lzaTsr5eJIRmEgdw8j5T2PuC9ea6IZ5idhfAkqjdNOmZS7pg1YScRJWh
-	L07Cnn27GZkGTbLWVzoTxKsllUj+YaDlgXw64GlXjiNwtNvOeJtxkUibhP6w0zYuRqE1IIHXg9o
-	9YV3QeQfs1HDDrBr1hqBkK+khnqQvJe/+ai+h1hrsul2KX5YPPLEXspXV4pE=
-X-Received: by 2002:a05:6214:411e:b0:91e:972b:ad99 with SMTP id 6a1803df08f44-91ef027a678mr59494716d6.25.1794345821700;
-        Tue, 10 Nov 2026 13:23:41 -0800 (PST)
-X-Received: by 2002:a05:6214:411e:b0:91e:972b:ad99 with SMTP id 6a1803df08f44-91ef027a678mr59494376d6.25.1794345821302;
-        Tue, 10 Nov 2026 13:23:41 -0800 (PST)
+        bh=UqMCwshqZ0AC16p/py906dxrHXg0HhkhkoAyOE0pbJg=;
+        b=S7W7tiBrPaobHTcxsb0uAh3dhAjY9N97DmRIWKKv0agb2sixiApBmNpu7GrRdwIyT8
+         w/vJKtoNMj69zjwVRe4mW5Y1j/ucocEh1XWsXLYOwFmni9wpRKvE4Eaf2Rh2MpPfBF2b
+         RtfVyheC0fI8eAlUqH7t6hJusUa5UZvbDAWYilvdQBvHeEOXBSuKFpjaEIUk7kvF4ZeD
+         Dm8uYAmJkuVraaKgb88nx08vGrNuuvPzK6+b4fgA4DRxrqh2KhiLV9921xuyqse3T5E1
+         0kp1yyGlEXo2aRw5PiZzeXCcW8GL/lWfjKDbnSCtIVnxlRirxfy8ybkl413nIltbf5mT
+         ezUQ==
+X-Forwarded-Encrypted: i=1; AL+hErFRRbY2j7RvPf4XMokse9jq1SI61h7t403IB7WT8KUaWvsvKTssNcVQmNTLm6/TsGOrQnp4Qks+TO7stJU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vcBUPx9DJ1DaizYSY7Nx88frTe2ZRbo4hxL57Nz774ifXP5Fx
+	Ay06eD4orqZ1N/NtaeWqJYQXikkbotdq74uKjWjytlyhptEozrtY3l5I4v31/WZAS8Uqeyxm9vz
+	NAXrcxUF4rtHkp9YtwBXENXgxfN/9S+JjG6GQ/E1lElZTWBVu/z0c8TGpHR1RpQ==
+X-Gm-Gg: AYBFou0l8oX7z/yWTG5/z5igCw6k42ZGPQXiw5v+B8XDXutVorkKpHqV6lBhd+2Ybek
+	KJ0oHbJUoYWb6Chu1agbzGwDveYcjjexCLCchajQT9g+c/BNErCJrhf4k5aGw5FtgkCz8eBVpM9
+	0zIaKvXezsjO900F1DpxR6nFlgKWD6X4hz0FDz7JLf3MQwXUDUwsNEvrLMa9YbkmezYoEhDlMJs
+	pHFgixudXnhxdTX20l7ciibQyxD2ThqBCYgBPiT3DsvOKUxdZ+34EtR2hxoUg3dtvFQTUR7P+HW
+	QMu1llRATNVDtUslcipbizPTgfiSXxW2/1BBv0HYXU9tSm6Wt9DkiHLiBHm2w5R3mc7VRmGyyBL
+	vC8zJkBlBBhLfIJ2esQuX21c0fkLZ1kIUc+tojH9P+yLuu4g8caIFqwDR3Ks=
+X-Received: by 2002:a05:6214:2c10:b0:91e:b360:1b11 with SMTP id 6a1803df08f44-91f0402319fmr9636876d6.13.1794345820945;
+        Tue, 10 Nov 2026 13:23:40 -0800 (PST)
+X-Received: by 2002:a05:6214:2c10:b0:91e:b360:1b11 with SMTP id 6a1803df08f44-91f0402319fmr9636566d6.13.1794345820506;
+        Tue, 10 Nov 2026 13:23:40 -0800 (PST)
 Received: from [127.0.1.1] ([129.236.231.168])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f00f6eb88sm10024766d6.39.2026.11.10.13.23.40
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f00f6eb88sm10024766d6.39.2026.11.10.13.23.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 10 Nov 2026 13:23:40 -0800 (PST)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 10 Nov 2026 16:23:31 -0500
-Subject: [PATCH 2/2] scsi: scsi_debug: reset protection information on zone
- reset
+Date: Tue, 10 Nov 2026 16:23:30 -0500
+Subject: [PATCH 1/2] scsi: scsi_debug: wrap around the store when zeroing a
+ reset zone
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-scsi-debug-zone-reset-v1-2-28cb9184b5ea@columbia.edu>
+Message-Id: <20261110-scsi-debug-zone-reset-v1-1-28cb9184b5ea@columbia.edu>
 References: <20261110-scsi-debug-zone-reset-v1-0-28cb9184b5ea@columbia.edu>
 In-Reply-To: <20261110-scsi-debug-zone-reset-v1-0-28cb9184b5ea@columbia.edu>
 To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
@@ -128,96 +128,127 @@ To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
 Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
         Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794345818; l=2529;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794345818; l=3280;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=fmP65CUlyZGB3m4UhIjwsXB6SABvsQU/J6EW3xnTXUQ=;
- b=Kya6PTUYQvqO0V7q31L4vBI1/QyWKy/Hm1eSUFBhGu6gd3clU6R/bDSyUR8sR66tvQSamWhue
- sB+5NRL7/47D1lj5bE5bURDkUSXUkoiqk9RQmHN87IoMctRnk1CsXOQ
+ bh=ZV3u5z5TV2jDpiHsg1XVxc6l7ohlFCN7yss5BY4N0Lg=;
+ b=gvRR9CdVlsgtJtSlFTYA8Y4JnxWyeJU+hOwE1upjGKMZoJjmmlOM4MvbdWI5gpiYmY75JeeAD
+ ht4FNsJw+2RDly925plZtVFSAFQk9Erv9zac1sDZ6o/7P0LmZIxWEkR
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: fTo5x61UfGbQFl0h__BGv8cLBbLgGp5g
-X-Authority-Analysis: v=2.4 cv=I8fw19gg c=1 sm=1 tr=0 ts=6af38b5e cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4NSBTYWx0ZWRfX9q1h7Mrcw7BE
+ WGnwu4331dylZckVI85WfqcVGVmZ+9O0HTc3JWyCHQgDCy1Xc3/yo0TEbweHHJShL90T2zO/e2n
+ rq7ZXq1L0ZLBnj7LD7ABvnrUQLDyepF01REH7aOA9vMHwgbJlUDE
+X-Proofpoint-ORIG-GUID: h-qX_joh7xcwsdXg5nP3ncH_B1OSlA0H
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4NSBTYWx0ZWRfXwLUZxmdUuyFA
+ p7Un3KRwHMuVbKB6r3fSOJlBL0+yXkPYwCYYqHYbN3KFfco5F/zAG1Q97eYkSb4v1eWNNL85RXS
+ MHB4eaXs44uxa7qzAEhFbMM40kfen1zt69Yekid2jsJhofabs4FYdD3E1LYybpoeEfUaFF5vhG2
+ aTx/mE5Xe/pqo2o+C94oak+7XUmvRus4DyU0DD1KaB7ewp4qhtjm2xD3F1UDJDqcqaDF84mGZM0
+ SEQYDS5lXElLye7ETrA/G4EfrBRYE6xMUg0oVlDN7I/inq3g2egwynRskfrKvHySL2p4TYYXwD1
+ 2RDBFcm8JARZq+ZNNhLvbS761eg60xd2czNGSw1xLtkfNzOSoNL90TrkxybPnunVzbDxfvzKIDM
+ yXQVptGv8s1hemJkSbev3gnEY7U7qCu+n7k4X5aK3GTqO09dBv0CSX+GZZM08ANHzO815oZ7TX3
+ Sjdt3LyhtdbfzSfg85Q==
+X-Authority-Analysis: v=2.4 cv=Vc5ir1p9 c=1 sm=1 tr=0 ts=6af38b5e cx=c_pps
  a=wEM5vcRIz55oU/E2lInRtA==:117 a=lHGGv15rhlN7Yv6qcqrt9g==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
- a=t5kXCcw8_YMdeodUEPQA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: fTo5x61UfGbQFl0h__BGv8cLBbLgGp5g
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4NSBTYWx0ZWRfX3xur9MoURZp7
- qG2dA+tMuIl2AYN6/rkmJQJuOuBWkxs5Jdfiq1Qtr4ECdF2s13GIUJmum6el+fpGgL3mO0DUTO9
- 8dZ6fxmsd78ekzm+H6Fu2aRrM3eaDhLcSX7xCQcT4ut0ftqlstkurvbQWvYZzpWmyRQzZ3ckOB1
- NsWEdHF/ff45UVQTATEfetBKGL0zpB9bSMmtzMUCRJ91VAY9cl+JtUBBSdcb+wkOAkGXH9EyfbJ
- 7sKLYPIYlAhYJR7l3lrJD2VsaW7bPrupM0BLhKj0zk+ucFNm/aQqSFbSXgSlhDmVtMHxKlTb0T9
- FMyoC8+4yIADLZfQeTyNxsP+tE9izAeXI09Aea6RPJnLX43dTNTIvtho9+FxRu0W+rkRUSyT2hZ
- Oe4PjEbAyEtnTOhgH71JTAKrPZn89RP8oLsZkvWH7545G6X1taniC8cYHBVODIyvMyX8JOfhvsc
- nHcnW4IUZPw1EYfml6w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4NSBTYWx0ZWRfXyWi8IwLWkB9I
- QvuR0xSo/5DvlicA06KtwGU9ERlrg3OaokH9nvnei2B2wpQLaf0xj68l/Dnu4z7pWc+56uNTUeG
- Al9AmSIy8HjCC0WJ1kkeWDl5TxTYiZSanivjmngaZm9IW4+3QZEh
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=9cs-aK8SJTO5rNEwzvoA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: h-qX_joh7xcwsdXg5nP3ncH_B1OSlA0H
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11962
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 bulkscore=10 phishscore=0 lowpriorityscore=10
- priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0 impostorscore=10
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100085
+ clxscore=1015 priorityscore=1501 impostorscore=10 lowpriorityscore=10
+ adultscore=0 phishscore=0 suspectscore=0 bulkscore=10 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611100085
 
-zbc_rwp_zone() zeroes the data of a zone that is reset, but leaves the
-protection information of its previous contents in place. Reads of a
-zoned device are not limited to the blocks below the write pointer, so
-with DIX enabled reading those blocks back fails the guard check.
+zbc_rwp_zone() zeroes the blocks of a zone that is reset, using the
+start of the zone as an offset into the store. With virtual_gb set, the
+device and its zones can extend past the end of the store, which is
+only dev_size_mb in size. Writes wrap around in do_device_access(), but
+the memset() doesn't, so resetting a zone that has been written to can
+write past the end of the store.
 
-Write to a zone, reset it and read it back:
+On a device whose fifth zone starts exactly at the end of the store,
+write to that zone and reset it:
 
-  # modprobe scsi_debug zbc=managed sector_size=4096 dev_size_mb=64 \
-        zone_size_mb=4 dif=1 dix=1
-  # dd if=/dev/urandom of=/dev/sda bs=1M count=1 seek=8 oflag=direct
-  # blkzone reset -o 16384 -c 1 /dev/sda
-  # dd if=/dev/sda of=/dev/null bs=1M count=1 skip=8 iflag=direct
-  dd: error reading '/dev/sda': Invalid or incomplete multibyte or wide character
+  # modprobe scsi_debug zbc=managed sector_size=4096 dev_size_mb=16 \
+        virtual_gb=1 zone_size_mb=4
+  # dd if=/dev/urandom of=/dev/sda bs=1M count=1 seek=16 oflag=direct
+  # blkzone reset -o 32768 -c 1 /dev/sda
 
-The read fails with EILSEQ, and the guard tag that the device reports
-is still that of the data that was written, while the block now holds
-zeroes:
+The memset() starts at the first byte past the store, in the guard page
+after the vmalloc'ed area, for the 1 MiB that was written:
 
-scsi_debug:dif_verify: GUARD check failed on sector 2048 rcvd 0x288f, data 0x0000
-protection error, dev sda, sector 16384 op 0x0:(READ) flags 0x10800 phys_seg 256 prio class 2
+BUG: unable to handle page fault for address: ffffc90002c00000
+Oops: Oops: 0002 [#1] SMP KASAN NOPTI
+RIP: 0010:memset_orig+0x33/0xb0
+RDX: 0000000000100000 RSI: 0000000000000000 RDI: ffffc90002c00000
+Call Trace:
+ zbc_rwp_zone+0x1a7/0x2a0 [scsi_debug]
+ resp_rwp_zone+0x19c/0x450 [scsi_debug]
+ schedule_resp+0x2dd/0xbc0 [scsi_debug]
+ scsi_debug_queuecommand+0x1286/0x2950 [scsi_debug]
+ scsi_queue_rq+0x1d74/0x3200
+ blk_mq_dispatch_rq_list+0x3ad/0x23c0
 
-Reset the protection information of the zeroed blocks to 0xff, as
-unmap_region() does, so that they are not checked until they are
-written again.
+The command never completes, so the reset returns EIO to userspace and
+the device is unusable afterwards.
+
+Zero the blocks in a helper that wraps around at the end of the store,
+and that stops after one pass over it for a zone that is larger than
+the store.
 
 Fixes: f0d1cf9378bd ("scsi: scsi_debug: Add ZBC zone commands")
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- drivers/scsi/scsi_debug.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/scsi/scsi_debug.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-index 1c27ea0f9b69..9eb64caebdf9 100644
+index a922c8318a2f..1c27ea0f9b69 100644
 --- a/drivers/scsi/scsi_debug.c
 +++ b/drivers/scsi/scsi_debug.c
-@@ -6613,8 +6613,9 @@ static int resp_finish_zone(struct scsi_cmnd *scp,
+@@ -6612,6 +6612,29 @@ static int resp_finish_zone(struct scsi_cmnd *scp,
+ 	return res;
  }
  
- /*
-- * Zero the blocks of a zone that is being reset. The store can be smaller
-- * than the device, so wrap around at its end like do_device_access() does.
-+ * Zero the blocks of a zone that is being reset, and reset their protection
-+ * information. The store can be smaller than the device, so wrap around at
-+ * its end like do_device_access() does.
-  */
- static void zbc_zero_blocks(struct sdeb_store_info *sip, sector_t lba,
- 			    sector_t num)
-@@ -6630,6 +6631,9 @@ static void zbc_zero_blocks(struct sdeb_store_info *sip, sector_t lba,
- 		n = min_t(sector_t, num, sdebug_store_sectors - block);
- 		memset(sip->storep + block * sdebug_sector_size, 0,
- 		       (size_t)n * sdebug_sector_size);
-+		if (sip->dif_storep)
-+			memset(sip->dif_storep + block, 0xff,
-+			       n * sizeof(*sip->dif_storep));
- 		lba += n;
- 		num -= n;
- 	}
++/*
++ * Zero the blocks of a zone that is being reset. The store can be smaller
++ * than the device, so wrap around at its end like do_device_access() does.
++ */
++static void zbc_zero_blocks(struct sdeb_store_info *sip, sector_t lba,
++			    sector_t num)
++{
++	/* One pass over the store zeroes all of it */
++	num = min_t(sector_t, num, sdebug_store_sectors);
++
++	while (num) {
++		sector_t block = lba;
++		u32 n;
++
++		block = sector_div(block, sdebug_store_sectors);
++		n = min_t(sector_t, num, sdebug_store_sectors - block);
++		memset(sip->storep + block * sdebug_sector_size, 0,
++		       (size_t)n * sdebug_sector_size);
++		lba += n;
++		num -= n;
++	}
++}
++
+ static void zbc_rwp_zone(struct sdebug_dev_info *devip,
+ 			 struct sdeb_zone_state *zsp)
+ {
+@@ -6629,8 +6652,7 @@ static void zbc_rwp_zone(struct sdebug_dev_info *devip,
+ 		devip->nr_closed--;
+ 
+ 	if (zsp->z_wp > zsp->z_start)
+-		memset(sip->storep + zsp->z_start * sdebug_sector_size, 0,
+-		       (zsp->z_wp - zsp->z_start) * sdebug_sector_size);
++		zbc_zero_blocks(sip, zsp->z_start, zsp->z_wp - zsp->z_start);
+ 
+ 	zsp->z_non_seq_resource = false;
+ 	zsp->z_wp = zsp->z_start;
 
 -- 
 2.39.5
