@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334507;
-	b=cu2VouRpDo8KB+GC5+oMZ8aXfTb/e2ytzhFjymk5pI980KjM52NUYjrsAkfFyQkB8qDJ
-	 PRx/E/nESmcmXGzhL8p9qloMMEFNxmltSvL0vonUntvxwCwkBW86P6VQL8uWULMF9Uweq
-	 tReYgfWZ3f/mwubdsFGgPoMLyN+hG/FIOTswDAYjXxeuR0znrMLsGq74oLUbWzW2Jm7fu
-	 hNRlus3sA/kUZJD9tetAdRqTvKdIUr2F9tPCEz/2smYqXCDlcxyynQsJCNRqC5YBfa6UX
-	 XdAa54Z/FFGVrWdDe8avklWpAJcrb7WeWdb06t7FeP9Xeb4mR20vQd8uzqu0iOHKpGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334507;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:X-DetectorID-Processed:
-	 Content-Type;
-	bh=z79z5E4/pMQWtffemvxLtB7Hs4xiv2zLQcO+c49cqVM=;
-	b=QJulXj2wp8F8HJPKcEojR5yGqsNfYu6J1Xe+OJr9PvMo7OP2OLJrjKXF035OBQxvvBFt
-	 milkQivkgNWBk8DonSvN/H5nmPhk6Rx5JJLrH/LdQHL02FKn7Oj6LztSjnCvUS62//I16
-	 56Fllinxr/kdOkYYihzt2RrhzjAku13GTGHnb7I2CyfpKJnr1mDfxO4q99rgkwzrEseKT
-	 a0ltZSI+8KtquSP9mWa2R3TB2pstGvenOkoWHSS+4Wtbv9Zq+K6tnGU3cJSZun8XSCCE/
-	 nGvJ19hMIaRW5mfQ9bQmGVJEoEnev9cJc/B7dU/qJWjLZTQz8TMe2TA9yGopZDSgrlQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZJGkk9ga;
-	arc=none smtp.remote-ip=209.85.214.225
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794334496;
+	b=bNDswFoGBs9H0ED8Wnc9u0Ha9yIOVMJAeK0fRc9YqChixQr53iuQH6iLqoVW2hpLc5b7
+	 JMuFm9o2QyvGal7WxxzEIsR8Y3PJvJpyTHeGgdVhfN2j/8NDXOq/pMzyLDnuax98Tfr1l
+	 Et1QXIPm3ohzHk6MBFmRwiAL+DI6gO9tb3hZFOlemEfVBfVKl6D9JLprOhQ2GAJss/lK3
+	 9XTYVegrBaI7kpjC3vK14pgyJyqUl+aoGZHorUVJmoDJzvWGlYz95ZEA0wMDwLEV2lr00
+	 fdN3A36sMWR2fUJ2qNurmzDhytM8fH12bIWu8vyf6O/9vGbBlo6JPrZMw3LzOu86nIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334496;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Z/T19qwkUhRsiOdHXZPOOueJ4FV/Vspzv786LxtKzAs=;
+	b=TkU+XM1ZYju8wH4WBwGF0pfabwd6p/Rmu8nuodz9vF5xgZORJ2e5bW2kL748gd8ULhet
+	 N4hlUUVZhE/a1JN/GfhKEbOVrp975FfwGRRzTAWpWlm0GZGwM/o+tcn8VowiPrBSl5wwJ
+	 2hUWIAqk7WF7e8EkKnW2Zy6oHuoGOrTXYR74W0QwRGaclVqWpn0FXrepnulpRcFYghp+R
+	 fdIJAdqNVto30/4j1IUG50fvWW4kKRoNksJ7FGm89IPZLbqJsOvnUMw2POw+f7PupdNPj
+	 Bs+0LrzK6zHqUytmpDcXHUi1SFzZNBSLp7S6HQLQWvdz6EwYalqtP+1D8VK5yF9zgYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Qii2TyZ7;
+	arc=fail smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BCB606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1BCB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB79606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:14:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEB79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZJGkk9ga
-Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2ea138a3497so15091065ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:15:06 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794334506; x=1794939306;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=z79z5E4/pMQWtffemvxLtB7Hs4xiv2zLQcO+c49cqVM=;
-        b=dsRhWpI+FhClIqvWBxaAPNxrQanENPsfGb/kCXyO1bmaPm09J/F79fUKBMGw2P9hZa
-         chYJFvUwSiiZiXhZJhfOJEIHqaWY083OqmGcHOqiJXZTqgHquYz0tQ2UMzvZQfMQVb21
-         MBUJdTEmJH3ebMpX7F3RShSx8WabFaJGuc+QS3XnIfO9OiOUxA4+Z0aZFsAhwhn4k8Gy
-         QTUQwC9mXUvoSKmnTAlgRhtuB1v+YqT+QuGae5mhqzE/TPpszUxGXyvaqmUQhO3jWNM5
-         cYLMmvzL2zzK3LW5qS6MvObdxTqkLwO3ZadtlGfg+wngGjTx7WKO60iL5CY2U7grQuz/
-         hy+A==
-X-Forwarded-Encrypted: i=1; AL+hErHL0jYmVLJKionz7HTYj5m8PTkqHACn6BGPdmB1RP31GkCLA1IhaMUJ+EWUyoVe3LcQo+pD5ELrrixAZb8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hcAiAiQRClBc273UNbJKMZMMwpC/11SEQz9VWXUMzzFgoYqwm
-	0wJ1yKE3CxJpkC5219XnQQiEi4I9+TcWki//LrigP83BxU3fiZBJZWVdfDRvQvrgLJSj6kSPB5L
-	HNDitdN7HvS331Jst9EIi38a9wO4eUiMXQl0Bgjp1lYI7BqPvRItim7CXqzjuxuJZYc1p1oDNxu
-	RSTLl75o/6A15gio4nItFZOc2wL1uDXRCmEJg16DqXMuOWZUnS8jcgVpofzLSTPYmHOabD7Q5rX
-	k48aslfjdV4fycnzMQ=
-X-Gm-Gg: AYBFou26CRtA3hRwnbRN3RWsZZBNPcul9yPko0z7zBbyHtx+LaMzxcbBdSD3msxEF0H
-	6O3bSmAvvFPlfZPSETl3DplTsXHyTviQSfZiWrmXUUsAY4xgZUva3L455Nmfty6eWNIkfz2x888
-	2utBbXus7Y31tEYr9yfTfqhBJGXJJ74jUtG8RGLx1PmgTP11vsFkIvLHMlThEHCxSHF7u3f35Tv
-	zv0bdwqxzoo+GFLqKyyX38TO31OIBzFggxnBzKgV1xwWRHCPPVT/f4E3gzExb2l5fJEw7nIHPO/
-	W6GtSTj2vcjLrm4tPa+lxN7xGvdkg5UxXVx5Haj92SL+5Ly/IKJBgQdfaomA3ScTyrPYi7Nz/NF
-	x7jtVngI7q2jFdCVpFymofBOj2OMcPZGQjXMNe4ysghNVFdhNvUO0gVYY1hpNp/mw1sSS/yRnAh
-	5W018ewyfs9FXRRMPO2ZdiVrDmtM315cuNSOM=
-X-Received: by 2002:a17:90b:1fc8:b0:3b0:adba:45e9 with SMTP id 98e67ed59e1d1-3b166d36fafmr3512699a91.58.1794334505836;
-        Tue, 10 Nov 2026 10:15:05 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17d915366sm371381a91.0.2026.11.10.10.15.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 10 Nov 2026 10:15:05 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c50547b4992so81493066b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:15:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Qii2TyZ7
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5383c97c8cfso2441cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:14:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794334495; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o2OtyNJhjL/Bez2Jwn5wxCWm94ufFF4FOr2VhdcUXgzCZJmpHwxiKV4pA3dzUKIcuq
+         9TdXdW2wkp13jXL3gbyHXYknv8m0WJVB0ayt0DW6abBjVjZIWVqiT+lfRYWMhhnQoI3P
+         FlU8t7S5wtfCUo3uWq17+Lznm37W+Cm4HC2ABCUBkPbWL/ONcC5zhctu8aG2/tABbx4b
+         8Z+a73T/lLFad4Iw5N3dpwvoEyK5WhdCofhjyDFwsBrDU2zb+Lbt/lkpfem1S+GTRklT
+         0rARszQg9cQqLLB9acDdP/lKiTIcvCREY4J4rq+aePyfrUe8zn2wCeN2ZFWKJa7ulh1N
+         YEBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z/T19qwkUhRsiOdHXZPOOueJ4FV/Vspzv786LxtKzAs=;
+        fh=8j7H3YtOqut9wcLl97Dqh4s4VWke49/0LqwuigKduxE=;
+        b=T/+NUFbta09waJKmIpUXIdixe6ImZaO2Z49gVe3T7svC6EHbf2FlB7V0JgfIuKbD86
+         emjAWDlEDKlRu3v4PqMibTzfbosHw9YPvrPo7ONOa8xxjhGnffrtYvLMhuNfRgCBamDG
+         Yqj/JB4ryCB4e6SAiroBFBzV3Ah7MFLwEXWr3YByG7auXC0ZhQ+inVD9DFi+o6FtXIO4
+         jreo6+pczejC47Ke6ltCm8pwA3xQb0urRR7+zkwCYUmS7w9dT6QXWPc9S/uXsVSpPcJ8
+         +d7APyVz0yqCAzWUL/eguxhEqCHVKuFhwijxcr6j3j3SERjIKQqnGT6pp46aVV0JVKnN
+         dorA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794334503; x=1794939303; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794334495; x=1794939295; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z/T19qwkUhRsiOdHXZPOOueJ4FV/Vspzv786LxtKzAs=;
+        b=Qii2TyZ7jCHfr9Ifg1uG1l0L4Vo7zZoQ477vdRT7bBObbfapFSMUNJUUS9e6evAISl
+         Q4fni0WpJftiDQlaAZnWe/k1lb1jGD7BKoAINmB+/2no1PwYIZJ/a/hbcG5HDoKUb4kd
+         Du5BIyXy6U6uc+15eisV6pjyrwaDIzi3xN4Mpi91JkuV+1Jn0fLxun22+8QwkG/Jphln
+         DdhtcnrO7a1XqFHh0DWXtLUA94wMF9NCKlMZbvLWnAOiIs2IrH9kEUjfCJqG2XirLsh+
+         oXCKNERJq646eWiUDnp1iGQS0cGBRE7zpMSEwLLR1FlzSW4I6xc2RkzWMmTXdYSxIx9w
+         ILNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794334495; x=1794939295;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z79z5E4/pMQWtffemvxLtB7Hs4xiv2zLQcO+c49cqVM=;
-        b=ZJGkk9ga7efdqeQFlbSAux7+lR4nRwFXNjG/XY69bmLSsbNY/gYDeZMoKmPA9atsQC
-         U3OWzbi4zxn+lTEufPfqT3ebwTPzV3eA83BQDAPzvUCDVxdiAF04eQtPyqk2lO6bCNU1
-         Gw6nVA5ohD/nN+AIIRaXoo4UsENqGMALr2Haw=
-X-Forwarded-Encrypted: i=1; AL+hErHBnoH9hWfg6/szlbsroDqwm2+j6biV+eJyZ6UTXXGcRksT2rFGlhdRdrozQWUaTTq7ShXwoHIuWWmMxVQ=@vger.kernel.org
-X-Received: by 2002:a17:907:9627:b0:c2a:cf73:63fe with SMTP id a640c23a62f3a-c5048f42111mr296416166b.6.1794334503665;
-        Tue, 10 Nov 2026 10:15:03 -0800 (PST)
-X-Received: by 2002:a17:907:9627:b0:c2a:cf73:63fe with SMTP id
- a640c23a62f3a-c5048f42111mr296414266b.6.1794334503246; Tue, 10 Nov 2026
- 10:15:03 -0800 (PST)
+        bh=Z/T19qwkUhRsiOdHXZPOOueJ4FV/Vspzv786LxtKzAs=;
+        b=ib/Y2AGrvf05j1ctPu3FjbHSw0tL3cnWO3iWIFWhRV1HsUtPUQGe+22fxGh6V/ckT5
+         cTVaOS6arTBdtJ1A21x4rLxT1ys3R9CaSILpxOAvnh9DlGPu4akXuAJYroQMRlAHYpmd
+         aGJP1VCIsWIAS2sI64xwKFG6QwUnd5CCqj7jgf/CB3yWcwIny8ckQTeXIVe3oz1BfLec
+         TjFWgf+NN0E0b2yiljqNHqjks0+2A6ooQe3VSFtjJRllb/YUC79X+LuD01eGRdaunBML
+         ob0TgNAJlFFaG7MPvBabUflDhDt5rDN/CK3o48RM1VA4w/vX6/GI/c9OGnZu0TNiWFsx
+         euCA==
+X-Forwarded-Encrypted: i=1; AL+hErE64HOhyRWnHBZ9VMD2abhzVx2KsOYZwCinyPdvhIAZaiJ6zTEL7dendlh0sGw6jJ4fFWoah2FCbLTFs8I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dekRyZi4GmUpDDnCboCee05CiLsib31YE0J7gquss9CW7YUXB
+	6Gquywd93xsqdJGAEGjb+9zrwLMX4oiJ8sol56TrYA8uCWHq5acspmrQCxi7WvMUB8d25CaCzDR
+	k/J0MJuCXiyZcYRZ56aZ/Zp77IF6Zkfu5Y+IgaQkYBi50QWgnSJoBTWUA
+X-Gm-Gg: AYBFou24nrSRDVezaP6VKunNpF/5L2zCRb7AmrxJJb5/qHwUelbdK0xohtJxGZEW6xJ
+	ILSfn6JK4lLwSKuETF/AptgVpAPuPb4QnBSusxhym5cllex4im2IWK/SJ+yMw1F1PozJkx5D0RP
+	bjfJhjKxsE1M8l9Cv/huku3icSm1mqDvC5HFRYfBuLN8oIADbn/UGLx4ZPM6TaaNz5yCpK/YJ3w
+	t2cyOUpFwKVcEC1eUv6vdYpqADtlsPCGil5Pwsy9hDQ1vI2YoOrJhnepD3Es5AS9Vc7+yj6gYss
+	UfX7ZYjf3wDqfN5T8yIYohWQkY2dvTvmSpQf/Q/0EbLfGq17ZdXBw1j+rCI4RQ8+K5s1o5n4SZr
+	wjGPPUoO2w3HMMadMR/+Z/u4oLPF3+UGBeEC/0AFuUdHO/fh06AioYsRHxFNZLgr7oMY=
+X-Received: by 2002:a05:622a:2b0f:b0:536:353e:8d2a with SMTP id
+ d75a77b69052e-5569bc21f5bmr15411cf.1.1794334493987; Tue, 10 Nov 2026 10:14:53
+ -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,158 +104,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106191423.4194081-1-joe@dama.to> <avIpEpoCYvLHYl3j@devvm20253.cco0.facebook.com>
- <CACKFLinPK+wR=TMA3zNJDKQR_=HfMFUHPxKS+yhvv9SegZw7Ow@mail.gmail.com> <avNWzavrxJSasfp5@devvm20253.cco0.facebook.com>
-In-Reply-To: <avNWzavrxJSasfp5@devvm20253.cco0.facebook.com>
-From: Michael Chan <michael.chan@broadcom.com>
-Date: Tue, 10 Nov 2026 10:14:50 -0800
-X-Gm-Features: AclHuK_hdaI0bABEzw4LCoXaFcB2NPYAVwdRelKCO7_Z4f2yUn_JLuTXbgEPfMM
-Message-ID: <CACKFLikU8ax8-VN+EiAhrn_w+2=yex2TNHPxEYqni6g0BKHKKQ@mail.gmail.com>
-Subject: Re: [PATCH net v5 0/4] bnxt_en: Make RING FREE more robust
-To: Joe Damato <joe@dama.to>, Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org, 
-	Selvin Xavier <selvin.xavier@broadcom.com>, 
-	Kalesh Anakkur Purayil <kalesh-anakkur.purayil@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000b6686e065ff00ebe"
-
---000000000000b6686e065ff00ebe
+References: <20261110-tp-glob-errno-v1-1-6c2cb609c590@gmail.com>
+In-Reply-To: <20261110-tp-glob-errno-v1-1-6c2cb609c590@gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 10 Nov 2026 10:14:42 -0800
+X-Gm-Features: AclHuK9xIbr7pga1JS6cGGqHrO7XBZ0oZ6bzuqE2kkPmCpNtl3AFPDmJMPPFj4I
+Message-ID: <CAP-5=fUFXZBtHEfSRzcR1rXFXb9jXqzUpp+gvCJH=9V6cEb7HQ@mail.gmail.com>
+Subject: Re: [PATCH] perf parse-events: Don't report unreadable tracepoint
+ globs as unknown
+To: hang.zhengyang1010@gmail.com
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 9:39=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
+On Mon, Nov 9, 2026 at 7:05=E2=80=AFPM Hang Zhengyang via B4 Relay
+<devnull+hang.zhengyang1010.gmail.com@kernel.org> wrote:
 >
-> On Mon, Nov 09, 2026 at 04:13:57PM -0800, Michael Chan wrote:
-> > On Mon, Nov 9, 2026 at 12:12=E2=80=AFPM Joe Damato <joe@dama.to> wrote:
-> >
-> > >   - Notifying bnxt_re when DMA is stopped.
-> >
-> > I think this is probably the one item that should be added to the
-> > patchset.  When DMA is disabled, RoCE will not work at all so adding
-> > this will make the series more complete.  It may be as simple as
-> > calling bnxt_ulp_stop(), but I haven't looked into it in detail.
+> From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 >
-> Hm. bnxt_stop_dma runs with rtnl and the netdev instance lock held and
-> bnxt_ulp_stop -> bnxt_re_suspend takes both. So, I don't think calling
-> bnxt_ulp_stop is going to work.
+> When the events directory can't be read, a tracepoint glob like
+> 'syscalls:*' is reported as an unknown tracepoint, with a hint about a
+> missing CONFIG_ option.  A plain tracepoint name reports the permission
+> problem instead:
 >
-> Maybe I need to make a new patch where bnxt_stop_dma queues a work item t=
-hat
-> calls bnxt_ulp_stop without locks being held? Not sure.
+>   $ perf stat -e 'syscalls:*' true
+>   event syntax error: 'syscalls:*'
+>                        \___ unknown tracepoint
 >
-> Also: would you be OK with bnxt_re treating BNXT_STATE_DMA_STOPPED as
-> detached? I'm probably getting this wrong but I think with DMA off
-> bnxt_re_suspend only takes the detach path when FW_FATAL_COND is set.
->
+>   Error:  File /sys/kernel/tracing//events/syscalls/* not found.
 
-I'm copying our RoCE developers Selvin and Kalesh.  I think that if
-you call bnxt_re_suspend() before you disable DMA, nothing special
-needs to be done because the chip is still functioning.  It will go
-through the normal removal process.
+Thanks Hang! The Sashiko feedback seems like overkill to fix here.
+Could you give a before and after comparison of the console output for
+this change?
 
---000000000000b6686e065ff00ebe
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Thanks,
+Ian
 
-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
-DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
-qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
-5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
-rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
-oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
-Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
-BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
-IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
-FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
-hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
-BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
-HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
-qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
-2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
-K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
-H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
-Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
-WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
-q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
-2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
-bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
-R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
-ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
-MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBOqMEV
-edkfHIRLJfWjlU6tODrwMS1kjpgv9MJ0J23fLDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
-CSqGSIb3DQEJBTEPFw0yNjExMTAxODE1MDNaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
-MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
-SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBpE/eIP9OXCWO1De+Ii1+DDyyXaBl0zXTlqYclnZWD
-pdIaLqRGg8ZinIIJ7Mq+y/PvHzuqMru4YPVScd/LYuvf/vLHodIwtdIe40h+sfNIqxvnE+EWeNMA
-tK1P9ETPaAMhH+PI5Ng+WyRlBUdeqVv5/wwfV6WLyWK87bhVhb5FCycxaUl2/PDgZ16Vc/4swp9r
-50FSvxLdEjcwZrR85L5xQU9lnFz0fqFbkFQFhJzhvy3cL3LXqF5fVnI0tMRPS8osu28cEcbErV3s
-M3iH2l9y7uhkoNkNLgKPST5PgyUdHYiz6DaBhqnReruaXjZUxlpee5LXQvzWg8fQccGjs9Td
---000000000000b6686e065ff00ebe--
+> add_tracepoint_multi_sys() reports ENOENT whenever nothing matched and
+> ignores the error returned while reading the directories, which got
+> lost when this code moved to tp_pmu.c.  Report that error when there
+> is one.  As a normal user 'syscalls:*' now gets "can't access trace
+> events" and the remount hint, and perf test 5.1 is skipped again
+> instead of failing.
+>
+> Fixes: d002aab87de8 ("perf tp_pmu: Factor existing tracepoint logic to ne=
+w file")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+> ---
+> Found running perf test as a normal user.  Tested on perf-tools-next
+> 13a8d580433a.  As a normal user, 'syscalls:*', 'sched:*',
+> 'syscalls:sys_enter_open*' and '*:sys_enter_openat' now report the
+> permission problem, perf test 5 passes with 5.1 skipped, and the rest
+> of perf test is unchanged.  As root, 'nosuchsys:*' still reports an
+> unknown tracepoint, 'syscalls:sys_enter_open*' counts, and perf test
+> 5.1 passes.
+>
+> The issue was found and the fix and changelog drafted with Claude; I
+> reproduced the issue and reviewed and tested the change.
+> ---
+>  tools/perf/util/parse-events.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-event=
+s.c
+> index f3ba70d4f76b..8a6d5a13863d 100644
+> --- a/tools/perf/util/parse-events.c
+> +++ b/tools/perf/util/parse-events.c
+> @@ -572,8 +572,10 @@ static int add_tracepoint_multi_sys(struct parse_eve=
+nts_state *parse_state,
+>                 ret =3D tp_pmu__for_each_tp_sys(&args, add_tracepoint_mul=
+ti_sys_cb);
+>         }
+>         if (args.found =3D=3D 0) {
+> -               tracepoint_error(err, ENOENT, sys_glob, evt_glob, loc->fi=
+rst_column);
+> -               return -ENOENT;
+> +               if (!ret)
+> +                       ret =3D -ENOENT;
+> +               tracepoint_error(err, ret, sys_glob, evt_glob, loc->first=
+_column);
+> +               return ret;
+>         }
+>         return ret;
+>  }
+>
+> ---
+> base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
+> change-id: 20261110-tp-glob-errno-672ea1eb786b
+>
+> Best regards,
+> --
+> Hang Zhengyang <hang.zhengyang1010@gmail.com>
+>
+>
