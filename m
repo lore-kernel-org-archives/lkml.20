@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315990;
-	b=r+e0IT+qy6+42YwEbk3/Tv6l7Rkuz+WoRfMX1wsLnKwt72ylyykfNd+EXNziI3mTvjyI
-	 nMH4+XO+rxgBnfOyXEUm8iULae1qhRwt7jlKfGkzMdelPU6u2YyUexORWFS8i8G6P2MvY
-	 xUPG6X0aybBpUZdZR0177I2EYu1GpRyo+a4iEZwGGyp9KGbUQvDcsxqS/VTHH2ZJ2D40z
-	 NyY0YZNuox0/BI6QXb9pR9vUlePQwYwC/v5SgUNh+cSjVd+j13l29cWYZfYlR677WQ4me
-	 TTtbhkZtXQFuBxylC+eGeo6GUba6iYQH5X1BKs8I8Mp0pelqo1xwO5OeTok0avncEMg==
+	t=1794315994;
+	b=FHXOWY9BT0/R13/prErRfifoWkGUVpyMHCqvgtrLetVqziGr7TCKcMnU1xC+2caPhjWX
+	 o1EUiE1L29eXhwTTa5Z1ZpP/oLEGRUDuWzAl86EVZwJFYuTimYB9XiH/YvOuOIB3YS4bT
+	 ArpAs1MlrYzLshdsOCaxwoX7/MN7qkxMfxKldtzAHaWepCePACH56MCz3sHFY4eJ2H3O5
+	 l3J11A19GoiguVf54rJEVEmofDHzKzYYRh15TO8RXiw74JHIeDoaY+AZjk+sRMzN5KOnT
+	 xhgDCU8H6WHBRw8b6/zGuIUIxzi/8vquwhOmf/NtKI2K8wEN2nMGD+1QoJSN+rJqY6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315994;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=/Ss5SZp6AbzZf0QMiHXB9m8r1DMlRHB70XqYyD/5vww=;
-	b=vOfeEwr/+AD0nQT/jDNr2iuwAmTuGA1yGHzeMY7DeVGgy0wg7K50+9XG1IIdCWI5kbDh
-	 eVFnDGzkjBi8y/1225VUj2xnrC1ZJvnVx1qMEdWPYxOmjJxX3oZY3WUl95546K9CAyyRU
-	 ipFDERPpPifsisCf4os9tu7nERY7yjY86Fxh9wek6sy9GAAjr6967SgskM25VQVUYfN9Q
-	 eDARAb451BFOeaG5LQgZ/eW2znXJT1/praDfNBWd2xWm6bmbK+c0qUxkouub+141Ec6Xk
-	 4rxe6NWx4J/S9BeMNtxa0emh8xq/eIWwEYRDPPMeLOsalh8IW4EfVgya7L5s4KES1NQ==
+	bh=TolNyDhrdN2HSm/G0psLOeOyGTSERcb3rDpVQV092Rg=;
+	b=LRjqf/7PuGLVmULYUTADXs/7cVLLbJbNXr3ngO9OYROzU1rfl5rq55R9VVxir94wVPD6
+	 bpVrsc+rYgsVnKe303VTw1Ayq+o+drDyHip5M9lSDfYgmBnmRdmWJRYU8MlZIvLQyvCon
+	 7TBqs7Qp85fkBZIvRPGUBj+Dr67blICgTLKv6sG14Q1UfA5qIXNORBLFAMQuglvLK3S+9
+	 34ruAtwVlWwwGpVVRfylEZnM9D7ihrt85YzgsQ4HjEhVaEOnuV/J1K2kGu+PZZm/f1vPu
+	 EVXN/jwHDTxRPNbgunlgv2RwlKsnixWfEKFvCnYXJ1RGsQgeIUfO3Fs9rNBVbwoK7rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFjB3ecx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U6Qgm6Zg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4883D606A7D6
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:06:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19433606A7F2
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:06:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFjB3ecx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9E91F0089F;
-	Tue, 10 Nov 2026 13:06:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U6Qgm6Zg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669C91F008BC;
+	Tue, 10 Nov 2026 13:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315989;
-	bh=/Ss5SZp6AbzZf0QMiHXB9m8r1DMlRHB70XqYyD/5vww=;
+	s=k20260515; t=1794315993;
+	bh=TolNyDhrdN2HSm/G0psLOeOyGTSERcb3rDpVQV092Rg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OFjB3ecxYngOo0b+pMl92LqbwrOyoUX3eXL6vkaSGjtkybyELg8tj3YuMgUWjydFN
-	 WeE5IdDajyyW33aWwGVE9U/BqLx7Pu9W7s7P5HjyIi8BQavYgF1ZmTUFIhGU+eVqzI
-	 hCpVoZ1np/YCM9BfAu484TDGZef5wY/rvFtbnoSSPuNltd1WuEXUlUZYyiDLDt3spB
-	 OlHvIRXn1UTb4JQ5LE8FQsOxNi7nR2VkVNI2oiW9cA45w5u9jJyDZlZE6JjfWxNZOi
-	 gtOMznbd7chtWx7n1tQ74/BO11E6IiaOcQnx7cjd7dBln+EkLhCJJZ6E9cyEWUlgZO
-	 FZ25Ss9ldjPdg==
-Message-ID: <32632bac-2cca-4341-8fa4-f5565b56b851@kernel.org>
-Date: Tue, 10 Nov 2026 14:02:26 +0100
+	b=U6Qgm6ZgqMvD0OvAuYw9d6FLDoQwiyZQGJbdR0yVWPeYtHcLytJsVvjLgMVY/sMbg
+	 0M5MRkowIO8ssPRC6p2Qmpef23bMv4cxXgiIIRbQIMyxXube2pMdi/0Sf0N4JSkTxh
+	 +kasDrmI7MvnOnF8/WrFFn1H55lmSWxwb07HqbMln+brD4f+2pP5FMXymMRCG84B2P
+	 SKbKgpogUok58cPpqapFPkXRLMiGQtXPxlJhT5aPz/lKEIbNk+5/L6Iz5Z3DRqbEKg
+	 86rOA2H/TYVsQ5erFwIP01rNsDo3nTGBdMyPAVoAcNcyhp3fHy9m3ZipzMybGAZNBA
+	 /hceDbuVlAogg==
+Message-ID: <315c0415-0271-4f16-9986-cd5363159f44@kernel.org>
+Date: Tue, 10 Nov 2026 14:02:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/6] mm: gup: move gup_must_unshare() and
- INTERNAL_GUP_FLAGS to gup.c
+Subject: Re: [PATCH v3 4/6] mm: internal: introduce FPB_LOCKLESS for
+ folio_pte_batch_flags()
 To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org
 Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
@@ -63,7 +63,7 @@ Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
  Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
  Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
 References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-3-2aaef02df0e1@arm.com>
+ <20261109-refactor_gup_fast-v3-4-2aaef02df0e1@arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -110,14 +110,22 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261109-refactor_gup_fast-v3-3-2aaef02df0e1@arm.com>
+In-Reply-To: <20261109-refactor_gup_fast-v3-4-2aaef02df0e1@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11/9/26 13:32, Yeoreum Yun wrote:
-> gup_must_unshare() and INTERNAL_GUP_FLAGS are used in gup.c only.
-> Move gup_must_unshare() and INTERNAL_GUP_FLAGS from internal.h to gup.c
+> From: Yuan-Hao Hsu <aa9736195201@gmail.com>
 > 
+> Add support for calling folio_pte_batch_flags() in GUP-fast context when we are
+> not holding the PT lock. Instead of reading PTEs through ptep_get(), we have to
+> use ptep_get_lockless().
+> 
+> Specify the new behavior through a new flag FPB_LOCKLESS. We'll make use of this
+> functionality for batching PTEs in gup_fast_pte_range() next.
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
 > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 > ---
 
