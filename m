@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340297;
-	b=nKVU+7WyIzvmZmOIqKcvjsAFcc9F6gNASsOazR7xD5+511oaK99LmnTTft2tg3GnTm/A
-	 ckktaYPU9IKTjT3obXIVA6NhDo80CeBuqT9YuV6MAZb6zCgeuLy58CWupULEUmHDZMbGb
-	 88yWY5zd3KE2Lcjfae+cnb2N/eqRTM2MncmF10WUIPwoAzBnOeXk0WDGgnOl7OiE3DdU1
-	 IaGZtuFYtMVE7s6GLlfcpUwLG5JwtMCEcpB12DimYUTHplsF84st62ACdbzsFhUIklc+v
-	 n3FDJCKoUXbb7E0h7i03aSjiz40rwSGexJFmAxsCYWSIjQMpDD9XKz2wuxrzaBVphGQ==
+	t=1794340362;
+	b=q8ojJcNr4sufrxrVnjwHzSTuketOPJ5m6LMXDeJRO0p8Z3dRjG4x4Z1GNVOoYshokxyh
+	 eZmX3aOC+pPT4xDZ3iDIbZhKfBDU/IvZNIvqIw8Jj8kTJRVjRc8hfufBpmXbfcZZrNfqo
+	 Em+tx/QWde3z4KRcrNBZA5ihkfJIELOHbn7uELkPjHi3fW/KEtVRKkwGWtVpaGS4o4Co4
+	 UXrub90GI+5ChsHNiPPNhhPdOjFP2LII+22+1G+rcFa2RKJiiW0z7XJZ37H9xH0Zmi0Ov
+	 FEG8mW2M70XwZ6z0VCJJEzAgrSwjVNpYcOC4n6Rw7bkK8UnQmi+R/5erydaux4liwgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340297;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EoaJJOwcscDH8OHCgu1SVsadAtlXJ+GnM9q74gYtlK8=;
-	b=BAe1ZcfPKbrvkZwlnLJfF+yyxhpR6SnKajzA3bJxTAhOj6lzpPiSWo01PgxcaMiuv3hT
-	 Wn/0yQd4jcZGJqjtBq7zB2f8uL2fBMVLZ1Hc06EmM1KsytfjX+7l28RXZrK2RHJBrbPje
-	 kM7drm/42tuB8fTz0Pv2TKuUgvm/GY0eQ4NnmrgMZS0ikSvqK7A8Tsf4M3+yLwod/heMV
-	 4QZIPtwbZbYJfaHkrAE9P/6HvqcYMZA0AdDyRxuLq4XZ9X/l44uPyYg3aZdfCuNWp/9l0
-	 YJp3erKrCu7Zo2l5Yk6XLKcC5PnkVYhCZptRI7dVslR3ZvHeaZs+143xq9sXqPhWXhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340362;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=RKUUofW8j2AR2GX0hv0aDz1CJiwtMVz69tWw+0ZRcQo=;
+	b=a9VN/F5O/X1loSAC/6b/91fWGYrYFvs8crKnGTECFIfi5SAbouMUr4ulPq5JkMnk1oLC
+	 8FrP791mpmAHplPt47vC/6f6iXTaetm4BuQAUSEbw/qK8f2NuGEsfMQo9moWGyy14Xa37
+	 yvzwTV63CBERXMBallJA4IwOsQJKWb7nsQd7bVFVCH/qT120UHDxRfdbbuSlNXdt1IhV3
+	 B25b9voLvI7mtCFKb4ODCRJoor3lWHaOpIadfoa1qhv2tVzKDQSTwt3AuvHuuw+wXJJBp
+	 y0gagala1S+BgXGNwLpIQSiLvLr/yghKBTucLyFw4aR61qTSFBPpC3CY9twLdRAoBIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=StB6Q5O7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=YKCrHoAg;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA15606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685AB606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 685AB606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=StB6Q5O7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704091F008A3
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:51:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794340296;
-	bh=EoaJJOwcscDH8OHCgu1SVsadAtlXJ+GnM9q74gYtlK8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=StB6Q5O7kL5kQ7NgUI8glfKXASFWgBGQuRo6xfElTw+QxsoiDQvcQr7lXroMSOklj
-	 diQoZ/dlsrQhHqYuaWAE5tf3m5K9iJgckiOa8OIU/G4CoO/t5GLGU0HxXzM+wLOi3/
-	 9g4iOlJrgmM3CBuGquZeBx3wi2q3uxSX2YBA/wM41ZqoDI3i9S9drH2OgscGdLzxzw
-	 ZDYqcn9+UVnKlENH4SgbFlwmWDFN4mGtWqpKVnSK8/mAUboxVKIvw/TAs9CA9J9HW0
-	 CGhL5BGo+TLxb8NRFUD2PCbop0SfhlVLWlRBmmNNRZHT8ZYcnUhBLq++juLZwpP8lT
-	 55I8B1aChCNBA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5c1593fd141so1010223e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:51:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGxVj6IHzCCBRnwa0F95wzKr299eOCZeZb/V60FfCvRm5HNyfBl2J8dyrt21xW7uxp4iMOzcKuB8fU68+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dwrC27l8oKcwXTjoAFzifzE/Rbe1E6xrNrIzg1shRzwgw2IUE
-	fd/RphWWDJgX+ZIP0AuxE5l87zusEN0K1Ma1aNooSLtpbGSqBb7Qa+vSYIBtLanpwic4BjtyoeJ
-	8JZjyE/mCWaNizYu8Ydi5Ebtya+ThCGA=
-X-Received: by 2002:a05:6512:402a:b0:5c1:5814:4b94 with SMTP id
- 2adb3069b0e04-5c15d54b364mr43799e87.9.1794340294836; Tue, 10 Nov 2026
- 11:51:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=YKCrHoAg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=RKUU
+	ofW8j2AR2GX0hv0aDz1CJiwtMVz69tWw+0ZRcQo=; b=YKCrHoAgQ5G/IRl31aGl
+	Cgk5l5DMsgewrd+DbCHkQcvHPq5KO9se4g3c0KhErCU2I0GfMZh6FlX5UKGrYLcs
+	26w0t/QxoTuUYd9ASRC7Ap0bCP/gUFABb1m/y9p14vmeiqDzDSi4D0FMxYmp3yeW
+	Uaan6PrN3gV2K/d4JxhnsL8PO26mnL+IJYe4y3VjGRNk6+qLQcuP65M0gUKkZO1e
+	wwUlsrX+xok4ki48Xp0IhH+zVFQUBp5Zq8I4i8s9NcdycLn2oRoXoXv3pJNXuFKO
+	1WKYgUZRwbBRVRbccVJAUdyiCkc7di3mgh5x+ySN1Y3vOrKVBN8vgDLnYVLpmpvO
+	+A==
+Received: (qmail 349063 invoked from network); 10 Nov 2026 20:52:37 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 10 Nov 2026 20:52:37 +0100
+X-UD-Smtp-Session: l3s3148p1@rSSaa/FfepsujnsO
+Date: Tue, 10 Nov 2026 20:52:34 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: nomadik: handle pm_runtime errors
+Message-ID: <avN2AtdSzB6I40Jl@shikoro>
+References: <20261110-i2c-nomadik-handle-pm_errors-v1-1-ea1ac92af8f4@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,97 +64,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103114103.74195-1-k.chen@smail.nju.edu.cn>
-In-Reply-To: <20261103114103.74195-1-k.chen@smail.nju.edu.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 20:51:23 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0g31VPxrF6FwggLx-JwXJjex5iLxnxcn7ogo8LJm2Fs1Q@mail.gmail.com>
-X-Gm-Features: AclHuK_fagscXlzoJ_i7Uy_dNtaqqPEBsCJFz8QyWBK3J7tNU5Iq82wkdOaUPWA
-Message-ID: <CAJZ5v0g31VPxrF6FwggLx-JwXJjex5iLxnxcn7ogo8LJm2Fs1Q@mail.gmail.com>
-Subject: Re: [PATCH] thermal: intel: int340x: bound the PATC trip count
-To: Kang Chen <k.chen@smail.nju.edu.cn>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-i2c-nomadik-handle-pm_errors-v1-1-ea1ac92af8f4@mobileye.com>
 
-On Tue, Nov 3, 2026 at 12:41=E2=80=AFPM Kang Chen <k.chen@smail.nju.edu.cn>=
- wrote:
->
-> int340x_thermal_zone_add() adds the value returned by PATC to
-> INT340X_THERMAL_MAX_TRIP_COUNT without checking for overflow, and then
-> uses the same 64-bit value as the allocation size, as the loop bound,
-> and as an int argument to int340x_thermal_read_trips().  A PATC value
-> of U64_MAX makes the allocation count wrap to 12, while the fill loop
-> still runs for U64_MAX iterations and writes far beyond the allocated
-> array.  Values above INT_MAX are also truncated when passed to
-> int340x_thermal_read_trips() and stored in aux_trip_nr.
->
-> Also add parentheses to INT340X_THERMAL_MAX_TRIP_COUNT so that the
-> macro can be used in expressions safely.
->
-> Ignore values that cannot be represented as an int after adding room
-> for the fixed trip points, so the zone still registers with its fixed
-> trip points.
+On Tue, Nov 10, 2026 at 03:06:16PM +0200, Dmitry Guzman wrote:
+> In nmk_i2c_xfer(), pm_runtime_get_sync() is called on start and then
+> the controller registers are accessed without checking the return value.
+> If pm_runtime_get_sync() fails, access to the register of the device that
+> was not correctly powered on may cause a bus fault or other unpredictable
+> system behavior.
+> 
+> Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() that
+> always return 0 on success and automatically restores PM usage counter
+> on failure, and return immediately if it returns any error.
+> 
+> Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 
-If this is a theoretical issue, that should be made clear in the changelog.
+Applied to my for-andi branch, thanks!
 
-> Fixes: f4118dbe61bb3 ("thermal: intel: int340x: Use generic trip points t=
-able")
-> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
-> ---
->  .../thermal/intel/int340x_thermal/int340x_thermal_zone.c | 9 ++++++++-
->  .../thermal/intel/int340x_thermal/int340x_thermal_zone.h | 2 +-
->  2 files changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c=
- b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-> index 965700ee6962..6eda7823a7e2 100644
-> --- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-> +++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-> @@ -130,8 +130,15 @@ struct int34x_thermal_zone *int340x_thermal_zone_add=
-(struct acpi_device *adev,
->         int34x_zone->adev =3D adev;
->
->         status =3D acpi_evaluate_integer(adev->handle, "PATC", NULL, &tri=
-p_cnt);
-> -       if (ACPI_SUCCESS(status))
-> +       if (ACPI_SUCCESS(status)) {
-> +               if (trip_cnt > INT_MAX - INT340X_THERMAL_MAX_TRIP_COUNT) =
-{
-> +                       acpi_handle_warn(adev->handle,
-
-This should be at most acpi_handle_info() and please use FW_BUG in this mes=
-sage.
-
-> +                                        "Invalid PATC value %llu, ignori=
-ng\n",
-> +                                        trip_cnt);
-> +                       trip_cnt =3D 0;
-> +               }
->                 int34x_zone->aux_trip_nr =3D trip_cnt;
-> +       }
->
->         zone_trips =3D kzalloc_objs(*zone_trips,
->                                   trip_cnt + INT340X_THERMAL_MAX_TRIP_COU=
-NT);
-> diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h=
- b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h
-> index d504e271009a..b1da47cc5402 100644
-> --- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h
-> +++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h
-> @@ -10,7 +10,7 @@
->  #include <acpi/acpi_lpat.h>
->
->  #define INT340X_THERMAL_MAX_ACT_TRIP_COUNT     10
-> -#define INT340X_THERMAL_MAX_TRIP_COUNT INT340X_THERMAL_MAX_ACT_TRIP_COUN=
-T + 3
-> +#define INT340X_THERMAL_MAX_TRIP_COUNT (INT340X_THERMAL_MAX_ACT_TRIP_COU=
-NT + 3)
->
->  struct active_trip {
->         int temp;
-> --
-> 2.34.1
->
