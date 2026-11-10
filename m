@@ -1,54 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311723;
-	b=irPIcpAxNI00PCRzY6ZPaMfYuvRc0iSu06MrVrtrCs/csqjYmrAVxZras4JxS0DbS6HU
-	 0dg0plyN148mCSYOBKJeoXOTn/2Lm4K9uhvI/gt/6p1DZ4E+JHMKO53fYaeT9mmQ4h8X1
-	 IL8T40BnuHG5YyB9Md4PVIiu0jpFpDrnPygnk0/za1kCLEayAjsCMwFl3JA/YiDFLngsm
-	 KzBHxiK6zZmqJm+dz9VTpQR8D2LeG6QAU56XYsgdPtvxFaSxvhmy2Qs1lHjf6XiL7TMcZ
-	 euRudhFcNLpQYWz686IsTLDSa4QAlmmj4PcK2x1vXZchNl/SZDQWhO86aQpESGpy/Zw==
+	t=1794311764;
+	b=HF0UZe2sYEUWinoGHW6oz9X/7ZcwNjYIeKXRCBzstP3YOB9J70gJY5rC0rnLg+loqXZ7
+	 /KRL1b2XcaKM8YRjqt+xsMVTDZMhPq9OLZddx8Ocb8O62uFPThQ/qC/DDVnADYzyKKRkY
+	 81rwY8Qm0uqj/N4uzEflLWR6LNkQBKHM/xPvy+eBF3yvkJgXT7UGT375S7WaKWRHHVcoA
+	 a8rjyBs8ytgXsCGL9+41SKFTblEfFSBzX/hvuOcQTtKz5517gVh1Mcy45v51iXFiK0rIJ
+	 tjGRcN8Yx/fKfZDZ3RLEw/0bfrmgxDx6kMF8EObdQxHgKDMwnq0skz6TFOxQ8Y4M7jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311723;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2R+pCgHKZ0bswFzRGYD/aZSxNJMUNxjGeJPVpJytDAw=;
-	b=z80YTtYPMOaD6czrGJOCiL2z7HRA1PQbAs91YDOmoe+yMIGM6LxRmSxzQq5qb6e/hCh2
-	 fNpzrT10ZxpkfsofuXKUw0OWlB44yqiSHiYUP/FWikAKSdiRkxbIR4utpzOfYXWgCscpE
-	 GPPD827Xj3YwLsHkwCQ3pw/pi9Rf5FScxlGix+IeV5v2zLFdr/giHDGi4JSeWqdj5WkSW
-	 MPJ0Zj0C7NltPh7JFqalGPaQdAs0/+ZeQjdbsEWr+KyRCfPt/B7scpLoaSpc0ZaMy9p+q
-	 79Z627VjZ29gArkLBgIQeFxiAu4mo/WIQOb3aYXxyYGYrUKMfHrJWNym6xc8rf3vnZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311764;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GLf0Ep+556oH4nzp01w7P9EeSzhM7UH0btQDrYtOz88=;
+	b=Vw2fLs79SLHmjvpWL+GdgogRG/bKb52tu4KR3h6OLXdEq73suhJrpuAMHOJvF9t4+/Mg
+	 F0jR34JSuaasVI3NN8/fsZ6J1zSY8kZiEz2OTYo0R58cKzsD/lTIrYdM4aCLwVDnfyaMp
+	 UbdHplBYZa6D/DFqr9a/A8N1Hcx+38raaMXIwibpeFpxGvbDr6I3akUfxdmqRZWgtdrbV
+	 uoI8YRlSJoRS5UCzWuQZLJTtNlqqqTIWoeV4D3IwxHCBU71b5WibFlhRUgrjCkbxv9p4W
+	 vS3WN8inczyMM89l0dTapEEsgZ5omCvJ0qwwzaRIhSwyunNtgFpbenAhjWU/Mi2VNAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS2OM92v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwtUFVRs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907B6606A333;
-	Tue, 10 Nov 2026 11:55:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F4B606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS2OM92v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B891F008A1;
-	Tue, 10 Nov 2026 11:55:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwtUFVRs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1115A1F0089F;
+	Tue, 10 Nov 2026 11:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311723;
-	bh=2R+pCgHKZ0bswFzRGYD/aZSxNJMUNxjGeJPVpJytDAw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jS2OM92vhGYFLQZtgJ17ES5I2SoXGonxOLA7ySexc1gVBw34/i50QgPMhWtEJkAys
-	 RhP2CxLM4meD+xXi1lk1WmT888/peHhJidvH+Q9HL0FJMvzeP9b9kVrcrBZ2TebGt4
-	 f2DYc0xq2IUrRFF+OODN8Caq9vATVSyIJqV4KIcoj2IbbihkA3PMQezr190in9Dx5U
-	 em8n+aSTQMk3hPd7bNlyAzNjhySjzdQR0MS1icoWls7tbWPjLzDdKbtFxmzL3IU0Do
-	 7Vn3uMYpk/a/lPlJJfMdoPNnvlSzVO0l2kKsMbyRvHAusikUvQpQna2cUgzZVgDVao
-	 PZ93koTOVgAWA==
-Date: Tue, 10 Nov 2026 12:55:19 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rodrigo Rea <rodrigo.rea@marsrover.mx>
-Cc: alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, alexander.stein@ew.tq-group.com, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, rodrigo.rea@nxp.com, 
-	daniel.aguirre@nxp.com
-Subject: Re: [PATCH v2] dt-bindings: rtc: pcf85063: Add NXP PCA85074A
-Message-ID: <20261110-provocative-voracious-parakeet-dfc33a@quoll>
-References: <20261109152352.6335-1-rodrigo.rea@marsrover.mx>
+	s=k20260515; t=1794311764;
+	bh=GLf0Ep+556oH4nzp01w7P9EeSzhM7UH0btQDrYtOz88=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cwtUFVRsZcXH7K+rIyijFJpAcn3DP/8ZFsiYD45g34++Dl1aLpMb7ybHwcWgi1Kva
+	 Q7KgWfBO4s5ntM9MbDHi3Ahf1/72ew3pdQ4PIiss+ij4yOVZUnGvENXnR7f1+xcBJZ
+	 moOvk/gyJbA/XBKXYXRziSdkXNBLrswnJGX4O/wK+ZObfQEkPc4NvOcbNrHC/Ct1Jq
+	 NXlCxE8pDNNPoNrRd64zyxl4X1o3aGgUPDH3BjKgKtweLoR+eHBhBZAg1Q0653/b26
+	 w/jtFx1ssj+skmeegP3HXSZay7GNi/GvOwKebGhFvPxNa3MJ88Z4zH5VHD+0W0BIIB
+	 VE9eCD90HFc0w==
+Message-ID: <60541e98-b1f0-4f92-a155-8a29c0bb17dc@kernel.org>
+Date: Tue, 10 Nov 2026 12:55:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +51,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109152352.6335-1-rodrigo.rea@marsrover.mx>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [SECURITY] mm: khugepaged collapse_file() drops RWP PTE markers
+To: n3rd <18670333770@163.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "ljs@kernel.org" <ljs@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
+ "ziy@nvidia.com" <ziy@nvidia.com>, Mike Rapoport <rppt@kernel.org>,
+ "peterx@redhat.com" <peterx@redhat.com>,
+ "security@kernel.org" <security@kernel.org>,
+ Tal Zussman <tz2294@columbia.edu>
+References: <606cae9e.bbec5.1a1c54f4f9f.Coremail.18670333770@163.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <606cae9e.bbec5.1a1c54f4f9f.Coremail.18670333770@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 03:24:02PM +0000, Rodrigo Rea wrote:
-> From: Rodrigo Rea <rodrigo.rea@nxp.com>
+On 11/10/26 12:54, n3rd wrote:
 > 
-> Document the NXP PCA85074A real-time clock with nxp,pca85073a as a
-> fallback compatible. Both devices have the same register layout for
-> clock, calendar, alarm, offset, RAM and timer functions, allowing the
-> existing PCA85073A driver support to be used without a new match entry.
+> Hello,
 > 
-> Link: https://www.nxp.com/docs/en/data-sheet/PCA85074A.pdf
-> Signed-off-by: Rodrigo Rea <rodrigo.rea@nxp.com>
-> ---
-> Changes in v2:
-> - Require nxp,pca85073a as the fallback compatible, as requested by
->   Conor Dooley.
-> - Drop the driver patch: the existing fallback match provides DT support.
-> - No runtime test of the new fallback DT has been performed.
-> 
-> Link to v1:
-> https://lore.kernel.org/20261105215204.2446733-1-rodrigo.rea@marsrover.mx/
-> 
->  .../devicetree/bindings/rtc/nxp,pcf85063.yaml  | 18 +++++++++++-------
->  1 file changed, 11 insertions(+), 7 deletions(-)
+> I am reporting a security bug in the Linux kernel.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Stop sending uffd problems as security bugs. STOP IT NOW.
 
-Best regards,
-Krzysztof
+Tal has a long list of uffd-related fixes he is about to send out. CCing him.
 
+-- 
+Cheers,
+
+David
