@@ -1,49 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326610;
-	b=byZ8XmXn9IXXUNK9ywfFI+TL4wrAVZFfPOXjVq2UFuny6iU19PkwX7Yr26xet9WgclXx
-	 Axlba0PGhY5VCm1Y5boFMBJ3yOsKW2m5P09TAVmNIp3dL4IUU3FOVQurgITT9bVls2DZ2
-	 lmnTFjD0Be3NL9DejWMEhjX/46KHxbnjxOxuPtGl0wWIdnNkNc2nA/nSJgqSPQF1XAJve
-	 cat68zE2CFMTkhwl+vtGH54hrE1gVQkWy8DdRPvFdHVBsQDnVnztPvRUm9qd0Bv0R9j/a
-	 vMxCsCC5pCz3YnrtSCrsjO9jeBK0CKNoA11XLil/v5+/nq9s11M2KMa7yWhVNiXja2w==
+	t=1794326637;
+	b=gnSw1lyZsiyqvcMrecTNGVjGvojUZGGLEjbuvK/XDaN58VO/uTPoIpIAVjhFdIBHRPnU
+	 eZs6DLcpjnsx0kIpFvLUH/4Md9d7EI+eNx1sST6FlUM9rJT2fvYTZIHbPCIeAZoIaup72
+	 xfsduGSyKyAIfygscWxiq77vILKRy98QFZ3Du1tvNMdRu843hTM11Rjbvr3dOHJAeOBHE
+	 SP87bOQJSdzJ52EJAXNQQq/6FYVQma+UvnDU718G8HvR3TXbIGFofhaxF8cH0O6ruxnnR
+	 Vvjxy5gU0aItQazguJId37tvRpgPTgKiQONXjclyTIWvQYbfyFoWkHzdEmcP9ZDkfrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326610;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hxkD/APlz4ZE9WZTrHrnMSE/qJyH/QHAerVotltNtS0=;
-	b=JxT/P9OOXIuryYXIqqY6B6s/5Ljz/Nf6TTbsrV0h8VDERSnnAVVv18R8EATd396y+aK7
-	 SybpFuTvBTMHRehXnhkUwLwGAIEJXvxNnGPLW16O11kfYke+zxbgbyqH/iPFnj6ywezYi
-	 1jgzd5t+iSScmSP3Cdaq+iIcrYDe2zYQGJOnFHY3z/p+sr50OWKpGgDW2zF+cEKNaD/FJ
-	 PCvBHbzEOgLpESkZ1Umd+qMeApXg25GICO8zkDcS/kg8UVlvQDpyrhcAhVq0YhuVbwmaz
-	 KntIKcxj4Ny/op/PWEYn8PkarKkLS1qDuhC4ArLSVS/LBJ5yFePdYAkHBAE4KTRpT0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326637;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=z9ld557JdQBKoDT2aimh1Io/f7AT1dhkdI/35dtnbqI=;
+	b=GuWoENsXk9+ngP0Zzesyl5/wZZIKqkZwxx1kFtFzWVhzYSPJpVFZJ8rElrEBO4bPDd6R
+	 /BKoVgtUEQPg1SffA6CMZniuu6OcKaTMESapAJJIDt738pxU+aohIVNRVmFRm0ZogPrJI
+	 o/N05HetLT8tzyWf9xthotRbhu2+lph0xLSzdqPFFdVkynsQ3NTNU6HcdJE7VxAvDltqF
+	 VuXU/Zv2IqJeULH+QYCe1BJw+wumRWsssblNUvh9gNP5kQ5KIY+LSUCxNoizJKSPs6l8j
+	 GUIBQGADhwVstbC8/nJOL2DI8up3LQwHA+ympy/Z+1q8qHyDaK3bpzpT491lmKlxBtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcyEtWju;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=norkWtlo;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="CI3/+DsN";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E34560A3834
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:03:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308B5606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:03:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308B5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcyEtWju
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4491F008A2;
-	Tue, 10 Nov 2026 16:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326610;
-	bh=hxkD/APlz4ZE9WZTrHrnMSE/qJyH/QHAerVotltNtS0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ZcyEtWju3BbwgW3rBjcSMTM9omVg0bIemgjTSMCba+mUaColPk3E8V2DkT6kTypwX
-	 2axCc1RzruShlShfMnIOuybdu/WLgthnSOevOLwUAu05ziQXDio4WEzOgBwEDvq8ST
-	 eJVrMYZRKsdiUjJD0LVkDOHNRrV6ZE+4fgASkAeTXxEECu+MDb8n80SBSYknNbUllC
-	 shw3Z7mGHx4cC6DH9kSm6I5ab2Onl6plzhIxRFc59/n7sWs4fC5+CARNAN1vy4reSn
-	 o3PlVo1Qah81JeYWzQcGiuP8fcTKiTg1CIPg3Q13g10Aa7Zh1mVV4Bku7Bfw1SDdIf
-	 uzSn6jPv7j+zA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 10 Nov 2026 17:02:57 +0100
-Subject: [PATCH v9 10/10] drm/vkms: Add driver-specific plane property for
- testing
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=norkWtlo;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CI3/+DsN
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF01lm484447
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:03:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z9ld557JdQBKoDT2aimh1Io/f7AT1dhkdI/35dtnbqI=; b=norkWtlo38LpdvFf
+	A2dEwFuVdNmQIZaXZ3XbH5NYFCvb2tJsDBgfzDpfWRjZknkMo/WgmVusZ3m2xcUT
+	KljgtF0i7asQrDsxJsgqpjEZosiHjte0dQBWCQGsr+t5WsWh1YvjHUCuFHTgBPFH
+	AII261ICNeryJade6UVztNk6ZAbTdpF4N3mHraA8o91pFqo9L57k49KoQUZ9I4FO
+	AhPDRzVgX3tWIJaL0ZEVmnkxA4Yh8vMBQ98XZiohcw4wmC+i02fsT+LvsHWK0UIu
+	dA30mFyZmX0R7/d/T3w6vrQFvWQXsKduPJzs97IxqQ8LWqAfulRNOhm7C6qQ0jh9
+	BykMpQ==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyvwhknj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:03:56 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9997828d6c2so375401241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:03:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794326635; x=1794931435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z9ld557JdQBKoDT2aimh1Io/f7AT1dhkdI/35dtnbqI=;
+        b=CI3/+DsNJXnsAQPKmWp9zS1F5KLl17YH/8Ko7WIiWWJodDT7k3VdHnfbKYa6MX03Ia
+         92fyj5wdeUqI4oNdI8AdjRVdzUgkI/cWkDEj9SHr16wsIVf0LSp7NwVqCCqKEugT/pyX
+         OatIF80NderFYrUIBQFsrsc/rnUN4TdN68RFpvw5cPMSREEUUa0rT8kIqT/f8dp0EPn1
+         TJ8ADSY/vTUpsmb8eVucaXjUZHb/ZDn/adpPIhuE7ZWB5lvz+crlPS4xpvfdxE7jen2i
+         YtFrJe1ncmVBcuxbdomD/7E4+nzvHXDeS0MtKdS5U/cxzEPlU9bRruv7nTCoi5bA4MZS
+         M/Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794326635; x=1794931435;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z9ld557JdQBKoDT2aimh1Io/f7AT1dhkdI/35dtnbqI=;
+        b=gqLpU+oUAuuXnJkeFKXiqqbzTsrcMoW8vK6mk/hE/oL+6GsyL6l7V0KkNeQ5DRSMdB
+         3J/BYFEMd7i7VtNymNnAad0wMZqCwMkoYq6OdFhzFYU5dRJZi820W4IZTqfQKhCM9bGz
+         NGuLTyZJcyw7l1eswT+ysWfj/fPSasDF7qu50tqE9I6Ac3AZmAcN+DXlZ10ehuxpToFM
+         aCAoSwyfnwrm21mwiAMZ8ll2/h66lmMfqxU1cBgnCAnrPxUSJDC6I3z1hPAu7HoHSO4P
+         SOYbPRkU8MN3EubjOVWk0g4AdIRKqjzzpOo3hxMluAx/I27KMnPihmECufZAAi9KYRUX
+         GFlg==
+X-Forwarded-Encrypted: i=1; AL+hErE4pnCgMZQfXR7hbT7p3skTZetDtAAOoOb9UH6RWhk6HHNpOjPBAPnky+Ndf78uzCceyLDec4FtGBuLP6I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hROcRUYrL1OBvMVs+82cS3/dhD0pMLme6lfuWB/ap3t6fr0Ru
+	MCWSPD2JM+QL1aX4kz9Cp99cmUGRV4c9gb4xfsFCi4sIV3jQAQHrZdllseD/yZDkwjr3D2vq+u0
+	9pznw1V6sVpGAVoPEPnV7UHgDSJPkkF+mkVTLJI9ZQbkU4WDaJ3aq3GPW9H8m84/rQzM=
+X-Gm-Gg: AYBFou1NfWHqQVeApJLJ9Qyt2CKFQN+FNpGmEkOmT+IlUeWvCtoWno7JRDJ4WqoDyyj
+	z2g2tiFYMSe3MIu9HwYNimXuBH2csJkUAAgVkfg3R1EyxFPxHGDjje/qhv6UcqY7H6Z1kV1P+6L
+	1FhbAz9IaLH1cd5h7OL4mZWEJT6vC4q3bzlCVCjrGHpAbvHvDrkU09+9Mu2LzLMG1j6o2ajecjC
+	/S8ou3R/jugtdSG721QL1PQ4miP6fci6K28lZOid4wNH+mANVOBGEbzygMc/6740IHK57NPvboh
+	dto17A2tudB2HlEABYaVSNwReAOG0bvpBWw8s8Cofwm8rTeMObCzKL0CvvGj6yzL8M51vY+g0BD
+	ipINUrlCRjrsJ6G5W++kmsAotE+7BhTfraVnWoPsAzmS9yCKc6C2enTl035whR9cYfQ1/6QWNwt
+	M=
+X-Received: by 2002:a05:6102:6d0:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7d301b84a8fmr940104137.7.1794326635259;
+        Tue, 10 Nov 2026 08:03:55 -0800 (PST)
+X-Received: by 2002:a05:6102:6d0:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7d301b84a8fmr940050137.7.1794326634568;
+        Tue, 10 Nov 2026 08:03:54 -0800 (PST)
+Received: from [192.168.1.110] ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a64998dsm125019966b.63.2026.11.10.08.03.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 08:03:53 -0800 (PST)
+Message-ID: <a1bc40d2-f12c-4cd1-a4d8-c74e79606f39@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 17:03:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,226 +114,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-drm-reset-state-flag-v9-10-ddb0e26324a0@kernel.org>
-References: <20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org>
-In-Reply-To: <20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Oarora Etimis <oaroraetimis@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6559; i=mripard@kernel.org;
- h=from:subject:message-id; bh=sZsUVPFgkQHbeGEHeaHzcf7EglZcsfxqosKgEZf95L8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmfHQwanrCqrnpz9cp9Wd+lSbsn26iuYf1h8aLzzP+5H
- GaLnyd+75jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATMV/OWKfeVv40yO2B8z3p
- lfUP3/A/vnv+2LvCphmqRYesd9Ux/ZDqfL/Y+jLPfn2fbwKPTjO8DmGsz1jof26O5JHVM48V2k5
- SF5jAnvNRYl3zn7PmJ6Q6rrv9n7PSY51JcW3SpcMRbbs67u7bDAA=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: defconfig: Enable the RZN1 RTC driver
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+        Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+        Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+        Biju Das <biju.das.jz@bp.renesas.com>,
+        Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+        Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261109114123.797741-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CAMuHMdXc=DRkGOhc75Zq524X9Rcc7OOMs6dy0rj0-zm+iFP1wg@mail.gmail.com>
+ <CA+V-a8vtcZA_51PmDVWMKsOWaQB+CVDe=qh2FG=6iH2Rf2szVQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <CA+V-a8vtcZA_51PmDVWMKsOWaQB+CVDe=qh2FG=6iH2Rf2szVQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: -pqf6lM_U4C2cc7u6sMX5wd7t_mQfA8j
+X-Proofpoint-ORIG-GUID: -pqf6lM_U4C2cc7u6sMX5wd7t_mQfA8j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2MyBTYWx0ZWRfX03oBC9jsAKYv
+ xVY2po2QsNPDQEE8wkOgEDzmhWCN1oI4REfUK9vyemk/6eI8McekbyT/Btj8uag4lUyhotJTJPK
+ 3S5xffAPUt/G1h5AcGOneM2l3h99g00=
+X-Authority-Analysis: v=2.4 cv=NNpAaE6g c=1 sm=1 tr=0 ts=6af3406c cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=tBb2bbeoAAAA:8 a=pGLkceISAAAA:8 a=yC-0_ovQAAAA:8 a=bYITjNxFN6idbckDI6UA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+ a=Oj-tNtZlA1e06AYgeCfH:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2MyBTYWx0ZWRfX9iuvlm4aHLu2
+ g/LFxVKsYAdbvw3IzcYPMJUN7acDXIThJo1AFGz/ukDobly5hm4CWReo9OfLFZUOy09o33Zk9dl
+ E1bEANiwuTnJlcTNez3Nspl9s7tAZ/msZiz0jYS2asVZqt1BWHdIVnvZZ+B49Y+OorxtYjSvQ+Z
+ ADXpffTP+I7J6FFGQ+KtXMxq4eUdjpk3ZGViRuY3II8VL5wXniNyCxbst1XoeyvCEhDPWU/vgzr
+ RL2Cm52mdyOWuyPNMiP+gGKzvMgt9jNdYIbxmlCpQ4sE7QfUbTRsjm7WjqdqCkTqKTMr8QdsGE8
+ r6FyMEdDWTtiHjQ+VZG0s+vdN56HtGULeLLr1VqrbQ6SyppY9SGsVd2hm1bbWHM5YwPLy3e3eMw
+ /V3jz7R4nvBz2eJGPVqZF+wT8/zuhwci3QI1gfRAqXLLjCMHUVKE59O999V4NEG4bHnJBxJox8r
+ g/Uf0apT33r1LUUrQJw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100063
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+On 10/11/2026 16:57, Lad, Prabhakar wrote:
+> Hi Geert,
+> 
+> Thank you for the review.
+> 
+> On Tue, Nov 10, 2026 at 1:47 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>>
+>> Hi Prabhakar,
+>>
+>> On Mon, 9 Nov 2026 at 12:41, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+>>>
+>>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>>
+>>> Enable the RZN1 RTC driver as a module. It is used by the Renesas
+>>> RZ/T2H and RZ/N2H SoCs.
+>>>
+>>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>
+>> Thanks for your patch!
+>>
+>>> --- a/arch/arm64/configs/defconfig
+>>> +++ b/arch/arm64/configs/defconfig
+>>> @@ -1393,6 +1393,7 @@ CONFIG_RTC_DRV_TI_K3=m
+>>>  CONFIG_RTC_DRV_RENESAS_RTCA3=m
+>>>  CONFIG_RTC_DRV_MACSMC=m
+>>>  CONFIG_RTC_DRV_S32G=m
+>>> +CONFIG_RTC_DRV_RZN1=m
+>>
+>> I don't know what happened here, but this is not the right location to
+>> add it? Moving between CONFIG_RTC_DRV_PL031=y and CONFIG_RTC_DRV_SUN6I=y
+>> while applying.
+>>
+> The configs weren't sorted, so I added it at the end. Thank you for
+> taking care of it.
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
+What do you mean? I just sorted it 6 months ago and it DOES look sorted.
+You just placed it randomly.
 
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
+Thanks Geert for fixing up the placement.
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 64 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..384616095b45 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -144,20 +144,23 @@ struct conversion_matrix {
-  * @base: base plane state
-  * @frame_info: data required for composing computation
-  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
- 	struct drm_shadow_plane_state base;
- 	struct vkms_frame_info frame_info;
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
- 
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
- struct vkms_color_lut {
- 	struct drm_color_lut *base;
- 	size_t lut_length;
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..42513cb462ac 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -9,14 +9,18 @@
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_ABGR8888,
- 	DRM_FORMAT_BGRA8888,
- 	DRM_FORMAT_RGBA8888,
-@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
- };
- 
- static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
- 	return &vkms_state->base.base;
- }
- 
-@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 	kfree(vkms_state);
- }
- 
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state) {
- 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
-+{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
- };
- 
- static void vkms_plane_atomic_update(struct drm_plane *plane,
- 				     struct drm_atomic_commit *state)
-@@ -281,10 +329,21 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 					  DRM_COLOR_YCBCR_BT601,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
- 
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (!plane->vkms_test_do_not_use_property)
-+		return ERR_PTR(-ENOMEM);
-+
-+	drm_object_attach_property(&plane->base.base,
-+				   plane->vkms_test_do_not_use_property,
-+				   0);
-+
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
- 
- 	return plane;
- }
-
--- 
-2.56.0
-
+Best regards,
+Krzysztof
