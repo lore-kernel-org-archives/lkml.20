@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794279144;
-	b=cWZLK8XXfKaIVNym1RQC/kfkdNkwEAU+HjJyHIR/j2VvVNoIGjrP+l1xoz7QVSyJDuI/
-	 S91zvH1qd8DZl44R2viVsBFgKoyvpl28ic7y77wOYCZYfjPkZXJoj87/2RF0jwnTcegQu
-	 aJwCIozNbjRT8xaxpI6ooMIfx1gRJzNFdhEqwWb9H0d0UDPzLpV0Xxn+P7w50bbV7CTgN
-	 w+6YwgMVGO+85e5nwTpzJGlQwcKbHknzWKha5zeGnwBx8VvNme9iv5bNYozj3hkWXhOvb
-	 RI8d5ISSPHbetCoVwDVhBZ5sil8xPmwHNKTEVlHqWsGyZwMrRba9Uta4ZO5qOZsID6g==
+	b=gOoIW1oiqwgfzSmI557+ERHGwsskK03gzEcOaJxOx85Hl2J53tuI+a1zIQT/Qa4W6AWh
+	 eGOZ10/Q7fxqFZOgo7oVjsP8NoB1fJbivOB3xPTCHcDiXUBUuLUOcKSkIchnzItmPiZ17
+	 08LiuappexY4dhaw4FAnQ7VE1HULv/2jQ34qtEicp1TuQA7tG9NN2Rp5SDCfcIzF4m3cW
+	 qJg0VnjmLUGNNoTASHogoBqbyqdXajyk2PfdUPElZiUQXRizoygcv8F+0vPzEEcCu67Ze
+	 MzM5Ins/RRQW+gK2WjdXgE9vjZTuwtQGIFtnYGUgPv7U+RFAz0X/bnHbaQSgfxBz3Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794279144;
-	h=Received:DKIM-Signature:From:To:In-Reply-To:References:Subject:
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=F8p40prgOjcf7Cr1A1mpKzFS1rOkrh+mPMiwVxEyQMM=;
-	b=zyEbJg33sy+kn7u20IlzeQAGCYfRoQeuN1+tuDsi96kB6YIfl61RmHCoC9woHY6HjjTr
-	 zp/rkmLt0O9PEEgPHIJncmHx/mbROFKZwEeoyQpuVteHMS+UgJvKdpPQoCs+bDZO2im1C
-	 nq/aUy8hbIGrkke06tRI6y9uyA9rJpI5qbdxxF7t4JGauxJFutc48KpZ4pEQ2X2zwTuxY
-	 5fBgOJO+tqA07DHIHW3UfX6mf30uBgjNHs0P79/5+XVeMjq8eVTK9nZkwCnSLp5YT7eDr
-	 uvxbNQwoNgEOgJ/uPX0V35GBteJ8pi7H7gopvchWNQTtcUU4vhC35NJ84O5slIZbaww==
+	bh=1o3TgLBCn/asTnqDXbcDsKfs5lg9f0d7xH7UA0kKlpg=;
+	b=sI2trh+/yYA90/5qGqkd0cGdayT+AMLIXqray26R+m0ICvpTKZvNtnTIjRw1+Te9fcLm
+	 4+GRKHbDG8AbJ6EVD9RGXmtntzvm6T82SADIIHjTXi7WwKL0Fag/6STQe6r/MlLdThiMR
+	 D8zT5PzpugD7ADpaxpXOOTud8i/ZF0fGIZLiXshNtsum3oMHgQvYNkqGZmuF0PPtLfujk
+	 j+JA1Y1mo/W/kqAZwIcLgZKtOD2G06ZFVqwJeXitpXVJtRuNL5zAhhhlPe9Bm2n0dgAlF
+	 1vzAOtnfwLMlnn0jGe7XXCL8VQr9ed0w8D7/f47m/DRBSAGADS8neIZB3FNAMomjDCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7YIehtK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6wqf0En;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519C606A33E;
-	Tue, 10 Nov 2026 02:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A9860A260D;
+	Tue, 10 Nov 2026 02:52:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7YIehtK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6441F008A3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6wqf0En
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0531F008A4;
 	Tue, 10 Nov 2026 02:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279143;
-	bh=F8p40prgOjcf7Cr1A1mpKzFS1rOkrh+mPMiwVxEyQMM=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=K7YIehtKQL2guZyN7Sv/egLXJykqXGmM6XxvBpRJ4meC+lvngPWyXhWTW1yDI3vXp
-	 3WahClvB2ESzp5sSKwXcgVd6DZh9+HDMgtk+ovlPt+fGcttU+9JKlCPIi07+3grfuz
-	 PbTFFFR7JqKyuUAo9fDAk1pvBwmeC8fwWv1CYnrF+FXOepc2UvMgrqyLNkFiJEiotw
-	 w81ORjAhJ5vTDLIgKEUV3y0ZKkZ4LQD0mf7SE9uTtz9y6TARDZCU4Q92TvOZXZ2H16
-	 /93SDgBGmsyQZPhfN6vFp7qAHWmmaeVuisITd1eboNKesbxdAUyIhEWlwIukC2byDL
-	 W2vdDvfGfzYSg==
+	s=k20260515; t=1794279144;
+	bh=1o3TgLBCn/asTnqDXbcDsKfs5lg9f0d7xH7UA0kKlpg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=m6wqf0EnE8iE/PnapG73uZN8YnHsQ7lTKo47z+UzV7ukHwlmqyZzjA5T0WCsR+/8w
+	 5ybwBtY/e5o+JZ9ni4nR05cXAjA09aV+ZsVzQ5eXEE5Rw5AmQAXZo8z/yVmz0QtFDK
+	 KO2eETCPBg2KETIwmP0BhaXre6xQfqlHIq+aI7QIGWPOdxIKEAA0HlpjIyVZoq4ewG
+	 7urT5lzJYtLVkXybWwEX4zQFfjWmYLnCOFay9NwVzvrn4M3WZXqnHV/KAJ/ygDJLCg
+	 xYhtjXs2dGQVY1Otxc507+NKaSzk9Wsed6nOvoiT8YsiyNuVHMS9wGka9PSwj6hqpb
+	 ifliFSbOJ4KQA==
 From: Namhyung Kim <namhyung@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- Alexander Antonov <alexander.antonov@linux.intel.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- lirongqing <lirongqing@baidu.com>
-In-Reply-To: <20261106022027.2413-1-lirongqing@baidu.com>
-References: <20261106022027.2413-1-lirongqing@baidu.com>
-Subject: Re: [PATCH] perf iostat: Reject incomplete and out-of-range port
- strings
-Message-Id: <179427914333.13444.13334589119500754663.b4-ty@kernel.org>
+To: acme@kernel.org, Gu Bin <gubin@cmss.chinamobile.com>
+Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, 
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
+ adrian.hunter@intel.com, james.clark@linaro.org, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105064958.2134-1-gubin@cmss.chinamobile.com>
+References: <20261105064958.2134-1-gubin@cmss.chinamobile.com>
+Subject: Re: [PATCH] perf machine: Fix NULL deref in
+ machine__is_lock_function()
+Message-Id: <179427914390.13444.16238989516543583346.b4-ty@kernel.org>
 Date: Mon, 09 Nov 2026 18:52:23 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,17 +65,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Fri, 06 Nov 2026 10:20:27 +0800, lirongqing wrote:
+On Thu, 05 Nov 2026 14:49:57 +0800, Gu Bin wrote:
 
-> The root port regular expression accepts trailing characters and an
-> unbounded domain field. A nine-digit domain matches it but makes the
-> subsequent width-limited sscanf() stop before the bus. The parser still
-> returns success, allowing the filter to use an uninitialized or stale
-> bus value. A three-digit bus is silently truncated as well.
+> machine__is_lock_function() looks up __sched_text_start and, if found,
+> assumes the remaining scheduler/lock text symbols are present too: it
+> dereferences sym->start for __sched_text_end, __lock_text_start and
+> __lock_text_end without a NULL check, under a "should not fail from
+> here" comment.
 > 
-> Match the complete notation within the documented domain and bus widths.
-> Check regular expression compilation and propagate conversion failures
-> instead of treating a warning as successful parsing.
+> That assumption has already been broken in practice: on s390,
+> __sched_text_end shared its address with __cpuidle_text_start and
+> was dropped by symbols__fixup_duplicate(), causing a SIGSEGV in
+> "perf lock contention".
+> commit d8d85ce86dc8 ("perf lock contention: Fix core dump related to
+> not finding the "__sched_text_end" symbol on s/390") worked around
+> that particular case by keeping duplicate symbols via
+> symbol_conf.allow_aliases. The symbols can also be absent when the
+> kernel image has no lock text, or when the symbol table is otherwise
+> incomplete.
 > 
 > [...]
 
