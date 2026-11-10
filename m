@@ -1,121 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284359;
-	b=fBcgBj9MhV+0JUGS3Js17uPv74iMXBhYH+20ahZIWO/GDSiyjqNeXYDxbN+Q/o9g6H4e
-	 VG44ZmTrZNZjXvHOPv5t1GrqxIK0SiFgUnpZHaeEVqD7dfGmmY9u7i2jve/DYTg0kFBpd
-	 4eeQV1tnLzgWNM9cDO/aOAIoAAYUWaQYRMZNzW58U/64dF3MD8DIK1Tda45ZTrXdYJEAj
-	 XV1lQvt6ywR/EldhZlKH8Niz1apxWl2eUbA1lK4vIgIyqPeWXTKLQ5YlX70gM/BRs+aCz
-	 T8caVnrgAOLtZSTf+r7DanXd9cB9K65jQt3DynZFp+fMUdwk+D3d02iH3zDki4DPrkA==
+	t=1794284360;
+	b=tbZZjE5VO0f0aO4ru1blK3VEOt3CF3mGzDGE/xtT2Z3VyXmVX6w8O5rPxNhZP8+rZuj7
+	 Fpi4x3mIcwPU7aoEtrMi2EOPZtaFpmnv53O09rTMmqETMlMpVrqL9QrQr23/8vtxCiG3f
+	 FIKd1JM6ZP8GBSetjLt/Blrjza6V1ZeNIIa82p+L5ie+WPskpSPrGbgiIJvWeOAWf0Uca
+	 azsxAfbTYTph5cxXMS2s9E10m8v5+Vj7cRasz8uE5XSEoGu47yrSYrTCE1dxd4LKT4Mb/
+	 DQ4Yd9tp1zMdXTleecn6u+7NsAXs5MRxQWWbSQBVyJqtgyWF0IW2OvGYUQtxRfgNGIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284359;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284360;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=jPU4IMrUNrr8h45vc8EL5JTCvYSHe/yNNj7XMONjgu8=;
-	b=Jlku+mNJJoYyyNmBeyTGJivrfJub0dqckkRouMJJH6aKZM7d7rcwj30Zy1HfNzImKm4d
-	 TsKv+7Lm8wz+p91OuuwsZhJK7z42Dn2iIIW9vq5KLZUiBe1k5hdWlCHp9kl27aznfwXGP
-	 OxKomA34pwTBGmf7NSR7A5IlV92Xp75RWVHIJLF65QCj/I8XyL6dnpe/CloLAaz035TRi
-	 TflRAnJkH1Cse12fRtXSfeaN4UAPeQMBZccBZUuzjCZOfA/AM6x+ARjMjA4HR8umvLuOt
-	 gTjVv1q2NlZ8fHfAvQ5HpeWzNHh3UyYoDIcDTY09+ANr44DFewuvLUzaAV/rsiOm2Pw==
+	bh=NwMOPrLb/bcQmTjZjVroIGum5+uDVEtuv4FwOAZFzFY=;
+	b=Fxw9/W5n7ZUuNM85lp6z2fXUJ2c7CczHsCXhfk7U7Cqpzv5JhNbBS9JZQq7LLspxfm1/
+	 GU1jT8ubH+J060wu30pqauBSn7F97OQ8bluPvBHCxHyTlBmGyQLrKk/p1/A6xbREQ2aVr
+	 ZViPz7dUxxqUQjyIaM27joB6DZxU8d/uphvRgk6wNXYBizAYpDBH8fTT0RbXi4yAblQOA
+	 7oCXyQmQciT8LulTymFrI+gOarVb3LF17u9XWiKX+UxcdWfBoqs8Zbk+/e2nYLrv5TbaV
+	 4eiaUAMu8j47469YXGtIKznZAwMyqwyy0MGYMJdfMEwtFdIymEYjix+ZCFsTlSqSZBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ovAYrcEU;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9CzBY2S;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE7D60A261C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1EF60A261B
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE7D60A261C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B1EF60A261B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ovAYrcEU
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso2460612c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:19:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284358; x=1794889158; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jPU4IMrUNrr8h45vc8EL5JTCvYSHe/yNNj7XMONjgu8=;
-        b=ovAYrcEU4YpDj+qS9Kyezyn7VjwJYTQDYf/0Vweej35GM7wXA/wOoKS7MWECpqjyVb
-         TtebLwvQ8/cDfHo5BPUx3cqMp9bm31UwYU+rzH+jPVJ5pUHQqy5ISGkvu1J6oCmdC3Ww
-         k3NXlfzLR0gFgTX15eqxD6aCfQ6oVPF+kU67mQmQCBQk/kPkBZwaaIL8856LeMuif8S3
-         DHdpkLtz5XpfHtWYyox+VVAx+JTuTi0g4xur9KhGJYaYK1XBVAVW2Oh1NeiyZiP8EGSp
-         MEAzO99G76otNRCOY6hvZjYKWBlhU49J7g292qg5I2GkfK3s6t/lRAmBrcgTumrCByD1
-         /D9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284358; x=1794889158;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jPU4IMrUNrr8h45vc8EL5JTCvYSHe/yNNj7XMONjgu8=;
-        b=snLvYmYg/sC1Y/YWTZStU2n8YDSNRm1buydiOPJq4UzEsocFrh2x3peFDGMjH79yqN
-         U+QXW3lGh1dEZrE2McrLmTv+x6WaLOsjdogQVUVwJ3387Sn47rQqUFzdhjxU0GS5eV9H
-         U0tHV/8yi3rK9I9KSD3749oKp6lM9Z+0EIJKVS20Rs1u0MFiHu2WWC9n6cLlG8apkTOz
-         29LFdQKr9wB7Dc+2oBY4K1ZAlLSasCvFWJqfbSV7su6pPnHkTNp8BiH1sNO/sdJyi7Uj
-         dtHrINoJHOVkKgXOFWtAVYIVBGq1xHoHywUeLQGpUgRa+0hvV0e6/h4vgDcT17F28LJI
-         pyPQ==
-X-Forwarded-Encrypted: i=1; AL+hErGQAhsdum/AZp5pFCZYlB4YFCljIXIHFoDXUhrB3NU7aL9gXAKl6UQPHahoS6PqXYZgDACU4v9xX+Vf4fk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9adQ+OI9QY+Ho6p6zITAMVBIRTZ8Y4Raf8i0wD2ChzPzHMM6ob
-	rJ/a5B2HmJexJWDF2QChhcD+meAbh/ewXY9haqYYjCvfIiX3I2DY8HY3
-X-Gm-Gg: AYBFou0XvzAwrCMp7zKIQr+A3pz1HMul7SGr5sI5XDjxAxIyEPqQCKz2/q6WcII0OfA
-	ixeOBPmo1YgsseqGKpYy1qlQHmTLOEnQXqbBIdtz473/ySujPBuIURpsIZ9FJ0YgKUmRKEoNUJf
-	GeiTyp+7SYpUhxycbAot5J7XFeF8pKPSt7ul30aOaBViwOHhbyZWQrn8dV05F8axK1mDeYL7rWv
-	rFaSqK6QFjA9P54cEhO+Vxh9ViEI7FmAFFAiDQlA4dJlVfuz2mPpKd1nSCBJpRBem5SIXjPV1sy
-	YmKaX7DsHM8mBaaU9RrcToUFvBSIfx3sJDZRFD0mS+hI424/B8eBdEZsn0Bjdh3ZlWLByHgI2Dd
-	8FQk1HcYwfzlK3HSwL+a5vkbPBUPACfRgHGIZJ/XSUpz7u7DIKRoGoj2ytmOWtujwV2qyUj5mGC
-	t2nsMSskxSNX7p7GUsVRwN36TUGp9BCEyIVh1eUs2M1Yx9ac3tO7PkBn+0x//5HfjTHqlD+Pw0D
-	JwN4BX0k9ed1ZS/T2G4R2iyombu7ome27+3NafmKGBOzan5BTH1D5ol/r0+t6LcSpTE4GFnPOuy
-	uAL/0JDJC7TRJhyRsCNb0edYpDV9yqJPNdmriVBoSMrWY86OxzaB3ZLnETr/iK5JDfvI
-X-Received: by 2002:a05:701a:ca05:b0:190:3950:43e2 with SMTP id a92af1059eb24-1b3b6000497mr2107814c88.8.1794284358348;
-        Mon, 09 Nov 2026 20:19:18 -0800 (PST)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.19.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:19:17 -0800 (PST)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: bhelgaas@google.com,
-	lukas@wunner.de,
-	bvanassche@acm.org,
-	linux-pci@vger.kernel.org,
-	alistair@alistair23.me,
-	linux-cxl@vger.kernel.org,
-	linux-coco@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9CzBY2S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794284359; x=1825820359;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=W67oR+7Gjb+19A/jz+rAvKq7QVQDoWZcbgELeMRxB7Q=;
+  b=b9CzBY2Sv3k2RKbVuvVS4Cz1GfWeGqd0mWy19Izm5KswoL7y14LVaXA3
+   OeexlrQgJverkoeVZJ6sKVaHSxrDRolpJwrsZk23sRQm2GiLphz34+e8G
+   Us+dkHp9zRf/Ltj5ijqNTBCifPbVG4nszaIhQxZrDSNq1LKABk6xYc1mG
+   q7rQl2TcgsRY2Uu42IiuE/eB0v1ZW2SzI4x2o2VLcSk5FRbZFs4X5ORUt
+   Ev7Mg4vznK1HiCQG/KVsJL4zpxB2rgUaH2uTYd8gN7OEl6fOs9+hdNxDS
+   nNM36ePrFfEsLK/RP9H49/sr8JOoFhyZksVaM+iKMMFp1ArADlMbjCGpI
+   w==;
+X-CSE-ConnectionGUID: 2mfdM/cZR1mE+gCkdJ+3dw==
+X-CSE-MsgGUID: G5IHxpwCRXOqGoxhTGZz/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901313"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2901313"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
+X-CSE-ConnectionGUID: v0r35fzmTRmf+1s97C065A==
+X-CSE-MsgGUID: VskZnj8bTNiDVZyhZXBI4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7856918"
+Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
+From: Reinette Chatre <reinette.chatre@intel.com>
+To: ben.horgan@arm.com,
+	james.morse@arm.com,
+	Dave.Martin@arm.com,
+	fenghuay@nvidia.com,
+	ruanjinjie@huawei.com
+Cc: tony.luck@intel.com,
+	yu.c.chen@intel.com,
+	babu.moger@amd.com,
+	fustini@kernel.org,
+	tan.shaopeng@fujitsu.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	jic23@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	jgg@nvidia.com,
-	akpm@linux-foundation.org
-Cc: gary@garyguo.net,
-	a.hindborg@kernel.org,
-	wilfred.mallawa@wdc.com,
-	tmgross@umich.edu,
-	ojeda@kernel.org,
-	boqun.feng@gmail.com,
-	alistair23@gmail.com,
-	gregkh@linuxfoundation.org,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	benno.lossin@proton.me,
-	alex.gaynor@gmail.com,
-	Dan Williams <dan.j.williams@intel.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: [PATCH v6 04/25] X.509: Make certificate parser public
-Date: Tue, 10 Nov 2026 14:18:11 +1000
-Message-ID: <20261110041832.1730924-5-alistair.francis@wdc.com>
+	patches@lists.linux.dev,
+	reinette.chatre@intel.com
+Subject: [PATCH v3 4/8] arm_mpam: resctrl: Do not fail CPU online when domain setup fails
+Date: Mon,  9 Nov 2026 20:19:04 -0800
+Message-ID: <e0a6d37967c016019c82cbe368dd915902ecbca8.1794283825.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
-References: <20261110041832.1730924-1-alistair.francis@wdc.com>
+In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
+References: <cover.1794283825.git.reinette.chatre@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,157 +91,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lukas Wunner <lukas@wunner.de>
+When a CPU comes online, mpam_resctrl_online_cpu() adds it to the resctrl
+domains of each resource in use, and sets up a new domain when the CPU
+is the first of its domain to come online. A failure to set up a domain
+is returned as the failure of MPAM's CPU hotplug startup callback.
 
-The upcoming support for PCI device authentication with CMA-SPDM
-(PCIe r6.1 sec 6.31) requires validating the Subject Alternative Name
-in X.509 certificates.
+The CPU hotplug core does not run the teardown callback for a CPU whose
+startup callback failed, so everything done for the CPU before the
+failure stays in place: the CPU remains in the domains of the resources
+that were handled before the failing one, and MPAM's per-MSC state for
+the CPU is not undone. If the failure happens when MPAM installs its
+CPU hotplug callbacks during enabling, the hotplug core discards the
+callbacks, leaving MPAM enabled and resctrl initialized but MPAM no
+longer notified of CPU hotplug. If it happens when a CPU comes online
+later, the CPU fails to come online.
 
-High-level functions for X.509 parsing such as key_create_or_update()
-throw away the internal, low-level struct x509_certificate after
-extracting the struct public_key and public_key_signature from it.
-The Subject Alternative Name is thus inaccessible when using those
-functions.
+Setting up a domain only fails if a memory allocation fails or if a
+class unexpectedly has no component for the CPU. For such rare failures
+losing a resctrl domain is a smaller cost than failing CPU online or
+leaving MPAM in an inconsistent state.
 
-Afford CMA-SPDM access to the Subject Alternative Name by making struct
-x509_certificate public, together with the functions for parsing an
-X.509 certificate into such a struct and freeing such a struct.
+Do not report domain setup failures from mpam_resctrl_online_cpu() and
+leave the CPU without a domain for that resource. Make
+mpam_resctrl_alloc_domain() return nothing since its failures are no
+longer reported. Keep adding the CPU to resctrl's default group even
+when a domain could not be set up, since the CPU is online and runs
+tasks regardless, and resctrl expects every online CPU to belong to a
+resource group. Warn on a failed domain allocation and on a missing
+monitoring component so these failures are not silent. Drop the warning
+when a CPU going offline has no domain, since a missing domain is now
+expected.
 
-No functional change intended.
+Only domains that were set up are exposed through resctrl and torn down
+when their CPUs go offline. When another CPU of the same domain comes
+online, it sets up the domain again, and if that succeeds the domain
+does not include the CPU for which setup failed.
 
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+Tested-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- crypto/asymmetric_keys/x509_parser.h | 42 +--------------------
- include/keys/x509-parser.h           | 55 ++++++++++++++++++++++++++++
- 2 files changed, 56 insertions(+), 41 deletions(-)
- create mode 100644 include/keys/x509-parser.h
+Changes since RFC v2:
+- Add Jinjie's Reviewed-by tag.
+- Add Jinjie's Tested-by tag.
+- WARN when domain allocation fails. (Ben)
+- Squash patch that replaces WARN_ON_ONCE(0) with
+  WARN_ON_ONCE(!any_mon_comp). (Ben)
+---
+ drivers/resctrl/mpam_devices.c  |  2 +-
+ drivers/resctrl/mpam_internal.h |  4 ++--
+ drivers/resctrl/mpam_resctrl.c  | 37 +++++++++++++++------------------
+ 3 files changed, 20 insertions(+), 23 deletions(-)
 
-diff --git a/crypto/asymmetric_keys/x509_parser.h b/crypto/asymmetric_keys/x509_parser.h
-index b7aeebdddb360..39f1521b773dd 100644
---- a/crypto/asymmetric_keys/x509_parser.h
-+++ b/crypto/asymmetric_keys/x509_parser.h
-@@ -5,51 +5,11 @@
-  * Written by David Howells (dhowells@redhat.com)
-  */
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 27abf60f4d67..a95326f2ef88 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -2247,7 +2247,7 @@ static int mpam_cpu_online(unsigned int cpu)
+ 	}
  
--#include <linux/cleanup.h>
--#include <linux/time.h>
--#include <crypto/public_key.h>
--#include <keys/asymmetric-type.h>
--#include <crypto/sha2.h>
+ 	if (mpam_resctrl_enabled)
+-		return mpam_resctrl_online_cpu(cpu);
++		mpam_resctrl_online_cpu(cpu);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index 1f86cc158100..84c7adbb1a40 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -525,13 +525,13 @@ int mpam_get_cpumask_from_cache_id(unsigned long cache_id, u32 cache_level,
+ #ifdef CONFIG_RESCTRL_FS
+ int mpam_resctrl_setup(void);
+ void mpam_resctrl_exit(void);
+-int mpam_resctrl_online_cpu(unsigned int cpu);
++void mpam_resctrl_online_cpu(unsigned int cpu);
+ void mpam_resctrl_offline_cpu(unsigned int cpu);
+ void mpam_resctrl_teardown_class(struct mpam_class *class);
+ #else
+ static inline int mpam_resctrl_setup(void) { return 0; }
+ static inline void mpam_resctrl_exit(void) { }
+-static inline int mpam_resctrl_online_cpu(unsigned int cpu) { return 0; }
++static inline void mpam_resctrl_online_cpu(unsigned int cpu) { }
+ static inline void mpam_resctrl_offline_cpu(unsigned int cpu) { }
+ static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
+ #endif /* CONFIG_RESCTRL_FS */
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index d0c7c741ce90..ec39f3909388 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -1640,8 +1640,8 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+ 	return NULL;
+ }
+ 
+-static struct mpam_resctrl_dom *
+-mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
++static void mpam_resctrl_alloc_domain(unsigned int cpu,
++				      struct mpam_resctrl_res *res)
+ {
+ 	int err;
+ 	struct mpam_resctrl_dom *dom;
+@@ -1656,11 +1656,11 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 	comp = find_component(class, cpu);
+ 	/* class has no component for this CPU */
+ 	if (WARN_ON_ONCE(!comp))
+-		return ERR_PTR(-EINVAL);
++		return;
+ 
+ 	dom = kzalloc_node(sizeof(*dom), GFP_KERNEL, cpu_to_node(cpu));
+-	if (!dom)
+-		return ERR_PTR(-ENOMEM);
++	if (WARN_ON_ONCE(!dom))
++		return;
+ 
+ 	if (r->alloc_capable) {
+ 		dom->ctrl_comp = comp;
+@@ -1701,11 +1701,8 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 			if (mon_comp)
+ 				any_mon_comp = mon_comp;
+ 		}
+-		if (!any_mon_comp) {
+-			WARN_ON_ONCE(0);
+-			err = -EFAULT;
++		if (WARN_ON_ONCE(!any_mon_comp))
+ 			goto offline_ctrl_domain;
+-		}
+ 
+ 		mon_d = &dom->resctrl_mon_dom;
+ 		mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
+@@ -1719,7 +1716,7 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 		pr_debug("Skipped monitor domain online - no monitors\n");
+ 	}
+ 
+-	return dom;
++	return;
+ 
+ offline_ctrl_domain:
+ 	if (r->alloc_capable) {
+@@ -1728,9 +1725,6 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 	}
+ free_domain:
+ 	kfree(dom);
+-	dom = ERR_PTR(err);
 -
--struct x509_certificate {
--	struct x509_certificate *next;
--	struct x509_certificate *signer;	/* Certificate that signed this one */
--	struct public_key *pub;			/* Public key details */
--	struct public_key_signature *sig;	/* Signature parameters */
--	u8		sha256[SHA256_DIGEST_SIZE]; /* Hash for blacklist purposes */
--	char		*issuer;		/* Name of certificate issuer */
--	char		*subject;		/* Name of certificate subject */
--	struct asymmetric_key_id *id;		/* Issuer + Serial number */
--	struct asymmetric_key_id *skid;		/* Subject + subjectKeyId (optional) */
--	time64_t	valid_from;
--	time64_t	valid_to;
--	const void	*tbs;			/* Signed data */
--	unsigned	tbs_size;		/* Size of signed data */
--	unsigned	raw_sig_size;		/* Size of signature */
--	const void	*raw_sig;		/* Signature data */
--	const void	*raw_serial;		/* Raw serial number in ASN.1 */
--	unsigned	raw_serial_size;
--	unsigned	raw_issuer_size;
--	const void	*raw_issuer;		/* Raw issuer name in ASN.1 */
--	const void	*raw_subject;		/* Raw subject name in ASN.1 */
--	unsigned	raw_subject_size;
--	unsigned	raw_skid_size;
--	const void	*raw_skid;		/* Raw subjectKeyId in ASN.1 */
--	unsigned	index;
--	bool		seen;			/* Infinite recursion prevention */
--	bool		verified;
--	bool		self_signed;		/* T if self-signed (check unsupported_sig too) */
--	bool		unsupported_sig;	/* T if signature uses unsupported crypto */
--	bool		blacklisted;
--};
-+#include <keys/x509-parser.h>
+-	return dom;
+ }
  
  /*
-  * x509_cert_parser.c
-  */
--extern void x509_free_certificate(struct x509_certificate *cert);
--DEFINE_FREE(x509_free_certificate, struct x509_certificate *,
--	    if (!IS_ERR(_T)) x509_free_certificate(_T))
--extern struct x509_certificate *x509_cert_parse(const void *data, size_t datalen);
- extern int x509_decode_time(time64_t *_t,  size_t hdrlen,
- 			    unsigned char tag,
- 			    const unsigned char *value, size_t vlen);
-diff --git a/include/keys/x509-parser.h b/include/keys/x509-parser.h
-new file mode 100644
-index 0000000000000..8b68e720693a6
---- /dev/null
-+++ b/include/keys/x509-parser.h
-@@ -0,0 +1,55 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/* X.509 certificate parser
-+ *
-+ * Copyright (C) 2012 Red Hat, Inc. All Rights Reserved.
-+ * Written by David Howells (dhowells@redhat.com)
-+ */
-+
-+#ifndef _KEYS_X509_PARSER_H
-+#define _KEYS_X509_PARSER_H
-+
-+#include <linux/cleanup.h>
-+#include <linux/time.h>
-+#include <crypto/public_key.h>
-+#include <keys/asymmetric-type.h>
-+#include <crypto/sha2.h>
-+
-+struct x509_certificate {
-+	struct x509_certificate *next;
-+	struct x509_certificate *signer;	/* Certificate that signed this one */
-+	struct public_key *pub;			/* Public key details */
-+	struct public_key_signature *sig;	/* Signature parameters */
-+	u8		sha256[SHA256_DIGEST_SIZE]; /* Hash for blacklist purposes */
-+	char		*issuer;		/* Name of certificate issuer */
-+	char		*subject;		/* Name of certificate subject */
-+	struct asymmetric_key_id *id;		/* Issuer + Serial number */
-+	struct asymmetric_key_id *skid;		/* Subject + subjectKeyId (optional) */
-+	time64_t	valid_from;
-+	time64_t	valid_to;
-+	const void	*tbs;			/* Signed data */
-+	unsigned	tbs_size;		/* Size of signed data */
-+	unsigned	raw_sig_size;		/* Size of signature */
-+	const void	*raw_sig;		/* Signature data */
-+	const void	*raw_serial;		/* Raw serial number in ASN.1 */
-+	unsigned	raw_serial_size;
-+	unsigned	raw_issuer_size;
-+	const void	*raw_issuer;		/* Raw issuer name in ASN.1 */
-+	const void	*raw_subject;		/* Raw subject name in ASN.1 */
-+	unsigned	raw_subject_size;
-+	unsigned	raw_skid_size;
-+	const void	*raw_skid;		/* Raw subjectKeyId in ASN.1 */
-+	unsigned	index;
-+	bool		seen;			/* Infinite recursion prevention */
-+	bool		verified;
-+	bool		self_signed;		/* T if self-signed (check unsupported_sig too) */
-+	bool		unsupported_sig;	/* T if signature uses unsupported crypto */
-+	bool		blacklisted;
-+};
-+
-+struct x509_certificate *x509_cert_parse(const void *data, size_t datalen);
-+void x509_free_certificate(struct x509_certificate *cert);
-+
-+DEFINE_FREE(x509_free_certificate, struct x509_certificate *,
-+	    if (!IS_ERR(_T)) x509_free_certificate(_T))
-+
-+#endif /* _KEYS_X509_PARSER_H */
+@@ -1782,7 +1776,7 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+ 	return mpam_resctrl_get_mon_domain_from_cpu(cpu);
+ }
+ 
+-int mpam_resctrl_online_cpu(unsigned int cpu)
++void mpam_resctrl_online_cpu(unsigned int cpu)
+ {
+ 	struct mpam_resctrl_res *res;
+ 	enum resctrl_res_level rid;
+@@ -1797,9 +1791,13 @@ int mpam_resctrl_online_cpu(unsigned int cpu)
+ 
+ 		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
+ 		if (!dom) {
+-			dom = mpam_resctrl_alloc_domain(cpu, res);
+-			if (IS_ERR(dom))
+-				return PTR_ERR(dom);
++			/*
++			 * On failure the CPU is left without a domain for this
++			 * resource, which mpam_resctrl_offline_cpu() tolerates.
++			 * resctrl_online_cpu() still adds the CPU to the default
++			 * group because the CPU is online and runs tasks.
++			 */
++			mpam_resctrl_alloc_domain(cpu, res);
+ 		} else {
+ 			if (r->alloc_capable) {
+ 				struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
+@@ -1815,8 +1813,6 @@ int mpam_resctrl_online_cpu(unsigned int cpu)
+ 	}
+ 
+ 	resctrl_online_cpu(cpu);
+-
+-	return 0;
+ }
+ 
+ void mpam_resctrl_offline_cpu(unsigned int cpu)
+@@ -1837,8 +1833,9 @@ void mpam_resctrl_offline_cpu(unsigned int cpu)
+ 		if (!res->class)
+ 			continue;	// dummy resource
+ 
++		/* The domain may be missing if its setup failed. */
+ 		dom = mpam_resctrl_get_domain_from_cpu(cpu, res);
+-		if (WARN_ON_ONCE(!dom))
++		if (!dom)
+ 			continue;
+ 
+ 		if (r->alloc_capable) {
 -- 
 2.56.0
 
