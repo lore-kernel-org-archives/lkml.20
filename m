@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321942;
-	b=serFW335muLolqVSb8hSstt9Tuk7ZWF7UyQIaKSW2gVmOxCpLpGS467QYmytAx15Wdge
-	 L2i4zg+HzOnFgfs5mLmtaQSwp3jRlH1l/r2GYQUHRyrq4U1aNFYOZ74YVE6pez6EpJLIN
-	 jmXeCFYGSFMWubrFYm5lZurD1ONZEZpLVh7n1HfkM4HDsCYi+so/95uGPfdA456LPiKyz
-	 MChLCjkiLV+cgHLI6Pxb9GzC33c/6aGusbWgU9XA47aTUKehfR3HLV4fGM2yw6yoBGD2t
-	 MeAXbtaaF2olGtQR1ZILJyD48th+3fEOZTPIvPWK9bxtk60uGXp2FCVe1Ayr464feww==
+	t=1794321948;
+	b=R7KYLv4YF7gNb/ePGc4iOyjb3jCgB2n95wjL5kYzpDo6B0/iLoY3+14Xs3avaCFi3Vsp
+	 kaAFRbaL/QL/uoAb3H3aTZS6Mp8rQg+8izXD+2w6JA3GxZXYGdMnHx7VDu60m+QQ5+6Aj
+	 ZacmqDeADULejMOX26L1gBT6psWnULFzRGzZBCUmX62EateJ2NyW7/3JVqBcEb0FzmfKG
+	 j6RHbDYd0ajirFsckqjWntXEjot+AathKntu/1eLjcHYa4Mn+3xD0EMVQFjugxD27LWzN
+	 HpOu4L5DU4t7RwOFp9jRoevb3/Wkf9pEwAEfeNT/Wpf/1NlEbM1PZuIeL3PJjtylKsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321942;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=doxpJ9X9Od4olxxityJ2tpEjQG3iRvZ5SGg2F1kpDzY=;
-	b=O8pGhQQelsrzOWlUXXSSVHNif6B8O2hco6pmrzRxWoYoJZDiLlR+Y/G51rIngotYPaQ7
-	 gRvukyA2UWYThV3vtreFQNeSB7MQJTM0uPTnStujVAI2PnTXDk4vgIlRILFOJ8BqSThgc
-	 fgCp2x9q7rPN61pk3GllRmM2+sYzfrKhrs+OfOUNtltXtpfXoL5sA4KFiXFhabxatYo1R
-	 QVQBvX0YyMLj5W16/p0iDKro34aKVyj5RcS9twnvIBECoIEULvIp8UVXiqlOXExB/ejzm
-	 Ce6J9n12z5xP4dHvRxXK7zflrjlRpCl5qnfgNJgLb7b+c0Hz8D6x1s1Qc349h1BO7vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321948;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=L9jyp2wuPUVlelOs6NqY1BezFPyW+K5DLWLSt8XZey4=;
+	b=3GFHsg+a//fDdC3Cksyo+85kL8BY2tRKcJH2B6qNFbJB5abB4y2spg6fuA7ek9n+2+2h
+	 zlOg8ahlNAd2VJa1HouvrJgUGx+CYgGdSExndULKEV08l8PDun5gCi9jYFruCuc2410Fa
+	 pB7UWfpGq1SGBj8M6braZrrn53Q5fsx6Xu/nZpzVV4qVPFDMTlQQ4O984pt9sMukaQPsU
+	 VJbXMjlTAY+kzZRZOe81aAXmlkcDaqlPL8EynBhjJOMB1ULxzT9E+dQf7owQ90Gg1f7Sy
+	 164eYRitfuyioKSY4OJ79Ii3nyiuzhQGe2vgjt/IJjXnEE1TgEAzmhrg0Ry8YcuWwTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fop2ssKC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=A4QYkVdj;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E56760A2626;
-	Tue, 10 Nov 2026 14:45:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151CD60A262A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 151CD60A262A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fop2ssKC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B555A1F008AB;
-	Tue, 10 Nov 2026 14:45:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321942;
-	bh=doxpJ9X9Od4olxxityJ2tpEjQG3iRvZ5SGg2F1kpDzY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fop2ssKC+bIiNuuqD64vXH6c8X+RdCimoArYS7kPwE8oKnpfbImp6S4ZW/35lYoyZ
-	 jW3grRSo6NBJIJ+aVzLnkW/LxC1TCWunkUd9LKcJsTuPwLze3V1mLNZVO5z3/pPEwn
-	 DTm7TxRaAe6UhgBvMI5/u4cp7CzqRVUR3ZwNxzflyGvZmAAj0egjNjwjJwuWU/nZGB
-	 4d3Z9zUbAwuAU6iaihQK2sdakYAkNitMcWtdBGd26kSVg0LTeG55YfwiXQPeVle5X7
-	 u8XTnxuS0L02tOU28u8rafvzSftvx/Z96ZAYOgfRLOC878Vtjd0khhZ2mXfk4pS2Kz
-	 x0EvK/kwy4Eeg==
-Date: Tue, 10 Nov 2026 15:45:39 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Paul Cercueil <paul@crapouillou.net>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org, 
-	"H. Nikolaus Schaller" <hns@goldelico.com>, Paul Boddie <paul@boddie.org.uk>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs" <linux-mips@vger.kernel.org>, 
-	"open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
- separately
-Message-ID: <avMt5CTevTANpXqO@houat>
-References: <20261105203517.2293404-1-f.fainelli@gmail.com>
- <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=A4QYkVdj
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so1400673f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:45:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794321946; x=1794926746; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L9jyp2wuPUVlelOs6NqY1BezFPyW+K5DLWLSt8XZey4=;
+        b=A4QYkVdj6QsIg6y/7whUfEp3RADSoFj6acoAjkv5/Rv/06V5aFl8cgx+A4lxCYl3zC
+         nyQ+EygbyNm5Eke+OqXnuDHC/AebKcULAHM7a29PxkGKhrYyr3y+7FrGAFjrdZUkIwEB
+         CbrdWO0TgYxHeLr7cNb7OryBNKlFKV3Mq+vRH2thgFjhI2DdA0CBxEx2JfwNIWVhAPpS
+         9dvpAEvJM7IP9rPNQEfQj0YLGr6H9LRSOG2o3dPmfkPWDu7+2GtB0wmmF0nOJmZ6hd4L
+         Sn6HbGEKqL6LIa9xhb56o6znkK58IY4F+YYdlUelrlUNY6px5YaKBLTwclLm3h62fV5m
+         Grxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794321946; x=1794926746;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L9jyp2wuPUVlelOs6NqY1BezFPyW+K5DLWLSt8XZey4=;
+        b=oQ5/OBJXxNTVzV/x077POWRwLljh0/bSBg++dxivGngKsxU3RkwGHVlg+KnDwYxV/4
+         +/z6+Y9OuYvZahOeV92H88LMIJJ4DzuKrecQ8ql4XMi4vKbmGDfeI244aBVMUl1xeVqA
+         wxntBaZ8Ssla+2BA/wv26cdI41WclaA4K1y49v3Xa01oCoe8KrAfiA9DaOaxz+nExCui
+         76uHFRNl6SIKLW02/kzL+bvxHbqUTallbRjuSSWqxTdICbK4L65kEQopYr0Xekz/wqhF
+         HDKnZLnLDcjoWG3kAZjt0kxktUFfjPMlovX20wNviCedZ4IAFxZHnOVGZF+l7O4Lla6e
+         KOfA==
+X-Forwarded-Encrypted: i=1; AL+hErEePVVRK3EJ4a2KQC3GH2BrxALQgm8T2hVfR+AYtgixfK4W18rSpPaBssycZGIPRFgCdDST6i1CrDMROH4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/v92VKVWk283z8VM1mRgsbl/uQUwBZsjXZxaTeb3wfMU0RZ10m
+	8ueYTqrht+zoLUThMcXhFo1ARtJjuy/IrWXpP7WQTrT34tc/9tTL7oUhPMXFs/d6Dvc=
+X-Gm-Gg: AYBFou2WBbErmVXFJYlz+Xowp6McKDTMZleBnOOEJ+iZkqsL04n74YgImD+da/tNBnk
+	2ULg49s7l59itVLJawdGfkNwy8dSbddvbsWuYFBVKWsJ6hXSK0uzMHxObxDgQt1CJoNe06rtoL0
+	a97u2YenO8T8vvgqMmMsKf3s0WILCWPojbLzVXrKxDyVzOjZZiC98Ryrin9k69Ikh5+PIFajahU
+	63r1NV9q8/Wh22pPl6QHkNKU7pH2Z4W0Bnk+hizBoIZBBcB+KhW5QxPDpZSWBCrYLKneyhUQGKh
+	2YlENJQl22hgFFzi/wRkh10jC5+g6nP5LucYNKSPUZWOV780XClIYYxJjnlfqs1LuBrmzinyBLX
+	aeFCcCPHZsPtH+hqxKeA/4WmEeydv9v1cWv6Uzf2CN42cAP9+UFcKrPo31CZmJWTUFEHrflmnLY
+	uhAftIJSQTJwqVaEqD6EELqjSvV+ix+oDdPr8bF3MAgrsbzspYAGK9NNilM8ImJaS2tx9LDtsaA
+	PxP0DdJno19rHDdvWp+uc1u6MiuVGHltI0BjpevChL2a6uYe0L7m/9iMwvV4dwUrN9IqEETtdzP
+	HLOSeVigOgyQ3pY7I0kjSFWIE3lrG4Ovc7suxDF9R/u5wZnuqSqG0DJ6bWfiwJrqfHvcA+eFS1J
+	fL9g=
+X-Received: by 2002:a05:6000:46c6:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-4982e82c2d8mr3373380f8f.16.1794321946400;
+        Tue, 10 Nov 2026 06:45:46 -0800 (PST)
+Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm3848234f8f.14.2026.11.10.06.45.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 06:45:45 -0800 (PST)
+Message-ID: <1300fdd4-b4b3-4a89-a37b-ea0d18e3c055@baylibre.com>
+Date: Tue, 10 Nov 2026 15:45:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,67 +93,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="fhtqfplx2snhvonz"
-Content-Disposition: inline
-In-Reply-To: <fb84cd36838875ccd2530b9e3983700fbd23eb3c.camel@crapouillou.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
+ requests
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Cristian Marussi <cristian.marussi@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+ Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+ Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
+ <avMg5XmU8uSzPR4s@pluto> <avMlrXeemXOSR3ng@ashevche-desk.local>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <avMlrXeemXOSR3ng@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Andy,
 
---fhtqfplx2snhvonz
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
- separately
-MIME-Version: 1.0
+On 11/10/26 3:09 PM, Andy Shevchenko wrote:
+> On Tue, Nov 10, 2026 at 01:49:25PM +0000, Cristian Marussi wrote:
+>> On Fri, Oct 30, 2026 at 04:58:42PM +0100, Clément Le Goffic wrote:
+> 
+> ...
+> 
+>>> +static int pinctrl_scmi_gpio_mux_set(struct scmi_pinctrl *pmx, unsigned int pin)
+>>> +{
+>>> +	const unsigned int *elems, *pins;
+>>> +	unsigned int nr_elems, nr_pins, i;
+>>> +	bool pin_only, gpio;
+>>> +	int nr_functions, func, ret;
+> 
+>> Beside nr_functions, cannot all of these variable definitions be moved
+>> inside the scope in which they are exclusively used, i.e. down inside
+>> the for-loop ?
+> 
+> While it can be done, it's not most recommended style. Is it already in use in
+> this driver elsewhere? If not, don't do it in a single function. Same if it's
+> used in like one or two out of dozens of cases. TL;DR: be consistent in the
+> first place.
 
-On Mon, Nov 09, 2026 at 08:46:40PM +0100, Paul Cercueil wrote:
-> Hi,
->=20
-> Le jeudi 05 novembre 2026 =E0 12:35 -0800, Florian Fainelli a =E9crit=A0:
-> > The LCD controller's internal bridge is embedded in an object
-> > allocated
-> > with drmm_encoder_alloc(). This initializes the encoder but leaves
-> > the
-> > bridge's reference count at zero. Since drm_bridge_attach() takes a
-> > reference, probing the CI20 display produces addition-on-zero and
-> > underflow warnings and fails to attach the HDMI bridge chain.
-> >=20
-> > Allocate the internal bridge with devm_drm_bridge_alloc() and
-> > register
-> > it with devm_drm_bridge_add() before attaching it. Keep the encoder
-> > in a
-> > separate DRM-managed allocation: encoder cleanup can drop the final
-> > bridge reference before it has finished accessing the encoder. Find
-> > the internal bridge through the encoder's bridge chain during mode
-> > setting, and use the bridge argument directly in bridge callbacks.
-> >=20
-> > Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
-> > drm_bridge_attach/detach()")
-> > Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
->=20
-> Looks like I lost my commit rights to drm-misc-next, I guess for
-> inactivity.
->=20
-> So I'll ack it (LGTM) and let someone else (Maxime?) commit it.
+I'll try to be consistent in the v2
 
-I just checked, your account still have access to drm-misc, and the last
-activity was yesterday.
-
-Did you lose access to that account?
-
-Maxime
-
---fhtqfplx2snhvonz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavMuEgAKCRAnX84Zoj2+
-dhqLAX433eM/0vnV9ZYebgsBu+voRC0kLy2gWMHtwISuzpAxi5CnBRHfHQqDELk+
-+P7Ve+cBgIZ+lntBImHBy7XuEsquOyBif3x5L2GJOGBe0IsnMWYFEpVt2ZHGnnlt
-/EYPuJ25XQ==
-=8xtQ
------END PGP SIGNATURE-----
-
---fhtqfplx2snhvonz--
+Best regards,
+Clément
