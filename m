@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304397;
-	b=3+nOz14zOEITTY/0b3FtBNQkuiAJ0wJmKps7xfaMP0imr27XuYZHeEeMmw+zSNUcWnuC
-	 zwVPOTkDUigp8G4WV9vtqRPLZCZBvv9JFGbFM9bP90gOrY3kB7bGeM0ijJejiCbvnoL7v
-	 VAYdenFnXwkIdrBoqZE2+rt92SWzQWcJWNW0W/mJqvNMhF3MAW0yGqPKi8Tw+9fBAd585
-	 byiQnzeoEThSadLArFqHXyPZSkiHMTv8sBghB7WVLFuZAJnrPIUSNdwV8gFlnjX9s5+OB
-	 oAzl0FporSVtfy0V4N1BCpvd5AvSwyS6/NtjY8rpuF80VyyDKKEdeBsK+5Dqfmbv/IQ==
+	t=1794304461;
+	b=CkkiMPkrF6PRhGKAzfQNHdQcANy2n+u7FYHSj5348ruwfojzwacBsntO8d+Hrt2G/vc/
+	 0WWs3pjlXz82hz4CjvEpDOFoasHjNTX7nD2H0c8A8C1WeQGHSOANQQAztPaZVqD30dPwV
+	 BBiGbFLMxgsmhdGDae3lssAxXf6IHlBwZwl/NJBjs6mDzpjZ4DccPv1jdwB8dyQOii4oe
+	 h5wJo1bYtdB8apO+qGOmkoXCy33+h3uapjW5kbVTiReiq6jPnnqRtLMi9fZZxM8jvdFhU
+	 W9tOnfHGvjX0KvB8HKOHD/xiXvuAIl414rKPl09wSbu51/32usEi6dqkRgTL0cAABUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304461;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mEXSXYkyFGniiZMHCfKiWmZXRWV8IRfRZw7Qjxv3Fg0=;
-	b=KGvCJ6p/D5zNKz2CjyMOaJrxHM3xjbwd5jov5QIrqsFbbh40C7lM9UBj/j4kBm2SBn6W
-	 sznRg4bQ7KeITwL45ghOrGnVoPgFmO2CwY0oAoCH0yOKkhYdNzM9/a15ml40YWo5X9U/V
-	 m7+RK6Hn09hwKb/iDMliamlxQ46XVUIEQSaRWKXKRyLK88gfOuHWori9G3e1ALGTkM8UU
-	 aQ/O0+elnoxTVTVmbkONdLFC7kl95sTXM/G/1qwGPf20vsd/8sBcXo1rHfENMqO5qtrIA
-	 uHRURkxHWDc6vRNqa9wVa8jwrdfKc/POlr04VX11XPXzMHwhhSqrYm5Fa09REU/0dpQ==
+	bh=dv+juQSa5jdjyDwYyEB7CxuxwRRYVallMJB1NLgyTUA=;
+	b=1WtI/K247TTtdVqTfUYi508jpifskov8F9F+XHz4+rOz8ZyvA/oYE7e4AAaaqwUUkGT8
+	 NoXk3X6x51CsPK2sSr2BgPPhBi3mwgHVv/5PS4wgrlE8wFbrPDEY1mssbiEdTimptILyV
+	 n+SiqHyu02NWDDQ90ruJJ6LIuLIIRC3Jgx8eTleCHNhs1SrT3+O+kKj9K7HAe4qvx9b0k
+	 ZuPQTfMaWIXnGOy2kUiDEQIw/QFIUuLj3DhyhmY8etq1mWdljhsiNuav7Y23Qsba+c7Rd
+	 MA4obd8qodNd4KqN9uGDlSaoebi/s13m6OU1MwQo7S7BTCtOay84BbG4VA+b8yknAHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O219Tw+0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KND9vpqb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F3C606B159
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8152606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O219Tw+0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFEE1F0089F;
-	Tue, 10 Nov 2026 09:53:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KND9vpqb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEB61F008A6;
+	Tue, 10 Nov 2026 09:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304397;
-	bh=mEXSXYkyFGniiZMHCfKiWmZXRWV8IRfRZw7Qjxv3Fg0=;
+	s=k20260515; t=1794304460;
+	bh=dv+juQSa5jdjyDwYyEB7CxuxwRRYVallMJB1NLgyTUA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O219Tw+0gQgtbh8myx0h+fAxqq9gpRZ6wwraMvxP5lNiGxivADhjo+V0kYMiQ9P6C
-	 S/cjRdnFTOYJYUqOuvCjDsPXT7If+daCVRTTQ1eLTJBilt7IpToBeOxDnLX1RvIzbe
-	 KYCc7GgLJ3fyzD1kTho3QBcc0zmzcgxPH+yMWOxXU9Zrzkw5Sz10gSBr4I+Li5NZYG
-	 dgErCIIYOUxA3I/00W5ymL/GoCl/Q+sWn90zsL/lH5ZkPbq0vn/m4pMsQ7fqMqGp/o
-	 BYozLQP38VBeIZdHfMiDOqIFNJ6AHGwYEYk+2D8g1BoCv5qnohbabF/ctcx1PeXTS1
-	 F29P9NALjLwAw==
-Date: Tue, 10 Nov 2026 09:53:09 +0000
+	b=KND9vpqbeujQxLQxxuvvJ3vk2yhiAk+oF4tUnVR8O719EClhHZ6/0kORrruacKOJD
+	 XybHdysDYPpiThqt8b6zTNhKYYxU0tRWlYEz6OCVH6pzQERdNH3jvWwgwfHJhXzul7
+	 8B5PK5gQ94MI43Jq02DKuQ8G1nMWlIA3S/uKLUxFiJY9KNHktT7AMD9NxNidtRzP9n
+	 3kZyhWE1kv1tluEljw6Z9egYEiEUdD8xbc3pnQrJlE0rquDv9Y8YrjFu3e13m4TA/I
+	 vi7z0IIrNbsHizoeoHqAX619sFiX7UlaCAIb/bz9D36dU9l7aotOp8GePcv0Ax0CpR
+	 ThQ3UOdJ1/WUw==
+Date: Tue, 10 Nov 2026 09:54:12 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -50,11 +50,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Michal Hocko <mhocko@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
 	Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
- LRU) update
-Message-ID: <avLpQhAv8MkaOevD@gremlin>
+Subject: Re: [PATCH 2/2] MAINTAINERS: remove myself from MEMORY MANAGEMENT -
+ RECLAIM
+Message-ID: <avLppG5vGNIOo6zQ@gremlin>
 References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
- <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
+ <20261109-maintainers_mglru-v1-2-c25e6de60bcc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +66,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
+In-Reply-To: <20261109-maintainers_mglru-v1-2-c25e6de60bcc@kernel.org>
 
-On Mon, Nov 09, 2026 at 07:31:53PM +0100, David Hildenbrand (Arm) wrote:
-> MGLRU is currently the only MM component without a dedicated component
-> maintainer. Fortunately, Kairui and Barry have been actively
-> contributing to MGLRU and have volunteered to take on more responsibility
-> by officially taking care of it.
+On Mon, Nov 09, 2026 at 07:31:54PM +0100, David Hildenbrand (Arm) wrote:
+> I don't really get to look at most reclaim related stuff. For things
+> that are actually relevant for me, I'm sure people will CC me.
 >
-> Given that Kairui is already an established MM component maintainer in
-> a related MM component (SWAP), add him as an MGLRU maintainer right away.
->
-> For Barry, the idea is to transition him towards a component maintainer
-> role over the coming months, starting by moving him to the top of the
-> reviewer list.
+> So remove myself from the MEMORY MANAGEMENT - RECLAIM section for now
+> to have a bit less noise in my inbox.
 >
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
+Understandable! The ML is crazy of late.
+
+And... Hmm... maybe time for me to pare down some of my R:'s too :)
+
 Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Congrats Kairui and Barry! :)
-
-I am so glad to see the proactive efforts people have made to get MGLRU moving
-forwards again, it's a real success story in mm.
-
-Thanks to everybody for their efforts in making this happen! :)
-
 > ---
->  MAINTAINERS | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  MAINTAINERS | 1 -
+>  1 file changed, 1 deletion(-)
 >
 > diff --git a/MAINTAINERS b/MAINTAINERS
-> index 222b7fc2c3aa..e7ac319a570c 100644
+> index e7ac319a570c..7dc8548236b9 100644
 > --- a/MAINTAINERS
 > +++ b/MAINTAINERS
-> @@ -17635,10 +17635,10 @@ K:	(?i:vmemmap)
->
->  MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
+> @@ -17808,7 +17808,6 @@ F:	tools/mm/page_owner_sort.c
+>  MEMORY MANAGEMENT - RECLAIM
 >  M:	Andrew Morton <akpm@linux-foundation.org>
-> -R:	Kairui Song <kasong@tencent.com>
-> +M:	Kairui Song <kasong@tencent.com>
-> +R:	Barry Song <baohua@kernel.org>
+>  M:	Johannes Weiner <hannes@cmpxchg.org>
+> -R:	David Hildenbrand <david@kernel.org>
+>  R:	Michal Hocko <mhocko@kernel.org>
 >  R:	Qi Zheng <qi.zheng@linux.dev>
 >  R:	Shakeel Butt <shakeel.butt@linux.dev>
-> -R:	Barry Song <baohua@kernel.org>
->  R:	Axel Rasmussen <axelrasmussen@google.com>
->  R:	Yuanchu Xie <yuanchu@google.com>
->  R:	Wei Xu <weixugc@google.com>
 >
 > --
 > 2.43.0
