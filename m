@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305288;
-	b=1YifmAN55ep/Zf6RFAKAt7PFlAdkXi+xLShGqCwS9hcTVIggC7N0apwGuo5U4Gad9xV9
-	 h/RieHUqURhPhj8IkF8HoPo0/QOmM6s908gd+pQvr2p6N+QgQVEpOQFEG2XOwLVLxsEdx
-	 htcXvIn3QyB4LGIgLxpC2tkGvYdgqcaPRQA6nOXRv9c60TSzp9ZoJRKc+JD3USZ1PlLwz
-	 QiIy6v98pKSn6BmWycpHz0+MY+Bj7LRuz7NjvCU4ZP05KnAHiu15zr/3URxHzipr8T2dk
-	 bYF1iEqKvkX47ScaVObueTDjfGlNuidV4O6n8Bvyk8ufKLhGHGnV8xOCgNapzZXTbuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305288;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=B48kL4WCEYqxwxvpvXJRGvWJeCoK9+ni3AEiglJSAP8=;
-	b=tXKuyiAA1YvIbq/4BnZ/gHBb+DVSY5a0pS/MSFe3DlG/Tvf/T1DzcspDIq31B9J8OQcT
-	 cdRGPAahcAWDofbXt7Cmr2VjBffwSe3HeXACsD8ZJnSQOBAWztKAv8kuwMABIGidp1l3x
-	 W1VJaJgjn4y97DMvveppmSY+WhjcjUiXPh0W2fdhwfHM9XuOVwSXF9SxZXpdBga0n06rC
-	 nResJ80BmH5XuuoD76jQ2nA0LGLsRi8sml2snOUbdWb/2XVtgHGO6/G8dP/5ujgLZdbts
-	 2ipnG1PCr3vFEmF4YIgZ5A+ywMvZk1io8drV/2txQpGAeAbUfTps+9ly7loBIonKKcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlID3jga;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794305289;
+	b=pYQfnE+np45R5IBfGSjvfhUyjPUsCMrNgRC589TUQQ17Rqm+ZWWL+ZXJOmzJZZ/9nKle
+	 TcU/KDUm2C4xTMYtBWsp3+I71OuOvrQ6NRt9TyxcXROLro011L5f1rkMfyPvHAu+abvjQ
+	 AQVo83NifiAjBIzFlUEsKUaJ+5HI+askho810r9JYYbDk8KsEEfjEvXeXHXaF30OCnLSp
+	 Vdvq3xLHez6YHizD4OF4Zl7b/dvRN0SglLx6vcbE+gqA0yDkZk4iMfpLDcS46AL2YWwxP
+	 PNEP+gv5meqNaKvvAY4IYMAiq/MBMAm8OxVa5wFGimCDaHh06AiPeRYWy2CRa/SK8aQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305289;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=mzP6mkQqBJ2czTJ6YFbl+lnGd5vAEuykbrNW2Ee3wlw=;
+	b=gAWF7a2lLcWmHyRZbYY5bmb2nsRZ1Lvg9w77j+f4/vzxhcJSpi8xWKUkGWpgpY5oGFR/
+	 6yrMGGtbvHcDhRqiz8O0YykjLf5Jg6e/IG0q2AMn2lbrtTNcS4CqAqOoE9SkQMWtpYYnO
+	 ZvzU3U2KyAqaMT9KrExyyt/KhpYpaHcMKIDkZdLxIOwK8GKrF/z97sjC7X1vwiPxNex0i
+	 9nRfXfoKFGBBYDDDon4LZpPUBK8r2fiGZwgxH2tk3tePvk//aOFHZQPymQaBDk6ANDjWg
+	 F/sDyEuZf7ascR7bhq4wIBmHU2/WSKRTkXZh2wmbJ45wHF7jRGqTtz5znSacv/cHI6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvu3+TlR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCF1606AA55;
-	Tue, 10 Nov 2026 10:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E392606AA76;
+	Tue, 10 Nov 2026 10:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlID3jga
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250681F008A1;
-	Tue, 10 Nov 2026 10:08:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvu3+TlR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794305288;
+	b=ioEWTgqQE02D0MPYzd5vPmrvYwlhkcVDFE6fpRSS0QM1x0hrlpZU92zn3Zhtyp6qj2At
+	 rRcGbfuzjQsGX7PH1T8X+sGb9ps9j6iSKR1ouzYJhJHWHKVxgTekbCH6D14+AIVXeZ6af
+	 zNDKvwuTcFSSKXXY6XSWdJv3eB8UhNp+fQFGFf0gc00aghoRaUG4pcesurg92gm42vJBw
+	 hnjQTg3hem8WIHxxqXW7iRTi7tuDod5Rg0Pq5UM7dCbBnB9Gb/8BQrEz3jNVpwNtyrK9Z
+	 4Gqpn2MD8PyWzjFWnrgADp4f82WNsWq5I3/kOGO377TXLsXIym652ZDeCnUjpnUOzxw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794305288;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=mzP6mkQqBJ2czTJ6YFbl+lnGd5vAEuykbrNW2Ee3wlw=;
+	b=xyp/PhThgCrhTB5aK98GWMZBor7c0EMXr0aArUasOcooCjjLa5aljeTpo1/ngLZRwpAt
+	 rihWe4QK80fZbHwyKx5jFjL3FCQ6bJugJUb9Za49MQZPWLadHPGIf1LplsY4cb/QLniis
+	 CzOJkjPviH0jtVMEK7TcJz+jeU0orCqLt/FGHl2uOA3MikwgIlMz4dHefc2M6SBY5uoQg
+	 Qu51M8X0vVVLj1CNyAF4HCHaMycq1r/pBSywpQKbHkOEPFJ6hyN7BrW60s6VQKUSGx8ac
+	 M+6jAn4dwqhG0IUZVJ5Qdf2+lvwLWsOv1rfWN2t/xpdX/OjxUJe2qQxoRs/AKJol/Qg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id EB3871F008A7;
+	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305287;
-	bh=B48kL4WCEYqxwxvpvXJRGvWJeCoK9+ni3AEiglJSAP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AlID3jgam2bE0XzjRIAkHv5Kw4LKHa7v3jRobb3UN2iupex+SPzMdiMgESqD8vIxi
-	 Bpt5CdJKUEtbp0Yp7bgApOyN+MPv8BCOrVYL96TAH0ZZvu18390yWHMerUsXxgzLbS
-	 tyWW2MTSZ1Gx4rLGCKx5oQJxPPrlhRShYZgbOb/ntXTaOHdJR4K5otOfXWkYdWvLU1
-	 kwnsl/U2xFuKdk76yvqjD2i3NK0zQ6PUe2DwJY7V1YRqilMvIu1LbeSDbE92qpvEXr
-	 1bqjGQJEu+Ga+w0DkrJRo6iJsM9Rvqp9PAxStQMAXIK6KUKsE/4Kk5MjWOWE1YsRNy
-	 t8+datQwT5aEA==
-Date: Tue, 10 Nov 2026 10:08:00 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Jinjiang Tu <tujinjiang@huawei.com>, Qiliang Yuan <odys.yuan@gmail.com>, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Huan Yang <link@vivo.com>, Wang Xiao <xiao.wang@vivo.com>
-Subject: Re: [PATCH v2 0/4] KSM: introduce only_merge_zero_pages
-Message-ID: <avLsbZz0S7sRYIL9@gremlin>
-References: <20261110074312.219847-1-xu.xin@linux.dev>
+	s=k20260515; t=1794305288;
+	bh=mzP6mkQqBJ2czTJ6YFbl+lnGd5vAEuykbrNW2Ee3wlw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fvu3+TlRkSnAhuihviT2A9Cb+zrd8Sk9oVa5F/NEmKenDSUHxww12al8TtIiUC9g7
+	 kjDx+AT51ZLqlfvRYo6kuo5HkbB08JzuT46qfWASANG405KI76RgRrvf6EKKz4ZRCT
+	 3pOo1WDNduD6C4/YSRClGOGnhOLYaa92SJadDp6OissOeHVlWBvrd3H+0nHQcOUQmx
+	 pyrypWPKDa+T5ygq1mDEgLIKQcnjp6u+yfC4W6xW5TS1GfjANKtyrUPZs6MeMaFnVR
+	 dA31ok/p101h+RPEvwtRlkaLrLknnUKymWAWhYzKSFH3rxzM4TF3KRLKAnUGKPXSwx
+	 6htTbUqxAbP2Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9263C48AD3;
+	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 10:08:07 +0000
+Subject: [PATCH RFC 05/12] media: rockchip: rkvenc: Don't enable adaptive
+ QP with the row rate control
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,30 +83,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110074312.219847-1-xu.xin@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-rkvenc-v1-5-ea8b47122d8c@gmail.com>
+References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
+In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>, 
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=3648;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=tLKMbjBrFkOCagEOqlv6uXY4NBsMdfw5qJbiBJd+iIo=;
+ b=lo5eJNn04MYXqUEt3tXUrIg0BJZcQ1BF25ZTy1Dqp4LeRaO2C6Z2alDIUl2ex+h914cJCyJpJ
+ LIXBslSRMkrD5CnUnYMQtMvnUy1f0KtwL+36JX2yy8vJpJ/t0RvgIji
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-All-in-all this seems to be adding more complexity to a current major AI bugfix
-target, in a cycle where we're not really looking for significant new
-functionality.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-So given [0] I wonder if this could be deferred to the next cycle? David, what
-do you think?
+The row rate control setup enables the texture adaptive QP (aq_en) with
+MPP's MADI threshold and QP step tables, as MPP does. On the board it
+costs PSNR at the same bitrate in every case measured: 0.7-1.3 dB for
+H.264 (where SSIM drops too) and 0.3-0.7 dB for HEVC (1080p60 clips, 2 to
+16 Mb/s, CBR). Leave it off: only the row size deviation moves the QP
+within a picture, and the aq_mode field of the row rate control
+parameters goes away.
 
-In any case the code is pretty rough from a scan (I reviewed one of the commits
-to have a mini-dig) and looks very LLM-generated.
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c    | 3 +--
+ drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c | 9 ++++++---
+ drivers/media/platform/rockchip/rkvenc/rkvenc.h         | 2 --
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-It needs _human_ polishing before we could take it regardless.
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
+index 5bc6960a521a..a3d35a7fdc3f 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
+@@ -40,12 +40,11 @@ static const struct v4l2_hevc_enc_rps_limits rkvenc_hevc_rps_limits = {
+ 
+ /*
+  * Row rate control: MPP's HEVC deviation thresholds are {2n, n, p, 2p}
+- * with the adjustments {-2, -1, 0, 1, 2} and AQ mode 1.
++ * with the adjustments {-2, -1, 0, 1, 2}.
+  */
+ static const struct vepu580_row_rc rkvenc_hevc_row_rc = {
+ 	.qp_adj = { -2, -1, 0, 1, 2, 0, 0, 0, 0 },
+ 	.dthd_outer = 2,
+-	.aq_mode = true,
+ };
+ 
+ static int rkvenc_hevc_state_constrain(struct v4l2_hevc_enc *enc,
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+index ab23845a288d..86703dc659f6 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+@@ -805,7 +805,6 @@ void vepu580_setup_hevc_tuning(struct rkvenc_core *core, bool intra)
+ const struct vepu580_row_rc vepu580_h264_row_rc = {
+ 	.qp_adj = { -2, -1, 0, 1, 2, 0, 0, 0, 1 },
+ 	.dthd_outer = 4,
+-	.aq_mode = false,
+ };
+ 
+ void vepu580_setup_row_rc(struct rkvenc_core *core,
+@@ -825,9 +824,13 @@ void vepu580_setup_row_rc(struct rkvenc_core *core,
+ 	thd = 5 * row_bits / 16;
+ 
+ 	rkvenc_or(core, VEPU580_ENC_PIC, FIELD_PREP(VEPU580_ENC_PIC_PIC_QP, qp));
++	/*
++	 * MPP also enables the texture adaptive QP here (aq_en). With its
++	 * tables that costs 0.3-1.3 dB of PSNR at the same bitrate (and SSIM
++	 * for H.264), so the QP only follows the row size deviation.
++	 */
+ 	rkvenc_set(core, VEPU580_RC_CFG,
+-		   VEPU580_RC_CFG_RC_EN | VEPU580_RC_CFG_AQ_EN |
+-		   (cfg->aq_mode ? VEPU580_RC_CFG_AQ_MODE : 0) |
++		   VEPU580_RC_CFG_RC_EN |
+ 		   FIELD_PREP(VEPU580_RC_CFG_RC_CTU_NUM, blocks_per_row));
+ 	rkvenc_set(core, VEPU580_RC_QP,
+ 		   FIELD_PREP(VEPU580_RC_QP_RANGE, qp_range) |
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.h b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+index 3515ffc2b490..c2dd0bb91c51 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc.h
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+@@ -264,12 +264,10 @@ void vepu580_setup_hevc_tuning(struct rkvenc_core *core, bool intra);
+  * struct vepu580_row_rc - codec-specific row rate control parameters
+  * @qp_adj: QP adjustment for each of the nine deviation buckets
+  * @dthd_outer: multiple of the base threshold for the outer buckets
+- * @aq_mode: value of rc_cfg.aq_mode
+  */
+ struct vepu580_row_rc {
+ 	s8 qp_adj[9];
+ 	unsigned int dthd_outer;
+-	bool aq_mode;
+ };
+ 
+ extern const struct vepu580_row_rc vepu580_h264_row_rc;
 
-And additionally, you are shoving yet more logic into already horribly massive
-functions in dire need of rework.
+-- 
+2.55.0
 
-Sorry but the technical debt does have to be paid at some point, so I think this
-would need some initial patches doing something about that before the rest of it
-anyway.
 
-[0]:https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
-
---
-Cheers, Lorenzo
