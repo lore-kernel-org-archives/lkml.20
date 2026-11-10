@@ -1,69 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281106;
-	b=oDthCxgGo9AmEUjyUC/zM0Cik3nJKe87QaWQVB2mLZqhUIqwv4hvlgrEM0Uok+0uuedL
-	 qdOd78IgOVpz6nKwKY0XsUfh3npOCyKYVSADzGlGvu88ebC5zr7xTCpxukPDLTct+gwvy
-	 0qwnKtAsZBiVYJ1EFZVPpLV05AWXKff3RYCrbsUhggZHaCw8VAe4BGfcBGn8Jvbs1owpH
-	 ZBpyJ8htn5hVYvEN0vW9K/27fB10YyrUVmEtvf9A+AFsddw480IdKNCkR5DewfZ4O6cry
-	 CYRQIF4Zxufnadgl/YRw/AmsjvFo5v2SV2oXHfYNI/+gzFtNv3vrrGVQeZE7xPPpPGA==
+	t=1794281107;
+	b=d36nRlfey3mPxSkFuEQHallnJm3TqdnItTt2gQWkLIQRAbOqYeM6t8eTsj4aQYbmbdIX
+	 Q0JV7KJmz7AgPtiOlKk72Jh/ahc2G/pX+OXobfl9F0Fnz02DPu6esYl+VXdmeAgztZ0Lf
+	 YC0iC9YxxQUsSRKSxqmKUTXtloQnCLD7vsOGII8P6fyLC/RmwlX2m97rESed3cs1h+JAl
+	 g/gSOo+uS8/Kjaq6NPODBniaf1zhwybWzCOkTSuoQWoIW+5eJkN54C3TELXaVcJ793VV+
+	 WxJhGjqM5PzqmzsceRzIlCKHQ9QkeO4HV0RyVSB2P0K7KQMmhfJOpAM07BFGiMaZPeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281107;
 	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=MUWhkoLt5h47Jl2FnKXiZGou5uN67cVms54fLzD/6ZU=;
-	b=rKAoBVPGjxloW+Jfg0JOSTMoS7OqLzJwKqPX5tdpHqHPZQIx28eldxAzVIQ+6IFfobVO
-	 0HgtAZsXEALFKZYnEf1qsPXtDoYK4BZcmeZVvLIjfAjvwQwemLcmD0CTPfCWohEYV6i/P
-	 o7cMRjS7yzRPWX37/YkVgfsNIANHAeCYCzvLC1xSRI173eKBtjIkXTDnmrQOHPX1xH0Vk
-	 txAES4JqikbDeoSiXQRddMYty7M+dKXwX0mIDoWkWlAVK5HgJ2idwHF8NTsNbIBd/PobF
-	 ISV5KbcuRitMFlQXV9OXCvtDnpZ8ynF+ppF2pKugBkGueryLAxTO2f8PuHw1bYSpCRg==
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=LHfrTOMBua6GXQUw0lFn7woJp3q39K7l7mtv+0KaE8A=;
+	b=r3Icned1GZw4mFT2N7PN6cFQWd9HT/GDyYbyT4/4AJ3o8RnUi7fVy9qcSWrMOyejhga5
+	 JeHgAcauvsUdlH61x55D4IbjSLVcipijP+NuwdvJI+Do8/OS81Lqu1ExqnAE3zzVpEfDo
+	 AmA5NBn2f7/7zlOD1lUtuRaKqXyLtvmIGxfNno8ZYNwZVBGsK1LvX24PLdCXikqnekgK7
+	 H5tEOmha/R60rw0uWPFlq+3yKJGDY8K/Wq/wZh07XadH/sVeBwNuf6dfMrSYA5aHYfJwM
+	 EtRglMVwTYPzdyEPIqdwSOG0MpLfrjecE5+GNcsiYieKYhuISA1xewNBAocAWzstryA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=realtek.com;
 	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ch8jxBPZ;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=qAelGHH3;
 	arc=none smtp.remote-ip=211.75.126.72
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB92606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC4F606A326;
 	Tue, 10 Nov 2026 03:25:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AB92606A321
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC4F606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ch8jxBPZ
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AA3OJ2a8884546, This message is accepted by code: ctloc85258
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=qAelGHH3
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AA3ONO00884407, This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794281059; bh=MUWhkoLt5h47Jl2FnKXiZGou5uN67cVms54fLzD/6ZU=;
+	t=1794281063; bh=LHfrTOMBua6GXQUw0lFn7woJp3q39K7l7mtv+0KaE8A=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=ch8jxBPZopcs4L6zXGONrX5xQ54SBdPwlXtBhzdQlPTbjM7E/2kWCFhFUd50KsGzw
-	 o+IjWHxgxe29HywUEqdCa0J7nveYr6FhzIikaSQ9WjMFWDRrYe5AKGQ4r7aLmYGveO
-	 wTy50z+Zc75D3fmGDJb5LdBmCLHfbxwLfjSUiSVaBBGNZYIl0qOS9jK073W/aLHtDS
-	 i5/GNsClNDcT5y2r38wfwcpRwCmmmfRAPkkXBeh2QHNSRjuGDbIlQYKorsiQAgBT0l
-	 t/NezrnkpFZNLLYqmFS+UbG6DXzROiUMXcCfjapSG00XB88mKq4BsXpX2T4QhwE+l6
-	 vn6aAHhnbzsGw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AA3OJ2a8884546
+	b=qAelGHH3h3gAyjI6bzAKDhKAvPY5fZlDeTq14R1bDseH5X8VC9FI9OeUpSyWEfX0O
+	 5TPKjuwvAm8wpCeQ54HKQD+8hU/ieSHsWOnwfPsXORxrFSOEeZ3vjNTh85acD0bp7/
+	 lmukf/kxeX4OtyJs5Gb2nEbokH2ZDap02uN2cmbnJtZCbgZKXvCKi/iDjQpT3/YqMP
+	 H04DIRU2YlfX75fyFo5oO4qdX5TZiVvUiYtvCgM9271UuQeHsFlXrQBGbCXDtMqjGP
+	 nIZ0kKSppTBW7bMOPcAcAQHOBPf06OTUmAr6otCYUQ5jTYxWz37b6pj9kW9uj4102I
+	 b/RSKJfBPzSdA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AA3ONO00884407
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 10 Nov 2026 11:24:19 +0800
+	Tue, 10 Nov 2026 11:24:23 +0800
 Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 11:24:18 +0800
+ 15.2.2562.56; Tue, 10 Nov 2026 11:24:22 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 10 Nov 2026 11:24:19 +0800
 Received: from fc44.realtek.com.tw (172.22.241.7) by
  RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 11:24:17 +0800
+ 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 11:24:19 +0800
 From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
 To: <davem@davemloft.net>, <kuba@kernel.org>
 CC: <netdev@vger.kernel.org>, <nic_swsd@realtek.com>,
 	<linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
 	<edumazet@google.com>, <bjorn@mork.no>, <pabeni@redhat.com>,
 	<hsu.chih.kai@realtek.com>, <andrew+netdev@lunn.ch>, <mail@birger-koblitz.de>
-Subject: [PATCH net-next v8 01/11] r8152: fix RTL8156/RTL8156B/RTL8157/RTL8159 up and down settings
-Date: Tue, 10 Nov 2026 11:24:06 +0800
-Message-ID: <20261110032416.16968-2-nic_swsd@realtek.com>
+Subject: [PATCH net-next v8 03/11] r8152: add rtl8157_change_mtu() for RTL8157 and RTL8159
+Date: Tue, 10 Nov 2026 11:24:08 +0800
+Message-ID: <20261110032416.16968-4-nic_swsd@realtek.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261110032416.16968-1-nic_swsd@realtek.com>
 References: <20261110032416.16968-1-nic_swsd@realtek.com>
@@ -79,134 +84,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Several settings the datasheet requires for these chips were either
-missing or gated on the wrong version range in the shared
-rtl8156_up()/rtl8156_down():
+RTL8157 and RTL8159 used rtl8156_change_mtu(), which programs a fixed
+MTPS_JUMBO. Per the datasheet they need an MTPS scaled from the
+configured MTU instead: max_pkt_size / 64, at least 10K and capped
+at 0xff.
 
-- PLA_RCR1 BIT(3) must be cleared on up for all of them. It was
-  cleared only for RTL_VER_16 and later, so RTL8156/RTL8156B never
-  reached it.
-- USB_SPEED_OPTION's RG_PWRDN_EN and ALL_SPEED_OFF must be cleared on
-  up for RTL8157/RTL8159 as well. The "version < RTL_VER_16" check
-  excluded precisely the chips that need it.
-- Clear_SDR must be enabled on up: USB 0xd3ca BIT(15) on RTL8156B
-  (VER_13/15), and USB 0xd378 BIT(7) set plus USB 0xcd06 BIT(15)
-  cleared on RTL8157/RTL8159.
-- Entering OOB needs PLA_BDC_CR's ALDPS_PROXY_MODE and PLA_OOB_CTRL's
-  DIS_MCU_CLROOB. Only r8152b_enter_oob() and r8153_enter_oob() set
-  them; the RTL8156 family down path set NOW_IS_OOB alone.
-- RTL8157/RTL8159 OOB RX settings are PLA_RMS 1526 and PLA_MTPS 10K,
-  not the 1522 and 6K they inherited.
-- PLA_MCU_SPDWN_EN is not used by RTL8157/RTL8159, so stop managing
-  it on up/down for them.
+Add rtl8157_change_mtu() for them. Since rtl8156_up() is shared with
+these chips, have it call tp->rtl_ops.change_mtu() instead of
+rtl8156_change_mtu() directly so each chip gets its own helper.
 
-Fixes: 195aae321c82 ("r8152: support new chips")
 Fixes: fd3c7d080df5 ("r8152: Add support for the RTL8157 hardware")
 Fixes: ad2a55b63b41 ("r8152: Add support for the RTL8159 chip")
 Signed-off-by: Chih Kai Hsu <hsu.chih.kai@realtek.com>
 ---
- drivers/net/usb/r8152.c | 52 ++++++++++++++++++++++++++++++++---------
- 1 file changed, 41 insertions(+), 11 deletions(-)
+ drivers/net/usb/r8152.c | 28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-index 4815235e8e730..d00cc911ae135 100644
+index bb4106f238a3a..1517753f843ef 100644
 --- a/drivers/net/usb/r8152.c
 +++ b/drivers/net/usb/r8152.c
-@@ -6820,8 +6820,7 @@ static void rtl8156_up(struct r8152 *tp)
- 
- 	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
- 
--	if (tp->version >= RTL_VER_16)
--		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
- 
- 	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
- 
-@@ -6843,11 +6842,12 @@ static void rtl8156_up(struct r8152 *tp)
- 	ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_RXFIFO_FULL, RXFIFO_FULL_MASK,
- 		      0x08);
- 
--	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3, PLA_MCU_SPDWN_EN);
--
- 	if (tp->version < RTL_VER_16)
--		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
--				  RG_PWRDN_EN | ALL_SPEED_OFF);
-+		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
-+				  PLA_MCU_SPDWN_EN);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
-+			  RG_PWRDN_EN | ALL_SPEED_OFF);
- 
- 	ocp_write_dword(tp, MCU_TYPE_USB, USB_RX_BUF_TH, 0x00600400);
- 
-@@ -6860,6 +6860,23 @@ static void rtl8156_up(struct r8152 *tp)
- 	if (tp->version < RTL_VER_16)
- 		r8153_u2p3en(tp, true);
- 
-+	switch (tp->version) {
-+	case RTL_VER_13:
-+	case RTL_VER_15:
-+		/* Enable Clear_SDR */
-+		ocp_word_set_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(15));
-+		break;
-+	case RTL_VER_16:
-+	case RTL_VER_17:
-+		/* Enable Clear_SDR */
-+		ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xd378, BIT(7));
-+		/* Clear SDR bit */
-+		ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(15));
-+		break;
-+	default:
-+		break;
-+	}
-+
- 	if (tp->version < RTL_VER_16 && tp->udev->speed >= USB_SPEED_SUPER)
- 		r8153b_u1u2en(tp, true);
+@@ -6800,6 +6800,28 @@ static void rtl8156_change_mtu(struct r8152 *tp)
+ 		       ALIGN(rx_max_size + tp->tx_desc.size, 1024) / 16);
  }
-@@ -6871,8 +6888,9 @@ static void rtl8156_down(struct r8152 *tp)
- 		return;
- 	}
  
--	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
--			  PLA_MCU_SPDWN_EN);
-+	if (tp->version < RTL_VER_16)
-+		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
-+				  PLA_MCU_SPDWN_EN);
- 
- 	r8153b_u1u2en(tp, false);
- 	if (tp->version < RTL_VER_16) {
-@@ -6891,8 +6909,17 @@ static void rtl8156_down(struct r8152 *tp)
- 	rtl_disable(tp);
- 	rtl_reset_bmu(tp);
- 
--	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1522);
--	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, MTPS_DEFAULT);
-+	switch (tp->version) {
-+	case RTL_VER_16:
-+	case RTL_VER_17:
-+		ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1526);
-+		ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, 10 * 1024 / 64);
-+		break;
-+	default:
-+		ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1522);
-+		ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, MTPS_DEFAULT);
-+		break;
-+	}
- 
- 	/* Clear teredo wake event. bit[15:8] is the teredo wakeup
- 	 * type. Set it to zero. bits[7:0] are the W1C bits about
-@@ -6900,7 +6927,10 @@ static void rtl8156_down(struct r8152 *tp)
- 	 */
- 	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TEREDO_WAKE_BASE, 0x00ff);
- 
--	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL, NOW_IS_OOB);
-+	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_BDC_CR, ALDPS_PROXY_MODE);
++static void rtl8157_change_mtu(struct r8152 *tp)
++{
++	u32 max_pkt_size = mtu_to_size(tp->netdev->mtu);
++	u32 ocp_data;
 +
-+	ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL,
-+			  NOW_IS_OOB | DIS_MCU_CLROOB);
++	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, max_pkt_size);
++
++	/* Use at least 10K for MTPS */
++	ocp_data = max_t(u32, max_pkt_size, 10 * 1024) / 64;
++
++	/* 16 * 1024 / 64 = 0x100, so the max is 0xff for 8 bits data */
++	ocp_data = min_t(u32, ocp_data, 0xff);
++
++	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, ocp_data);
++	r8156_fc_parameter(tp);
++
++	/* TX share fifo free credit full threshold */
++	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TXFIFO_CTRL, 512 / 64);
++	ocp_write_word(tp, MCU_TYPE_PLA, PLA_TXFIFO_FULL,
++		       ALIGN(max_pkt_size + tp->tx_desc.size, 1024) / 16);
++}
++
+ static void rtl8156_up(struct r8152 *tp)
+ {
+ 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+@@ -6826,7 +6848,7 @@ static void rtl8156_up(struct r8152 *tp)
  
- 	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_SFF_STS_7, MCU_BORW_EN);
+ 	rtl_rx_vlan_en(tp, tp->netdev->features & NETIF_F_HW_VLAN_CTAG_RX);
  
+-	rtl8156_change_mtu(tp);
++	tp->rtl_ops.change_mtu(tp);
+ 
+ 	switch (tp->version) {
+ 	case RTL_TEST_01:
+@@ -9900,7 +9922,7 @@ static int rtl_ops_init(struct r8152 *tp)
+ 		ops->in_nway		= rtl8153_in_nway;
+ 		ops->hw_phy_cfg		= r8157_hw_phy_cfg;
+ 		ops->autosuspend_en	= rtl8157_runtime_enable;
+-		ops->change_mtu		= rtl8156_change_mtu;
++		ops->change_mtu		= rtl8157_change_mtu;
+ 		tp->rx_buf_sz		= 32 * 1024;
+ 		tp->support_2500full	= 1;
+ 		tp->support_5000full	= 1;
+@@ -9922,7 +9944,7 @@ static int rtl_ops_init(struct r8152 *tp)
+ 		ops->in_nway		= rtl8153_in_nway;
+ 		ops->hw_phy_cfg		= r8157_hw_phy_cfg;
+ 		ops->autosuspend_en	= rtl8157_runtime_enable;
+-		ops->change_mtu		= rtl8156_change_mtu;
++		ops->change_mtu		= rtl8157_change_mtu;
+ 		tp->rx_buf_sz		= 48 * 1024;
+ 		tp->support_2500full	= 1;
+ 		tp->support_5000full	= 1;
 -- 
 2.34.1
 
