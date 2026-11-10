@@ -1,84 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340605;
-	b=dKxJ2WLNx+SijmprHu80cDFcuUe4oxUE2Rvl7oT0fQO2nnl+Q/ZPpZpKI9Ec9y3vDe4+
-	 mrRwYAb07XVlBp0XywCc72hPTvezMaa7uMP+QLCIs1W+EYdOZpR1NDa4KNHWihcLIsRT8
-	 M+ZrS1FEsheazW62P3CSWdLl6FJLkQbaodo1a2WFd0/8ZepXUI9r+Uhu1lTHV9GKjYif7
-	 J39+3fHLnpeN77OcBLOgzAFldihnfcpqkKBkd4j+SmxnTcGNWfzyN30YeHVtkXwT+5QKW
-	 lAs4kxIpEVSdpkcBo4Di+XX5ldjmM92mXnxi1udZfcXG/RzA2fAY1FvyMV5D9x3zsQQ==
+	t=1794340661;
+	b=x+hGn5jRSsw3tEmvVn+5zL9uDRi5GT9J4MCN3y19l4z4e3uVYTqAiWhx648PTQut5zzh
+	 JRanq6NzaAd3csduZbzOPJJIp8pRpbsFYdhqayFDrDdMqXReyiaZ0DKw5zwZPPSh8ghgY
+	 9jG2pxKZ8c2aSzkF1DktJa0IO+exxkKYBgmTkVT7yGax88prtiZMzc3H/9OX+Ab4lacjP
+	 PgbqlBjPytt8q8RD5ZwNTDN6EpxzKHNNjC4BSW4Jf9U03P7ughMOWgrp96+qYgZlKYgz1
+	 jeFD812HSqZ7g8TZNZjv406/kkaZPY1OV3V2taRocISfWYU4j/EYQIdQnaEWD51H1BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340605;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=X0P1xn7DMOwro4V4hfNIR9IZH4WRiTAHbOHV5MPmvj8=;
-	b=lLmeaF5K7Y2BJ25jPYJzv9tlxsUZUgdrtpIweuzxiKvhXMrFwEg+M4fu0mEFns/CplSU
-	 tQ1+tdzFfYB88uuxXBMG/O9ZdljEA0kd8QZm2zBf/lI9tEG3MsSFHLfYa3IMvE4CQTB4l
-	 jXjt6/srSATihzErG6Q72wDIiGKP4aSCpidhmAJ2AoPorMG0Fu2mJDlzXNpt1skdH+QU3
-	 LAdVBzFViIOZklucxryARsWYZumwAA7dkXeOfWsZ2Dd1S8b81FWE9bCc60TLSl8/q/jV+
-	 xgQ3KmqUo03ldXAHYkBz2atjoBGF4/a9PcK4bKVJlKCX3WEMZ1CzSyMCbfMd1uDDa1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340661;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lMR0kUfdjZMJR+0oWa9sSX/UZwt66TqDj+0eyBoDUXY=;
+	b=wK9x0XEyMLB6P+tqOKNoXpMet784BDeQ44jUpDsw0syxUhMbbKQR/SRUQvo/JG/E4muU
+	 cTRQx9Wzslm+FQy+kOb1XuYiuie7FZE2RpApXf29+LM2id9w+mpV6btx89rupmq1RDMvS
+	 kXDHNWajB9rqWnkJdKO94oHf2oEnwfwcvUo0cL+jRsYXHp5KjgGBjKrPlyCZ4E9SXHKDz
+	 xYBJ4dxCGXQSqOCEyWrXsY+sygcZxhMIE6wulsQMw/YeXMfAiaHRWamGaAP1puKJypOgq
+	 NqEhnQrKQjPiAzVYC/FpXjKoOVIOWsTbKMV+2tp4P5eKMMZIDKT2Iw79R5OMWqaW3pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSWBwruB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IDKIMGnu;
+	arc=none smtp.remote-ip=91.218.175.45
+Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCCB606A326;
-	Tue, 10 Nov 2026 19:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC84606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC84606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSWBwruB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EF31F0089F;
-	Tue, 10 Nov 2026 19:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794340604;
-	bh=X0P1xn7DMOwro4V4hfNIR9IZH4WRiTAHbOHV5MPmvj8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=MSWBwruBUwX1RFyh5/WNLBZ1zTHwWKVzlH4BzIEmxirvu2ExjyCQVncKoL0+jQd9o
-	 ShWrZjkqNuBfHzZXLFt1TnHByiozoCE2DNLL8ALLtf8xSQkwJeh1e9ne8TRZeSa9qa
-	 3+UYyT4DcHl/q/NzIxmE1s9uMVRYD7wsSsHA74Nx6l7nVFZwvDMUljqp8maIV241Tu
-	 WZh2W1ypx4wHX8ZKhuHrSMA5RwPChgVDDMoa0fyzoFmtC9gcJoJ+fru+3p+YgOPkEL
-	 J+yxrkeY8brOsY7KypjsZWnfqzSNLhI+AV8U504NTDg63GgC+FNF5L6pcy981vRV0m
-	 HTX/xjFvpYEmA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4F13ECE0AD8; Tue, 10 Nov 2026 11:56:44 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:56:44 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
-	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Qais Yousef <qyousef@layalina.io>
-Subject: Re: [PATCH v2 0/7] sched: RT throttling cleanup and a bit of
- documentation
-Message-ID: <c2bf89ce-b9de-43cf-839b-395d28b2275c@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IDKIMGnu
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=taf5xIdsLawaO6DyBudM+ObdMWnrDPJhCJJ72C3rWS4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794340657; v=1; x=1794945457;
+ b=IDKIMGnuQxplsYHIq7Bg32as0bnD7Nk7iW2TxaAcH0gNT5BqsKYTr2I07Ar5PX9qA8T0Xc6r
+ MzJoI9FKynBUAF0j5XfsO93IGIrhWiav4E/hO9FTtfXIA+YX2pjK3F4CEblmuhAlz0Rgpjlza7J
+ 9LbHx/3Jn9G8nyyMb7LOIdw0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 13475ae9d2aa94b6;
+	Tue, 10 Nov 2026 19:57:37 +0000
+X-Mizu-Trace-ID: 13475ae9d2aa94b6
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 20:57:32 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Bitterblue Smith <rtl8821cerfe2@gmail.com>, Ho Jie Feng <hjf3108@gmail.com>,
+ Ping-Ke Shih <pkshih@realtek.com>
+CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v2_6/7=5D_wifi=3A_rtw88=3A_88?=
+ =?US-ASCII?Q?xxa=3A_adapt_channel_sensing_to_receiver_gain?=
+In-Reply-To: <45407e4f-9009-4f0b-a9a8-58b7052d25a1@gmail.com>
+References: <20261031070950.425176-1-hjf3108@gmail.com> <20261031070950.425176-7-hjf3108@gmail.com> <4ada79186cd882a6d3344c43579e5addc4d4e644@linux.dev> <3bd7d396-bb54-41bc-890a-bfeab90dca3a@gmail.com> <1d7fe388a84ba7a078efbf1972869d63cb8234ea@linux.dev> <45407e4f-9009-4f0b-a9a8-58b7052d25a1@gmail.com>
+Message-ID: <C4DC98F9-B999-478E-B7AA-7DAA15D6C996@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,92 +66,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
 
-On Tue, Nov 10, 2026 at 06:34:42PM +0100, Sebastian Andrzej Siewior wrote:
-> People used to disable the RT throttling mechanism by writing -1 to
-> /proc/sys/kernel/sched_rt_runtime_us. Since v6.12 they can still do this
-> but they don't disable RT throttling anymore. Instead this throttling
-> mechanism has been taken over by the fair_server which can be configured
-> via debugfs.
-> This is not really documented by a hint appeared a few cycles later in
-> Documentation/scheduler/sched-rt-group.rst. This can be found once you
-> know what you are looking for because this document describes the RT
-> group scheduling (CONFIG_RT_GROUP_SCHED). The fair_server is used even
-> without it.
-> The then there is global DL resource control which also shares this
-> file proc file (which is stuck if CONFIG_RT_GROUP_SCHED is enabled).
+Hi Bitterblue and Jie Feng,
 
-Nice, thank you!
+On November 10, 2026 3:36:35 PM GMT+01:00, Bitterblue Smith
+<rtl8821cerfe2@gmail.com> wrote:
+>On 06/11/2026 22:27, Luka Gejak wrote:
+>> November 6, 2026 at 8:46 PM, "Bitterblue Smith"
+><rtl8821cerfe2@gmail.com> wrote:
+>> 
+>> JP. Bitterblue, is the adapter on a USB 3 port, and do you see the LPS
+>> failures on 5 GHz as well?
+>
+> It's in a USB 2 port. I am seeing the LPS failures on 5 GHz too.
+> Channel 100, 80 MHz wide.
 
-Unfortunately but unsurprisingly, this gets the same divide-by-zero
-issue reported (belatedly) on the earlier series:
+Thanks, that rules out the USB 3 idea.
 
-https://lore.kernel.org/all/e58e48c3-ac62-40cd-b5d3-2de87db12496@paulmck-laptop/
+My next guess is the lower bound. Under ETSI the L2H starts 37 dB below
+normal mode and is then raised to at least dm_info->l2h_th_lb, which is
+only 2 above a floor measured once at power on, on 2.4 GHz at 20 MHz
+with the LNA off. At 80 MHz that may be close to the noise, and with H2L
+7 lower EDCCA may stay busy. In LPS the firmware can switch the RF off,
+and in the watchdog the ADC mask toggle only runs after rtw_leave_lps(),
+so a busy EDCCA from sleep would still block the null frame.
 
-							Thanx, Paul
+Bitterblue, could you try debug_mask=0x8000 to see whether L2H sits at
+that bound (printed as "EDCCA L2H floor") when it fails, and maybe
+EDCCA_DC_BACKOFF_88XXA raised from 2 to 8?
 
-> This little series:
-> - Marks CONFIG_RT_GROUP_SCHED as broken because I was not allowed to
->   remove it.
-> 
-> - Untangles DL usage of sched_rt_runtime_us and moves it to
->     /sys/kernel/sched/dl_period_us
->     /sys/kernel/sched/dl_runtime_us
-> 
->   This keeps the _us sematic that we used to have /proc. It _could_ be
->   changed to ns instead.
-> 
-> - Moves rcutorture away from the procfs interface since it tries to
->   shutdown the fair_server for its testing.
-> 
-> - Adds sysfs interface under /sys/kernel/sched/cpuX to represent the
->   runqueues. The only knob for now is fair_server_{period|runtime}
->   representing the fair_server parameters. If all goes well, debugfs
->   could be removed. The ext server could be moved, too.
-> 
-> - I tried to correct/ update documentation while at it. I added the -doc
->   folks on Cc so they are aware. I can drop them in the next posting, I
->   expect that this gets routed via the sched/-tip.
-> 
-> v1…v2: https://lore.kernel.org/all/20261105164724.yxONBd03@linutronix.de/
->   - Tejun and PeterZ asked for marking CONFIG_RT_GROUP_SCHED broken
->     first.
->   - Everything after patch #1 that got queued up.
-> 
-> RFC…v1: https://lore.kernel.org/all/20261023161348.t3lpPLQZ@linutronix.de/
->   - Try to remove RT-GROUP-sched after figuring out that it is useless.
-> 
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
-> Sebastian Andrzej Siewior (7):
->       sched: Mark RT_GROUP_SCHED broken
->       rcutorture: Don't try to disable to RT throttling.
->       sched: rcutorture: Allow to disable DL fair_server
->       sched: Move DL's admission control to sysfs
->       sched: Limit sysctl sched_rt_{period|runtime}_us to RT_GROUP_SCHED
->       sched: Add sysfs files for the per-CPU fair_server knobs
->       Documentation/sched: Add fairserver to sched-deadline
-> 
->  Documentation/arch/arm64/asymmetric-32bit.rst |   2 +-
->  Documentation/scheduler/sched-deadline.rst    |  36 ++-
->  Documentation/scheduler/sched-rt-group.rst    |   7 +-
->  init/Kconfig                                  |   2 +-
->  kernel/rcu/rcu.h                              |   2 -
->  kernel/rcu/rcutorture.c                       |  37 +--
->  kernel/sched/deadline.c                       | 338 +++++++++++++++++++++++++-
->  kernel/sched/debug.c                          |  56 +----
->  kernel/sched/features.h                       |   2 +
->  kernel/sched/rt.c                             |  61 ++---
->  kernel/sched/sched.h                          |  55 +++--
->  11 files changed, 423 insertions(+), 175 deletions(-)
-> ---
-> base-commit: fd9230005e85472b81c1c7c16afe93dd878996b1
-> change-id: 20261110-sched_dl-a9727787112f
-> 
-> Best regards,
-> --  
-> Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Jie Feng, until this is figured out, keeping 88xxa on the normal thresholds
+like the vendor driver does by default, or leaving this patch
+out of v3, seems to be the safest option.
+
+Best regards,
+Luka Gejak
