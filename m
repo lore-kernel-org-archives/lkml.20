@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284497;
-	b=Q6PZKthvuAbjQyYeXIixo6TE2xgfN3uEQ/c5cAV0aEEgkVp98i5oetJn+B7bB217oP39
-	 LYiaapPBT8jzMj9W4hXeQDwZa8LipkB+wwHCjkKubq9qrXfspbo3SpZJvKZb5UmZDRlNe
-	 abBoVKXVb7uvGMlIY8jPxilKXnU+G6vRhmZcc6ZtY7JXanq2+opHekFbNdeXRzllJ6JZ5
-	 lCoHUvKS1Iqf3ydyqKcCZ6BsKckIeHhHuPEjQrJhYbMQ2WS9EtMpD9awXhr/BxVHFJsES
-	 wSG3+FWlEKpUKinfWBxE1MJefGfcXA3uDShYRaUwWnUdpkA68PUsk1YLPkPw8VaUrfw==
+	t=1794284505;
+	b=BWe41R+WpA/SDRrUZdW/zs1zXG9ThGdhVa0pConjP0eytx/J2LTbMmuHJ2c+aKE54+gF
+	 79rn1dhSOBS7/Eoy09JJDhTNIiv+lolHX/YfKg+P3DOuzimS+3d28zZJxVMn0/42HcGut
+	 XgU5raAGyyzrRgc2GakCKNocTUvtJ20cLVvNR3F3Ijgrs/ajZaG3zF7Y/q7CrzHziFFqS
+	 M4SoqEb9NBwfUmf2cFJatgoSuJFfxZGcQzKkT6AqEUtIEXuV+J8l+8q9E6IKftKjugDql
+	 x8sgUsrVItNoxSR/NFAT6i9B/Izzfa+2G/aV+9nctX0+dXWA1TU/O3CzMLRn1kdQsEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284505;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=odWeZv+wWSyD8twL4Iv1hdHOEwYuH8TFJO8N5Al4CP4=;
-	b=aYKbVtKEx0IA50el81rGWEYFqDCB2u4JIogsKuH/Eq5q9ep8A0nmWrB5veWjcQTV8r18
-	 myg1Qje4S/zgoR66irdVixkOxUknkX8TD23pEGHApWN6NCTICKiWV7fxlzOW9fOZeuhrc
-	 n98VFSbgKGvfYyRivGIKQYJwfKmSXRq4ZlvoOKYBnMWILTvsO7zNI7yPuXbaGweNm2IhU
-	 is0d4P9ZhuiZ4ZuZ+OkAB1Cg6e/4Zio7oLRWLioqB9KSjYBOWFoYY0FkSzUCw7oiap93N
-	 dU9R1AR+2Xli6+QvMtE+IV++EFqUv4zWg/y4mtd/K6OtjiazDmoZd3auKePErFqCBqg==
+	bh=vvn0N/Mf2XDKU1UdfH8n9zC897rDJdvpuyd+JGWtjC8=;
+	b=H8bbKbXQUsykGGAr3gY/UFtLc9gPHTfMuHu4mS9komuOg37HAYhd5Q3mJ4WDbcb0w4CJ
+	 J9Cvoi8z6f2Vo5v26VZSumBCqJhm9jK7/V3SChHA+H3Pqos6ZjUxtcb1VdOvOtvFFjP8u
+	 UZ26GeoaOcZKvkBgDb+qf/Rd5WJ48pBkfkDSaB8jxJrvnlPko4fvj7K3wxFHevQiS47we
+	 4TCEMKzHzQbYjkgrpyj0eTE1CKvrsYDTWM48BgCjmcng/5OajEkplPeRhm1j6NXM8F3DH
+	 OAifkxSwzQnjEOR7WOqtXcozbF048j01vNVzp6P3AlyZaWGTKfFPCrSWO9dqYbzeX4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ODjnhsD0;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="CkUNtGc/";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35B6606BB37
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B35B6606BB37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF18A60A2633
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:21:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF18A60A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ODjnhsD0
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae58d17cd9so1156982c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:21:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CkUNtGc/
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37198ed3727so2149648eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:21:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284496; x=1794889296; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794284504; x=1794889304; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=odWeZv+wWSyD8twL4Iv1hdHOEwYuH8TFJO8N5Al4CP4=;
-        b=ODjnhsD048dNFfHLskPq5QntRys8wzvlFIjv7TH7mqpEpsFUFR/jJVxoFX9ChV9U6p
-         z1QzFdLcV6D60n2Hz5ArQcJdcaBahPuUUT+xuOMx7K1thINo6PDppgO4jvgt29PnVnfB
-         Pvnr3Lm+Rbv0oQSEMDW5Hel1mcZn3eEqMClEfHLlt87qJwjEzMvDkkNZcaBPqax1WBwz
-         tdDAj/QS//vhiYl4kRckbbpD3MScWGMghqPu/4hfNQh43IYk+TaXgQoUl/7fzD6gbkiT
-         dvMlbLsUpUu1AsvtRKIxv8ORiWbEpQSxa1oK3pyXSsk+zPxn27277XY3ynLsvx2/422L
-         7NkQ==
+        bh=vvn0N/Mf2XDKU1UdfH8n9zC897rDJdvpuyd+JGWtjC8=;
+        b=CkUNtGc/IdLYYEBp0KfBNkDLcjNwOLWYY5889OwOd8dCaFE/pf6bgKCp/rWI52S3ig
+         toH2RRyJFa5nCKyAUhemTo/KpcN1Sol/MHnT6mreE+/sBMF+rcYuk/vXC7DLEpb1TksY
+         40CIWTNqGVX/JHGWNy+FnSxhT2nwChIEo6oEBwK6JgP3c6RVyAmVg8pzY9URuyqe/WIb
+         ILI+4NBT8WGoAw3WY0T/6s4zF9RNfmSqRkwAEtpgwUbdKA67MMBMEBigjCTB/EEYiroC
+         D+7soLk29vQwyd6m2sF3Rxojj2AfCDcxhi6pqxHyjzb9Vrbdncc8wTMokfoL1xd3TttE
+         074w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284496; x=1794889296;
+        d=1e100.net; s=20260707; t=1794284504; x=1794889304;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=odWeZv+wWSyD8twL4Iv1hdHOEwYuH8TFJO8N5Al4CP4=;
-        b=Bf1kpIO8RpmJItiwmhitomaI+mYzrXf/T78jNrHM8kzLE4buoy0/NX53biBp2p3+VG
-         TSPbPzhT+Blw6AUz7oXAdvJdjBK922D524luerK8+b4STaNADa6XrO969Cos+DWi9/i6
-         Fuelzl1AMRcbvCIYhPt60c5GyARHVrWfr5+kCRNmm+FbucyLkgdrSkLYjekpK3gmOdkL
-         WJtV/HDJiYOK05vVeYMFfHHKK+Za5Pytz2X5X/JvROB9Ke4yGjWElcnLgSHA2sYSMRxd
-         xJzbo05KyFAmrh3Yjvr15nCdnVmaudRGrOv4zwAI7rYXjCQKuUsZNLUWgzqhDvdBMIX/
-         ZbJA==
-X-Forwarded-Encrypted: i=1; AL+hErGDYzrBFLSMApmor4I2jSFMZ4ZblDqEApz7Z7v1vXChEAChwsRUDARwUryOrF6isFuCBxMzGwkeyPMmxJY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9n5GLhbnnBPqXOu8b4kJZc8AMpkGvnXpvn0y28CqVk5PgHzXsT
-	TrxpkNuC9iO3Q4II0O53Rkq7ZGGrUTCRuunckdc+DKxEgI0koCMnbOJO
-X-Gm-Gg: AYBFou3rdmmw09I9iWwu3lBmDYkp/c8uB46cL8YLh/zv94Qun8abJ8kB8b51YLMv0gs
-	XxKn9N6IkQIX/I5Nrp9xsezVcYPO7oSfizpWJewLvTy77KvRkY2jz0j6YPVFAz7fmsctHI79+Jx
-	mamRgH0nT3AsIBbESnjZRHlLZMX/CJS+aojX2UyYFPIhZuomjTIn9280/J7R1B48oVm85b1CufG
-	ZUTilSVn0TiRbISY2mQDkdW/NQNAM3nkJcoSbi2dzPls2A2HTE74DR4eqqSEiSTwlXsS6HruVHo
-	ftK8AVQvFQeHNKXfentxhJvKqRjEFoXzs3FH3c9eAbDv1oWig3HoQCXEfd2zIzPdOc1l3/Xnw2K
-	qzPNDNL/pKXb+7vKWnz9br8emr7Luc7ZCd5JCd35bVtUVRU07oJcW+Qcmmsuq0McMDkbOZLu5ak
-	e52ZKExcaEu6WsWtZG5jHk/cNOH27WVC/HZTIavqYd6+mtAXL2pBzU/VBWkpf0JjG6JxFJD3F4C
-	4YsROFA1rpNV7Wjm74/6cOAdVEHdm6XvSxb7+jh6r470eVYurxsAhua+9gwuMO/Rs36oolmmfGc
-	zKKbx+DkSEKrUBt2mbcK0zbpG3awdRSBUrjK4OnwXK5KqsY=
-X-Received: by 2002:a05:7023:a5b:10b0:14d:3c0c:79e9 with SMTP id a92af1059eb24-1b3b5fda050mr2101350c88.11.1794284495718;
-        Mon, 09 Nov 2026 20:21:35 -0800 (PST)
+        bh=vvn0N/Mf2XDKU1UdfH8n9zC897rDJdvpuyd+JGWtjC8=;
+        b=TCO73j28QJsa8vhmJZqid8MYsbccnKpaaP5/MW3Tt0MvhqA27/xnovaLK/+AxYzOFo
+         YWn8NyFzpDMhzapOUAH71F2h1uXy0GYkL0JVjeOmskLlnYt8xeHl1QFmEaRdFyjo3jAH
+         ySP+tv4OnihUdzjp5hSV06yHW9LYWeIOCBZxnFHo2m/o+l8Qo+3D1ahq2tzD/alXXeHM
+         U+hXJDSOb5xrUjH5ZqOZzIKkUS3apjvNRGRc2dPSgRuvw2UJMRf5KLz74t2vAfrLKoTL
+         dnih/DSwF2Rv/rlAZaLWsXyRr9tfA8iaHSWOuUTad4UZDmGSysMhGQVFe88ukI57pi/c
+         9lNg==
+X-Forwarded-Encrypted: i=1; AL+hErFO6sxevl5w/nltunu5cncx81RrmYtA/MNNJIimFM460BCPY+M+kHV02TVThJaYMz2GD1Bf5eagwMJ0NTs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QWJ0+1rlcpZwnfxkxKm1PIEpok8X4R6lxF2KMPgYuzjybGSJI
+	MSFp2ylGCOaAoIY3INEBpdQHb1apff25mZWj6J5a1pW8RvMY94IWd/4Q
+X-Gm-Gg: AYBFou1h43jN4AlzSre/hRSnEgrx1mnlcRwszmoqZlR4QVMGsW34R2oLXpXq3l6FjO8
+	Uav/vGnX4bN5GR5TeeogplU0Lh/jtoh5HaHHIWdx30SY7XA7T9sHMlttV0Rm7bwhBe1+2crwoMX
+	5Xit5iRjT8ZuXBN6VWe3Hq3nHuwF3BEIp7LxrO4doLczK4RJzTOd+KdcgJs+I+/plteUd+Ja4MI
+	Bro/SfrYWB5zkxxUUAb6os7puCPGXiA4ZoUtx8cPCYAdQvu6y63tfKwGQ/O3mkyQ3fT3dfaLfvB
+	hHbc2ULZexpbpSNVZSN+LPMEuD0hNCMGtck0coVZUKTaN24odsQKhOZV87Ug+OPW5ARqxaLOMFn
+	Hg1SCC9TfyAjPu6LYOnF4jk/Ln/OoJR4++q8BYDekjNYJEVXXXEeDsFi9EHx45Ys0x2li8Dm7Ft
+	W0+Mes9p/UR8lonUOUufAWdMVNapFnTXJGuHlzJpEnxgOsGPu5ljJedBVXxrPn8pqiILGoJ8vw7
+	P6lapgH9OYhMMUUI9BUX8x2uAYEOOBIaYXqYbsZEB2OskXgCpgseQM/DS3cwV2CDAbfFzsOgT0y
+	fXvlkalXMFS1LgQFDwQM+FKp4qIshjpBBsFLhEuBi60CD2o=
+X-Received: by 2002:a05:701b:4642:b0:1ab:e9b8:8a28 with SMTP id a92af1059eb24-1b3b5e167e5mr1932957c88.5.1794284503989;
+        Mon, 09 Nov 2026 20:21:43 -0800 (PST)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.21.27
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.21.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:21:35 -0800 (PST)
+        Mon, 09 Nov 2026 20:21:43 -0800 (PST)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: bhelgaas@google.com,
@@ -105,9 +105,9 @@ Cc: gary@garyguo.net,
 	benno.lossin@proton.me,
 	alex.gaynor@gmail.com,
 	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v6 20/25] rust: public_key: Add crypto public key bindings
-Date: Tue, 10 Nov 2026 14:18:27 +1000
-Message-ID: <20261110041832.1730924-21-alistair.francis@wdc.com>
+Subject: [PATCH v6 21/25] keys: Guard asymmetric-type.h behind CONFIG_KEYS
+Date: Tue, 10 Nov 2026 14:18:28 +1000
+Message-ID: <20261110041832.1730924-22-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
 References: <20261110041832.1730924-1-alistair.francis@wdc.com>
@@ -124,134 +124,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Alistair Francis <alistair.francis@wdc.com>
 
-Initial support for the kernel crypto public key (asymmetric-keys) bindings,
-which will be used by the SPDM library.
+The header keys/asymmetric-type.h includes linux/key-type.h,
+which is where `struct key_type` is defined.
 
-This is just a few functions that the Rust SPDM implementation will use
-in the next few commits.
+linux/key-type.h has a `#ifdef CONFIG_KEYS` guard around the entire file,
+yet keys/asymmetric-type.h doesn't. So if CONFIG_KEYS is not defined
+including keys/asymmetric-type.h will cause build failures as
+`struct key_type` isn't defined.
+
+Guard keys/asymmetric-type.h with a `#ifdef CONFIG_KEYS` to fix the
+failures seen when including keys/asymmetric-type.h in the Rust bindgen.
 
 Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
 ---
- rust/bindings/bindings_helper.h |  1 +
- rust/kernel/lib.rs              |  2 +
- rust/kernel/public_key.rs       | 83 +++++++++++++++++++++++++++++++++
- 3 files changed, 86 insertions(+)
- create mode 100644 rust/kernel/public_key.rs
+ include/keys/asymmetric-type.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index a2512fda77e1f..da8855899c530 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -29,6 +29,7 @@
- #include <linux/hrtimer_types.h>
+diff --git a/include/keys/asymmetric-type.h b/include/keys/asymmetric-type.h
+index 301efa952e263..b77bfa7bd5904 100644
+--- a/include/keys/asymmetric-type.h
++++ b/include/keys/asymmetric-type.h
+@@ -13,6 +13,8 @@
+ #include <linux/key-type.h>
+ #include <linux/verification.h>
  
- #include <crypto/hash.h>
-+#include <crypto/public_key.h>
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
- #include <drm/drm_device.h>
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 0cf6eab448d08..8ad9e61d1a6fb 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -122,6 +122,8 @@
- pub mod print;
- pub mod processor;
- pub mod ptr;
-+#[cfg(CONFIG_ASYMMETRIC_PUBLIC_KEY_SUBTYPE = "y")]
-+pub mod public_key;
- #[cfg(CONFIG_RUST_PWM_ABSTRACTIONS)]
- pub mod pwm;
- pub mod ratelimit;
-diff --git a/rust/kernel/public_key.rs b/rust/kernel/public_key.rs
-new file mode 100644
-index 0000000000000..0c0d4c98bb570
---- /dev/null
-+++ b/rust/kernel/public_key.rs
-@@ -0,0 +1,83 @@
-+// SPDX-License-Identifier: GPL-2.0
++#ifdef CONFIG_KEYS
 +
-+// Copyright (C) 2026 Western Digital
-+
-+//! Wrappers around the Linux kernel crypto public key APIs.
-+//!
-+//! C headers: [`include/crypto/public_key.h`](srctree/include/crypto/public_key.h).
-+//!
-+//! Reference: <https://www.kernel.org/doc/html/latest/crypto/asymmetric-keys.html>
-+
-+use core::ptr::NonNull;
-+use kernel::prelude::*;
-+use kernel::{
-+    bindings,
-+    error::to_result, //
-+};
-+
-+/// Owned `struct public_key` wrapper.
-+pub struct PublicKey {
-+    key: NonNull<bindings::public_key>,
-+}
-+
-+impl PublicKey {
-+    /// Create a Rust `PublicKey` from a valid C `struct public_key` pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `key` must point to a valid, exclusively-owned `struct public_key`
-+    /// whose ownership is transferred to the returned `PublicKey`. The key
-+    /// is freed with `public_key_free()` when the `PublicKey` is dropped,
-+    /// so the caller must not free it itself or pass the same pointer to
-+    /// `from_raw()` again.
-+    #[inline]
-+    pub unsafe fn from_raw(key: NonNull<bindings::public_key>) -> Self {
-+        Self { key }
-+    }
-+
-+    /// Verify a signature using this public key.
-+    #[inline]
-+    pub fn verify_signature(
-+        &self,
-+        signature: &[u8],
-+        encoding: &'static CStr,
-+        hash_algo: &'static CStr,
-+        message: &[u8],
-+    ) -> Result {
-+        // SAFETY: `self.key` is valid per the struct invariants; its
-+        // `pkey_algo` is populated by the key parser.
-+        let pkey_algo = unsafe { (*self.key.as_ptr()).pkey_algo };
-+
-+        let sig = bindings::public_key_signature {
-+            pkey_algo,
-+            s: signature.as_ptr().cast_mut(),
-+            s_size: u32::try_from(signature.len()).map_err(|_| EINVAL)?,
-+            encoding: encoding.as_char_ptr().cast::<u8>(),
-+            hash_algo: hash_algo.as_char_ptr().cast::<u8>(),
-+            m: message.as_ptr().cast_mut(),
-+            m_size: u32::try_from(message.len()).map_err(|_| EINVAL)?,
-+            ..Default::default()
-+        };
-+
-+        // SAFETY: `self.key` is a valid public key handle, and `sig` points to
-+        // valid signature/message data owned by the caller for the duration of
-+        // this call.
-+        unsafe {
-+            to_result(bindings::public_key_verify_signature(
-+                self.key.as_ptr(),
-+                &sig,
-+            ))
-+        }
-+    }
-+}
-+
-+impl Drop for PublicKey {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.key` was either returned by `x509_cert_parse()` or
-+        // manually transferred from an `x509_certificate` and has not been
-+        // freed yet.
-+        unsafe {
-+            bindings::public_key_free(self.key.as_ptr());
-+        }
-+    }
-+}
+ extern struct key_type key_type_asymmetric;
+ 
+ /*
+@@ -93,4 +95,5 @@ int x509_load_certificate_list(const u8 cert_list[], const unsigned long list_si
+  * The payload is at the discretion of the subtype.
+  */
+ 
++#endif /* CONFIG_KEYS */
+ #endif /* _KEYS_ASYMMETRIC_TYPE_H */
 -- 
 2.56.0
 
