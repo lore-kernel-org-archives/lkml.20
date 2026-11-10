@@ -1,81 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324639;
-	b=BkGgZUmyq3Vb4HANcUQQpMYUhcn31SOvn2BCQXgml7cf75P3KaKkpNtR7X4x19WLgCIT
-	 7lo++G/Y7zSUuR5yU7W0FJejk5/kl6vy8wxzLCQYbFOmBQVpRc3FZJMONCF6ojM7sKLRI
-	 gfQsLvreKBEBKQ40+YAIBEX4I4SkSK+D19vwU5pFvxzBupslOdq9TXukP6FkCBk6F45Ag
-	 vfxdTisaCZay8TPWaikViX02W5JQst851XWIMtwgKVSEuEn9g27eTuBJK4kT0tVtjfvAZ
-	 prtJehpRO76BdZNhtjK5Fnq4bzy7p+Gt7wiYAmdc+49lsSu+kMEqlHR4UMJARi/9PyA==
+	t=1794324654;
+	b=D2URa9ubgp55QwK7vZjafmV31X+CynLMjV6u6fHO5601Fh7Ol1/TWFqWBSZQkohVQWqM
+	 aQRuSSdokbEstpDTfNJkds4y7Dm5udxX+3JXnX2jGsencBCmFM/4gj92Nhv1oNywjQ3nJ
+	 6NCItzxCk8UoB5m6IMVRoixa4GwmuQ88MmS/3HMFNfAoZ/YIvwO72Z9tz5nN6RGCnHxk0
+	 GXotH/NNAJZz07n6gDFse8ECWngt9cKtxb/ZbNvdX75UiFN8Cx1W4NJ5HexQeATxFd15h
+	 bL5mGvytivLseb0uKYUgNa2GLhFsAd0pk6CJuJCKbUsJv7ZPbKiic1tkGEbBK2ctpug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324639;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Content-Type:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=bYXFGx1B95Uafj+39AjXfi2s0Mbiqnm8xfFJ8dBijug=;
-	b=OLZ6G/wKr2ka6I7iu4I5Ewdr3qAGmsItW1XTxaJSV3yIOqKgkKzZ/1cGZcO7Tvf6rL2q
-	 X6PZoIwD65YYcA3+DSceuTblUtxiplyFgzG+E7dBpITuMN/qP3IPfsdJ8dYsshbL6eIiv
-	 jMO8/sLpmfyZVM+koBXN/nGSn1O1+CbT9dcMtn4qTDv/HV/7LQvRtuEGgvL3mPB2safrp
-	 rJLr05UeasAUXvCbUFLbArRq/h2Jf7b+Tllo7Nzjx53SgG+sepUB3t3RA0Ng8aYfrTvsV
-	 gKk+oHLlKV6O/+qNosfivMhml276x8shdRJAWLLjLJlNpQQ6pE0pSY35extUvaBfWxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324654;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=iH7EE3vXSCCYOXH/CFQVNORRXYBY5E/Q1CSoOSoAXAU=;
+	b=MNFw9ignIiU8sYz6MQa6ZOhaNuNIhSM2ySoqUDydQOdKM4odNo37y3uR4tDVNcnYb1Uh
+	 yTU8mXz5WPC4dABOJVOT8ioJMm5WoUqYMsXFfJoFL1/Z3XBegOFnpr5sidfrDIo0LjlFm
+	 KLsgFvPgzl+nNpVKaEd34GoGxuaVqSpMVAQM3oyylhRF/ODoc8hOQclehk9xhMB+m25Vf
+	 K5Di8yJu6HIJmNVxinQ+n9OEjo8syVupYre4YJtaBAr8uaQJgegYM7TTaeyWz0NP2XnJq
+	 6VL74AvzHb3F2ky6Acs2Oaz2a/CQ4eRhzBTSQRAKblRLPctiFALLwsA22lTeM49IjJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IoIprcnl;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A2160A2620;
-	Tue, 10 Nov 2026 15:30:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A2160A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IoIprcnl
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAFE9CO2666984;
-	Tue, 10 Nov 2026 15:30:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=bYXFGx1B95Uafj+39AjXfi2s0Mbiqn
-	m8xfFJ8dBijug=; b=IoIprcnltp/8fm1PsrzQN2DxGFQL86/O2WfI/3iPynulQY
-	1l2WKLQBjQazZOF0J3AxD9aLBHSx61vu5xbYVjDyP00cqxc9qjWPIuD73SsDwL1v
-	Dz71vIZ+O87iNFfJW9FZa1MkNgDCg9wULVrf73C8x+aSnGhZ2xGuerP97ASV2IcT
-	lIwHtRfhwalDZZgxFu4Xw0SCCmKzJZn8Hr6vndqtKYVyosO/+MZiX6JYPtLo1sMI
-	Ov/DVEUCrADPKnhuzI+kV4KkdF6hT8C/Am8F+kON30zG/cawobRKz1AOHjJUTdFm
-	Fr6wnFzo0S0c8dxGenw9WDU3QTPVUDqomqJ2Bw/g==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumuvwdh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 15:30:35 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAFJxSA1972202;
-	Tue, 10 Nov 2026 15:30:34 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepvy88v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 15:30:34 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AAFUYDM18481794
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Nov 2026 15:30:34 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2A41A58061;
-	Tue, 10 Nov 2026 15:30:34 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A90DC5805A;
-	Tue, 10 Nov 2026 15:30:33 +0000 (GMT)
-Received: from [9.47.158.153] (unknown [9.47.158.153])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 10 Nov 2026 15:30:33 +0000 (GMT)
-Content-Type: multipart/mixed; boundary="------------8fha0YHSRmhg3C0ISGSEhsrK"
-Message-ID: <5552ccf5-87aa-4d29-b6f6-01e48674d443@linux.ibm.com>
-Date: Tue, 10 Nov 2026 10:30:33 -0500
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0FE606A31C;
+	Tue, 10 Nov 2026 15:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D0FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <1a29bb3bb70e761393b36520f9bb2a16ed466f14.camel@crapouillou.net>
+Subject: Re: [PATCH v2 2/3] MIPS: Ingenic: Add XBurst SMP support
+From: Paul Cercueil <paul@crapouillou.net>
+To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
+Cc: =?UTF-8?Q?=E5=91=A8=E7=90=B0=E6=9D=B0?= "(Zhou Yanjie)"	
+ <zhouyanjie@wanyeetech.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>,  Paul Burton <paulburton@kernel.org>, Stephen
+ Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,  Jerome
+ Brunet <jbrunet+clk@baylibre.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ open list	 <linux-kernel@vger.kernel.org>, "open list:COMMON CLK FRAMEWORK"
+	 <linux-clk@vger.kernel.org>, hns@goldelico.com, paul@boddie.org.uk
+Date: Tue, 10 Nov 2026 16:30:46 +0100
+In-Reply-To: <20261110043131.1985993-3-f.fainelli@gmail.com>
+References: <20261110043131.1985993-1-f.fainelli@gmail.com>
+	 <20261110043131.1985993-3-f.fainelli@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,119 +55,537 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] tpm: prolonged stall in vtpm_proxy_fops_release() on Linux
- 7.3
-From: Stefan Berger <stefanb@linux.ibm.com>
-To: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>, peterhuewe@gmx.de,
-        Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org,
-        syzkaller@googlegroups.com, linux-kernel@vger.kernel.org
-References: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
- <aud4isATIt0JOOL_@kernel.org>
- <012799b9-aa35-4990-86df-23b012ab94e6@linux.ibm.com>
- <CAO-4RZ0Od63iUeFkoPznV4vd84Ghjii4CGo+khybQckCv=EXkQ@mail.gmail.com>
- <931108a5-e880-4b74-b5e1-8625307af8a9@linux.ibm.com>
- <CAO-4RZ3mtXVty2dhjcT=ZX9mGnsDsYrvYe4Mx_u1TBgF5yi9PA@mail.gmail.com>
- <404c3349-1a9f-4bd3-b75a-187407855a39@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <404c3349-1a9f-4bd3-b75a-187407855a39@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2MCBTYWx0ZWRfX8+lOKDb2PkSe
- VasUKj4pRVacR/FmY5CWBBgB8KIexMpftaS+zJyThev/GArF9imcOl2Jga30TGPB3M0VcFDYC92
- WCRuxabiW9Twe4tqde9zCq21on4hGis=
-X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af3389b cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=r77TgQKjGQsHNAKrUKIA:9 a=Bau4-PFvkfs7xET1opIA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=VkyE-FT4N_lJajCC7C0A:9
- a=B2y7HmGcmWMA:10
-X-Proofpoint-GUID: RGxF8TLwFSgmIxGXmbx1yo8zyIoQUUGa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2MCBTYWx0ZWRfX6FXNDQKUkhLZ
- tCBgDqxjZ5CMxsoWZi3QH5VUpdlp/PgcJrPdlNjXcHinqHgylcA0uOj7M1PgZCLMKMnjR3MUc+f
- WZXsVjde1R7EOGBeuvKPKOIUANxLu8pAIZ6pi3UtsjOtBwohs1ASluVEtwm03Py1vkSpAKNmfHF
- 7XMfkejYbwaZ3I5tu+SK/MLs87ALdS2iwwYJN67HPN91mp3t52SossT993O/SAnCwEv7kIuBGb1
- hI01O3n1bUWGC+oecyReAndI7Zy1v85IFnhrgbnx/MZPOhV0h/jMek3clvKaIIGrp745XzUcTPl
- OjpuTtS2erAW0ToETs7JDvgc8FeQQoZVsH/3aycpqwKL9q1IsthiPm67TeLsOIDs1zcZ3qps8Qv
- yod/E58JZkB20kN1wDE1QDxei0EhdXrr/8iYfmYNgE8iNCqAHlmZdQVNc4RNoD+KE0HBjjf0po+
- WZ5Lu3bAFv681ssIm8w==
-X-Proofpoint-ORIG-GUID: CPTMS1b1HVnNkJYdSv31g_FNQcElj5FM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100060
 
-This is a multi-part message in MIME format.
---------------8fha0YHSRmhg3C0ISGSEhsrK
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi Florian,
 
+Le lundi 09 novembre 2026 =C3=A0 20:31 -0800, Florian Fainelli a =C3=A9crit=
+=C2=A0:
+> From: =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) <zhouyanjie@wanyeetech.co=
+m>
+>=20
+> Add support for the second XBurst core on the JZ4780, based on Zhou
+> Yanjie's 2020 series and Paul Burton's original CI20 SMP implementation.
+> Use the CP0 mailboxes for inter-processor interrupts.
+>=20
+> XBurst stops its private cache clock when executing WAIT. Write back
+> the data cache before entering idle so that the other core can access
+> data belonging to the sleeping core.
+>=20
+> Link: https://lkml.iu.edu/hypermail/linux/kernel/2005.2/03488.html
+> Link: https://lists.openwall.net/linux-kernel/2020/05/13/1482
+> Link: https://lists.openwall.net/linux-kernel/2020/05/19/1099
+> Signed-off-by: =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) <zhouyanjie@wany=
+eetech.com>
+> [florian: forward ported to latest version]
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-> 
-> On 11/10/26 1:42 AM, 铮 wrote:
->> Hi Stefan,
->>
->> Thank you for your question about closing the server-side fd.
->>
->> Short answer: yes, the server-side fds are released when the
->> reproducer exits, and the hang occurs during that release. The hang
->> reproduced in 4/4 recorded exit-time release attempts (three with N=32
->> and one with N=4). However, our separate tests that explicitly call
->> close() on every ioctl-returned fd did NOT reproduce the hang.
-> 
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
-Thanks, your supplied C-program made reproducing this issue 
-straight-forward. A patch resolving this issue is attached.
+Cheers,
+-Paul
 
-    Stefan
-
---------------8fha0YHSRmhg3C0ISGSEhsrK
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-tpm-tpm_vtpm_proxy-Try-to-disable-queued-work-before.patch"
-Content-Disposition: attachment;
- filename*0="0001-tpm-tpm_vtpm_proxy-Try-to-disable-queued-work-before.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
-
-RnJvbSA2YzRlZTg0YTI5ZDY1MmM2NTcxNGRjMDZmM2NlZjY3NGY2YWM2MTI3IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBTdGVmYW4gQmVyZ2VyIDxzdGVmYW5iQGxpbnV4Lmli
-bS5jb20+CkRhdGU6IFR1ZSwgMTAgTm92IDIwMjYgMDk6MDU6NTQgLTA2MDAKU3ViamVjdDog
-W1BBVENIXSB0cG06IHRwbV92dHBtX3Byb3h5OiBUcnkgdG8gZGlzYWJsZSBxdWV1ZWQgd29y
-ayBiZWZvcmUKIGZsdXNoaW5nIGl0CgpJZiBhbiBhcHBsaWNhdGlvbiBvcGVucyBtdWx0aXBs
-ZSBzZXJ2ZXItc2lkZSBUUE0gZmlsZSBkZXNjcmlwdG9ycyB1c2luZyB0aGUKaW9jdGwoKSBv
-biAvZGV2L3RwbXggYW5kIGRvZXMgbm90IGNsb3NlIHRoZW0gaW4gdGhlIG9yZGVyIHRoZXkg
-d2VyZSBvcGVuZWQsCnRoZW4gdGhlIGNsb3Npbmcgb2YgYSBmaWxlIGRlc2NyaXB0b3Igd2ls
-bCBydW4gaW50byBmbHVzaF93b3JrKCkgYW5kIGJlCmJsb2NrZWQgdGhlcmUgYmVoaW5kIG90
-aGVyIHBlbmRpbmcgd29yayBhbmQgY3VycmVudGx5IGFjdGl2ZSB3b3JrLiBBcyBhCmNvbnNl
-cXVlbmNlLCB0aGUgY3VycmVudGx5IGFjdGl2ZSB3b3JrLCB0aGF0IGlzIHdhaXRpbmcgZm9y
-IGEgcmVzcG9uc2UgdG8KaXRzIFRQTSByZXF1ZXN0LCB3aWxsIGhhdmUgdG8gd2FpdCBmb3Ig
-dGhlIGNvbW1hbmQgdG8gdGltZSBvdXQgc2luY2UgaXRzClNUQVRFX09QRU5FRF9GTEFHIHdp
-bGwgbm90IGJlIHJlc2V0LiBUbyByZXNvbHZlIHRoaXMgaXNzdWUsIHRyeSB0byBkaXNhYmxl
-CnBlbmRpbmcgd29yayBmaXJzdCBiZWZvcmUgZmx1c2hpbmcgaXQuIFRoZSBkaXNhYmxlX3dv
-cmsoKSByZXR1cm5zIHF1aWNrbHkKYW5kIHVucXVldWVzIHdvcmsgZm9yIG1vc3Qgb2YgdGhl
-IGNsb3NpbmcgZmlsZSBkZXNjcmlwdG9ycy4gSWYgaXQgcmV0dXJucwpmYWxzZSwgdGhlbiBy
-dW4gZmx1c2hfd29yaygpLCB3aGljaCBtYWtlcyBzdXJlIHRoYXQgb25nb2luZyB3b3JrIGVu
-ZHMsCndoaWNoIGFsc28gaGFwcGVucyBxdWlja2x5IHNpbmNlIGl0cyBTVEFURV9PUEVORURf
-RkxBRyB3YXMgY2xlYXJlZC4KCkZpeGVzOiA2Zjk5NjEyZTI1MDAgKCJ0cG06IFByb3h5IGRy
-aXZlciBmb3Igc3VwcG9ydGluZyBtdWx0aXBsZSBlbXVsYXRlZCBUUE1zIikKU2lnbmVkLW9m
-Zi1ieTogU3RlZmFuIEJlcmdlciA8c3RlZmFuYkBsaW51eC5pYm0uY29tPgotLS0KIGRyaXZl
-cnMvY2hhci90cG0vdHBtX3Z0cG1fcHJveHkuYyB8IDMgKystCiAxIGZpbGUgY2hhbmdlZCwg
-MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9j
-aGFyL3RwbS90cG1fdnRwbV9wcm94eS5jIGIvZHJpdmVycy9jaGFyL3RwbS90cG1fdnRwbV9w
-cm94eS5jCmluZGV4IDI0NWE4Zjk1OWJjNy4uYzUzOTE4M2FjYjAzIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2NoYXIvdHBtL3RwbV92dHBtX3Byb3h5LmMKKysrIGIvZHJpdmVycy9jaGFyL3Rw
-bS90cG1fdnRwbV9wcm94eS5jCkBAIC00NjUsNyArNDY1LDggQEAgc3RhdGljIHZvaWQgdnRw
-bV9wcm94eV93b3JrKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIHN0YXRpYyB2b2lkIHZ0
-cG1fcHJveHlfd29ya19zdG9wKHN0cnVjdCBwcm94eV9kZXYgKnByb3h5X2RldikKIHsKIAl2
-dHBtX3Byb3h5X2ZvcHNfdW5kb19vcGVuKHByb3h5X2Rldik7Ci0JZmx1c2hfd29yaygmcHJv
-eHlfZGV2LT53b3JrKTsKKwlpZiAoIWRpc2FibGVfd29yaygmcHJveHlfZGV2LT53b3JrKSkK
-KwkJZmx1c2hfd29yaygmcHJveHlfZGV2LT53b3JrKTsKIH0KIAogLyoKLS0gCjIuNTYuMAoK
-
-
---------------8fha0YHSRmhg3C0ISGSEhsrK--
-
+> ---
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0arch/mips/Kbuild=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0=C2=A0 1 +
+> =C2=A0arch/mips/generic/init.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +
+> =C2=A0arch/mips/include/asm/ingenic-smp.h=C2=A0=C2=A0 |=C2=A0 20 +++
+> =C2=A0arch/mips/ingenic/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> =C2=A0arch/mips/ingenic/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +
+> =C2=A0arch/mips/ingenic/ingenic-smp-entry.S |=C2=A0 54 ++++++
+> =C2=A0arch/mips/ingenic/ingenic-smp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 247 ++++++++++++++++++++++++++
+> =C2=A0arch/mips/kernel/idle.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 26 ++-
+> =C2=A09 files changed, 359 insertions(+), 2 deletions(-)
+> =C2=A0create mode 100644 arch/mips/include/asm/ingenic-smp.h
+> =C2=A0create mode 100644 arch/mips/ingenic/Makefile
+> =C2=A0create mode 100644 arch/mips/ingenic/ingenic-smp-entry.S
+> =C2=A0create mode 100644 arch/mips/ingenic/ingenic-smp.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..7128df320bab 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13150,8 +13150,9 @@ L:	linux-mips@vger.kernel.org
+> =C2=A0S:	Maintained
+> =C2=A0F:	arch/mips/boot/dts/ingenic/
+> =C2=A0F:	arch/mips/generic/board-ingenic.c
+> +F:	arch/mips/include/asm/ingenic-smp.h
+> =C2=A0F:	arch/mips/include/asm/mach-ingenic/
+> -F:	arch/mips/ingenic/Kconfig
+> +F:	arch/mips/ingenic/
+> =C2=A0F:	drivers/clk/ingenic/
+> =C2=A0F:	drivers/dma/dma-jz4780.c
+> =C2=A0F:	drivers/gpu/drm/ingenic/
+> diff --git a/arch/mips/Kbuild b/arch/mips/Kbuild
+> index e901bf554483..4912ab80d143 100644
+> --- a/arch/mips/Kbuild
+> +++ b/arch/mips/Kbuild
+> @@ -12,6 +12,7 @@ obj- :=3D $(platform-y)
+> =C2=A0# The object files are linked as core-y files would be linked
+> =C2=A0
+> =C2=A0obj-y +=3D generic/
+> +obj-$(CONFIG_MACH_INGENIC) +=3D ingenic/
+> =C2=A0obj-y +=3D kernel/
+> =C2=A0obj-y +=3D mm/
+> =C2=A0obj-y +=3D net/
+> diff --git a/arch/mips/generic/init.c b/arch/mips/generic/init.c
+> index 1d712eac1617..38f294887c17 100644
+> --- a/arch/mips/generic/init.c
+> +++ b/arch/mips/generic/init.c
+> @@ -13,6 +13,7 @@
+> =C2=A0
+> =C2=A0#include <asm/bootinfo.h>
+> =C2=A0#include <asm/fw/fw.h>
+> +#include <asm/ingenic-smp.h>
+> =C2=A0#include <asm/irq_cpu.h>
+> =C2=A0#include <asm/machine.h>
+> =C2=A0#include <asm/mips-cps.h>
+> @@ -113,6 +114,8 @@ void __init device_tree_init(void)
+> =C2=A0	unflatten_and_copy_device_tree();
+> =C2=A0	mips_cpc_probe();
+> =C2=A0
+> +	if (!register_ingenic_smp_ops())
+> +		return;
+> =C2=A0	if (!register_cps_smp_ops())
+> =C2=A0		return;
+> =C2=A0	if (!register_vsmp_smp_ops())
+> diff --git a/arch/mips/include/asm/ingenic-smp.h
+> b/arch/mips/include/asm/ingenic-smp.h
+> new file mode 100644
+> index 000000000000..ea81c333820d
+> --- /dev/null
+> +++ b/arch/mips/include/asm/ingenic-smp.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/* Copyright (C) 2013 Paul Burton <paulburton@kernel.org> */
+> +#ifndef __ASM_INGENIC_SMP_H__
+> +#define __ASM_INGENIC_SMP_H__
+> +
+> +#include <linux/errno.h>
+> +#include <linux/init.h>
+> +#include <linux/kconfig.h>
+> +
+> +#if defined(CONFIG_MACH_JZ4780) && defined(CONFIG_SMP)
+> +int __init register_ingenic_smp_ops(void);
+> +void xburst_secondary_cpu_entry(void);
+> +#else
+> +static inline int register_ingenic_smp_ops(void)
+> +{
+> +	return -ENODEV;
+> +}
+> +#endif
+> +
+> +#endif /* __ASM_INGENIC_SMP_H__ */
+> diff --git a/arch/mips/ingenic/Kconfig b/arch/mips/ingenic/Kconfig
+> index f595b339a4b8..583f8d3651df 100644
+> --- a/arch/mips/ingenic/Kconfig
+> +++ b/arch/mips/ingenic/Kconfig
+> @@ -64,6 +64,8 @@ config MACH_JZ4780
+> =C2=A0	select MIPS_CPU_SCACHE
+> =C2=A0	select SYS_HAS_CPU_MIPS32_R2
+> =C2=A0	select SYS_SUPPORTS_HIGHMEM
+> +	select SYS_SUPPORTS_SMP
+> +	select SMP_UP if SMP
+> =C2=A0
+> =C2=A0config MACH_X1000
+> =C2=A0	bool
+> diff --git a/arch/mips/ingenic/Makefile b/arch/mips/ingenic/Makefile
+> new file mode 100644
+> index 000000000000..fc3b1bf1f25a
+> --- /dev/null
+> +++ b/arch/mips/ingenic/Makefile
+> @@ -0,0 +1,5 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +ifdef CONFIG_SMP
+> +obj-$(CONFIG_MACH_JZ4780) +=3D ingenic-smp.o ingenic-smp-entry.o
+> +endif
+> diff --git a/arch/mips/ingenic/ingenic-smp-entry.S
+> b/arch/mips/ingenic/ingenic-smp-entry.S
+> new file mode 100644
+> index 000000000000..250a0c89c955
+> --- /dev/null
+> +++ b/arch/mips/ingenic/ingenic-smp-entry.S
+> @@ -0,0 +1,54 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Copyright (C) 2013 Paul Burton <paulburton@kernel.org>
+> + * XBurst secondary CPU reset entry
+> + */
+> +
+> +#include <asm/addrspace.h>
+> +#include <asm/asm.h>
+> +#include <asm/asmmacro.h>
+> +#include <asm/cacheops.h>
+> +#include <asm/mipsregs.h>
+> +
+> +#define CACHE_SIZE	(32 * 1024)
+> +#define CACHE_LINESIZE	32
+> +
+> +	/* The CP0 REIM register only stores the upper 16 address bits. */
+> +	.section .text.smp-entry, "ax"
+> +	.balign 0x10000
+> +	.set noreorder
+> +LEAF(xburst_secondary_cpu_entry)
+> +	mtc0	zero, CP0_CAUSE
+> +	li	t0, ST0_CU0
+> +	mtc0	t0, CP0_STATUS
+> +	ehb
+> +
+> +	/* Invalidate both private caches before entering cached code. */
+> +	li	t0, KSEG0
+> +	ori	t1, t0, CACHE_SIZE
+> +	mtc0	zero, CP0_TAGLO
+> +	ehb
+> +1:	cache	Index_Store_Tag_I, 0(t0)
+> +	cache	Index_Store_Tag_D, 0(t0)
+> +	addiu	t0, t0, CACHE_LINESIZE
+> +	bne	t0, t1, 1b
+> +	 nop
+> +
+> +	mfc0	t0, CP0_CONFIG
+> +	li	t1, ~CONF_CM_CMASK
+> +	and	t0, t0, t1
+> +	ori	t0, t0, CONF_CM_CACHABLE_NONCOHERENT
+> +	mtc0	t0, CP0_CONFIG
+> +	mtc0	zero, CP0_PAGEMASK
+> +	ehb
+> +
+> +	/* CPU0 publishes these in RAM before releasing CPU1 from reset. */
+> +	la	t0, xburst_cpu_entry_sp
+> +	lw	sp, 0(t0)
+> +	la	t0, xburst_cpu_entry_gp
+> +	lw	gp, 0(t0)
+> +
+> +	la	t0, smp_bootstrap
+> +	jr	t0
+> +	 nop
+> +END(xburst_secondary_cpu_entry)
+> diff --git a/arch/mips/ingenic/ingenic-smp.c b/arch/mips/ingenic/ingenic-=
+smp.c
+> new file mode 100644
+> index 000000000000..3cdb953c7a87
+> --- /dev/null
+> +++ b/arch/mips/ingenic/ingenic-smp.c
+> @@ -0,0 +1,247 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * XBurst SMP support, based on Paul Burton's CI20 implementation and
+> + * Zhou Yanjie's 2020 JZ4780 SMP series.
+> + * Copyright (C) 2013 Paul Burton <paulburton@kernel.org>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/cpu.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/of.h>
+> +#include <linux/of_clk.h>
+> +#include <linux/sched/task_stack.h>
+> +#include <linux/smp.h>
+> +
+> +#include <asm/addrspace.h>
+> +#include <asm/irq_cpu.h>
+> +#include <asm/mipsregs.h>
+> +#include <asm/r4kcache.h>
+> +#include <asm/smp-ops.h>
+> +
+> +#include <asm/ingenic-smp.h>
+> +
+> +#define read_c0_corectrl()	__read_32bit_c0_register($12, 2)
+> +#define write_c0_corectrl(val)	__write_32bit_c0_register($12, 2, val)
+> +#define read_c0_corestatus()	__read_32bit_c0_register($12, 3)
+> +#define write_c0_corestatus(val)	__write_32bit_c0_register($12, 3,
+> val)
+> +#define read_c0_reim()		__read_32bit_c0_register($12, 4)
+> +#define write_c0_reim(val)	__write_32bit_c0_register($12, 4, val)
+> +#define read_c0_mailbox0()	__read_32bit_c0_register($20, 0)
+> +#define write_c0_mailbox0(val)	__write_32bit_c0_register($20, 0, val)
+> +#define read_c0_mailbox1()	__read_32bit_c0_register($20, 1)
+> +#define write_c0_mailbox1(val)	__write_32bit_c0_register($20, 1, val)
+> +
+> +#define XBURST_MBOX_IRQ		(MIPS_CPU_IRQ_BASE + 3)
+> +#define CORECTRL_SWRST(cpu)	BIT(cpu)
+> +#define CORECTRL_RPC(cpu)	BIT(8 + (cpu))
+> +#define CORESTATUS_MIRQ(cpu)	BIT(cpu)
+> +#define REIM_ENTRY		GENMASK(31, 16)
+> +#define REIM_MBOXIRQ(cpu)	BIT(cpu)
+> +
+> +static struct clk *cpu1_clock;
+> +static DEFINE_RAW_SPINLOCK(smp_lock);
+> +
+> +/* Referenced by the uncached secondary CPU reset entry. */
+> +unsigned long xburst_cpu_entry_sp;
+> +unsigned long xburst_cpu_entry_gp;
+> +
+> +static irqreturn_t xburst_mbox_interrupt(int irq, void *dev_id)
+> +{
+> +	unsigned int cpu =3D cpu_logical_map(smp_processor_id());
+> +	u32 action, status;
+> +
+> +	raw_spin_lock(&smp_lock);
+> +	if (cpu =3D=3D 0) {
+> +		action =3D read_c0_mailbox0();
+> +		write_c0_mailbox0(0);
+> +	} else {
+> +		action =3D read_c0_mailbox1();
+> +		write_c0_mailbox1(0);
+> +	}
+> +
+> +	status =3D read_c0_corestatus();
+> +	write_c0_corestatus(status & ~CORESTATUS_MIRQ(cpu));
+> +	irq_disable_hazard();
+> +	raw_spin_unlock(&smp_lock);
+> +
+> +	if (action & SMP_RESCHEDULE_YOURSELF)
+> +		scheduler_ipi();
+> +	if (action & SMP_CALL_FUNCTION)
+> +		generic_smp_call_function_interrupt();
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void __init xburst_smp_setup(void)
+> +{
+> +	struct device_node *np;
+> +	u32 entry, reim;
+> +	unsigned int cpu =3D 0;
+> +	u64 hwid;
+> +
+> +	for_each_of_cpu_node(np) {
+> +		hwid =3D of_get_cpu_hwid(np, 0);
+> +		if (!of_device_is_available(np) ||
+> +		=C2=A0=C2=A0=C2=A0 hwid >=3D ARRAY_SIZE(__cpu_number_map))
+> +			continue;
+> +		if (cpu >=3D nr_cpu_ids) {
+> +			of_node_put(np);
+> +			break;
+> +		}
+> +		__cpu_number_map[hwid] =3D cpu;
+> +		__cpu_logical_map[cpu] =3D hwid;
+> +		set_cpu_possible(cpu, true);
+> +		cpu++;
+> +	}
+> +
+> +	/* Program the shared reset vector with mailbox delivery masked. */
+> +	reim =3D read_c0_reim();
+> +	reim &=3D ~(REIM_MBOXIRQ(0) | REIM_MBOXIRQ(1));
+> +	write_c0_reim(reim);
+> +	write_c0_mailbox0(0);
+> +	write_c0_mailbox1(0);
+> +	write_c0_corestatus(0);
+> +
+> +	entry =3D KSEG1ADDR((unsigned long)xburst_secondary_cpu_entry);
+> +	write_c0_reim((reim & ~REIM_ENTRY) | (entry & REIM_ENTRY));
+> +}
+> +
+> +static void __init xburst_prepare_cpus(unsigned int max_cpus)
+> +{
+> +	struct device_node *np;
+> +	u32 reim;
+> +	int ret;
+> +
+> +	ret =3D request_irq(XBURST_MBOX_IRQ, xburst_mbox_interrupt,
+> +			=C2=A0 IRQF_PERCPU | IRQF_NO_THREAD, "core mailbox",
+> NULL);
+> +	if (ret) {
+> +		pr_err("XBurst: cannot request mailbox IRQ: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	reim =3D read_c0_reim();
+> +	write_c0_reim(reim | REIM_MBOXIRQ(0));
+> +	set_c0_status(STATUSF_IP3);
+> +	irq_enable_hazard();
+> +
+> +	if (!cpu_possible(1))
+> +		return;
+> +
+> +	np =3D of_get_cpu_node(1, NULL);
+> +	cpu1_clock =3D of_clk_get(np, 0);
+> +	of_node_put(np);
+> +	if (IS_ERR(cpu1_clock)) {
+> +		pr_err("XBurst: cannot get CPU1 clock: %ld\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PTR_ERR(cpu1_clock));
+> +		return;
+> +	}
+> +
+> +	ret =3D clk_prepare(cpu1_clock);
+> +	if (ret) {
+> +		clk_put(cpu1_clock);
+> +		cpu1_clock =3D ERR_PTR(ret);
+> +		pr_err("XBurst: cannot prepare CPU1 clock: %d\n", ret);
+> +	}
+> +}
+> +
+> +static int xburst_boot_secondary(int cpu, struct task_struct *idle)
+> +{
+> +	unsigned long flags;
+> +	u32 ctrl;
+> +	int ret;
+> +
+> +	if (cpu_logical_map(cpu) !=3D 1 || IS_ERR_OR_NULL(cpu1_clock))
+> +		return -ENODEV;
+> +
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	ctrl =3D read_c0_corectrl() | CORECTRL_SWRST(1) | CORECTRL_RPC(1);
+> +	write_c0_corectrl(ctrl);
+> +	back_to_back_c0_hazard();
+> +
+> +	ret =3D clk_enable(cpu1_clock);
+> +	if (ret)
+> +		goto unlock;
+> +
+> +	xburst_cpu_entry_sp =3D __KSTK_TOS(idle);
+> +	xburst_cpu_entry_gp =3D (unsigned long)task_thread_info(idle);
+> +	/* Publish bootstrap state before CPU1 starts using its private
+> cache. */
+> +	r4k_blast_dcache();
+> +	/* Complete cache writeback before releasing reset. */
+> +	mb();
+> +	write_c0_corectrl(ctrl & ~CORECTRL_SWRST(1));
+> +	back_to_back_c0_hazard();
+> +unlock:
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +	return ret;
+> +}
+> +
+> +static void xburst_init_secondary(void)
+> +{
+> +	clear_c0_status(ST0_IM);
+> +	irq_disable_hazard();
+> +}
+> +
+> +static void xburst_smp_finish(void)
+> +{
+> +	unsigned int cpu =3D cpu_logical_map(smp_processor_id());
+> +	u32 reim;
+> +
+> +	raw_spin_lock(&smp_lock);
+> +	reim =3D read_c0_reim();
+> +	write_c0_reim(reim | REIM_MBOXIRQ(cpu));
+> +	raw_spin_unlock(&smp_lock);
+> +
+> +	change_c0_status(ST0_IM, STATUSF_IP3 | STATUSF_IP2 |
+> +			 STATUSF_IP1 | STATUSF_IP0);
+> +	irq_enable_hazard();
+> +	local_irq_enable();
+> +}
+> +
+> +static void xburst_send_ipi_locked(int cpu, unsigned int action)
+> +{
+> +	if (cpu_logical_map(cpu) =3D=3D 0)
+> +		write_c0_mailbox0(read_c0_mailbox0() | action);
+> +	else
+> +		write_c0_mailbox1(read_c0_mailbox1() | action);
+> +	back_to_back_c0_hazard();
+> +}
+> +
+> +static void xburst_send_ipi_single(int cpu, unsigned int action)
+> +{
+> +	unsigned long flags;
+> +
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	xburst_send_ipi_locked(cpu, action);
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +}
+> +
+> +static void xburst_send_ipi_mask(const struct cpumask *mask, unsigned in=
+t
+> action)
+> +{
+> +	unsigned long flags;
+> +	int cpu;
+> +
+> +	raw_spin_lock_irqsave(&smp_lock, flags);
+> +	for_each_cpu(cpu, mask)
+> +		xburst_send_ipi_locked(cpu, action);
+> +	raw_spin_unlock_irqrestore(&smp_lock, flags);
+> +}
+> +
+> +static const struct plat_smp_ops xburst_smp_ops =3D {
+> +	.send_ipi_single =3D xburst_send_ipi_single,
+> +	.send_ipi_mask =3D xburst_send_ipi_mask,
+> +	.init_secondary =3D xburst_init_secondary,
+> +	.smp_finish =3D xburst_smp_finish,
+> +	.boot_secondary =3D xburst_boot_secondary,
+> +	.smp_setup =3D xburst_smp_setup,
+> +	.prepare_cpus =3D xburst_prepare_cpus,
+> +};
+> +
+> +int __init register_ingenic_smp_ops(void)
+> +{
+> +	if (!of_machine_is_compatible("ingenic,jz4780"))
+> +		return -ENODEV;
+> +
+> +	register_smp_ops(&xburst_smp_ops);
+> +	return 0;
+> +}
+> diff --git a/arch/mips/kernel/idle.c b/arch/mips/kernel/idle.c
+> index 80e8a04a642e..46526997a4c6 100644
+> --- a/arch/mips/kernel/idle.c
+> +++ b/arch/mips/kernel/idle.c
+> @@ -18,6 +18,7 @@
+> =C2=A0#include <asm/cpu-type.h>
+> =C2=A0#include <asm/idle.h>
+> =C2=A0#include <asm/mipsregs.h>
+> +#include <asm/r4kcache.h>
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * Not all of the MIPS CPUs have the "wait" instruction available. =
+Moreover,
+> @@ -71,6 +72,23 @@ static void __cpuidle rm7k_wait_irqoff(void)
+> =C2=A0		"	.set	pop					\n");
+> =C2=A0}
+> =C2=A0
+> +/* XBurst gates its private cache clock in WAIT; write back dirty data f=
+irst.
+> */
+> +static void __cpuidle xburst_wait_irqoff(void)
+> +{
+> +	unsigned long pending =3D read_c0_cause() & read_c0_status() &
+> CAUSEF_IP;
+> +
+> +	if (!need_resched() && !pending) {
+> +		r4k_blast_dcache();
+> +		__asm__ __volatile__(
+> +			".set push\n"
+> +			".set mips3\n"
+> +			"sync\n"
+> +			"wait\n"
+> +			".set pop\n"
+> +			: : : "memory");
+> +	}
+> +}
+> +
+> =C2=A0/*
+> =C2=A0 * Au1 'wait' is only useful when the 32kHz counter is used as time=
+r,
+> =C2=A0 * since coreclock (and the cp0 counter) stops upon executing it. O=
+nly an
+> @@ -156,10 +174,16 @@ void __init check_wait(void)
+> =C2=A0	case CPU_CAVIUM_OCTEON_PLUS:
+> =C2=A0	case CPU_CAVIUM_OCTEON2:
+> =C2=A0	case CPU_CAVIUM_OCTEON3:
+> -	case CPU_XBURST:
+> =C2=A0	case CPU_LOONGSON32:
+> =C2=A0		cpu_wait =3D r4k_wait;
+> =C2=A0		break;
+> +	case CPU_XBURST:
+> +		if (IS_ENABLED(CONFIG_MACH_JZ4780) &&
+> +		=C2=A0=C2=A0=C2=A0 IS_ENABLED(CONFIG_SMP))
+> +			cpu_wait =3D xburst_wait_irqoff;
+> +		else
+> +			cpu_wait =3D r4k_wait;
+> +		break;
+> =C2=A0	case CPU_LOONGSON64:
+> =C2=A0		if ((c->processor_id & (PRID_IMP_MASK | PRID_REV_MASK)) >=3D
+> =C2=A0				(PRID_IMP_LOONGSON_64C |
+> PRID_REV_LOONGSON3A_R2_0) ||
