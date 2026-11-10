@@ -1,63 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318572;
-	b=W6zEpbV1kJjH8+2YyBc3YPFoXWHPhnA/B9DhNDr98q0JOJSBWlE6PUdqqqMyqFKQpCEV
-	 tP02pV5VRaZCoyRWg9/Jy3vxSad8Nv8HRC+dENavnx4iX+ptKhx0wGo+DJ+AtRsywvY7y
-	 OtGaTAXe2k/F+hgdHrvl5X3dF7k48yB2tM+qTAjL3ZbSJq5fulZlea9IWH5drYWRZLVu1
-	 hZjvWv9u8cm38G+tbF3L8ii9q+ND77ZX5E2tNEHo6qfzsGpl5uag6FgG9HuvFQ7B7vBLv
-	 JXEBbZE2aeb46pdHZeq12JfKb2nPCSi3BfiAH9FMLU3B6rZZ7uLrvVRnAKV96cnCRNQ==
+	t=1794318583;
+	b=5P+crmYWOxRPUPj9OtytVw0izvdlAxOUDVOJmq/49s9aWAZTEdUyFjMABQi1pZ5uaxcB
+	 PRv3RSXeQNCY3ITCcIc+Yu+NwnAKqfUxmIB3jbS0C2xCnktdvjaabIntVFkqBL0q/G9MV
+	 Vj/VkjNrSZ5WpSyI4cOGVg0Xe2rrMuuZc8ZSvM/rq0yk6ykiyTdp1SmpN8EAauyCMeWvc
+	 uz/JP8hG+57jAmsjwguQN47rvMIPBcnMTHG5FKRYxOUr9DIF9HhvnCOnRw5MOxNi19dRV
+	 bCkDm48dfqMRryUDhhmbKyu8aejRIejMMUVt52JiaBgCQ3T4/Ekx/ZHvBdJ+A28IVbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318572;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=Rte+nFjJfCpN04ZQkjjif+xK/XpIBzJx/BQcSctTM9k=;
-	b=UVN1yp1SLkAMdnNxDfe++6CThSd1J32HPP/n3DwjDD2hy/jKz08V7pH+DHbWtblBKVvC
-	 w+Q5ofxpuUC9CgTFLdq2dMv9qWm13Z5QeoiuQwLYiHMbebQEIV/NxOcpjUIq0cCVZ37UQ
-	 /5GTzpjsiTL3PNuEqnFTti9rPPU9oJeD7Xy+semZclP2OpAtIoy2/wST8ogbpxxVu6RFG
-	 sXhKcFOdbswF9rBNyIf17OnNoaDa1czlkWz33RFmeSSBL1huxnCHLby5mXY8e5YhRBk7b
-	 kCSCXJOUWlqBMuaV+1lAnuqac/ZeDdv4iwowYfolmC35bxqFLDsOQKBuzMejhtspdbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318583;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kM24Iv0O8Q0JTUrX0qb/LBnPU6JMQXqIqVQiqBU/VrA=;
+	b=KF5z2/T4Z2m/Q6rppjV2Nym/QzJNFf3MQrcwsLY2Q4wG4T4ENWnHdE3d/IGVo+lrBB8a
+	 1v4KcJuS2X3GgbYdatClnBYbcVjn+k2f7R2Ok2VTJcF8OUTI8vFr7oDZkjavsdtkviwKr
+	 TVrqCk/xm7LpGl3U0tdzu1nnHD0yl8OR6LFxfj3SB1w8e3rIWS+J5McXnmrrhDG8QDzuX
+	 jrxz+WnXIeCY3Qt40s9vxCEBuQCXQ0FWicwsufgZhKIx0YQ4/WYdQxe/KJxiBnr8f6PEo
+	 5Dse1dVQE9lpTybRB0n/xiBLrAP93s0zu8GjXU1OezGScmh6INy5c6ORUGjVzkvLZxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M7r9xLlF;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D7AF606A31C;
-	Tue, 10 Nov 2026 13:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D7AF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGxENUEx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BAC606A31C;
+	Tue, 10 Nov 2026 13:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M7r9xLlF
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20F1C1477;
-	Tue, 10 Nov 2026 05:49:27 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 353973F632;
-	Tue, 10 Nov 2026 05:49:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794318570; bh=hYzeZBtVBVDXCHttXoGztstvHvPFY7lN52/cdyn0Zr8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M7r9xLlFeYK9RYXoymnR5xbY1504ntzT5LN8cIeeXIgXL7Xcq5lR7JwMvOMEIiJjM
-	 0NOQsrhoEejZso/105nnOcn9IBTS4yVgFxBKiIp0L+ABb8dyCAf6tpi+NzaNtCOxbX
-	 ovxXTmqBujnIKaBPS7kGPeKc09iRcAGySN6wXaaw=
-Date: Tue, 10 Nov 2026 13:49:25 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
-	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
- requests
-Message-ID: <avMg5XmU8uSzPR4s@pluto>
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGxENUEx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB781F0089F;
+	Tue, 10 Nov 2026 13:49:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794318582;
+	bh=kM24Iv0O8Q0JTUrX0qb/LBnPU6JMQXqIqVQiqBU/VrA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FGxENUExDJd15vnxkEJJOX9RFzx/yli0npWPMJNIfD+TXZS4mzFWYW4UssjxQKAgY
+	 LUG1BRfLBAofJn0SGbwyr82mb4BNIsIvViWofIDjZYpFoDYFAp3ylSj1DL4Wq3Lfvm
+	 jZSEk1Awn0SiCbl8jpkJA6VrVXxao31yIx4xDQ7ZwSt39p7uzjJGqN5Stv6XN+p1Wz
+	 cthl7ukNH7qWaWL4FgcSl98mNRadY7vNiWB9t95FrklFFvnJi9u6VJxy+BzuyjshEY
+	 Qd+sBN26cD200bgigwgEqeR3qGjnBTJO6Kq7sgujvelh5LAqaizjRMTlr/mG27bFPG
+	 QMxhq0ls4jdag==
+Date: Tue, 10 Nov 2026 14:49:40 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, kernel-team@meta.com, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
+ memcg_alloc_abort_single()
+Message-ID: <avMeJWO5OF4GBe9r@thinkstation>
+References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
+ <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
+ <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com>
+ <auo5G__ac1qA9JRs@thinkstation>
+ <DMLVUTB5J1RJ.2QKOUW6UB04ZM@gmail.com>
+ <6441429b-eff2-485b-acf3-26c3034910ae@kernel.org>
+ <DMMKUQVDEM0N.322USN1ZSYMCU@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,79 +70,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
+In-Reply-To: <DMMKUQVDEM0N.322USN1ZSYMCU@gmail.com>
 
-On Fri, Oct 30, 2026 at 04:58:42PM +0100, Clément Le Goffic wrote:
-> On a GPIO request, select the GPIO function of the pin, on the pin for a
-> pin-only function or on its single-pin group. Without a GPIO function the
-> mux is left as it is.
+On Wed, Nov 04, 2026 at 04:46:26PM +0000, Alexei Starovoitov wrote:
+> On Wed, Nov 04, 2026 at 07:35 AM Vlastimil Babka (SUSE) <vbabka@kernel.org> wrote:
+> >> I don't insist on kfree_nolock() there,
+> >> but can we try free_to_pcs() before defer_free() ?
+> >> Like:
+> >>
+> >> 	if (likely(allow_spin))
+> >> 		__slab_free(s, slab, object, object, 1, _RET_IP_);
+> >> 	else if (!can_free_to_pcs(slab) || !free_to_pcs(s, object, false))
+> >> 		defer_free(s, object);
+> >
+> > Why not try free_to_pcs with allow_spin as well then, and improve
+> > memcg_alloc_abort_single() for both contexts?
 > 
-> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
-> ---
->  drivers/pinctrl/pinctrl-scmi.c | 64 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 64 insertions(+)
+> yep. Even better.
+> The bulk side does that already.
+> Like:
 > 
-> diff --git a/drivers/pinctrl/pinctrl-scmi.c b/drivers/pinctrl/pinctrl-scmi.c
-> index 6f44e8c0fee6..ba649304638e 100644
-> --- a/drivers/pinctrl/pinctrl-scmi.c
-> +++ b/drivers/pinctrl/pinctrl-scmi.c
-> @@ -74,6 +74,69 @@ static int pinctrl_scmi_free(struct pinctrl_dev *pctldev, unsigned int offset)
->  	return pinctrl_ops->pin_free(pmx->ph, offset);
->  }
->  
-> +static int pinctrl_scmi_gpio_mux_set(struct scmi_pinctrl *pmx, unsigned int pin)
-> +{
-> +	const unsigned int *elems, *pins;
-> +	unsigned int nr_elems, nr_pins, i;
-> +	bool pin_only, gpio;
-> +	int nr_functions, func, ret;
+> 	if (likely(can_free_to_pcs(slab)) &&
+> 	    likely(free_to_pcs(s, object, allow_spin)))
+> 		return;
+> 
+> 	if (likely(allow_spin))
+> 		__slab_free(s, slab, object, object, 1, _RET_IP_);
+> 	else
+> 		defer_free(s, object);
+> ?
 
-Beside nr_functions, cannot all of these variable definitions be moved
-inside the scope in which they are exclusively used, i.e. down inside
-the for-loop ?
+Will adjust in v3 (hopefully by end of this week!)
+Thanks.
 
-> +
-> +	nr_functions = pinctrl_ops->count_get(pmx->ph, FUNCTION_TYPE);
-> +	for (func = 0; func < nr_functions; func++) {
-> +		ret = pinctrl_ops->function_flags_get(pmx->ph, func, &pin_only,
-> +						      &gpio);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (!gpio)
-> +			continue;
-> +
-> +		ret = pinctrl_ops->function_groups_get(pmx->ph, func, &nr_elems,
-> +						       &elems);
-> +		if (ret)
-> +			return ret;
-> +
-> +		for (i = 0; i < nr_elems; i++) {
-> +			if (pin_only) {
-> +				if (elems[i] != pin)
-> +					continue;
-> +
-> +				return pinctrl_ops->pin_mux_set(pmx->ph, func,
-> +								pin);
-> +			}
-> +
-> +			ret = pinctrl_ops->group_pins_get(pmx->ph, elems[i],
-> +							  &pins, &nr_pins);
-> +			if (ret)
-> +				return ret;
-> +
-> +			if (nr_pins == 1 && pins[0] == pin)
-> +				return pinctrl_ops->mux_set(pmx->ph, func,
-> +							    elems[i]);
-> +		}
-
-So it is a possibility that in the above loops nothing is set..and it is
-fine should AFAIU...but should we log/debug something in both cases to ease
-troubleshooting ? (maybe just a stupid question ...)
-
-Thanks,
-Cristian
-
+-- 
+Cheers,
+Harry / Hyeonggon
