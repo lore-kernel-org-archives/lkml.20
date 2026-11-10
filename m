@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794325750;
-	b=1JVkMN7Sjw3TFzLNDykDC0Zh3D1Q0eQnACHsjT6BqkePpOV/yKJ/8ojp+3WAylv9ATmk
-	 Xq9lqBnzzoF6fcsPfa1XcLtM0fWAAvtWrcOxRWAzvJtJwNZCJdIfXxn6ifNWbFOENmtSK
-	 nL3qPSU+rtKLcn13KsLPN2dRLCbXwEEp9zrs54hRFNTpMnPu93ZXzYioFD5k45o9KHExD
-	 dU5ltVubNDrfoMcPMt30Y/j87DGw2fFINQIo63hUHmclkWaIVYZht0LPvtxEcaHqf1gKd
-	 aa3Uk/LJGcM6d/1DtfLj0Z7Mvco4Kw4hTeKnDUlCe5vEXS1Eazcvf2amc+xvc2Fk9zQ==
+	t=1794325780;
+	b=TjaTKxG+jfGntyroSTy0KyF4az4DRIkCOTMqzZ6h85INBZL3fl/xe2GdovQWL2DWDMa/
+	 u655qMyH6YUTWwxBzOaOMs5TnPM9/6Otf9YR4+1udwoJigv0a4VuToQhIIs4a0EFN9NWt
+	 5pvt/kGRrzOePPJd/HT7RqUlttklBYaXO5MFz+hpGOTZEkTlFEnBhqiFWrNFKy7N7rQJU
+	 S72dvLjL+pmRREqV+7+I9yGFpcELZvGEgnZMRPiofzbGjkQ5a1EXnUh8FbRP3Sf5FsMB/
+	 4YMJzf3i6WGOIiiZAzWUH0qQGatfptvn0Y0XuhRC9selP+dm3sLHQJfcXcuBDD1Z88g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325750;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=O0eC4rWkwQyxRpvZ+gxpKM65EEQ6WNp12A82hhKA6Xk=;
-	b=pwrniP9YWX/wADDOnYi0oTe0amSbs7oYgMr9yIs5Q7WwcbB1bVYylb61WOuyzBtcE/F1
-	 RxLlJqUMX7eEtjQzr1ozli2xXJql512S0BqKvn1O+mh8V583qbPpT7Lsm1DCbQ+R9O5Aa
-	 +3kvpreegdaT/FMFeQQHKjcbk5Y+a06hlZOlzgR/aOjBpKcCuO2/wyYZ4cimdsIB3Nv1J
-	 0F+cKtVJQxzp13GeiuewW4b844iEpLdYGflZ3iXe7AbxyX5gVJldLotCM3WtvCExsWGSB
-	 +oPSmy54f2PRvDY9zLeM1dPAwFXMRiGetmBAH5JtDebS6M1GSEjttDHWgW5AJbISjXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325780;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=RMoOmz54uXAGmyKpCDNKToNL+SRGzDUucQwa71Z0R60=;
+	b=N949K6yVdZBJaiOlTdmkYIezwWpJ1zzOgvNU/XsxQ9quFjrEn4zdRkUgonEY3S18wkft
+	 Xtoy3gK05mCBAlcIpky5jcSmHp8OfTX/DwRXUdSxJkoHgJa6qAEU+K8CHgTpV1Aiwej4A
+	 vC1sf2oIOHUU9LTXI7eOPStL/XdDp+XZSAa+ipEKp+CsDkdk3+yEiIceLl4YG/GMhpQc3
+	 lCGRgm5CQYlWrL7zUl/3U0MUrYiuo7gMurTPGK0LVX3692WV8Z31LHs2f0KpBuF7INXE/
+	 7IPIKnPYjGqZZNIVitQTUAROshe12BcJ09lxl0+raTMYNsOWaJV2pY5lDgyB/2Rawqw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=bjKubzqy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bWzK2/sQ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CCE606A320;
-	Tue, 10 Nov 2026 15:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24CCE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A27606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A27606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=bjKubzqy
-ARC-Seal: i=1; a=rsa-sha256; t=1794325679; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LH1rqygKcrxGg+M/8tMK0NyAaNTW0NZ1unHWjugfitaSWOU2r9U9OijhU0MfKDKdcZlqi5kv5WqXFYavInULWnuHfuFlhNJvRPz1eV46/OuIq7bvbFdagBxz5wuRk7kPryywmra0HhoZ1khXBhzxJ6V3NG0XDZrTOpKwmHICAWA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794325679; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=O0eC4rWkwQyxRpvZ+gxpKM65EEQ6WNp12A82hhKA6Xk=; 
-	b=mavXhHUWX0heo2CTZTLWHxk5hMGz0Em8KDMUviFI6h+cw7dx93e0qbCbZcV2P3x3dTdmRzMngTKxgor03lb0U0jur7z7iEd2D6gmsYG3EPfFnkA6if8BNz4foczHVl8SZOMw2Xqw0i86Uch760X1eu65fkIP2On5MnN+cKBUlaw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=bjKubzqyIb5Jkczly5S4G5+GcyTij7JkLQTqwzk38MMAA9SG+P0WyTe4FTp+S+MambpbKaonTvqz1p4qjLax5HxGlTEDcHNhm6sb0DIqPsq0J3ncboGXy4XFK2hsk/UdsK6auzT0kTP/5oYZHxn0SOuUTaaUZFyZ7Jfo1J1ckkAayNAHJ1jGvLhN9R735dEF5EzjpFJ96pcM8JqUyPSQ6LoAJnScKi5fz9V4r393GrvqUTwfOdE1ML9Y9iTNFftZieqHLIGFOinrYI4vzGmHRrNL7JTZDp26PxtpXZmA+7mVbJZVc4BFYEcUa1iEKBiYhdemLXBmH0CHJFx4FzLOuw==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=O0eC4rWkwQyxRpvZ+gxpKM65EEQ6WNp12A82hhKA6Xk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794325678924481.15764810058;
-	Tue, 10 Nov 2026 07:47:58 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Tue, 10 Nov 2026 23:47:04 +0800
-Subject: [PATCH v8 3/3] platform/x86: ideapad-laptop: Fully support auto
- keyboard backlight
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bWzK2/sQ
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-679aeeddc6bso2727029d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:49:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794325779; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K1Z6Zqx2YuNl0+IMGJPK+q/plV1//zflFONZHVsxmw888V6TaKjxBN4JviUjZCo/Gn
+         CcQt+O6ONoAjoZEZDDT3aY4nB58BngYYtAf1PEh1I9o/Ngx1kbBuAlpRfE26ejhW6Wpl
+         FHbnWkaFSh2iG6rSZdP7Efhv3Pnvc1gZtcC4b7xJCRJxZVcXjPTApRxVeRVjy/dPRrY8
+         Vjre/Qm2v8K+vMmFKhgzFsoUDX7b/eY2TN5mBpIg4e1zR4s4HZZdWaUDntGS0HroHNRQ
+         2qPELLwzqT2Xx6gX1E3bKp5aoKUBNUgz7YanDAAUDOP1vvoQg5dYYSqcKesc7X6wVO9n
+         pRZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RMoOmz54uXAGmyKpCDNKToNL+SRGzDUucQwa71Z0R60=;
+        fh=pH4HoH2buVlOO2fCq335MRi8FR/3P3kLiNcXoWJ/rXk=;
+        b=EnRAarDdsiIBgyRdg4jiU583X0gZhDqvoxxuowSrzPEa9V7Ul8uoAM62LWxnXL6BmS
+         Ro6QIh++XH58ldYql+fffK7hupQgZslPkWNOA2RqI2WpvHnZhrWlBuzMJ2/Xx2EKANgj
+         93Y6Y+cOTnSzj2JmSKTj8qp0M3tRfqPbUu+YAHvTE1IdMeKAsod5ggDxXQ1bUwg4oZ8l
+         xXX/2cKOaI3U7bvqW5mTgurtkPbQClzfiBl67joiMB10leNfQTbn/VTZTgcTxRkyYg7m
+         1FarRWhkSz1h/cyC92whVLWmZ+l6AfcmTuRHi7SWQU9yD9a8HfPnUvQtiGXp1/8UQxu2
+         bJ8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794325779; x=1794930579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RMoOmz54uXAGmyKpCDNKToNL+SRGzDUucQwa71Z0R60=;
+        b=bWzK2/sQEDtCYWHOl8Ae0eyphQHxS38vyv/7LY/5OQlj6JICKNoF18QMvRqe2FxnJO
+         ssRjNDKUwiBOV3+HCm8X+a9bk7YCWDm4+BKoVoYhZeR/AD/tjStl7mq4HsKMHHnBxowm
+         Qf0/eoyR7f5vYJk8UcmB8f65ylAstumeVlFHFxWQsrurVSOpOp9UZ1b5TiQRzbubt/pw
+         Cmn00CjA9UbjxtAOoUQPNoGi4EXTLJLY+80n+fb9rqX20JWJwnx7eo0uo/+A6OYCRHtl
+         ZlUdi/Z+fr9k9sGb0iTeVCKca3WfKmTFy1Jsf4rC+pVf5jJoZm4uNfzozNUC1sZpGbL8
+         12Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794325779; x=1794930579;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RMoOmz54uXAGmyKpCDNKToNL+SRGzDUucQwa71Z0R60=;
+        b=xYgBDd0kYgqgSy9g7Q1EU00s4MAJDgbR6xchMo9Ft4ka1a5XwzVZnNzKZrPHQo8J4R
+         6ylteVjJTp14BbhzypBhFK1ycjOU4NZMmRxzxcUT2K5TCpCCCwP1m07ALJ6k7T9lkgDW
+         rS4BaZmMZfMXctHhEZKGcRj0c6EKjXtECSikpS3nKA5zlFNBwgRUvpDzR1HvO8nISZSe
+         MP9fz7i3ww/z+IVoxTnihRK1xtDnXY4Od+EfXrmjrdMmHmpFxpAwGQapf1blLBjdq3N/
+         1oxFNVdLEFETZhMv5jCE1Q5EtVwbhsuBiQ6+z9LUCua8RG+AcGIdaCObJ7dBiSnwMzS5
+         s0vg==
+X-Forwarded-Encrypted: i=1; AL+hErEfxtIBd+BYf4/ZCxHyxAImL0aCo2wGFID8GlQV/G+g9c/7qmPkyBLtH3zalzHxYBiCnpYZXUcKvWmiy4k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+L2h0nez9cLbPj7AdkzCIlcRWgHZ7Lj/YOzvzT9lStxCFSYskp
+	EWgY54GfAgN7LbRu5gTn76yt8nb/LBJOrRw54oeW6s3hsas+jxhb+DMU0Ov+bplJqONpKu/72Bc
+	geZj8VST1JFvEhTx1BFxNvxYMERas5FA=
+X-Gm-Gg: AYBFou1R9pKQdA3PCtqM9n/D/xMItLvhDrrqwRHH/b6dOyYYp0XUdgJ+6M8Y+mjXoTh
+	Iva6Fg7TunBP/eL4JzRwjsiZ0dQOmLsnPMQRwLe2ocjEgBQAIjdensy2Dq+/nMUO1z4qZg4Ocvs
+	hZgEZpFiUv22ZSy30THtOnw7A3ehA7OpTzC5x2s/jyxtoy4xtkfgr2or4qBuA2Yu4COFkoK3KtG
+	/1xDB7olenwmx9rVmpNGMfV+D3ynFnjum3yZAObiPLd2wiyJHIwmCklUdIm7Y3V7ebTkfVKGjD0
+	Bns+gB7yzi9Z4BcOaO5a9/Fqv9UU3u6YPgn6i+DYo5zgsgZsZjsIE9kXfbuCDLpsEejHGtig1qA
+	WtnRwKoc1TG3MUMyFW9bn9ePrKKQXJaGuJzegk3Qi2nKjg8VbcMa6eY2O71w365yd1/DxJvw=
+X-Received: by 2002:a05:690e:458a:10b0:676:9193:eff5 with SMTP id
+ 956f58d0204a3-67c5687bd84mr1066452d50.105.1794325779240; Tue, 10 Nov 2026
+ 07:49:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,302 +104,476 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261110-leds-trigger-hw-changed-v8-3-2717115d612c@rong.moe>
-References: <20261110-leds-trigger-hw-changed-v8-0-2717115d612c@rong.moe>
-In-Reply-To: <20261110-leds-trigger-hw-changed-v8-0-2717115d612c@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar <vsankar@lenovo.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ike Panhc <ikepanhc@gmail.com>, Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
+References: <20261026112843.69795-1-hjf3108@gmail.com> <1b25256b-5fb5-4b4a-bc05-7a2bfc309128@suse.de>
+In-Reply-To: <1b25256b-5fb5-4b4a-bc05-7a2bfc309128@suse.de>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Tue, 10 Nov 2026 23:49:01 +0800
+X-Gm-Features: AclHuK99KoaO0amqZ99e4i_PatGBNT7EbBDEpqRGGN2fwYSF_nWtWNy0RPwgtrY
+Message-ID: <CABOQOSWGUmaR2wSso37rYgg0QoJL3K1qoDPqsp8OzOk_ifpgCw@mail.gmail.com>
+Subject: Re: [PATCH v5] drm/tiny: trigger5: Add MCT Trigger 5 USB display driver
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, cyrozap@gmail.com, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently, the auto brightness mode of keyboard backlight maps to
-brightness=0 in LED classdev. The only method to switch to such a mode
-is by pressing the manufacturer-defined shortcut (Fn+Space). However, 0
-is a multiplexed brightness value; writing 0 simply results in the
-backlight being turned off.
+On Tue, 10 Nov 2026 at 22:23, Thomas Zimmermann <tzimmermann@suse.de> wrote=
+:
+>
+> Hi,
+>
+> sorry for letting you wait for so long. You'll find a review below.
+Thanks for the review! Since this driver shares many similarities
+with the ms91xx driver I am submitting too, I will be making
+the changes in that driver too.
 
-With brightness processing code decoupled from LED classdev, we can now
-fully support the auto brightness mode. In this mode, the keyboard
-backlight is controlled by the EC according to the ambient light sensor
-(ALS).
+> The driver looks quite good already. Details below.  To give one advice,
+> I'd recommend to do away with the complicated transfer-worker logic and
+> simply send everything as part of the plane update, if possible.
+More details about this below.
 
-To utilize this, a private hardware control trigger "ideapad-auto" is
-added, with the event handling procedure calling the
-led_trigger_notify_hw_control_changed() interface to activate/deactivate
-the private trigger according to the current LED trigger state. To align
-with LEDS_BRIGHTNESS_HW_CHANGED, the driver neither depends on
-LEDS_TRIGGERS_HW_CHANGED nor selects it.
+> Am 26.10.26 um 12:28 schrieb Ho Jie Feng:
+> > Add a DRM driver for MCT Trigger 5 USB display adapters.
+> > This supports USB 3 to HDMI/VGA displays adapters with
+> > trigger5 chipsets from j5create, StarTech and various others.
+> >
+> > The driver implements modesetting and USB framebuffer updates,
+> > connector detection, and EDID retrieval.
+> >
+> > The protocol is based on reverse-engineering work by Forest Crossman
+> > (cyrozap) at: https://github.com/cyrozap/mct-usb-display-adapter-re
+> > and usb packet captures between the Windows driver and the device.
+> >
+> > Only the HDMI path has been tested. VGA selection is inferred from the
+> > absence of USB audio interfaces.
+> >
+> > Tested on JUA355. The list of USB device IDs are taken from the
+> > Windows driver INF.
+> >
+> > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> > ---
+> > Changes in v5:
+> > - Fix warnings found by kernel test robot
+> >
+> > Changes in v4:
+> > - Move the driver to drm/tiny
+> > - Remove the buffer resizing to reduce size of file
+> >
+> > Changes in v3:
+> > - Flush the vmalloc buffer before submitting the USB transfer.
+> > - Support display panning by using the source offset
+> >
+> > Changes in v2:
+> > - Move the buffer resizing to crtc_* functions so that we can report
+> >    out of memory errors to userspace
+> > - Change the PLL search function so that it is faster and doesn't
+> >    produce checkpatch warnings
+> > - Update drm functions: crtc reset becomes create_state
+> > - Fix warnings reported by kernel test robot
+> >
+> > sashiko review false positives in v1-4:
+> > - atomic in these function names mean that the changes should go throug=
+h
+> >    through at once or not at all, nothing to do with atomic context.
+> >    Furthermore other drivers also have similar patterns
+>
+> Exactly. Somehow Sashiko doesn't get this. It thinks atomic means
+> "atomic context".
+It's the old sashiko using the older gemini 3.5 model, the newer one
+using gemimi-4-argon
+doesn't seem to make the same mistake, so that's great.
 
-Meanwhile, block brightness changes on exit to prevent the side effect
-of LED device unregistration when the private trigger is active from
-resetting the brightness to zero, so that the state of auto mode can
-retain among boots.
+> > - drm_gem_fb_begin_cpu_access is also required
+> >
+> >   MAINTAINERS                     |    7 +
+> >   drivers/gpu/drm/tiny/Kconfig    |   14 +
+> >   drivers/gpu/drm/tiny/Makefile   |    1 +
+> >   drivers/gpu/drm/tiny/trigger5.c | 1115 ++++++++++++++++++++++++++++++=
++
+> >   4 files changed, 1137 insertions(+)
+> >   create mode 100644 drivers/gpu/drm/tiny/trigger5.c
+> > ...
+> > +struct trigger5_device {
+> > +     struct drm_device drm;
+> > +     struct usb_interface *intf;
+> > +     unsigned int bulk_pipe;
+> > +
+> > +     struct drm_connector connector;
+> > +     struct drm_plane plane;
+> > +     struct drm_crtc crtc;
+> > +     struct drm_encoder encoder;
+> > +
+> > +     u16 frame_counter;
+> > +
+> > +     int current_transfer;
+> > +     struct drm_rect pending_rect;
+> > +     struct workqueue_struct *transfer_wq;
+>
+> Do you really need your own queue?
+>
+> I'd recommend to push work on one of the system work queues.
+Most of the time in the usb transfer is spent on waiting, I didn't feel lik=
+e
+blocking a system work queue on a mostly waiting task. Also, the failure pa=
+th
+can wait up to 5s, so I want the failure impact to be small on the rest
+of the system.
 
-Acked-by: Ike Panhc <ikepanhc@gmail.com>
-Signed-off-by: Rong Zhang <i@rong.moe>
----
-Changes in v7:
-- Rename the offloaded() callback to hw_offloaded() (thanks Lee Jones)
+> > +     bool display_enabled;
+>
+> This field only seems to control the dependency between transfer and
+> keepalive.
+It signals the keepalive worker to stop immediately if display is not enabl=
+ed.
+The keepalive is only launched with queue_delayed_work after a transfer.
 
-Changes in v6:
-- Simplify the auto mode state preservation logic by converting
-  `priv->kbd_bl.initialized' into a tristate integer
+> > ...
+> > +#define to_trigger5(x) container_of(x, struct trigger5_device, drm)
+>
+> container_of_const() is nowadays the preferred macro.
+> > ...
+> > +     drm_dbg_kms(&trigger5->drm,
+>
+> Drivers should use drm_dbg()
+>
+> > ...
+> > +     drm_err(&trigger5->drm, "failed to configure display mode: %d\n",=
+ ret);
+>
+> No error messages in the display-update code paths please.  Maybe use
+> drm_err_once().  Otherwise you might spam the kernel logs with endless
+> error messages or give malicious user space a way to do that. Here and
+> in other functions.
+>
+>
+> > +     new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
+>
+> The pointer crtc can be NULL!  Then you cannot use it here. The pattern
+> for this code is
+>
+>    new_crtc_state =3D NULL;
+>
+>    if (crtc)
+>      new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc)
+>
+> The call to _check_plane_state() will then work correctly and make the
+> plane as !visible.
+The above changes will be made in v6 (and the ms91xx patch)
 
-Changes in v4:
-- Add missing #include (Thanks Ilpo Järvinen)
-- Remove needless code alignment (ditto)
-- Address concerns from Sashiko
-  - Do not notify the LED trigger core when the registration of the
-    private trigger has failed
-  - https://sashiko.dev/#/patchset/20260719-leds-trigger-hw-changed-v3-0-5fb55722e36e@rong.moe?part=11
+> > +static void trigger5_plane_atomic_update(struct drm_plane *plane,
+> > +                                      struct drm_atomic_commit *atomic=
+_state)
+> > +{
+> > +     struct drm_plane_state *old_state =3D
+> > +             drm_atomic_get_old_plane_state(atomic_state, plane);
+> > +     struct drm_plane_state *state =3D
+> > +             drm_atomic_get_new_plane_state(atomic_state, plane);
+> > +     struct drm_shadow_plane_state *shadow_plane_state =3D
+> > +             to_drm_shadow_plane_state(state);
+> > +     struct trigger5_device *trigger5 =3D to_trigger5(plane->dev);
+> > +     struct trigger5_transfer *current_transfer, *previous_transfer;
+> > +     struct trigger5_bulk_header *header;
+> > +     struct drm_rect current_rect, src_rect;
+> > +     struct iosys_map data_map;
+> > +     size_t frame_len, payload_len;
+> > +     int width, height;
+> > +     int idx, ret;
+> > +
+> > +     if (!drm_atomic_helper_damage_merged(old_state, state, &current_r=
+ect))
+> > +             return;
+> > +
+> > +     if (!drm_dev_enter(plane->dev, &idx))
+> > +             return;
+> > +
+> > +     current_transfer =3D
+> > +             &trigger5->transfers[trigger5->current_transfer];
+> > +     previous_transfer =3D &trigger5->transfers[1 - trigger5->current_=
+transfer];
+> > +
+> > +     src_rect =3D drm_plane_state_src(state);
+> > +
+> > +     /* Match drm_atomic_helper_damage_iter_init() rounding. */
+> > +     src_rect.x1 >>=3D 16;
+> > +     src_rect.y1 >>=3D 16;
+> > +     src_rect.x2 =3D (src_rect.x2 >> 16) + !!(src_rect.x2 & 0xffff);
+> > +     src_rect.y2 =3D (src_rect.y2 >> 16) + !!(src_rect.y2 & 0xffff);
+> > +
+> > +     /* Latency reduction: requeue with the latest frame data. */
+> > +     if (cancel_work(&previous_transfer->transfer_work)) {
+> > +             complete(&previous_transfer->frame_complete);
+>
+> I would not recommend this logic.  For rapid successive updates, your
+> driver might end up canceling transfers and not sending any data for
+> extended periods.  Better take each frame on its own.
+The only small window when that could happen is that it might keep
+cancelling after the first frame finishing and before the next frame
+queued work item runs.
 
-Changes in v3:
-- Address concerns from Sashiko
-  - Fix a race condition in ideapad_kbd_bl_led_cdev_brightness_set()
-  - Fix trigger re-registration of ideapad_kbd_bl_auto_trigger
-  - https://sashiko.dev/#/patchset/20260618-leds-trigger-hw-changed-v2-0-c28c44053cf3%40rong.moe
-- Make registration failures of ideapad_kbd_bl_auto_trigger non-fatal
----
- drivers/platform/x86/lenovo/Kconfig          |   1 +
- drivers/platform/x86/lenovo/ideapad-laptop.c | 119 ++++++++++++++++++++++++---
- 2 files changed, 109 insertions(+), 11 deletions(-)
+It could be solved with triple-buffering, but the additional memory
+footprint might be worth considering.
+>
+> > +
+> > +             trigger5_merge_rect(&current_rect, &previous_transfer->tr=
+ansfer_rect);
+> > +
+> > +             current_transfer =3D previous_transfer;
+> > +             trigger5->current_transfer =3D !trigger5->current_transfe=
+r;
+> > +     }
+> > +
+> > +     /* Damage deferred by an earlier failed update. */
+> > +     trigger5_merge_rect(&current_rect, &trigger5->pending_rect);
+> > +     trigger5_clear_rect(&trigger5->pending_rect);
+> > +
+> > +     /* Clip merged damage to the new resolution. */
+> > +     if (!drm_rect_intersect(&current_rect, &src_rect))
+> > +             goto exit;
+> > +
+> > +     width =3D drm_rect_width(&current_rect);
+> > +     height =3D drm_rect_height(&current_rect);
+> > +     payload_len =3D array3_size(width, height, 3);
+> > +     frame_len =3D size_add(payload_len, sizeof(*header));
+> > +
+> > +     if (drm_WARN_ON_ONCE(plane->dev, frame_len > current_transfer->bu=
+f.len))
+> > +             goto exit;
+> > +
+> > +     /*
+> > +      * This should almost never wait because we have should have a
+> > +      * pending transfer ready to be de-queued above in case the trans=
+fer
+> > +      * hasn't finished, but do a bounded wait just in case it gets st=
+uck
+> > +      */
+> > +     if (!wait_for_completion_timeout(&current_transfer->frame_complet=
+e,
+> > +                                      msecs_to_jiffies(20)))
+> > +             goto exit_save_pending;
+> > +
+> > +     current_transfer->transfer_rect =3D current_rect;
+> > +
+> > +     current_transfer->frame_len =3D frame_len;
+> > +     header =3D current_transfer->buf.data;
+> > +     header->magic =3D 0xfb;
+> > +     header->length =3D 0x14;
+> > +     /* flags 0: uncompressed 24-bit RGB888. */
+> > +     header->counter =3D
+> > +             cpu_to_le16((trigger5->frame_counter++) & 0xfff);
+> > +     header->horizontal_offset =3D cpu_to_le16(current_rect.x1 - src_r=
+ect.x1);
+> > +     header->vertical_offset =3D cpu_to_le16(current_rect.y1 - src_rec=
+t.y1);
+> > +     header->width =3D cpu_to_le16(width);
+> > +     header->height =3D cpu_to_le16(height);
+> > +     header->payload_length =3D cpu_to_le32((u32)payload_len);
+> > +     header->flags =3D 0x1;
+> > +     header->unknown1 =3D 0;
+> > +     header->unknown2 =3D 0;
+> > +     header->checksum =3D trigger5_bulk_header_checksum(header);
+> > +
+> > +     iosys_map_set_vaddr(&data_map,
+> > +                         current_transfer->buf.data + sizeof(*header))=
+;
+> > +
+> > +     ret =3D drm_gem_fb_begin_cpu_access(state->fb, DMA_FROM_DEVICE);
+> > +     if (ret < 0) {
+> > +             complete(&current_transfer->frame_complete);
+> > +             goto exit_save_pending;
+> > +     }
+> > +
+> > +     drm_fb_xrgb8888_to_rgb888(&data_map, NULL,
+> > +                               &shadow_plane_state->data[0],
+> > +                               state->fb, &current_rect,
+> > +                               &shadow_plane_state->fmtcnv_state);
+> > +
+> > +     drm_gem_fb_end_cpu_access(state->fb, DMA_FROM_DEVICE);
+> > +
+> > +     flush_kernel_vmap_range(current_transfer->buf.data, frame_len);
+> > +
+> > +     queue_work(trigger5->transfer_wq, &current_transfer->transfer_wor=
+k);
+> > +     trigger5->current_transfer =3D !trigger5->current_transfer;
+>
+> Why do you need a separate work item for the transfer. Can't you just
+> send from here?  We do this in udl.
+I want to make the send async, so drm_fb_xrgb8888_to_rgb888 can run
+in parallel with the usb transfer. This is done since drm_fb_*_to_*
+functions are slow when copying on write-combined memory due to
+dma-buf sharing between the main GPU and this device.
 
-diff --git a/drivers/platform/x86/lenovo/Kconfig b/drivers/platform/x86/lenovo/Kconfig
-index 516594993073..a97852b0b228 100644
---- a/drivers/platform/x86/lenovo/Kconfig
-+++ b/drivers/platform/x86/lenovo/Kconfig
-@@ -16,6 +16,7 @@ config IDEAPAD_LAPTOP
- 	select INPUT_SPARSEKMAP
- 	select NEW_LEDS
- 	select LEDS_CLASS
-+	select LEDS_TRIGGERS
- 	help
- 	  This is a driver for Lenovo IdeaPad netbooks contains drivers for
- 	  rfkill switch, hotkey, fan control and backlight control.
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index a9291d2d5c59..36b4a56a8495 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -15,6 +15,7 @@
- #include <linux/bug.h>
- #include <linux/cleanup.h>
- #include <linux/compiler.h>
-+#include <linux/container_of.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -32,6 +33,7 @@
- #include <linux/platform_device.h>
- #include <linux/platform_profile.h>
- #include <linux/power_supply.h>
-+#include <linux/printk.h>
- #include <linux/rfkill.h>
- #include <linux/seq_file.h>
- #include <linux/string_choices.h>
-@@ -226,7 +228,10 @@ struct ideapad_private {
- 		bool ymc_ec_trigger       : 1;
- 	} features;
- 	struct {
--		bool initialized;
-+		int initialized; /*  0: initializion pending/ongoing/failed
-+				  * >0: initializion finished
-+				  * <0: unregisteration ongoing/finished
-+				  */
- 		int type;
- 		struct led_classdev led;
- 		unsigned int last_hw_brightness;
-@@ -1736,14 +1741,68 @@ static int ideapad_kbd_bl_led_cdev_brightness_set(struct led_classdev *led_cdev,
- {
- 	struct ideapad_private *priv = container_of(led_cdev, struct ideapad_private, kbd_bl.led);
- 
-+	/*
-+	 * When unregistering: It must be the side effect of LED unregistration
-+	 * when our private trigger is active. We've set LED_RETAIN_AT_SHUTDOWN
-+	 * to retain led_cdev brightness level. To do the same for auto mode,
-+	 * gate changes and return early.
-+	 *
-+	 * It's needless to gate changes when initializing, as there may be a
-+	 * time margin between sysfs attribute creation and state change.
-+	 */
-+	if (unlikely(priv->kbd_bl.initialized < 0))
-+		return 0;
-+
- 	return ideapad_kbd_bl_brightness_set(priv, brightness);
- }
- 
-+static int ideapad_kbd_bl_auto_trigger_activate(struct led_classdev *led_cdev)
-+{
-+	struct ideapad_private *priv = container_of(led_cdev, struct ideapad_private, kbd_bl.led);
-+
-+	return ideapad_kbd_bl_hw_brightness_set(priv, KBD_BL_AUTO_MODE_HW_BRIGHTNESS);
-+}
-+
-+static bool ideapad_kbd_bl_auto_trigger_hw_offloaded(struct led_classdev *led_cdev)
-+{
-+	struct ideapad_private *priv = container_of(led_cdev, struct ideapad_private, kbd_bl.led);
-+
-+	guard(mutex)(&priv->kbd_bl.mutex);
-+
-+	return priv->kbd_bl.last_hw_brightness == KBD_BL_AUTO_MODE_HW_BRIGHTNESS;
-+}
-+
-+static struct led_hw_trigger_type ideapad_kbd_bl_auto_trigger_type;
-+
-+static struct led_trigger ideapad_kbd_bl_auto_trigger = {
-+	.name = "ideapad-auto",
-+	.trigger_type = &ideapad_kbd_bl_auto_trigger_type,
-+	.activate = ideapad_kbd_bl_auto_trigger_activate,
-+	.hw_offloaded = ideapad_kbd_bl_auto_trigger_hw_offloaded,
-+};
-+
-+static bool ideapad_kbd_bl_auto_trigger_registered;
-+
-+static void ideapad_kbd_bl_notify_hw_control(struct ideapad_private *priv,
-+					     unsigned int hw_brightness)
-+{
-+	bool hw_control, last_hw_control;
-+
-+	if (!ideapad_kbd_bl_auto_trigger_registered || priv->kbd_bl.type != KBD_BL_TRISTATE_AUTO)
-+		return;
-+
-+	hw_control = hw_brightness == KBD_BL_AUTO_MODE_HW_BRIGHTNESS;
-+	last_hw_control = priv->kbd_bl.last_hw_brightness == KBD_BL_AUTO_MODE_HW_BRIGHTNESS;
-+
-+	if (hw_control != last_hw_control)
-+		led_trigger_notify_hw_control_changed(&priv->kbd_bl.led, hw_control);
-+}
-+
- static void ideapad_kbd_bl_notify(struct ideapad_private *priv)
- {
- 	int hw_brightness, brightness;
- 
--	if (!priv->kbd_bl.initialized)
-+	if (unlikely(priv->kbd_bl.initialized <= 0))
- 		return;
- 
- 	guard(mutex)(&priv->kbd_bl.mutex);
-@@ -1759,6 +1818,8 @@ static void ideapad_kbd_bl_notify(struct ideapad_private *priv)
- 	if (priv->kbd_bl.last_hw_brightness == hw_brightness)
- 		return;
- 
-+	ideapad_kbd_bl_notify_hw_control(priv, hw_brightness);
-+
- 	priv->kbd_bl.last_hw_brightness = hw_brightness;
- 
- 	led_classdev_notify_brightness_hw_changed(&priv->kbd_bl.led, brightness);
-@@ -1771,9 +1832,11 @@ static int ideapad_kbd_bl_init(struct ideapad_private *priv)
- 	if (!priv->features.kbd_bl)
- 		return -ENODEV;
- 
--	if (WARN_ON(priv->kbd_bl.initialized))
-+	if (WARN_ON(priv->kbd_bl.initialized > 0))
- 		return -EEXIST;
- 
-+	priv->kbd_bl.initialized = 0;
-+
- 	err = devm_mutex_init(&priv->platform_device->dev, &priv->kbd_bl.mutex);
- 	if (err)
- 		return err;
-@@ -1791,6 +1854,24 @@ static int ideapad_kbd_bl_init(struct ideapad_private *priv)
- 
- 	switch (priv->kbd_bl.type) {
- 	case KBD_BL_TRISTATE_AUTO:
-+		priv->kbd_bl.led.max_brightness = 2;
-+
-+		if (!ideapad_kbd_bl_auto_trigger_registered) {
-+			dev_warn(&priv->platform_device->dev,
-+				 "Cannot provide LED trigger %s for keyboard backlight\n",
-+				 ideapad_kbd_bl_auto_trigger.name);
-+			break;
-+		}
-+
-+		priv->kbd_bl.led.flags |= LED_TRIG_HW_CHANGED;
-+		priv->kbd_bl.led.trigger_type = &ideapad_kbd_bl_auto_trigger_type;
-+		priv->kbd_bl.led.hw_control_trigger = ideapad_kbd_bl_auto_trigger.name;
-+
-+		/* Hardware remembers the last brightness level, including auto mode. */
-+		if (hw_brightness == KBD_BL_AUTO_MODE_HW_BRIGHTNESS)
-+			priv->kbd_bl.led.default_trigger = ideapad_kbd_bl_auto_trigger.name;
-+
-+		break;
- 	case KBD_BL_TRISTATE:
- 		priv->kbd_bl.led.max_brightness = 2;
- 		break;
-@@ -1811,17 +1892,17 @@ static int ideapad_kbd_bl_init(struct ideapad_private *priv)
- 	if (err)
- 		return err;
- 
--	priv->kbd_bl.initialized = true;
-+	priv->kbd_bl.initialized = 1;
- 
- 	return 0;
- }
- 
- static void ideapad_kbd_bl_exit(struct ideapad_private *priv)
- {
--	if (!priv->kbd_bl.initialized)
-+	if (priv->kbd_bl.initialized <= 0)
- 		return;
- 
--	priv->kbd_bl.initialized = false;
-+	priv->kbd_bl.initialized = -1;
- 
- 	led_classdev_unregister(&priv->kbd_bl.led);
- }
-@@ -2640,17 +2721,30 @@ static int __init ideapad_laptop_init(void)
- {
- 	int err;
- 
-+	err = led_trigger_register(&ideapad_kbd_bl_auto_trigger);
-+	if (err) {
-+		pr_warn("Failed to register LED trigger %s: %d\n",
-+			ideapad_kbd_bl_auto_trigger.name, err);
-+	} else {
-+		ideapad_kbd_bl_auto_trigger_registered = true;
-+	}
-+
- 	err = ideapad_wmi_driver_register();
- 	if (err)
--		return err;
-+		goto err_ledtrig;
- 
- 	err = platform_driver_register(&ideapad_acpi_driver);
--	if (err) {
--		ideapad_wmi_driver_unregister();
--		return err;
--	}
-+	if (err)
-+		goto err_wmi;
- 
- 	return 0;
-+
-+err_wmi:
-+	ideapad_wmi_driver_unregister();
-+err_ledtrig:
-+	if (ideapad_kbd_bl_auto_trigger_registered)
-+		led_trigger_unregister(&ideapad_kbd_bl_auto_trigger);
-+	return err;
- }
- module_init(ideapad_laptop_init)
- 
-@@ -2658,6 +2752,9 @@ static void __exit ideapad_laptop_exit(void)
- {
- 	platform_driver_unregister(&ideapad_acpi_driver);
- 	ideapad_wmi_driver_unregister();
-+
-+	if (ideapad_kbd_bl_auto_trigger_registered)
-+		led_trigger_unregister(&ideapad_kbd_bl_auto_trigger);
- }
- module_exit(ideapad_laptop_exit)
- 
+udl does usb_submit_urb, which is async, but the usb_sg_wait has no async
+counterpart, so I opted for putting it in a worker.
 
--- 
-2.55.0
+I saw there's a TODO within the format helpers for io memory, so
+maybe in a future patch I could change it to use drm_memcpy_from_wc
+to speed it up. Currently it couldn't run at full 1080p at 60fps on bare-me=
+tal,
+but on a VM it is fine due to not copying from WC memory.
 
+There's also the other issue of some compositors calling _update
+in the render loop or something that causes visible stutter when a device's
+_update callback is slow.
+
+The ideal way to solve this, with both low latency and low memory footprint
+is to take inspiration from gm12u320 and store the fb and update rect in
+the device struct, and let a worker obtain the latest one from the struct.
+The transfer is then sent in blocks, while overlapping the drm copy
+and usb transfer in parallel. I think this is a bit too much complexity
+for a drm/tiny driver though.
+
+> > +     goto exit;
+> > +
+> > +     /* Retry the dropped damage on the next update. */
+> > +exit_save_pending:
+> > +     trigger5->pending_rect =3D current_rect;
+> > +exit:
+> > +     drm_dev_exit(idx);
+> > +}
+> > +
+> > +static const struct drm_mode_config_helper_funcs
+> > +trigger5_mode_config_helper_funcs =3D {
+> > +     .atomic_commit_tail =3D drm_atomic_helper_commit_tail_rpm,
+>
+> This helper will first switch on the CRTC and then update the plane.
+> But there's a comment somewhere that says "Keepalive must only be sent
+> after a frame has been sent". The keepalive message is started in CRTC
+> enable before sending the frame, (right?)  Isn't that a contradiction?
+CRTC enable only sets display_enabled, but the first keepalive will
+only be launched in the transfer worker after the usb transfer finished.
+
+> > +
+> > +static const struct drm_plane_funcs trigger5_plane_funcs =3D {
+> > +     .update_plane =3D drm_atomic_helper_update_plane,
+> > +     .disable_plane =3D drm_atomic_helper_disable_plane,
+> > +     .destroy =3D drm_plane_cleanup,
+> > +     DRM_GEM_SHADOW_PLANE_FUNCS,
+> > +};
+>
+> I suggest to put the plane code and _funcs before the CRTC code and _func=
+s.
+> > ...
+> > +static int trigger5_connector_get_modes(struct drm_connector *connecto=
+r)
+> > +{
+> > +     struct trigger5_device *trigger5 =3D to_trigger5(connector->dev);
+> > +     const struct drm_edid *edid;
+> > +     int count;
+> > +
+> > +     edid =3D drm_edid_read_custom(connector, trigger5_read_edid, trig=
+ger5);
+> > +     drm_edid_connector_update(connector, edid);
+> > +     count =3D drm_edid_connector_add_modes(connector);
+> > +     if (!count)
+> > +             count =3D drm_add_modes_noedid(connector, 1920, 1200);
+>
+> Please don't call drm_add_modes_noedid().  DRM helpers will set up safe
+> modes if no EDID could be found.  In you driver simply return he value
+> of count and let the helpers do their job.
+> > ...
+> > +static const struct usb_device_id id_table[] =3D {
+> > +     /* From Windows driver INF file */
+>
+> Please remove that comment.  It's likely to bit rot quickly.  Maybe
+> mention it in the commit description, if you think it is important.
+Will be implemented in v6.
+
+> Best regards
+> Thomas
+>
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5800, 0) }, /* HDMI */
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5801, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5802, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5803, 0) },
+> > +     { USB_DEVICE(0x0711, 0x5804) }, /* VGA */
+> > +     { USB_DEVICE(0x0711, 0x5805) },
+> > +     { USB_DEVICE(0x0711, 0x5806) },
+> > +     { USB_DEVICE(0x0711, 0x5807) },
+> > +     { USB_DEVICE(0x0711, 0x5808) },
+> > +     { USB_DEVICE(0x0711, 0x5809) },
+> > +     { USB_DEVICE(0x0711, 0x580A) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580B, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580C, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580D, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580E, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580F, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5810, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5811, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5812, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5813, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5814, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5815, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5816, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5817, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5818, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5819, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581A, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581B, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581C, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581D, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581E, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581F, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5820, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5821, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5822, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5823, 0) },
+> > +     { USB_DEVICE(0x0711, 0x5824) },
+> > +     { USB_DEVICE(0x0711, 0x5825) },
+> > +     { USB_DEVICE(0x0711, 0x5826) },
+> > +     { USB_DEVICE(0x0711, 0x5827) },
+> > +     { USB_DEVICE(0x0711, 0x5828) },
+> > +     { USB_DEVICE(0x0711, 0x5829) },
+> > +     { USB_DEVICE(0x0711, 0x582A) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582B, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582C, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582D, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582E, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582F, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5830, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5831, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5832, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5833, 0) },
+> > +     { USB_DEVICE(0x0711, 0x5834) },
+> > +     { USB_DEVICE(0x0711, 0x5835) },
+> > +     { USB_DEVICE(0x0711, 0x5836) },
+> > +     { USB_DEVICE(0x0711, 0x5837) },
+> > +     { USB_DEVICE(0x0711, 0x5838) },
+> > +     { USB_DEVICE(0x0711, 0x5839) },
+> > +     { USB_DEVICE(0x0711, 0x583A) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583B, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583C, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583D, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583E, 0) },
+> > +     { USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583F, 0) },
+> > +     {},
+> > +};
+> > +MODULE_DEVICE_TABLE(usb, id_table);
+> > +
+> > +static struct usb_driver trigger5_driver =3D {
+> > +     .name =3D DRIVER_NAME,
+> > +     .probe =3D trigger5_usb_probe,
+> > +     .disconnect =3D trigger5_usb_disconnect,
+> > +     .suspend =3D trigger5_usb_suspend,
+> > +     .resume =3D trigger5_usb_resume,
+> > +     .reset_resume =3D trigger5_usb_resume,
+> > +     .id_table =3D id_table,
+> > +};
+> > +module_usb_driver(trigger5_driver);
+> > +MODULE_AUTHOR("Ho Jie Feng <hjf3108@gmail.com>");
+> > +MODULE_DESCRIPTION(DRIVER_DESC);
+> > +MODULE_LICENSE("GPL");
+> >
+> > base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG N=C3=BCrnbe=
+rg)
+>
+>
