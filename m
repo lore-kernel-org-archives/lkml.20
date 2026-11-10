@@ -1,72 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.241
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295564;
-	b=hSygq7Ot3pHI+nrBmoa7BW64DiApxaJjDHIifkJHZAijhXQIUsJJTLwi37a2jHarK9lj
-	 jyaIfj9eqjaY14obVnmYJWYa55kqVHkSMGWqeds3pGFJ9j6Nobt6VuCURfME7r6yHgKo8
-	 Y6K8FKSJ0ICnSj8VArhDpMLTbxPwsChF5YyvEjLvMVZXykbbnxXczgRgF648P+Tm7zbXq
-	 oIqeAJbcJU00+IOiAfFcebArCWKJ8JEwRUR/0NemU/QkJ2S/ftPF0Dj4nRjwNsA1ZWHDA
-	 xIuV8w5YG4y7y5AEzid3qlqQCkJFn5JLvcHpFZ5kRj9Hc7cYs7/v6WZfjTLPbhWp8sA==
+	t=1794295633;
+	b=c2XmxToGFgsa0FK5K+xaDb/Xh28fQKA8FKQ1mof6CQ25RsWgPb7D4wsvG3CZ3auscHHP
+	 4a2Fk38afAzVA9nJgG/AbThs7KiRwJpoqDNfXHIKcrWCDlRowDRrSVYx0BhGVbbl4yVOx
+	 RreguUelGFsh5Je3jt+hz3yDTi0qmAdm63EATPxlGc557fbLYvCtCAYMJ9yV8GNkJYVod
+	 DkyG+04DPplg6B1avMvPCj+uApsEkDWGoqfmqbtOGoelrlRlJEOSZ6Bmg0Y0pmBTIVV6J
+	 A5/LcBgXJ4InTpOkeX9ULZsT/h/4CwETEEkJXQ+l71Li52sbHXBv9orh3dOS2JC4uXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295633;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aT8+tDcFqR2grJlSVWzWUtCzKjv6fftf0ezYMjAx/94=;
-	b=SB4BgYQKwSqmE6GTgNV6lwE/vfKt7qDRVsCOJbJjGmTSxx/3mHZpFVZ1tbFR5sIaPK9b
-	 5hlhMfFhQIOjP0pCFoc3ozU0SUZlUEL4Mwjr20vKM0P+o7q7Hodhlp/8srr3Fqzh4V1Dm
-	 4P90HOEEoDgNeioB816gbPj+25/u/PddvRIzsMoD5GZeKTvSyPrv3RFmMSQjCkTRm48fH
-	 h3rnqJkx5QHDGwe9Eyv+heM8LVjkNBwpBIOhVB9E3SFClSMrklIj6ZYrukxjQ5roakZzs
-	 V45qmuEUMcCcKMNUoe3/K2kLo3QPlpo1kbhbMMnXlLuvuIUZCKRjlu/FxS3unJN0rCA==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Type:Date:
+	 Message-Id:To:Cc:Subject:From:Content-Transfer-Encoding:In-Reply-To:
+	 References;
+	bh=Jlx3khHmYf11Kc5Nu+VRaLVD/aQQv854yonbfkQB8wE=;
+	b=bkCwc292Y/80o8IPzpyD25qoeiXOAUukQSf1GO0z6ozwC3WhT/GSyESL+sGaeiyIsP7P
+	 Bj8WR5PC/JlCZArkOfyiVTj9McUoAgNIrF9voDZCRnhsBfSk4E9avM6GJjxcyoj/HDx/M
+	 ksaV+l/cIh/olUY5fl6bTt3ttUljWBu7Esm3xih3DsQJc1wyXINTjICCelKXk6c0mJF9Q
+	 bFiaJ9QPBObvymb1j2j56pUtGrABQvgLO7RZ+2/rqcRM3MB8L+7KVHEcwgSYapfpeTJJU
+	 LZkxD/dcAEg22X6oY2DH1onjZxywUPACe6HZKCnsOMhYvGVMXebJTAd2K+i7O4k9zsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TD1V5XV3;
-	arc=none smtp.remote-ip=95.215.58.241
-Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="k/0Z+8zO";
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44238606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44238606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C74606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:27:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C74606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TD1V5XV3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k/0Z+8zO
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NGP5NSQ1l+1OBRJX/cyPTA+lt5a7xUc8WPRfGUDUNJU=;
+DKIM-Signature: a=rsa-sha256; bh=Jlx3khHmYf11Kc5Nu+VRaLVD/aQQv854yonbfkQB8wE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794295560; v=1; x=1794900360;
- b=TD1V5XV3eq4O0hRzN8leEuT7sGyWsn7Q/7JH2mAyXiKbbhswqFrrlhAQuB42CMdvAQSvPh+2
- K8GC3lnh/hrumeMLGnvz48vgpW79evasyrC6G03WLI/sVRjMD+vlqwFHb9xuX2Q8NVJGHqjgQXv
- /xvefT2JXdhZgR9tek2t12gI=
+ t=1794295631; v=1; x=1794900431;
+ b=k/0Z+8zOfgOMl6NA4BEOQ0qeKBitu62vgo/5NeIS+mb/A6RUrUwOXZPmtW9s+5rx3nfrmDwn
+ djwe7x7oGcf5Wha9+pT2n+LPB2suxhSq1LcWHzUgxaprv1fE5tNqIIIemoTvB3BxKgDTfuGPbGV
+ 1EEnxS0xRYXPtPrabdMqv9Jw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id ecbbf582530854b4;
-	Tue, 10 Nov 2026 07:26:00 +0000
-X-Mizu-Trace-ID: ecbbf582530854b4
+Received: by mta10.migadu.com with ESMTPS id 354d447854a25624;
+	Tue, 10 Nov 2026 07:27:10 +0000
+X-Mizu-Trace-ID: 354d447854a25624
 X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 15:25:46 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Stephen Hemminger <stephen@networkplumber.org>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Andrea Parri <parri.andrea@gmail.com>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Nikolaos Gkarlis <nickgarlis@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/3] rtnetlink: return EMSGSIZE when first dump entry
- does not fit
-Message-ID: <avLG-gH71kT9Zewc@fedora>
-References: <20261109012115.11898-1-stephen@networkplumber.org>
- <20261109012115.11898-2-stephen@networkplumber.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,62 +55,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109012115.11898-2-stephen@networkplumber.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 10 Nov 2026 07:27:07 +0000
+Message-Id: <DMRCPRZVNPGZ.3HTEULWLQ76YL@linux.dev>
+To: "Anup Patel" <anup@brainfault.org>
+Cc: "Troy Mitchell" <troy.mitchell@linux.dev>, "Thomas Gleixner"
+ <tglx@kernel.org>, "Radu Rendec" <radu@rendec.net>, "Paul Walmsley"
+ <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
+ <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams"
+ <clrkwllms@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>,
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, "Anup Patel"
+ <apatel@ventanamicro.com>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <linux-rt-devel@lists.linux.dev>
+Subject: Re: [PATCH] irqchip/riscv-imsic: Synchronize remote state with IRQ
+ work
+From: "Troy Mitchell" <troy.mitchell@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <DMM1ZNXOFC8Q.HXUWNWMD6LKE@linux.dev>
+References: <20261103-imsic-remote-sync-irqwork-v1-1-8b5c951fc62a@linux.dev>
+ <CAAhSdy26R41W6OsTpEjMCf6iQXrtn4WrzziuGg+S9pHOHtM--A@mail.gmail.com>
+ <DMM1ZNXOFC8Q.HXUWNWMD6LKE@linux.dev>
 
-On Sun, Nov 08, 2026 at 05:13:12PM -0800, Stephen Hemminger wrote:
-> If a route entry is too large for the dump skb, the dump is silently
-> truncated and no error is returned.
-> 
-> For handlers with RTNL_FLAG_DUMP_SPLIT_NLM_DONE, rtnl_dumpit() drops
-> -EMSGSIZE and returns skb->len. With an empty skb this is 0, so the
-> dump ends with NLMSG_DONE and status 0, and the remaining entries are
-> lost.
-> 
-> The first dump skb is allocated from __netlink_dump_start() while
-> max_recvmsg_len is still 0, so it is only NLMSG_GOODSIZE. On a 4K page
-> kernel that is under 4000 bytes, and a 500 way multipath route does not
-> fit:
-> 
->   ip link add dummy0 type dummy
->   ip link set dummy0 up
->   ip route add 198.51.100.0/24 table 100 \
-> 	$(for i in $(seq 500); do echo -n "nexthop dev dummy0 "; done)
->   ip route show table 100
-> 
-> The dump prints nothing and exits 0, although "ip route get
-> 198.51.100.1 table 100" still shows the route.
-> 
-> Only ignore -EMSGSIZE when the skb has data, so that an entry which
-> does not fit in an empty skb reports the error to user space.
-> 
-> Fixes: 5b4b62a169e1 ("rtnetlink: make the "split" NLM_DONE handling generic")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
-> ---
->  net/core/rtnetlink.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
-> index e141340172ce..2777796a4ed2 100644
-> --- a/net/core/rtnetlink.c
-> +++ b/net/core/rtnetlink.c
-> @@ -7043,7 +7043,10 @@ static int rtnl_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
->  	 * Some applications which parse netlink manually depend on this.
->  	 */
->  	if (cb->flags & RTNL_FLAG_DUMP_SPLIT_NLM_DONE) {
-> -		if (err < 0 && err != -EMSGSIZE)
-> +		/* -EMSGSIZE with nothing in the skb is an error, as returning
-> +		 * a length of 0 would end the dump as if it was complete.
-> +		 */
-> +		if (err < 0 && (err != -EMSGSIZE || !skb->len))
->  			return err;
->  		if (!err)
->  			cb->data = NULL;
-> -- 
-> 2.53.0
-> 
+--ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+On Wed Nov 4, 2026 at 9:59 AM +08, Troy Mitchell wrote:
+> On Tue Nov 3, 2026 at 11:52 PM +08, Anup Patel wrote:
+> > On Tue, Nov 3, 2026 at 1:34 PM Troy Mitchell <troy.mitchell@linux.dev> =
+wrote:
+> > >
+> > > Remote IMSIC state updates are deferred to a timer on the target CPU.
+> > > If that CPU has stopped its local clockevent and is waiting for a
+> > > broadcast interrupt, enabling the broadcast IRQ can depend on deliver=
+y
+> > > of that same interrupt. This can stall timer delivery when the broadc=
+ast
+> > > IRQ is unmasked or moved to another CPU, including during CPU hotplug=
+.
+> > >
+> > > Queue hard IRQ work to synchronize remote state independently of time=
+r
+> > > delivery. Keep synchronous updates on the local CPU and the timer ret=
+ry
+> > > for an unfinished vector move. Hard IRQ work also avoids depending on=
+ a
+> > > schedulable worker when PREEMPT_RT is enabled.
+> >
+> > Using timer retry for local CPU and IRQ work queue for remote CPUs look=
+s
+> > strange. Why not use IRQ work queue even for local CPU ??
+> On the local CPU the sync runs synchronously, so there is nothing to
+> queue. The timer only retries an unfinished move, and by then the new
+> vector is already enabled, so it cannot stall on the broadcast IRQ.
+> Requeueing IRQ work from its own handler would just keep self-IPIing
+> until the old CPU catches up.
+>
+> I'll add more comments and modify the commit body.
+That was not the whole story. The retry cannot stall, but it can be
+late. The local CPU is usually the one entering idle and taking the
+broadcast IRQ, and the timer it arms on itself there is not programmed
+because its tick is already stopped. Nothing tells it when the old CPU
+is done, so the move only completes on its next interrupt. On K3 with
+deep idle I see move windows of up to 0.5s.
+
+So you are right that the timer should go, just not by requeueing on
+the local CPU. In v2 the old CPU will queue the IRQ work on the new CPU
+once it has released the old vector, and the retry timer will be
+removed. Move windows drop to about 100us. This will be a separate
+patch on top of this one.
+
+--=20
+Troy Mitchell
+
+--ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iI4EABYKADYWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavLHSxgcdHJveS5taXRj
+aGVsbEBsaW51eC5kZXYACgkQmAnvgPkzNC/vOAD/WlHPe+g+zvOYYsakVCaeWRP6
+QCEqDrKkV4pXEccSnO0BAI1kWUqD4O/X7XbtTiBVBJQEtacNA95laJHyT3AOg2EA
+=Q5bv
+-----END PGP SIGNATURE-----
+
+--ce428c8fa94fa432a281a32dcc895308571207f4b952ac431a0f37b483fb--
