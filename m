@@ -1,85 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327963;
-	b=YE/WEJQRSR/UFOstM0v2e8QDjk/ME5y0wxxuPJjGPYVeyc1KrWd0aniCJtzJduv9qtlB
-	 oBTpNvvvMkgDZ2dQfjDCQDC4xHWIwGskRBhX63nLHW9poD5R9KLQzh2WjGyyzK7IUFKZs
-	 j4zQddCj7EbYdRHXd22ppR8GUtJgPU1qs+gnDDLdwxIe38ItQZToHjBiU1s59Q/9Rm/uX
-	 DkflcHhZ5UPgrw5t+lI6vipGjKVMVSa+ydxqUYhy9v5l/hHIJjDAORrj1RzDt2zvTJNk1
-	 OkOzjyZAz4FA5/RV3urA/OsPgM1M9xGz2d0PZCY3FQ59jvTnXcQ1uaeU9NwPfKE5IeA==
+	t=1794327958;
+	b=wQq8mQ803FJ4VtDAGiZmFzS2k0FkKcBMQaqMv2fOJ5i5je5qSNJ7n9fApF7rOsnSQD0F
+	 jmxX6l/PHqueBn/J7eJ+7Gty8uiYRK2zmFoaSAXSBheR/yAWsqJ5gyR5c7OuL9uhY/2wJ
+	 RekryWbdSLd0z9Hs1OqH/x+7oTjGTJTsuprG3rzxYjYW5FVsF9yh+dlsO0MpxJKGXweKx
+	 ULYXqQQD7nUpxdEvdPqsLCf0MjOHOlTYKQ7KFJpyd0IZYhNiHCXvLmuWZ0HOy1PL2BioO
+	 eyRocji2wzXXSV5bW6yIL9Vl9IdOB/XvuIPNvsOv53ydlHDLkq7eC/5yDIoSc6w98sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327963;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3BEJ+N6X5QOJCG5EBkLlL2QIdGj7WHzAmj1HB7NOhqw=;
-	b=AOF8JfocwmZc2vAWHHEg3NZ04zJLt1npKmIE1EsI2BvLj28EaSz5aMduKPcLOs2k2H8q
-	 QV81d5uOA4wBO251hTqt5OZcGGgUFtUPRGQJeCF6IIP00/lqqG7GlZhA2lONMrfhxLByt
-	 8TtvyatPchp6+rXXNxTf/qVAKSPvKHLChTaCbV/xkkGBjVWeAbRfFRzbcuy/dYlQ2TodG
-	 /ltagNWufRctbMZ94MnP7nRnkgeZoeoifgw3XVUYjdaUgaal0MhuLJERxQPwp3LrEpf/V
-	 Fas5kf4UpZNsXok3d7BjNv9R7MdJBi7IIBA160QOlR4BPO+65ocd4iRW/+2IsFluaww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327958;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
+	b=jSgMHy5lg9sJH+/oVYMwlgRvkwkSGa1sxCIXEonlf0r4YXLErmAF0OLhlX3/qzVxrL37
+	 ZUwfrJy1Hh59rzDjjMhDdbthjb6vmZ/oypk1bU3vrb6jBVSBgOMxylmUKASXub7Ii8By/
+	 JDuzZKqfEPCUYTYvtU/8gduqA16TiGL+FTnJUt91QqjCrw9IT5ChVX0mdhDaatY+AgeDe
+	 kRY8WD0ka4GyP/9ZjJyTIeTWCdTqxWUhPeqkTrYaqdWlLQLqKW+bZBVffkzwEwUwylu/2
+	 fFSaAIcgGhOqMUKfaIxIsPVzwXHIsSvsloRmGUf2rZ6K/pTLEwOaNCXalXIfJTv1fGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pe9TUcD3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iYWrj5Xr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bHAcxfGF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MpfyAsz2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hRXH0l7P;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C006B606D7C6
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:26:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B52606A320;
+	Tue, 10 Nov 2026 16:25:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61B52606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pe9TUcD3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24BA61F008BF;
-	Tue, 10 Nov 2026 16:26:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327962;
-	bh=3BEJ+N6X5QOJCG5EBkLlL2QIdGj7WHzAmj1HB7NOhqw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pe9TUcD3LYq/q/7NRm5EFbDym/O9ALmDFI5/4iNhaovynQKcL15k8FeMv6wg0XydE
-	 ruo9fvwxuyOeHVnmqoAcV/wQ83wH6qgqePExkAUfRE3TGOFB1MpZ4PqUxCorFZ9ys3
-	 K17ITBxYwJv+hyRh+8s7yR9x7gAF6wCN6m6KbwyVVgW9H3/lJ+I5ywQDMgi32SxSOI
-	 yfy/BISAfz3CVpbDyEk+yLg7pzDXXPZBbM0kLJbsqXe/4HS3RLtjKkr7+Eybqj9Bt/
-	 tEU16sL8+NTG2mnFcH1AQiGxTzK5XzKYH6UJeBCVpjRKiuAbFzlc0nekH6g2hdBSXe
-	 uM7ewFABO3W6g==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 19CDB198004A;
-	Tue, 10 Nov 2026 11:25:57 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 10 Nov 2026 11:25:59 -0500
-X-ME-Sender: <xms:lEXzapK5i2GNnSJALWNOOfBGjAybXByO8mBSfIiJ1paMkN6tk9GIpQ>
-    <xme:lEXzau0RXJ11OjNLocymthTox7pNREpkRnOqeLsieZbN2k7xZT-uTfkuPErz1w51B
-    boPlnTIqKok2rW7afKfoJes1k9-xtLfKBOCKoIEbXiYhvW49Gjf6df->
-X-ME-Received: <xmr:lEXzahDRK8TUZp8Xrl80WQCq8I-UcdHx4wWreulZrynNH0qG17lfQtCSGKU>
-X-ME-Proxy-Cause: dmFkZTGZawqKKOfEYZHZc8DS63drErmw9P3IKNW3nTCzfxnO6LtlDWJrbqp+TPMuU+fdty
-    sor4W3IvdifXE0sozO/ARvFBvsk24uAxaJ7TLfDIJv0Sen+/YF8RjSBrXfTm39VYmwO6r+
-    2Cl2RAby5olA+17oEHttZuE6gwk3c8ZkgD2RkpmuL2tE2pjO7V1y29oZ/hIWoD/juG/uhE
-    gh6ObnbXxHbzJDQljq7eM97dSzQZ1bm8o0Zu6DjQMjg9n2ya7YHTxPRTRw3amhtCe7rhMm
-    Zf2CWBI9Du2Hzb82KkwNB10dCpq+0lnEfJUOVRauRG+4iARIAxacUOlB8CK9whRW/QiFWG
-    thilX9cwARqZ3/xwdtxspY+GIEa/rUMbqvS+wXyH73zb+HNQHM0xGAmyFVVCnoL/yAJ6Cs
-    ehM5Z3Oxr41DJpTxua8D9QL+ynemNP37UJkgIjMuFIgx8GApo6tWBH2+5Wvo7seQ+hIEAZ
-    1AD0j34i8+Cj8D/ebrRxUNcHJBLAD5coF0S43vY24XHlNLTdIvy5UflUaefCPhoEKM3hrH
-    iDt80wJ48UJ7ZHgk/MxFfZ9ByH59szgxjyQeEs7+WxCj/EU4z4st6Y3eheab4Awt4I7W7Q
-    sQFcC/MmhBGHFZWLuD54slX/YyY5dI3BO31/DH0nD3sqyLz2ZEbQcUA9JiWA
-X-ME-Proxy: <xmx:lEXzaieCPY9WCKGzJUmJse37IZLsz3se-7KnGBrjugD49WJhNoUqfA>
-    <xmx:lEXzakzJ22r6WW8ZSstUU7eappnij2Ly0RJG64BzEzx8u0bvrLKMsg>
-    <xmx:lEXzaqmheA0pL6Y9ict-OsnCx3ZqN_jL9dTcY_NWuBeDvgVJEmdgQw>
-    <xmx:lEXzalAIOtC50DsC1ushcLOQN4eqqpVuNE_M60Yup_Mnon614oDwBw>
-    <xmx:lEXzavd_Gk-r5l8IUGnYtG2F7-d67sKcq85jrUzLB4FZ_0o0pVCiXep2>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 11:25:55 -0500 (EST)
-Date: Tue, 10 Nov 2026 16:25:54 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: david.laight.linux@gmail.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, dsterba@suse.com, hpa@zytor.com, linux-kernel@vger.kernel.org, 
-	mingo@redhat.com, terrelln@fb.com, tglx@kernel.org, x86@kernel.org, 
-	torvalds@linux-foundation.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS
- CPUs without FSRM
-Message-ID: <avNEZ6Zz5IhN2Zao@thinkstation>
-References: <20261104222806.1826508-1-usama.arif@linux.dev>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iYWrj5Xr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bHAcxfGF;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MpfyAsz2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hRXH0l7P
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B30321F57;
+	Tue, 10 Nov 2026 16:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794327955; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
+	b=iYWrj5XrAZn5FDOjN9EYYVDFi6U9zlAiFRm+ThPRCq0Si49LXXuhxSISDFBor4JTEC1R6Q
+	hKRDSYyJPEL0ABEAnDBTSmgqjlMbnkTDduS13Ds1s7/G8Ek8XcyVZ4lrW2Wsc4pBz6WgBk
+	ezg3wU4NMEmU6VVZK0NEwORWH5hdAMI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794327955;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
+	b=bHAcxfGFcv+p7zPtJdGDOlmOrVt89AeKhU5HhhuOgphJpP5qxPAl+6LT+K/Y0qp5EzS6PU
+	FVbbuGMPZXzWePAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794327954; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
+	b=MpfyAsz2fWr84UvXpemBvDAiJkBwJHEc9ZEjOK4QVPB9ROzkZUl2WfYFMxokTNOiSSqPxN
+	mtRXBYs90YmC6Oi2X8SY7sEsZklxsIJGyjut4jPHkwmMNHlZ4FmWyRW0qIYPOjEhLQZmrU
+	kdb0lplI7J8Ma9kuBay17Krw2BcB1jQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794327954;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ATK+YqeQgXY50uB6ssooNlAaHRhaH0LqEgi3TMhGkNQ=;
+	b=hRXH0l7PQ1ia9RofC4xrbyWiC116wTXqMd+xdjjGaL5ysK8oho1oZCDEFEVvnbZALiYbp4
+	dM711rXViNwzLeAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E34D413479;
+	Tue, 10 Nov 2026 16:25:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uM4yLZFF82o0HwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 16:25:53 +0000
+Message-ID: <31fdcc5a-c944-43cf-9390-60e8cdd964ed@suse.de>
+Date: Tue, 10 Nov 2026 17:25:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,93 +106,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104222806.1826508-1-usama.arif@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] LoongArch: efi: Provide sysfb_primary_display for
+ screen_info users
+To: wuqianhai@loongson.cn, chenhuacai@kernel.org, kernel@xen0n.name,
+ deller@gmx.de, bhelgaas@google.com
+Cc: ardb@kernel.org, ilias.apalodimas@linaro.org, javierm@redhat.com,
+ loongarch@lists.linux.dev, linux-pci@vger.kernel.org,
+ linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029033440.973077-1-wuqianhai@loongson.cn>
+ <20261110085617.2626835-1-wuqianhai@loongson.cn>
+ <20261110085617.2626835-2-wuqianhai@loongson.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261110085617.2626835-2-wuqianhai@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_TO(0.00)[loongson.cn,kernel.org,xen0n.name,gmx.de,google.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,loongson.cn:email];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,loongson.cn:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Wed, Nov 04, 2026 at 02:28:06PM -0800, Usama Arif wrote:
-> +#ifdef CONFIG_MITIGATION_ITS
-> +	/*
-> +	 * Returns are patched before alternatives. Align the replacement
-> +	 * source so its return is in the first half of a cache line and ITS
-> +	 * retains its thunk. The copied return can then execute in either
-> +	 * half of a cache line.
-> +	 */
-> +	.pushsection .altinstr_replacement, "ax"
-> +	.balign 64
-> +	.popsection
-> +#endif
-> +	ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
-> +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
+Hi
 
-Does this mean any RET in a replacement needs the same alignment? Would
-anything catch it if the next one doesn't have it?
+Am 10.11.26 um 09:56 schrieb wuqianhai@loongson.cn:
+> From: wuqianhai <wuqianhai@loongson.cn>
+>
+> LoongArch defines and initializes sysfb_primary_display only when
+> CONFIG_SYSFB or CONFIG_EFI_EARLYCON is enabled.  The PCI VGA arbiter and
+> the framebuffer console need the firmware framebuffer information through
+> screen_info whenever CONFIG_SCREEN_INFO is enabled, even if neither of
+> those options is set.
+>
+> Drop the guards so sysfb_primary_display is always defined and
+> initialized, and its EFI stub alias is always provided, mirroring x86.
+> This avoids selecting SYSFB just to obtain the symbol.
 
-Linus' layout keeps the RET out of the replacement, with no padding:
+The idea is that you select SYSFB is you're interested in that 
+information.  I guess we could make sysfb_primary_display available if 
+CONFIG_VGA_ARB=y.
 
-	movq %rdi, %rax
-	movq %rdx, %rcx
-	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
-	RET
+Best regards
+Thomas
 
-Non-FSRM takes the same jump it takes today. Does that avoid the ITS
-problem? Why not this layout?
-
-> +	/*
-> +	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
-> +	 * Shift RDX to check length >= 2048 without destroying the REP count.
-> +	 * The 10-byte alternative fits a NOP without ERMS.
-> +	 */
-> +	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS
-
-The RCX/RDX swap is most of the diff, and all it saves is one MOV on
-copies of 2K and up.
-
-What about something like this? Untested.
-
-diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
---- a/arch/x86/lib/memcpy_64.S
-+++ b/arch/x86/lib/memcpy_64.S
-@@ -31,11 +31,9 @@
-  * which the compiler could/should do much better anyway.
-  */
- SYM_TYPED_FUNC_START(__memcpy)
--	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
--
- 	movq %rdi, %rax
- 	movq %rdx, %rcx
--	rep movsb
-+	ALTERNATIVE "jmp memcpy_orig", "rep movsb", X86_FEATURE_FSRM
- 	RET
- SYM_FUNC_END(__memcpy)
- EXPORT_SYMBOL(__memcpy)
-@@ -45,11 +43,11 @@ SYM_PIC_ALIAS(memcpy)
- EXPORT_SYMBOL(memcpy)
-
- SYM_FUNC_START_LOCAL(memcpy_orig)
--	movq %rdi, %rax
--
- 	cmpq $0x20, %rdx
- 	jb .Lhandle_tail
-
-+	ALTERNATIVE "", __stringify(shrq $11, %rcx; jnz .Lerms), X86_FEATURE_ERMS
-+
- 	/*
- 	 * We check whether memory false dependence could occur,
- 	 * then jump to corresponding copy mode.
-@@ -169,5 +167,10 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
-
- .Lend:
- 	RET
-+
-+.Lerms:
-+	movq %rdx, %rcx
-+	rep movsb
-+	RET
- SYM_FUNC_END(memcpy_orig)
-
-If you keep the swap, please make it a separate patch with no functional
-change.
+>
+> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+> ---
+>   arch/loongarch/kernel/efi.c        | 5 +----
+>   arch/loongarch/kernel/image-vars.h | 2 --
+>   2 files changed, 1 insertion(+), 6 deletions(-)
+>
+> diff --git a/arch/loongarch/kernel/efi.c b/arch/loongarch/kernel/efi.c
+> index 69dd83f8082f..e491a82b2e0d 100644
+> --- a/arch/loongarch/kernel/efi.c
+> +++ b/arch/loongarch/kernel/efi.c
+> @@ -74,10 +74,8 @@ bool efi_poweroff_required(void)
+>   
+>   unsigned long __initdata primary_display_table = EFI_INVALID_TABLE_ADDR;
+>   
+> -#if defined(CONFIG_SYSFB) || defined(CONFIG_EFI_EARLYCON)
+>   struct sysfb_display_info sysfb_primary_display __section(".data");
+>   EXPORT_SYMBOL_GPL(sysfb_primary_display);
+> -#endif
+>   
+>   static void __init init_primary_display(void)
+>   {
+> @@ -129,8 +127,7 @@ void __init efi_init(void)
+>   
+>   	set_bit(EFI_CONFIG_TABLES, &efi.flags);
+>   
+> -	if (IS_ENABLED(CONFIG_EFI_EARLYCON) || IS_ENABLED(CONFIG_SYSFB))
+> -		init_primary_display();
+> +	init_primary_display();
+>   
+>   	if (boot_memmap == EFI_INVALID_TABLE_ADDR)
+>   		return;
+> diff --git a/arch/loongarch/kernel/image-vars.h b/arch/loongarch/kernel/image-vars.h
+> index e557ebd46c2b..4d1d7978553a 100644
+> --- a/arch/loongarch/kernel/image-vars.h
+> +++ b/arch/loongarch/kernel/image-vars.h
+> @@ -11,9 +11,7 @@ __efistub_strcmp		= strcmp;
+>   __efistub_kernel_entry		= kernel_entry;
+>   __efistub_kernel_asize		= kernel_asize;
+>   __efistub_kernel_fsize		= kernel_fsize;
+> -#if defined(CONFIG_EFI_EARLYCON) || defined(CONFIG_SYSFB)
+>   __efistub_sysfb_primary_display	= sysfb_primary_display;
+> -#endif
+>   
+>   #endif
+>   
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
