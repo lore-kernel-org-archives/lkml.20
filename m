@@ -1,78 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301402;
-	b=EVSymZDtsGHDH7ac6M5Ml4WBrw/mFwhuAbw4NIiD6CiwLvpPDnea81gIbgrFItDpcTlM
-	 Ac2z4JRytrGW+2zRdHj8GbnVmx+TxSqB7f7BqntsPXnQL5acVIG2XKlQFPr3dQKhghA2h
-	 P3DrcK0mps2R7z4glR/9mH30UqRkFBy1FKMUOKXfeT70HLaa7Yb9n0mhugIQL+l8F5Vam
-	 c2fYJbGxvtk1VG0bHhdhpnm+CfM5l3+5bU/YXBUGoH6aCsBQ//N/nG8fxcMwY9dSpukNZ
-	 /1m+oz6LvMK2AG2d642pSzHCWupO+nMZ0FS3eYej6ZWpc5GOPr89rADcKFLtrIyDxsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301402;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cBdLGql5qq7PJAdgce+bLZBSDKa16JrnsVeVNrIquuM=;
-	b=ZEWLPQBdXlcx8BRT385b/mNI4E3bB6EdYpR5sfbe2YdSqhs25Aqsxo7oXuxfPAfmwDCl
-	 HFId5H7rmIAS4Gnj39PyJ1vyvOZRd30lDzeelc3zIORNdEPQHLUizBYKGUtS5uFz8XytT
-	 rxndetm9V7dwho9unnO4AOePa98u5irZsN69BzxK0FipTnscc+EOJOm4DleKlXD58a4Kt
-	 mtbP9XYIsur21HRMCSxRUI3sFOZjcRp9hrAwaYc9+Gr/0k+lfL+5l7Ua1FKW4mv7dhiol
-	 XxnJzbApLqeYUNs2liZ6CikqWE6O2Mn7LqcWORC1OP6VrLIAsubICTyiOpUrcMHBVBQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PaZc33gW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7091C60A260D;
-	Tue, 10 Nov 2026 09:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PaZc33gW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794301402;
-	b=uv+xUwLbFqd5NbNB/qeLBKWueU5s/9+B37zcr+z9eCne4k8NBu2qWVRIflQsHDHp0mUS
-	 na0FmYGZTsflnjbfoMIzUM8rzARU+9mnM7ksUdeOw/pOeE7xyWc1XfdgLuTvFYIntORXU
-	 sAS7+Emav4LTHGd+kEdKCSl//a1R3EiGWDPAGEXJmNIWflYbBR4BddNWdr8/1ULIwNzou
-	 ixucQ/EToV2uZy3hjX7gr4OyRtNuZNVtJ3gg4NuDLLYxc1fkBAltqnMN6WhaudV+Ug95/
-	 KHyK9bDoeC+N3bOYf1CyoeW6qUoROXirh+62XYQ/dG63ll7Se4v8PM76ZaY7RL3chlw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794301402;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794301403;
+	b=QkGje+RySVYG0zXOfzVOdGVbAdr5xGXxNS5zoKrAjH9pw/6OnQBMud1dS2FPgWlRWBXD
+	 aeJgQvSQpbWmry3JHdQPCckyJlGZbZzUQnj/00leTT2sEFvpQ7mNePUYxOfzc8KZ6ecYM
+	 8nXZMaQPWH1KBDFL759QUXc34Zk8NaJ9o6WNpG9gtOtEE6NTBhsefVZNep5DvjpuO7uzE
+	 10ANH4EIIfaZhge4zg1SysafhZQpHlaCGzv5vzvVMza7ZKAPIU+3u7tR/Vw4yT8vipgf1
+	 uDzh+7rqsvLQG/UCpOwfaqS0aRsigaqOs9xLuu6X0erL+C/FUATiOgnQZy0hXwU60dg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301403;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cBdLGql5qq7PJAdgce+bLZBSDKa16JrnsVeVNrIquuM=;
-	b=sCqLMuDa0snlcSMHYkJJNojGMTbPKYXrU1u6zepvHaZpjxRz6jJQg+U/7VbYbA3Ysbrv
-	 zVrKwegwAAodts3+LOeGXWrENeKZGrA4J8LKdsZ/5/a4BnGoU5/qOygnRErnVLevvv8bT
-	 6P7i0hvqGsrfKTaPOvFUMf8AHjSbsReucKBAT2aIOk2wMcky+HccN0tkx8jHNSnGp/RDm
-	 cedSa2cVGp14JtL/Yncg0PP8dQmrs9y8eXPNOd0EFwpAQNgkUZaTT7ONJXV6E43eeKB9p
-	 cXzmABQ+oKybSr68fmvIJ68hWpg3gqsu0w2tDmR9gdMEc9KAKhrW6cQPq3F3ATzBv9Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
+	b=sP817ChxJMqX/FDu+t7hcx5kCCecOlB7hdfN/hPshLjR+Xp+RXO7HJmQG7/tzU2mVZjv
+	 HBfb83m7SklWqJS0zJGX9sTnUFhetwIwqIm9km6SEvaD0soSIhDydf3hu8M7wS4TmeqAQ
+	 TFWM/GyFFqg5jtoFNtnKJSmtzuhxBKmW37lt9rChXlKMk97wjdZviF/yhkrxg9AvKoDzv
+	 IE3pCvjEBisytbSzjApVVwIA5/xyZ5uKfd0nTJh8OFUqedM8mKOtKPAkFW8OH3y7NQJ2w
+	 WJ8inbziLpubk3Dq/DfS/Z1Jycg9z8jrCU5pgd0K928V8uUNIMUTquJC4+OXhCeBCkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQa8NbCI;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8DF671F008A4;
-	Tue, 10 Nov 2026 09:03:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794301402;
-	bh=cBdLGql5qq7PJAdgce+bLZBSDKa16JrnsVeVNrIquuM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PaZc33gWB1OtK0/tMHG8mbymqqShas6FfY70ncQ+AHyzsSv0oGG30u2v7VecK05Ue
-	 eSpAJWvlsfTivGG1uaiOgJEnNLx1QkTGZsq+WJh9qq3jGhY0OmVsCeP5hv1oro7xYK
-	 I9L6YMg4XzwaKlHr8PmYEk01CnclWsTt8H9ZJen9nZctSWR0pZSqmArEoLEMGMtff2
-	 0hsl5SwnXikU0rNUpghx5S3d59NC3oDDT83QPmtf4/4qD1U3IBYQKkSet22vhMX8M8
-	 lhi7asrA+8zt75z3L8zrkCr0EXLmes9xNzTaC986qBUiaXAXmqfMTlDD7Io45R/sM6
-	 HVDFEpVOd56Pg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E28B148A4B;
-	Tue, 10 Nov 2026 09:03:20 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 09:03:21 +0000
-Subject: [PATCH net] net: usb: smsc75xx: reject frames shorter than the FCS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4CB606A336
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:03:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A4CB606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQa8NbCI
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b244fb7fffso2223292c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:03:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794301401; x=1794906201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
+        b=aQa8NbCIL5iROR1xv9a893vuA9VKs+H4UP3noZWQVQc6eHiZUFmGQ19+107lwy8Hp2
+         e9ypF7OCdmIIc25iDGMH7Xw1pnCfj/8fyNFIEb2WGQLkgvCdjP8MBZwconVQJlUXYoi1
+         yDAtJErHd09SKjykRmQNmGs9Vu1Rmqu1U2+ba+1noReQUUo0c/9G9afr8Te1Yuw+iFne
+         vfgEoWL045JiXncdLEqUhBzR/5xH0eTNb/e/w+EXdu/LQK1Lxo6Bxv4avKBJJd4vdbVw
+         XGT0uQrgoTRt7PHMwafIP/Ur8zqyYCDaQo37i50bQO1NU1wGdFiO42y/dJp/nqvvSiit
+         9ZRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794301402; x=1794906202;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
+        b=z1ZKKnN9KmGb6xWv8+y3WKygWsTg32fIsLY/lRQ7/26tCX0IKNOO/0Q3ybPJq9KzEa
+         QcI8OUakuCxyxBXYzW41QfSmwoibYzyr77tgfoK/FW+YgyGa0Gfi0JJrZe1RhTSHyX4O
+         YsnitpA7gLX9wjRjbLQRx6jpTrfxpOrJdUP2kSh1K2oemeoSAO4X1ZqQCOyzT7tca+1X
+         TsVozCt6andkzTb8eG08rLjNDOM4H+ttCW/4+dsl3OpHl47V9KdwWWzQLX2nlWIAQlkN
+         RVcAD/caATk8Up6w2LHZkuPHejXQsNigyqeTvex8xgiS+cx5DAnxAkFTLe4mRBU4cwkA
+         KXVg==
+X-Forwarded-Encrypted: i=1; AL+hErErwUvHNRF8z1r4yT9qm1uEy1GqbqCkOWsYSdU4XMnFyMBZp0MJCkf2UFUrZ8BaCu57o9RpvitT430AtHE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TBvlJko5gpGFbiPWLSZ59zXH2AH6MiTpZES7Sf8LNStAR10j9
+	fzlXpy3/lJ2oT+39IOxtnwuWrdCrhqipCpT7mwL82hZOmqpAcWI0VAZbiieFudEX
+X-Gm-Gg: AYBFou0fbpR0G/J+RtskfEwY8LNMOjE0lpDmXI7SEvoQFX3By3wPd0ENMht2cG2++On
+	fDwVGtCy+pCroRNDWyR3vOv9hVEIsjTiKq61Eo3viKuNKG4SoRNQzPZMOMAll/HP8mytzA4kyg7
+	t/gOVhjQ33RanxvUnDcHtEUVA59hsQ6zu/G1081dc1GrQLomUck2h+quwpkP4t6ouR4yTsOk100
+	x2GnyFf02oNaYE+4BI8+GgWYp3zUrrCg4tHHtDCrFsH1vr66cF2IQcZk+U6K1cToXjyj2F6wopf
+	FRBtfKeL7XW096MD+a7yr6+RU/uw3WFvavwPcJVxJn9pFBE8tOhwn53ATIwtUaIXUzVlNEKM/YE
+	hT8lpsiEgEK/E0nHX7Gj/38KyZ9SnrlM34b5czIaRyPgf+nXPT5QDbH0QroyAqxSnhGc5WGwOC0
+	2RcT9ms2Vo/zWAfugIC9kIU19oMPJaqVBoWHOMHG6qLpbSAE2hqZKHzU5CZHgZnkfAUJnXvgoxu
+	XdxuC1oPHCtuEK9Gji/muyrGbci0Lh6m6qA/AWS/dQ9h/E50QCEDr1UI61vGozunvrtSSiLWb/P
+	HT0SHA1BQuWnEvm4blOLJFAfdewAlTwcDnbRKWY0vv69sXV7rAMyCefzY+rSmSylvie48g==
+X-Received: by 2002:a05:701b:2704:b0:16c:3408:760b with SMTP id a92af1059eb24-1b3b60097bemr2296116c88.32.1794301401116;
+        Tue, 10 Nov 2026 01:03:21 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm5762557eec.7.2026.11.10.01.03.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:03:20 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v3] ata: libahci: delete the SW activity blink timer on port stop
+Date: Tue, 10 Nov 2026 18:03:03 +0900
+Message-ID: <20261110090303.2415681-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,91 +97,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIANjd8moC/x2MuwqAMAwAf6VkNmAKPn9FHKRNNYNVGpGC+O8Wh
- xtuuHtAOQkrjOaBxLeoHLEIVQbctsSVUXxxsLVtiahG3dV1Tc6YMganhWVoex/IO4ZSnYmD5P8
- 4QeQL5vf9AAyj1IhmAAAA
-To: joasantonio108@gmail.com, steve.glendinning@shawell.net, 
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
- kuba@kernel.org, pabeni@redhat.com
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794301400; l=2363;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=G1cAL4e/Pmr3AzCsbxnGrjhhPlyOjfRjUMp1/pULOYE=;
- b=p47NHnLvmlqjWX1hzQxuofh7VEdXnFhY3NCjZj6MpBzk3zeO8NcmasCQR8/uUCoyO2fKF92W7
- aHXxY9fV06dAOPQfEnMx8MrmlR/DWsrO407E5TgGXibSp0E65RTRccb
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+The software activity LED support arms a per-EM-port timer (emp->timer,
+ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
+callback re-arms itself while the LED is blinking. The timer lives in
+struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
+with devm_kzalloc() and freed when the port is torn down.
 
-smsc75xx_rx_fixup() takes the frame length from the RX command word
-supplied by the device and strips the FCS by using "size - 4" for the
-allocation, skb_put() and memcpy() of each frame that is not the last
-one in the URB.  The length is only checked against an upper bound and
-against skb->len, so a device can report a length field of 2..5, which
-gives a size of 0..3 after RXW_PADDING is subtracted.
+ahci_port_stop() never deletes this timer - nothing in libahci does - so
+when the SW activity LED is in use and the AHCI port is stopped (driver
+unbind / module unload) while the blink timer is still pending,
+ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
+dereferences the freed ahci_em_priv (use-after-free).
 
-size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
-__netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
-wraps back to a small value and the allocation succeeds.  skb_put()
-adds the length to the 32-bit skb->tail and skb->len, which also wrap,
-so the skb_over_panic() check does not fire.  The following memcpy()
-then tries to copy almost 4 GiB from the URB buffer into that small
-allocation and writes far beyond it.
+Shut the timers down in ahci_port_stop() before the port private data is
+released, only when ATA_FLAG_SW_ACTIVITY is set and skipping em_priv slots
+that ahci_init_sw_activity() never set up. Because the callback re-arms
+itself, use timer_shutdown_sync() so a concurrent re-arm cannot resurrect
+it.
 
-A malicious or malfunctioning USB device can use this to corrupt
-kernel memory or crash the machine.
+Not tested on real hardware (needs an AHCI controller with SGPIO
+enclosure management and the software activity LED enabled).
 
-Reject frames that are too short to hold an FCS, as lan78xx_rx() does.
-
-Found by LLM-assisted source review.
-
-Fixes: 1b3b2d9e772b ("net: usb: smsc75xx: stop lying about skb->truesize")
+Fixes: 365cfa1ed5a3 ("ahci: Move generic code into libahci")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-This issue was found with the help of an LLM-based code review tool
-(Claude).  I checked the code paths by hand against v7.4-rc3 and
-reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
-not have the hardware to test it at runtime.
----
- drivers/net/usb/smsc75xx.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v3:
+- Shorten the code comment (Niklas Cassel).
 
-diff --git a/drivers/net/usb/smsc75xx.c b/drivers/net/usb/smsc75xx.c
-index 6f72a3f15907..e923fa6c1785 100644
---- a/drivers/net/usb/smsc75xx.c
-+++ b/drivers/net/usb/smsc75xx.c
-@@ -2217,6 +2217,13 @@ static int smsc75xx_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 				return 0;
- 			}
- 
-+			if (unlikely(size < ETH_FCS_LEN)) {
-+				netif_dbg(dev, rx_err, dev->net,
-+					  "size err rx_cmd_a=0x%08x\n",
-+					  rx_cmd_a);
-+				return 0;
-+			}
+Changes in v2:
+- Gate the shutdown loop on ATA_FLAG_SW_ACTIVITY and skip em_priv slots
+  whose timer was never set up (emp->timer.function unset), so
+  timer_shutdown_sync() is not called on an uninitialised timer
+  (Sashiko AI review).
+
+v2: https://lore.kernel.org/linux-ide/20261109060709.1231946-1-hj351016@gmail.com/
+
+ drivers/ata/libahci.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 001a6f5..873645c 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2605,9 +2605,24 @@ static void ahci_port_stop(struct ata_port *ap)
+ {
+ 	const char *emsg = NULL;
+ 	struct ahci_host_priv *hpriv = ap->host->private_data;
++	struct ahci_port_priv *pp = ap->private_data;
+ 	void __iomem *host_mmio = hpriv->mmio;
++	struct ata_link *link;
++	struct ahci_em_priv *emp;
+ 	int rc;
+
++	/*
++	 * Stop the SW activity blink timers before devres frees pp, skipping
++	 * the slots that ahci_init_sw_activity() never set up.
++	 */
++	if (ap->flags & ATA_FLAG_SW_ACTIVITY) {
++		ata_for_each_link(link, ap, EDGE) {
++			emp = &pp->em_priv[link->pmp];
++			if (emp->timer.function)
++				timer_shutdown_sync(&emp->timer);
++		}
++	}
 +
- 			/* last frame in this batch */
- 			if (skb->len == size) {
- 				smsc75xx_rx_csum_offload(dev, skb, rx_cmd_a,
-
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-smsc75xx-rx-fcs-fca968df1dce
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
-
+ 	/* de-initialize port */
+ 	rc = ahci_deinit_port(ap, &emsg);
+ 	if (rc)
+--
+2.43.0
