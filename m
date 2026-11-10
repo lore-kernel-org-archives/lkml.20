@@ -1,76 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297474;
-	b=2GjMHMeeeV8FlCBFyuWS8D5NvDphYt6TubJhOwlqYdgEnuEPhikYrCEn5akXFtYtEd59
-	 X62fnM4n6alPXSWLDK3qXLPLTL1EJF3mZBDmYEE7BShaRsArmslKWdslXED2eTsqax6O3
-	 SvxxoVnNKXY+3jYwAVKAfDsOmAgdLHG5yUbsgzXLPtKa6/+KNSZLmM9+ArEnvykTz80Aw
-	 +bk7pire2BfqjSjJuvEKxKxhNs3OLKmnTT7J9IRBujnp0Kz0NQo6q//t3NoSSCIsqPTK2
-	 6jNI6AhDKxrujWlMYAokS12Y6jgDd6AnKf8w+8H6MtcNZli5ozOAOv3NjSlN4g4yFaw==
+	t=1794297484;
+	b=0yXnhL/J0TAaDesYsg//qX+iagQWf4zB53DxZta+NCZ/Or6/A6+/bSFEescZoWeEghXP
+	 5ix4ARpYGO4Y1gflhkorhD2g6gmQyx9RaEyFCjXGpxOzgpkdZoujlOgAq6esFHv1m2ye7
+	 zvRLfO9cGzRAswJcaVicIj3fgWYS/2QnGK0CWDTZia2xbenc9GExV27ryVDRGBUKPaLJt
+	 NLb1j82KqrF+239oAlG528lx2H58bRTNUF4uBaGzCJh4W/e9FyJAUgWmhWESKfYwCN1g9
+	 rtToc++ZATXaWkoVxTGNeLIpDYPm+gH19/tgQvI6nPXajMySaRidbAvOLb4Vd4jZ4Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297474;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=Bh9PLp3fsMYJMJTRrDf+gKXw1r5bvWitb4XoPWpFjfU=;
-	b=cCLLHSQnm/N/Zeede6xDGdYTRNXBBJf+JVvsnPR+nH7IJKaNVn5JElVoIaIVIviTh/kF
-	 3Lsi2OgHFJgr9/TsuzRnPd+QnOpXex0XUtAIEc4vlX72AbM0jgqXBkhpcNwDrgtrHwO8z
-	 0eF6X02tpJ7h/rox4UGSUdzWiFVCJapJJkS47iTFY5wvLUxE+GTwtvIpke50O/3LoL5CF
-	 4gNhr/Y1+pBlyW42MpXIv0Sp+ZYEUNf7gf90zJzZe/D8KASjJzYj12Y8saVqSNYJVzBEt
-	 dzfP6XxPSGI6ilE8pqDUuGS5vhqmiIiOMrVE17jB+KspwrqAHsUV4NUURZTDbGfT/6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297484;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=b59TztVWp3GhBgQqkWL6K94kfiqvh6QYhx7OQRm8o3k=;
+	b=i029VGlm7xqdlP/bEq422n18LCKhHAzBGysPNBt2OakGZDVgQfy+pqZV/HwLwAXjcyGN
+	 Es4N7E9pSLW4xIV1ceMKE9BtkgOWF2/vRdeaM6UGxcOKDK8KwR+WZ1bPymw7NhkMHGBhY
+	 J+ZT8m7hXRbARPvTwUX637z1K7TbeCgEUcEanHpR1Fj3itlY8XJLETdkYZPQNMsFa2Fvq
+	 YajckAAqI5VLu3lA4PAi719h8yS6o1VfKp7jgZAQrfVNvuDn4LhOv9iRn6BXwTtSrw3QS
+	 g7af7a+Qbr0E6pKpyWZIFktuSV/V6bIfNOB/m6zkjjoy1SXGhncqsCa/IZDgfSrYzZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nx3iIFHs;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CCD606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:57:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CCD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDC5606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBDC5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eac01ff101so583350e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:57:53 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nx3iIFHs
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1931ff67a29so828107c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:58:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794297483; x=1794902283; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b59TztVWp3GhBgQqkWL6K94kfiqvh6QYhx7OQRm8o3k=;
+        b=Nx3iIFHsvhSI4ccZFYR54jqk92ZsIVB+3qX4MtH+bTvTL6a7dI0ouTLwab+9oTGSHk
+         /Y8RnhFZCACRK01XzY4aoErIHQtwand8i+Fe/0MrjCznDFH7RAukMv+iVdpw8g2cA40O
+         W05q5wtvo3a+KoF+gox5g7rAZTan5KlRH3aHMA0PZCgA8LQatvvvKG9fGbcCi3iY9SAu
+         DcxPp/jprI9TUX95AeFYVuz0JfwHHhUlpbwWj61Q6upOjl2knrkOYpnNVN3ShwjnooZb
+         FQt6wdxxpVo51Nn09CGeiTap290itEpwUvg6pYyR6GmV1c0l6HkQpKYgwfV5HpA66ekW
+         6PZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794297473; x=1794902273;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Bh9PLp3fsMYJMJTRrDf+gKXw1r5bvWitb4XoPWpFjfU=;
-        b=lxmSLcB19sJeH/hssaVIyr4t4FcRn3HlXsbw4auWuCBuoDyqLlBrpITM/HZRO1u3DD
-         CfuxAcb/jz2FFoCPiDPqYTJi+aMxt2uUGKFGOhLwovG1Tp3ywoip91qjBN5Q5mBNb8wJ
-         3HmwOZiTT8KrjzH4wMIckvpmMWmSRjBHwr+UrfIJA35C30gT4Nw2bOyC76zYzh21i/uh
-         vRtpfwcIQQWNEvFK42podPy4WBm8BqQiqT7RhX21UiYNDZyUsfjY0C5yvT3v9UioQNLd
-         GjvI+21Bf4fJlnbzjGLbdXzZpe8Cuw31gJ2UT1ZKTu2FN3Jss8Z12bbki9SHF4574x+3
-         RKBQ==
-X-Forwarded-Encrypted: i=1; AL+hErHJNx1NTJyKPhL/h5tAXbdAp9Z3lfgLl+K/mEHuuSkTjjM7IC8kREHCtn5w8js2T2r6Kl9rjm5sI2br1Y0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zfplqnU92H6gpKDwQZrq/f4YN6sL5XkJ15r+To4VRGV/u/ZPa
-	h2YKXoLfm8OUdcQwFaInhv1bMuiRojcexuVf9SnoZl0pEOPnX/cqsrsXrezc7Gby8ag=
-X-Gm-Gg: AYBFou01qTPU4zYeOL/Wmnx/wDMS4MA5wq1FGFhsRTPdI+j1P4YmqSyWXE/2UdA+Pk5
-	0IyZpE38mYZAIlyyAkJwwNT/yoiWQCXb3UOphmVTEof9Cv3fdS63FwJjmpIllVoh4Z8hsZpyL9s
-	Gzv6B6WK7IOSD5ps32KDr/VNaZv1Jmhl7bi9TrKg4uf6mCuKuUtInLFkbbhSfWXhEMyorSGa6Mw
-	tb9FgfBDh8Zyca/3RitgiDwjDvcwWXkgv5GWg8qkA4BfYiFoPdqDLxb9k4hQ5oplpB3Ur5Dx9XW
-	/ZAQEjdcSWdZfMprrvCHr5jj0XZ7KZ9zsWKmwLjM4IvcnQE+CewAcgkqoUQvoTQrvZn5fN2360F
-	FtviHK5ErR7A/yqZLZWPonXD/w6qa5ZF23xvHCdleHvu5m4Bjf3t5a4ck8Comlu2f7fyr3EerGj
-	XppoueNyXm7BIyKQXqbjRYqfKTMv1+HbjiOt5mL4+9gQoW0TBwYC3ba3Ghigs0AezUZv2jLwGx/
-	bgeoP99cCQuleEao4pBPB/AtKt19cqJ4xMVhmuMqbp5X3wJH69EYCG1EZ+v9giikMuI4e0vbCG+
-	1tuRFi0xvO3lCN1M3VJ8wEENeBE0pCYFtCkTGsjW+Bs1dSIim79o5cCnt+y1XlLi5co=
-X-Received: by 2002:a05:6122:c8f:b0:5ea:d14a:ef8f with SMTP id 71dfb90a1353d-5ee0d0a8883mr629500e0c.4.1794297472578;
-        Mon, 09 Nov 2026 23:57:52 -0800 (PST)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee0c5eedbbsm1267225e0c.13.2026.11.09.23.57.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 23:57:51 -0800 (PST)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7d2dbc0a8d4so616469137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:57:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGGLL/SegUQqIHrfYGuS+QHEHiAF7H0FEOD1FBNjUEz5rvSKdcm/BtMq9EryPEvaL2Ka6ZFDYTbCVOAeoQ=@vger.kernel.org
-X-Received: by 2002:a05:6102:4190:b0:7c3:2b19:6266 with SMTP id
- ada2fe7eead31-7d301bfd9b1mr443049137.22.1794297471476; Mon, 09 Nov 2026
- 23:57:51 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794297483; x=1794902283;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b59TztVWp3GhBgQqkWL6K94kfiqvh6QYhx7OQRm8o3k=;
+        b=PL82uCRDnT2sxNatvk3GxIgTEfLAA9lbosse0c3A1umAHFuLhol/BIIDCC7hiEj9lW
+         pItBVC5zbRgkpPivtm1GO4LoYYjfSOF9KAOlP3Vh27E4rl6VDbNkpF8A3twscK6+9z5e
+         PrydT7BvUINtTjaaegXDEGMRzkfkcLPN+7r8KrJro0nYPvGBPkTqUMbl/qacjJiF05E8
+         OW7CXWMNQJA0WmYvEkulW6sJm3FeAaPxgbuJ0fQGzrx1MweTZr2GZJA5olNS1CmOnfQi
+         nZJQCaYASApH0gr89zNkIhGp4JOG3hQFjD7Dfp/br0Qs6BkCOvzwA2PeRibHAZEEsgat
+         izJw==
+X-Gm-Message-State: APuU4Z9Zpoglif70CcTBB8AeLWw7QrTqxewtzp94fCJoiaT9sjCRSI5C
+	jtx1KzQ09PEb+xWJfJuH3B9RKJucIK6ONu2N4mR6oim0XR8I6Hco0UvU
+X-Gm-Gg: AYBFou060kyixFp22gs8E8+uT/qN89NyaoOQQZhIwTtL5p5HFd6Rq6z5Ff5XZv1Acx6
+	H80ZKto3h8xM6qS3zzugAnwCJQ9LMYazi91rAf2KR9SUdBcH4DtYtc8SVUkbS4+l9aEwjVW5MY3
+	zza326xFEgEx1m9H37AP7xN0bd1gHNpSksMIuu20C13qZIJf2bcvECVJwcOZwvOWHX/JBPG+mfK
+	WZLDxUrw9opOuVX1RONMBTNoAvtu4eLDbsedXBbvqywUPPtcZ2M7u89XCtAHcQGJvweCN636P68
+	q8MfM4RPKYWTJjRnPyDVnme+xU76Rdwk056QFHb3CrWPojKmHYO44PUI8J8C9vC7N8O36aSKMme
+	uR6Imo7Be0CXRLSoJEoeqOzhPmtdR2ffCIil28XTB+c9lNzw1RFjITcv583tXSFOdPASL7ey4d9
+	y9DphdKPpa8ca6OTO71bMpPzKZpWsrou2HqDHHAe4L4XuTF3xrv4o2Kj6svEOCzASKZV2cz1hYH
+	ON2sy4gI3zZhVrqW15XeiveJF7kBPNkcAsbnJtEIn1Sc4whnVPi4skE+NEFX96NWTxOSvBLZd+u
+	oRbKZbXIwVo4IfcI+4y9cA/tn8LoAHbMNgMbp/6pB0CDO0kBUxPE
+X-Received: by 2002:a05:7022:3c08:b0:195:49ee:94c7 with SMTP id a92af1059eb24-1b3b6057602mr2424972c88.8.1794297482931;
+        Mon, 09 Nov 2026 23:58:02 -0800 (PST)
+Received: from localhost.localdomain ([103.179.231.66])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b20c55sm4571441c88.8.2026.11.09.23.57.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:58:02 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: hare@kernel.org,
+	hare@suse.de,
+	hch@lst.de,
+	kbusch@kernel.org,
+	kch@nvidia.com,
+	sagi@grimberg.me
+Cc: linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH] nvmet: synchronize DH-CHAP secret removal
+Date: Tue, 10 Nov 2026 07:57:33 +0000
+Message-ID: <20261110075733.2578-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,46 +98,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-i2c-remove-dont-use-autosuspend-v1-0-49a08b8daf36@kernel.org>
- <20261109-i2c-remove-dont-use-autosuspend-v1-4-49a08b8daf36@kernel.org>
-In-Reply-To: <20261109-i2c-remove-dont-use-autosuspend-v1-4-49a08b8daf36@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 10 Nov 2026 08:57:40 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdV-2XT7Npksv2om+ZRxOAQJfc92VpLD4sPeoj8AgKUU=w@mail.gmail.com>
-X-Gm-Features: AclHuK9JsEgh5r73zJDHAyGi1UgY8FApv7iweIjEvmBZD0LvfpJpCmquM1eWYd8
-Message-ID: <CAMuHMdV-2XT7Npksv2om+ZRxOAQJfc92VpLD4sPeoj8AgKUU=w@mail.gmail.com>
-Subject: Re: [PATCH 4/6] i2c: riic: remove redundant pm_runtime_dont_use_autosuspend()
- calls
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Oleksij Rempel <o.rempel@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Chris Brandt <chris.brandt@renesas.com>, 
-	Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>, Alain Volmat <alain.volmat@foss.st.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 9 Nov 2026 at 21:51, Joshua Crofts <crofts@kernel.org> wrote:
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
->
-> Remove the redundant function calls.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+The empty-secret path in nvmet_auth_set_key() modifies and frees
+host authentication secrets without holding nvmet_config_sem.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+nvmet_setup_auth() accesses these fields under the read lock,
+allowing concurrent secret removal to cause a use-after-free.
 
-Gr{oetje,eeting}s,
+Acquire nvmet_config_sem for writing while clearing the secrets
+to synchronize with authentication setup.
 
-                        Geert
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/nvme/target/auth.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+index ccba84b1344e..8fe521690ccd 100644
+--- a/drivers/nvme/target/auth.c
++++ b/drivers/nvme/target/auth.c
+@@ -26,6 +26,7 @@ int nvmet_auth_set_key(struct nvmet_host *host, const char *secret,
+ 	char *dhchap_secret;
+ 
+ 	if (!strlen(secret)) {
++		down_write(&nvmet_config_sem);
+ 		if (set_ctrl) {
+ 			kfree(host->dhchap_ctrl_secret);
+ 			host->dhchap_ctrl_secret = NULL;
+@@ -35,6 +36,7 @@ int nvmet_auth_set_key(struct nvmet_host *host, const char *secret,
+ 			host->dhchap_secret = NULL;
+ 			host->dhchap_key_hash = 0;
+ 		}
++		up_write(&nvmet_config_sem);
+ 		return 0;
+ 	}
+ 	if (sscanf(secret, "DHHC-1:%hhd:%*s", &key_hash) != 1)
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.55.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
