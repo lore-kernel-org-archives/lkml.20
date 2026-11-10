@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327077;
-	b=mKWBQUDWTU63vEfuXULJvA+ZPeh0TIpP4Ux8KfI6lab3r/3ck5L8yBnOuhpLU7oguJXy
-	 Wv/+GxCnJfCzWVgDTkdFgY4rUlTAEAi3WRRSzRaSPP6nPFKRKe7szgoPba6t5rfeAUVhX
-	 NQ+dcZz24Vo7F+eI6u0wx5/G8pwHSNBEqUkKXxCrB3PLgN/bpWCprBdTYhDkI0dlX1Iy/
-	 ObFfVzlVo+jkujzAX3L7ctPWR2p4AJH2BjAjdIU9H08o03YCurELBcFVZcHc15DO6L9wA
-	 RQ8CIb5zaeYwqfM9NBJPXEAzaSCjTytBi/NhmqQ9t+SiYNxbLGqD8IIsJeho4bCbFoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327077;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794327111;
+	b=FeL+6GsVWXkx2k99fw5FHOM/eUxMoFjI7h88nWjTwOeRH99CxqgQfH7ualWnXs2J3Fjw
+	 931SPsdGMjoNZwsDDEymi629QEPeBtoGIeRNx8+0lOER8rCpsQPSqZS9Cl66ctwJx5Uo5
+	 8Hi6oKOCQGLd8PjHb9CY6Ytk/VvvyCyJ5+6m98ln59pQ10SAfVZYm1o2nqqEyaQlF0a/K
+	 SDuH0tUcd3KH8ey1aI+UVhts5j3PYqag6CA7K3P5KNCHlAjw8NBzgrVNnz1g371Fg9ZFS
+	 zScmaJ9Ad3eoOLtnzNHQYrixWlqZF+nWiPJy7NR+uWRCZlsmYsjbG7pbT22wpMwH/PA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327111;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=f6FXAOsuB/cuM2Q90beDrqDYRqrVlTbOMRM4fnMO4jY=;
-	b=lgrJeRiRNRXsYVVfr2brqOI+GopjItqRZoDd+0R/9D6FgQA5OjYDYCC8x9Dfdil+THpO
-	 POUkbB1ceCAX3Pgi/8rfxADr9LDK8e+0ssPGYNex2iM/9n3tQx/Zetp8l+kjyfGAQ1Rbc
-	 Hp9agKgOwXXKrMl7qpxU5TLgbRfNo045IUliyJaBwbFWVg9Kg7KzItqYWoWkwKtMqP03W
-	 Sj3gmkLDDjTCpx0cZXAFP5ZL35I9eGnyXbLAa5Wo9+bqEv1VmpndtoLmVVO8GOUhvdJNg
-	 MmbT4OWeFD3sI49BQuE3K6Ttw7fuL2OS2aka86mn/QrUkGECOs9R7HTQmcRd0OU+jcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
+	b=uvRpDGH6gpwYyYmG3wDP8E6fEGVseR27FOnRve/jYP7zd/iZ/ZPMODNumQlYTPIzpp0J
+	 SHnl/LxxZ/qUy4qdzweHpP4vcei4CKGxxitw2PUaHw74Wo4qo1pGLKeFmxLT311FpzNIw
+	 BA6qGosnBP5HswLSw7JoxpHumjuAmhO/uu4ETcMj+9xQcb0SadNZs7S6VwNzIuGQoDebd
+	 csjF4Q31fYQtyLxov73GGPFG1ZXw49GGJ/HcKuZSxSG+yieFvY9sZPkqI3LtoE7SvWEzB
+	 TeDnhbJmjSED4BOBXNvNP3qeSsTymQzWeQISuDkPtui+7wGL78JcAws+PnMXEvvPV7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J4SrHFcv;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XnbLYiH/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.139
+Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7817D606D7AE
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7817D606D7AE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E39C606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:11:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E39C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J4SrHFcv
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so327893366b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:11:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XnbLYiH/
+Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c504b4f2b6dso42020266b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:11:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794327109; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hwIQEVHrPInEKcLQtLxyJ/7nYymVFm45rdhCaKsSAEndd2jy+cgau1ZfO74nMU8t+a
+         a92ThDWblcF3QayLxB/kDzuY2SjHlU1BlDtGDdo0sT8pPl2tzRZfVJtSe/93ZHgvZPE0
+         sYy00JsD7i2cuq6rPRE6bkm/xHU/H56hEc10uWCWlW6mvgFBUt6iGrQdXnh0Uqo8TrMu
+         0FxSqx4KmmPsWXJnXSNz6W++Sr3b6yc9fC7O69kvZVtMPbR7X4N3vyhoQfJAxVHX4K8+
+         G0DvCKa7DrUxDYDaeAEvRouMS3xjq64Zv6jfmFHbPNMtxJqBAnnzJ4AIgij1hYmy4dBX
+         x7Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
+        fh=H7z8rd3zR3HQ6NLNyszwoJ1TDtlrCpCMa383WA9ETGM=;
+        b=K062zmth0f8qIO2IFvXrz49ylO3E+hzth4E7ksO8glvCv+IuAY4uGoMikwzKW0z0VY
+         nHLbcnkbM8uIlDbp8cHas/phggVf4a2v/MF/losQYQfOzKHSbpFNaCT4izcS96dCnaSl
+         mK9fO+e0R+yWx+qopxpy+g+UHEFeUMlSBRGE4eTzUO2Z6fpfB+ra2sSd78LjQrPAd7Dl
+         z3y7m65EJgnAvGTe1tKIRvwqkAQOOMvXVESh9zJoqKA2DKbzgG9TgJuds6KrSYsV7Lr7
+         gGkt1kUxHOKWISyHEnpejrMcuxYni5pmcFTDxJs1DtD6WKGDh8sbZizMEG/z5zeHaBrM
+         Ph8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794327075; x=1794931875; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794327109; x=1794931909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=f6FXAOsuB/cuM2Q90beDrqDYRqrVlTbOMRM4fnMO4jY=;
-        b=J4SrHFcvYJY0x+2aU3MDU0d6pzy/8p9BDg0oQhVlmvOZPdw2nqZpZJTnT8h1mslc38
-         yAKt/YNbPeoeHCWvXu6tO+1eCwOEJF0TOGWDff4cz1LdNAn7Vrxg3Jh78MKy+IedJg9b
-         oRb+Bo59J/WjA5QVCwyVvZ4q8bdCYW2A2MsvA2GCXucCM+0p7WEE+8sWVn5MtsNqANJ6
-         qAGikGd8WhGUal8D2NNHSLgocbJv53jUdXtNYspydGIp28CNXGBgZPB4B1xVeu6NK0ww
-         R+bClDI1VyrF46DZo7ZM5YHeMvI15A5Xc6ImgaVv5MpX6+O4f+kSfe6mxAzAJ41kPXi2
-         pHMQ==
+        bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
+        b=XnbLYiH/BEhso9UcOwBEMSmuHcO7oYlTWKU8OtykCgMDUGTV71MZHPgFznVu/FF3Lx
+         eYn7nIzUbe4btbN1pwn1AVC+TgOLlu06/5ulCjD28TxM6gipf5iwX5IWjGs1zC1l0nhV
+         XPjfqa6SWsCKcU0rRUy7M511R90KLD84/UqZOxQ0omw9soKuSfqHsCaYRnvaQTNgi+la
+         Rjl2qqHS8ayFnhKOC7Dk7lua7qh8sUWgDTmCEucqdAwnxGo0KtSXTIxpqN6R3sLydW9b
+         y25+v6SXahDFEcz4bq3qVBgjEOmu/gDHLG4JxOiiCjOAGCXtPmr0jTj+X+rQNEB4CTMf
+         SwUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794327075; x=1794931875;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794327109; x=1794931909;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f6FXAOsuB/cuM2Q90beDrqDYRqrVlTbOMRM4fnMO4jY=;
-        b=P4TVXpYhrar1KDKyEa0Dcjx9FbptEMBF9oUAaOfo1kzYEavt7xY3Ijg+/iKeh5Apt6
-         IT19/cPphS8H+GMul+qzdcDVmYp+CmONU+8zNGIR+DpveUhPY4c0+xKl4rczKTs7otOz
-         RbZuoEjO//AA30f5scs9uWGYUdf3NAiCo8UCyoPjJDw0kEeBYHpQQHPG0ar/hNmtJvrW
-         /0o7/A7dFyCa34abO9ID+qk5SSAy3oFTLwjMoiBcCdJwpdWo+6SJbCt4jd83/dmXN17k
-         LLtEUGeonTkxBQ+ZhZyDOErM5s7H8GbtpvpmexeqttE7A+QQ+aCHZW2fOaEHmVnWs5aB
-         bCIw==
-X-Forwarded-Encrypted: i=1; AL+hErFaE03zu03E7bLE1aTccUxrp/Z58Ygv5xo9uftvseOGFlpnSFP5jNV9Gmxm6OFqAnQ5VFmWMMVnrD0UNn0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FW0dbUab5FbhYuDUv1POmJKKyey6b7WhPzhLEbQ114/Hlrxnw
-	/XBX+RKp1VLdAmFv7L1sCeXXzsRJoyqzKsa7jY0mMCmDkCsA2qjvyk+y
-X-Gm-Gg: AYBFou1CZk7UgYl+zmcUha8dzFnXNQ8wXgO1tB9cZLWJ3Y8dvdgl8Q0/uNPgrJQgbov
-	fYa08YnEEKjgHRlznEmCPxeFEUdYjxSU7Y8uDTWwrAjvjhf47uKh8ELuDHh1PDflZC/0n3qD7C3
-	D2XHvaPwBacV7LI1e723PNTkthBBfb8C7CPoEV8yrDbZLYQarXvBd47+86CYvUp9IZ2YVmW1Vgv
-	sR/+Xs8amYAb4DZZb+bcLoGm2MWH2FYO4SYGnsl1bSy85ipck95TQfFVsstVFc+wIHMSshpaH2R
-	OR3bcWqBzVPTvcZz1aTHo8K3A83Ssfzsmja7deey0oThYHXrYOwMy1SeyghkNdAFrirZ5DLxb0n
-	kYZ+hPWj+Y7gro91/UWBAu8n2aHxejwUtunx3hFhYYUJKw13gKzb5v53fLbdGKXqTTJYQPDam7A
-	tRvBPticQd5bFFJI+lgKkfBiF8uPe6oAs8DelpzZTDSMuSDo2VFkeHASsLH/dBGEgapxF5rjtQS
-	RH3IBxZgTL1GBoRbGkssF8NWsQ/34Qb3Lzk4474wqUewCx5EG13RlQF6HE40IQS1l7KusBz0dTx
-	gsG2VXD5dFABLOf8fBRILT5NQam/rY209WQiFtdp+/Fd9fQw3irbiON8g+tuWxZSSH+vYB1GJx1
-	TUkNTjBggPuuCPoT4yihZbJUPXkDyDBxz8I/AlToCavOtMiuA3Kj5Na9mFaGm4MUplZmFrfJzpc
-	yL4KG55jQhBSz7WhDMVxZzSEQS4lK6Ljtw1jevssYRIJ0hnD2xBRWI1nvJ8YXgIBe7pirspuGRB
-	XR3lft06xJSuQZJ0tIWftkJtYpZ7+n33luE50C3I9Eu99AYs6Czq1aXwxTCPmHQ++Jh4jYTkY26
-	rVwWjYPN
-X-Received: by 2002:a17:907:3da8:b0:c2e:3ed7:7db4 with SMTP id a640c23a62f3a-c5049540483mr285400966b.23.1794327074616;
-        Tue, 10 Nov 2026 08:11:14 -0800 (PST)
-Received: from jernej-laptop.localnet (86-58-12-36.dynamic.telemach.net. [86.58.12.36])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a591485sm127282366b.32.2026.11.10.08.11.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:11:13 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>,
- Andre Przywara <andre.przywara@arm.com>, aiyengar1990@gmail.com
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Arun Iyengar <aiyengar1990@gmail.com>
-Subject:
- Re: [PATCH 8/8] arm64: dts: allwinner: orangepi-zero2: Add i2c aliases
-Date: Tue, 10 Nov 2026 17:11:12 +0100
-Message-ID: <ekjxzCRpRcWPwcDw_lDV4g@gmail.com>
-In-Reply-To: <20261110-h616-zero2-dt-v1-8-05506d760f21@gmail.com>
-References:
- <20261110-h616-zero2-dt-v1-0-05506d760f21@gmail.com>
- <20261110-h616-zero2-dt-v1-8-05506d760f21@gmail.com>
+        bh=Bvu8fH1m1BZ2sQQoPyfnhre5VWvJqEOu2Sa0mYvTTis=;
+        b=vqTz+YQ7YngVIGd49FmOLWCVRQBbmxi0m+ameYpXzJuZfyC9mLOMOhnMrwUQZE2gfS
+         dVvYloQInSor7dg28YvOil9fX78mCTtAHEmWDr1XGxEpRs3wIr7QQzf0+JQzMuxg8IeK
+         1m8SbXKxhU8yMfhFyTOl4UfegxZIUastaxnKNDFstWSf3zNTeFLy5UfTaautfjE2nNjE
+         d2l1WsSIO+kHg1TMpJ5CrGPI1MM9YGwImyS4KDqBSwF1Nd3yEHzayQurYMu05UX7upJw
+         +E4Hrf1m3LoqWbOedbG2NQrlLA75U59NzHlKPzCk1ceBN36FEphm1I3BLcmYK0YolkOU
+         WQRA==
+X-Forwarded-Encrypted: i=1; AL+hErENMQBP8DtpJTqwzffMGveHU11q3G4eA8MUZHNCgKLEiidn+Cp0zb+ziMsH8I0256cEurxMZb1Yk6Plgbg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RK9G4wiepfPEKBggEvRqMvekE/xeEZKPt7RA68NB9neWMcGlt
+	jrnLgIk1YNay7Gow1rRDpKdk3pJ+K61QyKLvqD5+UDTZcD/iemHH1yfB9Jorcgt2ZebJ0z6LNxj
+	6AaGj1QWSmDuQg75XMg+J1pR56Qin7ZE=
+X-Gm-Gg: AYBFou29JfgLayIX/XQqQSMjyhlVr7y1c08KOGKrwvuXrYvGU3E9XWJ4PnCB62OWJx0
+	TBx9RTp8hOnG/5U1U358+51CQ/mtPjIIep7xRkwAdsBFUeELtxdJrNlAGtGc886gmA5Le6a7sFP
+	x6YzWRJk629z7OjUjRrfmSs7iWBILUz7u2k/h57Xaik4aELEPoYkvdA3ctoIVYGl4PykXtHVrGs
+	6QqQXyQSDK7xQ41kSjg9vvUD1CN0B+t+BbOoVzD94jCO7AnxV5gJ8giSkjNHE9Z9zCLj1zMaB/3
+	3Cn4jEQF7g3sXZkZcQRpPrmBuz/m93Ho+qXmijn0ks1i09IpTGGb5Uw1e/jZ4O1hLOSO3gLc1+Q
+	aIhWCipj03kTFIRgWz9M8y5kjJV2Z1CBapx+K04fi9cDG//kH4jg=
+X-Received: by 2002:a17:906:194a:b0:c41:266:68a7 with SMTP id
+ a640c23a62f3a-c504952c255mr192385866b.10.1794327109186; Tue, 10 Nov 2026
+ 08:11:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,64 +104,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <CALj3r0ijsuzadYoi0NPkSpT8smRyi607APfxLS8_u3JSH3+dPg@mail.gmail.com>
+ <20261106115040.1199269-1-amadeus@jmu.edu.cn>
+In-Reply-To: <20261106115040.1199269-1-amadeus@jmu.edu.cn>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Wed, 11 Nov 2026 00:11:35 +0800
+X-Gm-Features: AclHuK-W_aGhTciJcK2jT1mQzUOxx8a9MsoP2BEfAZfP7jfpZyRRqnBuAfsnq9g
+Message-ID: <CALj3r0hOjksUtYg+qLqPU9kz4w3SAqGvSmFFi9YBXNGiEPEZSw@mail.gmail.com>
+Subject: Re: [PATCH v3 5/6] arm64: dts: rockchip: fix USB OTG power on
+ Photonicat in battery mode
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: bigfoot@classfun.cn, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Dne torek, 10. november 2026 ob 06:37:02 Srednjeevropski standardni =C4=8Da=
-s je Arun Iyengar via B4 Relay napisal(a):
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The I2C core numbers adapters after the "i2cN" aliases and hands out
-> dynamic numbers, in probe order, to adapters without one. The Orange Pi
-> Zero2 DT has no i2c aliases, so a TWI controller enabled by an overlay
-> for the header pins gets whatever number is free when it probes: TWI3
-> on header pins 3 and 5 does not show up as /dev/i2c-3, and the number
-> changes with the set of enabled buses. The vendor manual and the
-> vendor BSP name the buses after the controller.
->=20
-> Pin the numbering as the vendor BSP does: i2c0 to i2c4 are TWI0 to
-> TWI4, i2c5 is R_TWI. Disabled controllers get no adapter, so nothing
-> changes for buses that stay off.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Chukun Pan <amadeus@jmu.edu.cn> =E4=BA=8E2026=E5=B9=B411=E6=9C=886=E6=97=A5=
+=E5=91=A8=E4=BA=94 19:51=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hi,
+>
+> >    (5V_BOOST and 5V_OUT). Adding a `vcc` prefix would break the 1:1
+> >    mapping between the DTS and the schematic, making it harder for
+> >    anyone tracing the board power.
+>
+> I didn't mean to change the nodename, but rather aliases.
+> BTW nodes should be sorted by nodename (placed at the top).
+>
+> >  ... However, 5V_OUT
+> >  is a distinct net in the schematic. Keeping the node makes the DT
+> >  power tree accurately reflect the hardware and clearly documents
+> >  that both the USB VBUS and HDMI 5V domains share this OR-ed source.
+>
+> It is not an independent network. 5V_BOOST and 5V_OUT are on the same
+> VOUT, only separated by a diode. The device tree describes the hardware.
+> 5V_OUT is not a regulator, it has no enable control, so treating it as
+> a standalone regulator is incorrect.
+>
+> >  ...  For now, chaining
+> >    `vcc5v0_usb30_otg0` -> `5v_out` -> `5v_boost` is the most accurate
+> >    representation.
+>
+> Adding a fake regulator is just a waste of startup time.
 
-NAK.=20
+Hi,
 
-Extension connector is not covered by board DT. Use overlays
-if you want to use them.
+Thanks for the feedback.
 
-Best regards,
-Jernej
+I understand your concern regarding 5V_OUT not being a standalone
+physical regulator. However, I'd prefer to keep the node for two
+reasons:
 
-> ---
->  arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 9 +++++++=
-++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts=
- b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-> index d5d39bac5915..98fc83291dc8 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-> @@ -12,6 +12,15 @@
->  / {
->  	model =3D "OrangePi Zero2";
->  	compatible =3D "xunlong,orangepi-zero2", "allwinner,sun50i-h616";
-> +
-> +	aliases {
-> +		i2c0 =3D &i2c0;
-> +		i2c1 =3D &i2c1;
-> +		i2c2 =3D &i2c2;
-> +		i2c3 =3D &i2c3;
-> +		i2c4 =3D &i2c4;
-> +		i2c5 =3D &r_i2c;
-> +	};
->  };
-> =20
->  &cpu0 {
->=20
->=20
+1. Consistency: The DTS already models other always-on fixed rails
+   without any enable control (e.g., vccin_5v, vcc_sysin, vcc_syson).
+   Keeping 5v_out is consistent with this established pattern in the
+   same file.
 
+2. Accuracy to the schematic: 5V_OUT is a distinct net where the
+   external DC input and the boost output are OR-ed together. Keeping
+   this node makes the DT power tree a 1:1 mapping to the hardware
+   schematic, clearly documenting that both USB VBUS and HDMI 5V share
+   this OR-ed source.
 
+Regarding the startup time, a fixed-regulator without GPIO or clock
+controls does no hardware I/O during probe, so the overhead is
+negligible.
 
+On the node ordering: the node is named `regulator-5v-boost` (starting
+with 'r'), so it is correctly sorted after `battery` and `chosen`.
 
+Coia
