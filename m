@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794338596;
-	b=kB2SUb+W0LO7hDeNtqoL5tzAJQ85TdQWAvbwGncyJcdmIikn4eTJZyl+GwBxQ58X8yVT
-	 W5tjzmQYut2EWDk8wZB8+EMnz8rPTRA/FKzmIKksVOPee5aJJrWHYSSigzA0e3r6SxaBK
-	 F87fBPvNHsSd5onaXhqzzwnbohG+hVgL7DQroE4b03wL3aYVCx/MQVGnzES40FqsDfZ/z
-	 viVrXbqPM/u21gppODH7ikznx0c15sSrzJDbscBk0u2xHIlU/w1upE1rCUjdIxl7L7fIo
-	 1OHCntuhP1rZNeR20WaoURVycDdcV9mbaVvaiOle8gW0HT+KoedoyDwIbPRBbqebvNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338596;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:User-Agent:Date:Message-ID:MIME-Version:Content-Type;
-	bh=iPKx18V270dl9l4OtB/Y/MxcQ9Z2Zk3biIxOyRYrkNI=;
-	b=SMkCOcisjEP246hjWGniQEinNbLf9eO81Vbjqp9rVgvhrUAfBDvmy/Na2ZMOnWXiZ/7X
-	 WD5egWhrJxioux2h9A0T1EfTgi0nOTxHA6jYKEOCAOwG4z4NXO6O0s0FjO1UP5jgkPwiH
-	 29Fx4E/VozFZA2jsERcDrgd+rvjK93aTpp9Sc65V0+/EOan9/MHjboBw4PYdEYODLb1VE
-	 TnEx6PtPhu+Q6SHHQpmbyVsEr2AICMLRZE44x3hQOR91aV4GJgbxSOZIs4bXuL5Di3hAr
-	 bZ6i3t4OkpqnBEKBfuGE1HyuTJxFa4WK+IWlXWFHgFEUmniHLkHJv6SRkvKPWow8CmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ad2kTkaY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794338625;
+	b=yNt4OXpqN5vHkLiA5puVKK2r21PPcuPWy15gZFV9mmkzZiwfFR3eTtrJLI7IvOm8ssyY
+	 OSwkNr8eSiQjjwooTArqpgWuxrep6RSLLM5AkkjFr97QjYDccqJ4xVeCJLMuQqzDnRw4x
+	 xJp1UpLgQIwCLkuK6XQ31oofH94PfV+Yse/1rn4gCgxTQYpRf0DspCznyqNMNCKen+7py
+	 Amddvo022s9JyR8OfIuuZ4mHwzKp5DORxwmQHTKtmDYbHrGwyowhKdHA06o24SCtsRmVl
+	 TPH/ItRCO7KI1QEVrN8mBaO0ZQ9K4b/788ecf17Fn33shFoNQ21t5ooWZN9LVCmqj6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338625;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
+	b=BwbEUVofhWaFSTn0Gn6+ELJKTd+PNnU+TbyWp9lMJMTeM7YYIcxWnHk0D/56wI/eD2Pq
+	 x9ATP7BQcCWDuM3tAxk+rc5aVqwSFKahmAAGdDr7zx55faLSsXCC2bCaS3aiiit0c9v2M
+	 eASX+ZbsOxEzqgeqIV8MMKhrweCaqv6xGXbS5TgFez0ZN9Yt7p3pQvZ5md3y+g2FSoW2B
+	 ACObaMWKc3DOLU8xL8YGtZiK2Z9MrFfEQ5VmQDMX63f8juB6HMCclSyXRzq6Z0xBI7IEi
+	 IPvKYvc63Sx4Hg7N4aSmLtaoBmYpXmf28N4mZ4BeX1tGPUo9uAjxMcfNeKUncGp3fUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=metarealtyinc.ca;
+	spf=pass smtp.mailfrom=metarealtyinc.ca;
+	dkim=pass header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=fLEPEzDY;
+	arc=none smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70371606A323;
-	Tue, 10 Nov 2026 19:23:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70371606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC90F606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:23:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC90F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ad2kTkaY
-Received: from ratatoskr.pengutronix.de (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
-	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 62C69200912;
-	Tue, 10 Nov 2026 20:23:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794338587;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iPKx18V270dl9l4OtB/Y/MxcQ9Z2Zk3biIxOyRYrkNI=;
-	b=ad2kTkaY76tsMkTt+onWR5PN2aKA0XKobO4S8lvFuJok+4OvS3TNiT02awZnsn0LN7UnMl
-	zEuj9RQPeQ/Ek2iWA+c+Tbnglyzcjtt1KWInsRHTLBv+fZC6wKfkHgLOo+n43brFpzAKCh
-	mwjf0g1GKgO6QyN0NRLMsn0x+G7EdOqWU4paXBCvcSa+GIKO2JyWnhB3FsNrdzOiRWoaVF
-	LrJg/8S0/Szi0KICni0p5/FiYFTM9Loif1FDPjyNNQV66jbnRa7H9RBPr6CXRItOfMP4S2
-	N/m7gZ23QU6nss06fH2RawV+9J+Q6AdqjWDN32ST0JX7sZEppYuc0HS0DgAJaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794338587;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iPKx18V270dl9l4OtB/Y/MxcQ9Z2Zk3biIxOyRYrkNI=;
-	b=DZhaii5FfLOmOJSKmF1ZdtDdw0FP+NcYWPZ87oXuBOT7oT51WkJ3e+pvWPSXDDGOqfVz7B
-	0zGf0Cizh0awSB0MJmE1ZCbR+R8RbO+rmfPpqxyz+nBFgP6G0Ff4LbZPlHQreabSR43Phu
-	aGaRIWQQ8T+OMJFAoTPjBvagS6g2vjyD2W6e03FBpLiHWPRCcFEakpdbhQ3BrMHPNGVYr6
-	s4E7hJ84jKKOxyS0ViV9ItVCsyCaahSCiNSdHy5Nsf8qdkJ0Aus0qXV+jZXv1GZc6cBfm6
-	XncupiZVOg9WhVzKhtr6kdQtlPBHARGroupu2ZeRz40f8hiXfBe6vBlaXpKAuw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794338587; a=rsa-sha256;
-	cv=none;
-	b=Gv1TfpYWYNfgkfi+YH0dunOFKrJ9Ove7jvwVoYUyUJVUEY5dZoP4XPggYN8odgpD8XN8Zz
-	3vroncbnCpIptWLEOkAgFDSIg9X+FhKwsnIAqkaaaSWvLWbgbIZNPvZtLdUh36RsNwl7xP
-	X0S4uA0WR8otMcdCdgzS/x2ytzLGNcg/oJxqA1J4PGMG8NgTs7n4TbbCAzNsDYvEZrZ1D7
-	h0iAM9EJ4bfFnktXSZ4bl+PdTeAVVXjlNSGjgwswtDpIdaGydsrm91HX01+LiGoU6a4nLD
-	RbSEkS2BP+234M+rHpH4lQTLlhF1V4a46G2b6Fr461f2KCLC4/vAmy/QdPHNgw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,  Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>,  "David S. Miller" <davem@davemloft.net>,
-  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
-  Richard Cochran <richardcochran@gmail.com>,  Andrew Lunn
- <andrew+netdev@lunn.ch>,  Eugenio =?utf-8?Q?P=C3=A9rez?=
- <eperezma@redhat.com>,  Jason Wang
- <jasowangio@gmail.com>,  Alexei Starovoitov <ast@kernel.org>,  Daniel
- Borkmann <daniel@iogearbox.net>,  Jesper Dangaard Brouer
- <hawk@kernel.org>,  John Fastabend <john.fastabend@gmail.com>,  Stanislav
- Fomichev <sdf@fomichev.me>,  Eric Dumazet <edumazet@kernel.org>,
-  virtualization@lists.linux.dev,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  bpf@vger.kernel.org,  kvm@vger.kernel.org
-Subject: Re: [PATCH RFC v4 2/6] virtio-net: support receive timestamp
-In-Reply-To: <willemdebruijn.kernel.2adf5c78ee0e8@gmail.com>
-References: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
-	<20261026-v6-7-topic-virtio-net-ptp-v4-2-008af03cd43b@pengutronix.de>
-	<willemdebruijn.kernel.2adf5c78ee0e8@gmail.com>
-User-Agent: mu4e 1.14.3; emacs 31.1
-Date: Tue, 10 Nov 2026 20:23:06 +0100
-Message-ID: <87v764ze1x.fsf@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=fLEPEzDY
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc53938a8fso1595632137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:23:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=metarealtyinc.ca; s=google; t=1794338624; x=1794943424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
+        b=fLEPEzDYbIYtk1YbU6ZmQpN6irlYIbBy0+uzUm1tcfWI8thnbfx8ctYWTRONw5iGRx
+         gVXevkQWwdbO4mlY6VdPaAcs+HVyvM6rYEke+zrR2L8ush8he8JnmAEi54U7DYZH2SiJ
+         B1iAmBwLBsrh8rPez3XkG3JHR+opkleBp7yBHkh3lBocaod9L4mAliH5xqyuniESCdL2
+         b6dJB38qeeN6byO1kfjjVy2BGQmfvrreIeRjuxVfhbqlRX60+QC3YuJUw9xVDkjvbMKZ
+         r5+v4CdYoC074M1C5bokgLsqlXv3cq1dFcyfr0yD+HEdRVg2A1+HDodmXmqgiuRdZYiO
+         4F0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794338624; x=1794943424;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
+        b=oOmNyvmJV+p1VVjAEmEuI83XoNeLA3+ldPLmAHtvWm8bw/dkmgDgjc6z9zXb6UdYjI
+         x3raHggc2JtqH5Sty8fj2aXx/u27CbjjtdTiViJjG2rUqGV/O+oed81DBy4uEriwqO4f
+         08kUFuCUJ/Yw/qq49CKLeRBOwpUsdOnpvwOWEFzCCtp+N0nmrE6f/Wb3jM6kXWPBd02b
+         /IX+0Y/7NuiUeT+zSrbpBrttw0OXxMYF+CPXwHpu7zw4yEgxxvEG5leWBrxm3opjROJ0
+         5ptda47c9D9qLvrbB7lu8WYNo0jzWGYAKP5fS+sb/CTL7AsB3U4hVcTdHA9OCRZdjREC
+         fLoA==
+X-Forwarded-Encrypted: i=1; AL+hErHNXAWpMHuAQQhATqJBEiz9Ih60emi8sssHpLBPibP6jGazgEG3r+3q3csm/WIlxqCEiojSQLjmsnG1BHE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sgVOjGPFfPxtMlTDHHVg7/GtCsIes/tHkOpYfh6w4Q5tBrtb6
+	oTGTOGr/AxAypEyrYyZCyKXOzOgupub7ZgK4Cfl2tFZJ1C4X0gt4k1tsLrp8i9DxbyY=
+X-Gm-Gg: AYBFou09C2kYBzi4iUiUnJuxuoT5CxQ2ZY6LzOWzuAh+OTVqimlIgZf8ysDdaerWhRF
+	ilHI3jSMacwjwO5g9TsGn8F3gtGiwh+a+jIsoR5sd2HLCzmnL61XXtM6+U+0dPSq0ZDFJFnqF9V
+	yTw/6DruacJ3lvSPisBa/r8v0D4p9jXVEvy3wBI1AmPqZEPGkiHTu9U3iC2bD2nv5IKJVW25cZX
+	1YRl/lHIjA9lgIEJL0rrGbxth+P6nMXevUDF4iz5SVUENGXxn2wCrOCen8UU9jh/cfypMTUaQWz
+	eDmvGClmUpsbFjmF51slHi42P5i2DHLr9bm5EMbyTL4tuGgOwjL0MlvSQnW2Y4O/C/pNarP7+Wu
+	2IlgLts1W5jrMC3LLZBVJ9MWqfFBfsq2gBnYEnMShF8gQfmsnUqCDpQ0tQ7Q+pTPOBMYEcCKjMf
+	o6Lpbia2it2mTq/gM/lrEveC+HF/7CTEl6jRYFCVOjAz3JtBMqDFmUhoqv7Lk4bBJ715aIvhbwR
+	BadmHIg8lcRGMw3JFarRyCLoNvt8MFXGc4td+9865k+Ny1/MTM1/89uCq3pgPXOcpqGkN7/OoRq
+	6CZaiIv8ZBS/n6iR0ga/SELWy7WDcvJ42XmsenlK5LplcsTWy1ruDFhrh4V1IIg3OqeRB77ddSL
+	KOIP/u8UlWCHi7L8rrr+6ELD7awGhCLo9jFCgy3Zt/XJbvDZt16CPsD1uSFvjJy4ZMOVR64exrI
+	FlRypdikmupmAZthrpzpGwte8LcugiqlaW7o8/PCsKXH6Pq34Iz052L02qk7XUkIdH
+X-Received: by 2002:a05:6102:510f:b0:7cc:80ba:5e5c with SMTP id ada2fe7eead31-7d301b91214mr1618345137.6.1794338623819;
+        Tue, 10 Nov 2026 11:23:43 -0800 (PST)
+Received: from jake-laptop ([2607:fea8:c6:a700::879a])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d3023aed1csm2368632137.10.2026.11.10.11.23.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 11:23:43 -0800 (PST)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: sakari.ailus@linux.intel.com
+Cc: bingbu.cao@intel.com,
+	antti.laakso@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu6: Don't stop or close a stream that failed to start
+Date: Tue, 10 Nov 2026 14:23:41 -0500
+Message-ID: <20261110192341.1305587-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <avLwlhbOg-9EJo7g@kekkonen.localdomain>
+References: <20261106121905.42571-1-j@metarealtyinc.ca> <avLwlhbOg-9EJo7g@kekkonen.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,151 +103,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-01 at 10:04 -05, Willem de Bruijn <willemdebruijn.kernel@gmail.com> wrote:
+Hi Sakari,
 
-> Steffen Trumtrar wrote:
-> > Add optional hardware rx timestamp offload for virtio-net.
-> > 
-> > Introduce the virtio feature VIRTIO_NET_F_RX_TSTAMP. If negotiated, the
-> > virtio-net header grows by room for a 64 bit TAI timestamp (header
-> > size 40 bytes), stored in struct virtio_net_common_hdr. The layout is
-> > cumulative: the field is at the same offset whether or not the
-> > features before it were negotiated. The fixed layout needs
-> > VIRTIO_F_VERSION_1, so the feature is cleared without it.
-> > 
-> > Implement ndo_hwtstamp_get/set so the timestamping can be enabled
-> > and disabled at runtime with SIOCSHWTSTAMP. The driver cannot filter
-> > what the device timestamps, so any rx filter other than NONE becomes
-> > ALL. The timestamp is read before the packet is handed to the XDP
-> > program or the stack, and attached to the skb with skb_hwtstamps().
-> > It is a raw TAI value; there is no PHC.
-> > 
-> > The header size is negotiated per device and also applies to
-> > transmitted packets. On transmit, zero the header behind the fields
-> > the driver fills in, so the device sees a zero tstamp and no stale
-> > skb->cb or headroom bytes.
-> > 
-> > On receive in big packet mode, the header is placed in front of the
-> > data in the first page. Grow padded_vnet_hdr to 48 bytes so the
-> > 40 byte header still fits there.
-> > 
-> > Tested in a guest with a patched QEMU:
-> >   guest: ./timestamping eth0 \
-> >           SOF_TIMESTAMPING_RAW_HARDWARE \
-> >           SOF_TIMESTAMPING_RX_HARDWARE
-> >   host:  nc -4 -u 192.168.1.1 319
-> > 
-> > Based on work by Willem de Bruijn.
-> > 
-> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > Assisted-by: Claude:claude-opus-5-5
-> > ---
-> >  drivers/net/virtio_net.c        | 136 +++++++++++++++++++++++++++++++++++-----
-> >  include/linux/virtio_net.h      |  10 +++
-> >  include/uapi/linux/virtio_net.h |   1 +
-> >  3 files changed, 131 insertions(+), 16 deletions(-)
-> > 
-> > diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> > index 17d3e32eed9d6..23af10c613b48 100644
-> > --- a/drivers/net/virtio_net.c
-> > +++ b/drivers/net/virtio_net.c
-> > @@ -20,6 +20,7 @@
-> >  #include <linux/filter.h>
-> >  #include <linux/kernel.h>
-> >  #include <linux/dim.h>
-> > +#include <linux/unaligned.h>
-> >  #include <net/route.h>
-> >  #include <net/xdp.h>
-> >  #include <net/net_failover.h>
-> > @@ -416,6 +417,12 @@ struct virtnet_info {
-> >  	u32 rss_hash_types_supported;
-> >  	u32 rss_hash_types_saved;
-> >  
-> > +	/* Device passes time stamps to the driver */
-> > +	bool has_rx_tstamp;
-> > +	bool hwts_rx_en;
-> 
-> nit: cryptic name. rx_tstamp_supported and rx_tstamp_enabled or so?
+On Tue, Nov 10, 2026 at 12:23:18PM +0200, Sakari Ailus wrote:
+> Please be careful with git send-email arguments in the future.
 
-Sure, I'll rename them.
+Sorry, that was a quoting mistake in my Cc list. It's fixed for future
+sends.
 
-> > +
-> > +	struct kernel_hwtstamp_config tstamp_config;
-> > +
-> >  	/* Has control virtqueue */
-> >  	bool has_cvq;  
-> 
-> > +static int virtnet_get_ts_info(struct net_device *dev,
-> > +			       struct kernel_ethtool_ts_info *info)
-> > +{
-> > +	struct virtnet_info *vi = netdev_priv(dev);
-> > +
-> > +	/* setup default software timestamp */
-> > +	ethtool_op_get_ts_info(dev, info);
-> > +
-> > +	if (vi->has_rx_tstamp) {
-> > +		info->so_timestamping |=
-> > +			SOF_TIMESTAMPING_RX_HARDWARE |
-> > +			SOF_TIMESTAMPING_RAW_HARDWARE;
-> > +
-> > +		info->tx_types = BIT(HWTSTAMP_TX_OFF);
-> > +		info->rx_filters = BIT(HWTSTAMP_FILTER_NONE) |
-> > +				   BIT(HWTSTAMP_FILTER_ALL);
-> > +	}
-> 
->     `ethtool_op_get_ts_info()` leaves `info->phc_index = -1`, which breaks Ethtool
->     Netlink `ETHTOOL_MSG_TSCONFIG_GET` and `ETHTOOL_MSG_TSCONFIG_SET`
->     (`ethtool --show-hwtstamp-cfg` / `--set-hwtstamp-cfg`): `tsconfig_prepare_data()`
->     in `net/ethtool/tsconfig.c` rejects `ts_info.phc_index == -1` with `-ENODEV`.
-> 
->     Either `net/ethtool/tsconfig.c` must be taught to allow PHC-less `ndo_hwtstamp_*`
->     drivers, or the device needs an associated PHC (e.g. `virtio_rtc`).
->
+> I wonder if any firmware communication failure, a timeout or other error
+> should trigger the IPU reset (once the users are gone). The functions
+> communicating with the firmware should also probably check that condition.
+> I just sent a PR on IPU reset changes, they probably don't address this
+> problem though.
 
-Right. (explanation mostly for myself to understand the problem)
-The PHC-less case looks easy to allow in tsconfig: tsconfig_reply_size()
-and tsconfig_fill_reply() already leave out
-ETHTOOL_A_TSCONFIG_HWTSTAMP_PROVIDER when the index is -1, only
-tsconfig_prepare_data() refuses it with -ENODEV.
+Agreed. This patch also applies cleanly on top of your ipu6 branch. With
+"media: ipu6: Return errors from stream stop and close" there, a failed
+start already marks need_reset in ipu6_isys_start_stream_firmware(), and
+this patch only skips the stop and close calls that can't succeed.
 
-For TSCONFIG_SET it is worse than for GET: ethnl_set_tsconfig() calls
-dev_set_hwtstamp_phylib(), so the driver's ndo_hwtstamp_set() has
-already applied the config, and only then tsconfig_send_reply() fails
-in tsconfig_prepare_data(). Userspace gets -ENODEV although
-timestamping is now on.
+One thing I've seen on Panther Lake: the PSYS is a child of the ISYS, and
+as far as I can tell the ISYS isn't runtime suspended while the PSYS is in
+use. So need_reset can stay set until the last PSYS user goes away, which
+in practice means restarting PipeWire.
 
-virtio-net is not the only one there: ngbe/txgbe (libwx) report
-hardware timestamping with phc_index -1 if CONFIG_PTP_1588_CLOCK=n,
-and dpaa does the same without a ptimer-handle. I can send that as a
-separate patch.
+"media: ipu6: Don't mark need_reset based on returned buffers" covers the
+IPU7 case from my need_reset RFC, so please drop that one. I'll test your
+ipu6 branch on Panther Lake and report back.
 
-Which clock the timestamps are in is a separate question, see my answer
-to the cover letter.
-
-> 
-> > @@ -7250,7 +7353,8 @@ static struct virtio_device_id id_table[] = {
-> >  	VIRTIO_NET_F_SPEED_DUPLEX, VIRTIO_NET_F_STANDBY, \
-> >  	VIRTIO_NET_F_RSS, VIRTIO_NET_F_HASH_REPORT, VIRTIO_NET_F_NOTF_COAL, \
-> >  	VIRTIO_NET_F_VQ_NOTF_COAL, \
-> > -	VIRTIO_NET_F_GUEST_HDRLEN, VIRTIO_NET_F_DEVICE_STATS
-> > +	VIRTIO_NET_F_GUEST_HDRLEN, VIRTIO_NET_F_DEVICE_STATS, \
-> > +	VIRTIO_NET_F_RX_TSTAMP
-> 
->     `VIRTNET_FEATURES` expands into `features_legacy[]` as well as `features[]`.
->     Legacy virtio only supports 32 feature bits (`0..31`) and never has
->     `VIRTIO_F_VERSION_1`. Move `VIRTIO_NET_F_RX_TSTAMP` (bit 49) into `features[]`
->     alongside `VIRTIO_NET_F_*_UDP_TUNNEL_GSO*`.
->
-
-Oops, yes. Will move it to features[].
-
-
-Steffen
-
--- 
-Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+Jake
