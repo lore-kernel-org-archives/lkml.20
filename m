@@ -1,114 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794287463;
-	b=Tki/ZEuVtNfaIBL7vKG3FwET+gyWyOK/JXdS3oUD5KDkNTiirobe5nETCs7juwH1gOT4
-	 tU4D5Q3b+t8IDrM/WYCMEF7bnsN11ZgxLVxu93t5u6vownkkfZA/fLCkLjQ+aZNdp08qp
-	 Pf3pXMfjTM9tzi+I9weMeHbN5YKojy0KO4husMbkwEW9ShGrg6Lxl31jicmZpRKT4Nrzg
-	 V1QChyE73xarYAkBHiTYmBx13trMbizy3tS5hrYECfF2FkOMXj5KvCec3XO7S5N8PZ7cJ
-	 7D6pXTBN9TfcCvH+BqLEtI8/fnBPncijWwZvSv/E9C/RJxISQFXKI11tj7zDLIWW3Hw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287463;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GUDd04s/MiWOcmk3wrxpuhqgI+JEcaHgX4UXi+sjuy8=;
-	b=5ZsoqN/zUtZguETXv0mNwt+lS9HSRhP7P9dAgVo3caHGnTVc45vYplvkY0RTG7KlhgRO
-	 JB7psQ9kU3gaaB1TvX76yUJNoK2FM1ZrgIgNtoeS6Brf8tpzOMHXSJ9RT1NKWHI0li4qO
-	 D2KOSm9q7le+/siXOYBHWuPBbwKyL95+mx9UtYkK2Ly9oA/pBEtt3Mo4wtjnBv/ghqEa0
-	 3ZRDpULaGDEkeLGFLUKLpiT0sB+3hCwx5D1jvxqYYdMCfOvSzYS+G6/EF8ET5XN5MJ+Zu
-	 XlG91HA/uN9Y1iaCplh75sg4Fc0ABko50eR8zFkJ1D1oETagiQDoEMQfxMDspX2KX2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=btjSFxF1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.5
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011005.outbound.protection.outlook.com [52.101.62.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794287476;
+	b=4Vn0JJvEKN5eqJzblytJnwF7RNOXuV1yjExIQj7pbQFRe8RqoNj2kTSo+lwa63nI1kst
+	 0WtL2EPEEx5RpBOXKE5i5UBDE9mFRYP62Obxt6hDfF35KkiE9dwjcZ3d8vyw3YcP05UB7
+	 x60FcmdSToYVcd6j8Zxqhnym/A+7yv2c4IaXVk+2u1rqoqZvxYIQj3D9WPm7z9hGeco+V
+	 MqAJ7Z64/6t1oBtSZHOb7W9Ajs5ZFJU+M65MgzZ2BMlOSYON3xNNs/kEmXew0CX/ovGFy
+	 HKYDwCYtVBfHvEU17wn7YLXScONTFjS+FLifMdKBuZcUjQxruoB5aUF8WYhx8WxtCcQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287476;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Kn2yz95tLrBi+RJY1rsSyZMijDpRDR89S+H8Y0oMoYA=;
+	b=0Hdcn7UYguWyGCzJVfCW7lSZTqLPX0r2Q61wcxI4BqXVBOQz/z0h+tGbxqBdFFz5YRpM
+	 tSUyCO6itbYi2ZAFsm/kN1E5tzV4JonWFuvnfoMDvigwECz4ZindjojAA4TFQDNjTqItM
+	 wALektEiJ8QXerWMzb2kmuBIjBqhbPxQBvStXo4Ghm9wg+Ua7FhFB9IeMyRlDdIZNUYbk
+	 KKaTrFpN1H2ehtoND0+SjTeNP8qk/wlMTx3XqpkJe1ffqArbvsAcCTL//yk+2Yusm+oSb
+	 bqfPivvVgaz8MH3u3k3h86MF9+ZyfPjY5piD8V/7BtX+MknML8iLmvJaVBoymODryZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BOQyId2R;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98139606A31C;
-	Tue, 10 Nov 2026 05:11:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98139606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E77606A331;
+	Tue, 10 Nov 2026 05:11:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8E77606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=btjSFxF1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qpwLT38iQwb6FCy/k9R9VE+/DgKiWjzj0XLeU1OuD2tF/yJJ0kxlJ+9w6rL7PV6uqoUBG+WC0g+h8BFdzLG3QFtYxw1KyEuV/4EP76dNpPwSRrrWyMdRzLiR7SiBPuIJlGmKVfELFPPJe1423pEerbh0Hy5ghG2XNiWcOWr1Rx9UM/YQENKVPdeab5kx0GC9qdRiHeaLVomTF39TCRFkiBJCGrMpLB552O26HfQRAnUdfoV+Z0NQdXddYbh5e9UCgncgXdZw84UvV5BQTRdWZeIxi3L15DWK8QupwlglJljxss8RLCZVFCBgPeZOkWunPAEZQhYs8bcYTBrk7FJpqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GUDd04s/MiWOcmk3wrxpuhqgI+JEcaHgX4UXi+sjuy8=;
- b=LSQOfkdDmcpMpDm2gpIn5buEmpUqa3tg9BJxjRhvesyaEf6Qu98ENSYfmVEkd7yL0P9ooMb1w99xaCRgxVbnuG6akjcptBL8tcFK82egsx8GI49yrc4JFop7CqZythaogqNK2rs8AVWDfleMBiec5PixF/ob/aF6KXolWph2NT6md35Kw9uZURcZo+TU6xRV6cVYmbEJLEZtVIztu/bD+c8IFVbE+u6yftTI/NWkSIsjN9+z+FEkFSAISbqifzy+UhrmIjIzjHOTtxqkV2soPzH044qu8fK0DRRGfbu2gpDCCn9Oxl8xXTtUzp2ClseTBFdI1OyAYwDaT65sz/R7PA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GUDd04s/MiWOcmk3wrxpuhqgI+JEcaHgX4UXi+sjuy8=;
- b=btjSFxF1ucYpaxK0yNRsJcztgBASVC0ho6r6kODgLvanJunftmQr6UWQRs7L5vcNp1K/TuNCUnqSUvkehIViZ2Qlkkxb22QIwMjsFCgdnqlvoRH7pxB7STjHOl7OGkUmLf8c7RFd8V/GGSpPnqsCnOb5caavwCJPt2dYkdwzfdg=
-Received: from MN2PR18CA0028.namprd18.prod.outlook.com (2603:10b6:208:23c::33)
- by CY3PR12MB9578.namprd12.prod.outlook.com (2603:10b6:930:109::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
- 2026 05:08:57 +0000
-Received: from IA0PEPF0000003D.namprd03.prod.outlook.com
- (2603:10b6:208:23c:cafe::a1) by MN2PR18CA0028.outlook.office365.com
- (2603:10b6:208:23c::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 05:08:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- IA0PEPF0000003D.mail.protection.outlook.com (10.167.249.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 05:08:57 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 23:08:56 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 23:08:55 -0600
-Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 9 Nov 2026 23:08:52 -0600
-From: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>
-CC: <linux-iio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <git@amd.com>, Dileep Kumar Nagavarapu
-	<dileepkumar.nagavarapu@amd.com>, Sai Krishna Potthuri
-	<sai.krishna.potthuri@amd.com>
-Subject: [PATCH v5 07/16] iio: adc: xilinx-xadc: Use guard() for mutex locking
-Date: Tue, 10 Nov 2026 10:31:52 +0530
-Message-ID: <20261110050201.1850399-8-dileepkumar.nagavarapu@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
-References: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BOQyId2R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794287475; x=1825823475;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=BzPWzkt1+m72TzDraGG2Jmxq/WdFQXK5sBlf0OoRKJY=;
+  b=BOQyId2Rd0DBJS4BnLwuiaWTcJfBGOr+hsDeCYhIYSS2LX/7cmcAyItv
+   exfR2RAAYBXObxPOTXg0XYvTtfUB1NzuGgQSQ3cVTsfnziHau7PRT/QZF
+   vx71Cty9ONK8ME8E3Hi/XztPr+nqv07BgCSHCuX/euXYONkmkP87iSTYR
+   J/hSdAOwyQjzJzPo0ZR7udlrclx7xqfyCOjIjlHnI5dVt517QMOE42VcF
+   Yqguk/JjNPPMw4Xo3vgsTiGnhvoKLnSC7F57LjYIIEL4A/C95LGKRrX/1
+   vGQewjlwMA1cJ+CW4see9jz5Ba0V0HiPpxXGOK6qK3TNlBiv+M+NVe1WP
+   g==;
+X-CSE-ConnectionGUID: sZoklcpVT0SPMM6nA7mIFg==
+X-CSE-MsgGUID: TIEvEaZsRCay3zAZF0Bocw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3053779"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3053779"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 21:11:06 -0800
+X-CSE-ConnectionGUID: +49EE02ATwa5C8nv7SoCLA==
+X-CSE-MsgGUID: qRKJBQIBQ4a7jW9IjEuVaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7926965"
+Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
+  by orviesa007.jf.intel.com with ESMTP; 09 Nov 2026 21:11:03 -0800
+From: Ajay KV <ajay.k.v@intel.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: chandrashekar.devegowda@intel.com,
+	kiran.k@intel.com,
+	linux-kernel@vger.kernel.org,
+	luiz.dentz@gmail.com,
+	marcel@holtmann.org,
+	stable@vger.kernel.org,
+	chethan.tumkur.narayan@intel.com,
+	lakshmipathi.k@intel.com,
+	Ajaykv <ajay.k.v@intel.com>
+Subject: [PATCH v2 3/3] Bluetooth: btintel_pcie: Add yoyo configuration for Hci cmd Tlvs
+Date: Tue, 10 Nov 2026 07:10:51 +0200
+Message-ID: <20261110051051.7800-3-ajay.k.v@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110051051.7800-1-ajay.k.v@intel.com>
+References: <20261110051051.7800-1-ajay.k.v@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,202 +88,383 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PEPF0000003D:EE_|CY3PR12MB9578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f226b3e-fc7b-418c-2bab-08df3ee8b989
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|23010399003|11063799006|261009223027099003|261021121427099003|56012099006|261022105027099003|261021123027099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	zVZpsZED1C0W31Nrk9hEXrU26WSPpIT7ft0Fjd5yH4bqbkgtYR+vVGCidZvK61mhqmUf1QBKdm+iG7bqGNPdnEFh0PhdJL8+umTHf+CWCK5/E9O7FEnE/kKROlFQG2o9AW1ABeTrOUQtteIcg81mEhOP7IBsftELpBhQOOllCbOnaevh0aB9XU6Wx9V8q/QgHjaAEc7vcW/bFl4j/Ku9i0h8ztAeaiqrQpFe+OFLV3AwRFUcbDrhe0Qb6b7157cchWxHGYlCHiOzJMA0UeJsUSbGBlWDWUNkuDUJlDyWA/m5VSt5aq1xNywfySxYa2aR+HTvjC/49yEJURzds2vdlcXN1jHYPSluENl7SWCnqOsUfdOiS8zkoGid5BEkLdfFKagQQ3gR6jufIYDTY+JrUAOH9cE3fMd503MyDgsKap4p/5r0novqU00QVYUPK8uK94OPlhWa7AkhnUaodXwur4uwCBtKNo08p5XAIzLUTpFFFvi/5uSPtZjCyx8OMvHH3yUmf476M+lu1GK7x//cm3Ds8kc6OIFxJRqb9XufTCwB0rOjm3JGRvkBiNOvTcYt1ifScGb2Q9ObuYd3SLqvqJyM5ITh9Rb6Iv56R8d8V+Z09x1GwP0zjS+ezN3iyeWggmNbbOPwMcH/CSTNJuf7w70lcb249CY3vfdmcxsGVkLnxJHwwicISzmL8mRauMn/UzZhAyD3JSalGo3yheMYkQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(11063799006)(261009223027099003)(261021121427099003)(56012099006)(261022105027099003)(261021123027099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sjG9kLGkOu6Y99zAYjvaSUduZvseJ2EJabqU+7E5AN5CvNAzMMgrNznJB/fDmdI87aSI16CUEFq55sVP+kR+iS1r55I0IixNl79w1Vcdn5NDylmFEu+wv7KstutHbmvfWXlZ32ws0lMk/1qhSIZ3QkxnsmkfBOm5VMmvl5xeTpdsUdyZAByKxV97GLQP+TUFGfr6I88tvBCESx56u5N/cfcueLuFYjIoWuw7zREhetBVMAOVrQGet65F9Nu8BlkYaea11k1d2ZHPAxCGYZKNsgjsIlh6YA5yVCKd1vKwscVSZ4TQrJIg8QzQcumnQ0h7rcx0hZEmT8N1gu1jSO8nBdqglrHm2DxZIrO67HK0i4XxXmTpWHtYDMRno618GFXlsizeF2jeaIuJ1HPDsSkQKwVzXBgUBMlwD1XTf2p4juHR9FBUhqiABVGyVTdXpvU4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 05:08:57.5658
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f226b3e-fc7b-418c-2bab-08df3ee8b989
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	IA0PEPF0000003D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9578
 
-Use guard() helper for mutex handling instead of explicit
-mutex_lock()/mutex_unlock() sequences.
+From: Ajaykv <ajay.k.v@intel.com>
 
-This removes the need for explicit unlocks and the
-error-path labels that only existed to release the mutex,
-simplifying the control flow
+Add parsing of the YoYo HCI command TLV so that HCI commands can
+be sent to the controller through the external TLV file. Each
+TLV is validated for domain, version, timepoint and command
+length. Only the ALIVE timepoint is supported, and periodic
+commands are skipped with a warning. Valid commands are stored
+in the HCI command list of the YoYo context and are freed when
+the YoYo context is cleaned up.
 
-No functional change intended
+When the ALIVE timepoint is reached after setup, the stored
+commands are sent in order. A command is skipped if its
+parameter length does not match the TLV payload. Sending stops
+if the device is halted, in recovery, in D3 or unregistering,
+or if a command fails because of a timeout or a lost device.
+Other command failures are logged and do not stop normal
+Bluetooth bring-up.
 
-Co-developed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Signed-off-by: Ajaykv <ajay.k.v@intel.com>
 ---
- drivers/iio/adc/xilinx-xadc-core.c   | 15 +++++----------
- drivers/iio/adc/xilinx-xadc-events.c | 23 ++++++++---------------
- drivers/iio/adc/xilinx-xadc.h        |  6 ++----
- 3 files changed, 15 insertions(+), 29 deletions(-)
+ drivers/bluetooth/btintel_pcie.c       | 93 ++++++++++++++++++++++++++
+ drivers/bluetooth/btintel_pcie_debug.c | 75 ++++++++++++++++++++-
+ drivers/bluetooth/btintel_pcie_debug.h | 46 +++++++++++--
+ 3 files changed, 209 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
-index ea874420b940..093a7172cc06 100644
---- a/drivers/iio/adc/xilinx-xadc-core.c
-+++ b/drivers/iio/adc/xilinx-xadc-core.c
-@@ -583,9 +583,8 @@ static int xadc_update_adc_reg(struct xadc *xadc, unsigned int reg, u16 mask, u1
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index 166d1f13dff4..d5af6efdcf9c 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -657,6 +657,8 @@ static inline void btintel_pcie_dump_debug_registers(struct hci_dev *hdev)
+ 	hci_recv_diag(hdev, skb);
+ }
+ 
++static inline bool btintel_pcie_in_d3(struct btintel_pcie_data *data);
++
+ static int btintel_pcie_send_sync(struct btintel_pcie_data *data,
+ 				  struct sk_buff *skb, u32 pkt_type, u16 opcode)
  {
- 	int ret;
- 
--	mutex_lock(&xadc->mutex);
-+	guard(mutex)(&xadc->mutex);
- 	ret = _xadc_update_adc_reg(xadc, reg, mask, val);
--	mutex_unlock(&xadc->mutex);
- 
- 	return ret;
- }
-@@ -675,13 +674,12 @@ static int xadc_trigger_set_state(struct iio_trigger *trigger, bool state)
- 	unsigned int val;
- 	int ret = 0;
- 
--	mutex_lock(&xadc->mutex);
-+	guard(mutex)(&xadc->mutex);
- 
- 	if (state) {
- 		/* Only one of the two triggers can be active at a time. */
- 		if (xadc->trigger != NULL) {
--			ret = -EBUSY;
--			goto err_out;
-+			return -EBUSY;
- 		} else {
- 			xadc->trigger = trigger;
- 			if (trigger == xadc->convst_trigger)
-@@ -691,7 +689,7 @@ static int xadc_trigger_set_state(struct iio_trigger *trigger, bool state)
- 		}
- 		ret = _xadc_update_adc_reg(xadc, XADC_REG_CONF1, XADC_CONF0_EC, convst);
- 		if (ret)
--			goto err_out;
-+			return ret;
- 	} else {
- 		xadc->trigger = NULL;
+@@ -927,6 +929,87 @@ static void btintel_pcie_release_mac_access(struct btintel_pcie_data *data)
  	}
-@@ -706,10 +704,7 @@ static int xadc_trigger_set_state(struct iio_trigger *trigger, bool state)
- 		xadc_write_reg(xadc, XADC_AXI_REG_IPIER, val);
+ }
+ 
++/* btintel_yoyo_send_hcmds - Send all HCMDs configured for a timepoint */
++static void btintel_pcie_yoyo_send_hcmds(struct btintel_pcie_data *data,
++					 enum btintel_pcie_dbg_timepoint tp)
++{
++	struct btintel_pcie_yoyo_hcmd *hcmd;
++	struct sk_buff *skb;
++	u8 plen;
++	u16 opcode;
++
++	if (!data)
++		return;
++
++	/* Held across __hci_cmd_sync() so cleanup cannot free entries in use */
++	mutex_lock(&data->yoyo.lock);
++	if (!data->yoyo.enabled || !data->hdev) {
++		mutex_unlock(&data->yoyo.lock);
++		return;
++	}
++
++	list_for_each_entry(hcmd, &data->yoyo.hcmd_list, list) {
++		long err;
++
++		if (hcmd->time_point != tp)
++			continue;
++
++		/* Stop if device state changed or driver is shutting down */
++		if (test_bit(BTINTEL_PCIE_CORE_HALTED, &data->flags) ||
++		    test_bit(BTINTEL_PCIE_RECOVERY_IN_PROGRESS, &data->flags) ||
++		    btintel_pcie_in_d3(data) ||
++		    hci_dev_test_flag(data->hdev, HCI_UNREGISTER))
++			break;
++
++		if (hcmd->cmd_len < 3) {
++			bt_dev_warn(data->hdev, "YoYo: hci command too short (%u bytes)",
++				    hcmd->cmd_len);
++			continue;
++		}
++
++		opcode = get_unaligned_le16(hcmd->cmd_data);
++		plen = hcmd->cmd_data[2];
++
++		if (plen != hcmd->cmd_len - 3) {
++			bt_dev_warn(data->hdev,
++				    "YoYo: hci command 0x%04x plen %u does not match tlv payload %u",
++				    opcode, plen, hcmd->cmd_len - 3);
++			continue;
++		}
++
++		bt_dev_dbg(data->hdev, "YoYo: sending hci command, opcode=0x%04x len=%u at tp=%u",
++			   opcode, plen, tp);
++
++		skb = __hci_cmd_sync(data->hdev, opcode, plen,
++				     hcmd->cmd_data + 3,
++				     HCI_CMD_TIMEOUT);
++		/* HCI Err 0x11 corresponds to errno -95 (UNSUPPORTED)
++		 * HCI Err 0x12 corresponds to errno -22 (INVAL)
++		 * HCI Err 0x16 corresponds to errno -16 (EBUSY/CMD DISALLOWED)
++		 */
++		if (IS_ERR(skb)) {
++			err = PTR_ERR(skb);
++
++			/* Command completed with Command Status (0x0F) */
++			if (err == -ENODATA)
++				continue;
++
++			bt_dev_dbg(data->hdev, "YoYo: hci command 0x%04x failed: %ld",
++				   opcode, err);
++			/* Stop on timeout or device loss instead of stacking more timeouts */
++			if (err == -ETIMEDOUT || err == -ETIME ||
++			    err == -ENODEV || err == -EHOSTDOWN || err == -EINTR)
++				break;
++		} else {
++			bt_dev_dbg(data->hdev, "YoYo: hci command 0x%04x completed successfully",
++				   opcode);
++			kfree_skb(skb);
++		}
++	}
++
++	mutex_unlock(&data->yoyo.lock);
++}
++
+ static void
+ btintel_pcie_apply_yoyo_config_sets(struct btintel_pcie_data *data,
+ 				    u32 time_point)
+@@ -1046,11 +1129,16 @@ static void btintel_pcie_yoyo_handle_timepoint(struct btintel_pcie_data *data,
+ 	if (!data || !data->yoyo.enabled)
+ 		return;
+ 
++	BT_DBG("YoYo: Handling timepoint %u", tp);
++
+ 	if (tp <= BTINTEL_PCIE_TP_INVALID || tp >= BTINTEL_PCIE_TP_MAX_NUM) {
+ 		BT_WARN("YoYo: invalid timepoint %u", tp);
+ 		return;
  	}
  
--err_out:
--	mutex_unlock(&xadc->mutex);
--
--	return ret;
-+	return 0;
++	/* PRE-DUMP phase: send HCMDs and apply config sets */
++	btintel_pcie_yoyo_send_hcmds(data, tp);
++
+ 	btintel_pcie_apply_yoyo_config_sets(data, tp);
  }
  
- static const struct iio_trigger_ops xadc_trigger_ops = {
-diff --git a/drivers/iio/adc/xilinx-xadc-events.c b/drivers/iio/adc/xilinx-xadc-events.c
-index f5b5aad6e313..f20614edd153 100644
---- a/drivers/iio/adc/xilinx-xadc-events.c
-+++ b/drivers/iio/adc/xilinx-xadc-events.c
-@@ -129,7 +129,7 @@ int xadc_write_event_config(struct iio_dev *indio_dev, const struct iio_chan_spe
- 	u16 cfg, old_cfg;
- 	int ret;
- 
--	mutex_lock(&xadc->mutex);
-+	guard(mutex)(&xadc->mutex);
- 
- 	if (state)
- 		xadc->alarm_mask |= alarm;
-@@ -140,7 +140,7 @@ int xadc_write_event_config(struct iio_dev *indio_dev, const struct iio_chan_spe
- 
- 	ret = _xadc_read_adc_reg(xadc, XADC_REG_CONF1, &cfg);
- 	if (ret)
--		goto err_out;
-+		return ret;
- 
- 	old_cfg = cfg;
- 	cfg |= XADC_CONF1_ALARM_MASK;
-@@ -148,12 +148,9 @@ int xadc_write_event_config(struct iio_dev *indio_dev, const struct iio_chan_spe
- 	cfg &= ~((xadc->alarm_mask & 0x08) >> 3); /* ot */
- 	cfg &= ~((xadc->alarm_mask & 0x07) << 1); /* temp, vccint, vccaux */
- 	if (old_cfg != cfg)
--		ret = _xadc_write_adc_reg(xadc, XADC_REG_CONF1, cfg);
-+		return _xadc_write_adc_reg(xadc, XADC_REG_CONF1, cfg);
- 
--err_out:
--	mutex_unlock(&xadc->mutex);
--
--	return ret;
-+	return 0;
+@@ -4265,9 +4353,14 @@ static int btintel_pcie_setup(struct hci_dev *hdev)
+ 		if (btintel_pcie_fatal_err_testmode_active(data))
+ 			set_bit(BTINTEL_PCIE_FATAL_ERR_POST_SETUP_PENDING, &data->flags);
+ 		set_bit(BTINTEL_PCIE_SETUP_DONE, &data->flags);
++
+ 		set_bit(BTINTEL_PCIE_HW_RFKILL_STATE_CHECK, &data->flags);
+ 		btintel_pcie_unmask_hw_rfkill(data);
+ 		btintel_delayed_hw_rfkill(data, true);
++
++		/* Notify YoYo: device is alive and operational */
++		btintel_pcie_yoyo_handle_timepoint(data,
++						   BTINTEL_PCIE_TP_AFTER_ALIVE);
+ 	}
+ 	return err;
+ }
+diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
+index d132214dcc8c..a299867be1a7 100644
+--- a/drivers/bluetooth/btintel_pcie_debug.c
++++ b/drivers/bluetooth/btintel_pcie_debug.c
+@@ -637,6 +637,68 @@ static int btintel_pcie_yoyo_parse_region(struct btintel_pcie_yoyo_ctx *ctx,
+ 	return 0;
  }
  
- int xadc_read_event_value(struct iio_dev *indio_dev, const struct iio_chan_spec *chan,
-@@ -194,7 +191,7 @@ int xadc_write_event_value(struct iio_dev *indio_dev, const struct iio_chan_spec
- 	if (val < 0 || val > 0xffff)
++static int btintel_pcie_yoyo_parse_hcmd(struct btintel_pcie_yoyo_ctx *ctx,
++					const struct btintel_pcie_tlv_hcmd *tlv,
++					u32 len)
++{
++	u32 fixed_size = sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr);
++	u32 cmd_len, time_point, period_msec, domain, version;
++	struct btintel_pcie_yoyo_hcmd *hcmd;
++
++	if (len < fixed_size) {
++		BT_WARN("YoYo: hci cmd tlv is too short or Invalid");
++		return -EBADMSG;
++	}
++
++	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
++	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
++	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
++	    version != BTINTEL_PCIE_HCMD_TLV_VERSION) {
++		BT_WARN("YoYo: unsupported hcmd domain/version (%u/%u), skipping",
++			domain, version);
++		return 0;
++	}
++
++	time_point = get_unaligned_le32(&tlv->time_point);
++	if (time_point != BTINTEL_PCIE_TP_AFTER_ALIVE) {
++		BT_WARN("YoYo: skipping hcmd for timepoint %u", time_point);
++		return 0;
++	}
++
++	cmd_len = len - fixed_size;
++	if (cmd_len < 3 || (cmd_len - 3) > 255) {
++		BT_WARN("YoYo: invalid HCMD payload length (%u)", cmd_len);
++		return 0;
++	}
++
++	period_msec = get_unaligned_le32(&tlv->period_msec);
++	if (period_msec) {
++		BT_WARN("YoYo: periodic hcmd not supported (period=%u ms), skipping",
++			period_msec);
++		return 0;
++	}
++
++	hcmd = kzalloc_obj(*hcmd, GFP_KERNEL);
++	if (!hcmd)
++		return -ENOMEM;
++
++	hcmd->time_point = time_point;
++	hcmd->period_msec = period_msec;
++	hcmd->cmd_len = cmd_len;
++
++	hcmd->cmd_data = kmemdup(tlv->cmd_data, cmd_len, GFP_KERNEL);
++	if (!hcmd->cmd_data) {
++		kfree(hcmd);
++		return -ENOMEM;
++	}
++
++	BT_DBG("YoYo: hcmd tp=%u period=%u cmd_len=%u",
++	       hcmd->time_point, hcmd->period_msec, hcmd->cmd_len);
++
++	list_add_tail(&hcmd->list, &ctx->hcmd_list);
++	return 0;
++}
++
+ /*
+  * Parse the optional YoYo firmware TLV stream and validate each record.
+  * This is the entry point for the runtime debug configuration payload.
+@@ -683,8 +745,10 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
+ 			ret = btintel_pcie_yoyo_parse_region(ctx, (const void *)tlv, len);
+ 			break;
+-		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
++			ret = btintel_pcie_yoyo_parse_hcmd(ctx, (const void *)tlv, len);
++			break;
++		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
+ 			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
+ 			break;
+@@ -728,6 +792,7 @@ int btintel_pcie_yoyo_init(struct btintel_pcie_yoyo_ctx *ctx)
  		return -EINVAL;
  
--	mutex_lock(&xadc->mutex);
-+	guard(mutex)(&xadc->mutex);
+ 	memset(ctx, 0, sizeof(*ctx));
++	mutex_init(&ctx->lock);
+ 	INIT_LIST_HEAD(&ctx->region_list);
+ 	INIT_LIST_HEAD(&ctx->trigger_list);
+ 	INIT_LIST_HEAD(&ctx->hcmd_list);
+@@ -748,10 +813,12 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
+ {
+ 	struct btintel_pcie_yoyo_config_set *config_set, *config_tmp;
+ 	struct btintel_pcie_yoyo_region *region, *region_tmp;
++	struct btintel_pcie_yoyo_hcmd *hcmd, *hcmd_tmp;
  
- 	switch (info) {
- 	case IIO_EV_INFO_VALUE:
-@@ -204,7 +201,6 @@ int xadc_write_event_value(struct iio_dev *indio_dev, const struct iio_chan_spec
- 		xadc->temp_hysteresis = val;
- 		break;
- 	default:
--		mutex_unlock(&xadc->mutex);
- 		return -EINVAL;
+ 	if (!ctx)
+ 		return;
+ 
++	mutex_lock(&ctx->lock);
+ 	ctx->enabled = false;
+ 	ctx->dbg_info_present = false;
+ 	ctx->num_buf_allocs = 0;
+@@ -771,6 +838,12 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
+ 		kfree(region);
  	}
  
-@@ -230,14 +226,11 @@ int xadc_write_event_value(struct iio_dev *indio_dev, const struct iio_chan_spec
- 		ret = _xadc_write_adc_reg(xadc, XADC_REG_THRESHOLD(offset + 4),
- 					  xadc->threshold[offset + 4]);
- 		if (ret)
--			goto out_unlock;
-+			return ret;
- 	}
- 
- 	if (info == IIO_EV_INFO_VALUE)
--		ret = _xadc_write_adc_reg(xadc, XADC_REG_THRESHOLD(offset), val);
-+		return _xadc_write_adc_reg(xadc, XADC_REG_THRESHOLD(offset), val);
- 
--out_unlock:
--	mutex_unlock(&xadc->mutex);
--
--	return ret;
-+	return 0;
++	list_for_each_entry_safe(hcmd, hcmd_tmp, &ctx->hcmd_list, list) {
++		list_del(&hcmd->list);
++		kfree(hcmd->cmd_data);
++		kfree(hcmd);
++	}
++	mutex_unlock(&ctx->lock);
  }
-diff --git a/drivers/iio/adc/xilinx-xadc.h b/drivers/iio/adc/xilinx-xadc.h
-index f5bf2d08eedc..90fa3e77b1a5 100644
---- a/drivers/iio/adc/xilinx-xadc.h
-+++ b/drivers/iio/adc/xilinx-xadc.h
-@@ -101,9 +101,8 @@ static inline int xadc_read_adc_reg(struct xadc *xadc, unsigned int reg, u16 *va
- {
- 	int ret;
+ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
  
--	mutex_lock(&xadc->mutex);
-+	guard(mutex)(&xadc->mutex);
- 	ret = _xadc_read_adc_reg(xadc, reg, val);
--	mutex_unlock(&xadc->mutex);
- 	return ret;
- }
+diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
+index f13107994fcf..cada3b8ecda5 100644
+--- a/drivers/bluetooth/btintel_pcie_debug.h
++++ b/drivers/bluetooth/btintel_pcie_debug.h
+@@ -10,6 +10,7 @@
+ #define __BTINTEL_PCIE_DEBUG_H__
  
-@@ -111,9 +110,8 @@ static inline int xadc_write_adc_reg(struct xadc *xadc, unsigned int reg, u16 va
- {
- 	int ret;
+ #include <linux/list.h>
++#include <linux/mutex.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/firmware.h>
+@@ -61,6 +62,7 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
+ #define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
+ #define BTINTEL_PCIE_CONFIG_SET_TLV_VERSION	1
+ #define BTINTEL_PCIE_REGION_TLV_VERSION		3
++#define BTINTEL_PCIE_HCMD_TLV_VERSION		1
  
--	mutex_lock(&xadc->mutex);
-+	guard(mutex)(&xadc->mutex);
- 	ret = _xadc_write_adc_reg(xadc, reg, val);
--	mutex_unlock(&xadc->mutex);
- 	return ret;
- }
+ /* Debug Info TLV */
+ #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
+@@ -328,7 +330,29 @@ struct btintel_pcie_tlv_region {
+ 	union  btintel_pcie_region_conf_params conf_params;
+ } __packed;
  
+-/* Parsed buffer allocation entry in the YoYo context */
++/*
++ * struct btintel_pcie_tlv_hcmd - YoYo HCI command TLV
++ * @hdr: Common TLV type and payload length
++ * @dbg_hdr: Debug TLV version and domain
++ * @time_point: Timepoint at which to send the command
++ * @period_msec: Periodic interval in milliseconds (0 for one-time execution)
++ * @reserved: Command header (cmd_id, group_id, le16 seq_num); written as zero
++ *	      by the tooling and not used by the driver
++ * @cmd_data: Variable-length raw HCI command packet
++ *
++ * Describes an HCI command to dispatch at a specified timepoint. Multi-byte
++ * fields are stored in little-endian format in the packed firmware TLV.
++ */
++struct btintel_pcie_tlv_hcmd {
++	struct btintel_pcie_tlv_hdr hdr;
++	struct btintel_pcie_dbg_hdr dbg_hdr;
++	__le32 time_point;
++	__le32 period_msec;
++	u8     reserved[4];
++	u8     cmd_data[];
++} __packed;
++
++/* Parsed buffer allocation entry */
+ struct btintel_pcie_buf_alloc {
+ 	u32	alloc_id;
+ 	u32	buf_location;
+@@ -338,7 +362,7 @@ struct btintel_pcie_buf_alloc {
+ 	bool	present;
+ };
+ 
+-/* Parsed config set entry in yoyo ctx */
++/* Parsed config set entry */
+ struct btintel_pcie_yoyo_config_set {
+ 	struct list_head		list;
+ 	u32				time_point;
+@@ -362,6 +386,15 @@ struct btintel_pcie_yoyo_region {
+ 	union btintel_pcie_region_conf_params conf;
+ };
+ 
++/* Parsed HCMD entry */
++struct btintel_pcie_yoyo_hcmd {
++	struct list_head	list;
++	u32			time_point;
++	u32			period_msec;
++	u32			cmd_len;
++	u8			*cmd_data;
++};
++
+ /*
+  * struct btintel_pcie_yoyo_ctx - Runtime state for YoYo debug configuration
+  * @enabled: Whether the loaded YoYo configuration passed validation
+@@ -373,6 +406,7 @@ struct btintel_pcie_yoyo_region {
+  * @buf_alloc: Parsed buffer allocation entries
+  * @num_buf_allocs: Number of parsed buffer allocation entries
+  * @hdev: Associated HCI device; NULL until successful HCI registration
++ * @lock: Mutex protecting the parsed TLV lists against teardown
+  *
+  * Stores the validation state and parsed TLV data for the optional YoYo
+  * firmware configuration.
+@@ -385,8 +419,12 @@ struct btintel_pcie_yoyo_ctx {
+ 	struct list_head	 hcmd_list;
+ 	struct list_head	 config_set_list;
+ 	struct btintel_pcie_buf_alloc buf_alloc[BTINTEL_PCIE_MAX_BUF_ALLOC];
+-	int			 num_buf_allocs;
+-	struct hci_dev		 *hdev;
++	int			num_buf_allocs;
++	struct hci_dev		*hdev;
++	/* Serializes list teardown against consumers that sleep while
++	 * holding a list-entry pointer, such as HCMD dispatch.
++	 */
++	struct mutex		lock;
+ };
+ 
+ int  btintel_pcie_yoyo_init(struct btintel_pcie_yoyo_ctx *ctx);
 -- 
-2.34.1
+2.53.0
 
