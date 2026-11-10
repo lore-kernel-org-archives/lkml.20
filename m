@@ -1,98 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794338832;
-	b=d5TbZWG1TSJbI1AVkVxIyFI7uiczoneJbQDijKjhuLlrpK/PabcvQH64V216HPmaZFKc
-	 eBQQpfhABVez0rxFgntzhdcBJRyTtmBVhKBy96rMC5doYt2ZXsuwwudgC5EgfSswQ8k93
-	 vJzV5CVDqnnKTEV8/z0hfGAnv3HTiXLuR5gepxqCTSMMf56ysPgTWXnOrN5XWmIrsi1na
-	 eyyOzNd0izcnTKw0sqU8TVUKNuE/7yLEtuK53vJD4+VLJMWQV7z9mTgpA8nAk0Ju4HR8e
-	 ostCRmd7To7TX7PMawx9YFHB5qr5jGnytwTIVdgCemCWaeBYw8lr4YtVy0xoPzq9QGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338832;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:User-Agent:Date:Message-ID:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794338859;
+	b=C4MKcqw09fxrfWaXqfo61l6UdMBpA4dqh/g/XaGs25+zF6/Xywre9CBMIHd+p6kDWaes
+	 eLFXjNovXELxD9y5aY5DcR2vuCT/6Lw/3iZEJue5OFJMhavm106sDTj2CIvCLpLoWsXL7
+	 sNWrDoEC60123M+FmRTX3Fql05AQEC1Sq1mm1yh5WKXgtoWWHP6DVFIPvMFxMXRYL1dIq
+	 NeZpZFNjPQYxPzbBVjuGt8poxDuFmFWvfxUoUVk11YWpoLBkdA6dajUYAZmbzmtMESDm/
+	 3F58jrOPt3nyBbn14zQB3fRSQtQ77tD3rDtTYcfjxx4SoK3rS6KUuHkO2RiFuBmsv6Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338859;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ODatzweUCW7o26hwhl5kE9FWoziqlEwZz6tErIYcf3Q=;
-	b=k8M6dz08z013fZ7xjtqK07Ro7hbIjyW34+xRvrQyT860rT48HHr9+7B6RZR6qFM+iY61
-	 31jEcQd/8eM/b1zOSrJPKG5tVQmT/k1fxiHWnD8FxC4SZ1MTdsnuslF4at2i6lMNUEaqV
-	 F3GkIMnyS6OUsEdiWp2uK8XGcYGYuVohBHM5N2ZBg4L2QCehEVIdTAiGMzmBShZulkTMq
-	 I2ILYJ4oBjCYNh6KsZ40X9lhyGhSPw5jl6CaXqJysZNF49UrTyvXRJaf7QGKdQkrWtvN8
-	 VJwoJn9XKuB1WOrvsdBXpB5H879Etjxar6pXFhxwUmm2caTHwx4lQ6XBEdSO4Ys9Tiw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=axFxc57Y;
-	arc=fail smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	bh=JhoX3osY26F1MqRN+osOMk8T+9PdZqeDfzPnj4Ocp3w=;
+	b=DJGjYcov3mXooexhPigxQYM54feauDxbBFHy9shfUjyl9ArpqzInjZlEuPZN2sp3iyJg
+	 5dXP8OrJ/y9rw1ESqtGY4mYbFsfH7fgJ4lrK+CHB+ClDsTBheE/kGWzYzFhgZx3yfIOdn
+	 yismgo4MXBCM+eqpvk2epnQlPHOYnWaT6KIfjDLjW1mP+e7ks1Mi2lQROmK9g/9vb4zx9
+	 rVrpT7ihnyitDVNPwUuyyPHuzrXHAbGdEDg9n60yczt7Yt+PCxEb5C5xdNZWopzFTz6Ac
+	 JZsEc1XuPxk4UmTTu1eZ5cT4l435kHh8xrWTnCDa2uGLnYsyEKIABe+yEHwmdT2TXwQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikmk3pxA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFF8606A323;
-	Tue, 10 Nov 2026 19:27:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECFF8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B17606A321;
+	Tue, 10 Nov 2026 19:27:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=axFxc57Y
-Received: from ratatoskr.pengutronix.de (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
-	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8BD0E201F43;
-	Tue, 10 Nov 2026 20:27:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794338824;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ODatzweUCW7o26hwhl5kE9FWoziqlEwZz6tErIYcf3Q=;
-	b=axFxc57YGOskhC2HI2z4xDSvzgCtzuAXY8Knr9qFzsc+a7wrW8VAQx/IsBszC7lven9owS
-	2FfsB78fRdwzNe47fV2HcPaI0iWunzz5ZMUGJc2mr4/dy6FWo8ACnpoMxBeA/6pKKhXJUR
-	QB3+86oOjzX81gKVi130N9q1McuVWktylsu+C1gXCgXIQDDDEPPptbQn6t6JuUcyf5BOE4
-	rKPfn33jjKEZPYEw6ihaClJbFpa9kvhDCCqrhWT9o6YQO3z3EP83rBubBfgXjyfPN2jINo
-	NDFYV+f8O4KudinwcrmPWIyVTtNnn033e6cTBF8QesUYgkucwN+v2YtOz+SXIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794338824;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ODatzweUCW7o26hwhl5kE9FWoziqlEwZz6tErIYcf3Q=;
-	b=BuwLSFTXEPbgZoXPmMfP847UiDdg7yfDag5qeRedm6DCAisISY+tAM3ib9uJL4DxX+esnL
-	UcBIrds43eOXIbYN7JjoIqbYjk4eKlPgP+FebysRP8HEGfHmg2ycjF2biXZEnolOYSVAE3
-	/i8EdUzhzUue/XFv6aUoSDDK17iwNsGl/uZT11NPJOfp5zNEDiUmqMXI/QET/lFq8S8ys2
-	J+SFA/7woz09hIdZqXi71fQ4Z1jhE7gvLXvkjy3VT7kwq3QamOH+D5JYCJoFx81dbKRNyX
-	SMoAygzG2W/5j1E0sCrtBN7LYbyUmvkphAhjmRkN8Q3ZMh+cFaiyWcpw8Cis7Q==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794338824; a=rsa-sha256;
-	cv=none;
-	b=VP+KPQ5a7GMBOJPnXBnWZlwAKh3chavc2oaAqwJmKA6Me6u1CuToWDrd0RMFVCdEPgwjDb
-	WYEG6EhF6UgqsEk7/lKNVmEajmnuzmlhyx3UCrzdBqz/P4M3oU2csBLGv1nzZ1ABCfApN+
-	DA5gGKCqUBokK5qbDEaDBpJlQXjBYs+O/OeqXvmjFBqbEa83bTUcI0vZ+kcU5ZZ726Df6m
-	Awfrcmmy/VJT8poW8tYP3PEU1kmUeLJ/JhMLw9EfHh12unTwm2mxUs4nk8YJOf7XZ4xE47
-	krNeN+kXbw6/OEJauq2nn4qBSTWYxRQhLBig3Y1jGv29PGIe0DOepYTHrmGfXA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,  Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>,  "David S. Miller" <davem@davemloft.net>,
-  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
-  Richard Cochran <richardcochran@gmail.com>,  Andrew Lunn
- <andrew+netdev@lunn.ch>,  Eugenio =?utf-8?Q?P=C3=A9rez?=
- <eperezma@redhat.com>,  Jason Wang
- <jasowangio@gmail.com>,  Alexei Starovoitov <ast@kernel.org>,  Daniel
- Borkmann <daniel@iogearbox.net>,  Jesper Dangaard Brouer
- <hawk@kernel.org>,  John Fastabend <john.fastabend@gmail.com>,  Stanislav
- Fomichev <sdf@fomichev.me>,  Eric Dumazet <edumazet@kernel.org>,
-  virtualization@lists.linux.dev,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  bpf@vger.kernel.org,  kvm@vger.kernel.org
-Subject: Re: [PATCH RFC v4 5/6] virtio-net: add XDP rx timestamp metadata
-In-Reply-To: <willemdebruijn.kernel.9c17365c41b3@gmail.com>
-References: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
-	<20261026-v6-7-topic-virtio-net-ptp-v4-5-008af03cd43b@pengutronix.de>
-	<willemdebruijn.kernel.9c17365c41b3@gmail.com>
-User-Agent: mu4e 1.14.3; emacs 31.1
-Date: Tue, 10 Nov 2026 20:27:04 +0100
-Message-ID: <87pkwczdvb.fsf@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikmk3pxA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3D91F0089F;
+	Tue, 10 Nov 2026 19:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794338858;
+	bh=JhoX3osY26F1MqRN+osOMk8T+9PdZqeDfzPnj4Ocp3w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ikmk3pxAY/SwBAYX+1FYoDk3XIXo2sUOx1rH6r9L7YDZesC1mmOQWEnxPSYekP9be
+	 1TBo2gykXeNCtYlkdIJs/TzgKHeeArN+ocJLcAnSNsQN42DeV02puqaDsYdwpnJp0o
+	 h08CFPnRir1nUEHWrdXn7qHKuaKWFLO8Q+PCQIItmZL5f+iRsojmX9s9FncJDJ1CkP
+	 LGpAIW1wyib35VLfsATFLHggCyfcXgP8ga36rVT6wlaAtO8WbOFBRR75eGik0x9HJR
+	 6Jn8lvvtbIWfplTGC4y3NqENeV7i2CbTe/FAVmpzRqfH+xnmLGn9N/qYTdoIeFCWN8
+	 xoam6TraMLnWA==
+Date: Tue, 10 Nov 2026 09:27:37 -1000
+Message-ID: <898b08d81ed8e3f1ee7d4985e4b47992@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Waiman Long <longman@redhat.com>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>, sashiko-bot@kernel.org
+Subject: Re: [PATCH-next v2 0/5] More fix patches
+In-Reply-To: <20261109190955.1398611-1-longman@redhat.com>
+References: <20261109190955.1398611-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,99 +57,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-01 at 10:12 -05, Willem de Bruijn <willemdebruijn.kernel@gmail.c=
-om> wrote:
+>   selftests/cgroup: Fix "test_cpuset_prs.sh -v" failures
+>   cgroup/cpuset: Correctly set cpus_updated in
+>     cpuset_hotplug_update_tasks()
+>   cgroup/cpuset: Fix incorrect partition invalidation logic in
+>     cpuset_hotplug_update_tasks()
+>   cgroup/cpuset: Protect current->mems_allowed read in cpuset_fork()
+>   cgroup/cpuset: Correctly set isolated_cpus when switching partition
+>     state
 
-> Steffen Trumtrar wrote:
-> > For the skb, the timestamp is read from the header before the XDP
-> > program runs, so XDP_PASS keeps it even if the program changes the
-> > packet. XDP therefore works with rx timestamping enabled.
-> >=20
-> > Add xmo_rx_timestamp so XDP programs can read the timestamp with
-> > bpf_xdp_metadata_rx_timestamp(). It returns -ENODATA if timestamping
-> > is not enabled or the device did not timestamp the packet. Install the
-> > metadata ops also if only VIRTIO_NET_F_RX_TSTAMP is negotiated;
-> > rx_hash returns -ENODATA then.
-> >=20
-> > Like virtnet_xdp_rx_hash(), the callback finds the header relative to
-> > xdp->data, so it has to be called before bpf_xdp_adjust_head().
-> >=20
-> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > Assisted-by: Claude:claude-opus-5-5
-> > ---
-> >  drivers/net/virtio_net.c | 26 ++++++++++++++++++++++++++
-> >  1 file changed, 26 insertions(+)
-> >=20
-> > diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> > index 23af10c613b48..e79b65653fad7 100644
-> > --- a/drivers/net/virtio_net.c
-> > +++ b/drivers/net/virtio_net.c
-> > @@ -6848,8 +6848,30 @@ static int virtnet_xdp_rx_hash(const struct xdp_=
-md *_ctx, u32 *hash,
-> >  	return 0;
-> >  }
-> >=20=20
-> > +static int virtnet_xdp_rx_timestamp(const struct xdp_md *_ctx, u64 *ti=
-mestamp)
-> > +{
-> > +	const struct xdp_buff *xdp =3D (void *)_ctx;
-> > +	const struct virtio_net_common_hdr *hdr;
-> > +	struct virtnet_info *vi;
-> > +	u64 tstamp;
-> > +
-> > +	vi =3D netdev_priv(xdp->rxq->dev);
-> > +	if (!READ_ONCE(vi->hwts_rx_en))
-> > +		return -ENODATA;
-> > +
-> > +	hdr =3D (const struct virtio_net_common_hdr *)(xdp->data - vi->hdr_le=
-n);
->=20
->     Reading `hdr->tstamp` in place from `xdp->data - vi->hdr_len` violate=
-s the XDP
->     metadata area contract (`Documentation/networking/xdp-rx-metadata.rst=
-`: drivers
->     must copy device-reserved metadata out of `[data_hard_start, data)` b=
-efore
->     presenting the frame to XDP) and breaks standard XDP metadata consume=
-rs:
->     - `hdr->tstamp` sits at `[xdp->data - 8, xdp->data)`. Standard XDP pr=
-ograms=E2=80=94such
->       as `tools/testing/selftests/bpf/progs/xdp_hw_metadata.c`=E2=80=94ca=
-ll
->       `bpf_xdp_adjust_meta(ctx, -(int)sizeof(struct xdp_meta))` first, in=
-itialize
->       fields in `meta` (e.g. `meta->hint_valid =3D 0` at `[xdp->data - 4,=
- xdp->data)`),
->       and only then call `bpf_xdp_metadata_rx_timestamp(ctx, &meta->rx_ti=
-mestamp)`.
->       Initializing `meta` overwrites `hdr->tstamp` (and `hdr->hash_v1_hdr=
-`) before
->       this kfunc runs.
->     - Calling `bpf_xdp_adjust_head()` before reading metadata also shifts=
- `xdp->data`,
->       reading arbitrary bytes at `xdp->data - vi->hdr_len`.
->=20
->     Wrap `struct xdp_buff` in a driver struct on the stack (`container_of=
-`, and in
->     `struct xdp_buff_xsk`'s `cb` verified with `XSK_CHECK_PRIV_TYPE()` fo=
-r AF_XDP,
->     matching `gve`/`igc`/`ice`/`mlx5`) and stash `tstamp` (already extrac=
-ted in
->     `receive_buf()` and `virtnet_receive_xsk_buf()` before XDP runs) and =
-the hash
->     fields before `bpf_prog_run_xdp()`.
+Applied 1, 4 and 5 (5 as v2.1) to cgroup/for-7.4-fixes with the following
+changes:
 
-Agreed, Sashiko complained about the same thing. I'll stash the
-timestamp in a wrapper around xdp_buff before the program runs.
+- 1: Nonexistent commit ID 6e4834ba8986 in the description corrected to
+  362212853cd0.
+- 5: "update_cpumasks_heir()" typo in the description fixed.
+- 5: Missing trailing "\" line continuation added to the first line of the
+  two new TEST_MATRIX entries in test_cpuset_prs.sh.
 
+The following tags were also added:
 
-Steffen
+  Reviewed-by: Ridong Chen <ridong.chen@linux.dev> (1, 4, 5)
+  Tested-by: Ridong Chen <ridong.chen@linux.dev> (1, 5)
+  Cc: stable@vger.kernel.org # v6.8+ (5)
 
---=20
-Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+Thanks.
+
+--
+tejun
