@@ -1,133 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354202;
-	b=EY6cSO3p121pfYHBOm47KqpXdRYtBCQ7IDCwfYsIpAw+NVo2NxzCc4/3AJaoPEmyXqvK
-	 ayLm2yj1Ra9I2LMmcX/RYul2ePzWXquU0OG8+Jd168lJYJnel2dKL2JZl6aHmu0z3S+RT
-	 4t1kelBK4bf910eLeRRDcsTqiqaQYXLG9YE+JbSS3tMeEscw0zvxrhtEtCEAW3o3F2h/L
-	 xm5sfanpP3XoGRHPOJvpFsxI9jJuusfYDNurJt6JaGxFxWdOc2bdGauDclNlLPTkSe4B7
-	 3XKgXKVtSJyLrPI96qWn2pd969sZKb3BP0lAQdeFpqE3Au7RWLRyEgqr94aPRYzlWtw==
+	t=1794354329;
+	b=rg6g2C5TwchIpUdsVFcznPNIrapZOc96zTCjNMsiyjayJEu2g6OYuqIDBxQmpCuiNBIX
+	 SrhGGyDXtT6wjGzFu+YfV3reXMUS/FvG2Yh/WLDhTRMZnWDTfduewlRwBjZc3+LdZd1BR
+	 8wy+9enQcKXOfso4UtMBMOFeZxb1xdwBb8INDXc7VpkpEDwT+YgrYeTtIrmC+NciE3nzw
+	 v6RY/Bx/SXRc8ah961RhgGsMQ9yM0Cup5Lyu5NAOBHfu4yyCtA/2R81yAv6109panwWp3
+	 OJufDeHJJanEeIi7i6oxQ+Fw7BamHdNcxxC5C4NU19XKv6LBiirQ5GDcO3g+wNp9YiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354202;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=;
-	b=msCEHqxxEAviVYHn16iJt7K6Z2CRUq8FKcbQ/U5tXSNycfhc2+jD06NOfjvcHuPkp5sP
-	 tfByn3CHnxec+QecEnLSY/cAVSSTkmphqceQNqpfBsi7n4TEsYQ9CeJ+tFRX/PabXtEuT
-	 T7tSADuLEuxX0aa3VGQXdUzRQQnSSXZVpt08dozlNssln5Sm4Y1v9wJAjYVKalsV0YRen
-	 GS1MZ8l4HaskurQyIbeBnFFtuxm5lHrMscc+aSEUG6jN2ajtWHRJhKEUr6BUe9HDfET7f
-	 ZJWxrctq60f33N3edodVIt3qxmegvd0cii4I8vMjV0C1lKlWKBfsqxsJbrLUYwC4IQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354329;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bGKhvAV64lYKBnioTN7Ad3y0fCfdTBsU5Ol09e8bJr0=;
+	b=gVnRkVrBYbAw5ubTa48AYrd0YRDmht9deejTqzsFsozKowgvm+0sn4fbrSPRin3qQISg
+	 FzRJkFic9SuE46QPQhsnqD2igZ/KumNdepC39eBW4fitH2rKx9MjmJvU4iDm4a9EZ/jEw
+	 WeWYWisZs0cRb23rRjIskre/Dir6CTtQCGRlr6uZd+zSdFh1eDbvXhutW+3F9E2NvCOza
+	 QRnKnTjqkjYvVY2iLiZCBF2/CMXsxe6sOgXP5hJaRt8ZHnI7NY9ICsMimuch5/5tiuTkB
+	 kZn9gyYseTFQL0tnQF6vWYsCY7afv5okYv7SgXC8rVqMJcUWvlaahdjUKo9xBYlh5ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alistair23.me;
-	spf=pass smtp.mailfrom=alistair23.me;
-	dkim=pass header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=SLTRwptr;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvIryW+U;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=taU06AUQ;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C21606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C21606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D04606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:45:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3D04606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alistair23.me header.i=@alistair23.me header.a=rsa-sha256 header.s=fm3 header.b=SLTRwptr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvIryW+U
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id 04175EC0603
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:43:21 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Tue, 10 Nov 2026 18:43:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
-	 t=1794354200; x=1794440600; bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0p
-	CIuLNaVpstw=; b=SLTRwptregmi5YgLcqMIJr1XNTmok1drjTOQY8r7bwcZnPJY
-	e3WMsgkDUiQBxSB6DEYNqLWcK4F8oo8eJw9LTPyiJBn4PZMWJ7YTPHQrrDiRgejZ
-	CP8gY++zNgjuAAkDbIxIatPrnGggdEiamfEIqb72zQ1bvwbj0Lqbw2GBr4Sm3vA2
-	DwEeNElmboQe3Kn//Rfhkx84HRAH3wIE637Glo5jhbRXbLkdjoM9liT6PIGCZH7A
-	vHxB9KthZ6mV8pQToL9FokWuKrFFXLZQmD24ZLWR513xzcglC/eJYuiL3+t67YQL
-	vYsRF/O2EbsacqFxAAOihJwY/dHgqsZTTi9ySw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794354200; x=
-	1794440600; bh=0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=; b=L
-	vIryW+Uc//8KT1///hSFZ5BUkFs5DKzbZtv9/CNM/3k3Q6wDtjwFMcPnN8OwxQNm
-	EUtTpvdIjQvFZfDX5b4qK1ECoJQ4+EQ3VLSlswSlJy/BVEzw6MPcrCi5ahBowtH6
-	NBEbzAzU/LW1xHdP3pSi6zsLtoOgL7KfyetPbw7ycGdn68Ee/I4qjv20rQLyWO70
-	DDHZ72z8+l8u6dcm+6EgsZdLlxMq93ONZZXmXBtpayNSw4GNV8cjIeu6aAZ9ePxa
-	O/G/7WYKnBDnU1fN3y3ltodBRa52YcfOMKeYaizTOpafz6CnSJmNJdrGMS7K0giG
-	sJKYHRYvfEP2pIE2rPk3w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=alistair23.me a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794354200; d=alistair23.me;
-	mf=PGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:E/h+6u5wSCNJ63+5twkcdUjJgFefwDCbVR4mbHS7/vKG8rP
-	ZlK/jYMwSlUa8Ewl6nvI3uOU3aw7lOmyAbQZX/e6q0Vcu/PeNI9Spcms9ouHFkiP
-	TiHc6x1Ik0MxmqIl6GyrWyVkh6lceWN800sn+P9ZGQE9N6Qa7HP6e1ZFexPgjUPd
-	5b5RPt89dIetMkITfvN0PKYZPKOjcuFY2+naz99h4V/fyNdk7g4dRbhtXnbvL8lR
-	HZ1njfowFoLCwadq+L5Xjidoo9fgJF1ABz3wBeOapK7GpiapL5La1LvyOegyLPBy
-	CwckbHQTo6dqD2jquau7EKh0vNPjaX1IGC5/4pg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:Qk7gK0IsGB1Q6aMT9k9ePKHHzrDKj/tmy1PB+LqXS+8=:0x6QN9wo/gIl6u/ONE+WuFx2SJWN+x0pCIuLNaVpstw=;
-X-ME-Sender: <xms:Fqzzav6CaRv0CZbpxaOaxI427YxzI0JXQeiBEP_FEXoTduxxdSW9KA>
-    <xme:Fqzzar1XqJKXDv2fua0IUkpihguiZF-Qx6aLA8ONrbsGVXIzDnDN0ErOEiEGSkTC8
-    5UTtqjBatuyRVNJiI8mNr5ZKRIrqVfut_k589jJma_ZL-ZRH4N2wHXP>
-X-ME-Received: <xmr:Fqzzarh7rCqzpoW2_Ze1VXOpeFiDtFZ-HYgAXPzeAZFzbk2Tybau9VCEwHTuwtDUvv27UKLQLcHDpk8j1Rcp>
-X-ME-Proxy-Cause: dmFkZTFEX2UJcgpQyiNt+GxCdCP+sn8sCJSYmF1dP9IOYwinxKt8hHWepJE33Bo25oa75j
-    7gYdW9w0WbI1jJmzHwxrRwYH/Xkjfzj1yd9rLQkOTNeYP831KcvJRlyXTPGSQntqNX989A
-    rJ1Zv+fbrOEP/F1XVyGYnhaIFK2xhP3dYOl1BebBb9gXvOcQfiXrvc3yExHxVmuC3DQ3S0
-    IrX3U95+MFySpqTExrClQ99RERJLeLlqG5NK7HRE2QLNSdmp1C7JQGLx7RRqoYYPQlFJZy
-    fYNjsLgymWFoiNeFxev51sYd0FUYH6bv6duka8km9mkgrCBoXVpgMooGzQuArczz/S0zjF
-    89VpIcB+8BgGiEqNTOMqmqWpArDL00KPCSx2ZdPUXc2L4Exmfoj+27+VnHOZBbu8Ac7HgB
-    q2YkjksWafyjGGs9Iu95Z32qXKTMWdJEvixQ+ByAd7GSyLoimQrcIjtICLp45ZWR3PmevI
-    yVO0bxLh2ji5bMhtqUzh9YIuA9OPL1cyhZVLmRX5XKYJV4zQI7u1J2o6xCBPHxRtziYFY3
-    DG/t4hLh+MjwNGQIZUcbiThQqLn4C3EvgJ84tcb2sALmQ7YX3iQ1ionCAt1bLwaJqwXChL
-    2wN4nvBvJshvhI8X+7wZIyqrpMHa/3jL2PaDkVTIvrcRpGOUSTIj5VcN2L1Q
-X-ME-Proxy: <xmx:FqzzanQ17uTRRiZOYy9o-IGG0nlVQclLbKF8PHhe7VVHf3OGtWQJaQ>
-    <xmx:Fqzzat7uwXYoFXrH1gMhNdWKIwL6bfq7JMDDnbN8p_6ymoRAN1feVw>
-    <xmx:Fqzzavz_pwLK_ml4Tho34EuPc1x8Jg81BmUW6ftWq9xEgWr89JhJtw>
-    <xmx:FqzzatCuIMkDsSetXx98vgWYEBIUs-IEK98FOma_PsVTFHQXUUwr0w>
-    <xmx:GKzzasWECsVibloWQs9MRGueFVep43cowMHxf1hnUYg2YjXDMRaTJ1dM>
-Feedback-ID: ifd214418:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 18:43:13 -0500 (EST)
-Message-ID: <7ba76316996d17efab87a180c88da4c3300f075c.camel@alistair23.me>
-Subject: Re: [PATCH 1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
-From: Alistair <alistair@alistair23.me>
-To: =?ISO-8859-1?Q?Fr=E9d=E9ric_Mah=E9?= <frederic.mahe@cirad.fr>, Marcel
- Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz
- <luiz.dentz@gmail.com>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Yixun Lan
- <dlan@kernel.org>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Troy Mitchell
- <troy.mitchell@linux.spacemit.com>, linux-bluetooth@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Wed, 11 Nov 2026 09:43:10 +1000
-In-Reply-To: <20261110074607.363918-2-frederic.mahe@cirad.fr>
-References: <20261110074607.363918-1-frederic.mahe@cirad.fr>
-	 <20261110074607.363918-2-frederic.mahe@cirad.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=taU06AUQ
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a3c08d6928so4480659c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:45:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794354328; x=1794959128; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bGKhvAV64lYKBnioTN7Ad3y0fCfdTBsU5Ol09e8bJr0=;
+        b=taU06AUQNkNNZa8NoYSxfpCz8XAtyB5Zy50NRQIOM/w+85xfumIDnx6iTHwN6iOsni
+         lOn/Phf1uYdUNZbbyjxnc8JtBhN8ckCkK1r5EAqJJuTVZRyLJXIWHBRrY2MYJNr9Z51+
+         zMjDnitG5zCD4sBRtiTgaAM/d7zo38Nz9TuVVd2Ogrfx1tR8+JWGDuzTViDQImVxM8DM
+         uVbb8SecuGpCGb4gKaynM2/Qk6D/DF4Aoo/l+Q6YtrgPNM4rklP/gkoCgFXcWyvmskvt
+         +rPe5CTGv1sFs12Rly2hl+KksNq2LDAMB2JJeysPdsV5g1r7fg1JTh+wXxnPx5mISSc1
+         XjPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794354328; x=1794959128;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bGKhvAV64lYKBnioTN7Ad3y0fCfdTBsU5Ol09e8bJr0=;
+        b=0hMBZ4k/si9SBvXM1GYlDnA3R6zQtEhns4kgHp9IEuX0n9fWdwSjKvpGmyY29HKpcY
+         svCXDXvB3gumS3SFkDEIKFxDlL1hPmr/XRgyTwsoN6eZign3GNtCpAXQdVipjigAKLaF
+         774H3DvH1AcQ9p+XafTCrsNCe3brWLwJv/dVvoibDzlshD7dNcqLM9pGjI0AabEPAwdM
+         14quMkmiztszfnGvnYdLNEextL/tbfWO4vqHjEicEejwPNdKEIMgCfHtMJjQaa/EDJel
+         onRorx4TSRrWRDHXa/AX4LiMJZKYkGZOV8nuHlgZC+zBumJZhMJDmT29xkVHiGEdn9de
+         k5Iw==
+X-Forwarded-Encrypted: i=1; AL+hErEB7OLZ+c31wM8aXWBW1dzkIrdb2xnmq2NQQr1Oi4zEhg9mhqvLVr1J+QS3n0tptPgFdg9zSxaohJX6tzM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82WPY8gBPL1LJcvRQvXmJv5mLeQkJ3wuo3lrQJfkhrEfmy8J2l
+	Z8WustgxFFgSA6gzRfURrug3pQwvifWYNHJEf9V78GDVV8rD29caMhQp
+X-Gm-Gg: AYBFou1uaW1srHbjmGm/JLYiDuq8VZR0W45Py+u9ETmuU4aA3P3MupkauNiVK1ps8HP
+	aDLa63zzIFjH8f7pD67SRDtudk3yGRipVY0ILac0+OcTjh0AiBgVmPjp9TlgBT+8KRxHOjl4+3r
+	rOqvSwnypNcNh1TmIF+8R4FbtBJXSMjCN/hICFSBH4ZNcmgDCYbbkhrVPH2HojbNlxA4+eXevDF
+	mcN0KlBRBv2RS6G8Qx3uuLarEiH+4z1I8GaW2IMVT2rzgx6RRPCJFzKXQiUs4muf6nhudwiJAX4
+	DbzjpHLu46LC/c9YARIPt7HPelHfUnPnGxf27i+jxC7uY3CuWRZw2aBP4l5O+8JVpPVc786FUi3
+	lzi+BFvtSrIWgyWLoCd9ZoOQj3tjezTsjNrdN908mDO2cNJ0JDALEQGZPVC2c9MsyPsOyZ16RUz
+	7g55n6eBUkA4Ud/7QMWQ/wGdqnl19NnLMfbfsoIWw5sGBQYBDbHo1FuL1yr/dLmqV7uhMINC9IY
+	aEghaEakjUkqGULY8hJLRjampiIHyr11QKj0uwin2DquzK2x7PPOzSb+D/W1TS/XTJ35v/iPPC6
+	wWVNs2nA
+X-Received: by 2002:a05:701b:4591:10b0:1ab:6b10:461 with SMTP id a92af1059eb24-1b3c0376279mr534103c88.45.1794354327884;
+        Tue, 10 Nov 2026 15:45:27 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b20c55sm9145881c88.8.2026.11.10.15.45.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 15:45:27 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2 1/4] net: sb1250-mac: Add ethtool link settings support
+Date: Tue, 10 Nov 2026 15:02:57 -0800
+Message-ID: <20261110230300.2769327-2-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110230300.2769327-1-f.fainelli@gmail.com>
+References: <20261110230300.2769327-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,77 +104,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-11-10 at 08:46 +0100, Fr=C3=A9d=C3=A9ric Mah=C3=A9 wrote:
-> The RTL8852BS is a Wi-Fi 6 + Bluetooth 5.2 chip with Wi-Fi on SDIO
-> and Bluetooth on UART (H5). Its Bluetooth part works with the
-> RTL8822CS driver data, so use realtek,rtl8822cs-bt as fallback.
->=20
-> This patch was prepared with the help of an AI assistant (Claude),
-> which also ran the tests.
->=20
-> Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+The driver connects to its PHY through phylib, but does not provide
+ethtool operations. As a result, ethtool cannot report or configure the
+link settings.
 
-Reviewed-by: Alistair Francis <alistair@alistair23.me>
+Use the phylib get_link_ksettings and set_link_ksettings helpers, and
+provide ethtool_op_get_link for carrier reporting. The helpers return
+-ENODEV when the PHY is not attached, as the driver attaches it when
+the interface is opened and disconnects it when the interface is closed.
 
-Alistair
+Acked-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ drivers/net/ethernet/broadcom/sb1250-mac.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> ---
-> =C2=A0.../bindings/net/bluetooth/realtek,bluetooth.yaml=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 11 +++++++--
-> --
-> =C2=A01 file changed, 7 insertions(+), 4 deletions(-)
->=20
-> diff --git
-> a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> index 7d567122b..ffdf13b05 100644
-> ---
-> a/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> +++
-> b/Documentation/devicetree/bindings/net/bluetooth/realtek,bluetooth.y
-> aml
-> @@ -4,16 +4,16 @@
-> =C2=A0$id:
-> http://devicetree.org/schemas/net/bluetooth/realtek,bluetooth.yaml#
-> =C2=A0$schema: http://devicetree.org/meta-schemas/core.yaml#
-> =C2=A0
-> -title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS Bluetooth
-> +title: RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS Bluetooth
-> =C2=A0
-> =C2=A0maintainers:
-> =C2=A0=C2=A0 - Vasily Khoruzhick <anarsoul@gmail.com>
-> =C2=A0=C2=A0 - Alistair Francis <alistair@alistair23.me>
-> =C2=A0
-> =C2=A0description:
-> -=C2=A0 RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS is a WiFi + BT chip. WiFi
-> part
-> -=C2=A0 is connected over SDIO, while BT is connected over serial. It
-> speaks
-> -=C2=A0 H5 protocol with few extra commands to upload firmware and change
-> +=C2=A0 RTL8723BS/RTL8723CS/RTL8821CS/RTL8822CS/RTL8852BS is a WiFi + BT
-> chip.
-> +=C2=A0 WiFi part is connected over SDIO, while BT is connected over
-> serial. It
-> +=C2=A0 speaks H5 protocol with few extra commands to upload firmware and
-> change
-> =C2=A0=C2=A0 module speed.
-> =C2=A0
-> =C2=A0properties:
-> @@ -28,6 +28,9 @@ properties:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 - realtek,rtl8821cs-bt
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: rea=
-ltek,rtl8723bs-bt
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - items:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: realtek,=
-rtl8852bs-bt
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: realtek,=
-rtl8822cs-bt
-> =C2=A0
-> =C2=A0=C2=A0 device-wake-gpios:
-> =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+diff --git a/drivers/net/ethernet/broadcom/sb1250-mac.c b/drivers/net/ethernet/broadcom/sb1250-mac.c
+index c839dd9804d3..1843b52e96f5 100644
+--- a/drivers/net/ethernet/broadcom/sb1250-mac.c
++++ b/drivers/net/ethernet/broadcom/sb1250-mac.c
+@@ -2128,6 +2128,12 @@ static void sbmac_setmulti(struct sbmac_softc *sc)
+ 	}
+ }
+ 
++static const struct ethtool_ops sbmac_ethtool_ops = {
++	.get_link		= ethtool_op_get_link,
++	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
++	.set_link_ksettings	= phy_ethtool_set_link_ksettings,
++};
++
+ static const struct net_device_ops sbmac_netdev_ops = {
+ 	.ndo_open		= sbmac_open,
+ 	.ndo_stop		= sbmac_close,
+@@ -2197,6 +2203,7 @@ static int sbmac_init(struct platform_device *pldev, long long base)
+ 	spin_lock_init(&(sc->sbm_lock));
+ 
+ 	dev->netdev_ops = &sbmac_netdev_ops;
++	dev->ethtool_ops = &sbmac_ethtool_ops;
+ 	dev->watchdog_timeo = TX_TIMEOUT;
+ 	dev->min_mtu = 0;
+ 	dev->max_mtu = ENET_PACKET_SIZE;
+-- 
+2.53.0
+
