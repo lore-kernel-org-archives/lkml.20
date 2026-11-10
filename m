@@ -1,102 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794343661;
-	b=28nLiK3XY0kl0FQnnV5kNoOfiQTOLZjJ7EOol2tSaWPgLJCFFqGVx+/FmiN4HLoa6jyD
-	 3c1CzCsaEB4qCRy/wLnHvBeC0flzMdCYH5vmZlkLv/44qszEtzsYrnlwxXFHdMzthpN5O
-	 6vGKsdYsRgexI4naT6H4TYuKMwCBDmCvoJwX+B9wJEqtjUvXjRgH/4c9Vhh1jEucgOdr2
-	 z6p0a/7yTiE632ZDeHhMoWDnNVtvFYNlWWWauXtSHLLlmjkGpoiDpR1R8PDARdrvEjV5e
-	 Qo/g4xN/3GJNOoi3WKg6cvS69OOzKHnl5s7qBdPKbh3MQ0N4vxtIsOMHJ6tQ6x4O2GA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=YKtVEnFfNQjTOV1tBhWng1YJMSBpBYkm3Vu5GOjmdPFr65a1qLDAzWuVd4ztLNZgDMep
+	 1HtZSrCUBg3ae2FdtBGL935rekrDiJG6NxQA5CuiHdzQe8TkVq9fsCyXb9MmeRDDXVH6h
+	 MDHkt2qfHBkFSBEf2/pqSwgu6YbBxIs/MR5xe7wIYqwmBr1dgMtSys9aomcpAXDKiEl2R
+	 VzpzCHNZr4oA7DRGGul3q2ajIJNeXu77ttCA96FgQk2koGH2KeHVgOG2LqtivvYGEIWTL
+	 2Dd1n+hBNmLtFOgtN7x9b1EfC2WYbK+TKrh/BqRY2njrzU2KT2BLQrS55soP83gCS7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794343661;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-	b=kjh/cw7+Q7BfNClyeOizJ8qSgj41ZTjp1FNjzlrf3VR+zdtAW1B04EXDAr8WfLvNl3Dq
-	 I2lyYEuLWzpB7iSSrfRoJWCDl3eDBC+g32vf2tHpsFBsPHGc8BDtVsozY4AojcOO8Uu9v
-	 za5cZ7MyHFlxflWxXR1ZL/yvED/M52gShH1qMR3u780F2yxZS0p9QIV8KgpLDe9EQhFhX
-	 eN0rP33F2aRvLSrr1PzoArCCG0BgNufS4U+H5H+vMIbJokZ4t37fRgLRR2mynzECKhQ3F
-	 SSVMEEVm7E2bSSOU+TOVwUdYka8Rpdv8RX3mqM3aZQKioj90nVMfo3nj5R2b2L3+uxA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyTgKKe+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24BeyhdVmt3o=;
+	b=WXvzgUsrqIhGnKEd1Z0JdxzUUcD2n1swEa1KO9StTqy2rNzOgh90ZOJ/fHx1ifMrv/iW
+	 whSdyu27Y+OvmlFuu/5eJm3bkisCyIU2SfYhQargwhm0W2oaJ2AB3FDtDSa5tNp/EOaM0
+	 FamRimb/MLSzy+GrjDTTN71d8R8iVQsAV4heRPP+/rGaf/2rF55pnqV5cO2u1dxLDsejb
+	 D5aLMRVkXM3L66CBgu9cOgsY5eGUvITFmEjuAvgJ+3d0h9PbeErywNDhYpEgVF9q4YuY4
+	 kPc/Dq7U0sD79H6Mv51m0ZjmXkgRfcWqqS2anbj6MdN1pPvpxKTiaplwaqob3AAunCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cM+MsNCq;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MzsOpfZk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C47606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F2A606A32E
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C47606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F2A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyTgKKe+
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4697404c2bso349412166b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:47:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794343659; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lo91EUkJJ8ubVT2pLFEnnvaNKQAuHf8gQddH5a+08zcTVoBiWNojyMNKkvO+WeehrM
-         qE3SjhycauH6BIHzMRNmAPG+BlyuQ2WqnB4FAQul9aBkwT94z1Xss4IcztNjZlOFBJ3a
-         cbDzXMQPXkl/OkEvGIjQ9agOG5AsAQ/Zrs2v8lwV8oHh5VpBtGaE/0CoHl/I1ZQny2LQ
-         m9XXyS6eVXpJ5Uucsd8Aj+CC8zCuOAoGSUOkrWnuSaRpLKhNrly9luATmcao829CQnGz
-         dl3Gp9aUuFiGES5Aj41kXIURhs5QIQiC2qapHXrrwt+ewD5TIw5lLJSl8XJYTIV3UJgp
-         1sOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-        fh=eubU/5qmOni96aGoAh+hwjQK/fC6s34hiX44vJo7D2w=;
-        b=N0Gp6UwQSz/pQDttSe5LdwwU5nq9o+2uZ+c+f+mNDFQOyoQ3l/bsQVg40cogAXXINt
-         M8dcyPB0oc/WVIqyrihLf0xtECEIrSHD17M7yRQgt8t1aO03sgIf+FX0rCKRLF1Lc8rC
-         nkf9gpaR72aeWg6VoxqjXbRdO5Rp5PxT+/zUe2vjsG7i7wMzDR/TNFgOyerRXu0GaDWD
-         2/qtdKNjGtJyl2QXPAkNBDGvtssYZohyDtizDzjo3Homx918UJjZOxCTb2GJaD0EkEfy
-         bC0LopPLUbKPePBVBFRNEBtwhghCUsPWcNInd+6LPJJImeI430jWaU+KyWnNptctrWSl
-         9BKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cM+MsNCq;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MzsOpfZk
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAIopIP015165
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:47:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24Be
+	yhdVmt3o=; b=cM+MsNCq59akQglTLxUZMR+ZNAXqoOuWeiS0DxJsrOW4utoRxP/
+	WJDwu/hr6BykVKNtSywPkl/sAsOFKnOukWcv/E5w88c6P0422nKL37NGZ+aAji6J
+	xwsJNNAJ09youM9HNFPDz7GArFwsv8vaZ54joAyUGBhIuGzShpsdNPKu+oxr97rg
+	MGF1vQJNCZzI2QI684/piK3d9iyNz8DB910K3NVAPN0Xj2skzIRQA39p4br1rlWU
+	33fxh9QABXPbR+/vtSMP7ptEENVd/zUepugxCBt8VEr6B74/MGokP7HuguikZwiU
+	Io0sL8M2dWpMUGisBkQtCDMCiFTf0eFZF1w==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv03ctt95-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:47:39 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ed05900df7so22611615ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:47:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794343659; x=1794948459; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-        b=kyTgKKe+EjpbrhUk5Et4nVWbjvTgPhhAiWlXDPWD5e2simWlTxywGmwH5T1bIxsNSK
-         YButoRRKyFjPlChndRNNeyubyhrugPo6xA5G/wXVpMYWd6TQKcL0/4ewmjAPXM/snxLx
-         TFwe8K53CMZVeugFg5+u8f/2rGawWSw/ov3X+c6jRgwc/zuuD0W/9gy42uhoLJEvl5Qu
-         rIbpo8pHk2s/4c2y0PiuUQQtToYykA7573bsFPi25bQAvn84fu7CnT75Laeb/wKII01c
-         47jcrtGpGsJU5RlurWSC87FmanH3NtEptf00DrR3tzx/fiH3QWNOCv3mX+c7eC4+vdS5
-         hGgw==
+        d=oss.qualcomm.com; s=google; t=1794343658; x=1794948458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24BeyhdVmt3o=;
+        b=MzsOpfZkiXUsMKl/NNFgEZJqsumV9j4OF7GI7/fL59R+F0ZM+Lk9IOgbyNN+5J4+Lx
+         EDMRZjntDqGDD+k/WgZ3jYKFQvLK7UTH5ZWIauOIrfrBcrynsftD/He5bbAucRQxc2jm
+         Np0XbqaN6dptvMfc7w4qhXBBPdJwh9D+9Rs1geuUqHZt6zjvMPDiF4BVBP5dB90dTS7z
+         vmEvzu8/NdC8x3uFRarqewANoJMhBZEjToz29/LQEIe8Y+iiI1gxiZ38DXD0LEl56h7z
+         UdEAc9QvR4SlxWE/JIcl66Lo0IS7+9X2TbaiENdD3spPMlTQeV9UxA0+lhXNY7gYcir/
+         wkYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794343659; x=1794948459;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rM4WUnEDUpB6Cn9A0ZHS0bV/tF1w47YrSrUOK/zgQAA=;
-        b=Ro8uEDwhvlyadQ8KlOw3GeVFKNWSfusU1ru7ErsrSsNC5tUvtS1TWHEjwzOgs3S7Ji
-         CpUZglxBES2on6YP5vfQcAvxW8Y9UbCLCF7+N9A30rds0nq+p43+on2blmJH1xOY1/Wv
-         RtvBtyxYmZ4Lqsi5g7zntwaGkodYt+OJdX00YVp3ynAG9GIe73UJ+CghYmfrjQWh4E8j
-         xoDrIRu7JmqhRMO6/Pk9ZLpJ9ZdopuSMVGVgKHwYWvuYdbikBv36FZM8KvmWvjy6CIYL
-         DH3yDfjcGSztlZ9L1kdaClilFqJQBkH5NtBEBL7QI+BA0jAbsWDAroH9Yv/lCtaICSXB
-         Rtew==
-X-Forwarded-Encrypted: i=1; AL+hErHk8ugBLtw1xr+Js0docjUpMbt2ZFbFHbgnPN+/u8SkSjpMjFODug4nK0gcHedJp8y0dJcCRJGilCDWzto=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ucRTQMdkoPbY2X/gK9tImG38MKEsmFfcyUlfTJOGj0mRLTzHz
-	bID5UKj0hwpTx5mQQFiU03TndhR+o8F06EAwhW9u6FZbAJZA5qeoHnCtlFlmUbt7C/E8yggB5Dd
-	pediKcpZXMkpCIP+2DmkNmifjMp1s06g=
-X-Gm-Gg: AYBFou26OXUP4WZ1HxhjYwT3AXs9GM7t/pBqJNf8pzXrqMisPn8pqWpykH7ZhEdYfuB
-	lqJrdtGk76yMfllV5cFk5qlVhopUljhjwCn8HRVfKhrCOMb6KWD7Lx3WLQpfOo1SJA6gy3EEiaH
-	DT673yGhcUirtlNw0oMAsR7pwuEcriwYbGob7iQkNJPW5GjE7E1MOTLHelXIabAUpUXT5pYQNzK
-	qOMPhItw86fD1t8lmeFmtTzlC1STJ0sXd9CXmNWVlAWxGQtj0KOy04CctVmH+s6/7iGhaHWnRtU
-	x7WxEzJ++QOAcgVnI26sJbN8rq9Z9jH7LbEvnNAydTGS5Dl4Q3RBNpzxe+drBb/2M4O131lai66
-	rgWwPsE7lseIipeY0SBTVHuJxolX6tkCJT6wDHm8STu+lARc4e4VIVbpY8NFpzwPk7WfPctE1pc
-	eGZuHyBIveuRSymfJ/gj45oZ7bNS2sry7+yLFy8GHkGDzvZmrocldzbYfVhJe7oSUfDLrbj2oHZ
-	Bfb+aBLYU8BtHbd3AnXYqZ/hRkcYIme1q+Hg1dND07g1b8bow==
-X-Received: by 2002:a17:907:9629:b0:c4c:ddd1:d006 with SMTP id
- a640c23a62f3a-c5066ca17a0mr19662266b.38.1794343659272; Tue, 10 Nov 2026
- 12:47:39 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794343658; x=1794948458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hNCvYFJ2RnXoRwOEMSxfDnhAjWKMNDO24BeyhdVmt3o=;
+        b=OgFVmbzV8lZXVE97PemhPtB94heYrc+/pmneJcoeH3PK5R3PQKeHasuoIgUBGsnV/0
+         /lmUOPLPKTPJqpTqAXYkF/bbhWOCYR2BLaGFAiqcgfhOhhrdOTBzjZSVIa9rMlNi14YA
+         hiz9GBdjAAT32tLkZyH2Qc1/X43/wZ/AFGJAEKAsAgsPZKA9qYH6qm1+YkSWGKaHMxon
+         tMpxbPsKgJeNZvLFvDXbv3HsJZITCkSpGujwsQsmqLgukDUspv/+26xIWSUmJyxEOkmO
+         /bDe9LzSha8b9IbryFJIyByb1wfGX3QabNDBczetM0GTrNP+I/8FLRL91eXkRQXuVlZ1
+         dgNA==
+X-Forwarded-Encrypted: i=1; AL+hErGanMdjghQ2awaaEJEGAvOJ87fISRmZjwxnQ2w30/x1yjVgpz9VgIRycsLk0bly1r+b8jM2vvWiyTCKIaI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+t/AJHrSNbiU/67NEltUlSI9tV6wLwqMmKZBaKQBPTWHoqoHhu
+	ivAQCuoa4O8tmGFcvb8ZMuT6/aZ9XtjE+4mWXhLfbpg3CJ+bTZKaWVk+o4TA6vJbKFTCbzIdt1C
+	imSXvDfsiE7NGXQwjB/AlhatJSvkEjQKELahswkc32giU2Fa2ms0s5IsZzlkHtwv3pOs=
+X-Gm-Gg: AYBFou0QDCg622VfaSu4MwMa95tK94TvoEIHpYiyrncv46c2zBk9s0pDMLMN1xN6mP+
+	y/TNTtlGKJcEQoVYsXOsSe+MzGmvBVvbTWi+b0UUSUQKIgfoMcbZ9uzTj2WH2hdJLXTZhpOea7v
+	WgyG6xwXwErutBdAL1RSgPve7nihP/J7VJTODsaUL9D6jYX5VRRtv9XKm5iMOuqa0k+dUNibSve
+	gpi3BtTZi5BkCkVvPBpWiXw1JueJzPjGFcM2l3R8AtM94nYEKxI0qBD0/jLjTOhdo+rkmASjih8
+	AKc9iRxz01WLzLEvigdVwc6FMh0wFqcsOEP+xrwBF6NW/kSdY63HF44ECTiQtAcU9cUuqLNa0Gq
+	r4KBLQ7cM963Iehv2tGgRp1jELkYJzZurf5g/W28BKxRrHp7t6M7f7i0/BtVBGnhQi/e325T6SS
+	Dp7XjEAbdojXS+hoqiaM70kpkAxXto4EKqQsohvUlZa/CCnAaOEY78mhwzN/Vl7Q==
+X-Received: by 2002:a17:902:fd87:b0:2e9:5ed2:c39d with SMTP id d9443c01a7336-2edd79bf74cmr3474915ad.36.1794343658459;
+        Tue, 10 Nov 2026 12:47:38 -0800 (PST)
+X-Received: by 2002:a17:902:fd87:b0:2e9:5ed2:c39d with SMTP id d9443c01a7336-2edd79bf74cmr3474695ad.36.1794343658008;
+        Tue, 10 Nov 2026 12:47:38 -0800 (PST)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6e0d5c0sm12824535ad.71.2026.11.10.12.47.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 12:47:37 -0800 (PST)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/a8xx: More nonctx list updates
+Date: Tue, 10 Nov 2026 12:47:32 -0800
+Message-ID: <20261110204732.531432-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,149 +125,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110013646.1582970-1-rosenp@gmail.com> <avKAhjtbi85dpGoV@x1g10>
- <CAKxU2N9Rdw1vWtfxEzaiFgyzWZufWxKNQvWmW=QeCtGFa=813w@mail.gmail.com> <avKHVDJJkhGgyBsI@x1g10>
-In-Reply-To: <avKHVDJJkhGgyBsI@x1g10>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 10 Nov 2026 12:47:26 -0800
-X-Gm-Features: AclHuK9U37xyg1UGTBVZdBBrLCrGhl3O6c9YzBYNAJfL0Ndc_wBpWSkIc42JL4I
-Message-ID: <CAKxU2N-ZxfMs-6gTiaYthNt5aun0wt0qH9HJy_xaUdkhHYQ5Ng@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] clk: add a driver for the ath79 PLL controller
-To: Brian Masney <masneyb@kernel.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Alban Bedel <albeu@free.fr>, Antony Pavlov <antonynpavlov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 4YrmjQuCxPmNl7Ds7xYkx8WJzikKo56z
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4MiBTYWx0ZWRfX1ut7ofNe205C
+ UxMa4BkmwhYMviU9UU1WSvCU7Ln0oVafW9xfydbQ8DC7OoaWt7MF9xjkfJAkyyIeIxlE+Igm1FX
+ JezgRO6oE67GkCBgnGa+1F8rw+MetTk=
+X-Authority-Analysis: v=2.4 cv=FuiQbGrq c=1 sm=1 tr=0 ts=6af382eb cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=dKKpEi-vj6lmmWfvBBYA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: 4YrmjQuCxPmNl7Ds7xYkx8WJzikKo56z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4MiBTYWx0ZWRfXzgrKp6mimz9I
+ DRAsnqLK9h8c2NHGdK0/HlU+NarGwtfCm15Yen2wR59PfXPk20wwWd74U8FA2KT+ks6S8CU6kpg
+ RiunZUTKSleUDj7huejaKDwQTUY9hNUuPZRWDpYG6LZOMB/8Hz/QzKhi2xnG+A9rN9WgSMV/Q5O
+ Z9T/3TzX8xcXuQISHUDsasEEcMGwhnx/QcLg3wLlG3HoGcK1peNbNAYv4yCtbanZtr9SZbIMyve
+ If0jFH6cZ00pohovcsktTr9JJChJcm5MUZ3ePKaMdB7pXwgTfL3hIi62x+6IcQEQuzl6LfCUVtM
+ 6GEbojmDl8xm94UwK3IHbk2gtQ6mqMLm3NJiZ2O+jzkJ58OkE37klbG//bZQ+HmfYXu6XHh/rPB
+ HPayT4H0SQyD0Bkzii1oBgBp+3SIRHj2TIsYXhzEDLTo53fANFHsCbqRhw3ffU9+J4r22CMHZLm
+ 5W+rJqJrQoEcPxMKBaw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611100082
 
-On Mon, Nov 9, 2026 at 6:54=E2=80=AFPM Brian Masney <masneyb@kernel.org> wr=
-ote:
->
-> Hi Rosen,
->
-> On Mon, Nov 09, 2026 at 06:35:32PM -0800, Rosen Penev wrote:
-> > On Mon, Nov 9, 2026 at 6:25=E2=80=AFPM Brian Masney <masneyb@kernel.org=
-> wrote:
-> > > On Mon, Nov 09, 2026 at 05:36:40PM -0800, Rosen Penev wrote:
-> > > > The clocks of the Atheros/Qualcomm ath79 MIPS SoCs are set up by
-> > > > arch/mips/ath79/clock.c, a CLK_OF_DECLARE driver that registers eve=
-ry
-> > > > clock before the driver core is up. This series replaces it with a =
-new
-> > > > driver in drivers/clk.
-> > > >
-> > > > Only the reference and CPU clocks are registered early, with
-> > > > CLK_OF_DECLARE_DRIVER(), because the MIPS timer needs the CPU rate =
-from
-> > > > plat_time_init(). A platform driver bound to the same node register=
-s the
-> > > > DDR, AHB, MDIO, UART1 and PCIe clocks. Until it does, the early pro=
-vider
-> > > > returns -EPROBE_DEFER for them. clk-mt7621 uses the same scheme.
-> > > >
-> > > > Patches 1 and 2 move the two remaining non-clock duties out of the =
-arch
-> > > > clock code, so that it only uses its own registers and the clk API:=
- the
-> > > > QCA956x timer interrupt workaround, and the reference clock that is
-> > > > read from the bootstrap pins when the device tree has no rate. Patc=
-hes 3
-> > > > and 4 add the UART1 and PCIe PLL clock IDs. Patch 5 adds the new dr=
-iver,
-> > > > and patch 6 removes the old code.
-> > > >
-> > > > Tested on a TP-Link Archer C7 v2 (QCA9558) with an LLVM build. The =
-CPU,
-> > > > DDR, AHB and reference rates (960, 800, 266.67 and 40 MHz) match th=
-ose
-> > > > of the old code. The serial console, both GMACs, the PCIe PLL with =
-a
-> > > > QCA9880 behind it, and the WMAC all work, and no devices are left
-> > > > deferred. The other SoCs are not tested on hardware. For each SoC t=
-he
-> > > > rate calculation was compiled in userspace together with the old co=
-de
-> > > > and fed 2 million random register sets. The results are identical,
-> > > > except where the old code overflowed 32 bits with register values t=
-hat
-> > > > no real setup uses.
-> > > >
-> > > > Changes in v2:
-> > > > - Post the new driver as one patch, instead of moving
-> > > >   arch/mips/ath79/clock.c to drivers/clk and cleaning it up over si=
-x
-> > > >   patches (review feedback).
-> > > > - Register only the reference and CPU clocks with CLK_OF_DECLARE, a=
-nd
-> > > >   the others from a platform driver (review feedback).
-> > > > - Describe the SoCs with match data, and read the CPU, DDR and AHB
-> > > >   selection of AR934x and later with one function.
-> > > > - Keep mapping the AR934x SRIF block from its fixed address. It lie=
-s
-> > > >   inside the wireless MAC registers, which ath9k claims, so it can'=
-t be
-> > > >   a reg entry of the PLL node.
-> > > > - Drop the clkdev registrations, which have no users.
-> > > >
-> > > > Claude Code (Claude Opus 5.5) was used while preparing this series.=
- It
-> > > > wrote most of the new driver from the old one, together with the
-> > > > userspace test of the rate calculation. I reviewed and tested every
-> > > > change and take responsibility for it.
-> > >
-> > > 40 minutes elapsed from when I asked for changes to when a fully form=
-ed
-> > > new driver was posted with major changes. Your cover letter says this
-> > > v2 was tested on real hardware, however I am honestly a bit skeptical
-> > > given the short time frame. On top of that, that's not enough time to
-> > > also go through what all Claude did for you. Please slow down!!
-> >
-> > This was tested with a linux-next kernel on an Archer C7 v2 hooked up
-> > through serial and two ethernet cables (LAN and WAN). There's no
-> > difference that I can see between the old and new driver.
->
-> The clk_summary debugfs entries would be a good place to compare as
-> well.
->
-> > That being said, I only have two pieces of hardware on which testing
-> > can be done. Both are rather new relatively speaking. Older version of
-> > this series is currently live on OpenWrt with seemingly no ill
-> > consequences.
-> > >
-> > > I'm going to pass on reviewing this version. I want you to take some
-> > > time to test this on real hardware, and understand the code. If after
-> > > that you truly have no additional changes, then I'll reconsider
-> > > reviewing this version.
-> >
-> > Sashiko had two complaints. I'll fix those in v3.
-> > >
-> > > Also, if you want to help, then consider helping with reviews on patc=
-hes
-> > > from other people, in particular with the large series for the new So=
-C
-> > > vendors. It's a lot of work reviewing the flood of patches from
-> > > everyone. You can see the backlog for the clk core on the kernel.org
-> > > patchwork server.
-> >
-> > I agree. It's quite unfortunate and have no solution to it.
->
-> Just some friendly advice: If you keep churning out AI code as quick as
-> you can generate it, then your stuff will end up at the very bottom of
-> the review queue. There's a long backlog of other changes that need to
-> be reviewed.
-Sure. I'll wait a bit.
->
-> I'm not saying that you need to go review patches, but that goes a
-> really long way to building goodwill in the community. Maybe if you post
-> a large series like this go help review 2 or 3 patch sets that's in the
-> backlog from other people.
->
-> But seriously, the main ask from me is to please slow down before you
-> post new patches. Provide some more details about how this was tested on
-> real hardware.
-Sure.
->
-> Brian
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+index 510c2f6017db..0c6dde3cbea9 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+@@ -282,6 +282,7 @@ static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
+ 	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+ 	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+ 	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+@@ -595,13 +596,15 @@ static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
+ 	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+ 	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+ 	/* Disable Dead Draw Merge scheme on RB-HLSQ */
+-	{ REG_A6XX_RB_RBP_CNTL, BIT(5), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
+ 	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
+ 	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
+ 	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
+ 	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+ 	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+ 	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+@@ -611,11 +614,11 @@ static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
+ 	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+ 	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+ 	/* Disable mode_switch optimization in UMAS */
+-	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24) | BIT(26), BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_CHICKEN_BITS, BIT(26), BIT(PIPE_NONE) },
+ 	/* Disable LPAC large-LM mode */
+ 	{ REG_A8XX_SP_SS_CHICKEN_BITS_0, BIT(3), BIT(PIPE_NONE) },
+ 	/* Disable PS out of order retire */
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00c21800, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00c20800, BIT(PIPE_NONE) },
+ 	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+ 	/* Disable SP2TP info attribute */
+ 	{ REG_A8XX_SP_CHICKEN_BITS_4, 0x00000002, BIT(PIPE_NONE) },
+-- 
+2.56.0
+
