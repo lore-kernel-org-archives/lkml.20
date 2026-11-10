@@ -1,101 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.137
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323474;
-	b=DJRXDg/H6CGcmfPAaukJdE3eTPDR6E2IVr2koQKgQdjVmDlTvMGYrkHQhCN0o05MltcS
-	 tEaVgTstku45xSgMTYdmiKu5txb2hS5AYKFiS6Wctvngke/O+6dCkWO1Ic3edr75glX8K
-	 HvU2KH9+b5IPgWyqSN/DpPvDmj39XEexzblc8UTUAYX+DYLTq/x2PYxi2uMQR6rDmKm0f
-	 l/MbXmCaKdw3e7b28eoXny1BILAOjGmouUAh+mvS1nM3+UHCheyAksuuffg9qw0AhvNGl
-	 88LhEHPY0AYDzWpl+HZ4l6VWVIhjrpjtXJ+Tnrk1kjsUzU2jjEuqvuyFFj7gJ4shRGQ==
+	t=1794323479;
+	b=Lkd+FySC5S5zF7OMEEVxi5Qmjym8s4lzX+9v9Gq9B39FxGQpLurkcbDcyCoRvPI15V4B
+	 dUUtB26xOUoQvVs7nciWyfFD0tAywtqVKzKhq2POejsm0l5ESIJh7a6hIuwMgF5FFeMvi
+	 wJJ8PoBDvkSjPH9I1HHjCxeDWJ4baPfncuivcCbE1yLAG6biGg65m0wIHois6SYmKxRea
+	 mAtuaPemiVdrBIYOxV8eAAT4AXJv8KjFFTZKETL9HKsqRIeeM3ezZhValMrJ2oElmRXjh
+	 fyQ3e9gRsuAwzwGtV9UBNuvxGLTO89CyyEiYrv268pyNBoR3ypNmzVOuev7PbCHAscA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323474;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
-	b=UPHcyruf3HgC8l/7JCRdJGQg41dp8axb8Pn3PvX2a9wP+jjfI58DLl8WYyunHtR280Fc
-	 mVIZCXjLVU3QYzEdJI1p33VEL8h+93qufbOnvH8/n8AFFgwxFY/5IAFnAMeKYayhcsdvs
-	 6BDeRNJzzvEKw+dCNehffX/WMkceteb/3KnGviLBvu1UTQv55DezX47T8LHP7ulooww8T
-	 PZlfe5Rf4s1OMq/nH0euAZzYFccGbDTNtGVqXBKEodZtyYsUCcpE3b4HaDRGUFs0w4UDl
-	 qzKevqCNHw9I+3PXoYtIIACy/FhXIiBp8tmaKQcFe3/y4C6wEOU38G9gTzhIHWW0pvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323479;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Gr9yAq7pJak8p8Zi3exCjb0FexD9MYA+/3oW5RPat5g=;
+	b=TBivqquMrIIOl9qVgDJcXmz/YtaYlTfnWwSIUO/Phs4HAuIItGqLEwqATPrq1qihTLqU
+	 ygcHwczpEqHlLWw197DjIfxcCaHSGvX23ykYg1tz4kWMIlWvq4jCgGrfRnhPCW2Afnb9q
+	 GCDXIyw+AqgkG7IUODx9Zy4EcKScmFEBSuDBiMuL7Q9xc/pKnHrMZ3YMo9sTuRkKAdpZm
+	 oNxdd+6VyBVUJIVz5b2oo1mJBzYTmfxU7Tiuu5oXFwNrlC2yHP6e0+2iRrK1584vO6zVw
+	 M9HE+PNW8EklgXbCPXdT35r+krH76dSvMcvfYhIJka+gwzKQhiV2daF0N7o+t66ymxw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEkxyspm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=neyC7pOj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.137
+Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11021137.outbound.protection.outlook.com [40.107.192.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F15606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F15606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C0D606A330;
+	Tue, 10 Nov 2026 15:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C0D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEkxyspm
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b3a332105bso2511797b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:11:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794323473; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nhST6XDMXYanZglCYUehJ+hE2H9UnVPbH/1PEDo8rkrKeong5Sc5KOgTbXUEyqSHsd
-         RFGgQw4IxGYBmeu9mqAjvycDC+cx2ycpxCbdrK2Srh/4c2nayS3Aqq5iTvE3dcCnOZVy
-         7Nd0O4hX59XOPeCtlvsPCBJJd6sH1DTcs9a3oQoPsquZdv85m+2jh2tpjRKId0fTsfuV
-         M16QvLo4MFcRVJpmjuOv2NQcLrUonDWojn5wrD+rN7fjpohKo34uXGdoxCgOpFjfWymq
-         COvVdPamiuxr8Dz+OXeN24JcUeWwigwKlzAU3uUk0R9BIxODr8eRrIC6BoUZ3T3USfGa
-         5Z5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
-        fh=RS5LUk+EIXVF+H4xYXVcc45l/KssbUFcxSk44dkrKS8=;
-        b=UCuA+mFSBzf/Iw23dAC+rLFUowiyXlH4ycTvH1tIpYXrIPmiGmt2NBKZqW1ewqYPlw
-         TwQKrwkCT7XsUgB5MycNyrSAGblC5TVLadvYNUdSGPjNYeRMeXxKExCEwkTjTePkzUKu
-         Mv5zh1t7fnb1SIT37ap4MRgFqfyzOyei4g2gbRLYJr2qg5Tc012+K7SRuKkq5cwb4qVm
-         0tjviThifWa7+PX8XIky3wPTf6XDw9Hb5IdYqzRNKgbNhD7GAU1cQelQSELajPzJpDD+
-         WRR/L2yhXT/nmYslXHL5NeBc2+sBaffdl68zV17gYChxOdAEdUm1d+a0fzehnih+H0h6
-         0zdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794323473; x=1794928273; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
-        b=BEkxyspmKNnBwgGD1le3LUrb6O7S9br2n9OnXxyeKH4vPKd6lDXl68kyuhSP5MbCvr
-         6c4sPDhrHcgdHDrzs1BeIRwb4segvJ/I+JsnVuU5ZJgf8sRlb6eTp4TF0zerTYF1p1jg
-         5OATx40g9K7KyUGFdH/8f4VJy0RUNptqnMTXwJ2eriPsp3/1FTTyj6DPRM2l5QkFJ28u
-         4l89PKqrvLF4M/WoBpDrvpg+mzrCJaaqZaugKTzpSlPSF2Bg/Uz3dyqGvZNGI8VjZeeO
-         x7v7Mu5eQUqGM261FojIPuwuss6/0nK78r8diDzbN1eVDnAoSBGXSpbE302W28Jtt3gl
-         suVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794323473; x=1794928273;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JfImUIKbgBOvjOPJtdSabfWvasfWg/hSkuUqdlRqigQ=;
-        b=M2pQbwOxM00+lUnYQRxTZWQBmNEZ5RIXRStzXKJnEHP/FcLkSgLjo29VcYv3alRU85
-         2icXwHZC54iwtY7QrLXYPPJJhztNVDrKlQP/zVzEFlBhpZoiHRk7Jz88jYAKXWlOuh/t
-         s6bjQzktCGUaE4rQFJkaA5UxLzuSq45Yk+5FCvEUbhF1OQ9tBveH4MVTw/Zjhk3o7CLC
-         x8VsOqVAdVQc9AOTMfaggfBFZrd8UBmxUd9GfoUwGux859fLjTPeMABiK2Xvdqqx+dzn
-         YZVpxP7HwQE6vrfnUj8xwe9PeLGPsm0OxICF2VdaikOqwsMsZdLhrkHRzsddwdEu6P/H
-         CsFA==
-X-Forwarded-Encrypted: i=1; AL+hErEqGWm7hKHfahhJzQGP6Zpa1NEFWSweHDR4OSL4gKICSuOBoIq/OtFO4kVszMHS0kHCB7Qm1TYCfV3+2A4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ggP03Zlu926YGeRo0jt1GRGGgkVpiT+He/Tgz/H6NAiBHcce7
-	0zZqxfPlY9xhSespjgamW/f19P2YtnQ9yNhHZZOK6hWPO6S1l5oost/Tgnu+MZAH2FsWAICYovz
-	wdHdPrEdqvNwO9PYyKVrfn6Jk3ZfmRvI=
-X-Gm-Gg: AYBFou2sIlmYx3MkS4ZCdivOS479Izk6phyhuO0BllFhavfgYcmoGGfo3Y5IYUEMOMb
-	TXmoYilqHuVcoZfyZW8+en3QIpZriy8nId/z3bJv5PPc9nqzoz8+Ig1ojCFhFiXpLpQUQGpnHt0
-	fW5Wpd3F6hYvn15Rp87ZkSAmzuCIZwlsacePq/v0aGWJBeqTATGD2l/cbpLBtCZ19JPfoLE87te
-	5mnc1vUoJj4lbsGWwW55gBjS1kVg57m9mHL2lodcyoIc311NPx9J+72cVyc65/Pv9EGNx5bl7t6
-	Me6mrgd4WaaexX+UgPi2DRcgwZzCNUb9cqkJgi78LD0Xulp17O5KidbMoQurOvKGMzCXsBiMll9
-	tXn9zEh1xclAIv6uOsDX9msQuo+dPzphMT5GokPxMtiZM3FIzqS8oPmFahADk7KuCeZ9eXYcJTb
-	jx8jqtYYaxjrUKwl/i6EWyOtAS5sTTyzZTqLzLDlEIUzXqGy+rgF0AMft0
-X-Received: by 2002:a05:690c:f8f:b0:8b0:cd32:b8dd with SMTP id
- 00721157ae682-8b392630812mr20533077b3.17.1794323473171; Tue, 10 Nov 2026
- 07:11:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=neyC7pOj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UGrqCV+vw7T4EQHmxrBWQDp1dCC2BfCkLqH+ZlHWHSOuVdHlx1nuR0vw3c4iD7zEC6dBt9q4Dz1CHJBg3vM4ofvnOWfZAmlx2mb85p3uiNAqNvgwaptnN4wFMgb7wziWYLVRviuj12MX4BonvORtlM4J3+GsjRPQPnQVge1QUybH5lI2gY1OPuW322aPcE8wLrhwTVwMMOoceJE6ore/qo3FFXrckwtn5uKFo0V93HP5r68YG/tsQqwgz8aeYAdMAJA8Cyp6rORdNHhSEK5kYtyrME/Guwllprsk8gnbHCeXlZYdWRoTN3dbT1bR9Y4AYHILJ/eXFWyvjDQUNxLnKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gr9yAq7pJak8p8Zi3exCjb0FexD9MYA+/3oW5RPat5g=;
+ b=YkFZ59QeneR3SOf4rMPXYozJDuiDB2ctObJ+tv4Yo+KHVkYMM66hsxoJ3+Bo2SVH5iGBCoOs5gcBGLJFTWJcv/gwW5DBxwv+MbxG6T6eD5/SpRmkpjs2fPfno40ur7AEHKgNHEuJk/Z09R7yw+/+yyLvrqPjARcWuPUBBbd8VGV0iigr7WnsW3opsN8SAwkzTu8VTPAaI2lGMiVVUS/haQ7cUwFtkDSs+hKkgpn4Qo0U848AoyZ188vbiupmorZmnYoie40u8ahdhhvsZbcCfyPfBmz5kEX3w0QnFtvIG7jOpNXJKcmnlFdULyOl6OK3oXatj6xLgfAKKZWaNr/33Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gr9yAq7pJak8p8Zi3exCjb0FexD9MYA+/3oW5RPat5g=;
+ b=neyC7pOjyfG40AuaMLCV9gejNqM0WbVhKdPzw9McETTcv5eg9CXCw7LCFNjj+igjMbtAWKo7ElmZzia4cxckjjKe/d0ZL0WrlEY39Uk3BQ2WlJ8xJjLw8CVpj+2+XJCFRKlm0cTTzcbFYwIgomhbztZhk2aVtmDqOIyPgvgjYAeG/u/PE2UBBqob5KUOPhansoTQD4jsIKQZAmEfWopjkslOiTLnVt9GqkLrqyMF+JGnMg26VpPIa/EhvPk8nMdD1Wsc+uilz6N6p5aR/a6UOvrBzMVxCc8eKcthLJWarNumo/cKbTylXmgYB/sfjsvdjn4rwB3w/4O9nwWQ/OGwdg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT6PR01MB324135.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1cf::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 15:11:14 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 15:11:14 +0000
+Message-ID: <ba93b677-ab72-4a85-a7d4-a77aef6dc746@efficios.com>
+Date: Tue, 10 Nov 2026 10:11:12 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/12] RCU pseudo-transactions
+To: Puranjay Mohan <puranjay@kernel.org>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
+ Boqun Feng <boqun@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Matthew Wilcox <willy@infradead.org>, Christian Brauner
+ <brauner@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Andrew Ballance <andrewjballance@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, rcu@vger.kernel.org
+References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
+ <20261023181940.457424-1-puranjay@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <20261023181940.457424-1-puranjay@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0143.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::16) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,190 +112,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CADq=QSxw-5LstC5McTqfsp9NaVrsUcemepw2g_TJXNrdpgFdRQ@mail.gmail.com>
-In-Reply-To: <CADq=QSxw-5LstC5McTqfsp9NaVrsUcemepw2g_TJXNrdpgFdRQ@mail.gmail.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Tue, 10 Nov 2026 10:11:00 -0500
-X-Gm-Features: AclHuK_GUiwCVuUhAn-ajDH8D9wFR1ipOXSYvJeuudI1cZ9x_iMQK-rERRc69EA
-Message-ID: <CABBYNZJ2zD42-szQ5KWExOVkSLPmO8AH-FNyO2Eq3V4bfSrVxg@mail.gmail.com>
-Subject: Re: [BUG] Bluetooth: stack out-of-bounds write in eir_create_adv_data()
- and eir_create_scan_rsp() when a controller stops reporting LE Extended
- Advertising (seen on 7.3.1)
-To: Piyus Kedia <piyus@iiitd.ac.in>
-Cc: marcel@holtmann.org, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT6PR01MB324135:EE_
+X-MS-Office365-Filtering-Correlation-Id: 091b6c6d-be03-4a9c-423d-08df3f3cdca9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|4143699003|56012099006|5023799004|22082099003|18002099003|10067099003|261009223027099003|261102123227099003|261026121527099003|261022075727099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	xgPPEszXPdBF0RJ95XhdqiKD3ZH0PWBY4txRDaMdKainwpRVjEPLJv9h419Yfux5qtMa9cvQvwjB7IzCwKZN+C7Mnnopmq48+0kjdk+7tgExVw7WRqQGnudo7dHqf8ug6L5BwzAV6pYF5Cam8E7+ToHfXTQJcbYPs+6bKPImvXL79hV8q0OpCzp8K9YQNsVnM1ExGnpmYTV8Hbi+e1sZXp34bKXGW4cr6GXR4SIBXK8lc2MTpBll6taZhz/gjZXQrE1qPoa4hLPeHZSdzg5VmsOJjzHACyBo90kjGpCFsq+lrA108zy7by2G2TTTe+BjDCOFyGZ1Cnk8emd+rTXgB8Nafml3MKshNchAU02jwD/I6KVKBhF0ney4VDVaBZpzcYleoPm4Mq6CvHs39SDAly+kQN18XgRU32Ih9IRN+m1ErJ1vwYUNdnrtAVXf+JqEJA33ja/KQZ2IXvlZgerry8RPJHKby2T5WaYYqs1Umji25lL6juWf+VL6ddqiC+oLFNWCYqPyK+eV+/p8GqOeDJcbd1Wn1eiXxTc9TsYjyvHaPDG6NCvuiwABF1HaiSw/UsTc83u6qT2R0ERamsm1L2qDS2lMzRAniruVZ5xBzFU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(4143699003)(56012099006)(5023799004)(22082099003)(18002099003)(10067099003)(261009223027099003)(261102123227099003)(261026121527099003)(261022075727099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(261028144727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Vy8xZDZrNkZQekR0S2wxd2IweUo3Yi84TXNJaytaSGpFN1FLSlEyamtXWXBz?=
+ =?utf-8?B?RFRxR2xEL0E4Ry8vZWtXMzdhclBUaE5UMGRLODFGakZNdmlKQ1hmYWVnNW43?=
+ =?utf-8?B?cDZFbGJXdDNVU0xoMnBSYzkrUy9sQ2gxZjJQbEJHeXlrc3p2ZzEyVFFkQUto?=
+ =?utf-8?B?WXYzMS93bEM4RUlLV1c3S3ZTTVppK2xOc3UvZkExdWcxcm9aRlBXQTZvQTY3?=
+ =?utf-8?B?b3VONjNKbWFJbHFIMkJFK2F2WUlOcDNaMXFnYWtBS3hJZVh2MzM3N3BvZktn?=
+ =?utf-8?B?NnphelU4d0htMURhZUZrdTQwcS8ySXkwTDZla1h6UHZJUHA0OHJVYWYvNE5n?=
+ =?utf-8?B?U1BHKzh6b1BDblZWVFRsTncwR0IydjcxcjhjNHUwd05xLzRmdVVodHdTQ245?=
+ =?utf-8?B?QU1vNWNCUWloNEg5K1lpb3ZLTlBReFFpYlNxUTdwa2R1Q3FtWHBUNHRRcEVX?=
+ =?utf-8?B?WVZJSVlIWTJWcHV6YUR4eEJvOTViVlpycHRzRTBXU1JCcktXYmdaVDlhVGgx?=
+ =?utf-8?B?M0k1ZWZIalNWRzFtMmJWaWpyS3JaWndTVlJGT1cyRCtKRHpGdzN3VDg4UVZU?=
+ =?utf-8?B?TmxIMDhlLzBJWnJlekE4VktyL0ZNdUJYUW5yYVFJWXJCYjZoRHE2aHpVK0Zr?=
+ =?utf-8?B?b2lVamdVTHI2a1lmYy85SkJYVHpGWlVWbzFkd2NRbVNrWHpwRDcwTlJpVjk4?=
+ =?utf-8?B?V3V1YzRhZ2VYcnNlcmRVTEgvYlYvWno0WklZWlQvUHJuejV2bW1oSU1EdVoz?=
+ =?utf-8?B?YW5PNHB4WmhxU0UrSkNHeFhhTXdFR3R6NXkxZzV4bGhtOVMvRzlCSGVLTlkz?=
+ =?utf-8?B?MERNTkxSSGd5eW9jZWY5dlNRT3AvN1JhaW5DUVc2Q0xTTVYxMno2MlVtcGln?=
+ =?utf-8?B?NDc1MXhhRFQ1RXJ4VGdrdi9EVllQNlk0eUVJUkFhTWRMVGNkNGM5anBiZW5j?=
+ =?utf-8?B?U2pqUytuVW9nU0U3UUxDeFJjdEhGWVhBb0pKTHl2d1Uxaytrd3RDTllZTFJm?=
+ =?utf-8?B?T25XVHhoWUtOMEhhbVJDZWF6ajBvS2hoNG9EbTNxUmoxR0ZXMllnaDhlYnMw?=
+ =?utf-8?B?N3M4OFpyaE5kNTU0dGo1UndMd010YTFFS1MxajBRZWhGdWhzQ3RrMnVncVly?=
+ =?utf-8?B?ZWcvMlNwTHB5eG9qMERnSlpVeEt2ak5pM1E1MDRtckgzaEU5YWR6Q01jQ29j?=
+ =?utf-8?B?aGJIQ1Z1RjdzSzF2d1dUbW55TnJyRCtDRDJnckhMY3AvYk42ajl2M0M3UnRL?=
+ =?utf-8?B?eC9wRkY4WE1XUUQwMk1xellNcVNoVUVZWHR2RUpGWHFKNVFOZ0NtZ29SR3Zs?=
+ =?utf-8?B?RWg1YkdXRElFRDgraVRvWHMrSlhuMGVjZ2dxNnY5TkZWQndMMlVYaEVwV294?=
+ =?utf-8?B?YzQ5c3dFQjBuTEtkSkliTHNGSEp6VVMvUllGdllreHZvclp3SGwrWndpbVpS?=
+ =?utf-8?B?blBiUlN6bXZpYi93a3NGWG9Zd3ZNbklBNlVuQWpyZk1UUUhIZWdEUGx0US85?=
+ =?utf-8?B?YWFmM1psV1hNU2xCcWRveWtDT0RJR3k5Rk9LczVPWjhscFFYbmZjaU1YVWQ5?=
+ =?utf-8?B?bGd2L0YzNEpHemE1Y2NOUm5nbW1KUzBVRDVSVjJ0Q3NQNXBaSFJYQVNSRFIx?=
+ =?utf-8?B?ZmJEZ1NCS05IOU5TYmlnWjhZRjhkL090R1k0ZkVDRjYrdHZ2UjBHc2cyQ1gw?=
+ =?utf-8?B?MHY2RmU2SUtRdlVWVUFoZTNNZFdSZ05oSHlIOHk1ZUpWNi9tTStQNlVqVndw?=
+ =?utf-8?B?Mmw4WjZzVmxGbWJaVENtbVNySzhUVi9RQ2VMK2NDNlVUY3BDdkJxcjJCNjF1?=
+ =?utf-8?B?Z3hwSG15amw2bmNYdms0cGZ1VlVnM0pvYmNIM1luelVyaUc1SHlrdXZtN2dF?=
+ =?utf-8?B?THpIQW5uclRXYnpMTGFTL0FaK0NZaENpRUxsQjgzVjM3NXRhTVE0VE9uWVUv?=
+ =?utf-8?B?TmpiSXZCUnVVcEQ4a1BhNTFKT3Q5amoxcUxUc1REV01HcHRBR3V5Y05GY3Er?=
+ =?utf-8?B?b2Z5eEJGVExFeFBENkEvNm5FSGpVVlRBMnFobUlRYzZXeVJEUWNNVTlqck1q?=
+ =?utf-8?B?akViemRsRTJqSGgrSFBwQ2JmSTRPQlROVE1ubTdDcDhyMjNmOHNNbm8rMnQ2?=
+ =?utf-8?B?QzYwRC91RnNtOEZGb0Uwa2hzK2NsT2FTdjBDUkp6VDlyUDNFZ25lY2ZCa2VC?=
+ =?utf-8?B?VGN6aFhOQUdGQ0dxaEVOWjV6amFiRjdOclp5aGk5OGRyUG40QXZCUTJ6ejhI?=
+ =?utf-8?B?aWxrYXVPVVNtTHdRR3grZ05PckQyRHVUcVhaaUt3blQyZnVCaCtTL1p1UlYx?=
+ =?utf-8?B?S3BBSnNKTHdBV1VBSlJXQVZGV20vaXkrWmlGcXZTZ2xzWWRHQXN4aXA3QU0r?=
+ =?utf-8?Q?1eB8cdWkNceDAquTQmNUWoZJCXNtZw8ens2+5?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 091b6c6d-be03-4a9c-423d-08df3f3cdca9
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:11:14.3757
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3PQlmJ/VK4AaM7VfoFYONPv8ya3IbYa9CH+ZZ980BT3lL7PUmLe81WDosJ4yxL5pj7Jp3vgReah0L5uGxI2hSWe1EbeDWUanvVWRc/Ey2FE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT6PR01MB324135
 
-Hi Piyus,
+Hi Puranjay,
 
-On Mon, Nov 9, 2026 at 11:57=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> wro=
-te:
-> diff --git a/net/bluetooth/eir.c b/net/bluetooth/eir.c
->
-> --- a/net/bluetooth/eir.c
->
-> +++ b/net/bluetooth/eir.c
->
-> @@ -300,6 +300,16 @@ u8 eir_create_adv_data(struct hci_dev *hdev, u8 inst=
-ance, u8 *ptr, u8 size)
->
->
->
->  skip_flags:
->
->      if (adv) {
->
-> +        /* The instance's length was validated against max_adv_len()
->
-> +         * when it was set, and max_adv_len() depends on a controller
->
-> +         * capability that is re-read on every bring-up - so by now it
->
-> +         * can be larger than the caller's buffer. Refuse rather than
->
-> +         * overflow; a truncated AD structure would not be parseable
->
-> +         * by a peer anyway.
->
-> +         */
->
-> +        if (ad_len + adv->adv_data_len > size)
->
-> +            return 0;
->
-> +
+On 2026-10-23 14:19, Puranjay Mohan wrote:
+[...]
+> I found two bugs, details in the replies to the patches:
 
-We probably need to unregister the advertising instances if the
-controller changes its max size.
+Thanks for finding them, and for the reproducers. Fixes for both bugs
+are planned for the next version. I answered each point of your patch
+replies in its own thread. Here are the answers to the rest of this
+mail.
 
->          memcpy(ptr, adv->adv_data, adv->adv_data_len);
->
->          ad_len +=3D adv->adv_data_len;
->
->          ptr +=3D adv->adv_data_len;
->
-> @@ -342,7 +352,7 @@ static u8 create_default_scan_rsp(struct hci_dev *hde=
-v, u8 *ptr)
->
->      return eir_append_local_name(hdev, ptr, scan_rsp_len);
->
->  }
->
->
->
-> -u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr)
->
-> +u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr, u8 si=
-ze)
->
->  {
->
->      struct adv_info *adv;
->
->      u8 scan_rsp_len =3D 0;
->
-> @@ -357,6 +367,10 @@ u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 inst=
-ance, u8 *ptr)
->
->      if ((adv->flags & MGMT_ADV_FLAG_APPEARANCE) && hdev->appearance)
->
->          scan_rsp_len =3D eir_append_appearance(hdev, ptr, scan_rsp_len);
->
->
->
-> +    /* See the matching check in eir_create_adv_data(). */
->
-> +    if (scan_rsp_len + adv->scan_rsp_len > size)
->
-> +        return 0;
->
-> +
->
->      memcpy(&ptr[scan_rsp_len], adv->scan_rsp_data, adv->scan_rsp_len);
->
->
->
->      scan_rsp_len +=3D adv->scan_rsp_len;
->
-> diff --git a/net/bluetooth/eir.h b/net/bluetooth/eir.h
->
-> --- a/net/bluetooth/eir.h
->
-> +++ b/net/bluetooth/eir.h
->
-> @@ -10,7 +10,7 @@
->
->  void eir_create(struct hci_dev *hdev, u8 *data);
->
->
->
->  u8 eir_create_adv_data(struct hci_dev *hdev, u8 instance, u8 *ptr, u8 si=
-ze);
->
-> -u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr);
->
-> +u8 eir_create_scan_rsp(struct hci_dev *hdev, u8 instance, u8 *ptr, u8 si=
-ze);
->
->  u8 eir_create_per_adv_data(struct hci_dev *hdev, u8 instance, u8 *ptr);
->
->
->
->  u8 eir_append_local_name(struct hci_dev *hdev, u8 *eir, u8 ad_len);
->
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
->
-> --- a/net/bluetooth/hci_sync.c
->
-> +++ b/net/bluetooth/hci_sync.c
->
-> @@ -1563,7 +1563,8 @@ static int hci_set_ext_scan_rsp_data_sync(struct hc=
-i_dev *hdev, u8 instance)
->
->          }
->
->      }
->
->
->
-> -    len =3D eir_create_scan_rsp(hdev, instance, pdu->data);
->
-> +    len =3D eir_create_scan_rsp(hdev, instance, pdu->data,
->
-> +                  HCI_MAX_EXT_AD_LENGTH);
+> Location: either works for me, but CONFIG_RCU_TXN is in lib/Kconfig and
+> CONFIG_DEBUG_RCU_TXN in kernel/rcu/Kconfig.debug; I'd keep them
+> together.
 
-Ditto
+Planned for the next version. DEBUG_RCU_TXN will move to
+lib/Kconfig.debug, next to RCU_TXN_KUNIT_TEST.
 
->
->
->      pdu->handle =3D adv ? adv->handle : instance;
->
->      pdu->length =3D len;
->
-> @@ -1609,7 +1610,7 @@ static int __hci_set_scan_rsp_data_sync(struct hci_=
-dev *hdev, u8 instance)
->
->      if (instance)
->
->          hci_dev_lock(hdev);
->
->
->
-> -    len =3D eir_create_scan_rsp(hdev, instance, cp.data);
->
-> +    len =3D eir_create_scan_rsp(hdev, instance, cp.data, sizeof(cp.data)=
-);
+> Bloom filter knob: I wouldn't add one.
+[...]
+> I'd drop patch 3 until something needs it.
 
-Ditto.
+Agreed. Dropping patch 3 is planned for the next version. Your size
+table settled it.
 
->
->
->      if (instance)
->
->          hci_dev_unlock(hdev);
+> API shape: every rcu_txn_list add, delete and replace allocates a
+> descriptor and frees it with kfree_rcu(), so all of them can fail with
+> -ENOMEM, delete included.  That is hard to use on teardown paths, and
+> reserving first only moves the failure.  Since a descriptor can be
+> reused a grace period after its commit, have you considered a small
+> cache of them, tagged with start_poll_synchronize_rcu() and checked with
+> poll_state_synchronize_rcu()?
 
-Next time, send it as a proper patch, so CI can pick it up and Sashiko
-can analyze the changes. Also, and also address the claims about it
-being material to security@kernel.org don't hold anymore since you
-just published it to linux-bluetooth.
+The next version will implement the design of my second reply. It is
+planned as three new patches:
+
+- Readers resolve a proxy only within a resolve section. This
+   is a short section with interrupts off, counted per CPU. A writer can
+   wait for the sections in flight without sleeping.
+- A local transaction takes its descriptor from a per-CPU
+   pool. The pool holds 16 descriptors of 6 records, 5920 bytes per CPU.
+   Preemption stays off from init to commit.
+- The _rcu forms of rcu_txn_list run a local transaction. They take
+   no gfp_t and return nothing.
+
+A cache alone does not cover a burst. A CPU can run more operations
+within a grace period than its pool holds. When its pool is empty, the
+CPU steals its own descriptors back. It waits for the resolve sections
+in flight, then reuses them. So a delete never fails and never sleeps.
+
+In the steady state, descriptors go back to the pool through
+call_rcu_hurry(), with one rcu_head per batch. With CONFIG_RCU_LAZY,
+call_rcu() can hold a callback back for up to 10 seconds. The
+descriptors would stay out of the pool that long, and the CPU would
+steal more often. I chose a callback over start_poll_synchronize_rcu()
+because start_poll takes the leaf rcu_node lock on every call.
+
+> Separately, a one-record transaction
+> never installs a proxy but still allocates a descriptor, 256 bytes
+> unless reserved smaller; keeping the first record inline in struct
+> rcu_txn would avoid that.
+
+I would rather handle this in the users than in rcu_txn. A user knows
+which of the pointers it writes are followed by readers. An update that
+re-points a single such slot needs no transaction. The writers are
+excluded, and every commit settles its slots before it returns, so the
+slot holds no proxy. rcu_assign_pointer() then publishes the update.
+
+This covers more than one-record transactions. Each _rcu operation of
+rcu_txn_hlist writes several pointers, but readers follow only one
+edge. That edge is published with rcu_assign_pointer(), and pprev and
+the new node's links take plain stores. So none of them creates a
+transaction. Recorded through rcu_txn, the same update would take two
+or three records, and an inline first record would not cover it.
+Patch 7 documents this in Documentation/RCU/rcu_txn.rst.
+
+The rcu_txn_list operations change at least two slots that readers
+follow, so they need a descriptor. With the pool, they will allocate
+nothing either.
+
+> Subsystems: in dcache the hash buckets are hlist_bl, with bit 0 of the
+> head as the lock, and d_unhashed() tests for a NULL pprev.
+> rcu_txn_hlist hard-codes bit 0 as its tag and has no unhashed state, so
+> I'm curious how your userspace port deals with both.
+
+The hlist of this series is for tables locked some other way, as in the
+samples. A bucket with a bit lock gets an rcu_txn_hlist_bl:
+
+- The lock keeps bit 0, as in list_bl.h.
+- The proxy tag takes bit 1.
+- A record of the head carries the lock bit in its tag and in both of
+   its values. So the head stays locked from install to settle.
+- Readers strip the lock bit. The engine is unchanged.
+
+It is not part of this series. It exists on my branch that converts
+the dentry cache to rcu_txn. The userspace port does the same with
+other bits: tag in bit 0, lock in bit 2.
+
+For d_unhashed(), the unhashed state you asked for in patch 5 is
+planned for the next version. A removed node will have a NULL pprev.
+
+> Also, the only
+> in-tree user of list_bidir_prev_rcu(), kernel/nstree.c, walks either way
+> but never forward and then back in one walk, so a user that needs that
+> guarantee would help make the case for patch 6.
+
+The node-lock sample (patch 12) is such a user. An eviction walks
+back from the head to the tail. Then cache_lock_entry() reads the
+tail's prev and next, to lock its neighbours. cache_plan_holds()
+re-checks the four edges in both directions. If the backward chain
+disagreed with the forward one, the writer would lock the wrong nodes.
+Your reply to patch 6 makes the same point about LRU second chances.
+
+> I can send my KUnit reproducers as patches if they're useful.
+
+Yes, please. They can go on top of the next version.
+
+Thanks,
+
+Mathieu
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
