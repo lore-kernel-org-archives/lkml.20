@@ -1,53 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316330;
-	b=UIeLto2l6ShliD+42or3zhP+DMLC6pl2Udtl95qEk7k4kXdN1QW64sTwTpEQm0NDtmmL
-	 b5VM4Kizcno+8+l94l/m3Jal+/TO4eEOPNtH1pMmNJRNP+N8ZG5m/hnhwvFM8rn2/eVMm
-	 u3v/ocDBZISce3k2Y9hWaXyNsZLAQZiLH7STp6i9oq073HtSHc85LEKnDYGAKfF65rQgy
-	 XOs+UVYWFAHmpaVrEsSqkHWbuO92GKSGOOJ4rftwPPAmmvK9THnb2eJbyKM5/ojJGCxo3
-	 lb4wjx4k5Qx5YGNQ+NYVISxJGS1xhV+tJR0fq1PvrdKfeNE7zEtr9XPLnVT8eI/9axA==
+	t=1794316344;
+	b=CLxMcT0wgHjAjBoiQD4D1ozuVFBszniO0o0VccIJs9awKefrusYOp7XbqIdpBre/CTaM
+	 Ohx/dD7mnlnbpg8LsQ5sRkO8rpyqyH7GXyrCI1n8TAg1KbDDS3tTtBh8Mbo0hRT09k/Iw
+	 7D9dH1i3TwC6KZYrdnk/PqR8wyU+Sp48jf06KeiK1jEoUALOa3SRiMF2oJBqXlU3sCM+Y
+	 vh6OM1UIlGWm7dNRcMgckkQDt+xGQBb/lUlfoCA8llucMA7unhA1JsTqH9zuwSlkOd0ia
+	 Z9qbie/rEHiwfsIMGGPg2JYbhmLfbBtdDXA9j6ZytX6lzwcBQUuiurZ2EPV982E+qFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316330;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 X-CM-CTRLMSGS:Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:
-	 X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=9Nwx6XwZnrpVLYsTsgbCQUhpSST+LF8WRM6iNJCbwig=;
-	b=W2GAftLxoZNnJD127DqgcF8MJLXQTvHBZrJbCgE1S42eJfr396xr3gp4naqIrRGnLeTu
-	 cMK8NSPr3iwBx+oShTNM2MyjWn2YJI78xMo1TYTUbazGhCzvAhCza27Wy3ykqDmhfbqtj
-	 MqBsVcvlnRKeTEmD/YOBv7lfRiDGFNn9izd3ycal0UP1fEKKdS2rKw+1x6Bl6BfRKcnDI
-	 wX5M20WYGvVHwYx4XeXOEiPwQiIjAoLXdfn0TbsPULPXxYwNa6BcNE1dKtyVp9YSCLfhm
-	 Tb3ZYVVyF/DvjobR/CGclvUO+bwnFDJZHjGiLd2Q7PEVraGZNv1hlNbedaEvp6kPccw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316344;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=S2nIw72/QWiJcD7z728q9oZI514NbA30jujduMfr80o=;
+	b=c/pI6YeT/9tnHoQGaVuLDBbBLRJJ3n+5ijzhuUnjbridZmtgR1rbZRAibEgb5hBTBJss
+	 HClqIFoBr1/cacBcnF6Tx41OFnvtb+gNMYgHkR1XgkWKmT7pElRMNKJvaI9eIKFUWzwnP
+	 eYjmg/8KavcI26KzZ0BAtfUWLYL4k8GBeZHsbVJoFql0VrmFS9Fm4EMsDrFZGjPAh1dnt
+	 LXJUkRHGCWGYwErOJ5zTZCywDt4Oh9ctFoNDiiVeDFOPp1qp4EctOtQngm1bNCbkW8WGp
+	 we8QJgLRDHjLmpYa7CEXedPUW0oqVrCHbNy4g8lwivVM4v1UfovkNtSOIvvZweAy+vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26EB9606A749;
-	Tue, 10 Nov 2026 13:12:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26EB9606A749
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
- (Coremail) ; Tue, 10 Nov 2026 21:11:57 +0800 (GMT+08:00)
-Date: Tue, 10 Nov 2026 21:11:57 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: rafael@kernel.org, maciej.wieczor-retman@intel.com,
-	pawel.chmielewski@intel.com
-Cc: linux-acpi@vger.kernel.org, lenb@kernel.org,
-	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: ACPI: ACPICA: Reset can delete an event semaphore while another
-  thread is blocked in Wait
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
-X-CM-CTRLMSGS: =?B?oBh9DziH6nJ5xwDR7hwMki1N8jM=
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_474619_282876185.1794316317767"
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="Y0/ih938";
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6CD606B6DE;
+	Tue, 10 Nov 2026 13:12:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6CD606B6DE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Y0/ih938
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=S2nIw72/QWiJcD7z728q9oZI514NbA30jujduMfr80o=;
+	b=Y0/ih938SBhWdy8NR5Dsd4/4u1sxJ4uY1ua38n9xF7DKPyhjG8dk1bPFmRBH4dmKPDrLWScyM
+	visal89sw93DF0TrBZEOizRnv413SjR+hXqoy1J05Wr6YSdSpc8FD5Kmyzsfno5Czk5CfPSV9IZ
+	9bkKiggwBlRZ5h+yFLG78Po=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jP6W36VDCz1cyRv;
+	Tue, 10 Nov 2026 21:11:59 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id DBECE4055B;
+	Tue, 10 Nov 2026 21:12:14 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 21:12:14 +0800
+Message-ID: <24a3bf90-48bc-4594-a242-a8f72f05edee@huawei.com>
+Date: Tue, 10 Nov 2026 21:12:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,149 +62,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <2a71bbe6.22afa.1a1c5963447.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IQEQrMDW_cUdGPNqp5oNAA--.8732W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgMHB2rx8m6StgAAsi
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] fs/resctrl: Disallow monitor group rename when the
+ RMID changes
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<zengheng4@huawei.com>, <ben.horgan@arm.com>, <gshan@redhat.com>,
+	<jic23@kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>
+References: <20261105123524.2282090-1-ruanjinjie@huawei.com>
+ <f7eb6666-049f-4739-966f-b4ba275c72df@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <f7eb6666-049f-4739-966f-b4ba275c72df@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-------=_Part_474619_282876185.1794316317767
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
 
-YWNwaV9leF9zeXN0ZW1fcmVzZXRfZXZlbnQoKSBjcmVhdGVzIGEgbmV3IHNlbWFwaG9yZSwgZGVs
-ZXRlcyB0aGUgb2xkCm9uZSwgYW5kIHJlcGxhY2VzIG9ial9kZXNjLT5ldmVudC5vc19zZW1hcGhv
-cmUgd2l0aG91dCBjaGVja2luZyB3aGV0aGVyCmEgV2FpdCBpcyBhbHJlYWR5IGJsb2NrZWQgb24g
-dGhlIG9sZCBwb2ludGVyLiAgQSB3YWl0aW5nIHRocmVhZCB0YWtlcwp0aGUgb2xkIHNlbWFwaG9y
-ZSBwb2ludGVyLCBkcm9wcyB0aGUgQUNQSUNBIGludGVycHJldGVyIGxvY2ssIGFuZApibG9ja3Mg
-aW4gZG93bl90aW1lb3V0KCk7IFJlc2V0IGNhbiB0aGVuIGNhbGwKYWNwaV9vc19kZWxldGVfc2Vt
-YXBob3JlKCksIHdob3NlIEJVR19PTihzZW0tPmZpcnN0X3dhaXRlcikgYW5kCmtmcmVlKHNlbSkg
-YXJlIHBlcmZvcm1lZCB3aXRob3V0IHNlbS0+bG9jay4gIElmIHRoZSB3YWl0ZXIgaXMgYWxyZWFk
-eQpxdWV1ZWQgdGhlIEJVR19PTiBmaXJlczsgaWYgdGhlIGNoZWNrIHBhc3NlcyBiZWZvcmUgdGhl
-IHdhaXRlciBpcwpxdWV1ZWQsIHRoZSB3YWl0ZXIgdXNlcyBmcmVlZCBtZW1vcnkuICBUaGUgQlVH
-X09OIHdhcyByZXByb2R1Y2VkIG9uIGEKS0FTQU4gNy4zIGd1ZXN0IHdpdGggYSBjdXN0b20gU1NE
-VCBhbmQgYSBtb2R1bGUgZHJpdmluZyBjb25jdXJyZW50CldhaXQvUmVzZXQsIG5vdCBqdXN0IGlu
-ZmVycmVkIGZyb20gdGhlIHNvdXJjZS4KClRoZSBkZXRhaWxlZCBkZXNjcmlwdGlvbjoKCiogVGVz
-dCBlbnZpcm9ubWVudCAvIGFmZmVjdGVkIHZlcnNpb24KCiAgTGludXggNy4zLjAgKG1haW5saW5l
-IDcuMyBzb3VyY2UsIHVubW9kaWZpZWQpLCBLQVNBTiBidWlsZCBmcm9tCiAgdmVyaWZpY2F0aW9u
-L2J1aWxkLWthc2FuLTcuMywgeDg2XzY0IFFFTVUvS1ZNIGd1ZXN0LCAyIHZDUFUsCiAgQ09ORklH
-X0tBU0FOPXksIENPTkZJR19CVUc9eS4gIEEgdGVzdCBTU0RUIHdhcyBsb2FkZWQgd2l0aCBRRU1V
-J3MKICAtYWNwaXRhYmxlIG9wdGlvbiBhbmQgcHJvdmlkZWQgYSBkZXZpY2UgXF9TQi5UU1QwIHdp
-dGggX0hJRAogICJSQUMwMDAxIiwgRXZlbnQoRVZUMCksIE1ldGhvZChNV0FJKSBleGVjdXRpbmcK
-ICBXYWl0KEVWVDAsIDB4RkZGRkZGRkYpLCBhbmQgTWV0aG9kKE1SU1QpIGV4ZWN1dGluZyBSZXNl
-dChFVlQwKS4KICBUaGUgbW9kdWxlIGFjcGlfY2FzZTUua28gY2FsbHMgTVdBSSBmcm9tIG9uZSBr
-dGhyZWFkLCB3YWl0cyBvbmUKICBzZWNvbmQgZm9yIHRoZSB3YWl0ZXIgdG8gYmxvY2ssIGFuZCBj
-YWxscyBNUlNUIGZyb20gdGhlIG1haW4gdGhyZWFkLgogIExpbmUgbnVtYmVycyBhcmUgZnJvbSBM
-aW51eCA3LjMuCgoqIE1lY2hhbmlzbQoKICAxLiBXYWl0LiAgYWNwaV9leF9zeXN0ZW1fd2FpdF9z
-ZW1hcGhvcmUoKQogICAgIChkcml2ZXJzL2FjcGkvYWNwaWNhL2V4c3lzdGVtLmM6MzEtNTkpIGZp
-cnN0IHRyaWVzCiAgICAgYWNwaV9vc193YWl0X3NlbWFwaG9yZSguLi4sIEFDUElfRE9fTk9UX1dB
-SVQpLiAgT24gQUVfVElNRSBpdAogICAgIGNhbGxzIGFjcGlfZXhfZXhpdF9pbnRlcnByZXRlcigp
-LCB3aGljaCBkcm9wcwogICAgIEFDUElfTVRYX05BTUVTUEFDRSBhbmQgQUNQSV9NVFhfSU5URVJQ
-UkVURVIKICAgICAoZHJpdmVycy9hY3BpL2FjcGljYS9leHV0aWxzLmM6OTMtMTEwKSwgdGhlbiBi
-bG9ja3MgaW4KICAgICBhY3BpX29zX3dhaXRfc2VtYXBob3JlKHNlbWFwaG9yZSwgMSwgdGltZW91
-dCkuICBUaGUgc2VtYXBob3JlCiAgICAgYXJndW1lbnQgaXMgdGhlIG9sZCBwb2ludGVyIHJlYWQg
-YmVmb3JlIHRoZSBpbnRlcnByZXRlciBsb2NrIHdhcwogICAgIGRyb3BwZWQuCgogIDIuIFJlc2V0
-LiAgYWNwaV9leF9zeXN0ZW1fcmVzZXRfZXZlbnQoKQogICAgIChkcml2ZXJzL2FjcGkvYWNwaWNh
-L2V4c3lzdGVtLmM6MjYxLTI4MCkgZG9lczoKCiAgICAgICBzdGF0dXMgPSBhY3BpX29zX2NyZWF0
-ZV9zZW1hcGhvcmUoLi4uLCAmdGVtcF9zZW1hcGhvcmUpOwogICAgICAgaWYgKEFDUElfU1VDQ0VT
-UyhzdGF0dXMpKSB7CiAgICAgICAgICAgICAgICh2b2lkKWFjcGlfb3NfZGVsZXRlX3NlbWFwaG9y
-ZShvYmpfZGVzYy0+ZXZlbnQub3Nfc2VtYXBob3JlKTsKICAgICAgICAgICAgICAgb2JqX2Rlc2Mt
-PmV2ZW50Lm9zX3NlbWFwaG9yZSA9IHRlbXBfc2VtYXBob3JlOwogICAgICAgfQoKICAgICBJdCBk
-b2VzIG5vdCB0YWtlIGEgcGVyLWV2ZW50IGxvY2ssIGRvZXMgbm90IGNoZWNrIGZvciB3YWl0ZXJz
-LAogICAgIGRvZXMgbm90IHdha2Ugb3IgY2FuY2VsIHRoZW0sIGFuZCBpZ25vcmVzIHRoZSBkZWxl
-dGUgcmVzdWx0LgoKICAzLiBEZWxldGUuICBhY3BpX29zX2RlbGV0ZV9zZW1hcGhvcmUoKQogICAg
-IChkcml2ZXJzL2FjcGkvb3NsLmM6MTI0NS0xMjcxKSBjb250YWlucyB0aGUga2VybmVsJ3Mgb3du
-IFRPRE8KICAgICBhYm91dCBub24tc3luY2hyb25pemVkIGNvbnN1bWVyczoKCiAgICAgICBCVUdf
-T04oc2VtLT5maXJzdF93YWl0ZXIpOwogICAgICAga2ZyZWUoc2VtKTsKICAgICAgIHNlbSA9IE5V
-TEw7CgogICAgIFRoZSBCVUdfT04gaXMgYW4gdW5sb2NrZWQgcmVhZCBhbmQga2ZyZWUoKSBmb2xs
-b3dzIGltbWVkaWF0ZWx5LgogICAgIGRvd25fdGltZW91dCgpIGNoZWNrcyBzZW0tPmNvdW50IHVu
-ZGVyIHNlbS0+bG9jayBhbmQsIGlmIGl0IG11c3QKICAgICBibG9jaywgY2hhaW5zIHRoZSB3YWl0
-ZXIgaW50byBzZW0tPmZpcnN0X3dhaXRlciB1bmRlciB0aGUgc2FtZQogICAgIGxvY2sgKGtlcm5l
-bC9sb2NraW5nL3NlbWFwaG9yZS5jOjE5OC0yMTEgYW5kIDI3Ni0yODQpLgogICAgIGFjcGlfb3Nf
-ZGVsZXRlX3NlbWFwaG9yZSgpIGRvZXMgbm90IHRha2Ugc2VtLT5sb2NrLCBzbyAibm8gd2FpdGVy
-CiAgICAgYXQgdGhlIGNoZWNrIiBkb2VzIG5vdCBpbXBseSAibm8gd2FpdGVyIGF0IGtmcmVlIi4K
-CiAgVHdvIGludGVybGVhdmluZ3MgbWF0dGVyOgoKICAgIEEuIFdhaXRlciBhbHJlYWR5IHF1ZXVl
-ZC4gIFdhaXQgaGFzIGxpbmtlZCBpdHMgd2FpdGVyIGludG8KICAgICAgIGZpcnN0X3dhaXRlciBh
-bmQgaXMgc2xlZXBpbmc7IFJlc2V0IGRlbGV0ZXMgdGhlIG9sZCBzZW1hcGhvcmU7CiAgICAgICBC
-VUdfT04oZmlyc3Rfd2FpdGVyKSBmaXJlcy4gIFdpdGggQ09ORklHX0JVRz15IHRoaXMgaXMgYW4g
-b29wcywKICAgICAgIGFuZCBwYW5pY19vbl9vb3BzPTEgdHVybnMgaXQgaW50byBhIHBhbmljLgoK
-ICAgIEIuIERlbGV0ZSB3aW5zIHRoZSBjaGVjay4gIEJVR19PTiBzZWVzIE5VTEwsIGtmcmVlKG9s
-ZF9zZW0pIHJ1bnMsCiAgICAgICBhbmQgb25seSB0aGVuIGRvZXMgdGhlIHdhaXRlciBlbnRlciBf
-X2Rvd25fdGltZW91dCgpIGFuZCB0YWtlCiAgICAgICBvbGRfc2VtLT5sb2NrIC8gd3JpdGUgb2xk
-X3NlbS0+Zmlyc3Rfd2FpdGVyLiAgVGhpcyBpcyBhIFVBRiBhbmQKICAgICAgIGNhbiBjb3JydXB0
-IHRoZSB3YWl0IGxpc3Qgb3IgdGhlIHJhdyBzcGlubG9jay4KCiAgU2lnbmFsIGlzIG5vdCB0aGUg
-cHJpbWFyeSB0cmlnZ2VyLiAgYWNwaV9leF9zeXN0ZW1fc2lnbmFsX2V2ZW50KCkKICAoZXhzeXN0
-ZW0uYzoxOTktMjE1KSBhbHNvIHJlYWRzIG9ial9kZXNjLT5ldmVudC5vc19zZW1hcGhvcmUsIGJ1
-dCBpdAogIHJ1bnMgdW5kZXIgdGhlIEFDUElDQSBpbnRlcnByZXRlciBsb2NrLCBzbyBpdCBjYW5u
-b3Qgb3ZlcmxhcCBSZXNldCdzCiAgZGVsZXRlLiAgQWZ0ZXIgUmVzZXQgcmVwbGFjZXMgdGhlIHBv
-aW50ZXIsIFNpZ25hbCBvcGVyYXRlcyBvbiB0aGUgbmV3CiAgc2VtYXBob3JlIGFuZCBjYW4gbGVh
-dmUgdGhlIG9sZCB3YWl0ZXIgd2l0aG91dCBhIHdha2V1cDsgdGhhdCBpcyBhbgogIGV2ZW50LXNl
-bWFudGljcy9saXZlbmVzcyBidWcsIG5vdCB0aGUgVUFGIGFib3ZlLgoKICBUaGUgdXRkZWxldGUg
-cGF0aCAoZHJpdmVycy9hY3BpL2FjcGljYS91dGRlbGV0ZS5jOjE1My0xNjEpIGFsc28KICBkZWxl
-dGVzIGFuIGV2ZW50IHNlbWFwaG9yZSwgYnV0IGl0IHJlcXVpcmVzIHRoZSBvcGVyYW5kIG9iamVj
-dCdzCiAgcmVmY291bnQgdG8gcmVhY2ggemVybyB3aGlsZSBhIFdhaXQgaXMgdXNpbmcgaXQ7IHRo
-YXQgaXMgYSBuYXJyb3dlcgogIGFuZCBsZXNzIGRpcmVjdCBwYXRoLCBzbyBpdCBpcyBub3QgdGhl
-IG1haW4gdHJpZ2dlciBoZXJlLgoKCiogUmVwcm9kdWNlciAoYXR0YWNoZWQ6IGFjcGlfY2FzZTUu
-YykgYW5kIHJlc3VsdHMgb24gNy4zCgogIFRoZSBhdHRhY2hlZCBtb2R1bGUgaXMgc2VsZi1jb250
-YWluZWQgYW5kIHVzZXMgdGhlIHRlc3QgU1NEVAogIGRlc2NyaWJlZCBhYm92ZToKCiAgICBpbnNt
-b2QgL2FjcGlfY2FzZTUua28KCiAgSXQgcmVzb2x2ZXMgXF9TQi5UU1QwIHdpdGggYWNwaV9nZXRf
-aGFuZGxlKCksIHN0YXJ0cyBhIGt0aHJlYWQgdGhhdAogIGV2YWx1YXRlcyBNV0FJIChXYWl0KSwg
-c2xlZXBzIG9uZSBzZWNvbmQsIHRoZW4gZXZhbHVhdGVzIE1SU1QKICAoUmVzZXQpIGZyb20gdGhl
-IG1vZHVsZSdzIG1haW4gdGhyZWFkLiAgQWN0dWFsIHNlcmlhbCBvdXRwdXQKICAodHJpbW1lZCk6
-CgogICAgQUNQSV9DQVNFNTogZ2V0X2hhbmRsZSBzdD0wCiAgICBBQ1BJX0NBU0U1OiB3YWl0ZXIg
-ZXZhbHVhdGluZyBNV0FJCiAgICBBQ1BJX0NBU0U1OiBldmFsdWF0aW5nIE1SU1Qgd2hpbGUgd2Fp
-dGVyIGJsb2NrZWQKICAgIGtlcm5lbCBCVUcgYXQgZHJpdmVycy9hY3BpL29zbC5jOjEyNjYhCiAg
-ICBPb3BzOiBpbnZhbGlkIG9wY29kZTogMDAwMCBbIzFdIFNNUCBLQVNBTiBOT1BUSQogICAgUklQ
-OiAwMDEwOmFjcGlfb3NfZGVsZXRlX3NlbWFwaG9yZSsweDkwLzB4YTAKICAgIENhbGwgVHJhY2U6
-CiAgICAgYWNwaV9leF9zeXN0ZW1fcmVzZXRfZXZlbnQrMHhjZC8weGYwCiAgICAgYWNwaV9leF9v
-cGNvZGVfMUFfMFRfMFIKICAgICBhY3BpX3BzX3BhcnNlX2xvb3AKICAgICBhY3BpX3BzX2V4ZWN1
-dGVfbWV0aG9kCiAgICAgYWNwaV9uc19ldmFsdWF0ZQogICAgIGFjcGlfZXZhbHVhdGVfb2JqZWN0
-CiAgICAgaW5pdF9tb2R1bGUrMHhhMC8weGZmMCBbYWNwaV9jYXNlNV0KCiAgVGhpcyBpcyB0aGUg
-IndhaXRlciBhbHJlYWR5IHF1ZXVlZCIgaW50ZXJsZWF2aW5nLCBub3QgdGhlIFVBRgogIGludGVy
-bGVhdmluZyBCLiAgSXQgcHJvdmVzIHRoYXQgUmVzZXQgY2FuIHJlYWNoIGRlbGV0ZSB3aXRoIGEK
-ICBub24tZW1wdHkgd2FpdGVyIGxpc3QgYW5kIHRoYXQgdGhlIEJVR19PTiBpcyBub3QgYSB0aGVv
-cmV0aWNhbAogIGFzc2VydGlvbi4gIEl0IGRvZXMgbm90IHByb3ZlIGEgdXNlci10cmlnZ2VyYWJs
-ZSBwYXRoOiB0aGUgY3VzdG9tCiAgU1NEVCBhbmQgbW9kdWxlIGFyZSB0ZXN0IGhhcm5lc3Nlcy4K
-CgoKKiBTdWdnZXN0ZWQgZGlyZWN0aW9uCgogIEdpdmUgdGhlIGV2ZW50IG9iamVjdCBhIGxvY2sg
-b3IgcmVmZXJlbmNlIHRoYXQgY292ZXJzIFdhaXQsIFNpZ25hbCwKICBSZXNldCwgYW5kIGRlc3Ry
-dWN0aW9uOyBtYWtlIFJlc2V0IGVpdGhlciB3YWl0IGZvci9jYW5jZWwgYWxsCiAgd2FpdGVycyBv
-ciByZXBsYWNlIHRoZSBzZW1hcGhvcmUgYXRvbWljYWxseSB3aGlsZSBXYWl0IHJldmFsaWRhdGVz
-CiAgdGhlIHBvaW50ZXIgdW5kZXIgdGhlIHNhbWUgbG9jay4gIERvIG5vdCB1c2UgQlVHX09OKGZp
-cnN0X3dhaXRlcikgYXMKICBhIGxpZmV0aW1lIGNoZWNrOiBkZWxldGUgc2hvdWxkIHRha2Ugc2Vt
-LT5sb2NrLCB3YWtlL2NhbmNlbCBxdWV1ZWQKICB3YWl0ZXJzLCBhbmQgd2FpdCBmb3IgdGhlbSB0
-byBsZWF2ZSBiZWZvcmUgZnJlZWluZy4gIEFsdGVybmF0aXZlbHksCiAgdXNlIGEgY29tcGxldGlv
-biBvciBhbm90aGVyIHByaW1pdGl2ZSB3aXRoIGEgZGVmaW5lZCBkZXN0cm95CiAgcHJvdG9jb2wu
-ICBSZXBvcnQtZmlyc3QsIG5vIHBhdGNoIGF0dGFjaGVkOyBoYXBweSB0byB0ZXN0IGFueQogIHBy
-b3Bvc2FsLgoKCgogIFBsZWFzZSBrZWVwIG1lIGluIENjOyBJIGFtIG5vdCBzdWJzY3JpYmVkIHRv
-IHRoZSBsaXN0cy4KCgoKUmVnYXJkcywKSGFueGlhbmcgWHUKeHVoeEBodXN0LmVkdS5jbgo=
-------=_Part_474619_282876185.1794316317767
-Content-Type: text/plain; name=acpi_case5.c
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="acpi_case5.c"
 
-Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKI2luY2x1ZGUgPGxpbnV4L21vZHVs
-ZS5oPgojaW5jbHVkZSA8bGludXgva3RocmVhZC5oPgojaW5jbHVkZSA8bGludXgvZGVsYXkuaD4K
-I2luY2x1ZGUgPGxpbnV4L2FjcGkuaD4KI2luY2x1ZGUgPGFjcGkvYWNwaV9idXMuaD4KCnN0YXRp
-YyBhY3BpX2hhbmRsZSB0ZXN0X2hhbmRsZTsKCnN0YXRpYyBpbnQgYWNwaV93YWl0X3RocmVhZCh2
-b2lkICpkYXRhKQp7CglhY3BpX3N0YXR1cyBzdDsKCglwcl9pbmZvKCJBQ1BJX0NBU0U1OiB3YWl0
-ZXIgZXZhbHVhdGluZyBNV0FJXG4iKTsKCXN0ID0gYWNwaV9ldmFsdWF0ZV9vYmplY3QodGVzdF9o
-YW5kbGUsICJNV0FJIiwgTlVMTCwgTlVMTCk7Cglwcl9pbmZvKCJBQ1BJX0NBU0U1OiB3YWl0ZXIg
-cmV0dXJuZWQgc3Q9JWRcbiIsIHN0KTsKCXJldHVybiAwOwp9CgpzdGF0aWMgaW50IF9faW5pdCBh
-Y3BpX2Nhc2U1X2luaXQodm9pZCkKewoJc3RydWN0IHRhc2tfc3RydWN0ICp0OwoJYWNwaV9zdGF0
-dXMgc3Q7CgoJc3QgPSBhY3BpX2dldF9oYW5kbGUoTlVMTCwgIlxcX1NCLlRTVDAiLCAmdGVzdF9o
-YW5kbGUpOwoJcHJfaW5mbygiQUNQSV9DQVNFNTogZ2V0X2hhbmRsZSBzdD0lZCBoYW5kbGU9JXB4
-XG4iLCBzdCwgdGVzdF9oYW5kbGUpOwoJaWYgKEFDUElfRkFJTFVSRShzdCkpCgkJcmV0dXJuIC1F
-Tk9ERVY7CgoJdCA9IGt0aHJlYWRfcnVuKGFjcGlfd2FpdF90aHJlYWQsIE5VTEwsICJhY3BpX2Nh
-c2U1X3dhaXQiKTsKCWlmIChJU19FUlIodCkpCgkJcmV0dXJuIFBUUl9FUlIodCk7CgoJbXNsZWVw
-KDEwMDApOwoJcHJfaW5mbygiQUNQSV9DQVNFNTogZXZhbHVhdGluZyBNUlNUIHdoaWxlIHdhaXRl
-ciBibG9ja2VkXG4iKTsKCXN0ID0gYWNwaV9ldmFsdWF0ZV9vYmplY3QodGVzdF9oYW5kbGUsICJN
-UlNUIiwgTlVMTCwgTlVMTCk7Cglwcl9pbmZvKCJBQ1BJX0NBU0U1OiBNUlNUIHJldHVybmVkIHN0
-PSVkXG4iLCBzdCk7Cgltc2xlZXAoMTAwMCk7CglyZXR1cm4gMDsKfQoKc3RhdGljIHZvaWQgX19l
-eGl0IGFjcGlfY2FzZTVfZXhpdCh2b2lkKQp7Cglwcl9pbmZvKCJBQ1BJX0NBU0U1OiB1bmxvYWRc
-biIpOwp9Cgptb2R1bGVfaW5pdChhY3BpX2Nhc2U1X2luaXQpOwptb2R1bGVfZXhpdChhY3BpX2Nh
-c2U1X2V4aXQpOwpNT0RVTEVfTElDRU5TRSgiR1BMIik7Ck1PRFVMRV9ERVNDUklQVElPTigiQUNQ
-SSBldmVudCBSZXNldC12cy1XYWl0IHJhY2UgcHJvYmUiKTsK
-------=_Part_474619_282876185.1794316317767--
+在 2026/11/10 3:22, Reinette Chatre 写道:
+> Hi Jinjie,
+
+Hi Reinette，
+
+> 
+> Thank you very much for picking this fix up.
+> 
+> For the subject, since the RMID actually never changes, could it instead be:
+> 	fs/resctrl: Disallow monitor group rename when the RMID index changes
+> 
+> On 11/5/26 4:35 AM, Jinjie Ruan wrote:
+>> From: Peter Newman <peternewman@google.com>
+>>
+>> A monitor group can be renamed into the mon_groups directory of another
+> 
+> "renamed" -> "moved"?
+
+Ok.
+
+> 
+> (Since this patch would still support rename of MPAM monitor groups.)
+
+Right!
+
+> 
+>> control group to move its tasks to that control group's allocation
+>> while keeping their monitoring data. Where the RMID is only meaningful
+>> together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
+>> extends the PARTID, this move does not work. The rename succeeds, but:
+>>
+>> - The group's monitoring data is reset. Its counters are identified by
+>>   the CLOSID and RMID together, so after the move the group reads the
+>>   counters of the new CLOSID instead of the ones its tasks used.
+> 
+> Does this not also mean that the the monitor group is assigned an RMID
+> index that is never allocated to it? Sounds like this would cause issues
+> when the monitor group is removed and resctrl tries to free that RMID.
+
+Yes, will mention it.
+
+> 
+>>
+>> - The tasks are not moved. mongrp_reparent() sets the new parent and
+>>   CLOSID of the group before rdt_move_group_tasks() looks for the tasks
+>>   to update, and the search then matches on the new CLOSID, which none
+>>   of the tasks carries yet. The tasks keep the old CLOSID and the old
+>>   control group's allocation, and the group does not count them.
+>>
+>> The move has never worked on these systems, so rejecting it does not
+>> take away behavior that an existing user can rely on.
+> 
+> Could this snippet please instead motivate why the issues with monitor
+> group move are not/cannot be fixed to help explain why this reject
+> is needed instead?
+
+Sure.
+
+> 
+>>
+>> Reject the move with -EOPNOTSUPP when it changes the RMID index of the
+>> group, and document the restriction in resctrl.rst. Where the RMID does
+>> not depend on the CLOSID, such as on x86, the move keeps the same index
+>> and is still allowed.
+> 
+> 
+>>
+>> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
+>> Signed-off-by: Peter Newman <peternewman@google.com>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> Cc: <stable@vger.kernel.org> # 7.1.x
+> 
+> Looks like 3e9b35823aab was added in 7.1 so the range is not needed?
+> 
+>> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
+>> Link: https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
+> 
+> The changelog contains no references to these Link: entries? What are they for?
+> Looks like first is an earlier version of the patch so does not look to be needed
+> as part of permanent changelog related to this patch?
+
+Will remove it. Thank you!
+
+> 
+> Please see: "Ordering of commit tags" in Documentation/process/maintainer-tip.rst
+> on how changelog can refer to Link: tags.
+> 
+> The second Link: seems to be pointing to the decision that this user space request
+> needs to be rejected instead of fixed. Looks like the relevant message is
+> 
+> 	https://lore.kernel.org/lkml/3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com/
+> 
+> you could use similar language as recent commit 
+> 	7782a6a8dfc0 ("x86,fs/resctrl: Keep mbm_assign_mode in default mode at boot")
+> 
+> That points to the decision in a "Link:" tag and then uses text in changelog like:
+> 	"... as decided in the thread at the Link tag." 
+
+OK
+
+> 
+> Above is not actually what Documentation/process/maintainer-tip.rst documents but it
+> is what x86 maintainer changed it to after the original commit followed
+> Documentation/process/maintainer-tip.rst, so I guess either may be ok.
+> 
+> 
+>> ---
+> 
+> 
+>> ---
+>>  Documentation/filesystems/resctrl.rst |  7 ++++---
+>>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
+>>  2 files changed, 17 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+>> index b52795e03303..9ae34aace0ff 100644
+>> --- a/Documentation/filesystems/resctrl.rst
+>> +++ b/Documentation/filesystems/resctrl.rst
+>> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
+>>  Moving MON group directories to a new parent CTRL_MON group is supported
+>>  for the purpose of changing the resource allocations of a MON group
+>>  without impacting its monitoring data or assigned tasks. This operation
+>> -is not allowed for MON groups which monitor CPUs. No other move
+>> -operation is currently allowed other than simply renaming a CTRL_MON or
+>> -MON group.
+>> +is not allowed for MON groups which monitor CPUs, and fails with
+>> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID. No other
+>> +move operation is currently allowed other than simply renaming a
+>> +CTRL_MON or MON group.
+> 
+> merging the discussion in 
+>  https://lore.kernel.org/lkml/113c13ba-e1de-44b1-9a6f-4bd94ecbd71e@arm.com/
+> 
+> To avoid user needing to understand the RMID dependency, how about:
+> 
+> ---8<---
+> @@ -566,10 +566,10 @@ will automatically remove all MON groups below it.
+>  
+>  Moving MON group directories to a new parent CTRL_MON group is supported
+>  for the purpose of changing the resource allocations of a MON group
+> -without impacting its monitoring data or assigned tasks. This operation
+> -is not allowed for MON groups which monitor CPUs. No other move
+> -operation is currently allowed other than simply renaming a CTRL_MON or
+> -MON group.
+> +without impacting its monitoring data or assigned tasks. This operation is
+> +not allowed for MON groups which monitor CPUs, or when the monitoring data
+> +or assigned tasks would be impacted. No other move operation is currently
+> +allowed other than simply renaming a CTRL_MON or MON group.
+
+Will update it.
+
+>  
+>  All groups contain the following files:
+> ---8<---
+> 
+>>  
+>>  All groups contain the following files:
+>>  
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index e6b64a5c9302..3c002b711024 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -4398,6 +4398,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+>>  		goto out;
+>>  	}
+>>  
+>> +	/*
+>> +	 * Moving the group changes the CLOSID. Where the RMID is only
+>> +	 * meaningful together with the CLOSID, the RMID index changes and the
+>> +	 * monitor state cannot follow the move.
+>> +	 */
+>> +	if (rdtgrp->mon.parent != new_prdtgrp && resctrl_arch_mon_capable() &&
+> 
+> The above two checks look unnecessary:
+> 	"rdtgrp->mon.parent != new_prdtgrp" - this check is used to ensure that
+> 	these systems can still just rename existing monitor groups. In this scenario
+> 	the CLOSID will be compared against itself and the two encode() calls will
+> 	return the same index, no?
+
+Yes, the resctrl_arch_rmid_idx_encode() will equal, this is redundant。
+
+> 
+> 	"resctrl_arch_mon_capable()" - earlier in function the source is required
+> 	to be a MON group, which can only be possible if the system supports
+> 	monitoring.
+
+Got it.
+
+> 
+>> +	    resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
+>> +	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
+>> +		rdt_last_cmd_puts("Changing parent control group not supported\n");
+> 
+> Could this use same terminology as resctrl.rst to help user match documented
+> behavior with the error message? For example,
+> 
+> 		"Moving a MON group to a new CTRL_MON group is not supported\n"
+
+Sure.
+
+> 		
+> 
+>> +		ret = -EOPNOTSUPP;
+>> +		goto out;
+>> +	}
+>> +
+>>  	/*
+>>  	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
+>>  	 * current parent CTRL_MON group and therefore cannot be assigned to
+> 
+> Reinette
+
+-- 
+Best regards,
+Jinjie
 
