@@ -1,52 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294911;
-	b=mmV79QQDCN/1n/hIo1fJFM0Xd9dX/zPnSLAwk18vL8hCu0S/HaR/rslS/4P9LBp45EtI
-	 6YebpbxEjX/gzUU8A0GGTwD6Z1Mg78CDFhj+m+WhaubFXMolON3INVlqraSJNCPyAUckQ
-	 KhMl2W2aT+ha8NY+n0owPzqnsyi0KAkgNuS/OGh7AgDLz/LLPgQF5y8b9nto0ZQleuTl0
-	 Vsqecz0GGV8Ees4QUc/7++u8+UImKYvzX9w65FeMM4wgXh9KtH5Ya9sYU+l5/JVYNnj8f
-	 fWueOsCSPUthsyS2dMYbOMoD2ATt0Tv98xgZIOrGXpaMMf4QaryzivkEEJnLR1W1s+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294911;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Type:Date:
-	 Message-Id:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Transfer-Encoding;
-	bh=BR31hFYX7ugXl+k+lRcU21WmDOzclg21QUBA2b36L8s=;
-	b=DQNA2RTETxW48vOGiG+Zt6GUs7yHbIVSgdoM3ldd2GwSgdb1lbwWVJdiqaYpj6CUNOyH
-	 KONj3bFUlMZbG7jvkHOEQsePFckM4KbbvRY6qEu8duRn60PeAnsB0QSuCnePWEUvhZV6K
-	 RjqZTz46aQTBCDrxw9jCXX4diPJdTBzZ13SmhXyCwGnrK6yBN8WJszj1QzQeYUuPGHaFu
-	 uCC9iubKGdjCsVQt9olrUbw4/avCrg6iL7To7Z4AmSVx1q3Gyo2cQlKObqFxuWkKh8h4k
-	 +65QqZCJ9rexwORFSwZLRSnxXYSvdShkNloLS6A1/UdyVAMjv0OtoobXzMFNU2lnn7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kgb4WmZj;
-	arc=none smtp.remote-ip=95.215.58.17
-Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794295003;
+	b=qAkYZq1c0a9DtG+mXvhMTmHVx70s8Pk5Ugit7VPtrHH7J+U42YzGjC0CGlRovZXl4mha
+	 D+c/wxsIWY/ArHaYwd+ot/wqvaENx+2XtAOSq8LDxsgbYOmRWpIcvUz4boya7pJc4iJSf
+	 Bs8cHk+C+xa9o/z1bmAN/0LFbcBX9RIYh5o+XkCX9Ocfe9OqkjoXCw4mWrgpWrJ91scY+
+	 xZnYWsHM+e9uULtJzELBYw+qDpagfWZR7JrTx9xOZHp0BDalstOn5iWtk7UN8JLlmiGYV
+	 HWRCgWhaeuvXocu6KqWrtXXilpk1AZHbYlYr9EenC/90KLahbAI6pqVGlsk7qd1Ta4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295003;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jb5VhK9RVWn299dBgnYQWC7azpnh+7liBpJOmzkXfak=;
+	b=WGnEhLrDT551b2uDKGrcJ99ui7WDHvdAUJpF0ZAYXPd2ikRPtpEHBJRLDS0LQGFyuwog
+	 xJYE5fIqOGYeBOG+GiDL7NpaIrmi4nHTezU9O1gM/zzb0VkeM2EMKgAArHN8dyo6LsNtD
+	 ZQi3skxkBl6b/H+2xfcACTO2dLNJ04WYBaCN+hpjaHQyqajv448YTQL+7fpqWzI3dC6B4
+	 uqJaFrETgzE18rjxokCtA64zxKT8NHlW8I1nwY2S103MmtobFB4sZPUrVu0SkHByJbsgq
+	 hk1jS/JhrkLkjwxwJgCiLWjzPesM41Nbz991h/NFK9ZdxMffUDa5AKyd4F/MBEf4VOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2bh61aT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A51606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2bh61aT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794295002;
+	b=gM5488e2uoT86yhwhmByI9RIsje39KGozq4bid0bGK1M5BtTMKWd9j3oo8iK7I0L+zFN
+	 T/VZo6vlV4e/x47R3FWSaQxj06MPUM8fQ4zYo+wZvDvygGXly5D38zafBfwQdYFP0PJds
+	 gzYj9EgElqcfYqDkFfrz1FtNvutTsGfiK+GtyarIJTyEl1XNZc0bFJwbCR7Ov5SJ5MBtk
+	 ZXYRedUkIM1S9UQF+S14t38GFIX0LBYeysyxXFK23o2sI8xNJDRxEjGjFwdKljRQGA966
+	 SxaZR7K1kj30ZG1GPLsTjCJSylp5J+isBBmfmyNxEcv3du0I2/d/Iz8QAWLgAq5LE0w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794295002;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jb5VhK9RVWn299dBgnYQWC7azpnh+7liBpJOmzkXfak=;
+	b=U1jrm3VyX7G4w61bWcxvwhlMmQlJ1schpNKEFUydSFmO+JsKQe9esB9f+CPb+ZJfIoWV
+	 5MrMELn2IVgj3k8/0y/xeksLohHU4T4izZQWACG3Gbv6sm276wZ+MS4uS+W6IjjpvKllW
+	 sGlOgLvh7b+xIASdJB4MrlFfvRxIbCiMUu48QE9ky86meiwfNeE8HaOmeH1M3mxHIifde
+	 NBxhtd/3q3h4aoCHzan2VaJ8P96uwbrlthR0UCSEpO0Hn3a02fYDK1uvvn06NR6b1sIr1
+	 xS4iiUK4+OYCZEokugEM63NI0NB0i3RxUKmndw4xdnKixLBOsN7fIGCP29Db8a9YcgQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EEF606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17EEF606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kgb4WmZj
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BR31hFYX7ugXl+k+lRcU21WmDOzclg21QUBA2b36L8s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794294907; v=1; x=1794899707;
- b=Kgb4WmZjdmAGtqwtzQ7jOlrdMXpEHi1d/zoJqJQzm077xrm+YJDPsnElpgZN47jDw2giBKQj
- wkjaFtUqYvxgLeFQrM8M6XhFY+voRqq5RKxJ3CkofpXah4stRHJnAifvJaPM59s1Dj9X0/rfLBO
- qBR1WLY630R52GSCCGFTskL0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id c22059331bb8cc3a;
-	Tue, 10 Nov 2026 07:15:05 +0000
-X-Mizu-Trace-ID: c22059331bb8cc3a
-X-Migadu-Flow: FLOW_OUT
+	by smtp.kernel.org (Postfix) with ESMTPS id D7A081F0089F;
+	Tue, 10 Nov 2026 07:16:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794295002;
+	bh=jb5VhK9RVWn299dBgnYQWC7azpnh+7liBpJOmzkXfak=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=l2bh61aTSJkrKQoGwcOkj9FfnEONOptUG9qmHCIMarWMrFVJVDiqfOp6ojzZTPJH7
+	 LQGSW1MQT8hzjCOOjHce5nDDA6vZNrhrnwvxV/teTgXLgTw4jqEp/UgccTAcy3hUZN
+	 wXSR5TEW8sk4ZAPea1EPZ9aR1sQFo13MjXJqLULy+N/dCqKQia7FY+XAAb6HPBNrRI
+	 ZhXSwYLmxcRC/tyWA6jL9jrcZBY1OO/ajxDvuRoVOFg9S5WNuh5s+0UFjofm0+TDe4
+	 b66uANiddjPxfdov7VJt/v+Rm3ejcEvf4Xi74dDq6unbBx2wa30rIhTImG+9UWoo44
+	 QnG6LfpHuiNKA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5677F4891A;
+	Tue, 10 Nov 2026 07:16:41 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:16:41 +0000
+Subject: [PATCH] phy: rockchip: samsung-hdptx: Power down the lanes on
+ phy_power_off()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,59 +82,129 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=af7ee67bc87fefa4170dac5c33b97ab56aa3ad2b31310ec7f4d32e37af50;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 10 Nov 2026 07:15:00 +0000
-Message-Id: <DMRCGHS3V729.FIU61TS3JYWD@linux.dev>
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: "Thomas Gleixner" <tglx@kernel.org>
-Cc: "Troy Mitchell" <troy.mitchell@linux.dev>, "Anup Patel"
- <anup@brainfault.org>, "Radu Rendec" <radu@rendec.net>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Anup Patel"
- <apatel@ventanamicro.com>, <linux-riscv@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] irqchip/riscv-aplic: Process pending affinity changes
- on EOI
-In-Reply-To: <87pkweuxbe.ffs@fw13>
-References: <20261104-aplic-affinity-fix-v1-1-e538cd76e563@linux.dev>
- <87pkweuxbe.ffs@fw13>
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-hdptx-lanes-pwroff-v1-1-c2f85b7e06a4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBA0V+RWTtgUnTRXyku8pjUKSWGjI+A+
+ O+NdnkW9x4glJkEns0BmTYWnmOFahtwk4lvQvbVoDs9KKU6nHxaCn5NJMG05zkE7L13Az2CsVZ
+ DDVOmwOWevsa/ZbUfcst1gvP8AVjUIdd2AAAA
+X-Change-ID: 20261110-hdptx-lanes-pwroff-5ddc6e3fabb2
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295001; l=4329;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=9zRGlMGjmoLlgrDvFR8/ToCDMVtXPZbT51yULKbcMq8=;
+ b=6fx2PKWiYRVDjs7I0iNhOex9Fyzd6QVNJbps4tjjwXUS6cM3JvtMx1U8AaTN6EHtjQ6dKlxro
+ ghkAys44cnwDqKkz5wDNuNDP16/vM5N5cK3WGXJV0vZ8bGKkCft4wAW
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
---af7ee67bc87fefa4170dac5c33b97ab56aa3ad2b31310ec7f4d32e37af50
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On Mon, 09 Nov 2026 11:13:41 +0100, Thomas Gleixner wrote:
-> On Wed, Nov 04 2026 at 14:21, Troy Mitchell wrote:
-> > IMSIC rejects an affinity change with -EBUSY while a previous vector
-> > move is still in flight, and the IRQ core then records the new mask
-> > as pending. The change is meant to be applied by irq_move_irq() in
-> > the IMSIC irq_ack callback, but APLIC MSI interrupts are handled by
-> > handle_fasteoi_irq(), which does not call irq_ack.
->
-> Which is a bug when the interrupt is edge type.
->
-> Edge type interrupts are fire and forget from the device point of
-> view. So you want handle_edge_irq() for them, which issues the ack()
-> _before_ the handler is invoked. Otherwise you can lose interrupts.
-Right, I can reproduce the lost edge here. v2 will use handle_edge_irq()
-for edge sources and handle_fasteoi_ack_irq() for level sources.
+Since the PHY became a clock provider, rk_hdptx_phy_power_off() does
+nothing but drop the shared usage count, and the PHY is only really
+disabled when that count reaches zero.  The count is also held by every
+clock consumer of the PHY PLL, so with a clock reference outstanding
+the lanes keep driving the link after the HDMI controller has asked for
+the PHY to be powered off.
 
---=20
-Troy Mitchell
+On RK3588 a clock reference is almost always outstanding: the VOP lists
+the PHY clock among its clocks so it can source its DCLK from it, and
+the Rockchip power domain driver puts every clock of a device under
+pm_clk, which prepares the PHY clock (i.e. bumps the usage count)
+whenever the VOP is runtime active.  As soon as any other video port is
+in use, e.g. a DP output, switching the HDMI CRTC off therefore leaves
+the HDMI lanes enabled and the TMDS clock on the cable, so the sink
+never sees the link go away.  The lanes stay on until the whole VOP
+goes to runtime suspend.
 
---af7ee67bc87fefa4170dac5c33b97ab56aa3ad2b31310ec7f4d32e37af50
-Content-Type: application/pgp-signature; name="signature.asc"
+The lanes belong to the PHY consumer alone, whereas the PLL is shared
+with the clock consumers.  Hence disable the lane output and hold the
+lanes in reset in rk_hdptx_phy_power_off() regardless of the usage
+count, and keep leaving the PLL to the count.  This is the state the
+PHY is in between PLL and lane bring-up anyway, and the next
+rk_hdptx_phy_power_on() restores the lanes through the regular
+rk_hdptx_post_enable_lane() path, so no additional PLL re-init is
+needed.  The vendor driver does the same: its power_off callback only
+clears the lane enable bits, leaving the PLL to the clock refcount.
 
------BEGIN PGP SIGNATURE-----
+The DP mode is left untouched: its PLL is not exposed as a clock and
+the lanes are torn down by rk_hdptx_dp_reset() from the usage count.
 
-iI4EABYKADYWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavLEdBgcdHJveS5taXRj
-aGVsbEBsaW51eC5kZXYACgkQmAnvgPkzNC+MxgEAvXKrxdr5nWdz6rjiKdD+6t/x
-HGW/Hn2FtzS5PQRn8sEBAJUrJYMPaqwzzMOhG7+quaURlSe0tHDC6E6pCQw95GUD
-=VXTx
------END PGP SIGNATURE-----
+Fixes: c4b09c562086 ("phy: phy-rockchip-samsung-hdptx: Add clock provider support")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+The problem was found on an Orange Pi 5 (RK3588S): with the HDMI output
+switched off, clk_summary still showed clk_hdmiphy_pixel0 at
+prepare/enable count 1/1, held by the VOP through pm_clk, so
+phy_power_off() never reached rk_hdptx_phy_disable() and the PHY lanes
+stayed on across DPMS off. Rockchip's vendor kernel only clears the
+lane enable register (LNTOP_REG0207) in its power_off callback too.
 
---af7ee67bc87fefa4170dac5c33b97ab56aa3ad2b31310ec7f4d32e37af50--
+Tested on the same board: a trace of the PHY register writes shows each
+HDMI CRTC ACTIVE=0 commit writing 0 to LNTOP_REG0207 from
+rk_hdptx_phy_power_off(), the lanes staying off for the 3 s off window,
+and power_on writing 0xf back with the picture returning. A run of 102
+off/on transitions over a range of TMDS modes, checked with a camera on
+the TV, gave a correct picture every time, no "Failed to get PHY lane
+lock" message, and three suspend-to-idle cycles resumed normally. The
+patch has been in the board's kernel since.
+
+This patch was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit message, and I reviewed and tested it
+as described above.
+---
+ drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
+index 6879eecc5a9f..751bb503dcfe 100644
+--- a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
++++ b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
+@@ -1768,10 +1768,25 @@ static int rk_hdptx_phy_power_on(struct phy *phy)
+ 	return ret;
+ }
+ 
++static void rk_hdptx_lane_disable(struct rk_hdptx_phy *hdptx)
++{
++	regmap_update_bits(hdptx->regmap, LNTOP_REG(0207), LANE_EN_MASK,
++			   FIELD_PREP(LANE_EN_MASK, 0));
++	reset_control_assert(hdptx->rsts[RST_LANE].rstc);
++}
++
+ static int rk_hdptx_phy_power_off(struct phy *phy)
+ {
+ 	struct rk_hdptx_phy *hdptx = phy_get_drvdata(phy);
+ 
++	/*
++	 * The lanes are owned by the PHY consumer alone, hence shut them
++	 * down right away.  The PLL is shared with the clock consumers, so
++	 * leave its fate to the usage count.
++	 */
++	if (phy_get_mode(phy) != PHY_MODE_DP)
++		rk_hdptx_lane_disable(hdptx);
++
+ 	return rk_hdptx_phy_consumer_put(hdptx, false);
+ }
+ 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-hdptx-lanes-pwroff-5ddc6e3fabb2
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
+
