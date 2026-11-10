@@ -1,72 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325695;
-	b=peY1v6YC8RiyKRlaSRmy7i9mdw5KO7NbNqEmn2oFyXdwb6DFp8S/0QlUbeabEPdnvOvd
-	 uAj41oZUV7+Zy0+QRmrj6cuNwjncbxPCW/JeVHg7WQBWYc76PdTKoERBgXTF7XTYQ/E7l
-	 uQoqWcxUcdNDdovjhT/2WnXBpi8JDiDyN4+sF5f4W0e6JguaG8LoZEGiniMNx1tQNuxCl
-	 Dvj1Jx4XQc5YLPvb4Tu2PpoGE/LK9W7lKNlTS/WkFZWGXmhaAP0p2y9bKI55dtLiBmGIo
-	 ntBGk2HogjnwyhAj1zHtMdGAa56JvhJSS9Hf5tgYg5ToncCidlxax5NqNG6NQ6WDKxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325695;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=UAwyQ/bEfICw1lHx5rCY/pV9EvLuRsJGgBLXgqR0Hi0=;
-	b=2klRADVVfnKSBNpsM8abmNhlx/msLC4cDSVkAP5rw1CgqwIxQQE/TCbCdrvY9vkObYSZ
-	 4Q4XA6cqOE/iq1altZL/6Y7Q8UVpmar68DZKHMsFvdxov1TSrxLJyKxBb0ILgpT2L3Fyu
-	 lrDk423kuT4aZZxkWKisBXxHIv6VaH7jOJC5pOf8Acrcfi3NahBqlaSLXkKonfaYIsBZD
-	 mfp7WnRFMoQQ3SLsHThBf6oWeB/jY9a6+FqxfayyqNPo6/ecpZfeiYkCINShnp3BGri75
-	 CUyrjuIPwJJiiy6COR5IcGQNfABOEdUjBAqyzU85/EPvPzvLumDHrzieBo1M1URXhKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794325705;
+	b=iGDQQ0v6sRyOyQ1WLUKUznyWrmOtqQnM9yoJR4FF8ja6wmVL7IRpaSOok41sBWaWWD4S
+	 EDJBTMYlscDfHjInFwEOZccWYbtlHe4CMUjLL2XcYp+z89X5+dUkFC7OEVJr7n3pfxI19
+	 0ry5imWzF7XS+HInOmBD0JgMNkqqZ3C171KYPEJF+V3qfcc+Ivl7ldzegvWu/17KE+ZFj
+	 LxS9i/Yw0AAsZH+uetUUreR5jWVFVGNfcLOSqvtV91jwmery2rNPLm1gZnNIKsWgqs50m
+	 be8DScmXYiO0GMdZaUH1fXvh8Y0T28mJ2qlCwlAOTzRkc5lGUj67ASyoOOmxkiMepVA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325705;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=8l0cEb/pGh72uQz0oEHPXZ7XzAZmDHIuKqZq4EFkg2U=;
+	b=gETo2+xJq2Dn2Krfp4y4R8NZx97uqGlM/UqTzr0V3WV8Tea/p+SWLiOLhcACYolpfDDK
+	 ld4baJT4tntsJ2wJalmZWm4UoP13DphKrQ6w5edtOML/HS8mgqr7dYRxYmhOyAmJ/qYnQ
+	 lD81DA+ysPTLbCTp9vvlPoluWKeQHg0wfDzcOaLa1GGtEmeSseCL9PLvB4+sFBkc/AMKa
+	 xllU9KbZ1919DsLq7LbSs9v44cVifHbVJ2JzTfX4f+N9ys1PeDVRJE8GWrHp9oe6vzCvL
+	 vjwqHnaRlZ93BtKECmhpIXU4tLrvFdEgU4V4/+QgW05pmExizAfTvlRw/6iO3tTT8Xg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ObO4cYjE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3FB60A263E;
-	Tue, 10 Nov 2026 15:48:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3FB60A263E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id C9921A85BC;
-	Tue, 10 Nov 2026 15:48:05 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf03.hostedemail.com (Postfix) with ESMTPA id 679516000A;
-	Tue, 10 Nov 2026 15:47:56 +0000 (UTC)
-Message-ID: <e7b48186a65a759935fdfdc2003b266d05ee2d4c.camel@perches.com>
-Subject: Re: [PATCH v3 1/5] string: Add strprefix(), and deprecate
- str_has_prefix()
-From: Joe Perches <joe@perches.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki"	
- <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, Andreas
- Schwab	 <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, Danilo
- Krummrich	 <dakr@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold
- <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart	
- <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
- Torvalds <torvalds@linux-foundation.org>, Linus Walleij
- <linusw@kernel.org>, Namhyung Kim	 <namhyung@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Rob Herring	 <robh@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Saravana Kannan	 <saravanak@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi	 <zanussi@kernel.org>,
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Bartosz Golaszewski	
- <bartosz.golaszewski@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 07:47:55 -0800
-In-Reply-To: <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
-References: <cover.1794323750.git.alx@kernel.org>
-	 <556766412884389a7cecfe6affcc9fa3a78f9807.1794323750.git.alx@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45492606A323;
+	Tue, 10 Nov 2026 15:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45492606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ObO4cYjE
+ARC-Seal: i=1; a=rsa-sha256; t=1794325673; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J9QftelKddyAH37jVLcNWK5+U42xad7A9DRsYZuHDcvs3+wUbXkblQTqXmzc7RMLvlhGfL2TlN/Ci0ERCTZDdbWEhnQI2ihshJnGobj18rOSYBeDHoDRMQnlbLMhWanLnjTptLM4kHKa+7aUPQkHSV7pvglnJU6x4KRlSwGn4eU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794325673; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8l0cEb/pGh72uQz0oEHPXZ7XzAZmDHIuKqZq4EFkg2U=; 
+	b=VXGvCatmb8sQGBcWiq7+3C2nqS3bDO56HQSGRVixcJ6r4J1o069v/n9SN18VdPa31bVtfs4rTzd8ysI1N5m8xtdMqVShdiJFt0mm/n0vhF8ggxi1NCMWwI1cSJli76auk2roSNL/gqbEXGjKbCbKCZLH4snwo/WZRze7a6GTsYQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=ObO4cYjEQhdj1+uYecVlrLlfhFixd8oiqjnEUaoiPc6eUxYT/5y6jKrBiZa69RgJzRb2z1y/voIMJ+qRVsUHpx9Mefk33uIE1CQTyr5ZlevTEqAZUHtiy1BdFMdcD0kU5PdEKC4834Cc0jwjvwudQ8TTdA/G0isHqY8M5WmBdrnTVIctpQxrf2E+G8MUWUSGQ2eWwht6y1ijai77kDmFdXyCu4J7jtGW1+PSCq/Q4bHxixhftMWiykp8JOH02LrjvsCZ1Is0Fm92EwofZ10y1uJH2CiXxRvsmkdbDVQZU8i3aM9xFr1b6ORpafYlClIPg9/OZc9gsg+KiW++LzuQ6w==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=8l0cEb/pGh72uQz0oEHPXZ7XzAZmDHIuKqZq4EFkg2U=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794325671736229.56764940797223;
+	Tue, 10 Nov 2026 07:47:51 -0800 (PST)
+From: Rong Zhang <i@rong.moe>
+Date: Tue, 10 Nov 2026 23:47:02 +0800
+Subject: [PATCH v8 1/3] platform/x86: ideapad-laptop: Serialize keyboard
+ backlight tracking
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,28 +60,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 679516000A
-X-Stat-Signature: jfwhutdpd88zfz37tr54rxpcmsbdz7uh
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1+itX/azYWscfSefJ1cEeZtVDBix6JdnqE=
-X-HE-Tag: 1794325676-569192
-X-HE-Meta: U2FsdGVkX185pC9GD+XhwDY8fHTdpb4bEWMa7jC2vmoDxUm1jtR0t65c4Gtf7cyCvm9M4TppdazpgmUQRhwjk/CxFnV/hUKlqniGchOmsyNAb16mfHvFATFnXjIooXXdQQXJSnIIkhegnkJAYKeuTiaN4ixgIMtRnua1HUa4VNEpVGqk/i1+umqDu0u8ZEWjUZgW4IlcCejQBkAdglRIFYA2fLf73M2AoS28U821DoGSjmwiZ4FLuuVwkNB16ewyGLJT0BKECphGhHwwugANfTpnxmrvKOdIzCMJ8eS+rI0QIx/MTX0a6tNRWuLtWQfa
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261110-leds-trigger-hw-changed-v8-1-2717115d612c@rong.moe>
+References: <20261110-leds-trigger-hw-changed-v8-0-2717115d612c@rong.moe>
+In-Reply-To: <20261110-leds-trigger-hw-changed-v8-0-2717115d612c@rong.moe>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar <vsankar@lenovo.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ike Panhc <ikepanhc@gmail.com>, Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-ce4c1
+X-ZohoMailClient: External
 
-On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
-> As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
-> between an empty prefix matching an empty string from a non-matching
-> prefix.  This is a fundamental design flaw in this API, and not
-> something that can be fixed.
->=20
-> As always, this is a consequence of choosing sizes instead of pointers.
-> Sizes are often the wrong choice.  In this specific case, pointers are
-> more capable of differentiating these cases, as NULL is a special
-> sentinel value that doesn't need to overload a valid value.
->=20
-> Let's implement strprefix(), a function that returns a pointer
-> right after the prefix if found, and a null pointer if not found.
->=20
-> We'll slowly migrate existing code from str_has_prefix() to strprefix().
+ACPI notifications are delivered in dedicated work contexts and may
+arrive simultaneously. In the following change, much work will be done
+while handling the notification, which could lead to potential race
+conditions.
 
-Most uses of str_has_prefix could use the existing strstarts.
+Introduce a new mutex to serialize keyboard backlight tracking to
+prevent potential race conditions.
+
+Acked-by: Ike Panhc <ikepanhc@gmail.com>
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+Changes in v6:
+- Protects ideapad_kbd_bl_led_cdev_brightness_set() as well
+
+Changes in v4:
+- Remove needless #include (Thanks Ilpo Järvinen)
+---
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 91a8d11c79c5..04343e9a2d47 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -26,6 +26,7 @@
+ #include <linux/kernel.h>
+ #include <linux/leds.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/platform_profile.h>
+ #include <linux/power_supply.h>
+@@ -204,6 +205,7 @@ struct ideapad_private {
+ 		int type;
+ 		struct led_classdev led;
+ 		unsigned int last_brightness;
++		struct mutex mutex; /* protects brightness tracking */
+ 	} kbd_bl;
+ 	struct {
+ 		bool initialized;
+@@ -1663,6 +1665,8 @@ static int ideapad_kbd_bl_brightness_set(struct ideapad_private *priv, unsigned
+ 	unsigned long value;
+ 	int type = priv->kbd_bl.type;
+ 
++	guard(mutex)(&priv->kbd_bl.mutex);
++
+ 	if (ideapad_kbd_bl_check_tristate(type)) {
+ 		if (brightness > priv->kbd_bl.led.max_brightness)
+ 			return -EINVAL;
+@@ -1698,6 +1702,8 @@ static void ideapad_kbd_bl_notify(struct ideapad_private *priv)
+ 	if (!priv->kbd_bl.initialized)
+ 		return;
+ 
++	guard(mutex)(&priv->kbd_bl.mutex);
++
+ 	brightness = ideapad_kbd_bl_brightness_get(priv);
+ 	if (brightness < 0)
+ 		return;
+@@ -1720,6 +1726,10 @@ static int ideapad_kbd_bl_init(struct ideapad_private *priv)
+ 	if (WARN_ON(priv->kbd_bl.initialized))
+ 		return -EEXIST;
+ 
++	err = devm_mutex_init(&priv->platform_device->dev, &priv->kbd_bl.mutex);
++	if (err)
++		return err;
++
+ 	if (ideapad_kbd_bl_check_tristate(priv->kbd_bl.type))
+ 		priv->kbd_bl.led.max_brightness = 2;
+ 	else
+
+-- 
+2.55.0
+
