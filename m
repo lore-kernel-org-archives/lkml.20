@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314892;
-	b=q/MqWoGOfD4+OiIzlzjmzZ9qcn2VK8QUwRwLBYwkyBnFKdKI58BxMZrnvBDm3UseWHXj
-	 iD8MH0IuHVA4+aQDBSX4ZXbYxq4xewVjz/+6MasEysl5t/IlZTdRJ0dWv+D0LmC3yS9Xo
-	 k8VUOww7BFVfg5qrqqvj8a84T44sfQvegoBXGhtFY6wQ1L/DrqsC2l5Af0jR68iJ8I/33
-	 V22ASIp18FxVcyPqWo8dmDyf4ItXalIhk7x+SdGjYlf/RQGoZdGEjSsX+adUqIhHp7PN9
-	 P1littproJ2OlZ1NG88RJDgZmI31mo0mlbJdbI9qHoXxpOB2ZIsgRWJ+qbFmJyjrF0Q==
+	t=1794314917;
+	b=O1H5/zOV/5SOQJYdd3MhTWdUhR1W9N97jZUm6xTcx4aVTl1GAFZh7YZ3Qhcs+imMwYpr
+	 zlmeXg6sYfArys8ZZD2Vl3oDGOZmqcRgfuSXHaiuyZGGtYG3TYr5zSrpPcaZ2K9j10W2m
+	 6y931bq3bE+b2P4d2TqZrCoOW9DxMxjFFpah2Jkhoi4JjDokyTD/i3qLpLDMlLiZS+j5I
+	 0Nf10gNtLnGejYXkVocwkgb8XHuQzvhFunmhkQy9++MwxcVQbklBghX4lWtHF1FKY4vaN
+	 nVg4l8Q0mjpGnKkoj5GXh7pX0PVPUTc00mc3RChEApP4saOH8nVAATgnJrZ4l2nD6bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314892;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1Yp4KPwUlz9JWaHLTQ3/Bx+ixssutpKy6VwlgUulV5I=;
-	b=OqEL3UeT7L18cULbYiBeSDMDzUfldd73Z0UW0eOLTyaZmrS/XMZEFinF7P8zm4MTPdyq
-	 JO0B2UQNNfsBxuviEtpKdUrbCtRLjWyy6DdTQ5gbFA80dqC63s2QQO7reIJB9hdWErBmP
-	 j/LYojpl9cPGTYNraPW/TDIU2Ve3Xo9cSR7OpmBKFoT86UroQ5mLafpUYVOWy69wL6tYP
-	 jx8/9aSU3gLc7afLofyKUmsaUVKJjW8WsQNeDSz0nZsBn7OPbrdD+VuxvhPsKhMUOpcZI
-	 ePVsDWRcU5JhF6+JN+1K2Cn1kcfqPpnIn2gQfJjpO3j8zmWQOgNE1CE0dtjiL6278gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314917;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UT6I9hqZhU12+F1jokRg3E4wTJM57aYHZingagyig8Q=;
+	b=LINjV7fl/o+ZlOrYuStBrOa394zXh2TFt+oIawjj0dU2Mfyamp24wpYc7NUndzQxCsgH
+	 NO723Hshq6+Z1y5KxU9CUIyW98sjhrSsfcja+TD5rJnJ7TCe8/HA5WMpeiOcfBfpdSO80
+	 NueditjaUmupDUU3EyRvRAHnzX/yU01+b/TdXts4m5ABsPW38Njpm0HPSb85cSXSbRWU5
+	 m1+KBLR4trgp2l2O5boedSdW7fBSNoF0xliocyYU1wYnfw1WiKlB/7ubJHu1mNrXLrq+h
+	 l2fZo6QnszHtMYoUFSc7c4Oo/9OrPcW2NZJcwvVVuhCMIJkUmNtd3KGtQhrdN6pbRew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqcTSQXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AAx1o/KF";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D46C606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15428606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqcTSQXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A98F1F0089F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:48:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAx1o/KF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB9B1F0089F;
+	Tue, 10 Nov 2026 12:48:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314892;
-	bh=1Yp4KPwUlz9JWaHLTQ3/Bx+ixssutpKy6VwlgUulV5I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hqcTSQXnQgoV6UYYGEbZ0kR/MWjpmsUsYXNNpue8cbyBvenKsyeyLZN5UqgVYNGoT
-	 tU59WxMxar3DHcjOT871gyr5z1/c3ti+8ga4dKFsLoqsPvKQmiXB+JITlYwAzsS/wp
-	 Jq9kYfvZMVqvjN1qipC2JFfAlnnOYKVQGsA2Daw5SiiY03Vt92cjXgOJCOGIekh+LB
-	 eiitzPQhBYA5AJbU4PEh+bT3bLaZ2JFOpPsuQ4xuelFadQxdndimaNwBrC84UoEgUM
-	 DtZvS4/reoK4Nmb0iWTkFQsV5TipA8am4ghJzplVv5roNDLrFyyzAK5rDIk49435xW
-	 j+gFB54h+HZwA==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so1972235e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:48:11 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHrp028Yl3iLwl1D2cbHpTyXOQRdV63Ye7qWknv854bko2W4yY4kp329/cW3I2Uf3NRr1esrbe8cVEp9j4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87XKEWefn0M78h2u6E2Wh9x6iTL9A0MWxk3+GR9gBNDJ/cXXyZ
-	aIX2PAJbicn+x/LzWd+HaOJMJOb39VH2Di5ZVNA5dTedBx9FlQjQeZ4lEkDlwt2eEwu6RNwvVrR
-	3cycnGWccEs/Ad2EzCwC1VOOp7517whE=
-X-Received: by 2002:a05:6512:1306:b0:5bf:b93e:89f4 with SMTP id
- 2adb3069b0e04-5c156ecdb97mr835584e87.46.1794314890465; Tue, 10 Nov 2026
- 04:48:10 -0800 (PST)
+	s=k20260515; t=1794314916;
+	bh=UT6I9hqZhU12+F1jokRg3E4wTJM57aYHZingagyig8Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AAx1o/KFG7JNNHGjjXHOpcfX2vMXAWZuDpuK0GZFrj70Oj/t2Uxmoe9rPJCBfYHXV
+	 WNsvgrAbH/i6qdGNKGKqqQexkRAsxolMBA/yV9/FUIcwBjJmoAGqFyKZDH9m62qKNK
+	 O6lG1z/4+UbshgPZJ7t69ACJHYtk3lo5j2xxQ2+ek8+wDQHQLhacBBZu22+xpo35fI
+	 r5XCp81wfJQiE/fAeu7IGffZTpwdy4dOKIh3Cd2C/U91SiloRQ5FEsbjdqQxbN5TQj
+	 A8XAeIHK8mVoDRewuJXe18vW+JzWS7aLCgv2xzAOdmg81aKTyRbVV1ZTrGO2Ia4o6J
+	 EEN2Gctu5fdQA==
+Date: Tue, 10 Nov 2026 12:48:30 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Shivank Garg <shivankg@amd.com>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: remove unused clear_flush_young_ptes_notify()
+Message-ID: <avMSmWU4JYReUAB9@gremlin>
+References: <20261109-clear-flush-young-notify-v1-1-b37fbafa2686@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,92 +59,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109183803.2724859-1-jamien@nvidia.com>
-In-Reply-To: <20261109183803.2724859-1-jamien@nvidia.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 13:47:57 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0ib04dv_eL2w41=1KoFLnxqESJkKhPGVQpb1j8XgP_SRg@mail.gmail.com>
-X-Gm-Features: AclHuK_3K7ly66VqgF56p7QfwVKq3MI-pKUFtTDql6PCL8hm7uoHRF2WoGGSNCs
-Message-ID: <CAJZ5v0ib04dv_eL2w41=1KoFLnxqESJkKhPGVQpb1j8XgP_SRg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] ACPI: sysfs: Expose BDAT data region
-To: Jamie Nguyen <jamien@nvidia.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	Punit Agrawal <punitagrawal@gmail.com>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-clear-flush-young-notify-v1-1-b37fbafa2686@amd.com>
 
-On Mon, Nov 9, 2026 at 7:38=E2=80=AFPM Jamie Nguyen <jamien@nvidia.com> wro=
-te:
+On Mon, Nov 09, 2026 at 06:41:55PM +0000, Shivank Garg wrote:
+> clear_flush_young_ptes_notify()'s last user was removed in
+> commit f3c493d2f42b ("mm/rmap: handle device-exclusive entries in
+> folio_referenced_one()"), which open-codes clear_flush_young_ptes()
+> and mmu_notifier_clear_flush_young() in folio_referenced_one().
 >
-> The BIOS Data ACPI Table (BDAT) points to a firmware data structure that
-> carries memory training results and other boot-time data. Patch 2 exposes
-> that data as /sys/firmware/acpi/tables/data/BDAT, like the existing BERT
-> and CCEL data files.
+> Remove both the CONFIG_MMU_NOTIFIER definition and the
+> !CONFIG_MMU_NOTIFIER alias.
 >
-> Patch 1 fixes a leak in the existing data file code, where data_attr is
-> not freed if sysfs_create_bin_file() fails. It moves the file creation an=
-d
-> the cleanup into acpi_table_data_init(), and patch 2 builds on that.
+> Signed-off-by: Shivank Garg <shivankg@amd.com>
+
+LGTM
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+> Applies cleanly on mm/core.git/for-next.
+> ---
+>  mm/internal.h | 12 ------------
+>  1 file changed, 12 deletions(-)
 >
-> Changes in v4:
-> - Patch 2: before mapping the BDATHEAD header, reject an address where
->   the header would wrap around the end of the address space, as
->   acpi_data_show() already does for the data region. Found by Sashiko
->   on v3 [3].
+> diff --git a/mm/internal.h b/mm/internal.h
+> index b129510b92e2..b1f3a1a59bc0 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1598,17 +1598,6 @@ static inline void maybe_rmap_unlock_action(struct vm_area_struct *vma,
+>  }
 >
-> Changes in v3:
-> - Rebased onto v7.4-rc1, which includes the two fixes posted during the
->   v2 review [1][2]. No code changes.
-> - Dropped the "Assisted-by:" tag as per latest guidelines, though an
->   LLM was used to write, review, and test this series.
+>  #ifdef CONFIG_MMU_NOTIFIER
+> -static inline bool clear_flush_young_ptes_notify(struct vm_area_struct *vma,
+> -		unsigned long addr, pte_t *ptep, unsigned int nr)
+> -{
+> -	bool young;
+> -
+> -	young = clear_flush_young_ptes(vma, addr, ptep, nr);
+> -	young |= mmu_notifier_clear_flush_young(vma->vm_mm, addr,
+> -						addr + nr * PAGE_SIZE);
+> -	return young;
+> -}
+> -
+>  static inline bool pmdp_clear_flush_young_notify(struct vm_area_struct *vma,
+>  		unsigned long addr, pmd_t *pmdp)
+>  {
+> @@ -1641,7 +1630,6 @@ static inline bool pmdp_test_and_clear_young_notify(struct vm_area_struct *vma,
 >
-> Changes in v2:
-> - New patch 1, fixing the data_attr leak for BERT and CCEL as well.
-> - Patch 2: the BDAT callback only checks the table and sets the address
->   and size of the data, and returns -ENOMEM if mapping the header fails.
+>  #else /* CONFIG_MMU_NOTIFIER */
 >
-> v3: https://lore.kernel.org/r/20261109180945.2438349-1-jamien@nvidia.com
-> v2: https://lore.kernel.org/r/20261012230632.3574987-1-jamien@nvidia.com
-> v1: https://lore.kernel.org/r/20261009232955.866131-1-jamien@nvidia.com
+> -#define clear_flush_young_ptes_notify	clear_flush_young_ptes
+>  #define pmdp_clear_flush_young_notify	pmdp_clear_flush_young
+>  #define test_and_clear_young_ptes_notify	test_and_clear_young_ptes
+>  #define pmdp_test_and_clear_young_notify	pmdp_test_and_clear_young
 >
-> [1]: https://lore.kernel.org/r/20261013180728.957618-1-jamien@nvidia.com
-> [2]: https://lore.kernel.org/r/20261013193900.1258808-1-jamien@nvidia.com
-> [3]: https://sashiko.dev/#/patchset/20261109180945.2438349-1-jamien%40nvi=
-dia.com
+> ---
+> base-commit: 2683df3b7eac1d91380194955ad0c9751454610c
+> change-id: 20261109-clear-flush-young-notify-dac8b5496ec4
 >
-> Tested on an arm64 server (64K pages), with v2:
->
-> - The file matches a /dev/mem dump of the data region taken in the same
->   boot, byte for byte, and decodes with valid CRCs.
-> - With lockdown=3Dintegrity, /dev/mem is refused and the file still reads=
-.
-> - Malformed BDAT tables loaded via initrd table upgrade (test-only change
->   adding BDAT to table_sigs[]) are rejected without creating a file: no
->   "BDATHEAD" signature, size below the header, non-memory address space,
->   zero address, and a table shorter than struct acpi_table_bdat.
-> - With a test-only change that makes sysfs_create_bin_file() fail with
->   -EEXIST for one BDAT table, kmemleak reports its data_attr as leaked
->   without patch 1, and the data_attr is freed with patch 1 applied.
->
-> Tested in QEMU (x86_64), with the same test-only change:
->
-> - BDAT tables with address 0xffffffffffffffff or 0xffffffffffffffe0
->   are rejected without creating a file. With v3, the first of them
->   faults in memcpy_fromio() at boot.
-> - A BDAT table pointing at a valid BDATHEAD structure still gets a
->   data file with the expected contents.
->
-> Jamie Nguyen (2):
->   ACPI: sysfs: Fix data_attr leak when creating a data file fails
->   ACPI: sysfs: Expose BDAT data region
->
->  Documentation/ABI/testing/sysfs-firmware-acpi | 12 +++
->  drivers/acpi/sysfs.c                          | 74 ++++++++++++++++---
->  2 files changed, 76 insertions(+), 10 deletions(-)
->
->
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> Best regards,
 > --
+> Shivank Garg <shivankg@amd.com>
+>
 
-Both patches applied as 7.5 material, thanks!
+--
+Cheers, Lorenzo
