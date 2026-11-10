@@ -1,90 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.85
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296723;
-	b=qTpjyTNazjDwvaNBla7TcuVvcPnT9XWVN1e0a8Y163100+9xOj4VgstzglSGd/U2ZJXm
-	 8w7ezYmFiQ8hpzEqIJXPUELeW0ZgvXIzw1zm4QxvdvxLYB7x9BJ7fV3yRgklOOhxVB8VN
-	 +wpqzfj+uYJ3AZOUrZMjLP55j/QPzPagRBDZ5lKLjFdfuRaOwFpP5Nk/3ZpGLbjuvYmQR
-	 +UXISOEwjFS5AkOvPTc4VPzqAv1hrneLZqiTqEgsa1Jo/Cy3OKSlOvR3UY7e9ameLEriF
-	 lO4ebunYRcSdeJhZSQ5u5AP50gErNc4jrtcC+ZaAYYAfFDTCu+pImRxuA4hTztFb0KA==
+	t=1794296724;
+	b=G6VGl2l/Fougp2BN61DfnUWMIkdipEF4cHrUhrxx7sJjhaWWUlBqK9zwxFe5R1H25b94
+	 dQsH4e1GFj4kTOUZB2mjzpBj4+Fv4aaczTEHD5X01LnIU9TAbVsq6tx5ivteuaAZi4tM9
+	 ydOmI/J8rYM9S6bDR6rJiUAhWjXPs5/un4CtrrgIWkW38J1rz+kMfiZ5hLyWrZYcAOeGI
+	 BhppM309B7+Ri/aEVDkiT3fS5W8QaNBgkPBco7IoRUfI9TeeVNX6554Ris11U1mRYakNV
+	 sfHrJE/N4JrZpPTf37zk7+6cx/A8zIPhDVHwH+lZtssSoNWqQXkzqf356tkfEuH+Tzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296723;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=YoPOPR/MF4x+/gu4E+EqzfSESMwXm+KbxKOkPCT4BoY=;
-	b=b7S6TU0cJJ3YQTqiOrTNip5fkadGNJmYnAm3iU4JPvkgfvD4SLPClzvb3JDyEUiRM9Lw
-	 13TL7es9mtqjsTkT28pDfM6RSkhYvAUmSj+CWMKt4KEwifRVq6lMpkK2Gh/7Ft8t715lc
-	 ydvBW5vSw93j3MHytNxQl/BvHrhguyornuqqNcV0UblEUv8zg8T0PEtLqCS93U5qfQmFN
-	 /08ZjrrjEanfvPpaoehJc730IR04Bjix3c2xJ7Xk8O8riqfNPD5LSUQhY+W34UkIP20W2
-	 dEGlB4icTjCEPeb24iNHD2AekZlZs7j8Tbe7yqzny3DPeDKBrLdiH/3veaiIO6Czqxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296724;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bYjIYJm+n4nfDEAiZsWWktm7zzoyMcwgpbOm01w6spo=;
+	b=e3RvsTwF47CywYVd/czDVm6/1w53T0x+jUlanU9OKb6RzIxZ+SGRq6iFTgenSUTQb2MV
+	 dEUHZqtZQO5QrzVJen6DgTYxx1HxMV4rD5zU+cFSGLYlpGxsGV7eKuTFptwtXBjPkKAyl
+	 Btd/II7RXLNCzL9gbbxdHrdGkysKTQNFNVbukajqOx50QurKeFlbUzWQ9o3SEMuFQ6rQC
+	 3RAfKjatOWMz77DdtHS8YcKixD0xaxYSeeKXypsgJfsbf1IeFcURTnLUZMgqisjeRqo+v
+	 VB5C1SPkya+yTwrYr3TZKOqfEaOj6yo66ZIwNe9nwgD3GoMIGPSKerCMaDkZRblUqmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BrK2gZLx;
-	arc=none smtp.remote-ip=209.85.210.41
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vlqCJjlJ;
+	arc=none smtp.remote-ip=95.215.58.85
+Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2FA6075574
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFC76075572
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D2FA6075574
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFC76075572
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BrK2gZLx
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-8253bc5a613so964898a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:45:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794296722; x=1794901522; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YoPOPR/MF4x+/gu4E+EqzfSESMwXm+KbxKOkPCT4BoY=;
-        b=BrK2gZLxfAkqBOVkmRaEzoJcrTFgAkfxfzvCb2vN+inNMEiFLPrJ1rSyFMgELUquJ7
-         fWG2WD85Tk0wlsPtmq1BQwMidgYIaSZjj3AijKqr73rkEJyxd8uikAOsLebylxdbuMPK
-         fUVn1YPIlBr+czSQx+XxobhdJDHCgKNSYVPdWbrs0ZC3DuUPhTwakwBeRJ1BTy8YAhLt
-         eR+ddkdnHFj983PVutwDik/VydhHLvf6resDCTsavnpUGatKZaXEBY6PDCHtffkxy/uM
-         0b2bSVTJGqvPBQXW79fRFWysFWmLQsLPXF5cI1FC42RumrcjF2rgvSIQ6LUSVwGg6EMJ
-         DXtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794296722; x=1794901522;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YoPOPR/MF4x+/gu4E+EqzfSESMwXm+KbxKOkPCT4BoY=;
-        b=RPbqgNx6t3/8dwHGiXlCaAQqpQzrmgzLzc4pcm4fbXHIGs/j/np/OQOabMw47LZ5bO
-         +TgCvtpodUTsNqpELQEw2JRe9J82nYDEwTolRYrpeU3QD2CkmpDlASVIhTDoui7NrVq2
-         oNuEqXVbBDzWTj0BPWkYg+1EEHbQrMzWtoDRCvYp+Z6jE2t12kUnx1rYyDpt0PEc2zT/
-         pEUatsueoQdjrrnAvyGcUZZ7CMQYik5jj6IhHdUTtFpYIPCS3FgckywN2/ap9BRRkPNK
-         kL+wHtdkC6JVxZqmtEYbca6z3xOcp8HugfapOHAwcdtLgpuG5QUSAVqxZCM5r1tvD6Qh
-         nKZg==
-X-Forwarded-Encrypted: i=1; AL+hErFmg68l1r9jK788kIH7icROkkAI9EchX+GBoJtNyEYvgecWbdbH5juektOe6ezAG5YOfc5vhHm6g/I6Zmc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1je91pxAYdW0xTZ708J0Da0WFKew7uSGX3ivmPT2t6SeTJeXW
-	m5SWoyQeWkORtcdTjShKBMLpgYxKHyQghqPsF1ts8e4rGKKwjOKE+j3Ff6KUm3Q/
-X-Gm-Gg: AYBFou2ZEV44+xEL6HttZd/Y+U7YY6E3+8yHYmCCMBX4CFVmd2DJx/LGAUW8PLCeMSE
-	SH4UhiBSbYBTh+qvYYRiDoC288Ns22dKJwAEL6eDcI951caQbnfSMK+0Te/KGiOgz3erUM3+BvZ
-	SIGsaWiiyDmkqZXf13Rw6o7tMBA5YZdFeABrOS0yRyXkcWMo8P1U6H858AoTFIfjKVVSV0ZsILp
-	DnjX3jxd43bkWdFCISAutITxfFYv9xhpwUAibng51fJtLk/cXyFO31Ekr30+SXy08KqMnp8D9yh
-	7RRdPsN1d7/cBpa+q4bqOi+3AuULC2E759MHOnVGysE06LUvjfqmEppkV51YdchXVj7K0sm7sDc
-	siGDPTIuWVayBxArw3Q8tndxU11BBQL9VKJH8aD95A1xYSflVt9imYg/1mCi7m2nR5eVuPPCAzQ
-	wPOR57J9Neawhlfs8qqSBcEoUE8AgBcrFKQr4IJ2y7BmbaxlWETCo21I4AcbDUKBJwy/AxmrctF
-	cibjp0nbM1q1SIelRsZudn9rGiK42GPstONGNwUmKdpV1q3VIBvQ3TBzXYXynrXBVRJ02GDRVht
-	D3wGh+MKLDdYD27/GzBz47kY1WTS+pd3XZKMqvv8Kvhrb/M9XRNrsRNzTwZmJGwG+h/8XBcDxdG
-	w9j+9fUQoyYiIOviO23lR2KprGDvIF/P7Kbk+c8ESSsnuuZxkmZZF+m+JuiwgBb9CRN/avY2rKk
-	RyCKSWrEGkftnWwWjHCFN3dSzCC+gJ5EZ7Drm4mu9z+vrjNb9MJDc=
-X-Received: by 2002:a05:6808:470b:b0:55c:7ce:cb77 with SMTP id 5614622812f47-5683cd6327cmr1396507b6e.36.1794296722215;
-        Mon, 09 Nov 2026 23:45:22 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504fdb5sm1522804b6e.3.2026.11.09.23.45.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 23:45:21 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 10 Nov 2026 00:44:58 -0700
-Subject: [PATCH v2 55/58] mtd: rawnand: r852: retain chip state across
- removal
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vlqCJjlJ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eY4VzD6wuof/JGdxP9nVKDJYmUFOxcoqpj+Y4Rp/P/w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794296721; v=1; x=1794901521;
+ b=vlqCJjlJyhHO7JNbh8wajhkg5NO2nXDKM909lNOFUfkvgpW5VMjfwx25/Ij7r4IAoc3qN9jO
+ pvKoFU0KTLNqAH5FS6p7MEbW8dboYwgKqMDNyHnEDT077oFgIzFKurSY4FboJMkAIQaAG2+6jjm
+ Wzn+O01jdKSBSvqiJwnfISLo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id d048f83d76d25cf6;
+	Tue, 10 Nov 2026 07:45:20 +0000
+X-Mizu-Trace-ID: d048f83d76d25cf6
+X-Migadu-Flow: FLOW_OUT
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: xu.xin@linux.dev
+Cc: akpm@linux-foundation.org,
+	chengming.zhou@linux.dev,
+	corbet@lwn.net,
+	david@kernel.org,
+	link@vivo.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	odys.yuan@gmail.com,
+	rppt@kernel.org,
+	surenb@google.com,
+	tujinjiang@huawei.com,
+	vbabka@kernel.org,
+	xiao.wang@vivo.com
+Subject: [PATCH 2/4] ksm: skip rmap_item allocation for non-zero pages under only_merge_zero_pages
+Date: Tue, 10 Nov 2026 15:44:49 +0800
+Message-Id: <20261110074451.220524-2-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110074451.220524-1-xu.xin@linux.dev>
+References: <20261110074312.219847-1-xu.xin@linux.dev>
+ <20261110074451.220524-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,326 +81,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-55-9137d08f05df@gmail.com>
-References: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-In-Reply-To: <20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, 
- Maxim Levitsky <maximlevitsky@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-A removed card can still have open MTD handles. Reinitializing the same
-nand_chip for a newly inserted card lets those handles access
-replacement media, while freeing it during PCI removal leaves dangling
-references.
+When only_merge_zero_pages is enabled, ksmd only ever merges empty
+(zeroed) anonymous pages with the kernel zero page. A page that carries
+data can never be merged, yet the current code still allocates an
+rmap_item for it in scan_get_next_rmap_item() before cmp_and_merge_page()
+decides to skip it.
 
-Allocate a fresh chip for every insertion and separate SmartMedia
-scanning from publication so lifetime ownership is installed first.
-Disconnect the old chip before disabling its hardware, and retain it and
-the controller until their final MTD reference is released. Stop
-IRQ-driven card-work scheduling before destroying the workqueue during
-PCI removal.
+On workloads with a large amount of non-mergeable anonymous memory this
+is a real cost: every scanned non-zero page pays for an rmap_item
+allocation, and the rmap_items accumulate in the per-mm pending list.
+For example, a MySQL instance with hundreds of gigabytes of anonymous
+memory (mostly buffer pool pages that cannot be merged) ends up with
+ksmd creating rmap_item metadata for each candidate page; the metadata
+overhead can wipe out any gain from the zero-page merging and even turn
+the net benefit negative.
 
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Add should_skip_non_zero_page(), called in scan_get_next_rmap_item() before
+get_next_rmap_item(), which, when only_merge_zero_pages is enabled,
+checks whether the candidate page is all zeros. A non-zero page is
+skipped entirely: no rmap_item is allocated for it, and any stale
+pending rmap_items below it are freed (as get_next_rmap_item() would).
+The page is reported back to ksm_do_scan() as ERR_PTR(-EAGAIN), which
+counts it as scanned and continues, so the pages_to_scan budget is
+preserved.
+
+The all-zero check (pages_identical() against the kernel zero page) reads
+the whole page. For a non-zero page this is a net win: the extra page read
+is cheaper than the rmap_item allocation and the stable/unstable tree
+operations it would otherwise trigger.
+
+A page that is zero now but is written before cmp_and_merge_page() runs
+is still handled correctly, because the checksum-based decision in
+cmp_and_merge_page() (added by the previous patch) is the authoritative
+one.
+
+Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+Co-developed-by: Jinjiang Tu <tujinjiang@huawei.com>
+Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
 ---
- drivers/mtd/nand/raw/r852.c      | 114 ++++++++++++++++++++++++---------------
- drivers/mtd/nand/raw/r852.h      |   1 +
- drivers/mtd/nand/raw/sm_common.c |  15 ++----
- drivers/mtd/nand/raw/sm_common.h |   2 +-
- 4 files changed, 76 insertions(+), 56 deletions(-)
+ mm/ksm.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
 
-diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index bf1c1be7f2aa..63f686d3a660 100644
---- a/drivers/mtd/nand/raw/r852.c
-+++ b/drivers/mtd/nand/raw/r852.c
-@@ -625,16 +625,34 @@ static void r852_update_media_status(struct r852_device *dev)
- 	spin_unlock_irqrestore(&dev->irqlock, flags);
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 49f3728a3d03..e641c37ee096 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -2535,6 +2535,69 @@ static bool should_skip_rmap_item(struct folio *folio,
+ 	return true;
  }
  
--/*
-- * Register the nand device
-- * Called when the card is detected
-- */
-+static void r852_chip_release(struct nand_chip *chip)
++/*
++ * Determines whether a candidate page should be skipped entirely when
++ * only_merge_zero_pages is enabled, before an rmap_item is allocated for
++ * it.
++ *
++ * A page that is not all zeros carries data and can never be merged with
++ * the kernel zero page, so there is no point in allocating an rmap_item
++ * for it. Skipping it here avoids the rmap_item metadata cost that full
++ * KSM would otherwise pay for every non-mergeable page.
++ *
++ * @rmap_list: head of the per-mm pending rmap_item list
++ * @addr:      address of the candidate page
++ * @folio:     folio containing the candidate page
++ * @page:      the candidate page
++ *
++ * Returns true if the page should be skipped (and any stale pending
++ * rmap_items below @addr are freed), false if it should be processed.
++ */
++static bool should_skip_non_zero_page(struct ksm_rmap_item **rmap_list,
++			     unsigned long addr, struct folio *folio,
++			     struct page *page)
 +{
-+	kfree(chip);
++	struct ksm_rmap_item *rmap_item;
++
++	if (!ksm_only_merge_zero_pages)
++		return false;
++
++	/*
++	 * Pages already merged by KSM are handled by cmp_and_merge_page();
++	 * do not skip them here.
++	 */
++	if (folio_test_ksm(folio))
++		return false;
++
++	/*
++	 * An all-zero page is exactly what we want to merge with the kernel
++	 * zero page; process it.
++	 */
++	if (pages_identical(page, ZERO_PAGE(0)))
++		return false;
++
++	/*
++	 * The page carries data: free any pending rmap_items that are below
++	 * it (they are stale, as get_next_rmap_item() would), and skip it so
++	 * no rmap_item is allocated for it.
++	 *
++	 * Compare the masked address, unlike get_next_rmap_item() which
++	 * compares the raw rmap_item->address (which may carry the
++	 * UNSTABLE/STABLE_FLAG bits). That is intentional: a pending
++	 * rmap_item at the same address as a non-zero page is stale and must
++	 * be freed here, not returned for processing.
++	 */
++	while (*rmap_list) {
++		rmap_item = *rmap_list;
++		if ((rmap_item->address & PAGE_MASK) > addr)
++			break;
++		*rmap_list = rmap_item->rmap_list;
++		remove_rmap_item_from_tree(rmap_item);
++		free_rmap_item(rmap_item);
++	}
++	return true;
 +}
 +
-+/* Register a new chip instance for each inserted card. */
- static int r852_register_nand_device(struct r852_device *dev)
- {
--	struct mtd_info *mtd = nand_to_mtd(dev->chip);
-+	struct nand_chip *chip;
-+	struct mtd_info *mtd;
-+	int ret;
- 
- 	WARN_ON(dev->card_registered);
- 
-+	chip = kzalloc_obj(*chip);
-+	if (!chip)
-+		goto error1;
+ struct ksm_next_page_arg {
+ 	struct folio *folio;
+ 	struct page *page;
+@@ -2737,6 +2800,16 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 			if (tmp_page) {
+ 				flush_anon_page(vma, tmp_page, ksm_scan.address);
+ 				flush_dcache_page(tmp_page);
 +
-+	chip->legacy.cmd_ctrl = r852_cmdctl;
-+	chip->legacy.waitfunc = r852_wait;
-+	chip->legacy.dev_ready = r852_ready;
-+	chip->legacy.read_byte = r852_read_byte;
-+	chip->legacy.read_buf = r852_read_buf;
-+	chip->legacy.write_buf = r852_write_buf;
-+	chip->controller = &dev->controller;
-+	nand_set_controller_data(chip, dev);
-+	dev->chip = chip;
-+	mtd = nand_to_mtd(chip);
- 	mtd->dev.parent = &dev->pci_dev->dev;
- 
- 	if (dev->readonly)
-@@ -642,8 +660,17 @@ static int r852_register_nand_device(struct r852_device *dev)
- 
- 	r852_engine_enable(dev);
- 
--	if (sm_register_device(mtd, dev->sm))
--		goto error1;
-+	ret = sm_scan_device(mtd, dev->sm);
-+	if (ret)
-+		goto free_chip;
-+	ret = nand_set_release(chip, r852_chip_release);
-+	if (ret) {
-+		nand_cleanup(chip);
-+		goto free_chip;
-+	}
-+	ret = mtd_device_register(mtd, NULL, 0);
-+	if (ret)
-+		goto put_chip;
- 
- 	if (device_create_file(&mtd->dev, &dev_attr_media_type)) {
- 		message("can't create media type sysfs attribute");
-@@ -653,8 +680,15 @@ static int r852_register_nand_device(struct r852_device *dev)
- 	dev->card_registered = 1;
- 	return 0;
- error3:
--	WARN_ON(mtd_device_unregister(nand_to_mtd(dev->chip)));
--	nand_cleanup(dev->chip);
-+	WARN_ON(mtd_device_unregister(mtd));
-+put_chip:
-+	nand_disconnect(chip);
-+	dev->chip = NULL;
-+	mtd_put_master(mtd);
-+	goto error1;
-+free_chip:
-+	dev->chip = NULL;
-+	kfree(chip);
- error1:
- 	/* Force card redetect */
- 	dev->card_detected = 0;
-@@ -667,16 +701,19 @@ static int r852_register_nand_device(struct r852_device *dev)
- 
- static void r852_unregister_nand_device(struct r852_device *dev)
- {
--	struct mtd_info *mtd = nand_to_mtd(dev->chip);
-+	struct mtd_info *mtd;
- 
- 	if (!dev->card_registered)
- 		return;
-+	mtd = nand_to_mtd(dev->chip);
- 
- 	device_remove_file(&mtd->dev, &dev_attr_media_type);
- 	WARN_ON(mtd_device_unregister(mtd));
--	nand_cleanup(dev->chip);
-+	nand_disconnect(dev->chip);
- 	r852_engine_disable(dev);
-+	dev->chip = NULL;
- 	dev->card_registered = 0;
-+	mtd_put_master(mtd);
- }
- 
- /* Card state updater */
-@@ -734,7 +771,7 @@ static irqreturn_t r852_irq(int irq, void *data)
- 	card_status = r852_read_reg(dev, R852_CARD_IRQ_STA);
- 	r852_write_reg(dev, R852_CARD_IRQ_STA, card_status);
- 
--	if (card_status & (R852_CARD_IRQ_INSERT|R852_CARD_IRQ_REMOVE)) {
-+	if (card_status & (R852_CARD_IRQ_INSERT | R852_CARD_IRQ_REMOVE)) {
- 
- 		ret = IRQ_HANDLED;
- 		dev->card_detected = !!(card_status & R852_CARD_IRQ_INSERT);
-@@ -752,8 +789,10 @@ static irqreturn_t r852_irq(int irq, void *data)
- 
- 		/* let, card state to settle a bit, and then do the work */
- 		dev->card_unstable = 1;
--		queue_delayed_work(dev->card_workqueue,
--			&dev->card_detect_work, msecs_to_jiffies(100));
-+		if (!dev->removing)
-+			queue_delayed_work(dev->card_workqueue,
-+					   &dev->card_detect_work,
-+					   msecs_to_jiffies(100));
- 		goto out;
- 	}
- 
-@@ -841,10 +880,14 @@ static const struct nand_controller_ops r852_ops = {
- 	.attach_chip = r852_attach_chip,
- };
- 
-+static void r852_controller_release(struct nand_controller *controller)
-+{
-+	kfree(container_of(controller, struct r852_device, controller));
-+}
++				if (should_skip_non_zero_page(ksm_scan.rmap_list,
++						     ksm_scan.address, folio,
++						     tmp_page)) {
++					folio_put(folio);
++					ksm_scan.address += PAGE_SIZE;
++					mmap_read_unlock(mm);
++					return ERR_PTR(-EAGAIN);
++				}
 +
- static int  r852_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
- {
- 	int error;
--	struct nand_chip *chip;
- 	struct r852_device *dev;
- 
- 	/* pci initialization */
-@@ -866,42 +909,28 @@ static int  r852_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
- 
- 	error = -ENOMEM;
- 
--	/* init nand chip, but register it only on card insert */
--	chip = kzalloc_obj(struct nand_chip);
--
--	if (!chip)
--		goto error4;
--
--	/* commands */
--	chip->legacy.cmd_ctrl = r852_cmdctl;
--	chip->legacy.waitfunc = r852_wait;
--	chip->legacy.dev_ready = r852_ready;
--
--	/* I/O */
--	chip->legacy.read_byte = r852_read_byte;
--	chip->legacy.read_buf = r852_read_buf;
--	chip->legacy.write_buf = r852_write_buf;
--
- 	/* init our device structure */
- 	dev = kzalloc_obj(struct r852_device);
- 
- 	if (!dev)
--		goto error5;
-+		goto error4;
-+	error = devm_nand_controller_init(&pci_dev->dev, &dev->controller,
-+					  r852_controller_release);
-+	if (error)
-+		goto error4;
- 
--	nand_set_controller_data(chip, dev);
--	dev->chip = chip;
- 	dev->pci_dev = pci_dev;
- 	pci_set_drvdata(pci_dev, dev);
- 
--	nand_controller_init(&dev->controller);
- 	dev->controller.ops = &r852_ops;
--	chip->controller = &dev->controller;
- 
- 	dev->bounce_buffer = dma_alloc_coherent(&pci_dev->dev, R852_DMA_LEN,
- 		&dev->phys_bounce_buffer, GFP_KERNEL);
- 
--	if (!dev->bounce_buffer)
-+	if (!dev->bounce_buffer) {
-+		error = -ENOMEM;
- 		goto error6;
-+	}
- 
- 
- 	error = -ENODEV;
-@@ -961,9 +990,6 @@ static int  r852_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
- 	dma_free_coherent(&pci_dev->dev, R852_DMA_LEN, dev->bounce_buffer,
- 			  dev->phys_bounce_buffer);
- error6:
--	kfree(dev);
--error5:
--	kfree(chip);
- error4:
- 	pci_release_regions(pci_dev);
- error3:
-@@ -976,6 +1002,11 @@ static int  r852_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
- static void r852_remove(struct pci_dev *pci_dev)
- {
- 	struct r852_device *dev = pci_get_drvdata(pci_dev);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&dev->irqlock, flags);
-+	dev->removing = true;
-+	spin_unlock_irqrestore(&dev->irqlock, flags);
- 
- 	/* Stop detect workqueue -
- 		we are going to unregister the device anyway*/
-@@ -995,9 +1026,6 @@ static void r852_remove(struct pci_dev *pci_dev)
- 	dma_free_coherent(&pci_dev->dev, R852_DMA_LEN, dev->bounce_buffer,
- 			  dev->phys_bounce_buffer);
- 
--	kfree(dev->chip);
--	kfree(dev);
--
- 	/* Shutdown the PCI device */
- 	pci_release_regions(pci_dev);
- 	pci_disable_device(pci_dev);
-diff --git a/drivers/mtd/nand/raw/r852.h b/drivers/mtd/nand/raw/r852.h
-index 96fe301d15da..a89ab61ea51e 100644
---- a/drivers/mtd/nand/raw/r852.h
-+++ b/drivers/mtd/nand/raw/r852.h
-@@ -128,6 +128,7 @@ struct r852_device {
- 	struct delayed_work card_detect_work;
- 	struct workqueue_struct *card_workqueue;
- 	int card_registered;		/* card registered with mtd */
-+	bool removing;			/* stop card work during PCI removal */
- 	int card_detected;		/* card detected in slot */
- 	int card_unstable;		/* whenever the card is inserted,
- 					   is not known yet */
-diff --git a/drivers/mtd/nand/raw/sm_common.c b/drivers/mtd/nand/raw/sm_common.c
-index e238784c8c3e..a79e3c3c77d1 100644
---- a/drivers/mtd/nand/raw/sm_common.c
-+++ b/drivers/mtd/nand/raw/sm_common.c
-@@ -182,28 +182,19 @@ static const struct nand_controller_ops sm_controller_ops = {
- 	.attach_chip = sm_attach_chip,
- };
- 
--int sm_register_device(struct mtd_info *mtd, int smartmedia)
-+int sm_scan_device(struct mtd_info *mtd, int smartmedia)
- {
- 	struct nand_chip *chip = mtd_to_nand(mtd);
- 	struct nand_flash_dev *flash_ids;
--	int ret;
- 
- 	chip->options |= NAND_SKIP_BBTSCAN;
- 
- 	/* Scan for card properties */
- 	chip->legacy.dummy_controller.ops = &sm_controller_ops;
- 	flash_ids = smartmedia ? nand_smartmedia_flash_ids : nand_xd_flash_ids;
--	ret = nand_scan_with_ids(chip, 1, flash_ids);
--	if (ret)
--		return ret;
--
--	ret = mtd_device_register(mtd, NULL, 0);
--	if (ret)
--		nand_cleanup(chip);
--
--	return ret;
-+	return nand_scan_with_ids(chip, 1, flash_ids);
- }
--EXPORT_SYMBOL_GPL(sm_register_device);
-+EXPORT_SYMBOL_GPL(sm_scan_device);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Maxim Levitsky <maximlevitsky@gmail.com>");
-diff --git a/drivers/mtd/nand/raw/sm_common.h b/drivers/mtd/nand/raw/sm_common.h
-index 57fc9f86f9ee..d8a330d6b730 100644
---- a/drivers/mtd/nand/raw/sm_common.h
-+++ b/drivers/mtd/nand/raw/sm_common.h
-@@ -33,7 +33,7 @@ struct sm_oob {
- #define SM_SMALL_OOB_SIZE	8
- 
- 
--int sm_register_device(struct mtd_info *mtd, int smartmedia);
-+int sm_scan_device(struct mtd_info *mtd, int smartmedia);
- 
- 
- static inline int sm_sector_valid(struct sm_oob *oob)
-
+ 				rmap_item = get_next_rmap_item(mm_slot,
+ 					ksm_scan.rmap_list, ksm_scan.address);
+ 				if (rmap_item) {
+@@ -2839,6 +2912,15 @@ static void ksm_do_scan(unsigned int scan_npages)
+ 		rmap_item = scan_get_next_rmap_item(&page);
+ 		if (!rmap_item)
+ 			return;
++		if (rmap_item == ERR_PTR(-EAGAIN)) {
++			/*
++			 * A non-zero page was skipped under
++			 * only_merge_zero_pages: it was examined but not
++			 * merged, so count it as scanned and keep going.
++			 */
++			ksm_pages_scanned++;
++			continue;
++		}
+ 		cmp_and_merge_page(page, rmap_item);
+ 		put_page(page);
+ 		ksm_pages_scanned++;
 -- 
-2.53.0
+2.34.1
 
