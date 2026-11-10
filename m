@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323934;
-	b=AjOccgTQj3Pe7O5jnw2zEz/hxLtPOuKtNTRXWU1/1uKIJQOQOLmsRGPLM58a8Equ8G1x
-	 6gB2dG2MYPVOo7U4sgqeBo2IsuV9Zf0DhI2lQk2/F6YtRRd+TlM6Ya+aqd7tHa+fHgUEw
-	 +QN6CU+RpLOIlOJSkx5ibo52hcKXByRdmcHWL/ZgLIW+lVqy1TmPgxfJXfD9P8eGtCBOG
-	 cssj6dgOLmLRaEHpbQyZV0oJ1jd8qr5FwRwVqO7cOT71mpsYi7Jgr6jdmYs1WY5BKj7/s
-	 Bact6ku/dYO6VUyJysNl3cdLHeYdRjCabtM3A+/CJKWLDUkO5jd8Oq24xalO+ecDZWQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323934;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794323939;
+	b=g0FTANhbndEPvbEv9bPBKcrN18NEarNMxkbDr/B4d776aN1dbVN8jZk6oBPlx3wu4PvS
+	 H6x8b6mxLtFWrD+gplaju74o8qzXH8mqwoWqzD6Yro+PL3YRH9X3aKzxOKCqs99o9gEa6
+	 Asjg6zLZOocL+J24dlEFfWW7ohmQNGE2fKdt1/WUAHhOD8aZAxHSNsjIummdsXOQwhNyf
+	 TdN3NJSA6Y26/tNH1MVr/wHYqJRYxCplba/CxFLtAFJqfe2tOKvYPcavqGjXGgWw9D3kX
+	 +Pe45anH8JbDVVeVZezSENTckI0v2njh1qb+9IcfqCnW+DZR9QxQmws0Eyjug20/UzA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323939;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=O2sQ0ppPahwiNKXBETtZDPbw3npwpVnR3zhVdoKxb8A=;
-	b=ZOI0p4JikDy7jU3XOW8pavKqhaDfpdX7+bLCGQAhf438GgcjEJxLOU5/rddY+by+AlpM
-	 jDLFNZd3GnBt5f2a91ZQLxnMUANev8e0MMV3XcGzMjm0ZD2xVi8pfk+oup018N/w/GSm0
-	 fZHzB2a6PhfA26OSk7x25YQ5hMhc64Bm+bKMzewQvNd2AUEqv4ozhrusLeB4hRQhd9jEu
-	 /szDpBWQMm+MqMF7K77mvlGyJmHRuNu967vdmgoc6gHSqlPNqNxNiRGEIRfgiTbo2S9qT
-	 e3pL9HxJzpPo3xEXH2J/nZ3HCT5/WqEd5BZVguj16HBnmpQ5teZzwgQMmwWf+2bE7Qg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=HnKStyw5;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8b5Lf6ftuHfcfsHEGu+mKO1MgoMJIgVznAg6v4ATrxI=;
+	b=ucop/vl3OxOX9S2t5Cdn2WYgkTXIGbYd6z7C4hMi0JKW033xAvlOQJCBvadq8ouGj7nz
+	 lRrpV6CWUWSb7QVqk4jqrP3TLow+6tY7+3nsd/5yVctVybnKnsHWkNVgYaNuLjAfMKilk
+	 jlgl0zYJ4EUzKNU+YULMx9w5LM5JPCvdSz95f4SjdU1euGCprJee1wyvKSBrGr+A9TqVD
+	 fpfYXkdm83Q2F6+FXlL0l/XjffXpvI9Pqo3TQ812mWr27vFQjte8eYwXEpAPFOu8WY5as
+	 HhlCHSUrz3cG7Jm2YKEBuz/VElEDQOUl28YkcfKhETOuyoVPbOxu9CgA2OAs6qTkUUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DkFnpnrn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED4F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED4F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3380F606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:18:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3380F606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=HnKStyw5
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f22a8515eso173341085a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:18:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DkFnpnrn
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b579ed8da6so10503a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:18:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794323937; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SzbWzETEebEpIEati0FEhXt5hP9MUa8N9OTnkVXSonwStVik/v4LlLPAZy4AxEg9gp
+         kyTUX5WmSpqEuKa80vyc4IWmPrtOBs0MY+LJ4TxrKR3PrK55JEja0pvWNVNaWcEfYG0x
+         pWnhwmdN01Se4GJPMYbCiGAyrRbd7cG5JIY6eSpB0hb9HTl7HDmTEMw/Vqm6D5RTwXuM
+         2+oVPGC3EvyvIrqkNSu/VKOR6Z1dfLjdpPTtBtNaEBocpkh3ZaiHVWFvZ24zjy3u+hFa
+         lBoPDtfI9NL6XAPAwVVmHaQTi91Cc4zhJ7jKGGqh0zL/J95p11q2Mw2hazWGbv6qRsCL
+         X6ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8b5Lf6ftuHfcfsHEGu+mKO1MgoMJIgVznAg6v4ATrxI=;
+        fh=tgRdbYRYxfqMtN8TOtpDQfK7AnsYlE0PD7YEIsgJUmI=;
+        b=A57nsYS0cdm+ARgZ2iFYyN7QXwbC+pUE2biqCSfqM4xB0BWTPB4apBwru6/fW7hm6i
+         sdlcGayNvK+ftwO7i0VjrtON/Qx9j8eMrstyuugfHPejZuKLEaSO8jGwRLHPZwmv8x2o
+         miU64Jq8tUOOjtX2Ua++MHO/nlZHNNHZg5uKUs45zi+6DoeHZ8jYFP7hf4Q5Vsxo5U7C
+         SpTqxTn3nNgQepbfdT/kEOA+l1BB3a+V6WQ/S7YNj+nbMNC9pqFFM3oyt5OpWh9JF437
+         GFhnxqMzchMeDmKO284zGqZbO5gvzKx511HPSiH05I2q8qxq8H9Hxv2gT+Y4/7eP60Lo
+         cP+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794323933; x=1794928733; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20260707; t=1794323937; x=1794928737; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=O2sQ0ppPahwiNKXBETtZDPbw3npwpVnR3zhVdoKxb8A=;
-        b=HnKStyw5EJ2eGCPo7Z0CrYa9Ndf916KmXsE2Nca0VPt7vNluUfo07bahaJiiw7pSRM
-         lO4kD7KLyBgHyc9n5Zg2C3E06RwlBcSrCNN1t3nuyMTzid9DWL29d1XqN8vXj6lxkOTI
-         RJZEtUUbL/aE2R7IuQi8EAMN9OTluDBKAtYAEdSyO8R0BSzdqE5QlBTtR7LHPHjKJowC
-         ymo/0hmJbJg+RHZl9FeLHUxzWPgK5c8zsOmDmhpi6KlOlsrP/NbVNO2qFjtYD9Cx/S2H
-         mCLUeNDPL3lX0pDm54Jh6npc8WF46JpBRwwMJsTVCvaAMhHQlJM59Iym5mRuOn9aI4DC
-         vYnw==
+        bh=8b5Lf6ftuHfcfsHEGu+mKO1MgoMJIgVznAg6v4ATrxI=;
+        b=DkFnpnrn5TC82izVUP0czbyz0fTQu7loOv+7RMhOUfxqgVQyQK8xRT48c5cGZJrO0W
+         GxjtB73kgdM2ZJHvY2AlgdypJVdLsnATQv1z1UEYLQv/gshzrDOnDIu/KztkeyhPTs4e
+         DlnxDrte2uNzhZ21rwlxzaGexFaV31ZjTbokugr8bxKlyJiGC34Yk+yHCCYlHj7/e/aB
+         6KHuiLltdVN4V9oc02S4cw8+CGuy1jl4oyncgzmbkYl8PrWIhofQuGOULf2QioHkL1Vb
+         cULrTVeBbG1Rg9bXiHPqhZ4nFcPVPYTiY+stj8DtglpnFTNgBy2WVnWwIxf9wtDIBdD2
+         +z3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794323933; x=1794928733;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794323937; x=1794928737;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O2sQ0ppPahwiNKXBETtZDPbw3npwpVnR3zhVdoKxb8A=;
-        b=EAslZraAkX5Kb/Oq+hGR9ZdsyxvBMb8+a0JbaHHEC+JgCf7EkByB6lcw1Pr7xFwBy/
-         x3YiPLkLIN2YLbWJ2rocrHmfaR5u3S881v6iB8cANMN0x1AQO84Ytp3fksYtt0DZsyZC
-         P4kb/Y9NMkB6kd4EN+VexWIMUEI6JGaD9fmjC1FZrVYPgWcQZPh5410/sfRHzF/bSMZD
-         SfYvsffwMGTZ1TSILeRzmJcWzbLI093zPO4y2jjeCSEDBDFCdyeu7zJw0V7RjXouu3ne
-         Otgs7d316BBQdLKc9qgun5oUCeDYDIP6PUHmF68cswZmWFyRVNRFll4dVL507xAPTRqN
-         b8DQ==
-X-Forwarded-Encrypted: i=1; AL+hErHilSEevG8FBljHTAqjHFD6YFFYFibgypCFNIUsofxEK6llAbY4Z9INJSVMqMDX/PGhT262bRUJN9A8p1A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81FLYtyEcPEOlrwYluop7LYZkxHKC1L6egzvXsx5L+Ve62ilw8
-	ZYVniUZVDjjDqR1bakV/saQbGd5nc4R5kybffE6guLs2QKG645s02gFO77vmES92tyM=
-X-Gm-Gg: AYBFou0nBSbR5nm8VksNcOO+Srploh64ySz+CWaCcuxliBTC7M51tTHxP4kAtxBPQsG
-	4tVgWM4SsEpZQ2ud+1JyJ5CxwyxU31RNIApBiZyotRWEMoU32yvFhvn3oB3vE0OkQtOfT8Zbjw9
-	1xn4w0CQtmqQEydagwu1RotcqqQGeIXLrZXNuTBjG/aoMwSwVk0QeL43FlfbP6BLL5McR+Cbzra
-	eci8EQVf6VCc5cW0/o/eXqqdiQpGleX1JZ50j6MvxVYxoHMbL3heFuGE00lbrKdBi+7vzYJpZEm
-	eboysbfm+ukVkIHxGMGc3KU9+Xv/o9oBWhMAwJ8EQldo+a1it7I/O7UKWm/g2yIs9oaPZHueANt
-	Rx6KseDEOT8S+qToxsBi/WKWhu9p4YaPiYmfu0P8+Rjba746V5pO8CZFuoB1NrqIpv75TYqnhEI
-	3V04qUSsz9LBsFaF5RZXVAko9qmY7T47cH6EZEUAOznU2E7iDpR/NnJbF5amHsEB4ZOQL0/5zqO
-	nn1A/rNgp4qeJw+YmzmhTdQZy8GxYdRtpCjWGBudA4YtiUqfXyE912klySMMkFZvnCCzqlqrpmy
-	dfLhOx6K3Oy00hOvXXE2UYP84lUcKG9m1Co+U0ggYO+Ms+xUfs3ZoZ88MYPHgIFLNt3+duZpUad
-	1kqu0oPsV55s=
-X-Received: by 2002:a05:620a:461f:b0:946:6:1298 with SMTP id af79cd13be357-9479f323170mr465893185a.52.1794323932611;
-        Tue, 10 Nov 2026 07:18:52 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04f89c1sm22998676d6.23.2026.11.10.07.18.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:18:50 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xQncX-000000063UD-2Q7t;
-	Tue, 10 Nov 2026 11:18:49 -0400
-Date: Tue, 10 Nov 2026 11:18:49 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: xuheng@cs.columbia.edu, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iommu/arm-smmu-v3: Invalidate a new level-1 stream table
- descriptor
-Message-ID: <20261110151849.GZ663069@ziepe.ca>
-References: <20261109-smmu-l1std-cfgi-v1-1-65e5203a6516@cs.columbia.edu>
- <avMxDbv6JE0dg93E@google.com>
+        bh=8b5Lf6ftuHfcfsHEGu+mKO1MgoMJIgVznAg6v4ATrxI=;
+        b=NMuMBtZXtz84kyFCvGEkHa0Slnia7GHbNxW3jLJX1kuFPwqQMZy78wf5KIteF9S6cx
+         F8CsfQKpCBkBn5lRzqWyxs711JenjWkv8AHF0CUGW4s+i+0AsrwFyZp/lbf3O2f9Qj30
+         TxCkKFTFnUe4NX/d6VXN6ax/V59ppuFwsoaUFJK3uZpbcY94mhfhoEFtkLOHoCnwGjTO
+         FuIjA2UNZpRTg4f3Dtd2jLTgHnjX8Yfrz7kT5YNkBSwQUEpjdR/crseHYVWbPCj7Zbjp
+         R+4q0HNSIzxCXoUI5LPuE92PWVMckwNUS4hQJNidYeNpG+WefCGwYFnqCIWBwl8R+7G2
+         tCng==
+X-Forwarded-Encrypted: i=1; AL+hErHOQwWaSEg0CEj92/vZeh8iJtHnjT6B75GSq75aTNjfAbQk3vP0BPxuHPxasPRhfVHw0JNp/oxqQeeuF+M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Lw5idTJQZwplEb8ShxGwrlZrRrmfB4nMC9Dvis5rf8KtXggO6
+	m7nX5YohgjIvlsyrLoPuxirGqz47rkDwemhoBloem0c49VIr5tOkuKPgyN2Z40xORRFgiV8py9b
+	qYxvF035b1VbsREJChAE6fsvAzRdy6LQXsmZ7m4sc
+X-Gm-Gg: AYBFou2P66X1Y6r4gH/80STV9I+4oSzPQvI6RTEIodBnWetB3ZrwLLsFySKSO56rmqo
+	DitvwwQ+6yG5fN0dsL5qFaLJNXDxHSLqn4aiQwkA8//60k3Dysu5tA6Ep6BSsA4O8j8+xN8yio8
+	ONTBVv3uagHjaM5UTzKT0AfyGOG8EAe1wT/PyKzRis0NIAZWcc+Zq07lk3r3vl7zCkD0LbG9E0I
+	st4zael3IqR72b6Z4wf8LSHxn4c0cAK1cg4kFpra6weFA05LH0Z5lS2wh24V425kgy3rSNS9ovD
+	5ZwwcYIXM0BfKLwaOHIg4BEI4E//t2Fd05poV5vRi5xjDy8igMIfCS8aS1OLM/SGy2GxKXT3caE
+	S45DkwUlpNoc0qgxCGeXM32azHNbpwLJTbyZHnJD1nZ6kXNHnL6wooAqdOBg3hjowiJoLE35NMx
+	CQ+adpPIbKBsM6zp4ZxFtMzRDqPyYVYsyRfLjd0g4Mo+Pp5fmr
+X-Received: by 2002:a05:6402:a2c8:20b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b75a7c6522mr69526a12.16.1794323936977; Tue, 10 Nov 2026
+ 07:18:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,59 +105,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avMxDbv6JE0dg93E@google.com>
+References: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
+In-Reply-To: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 10 Nov 2026 07:18:43 -0800
+X-Gm-Features: AclHuK8YW4Gf8WqWPGeqjXKM_89-mP3P5tHV5hwbUgMRRbIQM_0XkyFdQ0hmOzQ
+Message-ID: <CAJuCfpH46gm3WknMGQdv7TYfnVRN2Xkw8v=J8RVPOBZRJrpEDA@mail.gmail.com>
+Subject: Re: [PATCH] mm/vma: predicate vma_assert_stabilised() on CONFIG_DEBUG_VM
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Lance Yang <lance.yang@linux.dev>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Seunghyun An <san55@wisc.edu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 02:58:21PM +0000, Mostafa Saleh wrote:
-> On Mon, Nov 09, 2026 at 09:36:54PM +0000, Xuheng Li via B4 Relay wrote:
-> > From: Xuheng Li <xuheng@cs.columbia.edu>
-> > 
-> > arm_smmu_init_l2_strtab() allocates a level-2 stream table when the first
-> > master in its range is added, and makes the level-1 descriptor valid. It
-> > issues no invalidation, and the attach that follows sends only the leaf
-> > form of CMD_CFGI_STE.
-> > 
-> > IHI 0070 5.1.1 requires the non-leaf form of CMD_CFGI_STE when an L1STD
-> > changes, including when an inactive descriptor with Span == 0 becomes
-> > active. An SMMU that cached the inactive descriptor can keep terminating
-> > the master's transactions as if its StreamID were invalid.
-> > 
-> 
-> Looking at the spec it says:
-> 	An STE or L1STD that is successfully fetched might be cached by the
-> 	SMMU in any state, therefore any modification, commissioning or
-> 	decommissioning of an STE must be followed by a CMD_CFGI_STE command.
+On Tue, Nov 10, 2026 at 7:10=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> I introduced commit 17fd82c3abe0 ("mm/vma: add and use
+> vma_assert_stabilised()") with the intent of picking up programmatic bugs
+> when debugging mm code, but kept the general practice of asserting even
+> when CONFIG_DEBUG_VM is not set in line with existing code.
+>
+> However, it turns out doing so can cause performance regressions,
+> especially when asserted in vma_has_anon_rmap() which is referenced in a
+> number of hotpaths.
+>
+> Since the intent was always a debug-only assertion, explicitly check for
+> CONFIG_DEBUG_VM and do not assert if it isn't set.
+>
+> Really all of the assert paths need to be predicated on this, but start
+> with this one only, out of caution.
+>
+> Additionally, since a detached VMA is trivially stabilised (nothing to
+> stabilise against), check for this case at the outset, and update
+> vma_has_anon_rmap() to not explicitly need to check for this.
+>
+> This also, importantly, avoids reading any VMA fields if CONFIG_DEBUG_VM =
+is
+> not set.
+>
+> Target the commit which introduced vma_has_anon_rmap() for the fix, as th=
+is
+> is where the issue started manifesting in practice.
+>
+> Fixes: 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence =
+KCSAN")
+> Reported-by: Seunghyun An <san55@wisc.edu>
+> Closes: https://lore.kernel.org/linux-mm/20261110000002.1834454-1-san55@w=
+isc.edu/
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-I think the patch is pointing at this:
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-* Changing an inactive L1STD with Span == 0 to a non-zero active Span
-  (introducing a new section of level-2 Stream table) requires an
-  invalidation of the L1STD only. As no STEs were reachable for
-  StreamIDs within the span, none require invalidation.
-
-Which is really explicit what to do..
-
-> Which checks out. However, I am curious why this was not seen for
-> over 10 years with the current behaviour as I doubt any existing
-> implementation will do negative caching. Is that something that was
-> observed or found by inspection?
-
-Honestly I don't think there is much value in negatively caching table
-structure. Negatively caching the resulting leaf is good enough.
-
-> > @@ -2053,6 +2054,14 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
-> >  				   ARRAY_SIZE((*l2table)->stes));
-> >  	arm_smmu_write_strtab_l1_desc(&cfg->l2.l1tab[arm_smmu_strtab_l1_idx(sid)],
-> >  				      l2ptr_dma);
-> > +
-> > +	/*
-> > +	 * The SMMU may have cached the old, invalid L1 descriptor. Making it
-> > +	 * valid needs the non-leaf form of CMD_CFGI_STE (IHI 0070 5.1.1).
-> > +	 */
-
-All the versions are 0070, you should specify rev H.a if citing the spec
-
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-
-Jason
+> ---
+> Note that vma_is_anon_rmap() was introduced in 7.4, so no need for a cc: =
+stable,
+> just needs to be sent to Linus as a hotfix. Thanks!
+> ---
+>  include/linux/mmap_lock.h | 19 ++++++++++++++-----
+>  mm/vma.h                  |  3 +--
+>  2 files changed, 15 insertions(+), 7 deletions(-)
+>
+> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+> index 9ccbbcbd7aca..9c3a9c6525c1 100644
+> --- a/include/linux/mmap_lock.h
+> +++ b/include/linux/mmap_lock.h
+> @@ -408,6 +408,11 @@ static inline void vma_assert_locked(const struct vm=
+_area_struct *vma)
+>         vma_assert_write_locked(vma);
+>  }
+>
+> +static inline bool vma_is_attached(const struct vm_area_struct *vma)
+> +{
+> +       return refcount_read(&vma->vm_refcnt);
+> +}
+> +
+>  /**
+>   * vma_assert_stabilised() - assert that this VMA cannot be changed from
+>   * underneath us either by having a VMA or mmap lock held.
+> @@ -418,9 +423,18 @@ static inline void vma_assert_locked(const struct vm=
+_area_struct *vma)
+>   *
+>   * With lockdep disabled we may sometimes race with other threads acquir=
+ing the
+>   * mmap read lock simultaneous with our VMA read lock.
+> + *
+> + * Assert only if CONFIG_DEBUG_VM is set.
+>   */
+>  static inline void vma_assert_stabilised(const struct vm_area_struct *vm=
+a)
+>  {
+> +       if (!IS_ENABLED(CONFIG_DEBUG_VM))
+> +               return;
+> +
+> +       /* Detached VMAs are trivially stabilised. */
+> +       if (!vma_is_attached(vma))
+> +               return;
+> +
+>         /*
+>          * If another thread owns an mmap lock, it may go away at any tim=
+e, and
+>          * thus is no guarantee of stability.
+> @@ -454,11 +468,6 @@ static inline void vma_assert_stabilised(const struc=
+t vm_area_struct *vma)
+>         vma_assert_locked(vma);
+>  }
+>
+> -static inline bool vma_is_attached(const struct vm_area_struct *vma)
+> -{
+> -       return refcount_read(&vma->vm_refcnt);
+> -}
+> -
+>  /*
+>   * WARNING: to avoid racing with vma_mark_attached()/vma_mark_detached()=
+, these
+>   * assertions should be made either under mmap_write_lock or when the ob=
+ject
+> diff --git a/mm/vma.h b/mm/vma.h
+> index 3fc3b47a954b..05300badd70b 100644
+> --- a/mm/vma.h
+> +++ b/mm/vma.h
+> @@ -278,8 +278,7 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_=
+merge_struct *vmg)
+>   */
+>  static inline bool vma_has_anon_rmap(const struct vm_area_struct *vma)
+>  {
+> -       if (vma_is_attached(vma))
+> -               vma_assert_stabilised(vma);
+> +       vma_assert_stabilised(vma);
+>         /* KCSAN gets confused about the optimistic check. Silence it. */
+>         return data_race(vma->anon_vma);
+>  }
+>
+> ---
+> base-commit: 93d7a816a2df3e907e2719bd12b0073f1285fc5c
+> change-id: 20261110-vma-fixup-debug-asserts-2d327fe27f8c
+>
+> Cheers,
+> --
+> Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
