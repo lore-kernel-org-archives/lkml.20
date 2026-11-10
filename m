@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301400;
-	b=GIsvahUuNdPiA+ZHt6dLYginuvHqTbopvJOa6EAecWoWmqeeOeQNnnHqBtcjX1qihCFY
-	 nuZdGra2J3NgcRImh9SyxoyEihHwvTnFEEZhfVIVWFHZOOreNYTFt08pJv7r39J6laBtW
-	 JdSTffSe8ztc/dDt9WmfQfbLsSW9V4//LOcwZTNH16T0Co6KcQTrcMLYFy/b/dAZNN0XC
-	 +h12k/y3GlcHcIszqMfNIgBVQURnGQFy0GjuxiB6Nzsd/PbBRbMCXxViKeNKPS02QNKe7
-	 unUNUo0eKvhpnUuppQRgQqWDCSuseP44Z62UIOkpWFmMNIaEF2RPGGZCNqhkbxb4dEQ==
+	t=1794301407;
+	b=2rmfbB6PGl7Wo1tLXlsH324+6KHiZDq7AflMQW7KyZ/jMCzKnRYVfSX6EWP6GlgvzI1e
+	 A9kjtKc7l7eg9vr2dcQS0+nF4LrOXNbX5JN/m5dnMqQyMkZdfrvkOTkbhYiTQz+bVk5gQ
+	 dhMKwcXywtaQ54xl3/pJIdtKWQVCn6xlqBvN8JadqxszfEtOc0atvuQAasH9x5DP36h32
+	 +1cY/30RB8OGclJjXIukkbsSTZ3RRbF2Z5HoXI4KMlQMjF/p9gC0xs7Mugyz9sFP4xoR0
+	 T/zdhceRPI5fLmijM5WZS7zSav6isxtnsVLJTuobVBIRo/mZ9/1GrHULFwzDt965Z5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301400;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=iV+Waf7jutjSxFSyqvs4NPIRg2kLw+pP00ZuH8Bx1Uw=;
-	b=IESOsUnPIaFPtVDn08x5y7dEBq4YMaOW7U6wh8iBixr547Dnvbc+xxL1/67T/FNLWQnw
-	 9M9J3N09qxu2krox5lCkUJKYsYaLxoHzhKDVucfYAMS7vtY25SBUcP9mEsY7mZVo7oW0n
-	 EWPgd7Bqy4pTv7kgis35UD2z6aHdtovntwEyUGTPoPaAZ2kJ4zLArUBZxrdl+RQ21B66d
-	 0+W46Q/LW4iwYWumEyYaG6wWKfBI9qYI/ggzAx+Y9by45Aav/BX3EOp5uR3mJ/w1DWRUZ
-	 WMWduP7bkslSVim5vaNQ/fczLhEQj/JNiao0DLIfBh0cyzJ5ZXH+XeOm48sZL1l8sxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301407;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
+	b=l6/Wm+++SUoWS8Ud/YF/jkHIfz3FNkp549nv/oeJg+Mamzpxs9dE9A2OvR0cbLvSmvi9
+	 8m/enEH7EdGLx4xSW7cmX/t3hdeN8WZFgXsbz+1fClLUamU1b6bGeIins3tlswvjF1JzY
+	 StEI6MiKfvPlqklWpBorooHNsKn9ZbBVH0vb764syZfQzYYVURQN07Ul5ZVg4OgANcBPa
+	 cKvGtD4O+5N6XLrlomyfKxfKnm5bdjH5SniCQ5YW1wmjSakYDpfAsp8kQhPKUsrF5JIQ8
+	 J74BejMHobxjo6wfvelSBIavbTkXxVf89v4UujWhyposBzonusp++NdiTw6Ykxln9EA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=QvvCcZll;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k36dh6iD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734E7606A321;
+	Tue, 10 Nov 2026 09:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k36dh6iD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794301407;
+	b=rKX0OX0hMepRHCMfc+Mk2PWDPtvFo/y5wemS8M989MosE1mySnlLpxcC8/Y6SfjINIv+
+	 RTVw+hdRQvb6+EoXADHVp5J8X2Rv1EQIf5ogdA5aALHbMwiU3sPMgFLERnV0UN2+jjbpU
+	 iPHcP9y2XfHWp8hP9UiWN9ShRsU4RaO53Al2hkXJQq9FeGg+gLgKkQC4/s+SJ09skad3/
+	 8V0jBO0snqJU7FMLEwm2v4W9Gxnv2dmNMiHDUUux/rUrScA7s3ygsMCka3eEwO/kTq587
+	 L6HUztBxHnZevY/jPS7XohGs66a/vF0hGJufsLzRMx68nbI3/ELCuLy/2doWn8eQs0Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794301407;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
+	b=DFuxtGeOzxhNDcZKdO/4iOK+5UX4rp/vGtsUV+gYsn3bSVqHFLu9H8zdaYyUbN6QuZV3
+	 Ossh8LTqndIoR3BtATNFxz7J6Y2f2cp4jOBWgr8aKYs1IbQ+ykxUWTlk/W0P8DS4v+BB5
+	 zMdW641gnJjIfmAa0PeIaW9d0b6fAsxfsDZ+YgyRynW4coAWwxAV720xJ9WyPFu3mm/Qi
+	 bnCm5xayYsAHv7JSDmRPr/oNVjSfWSz/h9oE0kQZ318CSWlzzek7ZulE/GqxjvZgnHHub
+	 MTRGZonDPCLwazc2tTFfA7V3jwuKWk+HJMAmpZRnCT0lrxJNeWgUvV1hi42XCYqG6LA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4186F60A2608;
-	Tue, 10 Nov 2026 09:03:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4186F60A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=QvvCcZll
-Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
-	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D73142004B4;
-	Tue, 10 Nov 2026 10:03:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794301396;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iV+Waf7jutjSxFSyqvs4NPIRg2kLw+pP00ZuH8Bx1Uw=;
-	b=QvvCcZll9nfoiX1LGBmwAWaz6C6URPecwdmuRNKhH7Vaxzrks7ds2pGmx0BDm22nRr39nE
-	32fqoNq+aEWysvMQHvRxHgZh+RvwpWPndblh1y9HFDTGdPQs2lZVwzK80yaQ/jGekcBYjr
-	kHNwgUGK+0nIqqWjqOZOrI3SnH1oHRKmq1r+KtIDtIPUD3O9b6/1gnEKlsQ5zwqk9NZRiW
-	Aw2AQ+CHVt/a0njDG3sit1+b3djTP4RguSZgrAgExLN+cvUsbevpmElViK/w1blz/m+fPc
-	qMpb7nRgBjkUqc1uwtKd3FK8Ab4S25xoLRg/Feifkk5UOP3ffVYs02iV5CylVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794301396;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iV+Waf7jutjSxFSyqvs4NPIRg2kLw+pP00ZuH8Bx1Uw=;
-	b=QnIBYVzDajT2AtGOEnK+v3EQQUuXrCBTbHddGThqt7eXyM8Sw1mktO3/kdQxlq4KGUbeRn
-	1mCHEnV1ezBU4VnEmLDrFUBE9UfKkJ3uYmhNVUZe+9D8gcM826L+wI9+surjnEr1K2/lgx
-	JiGnEMZ2O8Bk6kXJB0mHQZ29KrBV2a1umqA9I0jkbI6nckFiNaUvvXMI0MGpa2wTdbcOjP
-	ybBlW0ppcMZyBS0rYgepNLIVYolZDybTKdg+gOdYUilw6IVo5nSxrf+XbvOE27Fbj7uCsH
-	heCcX8vdNDYnBr4p6vmjLzUw44hvWOuxFTCYOUj5A/CP0AFDOXJ3s9bJj3vHFw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794301396; a=rsa-sha256;
-	cv=none;
-	b=ADxZs/pwwc0+vefYfA7cO36TgOleG6Nie6SziGqCXfoBX3SR8EY3a0A6gm1RUqMt+AEeyV
-	LuZDpEhwwsytB7bCZeBDz0cIg+lPURnf+Qy89RZvz1UlOD7kZ5nf+RkfifnNnzaPDZuBnK
-	rIEAM3mctVpdfYYTHQrcudSK5/gn9hDXJpYpgdmwOxRGFhvb6NY53D10V/0EUTkXI6yVEe
-	21IdCjiHiaPv8C+xSdipkvLYVa/60BHsgLu3Mwp280DJxB3kAlvajvo6FD3plibQPagwJL
-	rgzTyGsBc24YdnGU/57nGSnDSxNXpALZcldo6aCubZIpsbSKGPxo4KMux2chgw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Tue, 10 Nov 2026 10:03:08 +0100
-Subject: [PATCH] arm64: dts: xilinx: drop unused #phy-cells from the
- DP83867 nodes
+	by smtp.kernel.org (Postfix) with ESMTPS id B7C541F008AB;
+	Tue, 10 Nov 2026 09:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794301407;
+	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=k36dh6iDdVvvAa3/qZ0yNWwlkRnSDdY/StCsP0nrMRnp4Ac/Lhgkp4B/U/yFKg4TO
+	 82EYAijRN2sTqfORWiKwaizVXmPyGHe8Ia6wuHbJgLHIqH3Bnkr84A0aLlvsBYE+pq
+	 MjyV3JYYBYZMme+Mdho9vwJg8qF/nSNHTDxNHErQPzCbdFaVqOFUF20XTdij75HX8U
+	 Q9IzVqyK133uV68ykf3SFV9UnCHFBPRoo5ozJX6CYNqqq53UVyEp0o390Dj0cpfo6d
+	 YfpzM1qjpVQHezw74DfAMAgkBqxhHfGKlFqrAL+Hjj4r0Tq13YQrdy5O0axvE1yaRC
+	 yPeZfedb0hAow==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4921D48A57;
+	Tue, 10 Nov 2026 09:03:26 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 09:03:26 +0000
+Subject: [PATCH net] gtp: free the skb after handling an echo response
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,191 +83,141 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAN3d8moC/x3MQQqAIBBA0avErBtQg4KuEi3MJh0KFZUIwrsnL
+ d/i/xcyJaYMc/dCopszB98g+w6M094S8t4MSqhRSinQlohkXMCUI16kT5z0cGgzqm0fDLQuJjr
+ 4+Z8LeCqw1voBEyRO/2gAAAA=
+To: pablo@netfilter.org, laforge@gnumonks.org, andrew+netdev@lunn.ch, 
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+ pabeni@redhat.com, joasantonio108@gmail.com
+Cc: osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794301405; l=3733;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=R9TcIxYRIQLC36eXFKBEQ/zbPTM2JwmdjnAqri7utlE=;
+ b=USEiUSTtzqnSdLf/+y3HR6JuvI4VGG9bRKewqbXKarWNZBPZtmD7tPcE1rq5inbOwayXH3Xhc
+ QUiacOqhnsZDNrw2Y+AxQyPrTEc3pzMt1uxH2zbeqM4MqTRWLdXJhPK
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-v7-4-topic-zynqmp-dp83867-v1-1-04500475a560@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJB7RUr2JcQDvVMbGUFolIu
- LtVl2/x/wqZk3CGU7VC4lmyDKGAdhXYWxeujOKKoVa1JiKFc4t7nIYoFt9LGB8RXTSN0S0qT+S
- 8brqDOULpY2Ivr9/7fPk7P/s72+k7hG37AJwvBo19AAAA
-X-Change-ID: 20261110-v7-4-topic-zynqmp-dp83867-0f11df63a589
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6985;
- i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=r7xwrLRGPAQ0iiVHxekSDOtVkGaeiUkp/R9YD1Vpj34=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9anu5fLC3/3T7r6JP/qdiaFxxqaBu6fku6blCzqW5O7Y
- W9IDNu0jlIWBjEuBlkxRRaVhRV8oh4fPCOniXDBzGFlAhnCwMUpABM5nsPwV9Bz4S6n03X/XA1v
- hul1Lbdk/1+bahVptlI37Xj1lwBtfYY/3Kqh/NLJRk18vO6Vv4/cfXc96t/Z8vik7y7H3RgMYu6
- zAQA=
-X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
- fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-The DP83867 ethernet PHY nodes have a #phy-cells property, but no node
-refers to them with a phys property; the MACs use phy-handle, which
-takes no arguments. #phy-cells belongs to generic PHY providers.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Drop it, so the nodes validate against the ti,dp83867 binding once it
-is applied to them.
+gtp0_handle_echo_resp() and gtp1u_handle_echo_resp() return the result
+of genlmsg_multicast_netns() to gtp_encap_recv().  When the netlink
+notification is delivered that result is 0, and gtp_encap_recv() treats
+0 as "the skb has been consumed":
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Reviewed-by: Michal Simek <michal.simek@amd.com>
+	switch (ret) {
+	case 1:
+		netdev_dbg(gtp->dev, "pass up to the process\n");
+		break;
+	case 0:
+		break;
+	case -1:
+		netdev_dbg(gtp->dev, "GTP packet has been dropped\n");
+		kfree_skb(skb);
+		ret = 0;
+		break;
+	}
+
+The echo response handlers only read from the skb and never free it or
+pass it on, so every echo response that is reported to a listener on the
+gtp multicast group leaks the skb.  Echo responses are handled for any
+peer when the UDP sockets were created by the kernel, so a remote host
+can leak memory on the receiver by sending GTP echo responses while a
+process with CAP_NET_ADMIN is subscribed to the gtp multicast group, for
+example a daemon that monitors echo responses.
+
+The error paths do not leak but have a related problem.  -ENOMEM and the error from
+genlmsg_multicast_netns() (-ESRCH when nobody listens) are not -1, so
+they are returned unchanged to the UDP stack, which takes a negative
+value from encap_rcv() as a request to resubmit the packet to the
+protocol with that number.
+
+Return -1 when the notification cannot be built, so that
+gtp_encap_recv() drops the skb, and consume the skb once the
+notification has been handed to netlink, whether or not anybody is
+listening.
+
+Found by LLM-assisted source review.
+
+Fixes: d33bd757d362 ("gtp: Implement GTP echo request")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
- arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso | 2 --
- arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso | 2 --
- arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts    | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts    | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts    | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts    | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts    | 1 -
- arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts    | 1 -
- 10 files changed, 12 deletions(-)
+This issue was found with the help of an LLM-based code review tool
+(Claude).  I checked the code paths by hand against v7.4-rc3 and
+reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
+not have the hardware to test it at runtime.
+---
+ drivers/net/gtp.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
-index b82a056be2f99..930f0e54fdac5 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
-@@ -254,7 +254,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@4 { /* u81 */
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <4>;
- 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-@@ -266,7 +265,6 @@ phy0: ethernet-phy@4 { /* u81 */
- 			reset-gpios = <&slg7xl45106 5 GPIO_ACTIVE_LOW>;
- 		};
- 		phy1: ethernet-phy@8 { /* u36 */
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <8>;
- 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
-index 4dcf92a2158fd..e05667f6e946b 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
-@@ -255,7 +255,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@4 { /* u81 */
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <4>;
- 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-@@ -267,7 +266,6 @@ phy0: ethernet-phy@4 { /* u81 */
- 			reset-gpios = <&slg7xl45106 5 GPIO_ACTIVE_LOW>;
- 		};
- 		phy1: ethernet-phy@8 { /* u36 */
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <8>;
- 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
-index 52954761c9f3d..af897c3cd1680 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
-@@ -200,7 +200,6 @@ mdio: mdio {
- 		#size-cells = <0>;
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 1dd32e979cf5..85d1b0c46ecf 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -561,16 +561,19 @@ static int gtp0_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
  
- 		phy0: ethernet-phy@1 {
--			#phy-cells = <1>;
- 			reg = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
-index 49732de5fa4b9..a1f0592e79589 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
-@@ -191,7 +191,6 @@ mdio: mdio {
- 		#size-cells = <0>;
+ 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+ 	if (!msg)
+-		return -ENOMEM;
++		return -1;
  
- 		phy0: ethernet-phy@1 {
--			#phy-cells = <1>;
- 			reg = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
-index a5bc521ab6797..42030547a32dd 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
-@@ -217,7 +217,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@21 {
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <21>;
- 			ti,rx-internal-delay = <0x8>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts
-index 3c28130909bc6..bad59d7b1d26d 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts
-@@ -19,7 +19,6 @@ &gem3 {
- 	phy-handle = <&phyc>;
- 	mdio: mdio {
- 		phyc: ethernet-phy@c {
--			#phy-cells = <0x1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <0xc>;
- 			ti,rx-internal-delay = <0x8>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
-index 32509083e54f4..898a9000daeaf 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
-@@ -126,7 +126,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@c {
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <0xc>;
- 			ti,rx-internal-delay = <0x8>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
-index 96699be8430fa..b0a08cf1d03bb 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
-@@ -131,7 +131,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@c {
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <0xc>;
- 			ti,rx-internal-delay = <0x8>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
-index 52441e5c87390..58684af4b98c4 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
-@@ -217,7 +217,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@c {
--			#phy-cells = <1>;
- 			reg = <0xc>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			ti,rx-internal-delay = <0x8>;
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
-index b34e4c93d249d..30f97f67e8c8d 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
-@@ -189,7 +189,6 @@ mdio: mdio {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		phy0: ethernet-phy@c {
--			#phy-cells = <1>;
- 			compatible = "ethernet-phy-id2000.a231";
- 			reg = <0xc>;
- 			ti,rx-internal-delay = <0x8>;
+ 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
+ 	if (ret < 0) {
+ 		nlmsg_free(msg);
+-		return ret;
++		return -1;
+ 	}
+ 
+-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
++				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	consume_skb(skb);
++
++	return 0;
+ }
+ 
+ static int gtp_proto_to_family(__u16 proto)
+@@ -748,16 +751,19 @@ static int gtp1u_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
+ 
+ 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+ 	if (!msg)
+-		return -ENOMEM;
++		return -1;
+ 
+ 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
+ 	if (ret < 0) {
+ 		nlmsg_free(msg);
+-		return ret;
++		return -1;
+ 	}
+ 
+-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
++				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	consume_skb(skb);
++
++	return 0;
+ }
+ 
+ static int gtp_parse_exthdrs(struct sk_buff *skb, unsigned int *hdrlen)
 
 ---
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-v7-4-topic-zynqmp-dp83867-0f11df63a589
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-gtp-echo-rsp-leak-7a3fac62bd3c
 
 Best regards,
---  
-Steffen Trumtrar <s.trumtrar@pengutronix.de>
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
 
