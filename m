@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318011;
-	b=pDDR43knDRfl0fSCDxme3qISWr/4tZqi77AqWgM/zKZK4+P8MX3r7uPCgbrvtbb/qmEN
-	 CI/HFFtpQHPLEyCd9th3STgvxYczFuEWlxW74WHnkE3jOXydeQMcEVDLOIxmOWzdXz2LE
-	 3lTqDDe16TIkdZozUHHRGjS0nnMdeCLY9lv+ybFga2wNkupG5zSmsMkQtXqJS5REP3vhB
-	 e/vnvQ43tV70yIkE7SMCbwOSrKRPITmCEkNNxgEeSpgtbtB1LIDc+v7cfWlppDnhvrhoq
-	 OecUtBunSO/asD27zURTyE2hWKf1NyGClxFQ4iilBRJsOJfYvjQ2QLg+5MJXDERKSCg==
+	t=1794318013;
+	b=TdrnhcwZro4DTWRwBdRUF5dNJ21P220k5cjUmOisKvUh3q7NA2lVuNCrOzgsgwXNqBG6
+	 8zcvM+UfDsQEiauRRq2N9LnBjrXBxGH81Pi/iBG5tbLqQe4AhJwlxSYt8567aFC9hsroN
+	 0hVJceBdiDDSamM4P9cCdpZNfCmYT9zzu2zxmpvt5uJJHo9knfsjSASg8IWx8MK3l79kK
+	 ICWHwIYTipPioHKtUgqn4s1rsu6PQopIBEo0DJ2MDgcLaFQEZlCGaGHcNltBv9ug61AK2
+	 DXroTOFe8ECCw3OWRVoSk3Rd7xPgP8rb+cYKTz24qQ7iwdRX9fjyPN9u2nA1TGJGkPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318013;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=zSBnRfstLFOLJk+BY0dtRWMawegjn8REAGRmsm4ud7c=;
-	b=PC1UZf6y6dHCnfLtl7kRoCAI8CD0DtrMLji/urDZovfEI6uyK2wTfT/6x1Te/F8Npw9i
-	 HIY2yBUICLr4LtGt0QPCmw7+qvpRyUC9bqOYL59GQJOqzVnfnCXys4GKuuUVylM8IjjHS
-	 Iimyob0O9QLNnG3o5rVnNDTpzbLROnrzyxBCg+AtDscews4e79rre9vVXZX9yUjMQGh79
-	 nfg1sezkis7AxFsRSPJJg4zEhIrlEc2BMnvliGzoRJs4CIfsuGhkhbxt7ETS5Xj40jkqB
-	 ym/vL8qeoxtk/pes9uZX966OId2kapmpl1ygwVtv6eVlukIkwQJi0t7Hyp1+LO1Nimg==
+	bh=cHxQtytVmjDBHQG3dPoCx8HxlLCtE3kEcShZG74YRoE=;
+	b=wF1AHpJJmIilpurYODMVMr2GqhZypCX3lEWXP7sTFvazeyiZmuzrZoWJzkXGPOP1F+1i
+	 RbgAACtTTvoGcB35fQNEWmcXoCogZdWvA2VprvFYFdOTmXbBpTA1H6DX5xH0VUSUQ3baz
+	 PYbFYaW7xOMbOd8qlEPr5er4hrPtPvDg/P7wVd6pf3+7kwD4XlaU7nBSt2yWRooU6idyi
+	 pK3Pgs0mFOWmLbfNkuUNZRZvtM9rEPVFgG/HnIPt4N0ZOub0ImaBTe2iuuE+BfKRErL44
+	 7kQ6jp69n8TiBxAoQKhb+FdwH4rs7wIqgpwjy3LX9ZcSnfCR1DPwPTgWePM6xPJueZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UBCYnugU;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5Bt0QLAg;
 	arc=none smtp.remote-ip=113.46.200.221
 Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC1D606A7C9;
-	Tue, 10 Nov 2026 13:40:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC1D606A7C9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDADE606AF11;
+	Tue, 10 Nov 2026 13:40:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDADE606AF11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UBCYnugU
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5Bt0QLAg
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=zSBnRfstLFOLJk+BY0dtRWMawegjn8REAGRmsm4ud7c=;
-	b=UBCYnugURFX2k+6sGCKv3+d1buWao2ZJIOw6lCh4G0PlmvVPfGr8eS0EK4Vs3n5zLI8fgincE
-	TyAxs1KYK+Eo4djWGTuh0nlj1qDMg0RrbSwP5VS6oRaNiYCWdWC+GWIdh3FIfc7X/CDuas7Tyi4
-	qHqf1YDaWGm3WQIZkdNgR08=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jP77D0RDyzRhSl;
-	Tue, 10 Nov 2026 21:39:52 +0800 (CST)
+	bh=cHxQtytVmjDBHQG3dPoCx8HxlLCtE3kEcShZG74YRoE=;
+	b=5Bt0QLAgpL0ozO9zJjPSpFxv1nGO40DEneXm8z3c5ZndI8jbh7Alrv8mygYjWpxzS6SaeE1o5
+	nhaIvZgiq4ZgBpujaO2L2V0JvaK3TSFbn3++4VuaZQSzBhJGNPFPI764GGZHw+Fucgelv2eHlcz
+	4EFav5eLsekxiwzZdGRHenQ=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jP77K0s1dzRhSl;
+	Tue, 10 Nov 2026 21:39:57 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id F33B240538;
-	Tue, 10 Nov 2026 21:40:01 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 098D94057D;
+	Tue, 10 Nov 2026 21:40:07 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 21:40:00 +0800
+ 2026 21:40:06 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
@@ -62,9 +62,9 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v5 RESEND 1/7] fs/resctrl: Report a temporary RMID shortage per CLOSID
-Date: Tue, 10 Nov 2026 21:39:32 +0800
-Message-ID: <20261110133938.3768632-2-ruanjinjie@huawei.com>
+Subject: [PATCH v5 RESEND 7/7] fs/resctrl: Add info/moveable_mon_group
+Date: Tue, 10 Nov 2026 21:39:38 +0800
+Message-ID: <20261110133938.3768632-8-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110133938.3768632-1-ruanjinjie@huawei.com>
 References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
@@ -82,76 +82,94 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-An RMID that is freed is held in limbo until its cache occupancy drops
-below the threshold, after which it returns to the free list. A request
-that fails because of limbo is thus temporary and worth retrying, which
-resctrl reports to userspace as -EBUSY. A request that fails because
-every RMID is in use is permanent and reported as -ENOSPC.
+Moving a MON group into the mon_groups directory of another CTRL_MON
+group changes the CLOSID of the group while its RMID stays the same.
+Where the RMID is only meaningful together with the CLOSID, as on arm64
+MPAM, the move changes the RMID index of the group and is rejected with
+-EOPNOTSUPP.
 
-Where an RMID is only meaningful together with a CLOSID, a request can
-only be satisfied by an RMID belonging to the requested CLOSID, so the
-distinction has to be drawn per CLOSID. Instead it is drawn system wide.
--ENOSPC is reported when the free list holds no RMID for the requested
-CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is reported
-when the free list is empty and another CLOSID has an RMID in limbo,
-even when the requested CLOSID has none. Userspace is thus told to give
-up on a shortage that may clear on its own, and to retry one that cannot
-clear until it removes a group itself.
+Userspace cannot tell whether the move is supported without trying it.
+Add "info/moveable_mon_group", which reads 1 when a MON group can be
+moved to another CTRL_MON group and 0 when the move is rejected, and
+refer to it where resctrl.rst describes the move.
 
-Architectures where the RMID is independent of the CLOSID always match
-the first entry on the free list, so neither case arises there and only
-MPAM systems are affected.
-
-Draw the distinction from the number of RMIDs the requested CLOSID has
-in limbo where the RMID depends on the CLOSID, and from the system wide
-count otherwise. Drop the separate test for an empty free list, which
-the search handles on its own.
-
-Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
+Suggested-by: Ben Horgan <ben.horgan@arm.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-Cc: James Morse <james.morse@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Babu Moger <babu.moger@amd.com>
-Cc: <stable@vger.kernel.org> # 7.1.x
 ---
- fs/resctrl/monitor.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ Documentation/filesystems/resctrl.rst | 11 +++++++++--
+ fs/resctrl/rdtgroup.c                 | 23 +++++++++++++++++++++++
+ 2 files changed, 32 insertions(+), 2 deletions(-)
 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 04e4ea612b7c..b8f4e1ff4083 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -207,9 +207,6 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
- 	struct rmid_entry *itr;
- 	u32 itr_idx, cmp_idx;
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index fecb2cd2b343..4be0508c18f7 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -526,6 +526,12 @@ conveyed in the error returns from file operations. E.g.
+ 	# cat info/last_cmd_status
+ 	mask f7 has non-consecutive 1-bits
  
--	if (list_empty(&rmid_free_lru))
--		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
--
- 	list_for_each_entry(itr, &rmid_free_lru, list) {
- 		/*
- 		 * Get the index of this free RMID, and the index it would need
-@@ -225,7 +222,17 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
- 			return itr;
- 	}
- 
--	return ERR_PTR(-ENOSPC);
-+	/*
-+	 * No free RMID matched. If this CLOSID has RMIDs in limbo, return
-+	 * -EBUSY so userspace can retry. Otherwise, the CLOSID is genuinely
-+	 * out of RMIDs. When RMIDs are not per-CLOSID, any RMID in limbo
-+	 * delays the allocation.
-+	 */
-+	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
-+		return closid_num_dirty_rmid[closid] ? ERR_PTR(-EBUSY) :
-+						       ERR_PTR(-ENOSPC);
++The top level of the "info" directory also has a "moveable_mon_group"
++file, which reports whether a MON group can be moved to the
++"mon_groups" directory of another CTRL_MON group. It reads 1 if the
++move is supported, and 0 if the move would impact the monitoring data
++and fails with -EOPNOTSUPP.
 +
-+	return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
+ Resource alloc and monitor groups
+ =================================
+ 
+@@ -553,8 +559,9 @@ Moving MON group directories to a new parent CTRL_MON group is supported
+ for the purpose of changing the resource allocations of a MON group
+ without impacting its monitoring data or assigned tasks. This operation is
+ not allowed for MON groups which monitor CPUs, or when the monitoring data
+-or assigned tasks would be impacted. No other move operation is currently
+-allowed other than simply renaming a CTRL_MON or MON group.
++or assigned tasks would be impacted, which "info/moveable_mon_group"
++reports. No other move operation is currently allowed other than simply
++renaming a CTRL_MON or MON group.
+ 
+ All groups contain the following files:
+ 
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 2dfb3b54338a..a3362f8ad13b 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -1200,6 +1200,22 @@ static int rdt_num_rmids_show(struct kernfs_open_file *of,
+ 	return 0;
  }
  
- /**
++static int rdt_moveable_mon_group_show(struct kernfs_open_file *of,
++				       struct seq_file *seq, void *v)
++{
++	/*
++	 * Moving a MON group to another CTRL_MON group keeps its RMID but
++	 * changes its CLOSID. Where the RMID index depends on the CLOSID,
++	 * the RMID index changes with the CLOSID and the move is rejected.
++	 */
++	bool fixed = IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) &&
++		     resctrl_arch_alloc_capable();
++
++	seq_printf(seq, "%u\n", !fixed);
++
++	return 0;
++}
++
+ static int rdt_mon_features_show(struct kernfs_open_file *of,
+ 				 struct seq_file *seq, void *v)
+ {
+@@ -1975,6 +1991,13 @@ static struct rftype res_common_files[] = {
+ 		.seq_show	= rdt_last_cmd_status_show,
+ 		.fflags		= RFTYPE_TOP_INFO,
+ 	},
++	{
++		.name		= "moveable_mon_group",
++		.mode		= 0444,
++		.kf_ops		= &rdtgroup_kf_single_ops,
++		.seq_show	= rdt_moveable_mon_group_show,
++		.fflags		= RFTYPE_TOP_INFO,
++	},
+ 	{
+ 		.name		= "mbm_assign_on_mkdir",
+ 		.mode		= 0644,
 -- 
 2.34.1
 
