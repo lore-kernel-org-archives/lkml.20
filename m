@@ -1,66 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323015;
-	b=qxE9SrOZxIJ/YUI2N6HVMhpScsNM7m5MFkMW+sfoeHRQuZ/NhWLwufnGUoFYJYmcm7EF
-	 6x0hKtFlm9f+icuVROnkItqdmxIexkqNhiH6c9cQn+DVFd2kDRBPaXnJBlLrwPzI1qrH2
-	 KZWf+2o1GOWTT9kzfSvgB7dGi8Z28QOBKTB2XDNvRlU4LsrqYkRwh0/hcO1qlvP5jeF/b
-	 Gd/I7NKRDR/VKEERpV2oHQdwRu/MwAdzM1E1zqhxagLdzf7EtZVOvjOSYb2KudrUNg+Ga
-	 GBOS2flQzHEvHTpZKyjJz4huehdkUSsn0V0h+C0d+DDAqtQuFrVMuME7YBJ1bfrnAtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323015;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=IslVlOmwBGg3p+v3gGF46rUJoUJouv81e/78UA4si+4=;
-	b=XFkGS5f90xFGXIzLCcQorcgnjpyyZQyPfZznbOCAQEskmbztujowIqaqHScAX8vnMf2x
-	 8x2fdX2CBHL6HrRkioHKPLIjgSxoXRio+8WBvOi5PlEUV3dlhREZtFk+CMPzbzDUsGpGx
-	 HxUfcMUJGGt3cXcUN6EjLMZACozJEKk1EPQOKuOn0vAmVkoWN9COG6mtYLpjrWxcnBIo1
-	 NpeSLXf6Nd7Cdt4tvsgHps/rsc3baUTPfSvgB+uXs/2a24CtW1tbN4Z4fqkV2YBMtKZZt
-	 kflhyTT+C8/tIE7xJd6sODV1IT+ToZ0HEP2rCMBe8NM5NFCjdMhunyim+Acq9oj/RcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=YQmw6diV;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794323001;
+	b=S7XaLbjOG+w/cYACgkjtpwwCZW9ph6jt/n7/G5/ww11RuyeF/n6u6cnRAm8qfCEHMpIi
+	 2E/JgL+Ko7tq3rH1Jo1NYUTwSi6TxFIJuiQc94zlReM2G8B7d7Rs0ZHUNGLYpNL6V55xM
+	 J5F+IGp/BCBmXM9qNGk8DxrCchkPStH+lVbYDpoCbLMAeeecN4SNms9/WN6QwWgBEO7VE
+	 KC5d8HUDToIOcwqrOQkYpLcncGN/rhPuJmLh5Os3BvzVSe+76LLYaDGyJDOlw8tS90B6U
+	 IeEP2bVPJD53sSbpRM58ZBvni2z8G7F5FmRefnu8FAGScwDP9N3yu6en0mvTYWjYOPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
+	b=RaEqEWgrcHLAVByW4zFJpGH5xlIritWnACbCiXSwqO7JFSmC1LWhR63pN2e04jwuQs/z
+	 jIS2WMb/7/E85kNlTusuVyaP+Ea5b7jlID425wmpdw42HrzlMQnM5w50Xa3Rw7IanE+Tk
+	 Tm4bNFislt9w8uGweAfvepmpaufrDrN21RHVF4PJ8vWuELeNThZ3P/lO98FeJ5Ul0Prc5
+	 RmIVHBZNKR/H5A4Qvrk0Kbg4gmG0lRRoFqQR7zZRne6vXUo4WpUPnc46CCevYP7M/5obk
+	 dBd85b5rtCL/+woMDJqZ8NuKJx+WQL5hGyfTsNi6UThAR9v8rMvuHgxtl+X5JIry/gg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gkZ3ZevI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.181
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D3160A5BD5;
-	Tue, 10 Nov 2026 15:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D3160A5BD5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19DB60A261C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:03:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A19DB60A261C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=YQmw6diV
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jP8zn3zJzz5BNRx;
-	Tue, 10 Nov 2026 23:03:33 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794323013;
-	bh=jjq1ZQM75nb1ZoCa5+xB+DaGEArgjFHQrWX3hL0CSsQ=;
-	h=Date:From:To:Cc:Subject;
-	b=YQmw6diVzMSZn5KgHVq+CxCqmDgGPwZR8r8fPB3Lk0nVx+QiMJy+TIlsfSTaLlB9x
-	 eRNOhyHPZmL7aWU8kefoOwZAU9moiWhOSscVlDDZCg5VGaEJGcT3CvaZnCZ7V11SP3
-	 yI1jiwgyXMUNAw/HdCd18BaY93eSbsyWPfPyH3eMLCflMuIz0yxpnUM4Z/rv0KKaa/
-	 MvFjRlEFYZbIlBnZ6NFoNAGDHh+Vf4Ru5QibcsK1OAoSE0NLaf8lQbTVpCuDs+vZIW
-	 tAM6X2A1sl5BT1KrglxSvWt4n/RWB4Iidi7uLy/c0ws6PB/7T7WhxRDoratyTNfEqS
-	 ng7yOFBZ9mRTA==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6AAF3NAb030791;
-	Tue, 10 Nov 2026 23:03:23 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 23:03:27 +0800 (CST)
-X-Zmail-TransId: 2afa6af3323f1cd-1d7f5
-X-Mailer: Zmail v1.0
-Message-ID: <20261110230327212pqd9rWq5IWa4wD-Ckj5C3@zte.com.cn>
-Date: Tue, 10 Nov 2026 23:03:27 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gkZ3ZevI
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab30b3212aso16276121fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:03:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794322999; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aywGdiKDuDSA0kPVK8I0Wq8XiUxN7ICq03ASqmy6afl4gM2z80nUSCOGYiQH7IVL6U
+         MD5b6IN7ECDuPMou0gGkovKCKsxH+LLDX7+gEmiXmPFDTNC5zb8vAbSizLf/4tgAvGpN
+         UFXNzaWpRb8CNSHkFIvDFLhi6vTDuSCJSl3VmuqoEm4dixx/LRb81xSLoaqyAK1Al9+z
+         kpl/y/FElXmdS8pJ5er3Is5h7Xsg4N7uFpvLSKgpNWk7D0lmLEBy2tnvv2WkK1q172DD
+         4ALFHskN1OMXdDz6Bb25bK/DzZVLhIqVkdXD/UKp8bSNI9fd6EDBvFikXklEor+FehJX
+         3MPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
+        fh=lFr+shz85HeSal65yPsvRRc1IjADhMyfygN7VEF4O/k=;
+        b=cWLsnQkTDZKGYMknWsP7wAb2/Pk4QV8ygW4j1eJS62lvdgLQBXKqAheSDAV018OKOu
+         SGKSukfgJqK+njZgOvbUO/jE+URhfkbYrow7BhZYwXWw0Rs84CZ80Uz/iOo1F72xprsR
+         j0UWHesEd0IEbvi28HGCVKIUVwa+n+VzCN5gW5RUr6GUgzdPzNCjfUek/sqfEyf4yvV2
+         TZU0eiYeUOZ9VoyCh/EpoG4EvlOgs006CXsksKvdDJ55fTPNnx5piUY1xapHiegJ05Q7
+         4V3fztiLmp6V+6aEsj/WaFRf9wxJUFjPMKhEWPNMTWT29xoNwONtxjFHzTb9678CjjxT
+         aRYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794322999; x=1794927799; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
+        b=gkZ3ZevIjNXFHSzu9Bt+jSMSyP8cWYV2jHvj4vt0pnNf0x9xage6N68On8Vnm1bXc+
+         Fl1bB3JoFV3MFaC85jmTIHoLhEjc6p3kWnaZvOSIBoiKSpLvtkX8Frk6gAeE+BrRvsV2
+         LjgvGbz52JOdxoXE3N+YfnXQCta1Ex2pqPJEi9dAKe90Hm3IZ34I2WiteabFSo4/cDKC
+         EzA7B0wweN8ofdxXGMBUN8hi4cKHwd8q4q8n2ZXj06st8a4RMBvg0k4f/cC+rTfEnpg7
+         kJ45z/RPqRp2K0CFoXGlfCke5K2gNDYI+biNGp2w9BoG9uPPsb4u9sDCh2T+2P4WMZWH
+         jcAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794322999; x=1794927799;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lcxrNtNwR+ubuo+QT1C+HX+mC2Hh24BYfD+aCKJIoPI=;
+        b=u4Sf/KdLFABPHxcakPKSr7m27WJB8nP4GzLBiCal+El+V71Q7Kghu56d7mGxVfzGwd
+         cTO4Oah1+63ZT1xX6ocNOleMK0K+YSKwhyWK4MYN7cTVsMlsU/MBvvcdaSgz3aKjUSVH
+         /3vB+YZQpxFgYea7M3w9A3nOvhCBs9gdJdUIm5dCyG1ovRHhhLDUIPfP0+Ip8f9yKSkp
+         e0bmve7+f5HTNR32fKrxJPMJHkoWzq8YTVa1bp/htnh6J9HABC4Mgy11QT45uqm5ronf
+         hT/eMLn/g0DZ+5EzSEOUwIZsIkcn6PmuGmDHziIDoEO/XY+hngNhRLp/8ViV4YhQb3X5
+         3tFw==
+X-Forwarded-Encrypted: i=1; AL+hErHtfDfyzhcRPq6D/EX5ZW6j48mN95WL013BeddbOsXEQIsM0PLpgARLgZstcd1ATHNyjsEwxctWo28zbaE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85LfUWRnwO8uF4BsHLLTdLHe/F40Xumk4dP2di8CbqbrloAvs5
+	CRBp6QE73+8PoxQIcVEDoAT9g54dxxUM76OHX10huIE14MBrP5CYoA9R+OK5fnh+ZAtbJ7HfDNK
+	l6aaSSyPjKO+EYjCMUcKz6MagA7rjp8s=
+X-Gm-Gg: AYBFou2z5IrXHIUHmoayJ4cvgibrvP36cLx3lwvcKIKjygAH9Qxj7GBlJtyZ4MZmSZF
+	c/0rmFhzWfJDRrKRjkQTeEqp06Pc9EaVM+zlGNhUZXPD0Ru0qQOngzNke+vo6CbCjDAEDMF4SQ5
+	j3NjC4UbZCcgGYvgsn3a6CaEvisD45ai66QFMZKG6fZf5xyFKL6HgQsGTAc0Kuwvcq8Ei92268g
+	25dr2z81ltYCYlGjCBJrCrVBravFXzuzdNMcE6qhyXo8b034GOPFviLybmjCxeko26MVfCC32X7
+	A2JBlnLVAcqiQfEturyI8Vriaru86rVHWEMJ1Nnr+7+6quREbgQKmhC4fWvoaIZZaY+CoLdVxQn
+	MgqG4HAyFjVIohgERA41h0JExs9goPaY2o/y2pH+S2mrSLVtHLqD9YEbptGYyvvXRNFhsnWizVm
+	vKdWy0fJI7n5M853zMCWRCc5WqZadLxkwgMetvtfM1HwMlS868ZaxIOfah4YsPKC3J7nmnurnkZ
+	A==
+X-Received: by 2002:a05:651c:886:b0:3a9:db75:823b with SMTP id
+ 38308e7fff4ca-3ae0963461fmr6011631fa.17.1794322998586; Tue, 10 Nov 2026
+ 07:03:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,60 +105,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <hansg@kernel.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDAvMl0gYXRhOiByZWplY3QgaW52YWxpZCBEVCBwb3J0IG51bWJlcnMgaW4gQUhDSSBkcml2ZXJz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AAF3NAb030791
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:03:33 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF33245.000/4jP8zn3zJzz5BNRx
+MIME-Version: 1.0
+References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com> <20261109-zsmalloc_stat-v2-2-caee41684aba@gmail.com>
+In-Reply-To: <20261109-zsmalloc_stat-v2-2-caee41684aba@gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 10 Nov 2026 08:03:05 -0700
+X-Gm-Features: AclHuK85VkAR2wnOqNqvQgZfQ_LlfrHbXEwJe7NhWmwf8P3bqM9yi-Y0ggTdBo4
+Message-ID: <CAKEwX=PNpMr5x4gTo_OK5D5EgKPDvZx2e2=95-4_SV8zq37VnQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] mm: remove CONFIG_ZSMALLOC_STAT
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Both the shared AHCI platform support and the DWC glue use the "reg"
-property of their port child nodes as a port number without checking
-that it addresses one of the controller's ports.
+On Mon, Nov 9, 2026 at 5:59=E2=80=AFAM Xueyuan Chen <xueyuan.chen21@gmail.c=
+om> wrote:
+>
+> The statistics interface now uses the debugfs API stubs directly, so
+> CONFIG_ZSMALLOC_STAT no longer controls any zsmalloc code.
+>
+> Remove the Kconfig entry. Replace the remaining CONFIG_ZSMALLOC_STAT
+> settings with CONFIG_DEBUG_FS=3Dy.
+>
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 
-Patch 1 is in the shared platform code.  ahci_platform_get_firmware()
-uses "reg" as an index into hpriv->saved_port_cap[] while filling the
-firmware-specific port capabilities, so a "reg" value at or above
-hpriv->nports writes past that array.  Patch 2 is in the DWC glue.
-ahci_dwc_init_dmacr() walks the same child nodes a second time and uses
-"reg" both as an index into dpriv->dmacr[] and to compute the port MMIO
-base, with the same out-of-range consequence.
+I wonder if we can just squash all 3 patches lol. Anyway, LGTM:
 
-Both loops now skip child nodes whose "reg" value is at or above
-hpriv->nports, matching the check in ahci_platform_get_resources(),
-which has already reported the invalid port number.  The two patches
-are independent and can be applied in any order; each carries Fixes:
-and Cc: stable.
-
-Changes in v2:
- - Do not print a warning for an invalid port number: the resource loop
-   has already reported it (Niklas Cassel).  The check is unchanged.
- - Send the two fixes, previously posted separately, as one series at
-   Niklas's request.
- - 2/2 keeps Damien Le Moal's Reviewed-by from v1, since the only change
-   is the dropped warning (confirmed by Niklas Cassel).
-
-Link to v1 1/2: https://lore.kernel.org/all/20261029190111138tS0yRo0lL1zJZ_IutobE1@zte.com.cn/
-Link to v1 2/2: https://lore.kernel.org/all/20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn/
-Review 1/2: https://lore.kernel.org/all/avHkMosHVOXCpVPD@ryzen/
-Review 2/2: https://lore.kernel.org/all/avHknBRJnZPpAIke@ryzen/
-
-Shao Mingyin (2):
-  ata: libahci_platform: reject invalid port numbers
-  ata: ahci_dwc: reject invalid DT port numbers
-
- drivers/ata/ahci_dwc.c         | 4 ++++
- drivers/ata/libahci_platform.c | 4 ++++
- 2 files changed, 8 insertions(+)
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
