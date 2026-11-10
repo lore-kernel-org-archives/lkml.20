@@ -1,20 +1,28 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794325330;
-	b=v3dkstzjxsHE828v7/yykSw2iJLMyIAW7q3J+Idm5PR2ju95opBq1j0tciAtjtJIymcE
-	 BFvJmvuDK8AshL57gYstblCM1BzutuZQwnrF7ZF8ovRJ45kqZ2gTj134FdkSix9snAPqw
-	 mmOQfXdoJyNo6+7XC5jrdeWE0+ReZlyWikFxYnfReRnJ1LXuBBBzRMduv5xH8GghVwE9K
-	 uRgLxcjeKFxpRi6y2po15yRbictKE3xMXZNkstieHE/HfVfSmLbTlbeDkYgxJPQwH0Vvl
-	 H/z4xtFvRXUS7OW7+I+/uWih/wFHQRYYGMqvEtdjBm67wkIzijCAU9j12zrNPnaUuEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325330;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.84.18
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794325343;
+	b=bAMXLc6XkkzrJL48HQIajgqZyxTVsGgHf3JohThaM/Cw/i4xhj2GIW34nbOxYO0ghJNJ
+	 sbGOP6eWELrH13u50U+m4vWd2X3QsNME/M/IcjU6ycmPSi5nBpUBBfI+azpg7feSkkjQ1
+	 +fNZl3vXHPi6o2jQeXUUj4N9XvPTYH6YPRr1aXDXeMvq9O6nSl5g21xnd1Xq6VewGaoz0
+	 3hVYmKgvYg7NG5PHEPTTm2KgdzWbcnPmcIookMT+RLl0299DZMmPk7opeQbSEzCLSY22U
+	 z5uDI9xaJ+qilPXHcN+M+RhekU0KyZQSkEMBZVtnfDPp2fX0hGcgnMxMXOvBbRljMWQ==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325343;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:User-Agent:Date:
-	 Message-ID:MIME-Version:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:x-checkrecipientrouted:NoDisclaimer:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
@@ -26,88 +34,115 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TJh4jf3y7ZohPdz4G0/nPPn0WlsJMi6L7Ufm+QxGxMA=;
-	b=SfD67Wdb0YLxK5O74ORdHyF1NkDJQP5RnE/9AWdUArh20r0LwkOt6G9aoIbLoFH1apMO
-	 uuPcbdP6cbwQMbIGtQwrgmSelS4Z2ss8kps9k0Qffs8646FNY9nUV8CszTMivgH80wtgR
-	 9D6uPrl9jXJncT39czmyt0mTjWIIxNrtE5nHJSMRmMd5znVZKjjTaGehztLe4ZlVlOrng
-	 yYqXnIZ9TCXhAK0KvT8Ig0zHIO0zfTt13VUkrb0Sbe1ODtzwMoqddhk6PmS2lpGGm8qQ1
-	 9w+lJpUzn0R580UMjCa3Sk+Mkp5Sn300cYrS4U33R+wW1YSIABS5r8MZhVfQGx7P9ig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="D/74dJqN";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.66
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010066.outbound.protection.outlook.com [52.101.46.66])
+	bh=E17IqINVkHbc4xGwI1j8S23SSyo46XlKmEFl9Kt4OCc=;
+	b=BtzAjraoA9IL7Oc6Q4tbZDcUihjDmGibrZplBsXW49kJYFY300wujBtAF4R95Ofdytrb
+	 3lw9qHqImFAmp91x2qEaUWUTweQNXwJ+qlRZSSyKeW5H68LLO6mR6GGtgMUlvGPHv6dTU
+	 AdwoDTomJKgFbRVxsWo9huzqwr5MS/z6LSVgJh7vsncgSjZOAkOX9quGm9kKPLtKhKaGV
+	 WvSNS0EEDvlNifLTnO3tFq1Cy9AFUmUEy75ZD4pmAAb+eItstB+SlGHQ9ng/xguVBuUhy
+	 mkVyDF4bL6sTMoh7BI4MY0ihDm4JFlRVoSHwS0LEVPkcc3Zm9PZzw2QdfULDJffmRXA==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=oRog6ggn;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=oRog6ggn;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.84.18
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010018.outbound.protection.outlook.com [52.101.84.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C8D606AB44;
-	Tue, 10 Nov 2026 15:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54C8D606AB44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3CD606C43E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:42:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D3CD606C43E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=D/74dJqN
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=oRog6ggn;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=oRog6ggn
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=q7+9peeVxLirnkfC6y3SkYjQzoHD1yKIBjIPEDGxjwLTwt9diwHtLVG1xw1jIKW10UZgJbQrtNa/BHuHml1rFqgivlUCUxzFxGBSwqQcZKN346bt7bFhv+658oK3opXN+HVrDjLEPUBLYeN+sYvwJa1HXFWuK5LIukyO+Ym+BRXw9BKv0IbfGHYkIHjsA6w+j+q0Dmy4noDHpc93WQ7lXaXZQG+Z5z2xJuAiUchqIuOfh8X4H4s5/N8qCU4388UyYhLetpxoTse8HYqVNPRokkhQo2wW6MLNuUbXWN9mRbrcH7tuorTxJrxMl/jsSbbyKPHmKoCQ1V+1HyJbF4Osdw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E17IqINVkHbc4xGwI1j8S23SSyo46XlKmEFl9Kt4OCc=;
+ b=jLhewdCIdFmTLYpZDCBiYCCpXvrmspojobvqZg7C5eVhDqJYPIYF3cGwpD6v0oXCPlq7zzxVKlC7w8jerjFEUMTyjmt+MH8L5rS7CpJ0iKTj7g1g7BTkA4FPMK8RzR8cqxSsWnUIBqgMR7TCaqeS6lKDcE0XiZTXroFrv1g3ng2UIakMTJiZR6CvSvE4mRYVxg0W53ZZjfcspn8keuxMoJmFD2kvj3B3JUNn+dynAFmm29P4xQ7mBcma8h8lMXX5pfPuTpdJQdUAXFfkGvF6p0Pxni2GBQfWDCgV959Y6cOjI2rzSBgXxS+tuT2dfWd+eV7jr4WiL3iMjOwXQgwjdQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E17IqINVkHbc4xGwI1j8S23SSyo46XlKmEFl9Kt4OCc=;
+ b=oRog6ggn3jwk9UG0iGbmaucaLgAeVGssvhIZ0d2mdmVmUlt8g3wCVCRzP1mua1SRyPiBphqOFMNAFFUZYtAEfNESAG4cl05wRAHjNBPgZyxtl3W/euyd71W5L5zvvaCzvkS1lENDBuuJkk+bHAJLoajJs9s+v3vinYGrK80JCtA=
+Received: from AS9PR06CA0589.eurprd06.prod.outlook.com (2603:10a6:20b:486::27)
+ by DB9PR08MB7868.eurprd08.prod.outlook.com (2603:10a6:10:39f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 15:42:16 +0000
+Received: from AM1PEPF000C1ADA.eurprd02.prod.outlook.com
+ (2603:10a6:20b:486:cafe::ae) by AS9PR06CA0589.outlook.office365.com
+ (2603:10a6:20b:486::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Tue,
+ 10 Nov 2026 15:42:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM1PEPF000C1ADA.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Tue, 10 Nov 2026 15:42:16 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Id+/FaJzGjZW3q+cUeEyxmHho0jcM6gfGaORMreGzlDnwoUyyDud0+T7dglyq7Dlu8RDqtz27ra2TD2oGRxMIOXz1n6wxM5CcDTOcioNEdNYy3WxMw26YkKuCjXf/U4VRY5OD0yPxV+ybT99ivIRjFKnvsiKquAgtjr/UyVUKhvCYD1zF9qolNbR4vjq/gDWo/Kv/F05akReE81elVhrwjBfmnpmzwmFzIZhJPrYW1r8zHqaFfCZU5T0TPQ7JGWdzpKgZzO5qFdF7xXPfXo0hMZvlSBpJUA+3o7xG1DJbB55UftA40CtzB99E1/5qtPOuWDGlk2wW/sffnky908Bmg==
+ b=wxIi5KJl/yfwXdy7vIv9xgqTecMhYZSTyyw3f0/2+LrbuqlxM4SMJqXPprl4zfRkgvEwFBn9190Ntb5oU36+pd4CFhSaGrFe4ROat6xJ5iaLwpj/6qhaDvTVz+7B7ttlmz7LmCcO1kpGUK+5REGIbsiTFk6RrIplaJjyTpSDj0l631rcYLFNRDLG/rkSpPM9M/0BJJE1fCx7BUFYIkxIxj3mw2rjVPzQqDrTVKMTl2UyreUPx4ZwZKLRnOgX06Tr8hdhakujPuSfTYNAubqQJFF4kNFX1nPYD4q24LFacvhwTloyTcoLX2ValYVmJpnjqPgmFheiYh3Uontd4168/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TJh4jf3y7ZohPdz4G0/nPPn0WlsJMi6L7Ufm+QxGxMA=;
- b=OedB+UzjjmScfRsViXvMaIXttr/LcjGuwaajzJ4XrfXos0hq/kpSzZhgIBDuOhCAK9r/Dce9STEeqXAmtHeQL8PmjbHEJJAiVdrkl2i65SjRXLzsudww3G9WVpVdJ52AePVWEHkI5R+GO7l4DTCKQYRQTF5WCpdoa3tSgJi/YBg6jto3eCq6MflLOrIWAXzgk+4JttReHbyb6nFLXM1D0xHx/vwHNDROn8m2yqbsLx1HX++rHdA0n+OzjXW6cYCknX2MC0D6McPaJpQ/7eRZ5eslQ1UxBaETLYMfPoWTcLp+B+ibiR1Q72Ym48YxkqC1lDY3hWwNAtcxnB0H953VNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=E17IqINVkHbc4xGwI1j8S23SSyo46XlKmEFl9Kt4OCc=;
+ b=FP/ZHijoJ7opa8d83P/n1rfOdZmGfpXEfF32QT0c2jZLpqksJGbKCLaik2XO4q8iHxAPWB8F0uNOjmM3OhM6vVbg2vUap6KMd26O9GRcAk2LnHp/Ss7crCdAiC4UZqUikIqZcP22I1P+jgAKgMyqosDcLmnULNSCs0Npdg9OLud7GgwXGMHqgjd+wmUCf55MMWFqhEYjctClHksjIY/ajf3YLbVjF1tZTSNILjVS04FRPJJojEpjy2M28Cooa4QOFc/uPX0iZhWHpHoRAKxVsa9CqMRrRJ57QLn1CP0sTyaVJQW2DpTuwY6YX3e7/UzihfyaAJlHw8y+mBhR+T+yjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TJh4jf3y7ZohPdz4G0/nPPn0WlsJMi6L7Ufm+QxGxMA=;
- b=D/74dJqNFSBQcHXft02ZxKkT5cFrCWmLo6zeFIa8ghZN80suQJKB8nl3dhv6PmhrUf6dTiB572PGYX/jX6reUC94lqbhR3Ssb40GNnNWeT9evTnTzMPUoD+gijYD4UkqzYj+5slKAUIVz1ZJ1/fq3op62NIJZfONzdjrmWEB8Ps8nuQobPhjgV6KFnzuikaKOSLEMZpZ2yCLhItdgQ/xHoHrq9KNS6OOI+2lRkLlZe8LP7PRV1bbXKMX5XyouoqcawPqxv7Y6QW39epdXPfwC7T4ybYAQc+gtrVMYQrlUdfneuqw4ODn5B+qaVUDHPovPqLAFiaNB0xr2QTcGXUUPA==
-Received: from PH1PEPF00013300.namprd07.prod.outlook.com (2603:10b6:518:1::e)
- by SJ0PR12MB8615.namprd12.prod.outlook.com (2603:10b6:a03:484::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
- 2026 15:42:05 +0000
-Received: from MW3PEPF00001654.namprd21.prod.outlook.com
- (2a01:111:f403:c91d::3) by PH1PEPF00013300.outlook.office365.com
- (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 15:42:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- MW3PEPF00001654.mail.protection.outlook.com (10.167.249.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Tue, 10 Nov 2026 15:42:05 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 07:41:38 -0800
-Received: from tuxedo (10.126.230.37) by rnnvmail201.nvidia.com (10.129.68.8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 07:41:32 -0800
-From: Petr Machata <petrm@nvidia.com>
-To: Hannes Laimer <h.laimer@proxmox.com>
-CC: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, Shuah Khan <shuah@kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Petr
- Machata" <petrm@nvidia.com>
-Subject: Re: [PATCH net-next] selftests: forwarding: vxlan_reserved: drop
- redundant in_defer_scope
-In-Reply-To: <20261110-vxlan-reserved-tests-v1-1-a252d69c841e@proxmox.com>
-	(Hannes Laimer's message of "Tue, 10 Nov 2026 15:03:55 +0100")
-References: <20261110-vxlan-reserved-tests-v1-1-a252d69c841e@proxmox.com>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Tue, 10 Nov 2026 16:41:28 +0100
-Message-ID: <87ld70y9qv.fsf@pmachata.org>
+ bh=E17IqINVkHbc4xGwI1j8S23SSyo46XlKmEFl9Kt4OCc=;
+ b=oRog6ggn3jwk9UG0iGbmaucaLgAeVGssvhIZ0d2mdmVmUlt8g3wCVCRzP1mua1SRyPiBphqOFMNAFFUZYtAEfNESAG4cl05wRAHjNBPgZyxtl3W/euyd71W5L5zvvaCzvkS1lENDBuuJkk+bHAJLoajJs9s+v3vinYGrK80JCtA=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
+ (2603:10a6:290:e9::16) by VI0PR08MB11064.eurprd08.prod.outlook.com
+ (2603:10a6:800:252::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 15:41:43 +0000
+Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
+ ([fe80::be50:76ed:509a:b9f2]) by MIWPR08MB568805.eurprd08.prod.outlook.com
+ ([fe80::be50:76ed:509a:b9f2%4]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 15:41:43 +0000
+From: Karunika Choo <karunika.choo@arm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: nd@arm.com,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	linux-kernel@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v2 28/28] drm/panthor: Reset partitions before starting arbitration
+Date: Tue, 10 Nov 2026 15:38:49 +0000
+Message-ID: <20261110153907.3241978-29-karunika.choo@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110153907.3241978-1-karunika.choo@arm.com>
+References: <20261110153907.3241978-1-karunika.choo@arm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0184.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:311::10) To MIWPR08MB568805.eurprd08.prod.outlook.com
+ (2603:10a6:290:e9::16)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,47 +152,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PEPF00001654:EE_|SJ0PR12MB8615:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff6ed996-4fd9-47be-58f4-08df3f412c02
+X-MS-TrafficTypeDiagnostic:
+	MIWPR08MB568805:EE_|VI0PR08MB11064:EE_|AM1PEPF000C1ADA:EE_|DB9PR08MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1de5ff3-eb56-49eb-df72-08df3f41327c
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|11063799006|56012099006|18002099003|22082099003|6133799003|10067099003|261009223027099003|261026121527099003|261102123227099003|261022075727099003|261022105027099003|261021121427099003|261026140227099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ wGUSedvaUEUZFMExgrHBYqEcXDySwoJxr16Q5vnGHpuXjHaSS770zDNt0LWuJObcmQwoqxNWzh9rE9SEvJ38/90GVuOEzqYJbz4WBeXCj4vgPdpk90DdElYl7zz+6rWPlPQEHgXCnKpt5NQVPtr+NdtVyh1Fp7snuLtM/0WoAdMLi3A/kwZcHR+dJw5+Pwy2L9DB45GpPJ2MywMfdOynuNvvEdj0EDtK8833RvLuh1MZsfD/QimPNtRtEWNQohGUmTYHOPBIWKkagmuYxH8cA1A5fre51NayzY3yGpc/OlZrNquWuQgwC2oIXrMfV7Z7z3+nUeGeszNwbhsmebKUVPxeG670AubBNxfTR7adqCLCENkosF2Fh5otemaLu2Q6U2PBuBss23I4gjciNgytM07xf9GkGeBiDAQrSIdmV4n86iAvnKXq29b5Iw0aV5HpiZFb868IsNAYnkbXAnVIUfALiJALay2z2ZJL4rJCg+lzAO87KZt+VexQYS78rGSs3+32AJbCNeiJjY30rHv+/8n1EfvwzN6m3vsyxF9wwWeWJdK1OA3BtK3t8hPkfiRjBNJUWwYRtaRHXt9B+H7+rUWjTyoFp/QrIit27LDA23P6PfH5mEvfUv010xE7VKjXYhARZBS399Ulb6OBO3jgPnIKcxaGuDWMGcp/vrbMPKU=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MIWPR08MB568805.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(10067099003)(261009223027099003)(261026121527099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ 2bnOPbmo7cSWRYFqmgGvOgesTsMpyUTZKACsE+0jdJmfEyrkIUaikZkmpiBKx1XdWh25CyJUZT9U+Fy97mKhx9rYaBbj1prtuhvHlSwhGcBX7fgU/8T6jF2UdhynP7XqV9Zrx88G+r4XDqNZYed7R0tylS2OkOwSYPRtOlofdcTIlLWs3wlsX4+H4t69ZzpK4FQs8kU9F8+5ZU+a02ElRsEfoKJOnUqA6We4B3DZT0U57HL8eb4ghCyraREiy7H9QYF7UMb6c2Wj8n8wwe5EWUYXsSx5FZBXEdTd2u+IgH2DB/u90AeC/wTcDoOgojSSKiLwq8w2h1epruGO5v1J+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11064
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM1PEPF000C1ADA.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	7695aeac-c54e-4386-f98b-08df3f411ef5
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|7416014|1800799024|18002099003|22082099003|10067099003|3023799007|13003099007|11063799006|261026121527099003|261102123227099003|261026140227099003|261022105027099003|261022075727099003|56012099006|261021121427099003|261028144727099003;
+	BCL:0;ARA:13230040|14060799003|82310400026|1800799024|36860700016|23010399003|35042699022|376014|22082099003|18002099003|6133799003|10067099003|11063799006|261028144727099003|261026121527099003|261009223027099003|261022075727099003|261021121427099003|261022105027099003|261026140227099003|56012099006|261102123227099003;
 X-Microsoft-Antispam-Message-Info:
-	7a7CGsj9PAcqpfHWbz6aTreecWAnVFqXYKcTVTZzz397Ju9wQKZC0cmslrjhasHroQWQU+olxjRnhaHk/NdohVisU13PBC5jtv08Ahp8tdNK3oN/5O0jFcYVqo6JKMuCAp1Z4fKx00Q59+R5g8HmUt69PCX0o7ZrB3W9QFVci0Jcmg2VTndt0muT7H4dLWCwS4FA2A/5UhyrtN5+wSVLDUoSqMUI2nLioHG9nlbUJzx2GxTS3lHWOfIwxpQYP4rgBU2bvuZeeuN2OFDQhSWRS1xwFKOCdUs3X7OHY1ZV95bBohIDa9imEp/Zo+N2bmuMIzDd18p9t4dqQSsVqkxAtzivFFjbk46kecR4f9hrwhn/FDcLM3j6+Br0qevj/jESemlOUMsI9oYEZkqmwqWUuWQ1BrkD/uCzKmfG68q2m39CANybU348uUQ3oHKc4TyWEms3ZdzlA6rtckOBvxFk97a2SiSXI7g7YQSo+3qLLxl1XUzG9RezRSGofxjMj8YYU0G3wMUu+q83f9pm3Qxx/f7TjVmpw3bj/f/VHDMLC82Si36VHCTGjdrmwpIa9fag364A3hBF82n+IOUJL4o/69wV8abJoUd0iwlZK+YxLyTuF+F+1vQd6dzYJCrKRElKL/b64q9XqlbgTFqirLNF9z+IgcnYEXW+Xh/wT6h8yjbdAkezcq0KzL9Yf1Hld27mOjrNNjoOJGGd77wFVCK8Vg==
+	73YacMOUobyjY6i0Y34U+IDovNPBkOfMnxj+30CYeY5+vHr2yU3ERzoW2aOcC6NmJZXUq6YwD3j7O1/ZIHIkrmKI52WxSIoab0SgeVgBBbKqIk0klzOQchMCbWC1TcLRiLBQH981x2P3Kyd7g8oU4LA0lGNMhBigWyM7MJgBZWeDloXF4SCplXf/RS3shcbKMakwFmi2cCOfNUDU2pWg8mNo77Am6yhpafg3KHt1+lq5THNaVaAHLxS3SE/fyXEtDe5ky+gtlXE3goFocU+8SeSBA5X2ywXJE/RFGTjhEx84uC1h27rRqbsMx/rGjpI3y0Gyse5eqsepH4OkMhAt3YsgwvHp2aldJpWdmV1RuBkCk4gq+uLNSFJxGLNX+hQlV04MCunNL/kFNCJLoOvInWklDjyO9ZGXXKaf8EXgxTxLsDG/Ioq03wznt8vMAAMO2EN8uiBdT5sw/12gxCKSBIE4rooytMVm/kDKb6iV0L77AF9Y0KRoZnPfsSDhpPSZEUAozv9n4zSmFmOtLX+sCfFZpc8yi/GR7b7VYb5IZMys3Pc30rD2VnXZmLWTIYjHP3sHb1OXaOZbN3HKIOhdQi2ku6sFfIQBkbaXXSCdDExaYcbigvPvbHqwkTGnJ6yxCgp/h8xf96Dbyzus0o16PMDNgcmMGGXWZTQm6wVVmKdINqG6ywzthabKW+QaQW7i0ivB+hrM35CPOoJQqt7Byw==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(7416014)(1800799024)(18002099003)(22082099003)(10067099003)(3023799007)(13003099007)(11063799006)(261026121527099003)(261102123227099003)(261026140227099003)(261022105027099003)(261022075727099003)(56012099006)(261021121427099003)(261028144727099003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(82310400026)(1800799024)(36860700016)(23010399003)(35042699022)(376014)(22082099003)(18002099003)(6133799003)(10067099003)(11063799006)(261028144727099003)(261026121527099003)(261009223027099003)(261022075727099003)(261021121427099003)(261022105027099003)(261026140227099003)(56012099006)(261102123227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ghjMvaRTohpr3Mfb9qdupvxG56BNLQCCUBeFnhmml/jUekDffF3lzUnJbtudybMpFVKcFiNj06NJpPf49jRVGMk1BRBHp+Ie+o1VgiEEcwitDXysj22pv6sEMskgtxF/AyX+Nhw05aWpITCFNG1QGccmR/25VXS8e/PMnP9Cof4wk/t4IKV+/Hnj1EdEvG/6s7NA/aWQjvXNv99ZlKE68mK/2s69kVRP7JBs+U1XGd73xYGLrDGZgfvDK/D0T7YiLq1I+8mdkhM3WjOFn09r8SZslviJvDyzPS6rndy5msiewvC8gJJDbVT7czmuRzLHHEC/D2vRWGcKlJHNc12hpJ7LN+h2rYfqm6fZUL4emWwf8A+jLQtV+QOkzPfq9q8jK/nFj4HYGRoP+noeGySzhUhub67/8qXyI+bYqUsgzumiz9/OVu4v4Aly2n9nTZLj
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:42:05.2711
+	VNqHEgzrj+Q4DzKBu/M59rGMFR0WZbBJjPEipVZk2CYqXsyCtpJ8mIRQCpPk9bS/14TO+5zNLGA3wOybNifuVqPJAwA7/0D8OxuaQkAa5b2IrsWGlvuYpw59Xp9/dc1T3wkYcwk5ABmrizMCcs+IiOjystXyVMIOHFN3rg9Gc708+fngTPl7C3gyd02yEg0+XJcxeTpAmoMrRy41TNuhp/QZJssXEBHKP3G5MeIZ1ip3EerH/n7w8gZLalgrk8N+dfLQpDRfKXMqICCESUqGlaPyv4mjJV4P9tZnXiAMfYG6FHpzyhV6lJgLmJZ1JQUbNN9B0HaUomL1ygp3eatjG3v/k0UU4XbJM37gFpTK824TO3MARADOaLetC7RZMjQFpixMcp04azDDzwozga1dtvr6TzW1D8zDOhkNjVSpE+wy+l91YjeCNxGLrEiJlwZE
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:42:16.1279
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff6ed996-4fd9-47be-58f4-08df3f412c02
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1de5ff3-eb56-49eb-df72-08df3f41327c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MW3PEPF00001654.namprd21.prod.outlook.com
+	AM1PEPF000C1ADA.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8615
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7868
 
-Hannes Laimer <h.laimer@proxmox.com> writes:
+A partition may still have an open access window when the arbiter
+starts (typically from restarting the driver), while its software state
+assumes no active window. Starting arbitration in this state can leave
+software out of sync with the hardware.
 
-> With commit a6e263f125cd ("selftests: net: lib: Introduce deferred
-> commands") tests_run() already runs every test in its own defer scope.
-> So the per-test in_defer_scope here does not do anything. Drop the
-> in_defer_scope calls and the wrappers that only exist for that.
->
-> Suggested-by: Petr Machata <petrm@nvidia.com>
-> Link: https://lore.kernel.org/all/875wyo6b7d.fsf@pmachata.org/
-> Signed-off-by: Hannes Laimer <h.laimer@proxmox.com>
+Recover each partition to RESET before enabling its interrupts. Allow
+open windows to yield, fall back to forced close if necessary, and bound
+recovery attempts so failure aborts initialization.
 
-Thanks!
+Keep partition interrupts masked during recovery and clean up before
+normal operation begins.
 
-Reviewed-by: Petr Machata <petrm@nvidia.com>
+Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+---
+ .../arbitration/panthor_partition_control.c   | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+
+diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+index 3b472403f49d1..2c0f8dc0b3bfb 100644
+--- a/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
++++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
+@@ -43,6 +43,7 @@
+ 
+ #define PART_REG_POLL_SLEEP_US			10
+ #define PART_STATE_TRANSITION_TIMEOUT_US	5000000
++#define PART_ENSURE_RESET_RETRY_COUNT		3
+ 
+ /** struct panthor_partition_cmd - Partition command data */
+ struct panthor_partition_cmd {
+@@ -368,6 +369,54 @@ void panthor_partition_control_term(struct panthor_arbitration *adev)
+ 	}
+ }
+ 
++static int partition_ensure_reset(struct panthor_partition_control *pc)
++{
++	int ret = 0;
++	int count = 0;
++
++again:
++	if ((count >= PART_ENSURE_RESET_RETRY_COUNT) &&
++	    (partition_state_get(pc) != PART_STATE_RESET))
++		return -ETIMEDOUT;
++
++	count++;
++
++	switch (partition_state_get(pc)) {
++	case PART_STATE_RESET:
++		/* clear any remnants of this operation */
++		gpu_write(pc->iomem, AM_PART_IRQ_CLEAR, PART_CONTROL_IRQ_MASK);
++		pc->closing = false;
++		pc->last_cmd.aw_id = AW_UNASSIGNED;
++		pc->last_cmd.cmd = 0;
++		return 0;
++	case PART_STATE_WINDOW_OPENING:
++		ret = partition_state_wait(pc, PART_STATE_WINDOW_OPEN);
++		fallthrough;
++	case PART_STATE_WINDOW_OPEN:
++		/*
++		 * Window was left open likely due to arbiter restart. Send
++		 * YIELD_NOW to current AW and wait for it to yield GPU access.
++		 * On timeout, forcibly close the window.
++		 */
++		if (!ret)
++			ret = yield_now(pc);
++		else
++			ret = window_close(pc);
++
++		/* state changed, reevaluate state */
++		if (ret == -EAGAIN) {
++			ret = 0;
++			goto again;
++		}
++		fallthrough;
++	case PART_STATE_WINDOW_CLOSED:
++		ret = partition_state_wait(pc, PART_STATE_RESET);
++		goto again;
++	}
++
++	return -EINVAL;
++}
++
+ static int partition_control_init(struct panthor_arbitration *adev, int i)
+ {
+ 	struct panthor_partition_control *pc;
+@@ -407,6 +456,7 @@ static int partition_control_init(struct panthor_arbitration *adev, int i)
+ 
+ 	spin_lock_init(&pc->irq_lock);
+ 	pc->irq_suspended = true;
++	gpu_write(pc->iomem, AM_PART_IRQ_MASK, 0);
+ 
+ 	spin_lock_init(&pc->lock);
+ 	pc->current_aw = AW_UNASSIGNED;
+@@ -429,6 +479,10 @@ static int partition_control_init(struct panthor_arbitration *adev, int i)
+ 
+ 	adev->pc[i] = pc;
+ 
++	ret = partition_ensure_reset(pc);
++	if (ret)
++		return ret;
++
+ 	partition_irq_resume(pc);
+ 
+ 	return 0;
+-- 
+2.43.0
+
