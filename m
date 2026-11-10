@@ -1,57 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334584;
-	b=eoGdcdc/FNA7Sf94hqu7URz5Foy+YQ03p5HOTKIVNzx74SBi71h7BtNe4KfH1V+Oje5C
-	 GUFELUQ8PV2NUuzEis5oHwNNib8aMdb3X5DJTA445WgrWBGErjUFtpyHVHjpO8YGAokkQ
-	 kfszD2aFwEBQ3CIVBjcwxXb7q/RALOWndYXTI7IkRaJ8Jc4tqFMmDu5cuxpxp408lNVJQ
-	 GdDb6epXNwTpWN+aKJg8OAluCcPasi8Uw6blfoJoDd4AgP23TfJRs5Usta08t1DGMah/T
-	 6GG+YRTzapZspa9GfP9VgHFWYo9dbeeZooqpHZwXdk7dheGBEtaPV58+xRIQCLyQYLg==
+	t=1794334589;
+	b=pM6bfOsKoZ3l5enr4GbixyMqOa7YMbvROzDJf0CCPuc2QsjJC0gfltVrGdId+IMZ0Jpb
+	 1CQSGM3zyRuYzLnKJ30QvU2h9SnA+dFWhuP5HpoaCvUZPGwsQwUb811XyDFd7Uq+4ugNu
+	 5DtotYjDIM8dRmO/VuvlCdV6eLHkgOggxriTd39DG6supIWzoHW7g5UPXV91SeSF9MCrq
+	 IUwC1it8cusenmjaRX5je5WJF1xzOPytjfPCIEqpbQ0FMhVg7SJSykQI3aAaWjYyIBCiP
+	 8k5uDrVf1crquCd8QNTk5TpsRp+M4+2b8RjldGxm4ictgiEGaeYEQYuwjcNf647owKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334584;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WOswCe00ecth5aegw9K1yzGGEgL8XZ5Bn4726F7aM/M=;
-	b=RF5lnT8Y+wALlV+DxuZmWLJLogUctBKOMk6H90m5osjYaMpD++wIWSEO/EEggTv27kwu
-	 J/Y3Ye5NH1qVyzg56chHJ2m5blMKMKYRKkUliYHfWmed5vkYr+VEjEIVHidYc2r3IDH8r
-	 tjbssbpInnvNJs8rMrIFxwx1ipyDpUJIftgrjCXXM4op2Nm46y0XKCWE8RVu6DxSEnpzU
-	 +QHEHB+X/gseiXzgtoRO5hINMbNMGcasrgY2m+RT4wpVfz66CIQLlN47o9htoUpdv9Puq
-	 5L4FSpbIKoTBkqMkoMH6WiVAhKsBF+fmCBPxXZib1pr9D9ao/1guWHNkzalUXpvErsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334589;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VO93PVJK8N20kSJ8Y8aLKtAdeQuFzyl/QHyYJLrhnZE=;
+	b=u6lG8YxUS802/n1FQ4IuewGfWRfBXufUbgSyKU+4pv0DxwXZ9WxDo8eU55xD6pDLMmYu
+	 vDQIhtAe1MjMDzQIfMjhW9jjebxol1VWVsuorDfBwrPkSIdkV14Zx24EndAppIifNb0Y7
+	 D1aEvdsTfKVF75XqjOgNJ5XBMny6j/plvxlBv2P4JoreiYubvKcvDemdS2IocXZCrQMNZ
+	 LyaIbDnUP/US2k/B0YeMvT2lroAdnADg86DE7HRZ8NC1CQcXG8R0ZSxa9m9R9bVXu15Om
+	 JtUvK8LqKgYDdkwhEApZk0fs6VoaZC6xQ1lj/9kc5H8ecnfJOn11P2UhZxByDV/Btgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCkXlZHo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cCO1F9pm;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C0wpemsR;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3319606A31C;
-	Tue, 10 Nov 2026 18:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93685606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:16:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93685606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCkXlZHo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260641F008A1;
-	Tue, 10 Nov 2026 18:16:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334583;
-	bh=WOswCe00ecth5aegw9K1yzGGEgL8XZ5Bn4726F7aM/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LCkXlZHovhXIEMkXyHaLIoiLZziXCf5ktPbVRuney59bKd3vZcA+KXDhc/H83FMEk
-	 jFuIo4HTN7InXDDc+UGiTHBakPkz5vJSl/6Z7d4w+j3dpRQkAauRhMzZyDBLCYQlOL
-	 8RZIq369C9kUf46m9S/dOkAhg/op4aFOwwloUzfldj/8KqIo+XOWRE7ZoNYZ3qwOkK
-	 1p6wQ0TKq8Tbw0tlMQjY2nccZIKESS/KYDK85SYLEbUDr9au0yUabufFucp30J9Ctu
-	 M4NjYNx5kldzJ8oagpAimob0D9oasNsRZVjbe+wPc/5omaGFhIDL9e3ZPlQD5Z6GD7
-	 6R8RjjrsZyliQ==
-Date: Tue, 10 Nov 2026 18:16:19 +0000
-From: Conor Dooley <conor@kernel.org>
-To: kohei@spacemachines.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, conor.dooley@microchip.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: serial: 8250: add Microchip Core16550
-Message-ID: <20261110-appease-euphemism-0bd52845b396@spud>
-References: <20261110-core16550-rs485-v3-0-4294334243fa@spacemachines.com>
- <20261110-core16550-rs485-v3-1-4294334243fa@spacemachines.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cCO1F9pm;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=C0wpemsR
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAH5VfC2900443
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:16:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VO93PVJK8N20kSJ8Y8aLKtAdeQuFzyl/QHyYJLrhnZE=; b=cCO1F9pmNXglHVyo
+	m0dKMF0RWd9HYZdwi7eny+dckLXwbKyXlsDNPnPk3dAChOf43YSU0wVjVmmHwnok
+	hPW7KfRpdYjTUpd2tc7vjmul/73NM8tExNnSJ4dEy4kYTxri+TQABVqRWmFo8tLS
+	ZfxwgUE96RjJxLXB6kghyAIux5jwFJGvZQVSYziB2dBX3T+fGpGQBwuN+srY+JIB
+	EYvTGKnO1RFYGL5a/q7tqnv0AjEsFSBHaCZsrZrqjjPp/gg5GEiL+KblbuKguxMk
+	blNpYnJvUS2KoID0cz5tWMqcKYhdB/mskAEDxUNfji/Asv7HpPZdcW9yBdc3jIbK
+	etxX8Q==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv7c5gav4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:16:26 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f26e6abe9so3755652eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794334585; x=1794939385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VO93PVJK8N20kSJ8Y8aLKtAdeQuFzyl/QHyYJLrhnZE=;
+        b=C0wpemsRNv+O6CFbsYp0aDAXJfrBYz3M8VOi6ti4OwZl2M++i/5Q/HWwSrkBpyP8rR
+         1ZjJt8+t0Anxn3kj/XyUS0GeYS4+vr2tHRZlcDaPf98R1LLMf7IR3jODOyaeDrDRnDk5
+         H2FVKzbi8IVbPWmuKivLYWS4nlPJUqt5bHuUmdQaZVcBZsFAvjxdJ1cqWIutIHdc9kRt
+         0zSLqRzJsjds9OXolGHrfMN0g1jmh0H7gk0QdHtiA8nyUI1VPCAAw0lafF5hGFkrqGDZ
+         Wz3b8YzmlOAMKSREfBBmTxvc5SLR+wJcUOlP4bJJTSBjYxUbLX4B8Gnbo4JiXmJhlvLL
+         BjuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794334585; x=1794939385;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VO93PVJK8N20kSJ8Y8aLKtAdeQuFzyl/QHyYJLrhnZE=;
+        b=uEjBh5HE4DLfKeemHHJu8Y2cwM0M+h9XamfGSuBWZnwjQ6fBCysKZINdq3jPl9xLZb
+         HHfLtNEDOXmwidT2knrM8jX+Ynf6zMTBiHs7NIOY7PCG/w1hagpo/IMsnVLEZDlQDaLr
+         voB0EYFwXr7uanhMTGjBz8Rhj7b3us+/IRDAal98KINemnKNh0KK49is/dyR79xmMO4W
+         YbMo85/+PVV3bC/u8Dk2/Yi0aq/7JdelgWzlJjJ2yRtRiwVlEe3NPTPL69vjnM15a924
+         DavSlTwYlBrfYAhG9pKFdCZZP3Y2BdYfXr3EZjR/mOueSEkuN00pUXTdnC4rFeBNEvW8
+         +lBQ==
+X-Gm-Message-State: APuU4Z/PAspojJn0rOeonl7LolL7olcvsZbEeJCsWBFz8UnMMwSvgly3
+	r1HSs4/WDydAlSkGqQtB32Wxf3iMo2AcZpBSEGOs5PBkzZCyKIWKjJMMPQ52CjrRQTx5pn2sGI5
+	nfKEHfUyACavE++xzVkXTzFkEZvCuyFNTuQ4OMWJjTXjeKQFvcPsLLQGDoErj/tFf5xg=
+X-Gm-Gg: AYBFou0ITVTZAvT7Dj+gGPgg1sX51Ocj56qJ87q28fw9ib25oL5RM9mZ5i6Hv3EZRCq
+	XqiPwTgoP7G6UM2kkBJ8eX96JhPTmYermwcS6VXA+5Ms4xowRkdj1tEeBkm9C6YRngCpZJZm6kg
+	oEYSQaDTbyhCao0ZuskydugASp9LRSdT2C0JtimbFjh/Jtfw0g3s+0Q4jrQMvwskZKG6jK1Isjt
+	T0XnRhIGOwroRAshw42xU1Vz08NxcT2VJz1evuRCoWNHjDfqL3UlyvT1Mxxojc0SDrwjERDbNBA
+	HQlrj9sbrQ+zNaPVv1yGWkdnlhW0UnnQVGpowYGnJEwiKj6JEoE2pmLDMYA0liu4hA2rFXrFJUq
+	yNIFUHH1PqXSnLp4BjSUe+s0xDS8L6l3N4opAYaKiDYQrFWGoq3JISCVDipYv442x1/X7laPSRB
+	GZ0fry3iPwfjzPoIz88dcTuJHRN6tL
+X-Received: by 2002:a05:701b:4511:10b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1b3ba7b2e07mr2079043c88.30.1794334584935;
+        Tue, 10 Nov 2026 10:16:24 -0800 (PST)
+X-Received: by 2002:a05:701b:4511:10b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1b3ba7b2e07mr2078975c88.30.1794334583856;
+        Tue, 10 Nov 2026 10:16:23 -0800 (PST)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b20c55sm7416264c88.8.2026.11.10.10.16.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 10:16:21 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:15:52 -0800
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+        f.fainelli@gmail.com, vincent.guittot@linaro.org,
+        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
+        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
+        usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 14/35] firmware: arm_scmi: Add Telemetry TDCF areas
+ parsing support
+Message-ID: <20261110101552.0000711e@oss.qualcomm.com>
+In-Reply-To: <20261109091221.2532706-15-cristian.marussi@arm.com>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+	<20261109091221.2532706-15-cristian.marussi@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,73 +131,679 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5peolnbzRFGeN4F6"
-Content-Disposition: inline
-In-Reply-To: <20261110-core16550-rs485-v3-1-4294334243fa@spacemachines.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3MiBTYWx0ZWRfXzmq0VQxBy1nz
+ aqTxo7iz8vw9bAp/qjzbJM517ycKy4ipSnw6HkyZ2WyJTnSo4QiWCltmsdhO0IPt6H6u+/hgcHo
+ yJnmOmSso9e/sslKco07pKCNNfJOiZp1NQTYgpR4UpOfLHeHic/nH28/9qnUkKIhyWyHE2w0yQK
+ V5U8prULfzY8+OVOgJyFCzW7aKHCOE0ETpiRRAv7zuVcsdwjJeY+SPR9c/wiLoxCJQ388RSdDEv
+ FZoiXqvJFcPsn6ZtX5EHhIW2VP2WHnuAp8c11vB9SKljo41X7x7GrxHAc1hAUhRkNGvY1JqaRB+
+ qgUFzjsbJN3u/NbGVsRJhDg+LifArIgv8wap8gUsOKm2HoOQja5dd7c8WGLhThzTBmq0CN8Q1IF
+ JVmthMBlljWpyZt13XOz0GG03UPKsrT5idpQw8URCkdBy+j0QVlTCDwJRJZfpYVCzdFh8WTPxpw
+ eZem8FGTHbcG4EVWqMg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3MiBTYWx0ZWRfX0YYcblV+ZZs/
+ /txiTqFpPkglfREnP51mhCUFO+m2/q4jvmzHHA0F6hFOTE+hYd4aQfRycmSIol75XwwDGYQs1NM
+ OO3lr5eNNHcofxI/b87ztv5z2hFr9xQ=
+X-Proofpoint-ORIG-GUID: EHkEhCXPo94CUtHTM8BNTKvLRqV6pEv6
+X-Authority-Analysis: v=2.4 cv=eq9KXYpX c=1 sm=1 tr=0 ts=6af35f7a cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=7CQSdrXTAAAA:8 a=xkoatq2HAAAA:8 a=zGxvY66N2CaWy6YS1qoA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=CuNAHyPTimGbZf_9KV2F:22
+X-Proofpoint-GUID: EHkEhCXPo94CUtHTM8BNTKvLRqV6pEv6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100072
 
---5peolnbzRFGeN4F6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon,  9 Nov 2026 09:12:00 +0000
+Cristian Marussi <cristian.marussi@arm.com> wrote:
 
-On Tue, Nov 10, 2026 at 09:06:48AM +1100, Kohei Otsuka via B4 Relay wrote:
-> From: Kohei Otsuka <kohei@spacemachines.com>
->=20
-> Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
-> including the fabric of PolarFire SoC. Its registers follow the 16550A,
-> but it raises no interrupt on TEMT. A driver that knows only ns16550a
-> waits for one in software RS-485 mode (em485), so RTS stays asserted
-> after the first frame and the port stops receiving. ns16550a is
-> therefore not a valid fallback.
->=20
-> Add microchip,core16550-rtl-v3 as a compatible of its own. As for
-> Microchip's other FPGA fabric cores, the -rtl-v3 suffix is the major
-> RTL version of the IP, Core16550 3.x.
->=20
-> Link: https://github.com/linux4microchip/meta-mchp/issues/5
-> Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+> Add logic to scan the SHMTI areas, parsing the TDCF descriptors and collect
+> DataEvent contained in TDCF DATA lines. Ignore TDCF BLK_TS and UUID lines.
+> 
+Main comment on this one is various unused definitions at the top.
+I'd push those to where they get used so that reviewers can see all the
+relevant material in one patch.
 
-With both dt-binding maintainer and microchip fpga hats on:
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+May involve a couple of forwards declarations that get replaced in a future
+patch but I think that tiny bit of churn is worth it.
 
-Thanks,
-Conor.
+> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
 
 > ---
->  Documentation/devicetree/bindings/serial/8250.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
-tation/devicetree/bindings/serial/8250.yaml
-> index 50d5c977afa3..d9ee14f7b694 100644
-> --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> @@ -111,6 +111,7 @@ properties:
->            - aspeed,ast2400-vuart
->            - aspeed,ast2500-vuart
->            - intel,xscale-uart
-> +          - microchip,core16550-rtl-v3
->            - mrvl,pxa-uart
->            - nuvoton,npcm750-uart
->            - nuvoton,wpcm450-uart
->=20
-> --=20
-> 2.53.0
->=20
->=20
->=20
+>  drivers/firmware/arm_scmi/telemetry.c | 799 +++++++++++++++++++++++++-
+>  1 file changed, 798 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+> index d9f1a3e3468e..810195889484 100644
+> --- a/drivers/firmware/arm_scmi/telemetry.c
+> +++ b/drivers/firmware/arm_scmi/telemetry.c
+> @@ -14,21 +14,29 @@
+>  #include <linux/err.h>
+>  #include <linux/io.h>
+>  #include <linux/limits.h>
+> +#include <linux/minmax.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+> +#include <linux/refcount.h>
+>  #include <linux/sizes.h>
+>  #include <linux/slab.h>
+>  #include <linux/sprintf.h>
+>  #include <linux/string.h>
+> +#include <linux/time.h>
+>  #include <linux/uuid.h>
+>  #include <linux/xarray.h>
+>  
+>  #include "protocols.h"
+>  #include "notify.h"
+>  
+> +#include <trace/events/scmi.h>
+> +
+>  /* Updated only after ALL the mandatory features for that version are merged */
+>  #define SCMI_PROTOCOL_SUPPORTED_VERSION		0x10000
+>  
+> +#define SCMI_TLM_TDCF_MAX_RETRIES	15
 
---5peolnbzRFGeN4F6
-Content-Type: application/pgp-signature; name=signature.asc
+Add a comment on why this particular number.  Even if that's 'it seems to work' :)
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNfcwAKCRB4tDGHoIJi
-0oevAP9+B2mKIfIt9MlyTQPo2uuhkDjROEjGArmWBz+UubfWDQD+MAPDc1uACvh4
-EuiIKGiMg36T/N1hXY55h64GA4xRMAM=
-=YANR
------END PGP SIGNATURE-----
+> +#define SCMI_TLM_TDCF_RETRY_GAP_US	1234
+> +
+>  #define SCMI_TLM_DE_IMPL_NUM_DWORDS	4
+>  
+>  /* An enum listing the protocol specific commands definitions */
+> @@ -125,6 +133,158 @@ struct scmi_msg_resp_telemetry_update_intervals {
+>  
+>  #define _I(__a)		(ioread32((void __iomem *)(__a)))
+>  
+> +/*
+> + * Define the behaviour of a SHMTI scan defining what information will
+> + * be gathered and which Telemetry items can be updated.
+> + */
+> +enum scan_mode {
+> +	SCAN_LOOKUP,	/* Update only value/tstamp */
+> +	SCAN_UPDATE,	/* Update also location offset */
+> +	SCAN_DISCOVERY  /* Update xa_des: allows for new DEs to be discovered */
+> +};
+> +
+> +struct fc_line {
+> +	__le32 data_low;
+> +	__le32 data_high;
+> +};
+> +
+> +struct fc_tsline {
+> +	__le32 data_low;
+> +	__le32 data_high;
+> +	__le32 ts_low;
+> +	__le32 ts_high;
+> +};
 
---5peolnbzRFGeN4F6--
+Some of these defs can wait for the patch that needs them.  Then we can
+sanity check them against the spec with the parsing code etc.
+
+> +
+> +struct line {
+> +	__le32 data_low;
+> +	__le32 data_high;
+> +};
+> +
+> +struct tsline {
+> +	__le32 data_low;
+> +	__le32 data_high;
+> +	__le32 ts_low;
+> +	__le32 ts_high;
+> +};
+
+> +
+> +struct telemetry_info;
+> +
+> +struct telemetry_line {
+> +	enum tdcf_line_types type;
+> +	u32 last_magic;
+> +	unsigned long offset;
+> +	refcount_t users;
+> +	struct telemetry_shmti *shmti;
+> +	/* Protect line accesses  */
+> +	struct mutex mtx;
+> +};
+Follows from below, I'd keep this for where it is used.
+> +
+> +struct telemetry_block_ts {
+> +	u64 last_ts;
+> +	u32 last_rate;
+> +	struct telemetry_line line;
+> +};
+> +
+> +#define to_blkts(l)	container_of(l, struct telemetry_block_ts, line)
+
+I'd do similar for this to uuid.  Effectively put a placeholder def
+in so that you can introduce this stuff with the code that uses
+it.
+
+> +
+> +struct telemetry_uuid {
+> +	u32 key;
+> +	struct hlist_node node_ht;
+> +	struct hlist_node node_lst;
+> +	uuid_t uuid;
+> +};
+> +
+> +#define to_uuid_from_uuid_t(u)	container_of(u, struct telemetry_uuid, uuid)
+No uuid usage in here yet... Push to patch where it comes in.
+I'd be tempted to use a forwards def for the struct for now and replace
+it in the patch where it becomes meaningful.  In this patch it's just
+passed around as a cookie that is never set.
+
+> +
+>  #define IS_TDE_TSTAMP_TYPE(__t, __ttype)	((__t)->ts_type == (__ttype))
+>  #define IS_TDE_TS_NONE(_t)	(IS_TDE_TSTAMP_TYPE((_t), TSTAMP_NONE))
+>  #define IS_TDE_TS_LINE(_t)	(IS_TDE_TSTAMP_TYPE((_t), TSTAMP_LINE))
+> @@ -220,7 +433,14 @@ struct telemetry_de {
+>  	u32 offset;
+>  	/* NOTE THAT DE data_sz is registered in scmi_telemetry_de */
+>  	u32 fc_size;
+> +	u64 last_val;
+> +	u64 last_ts;
+> +	u32 last_magic;
+>  	struct list_head item;
+> +	struct telemetry_block_ts *bts;
+> +#define BLK_TS_CHANGED(t, s, o)			\
+> +	(!((t)->bts) || (t)->bts->line.shmti != (s) || (t)->bts->line.offset != (o))
+> +	struct telemetry_uuid *uuid;
+>  	struct scmi_telemetry_de de;
+>  	/* Protect last_val/ts/magic accesses - MUST BE KEPT LAST */
+>  	struct mutex mtx;
+> @@ -228,10 +448,24 @@ struct telemetry_de {
+>  
+>  #define to_tde(d)	container_of(d, struct telemetry_de, de)
+>  
+> +static inline bool scmi_tde_has_tstamp(struct telemetry_de *t)
+> +{
+> +	return t->de.tstamp_support && t->de.tstamp_enabled;
+> +}
+> +
+> +enum de_state {
+> +	ENA_STATE,
+
+See below for comments on this being confusing naming at best.
+
+> +	ENA_TSTAMP,
+> +	ENA_MAX
+> +};
+> +
+>  struct telemetry_info {
+>  	bool streaming_mode;
+>  	unsigned int num_shmti;
+>  	unsigned int num_des_tstamp;
+> +	/* Mutex to protect des_enabled_mtx */
+> +	struct mutex des_enabled_mtx;
+> +	atomic_t des_enabled[ENA_MAX];
+>  	unsigned int default_blk_ts_rate;
+>  	const struct scmi_protocol_handle *ph;
+>  	struct telemetry_shmti *shmti;
+> @@ -251,6 +485,27 @@ struct telemetry_info {
+>  static struct scmi_telemetry_res_info *
+>  __scmi_telemetry_resources_get(struct telemetry_info *ti);
+>  
+> +static inline struct tdcf *snap_tdcf(struct shmti_snap *s);
+> +
+> +static int scmi_telemetry_shmti_scan(struct telemetry_info *ti,
+> +				     unsigned int shmti_id, enum scan_mode mode);
+> +
+> +static inline void
+> +scmi_telemetry_de_state_update(struct telemetry_info *ti, enum de_state state,
+> +			       bool *current_state, const bool next_state)
+
+State is a bit vague for naming.  Lots of state in here that isn't enabled/disabled
+Maybe can come up with something more specific?  Also two states, one of which
+is called STATE and one of which is called something other than STATE is really confusing!
+
+> +{
+> +	guard(mutex)(&ti->des_enabled_mtx);
+> +	if (!current_state || *current_state != next_state)
+> +		atomic_add(next_state ? 1 : -1, &ti->des_enabled[state]);
+> +
+> +	if (current_state)
+> +		*current_state = next_state;
+
+I struggle a bit with understanding this function.  Why do we pass in current state given
+it should always match ti->des_enabled[state];  If it differs and this
+is doing some subtle form of refcounting then I think we need more documentation.
+
+> +
+> +	dev_dbg(ti->ph->dev, "Telemetry des_enabled[%s]:%u\n",
+> +		state == ENA_STATE ? "STATE" : "TSTAMP",
+> +		atomic_read(&ti->des_enabled[state]));
+> +}
+
+> +static void
+> +scmi_telemetry_tde_cache_update(struct telemetry_de *tde, u64 val,
+> +				u64 *tstamp, u32 *magic)
+
+To me, passing magic by pointer indicates that this function will
+update it.  Whereas the use here is to indicate whether to ignore
+it or not.   You could mark it const, or break it into a parameter
+to say if magic is ignored + magic by value.
+
+Either way this got me a bit confused as I didn't understand why we
+went to effort passing in magic at the callsite below then doing nothing
+with the value.
+
+Anyhow, just a small thing so ignore if you like.  I may just need
+more coffee.
+
+> +{
+> +	lockdep_assert_held(&tde->mtx);
+> +
+> +	/*
+> +	 * Update the cache only if stale compared to the current
+> +	 * sample, so bail-out when last_magic >= *magic
+> +	 */
+> +	if (magic && !scmi_telemetry_tde_cache_stale(tde, *magic))
+> +		return;
+> +
+> +	tde->last_magic = magic ? *magic : TDCF_BAD_END_SEQ;
+> +	tde->last_val = val;
+> +	tde->last_ts = tstamp && scmi_tde_has_tstamp(tde) ? *tstamp : 0;
+> +	if (tstamp)
+> +		*tstamp = tde->last_ts;
+> +}
+> +
+>  struct scmi_tlm_de_priv {
+>  	struct telemetry_info *ti;
+>  	void *next;
+> @@ -1196,6 +1480,510 @@ scmi_telemetry_de_lookup(const struct scmi_protocol_handle *ph, u32 id)
+>  	return xa_load(&ti->xa_des, id);
+>  }
+>  
+> +static inline struct payload __iomem *
+> +scmi_telemetry_payld_offset_safe_calc(struct telemetry_shmti *shmti, u32 offs)
+> +{
+> +	struct payload __iomem *payld;
+> +	unsigned long p;
+> +	u32 end;
+> +
+> +	/* Check if accessing payld->meta is safe. */
+> +	if (check_add_overflow(offs, sizeof(u32), &end) ||
+> +	    end > shmti->info.len)
+> +		return IOMEM_ERR_PTR(-EPROTO);
+> +
+> +	if (check_add_overflow((__force unsigned long)shmti->base, offs, &p))
+> +		return IOMEM_ERR_PTR(-EPROTO);
+> +
+> +	payld = shmti->base + offs;
+
+Use p rather than computing it again.  Sure it needs casting and __force but none
+the less using a cast of p will make it clear the value is the one that
+was just checked for overflow.
+
+
+> +	/* Check line boundary */
+> +	if (check_add_overflow(offs, LINE_LENGTH_BYTES(payld), &end) ||
+> +	    end > shmti->info.len)
+> +		return IOMEM_ERR_PTR(-EPROTO);
+> +
+> +	return payld;
+> +}
+> +
+> +static u64
+> +scmi_telemetry_blkts_read(u32 magic, struct telemetry_de *tde)
+
+See below, I'd bring full signature in here even though the actual
+implementation isn't until the next patch.
+
+> +{
+> +	lockdep_assert_held(&tde->mtx);
+> +
+> +	return 0;
+> +}
+
+> +static inline int
+> +scmi_telemetry_line_data_parse(struct telemetry_de *tde, struct shmti_snap *snap,
+> +			       u64 *val, u64 *tstamp, struct payload *payld,
+> +			       struct payload *bts_payld, u32 magic)
+> +{
+> +	u32 meta = PAYLD_META_RAW(payld);
+> +
+> +	lockdep_assert_held(&tde->mtx);
+> +
+> +	/* Clear returned values in case of errors */
+> +	*val = 0;
+> +
+> +	if (tstamp) {
+> +		*tstamp = 0;
+> +		if (USE_BLK_TS_RAW(meta)) {
+> +			/* Read out the actual BLK_TS */
+> +			*tstamp = scmi_telemetry_blkts_read(magic, tde);
+
+The signature of this changes in the next patch. Given it doesn't do anything
+with the current parameters, it could not do anything with bts_payld and snap
+as well and therefore reduce churn a tiny bit.
+
+> +		} else if (LINE_TS_VALID_RAW(meta)) {
+> +			/*
+> +			 * Note that LINE_TS_VALID implies HAS_LINE_EXT and that
+> +			 * the per DE line_ts_rate is advertised in the DE
+> +			 * descriptor, BUT we check anyway against buggy FW.
+> +			 */
+> +			if (!HAS_LINE_EXT_RAW(meta)) {
+> +				trace_scmi_tlm_access(tde->de.info->id,
+> +						      "SHMTI_BAD_TS_LINE", 0, 0);
+> +				return -EPROTO;
+> +			}
+> +
+> +			*tstamp = LINE_TSTAMP_GET_RAW(&payld->tsl);
+> +		}
+> +	}
+> +
+> +	/* Data is always valid since we are NOT handling BLK TS lines here */
+> +	*val = LINE_DATA_GET_RAW(&payld->l);
+> +
+> +	trace_scmi_tlm_collect(tstamp ? *tstamp : 0, tde->de.info->id,
+> +			       *val, "SHMTI_DE_READ");
+> +
+> +	scmi_telemetry_tde_cache_update(tde, *val, tstamp, &magic);
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * scmi_telemetry_tdcf_data_parse  - TDCF DataLine parsing
+> + * @ti: A reference to the telemetry info descriptor
+> + * @payld: Line payload to parse
+> + * @snap: A reference to the working SHMTI snapshot that will be processed
+> + * @mode: A flag to determine the behaviour of the scan
+> + * @active_bts: A pointer to keep track and report any found BLK timestamp line
+> + * @active_uuid: A pointer to keep track and report any found UUID line
+> + *
+> + * This routine takes care to:
+> + *  - verify line consistency in relation to the used flags and the current
+> + *    context: e.g. is there an active preceding BLK_TS line if the DataLine
+> + *    sports a USE_BLKTS flag ?
+> + *  - verify the related Data Event ID exists OR create a brand new DE
+> + *    (depending on the @mode of operation)
+> + *  - links any active BLK_TS or UUID line to the current DE
+> + *  - read and save value/tstamp for the DE ONLY if anything has changed (by
+> + *    tracking the last TDCF magic) and update related magic: this allows to
+> + *    minimize future needs of single-DE reads
+> + *
+> + *    Modes of operation.
+> + *
+> + *    The scan behaviour depends on the chosen @mode:
+> + *    - SCAN_LOOKUP: the basic scan which aims to update value associated to
+> + *		     existing DEs. Any discovered DataLine that could NOT be
+> + *		     matched to an existing, previously discovered, DE is
+> + *		     discarded. This is the normal scan behaviour.
+> + *    - SCAN_UPDATE: a more advanced scan which provides all the SCAN_LOOKUP
+> + *		     features plus takes care to update the DEs location
+> + *		     coordinates inside the SHMTI: note that the related DEs are
+> + *		     still supposed to have been previously discovered when
+> + *		     this scan runs. This is used to update location
+> + *		     coordinates for DEs contained in a Group when such group
+> + *		     is enabled.
+> + *    - SCAN_DISCOVERY: the most advanced scan available which provides all
+> + *			the SCAN_LOOKUP features plus discovery capabilities:
+> + *			any DataLine referring to a previously unknown DE leads
+> + *			to the allocation of a new DE descriptor.
+> + *			This mode is used on the first scan at init time, ONLY
+> + *			if Telemetry was found to be already enabled at boot on
+> + *			the platform side: this helps to maximize gathered
+> + *			information when dealing with out of spec firmwares.
+> + *			Any usage of this discovery mode other than in a boot-on
+> + *			enabled scenario is discouraged since it can easily
+> + *			lead to spurious DE discoveries.
+> + */
+> +static void scmi_telemetry_tdcf_data_parse(struct telemetry_info *ti,
+> +					   struct payload *payld,
+> +					   struct shmti_snap *snap,
+> +					   enum scan_mode mode,
+> +					   struct telemetry_block_ts *active_bts,
+> +					   struct telemetry_uuid *active_uuid)
+> +{
+> +	struct telemetry_shmti *shmti = snap->shmti;
+> +	struct telemetry_de *tde;
+> +	u64 val, tstamp = 0;
+> +	u32 de_id;
+> +
+> +	de_id = PAYLD_ID_RAW(payld);
+> +	/* Is this DE ID known ? */
+> +	tde = scmi_telemetry_tde_lookup(ti, de_id);
+> +	if (!tde) {
+> +		if (mode != SCAN_DISCOVERY) {
+> +			trace_scmi_tlm_access(de_id, "DE_INVALID", 0, 0);
+> +			return;
+> +		}
+> +
+> +		/* In SCAN_DISCOVERY mode we allocate new DEs for unknown IDs */
+> +		tde = scmi_telemetry_tde_allocate(ti, de_id, payld);
+> +		if (!tde) {
+> +			dev_err(ti->ph->dev,
+> +				"Cannot allocate TDE for ID:0x%08X\n", de_id);
+> +			return;
+> +		}
+> +	}
+> +
+> +	guard(mutex)(&tde->mtx);
+> +	/*
+> +	 * Update DE location refs if requested: normally done only on group
+> +	 * enable.
+> +	 * Note that all the DE location information is relative to the
+> +	 * original SHMTI device-memory area, NOT to the snapshot we are parsing.
+> +	 */
+> +	if (mode >= SCAN_UPDATE) {
+> +		u32 de_offs;
+> +		void __iomem *p;
+> +
+> +		/* Offest is the same in the SHMTI and in the snapshot indeed */
+
+Offset
+
+Also, drop the word indeed as adds nothing useful
+
+
+> +		de_offs = (void __iomem *)payld - (void __iomem *)snap->base;
+> +		/* Validate location before update */
+> +		p = scmi_telemetry_payld_offset_safe_calc(shmti, de_offs);
+> +		if (IS_ERR(p)) {
+> +			dev_err(ti->ph->dev,
+> +				"TDE 0x%08X updated location invalid - shmti:%u offs:%u\n",
+> +				de_id, shmti->info.sid, de_offs);
+> +			trace_scmi_tlm_access(de_id, "DE_LOCATION_INVALID", 0, 0);
+> +			return;
+> +		}
+> +
+> +		tde->sid = shmti->info.sid;
+> +		tde->base = shmti->base;
+> +		tde->eplg = SHMTI_EPLG(shmti);
+> +		tde->offset = de_offs;
+> +
+> +		trace_scmi_tlm_access(de_id, "DE_LOCATION_UPDATED", 0, 0);
+> +
+> +		dev_dbg(ti->ph->dev,
+> +			"TDCF-updated DE_ID:0x%08X - shmti:%pK  offset:%u\n",
+> +			tde->de.info->id, tde->base, tde->offset);
+> +	}
+> +
+> +	/*
+> +	 * Has any value/tstamp really changed ?
+> +	 * Note that, if the magic currently associated with this TDE has
+> +	 * NOT changed compared to the current SHMTI magic, nothing could have
+> +	 * been changed across the whole TDCF, including any relation to
+> +	 * BLK_TS or UUID lines.
+> +	 */
+> +	if (!scmi_telemetry_tde_cache_stale(tde, snap->magic))
+> +		return;
+> +
+> +	/*
+> +	 * Parse data words ... only for the sake of updating TDE cache,
+> +	 * any error is logged by ignored.
+> +	 */
+> +	scmi_telemetry_line_data_parse(tde, snap, &val, &tstamp, payld, NULL,
+> +				       snap->magic);
+> +}
+> +
+> +/**
+> + * scmi_telemetry_tdcf_line_parse  - Line parser
+> + * @ti: A reference to the Telemetry instance
+> + * @payld: A reference to the payload representing the line to parse
+> + * @snap: A reference to the working SHMTI snapshot that will be processed
+> + * @mode: Specification of the scanning mode
+> + * @active_bts: A reference used to track the last BLK_TS line found
+> + * @active_uuid: A reference used to track the last UUID line found
+> + *
+> + * Note that @active_bts and @active_uuid references are propagated back and
+> + * forth from the line parsers to keep track of the nearest active BLK_TS or
+> + * UUID line found in the SHMTI areas and, while doing that, such descriptors
+> + * are refcounted and tracked in the xa_lines XArray indexed by @payld.
+> + * BLK_TS and UUID descriptors are dropped when no more linked to any DATA line,
+> + * during the normal system operation OR later on when the protocol is
+> + * de-initialized following a driver removal.
+
+Is this description premature given nothing writes active_bts or active_uuid
+yet.
+
+> + *
+> + * Return: Number of QWORDS consumed from @payld by this line parsing; note
+> + *	   that buggy firmware could return bad, out of range values, so this
+> + *	   value MUST be carefully checked for SHMTI boundary overflows by the
+> + *	   caller.
+> + */
+> +static int scmi_telemetry_tdcf_line_parse(struct telemetry_info *ti,
+> +					  struct payload *payld,
+> +					  struct shmti_snap *snap,
+> +					  enum scan_mode mode,
+> +					  struct telemetry_block_ts **active_bts,
+> +					  struct telemetry_uuid **active_uuid)
+> +{
+> +	u32 meta = le32_to_cpu(payld->meta);
+> +	int used_qwords;
+> +
+> +	used_qwords = LINE_LENGTH_QWORDS_RAW(meta);
+> +	/* Invalid lines are not an error, could simply be disabled DEs */
+> +	if (DATA_INVALID_RAW(meta)) {
+> +		trace_scmi_tlm_access(le32_to_cpu(payld->id), "TDCF_INVALID", 0, 0);
+> +		return used_qwords;
+> +	}
+> +
+> +	/*
+> +	 * Problematic lines are ignored, their information discarded, and such
+> +	 * issues are logged, but the scan process continues.
+> +	 */
+> +	switch (LINE_TYPE_RAW(meta)) {
+> +	case TDCF_DATA_LINE:
+> +		scmi_telemetry_tdcf_data_parse(ti, payld, snap, mode,
+> +					       *active_bts, *active_uuid);
+
+I'm going to assume that *active_bts and *active_uuid become non null as a result of some
+future change and the odd current state of code here is just a result of patch break up.
+At the a copy of the pointer value which is NULL is simply passed in here I think,
+so no updates possible.
+
+> +		break;
+> +	default:
+> +		trace_scmi_tlm_access(PAYLD_ID_RAW(payld), "TDCF_LINE_UNKNOWN", 0, 0);
+> +		break;
+> +	}
+> +
+> +	return used_qwords;
+> +}
+
+
+
+> +
+> +/**
+> + * scmi_telemetry_shmti_scan  - Full SHMTI scan
+> + * @ti: A reference to the telemetry info descriptor
+> + * @shmti_id: ID of the SHMTI area that has to be scanned
+> + * @mode: A flag to determine the behaviour of the scan
+> + *
+> + * Return: 0 on Success
+> + */
+> +static int scmi_telemetry_shmti_scan(struct telemetry_info *ti,
+> +				     unsigned int shmti_id, enum scan_mode mode)
+> +{
+> +	struct telemetry_shmti *shmti = &ti->shmti[shmti_id];
+> +	struct telemetry_block_ts *active_bts = NULL;
+> +	struct telemetry_uuid *active_uuid = NULL;
+> +	unsigned int qwords;
+> +	struct shmti_snap *snap;
+> +	struct tdcf *tdcf;
+> +	int idx, ret = 0;
+> +	void *next;
+> +
+> +	if (!shmti->base)
+> +		return -ENODEV;
+> +
+> +	idx = srcu_read_lock(&shmti->srcu);
+> +	snap = srcu_dereference(shmti->cur, &shmti->srcu);
+> +	if (!snap || !scmi_telemetry_shmti_unchanged(shmti, snap->magic)) {
+> +		/* MUST drop the read lock: refresh calls synchronize_srcu() */
+> +		srcu_read_unlock(&shmti->srcu, idx);
+> +		snap = scmi_telemetry_shmti_refresh(shmti, &idx);
+> +		if (IS_ERR(snap))
+> +			return PTR_ERR(snap);
+> +	}
+> +
+> +	tdcf = snap_tdcf(snap);
+> +	next = tdcf->payld;
+> +	qwords = QWORDS_RAW(tdcf);
+> +	while (qwords) {
+> +		int used_qwords;
+> +
+> +		/*
+> +		 * Bailout on any error since we are processing a supposedly
+> +		 * stable snapshot at this point, so any further error is on
+> +		 * firmware-side and NOT recoverable: this would mean having to
+> +		 * drop the remaining part of the scan results after having
+> +		 * cached the initial good snapshot: log this down below.
+> +		 */
+> +		if (scmi_telemetry_snap_overflow(snap, next)) {
+> +			trace_scmi_tlm_access(0, "SHMTI_OVERFLOW", snap->magic, 0);
+> +			ret = -EPROTO;
+> +			break;
+> +		}
+> +
+> +		used_qwords = scmi_telemetry_tdcf_line_parse(ti, next, snap, mode,
+> +							     &active_bts, &active_uuid);
+> +		if (used_qwords <= 0 || qwords < used_qwords) {
+
+If you hit the second condition here didn't you just overflow in the line parser?
+Should that be prevented inside the parser? I think the only way this can happen is
+qwords is short. If that is the case I think all bets are off and bale out
+with no idea if the line was safe or not - ideally detect that in the
+overflow check before parsing?  Maybe I'm missing some other reason that that can't
+happen an in practice that second condition doesn't happen.
+
+> +			/*
+> +			 * Stop scanning when qwords inconsistent; if the last
+> +			 * line processed was sane in itself, though, keep it
+> +			 * since we anyway previously checked for overflow.
+> +			 */
+> +			trace_scmi_tlm_access(PAYLD_ID_RAW(next), "BAD_QWORDS",
+> +					      snap->magic, 0);
+> +			ret = -EPROTO;
+> +			break;
+> +		}
+> +
+> +		next += used_qwords * 8;
+
+Is next always aligned?  If so could use a u64 * instead of void * as it is always
+manipulated in qwords.
+
+> +		qwords -= used_qwords;
+> +	}
+> +
+> +	srcu_read_unlock(&shmti->srcu, idx);
+> +
+> +	if (ret)
+> +		dev_err(ti->ph->dev, FW_BUG "Inconsistent TDCF. Scan aborted.\n");
+> +
+> +	return ret;
+> +}
+>
