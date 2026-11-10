@@ -1,67 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328966;
-	b=WbyGyS8Wn4KDTv0TIMj0rsYPDdfvvN0We1E5TVaDwA41lI2lCyudA5zem/JwAnDC8MBD
-	 C5rML9xr5huwNcER/NP9v8YIMyypT6MwDWGGEv7cusb++EwqyqnmNJNAEUa9aiwHazeX0
-	 5mcpqF5xOfLePK8hZSnbFlo8M2D4RxULZbPjoUlYXRB3njSG4SKk0CagrPD3HfedA6tNO
-	 s8QJqyIx33KFMwFBXhRhy4/k7c0NZdb9+QIg8rgt8sbKMDR1j2DlyLkH9Dp/lCCwi8EpF
-	 R0ppiO+WU5OoeBLKBgSRj7Fn48URxtMDQMiBQWXXkGblnyIOovtkkU/gCXunhder7bw==
+	t=1794328773;
+	b=f0BK/quA+uDe5YkXANsVebQmzhSIxC/SdKKkdtKa864+NCjJk3rgl/yqfMHsy19ALg8e
+	 7VxtmOfx4aW9cAHETSmhbx4Okd4XeGpxnl38pk0Bz6HT9X/27V3VDSp36K9qTxfnHyKrG
+	 O/pDdOSMmeUH0rDkUdJtp0zjm0ZQLKDTzQ7nLGiGbfb2hIus45VHTxPlhX2GKFd2iCfj8
+	 2hLhfWrawv7jkgT2421Q73+gmOkeqyuFCS1vGxZkz/LxDwDKPhkFyQ916MKjSs9ClN0je
+	 xaI2EOb1NCm9PmLmI36/Mg3pnonZKELnBYRFnEdy5lDbPhLZv55MhdbPD03QrymylYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328966;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=bp69TPRSxmVUxIsWkPtU2k8L0z3qUF36utw3VQSvJ5E=;
-	b=MzG11RzpZuR3iLszfGINCXVDXGiMgBfnJ1uxnNswuxLqge4BJlNW3+uCLDiXxzh+AMzr
-	 I2zC+Jzk2ky7qSbwd2J93SLX+Q/x/bNHcmT4Kyi2zrpDidvh0cdLg1Z7argcGuDViPqEN
-	 j3TVH0p/V/H8mkFALxBb+4/RTlIx1DK0lkelHjxRkcSXb2Q5ESav/yZlZJkGOjBpPSHQa
-	 AKM66e22ijaLMKGOU6HLbGHIw4qEt1G00v/H+vNBL7JioKMbSsCw5HWpuNHx8+RgxFqJL
-	 Ziy+ZMdtJz9/DmYiWIsiKaBaiw0yoN5BB2KOLF6/0X+icmhsEzz5051YkC85d+EV58A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328773;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=JJCjzDhflBDeCIYW5ftQ/o7ka6RVpdfZz4d2y/Qd5Tk=;
+	b=LXhqhJh07X+9/QSa5d7Bzmb5nBq762ZrlzEAUWwN9TSo1Kx6uGPc5IBlR7ERWXUueyfA
+	 MzvFX1CWbD3qoRF8Lqto2txViR8nUs3Rj7cBV3K7ioMjgTTrUHWrtc+MA7QnurMF2cTbB
+	 OSCJB+Ok3GB6fyx3d8UvmBp75jDhAG/KUzORNd572sf205vcisCDvxuNhBcI/IBvkOaYd
+	 DWk98+guv6F28V6tC2at2eTb2Y2KWkQdOdLAJfU+MrrFIbiw6fAcwazoUyEqlG+2A5aoF
+	 z28ko3mvMY6jggp9euUna54c7I5WmiZkae82SyWVHyVrNnuz7I96nwhvAArODldbJpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=C8pkaIt2;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fQj36kj5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QpcjeeuQ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0C7606A236;
-	Tue, 10 Nov 2026 16:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A0C7606A236
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4015460A2627
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:39:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4015460A2627
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=C8pkaIt2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=bp69TPRSxmVUxIsWkPtU2k8L0z3qUF36utw3VQSvJ5E=; b=C8pkaIt2kjYJ8mK+4vELN482bW
-	RYHAoB7wnGI1eEbq6lTaLl8z+eylhw9AYvrxOdMvHvgMDwJYr1QF0CFLtsLVf7q5qLGs94W8h8myS
-	RH8Mtli9SPynf8ybpt0oa/M2yu2+oah+Iy2t5YLcR3h3Axdh+PKq5LnnERwo4DB0szVI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQovZ-00FX6P-8l; Tue, 10 Nov 2026 17:42:33 +0100
-Date: Tue, 10 Nov 2026 17:42:33 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/3] ethtool: add PHY receive frame and byte
- totals
-Message-ID: <348f19e7-120e-4b41-adab-be016c7a6083@lunn.ch>
-References: <20261109-submit-acx00-phy-stats-v1-v3-0-fbc6327c5be4@gmail.com>
- <20261109-submit-acx00-phy-stats-v1-v3-1-fbc6327c5be4@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fQj36kj5;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QpcjeeuQ
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF0MB13713747
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:39:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=JJCjzDhflBD
+	eCIYW5ftQ/o7ka6RVpdfZz4d2y/Qd5Tk=; b=fQj36kj5uBANLLz2D8jINo9Px7d
+	yfEOpLpDeUnwbeNVsidfvZzn1oRsjnS0/X9Q6hvWo8OrgJtej1IAPSqycWRFgR13
+	jekJ+2k55F+kDw4l/hGsTZKdnq0fUmnWlUrYwu2dyLqqDjV9X6uJfsHUF3QoLMeD
+	fD69THgU+ODrrvmBSn/wGQBFNBpSVJjESQIq5GoyHuKUaybg84dNOSkBefDGKuJu
+	3f9YU+LVKQYlteFsYuESaAi6ULvIwsYx3Z3cp0jgJWe3kvZkT4QhcQSimh8jOo3Q
+	DZ5Y05lEbmN+3WcJ3BFfBMtoVGoo7ItNhdatrIWM3+NNGxJtbp8kuQCUNIQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huvtdan05-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:39:32 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7d27e34c97dso236727137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:39:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794328772; x=1794933572; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JJCjzDhflBDeCIYW5ftQ/o7ka6RVpdfZz4d2y/Qd5Tk=;
+        b=QpcjeeuQnfJ45UCatkue2Y5cg+GU6NATeYOtSmfoF9KBX1qeM+tWA4yI5j3kQVC01z
+         yKss88bqEH/dfh2P1xNM4lA1jbU6652wzhfjne1e47Wp9MMqqrq5elCkt72UgT9JL39z
+         3pXoVyYU2sQ40LXhIPaN4WW+lkj4GhuoSa2blOfx/MwM14wd1RUagjbDmm59Ghs721Xg
+         fNXEotR2K8A/rcAMYIUBDpn/dg55x8hmhy7X8B29VfCMwXxiRYGsk09a8oNz5HHdHd9z
+         2tEQuCXDorLJSRtT4pZ3xP6YaDKzviGlK+wzcS+b5H1RuFK/+Il3W+dSluh/1+ijOTRG
+         B2HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794328772; x=1794933572;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JJCjzDhflBDeCIYW5ftQ/o7ka6RVpdfZz4d2y/Qd5Tk=;
+        b=B0ZXEo36QxgALkWFXy4feU7yo9X0KAxBKBqqG1Fk6POkLI+xIyUZQ4X/Vpc5Wwdxiy
+         5EfTukg8NFOJyNz/QiYtajvme1Uh1pRJNK8icMvQBHkD6qrse24rs6QraomN15FMETTB
+         exRZS+4qAWxSh2nV7PFwF47GZLNC66V5q5Zvxc58QTh0oGeKjSWumw5DHvCOAqJLjrIZ
+         6u44XqD1LxywC/jImfF1AWBiEHspazymoQEioZ1TK9TcYzFCRcIq/Rcrki4oFQJsOn+B
+         FM3FqAZQcmkbysb4kHMuue210Qv5e87IH5nSiY7WCcp9o2SH0h2I+bH8mAaBqLf9iyBL
+         c6hQ==
+X-Forwarded-Encrypted: i=1; AL+hErGTpymjjUq1WV9Afp8977PrtsIMVQpTfwqv9CA3nCMAXba93fGwbSjBsliHydp1NBmgBPh0lqPm8l1KKQU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/GnhXsTGre2eztXyVGUZ7GOxhDMr4vCOm1eO/OgP7Mi9qk2TN
+	KXnuVxm0Uu65WbKzY1PqW4GlfMUzsnDuLj+nQYcQTDw99dAQKT2sjH+5nUhXxwswjxHoJ7WlPuH
+	tq8RT3uwN3tXudq7+ySclHp68NWz41bSebKb6qlFNChVXdrTP8gCZ/d8frqTJ9x+/+lE=
+X-Gm-Gg: AYBFou0+QJLKS4FdaRVriwk56aGhXWd++klWqeRfQ0L7kKjNIJMwDyv+t+u3wKDnLzc
+	mCSvtxAgB/Ywp2dZU1OTEuaHcEBnurtb/ZWtyFDvUoBC6r5tIBLJT8vDvcilhi+gOGuUWLEy2ev
+	YJJikd3SV9S+l+8nIPnGt0gXXGjeNr07j+5BIvhYk6iqLU4qEdUuqyrX/p+o5M63HQESn3Tlzs7
+	dDHby3ymQPZ0exnR1flJDFUtdPe1jQaWJiQXU0pF2bkb0oqbxaioV/DjCdE+PpfE821iiLqpzzd
+	Yi3kj6TLEyAZGAScoAqtb52y/z9mI3TDG3LfdWfS+0e3a/wpIOfXzog1TMRy5Oo+1M6Njq5Gu83
+	87Tjr3FnCNb5e9UPUrakNx0xT7WUlvmLecuUVfrd5oseW43eDh0108cQAwhtNmC05laZhkIZTQw
+	==
+X-Received: by 2002:a05:6102:549f:b0:7ca:e2c1:9a09 with SMTP id ada2fe7eead31-7d301be6b4dmr919134137.20.1794328771299;
+        Tue, 10 Nov 2026 08:39:31 -0800 (PST)
+X-Received: by 2002:a05:6102:549f:b0:7ca:e2c1:9a09 with SMTP id ada2fe7eead31-7d301be6b4dmr919118137.20.1794328770825;
+        Tue, 10 Nov 2026 08:39:30 -0800 (PST)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01ff3428sm85130395e9.15.2026.11.10.08.39.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 08:39:29 -0800 (PST)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: linux-media@vger.kernel.org
+Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
+        gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        atanas.filipov@oss.qualcomm.com
+Subject: [PATCH v8 8/8] arm64: dts: qcom: qcs6490-rb3gen2: Enable JPEG encoder
+Date: Tue, 10 Nov 2026 18:39:09 +0200
+Message-Id: <20261110163909.78085-9-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com>
+References: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,77 +124,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-submit-acx00-phy-stats-v1-v3-1-fbc6327c5be4@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 1DZQjS77PDXijcGArLcg2C5shEIjqyy-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX2G2NY24uH71m
+ OLfLgXfNSnKDhYmYnCiARi1+nw/Wrtcgc6Zcp0UKl38WlL3RNWd+GTMcnTE7QQ6WUaV+rgOtqoz
+ DGUtQb1D4DsHatsDUxQ3MLTVIcKgBNY=
+X-Proofpoint-ORIG-GUID: 1DZQjS77PDXijcGArLcg2C5shEIjqyy-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX8pF9oziyjlB4
+ 6ZFA6g/S5lbQRnFm4+9lTXQPLF7IZxKT0T2tsd5nneRXe0c43VavyP968Z2EZKXWwnY9h++CPIp
+ ubkVWr2yNp6bKPTKndmoWreJJwEsOEjqIkbrcBzVKG6zltB0YHPA5s+395a/HNb6uTyI+y796JY
+ /tjVvRoofQBqYRyidETIzEbopajwkzQUROA+ox5FC115pg5G3I57yFavbmqN1W/A+R4wuUafgOl
+ +3RCHmsHNrTeLMmGYOzpDfvHB0PGtCe7pQ4M45I1wy9bgd71g1lXvNbbFFHHpkP5N19vmTAB1DI
+ /ztideoPzCBTDWs1XTP89cpdqdWl3XsIjl74DzbMlx6eQSyvEZmlXhG3LKRgo9QxHGwNg2kNrRG
+ 3occsxoBe/GCaw8mDielbwDgqImVgiC6qesm7fxnypomuXmzC5MfrTR1A3zLViRHm71gpQzFoA1
+ dHkTN1dtbSuZac9RNjA==
+X-Authority-Analysis: v=2.4 cv=ArR7T+9P c=1 sm=1 tr=0 ts=6af348c4 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=ciSP3Gwtf2YLaD0V-lgA:9 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100066
 
-On Mon, Nov 09, 2026 at 07:48:32PM -0700, James Hilliard wrote:
-> The generic PHY receive packet and byte counters describe successfully
-> received traffic. Some PHYs instead count all received frames and bytes,
-> including frames with errors. A frame error count cannot recover the
-> number of successfully received bytes because damaged frames have
-> different lengths.
-> 
-> Add optional receive-total counters to ethtool_phy_stats and the phydev
-> statistics group. Count frame bytes including the Ethernet header, padding
-> and FCS, and excluding the preamble and start frame delimiter. These
-> counters describe reception at the PHY, before MAC or host filtering.
-> 
-> Append the new attributes so existing statistic IDs and their meanings
-> remain unchanged. Publish the names through the existing statistics string
-> set, and retain the unset-counter convention so drivers can report either
-> set of counters independently.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  Documentation/networking/ethtool-netlink.rst | 16 +++++++++++++++-
->  include/linux/ethtool.h                      |  6 ++++++
->  include/uapi/linux/ethtool_netlink.h         |  2 ++
->  net/ethtool/stats.c                          |  8 +++++++-
->  4 files changed, 30 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/networking/ethtool-netlink.rst b/Documentation/networking/ethtool-netlink.rst
-> index eba226c79ec3..5528d0f7afdd 100644
-> --- a/Documentation/networking/ethtool-netlink.rst
-> +++ b/Documentation/networking/ethtool-netlink.rst
-> @@ -1665,7 +1665,7 @@ the ``ETHTOOL_A_STATS_GROUPS`` bitset. Currently defined values are:
->   ETHTOOL_STATS_ETH_PHY  eth-phy  Basic IEEE 802.3 PHY statistics (30.3.2.1.*)
->   ETHTOOL_STATS_ETH_CTRL eth-ctrl Basic IEEE 802.3 MAC Ctrl statistics (30.3.3.*)
->   ETHTOOL_STATS_RMON     rmon     RMON (RFC 2819) statistics
-> - ETHTOOL_STATS_PHY      phy      Additional PHY statistics, not defined by IEEE
-> + ETHTOOL_STATS_PHY      phydev   Additional PHY statistics, not defined by IEEE
->   ====================== ======== ===============================================
->  
->  Each group should have a corresponding ``ETHTOOL_A_STATS_GRP`` in the reply.
-> @@ -1683,6 +1683,20 @@ by ``ETHTOOL_A_STATS_GRP_SS_ID``. Complex statistics (such as RMON histogram
->  entries) are also listed inside ``ETHTOOL_A_STATS_GRP`` and do not have
->  a string defined in the string set.
->  
-> +The ``phydev`` group provides separate counters for successfully received
-> +traffic and total received traffic.
+Enable the JPEG encoder on the RB3 Gen2 board.
 
-You need to be careful with naming here. This is a
-kAPI. phydev/phylib/phylink are implementation details, a set of
-helpers which some MAC drivers use to implement PHYs. But MAC driver
-can implement PHYs in different ways, and don't need to use a phydev.
+Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-``ETHTOOL_A_STATS_PHY_RX_PKTS``
-> +(``RxFrames``) and ``ETHTOOL_A_STATS_PHY_RX_BYTES`` (``RxOctets``) count
-> +successfully received frames and bytes. ``ETHTOOL_A_STATS_PHY_RX_PKTS_TOTAL``
-> +(``RxFramesTotal``) and ``ETHTOOL_A_STATS_PHY_RX_BYTES_TOTAL`` (``RxOctetsTotal``)
-> +include frames with errors. The total byte count includes the Ethernet header,
-> +padding and FCS, but excludes the preamble and start frame delimiter.
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+index 909039816a216..b96214758ce13 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+@@ -789,6 +789,10 @@ redriver_usb_con_sbu: endpoint {
+ 	};
+ };
+ 
++&jpeg_enc {
++	status = "okay";
++};
++
+ &lpass_va_macro {
+ 	status = "okay";
+ };
+-- 
+2.34.1
 
-And what would you call it when the counter does include the preamble
-and start frame delimiter?
-
-Take a step back. Just because this PHY has these counters, do we need
-to support them? And what happens when the next PHY comes along with
-slightly different counters? Do we add them as well?
-
-It is vendor SDK syndrome. The hardware can do this, so lets expose
-it.
-
-What is your use case here which justifies these specific counters.
-
-     Andrew
