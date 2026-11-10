@@ -1,100 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331771;
-	b=Db2QKnG6IOBjXgxnYrIqQgx3ZCrzGBYFE7bNPYgBx+iOAizyyXX/Jpju+3dpTygeUaET
-	 2Rmv2Uxu8CQBKMofI55O0eog+CtIXkdscvz2m8KOIsb2SgZlUiSQmghuN3etEQqSL4j7Z
-	 v0Gq+s6EL9kZWJ9jGDewn8wwLvk5UboZryA4t+MnJ6CM9hU3PZeuvpovGe5wtnSp0mGtl
-	 LmijAYTdHYH8jICiyFCjQQ85ZY0Igy6YW1M26Cn9hhL5RZasenuZomVa30sGH8tX2BnCQ
-	 fX3knqcB130/L+zSEvrSjlEgva92LUcAEr1QS9mt95l/+WtfNzvbrATx+Wedug8dVvA==
+	t=1794331772;
+	b=2BK0N/4Pep43GZ/lvogxzc9h3au/qBQDJGnlmXHIpn2SFom2pivEOoHeOyhmA5oMWpsf
+	 0kr+xjlVJJbvgcD99q5AxXgupzydvYjqaQX0rCuM8Bgpwe1hKi1Ex3xIInBYaR/VAeEFR
+	 LwE6Pyd92CNVAFTThP1WSeaCVgHJwflx9dhhkV0L4oTCwoSgRk2V51NTZqYizJYSbK49K
+	 ZFKSpP3SARzHEzo2J3wQGXwbbW1ELFJuuoebGWOWz6BSbJOXaaZ5rhjG81O/r9RRu/Ijf
+	 71jer+A0o7nMY1blmLw/W4dxcPhDIzlrnfXADWml2V7v8nExUZTvkaudpyRSVzDk2lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331771;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=U8vekOIgDj5lHshrVu6+OojGjUuLqlW9D9EqkiQsI1A=;
-	b=PnmgDEj1V6cJLBvlfRC+JUag3FeHSjB6XxPVwhfHsj27qMNX22XI1gE347T7mu9PcWLo
-	 RPPPf1oL/dIH84pDLuF5sLySVZSPa9eqZOxCQ9UZ8nbh/bXelCtdH6ZfRo/bJM/VEwuJv
-	 Og2EyWnKuLOoLAiQi5AH9RyAw+wK6rfSwVzIzf8IImOyDLEG6lo58QYdyCfdHbihJhBnU
-	 SUQK7sxVJWOHcEl5KGLl0oQRAy/fBRREnC5LrDyD2bpJtTTtvF8kgARSOYr3h7sFay8vi
-	 CTlXknhYTIox4+8M675FNVpraB6E9f6DJ84KmJ+0zpFi50d8CeJ0tA8Mpkz5fHXGQTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331772;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BpV+K+p2ba6sXSUO+GYEB1VH/bpsjyQSMt5G6lPVDWM=;
+	b=oAlrd8dblYdB0O7ogyo5njiN/p3KmdWlYN5jkiIQRug/38Olu00pd782V/2YGSV2GL1C
+	 eZebluXo0Zc2GDQaivNmk1lA+hXim1mhp8ENhZrVLABan32lwNuQX5o2hlh5hB79I9hd4
+	 FXWOTiL6y8EQF3ZmwKKT/wiimS+vb4GO4YPY+AN/tpX8o8gyOXbkwIkOLv5fWe/SmiMb+
+	 VwRVHqbykc2qR7Kn0nF/TVcIGGlCD1/ELBbMcamY1p8wR8sOApoRLo4N04Kbxn4QUfUf2
+	 KooZF03ubz9uw+4g6CJclSDqItPKaErS840fVNim9CwkoijNeAASDvs9YDDb3q9O1OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=networkplumber.org;
-	spf=pass smtp.mailfrom=networkplumber.org;
-	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c8oUNAyO;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jkGcFe6W;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F88B606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93877606A335
 	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F88B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93877606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c8oUNAyO
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b904d10882so1041377b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1794331771; x=1794936571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U8vekOIgDj5lHshrVu6+OojGjUuLqlW9D9EqkiQsI1A=;
-        b=c8oUNAyOAS1OI9ImuewfKiO+OK1ksCavl12v4VTWFcQGJh15hZlG4TAZGOXSI1BPEL
-         8lCEqG7myzG6euUva5W3NAP2wOng/6KEQleZb+MiSY6ieB3LrDBrIaBNyg21bb/czaUs
-         P+rxa3fWNZ50SqFdayY8fsqJqu6pJXSJ4mMZCwUNITsQz7fuFnTqfl0ybZGXIfL5Yg3S
-         SHw4YyEM9PtEzFztZevvzKb7bP6mCP2+LJ5DABubyAs2gWOV8+t6FONhG2wa/PFiBh1b
-         hF3WhSOHw+ndoFMpMw9Q3yKq/JU2F0nD/JrddB2WX69mdiarI0v/3sd6B/RHJOPLQ36t
-         /rgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794331771; x=1794936571;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U8vekOIgDj5lHshrVu6+OojGjUuLqlW9D9EqkiQsI1A=;
-        b=MDUc1AI0t/oGF8lLjKhFIuDxcfxXpCHsgOxJL+AgGD8oEjACHPJKjZTmqHjagMgIjI
-         bKkR7NCHJEoT3pQgBm8Jk+ZKLcNqRUmSM8SrB5rCLOYSE9My8CT6GrTA3St34nHEuc8b
-         3Xmodyx1N88FkuunxVf+W/7itcYdG0DYOm7wnXPBmslBl+gybLXqMWUpiBTrjVzK07XD
-         +ca+XP9VLQnlywy1XDMX1m0Dn3iOKpU/UAHdqPmp++pXUfhlL3zdE21IGY+KrqI8+1SP
-         P8qnEhvmq8WObXvtUb/sOROoCpyXZ5WCfKYlB3gKhS3LayDDQvB7Y+qS5WplMJOrhyVv
-         OKDw==
-X-Forwarded-Encrypted: i=1; AL+hErFY8I/O1WbMm1toCuWg57BeTC87x6W/iEy1tUJVMDCvlBa67lrj2nsiyzaxi0xWkxvTCGQGAjjbSKH5mBA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qxOET6OTA97w0PSlkZUkbpG8Tm5zWpnOECkDxIaizEyVo6WOo
-	nsc0iQBXni+jcgyK2nKUQMJcW+vKObkSc/4cwELQW3ombwphuqae6JLtLLb5JZaqvnk=
-X-Gm-Gg: AYBFou0Hmp94NmqI5/rmglE2ticTIQaAr+JVaHwZEz8XE35TnEzw+/9EWKjEvBZ9Dvb
-	eEnOZWcrT2Wtc7JTBvLTTcfupKoJTQmegIghJ93z+fX/Cu1V0aOC/1wlgl1h2D1MT8AfZxV6o80
-	00TOZh1+5eDd5W64n2FmMcsJzRuDG4Fm8HPP+o42tHimoiUyMYJkGcpXwsSdp25J5u5FtbyLPFD
-	9JCJITP0w5mJq2zSYqkO4+o3y6ALSPj3gi7GIejcfJpSicGuL0YISSICxrny0YT6S6RNKTg6c5N
-	N1Gpu6wltddntiVzglCOyZfs9TBogjhU0s0skbqNdWqvx5CgzXcm10c2B4uHMGEUwIiO8CUC9Bf
-	pvuAaHay9xLmDOM6YsJForRuMidyizncN1rGiQAixNmjITTigUHZ/eyaI0Rgad4qEWE6Y/jXWza
-	yJdYW+nXSh9k83KeZLkfyTgQXd9bgg5TITOEagBnkGmbWjkVO7ZcBo0xiL57le+rbs8VRxXJb6I
-	OBzHqzZUtC1fM7dbMMzIXV0Tl+bUbmrSrCPVWXIH8kwHr02jeRCLQS0PoFaB30fI4AmqBT9Gf3l
-	t7RHaBHQJWkWCE1uYLaSnxETYx7TQKXTYcaPLlb4XmY19kVjb+/SXMn7WqXAu/+LZGKZ
-X-Received: by 2002:a05:6a00:9502:b0:886:46c:8a1f with SMTP id d2e1a72fcca58-8ba8735a042mr3412188b3a.35.1794331770936;
-        Tue, 10 Nov 2026 09:29:30 -0800 (PST)
-Received: from phoenix.lan (204-195-112-43.wavecable.com. [204.195.112.43])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab5f1effsm1197939b3a.49.2026.11.10.09.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 09:29:30 -0800 (PST)
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v2 2/3] ipv6: return EMSGSIZE when first route in dump does not fit
-Date: Tue, 10 Nov 2026 09:26:17 -0800
-Message-ID: <20261110172925.3293312-3-stephen@networkplumber.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110172925.3293312-1-stephen@networkplumber.org>
-References: <20261110172925.3293312-1-stephen@networkplumber.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jkGcFe6W
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAFEXGd2865290;
+	Tue, 10 Nov 2026 17:29:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=BpV+K+
+	p2ba6sXSUO+GYEB1VH/bpsjyQSMt5G6lPVDWM=; b=jkGcFe6WcLmEhrslyWM/jl
+	fZ5q/c1fxsRrZd3qvfrwSLckaENeoKCA6ZgTQBzCPejPzqIbSuBja41bHRQ8OtIO
+	tZDpRNIIRIJzP9roAzIqO2RGOLHvl4yVKH2jQ1RYUY/FmtBFprRDhruFNXHQ/Rp9
+	cNFHTRkTEHvz+KD5Qm+1W9R6GBQVi9/YABGGlEnkwI2uLybPalIGU5c7HKdjAfhH
+	Ek65yb07WEWZJ3RBaFXgKRgPFR8wCpXnCB3y7xq5xpLLVf9586CZzFhEco0djTwZ
+	d23zQ6VEoQeg509GQ+cfM2vXNhqslXnaiKVcaBdbPV1LYM+/M0feNrvYlbHEKF9g
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug66a48-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 17:29:03 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF503N1925685;
+	Tue, 10 Nov 2026 17:29:03 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hv309h3n6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 17:29:03 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AAHSxIU40960292
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2026 17:28:59 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3D92D20043;
+	Tue, 10 Nov 2026 17:28:59 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1288920040;
+	Tue, 10 Nov 2026 17:28:56 +0000 (GMT)
+Received: from [9.39.16.14] (unknown [9.39.16.14])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 10 Nov 2026 17:28:55 +0000 (GMT)
+Message-ID: <77f21080-06cc-46ed-a125-d9859792ff3a@linux.ibm.com>
+Date: Tue, 10 Nov 2026 22:58:55 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,43 +86,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] powerpc/topology: Introduce llc_override kernel
+ parameter
+To: Chen Yu <yu.c.chen@intel.com>
+Cc: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, peterz@infradead.org,
+        tim.c.chen@linux.intel.com, christophe.leroy@csgroup.eu,
+        linux-kernel@vger.kernel.org, ritesh.list@gmail.com,
+        kprateek.nayak@amd.com, vineethr@linux.ibm.com,
+        vincent.guittot@linaro.org, srikar@linux.ibm.com, npiggin@gmail.com,
+        mpe@ellerman.id.au
+References: <20261023131646.2907938-1-sshegde@linux.ibm.com>
+ <20261023131646.2907938-2-sshegde@linux.ibm.com>
+ <atuAaE4Y-_2CLA37@chenyu-dev>
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <atuAaE4Y-_2CLA37@chenyu-dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 40IffSw--BjgpATlTgbsaJykScVbMuk1
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af35460 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=0_ZDYW1gR2TTHSzkmfcA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: MGXdlJTINTHCq1qJQsHm9525lZQ5KhBh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2OCBTYWx0ZWRfXyR1QyJgTICqX
+ LXCiAJIRWJzPqVGyLs8w0uzfOjlS7cy+Jt77PZhYhNzDUvoMufNR+vNCavGhZ4OXA+bCtN8/j4g
+ Wj24ZOS5PxdcQLndZXh7Xd2YePn4dSTS929Fyf5Q1DJ8Q7A/Zgy1YHo5SHs5//cNVmXMN/yav6T
+ l6vUF2F7N6b+XPNoWD6KHB3j+zx8Okzlz6XoXeB0zNIbl7SCpH1qFjyxlkXSfYSMsRCAEo0EkZM
+ 9n4d97urm2Jgjl92sn4vJTzoqAyHhTUQPrQqWYsg1VbviMitLrh3ddmRvhrHYEnArnW8f9koimy
+ M0aHwWjzIaJdxfnFY+QNcf7G/CKbUMxqV4N0rQcMHH9TIBvv5IMzCO3s6945rSYKL5wwNfyS1Ln
+ /7usC1xIL7nPJXs/FuY4GTDSSwbzfZE5zk7kCQMLBGiMJWdKExr1QpWV4d6TyKFZKmMnethonwr
+ i4kmn4oONVop6TVu/jw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2OCBTYWx0ZWRfX7W5EJGjTBLd4
+ y8GKVP6jhQLts9Z2Loz7brOIPr657hYeOwuBWJjyazJrA/m3yz6EjotX+uYdwFP5KQpSzAjEmiJ
+ 7Wk8fsSUSF0ukHiJ0Aqkbrk5RUqEOks=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100068
 
-If a route does not fit in an empty dump skb, fib6_dump_node()
-suspends the walker and inet6_dump_fib() returns 1. rtnl_dumpit()
-then returns skb->len, which is 0, and the dump ends with NLMSG_DONE
-and status 0, silently dropping the route and those after it.
+Hi Chen Yu, Thanks for taking a look.
 
-This became reachable when multipath routes started being dumped as a
-single message with an RTA_MULTIPATH attribute; a wide enough route no
-longer fits.
+On 10/23/26 9:12 PM, Chen Yu wrote:
+> Hi Shrikanth,
+> 
+> On Fri, Oct 23, 2026 at 06:46:43PM +0530, Shrikanth Hegde wrote:
+> 
+> [ ... ]
+> 
+>> ---
+>>   arch/powerpc/kernel/smp.c | 23 +++++++++++++++++++++++
+>>   1 file changed, 23 insertions(+)
+>>
+>> diff --git a/arch/powerpc/kernel/smp.c b/arch/powerpc/kernel/smp.c
+>> index 6a5a5469aaae..6b1201ea3572 100644
+>> --- a/arch/powerpc/kernel/smp.c
+>> +++ b/arch/powerpc/kernel/smp.c
+>> @@ -1059,6 +1059,29 @@ static bool has_coregroup_support(void)
+>>   	return coregroup_enabled;
+>>   }
+>>   
+>> +enum llc_override_values {
+>> +	LLC_OVERRIDE_MC		= 1,
+>> +	LLC_OVERRIDE_PKG	= 2,
+>> +};
+>> +
+>> +static int llc_override;
+>> +
+>> +static int __init set_llc_override(char *str)
+>> +{
+>> +	if (!strcasecmp(str, "mc") && has_coregroup_support())
+>> +		WRITE_ONCE(llc_override, LLC_OVERRIDE_MC);
+> 
+> There is only 1 booting CPU at the moment, maybe WRITE_ONCE() is not needed.
 
-Return -EMSGSIZE in this case, as IPv4 does. This depends on the
-rtnl_dumpit() fix in the previous patch.
+Yes.
 
-Fixes: beb1afac518d ("net: ipv6: Add support to dump multipath routes via RTA_MULTIPATH attribute")
-Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
----
- net/ipv6/ip6_fib.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+> 
+>> +	else if (!strcasecmp(str, "pkg"))
+>> +		WRITE_ONCE(llc_override, LLC_OVERRIDE_PKG);
+>> +	else {
+>> +		pr_warn("Unsupported llc_override=%s\n", str);
+>> +		return 1;
+>> +	}
+>> +
+>> +	pr_info("llc_override set at domain: %s\n", str);
+>> +	return 1;
+>> +}
+>> +__setup("llc_override=", set_llc_override);
+>> +
+>>   static int __init init_big_cores(void)
+>>   {
+>>   	int cpu;
+> 
+> On PowerPC, it seems that get_effective_llc_bytes() always returns 0,
+> which makes exceed_llc_capacity() return true, so cache-aware scheduling
+> is disabled on PowerPC. We might need to provide an arch_llc_bytes() that
+> is adjusted based on llc_override - sometimes calculate the sum of L2 across
+> several cores.
+> 
+> thanks,
+> Chenyu
 
-diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
-index e1d49897d6ab..1025267992f0 100644
---- a/net/ipv6/ip6_fib.c
-+++ b/net/ipv6/ip6_fib.c
-@@ -755,6 +755,12 @@ static int inet6_dump_fib(struct sk_buff *skb, struct netlink_callback *cb)
- 
- unlock:
- 	rcu_read_unlock();
-+	/* The walker stopped before adding anything, so the next route
-+	 * is too large for this skb. Report that instead of letting an
-+	 * empty skb look like the end of the dump.
-+	 */
-+	if (err > 0 && !skb->len)
-+		err = -EMSGSIZE;
- 	if (err <= 0)
- 		fib6_dump_end(cb);
- 	return err;
--- 
-2.53.0
+Ah!. I hadn't checked that. Thanks for pointing out.
 
+I am thinking right path would be to move powerpc cacheinfo into a generic one.
+I see there was an effort a while ago. Need to look into how to pull it off
+if it is possible.
+
+We could think of arch_llc_bytes if above is not possible.
