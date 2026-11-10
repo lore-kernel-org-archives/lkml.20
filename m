@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345929;
-	b=5S9uP8OPDXnE75pWX2QLt3AgOY0Mq23l+D5STxUKc3K64D96KeFq7UzNEwqU0RjrQ58+
-	 fW4TycSraCaHyuUG/ZG6OyYqYJNV+uNnTved5E8+8LPjlQAyM1V2NJAwBbJYZXwDqPwLD
-	 E4fsEwFBEWsUT5jnBFrbvvCs+vYcjiyv/+mt4Mphui2T8So/0Y9uc5DUKUcvwvaGhDNPz
-	 Oi+OiW1sOxE3r0Frqmt8YHGxZ3lT6JIOupNHbfCOH3acD757kCuU4OF8TXt5Yk8Xh7E5q
-	 FNb2vv1eLJUNplnIP79GH96WB8pPk3jJBZP/yyEu13BCq2lMEd6SJCgI9XUWkGht8PA==
+	t=1794345947;
+	b=ZapVumOhs7PVLA+TNTeRUk5R998XvRVECxheaIVzFMwyLXHoZKdMHgkbAOq/vNc46nR2
+	 go9B1UZb/7HjNJPJN6+9xdhJRR9vbVH3ZbgtoOCRN2JJDOm0BhZYkqPXoW02lMD5Ot4xz
+	 lZ8gck3KxxLhLJ1NPVv6YGcPKNpUWx7W3Q0vxlJP+0g0JZ3ubkmctdqWsVtYH3h66GIzn
+	 +aFDXpVQ9vVvn/nuNrsqfdIFjCWF86dUMt18gwxr9Kxd958LFmp+hmAjI27h4pemM7yXb
+	 Lgr4WHNqjgqnUHPLQHNyHEwGY0FS6KF5XIh0NfZa556YNQ98EOR8hQgBcWUxuGvwC5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345929;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GPeUEpbxZgN6b6poMbqb4po1OzKA7uw1ryiUgB0GJGA=;
-	b=pmkQaw8raFsEHccf/2zd3E8hhcRPoHGWkA5U+Q4oJ1NplmcLPdWestJYeiL96B3Df1EG
-	 smUtyhGyZLnQOg5+mkQEZvXzzCfLJl4NNXZ3BzPQYxSsNAPsIg21DQ54d52U7gg6fb0k9
-	 3xtUeM3TV9ZlqjAKL8AABryvht8BGUFbi1wdOhLp9tV1Czskh6fPMEqjcK9vnLuwduU8M
-	 pQ8+PIb4FkbK0MfybAL0IkQENKRKD1enyj99FBe1v0xAGlA//kJPXr+r+FhGzdQnse+ig
-	 qtL+zJ7JJJlxot4IG6jpttLwh5YfHHSSevAG4ffw2zikYkcj9AO1AZShxi+tZD5obWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345947;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent;
+	bh=EdPrvIoeQkOKljOBokRv+hpyTWHif36ZDAjxUxoFpUA=;
+	b=qlvWhRTebzxOD8LP73o8PrEw04yM4BO2BsazwnoUU5Rm+f1tLU3+xvkB7HM+QV4UBAbU
+	 W1vRqP0u2g++wpRQ6+YoE4xKvcZPGT2TchYtgBdSzTHSNBA5VXlRDqsrEluvBr4k7ZOmb
+	 Pwx3MkrBJokJbWI5DUOYjNuT+v8qXQ3eGlF1FajwxsDVIHSwdfq1y8zi6GSfZutCcRsom
+	 KShPsU16KsAKFBhbhvYyUG6M9JhbeFU+H/8azOPuVVtx+DBYR3vipI/jWf3KW9AfEWMw5
+	 9J6Tx0Vmx0e7KHw1uTu8A5LJ8xO9hA7ydD4P2x8nyvI+RBCQ3Y7ommJ9jSLqKA31Esw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jccq4jcX;
-	arc=none smtp.remote-ip=74.125.231.195
-Received: from mail-oi2-f3.google.com (mail-oi2-f3.google.com [74.125.231.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aurel32.net;
+	spf=pass smtp.mailfrom=aurel32.net;
+	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=bhBtXJ6g;
+	arc=none smtp.remote-ip=195.154.119.183
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A10606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:25:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A10606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA627606A320;
+	Tue, 10 Nov 2026 21:25:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA627606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jccq4jcX
-Received: by mail-oi2-f3.google.com with SMTP id 5614622812f47-4af85d1cb34so265900b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:25:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794345928; x=1794950728; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GPeUEpbxZgN6b6poMbqb4po1OzKA7uw1ryiUgB0GJGA=;
-        b=jccq4jcXeMUlb9kNFMg4bmgySVVsmX5UsetGhRhR+64XWvTXdLN95EixkElbZjvhHE
-         W2Mx71diUc+jVyHhbA9OE3M/B0EmdPmaNlknxxSr+hbNZZgxDri4FgRCajHMgOI8ZXZQ
-         kRT7PO7iWV4cF6tMLtElZkMM1xZ3LTJ//nT1adfehGSs8hwTfJ80puGlSZnsooPNDDbc
-         nnT+zrQElAtdpL8WB6+7BldhmhWm/wZcTtrovggk2cW08mkutPMTKaVC0f0s3a5KgF48
-         gQBa8pMdrkpRlxkngfl2OJMoJorjC9OtPiglvccnie7kRLanUD4CDTF3JyFUcFjpgphV
-         U4aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794345928; x=1794950728;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GPeUEpbxZgN6b6poMbqb4po1OzKA7uw1ryiUgB0GJGA=;
-        b=pqG1iCHVATf36S27v/DN6G7xtnMVUO7UBuzjGkS/1dRDPLyxwNqHSa4hY9uDEWQLLa
-         monsOvUcOLE1X9ZOatI7h41l0i20BSXRDDzNIsbFbpRGGQXEFOMZCcasmDggb4601Upw
-         wUvXNLPUkyenvOs36xwlm7yp/Vh5VXzuxP44G97CN1QDEcZpwPVjsPuhbWeLAM/8GABM
-         B72TJmtk1dnP40fSKg4JYvfCO9NeCHsSmhvBz3kQeb8bgdt49ip/RPdKVY5S/WM48tkZ
-         NgFiczF1Qu/DFD2gNKTw5pswyvkTCsRbgzodSGIxvSX76jP50sqXxJYbF+jMzpFz4Tbh
-         bL9A==
-X-Forwarded-Encrypted: i=1; AL+hErHZfA5RQVFmQeXIpUzHgNYZrelxd4IAx423q3b1HDqDWEV/1dOTP/6JydESZyge2VIDO81FSaO5mBb98tM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8p6cK1nSQeccHmGTJHIAj3XR5JlsytVFg2zQAtEdq446fgM7qg
-	LuNvMFnvzgUh468DtbPifVdKSzONUAPrRk1NP3vd6iiBhM+dfiei7waj
-X-Gm-Gg: AYBFou3t2zFr3XUyVumE5iSAoNyJWFpjpTmtIZ6H56ea5OTeJnTcDvJkdgJjANek1pl
-	4KZomti1FtzhqkpdEM16N4iQpPTWcIKTL5Rfh2ovM4iV9kAoJ64R6XZgUEDsHWpaoSb8TAs2egI
-	ZW0gE2e07KtLbwuYaJ+ij6GTmMPu66giJbTOz/oqppWg2t6UrQ+K6kvS5hM4pj8IiFffITm3k2o
-	AUzGRIWlT0itceX504yGuiyfmF8Gc2JDc0KcwEVc5yrpwgpK4EePUJs9BLcBUrhiZxFICPIleXh
-	DjsHizjonbNKvL5VHEU+jPtJe3e0SpIAhtkTdYA7tL2Y+Bx0Cm78LZi8rztCnW9xZC5lEOy4aXb
-	Zejt4Czg013Yh4bqjsT1YYtMsW6HpSR5APMnj5Xqv8KJSRMf3vA7dq7rrKrPM+i6Q6ORlG+603t
-	i6Y1wbrL+ve1SAfXcGpbBEXeI4HMd3Q0nT0Tn+oTIukFgtSJ+sS9AlFDlUqOCI/HVtEEg/SDV+n
-	NSr05iDgXpqVWs+xWuqgnWqkLfr9MatSP2bHUVbUsLQrMiB9jug1xi/ABiyQzvl2qZywWHjoWwM
-	QL6gKZuY8jvowI0S3ANsUObw3ALLA+c1+bdZBUcyVNW+ygJ75mzSXvtNC0rqylr+Zy8=
-X-Received: by 2002:a05:6808:15a5:b0:4b3:3e1:499b with SMTP id 5614622812f47-56b96294badmr126559b6e.6.1794345928215;
-        Tue, 10 Nov 2026 13:25:28 -0800 (PST)
-Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504c276sm3233400b6e.4.2026.11.10.13.25.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 13:25:26 -0800 (PST)
-Message-ID: <01f512c1-84ea-4443-99c5-f6c30242d4bb@gmail.com>
-Date: Tue, 10 Nov 2026 15:25:25 -0600
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=bhBtXJ6g
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=EdPrvIoeQkOKljOBokRv+hpyTWHif36ZDAjxUxoFpUA=; b=bhBtXJ6g8peGt6aBT/og1oe/b/
+	/ldqn7fRO1oFAdW7RZz2uJqaAGB3ufJBSlbIgwlACxaY//0iQUVtys0GbXgvr+eSZe74pacn3YEZd
+	SMzYVU1dk2TAMKHGBBH0Si9JnUrfJRsvjTaR06OO4+d+kGWPvWe+2Iqyz1ORL4RUgm7+WURelWuz3
+	05fQR6RpTzQbZkx1InA26LPWzKrfNBszNxzQ/D9Hh0yAWwIxmtpIez7B2GOjz4Ffsr5mPcuaB+Ljm
+	6hlwP0gRT17/jKMitePEYdcpqXhe/abx8lzM3sJ3rBoXMV/olZlJHUe05p0Tw6CoUxOPdC0wAPnIQ
+	R79+LVqg==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xQtLb-00000006KxL-0RIA;
+	Tue, 10 Nov 2026 22:25:43 +0100
+Date: Tue, 10 Nov 2026 22:25:42 +0100
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Anand Moon <linux.amoon@gmail.com>
+Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v1 2/2] power: reset: spacemit-p1: Use atomic I2C
+ transfers for power-off and restart
+Message-ID: <avOL1mCkI4YSaDeO@aurel32.net>
+Mail-Followup-To: Anand Moon <linux.amoon@gmail.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+References: <20261110061429.2036-1-linux.amoon@gmail.com>
+ <20261110061429.2036-2-linux.amoon@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,22 +83,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] pci: Add broken-GPE quirk for some Lenovo Legions with
- Nvidia GPUs
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Lyude Paul <lyude@redhat.com>
-References: <20261110-broken-gpe-legion-v4-1-c672bb1c4d91@gmail.com>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20261110-broken-gpe-legion-v4-1-c672bb1c4d91@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110061429.2036-2-linux.amoon@gmail.com>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-So sorry all, I accidentally double-sent with b4. Please disregard this 
-duplicate.
+Hi Anand,
+
+On 2026-11-10 11:44, Anand Moon wrote:
+> The SpacemiT P1 power-off and restart handlers use regmap_set_bits()
+> to access the PMIC. However, these handlers run in an atomic notifier
+> context (specifically within an rcu_read_lock() critical section), while
+> the I2C-backed regmap uses a sleepable mutex.
+> 
+> This triggers a "WARNING: suspicious RCU usage" warning due to an illegal
+> context switch in the RCU read-side critical section during shutdown on the
+> Banana Pi BPI-F3:
+> 
+> [  563.803475] WARNING: suspicious RCU usage
+> [  563.807813] 7.3.1-ARCH-RISC-V #1 Not tainted
+> [  563.816614] ./include/linux/rcupdate.h:387 Illegal context switch in RCU read-side critical section!
+> ...
+> [  563.841445] locks held by shutdown/1: 2, last CPU#0:
+> [  563.846694]  #0: ffffffff8404fb20 (system_transition_mutex){+.+.}-{4:4}, at: __do_sys_reboot+0x230/0x29e
+> [  563.856806]  #1: ffffffff84167860 (rcu_read_lock){....}-{1:3}, at: atomic_notifier_call_chain+0x4a/0x1c2
+> 
+> Replace the regmap operations with atomic I2C transfers to avoid sleeping
+> in an atomic context. Preserve unrelated register bits through
+> read-modify-write operations and check for atomic I2C support before
+> registering the handlers.
+> 
+> Obtain the I2C client from the parent device and verify that the adapter
+> supports atomic transfers before registering the handlers.
+> 
+> Tested on the Banana Pi BPI-F3 (SpacemiT K1).
+
+While the patch looks correct, I am not sure this is the correct 
+approach, as opposed to the one proposed by Troy [1].
+
+Indeed bypassing regmap and using i2c atomic transfers needs to be done 
+by all affected drivers. For instance the VisionFive 2 board, which use 
+an axp15060 PMIC is also affected by this issue. And the corresponding 
+driver is shared between architectures, which make this kind of change 
+more difficult.
+
+For the BPI-F3, note that with OpenSBI 1.9, the reboot is handled 
+through the SBI SRST extension, preventing this issue to happen. On the 
+long term, I am not sure we should keep this driver.
+
+Regards
+Aurelien
+
+[1] https://lore.kernel.org/linux-riscv/20261104-v7-0-rc1-rv-dis-int-before-restart-v5-1-956ec09c900d@linux.dev/
+
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
