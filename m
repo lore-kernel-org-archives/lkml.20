@@ -1,69 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329225;
-	b=eWT3VBhhV2ggrYhzBoJnpVNAdf9KVfDpcQTnlh18Naaxlfp8ep++2hsVofeCcp5Non8E
-	 0neHhUFv36mVIpmu/rpCadK/1k8CxbNLpI3YbnQGse/GXZ5lyXkRNwdC/PIoE8XEzTSSN
-	 ZzdD5If9i6bxQkliizaN9g6uti5DP5JBXYl0HckXYufEALLRAgG00TtpCuib3MNHRjf43
-	 fG9L3lOkxyYfcvzEqaI+CHVhQKdindkH1I51yAkJ0pRWEl3PdA3G6Kp67uvAS2VGg3LZ/
-	 8Uj113ZqPmqmaPwIrOxgkNrfY1MAiIGW6+8Ag7TXCKSwd7TuP2P5ePF+Xd9SJ6thEnA==
+	t=1794329236;
+	b=JLRN8TkhOlrNUG0i0w5DJB47r8j/s6eNg/gsDZGhuiXs/884bATf7ik5pTGIzLyhXcTN
+	 BI3o1/rRBZ9H5lfe7OSrtce0vI0C57cID4MWvGP4LwYIi+p38ZDX9cm8/wH7Dr2bBrIAN
+	 JVwSUqg+QJe8U/PUOZ07z5F8g6OVs900nfku8s9sx2aEprWqa+Fjo+JFEHywnUcdYlg39
+	 XHETvZ1waJccfJ9lcb76e62IaHuUwUtX6Gv1FBpfio2pfD8Gd9PXBJ3rhHY1skKL74ffv
+	 hr7YERgF/h+x2NnAqHRCNPUCgUuwVyNiMPgpVycqsBgeuJwy7V3t6iHXktA72m8yzxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329225;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
-	 X-SRS-Rewrite;
-	bh=PtQHwE2VMffU+UMyPwQvPI8d/SLp/QVm3YhtzUJLXTQ=;
-	b=vjk55LmIDuI59QMckby+dZ4e8qT+9rhVbds72Y5ZjfUCEtmy1eUk2Ze2NzcVZzUyei7T
-	 ozYUq6bO5GJ0HqmlnPPOoQe5PLi5XIyHyzkILN79fQtiqvF53XsXAReERjr+zu4gZ/Qiy
-	 V1lRr9k5yTY+CbRphO11+GpzHQRzD78z07r05ECe6vKS0dOiEnMIXOnsD8FNeifVQt3jH
-	 stf+5BHcBRGqrey+rnZC2VkJvhkAqV4JpecGyr0mW+dmdK35R620Qw6s1CxO/oHuak71e
-	 JD/bps3Qb6aBXQaAtzqXI40OAoM6o4NlsaRDPbK4IHWm8CgWfcNL+gtFmK2FxDZr5+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329236;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WT6C7Hu6Q9Eo/dM1QL4EzHwS0urSyLblqYy3glwBl5U=;
+	b=VCSHySV0QpoRxdCO5mTlLvHT2GmFb0/zvyBkwTQ0FJM2yhVpFGBPmN10gY2EH1WDifqo
+	 2J0viZwoPFB0+c3TICBD8XmBVVjlahbpXhaJ7qXPsAhwZdpY7DBCseJaxwjqOGDjmZS+y
+	 x0LMPdCOTThVOSJYyvLBhQCI4whx9aoTC3IxGvG9dhj6kci4szXldcUys6V38EJE7PMMd
+	 1p7mHj+PJzB6/JTRYuCR7m8Zr6+qNWdBxHb0JR1cuYp8PIEhHNcbUCaJlqcEeidjxO9oW
+	 iJB9jnGEhh7e8tcbACzS6W1v/5cLFLljMTN8WlmwOWSMEbArE1+1HwopdzajbyA1qxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=gM+URkrR;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sezp5elc;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37864606A31C;
-	Tue, 10 Nov 2026 16:47:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37864606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319FE606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 319FE606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=gM+URkrR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=PtQHwE2VMffU+UMyPwQvPI8d/SLp/QVm3YhtzUJLXTQ=; b=gM+URkrRLgt7VR36n/Gmkf7y5N
-	hYg6KxXmrsTCdkwtHP1UPHnBOVWoo++TL0L0kzU0Dv04XTMY7miV0JSnP/DjYJ4IEo9ahOkAUeWG+
-	pv54ZgogBro2YLS8yEIr2S5QHxXe40V9i/PwVdpUoPpkYjkoZdE/UKnqFdFf9cK+Pwz56Uu2BrEZb
-	6V0gCcbGTenkM790Pqz+saP+GdmbDHYDFK0A7CwB1R0knrdv1/opwLy3DC+8eYbcTNLZgjug9fdTf
-	5L+ecvq7kq8YArFwvSR7emXFVHJ1o1MYS6LbHt50SLDDwBL0BWV+c5KGM0TpdKvRj3KPdrviMDIHF
-	n9FPuZ+g==;
-Received: from [205.251.233.52] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQozp-0000000GKUt-2jgh;
-	Tue, 10 Nov 2026 16:46:58 +0000
-Message-ID: <89b5e08e2a48c33be4cf2d495266d04a2dcf406e.camel@infradead.org>
-Subject: Re: [PATCH] wireguard: socket: fix sticky source address on p2p
-From: David Woodhouse <dwmw2@infradead.org>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S.Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Antonio
- Quartulli <antonio@openvpn.net>, Ralf Lici <ralf@mandelbit.com>,  Sabrina
- Dubroca <sd@queasysnail.net>, openvpn-devel@lists.sourceforge.net
-Date: Tue, 10 Nov 2026 08:46:53 -0800
-In-Reply-To: <avNCdbpjxM752XSw@zx2c4.com>
-References: <116cec552f58748d434d4825c6c74f39266b265f.camel@infradead.org>
-	 <avNCdbpjxM752XSw@zx2c4.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-UeGD0BtQBemSa+LNHNdf"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sezp5elc
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso16467325e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:47:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794329234; x=1794934034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WT6C7Hu6Q9Eo/dM1QL4EzHwS0urSyLblqYy3glwBl5U=;
+        b=sezp5elcG4Em77hbvn4JdN4U+FNk5o1jD1QzJ6ycnaOhkAKU5NSQjT456+rzVVADjK
+         Q76LeCO2vDd+3YKdeEsPMUBr+itIK9aOLzL+FNN/HJRxMBQ+XdCSqRn0i1flhyhigwV5
+         dc4KSEEDXaM4E1pl42eLpMBLkKS+xV3BDCcR2Lo1nzJtbD/TmsOZP0/xrle0Mi2hncur
+         fKx/vZBjPqkoT/wJAD4WnuTEnzhHZ8cdbpncwU//5kIcONENFSHfC0pseOTmJSH82u6R
+         50siBReM1UGWf0XpPC6f9aQw1WFaQEBQZGztBf7PIRfpHXxfHPHeAhEAzjtb8yhIAQhT
+         ES/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794329234; x=1794934034;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WT6C7Hu6Q9Eo/dM1QL4EzHwS0urSyLblqYy3glwBl5U=;
+        b=Rm90e69ZxT7QmQXUdVycsoq2t4MBRkoQFx4PP10dtvYAXKC6+VKbEBwymwwtsH25E/
+         EbJdb8RN7KhktHsA4n4QTYxNl5O+7Wr0F/EWC4PD/8MKg0cvM9bF4JO44e+K2KA2SnQE
+         Qa3lfa19/pocpuIMYNMaxdfkoma4RVYcdrIXCYsya9fxSYl19kzeouHw1kUhFFs9Fymf
+         g8nwaP277v9kQETb7gsZIn8TZ9JpnEtQwuvbKwrJCpengGHY4sd4SWD5f2BzzzdpuKUU
+         AWj0gNuyBLaq+OBp0uVW0PXtoPUyZc1C2YQYZnwaSqkoUPHkeUs6f5MRjpI5YczSZgqX
+         ttsQ==
+X-Forwarded-Encrypted: i=1; AL+hErHedcjP8eY17jpOkoVdMWwocZ2R382OHdhc7Tzem+kXt8HuJvjLnZuwp+iynVCzRVYGZCXi7tn3VjxeLt8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4zmxB0EtJ1G1k+D0wfIyGM+TKdAdghNSFaja8jhqiVeEV8iD8
+	M1GUAlE0jeUS4zWicBejxrBM8b9ndOfPfN0GVXLgDtbJoxkBycI77tah
+X-Gm-Gg: AYBFou0+3bXeAHfofg+mC46FYVRsgTdli26NO/y0ZvlSAcujZqtDSPim8QUH0gSezn+
+	Xv7oY1iPgeN2nnVeA3l1ydI0k5QetXEpYcD/4Q+rA/epksoq6SxPnfQXymvoWvTH9jvte15xAeg
+	sGesfltdQtbzxnUq8sxg0pQTIkjPopw7QxOQ7C06GBTtdHb5rs8WNSdxaxgRFcBYbt4yJ8rCV9f
+	Hm2L4kT4pimM0OeptSuTeJzXjgB0OvqxVZEkXY5XIUJy9YiTBRbWNYYeCRTDnZ6oYo1teBlM4If
+	148htep3Vxo1Wyqsdj2fgDyevwSeyb+v/r/8+5GrP6nhRFEk5pzL8yWsF1tg3TmuhJtEX+9D1XY
+	4/ujCHP1PmbEkAAt7j2UoQzFndNlZRp/e9dDZZEBbya502vr8sc3vrDrHdTcWG9+DhyU/6NJJkr
+	uMeyLkEA+fP7invZeJCt+9s5sLjiF+ajaOnknARQoNdUmCPKj1SH+QNY+CxAEjo+R00FXQWh7zp
+	vTs02ATRNTzWaEdr3n2yk3QNf7JW0frnqlSQcKBay0k8xGbxaLnEfBJSXRZ2z0CVFBC8SImOvOc
+	VECsVkuy1omp2u1nhLBm0C4mGhCkAVsko7mVnSpKnpOk5RpZwx4Tm8Gpd4kHVXLuXHQ/Au5+Jy6
+	f5G2kae9DiitazHxLqR8owO9J
+X-Received: by 2002:a05:600c:4e8a:b0:4a2:fd2:985d with SMTP id 5b1f17b1804b1-4ba02345745mr59161225e9.12.1794329234174;
+        Tue, 10 Nov 2026 08:47:14 -0800 (PST)
+Received: from PKL-HASEEBA-LT.. ([39.36.65.144])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe9357sm84905075e9.9.2026.11.10.08.47.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 08:47:13 -0800 (PST)
+From: Haseeb Ashraf <haseebashraf091@gmail.com>
+To: maz@kernel.org,
+	Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	fahad.arslan@siemens.com,
+	haseeb.ashraf@siemens.com,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/1] KVM: arm64: Resume stage-2 unmap where the walk stopped
+Date: Tue, 10 Nov 2026 21:47:05 +0500
+Message-ID: <20261110164706.582879-1-haseebashraf091@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,137 +108,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 
+Unmapping the whole IPA space of a shadow stage-2, as emulating TLBI
+VMALLS12E1IS and TLBI ALLE1IS does, walks it one block-sized chunk at a
+time. The walker steps over an invalid entry in one go, but the next
+walk starts at the following chunk, so an invalid entry larger than a
+chunk is visited once for every chunk it covers. Each walk also ends
+with a range TLBI when FEAT_TLBIRANGE and FWB are available.
 
---=-UeGD0BtQBemSa+LNHNdf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This version follows the approach of Fuad's series [2]: the walk reports
+the address it reached, and the unmap loop resumes from there. The walk
+already handles every entry it steps over, so nothing has to be looked
+up beforehand.
 
-On Tue, 2026-11-10 at 17:12 +0100, Jason A. Donenfeld wrote:
->=20
-> Hmm... How did you choose __ip_dev_find() over, say,
-> inet_lookup_ifaddr_rcu(), which is structurally more similar to
-> ipv6_chk_addr()?
+An example shows what changes. Take 4K pages and a 48-bit IPA space.
+The root is a level-0 table with 512 entries of 512GB each, and a chunk
+is 1GB:
 
-__ip_dev_find() is what's exported to modules. It internally takes the
-RCU lock and calls inet_lookup_ifaddr_rcu(). It also falls back to a=20
-RT_TABLE_LOCAL lookup, which I think is the right thing here too.
+  Empty shadow stage-2
+    before: 2^18 = 262144 walks. Each of the 512 level-0 entries is
+            visited once for every one of the 512 chunks under it.
+    after:  512 walks. The first walk under an invalid entry returns
+            the end of that entry, and the loop resumes there.
 
---=-UeGD0BtQBemSa+LNHNdf
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+  One populated 512GB region (RAM and devices low in the IPA space)
+    before: 262144 walks.
+    after:  at most 512 + 511 = 1023 walks: 512 chunks inside the
+            region, and one step over each of the 511 other entries.
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-1uhaLv5z6ryqMjyFL0uStBIAAAAAAAA=
+The example is derived from the page-table layout. Measurements follow.
+The machine is an AmpereOne A192-32X (192 CPUs, bare metal, 4K pages,
+48-bit IPA, FWB and TLB range maintenance present) running Xen as a KVM
+guest. The workload is one create and destroy cycle of an 8GB guest
+under Xen. bpftrace kprobes and kretprobes recorded every full-range
+unmap (start 0, size 2^48), its walks, its range TLBIs and its duration.
+"Before" is plain 6.18.29. "After" is 6.18.29 with this patch, adapted
+to the older unmap loop, and with seven commits that are already in
+mainline backported: 33346f8960c7 and e5843f4effaa (nested_mmus life
+cycle), and a6ca6cba5959, c2778d14cd2f, 5491980c1a41, e6084aecaeef and
+2064f15b0848 (guest stage-2 tracking).
 
+                                    before          after
+  full-range unmaps                    192            128
+  walks per unmap                   262144     512 - 1024
+  range TLBIs per unmap             262144  same as walks
+  unmap duration, mean            907.8 ms        3.77 ms
+  unmap duration, median          909.3 ms        2.46 ms
+  unmap duration, min             815.5 ms        2.06 ms
+  unmap duration, max             937.6 ms       27.8  ms
+  VMALLS12E1IS trap, mean         957.0 ms        3.78 ms
+  VMALLS12E1IS trap, max         1848.6 ms       27.9  ms
 
---=-UeGD0BtQBemSa+LNHNdf--
+Walks per unmap after the change: 512 (10 unmaps), 534 (1), 546 (78),
+1023 (38) and 1024 (1), mean 689. The page-table occupancy was not
+recorded, so I cannot tie each count to a layout. 1024 is one more than
+a single populated region gives. Before the change nine of the 177 traps
+unmapped two shadow stage-2s and took about twice as long; after it
+every trap unmapped one.
+
+Patch 1 adds kvm_pgtable_stage2_unmap_range(), which returns the address
+its walk reached, and has the unmap loop resume from there.
+kvm_pgtable_stage2_unmap() keeps its return value for its callers at
+EL2. The unmap of a shadow stage-2 also drops the guest stage-2 records
+of the whole span the walk covered. The TLBI VMALLS12E1IS handler,
+kvm_nested_s2_unmap() and the pending unmap of a recycled shadow stage-2
+need no change.
+
+Changes since v1 [1]:
+  - Reworked as Oliver suggested: the walk reports the next IPA to the
+    outer loop, as in Fuad's series [2]. This replaces
+    kvm_stage2_unmap_all() and its kvm_pgtable_get_leaf() lookup.
+  - No extra VMID-wide TLBI: each walk keeps its own TLB maintenance.
+  - Measurements added.
+  - Based on Linux 7.4-rc1, the same base as [2]. It does not depend on
+    [2]; it applies with and without it.
+
+[1] https://lore.kernel.org/r/cfa77cdbf14d9fd24c22ab1ef9b940a0d7411699.1794229714.git.haseeb.ashraf@siemens.com
+[2] https://lore.kernel.org/r/20261106133000.453240-1-fuad.tabba@linux.dev
+
+Tooling: the patch was drafted with AI assistance (SiemensGPT). The
+statistics were collected with bpftrace, using kprobes at function entry
+and kretprobes at function return.
+
+Testing: the backport of this patch, together with the seven commits
+listed above, was booted as 6.18.29 on the machine above, and the
+measurements are from that kernel. The patch for 7.4-rc1 itself was only
+compile-checked in isolation.
