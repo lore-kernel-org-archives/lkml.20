@@ -1,79 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296330;
-	b=nw/nNbHCgTNjG/eOKLzRME2eeFreg/tMRGDvoiNit7LJUBnXvgsMhW45Zl8tpjYuh7bM
-	 Jem3A1pQCUEDA9bAStwj9GqxPC8Rt6EaWsuuUJw6p7vqpUHE9fxS1P8d8Ko4LFypuJr96
-	 QxM/azcwwHpcR2CDfTEv4lXIZsSNu9Xz+pLUJIf549p/MHZ916WPlfkZjp2jQW5UQXcc9
-	 VW2B8Dwox5U9Ona3WkM6xlVf9iJ12amg/IlaZj+DrWkPB3IO698wFsEKYwl40IDTYu4J0
-	 IsPGtrgqk/v1QIFkMqVPQLnV3QJhU/Xexl2C9FOIURalT2yNmfpRAUGO37CBGw037/Q==
+	t=1794296364;
+	b=amEIUw5xTzTzxpFNvYfyF2pPAlcInmfsFMcVeeX6dTG3KrElCUDY/4GOh5+CudDgpiHK
+	 fwl987UaynHn1ChnyJzMXgsBmOSPzw0YSzKd9JosEDUiLHSQqD5c8m/3dxg1bxwe+tuFL
+	 9nI+8fuho4UjOwZFIKzhpAwhqgUOnhMd9Ppfu/kc1aZ6N0I2UyvACFq1y26p/Jd9FxlmV
+	 yAWSv0QkIKvnlbU3PL1scefQP4ZWl44gChBcHnhmxAXXz3X+0ag91ny2l2Dw4HG6rPfYo
+	 LCLFp7qpkCzQDmL+TN9CHZiZai944MnPIfUkMeUoWwd1R2NbfgwWfHJJqbgrITyNkgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296330;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=8t3XsmkH4X5jtPd+1XnonFJPOxRdvH+YlQwa+M77eiU=;
-	b=dxtnnFbFcj4lzoEt2bp0ZbaT4m+zjlpja99GQfFQq6fmY/USBkW3BoFlClGhOYN9E99U
-	 J7NoSpINnoTJ+ldR3eSGgZOC+392rOpEkip9wws3qDflAXXvmM+wIrRwCD+d2TWaMD4Zp
-	 PqIUntDIBPJbWCiQTq2QMwPdUV67KlXSE14POPW1NV7wMCSfMpbH7+85AYTO4WlLiVkEo
-	 7hkE1diQghplcQKqxUiuv+BZ+vrAbnDU4is/YLQJyXVGELS1sqTpQezWzcL2UwlIaLvW1
-	 FBTAiWpkbFU3C6gzsI0fJR3+7zdjt2ZDi+GfyfJg2UFqWTwHSlFVxgwv3back0/fOXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296364;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DSBlFGn4E205gXuccBzZwAAPl+yDbfuCcd3h0VNHPkE=;
+	b=Ye92w12yqLwPR0BzL7dvlJW1tsryX5c/jTvgNuJfrT/WDNXA+PYHusOvKFMhiVZh63qv
+	 s84dQNdF51lq4ULHOS9Z2i6gQP+wmCeuUglK8R/D4Pw0RKwongEnPfN+rIke8OkVkc2PF
+	 JfPbaCvff5VlaAT1uZ4rz3NFbvxXWOhtNSR96jPUebHNwWWYN3Sm0q1Zgy60s/Z2Zp8eh
+	 0E9C3xaMa9WbMxBME/QGhDTIgzjTmxz/v+7+/nfw7l/IQW1zyu2eS9SEIG9DaLQ/P4ydi
+	 G8jEw9ovVkjBO00FQTHoZSTcHY90uWdtjBdpONnLvnTb752othy8JRdc9qUvlRVEA4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WJI7vfhE;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cua8L9GY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F88606A331;
-	Tue, 10 Nov 2026 07:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F88606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E2F606A31C;
+	Tue, 10 Nov 2026 07:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WJI7vfhE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794296329; x=1825832329;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CmpiFBayGQ11aSA55tG7scFVqAlN/E57mwp8MKmRI+Q=;
-  b=WJI7vfhENbb1EgmCGh157pXzEnmwr/ewFvnWNOAuDJeKFebKDyYS4EFA
-   tFUKacnaTQvDhMIAiWpeQwRb+ZHcwsQkAztS3a87Zbkd7BCy3e8C6E6Xh
-   gfpl8rSKc6+bNzA87s6V0erH09eUxq4/YgrSH8sDLd1KDtoP3aS/kYVsC
-   2ZSVNDU1XWAif6615y8QM8Ze9I1kDFFmO5S/pkcFtbAaSCrDeIcna8DJd
-   XTAUerncVQjLu8HcJ16c/k+mIMRvZ9whBRsSlBt3BmPeUgaUGPmrb672i
-   g4PLoJSuohgEzhZ57E9Fn9x5kLwiEE4pX+q4rrFgrn+WRCZHYbksV5i5E
-   Q==;
-X-CSE-ConnectionGUID: Rw0jUrUwQVCccNnuK/oHFw==
-X-CSE-MsgGUID: j4u7HMnbSEil6nwm3Jeyng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3069716"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3069716"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:38:48 -0800
-X-CSE-ConnectionGUID: +A52Wz9vS/GrJkZUz+DobA==
-X-CSE-MsgGUID: sd++91SqTZG3OrqooQ0q7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8660899"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:38:46 -0800
-Date: Tue, 10 Nov 2026 09:38:43 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sergey Khimich <serghox@gmail.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dmaengine: dw-axi-dmac: poll the correct enable
- bit during termination
-Message-ID: <avLKA9He_lz81Kfz@ashevche-desk.local>
-References: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
- <20261109-submit-dw-axi-dma-stop-pause-v1-v2-1-64adc48df793@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cua8L9GY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1DB1F0089F;
+	Tue, 10 Nov 2026 07:39:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794296363;
+	bh=DSBlFGn4E205gXuccBzZwAAPl+yDbfuCcd3h0VNHPkE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cua8L9GY35tzd1wvxIkoHZWoj4b+Jnc4MmmXSS4xz1DMOhF7fnMzyvLCmrsGBqGj1
+	 Jb3832ICvaaSkhpxHKzVktwY0VN55YFhe3ayOJkh72n1kK3xADULAH5Ox4aWZpDvso
+	 SSbBNIbDYBnbE0pl1xpHF+Szz6q8g2PUN/I44F2G4akFrGsrJgkxavsbYV78rdzpjx
+	 zQNz+Gl7ioYOpICsUTt7r4k8bgeTs/LlSH/W8tT7ufcmOxtPXhedsyuDUNY/5l3SKw
+	 qP4k1ZQswUJUdtBBrFidqv9eamm01YnDLo/xUXPHRAgRbSU5FtK+emGYhLCVNfCVFg
+	 cz+s7VuHGQF/w==
+Date: Tue, 10 Nov 2026 09:39:19 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v2 10/19] net: phy: Use the compatibility driver
+ attachment API
+Message-ID: <20261110073919.GF8635@unreal>
+References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+ <20261109-device-trust-core-v2-10-3b12d9a9f861@nvidia.com>
+ <ab062469-ece0-495e-8486-78404c580cdb@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,34 +89,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-1-64adc48df793@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ab062469-ece0-495e-8486-78404c580cdb@lunn.ch>
 
-On Mon, Nov 09, 2026 at 08:06:00PM -0700, James Hilliard wrote:
-> For channels 16 through 31, the channel enable bits occupy bits 32 through
-> 47 of the extended DMAC_CHEN register. dma_chan_terminate_all() only reads
-> the low word and tests BIT(chan->id), so it can conclude that an upper-bank
-> channel has stopped while its actual enable bit remains set. Descriptors
-> can then be freed while hardware still owns them.
+On Mon, Nov 09, 2026 at 02:45:35PM +0100, Andrew Lunn wrote:
+> > @@ -1956,11 +1958,10 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+> >  	}
+> >  	phydev->drv_owner = drv_owner;
+> >  
+> > -	if (phydev->is_genphy_driven) {
+> > -		err = d->driver->probe(d);
+> > -		if (err >= 0)
+> > -			err = device_bind_driver(d);
+> > -
+> > +	if (bind_genphy) {
+> > +		err = device_driver_attach_full(drv, d);
+> > +		if (err == -EBUSY)
+> > +			irq = phydev->irq;
 > 
-> Poll axi_chan_is_hw_enable(), which already handles both register banks
-> and the smaller channel layouts, instead of constructing another mask.
+> Just looking at this, it is not clear where the EBUSY can from? 
 
-...
+I relied on the comment above: “Assume that if there is no driver, ...”.
+Since PHYs do not use the standard automatic probing mechanism, I have no
+way to tell whether a driver is already bound.
 
-> -	ret = readl_poll_timeout_atomic(chan->chip->regs + DMAC_CHEN, val,
-> -					!(val & chan_active), 1000, 50000);
-> +	ret = readx_poll_timeout_atomic(axi_chan_is_hw_enable, chan, enabled, !enabled,
-> +				       1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC);
+> And why set irq to phydev->irq?
 
-Indentation of the second line is broken, and the first one is too long, check
-how I recommended to put in my reply to v1.
+If the above operation can fail with -EBUSY, the wrong IRQ was restored.
 
--- 
-With Best Regards,
-Andy Shevchenko
+I checked this with AI, which says that -EBUSY can originate deep in the
+driver core. It may be better to remove this special case and rely on the
+PHY's guarantee that no driver can be bound concurrently.
 
+Thanks
 
+> 
+>     Andrew
