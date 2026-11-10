@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794295109;
-	b=gimBcg3c4OTYlfroX5QoAYfOXEYy0rvMIvfIx9zXxhlEKSsXHs2u56yKnubOTGY8zNRE
-	 P1n0aWbU4lD4RAjsqr7QOCLOjr/sqnOyTbDKgPUiQ5rM20W/bJsWkwXibCBuF97BaS52D
-	 URH/GlNFzIERTN2tx6/5+y7i8k426qyao7HrE0rSjKrXTBzKwyWEtyYKGYMq+n43zBguJ
-	 uIFf/cNtBomNkYf/yBFdwdInMfre/TxMGTsKmnFWjQiKzDH+SAuBJinf9BrCVPi8d9Smd
-	 kTRGTvYpITIn8CytI43dZhuOb6ZWBqs/VIxlKecs++0Dn+v9+zp1nyqYA9zwVje7Bww==
+	t=1794295110;
+	b=EWFNz1tJvflFqZrO8wPs0b3+wYrvXIDaTxHQOMQRcbf5ftsK/nYWhJ6/K1iUGKb8yyRj
+	 Px7w8A2o0tjOlQXMavZe5fkF54Z9Q+1ubKBQs0GCDA6juEN1JWDuhTuBY4SY63IBhAzwL
+	 2gXfH1tKhZyjgQ6lIOcE5UTIV/gZSAkVYjlAZelMg5CgBRQ6tzFeuzCunivbdV+bVuFjb
+	 42N/HD4bCjFQm75frClNY5i5mdtQ/qUJSYQPU6ENzQ2+Oa0IufO0iyeq8AVIOCVjrWFyp
+	 emmWNkQtHqATQ1QpwFPFpd5fTAQWaQ/PpdI5RY/f94IF+eOHbB4bZbRL9wk1PngcDqA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295109;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295110;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
-	b=uw/FpPnCeJz/aVkfKHMUukBsz+HU2+AFbY7QS5q+i0RVPDzL4PRy+9d4Yg5nI/EK9Zj6
-	 /Q0j13sKFmD+ZoT1X6T6NvkrThnjxx/pjj1Y2joACY4DxIBfbZhpIAZHE0CsFGIap+X9R
-	 mvQcOZnNUx3JZ1SiA8MbQ30vvuVFtHTucVduLhnKFXKmi3/c7jFuP8Y5p4vfMioVmooAR
-	 KNKiy5INPeznLHw441BFOl7CSYQfOaVduy4qbrIV09DYUjN6HrMfbW+5YbfyQX1ta/UWK
-	 8dQVAXBmJ9Ij8AMIRtkh4wMDUZgMUv3Rr1zmHodpF7ES0b+TlhHzfPmpkQF9bLRsHbQ==
+	bh=4i3GS29HPtypyjBy6AOepteHi17VRcJiMUzTuDJd0IQ=;
+	b=XaJh1hNo8qWzQq5JmZsTtWeHZxmOslaV7Cg3+V9LI7DL5pEFUJmQW3ClAPNB82dWwvsc
+	 PufKdkRh7VFI+wcyAhNEf6Gk6EBJDUtK8B/sbaMIxhXLS7zWkJgMPT1JHszpmaP9uNth4
+	 rrMR9w36raD3J0yDXqXsBNnb9KtOOFXY7zOJRUjtO9vgEaBtp3oYrjsmWiFN8IToFwx6I
+	 pXKu1aaEx/65xJkSO6j6OX9/IXfMHJTh8jKCq8X8WNiRDJt3slgXNNx5u+bIMuj090lV0
+	 +BAzC1HYb6IQ9kob+ZYyY9ucv/XUudJl7igNt38cm2fLXcNk3tyQhU77o5rp6Q+jdyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQTNjxpd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LA8/siGC";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA05606A337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73B7606A321;
 	Tue, 10 Nov 2026 07:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQTNjxpd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LA8/siGC
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794295109;
-	b=g/yoGwLfsWfa3IXeFqiholfUNZKt2EGIt/df8K9QKsFqOiWY7cQHAHXXAePJs5Sg+dRO
-	 So9KP2o/WuWftIa1AjBC9tkCEyK59tEK4iJRZKOztNbzq++ocvxzMirB1qXL1TbOpBkZO
-	 ee+5VbTuaQvikg3NHb2+z8RDWmU1HligOPcI7ghmP9cLG1kmoD1J3L2KVOSOA+35+Dcde
-	 qPkdiMS0ghPUISs6Uu0TM2oHn1a2+Xgt1769NWhsGSJ/I7GDSGo4jUQAsiIFzL6PS3is7
-	 tLUMfC5iXOip2FNJjmyQnPdb0JovGdRKMjyPcsQBI43t5vYThjJiWgFI26y8USgiVWw==
+	b=qu2bPGSLmxZWsXBV7I9o4N9/0dAMoyNSZ5kzOjyCJCLTchTwsnBnOPIHnLvZezmsCODY
+	 uDm1Ccva4UyhA38kEKAPLpu1eChrqVt9qMw2E0DdiRVTy1LmqrEMfydf3ps6cmbo/pu8R
+	 /17X/93BrKWEcDgSD1v7oKG5/tl9MfMIWlzZDh3zqqdSDiHVInd9fpdUjdmRIpjxxzQqW
+	 wLK8C0l5lWKWKlQr2FI7Uye07agI10X64mmpGxki4qiSP+MueeEDPcjK9Gw1lh7/qMz7m
+	 7cnkeZLs4IuZIJCC2NL0qqfbaMyyQgysTMSilf2hgSoCwfJaogZL20s0+qIDQxT6nKA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794295109;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
-	b=TJsFEhYexWoHqgBQpFZWqyINRhXoZWWvR+GHwpHBNGXrJkVxjKFXwyYqZwL7AW5q1dZA
-	 ZGuRTJNPHl83eGh8n+zraBG4QpNGQ+HaGyKXVbWkQGad9BwG70vnrDl2kE0bfJxAjVf3g
-	 l7pFAPzvNLSm2bg6vOYziokkbEUrc8i2p8MshmdPiwxbXEQAdNtxH6r+v/gDA2jglmI5r
-	 XYR655oMk7LXdj8cRDnNOwQK1FAg4mh4WlHAwUn0c31V4Sb6m0fmSg61XHI1beE02D2BZ
-	 i3+6Ged/s2G9I22B4kKFy+79bJMxVHcBz3jMa+cI+7gUMhtVZWDIWhvV8wAoe9u668g==
+	bh=4i3GS29HPtypyjBy6AOepteHi17VRcJiMUzTuDJd0IQ=;
+	b=ECHMPmeWkKYp8FSLoCJiy8626fuhsYZ8sN81QUaFh7Uq2sj3C7YbaHtC9r7NWzC5Jsa3
+	 xEXwEI3VjJflxuUcN6/kvFnQx2ScHOFPdgUXkIik3GQp35gcWhQwP00p2T0pDjCiXyUkB
+	 lCdWBlbgGobPFHVEAtT8WCxkH9ZGBK61ZOdhSWfi0PshOakdx7JM/iHdd8LmIl8RgLg+G
+	 M4qjJv0Y6QvI7aqehYH4DbD4w95AuPep7q0Z96LasLJcGzSoMHgtGNteP0WC99X9kxvQB
+	 KG0xL+XaZJ5GmsPnV6fFsezGibwYRfIkiCq7r4OGYRjKXbGTRHqL1rnzdiQ95eipjdw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4D86A1F008A4;
+	by smtp.kernel.org (Postfix) with ESMTPS id 61B691F008A5;
 	Tue, 10 Nov 2026 07:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794295109;
-	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
+	bh=4i3GS29HPtypyjBy6AOepteHi17VRcJiMUzTuDJd0IQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=PQTNjxpdmFfyeqRL82uP0aXDLlP010hsPTwQzVvM01tEoRYD86r9NklwFyZpxky+5
-	 qgY0MBCikCRiyObPfSvzEqBHfmwhlvO4K7CA+wuhxYIAW3MDP7CU+Q1DYinGWZQDEt
-	 g93b+t4XIawcotOxUbUhc6VtzK6H+bWuID6Rbu688QR24A+vrkIAdezgebJl39RNhC
-	 yEzk10FGNiIqb6rWpZT4IICJZI4ctMzkmsWHDYP+dB1OfJK62FqWEOoRot742r3CPm
-	 mYmcu/iYvwZM/wPczm2xF4mbEdJN8KPFiQQc6vrMJviZc5IPa7dnzCDNkJyxFSAHzF
-	 SyIZXZiSRNLvA==
+	b=LA8/siGCkk0jouAlHZYNSei6UKYmryOL1U2P2t9ie8tiq09B7opIZ5/gBEVlVxkXZ
+	 vJGG8ZLNOQMq/aPnhHSdho9aaVVAbbBkPwm3iiDbrBdgrO5I7sZnfzVKcO2mbbmlco
+	 R37mSTJIEaoURP9YRFcDe68kRMuBcBlhutOvVdTUQTPMzhJ9pz+zRZwEWlLt/djyyF
+	 w2Oim4WZLwc9BBiDq7aEg35gaBiMTD1unMtir3gJWVyRi2jCu/Kqz1d9q3URspa1ih
+	 orFpqXFa02HFnkqfCq8RTgawqIvLvqrXoXBpszQtmyMuLYQYwogRddrcMoK//uQQSv
+	 jsoYl1pnFPikA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D6B87489A5;
+	by lkml.kernel.org (Postfix) with ESMTP id E7B14489A9;
 	Tue, 10 Nov 2026 07:18:27 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:18:29 +0000
-Subject: [PATCH 3/4] media: verisilicon: Don't offer VP8 above 1080p on the
- Rockchip VDPU2
+Date: Tue, 10 Nov 2026 07:18:30 +0000
+Subject: [PATCH 4/4] media: verisilicon: Check every VPU981 AV1 tile column
+ buffer before reusing them
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hantro-codec-fixes-v1-3-0fd5372ce831@gmail.com>
+Message-Id: <20261110-hantro-codec-fixes-v1-4-0fd5372ce831@gmail.com>
 References: <20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com>
 In-Reply-To: <20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -98,13 +98,14 @@ To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
  Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
  Jeffy Chen <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295107; l=2123;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295107; l=6292;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=EXI8QBEeHs1R1u0NRn+cDDndC1H6YMS5/uVvMAcEFAg=;
- b=m4jnbHaknfIBjsaMF7gll6ze3KeL+9wDGhUJowJvUWrLufyEswgM3m6nX5sHrSaksG/83qNC2
- jyJ2Yoqy9NxCbqgeusDMt43iYdOG9tPyDN2VW7BiVS6wMBmkyprlDYJ
+ bh=BT2F0TOczjHLd2TsiRpWYPl5wVI3/1gtJ6eyqTMB414=;
+ b=v4IAwZbaCF/kbVOqenuZfLekQ3xkKDPJl21NkrEYoTBY+s050lQ+/1k7ECSi1FPQJflLnwfi5
+ lATQjf4DhExBxFOTMfwV/VVDzS7cIbI0g9g7iZUsEhVIyWS0POeu8VR
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,56 +116,143 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The VDPU2 decoder format tables (RK3328, RK3568, RK3588 VPU121) and the
-RK3399 one let the VP8 OUTPUT format go up to 3840x2160, but their only
-CAPTURE format, NV12, stops at 1920x1088, and the CAPTURE size is
-clamped to it. A 4K VP8 stream is therefore accepted on OUTPUT and then
-decoded into a 1920x1088 buffer: on RK3588 GStreamer v4l2slvp8dec runs
-into "gst_video_frame_map_id: assertion 'info->width <= meta->width'
-failed" for every frame of a 3840x2160 stream and none of the frames
-match FFmpeg.
+rockchip_vpu981_av1_dec_tiles_reallocate() keeps the five tile column
+buffers (deblocking data and control, CDEF, super-res, loop restoration)
+when the deblocking data buffer is big enough for the current frame. The
+buffers don't scale the same way: the deblocking data one grows with the
+frame height and the bit depth, the super-res one only with the number of
+64 pixel rows, and the loop restoration one with the number of
+restoration stripes, which is one more than the number of superblock
+rows. A frame can therefore fit in the old deblocking data buffer and
+still need a larger buffer of another kind. For example, after a 10-bit
+1088 line frame with 4 tile columns, an 8-bit frame of the same height
+with 5 tile columns needs 65280 bytes of deblocking data (65536
+allocated) but 367360 bytes of super-res column data (293888 allocated);
+an 8-bit 128 line frame with 4 columns followed by a 64 line frame with 8
+columns has the same problem with the loop restoration buffer. The
+decoder then writes past the end of the smaller buffer.
 
-Nothing above 1080p can be decoded with these tables, so don't
-advertise it: limit VP8 to the 1920x1088 of the other codecs and of the
-CAPTURE format. Userspace that checks VIDIOC_ENUM_FRAMESIZES, and the
-S_FMT clamping, then know that a 4K VP8 stream needs another decoder.
+The sizes are also not reset when the buffers are freed, so after a
+failed allocation the stale size of the deblocking data buffer lets the
+next frame skip the allocation and run with NULL buffers.
 
-Fixes: 73fb5bfa53e9 ("media: hantro: Support RK3399 VP8 decoding")
+Compare each buffer with the size the current frame needs and clear the
+sizes together with the buffers.
+
+Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
+Cc: stable@vger.kernel.org
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 34 +++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 02673be9878e..2b6242c1fb86 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -274,10 +274,10 @@ static const struct hantro_fmt rockchip_vdpu2_dec_fmts[] = {
- 		.max_depth = 2,
- 		.frmsize = {
- 			.min_width = FMT_MIN_WIDTH,
--			.max_width = FMT_UHD_WIDTH,
-+			.max_width = FMT_FHD_WIDTH,
- 			.step_width = MB_DIM,
- 			.min_height = FMT_MIN_HEIGHT,
--			.max_height = FMT_UHD_HEIGHT,
-+			.max_height = FMT_FHD_HEIGHT,
- 			.step_height = MB_DIM,
- 		},
- 	},
-@@ -315,10 +315,10 @@ static const struct hantro_fmt rk3399_vpu_dec_fmts[] = {
- 		.max_depth = 2,
- 		.frmsize = {
- 			.min_width = FMT_MIN_WIDTH,
--			.max_width = FMT_UHD_WIDTH,
-+			.max_width = FMT_FHD_WIDTH,
- 			.step_width = MB_DIM,
- 			.min_height = FMT_MIN_HEIGHT,
--			.max_height = FMT_UHD_HEIGHT,
-+			.max_height = FMT_FHD_HEIGHT,
- 			.step_height = MB_DIM,
- 		},
- 	},
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+index 2a145433e6d1..e817c91224d3 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+@@ -236,27 +236,32 @@ static void rockchip_vpu981_av1_dec_tiles_free(struct hantro_ctx *ctx)
+ 				  av1_dec->db_data_col.cpu,
+ 				  av1_dec->db_data_col.dma);
+ 	av1_dec->db_data_col.cpu = NULL;
++	av1_dec->db_data_col.size = 0;
+ 
+ 	if (av1_dec->db_ctrl_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->db_ctrl_col.size,
+ 				  av1_dec->db_ctrl_col.cpu,
+ 				  av1_dec->db_ctrl_col.dma);
+ 	av1_dec->db_ctrl_col.cpu = NULL;
++	av1_dec->db_ctrl_col.size = 0;
+ 
+ 	if (av1_dec->cdef_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->cdef_col.size,
+ 				  av1_dec->cdef_col.cpu, av1_dec->cdef_col.dma);
+ 	av1_dec->cdef_col.cpu = NULL;
++	av1_dec->cdef_col.size = 0;
+ 
+ 	if (av1_dec->sr_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->sr_col.size,
+ 				  av1_dec->sr_col.cpu, av1_dec->sr_col.dma);
+ 	av1_dec->sr_col.cpu = NULL;
++	av1_dec->sr_col.size = 0;
+ 
+ 	if (av1_dec->lr_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->lr_col.size,
+ 				  av1_dec->lr_col.cpu, av1_dec->lr_col.dma);
+ 	av1_dec->lr_col.cpu = NULL;
++	av1_dec->lr_col.size = 0;
+ }
+ 
+ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+@@ -269,15 +274,30 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 	unsigned int height = ALIGN(ctrls->frame->frame_height_minus_1 + 1, 64);
+ 	unsigned int height_in_sb = height / 64;
+ 	unsigned int stripe_num = ((height + 8) + 63) / 64;
++	size_t db_data_size, db_ctrl_size, cdef_size, sr_size, lr_size;
+ 	size_t size;
+ 
+-	if (av1_dec->db_data_col.size >=
+-	    ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols)
++	db_data_size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
++	db_ctrl_size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
++	cdef_size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
++	sr_size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
++	lr_size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
++
++	/*
++	 * The five buffers scale differently with the frame height, the
++	 * number of tile columns and the bit depth, so each of them has to be
++	 * big enough for the current frame, not only the deblocking data one.
++	 */
++	if (av1_dec->db_data_col.size >= db_data_size &&
++	    av1_dec->db_ctrl_col.size >= db_ctrl_size &&
++	    av1_dec->cdef_col.size >= cdef_size &&
++	    av1_dec->sr_col.size >= sr_size &&
++	    av1_dec->lr_col.size >= lr_size)
+ 		return 0;
+ 
+ 	rockchip_vpu981_av1_dec_tiles_free(ctx);
+ 
+-	size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
++	size = db_data_size;
+ 	av1_dec->db_data_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						      &av1_dec->db_data_col.dma,
+ 						      GFP_KERNEL);
+@@ -285,7 +305,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->db_data_col.size = size;
+ 
+-	size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
++	size = db_ctrl_size;
+ 	av1_dec->db_ctrl_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						      &av1_dec->db_ctrl_col.dma,
+ 						      GFP_KERNEL);
+@@ -293,7 +313,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->db_ctrl_col.size = size;
+ 
+-	size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
++	size = cdef_size;
+ 	av1_dec->cdef_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						   &av1_dec->cdef_col.dma,
+ 						   GFP_KERNEL);
+@@ -301,7 +321,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->cdef_col.size = size;
+ 
+-	size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
++	size = sr_size;
+ 	av1_dec->sr_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						 &av1_dec->sr_col.dma,
+ 						 GFP_KERNEL);
+@@ -309,7 +329,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->sr_col.size = size;
+ 
+-	size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
++	size = lr_size;
+ 	av1_dec->lr_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						 &av1_dec->lr_col.dma,
+ 						 GFP_KERNEL);
 
 -- 
 2.55.0
