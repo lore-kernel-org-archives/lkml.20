@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324919;
-	b=x37fWvcOkSkejORJ+VvyL76izcYiY52HyUNV+aQiSlGc3/AIRFkkeYysgEvDLsOL3ccf
-	 xPFw7a770c46Ndx1MT4HX5HSdvFpovugY2KVCuZqwhBQuFLUK7cB3zw3DHs+o9LFJbM0L
-	 MVkS9SxgIFkslHamUtZUTDN3Fznr3FYNnF+x2lCmnbz2Av5tJvdHJ3E1Cl+UAP98gw7UY
-	 Cj6gRqrga6r1oCstlrPf/XP73U02mYtMtXA5Ov9pLLT3Gaj/WWkazadbusIwGqoFcMH3T
-	 OSikhVFzA+ocvVAgDW/FAJLnSglJwYdFYMFgPGqWAmP5SxpyXbxGOOwcCUkchy2T5cA==
+	t=1794324937;
+	b=x9FR6raU6YgOCg0ceq1B3QJ/ZXtUxXI5SHTnfwHzCxyVtTgcAf+R5++GWqJOrZCBD7+o
+	 xKCIJIcca/eqA/s7Pm1+rdt/btamoyEbwh+NvOShWX2LNTtewbX7Y434xRvo/eIJZ83Kr
+	 FERx5/uYjG7MoABkFRw7tIAC8Qn6XuUOnbDPvvLt1hBVjczKvousQVEIWrZU8i1Rj8fsB
+	 crIzAtYZE8AwOTPVHqdQ53FO3dHGL+kiLE4Tb/j1ITkXj/LoxKRWcQZEMcAJ8UmkT0HBk
+	 LXwf2uYuGIaC1AWbn9acZf5fL5jtLC3Cy4Zxl0NX0vyikhmf/t3PYhk7Efk/VO2stfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324919;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324937;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=NNEimUxoh8N9f7kKCUbQLMGpNQjJl22yyVS/gX08dYA=;
-	b=RxegPnMxzolyo/2yU++gBzBH0ul1iIJ/elZboK6bDxQJkPx4RUaV5nkaNzGyHqHQiRbY
-	 2iX+SsfTTiJrYZev/KWsuS2bvN37RzUlvM1cQHOt7F+Au4oYdVLwJQX8qZwZ1rgHWDQ5h
-	 hQyumn4rSu0icvv2iNiK54R7IiaDuo3dK70D6Xnxe4seZtvtxEoBKFTx53x9rOW2X9Q3K
-	 qT2PcrmCf9wwnjEQgRQICYilq+KgOF2v4P8NpEXlITAEnp3Qw1XwFM78oEnNg6ob/8Yyt
-	 jn1OWi8qeAuX79NrJz5944QW1/b9hmZvODTlogAtMa7AAvZeNrfejkNZrYuJAkCb9Kg==
+	bh=+Sc8+E7NzYjXnp+JW1pX3E6P5CdKsFyTsU2jebgSnJ8=;
+	b=pbNSfuq9LPJ4Kc3du9TKKrUeYNow/AHpywD7JTOTDk0/g6deL0aiiajNSQsMoklAM0wP
+	 6L9AqbHbuu2m8PdkyOSs9GH7Z5153DLu1KX71mjk+OBHLpsZQDUVjCivxNsFCi6JhSJPf
+	 eyL6XtkPYSeVD7uLalwKNFeaUrvBNXaQETVE0+HOC40+Tj1CCDjvVUShW2KP3TU2KMquu
+	 KgCcNP/VwkgQI9q045xzith9oE49pjqHvcdNNbDA5lpHC0Xui6cgUJWAh6YUIm8dKrpxN
+	 G4jIvcLFuW9I7Q5hfqVP5OT8FbhjiY7f1KVbwjwbR0s+dbBUtRvbmw0Fu7/TSydnkzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VCUqIkih;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=k1OKKcB1;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D49860A2614
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D49860A2614
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053CD606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 053CD606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VCUqIkih
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so1432287f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:35:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=k1OKKcB1
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso23346445e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:35:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794324917; x=1794929717; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794324935; x=1794929735; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NNEimUxoh8N9f7kKCUbQLMGpNQjJl22yyVS/gX08dYA=;
-        b=VCUqIkihC4tv4gwOPn2BZUClikoj18ItpBX3loWHFmUu5KQBx8AcB73R0HlLx61gfY
-         2zzv8ltWwsuvu/+bg4HPmCO4LK8TKtTeBHwB6GbDkXsudxWph3HVqShoid/xjRhmPjOG
-         l1OnWJL83V5IJMuoVcHOWewqfVEUVd8jY2srqAjEVl1+TeXMf7eUBEci+AZc2bLPtMRk
-         BgMdE+1TJYwV+Iw1t5z1x5wCoPFT7m29vGIMhxLAMoCHsOjmYukOLZfYjriVCXrD/O6U
-         7UcUC1hN9F4DOpShihbnhzHMDghrDtZeyKzbsRvW5Tl6TIPN2WNkK2rF02UzIyt1zZWf
-         nREQ==
+        bh=+Sc8+E7NzYjXnp+JW1pX3E6P5CdKsFyTsU2jebgSnJ8=;
+        b=k1OKKcB1omChioPEqSStN/fOkM0jIssQSBRfTpn57iC5UNisJwcb6BW/0/yeCadVqX
+         7kx0r6+Z6WIcv5h+5dQZhKAMAB892XC1wyk1BxXfs/RRM8gVyXX9G9uYvnuNbks92wXR
+         AB8Gzv4gYc9Bh3T/T0oLnvsHXumw7NJ54WhYzsi0Pp/X/+3xYcM0r1JR6YAvs1uRSsqY
+         fHRaqExItI4peC7dNJGtUKvkmc/aOEwU0NTK0ToxHByCHg2K16xvjqnqq3IHw3NF6iXF
+         u3ZrEFfhK8ZxD87vLYqNnnfu08HRvPNAJKlUkBdZHGh3WLhUgQhY6L7SQ7PttuHZpXfp
+         E0PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794324917; x=1794929717;
+        d=1e100.net; s=20260707; t=1794324935; x=1794929735;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NNEimUxoh8N9f7kKCUbQLMGpNQjJl22yyVS/gX08dYA=;
-        b=TG0oNpQ/5pHiGP6NrtL5oVGiT44u6c2xMTX4JVbUQUxFc7/zzwOT12Yy6qCu3P5SXj
-         QA1NiyhCQ6FDes7SoAkz8HpmI3ir0CCjTFLEGahUbRbFx/LahsliIsGKSOI9d1xXk2fN
-         qGFK40TlRjdoA/nighdVIDXa1Dr6qrahXTNSuWsJkTiGt8YeqCVjg5CzVr+aveNbvQUD
-         5ZAHm/ESx+H6qh1pqUllY6HwwzyjBucjjXvgBI0je5MkwnqsgMmfFRP5APy6uAfLkQ9U
-         +Z550cMDYOVNoB5mZqRmV/Eq2zwyR5jFd5Q9KD8c5+FZTiAEhUsRc8XN+yyi+7SomYVf
-         5jBQ==
-X-Forwarded-Encrypted: i=1; AL+hErFae6t2x/QrFt13Z80E38kRyHcNjRJWKECeUqOAJQE/T7oG5oLjL3sfaTD9kXAJ1bRAkaNkVvFsbz853ns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+Idmg96R5CLZ9wx09aaRxEoEg77yJANoCvc46eY7dJBJepLwr
-	+Q3Yt3KDiBvj5geXm6ni/dPUh5ufab5wZJOe+nZSkBlqlLvefele8U1WGtlsjr7f/3g=
-X-Gm-Gg: AYBFou1Hfxs+0Ug3LVRGiYPZy+TR0LftvrmitaQ6snQxwrcxc4/IWh+GBBWiURlXDK5
-	ge/L9tg3pIZjtdVoBobCfjOBgoWaGAQ6xKl3CsdDudfEqRs8mxX8sIxATDch8Ys0GQu0eMLW+bg
-	Pob0a7FUis3dB1pZhWVEiWjdBBbhSuWrTavjkARxIf7Z6Xa5IMXnLAu8e1pR4gy4beMRqKI5IDl
-	Wx3boeK8uqkI3kH8DIE8nnpt040qGAI1qnqj8ueTJ9CE44Me2o+RYOYJl1E+AA09d1RGrK+0g9C
-	/9YmR7NWKC5tPYLQORz0uThe2wMmB6QVbM6Imoa6Q8W3hXZgEXTCY8b0uVpPwc7IhqcHgK6m0CX
-	vEaly6QKUjQ7DAIh/Ggonh6b3zKg4JFPlcVue9Qic/a//VjlSlh5ksMPA8u4Og8zxa2oBzOXFnY
-	zgLzFxl4xb2hZ88aTBJQLTwRkgh9QuudI3ck/8j/rErMBQI5DdyT9hv/g2eg7HSKpx4YQdW8/Tk
-	JviIfpsMs422ytz2JXKMRopWcXR+z6DMEMjvGA3VASsMyRA5WotqEP8lZgqFqgrE2akF1cNESR+
-	Zu8y5nLYSWiRT5OpB+A=
-X-Received: by 2002:a05:6000:4709:b0:48d:e5c9:39a4 with SMTP id ffacd0b85a97d-498302fb5camr5282051f8f.33.1794324917314;
-        Tue, 10 Nov 2026 07:35:17 -0800 (PST)
+        bh=+Sc8+E7NzYjXnp+JW1pX3E6P5CdKsFyTsU2jebgSnJ8=;
+        b=KhF2elN/YF/NNa9ovGWtcDeMgsrfQ6m/xnCWkdfrKYdID3u2qBHFOczmnAlsvqP7a8
+         X56QCxleB/nahCExd/bNDjqv2PeimkoKHuq7lbKWVcTLQBthh3jQZSf70dQyMqbsXJOK
+         4+uAOlbMCI7UBLO+6iqqhD4P62r5xcpCcIrVVCPU2u7p8RZyy8oXKjQ4S8Q4YbMrPVku
+         pvfW/zI9d/yh7gcy0IfMK32tTkYPT+zfofYZrOXgUGdgNi09zoFQqtkxQtyuByvugbOR
+         jlu9KxMxTQHpg+ibd4EXtbwuwdQIioJHi9Omq3LwIfG9jzqiq1+GiLouUbCakHvU2uxe
+         IprQ==
+X-Forwarded-Encrypted: i=1; AL+hErHuHgFWu6Bj8DXEuSYV166kp4IVIuz9sB/kn1Y2FNyaSA4sdbl3EtGqb58ySGfj0amnGLcAFpCYhzyR9po=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95p/BPt8KZw+UUVj5/V6aamZgHCcAnUhjWeApU+6a4oRNXzD1Q
+	LR2F0fXn2SjkdTBFRjog0tO+sElYZyrn532wRbzh+0zlnL8p95yP+PDWnbjh54c2NAU=
+X-Gm-Gg: AYBFou3c7Qnthsjc+q3EUjzeQhLek4XMnMFk5mjMWgUC1/4T/bBKqVnaAJAqjQzs8sx
+	RrPmtvpiUG53Y7BCAJcoN0rEIEnokCr0ajr90ekPnvkJq/MypZnABzJz7fDFkt5+0RDNiBwh6FU
+	m8TQtOCQBYcMjM83y+s+8FNRgF4xi093phg3OUBP4GYDJ8dJHTjIUt1v6Wgk1Pqw0gGGLa54UVQ
+	ZewmFmCN1XFG77AirFlA+ktpQCcUSUKJRwMvJ3sLtXLLeGe1UKid0hVo87qOWLmZKceueQ/PoUr
+	Cz/yafkSRRMx8Ui08pd129t9afrS4HRch1RtxHcXFpZpPlMHiRzUwvYoQ0azJav1zSuR5RqV0iC
+	dL3MtPrsj7PlhzXEhxoCQMpJLBkYmHoxBQMI4Pmo9P8VObG3VkHgiOtWNY700LgVUS74PioNpzo
+	BqYXq/gVJFwbP2cAp2abH2EpHGcAcX0Gnb79IEAIbWVMHRBsLjAy5gWAOaWvBii65eK4jkLzcrh
+	XcOiJJbFlEhVynipm0/sY9WoZaoMkIni0hJJyXfQMZbcrXdJm4DhmhP7wUTqz+DPVxFepzBcBgl
+	hxf/ps5+YJnvVv1IjzUaVqK9ORk/tLsmHCA=
+X-Received: by 2002:a05:600c:3544:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4ba023053d6mr59691535e9.3.1794324935300;
+        Tue, 10 Nov 2026 07:35:35 -0800 (PST)
 Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49895f4e6ffsm4392423f8f.16.2026.11.10.07.35.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm5521925f8f.39.2026.11.10.07.35.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 07:35:16 -0800 (PST)
-Message-ID: <71dd5516-495e-44e7-baa2-c38c544835ac@linaro.org>
-Date: Tue, 10 Nov 2026 15:35:15 +0000
+        Tue, 10 Nov 2026 07:35:34 -0800 (PST)
+Message-ID: <85fb9774-c61e-4811-a023-b3171a289e21@linaro.org>
+Date: Tue, 10 Nov 2026 15:35:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,8 +93,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 22/23] coresight: trbe: Restart trace source for
- stopped buffers
+Subject: Re: [PATCH v2 23/23] coresight: trbe: Report trace gaps with PARTIAL
+ instead of COLLISION
 To: Leo Yan <leo.yan@arm.com>
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
@@ -104,200 +104,90 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
  Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
 References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
- <20261016-trbe_enable_disable_irq_handle_refactor-v2-22-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-23-3f57cf3199b1@arm.com>
 Content-Language: en-US
 From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-22-3f57cf3199b1@arm.com>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-23-3f57cf3199b1@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
 On 16/10/2026 17:55, Leo Yan wrote:
-> When TRBSR reports a stopped buffer, the IRQ handler closes the current
-> AUX buffer and programs TRBE for the next run. This creates a trace
-> discontinuity. User tool has to reset the decoder when moving to the
-> next AUX data block, which can reduce decoded trace coverage.
+> When a fill-mode wrap stops TRBE, the trace source can continue running
+> until software handles the stop. Trace generated during this interval
+> may be lost.
 > 
-> Stop and restart the trace source around TRBE reprogramming for stopped
-> buffers. This emits ASYNC packets, allowing the decoder to recognize
-> discontinuity without a full reset.
+> The overflow path now stops and restarts the trace source around buffer
+> reprogramming. This emits ASYNC packets so the decoder can synchronize
+> with the next trace segment. Use PERF_AUX_FLAG_PARTIAL to report the
+> possible gap instead of PERF_AUX_FLAG_COLLISION.
 > 
-> This duplicates part of the trace source enable/disable code in the
-> ETMv4 driver. Reusing that code would require splitting the ETMv4
-> callbacks into finer-grained helpers that TRBE can call, which would
-> make the change much larger. Keep the TRBE change self-contained for
-> now.
+> Set PARTIAL in both the overflow handler and the buffer update callback.
+> This also preserves the gap indication when event shutdown handles a
+> pending wrap, even if no further trace segment follows. Limit the flag
+> to stopped buffers.
 > 
 > Signed-off-by: Leo Yan <leo.yan@arm.com>
 > ---
->   drivers/hwtracing/coresight/coresight-trbe.c | 121 +++++++++++++++++++++++++--
->   1 file changed, 116 insertions(+), 5 deletions(-)
+>   drivers/hwtracing/coresight/coresight-trbe.c | 29 +++++++---------------------
+>   1 file changed, 7 insertions(+), 22 deletions(-)
 > 
 > diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index 36f143a15e680b28aa6ca6a43ad7d3ee134693be..6bc82d5b55539795059da37039d2929b4ea504e3 100644
+> index 6bc82d5b55539795059da37039d2929b4ea504e3..29a1882b1f3c2eb7166f71eeef37badece67039c 100644
 > --- a/drivers/hwtracing/coresight/coresight-trbe.c
 > +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -17,9 +17,11 @@
->   
->   #include <asm/barrier.h>
->   #include <asm/cpufeature.h>
-> +#include <linux/iopoll.h>
->   #include <linux/kvm_host.h>
->   #include <linux/vmalloc.h>
->   
-> +#include "coresight-etm4x.h"
->   #include "coresight-self-hosted-trace.h"
->   #include "coresight-trbe.h"
->   
-> @@ -1132,14 +1134,106 @@ static void trbe_handle_spurious(struct trbe_cpudata *cpudata)
->   	set_trbe_enabled(cpudata, trblimitr);
+> @@ -285,25 +285,6 @@ static void trbe_reset_local(struct trbe_cpudata *cpudata)
+>   	write_sysreg_s(0, SYS_TRBSR_EL1);
 >   }
 >   
-> +static u64 read_sys_trcstatr(void)
-> +{
-> +	/* Context synchronization for each polling */
-> +	isb();
-> +	return read_sysreg_s(SYS_TRCSTATR);
-> +}
-> +
-> +static int arm_trbe_start_tracer(u64 trcprgctlr)
-> +{
-> +	u64 val;
-> +
-> +	/* A pending IRQ after AUX pause? */
-> +	if (!(trcprgctlr & BIT(0)))
-> +		return 0;
-> +
-> +	/* Restore the saved tracer state */
-> +	write_sysreg_s(trcprgctlr, SYS_TRCPRGCTLR);
-> +
-> +	/*
-> +	 * Context synchronization between writing to the TRCPRGCTLR and
-> +	 * reading the TRCSTATR.
-> +	 */
-> +	isb();
-> +
-> +	/* Wait for TRCSTATR.IDLE to go down to 0 */
-> +	if (read_poll_timeout_atomic(read_sys_trcstatr, val,
-> +				     !(val & BIT(TRCSTATR_IDLE_BIT)),
-> +				     1,		/* delay_us */
-> +				     TIMEOUT_US, /* timeout_us */
-> +				     false)) {	/* delay_before_read */
-> +		pr_err("TRBE: timeout for TRCSTATR IDLE\n");
-> +		return -ETIME;
-> +	}
-> +
-> +	/* Context synchronization after programming the tracer */
-> +	isb();
-> +
-> +	return 0;
-> +}
-> +
-> +static int arm_trbe_stop_tracer(u64 *trcprgctlr)
-> +{
-> +	u64 val;
-> +
-> +	/* Disable tracer and save trcprgctlr */
-> +	*trcprgctlr = read_sysreg_s(SYS_TRCPRGCTLR);
-> +
-> +	/* No need to stop tracer again */
-> +	if (!(*trcprgctlr & BIT(0)))
-> +		return 0;
-> +
-> +	write_sysreg_s(*trcprgctlr & ~BIT(0), SYS_TRCPRGCTLR);
-> +
-> +	/*
-> +	 * Context synchronization between writing to the TRCPRGCTLR and
-> +	 * reading the TRCSTATR.
-> +	 */
-> +	isb();
-> +
-> +	/*
-> +	 * PMSTABLE alone does not permit re-enabling the tracer.
-> +	 * Wait for TRCSTATR.IDLE to go to 1.
-> +	 */
-> +	if (read_poll_timeout_atomic(read_sys_trcstatr, val,
-> +				     val & BIT(TRCSTATR_IDLE_BIT),
-> +				     1,
-> +				     TIMEOUT_US,
-> +				     false)) {
-> +		pr_err("TRBE: timeout for TRCSTATR IDLE=1\n");
-> +		return -ETIME;
-> +	}
-> +
-> +	/* Context synchronization after programming the tracer */
-> +	isb();
-> +
-> +	return 0;
-> +}
-> +
->   static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
-> -				enum trbe_fault_action act)
-> +				enum trbe_fault_action act,
-> +				bool is_buffer_stopped)
+> -static void trbe_report_wrap_event(struct perf_output_handle *handle)
+> -{
+> -	/*
+> -	 * Mark the buffer to indicate that there was a WRAP event by
+> -	 * setting the COLLISION flag. This indicates to the user that
+> -	 * the TRBE trace collection was stopped without stopping the
+> -	 * ETE and thus there might be some amount of trace that was
+> -	 * lost between the time the WRAP was detected and the IRQ
+> -	 * was consumed by the CPU.
+> -	 *
+> -	 * Setting the TRUNCATED flag would move the event to STOPPED
+> -	 * state unnecessarily, even when there is space left in the
+> -	 * ring buffer. Using the COLLISION flag doesn't have this side
+> -	 * effect. We only set TRUNCATED flag when there is no space
+> -	 * left in the ring buffer.
+> -	 */
+> -	perf_aux_output_flag(handle, PERF_AUX_FLAG_COLLISION);
+> -}
+> -
+>   static void trbe_truncate_event(struct perf_output_handle *handle)
 >   {
->   	struct perf_output_handle *handle = cpudata->handle;
->   	struct perf_event *event = handle->event;
->   	struct trbe_buf *buf = etm_perf_sink_config(handle);
->   	unsigned long size;
->   	struct etm_event_data *event_data;
-> +	u64 trcprgctlr = 0;
-> +	int ret = 0;
-> +
-> +	/*
-> +	 * Since the trace buffer has stopped, disable and re-enable the
-> +	 * tracer to generate ASYNC packets. This allows the decoder to
-> +	 * recognize the discontinuity in the trace stream.
-> +	 */
-> +	if (is_buffer_stopped) {
-> +		ret = arm_trbe_stop_tracer(&trcprgctlr);
-> +		if (ret)
-> +			goto truncate_event;
-> +	}
->   
->   	/*
->   	 * Clear the status. No context synchronization is required here,
-> @@ -1172,11 +1266,27 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
->   	 */
->   	buf = etm_perf_sink_config(handle);
->   	if (!buf || buf->cpudata != cpudata) {
-> -		trbe_truncate_event(handle);
-> -		return -EINVAL;
-> +		ret = -EINVAL;
-> +		goto truncate_event;
-> +	}
-> +
-> +	ret = __arm_trbe_enable(buf, handle);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (is_buffer_stopped) {
-> +		ret = arm_trbe_start_tracer(trcprgctlr);
-> +		if (ret) {
-> +			trbe_drain_and_disable_local(cpudata);
-> +			goto truncate_event;
-> +		}
+>   	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+> @@ -917,10 +898,12 @@ static unsigned long arm_trbe_update_buffer(struct coresight_device *csdev,
+>   		perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+>   		size = 0;
+>   		goto done;
+> -	} else if (act == TRBE_FAULT_ACT_WRAP) {
+> -		trbe_report_wrap_event(handle);
 >   	}
 >   
-> -	return __arm_trbe_enable(buf, handle);
-> +	return 0;
+> +	/* Trace may have been lost before the source was stopped. */
+> +	if (act == TRBE_FAULT_ACT_WRAP && !is_trbe_running(status))
+> +		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
 > +
-> +truncate_event:
-> +	trbe_truncate_event(handle);
-> +	return ret;
->   }
+>   	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
 >   
->   static bool is_perf_trbe(struct perf_output_handle *handle)
-> @@ -1267,7 +1377,8 @@ static irqreturn_t arm_trbe_irq_handler(int irq, void *dev)
->   	act = trbe_get_fault_act(handle, status);
->   	switch (act) {
->   	case TRBE_FAULT_ACT_WRAP:
-> -		truncated = !!trbe_handle_overflow(cpudata, act);
-> +		truncated = !!trbe_handle_overflow(cpudata, act,
-> +						   !is_trbe_running(status));
->   		break;
->   	case TRBE_FAULT_ACT_SPURIOUS:
->   		trbe_handle_spurious(cpudata);
+>   done:
+> @@ -1246,7 +1229,9 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
+>   	if (buf->snapshot)
+>   		handle->head += size;
+>   
+> -	trbe_report_wrap_event(handle);
+> +	if (is_buffer_stopped)
+> +		perf_aux_output_flag(handle, PERF_AUX_FLAG_PARTIAL);
+> +
+>   	perf_aux_output_end(handle, size);
+>   	event_data = perf_aux_output_begin(handle, event);
+>   	/*
 > 
 Reviewed-by: James Clark <james.clark@linaro.org>
