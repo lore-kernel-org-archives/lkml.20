@@ -1,14 +1,95 @@
-Received: from badcode.im (badcode.im [185.185.58.180])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794333972;
+	b=eQXIONBUTTb+45Jz1Pen3qtQvqQ514BBMDpgpz/cGy3jCm4XDcEBz4+MzsWP8RVKhF40
+	 ZY7+Ztjzyiqj8QvvRHmXprIJRCBSsaKzI+vOwQ+OOKHZpslppOzI1mXocL7+k6VgT2Yx3
+	 RpZ+xO/DoSjb9ZzlcsvSyt8EMCNlFfs2455uet9Yvc4ZaPlS+6XQr8JLF6wU4UUpGE6LI
+	 M1Xg3SZiowTfzUqt31c9ONv8e2TL5/jgw8P1DmcidsPaJnyZjr6O+jttBzjTKFOgEDwum
+	 79XFKUei3Cq+bTbI0ia0EMbwi9fdkbLQLbY7pgx5Dpqll1mGYmdzEt5iGNVJ1PH//1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333972;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=W/ljMR4xePjF+MmRD+P76X/dGy8g1SjPxGW0noQ2CqQ=;
+	b=2jv7K/N9wsU0nsdhQ6MwftPUcnfuYHuWQDxixTS8+JvAcwu5BVAwFOIGU09/PqZALGWl
+	 3rCEX1ONI8Rao+beh5hwDljk/muapdlCylvKQyECGrYtuN+5XcoppXEcQj1Liv9iOpgCS
+	 LN8jHdtjWcGTgPqlQpJP9K9pUVwWyHOyC0REiXRCydBdfera2l02aH52xLZuEK7Ost41Y
+	 8sTBUW5k4h4vljLvIsoSa78TP0rt4QGGSHP4d1ehPwFRr3BeHNDTnoBJKsSgtrYMLrw90
+	 i6kem43PnbkMVvBtWMy4YxLhOH/fez2RMpgg5CmhNFY3w+557M4QxSqhvyu3jZ3+NWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLldxySr;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12434606A31C;
-	Tue, 10 Nov 2026 18:05:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12434606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=badcode.im
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=badcode.im
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B91606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:06:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5B91606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=TJsi6xOc
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLldxySr
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so23737295e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:06:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794333970; x=1794938770; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W/ljMR4xePjF+MmRD+P76X/dGy8g1SjPxGW0noQ2CqQ=;
+        b=TLldxySr1OjK3JsgfFfim9ttHsN7YfVYNshcRm145+NJRGMRNa6iX4WH/LFxP0kdVo
+         gdAjdi/AtB9VKrdPwGvKo/biHsE4wHbHIbW5e6WD5DRBU/sFAM+oEwolt6DjyUCSUYPL
+         x4v/ZnSoMmWxt5KCdvyOpqeroeOqrDgxUt6qs76MtANO5lBxM3f3kRRPM//pnWJk1kSz
+         7XYk12pGubCWLfTz9JCnF8B+thjKlGR9byzqWPnY+59pJO5aVb3bN6lDOgRkCz5FoANB
+         Z0sEskv2vmMhJ7qWMfBU4wPrCFxreqxREu7E9QIc/v6P0CplkYom7XlkSar4xc0OIGW4
+         +unQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333970; x=1794938770;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W/ljMR4xePjF+MmRD+P76X/dGy8g1SjPxGW0noQ2CqQ=;
+        b=UJt3+mgDlN0IX1XkQTcvPYolYBSidLWQsl2KJX4FGz8eLgZw/Utc9syKqRzWNhCHHI
+         B+JDLuawFPOgE6CsnT/JZEkqy7uCnnwp0x59TmWLDNM9gkCIUdlI9C06zSQxIxYbDQcP
+         9D/yvp9FE7iFLh7iDaDXBC9oJLYAoEvjqKkqaItW/5qRdOywL4fvlQkY6uQ99r77G/9E
+         p0sCotaRE+F28wQQa+rmS4XVv1twMRhizHfT1M0+3wp7LQDV1bP5adiAqc+auIBHL+vs
+         8WRyVi5i3B2QX7jBGyB4f2MgZLUv/Tzqog1zfOAd4tMXm7kC2qdiseD3bPE0/Owt1io2
+         LTaQ==
+X-Forwarded-Encrypted: i=1; AL+hErG8buqzune75yhoZqBpgXKKioFfS1SUtM1r+qf8Y8zpPScV83hxySw1mkM/EBID0S+NDIu1/IvgvdTfdfU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99yuhcB0CLRie+n77z41defal2vGq5DXCq9VI+4EpANDHZQ6WO
+	n9Cn1w03QeebQePTi8SytGtZj7ZC7M0tjiO5zfTLEloTFlWOg8Y0ADAyjtaFxWr3wBtRrQ==
+X-Gm-Gg: AYBFou2nSo8ztP3Ru92gahZf8aXSk1pkpjlQ42iCBkRyL6uwP7cCio7crH3ZRz5vAiv
+	rkncZsbwtRm9Fce3e6CFVb+/e7PC2kNstJu7pYHm8jjmiu2AFoTqIscYCI+k8WdvrVKDomn6R+y
+	eLf8sSBapozfT9vK9pr24AaK0Up3SbtDDmKhecJsLheCKA0IK3G14PZ9dkYhedmi1ugSH5smUrm
+	kL8DQJGl/rS68p6MGoHIAnS4BlDzwwvtaXQ4eude9WFyY26zNiD+UhMkBJLaF6hgrkFHFlorwbm
+	VnIFZcMMWOgMaiu3d8nBVAgaF5SQai5pT2LZCgL/NSXae4mx8xuAVs6ScMwWKMDWszHan3Kz5JL
+	mW4rTe8I9e9aT4WS6ABB/kIAmbdx0HWon7ZupUb28EFTiz+NxZqI+qTSGEsgEWBnJG3jEMwn5gZ
+	z5y30xrkY0uDkn0CM4tulvMushN9utU8Ddl62csa/jaM62A8lXUHZCvLH6uEebfCsH79IKaNJaT
+	yqNjsERjriObCE+yQlfEPZEwzoqT4swf1QIuFzpb/8qUMMfjou0n8GHrV/+fzzoU4GiIGDe8uut
+	AwAnSW0qUFzKncKV9bIyHpWHt46J5eVZuQXIVvERyOJEEsI4Nf3o86cZ124mFxNEwzRedTFTCqo
+	wU00TLupiwhXcuVcEOqKp6tptXeHJ+M0FjWTlOixHJv0Ti+Oa/qHfMvgHcePB3g7QzQZ5qL8Hi9
+	KmHnZvLW8355W527nIWIRlWRng8JV8l2hBgH1UF2848w84dqQtKtOWyCyhR5R0/73+ivWo2vx4k
+	r7TiscsZFZaKkxp6Q==
+X-Received: by 2002:a05:600c:a013:b0:4a3:18ca:806 with SMTP id 5b1f17b1804b1-4ba0234a0b2mr57198205e9.20.1794333970060;
+        Tue, 10 Nov 2026 10:06:10 -0800 (PST)
+Received: from longitude (2a02-8434-fda5-4201-64a2-5e9b-f89e-f448.rev.sfr.net. [2a02:8434:fda5:4201:64a2:5e9b:f89e:f448])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c500asm6270450f8f.48.2026.11.10.10.06.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 10:06:09 -0800 (PST)
+From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+To: mhiramat@kernel.org
+Cc: akpm@linux-foundation.org,
+	rostedt@goodmis.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] bootconfig: Preserve values and key paths during parsing and output
+Date: Tue, 10 Nov 2026 19:05:58 +0100
+Message-ID: <cover.1794333957.git.edumucelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -18,114 +99,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=badcode.im; s=dkim;
-	t=1794333893;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tFC1/zd3nxHzjRH04sJaqyMgJFbd+VOxt+WEsgK8g+o=;
-	b=TJsi6xOcL7o4hwcc+kzuVE5bejYXgRcJ56IqTxiEJnkvpCQEfNnQ+wXZ1INo/lfio0uaxk
-	0CjGdfdsqxuDUDBMWcJPaUXpfmBi65HVJLkHu7I4ssBLlDSfMko98bj2pQjxtcrOJJ1/Fj
-	mPrOMkD0Of9bJDFCD9W/OnXzz+p6Zs2joWHLgewA1lrkXGuHHSKHkssZuhf41M8SUGceR3
-	xmEKgJDBw5U/ZI/c1n/9IeqkbifTD60Dwik7rGV2Dw4j9oEsRJmkb8I6eqaCYJFOe2L/i1
-	c8KQdPaMZ1LI+glSD3hv680+D6/YjduxBUb/tkzaKNVyTCV2ifQmBDJ6NkPnEg==
-Authentication-Results: badcode.im;
-	auth=pass smtp.mailfrom=alex@badcode.im
-Date: Tue, 10 Nov 2026 18:04:51 +0000
-From: alex@badcode.im
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net 1/2] wireguard: account peer and allowedips
- allocations to memcg
-In-Reply-To: <avNM9dfdW1uULJUf@zx2c4.com>
-References: <20261105141006.95083-1-alex@badcode.im>
- <20261105141006.95083-2-alex@badcode.im> <avNM9dfdW1uULJUf@zx2c4.com>
-Message-ID: <a979d36bb97608275f9f8884764afd41@badcode.im>
-X-Sender: alex@badcode.im
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: *
-X-Spamd-Bar: +
 
-Yes, it is the documented expectation for long-lived objects whose
-allocation userspace can trigger. 
-Documentation/core-api/memory-allocation.rst
-says:
+Hi Masami,
 
-     Untrusted allocations triggered from userspace should be a subject
-     of kmem accounting and must have __GFP_ACCOUNT bit set.
+Thanks again for reviewing and picking up the earlier script fixes.
+Here are three fixes for the bootconfig parser and command-line tool,
+based on bootconfig/for-next.
 
-Most hardware drivers don't need it because their allocations are sized
-by the hardware, not by userspace. Virtual devices configured over
-netlink from inside a user namespace are a different case, and the core
-stack has been converted for that reason. For example:
+The first fixes compact output closing a brace too early when a key has
+both a value and a subkey. Reading the output back can turn a.z into z.
 
-     6126891c6d4f ("memcg: enable accounting for IP address and 
-routing-related objects")
-     c948f51c1654 ("memcg: enable accounting for net_device and Tx/Rx 
-queues")
-     a89893dd7b08 ("memcg: enable accounting for VLAN group array")
-     961c6136359e ("net: enable memcg accounting for veth queues")
-     33758c891479 ("memcg: enable accounting for nft objects")
+The second trims unquoted trailing whitespace at EOF, so adding a final
+newline does not change the parsed value. The third keeps accepted values
+containing both quote types readable when the tool prints them again.
 
-and more recently:
+Each fix has regression coverage. I tested them independently and
+together on my Ubuntu machine, building the tool with -Werror and
+checking the parser results, compact and list output, command-line
+rendering, and test initrd images. The full bootconfig test suite passes
+after each patch as well as for the complete series.
 
-     1beb81947eb4 ("net/sched: account classifier filter allocations to 
-memcg")
-     b0057c68df71 ("xsk: account ring allocations to memcg")
-
-The fib_trie, ip6_fib and ip6 dst caches are created with SLAB_ACCOUNT,
-and the netdev queues and VLAN array use GFP_KERNEL_ACCOUNT. The first
-commit describes the same situation as here: a netadmin inside a
-container adds many addresses/routes and makes the kernel allocate
-unaccounted long-lived memory. WireGuard peers and allowed IPs are the
-same kind of object, so they should be charged to the same memcg.
-
-There is no functional change unless a memcg limit is set. Then the
-configuring process gets -ENOMEM (or the memcg OOM killer runs) instead
-of the allocations silently going past the limit.
+The three fixes are independent and can be applied separately.
+Feedback is welcome.
 
 Thanks,
-Alexander
+Eduardo
 
--------- Исходное сообщение --------
-Тема: Re: [PATCH net 1/2] wireguard: account peer and allowedips 
-allocations to memcg
-Дата: 10.11.2026 16:57
-От: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Кому: Alexander Ildiyarov <alex@badcode.im>
+Eduardo Mucelli Rezende Oliveira (3):
+  tools/bootconfig: Close only opened braces in compact output
+  bootconfig: Trim unquoted values at end of file
+  tools/bootconfig: Preserve values containing both types of quotes
 
-On Thu, Nov 05, 2026 at 05:10:05PM +0300, Alexander Ildiyarov wrote:
-> Peers, allowed IP trie nodes, the per-peer dst_cache and the per-device
-> hashtables are all allocated in the context of the process that
-> configures the device over netlink, but none of these allocations are
-> charged to that process's memory cgroup: the wg_peer and 
-> allowedips_node
-> caches are created without SLAB_ACCOUNT, and the hashtables and
-> dst_cache use plain GFP_KERNEL.
-> 
-> The amount of memory is bounded only by MAX_PEERS_PER_DEVICE (2^20) per
-> device, with no limit on the number of devices or on the number of
-> allowed IPs per peer. Since WG_CMD_SET_DEVICE uses GENL_UNS_ADMIN_PERM,
-> any user who can create a user and network namespace can do this, and
-> thereby escape the memory limits of the cgroup it runs in.
-> 
-> For example, a process in a cgroup with memory.max=64M that adds 100000
-> peers with 20 /128 allowed IPs each grows Slab by ~790 MiB, yet the
-> cgroup's memory.current stays below 1 MiB and its memory limit is never
-> hit.
-> 
-> Fix this by creating the two caches with SLAB_ACCOUNT and using
-> GFP_KERNEL_ACCOUNT for the hashtables and the dst_cache. The keypair
-> allocations are left alone, as they happen from the handshake worker 
-> and
-> are bounded to three per peer.
+ lib/bootconfig.c                              |  5 ++--
+ tools/bootconfig/main.c                       | 29 ++++++++++---------
+ .../samples/exp-good-mixed-kv1.bconf          |  5 ++++
+ tools/bootconfig/samples/good-mixed-kv1.bconf |  5 ++++
+ tools/bootconfig/test-bootconfig.sh           | 29 +++++++++++++++++++
+ 5 files changed, 57 insertions(+), 16 deletions(-)
 
-I wasn't aware of this trick, I think mostly because most drivers don't
-use this. Does any other part of the networking stack do this? Is this a
-normal thing?
+
+base-commit: 677f83795fdfc25ddc51b665a9111f5ff199f7ca
+-- 
+2.53.0
+
