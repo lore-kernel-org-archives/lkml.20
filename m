@@ -1,104 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314976;
-	b=z8buRSweV80cLSEpWoSpeUysKCFHgRnQofnwYTS1ZSwMExVUTAVZLDTCt7r9QprP+Cvl
-	 3nr8SdrLyV5K0Sl8NouJEdthhvNZ/JADPmAXJzQm4Y4CgneiEDj/ta9y6RlWjctygbmPS
-	 CBviDof6UQkAYvYhlGyLevV+8VC9PwdtQi58CXkPdr4/OqE3rsNv1S0JYpKQAtZ0Ehy2B
-	 o2x8pM2vF7Upk3eV/qJgRygw7SNLpcNnLiwW8BYMwHe75vniP2cG1lvTVkGLu5HFVEHpI
-	 UR7s2ZU4Y4wj4U0bXVChcA+9FGWX5tcQ11ufNPTiuO6R77QCls0ND+OcKd6in9pstpw==
+	t=1794315015;
+	b=fwKg/BNOm0PfGAx0vCAP/A60+p5JGptA2P/+KJIeAHtJhWNSK2A7a0cLTJshQoxl3liy
+	 dWqqpBvbMaCMH9jTZ+6E5xL9eFXrzvB7vAyVNT5uemWW3VSwqP1po6resUg11fF8IxPVm
+	 j0WTR5T0vEcdRjtYPq7Wwf/eYJULR0FCaqHl50XYpmBXVs8xiC5dpmkd3cZFz0+TaM+YR
+	 hPvPvU1h6p0/knrftvvNY2pu0FgoHACrtTpydY7QOoHZ/SmrvKxdd/9OM8M/VM/E9aVIY
+	 mMOBqUxO4+GbBomSla63spxwnqrhVhlRa2MBaTtxdCu9X13OC9xh4yJnEzq5oWycHWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314976;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=RLVi3hjP676D/IO2JOfw26MRhip1vM012Fm+VtUU+liNxbmGSj1hlTkP2jqZPnLooLs3
-	 c/hGYZ/P142dPsMHtQ0+WOYz264LHEqarkR7wWxlaPoELNW6uvRN/i+COIO4KpWxsdhjL
-	 ORFdO7JRLroNp/UrVKT6SCpa55Xq0oxRQJnWGWXo/o/cpsYM19QnSt/8P1NxI/s/Wg/gt
-	 3pexVF1AMM/2vf0XO3r7j1mx/+vNjHPySNnm8b91sJINeMc1WEWTW24CbuMNiNnc877Sk
-	 xnVD9db/Li37umuWA8h2ronIArMjIGdh3G5TplP540+bxTh5kzlKr+WEptQzns8TKhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315015;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2+X51G9ewXmU9QYzYDv2H+VC+EelW5F82dLqqoHsS6I=;
+	b=N7IuLQpyJbbYWpQ2A5Q549jtvfqB1LmVTZujymzke+ezWpQNjL7twOUikgTMtXjNzW9I
+	 qHANwbK8w0oreh2QYNzXP6zulKZWiNikAGVj6zvdvFMFdahPHXRqxaMD6te0HwcSuzkk1
+	 zG8JfSqUETOkIq9dL+sjvcdC82TuljN+VJ88OzmGwD7aWu9JTzPh8KW3/lX15u2qkI4MX
+	 3s/DyvrkiIVBGn3KGUo/3BVA+9FVr5tN+rJvFGwD8CwaETVxn8In+lTSNpmIeIMPYN/ud
+	 huWuIGfZLsN9PNYpTAZqZ5pSE1h1wAnFlsfojZZUfFfhfQonH5Kxr7njk3bUrExfCrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DG+RhYN5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L9OGIrQi;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C60X8M8N;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="ucJfpE/Z";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=tMx4qIBi;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4E8606A31C;
-	Tue, 10 Nov 2026 12:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F4E8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F46606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03F46606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DG+RhYN5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L9OGIrQi;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C60X8M8N;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ucJfpE/Z
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6689921EB8;
-	Tue, 10 Nov 2026 12:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794314973; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=DG+RhYN5cu6+WIX30PCN3AfqkvmAztyuHhlzPKbsVB5t79HRFwOSdMCqOZhAkc9iVE4mIw
-	5vM+DT+xo8NHXsmhrGOwJCJfh/Rzl+mY/F8FI45bXKx4G0pIenPkU7tcja2by8XftgLH0I
-	IpevKoeyyyU/13Pxs8eNm/s9BopvRXw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794314973;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=L9OGIrQi0+E5OmGYF/qqMhWKTtFRkcyuanQH58mwufRPRH31554fHOWoAENYfpQRmCzDwK
-	4zeQyNzxH/IRYmAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=C60X8M8N;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="ucJfpE/Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794314972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=C60X8M8NPU616/djs7z2m78DxETWOdUNIP0/OZOouseGBIfchDDxERhs6bJbCvULOwfUWW
-	bV6vX7KqHk7si49LJzeTk8gUKK5Sq/gJ8nGLQ6vn88qA3xNECZbPql60GnkpdcgpSoAIWY
-	okxDQNKcRSWuJ7rML1P+WbjSgiYqX/k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794314972;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=ucJfpE/ZJn/j0gGv+xQ+IgHItN6gv1pCtnQfHuPpCky4a48FxZaWiEv43VNhut09WPR+vv
-	+VC7qYqy4+SuC+Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30E651339F;
-	Tue, 10 Nov 2026 12:49:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id nVRPAdwS82rDPAAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 12:49:32 +0000
-Message-ID: <fdeec920-0afe-4379-974d-e59e968f407c@suse.de>
-Date: Tue, 10 Nov 2026 13:49:31 +0100
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=tMx4qIBi
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1931ff67a29so1563903c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:50:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794315013; x=1794919813; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2+X51G9ewXmU9QYzYDv2H+VC+EelW5F82dLqqoHsS6I=;
+        b=tMx4qIBiX/Uugv0/DNFM26eD9UrYSRPguP76KC696Zof9hAN17qIBq6iuqCZbjYNwH
+         ySMO9ZaQiEC6IURNxgTczWqU0cu6JTqaGZmlerI3ly0pP7GrHTAZ5+4jlr8jpxw7tNah
+         H8eaS1s3x3DrsGD9+RpVpLiES2aZRh/QjBhD8rONImwSl+BHLDXlNYigbFyqD19J9SLY
+         4E23uUT3ylf/zq29tbmIWFCB//tDnBhM5xlb/qSlk2UAuNGyAnnnRfjQKT1lr2FUv7Uw
+         hDCCGDUInXgbfXTv7jA4f7J4Jbqkffhz/9afxBhRHWsqrkp+0Gn+YbpW4Mmr3eh3jh11
+         JaVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315013; x=1794919813;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2+X51G9ewXmU9QYzYDv2H+VC+EelW5F82dLqqoHsS6I=;
+        b=bKhpU1Rp2sRmDHYFQwMoETTr9FhmzLPf35wIkbkcmAtfmt3jtUr1XpXDEwYLs7q19M
+         CjpZR2vD/VV9Er8jQ9HV+b8y8JSfrBpMu6WHVILeKVRrffsU9jl7+R85ZZoDDORceBEL
+         Ipd4kzdn7aTzt2fpRafuK0zLCYHdsxDcvgU4Ive0KZDTXSY83N2vm26GRGEQGDJQYlqm
+         78O6HPHGyBl1g4sBE/zs4t0ZgWieUlnqZHzOZp9HT/R8GIpmbgfBUXUuR7kn8XFfDJoa
+         EVFHLtowgO3aFnI4Hjb2L1kmCoTlfHDJehm+dQmcfnsKhoC1cQ66N61lDEMrRaChAdLc
+         qc7w==
+X-Forwarded-Encrypted: i=1; AL+hErEatm6wSM4Wn02l1JJmfAQ5NEimj+ty5KWp3gXoN3iBjHg0SpVm79fD3TsClnVus2irroNH8nPH+Sqh/qY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OlOO2rEMii9Pq/LWV+SnhNyC5zcG+NKdhIyLwy2WlpuTG+PEj
+	gF4uyn+2EQXEpELsvdrl1dfEhXixgNjPBRaqEZJe6LC+4Z03QM8lYoHCOUQyTGFTB6Y=
+X-Gm-Gg: AYBFou3dDID6a8EVkGlwOECwB3ZVyM6sXDkUEvEDRvUEBm2J6ZQDmQoWKnV6kZ15xtF
+	2gl+dvZb2Ij9Qr+EMGlCuuyUFDaaK/koS6wpuUm0s+fOzAIl5t9c7TKV4VSne+kxzdZw6vio+28
+	huk3chCP6OTlDSVjsqGyWotD4Y44edmhO/iLcox7o/OUGo83jCnfwHW6W/HECBMX4v2V7NKjVPa
+	3oIHJ99UdWHqDczyK0NqhkOso9xfxtNiC3POsQNrC+nlvg67xlOPc5ytxJ+OUQeh1JcYV4Fxswt
+	VPnt82N0oujygcQ4gAPYOXa7ah8QGBF21c0V/Tywfp9EKgKPAtABO3DI3RY3me6vVpXYU6pcyJJ
+	1X4Od74mWZrEt3LyjcujoWA+4udZpH8SgtMtF0A0MuZxw4K8OJ3+u/PN7SFNQSL5vpR2/gsAekT
+	g4NStg39cgTH+WoSAb7MiYb1WvwaxYT6NvgfVjONFjNP2G/NeTtNqk4sMRBsGCC4huae5aX7jc3
+	xWSxTBCaK5QhcqUCQ3l2Bl/Pe+Fls1oiRqtlUT1QYm3jisqA8OPF+c5VSt92/PNX044UAgfJxJ7
+	WYT16VZMj+A+QapwbvdDNNYR3sCVuU/5D8tGu4iEljlNQMLjNpIM5AHiHxYQBP6xpMfa55IiFf5
+	jMXICewc/JYeMMs2Da9HTYY8A1/HnSCXVYsS9bg==
+X-Received: by 2002:a05:7022:3c18:b0:181:73fc:e53 with SMTP id a92af1059eb24-1b3b617f6b5mr3186213c88.29.1794315012523;
+        Tue, 10 Nov 2026 04:50:12 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:88e2:4271:a9b8:cc50])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b79649sm7614830c88.21.2026.11.10.04.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:50:11 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: jgross@suse.com,
+	sstabellini@kernel.org
+Cc: oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 0/2] xen/pvcalls: fix the backend error path and a workqueue leak
+Date: Tue, 10 Nov 2026 21:50:00 +0900
+Message-ID: <20261110125002.46683-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,100 +99,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvmet-auth: reject incomplete DHCHAP messages
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,cyber.gouv.fr:email];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 6689921EB8
 
-On 11/2/26 2:24 PM, Jérémy Jean wrote:
-> Commit c9359401036e ("nvmet-auth: reject undersized AUTH_SEND
-> payloads") only ensures that AUTH_SEND has auth_type and auth_id
-> before nvmet_execute_auth_send() starts parsing the payload, but the
-> DHCHAP path reads t_id before it verifies message lengths. A two-byte
-> DHCHAP NEGOTIATE payload can therefore still trigger an OOB read that
-> KASAN reports as:
-> 
->    BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_send
->    Read of size 2 at addr ffff8880030d8364
-> 
-> Require the payload to cover the minimum DHCHAP message length
-> before parsing it.
-> 
-> Fixes: c9359401036e ("nvmet-auth: reject undersized AUTH_SEND payloads")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
-> 
-> Changes in v2:
-> - Check the minimum DHCHAP message length.
-> 
-> v1 (2026-08-11 18:03:35 +0000): https://lore.kernel.org/all/20260811180335.4161138-2-Jeremy.Jean@oss.cyber.gouv.fr/
-> 
->   drivers/nvme/target/fabrics-cmd-auth.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-> index 70136f6c22e8..a15f21fc41e4 100644
-> --- a/drivers/nvme/target/fabrics-cmd-auth.c
-> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-> @@ -301,7 +301,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
->   		nvmet_check_transfer_len(req, tl);
->   		return;
->   	}
-> -	if (tl < offsetof(struct nvmf_auth_dhchap_success2_data, rsvd1)) {
-> +	if (tl < sizeof(struct nvmf_auth_dhchap_failure_data)) {
->   		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
->   		req->error_loc =
->   			offsetof(struct nvmf_auth_send_command, tl);
-> 
+1/2: every error path in pvcalls_new_active_socket() runs list_del() on a
+{NULL, NULL} list_head, holding socket_lock.  2/2: the per-socket workqueue
+is never destroyed.  A frontend reaches 1/2 with one bad ring_order and 2/2
+by connecting and releasing sockets in a loop.  Nested-Xen lab: 5 of 5
+cells oops as shipped and 0 of 5 patched, a normal connect moves the same
+bytes both ways on both arms, and backend/pvcalls/<domid>/0/state after
+teardown reads 4 before and 6 after.  Reported to the Xen security team
+first; PVCalls is not security supported, so posting here as suggested.
 
-Reviewed=by: Hannes Reinecke <hare@kernel.org>
+v2: 2/2 destroys the workqueue right after flush_work() (Stefano).
+    Picked up Reviewed-by.
+v1: https://lore.kernel.org/all/20261109122324.30134-1-yhlee@isslab.korea.ac.kr/
 
-Cheers,
+Yehyeong Lee (2):
+  xen/pvcalls: unwind pvcalls_new_active_socket() step by step
+  xen/pvcalls: destroy the per-socket workqueue on release
 
-Hannes
+ drivers/xen/pvcalls-back.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
+
+
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.43.0
+
