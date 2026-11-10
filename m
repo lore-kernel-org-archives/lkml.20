@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286930;
-	b=F678OFalAWPJ//U1cRwh+rWmPYnUKPbmIgxp9E2fhK0IxqWlNKWD4aI5VHoDqX+EmoES
-	 3cjafx/5CviCSflHgYHbi4IepqDewUDrLEB1PVsa4pnW3Nu8OQDHSsBpuvMKvp9zplj3x
-	 3YOP6fp35dCWgBTo8rpyCTXAHriXZX4vYEJH8NkXczyGisDeu6CLOua8lFbkJUUQg9qCs
-	 DA6Qt6UdSfwv1nf70XA6uctAqnm4qi44YgqlPVjatOOH0Jketnep924EMckeIbwKRZ2rr
-	 qwdTR/giBULPuG8Fwm1L7Hl1lTKzNyChPCgh/igm4lHIX5B+qtUqzY1EwvMUkUmRVDw==
+	t=1794286934;
+	b=tNziRQ60I/D1fzlo7bw/wA9BNsSLeMVLgHonWgA+U+I6+eoxIlSzDrwpF3Rg1CLZHHmR
+	 qa5Q6/eVsg0CoQoywtXqu7Nbw1SOdvWW8S3hKEt6lyEBPYuau7b5A+r3I7qr80gGIf/pf
+	 9laa8FIpnnSewngbiovnja+kcgMtautQMd5TJ8F2yXi/Y/0Z3QAomofTeqQYAH3jz2ndX
+	 QryJ7BB26tBKgTwM1VKX6Lg0jHK8qWsLuYKht3j3RYdc1xnS2Hq1oageTeiJ983dep2UO
+	 sdpK2oe99zcMc+qm1ooWpglcLX0y39cfYEcGBHJoke9y7Qp8CpmaFGrvtZMdCLEauJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286930;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286934;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=gCVasoLTZkfDLPIf3+UIMM+CIyIOn5HRothnXhPkfvs=;
-	b=onobSm5CxsWC78PkNZ3xDuvZwLKdQx/ZrNBIsjO9ZfPSwZWjkmKCg5eJfFCr1DV1jxeQ
-	 8kRHOB3l+//jYb4jUaGCkL1uu0hCJpOVun+bTXh3/dpFCjstMh/8UgLaOXfcF6E741qiq
-	 8DCtrbExQ4RsiwO8ahrHkDL55+lnhbJek1J/w3GZqMH0HAdTV9bc/K0qsSVbKwQKa3yNb
-	 2gA6jeVYHjRY4PeMZnLfg7wlTEQEeL0Eu6qKnGGUvlyLUu1sct5ncOZK4Uq1ySDqec4S4
-	 WgGZ6I3I1Epb2xS3FW+1agWw7ONzXWv/0OtukYQZmrYvdMR4qkprzFGZlGm3P/x3rlA==
+	bh=7IgLF3AO1jBgBbxTE6gThjrdHr/S4nDjr0YcBANCh54=;
+	b=R6n3tNQyCqgeah37Lp810axW8ZaTnPg8tEzadTwWmOsqOWi0nZqnEKETHiGwtvC+ODHx
+	 fFlUqpL2v9S/GWkc7mxF4ftHrLGiD1+p326UnUmxiNqaKONDLLbjKHmuuAbJGmoyHp0wx
+	 l7kdajnAQqmlNaO+GbHYSSw3kx5OLDuzdheyzwEONveQn4RrfE7rCiisn3o/7C3g9tBCq
+	 RpXBzcG8Zx/fdIZJeTI/UL/SaixfHPT9OggTxlwhhfj5ZNx9a7Kpe94fNOh9xErGZZ7co
+	 FVTV7jew1WORRMRECbSvnDcx/+3XssSTn9g3gofy0D9NAak6h0eABPI0k2dZr1r68Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EXwLh3ez;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RK98XkIM;
 	arc=none smtp.remote-ip=209.85.218.71
 Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9EE60A261B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C9EE60A261B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C4B60A5BD5
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C4B60A5BD5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EXwLh3ez
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c414c206673so171016366b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:02:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RK98XkIM
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c504991a35eso44686366b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:02:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794286928; x=1794891728; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794286932; x=1794891732; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gCVasoLTZkfDLPIf3+UIMM+CIyIOn5HRothnXhPkfvs=;
-        b=EXwLh3ezqfMkQ6mojfc+RgPxDdt0dmNLfe8xrUDksBBQnOL7y83Bgvc9Nv+0p5B0Cv
-         ZTs6yxOIBlzoKERN2xrDmGvt4wi7OUDfNHYReSXBM47f1W/AJiMbU4z+iCE13LCi/rZj
-         ZGdy1UKXR/FWqvWyXR23KltX7bVJghj/Rw4ycFefFmisBHwm9hVqfHn0hjR5+aKA3Odv
-         5AC4ABFe4LHv5x1uY4LcQl1MsQzN8lyob3KbZz1QLCOsKee85xPgwflXC6EuIOPuh1lz
-         AVpQ2xSLYJQiifgSpv3GSpxlI01kZW6q5gthgE+WaGhwxiTtqRYhtAfxd4IwgqfqxIcZ
-         MVZQ==
+        bh=7IgLF3AO1jBgBbxTE6gThjrdHr/S4nDjr0YcBANCh54=;
+        b=RK98XkIMArO5krnjlZsSPUNp58bEz7fkWGksIzf/a4YyyV6wR8+oHD+evYV99pLhUf
+         pNBkBUY+Pl612sERdsqtIxSba65O89Bmzv9755S3WKvQmfF5z6w0si2gTD9U5CrblayS
+         MINQ0Mo4EpmOaAHD4UB3m8DsxAFl7vKWOfB7UcpnAJkU5ypysemMiaeyUPVzak4rDzqB
+         8gMeeQvUwawzaHCCNTKyZ7G8EwLrSXkpAUsFhno4lL4r9EMV3TdhXjSrao4uzXgMw3pH
+         uIoJojUFcGxgWYBi7mx7VtM0WMcYjsqk5B4Uau8dWWnIkzA6BdfGyRWenXuTRmkQtNdT
+         dE2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286928; x=1794891728;
+        d=1e100.net; s=20260707; t=1794286932; x=1794891732;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gCVasoLTZkfDLPIf3+UIMM+CIyIOn5HRothnXhPkfvs=;
-        b=ygQahOXevBWjo/70acye8Kl6Ha9r4QSpNGgnUkEK9ys/stnCi5AZj6jBZKcLPA5tAE
-         hdCZfOUwHbdrErnNDWRXdzADZ8aqgRixhWe2niVFPJYUrqmg5i5hcijxZqN4ScGi3R1C
-         EFV1WkHPhPWv1Q54LF1/L4yX3HqGoJvj0Uwt9d2D3TviiwNSjMm83TAGJG6qPgMrPiC2
-         qm7p68q5hIQ01N7TSYwh9H/25p4bg0O/lCNFG5jLt/mbxsEAbtOwjBAeXY/YT94IOLRk
-         OayRbLn0PjNzFLZ85tOybJOa3Wm5VwacJ/zieQB5e7HaKPdoGrp9iRBKm22VEXKeyu+l
-         r+ag==
-X-Forwarded-Encrypted: i=1; AL+hErFFH3EKOuIhtR9VDSnAvZZIYobWucBKwgYZPslD+lhhCmTmk7LRo8xiX9WMXWkWnJ4waSWc8H7fKt3SIZ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QVOesDmGP3WC3xL/k2/MS9eReFQlTf/9auIoQ6+MIvB7D8KD/
-	5AGg2N4EjbwS9jN4nlxI80NPm77eYuGEczXn9QlvPeWySC6fjd2RNUNdxmh50RMgKd4htkwfDHu
-	6Po77xHZGudd1PJUWDQ==
-X-Received: from ejzl18.prod.google.com ([2002:a17:906:a412:b0:c4d:1fbc:e718])
+        bh=7IgLF3AO1jBgBbxTE6gThjrdHr/S4nDjr0YcBANCh54=;
+        b=GXN2Z3GwVE9GJtGZedXKSgJ/llW2gAif/LyAzBdUbL78XsvVaEVhTlVyVaPo7Gppeb
+         2g+9vmRwrUhRUtNkw59OdloxY4V+oFshv1P96Lzv2RN6Falhva56Z4O46xqOFc01mzIw
+         evJM41Xqj+rN+WpgfUJyy5DG/92woA2cYrlszSDyX2E0++7GWtsCSB1dGkepzaTn1BJ2
+         t9qdoIxGR5YtUE4DBb0xfyO7t+nTQidHVIJVYtfOj/ypqG37D/1wkHmmEG333J+b566W
+         sSy9Zp/bKawpexjlsUPMCq6CLCmIaM+c0MTtPwOPK13UXftb9FkFUbjq4C/hvoGI8l1s
+         sIEg==
+X-Forwarded-Encrypted: i=1; AL+hErFYDTG4tezgfro8KmAGg/PXHKJUkHNvUvTccTBZ+65rlMp+NAL6JSTfh48EZuWn9noVt484qnw+C4GRbBE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98oiU4OYN57Ic92M6CyczODjM/2Y6kzXyNvRZbB+JGoaVlSVWT
+	rnqvfrQI9yrpAcH6MscqAonEMfhaVOjYsxmdKx1WLBfA32AgwWBIdESxo1GJUu+yEb5M70G1CyQ
+	8MGYvrIwcEd9CLHlg8g==
+X-Received: from ejbwr20.prod.google.com ([2002:a17:907:7014:b0:c3f:b33c:8124])
  (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:3dac:b0:c31:5bb8:4b3b with SMTP id a640c23a62f3a-c5048f79e02mr108053466b.2.1794286927522;
- Mon, 09 Nov 2026 21:02:07 -0800 (PST)
-Date: Tue, 10 Nov 2026 05:01:45 +0000
+ 2002:a17:907:3f0d:b0:c2e:4a61:d436 with SMTP id a640c23a62f3a-c50495d6ee1mr114117566b.36.1794286931810;
+ Mon, 09 Nov 2026 21:02:11 -0800 (PST)
+Date: Tue, 10 Nov 2026 05:01:49 +0000
 In-Reply-To: <20261110050202.529473-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261110050202.529473-1-tarunsahu@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110050202.529473-3-tarunsahu@google.com>
-Subject: [PATCH v4 02/19] kho: block: Record the entry size in the block header
+Message-ID: <20261110050202.529473-7-tarunsahu@google.com>
+Subject: [PATCH v4 06/19] kho: kexec_metadata: Add the feature header
 From: Tarun Sahu <tarunsahu@google.com>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
 	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
@@ -99,175 +99,154 @@ Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org,
 	Tarun Sahu <tarunsahu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Subsystems using the KHO Serialization Blocks framework currently do
-not record the serialized entry size in the block header. The entry size
-is only known to individual callers, which must track and store it in an
-owning serialized data structure. If a newer source kernel adds fields
-to an entry, the changed entry size breaks the stride when an older
-target kernel iterates over blocks.
+The kexec metadata subtree currently uses a monolithic u32 version field
+to identify the metadata structure layout. Any change to the structure,
+even an optional additive field, requires incrementing the version and
+breaks compatibility between adjacent kernels.
 
-Add an entry_size field to struct kho_block_header_ser. On the outgoing
-side, record bs->entry_size into every block header during allocation.
-During restoration, derive the entry stride directly from the block
-header instead of relying on caller-supplied dimensions. The
-kho_block_set_init() interface remains unchanged. A zero entry size,
-or one that differs between blocks of a set, is rejected during
-restoration.
+Replace the u32 version field in struct kho_kexec_metadata with
+struct kho_ser_hdr using DECLARE_KHO_SER. Later fields can be appended
+under new feature indices without breaking compatibility across kexec.
+Also make the 3-byte padding hole between previous_release and kexec_count
+explicit as reserved[3].
 
-This change modifies the serialized layout of struct kho_block_header_ser
-and shifts the offset of serialized entries within preserved blocks.
-Bump KHO_FDT_COMPATIBLE from kho-v4 to kho-v5 so that pre-v5 and post-v5
-kernels cleanly reject mismatched handover state during boot. Also
-update the stale compatible string example in the documentation.
+During deserialization, validate the blob size against the header size
+and reject unknown required features. A legacy v1 metadata blob is
+ignored with a warning.
 
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
 Signed-off-by: Tarun Sahu <tarunsahu@google.com>
 ---
- include/linux/kho/abi/block.h          | 10 ++++----
- include/linux/kho/abi/kexec_handover.h |  6 ++---
- kernel/liveupdate/kho_block.c          | 32 +++++++++++++++++++++++---
- 3 files changed, 38 insertions(+), 10 deletions(-)
+ include/linux/kho/abi/kexec_metadata.h | 17 +++++++-----
+ kernel/liveupdate/kexec_handover.c     | 38 ++++++++++++++------------
+ 2 files changed, 31 insertions(+), 24 deletions(-)
 
-diff --git a/include/linux/kho/abi/block.h b/include/linux/kho/abi/block.h
-index 36bdbaf9b3b8..a40b0906c821 100644
---- a/include/linux/kho/abi/block.h
-+++ b/include/linux/kho/abi/block.h
-@@ -40,9 +40,10 @@
+diff --git a/include/linux/kho/abi/kexec_metadata.h b/include/linux/kho/abi/kexec_metadata.h
+index e9e3f7e38a7c..316b3e5ad01b 100644
+--- a/include/linux/kho/abi/kexec_metadata.h
++++ b/include/linux/kho/abi/kexec_metadata.h
+@@ -18,28 +18,31 @@
+ #ifndef _LINUX_KHO_ABI_KEXEC_METADATA_H
+ #define _LINUX_KHO_ABI_KEXEC_METADATA_H
  
++#include <linux/build_bug.h>
++#include <linux/kho/abi/feature.h>
+ #include <linux/types.h>
+ #include <linux/utsname.h>
+ 
+-#define KHO_KEXEC_METADATA_VERSION 1
+-
  /**
-  * struct kho_block_header_ser - Header for the serialized data block.
-- * @next:  Physical address of the next struct kho_block_header_ser.
-- * @count: The number of entries that immediately follow this header in the
-- *         memory block.
-+ * @next:       Physical address of the next struct kho_block_header_ser.
-+ * @count:      The number of entries that immediately follow this header in the
-+ *              memory block.
-+ * @entry_size: The size in bytes of each serialized entry in the block.
+  * struct kho_kexec_metadata - Kexec metadata passed between kernels
+- * @version: ABI version of this struct (must be first field)
+  * @previous_release: Kernel version string that initiated the kexec
++ * @reserved: Reserved for structure alignment; must be zero
+  * @kexec_count: Number of kexec boots since last cold boot
   *
-  * This structure is located at the beginning of a block of physical memory
-  * preserved across a kexec. It provides the necessary metadata to interpret
-@@ -51,9 +52,10 @@
- struct kho_block_header_ser {
- 	u64 next;
- 	u64 count;
-+	u64 entry_size;
- };
- 
--static_assert(sizeof(struct kho_block_header_ser) == 16);
-+static_assert(sizeof(struct kho_block_header_ser) == 24);
- static_assert(!IS_ENABLED(CONFIG_64BIT) ||
- 	      __alignof__(struct kho_block_header_ser) == 8);
- 
-diff --git a/include/linux/kho/abi/kexec_handover.h b/include/linux/kho/abi/kexec_handover.h
-index 2f4fb9c63942..6f12f5037ea5 100644
---- a/include/linux/kho/abi/kexec_handover.h
-+++ b/include/linux/kho/abi/kexec_handover.h
-@@ -41,7 +41,7 @@
-  *   restore the preserved data.::
+- * This structure is preserved across kexec and allows the new kernel to
++ * This structure is preserved across kexec and allows the target kernel to
+  * identify which kernel it was booted from and how many kexec reboots
+- * have occurred.
++ * have occurred. Preceded by &struct kho_ser_hdr.
   *
-  *     / {
-- *         compatible = "kho-v3";
-+ *         compatible = "kho-v5";
-  *
-  *         preserved-memory-map = <0x...>;
-  *
-@@ -62,7 +62,7 @@
-  *     };
-  *
-  *   Root KHO Node (/):
-- *     - compatible: "kho-v3"
-+ *     - compatible: "kho-v5"
-  *
-  *       Identifies the overall KHO ABI version.
-  *
-@@ -90,7 +90,7 @@
+  * __NEW_UTS_LEN is part of uABI, so it safe to use it in here.
   */
- 
- /* The compatible string for the KHO FDT root node. */
--#define KHO_FDT_COMPATIBLE "kho-v4"
-+#define KHO_FDT_COMPATIBLE "kho-v5"
- 
- /* The FDT property for the preserved memory map. */
- #define KHO_FDT_MEMORY_MAP_PROP_NAME "preserved-memory-map"
-diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
-index 0d2a342ef422..9b148009085e 100644
---- a/kernel/liveupdate/kho_block.c
-+++ b/kernel/liveupdate/kho_block.c
-@@ -16,6 +16,12 @@
-  * array of serialized entries. Multiple blocks are linked together via a
-  * physical pointer in the header, forming a linked list that can be easily
-  * traversed in both the current and the next kernel.
-+ *
-+ * Each block header also records the size of its entries. A newer kernel may
-+ * append fields to an entry, so the kernel that writes a block and the kernel
-+ * that reads it can use different entry sizes. The reader steps through the
-+ * entries with the recorded size, so every entry is found, and it does not read
-+ * beyond the recorded size of an entry.
-  */
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-@@ -110,6 +116,8 @@ static int kho_block_set_grow_one(struct kho_block_set *bs)
- 	if (IS_ERR(ser))
- 		return PTR_ERR(ser);
- 
-+	ser->entry_size = bs->entry_size;
+ struct kho_kexec_metadata {
+-	u32 version;
+ 	char previous_release[__NEW_UTS_LEN + 1];
++	u8 reserved[3];
+ 	u32 kexec_count;
+-} __packed;
++} __aligned(8);
 +
- 	err = kho_block_add(bs, ser);
- 	if (err) {
- 		kho_block_free_ser(bs, ser);
-@@ -242,7 +250,8 @@ static bool kho_block_set_is_cyclic(struct kho_block_set *bs)
-  *
-  * Restores a serialized block set from a given physical address. The caller is
-  * responsible for ensuring that the block set @bs has been allocated and
-- * initialized prior to calling this function.
-+ * initialized prior to calling this function. The entry size and the number
-+ * of entries per block are taken from the restored block headers.
-  *
-  * Return: 0 on success, or a negative errno on failure.
-  */
-@@ -250,6 +259,7 @@ int kho_block_set_restore(struct kho_block_set *bs, u64 head_pa)
- {
- 	struct kho_block_header_ser *ser;
- 	u64 next_pa = head_pa;
-+	u64 entry_size = 0;
- 	int err;
++/* Register kho_kexec_metadata with KHO serialization accessors */
++DECLARE_KHO_SER(kho_kexec_metadata, 72, 0, 0);
  
- 	/* Restored block sets use size from the previous kernel */
-@@ -264,8 +274,21 @@ int kho_block_set_restore(struct kho_block_set *bs, u64 head_pa)
+ #define KHO_METADATA_NODE_NAME "kexec-metadata"
+ 
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 4b1d173d48ff..641a3b4c88fb 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -1762,6 +1762,7 @@ static __init int kho_out_fdt_setup(void)
+ 
+ static void __init kho_in_kexec_metadata(void)
+ {
++	DECLARE_KHO_SER_HDR(kho_kexec_metadata, *fhdr);
+ 	struct kho_kexec_metadata *metadata;
+ 	phys_addr_t metadata_phys;
+ 	size_t blob_size;
+@@ -1773,27 +1774,28 @@ static void __init kho_in_kexec_metadata(void)
+ 		/* This is fine, previous kernel didn't export metadata */
+ 		return;
+ 
+-	/* Check that, at least, "version" is present */
+-	if (blob_size < sizeof(u32)) {
++	if (blob_size < sizeof(*fhdr)) {
+ 		pr_warn("kexec-metadata blob too small (%zu bytes)\n",
+ 			blob_size);
+ 		return;
  	}
  
- 	while (next_pa) {
-+		u64 capacity;
+-	metadata = phys_to_virt(metadata_phys);
+-
+-	if (metadata->version != KHO_KEXEC_METADATA_VERSION) {
+-		pr_warn("kexec-metadata version %u not supported (expected %u)\n",
+-			metadata->version, KHO_KEXEC_METADATA_VERSION);
++	fhdr = phys_to_virt(metadata_phys);
++	if (fhdr->size != blob_size) {
++		pr_warn("kexec-metadata size invalid (%u != %zu), ignoring metadata\n",
++			fhdr->size, blob_size);
+ 		return;
+ 	}
+ 
+-	if (blob_size < sizeof(*metadata)) {
+-		pr_warn("kexec-metadata blob too small for v%u (%zu < %zu)\n",
+-			metadata->version, blob_size, sizeof(*metadata));
++	err = kho_ser_validate(fhdr, kho_kexec_metadata);
++	if (err) {
++		pr_warn("kexec-metadata feature validation failed: %pe\n",
++			ERR_PTR(err));
+ 		return;
+ 	}
+ 
++	metadata = kho_ser_payload(fhdr, kho_kexec_metadata);
 +
- 		ser = phys_to_virt(next_pa);
--		if (!ser->count || ser->count > bs->count_per_block) {
-+		if (!ser->entry_size || (entry_size && ser->entry_size != entry_size)) {
-+			pr_warn("Block contains invalid entry size: %llu\n",
-+				ser->entry_size);
-+			err = -EINVAL;
-+			goto err_destroy;
-+		}
-+		entry_size = ser->entry_size;
-+		bs->entry_size = entry_size;
-+		capacity = (KHO_BLOCK_SIZE - sizeof(*ser)) / bs->entry_size;
-+		bs->count_per_block = capacity;
-+
-+		if (!ser->count || ser->count > capacity) {
- 			pr_warn("Block contains invalid entry count: %llu\n",
- 				ser->count);
- 			err = -EINVAL;
-@@ -370,7 +393,10 @@ void *kho_block_set_it_reserve_entry(struct kho_block_set_it *it)
-  * @it: The block iterator.
-  *
-  * Iterates through previously written entries during state deserialization,
-- * respecting the actual count stored in each block's header.
-+ * respecting the actual count stored in each block's header. Entries are
-+ * spaced by the entry size recorded by the kernel that wrote them, which can
-+ * be smaller or larger than the caller's structure. Fields beyond that size
-+ * are not present in the entry.
-  *
-  * Return: A pointer to the next serialized entry, or NULL if all serialized
-  * entries have been read.
+ 	/*
+ 	 * Copy data to the kernel structure that will persist during
+ 	 * kernel lifetime.
+@@ -1813,23 +1815,25 @@ static void __init kho_in_kexec_metadata(void)
+  */
+ static __init int kho_out_kexec_metadata(void)
+ {
++	DECLARE_KHO_SER_HDR(kho_kexec_metadata, *fhdr);
+ 	struct kho_kexec_metadata *metadata;
+ 	int err;
+ 
+-	metadata = kho_alloc_preserve(sizeof(*metadata));
+-	if (IS_ERR(metadata))
+-		return PTR_ERR(metadata);
++	fhdr = kho_alloc_preserve(kho_ser_size(kho_kexec_metadata));
++	if (IS_ERR(fhdr))
++		return PTR_ERR(fhdr);
++	kho_ser_init(fhdr, kho_kexec_metadata);
+ 
+-	metadata->version = KHO_KEXEC_METADATA_VERSION;
++	metadata = kho_ser_payload(fhdr, kho_kexec_metadata);
+ 	strscpy(metadata->previous_release, init_uts_ns.name.release,
+ 		sizeof(metadata->previous_release));
++	memset(metadata->reserved, 0, sizeof(metadata->reserved));
+ 	/* kho_in.kexec_count is set to 0 on cold boot */
+ 	metadata->kexec_count = kho_in.kexec_count + 1;
+ 
+-	err = kho_add_subtree(KHO_METADATA_NODE_NAME, metadata,
+-			      sizeof(*metadata));
++	err = kho_add_subtree(KHO_METADATA_NODE_NAME, fhdr, fhdr->size);
+ 	if (err)
+-		kho_unpreserve_free(metadata);
++		kho_unpreserve_free(fhdr);
+ 
+ 	return err;
+ }
 -- 
 2.56.0.506.g506a7eabc5-goog
 
