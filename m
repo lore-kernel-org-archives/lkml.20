@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794288577;
-	b=qf1jXoQBmO9Qjd7dgH2piHeURwWApYvrj3pWIBHD/OJnDnJVST1JlATgd3+ThGIEHxmb
-	 WxXAJT/hjALYuaYmp0Q7oi40O6w4bonMK7TkodChBVfI8ezeV8Yv4lqTTG/DnPTI6Fnda
-	 9irusH9eP+f6jTFkBOUUeRi4MdB2bTDQSe6rgqci6DWTmSqwPasYgpfI8A0LgqhGREM+E
-	 nL5JC8sUKM7GOkscZVlWbw3ocQQJQ1223ihqPVl0bVwy+BaYyvmKzPNghMC4X212vM500
-	 Cuf+wwsS4wFBk+6jqbCC02G+URyWsuacslFUxnmuHgFS2R7eBJL7pzQry+q4PgdvjUw==
+	t=1794288595;
+	b=lFdMug6UpEfNj9upIIOgmGuCEpEhitf8RGzSk+uYGZ0LeldyfrAoia/oMeHHztWz+ImC
+	 02w5FyZ07gwQgFNGDv0yQpefxsFAe6+EoWyzR6nvIml4Uhdzym5Zl78Pmzgo5GOlqyLrH
+	 alEdofgEWyo6hESpzFjdrKLSVU3nFpUciLrDHhyU4fVrUdZS0y+evmi5dN60PrgJ4Wo4n
+	 e9Adt+yTnAQbebAw/zuBr+SVqmADw92zfCqUrmUCDf8buVJQSTNt3z7SxYlwinxHv2xe8
+	 isblFRqaFjaVQebGcOH+tz6P4QbrI84iB1XXWIhx3fC8dGaOl04GNQcThkMTNxIbI8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794288577;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=p2T/Tnq0wrJazsgzibf7bEuis2IKzeDcfBGA8lydX14=;
-	b=lRtsYlSrShGwRHCUfmdO+Mfga9/Tx/fbPaL0LlCO2y/q3O0LDdM3C4SmxyqQ5TCYaq+C
-	 1bNzLXeA/3bgWBZnxpsOV1desXhwu02Xlcnw4EVVlpQ8YjAdCYOvMq9BDhw2rYs9QipQd
-	 3q9p82Rcet5ozyOkDHYGaqTfV8K2kHX39gfgu0UG7vQxjkmdH4jBxJ7UWQ3CmOI/7+DQh
-	 T7MO3sgNfw5QUuyV2WdSGXD4UUoPSAAP5O36jaP1Wht3cMcWsvbjx8W7wNPHBDLEQBpSA
-	 MHkOrc11fPo2ODi2rAMGlX1bZo+GozeaWp6gCHLwf9BpiigeWHlQVF15WTguIb4OFzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794288595;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=D+mYm1lttYa9kf7qrXQpYhZwpnzXIe+jrgE8aWktRj0=;
+	b=BwV3taNY83cirE/KURKLiIiMrXcdL6Tm+0NTh2ZoM+8kpueTTllNLE/+Qvz2ST6z4mRv
+	 sYywDpBuoCnnUoBeExIk5wcyfcUMLgYEpQWnHN1RKS8digqu8fmT5E9UYZQt4qIXRAbbv
+	 ueNnYSlcZpaCD3Ax6DElcsbLCf5uxyE4Ge9yQm5RXTdobhuJ7Wvc6PW4y0PK8Ph2isCaz
+	 PAZN5D5KEWfUYsf0kIcQqHXqDpmNUa76U3q4nxeczcSBxCrfV3XuyM+vimcF5BCMJCQKA
+	 Bcgzmh3qeLjB15zs3k70wz2ogudM3k7/Usi0K7R39fKoZrBqFT14z2GP8DGS/HAJpSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GvIrSLnm;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="iho/Z508";
+	arc=none smtp.remote-ip=95.215.58.95
+Received: from mta1.migadu.com (out-95.mta1.migadu.com [95.215.58.95])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23876606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:29:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23876606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40769606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:29:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40769606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GvIrSLnm
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a9f9473029so1312891b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:29:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794288576; x=1794893376; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p2T/Tnq0wrJazsgzibf7bEuis2IKzeDcfBGA8lydX14=;
-        b=GvIrSLnmuwFnsNPBX/JyOUrvoXMsCql0KosPD5ppgPaPqcc6R5CxsHsikD9OU2PMvP
-         ZZdJwsdIW5Ow1aVXIJeDuHZKA03ifzweRfP2uL+MFNias2IwYZH+M0HUrL3b5JA6S8hU
-         saio/qh6Vi5j69eII53NZXVIVuUKXV+xSco+gMpvToX16L0Kv+CsX/IJzYXZfoRxlfQy
-         uS6BRZk+ouZVMvp4AB8n/eqkjK6Ok73T3aCSRrVdzMFps6tMHJxu62NNRyMZk83w0EqP
-         nsk6eydxgvE2TZhX7WmV0/DM7HH8v3hYvd2T8ongfOHOfCiko2RJZCr3KUQDcM8GUM1q
-         tzOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794288576; x=1794893376;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p2T/Tnq0wrJazsgzibf7bEuis2IKzeDcfBGA8lydX14=;
-        b=qdTZMqtreATZdTfiwlvSeETkrPp+AZnB5sOxMYNyD55dXlDmodcnNgICAOwjM+m7dX
-         oXkfK1M6G7732/Mh/otDpTl6x5oWvlwtWIPh6QyBJMpA+MTn5TUvGu0B5OhCE9Ngudyv
-         xTjpntnBAnG2xGWcf5oiKm8RelY8myMkZVbEJQcPYGHdp0FdhuFzlIL/3pUBjHWDWKUl
-         o/g8V1gWqI3JJxaKpW/30NVWKPb9APHEJq/YircegnjYyK+nzlnVl0xsShNzsZW98N0W
-         lbggXJTMkKBGYkbTGI7ppQ6EWVWCmfD1+lVcTJeOGImnhBCX92Yza08v7KvM3IHYmLMl
-         0yCg==
-X-Forwarded-Encrypted: i=1; AL+hErHTk6Lu4x7EWVvg4UKtxliM5yPd3xWX1EUSYzfOBV3YUBlP7NpGUHU/YwXurenOC2jvex6BHv94HYGveyY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oAaHVvj5MEmUYpRs+fsu4rmc0vmtnSIZKmDGGYopHtIYF/NSc
-	An1Jsm2QTSQ1sUiVvvGWISIc6TowweGxa5yS8htPrrQ58XIuss2GeoTV
-X-Gm-Gg: AYBFou3CKp7Tm6VYQgjm4839WN7tz7YpzHSKPVwVlQ80wl5r/1Rti0k5aXRb1B791BQ
-	f7DDSnha5yqbgzEgAzEWTi8YtAODAqy5iq407Hn++GUzqsIYbDGtKulxVhuJR8dMFKPFJ5PUN7t
-	ueBkeMsx00tw8whb3Y07WlWrXoyiow9r3Auos+s7R4O66LANs0z1qyUrft3qD93/OavMA0NIDyo
-	QYVGIEuX4xUiurNvoa6nyHRBTWHsKBdlnCvVCynXS/9NG0ZSXiPl/hqC2QtOw/ZqswJPaxgbLjy
-	L7Fjr9d+Ki2l19GMgHWsNZJneAcusgWx89SzyB9Tg7pD0L5e4gAl1ZDSf6Zs4fA+oqA4OHCYeQX
-	K6RXo4Q/v7B7JemTzhibziYSjwFythhwKs3o8PInFyyGsKVqO2/dmBBQWFPEoSOP4MY4mlxLjkx
-	PIIdwr9CZ3y5QRGF0WWYq5AP+hXEzQfvoE0GmhnNGIvO1VdOtQ6Xrr0Yx2yTkOs7dyeQzxBm0GI
-	KbRPR73q+kAWqNDT7NP3MLBwyXeRoZF7hJntgCPE0N7skFKxfHIMZmfSaB1MYItlaDJn4oJLKRo
-	mtET799uOpfoxa1n0ENItNs+8RAsdNfWrjUns1wTxg==
-X-Received: by 2002:a05:6a21:1f82:b0:3e2:6f6b:467f with SMTP id adf61e73a8af0-3f18eeaa3dbmr1587066637.33.1794288576305;
-        Mon, 09 Nov 2026 21:29:36 -0800 (PST)
-Received: from localhost.localdomain ([183.62.176.219])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d67adcfsm402224a12.8.2026.11.09.21.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 21:29:35 -0800 (PST)
-From: liuyong <pkfxxxing@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: [PATCH v2] RDMA/srpt: Limit read data transfers to the command length
-Date: Tue, 10 Nov 2026 13:28:26 +0800
-Message-ID: <20261110052827.963143-1-pkfxxxing@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110030809.913063-2-pkfxxxing@gmail.com>
-References: <20261110030809.913063-1-pkfxxxing@gmail.com> <20261110030809.913063-2-pkfxxxing@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iho/Z508
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IH3SJABSJYw3tcRTvLm41rLoiFX50NOHcNOjkaC24FU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794288592; v=1; x=1794893392;
+ b=iho/Z50809cES3ZC0tlSLZPguWY+akgX58soVXbNTH/xgc1H1hSUfE9JRRWm7JnZmkCImMsp
+ SGmv9jcSXB6o45YgxNlozQ6WtXbowhtaSIvXrn/FtSQ3MrZ5NopMEtQM56+AGjoKW9P9UX6fmo+
+ fjqo4/K/fbp9kwf/LLXs4jC0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5eb590928260b6d1;
+	Tue, 10 Nov 2026 05:29:52 +0000
+X-Mizu-Trace-ID: 5eb590928260b6d1
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 05:29:42 +0000
+From: Akhilesh Patil <akhilesh.patil@linux.dev>
+To: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	robh@kernel.org, crofts@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, alexandre.belloni@bootlin.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rtc@vger.kernel.org,
+	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
+Subject: [PATCH v3] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,78 +65,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-SRPT builds RDMA contexts from the initiator's buffer descriptors before
-parsing the CDB. The resulting RDMA WRITE requests can exceed
-cmd->data_length after target core shortens the command or when an
-indirect descriptor's buffers exceed its advertised total length.
-A backend such as rd_mcp fills only cmd->data_length bytes, leaving an
-uninitialized tail that is still transferred to the initiator.
+Move to my new linux.dev email address akhilesh.patil@linux.dev
+I plan to use this email for kernel development going forward.
+Also update email address in few yaml and driver source files.
 
-A remote initiator with access to the LUN can therefore read
-uninitialized target kernel memory beyond the requested SCSI data,
-potentially exposing sensitive data left from previous uses of those
-pages.
-
-Limit the data SGEs in every read response to cmd->data_length without
-depending on SCF_UNDERFLOW_BIT. Keep MR operations and WR accounting
-unchanged by retaining excess RDMA WRITEs as zero-length requests.
-Clear sg_list when num_sge becomes zero so that providers such as irdma
-do not program a non-zero first fragment from the original SGE list.
-
-The issue was discovered and fixed by Qihoo 360's Tulongfeng multi-agent
-system.
-
-Fixes: b99f8e4d7bcd ("IB/srpt: convert to the generic RDMA READ/WRITE API")
-Cc: stable@vger.kernel.org
-Signed-off-by: liuyong <pkfxxxing@gmail.com>
+Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
 ---
 
-Changes in v2 (addressing the two issues reported by sashiko-bot):
-- Limit every read response to cmd->data_length without relying on
-  SCF_UNDERFLOW_BIT.
-- Clear sg_list when num_sge is zero to avoid stale fragments on irdma.
+Link to v2: 
+https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
 
-This revision has been compiled and verified to fix the reported issue.
+ .mailmap                                                      | 1 +
+ .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
+ Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
+ MAINTAINERS                                                   | 2 +-
+ drivers/iio/pressure/adp810.c                                 | 4 ++--
+ 5 files changed, 6 insertions(+), 5 deletions(-)
 
- drivers/infiniband/ulp/srpt/ib_srpt.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-index 43c3ff1ad..9257c6beb 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-@@ -2907,12 +2907,32 @@ static void srpt_queue_response(struct se_cmd *cmd)
- 	if (ioctx->cmd.data_direction == DMA_FROM_DEVICE &&
- 	    ioctx->cmd.data_length &&
- 	    !ioctx->queue_status_only) {
-+		struct ib_send_wr *wr;
-+		u32 data_len = cmd->data_length;
-+
- 		for (i = ioctx->n_rw_ctx - 1; i >= 0; i--) {
- 			struct srpt_rw_ctx *ctx = &ioctx->rw_ctxs[i];
+diff --git a/.mailmap b/.mailmap
+index 7fb33babc931..d09fd3708023 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
+ Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
+ Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
+ Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
++Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+ Alan Cox <alan@lxorguk.ukuu.org.uk>
+ Alan Cox <root@hraefn.swansea.linux.org.uk>
+ Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
+diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+index ad5f26ce5043..ca4d4210f609 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: aosong adp810 differential pressure sensor
  
- 			first_wr = rdma_rw_ctx_wrs(&ctx->rw, ch->qp,
- 					ch->sport->port, NULL, first_wr);
- 		}
-+
-+		/* Do not expose uninitialized data beyond cmd->data_length. */
-+		for (wr = first_wr; wr != &send_wr; wr = wr->next) {
-+			int j;
-+
-+			if (wr->opcode != IB_WR_RDMA_WRITE)
-+				continue;
-+			for (j = 0; j < wr->num_sge && data_len; j++) {
-+				struct ib_sge *sge = &wr->sg_list[j];
-+
-+				sge->length = min(sge->length, data_len);
-+				data_len -= sge->length;
-+			}
-+			wr->num_sge = j;
-+			if (!j)
-+				wr->sg_list = NULL;
-+		}
- 	}
+ maintainers:
+-  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++  - Akhilesh Patil <akhilesh.patil@linux.dev>
  
- 	if (state != SRPT_STATE_MGMT)
+ description:
+   ADP810 is differential pressure and temperature sensor. It has I2C bus
+diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+index bdd995c5c1f4..837679dc01ac 100644
+--- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
++++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: ST M41T93 RTC and compatible
+ 
+ maintainers:
+-  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++  - Akhilesh Patil <akhilesh.patil@linux.dev>
+ 
+ description:
+   ST M41T93 is spi based Real Time Clock (RTC) with time, date,
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..3aa8fa3c068f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
+ F:	drivers/iio/chemical/ags02ma.c
+ 
+ AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
+-M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++M:	Akhilesh Patil <akhilesh.patil@linux.dev>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
+index 82aa433548d2..832df6ba0ee3 100644
+--- a/drivers/iio/pressure/adp810.c
++++ b/drivers/iio/pressure/adp810.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++ * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
+  *
+  * Driver for adp810 pressure and temperature sensor
+  * Datasheet:
+@@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
+ };
+ module_i2c_driver(adp810_driver);
+ 
+-MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
++MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
+ MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
+ MODULE_LICENSE("GPL");
+-- 
+2.34.1
+
