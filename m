@@ -1,52 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317022;
-	b=zJ5kPqNfHvolbnql1+WPHt8wc/Gja7JWl0NUnICKbkDCx9JJoTXZjOIDoV6ttkRVTrxb
-	 021ES/JJsyYoHwfCGGfIHhuH2C2kZdK1kYqgVqGQQaT4zEZng6CX/xiEqwPjUoX6JLQwG
-	 31x+LlYW1+jjKkIYgT84bHVnrszXe5ZdZblajEae7ptJOnt375e230ECknaC3ANKgb7qR
-	 BUMYLc8gwp1Y7LJwv033wmrjl7hOcIuE2nndAhrxM7BW5Tk2VG1rlsMo+m2JuS7AgxwJ2
-	 RWHq1g8vTjVSzPiW7fRxUsq9uArC/4J1aA30x26KudLUXP80+VkJ22kus0frQAWZGpA==
+	t=1794317054;
+	b=kJUmICTL8td5AshnCvxOiulAGyVR8tHGViWl5VrgtSaPtqgY0FvxJhOjvzS0F4u8ul4a
+	 WnmYlnbPJEpSzOo+h8A9h5M9Y6P7zgpNqZBgZBi10j3r+mr92jtFI4nTuT3B0T8BpEKC4
+	 3dca5uQyYOKZNqWSsq/PP9dacm6FWSlnnB6XVKVQGRsg1XNMBvkkndCaZEqqgoautLl2M
+	 jrlrqDrasHCSwdp8+TuvdrV7WvKEBqQLbsN2WxEtsr38fxT5SCXq2/TeWceKRci3oYLDB
+	 ZYHlLe2EOdmjhaH7I/AGLRXLdOrukogB2WZYVN96BWr+ROXVMuxyjSpiZoDyTsdWdIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317022;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 X-CM-CTRLMSGS:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=XsAr4O89duvEBbigSHHNVV6Ye8RdzbpA0oQFcH49mZk=;
-	b=ZtHMU6M5exkLT3gpMnniVUH2EP8dVuYdq8GN2LeeHOMgQuea8xo0lGui3/RQkdqrZYjO
-	 PfsuyAUNSmhapOGzOvSd5gK94d7EG8CmCWg0Z+M3Oq066jshDEZdf+xN2H4nrDOKve/lG
-	 nzNEWcAJOIAyVid8mQ724IQwwY/XrNpdnYA8qyvsqzpj1UTADpLrvA9udFSdGD/YYhhz4
-	 rlnArcU5bZsWDQAIy7FfYEnbp/gMSRl4PEJPrd38Io1HSLFFvo70fC/7TLvnDdm0+x4tD
-	 yxbMH52pSrezn3fxYcjiRIL56gpkkO3ypfpqtxZdvf5tDCgf3o5MeM8Tk+vqmmkk9Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317054;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gLbu+QmOwl55JJoKnVaiXzCJO4FEEFP748REBSTuBYI=;
+	b=iNYNA6GRS/XB45nf+l9nva+3DswFlsLDRC8q5C4E57ungABEvUVGJPeekBne0UNHOz8O
+	 keiWJ9FHpHvNDeIiRTkzYLD0FzhRD955Jx8/wqvmI0iae1AEPwafcor0sKUjVcISO4YpO
+	 Suxx07pPjzAnyrpAxlc4I6K7/42UgwJPetn9iVUieAvzcOx9yCJN7W3AMajvK4ldNdgR6
+	 hYMBCEB3y1PbVsowWDssv+vU9suMA30Q5DodswEKDz+gCNP0x6fH+Xt7tCh9faMiiq+RD
+	 j+9JtOMF5n/8617sZj/uuAp4/5R3IcYtfQIJACheC2p1+8rhH6DjULOJ0D902JQUfAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.76.78.106
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2DDDE606A7E0;
-	Tue, 10 Nov 2026 13:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DDDE606A7E0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
- (Coremail) ; Tue, 10 Nov 2026 21:23:31 +0800 (GMT+08:00)
-Date: Tue, 10 Nov 2026 21:23:31 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: power: supply: bq24190: IRQ handler can call  power_supply_changed
- after the psy is unregistered
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
-X-CM-CTRLMSGS: =?B?FYbFWziH6nJ5xwDR7hwMki1N8jM=
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMel5y4I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44634606B2E6;
+	Tue, 10 Nov 2026 13:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMel5y4I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF861F008A1;
+	Tue, 10 Nov 2026 13:24:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794317053;
+	bh=gLbu+QmOwl55JJoKnVaiXzCJO4FEEFP748REBSTuBYI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BMel5y4IpY6KSXoDb6VVesQT6DeL5FnncCKYIWdP1DVhsWlQnNwUBDd8tJlcNiiiC
+	 xFP5szs1/hZb73pQ4fBH0kATTvIT+WEAEoFI0ZiVtPXdqoVCyMysA1AEpjocNXiFbB
+	 PL+TK29ndBzAi0T/XcurANYr+rWgp0MRyeoMR9CqL6rjT+CU/+efdiNSL8pMTfEX1K
+	 tPTnMaNwZexeUvY6ISFhWnmOI8LF58fjc4WqmhJVpOOQiQmBoiHvhrCLK43fZoOosA
+	 S9ur8BsV9arNwXL3GbW9Zw0VTZrZ3n0kNDyFMfYAhWVCdcKKM685KxHtqxPWcjwb1X
+	 WiNcjW2g1I3uA==
+Date: Tue, 10 Nov 2026 14:24:09 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
+	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: gpio: Add Siflower SF19A2890 GPIO
+ controller
+Message-ID: <20261110-pearl-peacock-of-brotherhood-f9daf1@quoll>
+References: <20261109-sf19a2890-gpio-v2-0-b885fbd84c4c@telaak.dev>
+ <20261109-sf19a2890-gpio-v2-1-b885fbd84c4c@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,77 +62,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <544415a1.22b25.1a1c5a0c926.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IQEQrMC23sbTGvNqn58NAA--.9886W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgMHB2rx8m6T4AABs0
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261109-sf19a2890-gpio-v2-1-b885fbd84c4c@telaak.dev>
 
-YnEyNDE5MF9yZW1vdmUoKSB1bnJlZ2lzdGVycyB0aGUgYmF0dGVyeSBhbmQgY2hhcmdlciBwb3dl
-cl9zdXBwbGllcwpiZWZvcmUgcG1fcnVudGltZV9kaXNhYmxlKCk7IHRoZSBJUlEgaXMgcmVxdWVz
-dGVkIHdpdGggZGV2bSBhbmQgaXMKdGhlcmVmb3JlIGZyZWVkIG9ubHkgYWZ0ZXIgcmVtb3ZlIHJl
-dHVybnMuICBBIHRocmVhZGVkIElSUSBoYW5kbGVyIHRoYXQKaXMgYWxyZWFkeSBydW5uaW5nLCBv
-ciBvbmUgdGhhdCBydW5zIGluIHRoZSB3aW5kb3cgYmV0d2VlbiB0aGUgdHdvCnVucmVnaXN0ZXJz
-IGFuZCBwbV9ydW50aW1lX2Rpc2FibGUoKSwgY2FsbHMgYnEyNDE5MF9jaGVja19zdGF0dXMoKSAt
-Pgpwb3dlcl9zdXBwbHlfY2hhbmdlZCgpIG9uIGEgcHN5IHRoYXQgaGFzIGFscmVhZHkgYmVlbiB1
-bnJlZ2lzdGVyZWQgKGFuZAptYXkgYmUgZnJlZWQpLiAgVGhpcyBpcyBhIGRyaXZlciByZW1vdmUt
-b3JkZXIgYnVnOyB0aGUgd2luZG93IGlzCm5hcnJvd2VyIHRoYW4gYnEyNTg5MCBidXQgcmVhbC4K
-ClRoZSBkZXRhaWxlZCBkZXNjcmlwdGlvbjoKCiogVGVzdCBlbnZpcm9ubWVudCAvIGFmZmVjdGVk
-IHZlcnNpb24KCiAgTGludXggNy4zLjAgc291cmNlIHRyZWUgKHVubW9kaWZpZWQga2VybmVsLm9y
-ZyA3LjMpLCB4ODZfNjQuICBUaGlzIGlzCiAgYSBzb3VyY2UtbGV2ZWwgcmVwb3J0LiAgSSBkaWQg
-bm90IHJ1biBpdCBvbiBicTI0MTkwIGhhcmR3YXJlOiB0aGUKICBLQVNBTiBidWlsZCB1c2VkIGZv
-ciBteSBjb3JlIHRlc3RzIGRvZXMgbm90IGVuYWJsZQogIENPTkZJR19DSEFSR0VSX0JRMjQxOTAg
-YW5kIGhhcyBubyBJMkMgYnEyNDE5MCBkZXZpY2UuICBObyByZXByb2R1Y2VyCiAgaXMgYXR0YWNo
-ZWQuICBMaW5lIG51bWJlcnMgYXJlIGZyb20gNy4zLgoKKiBNZWNoYW5pc20KCiAgUHJvYmU6Cgog
-ICAgICA6MjEyMSAgcG93ZXJfc3VwcGx5X3JlZ2lzdGVyKGJkaS0+YmF0dGVyeSwgLi4uKQogICAg
-ICA6MjEzMyAgcG93ZXJfc3VwcGx5X3JlZ2lzdGVyKGJkaS0+Y2hhcmdlciwgLi4uKQogICAgICA6
-MjE2MCAgZGV2bV9yZXF1ZXN0X3RocmVhZGVkX2lycSguLi4sIGJxMjQxOTBfaXJxX2hhbmRsZXJf
-dGhyZWFkLCAuLi4pCgogIEJvdGggcG93ZXJfc3VwcGxpZXMgYXJlIG5vbi1kZXZtLiAgVGhlIElS
-USBpcyBkZXZtLCBzbyBpdCBpcyByZWxlYXNlZAogIGJ5IGRldnJlcyBhZnRlciBicTI0MTkwX3Jl
-bW92ZSgpIHJldHVybnMsIG5vdCBiZWZvcmUuCgogIGJxMjQxOTBfcmVtb3ZlKCkgKDoyMTg5LTIy
-MDYpOgoKICAgICAgOjIyMDAgIHBvd2VyX3N1cHBseV91bnJlZ2lzdGVyKGJkaS0+YmF0dGVyeSk7
-CiAgICAgIDoyMjAxICBwb3dlcl9zdXBwbHlfdW5yZWdpc3RlcihiZGktPmNoYXJnZXIpOwogICAg
-ICA6MjIwMi0yMjA0ICBwbV9ydW50aW1lX3B1dC4uLgogICAgICA6MjIwNSAgcG1fcnVudGltZV9k
-aXNhYmxlLi4uCgogIFRoZSB0aHJlYWRlZCBoYW5kbGVyICg6MTgzNC0xODUwKSBjYWxscyBicTI0
-MTkwX2NoZWNrX3N0YXR1cygpCiAgKDoxODI0LTE4MjkpLCB3aGljaCBjYWxscyBwb3dlcl9zdXBw
-bHlfY2hhbmdlZChiZGktPmNoYXJnZXIvYmF0dGVyeSkuCgogIFdpbmRvdyBBOiBhbiBJUlEgaXMg
-ZGVsaXZlcmVkIGFmdGVyIDoyMjAxIGFuZCBiZWZvcmUgOjIyMDU7IHRoZQogIGhhbmRsZXIgcnVu
-cyB3aGlsZSBib3RoIHBzeSBhcmUgYWxyZWFkeSB1bnJlZ2lzdGVyZWQuICBXaW5kb3cgQjogYQog
-IGhhbmRsZXIgaXMgYWxyZWFkeSBydW5uaW5nIHdoZW4gOjIyMDAvOjIyMDEgZXhlY3V0ZTsgaXQg
-Y2FuIHJlYWNoCiAgcG93ZXJfc3VwcGx5X2NoYW5nZWQoKSBhZnRlciB1bnJlZ2lzdGVyLiAgQWZ0
-ZXIgOjIyMDUsCiAgcG1fcnVudGltZV9kaXNhYmxlKCkgbWFrZXMgbmV3IElSUSBoYW5kbGluZyBs
-ZXNzIGxpa2VseSB0byByZWFjaCB0aGUKICBjYWxsYmFjaywgc28gSSBkbyBub3QgY2xhaW0gYXJi
-aXRyYXJ5IHBvc3QtcmVtb3ZlIElSUXM7IHRoZQogIGRldGVybWluaXN0aWMgd2luZG93IGlzIDoy
-MjAxLToyMjA1LCBwbHVzIHRoZSBpbi1mbGlnaHQgaGFuZGxlci4KCiogQ29uY3JldGUgY29ycnVw
-dGlvbiAvIGltcGFjdAoKICBwb3dlcl9zdXBwbHlfY2hhbmdlZCgpIGRlcmVmZXJlbmNlcyBwc3kt
-PmNoYW5nZWRfbG9jazsgaWYgdGhlIHBzeSBoYXMKICBiZWVuIGZyZWVkLCB0aGlzIGlzIGEgc2xh
-Yi11c2UtYWZ0ZXItZnJlZSBhbmQgY2FuIGNvcnJ1cHQgdGhlCiAgd29ya3F1ZXVlIG9yIGNyYXNo
-LiAgSWYgYSBjb25zdW1lciByZWZlcmVuY2Uga2VlcHMgdGhlIHBzeSBhbGl2ZSwgdGhlCiAgY2Fs
-bCBpcyBhIHVzZS1hZnRlci11bnJlZ2lzdGVyIGFuZCBjYW4gcmVhY2ggdGhlIGZyZWVkIExFRCB0
-cmlnZ2VycwogIGRlc2NyaWJlZCBpbiB0aGUgY29yZSA1QiByZXBvcnQgb24gYSA3LjMga2VybmVs
-IHdpdGhvdXQgdGhlCiAgOWY3ZjdhODU5NDUxIGdldC9zZXQgZ3VhcmQuICBJIGhhdmUgbm90IGRl
-bW9uc3RyYXRlZCBwcml2aWxlZ2UKICBlc2NhbGF0aW9uLCBhbmQgSSBoYXZlIG5vdCBydW4gdGhp
-cyBvbiBoYXJkd2FyZS4KCiogVHJpZ2dlciBtb2RlbAoKICBicTI0MTkwIHdpdGggYSBjaGFyZ2Vy
-IGludGVycnVwdCAoQUMgcGx1Zy91bnBsdWcsIGZhdWx0LCBvciBjaGFyZ2VyCiAgc3RhdHVzIGNo
-YW5nZSkgY29uY3VycmVudCB3aXRoIHVuYmluZC9yZW1vdmUuICBUaGUgd2luZG93IGlzIG5hcnJv
-dwogIChiZXR3ZWVuIHRoZSB0d28gdW5yZWdpc3RlcnMgYW5kIHBtX3J1bnRpbWVfZGlzYWJsZSwg
-b3IgYW4gaW4tZmxpZ2h0CiAgaGFuZGxlciksIHNvIGl0IGlzIGEgcmFjZSByYXRoZXIgdGhhbiBh
-IGRldGVybWluaXN0aWMgc2VxdWVuY2UuCiAgVW5iaW5kaW5nIHJlcXVpcmVzIHJvb3Q7IGEgcGh5
-c2ljYWwgY2hhcmdlciBldmVudCBpcyB0aGUgbmF0dXJhbAogIHRyaWdnZXIuICBObyBnZW5lcmlj
-IHVucHJpdmlsZWdlZCB1c2Vyc3BhY2UgaW50ZXJmYWNlLgoKKiBSZXByb2R1Y2VyIC8gcmVzdWx0
-cwoKICBObyByZXByb2R1Y2VyIGF0dGFjaGVkLiAgVGhpcyBpcyBhIHNvdXJjZS1sZXZlbCByZXBv
-cnQ7IEkgY2FuIHRlc3QgYQogIHByb3Bvc2VkIGZpeCBpZiBicTI0MTkwIGhhcmR3YXJlIGlzIGF2
-YWlsYWJsZS4gIFRoZSByZWxldmFudCBjYWxsCiAgY2hhaW4gaXMgZnVsbHkgdmlzaWJsZSBpbiA3
-LjMgYXQgdGhlIGxpbmUgbnVtYmVycyBhYm92ZS4KCgoqIFN1Z2dlc3RlZCBkaXJlY3Rpb24gCgog
-IERpc2FibGUgdGhlIElSUSBhbmQgd2FpdCBmb3IgYW4gaW4tZmxpZ2h0IGhhbmRsZXIgYmVmb3Jl
-IHVucmVnaXN0ZXJpbmcKICB0aGUgcG93ZXJfc3VwcGxpZXM6IGNhbGwgZGlzYWJsZV9pcnEoKS9m
-cmVlX2lycSgpIChvciBhbiBleHBsaWNpdAogIGRpc2FibGVfaXJxICsgc3luY2hyb25pemVfaXJx
-KSBiZWZvcmUgOjIyMDAsIGFuZCBtb3ZlCiAgcG1fcnVudGltZV9kaXNhYmxlKCkgYmVmb3JlIHRo
-ZSB1bnJlZ2lzdGVycy4gIEFsdGVybmF0aXZlbHkgaGF2ZSB0aGUKICBoYW5kbGVyIGNoZWNrIGEg
-InJlbW92ZWQiIGZsYWcgc2V0IHVuZGVyIGEgbG9jayBiZWZvcmUKICBwb3dlcl9zdXBwbHlfY2hh
-bmdlZCgpLiAgUmVwb3J0LWZpcnN0LCBubyBwYXRjaCBhdHRhY2hlZDsgaGFwcHkgdG8KICB0ZXN0
-IGEgcHJvcG9zYWwuCgoKICBQbGVhc2Uga2VlcCBtZSBpbiBDYzsgSSBhbSBub3Qgc3Vic2NyaWJl
-ZCB0byB0aGUgbGlzdHMuCgoKUmVnYXJkcywKSGFueGlhbmcgWHUKeHVoeEBodXN0LmVkdS5jbgo=
+On Mon, Nov 09, 2026 at 03:09:31PM -0500, Joseph Telaak wrote:
+> From: Chuanhong Guo <gch981213@gmail.com>
+> 
+> Document the GPIO controller of the Siflower SF19A2890. Siflower's SF21
+> RISC-V SoCs have the same controller, and will get compatibles of their
+> own with their device trees.
+> 
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [Joseph Telaak:
+>   - take it from Chuanhong's siflower-7.1 branch
+>   - list myself as the binding's maintainer
+>   - use GPL-2.0-only instead of the deprecated GPL-2.0 SPDX
+>     identifier
+>   - indent the example by four spaces
+>   - drop the ngpios property, which the compatible implies, take
+>     exactly four interrupts, and order the properties as in required
+>   - commit message and subject]
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../bindings/gpio/siflower,sf19a2890-gpio.yaml     | 76 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 ++
+>  2 files changed, 82 insertions(+)
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
