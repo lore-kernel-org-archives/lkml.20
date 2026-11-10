@@ -1,100 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794333095;
-	b=yZjuw3yY7J/VxgXPDAvruJxTitlmNZPh4VPqZDSD88lr4I4S3QX52owF+jPw6YxADIWp
-	 e5xJ6eo1+X+kUiVj/JnKgSAQe/mibUiEwJaFxJvDpJGxx01EYejAKiUuW6H1SUyarfcS0
-	 o6LRkZMoNZ4xWPWecR2v3gRfeYeDplq/p3zeS5RNnvoLb78osKhyxogK7GwCul3LRrPlS
-	 V8L3oUGKVd/7Yn5FYZendQ+wE+DgArJ5rWCP6/iO0bOuPDXozuZzIOjn6MUFf2le0v68A
-	 RMX1Cnf0ewkb4zRLBIGmTfvOorVp5TqSV3sueXLuujS4aeLEyQA0gwu6p+3PdL5x+/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333095;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l0QAMyRioMi5XhklthvtwTXDZy3heUuGNeimhftHveA=;
-	b=1+ncavz+CZaifJEaSflSw+UaI508uZqW1kQNMiozq+Q7k0dhjmrX0l6VeA+Rgbfm6mdz
-	 9vhku+lu5rkeuOuwIcmDAu57v82aPbj2i85xJftcO6az8GWaZ0fWqtuM4OB9d/9aSabgN
-	 Rc77Ak89ko/gFUL59JaiewAjqqvv+nQ3ABBkEqlPshSAXcpqoGlYKLrFsHw/VO1WnqJlX
-	 fRawVu5IUvYe27OmYMT7mmn148ktxQ8YBb4NwNdRD5pDul0IKkw/d1v3RsDGi+KdCKQAJ
-	 CgOnAETkJy2I+EPLF65n6O967fZ28R7w4misDF3Blm7lzG/O9YbaaLgebhN61RiXacA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gnJ74gfF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794333109;
+	b=LRmeo0+jJjhj6HvzVaFU5J+0h2WBPGssTUxSkkdkGGWNya3nCcUQovQL1XSwFvghf/Jo
+	 EGXmw8oRWuSuwLiM3O3ImjUc4ogzHgfD2guE0enUdHwU1Y4JfJwdGtJ1uTygYwmEwb/fo
+	 6lETSfMBGUbqN6G6NrJ3xwxAu4wRS2ZYj6pF7SGH+ogppgoDdP84DUEMkvr7LJ6OmZP21
+	 A5eeIC2ZzeVlC6dVmVX0NNlh81EGOFaWIvtDzVETvjB2jiPnUtssYPcYwm0UPSAvo7Tdg
+	 XiAeXPr5vWLda37wpmdr1TWZJuHRGHPb0EZg58hcr5lw/WO9h1tiPvXR87lYLcwlovA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333109;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kWkhdha3nQ+YU6W68ji72ckaJYIXt+RZxT95aMd1MIY=;
+	b=SBXH2UpD7+BqyCSllD50/gsl/LeHCQEr4H3H+zievwCzqwoqxGXUCqwIGUMOz5p1ZJsV
+	 nOEmZL0GZH69yzgow4yDxI99J2cfsL+I2XsrcRG+YVgwkWGeYysJoeKEujGokjdgSp1DZ
+	 uplxKYqR3i9ETWPlQ8837sDc6TmrnyBwBEchzUZiHMPXpm2BoBgBf2TRXzdh5MohH5d1y
+	 hSs9gzAA9aYMUN3BiyQOqaC/etqJt4A4poNPWHG3NtQJhyHcV6qKyXxttWCubsp0ZMFHH
+	 XGGXLzmaZ41FOLotFFzycREy1RVcI9Yysqyv8S4/qcdBy+qnz5zB7WOcAE6AvVFhi7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k0VRE6+u;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GicpfOIB;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308CA606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:51:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308CA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0A9606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B0A9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gnJ74gfF
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so13107e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:51:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794333093; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eFoxLuiraAMvW6Rw1+9tkkQ/mFhO36cVh3el6yyElrfBdlrfJj5tdBTSwJbV+43o1v
-         9xH/Vp/T/jqkhib95o7cGsZx+w84uMEHNfLeoGnqGwVtjyhj+PlEEAGjSXTGmmk0ts8e
-         SEZLSPPIQRirCtvBfBxf9T8tFDrISE6i4AsVeDP5yGH+LOV7xBpET1K+aAjRGSMa+HCG
-         Hu9NvMgFwpWAtk7BkghRW1CSTKA7baAZ0Ym6D71S4GELqMhyayPoejJPZS8zffNmnVoK
-         QW4x0aaeXvDgy2Mn9UuzO7ppv7wxAe+GRJXW+y3JVOX2IMCxFC5RCfx1l6MibeM+OmH7
-         qtVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l0QAMyRioMi5XhklthvtwTXDZy3heUuGNeimhftHveA=;
-        fh=YRqyZqB+Di/i510cpYas0AV1X6laX0q1wnOxbhsIzZ0=;
-        b=DKd+2LSj2687uUnYw9ach36P6iJgVa/pknh21m5O9DFcePNhJ8JPdn8V81Yu3xQyI3
-         YyLUR6yhjtr9br9xz/uO+d5QESCC095r50M5UmHfcHyxO7JOYJ4EFvaycm3FgbPZ+ovy
-         62MbJbls3zhSamqY02fudBTo1pToxH6AZBaKMgxWfOy+AMygK/9fXpWf3HXnqLAUqYiF
-         1kCTdmqGse82uqJDwPrqCcgD0LUMgOYlFg6CgCpx9acZHVxFBlX520jvMbykYwwUvp99
-         KWXgyGF7zfCHnXgQSRZuS1yxAzYtK3P4RApDbj8dNpFrRqUMQ9nx6y/QJK5ruC50LY6e
-         qxzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k0VRE6+u;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GicpfOIB
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF01lN484412
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:51:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kWkhdha3nQ+YU6W68ji72ckaJYIXt+RZxT95aMd1MIY=; b=k0VRE6+ujr9qu2si
+	19L7uwDIWPgQxjAmR8eJP2soTnbTuM5D6BQMVozfJbxQ0VQDoa7S1cka+tgxa09Y
+	VdVu2XC0aAvTwfyA0hJuDbWyhS/bZ+Jcb8JWn1/LdU+d9j2nV5FVLl/g3kbRWfP6
+	x4m1rNg7w9iDDTRbobz8MTLGVteEsM2zFce/SZRSOYugdSOyMaD5l9g4BcvJ41x8
+	+MN95ZZsvY70KqIztZY5BnW2kLtnrHQ5VfYUJ1pImHrhMNRHaVi/2wcOv3Jk7F7f
+	JQjFWqzCvAOb4Uk6avwkjcyZbRlkzGTZQTyE2ho+gxcD1LlOfrooT+FhiOX5NS1o
+	yORTAw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyvwj2s6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:51:48 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f5844cb60so468214285a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:51:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794333093; x=1794937893; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l0QAMyRioMi5XhklthvtwTXDZy3heUuGNeimhftHveA=;
-        b=gnJ74gfFCb1d/sN4iFL3foEp2CPMVIk3kBRZJFUl3LvS8EHURdLFJJn/azah0cP5xL
-         60QsCGoSmqgYBZR9F1VUh5cwxKoZT+NImmKMfw6xlbOvxPcdZRSKeYcHP3d53n9qKbnF
-         KURURxSKw7lg5tPQwGEhHiDIv1zaJc4jri2f2ZxTOFBgogGyzWHP6KibEJnT3ne+R/kn
-         76yVp8ZmAffabSp2NogNMpcYtNwqH5wT28yN4ykL7r+nkcaAqL7ZZcVY/uBEqvU6j5E6
-         4haBTLviZQDtAlqN4Bt+DfP3XbEUBnHDa5EoKPPbqW468sNJU+b58ldRWJyvXiLD5tzi
-         KTMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333093; x=1794937893;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794333107; x=1794937907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l0QAMyRioMi5XhklthvtwTXDZy3heUuGNeimhftHveA=;
-        b=iigoxpVMBhneIXVzIp7aMH3UxhDmVTFr4jdpnQbst7yuDB07169nuwM+Z3DtYiv+Rk
-         NmAp/zOWoYBogpnWi5ymfnr6u8DZiAENkVboTRNbJIsjaO4MUB3WXrMKhTX9dw82rgKt
-         MJOQCqbDmnRN8QKj6G05794SzRaHRQxTKv4A46LxSfUUXAvTiLv//yd1oXMmM9EMGROm
-         RV8sSy5vEgLP3Ty8TAd8V7/cSVhoTQ80QNt/fYN7O9NqE5jCfO+86UH+HsjGAgu9vXiS
-         w0YiUIyx9bSB0yL+zVIUfTLsow4SKsGOl0scljuMheUDi5fK1fD/JRn/8178ShckNTVy
-         gPCw==
-X-Forwarded-Encrypted: i=1; AL+hErFLvnMb2fHJp53E2TBcqPmdpXfuP1XMqVwxDksNo5Tf3UxnzZtaVP/wFOfVv8bxaVEGnUDnbZV/nX5HpEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IHTT9yyynbYs33sQv6gCfQWgmXwMIFeekWYNsqzp6zI1i8S8U
-	44cTbI8vWA2yze9ABDJAl8RikDzUpBbe+mPDNyFv+O8pmh60IjSe+Fzp/4YpcTBk7c/dcUmTdnI
-	MeYx7wDiB5EmmOiWnjuEJjZraAuy/DkOLVGZ5eSwB
-X-Gm-Gg: AYBFou3D3pMXP+q/424XhgQWIqEjD6FxcUST0dumZ4mkYQNuQBXTzoCTkRrReGY/6na
-	AMr2+dlllyPFSHSYwRsVwDu5v1NB318cvosYp9o7+poQopWJGqPbre3rUEa44aGOldyaI5+AbM5
-	Upg2uTSia+niXiPV2sohfZ51W+yee4SuwfNdNuSiSHjosKwrKAUynMmJmQ45Ic0LDwjleYklfch
-	doJsdO+1KKCkm/L3Dznb7Q11gjnNpg8r6Y+90yF63KMddgESWskB9djeYk3SlO3cxKNpaSFRMOU
-	ui+CeIVxM6PExqRwwWydZTb4W+ipsiGDr5qvfYUuS9UnEeRjnkYlgdpIkFai2JfgO2v9pzv7JjI
-	kBVaPt17WQPwIfcXN2A0joGBMUPxDxemuVurmPAuN5WZ99aGRhaw6PePWYViweYpJmA6xT2E=
-X-Received: by 2002:a05:6512:2389:b0:5c0:50:ff89 with SMTP id
- 2adb3069b0e04-5c157dc8a9dmr158053e87.14.1794333092758; Tue, 10 Nov 2026
- 09:51:32 -0800 (PST)
+        bh=kWkhdha3nQ+YU6W68ji72ckaJYIXt+RZxT95aMd1MIY=;
+        b=GicpfOIBboq6NdMnCjdunDmggoAPlpd8aV4wH6CALQMTYAVKiIehBE5yKYUiBOQB4K
+         VLNZZlpG8MlskpSVeabkNNSGG3ok1u/0EhXfSArcCFOK23GClq0zEIyu6KP+ijd3gS8G
+         NrKmeNZzPES++wH310YC3F4nyo5IPagwWeiv3mmZnA9IcFwq9AOJ3V+3MLYPSLppvpso
+         kZ6ZuCScfKc7Zwlkcfv8/mamH19S3f7m2xkNCb5p6nenbNyOKb1N/GbLwr6FLdG1ec+q
+         FCd42zfWhbARg72aJG9bPnFdVCZXLP9/tyfVqj3pihiLp4PxBQYw+/aVzR2ypPjJ/Ss9
+         x+mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333107; x=1794937907;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kWkhdha3nQ+YU6W68ji72ckaJYIXt+RZxT95aMd1MIY=;
+        b=edRzRup8Fu2clSK6e31bfT7l85ZkF9P8ojTInYvmb3EdpUg6ADRfuwzqQshLUc/F9G
+         ajWXulU1LnTfXI2moIkrflstXePRk7p6R2EPqHsVqYHyyDNlvZO6knaVwk1dZmvekjk5
+         tLLWFvoD7EITEk1V1dvaC3JdRXg72k0Z9Pq0CFwnMKORvzNmHDKI4UPU8YZGVdAmPoGm
+         EKmPfGo+J9eE+dAWII0K5MAmN0C/b794eplO7lUMNg72kpqFO01rmjVJc/pQ+PBYWdaO
+         i7iuFXirP/jDXz9RzLyq0sb/z3c91ErA8zGshOHGbVo4J3mvbjA1QRusdBF7nqR4R6Y5
+         3Luw==
+X-Forwarded-Encrypted: i=1; AL+hErE+LHbqCAB5vSDEfB/10Wr6Nfgc+e57PgPasz/g4YYN9S1zzUsANu/ftGCdnHDeaUB7z2lUEdVJR+PO9GE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9J5bIODYU/4hFhNgMJc/X+uaReqc3sOwxXtQ4P10FUqTm2xVl1
+	uE+pQWcUA5VNBvFcDVL6AUgkPErdYTN4UUnyeS9n9WdxF/UbUkDkb9V0weyEBbbW8hieP0QRyLr
+	jCrz9WoGk2gSNYpJAcmh7UN4zmrdnPlm7BkBAqlMbOts3jCa7cB6OTcZ4LQs9qC9RPMM=
+X-Gm-Gg: AYBFou0XkasW4itVn+EVisDSM4+bcXZTQBm0JNla88mvK67Mbxca+50F8xpMbiIEGx4
+	qp8/9ssSoVEFYAOuCX6Y6xvL7lrOfEpyd1w3TvPEU0n/aqmyNVz39HGrOg4ruLzAi36NACFYiKB
+	2g9hh8HyNuDOm8p/KxjOeRjdaVvq+gRtklqDHuOzlUyOEzL8XXzrWGWQIRSDWFo+w0+YrmlxgNi
+	vAq/dvxh29Sgc2kTK5a///EYPAXidu7IA0EV37D4Zitzq2itUZlxRlx9n01Gn5/YzWit+wlDqMR
+	NUVK0eYHE0UjKXLPgIwmksxLhW9aRFhxG7i5HeZezrKIsIqs3Jhj4pBmsvRr5GWUTIQ1T5yVGFH
+	dtgJkNDBwX0ZmJa4uzEzvpw1ap3ekFA1UQ8Siquof58QJDvtkvt4DDrXX1mXLhb99QvJ5+LfrcG
+	Cq
+X-Received: by 2002:a05:620a:27d6:b0:945:fd9c:b26f with SMTP id af79cd13be357-947ae71efb8mr46540885a.2.1794333107386;
+        Tue, 10 Nov 2026 09:51:47 -0800 (PST)
+X-Received: by 2002:a05:620a:27d6:b0:945:fd9c:b26f with SMTP id af79cd13be357-947ae71efb8mr46534885a.2.1794333106894;
+        Tue, 10 Nov 2026 09:51:46 -0800 (PST)
+Received: from [10.216.48.249] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7578bcc7csm1415476a12.10.2026.11.10.09.51.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:51:46 -0800 (PST)
+Message-ID: <3b00916b-d47f-4b37-8142-2d844993e7c4@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 23:21:33 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,112 +116,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105165525.011876858@infradead.org> <20261105170157.765325702@infradead.org>
- <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com> <avMeP-80bZz-zdtO@scheduler.schedules>
-In-Reply-To: <avMeP-80bZz-zdtO@scheduler.schedules>
-From: Josh Don <joshdon@google.com>
-Date: Tue, 10 Nov 2026 09:51:21 -0800
-X-Gm-Features: AclHuK8VxoIVTd1eeJUnM-J3Z7oTimMmBLy0hxjjDAIAlOxtMq0ebO4KncJJ5eg
-Message-ID: <CABk29NsBzdEYOdLqj9HsrCqO6RzW_G574RzY+=vJp+564R2u=w@mail.gmail.com>
-Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group preemption
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org, linux-kernel@vger.kernel.org, 
-	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, tj@kernel.org, jakub@okonski.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] dt-bindings: remoteproc: qcom,shikra-pas: Add
+ iommus constraints
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
+References: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
+ <20261104-shikra-el2-v4-2-97e7019debff@oss.qualcomm.com>
+ <20261105-bold-seahorse-of-reputation-8db98f@quoll>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20261105-bold-seahorse-of-reputation-8db98f@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: UKS5IP48BFSY43aZR1G9q7mkYR2n3qce
+X-Proofpoint-ORIG-GUID: UKS5IP48BFSY43aZR1G9q7mkYR2n3qce
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX70/zvBU1cVOt
+ Mw5yW9+J5Z4+/EvaIdfqCa02wKHhRjv3qgzERQQCXV6XwMRO+qY+yUXhbU+WBaSe2GYb87ib59x
+ luvhfcNSc2O3yTxSzjJixIU5TnbS6CM=
+X-Authority-Analysis: v=2.4 cv=NNpAaE6g c=1 sm=1 tr=0 ts=6af359b4 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=BJdym6yNp6BzvLZH3dgA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX+vtGHadrAj/S
+ PpCKYHU8Vm7lXDp3NuU/SZbcPgNYJidkka/YjyAaurbHCUQaD4eN1QoG8ILVX6alXnVq7AutTGU
+ Xnb9U8zQ6d9bio3VN+L7UbAJUhNFu/8ytJjFEabpNi2aOBSul/2qR0hQ7Xxes81ZAPJxV1iDCSn
+ y6Wlneinbh2tvoczPtPaZlwGqnKjkkCOZ1y+piksI0Yzr6iy+P3EmWZLakk4poDGi7ewNCA/AyV
+ yikahUsjP9ODUZAzeqJd+pg3/pHLnXHDXheE8++IdhGOI2u1nXHNBY9l1p/twR8eqdbc8eiz9zA
+ ZI83Y/y+OkUzGahGFiguG+pHCvtC1zWWTVuEH2TAmxd3G/GFQn20EXzTlzSHgXKN43FIpzmjOAt
+ u9/BcsWwIXRiiY2rEFwvxWCoFVJPQm2uP26o5eRRlu+3fMy6xh653nwtcv5D0d7Twci6SMevvy7
+ t+AFRbSSsoEeMHi1ZxA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100071
 
-On Tue, Nov 10, 2026 at 6:20=E2=80=AFAM Kayra Cizmeci <kayracizmeci@gmail.c=
-om> wrote:
->
-> Hi Josh!
->
-> On Mon, Nov 09, 2026 at 04:10:30PM -0800, Josh Don wrote:
->
-> > >  /*
-> > > - * Preempt the current task with a newly woken task if needed:
-> > > + * Preempt an idle entity in favor of a non-idle entity (and don't p=
-reempt
-> > > + * in the inverse case).
-> > > + */
-> > > +static inline enum preempt_wakeup_action
-> > > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_ent=
-ity *pse)
-> > > +{
-> > > +       int cse_is_idle, pse_is_idle;
-> > > +
-> > > +       cse_is_idle =3D se_is_idle(cse);
-> > > +       pse_is_idle =3D se_is_idle(pse);
-> > > +
-> > > +       if (cse_is_idle || pse_is_idle) {
-> > > +               find_matching_se(&cse, &pse);
-> > > +               WARN_ON_ONCE(!pse);
-> > > +
-> > > +               cse_is_idle =3D se_is_idle(cse);
-> > > +               pse_is_idle =3D se_is_idle(pse);
-> >
-> > now that se_is_idle() is checking for any ancestors with idle, this
-> > doesn't appear to be correct. Some motivaing examples:
->
-> So we want to keep the idle difference between groups with idle
-> ancestors? FWIW, I asked about this but then thought it was knowingly
-> and that was what we wanted. I'm still not sure what we want...
 
-cgroup properties are cgroup hierarchy position relative, this just
-maintins that behavior for cpu.idle as well. There was a more
-extensive discussion on this in the previous RFC, which is how we
-landed back on the find_matching_se() restoration.
 
-ie. user given a cgroup can sub-delegate portions of their job as idle
-relative to their main workload, but all of this still runs at the
-user's priority vs other users on the system
+
+On 11/5/2026 7:06 PM, Krzysztof Kozlowski wrote:
+> On Wed, Nov 04, 2026 at 07:33:31PM +0530, Komal Bajaj wrote:
+>> Add iommus constraints for Shikra PAS compatible:
+>> - qcom,shikra-cdsp-pas: maxItems: 1
+>> - qcom,shikra-lpaicp-pas: minItems: 3, maxItems: 3
+>>
+>> CDSP uses single IOMMU stream, while LPAICP firmware uses three.
+>> These are needed to describe the firmware streams when Linux boots
+>> at EL2 without the hypervisor.
+>>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+>> index 34a2f15e9361..8c8a7616d478 100644
+>> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+>> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+>> @@ -112,6 +112,8 @@ allOf:
+>>             maxItems: 1
+>>           firmware-name:
+>>             maxItems: 1
+>> +        iommus:
+>> +          maxItems: 1
+>>           power-domains:
+>>             items:
+>>               - description: CX power domain
+>> @@ -134,6 +136,9 @@ allOf:
+>>             minItems: 2
+>>           firmware-name:
+>>             minItems: 2
+>> +        iommus:
+>> +          minItems: 3
+>> +          maxItems: 3
+> You need to list the items.
+>
+> Why maxItems? What is the limit defined by top-level?
+
+There is no limit from top-level now, since iommus is removed from 
+qcom,pas-common.yaml and not declared at top level for Shikra.
+I will list the items for qcom,shikra-lpaicp-pas, with one description 
+per stream in next revision.
+
+For the single-entry cases (qcom,shikra-cdsp-pas and sa8775p, sm8150 and 
+sm8550 bindings), is `maxItems: 1` fine, or do you want a one-item list 
+with description there as well?
+
+Thanks
+Komal
 
 >
-> >
-> > Ex 1:
-> > regular task and SCHED_IDLE task both inside an idle cgroup.
-> > se_is_idle() will be true for both se's, and so the regular task will
-> > not end up preempting the SCHED_IDLE task, which would be the
-> > desirable behavior (the task is not idle relative to the SCHED_IDLE
-> > task)
-> >
-> >     cgrp A (idle)
-> >      /                 \
-> > regular_task     SCHED_IDLE task
-> >
-> > Ex2:
-> > more complex example with a hierarchy of cgroups
-> >
-> >           root
-> >             |
-> >           cgrp A (idle)
-> >          /            \
-> >      cgrp B           cgrp C (idle)
-> >         |                   |
-> >       task_1            task_2
-> >
-> > task_1 should preempt task_2, and the inverse should also never
-> > happen. However, the matching_se here are cgroups B and C, and both
-> > show se_is_idle() as true
-> >
-> > I can think of two simple ways to fix that, either seems fine
-> > 1) use the existing se_is_idle() check for knowing when we can
-> > fast-path skip the whole find_matching_se() business, but when we do
-> > find the matching se, rather than use se_is_idle, use a more targeted
-> > helper that directly compares just those two entities without any of
-> > their ancestors (ie. for the task case just check if it has an idle
-> > policy, and for the group case, just check tg_is_idle())
-> > 2) once you find the matching se, just compare the ->idle values,
-> > since if one of them is bigger (by at most 1?), then that one must be
-> > the "idle" one relatively speaking. Handling the task vs group case
-> > here seems a bit messier compared to the first option, so my
-> > suggestion would be to go with the above
-> >
-> >
-> > Best,
-> > Josh
+> Best regards,
+> Krzysztof
 >
-> Cheers,
->
-> Kayra :-).
+
