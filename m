@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330637;
-	b=DRExAYPCc6I5lo2yPJxv6erpUpBWSF+kWKO272umZd1vLj36GweOAxtQ8vddmpZrAxYy
-	 4iihNZbYFAFSI8LLn/DcPiP43m7ZMvUUFiAemdfXP8zCUCH1zaAvcO2Jq7lCb/6DObgpl
-	 PwpYXVhjLWAgFtBpe5KQPkf8PMKj2Kgcpze6o0uQS+HwhA+MyWwDxIpglIZ39FSOxb2/a
-	 Z5e+pUwtJUTrETfVzN1rQpN89Sk1KQYrXQv0ZvT6FCl37aUyVbF7m353kVcR+AQs2mapq
-	 7DWVTJnQLC1k5xOMX7aGu+anyXqRaUaABqgshRcvHZ4v9brVK3QWWK8Zkj7h2vsXQGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330637;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=przLLxAqFqjpDdZgtU4TWcmHK4UDhoFC4j8tCCnZGaQ=;
-	b=3gyxuKEfSL50xLNmgoEQvHxozW+KGBgjSpcrcgh+S/5kJJFGA2E3HSndmNp9eDnPDbNe
-	 q2e51vfkWpCEuaWXa3t/L3JsM6bC3I3r2brSLSjVQ6gwUjBGAcw1uKAXLa6ydNoADKVXR
-	 ia7zTS2XZEWyojHzILoXmW5fphidCvdXJhaY/6V9l+qNO+uDxr82xUDH42vso6vzxrcGh
-	 8EEgIIU61h8f8qzd+eAMexRSIErNaYg0eNAsID2fexkcZ2fbj8yjnu7q0QjFhO95fSxwM
-	 cldVr5GIY2FHjeWEUEt9z2/mqmn+j5rSAgBS/xUQ89cVo1kYNBgSj5sROTvSbGIv9BA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbfk1z6W;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794330680;
+	b=Ylij6QCLnPhGxe5UTm/jox+ICBfaj1A2xAjXYI1dyWCnUecwBJA1OafnUvfM8S9yuiBv
+	 GIRwdrKhTWJiLLvE7OzNAb86HDrjI1TJSN1p5vWOA3VlIEDM5DTut4ecIqBzcVLx+OmR8
+	 B77MpZaF/pd1XGmO17zzgHOXpvVEVoTPwl3b9Q4mp/0CmErCOzHcNAr6e299mxnw4R5HT
+	 m8VCjagI8ZAe8VWIgHkX24vk2kwsmc35QB9Te5QRJtgc6IhBUntIsBDDBRP3Ay6klh9Tg
+	 uWIYKknZ8bmUm2ZrLV6Ft9981q3xA2QsUBTTq00tbTUm9pL+FU2pSY0kYyBd+hsTLyQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330680;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JD64Ud7a3qHc7EvaTpRIa2pxyb3pp+K7JU5At4Osxfo=;
+	b=eqeW6oPTHeFUZhDSGgQP6FIGcVUf2tYWSmS2HE2NDmgi17J80xIvtKyLgsuQ6Bgv4d1G
+	 L1zlqbog5NiuuAW6yesc84B2jUWexLMw0q3UFL4DRmsGfWLdW2iGMy2p0+UZEqpBmdELn
+	 4pEJsa1civgNIOElZf9a0tO0jxjRg2o+puHxq/kfyIhNh43+4SfdXQXonSxhHDfvpbfPL
+	 b8fufG7dg4jJRfV0a1aQqvSiEBXDHmbjwOW5qiGIUEliB9CJOQKLFlyhUKeUSn5Iek+L4
+	 AAUdJQB9OVNqCIn7N3IsbbMOkKReJhTR21qpMjyBeWvO5J+QKZZs6VfdTdTBLj1wnKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FxrKUzU8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244A0606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB36C606A31C;
+	Tue, 10 Nov 2026 17:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbfk1z6W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25801F008A3
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:10:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FxrKUzU8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794330679;
+	b=tJiS2txvWvl9sTQjmHlzlcavYhgvA+FQVwxmmGWBUelkEhb0wLfWePRYIZ7RnB0zPM9r
+	 YyRzK9mx5e1KqJHIgOY1uR+RJTrKWryzAyaOl4E86q2E+SW42lpLbllQz4Hm4Egs5IGb4
+	 w9hbLSsLVSmzKmoM52Nj5EH5FEu57WDL+DF09IIJfpIoB0wAzRxQsKBgbYSCi0bH73RdP
+	 3KjBgY71J/zmgMxgP/3ZdJ9NzhMaIEHbDTEfBU7GZ+fBC4fvmY0whP+T/xJa9XeUc0keD
+	 eYEBDiZV7TjDXo1+IgBskXbGTPNosqH6VHxZVLKzo4MLdT5a5Tj6alq1+67G39oGz+w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794330679;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JD64Ud7a3qHc7EvaTpRIa2pxyb3pp+K7JU5At4Osxfo=;
+	b=jn0Xk2sKpv8tn2aFXR0vZihllQkx3bt3G2DIRqhWUp9VBrjy3sCzIYZZh7ZnW+HRQPBH
+	 BnaYJSJyYN52Ec9505OSVkk1Ga4Z4+oZws1Jt4dJC4AMjozNnDc1eA1GncsjX5WZnI3hk
+	 oKB/NRFeFivP4zRxInytW9n2CocMU8gEL/TG0WouuZ8RLGYUgyQX/hYqBXhXPWSwi2hqZ
+	 VzlzmAOqNlDeI1ykyy0kLYABahrnAmT7c7OcSAEzQDNpyufTyLUNopF06IFOhgmKqreuG
+	 ICM4gMB7T9tAeHek34iCNUs0DhYgmwddmGJglH+sGJsLl40HId0kVcd4yHUeRQBXFPQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id ECDEA1F0089F;
+	Tue, 10 Nov 2026 17:11:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330636;
-	bh=przLLxAqFqjpDdZgtU4TWcmHK4UDhoFC4j8tCCnZGaQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hbfk1z6WpzUrIO1EAAZQWi4nOjH/1V2YeFK8X+dld2Yt2c07hZRfPl8UhEAzVNtqX
-	 6qe+pzgHyVRW0MsaR77Q1GI8QzWmHmySYcwKkxn6eaugbU0FKCm3spfNzprEWayuBR
-	 Dc/HJN6lpMqnEC1fMSfgGGDxGxbj+KSUn6TjkTkU36iJp1VaYhHI8lGxvqkV3iyEfP
-	 b65RqtvpOr85l1t9ObninIYhXQYu3cxVgXMYbaseduASqkKfpxsnKYL045CYECEzsV
-	 FTM1QeExIXCc9/2z4TaGSQICMQmcIH4UQl8pRyLb1zgepZeOoDClyfmwbIShhGh/Pf
-	 qijr9rX2ItIOQ==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3adfe77d35aso18409231fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:10:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFKMh0CgCxdXvjfuOUtq+5lJYr2Pv3GEPnDEJOy8l3vagN3iY8Hep17TBC76abnI9/GhCCxfyDDU6XbI0E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mTm7+KoEtjIyk6HGWM5FwSZn1+NOHyiEvT8DI906bo3kpey26
-	MTgCcBtW3RRTNUmpTYZuGZiSN/4wq4HLJXYBPhp4HrZilSPO33PA/blh1cURIlWpkFc3YM8Nxaj
-	wfJnzadP+V1rns2E61JucbJiyUwdiVlg=
-X-Received: by 2002:a05:6512:1288:b0:5c0:b5c:4052 with SMTP id
- 2adb3069b0e04-5c156e37b7cmr1034036e87.2.1794330635114; Tue, 10 Nov 2026
- 09:10:35 -0800 (PST)
+	s=k20260515; t=1794330679;
+	bh=JD64Ud7a3qHc7EvaTpRIa2pxyb3pp+K7JU5At4Osxfo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=FxrKUzU8vVuhy7ylN5Kl1tZZcNS/y0NEl11bn60auuRfyMYft+r60Gx2Esl93UdEa
+	 u7wGTtCdTBAHZM1BVkNN7tlyqFwSVstTd6CfXkPA177QZ5NZsq4fudV2QMrBpPMQ8J
+	 1lSDLFrAluayNWEqGZSOYLyaJArChPXz/5OvioGz3pmaT9glnunwXq54kmd0gVFF0e
+	 m/baqQEpClM0jsZ/a6+RYRswm2LhbalMRVv+5j8piSmGScczMkLWs58IgNLO9SebB1
+	 nPZ7KxyUNs9BL0XI0rJwRXoVVx+QeiXhtdcs6ATBUEFN369dE1728JwsE/6/3AjVjt
+	 A+hm+ixoRrsxQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7D6DE48C22;
+	Tue, 10 Nov 2026 17:11:18 +0000 (UTC)
+From: Seonghyeon Lim via B4 Relay <devnull+forfortuna.naver.com@kernel.org>
+Date: Wed, 11 Nov 2026 02:11:13 +0900
+Subject: [PATCH] can: virtio: fix virtqueue use before DRIVER_OK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,69 +82,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031144115.4189-1-zakat1984@gmail.com>
-In-Reply-To: <20261031144115.4189-1-zakat1984@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 18:10:22 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0h+hO6Vb3fw=VJeZ0PNAHMv_TtUSUUBy04xV=wKwGQqOA@mail.gmail.com>
-X-Gm-Features: AclHuK9kE2PCOKFFc9C_M4-O18Red5IDQN9yUpwGjs2Ud0CSIUQUEgtFAYYck_Q
-Message-ID: <CAJZ5v0h+hO6Vb3fw=VJeZ0PNAHMv_TtUSUUBy04xV=wKwGQqOA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: resource: Do IRQ override on MECHREV GM7RG7M
-To: Andrei Galiant <zakat1984@gmail.com>
-Cc: linux-acpi@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Len Brown <lenb@kernel.org>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-virtio-can-ready-v1-1-0b4dd020af0b@naver.com>
+X-B4-Tracking: v=1; b=H4sIADBQ82oC/yXMQQ5AMBCF4avIrE1SgjSuIhZVU8aiZIoQcXfF2
+ 32L918QSJgC1MkFQjsHnn1EliZgR+MHQu6jIVd5lcXhzrLyjNZ4FDL9ibq05JxTldEFxNsi5Pj
+ 4kk37O2zdRHZ9O3DfD8XMF5F0AAAA
+X-Change-ID: 20261111-virtio-can-ready-85cefff06a84
+To: Harald Mommer <harald.mommer@oss.qualcomm.com>, 
+ Matias Ezequiel Vara Larsen <mvaralar@redhat.com>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, 
+ Mikhail Golubev-Ciuchea <mikhail.golubev-ciuchea@oss.qualcomm.com>, 
+ Francesco Valla <francesco@valla.it>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtualization@lists.linux.dev, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jason Wang <jasowangio@gmail.com>, 
+ Seonghyeon Lim <forfortuna@naver.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794330677; l=1943;
+ i=forfortuna@naver.com; s=20261110; h=from:subject:message-id;
+ bh=MJAobe4rPXYioFnUfp9+XUMNTxBij8wL6gfGu1JqKaQ=;
+ b=E1tjMRm3+lNVL2OwfvqZKG7Q0qtbt8SWyZ1IIFGIkPNrZN1rDFwRWWcxA8zCPaJbUwq2c0pta
+ au/rzScbiSpAZ3U57rYO8ZM0v+Qsd863Ysb4r0+HahDb4KjqAiFl424
+X-Developer-Key: i=forfortuna@naver.com; a=ed25519;
+ pk=NSzj4ReyzmE01C4q/f+7jqXzWqsN5NwQK5UsSI6ufiE=
+X-Endpoint-Received: by B4 Relay for forfortuna@naver.com/20261110 with
+ auth_id=1481
+X-Original-From: Seonghyeon Lim <forfortuna@naver.com>
+Reply-To: forfortuna@naver.com
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 31, 2026 at 3:41=E2=80=AFPM Andrei Galiant <zakat1984@gmail.com=
-> wrote:
->
-> The MECHREV Jiaolong17 Series GM7RG7M (TongFang GM7RG7M, Ryzen 7
-> 6800H) describes the PS/2 keyboard interrupt in its DSDT as
-> edge-triggered, active-low and shared:
->
->     IRQ (Edge, ActiveLow, Shared) {1}
->
-> The keyboard controller actually asserts IRQ 1 active-high.  On AMD
-> Zen systems acpi_dev_irq_override() skips the ACPI IRQ override for
-> GSI 1, so the IO-APIC redirection entry is programmed with the DSDT's
-> active-low polarity and the interrupt is never delivered: the embedded
-> controller still scans the matrix and places scancodes in port 0x60,
-> but atkbd_receive_byte() is never called and the internal keyboard is
-> dead under Linux, while it works in the firmware setup, in GRUB and in
-> Windows.
->
-> Add the board to irq1_edge_low_force_override[] so that the standard
-> edge/high override is applied, matching the already-listed sibling
-> GM7XG0M (Jiaolong17KS).
->
-> Fixes: 9946e39fe8d0 ("ACPI: resource: skip IRQ override on AMD Zen platfo=
-rms")
-> Cc: stable@vger.kernel.org
-> Tested-by: Andrei Galiant <zakat1984@gmail.com>
-> Signed-off-by: Andrei Galiant <zakat1984@gmail.com>
-> ---
->  drivers/acpi/resource.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/acpi/resource.c b/drivers/acpi/resource.c
-> index 56df459..0a944ba 100644
-> --- a/drivers/acpi/resource.c
-> +++ b/drivers/acpi/resource.c
-> @@ -553,6 +553,12 @@ static const struct dmi_system_id irq1_edge_low_forc=
-e_override[] =3D {
->                         DMI_MATCH(DMI_BOARD_NAME, "GM7XG0M"),
->                 },
->         },
-> +       {
-> +               /* MECHREVO Jiaolong17 Series GM7RG7M */
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_BOARD_NAME, "GM7RG7M"),
-> +               },
-> +       },
->         {
->                 /* XMG APEX 17 (M23) */
->                 .matches =3D {
-> --
+From: Seonghyeon Lim <forfortuna@naver.com>
 
-Applied as 7.5 material, thanks!
+virtio_can_probe() and virtio_can_restore() fill the RX virtqueue and
+kick it before the device is set DRIVER_OK. The virtio specification
+does not allow the driver to notify the device before DRIVER_OK.
+
+In restore, if the interface was up, virtio_can_open() then sends a
+START control message and waits for the reply. DRIVER_OK is only set
+by the virtio core after restore returns, so the device may never
+handle the request and the wait never completes, which hangs system
+resume. In probe, an ndo_open() right after register_candev() can
+likewise send the START message before DRIVER_OK.
+
+Call virtio_device_ready() before the first virtqueue use in both
+probe and restore, as virtio-net does.
+
+Fixes: 083082a4e6d8 ("can: virtio: Add virtio CAN driver")
+Signed-off-by: Seonghyeon Lim <forfortuna@naver.com>
+---
+Tested with QEMU 8.2 + vhost-device-can: with the CAN interface up,
+suspend/resume (pm_test=devices) hangs without this patch and
+completes with it. No new lockdep warnings.
+---
+ drivers/net/can/virtio_can.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/can/virtio_can.c b/drivers/net/can/virtio_can.c
+index f67d0bf09681..ae35a00b784b 100644
+--- a/drivers/net/can/virtio_can.c
++++ b/drivers/net/can/virtio_can.c
+@@ -912,6 +912,9 @@ static int virtio_can_probe(struct virtio_device *vdev)
+ 		err = -ENOMEM;
+ 		goto on_failure;
+ 	}
++
++	virtio_device_ready(vdev);
++
+ 	virtio_can_populate_rx_vq(vdev);
+ 
+ 	err = register_virtio_can_dev(dev);
+@@ -966,6 +969,9 @@ static int __maybe_unused virtio_can_restore(struct virtio_device *vdev)
+ 		virtio_can_del_vq(vdev);
+ 		return -ENOMEM;
+ 	}
++
++	virtio_device_ready(vdev);
++
+ 	virtio_can_populate_rx_vq(vdev);
+ 
+ 	if (netif_running(ndev)) {
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261111-virtio-can-ready-85cefff06a84
+
+Best regards,
+--  
+Seonghyeon Lim <forfortuna@naver.com>
+
+
