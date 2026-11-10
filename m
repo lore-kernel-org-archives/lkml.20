@@ -1,83 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337392;
-	b=Ngxaue9bzOMIj9SM1Nm4oLHSQg57oCbrexyvhJEnqrtqyI4As8lZdR99RTgN009Aaw+L
-	 QrOWkRUA5iz3hOC/sHq3WFqRYWf+1ifUrTErrgK+IYdZwAs/XsOGnzVx/s0NZ9ErXIM+T
-	 IZcm6P+PVc5E04w6btBUHYLJSB0iu23K4aw/bPZZDEAi08/jRDLZR8aN8Fwt8sE+Hz/Z5
-	 bhyvt2W2glJmWd16K5KGMdui8VSaSWhjfuV9HGmNH7HqKdbdrVbqEPIMdILwWhi98NFuh
-	 X1ban9DLNVBwMpkt+jLAfw6Q5KlDfGq47umfq/DryTLI5hpSnzed5aNPflg8W4aJ53Q==
+	t=1794337441;
+	b=rZs28UQfRsUrVTt5ARwlGAzr1c7cls6lXHvEkIiHsjlet0NCwK/tlzB3PxIUgByOP+m1
+	 73g5r2+L0yj6Zu4kl9wyurodi3APeO6Hqcrm8nPsJCb1+ohl0im+8LvS4Gkq1GLeGQU4b
+	 eCo4JqmuW9hWw6Ypt5U9lNZepCEBYcfgdVuGLXAW//NMmcS8a+3oipuk9DVGkkbbrUnRJ
+	 N3O5YDnumzn4T/JhII04KIXRcUJ0mDnV+WSLvZVskVWA2vupvCH8LkMX1C9tjpB/y1wEe
+	 OuhkRjc4vTGOkPnzXJcBIfxNzKv+dAx7wpzz3BnHHud7eZbaTic365qu/1CUm3pLqyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337392;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=bekQ0kWwdLRAS0Ig0iEy6992/HDQ2m8y9hYfsYqrh/c=;
-	b=3BrstzuPHRZKxuO5AdTW13CxKbS3phspri7Qd6B99Biu3WQtYVR0lpu/dPUb9nqF1typ
-	 rPQupD73j5Mj8a23oLB1O6I/eK14CBTVDukte6Iw87STu2UvK4AYVVjlKg594w38ygawC
-	 lP5YRW4J1sG7YUC72E8GElljfckJpZZY3WX4VkTB1EIr+hjlTqD+FYoDgQgfTnWzB8gQi
-	 QtQaZIkklGJAus0SCc/cpLcCI4Cx/MmnIyb7jcA7CCSBMGzlm1ri9ownOvwPSWGM6AeWF
-	 cBf5FKpqjjPzXynQfhluUddA/e1O697RkVppUV4gYQCTX4WCBc1OA2C3VxAIhickRlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337441;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=y7OEPRzVAkT9KxrEHaCyuc9a3WhCwxEMUn9niA8KRjM=;
+	b=HCX2mu+gCE2f510xei2NvVcyyN93wOhMA4wY52eTvVv8c+Y1hvJ083ew7pXdlNr875aS
+	 lxXrlcqpd80r6U7DIT8vXn1s6mdk49gyV0HXB3w2M+JayRm6mcYxu+GhExKH7IrcRof31
+	 XVmzjqEsPQTQaeRNtTe/j9kWRKgK28MoR3NV9Lm2zWkXlkNLk4GTizfSJebrLcz1TKNnS
+	 5G9ZW9OfhfnftOwA7Pkkax37oz1Mye/kERkZCLRS7HMPzSkIM/CXirKLftGxZlrSqVjEx
+	 awNOs/ncb2jk3QaJBHxUkBjt86P9Ju8U4LuVwfjc7U5pEc+LhiRVYOV3mxgj+aaUFGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYddgtLb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87107606A321;
-	Tue, 10 Nov 2026 19:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYddgtLb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FA241F008A1;
-	Tue, 10 Nov 2026 19:03:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337392;
-	bh=bekQ0kWwdLRAS0Ig0iEy6992/HDQ2m8y9hYfsYqrh/c=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=hYddgtLbSEF2hew9xCqpEA8t7m3zVPJ2cSJ++Bm2xcEs+eWPjE0niEKK84RTINEDr
-	 7xRSHw77d5sAHIR21msrfdLWObmYMUAE13+ZjgITPaJHuaEWcW+n+mvkQSYaxCnVfw
-	 Ls21375DT3tFUcDJxD2m6E2EMLxZRiqxpiY+NvYNrLmRrj115x/7ukJpgduZaCJgVz
-	 UfblOgLqwLJaN0un1NR16UxJEkBENKJ8hwGerneD5K7xSybPUKvlh5kXrtQLGzNZrJ
-	 +m6Rs5732a6/B0RLMryO6wEMx/8iFylUc7a8Q7ZX5OmYCNxhR4IHqHEKXUPDQA8wzL
-	 M2UeAz4k2OWTA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id DAD95CE0AD8; Tue, 10 Nov 2026 11:03:11 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:03:11 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org,
-	Boqun Feng <boqun@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	rcu@vger.kernel.org
-Subject: Re: [RFC PATCH 00/12] RCU pseudo-transactions
-Message-ID: <06b1b844-8c2c-4199-b8ca-5d6e21cb1c58@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
- <20261023181940.457424-1-puranjay@kernel.org>
- <f785237c-ee5e-4ad3-8ee9-79474f5f45c8@efficios.com>
- <9667c08c-333e-4fe5-9812-c5ccaa183e36@efficios.com>
- <853d8469-94a4-4b33-a0d5-d6d2138fe3ef@paulmck-laptop>
- <597586c9-35ae-43bd-9b79-7abf62057838@efficios.com>
- <3cb75140-1d10-4de3-86e6-c9d70edd2da5@paulmck-laptop>
- <84fdca577207092bd16fc8f3949c9b7a776750ba.camel@infradead.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D8B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:04:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D8B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso2837662b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:04:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794337440; x=1794942240;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=y7OEPRzVAkT9KxrEHaCyuc9a3WhCwxEMUn9niA8KRjM=;
+        b=n57d3x53HTaXAeXwrfoqstz6uoWYJYbIus58xPW5B2oqsQtA1CJjUryypQUC4FuAtb
+         AbxMGw0ZgBTTQXGWvMeZmFpzSf2R3Dop+sITQNoTB6Au2bdVn3SDzEIM6ryJ/M9c9j8R
+         4ue8i5YXBrS9gbS6J7qId+QN4QimlqRn/olRQ779X4qZzNDidnO91X6QxNMxT3e6v8lS
+         MBC+QLnc7gPu6c1G61oCYHTxd1uNMzWYOA8wRarznyKizkwdnSjMevlGE90pRoETeUMc
+         emCO0/aPev2HT0MpA6/VJe78OOK+SMjE+mO1kZnrOXpc7s1VhmVvzWVuA8AA55asT33q
+         JmFQ==
+X-Gm-Message-State: APuU4Z/IjjbvvziUbkOmgkgcXHYQLl2tLBKrvjInV2BfeRh8doQLQ3v6
+	Xg9gwVEQBG6nXZPTiNo/NjNMDvhV75ni6hWtWht1+999VmFutGGffb3RE6jcz4W0SCVlJdzzW7b
+	FfbTyb3N5G2r82YXbX5j4NLlf+VJftxeDWXiGQNY/GeeKGYzDjjqo7R3zn7Y=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,34 +57,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <84fdca577207092bd16fc8f3949c9b7a776750ba.camel@infradead.org>
+X-Received: by 2002:a05:6808:4441:b0:4e5:c2b4:33a3 with SMTP id
+ 5614622812f47-5683cd3d8c7mr2623847b6e.45.1794337440340; Tue, 10 Nov 2026
+ 11:04:00 -0800 (PST)
+Date: Tue, 10 Nov 2026 11:04:00 -0800
+In-Reply-To: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af36aa0.17ff5aea.1b027f.019a.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [block?] BUG: unable to handle kernel paging
+ request in blk_mq_complete_request_remote
+From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 10, 2026 at 10:49:03AM -0800, David Woodhouse wrote:
-> On Mon, 2026-11-09 at 17:34 -0800, Paul E. McKenney wrote:
-> > > Could the atomic flavor count its readers as srcu_read_lock_nmisafe()
-> > > does? Then a reader could also enter from NMI. The code I have for the
-> > > next version keeps one counter per NMI nesting level for this. With
-> > > SRCU, the sums of locks and unlocks handle the nesting already.
-> > 
-> > The other user that I know of is David Woodhouse, now CCed.
-> > 
-> > David, would you be OK with srcu_read_lock_atomic() using NMI-safe
-> > counters, similar to __srcu_read_lock_fast()?
-> 
-> I can't see any reason why I should object to that, as long as the
-> synchronize_srcu_atomic() stays in the 4-16µs bracket which was our
-> major criterion for this approach.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Then full speed ahead!  ;-)
+***
 
-> I'm still iterating on the KVM GPC use case¹, as sashiko-bot keeps
-> finding things that my own local sashiko runs don't. 
-> 
-> ¹ https://git.infradead.org/users/dwmw2/linux.git/shortlog/refs/heads/gpc-srcu-v3
+Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
+Author: nenkov2004@gmail.com
 
-I know that feeling...
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
 
-							Thanx, Paul
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -538,6 +538,8 @@ bool nvme_cancel_request(struct request *req, void *data)
+ 	if (blk_mq_rq_state(req) != MQ_RQ_IN_FLIGHT)
+ 		return true;
+
++	if (!(nvme_req(req)->ctrl->quirks & NVME_QUIRK_SKIP_CID_GEN))
++		nvme_req(req)->genctr++;
+ 	nvme_req(req)->status = NVME_SC_HOST_ABORTED_CMD;
+ 	nvme_req(req)->flags |= NVME_REQ_CANCELLED;
+ 	blk_mq_complete_request(req);
