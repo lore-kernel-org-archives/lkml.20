@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333292;
-	b=NPTzO9ii+buqUSV253wWCwjDYzrjFzjY8G6eLUABzI1PlYvtu1N8gvl21tbr2QnLxRjn
-	 zQqxXTbnMrBKterkQDROgbtlEU0USTXEhFN0tksDE4JYJfZXQr7hUdFnSZF/asjGxU9WF
-	 5tTGpFCht9/+Ex6BVsyVoHTZhVDkfk8TtviLm8JPQMZAYVIkBhRa5kGERTYGJp8iY46Sg
-	 c19Px0fudSs6gEQ2Q7bk1fg2LxFDhjRlyGBZgkrcIXOrfZ2aWs/foVWkaK1526iuM6i+U
-	 ktmvriH/GcAAviVL+EL60Ec8QeSzquUG5Aq2MIklrqxQ7OKZX6g+2UMNAaqtaAk6tww==
+	t=1794333295;
+	b=nar3x58OpLCRnYuftOs6Pbb7mhoBDmZxlk0qVwbWLFvZgZ4WFmBT3GWuAQgeLjpteolL
+	 pQlyq0kkI9kwkQyGbhpunPYHXEHaQ4GfwObcMbsvROu9bUiY1azsm2ahyt5vZSfkrvwHM
+	 MtIsdRAXhB+z2FERE9uUEInB3ZqAfF1h+57vTBVUEtYTaorLFoNN8ofeCVxOgkRRaXjxS
+	 HU6mmL6z651igFd60/iI7dMytEEAVo7fSUoypn1JSuURrd+ztnfikWKUs2kGLMgJ/hNpE
+	 K7hndWv5zRylJKCosL4hA6Mj+V3As7qU5VVnu/26/cNowoWtIrQZeqv6oPKxe/6QIiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333292;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=zP8fZhrxg38D3pFbn2ZYa3+X1FsyIW75yZtjJDJNluE=;
-	b=wpGB6mVJKOjmqUhHwuuEkPfC6bNxB85xGIk2yRVCI5F1q9huWxRO0FCFIIV8Bttb10hu
-	 DWhkoNlUWsJ/sCP3uwDwharnffpORiLOPbZIb9j1vuIbq/udxpykWI3tmFAlwbOpsiPUz
-	 Jb4DalHh6tahqvuHR3CFaMzQViwbe9V3QLG4Gmw7bLVtx8h6VCryLEpehY830tfHuR1UB
-	 s0+7L0KVFhQTs0z56MgqW5lekDSsyMqwKoSaYJzobg1iIYQqRxD7G6XIydKQHKaplywmj
-	 8DuiJrnDnisat5RP7D7+77XiojGpG8ldRWwUbSYFfIOvqkmB2ZO0gLnfQLfcTx+SEEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333295;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DVguc/JEfu5tg9eL/EvmKXFDpXmh7ZbHiCLJmkzT58A=;
+	b=W5yEzNdHap1hRrTdjzfmUN9myqe2MGVRBT3hC4YpKYnsxAvXezm+0n5vxPqLPCdKkKEq
+	 8Pyw0OBcM7U+f3o+qYx//9rCBauguB47ZL35kJG9VOPKppcaIxF+kE6qo4+gKotchbiEF
+	 SA4YNkvzk2mvh/D7rndYHyT2jdxrq/3PiwN6JJKy1L6rbbG2jMsh8looIlOACts9RnJ5f
+	 rgY8Cd4B02DXNC9LtHQeEYkIyxlpnzXGX0UACP2JtKrC2JTQEvt1cnybexATo7hNuwY4v
+	 luMhva8eAHKUsJmnvoopl857i/AAqbyqR/Ml9tR4TX1UcpZpd2iTcNIgSIVXS6zGVgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LezZI98t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsJWDnyt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CB606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE5E60A5BEB;
+	Tue, 10 Nov 2026 17:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LezZI98t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC541F008A2
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:54:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsJWDnyt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11381F0089F;
+	Tue, 10 Nov 2026 17:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333292;
-	bh=zP8fZhrxg38D3pFbn2ZYa3+X1FsyIW75yZtjJDJNluE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LezZI98tbPwmX7d/tmK6BKDrV6DLNiycu1iZ6LfFbbo/9IO776NupBdnknIhOWVgU
-	 JEtOjNSrDl7GREUDKDOPmDnXwtRKuj+moEnyO0w8glM7uflfO7cMIUNNjwIYiEZBhP
-	 6oOWz0+tKQHzVcKpgIScFteJjuee0uSc0mGV/J8Ef9ITwAAZNXb4EUiYmow02SxdU/
-	 uCHUShtJZ718/AhB1/oxv0XEfPmlLhbcM5n9nMpvqHvH1WNyiIn9HquADHpMup2lI7
-	 RI+JdBEV/Fha4qYEUANBvYmo6C66c9cGICdF60gWTcQFNprEtCCX+5kTYtP/EJ3nRx
-	 wMs4O+ZYNl+aw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so2355085e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:54:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFyTq7K6qYiaRjrwnAv3CJL+zn1MLIn7lZlk03jsfZfYBQcHZbv6XefNKPCv/+2hypIiJyBjndU6V3wUM8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JpcEF/izilD3jFveDi/x3ZGxiOO+SpP+AO5vqw/NHYd1U/oKD
-	VWtxNK7vFLPAsOgAPgcJBJDDsyIMjUioYXDIIzbJFCDcIWrLPg5tGnqvuWo+FTdXIr/HBfyoL3l
-	hWEWpLgbNy8mTmZc5m8gg0jV+D79e+6g=
-X-Received: by 2002:a05:6512:3412:b0:5c0:b5f9:2f2a with SMTP id
- 2adb3069b0e04-5c15c7faf64mr95400e87.13.1794333290746; Tue, 10 Nov 2026
- 09:54:50 -0800 (PST)
+	s=k20260515; t=1794333294;
+	bh=DVguc/JEfu5tg9eL/EvmKXFDpXmh7ZbHiCLJmkzT58A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LsJWDnytPzC4b4TwtpmQ2p6dTKAVt+LKt+JO+6Vmzd9NizDFA0CIHwNQQ6AIuX4/s
+	 SsGTjIMoGEYGYylrqoqSC+7pD6ePrIPrGXJ/520xx80j0Ql7SBWVpDJf3DtsxqizKW
+	 bReRmSA5r6Wl8lV7mPGzizz1wCU2+osYEV2X8hfHa7RUOSOehY5aQt99e9AubhQEU4
+	 VJEKYSweUPlLKcytgU8QsynZnIPhbJAk3JLb7GZ2+2LoHy4k2kZbtJi9wK35oUAk1X
+	 2Ok7oUtnc927IbYmHbFNH+FFFIGb7CkRnghD9SonhReAdd5Z5TGgUonzhSXXx7Nt2W
+	 Rvs0IAMzNsUEg==
+Date: Tue, 10 Nov 2026 11:54:51 -0600
+From: Rob Herring <robh@kernel.org>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+Message-ID: <20261110175451.GA833369-robh@kernel.org>
+References: <20261105100322.37816-1-tanure@linux.com>
+ <20261105100322.37816-3-tanure@linux.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,85 +71,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107-0d0c29e10a-acpi-configfs-1@mail.sdu.edu.cn>
-In-Reply-To: <20261107-0d0c29e10a-acpi-configfs-1@mail.sdu.edu.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 18:54:38 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iN+GTaSs3G=Kbq0u6FCh_eVX2K2W1zCnjM2fNUCTfpmw@mail.gmail.com>
-X-Gm-Features: AclHuK8TooCU38iQ53MAGHHLcecMhnYdHtStqZsVlht5Lfzj1Xnxt_2S48imf44
-Message-ID: <CAJZ5v0iN+GTaSs3G=Kbq0u6FCh_eVX2K2W1zCnjM2fNUCTfpmw@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: configfs: Fix potential table item leak on removal
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105100322.37816-3-tanure@linux.com>
 
-On Sat, Nov 7, 2026 at 7:54=E2=80=AFAM Guangshuo Li <liguangshuo@mail.sdu.e=
-du.cn> wrote:
->
-> The table item type has no release callback, so dropping its last
-> configfs reference never frees the allocated struct acpi_table.
->
-> Add a release callback and only unload items that have a table.
-> Keep the AML buffer alive: ACPICA retains installed tables after
-> unload and requires the caller's buffer to remain valid for reload.
->
-> This issue was found by our static analysis tool under development.
->
-> Fixes: 612bd01fc6e0 ("ACPI: add support for loading SSDTs via configfs")
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+On Thu, Nov 05, 2026 at 10:03:17AM +0000, Lucas Tanure wrote:
+> The T7 has the same ethernet glue as the G12A but needs two clocks of
+> its own. The controller reaches memory through a pipeline stage with
+> its own gate; nothing else claims it, so it is switched off as unused
+> and transfers never finish. The glue registers sit in a block clocked
+> together with the MDIO multiplexer, which probes after the controller
+> has programmed them: the writes are lost and the port keeps the
+> bootloader's delays.
+> 
+> So the T7 gets its own clock list, without the timing adjustment clock
+> it never uses. Its delays follow ethernet-controller.yaml: the PHY adds
+> the 2ns, and only the receive delay line offers fine tuning, so only
+> rx-internal-delay-ps is valid here.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
 > ---
-> Validation: Changed-object compilation passed with W=3D1 in the recorded
-> configuration. No hardware/kernel runtime test or full linked-kernel
-> build.
-> OpenAI Codex assisted with source review, patch implementation and
-> commit-message drafting. The submitter has reviewed the changes.
->
->  drivers/acpi/acpi_configfs.c | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/acpi_configfs.c b/drivers/acpi/acpi_configfs.c
-> index 6071699c7165..89ef17d5d5a5 100644
-> --- a/drivers/acpi/acpi_configfs.c
-> +++ b/drivers/acpi/acpi_configfs.c
-> @@ -199,8 +199,21 @@ static struct configfs_attribute *acpi_table_attrs[]=
- =3D {
->         NULL,
->  };
->
-> +static void acpi_table_release(struct config_item *cfg)
-> +{
-> +       struct acpi_table *table =3D container_of(cfg, struct acpi_table,=
- cfg);
-> +
-> +       /* ACPICA retains the table buffer for possible reload after unlo=
-ad. */
-> +       kfree(table);
-> +}
-> +
-> +static const struct configfs_item_operations acpi_table_item_ops =3D {
-> +       .release =3D acpi_table_release,
-> +};
-> +
->  static const struct config_item_type acpi_table_type =3D {
->         .ct_owner =3D THIS_MODULE,
-> +       .ct_item_ops =3D &acpi_table_item_ops,
->         .ct_bin_attrs =3D acpi_table_bin_attrs,
->         .ct_attrs =3D acpi_table_attrs,
->  };
-> @@ -224,7 +237,8 @@ static void acpi_table_drop_item(struct config_group =
-*group,
->         struct acpi_table *table =3D container_of(cfg, struct acpi_table,=
- cfg);
->
->         pr_debug("Host-directed Dynamic ACPI Table Unload\n");
-> -       acpi_unload_table(table->index);
-> +       if (table->header)
-> +               acpi_unload_table(table->index);
->         config_item_put(cfg);
->  }
->
->
+>  .../bindings/net/amlogic,meson-dwmac.yaml     | 49 +++++++++++++++++++
+>  1 file changed, 49 insertions(+)
 
-Applied as 7.5 material, thanks!
+I tend to agree with the sashiko comment, but am fine either way. Once 
+the if/then schemas are longer than the main schema, it's a sign to 
+split.
+
+> 
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index e769c9bb70d8..ff5e50f65114 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> @@ -23,6 +23,7 @@ select:
+>            - amlogic,meson-gxbb-dwmac
+>            - amlogic,meson-axg-dwmac
+>            - amlogic,meson-g12a-dwmac
+> +          - amlogic,t7-dwmac
+>    required:
+>      - compatible
+>  
+> @@ -84,6 +85,49 @@ allOf:
+>          rx-internal-delay-ps:
+>            default: 0
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amlogic,t7-dwmac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GMAC main clock
+> +            - description: First parent clock of the internal mux
+> +            - description: Second parent clock of the internal mux
+> +            - description:
+> +                clock of the pipeline stage inserted in the bus path between
+> +                the controller and the DRAM. Without it, the controller cannot
+> +                complete DMA transfers.
+> +            - description:
+> +                clock of the register block holding PRG_ETH0 and PRG_ETH1.
+> +                Without it, the block reads as zero and ignores writes.
+> +
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: clkin0
+> +            - const: clkin1
+> +            - const: pipeline
+> +            - const: pclk
+> +
+> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
+> +        # The RX delay line of this glue is fine tuning in 200ps steps,
+
+Sounds like constraints:
+
+maximum: 2000
+multipleOf: 200
+
+> +        # added on top of what phy-mode describes. The TX side has no fine
+> +        # tuning: its only step is a quarter of the clock period, the full
+> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+
+Move this to tx-internal-delay-ps. You can (kind of ackwardly) do:
+
+tx-internal-delay-ps:
+  description: ...
+  not: {}
+
+(or "not: true")
+
+> +        rx-internal-delay-ps:
+> +          default: 0
+> +
+> +        tx-internal-delay-ps: false
+> +
+> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
+> +        # properties instead.
+> +        amlogic,tx-delay-ns: false
+> +        amlogic,rx-delay-ns: false
+> +
+>    - if:
+>        properties:
+>          compatible:
+> @@ -106,6 +150,7 @@ allOf:
+>            contains:
+>              enum:
+>                - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+>      then:
+>        properties:
+>          rx-internal-delay-ps:
+> @@ -142,6 +187,10 @@ properties:
+>        - items:
+>            - const: amlogic,meson6-dwmac
+>            - const: snps,dwmac
+> +      - items:
+> +          - const: amlogic,t7-dwmac
+> +          - const: snps,dwmac-5.10a
+> +          - const: snps,dwmac
+
+I would drop either both or at least 'snps,dwmac'. They provide no value 
+because there is nothing to use them. IOW, there's not s/w that works 
+which only understands the last 2 and not amlogic,t7-dwmac. Correct me 
+if I'm wrong. Maybe a bootloader with simple needs.
+
+Rob
