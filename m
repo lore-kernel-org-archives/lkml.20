@@ -1,87 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312161;
-	b=AzRlnR9Wx+G4WP5LgKgLSDnhuPF0l+QB5fTldR97eE0w6DeutqK97ZotefBQ4Zu0TfEx
-	 aqoq7L8XWXGZm90oNIV+rjuDTw5DnxRVXAszoYiFIUIgL0It09bIt4iI7R8iOPTro/7QN
-	 ovmN37YdcnNsFEc+P+uJD7m0r6GT9zVvCjkDH/aguOVy0GZbPuKMihylPGzPu+Y7uUz6N
-	 2SUk9bBW8L3FnJREH6o3AtyVHMS45/PRckBtl+y3og/azEAFzswKs+o4dUezNHlM83Z1D
-	 rNy0/T6D/YZMBggV831YnJBKt9kYyuErwjyURw/8WeSEkPRGr688GP/2W9eBnzKYXvQ==
+	t=1794312174;
+	b=qP4EGtdp9bPfWsBlHcodQvpFXoZHLkTE7iAs+D2G3LacMXOOcqHOYhA6NTF48humVIej
+	 IS1sbY6CYEPdV13+FOSE0mtbzoXWHIqgFQzMqsL9XGyxTGizuWkeFgcN3z9S9blCQZlqM
+	 idVvSnj8vXV42PF1LCI18MHfrhuXyyZ+lvkBJo+aj2qNDFhVDGUU+qyvpgqYGW7q0mwLA
+	 gkVGuufDYSwf/y6om28NfFaB/r/zLqcFXjYU4ldEIe5Ri4EHuoNjgfnEVZGKSNOji0y8P
+	 sbbS5/I7G/Xklfs+QFu5c8hJmcjcK/Prg/tDFaJhzXKL4iBWlL2J+A08o2fk39NRF8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312161;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=SH/FoN6uZbvhXWx+mjNqxG+5UNI9GCQnZ6S37gnELZA=;
-	b=fBwTqWAwvVLPfMMTc+2PDh+orDURJcBgvoXun4RhsnBltlvIvhai1e8+Kvd8LSK5bM4n
-	 OHv1JngOZRINR0ovhVybyEv1W3Td4DWWCga/QrIrbCI/dGpFrhwNXBimL0T5m9l/H7IGK
-	 VInh6A7W8iofLOy4C3S5Xq1OcV7pz3u1G8DyqCi+9Q596qzFuU15X0skg+HEM7sEU2/TV
-	 DRW4R5G0Js25aTUDh4E8deif3hjU5MUFEm1mIKae2t+jf1uTVhRV/2PCoSrJOwCI3/S/i
-	 P6XOUlhv5l5plrkp8UMJn7sAL5p7QJBUi+YZb5j6M9R7+XmLAadPCSk0i8S+vGQ0GVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312174;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
+	b=xLob4lBHPEQdu72q3LqR2ONu7h9VGXTiVCABk6jkHB6xKtbRd+KT67B3QJg/IUGPQ8b0
+	 DpCO71AyhvaM0OI/jCnmGLP963SYA2TLgfghCbvs9w3d56aaXOEt9DYbmDe1IkuiV1fAq
+	 qpWJzF4GemruDT2MFYm2zKyRYnUR5+sdIsGO6tSj9felY/RvOneBQBX4UhhAdDGteW0tt
+	 yYNwXVvNKlA08lHtYG0DsY1+4OfRfLUo8mIm+PP9yIcQEPpy75xYIfZy1ivZz2S5o0nw6
+	 4+rcNi2c91K+iJW98idumMxCHEiYi0qIFYbRgzrU0aWjWG2kt0SMCe7ArvEv1jPl7Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kUZTMrNx;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSDlQbfx;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB425606A31C;
-	Tue, 10 Nov 2026 12:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB425606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6559606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6559606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kUZTMrNx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794312161; x=1825848161;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=eMdM21hEmkcP8lpu6VNP1r22o5MSqJ/EL0i7jh9A8CU=;
-  b=kUZTMrNxJtILykmCCaIXMcwKq3QkLvaW0LIpMR1fXQY62mFaTQGHT5QD
-   rDBW0hlZwjAiw0z7w6xzqxUTfQzf/9a/oE23kojFP5LmugEEEp+1usTTd
-   kWe/Fb8xxlcsycjuEuBX8ZUMCWAcs1AkWOz82LahPdJkDHM0KBJ+mTGp1
-   kRYGV3H5qih5Crm/2YekOVHlwVrJSxhnIiEnxH1UGPO5SgB4vBMwg1h8x
-   8O7efVfrBV71obIM0mkE/FfS/Czz2Ygjj/6ds0he6rwuwvAbn410mCmEx
-   oMNuHk2pdC8+dLZJZIUk4cKFBQDxnfekP9JtTJ+in/eiaKsQ/VSN3XV79
-   Q==;
-X-CSE-ConnectionGUID: eVnBbn3bRc+y8uyAB+YlEA==
-X-CSE-MsgGUID: XhuOpTUeTUWURYnlL8hycA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3138909"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3138909"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:40 -0800
-X-CSE-ConnectionGUID: xGdkc45iT5eGhiHxJBsghA==
-X-CSE-MsgGUID: 6/P5oL78RfKEQtOZQyxoMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8459686"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:32 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 10 Nov 2026 14:02:28 +0200 (EET)
-To: Lee Jones <lee@kernel.org>
-cc: Pavel Machek <pavel@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-    Shuah Khan <skhan@linuxfoundation.org>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
-    =?ISO-8859-15?Q?Marek_Beh=FAn?= <kabel@kernel.org>, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, Ike Panhc <ikepanhc@gmail.com>, 
-    Rong Zhang <i@rong.moe>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-    Jakub Kicinski <kuba@kernel.org>, Vishnu Sankar <vishnuocv@gmail.com>, 
-    Vishnu Sankar <vsankar@lenovo.com>, linux-leds@vger.kernel.org, 
-    Netdev <netdev@vger.kernel.org>, linux-doc@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, chrome-platform@lists.linux.dev, 
-    platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v7 00/13] leds: Add support for hardware-initiated hardware
- control trigger transition
-In-Reply-To: <20261110090105.GA6323@joneslee-macbookpro.roam.internal>
-Message-ID: <b19ef65f-c563-07f8-1be8-9a0a0689da22@linux.intel.com>
-References: <20260921-leds-trigger-hw-changed-v7-0-fe3cdb6dec51@rong.moe> <179425319974.10927.7190572777719580956.b4-ty@b4> <20261110090105.GA6323@joneslee-macbookpro.roam.internal>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSDlQbfx
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-372bdb942dbso2575122eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:02:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794312173; x=1794916973; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
+        b=jSDlQbfx3w+kTQrgktf6wDUFty1SLh6ECHjfH836acX0MKF0FcRwXmKfLDWc/YH6WU
+         F+AyTHmN2bvbrDYANH2na7AdjtN6sFOtW+yORrVemO9+MLHtbzSUeWyClojBl0glCvK4
+         nknss2LXWxE6eiiv4sOekf5Ht4/jPuhnTuhkUYisl8UZrU5q6INzIEvcl1Nns9SsrzQ3
+         QKWuvHb8HvCPSEpyfdiyxoVTbKUubufh9fzyFVuyfmQQflgTCt1d9PqXD01UN0FUkkBS
+         WbGFyO0mY6XBg/9feDU3URVoSCvRvna7kXi13CLZ0iLvAsiohrQT50zbt+WOGfmJ7Z4e
+         6a0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794312173; x=1794916973;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
+        b=g0c/oFE6A7jCpnhsi3Lp076S4J02E3tgjNjuOpdWquMuMckC6cXybBXAg7yB2fPNVH
+         tMn23DsgqDL8fOAKHpuo8LeMMdiGsCf8wX283PL8e/iQkrxmkOovl/MogrLmQsoBg5it
+         4sp5rPLwHttMC1E2f2RqhqQd52hTurMbEUncJkGQl0JGO3RaZ/fhP8OLfTqOnozx109q
+         iM7sIKg77w7ReIC95tRhbLqqvpH59tlUCGMPkGEkTUxzpMEMwjdAG2nA8r/i1Tx/bddU
+         jYtxqrnlZYktbXXjFXBU9/sc2K1ZgWBmFBI5BHmV4znbsSdW/ziWsVA+IyADOuMl3dL7
+         bn3g==
+X-Forwarded-Encrypted: i=1; AL+hErFLwScxlU5Wg+9OZcmFleTAxMTxNZf0bh3phfx9a59dMl+C4e9mn8b/LcpMBnGTqqy9l4dbjcFKV2m+Xlo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/O8DExgZtfUy1HVCRF7uxqFnRkLE81F9X2R7hBhA36FxDxiFHU
+	fPOS4aJ/3UZx9mMqcQvRJeD9pUIifI/oLJ8Xk5bAEEDRpsx6LJs+1k6q
+X-Gm-Gg: AYBFou0e5Z/1SI9yxAO4HxYoAaZ6htVOKa1I1rg2CEMjKmvTAcFXBWH10VnjBvRrdOr
+	QP8opNZNs5l+5P2fCFDkvvXKi2Ddhn92n5U1BHDSxPJJq+rEEz6LFqoPkrdXaueQGmoloZTq1Hc
+	v78H/6t4VsYn52e6EWt3JS/CdLRpWi6+sXnL1IZdRV+VJC1PkT0snq57tkiGlJk3jSFre7sJTBf
+	6O7/nllj0Ia0hPEgc80pMlBjgY2rYjCo+i07AwIxwL77Ik55PohEIVRbBZLZU3vfcKZvW3HaMcf
+	xPVnOnRtplGlukDtJ+mHzU8AMPLoxSU/aC0MhdvPm2SIv7sDx7V/wNwhqTw4K5EMUfj1fbo0u+A
+	TgKzYNq2Po347ZoGS8KYxQjf1l0AU2sMB0IPmlK2vvpA7APgOxq1Tw8DPRkTk6U5Q9Ix1xMXCr2
+	XIUsXBGfcRvRk9AnXXpfGUeybx5G87L4ZKkI93N41P93W4I48ecswHqLNlc9DNmJogWhXEIxWyr
+	xe+dIzzTNb6UqlOTm3Nj+MAZOZ1IN0uBAk7BMZAhGUizBQ3NTlb3SYdC6r/WIDHXDF9PhUeAVX3
+	TTEoEebaMkgZeDCkHFx20vZoqL6SlgXmk4X5LBwwVYJtPvf/
+X-Received: by 2002:a05:7301:fd03:b0:36f:f3b7:6dee with SMTP id 5a478bee46e88-3751ee7c2c9mr2880533eec.7.1794312172706;
+        Tue, 10 Nov 2026 04:02:52 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm5931001eec.0.2026.11.10.04.02.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:02:52 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Cc: Roland Stigge <stigge@antcom.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v2] usb: gadget: lpc32xx_udc: drain the pullup work on removal
+Date: Tue, 10 Nov 2026 21:02:43 +0900
+Message-ID: <20261110120243.2540098-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110114351.2524921-1-hj351016@gmail.com>
+References: <20261110114351.2524921-1-hj351016@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,97 +105,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1170544091-1794312148=:1229"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
+isp1301 i2c pull-up access from process context. The work handler
+(pullup_work) dereferences udc and touches the isp1301 i2c client.
 
---8323328-1170544091-1794312148=:1229
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+udc is allocated with devm_kmemdup(), so devres frees it after
+lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which
+queues pullup_job to clear the D+ pull-up -- but never drains it, so the
+work can run after udc has been freed (and the isp1301 client put),
+dereferencing freed memory -- a use-after-free.
 
-On Tue, 10 Nov 2026, Lee Jones wrote:
+Flush pullup_job in lpc32xx_udc_remove() after the final pullup(udc, 0).
+flush_work() (rather than cancel_work_sync()) lets the queued pull-up
+disable actually complete before the udc and its isp1301 client are
+released, so the transceiver is left with D+ deasserted.
 
-> On Mon, 09 Nov 2026, Ilpo J=E4rvinen wrote:
->=20
-> > On Mon, 21 Sep 2026 03:40:14 +0800, Rong Zhang wrote:
-> >=20
-> > > Some laptops can tune their keyboard backlight according to ambient
-> > > light sensors (auto mode). This capability is essentially a hardware
-> > > control trigger. Meanwhile, such laptops also offer a shrotcut for
-> > > cycling through brightness levels and auto mode. For example, on
-> > > ThinkBook, pressing Fn+Space ("shortcut") cycles keyboard backlight
-> > > levels in the following sequence:
-> > >=20
-> > > [...]
-> >=20
-> > Thank you for your contribution, it has been applied to my local
-> > review-ilpo-next branch. Note it will show up in the public
-> > platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-> > local branch there, which might take a while.
-> >=20
-> > FYI [if applicable to your patch], as per Linus' policy change, also
-> > fixes are mostly routed through for-next unless the fix is for a
-> > commit introduced in the most recent cycle or is clearly a regression
-> > fix.
-> >=20
-> > The list of commits applied:
-> > [01/13] leds: class: Always protect brightness_show() with led_access
-> >         (no commit info)
-> > [02/13] leds: trigger: Move led_trigger_is_hw_controlled() to the right=
- place
-> >         (no commit info)
-> > [03/13] leds: class: Remove hardware control trigger when writing brigh=
-tness
-> >         (no commit info)
-> > [04/13] leds: trigger: Move led_trigger_group to the right place
-> >         (no commit info)
-> > [05/13] leds: trigger: Add hw_offloaded() callback and provide trigger_=
-may_offload_to_hw attribute
-> >         (no commit info)
-> > [06/13] leds: cros_ec: Implement hw_offloaded() trigger callback
-> >         (no commit info)
-> > [07/13] leds: turris-omnia: Implement hw_offloaded() trigger callback a=
-nd declare hw_control_trigger
-> >         (no commit info)
-> > [08/13] leds: trigger: netdev: Implement hw_offloaded() callback
-> >         (no commit info)
-> > [09/13] leds: trigger: Enforce strict checks in led_trigger_is_hw_contr=
-olled()
-> >         (no commit info)
-> > [10/13] leds: trigger: Add led_trigger_notify_hw_control_changed() inte=
-rface
-> >         (no commit info)
->=20
-> This is super confusing!
+Found by static analysis; not runtime-reproduced (needs LPC32xx USB
+gadget hardware with the isp1301 transceiver).
 
-I know it is but it's how b4 thankyou mails appear.
+Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+v2: flush_work() instead of cancel_work_sync(), so the pull-up disable
+    queued by pullup(udc, 0) completes rather than being dropped
+    (OTG1_DP_PULLUP would otherwise stay asserted after unbind) -- per
+    Sashiko review of v1.
 
-> Where does this list come from?
+ drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-The list comes from the original series that b4 caches somewhere.
-I deleted the patches 1-10 and only applied mbox that contained patches=20
-11-13.
+diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
+index 94355d3d930f..b98faf5b71e5 100644
+--- a/drivers/usb/gadget/udc/lpc32xx_udc.c
++++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
+@@ -3187,6 +3187,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
+ 	udc_disable(udc);
+ 	pullup(udc, 0);
 
-When constructing thankyou mail, b4 seems to take the cached list of=20
-patches the series had and does not find 1-10 applied into my tree by me=20
-so it says (no commit info). The rest appear as expected:
++	/*
++	 * pullup(udc, 0) queues pullup_job to clear the D+ pull-up over i2c;
++	 * flush it so that disable completes and no work can run after the
++	 * devm-allocated udc (and its isp1301 i2c client) are released.
++	 */
++	flush_work(&udc->pullup_job);
++
+ 	device_init_wakeup(&pdev->dev, 0);
+ 	remove_debug_file(udc);
 
-> > [11/13] platform/x86: ideapad-laptop: Serialize keyboard backlight trac=
-king
-> >         commit: d288a6f989b7b9e6a730140c601987b886af327e
-> > [12/13] platform/x86: ideapad-laptop: Decouple hardware & classdev brig=
-htness for keyboard backlight
-> >         commit: 7d6c073d181d7855561831cb4bba17dc9b7d4aa9
-> > [13/13] platform/x86: ideapad-laptop: Fully support auto keyboard backl=
-ight
-> >         commit: 5d805ca01382d63d54c9984e7f19922c4ae6f3dc
-
-Of course it would be much less confusing if it never showed those no=20
-commit info entries at all but unfortunately I don't think I can control=20
-that, sorry.
-
---=20
- i.
-
---8323328-1170544091-1794312148=:1229--
+--
+2.43.0
