@@ -1,106 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313432;
-	b=OsoIprJi1lNWmcIVX0wpaBWHE90CtpWCdwya12TNyce61PVxRy8FuIUclr0twWvb140D
-	 bRmc/KN1A9iShKfOotaxWdIRRb74oOncROiPooYeQlDwNHXvfUwybCXmPdk62T4s5/PBh
-	 XYPHnOcFm8XBIk/IkHbFbnzBJFEhVBPx03Rw54Z4K8LQ8B3ZaEGS9GPNPKYEEigiCwc14
-	 YKCVa9o/L/0dYbUvCzEyTBfwQyPcPQtC4OCbsPtz4VqHFflFDmGcmAR7uiVNXFlmOKXA4
-	 gI7xNlViT/TuK5b9cB2mPfQ/8EsuHWFfLARqTpuPtX4Uvp25u/9IaT0Lfa4vsfLY4KA==
+	t=1794313455;
+	b=QY/+wKEjgZsdC7QkkUN1I9UbgdwTs7PTJcy+AmN7wjSDfYEmKioQSQ19akXl13Dygr2U
+	 T0lFw7thq77pS1qLAglJRRYxjvlsvH9MvCVSKwBSjpgBb6eCf1XbjYReEMP4Y8iYFPQIE
+	 HQQuZbbtOknL4IKPrAEDkfBC62pwopvvhMvIFxODqwRcWyT5l/zfzM1PsACtF+Le2WXJ1
+	 46ogqhxePLTLe+ZrLz0u65OxDU2tdW4PyWDmq5stXVAvArcUYZY0I2zM5I/QSgV4hvaBe
+	 lavmZMS87bnR6oSVOzH4VqrqKEy7QERw6b48Y5PSBmtBnFB56P7ts0cPd9/lnKfgfqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313455;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
 	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=CSgKi+aMTYN0njuIxn8oWEHOLjbkmau8+4SbC4HMNdA=;
-	b=hfIx39G5n7poXf867sfPaJTRCZ+gCj605XUy7trX6uI/ph6zBDw/3wD8UimO/xTsIO8Q
-	 IE8DfC7F/ndh5mRvWqTAeCPN5Drg+PXMb7C+jZ9hI8qddXsbkdEsAazfv+UfaUd/m/44S
-	 2v+0pUCCIqLAFE4HSID+f7xLWXJohZ89zDX8kzMpNE15TUtTFnvxWBIRDnk9zErzXHh/W
-	 v4iavcW1Ae97tLohwA+4/CZ+IBv1AU0hHIVHxB2MV/v03P3pRSLz9TjI4+MlCTNnkhvlx
-	 cYlTjkvhubDMFDFt2aKiqJt6QfYb4F7BOyVFbBNiQSnGPOAJqFQowkLFK8/XbYNaw9g==
+	bh=yeAOOGb1lxkAjyxfUQEssqvLvFA7bPwutUunMyT967U=;
+	b=O1JAsnggyBg/xODtFeLjSqKskLtC1FQGS9vFxp80pmL9FUilS8X73+i7tSdZRCj2264F
+	 9triqUfHv6wuAxUu0wWiwaVc6S2k89yNYuAnZ9sPXbNnz0B8BxBS5PxxtveJb2C8jbbcS
+	 kKtqn9AhTk/lTOJfCcxlEa9B1Paf5wYTTSW8ox/bjKmseYx0lvQ1wDAB0SJN+dSnnng/L
+	 sfSd5LVX5bNcvsgwFOxIWCq1tpPXJXZ7Kl623p7CZ6AMGeUaD+nGMQLG3WAvJa5KJbYC1
+	 kvSoiIek/l0hvxmK3oev/giIrPhjwVYGYn1Y2ONj3L+qUVa7yiE+VEeuygQqlOPsi6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bG3tvmBH;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="Em7/ppie";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Ct/xz2tH";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=blX26+WP;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42AF606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C42AF606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A0F606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A0F606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bG3tvmBH;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Em7/ppie
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ct/xz2tH;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=blX26+WP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794313429;
+	s=mimecast20190719; t=1794313452;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CSgKi+aMTYN0njuIxn8oWEHOLjbkmau8+4SbC4HMNdA=;
-	b=bG3tvmBHO8Y56aVlDmOPuprhxC5OdNA8ULlkrEYpT/+YZ0YRv7erpF5KjmbjTi87gk0TSj
-	eSd2ZanuKf/lHDxDR7w5eeoNkWqF1G65Nx4nuTPPbSCPauUmx2gjHpJrAnMzIjKROdLBn8
-	nAMKbNRhwk2/A79DVglvloqbJ/KFUrg=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=yeAOOGb1lxkAjyxfUQEssqvLvFA7bPwutUunMyT967U=;
+	b=Ct/xz2tHIgD10iPk6TcPy6WdPpFSWySW332vmT4aoBs3HzQ1dSIX44C4efxzwkNIqjKyvC
+	oZfCUYzdSctZxHmGmruwk4EjnqurYsYswYZokutI7e7CwKrIDNj8sRBTwXStvz22gx+zl6
+	zDPQqX9Kl1YEnn/jwhqF2f1zDzQ+GkA=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-686-BdAkLKYdNuOfMG5MspmtLQ-1; Tue, 10 Nov 2026 07:23:48 -0500
-X-MC-Unique: BdAkLKYdNuOfMG5MspmtLQ-1
-X-Mimecast-MFC-AGG-ID: BdAkLKYdNuOfMG5MspmtLQ_1794313427
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-49337a224a8so1815136f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:23:48 -0800 (PST)
+ us-mta-50-mzVR5lVCNJSuQOCa2FO0rg-1; Tue, 10 Nov 2026 07:24:10 -0500
+X-MC-Unique: mzVR5lVCNJSuQOCa2FO0rg-1
+X-Mimecast-MFC-AGG-ID: mzVR5lVCNJSuQOCa2FO0rg_1794313450
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4930269afdcso1403626f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:24:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794313427; x=1794918227; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1794313449; x=1794918249; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CSgKi+aMTYN0njuIxn8oWEHOLjbkmau8+4SbC4HMNdA=;
-        b=Em7/ppieeAIq6SLGwF1mbmxLy7OAcsY6mHMstyHsjigreWbu+ZM4IY5qpip8ik4jLy
-         A+ooDd4b64TPrOH4W9INarE2951MPC8Ovf4KbM7343K1PLl+q/xVVhumZNDpv+GFh4cO
-         SUKCQckw6j8uMuy4KWRrLYjjjDyQKoE5zzdm4NQQlDOTlgoVSbjDYh31aakn3QCCQQ/U
-         LNnrhn5d7qAsKZPndbLFUfzP/GRNQG6qzNZtovAXdoJKrs93E+wMfcW9BDi7/FlR+xzO
-         qSbtOHsDrPrEpYS5DLxpbmPRn3Ry/omPMwtN9v5lx9z4btt2pKUpovQGdKnTjBa+NS/I
-         JQkQ==
+        bh=yeAOOGb1lxkAjyxfUQEssqvLvFA7bPwutUunMyT967U=;
+        b=blX26+WPrgAgJw2SPlnV/wivT45gf1Dm0hJmfBK+mQWBdCb8Frl7c3trgQafA/e+4I
+         Z/YE1Weqwc5GS8pYPJjRAbPBrg9lUWMx4dh+56VZ4JxRR2JXBdzFkoIbBznONP8JYVre
+         Qs7ir4IFZ0IiwjWt6J50jBbHpRhGtEw/6tn9UVRxzKJzg3wY0dUnbr2ZJy11h1O7q5/R
+         LpFQkEirZeiLCxQli5wrwAvUz5ozazZ9NgiPFmNi0uT9De+zn5x2DgGUQyxfHVxa/08v
+         tpsVNGVo3QKysudzKy0Vqa1ZPf//XbXTQvMoYpJtVSQcakS5J8Bl9be/uIbAWiH0xjd/
+         iDhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794313427; x=1794918227;
+        d=1e100.net; s=20260707; t=1794313449; x=1794918249;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CSgKi+aMTYN0njuIxn8oWEHOLjbkmau8+4SbC4HMNdA=;
-        b=2ENoiOWFXbWuBwTpCXUNp3VasnZ7kynI6e0IwXqMnaTdHgt3NLU0RQwRmeu+tHDqwb
-         5CJDXasLAOcnmaSy5WixK8VlmMxjWZrLxbJK+PRPhXw6gSPfV7jekgwzUdnR/6Dz3BGC
-         ruAf/IQnR+qjfItY4xZxFE5Jt+xuwN8sjoAlojL0ymb3bwaLZNi8SSJhYIOX9lGDCYHa
-         dbPQR7MEusrW+IuBZjB/hWVK6jfwdLVF/3bU8bUfseCLaYsNm0YdKhoxSQWHC0R6La/r
-         xbFh7BibbkjtPfTKlfVnSH7A+Ql43KuTnuwhR3oHeZcTr7CIbg+Y3E8Wz1zQaRsYvwqB
-         n8vQ==
-X-Forwarded-Encrypted: i=1; AL+hErGfNCQCCXbv1QEijYav33ZGPTUp2soiXk/MGGXjPiFWZzO3Q9SFf9bb56/cxXUP4Ug9//sEgRaplPXolDA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ENBrCGymJ34RDKOG/qnvcsJjH7AM9588p2YPR4c1XDoRfpP4y
-	ooBZaTaXT20/fsW0ulBWeDaBC4umK2XrGMxhP/DYzf4bvIIfip+ITqe/IuSDCTEmGV8Jn7IckkJ
-	NOkLAzFCe0KAA9vvMrJE8F8VD2sMmrr4t0hb6oZ0H4u6zQlu4w5ssWuu5hlwBWVklKw==
-X-Gm-Gg: AYBFou2LikwHxZOgiQjrLcYDBxeA2y10y8n8teAXGD9pm+G1bHh/f3uq+h0lov8YFig
-	q0HIQqQu/lQJDRdpGfagGB0Alb4pSqRX0LHNMxJdEKqx/GwjOuQmALoRgkXEkXyGzaTf6NupWmG
-	7ABTi0Uv+478mcu6bLiNZrojJmMrfgCy2+8PhjKGGfJoLg2SbwypANtDarGPz9sbTx5ocqnioQA
-	r/2muVg8V1t3Dnl07aakcaCMiAntikoviSRrwSLxzrf7Yug+qBHAbIONG6aF5hEdbtIMHndRhHf
-	GTTO4qDO7Iuxs1C2Uwypb8Ds1LBiTsqhtffNSWt5LkeoqJUgpm2WGAAH+4r8+Atgpse5wuyXKiN
-	XhUsvLB3gUCiepHYS0Giy3v1EZkBGgiQyHm0=
-X-Received: by 2002:a05:6000:611:b0:498:38b3:55a1 with SMTP id ffacd0b85a97d-49838b355aamr4136335f8f.15.1794313427044;
-        Tue, 10 Nov 2026 04:23:47 -0800 (PST)
-X-Received: by 2002:a05:6000:611:b0:498:38b3:55a1 with SMTP id ffacd0b85a97d-49838b355aamr4136279f8f.15.1794313426580;
-        Tue, 10 Nov 2026 04:23:46 -0800 (PST)
+        bh=yeAOOGb1lxkAjyxfUQEssqvLvFA7bPwutUunMyT967U=;
+        b=mNUpZvPQiUm4ieOqcAbKRlM7KmaYBaMWMcS37jyFF3sbUSGKqJ67Khsiz40jgFBOms
+         FSui44IODC0HqUR+jvQsftbxn5MMZKM5rI5QJvvtHYxSPnnAb3U2IeXY2HpjTQu6z9b0
+         kO+whCqJDGm6ss6NaNd8dF+2nZIb3812smnzYiN9MQ6vx8gzKcMDxkvM0o8dg50ILPZ8
+         nRkBv8wfnRuvi1ea9HzcPSKehSGd9Ol9x+TyBzTSWjg6Bix+gNWVp/ZGo7N8uxEm3JQM
+         ZLVuJem4rM8usSSpNrSJ1Sv/gcbRwvK0qk9SrOGXh2bo1pvdjnmY24SWhEsqAjUuWTcn
+         9kiQ==
+X-Forwarded-Encrypted: i=1; AL+hErETBSZBPi0c0PmiU2UjRb+jytumzL1W1ltBL4EGxSWlobbE1ZwXYVsSn9gpolLyCFYLxeTfI09TZ7kaPqA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/q/5bb1gvh0itPOMyZ6mvFod8ODY+objryDZze3mnYixCZ4h5o
+	BDOmHIRriwE6HaVdQrt/shAgoKWDyqsjsmdt3Iu19dSSohPuGGE8DHUtPgd9Tp0xPCvj46k73jK
+	/I02SKjDPEtm9e+oMAWc9U+/Io+GJ7OgXoSV2Ujj1SdP1gzgPPcfV6KPGx3C3yos+Tw==
+X-Gm-Gg: AYBFou2E1tvcVnO/rTgfm50eUPAC18wb/ZIhHoCOwIkfmMrfuEmORvNW/n87WVgAa2P
+	sFX+VU6CMf1wYOVcF3OfQuTyDoJ51UQUhEkRDKAGlywF9O7oRu4W+BBRJZ1dp8gnthe/BBkJGTu
+	CAmiIyEuYDbHKH+rTepYUmzuyjlTM5yehCGf3ijfdBUo7KRFoemfOKzYq6Zv0O3QRuD5Gj65dY4
+	7Uc/3czoexOxMVxCE1PgNICsYGZmapJLClAA4Rg5KLD4cU02polJoViZdaKPxLXF5IibRaG1EzP
+	oj0Ww7CXOSRWcKHL1ES3pkjzJDzvulM29/QiTnsz9iiFU2x3QqcLWm6MkcpGQ2UUe4G0nNOPc0n
+	uHDrimxFf3tKtn8fezf70TOTzm8AK1u5G/Ms=
+X-Received: by 2002:a05:6000:22c6:b0:48d:f36e:fbcb with SMTP id ffacd0b85a97d-4982e82c1b2mr4754522f8f.14.1794313449337;
+        Tue, 10 Nov 2026 04:24:09 -0800 (PST)
+X-Received: by 2002:a05:6000:22c6:b0:48d:f36e:fbcb with SMTP id ffacd0b85a97d-4982e82c1b2mr4754440f8f.14.1794313448686;
+        Tue, 10 Nov 2026 04:24:08 -0800 (PST)
 Received: from [10.43.3.161] ([213.175.46.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c30b1sm4836441f8f.46.2026.11.10.04.23.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb14asm4534584f8f.34.2026.11.10.04.24.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 04:23:45 -0800 (PST)
-Message-ID: <d4b6e270-044b-4181-a3a9-fd906980b0ed@redhat.com>
-Date: Tue, 10 Nov 2026 13:23:44 +0100
+        Tue, 10 Nov 2026 04:24:07 -0800 (PST)
+Message-ID: <7f51beca-9045-4e3d-a97d-43e7a8a7557d@redhat.com>
+Date: Tue, 10 Nov 2026 13:24:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,8 +111,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 04/10] dpll: take domain locks around driver
- callbacks
+Subject: Re: [PATCH net-next 05/10] dpll: convert dpll_lock to rwsem
 Content-Language: en-US
 To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
 Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
@@ -131,375 +130,508 @@ Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
  Karol Kolacinski <karol.kolacinski@intel.com>,
  Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
 References: <20261106121005.1327603-1-ivecera@redhat.com>
- <20261106121005.1327603-5-ivecera@redhat.com>
+ <20261106121005.1327603-6-ivecera@redhat.com>
 From: Petr Oros <poros@redhat.com>
-In-Reply-To: <20261106121005.1327603-5-ivecera@redhat.com>
+In-Reply-To: <20261106121005.1327603-6-ivecera@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 11/6/26 1:09 PM, Ivan Vecera wrote:
-> Hold the domain lock of the addressed object wherever driver callbacks can
-> run:
+On 11/6/26 1:10 PM, Ivan Vecera wrote:
+> Driver callbacks are now serialized by domain locks, so dpll_lock only has
+> to protect the topology and lifetime of devices and pins.
 > 
-> - netlink requests addressing a device or a pin, from pre_doit to post_doit
-> - dumps, for each object
-> - notifications, while the message is being built and sent
+> Convert it to an rwsem. Core functions changing the topology take it for
+> write. Netlink requests, each part of a dump and change notifications take
+> it for read, for their whole duration, so objects found by a lookup stay
+> valid. This is the patch that lets callbacks of different domains run
+> concurrently.
 > 
-> Callbacks of a device run under the domain of the device. Callbacks of a
-> pin run under the domain of the pin, also when another driver registered
-> the pin with its dpll or under its parent pin. All callbacks a message
-> about a pin needs are thus covered by one lock, and only one domain lock
-> is ever held. Domains have no lock order, so registrations can connect
-> them in any way.
-> 
-> A request is atomic against other requests addressing objects of that
-> domain, and messages of one object are sent in the order they were built.
-> 
-> Requests resolving an id run no callbacks, so they do not take the lock.
-> 
-> __dpll_{device,pin}_change_ntf() now also require the domain lock of the
-> object. A callback can therefore only notify objects of the domain it runs
-> under.
-> 
-> Callbacks stay serialized by dpll_lock for now.
+> A callback running for long still blocks topology changes, and a waiting
+> writer blocks new readers, so a stuck callback stalls the subsystem while
+> a device is being probed or removed. This is no worse than the global
+> serialization it replaces.
 > 
 > Signed-off-by: Ivan Vecera <ivecera@redhat.com>
 > ---
->   drivers/dpll/dpll_core.c    | 18 +++++----
->   drivers/dpll/dpll_core.h    |  6 ++-
->   drivers/dpll/dpll_netlink.c | 78 ++++++++++++++++++++++++++++---------
->   3 files changed, 76 insertions(+), 26 deletions(-)
+>   drivers/dpll/dpll_core.c    | 93 +++++++++++++++++--------------------
+>   drivers/dpll/dpll_core.h    |  3 +-
+>   drivers/dpll/dpll_netlink.c | 32 ++++++-------
+>   3 files changed, 61 insertions(+), 67 deletions(-)
 > 
 > diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
-> index d39c4905172f2d..dd09f528170994 100644
+> index dd09f528170994..8eb74682343156 100644
 > --- a/drivers/dpll/dpll_core.c
 > +++ b/drivers/dpll/dpll_core.c
-> @@ -520,7 +520,7 @@ dpll_device_registration_find(struct dpll_device *dpll,
->    *
->    * Make dpll device available for user space.
->    *
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and the domain lock of @dpll
->    * Return:
->    * * 0 on success
->    * * negative - error value
-> @@ -579,7 +579,7 @@ EXPORT_SYMBOL_GPL(dpll_device_register);
->    *
->    * Unregister device, make it unavailable for userspace.
->    * Note: It does not free the memory
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and the domain lock of @dpll
+> @@ -19,8 +19,12 @@
+>   #include "dpll_core.h"
+>   #include "dpll_netlink.h"
+>   
+> -/* Mutex lock to protect DPLL subsystem devices and pins */
+> -DEFINE_MUTEX(dpll_lock);
+> +/* Protects the topology and lifetime of DPLL devices and pins. Taken for write
+> + * to change them and for read for the whole netlink request, part of a dump or
+> + * change notification that uses them. Driver callbacks are serialized by domain
+> + * locks, which are only taken under this lock.
+> + */
+> +DECLARE_RWSEM(dpll_lock);
+>   
+>   DEFINE_XARRAY_FLAGS(dpll_device_xa, XA_FLAGS_ALLOC);
+>   DEFINE_XARRAY_FLAGS(dpll_pin_xa, XA_FLAGS_ALLOC);
+> @@ -459,7 +463,7 @@ dpll_device_get(u64 clock_id, u32 device_idx, struct module *module,
+>   	struct dpll_device *dpll, *ret = NULL;
+>   	unsigned long index;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	xa_for_each(&dpll_device_xa, index, dpll) {
+>   		if (dpll->clock_id == clock_id &&
+>   		    dpll->device_idx == device_idx &&
+> @@ -475,7 +479,7 @@ dpll_device_get(u64 clock_id, u32 device_idx, struct module *module,
+>   			dpll_device_tracker_alloc(ret, tracker);
+>   	}
+>   
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   
+>   	return ret;
+>   }
+> @@ -492,9 +496,9 @@ EXPORT_SYMBOL_GPL(dpll_device_get);
 >    */
->   void dpll_device_unregister(struct dpll_device *dpll,
->   			    const struct dpll_device_ops *ops, void *priv)
-> @@ -928,7 +928,7 @@ __dpll_pin_register(struct dpll_device *dpll, struct dpll_pin *pin,
->    * @ops: ops for a dpll pin ops
->    * @priv: pointer to private information of owner
->    *
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and domain locks
->    * Return:
->    * * 0 on success
->    * * negative - error value
-> @@ -989,7 +989,9 @@ static void dpll_pin_ref_sync_pair_del(u32 ref_sync_pin_id)
->   		ref_sync_pin = xa_load(&pin->ref_sync_pins, ref_sync_pin_id);
->   		if (ref_sync_pin) {
->   			xa_erase(&pin->ref_sync_pins, ref_sync_pin_id);
-> +			mutex_lock(&pin->domain->lock);
->   			__dpll_pin_change_ntf(pin);
-> +			mutex_unlock(&pin->domain->lock);
+>   void dpll_device_put(struct dpll_device *dpll, dpll_tracker *tracker)
+>   {
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	__dpll_device_put(dpll, tracker);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_device_put);
+>   
+> @@ -540,16 +544,16 @@ int dpll_device_register(struct dpll_device *dpll, enum dpll_type type,
+>   	if (WARN_ON(type < DPLL_TYPE_PPS || type > DPLL_TYPE_MAX))
+>   		return -EINVAL;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	reg = dpll_device_registration_find(dpll, ops, priv);
+>   	if (reg) {
+> -		mutex_unlock(&dpll_lock);
+> +		up_write(&dpll_lock);
+>   		return -EEXIST;
+>   	}
+>   
+>   	reg = kzalloc_obj(*reg);
+>   	if (!reg) {
+> -		mutex_unlock(&dpll_lock);
+> +		up_write(&dpll_lock);
+>   		return -ENOMEM;
+>   	}
+>   	reg->ops = ops;
+> @@ -559,13 +563,13 @@ int dpll_device_register(struct dpll_device *dpll, enum dpll_type type,
+>   	first_registration = list_empty(&dpll->registration_list);
+>   	list_add_tail(&reg->list, &dpll->registration_list);
+>   	if (!first_registration) {
+> -		mutex_unlock(&dpll_lock);
+> +		up_write(&dpll_lock);
+>   		return 0;
+>   	}
+>   
+>   	xa_set_mark(&dpll_device_xa, dpll->id, DPLL_REGISTERED);
+>   	dpll_device_create_ntf(dpll);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   
+>   	return 0;
+>   }
+> @@ -586,12 +590,12 @@ void dpll_device_unregister(struct dpll_device *dpll,
+>   {
+>   	struct dpll_device_registration *reg;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	ASSERT_DPLL_REGISTERED(dpll);
+>   	dpll_device_delete_ntf(dpll);
+>   	reg = dpll_device_registration_find(dpll, ops, priv);
+>   	if (WARN_ON(!reg)) {
+> -		mutex_unlock(&dpll_lock);
+> +		up_write(&dpll_lock);
+>   		return;
+>   	}
+>   	list_del(&reg->list);
+> @@ -599,11 +603,11 @@ void dpll_device_unregister(struct dpll_device *dpll,
+>   	kfree(reg);
+>   
+>   	if (!list_empty(&dpll->registration_list)) {
+> -		mutex_unlock(&dpll_lock);
+> +		up_write(&dpll_lock);
+>   		return;
+>   	}
+>   	xa_clear_mark(&dpll_device_xa, dpll->id, DPLL_REGISTERED);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_device_unregister);
+>   
+> @@ -771,9 +775,9 @@ int register_dpll_notifier(struct notifier_block *nb)
+>   {
+>   	int ret;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	ret = raw_notifier_chain_register(&dpll_notifier_chain, nb);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL_GPL(register_dpll_notifier);
+> @@ -782,9 +786,9 @@ int unregister_dpll_notifier(struct notifier_block *nb)
+>   {
+>   	int ret;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	ret = raw_notifier_chain_unregister(&dpll_notifier_chain, nb);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL_GPL(unregister_dpll_notifier);
+> @@ -812,7 +816,7 @@ dpll_pin_get(u64 clock_id, u32 pin_idx, struct module *module,
+>   	struct dpll_pin *pos, *ret = NULL;
+>   	unsigned long i;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	xa_for_each(&dpll_pin_xa, i, pos) {
+>   		if (pos->clock_id == clock_id &&
+>   		    pos->pin_idx == pin_idx &&
+> @@ -827,7 +831,7 @@ dpll_pin_get(u64 clock_id, u32 pin_idx, struct module *module,
+>   		if (!IS_ERR(ret))
+>   			dpll_pin_tracker_alloc(ret, tracker);
+>   	}
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   
+>   	return ret;
+>   }
+> @@ -844,9 +848,9 @@ EXPORT_SYMBOL_GPL(dpll_pin_get);
+>    */
+>   void dpll_pin_put(struct dpll_pin *pin, dpll_tracker *tracker)
+>   {
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	__dpll_pin_put(pin, tracker);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_pin_put);
+>   
+> @@ -859,10 +863,10 @@ EXPORT_SYMBOL_GPL(dpll_pin_put);
+>    */
+>   void dpll_pin_fwnode_set(struct dpll_pin *pin, struct fwnode_handle *fwnode)
+>   {
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	fwnode_handle_put(pin->fwnode); /* Drop fwnode previously set */
+>   	pin->fwnode = fwnode_handle_get(fwnode);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_pin_fwnode_set);
+>   
+> @@ -885,7 +889,7 @@ struct dpll_pin *fwnode_dpll_pin_find(struct fwnode_handle *fwnode,
+>   	struct dpll_pin *pin, *ret = NULL;
+>   	unsigned long index;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	xa_for_each(&dpll_pin_xa, index, pin) {
+>   		if (pin->fwnode == fwnode) {
+>   			__dpll_pin_hold(pin, tracker);
+> @@ -893,7 +897,7 @@ struct dpll_pin *fwnode_dpll_pin_find(struct fwnode_handle *fwnode,
+>   			break;
 >   		}
 >   	}
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   
+>   	return ret;
 >   }
-> @@ -1016,7 +1018,7 @@ __dpll_pin_unregister(struct dpll_device *dpll, struct dpll_pin *pin,
->    * @priv: pointer to private information of owner
->    *
->    * Note: It does not free the memory
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and domain locks
->    */
->   void dpll_pin_unregister(struct dpll_device *dpll, struct dpll_pin *pin,
->   			 const struct dpll_pin_ops *ops, void *priv)
-> @@ -1042,7 +1044,7 @@ EXPORT_SYMBOL_GPL(dpll_pin_unregister);
->    * Register a pin with a parent pin, create references between them and
->    * between newly registered pin and dplls connected with a parent pin.
->    *
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and domain locks
->    * Return:
->    * * 0 on success
->    * * negative - error value
-> @@ -1099,7 +1101,7 @@ EXPORT_SYMBOL_GPL(dpll_pin_on_pin_register);
->    * @ops: ops for a dpll pin
->    * @priv: pointer to private information of owner
->    *
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and domain locks
->    * Note: It does not free the memory
->    */
->   void dpll_pin_on_pin_unregister(struct dpll_pin *parent, struct dpll_pin *pin,
-> @@ -1129,7 +1131,7 @@ EXPORT_SYMBOL_GPL(dpll_pin_on_pin_unregister);
->    *
->    * Once pins are paired, the user-space configuration of reference sync pair
->    * is possible.
-> - * Context: Acquires a lock (dpll_lock)
-> + * Context: Acquires dpll_lock and domain locks
->    * Return:
->    * * 0 on success
->    * * negative - error value
-> @@ -1142,7 +1144,9 @@ int dpll_pin_ref_sync_pair_add(struct dpll_pin *pin,
->   	mutex_lock(&dpll_lock);
+> @@ -950,7 +954,7 @@ dpll_pin_register(struct dpll_device *dpll, struct dpll_pin *pin,
+>   		      DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE)))
+>   		return -EINVAL;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   
+>   	dev_ops = dpll_device_ops(dpll);
+>   	if (WARN_ON(ops->measured_freq_get &&
+> @@ -974,7 +978,7 @@ dpll_pin_register(struct dpll_device *dpll, struct dpll_pin *pin,
+>   
+>   	ret = __dpll_pin_register(dpll, pin, ops, priv, NULL);
+>   out_unlock:
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   
+>   	return ret;
+>   }
+> @@ -1028,9 +1032,9 @@ void dpll_pin_unregister(struct dpll_device *dpll, struct dpll_pin *pin,
+>   	if (WARN_ON(!xa_empty(&pin->parent_refs)))
+>   		return;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	__dpll_pin_unregister(dpll, pin, ops, priv, NULL);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_pin_unregister);
+>   
+> @@ -1064,7 +1068,7 @@ int dpll_pin_on_pin_register(struct dpll_pin *parent, struct dpll_pin *pin,
+>   	    WARN_ON(!ops->direction_get))
+>   		return -EINVAL;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	ret = dpll_xa_ref_pin_add(&pin->parent_refs, parent, ops, priv, pin);
+>   	if (ret)
+>   		goto unlock;
+> @@ -1076,7 +1080,7 @@ int dpll_pin_on_pin_register(struct dpll_pin *parent, struct dpll_pin *pin,
+>   		}
+>   		dpll_pin_create_ntf(pin, parent->clock_id);
+>   	}
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   
+>   	return ret;
+>   
+> @@ -1089,7 +1093,7 @@ int dpll_pin_on_pin_register(struct dpll_pin *parent, struct dpll_pin *pin,
+>   		}
+>   	dpll_xa_ref_pin_del(&pin->parent_refs, parent, ops, priv, pin);
+>   unlock:
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_pin_on_pin_register);
+> @@ -1111,7 +1115,7 @@ void dpll_pin_on_pin_unregister(struct dpll_pin *parent, struct dpll_pin *pin,
+>   	struct dpll_pin_ref *ref;
+>   	unsigned long i;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
+>   	xa_for_each(&pin->dpll_refs, i, ref) {
+>   		reg = dpll_pin_registration_find(ref, ops, priv, parent);
+>   		if (!reg)
+> @@ -1120,7 +1124,7 @@ void dpll_pin_on_pin_unregister(struct dpll_pin *parent, struct dpll_pin *pin,
+>   		__dpll_pin_unregister(ref->dpll, pin, ops, priv, parent);
+>   	}
+>   	dpll_xa_ref_pin_del(&pin->parent_refs, parent, ops, priv, pin);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
+>   }
+>   EXPORT_SYMBOL_GPL(dpll_pin_on_pin_unregister);
+>   
+> @@ -1141,13 +1145,13 @@ int dpll_pin_ref_sync_pair_add(struct dpll_pin *pin,
+>   {
+>   	int ret;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_write(&dpll_lock);
 >   	ret = xa_insert(&pin->ref_sync_pins, ref_sync_pin->id,
 >   			ref_sync_pin, GFP_KERNEL);
-> +	mutex_lock(&pin->domain->lock);
+>   	mutex_lock(&pin->domain->lock);
 >   	__dpll_pin_change_ntf(pin);
-> +	mutex_unlock(&pin->domain->lock);
->   	mutex_unlock(&dpll_lock);
+>   	mutex_unlock(&pin->domain->lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_write(&dpll_lock);
 >   
 >   	return ret;
+>   }
+> @@ -1254,23 +1258,12 @@ const struct dpll_pin_ops *dpll_pin_ops(struct dpll_pin_ref *ref)
+>   
+>   static int __init dpll_init(void)
+>   {
+> -	int ret;
+> -
+> -	ret = genl_register_family(&dpll_nl_family);
+> -	if (ret)
+> -		goto error;
+> -
+> -	return 0;
+> -
+> -error:
+> -	mutex_destroy(&dpll_lock);
+> -	return ret;
+> +	return genl_register_family(&dpll_nl_family);
+>   }
+>   
+>   static void __exit dpll_exit(void)
+>   {
+>   	genl_unregister_family(&dpll_nl_family);
+> -	mutex_destroy(&dpll_lock);
+>   }
+>   
+>   subsys_initcall(dpll_init);
 > diff --git a/drivers/dpll/dpll_core.h b/drivers/dpll/dpll_core.h
-> index 6705e81bc11de9..630c5a1ca572c2 100644
+> index 630c5a1ca572c2..e212e53528e33b 100644
 > --- a/drivers/dpll/dpll_core.h
 > +++ b/drivers/dpll/dpll_core.h
-> @@ -22,10 +22,14 @@
->    * @clock_id:		clock_id of the objects in the domain
->    * @module:		module of the objects in the domain
->    * @refcount:		number of dpll devices and pins in the domain
-> - * @lock:		lock of the domain
-> + * @lock:		serializes driver callbacks of the domain
->    *
->    * All dpll devices and pins created with the same (module, clock_id) pair
->    * belong to one domain, in practice to one chip or card.
-> + *
-> + * Callbacks of a device run under the domain of the device and callbacks of a
-> + * pin under the domain of the pin, whichever driver registered them. Only one
-> + * domain lock is held at a time, so domains have no lock order.
->    **/
->   struct dpll_domain {
->   	u32 id;
+> @@ -12,6 +12,7 @@
+>   #include <linux/mutex.h>
+>   #include <linux/refcount.h>
+>   #include <linux/ref_tracker.h>
+> +#include <linux/rwsem.h>
+>   #include "dpll_nl.h"
+>   
+>   #define DPLL_REGISTERED		XA_MARK_1
+> @@ -129,7 +130,7 @@ const struct dpll_pin_ops *dpll_pin_ops(struct dpll_pin_ref *ref);
+>   struct dpll_pin_ref *dpll_xa_ref_dpll_first(struct xarray *xa_refs);
+>   extern struct xarray dpll_device_xa;
+>   extern struct xarray dpll_pin_xa;
+> -extern struct mutex dpll_lock;
+> +extern struct rw_semaphore dpll_lock;
+>   
+>   void dpll_device_notify(struct dpll_device *dpll, unsigned long action);
+>   void dpll_pin_notify(struct dpll_pin *pin, u64 src_clock_id,
 > diff --git a/drivers/dpll/dpll_netlink.c b/drivers/dpll/dpll_netlink.c
-> index e5380d95f238b3..1b4e3a0166a744 100644
+> index 1b4e3a0166a744..9d8f5d1ce97248 100644
 > --- a/drivers/dpll/dpll_netlink.c
 > +++ b/drivers/dpll/dpll_netlink.c
-> @@ -861,27 +861,39 @@ dpll_device_event_send(enum dpll_cmd event, struct dpll_device *dpll)
->   
->   int dpll_device_create_ntf(struct dpll_device *dpll)
+> @@ -910,11 +910,11 @@ int dpll_device_change_ntf(struct dpll_device *dpll)
 >   {
-> +	int ret;
-> +
-> +	mutex_lock(&dpll->domain->lock);
->   	dpll_device_notify(dpll, DPLL_DEVICE_CREATED);
-> -	return dpll_device_event_send(DPLL_CMD_DEVICE_CREATE_NTF, dpll);
-> +	ret = dpll_device_event_send(DPLL_CMD_DEVICE_CREATE_NTF, dpll);
-> +	mutex_unlock(&dpll->domain->lock);
-> +
-> +	return ret;
->   }
->   
->   int dpll_device_delete_ntf(struct dpll_device *dpll)
->   {
-> +	int ret;
-> +
-> +	mutex_lock(&dpll->domain->lock);
->   	dpll_device_notify(dpll, DPLL_DEVICE_DELETED);
-> -	return dpll_device_event_send(DPLL_CMD_DEVICE_DELETE_NTF, dpll);
-> +	ret = dpll_device_event_send(DPLL_CMD_DEVICE_DELETE_NTF, dpll);
-> +	mutex_unlock(&dpll->domain->lock);
-> +
-> +	return ret;
->   }
->   
->   /**
->    * __dpll_device_change_ntf - notify that the dpll device has been changed
->    * @dpll: registered dpll pointer
->    *
-> - * Context: caller must hold dpll_lock. Suitable for use inside device
-> - *          callbacks which are already invoked under dpll_lock.
-> + * Context: caller must hold dpll_lock and the domain lock of @dpll.
-> + *          Suitable for use inside callbacks running under these locks.
->    * Return: 0 if succeeds, error code otherwise.
->    */
->   int __dpll_device_change_ntf(struct dpll_device *dpll)
->   {
-> -	lockdep_assert_held(&dpll_lock);
-> +	lockdep_assert_held(&dpll->domain->lock);
->   	dpll_device_notify(dpll, DPLL_DEVICE_CHANGED);
->   	return dpll_device_event_send(DPLL_CMD_DEVICE_CHANGE_NTF, dpll);
->   }
-> @@ -891,7 +903,7 @@ EXPORT_SYMBOL_GPL(__dpll_device_change_ntf);
->    * dpll_device_change_ntf - notify that the dpll device has been changed
->    * @dpll: registered dpll pointer
->    *
-> - * Context: acquires and holds a dpll_lock.
-> + * Context: acquires and holds dpll_lock and the domain lock of @dpll.
->    * Return: 0 if succeeds, error code otherwise.
->    */
->   int dpll_device_change_ntf(struct dpll_device *dpll)
-> @@ -899,7 +911,9 @@ int dpll_device_change_ntf(struct dpll_device *dpll)
 >   	int ret;
 >   
->   	mutex_lock(&dpll_lock);
-> +	mutex_lock(&dpll->domain->lock);
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
+>   	mutex_lock(&dpll->domain->lock);
 >   	ret = __dpll_device_change_ntf(dpll);
-> +	mutex_unlock(&dpll->domain->lock);
->   	mutex_unlock(&dpll_lock);
+>   	mutex_unlock(&dpll->domain->lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
 >   
 >   	return ret;
-> @@ -941,27 +955,39 @@ dpll_pin_event_send(enum dpll_cmd event, struct dpll_pin *pin)
->   
->   int dpll_pin_create_ntf(struct dpll_pin *pin, u64 src_clock_id)
->   {
-> +	int ret;
-> +
-> +	mutex_lock(&pin->domain->lock);
->   	dpll_pin_notify(pin, src_clock_id, DPLL_PIN_CREATED);
-> -	return dpll_pin_event_send(DPLL_CMD_PIN_CREATE_NTF, pin);
-> +	ret = dpll_pin_event_send(DPLL_CMD_PIN_CREATE_NTF, pin);
-> +	mutex_unlock(&pin->domain->lock);
-> +
-> +	return ret;
 >   }
->   
->   int dpll_pin_delete_ntf(struct dpll_pin *pin, u64 src_clock_id)
+> @@ -1004,11 +1004,11 @@ int dpll_pin_change_ntf(struct dpll_pin *pin)
 >   {
-> +	int ret;
-> +
-> +	mutex_lock(&pin->domain->lock);
->   	dpll_pin_notify(pin, src_clock_id, DPLL_PIN_DELETED);
-> -	return dpll_pin_event_send(DPLL_CMD_PIN_DELETE_NTF, pin);
-> +	ret = dpll_pin_event_send(DPLL_CMD_PIN_DELETE_NTF, pin);
-> +	mutex_unlock(&pin->domain->lock);
-> +
-> +	return ret;
->   }
->   
->   /**
->    * __dpll_pin_change_ntf - notify that the pin has been changed
->    * @pin: registered pin pointer
->    *
-> - * Context: caller must hold dpll_lock. Suitable for use inside pin
-> - *          callbacks which are already invoked under dpll_lock.
-> + * Context: caller must hold dpll_lock and the domain lock of @pin.
-> + *          Suitable for use inside callbacks running under these locks.
->    * Return: 0 if succeeds, error code otherwise.
->    */
->   int __dpll_pin_change_ntf(struct dpll_pin *pin)
->   {
-> -	lockdep_assert_held(&dpll_lock);
-> +	lockdep_assert_held(&pin->domain->lock);
->   	dpll_pin_notify(pin, pin->clock_id, DPLL_PIN_CHANGED);
->   	return dpll_pin_event_send(DPLL_CMD_PIN_CHANGE_NTF, pin);
->   }
-> @@ -971,7 +997,7 @@ EXPORT_SYMBOL_GPL(__dpll_pin_change_ntf);
->    * dpll_pin_change_ntf - notify that the pin has been changed
->    * @pin: registered pin pointer
->    *
-> - * Context: acquires and holds a dpll_lock.
-> + * Context: acquires and holds dpll_lock and the domain lock of @pin.
->    * Return: 0 if succeeds, error code otherwise.
->    */
->   int dpll_pin_change_ntf(struct dpll_pin *pin)
-> @@ -979,7 +1005,9 @@ int dpll_pin_change_ntf(struct dpll_pin *pin)
 >   	int ret;
 >   
->   	mutex_lock(&dpll_lock);
-> +	mutex_lock(&pin->domain->lock);
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
+>   	mutex_lock(&pin->domain->lock);
 >   	ret = __dpll_pin_change_ntf(pin);
-> +	mutex_unlock(&pin->domain->lock);
->   	mutex_unlock(&dpll_lock);
+>   	mutex_unlock(&pin->domain->lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
 >   
 >   	return ret;
-> @@ -1780,7 +1808,9 @@ int dpll_nl_pin_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
->   			ret = -EMSGSIZE;
->   			break;
->   		}
-> +		mutex_lock(&pin->domain->lock);
->   		ret = dpll_cmd_pin_get_one(skb, pin, cb->extack);
-> +		mutex_unlock(&pin->domain->lock);
->   		if (ret) {
->   			genlmsg_cancel(skb, hdr);
->   			if (ret == -ENODEV) {
-> @@ -1999,7 +2029,9 @@ int dpll_nl_device_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
->   			ret = -EMSGSIZE;
->   			break;
->   		}
-> +		mutex_lock(&dpll->domain->lock);
->   		ret = dpll_device_get_one(dpll, skb, cb->extack);
-> +		mutex_unlock(&dpll->domain->lock);
->   		if (ret) {
->   			genlmsg_cancel(skb, hdr);
->   			break;
-> @@ -2018,6 +2050,7 @@ int dpll_nl_device_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
->   int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   		  struct genl_info *info)
->   {
-> +	struct dpll_device *dpll;
->   	u32 id;
+>   }
+> @@ -1795,7 +1795,7 @@ int dpll_nl_pin_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+>   	unsigned long i;
+>   	int ret = 0;
 >   
->   	if (GENL_REQ_ATTR_CHECK(info, DPLL_A_ID))
-> @@ -2025,11 +2058,13 @@ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   
->   	mutex_lock(&dpll_lock);
->   	id = nla_get_u32(info->attrs[DPLL_A_ID]);
-> -	info->user_ptr[0] = dpll_device_get_by_id(id);
-> -	if (!info->user_ptr[0]) {
-> +	dpll = dpll_device_get_by_id(id);
-> +	if (!dpll) {
->   		NL_SET_ERR_MSG(info->extack, "device not found");
->   		goto unlock;
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
+>   	xa_for_each_marked_start(&dpll_pin_xa, i, pin, DPLL_REGISTERED,
+>   				 ctx->idx) {
+>   		if (!dpll_pin_available(pin))
+> @@ -1821,7 +1821,7 @@ int dpll_nl_pin_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+>   		}
+>   		genlmsg_end(skb, hdr);
 >   	}
-> +	info->user_ptr[0] = dpll;
-> +	mutex_lock(&dpll->domain->lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
+>   
+>   	if (ret == -EMSGSIZE) {
+>   		ctx->idx = i;
+> @@ -2019,7 +2019,7 @@ int dpll_nl_device_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+>   	unsigned long i;
+>   	int ret = 0;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
+>   	xa_for_each_marked_start(&dpll_device_xa, i, dpll, DPLL_REGISTERED,
+>   				 ctx->idx) {
+>   		hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid,
+> @@ -2038,7 +2038,7 @@ int dpll_nl_device_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+>   		}
+>   		genlmsg_end(skb, hdr);
+>   	}
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
+>   
+>   	if (ret == -EMSGSIZE) {
+>   		ctx->idx = i;
+> @@ -2056,7 +2056,7 @@ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	if (GENL_REQ_ATTR_CHECK(info, DPLL_A_ID))
+>   		return -EINVAL;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
+>   	id = nla_get_u32(info->attrs[DPLL_A_ID]);
+>   	dpll = dpll_device_get_by_id(id);
+>   	if (!dpll) {
+> @@ -2067,7 +2067,7 @@ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	mutex_lock(&dpll->domain->lock);
 >   	return 0;
 >   unlock:
->   	mutex_unlock(&dpll_lock);
-> @@ -2039,6 +2074,9 @@ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   void dpll_post_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   		    struct genl_info *info)
->   {
-> +	struct dpll_device *dpll = info->user_ptr[0];
-> +
-> +	mutex_unlock(&dpll->domain->lock);
->   	mutex_unlock(&dpll_lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
+>   	return -ENODEV;
 >   }
 >   
-> @@ -2061,6 +2099,7 @@ dpll_unlock_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   		      struct genl_info *info)
->   {
-> +	struct dpll_pin *pin;
->   	int ret;
+> @@ -2077,14 +2077,14 @@ void dpll_post_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	struct dpll_device *dpll = info->user_ptr[0];
 >   
->   	mutex_lock(&dpll_lock);
-> @@ -2068,14 +2107,14 @@ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   		ret = -EINVAL;
->   		goto unlock_dev;
->   	}
-> -	info->user_ptr[0] = xa_load(&dpll_pin_xa,
-> -				    nla_get_u32(info->attrs[DPLL_A_PIN_ID]));
-> -	if (!info->user_ptr[0] ||
-> -	    !dpll_pin_available(info->user_ptr[0])) {
-> +	pin = xa_load(&dpll_pin_xa, nla_get_u32(info->attrs[DPLL_A_PIN_ID]));
-> +	if (!pin || !dpll_pin_available(pin)) {
->   		NL_SET_ERR_MSG(info->extack, "pin not found");
->   		ret = -ENODEV;
->   		goto unlock_dev;
->   	}
-> +	info->user_ptr[0] = pin;
-> +	mutex_lock(&pin->domain->lock);
+>   	mutex_unlock(&dpll->domain->lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
+>   }
+>   
+>   int
+>   dpll_lock_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	       struct genl_info *info)
+>   {
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
 >   
 >   	return 0;
->   
-> @@ -2087,5 +2126,8 @@ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   void dpll_pin_post_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
->   			struct genl_info *info)
+>   }
+> @@ -2093,7 +2093,7 @@ void
+>   dpll_unlock_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   		 struct genl_info *info)
 >   {
-> +	struct dpll_pin *pin = info->user_ptr[0];
-> +
-> +	mutex_unlock(&pin->domain->lock);
->   	mutex_unlock(&dpll_lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
+>   }
+>   
+>   int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+> @@ -2102,7 +2102,7 @@ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	struct dpll_pin *pin;
+>   	int ret;
+>   
+> -	mutex_lock(&dpll_lock);
+> +	down_read(&dpll_lock);
+>   	if (GENL_REQ_ATTR_CHECK(info, DPLL_A_PIN_ID)) {
+>   		ret = -EINVAL;
+>   		goto unlock_dev;
+> @@ -2119,7 +2119,7 @@ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	return 0;
+>   
+>   unlock_dev:
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
+>   	return ret;
+>   }
+>   
+> @@ -2129,5 +2129,5 @@ void dpll_pin_post_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+>   	struct dpll_pin *pin = info->user_ptr[0];
+>   
+>   	mutex_unlock(&pin->domain->lock);
+> -	mutex_unlock(&dpll_lock);
+> +	up_read(&dpll_lock);
 >   }
 
 Reviewed-by: Petr Oros <poros@redhat.com>
