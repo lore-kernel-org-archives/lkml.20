@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271129;
-	b=FUvNvKH3PaN8C3rn156dHZorGMzdAKbv3JqDmRIDbRQWg8TCcjre1zJfZIXZiC/D7TR6
-	 rI2RLsO51UahU5T2UOyrFu3UALkyzXdTUWu3BzMR7yP60Uh+CjE3lrXItpGgmqcj1z7a3
-	 Dk38J+H89aqdax3+cuzX/o9OannK1VDmbCznPMc+72GGI5MbNfS/TT6G1nksof+pZKMEp
-	 2umB/lo9fx1usYgexjDQOCLua0aJ4TnXucNYCyY7t9c/CZ3XolM63Hzz577VkM9SLZeAU
-	 gaeoIbdXNNpQkdg2YHJVJ/KTnp3M15BbVa4WNLXXadPUz2gBxrzDQbt76+q+o+SJUnQ==
+	t=1794271177;
+	b=U4DSUy+XSM3oH/17BfyfeEZSAzl0zrpKSkKbThPI7+Ddrq10dzT8jJj6mMCXBL8ReZQ/
+	 j114k/WeyC9Ir7AnDVKUKrdAaqIvipgDFQwrCrtA2xl26eCg7Gw06xTTT1X63yrLds13L
+	 9UNoU7ZgeR/prVLThRmC1RbW8NZ0tVqVsxmT0xYeNHMyMDre8NvTJCGur5baFTc1krMmj
+	 5I4a0W6N523ZhlvUI/cJYI47dY7+R5BxADKcj1emqdfGuSuf1jYnUYGhsZrJ0lGMWqn71
+	 w8Vc4lGnprzloxDvlHnTvu41cG5LshXshdKB/QWnxhAVOL7groFy+6/kMlXhZHhaV1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271129;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
-	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=L7XouM7EVXaoZdZC7OVtr6c7wMxTLOEjkY0PkptczXk=;
-	b=CY6xzryvk4A4EIp8oBhRL8aaPJ84j8IJQ5JWfpabSOqzwZXQNW9Qnj7v//ZTY7VS1bNp
-	 uSRdigRdpk9hICqIA3phnn/3Tr3CTm+7WFIp+4X0Lz3o8ZCO1Wc8DVw3YGwalsYYX1idT
-	 s+IT4aMM2jq0E9eIlvDspFMFjFgvocJlPRUcOuEA0WfC9Cqg1AHobJ3j1dwDx0o3UlVj/
-	 cNOZmZ3uPcD7QVMy3Gsnnb1kZOA772Jg8XXDcQ0J8nEgfVO86f8nXlXG9qVDyphXHlDHg
-	 TJr2evThJv5pSTwlw8BMI6BEyXlTxzCzs5k5Elq/r/979XW4y6w4xpIZaETz0/95Ccg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=IoWT26L+lCNjLByITvEDqGCl/vVklbh6utt0NNZqd+U=;
+	b=ZI/OnsiU5NpPHfb/MZpszCRYvw/2jc/hsjg5gGuAvwZGFqkx7Zagg77Fg3DGFfxXqB1U
+	 wOwzNe3I6I96qQVsNZfW4JsNpk31qwnPTie75vX/HM6Lf5AVEbqISrFxlM2/iVDL2DWCL
+	 384GZvKHRYEIWLf7PfqsBsZa2/5S9A0NJ67YGb+uYNQk/r3Pq25/YJTFYciudXhN1zSAC
+	 wK/nICWAlyu1zZUsFYPVKyhpFcISOVxAjlmlOCMCaWI1JlSP8qmAEOaershuckEcZDpHf
+	 NGHDhqODEEXjZZd4lf98SeBHa7dyqys1MLb0CpFO4HE8GMwyR7Uu7NaOXuRaaz713bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniroma2.it;
-	spf=pass smtp.mailfrom=uniroma2.it;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=bWNrIjHH;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=LLiBWgJX;
-	arc=none smtp.remote-ip=160.80.4.33
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.33])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16FCB606A338;
-	Tue, 10 Nov 2026 00:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16FCB606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a6nYydig;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E623606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E623606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=bWNrIjHH;
-	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=LLiBWgJX
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 6AA0brej020849;
-	Tue, 10 Nov 2026 01:37:58 +0100
-Received: from lubuntu-18.04 (unknown [160.80.103.126])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 3367D122868;
-	Tue, 10 Nov 2026 01:37:49 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1794271069; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L7XouM7EVXaoZdZC7OVtr6c7wMxTLOEjkY0PkptczXk=;
-	b=bWNrIjHHBlCQ+KuNOs8ozU9lOJXNuK2Lx1JjVJbpOSLRBvakp6WFlD6fQlpKPz0yFd6G1n
-	vWqa47+MT/5PQTCA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1794271069; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L7XouM7EVXaoZdZC7OVtr6c7wMxTLOEjkY0PkptczXk=;
-	b=LLiBWgJXpj7jAKeCjG2puASJxSokuN962CN8kLyIDUM6d1ZhiXYPxfwVtr2b9TzYIkULss
-	0fOknra0Cw7ApgUSxbqs+zikfpe+Ghzj9BvDCAO/hIXbOSP5aOXoyb6QVarOOCYTXh+m5i
-	E5FRpexPYQe64xt4l/ZrT4BeGoApU1r11CcROf4Sh9Rvi08goILjNVywW6PeSugPIhXrkB
-	99rgMN2g3Bt/AWioKqu/t3IUvuVGIBb5faTmNxPlhP34MuxoSudMs4nat7S1b4ECvg89yb
-	mcY4W11uxDKqLa8xsRvc3XO8CrI4f8JY7SdQFtq37zCfn826xp8bqH3dsoLbCw==
-Date: Tue, 10 Nov 2026 01:37:43 +0100
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Boyan Liu <yymhvert@gmail.com>
-Cc: Hangbin Liu <liuhangbin@gmail.com>, David Ahern <dsahern@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        co+98d7de09cd94fec5@bugs.sh, co+cdeaa2edb6897680@bugs.sh,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Hangbin Liu <hangbin.liu@linux.dev>,
-        Andrea Mayer <andrea@common-net.org>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net v3] seg6: Fix unset mac header in SRv6 End.DT VRF
- decapsulation
-Message-Id: <20261110013743.101dc3309db53ade8d6bb24e@uniroma2.it>
-In-Reply-To: <20261106065607.3372-1-yymhvert@gmail.com>
-References: <20261021024738.17266-1-yymhvert@gmail.com>
- <20261024015811.a995b7cab417cac2f41689de@uniroma2.it>
- <20261106065607.3372-1-yymhvert@gmail.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a6nYydig
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso1139376a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:39:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794271176; x=1794875976; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IoWT26L+lCNjLByITvEDqGCl/vVklbh6utt0NNZqd+U=;
+        b=a6nYydig6QvSKo7EkEElyV2YraExoirso0hjPWfiBXMd5zbsE5V2+ys7gBTXGBgLMy
+         KztL3S4lXSLQNQFXbomWBbd4uwbtyFzJ3PlMxe3uSSdlmkG5VE/Md9tv0hOKnruaYi0x
+         aPiGZY/Lb/b9UIj6yOm3Bkfm7pAV+dJnpXqlq919gh7//xQg6gdoEVc1qcuuy4ZsBpqV
+         bd01OkHyArnS20r2xDk3ROR//CEabXF5XGAQjI7VyXzuf/s1A2ioL/h/VL0QUAHHRZFz
+         iXsyGWYm6ejppGHGdXnl0oclHQR9TKzhn0HYYCOubjWw6Rhb4LBRNRyKYxgjASXaQTqt
+         k2Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794271176; x=1794875976;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IoWT26L+lCNjLByITvEDqGCl/vVklbh6utt0NNZqd+U=;
+        b=wUzqDVW5JqV+I4GeRrUQ/bW1kNc+5fSxbPuwZP98kOIDkBcnxhNkwpoN6v817/yk7a
+         5MdpgTLVEktgoXq/GgCt1TK6UVipqAAFHWQEXRsEOQ76fF3D5FiEFBrjnKAv6GjJ4Czj
+         C6kobFsPnHT8uvUQ/1wnRjj5f0PG+MLw7ivuxqySmsP7LF9/rGgSSeyNjwRndpBPcA2H
+         BZhLwWHBOF2F4ePcXe6tw5Dvosiwx13nQ+HJxx72YEufkli74RNXTXw2yhNkUzrrt1IT
+         QDTTPrOU/T9r874oBnuxPmgKrIXjqF5f+z+TLWwEKZkLP+wmU3Nu+tKP5ZOCu0Jltmgy
+         aQSQ==
+X-Forwarded-Encrypted: i=1; AL+hErF3C/0b1qT3Ed8tvMmLtJHc6YlhXc/lEnkTl6kL4MBvidAKQ/SXtrVjDwXJxGxqeQ77IEsSUdAdxmTQFIg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VHwe5K2cwVJzEoP+tvyNJQLyngM06Ol9OsuzFYwLbY1gdeHuH
+	l+UxQNCb98htBihdmM8xuFO2qxIgeTV9Y7v+vdBaqM4sBZP/pjUko2xj
+X-Gm-Gg: AYBFou0tiyHyMKNlEj3BHlM0qRXkp2b1uQ5N+h2ibqK8hAxgjAH0UUMrXILvJHRAKdQ
+	3VVT8KaKEZAWVg9/upYPNUNSa+moQuChcWksUJllPVMjQA+D/ksqrRyUBRCqUhBq7yA0ut1zVR0
+	l+cN82RQPg7C/sQayHbvKxfQzeXtEFyYX2TI5qBbJF/cpovCAOCDoJzJg2Yn2HIAaqvl9jotDlK
+	d7ciGoo00GK/sS4NU92BxszZhv6laxs+kokNuY14aF7KPBy/TYkPHA7WsrVf3YRkxkuSvUO7OaV
+	pPv+6NyohTLU6v5MBXYF0IvrD7dJ8uTLx6CE6u9+ha8k1CE0+jLrnsMRJV5Qie42rg2Oqlf8O4U
+	ywMhN/44in/j7Xe6/knc5kjcgeFxrDlrnl00MZ6TK2kmlR8bp7LhsyydyObjAHAYAiASfmYwrrh
+	IPNIUcP+zgwmg/TdNZqgvP7pNf9ujSevPhOj0KQUe8Kuum6zRq2/M4KeToEbllCkw3M6umxycY+
+	UytPSiOndu0hTsRq/MMGb+Fy7NSRJN7efpxqQh+dva0Pw/AHyhHeJB8yT7kBrR7BJcqNLBceOhA
+	TnrwkyFUIalNisugkgQSMHXGV36qIwPgIVEsyj3fBIElEI04YsHG1y+FmpggvxXpWL/L6sz41W9
+	BMZ4b
+X-Received: by 2002:a17:90b:4ad0:b0:3ac:9d83:8856 with SMTP id 98e67ed59e1d1-3b166ad1ee5mr1415032a91.9.1794271175917;
+        Mon, 09 Nov 2026 16:39:35 -0800 (PST)
+Received: from [172.19.1.51] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16779d5c8sm1512711a91.2.2026.11.09.16.39.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 16:39:34 -0800 (PST)
+Message-ID: <d2f451a0-33bb-47ab-b31e-aa40df9d7ab7@gmail.com>
+Date: Tue, 10 Nov 2026 08:39:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,36 +92,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document
+ MA35D1 PDMA controller
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
+ Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
+ linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <20261109052900.2960473-1-shanchun1218@gmail.com>
+ <20261109052900.2960473-2-shanchun1218@gmail.com>
+ <20261109-petite-imposing-ermine-fbbbcd@quoll>
+Content-Language: en-US
+From: Shan-Chun Hung <shanchun1218@gmail.com>
+In-Reply-To: <20261109-petite-imposing-ermine-fbbbcd@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
 
-On Fri,  6 Nov 2026 14:56:07 +0800
-Boyan Liu <yymhvert@gmail.com> wrote:
+Dear Krzysztof,
 
-> Hi Andrea,
->
-> It has been about two weeks since you mentioned that you were
-> looking into the NFQUEUE case.
+Thanks for the review
 
-Hi Boyan,
+On 11/9/2026 9:16 PM, Krzysztof Kozlowski wrote:
+> On Mon, Nov 09, 2026 at 01:28:59PM +0800, Shan-Chun Hung wrote:
+>> Add binding for Nuvoton MA35D1 PDMA controller.
+>>
+>> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+>> ---
+>>   .../bindings/dma/nuvoton,ma35d1-pdma.yaml     | 71 +++++++++++++++++++
+>>   1 file changed, 71 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> Best regards,
+> Krzysztof
 
-I followed up on the NFQUEUE case on 26 Oct, in this reply to the v3:
+Best Regards,
+Shan-Chun
 
-https://lore.kernel.org/netdev/20261026003415.f7c46fa5a495144c29c03a07@uniroma2.it/
-
-> My understanding is that NFQUEUE is the remaining open question
-> for v3. Did you get a chance to check it? Should I prepare a v4
-> to address that case, or is the current approach acceptable?
-
-As I wrote there, setting the mac header at the network header with
-mac_len 0 looks fine, and the reported crash is gone with v3 in my
-tests. The NFQUEUE case in the Sashiko review also exists without this
-patch, so it is not introduced by v3. On the SRv6 side, I think the
-current approach is acceptable, and the NFQUEUE case can be handled
-separately.
-
-Ciao,
-Andrea
