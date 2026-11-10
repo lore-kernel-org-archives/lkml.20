@@ -1,88 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334739;
-	b=u+NLrDy1Pizhx9Tb5qkYAqiZcvceJCt3VxbK5oNDo+jFjW/Mh326nIK9tfLDMHvM9+aC
-	 PXBX65ujhcJCbc63FMTGX7yDbVxGG98/enDOdzYw9/sbPQiErcIKzSJFcGC9GoT4fDYYn
-	 SA1SYGYFp4/Cc1xxWwVYa15Jq07sFso9IroV7lRN7tptIsMLD7qUZo90jsgcsMvzX58/6
-	 yAhDNzfUiZmpelGg9NiTTBf7K7JMmyVV++MSHUO0FnuZHLYamqNfrrODqMngjV10RSSCs
-	 t5ezX7jnaebEHcWKzJy9GK8qxmz8okM9f1UwW9SV5tR4Mh83aa+Hsk2GPcA7DyiuUCQ==
+	t=1794334864;
+	b=nZv5ushcsGrzvApml1Isp2V2RQ+cXJs49RhkS57jZpSHKch5Z4DuGYKNXL7Gvq/dkVY2
+	 HUiRzvJQUeM6QUVfp790jXNx42X44DGdewVk1oL2b/6ZzeaFx1nDPC66yVpDm3gec/Dwa
+	 jvc/6NIdeREq0gikNvQRqf0VyVHU1ymHkCVEkeePidexuetHiIScHQ2g0HOKo98Q9NVXx
+	 2oBr3ieLczlvUwLgqg0XdmOUsL1NUBNLWj12SBnmQsVuM+zSh65RqEULfF2jfhCt4DOi/
+	 wCEelfUWW4MgSLfRYdVEAJ9SClQNgj8vHhcctPa/YGqY7nqYEAd4aFyc7m8hnxv/Fxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334739;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
-	 References:Content-Language:In-Reply-To:Content-Type;
-	bh=SE2lrUu9zrSXQsWXpC9NEVG/yxx3i85b5haa93pV8Hw=;
-	b=5aLPVz2jB5zDra167Z8Ix0u7G71u5Imp3jJuy8RH8SUtS8thZBas3232HjJR+DD2Vn4E
-	 4ho0mMyevkQGWePgNa8Dl6H7VZIz5sec7eKlQDvd9NWq0Kuc1u0WyWxyPVT3m8eslBDwy
-	 hkIAZLQKEz4AdT55G4W7isN7/nfFLk8CAZ3vmqBVVAB4rbN2c3CN9+6DSjdpnhmEns0jO
-	 UWDlPe7mBX73UW6zfLBYBbftmd6sv9AmVU0NsnuZB3PBuws/cBbWi9SJ5K/MLZmZQr4xC
-	 peZKtAKKhjQJrKSRozUzSbn6YgwTNrQWLcQmsZOnYkApEtnH63u1tX9m23JjDDflaEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334864;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fV0CHpd4GdUMteugWLcIsYrdIucekIRCl0bvZtdLPQ0=;
+	b=nTi1ssd/fX0gS3toir1YMcZXahqYDERemVI5t+jFZHoQ0IwXKoA3yp0ydE0/Wae6cJVj
+	 URT8pG/QOQsfihDDTvjMgqlFy6fy3683ThnTF8r7S8x1t/134SY+O88tGenSA83lkke98
+	 vC5lU0c5oSpTkvJyggKdAZ6TEXBb+MgGWoai//f6Vh6aPvpNaJTJAwwARx3WYMBY7MlEw
+	 P8n0/VfIhiGGNPAsgjVv+bkHSqYDb+rhJmlQeGGkHmWoTyDv7cmLPElueseP2Wp9RnFXD
+	 b1LcDZA/Nlp1kyCR8/khO3fEkoMjzLMzWF3sBA1J3EiXmaUxZKHs2cvNey+IcBdIbJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPZkqliz;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yleqlEpg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEE8606A33D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:18:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAEE8606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF52606A320;
+	Tue, 10 Nov 2026 18:21:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SPZkqliz
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so21529925e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:18:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794334737; x=1794939537; darn=vger.kernel.org;
-        h=content-type:in-reply-to:content-language:references:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SE2lrUu9zrSXQsWXpC9NEVG/yxx3i85b5haa93pV8Hw=;
-        b=SPZkqlizfa4It3AwLdPrXCHtu8hjP8QsFeAuGA6TzWaWCvEuPs6YRFrNxSLhGY6hGO
-         zEkoZN4sdOPDpp0fSVUec9WqjBjvtMVvrEQ65XF2Yed4K+/loVPoO9Ic5C/uFsZE8NIW
-         a7SuXA7nEFvGvWvLFPTq0Ynm5rdM5DLTPlMLycSJFkVrU8JWmlwSUfWDckahUOsYF0/H
-         actdhCUUDnOinRx9t8xsvvN84/pj8Dul9B7nDEmVjtEJdE1h/jhCN5DMjHk5kgAuLSBU
-         2XR0ZbSD1t6mqP82bCf1wjFydzdoOh5APY9FvvrzDfKRwdJ1NyIsBaSfqst7u6E0YpPm
-         teKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794334737; x=1794939537;
-        h=content-type:in-reply-to:content-language:references:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SE2lrUu9zrSXQsWXpC9NEVG/yxx3i85b5haa93pV8Hw=;
-        b=FWsJK/hxsJQaJVn0W1yCEkSNXSOtrqD2aOqWQqCewMV19ykUnbpXdNGweAd7u+J2TJ
-         tHCXzWJ+b0EJCL3e6uCAhxGBimxFfVXajqeFIXsnK9bQVyuaTEQA3g+xPPlhU9VZCbRs
-         s9GOgzSysh/7CujFeRD8UblNj/KBFnur1SyYyFcaz7tCb8NOm9tP/a0eMuy6jVC9lEq8
-         JIBjIkmXDabVOETI/O2BB4xA5eSdCjin4En+xPgHuTyQDLGleElkKmdE1yydl8zsHjzI
-         dvNXV4bEp7jLXNBHk/u3uveELFY78Kl855eX8h71hzlquZwp7v+QwZxlwwLWcykWnNmQ
-         C6nQ==
-X-Forwarded-Encrypted: i=1; AL+hErGMMgvfv8URfa5FpD70SlEKpn9lgjabNRmRwBJgPtW5/qZhdJI/AuFq2/DIrjlPDQ4KyPCjjhDTZv8H5/w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KTIRj+n6Su/G8cfAeKKGUDdCnqSSfI7kKYnHmliOlMx0HB4HR
-	gqOP5298Icx0kEyOdiZv79O/GmM5VgMHB1OwBrmCD56hHgkaFmsyufAl
-X-Gm-Gg: AYBFou2tXXfTZfF61Ve+hhO9Irm10hql7LcHcptPkT//871VSWKe71YTnQZu4GA7sMj
-	PTt/iZB53dLU88cY1eBr0xMPMzp+Fpfppt8WO0TS6VtQTUkLZdYGamjSTVuA1KluQtnZPWJY/jZ
-	Mf09lw5SPenfljxgGWkoLmuHNgjrLm6d7bTjtrC+xuYeqsgFyxZlSiy6UGTOMoL2URwGUmExQfQ
-	EFbHBTWvrwDzGGQ3lRwB55nEqNcRAa4RHngFD6AWn2gVrW1agMybqVVpkrthe/N+ceQlGyu6Mtq
-	5oaVZ8iX49Es9HgBhBHtdiPtZe/OiipfaQ9NQG0XbzuwSRFJi/L/2x4BlHpJFWMEISCqsocEp9W
-	UNOBdNI5gzqoCha38t9hq6icSkSSetaQKRCW3hftMW1sDko5wBv41tbpuVVyHfE53K7DD7IFudn
-	DNKGAHZCRmGNUjk2ejwmun1WpsGx6SN/2/KncOZWTnPCFZeQpmmpVZS/5u5TTH/i/upBOBHXxrq
-	pIYjJtL3hpHTSTbuZD46xFiJtEwBNNoGLN6LGDNnPz+rtUwg7gsPGFI8QVgMlEdIc//hU5skbLj
-	AOW0jviliF2ou8yMJPRBHZQw3SMERidINL/q8bfCcDoqngn9zMXdnhBr0yahRYp8K7sdRlYdcH5
-	OnJhKPO/4lubj1Qx190A/JIOaQ2Aq4M0Ys8pvI45mNyA=
-X-Received: by 2002:a05:600c:34c7:b0:4a3:5a98:c279 with SMTP id 5b1f17b1804b1-4ba0233a41emr53483145e9.8.1794334736887;
-        Tue, 10 Nov 2026 10:18:56 -0800 (PST)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe63e6sm121456885e9.7.2026.11.10.10.18.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 10:18:56 -0800 (PST)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <c0ccddbc-539c-4987-8685-ec996285f746@gmail.com>
-Date: Tue, 10 Nov 2026 18:18:54 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yleqlEpg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3565D1F0089F;
+	Tue, 10 Nov 2026 18:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794334863;
+	bh=fV0CHpd4GdUMteugWLcIsYrdIucekIRCl0bvZtdLPQ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=yleqlEpgVolSOIsVsH8PGR5sAa5b7qADEq03UUlGeTZf2/IC+23znJPr5KSG6vPRJ
+	 MhjGdAJB07HFQA20df8RHJux4ejUPxJm4GNJwScRbP8UZ6VjDFm4JEbg1mUs9EuWy4
+	 QJmjFA0yoyyhcPoA6ynoG2+6+vRenRtUad5xVWec=
+Date: Tue, 10 Nov 2026 13:21:02 -0500
+From: Greg KH <gregkh@linuxfoundation.org>
+To: mdshahid03@gmail.com
+Cc: starblue@users.sourceforge.net, legousb-devel@lists.sourceforge.net,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] USB: legousbtower: use stream_open for stream semantics
+Message-ID: <2026111054-reversing-gurgling-94fd@gregkh>
+References: <20261028182802.25212-1-mdshahid03@gmail.com>
+ <179433189678.152716.11457478975708955224.b4-reply@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,150 +54,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
-To: "Ahmed S. Darwish" <darwi@linutronix.de>
-Cc: Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jonathan Corbet <corbet@lwn.net>, John Ogness <john.ogness@linutronix.de>,
- Derek Barbosa <debarbos@redhat.com>,
- =?UTF-8?Q?Zbigniew_J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
- Daan De Meyer <daan.j.demeyer@gmail.com>,
- Luca Boccassi <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev,
- debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, arighi@nvidia.com
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <a20153cd-d148-4618-8089-ad81cb16fe23@gmail.com> <avHroNa1vcxmCIOs@lx-t490>
-Content-Language: en-US
-In-Reply-To: <avHroNa1vcxmCIOs@lx-t490>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------mHZpGD8kyHvacYrtSD2O5A48"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179433189678.152716.11457478975708955224.b4-reply@b4>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mHZpGD8kyHvacYrtSD2O5A48
-Content-Type: multipart/mixed; boundary="------------ULacv4ysiB0EGOGi4fngWV05";
- protected-headers="v1"; hp="clear"
-Message-ID: <c0ccddbc-539c-4987-8685-ec996285f746@gmail.com>
-Date: Tue, 10 Nov 2026 18:18:54 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
-To: "Ahmed S. Darwish" <darwi@linutronix.de>
-Cc: Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jonathan Corbet <corbet@lwn.net>, John Ogness <john.ogness@linutronix.de>,
- Derek Barbosa <debarbos@redhat.com>,
- =?UTF-8?Q?Zbigniew_J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
- Daan De Meyer <daan.j.demeyer@gmail.com>,
- Luca Boccassi <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev,
- debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, arighi@nvidia.com
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <a20153cd-d148-4618-8089-ad81cb16fe23@gmail.com> <avHroNa1vcxmCIOs@lx-t490>
-Content-Language: en-US
-In-Reply-To: <avHroNa1vcxmCIOs@lx-t490>
+On Tue, Nov 10, 2026 at 11:01:36PM +0530, mdshahid03@gmail.com wrote:
+> Hi,
+> 
+> Could you please review patch and give your feedback,when time permits.
+> 
+> Thanks
+> Shahid.
+> 
+> On 2026-10-28 23:58 +0530, mdshahid03@gmail.com wrote:
+> > From: Mohammad Shahid <mdshahid03@gmail.com>
+> > 
+> > The LEGO USB Tower driver uses nonseekable_open() in tower_open()
+> > However, its read and write have stream semantics.
+> > 
+> > Use stream_open instead to mark the file as a stream and disable
+> > unnecessary file position handling.
+> > 
+> > The issue is reported by stream_open.cocci script as potential
+> > deadlock between read and write operation.
+> > 
+> > Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
+> > ---
+> >  drivers/usb/misc/legousbtower.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 
---------------ULacv4ysiB0EGOGi4fngWV05
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On 11/9/26 15:49, Ahmed S. Darwish wrote:
-> Hi Julian,
->=20
-> On Sun, 08 Nov 2026, Julian Braha wrote:
->> Cool tool =F0=9F=99=82
->>
-> Thanks!
->=20
->>> If no ruleset is specified, the target prints the available rulesets:=
-
->>>
->>>     $ make checkconfig
->>>       Usage: make RULES=3D<profile> [OVERLAY=3D<overlay>] checkconfig=
-
->>>       Available RULES: preempt_rt
->>>
->>> The overlay mechanism allows distributions, CI systems, and Board Sup=
-port
->> On the topic of distributions, this seems *a lot* like Canonical's
->> Annotations [1], albeit yours uses YAML and supports matching option
->> names with regex.
-> The difference is not only in the implementation details. Please see be=
-low.
->=20
->> As you say about PREEMPT_RT configuration not being
->> "one-size-fits-all", similarly there are 100+ Ubuntu kernels that need=
-
->> to adhere to a configuration "policy".
->>
->> So this seems to be a real problem that others are having.
->>
-> Kernel configuration is definitely getting trickier.  That's why I've
-> contributed the PREEMPT_RT kernel configuration guide earlier:
->=20
->    https://docs.kernel.org/core-api/real-time/kernel-configuration.html=
-
->=20
-> Regarding the Canonical tool, it's the first time I see it.  From that
-> announce e-mail, it seems that they're using it for generating a .confi=
-g:
->=20
->    Starting with 22.04 (Jammy Jellyfish), Ubuntu kernels are now using
->    only annotations to /generate/ their corresponding .config.
->=20
->    ...
->=20
->    $ ./debian/scripts/misc/annotations --arch amd64 --flavour generic >=
- .config
->=20
-> Yocto also provides a very light concept of .config generation:
->=20
->    https://docs.yoctoproject.org/kernel-dev/common.html#creating-
-> configuration-fragments
->=20
-> But this tool does not conern itself with generation.  That is, Canonic=
-al
-> can use this tool to validate that they've generated the right thing! =F0=
-=9F=98=89
-
-Yeah, Annotations also supports generation with --export.
-
-But it does support validating a config with a policy using --check [1]
-
-Anyway, the point was to provide context for the maintainers that this
-problem is bigger than PREEMPT_RT. I want to see this functionality /
-your tool in upstream.
-
-[1]
-https://git.launchpad.net/~arighi/+git/annotations-tools/tree/kconfig/run=
-=2Epy?h=3Dmain#n117
-
-- Julian Braha
-
---------------ULacv4ysiB0EGOGi4fngWV05--
-
---------------mHZpGD8kyHvacYrtSD2O5A48
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQT6qjll++tIFxF8TUPElYPCBXNxIAUCavNgDgUDAAAAAAAKCRDElYPCBXNxICmt
-AQCnoePBJmblDtx791LwMw6vMN74dOGbn1riSxrX5t4lFwEA9U+EgthEgVL036QIb6Xcl3PkwtNL
-NnsnRTbgzz+lNAI=
-=mw7w
------END PGP SIGNATURE-----
-
---------------mHZpGD8kyHvacYrtSD2O5A48--
+How was this tested?
