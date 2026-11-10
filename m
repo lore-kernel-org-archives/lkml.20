@@ -1,96 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347786;
-	b=F8rlfd8J7gJDHn7p4Ga4N+OeQ/MvStYzbseUme/wLbgw5X7zOUPKcMWsf2htBmH0XCRf
-	 1WrGkhXe888UmtExJW6uRHO6kHT1kNd2tX7CyHLdvcHcyPhacfHQzMC7Rkfa/dw23rju+
-	 yRTdHjRX+ar0V41EBKQ9ChXtk9B1LSZqZ5WUiyhB/cOeDAZwbE0J7jCs8XmfuotMvzhg7
-	 hCqqd2c5cztGuzPjaxnZBNZTk1OdK81cC/R4vsNLgmcGpEF/qfauj9nRSuiG9XybFTB35
-	 9TpRmyEHw6EfJHz8yI0H1xsMlvsLvFJPF3ApofduaOJ7f9kyoU5xuYI739uSCZD4oDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347786;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=5nCrufOHdC0otKoL4oDb1v5VvTPC6lNZya3g3L1E/9c=;
-	b=tI0XxpmzOZnvEvJ+eV/2pR2zzVvep3VYhanyioEraL/uxBUdzxUPgl8ZddTc+z7419G9
-	 XR3DFx4EyUzGuwu9RpyzOELSbY2Ye/qdPSGaDdta9xdeJv0DGV4LGLxH1gPWtLJPO1W/r
-	 feyGgrqrdgVshO+j2dLXvoRvqPwYJl0Y/tl5LBRh1OcaZHmiJORFiMOcjUniCITpmkX8m
-	 ocXg5qnCX2Bit6sGy6NBDDrsiMUIH30fKn3vrmE33zSi1T2BvPsB/mYj6VWf+7pu8P0Z5
-	 yUKSKu710xyBPLIZbBxuXSdcOsqIiDkDyPjr8WaAE9RBS1g12YoGjHC82ip4h0QZ3qg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nA1lFUI4;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.31
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794347790;
+	b=rhAJfQXD6bPOHhLIgPyQs73CbbngmHrB7dvfrW++YvFGlS3zyadyPtl8j45YiDvK4lxZ
+	 CznyIFsyLZMRgXQPq1TRZs8JCT27g/IOfdAl1JoFebh0d0whRPghf8+2avOhSTG78OvWw
+	 savmSHOFo7fS17qbEraCkCEV6V1LyIXdNpKXRvZ3J1wYXPlIUBe24+coe/vukldh8zMfi
+	 GvH4IMan2NsRypENgLiEE7HFRuuOiFhSj1ZWNv6lIgbZsgygy5qPfT6nLl2RtIuXhmj9W
+	 oboy3H1L/lTuaNn4R4JRvjRBYs+saxj5e8f9dJTG/ZQzOUc2I4fakOZAPVaet7Blfjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347790;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=d5G1KuDOAlFPJBeLSqK1HVrKbYWctIoSli8A7kkhLGo=;
+	b=qBmTwLxVYVoM0KZAiJ5vovy3wrLa3ymaV/otJgWJgiR38pOO1/fyuIIYEhzWtSkDMExJ
+	 uVo22l/lskKgrcEkGriyY55lR9+795tQyLFIDPC8fGVxilH7QiBerM5/qLDxcSp5/ZNfD
+	 kajN2zllCENY9F1WItiJNxNlMIzfEfCI3AIRCaOhqPjxnybflCFa33mBfSGr1x3pqeFIT
+	 4UHXgNTOtXKsiMAChAsLpswSucDPktAHtRzCu7W4R9AU/z1bWnlkTIHw3N95BV3//xyJp
+	 QSOr8i2FmbgHCLq4ZSstcKor2pGhXLtXA/UUdyuyWmQhB05+uegeAV6RZIrxrmNtxXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vfye6nVB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.31
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012031.outbound.protection.outlook.com [52.101.43.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3612060A6F79
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3612060A6F79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F37606C98C;
+	Tue, 10 Nov 2026 21:56:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86F37606C98C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nA1lFUI4
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-492f0a1b685so1746044f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:56:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794347784; x=1794952584; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5nCrufOHdC0otKoL4oDb1v5VvTPC6lNZya3g3L1E/9c=;
-        b=nA1lFUI4PtScRTVhDY8qQRz3vNd2dC+411dcunswJ5rT617Ewkl1bssGHj4Orm4Tqi
-         Lg3GHvr+GIfI8nVkm5XNRqMcJh5/lNXxMS4IaPnNuokob6YD1GEUCUMH/zFouCx7VjYs
-         wkTEItC/xUEtjWEqZTV49613lpEY2D2GVluqszHCFve0KAYt+eQynzfA4nHFssShy4oj
-         v6n9LJo9XPiUmjl9CvWHqyw0LnMz/XXSUvmVMGvM/Dwk2kpfJlLQm0slFvp3TxoOq2y3
-         sNB1HqidLm1wmcVOF1aS3G3ZhhYaUpkczU3mFxqPeFxZnLW0Fv3BrlX/m9dT0DJXSthV
-         AQFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794347784; x=1794952584;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5nCrufOHdC0otKoL4oDb1v5VvTPC6lNZya3g3L1E/9c=;
-        b=pTQFkbZC4FcmwyIH0CgGslvpoiHQWyVwWeKOiXd7KajO7UEkF749QU341lMTVJbYfA
-         A9XlIp00wgGlLKO9wlYrFzI1mV+jAQ4KYom0I3r6sSKjSqM+nYLkMe1G9bl+bI8sf5kE
-         EP/m3MRNgiZguon74lzkyn2W0u0TYdyBa2u0kKeEzk5+27PvoooK/aGzxvq2sFnDuq7x
-         8TnRBJc9mVNOiaSfqgOGJeYguXOZEoIoQEoRhSBVuxVptatV17Ii6w0UJHZtc8vW1/7z
-         IAH1R1G8kXfzJJOUVaUkjLSFHBn25yX2Z88F/1COZRmefQizFWe2V4VWn4IosbGvvWwM
-         C8wQ==
-X-Forwarded-Encrypted: i=1; AL+hErFMf8w4E5WV4SE7ZLIsC0R1p6WVuCCXWRnEqGXl7ieMYI/qf3vWPXpCH+36G7TkACu6nPffPV0k+SfnG14=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uPAMGxLyeIt9hXHyAh+VXy6FbACKFBxiCJUwjA1aVCQd3757L
-	pdd6XiVbOHZ+FJ+qYcF5AK8LDxl/ttxuqh4RW4vJhreRwbe1S7oy2xp++jGYrLC75Wc=
-X-Gm-Gg: AYBFou0ZKCAvPlgZyiduNiNtKjjJ1vCX8464CYF/oHoBCqU87jfbt0KIkFa7Ulcl/Tx
-	O7np1ueVI0g7TwWjrObI0IdiagX3lugJu/OEv6K+6CT1nPc7hbEAAycgiD7SWONz5nlgCa6VsS+
-	cnYsUI0pZxvJAI2TtPJMWeSSQkhn5bCaCWaRmP54IToKxoG5SRW7eD/xsCZFJcoLIrdPZpoEvU8
-	jx4GlNEwopxFRHlTS8iQiczo9ZMVnFdZ6Zq/br3zFclNjW8DbS/oHUYJNm1A97GVTV5il4yUj7u
-	IpcGKDzvuIYaMa5zfpk/PDXjjBXOtiJn/4kQ4A3kDF06Rpmre2cAmWmOQLGEQeEyyUVPoleoenD
-	JANNyuxHnRBiUGGbFC+A1548rViIQSx8p35Q+6UMQcitQhcjs1VxWRmjQcdXFFTaMpjQjXLi7NX
-	2DgQw+e3lFjX4V8+VJkM8yGpMqnh7Dklv8h5qSpWD6URYdOMtl9JWFuRtlUYZQ6yGqTCl9ZBAKS
-	TDPDsRoYQan7Q8nByRjX9t90GyfZ9oN9CcwQzOvsnDNDk/jhGYygFzvnQ4p50BbAIKGnFkchQ8Q
-	jfh7q2/LhHWC0dlZ27+3tAmuS0EhUOXayEI=
-X-Received: by 2002:a05:600c:8b78:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4ba0939162dmr6430805e9.32.1794347784604;
-        Tue, 10 Nov 2026 13:56:24 -0800 (PST)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4983600bd6esm7059540f8f.28.2026.11.10.13.56.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:56:23 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v4 14/20] mfd: Use PCI_DEVICE* macros to initialize pci_device_id arrays
-Date: Tue, 10 Nov 2026 22:54:39 +0100
-Message-ID:  <416bd01a3b26dccb675614634f3150175b754bef.1794347059.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
-References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vfye6nVB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D6/ROnIHJEs6Vf/cWGl24JFyIPtE38FmQqO3zkE74c59PtvCvigC6IIs1txRZEmy7fNqdM8zxqib5K6Oz9bahTKiiOut4OVjU4kzkyjRhRQzWYtoHWUhDqfWM4BoLDJw/B7c/jjPwQRP2gteBOjc9yy+x2r+u/0THjyDZF6dmXs0Jat1lsh4piCPjw4zjyURFG/H1cG1ClLNgnBR6GVjj3pUNuqf3WXuuwp7yeIq3qvJzcZs/gDUJD1OuG3mYHsPaPcICENdXo4BOdFXkn5DVgoPtbM2IwKSD0QoZixbyyunBKog3FwGoOVZil+X2C/Lq546xPbyCXPhfWm82AyefQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d5G1KuDOAlFPJBeLSqK1HVrKbYWctIoSli8A7kkhLGo=;
+ b=qCGrF/yesi3Ar9Ce+d0rCj5LFGmblvOdSLwzzgpAIgEbZCFncjstZSxnSCV38Kljkg6J3cyEEyeeHiI/SvfIMqncBp9wsJRtDRAvJwl6x+nWh328lnPBJejLUP4kPubiyl1KoP8w2nGlW28HlCHaBA5wz0EkQleVXfQGpaEB/Wt85OmrKogBaX9dXwMRJof3mVvH/m+pMVzpjQ1SQiw2btPHbdrCapNVOi0DutSRmZLQGAi+P3lFiyXqTNgT5I4t6rgh9r3XXkyvSLSzIOSD+ce3/pRaXHKXaTPFvf8fY7g7C5AlFXa6y4fi3qPoQx0mfIczgCcD+NdvlhKLRmY3jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d5G1KuDOAlFPJBeLSqK1HVrKbYWctIoSli8A7kkhLGo=;
+ b=vfye6nVBn4sKb54hn2HQjiAULmGj91qvwszVnDaHSu/TXP9/G0+jTNfSd86xNFPoXFTXWmJA492zPnnY+RJJCdvsxkpVvfE0o7S2ikMewYiGtCv1oW7IZJ7Zy5AYLX3H5aUtRH85wF5G48UOQjTHpCTgfKaYwx4uGhS1z0sdNEo=
+Received: from BLAPR03CA0002.namprd03.prod.outlook.com (2603:10b6:208:32b::7)
+ by IA4PR12MB663679.namprd12.prod.outlook.com (2603:10b6:207:12d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 21:56:26 +0000
+Received: from BL4PEPF000003F0.namprd04.prod.outlook.com
+ (2603:10b6:208:32b:cafe::a8) by BLAPR03CA0002.outlook.office365.com
+ (2603:10b6:208:32b::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Tue,
+ 10 Nov 2026 21:56:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL4PEPF000003F0.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 21:56:26 +0000
+Received: from quartz-7b1chost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 15:56:25 -0600
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: <linux-pci@vger.kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <bhelgaas@google.com>, Yazen Ghannam
+	<yazen.ghannam@amd.com>
+Subject: [PATCH 2/4] PCI/AER: Clamp negative ratelimit burst to zero
+Date: Tue, 10 Nov 2026 15:56:12 -0600
+Message-ID: <20261110215614.3931232-3-yazen.ghannam@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261110215614.3931232-1-yazen.ghannam@amd.com>
+References: <20261110215614.3931232-1-yazen.ghannam@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,57 +106,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2338; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=Yt+7UEGDrCJb+BIynF/E91ZmXLZ0sqzooDjclRxhvN0=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85LFQrzzid/YWaj5O3c8VRgc7VwiNZn3Fxjrj gw4Aw6lhuiJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSxQAKCRCPgPtYfRL+ ThBOB/9kBZN6cA2Pt8f3JhNFXDWhqb32kM+MWOdUKDTDwVaRi0u7X9Xqb3qbvBL8m0z6c96TaAW w/4x3K1hGnNmTAgTVvqDymBeIZsk1HmbDAZXOI/IoslA9bSalAADjlDsQF0Frt/FO7LR5bG+tnl vgnNzeCf681/Ww1+s/bdHgTvyKPsA97qH7b3Xp5arY9l8pf/7/QEEfQiUUN7SeDIV5amRBhCXAe cJDKmYzorM8AMt7vHsLO/WBL9Y/y0e/p8eu4BmSpkJ1n5KqVfcN+LecR57e7aW28rCACXsG+x4I SikqoOfR/GXWnVWXcf0X+s8umgV0Xha86y/38ThLItGvoK0F
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PEPF000003F0:EE_|IA4PR12MB663679:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5afb0d33-a872-47e3-924e-08df3f7577c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261026121527099003|261009223027099003|261021123027099003|261021121427099003|10067099003|261102123227099003|260925021311599003|260925021911599003|260925022911599003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NbbL2d/20alZuL/F6XVK8U964U20cOpWaKYFdJJSTTolPksyc/8ayPxBlt8Ud7iky5YwuVSzv6Jla8yrErWyXd1mYv2OXI8+EWooNbPUHYJmeqbVQmp93xBcYCTF724kiBEArJ/Ct9vx06crWW1QFUAj/tKMOqaEQP6XM9CsufRSHk4pQX8z28HyJP3Gl47EJ01b3/W8quOLvL/eGNCAaQ3eO+BlJpRiRuxnhh898rnr2vyVhalDV3LYvTenrZ6aQyFu1MhbQCjYUwME7TIfRunxkTc5X3h6+QPearRQxCLtt/5kcmyrzvzH9Tn/EjJVXEbxlP0FOz0wXREJsvjkhMKLIoTZaPH36xC3FZBpflAJxV9Uvk1nZ1dctoVvdCM1QFlJdJHPNTSxjvoYSWqAaUrVqrlws7vH6agF8httTh0RAqOeTuA3maHFsSl0lR3UxIxBqJbBz+OyRxSVKcHYKwBSwRO1lHL5PiRDSH777kf4r6fBb/RaBJzgKPy0IUtWJvk9Yrv6LwNaQy9FuXW5FHrtcu13qToOYzAWDvA+vjgSaD0ofz2ZBM267tGrrm08PF+FqlndIwDpbRruUyyrKNgCmaxAFDsXAdBMseaxSG9H4ZqRoEIfQA21B8GE3CjN1S+VBl67sIaBaIAegQcbjQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261026121527099003)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(261102123227099003)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9IoyI6tIIxVyFzCjJ+k20gRLDWaIWaS70+0iuVBuaSN4BXOfYcooFlsbYNyNCqzoRceBJ78tR4gDN6KBjRY29dVUqq6OlbgZjI0vSwpTmhiEWltz5llTv4tuVT1wWM8ZYUflzdDdEui5gH/rLrLJ1RrXQvAM0uVMCIREgpVzlEBP7T7nGNlaZPkDLkYEuweFKk/NoO8Iq+MS1OTAnYQlC/4bbdTsuQ9MSewomxQwgnDz8Pjt31vVyjSlrdPWTpjsIZzSMixadFTOsUv7s5+WD8WpFO3LrIZgxU3S3VfUzocAR/1EzjT5qbqeFUm/ILxV5sEMaJMHEAqQgarkijHAy+vxdSaUACKsF+kWz1ry6y1ksgET6vE156gtzeXsQlOFfdAUTj/FWrY6k0KsC7i+sF7asKCTLr/IkeDYb9AsOIBdW6MrYtFT6KWwwsGZMeTH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 21:56:26.2496
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5afb0d33-a872-47e3-924e-08df3f7577c3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL4PEPF000003F0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB663679
 
-pci_device_id entries are usually initialized using these PCI_DEVICE*
-macros. Adapt to this more usual style.
+The correctable and nonfatal "_ratelimit_burst" attributes store
+whatever kstrtoint() parses, so a negative value lands directly in
+ratelimit_state.burst.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+___ratelimit() reads a negative burst as an uninitialized
+ratelimit_state and gives a WARNing.
+
+Clamp negative values to zero and document the clamping behavior.
+
+Fixes: b4fe7398def6 ("PCI/AER: Add sysfs attributes for log ratelimits")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-pci/20260714191826.BA81E1F000E9@smtp.kernel.org/
+Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
 ---
- drivers/mfd/ioc3.c        |  2 +-
- drivers/mfd/janz-cmodio.c | 12 ++++++------
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ .../ABI/testing/sysfs-bus-pci-devices-aer     | 21 ++++++++++++-------
+ drivers/pci/pcie/aer.c                        |  3 +++
+ 2 files changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/ioc3.c b/drivers/mfd/ioc3.c
-index 5f8ac364b610..bf2be3bc8602 100644
---- a/drivers/mfd/ioc3.c
-+++ b/drivers/mfd/ioc3.c
-@@ -654,7 +654,7 @@ static void ioc3_mfd_remove(struct pci_dev *pdev)
- }
+diff --git a/Documentation/ABI/testing/sysfs-bus-pci-devices-aer b/Documentation/ABI/testing/sysfs-bus-pci-devices-aer
+index 5ed284523956..215cf8bd4c30 100644
+--- a/Documentation/ABI/testing/sysfs-bus-pci-devices-aer
++++ b/Documentation/ABI/testing/sysfs-bus-pci-devices-aer
+@@ -130,9 +130,10 @@ What:		/sys/bus/pci/devices/<dev>/aer/correctable_ratelimit_interval_ms
+ Date:		May 2025
+ KernelVersion:	6.16.0
+ Contact:	linux-pci@vger.kernel.org
+-Description:	Writing 0 disables AER correctable error log ratelimiting.
+-		Writing a positive value sets the ratelimit interval in ms.
+-		Default is DEFAULT_RATELIMIT_INTERVAL (5000 ms).
++Description:	Writing 0, or any negative value, disables AER correctable
++		error log ratelimiting. Writing a positive value sets the
++		ratelimit interval in ms. Default is
++		DEFAULT_RATELIMIT_INTERVAL (5000 ms).
  
- static struct pci_device_id ioc3_mfd_id_table[] = {
--	{ PCI_VENDOR_ID_SGI, PCI_DEVICE_ID_SGI_IOC3, PCI_ANY_ID, PCI_ANY_ID },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_SGI, PCI_DEVICE_ID_SGI_IOC3) },
- 	{ 0, },
- };
- MODULE_DEVICE_TABLE(pci, ioc3_mfd_id_table);
-diff --git a/drivers/mfd/janz-cmodio.c b/drivers/mfd/janz-cmodio.c
-index add3bc04185b..93e1c04bddd6 100644
---- a/drivers/mfd/janz-cmodio.c
-+++ b/drivers/mfd/janz-cmodio.c
-@@ -259,12 +259,12 @@ static void cmodio_pci_remove(struct pci_dev *dev)
+ What:		/sys/bus/pci/devices/<dev>/aer/correctable_ratelimit_burst
+ Date:		May 2025
+@@ -143,14 +144,17 @@ Description:	Ratelimit burst for correctable error logs. Writing a value
+ 		before ratelimiting. Reading gets the current ratelimit
+ 		burst. Default is DEFAULT_RATELIMIT_BURST (10).
  
- /* The list of devices that this module will support */
- static const struct pci_device_id cmodio_pci_ids[] = {
--	{ PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9030, PCI_VENDOR_ID_JANZ, 0x0101 },
--	{ PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050, PCI_VENDOR_ID_JANZ, 0x0100 },
--	{ PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9030, PCI_VENDOR_ID_JANZ, 0x0201 },
--	{ PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9030, PCI_VENDOR_ID_JANZ, 0x0202 },
--	{ PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050, PCI_VENDOR_ID_JANZ, 0x0201 },
--	{ PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050, PCI_VENDOR_ID_JANZ, 0x0202 },
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9030, PCI_VENDOR_ID_JANZ, 0x0101) },
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050, PCI_VENDOR_ID_JANZ, 0x0100) },
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9030, PCI_VENDOR_ID_JANZ, 0x0201) },
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9030, PCI_VENDOR_ID_JANZ, 0x0202) },
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050, PCI_VENDOR_ID_JANZ, 0x0201) },
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050, PCI_VENDOR_ID_JANZ, 0x0202) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, cmodio_pci_ids);
++		Writing 0, or any negative value, suppresses all logs
++		unless the interval attribute is also 0.
++
+ What:		/sys/bus/pci/devices/<dev>/aer/nonfatal_ratelimit_interval_ms
+ Date:		May 2025
+ KernelVersion:	6.16.0
+ Contact:	linux-pci@vger.kernel.org
+-Description:	Writing 0 disables AER non-fatal uncorrectable error log
+-		ratelimiting. Writing a positive value sets the ratelimit
+-		interval in ms. Default is DEFAULT_RATELIMIT_INTERVAL
+-		(5000 ms).
++Description:	Writing 0, or any negative value, disables AER non-fatal
++		uncorrectable error log ratelimiting. Writing a positive
++		value sets the ratelimit interval in ms. Default is
++		DEFAULT_RATELIMIT_INTERVAL (5000 ms).
+ 
+ What:		/sys/bus/pci/devices/<dev>/aer/nonfatal_ratelimit_burst
+ Date:		May 2025
+@@ -161,3 +165,6 @@ Description:	Ratelimit burst for non-fatal uncorrectable error logs.
+ 		allowed per interval before ratelimiting. Reading gets the
+ 		current ratelimit burst. Default is DEFAULT_RATELIMIT_BURST
+ 		(10).
++
++		Writing 0, or any negative value, suppresses all logs
++		unless the interval attribute is also 0.
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index 6f2460231422..401cd3a1b3d0 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -752,6 +752,9 @@ const struct attribute_group aer_stats_attr_group = {
+ 		if (kstrtoint(buf, 0, &burst) < 0)			\
+ 			return -EINVAL;					\
+ 									\
++		if (burst < 0)						\
++			burst = 0;					\
++									\
+ 		pdev->aer_info->ratelimit.burst = burst;		\
+ 									\
+ 		return count;						\
 -- 
-2.56.0.rc1
+2.55.0
 
