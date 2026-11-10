@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316511;
-	b=z0elafe7MgMYhf3iHr57LlEtE7vNM+n3mdoCyJeeGxTGI/F+gb/nLByyDfLbG+CnLrT1
-	 pb1di83pKQBPSPuQIYat57ennoTP6ItBiSYY8qqG4ep8d94scc7CW3O6F7qivD6rxN3fF
-	 yt31HtBc7suLRedZmygZHX1BW19jlOrvQvHxkUSVQTs9yz3KVD+40DlmbVbOnHcqpU2kq
-	 noLBZWLUnRYd5lJH0kkHnCeOgF6kLZjhT4/GGl5ySzGsOpCoPXloEj2WDC+IqZ39HHyhU
-	 Fv/wrezdlfQ9gNct8XXnICXUvDTFBUh9mcntcZc0neZiOK3/a9YHSRLjQc2zMwAUkMA==
+	t=1794316525;
+	b=Y1cjxiFbKneX15Nux/RXt0sNpcMWNbC0vzhvz7eLmTg3XBROy95gq3fjfdOP+iV2aRaF
+	 hl/o9SFSI0btp00ZzOj6oxfi4pDRs/bMjzsDLylzh/YlxAMluGwoivBu6OqwUFSCRFObL
+	 SaEoR/WWuo+qiOsBHyIn9xNh+mfrVQh7D/LMAz7fSVIirvR9jsfuzBZHTqG+8+2V6ESlF
+	 dQleLFrsQ960dDbT4sPnX0Khdg5cRQ7DWxXWxRoEVytDwOXhqFEHU/H6LxUd7YskaJeQi
+	 BQTBg00Iy6SaT3pQ8d6XXA2BhwsB4cl1pUaK52h7bkQb3jmf3v2iF3mbgt1cr1fiPsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316511;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316525;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding:In-Reply-To;
-	bh=2OIO1wCI2ezxYq9t0ps2c6Bis+YY50FEH2jHPZROxdI=;
-	b=2Me8UQP1KKpLbLZycCNHKc03h+vvM5dRLnk7mndfGxbSzNqqGGV5FWRmv47PHypmk63a
-	 B8fe5SPnUvIvozTsR5R8koF+j14tXdNDvhAVBdlMExX+sbOjtPhJSa33aG+8sE38qVen5
-	 dOmqjq/GmoGH2n8HhMKBWugc2CFL50t/QphbkIwE8qmY1CwGmyVKaX/cVEQ9gV9grNRMK
-	 HNfh04l4a4TosrJAgUVrxKP39Z6VpdhyN8Kg0fiRCJOLPW+P37h7DsjbqkdRpQoMBCeyI
-	 31UHHuXy+nBtPWhPjRg0ogpt2TP6KVBs98UcO/SHyDIDo2bSxjjGxQfzo8U3J8LUNGQ==
+	bh=D15Eu+ajxeeIDXHCqmfCYpfdhqr+t0pJpZfF3KXQSIs=;
+	b=sCHd4XS4fDHl6c3XEYzoZNaY35/dQYCe0ljBN8T80WzC/jY5eazVO3wSCuGG3RAJxU3q
+	 0SX3jTRZ+n3pMtUDw8f2FJ0BXi/CD8dThnS8s64Zfgzwxs/nyfIHChEvVyKGjs9/5AGx7
+	 tCTdchA0RhaOssyMzpxcYrkn8c+QkrmgJzbxMebAls5/Pgmlh5gVfSNpRUCH9RurXLlCf
+	 sw0ZU3RQ1S5hNCGkQszWKroyhewXHA3AOx1YQIwttOjokBs75ZuLNdmeBff31aWGg65Ij
+	 VfB7uXuOD80QgMR85VXoq37PCaAN1sZefr8OcuPVxJbL7zQ6uds7PNUX9A3BTQI6hxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4I2o7dJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=PExuW3zb;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2BE606A7C1;
-	Tue, 10 Nov 2026 13:15:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A96606A7F7;
+	Tue, 10 Nov 2026 13:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A96606A7F7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4I2o7dJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5371F0089F;
-	Tue, 10 Nov 2026 13:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316510;
-	bh=2OIO1wCI2ezxYq9t0ps2c6Bis+YY50FEH2jHPZROxdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b4I2o7dJBwuBjVBGejoSaqGvfRRF7aJVdXgS+4/HGy+bemSG9SOyDcgGozQ340LaE
-	 s8y9lh1wZMcU7UZ+VtLLL0XzVVU2ojftAxfU+A1l8nf7JoVkGI+pidtCEEDcouGDmI
-	 xVASzUEG3Uv5mpom2ZXafyuzszOS4PQlc3aWyRjOujXFCBl/QlcwY3a3kScS71i9nN
-	 p/s55eVFphAaKhmsF4eAXkxiVF64sEv4FK0y5K6BfeLdIh0TRyCVsiasltmJZDsPY5
-	 T2iOcVBEwcvYHXe552HGYM7RVvSuC0+Oaf8m7TNXwYhiBifMy6h+5d1S1NkZ8ayv46
-	 vD0dix3gPU3Vw==
-Date: Tue, 10 Nov 2026 20:54:56 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Paul Cercueil <paul.cercueil@bootlin.com>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>
-Subject: Re: [PATCH 5/5] spi: cadence-xspi: Add workaround for old Marvell
- firmwares
-Message-ID: <avMUIOPe9niRtrvu@xhacker>
-References: <20261104100643.162694-1-paul.cercueil@bootlin.com>
- <20261104100643.162694-6-paul.cercueil@bootlin.com>
- <au8lyXiMUSvcdPWx@xhacker>
- <0260a1943c59cdda431bb216438d49c3955d93b0.camel@bootlin.com>
- <avKmo_zDj3DoUrJo@xhacker>
- <a3b9edcfba080b0e92cc0b4e76ad8c9c83256fea.camel@bootlin.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=PExuW3zb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=D15Eu+ajxeeIDXHCqmfCYpfdhqr+t0pJpZfF3KXQSIs=; b=PE
+	xuW3zbf6G3AaxaJnxKPZYxEMTXpiW1ly2MvOY9Z077PKtNMIL53j0vEQnB1G1GeW3hh6AV/eFSUZK
+	AGuq8B4o3bGCYOe5zHcyCuSzdDO5ck8L8XtCpm5Gg5lcZ+NR9XPKAV9B/t3pDakdvaAeWw1AbVCcn
+	zEHNUn+IZJBwsIc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQlh0-00FTzo-S4; Tue, 10 Nov 2026 14:15:18 +0100
+Date: Tue, 10 Nov 2026 14:15:18 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] net: dsa: motorcomm: Prevent rx_bytes/tx_bytes
+ underflow
+Message-ID: <60bec8d3-7a0f-45d4-bc6c-a43ce92d1884@lunn.ch>
+References: <20261107015447.335056-1-mmyangfl@gmail.com>
+ <91357461-8056-4b1d-a06e-6f1db5eeaaa4@lunn.ch>
+ <CAAXyoMOwtQB01SFo+o2UPZZtw3Dhkpq94h8N55ZEas81z6VWUA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,104 +71,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3b9edcfba080b0e92cc0b4e76ad8c9c83256fea.camel@bootlin.com>
+In-Reply-To: <CAAXyoMOwtQB01SFo+o2UPZZtw3Dhkpq94h8N55ZEas81z6VWUA@mail.gmail.com>
 
-On Tue, Nov 10, 2026 at 10:58:06AM +0100, Paul Cercueil wrote:
-> Hi Jisheng,
+On Sun, Nov 08, 2026 at 02:07:34PM +0800, David Yang wrote:
+> On Sun, Nov 8, 2026 at 1:26 AM Andrew Lunn <andrew@lunn.ch> wrote:
+> >
+> > > +     if (res) {
+> > > +             dev_err(dev, "Failed to %s port %d: %i\n", "read stats for",
+> > > +                     port, res);
+> >
+> > Please don't break strings like that. The reason we allow lines with
+> > strings to be longer than 80 is because somebody is likely to grep the
+> > error message in the code to find out why it is being printed.
+> >
+> > grep -r "Failed to read stats for" is not going to match.
+> >
+> >     Andrew
+> >
+> > ---
+> > pw-bot: cr
 > 
-> Le mardi 10 novembre 2026 à 13:07 +0800, Jisheng Zhang a écrit :
-> > On Mon, Nov 09, 2026 at 05:34:55PM +0100, Paul Cercueil wrote:
-> > > Hi Mark,
-> > > 
-> > > Le samedi 07 novembre 2026 à 21:21 +0800, Jisheng Zhang a écrit :
-> > > > On Wed, Nov 04, 2026 at 11:06:43AM +0100, Paul Cercueil wrote:
-> > > > > From: Tanmay Jagdale <tanmay@marvell.com>
-> > > > > 
-> > > > > Older firmwares from Marvell used the cdns,xspi-nor compatible string
-> > > > > for the Marvell-specific xSPI IP, which is incompatible.
-> > > > > 
-> > > > > Add a workaround to support this by assuming that if the "xfer" resource
-> > > > > is found, it means that a Marvell IP is used.
-> > > > > S> 
-> > > > > Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-> > > > > Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> > > > > Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> > > > > ---
-> > > > >  drivers/spi/spi-cadence-xspi.c | 18 ++++++++++++++----
-> > > > >  1 file changed, 14 insertions(+), 4 deletions(-)
-> > > > > 
-> > > > > diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-
-> > > > > xspi.c
-> > > > > index 48a109f3fcdb..d326589a6ca3 100644
-> > > > > --- a/drivers/spi/spi-cadence-xspi.c
-> > > > > +++ b/drivers/spi/spi-cadence-xspi.c
-> > > > > @@ -1301,11 +1301,21 @@ static int cdns_xspi_probe(struct
-> > > > > platform_device
-> > > > > *pdev)
-> > > > >  	}
-> > > > >  
-> > > > >  #ifdef CONFIG_64BIT
-> > > > > -	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
-> > > > > -		res = platform_get_resource_byname(pdev,
-> > > > > IORESOURCE_MEM,
-> > > > > "xfer");
-> > > > > -		if (!res)
-> > > > > -			res = platform_get_resource(pdev,
-> > > > > IORESOURCE_MEM,
-> > > > > 3);
-> > > > > +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM,
-> > > > > "xfer");
-> > > > > +	if (!res)
-> > > > > +		res = platform_get_resource(pdev, IORESOURCE_MEM, 3);
-> > > > 
-> > > > This moves the mrvl specific code to all users, so I believe this
-> > > > needs dt-binding update.
-> > > 
-> > > I actually disagree here. The binding says that "xfer" is only provided with
-> > 
-> > It's not only "xfer". The code falls back to 4th MEM resoure when "xfer"
-> > failed.
-> > 
-> > > Marvell-specific compatible strings, and that's correct. The fact that some
-> > > firmwares don't respect this spec is not a problem of the spec itself.
-> > > 
-> > > > From another side, this assumes other users doesn't have 4th resource
-> > > > but what about if they have? they will get "Marvell-specific xfer
-> > > > resource passed, but ..." warning below, this confuse the users.
-> > > > I don't think this workaround can be added to all users.
-> > > 
-> > > Yes, I thought about that and I can understand that you don't like it...
-> > > 
-> > > I originally thought that it was fine because the dt-binding states that the
-> > > 4th
-> > > resource is only for Marvell compatibles; but the binding can change, so
-> > > it's a
-> > > bit wobbly.
-> > > 
-> > > I will come up with a better mechanism in the v2.
-> > > 
-> > > > Lastly, does the "firmware" mean dtb? But per my grep, I didn't
-> > > > find any mrvl dts(i) uses "cdns,xspi-nor" compatible string, so
-> > > > this means the dtb is outside upstream, then can the firmware
-> > > > be fixed instead?
-> > > 
-> > > It is dtb and also ACPI. The firmware can and will be fixed, the idea here
-> > > is to
-> > > make sure that the driver still works on older firmwares that haven't been
-> > > updated yet, because they are out there.
-> > 
-> > If firmware is dtb, the dtb is out of tree, why mainline driver needs to
-> > workaroud its bug?
-> > If firmwre is acpi, the commit msg says "used the cdns,xspi-nor
-> > compatible string", I'm not sure how does ACPI use dt compatbile string? 
-> 
-> It's both dtb and ACPI. The firmware's ACPI table does use the PRP0001 Device
-> Tree namespace HID with the "cdns,xspi-nor" string.
-> 
-> I don't understand your point about the dtb being out-of-tree. It does not
-> change anything.
-> 
+> Hmm that would be more than a pure code movement...
 
-My point is: since the dtb is from out-of-tree, mainline drivers
-should not workaround any bug in it. If this is allowed, then
-the mainline driver will full of such workarounds here and there.
+True. So add a patch which glues this string, and any other broken
+string, back together again.
+
+	Andrew
