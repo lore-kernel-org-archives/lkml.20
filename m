@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320929;
-	b=0jj+lX4p9mjmJSlkihYN+WWPEWP5aTEoj6Q3Zuo4onwWLGHRJFWxVx3WIBRdDoJ9uDEx
-	 iICiXznl4AS8ApIvFRDQRtFYk9we1ap7w3R3OrbWiyyGWdPLDGoEoBHWUooiIsNO1O/Sc
-	 Grey6qGLXInyLQIWrdejrU58v4ohhtIDBGa6SVx8NaodCDKuTM1fR4zv0tXq3F8DQrR6v
-	 rO321KO3rFv+y0lpu6zhbHbKIf9jfp7Vti462Q2I4rj+L0K6pmi4C6wWeXSEtmHX3AqLL
-	 yuy2mdMwXawC6f7qr6srryri15ha5htP7dQrXg8Y2bkb4QIyaSK34ZmGUcGtg2+li6Q==
+	t=1794321011;
+	b=Zp1S3jNLQajrwQgV9MTYNb7tfLUqstFKpRqIIQXw9PfY/0G695S/B/1gA5Ff1x48699o
+	 T60MEMM4uFXGagX/xFkUlTaVtpNStlk10FqfgCeUJu6MfgvrdcFBSxkDN6DwYrNlGxZYC
+	 2kg/x+Mh/Qllx8CNvLXRIwcgCzvVNCcmewj+Wrv2AadSbcWbKJDCE5bReIk/CSxd7Nfvp
+	 O45rce6d+aPuohNPJeEoVSgPkSBYfnTbECQFQARPr0z1klzMKInhqjogWGys+IYRR/5/0
+	 6Kfs6gEwVlrbD+jOyg6CpfFh5+nOmjjwmSrQQWe0t4rwqySA9l8FQLwM9Yqy2d6SbYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320929;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hTplsrgAQ9xqtxIf9pTXzacL7isLuWlgFx6IOikQwU0=;
-	b=nB7AZAawt4ENMkpJ8DzC3Dvzj9Swo6iKDevOEyJ5dv4AnEdwfzX4kUIdZpnyBD9Zk0pk
-	 dphiI727tglWxWsBSwo22Si3J3msAGM602oaA91pbbk1dPSJXpU+sRjKiooJCicXu2quy
-	 j1d9FYelLnusCk8vxf1WcUj2JiiLwfmpAFpVxgZUzvsYvWnbBT7zWhDyx34q5jCqHYPp7
-	 vCIqnwCt7Zj8kk7ZJxVtvfOoA2dA6QTRfHF0KJ8EshisGreYqoAWU3zy1P15+LHRGdem0
-	 zbptJ44KJNBOG/pNgTK+dtDFDyRKHo5tnUFzfRgz07Xbj+qT9+bmunBzAFXxgVQ2xcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321011;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=8FshiCFSAx/XUt9B7VmHTjgXNdsSNmtFZ8/eEUUTfnE=;
+	b=09yutzbl8UuGU1L7dzjgUgdeb+LqJ6npohC53NZWZgA4TVYLXSCTyF0g1X2XKv0bZ4bR
+	 +4Aj9oaXdgcGmfNJcHDt/IouvMqZO8ZX84QJ5xioNA/VdMqlT1CFb+eZW48Xwn9Mp8/vz
+	 aLctv2GLYP1B3HBrtz2cI6jiCUdnKcFjK0PfK9sPn0ZKU298CXUva4apHRyh1Oj411e53
+	 757ePz3I8fmONqI8M8YwoT7GyiS9Xw4mKrB9rmEva39cFQ/3Gp2ndSNltq1AR0kJGqD2j
+	 kqlNoHt1znW8+1VAANt7B+2Lzf9m2ihzw1dFFZVlae5nvCR8RNs4ApGGLJ44HEtJQmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=feMvmicr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPkkfwI7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AF8606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192CE606A330;
+	Tue, 10 Nov 2026 14:30:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=feMvmicr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3041F008BC
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:28:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPkkfwI7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23631F0089F;
+	Tue, 10 Nov 2026 14:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320928;
-	bh=hTplsrgAQ9xqtxIf9pTXzacL7isLuWlgFx6IOikQwU0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=feMvmicr7zLGaL1Pc6AjRarPmItbQ/xVekZhQ/wehNoRzBuhRf6uzH/w0dfgvUxjS
-	 8q3xneSal1QDc7X8ki+9MW6/lHBwxCJXACiGJFvc/ZYM00B99kvu9adBarDLlnhjI/
-	 fOIpOJXUHxAYR5fPR869O8/V6CgO4wvvSi1PQtKhqFhnhK071ZZuJeAS6Oa8RbnY5h
-	 S7JjvkzPGXKpwSnJ6HS6bh1P/MT9Qd2ihfegHMSHe/BK1kKukgSS+HdjUrVLTx+Ugv
-	 stOa/pfBs5mse+tjz1rbCJo1Fi/Asv7XCoLX5/m2EQruvyvpkPIBII4CwCWl9M+yaC
-	 /7dtTe6ytWVCw==
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67921b515a7so2253791d50.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:28:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFg3b2Kh7Bm1lhXA9B3VWUuYdYjG0x7cnZhx5az7TIBc0wz23MZWR0F5hNfUJnpPagmZSQF4yIavtlyz04=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kuYNSqcoE73w0MUrP9/yJA7GqUzi5SuPNoS+v+AV3JyDD0rVM
-	lajeWsi2JnnrGzj3n4SvxbomM59p6morivUr3ZNaKk9L/tdZIQTDa8G1+NA7wam8MTiSEVPJ1Cb
-	dFzRqr9QJdoInYpEBzAZrPgvyM3htUXE=
-X-Received: by 2002:a05:690e:134f:b0:67b:fbde:ba7a with SMTP id
- 956f58d0204a3-67c568bcbd7mr1639184d50.85.1794320928054; Tue, 10 Nov 2026
- 06:28:48 -0800 (PST)
+	s=k20260515; t=1794321010;
+	bh=8FshiCFSAx/XUt9B7VmHTjgXNdsSNmtFZ8/eEUUTfnE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=HPkkfwI7nretK/FFutLyDHNca//Bh/QglB+OsFjmsjUa0Y0Eu8CuZKrralE0P7ooe
+	 WTh1xwjb1MRXkd5jMZlum4nYPsn3azsqxwRR9cxq49+4e8Jw1VG+GGpXpN9YD0n7BN
+	 yPeeuWJyMcyTPpM8p+g+dMf+j1OfLa+vr54fUTkM++EgWzgUF+4Euq6awSXw+fA4nY
+	 9BubMA/dm7ZPOKWUHBh4VT9aIOqL7/qTqlsCnNXRJc5Vgb1gwP9vK9ZE7UcrtZejIL
+	 X5xZTGu14x89/WzQeaTWIvFH7OgBfKFlXZh9vER0qkoXPGc1Kweg02lMdjytTVLG3J
+	 w9f6LsmU8YXFg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D81F139D0CA0;
+	Tue, 10 Nov 2026 14:30:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,49 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109195813.24238-1-mike.michalo@gmail.com>
-In-Reply-To: <20261109195813.24238-1-mike.michalo@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 10 Nov 2026 23:28:34 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-YAkeXs8K_EJyWFqOSFJ8XHWSt4A4D6BtD2uqVp6Bnug@mail.gmail.com>
-X-Gm-Features: AclHuK9sFG4Af_a2IuBl1KesEPg4xBLh7HHkfluv2QH0-NYqb7AYPRPkVA2LPBM
-Message-ID: <CAKYAXd-YAkeXs8K_EJyWFqOSFJ8XHWSt4A4D6BtD2uqVp6Bnug@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: refuse reauthentication of an expired session as
- another user
-To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Cc: stfrench@microsoft.com, senozhatsky@chromium.org, tom@talpey.com, 
-	chenxiaosong@chenxiaosong.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] net: wwan: iosm: drop redundant skb->data check in MUX
+ DL
+ decode
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179432100942.3999302.10401530919113980212.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 14:30:09 +0000
+References: <20261103145925.69981-1-fangxy@xiaopeng.com>
+In-Reply-To: <20261103145925.69981-1-fangxy@xiaopeng.com>
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, johannes@sipsolutions.net, zhugl3@xiaopeng.com
 
-On Tue, Nov 10, 2026 at 4:58=E2=80=AFAM Michail Andreas Michalopoulos
-<mike.michalo@gmail.com> wrote:
->
-> When a Kerberos session expires, its owner can reauthenticate it. For an
-> NTLM reauthentication, ntlm_authenticate() only compares the new user wit=
-h
-> sess->user when the session is still valid. An expired session is in
-> SMB2_SESSION_IN_PROGRESS during the reauthentication, so it takes the
-> other branch and simply sets sess->user to the new user:
->
-> - the session's open files, tree connects and other state, created under
->   the original user's identity, now belong to whichever user just
->   authenticated, and a later Kerberos reauthentication is compared
->   against that user rather than the original one;
-> - the original struct ksmbd_user is overwritten without being freed.
->
-> krb5_authenticate() already refuses a different user in this case, and
-> the valid-session branch of ntlm_authenticate() does too. Do the same for
-> an expired session: compare with the existing user and refuse a different
-> one with -EKEYREJECTED, freeing the newly looked-up user either way.
->
-> An AI assistant was used to find and fix this and as an independent
-> reviewer.
->
-> Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets ex=
-pire")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Applied it to #ksmbd-for-next.
-Thanks!
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Tue,  3 Nov 2026 22:59:25 +0800 you wrote:
+> The skb passed to ipc_mux_dl_decode() through the current RX path
+> always has a valid data pointer.
+> 
+> The only caller, ipc_imem_dl_skb_process(), checks for a NULL skb
+> before calling ipc_mux_dl_decode(). The skb is allocated through
+> ipc_pcie_alloc_skb() -> ipc_pcie_alloc_local_skb() ->
+> __netdev_alloc_skb(), which provides a valid data buffer on
+> successful allocation. Allocation or DMA mapping failures return
+> a NULL skb instead.
+> 
+> [...]
+
+Here is the summary with links:
+  - [v2] net: wwan: iosm: drop redundant skb->data check in MUX DL decode
+    https://git.kernel.org/netdev/net-next/c/66974df65a0b
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
