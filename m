@@ -1,52 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317676;
-	b=eFT7igBgkXOnDm26qBrIJBcdY57z1IcnfIbraImFIcSQk389lBW8xtYmb5v+CMLqVS5m
-	 5F6XLSTcnb+dyfgnanUNzfl9ax1sWR+Xhx9+6VTjUeW3mt5doSKA4+5fKv6gy/vo8APzY
-	 VjlwxIT21h3Vn59YuRdM1yfBVzkocDg+jdF9gQKjKACQdW8dbgim/t56s9IkHGFHLBpQv
-	 qJmLb7o8dR1WGLIwMyySjuUdl7fUkXrScwtiiX7wmDvCURP7rRiqML1Og70EdcIRTuMWP
-	 yQTpp1XyfIMAQcyNS4cgYkwfUtGuyPhCwCOC0/79L1LHGQfsGwuSBuIHkpQMw/ozQEg==
+	t=1794317757;
+	b=VDHR8KZV9AljekRl1Wt44ZUOpOm5I/H+ohX3WMCgFX7RHraTgsPYNpQyO2ypcP6bIWaH
+	 +qCiY8REC5HN6sQ+mlGP6zRuXsFbkhmB285MeQpHMmmV2IUm3/3EI8uT6wh/Aj8r7aCSg
+	 196d2sv+ROTf6/wtpwfuytR9oEJQEdheytTuP0KFArQVLIEjJoTG5Kua6aOvc3tYC2TAF
+	 GDR+qeCA3subwxkpm0YtInT6ztsLGNaoo345xaP0Xc7+zjE19pVEUdS5BMByNOdhFg05L
+	 o4hdPcf214ygkbeP8klPjmc/+bwyMwnTWoWU6LxLhtIOq00x8GzK/zyyWyAFKY2lX9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317676;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 X-CM-CTRLMSGS:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=XsAr4O89duvEBbigSHHNVV6Ye8RdzbpA0oQFcH49mZk=;
-	b=Bu72tjXpO/cufQVf9tkQwXdlny3Y/XfGHo5V4YJAWtx9+zSWG6iOrz5QECvOp+LzyZI0
-	 VQtyALjRJ605GKZ9DZKvqIno3B4M/+bOaDmgEBqrFtaYCJi8wBwjVXS9pmtf5Uak/3jsp
-	 c9G8kvlQYK41N1czqkGvnW6qGHy2hyB/Lbp8s9BlPd12NMhawvpf638pXMBYFbFx5MCWw
-	 zIaLYrUjGm93OGlIMx6l+teXfDekhs422lLMyElWSAfJih9ft7ab1KJsZbqUBo5etQA0X
-	 litt2M47wKqzbm1fyU+QY8DSGPM+WKi2fWEjirZvWaIwZzoqTuzb+AZrvYlL9c4rwTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317757;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=WdgTo0DmAZriHLdP6ECWKUPVNHILRnpqF66x/M+j/kI=;
+	b=Wyo+eazXEvvALKqocfRyL0YeHHH7AtBZPTKV+xJDWal309F4Vegrw5l3ffNlCKhZRu1g
+	 fKZC3g9Y2MC/5Iw+X4dfdg5LQ/2+ytRGCfmli/Nd8tKbn3hpns92HSDVE9DcCviRdjy2D
+	 OjxdkXLeE2AKt80o95dJJyQRNbBO0RiXfTVdz32O3yJxdVM+3yN6xHE2QQBcnydrYSd0o
+	 GnKR8LZfTUyFP9le53hhVvKN9zIWwuPIeYJPpxjLZwqaac/b46LbbIrkx5jMiImYzd6QW
+	 ZOHilm90NjAFZ6/48s35yNpKoAer/Hv+s5QnqVvgeuz+Q6uEsTT5vznOoUCrmtbpK3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=207.46.229.174
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E44F9606A330;
-	Tue, 10 Nov 2026 13:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E44F9606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
- (Coremail) ; Tue, 10 Nov 2026 21:34:27 +0800 (GMT+08:00)
-Date: Tue, 10 Nov 2026 21:34:27 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: power: supply: bq24190: IRQ handler can call  power_supply_changed
- after the psy is unregistered
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
- 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
-In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh>
-X-CM-CTRLMSGS: =?B?3TQ4QTiH6nJ5xwDR7hwMki1N8jM=
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zG+gyFn+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JPvTLr2r;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LdDcPfwz;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Cv6FTP4r;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D7A606A325;
+	Tue, 10 Nov 2026 13:35:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11D7A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zG+gyFn+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JPvTLr2r;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LdDcPfwz;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Cv6FTP4r
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id BFC441F7DD;
+	Tue, 10 Nov 2026 13:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794317755; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WdgTo0DmAZriHLdP6ECWKUPVNHILRnpqF66x/M+j/kI=;
+	b=zG+gyFn+K1cX+7+w1/vnlXJkz4dHDsSo735k9IXjBh+26NUQeyxYH7mjBdrAf/MfAERyB7
+	5xviDE4Cm7PTdYWqmEJURfIoU2tn+fitQhaqBSbzxs07A75tCNBWb1xql8mLkWzPAPkfvY
+	JFkcnTycpfPVxi64n9Icra9o4d8Y1s4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794317755;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WdgTo0DmAZriHLdP6ECWKUPVNHILRnpqF66x/M+j/kI=;
+	b=JPvTLr2rkhrwyLS85l75jVU3oD4c6/Wx1s6uevvpWVEhRsThq14lJ9oCc/XdBPZ8Wg4tT5
+	a22u+5Lv2StfZhDw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=LdDcPfwz;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Cv6FTP4r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794317754; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WdgTo0DmAZriHLdP6ECWKUPVNHILRnpqF66x/M+j/kI=;
+	b=LdDcPfwzcKU/WX7WGCGnRpJDeQ3RVVFt4feUJBu6OYiNQDmc7NlIIBYTBiQnbPTE1wkOqh
+	Dt1Ml6C2F+RW2qs4HD7ENWB4GQup28c1obqiO6PDIFCHsEPV2E/okGm1bRPkPGmc+kCRFc
+	IY1UN6/EfEhGLXpNb9hY9tgr/TctrC8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794317754;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WdgTo0DmAZriHLdP6ECWKUPVNHILRnpqF66x/M+j/kI=;
+	b=Cv6FTP4r+KSAat4hvQZnO2J+R4d25/ixD6AkMzZbTY8nXacX205WX9IVijlwr5Y+TSGy89
+	iJnDYjDo988xCxCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9411E13479;
+	Tue, 10 Nov 2026 13:35:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id AaTHHbod82p2bAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 13:35:54 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 2E15922510; Tue, 10 Nov 2026 14:35:54 +0100 (CET)
+Date: Tue, 10 Nov 2026 14:35:54 +0100
+From: Jan Kara <jack@suse.cz>
+To: diasyzhangqing@gmail.com
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org, 
+	libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, syzbot+d4ecb9a1e5b3dcf8baec@syzkaller.appspotmail.com, 
+	linux-kernel@vger.kernel.org, Qing Zhang <diasyzhang@tencent.com>
+Subject: Re: [PATCH] ext4: make concurrent DEFAULT shutdown waits killable
+Message-ID: <glup36pqwuh2wsxjozp3x4kne2spsud65ftlw744p72hmh54mx@hi2s256gr3iy>
+References: <6af1e75f.3e87765f.91969.0010.GAE@google.com>
+ <20261110132118.11265-1-diasyzhangqing@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,77 +114,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <53a5f0c4.22b5a.1a1c5aacb18.Coremail.xuhx@hust.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:IQEQrMAGL8dkHfNqYqQNAA--.9972W
-X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgMHB2rx8m6VIgAAsx
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110132118.11265-1-diasyzhangqing@gmail.com>
+X-Rspamd-Queue-Id: BFC441F7DD
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[d4ecb9a1e5b3dcf8baec];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,vger.kernel.org,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,syzkaller.appspotmail.com,tencent.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email,tencent.com:email,appspotmail.com:email,syzkaller.appspot.com:url]
+X-Spam-Score: -11.51
 
-YnEyNDE5MF9yZW1vdmUoKSB1bnJlZ2lzdGVycyB0aGUgYmF0dGVyeSBhbmQgY2hhcmdlciBwb3dl
-cl9zdXBwbGllcwpiZWZvcmUgcG1fcnVudGltZV9kaXNhYmxlKCk7IHRoZSBJUlEgaXMgcmVxdWVz
-dGVkIHdpdGggZGV2bSBhbmQgaXMKdGhlcmVmb3JlIGZyZWVkIG9ubHkgYWZ0ZXIgcmVtb3ZlIHJl
-dHVybnMuICBBIHRocmVhZGVkIElSUSBoYW5kbGVyIHRoYXQKaXMgYWxyZWFkeSBydW5uaW5nLCBv
-ciBvbmUgdGhhdCBydW5zIGluIHRoZSB3aW5kb3cgYmV0d2VlbiB0aGUgdHdvCnVucmVnaXN0ZXJz
-IGFuZCBwbV9ydW50aW1lX2Rpc2FibGUoKSwgY2FsbHMgYnEyNDE5MF9jaGVja19zdGF0dXMoKSAt
-Pgpwb3dlcl9zdXBwbHlfY2hhbmdlZCgpIG9uIGEgcHN5IHRoYXQgaGFzIGFscmVhZHkgYmVlbiB1
-bnJlZ2lzdGVyZWQgKGFuZAptYXkgYmUgZnJlZWQpLiAgVGhpcyBpcyBhIGRyaXZlciByZW1vdmUt
-b3JkZXIgYnVnOyB0aGUgd2luZG93IGlzCm5hcnJvd2VyIHRoYW4gYnEyNTg5MCBidXQgcmVhbC4K
-ClRoZSBkZXRhaWxlZCBkZXNjcmlwdGlvbjoKCiogVGVzdCBlbnZpcm9ubWVudCAvIGFmZmVjdGVk
-IHZlcnNpb24KCiAgTGludXggNy4zLjAgc291cmNlIHRyZWUgKHVubW9kaWZpZWQga2VybmVsLm9y
-ZyA3LjMpLCB4ODZfNjQuICBUaGlzIGlzCiAgYSBzb3VyY2UtbGV2ZWwgcmVwb3J0LiAgSSBkaWQg
-bm90IHJ1biBpdCBvbiBicTI0MTkwIGhhcmR3YXJlOiB0aGUKICBLQVNBTiBidWlsZCB1c2VkIGZv
-ciBteSBjb3JlIHRlc3RzIGRvZXMgbm90IGVuYWJsZQogIENPTkZJR19DSEFSR0VSX0JRMjQxOTAg
-YW5kIGhhcyBubyBJMkMgYnEyNDE5MCBkZXZpY2UuICBObyByZXByb2R1Y2VyCiAgaXMgYXR0YWNo
-ZWQuICBMaW5lIG51bWJlcnMgYXJlIGZyb20gNy4zLgoKKiBNZWNoYW5pc20KCiAgUHJvYmU6Cgog
-ICAgICA6MjEyMSAgcG93ZXJfc3VwcGx5X3JlZ2lzdGVyKGJkaS0+YmF0dGVyeSwgLi4uKQogICAg
-ICA6MjEzMyAgcG93ZXJfc3VwcGx5X3JlZ2lzdGVyKGJkaS0+Y2hhcmdlciwgLi4uKQogICAgICA6
-MjE2MCAgZGV2bV9yZXF1ZXN0X3RocmVhZGVkX2lycSguLi4sIGJxMjQxOTBfaXJxX2hhbmRsZXJf
-dGhyZWFkLCAuLi4pCgogIEJvdGggcG93ZXJfc3VwcGxpZXMgYXJlIG5vbi1kZXZtLiAgVGhlIElS
-USBpcyBkZXZtLCBzbyBpdCBpcyByZWxlYXNlZAogIGJ5IGRldnJlcyBhZnRlciBicTI0MTkwX3Jl
-bW92ZSgpIHJldHVybnMsIG5vdCBiZWZvcmUuCgogIGJxMjQxOTBfcmVtb3ZlKCkgKDoyMTg5LTIy
-MDYpOgoKICAgICAgOjIyMDAgIHBvd2VyX3N1cHBseV91bnJlZ2lzdGVyKGJkaS0+YmF0dGVyeSk7
-CiAgICAgIDoyMjAxICBwb3dlcl9zdXBwbHlfdW5yZWdpc3RlcihiZGktPmNoYXJnZXIpOwogICAg
-ICA6MjIwMi0yMjA0ICBwbV9ydW50aW1lX3B1dC4uLgogICAgICA6MjIwNSAgcG1fcnVudGltZV9k
-aXNhYmxlLi4uCgogIFRoZSB0aHJlYWRlZCBoYW5kbGVyICg6MTgzNC0xODUwKSBjYWxscyBicTI0
-MTkwX2NoZWNrX3N0YXR1cygpCiAgKDoxODI0LTE4MjkpLCB3aGljaCBjYWxscyBwb3dlcl9zdXBw
-bHlfY2hhbmdlZChiZGktPmNoYXJnZXIvYmF0dGVyeSkuCgogIFdpbmRvdyBBOiBhbiBJUlEgaXMg
-ZGVsaXZlcmVkIGFmdGVyIDoyMjAxIGFuZCBiZWZvcmUgOjIyMDU7IHRoZQogIGhhbmRsZXIgcnVu
-cyB3aGlsZSBib3RoIHBzeSBhcmUgYWxyZWFkeSB1bnJlZ2lzdGVyZWQuICBXaW5kb3cgQjogYQog
-IGhhbmRsZXIgaXMgYWxyZWFkeSBydW5uaW5nIHdoZW4gOjIyMDAvOjIyMDEgZXhlY3V0ZTsgaXQg
-Y2FuIHJlYWNoCiAgcG93ZXJfc3VwcGx5X2NoYW5nZWQoKSBhZnRlciB1bnJlZ2lzdGVyLiAgQWZ0
-ZXIgOjIyMDUsCiAgcG1fcnVudGltZV9kaXNhYmxlKCkgbWFrZXMgbmV3IElSUSBoYW5kbGluZyBs
-ZXNzIGxpa2VseSB0byByZWFjaCB0aGUKICBjYWxsYmFjaywgc28gSSBkbyBub3QgY2xhaW0gYXJi
-aXRyYXJ5IHBvc3QtcmVtb3ZlIElSUXM7IHRoZQogIGRldGVybWluaXN0aWMgd2luZG93IGlzIDoy
-MjAxLToyMjA1LCBwbHVzIHRoZSBpbi1mbGlnaHQgaGFuZGxlci4KCiogQ29uY3JldGUgY29ycnVw
-dGlvbiAvIGltcGFjdAoKICBwb3dlcl9zdXBwbHlfY2hhbmdlZCgpIGRlcmVmZXJlbmNlcyBwc3kt
-PmNoYW5nZWRfbG9jazsgaWYgdGhlIHBzeSBoYXMKICBiZWVuIGZyZWVkLCB0aGlzIGlzIGEgc2xh
-Yi11c2UtYWZ0ZXItZnJlZSBhbmQgY2FuIGNvcnJ1cHQgdGhlCiAgd29ya3F1ZXVlIG9yIGNyYXNo
-LiAgSWYgYSBjb25zdW1lciByZWZlcmVuY2Uga2VlcHMgdGhlIHBzeSBhbGl2ZSwgdGhlCiAgY2Fs
-bCBpcyBhIHVzZS1hZnRlci11bnJlZ2lzdGVyIGFuZCBjYW4gcmVhY2ggdGhlIGZyZWVkIExFRCB0
-cmlnZ2VycwogIGRlc2NyaWJlZCBpbiB0aGUgY29yZSA1QiByZXBvcnQgb24gYSA3LjMga2VybmVs
-IHdpdGhvdXQgdGhlCiAgOWY3ZjdhODU5NDUxIGdldC9zZXQgZ3VhcmQuICBJIGhhdmUgbm90IGRl
-bW9uc3RyYXRlZCBwcml2aWxlZ2UKICBlc2NhbGF0aW9uLCBhbmQgSSBoYXZlIG5vdCBydW4gdGhp
-cyBvbiBoYXJkd2FyZS4KCiogVHJpZ2dlciBtb2RlbAoKICBicTI0MTkwIHdpdGggYSBjaGFyZ2Vy
-IGludGVycnVwdCAoQUMgcGx1Zy91bnBsdWcsIGZhdWx0LCBvciBjaGFyZ2VyCiAgc3RhdHVzIGNo
-YW5nZSkgY29uY3VycmVudCB3aXRoIHVuYmluZC9yZW1vdmUuICBUaGUgd2luZG93IGlzIG5hcnJv
-dwogIChiZXR3ZWVuIHRoZSB0d28gdW5yZWdpc3RlcnMgYW5kIHBtX3J1bnRpbWVfZGlzYWJsZSwg
-b3IgYW4gaW4tZmxpZ2h0CiAgaGFuZGxlciksIHNvIGl0IGlzIGEgcmFjZSByYXRoZXIgdGhhbiBh
-IGRldGVybWluaXN0aWMgc2VxdWVuY2UuCiAgVW5iaW5kaW5nIHJlcXVpcmVzIHJvb3Q7IGEgcGh5
-c2ljYWwgY2hhcmdlciBldmVudCBpcyB0aGUgbmF0dXJhbAogIHRyaWdnZXIuICBObyBnZW5lcmlj
-IHVucHJpdmlsZWdlZCB1c2Vyc3BhY2UgaW50ZXJmYWNlLgoKKiBSZXByb2R1Y2VyIC8gcmVzdWx0
-cwoKICBObyByZXByb2R1Y2VyIGF0dGFjaGVkLiAgVGhpcyBpcyBhIHNvdXJjZS1sZXZlbCByZXBv
-cnQ7IEkgY2FuIHRlc3QgYQogIHByb3Bvc2VkIGZpeCBpZiBicTI0MTkwIGhhcmR3YXJlIGlzIGF2
-YWlsYWJsZS4gIFRoZSByZWxldmFudCBjYWxsCiAgY2hhaW4gaXMgZnVsbHkgdmlzaWJsZSBpbiA3
-LjMgYXQgdGhlIGxpbmUgbnVtYmVycyBhYm92ZS4KCgoqIFN1Z2dlc3RlZCBkaXJlY3Rpb24gCgog
-IERpc2FibGUgdGhlIElSUSBhbmQgd2FpdCBmb3IgYW4gaW4tZmxpZ2h0IGhhbmRsZXIgYmVmb3Jl
-IHVucmVnaXN0ZXJpbmcKICB0aGUgcG93ZXJfc3VwcGxpZXM6IGNhbGwgZGlzYWJsZV9pcnEoKS9m
-cmVlX2lycSgpIChvciBhbiBleHBsaWNpdAogIGRpc2FibGVfaXJxICsgc3luY2hyb25pemVfaXJx
-KSBiZWZvcmUgOjIyMDAsIGFuZCBtb3ZlCiAgcG1fcnVudGltZV9kaXNhYmxlKCkgYmVmb3JlIHRo
-ZSB1bnJlZ2lzdGVycy4gIEFsdGVybmF0aXZlbHkgaGF2ZSB0aGUKICBoYW5kbGVyIGNoZWNrIGEg
-InJlbW92ZWQiIGZsYWcgc2V0IHVuZGVyIGEgbG9jayBiZWZvcmUKICBwb3dlcl9zdXBwbHlfY2hh
-bmdlZCgpLiAgUmVwb3J0LWZpcnN0LCBubyBwYXRjaCBhdHRhY2hlZDsgaGFwcHkgdG8KICB0ZXN0
-IGEgcHJvcG9zYWwuCgoKICBQbGVhc2Uga2VlcCBtZSBpbiBDYzsgSSBhbSBub3Qgc3Vic2NyaWJl
-ZCB0byB0aGUgbGlzdHMuCgoKUmVnYXJkcywKSGFueGlhbmcgWHUKeHVoeEBodXN0LmVkdS5jbgo=
+On Tue 10-11-26 21:21:18, diasyzhangqing@gmail.com wrote:
+> From: Qing Zhang <diasyzhang@tencent.com>
+> 
+> Concurrent DEFAULT shutdown callers can all pass the shutdown flag
+> check before the first caller finishes bdev_freeze().  They then wait
+> uninterruptibly on bd_fsfreeze_mutex and may perform redundant
+> freeze/thaw operations, triggering hung-task reports if the initial
+> freeze takes long enough.
+> 
+> Serialize DEFAULT shutdown attempts with a per-superblock mutex
+> acquired killably.  Re-check the shutdown flag after acquiring it to
+> skip the freeze after a successful attempt, or retry if the previous
+> attempt failed.
+> 
+> Leave LOGFLUSH and NOLOGFLUSH unchanged.  The ->shutdown callback uses
+> NOLOGFLUSH with s_umount held, so it must not acquire a mutex held
+> across a freeze.  This does not shorten the initial freeze or prevent
+> hung-task reports for the active freezer and other freeze-blocked
+> tasks.
+> 
+> Fixes: 783d94854499 ("ext4: add EXT4_IOC_GOINGDOWN ioctl")
+> Reported-by: syzbot+d4ecb9a1e5b3dcf8baec@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d4ecb9a1e5b3dcf8baec
+> Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
 
+Err, no. This is really syzkaller self-inflicted damage we aren't going to
+work around. If anything you could make the wait on bd_fsfreeze_mutex
+in bdev_freeze() killable. That will actually be a sensible change and
+should address syzbot warning as well.
+
+								Honza
+
+> ---
+> 
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+>  fs/ext4/ext4.h  |  1 +
+>  fs/ext4/ioctl.c | 14 +++++++++++++-
+>  fs/ext4/super.c |  1 +
+>  3 files changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+> index f38fec3167fb..c4e44e3d58cc 100644
+> --- a/fs/ext4/ext4.h
+> +++ b/fs/ext4/ext4.h
+> @@ -1647,6 +1647,7 @@ struct ext4_sb_info {
+>  	/* Journaling */
+>  	struct journal_s *s_journal;
+>  	unsigned long s_ext4_flags;		/* Ext4 superblock flags */
+> +	struct mutex s_shutdown_lock;	/* Serializes DEFAULT shutdown requests */
+>  	struct mutex s_orphan_lock;	/* Protects on disk list changes */
+>  	struct list_head s_orphan;	/* List of orphaned inodes in on disk
+>  					   list */
+> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+> index e8e579498c99..3019b16320a0 100644
+> --- a/fs/ext4/ioctl.c
+> +++ b/fs/ext4/ioctl.c
+> @@ -818,16 +818,28 @@ int ext4_force_shutdown(struct super_block *sb, u32 flags)
+>  	if (ext4_forced_shutdown(sb))
+>  		return 0;
+>  
+> +	if (flags == EXT4_GOING_FLAGS_DEFAULT) {
+> +		if (mutex_lock_killable(&sbi->s_shutdown_lock))
+> +			return -EINTR;
+> +		if (ext4_forced_shutdown(sb)) {
+> +			mutex_unlock(&sbi->s_shutdown_lock);
+> +			return 0;
+> +		}
+> +	}
+> +
+>  	ext4_msg(sb, KERN_ALERT, "shut down requested (%d)", flags);
+>  	trace_ext4_shutdown(sb, flags);
+>  
+>  	switch (flags) {
+>  	case EXT4_GOING_FLAGS_DEFAULT:
+>  		ret = bdev_freeze(sb->s_bdev);
+> -		if (ret)
+> +		if (ret) {
+> +			mutex_unlock(&sbi->s_shutdown_lock);
+>  			return ret;
+> +		}
+>  		set_bit(EXT4_FLAGS_SHUTDOWN, &sbi->s_ext4_flags);
+>  		bdev_thaw(sb->s_bdev);
+> +		mutex_unlock(&sbi->s_shutdown_lock);
+>  		break;
+>  	case EXT4_GOING_FLAGS_LOGFLUSH:
+>  		/*
+> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+> index 9cae52471dee..a1d4fc5c0a68 100644
+> --- a/fs/ext4/super.c
+> +++ b/fs/ext4/super.c
+> @@ -5547,6 +5547,7 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
+>  
+>  	INIT_LIST_HEAD(&sbi->s_orphan); /* unlinked but open files */
+>  	mutex_init(&sbi->s_orphan_lock);
+> +	mutex_init(&sbi->s_shutdown_lock);
+>  
+>  	spin_lock_init(&sbi->s_bdev_wb_lock);
+>  
+> -- 
+> 2.43.7
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
