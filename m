@@ -1,78 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311003;
-	b=jdYuBTZxrhAeE5pzZw2iZfyLY6Rl8LuGSxulniXzQp8ZhFm7LzzTOUjB2w8buD6Jp8Q3
-	 c7kj0nQQicIECskVXWcJH+hyK3NJLbgc3s58iRf3ngjxs6gyrOz0dVxe2r90AFC3uKr55
-	 4ACOAzpuk76m1Uc2anqYm5JOdMVksG//OjwtDnZbD+jJbprp8Mz7VcWdTuPNHjeHJZl8B
-	 CYdpvBfnb31NQZNZ1KpRr2nX4bdHs/CwY6SvpD34/SpDy3u8RwBhqkT+sRZpWEzzZ0QpG
-	 I20GaXb0sydM5Om822jNO1v2LpaJkrTywo5XqGkmme2pbe7T+Op9zBtkqqSZ1NL8bng==
+	t=1794311048;
+	b=GPkZ0cNnDvyIlfdQAJ4fhCXa1kfAlsgz/hMz7GjqdKXsl2xBKJhQjagJ6z86M2xxZlQs
+	 OPh0lM7E6fxGMQ/NxkfYU4SY12ewOLe82qKfo+erkPUaIF0G8EMpyDIFW4Lqiv7aROYuD
+	 NGG9qb+/In9ewNkQfGw+sryoCztH1MexKwbxzErOK+MauRrqJCQWUzC2LUR8S0KqNtCm+
+	 14I1Ok3jn6RHtTzCeDwT7HhOIv4JSAI3NiqbTjfWzIW891GiLYThl55gt/D3NdvIVdL6p
+	 CcPXds6S3tXmmrykWic4Leo5Ae8OdA5DtwxZOl9pXKjXuMoDHJx28eJMtcvN2iXGpNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311003;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=Dwo3NODYrC8lH9+/ED/zyRctWxyQsy+gkPSiaqjxgzM=;
-	b=S4S/ziMpEBE8DUM3UiJNElm1uhQffjzb4NCYXJUCLVbweM4Z/lfRVQ6XI2cVLSkFbTfw
-	 3VPg/lICzMcG/cYypGieZUDL0J/jiGe0SrmSV82MGv2ou5w3vqTJ9l5Vne4KD/SUgI7lV
-	 4io1JUk7XwJBtt9c+PmsoOH7UMovoW1Ujea6ZCWsQG8PozkwtNNnXXgATuiNyuQuTt1FP
-	 L+0DNTDc6B0TqcPQ9dqzM+7Lgy3ZpLdOimjUMg/i0MdI85/pXkxt1U4+T3r2m/eCIuNYL
-	 FhBPWzW2FDbbBga+nYKGX7F8ee9gmxLBP3UWNvGsAhYR+PMULUprEe+9/1HXDMDEiTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311048;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
+	b=Txq5JddXXRIdBGMdhuvcONpz8TvGzl0ZS9eyHGmqNtP2wHP2NOQ7cNiCxUhqP/yA1fsp
+	 9qcAJOR6cEP1o/8zr6R9gsgYYWew1/UHZspNjrtE1nsbNOnPzcnkufD6OEGaT0x3UEWW2
+	 Fq7/zTB9uDN1xVdx5zS7JLZZxeCGHdqDPTX+/A13boLjr3+In67WmsTPrHilIt/ZopBo6
+	 jz8Ao/i5kukdv4IfzhMZ0ULDpUueN54NMO+xVMSgxnBP8/VYHaHVyNIYcONkUrRMi7ozM
+	 SakyjQQ61NZZ3tVYJMEUw9whXm3h+oWDeqa/KXqqzPMUYyOV1mKozTb6MkMFTlq575g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JdpvIJcW;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O6HMWVBV;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9F8606A31C;
-	Tue, 10 Nov 2026 11:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A9F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9432F606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:44:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9432F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JdpvIJcW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794311001; x=1825847001;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=fFlYzKZx6d7zbItcdPrIhfKRGk6oxCXe/4WPWbITVJw=;
-  b=JdpvIJcWXyu6v7dcmlx3TuMZLrr5BLdjcE9T7JuxYANe/eCPtVQ24ZE9
-   dXhCu+q9gKFHWqzCW76EIJUDfAT3iIeC+wEOprPjzZjRO/Boe2rx3OMyt
-   l1rnLrmdX+OJz4O9VnrP4wKmkHiSKj4iW0RyeQlNbw88VUsg/Mtk6CuhG
-   ZCZcLZrkfhKdk6+1CHtU7vQZsFy2GJSJ+tmADPHvb4qrJeNP9AaOb/ODK
-   edfDdoUdjnFcLQa6Zoh33uqPSdMQyb9EttrOccAV84pn5GPJaIsq7U7hy
-   CFMjy35IZtMD3M2wwj3OUwqHiY9ScqOwLTb+V0kzK1S8eKIqgQCUpbJ4L
-   A==;
-X-CSE-ConnectionGUID: /aZWI9eTRJaZV00/Pmvf6g==
-X-CSE-MsgGUID: /KnxLu+ITFyEk/B3z3+1GQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3136973"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3136973"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 03:43:20 -0800
-X-CSE-ConnectionGUID: LZa1K/XxTqqy4Ut7m3heoQ==
-X-CSE-MsgGUID: E6/vOvLBQkqely5eF00TxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8145256"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 03:43:18 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 10 Nov 2026 13:43:14 +0200 (EET)
-To: Denis Benato <denis.benato@linux.dev>
-cc: Bartu Alev <bartualev@gmail.com>, 
-    Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
-Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
- readback support
-In-Reply-To: <9d9e53e5-aede-46fe-b0cb-747b95a816fd@linux.dev>
-Message-ID: <31f09d55-2920-e80e-435e-00679996afc3@linux.intel.com>
-References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com> <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com> <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com> <9d9e53e5-aede-46fe-b0cb-747b95a816fd@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O6HMWVBV
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so3130583c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:44:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794311048; x=1794915848; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
+        b=O6HMWVBVln5XP80c2bMEK8+zD7RjvqUj8izRi31qCuDgXZ4dYDMjCL+gRh4os4IzmA
+         1nuQGss7B7ZgejBA+qzsIHKjGh3cxcTB8YsHbxCAIlBIoqIt2Wevjo2asv0YjOZqt+w8
+         EcKbYVGSvRzodNPjM7fVMqfBsMwVx08e+XX1vYee1/0joE9wbdyvnyC4IPBK7ngcY2tN
+         LkxmqpQZvLKJntF6zADGKa8xXba7omnUSlsdABiro03BZVe96JK5NPFwV6c0QN/yfl1r
+         LpA9286AFWzQkEoK1qBW8jt0CwB5G5PVttu/ree8u/aXOU/odXxkkMfF+UFKnBM+2HYA
+         KJEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794311048; x=1794915848;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
+        b=AG2GYA239R/KDGkRqVbtkPh6XXk5xQ7topQRGZuS0mZiMSlKT22uMKccOFBSjD8u/E
+         V4fFKDqpMj0PCpp7FgFt3aG66I3gtrWOkYxzcPfiGdCfeYfbfdsm/gpJT5tbx70yg08R
+         DObqkRZtyQhnQrvhv8kTiJY/dgLgQYC3MPy9Yn2eCNjK/aisbcN33484r5msbeeE1/kc
+         eLy9CYIZ7dFRTvo3wWsKKtwCLhY03yvGkfCE6MiW0tdfCY4nGyYpO/OULD7qUb02Ewfc
+         IRnhuaLFIGQ1WT4aeS06wbin7KEbYIZDJSR7oJtTUpj/1QqiiSmzcSwF5GW/wItvxWYh
+         0/1A==
+X-Forwarded-Encrypted: i=1; AL+hErFHWBcvWtjIshy648bmWAMKQhxX5n1sB6o16G98GbAw4AWs5Jxix6Ch8qfumAAvEzRh5jtXuSuDuQmMQeQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8c86iY1ynUBwzdCZiiRwshfMiL5nJd91TIy8xSNFJDJ9QyrxjY
+	JUTJ3D1vrDQR7aUVyBpGijYfFdVDPBgWRc7DJliGIDU2d9a1vdJ5dj5f
+X-Gm-Gg: AYBFou0VbdRJYPll3joq7MyHdQLS9wUtGt3z6Z2ElGxALXaYxez0LQcWorvMPOG8a+i
+	v+8Fu3819YQqlX++HvIWn62TvhDvVr3cmNyiZgSLZDwr2x9q3GC5F5nDEtSm2zInG0cmjpTmB7c
+	umJQrdR1f7XK80WmiQaST+SU6kwsGvStC4R3OneUxZxc9Vf1TaF9CNmZ2RqGgLj8Ab8KLhE0pnc
+	4Fm84SWkK1CFUVUumku7shhAz1DbKV0VlOJupZjd8BeL7qqe5zsbtJQZo73eiYacF3Vt04Yh8od
+	muhTJQx8n6efKPsKcEVbw0AFTOOaJnBWUI2fNoWfKDNX5yIJ8VS8RUhjf8D+KwJcZbBDjb7cD1y
+	O6koF3BVbgMNkEXNnjKGRaQUPIlmEFwpDUio2201f7TbL01WlKwDIMudjIwSoYXqZCL5qelNThK
+	sBBt9ZWpGrCZRrLlaczzx7G8xakEI4udwHIAN+9/aNImhw/bDP3sNMMQE29Ov3hWn20CRDB9fRf
+	CuD5p4/b82FgOWgI0Xh7c905FJcvvSFP69/QNbyUTWY7pxDJrruhTp+ik2GL0wh6KJM8Y/pTagR
+	DogI6paHOlD0PmIQmDFx8+RvkeaQOJ5oQu5+KYEYZAi3oJX5
+X-Received: by 2002:a05:7022:3a86:b0:1b3:a881:4d9f with SMTP id a92af1059eb24-1b3b60249b4mr3330257c88.20.1794311046423;
+        Tue, 10 Nov 2026 03:44:06 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b1003fsm6648791c88.6.2026.11.10.03.44.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 03:44:05 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] usb: gadget: lpc32xx_udc: drain the pullup work on removal
+Date: Tue, 10 Nov 2026 20:43:51 +0900
+Message-ID: <20261110114351.2524921-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,173 +100,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1592355462-1794310994=:1229"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
+isp1301 i2c pull-up access from process context. The work handler
+(pullup_work) dereferences udc and touches the isp1301 i2c client.
 
---8323328-1592355462-1794310994=:1229
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+udc is allocated with devm_kmemdup(), so devres frees it after
+lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which can
+schedule pullup_job -- and also puts the isp1301 i2c client, but it never
+drains the work. A pullup_job still pending can then run after udc has
+been freed (and the isp1301 client put), dereferencing freed memory -- a
+use-after-free.
 
-On Tue, 10 Nov 2026, Denis Benato wrote:
-> On 11/9/26 19:02, Ilpo J=C3=A4rvinen wrote:
-> > On Thu, 29 Oct 2026, Bartu Alev wrote:
-> >
-> >> The TUF keyboard RGB attributes kbd_rgb_mode and kbd_rgb_state are
-> >> write-only, so userspace tools keep their own copy of the lighting
-> >> configuration and lose track of it whenever the EC changes state on it=
-s
-> >> own: after a firmware reset or a boot into another operating system th=
-e
-> >> tools show a stale configuration until the user rewrites every field.
-> >>
-> >> DSTS device 0x0010005B evaluates the DSDT method EC0.KBLS(), which
-> >> snapshots the EC's host-visible keyboard state into a 16-byte buffer:
-> >> lighting mode, red, green and blue levels, animation speed, and the
-> >> four power-state flags.  The first byte is a constant 1 written by the
-> >> AML, which distinguishes a KBLS reply from any other object the method
-> >> could return.
-> >>
-> >> Add kbd_rgb_read_status() to evaluate and validate that buffer, parse
-> >> it through a packed struct, and convert both attributes to
-> >> DEVICE_ATTR_RW.  The read returns the write format with "n/a" in the
-> >> command position: the command word belongs to the write verb (apply
-> >> now or save to flash) and both verbs update the EC mirror the same
-> >> way, so there is no state to report there.  The three EC speed codes
-> >> map back to the sysfs indices 0 to 2.
-> >>
-> >> Readback was verified against the EC firmware: the status bytes mirror
-> >> EC RAM at 0x0B22 to 0x0B2E, and the speed codes 0xe1, 0xeb and 0xf5
-> >> select animation step thresholds of 30, 20 and 10 ticks per phase,
-> >> which matches the slow, normal and fast labels.  Tested on a TUF
-> >> Gaming A15 (FA507NV).
-> >>
-> >> Suggested-by: Denis Benato <denis.benato@linux.dev>
-> >> Signed-off-by: Bartu Alev <bartualev@gmail.com>
-> >> ---
-> >>  drivers/platform/x86/asus-wmi.c            | 83 +++++++++++++++++++++=
-++++++++-
-> >>  include/linux/platform_data/x86/asus-wmi.h |  3 ++
-> >>  2 files changed, 84 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/as=
-us-wmi.c
-> >> index b33ebdb21aa2..054d1d684bb0 100644
-> >> --- a/drivers/platform/x86/asus-wmi.c
-> >> +++ b/drivers/platform/x86/asus-wmi.c
-> >> @@ -1062,6 +1062,65 @@ static DEVICE_ATTR_RW(gpu_mux_mode);
-> >>  #define TUF_KBD_RGB_SPEED_SLOW=09=090xe1
-> >>  #define TUF_KBD_RGB_SPEED_NORMAL=090xeb
-> >>  #define TUF_KBD_RGB_SPEED_FAST=09=090xf5
-> >> +/* TUF keyboard RGB status readback *********************************=
-**********/
-> >> +struct asus_wmi_kbd_rgb_status {
-> >> +=09u8 signature;
-> >> +=09u8 mode;
-> >> +=09u8 red;
-> >> +=09u8 green;
-> >> +=09u8 blue;
-> >> +=09u8 speed;
-> >> +=09u8 state;
-> >> +=09u8 unused[9];
-> >> +} __packed;
-> >> +
-> >> +static int kbd_rgb_read_status(struct asus_wmi_kbd_rgb_status *status=
-)
-> >> +{
-> >> +=09int err;
-> >> +
-> >> +=09err =3D asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
-> >> +=09=09=09=09=09   ASUS_WMI_DEVID_TUF_RGB_READ_STATUS,
-> >> +=09=09=09=09=09   0, (u8 *)status, sizeof(*status));
-> >> +=09if (err)
-> >> +=09=09return err < 0 ? err : -ENODEV;
-> > What do you (or Denis) think on sashiko's mention about=20
-> > asus_wmi_evaluate_method_buf() casting integer.value to int which might=
-=20
-> > end up aliasing high-bit on return values with errnos?
->=20
-> Hi Ilpo,
->=20
-> I don't see the sashiko response neither in my mail nor in the lore,
-> but I think I understand the problem.
+Cancel pullup_job in lpc32xx_udc_remove(), after the final pullup(udc, 0)
+and before the udc and its isp1301 client are released.
 
-Hi,
+Found by static analysis; not runtime-reproduced (needs LPC32xx USB
+gadget hardware with the isp1301 transceiver).
 
-https://sashiko.dev is the goto place where you have them for all public=20
-submissions covered.
+Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-It's intentional that we don't encumber (spam) our first time submitters=20
-with gazillions of pre-existing problems sashiko finds. Many of which are=
-=20
-largely irrelevant/low value for platform drivers anyway (what user would=
-=20
-remove a platform driver? or probe() rollback path issues; nice to fix=20
-those as well but nowhere near urgent or important level).
+diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
+index 94355d3..210fa1f 100644
+--- a/drivers/usb/gadget/udc/lpc32xx_udc.c
++++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
+@@ -3186,6 +3186,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
+ 	udc_clk_set(udc, 1);
+ 	udc_disable(udc);
+ 	pullup(udc, 0);
 
-Sashiko has gotten somewhat better in not spamming the submitters with all=
-=20
-such pre-existing issues but tries to filter only the ones somewhat=20
-relevant to the patch so I might reconsider that.
++	/*
++	 * pullup() schedules pullup_job to do the slow isp1301 i2c access; the
++	 * work dereferences udc, so drain it before the devm-allocated udc (and
++	 * the isp1301 i2c client it uses) are released.
++	 */
++	cancel_work_sync(&udc->pullup_job);
++
+ 	device_init_wakeup(&pdev->dev, 0);
+ 	remove_debug_file(udc);
 
-Sashiko's review emails together with using LLM to create and update=20
-patches also have a tendencity to cause undesirable rapid patch respinning=
-=20
-cycle no human reviewer wants to see in their inboxes so it's a=20
-double-edged sword. I don't want to see v10 in a week or two from=20
-starting, it seems counterproductive as it's discouraging to human=20
-reviewers.
-
-In this case you need to read between the lines as the report is for the=20
-Documentation patch, whereas I think it's an indication of a more generic=
-=20
-problem in the code that isn't a mere documentation issue.
-
-> What I think is that we have been lucky.
->=20
-> ASUS probably chose the presence bit high enough not to cause
-> troubles when they have to report a status to armoury crate
-> and they don't use negative numbers, but yes I agree that the
-> return value is more to be seen as a bitfield (with some-bits
-> fields as numbers) rather than ints.
-
-So if there's only the FF..FE return with high value, it doesn't seem=20
-problem because it's explicilty checked for but I recall there was also=20
-FF..FF somewhere (no longer sure if I remember even what driver it was=20
-but the numbers seems suspiciously close to ones used here), it's not=20
-being checked in ..._buf() case and casting that to int makes it to alias=
-=20
-with -EPERM.
-
-> I have actually spotted this on a commit from Marco that was not
-> being sent on the lkml (because he touched that code) and I didn't
-> like what I saw (I didn't like what was already there).
->=20
-> Those commits were about modernizing the use of mutex
-> and __free where appropriate and I kinda liked them, will
-> ask him to revive it...
->=20
-> But proper and coherent error handling will touch basically
-> a large part of supported hardware and asus-wmi core
-> parts,
->=20
-> I am a bit hesitant to touch that code because I might break
-> some old and not widely known device: it's the only reason
-> I haven't (yet) acted in this regard.
->=20
-> > The other caller seems to also return that value directly out of _store=
-=20
-> > function().
->=20
-> The other caller got lucky exactly as the rest of driver.
->=20
-> setters in wmi don't even report the presence bit so there
-> is even less "incentive" to actually check it.
->=20
->=20
-
---=20
- i.
-
---8323328-1592355462-1794310994=:1229--
+--
+2.43.0
