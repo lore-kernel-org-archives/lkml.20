@@ -1,103 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347789;
-	b=KTm9l7jahAdb6a4TmKUgaH4pRZuXT4JorZmRx99GCAU0xWJBXFaKxcBo+afoVtQ0yBAX
-	 OMkqKvb4WS3c4QnovwLTesKy3WnSQ8uSNMbMfjYgSUJFMUTPKALF51tCY4n5GZwtB5HCm
-	 c4zcjNx0sIfARyNyQCGebgQrvVcN/MMisDUH+H4e+Tiqxy0LreVjHweGiULJr7c/fBL0V
-	 F/gw7QqjsLw4m77llxCLUx1Xnm6FEdE+YqLCDR1dePJvKucuyxkXj91pHUR3QtAZeSBLr
-	 Jl/il+kImuogRWQvXPZuKvGdDFBImevTiy/wof98PRq0wyt/N+KLqhnRqa6S5x+u75g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347789;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=3yHxwmGIP00UkCKgkChB+u5krh4ioA+qIXr0cmR6Xmc=;
-	b=PAdisoONVKeOv/FMvL5tv3u6XAtp66FNy8OtUVFZuXF+BX8WqmUtDoag2XlNxngtv9+/
-	 dJJo39LczYrEWxWn2OPzYhDcyXMTTe5ASaE93VI3IPtIIKp6csM8JT3LKSFpAI/iR2i4N
-	 YoDTu2q9abZTyT4cz8VxCNfgID9gDc9f2qkqlw4igbK30C4zQ2/jpKzSe6Vh54XakJLHb
-	 bhKuz/VlT7s9hYizjogOmqVErn2SWq1NibCpzMpSnDMyTMfkNY25TNN2mUBwiU7UN7dXr
-	 aTPom6ewxGO9mHV8+VrjkPZHIORtj7YrufjRF9MnoRSUGNwLI82E9cACkl1He8nX1Tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pnyN8E3P;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794347791;
+	b=Moi8wqinijf0vyReSwEAVYqi+wusooyl9o9qY3OaRJNlH38EnByUclBvKBTEG/LJl0Uz
+	 MIWxavwibRhugWnQgLRrOO1uM/x+9wEWfS+8UEFfIMHPQRUme6fldyUMSRXM7hTvf5l+k
+	 7FiMtKyCdYWL1wGwHQf3gL0jMYJ5CS23IY2yhlE90yeRQb7e+1PsnMrCNa7o+/gByphg8
+	 +YiAKKuJ6zdhFvTlBAA6O5ujVaBI+35yOkNGmtPoIcNas6vYllVXgwzk2VREZ73qpxlqJ
+	 /7s6YWkNlNE5XqAd2Ocqmu+mKHOUCn5Gd8h9UYw2zsr99/pdcqbvwJ6kQXI2FlaUszA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347791;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zYdSjp2utcokW4StSyjM0RPfWhdYDHzh5UXs8e4uyhM=;
+	b=zF+Exmcle29uAUFD6OiC5K+lS27oEcPg/0+sauWZ+T700kWth3oKUOrWaKHARFU1PFZX
+	 Y9BGOkQJdKrfDDZbI2kUroxlXquUF0xp9LsfHGt41WrqRH//NZ6hzj0ztfmpTjVySXI65
+	 4/tFtaC2IAWr8D6BHauyp+Q4JYhVPEEevGB3GIeIG1GCTQ1s4Nzt0d+cMcbQpQflkhDpY
+	 VmUrNgiHlkDj2IhtQMBlcXvZI81TtklI6DNnC4CDTUARHgpBn2O/oiZ+tDGIZ6LPgUdfB
+	 7SELxKqFOE7R2dGyY2OR5nlwd5Aw8FpUSYDoVp89PPHArPVBneXYU1bRsN0xir1mquw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=El9L2mQq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.22
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012022.outbound.protection.outlook.com [40.93.195.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE58606C983
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE58606C983
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356AC606C989;
+	Tue, 10 Nov 2026 21:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 356AC606C989
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pnyN8E3P
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a214af2076so19251095e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:56:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794347787; x=1794952587; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3yHxwmGIP00UkCKgkChB+u5krh4ioA+qIXr0cmR6Xmc=;
-        b=pnyN8E3PkA3JkFJuwnMjAxb7avDoA+jvgosay72oDS5E739u/8Nolhdn7hsJyHLHZt
-         yB/mTwG+qNhRwMnghUSO8KJQ9OHoX6u3H9Dksgnl9RbnaY5GMxnpN/W/TR9Z328EWZKQ
-         E6C4KujBIr41uqM1iVoC3TqYd/org3gEc5ka67FQzPOu0ZHJH9S2zaVwQP4bkLMvuTJ9
-         A8t5xumCbrGkvJXrC0Rxerwqkm/q4YG2VpMuctpfASHCJuyEsqg/yTLyTwVsdOmBjcQh
-         yI6ciJq+lm0aPEhee48xszoD/mDTIsDBUXE7ird+tgMWmLjKQwrcxijU8rMbjH5kKPFt
-         roFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794347787; x=1794952587;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3yHxwmGIP00UkCKgkChB+u5krh4ioA+qIXr0cmR6Xmc=;
-        b=Xqhdwy9gEdcu0MUPDvuZaq+jbq121fgIVbpJbou3V3p+rh60M4JRgalXWWuXg+G/NT
-         N0z0ALUyu8OliChN1gPavqxzLRKPYmZE76f619ogwwDzQcSuHR6y1yCktLIEKOJvjd57
-         8m8tpnV0ehafS0htjAP8sT2a59mPFJQuzlTIJb2B960pekkYmaNdl7x6bnlRtzdkTG8s
-         kHlUOO+8bguhYYWgkqgrdstTD/hzKPNcAJx1TlI+SNm5+odo/Lv+HzxKtHBMC8mnTicV
-         doW8Rurq4M1ESTqPKHjZuafP4xur2eohHq0O4dUUuohMrOm0Fal+f5uDhbfHgsQoqUWr
-         yYkQ==
-X-Forwarded-Encrypted: i=1; AL+hErGc+JDjucdgLNx1pljBzeBd0dqux5Pze5GQHUx6daGRVxYrkAZ36ruZuoyq6wH1yxrOY1gJJ2Z3M8kKh4o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PK+SJfcAyP/4j9dpjWxnk5zV02eos4xQ3/6S+ENaxNJSc2sQ7
-	RPbeQr0c4x+m/kLXkqJD0pib0z272Ds+9gWHO3carWa+608AM1kreNYWGUexdosypYY=
-X-Gm-Gg: AYBFou2GL6j8ustJb8OjeB+XZnUu4TqpRJBlejMSAWRjhXvE9iBFLaM9IWKS2Qy3nhw
-	l8ZZWHkbv85H/z2M1GEU+ItqLIHZTmlhn2yolz9myMBuVPE63K27QwKY8mfMcy0kvqjFFNwT2tu
-	w50iFrtDxZ1Y2IcSTruyBQ5qrB8q0KR3oDlAXj5Yb08WdDqmHKMZvRQ864tKLZQxfkiGI9jxqDO
-	99/U6sZ9NaebBy38R80rrlMVcey1Vy9XYEyBU6Y8uyv4Z14+T60QWqQvXr7UOYIPBRfksgqQPg9
-	z569WlGRqBCOkCifVNqVnAeLCYYtUAuyBn2HDssGogcgafEuGc7zqacL+SnxJqqnULt/EY5DliM
-	pKPJO4dmz0Ikk/S3vpQLqEusE2B+edvSs3/hfxGm4gsYzuyneQId4TpOSiZ35pV6FeiuJUS1saA
-	YU/7on85GR+bDn0uOu10XgkfckL/kZQ0ptI73JFbTTMuYpXu6PBz+c4xgpl7S8dVFVp8W/jbNP6
-	XcyWTImM7aqKoHV9VFF+WiO7Tw6gFD5S7aO7yi9TOwfnQHBYnidiD6sUK+Aa6OU3C2aGT68RBgQ
-	eDwK6koktYeNUTLNYRBWVrmbUNX9bgCqpw==
-X-Received: by 2002:a05:600c:83cf:b0:4a2:191f:7cbd with SMTP id 5b1f17b1804b1-4ba0935cc7fmr6834225e9.11.1794347787385;
-        Tue, 10 Nov 2026 13:56:27 -0800 (PST)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01fe9357sm104638115e9.9.2026.11.10.13.56.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:56:26 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	chrome-platform@lists.linux.dev,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH v4 15/20] mfd: Use named initializers for platform_device_id array
-Date: Tue, 10 Nov 2026 22:54:40 +0100
-Message-ID:  <19b9b030217016ca7f4b0d9d9fc9ab915a8963f2.1794347059.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
-References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=El9L2mQq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=flTr5uF7iHu2A8MF12w8QRAnBA7CVa5TIZt8vxXJ8+ma1Kcb1g+xBWefBB9uHbJaNEZYPgGikgrTvysoncj7IK8pwxgGhnpOZKvNGYCA0HqS+WBjjldMMCQrz1PIaROzIL1dBlQtrxiITfrCl9dyHeIEHCMMR6slHWaAsmMtxiCOvT/TjcGO8uXe7zrxe+tFYoditJUvAiA7p51+AVRS4Xj4Bif+zSRZ6VKnxOeyia3JCXLnqyJJ/wm9q/sdz85T1QVhOCx6fjaUzRv42RoAqeciM2Sqm4uVKnDzo6GYlCsdYCzTwCkCCTC+1ZkPxk5glfB8eunKBIs8CHbHq4r58g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zYdSjp2utcokW4StSyjM0RPfWhdYDHzh5UXs8e4uyhM=;
+ b=ylNhkBorIXTeUryRQSIcR7yAiibBYm4iO9SJzHozr0B5MGKLN9PeDWnas2kJzvjOehgiAURkYGktNA6tHtzNmnZXSWE38mgWzhJwhOWW8F/EPGygAzNAwnSBybs5UgcI9Xj6dXyWJ2E6qOkxUKCDdJQSqd9a4xs9bpegbxGiZsXX5NOTDWgnTmffBL8V1sdlbdAm2mHm+XYKB+8iHh/FXWvs3A9BkQMDrmg4zqYV+vcXEslmjnIkSvXIw4VDf1nhacbJhwkwp3dz2uY/NciIuskQiVwTwoMeQGqbGrwjbp/b1oEucT/v2KsRbJKkWVI6CU7EWvnTU1vI6hLNbR5thA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zYdSjp2utcokW4StSyjM0RPfWhdYDHzh5UXs8e4uyhM=;
+ b=El9L2mQqa7oq+rNy20JiX3jF9cbGuIY5Sm2VAZNULBseHIF4xAnYXOIHu08ROiHRTA9S5EDK2HnydXFhN8RpjPDoEB5d0hjwIAj4TXYj4MQmHjoIHnrJso6i/faH67DSOgO1xFkEdC29RsrSEYHIBIDEOSuJaJ0SMo3D1ujEL8Q=
+Received: from BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32)
+ by CHAPR12MB999225.namprd12.prod.outlook.com (2603:10b6:610:2fe::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 21:56:26 +0000
+Received: from BL4PEPF000003F0.namprd04.prod.outlook.com
+ (2603:10b6:208:32b:cafe::62) by BLAPR03CA0027.outlook.office365.com
+ (2603:10b6:208:32b::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Tue,
+ 10 Nov 2026 21:56:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL4PEPF000003F0.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 21:56:25 +0000
+Received: from quartz-7b1chost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 15:56:24 -0600
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: <linux-pci@vger.kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <bhelgaas@google.com>, Yazen Ghannam
+	<yazen.ghannam@amd.com>
+Subject: [PATCH 1/4] MAINTAINERS: Add the AER sysfs ABI file to PCI SUBSYSTEM
+Date: Tue, 10 Nov 2026 15:56:11 -0600
+Message-ID: <20261110215614.3931232-2-yazen.ghannam@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261110215614.3931232-1-yazen.ghannam@amd.com>
+References: <20261110215614.3931232-1-yazen.ghannam@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,80 +106,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2610; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=GtAPN5RJoz25rnsaMIkCchglusimHC6pNuburCmgGRg=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85LIi8QM3sjZgogwtug7vcVX0SJ3+X0vaVym+ L1HdZB2sE+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSyAAKCRCPgPtYfRL+ TmYhCACII9zsLdrs/XbNbp5plwyC1+ueOodgi90o8Ine575DtEGWJWFKxuOyV3MjOikDIUogOsG MzJmZ24/rTI7I4xwYZlkYEAqHwAGYW8EMjWiQpKt5XO8wsAFYIxFSL8LTY71t74mgHbWDhNI+8w 2TxE30D1nc84pn3rOgSAECQGKJdmFQ2ypL3quSOgUzff6KmjPytCYfR+0y/C9BOwmXcw28lKsDc mkicJ29/gVaaf9mRn6Qtjl2QU/WU4d3KO3rTHSnwNDd0A7kyku+SPqvzMsCcRe+ONI4Alw7KzMt c3E3M48lKlrj231S7RpIbK24VOHABh3tP5EwFKaeE7IzoPbd
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PEPF000003F0:EE_|CHAPR12MB999225:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53e76f49-03d7-41e0-75e3-08df3f75777c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|13003099007|261009223027099003|10067099003|261028144727099003|261102123227099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	bY3LiqIMOd+FQNtljpW5dYMT69//6HKaGeEt5KcaElS1seO1RyeqDB1EYzFbP0/QFFN9rxlqyDdldTVJpOhxw213czaQtR3ZnFh7jj8sAKw0H9QAW9HML90euo071xTgTnLEv9cJOj0SF/ePhqwErsfKX2tusw9223wsR5XqtkcBhqQwnT9nxAgcMnl/kY1fC5Zn5k9iJ4QyaPlZcZyVNOgVeXJ7c3/RoI2GS+TiTHUSloM3/SyepcDfpsErqPn5bB1TloqHfa5Wvn92vXzuP6j3sD33EE07b2gnQif/V6KjvMFYUkGbbnB8+Zai0fY2fCw9iBwetFRxtnwXnoZVTSXmgfPKxiA7uMprD8ffFtgsooLQuM0AKeWtlXRnRmgP32s9YFFdlq+zotdKue6V+65i2kiuxS6ej1i41X4n26mhFGI3kaa5OCQTPRAYnUVsvJa3gzPVCCgB9GO3OB3KPpp3FysCiYno+IPgkBOG5ZpBOcu5IfLBB1LaLxtfSR1bHMkkRUTRLzIAfZRJiKf+Gnv45D7FXFKUgs93O5vBFgSRHep3CIkNLDtuAls6xXveUMkb+Ir2JYUSXaZ8xV6FF303daLZngSWkxmEQRCwD5ynZEWYdBuTxZoRV0f6lwaVuwT7MaqAmeVXLlxbnJ+Gjw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(13003099007)(261009223027099003)(10067099003)(261028144727099003)(261102123227099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3U+bh5girF6maPhi+BiAAPJVj6glqMfxqM6VW6K36AI/i/N1D6J08BNj3BXM6L1GJHGd14EbxNoCiCjMXX85MWaD3JL9wFNZw9pd4JlU6fbMJ7MdeCMV9s06Ofr5RIvLMuNMsiCEU4DPW9zX184/xeb7RxH3AOOSkPdQEI+gTIWaQzN5W8bHWBC1QQu+nie9pUSCSV7sRygRiWUqmtPYKxCfSvzt9p73Jn8XZoVIfZ0ypMImNM2wumUMHDNdO0WxWoGqq/w+QY1WOPqEo9aYC3khLFgZRXC+6aYE7WhAeft5F3ujMCNl4MRzUJuTH/4z894Uo2iQ4vfZXr4zlJNRdYKVeGrSI2C4tBavCxVFbhUSgvTlP96GA2SPdJO9UHsO0AW+VkfxFbO8zaI83ky9vSBwdk9xxZ5Oas9Nfy7FV941uxNzFCI7Jajv2DpfJv7H
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 21:56:25.7826
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53e76f49-03d7-41e0-75e3-08df3f75777c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL4PEPF000003F0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999225
 
-While being less compact, using named initializers allows to more easily
-see which members of the structs are assigned which value without having
-to lookup the declaration of the struct. And it's also more robust
-against changes to the struct definition.
+get_maintainer.pl returns only the LKML catch-all for
+Documentation/ABI/testing/sysfs-bus-pci-devices-aer, so changes to the
+documented AER sysfs interface do not reach linux-pci.
 
-The mentioned robustness is relevant for a planned change to struct
-platform_device_id that replaces .driver_data by an anonymous union.
+Add the file to the PCI SUBSYSTEM entry.
 
-This patch doesn't modify the compiled arrays, only their representation
-in source form benefits.
-
-Also drop a tailing comma after a list terminator to match the common
-style for these device-id arrays.
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
 ---
- drivers/mfd/ab8500-core.c | 8 ++++----
- drivers/mfd/cros_ec_dev.c | 2 +-
- drivers/mfd/mt6397-core.c | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
-index d5602b2f4a0e..8638fc8472f7 100644
---- a/drivers/mfd/ab8500-core.c
-+++ b/drivers/mfd/ab8500-core.c
-@@ -1252,10 +1252,10 @@ static int ab8500_probe(struct platform_device *pdev)
- }
- 
- static const struct platform_device_id ab8500_id[] = {
--	{ "ab8500-core", AB8500_VERSION_AB8500 },
--	{ "ab8505-core", AB8500_VERSION_AB8505 },
--	{ "ab9540-i2c", AB8500_VERSION_AB9540 },
--	{ "ab8540-i2c", AB8500_VERSION_AB8540 },
-+	{ .name = "ab8500-core", .driver_data = AB8500_VERSION_AB8500 },
-+	{ .name = "ab8505-core", .driver_data = AB8500_VERSION_AB8505 },
-+	{ .name = "ab9540-i2c", .driver_data = AB8500_VERSION_AB9540 },
-+	{ .name = "ab8540-i2c", .driver_data = AB8500_VERSION_AB8540 },
- 	{ }
- };
- 
-diff --git a/drivers/mfd/cros_ec_dev.c b/drivers/mfd/cros_ec_dev.c
-index 96aac158fd8b..3c7e7f1efd0f 100644
---- a/drivers/mfd/cros_ec_dev.c
-+++ b/drivers/mfd/cros_ec_dev.c
-@@ -379,7 +379,7 @@ static void ec_device_remove(struct platform_device *pdev)
- }
- 
- static const struct platform_device_id cros_ec_id[] = {
--	{ DRV_NAME },
-+	{ .name = DRV_NAME },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(platform, cros_ec_id);
-diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
-index e74936ac206f..385121867da5 100644
---- a/drivers/mfd/mt6397-core.c
-+++ b/drivers/mfd/mt6397-core.c
-@@ -435,8 +435,8 @@ static const struct of_device_id mt6397_of_match[] = {
- MODULE_DEVICE_TABLE(of, mt6397_of_match);
- 
- static const struct platform_device_id mt6397_id[] = {
--	{ "mt6397" },
--	{ },
-+	{ .name = "mt6397" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(platform, mt6397_id);
- 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..b109c9f8aad6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21609,6 +21609,7 @@ Q:	https://patchwork.kernel.org/project/linux-pci/list/
+ B:	https://bugzilla.kernel.org
+ C:	irc://irc.oftc.net/linux-pci
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
++F:	Documentation/ABI/testing/sysfs-bus-pci-devices-aer
+ F:	Documentation/ABI/testing/sysfs-devices-pci-host-bridge
+ F:	Documentation/PCI/
+ F:	Documentation/devicetree/bindings/pci/
 -- 
-2.56.0.rc1
+2.55.0
 
