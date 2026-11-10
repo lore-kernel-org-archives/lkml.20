@@ -1,62 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331183;
-	b=pZEfgxUJCLXxDqkNJ1HPWuMHVFNRm+VEHHbMfeE/rseI3kFt/QXR8B/eeTz0HkkhsxM3
-	 IMkTHsbEt6SWiKIA9USCaU8yBS1rzwTimZc4IhZZSG7LXtuEIeyVaG0O1UxnagtJqimAo
-	 XiRsvTvyVyjc7dp/M+za2VRfCMxNI7CuJVbdj49ko6lDCJv2YU2bV3rb4cecPSd24H25Y
-	 g+QYYuEbgjiVhHUFUnZ9RQYiwSTh6+tRxIVGoN1nzz6Sy3La+iq7auRZkYuoL9XHJuEY/
-	 rgF1pgnEWKADLRz+SUEjtKMs+JJBeeKdBZ0wjjly9eB2uYZItHuNFtptXj6VKNB7BDg==
+	t=1794331263;
+	b=d3gAM5nArld1TULIXnV1RBSRwhMFWuzx3zQiTe2hT1YankmJf4ssJSsqh8oJi5mnn69U
+	 cE8WJW8znjivPyFdRfBYvGjkhPun0iCZsoac0j6D/9gFapNU/LYjShIW73DPc5AOyltL3
+	 nyaHuEXNQn36ZT5yKL0YhWNZRXLfa9uxTEGAHW2SjYbitVO+hW5Cm7jDfXQuIMBJGhRGi
+	 MmXyNFRLCbReabWFRYfjSlhS3C1qGQpGUAsQCmu67Tj4vD7YUlTcdKCvnSD76mZNbPhRI
+	 KILFeR+eUUhjxPxp3LmJoI35UmmvAFDbq2KPlR830Z5+eeIgZa+n553oUzhltulxFJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331183;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=W0+EyXibpOEclVGjpm0uYBDA59a93+6rqY65GSuAGZ8=;
-	b=HEpgryDqPL97H9lL8G+ogllcs7+5oSpHddu4y6rv7yY45r9OUdTUrgo/s5RVqPT253kQ
-	 ipwn6WeboZX6wlpXrYAzzV4qqf7AhvprDBTpDiSdOlSfKDdELH29u5ah9LstIHfZ/2Dtt
-	 +Zg5e1BtxVf9qRbEeAEK+GjQtUWtL5MqyDhApqsTdT+cv/AnxdEfN1lJIWSAZxdwIZTvf
-	 bnxvPx4LUHbYREdUn9xFzU/7Z7FD/Jl5UWjSRhUHXUbYGZLnxnE8mOt7BWtUfKUr/w6A3
-	 AmVwScuYx/EGqtiDBMnDOlijH9Jtrk9NVXf56YwSq+w8+J4zaKpajO/d/aI54Gd6Yfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331263;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=jhWlGU6sdGMIbL8A3mvtXb9qb6dmuOuSfQM/jO/Czyw=;
+	b=j/k8zGWeANf1mngaTnJQ4TZ4WfBrtlB4mbpsMLFtkl/WQeF0lQMRWkDRpAE2M7yJSi8U
+	 LCW8aMyzZ40QWmN40Lj98KtkFpfITdAODtjwrhSYKqjCsj6FJpfxQC2OZZX+WUg5XAyrB
+	 djrcVUtIJg/xp313/rF9gkOGCtUYUTHaKpioZda47L6yTtdDJxBz28D/34C2xARqExlvK
+	 djqAMz2zzUE2WKN84ACbSbj6CNxMvTpStkvfLTTS1bPbhfiCKfNPluJ4gaAuzS7H7dpXP
+	 hDklRtFcvYLLfCCuFGG9jypSJ69sCFKB3apvn+ecVjizR26mpyI5zAmiKT/VgnLwqGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=oGHuQGtx;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kFPQmdA3;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F24D60A2636
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F24D60A2636
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA3B606A321;
+	Tue, 10 Nov 2026 17:21:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA3B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=oGHuQGtx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794331179;
-	bh=IxmqW4hHZiplRSteB24WwisyJf/oUe3XCb1imAlD1pw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oGHuQGtxgP6gMMHD6OMhO7vts9PJLtMBIBGS738b5r3oMLMZqBPGjewPVwf9pAYgM
-	 YWHVCUADrt/m5gBUCH4/HNlxXAoKF8RJgZSS8+TAulrpkstH7l6/m+kFrEeU2/Z1T9
-	 Hl5DsHKVhNIREAaz8klvEpPGfaL1gC4AbDzseuxiMhkA2UO1HXP4GDpCd4JZ6sCuC0
-	 3vYVAdwg5yVEJslxN4M/sxtno2qS7D2YAy8eB6JCfbSvd3+zT/zZRGgKsvUn+MubCr
-	 zG6w7HQuSjYVHqhgOb60P0Ct4vx4b96xzuRC+bnGkO1+2+4sq37Ijo+IEB/NDBd6q1
-	 gopUPnodg+Sdw==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A76B317E1504;
-	Tue, 10 Nov 2026 18:19:39 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 139CE48003A; Tue, 10 Nov 2026 18:19:39 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 10 Nov 2026 18:19:19 +0100
-Subject: [PATCH v5 6/6] phy: rockchip: inno-usb2: move suspend handling
- into clock prepare/unprepare for RK3588/RK3576
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kFPQmdA3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794331263; x=1825867263;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vA1ZEofqWJ38453xjUJ/JXSJtuSTOtOU6lPIkoEWzvc=;
+  b=kFPQmdA3YYZfsuFPrkta/VhCdbfqfJ2heksVxG7xfzZU1MLlpbCJjaRI
+   mupfZeugRJo2Xz79K2SVj5hKyVo+OHwS0VIV5RepgGSflpvKDTaFvjzbF
+   eMx3Rrc8QeDIR46d0/R/P3Cgc/Aj/6wxfK3vZukbA7itzb0rVXJ72mp03
+   rPSukWl2Dzwrj7eH+Jp630XXHE6tbJ2bauosySa4aQKxn8wDVX4tS8uuB
+   xlZUlqtBvczI3EODz6YSLqseNTfJksA7mmI9gRAReiruOFlTJxKNx2sai
+   iAcqTaR0E/a5LZNi4zUyMiH6gG6cKAuYwwjs7/lEM7AK81w/CoqhvzoXi
+   A==;
+X-CSE-ConnectionGUID: /L/4WPpYQcet9d04+NK96g==
+X-CSE-MsgGUID: AO9A1KloThugCIQpBUIXqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3090277"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3090277"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 09:20:06 -0800
+X-CSE-ConnectionGUID: MtCkQXpLQVe733T53cMUpQ==
+X-CSE-MsgGUID: 2DRsMvZ6Tq+RE6qUGkGueQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8071528"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 09:20:02 -0800
+Date: Tue, 10 Nov 2026 19:20:00 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: HoroTW <git@horotw.dev>
+Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mika.westerberg@linux.intel.com,
+	andy@kernel.org
+Subject: Re: [PATCH] HID: i2c-hid: acpi: Add Dell Latitude 7400 2-in-1
+ touchscreen power quirk
+Message-ID: <avNSQJFlT96Qomkn@ashevche-desk.local>
+References: <010201a1c63771e5-dbbba1f2-8a9f-4dbc-8901-c60927cf5a56-000000@eu-west-1.amazonses.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,173 +80,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-phy-rockchip-inno-usb2-clock-fix-v5-6-d2e24582ab22@collabora.com>
-References: <20261110-phy-rockchip-inno-usb2-clock-fix-v5-0-d2e24582ab22@collabora.com>
-In-Reply-To: <20261110-phy-rockchip-inno-usb2-clock-fix-v5-0-d2e24582ab22@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- William Wu <william.wu@rock-chips.com>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5215;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=IxmqW4hHZiplRSteB24WwisyJf/oUe3XCb1imAlD1pw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrzUiosvgz/3X9XcI6pCxsD6nhaDbGdGWTFw
- r/smNzs2LPhQ4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq81IqAAoJENju1/PI
- O/qa4VcP/3gWTm6w+cBQJw1ADgK3UKOOHfVcVcAcJQr7ux+G+DPIx0g1KQrY025ZI+oP/AQ1Brn
- 15lNee4Ucqu69e2p87I2srUWETz+JGiGUYyTZQ1IAclnJT8B0ytVA1XPTzL5oSpgzRVP93vTgwe
- vl3bazeae3YUsKIHlnJR/zd4DfOHNi2/5FnWxbuBCbEfXr897HAxpIvgyQ8N/4G71JdfRfFLjpM
- Zku3JUwoOlne7ZqsYbhl6qmXrNQqQNYZR7OfPeNQ9EkUk/yhGcZUpeKp9MKBNZEOh9w+Tkcp8rG
- 5cU/EZLPTfbkc9kTg5KPLeR7KmAOO2k535uKpEUpaDEo4jzsFHIY7xTAChMZyxtwEiOqBsw4k88
- CmFGGiPeOlYI3D6sMMTMf1KotaysCjPNWBcI/ET8xQZa5wUzjmi1iKO5bO7XKARXJwGuzZYa83g
- 1wDxflxmr3/LwcwgNA/Z1u1FGo0Wzq2tCjEemHi6d5MmficbAfQ5GTtWoGKux4d+JRPMTV02DSk
- 9r/EppqBD+FMFbbOXegmncbDgc79Su9+WT8G2oYVnrhxQE4yvyv6dBgvqgZOaYHNJW6xXtp0WXT
- 8lFMYFDwoNv6f1LPiC1SUb3Oyjp6jofJffveveVtunLoWgkCT9If6q/UuxoI5w96qwccVx91I/i
- dXy7wMv5GwalrVb3t5U4u4g==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <010201a1c63771e5-dbbba1f2-8a9f-4dbc-8901-c60927cf5a56-000000@eu-west-1.amazonses.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On RK3588 the 480MHz PHY clock must be running to access registers on
-the OHCI and EHCI controllers. This requires that the clock output bit
-is configured correctly (already happening) and that the PHY PLL itself
-is running. The PHY PLL is only running when the PHY is not suspended.
-This is currently handled independently of the clock and thus the clock
-might be enabled with the PHY being suspended resulting in a
-non-functional clock despite the clock being marked as prepared and
-enabled according to the common clock framework.
+On Tue, Nov 10, 2026 at 04:08:04PM +0000, HoroTW wrote:
+> On the Dell Latitude 7400 2-in-1, the Wacom touchscreen (WCOM48CA) does
+> not work after resume from S3. Resume runs into I2C timeouts for 4 to 37
+> seconds and then fails:
+> 
+>   [37928.985861] i2c_designware i2c_designware.0: controller timed out
+>   [37928.986100] i2c_hid_acpi i2c-WCOM48CA:00: failed to change power setting.
+>   [37928.986340] i2c_hid_acpi i2c-WCOM48CA:00: PM: dpm_run_callback(): acpi_subsys_resume returns -110
+> 
+> The controller has a power enable on GPP_B21 and an active-low reset on
+> GPP_B15.
 
-This is especially a problem with OHCI system resume on RK3588, which
-does:
+Oh, cool! Do you have access to the schematics?
 
-ohci_platform_resume
-    -> ohci_platform_resume_common
-        -> deassert resets
-        -> ohci_platform_power_on -> enable clocks
-        -> ohci_resume
-            -> ohci_readl(ohci, &ohci->regs->control); // SError !
-            -> ...
-        -> ...
-    -> root hub resume (this resumes the PHY)
+> The firmware sets both up at boot, but ACPI does not describe
+> them: TPL0's _CRS only lists the I2C bus and the interrupt, and there is
+> no _PS0, _PS3 or _PR0. After S3 the firmware leaves both pads low, so
+> the controller stays unpowered and in reset. pinctrl-intel does not
+> restore them either, as it only saves pads that the kernel has requested.
 
-Fix this by fully powering the PHY from the clock prepare function.
+Oh, can you bring the excerpts from /sys/kernel/debug/pinctrl/*/pins file
+for B21 and B15 before the suspend (working case) and after (non-working),
+so we can see their configurations?
 
-This does not work on older platforms, which have multiple ports and
-only one 480MHz clock as we do not know which port should be resumed.
-But as far as I can tell these platforms do not have the clock
-dependency from their USB controllers and thus are not affected.
+> Add a DMI quirk that provides the two GPIOs through a GPIO lookup table,
+> and power_up()/power_down() callbacks that sequence them like i2c-hid-of
+> does: power on, wait, release reset, wait. Holding the GPIOs from probe
+> makes pinctrl-intel save and restore the pads, and power_down() drives
+> them low first, so power_up() always starts from the powered-down state.
+> 
+> As far as I can tell from the BIOS image, the firmware waits about 9 ms
+> after enabling power before pulsing reset, so use 10 ms. Starting the
+> first transfer less than 3 ms after releasing reset makes SET_POWER fail
+> with -121, while 100 ms and 1000 ms both work; use 200 ms for some
+> margin, as I could not find a datasheet value.
+> 
+> As the touchscreen is not a wakeup source, the controller is now also
+> powered down in s2idle and for hibernation.
 
-Note that the 480MHz PHY clock provider registration is moved after the
-port initialization loop as the clock operations may access the port after
-this change. Additionally the old behaviour is used for single port
-devices, that have their port disabled and thus port_cfg == NULL.
+> Tested on a Latitude 7400 2-in-1 (BIOS 1.39.1) in S3, s2idle and
+> hibernation (pm_test=devices).
 
-Backporting this is not trivial as the change relies on prior cleanups.
-Considering system suspend/resume on RK3588 never worked on upstream and
-there are more issues from preventing it (especially on older kernels),
-this is not marked for stable backporting.
+> AI notice: I threw an AI coding agent against it which wrote most of
+> the initial patch, I reviewed everything, directed the investigation
+> and ensured this is a minimal patch. The agent ran the initial tests
+> (via a KVM switch), and I tested it on the device myself as well.
 
-Fixes: 3a7db8e9edef ("phy: phy-rockchip-inno-usb2: add rk3588 support")
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 30 +++++++++++++++++++++------
- 1 file changed, 24 insertions(+), 6 deletions(-)
+For now this paragraph should go after '---' line below.
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-index 99416f6ba1c4..3ee058f7645e 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-@@ -342,8 +342,15 @@ static void rockchip_usb2phy_set_suspend(struct rockchip_usb2phy *rphy,
- 	}
- }
- 
-+static bool rockchip_usb2phy_clk_manages_suspend(struct rockchip_usb2phy *rphy)
-+{
-+	return rphy->phy_cfg->num_ports == 1 && rphy->ports[0].port_cfg;
-+}
-+
- static int rockchip_usb2phy_clk480m_prepare(struct clk_hw *hw)
- {
-+	struct rockchip_usb2phy *rphy =
-+		container_of(hw, struct rockchip_usb2phy, clk480m_hw);
- 	const struct usb2phy_reg *clkout_ctl;
- 	struct regmap *base;
- 
-@@ -357,16 +364,24 @@ static int rockchip_usb2phy_clk480m_prepare(struct clk_hw *hw)
- 		usleep_range(1200, 1300);
- 	}
- 
-+	if (rockchip_usb2phy_clk_manages_suspend(rphy))
-+		rockchip_usb2phy_set_suspend(rphy, &rphy->ports[0], false);
-+
- 	return 0;
- }
- 
- static void rockchip_usb2phy_clk480m_unprepare(struct clk_hw *hw)
- {
-+	struct rockchip_usb2phy *rphy =
-+		container_of(hw, struct rockchip_usb2phy, clk480m_hw);
- 	const struct usb2phy_reg *clkout_ctl;
- 	struct regmap *base;
- 
- 	rockchip_usb2phy_clk480m_clkout_ctl(hw, &base, &clkout_ctl);
- 
-+	if (rockchip_usb2phy_clk_manages_suspend(rphy))
-+		rockchip_usb2phy_set_suspend(rphy, &rphy->ports[0], true);
-+
- 	/* turn off 480m clk output */
- 	property_enable(base, clkout_ctl, false);
- }
-@@ -437,10 +452,7 @@ rockchip_usb2phy_clk480m_register(struct rockchip_usb2phy *rphy)
- 
- 	/* acquire a clk reference for internal power_on()/power_off() use */
- 	rphy->clk480m = devm_clk_hw_get_clk(rphy->dev, &rphy->clk480m_hw, NULL);
--	if (IS_ERR(rphy->clk480m))
--		return PTR_ERR(rphy->clk480m);
--
--	return devm_of_clk_add_hw_provider(rphy->dev, of_clk_hw_simple_get, &rphy->clk480m_hw);
-+	return PTR_ERR_OR_ZERO(rphy->clk480m);
- }
- 
- static int rockchip_usb2phy_extcon_register(struct rockchip_usb2phy *rphy)
-@@ -545,7 +557,8 @@ static int rockchip_usb2phy_power_on(struct phy *phy)
- 	if (ret)
- 		return ret;
- 
--	rockchip_usb2phy_set_suspend(rphy, rport, false);
-+	if (!rockchip_usb2phy_clk_manages_suspend(rphy))
-+		rockchip_usb2phy_set_suspend(rphy, rport, false);
- 
- 	rport->suspended = false;
- 	return 0;
-@@ -561,7 +574,8 @@ static int rockchip_usb2phy_power_off(struct phy *phy)
- 	if (rport->suspended)
- 		return 0;
- 
--	rockchip_usb2phy_set_suspend(rphy, rport, true);
-+	if (!rockchip_usb2phy_clk_manages_suspend(rphy))
-+		rockchip_usb2phy_set_suspend(rphy, rport, true);
- 
- 	rport->suspended = true;
- 	clk_disable_unprepare(rphy->clk480m);
-@@ -1407,6 +1421,10 @@ static int rockchip_usb2phy_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	ret = devm_of_clk_add_hw_provider(rphy->dev, of_clk_hw_simple_get, &rphy->clk480m_hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add 480m output clock provider\n");
-+
- 	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
- 
- 	if (rphy->irq > 0) {
+> Signed-off-by: HoroTW <git@horotw.dev>
+> ---
+> 
+> Notes:
+>     This is my first kernel patch, so sorry in advance for anything I got
+>     wrong; I would be glad about any feedback.. I tried hard to match the
+>     required ettiquete.
+>     
+>     Background: the Latitude 7400 2-in-1 is a nice device, but it has
+>     issues with S3 sleep. As I did not have much time, I threw an AI coding
+>     agent on it and steered it in the directions that looked promising,
+>     until it found out what goes wrong and how it could be fixed.
+>     I reviewed all of the code and tried to keep the patch minimal,
+>     while keeping it readable and oriented me on how similar cases were
+>     handled before.
+>     
+>     - I looked at i2c-hid-dmi-quirks.c and tried to follow its pattern (DMI
+>       match, then device name), but kept the table in i2c-hid-acpi.c, as
+>       only this driver uses it, and did not add a bigger structure for a
+>       single device. My thought was that if more models need this, the
+>       delays could move into the DMI match data, as i2c-hid-of-elan keeps
+>       them per compatible. I'm happy to rework it if you would prefer it
+>       differently, e.g. in i2c-hid-dmi-quirks.c or drivers/platform/x86.
+>     
+>     - The GPIOs are only requested for the quirked device and with named
+>       con_ids, so as far as I understand, gpiolib-acpi will not fall back
+>       to _CRS and pick up the touchscreen's GpioInt.
+>     
+>     - I did not add checks for the return values of the GPIO writes in
+>       power_up(), following i2c-hid-of; i2c_hid_core_resume() ignores the
+>       return value of power_up() anyway.
+>     
+>     - Only the Wacom WCOM48CA panel was tested. The DSDT can also describe
+>       other panels in the TPL0 node; this quirk does not cover them.
+>     
+>     - Test setup: Latitude 7400 2-in-1 (SKU 08E2, board 0HCNR3, Core
+>       i5-8365U, touch controller 056A:48CA), BIOS 1.39.1. S3 works with the
+>       BIOS "Sleep Mode" set to "Force S3" as well as "OS Automatic
+>       Selection". Kernel v7.2.14 with i2c-hid.ko and i2c-hid-acpi.ko rebuilt
+>       with this patch: 7 S3 and 5 s2idle cycles, hibernation freeze/restore
+>       (pm_test=devices) and a driver reload. After every resume the touch
+>       resume callback returned 0 in about 315 ms and the controller answered
+>       HID GET_REPORT; finger input worked after S3. Without the patch, one
+>       S3 cycle reproduced the failure. The patch builds cleanly on v7.4-rc2
+>       with W=1 and sparse.
+>     
+>     - I was not sure whether this is suitable for stable... (I think it is?),
+>       so I did not add a Cc: stable tag and would leave that to you.
 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
