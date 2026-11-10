@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794308506;
-	b=2FcH3f1yfch0CGWNKPzxwWEOUgBtODPVyt3K0AKLBGizC9EyZqTEUVIyO+uJoqtqFcLI
-	 R1rbunPmtrlzrbGz1CMLLmaibRlboFfKSV8NGZqXPVmHEciZD1cfnFtWVK4hZijWKVTbo
-	 3n55eeWCFw34sG/oZPcVOvL43RQ+vApkkYOwOI0ncc2l5ONOURRWvRTIv8uFITg5mdZO2
-	 nKwiksD7ttmQjzUbQVWVds+vjlufvjp8OEu4uPsgCGxHQDBvt9Y1o8V5req0A3zx2pRhS
-	 IPYelFhKH5PuZW3MgZdgOt19H/fSmacpwG9jlwffa/bkA5Vkm+ECTfgGtAdojhAW0Vg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308506;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=u+pnAEAogTXmyhvTk/a0K5L/Z3iUQwLe7oBpKWqSXIY=;
-	b=m2njKn+k1qvGCxF/RqdvKlIB8sLflbuHDrjfoD10dk3oEGAADjho2EbSzHiFN13v6skU
-	 OBseRLyQ86/LybBoJ1RPbJSEBG8MCOEBUUIrzYUMQ7qiScy3QdXCntLjkujzRfptCieOX
-	 m9bpfT01NOtAgn7OUaLjPHHzfPz/6knvJVlkCB3Zx/h+btJFmPkY/h6RI4wWSUPbmL0YE
-	 eNyIOHZ50RpRIdg+tFyPqOnM9LQIDE3ZzgPQm/+u8/uKBaLbu5ag5R1i9Fbx+llpyxRkR
-	 ORPS8W8Urm7ZiE6qz7UmK4xsDp7kTCFHXghpD+gJXNuG8wmp0IXWQkFBi7dJW14XvIA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K6CpH2QA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21440606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21440606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794308519;
+	b=e3jYgIBwa66UTAlE5gIBZ+sUM9ellRJ/ywAqD9ZVgXWUgM6PUxuDj1o1gHplpXgTvFSQ
+	 sL/0/r47r6Gchgf0ZCOWbTV1Czrswn3M0hxLyXR3YifUAoFv0LxXODHW3vdAzPHpq3t7p
+	 Z6sPjRcPSTSkPMsPz+zzmr0ti+gDkl5lB+FOFig/yLeq1IBnQVSfT3WW5ItKafqlRS82E
+	 A0dRM9/HzptMyKoarQTilA3vuHuf4FK6OzcVbL7719o4fEc61q9OJxCRq0HlUJAqWh/ZF
+	 1bYY+1v0H989solTBYDydj7Xt7auCXQ8mW6qjgDq0ANZMVTNKRFNqUCLk0UMnItRQRw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308519;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=eSLFMl2R3lB8+9pIKfTRq+QhKw80CpshDdlYvBLLhiE=;
+	b=BnF3qLEgMmoWIbjBSNHAa/vvsWDB9iLHMDUe2B0kiywLD0JYMK/ob/QAamUSId9W4htT
+	 UtMaavlDPHyJLT0c53iS675xyVdLCcpAW4VjI4rO0wv1DKVs+TyjIyAeizgi09d02Ddit
+	 kXPsFYvnB3j2jzbOF7VOzBqvMg+Hj0xiCs1+I3EfF7iW+8b09pP3zFIM9+sZzw1ST2D6H
+	 /UaPkRKsGyPNaSs6wP4UALUDLlmINJsuUzfPja/oRlkNlUUTkSBSwUVSB5C99dqqaQCex
+	 +RV5CZLlM26OvFElknYfDYkyB2jpRriWWHv4zR8ilCPkjc4sb3R9x2MJMMk++5piQQA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FKqPN9Vg;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D82C2606A33A;
+	Tue, 10 Nov 2026 11:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D82C2606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K6CpH2QA
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso11046565ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:01:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794308505; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rf3dlnzmJz/UqAkPsKiKH+hFrfs80Lir4JjAAEywkieYhwdeFiFB7fex4IpbIisuMI
-         bgNehuBMYiFF3tZCJGkDNOKO02bHeTZ3RTirytFJL54t4i0KGa7cZiBKMzP+7rXad4nP
-         omSSAmPRY6cDMb6sNBTutQn9vQi7Hmpx840A+FXplwc1f20IKBREThNQRuC9ErEMv3os
-         EU2hdbtjUdpWHQW10fpNRCda1hGNhsL+8Tg8wdukivA++oalq4npfJQYbVeQ57QZjT6S
-         EhGqoEGW4kC+h85zF3O4YPyYwG2zvsP4HvWo3PP8ZVOivJGiggKrE34gDX2VmOGRlRiZ
-         x0qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=u+pnAEAogTXmyhvTk/a0K5L/Z3iUQwLe7oBpKWqSXIY=;
-        fh=lZxFHXO8lPsI9BfknkpmIYDWUGphWIfAVwyCWNl/gkY=;
-        b=XPwPfpMd4eZ+hYA4i9/CYaNvuUs3wcsyLkZqHPzFN70pgkzKsloxppyrgJ/tXkLMcV
-         gXj3O/tZtcrd+/9oRI5wu1oFQ4INf6fDfFZp1i4qQmQ+h9dPcacaHfEwlz3AtkSuNQg6
-         +bn+rzuczypXL3nA13bw4yWRA/X2ZEYig/Z/bChCdGxSkEBSmvh/s6ir6HBdmvJ2akx7
-         aYz2PaUnh5gfTRBgrZCr5xUcjkAYjhrG4nYDGmP1+2g3SjUcBXQ5QqcxVnOBkiCHUVQB
-         mZOAuuRCzqIVUBy97GnytPzDRXKbMcLKeLq6arZu3QoF/hoCoxrhkCPEMi7kwwJRwM/9
-         jjgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794308505; x=1794913305; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u+pnAEAogTXmyhvTk/a0K5L/Z3iUQwLe7oBpKWqSXIY=;
-        b=K6CpH2QAdWcnrcYFW7uzbntgNHVlc2ZPun+RNte09gL6keXZnCG6LkK5P9++2uIX2G
-         TZSWKv3arrwywERbr8QJwD23gVplqEJKBvHgFMrtx41aqBBBJT0Jr37sMHj9MggJaccy
-         oRWeQ9YfjJhUn2jNQo7JF4HC1AqKM5/xyfp3+ZvRVsZaGt0nmaSIbD1wa5ZvrCTodEkl
-         WJxOyHa0tcWnnxc52gDsbNQuFmWiOg8csI/F8ruTFjGzPkIk3s3eLVlKs34Fngoo4v+1
-         L7kjfoiXBDq8mEahFFIXIaMvS+MJA2IuKdZMpmvBXvB+fWAVQVi/sHXoT0Vn6SwF1bV6
-         B2Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794308505; x=1794913305;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u+pnAEAogTXmyhvTk/a0K5L/Z3iUQwLe7oBpKWqSXIY=;
-        b=oPBie0E/Wt8RblJC3l3qBTUCsv76/Yctopjs8diaABaoHBxnHBGibVUEbvBRDbuaV2
-         QfJosbakm4yKM36Lfx9qHohOAR48CfsmbnJRhlrQc0bVTnhJqkT2nTq3d/2oHV24Bgam
-         vB2aVhkc12mcukr6ejNQsL3QUxnz1leujPxdo2aEbZ9TQIye1OwCAYwG0sdTX/D5aIbI
-         PpcGhVjOoqT6ZzJ66xI9IjjmUDWFEgJ3fpIUKfsasjQqCxHM/9AFvGGWzIhDony3KAh5
-         /azRbGRNEi/o7bCBQbCbaodvVsjuIfY5qxGEzHbS6Hqwm/ceMPhluLt2y1V3lcqDdHu+
-         7mOg==
-X-Forwarded-Encrypted: i=1; AL+hErEL0v4ZnhzFh9RvYPU52YDUchxtvBSisbWoHQpAO0bTk3uRE0OC6PTOguVPwngnaWe2f7lGkZnp0FqtfIk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//KDDb3CO85qzHj38RQB5KrPpmPAz0hdO2KyHZ5ocxDSHUFd5C
-	+WCOh0rty8DUTVyLNrWpUwA/c3AM/I5dy5kfLX48fq4YnFg4LAocw8OkyTSAzbjZXvpN6zswk0L
-	8EfSUHXjizBRk6xUWk19xn2PuHMjo3CQ=
-X-Gm-Gg: AYBFou2FF2t0Yqa2m/mqMFvARdyNY1zhltrFeZmfYE27rDCnWW++TOaHkdhhgunu1+o
-	wFGTLhnHLDQOtRvVmqD7lJLvVDWvNXLd5mo36G4IKz+nkyWSnckfH7/SxJwn7qzE2i0ivwQAk1r
-	BdMo1dOm9hWVNFh4T5nGgxEcnbbYAHvuYPwMHX//7q8pjWFbrGLbc1lXpAuueinBZInyTxN+jXx
-	4aZYLN8ar5mAQi8+jPIVc/hNJmBe3NqgVr5Da+prmaXxbpVSj6rgfBW2+NSbBFRRldheRlJkg9U
-	BuFGZ8Xl4pzU2a6al0vBNcP0peS2fsB5UQmCwNyVBTqBn3M+A8sZ2XVR1fki4onz4PwjcfgQAs9
-	kcWAXeSbrhDUuDOZx8+KrpmuTk4zCgJ40fATcRdcDAPuWeC1gwm25baSXxAlSYQTueD1YR6TXZJ
-	3t1xq4Aw1MC1ItoOXTF0BPWN4SA1DSciVzdNRNZLwFOvuQSHlsbEPz0NGfajqp2GfaH+t4Aw==
-X-Received: by 2002:a17:903:2282:b0:2e9:5714:6079 with SMTP id
- d9443c01a7336-2edb91f238emr22931735ad.31.1794308505437; Tue, 10 Nov 2026
- 03:01:45 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FKqPN9Vg
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 347101BC0;
+	Tue, 10 Nov 2026 03:01:54 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 407D63F85F;
+	Tue, 10 Nov 2026 03:01:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794308517; bh=QlNntSieLC8S0YvRLd6Wfbbt18c4nXb06umZDP6TNas=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FKqPN9Vg0UBCyIbmOsaTZulIJOB3aI1y35vAsOHgGOHwrXPB5Vb0mWHldy5uSiAea
+	 /rtVJRwnHK11B55hGPiy1hFaXYryF7/WHJ3KdNjJ/InOVLq88ffwfxbSGvPA0y161y
+	 pTwsUdcVncKo2fkyz2aj3wWvKP/SCFMfM5TxsMuU=
+Date: Tue, 10 Nov 2026 11:01:52 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/11] pinctrl: scmi: send the drive strength in
+ microamperes
+Message-ID: <avL5oKJtdiKrzLlg@pluto>
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-1-52d92843ad97@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,36 +67,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109084342.51865-1-phucduc.bui@gmail.com> <20261109084342.51865-2-phucduc.bui@gmail.com>
- <avJV68gHL_jvZ6dZ@ashevche-desk.local>
-In-Reply-To: <avJV68gHL_jvZ6dZ@ashevche-desk.local>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 10 Nov 2026 18:01:32 +0700
-X-Gm-Features: AclHuK_WH4hOWPrihC_Nnz1Ye8k0FcFOdmrzVk9_s62_8IblVFD_31IpCmsJblg
-Message-ID: <CAABR9nHZ2XVLj6a3NG-0_fhDWvqZPNa=AX7gJosc2NEofaXfpg@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] counter: ti-eqep: Fix runtime PM leak on probe failure
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: wbg@kernel.org, David Lechner <david@lechnology.com>, andy@kernel.org, 
-	dlechner@baylibre.com, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, m32285159@gmail.com, nuno.sa@analog.com, 
-	sozdayvek@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-1-52d92843ad97@baylibre.com>
 
-Hi Andy,
+On Fri, Oct 30, 2026 at 04:58:32PM +0100, Clément Le Goffic wrote:
+> SCMI gives the drive strength in microamperes, but
+> PIN_CONFIG_DRIVE_STRENGTH is in milliamperes and was sent unchanged.
+> Convert it on set and on get. It is the only unit that differs: the
+> debounce is in microseconds and the pull resistances in ohms on both
+> sides, and every other value is a flag or implementation defined.
+> 
+> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl driver")
+> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
+> ---
+>  drivers/pinctrl/pinctrl-scmi.c | 29 +++++++++++++++++++++++------
+>  1 file changed, 23 insertions(+), 6 deletions(-)
 
-> I'm confused. Why the PM runtime is used (and announced) in this driver at all?
-> Do we have upper layer (like a bus driver) disable power before handing over to
-> the device driver?
->
-> TL;DR: what's the point in runtime PM here?
->
+LGTM.
 
-This patch does not change the runtime PM design. It only fixes the handling of
-the existing runtime PM state and usage reference, ensuring they are properly
-released on probe failures and driver removal.
+Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
 
-If there are concerns about whether runtime PM is needed at all, that can be
-investigated and addressed separately without mixing it with this cleanup fix.
-
-Best regards,
-Phuc
+Thanks,
+Cristian
