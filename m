@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794327592;
-	b=L4vzy34cdDk1L2E82RHw5fRBwidY2fEAuUCa9ignkpghKyyYB15/5aeNMh2prrvH016I
-	 UgyzWkzcO2rI0+CIXmTKhMRMFvV8ZTx6DS/Mc3hsszJkRv3oBZrNHU5tYxEvYrKtDnFi+
-	 Gvn7uVlN5hxmY9HL19gnHVJnjoN/DZNRAVnPAdcGUbklQ9a4SgP6CVMfmk3f+NIxbqhGg
-	 fnsBKhKEcFLoZVmGfy5A/O/AdQTWUqRObdzJAbYxf05CoO0PxwH4IbdVzilV6GjgLcxl4
-	 IHSrVv9mFyuSyAuCaEeXcDn+XVKESY3FewetkZkB3Ih5cqQ6LUW9NGivXcQKXQhTHwg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327592;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Qb2G21FlOrUfbYYuT8/0McH4jJCao8S8bFNKtNBwoNg=;
-	b=YiSioobRqfZzbf2yWTlJGyQ1CRKg392il8BdBV/LyntMWQJF9kjRlLkd28GAI7J/59kL
-	 dd7jizWdO2SdEKaX46nSEvVOhFTF7n70JRHo3rfyCaYyZKwAuOkmZbLgX5jr7ZlBfDO84
-	 m/CanQFi0RxRdbmDM3yUb9emHf5PAnqXlDGl00+OXS0h2gFmkycx8O9F5x+d/MPDDAcm7
-	 xGk1PaEntRNbQz94x2mddkL92ZeRoyr0zQ1GJpsuaJJ1qJnGfZH2P3XzyT+2RQWeCfhvG
-	 pQqy+zt5SMyDYLN6kDIOBTundR8mb4t1LneKVptBOd4IeW286Jwltpei9TacNg85UDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4XZ0qoc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.232
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794327636;
+	b=P4wJXUsSUPmKPSkJifvt4bN9LljKfC8xgfkCp6Av2MxPH0zQkSCyW2RGd66vDQbx1DEU
+	 xso4DWCIdw5/Un4OcFmO089rn2VJzpHijDHtU1o7apN+eIYoKx1RazBFiUWkW1dH7g5B7
+	 VRqvjidvBHVAHkb1DlImJaBbP+gyx5vRumgvKtcP/3ToXGm/c0/+N0nMNb1+0cguUcOnR
+	 kKobQxfK/ZEA7GBTexXTCJUbNwTkVaYyYcx5zUmUow8DKYSR1cMwZ14Csdu+PkBmJ7v+g
+	 dcqiEw1LqXDvlNSL8IU3wKHPhHowxb0UK7cC1pg2tYxZdQYv+hak2NBOCBu3200f5Iw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327636;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Wn9pl2dWY0mvsidzC7ZDrdvAm0x6tULK0E6nQnzg3QE=;
+	b=P6BMMVnosF09uTTCwOD002hK/rPLTeb7xcmOiUxQah9TBXUSZWb7tFKzmeS3HDc+d+7Z
+	 g1NlEbh5xbqQ2JgK+QJgUho7sduNjQJyUoXMQWxiOvy5H/fF1YztjWYefIkVQmJYR+7ce
+	 Zaa9TU7pvrb1IntlShS1XQgo4v6eYglN9l/HrIkThdYnnetyWHu/OgvRLCQZCm3apSS0z
+	 o9iH2uBpbBruRJ2pWfVw9QM0XxcY1fGLD/cCp/HzsHBD02gi0FJVaBM+BSzhu1E51CrAp
+	 aWb0Y2mPquBCuNpLq4f0ydJgdS+z3h8bqzqP8xDcHh3n9dkHAsyYN6itXhbO2a0nBYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zx2c4.com;
+	spf=pass smtp.mailfrom=zx2c4.com;
+	dkim=pass header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=oMYGPlhN;
+	arc=none smtp.remote-ip=209.85.160.232
+Received: from mail-qt1-f232.google.com (mail-qt1-f232.google.com [209.85.160.232])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E873160A2602
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E873160A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91CE606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:20:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91CE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zx2c4.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zx2c4.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4XZ0qoc
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1905730f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:19:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794327590; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XOy8D5H803dzoNmyWNJxxYKLVKgL0dfTsKhgGJ/hk6azdMI+IURVfs/ehUV9+HNlL9
-         g7rapgJV8laIOVGxRPtqG1Nh8lusXYdqjajjpqkX2CTHmeaGqgjJp3q4vNpyuxn8CTaC
-         plEo3PiNNYkdfAME58gQ945PdAfvW2VmcrM5BKS7COojqKBDZVpRKATrC8pxRI4ygMsf
-         5raNgLrEFhGjhM2GvrqWkP52xmIpYlpqrsnaUg1Z2DetmhC6IcIicR7al6TPpk5bJdn5
-         +claNh9ieowIbAQXJGZZjWfJHDyT7uteI87Aiuri2GHhVGriO9oVn0I6PhCJ4xE89e81
-         hMrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Qb2G21FlOrUfbYYuT8/0McH4jJCao8S8bFNKtNBwoNg=;
-        fh=PTGaWO8iMWq77oMXJTc63luhUyoIuii7SvIfq3TamiM=;
-        b=UFBXSpmUFVyOZ3zPwqbK9UxvsQkXpU4SJnE4C7a45eLzLYJZyYgQA4RWguGLS+c6Zt
-         hwCTwCzhqQNa4ZpxZ+oXWz5PeM4jkpQdJ832FyBtjU85OCgz3eFLLYcnIpPYYL5Gcy5P
-         tvGniCwQsorbwkkbcxypEoOYtYN7nyta2mfswba/fXbCS7l953H/KnHODOdRkIbVOy0d
-         fvGxIDDkuWpQxCkPJURIqk14lD0d53XtiQ7iQGb0e/PhffXoOj3UriUxTgmA9yYHjdIi
-         Vg83D/wc97jrCWNzUpmbQ0+XpKQHm5fCa4hBx+3Z8sB1JQw6KWokh9geh1oQMJme7/Fd
-         b6Vw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794327590; x=1794932390; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qb2G21FlOrUfbYYuT8/0McH4jJCao8S8bFNKtNBwoNg=;
-        b=Z4XZ0qocZ96lpxd7Rb0ui1uFPo9ng20FkuyqlODIetmWhtNNqX68kxH/u14G2+tSPn
-         3oBYCMCRaozcM7Cy1iPAjl8DJ6e2saSIp539Kv+qfR1OnJfX2dXSeqJNo6yydEzO6Y8Q
-         oIs6L8H10+8DhzeUD+OedTs6d//Ox+ARVUZ2kB7y4/wXQPEmHU0nC7lrR/ElWo04ZPWl
-         nlqmwMcOwgUaOT7r9dIb9C2WPT1g+tos6P+SdMSK+MIMqCLpDJEIvaqiH4AwDd7p1jSY
-         jc0AnjU5JOFcK/bF7HDq5baAJppXK/xpMMvua96Hq3CaTd0xtmvtg61KD/yy+8WFQlCU
-         0/HQ==
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=oMYGPlhN
+Received: by mail-qt1-f232.google.com with SMTP id d75a77b69052e-5363c8de563so22054321cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:20:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794327590; x=1794932390;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qb2G21FlOrUfbYYuT8/0McH4jJCao8S8bFNKtNBwoNg=;
-        b=fAMPa3ZATtvLR4CBsfBSJcRVD8TUp43OldsWtGvHcLoel9oy7kpjQNL19G4dF7xmZW
-         zFyIZUTRrassDFGcpEvIx/LIhD6mSS2i4HTwyOAwSulN22C8tlB7oy9UVHx017tMWol6
-         RRbeQK5uVYUb8UWxI4/uTt42uT1jHosvcUNoUIaFAhkVR5bXQwLtudDUaN73OGMBjgx5
-         d1P2uBXFwxPFWsGgJsVeis5zGLEHDmiIY+tkhov7sD0cg8kNqwE3vnFPDSMro3uyxlcV
-         G7s+oflOSgcI0rTMtXQ5A73uxwIBylEfFoI0SPAJFCky+Me81+Z3OwUT03ohnGQfXb+N
-         wAFg==
-X-Forwarded-Encrypted: i=1; AL+hErFWAcA/TvWBMVZaAtgAp2OyWDeptbkuZ785tLWMuo8/uwmfFLLi+U0q9QqGhgG2aP7eiHqw7C+telzuVv0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ymFaW+T5jrADAzMvT2AbIZwuxT6acUn4z5jwSK8fVt08T4LAn
-	2pGgyK0Om97iiPREKx2mFqVYDaZXOjKigncybzCI5dUaiEchoawhOVPacA66+WBiHdr+xHJkee0
-	KNfXKcwOp5RL+TVetyoh7+R2U0msIdJM=
-X-Gm-Gg: AYBFou3uk7qujMqDWYY8Hme4FNC+6k3vpjczOdRvsyV1+yut9JdjTTnVLXwj6/s0UHV
-	4j1UOkOehqh9ooFnwf5/27Svpchpk/FYfQX+NxFFb4SDx84LYWd0MxOd8JKiePGhhsOm7dHEqhm
-	UBxhOe3rF7oflae0jxsT8xMsBhVovTiNTkcC/gfF+GYxc99XD+/X6YKcDsVnL3cd5qkMLG8jU5+
-	TXBHI8B6EQmXr+jtHSCaSUla0Dn9ZP2Q5ib5GleyR5/2tNh9pQkmnOkKxkx7noIUHTEg8kUCSBn
-	LX0YV0OkJIEwQKq8lHso2GVcZqG8ZTGgIf31vQ1+Z0uxUDy7J3HnYoCIg1s4qdtLLolpHWdh+qG
-	Fwgu6AWS2Bb1eER/ZX90uXXMDZHlqnCwxBI9Dl2u+UihnCLEGrfc5PChQHYzLcOQOdnn1DYB+xB
-	3AE/XSPxritTp1mEJdXHOPCFqtz3pKVQkaKqk8jt9wcn+pi+cQ2yOwhoWxSA==
-X-Received: by 2002:a05:6000:2689:b0:492:20e0:f666 with SMTP id
- ffacd0b85a97d-49828b4d6a4mr6624888f8f.0.1794327590092; Tue, 10 Nov 2026
- 08:19:50 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794327634; x=1794932434;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:dkim-signature
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Wn9pl2dWY0mvsidzC7ZDrdvAm0x6tULK0E6nQnzg3QE=;
+        b=i6xITlxqIx9jVTAb9sxUnCDA/7EZThQouL0hS172UtYuIo8g6JfENK/mmkT0/t+O+R
+         QuR07JJajcizha6YPS96xDmep4KgOudxogSwCu2fIPmjtOTuRLFTOlqnGZrNTI+zHzsd
+         XBKxscY+N4lgLkEgBuSb0EAgiWclNADG6GNPlzKkOY7V0OY7T9qjwsjvfKIfWfYEnfrN
+         RJfWY6UDFjOSnI7l0cYPKwN3+HCig3Q0RvthR+txEEMn8rl15od1Pyx/x/qjSCFxOArG
+         7YuElaYe7if9TbtxrZxztiIEZBAEWzv+5I8eqnJqSrb2Qge5IM2b6PhrU+D85PxmjGR6
+         5TIA==
+X-Forwarded-Encrypted: i=1; AL+hErEQ8bh/VlsRYzXlGG0czHtJf3YzIsza9ds8NzSL6zcgCJ+vxSEIYen6FOsEAZt098mE4Cte/EjLhLQhMSA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tIrykT6Lb+7z+ii+Joiv8aKZEAovT9Ew+1zsTVW1ZimdXcVma
+	WH1PYrWCbIsTXpAGHBPDvEfhLyDbcH9JMzwQdBK2Mqvj2NyKEKa6Exn0AfN3fsjiN1ptkb28iJW
+	QbqqA5CGKJ3Xg0rtHr7iACIzSfKV80mX9UmHCEcQ=
+X-Gm-Gg: AYBFou3o38bJ3FTyNmGrayUrz556gR1YG8hHNWnuIt2s0D4U7ZytQ+BFaub6Flx1onh
+	drW/gZOlXfED5N2jey7lLD48JigiKjWQAOnbvikvaLDhBkEEzGXOCidpsk2hsXSfEb57du8TZfX
+	qi47vE36bBwnxMtVQCUSieYXrWsBerz4NJZURZAzh/Vs5iqi4I/I1pX5VePn1U3j0JzTIrpnRK8
+	VJhN5IBTbCtNsI0mFFNoRedw9IO0BBPXsiqxGpHzxzGEoLTmFk900XaYsJhnsSgOi60BsOykaGl
+	ndMI/f25XE48x5t1G9F7NvX3wFK5R1GirpFyjNIWFWzGD2l0aiJh0j5Drch5FvOvr+YQCi5VAJe
+	6yg==
+X-Received: by 2002:a05:620a:26a1:b0:93f:1e3c:4a31 with SMTP id af79cd13be357-9479f337933mr473994085a.61.1794327634556;
+        Tue, 10 Nov 2026 08:20:34 -0800 (PST)
+Received: from zx2c4.com (mail.zx2c4.com. [104.131.123.232])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9479efb239csm35618885a.10.2026.11.10.08.20.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 08:20:34 -0800 (PST)
+X-Relaying-Domain: zx2c4.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1794327631;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wn9pl2dWY0mvsidzC7ZDrdvAm0x6tULK0E6nQnzg3QE=;
+	b=oMYGPlhN+9g4AeBDfpCGTBZvu9Avf73LXYnRU6qvPzJzuBsQ3shkH5vxk/jmMg8gWGzwbl
+	iRS9Y/grD05nLAnzDqY6ePcGBUuSJekQMzyZ7RF8Z1y6YzzHA0AyatbgR2FGsdiWhRAshw
+	xeD1NXhYrsxQ+z6vA0sPv74b16eUe6U=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id cd041934 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Tue, 10 Nov 2026 16:20:31 +0000 (UTC)
+Date: Tue, 10 Nov 2026 17:20:28 +0100
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, wireguard@lists.zx2c4.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+de9701a2cad597c14d34@syzkaller.appspotmail.com
+Subject: Re: [PATCH net] wireguard: mark racy persistent_keepalive_interval
+ accesses
+Message-ID: <avNETK_9e7sr-JSB@zx2c4.com>
+References: <20261011102322.355167-1-ngocthang2710.1999@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,81 +100,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109114123.797741-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMuHMdXc=DRkGOhc75Zq524X9Rcc7OOMs6dy0rj0-zm+iFP1wg@mail.gmail.com>
- <CA+V-a8vtcZA_51PmDVWMKsOWaQB+CVDe=qh2FG=6iH2Rf2szVQ@mail.gmail.com> <a1bc40d2-f12c-4cd1-a4d8-c74e79606f39@oss.qualcomm.com>
-In-Reply-To: <a1bc40d2-f12c-4cd1-a4d8-c74e79606f39@oss.qualcomm.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 10 Nov 2026 16:19:21 +0000
-X-Gm-Features: AclHuK9H7BCOsVyCiLXD4cG6ix6o20RW4-wpITBgbhIG6H4hpyEsxBCwGkTKdsU
-Message-ID: <CA+V-a8stD4TFkrFHxddMLm+GPYReYAMcMdFsAC5zAKHPB8gV3g@mail.gmail.com>
-Subject: Re: [PATCH] arm64: defconfig: Enable the RZN1 RTC driver
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261011102322.355167-1-ngocthang2710.1999@gmail.com>
 
-Hi Krzysztof,
-
-On Tue, Nov 10, 2026 at 4:03=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
->
-> On 10/11/2026 16:57, Lad, Prabhakar wrote:
-> > Hi Geert,
-> >
-> > Thank you for the review.
-> >
-> > On Tue, Nov 10, 2026 at 1:47=E2=80=AFPM Geert Uytterhoeven <geert@linux=
--m68k.org> wrote:
-> >>
-> >> Hi Prabhakar,
-> >>
-> >> On Mon, 9 Nov 2026 at 12:41, Prabhakar <prabhakar.csengg@gmail.com> wr=
-ote:
-> >>>
-> >>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >>>
-> >>> Enable the RZN1 RTC driver as a module. It is used by the Renesas
-> >>> RZ/T2H and RZ/N2H SoCs.
-> >>>
-> >>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com=
->
-> >>
-> >> Thanks for your patch!
-> >>
-> >>> --- a/arch/arm64/configs/defconfig
-> >>> +++ b/arch/arm64/configs/defconfig
-> >>> @@ -1393,6 +1393,7 @@ CONFIG_RTC_DRV_TI_K3=3Dm
-> >>>  CONFIG_RTC_DRV_RENESAS_RTCA3=3Dm
-> >>>  CONFIG_RTC_DRV_MACSMC=3Dm
-> >>>  CONFIG_RTC_DRV_S32G=3Dm
-> >>> +CONFIG_RTC_DRV_RZN1=3Dm
-> >>
-> >> I don't know what happened here, but this is not the right location to
-> >> add it? Moving between CONFIG_RTC_DRV_PL031=3Dy and CONFIG_RTC_DRV_SUN=
-6I=3Dy
-> >> while applying.
-> >>
-> > The configs weren't sorted, so I added it at the end. Thank you for
-> > taking care of it.
->
-> What do you mean? I just sorted it 6 months ago and it DOES look sorted.
-> You just placed it randomly.
->
-Sorry, my mistake. I assumed alphabetical order rather than
-savedefconfig/Kconfig order.
-
-Cheers,
-Prabhakar
-
-> Thanks Geert for fixing up the placement.
->
->
-> Best regards,
-> Krzysztof
+On Sun, Oct 11, 2026 at 05:23:22PM +0700, Nguyen Ngoc Thang wrote:
+> wg_set_device_doit() updates peer->persistent_keepalive_interval under
+> device_update_lock, while the RX/TX paths read it locklessly in
+> wg_timers_any_authenticated_packet_traversal() and in the persistent
+> keepalive timer. KCSAN reports the race:
+> 
+>   BUG: KCSAN: data-race in set_peer / wg_timers_any_authenticated_packet_traversal
+> 
+>   write to ... by task 3648 on cpu 1:
+>    set_peer+0x...  drivers/net/wireguard/netlink.c:457
+>    wg_set_device_doit+0x...
+>   read to ... by task 3652 on cpu 0:
+>    wg_timers_any_authenticated_packet_traversal+0x...  timers.c:217
+>    wg_packet_consume_data_done+0x...
+>    wg_packet_rx_poll+0x...
+> 
+> The race is benign, but the reader also loads the field twice, so the
+> zero check and the timer expiry computation can see different values.
+> Load it once with READ_ONCE() and mark the writer and the other
+> lockless reader accordingly.
+ 
+Applied, thank you!
