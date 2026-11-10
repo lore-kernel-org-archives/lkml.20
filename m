@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274398;
-	b=ITgNoGGlijA7C3RD9eSUacDv+VdfhI41mCF15rgOFnEcHnvDdJWTAYsUlK+sVQOpJlqj
-	 miD1Iuz2yGrOYU/BWqW0kK6V1/Mvln3iFtRq5AuIgUt21SAthjiczWAjuJnkx6DmwSERB
-	 iNyXEA+4kxPpAHpvpdNk2OC1W4y3zicGtPcp7zeCkZfS6p5qRikghD2MVmx5tyle9iBT4
-	 AkkfMRntPMloV/QgfVEviQpWxwuz4DWRULTTyXL3TuOgL3Z9utQJfhbpuyb2cRo23o0xm
-	 knoX/azgT1bTCKVngYtofi/ZoaD3AuSjnLMQY95ik/qrnNXeXHxcD4iTz9jl+vLm6AQ==
+	t=1794274439;
+	b=VSZfEXw9DIbgEN9Gk81jw9jK+j8WyV0C58HOkHYax6RXuvuKa37PSK4r61uHdmUssWVa
+	 nJCE63+lwj/RUTXg2qdoicd6VXVSiYHZUskgk3MczAc48af57prJUI9jtns7uohSwlD7W
+	 jHN4HAvr5SVEr6+M+rpQQZYsIJG6p1/Gn3LLsR44KoV6jYoySelkUdwsYPufsAtnobu1s
+	 mdantNr/isAQU6RzLvSZ9A9z4pxNyr6YoA8RS+0e8wAPOhcU4j+8Ku44DeFiV37L/z+3y
+	 jqWxHHXlKBTid5ccuB39eeMVcCn/akYg0Xdj+T0UaZtEomREbf5Axz34vGu18fOyTMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=d3tI+lsKyAfo2SvveMIf16nV49egeDWrXlEVyRU8qIQ=;
-	b=kI2a2GZ7i2yir34cNA5p33KQOvnG3xd3piS5S+9pZyy62pIjlfrInOtwmOD4j3+QwOPk
-	 XbDP/sZPyfJIOe/O/ZAn+49JgX/NKrxCbvXjARMY8+CgZ1UzOw6voEdlNzSsHPkrIY2in
-	 AEzgWGR1TcBWRbE46OaoLQTeRsHgieT8a3vpJfpZ3tscOHaXIeQdnYLsDUzTl0eFI7dbV
-	 cziW/sojkfo8CXZPvNdaf1CLyPljtvrPWml9EyMCGaLfTPDf/VtpXTiw30EJ2JZojyEiI
-	 YO37VqUqyA9/FQwhYSZFCTigsyu5xXoX90Yqz/vI3IadzaLdGDtp01Nj/vF6WvHTRgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274439;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=IPEvodokfAyud/YruPH/rS1l37Gq1EzJHqG0mFFK13M=;
+	b=Ir3Gdlku3o0kB/kA4iRplVAV2XgLsM15L2Pw4neb3IyRbGIWx0mhQT2UuUeWQRQ3ggBp
+	 yjx4RW8vSUObc9rZeOBdVf1ndm7JboMbYJv4GJeuf8FPv97tOL3ZEH/G8FGNaF6kiOju5
+	 oS1TrqAMt0WP6bka/nLljSuytLQjj5cLHCibLjEa/931kmPBRtov5aSgpyF5TsEUWy1sV
+	 BCM4EStBJ49imAl4qcPXdXKqrKKN352kekeekPd9V+kX6n8adgmKPX4xBR15Xm5Ito4nf
+	 aosQw9iqxL9CaKCZzFEcjIHCH95c4O7xWASYXJwAkvSQFy4uE6nvlQLJp4xFdvKwBOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XVHGU9Tl;
-	arc=none smtp.remote-ip=209.85.210.53
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NmxX5Xwk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343D5606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:33:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 343D5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13639606A31C;
+	Tue, 10 Nov 2026 01:33:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XVHGU9Tl
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-8439fe796ebso989425a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 17:33:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794274397; x=1794879197; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d3tI+lsKyAfo2SvveMIf16nV49egeDWrXlEVyRU8qIQ=;
-        b=XVHGU9TlCNvn8SAG6DT6WOXE24tSSOdY7Yd54yFIcu7jisGEApBnVZrvrHK64dCFPO
-         mdfCax0KkOeN7fRgNTL3zzXk4waBuQhuPjKPkYUz+PwmPKIZBY7aRroR8HQj7ECAfyrc
-         c9jbN+Ob3ehQIQNLnACmUlk71fN6mFqVMLEQkqn2FaW8e44hSLuK/6sb2o/3YvFmwAp7
-         1PwvKvydQ0PodW18+InPS1Vk8+3c60dT7bjoS14XSdDRoSnxrFw5v0bJrE2u9VsnsYtc
-         UWydCUPHZKyy/HkDOfNsWpoHLN3tyxOfR+aBfO7CdC8n5h0QUBbZ4kczyMBiZl/vXLsp
-         cPog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794274397; x=1794879197;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d3tI+lsKyAfo2SvveMIf16nV49egeDWrXlEVyRU8qIQ=;
-        b=Th9d+CRGOTdlxGqfo2t2ZauO/1Z8D2b9wOivR4veqSDWerJk1HMlgoHvFNxJJGGgO6
-         bOsATj1UhXHhqQvV7ew3I6vENOdt9b5hxfq33uDm2f6E+rqTgXiFxS3VgsAeGJmii1Hp
-         yoeOjwR1rCy0kw0A644gSdDpK8vuB29mOBO6B34wzpQ/wVHywzLjd38rS4me3gWOzKI7
-         Slv3hp2y7EreWl+JWr1mAmFOnS5kzgM5OawtKXoU/tyl784XsjWkoQ2roBK33mzPG3Kz
-         8arDbRucFC3a1Q6kxiCvyQZOvWr/dXyLXjOaz/mvUm3n84C/qMTYXl3n/JJ6v0B4KNzR
-         SGyA==
-X-Forwarded-Encrypted: i=1; AL+hErExjdmf5DhTmPIcLo0SYB+m6twQXb/Pzt+LEm3q1GN3AvPUW/qu9r3t2CZbX5rKVC2bVhckzSfIuj5dOaw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8p+xvzbNbZqk1lLtxCpvi4jOCuBQ9X9PxaZW0pdBaRwLkZK4+4
-	CNH+FrVEW60JmCdUu+OGtgG5fpRtcO3H54OxCNjyWqMPwIoxlWVYDrUX
-X-Gm-Gg: AYBFou0rFFUkGPze46ME3/raIQXuvW4LcVRq3rlPEMJyATcx2S0V+qCr42RYoZGRER2
-	xnv32WiHxfs1WYDfJ2eFt8jpM7PfzLPxaN3633HdYbAiB6j/pVP91tWbStnXrc4FQQVkK8jpPxT
-	+Z2RKzivQme/Kc5SUceSs7qooAt11RCmaD3ATWpzfygVB9lSYHEYXouhaOA0Q4Dczr5fSC3FxVb
-	gDvdRA81vmEc3/wNlqkwGpRJ7NIOPScrEjdp7qofzyz56nn4EtvZEFhcsQsWdMAymhtBuyu0Acy
-	upus7yy6FAHhr2WsnWk9KgmC/0r4O4qKafZDjqOZOkeEpfI2OY/MbVa2ywMIavtHcRIfGwzbJ5X
-	otvIIubgAAkywyiKX7hUUKsrPr+nxl41aDeyzwDb95g5V4emH1+jcZVqHYE+dG6eBI+0u1xHo+h
-	2k9+1/E01VcbyvwuP/GVW1sJS+8QZJnYuwXnPmcsOvjPDs/VIFEngGRSD968t/ZNtvmrXWTsu41
-	xlPolRGpFWOU8wKO0rh9WcoBEUpocJvs7syg4j0x8jH7PObE1ciUGL/3GKsCrlEYxC1nlIo8yN8
-	qz72DC1agqlUdNvJgvX55aHRKDfTf4HmHvrAxeoFftfinO+ygALs0rV/QNHr8gytInb2bODXKWO
-	VJrE7KFuM1NP8MPdoTig3ynz83laAvPM=
-X-Received: by 2002:a05:6808:2216:b0:4d6:90f4:48b1 with SMTP id 5614622812f47-5683cd641efmr969958b6e.51.1794274397045;
-        Mon, 09 Nov 2026 17:33:17 -0800 (PST)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5690504e7dasm802773b6e.5.2026.11.09.17.33.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 17:33:16 -0800 (PST)
-Date: Mon, 9 Nov 2026 19:33:10 -0600
-From: Ming Lei <tom.leiming@gmail.com>
-To: shao.mingyin@zte.com.cn
-Cc: shuah@kernel.org, linux-block@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: ublk: propagate recovery worker failures
-Message-ID: <avJ0Vn9G7XhZv-XL@fedora-laptop>
-References: <202611092358134332uegNg75loROSwL53Em6A@zte.com.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NmxX5Xwk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B6C1F008A1;
+	Tue, 10 Nov 2026 01:33:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794274438;
+	bh=IPEvodokfAyud/YruPH/rS1l37Gq1EzJHqG0mFFK13M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NmxX5Xwke0Mhw1t5LuMxSOzjyYgn/2s0bpNYTWX2XPaD3XN1Xpq0BOjhodXrNhXtC
+	 XVx/FOJ/xPomOcGdTbZNWx04fQ10EPuGh867ab2fvEzAQN/dahfI+k7TMpMLp1Y9CQ
+	 yqs58/2jl3brCaCbg/bm2HObMZinkBCOUFZSviS8V9vM66qX2wGpbivogAX4Kj4G/x
+	 DutwpeeiiFArbhX60Y2uT+subW8O+2iP/m1v43QuUb2mJcJZA3CDyHCnhuNxwdcbgZ
+	 dPSIpxEI6hEWTpFtmBtWbBmYyObs18Dr3KD2W6usmqa8WBjC2tLus3bH9OdpwXk13M
+	 9o31emCx4RhzA==
+Subject: Re: [PATCH net] rxrpc: Fix rxrpc_sock UAF caused by missing poke in
+ rxrpc_abort_eproto()
+From: netdev-bot+sashiko@kernel.org
+To: juanagusnicco@gmail.com
+Cc: netdev@vger.kernel.org, linux-afs@lists.infradead.org, dhowells@redhat.com,
+ marc.dionne@auristor.com, kuba@kernel.org, pabeni@redhat.com,
+ edumazet@kernel.org, davem@davemloft.net, horms@kernel.org,
+ jaltman@auristor.com, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 01:33:57 +0000
+Message-ID: <179427443746.994134.16851409559930782509@kernel.org>
+In-Reply-To: <20261106011550.59902-1-juanagusnicco@gmail.com>
+References: <20261106011550.59902-1-juanagusnicco@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,82 +64,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202611092358134332uegNg75loROSwL53Em6A@zte.com.cn>
 
-On Mon, Nov 09, 2026 at 11:58:13PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> The recovery tests update ERR_CODE in background subshells and use wait
-> without PIDs. A worker can report a failure while the parent still prints
-> PASS and exits with zero. Calling _show_result() from a failed worker also
-> removes shared backing files while other workers may still be using them.
-> 
-> Wait for each recorded worker PID and aggregate its status in the parent,
-> keeping failures ahead of skips and preserving errors across batches.
-> Return worker and device-creation errors without reporting or cleaning up
-> from the child, so the parent can finish waiting before shared cleanup.
-> 
-> Fixes: 57e13a2e8cd2 ("selftests: ublk: support user recovery")
-> Fixes: 533c87e2ed74 ("selftests: ublk: add test for UBLK_F_QUIESCE")
-> Fixes: 63276182c513 ("selftests: ublk: add user copy test cases")
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> Tested on native x86_64 Bash 5.2 with the recovery scripts and common
-> helpers from the unpatched and patched trees. Device and I/O operations
-> were replaced by test-only stubs. Single-worker failures at every launch
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Please run the real tests next time, it just needs one kernel with
-ublk enabled, and stubs can't cover what the tests are supposed to
-verify.
+Critical: 1 · High: 1 · Medium: 0 · Low: 0
 
-> position, multiple failures, skips, signal termination and device-creation
-> errors no longer produce a final PASS or a zero exit status. Successful
-> runs still pass, and cleanup follows all worker exits. Prerequisite skips
-> still exit before preparation. The 71 scenarios passed their expected
-> checks on each tree. This does not exercise real ublk devices or I/O.
-> 
->  tools/testing/selftests/ublk/test_common.sh   | 23 +++++++++++++++++--
->  .../testing/selftests/ublk/test_recover_01.sh | 20 ++++++++++++----
->  .../testing/selftests/ublk/test_recover_02.sh | 20 ++++++++++++----
->  .../testing/selftests/ublk/test_recover_03.sh | 20 ++++++++++++----
->  .../testing/selftests/ublk/test_recover_04.sh | 14 ++++++++---
->  5 files changed, 80 insertions(+), 17 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/ublk/test_common.sh b/tools/testing/selftests/ublk/test_common.sh
-> index af2ea4fa1..c5adb4d29 100755
-> --- a/tools/testing/selftests/ublk/test_common.sh
-> +++ b/tools/testing/selftests/ublk/test_common.sh
-> @@ -379,6 +379,26 @@ run_io_and_kill_daemon()
->  	fi
->  }
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] The patch only makes the stranded-call UAF a race.
+- [High] rxrpc: race on call->_state in rxrpc_abort_eproto() outside I/O
+  thread
+
+--
+
+rxrpc: Fix rxrpc_sock UAF caused by missing poke in rxrpc_abort_eproto()
+
+This commit adds a call to rxrpc_poke_call() in rxrpc_abort_eproto(). A
+call aborted with EPROTO from recvmsg() or rxrpc_kernel_recv_data() then
+gets queued for the I/O thread, which disconnects it from its connection
+channel. Without the poke the call stays in conn->channels[] and its
+call->socket pointer dangles after the socket is freed.
+
+> diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+> index 865f05fe37ab9..31528b5e34cbe 100644
+> --- a/net/rxrpc/ar-internal.h
+> +++ b/net/rxrpc/ar-internal.h
+> @@ -1455,6 +1455,7 @@ static inline int rxrpc_abort_eproto(struct rxrpc_call *call,
+>  	struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
 >  
-> +# Collect recovery workers in the parent before removing shared backing files.
-> +_wait_recovery_tests()
-> +{
-> +	local pid
-> +	local ret
-> +
-> +	for pid in "$@"; do
-> +		if wait "$pid"; then
-> +			continue
-> +		else
-> +			ret=$?
-> +		fi
+>  	rxrpc_abort_call(call, sp->hdr.seq, abort_code, -EPROTO, why);
+> +	rxrpc_poke_call(call, rxrpc_call_poke_abort);
 
-Nit: the above can be simplified as:
+[Severity: High]
+Is it safe for rxrpc_abort_eproto() to complete the call itself here?
+The alternative is to ask the I/O thread to do it.
 
-		wait "$pid" && continue
-		ret=$?
+Since commit a343b174b4bd ("rxrpc: Only set/transmit aborts in the I/O
+thread") and commit 96b4059f43ce ("rxrpc: Remove call->state_lock"),
+rxrpc_set_call_completion() takes no lock when it writes:
 
-Not a big deal.
+  call->_state
+  call->completion
+  call->abort_code
+  call->error
 
-BTW, test_stress_*.sh have the same issue (ERR_CODE set in background
-worker + bare 'wait'), which may be handled in a follow-up.
+This relies on only the I/O thread changing call state. Other contexts
+are meant to use rxrpc_propose_abort(), which sets call->send_abort and
+pokes the call.
 
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+rxrpc_abort_eproto() runs in process context and holds only
+call->user_mutex, which the I/O thread never takes:
 
+rxrpc_recvmsg() / rxrpc_kernel_recv_data()
+  rxrpc_recvmsg_data()
+    rxrpc_verify_data()
+      call->security->verify_packet()
+        rxrpc_abort_eproto()
+          rxrpc_abort_call()
+            rxrpc_set_call_completion()  /* _state = COMPLETE */
 
-Thanks, 
-Ming
+For a multi-packet service request, the I/O thread can be handling the
+DATA packet with RXRPC_LAST_PACKET at the same moment:
+
+rxrpc_input_queue_data()
+  rxrpc_end_rx_phase()
+    /* reads _state == RXRPC_CALL_SERVER_RECV_REQUEST */
+    rxrpc_set_call_state(call, RXRPC_CALL_SERVER_ACK_REQUEST);
+
+Suppose rxrpc_end_rx_phase() reads the old state before the abort and
+writes after it. RXRPC_CALL_COMPLETE is then overwritten with
+RXRPC_CALL_SERVER_ACK_REQUEST. call->completion and call->error still
+say the call failed.
+
+The poke added here then runs rxrpc_input_call_event(). call->send_abort
+is 0 and __rxrpc_call_is_complete() is false, so the call never reaches
+rxrpc_disconnect_call().
+
+Userspace may have seen rxrpc_call_has_failed() before the overwrite and
+released the call. In that case the call is gone from rx->sock_calls, so
+rxrpc_release_calls_on_socket() won't abort it at close either.
+
+Doesn't that leave the call stranded in conn->channels[] with a dangling
+call->socket? That is the situation this patch is meant to fix. The
+direct rxrpc_abort_call() predates this patch, but the poke relies on
+the state staying RXRPC_CALL_COMPLETE.
+
+There is a second problem even without the race. The poke wakes
+rxrpc_input_call_event() with send_abort == 0 and often an empty
+call->rx_queue. __rxrpc_call_is_complete() is only checked inside the
+if (skb) block. So the timer expiry, delayed ACK/ping and retransmission
+code all run on the aborted call before it reaches the out: label that
+disconnects it. Is that intended?
+
+Would it be better for rxrpc_abort_eproto() to use
+rxrpc_propose_abort(call, abort_code, -EPROTO, why)? The state change
+would then happen in the I/O thread, as for other aborts made outside
+it. That changes when recvmsg() sees the call as complete, though. What
+should the caller observe after the -EPROTO return?
+
+[Severity: Critical]
+Does this close the use-after-free in rxrpc_post_challenge(), or does it
+turn it into a race?
+
+rxrpc_poke_call() only adds the call to local->call_attend_q. The call
+leaves conn->channels[] only later, when the I/O thread runs
+rxrpc_input_call_event()->rxrpc_disconnect_call(). Nothing in the close
+path waits for that to happen:
+
+close()
+  rxrpc_release_sock()
+    rxrpc_release_calls_on_socket(rx)
+      rxrpc_release_call()   /* sets RXRPC_CALL_RELEASED, call->socket kept */
+    flush_workqueue(rxrpc_workqueue)   /* not the I/O thread */
+    rxrpc_unuse_local()   /* I/O thread keeps running if another
+                             client socket shares this rxrpc_local */
+    sock_put(sk)   /* SOCK_RCU_FREE, freed after a grace period */
+
+call->socket is set with rcu_assign_pointer() and never set back to
+NULL, and the call holds no reference on the socket.
+
+rxrpc_io_thread() also handles the whole rx batch before it splices and
+processes local->call_attend_q. No RCU read section covers the batch, so
+a grace period can end partway through it.
+
+The peer can make the batch longer by flooding packets. Suppose a
+CHALLENGE in that batch is handled after the socket has been freed but
+before the poked call is disconnected:
+
+rxrpc_io_thread()
+  rxrpc_input_packet()
+    rxrpc_input_packet_on_conn()
+      rxrpc_input_conn_packet()
+        rxrpc_post_challenge()
+
+net/rxrpc/conn_event.c:rxrpc_post_challenge() {
+    ...
+	rcu_read_lock();
+
+	for (int i = 0; i < ARRAY_SIZE(conn->channels); i++) {
+		if (conn->channels[i].call) {
+			call = conn->channels[i].call;
+			rx = rcu_dereference(call->socket);
+			if (!rx) {
+    ...
+			if (test_bit(RXRPC_SOCK_MANAGE_RESPONSE, &rx->flags))
+				break;
+    ...
+	if (call)
+		queued = rxrpc_notify_socket_oob(call, skb);
+    ...
+}
+
+Wouldn't this still read rx->flags from the freed rxrpc_sock? Couldn't
+it then reach rxrpc_notify_socket_oob(), which takes rx->recvmsg_lock and
+may call function pointers from the freed object? That is the same
+use-after-free the commit message describes.
+
+The same window looks like it exists in the generic close path too,
+where rxrpc_propose_abort() pokes calls that are not yet complete. That
+predates this patch, but it is the same rxrpc_post_challenge() access
+this patch is meant to fix.
+
+Would it make sense to remove the stale pointer as well? One option is
+RCU_INIT_POINTER(call->socket, NULL) in rxrpc_release_call(), since
+rxrpc_post_challenge(), rxrpc_notify_socket_oob() and
+rxrpc_notify_socket() already handle a NULL rx. Another is to have
+rxrpc_post_challenge() skip calls that are RXRPC_CALL_RELEASED or
+complete. A third is to make release wait for the I/O thread to
+disconnect the call.
+
+The poke itself still looks needed for the call leak and the
+rxrpc_destroy_client_conn_ids() BUG() and netns teardown hang described
+in the commit message.
+
+>  	return -EPROTO;
+>  }
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106011550.59902-1-juanagusnicco%40gmail.com
