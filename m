@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331175;
-	b=2/QG5QJeixHBWJa48TSux64Jihd080kG5GuQITY0sDzMEzz5h9jHeAk5Vpuc4Oyi5yUO
-	 QF8g/6hMZ7Dx99YEQxBDouMWVSBxCz9OSFt0rKXW23cX+CyeXIPhjb0d6J6gtrpKhvLrr
-	 x6J4N8OJT1qUALKZhIThWtIvCzO4YRJgBVe5AtGAbbwASo8p034u083twleAC2w31U3zl
-	 E2v9LSCiAF6+NCEAMhrP/AIN1WxLnLfNUZuYURpwrylKRBYiOjVlEWk12wbFbWbDTNa3x
-	 ttCAmKVlz8V5pjPDkgGhgGd2Y9TO3avf5XJkcwgQ/TDc8FcMSXcKaEYHHgfWHtwlfow==
+	t=1794331181;
+	b=yyKvfmWISnRyOIU5Q19SwVs0+sMLCkIN+xo1k0zTfIL9WbsFL4kyYSiZr7wYU/I92JkV
+	 leOsmopX3/SaCn0Gh2xXgIByTAim2ai7iKSQnuf4OYoKBcKU7F9ErPAGjLMq98ftECqg5
+	 zNuKMzsVLOnZndnSzemFy2sU1PPi3S4l+h4lNZFysl288cQb2IC//uS4DOlWekB1iVxoH
+	 EGImWLr83Mg65KddJq/PC6nNSWN8UyJTxhDaIcgadsSQkh1ydUSpb8yJSJylnA4PTCCTY
+	 FOlxvEAB2DZLwlbFUssEKO0gbnAT2Mgf++zumkTm2jaZrMm0rOV+dQmkIqkNFo8Ge+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331175;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=KFrBAQI4dIm/fP3ro/XqhmpHfLGZgz+aDz0WQQ1iWt4=;
-	b=hHfzPkFmViCba4hqZnN4A/3/9eARu6S/pNyPFpyklVBQ6M88oHjllm6AE8mDUrL12A2b
-	 ym/QW0WPIUeDLWsl58nQFVVNV7m0BbXaEri2SP6xFxoI1HoR94KkZv4TzVZf3ioRLX7Km
-	 dcTiBAHH8Uh1HZn5YJ4SUvJIqP2YcZ6Y6dtpG08ZBp1ZYu7SSGDm/9H8+4nLZ//1GsI0B
-	 yRNVKCZ2aKdWHJB0Zy9ilgbaEW0Rh3eDl27wyu7/JEeQTJRV9Mm1+LWnipL92T813WBQC
-	 6oGl6Gl4sipuHNcufVueUIn5G+tTmTYx+ObuSYYvaigRrM1KyWonbnekZn0lcUmhkUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331181;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=uzequ7u04c7zvTxs5TC7dHbAyubOrWFz3bgZTquTipU=;
+	b=YghWD0irJn7/o0ebKYzLHXY2evHpeSTcIHT6P4CXAY26aKTKztaYITYTTcxFoSH+pByF
+	 YdNAqsXEUj/RgUQcaNddqe4AAqrASkzN+SEOKToJDTU70qwLocwdgRTZE20ptNIWCvFmW
+	 ZWndtraRJmJDG8MOjBXPk3DgT+qm8DHvCo9r3NS06RI8b9VnSkJxtlK+pdk/wmM5pw81k
+	 967TSP1R4xgj4YID1f2JcZt6VoIb/+aa04jOpcsyvtO/HvSo+/Z2T082eNkzWm6cul0gY
+	 9Uu5BbWrqAQFo3BkXOxTTpgNQNC2wKAbb29vzKY2wLFVX0YVx/A0TIav0ZD0raJBSnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OovIHZa3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=TZ8SQgs6;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E417560A260A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:19:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C74D606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C74D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OovIHZa3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBBF1F0089F;
-	Tue, 10 Nov 2026 17:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331174;
-	bh=KFrBAQI4dIm/fP3ro/XqhmpHfLGZgz+aDz0WQQ1iWt4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=OovIHZa3P7XGNFcuOtc9v4pvh1X4IidT9UiIpEQNMPNShZLqJRZLcslYhiieRMeGa
-	 I3GVMyyox1TGLLEHeVvRbPwbdZp96PbI1kbgYhgDjMAcmpkrWYXwcw9ei8wPvJloem
-	 Y4BzjUsCkU5mhvc4i7md/MaP4Noq6wuHmqd8IkK8VyrRnu4qShhW4HMRLo8oj0XPc4
-	 02cgY3EsknZOVNUQ92+gwHgnZPH/+tgv1ZpTLO+OiAT0cpVVIXp5kgN0X7SoVhQe0H
-	 8cmG+zn7sPo4HOjmAq0ktxpUuk2llP+vnTQUVON7GM2eR/ncoMijuIzUnL9odkLvxE
-	 NgPWs82P0dxng==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 10 Nov 2026 17:19:13 +0000
-Subject: [PATCH v3 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=TZ8SQgs6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794331179;
+	bh=8/fTd2v3WW8Lq1B62lCiA4Q4ly0FhC2re1oEGWAOBUQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=TZ8SQgs6tjdKliKufAD2RYTRQajHbrht/NL9Jadw4N8N+/SpFKLJ8pUuUR8aUBnF7
+	 3bksch1DHN5teqEiEHOkgLQ/c9+fHQ71SClfy8BjZDbJ6OkRfXsqw+DxodIwZW4N1I
+	 tzIKzD8dHFMRLlqRoTKh68VU4uLsBQRPAewCO9n//ltUT2hOZ/80TK1RCyBhSzOu+t
+	 wD7h59dM2hm12iOpV0b+aRCtcsGo1YVSbNHekAbRo5VKaGZ99sbVwgfZtNrHQDVkN6
+	 T7dY0xYmc+OaJbVG1w+BjS7WK7QVODI+WrImvWSCZBlwqx6DE7A04YCF/dX/1uD/uv
+	 HOgkXdy45FXIw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 530DA17E080B;
+	Tue, 10 Nov 2026 18:19:39 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 0B80548002B; Tue, 10 Nov 2026 18:19:39 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 10 Nov 2026 18:19:14 +0100
+Subject: [PATCH v5 1/6] phy: rockchip: inno-usb2: simplify and unify PHY op
+ debug messages
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,115 +68,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-khugepaged-latency-fix-v3-3-6eea743cf9a3@kernel.org>
-References: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
-In-Reply-To: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3442; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ckbCh9orwtsZv4mAlUI9tJN6KMn95OOQcVZzcKqPlhw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI+B4keLg0QF968ozFY+mzChkmtB+YKftN3Yw15KKwh6
- 7+zs6u8o5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABPxrmb4X9x3/dTurd6Pjvzu
- Ej1oeq5p2pLPf+RTQzzS3U/dbDjcYMPIsGNurzzz878TMjQfduf/vSpu0WPQkGkzbze7ye/LF99
- NZQYA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-Id: <20261110-phy-rockchip-inno-usb2-clock-fix-v5-1-d2e24582ab22@collabora.com>
+References: <20261110-phy-rockchip-inno-usb2-clock-fix-v5-0-d2e24582ab22@collabora.com>
+In-Reply-To: <20261110-phy-rockchip-inno-usb2-clock-fix-v5-0-d2e24582ab22@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ William Wu <william.wu@rock-chips.com>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1821;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=8/fTd2v3WW8Lq1B62lCiA4Q4ly0FhC2re1oEGWAOBUQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrzUipMtJGjGA7JsIcLf3X/vQtc34JG3owgb
+ gomFsu+/0ew5okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq81IqAAoJENju1/PI
+ O/qa9+4P/jXLFAzanFy2iVOWOeQXHODjQAcCzLbIZhbdiO6JmAqeTWyjaik9uvM7xdlmzVT7dzC
+ /Zqm+MiuWGWjYv8Vhmk6ZHBQpRfA6X1oNyL0f3DF1pw5trmo6Ub7e3qP7TL+7J3DmjF7J8acInM
+ jiZesbm0MkYJjobjB8BtgCfBMY6Egsk1/9dB0Wjf6QnMH8zVO72AipVuVz9EHGXDfa+FktDkcdP
+ EMnxL8wVP+9RTzqvfDzvfTPVU72o1JgHldioHOLNXjBdZpUxuLtryv+7tfdjUeEZ78jqldL47fB
+ BxGj+/5x/m1nSIAEjlWg8rzNQXWThIAFJq7djD1b8ikmbVLM9NwGqqG/sj7xxlVlrP3lKVMiqmf
+ cIn8ntl1nvM++t/TMNjD3mNQVzzdtYpPAM8QKnHNWbhAIedLOaNjLDj+yziUtP1MPZROfeeuAAl
+ 4IyDsnKHqdWohaJRdvIT8qP8ffcxQTymxmB9dMKUtjZnDZaH+bkSqpvhVh/hyHJHLJ/JTHwtSpD
+ zKWR8LmHfLbIdZqDhXC//LJ43AN+Qw4KsqGNkA2Vuiy37PKtI2QELQTVAQIcfdW5BWQ44lNsIPO
+ 4iI7CoGds8byt+wyg5m8Eqpn12Bwkmot/dKMq9RXQoLBwmUVDQ1gV73IiKGvSnoNv0R1Z0hjpJ5
+ r8CtTe+BGYADcJ4f3zqYwfQ==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-khugepaged walks an mm's VMAs under the mmap read lock in
-collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
-them if encountered.
+Add debug message for init/exit in addition to power_on/power_off and
+avoid the useless extra dereference in the existing power_on/power_off
+to make the prints consistent.
 
-It charges cc->progress 1 page against the /sys/.../pages_to_scan budget
-when these are encountered, however only checking this budget once an
-eligible PMD-spanning VMA is encountered.
-
-It can therefore hold the mmap read lock for a long time if there are a
-large number of ineligible VMAs present in an mm, over which time no mmap
-write locks (and thus no VMA write locks) can be acquired.
-
-Address this by checking whether the mmap lock is contended after 1-10
-ms (depending on CONFIG_HZ), i.e. the granularity of jiffies. This is a
-long time for a lock to be held, so is a reasonable compromise for
-determining when best to do this.
-
-Skipping an ineligible VMA costs ~100 ns on tested hardware (x86 server),
-so a batch of 1024 bounds the lock hold to ~100 us without expensive
-high-grained timer checks.
-
-This scales for large numbers of VMAs, and tests with ~1M ineligible VMAs
-reduced the maximum mmap read lock hold time from ~93ms to ~110us.
-
-This was also observed to reduce mmap_lock stalls in concurrent threads of
-a similar duration. Note that a reader re-acquiring the lock can currently
-steal it from a writer that is queued but not yet running, so the full
-benefit to writers depends on the linked rwsem change.
-
-Local measurements indicated no change for ordinary use cases, so this is
-all upside.
-
-This work came out of investigations into mmap stalls when getting latency
-numbers for an unrelated patch series.
-
-Link: https://lore.kernel.org/all/20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org/
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- mm/khugepaged.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 7d1414a9b2a5..59bbef61f104 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -66,6 +66,13 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
+diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+index e47b89015586..0b61f152eb3f 100644
+--- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
++++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+@@ -508,6 +508,8 @@ static int rockchip_usb2phy_init(struct phy *phy)
+ 	struct rockchip_usb2phy *rphy = dev_get_drvdata(phy->dev.parent);
+ 	int ret = 0;
  
- static struct kmem_cache *mm_slot_cache __ro_after_init;
- 
-+/*
-+ * The number of VMAs to walk before checking for, and relieving, mmap lock
-+ * contention. This bounds the maximum mmap read lock to an estimated ~100 -
-+ * 300us depending on hardware.
-+ */
-+#define KHUGEPAGED_MAX_VMA_SCAN_BATCH 1024
++	dev_dbg(&phy->dev, "phy port init\n");
 +
- /**
-  * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
-  * @slot: hash lookup from mm to mm_slot
-@@ -2910,6 +2917,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 	struct mm_struct *mm;
- 	struct vm_area_struct *vma;
- 	unsigned int progress_prev = cc->progress;
-+	unsigned int nr_vmas_batch = 0;
+ 	mutex_lock(&rport->mutex);
  
- 	lockdep_assert_held(&khugepaged_mm_lock);
- 	*result = SCAN_FAIL;
-@@ -2942,6 +2950,18 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 	for_each_vma(vmi, vma) {
- 		unsigned long hstart, hend;
+ 	if (rport->port_id == USB2PHY_PORT_OTG) {
+@@ -592,7 +594,7 @@ static int rockchip_usb2phy_power_on(struct phy *phy)
+ 	struct rockchip_usb2phy *rphy = dev_get_drvdata(phy->dev.parent);
+ 	int ret;
  
-+		/* Relieve mmap lock contention after walking a batch of VMAs. */
-+		if (nr_vmas_batch++ >= KHUGEPAGED_MAX_VMA_SCAN_BATCH) {
-+			nr_vmas_batch = 0;
-+			if (mmap_lock_is_contended(mm)) {
-+				mmap_read_unlock(mm);
-+				cond_resched();
-+				mmap_read_lock(mm);
-+				vma_iter_set(&vmi, mm_slot->address);
-+				continue;
-+			}
-+		}
+-	dev_dbg(&rport->phy->dev, "port power on\n");
++	dev_dbg(&phy->dev, "port power on\n");
+ 
+ 	if (!rport->suspended)
+ 		return 0;
+@@ -632,7 +634,7 @@ static int rockchip_usb2phy_power_off(struct phy *phy)
+ 	struct rockchip_usb2phy *rphy = dev_get_drvdata(phy->dev.parent);
+ 	int ret;
+ 
+-	dev_dbg(&rport->phy->dev, "port power off\n");
++	dev_dbg(&phy->dev, "port power off\n");
+ 
+ 	if (rport->suspended)
+ 		return 0;
+@@ -651,6 +653,8 @@ static int rockchip_usb2phy_exit(struct phy *phy)
+ {
+ 	struct rockchip_usb2phy_port *rport = phy_get_drvdata(phy);
+ 
++	dev_dbg(&phy->dev, "phy port exit\n");
 +
- 		cond_resched();
- 		if (unlikely(collapse_test_exit_or_disable(mm))) {
- 			cc->progress++;
+ 	if (rport->port_id == USB2PHY_PORT_OTG &&
+ 	    rport->mode != USB_DR_MODE_HOST &&
+ 	    rport->mode != USB_DR_MODE_UNKNOWN) {
 
 -- 
-2.56.0
+2.53.0
 
