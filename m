@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294873;
-	b=36HKM7N1CaaKFQ28/ZGJSXkuCz/5sfwcbDfSuo3nAMVile2c49y9rmq5pSUOMKbb8aHg
-	 gnkjIoOEAoA2XwoAzOD+c0jl0JKhEtf/SS2eXLjDSTHU4oeOFyUdgvFlwpK3bzQKDE7mf
-	 NKws5FuLNIP/cJt/hHJb+fHRHv9EAWd/WIGC0d7CdX9IQukCvTHVawNjORjgUMcfPDa28
-	 nnsQVssNR6ipLtubQQAQM7AdhmP7e6EQ4Y2Bu3df3uOyo6sBgDuzuvZIiM84hpag0D/6x
-	 Kuwh41SA/wZ2cuFagnZHKUyijGYtzMDD2fnjV4AZacU6fsh/jmivYkI2U+hGGHejbRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294873;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=JeBczRWUIYEnZGuPHhbnKleDwqSoORE3VajfVV+2ChI=;
-	b=Prfn3uViOcP+D9c+gjhh4RVx5vuOhzp9vwTzqbISXctAgnLJpS5ChWmF8sWc8Csk0/Hy
-	 bpGSNPohjAZpnDDp10LrnZrefMMvAZezSNInGAcXYmJpUbzsP+/sXuW/lOelBHDViIXFh
-	 5VTkOL+81mvNT3WHsLPLcb0zgt5zeF6grwssyUqkieL1etyyvgrmR+hgco4NnQH+dNXu9
-	 +zPkCpdqck/q1hSSQgrvg44t0+KvQ3bPfnDPA0exB85b1EiGK3+xNXscbeLBrdjIWPxl0
-	 HXPhduPod9BcIGtYis0lcvpaoxd1zb+jvnza2RU7Rp9oVNlU67XeIVSTey6aOgmDmbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKPLbiiv;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794294901;
+	b=Z8LJAHdgCZvBZ3QOhlSA8nOlxrx9iAXEk/MEivUByyGmGkl0JfcVTaq5avSj9iNC+6p1
+	 NaQOp5OojjHyDH5tVhoiYiKlnXRvfyu7DlaGvgnkyooCBIRTLbo2b2UgH3QPZ5ViaXOxa
+	 uGmgSxbrp92zGdX8k8AGt5H+OBSuDRRg6nFLbzWfGc3bZR6tij7Xf0iM2sQVl1c/tvhep
+	 VxUCQ1bVB9aq6BwkYk88+8oM81oV/LbDrSW5bVRU1KBVa6NIyZCtvPT9nPUdVrhdhijvd
+	 ndgA8TCybZJQpfQnLu1vV4OyTXo0DJivicJXsShrIsf/zXzaTRm8iWqkF3tY4bKggIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294901;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ae4pe3RUGygwlUhXax0I830rKA/M8Wy+tBPNgk2/UPg=;
+	b=qsN58XhYg9mKL+rjBpdOnWWmaJhxn/1Tu1Zvnjl2AN0c/KX0V6pNW8VBq9TTHntl4rst
+	 53e7Euu8S7Eg9OfuWldPyOf73D3DWm1CxBRk/vxv5mAxChz3Q533OqSZTqT6TS59ilCtl
+	 ZVsGEXkdoU9i7ULEtxAnOfSL/wS1ahFzYhuIojywqhapKmmpxlyJrle+0Z2tGiR3gBxUJ
+	 E2t5CxV647E5wgzEI981PvfaKjW+jaFPtNbu/SQu2cx5HqYy/YUD4Jgwk9G2oW8wtN7HP
+	 PkMfH1HRfA28sL4gw4kcXYR1oG/SYMSbhwxHeQtmJKRGkgvVR+rJpsBn85ezAImMw2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGN5Ez40;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A750E606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:14:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69996606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:15:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKPLbiiv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89DFA1F0089F;
-	Tue, 10 Nov 2026 07:14:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGN5Ez40
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794294901;
+	b=TQVmsnRG1gj56u1dNa9ELY9ePTVIXh3H6qoAVlg16OD2uLnli2PUauF6NzwBQyBHNlPC
+	 8VPt4NPujVFPnTKFJlVOLZ5HEgHKv5TVSk67biLfrjQ+tCgOQAj7nW2oLqQA3jxf7L051
+	 gEwb79FAfXBTCp0DyQJf/CfmYpkd+ubFkNEPCiOZQxmL6ef2U4HPzmQVHI1vmGHowt/gO
+	 1RbJRor58Q8x4o9xOljxyDQ9rJy2QWblt/bN8jTl2UwpZ4n3Jtx4Hth1zDxX3/lRwN33s
+	 JbrLw3DS0h2PeGYBp9llhZYJp/aZ//IuLCPTe1jew7iDhBe3hgDxnRDRWd1LSVwVRQg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794294901;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ae4pe3RUGygwlUhXax0I830rKA/M8Wy+tBPNgk2/UPg=;
+	b=oXY5P3iFg5HpaYNu9v9jBwwGs+m8cDVJmhyUw/Uboslf+7sqFu22w7d0fEsW9+Ek5sfH
+	 wtSjNXIlSvhICN0ABIaWpU2+tAGB+/fHgBBzG7QXIS3LEUzE/bDaHfOYaBYvuAoXuNmO7
+	 ht1FkqBc4Fy2GhPXeSD9pjvuaYnV78Sq4tqFkpSdvbRXTm0R4OBaxM4xPfxL72ojNWSJR
+	 2/u12hdlqF+JXmzQP4MWTYgeoaQmz0us4CJrdhYTHtztaiYobigT7yYlQvD9rKTJJMU1f
+	 nLhy864oqLdfdh//FpJMTZkJEyGVsDTaba40qzzbeyAH2HES0oopAd/Z6JnbXggCRKQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5C8701F0089F;
+	Tue, 10 Nov 2026 07:15:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294872;
-	bh=JeBczRWUIYEnZGuPHhbnKleDwqSoORE3VajfVV+2ChI=;
-	h=From:Date:Subject:To:Cc;
-	b=fKPLbiivanrEzD0lDTSnLnW+s/csuy7zmF/rQB69ecBnZGkkMcGW82NV5pFLA16bh
-	 84z8u8ZKsezk0gYvkBpaWKmkB/ti1yMKn+uXWxAze4muXfT6Q9+ylkElk9VeSLKbd3
-	 3URD86VRiixps3P+Z8PM+90U+NYNcy2eMdKeOMdHhJ++2/mcCNMufVBbVJJMfzG/p2
-	 mc28TlVdjw+vnhpCmNyhtsqkpeGz5K5ogqQGT0HmG2L8a3nUHWOjuOA6DL49rUoXRX
-	 vkQgdAghDuSKqy1+cSnm7w8cRkNFX/e5T8W6ZAVKr5foh+Vkwbr1ayP8ewc73Vd0Fp
-	 DzSaXhkrVZFZg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Tue, 10 Nov 2026 09:14:27 +0200
-Subject: [PATCH v2] xen/events: replace page allocator calls with
- k[mz]alloc()
+	s=k20260515; t=1794294901;
+	bh=ae4pe3RUGygwlUhXax0I830rKA/M8Wy+tBPNgk2/UPg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=XGN5Ez40NfwkOD1+4OcbvyRmxrQRyys3RMZUhsE1y/MAu9UYLLAua0GLJ5AaO9QZK
+	 3ax0zShK7tOo3FXCJ0XWefFeFO4Drv9A1A1YAt6q4IcOFnJIHK1C/q/lzve0sn+6gm
+	 iAvFPrbmoaHd7D2DMogSlrpfO9+PqBvzcIfevbnA3sP3MIUj4W+dq9uHfT6q6i3BPF
+	 LTW0G/GIPUj0ybbMokMNA7puIR2E588VzZAJJ5Hxo7vgcSxEH1Is79IUbdrPNWaJvB
+	 gwntZh7y1gpa0iU17WsokybzvignlDGZdD/64l1Wz0oVD4yWMIYp9fPuE5xjdixNy9
+	 0FBobJaC403tw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E1A47488E6;
+	Tue, 10 Nov 2026 07:14:59 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:15:00 +0000
+Subject: [PATCH] drm/panthor: Do not change the GPU clock rate while
+ suspended
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,106 +84,161 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJhwgLr2JcQPsjo6Y0HSAmh
+ LtTdPkt3tvIkBVGt2qjjFVNp1ggl4r82MUnWEMx1a5uRcRx6uI8TpltsYQY2H/eLBKa1l0HND2
+ olClj0O/ven/8bUv/gp/PFe37AdSOyWx3AAAA
+X-Change-ID: 20261110-panthor-suspend-clk-11d5604fe5be
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Jonas Karlman <jonas@kwiboo.se>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294899; l=5357;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=5go781LIcqxZXcS2fgUKEcRmZbGKWGhE55YnHaY3k5E=;
+ b=sWRK/xNMMI8xbnZDMbozJG0VgEE8K+dtXH8cCcg14tTn5zwqv8mxRZjPzpKtbbHeqenDlJfM8
+ gr0hTA/AC6NBSGHJyQncQxQBZNCzvdDvdueMUOmBbsYasltnVlaC1mH
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-b4-xen-v2-1-21ece28be7d4@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWOzQ6CMBCEX4X0bJU2pYon38NwaMsW1p/WbJFgC
- O8uxXj8ZmZndmYJCCGxczEzghETxrCC3BXM9SZ0wLFdmclS6lJLxa3iEwRuhGu1rB3UXrE1/CL
- wOG1F1+bH6W1v4IZ8nRPWJOCWTHB9liJhh+HwNGkAyn6PaYj02T4ZRe7ZRoUoT//RUXDBj7qsK
- y8rZ7263IECPPaROtYsy/IFeJUJSc8AAAA=
-X-Change-ID: 20260624-b4-xen-a1cd629ce9f4
-To: Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org, 
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
 
-set_evtchn_to_irq() allocates a page for the event channel to IRQ
-number software lookup table and xen_init_IRQ() allocates the PIRQ EOI
-bitmap that is registered with the hypervisor in PV domains.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-These buffers can be allocated with kmalloc() as there's nothing special
-about them to go directly to the page allocator. The PIRQ EOI bitmap is
-passed to the hypervisor by its frame number and must occupy a whole
-page, which is guaranteed for a PAGE_SIZE kmalloc() allocation as it is
-naturally aligned.
+From the start of panthor_device_suspend() until panthor_device_resume()
+has enabled the clocks again, the GPU clocks are off or about to be, and
+the GPU power domain may be down. devfreq can still call ->target() in
+that window: a write to min_freq or max_freq in sysfs, a thermal cooling
+state change or a PM QoS request all end up in update_devfreq() whatever
+the device state.
 
-kmalloc() provides a better API that does not require ugly casts and
-kfree() does not need to know the size of the freed object.
+With the RK3588 GPU core clock switched to the firmware-managed
+SCMI_CLK_GPU (needed to reach the PVTPLL rates of the upper OPPs), such
+a call is fatal. To set a PVTPLL rate TF-A programs registers in the GPU
+GRF, which sit in the GPU power domain, and with the domain off that
+access ends in an asynchronous SError and a kernel panic, for example
+after
 
-Performance difference between kmalloc() and __get_free_pages() is not
-measurable as both allocators take an object/page from a per-CPU list for
-fast path allocations.
+  echo 1000000000 > /sys/class/devfreq/fb000000.gpu/min_freq
 
-For the slow path the performance is anyway determined by the amount of
-reclaim involved rather than by what allocator is used.
+while the GPU is runtime suspended.
 
-Replace use of __get_free_pages() with kmalloc(), __get_free_page() with
-__GFP_ZERO with kzalloc() and free_page[s]() with kfree().
+Only apply a rate to the hardware while the device is resuming or
+active, plus the suspend frequency that devfreq_suspend_device() applies
+from the suspend path while the GPU is still powered. Other requests are
+still accepted and recorded by devfreq, which applies them on resume or
+at the next governor update.
 
-Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+The RFC this is based on (Jonas Karlman's panthor SCMI clock change,
+carried in Armbian's linux-rockchip pull request 380) checked the
+runtime PM status instead. That
+status is still RPM_SUSPENDING after panthor_devfreq_suspend() has run,
+which leaves a window where the rate can be raised again right before
+the power domain goes down. The devfreq suspend count cannot be used
+either: panthor's first runtime resume calls devfreq_resume_device()
+without a matching suspend, so the count is -1 while the GPU is active
+and 0 while it is suspended.
+
+Suggested-by: Jonas Karlman <jonas@kwiboo.se>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-This is a (small) part of larger work of replacing page allocator calls
-with kmalloc.
+Tested on an Orange Pi 5 (RK3588S) with the GPU core clock switched to
+SCMI_CLK_GPU and a 200 MHz opp-suspend (the configuration from the RFC,
+not yet in mainline): writing min_freq while the GPU was runtime
+suspended no longer ends in an SError, the request takes effect at the
+next job (1 GHz measured), max_freq likewise; 200 suspend/resume cycles
+with short GPU jobs and a 3 minute sustained load ran without faults.
+With the mainline device tree (CRU clock, no suspend OPP) the SError is
+not reachable and the guard only skips rate changes while the GPU is
+powered down.
 
-Largely, anything that doesn't need struct page (or a memdesc in the
-future) should just use kmalloc() or kvmalloc() to allocate memory.
-Removing needless calls to page allocator helps with memdesc (aka project
-folio) conversion and gives a nicer API without casts.
+This patch was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit message, and I reviewed and tested it
+as described above.
 ---
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://patch.msgid.link/20261108-b4-xen-v1-1-76095f25cbf4@kernel.org
+ drivers/gpu/drm/panthor/panthor_devfreq.c | 42 ++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+index 2249b41ca4af..cab86e9c9d46 100644
+--- a/drivers/gpu/drm/panthor/panthor_devfreq.c
++++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+@@ -60,20 +60,56 @@ static void panthor_devfreq_update_utilization(struct panthor_devfreq *pdevfreq)
+ 	pdevfreq->time_last_update = now;
+ }
+ 
++/*
++ * Whether a new rate can be applied to the hardware now.
++ *
++ * From the start of panthor_device_suspend() until panthor_device_resume()
++ * has enabled the clocks again, the GPU clocks are about to be disabled
++ * or are off, and the GPU power domain may be down. devfreq can still
++ * call ->target() in that window: sysfs
++ * min_freq/max_freq writes, thermal cooling and PM QoS requests all end
++ * up in update_devfreq() whatever the device state.
++ *
++ * Changing the rate then is pointless, and harmful where the core clock
++ * is managed by firmware: on RK3588, setting SCMI_CLK_GPU to a PVTPLL
++ * rate with the GPU power domain off makes TF-A access the powered-down
++ * GPU GRF, which ends in an asynchronous SError. So while the device is
++ * suspending only the suspend frequency, applied by
++ * devfreq_suspend_device(), reaches the hardware, and nothing does
++ * while it is suspended. devfreq records the other requests: they are
++ * applied on resume or at the next governor update.
++ */
++static bool panthor_devfreq_can_set_rate(struct panthor_device *ptdev,
++					 unsigned long freq)
++{
++	struct devfreq *devfreq = ptdev->devfreq ? ptdev->devfreq->devfreq : NULL;
++
++	switch (atomic_read(&ptdev->pm.state)) {
++	case PANTHOR_DEVICE_PM_STATE_SUSPENDED:
++		return false;
++	case PANTHOR_DEVICE_PM_STATE_SUSPENDING:
++		return devfreq && devfreq->suspend_freq &&
++		       freq == devfreq->suspend_freq;
++	default:
++		return true;
++	}
++}
++
+ static int panthor_devfreq_target(struct device *dev, unsigned long *freq,
+ 				  u32 flags)
+ {
++	struct panthor_device *ptdev = dev_get_drvdata(dev);
+ 	struct dev_pm_opp *opp;
+-	int err;
+ 
+ 	opp = devfreq_recommended_opp(dev, freq, flags);
+ 	if (IS_ERR(opp))
+ 		return PTR_ERR(opp);
+ 	dev_pm_opp_put(opp);
+ 
+-	err = dev_pm_opp_set_rate(dev, *freq);
++	if (!panthor_devfreq_can_set_rate(ptdev, *freq))
++		return 0;
+ 
+-	return err;
++	return dev_pm_opp_set_rate(dev, *freq);
+ }
+ 
+ static void panthor_devfreq_reset(struct panthor_devfreq *pdevfreq)
+
 ---
- drivers/xen/events/events_base.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-panthor-suspend-clk-11d5604fe5be
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index fd16d652c81f2..9828ed41d7a7f 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -230,7 +230,7 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
- 		if (irq == -1)
- 			return 0;
- 
--		evtchn_row = (int *) __get_free_pages(GFP_KERNEL, 0);
-+		evtchn_row = kmalloc(PAGE_SIZE, GFP_KERNEL);
- 		if (evtchn_row == NULL)
- 			return -ENOMEM;
- 
-@@ -241,7 +241,7 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
- 		 * thread was faster inserting it, we can drop ours.
- 		 */
- 		if (cmpxchg(&evtchn_to_irq[row], NULL, evtchn_row) != NULL)
--			free_page((unsigned long) evtchn_row);
-+			kfree(evtchn_row);
- 	}
- 
- 	WRITE_ONCE(evtchn_to_irq[row][col], irq);
-@@ -2314,11 +2314,11 @@ void __init xen_init_IRQ(void)
- 		int rc;
- 		struct physdev_pirq_eoi_gmfn eoi_gmfn;
- 
--		pirq_eoi_map = (void *)__get_free_page(GFP_KERNEL|__GFP_ZERO);
-+		pirq_eoi_map = kzalloc(PAGE_SIZE, GFP_KERNEL);
- 		eoi_gmfn.gmfn = virt_to_gfn(pirq_eoi_map);
- 		rc = HYPERVISOR_physdev_op(PHYSDEVOP_pirq_eoi_gmfn_v2, &eoi_gmfn);
- 		if (rc != 0) {
--			free_page((unsigned long) pirq_eoi_map);
-+			kfree(pirq_eoi_map);
- 			pirq_eoi_map = NULL;
- 		} else
- 			pirq_needs_eoi = pirq_check_eoi_map;
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20260624-b4-xen-a1cd629ce9f4
-
---
-Sincerely yours,
-Mike.
 
