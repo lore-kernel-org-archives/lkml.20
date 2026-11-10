@@ -1,102 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301961;
-	b=g2was1sc5ZJk+rBvB23PXn593Hgz89lvbG64VmNxIvYrXJPboOoiGLYjbc/xm9QGXCAZ
-	 auBOFBjBaRz+6iy9Y0Skgz4fXYQv0kIYdXNeXxq69MEYCdEwdAL+VSvfl6+VcpYKnc0sW
-	 CVguecEwSzJppPBePtgMPGkq5Ep4NLBJ/OqjMhyBt5mWI2102EDQENgCEA4IIWqN8c5XQ
-	 uE/qVBRFzb7E0rQDFy7yM7gzZIXNvKveZ7mj3NQKznkx9eE8NTgioy/6yHnX0vAFaBTn6
-	 IMCuWcWT8YDTod79CB6XjLmAlBJDhwdLk7hhPL1BvE5jKnDBcUOzN0/NyY0sM+k7iGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301961;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CL+mYaY3tGDnGHrtpelaQSBbIHf49nURgXV9HJQUfY0=;
-	b=288jgaABwi9YDvc88pqGYfXS5fGs6XWQfQYwUfSSSZS0bmG9TOGfEXPezJwIjQLEh8ix
-	 ltmB3tW4ZikBRNfJFiqtcpvJ9dcQ+I+UFN7GWnP1dPAkuyoyLoVbpZf7gebEiEp8mf5Ie
-	 rl24m/+NQWa5VR3P25C9CnJjWz3KdHoax6k8sjcM/3KLgbHOhkjwM10daBHCqo5k0yhX9
-	 bjF7Q3rkb3QfSTJdaL1ssMj0hybK+4Le8KoBBgJyhi13WhC4RVO2ev4QK7aj6L6NvPdSH
-	 to3ga3H+LSCPJPDLaiPUutrtvfaNFuNRt3Ey1c1+tCXlB78kw46T74US7W9ZgBK9YSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zXKLOI63;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.244.194.184
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794301973;
+	b=5KBjVYOlvnq25EBkcfVh0d05KRez4AKhHRvnXYVcT5VZuzqOLuq2loStDmV+hd+hPcQ/
+	 9Mpn8JkDEV/4nnUj4vIfD17XZWCjvSpOFNlENu057D90sKi4WWSejvf/c9wAVqxPn2vJp
+	 t6MFd3tlTFx7O4iF7AexDEajBT+hmO/XFkoiqf5YTOo1JgAyrW3V4P1RP4xm8El7UIktA
+	 XV3VmeNoJmkYIO8HiQ5CWBEf9rVRbNDmP72LAp4/MULgOszHv6JUQW4snmxXgxU+oKYHy
+	 +DGSKGIrEI/B8D8TelQz15IkFpGwF1/pN5xzdyiIwMj/P5F+5rP2gDOrqlrbDzcnnEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301973;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
+	bh=P6SoTY/qPxSRsFVfVmHV701Duq3Pn8mi7sps2ssRpo0=;
+	b=YEwjb1nEUQqgpfvkxoA4WGJPJB2j4yMHMoEkpKJwNoCQdiAJSe7YijLjcY8k43u5DRMX
+	 ZS6zjCEckb+HmBvROJWNRMNKXJqpb/z67iQO7vl9zigYSvYDqXDPI5dr+A1JUHikKl15G
+	 eOmICK8n0ijqaLqBYK0CEr3tT9zmbUAvb4+wA/0g/pfiS6kJE3i94Tdc7U9ymOiGVLbGp
+	 WCQErD1FvwEvs2qJHI1jH5xHMFJJb7bigsh96j50gp9uHOlP/a1rKo4g3is1jHcokK/A3
+	 NbaNz8sVi0PEr9g77l2OlXRvKIpD/5wwW2/LCq/nMsuTA2PSFfUaV6GGXcRzch3dyBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=YOpMKtm7;
+	arc=none smtp.remote-ip=185.244.194.184
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5246606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:12:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5246606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE81A606A325;
+	Tue, 10 Nov 2026 09:12:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE81A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zXKLOI63
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b335ef6441so14912757b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:12:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794301960; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oW1/vBVhaWSDG0cuGa5pFpphT16KAf9E0x4i5wRTd2NSpdUd9vqeMw9qHGw+iLs07Q
-         dopv29pNwSMdu3MxvxyaEHJolJE8cR7eU3fo+vtVtKcRpl74/n+sJhrpWdoUMf+qq5DF
-         MmWMdXJopyAAZ0OAxtD92vtCpcpLyTqHHGCUXX2iRI+3W04a7sqakgAENoLoqi2SyVrQ
-         7/EzSy9DkdbQcVYf59+S/9wf+9+DkCZS2hyjAy6FWCb0bSitl0W56xNy0N/pJtf9YqKw
-         wRjgxDMEiikmBPTKbzUEBIL5ydKIJG7vJOykpnp3BW5r0qAQYhBfLA3M9qcVggE5hSym
-         PjrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CL+mYaY3tGDnGHrtpelaQSBbIHf49nURgXV9HJQUfY0=;
-        fh=Z7hZYzgkKV6FpOkjt72m5LAoam1IuhuV/Hk2EhQN20Y=;
-        b=QP+v55HJ3TUTMQj+HcKsqH0tiKLuMoBWSbkONh0ZumWnoOYXJJtRQLLz5YLBUIDnT6
-         jadr1sOVmv0wV63BYEytJW73u1Lu3J15HER8hCVJqktCJgPxbHyg7owP8KLxvotayxik
-         5aOYcpMAbxhW79dNAhGhyzbb647hawbYZHl8xckNogoqrrd3YCuNLnDN8q9aoZBonI4K
-         33nLxdWKQtLrCAmlRXEdUYUsX9+LGZAuHSyFWtAsxN2M86AmNdz1Xi6HDtLL006vdxBd
-         RlOty7l3KKNRbvAdkhev87T5rkaVP3DtZLJwMMS1gCfgMDFz6DCbNRI4RUQyowpQ7tDJ
-         o0Nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794301960; x=1794906760; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CL+mYaY3tGDnGHrtpelaQSBbIHf49nURgXV9HJQUfY0=;
-        b=zXKLOI63QCscfYZHZY4+Myzicd3aopoC7ck6ONm/yWOwDd9HV1/45+T4CD9+NQGcTG
-         SlNX7swBaKhRgHML4wPGgoeSBIi35vGBbJSSz4yimhH3cIFRhcjsbCyjb9Uu/ORVkgD6
-         hsv+pqcRKb0uHQ/jo7P8JQs3ZK6hvlZjj1oof/XjmAN9/VfK/6x0zq58UrGVPVenk8Du
-         3XU4RtAafPfiVRYCDA5qoTR7c7CTBlHqK+BsdQtwJe7rfa9Kr0DBbBdYZZ3bpmYeqIPY
-         93hSDDNLGk1fNgdbjh4PX7UbjOYPTKMD1Lhw4NO63Yj/9bYTocSAjc6Wvo5ijvVNmQ+p
-         jmpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794301960; x=1794906760;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CL+mYaY3tGDnGHrtpelaQSBbIHf49nURgXV9HJQUfY0=;
-        b=peowpD3Twotj1Ov+4kkMpyKxJ2lZe6iVDTOXIx8Q4kv1vZ9GM0T5cLDHpeSosde8CB
-         vY2wcjACbgN6ftL4OAmzkMzGEtarML2kedbYtikfBIL8D9Qone90D1xz/GUIJBEkbT7w
-         0wErcIqaLiBW9Zpx4JHH7NeFCvd14AJLpeNTlOdahTPosIMJyDHgZ8/c+83jVctv72fm
-         eabtNhWhWrC8fB4VKVAplN2xwky5SOIVUkVaYX1bHSiuD6KsJ/+c5+gyk3CoS7qFxjuV
-         rLrOkbLiEzOfy8y1Cp9ua2oIPPrpuW++ImAR+FWXw1zVMOI9GCkV6Es4Fw7Z/3owFZZD
-         KySw==
-X-Forwarded-Encrypted: i=1; AL+hErGqGJxevbul0Y2G9XsWk2Iuh0QYmG9rbWHRFGVamJpJC2bvaAV4anok48CbMb0Z/0x9L40S0yb7BnPe0ZM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+45SNZw3poqa4zqGUtxVmBGokFpSj8iioHtK+R0/3I+KxG+VCQ
-	xG5VSOePH39O6rgsgh/E8+sauiPgKGNQMBwSGQC2XTivcAYmib5EoMym8u0J/uSydlKlz+gSGRq
-	mzmQM5y+fNbItXRczO8UL4lc0xFIlaH4=
-X-Gm-Gg: AYBFou0qXfwBZmxTSLhSPBBUqAyPryV+h0pG4iJMgJPtf/8zIj3NpKOhZR4tgqUiyW6
-	gGwOd3HokxhvW/uGuVWQFRIvCPzA3ye/4X8B/F7oeUpHnyD/I6ZlcCQ3kZECoofuaKTF/KcNjyY
-	tlnC9uAEtA3mGuJfltChiuE/8Bf7JtUP0pJqxwG/IRLKK87Vu0hnBHMnDuWQ38UmoPGWmHGOwbx
-	xKEcgSZ5Zkxp6A+Y9XiJeeWVn5kQsRqriaMkA215bp8Q9qVV1AidLJVnqyqdxAq+1tVqoFHuR/g
-	m5BJ/QYFkHQL7FuPz1tOhrfjfDV4vunBJwnSnlRiQ8pCF5Q1xRUZrWoGNXQtpsvm1wg7nT3DDVb
-	t7OCCDg1zdcuuubpti9h2mOMNmkLmJtT7ZqmnPCfAnJbJsGy6T+xx4Vi+gttBZ5VWjLG8GpqGJ0
-	nMnNYgEIxmI3xty8QdAyFWvxvRneE0Gt+9hB5FtPg7UIQPxcrLD53pAbXdPCnPW5k9HRIFGCFyZ
-	wx3+n5wgykeBvW/075+k0MkhdFLqxWL3dOLiVnWA2XyuHHdj/rBis5PVsCXvIs=
-X-Received: by 2002:a05:690c:1c:b0:8b0:a01e:2cc1 with SMTP id
- 00721157ae682-8b392bd3a6bmr12222497b3.53.1794301959730; Tue, 10 Nov 2026
- 01:12:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=YOpMKtm7
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jP1B65cV4z9VR8;
+	Tue, 10 Nov 2026 10:11:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1794301918;
+	bh=Uxfq+9SLLu4IfxwcONSpQNLgnskcylSEYAOSXGskFCU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YOpMKtm7JwzGGfCu+MECFEV5sDtNm1BEiN+bHejH1gjrgt3h9oH5ZSmFAILGWzzJ9
+	 gvPRfPduHW6So2e0/PFgsZpunVb0DOB6Nxp7+bmJpOnoVIlBH2szvnEXV2olYK7iDU
+	 nfde6UVbD/PRqh+BD66cQ3Tar2rjvMXpBcB/dI3JnsNKky1sdLTxr2FI7vYCwCP1I/
+	 xb224RNw4kAXhSd7rPIBA83vLAtHpaagfisnl9hKwTB94f0i1hyEhDCWQ5DLXYA8z/
+	 BcovTzac3iLgylZazUzngZtDl/J1Xk6z1+BZN962esa16W5Iiu6XYu59rhnKOc190r
+	 m5A+ylD9rSs/A==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jP1B64vK8z8129;
+	Tue, 10 Nov 2026 10:11:58 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.901
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jP1B35ZP6z8tgk;
+	Tue, 10 Nov 2026 10:11:55 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 3321B5FA5B;
+	Tue, 10 Nov 2026 10:11:34 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <f5ddf27a-9771-4967-a9d0-13c09f588402@leemhuis.info>
+Date: Tue, 10 Nov 2026 10:11:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,74 +78,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local> <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local> <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
-In-Reply-To: <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 10 Nov 2026 11:12:02 +0200
-X-Gm-Features: AclHuK-j7UjC7_2X91Fl0h3tqgy10rRsGsXGtMX-1tGj0PKndsOn6ITWu7Xe30s
-Message-ID: <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kees Cook <kees@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] cpuidle: psci: boot stall/hang on i.MX8MP
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Ulf Hansson <ulfh@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-pm@vger.kernel.org,
+ coresight@lists.linaro.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <20261030171910.2822677-1-dario.binacchi@amarulasolutions.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261030171910.2822677-1-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179430189496.738146.16548204213021020966@mxe9fb.netcup.net>
+X-NC-CID: nXaVOhT/l03j0ELJaOTQF9RW2is43Eqb5I+9yhoMdtaYrpVBfhs=
 
-On Tue, Nov 10, 2026 at 11:00=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
-rg> wrote:
-> On Mon, Nov 09, 2026 at 07:28:33PM +0200, Andy Shevchenko wrote:
-> > On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> > > On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > > > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote=
-:
+On 10/30/26 18:19, Dario Binacchi wrote:
+> Hi Ulf,
+> 
+> on an i.MX8M Plus Dual board (Engicam i.Core MX8M Plus), mainline
+> c339f4010dea sometimes stalls for ~0.9 s at boot, or hangs until the
+> watchdog resets the board, right after:
+> 
+>   [    0.806123] ledtrig-cpu: registered to indicate activity on CPUs
+> 
+> On a good boot the next message comes ~11 ms later.
+> 
+> About 1 boot out of 3 stalls or hangs. With cpuidle.off=1, or
+> with commit 65705b18162b ("cpuidle: psci: Move initialization a bit
+> earlier in the boot sequence") reverted, 10 out of 10 boots are fine.
 
-...
+Hmmm, nothing happened here. Might have fallen through the cracks, so
+maybe this mail will get thing rolling. If not, I'd suggest you submit a
+revert.
 
-> > > > > +               names[i] =3D kstrdup(prop->name, GFP_KERNEL);
-> > > >
-> > > > Can property be statically defined somewhere? We might want to also=
- optimize
-> > > > these duplications with const variant (here or elsewhere, for fwnod=
-e generic
-> > > > path, I believe).
-> > >
-> > > Please rephrase because I'm not quite following what you're saying.
-> >
-> > Can prop->name come from something that is declared as
-> >
-> > static const ... foo =3D {
-> >       ... .name =3D "bar";
-> > };
->
-> You can't know it for every instance of struct fwnode_handle, so the
-> answer is: no.
+Or was there progress or even a fix and I just missed it?
 
-I believe I misput my question. If there is any potential that *some*
-of fwnodes use statically defined string literals for the property
-name? If so, kstrdup_const() and friends may be a better choice here
-to save some memory (which is getting more and more expensive these
-days :-).
+Ciao, Thorsten
 
-> PS: is there a way of using match_string() with non-const data?
+> I haven't dug into it much. The stall seems to be in
+> pl330_driver_init(), so my guess is that it is related to the AMBA bus
+> reading the ID registers of the CoreSight ETMs while a CPU is already
+> in cpu_pd_wait, but I may well be wrong.
+> 
+> Any idea?
+> 
+> #regzbot introduced: 65705b18162b
+> 
+> Thanks,
+> Dario
 
-Why? It's an input parameter, it returns an index. Whatever you
-provide will be not modified.
-
-
---=20
-With Best Regards,
-Andy Shevchenko
