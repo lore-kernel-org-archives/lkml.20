@@ -1,180 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.177.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794333826;
-	b=3zo1s5tsGecLijdtXul8hcZz40w5TeYoAmlcaqWnffQaDwryg9iHxXH822fhxA1QWAFQ
-	 i+eSqBA/gt3Bj3uBYCURz8kUCAcLVS+Zx3RtwECO6bjwcCJO7tF24vftaiZjb24VEGFcP
-	 Hw5OpNGakAJbrJ8oBvFXHY6qgrfR57fHZuAqgsaWwGt1u4hNgAgyaXVTS4u/OK9C32jHf
-	 EkgmqmqpYyh4VsZIqLwBapcNHDxtiroWXN2KOHbdXonC60IJOHDY+zg/3LNYLNT+3yqA0
-	 jgc+1/iBPKlNVVB5XaqjBN96eAeBZyoeD4XD0Syku8bUSn/K5yUzGWi7unJgMCgL4XQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333826;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Wisc_ValidFrom:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7FbfkItq11n51ET1OuYu/xx8+5FaUacErpErayZ3fcI=;
-	b=Tcexkt0lXMDU9FtbpXJLjvW7YbRD4DtMFKi1hBlMAypEDDpMqwUz9M9G7c3iQ1WDPYBr
-	 k6KxWl6A+4/oW++FjmRF5WArjzsORnDnMVJQF6EC9SMlpzHHDk6Oh9B4M0l6afvzIxHJF
-	 krMKsmBH7T/MsXTDHpAd5/R5oyomgD7D/dcTg7EI0VTuwW20FAvnTx6b8o3pFsC4AVW3W
-	 BnhQuKXgRZZefuMZ+arqqYKuSXE/oJvsE1tcwxiP9fei+DNr6ipZRIZZCIb496pKA213x
-	 ZtiE2eBPuR+CZVT6f1KhBtGLj2MXI9LNzbbD3B6C+sZ0xOFMc9hD8YyoGGhkyDYNQzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wisc.edu;
-	spf=pass smtp.mailfrom=wisc.edu;
-	dkim=pass header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=pps1 header.b=AapnsIdo;
-	dkim=pass header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=selector1 header.b="P7/nizPc";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.177.71
-Received: from mx0b-007b0c01.pphosted.com (mx0b-007b0c01.pphosted.com [205.220.177.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794333822;
+	b=nNC/LspdcOY+qltiCKr7NU6deuZAl8byMex2K8ps/88x12E5Bt3NkEOrK37qlklvo+3U
+	 8jZNBnEBUQZXW9mFbyMRgmztDzr0NWx66S0CfggOPqYLC0S4khkXWUUj4Snrh0CxsEcaU
+	 P/xuog6BrXo9Yn9zjsiWdaD4JPtraeySpAPeIAGW6TJ70ioXuAZGnwl45IKFiTftFzQ57
+	 7/Mr2SR/vQe9I+OrgrhHas5P0fWt7MtF6i7eHxvuMCTcbszIqkyEaR4aUoDcSrfsj4ZDv
+	 DcSkRZVTRqNDCcsdERRAWejlpYu9cj7Aawl3rvT/2HjifFGDUCeqMBSdxfyuq/ztqVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333822;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:User-Agent:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SV5lfvyALcY7fOIZa8sYuWFYmplZGlp6Nmi9Q1LMY98=;
+	b=vr0G2YOK/mapez5inrKAyfCLP+m8Z4nrsdebQo6COBjXeRlB2Y1VN30t/djbh1t03mAB
+	 ZQ/AD/00U7sEnMZGQZ3RYjALHFl0iFWJATlZLasBdR884S2l8GESgRHHLHhf4KjbBrh96
+	 i3TLTFe8bhr1vDLf8C4+E60JzI758k4G9HvaWvDhqqdGObhXhvYZ4yvAdd+FKX6qdrlUB
+	 hLvkIdbDG2Q1pcLlaY8cEXCRIhQW0/xyK9wpS8PqFh0hmbwgqFtxz+InS5ZGIW7EtjRLj
+	 z7YrD8U+TXcfccZGZS3WbGjIZ3lXDGr/QD10JlX53YJ2eQI7YCV6UnnRkhDiF63EjNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=YmmjZ8sv;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1Wtpo4zL;
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F50606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:03:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F50606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wisc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wisc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD682606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:03:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD682606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=pps1 header.b=AapnsIdo;
-	dkim=pass (2048-bit key, unprotected) header.d=wisc.edu header.i=@wisc.edu header.a=rsa-sha256 header.s=selector1 header.b=P7/nizPc
-Received: from pps.filterd (m0316046.ppops.net [127.0.0.1])
-	by mx0b-007b0c01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAEvUxY1310624;
-	Tue, 10 Nov 2026 12:03:21 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wisc.edu; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps1; bh=7Fbfk
-	Itq11n51ET1OuYu/xx8+5FaUacErpErayZ3fcI=; b=AapnsIdovFuIyl6dEFEGB
-	+BkpyRBlcJ6BIHiRvaC4/yTFeeyGTKgZ5JcKV91Yf9i+u++Gxx+4XT87/TiYc4RA
-	0RqrTGYOrH1IvtqLjzYB5GF7qfHIjeHEsXsQkGRNE73JozAMSDTVMHPyNZsqo4/T
-	8W/4LoI3vi7OkSSBZJcVb9y+0D09S4l2ZM1amiqhGAfXSHg0TWWfCpwiRZ5pMmWt
-	jDCPeclaqFcRGJVgXPqlWKMjCFsMeDXgEEP6cu3UsiqGaw6GYga9nVdShVSj/adY
-	StPves8eC74U0CGg5KHBO7awcSQawRqMYj5OLhCTGoHPNLC2RiqivZtpppMBhfRe
-	A==
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
-	by mx0b-007b0c01.pphosted.com (PPS) with ESMTPS id 4hv4r7jejm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 12:03:21 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XHZEJqk7HVPXw8bsJUmmK0zZKR9bMf/y8n938j2eTOOhEUrCG5IfO2GgqdOmNvH6TgKyX0QYRCj4zUeuLgWW+QXJiFmqF/ERLkUGflXT7sOtlgtbArdjkuaJP3ewu6v9xY8RkFcC1pfbgsG2H/7Taw5T8e/u+rIMMclFtjX0IzdvL9SWaPLzB9hq8lMmoVEY0DcqScHjH0fJe3DuITAC6SQlTVazmaVhg28OiOyfvCg5CT/qE2uQGRSJrX8e2QFMk8cXE2yC5NwTBEmrnz4msivBTCPlPrFpcOTGSSe8yNfy8Kegti96Mkq44JDiSvVZ8QK1f0R7OlkBloIay0G5sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7FbfkItq11n51ET1OuYu/xx8+5FaUacErpErayZ3fcI=;
- b=OJ0W3UmgW+QxxZTurlMw2MHmpjTt7jVVX6/Pvies0B14dq8Zj5c5EIn8d2M2kev3WGL/F3bdz3N0g7fgdOu9rjdLyCiagrnITDCSuWrRP+76n4vkbJEoe1pFdXJ7Lz19PHacqDQNp5iOiEX6PJ850OyqvnHyb+9KIYYoxv+7Xd9ByL+4CRl+0NsAOCTSngADluT1kPb3z6dGBfM1rvMwmTa0HgCGYhDyi586CIv/gfFBZax/IsgSsVXjxwZkIDgDrJN86pkrzP4ZfY/a60jf+6jmEvvkqztITEc0xp60aiZj185IM4PCSlfkQ7OJg0ctivFYINK8pxwPKXzosc6jmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wisc.edu; dmarc=pass action=none header.from=wisc.edu;
- dkim=pass header.d=wisc.edu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wisc.edu; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7FbfkItq11n51ET1OuYu/xx8+5FaUacErpErayZ3fcI=;
- b=P7/nizPcaeEUyzoBhR+zhUCfqGOFlDupX9luaPTRLjXJBEzA+AxASAKKmnpYdkFw7lCsf7VOJv1KgRP+O9z0d9hpbcjU88xI3SXp30cWKZb5kLljZNEifO5hLV3UPP+oTCmKogCFWIExV3ygi5Y/tMkgx3e17XX6GwRHmIJI+t9Ub+xHheJHSQA74shNUwu90q0Y+YilN0yl4Rh3Zl8I7Q0iqwsBMK87vstyavqyvI2RMJHiSKY7xxGVJMz8URo+T9ytgZS1lE4pTmoqFJGkjg0wrZZ+auEROxlLOpd1xoQZsCZT67dDIzNC4LxSQ8ZfhU+ZO0oE3KcgXmGc0PpdAQ==
-Received: from MN2PR06MB6639.namprd06.prod.outlook.com (2603:10b6:208:20a::22)
- by SJ0PR06MB7359.namprd06.prod.outlook.com (2603:10b6:a03:32f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 18:03:18 +0000
-Received: from MN2PR06MB6639.namprd06.prod.outlook.com
- ([fe80::c7c1:6e17:5f9d:1245]) by MN2PR06MB6639.namprd06.prod.outlook.com
- ([fe80::c7c1:6e17:5f9d:1245%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 18:03:17 +0000
-From: Seunghyun An <san55@wisc.edu>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-CC: Andrew Morton <akpm@linux-foundation.org>,
-        Suren Baghdasaryan
-	<surenb@google.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka
-	<vbabka@kernel.org>,
-        Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn
-	<jannh@google.com>,
-        Pedro Falcato <pfalcato@suse.de>, Lance Yang
-	<lance.yang@linux.dev>,
-        "David Hildenbrand (Arm)" <david@kernel.org>,
-        "Kiryl
- Shutsemau (Meta)" <kas@kernel.org>,
-        "linux-mm@kvack.org"
-	<linux-mm@kvack.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] mm/vma: predicate vma_assert_stabilised() on
- CONFIG_DEBUG_VM
-Thread-Topic: [PATCH] mm/vma: predicate vma_assert_stabilised() on
- CONFIG_DEBUG_VM
-Thread-Index: AQHdcSWzotCHaF9rK02pQ1Q2O6oOobcnkJA6gAABcoCAAAc5kg==
-Date: Tue, 10 Nov 2026 18:03:17 +0000
-Message-ID:
- <MN2PR06MB6639F6E25313545636DC89CCD2722@MN2PR06MB6639.namprd06.prod.outlook.com>
-References: <20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org>
- <MN2PR06MB6639D846B30A3357B01BC61DD2722@MN2PR06MB6639.namprd06.prod.outlook.com>
- <avNVoCWBhVQea7Vq@gremlin>
-In-Reply-To: <avNVoCWBhVQea7Vq@gremlin>
-Accept-Language: en-US, ko-KR
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=wisc.edu;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR06MB6639:EE_|SJ0PR06MB7359:EE_
-x-ms-office365-filtering-correlation-id: 13e9df42-91e6-4cd3-96fc-08df3f54e5ed
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|786006|10067099003|3023799007|261028144727099003|261102123227099003|261026140227099003|261026121527099003|261021135927099003|261022105027099003|261021121427099003|11063799006|38070700021|4143699003|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- h5SARs27u+PKOrVBWnk+9ZsX1zj4iAXC4Z6L3G8GDmqEiSnYwWs7kKG+PddUAeK3D/CgF2bxlswCo3SONRBGetZaeraS1CrakcHwegSYQsUPxoC5gPzbJdA5FqySFBUrbPgAca1xao1alAGykIhnRox7Wz8STgUByr/2b5moROsSJPcA47bTOPtHPM0yZ0Ch/wMnl7Tvdm2Y9O9a02inV+s9GzorN0jCSok+URBsPQsAElG2eFECf9iWB93rc7KU03Mh78Xkb6eLquoJ0vqNO7GUAjTE3d79T8twXHsZ/sV2NvQmLaeD1wo2yVIPioB64xikcdShOEdCFHJsuQ+dD4au/UWh+jOUIehEAoDuWOLgc6+HAvdS+8NTnMrHNa7kd+ZhoSiPjbRI5Fj/h/wC9nWO7n4VWA71hqKBrMaMkLIdg27CTwsVkWuYtkLWFa5PKG4y9xoV8soU2ZiZtNMOXmVGfwfIgpsD8XnQF4eYedPCCuPEr+Crj9x4dNVW8l8BbEgBApx/FW4uKj7DMyLlC2R9YEsrZD/U9bW+9b+pPc5OQ9ydPL8pDVbPEkOeLrw56nIC94pkEvYIUdzqEzMFWcvFTeM7cFmv/vr3lqLCuwVRfksgvrv0h2beTcaA4aXub1zeP6ZBeNs2SKklA1aCn5erMlb5TxS0ajTDxP8tm9YVu0fhsRbqE3ZBsezVGDSGqbNGtL5YJ8D9pX59SyrlhN2Xy5c8ENE9ZOhUlhNZ2vA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR06MB6639.namprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(786006)(10067099003)(3023799007)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261021135927099003)(261022105027099003)(261021121427099003)(11063799006)(38070700021)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?K+E7DoyeT9TjksyffmYmgCstScjzfVpORwSEaW0iM7YdkI+nfzU4VA5KeNs1?=
- =?us-ascii?Q?8aNm86phvsdk0KjTYxEL0y6ZBcqKOA0eSsvpqHPqu5MaWE1ck8rsNRtkYFpv?=
- =?us-ascii?Q?e8CigK+WJE71fQOvTJJHl9JCfUM4UqHdTjzQzrV3xmmeloUUSfB1/OJZ2UIC?=
- =?us-ascii?Q?+tsPrIvW+WLTQe+j6bu2hx0Z4GBppa6nmxDR04fg2H+5GQQZs84GC6/vNuUo?=
- =?us-ascii?Q?aOnl9uPVsir/AmRabFXHevyLosx9JSCqd8lSSfybHJVgZUPARXotOtjVXUvi?=
- =?us-ascii?Q?RlWXZT0Wu/VIcBN2nzwegHXPF6SuHixhxDiMlidCDCvCpSf1QN/R1tOW0vUr?=
- =?us-ascii?Q?j6x+N9Hf+cBf0EnWYRHlAd22ispznRyhxZ3PyYaXtwstU6foIT/RAh/MyjsZ?=
- =?us-ascii?Q?9td1h/LX9789UaMl4o/FuzLGf9yBaanb3UShgbIvz5mTUTO8D6/6s1WFJGqu?=
- =?us-ascii?Q?A3rMcrzg1U5wk8DOeNYGaLvFxAESwbFv7q+M95TaieJlIWXXnOPWsHIXm40+?=
- =?us-ascii?Q?Ccq/YjDOYdOgyE4DTK7SG2GOLL8nB+kdsxIgkR8U/tU85lCmPA3s4mFHrAoU?=
- =?us-ascii?Q?zIIn6dNo8gH8jMHYkCbXHwHZAe5QQAi8i6MxEQx4EerItE8b6hNAQhf3YMDT?=
- =?us-ascii?Q?9x5zc17IuRNwSLYvT5Dk+R8V0DFteDnnG97Sb13M2kcoi+cdpo767tJE9LlU?=
- =?us-ascii?Q?wopGgiiAbJiUscrxrGYbNfEKcaNjUAgJhPOsXQnyJVta70P6Khc1IzBuIKyV?=
- =?us-ascii?Q?f8DtJI34uKryNlKNakhXd9X2lv16P235BA7co925PsVN5Tm1YER/jxWTVZlg?=
- =?us-ascii?Q?R8Ty9Oe33s812FS93XybYcafDj7aOLidADB1AytqmHbY8ApZ7ctKT/zL7Ixa?=
- =?us-ascii?Q?o8bbmnZ00HBndaDUZBPyK8dxB6iBXJea+WzcBMPu8V/2Osaml2jG/hIG156g?=
- =?us-ascii?Q?7YklEohlT1ymonnQrMQiFAUdtbxzhM0hetSl7ZpGUE3hh9wLphjDKVHY2FqI?=
- =?us-ascii?Q?U5qTSX8lV8CzBjknCC8RFl4rN/iJSnlZ+XmMOXPk/lhDkkEfA+aLUs1EYUi4?=
- =?us-ascii?Q?2a8JwZ8a0WANkPrU/Ucabgvot9C5cQjxeqWptE/PF0pveQN3IVCE4z0ONw2A?=
- =?us-ascii?Q?yuo5F6lF8WOR2r4+Gfebh+RWAd6ZfmIS+4Ez3A9Lpq5/NEc8Yi+/EkjC8S3A?=
- =?us-ascii?Q?IevjWIItLX9MRTgwzfwvso/SV/B0Sjv9F3bNBJ+lB9Af6RBfcV1IZ3HnQXdB?=
- =?us-ascii?Q?jpP4VpGFCniKWU4W+YPl+FAE+lIHlcEqlxC2/ndMcsBfMwuB645zSSOdyMCt?=
- =?us-ascii?Q?dUgP2yRbOvmygFHvA9i1Cim44LL/jVa8/n5Nx2YQlKy406XrV63l7KEIJ9/Z?=
- =?us-ascii?Q?mljaEshCrstHwIIRdxJynBFIHBOkiW09F7ePm4PZqTAGcIBkiEiHJTDvskgX?=
- =?us-ascii?Q?JhA7U/OLeBYP9F1fGeXKUdjz8Ajm5W26tvva74DczR+pug0+/035PtXZnc6k?=
- =?us-ascii?Q?fFmy6/Yz3ZlhNTXNvRgA42WTjrVEP50C0mHuPWBzcRoPGBqRNDacsJQDEf2z?=
- =?us-ascii?Q?qcMHwH/0yqbRvTf9r+vOAIvBcWO1YAZjgwkk8OsbJFsBqLXA0YdgWcTioAz2?=
- =?us-ascii?Q?GBY8U1qOkfCdNso87L3dEiyOUn7zvtUTYRHq0aZFh1VXT4x7EJfKmbQDP5u+?=
- =?us-ascii?Q?hlkZ4sg4rhHKESbD0amQ+gM0yH4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=YmmjZ8sv;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1Wtpo4zL
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3A6231D00213
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:41 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-03.internal (MEProxy); Tue, 10 Nov 2026 13:03:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1794333820; x=1794420220; bh=SV
+	5lfvyALcY7fOIZa8sYuWFYmplZGlp6Nmi9Q1LMY98=; b=YmmjZ8svx3IrfrawJe
+	08QbAPwK/V71GshUr0jjDL0rJdDTMtas2AoLEHQftXZZO48701i49doqE5YaCGIP
+	CGb14TBZ8nBufeqcEXadS3DzrcrbH9+Lr/V3NIV4MA9BKpJ4axqbiwzScmrVEbfy
+	A9bWSXTU7cYuAlGNEjbzxSbj2YObhV3iZldH5MdURFO9D1+yEuSaeLvAgIM7po6h
+	zoqYTRQHPabbx2o7Zgyde3rsX5Tc0sPagGuXrTkkwT5XORE6U2jx+mTZEmzvLyqX
+	2Q3OqIKPREEpJLyaZ6hN50VQzVf7MHO/evINqV+jJ4K9TzcfA2fuWjEy2Ifaxf4W
+	gBTg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1794333820; x=1794420220; bh=SV5lfvyALcY7fOIZa8sYuWFYmplZ
+	Glp6Nmi9Q1LMY98=; b=1Wtpo4zLYaJO6WiywJTb+qPY+sUtC5SGK1XVIxeTg5bI
+	TVYDmclpFbX8kiLkJZGBkldBlWbAni5aKa6e6ErOu2SIvMMG24Y59huD1bNVn9n+
+	32YLxHZ6M8TS1V8sK04k7wnHk12C7g/RvJPJ/PGIoCg8YN1LXrhiW1lI2LKPskMo
+	MftFqmmEr7xYh7DbxmbAPaky0nW35h6jCZK4BToIxJfhKShysFVY1yh8T5WqKcn8
+	nTGJHFH1oavxOgAuGDMas5XIAhbAvlHMPbYprQ9pNCwOvAaxQ5QxCxaxOMHv7Lt9
+	Aek+DZp0l1jLljhsTcIPM45vZ10b6IKAhApZaIMV/Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794333820; d=pobox.com;
+	mf=PGdpdHN0ZXJAcG9ib3guY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:AezzW+lovJ2OVO8n7zZ+IY+x+p8VLL+h29i0mfSTuG+FJi4
+	IbUejcmpAl1I4qs/NazR+UuTkmlC3f6ev3Yqyx0wOhN13KvVkoobGBEsxaO7g9ID
+	9nVzgcVpd0t0ktOdLm+36CkHMNsA7YotAyz2hxs4joyS5SC8nAa6w01z5//XTzet
+	4ubDlIY5BRAKEjPSN9GEQiGkrh5KLxFusjPZHn2i4Or4MuUXUxEc1mMf0hXng3j9
+	9Tl8VRAVdAaVZmKXW27plt58dABa4unHkcgk01SQPxDq8PLZiAHg0JCMIZthaF8q
+	1kQwgIADK2Na6hVVJQbK9oUI8vrXQAHKPulObnQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:hknBrsLWmV7bc2wYGfVkx0hD9DjxRkZl2jCpy/R2Yg0=:9D4gpE7pohI/tnlX3w5BcDIIWAcG5WfazULMTtubLsQ=;
+X-ME-Sender: <xms:fFzzalIRc50ZK1TakdVYBfTfMoXNSztzJu2F-Lct_8rsPlM9AU6PIA>
+    <xme:fFzzaqlBZyxybqA7gtxSRwLYEuUCdYLnEH_rAk11gI9jmP9Vxtd0FcNIHosYrWQf_
+    ioJqZ3hEziFxjBx_1sNW5OoSFum983vEkwMbFBl6UCkqlR6C7r7sgU>
+X-ME-Received: <xmr:fFzzatQYVxHQDJV0TpyVWYrwmYQtSiNrAdyLTZUEk04Q9hPhoourgAcQbE-SFvdN5JfHFlwxw3KlNaklngYzbbbwaPML9qIxaas4>
+X-ME-Proxy-Cause: dmFkZTFDppKHxyfs+5VvozjtsCb5z31aW5M0Os8c1oMy2eSOH8CxudA8IW4cSpbqIRH4/R
+    0TRGDvMYzZ+SicERL9WCIwqfIxYpoYQDt/8V/0wwadjH6YdMpNPqVvRy7Y6OAS+QcmoCnJ
+    sbaYFSDRBl2gf4g7cIlEomvklAVzFwfSL73q5n7nKvzjt6IC5SHvssXVKJYE3UxDGfLAnd
+    +MvmYuRmmrbe+dYLMddr9NqJrSpc2Np4/uCia0s5PMBg1SiKT/SmlK8BjpbkNQV7LrIzxF
+    MPSfer6IcR0BO+hkdpNZJy9jBvu0XNorz3dMzFz6fZKxjqrTFd7kNsdruaWDw4Te+iJKoM
+    /HD0b0GF4NK322fqPOQJKtOFck+2S7dGWVpQOU6V5aDA+a4WCXL4jUlr46qNMC5sfOHZML
+    YJO/a61JrwCKL5xpnlQljMr3cFrJrpmUxH1tNgODkLBs9cpqzr2zbauEcPAiu+3CaXVa29
+    uUUWr+sUh3HQer5R1npUJsRxnQbI5xK0mlFRruoL0ehsVaDRc8WoN4Fwfz/d8wz/tJoIq/
+    hoXjyY8p9tGZtLQKj40n6aa/jooR2OkExNotj30Qr3fHzeTJz4cfwSp121jsrYRfhNsvXe
+    bsW6hB4trjc3pn6ZiDo+HiIfKSlrknaSnmC1iOwyxDoCQUmYlyG1oVv/maYg
+X-ME-Proxy: <xmx:fFzzasIdv-XxLSiFCJmRe7l3zsEy8xg-fjCin9eFNN8T6VIGHWPt_g>
+    <xmx:fFzzajDeIE2Y5vYXAfpnWH--0JO4NlobQRtcgzXEDFYnJ_fEx8RKDw>
+    <xmx:fFzzalBN8HX7lF_07OJnGfR2DRQiayuOiAtXrJDEEAJyiZDzQk0emw>
+    <xmx:fFzzalD1J0ggVgUi6PLDXVBESF9IxG9fE1vLVOcvXb22YEcH4c03Zw>
+    <xmx:fFzzahIucb8w5Vy3vUZUijd02p-59xbtzTvp49G-BYDp86GOIY6Ebgbl>
+Feedback-ID: if26b431b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 13:03:40 -0500 (EST)
+From: Junio C Hamano <gitster@pobox.com>
+To: git@vger.kernel.org
+Cc: Linux Kernel <linux-kernel@vger.kernel.org>,
+	git-packagers@googlegroups.com
+Subject: [ANNOUNCE] Git 2.56.1 and friends
+Date: Tue, 10 Nov 2026 10:03:38 -0800
+Message-ID: <xmqqh5hosgw5.fsf@gitster.g>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -184,225 +122,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	aizExropP3m6EV+CAUsQEhJxOKDk1do6NaaOjFhG0rc9jU9L/gedeSDz/q3nfiZUPglUtc7tsEu9JZ10rvY6mjrXTp5qK/AxYpYrkG95lHMpmkGo1dRZJwWXYWHDIXoTGExCucliBJFNlzzIsGa4eLxxgVuqYtF0NymDu7c4f0Ztv+m8GoYnhErYUsOfgYkY6oiD37Fkopta9PVpF5uyDH8211SNCa5IygflpfOJOBIkCgjZmxPW1dStvzfnUX6q42e+ylTUXC9fwW3whqXa8cxL9GviJe7ywXTVU/yKoqXovdgHuSaYQPs54yLhSn+DxfX1qXYGUfM+weJyuFxFaw==
-X-OriginatorOrg: wisc.edu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR06MB6639.namprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13e9df42-91e6-4cd3-96fc-08df3f54e5ed
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 18:03:17.6958
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 2ca68321-0eda-4908-88b2-424a8cb4b0f9
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XBE22JVKM9NyL/NNE24KkQJvm+U5WOYswiNVO6uYt5FLZizFxLbUwe+LNVxIUR1q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR06MB7359
-X-Proofpoint-ORIG-GUID: jICXPAX9SWKX7FmrRW8xYM2GFQwaZOxw
-X-Authority-Analysis: v=2.4 cv=C9p8WgP+ c=1 sm=1 tr=0 ts=6af35c69 cx=c_pps
- a=UNZgSj2+zgRPHH//f1mBVA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=U-hppK1rdbEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=ZyELlZqCvD1aXIDzc3I-:22 a=XiWqTFSM81oo9FNMAQdw:22
- a=NEAV23lmAAAA:8 a=3KRBmGZhLxgMu0xwNAAA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfXzeF0cQDk96Eq
- w+L0Q1oPQr/s0ZV9fOYSObbDlyZng6HQpQxF+A23dmu3pksMCja0mKPepGE+2oxXyj7wFl6cvjY
- VqU1wmagxMD8DCBBwwnFyQY0ZLnJMGs=
-X-Proofpoint-GUID: jICXPAX9SWKX7FmrRW8xYM2GFQwaZOxw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA3MSBTYWx0ZWRfX/BEcS6a+E1if
- 1qMsxqkL9NoaHAH4SmEv4GGTXS+BYAgfytowEeyqSLKkKWVu19Yc6EKx1Ql30JUg7A01aQaxQW0
- qLXs78DAwPzYjq53UfjZq00IiGxypwXDlAZx8UPocAKqdYy/vgaUlIB1/jyEd6ItSmwh4Imbgb7
- t6VLArd1AATCjx2w+GPNQuracR05qo8s5zRbh7uJdsSLdcXUeCjx63gWRtg0U//k9c5VmIC+USr
- vs1gdLBgKWxPvgVU21PIDjcbVbmd+mXXGhAEFgLv5Bi8y2Ia3vsEX00dZ62NKgXRF2ksZDhra/H
- eNOeMS6jU7SmEj1ukDs5PIZX9gfcWU/xBKPyJAwqHEe/MJdCGxodo2YrJU+rGVGPwHEIyuSiV0y
- LmkG7hHjs0fCYBeneDhJAeNNG+T5fWsc//ZGUR1AQZD54ZRwN0BNoMSomL9Hj8vl/aT4Y+IL26P
- 2uZP1S5eI0JRnkQbPcw==
-X-Wisc_ValidFrom: true
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 malwarescore=0
- impostorscore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611100071
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026, Lorenzo Stoakes (ARM) wrote:=0A=
-> I'm disinclined to do something like that patch, as it's rather a hack.=
-=0A=
-=0A=
-I agree on this point. I used it here as a probe to measure the =0A=
-cost of that read.=0A=
-=0A=
-> Cna you give me the workload you're actually exercising here? Ideally=0A=
-> something that's easy for me to run + analyse locally.=0A=
-=0A=
-Sure. The "shared-VMA faults" numbers come from a small test that boils=0A=
-down to the program below: one anonymous mapping (a single VMA), one=0A=
-thread per CPU given on the command line, each thread writing one byte=0A=
-per page of its own 128M slice and then MADV_DONTNEED'ing the slice, in=0A=
-a loop.=0A=
-=0A=
-On your Zen 5 I'd compare one thread per CCD (8 threads, one CPU from=0A=
-each L3 domain) against 8 threads in a single CCD. perf c2c record on =0A=
-the cross-CCD run should show the vm_refcnt line and the loads on it.=0A=
-=0A=
-For pft, e.g. on the 9634 (7 cores per CCD), one CPU per CCD:=0A=
-=0A=
-  taskset -c 4,11,18,25,32,39,46,53,60,67,74,81 ./pft -a -m 48G -t 12=0A=
-=0A=
-(shared_vma_faults takes the same CPUs as arguments). This pft revision=0A=
-does not enumerate sparse CPU masks correctly, so I used this fix=0A=
-(against b5cfe1b in https://github.com/gormanm/pft):=0A=
-=0A=
-diff --git a/pft.c b/pft.c=0A=
---- a/pft.c=0A=
-+++ b/pft.c=0A=
-@@ -317,11 +317,11 @@ cpus_allowed_init(void)=0A=
- 	 * Populate cpus_allowed[] dense array.=0A=
- 	 */=0A=
- 	nr_cpus_allowed =3D 0;=0A=
--	cpus_allowed =3D calloc(sizeof(int), max_cpus_allowed);=0A=
-+	cpus_allowed =3D calloc(sizeof(int), numa_num_possible_cpus());=0A=
- 	if (!cpus_allowed)=0A=
- 		perrorx("Can't allocate cpus_allowed array");=0A=
- =0A=
--	for (i=3D0; i < max_cpus_allowed; ++i) {=0A=
-+	for (i=3D0; i < numa_num_possible_cpus(); ++i) {=0A=
- 		if (cpu_allowed(i)) {=0A=
- 			max_cpu_allowed =3D i;=0A=
- 			cpus_allowed[nr_cpus_allowed++] =3D i;=0A=
-=0A=
---- shared_vma_faults.c ---=0A=
-// Threads fault disjoint slices of ONE anonymous VMA concurrently.=0A=
-// Thread i is pinned to the i-th CPU given and loops: write one byte per=
-=0A=
-// 4K page of its slice, then MADV_DONTNEED the slice. THP is disabled on=
-=0A=
-// the mapping, so every write to a fresh page is one 4K fault.=0A=
-// Prints faults/s.=0A=
-//=0A=
-// Build: gcc -O2 -pthread -o shared_vma_faults shared_vma_faults.c=0A=
-// Run:   ./shared_vma_faults <seconds> <cpu> [<cpu> ...]=0A=
-#define _GNU_SOURCE=0A=
-#include <pthread.h>=0A=
-#include <sched.h>=0A=
-#include <stdatomic.h>=0A=
-#include <stdio.h>=0A=
-#include <stdlib.h>=0A=
-#include <string.h>=0A=
-#include <sys/mman.h>=0A=
-#include <time.h>=0A=
-#include <unistd.h>=0A=
-=0A=
-#define SLICE (128UL << 20)	/* per-thread slice */=0A=
-#define MAXT 512=0A=
-=0A=
-static char *base;=0A=
-static long pgsz;=0A=
-static atomic_int go, stop;=0A=
-static pthread_barrier_t ready;=0A=
-static unsigned long faults[MAXT];=0A=
-=0A=
-struct arg { int idx, cpu, nthreads; };=0A=
-=0A=
-static void *worker(void *p)=0A=
-{=0A=
-	struct arg *a =3D p;=0A=
-	cpu_set_t set;=0A=
-	char *s =3D base + (unsigned long)a->idx * SLICE;=0A=
-	/* stagger the first pass so threads do not fault and zap in lockstep */=
-=0A=
-	unsigned long off =3D SLICE / pgsz * a->idx / a->nthreads * pgsz;=0A=
-	unsigned long n =3D 0;=0A=
-	int err;=0A=
-=0A=
-	CPU_ZERO(&set);=0A=
-	CPU_SET(a->cpu, &set);=0A=
-	err =3D pthread_setaffinity_np(pthread_self(), sizeof(set), &set);=0A=
-	if (err) {=0A=
-		fprintf(stderr, "pthread_setaffinity_np(cpu %d): %s\n",=0A=
-			a->cpu, strerror(err));=0A=
-		exit(1);=0A=
-	}=0A=
-	pthread_barrier_wait(&ready);=0A=
-	while (!atomic_load_explicit(&go, memory_order_acquire))=0A=
-		;=0A=
-	while (!atomic_load_explicit(&stop, memory_order_relaxed)) {=0A=
-		for (; off < SLICE; off +=3D pgsz, n++)=0A=
-			s[off] =3D 1;=0A=
-		if (madvise(s, SLICE, MADV_DONTNEED)) {=0A=
-			perror("madvise(MADV_DONTNEED)");=0A=
-			exit(1);=0A=
-		}=0A=
-		off =3D 0;=0A=
-	}=0A=
-	faults[a->idx] =3D n;	/* all faults, including the last pass */=0A=
-	return NULL;=0A=
-}=0A=
-=0A=
-int main(int argc, char **argv)=0A=
-{=0A=
-	int nthreads =3D argc - 2, secs, err;=0A=
-	pthread_t th[MAXT];=0A=
-	struct arg args[MAXT];=0A=
-	struct timespec t0, t1;=0A=
-	unsigned long total =3D 0;=0A=
-=0A=
-	if (argc < 3 || nthreads > MAXT) {=0A=
-		fprintf(stderr, "usage: %s <seconds> <cpu> [<cpu> ...]\n",=0A=
-			argv[0]);=0A=
-		return 2;=0A=
-	}=0A=
-	secs =3D atoi(argv[1]);=0A=
-	if (secs <=3D 0) {=0A=
-		fprintf(stderr, "seconds must be > 0\n");=0A=
-		return 2;=0A=
-	}=0A=
-	for (int i =3D 0; i < nthreads; i++) {=0A=
-		int cpu =3D atoi(argv[i + 2]);=0A=
-=0A=
-		if (cpu < 0 || cpu >=3D CPU_SETSIZE) {=0A=
-			fprintf(stderr, "bad cpu %s\n", argv[i + 2]);=0A=
-			return 2;=0A=
-		}=0A=
-	}=0A=
-	pgsz =3D sysconf(_SC_PAGESIZE);=0A=
-	base =3D mmap(NULL, nthreads * SLICE, PROT_READ | PROT_WRITE,=0A=
-		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);=0A=
-	if (base =3D=3D MAP_FAILED) {=0A=
-		perror("mmap");=0A=
-		return 1;=0A=
-	}=0A=
-	if (madvise(base, nthreads * SLICE, MADV_NOHUGEPAGE)) {=0A=
-		perror("madvise(MADV_NOHUGEPAGE)");=0A=
-		return 1;=0A=
-	}=0A=
-	pthread_barrier_init(&ready, NULL, nthreads + 1);=0A=
-	for (int i =3D 0; i < nthreads; i++) {=0A=
-		args[i] =3D (struct arg){ .idx =3D i, .cpu =3D atoi(argv[i + 2]),=0A=
-					.nthreads =3D nthreads };=0A=
-		err =3D pthread_create(&th[i], NULL, worker, &args[i]);=0A=
-		if (err) {=0A=
-			fprintf(stderr, "pthread_create: %s\n", strerror(err));=0A=
-			return 1;=0A=
-		}=0A=
-	}=0A=
-	pthread_barrier_wait(&ready);	/* all workers pinned */=0A=
-	clock_gettime(CLOCK_MONOTONIC, &t0);=0A=
-	atomic_store_explicit(&go, 1, memory_order_release);=0A=
-	sleep(secs);=0A=
-	atomic_store(&stop, 1);=0A=
-	for (int i =3D 0; i < nthreads; i++)=0A=
-		pthread_join(th[i], NULL);=0A=
-	clock_gettime(CLOCK_MONOTONIC, &t1);	/* includes the last pass */=0A=
-	for (int i =3D 0; i < nthreads; i++)=0A=
-		total +=3D faults[i];=0A=
-	printf("%d threads: %.3f M faults/s\n", nthreads,=0A=
-	       total / ((t1.tv_sec - t0.tv_sec) +=0A=
-			(t1.tv_nsec - t0.tv_nsec) / 1e9) / 1e6);=0A=
-	return 0;=0A=
-}=0A=
-=0A=
-Thanks,=0A=
-Seunghyun=
+A maintenance release Git 2.56.1 and others for older maintenance
+tracks down to maint-2.43 are now available at the usual places.
+
+This is a set of coordinated security fix releases.  Please update
+at your earliest convenience.
+
+The tarballs are found at:
+
+    https://www.kernel.org/pub/software/scm/git/
+
+The following public repositories all have a copy of the v2.50.2,
+v2.51.3, v2.52.1, v2.53.1, v2.54.1, v2.55.1, and v2.56.1 tags:
+
+  url = https://git.kernel.org/pub/scm/git/git
+  url = https://kernel.googlesource.com/pub/scm/git/git
+  url = git://repo.or.cz/alt-git.git
+  url = https://github.com/gitster/git
+
+
+Credit for organizing the set of these releases goes to Johannes
+Schindelin.  Credit for finding the vulnerabilities goes to Luke
+Martin and pwn2addr.  Credit for fixing them goes to Toon Claes,
+Karthik Nayak, and Kaartic Sivaraam.  The xdiff hardening is based
+on a patch by Jeff King, with help from Toon Claes and Christian
+Couder.
+
+------------------------------------------------------------
+Git v2.56.1 Release Notes
+=========================
+
+This release merges up the fix that appears in v2.50.2, v2.51.3,
+v2.52.1, v2.53.1, v2.54.1 and v2.55.1 to address CVE-2026-111760,
+CVE-2026-113408, CVE-2026-114466, CVE-2026-114467, CVE-2026-114469
+and CVE-2026-105437; see the release notes for these versions for
+details.
+
+
+------------------------------------------------------------
+Git v2.50.2 Release Notes
+=========================
+
+This addresses the security issues CVE-2026-111760, CVE-2026-113408,
+CVE-2026-114466, CVE-2026-114467, CVE-2026-114469 and CVE-2026-105437.
+
+This release also backports fixes necessary to let the CI builds pass
+successfully.
+
+Fixes since v2.50.1
+-------------------
+
+ * CVE-2026-111760:
+
+   Recursive clones are susceptible to Remote Code Execution: an
+   attacker-controlled repository can be crafted in a way that exploits
+   a bug in Git whereby Git can be fooled into overwriting a gitfile
+   (used for submodules) with a symbolic link that then points to a
+   directory with malicious config or hooks. The config or hooks may
+   have attacker-specified code.
+
+   See <https://github.com/git/git/security/advisories/GHSA-vp2w-7xxj-jvxr>
+   for details.
+
+ * CVE-2026-113408:
+
+   It is possible for a server to advertise an unborn HEAD that contains
+   path-traversal characters (e.g., `refs/heads/../../../TARGET`). With
+   the files ref backend that can lead to ref-updating actions to write
+   to unwanted files.
+
+   See <https://gitlab.com/gitlab-org/git/-/work_items/809> for details.
+
+ * CVE-2026-114467:
+
+   When Git strips the GPG signatures from a commit message, it only
+   accounts for two signatures. A commit message containing more than
+   two signatures therefore causes a stack memory corruption.
+
+   This can be triggered when using `git merge` with a tag which
+   contains more than two signatures. As such, this makes way for a DoS
+   attack which can potentially also affect forges when such a tag is
+   pushed to a remote and a merge action is initiated.
+
+   See <https://gitlab.com/gitlab-org/git/-/work_items/810> for details.
+
+ * CVE-2026-114469:
+
+   Git rejects patches larger than ~1 GiB, because its patch application
+   code does not work well with large files. That check, however, only
+   considered the size of the patch as it appears in the input, which for
+   binary patches is much smaller than the size of the file the patch
+   describes, as binary patches are compressed and encoded. A binary
+   patch that inflates to a very large size therefore slipped past the
+   check and crashed Git with an out-of-bounds read.
+
+   See <https://gitlab.com/gitlab-org/git/-/work_items/811> for details.
+
+ * CVE-2026-105437:
+
+   When merging, Git computes the size of the buffer holding the merge
+   result in a way that can overflow for very large merges, which can be
+   triggered by a large number of conflicts combined with a large
+   `conflict-marker-size`. The resulting buffer can then be too small,
+   and Git writes past its end (and, before and after that, before its
+   start), corrupting the heap.
+
+   See <https://gitlab.com/gitlab-org/git/-/work_items/814> for details.
+
+ * CVE-2026-114466:
+
+   In response to CVE-2019-1348, `fast-import` disallows the
+   `export-marks` feature by default. The features
+   `rewrite-submodules-to` and `rewrite-submodules-from` as well as the
+   option `export-pack-edges` that were introduced in the meantime also
+   allow reading from arbitrary paths, and are therefore now also
+   disallowed by default.
+
+   See <https://gitlab.com/gitlab-org/git/-/work_items/812> for details.
+
+ * Defense-in-depth: read-cache: reject cache entries with over-long
+   names.
+
+ * Various fix-ups on HTTP tests.
+
+ * Test update.
+
+ * HTTP Header redaction code has been adjusted for a newer version of
+   cURL library that shows its traces differently from earlier
+   versions.
+
+ * The `imap-send` command was adjusted to work with OpenSSL 4.0.
+
+ * Replace macos-13 used at GitHub CI with macos-14, and macos-14 with
+   macos-15.
+
+ * Work around a bug in the iconv library shipped with macOS 14 and 15
+   that fails to correctly handle stateful ISO/IEC 2022 encoded strings.
+
+ * ci: fix broken jobs on Ubuntu 25.10 caused by switch to sudo-rs(1).
+
+ * ci(dockerized): raise the PID limit for private repositories.
+
+ * ci: bump debian-11 job to debian-12.
+
+ * ci: skip CVS and P4 tests in leaks job, too.
+
+ * mingw: drop the -D_USE_32BIT_TIME_T option, stop using nedmalloc, and
+   only use -Wl,--large-address-aware for 32-bit builds.
+
+ * Update GitHub Actions jobs to avoid warnings against using deprecated
+   version of Node.js.
+
+----------------------------------------------------------------
+
+Changes since v2.56.0 are as follows:
+
+Beat Bolli (3):
+      imap-send: use the OpenSSL API to access the subject alternative names
+      imap-send: use the OpenSSL API to access the subject common name
+      imap-send: move common code into function host_matches()
+
+Colin Stagner (1):
+      ci: ubuntu: use GNU coreutils for dirname
+
+Collin Funk (4):
+      global: constify some pointers that are not written to
+      gpg-interface: remove an unnecessary NULL initialization
+      bloom: remove a misleading const qualifier
+      dir: avoid -Wdiscarded-qualifiers in remove_path()
+
+Elijah Newren (1):
+      read-cache: reject cache entries with over-long names
+
+Jeff King (30):
+      revision: make handle_dotdot() interface less confusing
+      convert: add const to fix strchr() warnings
+      http: add const to fix strchr() warnings
+      transport-helper: drop const to fix strchr() warnings
+      pager: explicitly cast away strchr() constness
+      run-command: explicitly cast away constness when assigning to void
+      pseudo-merge: fix disk reads from find_pseudo_merge()
+      rev-parse: simplify dotdot parsing
+      skip_prefix(): check const match between in and out params
+      revision: avoid writing to const string for parent marks
+      pkt-line: make packet_reader.line non-const
+      rev-parse: avoid writing to const string for parent marks
+      range-diff: drop const to fix strstr() warnings
+      config: store allocated string in non-const pointer
+      http: drop const to fix strstr() warning
+      ref-filter: factor out refname component counting
+      refs/files-backend: drop const to fix strchr() warning
+      ref-filter: simplify lstrip_ref_components() memory handling
+      git-compat-util: fix CONST_OUTPARAM typo and indentation
+      ref-filter: simplify rstrip_ref_components() memory handling
+      ref-filter: avoid strrchr() in rstrip_ref_components()
+      ref-filter: clarify lstrip/rstrip component counting
+      find_last_dir_sep(): convert inline function to macro
+      ci: bump debian-11 job to debian-12
+      test-lib: allow lazy prerequisite snippets as here-docs
+      t5551: handle trailing slashes in expected cookies output
+      t5563: add missing end-of-line in HTTP header
+      revert: initialize const value
+      curl: add support for curl_global_trace() components
+      http: handle curl stripping creds from effective url
+
+Johannes Schindelin (19):
+      ci(dockerized): raise the PID limit for private repositories
+      ci: work around Debian 12's HTTP/2 authentication failures
+      ci(vs-build): adapt to Visual Studio 2026 default on windows-latest
+      mingw: drop the -D_USE_32BIT_TIME_T option
+      mingw: stop using nedmalloc
+      mingw: only use -Wl,--large-address-aware for 32-bit builds
+      t5564: use a short path for the SOCKS proxy socket
+      checkout: use size_t and st_add() for cache entry length in update_some()
+      read-cache: use size_t and st_add() for cache entry size in read_one_entry_opt()
+      cmake: stop trying to build the reftable and xdiff libraries
+      t1600-index: add expensive tests for over-long tree paths
+      ci(vs-build) make the VS-built git.exe adjust MSYSTEM/PATH
+      Git 2.50.2
+      Git 2.51.3
+      Git 2.52.1
+      Git 2.53.1
+      Git 2.54.1
+      Git 2.55.1
+      Git 2.56.1
+
+Junio C Hamano (2):
+      GitHub CI: macos-13 images are no more
+      ci: skip CVS and P4 tests in leaks job, too
+
+Kaartic Sivaraam (3):
+      git-compat-util: add st_add5() helper to detect size_t overflow
+      xdiff: use size_t for merge buffer size computations
+      xdiff: check for overflow when computing merge buffer size
+
+Karthik Nayak (8):
+      base85: cleanup unused debug code
+      base85: introduce a new `chunk_and_encode85()` function
+      test-tool: add command to encode-chunk base85
+      apply: reject binary patches greater than MAX_APPLY_SIZE
+      apply: add tests mismatch in binary patch size
+      commit: rewrite `remove_signature()` to work with multiple signatures
+      fast-import: add safeguard around rewrite-submodules features
+      fast-import: add safeguard around 'export-pack-edges'
+
+Patrick Steinhardt (15):
+      build: tolerate use of _Generic from glibc 2.43 with Clang
+      ci: fix broken jobs on Ubuntu 25.10 caused by switch to sudo-rs(1)
+      t7528: work around ETOOMANY in OpenSSH 10.1 and newer
+      meson: simplify iconv-emits-BOM check
+      meson: detect broken iconv that requires ICONV_RESTART_RESET
+      gitlab-ci: update to macOS 15 images
+      README: add GitLab CI badge to make it more discoverable
+      t0021: skip EXPENSIVE test that is broken without SIZE_T_IS_64BIT
+      t4141: fix inefficient use of dd(1)
+      t5608: reduce maximum disk usage
+      t7508: skip EXPENSIVE test that is broken without SIZE_T_IS_64BIT
+      t7900: clean up large EXPENSIVE repository
+      t: use `test_bool_env` to parse GIT_TEST_LONG
+      gitlab-ci: disable RAM disk on macOS jobs
+      gitlab-ci: enable "GIT_TEST_LONG"
+
+Paul Tarjan (1):
+      t7800: fix racy "difftool --dir-diff syncs worktree" test
+
+René Scharfe (2):
+      macOS: make Homebrew use configurable
+      macOS: use iconv from Homebrew if needed and present
+
+Tamir Duberstein (2):
+      t4205: compare huge output without diff
+      ci: use twice the CPU count on both providers
+
+Toon Claes (6):
+      meson: ignore subprojects/.wraplock
+      meson: only detect ICONV_OMITS_BOM if possible
+      meson: use is_cross_build() where possible
+      connect: validate unborn HEAD symref-target in protocol v2
+      connect: validate born ref symref-target in protocol v2
+      connect: validate ref names in protocol v2 ls-refs response
+
+Torsten Bögershausen (2):
+      utf8.c: prepare workaround for iconv under macOS 14/15
+      utf8.c: enable workaround for iconv under macOS 14/15
+
+
