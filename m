@@ -1,114 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323643;
-	b=CI/6TzxSUva//vQGwS8uB6048oB5jJfd+n2yEwhVGV8WLn+TkyFTms1Ah8flRbxPwcZ4
-	 x2zQiuJeFwlgnW5j4jV1YjUJLz7jlUiecXdkTmGpGw7CwSxUKMZ5Q+Ah4wiCU1YpZFvRO
-	 2UGqmYgAQGJBvrDgXgcKq4Jh099XtEuY/+oFa0myAVEAh5b1E+m96qquY6BYcwhXOtH04
-	 aMlHoUaSlXHVEAl1O4lXOXFFPDqa1ueia4F9/VN/Z00P0Le7FjY+fBYNmhQKN9g9mYgUl
-	 WYSPzAEVhwICW21ktRCr/pOSdLcm3+rlXnACILp9nrCvhGI6U6SLNtDvF6jH+nZZeUQ==
+	t=1794323653;
+	b=YpVZB/TawzL+ooeaTO8LdPKZYGMhHr/bx22c69Jqfj3+h4GWLF4mGJDum/cC+/0wP8B2
+	 tba2S8k/3rhkpwrn/k5sfKcymw36tWR5CgQEZv78+z3fwo6BeTvn2CkMvsxxV48ewcIhB
+	 bO9pLQiGJzJoKihg42iQ6vLSY/1M2ONOhvZKiDysPwcuPnHMfQy+lz+1j6L1N4xmSGvCL
+	 HuqNLHkkPG777SG6hHiOcnNzcNhIfRpJTsZcEJRGxwyLnOAawb1IQQhH1GMENNdDSLQxr
+	 O/enWklO8p52TzV+ARipR5qoDDvaXN7WbU1Y6hrK//nfA/4VJIHgcHdxR/qyUyVUZrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323643;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323653;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fzDtepYpPhppRO2OekG3HqAvxmazW/tXwsXJOMA5LnU=;
-	b=yDOlrBwobOdzclhJsmlXVcmXldv1Lp4Lf+pz3DJHCs4R3iWjGar7O7r1kSeUK2FXso3X
-	 A/t5nePmpYn7vHWDxaA1Wb875M6lGYwAt8Unmnp1xgpg4XNSjR2JqkToonE5JHDhoXFAx
-	 nq53U/lPkttNgyDAEfYObQzTtnPUv8aYAPkrEmx0DvxFZ3v8rvsg7sAZBhYDoCHqWtqXt
-	 vw5LyzU71h2JQKKB3Fs5I0juydLoBeTbq7t4mpET0osGn2aEKpKjqWVbD9zgW7rPV5fLB
-	 btVtwTPfsNDoYfsGDDc5oO0deVueG6WdGyspZbksX70oEr0vOK1HHRmcprU+7phzyWQ==
+	bh=bcKBtRZaFb+mZfYAGiwpdRY8hHzgqYhO1XHVeJRGJgE=;
+	b=dpfrTUh96pnj057AT7lEWtGkcQfcxAMDGGsR3WtObOVFbRNPU1eBVj/PGKgNbpd6DlDM
+	 gcqUYLg0jlMga73lHowQFjJO3sFFcikJHJUCvNfYLvCnzwgJpeLRYaHtT6ZnUuIhzWGWg
+	 2e2xr0yJe+aeMzFYqd7qWRERg0w+zk1xTtltYYS4JuVl3CRnsoS14KZmZLOWmETk2rhVx
+	 A1+t1oq8spM8Qm9rUYCnI7y8XpEliNuEWlpfqVuGkFD5OEhusObfnpzI4zQ3Rav1X1YNC
+	 otyFCqe+ibi4YaGjEk3rVM6lZHVSaK/CEyxEzJZhYQgev7Lf/5PsGyOrZjX8iG392NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=djRYAMmG;
-	arc=none smtp.remote-ip=74.125.231.137
-Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oR6cMwq6;
+	arc=none smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB58606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:14:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB58606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE60460A260E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:14:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE60460A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=djRYAMmG
-Received: by mail-oo2-f9.google.com with SMTP id 46e09a7af769-85f2bfd7a07so805206a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:14:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oR6cMwq6
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b309147589so22989707b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:14:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794323641; x=1794928441; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794323652; x=1794928452; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fzDtepYpPhppRO2OekG3HqAvxmazW/tXwsXJOMA5LnU=;
-        b=djRYAMmGefMtb6wren78btruzNJSKlkMMEb/G2ViFnFtspnoWA1dl4sdezgK2VT7Eq
-         yYJmh0Mo6NTfElX/oLUNEcTf5MuQfm2X+0a8nJeTlVO4sGRjWmW/Kt5t7OkzFsqyeHA3
-         7giS0wwyxd03nfRo+Ubja7En2wnKVVgYIaWBPV8sqTdNJcwHWHbfetjVzjCXcZIf7i1a
-         pL/AqLsKSRP5xdtseVarYmC4XmxOvTos7PpB+gt5E+rQX0o9shmQVW3RXvgWGliOn0jv
-         DpKA0zZ+19SYCLc465NMVpM5iNkjo5nbk6vkM6uCJp/iV6z87RSixobqXrFYRNyOLoCS
-         XwUQ==
+        bh=bcKBtRZaFb+mZfYAGiwpdRY8hHzgqYhO1XHVeJRGJgE=;
+        b=oR6cMwq6lxh/Ii7xNi2aaSWRcP6NXX1MsgAn/+sd3oXpAmgAgClUrW9ZXOew/9q6Mn
+         XdiOy2cS7Wb+oDXUsz9FuZ39PWSVhGV/pZoQBunW9LG8w5oLjawb6DalitUso75qeacA
+         bSnwLovpdZusV3D1/LJug71TBKjz8uyRNjp5Lhl84RkklYyGnyz9SEDITlxiW8lRllNZ
+         gj3NEJqSJWgIOcthpUHoXzGg+iMkot4w8Y150XN5UPLwZKpnOUHcBd1l345Lkq86eeI0
+         xrIhX9IAk75wOZdz8bKeJFq4CiBOWwooSOhkPAYHE1wo2oCfJ0CpfpTN7A7gI2IYPs+c
+         dwCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794323641; x=1794928441;
+        d=1e100.net; s=20260707; t=1794323652; x=1794928452;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fzDtepYpPhppRO2OekG3HqAvxmazW/tXwsXJOMA5LnU=;
-        b=lrEtfWb/ft65WRNDI1Y1lVtRdxw3cuGWH344trOaq9QLJAU2OUN+mfIkC/BbsA4o7M
-         p35JyOMlvRsOZJcP2UZC3s27fx75M7ilqPqCxJXAx0MemA17tqzko91Z8rpaBVQ7at0w
-         AnEgc64jRTSG7oUp0bUcKYexahCB4t0SOCFVDapxvcYjBfJFbgd1AJY6l+IskUnDj3KR
-         Ssa0dzDT4jD/qTOIoNCyUusfTZpsojq91AwGBseWQu9G/U0y3lA/MNFKeOkvQByQwFTr
-         ZPnLvVHdjopnhleQzbqF1updvvnsZxyA0ti6O7iUr820zCH66ERgRTgMCLZG8gHNO09h
-         /iRw==
-X-Forwarded-Encrypted: i=1; AL+hErFR91gQUOqkcYXp/IgltaobnOiDhhWzGewzIDbP0yvlEXJ9c7jSYnVAab56VEesZqJwMUCkSg9DhaYY//Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PN/7q6v1c0QsAx0LAiU6DDiXkMKyKZVNsyPkNgmZbhEYVYh3/
-	Y/VjTFU86m3RWZqo6+1N5ZDxz4m0Ze1T3yYeIp3is57kGOJkRD/qCNErdhkM4zSP
-X-Gm-Gg: AYBFou26PzS+qfos+ljb59+oedMnd9imrUiQdPWObJAZpMH+Xgk5NEY5sGEsKnbyJBu
-	GR5v5SCPAE1574Buo2eAddl0I0jhCxe2uzd2lQNsQBfNuERxSJ/+GDAWYP9fDjPtYNXRmwnZMDo
-	HtMFTmWHKkoqCG/U6uXYDnmfhlM2VEMxgtAbMqhYld+HswuELdmHVKyCcHwSD8U2kdRttzVt+bN
-	TZOfbC98xZbJMVCjgXdwCCzsS9tfnVocGrMMGr+jCdVrjRufwiBlXJu6qQ1HzIHdI2+aPvgUl9P
-	cCYg//liMcxgAjpMEvRLfp7zSuPU2BWLDscDjDZL+Q/LkmIYHqd3jn+HMiWlWonM0QCrTXwQOIF
-	0zlccaD9iVFszK13WYeXY+e830vqWRn1uxWHvA5hzc/LuOOBtbqA/lGKPNGF2eVZCs2hR4VTgeE
-	xJ1c0KKqzt3/lNA5Uh7SyUNlZKKLmvJMUHWMy/D/s1TI165U/n8vXGN8W59Z0cVdDdG+sOCkEiM
-	uMqN6hfUX6huRA5kWwWqm7Zg9Wb2YkspWXW67hheje1wrEnstPZUjrMBzPxDelhVk7uofV4G5JB
-	XoQ0mrN4Q9UPREFVm0o0OcaBWUT26Bz2oM8GB0qVonsd80siww1DbrfxOoS2NwY=
-X-Received: by 2002:a17:903:2a84:b0:2e9:ca71:45f4 with SMTP id d9443c01a7336-2edb91d4de7mr23669695ad.33.1794316927647;
-        Tue, 10 Nov 2026 05:22:07 -0800 (PST)
-Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4a31esm8861065ad.22.2026.11.10.05.21.58
+        bh=bcKBtRZaFb+mZfYAGiwpdRY8hHzgqYhO1XHVeJRGJgE=;
+        b=D1Iu1FP44tfro3h21rnDeeZh+cJbCTqpW84NGpFAL2uh+RySTrnnREgMe7dPsBXJUG
+         gZZoXFv2zOpT4A6gOLuLo2RPEHaaRGiWIVBgr7RD0Jbgj88vZ5v4qOXPe4nIUt8cN2G2
+         c3dDV1lSEvXLV80lxHfJ1Z13fAk4tEYZZ9ZQmWbEaoCYCUfLW+Rf/s4hG/Lr70D/C9B5
+         hfIdAYoaRDDCUfMewpxnlPGidZTkkFC7/qUnMw5CNXo1ls/ana9qWQ/ncdCxLOrwwSDM
+         HuXuDiiIV0VhWnCBxi97FtQK8EOhy+WGsnNaLnitknT2Lw8KIPfV4ylmkCc4EK/ODh62
+         MgeQ==
+X-Forwarded-Encrypted: i=1; AL+hErFeU+GnM0g3xE0FU8c8wDLnfRQBxKxaKmcV/VceOypMDb3DimOmIrfyt8NGVY6lqPjNR3Vxsk5sPbEhqv4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2uVxOYbjveQ4H1XlDdLBqjnH/yRD0rfi0XXx8/Qny3sN6AHDw
+	JLXC5FSex9sQRZ+tf3xUoPjKQ3K6ZVTfHpU8833lKak8ZLUh1+eV55wg
+X-Gm-Gg: AYBFou2qdkqRl/reLXKR7lhzaeaNHjoMVJRd2IsUn+FnpTckAZltMpekQ3yp2e/dZ/J
+	w0PZqBR/+nUmQ80izU7YtfpZFQ1XDyPj6uyS6ieS893HF4CRNp0PIH4j9xOO2hpEkaiyC/6H+g5
+	sETa4hrI1aOBf8olQr9VGW4Swb7s/+D2i+QW/NxAOBcD6v6YfXBbGrtrAnIAiLlAHafH/Q/UmQm
+	atfzt9ur3rV86CLC0RPb1gwVh6bLBHKh8ALcUokqS+GpR73b+n4AP21L6LxtVIjtGBwfp6kjUhK
+	f6dOUH6DPRkjEJg9sphF1PDP3gVJPc4SYn0BLbDAVlKp4ofnsg95E34vUxIv/pRZDIFAl1gK08h
+	0Mv3z85RngtXES1/AV7YY2ylmpHcF9o3YR37LS9AavryZGH8CzztGfIZU/94893aU3wdcHYFxV4
+	iTvU3fVASZFo9NN1gFbpY2IUEDmEFTsAU9MGLDaKY+A3ncksDIdH5UCBAUibogFBrqPuVDl5X2h
+	h0FvmYaouTDR4/G89945qoH5GIcmJC1ztEjKCQHJR8PR4b+WvFT5AFKVIOMRyEmL61AltqX/vqk
+	FNq5okk3V2cRAbPAsjIWiCmAQsYRmdj3KRuguF7fvFtaLeH3sY9ZOhXUcAWmkRCfoLbIxgsC2th
+	uDX5egPvdKefYDeiCRVPpU7LcOv/5EqlJGXKaBA==
+X-Received: by 2002:a05:690c:660a:b0:8b0:e7a0:ac5b with SMTP id 00721157ae682-8b39288d821mr18964047b3.1.1794323651688;
+        Tue, 10 Nov 2026 07:14:11 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:45::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39343d4a6sm21481757b3.37.2026.11.10.07.14.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:22:07 -0800 (PST)
-From: Jinjie Ruan <ruanjinjie01@gmail.com>
-To: babu.moger@amd.com,
-	ben.horgan@arm.com,
-	bp@alien8.de,
-	corbet@lwn.net,
-	dave.hansen@linux.intel.com,
-	Dave.Martin@arm.com,
-	fenghuay@nvidia.com,
-	gshan@redhat.com,
-	hpa@zytor.com,
-	james.morse@arm.com,
-	jic23@kernel.org,
-	mingo@redhat.com,
-	rdunlap@infradead.org,
-	reinette.chatre@intel.com,
-	skhan@linuxfoundation.org,
-	tan.shaopeng@fujitsu.com,
-	tglx@kernel.org,
-	tony.luck@intel.com,
-	zengheng4@huawei.com,
-	x86@kernel.org,
+        Tue, 10 Nov 2026 07:14:10 -0800 (PST)
+From: Nhat Pham <nphamcs@gmail.com>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	david@kernel.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	willy@infradead.org,
+	brauner@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: ruanjinjie@huawei.com
-Subject: [PATCH v5 6/7] fs/resctrl: Disallow monitor group move when the RMID index changes
-Date: Tue, 10 Nov 2026 21:20:53 +0800
-Message-ID: <20261110132054.3702-7-ruanjinjie01@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110132054.3702-1-ruanjinjie01@gmail.com>
-References: <20261110132054.3702-1-ruanjinjie01@gmail.com>
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	ryncsn@gmail.com,
+	sashiko-bot@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] mm: vmscan: allow writeout of swapcache folios without anon mappings
+Date: Tue, 10 Nov 2026 07:14:05 -0800
+Message-ID: <20261110151407.789960-2-nphamcs@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110151407.789960-1-nphamcs@gmail.com>
+References: <20261110151407.789960-1-nphamcs@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,119 +122,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Newman <peternewman@google.com>
+Unfaulted zswap readahead folios can be dirty and in swapcache without
+an anonymous mapping. pageout() rejects them before swap_writeout(),
+so reclaim cannot write them out while their swap entries remain
+referenced.
 
-A MON group can be moved into the mon_groups directory of another
-CTRL_MON group to move its tasks to that group's allocation while
-keeping their monitoring data. Where the RMID is only meaningful
-together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
-extends the PARTID, the move changes the RMID index of the group. The
-move succeeds, but:
+Allow swapcache folios through the filesystem folio check. They already
+have swap entries and can use the existing swap writeout path. Anonymous
+folios outside swapcache have no mapping and already return PAGE_KEEP.
 
-- The group's monitoring data is reset. Its counters are identified by
-  the CLOSID and RMID together, so after the move the group reads the
-  counters of the new CLOSID instead of the ones its tasks used.
-
-- The group uses an RMID index that was never allocated to it. When
-  the group is removed, free_rmid() puts an RMID index of the new CLOSID
-  into limbo without checking that the group owns it. If another group
-  of that CLOSID holds the index, the limbo handler tests and frees an
-  RMID that is still in use, while the RMID index allocated to the
-  moved group is never freed.
-
-- The tasks are not moved. mongrp_reparent() sets the new parent and
-  CLOSID of the group before rdt_move_group_tasks() looks for the tasks
-  to update, and the search then matches on the new CLOSID, which none
-  of the tasks carries yet. The tasks keep the old CLOSID and the old
-  CTRL_MON group's allocation, and the group does not count them.
-
-Fixing the task move does not make the move work. The RMID index is the
-hardware ID the counters count for, so a group whose CLOSID changes
-cannot keep its monitoring data, and it would need a new RMID index
-allocated for the new CLOSID, which fails when every RMID index of that
-CLOSID is in use. The documentation promises that a move keeps the
-monitoring data, so the move cannot be supported, as decided in the
-thread at the Link tag.
-
-Reject the move with -EOPNOTSUPP when it changes the RMID index of the
-group, and document that a move is not allowed when the monitoring data
-or assigned tasks would be impacted. Where the RMID does not depend on
-the CLOSID, such as on x86, the move keeps the same RMID index and is
-still allowed. Renaming a MON group within the same CTRL_MON group keeps
-the CLOSID and is still allowed everywhere.
-
-Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
-Signed-off-by: Peter Newman <peternewman@google.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/lkml/3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com/
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/sashiko-outbox-181078@kernel.org/
+Fixes: 84798514db50 ("mm: Remove swap_writepage() and shmem_writepage()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Nhat Pham <nphamcs@gmail.com>
 ---
-v5:
-- Retitle as the RMID index changes, not the RMID, and a rename within
-  the same CTRL_MON group is still allowed.
-- Describe the RMID index that is freed without having been allocated,
-  and why the move cannot be fixed instead of being rejected.
-- Drop the parent and resctrl_arch_mon_capable() checks, which the RMID
-  index comparison and the MON group check already cover.
-- Use the resctrl.rst terms in the last_cmd_status message.
-- Drop the stable version range and the Link tags the changelog did not
-  refer to, and link the decision to reject the move instead.
-- Link to v2: https://lore.kernel.org/all/20261105123524.2282090-1-ruanjinjie@huawei.com/
-v2:
-- Drop the Suggested-by tag.
-- Describe the systems by whether the RMID depends on the CLOSID rather
-  than by MPAM, in both the changelog and resctrl.rst.
-- Explain that moving a monitor group is already broken on these systems
-  because the tasks are not moved, so no existing user relies on it.
-- v1: https://lore.kernel.org/all/20261104101913.586595-1-ruanjinjie@huawei.com/
----
- Documentation/filesystems/resctrl.rst |  8 ++++----
- fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
- 2 files changed, 17 insertions(+), 4 deletions(-)
+ mm/vmscan.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index b52795e03303..fecb2cd2b343 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -551,10 +551,10 @@ will automatically remove all MON groups below it.
- 
- Moving MON group directories to a new parent CTRL_MON group is supported
- for the purpose of changing the resource allocations of a MON group
--without impacting its monitoring data or assigned tasks. This operation
--is not allowed for MON groups which monitor CPUs. No other move
--operation is currently allowed other than simply renaming a CTRL_MON or
--MON group.
-+without impacting its monitoring data or assigned tasks. This operation is
-+not allowed for MON groups which monitor CPUs, or when the monitoring data
-+or assigned tasks would be impacted. No other move operation is currently
-+allowed other than simply renaming a CTRL_MON or MON group.
- 
- All groups contain the following files:
- 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index b702fe6dbbec..2dfb3b54338a 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -4403,6 +4403,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
- 		goto out;
- 	}
- 
-+	/*
-+	 * Moving the group to another CTRL_MON group changes its CLOSID.
-+	 * Where the RMID is only meaningful together with the CLOSID, this
-+	 * changes the RMID index and the monitor state cannot follow the
-+	 * move. A rename within the same CTRL_MON group keeps the index.
-+	 */
-+	if (resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
-+	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
-+		rdt_last_cmd_puts("Moving a MON group to a new CTRL_MON group is not supported\n");
-+		ret = -EOPNOTSUPP;
-+		goto out;
-+	}
-+
- 	/*
- 	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
- 	 * current parent CTRL_MON group and therefore cannot be assigned to
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 061fbd168d98..96201eae0ceb 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -607,7 +607,8 @@ static pageout_t pageout(struct swap_io_ctx *ctx, struct address_space *mapping,
+ 	 */
+ 	if (folio_ref_count(folio) != 1 + folio_nr_pages(folio) || !mapping)
+ 		return PAGE_KEEP;
+-	if (!shmem_mapping(mapping) && !folio_test_anon(folio))
++	/* Anonymous folios outside swapcache returned PAGE_KEEP above. */
++	if (!shmem_mapping(mapping) && !folio_test_swapcache(folio))
+ 		return PAGE_ACTIVATE;
+ 	if (!folio_clear_dirty_for_io(folio))
+ 		return PAGE_CLEAN;
 -- 
-2.43.0
+2.53.0-Meta
 
