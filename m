@@ -1,74 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315077;
-	b=L1yQJ45GJ6HIPH7LWFxEgHikVfM6MEY6PI5KPHfllbRfauNzFdVfo99BBcqa+tMqOiWT
-	 1bZLhYZAvI1+j2bQOWZyceAQK/+apWKLBk/fJIv6qtqRkNUpQ3+OH7pwd+xdj/t2uq3HD
-	 vwJcbng01jZHWO03o/mYUXJ6UY+plQ169gVLJ9QkU4l34WHkDlOaLvauwwQL6IGKPBQ1H
-	 npcNJ2y3pXOycI3i77XezjOnM9GXwv86dRhP6Ww+n+OrG5IxpM9Fdey9n0BGnkIP6PGg0
-	 jsfErqUq4xfwbevKBicUy7fX52RJlOJT/DIQ3+40Q8xyhpOLEsXDrvHpRkEgXEbjohw==
+	t=1794315086;
+	b=kLr3K7AIfqkw5wNx7tZGj/ZlCoYWxjDoVu+ZHa2lqsCYd/9scbmH+hwNWb/kr2Yfuz3c
+	 2HaobogN/J4DcXeLqNjaC/OPRd1UbHFgnSQEp19vWyfqL3walB4F2EnasqsxL3oG/XyWj
+	 I8PlAW9HU5OTV8QhWLxOdWmwThaRLlwe7ePysFK1SrgqyOKFhYm//tWi6Jd20yV7U2tpe
+	 5j2BlRm//WPbWOTmJ26gPDFCsuRnKXJYDgm7GmUNYbjMaTGXSeZ0qY+bYLiXbo1GTXwAM
+	 S+Q6KZ9K27AW9dPIlZo+L//WxVNnL04v3Aw9bVmU6EsgjnjpJfvPl/mFiq9gdvV7HGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315077;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FiB0bnzAL+9fgSIngeKjFdkrDvMzajw+BHFiWWLpUJY=;
-	b=brV8kq/LkvM4/Y2QC5jdmto1MSqdWifEjWr20xOSDbWybN0CeAZ6v8STshDQZRqRLy49
-	 qeg3uB5+nIbyiZVR/IWD60jtpz8wlfkIOrW0b22mOzWrhhvAK6pae+76ZLsEqNhN1E1K/
-	 Tyn7q4Bv+zw2n1PxOtbW/3o/3E40qRhplW9Bjm74FpT77fpOJ5oib/+FwqBBX5ZOQT7qx
-	 EztsiSvm5nY51SPO/0CP+DpNXZCBkq+ESgVeA4OVAm5xyME57QKjCWJj3/elUIIgDFD6+
-	 /0xcIkP9i0OMej31X4qzq9vs1ftwr2eWvraF/00Wu47MTVfivLaSXhD3Jd39KCtC9JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315086;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=RxZl6p7PH/ZzZkbb7ep2WA/FeXnjYV/M8ID/0T9gT/Q=;
+	b=LwDyGzNEb/1Wd83dW3PzJavZex7H8CQkGvCt12fbx7VdJ6sYdzbEtJOJ1yNYRgbE54vw
+	 dj6oqiTBdR3DClWnGaoOpM9avbv0yLI+X9kNCrf7c14IbkOfF2WE/BpT6739hoQSUGHsR
+	 gN/VQQTg+Pc4n1Ubaj82P+fDJbNvac+Tb5y4+mDyvZSO+9Q6QNwfY370qYTiXMrQRitsH
+	 vRuh7RECL0YVdGVrd3vdmPBpjtMeWDMXNHV6/SWaVJA3le4a5BeTcd/JeFGaJbKXwR4Qi
+	 iTFj5UHnmduwBjc5b4IJQ72TFAWx6usP+YusVNyw6csHJzVYypXamXZJNg9DF4DX4Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Fp/FGpJB";
-	arc=none smtp.remote-ip=91.218.175.141
-Received: from mta0.migadu.com (out-141.mta0.migadu.com [91.218.175.141])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=smail.nju.edu.cn;
+	spf=pass smtp.mailfrom=smail.nju.edu.cn;
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=5bdoU13O;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C26606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:51:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C26606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3DC606A326;
+	Tue, 10 Nov 2026 12:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E3DC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Fp/FGpJB
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0pr4lLJKwhi9QGw9XNdz55Gz73CE7vplIUdOveywHIQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794315073; v=1; x=1794919873;
- b=Fp/FGpJBhkSpHAlvqqnYhMXs0wp8VpdPn1FGT9Os3jDNzhHpEz0N2KAid77bHndLQIZhM8TT
- UNI1iqn1O4993mBffjBcIBEe/ZhUFX/cJ76p8SDcXxkEHCJYwsX1OqHOwn+jfL5wnAvj00vJVSn
- ukkYywhX8DB4HLYQITlf85mI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4d15d57ac6eb10cd;
-	Tue, 10 Nov 2026 12:51:13 +0000
-X-Mizu-Trace-ID: 4d15d57ac6eb10cd
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	liwanwu@kylinos.cn,
-	devnexen@gmail.com,
-	zhaomengmeng@kylinos.cn,
-	emil@etsalapatis.com,
-	yphbchou0911@gmail.com,
-	mingo@redhat.com,
-	sched-ext@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=5bdoU13O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1794315073;
+	bh=RxZl6p7PH/ZzZkbb7ep2WA/FeXnjYV/M8ID/0T9gT/Q=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=5bdoU13OhJjaFzk/UuAJm2aB75OBjAaY7TWqMD6y4sPfAWcFVL4mqTyc9SBD6EJbl
+	 rGRYOjsZy00/QxNw3P6mEMTdIuum5/pQ46qNYYjYaakWyiwhCfS9668moIVIb85wkv
+	 /9Gp9Qg40ELwGPCC+N2Yj1iNWmldK19PTs/v07Ck=
+X-QQ-mid: zesmtpip2t1794315069t11fc89a1
+X-QQ-Originating-IP: DOWT+SLXdKkkQCd8sDpgnmX258kipbcc6y7odjw9PsU=
+Received: from workstation-Precision-7920-Towe ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 10 Nov 2026 20:51:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12170903532052178925
+From: Kang Chen <k.chen@smail.nju.edu.cn>
+To: Yonghong Song <yonghong.song@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH 5/9] tools/sched_ext: scx_pair: Reset pair_id on restart
-Date: Tue, 10 Nov 2026 20:49:57 +0800
-Message-ID: <20261110125001.4167503-6-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110125001.4167503-1-cui.tao@linux.dev>
-References: <20261110125001.4167503-1-cui.tao@linux.dev>
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] bpf: make dmabuf iterator stay drained after NULL
+Date: Tue, 10 Nov 2026 20:51:06 +0800
+Message-Id: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,47 +77,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: MWxZUaxBV+u3RaK5TkvHNA8gQCfm4CUQUAkd7XR7zg0OxlQA1dsg7vic
+	nxNR/6js4aTsuzNYX6BLi02iCHAfuQM5E0+rycFBciLzi4fuIaWPgDUPuFUhiL86j310D1A
+	cutER53OiSFGN9SZPj2Fwm+azkiti5zwyGf7kJ9Am/aGNNpa+CT2+reH89+qoWDKxdM+UTq
+	m+OeIQYsODX+655wFJC8GsOWuXuw/QUASTTOIqsqExZpZCFVxODhYm9dBYvFyFywo+59QGM
+	2cf1xSJTnvAkDE+IVa9NULrpSPCVKmNGfZKxVsDVlo9oVYGdyPemFwqIZWenCKuCqRvOIYG
+	Ga6VgqHnSA0VUnmUcyy29o8pNkvJ3URWvMy5eh0x5Qu8q8h6jUq3ZxPTbkb9wAFGfDN2ye0
+	t2yUHYLbDDF+5kz/2dQecWk0YpIbKPoDS8n2leJcW4ryhVaWuuiKeb+Jd9TNQlzpX1MMdwT
+	hzGENWGN2+SAyP/h1ZJ8hM4MYaSro5YvhiRVbRwiwYQaP/rq31Fix53DC4s7qHQ9ASL1Xu2
+	3CC27bShbD3VDgzhruEqkS0oxzXbrBHyI9hiogSRIoqasn+9nMW4gzvQ3ROgn8TuIW2V0vs
+	DwBYRjUVFCxkB3rzEWqqWUOSnA10xJgawnqv3MnPnnRQvA/NUuuEezKz9UYV8XaRrMG1251
+	jes556nTem7chi3RKpqGtnsHnGdN7jODre1FjAPiVGTuD//hTjTAsVJFW/1Bf6yZnBDvWAu
+	V571BDHKRHmAbB+PdN0hLIs/iXQjwpILvZ5TzcOw908mCdR8iWNzr6Vfu6+nQM9Qk0T2W/N
+	JUE4u8rcibpYd2P0f7MbjsqjzpaRPS4vowKj3jKVEos7OI4fl13Nu/Jr/dDrzhSR5eAn5se
+	y8NI8tIzy4ZJJGpdOx7l4/AT3HJ3EYghO+P6a6Ogw3f0OLquIDNuyMP/QwcP+cTuYjyvkiv
+	FXz84nuwk62IXVqDRCataltp23nKEBGsH32XqfQdjEnWojXcaeZqehdLwJn22cmAUexszPV
+	WfX0kHMJtC1P+ZugW1MG/ZDlj7i56QlYFT46/wCQ==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-From: Tao Cui <cuitao@kylinos.cn>
+bpf_iter_dmabuf_next() uses kit->dmabuf == NULL to mean "iteration has
+not started".  dma_buf_iter_next() also returns NULL at the end of the
+list, so a next() call after exhaustion restarts from the list head.
 
-pair_id is initialized to 0 before the restart: label, so a reload
-triggered by an ops restart (e.g. a hotplug event with the scheduler
-providing no cpu_online/cpu_offline callbacks) jumps back to the label
-with pair_id still holding the previous run's counter. Since f546c77038ab
-("tools/sched_ext: scx_pair: fix pair_ctx indexing for CPU pairs")
-pair_id is a dense index into the pair_ctx array, so the second load
-starts pairing CPUs past the end of the array and the scheduler can
-never come up again.
+The verifier relies on the iterator contract that once next() returns
+NULL it keeps returning NULL: process_iter_next_call() marks the
+iterator DRAINED and treats the result of later next() calls as the
+constant zero.  A restarted dmabuf iteration therefore hands the BPF
+program a kernel pointer while the verifier believes R0 == 0.
 
-Initialize pair_id after the label so every reload starts from a clean
-counter.
+Use an invalid pointer value as the drained sentinel so the iterator
+state keeps its one-pointer ABI, and skip dma_buf_put() for it.
 
-Fixes: f546c77038ab ("tools/sched_ext: scx_pair: fix pair_ctx indexing for CPU pairs")
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+Fixes: 6eab7ac7c5ee ("bpf: Add open coded dmabuf iterator")
+Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- tools/sched_ext/scx_pair.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/bpf/dmabuf_iter.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/tools/sched_ext/scx_pair.c b/tools/sched_ext/scx_pair.c
-index 35c8a1a07f56..f15093e002f0 100644
---- a/tools/sched_ext/scx_pair.c
-+++ b/tools/sched_ext/scx_pair.c
-@@ -48,12 +48,13 @@ int main(int argc, char **argv)
- 	struct bpf_link *link;
- 	__u64 seq = 0, ecode;
- 	__s32 stride, i, opt, outer_fd;
--	__u32 pair_id = 0;
-+	__u32 pair_id;
+diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
+index cd500248abd9..a2b7c38f9ae6 100644
+--- a/kernel/bpf/dmabuf_iter.c
++++ b/kernel/bpf/dmabuf_iter.c
+@@ -156,6 +156,13 @@ struct bpf_iter_dmabuf_kern {
+ 	struct dma_buf *dmabuf;
+ } __aligned(8);
  
- 	libbpf_set_print(libbpf_print_fn);
- 	signal(SIGINT, sigint_handler);
- 	signal(SIGTERM, sigint_handler);
- restart:
-+	pair_id = 0;
- 	optind = 1;
- 	skel = SCX_OPS_OPEN(pair_ops, scx_pair);
++/*
++ * The iterator state is one pointer wide because struct bpf_iter_dmabuf is
++ * part of the generated vmlinux.h ABI.  Use an invalid pointer value as the
++ * "drained" sentinel instead of growing the state.
++ */
++#define DMABUF_ITER_DONE	((struct dma_buf *)1L)
++
+ __bpf_kfunc_start_defs();
+ 
+ __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
+@@ -173,11 +180,25 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(struct bpf_iter_dmabuf *it)
+ {
+ 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
+ 
++	/*
++	 * The verifier assumes that an iterator which returned NULL keeps
++	 * returning NULL (see process_iter_next_call()).  Without this check
++	 * the NULL left by the last dma_buf_iter_next() would be interpreted
++	 * as "not started" and the iteration would restart from the list head.
++	 */
++	if (kit->dmabuf == DMABUF_ITER_DONE)
++		return NULL;
++
+ 	if (kit->dmabuf)
+ 		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
+ 	else
+ 		kit->dmabuf = dma_buf_iter_begin();
+ 
++	if (!kit->dmabuf) {
++		kit->dmabuf = DMABUF_ITER_DONE;
++		return NULL;
++	}
++
+ 	return kit->dmabuf;
+ }
+ 
+@@ -185,7 +206,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_iter_dmabuf *it)
+ {
+ 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
+ 
+-	if (kit->dmabuf)
++	if (kit->dmabuf && kit->dmabuf != DMABUF_ITER_DONE)
+ 		dma_buf_put(kit->dmabuf);
+ }
  
 -- 
-2.53.0
+2.34.1
 
-base-commit: 5b740a72b55c4267ba4d8010f17dde26b26f52d3
