@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284360;
-	b=owGsRCu5yo2yZ7TIzdWrpR+I0mEnmYvzFmrs+NOEPZx3meN9w6zdcc/is+XHkpnnIMoq
-	 mf2dAGW4nb5Qo3CRF387TQIISwGFseEdNXV+dxpbHUAYFYYzW2WQaLVFzA/xMReeGjrsK
-	 5EVfVGgTJQVGAXF6iIFmEojrILLF55OEQdYXCkquS3u22K5v2CzBtiJ8arh94YJ0yKp09
-	 A7VPJjjrLy71zPViKZOgp1Wh03E4K2FBSRfFmnHGej88ECNtUKbJsDoHKZxa58wtpGDas
-	 8WRv6yc7VVj2hVh/pMc03fP8/yM7Xh8PXVdIwfyItgSiqanalL8p5o0PaffhGxyJNrA==
+	t=1794284361;
+	b=VfxiFrQ9hK1gP4LZF3z94p1XMjBV0Us8XYXDLZigfWQ+01Jw3q7Gg1WeRpA2KNoJ5NY/
+	 rCr0LvfA9cSkLgv3QSXdK/0kvY6tJynYh7zwN0PNq3JYicYrmBSV9WlBrZXcnvxlIatE2
+	 76bUzv7VLgXcrux6+spvGAfd7wC749OIPfOugQ/UEcNnPa0qebbvka1Lmu41TBffUKEtP
+	 8LNCmcklm0EUk/geaxmK0MfQo2Ai6NMKsamM76MsYSLwwK/i5cfo8Gjb1tf2scii1GTpF
+	 ja5/quKKxxRJUASz93XGx5bTX9C2nVQeeKY7jGb0j/GLinfwRIX3Q2Lpb4yT2fpMVtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284361;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=gG0BIsp3F32RveUGW6ul6/4p/lJVSGAIllfHJfCYFVQ=;
-	b=wDdKFmxPoW8fM4CUrQXUSxxyNk0nXIBxKObbarJ4ehLUM4PVqlDG4C5ZJsy8yl/B3hSE
-	 dzPyBRIpIkTBi1A9liTO9PRCGE39N7xTHpBXm2xo6HjoGs0jBgiymLKCMx27/+ko6ms16
-	 K5kAedjq3P5D3LJByg1Ueypb2L2UgjgIr1gwY5RXnpknU2L8cgV5lnX+0Y1Mw7rB2d2hi
-	 BZ9eh17vb6s9ted/H+08gcH38IQNNezsvRy5BCQSKOqr70rH3WhifTguBvHgSEgomRwO4
-	 /jRpwS6oi/uQLtqWU6b0KgDkZMWwJF/qVLgvIWYNxKxcqpww3IPZu3vNSWRxLwp9d+A==
+	bh=dV7nfFgA9q61rNs9FjEhDdwleHEpdNZXflZd5bDTkeE=;
+	b=BuO03WvUtCoWBpInCOhf0TMkuSBUVTdLzSi0DF/xk6RothZ1OGCIgvkG1rer3r1ee1CR
+	 tPc96C4LQhGkCqjqeMJP+VawA2JrfX7QL0ktA1av/QaUpAf3LuW4kCFBwNvXRYW53sHYu
+	 BAV7XdqzlFSJ1uywznGL38MWLR3IzDuuPIuQeY0KoSRKBHLmmbpiYEUDO9hJhKpK6ZyKx
+	 qT41roaRsAxW3KLHMXQPAkw2xNsTneyRiCipj4atNkMRhE1m5E21aQGQxFvoyDJE/a6v9
+	 mvn2ZrTkL32XB9Babo0vjh7WCXoFd8SAVgzapuutrLRzQSEdLS3zDExwvsyt+b/4Txg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eHmQP8E5;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="QZD/DmZ3";
 	arc=none smtp.remote-ip=192.198.163.9
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6989260A2612
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6989260A2612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AFE60A260B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74AFE60A260B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eHmQP8E5
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QZD/DmZ3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794284359; x=1825820359;
+  t=1794284360; x=1825820360;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=OtdIqlJCzePoc/YWZ7W8qi5SoWYQ8adAJ9eFkSM+jz0=;
-  b=eHmQP8E5fxu9qAv98Gl5I6g5eFVMsRtTmXj+aEqLegazSOOs6dl1++Dl
-   zUuxHMmRX6hmMlJb4RINRS3c0407f+bfm/s2KnF6nAJSE6MBpZudPoiwL
-   1WoKgsdy9ubIt4Krzva4tGT005om7uYwiCwmgfzdt6jr2ES/Qcp5evFwo
-   MzGwaYuC8En/jDp3PFqi4ThnARkj4DyusjVdVVEq2nLDD+LFm9Cw2WN8Q
-   bUW/dHHBLpqhrDgxMpnzxi0sc+ZXTHDXq5xbp04afIq1j9T4rOMxoBUIe
-   SsEHTgTJP130E8Xhcs3NKHjCqfnXBgXGaAQSpslqhG07PUALjPYiCawYs
-   A==;
-X-CSE-ConnectionGUID: zzi4lqw8R4eeCAhL2YsIsw==
-X-CSE-MsgGUID: MSS5DeeTTHiQOUxU7dycbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901296"
+  bh=siJ+HXBZa096ZlEQsTVh9iBvtYiYyaDLPZk/Svng8yE=;
+  b=QZD/DmZ3whtPa1/YGaP1hu5INETJl60XjgQ8nCxqt/EKGf8lunTDj8Jd
+   Oy3NLH1DuNzNFL1fQAKaIHxAdxtpuzwdzSeTWlKqOz71KjH1PbwG/r94r
+   rXaU44ui3fLbhFHCGN2RBUDtjWX1GqmtCoLwJAdRpGOPLv1gxbSdmk+4v
+   dYQhLgDivoU7FbK5g18qMK14Ur9m3Roi+wnFnELC5AIH/OxOyvO1NpfgZ
+   ey67C5B+m8WYrKZMwV4eHugluyTJOj0rgffd4+YkaWT9XQlRcJ0zAXLT6
+   TogEabl1VTLXLhQMTcXi0Hskch4gXO3YxWFi42h6XAZjfmxr3j8Ele/jB
+   g==;
+X-CSE-ConnectionGUID: pYigHfYCQP+CqQAHDr013w==
+X-CSE-MsgGUID: OpSFJbuQTA6y4Th7oM5lSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901322"
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2901296"
+   d="scan'208";a="2901322"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:14 -0800
-X-CSE-ConnectionGUID: bSY4sNg1QIyG4blghiHrWg==
-X-CSE-MsgGUID: jk+useGmQSm7G6c8Wi35wQ==
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
+X-CSE-ConnectionGUID: 53hkaHfDQ5KoBJWqFxCqnw==
+X-CSE-MsgGUID: I4ySf9UwS0mAzV6XUPrsJA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7856912"
+   d="scan'208";a="7856920"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
 From: Reinette Chatre <reinette.chatre@intel.com>
@@ -76,9 +76,9 @@ Cc: tony.luck@intel.com,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [PATCH v3 2/8] arm_mpam: resctrl: Use find_component() when allocating a domain
-Date: Mon,  9 Nov 2026 20:19:02 -0800
-Message-ID: <c79ae06f66ab31db3425c537e765813711f3ceaa.1794283825.git.reinette.chatre@intel.com>
+Subject: [PATCH v3 5/8] arm_mpam: resctrl: Split control and monitoring domain setup into helpers
+Date: Mon,  9 Nov 2026 20:19:05 -0800
+Message-ID: <3d67a3dddd76cdb9981d4d7e78d657c930eb2cb6.1794283825.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
 References: <cover.1794283825.git.reinette.chatre@intel.com>
@@ -93,19 +93,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mpam_resctrl_alloc_domain() starts by checking that the resource's
-class has a component whose CPU affinity includes the CPU, and fails the
-domain allocation otherwise. When the resource supports allocation, that
-component also backs the control domain. The check uses an open-coded
-walk of the class's component list, while the same function uses
-find_component() to find the component backing each monitoring event.
+mpam_resctrl_alloc_domain() allocates one structure that holds both the
+control domain and the monitoring domain of a resource. It sets up
+whichever of the two domains the resource supports, with the setup of
+both open coded in the function, and undoes the control domain if
+setting up the monitoring domain fails.
 
-The open-coded walk duplicates find_component(). It also holds the SRCU
-read lock until mpam_resctrl_alloc_domain() returns. However, the SRCU
-read lock is only needed while walking the component list, and
-find_component() holds it for that walk.
+Apart from the code that manages domains, every user of the structure
+accesses only one of its two domains, so the monitoring domain can be
+given a structure of its own. Doing so starts with separating its setup
+from that of the control domain.
 
-Replace the open-coded walk with find_component().
+Move the setup of each domain into its own helper in preparation for
+giving the monitoring domain its own structure as part of supporting
+multiple controls per resource. Keep the allocation and the error
+handling in mpam_resctrl_alloc_domain() so that a failure to set up the
+monitoring domain still undoes the control domain.
+
+No functional change intended.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 Tested-by: Jinjie Ruan <ruanjinjie@huawei.com>
@@ -114,39 +119,161 @@ Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Changes since RFC v2:
 - Add Jinjie's Reviewed-by tag.
 - Add Jinjie's Tested-by tag.
-- Shorten changelog. (Ben)
 ---
- drivers/resctrl/mpam_resctrl.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 112 ++++++++++++++++++++-------------
+ 1 file changed, 68 insertions(+), 44 deletions(-)
 
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 1b1e724ae040..a75f653031fd 100644
+index ec39f3909388..db1df6e8d8c0 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1648,21 +1648,12 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
- 	struct rdt_l3_mon_domain *mon_d;
- 	struct rdt_ctrl_domain *ctrl_d;
+@@ -1640,13 +1640,75 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+ 	return NULL;
+ }
+ 
++static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
++					  struct rdt_resource *r,
++					  struct mpam_component *comp,
++					  struct mpam_resctrl_dom *dom)
++{
++	struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
++	int err;
++
++	dom->ctrl_comp = comp;
++
++	mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
++	ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
++	err = resctrl_online_ctrl_domain(r, ctrl_d);
++	if (err)
++		return err;
++
++	mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
++
++	return 0;
++}
++
++static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
++					 struct rdt_resource *r,
++					 struct mpam_resctrl_dom *dom)
++{
++	struct rdt_l3_mon_domain *mon_d = &dom->resctrl_mon_dom;
++	struct mpam_component *any_mon_comp = NULL;
++	enum resctrl_event_id eventid;
++	struct mpam_resctrl_mon *mon;
++	int err;
++
++	/*
++	 * Even if the monitor domain is backed by a different
++	 * component, the L3 component IDs need to be used... only
++	 * there may be no ctrl_comp for the L3.
++	 * Search each event's class list for a component with
++	 * overlapping CPUs and set up the dom->mon_comp array.
++	 */
++
++	for_each_mpam_resctrl_mon(mon, eventid) {
++		struct mpam_component *mon_comp;
++
++		if (!mon->class)
++			continue;       // dummy resource
++
++		mon_comp = find_component(mon->class, cpu);
++		dom->mon_comp[eventid] = mon_comp;
++		if (mon_comp)
++			any_mon_comp = mon_comp;
++	}
++	if (WARN_ON_ONCE(!any_mon_comp))
++		return -EFAULT;
++
++	mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
++	mon_d->hdr.type = RESCTRL_MON_DOMAIN;
++	err = resctrl_online_mon_domain(r, &mon_d->hdr);
++	if (err)
++		return err;
++
++	mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
++
++	return 0;
++}
++
+ static void mpam_resctrl_alloc_domain(unsigned int cpu,
+ 				      struct mpam_resctrl_res *res)
+ {
+ 	int err;
+ 	struct mpam_resctrl_dom *dom;
+-	struct rdt_l3_mon_domain *mon_d;
+-	struct rdt_ctrl_domain *ctrl_d;
  	struct mpam_class *class = res->class;
--	struct mpam_component *comp_iter, *ctrl_comp;
-+	struct mpam_component *ctrl_comp;
+ 	struct mpam_component *comp;
  	struct rdt_resource *r = &res->resctrl_res;
+@@ -1663,55 +1725,17 @@ static void mpam_resctrl_alloc_domain(unsigned int cpu,
+ 		return;
  
- 	lockdep_assert_held(&domain_list_lock);
- 
--	ctrl_comp = NULL;
--	guard(srcu)(&mpam_srcu);
--	list_for_each_entry_srcu(comp_iter, &class->components, class_list,
--				 srcu_read_lock_held(&mpam_srcu)) {
--		if (cpumask_test_cpu(cpu, &comp_iter->affinity)) {
--			ctrl_comp = comp_iter;
--			break;
--		}
--	}
+ 	if (r->alloc_capable) {
+-		dom->ctrl_comp = comp;
 -
-+	ctrl_comp = find_component(class, cpu);
- 	/* class has no component for this CPU */
- 	if (WARN_ON_ONCE(!ctrl_comp))
- 		return ERR_PTR(-EINVAL);
+-		ctrl_d = &dom->resctrl_ctrl_dom;
+-		mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
+-		ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
+-		err = resctrl_online_ctrl_domain(r, ctrl_d);
++		err = mpam_resctrl_setup_ctrl_domain(cpu, r, comp, dom);
+ 		if (err)
+ 			goto free_domain;
+-
+-		mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
+ 	} else {
+ 		pr_debug("Skipped control domain online - no controls\n");
+ 	}
+ 
+ 	if (r->mon_capable) {
+-		struct mpam_component *any_mon_comp = NULL;
+-		struct mpam_resctrl_mon *mon;
+-		enum resctrl_event_id eventid;
+-
+-		/*
+-		 * Even if the monitor domain is backed by a different
+-		 * component, the L3 component IDs need to be used... only
+-		 * there may be no ctrl_comp for the L3.
+-		 * Search each event's class list for a component with
+-		 * overlapping CPUs and set up the dom->mon_comp array.
+-		 */
+-
+-		for_each_mpam_resctrl_mon(mon, eventid) {
+-			struct mpam_component *mon_comp;
+-
+-			if (!mon->class)
+-				continue;       // dummy resource
+-
+-			mon_comp = find_component(mon->class, cpu);
+-			dom->mon_comp[eventid] = mon_comp;
+-			if (mon_comp)
+-				any_mon_comp = mon_comp;
+-		}
+-		if (WARN_ON_ONCE(!any_mon_comp))
+-			goto offline_ctrl_domain;
+-
+-		mon_d = &dom->resctrl_mon_dom;
+-		mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
+-		mon_d->hdr.type = RESCTRL_MON_DOMAIN;
+-		err = resctrl_online_mon_domain(r, &mon_d->hdr);
++		err = mpam_resctrl_setup_mon_domain(cpu, r, dom);
+ 		if (err)
+ 			goto offline_ctrl_domain;
+-
+-		mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
+ 	} else {
+ 		pr_debug("Skipped monitor domain online - no monitors\n");
+ 	}
+@@ -1720,8 +1744,8 @@ static void mpam_resctrl_alloc_domain(unsigned int cpu,
+ 
+ offline_ctrl_domain:
+ 	if (r->alloc_capable) {
+-		mpam_resctrl_offline_domain_hdr(cpu, &ctrl_d->hdr);
+-		resctrl_offline_ctrl_domain(r, ctrl_d);
++		mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_ctrl_dom.hdr);
++		resctrl_offline_ctrl_domain(r, &dom->resctrl_ctrl_dom);
+ 	}
+ free_domain:
+ 	kfree(dom);
 -- 
 2.56.0
 
