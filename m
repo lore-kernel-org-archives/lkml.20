@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316469;
-	b=V5/yto/FWlIXS0XA1HM8ZTuE8EpriizPsJduufnfoJyLlhUHkDxJLoY2s5fk5wYcLkRl
-	 8L0jm0BKajg6H/hmlpcKrVsYij+b5FzGq2c1cxjEdbQmdgKoN4zSUVtYpg+HbqVe7OhRY
-	 /uCFQWrdcFhW4AfIGSQckfVN04WWB6J1nxP9jXenGSdUzUCOhP0YmcHdTiiV5/td7now1
-	 82kC2EN7XPWYcepZkOx8eARxEtBw7a9M/qzHU7NtPf6ITbRddJpdo3rgaUpiMozgxrtcW
-	 hNspP1N22IRyVXCCr4HI2Te7wz8C16iCC6TKlm/TBBDb1pW9xq1nIfhq8Ptk7D3ZYow==
+	t=1794316490;
+	b=VyajLcp3std8Wj9DkRbBhAg9EigDVzynnfbXb4LLcRZjVOkOsJ9bsEyOew75t7ur/qNb
+	 XbKjfT8MEDrT153HT7mqFgRMVXN05qhijZHwou3QBe9H/yVMhAUUZ9xMdYTs/tjIymrfs
+	 tHpyrS2z4b4a0LvNBK0hQY/Bs9lbBfsYAQ91C84YZCTAgrMT/+pPH+tIrUCEpzROqpNYK
+	 iSRNIV6j3HW8VoAdshSLW4KJhT41r8Hy93CJFMWjkJOpnLxCqNLUrflb+fe3YRmEF/yVc
+	 LaxcntZjPIQqALMZoSJwL0wWzIMxPGUb7w1gdtLdDPw5beQMnCyIqDbEvUStdHYOsEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316469;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=E0D4lFouC3sbFRgg4Jcn0sQ9USf0uYoRvw06StM8D7o=;
-	b=wum0JNHlyQlgMeJfblW4F/A7kiS1EZZqQGdT6PhycfEbRvUZZIGnQhedupgEILGKuxUw
-	 iyvhVEktgyxO3p+VkPTc3N/cL7Y60ts/hdMiqP2e+S5hb8ls6LG8+PeeA0MqGOcBfRqBh
-	 ZBGUo1iONYui+qumP73xRfKxrhKb6iEwiTtO8/Kkuccqrrgtdt2b4r6u3uOICs+6Eqje2
-	 JipoygkG6nlHulxJ/QFCYDGBtGSOyi29+oQYlAKrPt4GVy+w6M3LRjM/JLcAmFYF2bhx0
-	 TngpO00y6B+N0w3wXB6orHs+hTIOgfC2k45jIYm3+/ZEuUTH20/SiKujdpDYGTsBUng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316490;
+	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
+	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
+	 X-CM-CTRLMSGS:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=eXTymMa9iEctRAhO5QBvvozDCeMnkZ4FMjYZ8Czi/2g=;
+	b=So1AWU/piLgs9j86x4C6yoWMNnysuyda+sIvYCpxIa7diVgI37buEWQbSIJYf385tLsP
+	 p87lztVhMEFdkSY8OX5KISafeTaArP/Q5pj97nEKOkmLKLHH6+4Xi2D8Fi5jmDfCTfnaw
+	 EZsmwT5aEkn8rcIeHK45mBlu9AZFGISo1F1ohIUAbc9XahAH6mCW88PGT9mKmY46RaJvh
+	 HI6Q5f4ZJA0VMlWarRwQ3MFS8lEgde5hj7/f4yllI1ooWa9XQzcVLeabTbNUx7Pmypqkf
+	 LLWDjo7zV/ZJDbKWcnhJduee+8hNdmSCIKUSS+hj0ZrJu26MOGRKz8xGvmKaLSJX6Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUCaOs2u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F084A606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUCaOs2u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9071F008A4
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:14:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316467;
-	bh=E0D4lFouC3sbFRgg4Jcn0sQ9USf0uYoRvw06StM8D7o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gUCaOs2uTZ+8NNoMmWNAXXqfiYfiRBbfi9D9aYLUWjiT+uHC37Bb6k4/cOe5g75VB
-	 wvIk0AbW5hJwBc4dNx1oVUKaRsSpm46cl0R2Pr5/0oYQ6ig5/BAGwLJUqGhND+yo9o
-	 GmeFEOk9r81oT0zZo1P8+/vBW4QS71oE5qmIwmGZwB4hRAOZlKpADBu+9xQuURs9fA
-	 NaNASNvBqZ6ZGqTBfs9G5+sFu+8t/mhMRXMI8uxDQA3klxjx3Z4q/kbGMMkuSAhgc+
-	 539GiimSRZdyJG+YBkgW5mCobpPfAuF0i7lQBslR/h4pfzL0bZ2+NIV7N4JnIKrQKr
-	 dgFwPyAuiN62Q==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso1847859e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:14:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHRbZ0lyotc0jzkVIpQVxi6WdF8pbWOfdLJVRiVLGp/Z3VeXFA4WOA9ITIbzNHpja89hoOC3KrKezvDAvk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NFLXyKLjucQEFdVk/xNkaKdymH4/xmeqtVJsDYRhHBAShXH5v
-	cKapcuyyP3bNEbi1h7qQVeP5e6MWfjWGmjFCYdyA0MgB5hIoofgcgQ1GvpizCSakTRjtlMqKgmu
-	Sr5/KCN5IcVl+CjDwsHgNPCoStqotOzo=
-X-Received: by 2002:a05:6512:3088:b0:5c0:bcb:bcf9 with SMTP id
- 2adb3069b0e04-5c156ebc96emr867357e87.50.1794316466194; Tue, 10 Nov 2026
- 05:14:26 -0800 (PST)
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 370DC606A326;
+	Tue, 10 Nov 2026 13:14:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 370DC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app2
+ (Coremail) ; Tue, 10 Nov 2026 21:14:45 +0800 (GMT+08:00)
+Date: Tue, 10 Nov 2026 21:14:45 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+To: sre@kernel.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: power: supply: bq25890: pump-express work can call
+  power_supply_changed after the psy is unregistered
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
+ 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
+In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
+References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+ <2026102727-data-sequel-ce41@gregkh>
+X-CM-CTRLMSGS: =?B?Ge6NdjiH6nJ5xwDR7hwMki1N8jM=
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,210 +56,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108233900.4043941-3-ca@modelmiser.com> <20261108233900.4043941-4-ca@modelmiser.com>
-In-Reply-To: <20261108233900.4043941-4-ca@modelmiser.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 14:14:14 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0h-kc0qdgYncJUSqhw7w-Y7svxnqChSGP8StGaAckw7Tg@mail.gmail.com>
-X-Gm-Features: AclHuK-J0IQKxSqxYpSdieCIBbY4_MtW6eSRdRbeP0hbidLlG4SKGNr3oYXizWk
-Message-ID: <CAJZ5v0h-kc0qdgYncJUSqhw7w-Y7svxnqChSGP8StGaAckw7Tg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ACPI: pfr_update: keep the state until the last file
- is closed
-To: Chad Aldreda <ca@modelmiser.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, 
-	linux-acpi@vger.kernel.org, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <4ff0e52f.22b04.1a1c598c347.Coremail.xuhx@hust.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:IQEQrMC23sbFGPNq85sNAA--.9864W
+X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAgMHB2rx8m6StgACsg
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Mon, Nov 9, 2026 at 12:39=E2=80=AFAM Chad Aldreda <ca@modelmiser.com> wr=
-ote:
->
-> struct pfru_device is allocated with devm_kzalloc() and embeds the
-> miscdevice, so it is freed when the driver unbinds. A file that is open
-> on the node outlives the unbind and nothing holds a reference for it:
-> the next ioctl() or write() on that file uses freed memory. Unbinding
-> the driver needs root.
->
-> Allocate the structure with kzalloc() and reference count it: open()
-> takes a reference, under misc_mtx, which misc_deregister() also takes,
-> release() drops it, and a devm action drops the driver's own. The
-> structure also holds a reference on the parent device it uses. A call to
-> ioctl() or write() that starts after remove() returns fails with
-> -ENODEV; one already running finishes against state that is still valid.
->
-> The problem was found with a Coccinelle script that reports device nodes
-> in devm memory [1]. The fix, the reproducer and this message were
-> written with an AI assistant (Claude) and checked by hand. The bug was
-> reproduced and the fix tested in QEMU with KASAN, using an SSDT whose
-> _DSM stands in for the firmware: ioctl() and write() worked before an
-> unbind and, on a file held open across it, failed with -ENODEV. A call
-> racing with the unbind was not tested, nor was hardware with this
-> firmware interface.
->
-> Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.co=
-m [1]
-> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
-vice driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
-> ---
-> The same Coccinelle script reports this driver for the misc_register()
-> of &pfru_dev->miscdev.
->
-> Reproduced in QEMU 10.2.4 (q35, KASAN, booted with kasan_multi_shot). An
-> SSDT adds a device with _HID INTC1080 and a _DSM that returns valid
-> packages, and memmap=3D reserves the communication buffer. A process open=
-s
-> /dev/acpi_pfr_update0, uses QUERY_CAP, SET_REV, write() of a minimal
-> capsule and STAGE, and unbinds the driver through sysfs with the file
-> open. Repeating those calls gives, without this patch, 9 KASAN reports
-> in pfru_ioctl(), query_capability(), pfru_write() and start_update().
->
-> With it there are none. All the calls succeed before the unbind and
-> return -ENODEV after it, and the same sequence behaves the same after a
-> bind. Unbinding with the file already closed, or never opened, gives no
-> reports either. ACTIVATE and STAGE_ACTIVATE were not run; they share
-> start_update() with STAGE.
->
-> No lock is added. A call that passed the removed check can run during
-> the unbind, against state and a parent device that are still valid; the
-> driver has never serialized calls from different files. An rwsem would
-> make the unbind wait for a firmware update to finish.
->
-> kzalloc() rather than kzalloc_obj(), which first appears in v7.0, for
-> the stable trees.
->
->  drivers/acpi/pfr_update.c | 51 +++++++++++++++++++++++++++++++++++++--
->  1 file changed, 49 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-> index 98ace679601b..b9e4c1065ad5 100644
-> --- a/drivers/acpi/pfr_update.c
-> +++ b/drivers/acpi/pfr_update.c
-> @@ -16,9 +16,11 @@
->  #include <linux/file.h>
->  #include <linux/fs.h>
->  #include <linux/idr.h>
-> +#include <linux/kref.h>
->  #include <linux/miscdevice.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
-> +#include <linux/slab.h>
->  #include <linux/string.h>
->  #include <linux/uaccess.h>
->  #include <linux/uio.h>
-> @@ -82,6 +84,8 @@ struct pfru_device {
->         u32 rev_id, index;
->         struct device *parent_dev;
->         struct miscdevice miscdev;
-> +       struct kref kref;
-> +       bool removed;
->  };
->
->  static DEFINE_IDA(pfru_ida);
-> @@ -428,6 +432,9 @@ static long pfru_ioctl(struct file *file, unsigned in=
-t cmd, unsigned long arg)
->         u32 rev;
->         int ret;
->
-> +       if (READ_ONCE(pfru_dev->removed))
-> +               return -ENODEV;
-> +
->         switch (cmd) {
->         case PFRU_IOC_QUERY_CAP:
->                 ret =3D query_capability(&cap_hdr, pfru_dev);
-> @@ -476,6 +483,9 @@ static ssize_t pfru_write(struct file *file, const ch=
-ar __user *buf,
->         char *buf_ptr;
->         int ret;
->
-> +       if (READ_ONCE(pfru_dev->removed))
-> +               return -ENODEV;
-> +
->         ret =3D query_buffer(&buf_info, pfru_dev);
->         if (ret)
->                 return ret;
-> @@ -518,8 +528,39 @@ static ssize_t pfru_write(struct file *file, const c=
-har __user *buf,
->         return ret ?: len;
->  }
->
-> +static void pfru_free(struct kref *kref)
-> +{
-> +       struct pfru_device *pfru_dev =3D
-> +               container_of(kref, struct pfru_device, kref);
-> +
-> +       put_device(pfru_dev->parent_dev);
-> +       kfree(pfru_dev);
-> +}
-> +
-> +static void pfru_put(void *data)
-> +{
-> +       struct pfru_device *pfru_dev =3D data;
-> +
-> +       kref_put(&pfru_dev->kref, pfru_free);
-> +}
-> +
-> +/* misc_open() holds misc_mtx here, and misc_deregister() takes it. */
-> +static int pfru_open(struct inode *inode, struct file *file)
-> +{
-> +       kref_get(&to_pfru_dev(file)->kref);
-> +       return 0;
-> +}
-> +
-> +static int pfru_release(struct inode *inode, struct file *file)
-> +{
-> +       pfru_put(to_pfru_dev(file));
-> +       return 0;
-> +}
-> +
->  static const struct file_operations acpi_pfru_fops =3D {
->         .owner          =3D THIS_MODULE,
-> +       .open           =3D pfru_open,
-> +       .release        =3D pfru_release,
->         .write          =3D pfru_write,
->         .unlocked_ioctl =3D pfru_ioctl,
->         .llseek         =3D noop_llseek,
-> @@ -530,6 +571,7 @@ static void acpi_pfru_remove(struct platform_device *=
-pdev)
->         struct pfru_device *pfru_dev =3D platform_get_drvdata(pdev);
->
->         misc_deregister(&pfru_dev->miscdev);
-> +       WRITE_ONCE(pfru_dev->removed, true);
->  }
->
->  static void pfru_put_idx(void *data)
-> @@ -554,10 +596,16 @@ static int acpi_pfru_probe(struct platform_device *=
-pdev)
->                 return -ENODEV;
->         }
->
-> -       pfru_dev =3D devm_kzalloc(&pdev->dev, sizeof(*pfru_dev), GFP_KERN=
-EL);
-> +       pfru_dev =3D kzalloc(sizeof(*pfru_dev), GFP_KERNEL);
->         if (!pfru_dev)
->                 return -ENOMEM;
->
-> +       kref_init(&pfru_dev->kref);
-> +       pfru_dev->parent_dev =3D get_device(&pdev->dev);
-> +       ret =3D devm_add_action_or_reset(&pdev->dev, pfru_put, pfru_dev);
-> +       if (ret)
-> +               return ret;
-> +
->         ret =3D ida_alloc(&pfru_ida, GFP_KERNEL);
->         if (ret < 0)
->                 return ret;
-> @@ -568,7 +616,6 @@ static int acpi_pfru_probe(struct platform_device *pd=
-ev)
->                 return ret;
->
->         pfru_dev->rev_id =3D PFRU_DEFAULT_REV_ID;
-> -       pfru_dev->parent_dev =3D &pdev->dev;
->
->         pfru_dev->miscdev.minor =3D MISC_DYNAMIC_MINOR;
->         pfru_dev->miscdev.name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL,
-> --
-
-Applied as 7.5 material, thanks!
+VGhlIGJxMjU4OTAgcHJvYmUgcmVnaXN0ZXJzIHRoZSBwb3dlcl9zdXBwbHkgd2l0aCBkZXZtIGFu
+ZCByZWdpc3RlcnMKYnEyNTg5MF9ub25fZGV2bV9jbGVhbnVwKCkgYXMgYW4gZWFybGllciBkZXZt
+IGFjdGlvbi4gIERldnJlcyBpcyBMSUZPLApzbyBvbiB1bmJpbmQgdGhlIHBzeSBpcyB1bnJlZ2lz
+dGVyZWQgZmlyc3QgYW5kIHRoZSBwdW1wLWV4cHJlc3Mgd29yayBpcwpjYW5jZWxlZCBvbmx5IGFm
+dGVyd2FyZHMuICBicTI1ODkwX3JlbW92ZSgpIGRvZXMgbm90IGNhbmNlbCB0aGUgd29yay4KVGhl
+IHB1bXAgd29yayBjYW4gdGhlcmVmb3JlIHJ1biBhZnRlciBwb3dlcl9zdXBwbHlfdW5yZWdpc3Rl
+cigpIGFuZCBjYWxsCnBvd2VyX3N1cHBseV9jaGFuZ2VkKGJxLT5jaGFyZ2VyKSAoYW5kIHNldF9w
+cm9wZXJ0eSBvbiB0aGUgc2Vjb25kYXJ5CmNoYXJnZXIpLCBkZXJlZmVyZW5jaW5nIGEgcHN5IHRo
+YXQgdGhlIGNvcmUgbWF5IGFscmVhZHkgaGF2ZSBmcmVlZC4KVGhpcyBpcyBhIGRyaXZlciByZW1v
+dmUtb3JkZXIgYnVnLCBub3QgdGhlIGNvcmUgd3JhcHBlciBidWcuCgpUaGUgZGV0YWlsZWQgZGVz
+Y3JpcHRpb246CgoqIFRlc3QgZW52aXJvbm1lbnQgLyBhZmZlY3RlZCB2ZXJzaW9uCgogIExpbnV4
+IDcuMy4wIHNvdXJjZSB0cmVlICh1bm1vZGlmaWVkIGtlcm5lbC5vcmcgNy4zKSwgeDg2XzY0LiAg
+VGhpcyBpcwogIGEgc291cmNlLWxldmVsIHJlcG9ydC4gIEkgZGlkIG5vdCBydW4gaXQgb24gYnEy
+NTg5MCBoYXJkd2FyZTogdGhlCiAgS0FTQU4gYnVpbGQgdXNlZCBmb3IgbXkgY29yZSB0ZXN0cyBk
+b2VzIG5vdCBlbmFibGUKICBDT05GSUdfQ0hBUkdFUl9CUTI1ODkwIGFuZCBoYXMgbm8gSTJDIGJx
+MjU4OTAgZGV2aWNlLiAgTm8gcmVwcm9kdWNlcgogIGlzIGF0dGFjaGVkLiAgTGluZSBudW1iZXJz
+IGFyZSBmcm9tIDcuMy4KCiogTWVjaGFuaXNtCgogIFByb2JlIG9yZGVyOgoKICAgICAgOjE0MDkg
+IGJxLT5zZWNvbmRhcnlfY2hyZyA9IHBvd2VyX3N1cHBseV9nZXRfYnlfbmFtZSguLi4pCiAgICAg
+IDoxNDEzICBkZXZtX2FkZF9hY3Rpb25fb3JfcmVzZXQoLi4uLCBicTI1ODkwX3JlbGVhc2Vfc2Vj
+b25kYXJ5X2NocmcpCiAgICAgIDoxNDc3ICBJTklUX0RFTEFZRURfV09SSygmYnEtPnB1bXBfZXhw
+cmVzc193b3JrLCAuLi4pCiAgICAgIDoxNTIyICBkZXZtX2FkZF9hY3Rpb25fb3JfcmVzZXQoLi4u
+LCBicTI1ODkwX25vbl9kZXZtX2NsZWFudXApCiAgICAgIDoxNTMwICBicTI1ODkwX3Bvd2VyX3N1
+cHBseV9pbml0KCkKICAgICAgICA6MTA0MCAgZGV2bV9wb3dlcl9zdXBwbHlfcmVnaXN0ZXIoLi4u
+KQogICAgICA6MTUzNCAgZGV2bV9yZXF1ZXN0X3RocmVhZGVkX2lycSguLi4pCgogIFRoZSBjb21t
+ZW50IGF0IDoxNTE4LTE1MjAgc2F5cyB0aGUgY2xlYW51cCBhY3Rpb24gbXVzdCBiZSByZWdpc3Rl
+cmVkCiAgYmVmb3JlIGJxMjU4OTBfcG93ZXJfc3VwcGx5X2luaXQoKSBzbyB0aGF0IGl0IHJ1bnMg
+YWZ0ZXIgZGV2bQogIHVucmVnaXN0ZXJzIHRoZSBwb3dlcl9zdXBwbHkuICBUaGF0IGlzIGV4YWN0
+bHkgdGhlIHdyb25nIG9yZGVyIGZvciBhCiAgd29yayB0aGF0IGNhbGxzIGludG8gdGhlIHBzeTog
+dGhlIHBzeSBpcyBnb25lIGJlZm9yZSB0aGUgd29yayBpcwogIGNhbmNlbGVkLgoKICBicTI1ODkw
+X3JlbW92ZSgpICg6MTU1MC0xNTYzKSBvbmx5IGNhbmNlbHMgdGhlIHVzYl9waHkgd29yayBhbmQg
+cmVzZXRzCiAgdGhlIGNoaXA7IGl0IGRvZXMgbm90IGNhbmNlbCBwdW1wX2V4cHJlc3Nfd29yay4K
+ICBicTI1ODkwX25vbl9kZXZtX2NsZWFudXAoKSAoOjE0NDktMTQ2MCkgY2FsbHMKICBjYW5jZWxf
+ZGVsYXllZF93b3JrX3N5bmMoJmJxLT5wdW1wX2V4cHJlc3Nfd29yayksIGJ1dCBvbmx5IGFmdGVy
+IHRoZQogIHBzeSB1bnJlZ2lzdGVyLgoKICBicTI1ODkwX2NoYXJnZXJfZXh0ZXJuYWxfcG93ZXJf
+Y2hhbmdlZCgpICg6NzQ0LTc3OSkgcXVldWVzIHRoZSB3b3JrIGF0CiAgOjc2My03NjUuICBUaGUg
+d29yayAoOjEwNTYtMTExNikgc2xlZXBzL3BvbGxzIGZvciB1cCB0byBzZXZlcmFsCiAgc2Vjb25k
+cyAoMyBzIHBvbGwgKyAxIHMgc2xlZXAgcGVyIGl0ZXJhdGlvbiksIGNhbGxzCiAgcG93ZXJfc3Vw
+cGx5X3NldF9wcm9wZXJ0eShzZWNvbmRhcnksIE9OTElORSkgYXQgOjEwNjgvOjExMDQsIGFuZAog
+IHBvd2VyX3N1cHBseV9jaGFuZ2VkKGJxLT5jaGFyZ2VyKSBhdCA6MTExMC4KCiAgT25jZSBwb3dl
+cl9zdXBwbHlfdW5yZWdpc3RlcigpIGhhcyBydW4gYW5kIHRoZSBsYXN0IHJlZmVyZW5jZSBpcyBn
+b25lLAogIGJxLT5jaGFyZ2VyIGlzIGEgZGFuZ2xpbmcgcG9pbnRlcjsgcG93ZXJfc3VwcGx5X2No
+YW5nZWQoKSBkZXJlZmVyZW5jZXMKICBwc3ktPmNoYW5nZWRfbG9jayBhdCBpdHMgZmlyc3QgbGlu
+ZS4gIElmIGEgY29uc3VtZXIgc3RpbGwgaG9sZHMgYQogIHJlZmVyZW5jZSwgdGhlIHBzeSBzdXJ2
+aXZlcyBidXQgaXMgYWxyZWFkeSByZW1vdmVkOyB0aGUgY2hhbmdlZCB3b3JrCiAgdGhlbiBoaXRz
+IHRoZSBjb3JlIDVCIHByb2JsZW0uCgoqIENvbmNyZXRlIGNvcnJ1cHRpb24gLyBpbXBhY3QKCiAg
+cG93ZXJfc3VwcGx5X2NoYW5nZWQoKSBvbiB0aGUgZnJlZWQgcHN5IGlzIGEgc2xhYi11c2UtYWZ0
+ZXItZnJlZQogIChzcGluX2xvY2sgb24gdGhlIGZyZWVkIGNoYW5nZWRfbG9jaywgdGhlbiBzY2hl
+ZHVsZV93b3JrIG9uIHRoZSBmcmVlZAogIHdvcmsgaXRlbSkuICBJdCBjYW4gY29ycnVwdCB0aGUg
+d29ya3F1ZXVlIG9yIGNyYXNoIHRoZSBrZXJuZWw7IGlmIGEKICBjb25zdW1lciBrZWVwcyB0aGUg
+cHN5IGFsaXZlLCB0aGUgc2FtZSBjYWxsIHJlYWNoZXMgdGhlIGZyZWVkIExFRAogIHRyaWdnZXJz
+IGRlc2NyaWJlZCBpbiB0aGUgY29yZSA1QiByZXBvcnQgb24gYSA3LjMga2VybmVsIHdpdGhvdXQg
+dGhlCiAgOWY3ZjdhODU5NDUxIGdldC9zZXQgZ3VhcmQuICBJIGhhdmUgbm90IGRlbW9uc3RyYXRl
+ZAogIHByaXZpbGVnZSBlc2NhbGF0aW9uLCBhbmQgSSBoYXZlIG5vdCBydW4gdGhpcyBvbiBoYXJk
+d2FyZS4KCiogVHJpZ2dlciBtb2RlbAoKICBicTI1ODkwIHdpdGggcHVtcC1leHByZXNzIGVuYWJs
+ZWQgYW5kIGEgRENQIGNoYXJnZXI7IHVuYmluZC9yZW1vdmUKICB3aGlsZSB0aGUgcHVtcCB3b3Jr
+IGlzIHF1ZXVlZCBvciBydW5uaW5nLiAgVGhlIHdvcmsgZGVsaWJlcmF0ZWx5CiAgc2xlZXBzLCBz
+byB0aGUgd2luZG93IGlzIHNlY29uZHMsIG5vdCBhIHNpbmdsZSBpbnN0cnVjdGlvbi4gIFJlbW92
+aW5nCiAgdGhlIGRldmljZSBvciB1bmJpbmRpbmcgdGhlIGRyaXZlciByZXF1aXJlcyByb290OyBh
+IGNoYXJnZXIKICB1bnBsdWcvcmVwbHVnIGNhbiBhbHNvIHN0YXJ0IHRoZSB3b3JrLiAgTm8gZ2Vu
+ZXJpYyB1bnByaXZpbGVnZWQKICB1c2Vyc3BhY2UgaW50ZXJmYWNlLgoKKiBSZXByb2R1Y2VyIC8g
+cmVzdWx0cwoKICBObyByZXByb2R1Y2VyIGF0dGFjaGVkLiAgVGhpcyBpcyBhIHNvdXJjZS1sZXZl
+bCByZXBvcnQ7IEkgY2FuIHRlc3QgYQogIHByb3Bvc2VkIGZpeCBpZiBicTI1ODkwIGhhcmR3YXJl
+IGlzIGF2YWlsYWJsZS4gIFRoZSByZWxldmFudCBjYWxsCiAgY2hhaW4gaXMgZnVsbHkgdmlzaWJs
+ZSBpbiA3LjMgYXQgdGhlIGxpbmUgbnVtYmVycyBhYm92ZS4KCgoKKiBTdWdnZXN0ZWQgZGlyZWN0
+aW9uCgogIFF1aWVzY2UgdGhlIHdvcmsgYmVmb3JlIHVucmVnaXN0ZXJpbmcgdGhlIHBzeS4gIElu
+IGJxMjU4OTBfcmVtb3ZlKCksCiAgc2V0IGEgc3RvcCBmbGFnIGNoZWNrZWQgYnkgYnEyNTg5MF9j
+aGFyZ2VyX2V4dGVybmFsX3Bvd2VyX2NoYW5nZWQoKSwKICBjYW5jZWxfZGVsYXllZF93b3JrX3N5
+bmMoJmJxLT5wdW1wX2V4cHJlc3Nfd29yayksIHRoZW4gZW5zdXJlIHRoZQogIHBvd2VyX3N1cHBs
+eSBpcyB1bnJlZ2lzdGVyZWQgYWZ0ZXIgdGhhdCAoZXhwbGljaXQgdW5yZWdpc3RlciBvciBhCiAg
+ZGV2cmVzIG9yZGVyIHRoYXQgcHV0cyBjbGVhbnVwIGJlZm9yZSB1bnJlZ2lzdGVyKS4gIFJlb3Jk
+ZXJpbmcgdGhlCiAgY2xlYW51cCBhY3Rpb24gYWxvbmUgaXMgbm90IGVub3VnaCBiZWNhdXNlIGV4
+dGVybmFsX3Bvd2VyX2NoYW5nZWQoKQogIGNhbiByZXF1ZXVlIHRoZSB3b3JrIGFmdGVyIHRoZSBj
+YW5jZWwuICBBbHNvIGNsZWFyIG9yIGNoZWNrCiAgYnEtPmNoYXJnZXIgYmVmb3JlIHVzZS4gIFJl
+cG9ydC1maXJzdCwgbm8gcGF0Y2ggYXR0YWNoZWQ7IGhhcHB5IHRvCiAgdGVzdCBhIHByb3Bvc2Fs
+LgoKICAKUGxlYXNlIGtlZXAgbWUgaW4gQ2M7IEkgYW0gbm90IHN1YnNjcmliZWQgdG8gdGhlIGxp
+c3RzLgoKClJlZ2FyZHMsCkhhbnhpYW5nIFh1Cnh1aHhAaHVzdC5lZHUuY24K
