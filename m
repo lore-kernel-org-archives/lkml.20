@@ -1,93 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285003;
-	b=CVS2XqwCcohsGoWnGHKoXF4cmahKaivvXUd3R68v/6RGUB36WshLhxenj+AQ0HzGTXSc
-	 D/yto7PR2c2PvdCGtlr9SW9DwD9+haZdcom+B+gKvneOGoh49IaKvSBQIqAKEF7HeL0Dj
-	 kJ0bzlY7+273ulbYmuWpM1+dMHCEWZLEJkLb2AhnWI/HQj9WlBio8e/5LQBYDC8kY1drO
-	 IncJw2DFkULbz5dQcBZWsnjKcLgrj7/eQpKMPrdfMYWWrXRsmUq7mXq0j/4oPN/vZUxS1
-	 +hXr53UA106N3eunZuSF+N/NuaOQpWKkhQEUfODPpmViofEWDWCaS86UnMJh/eJ0TRQ==
+	t=1794285009;
+	b=lWfsFm2mI9ADVqoVN9YTsSUkJwC26QCY0hRrvw9l0Vj8FXrXkPSEWoQP4oUYI1TIZ0kA
+	 paI6HtEpfYnJKOVW/qM08Nmx5RbqyypwoIrXm7JRsyFYyrWb15FzRuGOszY7de/9GCuXc
+	 QN1FLO1lkfUPHaMMy/fQNWNF9FTWdLXLtab6rjVOC2kcfeXchwJpoPVw84co9M7Z2+l1C
+	 nqqJrwtm9o/W8KewCzeoZNiMLcPc0IaYwzoDkJnHDdx+gmFiglbK0Wgx7/JbuSYikrt5d
+	 93S3ZDWjAuTQZY9MJn8HCL0o+9TQrjhU4HWCakUk/dZHboXTheFYZcs5TQzkvqRPF1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285009;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6C4Hx+d91lAlBeJL9YUS6/bLXYWsvtNC9yUrV7CQ+/A=;
-	b=Sj5x8lCe/f+AI33sp0HXNlzNx60Dhf/iXUSFCcPc47xHDvjs8UasBAAitbPIm/3K6H9p
-	 uqtjvi0JJtC5oevRlM/j7+qDB5VWkr6v3PAo64YjfNgH8QVHdThxhF3qUyx1HvVsHVW5R
-	 OYdduazPagONQtolJUqDotBlBhZ5cARgAQ6vrNRMlzBG7sCK7yT65ARYswRtUvyPt0PtA
-	 DoBhkjHEuTdIgcqqvQNqYliX3VGjm5ncbTWQdxT//0mQtY00vvMPvk9yRwh9iEsm1TIKo
-	 lPsm44kAOYbBR4Zw/yrsrTs/u1q6fCMUmXXbXyDCLsfSe2Inn5TEZivoi7vmnbhYR/Q==
+	bh=Mc6rPhZtcy7thF6jBsEppMpKqkoctKS795gM28YkdhA=;
+	b=a3Z9w9jqmJ9x5Q2tIKN1TqLnpkvCy4ryBn3f0i+PO+Ad8viUcPKqyq3JMi6HNAOgNXuH
+	 /YTrRLaK3QWGiReFdXSrKmK5Wz53YpTJlPklA5FjsMMTmBdCSrM2xMhN+zd4D8+TCJvUd
+	 Mg9qF4qBqEmqdXAJJxlVLPvgtce05CoBOJ/KQdhm0WNNV9dwgP6ShPToQ+kqz+Gtbf6rz
+	 SmbbK8V9Hlz/YbX35kXVgc5KjDXKGrmuwrWTTW6GJDzX/wvH6iCpdXVpg/+elUlPshiTu
+	 yEPV7buC+yonJvmEO2p/tVHgD/t5fAJN6nwb7GtUaoH16hVCn0qtXNZXtpJXYM5VMxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qKMimoi2;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tw2goD4R;
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9B5606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A9B5606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298E360A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 298E360A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qKMimoi2
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53394bffe0fso16499831cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:30:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tw2goD4R
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f1e5d7450so154846385a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:30:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794285001; x=1794889801; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794285008; x=1794889808; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6C4Hx+d91lAlBeJL9YUS6/bLXYWsvtNC9yUrV7CQ+/A=;
-        b=qKMimoi2WwX+SyhMQxEZ/A8E7WOVc4jK6OM/paMrW9cxqwQKtdUaEzopcFxUdfmjoo
-         yNLSNWzb/qnzfuGpBNJvSS/7kSCxqaZZmiYJik80BFqptkdukXkK6DnKieeMGzXc9Uho
-         ncHtTawsMd0nkoIbZYzF8YPxsenWvUQBoHxzoPs+fl6RaSErbHyTJJ55X6xqg6qx9fg1
-         7ZJSULe3zJA5/0h55py4WiBqqLjw6hgVYXV0dOeS1N1myr/g0HxiaIAQulMcJayJiG3u
-         3P82hnMrO4nYgQ6bwtIyhW+mzgAHh6Ep4TNWqd4egv+suOX/k02bJABGnTrX4d+Jb45R
-         49bg==
+        bh=Mc6rPhZtcy7thF6jBsEppMpKqkoctKS795gM28YkdhA=;
+        b=tw2goD4RZ/2tu7CCKcYLAvxfmyz4f4QYQ8A7OsaW1utqAFZAgbziDtsVqBNMvlpGET
+         Te/vSDKbzo7q34BTmS9Pv5r4ds6z8orc8yvXnA6ne9M0GHXvP2jb9nbUY55IHFTrT7aH
+         Wq3yVa1K4rG+nWmTA2nXQQfVW/rBtVkwjcx1INqPFxby1BShW16l4Z1Q7TGDYB2rfK1Q
+         waw083QR7XlXSD5eolV1pZnKaOjXibjWhvN8JN0q/bZ6GgIh0zQgJmKQc9/26bM9rx35
+         1HMbOchXb288maFkZD7b1GCiD+a3RLsvXYpMVV0IhUZevw2CPeddi2Ya68FZnklwUmc7
+         PMig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794285001; x=1794889801;
+        d=1e100.net; s=20260707; t=1794285008; x=1794889808;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6C4Hx+d91lAlBeJL9YUS6/bLXYWsvtNC9yUrV7CQ+/A=;
-        b=IRym204tJS3BCHTbd+FcPwqO8p6798kAnRNa/ZOgXXbbalS0A3dPlmF+CiVpEXFvN+
-         WQ/VYdLd9h2XAHJA2FI5FgQN0yuPgPd5HvKELMyyDWn3jzVX7D8Z3ARk1juyHVVhgU+5
-         tijYW8F3Nj8AfUov1xwinHEbBU1bCVuTWiw1RQjZRRTRAR7blNpEtxBpZl21FabtxJIr
-         lEJEQ94Ba8oDRyNFkzHeq51GBWQl0qu4D5go9x9yy2KEbF42+Mn/mrPybsrjgvFV/3VM
-         b+cUa5TaIEpmZ9Kbb8x8E3AP0QgFM5VfehtCQqZtwYdjvcLbLfGJSL4t7HhEifMXhMLe
-         w7jA==
-X-Forwarded-Encrypted: i=1; AL+hErHJ1j5CeptTLTXA1tSxuC6VLLSDhSTKW0UPqMs+lF8sC7a0y05zdCwkdBWELhXFXnBbZbBjMs73iWxGukw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AXnsFDEQhKMJDnwX8RrRdZH+E2QrX83GI5eFqZFKD1fl02S68
-	TEgoS8QFhyGbCPcP/O1q9SPqeKqhP0EJD9HEM9Gxo1Pn5IBweoSEoOA=
-X-Gm-Gg: AYBFou1EbNb9Jw6zH7CwQdVrsRMIFHnn24oP+KqnHFG/1tmqczmOU1AUM8EO/1o3+5s
-	yoGFaPQUGF9ljVmL2TalABFtqgTXpbmBPEseOHkbC+VECyy2rfYSwHrGBsAU1y+cXy1Xe4WWqOy
-	VlWYh7dxb4OoEairmouI6MxVpo7bprnMy08FNFpZ3fZpLr3NjOc1ILyf+GoayRBUncVUpuA0mPP
-	1ZR/bnwUIPZptUjJW2u/LmoNQdiAi8tZNw0m2ThdhjrAz5VyVc3pFJ35m5CJ+2OiPtYc83p00qR
-	ydK4yihNvxwes4vaQuBNSwtKIrtUpq1QwB/lzlfKd6PeDICu81j8j1WU6xUlSHyFUKnYqetScZ7
-	fwIMigFmO0RWr31TgGExDzU2Q3US7VGZmg/Wty1LDyxkkVKiMZ6jztD2z7NY5EwVgYepXYL9oPn
-	WNFgCcTvEN0voPzl2Bwkp7quWtQl5yALKbpfK4NICfWfBGjVmDQ+WAu0WehHvOJnfKlxAOw3VNl
-	htDAgrEIiuHZ0WfaQGHpNDCxiSzGrovbYFm6Ivqp0va2F0VB5XnXB3gzv20CWot6wWFxVmWuQUw
-	BoxrQou/opAaoeuunpjnL7el3DVh6n1IUwQ36GulPpOI+PcHaCywyyK396b9C8bYCWctxblroES
-	t6LrC65Wtvi3C3AM6jP672mzZoMTOopj5hKI08mYzyl+eP5AiGQrLdYsxFBwi/0rV
-X-Received: by 2002:a05:622a:1e11:b0:547:d087:543d with SMTP id d75a77b69052e-5551667e38cmr23347151cf.3.1794285001514;
-        Mon, 09 Nov 2026 20:30:01 -0800 (PST)
+        bh=Mc6rPhZtcy7thF6jBsEppMpKqkoctKS795gM28YkdhA=;
+        b=zaTdhcDlNzXpkECTGHyAL4B7zGXrdE7FkxqLOvGSQkT0DQJpUEmpv+MGboxyL5+0j9
+         aUTvn/FeSTBdKCpB+O0lbX7f08k1bKVQ/gJvdAZueXBAEAMoRyfffzt4a401pXNgk3VQ
+         +bimTnQAjrCn2lOhMVbstZeNTiPGnhGQfwOjKNVhhJjzMvajvyObKdIpPQks8wM8heHA
+         d0U088R/kqWtHWq+UzAYZoaITdHNkzfvd7nd3Yv8q1oXA3x++47FDQ8eaMi+WzgP1vxS
+         B+qqcMX/j4xvEbkUB7UeuiBqMmznh2ctG6ZpxO9pc2XBZUOtS7o7Pg4cUWnT49+IKqTW
+         dGLg==
+X-Forwarded-Encrypted: i=1; AL+hErFfrxOgwi8P+/re6XByW9Q5UFVv8s4h/cQ1CULNAT/ebYBND3mfQjfwwLEcJClkntf9xUrPDTt1RXAaOdQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98vavNBUs0bwo3fFL2gWPsUCpmtepbRhC5/wZY9e2CqWz561oL
+	e+vFVypey6mYAwAu+5f0cd4I9UhGanim+aVazNUi0G893+82ar9qHPE=
+X-Gm-Gg: AYBFou3orE81Xouegr+ZefGdT/wOcLk4GVXjhR4frAIdYv3/8A8j6S6bYuTyz/e4XJV
+	L+EDvJ1UHnHl5KwCkqojIZBpg4QzU/MHV/A2IVx+6EFG5fxW4swIWvva+dT9RL7Ep4TlNyxW77H
+	ZqH4R9dFxk6XOH33CCZ1wPcG+Gy6RzH342U47EBi6KeRLvryygPasDhRANWuCCKDLwWMsJYrGNy
+	u5SLK7EYwtsOBXL1IMZJvG5oJVejCubfZ5L+6eykTwyPydYtxjep0FhsG68RNmgKIAG2q/ltNGw
+	RtqIBHdtZF8qrjcmo741fBk110g/D9AU76sONnyTkBmSdkDuKliEATbo1+HBEjSL9Kvt0TV9dC1
+	JHlSAA1jxK9u6FeF5dkGQ+Ji1to33N3PfzFSrA0LeMG9dKgBNBDN8vaXJr6MOf80GbvoGgtb5nN
+	Uw5p0913eqfKN48xMpge0g72QTAX3T4WFeza2Kz8SGM/AmoRccqwfvxRY7FkGk9YcrS1llEyGNo
+	Frj8rUD7TrtyiIK1RwfE4ksBzZW3L2f+tldFRi2l/T5Fr2M+i5rXIXedDDMapCiDHyWTIAg8LVJ
+	/PdzcGbLFwqsiq4ni2azfksytJ1HkapkYQm1S4GnFeBWMKD3Jp9+45TtNs5JmtkWWVPtjadzgk3
+	13E2CgefV6pLPw4dRkVTmAfRyV5nUvF6sCsLnvCuUBvmntT4cL7DuqhvxOZegdOQT
+X-Received: by 2002:a05:620a:6496:b0:945:d852:1618 with SMTP id af79cd13be357-9479f3eda61mr223680085a.70.1794285008081;
+        Mon, 09 Nov 2026 20:30:08 -0800 (PST)
 Received: from localhost.localdomain ([104.39.152.7])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-555065e4ad7sm14643351cf.0.2026.11.09.20.30.00
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73b2d2sm134917585a.10.2026.11.09.20.30.06
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 20:30:00 -0800 (PST)
+        Mon, 09 Nov 2026 20:30:07 -0800 (PST)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] Bluetooth: btsdio: disable the TX work on removal
-Date: Mon,  9 Nov 2026 23:29:59 -0500
-Message-ID: <20261110042959.56583-1-mhun512@gmail.com>
+Subject: [PATCH net] net: wwan: mhi_wwan_mbim: disable rx_refill work on removal
+Date: Mon,  9 Nov 2026 23:30:06 -0500
+Message-ID: <20261110043006.56681-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,17 +106,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-btsdio_remove() cancels data->work before hci_unregister_dev() stops
-the HCI command and TX workers. They can still call btsdio_send_frame()
-and queue it again, allowing it to run after hci_free_dev() or release
-of the devm-allocated driver data.
+mhi_mbim_remove() cancels rx_refill before wwan_unregister_ops()
+removes the links. Bringing a link up in between calls mhi_mbim_ndo_open()
+and queues the work again. With the MHI channels already reset, the
+work cannot refill RX buffers and keeps re-arming itself, eventually
+running after devres frees the context.
 
-Use disable_work_sync() to drain the work and reject later queueing.
-Probe initializes fresh work on rebind.
+Use disable_delayed_work_sync() to drain the work and reject later
+queueing. Probe initializes fresh work on rebind.
 
 Found by a static analysis tool under development.
 
-Fixes: 73f7b171b7c0 ("Bluetooth: btsdio: fix use after free bug in btsdio_remove due to race condition")
+Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
 Cc: stable@vger.kernel.org # v6.10+
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
@@ -118,24 +125,21 @@ Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 
 ---
 
- drivers/bluetooth/btsdio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/bluetooth/btsdio.c b/drivers/bluetooth/btsdio.c
-index a194fc85abfb..680965e74bcc 100644
---- a/drivers/bluetooth/btsdio.c
-+++ b/drivers/bluetooth/btsdio.c
-@@ -350,7 +350,7 @@ static void btsdio_remove(struct sdio_func *func)
- 	if (!data)
- 		return;
+diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
+index 336f89756f10..3b6b0066f673 100644
+--- a/drivers/net/wwan/mhi_wwan_mbim.c
++++ b/drivers/net/wwan/mhi_wwan_mbim.c
+@@ -650,7 +650,7 @@ static void mhi_mbim_remove(struct mhi_device *mhi_dev)
+ 	struct mhi_controller *cntrl = mhi_dev->mhi_cntrl;
  
--	cancel_work_sync(&data->work);
-+	disable_work_sync(&data->work);
- 	hdev = data->hdev;
- 
- 	sdio_set_drvdata(func, NULL);
+ 	mhi_unprepare_from_transfer(mhi_dev);
+-	cancel_delayed_work_sync(&mbim->rx_refill);
++	disable_delayed_work_sync(&mbim->rx_refill);
+ 	wwan_unregister_ops(&cntrl->mhi_dev->dev);
+ 	kfree_skb(mbim->skbagg_head);
+ 	dev_set_drvdata(&mhi_dev->dev, NULL);
 
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+base-commit: 0edbc945eb9edd0086f25b151a79cfe4adc0dfa8
 -- 
 2.43.0
 
