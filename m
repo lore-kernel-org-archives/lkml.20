@@ -1,72 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285761;
-	b=yV8/cwjYsJU3YECSx69vfksC44VTHIik7h59lY4oGb7S912YZ5ncfQtJFXsBpvXTZu4G
-	 JCDd0dLtopccA4rTJ6HU6H4DKJFz2DaGG37SSbGr4F2Wgr3+wHS1QKGfKofiFq1tj/kX5
-	 7MuZcfG/2StK0RWVIC9XVJ3V+SpQ5rElxYo1egzWSHo3W1QWUcA90oJDtYDqeC8H+1N5a
-	 7AqxXC93FSeJPNfQrVYDJFdj2MUepTh5AgBGY9teBy8a5RRcB+ux4oiOrgRv9mAHCg6bD
-	 0vtudttfwZ5XZedXXBH/x/W6zO+n2dP3+gYSMoJg/1ky6/yvN0QGzNT477i2ynkWxKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285761;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794285824;
+	b=n39x/xouHc567qI4UPERCseR7ivTmKZF1/fgchxi66zfNDMyvpw6RS5NVuy13b6BIzVM
+	 Ls7pzTzrickKyO9EBYoz+Ct8LQE6ern2VduVw9bZLbAewBeu1If5W56X5rgJsw0oA0p7l
+	 ANrkYXr9ocsi14y66l1ypvN0+nY4UrtD8rftT0AisMqSPQhZoS0Pn2M3oMkxxUlRKWNnU
+	 C68vwDMGHR1/0wASVMiSsrjdAOWct6gdF8fpfqBY1WBOY2nm8KkanV4N/XjQXCtXlCU4t
+	 d01q2cCovmy0r782Fq4ba8cGKQ7B7sCmZfJnIQGfDTCrrkohcIcG629SG/l2jX6e+ZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285824;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=zjN9AV5mzraDlHKgRwS5EnbdBlxMZ/ilvo3TRXjmvng=;
-	b=CT+tX+kYG66BI4//hhHmI5RK5I0C4aKjg9/nTL7nQTk07GFLACse47G2lXzt7gMqy/D/
-	 UoknEchhI+qLBeHdwB+BwmrIl4xs7JQXODUIVSBKWivV1gWopOGXMwWkn33ZTUkNT/msm
-	 ITpbYoEe6Gf8kDO3E3Pj4LGlIDijc86eRr/C3YsfJAlAi/jTOWdq0vB2UpsfKFMhVb1hA
-	 c+NfLW1j6aRN0AdsfMkfXs79aPqx9N2w+z1HG+nKuISVob0JDm0Qd4gUYNAw7ut7uG5tA
-	 o09IdUJslEZVxJLUaypCuUjpK8KvPwy1pUFuyzvK40Vk1b8a8HQNonn4FseK0GaNZ5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--bcochrane.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="WI/UlvPU";
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fjct4Yqe2Yjqkmyxgvaofu3ga8YzMvdjgNfUmi9Z8E8=;
+	b=NxlviXwrHlN66+7UrBHeKdoDXg+xYnxuadYdm/Um5Y2ctbBfpHnhlle93OZj5mj5wrDt
+	 6CNb8oXuRsThO2yQN9+4L8Rq+UWXEJrFlkSPwDfuN2PcJddfqUz8ryhvp8h7HhALXnonN
+	 nxqKM/1LryvaZTNOk4vqzD4C10/r3mJw24bdec/i881WeIzGT5eDm94SPvyEwW5TZhX3l
+	 RNTuYK7M1Mcpbar2Y5SrxRvZ+x3Sp7OKYbXcessJ0L/k13hYO+KU/RiiLtORSgvWxKVFy
+	 gYPS/FbY3ZUydBeiWVIkfuCHUUgAMjTDlve7LbFXB1PdC440mQ4H6keQnhm6koRcf+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ebABcTVV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781DB606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 781DB606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--bcochrane.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39092606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:43:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39092606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WI/UlvPU
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso3449744eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:42:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ebABcTVV
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso884399a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:43:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794285822; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bF3l80rejTGlce5E3HbQvZUOAusWH8zsJxqh52KVyrhDkkCqmpblP5O0wbUOSJXpGd
+         b/wMMs7cr4CWeX0FJrOvVWH0RGkAlpd0SHKYy9xUcdZkjeOtys2yeYs04ud8fj7Gpivm
+         g8mIl22pE7cdmBbnDQwfwm6tOBx7jTrM5VvKRAhwYCDJmSo7Nw5nlHHTGVwjfN29Yx+b
+         yOPGEGfWnk+dsKhHkzHG2AbwMYWuFOdOSKlmkbYK47ss1IJoZTqqkZvXyfxzzBopEC+5
+         ALQG8lEoCfHwpqYDm/8Us3FiyUE46RNqBPNQwMdgZ5zWGZf7pgApoplQGMJdlBBz/U1U
+         l9Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fjct4Yqe2Yjqkmyxgvaofu3ga8YzMvdjgNfUmi9Z8E8=;
+        fh=brRuQV/xUKgTIsW8qTWVPgbmxxrlBqFLWMxPTxJkZMg=;
+        b=Y0jqcEerCLlwaocCC3LNaOCcDgv6OKVPqd+EC9t3n8M2tyAda8dZgl1Pws1BJx5Ali
+         YJ1+pxmEsUBfHpomZ6fWpHhOXxrmhizG6SMsjHf1UuOOupnAVkpTP2XUckI/4MJ0qRDz
+         Zxa1Pi0aFmgxikpFj9G+wVnY8mSrQnMYBviWgq6Qmlrr+w2a3lQ+w76sDc2+uLMslDmb
+         60im5nqaLDbKtNnRFDafkkm0UGACPKlVaC/CZpLvWx0b6AH90qUxIj6bN7Oqo5kSLlBi
+         OAJ4at78cVO+5mAbRFOA/5mpFtsyzoDfHEfcRugb4Kz3ODtN0bHvpW64q+sS0teTnS2z
+         heUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794285761; x=1794890561; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zjN9AV5mzraDlHKgRwS5EnbdBlxMZ/ilvo3TRXjmvng=;
-        b=WI/UlvPUiH99hwfokb7hBw4ILgHuJUtg5j2pqsIyI1BJqcDVjWQWQTvgH9O8TnZNX6
-         Uhfn9wE1UhN3+94cOVss869k0nZluI1Vl1NNaSjwu+0mwF198zMDNOyArHZaIeVwcTVQ
-         KfHCUKRUEo0hM5VolgE/r9bT0149vDH3GBHM6PUqEPqE5LDOTYGMN53nH3qSy1Sfuunn
-         SVbLvjRDfVA4qXLvAZJmrI4X9wpIbyS2rIuwzAw2Xsr41/1VLXb1/UuwWNO+b7JYLhJZ
-         17uAUa4Htg4OGFuYQc4cTqxXX0XntrGvIbyR3ZH+ZlNfV/c9T4KnPBS4+Itm41Gry+SQ
-         HmFA==
+        d=gmail.com; s=20260707; t=1794285822; x=1794890622; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fjct4Yqe2Yjqkmyxgvaofu3ga8YzMvdjgNfUmi9Z8E8=;
+        b=ebABcTVVo0JLd7uap5mXB31hZOAY5OM7LOIjdoTRJxnhHMuzGNipJ32WJeuHKMv5CM
+         RB8dff5x9E8CvvVJvjQaTiDB/Q3ql8trymLoq27ooEnxLkCAi/p2y9akjIyj8SzoiqB9
+         zURvGWlmbZhbM+8FKzZl55lKPsqMoqpsjfehCasfpmwKvWZAt/3Ilqs2BjAJaIxVjMlT
+         OxtMXuIvMZ7VCf/SeWy07rEABCWGYaylIb9N8+95lgTzKTGFy02dMYjshnPo3P64rX8a
+         zBo9LBWexpICgniFDnOE4L5Rb+5lXxQj1BxYcD08g3R7YmY/mufscnPxSdLqjeDjpRFC
+         dVKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794285761; x=1794890561;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1794285822; x=1794890622;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zjN9AV5mzraDlHKgRwS5EnbdBlxMZ/ilvo3TRXjmvng=;
-        b=n+/R26639Bfv53Zr1PuOzDmSJHG6/tex1Gz9f/v3OsZ4E8WHnn9rgo+lQTv3zElmhY
-         vSnOF2p0kkvIeTZYOvOu4btlvKiVmFB5D3Oun866+S1y4VIEYD0awkyRWoLezZUOCexi
-         2z65X+w7nXEYi1uEzPDJxJYNnORwt5XRfScG+k4UK9Aiw7z9ja5VahGHMr326+dC6X3x
-         La4UZcXrkgXSH4d3MT0iepXUdD8v+CEKIuDLXV7vBnChmOwdsIFdMKDpajHQ0YAHjbTB
-         stOAIOZYzHwHx6aTDMS3rJbAwS5Fkpvib+qchC68g15XSa7KrVQlhfC3AD6253wTVK3v
-         EykQ==
-X-Forwarded-Encrypted: i=1; AL+hErFHU5olIl3P8NvLKB8M6H1LKuhSWF5LBt8czCebZagrH8xAq9L5NWjgqq1m9voVHxbV/AdDs0EvhFGXp6I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ziZWUMBubiT1EAtC18jzHLibyFoDTk0rsrlID0XoYewr1GT/E
-	8Hskb4uEUkB/GhwkfA33ym7PRNYtR6ApJjr+6ulD+96hri5XN6YWjTRCgrCKGZGIX3cfMTplq2O
-	vaXOEB4ZLuoEJkszrPA==
-X-Received: from dled18-n1.prod.google.com ([2002:a05:701b:42d2:10b0:1b2:4d89:1614])
- (user=bcochrane job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:b90c:b0:1b2:471f:c4c with SMTP id a92af1059eb24-1b3b607b931mr2215434c88.19.1794285760256;
- Mon, 09 Nov 2026 20:42:40 -0800 (PST)
-Date: Mon,  9 Nov 2026 20:42:35 -0800
+        bh=fjct4Yqe2Yjqkmyxgvaofu3ga8YzMvdjgNfUmi9Z8E8=;
+        b=VPitCRKvyA0N70Dgbbl7c7POLg5htWA9g3EaF0exkirUSDhhjqzBT7SyDBpCT3zA1U
+         2qqRJwNkc7wcXriWCGNps85Mf9r4UXIm93NIg3wYf9jRtRubPkzBw2JdL3T6lfQL2o4j
+         wYSj3YkdC9TzV8CW1hm82DV6PHeB4lKcT1OlZ8qYsfhzjIfVzWdx/KOmWOy5DK3O0S3t
+         kr+sDeJczHwCSYreN+s5inn9St78Yf4K0JUivaKOp+olW/1TWXVmxOJ11j4C3PvxLKs6
+         fdCZVU+LMRJQkUQ23NJwatVgeKVXbM7HPAOgEfZEatqSx+qCrJc4Esu1WyLnY9GscXV8
+         MTlQ==
+X-Forwarded-Encrypted: i=1; AL+hErFtGrsYjEsUm+ZEdS5m9RMcDxooPqCLqlJ3TMTAYIpLWmNBNQFhteX6KB1XmBbB8UWUVdBIT1hYFjP1wpE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oK2NBCplPlCaBJjZMYaxIEmQA7R+MP9W40+GQaalJ9JZEntjr
+	aj22f1SFJD0pOLJ0VTt+iHPBXLf5pGhzSPXhkXNMK33bSRH3MtKhPOl5M1BFYw1DHHIT0WRWKVv
+	nZyi3VQ+Fy8yFmBnlc9+Db08nCL05Ew==
+X-Gm-Gg: AYBFou3TTsXhFvVphD7CFUbzK8o2+LH4fVKCdEHYlcb1x/1weiAsAieDHKvBTgnl8Nz
+	NS77NknAD8/uFxmpfrPloNQXjOIPFAA9WQ8FKt6HMys75YHhihfVhyi1Frck//NTmu4dhnBL86j
+	OIJ8szxLyOtP4/OaQn2fr1oUOYyxI1GC7dy2Eup5ehHT1Gmqx5GoqYRPhte4jXcD0jmZqfwfa3I
+	n9ZXUf9klRL9PPpwdMZJOUOu9mBNUiD83eC7Ik2ZWXm6TqJbq1UDo6jVdck0PZmMt5j1o0d6naB
+	q/8vbrzmFSOHiKMxd+xZ763V3KQm6JiOVw874SdqRMU6JquVv+5OQTCFvrEZDHiKMiZp044rmfl
+	TSi7RrcEnLjZI61OTNL6jss8NOTAFa9Tk9oV7ieWZicvCnsFYK8x7iuQu1Zi7r4lN5oFVjrg/Fg
+	j+WfoULTRhi8reigVpK8D2/vFv+rqjek0nIuolsnmoEa0qeCFZIWpXfIdVsv6kj4R3CZfp
+X-Received: by 2002:a17:90b:5105:b0:3ac:928a:68ce with SMTP id
+ 98e67ed59e1d1-3b1679f3453mr998185a91.33.1794285822393; Mon, 09 Nov 2026
+ 20:43:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,174 +104,257 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110044235.204386-1-bcochrane@google.com>
-Subject: [PATCH net v5] bnxt_en: Take RTNL before netif_close() when aborting
- FW reset
-From: Bryan Cochrane <bcochrane@google.com>
-To: Michael Chan <michael.chan@broadcom.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>, 
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
-	Bryan Cochrane <bcochrane@google.com>, stable@vger.kernel.org
+MIME-Version: 1.0
+References: <20261011220531.2073892-1-mhun512@gmail.com> <20261011220531.2073892-2-mhun512@gmail.com>
+ <SJ0PR11MB770448ECA655129850E63866F49E2@SJ0PR11MB7704.namprd11.prod.outlook.com>
+ <CAGEsz8H4z7cpJQkmFGcqnCT+H56OuUHQDch6kh13TiOo0b-TFA@mail.gmail.com>
+ <SJ0PR11MB7704B813C9011D9478BA2BF4F49C2@SJ0PR11MB7704.namprd11.prod.outlook.com>
+ <SJ0PR11MB77049F097D7061D769DE08A5F4602@SJ0PR11MB7704.namprd11.prod.outlook.com>
+In-Reply-To: <SJ0PR11MB77049F097D7061D769DE08A5F4602@SJ0PR11MB7704.namprd11.prod.outlook.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 9 Nov 2026 23:43:27 -0500
+X-Gm-Features: AclHuK-S2CyrpHDzG1B48T1dkrk9jP5XLxGwtN3GaVGIEXLXaMOXgB2Dn-VQ2hQ
+Message-ID: <CAGEsz8HNs-bqB8we8+J8dHci9okethftp3tLbOv-b6Pu_FivuA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during teardown
+To: "Xu, Even" <even.xu@intel.com>
+Cc: "Sun, Xinpeng" <xinpeng.sun@intel.com>, Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, 
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-netif_close() must be called with RTNL held in addition to the netdev
-instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
-and NETDEV_DOWN notifier chains it runs rely on it for serialization.
+Hi Even,
 
-Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
-bnxt_fw_reset(). That is sufficient for the paths that only tear the
-NIC down internally with __bnxt_close_nic(), but the abort paths close
-the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
-path in bnxt_fw_reset() calls netif_close() directly. Those now run
-without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
-aborted:
+Thanks for testing. I've rebased both patches onto the latest mainline
+with no other code changes.
 
-  RTNL: assertion failed at net/core/dev.c (1740)
-  WARNING: net/core/dev.c:1740 at __dev_close_many+0x1be/0x1f0
-  Workqueue: bnxt_pf_wq bnxt_fw_reset_task [bnxt_en]
-  Call Trace:
-   netif_close_many+0xb5/0x190
-   netif_close+0xa2/0xd0
-   bnxt_fw_reset_task.cold+0x8d/0x213 [bnxt_en]
-   process_one_work+0x19d/0x3a0
-   worker_thread+0x1af/0x320
-   kthread+0xe3/0x120
+Best regards,
+Myeonghun
 
-followed by the same assertion from call_netdevice_notifiers_info(),
-fib_rules_event(), inetdev_event(), rtnl_fill_ifinfo(),
-devlink_compat_phys_port_name_get() and ip_mc_down().
-
-This was observed on a machine in real use with a BCM57504 (4 PFs,
-FW 236.1.153.0) running v7.1.6: the firmware crashed, announced a
-"Fatal firmware reset event" and then failed to come back within the
-advertised max wait, so bnxt_fw_reset_task() aborted the reset on all
-ports:
-
-  bnxt_en 0000:c1:00.1 eno16905np1: Firmware reset aborted
-  bnxt_en 0000:c1:00.1 eno16905np1: fw_health_status 0x448100
-
-Take RTNL (before the netdev instance lock, matching the OPENING state
-which already uses rtnl_trylock()) in the fw_reset_abort path of
-bnxt_fw_reset_task() and route the POLL_VF abort through that same
-path.
-
-In bnxt_fw_reset(), only a PF can reach the bnxt_get_registered_vfs()
-error path that calls netif_close(), so take RTNL up front via
-bnxt_rtnl_lock_sp() when BNXT_PF(bp) is true and keep bnxt_lock_sp() on
-VFs. That avoids dropping the instance lock mid-reset (which would
-expose a transient BNXT_STATE_IN_FW_RESET and let a concurrent devlink
-health recover set BNXT_STATE_IN_SP_TASK), avoids racing with
-bnxt_sriov_configure() updating active_vfs outside RTNL, and keeps VFs
-from contending on RTNL during recovery while PFs already run on the
-single-threaded bnxt_pf_wq.
-
-The bug was found by inspecting the kernel log of the affected machine
-and the driver source; the fix was prepared with the help of an AI
-coding assistant (Gemini based) and reviewed by the submitter. It is
-build tested (allmodconfig with W=1, plus the same change on top of
-v7.1.6 built as a module for the affected BCM57504 host). The aborted
-reset path itself only runs when the firmware fails to return from a
-reset, which could not be reproduced on demand.
-
-Fixes: 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryan Cochrane <bcochrane@google.com>
----
-v5:
- - In bnxt_fw_reset(), take bnxt_rtnl_lock_sp() up front when BNXT_PF(bp)
-   is true (keeping bnxt_lock_sp() on VFs) instead of dropping and
-   reacquiring locks on the bnxt_get_registered_vfs() < 0 path, and drop
-   the bnxt_in_sp_task() change from v4. Dropping netdev_lock mid-reset
-   exposed a transient BNXT_STATE_IN_FW_RESET, while guarding
-   clear_bit(BNXT_STATE_IN_SP_TASK) in bnxt_[rtnl_]lock_sp() risked a
-   deadlock with devl_lock during devlink health recover (reported by the
-   netdev Sashiko review). Using BNXT_PF(bp) rather than active_vfs avoids
-   racing with bnxt_sriov_configure() while still keeping VFs off RTNL.
-v4: https://lore.kernel.org/netdev/20261108222942.1233295-1-bcochrane@google.com/
- - Return to the synchronous close in bnxt_fw_reset() from v2, using
-   netdev_unlock() + bnxt_rtnl_lock_sp() as suggested by Michael Chan,
-   and guard BNXT_STATE_IN_SP_TASK in bnxt_[rtnl_]lock_sp() and
-   bnxt_[rtnl_]unlock_sp() with current_work() == &bp->sp_task. Deferring
-   the close to bnxt_fw_reset_task() in v3 still hung when entered via
-   bnxt_fw_recover(), raced with bnxt_hwrm_if_change() clearing
-   fw_reset_state, and marked the reporter SEVERITY_FATAL (reported by
-   the netdev Sashiko review).
- - Omitted Michael's Reviewed-by and Stanislav's Acked-by from v2 due to
-   the new bnxt_in_sp_task() check.
-v3: https://lore.kernel.org/netdev/20261104045534.79783-1-bcochrane@google.com/
- - Do not drop and retake the locks in bnxt_fw_reset(). Route the
-   bnxt_get_registered_vfs() failure through the bnxt_fw_reset_task()
-   abort path instead; this also restarts the ULP after that abort. The
-   v2 unlock/relock window let a concurrent devlink health recover set
-   BNXT_STATE_IN_SP_TASK via bnxt_unlock_sp() and hang the close
-   (reported by the netdev Sashiko review).
-v2: https://lore.kernel.org/netdev/20261103042210.2984373-1-bcochrane@google.com/
- - Keep bnxt_lock_sp() in bnxt_fw_reset() and take RTNL only on the
-   bnxt_get_registered_vfs() error path, to avoid RTNL contention when
-   many VFs recover at the same time (Michael Chan).
- - Dropped Stanislav's Acked-by because of the change above.
-v1: https://lore.kernel.org/netdev/20261029032832.1511180-1-bcochrane@google.com/
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index 33c4cacc8ffe..8b7ebf2eefaa 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -14838,7 +14838,10 @@ static int bnxt_get_registered_vfs(struct bnxt *bp)
- void bnxt_fw_reset(struct bnxt *bp)
- {
- 	bnxt_ulp_stop(bp);
--	bnxt_lock_sp(bp);
-+	if (BNXT_PF(bp))
-+		bnxt_rtnl_lock_sp(bp);
-+	else
-+		bnxt_lock_sp(bp);
- 	if (test_bit(BNXT_STATE_OPEN, &bp->state) &&
- 	    !test_bit(BNXT_STATE_IN_FW_RESET, &bp->state)) {
- 		struct bnxt_ptp_cfg *ptp = bp->ptp_cfg;
-@@ -14884,7 +14887,10 @@ void bnxt_fw_reset(struct bnxt *bp)
- 		bnxt_queue_fw_reset_work(bp, tmo);
- 	}
- fw_reset_exit:
--	bnxt_unlock_sp(bp);
-+	if (BNXT_PF(bp))
-+		bnxt_rtnl_unlock_sp(bp);
-+	else
-+		bnxt_unlock_sp(bp);
- }
- 
- static void bnxt_chk_missed_irq(struct bnxt *bp)
-@@ -15547,9 +15553,8 @@ static void bnxt_fw_reset_task(struct work_struct *work)
- 		bp->fw_reset_timestamp = jiffies;
- 		netdev_lock(bp->dev);
- 		if (test_bit(BNXT_STATE_ABORT_ERR, &bp->state)) {
--			bnxt_fw_reset_abort(bp, rc);
- 			netdev_unlock(bp->dev);
--			goto ulp_start;
-+			goto fw_reset_abort;
- 		}
- 		bnxt_fw_reset_close(bp);
- 		if (bp->fw_cap & BNXT_FW_CAP_ERR_RECOVER_RELOAD) {
-@@ -15682,9 +15687,11 @@ static void bnxt_fw_reset_task(struct work_struct *work)
- 		netdev_err(bp->dev, "fw_health_status 0x%x\n", sts);
- 	}
- fw_reset_abort:
-+	rtnl_lock();
- 	netdev_lock(bp->dev);
- 	bnxt_fw_reset_abort(bp, rc);
- 	netdev_unlock(bp->dev);
-+	rtnl_unlock();
- ulp_start:
- 	if (!rc)
- 		bnxt_ulp_start(bp);
-
-base-commit: a45dbf182137275f44ad7c8bc8acd23f7af6b2cf
--- 
-2.56.0.506.g506a7eabc5-goog
-
+2026=EB=85=84 10=EC=9B=94 26=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 10:05,=
+ Xu, Even <even.xu@intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Hi, Myeonghun,
+>
+> Validation passed, but I suppose you need rebase your patches on top of l=
+atest mainline kernel.
+>
+> Best Regards,
+> Even Xu
+>
+> > -----Original Message-----
+> > From: Xu, Even
+> > Sent: Thursday, October 15, 2026 9:53 AM
+> > To: 'Myeonghun Pak' <mhun512@gmail.com>
+> > Cc: Sun, Xinpeng <Xinpeng.Sun@intel.com>; Jiri Kosina <jikos@kernel.org=
+>;
+> > Benjamin Tissoires <bentiss@kernel.org>; Srinivas Pandruvada
+> > <srinivas.pandruvada@linux.intel.com>; Mark Pearson <mpearson-
+> > lenovo@squebb.ca>; linux-input@vger.kernel.org; linux-kernel@vger.kerne=
+l.org;
+> > Ijae Kim <ae878000@gmail.com>
+> > Subject: RE: [PATCH 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs dur=
+ing
+> > teardown
+> >
+> > Hi, Myeonghun,
+> >
+> > Then let me test it, it may take several days.
+> > Will feedback once test finished.
+> >
+> > Best Regards,
+> > Even Xu
+> >
+> > > -----Original Message-----
+> > > From: Myeonghun Pak <mhun512@gmail.com>
+> > > Sent: Thursday, October 15, 2026 8:36 AM
+> > > To: Xu, Even <even.xu@intel.com>
+> > > Cc: Sun, Xinpeng <xinpeng.sun@intel.com>; Jiri Kosina
+> > > <jikos@kernel.org>; Benjamin Tissoires <bentiss@kernel.org>; Srinivas
+> > > Pandruvada <srinivas.pandruvada@linux.intel.com>; Mark Pearson
+> > > <mpearson- lenovo@squebb.ca>; linux-input@vger.kernel.org;
+> > > linux-kernel@vger.kernel.org; Ijae Kim <ae878000@gmail.com>
+> > > Subject: Re: [PATCH 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs
+> > > during teardown
+> > >
+> > > Hi Even,
+> > >
+> > > Thanks for reviewing the patch.
+> > >
+> > > No, I haven't tested it on actual hardware. I have only compile-teste=
+d
+> > > it with GCC and W=3D1 on x86_64.
+> > >
+> > > Best regards,
+> > > Myeonghun
+> > >
+> > > 2026=EB=85=84 10=EC=9B=94 12=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 =
+8:52, Xu, Even <even.xu@intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> > > >
+> > > >
+> > > > > -----Original Message-----
+> > > > > From: Myeonghun Pak <mhun512@gmail.com>
+> > > > > Sent: Monday, October 12, 2026 6:06 AM
+> > > > > To: Xu, Even <even.xu@intel.com>; Sun, Xinpeng
+> > > > > <xinpeng.sun@intel.com>; Jiri Kosina <jikos@kernel.org>; Benjamin
+> > > > > Tissoires <bentiss@kernel.org>
+> > > > > Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>;
+> > > > > Mark Pearson <mpearson-lenovo@squebb.ca>;
+> > > > > linux-input@vger.kernel.org;
+> > > > > linux- kernel@vger.kernel.org; Ijae Kim <ae878000@gmail.com>
+> > > > > Subject: [PATCH 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs
+> > > > > during teardown
+> > > > >
+> > > > > The managed IRQ can access HID/DMA buffers or queue recovery work
+> > > > > while remove or probe unwind tears down those resources.
+> > > > >
+> > > > > Disable and synchronize the IRQ, drain recovery work, then mask
+> > > > > THC interrupts before freeing the IRQ and releasing HID/DMA resou=
+rces.
+> > > > > Track IRQ/DMA initialization for conditional probe cleanup.
+> > > > >
+> > > > > Disable the IRQ before shutdown deinit as well. Keep IRQ disablin=
+g
+> > > > > and release outside the shared hibernation helper.
+> > > > >
+> > > > > This issue was found by static analysis.
+> > > >
+> > > > Thanks for your patch!
+> > > >
+> > > > I think this patch is still necessary. It can prevent some extremel=
+y
+> > > > unlikely but
+> > > problematic cases, such as an interrupt already being queued in the
+> > > thread before the THC interrupt is disabled. Have you tested this cod=
+e on actual
+> > hardware?
+> > > >
+> > > > Best Regards,
+> > > > Even Xu
+> > > >
+> > > > >
+> > > > > Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complet=
+e
+> > > > > THC QuickSPI
+> > > > > driver")
+> > > > > Assisted-by: LLM
+> > > > > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > > > > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > > > > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > > > > ---
+> > > > > Compile-tested with GCC, W=3D1 (x86_64). No runtime testing.
+> > > > >
+> > > > > Related recovery-work review and series:
+> > > > > https://lore-kernel.gnuweeb.org/linux-input/20260717035609.387401=
+5
+> > > > > -1
+> > > > > -
+> > > > > even.xu@intel.com/T/
+> > > > > https://patchew.org/linux/20260729050145.2272597-1-even.xu@intel.=
+c
+> > > > > om
+> > > > > /
+> > > > >
+> > > > >  .../intel-quickspi/pci-quickspi.c             | 28 +++++++++++++=
+++----
+> > > > >  1 file changed, 22 insertions(+), 6 deletions(-)
+> > > > >
+> > > > > diff --git
+> > > > > a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> > > > > b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> > > > > index 89226f5ce45e..0bd22f285c78 100644
+> > > > > --- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> > > > > +++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+> > > > > @@ -597,6 +597,8 @@ static int quickspi_probe(struct pci_dev *pde=
+v,
+> > > > >                         const struct pci_device_id *id)  {
+> > > > >       struct quickspi_device *qsdev;
+> > > > > +     bool dma_initialized =3D false;
+> > > > > +     bool irq_requested =3D false;
+> > > > >       void __iomem *mem_addr;
+> > > > >       int ret;
+> > > > >
+> > > > > @@ -649,6 +651,7 @@ static int quickspi_probe(struct pci_dev *pde=
+v,
+> > > > >                                       qsdev);
+> > > > >       if (ret)
+> > > > >               goto dev_deinit;
+> > > > > +     irq_requested =3D true;
+> > > > >
+> > > > >       ret =3D reset_tic(qsdev);
+> > > > >       if (ret) {
+> > > > > @@ -667,17 +670,18 @@ static int quickspi_probe(struct pci_dev *p=
+dev,
+> > > > >               dev_err(&pdev->dev, "Setup THC DMA failed, ret=3D %=
+d\n", ret);
+> > > > >               goto dev_deinit;
+> > > > >       }
+> > > > > +     dma_initialized =3D true;
+> > > > >
+> > > > >       ret =3D quickspi_get_report_descriptor(qsdev);
+> > > > >       if (ret) {
+> > > > >               dev_err(&pdev->dev, "Get report descriptor failed,
+> > > > > ret =3D %d\n", ret);
+> > > > > -             goto dma_deinit;
+> > > > > +             goto dev_deinit;
+> > > > >       }
+> > > > >
+> > > > >       ret =3D quickspi_hid_probe(qsdev);
+> > > > >       if (ret) {
+> > > > >               dev_err(&pdev->dev, "Failed to register HID device,
+> > > > > ret =3D %d\n", ret);
+> > > > > -             goto dma_deinit;
+> > > > > +             goto dev_deinit;
+> > > > >       }
+> > > > >
+> > > > >       qsdev->state =3D QUICKSPI_ENABLED; @@ -692,10 +696,16 @@
+> > > > > static int quickspi_probe(struct pci_dev *pdev,
+> > > > >
+> > > > >       return 0;
+> > > > >
+> > > > > -dma_deinit:
+> > > > > -     quickspi_dma_deinit(qsdev);
+> > > > >  dev_deinit:
+> > > > > +     if (irq_requested) {
+> > > > > +             WRITE_ONCE(qsdev->recovery_disabled, true);
+> > > > > +             disable_irq(pdev->irq);
+> > > > > +     }
+> > > > >       quickspi_dev_deinit(qsdev);
+> > > > > +     if (irq_requested)
+> > > > > +             devm_free_irq(&pdev->dev, pdev->irq, qsdev);
+> > > > > +     if (dma_initialized)
+> > > > > +             quickspi_dma_deinit(qsdev);
+> > > > >  disable_pci_device:
+> > > > >       pci_clear_master(pdev);
+> > > > >
+> > > > > @@ -718,9 +728,12 @@ static void quickspi_remove(struct pci_dev *=
+pdev)
+> > > > >       if (!qsdev)
+> > > > >               return;
+> > > > >
+> > > > > -     quickspi_hid_remove(qsdev);
+> > > > > -
+> > > > > +     WRITE_ONCE(qsdev->recovery_disabled, true);
+> > > > > +     disable_irq(pdev->irq);
+> > > > >       quickspi_dev_deinit(qsdev);
+> > > > > +     devm_free_irq(&pdev->dev, pdev->irq, qsdev);
+> > > > > +
+> > > > > +     quickspi_hid_remove(qsdev);
+> > > > >
+> > > > >       quickspi_dma_deinit(qsdev);
+> > > > >
+> > > > > @@ -747,6 +760,9 @@ static void quickspi_shutdown(struct pci_dev
+> > *pdev)
+> > > > >       if (!qsdev)
+> > > > >               return;
+> > > > >
+> > > > > +     WRITE_ONCE(qsdev->recovery_disabled, true);
+> > > > > +     disable_irq(pdev->irq);
+> > > > > +
+> > > > >       quickspi_dev_deinit(qsdev);
+> > > > >
+> > > > >       /* Must stop DMA before reboot to avoid DMA entering into
+> > > > > unknown state */
