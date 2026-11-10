@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298419;
-	b=AtF8pmaLFgPiQnqLVcgkrQH129OCuCh4xwRDBusiuBqvyHy8lkX8l0E1tqwqYvJAYoHK
-	 AidCKy7kTRB0UrhFvv22bZiGc2eznw1sxC1aEGgnnH319KkER+p0evDbK9NCcgfFKNJO3
-	 hU2oUf0sw+lcNIBcy8h8hZ4u0KVFKep3b3NJv0CBjU84sb0QKIqELhViCgDkSOf3C1ql3
-	 fhYQ7bvyX/jFdEtBluz8XRCmzAt0d9olRLToKQnAaytaBMhg7pyC7faqDnMZH1N+GdXzA
-	 sDGSzkl5gbSUKTFKQpcs3U6Br7NbhflcFz4tzhZaPbDD2hNmnFJhF/yzeMZnDn54hQQ==
+	t=1794298442;
+	b=W9OWkFsRPoMznChLZxzuYbrxMlTJoSTikO8JUY03fsZggz64Pjpp7SpYBljs008/i+kW
+	 mDe5OCce+ucOAB4BqL0XipWYv5xpU+isfpFZu7S+iK9jKxICkWXVMsPQ6Niuvxsmv7LJF
+	 1bWRuMCJFvWyB+B+oC8WaEMyI9JvLkcr/67Y+S9tZgkq307CfbN+i61oCpWLURaHd204x
+	 He0YgAKM/NvsgRPovZJA1gfyXnn2Lx52aZ4nTIy2CFVErALy35/5xR7v38fufkgE1iyF5
+	 XtvWfKE4S0OH9X6HxbQSyLIkIWj0XbXEYUeL3U/erPms57IJXOFwLqOtVwY9Ye51iMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298419;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WyWgG8alvAiP6dZN+wnkNn50hQMCgufqPB6nftMdjyo=;
-	b=wk/zCAkuWZoNxrVTAZoNBE52Zt8y3LRNhI1cNO7pfLUfrGRB9beQoy2D+Ox0cWLq8FHH
-	 Fpk0A4QTXL5AVJe7FtTtojRIt8IPdGK1CrZaW3IL4ZieUeFs/u+DCHigMmKgJhnXGJiCr
-	 nTiFaV9tZqYx8hhvlJ8GYKajbyy2+8ICD2vXNB4D/cIptXVHYuoXJsP1AVEk1vGa7+cNt
-	 CAy4Us7+sGhUeZ8rpy/Cyxut/i3L+s7Z+D6cLq8g88stGhz/jbXYN2//8MM1sQmDei5UB
-	 aivYX6fC71nNPuH5e/KdZ3dOX9Jrxqn0nW+8ysZD9ln7Zj14XmHVpyZZGSGzqlo5N4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298442;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=gMycr7807LolwYYXBGXWxdyF4BE05wA7uJvTcdiuEbo=;
+	b=fZW4nQRgV9eqPHj/2CUaV2iEyPIU3UdwSARuMx8CvWW1UqJZZVtaA6Ru7dgc3iQ4YuI4
+	 yYn3+V7O6QjbpM1c4dCH40vPDOqPup0op311AleZZRfwn/miTFrIU6AqMvAdcZex9wZ0K
+	 R4thPbKlscMo2CVumQ6nr7kFWwNskOTDQNjNl3ywCLcn/368dpgtULhyyT1aw3Ibnfo+1
+	 9l9nAI6/KVRR5LjM6La8kJKvC8kieCC/6m5k4b/6km3i41wy9w5EXnTzRflj01AQo15Sw
+	 NcKc3c3QlqiaGBJ6pQLhPh5eV+7xMfijdHAKAjt5nwYbbfXNu/UH5gmNs5iGq/p5KRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPy1ZHCK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnU6FVC2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D714606A31C;
-	Tue, 10 Nov 2026 08:13:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A402606A31C;
+	Tue, 10 Nov 2026 08:14:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPy1ZHCK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6DD1F0089F;
-	Tue, 10 Nov 2026 08:13:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnU6FVC2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF4E1F0089F;
+	Tue, 10 Nov 2026 08:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298418;
-	bh=WyWgG8alvAiP6dZN+wnkNn50hQMCgufqPB6nftMdjyo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XPy1ZHCKJRLqtlLI6aImqc+y39MOGlJHA+qmVcX5jeg0hnbFd5dQluJ6vbQRqtP1v
-	 iMPMjr4aJ0UjdviT4220uT8k7AcIRi4cEpvxLbpjWDLhQDL/MLsF2xCASCN15wwwhH
-	 U3LjWJrv3Axn4Y4ffbi3Xo4Ip+VdOJDceQLiSAMVGH7LS7ufpo1mZOPaHvdxiuus/0
-	 mAoowkNHE9REYIXEHYnCXwGWrK+oh1q3f2kBAGtVzF5/OspgxLxNSn8NO9JHZp4/78
-	 twsENThxPLigbaQTNv61fK30aS7wCANhyfHQdl6s3OYX0tS9oSBxMOvQfcZ4MeAWFG
-	 zGEO39lSWxgpA==
-Date: Tue, 10 Nov 2026 09:13:34 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gaurav Suman <gauravsuman007@gmail.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/8] dt-bindings: media: Add qcom,sm8150-camss
-Message-ID: <20261110-fictional-jolly-kestrel-4e4c11@quoll>
-References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
- <20261109-sm8150-camera-v1-1-3d2e7b407516@gmail.com>
+	s=k20260515; t=1794298441;
+	bh=gMycr7807LolwYYXBGXWxdyF4BE05wA7uJvTcdiuEbo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=cnU6FVC2ndoDYMpl545KxokiHxlnQqHTbTLejYLhBQhUQU0OD/VFpHftOK/lxk4lC
+	 3VyP/a/2B9xenXOWtoSSAn9+DMG+CKapLR9pYs/PJsriNlbUmNUzMD2lzwHgH0ov6q
+	 ZNtSsd75vVE5fDwCydkWm+Oereo7xmeZwVfE8g470RFFu22pGQ2ivD4hdkDzgZovrr
+	 +9ISZ4NMx0HTXZJmcqPYsIQAXhA8Qg2F2aUADY+jaonjV+ICbppVU27mkW6USZzS/u
+	 mQw15LZKOH2l5VELJvGlsIcS0UGEiD/Wwy2fejksI9viXKqrIqAkkntm2HqWxU0IPs
+	 ZQhbeSihbCvNA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Tamir Duberstein <tamird@kernel.org>, Alexandre
+ Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 1/2] rust: impl_flags: add conversion functions
+In-Reply-To: <DMQSAJDM77O0.Z9EITIPLTKHP@garyguo.net>
+References: <20261105-impl-flags-additions-v3-0-5b17c01c2b15@kernel.org>
+ <20261105-impl-flags-additions-v3-1-5b17c01c2b15@kernel.org>
+ <DMQSAJDM77O0.Z9EITIPLTKHP@garyguo.net>
+Date: Tue, 10 Nov 2026 09:11:32 +0100
+Message-ID: <87mrrhqf63.fsf@t14s.mail-host-address-is-not-set>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,29 +68,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109-sm8150-camera-v1-1-3d2e7b407516@gmail.com>
+Content-Type: text/plain
 
-On Mon, Nov 09, 2026 at 10:38:19PM +0000, Gaurav Suman wrote:
-> Add bindings for the camera subsystem on the Qualcomm SM8150
-> (Titan 175): four CSIPHYs, two CSIDs and two VFEs, plus two lite
-> CSID/VFE pairs. Like the SDM670 binding, only the CAMSS core blocks
-> are described.
-> 
-> SM8150's camera clock controller has no SOC_AHB branch clock; the
-> slow AHB clock source is listed instead, as the downstream driver
-> does.
-> 
-> This was written and tested with the help of an AI coding assistant
-> (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
-> 
-> Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
+"Gary Guo" <gary@garyguo.net> writes:
 
-It seems you are repeating existing work (see lore.kernel.org).
+> On Thu Nov 5, 2026 at 3:42 PM GMT, Andreas Hindborg wrote:
+>> Add two conversion functions to the `impl_flags!` macro:
+>>
+>>  - A `From<_>` implementation to convert from the flag value enum to
+>>    underlying type.
+>>
+>>  - A `TryFrom<_>` implementation to convert from the underlying
+>>    representation to flag container type.
+>>
+>> Drop the hand-written `TryFrom<u32> for VmMapFlags` in tyr, which now
+>> conflicts with the implementation generated by `impl_flags!`. The two are
+>> equivalent.
+>>
+>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+>> ---
+>>  drivers/gpu/drm/tyr/vm.rs | 13 -------------
+>>  rust/kernel/impl_flags.rs | 31 +++++++++++++++++++++++++++++++
+>>  2 files changed, 31 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+>> index 1dd11b2b1253..0d6e841a31ed 100644
+>> --- a/drivers/gpu/drm/tyr/vm.rs
+>> +++ b/drivers/gpu/drm/tyr/vm.rs
+>> @@ -141,19 +141,6 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+>>      }
+>>  }
+>>  
+>> -impl TryFrom<u32> for VmMapFlags {
+>> -    type Error = Error;
+>> -
+>> -    fn try_from(value: u32) -> Result<Self, Self::Error> {
+>> -        let valid = VmFlag::Readonly as u32 | VmFlag::Noexec as u32 | VmFlag::Uncached as u32;
+>> -
+>> -        if value & !valid != 0 {
+>> -            return Err(EINVAL);
+>> -        }
+>> -        Ok(Self(value))
+>> -    }
+>> -}
+>> -
+>>  /// Arguments for a virtual memory map operation.
+>>  struct VmMapArgs<'drm> {
+>>      /// Access permissions and caching behavior for the mapping.
+>> diff --git a/rust/kernel/impl_flags.rs b/rust/kernel/impl_flags.rs
+>> index 6051487f6e28..052759b8038d 100644
+>> --- a/rust/kernel/impl_flags.rs
+>> +++ b/rust/kernel/impl_flags.rs
+>> @@ -73,6 +73,17 @@
+>>  /// // useful for passing the value to a C API.
+>>  /// let raw: u32 = read_only.bits();
+>>  /// assert_eq!(raw, Permission::Read as u32);
+>> +///
+>> +/// // Convert a single flag value to its underlying integer representation.
+>> +/// let raw_read: u32 = Permission::Read.into();
+>> +/// assert_eq!(raw_read, Permission::Read as u32);
+>> +///
+>> +/// // Construct a `Permissions` value from a raw integer. `TryFrom` rejects
+>> +/// // integers whose set bits do not all correspond to declared flags.
+>> +/// let parsed = Permissions::try_from(raw_read | Permission::Write as u32).unwrap();
+>> +/// assert!(parsed.contains(Permission::Read));
+>> +/// assert!(parsed.contains(Permission::Write));
+>> +/// assert!(Permissions::try_from(1 << 7).is_err());
+>>  /// ```
+>>  #[macro_export]
+>>  macro_rules! impl_flags {
+>> @@ -115,6 +126,26 @@ fn from(value: $flags) -> Self {
+>>              }
+>>          }
+>>  
+>> +        impl ::core::convert::From<$flag> for $ty {
+>> +            #[inline]
+>> +            fn from(value: $flag) -> Self {
+>> +                value as Self
+>> +            }
+>> +        }
+>> +
+>> +        impl ::core::convert::TryFrom<$ty> for $flags {
+>> +            type Error = ::kernel::error::Error;
+>> +
+>> +            #[inline]
+>> +            fn try_from(value: $ty) -> Result<Self, Self::Error> {
+>> +                if value & !Self::all_bits() != 0 {
+>> +                    return Err(::kernel::error::code::EINVAL);
+>
+> IMO this should be a new type, perhaps something like
+> `kernel::bitflags::UnknownFlags`.
 
-Dropping.
+Is really useful? If this happens, you probably cannot recover anyway.
 
 Best regards,
-Krzysztof
+Andreas Hindborg
 
