@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317764;
-	b=cGnMAfQ1kkR1yyA9h+oi13zOZmWGwkk5oJbdcC5sYHIJY8+XXWTeMa5ClTjvT3KI9kRq
-	 Z/5vHDP6W/o7skIP1fZqTy4sryOPKBAG4yg/TxewGOewS4vATKwAg87HTANtROSKMAUIf
-	 NCJwl/v0R5huyMwQrqrFxvH/EB4kOm4ySRig9QxvFYDhSHh7MTKJub9zYoh/uENU2DlUD
-	 LrnUjZyspZm94hb7PobVtjrXJJPl9P0Oc9lyyVpJw5i3O5M0cSL50wYnn66de6A4q6XNF
-	 +3PpWCg958W7gFfmJcXIUyOF/hlgmxNoKa24WJjJNTX7DfH9cRa8yMqZPnooJfnYKEg==
+	t=1794317785;
+	b=s+M0He/snJ/ZHRDBGRkpln7yqIpvoSlLz4hgBluA7YgtkI2gmMlCkrd+KxiBe2Q3uxFf
+	 lmvfyGYE+uoJQ3YFVYsBygL1r0NHlo8LYrx2mUOyNvf/zgV1NyZ0vYKDenxNzccy8clQ2
+	 JtKCiaLPBhiTVZ+2HjgUBPAmDtMOwwUCqGSVY0cw/NiNgAtMsBjZXLRJZUyKWXQE4CzG3
+	 yrvEKRJIDMdBTpIh7iqL2JLE+6mACQfRqxSATtJ4JtiyyreE5kijKkrRR9YOxrse7jmXt
+	 /bD14C6XR3xA+n7FfRYGBtsueekRAhWcZIlssecxXaO1/MvXgl3VkBCDjTigZpvu3Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317764;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=BePlmUzazBil0jZOyafds1nHUSQqBT9o0NsepsGpMCY=;
-	b=rTub3Lu19DzP30kYoVh604o8OfUAY1ObLYbUXDdTV22v1fUh67lEyYrQYmcSN6+CX/09
-	 BqaQYdcdUQy9pLpVqP6geDv4L1BRCnCQ3/NnHQzeEuzq/kjhfqZxe6uZGgNJgYMzvZ1/e
-	 2M8Z7OFaVsUjjUIuWbDwjb19TexyyiguGWVePWzPHT5YrnJqpPNAgHFeqbnrTtTsyT8M1
-	 JVEeNa9hsIn1tGpEawy2MHm86wElgajsHF+CKeIeEBvDKa9jAGPi2volgmKHGfTL0Oxzx
-	 F5C+PDtimiH8xUJE+q7KENtr+cSmmS3U1xQIq1lakwblR0OJzs+oftmYxddx8aLldFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317785;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=LP5DUahL5hEGeUCAmx9TodRjN6W7SnWiOWsPXfAnq20=;
+	b=xSJvN8maPnaEOOdJn3QnZeT2959QSnCHG/vgpJn8j8c2L6XGO7UFwU03WjxzDOvlQDVR
+	 /8TmktakUl2RXDBZQ4nrvI7bLwonEvUOvPrOHpD2sil0+bn6krYf0zFTivRao/SX7+i5g
+	 yzWLKSfjAyOtB2JHY/t38Gn/1o/92nNvxKzmx9RB6EqEdCz0+B/KQCXtUnTtxUtDjxqIS
+	 h0z4EsrI1ktnNIpG0deE5HrPJ7UZUyIqsUWIf0hgYPm4edjJcHdvJrU47VO4AiIAM0xNt
+	 12Ul3gEDneqWidyoy5kKh66J/rGDHVmcy5Ev/YCQ+ej6CDeV67IxRL6L/u6wxGluxkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=httpd.dev;
+	spf=pass smtp.mailfrom=httpd.dev;
+	dkim=pass header.d=httpd.dev header.i=@httpd.dev header.a=rsa-sha256 header.s=protonmail3 header.b=SuuMi19m;
+	arc=none smtp.remote-ip=185.70.43.23
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39787606E45C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39787606E45C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1551229a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:36:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794317763; x=1794922563;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BePlmUzazBil0jZOyafds1nHUSQqBT9o0NsepsGpMCY=;
-        b=QLKGDXoF5S0fzHxovfcl35YtSrpeYcnMfGzwPHACkJYHNnwnetDQdZQ4H/v+pmBlfw
-         hcZVTC2bWW7IKBmv7hxds1+jXR7PpMs6C8zeI/1PLe2Z9fcs6kFpyHUC+7gA+xCWQku4
-         mHMKIxIXcMz2M9IX+hv35Jo3AKuu/4o0jlXjy/zyz3tGBINvJImRJ4OwndlCRRt+iFZg
-         iN5ldf7okDhehXu8rKkqWzCIpCLbQsrLjiRh71Os/DPvcSNjnCKSK59cN55f9CWgZDfM
-         j1m/dv7lTTJ5X7MBQ5kuqnAQ54zyuHPojl6cIofuNWscN64mWmuAAg+bNc0Sb6WIT23j
-         JL5w==
-X-Forwarded-Encrypted: i=1; AL+hErEzQydgVNJfxHG+JgjX8eWBolkDSUsDBRFR+QGZ1Rqf49jNrZi2EnqUX8baPVsJ4p05akma1XC6uupYGug=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZeHcekp8ZK1LMXFqf0A0ry7mBUuthV+u/+Sur1gO1vWwCVEs+
-	LoSa3w4AqvoME9UroDuKnajTBOXIqgHiIXa1ULriFg+YPhcZs6bSr6SJ713yHg0u4To=
-X-Gm-Gg: AYBFou07DTcSmLsoLpF/cRuq5nkUXCHGTsxXbYQf88M5Jy4zA03MCFb8006DRim26Cb
-	97IGXh5IRvkPpBgCOUCtr36RpmxRot3VnWR2iHZjB5kNhFRLKziMryGIM9ypwCixOTJqgIQT3zY
-	voRQP5attUCIv82ZelY+2QNTaWHdRjf4OdiXwmUjOULsszVHV3Jh/v1clkPMl22U5Fh3wgHcd4v
-	yS2al+CddQAFOQFfKd7PSh+RqBFS2BaYBPNaC7s5rkjf5haldrEGnAH826S+golhfXQktJ6HT9h
-	EniXRsvlfYV8RiB0HXSyXn4gJogTj5jtLco6BKm75ayOK2j6YV7YbYbd8VMYDrS5cqrdC7LHomc
-	y2WPAUIPCz0z+ol6VYs3ZWik6GLuMgyMlvjIrA7z6h19HeucXxuQiEtO3w0udybc3HxFjipnDA9
-	QGy2Ok7+Xlm/ZoPDuNYu3shdYEaK9uitdzi2ZtOJiOqpmscMXuBCp75gQK/x3WDLVbauKjugR6C
-	l2wzn11iaMmnrzFNkjOLEI9r3w8fFBk/8WnKby5thIfgDKx04EGoorlVaeMKWahs03s7XGnEs1O
-	mqgkTXm8fxEm+bDMQ3SnJVBy/Ed6vUvFHDWreCxHf3UzhdPEaFbbd8E2okfzh3c2e+A=
-X-Received: by 2002:a17:907:8e95:b0:c40:dead:7466 with SMTP id a640c23a62f3a-c5049553248mr211943266b.20.1794317762577;
-        Tue, 10 Nov 2026 05:36:02 -0800 (PST)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5704aasm108692266b.25.2026.11.10.05.35.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 05:35:59 -0800 (PST)
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so3122680a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:35:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHtTgJe+JfMHLHZ5cN8zzIy0W72ODnHtXdjs9dFrA11RJBS412KrbbNpqLlMkmWtFqQ8TVeOzh72x+ftqY=@vger.kernel.org
-X-Received: by 2002:aa7:d853:0:b0:6b6:4dcd:968c with SMTP id
- 4fb4d7f45d1cf-6b756add2aamr1624928a12.16.1794317758591; Tue, 10 Nov 2026
- 05:35:58 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BDB606A74C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62BDB606A74C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=httpd.dev header.i=@httpd.dev header.a=rsa-sha256 header.s=protonmail3 header.b=SuuMi19m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1794317782; x=1794576982;
+	bh=LP5DUahL5hEGeUCAmx9TodRjN6W7SnWiOWsPXfAnq20=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=SuuMi19mExpWvO7BEz/aPH6x1ZAuQZOPnnFssHLJi59zQMy9ErfM7KW2cA/mxdO7V
+	 HsgN8s4EggKFypJWKQsCJVt1rgZUv9hz0IZCYkTtPQziufTx3PDtCoc+YFMrsUaHNI
+	 0wM6ciO+ndLzNyOaC630hNyOgXkd0vOulXxUGO4iWQpeh51AI9qXCB/8jgAt6mNTX/
+	 zHj6xAXKxjXdNAJQtpav9BlS+uQ6ZoI58DFhEz0P5el5X8M78KvCWtKRNQ+Qu06iid
+	 J+YcacGnyHksCtAa+ftIWkM2Uq0M1I6YyPrI1Aag81HncLcN6XfLV14r1cImGvnDj+
+	 lJwrvriMpiy3Q==
+Date: Tue, 10 Nov 2026 13:36:18 +0000
+To: Takashi Iwai <tiwai@suse.de>
+From: Angel J <iamanaws@httpd.dev>
+Cc: linux-sound@vger.kernel.org, tiwai@suse.com, perex@perex.cz, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix the Dell XPS 8940 headset microphone
+Message-ID: <57Kgu-Pdq28OE2JHZjO7YEuS6RCOZLFiDoZO8uqMUieYwA58mHOkRbbZADWKNQsocsNCzH1GkU4pSEhpi-l3mZenIkWdjdNsOHVlbAxGsXQ=@httpd.dev>
+In-Reply-To: <877bilusui.wl-tiwai@suse.de>
+References: <20261103150336.507675-1-iamanaws@httpd.dev> <87wlqtukxh.wl-tiwai@suse.de> <5ncUNWXphcObbYD04quaQMbD0tGoekaHB-QQrX5tgC7sSbzoT9jRVrbY9PyT6mRbww0G9-voA6Y98HjvPg7U25kmeybfQALp5NsNKym-3pc=@httpd.dev> <877bilusui.wl-tiwai@suse.de>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: d2ae0ac7342a2d4a561fe2c0c999f1679f4bb8c7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,59 +64,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
-In-Reply-To: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 10 Nov 2026 14:35:44 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWHw5mbe8LY_t9zWW2VK9TuDDJYTQE_Y5GmjNpLzOB-zA@mail.gmail.com>
-X-Gm-Features: AclHuK-0srTXKsnuWni1-CcV0btL_Vd3sgu665FN-7w6sZ24vTtXz1uHDKMnXqg
-Message-ID: <CAMuHMdWHw5mbe8LY_t9zWW2VK9TuDDJYTQE_Y5GmjNpLzOB-zA@mail.gmail.com>
-Subject: Re: [PATCH v2] gpiolib: fix stack out-of-bounds access in gpiochip_add_hog()
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------51db2c8cd588198dac492970fd6cbb821e3868a5e08392649e89ef17f38b4b8d"; charset=utf-8
 
-On Tue, 10 Nov 2026 at 11:01, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> wrote:
-> In gpiochip_add_hog(), parsing a device tree with an excessively large
-> "#gpio-cells" property causes a stack out-of-bounds write when populating
-> the GPIO specification.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------51db2c8cd588198dac492970fd6cbb821e3868a5e08392649e89ef17f38b4b8d
+Content-Type: multipart/mixed;boundary=---------------------a59ac8069a939afc0c30510d3cf1c046
+
+-----------------------a59ac8069a939afc0c30510d3cf1c046
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
+
+On Monday, November 9th, 2026 at 22:02, Takashi Iwai <tiwai@suse.de> wrote=
+:
+> On Mon, 09 Nov 2026 18:58:47 +0100,
+> Angel J wrote:
+> > Thanks for reviewing. My understanding is that the guidelines require
+> > a known identity, without necessarily requiring disclosure of a full
+> > name. I consistently use =E2=80=9CAngel J=E2=80=9D and this email addr=
+ess for kernel
+> > contributions. My PCI fix, commit 8805840aad73, was merged with the sa=
+me
+> > author identity and Signed-off-by.
 >
-> The value read from #gpio-cells is used to copy the values into right
-> places in struct fwnode_reference_args but that struct's args field is
-> an array of size NR_FWNODE_REFERENCE_ARGS so a value larger than it will
-> make the loop write past the end of that array.
->
-> If #gpio-cells is 0, we can trigger a divide-by-zero later when
-> calculating the actual number of hogs.
->
-> If #gpio-cells is 1, we can also perform an out-of-bounds read of
-> the "gpios" array.
->
-> Reject #gpio-cells larger than NR_FWNODE_REFERENCE_ARGS, lower than 1
-> and make sure #gpio-cells is larger than 1 before checking the
-> active-low flag.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 802c51a83e9a ("gpiolib: fix hogs with multiple lines")
-> Closes: https://sashiko.dev/#/bug/linux-fdec1c0e-c6e3-4eb6-8746-d68a3f951374
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Fix a potential divide-by-zero bug too (sashiko)
-> - Fix an off-by-one bug for #gpio-cells == 1
-> - Link to v1: https://patch.msgid.link/20261105-gpiolib-hog-stack-corruption-v1-1-a47af9c51965@oss.qualcomm.com
+> Is your identity really already widely known in the kernel community?
+> I see only one recent commit in the past, and I can't see it's really
+> "known".
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Hi Takashi,
 
-Gr{oetje,eeting}s,
+No, I'm a new contributor and not widely known, and a full name would
+not change that. I don't read "known identity" as requiring it, though.
+Documentation/process/submitting-patches.rst asks for "a known identity
+(sorry, no anonymous contributions.)", which I understand as excluding
+anonymous contributions rather than requiring a full name.
 
-                        Geert
+"Angel J" is the name I use consistently for my public work, and I can
+be reached at this address.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Let me know if you read the guideline differently.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Angel J
+
+-----------------------a59ac8069a939afc0c30510d3cf1c046--
+
+--------51db2c8cd588198dac492970fd6cbb821e3868a5e08392649e89ef17f38b4b8d
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmrzHcEJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmf0dLddnTK8HGBE4Npk/vY90vg40LeKPLdPciT8
+AJ0pHxYhBEAFf9htFyVnqZzmVhoBbwppzUxnAACQiAD/bOvZ2DvPjy/t0gvI
++drzxU829S+5ui2U3m1AmudLRu4BANNsNJnQDb3oMeOJVnlaW+kL4GErTZ7V
+WvJmyhZJ4LAO
+=O1tT
+-----END PGP SIGNATURE-----
+
+
+--------51db2c8cd588198dac492970fd6cbb821e3868a5e08392649e89ef17f38b4b8d--
+
