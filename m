@@ -1,89 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308437;
-	b=TzhUbJQ6BNiP4hhpR/c+AqYykFAhkbFPFXQC/qQsk+pS/I2f7WYtsIGn17g50FEjLvMs
-	 WbdopyXMWZaWFlMWg7nuGAs1RhDHcPottiIaGJK0v5twcgn1+Dwp21ByumK3OL/giFm+Q
-	 dmh5a6IdRSYkg5xYQkbs6x3iOTFpnI/gpZJqEBxcn6TFD7zAI5vuQlPqnPiF/WMUv0Lj8
-	 X/WPxcRoGUe239Y+CyYWh6qlq8c/h9yPOo5Txs848sEZ9FPKpZ72R8Fivz4FVVFzwQURK
-	 FRfSzhnN4n45LVXaDx/pF1V58fa2j6DSy90ySNqVyBH2rV84s83epB8pJpRNc7bNURg==
+	t=1794308433;
+	b=1+fgrRwmO9Lmppo5D1fiFrX1UUobncjNmLyESE1WPjOIoBF0vcm0qHFVqmI7zGtOfACt
+	 ExaGevmrFz4W+td41mvKipLwPuEyncL9aF9Vig6ZTwyP59PbT1Hs/aDB3NeLScyS+zkVb
+	 wMqbcfyOEKGT1lX66JyObSSuXV9c3GjXj+YsFjfhyg5PN0pGkdfR0Pbb2YIQEEhpWHKy8
+	 cegglWzXG05a+W+kkUrfXR+V4LF+jwf2lap6mafRefTXyYHulWgDsolBjy8fTh7zdbm+s
+	 h1HScdsD1VfeEvGqSZyCzzdMSMos7hm2ey1S2s96QUlUs5qRQVBW2DVIo1GX2fB0vbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308437;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=K10v5vnvxkJjsI7G5IeZLrlXvK0KiwHpcAB9TIGHcs0=;
-	b=2VDzJFGtzohI5sOvp0OFWObWhFmZdj/qnsQpbvS2pUmEJx6t6Kuawj3pv3e3iahCfGWp
-	 A0ugYP7JgU+4Pc2qk8OYK9PU7sLzjyr5IbJVYpq0dUM9CWexRABJJD/seN6Ym1B4/EJry
-	 LrxL/Kgm/vqzcvAhiwlJmZE0HCM9Zo8efe3hXUuwVOmbgsaPCpdq7ybhBK5h7LIUW1eBu
-	 neLz+fH2cUAV3HDZhubDtBQYxOMa7JFKr6M51hnCPfcYTbokAXRNf/Ri/iWw8XBXlFRlE
-	 LlFZKOZTXNZcHkcD4ZBsvuR90+F+M/1iYdmibAxctSPlEFNtqFi7L6fa0VnFUqmvAUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308433;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PvjZgTETpTgpa2EwGhWe6LWOvKhagS++4LBHee0TILc=;
+	b=cUqHauzs0iJNVuNewkEXMnGKK2Vo/V5X5xS1g44G8rjiRYrWzEC1s6l5UcbSQQJQYzOs
+	 lCz7+eey2KILWyTMHARLMNPQ5pvIbL1SLwpeUxukFTHgyJy+8yxLE9BAi//EUH838fIqn
+	 kUqtAVkectyuun/WvMrpEAsCo9ReIopbnw8AG3v4t4a2c0oDQ0nRb1yC/NgwqRhWECh7B
+	 vl24RnxpJlLYvQKfvGh60CXFZF5i+HCS7fM1ZiMY7BbzQ7bAyL8MESE6HICqn+iJoCfrB
+	 fdl/yyIRcLB7AHC1i0HGfLUai6J0HMe5CadVs77ThQlZGHFp6BYXsYrDRs8YLp6vHgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vqFta6X/";
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="MLPC/UP/";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=aGxW5UwB;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0152860A261A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0152860A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DCE60A3806
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97DCE60A3806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vqFta6X/
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b3577deeb0so883170b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:00:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MLPC/UP/;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=aGxW5UwB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794308431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PvjZgTETpTgpa2EwGhWe6LWOvKhagS++4LBHee0TILc=;
+	b=MLPC/UP/2JXhpTh76/esdUa8qBw2aFGktrOEmLLv8YBQtNqMTbZUxeBaX+I/CGuccTp3d6
+	8FG57ztkzxI5CMRPlHtaj0aFWwY6JNWlAaHUBdjvDdv9pdvTjo6f0+7rvvgt+gA5ch9OOO
+	rDOG5E0SA56UBtVEHURxmphrgYylnww=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-660-1AVzrcPDOVqvgjNg84_lVw-1; Tue, 10 Nov 2026 06:00:24 -0500
+X-MC-Unique: 1AVzrcPDOVqvgjNg84_lVw-1
+X-Mimecast-MFC-AGG-ID: 1AVzrcPDOVqvgjNg84_lVw_1794308423
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a80bd45e1cso10602525e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:00:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794308436; x=1794913236; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K10v5vnvxkJjsI7G5IeZLrlXvK0KiwHpcAB9TIGHcs0=;
-        b=vqFta6X/r5LS26yBm9gAjDv2NrQgK/wlH6ENp80rV48JVxxZlHIMf4l0Var7EUuZ+s
-         0XBm8Vfnk8VbEaN2fWpDvNiFUaS7qUbYbMfM0g2HdXSu9Z0H+UiZt5MfOc9VI4JixQ1Z
-         epZdNoALcpvyqbkULVYSF1kgRZFVvrcjZnJ/Xe5upVvG9USbrxi7AblO9+VJL2lzelM3
-         BNxMUmxEKhf6dj2X0zGjQSdSLGnckhbn/gsSe/BhNb/y3ox9Ay6ZIRVvdsfqjT6IRMjd
-         pu78lUL0QeYCJ5Ds9tORw98LPbwYoSfcrOlbgNYzvFNOl3tkgEETWU/thY5bhPYmS1pz
-         Cs2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794308436; x=1794913236;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1794308423; x=1794913223; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K10v5vnvxkJjsI7G5IeZLrlXvK0KiwHpcAB9TIGHcs0=;
-        b=2H/yjceStQrIZxZCWnH15PnsVcqLTy0/WFvmhb3XgwDSDuPppmGVIogMznmH4MzMld
-         9gZ7WlnewqqwMz393R496D9QbxMGjmoDzk1trtTUipSaZ6dYPaYI5NVQKplREMg3JvVX
-         wj3+12Wp1EwZE256tqjWw8X2wi2yL53lDYkxQH3mAGQy53QYlXJVzMY5gaFlhflVQWa2
-         muQX0Qp0tchVmYSNRCwVwMGfeamYBhNehNwMVG3X5ZyFL2roZfDYP9VtJSDiGgGMWkj9
-         ZQ651PIEhap+1OZ+YrDGDyG7YOgAZYRiP+fV+WA4mbfFScoM3T/x4tEg1A5obzWznNp9
-         7G2w==
-X-Forwarded-Encrypted: i=1; AL+hErFZP9jbR67GxwrMOCdLXEYE1p+EVR7O+2RYLhsf3Vym0hH8qRIGDq00r2q79DzaBiV04SHgoG0u7SjC1jI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xg7nZaNxOybhVGFcnx8Ji3SwNiDhRtA7OHcDHJIWjR7/MpY2s
-	r9Qubpq0pE/AXJk2r+txP7VGbb89gwpEh+GbDnhKkxh6RkeiClJEfnJe
-X-Gm-Gg: AYBFou0abyTrbpuG1+oboSb2+xfabWpJKODbzjC28txS0k+x14e1ld1b1djfaCxaQ3a
-	TAuM1xtZkTiPfDkz85RWfqHMmnSc8AqWiJnRfgUeH4aSsyDaYDIDotvb/PrKVlqoCXAovWUFRgP
-	REo79sRBTYYDFrmCdz9RrNYtzV2SlytopaiWLzVNc63huuFmzfoCsDZDKNEpo+Cro+wS4XLYlZ5
-	W+Y00iZZNaBHvmmpBODaXASRK1jl3mwQZvEEDrldgu4hmKm9VkStdjoNl2vTGJQVev38zw7yW8m
-	kVd0cUaoSIv6uxE3qTUa8iKT9Uy+x7eMHfJ65BOZ/h5Ivyvn62mz6nE3d20shVgkPLgf6CurbCO
-	C3WEk6Sd4A9zsDlwhJGkTAxJ97QeifWitWBLdYBCPC78MeDnlZcZWCxdXSDimEI8U+PLU0G0Ncj
-	VDDuAu/BAQHZuNvbrJ5L1FNuwJcqEfoW3jdkskPbePNEkheOJXOB4g0oyxzV/K2jhygJBmcF3iw
-	Z3YsojLXkLNQheFygyXPnni4JcNAdgErhkLP5waXiX52kjMAByNM1CrCBOlT1k5GeGyft+Y50kS
-	mgZqcLnBVHvOTrAip4qjqEHI17atYjgcA24I/sZch7ptgHu3J9xbrHXxnrSQkSWsWfAEhbaHn32
-	zb5uX7uxTU2vv48lwYjjT2qK9gQz0CQg0y7dVAQGikrXAQ81x8+2DGj9yjA==
-X-Received: by 2002:a05:6a21:700a:b0:3de:5a00:e248 with SMTP id adf61e73a8af0-3f190991937mr2018801637.76.1794308436090;
-        Tue, 10 Nov 2026 03:00:36 -0800 (PST)
-Received: from [169.254.3.1] ([143.248.188.96])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de768fsm740596b3a.6.2026.11.10.03.00.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:00:35 -0800 (PST)
-From: SeungJong Ha <engineer.jjhama@gmail.com>
-Date: Tue, 10 Nov 2026 19:59:26 +0900
-Subject: [PATCH net-next 1/2] rust: net: phy: make Device generic over a
- lock context
+        bh=PvjZgTETpTgpa2EwGhWe6LWOvKhagS++4LBHee0TILc=;
+        b=aGxW5UwBL6Ch2N3+dvQ6/Gppqp/AubIefTtK1oM3wugrAIpPyZzt2Bc7oCP3J56nNS
+         koFRcyDesiB0ooi2zC3h8Cy+VEP00ezo9CrpMDD/jL9ZM/mZX9b0m9mUJoK/uYrRDOJO
+         lMZZ1XymsknXqIt4b2kfOBX4WB47oQRsZmxyljE6R6Am5ygN1EC7vFhNLmXHVeQRC75D
+         4L2nHFIYw1AvJqg/MpE9bX2xP2cyojHTSk0tNth/8igEtkLQcoCStUHYWJrqJ13CS+nv
+         1rm81pej5a8HH/DpRIFnvfM2YSdujniYSkP190FegldAVTnjJl++jp9k9Jxm+lMrXPK2
+         FaGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794308423; x=1794913223;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PvjZgTETpTgpa2EwGhWe6LWOvKhagS++4LBHee0TILc=;
+        b=t+BBTs2AGsE2qnlvmTnZAwW8Dlj3rkBgOgRc6NOGB4NdtST/nvgCBLXVsJK3jg9tbS
+         8La9aOBSgxwoljDPnP9QZuUZ4finOr/DA0qjJbX9jN8ZjkN1kIYmiGQRkPqYjR2OM2nA
+         q64FjVA8ghaFzNx9uk6R5TiGPkJIMGRHzAaFRAEUFM9Y+YM29SB9jWJFU2KBHYuDFivW
+         vTAvYynNOf01Gh1rJqBaxvdlfwsCf8tFZkOC3xwn8/fGEBkDPrLzEDHe0unjltJeu6ow
+         D5eWZPkCKVnNCJ4KJUNflQVxiUCuakwwhdr5XUcVoQTuwvy6VZ6epF2j1lG3RhB8NYz5
+         pj1w==
+X-Forwarded-Encrypted: i=1; AL+hErHYdNnl7WhoHAwLH6G4u2i+YjgxJmBlTZ+pLi4uqb2BNKW83rUDUXQwcMYSJN5ysttA2Zg/BcV7t7TrQxU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WqTJ8ENDB5ROXqj7LMYEQKankd44EsfVEV3ZsvvZa1fyqDspx
+	BIki3g4zLPE8fMH3YUoratjIkrhwg7ooYN5OPfQUVfHHiAQcNzfo6pvcYP0WVpZzzF7EcnU8OUu
+	cnpOPRm8WjXkE31qqTr0e3bfdHam2zLH1kJw2ZJFOK9xu1CDaQgFscEhL+hwBS0IfqQ==
+X-Gm-Gg: AYBFou35IRlWNBoGwyS49JaY9t4SbsKfcrrgjmI12V/6qJMyuFEkVcruo1Jg0xktQt5
+	LJjHqaZ0pzyP2g4wxbFSe/Yx+t/jpGoCafbT5mi4QIoN2Tf4xvKpeuIgf27Kk6InLpawk6nPwnI
+	X+nl/k2XpSF6m7lKs3doHqVLiTUkqhBffKEv/6hxdktuSrGHTxDZrNNUDbgpInnFdejJjVtqZgo
+	1qzFFqQPsdJNK/rWGNmNZCB2b4Cv1i5+p1Rwu9ED+N7vgxlvKNQWITUXpMLhA0QWs9PaTyMmCYr
+	mpHS1lkrtDjMYPriNdbZvs7N8JuQ4S08A3VdwPOHcEJLYjAW6AZhX0e58llxoj8d8yQBcQENXzg
+	UnzfmxHbNmur6/pPJS/DSqHtlU1QbPcLQ2iwA7l72h1kH9kDlW2uTUE8VUrr/hGX8uQCIk8xRQF
+	3xNSGdl5Mipd/qfsO3GDRm1v3qscRjXS1PwckbDOGPT7OA
+X-Received: by 2002:a05:600c:6095:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4ba02336388mr36938225e9.5.1794308422292;
+        Tue, 10 Nov 2026 03:00:22 -0800 (PST)
+X-Received: by 2002:a05:600c:6095:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4ba02336388mr36936355e9.5.1794308420789;
+        Tue, 10 Nov 2026 03:00:20 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204e22csm52154425e9.12.2026.11.10.03.00.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 03:00:18 -0800 (PST)
+Message-ID: <e15d78be-1e80-469d-96e1-dd83cd90a929@redhat.com>
+Date: Tue, 10 Nov 2026 12:00:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,316 +112,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 05/15] net/mlx5: LAG, decouple iteration
+ end-of-walk from MLX5_MAX_PORTS
+To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org
+Cc: Akiva Goldberger <agoldberger@nvidia.com>,
+ Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
+ Edward Srouji <edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Moshe Shemesh <moshe@nvidia.com>, Or Har-Toov <ohartoov@nvidia.com>,
+ Patrisious Haddad <phaddad@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Shay Drory <shayd@nvidia.com>
+References: <20261103171009.563034-1-tariqt@nvidia.com>
+ <20261103171009.563034-6-tariqt@nvidia.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261103171009.563034-6-tariqt@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-exp-phy-rs-maybelocked-v1-1-3023cc9055e9@gmail.com>
-References: <20261110-exp-phy-rs-maybelocked-v1-0-3023cc9055e9@gmail.com>
-In-Reply-To: <20261110-exp-phy-rs-maybelocked-v1-0-3023cc9055e9@gmail.com>
-To: FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Trevor Gross <tmgross@umich.edu>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, SeungJong Ha <engineer.jjhama@gmail.com>
-X-Mailer: b4 0.15.2
 
-Make `Device` generic over a lock context, as `device::Device` is over
-its device context: `Locked`, the default, for callbacks that run under
-`phy_device->lock`, and `MaybeLocked` for callbacks that may run without
-it. `Device<Locked>` derefs to `Device<MaybeLocked>`. The next patch
-uses `MaybeLocked`.
+Hi,
 
-Methods that do not need the lock (`phy_id`, register access,
-`read_paged` and `genphy_soft_reset`) move to both contexts and take
-`&self` instead of `&mut self`, since a `MaybeLocked` callback may run
-concurrently with a `Locked` one on the same device. No functional
-change.
+there are a couple of unanswered comments here...
 
-Built with AX88796B_RUST_PHY=y and CLIPPY=1.
+On 11/3/26 18:09, Tariq Toukan wrote:
+> @@ -2095,7 +2096,7 @@ static int mlx5_handle_changeupper_event(struct mlx5_lag *ldev,
+>   				break;
+>   			}
+>   		}
+> -		if (i < MLX5_MAX_PORTS) {
+> +		if (i < ldev->ports) {
 
-Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
----
- rust/kernel/net/phy.rs     | 145 ++++++++++++++++++++++++++++++++-------------
- rust/kernel/net/phy/reg.rs |  17 +++---
- 2 files changed, 113 insertions(+), 49 deletions(-)
+[medium]
+Should this compare against ldev->max_funcs, like the other converted call
+sites?
+The iterator's end-of-walk value is now ldev->max_funcs. That holds both in
+mlx5_get_next_lag_func() and in the mlx5_lag_for_each() condition.
+Indices are never compacted and max_funcs never shrinks. So a PORT-marked
+member can sit at an index in [ldev->ports, max_funcs) while the ldev still
+has ldev->ports members. One way to get there: more PFs than num_lag_ports
+join the ldev, and a lower-index one is removed later.
+In that case the inner loop finds the matching pf and breaks with
+i >= ldev->ports. idx has already been incremented, but this block is
+skipped, so the bond_status |= (1 << idx) and has_inactive updates are
+lost. The later check would then fail:
+	is_in_lag = num_slaves == ldev->ports &&
+		bond_status == GENMASK(ldev->ports - 1, 0);
+Wouldn't that leave this bond silently not offloaded?
+The old i < MLX5_MAX_PORTS check covered the whole index range that the old
+xa_alloc() limit allowed. This code is unchanged at the end of the series.
 
-diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
-index c4e7b1d6c6f4..60c58bbc12d6 100644
---- a/rust/kernel/net/phy.rs
-+++ b/rust/kernel/net/phy.rs
-@@ -50,6 +50,48 @@ pub enum DuplexMode {
-     Unknown,
- }
- 
-+/// A trait implemented by all contexts a [`Device`] can be used in.
-+///
-+/// - [`Locked`]: Serialized against every access made under `phy_device->lock`. The default
-+///   context of [`Device`].
-+/// - [`MaybeLocked`]: `phy_device->lock` may or may not be held.
-+///
-+/// [`Device<Locked>`] dereferences to [`Device<MaybeLocked>`].
-+pub trait PhyContext: private::Sealed {}
-+
-+/// The [`Device`] context of every [`Driver`] callback that does not take a
-+/// [`Device<MaybeLocked>`].
-+///
-+/// PHYLIB holds `phy_device->lock` for these callbacks, except for [`Driver::probe`], which runs
-+/// before the device is published, and for [`Driver::suspend`] and [`Driver::resume`], which run
-+/// without concurrent access to the instance.
-+///
-+/// # Invariants
-+///
-+/// For the lifetime of a [`Device<Locked>`] reference, the holder is serialized against every
-+/// other access to the `phy_device` made under `phy_device->lock`.
-+pub struct Locked;
-+
-+/// The [`Device`] context of callbacks that PHYLIB calls both with and without
-+/// `phy_device->lock` held.
-+///
-+/// A callback in this context must not take `phy_device->lock`.
-+///
-+/// # Invariants
-+///
-+/// None beyond those of [`Device`].
-+pub struct MaybeLocked;
-+
-+mod private {
-+    pub trait Sealed {}
-+
-+    impl Sealed for super::Locked {}
-+    impl Sealed for super::MaybeLocked {}
-+}
-+
-+impl PhyContext for Locked {}
-+impl PhyContext for MaybeLocked {}
-+
- /// An instance of a PHY device.
- ///
- /// Wraps the kernel's [`struct phy_device`].
-@@ -57,11 +99,13 @@ pub enum DuplexMode {
- /// A [`Device`] instance is created when a callback in [`Driver`] is executed. A PHY driver
- /// executes [`Driver`]'s methods during the callback.
- ///
-+/// `Ctx` is the [`PhyContext`] of the callback. Methods that rely on `phy_device->lock` are
-+/// implemented for [`Device<Locked>`] only.
-+///
- /// # Invariants
- ///
--/// - Referencing a `phy_device` using this struct asserts that you are in
--///   a context where all methods defined on this struct are safe to call.
--/// - This struct always has a valid `self.0.mdio.dev`.
-+/// - `self.0` is a valid `phy_device`, and `self.0.mdio.dev` is a valid `struct device`.
-+/// - The invariants of `Ctx` hold for the lifetime of a reference to [`Device<Ctx>`].
- ///
- /// [`struct phy_device`]: srctree/include/linux/phy.h
- // During the calls to most functions in [`Driver`], the C side (`PHYLIB`) holds a lock that is
-@@ -71,7 +115,7 @@ pub enum DuplexMode {
- // [`Driver::resume`] and [`Driver::suspend`] also are called where only one thread can access
- // to the instance.
- #[repr(transparent)]
--pub struct Device(Opaque<bindings::phy_device>);
-+pub struct Device<Ctx: PhyContext = Locked>(Opaque<bindings::phy_device>, PhantomData<Ctx>);
- 
- impl Device {
-     /// Creates a new [`Device`] instance from a raw pointer.
-@@ -91,14 +135,6 @@ unsafe fn from_raw<'a>(ptr: *mut bindings::phy_device) -> &'a mut Self {
-         unsafe { &mut *ptr }
-     }
- 
--    /// Gets the id of the PHY.
--    pub fn phy_id(&self) -> u32 {
--        let phydev = self.0.get();
--        // SAFETY: The struct invariant ensures that we may access
--        // this field without additional synchronization.
--        unsafe { (*phydev).phy_id }
--    }
--
-     /// Gets the state of PHY state machine states.
-     pub fn state(&self) -> DeviceState {
-         let phydev = self.0.get();
-@@ -177,27 +213,6 @@ pub fn set_duplex(&mut self, mode: DuplexMode) {
-         unsafe { (*phydev).duplex = v as c_int };
-     }
- 
--    /// Reads a PHY register.
--    // This function reads a hardware register and updates the stats so takes `&mut self`.
--    pub fn read<R: reg::Register>(&mut self, reg: R) -> Result<u16> {
--        reg.read(self)
--    }
--
--    /// Writes a PHY register.
--    pub fn write<R: reg::Register>(&mut self, reg: R, val: u16) -> Result {
--        reg.write(self, val)
--    }
--
--    /// Reads a paged register.
--    pub fn read_paged(&mut self, page: u16, regnum: u16) -> Result<u16> {
--        let phydev = self.0.get();
--        // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Self`.
--        // So it's just an FFI call.
--        let ret = unsafe { bindings::phy_read_paged(phydev, page.into(), regnum.into()) };
--
--        to_result(ret).map(|()| ret as u16)
--    }
--
-     /// Resolves the advertisements into PHY settings.
-     pub fn resolve_aneg_linkmode(&mut self) {
-         let phydev = self.0.get();
-@@ -206,14 +221,6 @@ pub fn resolve_aneg_linkmode(&mut self) {
-         unsafe { bindings::phy_resolve_aneg_linkmode(phydev) };
-     }
- 
--    /// Executes software reset the PHY via `BMCR_RESET` bit.
--    pub fn genphy_soft_reset(&mut self) -> Result {
--        let phydev = self.0.get();
--        // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Self`.
--        // So it's just an FFI call.
--        to_result(unsafe { bindings::genphy_soft_reset(phydev) })
--    }
--
-     /// Initializes the PHY.
-     pub fn init_hw(&mut self) -> Result {
-         let phydev = self.0.get();
-@@ -276,7 +283,61 @@ pub fn genphy_read_abilities(&mut self) -> Result {
-     }
- }
- 
--impl AsRef<kernel::device::Device> for Device {
-+impl<Ctx: PhyContext> Device<Ctx> {
-+    /// Gets the id of the PHY.
-+    pub fn phy_id(&self) -> u32 {
-+        let phydev = self.0.get();
-+        // SAFETY: `phydev` is valid by the type invariant of `Self`. `phy_id` is set by
-+        // `phy_device_create()` and never written afterwards.
-+        unsafe { (*phydev).phy_id }
-+    }
-+
-+    /// Reads a PHY register.
-+    // This function reads a hardware register and updates the stats.
-+    pub fn read<R: reg::Register>(&self, reg: R) -> Result<u16> {
-+        reg.read(self)
-+    }
-+
-+    /// Writes a PHY register.
-+    pub fn write<R: reg::Register>(&self, reg: R, val: u16) -> Result {
-+        reg.write(self, val)
-+    }
-+
-+    /// Reads a paged register.
-+    pub fn read_paged(&self, page: u16, regnum: u16) -> Result<u16> {
-+        let phydev = self.0.get();
-+        // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Self`.
-+        // So it's just an FFI call.
-+        let ret = unsafe { bindings::phy_read_paged(phydev, page.into(), regnum.into()) };
-+
-+        to_result(ret).map(|()| ret as u16)
-+    }
-+
-+    /// Executes software reset the PHY via `BMCR_RESET` bit.
-+    pub fn genphy_soft_reset(&self) -> Result {
-+        let phydev = self.0.get();
-+        // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Self`.
-+        // So it's just an FFI call.
-+        to_result(unsafe { bindings::genphy_soft_reset(phydev) })
-+    }
-+}
-+
-+impl core::ops::Deref for Device<Locked> {
-+    type Target = Device<MaybeLocked>;
-+
-+    fn deref(&self) -> &Self::Target {
-+        let ptr: *const Self = self;
-+
-+        // CAST: `Device<Locked>` and `Device<MaybeLocked>` transparently wrap the same type.
-+        let ptr = ptr.cast::<Self::Target>();
-+
-+        // SAFETY: `ptr` was derived from `&self`, and the invariants of `MaybeLocked` are
-+        // implied by those of `Locked`.
-+        unsafe { &*ptr }
-+    }
-+}
-+
-+impl<Ctx: PhyContext> AsRef<kernel::device::Device> for Device<Ctx> {
-     fn as_ref(&self) -> &kernel::device::Device {
-         let phydev = self.0.get();
-         // SAFETY: The struct invariant ensures that `mdio.dev` is valid.
-diff --git a/rust/kernel/net/phy/reg.rs b/rust/kernel/net/phy/reg.rs
-index 80e22c264ea8..6d27a70d6180 100644
---- a/rust/kernel/net/phy/reg.rs
-+++ b/rust/kernel/net/phy/reg.rs
-@@ -8,7 +8,10 @@
- //! Ethernet management interface clauses 22 and 45 register namespaces, as
- //! defined in IEEE 802.3.
- 
--use super::Device;
-+use super::{
-+    Device,
-+    PhyContext, //
-+};
- use crate::{
-     build_assert::build_assert,
-     error::*,
-@@ -44,10 +47,10 @@ pub trait Sealed {}
- /// ```
- pub trait Register: private::Sealed {
-     /// Reads a PHY register.
--    fn read(&self, dev: &mut Device) -> Result<u16>;
-+    fn read<C: PhyContext>(&self, dev: &Device<C>) -> Result<u16>;
- 
-     /// Writes a PHY register.
--    fn write(&self, dev: &mut Device, val: u16) -> Result;
-+    fn write<C: PhyContext>(&self, dev: &Device<C>, val: u16) -> Result;
- 
-     /// Checks the link status and updates current link state.
-     fn read_status(dev: &mut Device) -> Result<u16>;
-@@ -104,7 +107,7 @@ pub const fn vendor_specific<const N: u8>() -> Self {
- impl private::Sealed for C22 {}
- 
- impl Register for C22 {
--    fn read(&self, dev: &mut Device) -> Result<u16> {
-+    fn read<C: PhyContext>(&self, dev: &Device<C>) -> Result<u16> {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call, open code of `phy_read()` with a valid `phy_device` pointer
-@@ -116,7 +119,7 @@ fn read(&self, dev: &mut Device) -> Result<u16> {
-         Ok(ret as u16)
-     }
- 
--    fn write(&self, dev: &mut Device, val: u16) -> Result {
-+    fn write<C: PhyContext>(&self, dev: &Device<C>, val: u16) -> Result {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call, open code of `phy_write()` with a valid `phy_device` pointer
-@@ -196,7 +199,7 @@ pub fn new(devad: Mmd, regnum: u16) -> Self {
- impl private::Sealed for C45 {}
- 
- impl Register for C45 {
--    fn read(&self, dev: &mut Device) -> Result<u16> {
-+    fn read<C: PhyContext>(&self, dev: &Device<C>) -> Result<u16> {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call.
-@@ -206,7 +209,7 @@ fn read(&self, dev: &mut Device) -> Result<u16> {
-         Ok(ret as u16)
-     }
- 
--    fn write(&self, dev: &mut Device, val: u16) -> Result {
-+    fn write<C: PhyContext>(&self, dev: &Device<C>, val: u16) -> Result {
-         let phydev = dev.0.get();
-         // SAFETY: `phydev` is pointing to a valid object by the type invariant of `Device`.
-         // So it's just an FFI call.
+This looks valid to me.
 
--- 
-2.54.0
+>   			if (netif_is_bond_master(upper)) {
+>   				slave = bond_slave_get_rcu(ndev_tmp);
+>   				if (slave)
+> @@ -2360,13 +2361,16 @@ int mlx5_ldev_add_mdev(struct mlx5_lag *ldev,
+>   	if (!pf)
+>   		return -ENOMEM;
+>   
+> -	err = xa_alloc(&ldev->pfs, &idx, pf, XA_LIMIT(0, MLX5_MAX_PORTS - 1),
+> +	err = xa_alloc(&ldev->pfs, &idx, pf, XA_LIMIT(0, U8_MAX - 1),
+>   		       GFP_KERNEL);
+
+[high]
+Can this let member indices reach 8 or more while several arrays are still
+sized MLX5_MAX_PORTS?
+
+this is solved at the end of the series, so not really a problem.
+
+Note that there are more unanswered comments on patch 15/15.
+
+I think a v2 is need. For the future I suggest using smaller series:
+15 non trivial patches will have increasingly hard time with AI
+reviews.
+
+/P
 
