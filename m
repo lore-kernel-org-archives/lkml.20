@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279312;
-	b=298RQmKinm68a6i0u3BmLXL77r3EKwykcZwxhp/3a1QVB5QL41wachhOi4pECIKfyq/s
-	 1D4yia1qqURTS2E8S7i3lMm46FpVMohqc6SrBX5xa8FTIBGZdtyGitgOH/vBviZsghcTd
-	 FQBIsXKKGwKJ41uzjvQF21t5MVMYbghh7Dzzwkfkhl8NwkWVHPBtCjeuVTfQwoDXy4oc8
-	 Mljh8DDpDLewrRVcvnzJS9YoAGiBsSq8AUsSwaV1RJQZOlZ9cf7ClCLkcYJOq2UGZHxFz
-	 ZftB+/8ooazGsATJxtDw2fYB9xUduyKr2IrYBXf7t5fyb0pa+AGUJKkZYTZByQTZA7w==
+	t=1794279319;
+	b=VlJi/QulnN/PXsYWrxxJjayi9M2wxoY4vVNIBD0cGAyClMMIwvs99+2xtN20xl9sA8S2
+	 0q3odIxat2AqvRwRsmm0eRahB2XwcOEhae427+3oARM0oEsC6gOGAiI7SxBZSLWPtWE/t
+	 CRGidDctWT1mESdVWfnV3tgVHfNyT8KnvrgSGx+4m4Z2XLgrncColq9CSGweuBjtB19tX
+	 ImV1FcgsZ6BanEUHg/f14sOQUS9d+3wDfwz6sEqd/UGgb3r4NqBagbV8m8ON9S3rRVh8b
+	 8e7dX/ZRTzh80r82F6IXyHplLZwtTjIMMU1RUq1bWEq2FPjrp9QSqCmcTgQw7LIptSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279319;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=GX6NMgzIRw89DK00cR/AHQm10bN7NFOig+LbXAxw8pE=;
-	b=WxOhPchjnpgS8oamz7qdzE5QX2f8rkrjaAlX+hfQHMvEgDSho9NZHY/BAK3h4AdPrGia
-	 ozt7svcR0mhMFvVQLRWrpk1nZyYNY31TekL5ZJaK39jdftwWwHzxVxxJjLC6pmgHNokZd
-	 TNh0mx7d8ggdeRcx1B8mv8QUA/4ZCWXR4bTOKK4mbSYFZODcEc1uqzICceUkJxsjMqX8i
-	 4aRrxQOYqTiN9SqafoFZMWuAS0ogWPK8eMXTFvB6tqkehJZnjgQXHtzkyzvS/u+TWchbZ
-	 ha5fswbGgSeN2exYk6FmR/xgMdWeWrxf9LuPkQ7kCK1/Q5wv03drcuou2Wyh6+NwuVA==
+	bh=1fxCtwQTd6ybLLHw7FRW0GtCuwc3+kDiS0LRiRdpFYk=;
+	b=DCj7bWUHVxRd0+nRgt3Tm+qUeLBhQnXXVeOFKLwq6M+639Oj5d6QruVTKR9eVrDra5sv
+	 To1tYT9RLyUCypmJ/g10cVmfUX9Fu2sx6D+wHEHHISz5RW0umRycDoT9WR0rEM/QLOQsM
+	 Iqi9lRgPAF/56IKP3UFMtNCI2rDrJYIACcvYQmk7J9ChAm5V72rZbWUleFrlD8WkkTLGS
+	 B7Lh2ewtPZIXR97rsq+r3URDwc2Eg8ivkOPW4lLbospDoZUlPAxYodSM7/1KU5I12fGQP
+	 xXvnYbMcHvUVqadHgNjdulFDw2PDcFAnStMrzaBTeQsfvM7XFfaJOGHRltTowSYZ6Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qiit7JZW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuhEJLA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33410606B0EC;
-	Tue, 10 Nov 2026 02:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC3F606BAE6;
+	Tue, 10 Nov 2026 02:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qiit7JZW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CFD1F008A4;
-	Tue, 10 Nov 2026 02:55:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuhEJLA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297011F008A3;
+	Tue, 10 Nov 2026 02:55:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279311;
-	bh=GX6NMgzIRw89DK00cR/AHQm10bN7NFOig+LbXAxw8pE=;
+	s=k20260515; t=1794279319;
+	bh=1fxCtwQTd6ybLLHw7FRW0GtCuwc3+kDiS0LRiRdpFYk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Qiit7JZWphnyULcjmDZtQY1+3Ad1ZuI7Nrngu8wNHQfGz6824RHRLxsyvWbSoj1Gd
-	 NRhjRjWRi2aXENblbSiI2QR6Jn6eiVjtbxXnvu+bjYGpo9dIri/Pg+ek4pXJAHk7r4
-	 OUp1h8Ye1xhoeGFnOppGyZvHMvKvcZj/4cTE4wZDp9SCoyI4S9VbK4oLHCOw5ZwKhN
-	 bYUhpkQDPaIpXLehAr3EQrgYReSttWewDFtZwA/ZgQDmC4VVpFyvVeD4IYDgXCZUr4
-	 //asiNGRJjtektg93joQSxSpFpsBQ62rZ1n5xYVMYoI4I59NJxe3OiO1zNZU28TAGZ
-	 YRqSjQo9V4UbA==
+	b=LDuhEJLA3Oh2FDg0+hrlMusVmWjNti0kjWi/a0hzL/7bB6bOSZx6dgbn0bh8uu4tD
+	 lk9uV2UYQrxFA3uPHwU+25UoVKoXIb/Ub/3g8vHk1qR/fJEEbKvmGJnq7toVBphgrv
+	 IR6aVuUYikVCBXdNSkIw/kYB91cgCFHZcOarm1c+PpxMenhZVzspa0LKOCFUixRGuk
+	 R+GNfh9hMbDWTGN3Hv7W5AFGF3dUx607A+HSHXjFR0WfGMcEmccwTFB5USTIwK9uZp
+	 Hu25ysOw/2ezCsmysPX8MfAPYbvDPYfivtjAJqzHq+IKqqOtsGGqmOpQ/DuQ6dmY1H
+	 2ctUD+DMrRSvw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B240391AFCB;
-	Tue, 10 Nov 2026 02:55:11 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 20FAB391AFCB;
+	Tue, 10 Nov 2026 02:55:19 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,45 +54,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: dma: use dmaengine_desc_set_callback()
+Subject: Re: [PATCH net] net: mvpp2: fix double free of the replaced rule in
+  mvpp2_ethtool_cls_rule_ins()
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179427931017.3612825.1887357709243075778.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 02:55:10 +0000
-References: <20261102191922.4044912-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261102191922.4044912-1-Frank.Li@oss.nxp.com>
-To: Frank Li <Frank.Li@oss.nxp.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, wens@kernel.org,
- jernej.skrabec@gmail.com, samuel@sholland.org, radhey.shyam.pandey@amd.com,
- michal.simek@amd.com, stephan@gerhold.net, loic.poulain@oss.qualcomm.com,
- ryazanov.s.a@gmail.com, johannes@sipsolutions.net, Frank.Li@nxp.com,
- andre.przywara@arm.com, liyouhong@kylinos.cn, joe@dama.to, arnd@arndb.de,
- phucduc.bui@gmail.com, yiconghui@gmail.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org
+ <179427931767.3612825.5572628668959345425.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 02:55:17 +0000
+References: <20261104120225.28377-2-fourier.thomas@gmail.com>
+In-Reply-To: <20261104120225.28377-2-fourier.thomas@gmail.com>
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: marcin.s.wojtas@gmail.com, linux@armlinux.org.uk, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon,  2 Nov 2026 14:19:16 -0500 you wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Wed,  4 Nov 2026 13:02:23 +0100 you wrote:
+> When a rule already exists at the requested location,
+> mvpp2_ethtool_cls_rule_ins() removes it from the hardware and frees it,
+> but leaves port->rfs_rules[loc] pointing at the freed structure. If
+> inserting the new rule then fails, the next rule insertion will free the
+> rule once again.
 > 
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across net drivers.
-> 
-> No functional change intended. Prepare to make struct
-> dma_async_tx_descriptor private to the DMA engine.
+> Clear the slot as soon as the old rule has been freed.
 > 
 > [...]
 
 Here is the summary with links:
-  - net: dma: use dmaengine_desc_set_callback()
-    https://git.kernel.org/netdev/net-next/c/e281e85235cf
+  - [net] net: mvpp2: fix double free of the replaced rule in mvpp2_ethtool_cls_rule_ins()
+    https://git.kernel.org/netdev/net-next/c/d26955e57475
 
 You are awesome, thank you!
 -- 
