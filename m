@@ -1,68 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285303;
-	b=0URb00JJEzKQc2zdDBo53H1igdre2Gb/GcSf5CX6PIthr5aTWGCx+1MLOOwpMzT1+j8n
-	 ztEuwCUTnX/5KVNMwD2LoLvsd5qzYiHo1VjmpSOdXOKiX3wuPjr3F/VM8nTg7FTJGw4yR
-	 6IF40HZ1CKxkOo0GSAN9VLN/Tg8Tv9IH3XdJQdWcWg23hMIgqUueyQ7JWoI7Lk7C3Sxhw
-	 Jpx8t4Qh1OKTfPXv5PAUB6qHFTsfRc8IQJQ5Zi4aFeb2gLS5XcbJ/9VfuqVBDcUXWzddD
-	 y3bX9Q8M879lPjElrhq1mvOsKhaE/rDpV44F3xVn504SC6YNkIWIz9p4bwy/w+6bNqA==
+	t=1794285308;
+	b=uuzwsTsrTaAzzn6g5WyV0AoIkQumkDP+S4bYkvAzKEao++CoSo0tyBQa9nPfuH7e2zqc
+	 tmnX8aKNmgX9q5qzE6a5wFBlPXylJ4vBkJTyFxvVvW0GHXkF6KrpAkN8rrlahNv4UOifH
+	 HrD6CJKytVPfs5Aj+UPyLttbubtVIj3q9QKcKPkmLJjsDlzBg5w8wZWaIj7Q3TptsstEf
+	 a6UzgzsoXaupaaEle6yvMyCgetOrQZOjZE5kyllucGKxYiicbzm/BK3e0EszuyapjsRqX
+	 Q8HiDVTchvMsprihEvNVidkjNPatPMmeCv4CcFz2K+STH5eVmL0RvuMG1fM1iBG99JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285308;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=fttV6xK/wiAMrm+IgHFd4MzCw0BG6Ef7ml6FkhjfXNg=;
-	b=3JqQkTzY1b1UuxsFTmyUW8/jDnvsYYJ4Va8eg+y0mPBmPHpkMQhTFHiatJFp7Z2scN0f
-	 GhEpkCdWnLWs/raIkr05PHvVKl8ulmgyJC0wQog+Gq9qA3n+brXhFAokgdFGoJThwJxUp
-	 RFdVlUuMUGlGsIuVPm1e8unleE8KqqguRwAxWvvwbYhEAu3Px78QqcxR15LxUr4NOzwtU
-	 rfaCFM0f55QAW3cFtaGEWAeUFueLCVH9QpBZEvnc1ymGP9U9ezLZjMczQX2p6WLUA3Hda
-	 EKBIIcS3uW+e2DU7PtyDmC40wxODsnL4aOyn4loOrbeiPmH7p39HMJcuRZ6Z+NuyOUw==
+	bh=vbM8nZRkwc09Hr5cJTczruOvSiNp4wubHnQjZZkSht8=;
+	b=ua8gDME7A6C4t4z/XRQu0KvROB9lmGxfWVsqlUTKNmw2fJ1P2XnWgZ0ZOh5F0VqyltW6
+	 QdchFn8maqohVmFJwdtYPcHRg0s3gD6EfOxbpWvuefwTAI7xSTyx5VnNFiRd/EL2i5tcV
+	 8u6KRVJOiGgtE2hbQ+EH87ax3amEDsMcojA2k+vV+BJYeEB/Ht2tJumcN04oR5Wj7iE06
+	 k25Caaue8JpMAo/mxI99xmoHPnQi2AretSLk4WSBzMhzxhB+3QYWkci6KVHHIf4X5bPYV
+	 189dLQnfbxntHIeZCtJkeF119uhAv5WeAiD5hbe5CYzER2Ep9gN9m9idXvPi0+wkA8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVq0ZTZv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keF0rvAX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F1B606A31C;
-	Tue, 10 Nov 2026 04:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52995606A8A0;
+	Tue, 10 Nov 2026 04:35:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVq0ZTZv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8911F0089F;
-	Tue, 10 Nov 2026 04:35:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keF0rvAX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD351F008A4;
+	Tue, 10 Nov 2026 04:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285303;
-	bh=fttV6xK/wiAMrm+IgHFd4MzCw0BG6Ef7ml6FkhjfXNg=;
+	s=k20260515; t=1794285307;
+	bh=vbM8nZRkwc09Hr5cJTczruOvSiNp4wubHnQjZZkSht8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AVq0ZTZvislLeFDGGUtKnXwKfskL2EhQkqJJ7QnSM5ftMautN71Ky9lxu4eGlPCCv
-	 vmEWGrEK2ATJ6OBhUSDKcPqKKc5ra7c/nEWOT461x6cMs70BGN1WfZDq2Q4xENtCfy
-	 wxn8Q/q5FfjomF9dVOXe7pKUNR44WBn6SaJDrKoNC6Xw758V5UwPEU79y8Afh5J/3x
-	 5p14+fUeB0GYVQbeqXO3Qw2A3nSEaJtk65XwfbEzRigQv7yMJmmUG/VASah/ZqixJ7
-	 6Ys3CYXXe+DsZDOjOQBv0rnOolQpcDumFK4GY46NSkCdfDMfJJOcj52TzteHE9tc5o
-	 PNwDJWzGslpSg==
+	b=keF0rvAX9lluPRCCDd/OzJP3+JcPsF/4NjlDrmQIDfaSEcEs9swJgqeuU6n7oxPhE
+	 dcm4/FeZp/2Zb4j5ZJx931yTqtkJujdpdcP2NEJCnR5Uq4s1dmesxuyghJT9L729TO
+	 hKW3CuLCSw8KYrsrsTw2btxBLZ60E4I0u9kYV0c+ard9S2/BhPbNmsFxD+wrrlDbcK
+	 vM9LkzrwAs4bagcElRNFlYCaYYs+DzfA3wkfdAbAMB1JmaMkwfZRTVcE3fTbwQjo2h
+	 +0MPJuDsm95908b9+hPSYFgZD97obnAIwBBnVRhnAFQW12rB4KnKPNgVy+D2ZKwVMY
+	 zEUxnim+uRqvw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	bhelgaas@google.com,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	Alex Elder <elder@riscstar.com>
-Cc: daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Cristian Cozzolino <cristian_ci@protonmail.com>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v4 0/3] PCI: introduce TC9564 misc driver
-Date: Mon,  9 Nov 2026 22:34:44 -0600
-Message-ID: <179428529354.1061455.14011360627239052056.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: msm8953-flipkart-rimob: Fix panel compatible
+Date: Mon,  9 Nov 2026 22:34:48 -0600
+Message-ID: <179428529336.1061455.5768991661894005156.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918152659.413268-1-elder@riscstar.com>
-References: <20260918152659.413268-1-elder@riscstar.com>
+In-Reply-To: <20260818-topic-more_dt_warn_fixes-v1-1-609d283502cb@oss.qualcomm.com>
+References: <20260818-topic-more_dt_warn_fixes-v1-1-609d283502cb@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,21 +70,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 18 Sep 2026 10:26:55 -0500, Alex Elder wrote:
-> The Toshiba TC9564 is specialized SoC that implements a PCIe switch as
-> well as an Ethernet AVB/TSN bridge.  It also implements other functions,
-> including a reset and clock controller, an address translation unit, and
-> a few other devices.  PCIe BARs provide access to registers that manage
-> these IP blocks, and the SoC is modeled using a PCI endpoint bus in
-> devicetree.  This allows the IP blocks to be bound to platform drivers
-> using MMIO through the PCI BARs.
-> 
-> [...]
+On Tue, 18 Aug 2026 16:18:10 +0200, Konrad Dybcio wrote:
+> During the review process, the bindings have changed, but the DT has
+> not been updated to match. Fix it to prevent a "compatible too short"
+> DT warning.
 
 Applied, thanks!
 
-[3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
-      commit: 12f074acca972ca6b3a2317c2349ed93446e01e5
+[1/1] arm64: dts: qcom: msm8953-flipkart-rimob: Fix panel compatible
+      commit: 718a3890dbafdd1d1fd2b648f0fa2da488fdda09
 
 Best regards,
 -- 
