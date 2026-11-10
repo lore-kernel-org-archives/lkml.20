@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298289;
-	b=HUuy6hJoVYCXEkt7HT0WyWVc+EaefuZcGIfb89x1JjBINPJbV3Q1IKSmluxOsLYL5zUR
-	 Y9qmpxtlgcYLIo85mJ5Rab6gVO3hR3ELnfdhZKMLZDVqYwWLJLh/7ROauauQ5RGmQEUix
-	 5hooYlZiM/4fLUt7KinIHBsf7T1gcolSecc3wcE9Azx8mIa9gcHmD0/iu0NlBbA3COuiw
-	 IFoyOb8O2j+y5g3TvD8S5kim5hPi/IHTfVVUUOSVqOUgQO23I3nlImEz6ZflhNSbvQZt6
-	 UyORzM4Vs6u4iuTkvAWUpcdU3ZGatOosguWul/TupVMsXFzNvT+8UqxKHTYfTGo8Qtg==
+	t=1794298305;
+	b=uBG+OqLAh2UUh0myTwRc6T3bhKLdvl3LbN7vqUR8MLlB16uwSClzETWT3zYBDN+YRtHf
+	 lghFMKL37eSuhKeumktxngVpbBiXlQlUn/XfjvJaWWPPF16VnlZEFObHjJAsnh9f2wwD/
+	 1BBzqOGejGH4xD4ufeviRabvUwKTzxmPtr3XCkFpx9z22zVbtRLlUDHpwUXzsnaJbgfZD
+	 N3U4adQa47huREdXpptzxQAGIrSVKxDbERvWEL7+Yrs7isqxoXRQRePo8jJyHU2EUzBRA
+	 rAEdhoZUvSMG3tJYgfCwPycnGZpdLRwOgW8AjhQLcC2aHJp/Vzd0EGZfpC72e/uYqnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298289;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=jOh7ZgnccO4L8Qeh1oaXwjE5S2FwXwDj1PkxCIz2bvQ=;
-	b=M4R4Xmlz5Qx6oQ6zpbV3JFCSIWRxAUENp2/FdWlYx7oWcRu3u8ZC/aeuFY2ZYPRggjAS
-	 /XjGhBRmZbp65t3SFs5BAXb5ozjCG9AP1okQjjBh/Hp2Z1pCwjZi50rXBoVd2OMYv2JCR
-	 TtO11U7PTb+H6Dyyw6MwTXcivZF0br1mgOFzx5wwNb4WN/Mp+//+gWF2XkPUv477GAMqN
-	 lb6IAWgVaLWZb+bydY8BtCNlQxixi/ixayTaTUWvH9pDi0rBuvc/FJdI6EVna3rpEGNIo
-	 Y5ZhBRcH1Rg2IeGXpIxo+BVtrqiSn/+9PAKujY8dotu8ohLYE5u7Fll4XAQzIEt5bzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298305;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6XKHkEPKtsOptLLp6CkrLlzFIFu7B8MPqkMARI4hXEU=;
+	b=g/ych7L8LxlRbqFUitIsOW3DJ5bWPL9AzW8gFbw5NZCjsoK7hbP9T+5XKTUQwJBK3sD3
+	 quPBNoeCA861kr4tYLQ+4EHLXWVv6rnSGfAVma/0wISMfT0fg+zqSmciNN8lMwPBoXQqJ
+	 K3rfjPKn76/d4PyopPBnPi5AY5ukiVT60eN16hp2cX7xo8Zl3256sX93ytGWIyGGPtczT
+	 RANV4flH6GFmeCAuwl3nZUMY2fLXSmchvJUgRKLnX2MiWohOEXMcIn7S8pgjxLacaJaZJ
+	 dslmC38FAslqEAhj4Gi6UB2P70hj9sQWfrJXy3/hGVmg8+xvL29DlCLxpzwxUADHOvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXwyv7k7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7+niy5y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822FE606A31C;
-	Tue, 10 Nov 2026 08:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66F3606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXwyv7k7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ED01F0089F;
-	Tue, 10 Nov 2026 08:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7+niy5y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE7D1F00900
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:11:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298288;
-	bh=jOh7ZgnccO4L8Qeh1oaXwjE5S2FwXwDj1PkxCIz2bvQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lXwyv7k7RCG1HZme74th2ZxaF60JVoYGpIkmDSEOIFN6vqgK3Yccn5edW3L5+wkJK
-	 Ul7q5eJUI7wSyqpf8Aet2p/e+2pirXuVxKhFMW60jLth/4+LneVxd+08xmCVaC8nFd
-	 AghlxIPxCVm8HXERn1OkiAIZkP7PxINXaKr8FNX9/NjH42Z53DuD8Ptt+jkBe5QlDw
-	 ZbJ9ON9vwXSxNNQrwpNrxaQ2gS6PTFsWBIBOAIht7NNucADubplptxADnmkfem79aQ
-	 GMfEqqmDZqvrB2+PFgxCGiHvdxJOZQ2uKxthP+mrjlzsCICwt2DUac77opsFue9xrX
-	 Xow4LQrsrJLLQ==
-Subject: Re: [PATCH net v3 2/3] net: dsa: motorcomm: Resolve the flower action
- list to one ACL verdict
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Tue, 10 Nov 2026 08:11:27 +0000
-Message-ID: <179429828784.994134.6502837547336557554@kernel.org>
-In-Reply-To: <20261106073806.112122-3-mmyangfl@gmail.com>
-References: <20261106073806.112122-3-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794298304;
+	bh=6XKHkEPKtsOptLLp6CkrLlzFIFu7B8MPqkMARI4hXEU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=I7+niy5yn7ysiyT/VBjM6NXG4+i7P/4VGRUpvP5ZIEEt/GJGGf7yjJrwp7WtMuLuy
+	 Pspa2YrRE2g2epU7k6G14u6yYGsRHSJVOgnTBrplChcr1TfM/1kbgAijVWTcThK2sj
+	 sE+UQM2lxZfynVvdzO26XYD0IkDzeyrledCRQYrawZQr9XPDmWSJtCaFBTkhqBns2Z
+	 snU+076DS+Cgnerf/XdfHBiJhZFEBURlSLSRWC/OuBxmH8v9ZyJJyTX056a3rZQ0c6
+	 4v8bMtBY1fZfJZ+RWaAV9or9YFGyS2abcin+h/yN50Kv3X5IljlLJBYY6BH21OP5U7
+	 t2cW68t4s0kWg==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f36c18b75so103629485a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:11:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHUXu+E3B0FdWngHCd83MibAWJQkYhymWqBOeVvmZlUKS/o0JrKM9l/bqsYINVmklAAzj7FayAFCIA8pjs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8a0EpbuaGUkXe7f39VA1iT9Ch82juzV/uWDhpA4vyrTBfMRyJU
+	iN/jkaN2rcscPYBcRLhZEfbNr0/3oWrdKZjJpUFs6PlTuV3fKOLeLvrnsoPvx9HaA8YWV59cDrp
+	VrSDZgl3iqS21ooABUroyi0fvR1mqVxw=
+X-Received: by 2002:a05:620a:1728:b0:940:f224:5a69 with SMTP id
+ af79cd13be357-9479f348f5bmr314297685a.65.1794298303673; Tue, 10 Nov 2026
+ 00:11:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,123 +59,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org> <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
+In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 10 Nov 2026 16:11:32 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xXTRsn=Wf3j6u7QyNs4zRc+1i6MG45vtao=5gdQv8Pig@mail.gmail.com>
+X-Gm-Features: AclHuK_7DysJ1y5_bnFyuAOrVgsW65eT05aJKGB8T07cT1zr_AQPphy0esTgfR0
+Message-ID: <CAGsJ_4xXTRsn=Wf3j6u7QyNs4zRc+1i6MG45vtao=5gdQv8Pig@mail.gmail.com>
+Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
+ LRU) update
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Tue, Nov 10, 2026 at 2:32=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> MGLRU is currently the only MM component without a dedicated component
+> maintainer. Fortunately, Kairui and Barry have been actively
+> contributing to MGLRU and have volunteered to take on more responsibility
+> by officially taking care of it.
+>
+> Given that Kairui is already an established MM component maintainer in
+> a related MM component (SWAP), add him as an MGLRU maintainer right away.
+>
+> For Barry, the idea is to transition him towards a component maintainer
+> role over the coming months, starting by moving him to the top of the
+> reviewer list.
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Thanks very much to David for all his work on this.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I also want to thank Andrew, SJ, Qi, Baoquan, Muchun,
+Baolin, Lance, Ridong, and Kairui for their encouragement
+and kind words.
 
-- [Medium] This patch adds a claim to both the commit message and a new
-  comment in yt921x_acl_rule_ext_parse_flow_action()…
+Acked-by: Barry Song <baohua@kernel.org>
 
---
-
-net: dsa: motorcomm: Resolve the flower action list to one ACL verdict
-
-This commit changes yt921x_acl_rule_ext_parse_flow_action() so the flower
-action list resolves to its first terminal action. Before, every action was
-accumulated into the ACL verdict. After a redirect only a drop is allowed.
-Any other action after a redirect falls back to a CPU trap, or is rejected
-when skip_sw is set.
-
-> diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-> index 90b017a11a1b1..5c82719e461f3 100644
-> --- a/drivers/net/dsa/motorcomm/tc.c
-> +++ b/drivers/net/dsa/motorcomm/tc.c
-> @@ -1030,55 +1030,56 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
-
-[ ... ]
-
->  	memset(action, 0, 3 * sizeof(*action));
-> -	flow_action_for_each(i, act, flow_action)
-> +	flow_action_for_each(i, act, flow_action) {
-> +		/* Only a drop can follow a redirect: a drop is an empty
-> +		 * destination set, so the software verdict is the same
-> +		 * whichever control the redirect carries. A second redirect
-> +		 * would only extend it if software continued past the first
-> +		 * one, and the flow action entry carries no mirred control
-> +		 * verdict to tell that.
-> +		 */
-> +		if (redir && act->id != FLOW_ACTION_DROP) {
-> +			reason = "Action after redirect";
-> +			goto fallback;
-> +		}
-> +
->  		switch (act->id) {
->  		case FLOW_ACTION_ACCEPT:
-> +			action[2] |= YT921X_ACL_ACTc_FWD_EN |
-> +				     YT921X_ACL_ACTc_FWD_FWD;
-> +			terminal = true;
-> +			break;
->  		case FLOW_ACTION_DROP:
-> -		case FLOW_ACTION_REDIRECT:
-> -			if (redir_act != NUM_FLOW_ACTIONS &&
-> -			    redir_act != act->id) {
-> -				reason = "Different redirect actions";
-> +			action[2] |= YT921X_ACL_ACTc_FWD_EN |
-> +				     YT921X_ACL_ACTc_FWD_REDIR;
-> +			terminal = true;
-> +			break;
-
-[Severity: Medium]
-Is the software verdict really the same "whichever control the redirect
-carries"? The commit message makes the same claim:
-
-  Only a drop can follow a redirect: a drop is an empty
-  destination set, so the software verdict is the same
-  whichever control the redirect carries
-
-This seems to hold for pipe, and for the controls that
-tcf_mirred_can_reinsert() accepts (shot, stolen, queued, trap). For pass,
-continue, reclassify, goto chain and jump, software looks different.
-
-In net/sched/act_mirred.c:tcf_mirred_to_dev():
-
-	dont_clone = skb_at_tc_ingress(skb) && is_redirect &&
-		tcf_mirred_can_reinsert(retval);
-	if (!dont_clone) {
-		skb_to_send = skb_clone(skb, GFP_ATOMIC);
-
-With these controls a clone is redirected and the control is returned
-unchanged. Then net/sched/act_api.c:tcf_action_exec() ends the action list:
-
-	if (ret != TC_ACT_PIPE)
-		break;
-
-So the trailing drop never runs in software. A jump control skips over it.
-
-Take a rule like this:
-
-  flower ... action mirred egress redirect dev swp1 pass action drop
-
-Software sends a copy to swp1, and the original frame continues into the
-stack or on to the next filter. In hardware, the FLOW_ACTION_DROP case keeps
-FWD_REDIR together with the DPORTn bit set by the redirect. The rule is
-therefore programmed as a pure redirect, and the original frame is only
-forwarded to swp1.
-
-Before this patch, this action list hit the "Different redirect actions"
-fallback. It was trapped to the CPU, or rejected under skip_sw. Does the
-patch now offload a combination where hardware and software behave
-differently?
-
-A standalone redirect with one of these controls already had a similar
-mismatch, as the second half of the comment says. But
-tcf_mirred_offload_act_setup() only fills in entry->id =
-FLOW_ACTION_REDIRECT and the device, not the mirred control. That means the
-driver cannot check the equivalence this gate relies on.
-
-Should a drop after a redirect go through the fallback path as well? And
-could the comment and the commit message be narrowed to the controls where
-the equivalence actually holds?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106073806.112122-1-mmyangfl%40gmail.com
+Thanks,
+Barry
