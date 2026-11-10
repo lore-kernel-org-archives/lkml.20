@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312496;
-	b=1bv9MWsLsKV2+IvNl++KH91Ft04CaygSgvJNpFsDq1hNth3upSI+o63XFIxEqVpbojCk
-	 GKuvkWLAneNIeKWqv7MbzOT7qah61ionCEqnnJbmO9dTz+wWKKmR2uQIEULfHpvGdLjrJ
-	 N4mpOkxQMN1Xt6rCT0rp0gHT7EV8QOeBLtsaEvSAEbjaIjDmKZ6WDTByyOuFucJoGExrT
-	 cXfcaGQscJy/FfhNIY1eN5VYjX1mKXvwn+36Lpd3ueLENWc+DCHHSpb3MmonMyWwd5LvT
-	 aCyt8VFUnrhyeJvBTo5lDKOqwW/KQb6+3Q/6dsJUDhXPtCS4bfrW0IsoYWOMT+26mEw==
+	t=1794312499;
+	b=zAREVpHkv9y/bcZ8B6+UxEn3Zi1ZJZzs91jfgzh7Im3WtFCQEqnP+s9ARm+/TzmzJSPV
+	 HKje7TGybeBpuehYJBtRojWVQkx74iTkMlEdmba+s5W6HCmP3ULnauXtIUZ5sDopElUio
+	 nQxTIUGmm2AV9Wfdt9ERY43LnTW/9F7pAk+bdUIjVUhOx+R6/kv0n8QXxDM2Zc0FEJiC1
+	 2gDhyAHs+bN+9l3/mKcqFNOtRDa3q7QnXKm31I2Fm/gRCuUoY+ZG0pucDXvlXKvOeoypL
+	 T5oufRKjhCtu95uZViYvkZ9kojlfb9juWAZW7zwg7+qBxoBErz5LveH4i9kmvEalYUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312496;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312499;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=BuKIQPz/oLiMZvm7vo+pet8mf+UKQMzhnaHi2cUDtcA=;
-	b=EFKk/kXNM6gecnW07vBtAJ5vi3+F1LSHQXmHLdTQJC+Gj0xl/wgwFV7V/YfgxfoRj/7/
-	 pS/ApVivhuzC7M+Eu18hJzO82vuIkEu/lC7J0lL7in+AJVSl1QsilaLWOr/nlTS611HVq
-	 GbiCbferoFdF9m/GDQbp3n568r+VNtNSxuAoMpkSiyjhAK+Q85SgN48SFvz4t4E7VgpiU
-	 i8SfUleJ7AWym7pPO+s38kYPBu6eFro72OpOU7U8BSAFk6axFH37ECT6yy1pdO2JLcEma
-	 1O5Yn2VXsofsYHuz0RGjp/KMMRRPZXYb/qj1ktG2yXG90ewdcjB+nYCrYSAdg/Vk7ww==
+	bh=VQRdk6SHySBLAJGnophDMBUI53s97lQO9il1DqzVxmo=;
+	b=JqL0vkABOcvOyOpzFyu+nJ8vJhFNzXpb7ZGVCpf17kGSJjuY16aTqLgAKCgky5S5P35B
+	 eludKKDInKkQngi/HB7qv0k90waOlL8fzzzH1l6eS+PrFTTvnfYouadOhoKSiFRKvWJsE
+	 P3n3abcKdMCI0Wcf6NbutJjQVqZ9Xj+39NW9UuN26Z1FJ0pZUwQV9eAris0ltXSi4govC
+	 PB3pjJVK+4ZddmtQlx/yRw/x/5CA8WKCAOhoq2idTz4C3g9TkBkRyIbbhaBNrfkadhf7b
+	 84ML8yo5tUuuC8vVMyzjK4hVxpsoO1ChAvpHrzhmRVWKy22w8mPgPaiXXLLmKAX4+BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9mRVLj4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cWQ5lw/G";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449F2606A332;
-	Tue, 10 Nov 2026 12:08:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3487E60A380B;
+	Tue, 10 Nov 2026 12:08:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9mRVLj4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6631F008A1;
-	Tue, 10 Nov 2026 12:08:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWQ5lw/G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB35C1F0089F;
+	Tue, 10 Nov 2026 12:08:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312495;
-	bh=BuKIQPz/oLiMZvm7vo+pet8mf+UKQMzhnaHi2cUDtcA=;
+	s=k20260515; t=1794312498;
+	bh=VQRdk6SHySBLAJGnophDMBUI53s97lQO9il1DqzVxmo=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=W9mRVLj40IqcFD2Zw5kHM7ZBz4hJA/SBXANBg2rIuCdARdAVqmWz6/V1nFFazUzAc
-	 z5CgNRA+ko09oIg1YlTpRdakeIfin9ef1ZcbLYeEgHT3IXwxPbOVUaVflDuC0VipXj
-	 f3Ry5WcbQsY5kVsggn4fEubbAEChfycVhMMDATgQFWR5A5Ncd8P8vBDib9JbxQmwSp
-	 Ha5pd/slWNKB0FkxCyW5c6wLIN2KROPaZQMDiEizc7cqphZNPEaOUSeX6gT21dS+eJ
-	 njTJxJlw7bkuhITCeYefAgqWOwRBEHzzBedpEzzGOYjQDDwdgYoBdP/fxacOpTi0nB
-	 5jMv6cTgg8onQ==
-Subject: Re: [PATCH net-next v6 RESEND 1/4] net: stmmac: guard against NULL
- pointers when freeing TX/RX buffers
+	b=cWQ5lw/Gbt5uDkya7QFZNTAgO7BaJ7HXJ6W8O3kv76px+MRPLHSyy+JAvL6FyYgf7
+	 4Zi86tq1dO15AKIoSnRT1TAzSsknSU7hJHRYLRdpl+3gA27Im64CzRcZP/JMpnY0+K
+	 W2zEphFmOi4dv/PwOQbR2Uj9an+QqcNg1OuQEmd89su8FcDbSK5sUidnTSjh9zl6XE
+	 Mu/NgU8N0cPnKw7kl7eulMhzw4m9vojwdKRvOa0l9wK5kDv8/thXhGf3LVEOrfHrLg
+	 GvhGRlkJEfDLO/h3EUpppGZlt9fNB936LroJbUt9+tT765POdaxHnsDrwR02+6ivvp
+	 djlzxnx4PNE6w==
+Subject: Re: [PATCH net-next v6 RESEND 3/4] net: stmmac: release descriptor
+ resources through priv->dma_conf on open failure
 From: netdev-bot+sashiko@kernel.org
 To: dinghui1111@163.com
 Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -51,11 +51,11 @@ Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
  liuxuanjun@lixiang.com
-Date: Tue, 10 Nov 2026 12:08:14 +0000
-Message-ID: <179431249447.994134.11805263376098684197@kernel.org>
-In-Reply-To: <20261106090507.1020751-2-dinghui1111@163.com>
-References: <20261106090507.1020751-2-dinghui1111@163.com>
-X-sashiko-severity: Medium
+Date: Tue, 10 Nov 2026 12:08:17 +0000
+Message-ID: <179431249745.994134.2549811936240601029@kernel.org>
+In-Reply-To: <20261106090507.1020751-4-dinghui1111@163.com>
+References: <20261106090507.1020751-4-dinghui1111@163.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,220 +68,178 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 (3) · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message understates what the patch fixes and has no
-  Fixes: tag.
+- [Low] This commit fixes a bug but has no Fixes: tag and no Cc: stable.
+- [Low] The commit message says stmmac_open() stops jumping into the
+  err_serdes chain after __stmmac_open() fails because that chain 'would…
+- [Low] The patch changes the ownership contract of __stmmac_open().
 
 Pre-existing issues:
-- [High] stmmac_enable_rx_queue() (stmmac_main.c:7204) and
-  stmmac_enable_tx_queue() (stmmac_main.c:7254) return void.
-- [High] stmmac_xdp_set_prog() (stmmac_xdp.c) calls stmmac_xdp_release()
-  and then stmmac_xdp_open(dev), but ignores the return value.
-- [High] stmmac_xdp_enable_pool() and stmmac_xdp_disable_pool()
-  (stmmac_xdp.c) call stmmac_disable_tx_queue() ->…
+- [High] This problem wasn't introduced by this patch, but a failed
+  internal reopen leaves the netdev IFF_UP/netif_running() while the…
 
 --
 
-net: stmmac: guard against NULL pointers when freeing TX/RX buffers
+net: stmmac: release descriptor resources through priv->dma_conf on open failure
 
-This adds NULL checks to the stmmac TX/RX buffer free helpers so they can
-be called on queues whose buffer arrays were never allocated. It also
-clears the freed pointers in __free_dma_rx_desc_resources() and
-__free_dma_tx_desc_resources() so priv->dma_conf can be reused across XDP
-open/release cycles.
+After __stmmac_open() copies the temporary dma_conf, it now releases the
+descriptor resources through priv->dma_conf when it fails, so callers
+only kfree() the container. When __stmmac_open() fails, stmmac_open()
+now cleans up inline instead of jumping into the err_serdes label chain.
+stmmac_change_mtu() no longer calls free_dma_desc_resources() itself.
 
-> Add NULL checks in the free helpers as a defensive measure, since they may
-> be called on partially-initialized queues.
-> Additionally, make __free_dma_rx_desc_resources() and
-> __free_dma_tx_desc_resources() clear the pointers they free, so that
-> the NULL guards in the free helpers hold reliably when the long-lived
-> priv->dma_conf is reused across XDP open/release cycles.
+> stmmac_open() no longer jumps to the serdes label chain after
+> __stmmac_open() fails, as that chain would double-release the
+> descriptor resources and double-put the runtime PM reference, so the
+> cleanup is done inline instead.
 
-[Severity: Medium]
-Is "a defensive measure" the right description here? It looks like this
-fixes two crashes that can be hit on an ordinary allocation failure.
+[Severity: Low]
+Is the runtime PM part of this description accurate?
 
-First, when __alloc_dma_rx_desc_resources() fails on queue k,
-alloc_dma_rx_desc_resources() unwinds with:
+After this patch __stmmac_open() makes no pm_runtime_* calls. Its error
+labels only stop the DMA engines and the MAC, release PTP and free the
+descriptors.
 
-err_dma:
-	free_dma_rx_desc_resources(priv, dma_conf);
+The old chain err_serdes -> err_disconnect_phy -> err_runtime_pm ->
+err_dma_resources calls pm_runtime_put(priv->device) once. The new
+inline block also calls it once.
 
-This walks all rx_queues_to_use queues, including the ones after k that
-were never allocated. Their buf_pool is NULL, so the following path
-dereferences NULL:
+The only real problem with reusing the chain seems to be the second
+free_dma_desc_resources(priv, dma_conf) on the stale temporary copy.
+Could the labels be rearranged, for example with one just before the
+kfree(dma_conf), so the cleanup sequence isn't duplicated inline?
 
-free_dma_rx_desc_resources()
-  __free_dma_rx_desc_resources()
-    dma_free_rx_skbufs()
-      stmmac_free_rx_buffer()
-        buf = &rx_q->buf_pool[i];
-        if (buf->page)
+> Signed-off-by: Ding Hui <dinghui@lixiang.com>
 
-The TX side does the same thing with tx_q->tx_skbuff_dma[i].buf in
-stmmac_free_tx_buffer().
+[Severity: Low]
+Should this have a Fixes: tag and Cc: stable?
 
-Second, stmmac_xdp_set_prog() calls stmmac_xdp_release() and then
-stmmac_xdp_open() on the same priv->dma_conf. Before this patch the free
-path left buf_pool, page_pool, the coherent rings and tx_skbuff(_dma)
-dangling. A failure in stmmac_xdp_open()->alloc_dma_desc_resources() then
-made the unwind kfree() and dma_free_coherent() those stale pointers a
-second time, and call page_pool_destroy() on a pool that was already
-destroyed.
+The caller-side free through the temporary dma_conf appears to come from
+commit 30134b7c47bd ("net: ethernet: stmicro: stmmac: fix possible
+memory leak in __stmmac_open"). That commit removed
+free_dma_desc_resources(priv, &priv->dma_conf) from __stmmac_open() and
+moved the free into stmmac_open() and stmmac_change_mtu().
 
-Should the commit message describe these as the NULL dereference and
-double free they are? Should it also carry a Fixes: tag so it can go
-through net and be picked up by stable?
+That commit carries Cc: stable@vger.kernel.org, so stable trees have the
+same caller-side free.
+
+Backporters would also need "net: stmmac: guard against NULL pointers
+when freeing TX/RX buffers" from this series. The later
+free_dma_desc_resources(priv, &priv->dma_conf) in __stmmac_release() is
+only safe when the free helpers NULL their pointers.
+
+Could the commit message also describe what the user sees? It only
+mentions "stale pointers". It doesn't say that freed coherent ring
+memory can still be read without locking, for example by the debugfs
+reader stmmac_rings_status_show(), while IFF_UP stays set after a failed
+MTU change reopen.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index a2177777727ef..fcc80ece37679 100644
+> index b02371ed2d062..cd4631efe47ab 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 
 [ ... ]
 
-> @@ -2198,13 +2210,20 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
->  	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
+> @@ -4290,6 +4290,8 @@ static int __stmmac_open(struct net_device *dev,
+>  	stmmac_stop_all_dma(priv);
+>  	stmmac_mac_set(priv, priv->ioaddr, false);
 >  
->  	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
-> +	rx_q->dma_erx = NULL;
-> +	rx_q->dma_rx = NULL;
-> +	rx_q->dma_rx_phy = 0;
+> +init_error:
+> +	free_dma_desc_resources(priv, &priv->dma_conf);
+>  	return ret;
+>  }
 
-[Severity: High]
-This is a pre-existing issue, but what happens on the AF_XDP pool path
-when the re-allocation after this free fails?
+[Severity: Low]
+With this change, __stmmac_open() takes ownership of the descriptor
+resources passed in through @dma_conf and releases them on any failure.
+Both callers now only kfree() the container.
 
-stmmac_xdp_enable_pool() does:
+The kernel-doc above __stmmac_open() still only says:
 
-	stmmac_disable_rx_queue(priv, queue);
-	stmmac_disable_tx_queue(priv, queue);
-	...
-	stmmac_enable_rx_queue(priv, queue);
-	stmmac_enable_tx_queue(priv, queue);
-	napi_enable(&ch->rxtx_napi);
+ *  @dma_conf :  structure to take the dma data
 
-	err = stmmac_xsk_wakeup(priv->dev, queue, XDP_WAKEUP_RX);
+The same phrase is used on many other helpers in this file, so it says
+nothing about ownership.
 
-stmmac_enable_rx_queue() and stmmac_enable_tx_queue() return void. On
-failure they only log a message:
-
-	ret = __alloc_dma_rx_desc_resources(priv, &priv->dma_conf, queue);
-	if (ret) {
-		netdev_err(priv->dev, "Failed to alloc RX desc.\n");
-		return;
-	}
-
-Suppose the RX allocation fails and the TX one succeeds. tx_q->xsk_pool
-is then set, so stmmac_xsk_wakeup() schedules rxtx_napi.
-stmmac_napi_poll_rxtx()->stmmac_rx_zc() then does the following with
-rx_q->dma_rx now NULL:
-
-	p = stmmac_get_rx_desc(priv, rx_q, entry);
-	status = stmmac_rx_status(priv, &priv->xstats, p);
-
-A TX failure has the same problem with tx_q->dma_tx and tx_skbuff_dma.
-
-With this patch the result is a NULL dereference in NAPI context instead
-of a use-after-free of the freed ring.
-
-Could the enable helpers return an error? That would let
-stmmac_xdp_enable_pool() and stmmac_xdp_disable_pool() avoid enabling
-NAPI on a queue that has no rings.
+Could the kernel-doc state that the callee releases the descriptor
+resources on failure, so a future caller does not free them a second
+time?
 
 [ ... ]
 
-> @@ -2246,9 +2265,16 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
->  	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
+> @@ -6384,7 +6389,6 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
 >  
->  	dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
-> +	tx_q->dma_etx = NULL;
-> +	tx_q->dma_entx = NULL;
-> +	tx_q->dma_tx = NULL;
-> +	tx_q->dma_tx_phy = 0;
+>  		ret = __stmmac_open(dev, dma_conf);
+>  		if (ret) {
+> -			free_dma_desc_resources(priv, dma_conf);
+>  			kfree(dma_conf);
+>  			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
+>  			return ret;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but stmmac_xdp_set_prog()
-ignores the return value of stmmac_xdp_open():
+This isn't a bug introduced by this patch, but what state is the device
+left in when this reopen fails?
 
-	if (if_running && need_update)
-		stmmac_xdp_open(dev);
+Before the reopen, __stmmac_release() has already run
+stmmac_disable_all_queues(), which calls napi_disable() on every
+rx/tx/rxtx NAPI. It has also freed the IRQs and the rings.
 
-	if (prog)
-		xdp_features_set_redirect_target(dev, true);
+__stmmac_open() can then fail, for example on a DMA reset timeout in
+stmmac_init_dma_engine(), on stmmac_rxp_config(), on PTP or EST setup,
+or on stmmac_request_irq(). Every one of its error labels returns before
+stmmac_enable_all_queues().
 
-	return 0;
+stmmac_change_mtu() then returns without clearing IFF_UP, so
+netif_running() stays true.
 
-stmmac_xdp_open() can fail in alloc_dma_desc_resources(),
-init_dma_desc_rings() or stmmac_request_irq(). In each case it returns
-with the rings freed (now NULL), the IRQs released and all NAPIs still
-disabled. The device stays IFF_UP and STMMAC_DOWN is not set.
+On the next ifdown or unregister_netdev():
 
-Can a later ndo_stop, XDP program change or suspend then hang?
-stmmac_disable_all_queues() would call napi_disable() on NAPIs that are
-already disabled. napi_disable_locked() would then wait forever, with
-RTNL held, for NAPIF_STATE_SCHED and NAPIF_STATE_NPSVC to clear.
-stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0) would also run a second time on
-IRQs that were already freed.
+stmmac_release()
+  __stmmac_release()
+    stmmac_disable_all_queues()
+      __stmmac_disable_all_queues()
+        napi_disable(&ch->rx_napi)
 
-There is also a problem on the redirect side, because stmmac_xdp_xmit()
-only checks STMMAC_DOWN:
+This calls napi_disable() a second time on a NAPI that is already
+disabled. napi_disable_locked() in net/core/dev.c loops:
 
-	if (unlikely(test_bit(STMMAC_DOWN, &priv->state)))
-		return -ENETDOWN;
+	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+		usleep_range(20, 200);
+		val = READ_ONCE(n->state);
+	}
 
-Frames redirected to this device from another interface therefore reach
-stmmac_xdp_xmit_xdpf(), which writes tx_q->tx_skbuff_dma[entry] and
-tx_q->xdpf[entry]. With this patch those writes go near NULL. Before it
-they went into freed memory.
+Those bits are still set from the first disable. Can this spin forever
+with RTNL held?
 
->  
->  	kfree(tx_q->tx_skbuff_dma);
-> +	tx_q->tx_skbuff_dma = NULL;
-> +
->  	kfree(tx_q->tx_skbuff);
-> +	tx_q->tx_skbuff = NULL;
->  }
+stmmac_suspend() also trusts netif_running() and reaches the same
+napi_disable() while holding priv->lock, so system suspend looks like it
+would hang too.
 
-[Severity: High]
-This is a pre-existing issue, but is there anything that keeps the
-transmit paths away from these arrays while they are being freed and
-cleared here?
+stmmac_reinit_ringparam() and stmmac_reinit_queues() release the device
+and then call stmmac_open() the same way. If that stmmac_open() fails,
+its error path has already dropped the runtime PM reference and
+disconnected the PHY. A later stmmac_release() would do both again.
 
-stmmac_xdp_enable_pool() and stmmac_xdp_disable_pool() call
-stmmac_disable_tx_queue()->__free_dma_tx_desc_resources() on a running
-interface while holding only RTNL:
+The hang hides some other problems. The memcpy() in __stmmac_open()
+overwrites priv->dma_conf.tx_queue[].txtimer with the kzalloc'ed zeros.
+On a stmmac_hw_setup(), PTP or EST failure, stmmac_init_coalesce()
+never sets the timer up again, so the hrtimer_cancel() in
+__stmmac_release() would act on an uninitialized hrtimer.
 
-	napi_disable(&ch->rxtx_napi);
-	stmmac_disable_rx_queue(priv, queue);
-	stmmac_disable_tx_queue(priv, queue);
-	synchronize_rcu();
+stmmac_free_irq(REQ_IRQ_ERR_ALL) would also run on IRQs that were never
+requested.
 
-The netdev TX queue is never stopped, and __netif_tx_lock is not taken.
-So stmmac_xmit() and stmmac_tso_xmit() (under HARD_TX_LOCK), and
-stmmac_xdp_xmit() (under __netif_tx_lock), can run while tx_q->dma_tx,
-tx_skbuff/xdpf and tx_skbuff_dma are being freed. The synchronize_rcu() in
-stmmac_xdp_disable_pool() runs only after the memory is already freed.
-
-Before this patch a concurrent xmit wrote into freed memory. With it, the
-xmit either hits the window between kfree() and the NULL store, or
-dereferences NULL.
-
-If stmmac_enable_tx_queue() then fails, the queue stays transmit-enabled
-with these pointers permanently NULL.
-
-Does the TX queue need to be stopped first, the way stmmac_xdp_release()
-does with netif_tx_disable()?
+This patch makes the repeated free_dma_desc_resources(priv,
+&priv->dma_conf) safe because the free helpers NULL the pointers. The
+last patch in the series only guards the debugfs reader. Nothing in the
+series seems to handle a device that still reports running after it has
+been torn down.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106090507.1020751-1-dinghui1111%40163.com
