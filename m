@@ -1,41 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299189;
-	b=JNPIErBrXQhBq6Sq1RMq1GDQXS2b5WMri46dj8sQ6riw2eLrR5teYzR6KMDFxu9REH3z
-	 9YEvWwuo38Xak9LFwG/BjnjyGi/DydOhqsbTxvsXxLMfW2yljv4c8dH3iMEz4Z/KL1EC5
-	 5qXJXBJP9kcXUbFQSShykXBXdgf2XLA/g9YVGzUnNSbyoSJUo33BYO8QNJ0dvHKgci97w
-	 hW48qAhHXEaQKNEHTo2oZQ3XPGCAptXvuVumpnD/aOIx9/HiVYPXZfZSveqLImyhgRAq0
-	 JV9exjk/IeJJSySlOUnLIAqSM9nipDiN4Etdq7/QruA1yjf/CbnT/wMMhkx0ENgIHKg==
+	t=1794299186;
+	b=Dl+2GhPfgKPSPmtwerFKU6v4WmI0Cwec/yYFu7JpCKynx2mrYkME300SRUCC/Xf1CIuB
+	 TGvkXgYGrp4mtAel+S22fqPGxomPkaGyTx4x67DK3XNKHjNpabahk5OOMl6yU5EkwqEFM
+	 wTczp43bB8mvXvGZ5RM5yv9h0Jy5C2DM9ug+cUlMx8YemovmG0ht87YFaRxdrqxi3T9gl
+	 bbangbuLZwZUv3x7PgEVYMN3F8Q2hgFRTk/ZYYbTPOkL9cKDgZELXjbaYnT363l6eax2V
+	 U9pgjpSErH7Zzgw8Pvj5Rov1+u+HGyFDDK/sEdHtPsKDBGv9arcrDkx349ASrlWvgMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299189;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=R4EAcCpHM83oZ0S7+xLkLWc02XjcnZxXTSXnWoPgwPg=;
-	b=O29aMyTmHZ8pN3DFyFLsTlhonBK533qw8Rq/wZhrxSlqZP5oDqFhdVfhd6KIn9C4MxeJ
-	 WwG3voWjXI3zCxfHawm9gXY4e4xtArIzFUAKt0TJRgWQkRc0rvnZ9f58dwGbej47v91pA
-	 HGbkSAK61khlp99OEM9RZiZyOi0Gswu+ZNeqHIDfVnZlmxA5IQj0SYQWY8Fj/JAfTRYRj
-	 Ve4bCc7Q0UnSmdYzHa/daQ+xF5Xn0PSCGUeh61nB82jMlmi/iNQXQ4+o8ehBItIrXex/i
-	 92a/MMXLrwYYOrPMCGKx66cgwg22QJVD20YSxINO9qRXtkJ+ldL19IhUgazL2zM8idg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299186;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=jM2KqtLZR5KZmZwUFYUmasLVvZOZGtObPE9IUiUfJtI=;
+	b=bRUrigy7fjWpJN0J0baTUWwdmdCAvXy8Jqa5MVB2ty22aA/D+HyefV1rgCWsiYIQWwWR
+	 VMl/Q1Ml6ax3yrlP3eC1PDkANCVO64X5C10FyERMJs8agsYA6p3aRNsE30KWoGzVwklMr
+	 RAd0kD3PlreO7o33MdUgZhReqyTW0QNQtZFG04uTe1oe/7QmWMb5jOMX/Dl6G3CxPzPwa
+	 /m6OHYAVCHne6VoF/AppBiEbgL2uA65gSXy2tqkQ6okcYJu11n3ORgEw8BMmbItuEJRuk
+	 1wyhTrUExW/yDuNB4vdFZAWJzFdbdEAvOKr5BhfIaF+9zXdwYzarhjvV57vZqv9bb2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6065360A3814;
-	Tue, 10 Nov 2026 08:26:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6065360A3814
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8BxrtIu1fJqah0eAA--.21638S3;
-	Tue, 10 Nov 2026 16:26:22 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJBx5cwo1fJqF3IzAA--.12508S2;
-	Tue, 10 Nov 2026 16:26:18 +0800 (CST)
-Message-ID: <61dc34e7-e872-42cb-a0b1-be100a78053a@loongson.cn>
-Date: Tue, 10 Nov 2026 16:23:29 +0800
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=HhMBjprX;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3159E60A2603;
+	Tue, 10 Nov 2026 08:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3159E60A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=HhMBjprX
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A167233D;
+	Tue, 10 Nov 2026 09:24:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794299041;
+	bh=1OMliKISCKOc37E0qcZlbyxk2XFCqhg/vUhAN14HK9U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HhMBjprXpI3uIHD5g6b++Nd0w1JZL5n5oTyrHRcIDInjC42gHHkAojv6T0csp6uKE
+	 UVGd8B+f4lZ9JOuYUADjCGN9+aDLtFa2yIanGK5xOlfVlFYVtaE8ZwTDMBPsejoY3X
+	 2M6xTMzvi2lQGnB2Ca+cXsTYTyQJP0WcR3npfb3w=
+Date: Tue, 10 Nov 2026 09:26:20 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: David Carlier <devnexen@gmail.com>, jacopo.mondi@ideasonboard.com, 
+	dan.scally@ideasonboard.com, nayden.kanchev@arm.com, mchehab@kernel.org, 
+	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: Require an enabled link to start a
+ video node
+Message-ID: <avLU-wAht46lTUlC@zed>
+References: <20261105231626.7152-1-devnexen@gmail.com>
+ <CAD++jLksFHZRFCk9JWQz+Kec-Gjx0dEXchUfLuTewJvOx-dnUw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,69 +63,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/4] EDAC/loongson: Encode node and MC info into mc_idx
-To: Borislav Petkov <bp@alien8.de>
-Cc: Qunqin Zhao <zhaoqunqin@163.com>, tony.luck@intel.com,
- linux-edac@vger.kernel.org, chenhuacai@kernel.org,
- linux-kernel@vger.kernel.org, Wang Jinwei <wangjinwei@loongson.cn>,
- Yulong Wang <wangyulong@loongson.cn>, Dongyan Qian
- <qiandongyan@loongson.cn>, Chao Li <lichao@loongson.cn>,
- Huacai Chen <chenhuacai@loongson.cn>
-References: <20261105025532.2055-1-zhaoqunqin@163.com>
- <20261105025532.2055-3-zhaoqunqin@163.com>
- <20261110064106.GAavK8ghva7DgZ35DK@fat_crate.local>
- <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn>
- <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBx5cwo1fJqF3IzAA--.12508S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj9xXoWrKrW3ur47JryrWrWDuw47Jrc_yoWfuFX_ur
-	1UCF9ru34kW3yvywnrCw4fArnFgayvgry8ZrZrXw4Iqa47XrW5uF4UWrWS9w1rKr1DAF9x
-	ZFyjvw4xtw4jvosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUb38YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
-	6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_
-	GFylx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
-	CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
-	I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
-	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
-	UjIFyTuYvjxU2MKZDUUUU
+In-Reply-To: <CAD++jLksFHZRFCk9JWQz+Kec-Gjx0dEXchUfLuTewJvOx-dnUw@mail.gmail.com>
 
-
-在 2026/11/10 16:03, Borislav Petkov 写道:
-> On Tue, Nov 10, 2026 at 03:47:20PM +0800, Qunqin Zhao wrote:
->> "all your nodes belong to memory controller 0"
->> I don't quite follow this sentence. There are four memory controllers on LS3C6000/S.
->>
->> On firmware without mc-idx there can still be more than one  memory controller
-> So edac_device_alloc_index() is used to give out indices for other EDAC
-> devices with edac_device_alloc_ctl_info() but I guess you could use that in
-> your driver until you don't need to add other devices besides MCs and then
-> it'll become a mess...
+On Mon, Nov 09, 2026 at 10:26:01AM +0100, Linus Walleij wrote:
+> On Fri, Nov 6, 2026 at 12:16 AM David Carlier <devnexen@gmail.com> wrote:
 >
-> Lemme ask the simplest question first: is there any case where ACPI won't
-
-mc-idx is not guaranteed. There is firmware that does not provide the property.
-
-
-Qunqin,
-
-Thanks.
-
-> provide that _DSD property or you're in control of the firmware - not like on
-> x86 - and this case we're trying to fix is never going to happen anyway...?
+> > mali_c55_pipeline_ready() skips queues whose link is disabled, but such
+> > a queue can still start streaming on its own, as the video node pads
+> > lack MEDIA_PAD_FL_MUST_CONNECT. Stopping it later sees a ready pipeline
+> > and disables the ISP under the connected queues still capturing.
+> >
+> > Mark the video node pads MUST_CONNECT so that starting a disconnected
+> > node fails with -ENOLINK.
+> >
+> > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
 >
-> Thx.
+> It checks out:
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 >
+> > Changes in v2:
+> > - Add missing Signed-off-by.
+> > - Cc stable, as d5f281f3dd29 is in the stable tree.
+>
+> No Cc: stable@vger.kernel.org actually added?
+>
+> But Jacopo can certainly add that when applying the patch.
 
+I don't have any C55 with the DS pipe fitted to test with, so I'll
+just
+Acked-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+and I can Cc stable indeed
+
+>
+> Yours,
+> Linus Walleij
+
+Thanks
+   j
