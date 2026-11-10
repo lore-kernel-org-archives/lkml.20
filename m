@@ -1,133 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316278;
-	b=mJCNlQyDLmzvFjAeRBMbXp2OrkEFnI3ldnlbY0qnKBM/s31d/ueS3TF6wUbffJ7zf/Y1
-	 ISW/6Y9aqaKOXHifFQq4i1QhsXthKMT80mZvHxNy7hpy+6CVMairBBAvqZ7M7FpSg3H2C
-	 /pJ0bExt4jYzKge2lHqISV8WGyew3dokZMn4dmV/usZcME6RCXwuiurvrDVNe830tdgpm
-	 eAwZz0HlfGCv93YZ+68181M3YfryHrJmGFKKBXHd0g7EGkTetqtgfOzjvK4Lx3wneDSxM
-	 inylTWCoJRMYfR7UC5KcsezFeEnDEzEh0L75yLZzTzTcyIYk44Uorsj5OJ3nltF/+BA==
+	t=1794316275;
+	b=Ed8D4osKKCkrEIXg3bGh5KovakiTedFg9/tya4L4fq9px0whA28EQGvRtdTLUOD3wNFI
+	 0vPQztgcbKAC+kCrr4/dJpnG1VZ1VUqv8MSAmOtzBllrzp7m0EhdJ5rpzDmjgFO8VyJqO
+	 4N+fM1NipkgzCzEkS21Ryovtx2jU5z6nc1Mpuf//atYhH+1ojssvAhm3zrmTHPrRI9a7P
+	 wCcd1yNYGor+9G4B/uB8IIW+7azMC7EhaH3uYDu7yQJ8nw8RJHeEyJvZ5LQy/RHktuBxW
+	 KQobqpdth/OcybE2TtwH39nukuEHclM05xdHXIA8pGfZ4RzysUmo8jrVpsDug9Ktmhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316278;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hv46jG8uHZHn78TEQV5LM7K76EVF6QARAJT1M8iUKJw=;
-	b=zoxpHAgDUM4WYdvl+OSWAmNZAvTz5HA7AMgcZJmcYO5VzJGi1IQdqDRkbLaSgJXGWqu8
-	 +r9Smmx4Rgc8Wqu2q+mcPQUY02xEwc2GqyCatk6zqSlWid1lwjqAIgjWrz4DbZ4OfR3cE
-	 O5+91WBnIgAlMTMkH5FA7gWD69/ZBFbe+w2SpvsqTkevtKytCDeFIhgnPBGF7pO5Y6QVh
-	 RWfcnEI2209hH8vGCCPQnx/pDifQS0M6SVE07fCmqiRwcvY/CgwLPjkLMURcFPIz9919c
-	 tKDu4QR05biCGOUTzDmLSl3vLEcfl1t8i90bx4xUTO5AAUWs0txJL9gfuRe4gHdAjIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316275;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=Ywo8zhGzurnB0+Bm1NB4f5c8ywPLDjkCLjyZnnvvMJc=;
+	b=5JASzqapXCJvXnikZqsMxTNxWL8/qSqOcdEd3yPT5c5LwWQJOHTxj72opL98QVWDFQrG
+	 Nuqg9KXO81qmkzJaN2yfu5w7EFQadTkP37URB948vFv2Nj8Q2d+msN/c0DwSRaQbyLP2E
+	 V9ECyX83/JrGYE0jS0D2bh/cCHcz3vDaYCeZObNJcPGB6g1EgXHLTSA+f2KANPZp77TJt
+	 u8JFolAQeRcxQq1l6NskeP6ZGi0fbjR+PJqqP8zJbuNUcg2vTe/DpW4Y0A2J33T0I98Uw
+	 Vyp3ORdWjowxlQ4CdBBzfUXetS+gtl13P7WCF+hhTyk1FCMmhsFF+R06eKkTXSsz96w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=e4PFNw24;
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=jdY7Yitw;
+	arc=none smtp.remote-ip=195.10.208.51
+Received: from mout-b-206.mailbox.org (mout-b-206.mailbox.org [195.10.208.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13181606A778
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13181606A778
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BCD606A754;
+	Tue, 10 Nov 2026 13:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58BCD606A754
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=e4PFNw24
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91ecd81cd67so18475866d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:11:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794316276; x=1794921076; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hv46jG8uHZHn78TEQV5LM7K76EVF6QARAJT1M8iUKJw=;
-        b=e4PFNw24vmEx9e6XM/cUzCvRERvJabuTvhno9Gz/JzeZWoLyAEqlwt+PiN7PsREzDe
-         nbBIpkI6JTuornnBm7/42NrL/w4IdXPpgJMXAMUPCFd7jbdDVIEmKh/jdZ+I+dzViXSB
-         H2p2NQNLx9ne0cV1aFkGD5AsPCtzbh2oXhKE+mtPHEk6ablNOVM/G42JAjOhvFRRvEdt
-         SknBoahXSauvPineguU97Ohz82cWAZt6yPRa0ML5YUk7kVUMnIDJn8DUcWsiXLLwSwNl
-         eFseGz8JV2OEeli+2NBdOH9OYZhu03xI/lkGEnFQ2GC/c8NKeMa66k6Yl0PwfnR2fGbK
-         Y+Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316276; x=1794921076;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hv46jG8uHZHn78TEQV5LM7K76EVF6QARAJT1M8iUKJw=;
-        b=QhcosQiMBdqgITrKP8aVgISg/j+KnjQekXz1ODmivA3orVvCrW7PDDVyvDSgQSA4qR
-         6xBRjB67P8g1qe0s8InjGseZle6Bxa92w9zKzLeUhUoQNxydiVnzsVdJq8wzWAwEpp0w
-         zINmuaGT0KD6v+Yn/FOKLsc98kCcSGcRQDuIdE2WXUtFiFYMJXo7ZsEj3srzOeqMh+sx
-         SeATXeaj7YVxwReGjdoOmkS3YcIn4QpnDuDbgFbqJyClnqC58XpG4k6hBGjzA3xbCHHA
-         tU8RAW/6yz3PboWw6PVQN4vX+Fph+I635OdXncvbHO4/77hiJgqVlKg4LnWqUIb2eeOR
-         685g==
-X-Forwarded-Encrypted: i=1; AL+hErG/mIipMIUMB/+V6iMuJPt+HaImdU5Vpi0bBdvD7mceGSrI4JkBW4prFp/Cdtbs31QFVguTMIcAQsMGw0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hV5MlZlgf9019o5ciwRMnfxX2Mt0ahdwcQQZEW223vyf2xByf
-	FNFFDXD6IyTprJn7RBOt6CONanZRLWdy7XbAMVrW9imoRt2ultjGs/8W1pTWefGr2QQ=
-X-Gm-Gg: AYBFou0k/JpRwvCqhvN4HapcBmz4v9YUTHU5tGF6Uotles7fvV8Umc2mFS6tbkSiPXb
-	TPqPWyF6nqj+refU8khyvtCJeJaj16qWUwQ2LFNEEZ8+RiuoPRkm5lpXcYTYSxnBSpiFYuVwGSO
-	ZCHNVjWN3+OKp6BNeftyVxRyamOsc6CkCaZa9gdvz9/V+HJXUKNJjmUYDAvsNT714XJxIylCB7b
-	GF2CI4CKvx4Fdswrqfe4d3M3C31C4g3JSlqiLo8UOtLj1ddfu9RQU9v+WkBH95TIaGWmsqBHh7f
-	FI/5468NZq9RBydS9XqpRGmYqE1DcbuWsLFItDk3oCrnpq/uvbthrYXutyf2ZyXgujAuIajv9xd
-	ektegDk6Y5o9+i7xYwnYhyeM1FsBIuAzt93n183SlpPE/ZGDxD1fURPlJ5/8iut7mVIBGnSB/OI
-	fgAMnl8ZypVVphBqY9Upb2aHFpw/dcWi6kqvwIa2I4VTB0Vdx8DFFQrNATckudeJwJfjAno4fyl
-	pUDj7goVSFys02oyK0b6B+iHZ+Smnxazdl5iVVO7OqH+ls7kZOmLI0tiCbJJ8dCsS+TU4IYDEAD
-	LcUiKmiJAtQC0HVIrN5a85j7S/zX6xo3iJPkZvNfaYcoRrScef9EMav0C68gftEy1/beOVQcfCW
-	llZc5viQlbD4=
-X-Received: by 2002:ad4:5cc4:0:b0:91e:96f8:f369 with SMTP id 6a1803df08f44-91eef913f53mr42602176d6.36.1794316275746;
-        Tue, 10 Nov 2026 05:11:15 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef052360asm20821916d6.38.2026.11.10.05.11.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:11:15 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xQld4-00000005faP-2KGJ;
-	Tue, 10 Nov 2026 09:11:14 -0400
-Date: Tue, 10 Nov 2026 09:11:14 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"drdeeglaze@gmail.com" <drdeeglaze@gmail.com>,
-	"James.Bottomley@hansenpartnership.com" <James.Bottomley@hansenpartnership.com>,
-	"aik@amd.com" <aik@amd.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"Xing, Cedric" <cedric.xing@intel.com>,
-	"alistair.francis@wdc.com" <alistair.francis@wdc.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"Reshetova, Elena" <elena.reshetova@intel.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"ankita@nvidia.com" <ankita@nvidia.com>,
-	"jiri@resnulli.us" <jiri@resnulli.us>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Jiang, Dave" <dave.jiang@intel.com>,
-	"Quigley, David" <david.quigley@intel.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"jpiotrowski@nvidia.com" <jpiotrowski@nvidia.com>,
-	"suzuki.poulose@arm.com" <suzuki.poulose@arm.com>,
-	"lukas@wunner.de" <lukas@wunner.de>,
-	"Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
-	"Fang, Peter" <peter.fang@intel.com>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"ksinyuk@kernel.org" <ksinyuk@kernel.org>,
-	"sameo@meta.com" <sameo@meta.com>,
-	"sathyanarayanan.kuppuswamy@linux.intel.com" <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	"qinkun@google.com" <qinkun@google.com>,
-	"pgonda@google.com" <pgonda@google.com>
-Subject: Re: [PATCH RFC 20/20] attestation: Add the TDX family implementation
-Message-ID: <20261110131114.GV663069@ziepe.ca>
-References: <20261023141218.GD3977851@ziepe.ca>
- <343e4a12f2fdbb4e9a19c4afe49cf2b8908d6739.camel@intel.com>
- <20261023220030.GM3977851@ziepe.ca>
- <7843a833723e3aad40f8fc4de3a83f5a5059280f.camel@intel.com>
- <20261103005851.GH3889730@ziepe.ca>
- <au5LCE1jau0yDo5S@intel.com>
- <20261109171236.GP663069@ziepe.ca>
- <cbef9bda9241ffe98652172edb67fab3eb1c35ee.camel@intel.com>
- <20261109234252.GR663069@ziepe.ca>
- <4c75b369b68c98c5c35e296895b6935342dc7dc1.camel@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=jdY7Yitw
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-206.mailbox.org (Postfix) with ESMTPS id 4jP6V50dwnzNm;
+	Tue, 10 Nov 2026 14:11:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794316269;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ywo8zhGzurnB0+Bm1NB4f5c8ywPLDjkCLjyZnnvvMJc=;
+	b=jdY7Yitwbi+ltrSQ0gamlZgwm7eIHDroKHARvrlArEXJDJDSYVEXHnWTSYnKCEAN4HeWPG
+	HWQHfRCTn/ON8DKcB5PDcvH1zSHkmjTOZMPd4pS1TtEGYvuHgGO39jDkamrt+/ZjNJBXVx
+	DGZtz4atUuvP8UN9oDDSWMEJkPe1L3DmRjd5FBaPKebj3sD1rDyagyr2KRGaYfzDCy3cnf
+	2gyjLc5ZUSvx1LSo7xJZSC/ssM0PI3GB+CWWHkpWoAQQhbv1vExQkGHUhPLglQjyLiKGsK
+	yu8UmWH6ZgPqw3xh5Dry7AJ4Bd9ft/AsELrnL65NLSpJH2vIRFeBHPWSaNbxfA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+Message-ID: <48cd2ec5-c3a1-4733-82bc-9c1df5ba3577@mandelbit.com>
+Date: Tue, 10 Nov 2026 14:11:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,106 +66,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4c75b369b68c98c5c35e296895b6935342dc7dc1.camel@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] udp_tunnel: don't treat IPv4 sockets bound to an
+ address as wildcard
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Nikolay Aleksandrov <razor@blackwall.org>,
+ Alice Mikityanska <alice.kernel@fastmail.im>, linux-kernel@vger.kernel.org
+References: <20261110113306.3698438-1-antonio@mandelbit.com>
+ <179431059548.488859.9340944150774199097@kernel.org>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Organization: Mandelbit SRL
+In-Reply-To: <179431059548.488859.9340944150774199097@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4jP6V50dwnzNm
 
-On Tue, Nov 10, 2026 at 01:30:16AM +0000, Edgecombe, Rick P wrote:
-> On Mon, 2026-11-09 at 19:42 -0400, Jason Gunthorpe wrote:
-> > > So we have this SGX based quote format that is fixed because it already
-> > > exists
-> > > in the wild. Going forward we are moving to DICE, but that is a standard
-> > > format.
-> > > So also somewhat fixed. I guess the question is: is there some combo of bits
-> > > in
-> > > each blob we could check that could deterministically distinguish between
-> > > the
-> > > two? To do this we would need to analyze the quote formats.
-> > 
-> > You guys really didn't make it discoverable when you added DICE? :( :(
+Hi there, humans and not! :-)
+
+On 10/11/2026 12:36, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
 > 
-> Like influence the DICE spec to interop with legacy SGX based attestation? I'm
-> out of my depth to try to say how possible that is.
-
-No, I mean just have the SGX firmware tell the OS if it produced a
-DICE or legacy blob :(
-
-> I'm also under the impression that the quote was not designed for local
-> processing in the guest. But rather remote attestation which, usually involves a
-> helper service that processes the quote. I've never been clear on why that was
-> desired. But it probably is part of the reason attestation doesn't fit this use
-> case perfectly.
-
-Even the remote helper needs to tell the two cases apart so it can
-parse them
-
-Again if you expected the user to pre-tell the helper that this is a
-legacy vs DICE VM then that's exactly the bad user experiance I want
-to avoid.
-
-> > > If there isn't, I'm not sure what we could do at this point. There is a
-> > > library
-> > > Intel publishes (right Peter?) that can verify the quotes. I'd guess it must
-> > > have some way to distinguish between the two. Can you check how it does it
-> > > Peter?
-> > 
-> > See this is exactly what I'm talking about, I don't want to repeatedly
-> > get into this situation down the road over the next decade.
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 > 
-> I'm not sure if I'm missing something. New incompatible standards seem pretty
-> normal? Sometimes there is a container to specify which type of blob, and
-> sometimes it is just discoverable by clues in the bits.
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+> 
 
-Yes, completely normal. The thing that generates the data should have
-an unambiguous contract with the OS on what kind of data it will
-generate.
+The issue was discovered by an AI coding assistant during code
+inspection, while working on extending the UDP tunnel GRO lookup fast
+path (more on this in the coming days..).
 
-If you want to change it, thats fine, but the OS participates in the
-change and is aware of it.
+It was then triggered on an unmodified kernel (current net): a UDP
+socket loses the datagrams sent to its port when an IPv4 fou socket
+bound to another address uses the same port:
 
-> I think the thing that is a bit dicey (no pun) with this, is that there is kind
-> of a backwards compatibility adjacent change for systems giving the new DICE
-> quotes. This came up in in both discussions with Dave/x86 and Sean/KVM. The
-> reason why it was considered grumble-ok in the end, was because the full
-> verification depends on updates to the library for each new platform due to
-> needing to be aware of new keys. So to actually attest even SGX quotes on a new
-> platform, library updates are needed to whatever tool or service is being used.
-> Since the library needs to be updated in any case, it can also understand the
-> new formats without any impact to the user.
+   ip netns add rx; ip netns add tx
+   ip link add vtx netns tx type veth peer name vrx netns rx
+   ip -n rx addr add 10.9.0.1/24 dev vrx; ip -n rx addr add 10.9.0.2/24 
+dev vrx
+   ip -n tx addr add 10.9.0.3/24 dev vtx
+   ip -n rx link set vrx up; ip -n tx link set vtx up
+   ip netns exec rx ethtool -K vrx gro on
+   ip netns exec tx ethtool -K vtx tso off tx-udp-segmentation off
+   ip -n rx fou add port 5556 ipproto 4 local 10.9.0.1
 
-I don't know what you guys have done here. There are IETF standards
-for all of this and well defined container formats. Sure to parse
-every bit of the token you might need a new library, but you should at
-least be able to get a signature verified and parse the generic
-information reliably.
+   # then....
+   # rx: UDP socket bound to 10.9.0.2:5556 by some $software;
+   # tx: one UDP_SEGMENT send of 32 datagrams of 1040 bytes to it,
+   # each a valid IPv4/TCP segment of one flow (quite unusual..but possible)
 
-If your plan is TDX releases are ABI incompatible with the verifiers,
-then thats a horrible plan and *much* worse than what ARM is doing,
-for instance.
+Without the patch the bound socket receives none of the 32 datagrams:
+the GRO lookup fast path hands them to fou's gro_receive, which merges
+them as one inner TCP flow, and the aggregate is then completed for the
+plain socket.
 
-But it sounds like your library can somehow parse the blob and figure
-it out, so maybe it is just a matter of describing how that works.
+Datagrams of the same size that don't look like IPv4 arrive
+intact. With the patch all 32 arrive. (Tracing the GRO path with debug
+prints in a modified kernel confirmed that sequence.)
 
-> But this didn't take into account this generic API, local quote processing use
-> case. Which is kind of a surprise and I'm actually still not 100% clear on how
-> it will be used.
+The fix was tested:
+* with that reproducer
+* with a check that fou on the IPv4 wildcard, fou bound to an IPv6 
+address and both vxlan sockets (IPv4 and IPv6-only) are still registered 
+for the fast path as before (using a debug print on registration)
+* with the ovpn selftests on a debug kernel (lockdep, KASAN).
 
-It is not local quote processing. This is labeling data properly so a
-verifier is possible without the user having to manually and directly
-inform the system what versions of Intel CPUs and TDX modules it
-should expect to have.
+[If needed, the reproducer script is available on request]
 
-> I think we would have to circle back with everyone that pushed for the host
-> controlled quote type. Let's see if the library can distinguish them already
-> too. This attestctl tool... is that something that could consume a library like
-> this? Or something that would have a no dependency implementation?
+All in all, not a critical bug, but still something worth fixing, IMHO.
 
-I would hope for no dependency, the idea would be to provide
-references for anyone wanting to make verifier software, and a tool
-for the admin that wants to debug/understand their systems..
+Regards,
 
-As well as a point to have a strict injection of sanity into what
-people are doing so we don't get repeated ABI breaking instances in
-future.
 
-Jason
+-- 
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
+
