@@ -1,63 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319703;
-	b=3nm61lbrob37tFkw7BCZH8PxOWpywL3VO/4sa6WckDzYS9/Gq+5BeRTryCGoReGfYscl
-	 WH3zFkoxlv6JZgKMtIxT0EZ1GU8jJXha+PvKNkvqr0BAPF10YnR9wYu3aq/ak7QqQ6gy9
-	 r8MhQ1IWA+gf/rMCdahm9Zv+qWumj7XnI+mgS67h4yGT3feqUw/hn9lHDodoEDBDOfk1c
-	 loEiPY8fRJecSPN7b9WB5shnwkaSjQ2qTKkgD6ZXPVUIfCjA4JgXHkwFc3gta2MFMP1J/
-	 7VpD4QEq87J7DB1bfPGCpGx7mjPm7gI7f5ULhebPXgl1amz9kRL3XW6QBF+1TkXYl/g==
+	t=1794319798;
+	b=KbIoFkexXJKG8iqt/cXYVESQyay3KTM9bLLjLH8jFuVQYdSjz4o1Pr4EI+k04eRfhYiS
+	 6nup3JXOwb6vGb7Bp3qa5A2GJUviWO0cwiEMWi0UdfR2k1tQsjAgXK3a2Trf7lKxcAuXP
+	 QdPKxptTHgLqp3OsFqK4rzmvQ1MH8KcLsEtn/+1yJYLZVry/AGT+eylspWCPk1iAIrIki
+	 BuQ2AX8xic9Men7ZbVPzprFJOKcQKds0JL2kK5l8ryVs/z7tHYC1KemZ8vIaYs+0eVpiq
+	 8qZpLFDtvUR2eqJWXy1e+XMcBrxcSAlTqiA6AElgcD7tIp/+65U3aZ2MqKMBkvam0/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319703;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=AMlP8MhWT0A44wY6Zfl/NC3suMHryx6lMzzXNAXNtAM=;
-	b=E5ySbNCUdyH8HXHYNq6k/YsZA4jZ4fYwL9uxZLLn/SoWVDTKPbRrMJHiEllHdQQUaIJV
-	 T/mZXQvtPGG7zm9PtBBKO8r+hKXCYnvOAa47KNOY1OVSTgPtgsV0ZD51MmPmw6AjFsjAS
-	 62ZUcr8S8eCUKudgxRdZAGJqh8Bc/6JIvAHOMrClPSdKSl96niFcd5gZQagCc/ZT2mbUo
-	 MJjSpWz6FaF+LVLURB6lMebCM3BSCW1/2ltH5EcQ4eTgMAMe5HajNttrEwTKC5xTpAQ8p
-	 gXru+6wI6yF6drTnXYJjCiJHpl3otHviJB0tXSikYbNeMZM7JV4tZo/exRkbtXq2b8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319798;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=pB57B8wW+SEvfaiOl7ycc6ShOq9TASgyNKl6X5D51Yw=;
+	b=Cup8D4OBBd/1Ni+tsDlqSV+WNUfGTdJvlpEXtfdCFSPvgEAc1kJ8Y3wzPWtTkY/7o7Ai
+	 MHrnwRNHeeLAwmRT/y1mTC4DVu0U7//f0dBocf/p/6FsuFqKY652DZKqIYVoL/orf1M/8
+	 cyRzMNYAHuhBAVmQ4rPT/3RJ1tbPnFRM2fiQXOtHowgjaa7fHQgQIml9ScT/TBM/u0Yrq
+	 hZ66GS2dG1TNQwDPIv0Q0oXnrzrahmyZxyvumxMMRag+u6aseDORmejC5M3S4CZe5TCGr
+	 fkvoqUC+zayBGtWjYQG+PDCUEbFvOTiNk4NL5KnadEiBW4VfwdBhAYxwdnZd0Bjpwzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeynbQJL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NUXMoT5l;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78CB606A31C;
-	Tue, 10 Nov 2026 14:08:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155F5606A321;
+	Tue, 10 Nov 2026 14:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 155F5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeynbQJL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E8C1F0089F;
-	Tue, 10 Nov 2026 14:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319702;
-	bh=AMlP8MhWT0A44wY6Zfl/NC3suMHryx6lMzzXNAXNtAM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LeynbQJLhX0P1z177u20dH7TR+BQEJxEAkdIcrK32MFm2zQ4NNxA/6OOHYPOHshSE
-	 KRFUGTlvpx6sgu7ex7C86htJpvc5Y9jZAV7Kh7btiEI3ADjVRkIpYaldm3ZFPN2dsS
-	 YPwhbUHnbGG9S3IAGueWh2WdqwVdRzh/hWxs1ZjY9LLaE05QMxOcpmXdcXo/nFQD/6
-	 VpKWCP+cDLaHyA3rBuJqGIoVSuFgA/VpDDbdol+DXkD/3dJQ3eZLbYDjJPb5kIhuTn
-	 Y+U3X3jEiJKrVn4JcyEaGSAwR0EUOjtHBnvdz4sQCP1N66IvmpJlfs5ceRA2rqXmrn
-	 uVuSp91muGVdQ==
-Subject: Re: [PATCH net-next v01 1/4] Fixes: Solve an LRO stall issue
-From: netdev-bot+sashiko@kernel.org
-To: gongfan1@huawei.com
-Cc: wudi234@huawei.com, tengpeisen@huawei.com, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, andrew+netdev@lunn.ch, ioana.ciornei@nxp.com,
- maxime.chevallier@bootlin.com, mohsin.bashr@gmail.com,
- dimitri.daskalakis1@gmail.com, hramamurthy@google.com,
- larysa.zaremba@intel.com, vadim.fedorenko@linux.dev,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- zhoushuai28@huawei.com, wulike1@huawei.com
-Date: Tue, 10 Nov 2026 14:08:20 +0000
-Message-ID: <179431970098.994134.1550238733009979837@kernel.org>
-In-Reply-To: <6b3a98338e27fbfa923069686b7cd472f30f5033.1793946318.git.gongfan1@huawei.com>
-References: <6b3a98338e27fbfa923069686b7cd472f30f5033.1793946318.git.gongfan1@huawei.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NUXMoT5l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794319796; x=1825855796;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=m1MGGQV4qzQITJrJo2OceVWPRzE+TICqoPHwYE9qCiY=;
+  b=NUXMoT5lGoYknyvqwe8TdsUaKMndwduuvukvhDcFlzA5WrLYh+z2iVE1
+   /DdxVllC6x4jc7kKxJsQTLA1B6R2T5+j/d5ciHsdJoxa+feOu3d5g/p6g
+   +Ddy3qf2aaOHIC5B3ZvWLtPZxfFN0ik1xYiviYJBfXQdaEomkPZ93Ci5a
+   2H1ZhqLfaM85Cig5djpIPt8y3G38spyJ1oX2O8GVpFg0o7rUZOmhqWJ3g
+   h1vDxaQeFENfOyqysE05Cuaru44Mf72Uq5OQjSiCi45vtXQMDSve5ez+e
+   LbU53CZ6fVnOpPMdPG0inOA1Hu6ttunUZx72QJCzEHQGdzuNlXN+6ausQ
+   g==;
+X-CSE-ConnectionGUID: ILlqd7+4QR+UBHqVVk5iQg==
+X-CSE-MsgGUID: wCEehn2JRPOOKf/xEdnjxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3065885"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3065885"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:09:56 -0800
+X-CSE-ConnectionGUID: hnkphMxnRqWtT2jmMU07YQ==
+X-CSE-MsgGUID: K+4pWKqGRQSoA8y0UQ7tFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8180084"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:09:52 -0800
+Date: Tue, 10 Nov 2026 16:09:49 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
+	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
+	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
+ requests
+Message-ID: <avMlrXeemXOSR3ng@ashevche-desk.local>
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
+ <avMg5XmU8uSzPR4s@pluto>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,114 +88,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avMg5XmU8uSzPR4s@pluto>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, Nov 10, 2026 at 01:49:25PM +0000, Cristian Marussi wrote:
+> On Fri, Oct 30, 2026 at 04:58:42PM +0100, Cl�ment Le Goffic wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+...
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> > +static int pinctrl_scmi_gpio_mux_set(struct scmi_pinctrl *pmx, unsigned int pin)
+> > +{
+> > +	const unsigned int *elems, *pins;
+> > +	unsigned int nr_elems, nr_pins, i;
+> > +	bool pin_only, gpio;
+> > +	int nr_functions, func, ret;
 
-- [Medium] The commit message does not describe the change.
-- [Low] The patch says it fixes a user-visible RX stall ("Solve an LRO
-  stall issue") and the reviewer text it quotes asks for a Fixes: tag,…
+> Beside nr_functions, cannot all of these variable definitions be moved
+> inside the scope in which they are exclusively used, i.e. down inside
+> the for-loop ?
 
---
-
-Fixes: Solve an LRO stall issue
-
-This patch changes hinic3_rx_poll() to return budget instead of nr_pkts
-when the RX loop exits on the LRO replenish threshold. As a result,
-hinic3_poll() stays in polling mode and does not complete NAPI or
-re-enable the MSI-X vector.
-
-> Fixes: Solve an LRO stall issue
->
-> As noted in the subsequent review.
->
-> This changes the return value when the loop exits on the LRO
-> replenish threshold. It used to return nr_pkts and now returns budget.
-
-[ ... ]
-
-> This seems unrelated to statistics, and the commit message does not
-> mention it. Was it intended? If it fixes an LRO stall, could it go in
-> a separate patch with its own explanation and a Fixes: tag?
-
-[Severity: Medium]
-Could the commit message be rewritten so it describes this change on its
-own?
-
-The subject has no "hinic3:" prefix. It also starts with "Fixes:", and
-tools that grep for Fixes: trailers can misread that.
-
-"As noted in the subsequent review." points to a mailing list thread that
-won't be in git history.
-
-The rest of the body is the review text copied word for word. That
-includes the questions "Was it intended?" and "could it go in a separate
-patch with its own explanation and a Fixes: tag?", and they are left
-unanswered.
-
-The message doesn't say what stalls, when it stalls, or why returning
-budget from hinic3_rx_poll() on the lro_replenish_thld exit fixes it. The
-threshold defaults to HINIC3_LRO_REPLENISH_THLD, which is 256.
-
-Is this the mechanism? Before the patch, the threshold break returned
-nr_pkts < budget, so hinic3_poll() went on to run:
-
-	if (likely(napi_complete_done(napi, work_done))) {
-		hinic3_net_dim(nic_dev, irq_cfg);
-		hinic3_set_msix_state(nic_dev->hwdev, irq_cfg->msix_entry_idx,
-				      HINIC3_MSIX_ENABLE);
-
-At that point, CQEs with RXDONE already set could still be in the ring.
-If the device doesn't raise a new interrupt for CQEs it wrote before the
-vector was re-enabled, those packets would stay there until more traffic
-arrives.
-
-Could the message say whether this device behaviour is what the patch
-works around? The change was split out as the review asked, but the
-explanation the review asked for seems to be missing.
-
-> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> index 309ab59013797..9c4ab88998d47 100644
-> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-
-[ ... ]
-
-> @@ -581,12 +582,14 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
->  
->  		rx_cqe->status = 0;
->  
-> -		if (num_wqe >= nic_dev->lro_replenish_thld)
-> +		if (num_wqe >= nic_dev->lro_replenish_thld) {
-> +			poll_again = true;
->  			break;
-> +		}
->  	}
->  
->  	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
->  		hinic3_rx_fill_buffers(rxq);
->  
-> -	return nr_pkts;
-> +	return poll_again ? budget : nr_pkts;
->  }
-
-[Severity: Low]
-The patch is described as a fix for an RX stall, so should it carry a
-Fixes: tag? The threshold early exit in hinic3_rx_poll(), and the
-return nr_pkts it reaches, came in with:
-
-Fixes: 17fcb3dc12bb ("hinic3: module initialization and tx/rx logic")
-
-Without that tag and a net tree target, stable kernels that ship hinic3
-won't pick up the fix.
+While it can be done, it's not most recommended style. Is it already in use in
+this driver elsewhere? If not, don't do it in a single function. Same if it's
+used in like one or two out of dozens of cases. TL;DR: be consistent in the
+first place.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1793946318.git.gongfan1%40huawei.com
+With Best Regards,
+Andy Shevchenko
+
+
