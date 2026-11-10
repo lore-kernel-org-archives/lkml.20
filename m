@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794321891;
-	b=FcLCHlvrVBY3SjGnW1IzIr1vacXJXWvXPlei09DgXmp6qrTSnPJnNNZow8assSZm6/H0
-	 CJrnGl5LlrgFa0Lfg42EPWplCvWGhaziSj8pK3wGA408GGHeDvft4nhy1gjpM0fzZnxSd
-	 nf4CID6mtZUmuIW16YVQ5Xrwlqs3zWaWHPTNENSH72qvfC9s/IkOG+L6G8VasbSLa4klq
-	 nAILHkrovXKT0XE9ChgJS5ru/woKXXzNK+PKNbPZCUzgCH63GqrbUh511VRniU7rV2jU2
-	 No+4aFQ5Tt5T6jiZ7YrYR3MK5EjdsTnhbkvSjOLE/ra4mP7JVg5wlmijIiaS7dNxJeA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321891;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=moeKZ6s5YDC8ka7H6MWH72Yzji4NuAIlVn7AGJL5KvU=;
-	b=wl0zUWUY/dMnryZ9L0sUbUwNPtOyVZdwmQhsfBdDCoWOjnBl5FpoawR1sgxgLUvKheZw
-	 oHQiuJqmeM5viK//Dl4UfARfQjDwSkRxQbJLVv1rgGmX0y5jFL1DKE2pGLBK2w2pmBZzA
-	 1YfGsIvWTvy03A6k7p2lQlieTp6zLsj1S2+HnOzfE0+JDcNCSNBTiricFCkOBQeCseJkp
-	 7dWodsKYlPc3sX+gKVqOO7ADCAmMeeIhng0PUtfTuUz17NMoHj1cVZuTgxgLO8SE5S/IB
-	 7HoTtTyXcZxVxiqVJrdW25T9R4mbHKIHs2ksp4E8yFnWdOTXMUdexYppj1m1rbpBcaQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k0yFLZKl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.105
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794321894;
+	b=A372VBzZy+Fd+MOKGF+HVp8OaimIgc2mfdHpIr8PPKvTawRTUsRTDQpKwL+RQ2EfoR32
+	 CsX8EoYg8Ksdrxgx1vi2znj8/asXCCUG0a4cuinNq1O441DB8p9WcC0S6q4w9h5wCXUQ6
+	 nbVj2V0hLdc/dxJyzG42MzCHLSds9YVDTY/2RuSv7WyprtQwyL7KhdJFtShBgpWTvNco1
+	 Pi+36a0v6TkVL91B7MF8wMjaZc6IEcqbQMeMnR3oE6fXJx/etvp2kUnfq8tUIFV3Gfw+T
+	 qzQlKFZynqgQ1AM6v4dXX0RzMZZri4Fajd1TcRBwcZNGmd6zk1aXkBxfaa4bj4vUrUQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321894;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=orsRB4SdYsft12+xEJaVNxxib74REtg/MP7hL7g3SzU=;
+	b=bi9/TEcKJTSXUTwT/I4UqMuj+eeVSB9CdMtc946QgzK1A3p7j8xI8bjRrty1WtdhjWXj
+	 ybGk+P0PyHxwP4n/4Xn/lFO9Ve8sfTjIul8jACwy6lA2WQS1eW3YUdGYTKQ1ARmJZPr0l
+	 lCKqOJTdAEUybUxGLeCtAgkvV/OhyAg7SvwHfRzKzEhOk0ceiOsLZHGSSYEiC6jD9sZ5g
+	 aDwv5PDN56XoSy5Xo3SQ5qZJ0mVYuPUFy4IHdnzSAvak7Z/hpKt4BTGr/7yvPS83Ev6m5
+	 9x7klbdtH77WzhjEMiMWhlRwafzWmukDdW2886Y9qBhsTjJFoGcoQlO2+xDlROt3s3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=ZvFeDLjb;
+	arc=none smtp.remote-ip=79.135.106.105
+Received: from mail-106105.protonmail.ch (mail-106105.protonmail.ch [79.135.106.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC7D60A260D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:44:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC7D60A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BD660A260E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75BD660A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k0yFLZKl
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b70192ebceso3715383a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:44:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794321889; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RuU+C3PbEQvMj5QUDoJfBwwT6/Xyr7uBE/oJBy2GlyEraHsXmiIMj807MtUvSQzucD
-         qWHsi8yUB5cOP9wxSHYCiM9zhxFVi806luRa0cYxlZOliONo1npP6+Wu2p4kl3kh4wVo
-         TKrzyzkSun3WXmvY3DV4SnCtK1PDVS5hnFYbSl/S3aGonHkOiLVjPEH5ty3PDQla5OQ8
-         Z0lC9B8+ekFH4eVKaHOU2b4nO8WlddkoikehzsMsqARNSNbTRyolf7w6jqfjmGTxL3Lv
-         OySD7peMSqq67LyHMz/x8ztuwslBbWrC/NycPffUjBX54WURaGyXJtC2c2zVMR2foBtR
-         pfGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=moeKZ6s5YDC8ka7H6MWH72Yzji4NuAIlVn7AGJL5KvU=;
-        fh=ygdHS9g5KCW2qnLuSBExNl94sCMyg/u6D3hVIXZ4++Y=;
-        b=Yi1PbyecmZXtkq7GSmv2JNOMBiZLU3O9dtEBbagMVGmzLXpBiXhbyPC0oRZi4AvqSU
-         ZpH+XpRMjuJsZe9JAnnjw7PZDQg1kLFoZqrNVqhUU8twzZHxQlqU607ouCRTWEgPtqPC
-         ylqfsXLLqTCHhxXjzqA0hY7eG9HK3VmqIYpl6ULXlILLJcb6bc5+NbeiWk3tsAgcSF6d
-         ottLKTK4lbZC0blkDmThlgeG8eUXxkvtQfZf6L+Q/JDnyRcrmVZzYq12bc2/z26HdSYx
-         labrOAEdPPP6xRedsy86NJDxbJxJXnsAve/ZzWuApQYCnO2ofQcWUNRnbWnQDXaL7FHA
-         +ffA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794321889; x=1794926689; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=moeKZ6s5YDC8ka7H6MWH72Yzji4NuAIlVn7AGJL5KvU=;
-        b=k0yFLZKlG1wQFgfj9z0ooJQ7IihGAZ88XWoDgVpZ80fz7dqJSvZ/AC5b2K2bhtRjA1
-         KZFDlBnKFSYLhgls1LSE3fzS5CXdve+wvmHxLJ72XQ+s0Sp2lhAplTeLi7EWlOXf/kN/
-         FjMnMKtiAdi5FZyhBGdF1gMm/rlDgKupB9ZuHM947SYfrubz6rMbrTw1tGm/VeWoBJ/p
-         sNasieSKRi+MYlyMt5MqJKNhyhZY1LwTdpgW1bKvwl5CISU9suLCPHIjYZya9oA3JyhW
-         46sh2uKsbDHrGxjli1ozccKvMPy7mGSptfBq0EDpCogMT9ha37gpWKQ9yaMXIlGpLnNq
-         rUrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321889; x=1794926689;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=moeKZ6s5YDC8ka7H6MWH72Yzji4NuAIlVn7AGJL5KvU=;
-        b=whfu83V+vHYfVIEE1yOKkeelxw8+xZUgvEalIPekmBwm/t4Wyt6Bt/hIim2hIG9+OX
-         Glzq+fxA4kNM0Iiyd+v5wOpLVL4+ejJmt8S//0VES+aY8svEvKfPgOQMaOqbslKzs82i
-         eXDvyWkbrrEaHV+BbwFgMr09dPvkflIgpqMLMdjjtYbXrAWOEDW1jgx59hdE2zT3lASa
-         3AKgBSRWFNxa3Fi2Q4cQNV4DZOTawBNyTewWS5eWzKNqqiru8TR8ywlveuspp6I5fq+z
-         2DLj4tm/K2Zfq5+h3iZQK/ePhiN2jBITKoe6Ai7JHjfKnTOp8OmZbkOTqeoz9SC/6Fwz
-         wRRA==
-X-Forwarded-Encrypted: i=1; AL+hErF/UB5i1VhLWLomC6WSSW2CJZMJK00avVvQbeZ4IKLHxgz92jKAyttM5nWtryqRoSd1L8E70WyWPz2eIEk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GpPnLMDh0tqV5KyuPvaBciYnqqSu8oQ4vB/D+Uwp1MsqQojOX
-	/46/yQTL/0craBYF/KlEWxxC+RFEGQ3fwAlLuTYF7dU5LMAkNsUeXFCkg99I+yDwdt+YxVvb0dk
-	t5Lcqv4bVZtJWlJufg2EELOdiyDVJ8hM=
-X-Gm-Gg: AYBFou07IbmLjx0Cl90UhSFfVkAs4QqWIOd3+DZ762KxYU1iu3rhfXv+rscaNtZI6Kd
-	O0iZes/CpxQ7oVb8iI4FuV9ZdwyxuMDkdugU90KOHKvoq7FtzbUd4ZUn2hVw+D2IOG8FTw4HMdN
-	Sfjm/qDcMWlqus+bi/9ss6/Kt+mYRV6ybiSXJTiJ99Hc0nRxPslouQVDrX2szC176iK+6lwbRlX
-	QwZHu3D3sJcvegmut/ul8CwD+tlvT0LKUH424JTf5cJy+PwcHryBTiu/cLmK11EdaQ1S3bYHUAq
-	seDKDtYO4+wKqFWNWfVOzyQpsYKdGMWhJ+7xxnGo/Xyc5jT4t0vMCYb8EmKMK8CaB5o8DytPoWo
-	wGVt50X/yuxHSHDjjot6zlWUZE/qKRdocRt4eiAqSJsDOaI5UYWxLkGzQS1t1NqXOqbevYAh2NM
-	TeuOA99f3grL/CKtzi+JGyjJzpUnWN
-X-Received: by 2002:aa7:c1c9:0:b0:6b1:ce47:f54b with SMTP id
- 4fb4d7f45d1cf-6b757243041mr1879154a12.21.1794321888769; Tue, 10 Nov 2026
- 06:44:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=ZvFeDLjb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794321889; x=1794581089;
+	bh=orsRB4SdYsft12+xEJaVNxxib74REtg/MP7hL7g3SzU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ZvFeDLjbEw4pWqeTCCYw72q2Nq3p5CRYVyRNTsxDDSjxe514susOPkA8YnvDt5k2L
+	 Wem14nR1P1CYjCsDe3E7ad4RNCvn8dbZSeWkjrrbbNfXUyFYp5AegomdTMvKDM3OAu
+	 nBAs7/wq8hHTJ6oxCq0ybBxx/ZEFB3eb/yJkdPN0YQBFfglhFaq3q0JPBityoKzBSK
+	 Mrwo7WJeRLvIGyzkNjENLHj8QYPaV/Lx+MO1tGZS86UH8VbtEp8YunfuVhhZ+l5hhO
+	 jAlEr9FsAHSqwk9k7HClY2euVFp8Hx63WTJNxDBQMx4Mt5vZumWhjCWNN2HVVz+b2M
+	 mLhzVPeQJ9KtA==
+Date: Tue, 10 Nov 2026 14:44:44 +0000
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, linux-acpi@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ACPI: pfr_telemetry: keep the state until the last file is closed
+Message-ID: <20261110144436.1529000-2-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: e366b8deae3080dff1d1831b66b09e3c25ff56cd
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,319 +61,280 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <202611041404.befe64cd-lkp@intel.com> <20261105-trommeln-einspannen-radius-ccb4e174e407@brauner>
- <auygOHcuBba_o132@gmail.com> <CAGudoHFpNbxL13ZOWiyyLSPpmzXcB=e=RBZ8ZGk+Oc58Aad9pA@mail.gmail.com>
- <au2vjpu_yqNa83pN@gmail.com> <CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=uMOzfr=bWmwof69g@mail.gmail.com>
- <avMQxhpHhIPM_6HP@gmail.com>
-In-Reply-To: <avMQxhpHhIPM_6HP@gmail.com>
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Tue, 10 Nov 2026 15:44:36 +0100
-X-Gm-Features: AclHuK8dFFD73mHOhMvH1NU4_XTmtwUs_i_ldKGW66HJeL7DZokh2ZM31ccn5Lw
-Message-ID: <CAGudoHFe8XgtKZohfn0Q=EH0EeXozTZq+UPJKN0BEmLnEG2s=Q@mail.gmail.com>
-Subject: Re: [linus:master] [fs/pipe] f7f4665dc5: lmbench3.PIPE.bandwidth.MB/sec
- 18.5% regression
-To: Breno Leitao <leitao@debian.org>
-Cc: Christian Brauner <brauner@kernel.org>, kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, 
-	lkp@intel.com, linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 1:46=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
-ote:
->
-> On Fri, Nov 06, 2026 at 02:44:54PM +0100, Mateusz Guzik wrote:
-> > > 6) Any other idea?
-> >
-> > The SMAP stuff is the primary problem right now. To reiterate: every
-> > single buffer read/write takes a SMAP trip, which is very expensive
-> > even on modern uarchs. Refactoring this into i/o under one SMAP round
-> > would provide a visible speed up. It also happens to not pose a
-> > tradeoff in terms of memory usage and would be my first avenue of
-> > attack if I was working on this.
-> >
-> > All that said, one reader vs one writer scenario definitely makes
-> > sense to optimize.
->
-> I've spent some tokens on it, and it seems to give ~5% improvement on
-> the pipe bench. Is this what you had in mind (in a single patch format)?
->
+struct pfrt_log_device is allocated with devm_kzalloc_obj() and embeds
+the miscdevice, so it is freed when the driver unbinds. A file that is
+open on the node outlives the unbind and nothing holds a reference for
+it: the next ioctl() or mmap() on that file uses freed memory.
+Unbinding the driver needs root.
 
-The resulting behavior matches.
+Allocate the structure with kzalloc_obj() and reference count it:
+open() takes a reference, under misc_mtx, which misc_deregister() also
+takes, release() drops it, and a devm action drops the driver's own.
+The structure also holds a reference on the parent device it uses.
 
-A clean implementation escapes me and that's part of a reason I did
-not do the work myself.
+Also make remove() wait for calls already running. The firmware calls
+in ioctl() and mmap() run under a mutex, and remove() sets a flag under
+it that makes any later call that would reach the firmware fail with
+-ENODEV. Without that, a call that started before remove() can
+evaluate _DSM after remove() has returned, while device_del() unbinds
+the parent's ACPI companion. The mutex also serializes the updates to
+the log settings, which concurrent ioctl() calls could interleave.
+ioctl() copies to and from user memory outside the lock, because mmap()
+is called with mmap_lock held.
 
-The proposed patch is on the uglier side, but AFAICS that was never a
-blocker in Linux.
+The problem was found with a Coccinelle script that reports device
+nodes in devm memory [1]. The fix, the reproducers and this message
+were written with an AI assistant (Claude) and checked by hand. The bug
+was reproduced and the fix tested in QEMU with KASAN and lockdep, using
+an SSDT whose _DSM stands in for the firmware. Hardware with this
+firmware interface was not tested.
 
-Or to put it differently, I'm not happy with the shape of the patch,
-but don't have a better suggestion. The win is probably enough of a
-justification to get this in.
+Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com =
+[1]
+Fixes: b0013e037a8b ("ACPI: Introduce Platform Firmware Runtime Telemetry d=
+river")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+---
+Changes in v2:
+- remove() now waits for calls already running, under a new mutex, which
+  also serializes the log settings. Sashiko's review of v1, which Rafael
+  asked me to address, showed that a call that passed the removed check
+  can evaluate _DSM after remove() returns, while device_del() unbinds
+  the ACPI companion. The v1 notes said such a call finishes against
+  state that is still valid; that was wrong.
+- kzalloc_obj(), on top of the devm_kzalloc_obj() conversion in
+  linux-pm.
+v1: https://lore.kernel.org/r/20261108233900.4043941-3-ca@modelmiser.com
 
-> commit 724fa7def2700d51a7f0427d0de06c123b3bf8e9
-> Author: Breno Leitao <leitao@debian.org>
-> Date:   Mon Nov 9 05:04:45 2026 -0800
->
->     x86/uaccess, fs/pipe: copy a run of pipe buffers in one user access s=
-ection
->
->     Mateusz has been constantly suggesting that The SMAP stuff is the
->     primary problem right now in the pipe code, which summarizes to
->     anon_pipe_read() copying one pipe_buffer per copy_page_to_iter() call=
-.
->
->     On x86 every call opens and closes its own user access section, so a =
-64
->     KiB read that drains a full default pipe executes 16 STAC/CLAC pairs.
->
->     The pipe's pages are not contiguous, so the copies stay separate.
->
->     Move the body of copy_user_generic() into unsafe_copy_user_generic(),
->     which leaves STAC/CLAC to the caller's user access section, and turn
->     copy_user_generic() into a STAC/CLAC wrapper around it. The existing
->     callers get the same code. (This will eventually be a second patch if=
-/once
->     this becomes an non-PoC)
->
->     When the destination is a plain user buffer (ITER_UBUF, which is what
->     read(2) passes), copy up to PIPE_DEF_BUFFERS consecutive anonymous
->     buffers that the read consumes whole inside one scoped user write acc=
-ess
->     with unsafe_copy_user_generic(), then release them. The buffers are
->     looked up before the section starts, so that only the copies run with
->     user access enabled.
->
->     What this buys depends on what SMAP costs the CPU. With the buffer by
->     buffer loop, booting with clearcpuid=3Dsmap speeds pipe_bench up by 4=
--14%
->     on a Sapphire Rapids Xeon Gold 6450C.
->
->     pipe_bench from the pipe selftests runs 1, 2 or 5 writers against 1, =
-5
->     or 10 readers on one 1 MiB pipe, with 64 KiB writes and reads.
->     Throughput change from this patch, median of 2 boots x 5 runs, SMAP o=
-n:
->
->                                    Sapphire Rapids
->       1 writer, 1 reader                  +5.2%
->       5 writers, 10 readers               +8.0%
->       all 9 mixes                    +5% to +15%
->
->     Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
->     Link: https://lore.kernel.org/all/CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=
-=3DuMOzfr=3DbWmwof69g@mail.gmail.com/
->     Signed-off-by: Breno Leitao <leitao@debian.org>
->
-> diff --git a/arch/x86/include/asm/uaccess_64.h b/arch/x86/include/asm/uac=
-cess_64.h
-> index 20de34cc9aa6e7..28208db6132c27 100644
-> --- a/arch/x86/include/asm/uaccess_64.h
-> +++ b/arch/x86/include/asm/uaccess_64.h
-> @@ -115,10 +115,13 @@ static inline bool __access_ok(const void __user *p=
-tr, unsigned long size)
->  __must_check unsigned long
->  rep_movs_alternative(void *to, const void *from, unsigned len);
->
-> +/*
-> + * copy_user_generic() without the STAC/CLAC, for several copies inside =
-one
-> + * user access section. Returns the number of bytes not copied.
-> + */
->  static __always_inline __must_check unsigned long
-> -copy_user_generic(void *to, const void *from, unsigned long len)
-> +unsafe_copy_user_generic(void *to, const void *from, unsigned long len)
->  {
-> -       stac();
->         /*
->          * If CPU has FSRM feature, use 'rep movs'.
->          * Otherwise, use rep_movs_alternative.
-> @@ -131,6 +134,16 @@ copy_user_generic(void *to, const void *from, unsign=
-ed long len)
->                 _ASM_EXTABLE_UA(1b, 2b)
->                 :"+c" (len), "+D" (to), "+S" (from), ASM_CALL_CONSTRAINT
->                 : : "memory", "rax");
-> +       return len;
-> +}
-> +
-> +#define unsafe_copy_user_generic unsafe_copy_user_generic
-> +
-> +static __always_inline __must_check unsigned long
-> +copy_user_generic(void *to, const void *from, unsigned long len)
-> +{
-> +       stac();
-> +       len =3D unsafe_copy_user_generic(to, from, len);
->         clac();
->         return len;
->  }
->
-> diff --git a/fs/pipe.c b/fs/pipe.c
-> index 4fa69192e6fba1..6f6041c94abefa 100644
-> --- a/fs/pipe.c
-> +++ b/fs/pipe.c
-> @@ -340,6 +340,115 @@ static inline unsigned int pipe_update_tail(struct =
-pipe_inode_info *pipe,
->         return tail;
->  }
->
-> +#ifdef unsafe_copy_user_generic
-> +/* One buffer of a batched read, looked up before the user access sectio=
-n. */
-> +struct pipe_copy_src {
-> +       void *kaddr;
-> +       size_t len;
-> +};
-> +
-> +/*
-> + * Fill @run with the anonymous buffers from @tail on that the read cons=
-umes
-> + * whole. Returns how many, with their total length in @lenp.
-> + */
-> +static unsigned int anon_pipe_batch_lookup(struct pipe_inode_info *pipe,
-> +                                          unsigned int head, unsigned in=
-t tail,
-> +                                          size_t total_len,
-> +                                          struct pipe_copy_src *run,
-> +                                          size_t *lenp)
-> +{
-> +       struct pipe_buffer *buf;
-> +       size_t len =3D 0;
-> +       unsigned int n;
-> +
-> +       for (n =3D 0; n < PIPE_DEF_BUFFERS && tail + n !=3D head; n++) {
-> +               buf =3D pipe_buf(pipe, tail + n);
-> +               if (buf->ops !=3D &anon_pipe_buf_ops ||
-> +                   (buf->flags & PIPE_BUF_FLAG_PACKET) ||
-> +                   buf->len > total_len - len)
-> +                       break;
-> +               run[n].kaddr =3D page_address(buf->page) + buf->offset;
-> +               run[n].len =3D buf->len;
-> +               len +=3D buf->len;
-> +       }
-> +       *lenp =3D len;
-> +       return n;
-> +}
-> +
-> +/*
-> + * Copy the @n buffers in @run, @len bytes in all, to @to inside one use=
-r
-> + * access section. All or nothing: @to only advances if no copy faults.
-> + */
-> +static bool anon_pipe_batch_copy(struct iov_iter *to,
-> +                                const struct pipe_copy_src *run,
-> +                                unsigned int n, size_t len)
-> +{
-> +       const struct pipe_copy_src *r, *end =3D run + n;
-> +       char __user *dst =3D to->ubuf + to->iov_offset;
-> +       size_t off;
-> +
-> +       if (should_fail_usercopy())
-> +               return false;
-> +       might_fault();
-> +       for (r =3D run, off =3D 0; r < end; off +=3D r->len, r++)
-> +               instrument_copy_to_user(dst + off, r->kaddr, r->len);
-> +       scoped_user_write_access_size(dst, len, fault) {
-> +               for (r =3D run, off =3D 0; r < end; off +=3D r->len, r++)
-> +                       if (unsafe_copy_user_generic((__force void *)dst =
-+ off,
-> +                                                    r->kaddr, r->len))
-> +                               goto fault;
-> +       }
-> +       iov_iter_advance(to, len);
-> +       return true;
-> +
-> +fault:
-> +       return false;
-> +}
-> +
-> +/* Release the @n buffers from @tail on, which a read consumed whole. */
-> +static unsigned int anon_pipe_batch_release(struct pipe_inode_info *pipe=
-,
-> +                                           unsigned int head,
-> +                                           unsigned int tail, unsigned i=
-nt n,
-> +                                           bool *wake_writer)
-> +{
-> +       *wake_writer |=3D pipe_full(head, tail, pipe->max_usage);
-> +       while (n--)
-> +               tail =3D pipe_update_tail(pipe, pipe_buf(pipe, tail), tai=
-l);
-> +       return tail;
-> +}
-> +
-> +/*
-> + * Copy a run of anonymous buffers that the read consumes whole to a pla=
-in
-> + * user buffer inside one user access section, instead of one STAC/CLAC =
-pair
-> + * per buffer. Returns the bytes consumed, or 0 to go buffer by buffer.
-> + */
-> +static ssize_t anon_pipe_read_batch(struct pipe_inode_info *pipe,
-> +                                   struct iov_iter *to, size_t total_len=
-,
-> +                                   unsigned int head, unsigned int *tail=
-p,
-> +                                   bool *wake_writer)
-> +{
-> +       struct pipe_copy_src run[PIPE_DEF_BUFFERS];
-> +       unsigned int n;
-> +       size_t len;
-> +
-> +       if (!iter_is_ubuf(to))
-> +               return 0;
-> +       n =3D anon_pipe_batch_lookup(pipe, head, *tailp, total_len, run, =
-&len);
-> +       if (n < 2 || !anon_pipe_batch_copy(to, run, n, len))
-> +               return 0;
-> +       *tailp =3D anon_pipe_batch_release(pipe, head, *tailp, n, wake_wr=
-iter);
-> +       return len;
-> +}
-> +#else
-> +static ssize_t anon_pipe_read_batch(struct pipe_inode_info *pipe,
-> +                                   struct iov_iter *to, size_t total_len=
-,
-> +                                   unsigned int head, unsigned int *tail=
-p,
-> +                                   bool *wake_writer)
-> +{
-> +       return 0;
-> +}
-> +#endif
-> +
->  static ssize_t
->  anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
->  {
-> @@ -347,7 +456,7 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *t=
-o)
->         struct file *filp =3D iocb->ki_filp;
->         struct pipe_inode_info *pipe =3D filp->private_data;
->         bool wake_writer =3D false, wake_next_reader =3D false;
-> -       ssize_t ret;
-> +       ssize_t ret, batched;
->
->         /* Null read succeeds. */
->         if (unlikely(total_len =3D=3D 0))
-> @@ -393,7 +502,16 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *=
-to)
->                 }
->  #endif
->
-> -               if (!pipe_empty(head, tail)) {
-> +               batched =3D anon_pipe_read_batch(pipe, to, total_len, hea=
-d,
-> +                                              &tail, &wake_writer);
-> +               if (batched) {
-> +                       ret +=3D batched;
-> +                       total_len -=3D batched;
-> +                       if (!total_len)
-> +                               break;  /* common path: read succeeded */
-> +                       if (!pipe_empty(head, tail))    /* More to do? */
-> +                               continue;
-> +               } else if (!pipe_empty(head, tail)) {
->                         struct pipe_buffer *buf =3D pipe_buf(pipe, tail);
->                         size_t chars =3D buf->len;
->                         size_t written;
->
->
->
+Tested in QEMU 10.2.4 (q35, KASAN with kasan_multi_shot, lockdep) with
+the SSDT from v1, which adds a device with _HID INTC1081 and a _DSM that
+returns valid packages. With a file held open across a sysfs unbind,
+SET_INFO, GET_INFO, GET_DATA_INFO and mmap() all work before the unbind
+and fail with -ENODEV after it, a mapping made before the unbind stays
+readable, the same holds after a bind, and there are no KASAN or lockdep
+reports.
+
+For the race, a test-only msleep(2000) was put before the SET_INFO
+firmware call and the driver unbound 0.5 s into the call. With v1 the
+unbind returned at once and the firmware call completed 1.5 s after
+remove() returned. With v2 the unbind returned 2.0 s in, after the call
+completed. The test used a sysfs unbind, which keeps the ACPI companion
+bound; removal of the device itself was not tested.
+
+A test variant that calls copy_to_user() inside the lock makes lockdep
+report a cycle between the new lock, taken in pfrt_log_mmap(), and
+mmap_lock, which is why the user copies stay outside it.
+
+Mainline and stable still allocate with devm_kzalloc(), so a backport
+needs kzalloc(sizeof(*pfrt_log_dev), GFP_KERNEL) in that hunk.
+
+The same race exists in pfr_update; a matching patch on top of the one
+you applied will follow once that is in your tree.
+
+The code, changelog and reproducers were written with an AI assistant
+(Claude Opus 5.5), and the assistant ran the tests above. I ran the
+final version myself and got the same results.
+
+ drivers/acpi/pfr_telemetry.c | 102 +++++++++++++++++++++++++++++------
+ 1 file changed, 86 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/acpi/pfr_telemetry.c b/drivers/acpi/pfr_telemetry.c
+index 458cb99ae216..53d5e25497e9 100644
+--- a/drivers/acpi/pfr_telemetry.c
++++ b/drivers/acpi/pfr_telemetry.c
+@@ -15,10 +15,13 @@
+ #include <linux/errno.h>
+ #include <linux/file.h>
+ #include <linux/fs.h>
++#include <linux/kref.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/mm.h>
+ #include <linux/platform_device.h>
++#include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/uaccess.h>
+ #include <linux/uio.h>
+@@ -62,6 +65,14 @@ struct pfrt_log_device {
+ =09struct pfrt_log_info info;
+ =09struct device *parent_dev;
+ =09struct miscdevice miscdev;
++=09struct kref kref;
++=09/*
++=09 * Serializes the firmware calls and info of the file operations, and
++=09 * remove(), which sets removed under it and so waits for calls
++=09 * already running.
++=09 */
++=09struct mutex lock;
++=09bool removed;
+ };
+=20
+ /* pfrt_guid is the parameter for _DSM method */
+@@ -254,33 +265,49 @@ static long pfrt_log_ioctl(struct file *file, unsigne=
+d int cmd, unsigned long ar
+ =09=09if (copy_from_user(&info, p, sizeof(info)))
+ =09=09=09return -EFAULT;
+=20
+-=09=09if (valid_log_revid(info.log_revid))
+-=09=09=09pfrt_log_dev->info.log_revid =3D info.log_revid;
++=09=09scoped_guard(mutex, &pfrt_log_dev->lock) {
++=09=09=09if (pfrt_log_dev->removed)
++=09=09=09=09return -ENODEV;
+=20
+-=09=09if (valid_log_level(info.log_level)) {
+-=09=09=09ret =3D set_pfrt_log_level(info.log_level, pfrt_log_dev);
+-=09=09=09if (ret < 0)
+-=09=09=09=09return ret;
++=09=09=09if (valid_log_revid(info.log_revid))
++=09=09=09=09pfrt_log_dev->info.log_revid =3D info.log_revid;
+=20
+-=09=09=09pfrt_log_dev->info.log_level =3D info.log_level;
+-=09=09}
++=09=09=09if (valid_log_level(info.log_level)) {
++=09=09=09=09ret =3D set_pfrt_log_level(info.log_level, pfrt_log_dev);
++=09=09=09=09if (ret < 0)
++=09=09=09=09=09return ret;
++
++=09=09=09=09pfrt_log_dev->info.log_level =3D info.log_level;
++=09=09=09}
+=20
+-=09=09if (valid_log_type(info.log_type))
+-=09=09=09pfrt_log_dev->info.log_type =3D info.log_type;
++=09=09=09if (valid_log_type(info.log_type))
++=09=09=09=09pfrt_log_dev->info.log_type =3D info.log_type;
++=09=09}
+=20
+ =09=09return 0;
+=20
+ =09case PFRT_LOG_IOC_GET_INFO:
+-=09=09info.log_level =3D get_pfrt_log_level(pfrt_log_dev);
+-=09=09info.log_type =3D pfrt_log_dev->info.log_type;
+-=09=09info.log_revid =3D pfrt_log_dev->info.log_revid;
++=09=09scoped_guard(mutex, &pfrt_log_dev->lock) {
++=09=09=09if (pfrt_log_dev->removed)
++=09=09=09=09return -ENODEV;
++
++=09=09=09info.log_level =3D get_pfrt_log_level(pfrt_log_dev);
++=09=09=09info.log_type =3D pfrt_log_dev->info.log_type;
++=09=09=09info.log_revid =3D pfrt_log_dev->info.log_revid;
++=09=09}
++
+ =09=09if (copy_to_user(p, &info, sizeof(info)))
+ =09=09=09return -EFAULT;
+=20
+ =09=09return 0;
+=20
+ =09case PFRT_LOG_IOC_GET_DATA_INFO:
+-=09=09ret =3D get_pfrt_log_data_info(&data_info, pfrt_log_dev);
++=09=09scoped_guard(mutex, &pfrt_log_dev->lock) {
++=09=09=09if (pfrt_log_dev->removed)
++=09=09=09=09return -ENODEV;
++
++=09=09=09ret =3D get_pfrt_log_data_info(&data_info, pfrt_log_dev);
++=09=09}
+ =09=09if (ret)
+ =09=09=09return ret;
+=20
+@@ -311,6 +338,10 @@ pfrt_log_mmap(struct file *file, struct vm_area_struct=
+ *vma)
+=20
+ =09pfrt_log_dev =3D to_pfrt_log_dev(file);
+=20
++=09guard(mutex)(&pfrt_log_dev->lock);
++=09if (pfrt_log_dev->removed)
++=09=09return -ENODEV;
++
+ =09ret =3D get_pfrt_log_data_info(&info, pfrt_log_dev);
+ =09if (ret)
+ =09=09return ret;
+@@ -337,8 +368,39 @@ pfrt_log_mmap(struct file *file, struct vm_area_struct=
+ *vma)
+ =09return 0;
+ }
+=20
++static void pfrt_log_free(struct kref *kref)
++{
++=09struct pfrt_log_device *pfrt_log_dev =3D
++=09=09container_of(kref, struct pfrt_log_device, kref);
++
++=09put_device(pfrt_log_dev->parent_dev);
++=09kfree(pfrt_log_dev);
++}
++
++static void pfrt_log_put(void *data)
++{
++=09struct pfrt_log_device *pfrt_log_dev =3D data;
++
++=09kref_put(&pfrt_log_dev->kref, pfrt_log_free);
++}
++
++/* misc_open() holds misc_mtx here, and misc_deregister() takes it. */
++static int pfrt_log_open(struct inode *inode, struct file *file)
++{
++=09kref_get(&to_pfrt_log_dev(file)->kref);
++=09return 0;
++}
++
++static int pfrt_log_release(struct inode *inode, struct file *file)
++{
++=09pfrt_log_put(to_pfrt_log_dev(file));
++=09return 0;
++}
++
+ static const struct file_operations acpi_pfrt_log_fops =3D {
+ =09.owner=09=09=3D THIS_MODULE,
++=09.open=09=09=3D pfrt_log_open,
++=09.release=09=3D pfrt_log_release,
+ =09.mmap=09=09=3D pfrt_log_mmap,
+ =09.unlocked_ioctl =3D pfrt_log_ioctl,
+ =09.llseek=09=09=3D noop_llseek,
+@@ -349,6 +411,8 @@ static void acpi_pfrt_log_remove(struct platform_device=
+ *pdev)
+ =09struct pfrt_log_device *pfrt_log_dev =3D platform_get_drvdata(pdev);
+=20
+ =09misc_deregister(&pfrt_log_dev->miscdev);
++=09scoped_guard(mutex, &pfrt_log_dev->lock)
++=09=09pfrt_log_dev->removed =3D true;
+ }
+=20
+ static void pfrt_log_put_idx(void *data)
+@@ -373,10 +437,17 @@ static int acpi_pfrt_log_probe(struct platform_device=
+ *pdev)
+ =09=09return -ENODEV;
+ =09}
+=20
+-=09pfrt_log_dev =3D devm_kzalloc_obj(&pdev->dev, *pfrt_log_dev);
++=09pfrt_log_dev =3D kzalloc_obj(*pfrt_log_dev);
+ =09if (!pfrt_log_dev)
+ =09=09return -ENOMEM;
+=20
++=09kref_init(&pfrt_log_dev->kref);
++=09mutex_init(&pfrt_log_dev->lock);
++=09pfrt_log_dev->parent_dev =3D get_device(&pdev->dev);
++=09ret =3D devm_add_action_or_reset(&pdev->dev, pfrt_log_put, pfrt_log_dev=
+);
++=09if (ret)
++=09=09return ret;
++
+ =09ret =3D ida_alloc(&pfrt_log_ida, GFP_KERNEL);
+ =09if (ret < 0)
+ =09=09return ret;
+@@ -387,7 +458,6 @@ static int acpi_pfrt_log_probe(struct platform_device *=
+pdev)
+ =09=09return ret;
+=20
+ =09pfrt_log_dev->info.log_revid =3D PFRT_DEFAULT_REV_ID;
+-=09pfrt_log_dev->parent_dev =3D &pdev->dev;
+=20
+ =09pfrt_log_dev->miscdev.minor =3D MISC_DYNAMIC_MINOR;
+ =09pfrt_log_dev->miscdev.name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL,
+--=20
+2.43.0
+
+
