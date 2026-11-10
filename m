@@ -1,58 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323226;
-	b=A3PQQE1vkliqzNAzg1/4mHNVl5vWQD2IUl7axDWP/mNzgVvwuRH4VgNKs3/EyrU7pVwS
-	 xm09xHvJCNwVZpzQNJyMnSgP3NJiwbgKVLr42yxSKMLe53HKSQMiO1yNUp3USmiKg7VOz
-	 JQVPnxH2oSkfH5VTnv3pBgVjCxgPpgLrDIbNk/HqNv7zJZqQU7tGKZ1FJ/nHj1xKbT9eq
-	 fL4AD632LXre271li/EALMQG6nzTNBSlcYgezNMgeEI3cvGlsMH4UMdRE2vQrEpSbMH16
-	 vSEEjofANoTESQr8WrfUXEPArLsxTA+XGeVEj6uZvqWz8fYAtU4QBdAjfy2El49GOmw==
+	t=1794323275;
+	b=flLytPKjcO+Rzs1+6M3EGeMbuqqlAVAXxj61CWFrlmdaTYeGuwrECwoCj6UWL205JTVY
+	 y3a+zSSardARBB/nqWh9zoYnrjc2y8pFbsdfGZb3jboxxUjF1fgUDqSys/270on5LzkGe
+	 JpYx8Da4tVDqaTeb6vR6TgR6pex1KUWXRESvl25xxHZiNaWsHScRcscYSuNgPV4ddWXcZ
+	 p0bZ9DKC0nVCXgL3/ntXdxLZSZMSY4a/NNFDAtpga/mw0vP1h9bvbfr3bKJtRGQ+JoRlt
+	 U2AwjnRvCZKba42OHGZilzpC498/a4FxTUo+kyy/WImSZSzp9SyKzznw/QZvB/38Xnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323226;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3fnjfujQ/pzlwEGTHqO6MVLdM4zSJpqzQo1FTTutvu0=;
-	b=h68dZcPujNMqSOLp3jwrfH/LHz+kYQm9Z49/KAbeSnQBz8Qd6y/0b/QgWsOvDvnOlv69
-	 /ZpgQAR5Jri0hyuA9ya86bgOpK4j0hGFfXW7lhHWfEhQrTFGnl8Rovnwi6HC0rc/BF7lf
-	 OZTkklNCMK84ZGjpmBU3PURMbd3BudrS+iIqO2qXJmSI4xxi0tyIWbo/fSQOdPDI7h8MP
-	 ykmcOcCwTIjkn2BfucvDx4x3T+8usiSWJ9Eyq09zBMHTrDr2r7GzwoJy7Q10+hJSNOYOx
-	 /tdHdKO8Vf0dclNkgZeGFZ9zAqsQ32K2+dldE2fHVoGSNeP2CpJ7pE553vro+sU6M0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323275;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JV0KNSel6SKgbZeXZt1zs0TVL0t1edeqY8eeYRyb93I=;
+	b=CPGvZaTpvOrphzhbLRlIuPIv/lEwWHCFgo+w5RjLTSqzz0cPU6qC6qZ9VgxwZx/TyegQ
+	 o6wtZlzeLPaSTDIP6nZ7kH5drT8/6I53ukbs2tkPAmWI+4ygzvo1lc6c6wXalBD3eBYze
+	 Zk8HZIsrVoM5fbZ+lJphAlh+KbYEBUteJmCg4f19bIjqmglYcapICHZlEV+2pUNmUWQXq
+	 y16sPrFvRINh86MdvH108BIaZBo4Ago3+4Q1B0PZxQvG/4TBxbMNfkADBHnRMVm88A5BM
+	 Bo0wXwDn1hPpeHet25bhkOOiS92wsXT7TPt0lmpnYkHt2O6DvTZlXe+qIBytibcHXbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvQQp3du;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BIn56hPQ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=gyXOXHzh;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05E2606AA43
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:07:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AE5606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3AE5606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvQQp3du
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097EE1F0089F;
-	Tue, 10 Nov 2026 15:07:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323225;
-	bh=3fnjfujQ/pzlwEGTHqO6MVLdM4zSJpqzQo1FTTutvu0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EvQQp3duvHQl6jDz5kOlsTmP08H/wuHF5yTsADpur58rOhzYTHwx/0MyO8PkLd6Cx
-	 NEYAMPMQy18BPZperR1LssjjyHjqm72z9DYiLM1M0y8Qyzry60CcYsbcCS3KIsaJBB
-	 MJIkmJ9YDXFgAVaCl7MrfZVnmC20DZHNW2uHbx+l0AYzBXSAgD7yBhpSk311ewXeCZ
-	 lEw8M0EhNlQoBsSZ5kcQhsfGZUxMnCtAegkOfqDsthAkHA9kN1Tio4G3VhU3UMbzzY
-	 6nChIB7vKDdkXv0mTBCq/YRroxhgr+FQVaTYkjSY1HgWZgViqY8sucXoN4B7mx7ttN
-	 rDGdYdpEscetQ==
-Date: Tue, 10 Nov 2026 15:06:58 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Shivank Garg <shivankg@amd.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Ankur Arora <ankur.a.arora@oracle.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Peter Zijlstra <peterz@infradead.org>, Borislav Petkov <bp@alien8.de>, Bharata B Rao <bharata@amd.com>, 
-	Hrushikesh Salunke <hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
-Message-ID: <avMxawZfHRAqgKA4@gremlin>
-References: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BIn56hPQ;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=gyXOXHzh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794323273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JV0KNSel6SKgbZeXZt1zs0TVL0t1edeqY8eeYRyb93I=;
+	b=BIn56hPQnnDRJX0ULrRs4TucjS7z/ObLHuKSa8tuR1pupsjDNRxfDrSBbRqBZPQRPjKLLx
+	vlz5LQBQmnK9bo+2Vq10TkYK+sJjCfHA9gTcd8c425WXDbKXM7R9S3N/fYV8by//0bZwAs
+	nbgxZZmZuP4NWl0EykR8N08ICXcUxG4=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-569-ZWWOnXCEOWiNfXqvxLKkpg-1; Tue, 10 Nov 2026 10:07:52 -0500
+X-MC-Unique: ZWWOnXCEOWiNfXqvxLKkpg-1
+X-Mimecast-MFC-AGG-ID: ZWWOnXCEOWiNfXqvxLKkpg_1794323271
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4903fc8537aso1472916f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:07:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794323271; x=1794928071; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JV0KNSel6SKgbZeXZt1zs0TVL0t1edeqY8eeYRyb93I=;
+        b=gyXOXHzhRdl98gqxXdkfmT+bovA4tkIYVtUwXBiZpo6AYBJFK9HnDLrVl04b3zZYEf
+         4/tTffVkWYlFvh/EwmMUNrqjg8PeeBZtGzXNYqrnZobkH+hlgx5ZsjgQ3cvKYkNoYdD+
+         teGXYzp4k2V3GRG+EHSKZwyjg1ILyhKacBrHxWXKlSLqWG5CguusIhKJ8ebxNiggTLbz
+         aJ2nxDyUY+YVolsedUp4K+uKUi4QQPnl1MP3qEBCJR3+l85vF1oKkC41+BF7Q/lCut2P
+         ENiqSblsdswmQA084oJRNe8LP3NOF4sJ5N3TEi6jZ2dKTUB+ZpRTRsbdhzGRg8SRjzH4
+         P0wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323271; x=1794928071;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JV0KNSel6SKgbZeXZt1zs0TVL0t1edeqY8eeYRyb93I=;
+        b=G29iMqV2Ijtiz9jD+ebU/2057oE1KxhiSEhhc6mV8yDUGyLPKIwHI8Tqn++4e2G97V
+         5HX4hon1NFYwepJMvRnLmwSm2gMRFQcHHrPMWN/mc1ToF74QG8PvJq08nyrE9N/6QAYh
+         6LvBjaTzr9dIJNJS+7c07AuXa3UP9V6Fn4fHn8XMaJ95nA0MNrDVSxzDlVeO9XMpFGDd
+         DHDMQvpO+lQmQN8V0FmmEMsegEIOMgLWv88yVMZGEy/jy7YosVGTT4iDRaQ3ShJpZD93
+         7xUVmc1X+SY2Lyk/TpEUO7D6TwEGnXUmMz9dLY/8Tj8jU4nI7EnadZHPUvl/yq/1B+Sc
+         SXVQ==
+X-Forwarded-Encrypted: i=1; AL+hErFPzd4AksXwj/NA4tJWP3FGKUsbY9JhPCtChi4j2LtXqpDXd197WdyxDdgdT47yVlM+jJsTBekP1c40dng=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98o5G6QhVJAK3g/xa6YWo+XKumnXBj80avOEKPrVTqOncUrudq
+	oJ5q+08ekj+VBkcamG2PHoZ7bbr87zkjxyCj7uoXHe07QuRioHSVMh/EffyQ0NWY+LkHZ0UXuyc
+	4VCy27rq2cUHOFWGcx7pGT2k4CFeicf6iXoh53bO/6ynqYSJ5oq/2c7dqB2ikdeBQ9q4+xzYF3w
+	==
+X-Gm-Gg: AYBFou238YBGg2qyDx9REpOmBpun4wMm7b7g3OvFxIRmT3Uoiwg41zeJos933I9L5lK
+	t6DpJnCeHXb/1hr5KaP9tHU7Swwt5USBje8uG49nF2g6ecDCgcasJIORPt6LzIwPE6/+7QPNUCd
+	hTq5Z3EAHGONGXII7/2vUBjomMdw05SFvmLo4NAxkDhFLMlgYqaMlq/6vLaiarGc7QjttGHHsHL
+	lvXfZJrjWXlGmqkRtIj+smc9RmsreKQVMkq+43q7OEM9xADobDwySYwMp0m/8CJ2bJeSRl08vfP
+	CdBeGC/3QfYCWP0iHU5I2IYKK1BdJ4B9OerjUxQ42xNJcmrZULAJ6L0ngdugRJtWZNWXn8W1EEV
+	ZaItWg7fO718hwX6xafyLPCP+iq35B0Crv1vF7dSKcQs1YQ4beOKQ7IO8lmZwUDfIR9oxJftTeB
+	Gm1dd7SRFvTPT7WIwjWUr1ZwVD2+JRmRF84Qj1a0s7CNNe
+X-Received: by 2002:a05:6000:468b:b0:48d:f237:df09 with SMTP id ffacd0b85a97d-4982f873ab6mr3801024f8f.21.1794323270726;
+        Tue, 10 Nov 2026 07:07:50 -0800 (PST)
+X-Received: by 2002:a05:6000:468b:b0:48d:f237:df09 with SMTP id ffacd0b85a97d-4982f873ab6mr3800986f8f.21.1794323270236;
+        Tue, 10 Nov 2026 07:07:50 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835e20327sm5785813f8f.26.2026.11.10.07.07.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:07:49 -0800 (PST)
+Message-ID: <2013be48-c57c-4b4b-82d3-8511842b6cdb@redhat.com>
+Date: Tue, 10 Nov 2026 16:07:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,176 +113,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net/sched: fix cls_flow SKUID/SKGID userns mask
+To: shaos <shawnq1@163.com>, Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <6AEA1AAE.2E7978.08739@m16.mail.163.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <6AEA1AAE.2E7978.08739@m16.mail.163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 07:15:51PM +0000, Shivank Garg wrote:
-> clear_contig_highpages() clears the whole range at once under
-> preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
-> pages at a time, with a cond_resched() in between. The batch is 32MB if
-> the architecture defines clear_pages(), and one page otherwise.
->
-> Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-> modes"), architectures that support lazy preemption only offer the
-> full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
-> one of them, and it is the only architecture that defines
-> clear_pages(). So the 32MB batch is never used: whenever
-> clear_contig_highpages() runs under a cooperative model, the batch is
-> one page.
->
-> Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
-> set, and one page at a time with cond_resched() in between otherwise.
-> Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
->
-> PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
-> cond_resched() does nothing on any of these kernels. So a build-time
-> CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
-> not needed.
->
-> No functional change intended.
->
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
+On 11/3/26 18:32, shaos wrote:
+> Hello,
+> 
+> flow_change() checks FLOW_KEY_SKUID and FLOW_KEY_SKGID as bit values,
+> although they are enum indices and TCA_FLOW_KEYS is a bitmask.  The
+> current expression tests bits 0 through 3 instead of bits 14 and 15.
+> 
+> A process with CAP_NET_ADMIN in a non-initial user namespace can
+> therefore install SKUID/SKGID filters despite the user-namespace gate.
+> Those keys use initial-user-namespace credentials.  If another user's
+> locally generated traffic traverses the attacker's qdisc, the filter
+> can expose a property of that UID through class packet counters.  The
+> same typo also rejects some ordinary flow keys.  The demonstrated
+> cross-namespace inference requires such foreign traffic to reach the
+> attacker-owned qdisc; this does not disclose an arbitrary UID or grant
+> privileges.
+> 
+> HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
+> Git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
+> Source version: Linux 7.3
+> Compiler:       gcc 11.4.0, GNU ld 2.38
+> 
+> The console log, full kernel config, and reproducer are available from
+> one fixed-revision Gist:
+> 
+> Console output:
+> https://gist.githubusercontent.com/shaos26/a5571f1bfcd37c68c7270d296f1c12c0/raw/b3acb75e61d1cb703c7488ce0400651cd8c84b16/console-output.txt
+> Kernel config:
+> https://gist.githubusercontent.com/shaos26/a5571f1bfcd37c68c7270d296f1c12c0/raw/b3acb75e61d1cb703c7488ce0400651cd8c84b16/kernel-config.txt
+> PoC source:
+> https://gist.githubusercontent.com/shaos26/a5571f1bfcd37c68c7270d296f1c12c0/raw/b3acb75e61d1cb703c7488ce0400651cd8c84b16/poc.c
+> 
+> Clone this Gist and the exact Linux source revision, then build the
+> kernel with the attached config and run the PoC as PID 1 in an
+> initramfs:
+> 
+>      git clone \
+>        https://gist.github.com/shaos26/a5571f1bfcd37c68c7270d296f1c12c0.git \
+>        cls-flow-repro
+>      cd cls-flow-repro
+>      git clone \
+>        https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git \
+>        linux
+>      git -C linux checkout c03c1a14507dfaf8b856c2608f9ac216021fc222
+>      cp kernel-config.txt linux/.config
+>      make -C linux olddefconfig
+>      make -C linux -j"$(nproc)" bzImage
+>      gcc -static -O2 -Wall -Wextra -Werror -o init poc.c
+>      mkdir -p initramfs/dev initramfs/proc initramfs/sys
+>      cp init initramfs/init
+>      (cd initramfs && find . -print0 | \
+>       cpio --null -ov --format=newc | gzip -1 > ../flow-oracle.cpio.gz)
+>      timeout 180 qemu-system-x86_64 -m 768M -smp 2 \
+>        -kernel linux/arch/x86/boot/bzImage -initrd flow-oracle.cpio.gz \
+>        -append 'console=ttyS0 panic=-1 nokaslr rdinit=/init oracle_uid=424243' \
+>        -nographic -no-reboot > /tmp/flow-oracle-positive.log 2>&1
+> 
+> Change oracle_uid to 424242 for the even-UID control.  Run the same
+> command with the corrected-mask kernel to check the fixed behavior.
+> 
+> The vulnerable kernel accepted both restricted filters in two fresh
+> boots.  UID 424243 produced a 7/10 packet split between bands 1 and 2;
+> changing only the target to even UID 424242 put all 17 packets in band
+> 1.  The corrected-mask kernel rejected SKUID and SKGID with -EOPNOTSUPP,
+> accepted the ordinary SRC key, and showed all 17 packets in band 2.
+> The fixed-kernel harness prints ORACLE_RESULT=FAIL intentionally,
+> because its predicate expects the vulnerable behavior.
+> 
+> The guard was added by commit a6c6796c7127
+> ("userns: Convert cls_flow to work with user namespaces enabled").
+> Use shifted enum values when checking the TCA_FLOW_KEYS bitmask:
 
-Nice cleanup! LGTM so:
+The changelog is not really suitable for inclusion. Please rewrite it
+avoid colloquial language, omitting the whole repro stuff and using
+imperative mood consistently.
+> 
+> Fixes: a6c6796c7127 ("userns: Convert cls_flow to work with user namespaces enabled")
+> Signed-off-by: shaos <shawnq1@163.com>
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+We need a real full name in the SoB.
 
 > ---
-> This came up in review of the copy_mc_highpages() series [1]. Pedro
-> pointed out that most architecture run with full or lazy preempt, so mm
-> does not need to check the preemption model at runtime or batch the copy
-> for cond_resched(), and a simple per-page fallback is enough for
-> non-preemptible models.
-> David suggested doing the same for the zeroing path, and this patch
-> does that.
->
-> [1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com
-> ---
-> Changes in v3:
-> - Use clear_user_highpage() in the per-page loop (Pedro).
-> - rebase on mm/core.git/for-next.
-> - Link to v2: https://lore.kernel.org/r/20261109-clear-pages-batch-v2-1-2e62c4f84f94@amd.com
->
-> Changes in v2:
-> - Rebased on mm/linux.git/for-next, and drop RFC tag.
-> - Link to v1: https://lore.kernel.org/r/20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com
-> ---
->  include/linux/mm.h | 28 +---------------------------
->  mm/memory.c        | 29 ++++++++++++++++-------------
->  2 files changed, 17 insertions(+), 40 deletions(-)
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index e6da76fbe8e8..8d14e45fcf24 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -5250,7 +5250,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
->   *
->   * When running under preemptible models this is not a problem. Under
->   * cooperatively scheduled models, however, the caller is expected to
-> - * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
-> + * clear one page at a time and call cond_resched() in between.
->   */
->  static inline void clear_pages(void *addr, unsigned int npages)
->  {
-> @@ -5261,32 +5261,6 @@ static inline void clear_pages(void *addr, unsigned int npages)
->  }
->  #endif
->
-> -#ifndef PROCESS_PAGES_NON_PREEMPT_BATCH
-> -#ifdef clear_pages
-> -/*
-> - * The architecture defines clear_pages(), and we assume that it is
-> - * generally "fast". So choose a batch size large enough to allow the processor
-> - * headroom for optimizing the operation and yet small enough that we see
-> - * reasonable preemption latency for when this optimization is not possible
-> - * (ex. slow microarchitectures, memory bandwidth saturation.)
-> - *
-> - * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this should
-> - * result in worst case preemption latency of around 3ms when clearing pages.
-> - *
-> - * (See comment above clear_pages() for why preemption latency is a concern
-> - * here.)
-> - */
-> -#define PROCESS_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
-> -#else /* !clear_pages */
-> -/*
-> - * The architecture does not provide a clear_pages() implementation. Assume
-> - * that clear_page() -- which clear_pages() will fallback to -- is relatively
-> - * slow and choose a small value for PROCESS_PAGES_NON_PREEMPT_BATCH.
-> - */
-> -#define PROCESS_PAGES_NON_PREEMPT_BATCH		1
-> -#endif
-> -#endif
-> -
+>   net/sched/cls_flow.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/sched/cls_flow.c b/net/sched/cls_flow.c
+> --- a/net/sched/cls_flow.c
+> +++ b/net/sched/cls_flow.c
+> @@ -433,7 +433,8 @@ static int flow_change(struct net *net, struct sk_buff *in_skb,
+>   		if (fls(keymask) - 1 > FLOW_KEY_MAX)
+>   			return -EOPNOTSUPP;
+>   
+> -		if ((keymask & (FLOW_KEY_SKUID|FLOW_KEY_SKGID)) &&
+> +		if ((keymask & ((1U << FLOW_KEY_SKUID) |
+> +				(1U << FLOW_KEY_SKGID))) &&
 
-Nice to remove this :)
+BIT()?
 
->  #ifdef __HAVE_ARCH_GATE_AREA
->  extern struct vm_area_struct *get_gate_vma(struct mm_struct *mm);
->  extern int in_gate_area_no_mm(unsigned long addr);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index c9d64170e47a..fcc7ea2a00d1 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -7650,27 +7650,30 @@ static inline int process_huge_page(
->  }
->
->  static void clear_contig_highpages(struct page *page, unsigned long addr,
-> -				   unsigned int nr_pages)
-> +		unsigned int nr_pages)
->  {
-> -	unsigned int i, count;
-> +	unsigned int i;
-> +
-> +	might_sleep();
-> +
->  	/*
->  	 * When clearing we want to operate on the largest extent possible to
->  	 * allow for architecture specific extent based optimizations.
->  	 *
-> -	 * However, since clear_user_highpages() (and primitives clear_user_pages(),
-> -	 * clear_pages()), do not call cond_resched(), limit the unit size when
-> -	 * running under non-preemptible scheduling models.
-> +	 * clear_user_highpages() (and primitives clear_user_pages(),
-> +	 * clear_pages()) do not call cond_resched(). That is fine on
-> +	 * preemptible kernels, where the scheduler can preempt the clearing
-> +	 * at any point, so clear the whole range at once. Otherwise, clear
-> +	 * one page at a time and reschedule in between.
->  	 */
-> -	const unsigned int unit = preempt_model_preemptible() ?
-> -				   nr_pages : PROCESS_PAGES_NON_PREEMPT_BATCH;
-> -
-> -	might_sleep();
-> +	if (IS_ENABLED(CONFIG_PREEMPTION)) {
-> +		clear_user_highpages(page, addr, nr_pages);
-> +		return;
-> +	}
->
-> -	for (i = 0; i < nr_pages; i += count) {
-> +	for (i = 0; i < nr_pages; i++) {
->  		cond_resched();
-> -
-> -		count = min(unit, nr_pages - i);
-> -		clear_user_highpages(page + i, addr + i * PAGE_SIZE, count);
-> +		clear_user_highpage(page + i, addr + i * PAGE_SIZE);
->  	}
+>   		    sk_user_ns(NETLINK_CB(in_skb).sk) != &init_user_ns)
+>   			return -EOPNOTSUPP;
+>   	}
 
-Very lovely :)
-
->  }
->
->
-> ---
-> base-commit: 2683df3b7eac1d91380194955ad0c9751454610c
-> change-id: 20261021-clear-pages-batch-77f72ef808e4
->
-> Best regards,
-> --
-> Shivank Garg <shivankg@amd.com>
->
-
---
-Cheers, Lorenzo
