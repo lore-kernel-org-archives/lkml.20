@@ -1,74 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271849;
-	b=SqqkwIzBSsntj1VoLnzZbu/wLp9j+yrmEbco43uBbrvY+We9GSlrg+jrUQin+bU8WAaI
-	 lRmPFR6WdD0iHo8MkeTQ/HCbSD+XYesiHX6gT7ZKuXvVqJ39lJHr8Sv38ji/Lz0piCftB
-	 UksCP0DbjqafzR/gFi05wADG3yVLSHwqz0j3Pe6wi7yi+tsqHnq1DkdwNQAlHfHA5iddT
-	 wX/5CsB3VinIdikM/rdr0T68m//sXjwpaY5ZIGaUmWwil3fPYIe/W3FgOmXGKwPD7KQC9
-	 W0CHQi8p6S8+egK48aIYaTzRERT+1AiTcuRMJ8cNtR+fyLzahwwVrCTgpZ7axoWLQOQ==
+	t=1794271896;
+	b=UBhRjPgzxaQU4UhDvhVlb0dUOh6ILpHRYD/jMCfRyorbCZdk96UuNzV047WeqS8RE2HZ
+	 O331KjcZz0HiWoTpZ8vvSrjc0JYZbLOpwEzWt56q0pYOteWN6WVsEhz5ONhRpAkLzokx6
+	 Je1ohuqCnSIApz6y3HMUR+EMrlFD2BQbbsiXr+KU3iHXogK+nzEiyNCz/X9VfivFlDJG3
+	 nGN90K5MogtIR61CokkrnLY7xo9XIjBOB385YMcSceCfXnA15HZi3uDjZJJbKR8EQ1NH4
+	 MkFjGSOeMAE4BHTfTzFN3ZDUqZ8HgbCRnNWldmEF1C+xDcUKdv2fIXWwzi237QeCmlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271849;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=9aUmjjXy2UpFvwIaZx+Kc6emVkBoaRCWFUjyBYUuXe4=;
-	b=hfKPmgqOH/D3J7iZbN2R7tcRoD0SsY0dDuqxapDBr5xq5+Ne44Iz5iRM6p4i08jPD+RO
-	 mL5SfSjjBATGA3IF9VTCC50oHeuV8x5CdwbugMNdNfl7pu2F17dBl9iLhundd7VSodK6d
-	 tywVBgGGohfxO/zy/dPGFyjTG69+WrDFhN3XlEMa5BZLv/v7WRZkyG3VrgsOAV0dwUdgL
-	 SqzGz0Ay4cFosC7rqsXgaBdZ0CXV1CBn8ElcgtcqmA83SnIcwokVTtYh96bduYslbY1ni
-	 KlYMr6PIiWKjFJcOONHAKkpx6UelpwfvAkQ5lMcJBiq+Fu6Mi/9t8NuGs2xLD2UvD5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271896;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=LxD33bNL5rSCXAzzNAfOTxYq1lnExYbcm26tyMihFoM=;
+	b=3Wf0rFmCagzVZUZEWtpE6ekP/cY64017fMunIWebFd5ZpXbEftRIeGuo7dPCezRRsHVs
+	 CUla+kE/3gdyDsV5nSFmUzknlA8BarTrJwNWsU55MYuHznETjic817EMCvpuffI795Kgc
+	 YRkk11HXjskh5V/VDFSvvMgy6vHNBfr3qaMyXrtxGsjRixmzfbI6q82eH8HxGmfNAc4Ld
+	 p6s5cHY+n4cSBkoFg7/wZZpH4wvSZskoQMKxDU/h/bk3dKugSm0GYD5AroTHCGQAaFSjy
+	 PLAmdEKKtwd5t5/SSWDk/hye/OwQ49TYJczOqAlNHDvqwY19X3lJoCor2MqKE/xWa9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Rxqy6ixe;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lDtpx7iO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=g53wR0D0;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C11A606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:50:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C11A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85CE606A31C;
+	Tue, 10 Nov 2026 00:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B85CE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Rxqy6ixe
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b08364cdc7so1271731a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:50:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794271848; x=1794876648; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9aUmjjXy2UpFvwIaZx+Kc6emVkBoaRCWFUjyBYUuXe4=;
-        b=Rxqy6ixetikDYH4GXTU6DVlNgIzULph56hr/ylPgKBEq0LAlCxBeqtn3zqJLm8xcn9
-         /8L8gEpu0FFua1AhJKLHLRbGekFetzUJMpAhLvBkyd6Io4I8yVRJ1QPbOdpOumJxKtNh
-         oMHHHRmbLW+xy9nfrbL3O/Y/GIENxUCBo+qprlcK5nHvk8Mf74MAkBQAagwOLqXMK0gK
-         01XQLwADmqO9ZRtOrPv4jag12vYH76y4TtBVV6TFN0ri4rMmBiFegEp+AZT1vNUQOljj
-         UCk05FbvXMpWSKjhnKf5Yt/0k1VwOGa3C7NyCBNMU6nsHzQkxBdxpMV8/sXi1UpwGU7s
-         PIyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794271848; x=1794876648;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9aUmjjXy2UpFvwIaZx+Kc6emVkBoaRCWFUjyBYUuXe4=;
-        b=dbKaLR4wwh10MYhQ9j/qCTKFOKiNJtOfo+agODSU8zE95oaIE/wTG5yDPNo5fcEXMb
-         ZJH42iwfi7+rl1n5MethA5L6d34Kg5Rj/mDUxjJFlZl7GMbmxKrX7o0XGK8TF8zUzvxe
-         0e2yLyB76mOVxvD8FTWCBEWa8oedWMdHCnrn15yMW+f6PrwrSI4EcjtK7eXNK/ivhKq/
-         mQCi1CoDTcFob+/ae4htb0jDQi0L7X8BUKRcrCFygxXLIpexO7GEE/x3J8x7btpPC0B+
-         jUhaZ3wDS2O7HtssfN8DIyhFaWrzKon7ZUUlv4TItN3SGFpjYD2hwdmzI5jXEziHgfSc
-         xMhg==
-X-Forwarded-Encrypted: i=1; AL+hErEiuXn1SRybxN0Lpr1CLcOCzaVXC2JE+khZCGAd9a8/zEl+wonwDNWvGYkgkLGngppXLa2+lAF/ZP2VnGc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+owNJ5dLxqQ08Gr2OrnRjfBlxpLsdE4WODCjDgDWgjD2mR+scY
-	FHX6K7pN3tjGAKU912UVRJrU6DNYZZ5zwwdoFhWCsmGhOes7zQz6PAXIz5MC2XFpx0vYOTVJ9xi
-	3PDirrg==
-X-Received: from pjdq9.prod.google.com ([2002:a17:90a:2e09:b0:3ad:32d0:ca0a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a48:b0:3ae:898e:a123
- with SMTP id 98e67ed59e1d1-3b166cd70c0mr1265220a91.14.1794271848067; Mon, 09
- Nov 2026 16:50:48 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:50:47 -0800
-In-Reply-To: <CA+EHjTzaJx2nV_9YEExgYn7STSP1Kvhsqan8va8M7ba4WtCiqQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lDtpx7iO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=g53wR0D0
+Date: Tue, 10 Nov 2026 00:51:25 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794271887;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=LxD33bNL5rSCXAzzNAfOTxYq1lnExYbcm26tyMihFoM=;
+	b=lDtpx7iO6lCepei/koJiKoXjMLnnMH8ck47qoDWYNctHxWWzoEzYZ3EjXHjqWqTAMvP++f
+	wxklrXPnkWNc7rXXuy7tFmHUTXFZce8jBULBdSlovg19Yro3ieTSwRWBs33JywvpAUOh1E
+	kbLYS9M34AAHALNjYCGI2hZagwPo9JTlTtwm+3WnAOnFxWmVNSO6Gohuge5a4G2Na6krrI
+	vUKt9LTtjIRug08qFU1kAZMZZKHL6recBkujuYG6ZTvkfFcdN6pU/2NMqpCuj2NWJ28ZNg
+	ZdYhFfxw1UsmuAAUQf7fY6SNNV1vpN0HJef1V0P49jBku8JP/zi9zi4tskPC/A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794271887;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=LxD33bNL5rSCXAzzNAfOTxYq1lnExYbcm26tyMihFoM=;
+	b=g53wR0D069YYm24jPQxW1xUf3kKOr4Gz4+hwG4R1JasKoEoYRN6akU7HIAEpAa6hq52pAl
+	KQ65EhCbw9cNS+DQ==
+From: "tip-bot2 for Borislav Petkov (AMD)" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/misc] MAINTAINERS: Fix Intel TDX kernel file patterns
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,26 +71,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260922071945.693714-1-fuad.tabba@linux.dev> <20261007074037.316564-1-fuad.tabba@linux.dev>
- <CA+EHjTzaJx2nV_9YEExgYn7STSP1Kvhsqan8va8M7ba4WtCiqQ@mail.gmail.com>
-Message-ID: <avJqZzKX1ZVAMGr-@seanjc-mac.roam.internal>
-Subject: Re: [PATCH v2 0/2] KVM: selftests: Fix incremental build dependencies
-From: Sean Christopherson <seanjc@google.com>
-To: Fuad Tabba <tabba@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	"Michal =?utf-8?Q?Koutn=C3=BD?=" <mkoutny@suse.com>, James Houghton <jthoughton@google.com>, Will Deacon <will@kernel.org>, 
-	kvm@vger.kernel.org, kvmarm@lists.linux.dev, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Message-ID: <179427188525.2093942.2236341209244600692.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 09, 2026, Fuad Tabba wrote:
-> Hi Sean, Paolo,
-> 
-> Another gentle ping on this series. Is there anything else you'd like
-> to see before it goes in?
+The following commit has been merged into the x86/misc branch of tip:
 
-I'll grab the KVM change, but I would prefer the cgroup change go through the
-cgroup tree, even though Michal already acked it. AFAICT there are no dependencies,
-and it really has nothing to do with KVM.
+Commit-ID:     4718aa616ec36dee6b4b846236174754b86f0852
+Gitweb:        https://git.kernel.org/tip/4718aa616ec36dee6b4b846236174754b86=
+f0852
+Author:        Borislav Petkov (AMD) <bp@alien8.de>
+AuthorDate:    Thu, 29 Oct 2026 19:25:27 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Mon, 09 Nov 2026 16:45:05 -08:00
+
+MAINTAINERS: Fix Intel TDX kernel file patterns
+
+A K: is a content regex file pattern which matches any text in a patch
+so if a commit message contains "tdx" as in
+
+  has_tdxe_auto_clear
+
+for example, see
+
+  https://lore.kernel.org/r/20261026-g2ul_sci-v3-3-b3097163edd5@bp.renesas.com
+
+get_maintainer.pl adds the x86 gang to the Cc list for what obviously is
+a completely unrelated patch due to the K pattern being overly broad.
+
+The same happens when someone uses it to check
+
+  drivers/power/reset/tdx-ec-poweroff.c
+
+patches.
+
+So switch the x86 TDX patterns to files and directories (F:) wildcard
+type patterns and group them by path, for less false positives.
+
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Link: https://lore.kernel.org/r/20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.l=
+ocal
+---
+ MAINTAINERS | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc..f617535 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -30465,8 +30465,11 @@ L:	linux-coco@lists.linux.dev
+ L:	kvm@vger.kernel.org
+ S:	Supported
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/tdx
+-N:	tdx
+-K:	\b(tdx)
++F:	arch/x86/**/*tdx*
++F:	Documentation/**/*tdx*
++F:	drivers/virt/coco/tdx*/
++F:	include/uapi/linux/tdx*
++F:	tools/testing/selftests/tdx/
+=20
+ X86 VDSO
+ M:	Andy Lutomirski <luto@kernel.org>
