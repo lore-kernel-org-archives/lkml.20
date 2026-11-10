@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342295;
-	b=e6Z2w7sAEn5UIEmEt3WYhJssDkH5A2CR3t/h6n6/FdWFYixPdl+Bff1vpx0M3Z2HIy5J
-	 UHzO1LDURDIQu6ghVrzMraOeV8/Su077KDeAFZSJfWMHA/Hfx59WS9HRO+bNMMUrcmDk5
-	 Yl9BNoROfR2DdVliFtuxQ51PeBRlmwZo4AQGxShHONPkh9FiOp6F0TNM9hj3Br+JROLcT
-	 ymoguPJefBBX2WB1xQPZBDYmll+LK2ouEYzBZv8vU2Tua9jJZEYyHLnpc5/6l8h63ezvq
-	 8ygpeOp01SS1m931MZnbJYQiVDNTKvl8von/TBPv7DDLqwy0Mp/lDARksfp1ULUkxpw==
+	t=1794342296;
+	b=DW50AKwoMllWCBpY8KN3g/x9Ebw24VRVsp9t8+GQNmaPsprRaXM7eb/OYJdXYEScVACI
+	 8cw1rn0PvcwINu6NqvH4AzqoenQdyejhQua0AYOAuDeMV+zl3MN7XTCRfshDSFQ0CWVE3
+	 ajnkhg//rJrJu90GMJfkRpX5iOvLOkkJX68ezx6pRoer2DBepSzggcVM6bOyoVtygnjfh
+	 ohsI941JuHTI/AoljtPCfModkPRt4xMTnacd9XdMOuM+CXYXRAdMkn1N6EGeHFsaIMR05
+	 yzEI1vJyLpekJwXMdSu8GAnP0OsoxsDP5bXroxAtTkElCBrxDz2vbIxiSt8KPn3uaVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342296;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Infomaniak-Routing;
-	bh=JD53r4Sm6V7IRTeFFtDypDCCPUaM7VK8r29zklvgDC8=;
-	b=kfCqWqyDjreFs9ZEay8R34XulbPHpaDb0symVvIPvgS258/dSMFAEP43Oe2EkeKmptLL
-	 OC2g2TsgyNZp7mbOchUrHvtbMiOyyuK0OzREOI0lPUY687Sknz8wVtpL4PXdWygDn3/cR
-	 HCPtA9gFQy4B9oGmTwS6tPYk7NfpsdljKcgwWq4eVfCpUt3OeQkAASNZqRJxm/RVCi3/7
-	 EXnucXBECQ9SNrDSSA/mOQ441OWqYbwgbvr35+xrt8viYCWqPEUt57tuDDxuAOSmi1jUE
-	 7HYRE29NFy8LxG2JdOi2Q4kHegaWeq56T0vZljzbeqmGgKft3FN53u24BsAbLba64qA==
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=Iy1Zp/nLmaMj0ashih+Qw4rht5ndU3vvcvD1GV7w140=;
+	b=GRHWsmGi0pb09axVMpFrdAKIF88Ej2+pCsnYJFPDoeIQg9yBqfLrk2wPb/kWMZ2yuyer
+	 3Yk3w9mDxIpdh+1eYoYI8ffQP60j8iKwVItWg3pYh8LSS0usPHbb2EXI7jL81EimGolNX
+	 BU2Hjz5MLR1Qx1YQ+W0x9krv3j07iM0F9zx2FeKuugjjR2idt8k3D232wzuZFoOdrExnb
+	 KOLMjSRySjahd5z4a/GQQPH/mIXydLJKnWE1b4RlCw8Qx2n/iblekx2QLh7iKLZ/XMAY5
+	 bLuQO12YTvTgQXE6RgJbkSXoEwFkAQHz6Z2Md47SVFqmK+mzZ7eZtlr3EO/Mt7IQ/xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=digikod.net;
 	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=w4LV+iPw;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=DdKVWYIl;
 	arc=none smtp.remote-ip=83.166.143.175
 Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89411606A880
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:24:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89411606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30260606A887
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30260606A887
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=w4LV+iPw
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJ6Q2ChqzCH0;
-	Tue, 10 Nov 2026 21:24:46 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=DdKVWYIl
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJ6S46fqzCQG;
+	Tue, 10 Nov 2026 21:24:48 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794342286;
-	bh=JD53r4Sm6V7IRTeFFtDypDCCPUaM7VK8r29zklvgDC8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=w4LV+iPwI5QUkGSpoYplLbwRrG+1fjol/dIJ4yDeXLx0WUnbkYBMXeAN59NHxB1u8
-	 qrTpHVAfY1AT3ORrQKyg1dDZbZlD9c9UBD8QkmA5HTWIBzXQJA1XiPDpKFKZaaoUHJ
-	 +MSsYmUFstS3yPg+T4HogMgtdWVDcr/9XMeyrfOY=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJ6N4Kq7ztbS;
-	Tue, 10 Nov 2026 21:24:44 +0100 (CET)
+	s=20191114; t=1794342288;
+	bh=Iy1Zp/nLmaMj0ashih+Qw4rht5ndU3vvcvD1GV7w140=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=DdKVWYIl/aPd08nYb82NxglMzuQ+0l5GnBH6rCPjL5qzQIXEFFapshHZq3beUlKOp
+	 dHNu2RseVCXAWEYW0Sw3Atyj11xZDoewx+tuIwdI/dk6Ayy9VQtUvHVX0MtGYcFv1I
+	 YOT/G72mxuVAL+DMwxsZBV5x1berZJBkpjYemJLo=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJ6R4gwfzxwM;
+	Tue, 10 Nov 2026 21:24:47 +0100 (CET)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
 Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
@@ -57,9 +57,11 @@ Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	kernel-team@cloudflare.com,
 	linux-kernel@vger.kernel.org,
 	linux-security-module@vger.kernel.org
-Subject: [PATCH 0/6] Fix Landlock mediation of commoncap's capability checks
-Date: Tue, 10 Nov 2026 21:24:28 +0100
-Message-ID: <20261110202436.2408244-1-mic@digikod.net>
+Subject: [PATCH 2/6] landlock: Mediate CAP_SYS_RAWIO for mappings below mmap_min_addr
+Date: Tue, 10 Nov 2026 21:24:30 +0100
+Message-ID: <20261110202436.2408244-3-mic@digikod.net>
+In-Reply-To: <20261110202436.2408244-1-mic@digikod.net>
+References: <20261110202436.2408244-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,62 +75,82 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
 
-Hi,
+Until now, a process in a domain that denies CAP_SYS_RAWIO could still
+map memory below the vm.mmap_min_addr limit if it held this capability.
+cap_mmap_addr() is commoncap's mmap_addr hook, and it checks
+CAP_SYS_RAWIO with cap_capable(), not security_capable(), so the check
+never reaches hook_capable().  Mapping the lowest pages is what this
+limit protects against, because it helps to exploit kernel NULL pointer
+dereferences.
 
-This is series 1 of 3:
+Add a Landlock mmap_addr hook that checks CAP_SYS_RAWIO against the
+domain under the same condition as cap_mmap_addr().  With the same
+vm.mmap_min_addr value, the hook only denies mappings for which
+commoncap required the capability.  security_mmap_addr() stops at
+commoncap's error, so processes without the capability get the same
+result as before.  This also covers the x86 vm86() syscalls, which use
+the same check for address 0.
 
-* 1. fix Landlock mediation of commoncap's capability checks;
-  2. fix PR_SET_SECUREBITS mediation and add focused Landlock tests;
-  3. fix Landlock mediation of capabilities guarding LSM policies.
+Making cap_mmap_addr() call capable() would also fix this, but it would
+send every low mapping through the capable hook of all LSMs (SELinux,
+AppArmor, SafeSetID, BPF LSM programs), adding capability checks that
+their policies never had to handle.  For instance, SELinux checks
+mmap_zero in its own mmap_addr hook and keeps it separate from the
+capability on purpose.  LSMs with their own policy for low mappings
+implement it in this hook, so Landlock does the same.
 
-LANDLOCK_PERMISSION_CAPABILITY_USE, merged for v7.4, denies capabilities
-through the LSM capable hook, but commoncap's mmap_addr, capset and
-vm_enough_memory hooks call cap_capable() directly.  A domain that
-denies a capability can therefore still:
+Cc: Günther Noack <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Serge Hallyn <serge@hallyn.com>
+Reported-by: Ada Smith <adasmithgt@gmail.com>
+Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+---
+ security/landlock/cap.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-- map memory below vm.mmap_min_addr (CAP_SYS_RAWIO), which defeats a
-  mitigation for kernel NULL pointer dereferences;
-- add inheritable capabilities outside of its permitted set
-  (CAP_SETPCAP), which lets a privileged sandbox without no_new_privs
-  gain capabilities through execve(), although the domain still
-  restricts their use;
-- use the admin memory reserve with vm.overcommit_memory=2
-  (CAP_SYS_ADMIN).
-
-As SELinux does, patches 2 to 4 add Landlock's own check to these hooks,
-with commoncap's conditions, so they only deny what commoncap granted
-because of the capability.  Patch 1 factors out the shared check.  Patch
-5 adds tests, including audit tests, that fail without the fixes.  Patch
-6 fixes the documentation, which overstated what the permission
-restricts and how its denials show.
-
-Two other direct capability-set checks are fixed separately:
-
-- PSI triggers (CAP_SYS_RESOURCE):
-  https://patch.msgid.link/20261106120004.90041-1-dennylin0707@gmail.com
-- user namespace uid 0 mapping (CAP_SETFCAP):
-  https://patch.msgid.link/20261110144205.2404088-1-mic@digikod.net
-
-Regards,
-
-Mickaël Salaün (6):
-  landlock: Factor out capability denial checks
-  landlock: Mediate CAP_SYS_RAWIO for mappings below mmap_min_addr
-  landlock: Mediate CAP_SETPCAP for inheritable capabilities
-  landlock: Mediate CAP_SYS_ADMIN for the admin memory reserve
-  selftests/landlock: Test capability checks outside the capable hook
-  landlock: Fix capability restriction documentation
-
- Documentation/security/landlock.rst         |   8 +-
- Documentation/userspace-api/landlock.rst    |   8 +-
- include/uapi/linux/landlock.h               |   6 +-
- security/landlock/cap.c                     | 110 +++-
- tools/testing/selftests/landlock/cap_test.c | 535 ++++++++++++++++++++
- tools/testing/selftests/landlock/common.h   |   4 +-
- 6 files changed, 650 insertions(+), 21 deletions(-)
-
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/security/landlock/cap.c b/security/landlock/cap.c
+index fa59118e3486..10e1ca772b9c 100644
+--- a/security/landlock/cap.c
++++ b/security/landlock/cap.c
+@@ -9,6 +9,7 @@
+ #include <linux/cred.h>
+ #include <linux/lsm_audit.h>
+ #include <linux/lsm_hooks.h>
++#include <linux/security.h>
+ #include <uapi/linux/landlock.h>
+ 
+ #include "cap.h"
+@@ -90,8 +91,29 @@ static int hook_capable(const struct cred *cred, struct user_namespace *ns,
+ 	return check_cap(cred, cap, opts);
+ }
+ 
++/**
++ * hook_mmap_addr - Restrict mappings below dac_mmap_min_addr
++ *
++ * @addr: Address of the new mapping.
++ *
++ * cap_mmap_addr() requires CAP_SYS_RAWIO to map below dac_mmap_min_addr, but
++ * calls cap_capable() directly, which skips hook_capable().  Check the same
++ * condition against the domain.  commoncap runs first, so this only sees
++ * mappings that commoncap allowed.
++ *
++ * Return: 0 if allowed, -EPERM if CAP_SYS_RAWIO use is denied.
++ */
++static int hook_mmap_addr(unsigned long addr)
++{
++	if (addr >= dac_mmap_min_addr)
++		return 0;
++
++	return check_cap(current_cred(), CAP_SYS_RAWIO, CAP_OPT_NONE);
++}
++
+ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(capable, hook_capable),
++	LSM_HOOK_INIT(mmap_addr, hook_mmap_addr),
+ };
+ 
+ __init void landlock_add_cap_hooks(void)
 -- 
 2.56.0
 
