@@ -1,62 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299170;
-	b=ltiQDfEFshSNb/TxWWPHbRWz9B3XSLj1gxAkb9N8SwzXfv1fLnzfwdsLp0w4ROO4JZU7
-	 9e3Bu3wYmpsKDAATyFnRUoPbtizC26Sv68ZxV6c/LjstdsTtCGuFkC4jPa1n/vGY7d+SR
-	 zCRmywcPHCQ0gUuvmZ8U+59Cwbpj9vyuNWztCJp3A44IB15o63sIw9xjH9dqpNICAOYVO
-	 abGu7FSuqxNtYMr9Gi+NCtmD/s1Bl39AL5b5pdl4q4Jc6ypReZIGuRWqbUg+qOxAuk0vm
-	 Nkl9zXh+yXuMmUMV0ZUXjXoGCj/0Q871l9uGKNVCHSrtAWD2SQexVJeFkG14PCz+k2w==
+	t=1794299174;
+	b=gpY6KC99oGqkUPXPRpX1mqGhHsf+gQK0WpSsnMJAYPvMFFS3gJVCdSP4GghQPdrS9kWo
+	 ZqRvGo6s0p4hoDRMGCHPSEucofEqME0x2MLqnuwyHnsiqU2y7DzOsjzMdBAwqczm9vgUN
+	 Dy59tJ9sRJ0B6KYNt5cS+3ve9qqMQZv6Mf0lwCqPg91TieQscqZmmI4PbETz62xsf7Ptv
+	 hZF3gF+IIvAbtEoyhYktoQbZ1mX4uHSpggI8HJFTo6C5bXEnkv3ZPiFnVgeAktEo8QTaM
+	 CU+DhgyfI70HRHmAd5WDZ1SmaFSIFoBAFCGsD9il0pBIM/CDg1Ida0WyX2kOClIZlFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299170;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KGB9UbUuUIBLuGWbVi5rtXFYasd5PhFrkHNVfvzg7ao=;
-	b=OY3OHFCk0zjUO/oVfh4U3Qf7Ve0OsZ84Vvr4u/VCJ93fW8HDHaKUIabm/y5mJMveJX1i
-	 dp+K0rdQ8YegmVGos1kKoS3sNKSjimFBY051LEDy6AfDCk3Ms45f4HgrkO1WShJgoMIAs
-	 SZzljDXkVb9ZsC130UriYi81AWRR1Q9oatgzTWr1mlq9y8x+OtTW8HkKzkBf120G0gGvt
-	 XPpDrr6Ul19xTgnlNypB9Vf0jTrS58hKAv0yQri2ZJ38eIgYor3EZ4+5yr3aK8a77W2h9
-	 0N5BmXd6kHD+FeaTWlweR++FGgo9UeRF3dQc6iYnq+gRYrsjvC9AOuRCQYbRVq3dKOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299174;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
+	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=hVH2nKdWYge/Mm5lz7TbcB9+sv1fB/L+SrFdf+amB/c=;
+	b=PrGJbdKOg3CDR8Grpw9/Hi7nLriRlPCvGtbZQLVJkU1EUrNW+3LEI5pwWTLP8kMtHrzj
+	 3pCpTSYiIE7kx7dvnDzl4JUNJfHKOmcZtUImicvHP9i8ifZ9HEorVQ8fAcMGNUk2yrp2c
+	 2LiGpI+bxHPN/OZRDpJkMiCWx76dGD50FPy6qHYza6/JTloSMk7muwLwxcGOeuKacHa2e
+	 MSSFkTiWcfDPbB5P1NFDbbiKFaxOjxyuIEK6HP7GGqcj+ZQpiDwkEWdvYp4Vtk2Bb1/5m
+	 s4VXwY9K4PpkqelnUNEBcmgRBZOIw7/8EUB8fWl1mUVfw879o++oJnWXDwODjhocO2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vy3sNs4B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kJ+y7w8T;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41923606A332;
-	Tue, 10 Nov 2026 08:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE9C60A260F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:26:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CE9C60A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vy3sNs4B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF9C1F008A1;
-	Tue, 10 Nov 2026 08:26:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794299169;
-	bh=KGB9UbUuUIBLuGWbVi5rtXFYasd5PhFrkHNVfvzg7ao=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vy3sNs4Bee6tkGrdkKtqDQq1tpYCsigpN8wMAJ8/mw3580gNYKQAY2vsi1qmA8RHq
-	 05sC8wY6Vq7zO51quYwNuXtIQ6q6jQcXMNsmT3APEwmoiJBIfMmlU2A6GTy4OnbKoW
-	 j0jZIJyRYCsN8Un8fK9m79sq8Cy8rGBhCVDjwfTL3fSkzhWTKTiQOT+CijysuikkC4
-	 oi2vd0TVyOyU046uHp3JQ2TWzKHKPZ4KlnqKBmZigAJeYING07/ANcJAB15HoMwK3U
-	 EWzhImAkrWenIWitw+rx7362zlnGga9dbpmm3fE2I3oVGXyaR8cJ3EF4TH82noWw13
-	 5MSNiFgIGh5pw==
-Date: Tue, 10 Nov 2026 09:26:06 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jiebing Chen <jiebing.chen@amlogic.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, jian.xu@amlogic.com, 
-	shuai.li@amlogic.com, zhe.wang@amlogic.com
-Subject: Re: [PATCH v8 1/5] dt-bindings: clock: meson: Add audio power domain
- for S4 soc
-Message-ID: <20261110-puzzling-holistic-firefly-acea4a@quoll>
-References: <20261110-audio_drvier-v8-0-1489241e4c83@amlogic.com>
- <20261110-audio_drvier-v8-1-1489241e4c83@amlogic.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kJ+y7w8T
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 887BBC69153;
+	Tue, 10 Nov 2026 08:26:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4CB2060012;
+	Tue, 10 Nov 2026 08:26:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8677110328531;
+	Tue, 10 Nov 2026 09:26:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794299168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=hVH2nKdWYge/Mm5lz7TbcB9+sv1fB/L+SrFdf+amB/c=;
+	b=kJ+y7w8TJjoEvPS8z7mowz2u0RGqGZ7ISX7fC3zZGfIvOjiNnbpy06HDAtYfbLwIqDGAnm
+	O1e3XCFUYTho6C5rZwk48RUlHPhjqota6F/kdqNKNtGahed2xapwbiKgSL/aOWiiQrEqm+
+	JzAmfCbuqEOkBXIBXjgFNeC7MO+1XMYtRRaTt9Ozvf0CbmFrR8m0yygnzgvDoMJkXkqFW0
+	oaqTq8PhwQtO84vb9y1upEIxIeTeyDiu+1Xrg3ZnztAFDz3pU8XCBy/JDBFkf1LxBRmS3n
+	PVKkQjbEsXnbYLogZcYGAnt0gThiHHx7RSzzql2G+vmVmm/Ez/zSXw0kgDcQ+A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,22 +58,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261110-audio_drvier-v8-1-1489241e4c83@amlogic.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 09:26:04 +0100
+Message-Id: <DMRDYWVZ4LY9.13BL0K8BOX2VC@bootlin.com>
+To: "Paul Louvel" <paul.louvel@bootlin.com>, "Liam Girdwood"
+ <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
+ <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH v5 3/3] regulator: Add TI LM51772 support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
+ <20261106-paul-lm51772-v5-3-0e83ac9711d9@bootlin.com>
+ <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
+In-Reply-To: <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Nov 10, 2026 at 10:28:24AM +0800, Jiebing Chen wrote:
-> The audio power domain has been found on S4 device.
-> It must be enabled prior to audio operations.
-> 
-> Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
-> ---
->  .../bindings/clock/amlogic,axg-audio-clkc.yaml          | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
+Hello Mark,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Fri Nov 6, 2026 at 12:17 PM CET, Paul Louvel wrote:
+> On Fri Nov 6, 2026 at 11:12 AM CET, Paul Louvel wrote:
+>> +static const struct regulator_desc lm51772_regulator_template[] =3D {
+>> +	{ .name =3D "vout",
+>> +	  .of_match =3D of_match_ptr("vout"),
+>> +	  .of_parse_cb =3D lm51772_vout_of_parse,
+>> +	  .regulators_node =3D of_match_ptr("regulators"),
+>> +	  .id =3D 0,
+>> +	  .type =3D REGULATOR_VOLTAGE,
+>> +	  .owner =3D THIS_MODULE,
+>> +	  .linear_ranges =3D lm51772_voltage_ranges,
+>> +	  .linear_range_selectors_bitfield =3D lm51772_voltage_ranges_sel,
+>> +	  .n_linear_ranges =3D ARRAY_SIZE(lm51772_voltage_ranges),
+>> +	  .n_voltages =3D 100 + 2301 + 165 + 2236,
+>> +	  .vsel_reg =3D LM51772_REG_VOUT_TARGET1_LSB,
+>> +	  .vsel_mask =3D LM51772_VOUT_TARGET1_MASK,
+>> +	  .vsel_reg_oversize =3D true,
+>> +	  .vsel_range_reg =3D LM51772_REG_MFR_SPECIFIC_D8,
+>> +	  .vsel_range_mask =3D LM51772_SEL_FB_DIV20,
+>> +	  .active_discharge_reg =3D LM51772_REG_MFR_SPECIFIC_D2,
+>> +	  .active_discharge_mask =3D LM51772_DISCHARGE_CONFIG1 | LM51772_DISCH=
+ARGE_CONFIG0,
+>> +	  .active_discharge_on =3D
+>> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG1, 1) |
+>> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG0, 1),
+>> +	  .active_discharge_off =3D
+>> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG1, 0) |
+>> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG0, 0),
 
+Please find the comment I made to my own patch below.
+
+>
+> Maybe would it be better if the core could also change the active dischar=
+ge
+> strength:
+>
+>   int (*set_active_discharge)(struct regulator_dev *rdev, bool enable,
+>             int strength_uA);
+>
+> That would remove the need for introducing a vendor-specific property:
+> 'ti,active-discharge-strength-microamp'.
+>
+
+Let me know what you think.
+
+Thanks.
 Best regards,
-Krzysztof
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
