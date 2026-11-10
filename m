@@ -1,78 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794277724;
-	b=qav9UrLGDxqeDk00gccECPSuFoHL/H/Ri6Ad8YCv6AkV2QFSLkAQxdvl7p4gPz84CM7M
-	 MtJupikX07j8YBqRKd2v4LyW+2M9SwsV3nL11Nstv4NOcw98C2fe588ZKImeexQlSVEvR
-	 IQzRigEc5GEFoO4oBcYJfJ1/y/rk42/WcSYEn6fm8hIoKZLdAOIbYoRBo1LaFpS/bT35W
-	 +XGwuzyEQcmDTCNOdh9bW7DL4wIqst1VeP1Mp4mHLWVhR/qcKRwjqrx0qHizeFNxF4PiL
-	 v2/6B1Lc9Wv08hXcjp/AAbSJTMp1R3W7BH1LDWz7UtzwfdL1yyycSekZyragPK2blZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794277724;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	b=htUZoOzM/fWSOtZiL5CSDJv2s5OedDi25HBmGfF2xxyHNUjRaylloNZb2bWeFsSGBMMb
-	 o4ipFN64wVL12YQ7rfifIWXdwDk63EAg4tZG9r7oZ1PZO8ONaAUFZJrnSbHMWwLTaDs1t
-	 Aw5q447wNB5sh7UOsKJrnWrJ2KlHDZkcAb+u8kZv4sLNlvbWGtihbgSK0tu+r9jyGL6Df
-	 sSa9JMuGhrmZ06V9ovVMg0b5NQv4oZ6QXQr1p+2rDgdVOAMSiOfyfOVUCwk0KsQB7wcg8
-	 jZibqnWihwKhquA5TliWK43SDHPXmDC1kTqkUoFPZtRT6SugS6vaWsjVBpB7ttw5gNQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzpUxRHw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BC7606A321;
-	Tue, 10 Nov 2026 02:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mzpUxRHw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794277723;
-	b=ReVnb72kxxCSNSa3Ul/3tsOuMG23fRegc3cxqeaqimM0IQx82r/Yh69x193PUuOdqq+e
-	 85tIWs4WFzG08W/hpp8KyTTEAr55aMLbYXdkjVCqsA6IAc0mf2TYpxl4oQRMg69Rx8tfE
-	 sCQjAOAJrmMfSuIXU0i0FIovYvi4D5wWL+oeMR6qIFMSzCDuUGxHeTvy5m1bIh1aPG3Q3
-	 G3VJjKhe/ikjwt0P+tz6z8sTLdPAGxDctt7Zi/iRMl/E3OTdLfyBIuaOkDpu3N1WC7H3c
-	 DuLR35aDcq5yHQh06YOCEL0TH1fERE1xAz/bP+W5eOOEr1OciCYLXXqsaNGZYRMNmrw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794277723;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	b=XQso4dbKuzA8cTNVV0SNVO6MHXH1twWSnNesPV7TPS4pM1S+RuGpAadkx4v0a4pNq3gp
-	 4lojg4nSsu4icn0nqfryF7yFXE1J9GRpceDtWeDViRzb134DDqWTqREApDZav5GP6yAC7
-	 JpiFEdA5Mh+41PiLN9ODBxSr98+8zGO3k4IgWmI3foUS7Qxqx3+jdGo9hOs7HU50WLJeM
-	 YzyN39klelOwu8D1zwozccB7hRVPIoNZDutniGIZ/y+Lvwj2QiaXCxkcRQ2dfP+WMFXF2
-	 fznd7TSsviQ2XPv1TsDZhmPxsx0kt4CSKDz//5UGZ/h46Ixm59NhKe/r2AkcLabhJhw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.208
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794277771;
+	b=xm8lCyuJfcg1N+04VSNmaakZ7kMKc6VJfACV4BUlWU8f6WUkUk/c+ibfX9npKxttwbwO
+	 iJWxY4Jn5oFjQErjIQ02CT0gX/A8xbDDzUpHA2zyp2Fkd392zsiZ8fLDTxp8Ws7XUpy1C
+	 hFIVEiihpLyT7/gYxVnsdV6JVyv66bZNxSdQJcBBV4ck3gQFfVAx7NF7xXZ492BkM7CXO
+	 eP1njghXD3Ae5oDSIhFwTtk0YCZIr9hG3GUVkXfadUEg5DE30iw/svlvuyWysbbKa3Pwx
+	 YhgZp4zw7Kun4k20BJJR3kQ0o67zBJDzbAnI59y+gQhmDKq6UiZtDx28iBnhEdiKhGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794277771;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HlBsGgt5fdLLxh9YoMRteCkZdpeZNQ5ocKkLttwq/cs=;
+	b=bagApXm5hzDKGnvVuZOA4GCxsf6mX7Ozf838/z9y/T31AIop2U2ErdgwQ85yKs4aT83a
+	 O6cxBfR/sCyuo6/NXAPPkrpgLZ+CF1dxNA9a1UMhI5iT/sGqHlaNLxTUuriXVp1FO9vFN
+	 9ta5UwGhX+/3Nf2mnAo/I5JAGTq8oe5uEXjrpygHi9bQF7OoiH7erNg8lsuI3tbtHXcjY
+	 IYbgD3IGIp1ySdcAzkQEqjdnSmr5HDSMdbsvdWnIdscOEYw7mS7BLGugiIr/lFpsQNQ+s
+	 usliKLIvnEObm2cRH8mSDobJJlD58LfbS/wQfnX4tulGciR84HEE9ZzXHvT5PlX9/8A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MHi7lakr;
+	arc=none smtp.remote-ip=91.218.175.208
+Received: from mta0.migadu.com (out-208.mta0.migadu.com [91.218.175.208])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 43ACE1F008A2;
-	Tue, 10 Nov 2026 02:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794277723;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mzpUxRHwHFoBB6//8UkfenXLP0+N4IEhnxymC1Yb9S5vZpO2pji7kolZe4uij6C00
-	 EpSYmhCeVxD/ViLeYtZT4oWvAGdenSUpukQYbBjPud/umca1x+swOQJn5r5RqvvBMn
-	 8d8UD14mFYciD8gtTJkVYcGZG7WbshPIHUalSSYMbBvxHo6lzkv1Az9QRBosXa0dJc
-	 0rbZLmpLt53xcZdfLrBzBxjly0DmLVGrkwQJZ3KzlRmCNUE09MW73zV+XJLM8IMge8
-	 G1cGVTopVevfA2T0jC1GY86I7a1ykRfb+n5TKNrU7YrkQyyGR4r4HHu7GTQ/MAjBwr
-	 OW+6CrjmBuIIg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C0BD948770;
-	Tue, 10 Nov 2026 02:28:41 +0000 (UTC)
-From: Jiebing Chen via B4 Relay <devnull+jiebing.chen.amlogic.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:28:25 +0800
-Subject: [PATCH v8 2/5] dt-bindings: Asoc: axg-audio: Add S4 audio tocodec
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B83D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B83D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MHi7lakr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nJ1jpM7lqQ282X/00v7kNslXHVmvQXR6WNDc0r1eHOM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794277767; v=1; x=1794882567;
+ b=MHi7lakrdBFbW0z4ZHt/a+z1o57vugjPvSGPMIUlI7HJGy5rqZo1+kOjkLByKq+jmJfoywDL
+ Elmnz+9VkimY4PMFGuNZOyrMkHWuXHimn6V7ghaPJM3Gwgl6mcjyV08ABl4jyH+AnRe/904Z/KU
+ 2UtK4p+ZcZUoWMhxf9rzkjAU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 532814c464d3ffcb;
+	Tue, 10 Nov 2026 02:29:27 +0000
+X-Mizu-Trace-ID: 532814c464d3ffcb
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 10:29:22 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	Ridong Chen <ridong.chen@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
+ LRU) update
+Message-ID: <avKBgtWHe93uea_t@fedora>
+References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
+ <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,62 +76,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-audio_drvier-v8-2-1489241e4c83@amlogic.com>
-References: <20261110-audio_drvier-v8-0-1489241e4c83@amlogic.com>
-In-Reply-To: <20261110-audio_drvier-v8-0-1489241e4c83@amlogic.com>
-To: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- jian.xu@amlogic.com, shuai.li@amlogic.com, zhe.wang@amlogic.com, 
- jiebing chen <jiebing.chen@amlogic.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794277720; l=851;
- i=jiebing.chen@amlogic.com; s=20250110; h=from:subject:message-id;
- bh=DMgqU4dy+C9otoBnz7xzg+U2RUB122T3zVnjUiL76gQ=;
- b=6BQpXVkZnsnNKIesQNk5sWSYdBPvE4chX1wqGNXC/6aZi1VS4vlh+/fkXxe8bpTFUBhCNLdjo
- GWyvxOJOZxrBIdhDKK21mqV4ENPhzDR8XlYZzv81+/Mz7VQ8r6x9o7m
-X-Developer-Key: i=jiebing.chen@amlogic.com; a=ed25519;
- pk=6rFvvF45A84pLNRy03hfUHeROxHCnZ+1KAGw/DoqKic=
-X-Endpoint-Received: by B4 Relay for jiebing.chen@amlogic.com/20250110 with
- auth_id=316
-X-Original-From: Jiebing Chen <jiebing.chen@amlogic.com>
-Reply-To: jiebing.chen@amlogic.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
 
-From: Jiebing Chen <jiebing.chen@amlogic.com>
+On 11/09/26 at 07:31pm, David Hildenbrand (Arm) wrote:
+> MGLRU is currently the only MM component without a dedicated component
+> maintainer. Fortunately, Kairui and Barry have been actively
+> contributing to MGLRU and have volunteered to take on more responsibility
+> by officially taking care of it.
+> 
+> Given that Kairui is already an established MM component maintainer in
+> a related MM component (SWAP), add him as an MGLRU maintainer right away.
+> 
+> For Barry, the idea is to transition him towards a component maintainer
+> role over the coming months, starting by moving him to the top of the
+> reviewer list.
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  MAINTAINERS | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Add S4 SoC tocodec compatibility support.
+Well deserved, congrats to both.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
----
- Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-index 23f82bb89750..7e053aaa0f59 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-+++ b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-@@ -25,6 +25,7 @@ properties:
-           - const: amlogic,g12a-toacodec
-       - items:
-           - enum:
-+              - amlogic,s4-toacodec
-               - amlogic,sm1-toacodec
-           - const: amlogic,g12a-toacodec
- 
-
--- 
-2.52.0
-
-
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..e7ac319a570c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17635,10 +17635,10 @@ K:	(?i:vmemmap)
+>  
+>  MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
+>  M:	Andrew Morton <akpm@linux-foundation.org>
+> -R:	Kairui Song <kasong@tencent.com>
+> +M:	Kairui Song <kasong@tencent.com>
+> +R:	Barry Song <baohua@kernel.org>
+>  R:	Qi Zheng <qi.zheng@linux.dev>
+>  R:	Shakeel Butt <shakeel.butt@linux.dev>
+> -R:	Barry Song <baohua@kernel.org>
+>  R:	Axel Rasmussen <axelrasmussen@google.com>
+>  R:	Yuanchu Xie <yuanchu@google.com>
+>  R:	Wei Xu <weixugc@google.com>
+> 
+> -- 
+> 2.43.0
+> 
