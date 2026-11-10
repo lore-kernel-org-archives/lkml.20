@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286043;
-	b=MLygruKWl6bKaJmLI1GP+/IuD8TSzzfJisqKP7PxqabX6KLx8o3LCZUALXul3j+uKtKQ
-	 GkSwJupjDflcS3CmoDJKHeoh5SV+qn1Qa55pWdB09ooqf3EbrEzYPIHN6At43+izGbo90
-	 vkqwRZuB3H5VNI27N5LVxcKDvktuZwl+CfCqU6MVqFXHaoxSGJKhK66zlAQ0iIZ5wDpit
-	 IEsAdj83Jl9nTlrPZfBaXxVY6o8PMsYWphyypQXY21tkDAxG8QuMKmrQ+UT3toFIXk3+5
-	 lxU4AzNoBB+x/55djKYBdHvOvEGSCPz5VOwi/jmstNggnZTRZ3FgiJmyBAYgXnnOYaQ==
+	t=1794286045;
+	b=n3k/D4cSa2vyEat9RQ1ATE97YZEDdaEdD701dBrJ1RLFbOTO3hCMUBbVu5brwvGuRmPZ
+	 mitJoYNgQp2p7/w+mIsgxaJYBB5fjMOA80+xzw+UFzx8c1x1lyF/L4xYZ79kLxrzuUDdx
+	 cKpJ9zF2ZKw2wN/7mAyzeCuxPH+5kPFfsuTEa9LJDe/2bVjrYDL+AYcFpY6x1yN3b8J2O
+	 Bf/khz9349aISYlg1J0RhCQsT17X/CWAmTrYy8FQUMws8yxqOXWaa3iUkmdub2oUUb309
+	 6WPEtG2VbcSGgljyHBHJXbZVqU9MBxDHWW4HwjRjnsS72jwDVb65Agn/zPl9xH+7LLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286045;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XG0VksmSfVKTtdSN1LbjQIB6bZPmaQKbfPiHZ6IjJLw=;
-	b=XZ17lWJynHXjlWdummNXbG4PzmhF91ns2Xb6xHYCUEjdjDeNpmXW09arfKIFVoDUFKRh
-	 oEsze7pR6qEyhE5xZEIPJuY+Ze4Mmv/N35f+6Jyjk9wC7mgBsJnx/kZeP1Fu9wbHRvdUu
-	 EMpb4XPd1CQh+upTONzk3V5djmUpeIciZrPoDmq3DjO1fz0JaMTUGjpL+6lg7ZflkwOYz
-	 JpfHYYYBrFi6199ddUUIYwFjkbY5NjalZzI3s8KIAZBZGZRYeTVJn9KR+nmkaBqCEE8IN
-	 0PInDTIQlDr3Js8r0iebmzHDKqdgMHGuq/ADJHTWSm++PfukOZYvjfcbKP1YCwIr1RA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wC4bjhOhhN40eUTNX01dcV9nWNkEq784qFI5/5FUXkY=;
+	b=LqGRFI8QgQC+CUtMBzK/LvJiVnNwdpeKBGQCj3BzFus9R05Q5tx1krtzSBv8ioAqvkEX
+	 0oLTRewsh3b62N1nsEVc5MlBe0kUgZOp0Ak+J7db+2iOnGJrREtLVitoM39BAijE8VaiP
+	 mp8WXd0nAi9jZ5hmEO9LIFCOChooMjkbfvKZDLQM7VSTLojMnLy0eCbiXGd4cSpFXAdDD
+	 wUS9OOrcTYMMvNzNjfkUP5UT/nYb39yY74HnoJpxTF/i/0qUvKKqWh8sHkHbc01qvlKEi
+	 xgtYU2iUQkiGBdeKZRmJIMHVoiY4DoTY8OpD4i1BaVqchtT7jl9fjdAZIANsif0c5wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wci7ijoM;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BOKtYxA2;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF19606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:47:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF19606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4595A606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:47:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4595A606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wci7ijoM
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e63ee7b4cso146735985a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:47:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BOKtYxA2
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5365f9a04c5so20965581cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:47:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794286042; x=1794890842; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XG0VksmSfVKTtdSN1LbjQIB6bZPmaQKbfPiHZ6IjJLw=;
-        b=wci7ijoMJ3lK7M7H1VgZd/BhKNO0ynHkaqiv4EhkkwgSVCCdpyqdPNxzKTzOhhbD3z
-         zmw5o8CpYMGtSgCGbmkt7csgw4X54zPgwIdCorS5eJ66Cv31ckBjsXKHJbJSSaJFrAcT
-         48IgtBwMLoo6HGKZCB5MrnLezUPgECN5E8PQ2C10uADwgb3X/+PluYknJBPs2m68pXM7
-         yFoLPzpNgNnhcvjyTx+8o31OUmeD9KIQ+ayrF9lf/tshib3EZKkB/Yq/h/tQfnRwvaZt
-         zmSJ5PJRSDC9NND/Tlraez7PbP5B6he7qfxrMjdwXPwTnKoOvywETkQFoAmHKcc8IpTb
-         xt2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286042; x=1794890842;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794286044; x=1794890844; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XG0VksmSfVKTtdSN1LbjQIB6bZPmaQKbfPiHZ6IjJLw=;
-        b=eCLwEf1kk2x+eIBuVRwzgXLbXcWM1zS5f3aXmWPXA+mBjOxH/IlSBX5Q8n8aZngClx
-         kuo78Rt33Dd/3qYaktKDeXbjuf/KRqMZg/dLYnKxsCAaalkFIwuGnQbir9xu2gzuJ0xl
-         DyqxyCoEzurj3sK3iBWWrpXwRo59D0ofdWEispfhc8nQX7zjap+pe5Ey9cF7+FTa3SHr
-         9FYQFrwrxv2Pgvo8/vadRGljAHeKm8Mh4Si+HspJ8d0AfUmxjqrv/ZHIfN4GaOM0ZhAd
-         renK5IwfMUAQ/buoM5aQigtOVPXp9LsLYDeA5ck+uGZyYmPwavGOOMlLwdJwQ1EU/P9Y
-         Mxqw==
-X-Forwarded-Encrypted: i=1; AL+hErEQKOOs4kLVUBxQ3gQEwnc8pAfgcBRq4iWrI4WNph+WqSLz3VxPPtPSmnw4VmVFSlL4C4LdCObv9INaCvY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aOc+bCmfr43wDtXx8hPr4H4PJE+v3uAJEFvs2bytELWFYQUuB
-	sv8MH5h8Z2GUprqSvAUrS+MovwXzfaQW/ifkaJHBm300ATzK/rPKC1M=
-X-Gm-Gg: AYBFou0MwadbOy8XKZbN15NTWO1dERc0wmqhtFIddVMbMRWOizPjRDKU4F73H2vvVDD
-	HFZfgC1LRH+xvIEM9WsrlOxnh66k1bMOLyOAIdgr/aLjs72PTJBEOwAB1S/l9qc/+3peFIc9jPg
-	+s7iT0yxoL1YKYBpItRqxSRnurnryPiXNYlykEobuedw4uScZsFwz4Mkk1omiLrR7lyvESOZwJY
-	51Mq9FwUuWHbcrgSQhhyXa2zh4ctIATY0vxAlakjro+gG8/sgUTL7TQJ7PdBbT5Pr+eYXc9nzjb
-	LG0KZMnvy4qyG8XccnlnbZlVUU//HT51Fwx++G6OQqulZSGqKfJTcwg2qyAWkTyE124GSEOVfyn
-	KicB1+BU/L4flOcK33tJn7vCFEymHVkDhu8SpGc4/UzWtKwsztlQNsTlMiA/+NBFntXud14gGJ9
-	cNO/5qcsbHuOEKrgFI0ebc4dJ47AEI5a4fBzIIiijeNB/Fpb1TwTreL4XPZ6KYURngnJ+6lJt/l
-	2ICieorOBxBTbsnRKqa9mvSOdL4wTO8QB6UZFsgDbPgrlHOVY4BuG7gIqgbkfv24cm1JCbyxr/r
-	QNfTj1iP6xSL8k6XSWblJ5AwJx2AwmAfRGwHm1ev6KQH5NObL7G8yoXl36ZzbrrA2lWLnOVLao9
-	o861PUm+aOohn5NCRqDm4K6Yl2sjlffEALerIv9i7D60tF81gF+kszspjI4706lRsDLbKmMFs78
-	JZKOM2BCbiCQ==
-X-Received: by 2002:a05:620a:3914:b0:947:9410:f076 with SMTP id af79cd13be357-9479f2f6069mr234609985a.55.1794286042116;
-        Mon, 09 Nov 2026 20:47:22 -0800 (PST)
+        bh=wC4bjhOhhN40eUTNX01dcV9nWNkEq784qFI5/5FUXkY=;
+        b=BOKtYxA2Y/d5AExMzrRrxYGrgfAuorC3jD7qH8yibGS3P6VdbCYINFUliHco6MPMES
+         7Bplz6JmAKdCJPtQJppbrc0Re04zFtI8Da5jrQraEQ82Ljm9WihiXnZxZxPZjY9VKMn2
+         PqQblg1npSaPIa50xOLOTvjw1FaAAAsg5glHi+dUCvWBaXxWqbvhSpd1FcdXszL/DR9H
+         ieOiHYslvG/vZmMHkmSVc0MYCvdEg+NtLwdr2wVjeMYK+0ex/nNGrWyOYDbrTq7t8t/T
+         mX64h7WhF+YERyg/UkTCLMrR/YF7rnY8TU6OAnhvDPA1/SSA2PM8h/OoQs4/w2Ndsg8a
+         VxWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794286044; x=1794890844;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wC4bjhOhhN40eUTNX01dcV9nWNkEq784qFI5/5FUXkY=;
+        b=AnFXRtOfqbtn9XQsT+fLiNFYkIkYKQaD7xt6aG/0MDy1WZ/0A15uHxsb//3jReKDz9
+         CSxSVqQLJBFvZBlUGrUAwBJpWpQIw1bBeuIE0ESIxOPI1a+MuAsHuq6eeQcl0ubBLAL+
+         NCydvaX/LPz9mm+WexpeP8pmbGym2HNZuCLYG5+yOgXJHQlljJfvGy2tzyehizoWKOXd
+         NucH8zCcezdzvwHIhGcm9q0TV5Ur/Cpoz7JXKmNQSbLhTT1r7WvIkb31t1m0MglCRohv
+         L+aNojP7sSF7tps+RuOqP/fwwlphp+01aznG+dmmuEfJ2qexJ2lFf2BIO6L080E/mHsJ
+         OErQ==
+X-Forwarded-Encrypted: i=1; AL+hErGjxp/ecUdQHnElkdC7l6CkZPbZxczBE5VVeUVM4utz6Fx6H75042ZC7cEPbS+oZAnzhTVBNZ0wdWYCbYE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/V/ckceGNtKUcagS/pW8CP4EbKJwsLhgI5V2dgSCoiMV2ukbDn
+	xKObIpvnoCv4zQnDW8oV68/WvapcqzksOIQuSqbzKq8jP6zUVX6Elg4=
+X-Gm-Gg: AYBFou197/19fXmOalZZZvzSTXHYNL57WQwkPQ3/kvqrdXWPgu/2bxywvh1S5l0im54
+	CJ76PiKsmFWC2ZPt+L1HK1yOsM42/JUXQy1eNxp8q0TwBdloGC0r06L8JhzDj1ce8z48iX78wEj
+	13HyWxydltpJC15ASVR82eEIB4r5RjLERXGaby5FJAsmIpHtvEixXPATZSObMf0QI7rsxSucVln
+	WO5NTjpRElPwxpyRzRyzpBdYyIgRQ06xB30P/5C4+7OkBmD85kwAvd8g0MG6gqHtRIFWUb5qVwn
+	sjMTfrlihW9J/O/5O9Uz2bG/WNqjcXCBlJYKvlnBBTZT1XDkiEJWcL8Ktla3VCp3bEHWJsQsTk1
+	lEf5GA1y6kaLEbdBv+20HtJpoiCgu/m+KVKhxwDipOQMfcdd8nZlAWYKD+Xi6x9UPeI0Vu2XfkE
+	OFREgy9GzFVFtDy2Bdv9bhv+W84FG36dEkDjfrJS0JekjT9pSHNmdgiG4B2LZ41FHYfqSJY7Rp2
+	1AoCzBelEph+C4ctyLjwu3FyjtPrirBi1bmd9EqXd2U6rUpk0o9pzhKpOanI2ptAgMNzGngHJrQ
+	6Z5XD/WGi7+iwuCeTMV5B6XjscQnxTd9yBDsHAT04P07BDoKQ7JV4aiLpGpfUYuksbZIoLr/bE+
+	i82L7NGfgmy11ixMWgTynFoq5C9z2lis8XK7l+4rITJDakr50OUiGwFj/iwS1+Quo
+X-Received: by 2002:a05:620a:468d:b0:93f:611d:a18e with SMTP id af79cd13be357-9479f376a49mr271245385a.55.1794286044122;
+        Mon, 09 Nov 2026 20:47:24 -0800 (PST)
 Received: from localhost.localdomain ([104.39.152.7])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73ab4bsm137920185a.14.2026.11.09.20.47.20
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73ab4bsm137920185a.14.2026.11.09.20.47.22
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 20:47:21 -0800 (PST)
+        Mon, 09 Nov 2026 20:47:23 -0800 (PST)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Even Xu <even.xu@intel.com>,
 	Xinpeng Sun <xinpeng.sun@intel.com>,
@@ -91,10 +91,12 @@ Cc: Myeonghun Pak <mhun512@gmail.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2 0/2] HID: intel-thc-hid: quiesce IRQs during teardown
-Date: Mon,  9 Nov 2026 23:47:17 -0500
-Message-ID: <20261109-thc-rebase-v2-0-mhun512@gmail.com>
+Subject: [PATCH v2 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during teardown
+Date: Mon,  9 Nov 2026 23:47:18 -0500
+Message-ID: <20261109-thc-rebase-v2-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109-thc-rebase-v2-0-mhun512@gmail.com>
+References: <20261109-thc-rebase-v2-0-mhun512@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,18 +109,117 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Rebase the original QuickSPI and QuickI2C teardown patches on mainline
-b3dfbde62cf1981c4638939c159dfd087b7a72e9. The source additions and deletions
-are unchanged from the original submission.
+The managed IRQ can access HID/DMA buffers or queue recovery work while
+remove or probe unwind tears down those resources.
 
+Disable and synchronize the IRQ, drain recovery work, then mask THC
+interrupts before freeing the IRQ and releasing HID/DMA resources.
+Track IRQ/DMA initialization for conditional probe cleanup.
+
+Disable the IRQ before shutdown deinit as well. Keep IRQ disabling and
+release outside the shared hibernation helper.
+
+This issue was found by our static analysis tool under development.
+
+Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
 No hardware testing.
 
 Changes in v2:
-- Rebase on latest mainline.
+- Rebase on mainline b3dfbde62cf1. No source changes from v1.
 
- .../intel-thc-hid/intel-quicki2c/pci-quicki2c.c    | 28 +++++++++++++++++-----
  .../intel-thc-hid/intel-quickspi/pci-quickspi.c    | 28 +++++++++++++++++-----
- 2 files changed, 44 insertions(+), 12 deletions(-)
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index bf49d8ce5f07bed092339e46c444538d78cffe26..acb4d2716ea7450d2852a900c3f0acc1d7570421 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -600,6 +600,8 @@ static int quickspi_probe(struct pci_dev *pdev,
+ 			  const struct pci_device_id *id)
+ {
+ 	struct quickspi_device *qsdev;
++	bool dma_initialized = false;
++	bool irq_requested = false;
+ 	void __iomem *mem_addr;
+ 	int ret;
+ 
+@@ -652,6 +654,7 @@ static int quickspi_probe(struct pci_dev *pdev,
+ 					qsdev);
+ 	if (ret)
+ 		goto dev_deinit;
++	irq_requested = true;
+ 
+ 	ret = reset_tic(qsdev);
+ 	if (ret) {
+@@ -670,17 +673,18 @@ static int quickspi_probe(struct pci_dev *pdev,
+ 		dev_err(&pdev->dev, "Setup THC DMA failed, ret= %d\n", ret);
+ 		goto dev_deinit;
+ 	}
++	dma_initialized = true;
+ 
+ 	ret = quickspi_get_report_descriptor(qsdev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Get report descriptor failed, ret = %d\n", ret);
+-		goto dma_deinit;
++		goto dev_deinit;
+ 	}
+ 
+ 	ret = quickspi_hid_probe(qsdev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Failed to register HID device, ret = %d\n", ret);
+-		goto dma_deinit;
++		goto dev_deinit;
+ 	}
+ 
+ 	qsdev->state = QUICKSPI_ENABLED;
+@@ -695,10 +699,16 @@ static int quickspi_probe(struct pci_dev *pdev,
+ 
+ 	return 0;
+ 
+-dma_deinit:
+-	quickspi_dma_deinit(qsdev);
+ dev_deinit:
++	if (irq_requested) {
++		WRITE_ONCE(qsdev->recovery_disabled, true);
++		disable_irq(pdev->irq);
++	}
+ 	quickspi_dev_deinit(qsdev);
++	if (irq_requested)
++		devm_free_irq(&pdev->dev, pdev->irq, qsdev);
++	if (dma_initialized)
++		quickspi_dma_deinit(qsdev);
+ disable_pci_device:
+ 	pci_clear_master(pdev);
+ 
+@@ -721,9 +731,12 @@ static void quickspi_remove(struct pci_dev *pdev)
+ 	if (!qsdev)
+ 		return;
+ 
+-	quickspi_hid_remove(qsdev);
+-
++	WRITE_ONCE(qsdev->recovery_disabled, true);
++	disable_irq(pdev->irq);
+ 	quickspi_dev_deinit(qsdev);
++	devm_free_irq(&pdev->dev, pdev->irq, qsdev);
++
++	quickspi_hid_remove(qsdev);
+ 
+ 	quickspi_dma_deinit(qsdev);
+ 
+@@ -750,6 +763,9 @@ static void quickspi_shutdown(struct pci_dev *pdev)
+ 	if (!qsdev)
+ 		return;
+ 
++	WRITE_ONCE(qsdev->recovery_disabled, true);
++	disable_irq(pdev->irq);
++
+ 	quickspi_dev_deinit(qsdev);
+ 
+ 	/* Must stop DMA before reboot to avoid DMA entering into unknown state */
 
 base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
 -- 
