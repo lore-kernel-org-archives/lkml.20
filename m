@@ -1,50 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329872;
-	b=4TjdS7rZKxCfWzE+Nv381r2IEWZxNEf1fQH+uh3GGnQK3tzs5LOWX4UQBQZdcyxxZ4XN
-	 lRcdNwncN1827D7O6qg1q+hMOjq7PGfW3jYyyNfBufvezVOS3lfQNI5A1cs4ksY2cAkWD
-	 nYINUnFFHM4XhY2mYKZB5cSlniVyPFvXNtWbG6dDeigUKeaY4O0L4QJFBDbmRRd7qTf6u
-	 CF6/EPRV+1QsCGNHT/wPWyzyfCdbhSavzjT/K/KiFEk1DJ5LAtIK+cCg8ZF+GjIyA+EVk
-	 91MsmgHy88Kyz69TIF5IEp3p1RXBqhNJe6YueXirmIAHgUJ5P/RAetg3UBTq4mdnbXw==
+	t=1794329877;
+	b=HvSrDtroPKmCSYD+fDVXuZ5X7ZISzif1qKbg/TORKvkcDly7CTz5mjM0LNvSWXz+WHpf
+	 q8Y6GFwpfDRrMAyBU2Q7ov6y1IVEdEiQwpccLCJzHkYyJCt2jHlc1dQLVvYWUyTjfzYWf
+	 4YwxWCtZzW11g+mQ5+4aVJPo3aizmhSgbmfPfElcz3z7ZGHQI68A39I54MJLTXdv0LBNU
+	 jpLJmkP+WZSGZrCfbc/nKPbd57GdzpYbpkV6fCGV8h6znN83x5Isz0zpM1ctZ4ze3WpwU
+	 OXQo5N/Ey9zoGMSrLpoMeJ5ht8n4w9DbybZWn/NX1Djfm+AUoNpv0P+mjGituKGGYsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329872;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yX9hjizhMmy5s5UE+lA9T2wHanfAnmcASyLGAaLx7sc=;
-	b=m8HXZbYh/niShnPYBqj+3f9/KxVfVxUaBfa6xYlJb/UFZxgqsXIBIQU62s7JkBdR9j4+
-	 9RQVjhaA4mN6gH83IWLvxiQ0gBGhf84HzkwBLTiN8LuI6ulEtpogOZsaKTRlpI0vLxjlk
-	 belQk7EqFOGehoeljmlge2a3fabBd9zhjQ4TWgaYGMSruZc9XQlMP9UNqBMPuGuPyjd+5
-	 bxVD/qqIYUy/KNGESZl2DHxw21Sn16f1XTkAruYNiym57T3xLAFMVcrKR65Qo2xdFq5mY
-	 kqdz0iwubr4z4JOgnpg8j4DVcopuH7TNGyhEi3hlOY18ErM0xsoT6bHhqPuvtJhO2sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329877;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JbTBuXRxbATil13VQfmSROal5KZd0JmHctFeuDO/odI=;
+	b=mliT8F57+ntwSZz+mQa9PzuWJwgYnDrtmioQI6Hy7eTlP702sqmgkkWWyghM9GuXAxIv
+	 T0njTZLXhHhorNkcO3GIHoZ/X2wMfBSAxjwF5QGv8tKltyHem8fgJUfR4fOHn5Ppc8VcP
+	 oQxKbF18Ib5DLRYdPPGS90vdJNfXwsFP5EWTbb2E7E67mNURaqgWIU+Fi4hHyFY207362
+	 Xe7FDGkj4PAd8quR1i50fjhic8M9tDCr1A0jg4gtuB64iYWLHltaay4KHuIOFReL4hsqV
+	 fJ/O+uDJzF+E1HYlYmHlCuj5f7JnMbUOATnPctZjBNh5UoW+zTGGx+XbX2LkKgQ0GvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVw6VuAb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfu626Kw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2289A606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:57:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691A0606A837
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVw6VuAb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FD91F0089F;
-	Tue, 10 Nov 2026 16:57:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfu626Kw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA7B1F008A5;
+	Tue, 10 Nov 2026 16:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794329871;
-	bh=yX9hjizhMmy5s5UE+lA9T2wHanfAnmcASyLGAaLx7sc=;
-	h=From:Subject:Date:To:Cc;
-	b=ZVw6VuAbWRO78atvQnc91ZRY4BJ+7QWDZCtCUZwD5jEVfpwEFaAffbw83L2cC1yGS
-	 VKSN1m6CUvoWVZ3eLjKlsbIJoqMPQ6hA3qxvPaOpRUeZCya9oOB2ASD0MtrohvW6eg
-	 d0vak2WgAM2ebTXLVS2Ite2zrZqGceW1wc6nvpTiEzA+shFb4sHoeR96Og7o66VSka
-	 wge3RV1uFUttG+sGo0w8Z1MWguZPhgq4JAZOAhHsjMyjUd5cUXbQKSrL/TokKmscE9
-	 jNKyKk8y0aPo1Rne3FvNjaHTiHtFtqpcSHC54OUAsKCw3gTMl16CE+uQ+ntkDzs3Jg
-	 AxQgxChbkUsKQ==
+	s=k20260515; t=1794329877;
+	bh=JbTBuXRxbATil13VQfmSROal5KZd0JmHctFeuDO/odI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=bfu626KwVogfTJj8jaiDaRkJqmwZQNSxJ2L/mRSUe79KfKrc0KYeXaTl27q650ODJ
+	 1axZTpHPlFgB6vVFFGpfFn05OtyoOOYmq/Ub2vfl7n8LMdPy6c1rpr4TgGk3pfD2m5
+	 Gfu9tvO3ck7Wpd+hyRvcTBYkHtLQdJ0J7x+OrybcCpc7q45nFjAjiCf6eF1xIEUXhc
+	 3U9EfMH0BKmIitYzZUwMXiQdE82vhXtUWZrQkB9m0IbQgM+TfPLyG5YtFO3anNCwc5
+	 0EfyTUoX6CDJN8ufbqLkFMk2hpUdAugM11oj6H8SwQ7qevbo9tBPscm0mI3sBs0XY+
+	 TrNld9fbuAepQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: [PATCH 0/3] mm: only assert mmap and VMA locks if CONFIG_DEBUG_VM
- is set
-Date: Tue, 10 Nov 2026 16:57:42 +0000
-Message-Id: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
+Date: Tue, 10 Nov 2026 16:57:44 +0000
+Subject: [PATCH 2/3] mm: only assert VMA locks if CONFIG_DEBUG_VM is set
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,79 +54,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgNtkSJeRRyCppqhVRopgvTuF
- sc/vP+CchZWmLoXMhdROVML23ewHpR2RtlagzPOW2sN3hQZSyQkbfRWHEZDa/DE7Aw0dmUO8vz
- Lean1A7kYkSNiAAAA
-X-Change-ID: 20261110-tame-vma-asserts-480acf6aee20
+Message-Id: <20261110-tame-vma-asserts-v1-2-be293ff499a7@kernel.org>
+References: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
+In-Reply-To: <20261110-tame-vma-asserts-v1-0-be293ff499a7@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Suren Baghdasaryan <surenb@google.com>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Shakeel Butt <shakeel.butt@linux.dev>
 Cc: ljs@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2282; i=ljs@kernel.org;
- h=from:subject:message-id; bh=l5iwL7Qd+mX6ZPWsXKwr0c6XQr5oPSXtaBAMqHbTYcA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI++/IclC+d4SBazfRe7PastMRCw0B1u/P9wdcOzPrEc
- rZlW2ttRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACby6SPDf4fYQ39UapuEjI6a
- TmH6MKfq/CnRyokfmu6seix3wchwYjMjw1fV6ddD7SyWvt8r7t7xNGbKU/NYpXz/xVZPn3XfkHk
- TzAEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3440; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=4EpJ116zFLkOIel92sc9+BafyFBTVp7rWM0n4oPQ7KY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI++/K6rN50T/LePQf3rAItS+NXj8NWNjqe1wy4r33x5
+ KFlXqwxHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIFx6G//7Rp9eIMfHyPFNZ
+ EmH1uSRTNHJiRt7s+RZ/Cy9s8FOqusPIsGlXod9k9/6UjJAIv6l6Utw+L/a7frngN9ft+p+ZzOs
+ EeAA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Currently these asserts are all performed at runtime regardless of whether
-or not the kernel is intended for debugging mm code (i.e. whether or not
-CONFIG_DEBUG_VM is set).
+Similar to the mmap lock asserts, we have also asserted VMA locks
+regardless of whether or not the kernel is a debug build or not.
 
-These are explicitly programmatic checks - that is, checking basic
-correctness in mm code which interacts with these locks.
+Similarly, these are asserting basic assumptions about kernel code which
+should never assert in production code.
 
-The problem with this is that checks like this are generally asserted in mm
-code using VM_WARN_ON_ONCE() and similar, and thus only checked if
-CONFIG_DEBUG_VM is set.
+Since all such bugs are generally asserted using VM_WARN_ON_ONCE() or
+similar, it creates an odd and inconsistent situation where some
+programmatic asserts are only checked under CONFIG_DEBUG_VM and some are
+always checked.
 
-So having some assertions which are unconditional and some not without it
-being clear, creates something of an unintended two-tier system.
+Since the intent is the same as any VM_WARN_ON_ONCE() check, do not assert
+if CONFIG_DEBUG_VM is not set.
 
-Since what is being asserted in these cases is exactly the same kind of
-condition as those asserted in VM_WARN_ON_ONCE() assertions, simply
-predicate them on CONFIG_DEBUG_VM.
+Implement by updating vma_assert_attached() and vma_assert_detached() to
+use VM_WARN_ON_ONCE() rather than WARN_ON_ONCE(), and gating
+vma_assert_[write_]locked() and vma_assert_can_modify() on CONFIG_DEBUG_VM.
 
-Retain assertions for mmap lock asserts if CONFIG_LOCKDEP is specified in
-order that expected lockdep assertions continue to function.
+nommu loses its CONFIG_LOCKDEP asserts if !CONFIG_DEBUG_VM in
+vma_assert_[write_]locked(), but this doesn't seem to be a problem.
 
-The VMA lock implementation already performs lockdep tracking regardless of
-whether CONFIG_DEBUG_VM is set or not, so no changes are required there.
+In addition, there were already inconsistencies - vma_assert_write_locked()
+uses VM_WARN_ON_ONCE_VMA() and performs no actions if CONFIG_DEBUG_VM is
+not set, and vma_assert_locked() looked up vma->vm_refcnt but also only
+asserted if CONFIG_DEBUG_VM was set.
 
----
-Note that this series assumes [0] has landed and builds on it. That patch
-is the uncontroversial bit, this series contains the bits that are slightly
-more controversial (but not really :)
+Therefore simply update these functions such that they're predicated on
+CONFIG_DEBUG_VM and update their kdoc descriptions accordingly.
 
-[0]: https://lore.kernel.org/linux-mm/20261110-vma-fixup-debug-asserts-v1-1-0b2e0680cd7e@kernel.org/
-
-To: Andrew Morton <akpm@linux-foundation.org>
-To: Suren Baghdasaryan <surenb@google.com>
-To: Liam R. Howlett <liam@infradead.org>
-To: Vlastimil Babka <vbabka@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
 ---
-Lorenzo Stoakes (ARM) (3):
-      mm: only assert mmap locks if CONFIG_DEBUG_VM or lockdep is set
-      mm: only assert VMA locks if CONFIG_DEBUG_VM is set
-      mm: convert WARN_ON_ONCE()'s to VM_WARN_ON_ONCE() in VMA lock code
+ include/linux/mmap_lock.h | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
- include/linux/mmap_lock.h | 23 +++++++++++++++++++----
- mm/mmap_lock.c            |  6 +++---
- 2 files changed, 22 insertions(+), 7 deletions(-)
----
-base-commit: b82f7651c53524960fe38a54aa69677dcddff655
-change-id: 20261110-tame-vma-asserts-480acf6aee20
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index 9367430ee53c..bada7a03ddf4 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -354,9 +354,14 @@ int vma_start_write_killable(struct vm_area_struct *vma)
+ /**
+  * vma_assert_write_locked() - assert that @vma holds a VMA write lock.
+  * @vma: The VMA to assert.
++ *
++ * Assert only if CONFIG_DEBUG_VM is set.
+  */
+ static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
+ {
++	if (!IS_ENABLED(CONFIG_DEBUG_VM))
++		return;
++
+ 	if (!IS_ENABLED(CONFIG_MMU)) {
+ 		mmap_assert_write_locked(vma->vm_mm);
+ 		return;
+@@ -369,11 +374,16 @@ static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
+  * vma_assert_locked() - assert that @vma holds either a VMA read or a VMA write
+  * lock and is not detached.
+  * @vma: The VMA to assert.
++ *
++ * Assert only if CONFIG_DEBUG_VM is set.
+  */
+ static inline void vma_assert_locked(const struct vm_area_struct *vma)
+ {
+ 	unsigned int refcnt;
+ 
++	if (!IS_ENABLED(CONFIG_DEBUG_VM))
++		return;
++
+ 	if (!IS_ENABLED(CONFIG_MMU)) {
+ 		mmap_assert_locked(vma->vm_mm);
+ 		return;
+@@ -480,12 +490,12 @@ static inline void vma_assert_attached(struct vm_area_struct *vma)
+ 	if (!IS_ENABLED(CONFIG_MMU))
+ 		return;
+ 
+-	WARN_ON_ONCE(!vma_is_attached(vma));
++	VM_WARN_ON_ONCE(!vma_is_attached(vma));
+ }
+ 
+ static inline void vma_assert_detached(struct vm_area_struct *vma)
+ {
+-	WARN_ON_ONCE(vma_is_attached(vma));
++	VM_WARN_ON_ONCE(vma_is_attached(vma));
+ }
+ 
+ static inline void vma_mark_attached(struct vm_area_struct *vma)
+@@ -549,6 +559,9 @@ struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
+ 
+ static inline void vma_assert_can_modify(struct vm_area_struct *vma)
+ {
++	if (!IS_ENABLED(CONFIG_DEBUG_VM))
++		return;
++
+ 	if (vma_is_attached(vma))
+ 		vma_assert_write_locked(vma);
+ }
 
-Cheers,
 -- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+2.56.0
 
