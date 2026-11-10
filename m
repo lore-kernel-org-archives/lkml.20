@@ -1,102 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=3.64.226.208
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352875;
-	b=bkwvR2NmiGzZGV+KwtSnD9XADtXfyhxNlyQxxURNARqMygKothd5vXP76U4IKD8VN6lx
-	 kvvjatH+vXac2DfLXWiTOPcfsi+KiuvsupAlF1vCirGy3lnq69ZhmY0a/5fkqJWqGZKEU
-	 F+JZLEszt8NgC7OLSDPopzkMbFwPDbwvXSNGKlU4vevvoIQURL7Q4CYP2kGnto4afL63M
-	 bGyp600qIcS9dU4waFVKE9EVb1JcCvF2W8hNIxXE9+2TVYYXtVeOhdkhWmKIowdcRqPvq
-	 Pj8F/GW6ZGMKG0KWDJEAoUt28eeDyb4CxCLgXWQkeNl9mJxqaxtHllwE27UshEbSdnQ==
+	t=1794352883;
+	b=i+TWITPc+dDSbqXWIQwZrFHAZsxc/CcmCS4u4ZoeOdfajiLutoq3cy8sBOme0kJIiH/d
+	 P6z3WYND3YYIL1pDw655o87maGc8UzThU3Vy6rNH3Hj1dV2rDCRGa4P7cGYWjrvrxGFmp
+	 6dlLew7PL9bZZqxakJsohnRefAAJhnn2DLrBA1moXaw6md/2uLoNvDYLn+aDqiwOw0co8
+	 gILgEuDnMOYGfuJPD2E8yw6x/DvSWeNglCCzgbsBxVWEuueVnBrVXMnxP6XSA0MLjkCye
+	 xeKZ4pAmeLbCaK3p6/wx9kuOOuS2eMUerTepR+4XvHIrybRnd85wGWU3n1nWithfa2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352875;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dmjEUol2qh+/Kf+BAZYRdZvYZ50LeNOIlSk9Quu1FKU=;
-	b=o6CPNLnqCISK/tRGf1uCMj2jgMbBisiLLsnDMlIErq7UCmdpJ8o+OQqtMFCIPYuRL+P/
-	 UdYI6kmnnjccXMKmb6Td6m6kPUMqWUubdDnQKjXMEJ7xkmYRDYEAOOp4EEUWSvn7YDFOw
-	 XfAJjllLI+S9VcKTwFPfdQt+FMnYET1uClANqXWSPipuJcMYWrdSnLG+fccTKZBGzW3dE
-	 4j75ostNczzNdSB2G5nND+i5ypJUye/vqNRUT70n11pqfj518bRcj4nhI7cN7ZEfx3fnE
-	 Co/4IjX+6/Xg7ldW+KDsKUzEZGTVwRAAyE37vm/SV0aXbmOMIaygxXntlHzMXfhRIYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352883;
+	h=DMARC-Filter:Received:X-Titan-User-Uid:DKIM-Signature:X-AuthUser:
+	 Received:Feedback-ID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-F-Verdict:X-Titan-Src-Out:
+	 X-CMAE-Score:X-CMAE-Analysis;
+	bh=+kj5zpNTbe11kXKt4oxEw2s7Ih43RiwnUSYiFDwZ6Gs=;
+	b=f0w1jq6pmEXMjOwbrAi5XhSoFn87536D9VKClceW6S+Ohy3IeeEUl1FzqZOhr08urN18
+	 XWN96BJT3beXtmlgsV9MEsapr/SfisbZNKkaRd+4wpnphRNQ1mozU0H1ST6MwF73EkUxT
+	 Cm8fHdaPkjnVk8yMqPhdBpGvDvtlUGqfp5ZpnplRdud+9u+3M5YI07zf7W9+nV3fa9z5g
+	 rLouHI4Cth1X57DBvnUS/79KN4NQoEKgOgzKPvcHTfCBgCHMTLxdBxOO6BoXzPbVno4h3
+	 8+F90W2jV/i0V16RKNLmkl7Ph/xz6lB+o+ymNgLzvILzOQhKjzLlPe1CAXyyTR2fPdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ihJmqArm;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=techsingularity.net;
+	spf=pass smtp.mailfrom=techsingularity.net;
+	dkim=pass header.d=techsingularity.net header.i=@techsingularity.net header.a=rsa-sha256 header.s=titan1 header.b=KkOo8RgR;
+	arc=none smtp.remote-ip=3.64.226.208
+Received: from mail14.out.titan.email (mail14.out.titan.email [3.64.226.208])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EAE606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:21:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3EAE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AE5606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72AE5606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=techsingularity.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=techsingularity.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ihJmqArm
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9eb579c0eso14781725ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:21:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794352874; x=1794957674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dmjEUol2qh+/Kf+BAZYRdZvYZ50LeNOIlSk9Quu1FKU=;
-        b=ihJmqArmhhakMFCEzwTIjw/CEHNtN7ibidz+IQW+Zs6SdfWUceC9QePZqpzX8L6jgI
-         q2fIUwMTkq9BjGo/g9JF7U0ThMCM4KSMaC+JpiOlUv8xUsZnjMgyTXUMtYwbAZ6GOwZP
-         hUPGyQ7Fuay3QW4X1y2qW9MDLjghavNwl0FKVz5+vuL+Rkkq+JcOq+R5TR61/sl9gCR7
-         GhH7y4cyRDFqe5NpyFy5R0RlW2hFyjYtFJJkRTorvcoNMpVnunc8C9I2/ACKrMgVPFyG
-         EpTYeQsDXpReLgbY3r5W2XN0RozHUsGlvt/9RWYbBBMQ06wNaUSY46JplreNk+b9NjTT
-         w5nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794352874; x=1794957674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dmjEUol2qh+/Kf+BAZYRdZvYZ50LeNOIlSk9Quu1FKU=;
-        b=bHfzEdNVF4xEkbM1daT6AzTT92N8Ry47Nyf0dlYcj7oKXOFiNJjF6zbI4LFg3/KeAY
-         IwK9s6VB5uq3dE4vI8KKkCUvXgBBmVMlsctQgJaAan+noisxt59vLh3YwzwTXaBQ1wta
-         6S7hUO/bC3A46IDEfoBeoEmAPZnv4P21q31r5mg4mWkOfsWrA+U/ErQHa79JLqsWfVmS
-         xUNgXKlzJdJifLA56LDJ0IgeLPOqaVbFhmS4vRsJThweHpzf91IfNKYhXXXF6V/AxjDv
-         zINYvN9x2Dc1rO19qeKJgDfZulWHKNg4qEhzSRC/OYgTeFvSuhjRVVbKbrawa7W9XVaF
-         F8Jg==
-X-Forwarded-Encrypted: i=1; AL+hErGfSqkTMNdfzvGd+d4vEtPmJjZ5//pQnEl9YvAxsblV5at0yzLV4qUI4CddgL9lzgK3CCgkYmwjnPd43w8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f1kVPwGJbjUN/46J4YbdWyDTcc4f8A8K/Jbtxshpodzg2PvkK
-	R4x3YaSIqOnglMWW016HJssWKVJiQfJ0j48yMd2kIkeRQTDyVZzCzK8cCR5VfKyRVQ8=
-X-Gm-Gg: AYBFou0k9ZfZUgCYwHV051K1rjENaeN50CeR/x2aCPWO7c1p87ALz0vA1YRXLfdYLYy
-	8t4EjP100HJfOhua/i3s1K/Rn+sWhOOfooogxh2t/v3jP0t1qxc3tVh94Ek0Yc3a9NNzLRdKlqh
-	wLzg+ZDTSMLN/AVqaa+wowHp4gTvKRIzjspGbGpn6GKzlW87kEDf+1HNIhQEHt9LCOj3Gob5KGg
-	lyJkfBXqjV/fKfCodbsvGASUEx+mXcB2C5KI3hpvTR8iitc+Medk21xXolXmSIiYobSHoKAWgQh
-	dA3hrxy9oQd+DTIK30QqitHVChJgIYh7sc2DSjYtYM8+a06zhiVF0H8WT7qLXDCGwtzVZmT+MNH
-	q/mptX8CKZIDHKoe2r5paXAkZq7iJR6MlAWmir+vZtfAUoZ3KmQ0YkcUp8t7IjIg1oxfEp4o8mF
-	GTb3v+GDvdq3pWoNlW09F9OptDETtbxt/bth/YZPpEirZ/FLxZhDqsH5yJytAaNvzj/eQo1gJwh
-	3CrL3p7i0H/trWOIQr7q5guUr1wYtz5e9bJF2NjvNb8okb0XUAkXE+HHnONJy9l1/Mb8QIQQLLI
-	Bt/Nn+KVsUC3hyVgo9z9DhQtJkEps+qg9S5CGc313crHYcH9wvjHJkPKtqAQCHeu
-X-Received: by 2002:a17:903:2f43:b0:2e2:cb65:a719 with SMTP id d9443c01a7336-2edd77694cbmr7109555ad.15.1794352874082;
-        Tue, 10 Nov 2026 15:21:14 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:5f::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7a26e5sm1257643a12.18.2026.11.10.15.21.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 15:21:13 -0800 (PST)
-Date: Tue, 10 Nov 2026 15:21:12 -0800
-From: Joe Damato <joe@dama.to>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>, linux-rdma@vger.kernel.org,
-	Tariq Toukan <tariqt@nvidia.com>
-Subject: Re: [PATCH net-next 0/5] mlx4: cleanup and doorbell fix
-Message-ID: <avOm6IDyQokvMnc3@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, netdev-bot+sinfo@kernel.org,
-	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>, linux-rdma@vger.kernel.org,
-	Tariq Toukan <tariqt@nvidia.com>
-References: <20261110231304.1859217-1-joe@dama.to>
- <179435264086.488859.12644173782807656441@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=techsingularity.net header.i=@techsingularity.net header.a=rsa-sha256 header.s=titan1 header.b=KkOo8RgR
+Received: from localhost (localhost [127.0.0.1])
+	by smtp-out0101.titan.email (Postfix) with ESMTP id 4jPN222xCBzBrJc;
+	Tue, 10 Nov 2026 23:21:14 +0000 (UTC)
+X-Titan-User-Uid: eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..iwExD89fMI_qboJc.6VO15MSC4vMh8ruk4zJ8u1W53bFzyvnKMo0yttrrQmyrk5AssWzKhVN_qLQKd3lr-WBK9t0uqs85CzQ9ZtjGpPoRC_8rvyGTQfZfln86XBR4uQKb9GahubHTkA.MhkglZx9Nw4JEibOENS6tA
+DKIM-Signature: a=rsa-sha256; bh=+kj5zpNTbe11kXKt4oxEw2s7Ih43RiwnUSYiFDwZ6Gs=;
+	c=relaxed/relaxed; d=techsingularity.net;
+	h=message-id:cc:to:date:from:subject:mime-version:from:to:cc:subject:date:message-id:in-reply-to:reply-to:references;
+	q=dns/txt; s=titan1; t=1794352874; v=1;
+	b=KkOo8RgR9fe8ud+0j9AnNLvaWTjymI1vXCIpmSr8rlHAMpB/mIOyqlXrcsJvxs7LYfeetV44
+	JiCBL+BeLEjBagzDdx11wZN+9LV0Za2UpBzcQWt0Bqy0YwVLAbpXNNNz4XML6d11Jpek6uGPJgs
+	Rsp3YtZmB3o9w1LQM2pPl/qo=
+X-AuthUser: mgorman@techsingularity.net
+Received: from morpheus.112glenside.lan (unknown [84.203.172.48])
+	by smtp-out0101.titan.email (Postfix) with ESMTPA id 4jPN214H5gzBrJT;
+	Tue, 10 Nov 2026 23:21:13 +0000 (UTC)
+Feedback-ID: :mgorman@techsingularity.net:techsingularity.net:flockmailId
+From: Mel Gorman <mgorman@techsingularity.net>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Seiji Nishikawa <snishika@redhat.com>,
+	Mian Yousaf Kaukab <ykaukab@suse.de>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Mel Gorman <mgorman@techsingularity.net>
+Subject: [PATCH 0/3] Reduce spurious RT_PUSH_IPI storms
+Date: Tue, 10 Nov 2026 23:20:54 +0000
+Message-ID: <20261110232057.4144723-1-mgorman@techsingularity.net>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,35 +72,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179435264086.488859.12644173782807656441@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-F-Verdict: SPFVALID
+X-Titan-Src-Out: 1794352874149242361.1930444.8004382358347751818@prod-euc1-smtp-out1003.
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.4 cv=KNjj5FFo c=1 sm=1 tr=0 ts=6af3a6ea
+ a=yHdhZq8wnfzzRmla7jO6EQ==:117 a=yHdhZq8wnfzzRmla7jO6EQ==:17
+ a=CEWIc4RMnpUA:10 a=cmRMmVine0C4S0eMV3YA:9 a=3ZKOabzyN94A:10
 
-On Tue, Nov 10, 2026 at 11:17:20PM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+RT_PUSH_IPI is intended to minimise latency and rq lock contention when
+migrating tasks to balance RT task distribution.  For example, if a high
+priority task changes to a lower priority then CPUs with off-CPU RT tasks
+may be sent an IPI to "push" tasks away to an available CPU. The problem
+is that if a CPU is rt_overloaded but has no tasks that can be pushed then
+it continues to receive IPIs -- specifically tasks that are migrate_disabled.
 
-I ran this code as part of a larger series that also includes SW USO support
-on an mlx4 machine.
+An issue was identified where a CPU received a large number of IPIs in a
+short space of time but no tasks could move, it was still marked rt
+overloaded and continued to receive IPIs.
 
-The only fix in this series is the deferred doorbell flush (patch 5), but I
-need the other code (patches 1-4) for SW USO support I plan to submit next if
-this series is applied.
+This problem was examined in commit dae5c0292080 ("sched/rt,dl: Skip
+migrate-disabled tasks when picking a push candidate") but the fix is
+incomplete as noted in the changelog.
 
-Since patch 5 fixes an issue I've never actually seen, I am sending this
-series to net-next without a fixes tag.
+The original bug against an old kernel was due to pgrep running with RT
+priority on an isolated CPU with an active RT task. It was acknowledged
+that the "proper" fix was to move pgrep, drop its priority or both but
+the underlying reason for the storm was pgrep being spinlock-intensive
+and excessive IPIs being sent which is still sub-optimal behaviour. A test
+case creates a "victim" task with short work/sleep cycles allowed to run
+on CPU1 and CPU2 that optionally disables migration (md=1) while running.
+A second task mostly does work pinned on CPU1 with short sleeps, a third
+task mostly sleeps on CPU2 so CPU2 pulls frequently.  The results are
+
+| Kernel (7.4-rc2)       |     CPU1-md=1 |   CPU2-md=1 |    CPU1-md=0 |    CPU2-md=0 |
+|------------------------|---------------|-------------|--------------|--------------|
+| vanilla-rt-push-ipi    | 41474.7 ±0.1% |           0 | 4784.4 ±0.2% |   85.0 ±9.9% |
+| series-rt-push-ipi     |             0 | 0.3 ±380.6% | 4792.1 ±0.3% |  87.1 ±10.8% |
+| series-no-rt-push-ipi  |             0 |           0 |            0 |            0 |
+(RT push IPIs per CPU per 5 s interval, mean ±CoV over 30 intervals,
+ md=1 means the "victim" with cpumask for CPUs 1-2 disables migration)
+
+The vanilla 7.4-rc2 kernel fired 40k+ IPIs every 5 seconds with low variance
+over 30 samples with a migrate-disabled task sitting on CPU1. Separate
+testing showed that the IPIs were not resulting in tasks moving and therefore
+spurious. The series eliminates the spurious IPIs (second row). Disabling
+IPIs also showed no IPIs but it was confirmed that tasks were still moved.
+
+Yousaf (cc'd) is the original author of the first patch, I only decorated it
+and provided transport, hence why his Signed-off-by is first on that patch.
+
+Mel Gorman (3):
+  sched/rt: Do not account migrate-disabled tasks as pushable
+  sched/rt: Check eligibility of pushable task in one place
+  sched/rt: Treat migrate-disabled tasks as pushable if RT_PUSH_IPI is
+    disabled
+
+ kernel/sched/rt.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+-- 
+2.55.0
+
