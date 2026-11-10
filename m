@@ -1,64 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328219;
-	b=dZOSDuJswkPmhTuzoweI+qrC037czquFX5NqZD0jTyICSxlz2qpXJxeOG6ZO/RwcYP5a
-	 S1oT6IQhUnTlAqi//4resIHQbPyvqHJoaCpSvTbsF3r9LYWy6F+gQgnFl20MexyFUAKpv
-	 a0POo/vpGZGvNCtAggYWo73z8raeaq9K9H1gvIagf5Kz7bFpJXgKzY/i8lrsXVAC8ZdED
-	 Y5dZVZsAOK8synX3653EkrX+dx79crzDGd9hpavtNohAiTjqgECBCKNNOAomfbJVNgi+T
-	 dkM0QuGPff5cNv+rlxjcsh/jfVR3Pr8qIz69CmlOjcr7ORelYWkQT5INHBR1Zp6xWqw==
+	t=1794328375;
+	b=Ibe0/d5v8U98ZMWBKc5cmXSUhTfro1uUdHjqjhXKhmp4Gxsh0wFCU4jjNLYyfRj2Ckd/
+	 1YROxa6STZOru0HW8w95+cADC8v5eQxwJ+/5ajoa4CtupLfD9CEudBUKs2B1o7UXhHZe2
+	 7C0L5Q3lr9VsRWjq5AhRvDOQmuIVARC++IpDpj4zsd+k8lUVs6zmZwrfR/QyQWOXPkKOZ
+	 XFl1L7e9Vxe2r1PknN8jBKKs6cQWrXstOdmlgFVzOMJeoGKB27MwtJCSMTNIYUDq7qv8z
+	 3Y8RLSt4Y8cQuXgisGexsiFL9/wxxK8y/vRq2qoY+lyImIZkaVVcft6zSDqkbhdu21A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328219;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=qlkRdP+OemHI6B7OgiIXHMh7VZdytCmNUQ3brR2dwjM=;
-	b=htIfiAFJTBgmNaS2W9l2jXQOj55YMHfTzgQIpZdJm8THcuwChR1Jtm9jumVfMPDq52mi
-	 UDYE0APlAfuAOep1vlt2TxiOyVpnrxE+Ax04R2aML8jO34MB8lnOdnmW1EHC901EgWnQ7
-	 +KOJWq4islbjOaZPO1OSW7gFnUeOpZcjr7sjnRfHhzgHiohhKVXNxoigJXjZViMalh2QD
-	 a+OONAhY1lEYkjZvNZUozI/lmP0+MJu2IePryayUwJNbNsLZxoi1OEWFR5/1Lrp8OvdfO
-	 fgWCC5cfUCDJzy59G54zq8ghyecHBwBbN3vYCAeJVB2O/+0Ar4dpLErC02HQw6It6wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328375;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=O7Jegl1jgTWHpCnkVKKRRzSGStNzjcqpAmRoYpUqNSo=;
+	b=BwSdPQ4QHmMQjx5DRDSIPZqZjsy31QO5kxHB64X24103XhQOhN1Gv8t5VLUfXgHmekK9
+	 Z8mlFja7G3laYjXC5dDMoM/uBfxU9byKkuca3QrWEgI44bCs8axVbOHCuKZV/9ysB/nLJ
+	 /aiy5Y+xvTnOIewchBBmi7hUoGFDqWxzSPAqrLPy9ty2DTcecGhLoXErpwlADRMSOlTdD
+	 ITEOFr2aEZ8qdv8NG6RuxF59Eyx1fET2tgsOCctCkj0+D+u1UEVHT6yKdJoNIBLKfQ0Re
+	 MYoZtd4d6W4BpDxWvKP3xjYN/ppd9Bzp2HGlkSspdLc0UVkuokhqngC8BTKtQIAox2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3y7X+bTh;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706C606B514;
-	Tue, 10 Nov 2026 16:30:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A706C606B514
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3y7X+bTh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=qlkRdP+OemHI6B7OgiIXHMh7VZdytCmNUQ3brR2dwjM=; b=3y7X+bThelV+CkgEm5Zy7gOuvD
-	rFstJRk+/gHKPe2G8aUQ9GmHqV3rp/aZcEkTgnoPXNBjnGBxBcJTnAxN3Y0VO7s2PrK72lRJwIA0v
-	Jgflh6z2WOJXqMeoNcp6xt8KX7QnLZZtSGwlOCgU1hsDYxWk823THRqV83y0Tc4Ht8/4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQojV-00FWqg-65; Tue, 10 Nov 2026 17:30:05 +0100
-Date: Tue, 10 Nov 2026 17:30:05 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Birger Koblitz <mail@birger-koblitz.de>
-Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
-	linux@armlinux.org.uk, hkallweit1@gmail.com, chenhuacai@kernel.org,
-	kernel@xen0n.name, edumazet@kernel.org, linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, neuromoments@gmail.com,
-	beganovic.emir@gmail.com
-Subject: Re: [PATCH net-next v20 01/13] phylink: Add phylink_mac_interrupt
-Message-ID: <7c78c868-efe4-4b0a-b09a-c196210644e7@lunn.ch>
-References: <20261106-ax88179a-v20-1-37b5a1189983@birger-koblitz.de>
- <179427470922.994134.16776316201780098943@kernel.org>
- <64d05861-c4e1-4506-ac2f-4109f1062932@birger-koblitz.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2AC606A204;
+	Tue, 10 Nov 2026 16:32:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF2AC606A204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 0DD7E1C4341;
+	Tue, 10 Nov 2026 16:32:51 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf01.hostedemail.com (Postfix) with ESMTPA id EE3BD60016;
+	Tue, 10 Nov 2026 16:32:41 +0000 (UTC)
+Message-ID: <64aa89daf23821f95780813fe96882ff61688578.camel@perches.com>
+Subject: Re: [PATCH v3 5/5] string: Make strprefix() const-qualifier-generic
+From: Joe Perches <joe@perches.com>
+To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki"	
+ <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, Andreas
+ Schwab	 <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, Bartosz
+ Golaszewski	 <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, Danilo
+ Krummrich	 <dakr@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold
+ <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart	
+ <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
+ Torvalds <torvalds@linux-foundation.org>, Linus Walleij
+ <linusw@kernel.org>, Namhyung Kim	 <namhyung@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Rob Herring	 <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan	 <saravanak@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi	 <zanussi@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Date: Tue, 10 Nov 2026 08:32:41 -0800
+In-Reply-To: <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+References: <cover.1794323750.git.alx@kernel.org>
+	 <35bf6672f84f07de3f40e8db9e7fcfd643894fec.1794323750.git.alx@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,16 +74,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <64d05861-c4e1-4506-ac2f-4109f1062932@birger-koblitz.de>
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: EE3BD60016
+X-Stat-Signature: mp8xao1qrwddju9nzuyip8mr885n8do4
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX18QrhYeut7Lp9jEX7fMdRrU/x1vmS6is5s=
+X-HE-Tag: 1794328361-279135
+X-HE-Meta: U2FsdGVkX19mRZocbBpptel45dGmmyuITr1m5kU6f/MCdgw7zyp42Lt9p8rwk1AwtWwqvUuTXSrVbbpC+WZMCNQlScguvbF/fp8QvUKZy6bX5OrrWZVylJIK5F/uf/mP//94tQRpit19ctDzMHGmXyZHRUFZIahy7AXe+ttUOBAh8XiedqLFbcyMoZseYLv8KKb9P525JfTfeaipS3TohBcIVQOrwjl0q7sqJVCQkzab2gi2Y6fSCJY9aE/ycYkpvrssOELldVCYA/OT+QQagS8c/evSCjag8q9+FlL47GakQTWD6qMRb/yjUefhkQv+0cylqj9qmuN3Dgv6C1hQH070PEeodHlIUH5Xx5H14aAuv5AkhkMaKT8d8hNm0FHqaTzMXG236F+W/jDWUK48Bw==
 
-> At this point I am asking a human to intervene and tell me whether anything
-> really still needs to be done.
+On Tue, 2026-11-10 at 16:33 +0100, Alejandro Colomar wrote:
 
-Do any of the patches not have a Reviewed-by: from me?
-I thought i had given such tags.
+no commit description on proposed patch
 
-We should merge this code.
+> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>  include/linux/string.h | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/include/linux/string.h b/include/linux/string.h
+> index 9e59f9697c9e..55ca4cb5122c 100644
+> --- a/include/linux/string.h
+> +++ b/include/linux/string.h
+> @@ -590,7 +590,9 @@ void memcpy_and_pad(void *dest, size_t dest_len, cons=
+t void *src, size_t count,
+>   * *  @s+strlen(@prefix) if @s starts with @prefix
+>   * *  NULL if @s does not start with @prefix
+>   */
+> -static inline char *strprefix(const char *s, const char *prefix)
+> +#define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx))
+> +
+> +static inline char *(strprefix)(const char *s, const char *prefix)
 
-   Andrew
+Why introduce a new coding style?
