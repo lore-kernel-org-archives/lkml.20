@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318009;
-	b=jJz1aNIvFQPjRp5uAeVi7UyrmLe9TN5MWv1HnMZ5UDQ/nETbqhF4T91wSkUqoLDZnn5b
-	 8KNxAb2BBdWw2/CTRNlavnKletRzQ4LGXMbquV1VFcizeoo7K4bZL9K4ukFpZYMc72nlm
-	 A7W/SZkC8W9enufTnIGLyT/S8eYwI+qmw3o8iy/GVkhISBz9zrs7ueoqOXmwwqRJXP66V
-	 l1mPwU1xLgjGYlXAbadRjJSUwbKRbSlgcPVr2Kwsba3WMCk7fgvN8yrT+mQnMUDp5ItA/
-	 RGvkTI7JxssWk6ToSrUsloarfq55Y/lVQuZoQSzVAHj/WqBr2yEE7ExZ7YH8KcjRung==
+	t=1794318011;
+	b=JhNKLaQg0bgsCgtz3BEEOzFYXVfLMmqGzacCQwqjhlgNY/ifDzgMQNYTu0rpS0D1NER9
+	 pm6c334DggislDa3JIOv8KZB24AZQdmorBaNfZ8xpTR9FwvuO+lmAqIwS5Yji5SV/Rcv/
+	 0mumIdibyo9IRIqyhSfoum/sVvW+jAk22gcXxIBbwi/rMmNWce9//wGcTGj98tOO1BUWa
+	 VEzvYh3NU/w0CCfL0CI305017cMRP7vvxhSb8zCmqoWG3BH6BphWMf1dbx0Slp0q0vMQR
+	 pTTbdUt5Zq7IYbTX5GBzkPUBGAHJAcKqSmEX3t8ixPqIBd2qQ0TmWeTO5Q/ink8ZtKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318011;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=wmZRRxF9P2WywNu2e79cn3gKlus8G4417OVoGcz0qRI=;
-	b=g1vrZADSHgrlNpVVQiaFiAyF42wPcKnLovom3r+agG4Od9JsCL6VKwcScu3Q7gMmqWyj
-	 9aEfgwBBTV5smBZCx0rCkcuOBRXGdy6SJWr8gNlS0ZO1xdY0OUu4erQmvRE3nWiWsg13u
-	 NAa853uaS6howCW/6JMg/f62vnFfE/QUf5xN17QVdVIcVa2AO65fOFTVSq2RC3LM+Uki2
-	 eS1DqsKrFOv+pDIw6Qh6wM0oWYjPuMqOysdhBYSBdwCu2pVfK0nV9VZwhTEHKLDbsYqp3
-	 bo43iGqccruC6/I2WONVr7xmfHbZd2Cxi0lZR2x2RdnZgwt9e5PtI9JmuD6lB70yZDQ==
+	bh=FOJpZUK9FD4frlf0LeV5+AuW06zPoHDaDEEFNeMGVDM=;
+	b=w34WcaA8zaYnRrAUPrScE9/4QMWnenLwW2FnRvx4Xw/nb2mwKWFSj0zUZFtW27tgo5hZ
+	 l1Qk+bLB7N6VnSLeeN3tEXfbBbYUxFW2oBy4BRnkMKtLeQlY7xrn4ZUZ6rfZqwsVdeKuL
+	 WUMyD6pbtFgrxPup3j+3YdnhNPz5Fh6wVb5t1ZBpfjDY7uBt8eVBn7AYrdkxZeYZME50v
+	 CIUzv604kSB2ngcpYWu+Bw7+7xWaPL7B8q0dxgcounZ8ZlL7CDUx2JnNUO3RUtpbhRe08
+	 cDAer/Tlj9G7fRxELVN7+bFvOMxAnCtMTvd26vLMaNLLCuTJL8yA4XDI4YfDulfQqgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zHQ4Rdxe;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LDbyEurT;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7566F606A760;
-	Tue, 10 Nov 2026 13:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7566F606A760
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5550606A7D9;
+	Tue, 10 Nov 2026 13:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5550606A7D9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zHQ4Rdxe
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LDbyEurT
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=wmZRRxF9P2WywNu2e79cn3gKlus8G4417OVoGcz0qRI=;
-	b=zHQ4RdxejMhw69nHV9s7EYAAI6i0vSrSj2IhKY+/3Es9t0lfkCZ0N6c/GnFsBmiyw/2m79Ej1
-	O/cDF35/IsBxpeClWJW49xBCBEKRNigUxjpDnsvzUS4O9ta/NfN+6go9asYde37ARYqdGRyQHX+
-	mxIbexJVYETqMNjyArKIL5s=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jP77B5sjMzmVgP;
-	Tue, 10 Nov 2026 21:39:50 +0800 (CST)
+	bh=FOJpZUK9FD4frlf0LeV5+AuW06zPoHDaDEEFNeMGVDM=;
+	b=LDbyEurTkHgdKwaTLveY2ZBvF4O/HS70H2ysF68eEWFzFfMPoRGKhHePqdEsrrF+ql2eH7xcx
+	kL7Ujmr3tgaMShU9j4Qcz8CQmt08m52ztQQd9iVWfept0R9zYEsTROq+rR1T57PpGOfylnotdPs
+	NPlUW31RSNiCvqoSOXLSMOs=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jP76x57Cpz1T4Gw;
+	Tue, 10 Nov 2026 21:39:37 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 62C344058A;
-	Tue, 10 Nov 2026 21:40:05 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 3FEEE4056E;
+	Tue, 10 Nov 2026 21:40:06 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 21:40:04 +0800
+ 2026 21:40:05 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
@@ -62,9 +62,9 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v5 RESEND 5/7] fs/resctrl: Release the limbo RMIDs when the CDP state changes
-Date: Tue, 10 Nov 2026 21:39:36 +0800
-Message-ID: <20261110133938.3768632-6-ruanjinjie@huawei.com>
+Subject: [PATCH v5 RESEND 6/7] fs/resctrl: Disallow monitor group move when the RMID index changes
+Date: Tue, 10 Nov 2026 21:39:37 +0800
+Message-ID: <20261110133938.3768632-7-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110133938.3768632-1-ruanjinjie@huawei.com>
 References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
@@ -82,193 +82,119 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-On MPAM the counter of an RMID is selected by the PARTIDs of the CLOSID
-that owned it. Without CDP, CLOSID c is PARTID c; with CDP it is
-PARTIDs 2c and 2c+1. An RMID that stays in limbo across an unmount and
-a mount that changes the CDP state is read through the PARTIDs of the
-new state, which are not the PARTIDs its cache lines are tagged with.
+From: Peter Newman <peternewman@google.com>
 
-With 5 PARTIDs:
+A MON group can be moved into the mon_groups directory of another
+CTRL_MON group to move its tasks to that group's allocation while
+keeping their monitoring data. Where the RMID is only meaningful
+together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
+extends the PARTID, the move changes the RMID index of the group. The
+move succeeds, but:
 
-  mount                  CDP off, CLOSID c -> PARTID c
-  mkdir g1..g4           CLOSIDs 1..4
-  umount                 RMIDs enter limbo with CLOSIDs 1..4
-  mount -o cdp           CDP on, CLOSID c -> PARTIDs 2c, 2c+1
-  limbo handler          reads CLOSID 2 as PARTID 5 > PARTID_MAX 4
-                         MSC error interrupt, mpam_disable()
+- The group's monitoring data is reset. Its counters are identified by
+  the CLOSID and RMID together, so after the move the group reads the
+  counters of the new CLOSID instead of the ones its tasks used.
 
-The other direction is worse because nothing reports it. If resctrl is
-mounted with CDP and mounted again without it, CLOSID c is read as
-PARTID c, which is in range, so the limbo handler silently tests the
-occupancy of the PARTID of a different CLOSID and frees or keeps the
-RMIDs based on it.
+- The group uses an RMID index that was never allocated to it. When
+  the group is removed, free_rmid() puts an RMID index of the new CLOSID
+  into limbo without checking that the group owns it. If another group
+  of that CLOSID holds the index, the limbo handler tests and frees an
+  RMID that is still in use, while the RMID index allocated to the
+  moved group is never freed.
 
-When a mount changes the CDP state, release the RMIDs in limbo without
-reading them instead of restarting the limbo handler. Cache lines that
-still carry those RMIDs are accounted to the next user of each RMID.
+- The tasks are not moved. mongrp_reparent() sets the new parent and
+  CLOSID of the group before rdt_move_group_tasks() looks for the tasks
+  to update, and the search then matches on the new CLOSID, which none
+  of the tasks carries yet. The tasks keep the old CLOSID and the old
+  CTRL_MON group's allocation, and the group does not count them.
 
-The CDP state that matters is the one that changes the PARTIDs used by
-the monitors, which is not necessarily the CDP state of the L3
-resource. MPAM gives every CLOSID two PARTIDs in all MSCs while CDP is
-enabled on any resource, so enabling CDP on L2 alone also changes the
-PARTIDs the L3 monitors use. Add resctrl_arch_mon_cdp_enabled() to let
-the architecture report this. Only MPAM can be affected, so the RMIDs
-are only released where the RMID depends on the CLOSID. On x86 the
-RMID does not depend on the CLOSID, and resctrl_arch_mon_cdp_enabled()
-returns false.
+Fixing the task move does not make the move work. The RMID index is the
+hardware ID the counters count for, so a group whose CLOSID changes
+cannot keep its monitoring data, and it would need a new RMID index
+allocated for the new CLOSID, which fails when every RMID index of that
+CLOSID is in use. The documentation promises that a move keeps the
+monitoring data, so the move cannot be supported, as decided in the
+thread at the Link tag.
 
-Reproduced on QEMU with the sequence above:
+Reject the move with -EOPNOTSUPP when it changes the RMID index of the
+group, and document that a move is not allowed when the monitoring data
+or assigned tasks would be impacted. Where the RMID does not depend on
+the CLOSID, such as on x86, the move keeps the same RMID index and is
+still allowed. Renaming a MON group within the same CTRL_MON group keeps
+the CLOSID and is still allowed everywhere.
 
-  mpam:__mpam_irq_handler: error irq from msc:1 'MSMONCFG_ID_RANGE', partid:5, pmg: 0, ris: 0
-  mpam:mpam_disable: MPAM disabled due to hardware error interrupt
-
-With the change the sequence completes without an error.
-
-Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
-Suggested-by: Ben Horgan <ben.horgan@arm.com>
-Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
+Signed-off-by: Peter Newman <peternewman@google.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <stable@vger.kernel.org> # 7.1+
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/lkml/3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com/
 ---
 v5:
-- Split the change of the limbo handler lifetime into the previous
-  patch. The limbo handler now stops while resctrl is unmounted on every
-  architecture, and only the release of the RMIDs depends on
-  CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID.
-- Drop the cqm_work_cpu changes. resctrl_limbo_resume() cancels the
-  worker before it queues it again or releases the RMIDs.
-- Move the rdt_disable_ctx() reordering to a separate patch.
-- Add resctrl_arch_mon_cdp_enabled() instead of comparing the CDP state
-  of L2 in the file system.
-- Rename limbo_cdp to limbo_cdp_enabled and document that it is only set
-  with CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID.
-- Check QOS_L3_OCCUP_EVENT_ID first and drop the rmid_busy_llc check.
-- Use lockdep_assert_cpus_held() at the start of resctrl_limbo_resume().
-- Describe the reverse sequence, from CDP on to CDP off.
-- Link to v4: https://lore.kernel.org/all/20261105070934.2258613-4-ruanjinjie@huawei.com/
-v4:
-- Use resctrl_mounted instead of a separate limbo_paused flag.
-- Record the CDP state once when resctrl is mounted.
-- Add resctrl_limbo_resume(), called once resctrl_mounted is set.
-- Previous Link: https://lore.kernel.org/all/20261031094616.1691026-1-ruanjinjie@huawei.com/
+- Retitle as the RMID index changes, not the RMID, and a rename within
+  the same CTRL_MON group is still allowed.
+- Describe the RMID index that is freed without having been allocated,
+  and why the move cannot be fixed instead of being rejected.
+- Drop the parent and resctrl_arch_mon_capable() checks, which the RMID
+  index comparison and the MON group check already cover.
+- Use the resctrl.rst terms in the last_cmd_status message.
+- Drop the stable version range and the Link tags the changelog did not
+  refer to, and link the decision to reject the move instead.
+- Link to v2: https://lore.kernel.org/all/20261105123524.2282090-1-ruanjinjie@huawei.com/
+v2:
+- Drop the Suggested-by tag.
+- Describe the systems by whether the RMID depends on the CLOSID rather
+  than by MPAM, in both the changelog and resctrl.rst.
+- Explain that moving a monitor group is already broken on these systems
+  because the tasks are not moved, so no existing user relies on it.
+- v1: https://lore.kernel.org/all/20261104101913.586595-1-ruanjinjie@huawei.com/
 ---
- arch/x86/include/asm/resctrl.h |  6 ++++++
- drivers/resctrl/mpam_resctrl.c |  9 +++++++++
- fs/resctrl/monitor.c           | 25 +++++++++++++++++++++++--
- include/linux/arm_mpam.h       |  1 +
- 4 files changed, 39 insertions(+), 2 deletions(-)
+ Documentation/filesystems/resctrl.rst |  8 ++++----
+ fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 8f6edcdcfd87..d88a09a45d7b 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
- 	return rmid;
- }
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index b52795e03303..fecb2cd2b343 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -551,10 +551,10 @@ will automatically remove all MON groups below it.
  
-+/* The RMID does not depend on the CLOSID, so neither does CDP change it */
-+static inline bool resctrl_arch_mon_cdp_enabled(void)
-+{
-+	return false;
-+}
-+
- /* x86 can always read an rmid, nothing needs allocating */
- struct rdt_resource;
- static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 5468367776e2..563ca99a581d 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -148,6 +148,15 @@ bool resctrl_arch_get_cdp_enabled(enum resctrl_res_level rid)
- 	return mpam_resctrl_controls[rid].cdp_enabled;
- }
+ Moving MON group directories to a new parent CTRL_MON group is supported
+ for the purpose of changing the resource allocations of a MON group
+-without impacting its monitoring data or assigned tasks. This operation
+-is not allowed for MON groups which monitor CPUs. No other move
+-operation is currently allowed other than simply renaming a CTRL_MON or
+-MON group.
++without impacting its monitoring data or assigned tasks. This operation is
++not allowed for MON groups which monitor CPUs, or when the monitoring data
++or assigned tasks would be impacted. No other move operation is currently
++allowed other than simply renaming a CTRL_MON or MON group.
  
-+/*
-+ * CDP emulation gives every CLOSID two PARTIDs in all MSCs, so CDP enabled
-+ * on any resource changes the PARTIDs the monitors use for a CLOSID.
-+ */
-+bool resctrl_arch_mon_cdp_enabled(void)
-+{
-+	return cdp_enabled;
-+}
-+
- u32 resctrl_arch_preconvert_bw(const struct rdt_resource *r, u32 val)
- {
- 	return val;
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index f56d0e32fd06..87d744a168fb 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -70,6 +70,14 @@ static u32 *closid_num_dirty_rmid;
-  */
- static unsigned int rmid_limbo_count;
+ All groups contain the following files:
  
-+/*
-+ * @limbo_cdp_enabled - Whether CDP changed the hardware IDs the monitors
-+ *			used for a CLOSID when the RMIDs in limbo were freed.
-+ *			Only set when CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID
-+ *			is enabled.
-+ */
-+static bool limbo_cdp_enabled;
-+
- /*
-  * @rmid_entry - The entry in the limbo and free lists.
-  */
-@@ -1044,12 +1052,15 @@ int setup_rmid_lru_list(void)
-  * resctrl_limbo_resume() - Restart the limbo handler after a mount.
-  *
-  * The limbo handler stops while resctrl is unmounted. Restart it on every
-- * domain that still has RMIDs in limbo.
-+ * domain that still has RMIDs in limbo. Where the RMID depends on the
-+ * CLOSID and the mount changed the hardware IDs a CLOSID is monitored
-+ * with, the RMIDs in limbo can no longer be read: release them instead.
-  */
- void resctrl_limbo_resume(void)
- {
- 	struct rdt_l3_mon_domain *d;
- 	struct rdt_resource *r;
-+	bool release = false;
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index b702fe6dbbec..2dfb3b54338a 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4403,6 +4403,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+ 		goto out;
+ 	}
  
- 	lockdep_assert_cpus_held();
- 	lockdep_assert_held(&rdtgroup_mutex);
-@@ -1057,6 +1068,13 @@ void resctrl_limbo_resume(void)
- 	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
- 		return;
- 
-+	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)) {
-+		bool cdp_enabled = resctrl_arch_mon_cdp_enabled();
-+
-+		release = cdp_enabled != limbo_cdp_enabled;
-+		limbo_cdp_enabled = cdp_enabled;
++	/*
++	 * Moving the group to another CTRL_MON group changes its CLOSID.
++	 * Where the RMID is only meaningful together with the CLOSID, this
++	 * changes the RMID index and the monitor state cannot follow the
++	 * move. A rename within the same CTRL_MON group keeps the index.
++	 */
++	if (resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
++	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
++		rdt_last_cmd_puts("Moving a MON group to a new CTRL_MON group is not supported\n");
++		ret = -EOPNOTSUPP;
++		goto out;
 +	}
 +
- 	r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
- 	list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
- 				lockdep_is_cpus_held()) {
-@@ -1068,7 +1086,10 @@ void resctrl_limbo_resume(void)
- 		 * it is queued again on a CPU picked now.
- 		 */
- 		cancel_delayed_work(&d->cqm_limbo);
--		cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
-+		if (release)
-+			release_limbo_rmids(d);
-+		else
-+			cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
- 	}
- }
- 
-diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
-index 002f56e15362..ff1e1d6420fa 100644
---- a/include/linux/arm_mpam.h
-+++ b/include/linux/arm_mpam.h
-@@ -62,6 +62,7 @@ bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
- u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
- void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
- u32 resctrl_arch_system_num_rmid_idx(void);
-+bool resctrl_arch_mon_cdp_enabled(void);
- 
- struct rdt_resource;
- void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_event_id evtid);
+ 	/*
+ 	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
+ 	 * current parent CTRL_MON group and therefore cannot be assigned to
 -- 
 2.34.1
 
