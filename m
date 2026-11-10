@@ -1,80 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343755;
-	b=DU2qAF0G8BbEqoITnboQvZSZj5JB5/18L7VOr7wy7VHo/D7ixt1TgYAnWEHVRJ6V3Aqq
-	 gRyBsQKfjtj3SjOvQvMlwhghse1U4WrcgXyVNp7aJa5jw5i6gaaoo6Z74DHwBplJT4GLl
-	 bHlKziK2308bjn/0h8Nq/Elki0MSdonG0VKPsyzxGgdZgw76C4WNsfj2+nsqy49ebogDm
-	 VABVYldRgiTp2HC5fKPPqpqU24pzOSeV9zPWNesKIsz3sRsdWExPt9T1nrsiUphLaXxbr
-	 e5w0TLmkQB3OrMFuZh6AeT9IZAY8e2qeTD+U9IPKO3HKmkGpTZ5T8ea6UurZZfRLbrQ==
+	t=1794343773;
+	b=AsC6KhhcP6ZMMNeJcxN84jzF3AuMJ5vPC5daQaEH8IazNQknRCXP7orXEOe9+iiKzWAq
+	 BGTdnbiFK6S3gw0FB/Fthn82nLGevQNj+WrYuAhtmpy6v1KbSGEOtTLDpebg3TFTuHUTp
+	 /GJG77PUHuXixG/xkMcQev9mHdBwc5u2ikJJ6ilF8KyK681KXziEG2UX3i//XLyeqZmbu
+	 Sk07hXZEfnMTEaC/PzvK2UGXKSH/DIP+QdczvlXxX1dDcmWcx5D5wJ+KXptEFxU50NfMg
+	 0xewPYmIz4hXid62DI65+dPNmRpzVJL0yoN/PS4cS1QXipAEpP58BaAgmDpWjxJqCSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343755;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent;
-	bh=Bf/AaZlKXJsIZfpfcnPrYCQ8TrA8wpK1qNvneo+qbhA=;
-	b=wvMcxkKj2SeVUqhoewku7ubUmoSi1xcjinl4RnMEep2r9HwmLB+qIOpvs4VVottk0QbH
-	 ecV8KlXugSlde4rpB0fm2NLl5zYyDMIZPrGZoN/pzFrZC37zzle1jUpxz0C/kCb5Vg9ho
-	 sTey5y1nbe0pDeQOiz9IbrxuJEYkcg9V0abat7a5FdoYbJYfJzjetfoUjsrx2GdC8Rgwf
-	 8pPWY24/726Sw6H+rEffTtk4xMiiRFdVJrxwkEOr0kHDVPe/JXVjT3YZ5NfYEUwt0j74W
-	 I6WqFrsFEzDTyCwsipZibXigwAzyDfYAooxvms8VyYyVllB2JjEVY87xrV6Ek6gfmPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343773;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=QZUYTVrEmnGgtZwJSdwQjuf+Kfj1I1WqfbMiipHwxpc=;
+	b=M4lXY6neEkk11GslnIJQo/HhGtRJB27moWK9pU+kugHwFlnVs6LkW5Ljmhhqn5dQMSSC
+	 B8qNUXXHOADtJ7U+iZIvhR0Bhi83dKiwsgusilCFK3ScwYqIV7mTwgHYrQDzGRKIFre1p
+	 qFLdoH4DQpGz19RrCkhxJZe44ggZtId1InGMcZMf/L3uXP3R7SkHcZdKfKxAB72UaLNHb
+	 Aa5Nl4jcpsykk779RmIfe7XLvKfZxYYrhs9QWQXP/7+MYKpUQnvJxiOYmB1IoUXBqcAVq
+	 3M54ioNrT42B53mSlX4Wg8V8NhvFTFGSzrrIwOH5PNoq+K+wskG6rRfC5K2Qrca129g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=pmYBiPny;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=D3hZTb9Y;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4130606A31C;
-	Tue, 10 Nov 2026 20:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4130606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35288606A320;
+	Tue, 10 Nov 2026 20:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=pmYBiPny
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=Bf/AaZlKXJsIZfpfcnPrYCQ8TrA8wpK1qNvneo+qbhA=; b=pmYBiPnySBBL4gRZjkA7D5oEG4
-	qsoLjT/oqrSpb2nB1K2BiwI7t+BYONzCkNvW/vYMaSImd9sOQHenUmUl4En53uLq8OhLPUfRFmWSK
-	ZiBhdv8Ihhfe4SUK1fnnM4aXnxQWIltfmsqdgMkzFVufirT+q6Tk6DYT6K4QIqZ1O35exzSFfq+dJ
-	iHhsnArmCOxOFTmplXA/boQc8H2a8T5+C4dTSCxPTcp7M8a7qYwfRnOT0wvIufmdXGVHTJI2lYsz/
-	xaqYynG2gonG3JUWoCGzcJDqmHWPHjYrzAV+HVzCG4Lxw9g/OSxqgl8/iKFqeguAmrwPlWUpyxeis
-	/Wvb8Oxw==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=D3hZTb9Y
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=QZUYTVrEmnGgtZwJSdwQjuf+Kfj1I1WqfbMiipHwxpc=;
+	t=1794343772; x=1795553372; b=D3hZTb9Y+x1TGozMfaDu/KzK3Cb3RgQmZuBXfHWVZHJgbLO
+	iWUGK9cZ2MscOKmq95gLlxbUhpnfQGR8IHj/EV1jao2RaYZnQ27geqLSCmv9UgyqsihsJV2KVUNTT
+	AfpvkcNVkO7AHbVLq/Uub/Ew0P7PFEnrwI76Zzl2IeiBLW+Oecg/sUuAfGhyv9nU/XuqfVmHVsqyB
+	5YulmhdE7YGWboj9JMPKjmARC2C/Ukn22PJre/qzEgn5MkDWNF0+NbQ7LYRZiJuxx/w4vxiYqdneK
+	pXUfIP3ggBIv95RUFgltKF70WcF6eJFaQZoKkibKgbAoa6Aa+KytCM7h+QqibTbg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
 	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xQsm8-00000006IgS-0eMv;
-	Tue, 10 Nov 2026 21:49:04 +0100
-Date: Tue, 10 Nov 2026 21:49:02 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	Alex Elder <elder@riscstar.com>
-Subject: Re: [PATCH v1 1/2] i2c: spacemit: Avoid sleeping during bus reset in
- atomic context
-Message-ID: <avODPs8yytWCMxn3@aurel32.net>
-Mail-Followup-To: Anand Moon <linux.amoon@gmail.com>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	"open list:I2C SUBSYSTEM HOST DRIVERS" <linux-i2c@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SYSTEM RESET/SHUTDOWN DRIVERS" <linux-pm@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	Alex Elder <elder@riscstar.com>
-References: <20261110061429.2036-1-linux.amoon@gmail.com>
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xQsmX-00000002KmY-2fIx;
+	Tue, 10 Nov 2026 21:49:29 +0100
+Message-ID: <60c815e5020502b91215a6c89c589d881e80d67e.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless-next v4 21/21] wifi: mac80211: define API to
+ invoke SMD Drain Completion event
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Nov 2026 21:49:28 +0100
+In-Reply-To: <20261106-smd-v4-21-62e39487f51a@oss.qualcomm.com>
+References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
+	 <20261106-smd-v4-21-62e39487f51a@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,47 +69,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110061429.2036-1-linux.amoon@gmail.com>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+X-malware-bazaar: not-scanned
 
-On 2026-11-10 11:44, Anand Moon wrote:
-> The spacemit_i2c_conditionally_reset_bus() function uses usleep_range()
-> to wait after triggering a bus reset request. However, this function can
-> be invoked during atomic I2C transfers (such as power-off or restart
-> handlers running in atomic notifier chains), where sleeping is illegal.
-> 
-> Replace the sleep operation with the driver's internal helper,
-> spacemit_i2c_delay(), which conditionally uses udelay() when running in
-> an atomic context, avoiding "scheduling while atomic" bugs.
-> 
-> Assisted-by: LLM
-> Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> Cc: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Anand Moon <linux.amoon@gmail.com>
-> ---
->  drivers/i2c/busses/i2c-k1.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-k1.c b/drivers/i2c/busses/i2c-k1.c
-> index ff32876e24d3..f4b21d7efaaf 100644
-> --- a/drivers/i2c/busses/i2c-k1.c
-> +++ b/drivers/i2c/busses/i2c-k1.c
-> @@ -332,7 +332,7 @@ static void spacemit_i2c_conditionally_reset_bus(struct spacemit_i2c_dev *i2c)
->  		writel(FIELD_PREP(SPACEMIT_RCR_FIELD_RST_CYC, 1),
->  		       i2c->base + SPACEMIT_IRCR);
->  		writel(SPACEMIT_CR_RSTREQ, i2c->base + SPACEMIT_ICR);
-> -		usleep_range(20, 30);
-> +		spacemit_i2c_delay(i2c, 20);
->  	}
->  
->  	/* check sda again here */
-> 
-> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+On Fri, 2026-11-06 at 13:28 +0530, Pooventhiran G wrote:
+>=20
+> +int ieee80211_notify_smd_drain_completion(struct ieee80211_vif *vif,
+> +					  struct ieee80211_sta *station)
+> +{
+> +	struct ieee80211_sub_if_data *sdata =3D vif_to_sdata(vif);
+> +	struct sta_info *sta =3D container_of(station, struct sta_info, sta);
+> +
+> +	lockdep_assert_wiphy(sdata->local->hw.wiphy);
+> +
+> +	/* doesn't make sense to terminate if we are not draining already */
+> +	if (sta->smd_state !=3D IEEE80211_STA_SMD_DRAIN)
+> +		return -EINVAL;
+> +
+> +	cfg80211_notify_smd_drain_completion(&sdata->wdev, sta->addr);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(ieee80211_notify_smd_drain_completion);
 
-Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+I don't really see anyone checking the return value of this, and if we
+don't think we need to protect hostapd from broken drivers, then this
+could also just be an inline (or not exist). Anyway if it goes wrong the
+client will just hit the timeout without much loss.
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+johannes
