@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347753;
-	b=v5AFmWZQq+FW++KfjcMqAxNtPaAQbMpUVTCDx4oCIYYmSIAvDJE97L9l2jJCe97iZsBL
-	 S+drucbuSmSo5xtPIUPe7C0YUBuQnoqLqW2mXLgOw3HEo2BYGzJ8aQG6BT9VRfHSMEYiN
-	 L8o6qiICgKq2I6Zwhonf73rDVLl8LtGBi1Dsj+iHEXDVQMnbLGIKstr++jJuG43LGFVJ6
-	 68OyYdSouFLRNkSl9rWnfn7srp16w/8jEm/nGCnXWObMkjcRY0SfeEmVLieoLWzWy3pYB
-	 Gs2RUg+X7T795xrG5Sa1/SGgTE5eCnDvT3pBXWZnyqNXEDyJed6PkemwSt5ST+HyfOQ==
+	t=1794347758;
+	b=wxmpSUiDpYARzXVwIqQsoJQLHxmQm57au4dhDS1pqbKMJDIPXOar8IYv/LpEIbRXwuRV
+	 5BpqaL2YzqjVf05GGqtyOhCN+icMeSY1LY89VsMQjW9V/SeWVZAe0R/V5iJPCUzi2Xmzg
+	 4LzARAO0H/QWK7urue+CqfBDn9G0tDb0woM9PiUF+oSBp21Pv5ChyEKiIIweN+jUVmha0
+	 EmaFOpCGKznJblf/xP3AYhLL7ogKtqRJx8hKJme+64zB5uX0f56GEi3cDJxLHbl8ETR3S
+	 x9jxe0oDc16Lu13NQpMxdTPr9H/6VwB6oYuVJEzZ81aE9XndX0qMOrJ+tHbypq9rqXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347753;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=NSNgF70HdhR2g8AfyHRx/cqCBUDACybZx2f3pH5bJsU=;
-	b=A9FrwoTt0HUeoYhOENsFS5fL845vHhrqUQxjlu2TsM4m01zI7Rk5d9cQid4EE+FrY81X
-	 bM1xF3/Gw3+E1oTObWHCm/TFSTUfT/HkUtbrfN8wwfCl6Im5T0QQuuq6Ukhn0x/sWV3XS
-	 jgJVOzQXskh7brJMdaJp6XJJuuOQsazqYK8+6nI1pOcnhHH8Tko0AX2yIybipvNFi/J/8
-	 UJIRrpIEs1KB8tC/lPjUbQuJIxkjl5ZczpdwJ0jbCU9uEk8fk+zVdWALGnxJhLNe7xQCT
-	 /MroENtDnP/dZXDClgYXsw5WtD5JCVx+BjugIm2OIAu3kU/PGxis+22xB15hLEDEfsw==
+	bh=YvMpOyVW0nmPdshmLVoyb9tIypIcw4DpcdinU28KPJM=;
+	b=bIkVTKnvcqN8znpbTF84cpxpIicIa68NaQseWz4Z2OzJ1kH2YaA+eQgFrqYy/7uV7pZw
+	 nwycjuU9aaGADKMYJOchWxqPPkBAVRHRtMoN15mzm0sHZQrME3+HZP6hhnkkZwDzo2JmV
+	 86Yy3XtpAKoBqKcJbDRaVdGZlErwmT/o2M7GKnDMR6EOz1o7UahTn3p+0J9VZjML42AMX
+	 i25HuSAqv51/D7+c325EnVpqlRVViu4YTLu6vWHmdZE3DZd6ZymioTrtmghbiTaWXw1uI
+	 x/FSA7REzIeF68i0xrV8X9k7D7PnEwXOVfqZzj72xqe0/H9XLq9cNzu1e993PopgFQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=IwOC5rw9;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B5d7SS9S;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DBB606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88DBB606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAB8606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:55:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EAB8606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=IwOC5rw9
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so21525305e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:55:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B5d7SS9S
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso27799815e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:55:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794347752; x=1794952552; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794347757; x=1794952557; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NSNgF70HdhR2g8AfyHRx/cqCBUDACybZx2f3pH5bJsU=;
-        b=IwOC5rw9YTA77WvT6voP8L/M1nq33eLXPDd8S5R/mxbDsauEe03m5vNZlyT8+oXUHP
-         bbwz63ECp3mH/tPdephhYpfksAbVj1qiojQQXy3nG0rf7FLYFYJaxbJ28Cf8v4UAngXL
-         v/lqqmzlJO6x2d8PyepX7Cjrx5lD8d6z9MC+C0QhM+xDQum0tWWHNq2n1i//5CxcSpzh
-         uQtInS8KrOCduKOpVlhuyjkw5JBhwnGzzwAvHRgTkC+35EkROQT/bA+noLpoSs2iHGN4
-         XtITrYpzX+FIGuIUOsi++RUOixQcfelzCt5ZTjxM4GOR2R694D9HmPJhdSW1mnzG9IX+
-         yGYQ==
+        bh=YvMpOyVW0nmPdshmLVoyb9tIypIcw4DpcdinU28KPJM=;
+        b=B5d7SS9S7sY5BEcAjwqPRUD050ybw7tf2DYn8XXJ3kkFANz7v+lJ+IN8bPLYlsXk1D
+         Mz5QPVUgRzlxyfxX/XPKawERYROTJXLFCTRBVwVDQwFhLbVkgP4txLbf+ilEc04x8sSZ
+         JWiilKF+c1C+JVcODOUGvWgKNEccRGbIx/1BcngHbvBR4SR44BwJEkz7TOBS3ET8dSrh
+         ARw68NyEP9zrL2MYYR/eN3vhfsDP9EJiQ5FP6dkLG418n5MONVgYAQ4TKzR5/NjBNm2Z
+         0la20mwg6QFaAfEz4ariHboCEEyKkw0L+9dnXCfj5zTcydh4MIZk0wh9+w6l+OEC8k3d
+         G8uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794347752; x=1794952552;
+        d=1e100.net; s=20260707; t=1794347757; x=1794952557;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NSNgF70HdhR2g8AfyHRx/cqCBUDACybZx2f3pH5bJsU=;
-        b=HDCtDfY9yrtvAHa+ly5ImdDzTCyOeK96YXdaGi7A9dFpFucqyVgKF9s14VsjK30P9I
-         0EmBcUFn99PGF7GAlm9pUGPStengWdWU+g5aQgRohHDA5+j4Mz+iQfFbD1z0lGxI40h9
-         EFxC7sDxf4j7vXc45V0fgTd5iHkPrBec797zjA/saWN3t3AYIIiTAcNMjJnfKbB/aC1i
-         qeC+y6fnuTFuNWBvoDYnImnSq5B07Gf1crP6MN+VsUE7wRqPJCJatn8AED/4HwzFdjWF
-         /GOCdPyZ83V/aQ2sw7k94WV2o5udiXzSE3yL31MOzZ0C24HFuqwHkhGOv0Vu1ljT0cFf
-         dMJQ==
-X-Forwarded-Encrypted: i=1; AL+hErFhKnkSzn//g8a8u2VYVyfumyB6a+Q4h/Fwu8YCwye7jIYUajGHBfK5/ktrNsJwgZCjEbi5LBV9Ki1eB2s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/w5lvdDhOyh5KT68yJr0xt7t3sHW+EfM+DxELMpeJ97PX+rVw3
-	M2yQ27ym3+OdOWxvrFOybrxv5BilzD8Z4FRL1iw+9jbsUgk1fPDvP6pDI4ICF8I+ANg=
-X-Gm-Gg: AYBFou2+yumuvQAcTtIdsMeJBzcTXXKZ/p1gaEo3CfAPNRbe2AINmvj4wIv8xgEVi7p
-	AOELeSJrOsnZ58cIeA/wASrkfCm1gtQ2x+0N5Aale9lbi0OQSQdfBnjx4tgtLKhtqEkGW4uNc83
-	MioEuOOCFWb6q7w6bGrXkJCMttZkbf2j0YutlH23iYv2Fl9d6CcWxiHaHKNEfK8KXNx734vvAfF
-	VkSd89O2TITVAOz9Gfe+fgPJ4m3VNNFqq7owW+V+4ywhahEipd2E2obd1wYRzWH3qqYk46HjQUo
-	8n+j8GQPXQDzrsNpzw6ppQJRrUrVhr5X0OzOYW2Hoh1S9UZ78NeHc0Yy3f1RN7qfneQmiIuHZUp
-	bAqRCI9tgcAwH3dzzEM3092GsmKnCEs8IyGOLt9PHwcCoukSEq+F9mh7mX6nmTRIxNwd6p6a1WM
-	waV92aYLd/xuI44tpKr/mw+jmQgqVESzWKV8bXYreuALJJ/6SwR7QVl67WdKfDghyi7vP72rWSw
-	LOh7DEPj27KP9qBYzyB5qWODWHagUzfD8n36x+uNKEzj6F4BXu2Fe2jgxtZfZOs7L7Q0GS/SN6N
-	rMxz/eYC4qSQci8w+XI5sZfdihm75qobOEz2
-X-Received: by 2002:a05:600c:3554:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4ba0937ded6mr6010335e9.31.1794347752002;
-        Tue, 10 Nov 2026 13:55:52 -0800 (PST)
+        bh=YvMpOyVW0nmPdshmLVoyb9tIypIcw4DpcdinU28KPJM=;
+        b=IQrvrQ4PLWDi4TSHrmTYpNfWs+LXzPruBScuLiV62a876auMYakNmk8Ai+KM1EMA0q
+         hwdkOB1V7eoffVhI/vRvMylloUY3/9foFBeqMZLWJqv8eQBoNkh9iCmRcVesvtTGYzuG
+         nWt+ZOchU+9AZ6DxDbKaTZg3ET/x8Zo6peY1EYMjKi09Ehb7Ld4ntxIBZYWlpcB6vRif
+         YWL1pu0voU2ULwA3wywGVX3vMIPaSvGbvZTA8AtAloexDUAQRutHdRT0291QU/hGEO0K
+         NIQDpvUP8bUpvluKl/A5JIGScHE8zo1KGNSJmuHT+fiOMBofqMlzvEGwEWmOenBeuKbl
+         6DyQ==
+X-Forwarded-Encrypted: i=1; AL+hErFmzeipAeA9JcvCIdXND98ZihcgIUM6sHCPsCr/HWBnvUKbP0501oFGjXDCbVW6k74r4cjs+c+08TtWtWs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6lfXfNUGQQf7kukvpJD+kTH5gpMvelK0ObrK/rsUPqnIY3trW
+	qVkM+ZTw3AGRKqr9yiDH+kvIV4fhTp666/kfJMg1gCBMVa8WtHuV0P3wcAxwO4Aapi0=
+X-Gm-Gg: AYBFou2CpsBpd6SGXbYvnHpQMvwK8LPh6uqKCvwaaH3x3O9Eo4Tey6rnBQWxGDxlyS2
+	XJOfKvV1zyfdY76GidHY/BGcsNs5HJWVLl/EJ1hn+Zshvjc7yRKhhWGeswTH3JhQiPKW+qtvRv+
+	uo6Ki3xWJ+uSzqP7GqXpoyMAeZfjtuGmq43d5bE60dw9N5mmTI9QqQRpr42YZXwfICYnKszcFC/
+	RfvBnkbjURXoGYfsfbC2Yp8In9yaFxM4cHzx9yGVcYf1Po0d1Xjzgwh+mAb7Q53Syd3WlrRS0Yb
+	gV3g9LOjYwOb/RaLm1J1ZvhpZLApe2DTyaFSV9xQ9kRPkrx+EabYGwXehBDjAbyGkdcucmvKCrE
+	D2BRsK8QOo+j3YLvJTfzXDdyad+bsbU1j7qX6S5Qek3YonZkANH+rI19H0SrglcC8QQdnBNMdQW
+	JBbrdFr4dWkSH/+SwC3H9wjSyOARtj/VkVKEbnpWTpluZPggj0wHEARCgF7e/iRW4g46zzeYE0c
+	HAFa025TKsEDb+/VI2NqMXmVqjYfEr2AjEZJNcXmI+4HjnKqEckGrx0ZiPf8IC0bn29zoHqdw+O
+	niBRw6qfRfMvMwQLkOxc4jq4eh7gSPTSL/Q=
+X-Received: by 2002:a05:600c:3b01:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4ba09344911mr6417355e9.1.1794347756987;
+        Tue, 10 Nov 2026 13:55:56 -0800 (PST)
 Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba0204ee67sm92142165e9.13.2026.11.10.13.55.50
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01fba476sm107163905e9.2.2026.11.10.13.55.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:55:51 -0800 (PST)
+        Tue, 10 Nov 2026 13:55:53 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: Lee Jones <lee@kernel.org>
 Cc: mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v4 03/20] mfd: kempld: Simplify device abstraction
-Date: Tue, 10 Nov 2026 22:54:28 +0100
-Message-ID:  <f751652cc2cee4addd2168e66e6d89bde275f39c.1794347059.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v4 04/20] mfd: lp87565: Explicitly set driver data for the generic dt compatible
+Date: Tue, 10 Nov 2026 22:54:29 +0100
+Message-ID:  <8f0bc82073121d4c2af24ef495873f486cd53631.1794347059.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
 References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
@@ -101,223 +101,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7728; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=UDmSiiwBKlGcr/aufgewospfWd+ziqZKrky2D0HJgVk=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85Kat77sixyat3+wLEe3Mq8MnsuYwVLOZSrRg 5fg4VmgHaOJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSmgAKCRCPgPtYfRL+ Tg9bB/9Mts1geBTCuTFPs6HI9XsRhKIQk/0ow4oTSCURTJF1t2BdVw1fXmclmgrvRZdTesPOW50 aq0W8fV0s3xt6IiiuWIm0mwsx4hLt3QJbuR7yW2HjteGqXWpMNBGUtQXzXciCmGjRAoZYNqH1HS epPLhEZJfRgKWgRoiqritGOlojcf5nUXtCXgrmrCJpurf0th2t3BlnGyOpg5Nl8Fcl7EgcZCGbB Y8dTTyJxt/JxVAVj9yCfOeWpS1LoM4k8e0X8uQpoKjscdHOOJw9Jbk2W6iuDsNzf8uKXGOZzu/4 ARNjrQgY56q7m0JeMboo69tSAyIxAw9LmVGuEPh2AtkMLnVc
+X-Developer-Signature: v=1; a=openpgp-sha256; l=903; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=ItI5605JHOVUrr1auFKK2Cyt2oOdQ7yo3fgGcZk951c=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85KecaOWAIjbliGaieC3F/az/KAF1oOz0ppUT Cs0rvDaBquJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSngAKCRCPgPtYfRL+ Tq2eCACjSWO4t72nyZBiFE17tZkmvXuwxGTijpJde+2sKH+N+/ekSU9BoQgQSohU/SCjod5MS+o hljqIT0giS6pAajDTzfEdpWe8I8CHxgrdJSnIKZ04P9wk+qBol3vLHWQCOh8Rgf0vnDN5RwA/20 KxIsfwg5Z/YL/nhmkuZv1ZXVpD41pZu9vUwtwUeqgNa1gFkOToEvBCa7pB4pdlEBwg5Ovo7RDgv M42pICHxxChHhmt1Dd0r7esMP/aMnncsy9W1kslYHgHRfnBmQiVirBE2s6dR3hetjRWzP1LuuSA miwAv1Byb4WxVpaldyT6IkNuZdmHM5k8c0MoKOQK/B17QJNO
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-The devices that are created by the driver from DMI data and also ACPI
-devices all use the same platform data. Other devices don't exist. (A
-provider of such a device would need to know about struct
-kempld_platform_data, but none of the other consumers of
-<linux/mfd/kempld.h> creates devices.)
-
-Simplify the driver by hardcoding this instead of using the ACPI
-abstraction for multi-variant support without real variants.
-
-Then apart from .gpio_base all members of `struct kempld_platform_data`
-are only used in drivers/mfd/kempld-core.c, so they can be dropped.
+The driver relies on .data being (void *)LP87565_DEVICE_TYPE_UNKNOWN
+(i.e. NULL) for the generic device tree compatible. Make this explicit.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/mfd/kempld-core.c  | 64 ++++++++++----------------------------
- include/linux/mfd/kempld.h | 12 -------
- 2 files changed, 16 insertions(+), 60 deletions(-)
+ drivers/mfd/lp87565.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
-index 47062f876e5d..fbbff3eac500 100644
---- a/drivers/mfd/kempld-core.c
-+++ b/drivers/mfd/kempld-core.c
-@@ -118,25 +118,19 @@ static struct resource kempld_ioresource = {
+diff --git a/drivers/mfd/lp87565.c b/drivers/mfd/lp87565.c
+index b78ae79df5fa..efea1ba82811 100644
+--- a/drivers/mfd/lp87565.c
++++ b/drivers/mfd/lp87565.c
+@@ -26,7 +26,10 @@ static const struct mfd_cell lp87565_cells[] = {
  };
  
- static const struct kempld_platform_data kempld_platform_data_generic = {
--	.pld_clock		= KEMPLD_CLK,
--	.ioresource		= &kempld_ioresource,
--	.get_hardware_mutex	= kempld_get_hardware_mutex,
--	.release_hardware_mutex	= kempld_release_hardware_mutex,
--	.get_info		= kempld_get_info_generic,
--	.register_cells		= kempld_register_cells_generic,
- };
- 
- static struct platform_device *kempld_pdev;
- 
--static int kempld_create_platform_device(const struct kempld_platform_data *pdata)
-+static int kempld_create_platform_device(void)
- {
- 	const struct platform_device_info pdevinfo = {
- 		.name = "kempld",
- 		.id = PLATFORM_DEVID_NONE,
--		.res = pdata->ioresource,
-+		.res = &kempld_ioresource,
- 		.num_res = 1,
--		.data = pdata,
--		.size_data = sizeof(*pdata),
-+		.data = &kempld_platform_data_generic,
-+		.size_data = sizeof(kempld_platform_data_generic),
- 	};
- 
- 	kempld_pdev = platform_device_register_full(&pdevinfo);
-@@ -235,10 +229,8 @@ EXPORT_SYMBOL_GPL(kempld_write32);
-  */
- void kempld_get_mutex(struct kempld_device_data *pld)
- {
--	const struct kempld_platform_data *pdata = dev_get_platdata(pld->dev);
--
- 	mutex_lock(&pld->lock);
--	pdata->get_hardware_mutex(pld);
-+	kempld_get_hardware_mutex(pld);
- }
- EXPORT_SYMBOL_GPL(kempld_get_mutex);
- 
-@@ -248,9 +240,7 @@ EXPORT_SYMBOL_GPL(kempld_get_mutex);
-  */
- void kempld_release_mutex(struct kempld_device_data *pld)
- {
--	const struct kempld_platform_data *pdata = dev_get_platdata(pld->dev);
--
--	pdata->release_hardware_mutex(pld);
-+	kempld_release_hardware_mutex(pld);
- 	mutex_unlock(&pld->lock);
- }
- EXPORT_SYMBOL_GPL(kempld_release_mutex);
-@@ -266,10 +256,9 @@ EXPORT_SYMBOL_GPL(kempld_release_mutex);
- static int kempld_get_info(struct kempld_device_data *pld)
- {
- 	int ret;
--	const struct kempld_platform_data *pdata = dev_get_platdata(pld->dev);
- 	char major, minor;
- 
--	ret = pdata->get_info(pld);
-+	ret = kempld_get_info_generic(pld);
- 	if (ret)
- 		return ret;
- 
-@@ -296,20 +285,6 @@ static int kempld_get_info(struct kempld_device_data *pld)
- 	return 0;
- }
- 
--/*
-- * kempld_register_cells - register cell drivers
-- *
-- * This function registers cell drivers for the detected hardware by calling
-- * the configured kempld_register_cells_XXXX function which is responsible
-- * to detect and register the needed cell drivers.
-- */
--static int kempld_register_cells(struct kempld_device_data *pld)
--{
--	const struct kempld_platform_data *pdata = dev_get_platdata(pld->dev);
--
--	return pdata->register_cells(pld);
--}
--
- static const char *kempld_get_type_string(struct kempld_device_data *pld)
- {
- 	const char *version_type;
-@@ -399,12 +374,12 @@ static int kempld_detect_device(struct kempld_device_data *pld)
- 		 pld->info.version, kempld_get_type_string(pld),
- 		 pld->info.spec_major, pld->info.spec_minor);
- 
--	return kempld_register_cells(pld);
-+	return kempld_register_cells_generic(pld);
- }
- 
- static int kempld_probe(struct platform_device *pdev)
- {
--	const struct kempld_platform_data *pdata;
-+	const struct kempld_platform_data *pdata = &kempld_platform_data_generic;
- 	struct device *dev = &pdev->dev;
- 	struct kempld_device_data *pld;
- 	struct resource *ioport;
-@@ -415,16 +390,10 @@ static int kempld_probe(struct platform_device *pdev)
- 		 * No kempld_pdev device has been registered in kempld_init,
- 		 * so we seem to be probing an ACPI platform device.
- 		 */
--		pdata = device_get_match_data(dev);
--		if (!pdata)
--			return -ENODEV;
--
- 		ret = platform_device_add_data(pdev, pdata, sizeof(*pdata));
- 		if (ret)
- 			return ret;
--	} else if (kempld_pdev == pdev) {
--		pdata = dev_get_platdata(dev);
--	} else {
-+	} else if (kempld_pdev != pdev) {
- 		/*
- 		 * The platform device we are probing is not the one we
- 		 * registered in kempld_init using the DMI table, so this one
-@@ -451,7 +420,7 @@ static int kempld_probe(struct platform_device *pdev)
- 
- 	pld->io_index = pld->io_base;
- 	pld->io_data = pld->io_base + 1;
--	pld->pld_clock = pdata->pld_clock;
-+	pld->pld_clock = KEMPLD_CLK;
- 	pld->dev = dev;
- 
- 	mutex_init(&pld->lock);
-@@ -463,15 +432,14 @@ static int kempld_probe(struct platform_device *pdev)
- static void kempld_remove(struct platform_device *pdev)
- {
- 	struct kempld_device_data *pld = platform_get_drvdata(pdev);
--	const struct kempld_platform_data *pdata = dev_get_platdata(pld->dev);
- 
- 	mfd_remove_devices(&pdev->dev);
--	pdata->release_hardware_mutex(pld);
-+	kempld_release_hardware_mutex(pld);
- }
- 
- static const struct acpi_device_id kempld_acpi_table[] = {
--	{ "KEM0000", (kernel_ulong_t)&kempld_platform_data_generic },
--	{ "KEM0001", (kernel_ulong_t)&kempld_platform_data_generic },
-+	{ "KEM0000" },
-+	{ "KEM0001" },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, kempld_acpi_table);
-@@ -787,13 +755,13 @@ static int __init kempld_init(void)
- 	if (force_device_id[0]) {
- 		for (id = kempld_dmi_table; id->matches[0].slot != DMI_NONE; id++)
- 			if (strstr(id->ident, force_device_id))
--				if (!kempld_create_platform_device(&kempld_platform_data_generic))
-+				if (!kempld_create_platform_device())
- 					break;
- 		if (id->matches[0].slot == DMI_NONE)
- 			return -ENODEV;
- 	} else {
- 		for (id = dmi_first_match(kempld_dmi_table); id; id = dmi_first_match(id+1))
--			if (kempld_create_platform_device(&kempld_platform_data_generic))
-+			if (kempld_create_platform_device())
- 				break;
- 	}
- 	return platform_driver_register(&kempld_driver);
-diff --git a/include/linux/mfd/kempld.h b/include/linux/mfd/kempld.h
-index 5d75071eaaea..d7a823ba1a7a 100644
---- a/include/linux/mfd/kempld.h
-+++ b/include/linux/mfd/kempld.h
-@@ -97,22 +97,10 @@ struct kempld_device_data {
- 
- /**
-  * struct kempld_platform_data - PLD hardware configuration structure
-- * @pld_clock:			PLD clock frequency
-  * @gpio_base:			GPIO base pin number
-- * @ioresource:			IO addresses of the PLD
-- * @get_hardware_mutex:		PLD specific get_mutex callback
-- * @release_hardware_mutex:	PLD specific release_mutex callback
-- * @get_info:			PLD specific get_info callback
-- * @register_cells:		PLD specific register_cells callback
-  */
- struct kempld_platform_data {
--	u32				pld_clock;
- 	int				gpio_base;
--	struct resource			*ioresource;
--	void (*get_hardware_mutex)	(struct kempld_device_data *);
--	void (*release_hardware_mutex)	(struct kempld_device_data *);
--	int (*get_info)			(struct kempld_device_data *);
--	int (*register_cells)		(struct kempld_device_data *);
- };
- 
- extern void kempld_get_mutex(struct kempld_device_data *pld);
+ static const struct of_device_id of_lp87565_match_table[] = {
+-	{ .compatible = "ti,lp87565", },
++	{
++		.compatible = "ti,lp87565",
++		.data = (void *)LP87565_DEVICE_TYPE_UNKNOWN,
++	},
+ 	{
+ 		.compatible = "ti,lp87524-q1",
+ 		.data = (void *)LP87565_DEVICE_TYPE_LP87524_Q1,
 -- 
 2.56.0.rc1
 
