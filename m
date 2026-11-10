@@ -1,109 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.135
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323648;
-	b=bcFp7S9TeyqsxLgFN9eCm6KlejPAIeCQpFG8q9F7wHpR6+YglyJAt75IOfzL721LXvh/
-	 KP33K/BrDMUAM9xbqM1VLwAUA6RJnQxe/2+olfA5yU0DlvcrTQuvczqUqZ+rD0Bo0mJHL
-	 ONQO2IBXAYOIWZiuez5jarqhW6svYhI3ufHub9ErR6pPL1Nm/BsYNKhuZnJvhw96Tm2xr
-	 Q3AAuugE9vKxmgMznXD5uuhwjrj+m8l4DnacGUDHdN+0dH3hnMryuIGAY/WYIm2s3TL/x
-	 al4DUrwb+AGvdj6iTRUBQ6rHhAFsnpzTwlIBT6+OhnIqv5GrxeRJHeblIv1bYA3gJYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323648;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XJF8w20/M5CvGkoGiiOWxIiX34yr2V1ilwsoDthVZCA=;
-	b=rLXVw33vWye84MT5i0GY9EmabK8sTYa08PQezUXvl5NIObQq4DYiR7zXrmQljpqcG+rK
-	 +keyov/pRaEwMstwWcmVqwxC87daM+keCer4Wak73bpDE7RyEdzBcjCxk8t7n30MO5W+L
-	 U1QdRCI56MnmZBktEAx452tztU/lZA2P/CUFNSCBE8ytHY14jaNzTc4sLSprKtft7kKTP
-	 YiccektvWouH4wkS/WmlEn8iue9sj98G0N+wyiV/Gq7OvkKY9pJ3ngYALxK9KsP0tfteS
-	 y79zYzffXUIbpAkyEJ41CW1NAlUUPaawGIgOAXAIPUuBlJWWvO2jOpNrl9am5/Frgbg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=PU38j0yi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.135
-Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020135.outbound.protection.outlook.com [52.101.189.135])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323643;
+	b=CI/6TzxSUva//vQGwS8uB6048oB5jJfd+n2yEwhVGV8WLn+TkyFTms1Ah8flRbxPwcZ4
+	 x2zQiuJeFwlgnW5j4jV1YjUJLz7jlUiecXdkTmGpGw7CwSxUKMZ5Q+Ah4wiCU1YpZFvRO
+	 2UGqmYgAQGJBvrDgXgcKq4Jh099XtEuY/+oFa0myAVEAh5b1E+m96qquY6BYcwhXOtH04
+	 aMlHoUaSlXHVEAl1O4lXOXFFPDqa1ueia4F9/VN/Z00P0Le7FjY+fBYNmhQKN9g9mYgUl
+	 WYSPzAEVhwICW21ktRCr/pOSdLcm3+rlXnACILp9nrCvhGI6U6SLNtDvF6jH+nZZeUQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323643;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fzDtepYpPhppRO2OekG3HqAvxmazW/tXwsXJOMA5LnU=;
+	b=yDOlrBwobOdzclhJsmlXVcmXldv1Lp4Lf+pz3DJHCs4R3iWjGar7O7r1kSeUK2FXso3X
+	 A/t5nePmpYn7vHWDxaA1Wb875M6lGYwAt8Unmnp1xgpg4XNSjR2JqkToonE5JHDhoXFAx
+	 nq53U/lPkttNgyDAEfYObQzTtnPUv8aYAPkrEmx0DvxFZ3v8rvsg7sAZBhYDoCHqWtqXt
+	 vw5LyzU71h2JQKKB3Fs5I0juydLoBeTbq7t4mpET0osGn2aEKpKjqWVbD9zgW7rPV5fLB
+	 btVtwTPfsNDoYfsGDDc5oO0deVueG6WdGyspZbksX70oEr0vOK1HHRmcprU+7phzyWQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=djRYAMmG;
+	arc=none smtp.remote-ip=74.125.231.137
+Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A34606A32A;
-	Tue, 10 Nov 2026 15:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A34606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB58606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:14:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB58606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=PU38j0yi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KIybOzOxBvaCCxPSlbKp0Picr9YeVasRI2J8JtRvANDkIEAbv76mXWsR4HfRE35U6fXy0Ds4scXPS413lBnrPvtvFFwEjevQzZz0oZS6LtnHlc/cxQOsk0QPDbu1/6A48uMrTF/YIo6dhlS+C5I16b3VuB3tOE2stW6IDJkT1ufFWxR9TDINNEfH7/ihnvegx3hDjsjxGT3xMHpwqKBzzfQfXKUWUxxrmffNMDiCO9YdTMy5Jv+Da+gTGqRmXfnyHwL/DedJWSh9Uf81/hesOKitu5KH2BDGfOWHiUYuo/mmAu5uPSplp+MzRz7XyQzq9Zl2YdaUBwxwBy5VsdA8Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XJF8w20/M5CvGkoGiiOWxIiX34yr2V1ilwsoDthVZCA=;
- b=RdQeub+cWfQqXgi4LKSK6SERIE+wTd+Idl3luawWNJrxqisb8PljTPVVUaOgADtu7icUoGHA35vSfoRIp8iKzAzD9/UEbj+Qm90FCk7Uc/bXfPoLDYItu1fQPIkWfApj5uqmMS6J4uEiN+h65ORsyJu3FsL6U5HQthjrn+txolnqX4APDzthy/3tcRn/c2YYeuKiFfbInOCbCfC8DT73RS2DqcpuWFRQrSu1ZBWTnJbdlhY272rSB7weF2h/ejWI2AWX/NMNiMR4hJmu3dlxYfgv1RrPLMGjEsgZHU4P6l280wpbzsG23buTP0YLM2Sm9SxmvQ6T7Ek8R1Kmma4jgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XJF8w20/M5CvGkoGiiOWxIiX34yr2V1ilwsoDthVZCA=;
- b=PU38j0yinasi9fbpcxWB1okxwwPoZxh49uzu1d8ISk6q9mouU9uiQVm3Dk9ueQrJavG8mZBya5qu24FLZZX4woktDqPAdvzjbJu1a3KNm2516S6usMBxZRKr4rDR64bWw8xhMfWAYm4zY+PeOWNjLpcznh04mXowDjd/TOu4yaz9WPlaypaDUOt0aazk8OLri34teRrngWVR9k/SnpY827rHFD7kZqVJeO0cFDNk7+tE3StcZ3T3qqZ2O0lL6yDNic248tDeFtA8Ga82Wj2MVhhJgPr0Xbos9ddiO9mAsZAifkwrM0FYC5F3NNQZ4ye0g78HyqUxezET4nDcIdmvVw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT5PR01MB215679.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:19a::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 15:14:04 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 15:14:04 +0000
-Message-ID: <cfc9a772-2801-4c31-ae5c-e034153fcbb1@efficios.com>
-Date: Tue, 10 Nov 2026 10:14:03 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 10/12] rcu_txn: Test a commit from atomic context
-To: Puranjay Mohan <puranjay@kernel.org>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
- Boqun Feng <boqun@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Lai Jiangshan
- <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Matthew Wilcox <willy@infradead.org>, Christian Brauner
- <brauner@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Liam R . Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Andrew Ballance <andrewjballance@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, rcu@vger.kernel.org
-References: <20261016133319.433617-1-mathieu.desnoyers@efficios.com>
- <20261016133319.433617-11-mathieu.desnoyers@efficios.com>
- <20261023182218.479327-7-puranjay@kernel.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <20261023182218.479327-7-puranjay@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0126.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::14) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=djRYAMmG
+Received: by mail-oo2-f9.google.com with SMTP id 46e09a7af769-85f2bfd7a07so805206a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:14:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794323641; x=1794928441; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fzDtepYpPhppRO2OekG3HqAvxmazW/tXwsXJOMA5LnU=;
+        b=djRYAMmGefMtb6wren78btruzNJSKlkMMEb/G2ViFnFtspnoWA1dl4sdezgK2VT7Eq
+         yYJmh0Mo6NTfElX/oLUNEcTf5MuQfm2X+0a8nJeTlVO4sGRjWmW/Kt5t7OkzFsqyeHA3
+         7giS0wwyxd03nfRo+Ubja7En2wnKVVgYIaWBPV8sqTdNJcwHWHbfetjVzjCXcZIf7i1a
+         pL/AqLsKSRP5xdtseVarYmC4XmxOvTos7PpB+gt5E+rQX0o9shmQVW3RXvgWGliOn0jv
+         DpKA0zZ+19SYCLc465NMVpM5iNkjo5nbk6vkM6uCJp/iV6z87RSixobqXrFYRNyOLoCS
+         XwUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323641; x=1794928441;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fzDtepYpPhppRO2OekG3HqAvxmazW/tXwsXJOMA5LnU=;
+        b=lrEtfWb/ft65WRNDI1Y1lVtRdxw3cuGWH344trOaq9QLJAU2OUN+mfIkC/BbsA4o7M
+         p35JyOMlvRsOZJcP2UZC3s27fx75M7ilqPqCxJXAx0MemA17tqzko91Z8rpaBVQ7at0w
+         AnEgc64jRTSG7oUp0bUcKYexahCB4t0SOCFVDapxvcYjBfJFbgd1AJY6l+IskUnDj3KR
+         Ssa0dzDT4jD/qTOIoNCyUusfTZpsojq91AwGBseWQu9G/U0y3lA/MNFKeOkvQByQwFTr
+         ZPnLvVHdjopnhleQzbqF1updvvnsZxyA0ti6O7iUr820zCH66ERgRTgMCLZG8gHNO09h
+         /iRw==
+X-Forwarded-Encrypted: i=1; AL+hErFR91gQUOqkcYXp/IgltaobnOiDhhWzGewzIDbP0yvlEXJ9c7jSYnVAab56VEesZqJwMUCkSg9DhaYY//Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PN/7q6v1c0QsAx0LAiU6DDiXkMKyKZVNsyPkNgmZbhEYVYh3/
+	Y/VjTFU86m3RWZqo6+1N5ZDxz4m0Ze1T3yYeIp3is57kGOJkRD/qCNErdhkM4zSP
+X-Gm-Gg: AYBFou26PzS+qfos+ljb59+oedMnd9imrUiQdPWObJAZpMH+Xgk5NEY5sGEsKnbyJBu
+	GR5v5SCPAE1574Buo2eAddl0I0jhCxe2uzd2lQNsQBfNuERxSJ/+GDAWYP9fDjPtYNXRmwnZMDo
+	HtMFTmWHKkoqCG/U6uXYDnmfhlM2VEMxgtAbMqhYld+HswuELdmHVKyCcHwSD8U2kdRttzVt+bN
+	TZOfbC98xZbJMVCjgXdwCCzsS9tfnVocGrMMGr+jCdVrjRufwiBlXJu6qQ1HzIHdI2+aPvgUl9P
+	cCYg//liMcxgAjpMEvRLfp7zSuPU2BWLDscDjDZL+Q/LkmIYHqd3jn+HMiWlWonM0QCrTXwQOIF
+	0zlccaD9iVFszK13WYeXY+e830vqWRn1uxWHvA5hzc/LuOOBtbqA/lGKPNGF2eVZCs2hR4VTgeE
+	xJ1c0KKqzt3/lNA5Uh7SyUNlZKKLmvJMUHWMy/D/s1TI165U/n8vXGN8W59Z0cVdDdG+sOCkEiM
+	uMqN6hfUX6huRA5kWwWqm7Zg9Wb2YkspWXW67hheje1wrEnstPZUjrMBzPxDelhVk7uofV4G5JB
+	XoQ0mrN4Q9UPREFVm0o0OcaBWUT26Bz2oM8GB0qVonsd80siww1DbrfxOoS2NwY=
+X-Received: by 2002:a17:903:2a84:b0:2e9:ca71:45f4 with SMTP id d9443c01a7336-2edb91d4de7mr23669695ad.33.1794316927647;
+        Tue, 10 Nov 2026 05:22:07 -0800 (PST)
+Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4a31esm8861065ad.22.2026.11.10.05.21.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:22:07 -0800 (PST)
+From: Jinjie Ruan <ruanjinjie01@gmail.com>
+To: babu.moger@amd.com,
+	ben.horgan@arm.com,
+	bp@alien8.de,
+	corbet@lwn.net,
+	dave.hansen@linux.intel.com,
+	Dave.Martin@arm.com,
+	fenghuay@nvidia.com,
+	gshan@redhat.com,
+	hpa@zytor.com,
+	james.morse@arm.com,
+	jic23@kernel.org,
+	mingo@redhat.com,
+	rdunlap@infradead.org,
+	reinette.chatre@intel.com,
+	skhan@linuxfoundation.org,
+	tan.shaopeng@fujitsu.com,
+	tglx@kernel.org,
+	tony.luck@intel.com,
+	zengheng4@huawei.com,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: ruanjinjie@huawei.com
+Subject: [PATCH v5 6/7] fs/resctrl: Disallow monitor group move when the RMID index changes
+Date: Tue, 10 Nov 2026 21:20:53 +0800
+Message-ID: <20261110132054.3702-7-ruanjinjie01@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110132054.3702-1-ruanjinjie01@gmail.com>
+References: <20261110132054.3702-1-ruanjinjie01@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,105 +118,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT5PR01MB215679:EE_
-X-MS-Office365-Filtering-Correlation-Id: c705248a-26ff-4739-890c-08df3f3d41e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|4143699003|56012099006|22082099003|18002099003|10067099003|261022105027099003|261022075727099003|261028144727099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	am3zyjtwBiYgLSrzm0GI/veh3dDUPe6DExCbfhxBzYSL7o0SreV+0l7cHWPkQweHpqb18c4QvJRDPQi19WyS2aVDk5r4AhrErwNvEv8oMFI+z1ASSL1SCj0++y0eiNYBKKuEchWDDUtmFkIkCml5FgB0/h5GHHjeJe8QPifczPE67ZNPo/8uS0TtuBTXAYlVgNbFm9/U3O2oSyVy3UxyN5bnuO8YMZxWL2C+4Nh9AQtwZdz0phQ8lQ3rINmEtmqjACcqufEE27U7rdmHzEQrEn3d1efjpslU2H+P/7mwNeZB2Nii9ERYg5XjGYuiMgc0WoTnhJVkRi16Gg3ikhXBUTEAV+S71ABrPUVHfC7sYd7s/84ySU5pHrjoWLYUAI3sUapCbALDCEGhso2+iUVA59iDjAXeCEw+GCLRu3nWPDtApwkMXhEkgyA5PY7LuwrEoKa6d5IUlni4dk57xeskROq+njecB8YAMkd870eBb4MrjdOuvgKCJxUARDjufAuVFGgty+7z4vQiPnans6tUbk/WjuJpgFRoKrlj6T9WkWaVwbqAlVckHKXuuU0v/yw2yIBDSbUtFHZYhAKSZb8QL0WXeZuLAR4+wQLp5T1SHVo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(4143699003)(56012099006)(22082099003)(18002099003)(10067099003)(261022105027099003)(261022075727099003)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YVZmRXR2R1d4MEpuYlZzcUw2VGhUdzhKYi9ibjdCNks1WlJ2YU1XZEF6cElU?=
- =?utf-8?B?OUN6UldnajlieFlIZnIzeDVRdFQ2VTR6Z0VFQ1ppcThGZjNRbDBoZVlQdmo5?=
- =?utf-8?B?VEVaUm52MnVJZkdXSVJUN2lWMjFXQmJCV0czWXpWMVdMTGdma3paYjFlV21t?=
- =?utf-8?B?OEtIT2VGTUlXbHN5Um5rYTVMWjhJUGE0bldVTmF5VmR5SXViSTgyVVVOM1dq?=
- =?utf-8?B?US9UWEZnNDlid3Y1ZEVSRWVPUTgrYWxCTmJGRDBSUFZYS0ZLVlpNUDlvQUZ2?=
- =?utf-8?B?Wkx3bm9hNUhNK2ZBR2VNMlAxbWFYRGNhOVBUNUJlV3p1STNPR0w3YVV4ZEZK?=
- =?utf-8?B?NzV6VDBVUWtncTZ5NHZmek1XRDUrYzdYOTJGL2NObDBqWSt5ZUtLdXBBeERy?=
- =?utf-8?B?bnRaam1ZS0ZRZHRPcnJlQUwyMldVVzRZRWpDbDFyTTNzL2owUk5GWEc3cVNP?=
- =?utf-8?B?bkNTd094K2pqcmx5cXdnbkVQcGhZeE8rSTlWWmthMzYvblB6Sm9pYjlwYW1O?=
- =?utf-8?B?SzhUUWNWZTY4WXRnWGFMZEF1eWRkbmZBbCtZYzNHY0tRWDNIYXpFMVA4Y2Qy?=
- =?utf-8?B?eDc0OTAvNGdjV0hQZ2FZWFJvTTFlelFXYm9HQkl3dXpBUnQwT0dGRGtmKzZE?=
- =?utf-8?B?VGp2N3gzSU44TGFncWhRY1BJbUVjT2h1dU9ybTQ4S1c2cjNDbC9qWmlLYVF4?=
- =?utf-8?B?cFZBQkJRaCttWC9TNHdqMDEyVnhjSUhmK05wQVdPcG92YW5rYlU0SSs2L3lx?=
- =?utf-8?B?akw0RVZMUFpXQmVEU29ydElodk0rVGNDQ1N2T2QvYUJ1cWZpRU05M01oY2Mw?=
- =?utf-8?B?S1NPY1BXRkV4MHVueTVEQU85N1g3VHBRRVBWNWVFT0x4SlNzQkdBYlNObVVi?=
- =?utf-8?B?ZWJuTWFGczVBWmswaGpXYXM0eVVxZEFqNy90VTNXZFJOMlZqRjJmd2tMUDZJ?=
- =?utf-8?B?aWllRFhMWHJaejBuVSs2cVY4QVJaZEh0Y2RHVXBkNW9WQURzZkthb3hNL00r?=
- =?utf-8?B?YUZwdnlZWlkwOWU3eUhzU09lanQ4ZXIrbUpkaVgvMjBqTmRjaU9pVUZJa2Z4?=
- =?utf-8?B?SFcwaU9DbkVmT05SVGJmZjNwTEsvVld0S0lVRk1FN3owd2FKQUp0WEhiblYr?=
- =?utf-8?B?ZUx4ckgvRlpGMmNieTQzakxqUTFaeEtrU0R2azMwblFxN2puUy90ZWtoNUR1?=
- =?utf-8?B?SFplS1MvUUVrc2srTXd1SUtFQjNVblNJbjdlMGx0QnNQQWlRR2pkWms5b3Zy?=
- =?utf-8?B?YlVQNDFGRkRVcVh1SjUwcmt2bXlTTW55VTZIQWp4bFpmaStKa21mYWpuRHRy?=
- =?utf-8?B?VzI3OVMxaWdHdVlpVmkwUXBkdVh1T1FHbjNnSW5zYzM5bTNtb216UjZHSTlG?=
- =?utf-8?B?b0FTTDFMazBsZGlGcStDMVpyakwvRjFJVmF2Z1ZmWkRxdmdMUyt0MFRtUHIz?=
- =?utf-8?B?WVhmaE1kY1FNKy9lalZ2Z0prck1ocUZKQWt4b1orMEJmR0hVUUtNMGR3d1NP?=
- =?utf-8?B?cHdKTVdWTXo1aWpoYW96UVhaNGdMZThvVlBPRTEwOFFSd3F3WXBIdFAxUjdi?=
- =?utf-8?B?WUFpR0wrbDlUcUtOaDdUSWhWR2ZKMmRmVHNMT2pxVDJQTkpiUld1ZkpkYTVY?=
- =?utf-8?B?MWs0aU55TVFJZGZXWkFBZWVPZ1BRL1lCTmxLU21nUGcvZ1NtMFBnUmx4Szg5?=
- =?utf-8?B?dGpmUHhsNkFPUndPMFg0SDJISURIblhVZVVNaSt2YkxQc0t6U1FHckR1Y1p2?=
- =?utf-8?B?Qlg3ODc5NE9KZkx1VSs0S2VmYmJoQTBzUHNjd1VQZEpFbWV1amJZQVhJMEVM?=
- =?utf-8?B?ZllQMlRQcnBoYWpNbSt4K09TMmVqNENIclRuVWlWMnBFTlJmaWFPdmtuMXlM?=
- =?utf-8?B?SjJGK3FpVVlNWXpPRGpQM3I4blBXaklNTVRPL1ZWbDBVZ1kzRzltSVBHa1B4?=
- =?utf-8?B?YytQNUhSWXFXc3c4cmlCUit4WFZKdmlydnhTWXNUaGFiSzYwaXgxN1RNMUk1?=
- =?utf-8?B?Mnd6bGhlUDJuMjM4T0hxamJFTzBPVlpma2w3ZDhDbkcraFVGNWRHeWFlQXlO?=
- =?utf-8?B?RkVjZ1E3NGxkZlBSQmpqMzJlbERRRXV3L3Q2RE5Sd0wyZldpR3p5dE5HWldW?=
- =?utf-8?B?ZEl6M1JkQ2k0YSsxSWFZTnhDdHFLRmdlMTB6KzV6NjNZSVN2MTYwTlVmTXl6?=
- =?utf-8?B?Umo2SHpESkVvMks2R1A0VWxFai9GTThKYVlhVU5GdzQ0SDlLTi9XZzJKOTM0?=
- =?utf-8?B?cGtQeExyUjBhREMwa2hBTi9jQTJFRC9tMUpXWlNPMlNMcEtGY05SYXpRRGNF?=
- =?utf-8?B?VDEyVC96ZU1jWXJPMTYrU0Uya2RkZURiZS9OMGEzWTdYVkwzTjI1a1prZkpZ?=
- =?utf-8?Q?iGP1PHl4EM45gKNm9ejkqyYy3/iNCkmkxd8zX?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c705248a-26ff-4739-890c-08df3f3d41e7
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:14:04.2011
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lFD5DizEYvuao9hKYaixsKiMO9kS4EQ+dXNXl8zqMJs/oajCIRHrfTTqQAqt/B/JrV/nYwPK/3tk5BbO+MIKFpEABP6UtSSxrm7mkO4pD5M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT5PR01MB215679
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-23 14:22, Puranjay Mohan wrote:
-[...]
-> This matters on !PREEMPT_RT too: there, a one-record commit or a cancel
-> under a raw spinlock calls kfree(), which lockdep can flag (see my reply
-> to patch 1).  The test can't catch that as written.
+From: Peter Newman <peternewman@google.com>
 
-Agreed. The next version will fix the free in patch 1, and this test
-will catch it.
+A MON group can be moved into the mon_groups directory of another
+CTRL_MON group to move its tasks to that group's allocation while
+keeping their monitoring data. Where the RMID is only meaningful
+together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
+extends the PARTID, the move changes the RMID index of the group. The
+move succeeds, but:
 
-[...]
-> Running the one-record and cancel cases under raw_spin_lock_irqsave() in
-> a loop would catch it. 
+- The group's monitoring data is reset. Its counters are identified by
+  the CLOSID and RMID together, so after the move the group reads the
+  counters of the new CLOSID instead of the ones its tasks used.
 
-My first try reserved and committed one handle at a time. It did not
-catch it: each kfree() gave back the object that the reserve had just
-taken, so the sheaf never filled. As in your reproducer, the next
-version reserves 4096 one-record handles first. Then it commits them
-all under one raw spinlock, and does the same for cancels. On x86_64,
-this gives your barn->lock splat with kfree() put back, and passes with
-kfree_rcu().
+- The group uses an RMID index that was never allocated to it. When
+  the group is removed, free_rmid() puts an RMID index of the new CLOSID
+  into limbo without checking that the group owns it. If another group
+  of that CLOSID holds the index, the limbo handler tests and frees an
+  RMID that is still in use, while the RMID index allocated to the
+  moved group is never freed.
 
-[...]
-> A kunit_skip() when PROVE_RAW_LOCK_NESTING is off, or
-> debug_locks is already 0, or TAINT_WARN is already set, would make that
-> visible.
+- The tasks are not moved. mongrp_reparent() sets the new parent and
+  CLOSID of the group before rdt_move_group_tasks() looks for the tasks
+  to update, and the search then matches on the new CLOSID, which none
+  of the tasks carries yet. The tasks keep the old CLOSID and the old
+  CTRL_MON group's allocation, and the group does not count them.
 
-Planned for the next version, with these three conditions.
+Fixing the task move does not make the move work. The RMID index is the
+hardware ID the counters count for, so a group whose CLOSID changes
+cannot keep its monitoring data, and it would need a new RMID index
+allocated for the new CLOSID, which fails when every RMID index of that
+CLOSID is in use. The documentation promises that a move keeps the
+monitoring data, so the move cannot be supported, as decided in the
+thread at the Link tag.
 
-Thanks,
+Reject the move with -EOPNOTSUPP when it changes the RMID index of the
+group, and document that a move is not allowed when the monitoring data
+or assigned tasks would be impacted. Where the RMID does not depend on
+the CLOSID, such as on x86, the move keeps the same RMID index and is
+still allowed. Renaming a MON group within the same CTRL_MON group keeps
+the CLOSID and is still allowed everywhere.
 
-Mathieu
+Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
+Signed-off-by: Peter Newman <peternewman@google.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/lkml/3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com/
+---
+v5:
+- Retitle as the RMID index changes, not the RMID, and a rename within
+  the same CTRL_MON group is still allowed.
+- Describe the RMID index that is freed without having been allocated,
+  and why the move cannot be fixed instead of being rejected.
+- Drop the parent and resctrl_arch_mon_capable() checks, which the RMID
+  index comparison and the MON group check already cover.
+- Use the resctrl.rst terms in the last_cmd_status message.
+- Drop the stable version range and the Link tags the changelog did not
+  refer to, and link the decision to reject the move instead.
+- Link to v2: https://lore.kernel.org/all/20261105123524.2282090-1-ruanjinjie@huawei.com/
+v2:
+- Drop the Suggested-by tag.
+- Describe the systems by whether the RMID depends on the CLOSID rather
+  than by MPAM, in both the changelog and resctrl.rst.
+- Explain that moving a monitor group is already broken on these systems
+  because the tasks are not moved, so no existing user relies on it.
+- v1: https://lore.kernel.org/all/20261104101913.586595-1-ruanjinjie@huawei.com/
+---
+ Documentation/filesystems/resctrl.rst |  8 ++++----
+ fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index b52795e03303..fecb2cd2b343 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -551,10 +551,10 @@ will automatically remove all MON groups below it.
+ 
+ Moving MON group directories to a new parent CTRL_MON group is supported
+ for the purpose of changing the resource allocations of a MON group
+-without impacting its monitoring data or assigned tasks. This operation
+-is not allowed for MON groups which monitor CPUs. No other move
+-operation is currently allowed other than simply renaming a CTRL_MON or
+-MON group.
++without impacting its monitoring data or assigned tasks. This operation is
++not allowed for MON groups which monitor CPUs, or when the monitoring data
++or assigned tasks would be impacted. No other move operation is currently
++allowed other than simply renaming a CTRL_MON or MON group.
+ 
+ All groups contain the following files:
+ 
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index b702fe6dbbec..2dfb3b54338a 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4403,6 +4403,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+ 		goto out;
+ 	}
+ 
++	/*
++	 * Moving the group to another CTRL_MON group changes its CLOSID.
++	 * Where the RMID is only meaningful together with the CLOSID, this
++	 * changes the RMID index and the monitor state cannot follow the
++	 * move. A rename within the same CTRL_MON group keeps the index.
++	 */
++	if (resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
++	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
++		rdt_last_cmd_puts("Moving a MON group to a new CTRL_MON group is not supported\n");
++		ret = -EOPNOTSUPP;
++		goto out;
++	}
++
+ 	/*
+ 	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
+ 	 * current parent CTRL_MON group and therefore cannot be assigned to
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.43.0
+
