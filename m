@@ -1,68 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322340;
-	b=L/ZD/XITcbqyg/q0fOZEWg3a9JHJVPws7V5ZhnJh/zPpG5RvXGSb+8YSA2YJmy1HD7pG
-	 n/NSj09uaRM0NsT5qRxqPLpCtvaiWk6A58zk8XZnHut9J8ChOuiWE1iaADJsjbKeAEGYJ
-	 mpC7CaZu9PSY1WTnWJy4rWlDCfJcoJclGyT7u+/UWXOfezGYQwEVYFW3/LWIHBQwL++2q
-	 RlCDxNbUvUaofQF3sMqM/41B5KeMWJ2hd9sHd9DfzY9DMb+CK66f6FAuy0heBtADvJjvd
-	 xpSmcGOLmczhdS+zgHocWD0morTuYv/Fw/Kvi+QGxDZ/bbmkRpHEy/OKNBpDFOfrlTw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322340;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=;
-	b=AC1S4XNmQdJO8U6CMkZEEhZ6xbpAx9Vukue2dGP3UmZp4pY10w3g0WCKkrJXoA+fFoYD
-	 kPS/MzJG6PlMowcXbkuK+6R0w7xbKkeerlOfv9zqiKTaaWEmfhMAHvQFFFczk48KkEHYX
-	 NozqN6uECj6sglXc3kp/iTZp6YK00rTLWqBeKY3vbqd3bC9NKDoei+YDcanba3FgZNHNA
-	 b4FxgJNCuDyncPH2hgYUVUssMN6dq+c0Y2RTaBWQDosom4MeBMpo+rcnyXr7WNPU9WYYw
-	 uyzEXTadYEk5LlEbzrF2eXOC40ytkjqj2j3qxikm+5kZ5tHP8cJ8v65kVsFj08rmFXA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aMZJcmnV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794322371;
+	b=iuh7hTd31UcO/+4Q0HRcnrdgaaJwpqciszRwqWJBLi40bFhbGa441jeICxEn7DMMbhVG
+	 E99Teea7dg2R5X167n83osxy3bpaT1Hx/GxlU4q+WCFH12tyjmz1t33VrUxANM+pOWMSS
+	 4440yb7m6IU44DAyW9UvrO44aQ73Hsy2DnaZ4+DSEM0lkiBpShCaYlWsWrRsFpXp4tvTp
+	 hSKsPPUf7AjcL+un4XsD4lHdCj8vGTck0h/IPHq7PCpQkhzLNT3l/KzpJjWRPkS9bTO82
+	 D1vIMrxlZw8qrqk2AfVkwp7kIuvd9xFOXxl3HI26CzGY5gtsmXxvmZnyMBIVvUl4HPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322371;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6N4yimoRtRyrI1TQXjE1WplbXHKcJsyASw66CLWCFAw=;
+	b=JX1SiAX/8egn63qG+02c086oqJToky9vaHwiSLxS/hXN835R5pVIIrfrM2PCrUkfqgi0
+	 DviaLKqVKQ3V+ZzVnzVrNc3y7r7ukmOpWMwVnFYtAVfNXcsM2A+Za2bmZmuiDuUTfcXnz
+	 0gWc3O6+FHkqdyPVOVk9qA92I4nBhIXzA7uEW89Z0Y6Gp0myvxVg2eNaIIdW5KoKpDLJp
+	 vZM/vDkwiO7u8Bmw2/oJPJs8lTvZJ3ua/kVXvUMtBJUL7Liyf3grNoWvjEgY4mOasPRUl
+	 YeBKWheqgW8Wdiio+eACLyVf+n0+x8zjzDa7awmrjZIwHSRi4zgnGJE80JoKhdkTsAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ggpvu9w/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9C4606A31C;
-	Tue, 10 Nov 2026 14:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9C4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC7D606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:52:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aMZJcmnV
-ARC-Seal: i=1; a=rsa-sha256; t=1794322317; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=IES5w9/rUmQUIOSvczKB958G9ik3/KHQOdqZIpBImeiL6/DiyiXey9VoKv7eSSR//k6c8Fw0ubhAX3eutKWdaQm+KuBtR00hvQuaDMCFAvgg+s4IAxKfAFIX20MW+yKqOBKVdgvqkTmOVaw2rB8WPPnH01qLjyN/0xQuh4lonLA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794322317; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=; 
-	b=G9yyZtFQYlZJTLFV0v3bg3BtMw3vkmi3+Poehl2oVa7CSuYF8dGEw/a8aUIy0/4IKr1R0wdNDNCGA2GijuVP/LJrrBnmfKrXPim37YeqeG7MDroFOJ4CvPGazX4JZmOhi+8JsK59WZKRhcQVkDWdzuUedf6LuuFtz/a2OEFdBU8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=aMZJcmnVNEHIWb8uXyKM728ieo5RiRGM1+v6GUx2I12YzHcAOTMRGrUmWeIx092Qx2aaQKx4J0j3zaJJSCDbDa6Jm8SynPbnlTZonYnMYZL0QwpSQIbBqCbpHcIsUMGRAhvQdoQ8pNLIlLckmZBw1gyZRVnn/HDBlOkYnVM97Gs=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=nIm3ALQw2CLFEdC+FIJT+UWO+XWiCkX3Jl5z6pz25Lw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794322316098419.50846392536164;
-	Tue, 10 Nov 2026 06:51:56 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id F1A01180354; Tue, 10 Nov 2026 15:51:46 +0100 (CET)
-Date: Tue, 10 Nov 2026 15:51:46 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 1/5] dt-bindings: iommu: arm,smmu-v3: allow a power domain
-Message-ID: <avMvRiHSp_7d8oD3@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-1-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggpvu9w/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2D81F008A2;
+	Tue, 10 Nov 2026 14:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322370;
+	bh=6N4yimoRtRyrI1TQXjE1WplbXHKcJsyASw66CLWCFAw=;
+	h=From:To:Cc:Subject:Date;
+	b=ggpvu9w/K6Vk1WvmYnVI0Uq0KhIYEbmQ4aoArPEh+SzrR7qa/+hmDIsPvuAXPHUDw
+	 /uif667CqhjMBKrR05NhTNtuq5x9jQoSGHUGnPIr+UbTdVUZ2CYwAKDe7HwF9AsjFZ
+	 g+ABJ6YtaOaJSE7/Epg0NejhDm2SY8+fISKQn6uIyEud4FdNcPvNP9M3Xbtsn5wIec
+	 z9uqdI2K0sm6pFIvvxXlM2j0+GvoZFegpt7UzK3vMOq7i/AD+hFEMYzdg+5dAKlrOJ
+	 /3xCmBBbYUxi2vBAwaT5fbkmiZd3ygKqxr6nZdWKy8U3H3061+efX6INmUVacx9ht+
+	 ePU/4xDjNviwg==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7194E198003A;
+	Tue, 10 Nov 2026 09:52:45 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Tue, 10 Nov 2026 09:52:47 -0500
+X-ME-Sender: <xms:vC_zamIrxbPFlMqmqdH87bJ8oVb5OH4j-5QKaD2odtGRa378W4aMGw>
+    <xme:vC_zau7iG6U6GWcxc4P6mny-A7p4SJoQZrrZvLs_mDvoGLiGsjZdk7uYTCRpA3s_1
+    1pDVm15b8ig9mTHOvvB25nR04H1HdRS1wor-wiM5JgX1_RSKuuh0TDA>
+X-ME-Received: <xmr:vC_zaqiyHoZbN0j8GQiEZphmP5JdoK7rL96QJ0IeJMI6ShVZYYp7Y01GchU>
+X-ME-Proxy-Cause: dmFkZTGWr3Bol1il49kOQEDKgAYHsyZ47Yj7fzpOlw8TiM0gPuvQ5jH8a26arj7fWVWo8c
+    uYSQI4gF+J/q2fS951R4MAEK6NSyHihCKPc8gs/Smt0oEHe2/ZNkgA1wFpTMe1NCyEh3Js
+    2sOQFQl2u0oaCfgohyCrCmhrDmMmEdzNJMC3F6GAOQKLThCibPUBlYSTA6wtUNMKpaxtaj
+    dGOb/Rq6NmezBvNu+QpQUTiCikoSwAPnJ0sPDBsm+TwW/3NvGIqVnTQzL+rnl9P96FOaud
+    9QVmodzVH6f2pAiYKwBUmVjS32P99W7X/ARoxC9GGJiRXhxnK3ET71I2aLak1E7ScHgDGB
+    Br2DNeeEux/MRQtpQWpWckTmepF25FWbH2zpcxILcX3v8zdpDpYA0mKU3vXWDmGveVY8nP
+    Jm3J83mZ9Lzll07xzIjyxfcPXPgd0/Nl+jFRI2+Ps8w1WUGCVSC+Ut/B8cfsovYNhH4FfM
+    k/Da/LpZE9KdncQ/IkxzRgPzAfcg2vDaR6C/9iYGSWEekPdaxHtpQSOVK/9sa+vHbA7FJH
+    s4s9wxDy2pCNAajnA0e1t+EjuXIj13ZxLczwVQd1kW2RXOeKrM2qibYR+HQPyAAkmPdBjS
+    nHeTjt+6RUR2pf7R3gO/B/J8SGsz4FV0ldaAoXhphfAKjj/wvDFOSNFZBPAA
+X-ME-Proxy: <xmx:vC_zas-vjmx1sNJQtDUEDCM8_lWziIyZYE-z3yUvQdabh6AxgB9Tag>
+    <xmx:vC_zasfIDq80AsPowkfGGXRBwH16uZwrkWAbUbUZRtxhVWFNuI1ChA>
+    <xmx:vC_zagltlF42Dg5urBmLLPqDKIpm3LcoDVOkzIAZZ9nRyQsHR1qlxQ>
+    <xmx:vC_zamyEB-uOy-v3wawnd3EFx3P_SgwV_COkCOJlzzDK6HB-7NVFeg>
+    <xmx:vS_zalEVfRoL663tcZdP2A-__TD09DaIKUUbjs8zEKw0ZUSkCtuNvFAc>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 09:52:44 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Amit Shah <amit@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Bernd Schubert <bschubert@ddn.com>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH 0/4] splice: remove pipe buffer stealing
+Date: Tue, 10 Nov 2026 14:52:35 +0000
+Message-ID: <20261110145241.536019-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,90 +109,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tfqghsv2wlsgx7bh"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-1-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+
+->try_steal() lets the consumer of a pipe buffer take its page instead
+of copying the data.  Two consumers use it:
+
+  - fuse, when a server splices a read reply into /dev/fuse with
+    SPLICE_F_MOVE: the page goes into the fuse file's page cache;
+  - virtio_console, which passes the page to the host.
+
+The page can come from the page cache of another file, from a write()
+into the pipe, or from vmsplice(SPLICE_F_GIFT).  Stealing it takes page
+cache folios out of their files, and turns pages into page cache folios
+and back.  That gets in the way of reading the page cache without folio
+references [1] and of telling folios apart with a PG_folio flag.  It
+works only on pages that nothing else holds, for fuse only on clean,
+unmapped, order-0 ones, and it has needed fixes again and again:
+
+  32f98877c57b ("fuse: don't check refcount after stealing page")
+  b89ecd60d38e ("fuse: ignore PG_workingset after stealing")
+  712a951025c0 ("fuse: fix page stealing")
+  59ba47b6be9c ("fuse: Check for large folio with SPLICE_F_MOVE")
+  15c20483d915 ("fuse: validate folio state before pipe_buf_try_steal() in fuse_try_move_folio()")
+
+Linus and David suggested removing it [2].  Both consumers already copy
+when a steal fails; with this series they always do.  vmsplice() and
+splice() still accept SPLICE_F_GIFT and SPLICE_F_MOVE, and fuse still
+advertises FUSE_SPLICE_MOVE, so that servers which ask for it mount as
+before.
+
+Miklos, Amit: do you know of users of the fuse move, or of virtio_console
+splice, that depend on the copy being avoided?
+
+Without ->try_steal(), nosteal_pipe_buf_ops is the same as
+default_pipe_buf_ops, and the last patch keeps only the latter.
+
+Tested on x86_64 with a FUSE server that answers reads by splicing the
+page cache pages of a backing file into /dev/fuse with SPLICE_F_MOVE.  On
+v7.4-rc1 how much moves depends on folio sizes: with order-0 folios on
+both sides, one read of a 16M fuse file took 3968 of the backing file's
+4096 pages out of its page cache.  With the series nothing moves, and the
+data read through fuse is the same, also when the server reads its
+requests with splice().  A virtio-serial port fed by splice() from a pipe
+and from a file, and vmsplice(SPLICE_F_GIFT), SPLICE_F_MOVE, tee() and
+AF_UNIX socket splice checks also give the same data before and after.
+
+[1] https://lore.kernel.org/all/20261104130118.2507513-1-kas@kernel.org/
+[2] https://lore.kernel.org/all/CAHk-=whhp=Q8qR+wPoM9+mxYPQ_OXMOEoKmT7J0JZikFZusuqw@mail.gmail.com/
+
+Kiryl Shutsemau (Meta) (4):
+  virtio_console: copy pipe buffers in splice_write()
+  fuse: don't move pipe buffers into the page cache
+  splice: remove pipe buffer stealing
+  splice: replace nosteal_pipe_buf_ops with default_pipe_buf_ops
+
+ drivers/char/virtio_console.c |  39 ++++-----
+ fs/fuse/args.h                |   1 -
+ fs/fuse/dev.c                 | 146 +---------------------------------
+ fs/fuse/file.c                |   1 -
+ fs/fuse/fuse_dev_i.h          |   1 -
+ fs/pipe.c                     |  43 ----------
+ fs/splice.c                   | 104 ++----------------------
+ include/linux/pipe_fs_i.h     |  38 ---------
+ kernel/watch_queue.c          |   4 -
+ mm/shmem.c                    |   7 --
+ net/core/skbuff.c             |   2 +-
+ 11 files changed, 26 insertions(+), 360 deletions(-)
 
 
---tfqghsv2wlsgx7bh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/5] dt-bindings: iommu: arm,smmu-v3: allow a power domain
-MIME-Version: 1.0
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.54.0
 
-Hi,
-
-On Tue, Nov 10, 2026 at 07:11:48AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> An SMMUv3 instance can sit in a switchable power domain of the SoC, for
-> example the MMU-600 in front of the PCIe controllers on the Rockchip
-> RK3588, which is part of the PCIe power domain. If the domain is not
-> described, nothing keeps it powered while the SMMU is bound, and any
-> register access after it has been turned off as unused stalls the
-> interconnect.
->=20
-> Allow a single power-domains entry, as arm,smmu.yaml already does for
-> the earlier SMMU architectures.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
-ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> index 3c044e4f03d4..c8f22dfdb1db 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> @@ -63,6 +63,9 @@ properties:
-> =20
->    msi-parent: true
-> =20
-> +  power-domains:
-> +    maxItems: 1
-> +
->    nvidia,cmdqv:
->      description: |
->        A phandle to its pairing CMDQV extension for an implementation on =
-NVIDIA
->=20
-> --=20
-> 2.55.0
->=20
->=20
->=20
-
---tfqghsv2wlsgx7bh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzL34ACgkQ2O7X88g7
-+pqJrw/+Ltixuq2mwS/7jblulvQQALfQna4bWRC1zreexGhF+leoXqP9JEMhCnkp
-Vr3wOBovLKA//DQokcLKXgDGqVS21CBMdTAEp2Gc+G0N0VHZzdSP7i3QCkr9qNZI
-vPm9hifWU277QF5SgT/YCR94Jt8m46KSkFNiaeq2dTUBi+/TpYO1y1UxvNnlBm8H
-ySl3PLGGBj909ezmEy12KLVHxYAPM3SKAbE6dr7Uyo3B2yuMp5uY1TPdYbJpNi4+
-s/qBdbgxBqPVWVhRspqwjcJKpc2jnv1aLQjZsHCulAxY6iOnGscDwHgCnerj7xw2
-XJOJ+cmGi2CvqRYloutaEx3DFDW0ANLaOvxLBe43c8jwuDP72eeM+Bl4JnNxQOZX
-uVu6498a/JQxBCXyo0IW/vEUQ/VhCo6bG7CaLHIWmuX/gVH0DNCuz43JFInaZaCz
-lHffjGUeQNGigfx+zlTTu1Ng0rqBA6qKnva8gOUE2AvFkWD3lYh7MWuZWy4Foz6i
-g2FEtxt2CfNYpzm6/XE5Sp5ayNqO0l3N2Y+m2W413Ae8Pe5dmtZmNekDmJOLKzYq
-PWNKmQ16cANFsiA0Zq8fL7p4EArT1cC7o37lWeKdJJdodL+edfTFWmee0YmmrTOA
-lsBVO1mkefW/Kf+L2CL8+DoN0EUu7+qa7rVBLxOlkPB+b3A8UsU=
-=xEf6
------END PGP SIGNATURE-----
-
---tfqghsv2wlsgx7bh--
