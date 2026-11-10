@@ -1,90 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794308815;
-	b=tZxF3yMtRviD5eVx8UOacXdnERcVkeQd9ubJxzHYYeFP7FF8pQkqAj6jJbyWexV1bPCp
-	 v8l1uopWxfsmJH2rkiC22VNE3SPUpBl1lBRnN4bUBu3pgO8Kpo7qJ51PsTeRwYvHc9fDZ
-	 goaJMHY9sanIVYt5MGgmak2BYK+9tinsbz1qOEvwwyvGFvdpfITYHK/SK3G5dqMo6IE5z
-	 gl8JziQ5lv4Ov37HJK7rnZk6Mct8TOmCQ0BP5vuDtLak2eM/BMQnRAX9thwdNMn3nUIC/
-	 NMkZ+raJKEOzkRzWplo4UchZje3hX5ImIT1CuTsf3t6EH5i/M9XCB32PL3etgIzQfNw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308815;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hdfqSP6O2bu/ZFVTKJWa+3T77fQJrSmp1zvbC/sdJsg=;
-	b=06Cs9asP/56ykRlzm8/kIbqM1HNeRzDXk6iD/sDpc/c3z3uuYubKdC/CZNAnZoLl6Hah
-	 LdpVjyaIuDcRNm2mzE9hgGsfugWo8SpHMLA3T/3RRRVq1cevOtU/s/pS3ItLm8Fj57GI2
-	 CqoAYn0bp+HEHYorG01qhtOlTkQAw1tkeTl1eBOS7oJ58/nZUipg7rxI5SuaYye4ZgELs
-	 87R0C0vs5NPGTBDqWtaCmc6sm7M/eSkqD5aewxOOOwKI9ZdmJshzM9TO6llgWo3kLV5Ct
-	 OBEozGczW2AdnmXpVOE6sihRlpvow8pl70nR4mwPaZhBhC7AxSXaEapgt86YMq5gp+w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RaPBbqvl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.63
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794308849;
+	b=e52NyQY42FVnn/pUuA/FUi3DnJkES2YCbaJqbfi3PylM40VLtSxJ0XT2kwZ8k9xzTRfA
+	 BdsqfJ6R3te8kLU1GV3PZG6hHD7FRjiwT97rdCt/QLXxIwkTl1iGTzDdf7y0xpV+bwAFN
+	 gY3Paj5bLWUraWNWdJLkQc50U8G21j8ArCE58Cm6FFepXUB7lX/OH8QhFf9FQoCr+2CoF
+	 VcRQQTW9P/CKu8FCQQw9Wkt8nZZciBY/Qx/Rh/dgYLIMeFVRDTXDDBGUY2ddQBm3Xnmq8
+	 iR87cvCU1oILqSpm4mYyeRKOwpWZkXEZR4TEWVjQggUUI5wyF9AtZrGaWL6w09gSr9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308849;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=+WuNPbw52lAW5nlPUrA1jkhNZsabep1sDeJA5piAoms=;
+	b=eZqa/uoANE9HY/CHaVpBBaSXrZb8QGZKSnrn9B0poBoO1DILH8A6hKly6M/gf+6hQy+l
+	 z0eTaCOgzY3t1J5kmfhbfPQ8g6mSjTIzYq5J+v9sXUMnTN/AJM8Sy1MHq3jIxFbqwbBnr
+	 8l4HcS7Zy1F3IuSkKjIZpeY06JPNXt3oulju/8h/r8YsVsHDwA7sRMvskjZn6luYDKvFo
+	 NEY99bFFnEuq8cLLG3ZjZPnsCEFLMUlmEOll/ZRUAUTPO6HMivVcxGXAcW3eghvt5KLKL
+	 Z7YqeXKnh9ngQiJtmMOwT9UdtG+TxO7uTttbVnwvGXhTc8fsd0eN0pWuaseRiUQUc6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BwrYfzBq;
+	arc=none smtp.remote-ip=95.215.58.63
+Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C25E606A31C;
-	Tue, 10 Nov 2026 11:06:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C93606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5C93606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RaPBbqvl
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794308814;
-	b=qBJLc17Q7AOmTHytvjpSbQ13wIHAzClNZMgnl3gYLm6zfRgcPGOK7F+lU5OvD0Jxm6+r
-	 fzH1CZcdA/17ArRTikgmX58JfXuZmXXhDBPBSgqWz/FvB1Zg+iC/4d4ue4Dp/z5gHBVGP
-	 OouJvLJfKVKjfu8xReQJvCv8CdcVouZMUFM8jaEdjrkCZstpz+FFBvh/4ocoupfrlP4rY
-	 42GBb4xIsNt4FT3Yi3cs8UbZ8YLEsi58yYJJetEmXFb2TS9Y4uCZtAXcImFanv8n/rxQa
-	 2uOI2iEdLjhFU82hwmTiJNgtbDkmov61xMo37FiYpvnRCt4r6rWEP3uBj+SFNoE0+MQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794308814;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hdfqSP6O2bu/ZFVTKJWa+3T77fQJrSmp1zvbC/sdJsg=;
-	b=Fu9lH5duE0dAjhVRHopV78/mJ4jrdI/l7GCvXhWqcgiVA3Z25D1d1xzqsBm2wOKGa9Ye
-	 h4horm25fcrx965fPp0IWermd+LBPDrGKFee+VOkwOsiQJXMawdFQHdNyHEoclLq0LiPU
-	 3aV8Z37R6Ehpt7/yRpVYh/O63D8t4DH+h2d8CnKM3fvfbo67vMlBAJbHzaHXlgVDEbV8F
-	 Nlqf3vu7xYKrBwgnV5WQyRM9XOnvBNiqniX+IQhdsEcNRpnH+PWmP5VOUV1E9NRh0smRM
-	 3NnYCwItepYj8k5UyJzZgeUbf4q8Rh3/VsAJMPHFkinyIrrdK1s+QALn+XLEcl9YHDw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 045631F0089F;
-	Tue, 10 Nov 2026 11:06:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794308814;
-	bh=hdfqSP6O2bu/ZFVTKJWa+3T77fQJrSmp1zvbC/sdJsg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RaPBbqvlwtiHrmdrreMYMiTezWh0LAMERjSnC3LHDkR0kOrzYWksC0GHw7x19pRID
-	 obvFrOrDhPOi8mMH9DNZ3rZHkvHzSYsWCVnw0OKhz2XTLXbl312+ExqSerbzhfDfCu
-	 R+Ijxc4Lna125A86FyOW0ATZM6gRsM4T6r5biY/5Zw8GvXA3JUvinwnXy0840ofCtH
-	 V5CYgIzBODgHrguyJLEIzj7/yYPrB4f+P8pxW33DTpI68vqIhSyivEeC8hV8Gza8ov
-	 tSxoWJeRuDFOqfY7phUC2n09w+xTwJTcReJJr/uGf5HXCMlnE1eaEEGcAzgcGhGlFS
-	 2Lk7vUUe98EnA==
-Date: Tue, 10 Nov 2026 12:05:28 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Bartosz Golaszewski
- <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>,
- Kent Gibson <warthog618@gmail.com>, Adrian Ambrozewicz
- <aambrozewicz@nvidia.com>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] gpiolib: don't overwrite the entire flags field
- in gpiod_free_commit()
-Message-ID: <20261110120522.000057f9@kernel.org>
-In-Reply-To: <avLsrOqdXSFSH6WM@ashevche-desk.local>
-References: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
-	<20261109-gpio-desc-flags-atomic-v2-4-c4c54b476628@oss.qualcomm.com>
-	<avJAv_3ACjvyc9VU@ashevche-desk.local>
-	<gw26q2blrbmmxwzv7vfjxwc5bzqzfgt57zs7bvt2kdx7x6a6qk@6i5z3a3crqft>
-	<avLsrOqdXSFSH6WM@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BwrYfzBq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=36LRZfyr2OW4sVBNO3Dr02OzqJxkojxqpAlVuG8gQtI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794308845; v=1; x=1794913645;
+ b=BwrYfzBqy01tK58Abn2QpNMEP9IAl7aiaY7r5v6sXKr+oYs6igvVm2u5bDqeUaOX/ql42fMV
+ /t3Hf17CBNKq9zx0809S+p4C0Yj8uilC0pBh0q/Kqgw1aaH17P6P5875OFUlnM63qiTdDlCKrOQ
+ 4d3Tp/GwlVmzKDgt3I5Feh3A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6358020379288e82;
+	Tue, 10 Nov 2026 11:07:25 +0000
+X-Mizu-Trace-ID: 6358020379288e82
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Isaku Yamahata <isaku.yamahata@intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	kvmarm@lists.linux.dev,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>
+Subject: [PATCH 0/2] KVM: Bound KVM_PRE_FAULT_MEMORY by the vCPU's dirty ring
+Date: Tue, 10 Nov 2026 11:07:22 +0000
+Message-ID: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,64 +77,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 12:06:36 +0200
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+Hi folks,
 
-> On Tue, Nov 10, 2026 at 09:54:11AM +0100, Bartosz Golaszewski wrote:
-> > On Mon, Nov 09, 2026 at 11:53:03PM +0200, Andy Shevchenko wrote:  
-> > > On Mon, Nov 09, 2026 at 11:27:08AM +0100, Bartosz Golaszewski wrote:  
-> 
-> ...
-> 
-> > > >  #include <linux/acpi.h>
-> > > >  #include <linux/array_size.h>
-> > > >  #include <linux/bitmap.h>
-> > > > +#include <linux/bitops.h>
-> > > >  #include <linux/cleanup.h>
-> > > >  #include <linux/compat.h>
-> > > >  #include <linux/debugfs.h>  
-> > > 
-> > > No need, bitmap API implies all bitops.  
-> > 
-> > I honestly have no idea what the policy is on "proxy" headers. In some
-> > cases people advise against them, in others they say to include them.
+KVM_PRE_FAULT_MEMORY never checks the vCPU's dirty ring, so one call
+over enough populated, dirty-logged pages overflows it. The first patch
+stops the loop at the soft limit, as KVM_RUN does. A stopped call
+returns its partial progress, or, if it stopped before any, -ENOSPC
+rather than the retryable -EAGAIN, since no retry can succeed until the
+ring is harvested. The second patch adds the case to
+pre_fault_memory_test.
 
-The main proxy header one should beware when adding new drivers or tweaking
-is kernel.h, better to just use the iwyu principle.
+On x86 a read fault normally maps a host-writable page writable and logs
+it at once, so pre-faulting overflows the ring. Sean's auto-prefetch
+series [1] keeps that behaviour for a pre-fault, so this series bounds
+the loop rather than have x86 write-protect a pre-faulted page. On
+arm64, which gained the ioctl in 7.4, pre-faulting RAM logged with the
+ring alone overflows it too, until Wei-Lin's fix [2] is in mainline.
 
-There are a few loose exceptions (i.e. not fully iwyu but good enough), e.g.
+Pre-faulting isn't the only ioctl that can push past the ring's
+reserve. On x86, KVM_SET_MSRS does too when it writes the wall clock or
+the Hyper-V hypercall page: up to a few hundred entries in a single
+call, with no bound across calls. KVM_SET_MSRS can't take the same
+stop, since a short count from it means the MSR failed and QEMU asserts
+on it.
 
-- bitops.h implies bits.h
-- bitmap.h implies bitops.h
-- acpi.h, i2c.h, spi.h etc. imply the corresponding linux/device_id/* header
-- if you have an opaque pointer (like struct device * but don't use any
-  functions from device.h) you can just skip the header entirely.
+What those paths should do when the ring fills is an open question for
+the dirty ring API, which I don't think belongs in this series.
+Pre-faulting a large logged range is a supported use of the ioctl, so
+the loop should handle a full ring rather than lose entries.
 
-This can be also "automated" using iwyu-tool (which requires LLVM). I have
-a mapping file tailored for IIO but surely you can swap the iio headers for
-gpio ones.
+Tested on x86 and arm64 under QEMU: without the first patch, the new
+case hits the WARN on both.
 
-https://lore.kernel.org/all/20260512073505.1310-1-joshua.crofts1@gmail.com/
+Based on Linux 7.4-rc2 (7475ea8b58616).
 
-> > Is this documented anywhere?  
-> 
-> No, but feel free to start such a documentation. In IIO we did a huge work
-> to enforce IWYU principle, and there we have some tribe knowledge about
-> the dependencies and guarantees. (Cc'ed some people.) In this case the
-> bitops.h inclusion is guaranteed by bitmap.h. If it stops doing like this
-> it will be a flag day.
+Cheers,
+/fuad
 
-Would be great if someone documented this in detail, at least people who read
-the docs and LLMs would learn it :P
+[1] https://lore.kernel.org/all/20261028202607.1844883-1-seanjc@google.com/
+[2] https://lore.kernel.org/all/20261029175238.3214788-2-weilin.chang@arm.com/
 
-Javier Carrasco Cruz wrote a blog post on iwyu-tool where he links to my
-mapping file:
+Fuad Tabba (2):
+  KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty ring is full
+  KVM: selftests: Test KVM_PRE_FAULT_MEMORY against a full dirty ring
 
-https://hackerbikepacker.com/iwyu
+ Documentation/virt/kvm/api.rst                |  9 +-
+ include/linux/kvm_dirty_ring.h                |  6 ++
+ .../selftests/kvm/pre_fault_memory_test.c     | 85 +++++++++++++++++++
+ virt/kvm/dirty_ring.c                         |  2 +-
+ virt/kvm/kvm_main.c                           |  6 ++
+ 5 files changed, 105 insertions(+), 3 deletions(-)
 
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-Kind regards,
-Joshua Crofts
+2.47.3
+
