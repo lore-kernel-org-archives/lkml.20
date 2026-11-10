@@ -1,77 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319061;
-	b=crFdWqLiMCFdu1S29qOjczfwKLLgRjVP3VUBjrNwJo2xE0ztj4bbolA5TnZA9GWqjzFM
-	 tkxVEUmNk5p17/67kUdG+qZtLwi3uEaaADmjqrkoEEg3g6JkFLrvIE8BUbXjUrSOjsRrI
-	 Rs9q+G9/1UeO7CG2EkRW+COZW+eV4rTcyvqMn4xe9AL8yltspx+MSqIpyFWPrMAF8+VV7
-	 eB7k1hlCFSlcKC4GsNPO3XmmKczgEe+1PgLtH12ujI95oXoLTfhmbxjqp+IdyYfkJk0Jd
-	 41YZFQAqCThpBryXWl29B27sgWfJJ5tcPjlcvdF2b+JGfaChdixRtp1PvtACw+Lw8SQ==
+	t=1794319102;
+	b=n8Cf/yzmbkZag0aUksPXFNvQwXqucZq1HlH1XS3zqY7PIYUPil6uvpmJNjaNQZidzZou
+	 S02mOLnilZv/uahsUV+D1DWriyvWyE1ELkSoIfSJANoDl+dkynulPDsz/ojWQCbEC+S/K
+	 2S3mGjZl5ZAfXakySj63+SMKsvwMUVNHvX/vVOZMiL6zpUykkJEiLMxArLEwd3JC4L8bP
+	 s4+t5/7N/TslpnIAW4Ui5K7vl8JSczyEyLRMmU48YJTU99F0jxa9s63eNquzGqIVNjxDl
+	 UwHLSpyGgRPHtrOLgbBdYUFIJ7gbyhVUdkGg0WnSsvmLei0Ybj0rkz5n1+nCUzYWo/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319061;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=Mq25EesGHdSDvdRAKvduNtB0omKh6pT/kgafQ6gJ4+0=;
-	b=fr71oX7ryObeZgU3VdrjT65L/1dWKH3igsV2+NZV/SRJ5xIyaR5/SqJ4qSf/GqZ0rquy
-	 o54ZDK3FhSDjg9x9OrFvIDcq18Lm+c81/ct3F6d7A/XwOXHx6W0jD3GUWUSbVXg7HIY0+
-	 RGWjAXjqcxhT2btVRz5gKaZ6N8WeN9HBkWZKgHA25vxyAj8OVIUBqQjNd9KZ6wzlmK7BP
-	 lWQ5uIg1Bf+GIb023PdXkeNrz50U0q86PeF7G1HokCEL0TimOtAQSxgsT61moAu8xhL9M
-	 6fKdryTf7nhyvTvMvlMhmrVuTrU13cFyvzoc7HaJtqeltW+WeLONtU0y69ZYCKM4ZFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319102;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=G1amRx89cS3ZlVbqVl1dHUbx8H+yk0rGJ3ceJbcLO00=;
+	b=dNDhqXvugROzadKnwzLoIbsmllXHeGa2nA3ZsXxKceIAvyZlFEE8nLZAAGn+UcwnWx2y
+	 aGgAo1ueb+fa5KlGb04afYwwjQrIxb0MBHF8zEl8tw7O7J3MgMX8YFtPev/yP+UWYE+MB
+	 D2SilTG2vsOBohHXigm3buszhBZJqhjGZut8evCmqmrMXGRDNm7NwTMD+iGF4jZ0msc/6
+	 U4s3zWF2aQ6Bvo7bu/SLBIE1MiB0VeIcISFUPNJF4lQI8w98qdfQdUjTYOTy8ByRHRXb5
+	 ajwDYGxNrGKeUB8wDzqpxPewbkNSG5oT6h6sJd60W9QsU33yyQP5NY7/m20xReWyXBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=QtMhDcDp;
-	arc=none smtp.remote-ip=212.227.15.18
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=La2A6gWF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bHGZH+1B;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7CA606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B7CA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA21606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDA21606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=QtMhDcDp
-DKIM2-Signature:  i=1; m=1; t=1794319058;
- mf=PFdfQXJtaW5AZ214LmRlPg==;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:izWAt43r/aHmmFeiy9r24Et98jsU
-   e1xGPgtSgtqrI84VfVrl2pbGAGGvVeBvP8LsbrDAR59EM5RDsurmMpoT/XQuvXNQLFfsBbn7YH2
-   kmnap4Hb4Aa42WXXPZKIkL3ElsgGLufIbqQT+F5HUW+zUWgdYHhocN8RN6BfCGrDxeHhofvpcEL
-   tVXu/cBMdzXecO1t0Q1fo36PKvEqWAGH6x+cg7LJzFCW9WQEQjdtSH68Et8UdwZ4A0KiIleEn9+
-   5XoH2DgylopaeEANZzTa1l1iItasTdxNSU8R2m/APF6NtYnR5VnKi/N2nrUGh6f5zZi3gONmuWw
-   Nmgl/406qQoGGA==;
-Message-Instance:  m=1;
- h=sha256:
-   5rSfgRbRmpM0vlauUCpxc3ym9Qs92dcHC6wOpjI8sw4=:
-   mm6LTbu2iqKJ78/a/7YZN9S25zLRLJaQ0dBX12zimdM=,
-  sha512:
-   p5BwSyAeydnBDQcRwbjTmVnnRH8MbS97tEMG7T2ZzoRGoL5m/d7bLfu06R5Hwj5KNtfaKrQuZMYykvQARY1ADQ==:
-   UPGe+1eDquzukCoKYBMpkPlTIMWzzeLYPdUPwHx6AwYR3iCEzXJL/o5AwwxN5ngFGzHc2e4Pxxt8j1l66BYGBA==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1794319038; x=1794923838; i=w_armin@gmx.de;
-	bh=Mq25EesGHdSDvdRAKvduNtB0omKh6pT/kgafQ6gJ4+0=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=QtMhDcDpqIPcUdQHW2VIkD/QucuB8VUP8nIxCamTpEdffrFcozzeaON6f7QfdxRW
-	 0MUbuyE9zbrAVBVShqE7Id9lcMTO5jUomVw9+G3pMr73lqxPhAYN9CDNbcOCSypkZ
-	 p6ziGul68jYU1K1/i9dr7GKe3Wkl8e7sSonLkaNI1SaaypGfb+2LA/s+uuIA+V9jo
-	 EyxTNT/6xO/Z1RgO7mgCEPFax1BDrnGD795d5Nq/CfjDyOqgNoXT0DWbsz5XAnWYL
-	 iVAugx3Aj5rUw0RPcpaUUm/eEBd0GYJoexgJIMzADLOFMjmVpHIlj3fKFH9lkLN70
-	 yWQB2H3oAZ2gFRFB1g==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MK3Rs-1xC0eG0ny2-00NOfb; Tue, 10
- Nov 2026 14:57:18 +0100
-Message-ID: <c9a078c9-3b95-47ce-86b1-feefe65a6eaf@gmx.de>
-Date: Tue, 10 Nov 2026 14:57:13 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=La2A6gWF;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bHGZH+1B
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABAHPe2881275
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:58:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=G1amRx89cS3ZlVbqVl1dHUbx8H+yk0rGJ3c
+	eJbcLO00=; b=La2A6gWFhdCuJohKUxu+KrmPeXacK9C/vRy52ddkzfQArdz3LkV
+	MlP1tC3xCNUYgT0Quw84SY0o7eLeh8bemfL6wHXeAZpUaWQleiMGFU1pZvgkjjr6
+	Sq4OrmyZsd9lhdxXCbuUh4XIQaeI13M7Fz7GtMOApmWStgnKvP36D47x2Idgfr9E
+	o5TGRkq6Nv4ln3KY+9rn43RNZVbir11dQuqk9wkW0t1lC83LxKYV4UgVCYeCyPCN
+	t2gjCXnsDFeP1TSMVcVajpPxBzD20eoUMBKbPJVF08qaCbV1n/mgDDwXxh/r7N3i
+	vAUmWqzG+ISQ2ouVPFusHlm+Zt0H7yHIZ0A==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hux849hem-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:58:20 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e8dd9b9743so23410595ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:58:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794319100; x=1794923900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G1amRx89cS3ZlVbqVl1dHUbx8H+yk0rGJ3ceJbcLO00=;
+        b=bHGZH+1BN7u0p78fuy8pj4pKCDfwD5obJ1JpO3Bp05zRM6OsjS7Spg3270d3Te1EBn
+         FQmCu+Zg0ts60vaLAZURYgFN+kdhd3f7jRLZrwfuTY9QTlBbipxXCog+bn8wI6xAAUib
+         HKxLANIXdx3QiMMsmRcOKlboAxhb0VrI8NJJ5+YLsf2aGA6St7duCNDJwtX/bo48rSPK
+         qxXxvwPxcoG80LGk5T9WojobJjd6sBpC8SK7yRjTlLuHsoMINVjnXmH+455AqAUZQvDd
+         uhkpfbO5bVvbg9q1YX8G9YCubIrcOdbbsDuEAgE7BOZaiKeedIYlQfsNe0gl5TWxqVel
+         W5xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794319100; x=1794923900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G1amRx89cS3ZlVbqVl1dHUbx8H+yk0rGJ3ceJbcLO00=;
+        b=co2lsPuCxx+EedqQZoGajuC47PPnD3aeQQqpTgpmYTopLoeAto4kRtB1NiYpns9R75
+         mvGfQ+QKz7eI1ycgbx0YIesTt48EAPZK6R5HSVk/llXc84zOdUm9Q7eP5x8EEtglq3WI
+         xY1argWwikyoSNMrSFdOrvrVmPaFTthwQz/AklcpqbxGnvWrHnr5MHDlZGCwjbfdsHvX
+         NLwU5D48haF8tqe0MNjZxcyrg8yjV1gpXhXbSewrzlABINARfBBMIkR8KleyNn6NBkwm
+         /cQgv6ate4rAt9emVS0dyszVpMu12gJWEIoZcNqxEkNTROQxWVIyCKbt+oK64PmkSM5T
+         Om2g==
+X-Forwarded-Encrypted: i=1; AL+hErFUTG18/SxDARxnZQybEkhh8jZF74k0TEqsce2vpmCYO/X5a/YygzFGVL/ydeOBGsKtUPgR4C44DMuAmb4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z911UsPn7n9haHs93vjfrUUZmU6mH94MnZI/sqgxp8nsYMy37q5
+	ng9A4bLGDHttllweP0/wv/Jq5JSJRIsRYyu97+q1fKa8qoC7yGiAIU8ADr/vFsg3rlYpOnVWgGL
+	x6bzhsbHQ904JupmTw5LVf/DK1e7+kTPG/7abBxVj7YFwFFaNYlFDEoha1u9YMeWp6/E=
+X-Gm-Gg: AYBFou2ZbcLPhzvadh0Qvo4jlnE9A3ClfUmln+uho3RDWozcl0XVY9ATeqWLUEa6HV8
+	7CK0+BEU8og04YQPkpZ3tHPq/05xSrLH6n1H/jPUXulMqDnCW5aC1qsncWvokCwu/KRi+Z4vBF5
+	OHAMBl7g6Xe9qC9wzdrwTM0I+W9W48XozzdPpJXzrItD6D/slXsZKuc1VKq+ZfPwgDiy8y4NvZt
+	JksWWcwL2sa80WO5MGiJbuMPlJUr9NnnqRGIUL2+dcnW4Eb+yAeXAX9IRDEjzkMmC4Dj40gntlA
+	V0AzXdT7Ite5xE8ZHMsVDiHWHuHr5GS8PHzPi4haUKRsZYKcvu1RNdhQL7SwI7aeCcYOn/vc3zb
+	4bnWLDIPmu5oskIEwUCK/ZuTTN/S8nj4Wp2lztXS7J+qQj1RnavFFJdRO9BJUDl9Ul9VRz3p/Gb
+	/QFMboJ4Lu2rBrMNQEfEbC47q7G62yPmwTJmHgyYc=
+X-Received: by 2002:a17:90b:3ec5:b0:3a0:9c9d:eb18 with SMTP id 98e67ed59e1d1-3b166fd294emr2603119a91.54.1794319099685;
+        Tue, 10 Nov 2026 05:58:19 -0800 (PST)
+X-Received: by 2002:a17:90b:3ec5:b0:3a0:9c9d:eb18 with SMTP id 98e67ed59e1d1-3b166fd294emr2603098a91.54.1794319099224;
+        Tue, 10 Nov 2026 05:58:19 -0800 (PST)
+Received: from zhonhan-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17da5c970sm36744a91.2.2026.11.10.05.58.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:58:18 -0800 (PST)
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+To: rafael@kernel.org, viresh.kumar@linaro.org
+Cc: matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+        andrew-sh.cheng@mediatek.com, rex-bc.chen@mediatek.com,
+        jia-wei.chang@mediatek.com, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, zhongqiu.han@oss.qualcomm.com,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: [PATCH] cpufreq: Skip inactive policies in cpufreq_driver_target()
+Date: Tue, 10 Nov 2026 21:58:14 +0800
+Message-ID: <20261110135814.621355-1-zhongqiu.han@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,185 +121,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/wmi: Allow consumers to load without ACPI
-To: Han Gao <gaohan@iscas.ac.cn>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-acpi@vger.kernel.org,
- linux-riscv@lists.infradead.org, Han Gao <rabenda.cn@gmail.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261110-wmi-no-acpi-v1-1-eebea07db551@iscas.ac.cn>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <20261110-wmi-no-acpi-v1-1-eebea07db551@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:oTXUkEmC82rgOxf8k6hJrCTk1/JqzAPEPzp4/DHKOg3zKL1Aczg
- 9LNKhQMn4EIBT1lkRc19dLharPUXZZ0Kxp/mSJBSvbjxcRLNzvlI4gG0xzizeZ/SKmy+hB+
- rKnkdvLRECXuAPu572zqjM/GwEPfUTJ9Lw6EAOsd7GZzTLFsYOJoecYOZEYq+XPzM0jGUUt
- nRi+4mUo/ti6E46OAzB1A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:9tvIdMPT/+k=;TymbxhA/EOKBRYcRu7x+da1CDaV
- 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
- hmGT+e66htF78w
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1NSBTYWx0ZWRfX7onKbT+avcsg
+ 74TSeVxjtLpeknMOWINt5k+lYBRhPy54P+VHL8occgF4C/TbrTOiB+y+bxXLPsk026CkmRf8uZF
+ mAua0wlNTHgoPP0k1sHDpeGT832aqEha/JyD+B8jg1ssxfWGvHe7Z577KgcCucK7zcGlvjRO9Cl
+ yYTBYo/TgwCWC95i7d4l/agK1Wyai4g0AycaPPDfwa8HNqQnQLRhTRPGFOnT+DGgV2X5MOwtMMN
+ 7Qe9VfInNqqCLs+F2m6uDur6ZKS8Mi6SAkROhBR7GbMEY9W5IU4QHpA8raR3IPOq7znU44fBXXU
+ hXDo0vq3D/9xbWIsPZ4T5AMBbQjFqSCSNXkUX24sl9S3GdMf04i1eSksa65gnV5LvyYp6jQckyB
+ c/ih0mDmcvNIscGXb+ORjJuaIUsBSavp/oFljVf8y9900kQtnGt5XJm12eED6e5/0XVY7DWnxx1
+ TNGPz6/1ikGnrPx3EPA==
+X-Proofpoint-GUID: dcXLndZdh_eJ6zt8ZK37Hl6vikJmbt2i
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1NSBTYWx0ZWRfX0laAoi27izjB
+ vxQf1mhRItnN0PUPJbu8KwxZKlRX9VVyYi/gNwo+YUttxUm74ioOCn3cT8f/iWsBrwsf2Rrnuwf
+ Woy+hIWat3IunZNrJfmCld1ZD1ElfK0=
+X-Proofpoint-ORIG-GUID: dcXLndZdh_eJ6zt8ZK37Hl6vikJmbt2i
+X-Authority-Analysis: v=2.4 cv=JNSuIMKb c=1 sm=1 tr=0 ts=6af322fc cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=NN3j_4cKtzw3BXDvlvQA:9
+ a=uG9DUKGECoFWVXl0Dc02:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015 adultscore=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100055
 
-Am 10.11.26 um 14:43 schrieb Han Gao:
-> Since commit 4ea18e604272 ("ACPI: video: Remove CONFIG_X86 handling from
-> nvidia_wmi_ec_supported()"), the ACPI video module uses WMI on all
-> architectures. When ACPI is disabled, e.g. on a devicetree boot,
-> acpi_wmi_init() returns -ENODEV, so the wmi module fails to load and so
-> do video, amdgpu and radeon, which depend on it.
->=20
-> Return 0 without registering the WMI bus instead. The exported helpers
-> then report that no WMI device exists. Skip the teardown on module exit
-> accordingly.
+A policy obtained with cpufreq_cpu_get() may become inactive before
+cpufreq_driver_target() acquires its rwsem, which may lead to a NULL
+pointer dereference:
 
-AFAIK wmi_find_device_by_guid() requires that the WMI bus type is=20
-initialized, so we should not skip bus_register(). I wonder whether we=20
-really need to check acpi_disabled after all, because the platform=20
-driver will not bind anyway if ACPI support is disabled.
+  CPU X                      CPU Y (last CPU in policy)
+  cpufreq_cpu_get()
+                             cpufreq_offline()
+                               __cpufreq_offline()
+                                 ->exit()  /* frees freq_table */
+                                 policy->freq_table = NULL
+  cpufreq_driver_target()
+    __cpufreq_driver_target()
+      __target_index()
+        policy->freq_table[index]  /* NULL dereference */
 
-Thanks,
-Armin Wolf
+Before commit 2372784542cb ("cpufreq: Drop 'freq_table' argument of
+__target_index()"), __cpufreq_driver_target() returned an error if
+policy->freq_table was NULL. Since the offline path clears it under the
+policy rwsem, which cpufreq_driver_target() also holds, that check was
+sufficient to prevent the crash.
 
-> Fixes: 4ea18e604272 ("ACPI: video: Remove CONFIG_X86 handling from nvidi=
-a_wmi_ec_supported()")
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> ---
-> Tested on a HiFive Premier P550 booted with devicetree and an RX550,
-> with ACPI_WMI, ACPI_VIDEO and DRM_AMDGPU built as modules. Without
-> this patch, wmi fails to load and so do video and amdgpu. With it,
-> wmi, video and amdgpu load and the RX550 is initialized.
-> ---
->   drivers/platform/wmi/core.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/wmi/core.c b/drivers/platform/wmi/core.c
-> index a99da9b7039d787ce3c1e0ece74ffbd79fafd3f7..6668789904a903c8d4e78109=
-76f4e485d7a1b32a 100644
-> --- a/drivers/platform/wmi/core.c
-> +++ b/drivers/platform/wmi/core.c
-> @@ -1598,8 +1598,9 @@ static int __init acpi_wmi_init(void)
->   {
->   	int error;
->  =20
-> +	/* ACPI video still needs the exported helpers when ACPI is disabled. =
-*/
->   	if (acpi_disabled)
-> -		return -ENODEV;
-> +		return 0;
->  =20
->   	error =3D class_register(&wmi_bus_class);
->   	if (error)
-> @@ -1628,6 +1629,9 @@ static int __init acpi_wmi_init(void)
->  =20
->   static void __exit acpi_wmi_exit(void)
->   {
-> +	if (acpi_disabled)
-> +		return;
-> +
->   	platform_driver_unregister(&acpi_wmi_driver);
->   	bus_unregister(&wmi_bus_type);
->   	class_unregister(&wmi_bus_class);
->=20
-> ---
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> change-id: 20261110-wmi-no-acpi-159a4cf19580
->=20
-> Best regards,
+The race has been reachable in-tree since commit c210063b40ac
+("cpufreq: mediatek: Add opp notification support"), which added the
+first caller of cpufreq_driver_target() that can run concurrently with
+CPU offline.
+
+Address this by making cpufreq_driver_target() return -EBUSY if the
+policy is inactive after acquiring its rwsem, in analogy with the checks
+in cpufreq_get(), refresh_frequency_limits() and the sysfs show() and
+store() callbacks.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261104153042.3987338-1-zhongqiu.han%40oss.qualcomm.com
+Fixes: 2372784542cb ("cpufreq: Drop 'freq_table' argument of __target_index()")
+Fixes: c210063b40ac ("cpufreq: mediatek: Add opp notification support")
+Cc: stable@vger.kernel.org # v5.19+
+Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+---
+Fix the issue discussed at:
+https://lore.kernel.org/all/a4b320d9-ade6-4f39-9e9a-e9a82b13152e@oss.qualcomm.com/
+
+ drivers/cpufreq/cpufreq.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 54dde8419bdc..352ee4a1f085 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -2403,6 +2403,14 @@ int cpufreq_driver_target(struct cpufreq_policy *policy,
+ {
+ 	guard(cpufreq_policy_write)(policy);
+ 
++	/*
++	 * The last CPU in the policy may have gone offline after the caller
++	 * obtained it, in which case the policy is inactive and must not be
++	 * used for changing the frequency.
++	 */
++	if (unlikely(policy_is_inactive(policy)))
++		return -EBUSY;
++
+ 	return __cpufreq_driver_target(policy, target_freq, relation);
+ }
+ EXPORT_SYMBOL_GPL(cpufreq_driver_target);
+-- 
+2.43.0
 
