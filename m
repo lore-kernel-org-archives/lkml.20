@@ -1,95 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794277870;
-	b=X0y4BcaitDiNVP1BqUr0by/upmPxtEj7eB4nOxF0T9mWHqlFQ84NhtJsxyuFBaCoE6vW
-	 sxpEW/wGpbmQIy5Nj6k5JXXZkXYYuMgDno3zA62NRxGxgtq25X3/aIxFQzCkoLPQq+njj
-	 dtyo9Zgv98YsMZsP0S4VRAUVhew5GgzW09GtRCZeXvKmjUSCTYTAZoHKJJjESqXC2v7P7
-	 8dBm0DDq+wZ3BBOKa8qM+CTCvN6oOIQFYJ1WWKAvmUcCg/u25yOioZ1hpVDF9eznNxV8e
-	 vj7ljgdLhzT7OZFpSJ2hVORp4JaNL/bGfKOmgZOMoC5wTsgzx/f6kq21YAIzJPV9bYA==
+	t=1794277873;
+	b=KqYZNfTT3McZ/KaZ1nSyAgg9JIJVXtNwcQwGxSI1Rr7+MoYJtW8cEtsfYaqZULYfwTsT
+	 vPwKiiDx+WYnEA9zViGfLDEnwU1VO5kM2LkQStSe2dXv3b25SK85w/z4DgQwU4yNiac0A
+	 7GIMTrFRkWJnsu+wVCtUNg0cGyPklPiKJRlZmAY8bMl+BwvSYUETkHqBZH+nBJcQx/Oal
+	 WqHEIk9aPPghHp7g4h/mxgrvjRYm7wCbSTLlxQGKiHbcjY22SW5b6fqSejBgFUZuRi8Lr
+	 9QXYC+ekJ69moGRo5T4UzOzJk00l6CwJU1yBDjMghOl4so3lUPq0iFY6rQxXzz2v5ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794277870;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=31EfEmtXUctl4tETks4w5wfLM3YcO+BrxwJ7vj0eux4=;
-	b=ijnJaFA+A5H9nMH/ptXfTpwC4hIcJmvjIABFogiQaMStsVVrrLRb9n3hxCGYPZEfC8NO
-	 LP9sTR8JW9ssSo83gJTjeQ+BTaWv/oLby2ABtzBCJGBFlAY/NZcbC62S1RyQ3+Ruhs3iC
-	 EJwmvVnDYvNDZ/wKf33+TGHCyZz0wEfKp/iwlFQ1u70lQWuAdgB69mnRaR12OQGi9Uhwf
-	 LNp6H6TDkQtjb8bakvxnSDhfsPaVNNbASQj3s2qP5grl8cbLZQudmGG7l6/rnV2LvT11b
-	 Y8hqiYoaoZzD0jwe/s+/BoAtwPd6XRjYZVksnNIGvZyLmuzaY4uTD5yhwC7k+XsJ29A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794277873;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=05W4yApdW6fKJ5133N5Gim93/IrFgrZW39fL4T5FCW0=;
+	b=VLS4ar7vNnkT/saXw4QAlE5AKWsvLDtEgtJsHkbSJkGvFURF2MgwQQ5HmX66pvxC1t0K
+	 exF3KDkQL/aMD6TJEH3db6MDZc67feecqHo+KfGAtt2wnDEc/Gr1d5kqP/gOyo5XcgVpS
+	 SrpWysbcGjZGhM15kLE8pgVXaVd0KiCt8PIiID/R4R/K0AsZ17E8wpyYZQaWTCUPaFUm4
+	 92HaFCgdLG7KG+8keqW/UduPp3KkiS8hwg+uVGFRmdkD5xNUrjX+i9vmJLDifSxc5xEa6
+	 NFO+DIf/cbMm0mI6H7n8De69jt0r659nU8z1/uuS+ClFXpk8MtmnBSJHYhRS6v+kkcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vUOBmNjn;
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hk5O3afT;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A02B606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:31:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A02B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B91606A339
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B91606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vUOBmNjn
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8470d7d430fso839180a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:31:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794277869; x=1794882669; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=31EfEmtXUctl4tETks4w5wfLM3YcO+BrxwJ7vj0eux4=;
-        b=vUOBmNjnLoV/k6LXbSj7X2Srw+TarECX2hirKBjawHFIF+hZJJOpafpVs6+XYF8V9/
-         oDbtf1E6wUwUDmpEvNRN12ituSMC5GmjWaPcIRIeXJ2KfALhh/RigNsqfUFeEdU+Zfsd
-         DOfCsO/XoeJCOU63MASfr+NNeAvVrxuTrO9xSBvcR/CnXTdZEs5WPN1pKfIIXtrfRYa8
-         ekI6YmZgDfZhsj1d/70ehE0sjMRmvEjDnNwAkJy/RKIOi7HehwFfo3QTe8o81myFk6AE
-         56nbNV+v9xIvAbPIO624jst2rn/ZlGcuxnPviuxmltsG00gdW8hH817QeKMSNSGNYU28
-         Io3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794277869; x=1794882669;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=31EfEmtXUctl4tETks4w5wfLM3YcO+BrxwJ7vj0eux4=;
-        b=sz9ObshD09iUQIDbELQVYEqcM2Ux2CgZI120k2l99JHuh3KRGC7NXMK9zk+CzDbHMU
-         t9RaZ9vYMlmQTFumBYI3BjV99wERkcOQXswB8CtTVDnLiRbtjisQ1R83Mhj0E7T2uxxq
-         1O7RP/IBDKtQnO+WgkE8wRJV/dCLK/DK84FygCjDigQ4gmn92mIq8JDoi/W9JRt7mDgq
-         1j0NQWujvVJTJHtR1Xqu/XyVqeVvNyuAJvjtykghZjAcV4y36v4xpgShZX/m7W7do6Ux
-         gcC/8wyKgSOPYmaZEcRed9iduu7zD4VOqFXOqfImnWLaUC2znc6/IDWbbDjgSFXp+d6o
-         /D8g==
-X-Forwarded-Encrypted: i=1; AL+hErFS4GoRAwVrqIVxIZf3esIoQVxm6gf7Kinl/Js86JCsIjx7pWIS7ils3fu0qcXlIBK6pDkdvYbyyP6H000=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Cg24CeYPPM57nhE5LbYtU35Ok0tJt5tbMsqVWWoz7TO4IQZqP
-	bqlELlQwPQ3Rc/Ho5Tqh5ur4lRCmOSX1omzEMUhFvzjdCOQnVs9TfkpwxJeFJH4u
-X-Gm-Gg: AYBFou3fupZp+EwY5rf+T4VcaJlk12KAS4bEcnSenluyvVNrElUgqCPDnPf6ock1D/R
-	tEfiNmTv1Z106MCVQKtjzr+mbyeNzfEuCEIOnnL3/jqlzI6ZR4ES1CrEcoKBVr3s71CaZzwlMXM
-	13x6xEO3W48eTMZalXQ9RhNo6yU8B/hoXjGHqhuswaXhB5hegw3ikZYZBKbV84FYACEJ3YtDpzg
-	n1+7Itze6cpREoJIKPBVGFM6H5ZTJX/5F4BIjVpsgH0DOCOTdcKq/th5ORupa51dfnuAiKkRDgx
-	Sj/SWCiLztSOX8RTKH5fhmyFTy72A0VZ8pghsznCwmPB+fAXnNtCQkUlTHgLvzyWgb2vyI82AK5
-	BBx+YdVOk55C7srrGI1lSameH6XC6+6sJzCGgpxo2fpnfXh0YqlBhfgFIswARM3iBR9ylWZqSCd
-	OkB0eS+RRR0UVqq7toLnVbkkbNdKmaaqd6tnniXjs00yK45t4/zw9vVpsYBqTiggBOTfvbUUEWh
-	s5+hoByxMG5HR4PDbjn95ZyCmS47FD1djiFeNpos16RzWEQ1azqpK9Cr/4M4Tjxb6jbyYwJd3CO
-	GCRybCzsQbnHQoaQZA3fokQeJDtsrxtlBIvT3VMa/2czw4jVjf/+iDlexln3wEZX/Mb3jgRS0Xy
-	P3VjiWpoZZEGhA23xvWYnsMN8PQrBCGY=
-X-Received: by 2002:a05:6830:906:b0:844:4959:e856 with SMTP id 46e09a7af769-860dc7c3282mr1262412a34.11.1794277869217;
-        Mon, 09 Nov 2026 18:31:09 -0800 (PST)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dca41bdcsm916678a34.2.2026.11.09.18.31.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:31:08 -0800 (PST)
-Date: Mon, 9 Nov 2026 20:31:02 -0600
-From: Ming Lei <tom.leiming@gmail.com>
-To: =?utf-8?B?6ZOu?= <fengaojigui88@gmail.com>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] ublk: hung tasks in bdev_open during partition scan
- (v7.4-rc2)
-Message-ID: <avKB5rb9DWry2WZe@fedora-laptop>
-References: <CAO-4RZ2EvgmSRzBtSw+TabEy+3d9kgM9u3-MNS7=pfC6f_555g@mail.gmail.com>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hk5O3afT
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9403A40E02A0;
+	Tue, 10 Nov 2026 02:31:03 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id vSkAX_HkCi1b; Tue, 10 Nov 2026 02:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794277860; bh=05W4yApdW6fKJ5133N5Gim93/IrFgrZW39fL4T5FCW0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hk5O3afT3Xg1joSaBx1YkX6uTslvxGps6aEmZd+sOa+jFR7vA8d1wmECZp+ATUnUC
+	 UA4ZFBcnmSuCeeinWhu16XlAyI7OraNvDtyEvMZLR0oFW+tB9Tik7WSvs7T+UQWixj
+	 OKxeXFeAcalFMUrIqSqQ/2d/UDyDNer8KnDWrcPH2rDA2o+/Y34wCHK1wNCr8KNkA8
+	 2B4yKxtT4nnczd1+bqO0kyCwn7a99o5GkpAb36pyzfOSo+2+L2fIu8vcjmDjQdN15a
+	 h0YpHTWrkGUJJHxcXVI0b9NuWstAG0X0LwxqNm2Rs7kl3GmQq9QxuHBZ+XV3q1oxpY
+	 GwTR9+zZWA+Dv4Bk+/VLQq+0WhDD459J747XhWJ6VRZp9gglaOq8EIutyIq7WK94Kd
+	 si9IVVHBcXdniOiX16dpGePHXgJ9XtovTmjePZeQ2+McZxSH91XOF4hKwWIAzKwEUC
+	 khBHJjmNQslSmPUnFbmx/t5tHUAemp1pjpUballM+ueZiBkwW0B4wECBj7w4aD9WNR
+	 oxD3AONVouFlIeeEqlILccPCJ7oAIzFGJUJLF4cuvb5twwA6lANmiiPke7pWHiqP9m
+	 6i0BSkQg+4n/WDPezxSTG8Kgr1d9S27imBqJ5ONjXWx8EdWim+A/gTI41qMwhlMY+J
+	 79aAcqOfEq6mbjtb+Rst1cYw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E687F40E015B;
+	Tue, 10 Nov 2026 02:30:50 +0000 (UTC)
+Date: Mon, 9 Nov 2026 18:30:47 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: Nikolay Borisov <nik.borisov@suse.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, peterz@infradead.org,
+	david.kaplan@amd.com
+Subject: Re: [PATCH v3 2/9] stop_machine: Add NMI-based execution path
+Message-ID: <20261110023047.GFavKB16_DlfgpAij7@fat_crate.local>
+References: <20261015211426.49114-1-chang.seok.bae@intel.com>
+ <20261015211426.49114-3-chang.seok.bae@intel.com>
+ <bfe8f403-06c9-4e93-9bcb-738c9128c557@suse.com>
+ <1944bd56-201a-4184-af7c-616e282cc953@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,249 +86,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO-4RZ2EvgmSRzBtSw+TabEy+3d9kgM9u3-MNS7=pfC6f_555g@mail.gmail.com>
+In-Reply-To: <1944bd56-201a-4184-af7c-616e282cc953@intel.com>
 
-On Tue, Nov 10, 2026 at 01:15:43AM +0800, 铮 wrote:
-> Hi Ming and Jens,
+On Mon, Nov 09, 2026 at 06:06:47PM -0800, Chang S. Bae wrote:
+> On 11/6/26 09:44, Nikolay Borisov wrote:
+> > 
+> > I think this function should be moved over to patch 5 and by having
+> > moved/subsumed patch 4, Patch 5 should become patch 3 really so related
+> > functionality is introduced in subsequent patches.
 > 
-> I encountered an `INFO: task hung in bdev_open()` while running
-> syzkaller on Linux v7.4-rc2.
+> Yeah, the suggestion makes sense to me.
 > 
-> Two tasks, a udev worker and a syzkaller executor, were blocked for
-> more than 143 seconds in `bdev_open()` (block/bdev.c:990), waiting on
-> the same gendisk `open_mutex` while opening block device nodes via
-> `openat()`.
+> On top of this fix,
+> 	https://lore.kernel.org/lkml/d81a45f9-1ba2-4eed-92f2-c5152c5caa7b@intel.com/
 > 
-> The lock dump also identifies a ublk partition-scan workqueue
-> associated with the same mutex. This suggests that the prolonged wait
-> may be related to an unfinished ublk partition scan.
+> my local pile now has:
 > 
-> The issue was observed twice during concurrent fuzzing. A subsequent
-> state-primed verification run also reproduced the hung-task condition
-> on a freshly booted VM.
+>  * x86/microcode: Remove microcode_nmi_handler_enable
+>  * x86/nmi: Simplify offline microcode handler invocation
+>  * x86/microcode: Use stop-machine NMI facility
+>  * x86/microcode: Distinguish NMI control path on stop-machine callback
+>  * stop_machine: Introduce stop_machine_nmi_cpuslocked()
+>  * stop_machine: Add NMI-based execution path
+>  * x86/nmi: Support NMI stop-machine handler
+>  * x86/apic: Implement self-NMI support
+>  * stop_machine: Define build option for NMI stop-machine
+>  * stop_machine: Refactor multi-CPU stop glue code
 > 
-> All raw logs, crash reports, reproduction programs, and kernel/fuzzing
-> configurations are available at:
-> 
-> https://github.com/Zheng-zheng-codes/bdev-open-hang-7.4-rc2
-> 
-> All relative paths below refer to files in this repository.
-> 
-> **Kernel information:**
-> 
-> - Kernel version: 7.4.0-rc2-kernsight-kasan #1
-> - Base: v7.4-rc2 (`7475ea8b5`)
-> - Architecture: x86_64
-> - Environment: QEMU Standard PC (i440FX + PIIX), KVM, systemd-based guest
-> - Configuration: KASAN enabled, `hung_task_panic=0`
-> - Fuzzing framework: syzkaller
-> - The full kernel configuration and QEMU/fuzzing settings are included
-> in the repository.
-> 
-> **Hung-task report (verification run):**
-> 
-> ```text
-> INFO: task (udev-worker):9713 blocked for more than 143 seconds.
->       Not tainted 7.4.0-rc2-kernsight-kasan #1
-> task:(udev-worker) state:D stack:25208 pid:9713 tgid:9713 ppid:4787
-> 
-> Call Trace:
->  <TASK>
->  __schedule+0x1425/0x6840 kernel/sched/core.c:7389
->  schedule+0xec/0x2d0 kernel/sched/core.c:7481
->  __mutex_lock_common kernel/locking/mutex.c:726 [inline]
->  __mutex_lock+0xe0c/0x1dd0 kernel/locking/mutex.c:821
->  bdev_open+0x3fa/0xe50 block/bdev.c:990
->  blkdev_open+0x355/0x500 block/fops.c:686
->  do_dentry_open+0x693/0x14f0 fs/open.c:1000
->  vfs_open_consume+0xd1/0x460 fs/open.c:1131
->  do_open fs/namei.c:4851 [inline]
->  path_openat+0x1c1b/0x2240 fs/namei.c:5016
->  do_file_open+0x21b/0x470 fs/namei.c:5045
->  do_sys_openat2+0x13e/0x1d0 fs/open.c:1443
->  __x64_sys_openat+0x144/0x200 fs/open.c:1460
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->  </TASK>
-> 
-> INFO: task syz.2.29:12841 blocked for more than 143 seconds.
-> task:syz.2.29 state:D stack:27784 pid:12841 tgid:12818 ppid:10317
-> 
-> Call Trace:
->  <TASK>
->  __mutex_lock
->  bdev_open        block/bdev.c:990
->  blkdev_open      block/fops.c:686
->  do_dentry_open
->  path_openat
->  __x64_sys_openat
->  </TASK>
-> ```
-> 
-> **Lock observations:**
-> 
-> In the verification report, the lock dump identifies the ublk
-> partition-scan worker:
-> 
-> ```text
-> locks held by kworker/2:2/1815:
-> 
-> #1: ((work_completion)(&ub->partition_scan_work))
->     at process_one_work
-> 
-> #2: ff1100017b50c350 (&disk->open_mutex)
->     at ublk_partition_scan_work+0xdb/0x170
->     drivers/block/ublk_drv.c:2478
-> ```
-> 
-> The same mutex address appears in the lock records for the two blocked tasks:
-> 
-> ```text
-> locks held by (udev-worker)/9713:
->     ff1100017b50c350 (&disk->open_mutex)
->     at bdev_open+0x3fa/0xe50
-> 
-> locks held by syz.2.29/12841:
->     ff1100017b50c350 (&disk->open_mutex)
->     at bdev_open+0x3fa/0xe50
-> ```
-> 
-> A separate fuzzing occurrence shows a similar relationship:
-> 
-> ```text
-> kworker/3:2/1260:
->     ublk_partition_scan_work
->     (&disk->open_mutex)
-> 
-> (udev-worker)/9505:
->     bdev_open
->     (&disk->open_mutex)
-> 
-> syz.4.2301/42546:
->     bdev_open
->     (&disk->open_mutex)
-> ```
-> 
-> The repeated association between the blocked openers and
-> `ublk_partition_scan_work()` suggests that the partition scan may be
-> involved in the prolonged wait.
-> 
-> However, the current logs do not establish why the partition-scan
-> worker fails to complete. In particular, I have not determined whether
-> it is waiting for outstanding I/O from the userspace ublk backend or
-> encountering another condition.
-> 
-> **Reproduction:**
-> 
-> The repository contains a minimized target program together with a
-> recorded state-reconstruction sequence.
-> 
-> The minimized `repro/repro.prog` is not sufficient by itself to
-> reliably reproduce the hang. The state-primed reproduction uses the
-> recorded sequence and the target program in the same VM.
-> 
-> The relevant files are:
-> 
-> - `repro/repro.prog`: minimized target program
-> - `repro/repro.priming.prog`: recorded state-reconstruction sequence
-> - `repro/repro.kernsight.prog`: combined state-primed reproduction input
-> - `repro/repro.README.txt`: detailed reproduction instructions
-> 
-> The state-primed reproduction can be attempted using:
-> 
-> ```bash
-> ./syz-execprog \
->     -executor=./syz-executor \
->     -procs=1 \
->     -repeat=1 \
->     ./repro.kernsight.prog
-> ```
-> 
-> The guest should be booted using the kernel configuration and QEMU
-> settings documented in the repository. The same syzkaller environment
-> should be used for the reproduction.
-> 
-> The verification run recorded a hung-task report, and the repository
-> contains the corresponding execution log and report.
-> 
-> One caveat is that the udev worker appears to have entered the blocked
-> state before the final minimized target program was executed.
-> Therefore, I do not claim that the minimized target program alone
-> causes the hang. The preceding state-reconstruction sequence may be
-> responsible for establishing the condition.
-> 
-> **Observed results:**
-> 
-> - Two occurrences during concurrent syzkaller fuzzing
-> - One recorded successful state-primed verification run
-> - Both the udev worker and a syzkaller executor were observed waiting
-> in `bdev_open()`
-> - The lock dumps associate the same `disk->open_mutex` with the ublk
-> partition-scan workqueue
-> - The VM remained running with `hung_task_panic=0`
-> 
-> **Repository contents:**
-> 
-> Reproduction artifacts:
-> 
-> - `repro/repro.prog`
-> - `repro/repro.kernsight.prog`
-> - `repro/repro.priming.prog`
-> - `repro/repro.README.txt`
-> - `repro/repro.report`
-> - `repro/repro.log`
-> - `repro/repro.state.json`
-> - `repro/repro.context.json`
-> - `repro/repro.attempts.json`
-> - `repro/repro.outcomes.jsonl`
-> 
-> Original fuzzing evidence:
-> 
-> - `logs/log0`, `logs/log1`
-> - `logs/report0`, `logs/report1`
-> - `logs/machineInfo0`, `logs/machineInfo1`
-> - `logs/pre_state0`, `logs/pre_state1`
-> - `logs/crash-excerpt.txt`
-> 
-> Environment:
-> 
-> - `config-7.4.0-rc2-kernsight-kasan`: full kernel configuration
-> - `syzkaller.cfg`: syzkaller and QEMU configuration
-> 
-> **Related upstream work:**
-> 
-> I noticed the earlier ublk fixes concerning canceled I/O commands and
-> partition-scan hangs, including the change titled:
-> 
-> "ublk: refuse to go live after an io command was canceled"
-> 
-> This issue was observed on v7.4-rc2, but I have not established
-> whether it involves the same underlying condition or a different
-> problem.
-> 
-> Could you please advise whether this corresponds to a known issue, or
-> whether additional diagnostics from the partition-scan worker or the
-> ublk I/O queues would be useful?
+> I'll post a revision once sorting out the bugfix part and other feedback.
 
+I think that's enough stuff to warrant a new submission. If the bugfix needs
+to go before them, place it first in the series.
 
-Thanks for the report!
+You can wait a bit until I finish looking at patch 2 and send you some more
+feedback.
 
-From the ublk program in your log, the same process does the following:
+Thx.
 
-	syz_ublk_setup_queues()			/* FETCH */
-	START_DEV
-	syz_open_dev$ublk_bdev()		/* open /dev/ublkbN */
-	syz_ublk_process_io()			/* handle io */
+-- 
+Regards/Gruss,
+    Boris.
 
-After START_DEV, ublk scans partitions from one work function, which
-grabs disk->open_mutex and reads partition table from the ublk server.
-But the server is opening its own disk before handling any io, so it
-waits on the same open_mutex in bdev_open(), and the read can't be
-served. That is one deadlock in the test program itself.
-
-That is definitely one *wrong* ublk server implementation, ublk server
-can't issue IO from its own frontend(`/dev/ublkbN`).
-
-
-Thanks,
-Ming
+https://people.kernel.org/tglx/notes-about-netiquette
