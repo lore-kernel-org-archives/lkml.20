@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297839;
-	b=R6rmgCk+BYRv/Ty/mAM51IwNkALJ5KoScDaTnx8aDGAmLg9dH/2PtOO9EfwzmxA1oCAf
-	 3+UT7UQNS23pyuS59N8P2APmi6pgrpjTjjlAhmAwruQfv28uVxhermp3MIkWfqqPa1+It
-	 KCee2oUWou54PrAOx4fbbQ8NzR+JOO0nKVv9BdLOSmsQbcQxhLUBG07b24tsiJRzmKZd2
-	 DvmEHzHQd4YqTLXWtAeCRH7hsTtAhADxFoWS/ASQ7nRZ3mDXVrVh+t7KUqXcAEvE/+9KX
-	 OXG/0cDsagzTIE1PvW1dktrfJDkACo9qxSyyZ2TshOIbsWfGJbxjzHlyprlxQaU6pgg==
+	t=1794297918;
+	b=gEEw3gZoOQCTpIsmW3+/G6RbuswXWLP3GoJ32mBrK78BD0176Sd2j2riE9owmHT47RJ4
+	 jzHbClgD3+WNX6ai3MfkiXdTkhuKIATwMqDTM6N4nwWLhL5LXSoYptARMCCE83Kyabyl3
+	 1TOSu2Xq2qYuAC/QcvwBJ0D6CX/MTApzlvm7Ar2TLbQmsxbx7pLJb+KTA1MgBay3Vu14E
+	 kZWlebBJ+pBMIExXD6QmdhuheolElnVjVVrShZ6kJFargWwBEFw1IhM3wj4EMbDLJD4Mi
+	 479lrZym1VhSL9myY2mKZL+c52SoPVlwkNaBiSLKLp4um1C/2Ae+2oqAi1UC7wW2y8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297839;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:
-	 Content-Transfer-Encoding;
-	bh=cWkaqcIhFYIpLCbLanrnM8cudPC/KHyxk8f7sc7s2LM=;
-	b=rj5LUdNU1aXd0TozzzMNo2inJvLyZKB7l0RuDfmstHUGWr4nkTHC382vmDErwGJY8cHf
-	 QVF6DPdzbgA3wzTqHttiX7vPioi7FP8sJWVFg4imR7XVEFtax2O9QzTwLIiyokJP16RKt
-	 oenPVmRrHpuvKrhJ7+kZ8FaairfLZhNRe34dkbNVlZemnBGv8m5FJWtxbDQXjwZge8+PK
-	 +U+kMZsgJzHdirJ96EC4BsCv8nWmU8duJgYQrN9Z8Sxrv8Vuew1MCvyPVMlKJqISffo+v
-	 CkeLFED/+30KzdPOCK9sZXjcKxTLaVqP045gjGxfazC5Z0AJXcFRvVrtXgFc+Lm1RsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297918;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RRuKhO+Gqs/aresxXRqjjRtExNAeC2zZMKoz8mC2jhc=;
+	b=eLhyQThlorswYWf9mpIfjux0mHawSDoNFnE48cmbdAnPrCZcFbXMcdvQy6lfJ7NYeXda
+	 cD/fyZ58gdZU6WNqED7sKNk0EKC8ZRdPD71N7FipiAXcC6urAiDHgxBCLORI3zC9nrxqO
+	 B337wzeEXVOweIfZYds7yp4Y0l5QSxqdvj7r81CuUvneFPMHzcwnl79R1R0Rm7U4+1XDp
+	 KGnxzRu5GI9f4CAYFd7cuMaGefOEh4g9DlDkPvseYMc+Fl/Lbwc4uiFb8QLrIViz3KwK9
+	 0mIGg5KRv7YD8YmRuSRLEJ3RiWo+rxGRLa5qvB3P1QNA8krr/+b2Rb2/87oO3e+21kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=euvrYU9r;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHtWTChy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB9B606A334;
-	Tue, 10 Nov 2026 08:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB9B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B4A606A31C;
+	Tue, 10 Nov 2026 08:05:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=euvrYU9r
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AE0E440E02A0;
-	Tue, 10 Nov 2026 08:03:56 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id UpLAbp1a6Z3E; Tue, 10 Nov 2026 08:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794297833; bh=ftLCm16ZGQDt5+x3FR5+nfOxh9iMk8bB3TsMH6M/D6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=euvrYU9rM/tSGqaeaB23COh67FuHJ9wopiBh3ajKkrET8rfCvS0pSXJND501gwc5S
-	 n5ehURhkzS1mPZunoB6+Q2J3UlyHS9+GUi21VYtf3U3I+5cakvV1aJbeNmvBumhpib
-	 Y4liMH3c9lOmfJqufIjGiY9UA8nZ6MVrXg08tS6ioH9CRRq8/6+dbgrdnktJ1iHY6o
-	 3BpQPlAwlg1GVV5IvHD7NWv1q+skZwdFoH8/teJblGBsF53YmdxWJ+FDol/QN0H6QC
-	 HUmvBKmIOSYVifvUKBSgqFVYIV+Fj76LYSkgRuct1DY3lJEvrZf7OAAc5JzfTA5gCH
-	 fD+W3ORZ0NWdOIsCwVUItqs3YW5vcAOY3SFudL35PKwsQJNiXVN+egJulo7x97MiL6
-	 qLIh8eAhFQyjfCLpO3iBDrxQWGA/hlfUsxNeNDFSNTvENma2r48IeyViQmTohYB+f6
-	 3ZeV6kyIF8BueUHGuumfgbOqPUp6mNmjixkWlGQjyDbBcySrADfCBn2MtvdOsUFTZc
-	 UTKMY1sfkx7zrombtsIbmtvX8e0QUeUZQPA0UmAw5zR3hfI+TZJUZUiJrWdUNJeYC8
-	 ZZbOqXjAxIH3arLDfIDNaun5gTSwir9tCPouNHh5wCYxgrM7ZtuMjTG3E7cQyUGfCL
-	 G/UM5lHtQrjQqBoTRJ/T6DjY=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2522B40E0299;
-	Tue, 10 Nov 2026 08:03:41 +0000 (UTC)
-Date: Tue, 10 Nov 2026 00:03:38 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Qunqin Zhao <zhaoqunqin@loongson.cn>
-Cc: Qunqin Zhao <zhaoqunqin@163.com>, tony.luck@intel.com,
-	linux-edac@vger.kernel.org, chenhuacai@kernel.org,
-	linux-kernel@vger.kernel.org, Wang Jinwei <wangjinwei@loongson.cn>,
-	Yulong Wang <wangyulong@loongson.cn>,
-	Dongyan Qian <qiandongyan@loongson.cn>,
-	Chao Li <lichao@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>
-Subject: Re: [PATCH v6 2/4] EDAC/loongson: Encode node and MC info into mc_idx
-Message-ID: <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
-References: <20261105025532.2055-1-zhaoqunqin@163.com>
- <20261105025532.2055-3-zhaoqunqin@163.com>
- <20261110064106.GAavK8ghva7DgZ35DK@fat_crate.local>
- <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHtWTChy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCA851F0089F;
+	Tue, 10 Nov 2026 08:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794297917;
+	bh=RRuKhO+Gqs/aresxXRqjjRtExNAeC2zZMKoz8mC2jhc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KHtWTChy3U8TCLPvKYF9zCxkxdw63IKUtrNdOTxtkGMP//+WsPGFNPYbaovW1wmg0
+	 RMRm+v7qu7vDWTJx2oH09qkRpbc2VTAAhpLk23GxLnTBN5PJZ9YpX4Z8KcoIMfs+h9
+	 /S4aabl+ovBcr5nFeu6nDmrj9eQffCXQRR747VjorcQECW8uyRVzs2TOzI79L+Yox5
+	 9w65CfBWgo8kYZgrvbj9ni6QE4g6Ic2jT9QG7s/fEdYlB0tjnRlmWY23xz9df5m7RT
+	 TgWFwuFw9RgkdmO/SRghSNj1PSlH41NjoGEJNXZqiaHdP65P+EoOiJpz3JeeHOJw08
+	 +aSkqDYcVfyxg==
+Date: Tue, 10 Nov 2026 09:05:14 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Marcelo Schmitt <marcelo.schmitt@analog.com>, 
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>, Ciprian Regus <ciprian.regus@analog.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 6/7] dt-bindings: net: adi,adin1110: Add
+ adi,spi-oa-tc6
+Message-ID: <20261110-stereotyped-tasteful-pelican-29046b@quoll>
+References: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
+ <20261109085952.105331-7-iustin.stolniceanu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,34 +66,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn>
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261109085952.105331-7-iustin.stolniceanu@analog.com>
 
-On Tue, Nov 10, 2026 at 03:47:20PM +0800, Qunqin Zhao wrote:
-> "all your nodes belong to memory controller 0"
-> I don't quite follow this sentence. There are four memory controllers o=
-n LS3C6000/S.
->=20
-> On firmware without mc-idx there can still be more than one=C2=A0=C2=A0=
-memory controller
+On Mon, Nov 09, 2026 at 10:59:51AM +0200, Iustin Stolniceanu wrote:
+> From: Ciprian Regus <ciprian.regus@analog.com>
+> 
+> The ADIN1110 and ADIN2111 support two SPI host interface protocols:
+> the generic SPI protocol and the OPEN Alliance TC6 protocol. The
+> protocol is selected by the state of the SPI_CFG1 pin, which the device
+> latches when it comes out of reset, together with SPI_CFG0, which
+> selects CRC (generic SPI) or protection (OPEN Alliance) mode.
+> 
+> The protocol is set by the board hardware, so the driver must know it
+> in advance. Add a boolean property to describe a device configured for
+> the OPEN Alliance TC6 protocol. Without it, the generic SPI protocol is
+> assumed, as before.
+> 
+> adi,spi-crc enables the CRC of the generic SPI protocol, so it is not
+> allowed together with adi,spi-oa-tc6. The OPEN Alliance protection mode
+> needs no property, as the driver reads it from the PROTE bit in CONFIG0.
+> 
+> Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
+> Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+> ---
+>  .../devicetree/bindings/net/adi,adin1110.yaml        | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/adi,adin1110.yaml b/Documentation/devicetree/bindings/net/adi,adin1110.yaml
+> index 0a73e01d7f97..fa30787c663d 100644
+> --- a/Documentation/devicetree/bindings/net/adi,adin1110.yaml
+> +++ b/Documentation/devicetree/bindings/net/adi,adin1110.yaml
+> @@ -28,6 +28,12 @@ description: |
+>  allOf:
+>    - $ref: ethernet-controller.yaml#
+>    - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +  - if:
+> +      required:
+> +        - adi,spi-oa-tc6
+> +    then:
+> +      properties:
+> +        adi,spi-crc: false
 
-So edac_device_alloc_index() is used to give out indices for other EDAC
-devices with edac_device_alloc_ctl_info() but I guess you could use that =
-in
-your driver until you don't need to add other devices besides MCs and the=
-n
-it'll become a mess...
+Please move the entire allOf to the bottom, after "required:" block.
 
-Lemme ask the simplest question first: is there any case where ACPI won't
-provide that _DSD property or you're in control of the firmware - not lik=
-e on
-x86 - and this case we're trying to fix is never going to happen anyway..=
-.?
+>  
+>  properties:
+>    compatible:
+> @@ -43,6 +49,12 @@ properties:
+>        Enable CRC8 checks on SPI read/writes.
+>      type: boolean
+>  
+> +  adi,spi-oa-tc6:
+> +    description: |
 
-Thx.
+Do not need '|' unless you need to preserve formatting.
 
---=20
-Regards/Gruss,
-    Boris.
+Best regards,
+Krzysztof
 
-https://people.kernel.org/tglx/notes-about-netiquette
