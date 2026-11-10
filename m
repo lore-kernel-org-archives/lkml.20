@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328194;
-	b=WrtiTJgTsY3alfZG7UWIuShNBh7oV9mNJS6QYeNogaasBxBqtVWXdiqZufzbRWuHlEIt
-	 YBjSI8IXyj6LvpR/5e0ky7i891y89ZIMjJ2MrDPD3d/h6KZdTiBBacxMBxX2GHOPewEaP
-	 b2ISlgCTEZXLCGY/a0aO06BPr0e6vD0uc8PVzL8FiTBGUniLralOqYHdX+OSu6XZdUPsA
-	 236bAW5miJbOGulHF6wJuK+LKj1qjRufc1KKmdMrNsu1vEY0zbJj9+gpH6PeeknWTRfgr
-	 cHWfyWmTny+AzxwJvHqHtWD+z+I5bHdc8CC9GkFW/7s/OHp2AIUFl5ohibwGfdPaVNA==
+	t=1794328188;
+	b=udFwR9+mV0UX2PYcN7ClawB8xzo9A/AWABJ611ficGNm20qc1eefBKCZfh6LpwCWoRa6
+	 U2BBNvx6ca5m0hxdpVYVNvHhz3lgejewZWEFD+Hf4LYsFNOLXqFmFrtAL3OC/ZjH5Q+/S
+	 udogEugJ6xVIQcoVZbGaozEKaP8KP4l5B8rSIypqNR1E9Ip7Qj7ZXieZZcLSKnP/JwWds
+	 9XxqhEgo0C5elmRYk4j/anMbMyJ/oAMy2DLfzeCZJHNWfAZgnWzcmeYjoE96k0wVzeU+Q
+	 +r8ueD5+aApS19U13TWPrWzLs6EhoPVQOz1glrwO+03OgyTPt/umAFqT6CRh0SznzHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328188;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Uky9OKRZ3cg8EtPTD1Qf5ARVil0gW9OP8/50/lTd5fo=;
-	b=4mQ5vEDOSR9r45sloO8vEaXkI8ykHySF2dUoHbHd387RhGkptw5ecEy5Fv1IG+ITephB
-	 iPiByKIiX8IVh/S9GZ1QvPYW4UwTGugjyaY4hwf2EfYv8xLi02bfx9a3pUpC4lJUAwyV7
-	 m93tJSu3BU5AeXXGX9fcyc/5zchzDrOBICkBAXaZQHI75ukaYzu8B5pvWq/JhW4WXKMAn
-	 Ryb5YHZvGK5rVlEmwBVW0vneLyrQrigho5zh3X7vtOJD1RRfaKfGmN7sqfnIpUZ+p9eR6
-	 7rQUVFx29xhmUG+SXf6+vurCz2QUN5fC1JpZ0Oisgbe8f2JvxeLn9KG3sVJatJx0/fA==
+	bh=j9JjRWvF8BH3jJQW5/KIKnuOslLtFUofCJwWYqTJzJ4=;
+	b=CBNxC7U70a4lCj8FVGAPA0KaMbfJQetqJng+cdXZID6rfBQYt+bILC7JtQneD8TettV3
+	 2PK+22j+Nw8PbJ4jadbGZMPd3Ee8/hGJRprJlKLY4uUlljBwbDzqdQoq7YmYXcyUlGXR8
+	 XkpXLqXzfdrU8zze3+S2IbLUKQCvGJ60KQwi1veXsjFERcp4m0qiBTX8m+Dg4Xuj3k+dw
+	 OcBBr638i3NNHQ6HhmECKwxME5Ccg+Dy9DveK2Sx1IVgGqerf2GIdg6neE3Dv3WdUnotJ
+	 k2+qJyR7/pTqMkLUcWhorGS4y7O/ALPHYzk17cklml+C6sAv5395p8SofnuxsoaUogQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nG2i8+Q5;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W57GBREZ;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82EC606E7DC
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82EC606E7DC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F70606C6D5
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:29:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F70606C6D5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nG2i8+Q5
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so23671225e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W57GBREZ
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so18458065e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:29:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794328192; x=1794932992; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794328185; x=1794932985; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uky9OKRZ3cg8EtPTD1Qf5ARVil0gW9OP8/50/lTd5fo=;
-        b=nG2i8+Q5oONvGGBrSxnbZXf3IjyvdSyBvJhsugHU7usWRhbNZPLbj8u+pmcH5sgyW3
-         a9TSneeseSlGFUUv+biJE1z6ijUdFiZAM1p67XEQ1Q/6myRm+D13iXHtK+rCYJwvE+lI
-         EKZxeMKLnkOUoRGbBTdrYg97xYG0LvJKc3LaAHp9721ksv7DOf2sC6azncpOh1eINc1U
-         Z6DzNfMXEwDjQWuuDqe2EzbAzjIQYlgkgtUj48foLqGvfy5b8oQZrtKtEsVm6TwXpxW8
-         3mbtpKsOP/Enj/2txCq2tbeXDzsXjPy62/CbQzHhfbOj1Kq2dD/wB8HRH2VH1T1Xj2jh
-         Z/lQ==
+        bh=j9JjRWvF8BH3jJQW5/KIKnuOslLtFUofCJwWYqTJzJ4=;
+        b=W57GBREZR7/9HBg8WBavQ4zl39JzjACa/igq2xKamu1HbF4lDN2tS5v3CHZfaEuYZC
+         MQzRQJld4/Cg4zEy9XL6N5MISNLQMdvvoWvHtu6xvBn6Vot2aCZmZGqCS4O7aKXzpFCq
+         cvwo/luHWr/2dcuedL1zj7RthAzYCtyzrm3ynIwB288Uw5hEWusKXv7Qaz2g70gH5Wu3
+         5VLFwSM6eU5vOVA0wDQaq7qIHv+UAlObx8uVBs2DOUng2oJRG7ZYPj/TculXYxngD/2B
+         uzhybU+IXgAHh+IMqyOs8R6dvZ5s/93UnN9rFjeu/t6FSyvynAHBaMxDFAW37eHiHjTg
+         RzYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794328192; x=1794932992;
+        d=1e100.net; s=20260707; t=1794328185; x=1794932985;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uky9OKRZ3cg8EtPTD1Qf5ARVil0gW9OP8/50/lTd5fo=;
-        b=02xKeZ5oGWvtG8U3mdPQuQpLKxSWWGmFNX45C2kyh+UgAUv8ZC/Su8Qu+AFeB3Dza4
-         QY9IAWQ5dyHcpg8/i6e638gjyHo8z/RHiJqcHv1Nx4HNrt5CgJu6Tgz1zCsz1qOiiUT+
-         znp8icSiwNVki7zLcnCfVtytdSU1Fa2+xkUehwR0lsWhttmesx0YC1NW/tlGVWEhMvda
-         fOLphpwQPEVxjbbFANV2BAIvxmiXeXNPPQenLxUu7wssRdenUnxLEOCGCtQDhkTzr7/K
-         wyQl1ved2uF0DF1cFLoTSPu3shL7gAe3jBVgur966dADbiZk9CjY99kxwgwQjkGWP1kw
-         vAAg==
-X-Forwarded-Encrypted: i=1; AL+hErFluSrLXDjWUs3F8CyzNAYiVi6PEHAMl3u77r+MdJ69FRS8MOdAZIdYrwUnATpSxaZJOagNzIhYlQ5SF+M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f+kpXdO2vjvmwFeBjJ25O7Go3x+Up+uNBr2I0v9uPzcBB6PZK
-	vPk5+OqQvJBKi8QC2Nkw6d8oY1fcOaxLvcxYRKBoH0XLImf2gqTwWWLj
-X-Gm-Gg: AYBFou2yCYPXtxk2Ae8jhe/Xh0Xmy4c9/7h1QSw6rxl6uBcThx8Hu4EKWtAQ/gmHX3s
-	mOEJ7bRAreslRcX2By+qjRZ8EmkWvTImgYl2KG82oia+PiJ3VQ6x0OlUDJ/rZJx00qMQWTTEzM0
-	hAFn+aomJYawTM7irVxlFZf96ziHGtX6vEckCTeLAR0/lNI5K+OqvmJjMC5vydUzJLNSJJJnZFe
-	sdDN0G5YoZA4pxwyQlQIOqp7JkeJptAdbCSeu5Fp6+xu+s35J6HS29ruZpZqSvFU3FmGQS+BKXu
-	wCmASHu0MaPmThdZeQhKhXr+35nFYurQ7PRct9uIkgtmDKc0dVeZgmdSPo0s6VQ6KKz8VXoKy+G
-	q90YHf1EUQcOXnVokYqUqPsCNyGhsH2pFl16mAMEdbHlNvShLNCQ35/Q2M5LgpsNSg3ybFbj9Xr
-	tlAcBhKDQcGgmF4oG8inlpGN6dP339C7wgJ0HXp4TSWf7xkbu9u1zEnezwnbz+p9gj6BnipXdd2
-	NtpX25jbzXsvEq9JXie9mAcP+HbJRaf80YRkmvt78ioOefZjrXSM7RTShoTLws7DInVt3g59ek+
-	KUtPxBTVdYq6pmmXihXy9yg6kaZ55oJuY1RGbjcxa7jiLd+U93k0qUfCzN0XeTlUbMvP
-X-Received: by 2002:a05:600c:4752:b0:4a5:87a:50ba with SMTP id 5b1f17b1804b1-4ba0235ba4amr53328715e9.33.1794328191890;
-        Tue, 10 Nov 2026 08:29:51 -0800 (PST)
+        bh=j9JjRWvF8BH3jJQW5/KIKnuOslLtFUofCJwWYqTJzJ4=;
+        b=Alr8URlCX4IDDLScU9Xni72EcQpqCSfatEyQ8h0AVrkKMDymgA1NK4OJERCUGHJjxH
+         gTKdRSC8Tqk8Mcr/Yu8nYStCmxdgFwstytjilf0i/zhG0GFzZmcGPTEamEocJQZ67Rb/
+         uuQ2OPr2lBFZD583fiIlXMDN/GzWxXd9OvWDLudPTrymnmM/oDFAtgnuMrqqaEny6N4n
+         fMMURgrP7NLfbkEBKzh5ya2D0CxLZdVvWm5WzjJ+qNI6yE4fOB1JPimH5JU6lHtJ6S6A
+         P9rUJlzoIZTn71/c13X/5a26WQHWbOn4wM4PgLkXtKORNKTLNcmzp+QfjoMb7wsZN6xm
+         3J6A==
+X-Forwarded-Encrypted: i=1; AL+hErEb1hoV4l8lBTmPFPV666h75pGnW49OyZSidmMXFlqxwSj73Pou/9g7a/HLQ4Em7q2f6wJLkp6g4UPsgFI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1o3/lRNJ+rm8cTNGuJ3U4c2EK3IrRmaVrScgIrfP8AiETqh9l
+	2yfuLYiUop5GAZsJo3XrWjbgwlcaOMu/PkpO3ZeyZ9yxXCJSEKlpCeRq
+X-Gm-Gg: AYBFou0qPdBRkWeWVy/NXhQQ3Pa75f9P8pij477FlpVydzrS53QnxEVXvqezso+AIog
+	bu/8vQwImYDYMWjhJPin16PCn1eLyHgUGOWS6mGaxnePFR2gB40ne0wW28qVJLA0ctZWxl1xC3m
+	8VdvSMfq+1ZQZqp++whja9SxlAppJAv+BznRtqQ/xZCb+K5xiob5qGELCTDCDVQUzvm/5a0+L41
+	jS0Dls0xhuAGBy38sW4g8vdPI3r4Mo60FlUuHt/0Dwx6J/Y9fCygewMfsvNym23kIyUfiDjJgtj
+	4ja0IczK46XxbpF9v940M8MQONvRVn6+h4dmT46y9DDjrgB11e8eAgNl4mw5ONAwzBWU9AGqw+C
+	1Z2jNJH30HgAC6HA48J7xweLrsjZ3W9eMZLIWvidvpmySpGWSY2ttg+Q380oZrbHfaVZPSU7B/C
+	rnCooYtzoxRu2xyzsltLpmaRnKamqk1b0eRoPbaWX/sIstgwKHlqJVGVsFbSY5+u+pYSCJa+iP8
+	hdMD3fLy6V7cVy6gt7skhQy5M7dCm7yOz7hskJeqeWpIKSBdP7NnJ7EdMuOA/jgiwEUO51Ba/8T
+	nNg0MjcrGLje3xOlvYsUEKuNYp7GMKheGEhPgr40rLLTFEE=
+X-Received: by 2002:a05:600c:3e07:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4ba0234a8f3mr61374935e9.22.1794328184819;
+        Tue, 10 Nov 2026 08:29:44 -0800 (PST)
 Received: from localhost.localdomain ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm71287485e9.10.2026.11.10.08.29.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fea745sm71287485e9.10.2026.11.10.08.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:29:51 -0800 (PST)
+        Tue, 10 Nov 2026 08:29:44 -0800 (PST)
 From: Anton Protopopov <a.s.protopopov@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>,
 	Daniel Borkmann <daniel@iogearbox.net>,
@@ -97,9 +97,9 @@ To: Alexei Starovoitov <ast@kernel.org>,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Anton Protopopov <a.s.protopopov@gmail.com>
-Subject: [PATCH v3 bpf-next 18/18] bpftool: List and show fmod_ret targets
-Date: Tue, 10 Nov 2026 16:40:38 +0000
-Message-ID: <20261110164046.454431-19-a.s.protopopov@gmail.com>
+Subject: [PATCH v3 bpf-next 15/18] resolve_btfids: Tag fmod_ret candidates as targets
+Date: Tue, 10 Nov 2026 16:40:35 +0000
+Message-ID: <20261110164046.454431-16-a.s.protopopov@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110164046.454431-1-a.s.protopopov@gmail.com>
 References: <20261110164046.454431-1-a.s.protopopov@gmail.com>
@@ -114,1155 +114,1476 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Most fmod_ret targets are now found by the kernel build and only exist
-as BTF decl tags. Add a bpftool fmodret command to see them.
+Read the records which bpf_scan_ir writes to .BTF_fmodret_candidates and
+choose the functions which can become fmod_ret targets. Map each record
+to its function through its relocation in a module or through its
+address in vmlinux. A record of a strong definition wins over the
+records of the weak definitions it overrides. A strong definition
+without values has no record, so use the record of a weak definition
+only if the symbol of the function is still weak after the link. Every
+weak definition has a record, so a function with two weak definitions is
+ambiguous.
 
-The `bpftool fmodret list` command prints the functions tagged with
-"bpf_fmodret" in vmlinux and in the loaded modules, and marks the ones
-which sleepable programs may attach to.
+Choose a function if the record lists at least one error, the function
+has an ftrace call site, is not init, exit or noinstr code, its name
+belongs to exactly one ELF function and one BTF FUNC and it returns an
+integer of the size the record describes.
 
-The `bpftool fmodret show` command prints a function in detail: its
-prototype, if it was declared as a target or found by the build, and the
-values which fmod_ret programs may return. A function is given by name
-or BTF ID.
+Tag each chosen function with "bpf_fmodret" and with
+"bpf_fmodret_retval:" followed by the errors it returns on paths without
+side effects, for example "bpf_fmodret_retval:-22,-12". The values are
+signed decimal numbers, sorted and separated by commas. The verifier
+lets programs attached to such a function return only these values or 0.
 
-Both commands read BTF from /sys/kernel/btf or from a file and support
-JSON output.
+A function in a BTF_FMODRET set keeps only its own tags.
 
-Functions which the verifier allows by its static rules, such as the
-security hooks, may also have the tags and be listed. Even if they are
-listed, the restrictions of the tags do not apply to them. This may
-change in the future by either not listing them, or listing them without
-restrictions.
+Mark the range of patchable function entries in the linker script so the
+ftrace call sites in vmlinux can be told from the mcount ones.
+Take the ftrace call sites of a module from the section the kernel uses:
+x86 also has call padding entries in __patchable_function_entries.
+
+With -v, report what was found.
+
+Add the new files to the BPF [COMPILER PLUGINS] entry in MAINTAINERS.
 
 Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
 ---
- .../bpftool/Documentation/bpftool-fmodret.rst | 111 +++
- tools/bpf/bpftool/Documentation/bpftool.rst   |   4 +-
- tools/bpf/bpftool/bash-completion/bpftool     |  31 +
- tools/bpf/bpftool/fmodret.c                   | 896 ++++++++++++++++++
- tools/bpf/bpftool/main.c                      |   3 +-
- tools/bpf/bpftool/main.h                      |   1 +
- 6 files changed, 1044 insertions(+), 2 deletions(-)
- create mode 100644 tools/bpf/bpftool/Documentation/bpftool-fmodret.rst
- create mode 100644 tools/bpf/bpftool/fmodret.c
+ MAINTAINERS                        |    1 +
+ include/asm-generic/vmlinux.lds.h  |    2 +
+ scripts/Makefile.btf               |    1 +
+ tools/bpf/resolve_btfids/Build     |    1 +
+ tools/bpf/resolve_btfids/fmodret.c | 1203 ++++++++++++++++++++++++++++
+ tools/bpf/resolve_btfids/fmodret.h |   28 +
+ tools/bpf/resolve_btfids/main.c    |   66 ++
+ 7 files changed, 1302 insertions(+)
+ create mode 100644 tools/bpf/resolve_btfids/fmodret.c
+ create mode 100644 tools/bpf/resolve_btfids/fmodret.h
 
-diff --git a/tools/bpf/bpftool/Documentation/bpftool-fmodret.rst b/tools/bpf/bpftool/Documentation/bpftool-fmodret.rst
+diff --git a/MAINTAINERS b/MAINTAINERS
+index dfbb45ecc716..29940e8d7205 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5070,6 +5070,7 @@ L:	bpf@vger.kernel.org
+ S:	Maintained
+ F:	scripts/bpf/
+ F:	scripts/llvm-plugins/bpf_*
++F:	tools/bpf/resolve_btfids/fmodret.*
+ 
+ BPF [CORE]
+ M:	Alexei Starovoitov <ast@kernel.org>
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index 4e18758b5ffc..77e86ff2f9a4 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -198,7 +198,9 @@
+ #define MCOUNT_REC()	. = ALIGN(8);				\
+ 			__start_mcount_loc = .;			\
+ 			KEEP(*(__mcount_loc))			\
++			__start_patchable_function_entries = .;	\
+ 			KEEP_PATCHABLE				\
++			__stop_patchable_function_entries = .;	\
+ 			__stop_mcount_loc = .;			\
+ 			FTRACE_STUB_HACK			\
+ 			ftrace_ops_list_func = arch_ftrace_ops_list_func;
+diff --git a/scripts/Makefile.btf b/scripts/Makefile.btf
+index 98012344a81e..3aa3d084cc6c 100644
+--- a/scripts/Makefile.btf
++++ b/scripts/Makefile.btf
+@@ -35,5 +35,6 @@ resolve-btfids-flags-y :=
+ resolve-btfids-flags-$(CONFIG_WERROR) += --fatal_warnings
+ resolve-btfids-flags-$(if $(KBUILD_EXTMOD),y) += --distill_base
+ resolve-btfids-flags-$(if $(KBUILD_VERBOSE),y) += --verbose
++resolve-btfids-flags-$(CONFIG_FTRACE_MCOUNT_USE_PATCHABLE_FUNCTION_ENTRY) += --patchable_ftrace
+ 
+ export RESOLVE_BTFIDS_FLAGS := $(resolve-btfids-flags-y)
+diff --git a/tools/bpf/resolve_btfids/Build b/tools/bpf/resolve_btfids/Build
+index 602e1508bf09..af777afa451b 100644
+--- a/tools/bpf/resolve_btfids/Build
++++ b/tools/bpf/resolve_btfids/Build
+@@ -1,6 +1,7 @@
+ hostprogs := resolve_btfids
+ 
+ resolve_btfids-y += main.o
++resolve_btfids-y += fmodret.o
+ resolve_btfids-y += btf_colors.o
+ resolve_btfids-y += rbtree.o
+ resolve_btfids-y += zalloc.o
+diff --git a/tools/bpf/resolve_btfids/fmodret.c b/tools/bpf/resolve_btfids/fmodret.c
 new file mode 100644
-index 000000000000..1580fd614010
+index 000000000000..9331305032f4
 --- /dev/null
-+++ b/tools/bpf/bpftool/Documentation/bpftool-fmodret.rst
-@@ -0,0 +1,111 @@
-+.. SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++++ b/tools/bpf/resolve_btfids/fmodret.c
+@@ -0,0 +1,1203 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Read the records which the bpf_scan_ir compiler plugin writes to
++ * .BTF_fmodret_candidates, see scripts/llvm-plugins/bpf_scan_ir.cpp, and find
++ * the functions which can become fmod_ret targets. A record lists the errors
++ * which clean paths of a function return, that is paths without side effects.
++ *
++ * A function is chosen if
++ *  - exactly one record describes its body, or one record of a strong
++ *    definition next to records of the weak ones it overrides,
++ *  - the record is of a strong definition or the symbol is still weak,
++ *  - the record lists at least one error,
++ *  - it has an ftrace call site and is not init, exit or noinstr code,
++ *  - its name belongs to exactly one ELF function and one BTF FUNC,
++ *  - it returns an integer of the size the record describes.
++ *
++ * The plugin records no errors for functions which return pointers yet.
++ */
 +
-+===============
-+bpftool-fmodret
-+===============
-+-------------------------------------------------------------------------------
-+tool to inspect BPF fmod_ret targets
-+-------------------------------------------------------------------------------
-+
-+:Manual section: 8
-+
-+.. include:: substitutions.rst
-+
-+SYNOPSIS
-+========
-+
-+**bpftool** [*OPTIONS*] **fmodret** *COMMAND*
-+
-+*OPTIONS* := { |COMMON_OPTIONS| | { **-B** | **--base-btf** } *FILE* }
-+
-+*COMMANDS* := { **list** | **show** | **help** }
-+
-+FMODRET COMMANDS
-+================
-+
-+| **bpftool** **fmodret list** [*OBJECT*]
-+| **bpftool** **fmodret show** *FUNC* [*OBJECT*]
-+| **bpftool** **fmodret help**
-+|
-+| *FUNC* := { **name** *NAME* | **id** *BTF_ID* }
-+| *OBJECT* := { **file** *FILE* | **vmlinux** | **module** *NAME* }
-+
-+DESCRIPTION
-+===========
-+
-+bpftool fmodret list [*OBJECT*]
-+    List the fmod_ret targets, the functions which the kernel build tags with
-+    the **bpf_fmodret** BTF decl tag, in vmlinux and in loaded modules. Each
-+    entry contains the BTF ID of the function, its name and the name of the
-+    object it belongs to. Targets which sleepable programs may attach to are
-+    marked **sleepable**.
-+
-+    With **file**, read the BTF from *FILE* (for example a vmlinux image or a
-+    **BTF** file) instead of the running kernel. With **vmlinux** or
-+    **module**, list only the targets of vmlinux or of the module *NAME*.
-+
-+    With **--json**, each entry contains **btf_id**, **name**, **owner** and
-+    **sleepable** fields.
-+
-+    The verifier also accepts functions by its static rules, such as the error
-+    injection list or **security_** hooks. Such functions are listed only if
-+    the kernel build tagged them. Even if they are listed, the restrictions of
-+    their **bpf_fmodret_retval:** tags do not apply to them: programs may
-+    return any value, and sleepable programs may attach to some of them without
-+    the **sleepable** mark. This may change in the future by either not listing
-+    them, or listing them without restrictions. Normal verifier and tracing
-+    checks apply to all of them.
-+
-+bpftool fmodret show *FUNC* [*OBJECT*]
-+    Show the function named *NAME* or with BTF ID *BTF_ID* in detail. It does
-+    not have to be a target. A name may belong to several functions, for
-+    example to functions of different modules. A BTF ID is looked up in
-+    vmlinux, unless **module** or **file** is given. *OBJECT* is as for
-+    **list**.
-+
-+    Besides the BTF ID, the name and the object, show the prototype of the
-+    function and if it is a target: **found by the kernel build**, **declared**
-+    or **not tagged**. For a target show if sleepable programs may attach to it
-+    and the values which programs may return: 0 and the values of its
-+    **bpf_fmodret_retval:** tag with the names of the errors on the host, or
-+    **any** for a declared target. A tag which the verifier would reject,
-+    malformed, not the only one or with values which the return type cannot
-+    hold, is shown as invalid. The values do not apply to a function which the
-+    static rules allow, see **list**. For the running kernel, also show the
-+    type of the entry of the function in the error injection list, if the list
-+    is available in debugfs.
-+
-+    With **--json**, each function contains **btf_id**, **name**, **owner**,
-+    **prototype**, **target** (**found**, **declared** or **none**) and
-+    **sleepable** fields, a **retval** array for a target found by the build
-+    with the values programs may return, 0 included, or a **retval_error**
-+    string if its tag is invalid, and an **error_injection** field if the
-+    function is in the error injection list. A BTF ID gives one function, a
-+    name an array of them.
-+
-+bpftool fmodret help
-+    Print short help message.
-+
-+OPTIONS
-+========
-+
-+.. include:: common_options.rst
-+
-+-B, --base-btf *FILE*
-+    Pass the base BTF of a split BTF *FILE*, usually the BTF of vmlinux. Raw
-+    BTF of a module needs it. A module image may carry the base it was built
-+    against in its **.BTF.base** section instead, but its BTF IDs then differ
-+    from those of the running kernel.
-+
-+EXAMPLES
-+========
-+
-+**# bpftool fmodret show name bpf_testmod_retval_join module bpf_test_retval**
-+
-+::
-+
-+  123456  bpf_testmod_retval_join (bpf_test_retval)
-+          int bpf_testmod_retval_join(int *result, int value)
-+          target: found by the kernel build
-+          sleepable: no
-+          retval: 0, -34 (ERANGE), -22 (EINVAL)
-diff --git a/tools/bpf/bpftool/Documentation/bpftool.rst b/tools/bpf/bpftool/Documentation/bpftool.rst
-index f38ae5c40439..918acc66c06c 100644
---- a/tools/bpf/bpftool/Documentation/bpftool.rst
-+++ b/tools/bpf/bpftool/Documentation/bpftool.rst
-@@ -21,7 +21,7 @@ SYNOPSIS
- **bpftool** **version**
- 
- *OBJECT* := { **map** | **prog** | **link** | **cgroup** | **perf** | **net** | **feature** |
--**btf** | **gen** | **struct_ops** | **iter** }
-+**btf** | **gen** | **struct_ops** | **iter** | **fmodret** }
- 
- *OPTIONS* := { { **-V** | **--version** } | |COMMON_OPTIONS| }
- 
-@@ -50,6 +50,8 @@ SYNOPSIS
- 
- *ITER-COMMANDS* := { **pin** | **help** }
- 
-+*FMODRET-COMMANDS* := { **list** | **show** | **help** }
-+
- DESCRIPTION
- ===========
- *bpftool* allows for inspection and simple modification of BPF objects on the
-diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
-index a28af31937ad..83288c22b3d3 100644
---- a/tools/bpf/bpftool/bash-completion/bpftool
-+++ b/tools/bpf/bpftool/bash-completion/bpftool
-@@ -675,6 +675,37 @@ _bpftool()
-                     ;;
-             esac
-             ;;
-+        fmodret)
-+            case $command in
-+                list|show)
-+                    case $prev in
-+                        file)
-+                            _filedir
-+                            ;;
-+                        module)
-+                            COMPREPLY=( $( compgen -W "$( command ls \
-+                                /sys/kernel/btf 2>/dev/null | \
-+                                command grep -vx -e vmlinux -e '.*\.inline' )" \
-+                                -- "$cur" ) )
-+                            ;;
-+                        name|id)
-+                            ;;
-+                        *)
-+                            if [[ $prev == show ]]; then
-+                                COMPREPLY=( $( compgen -W 'name id' -- "$cur" ) )
-+                            else
-+                                _bpftool_one_of_list 'file vmlinux module'
-+                            fi
-+                            ;;
-+                    esac
-+                    return 0
-+                    ;;
-+                *)
-+                    [[ $prev == $object ]] && \
-+                        COMPREPLY=( $( compgen -W 'help list show' -- "$cur" ) )
-+                    ;;
-+            esac
-+            ;;
-         map)
-             case $command in
-                 show|list|dump|peek|pop|dequeue|freeze)
-diff --git a/tools/bpf/bpftool/fmodret.c b/tools/bpf/bpftool/fmodret.c
-new file mode 100644
-index 000000000000..941166da53cc
---- /dev/null
-+++ b/tools/bpf/bpftool/fmodret.c
-@@ -0,0 +1,896 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+
-+#ifndef _GNU_SOURCE
-+#define _GNU_SOURCE
-+#endif
-+#include <dirent.h>
 +#include <errno.h>
-+#include <limits.h>
-+#include <stdarg.h>
++#include <gelf.h>
++#include <libelf.h>
 +#include <stdbool.h>
++#include <stdint.h>
 +#include <stdio.h>
 +#include <stdlib.h>
 +#include <string.h>
 +
 +#include <bpf/btf.h>
-+#include <bpf/libbpf.h>
++#include <linux/kernel.h>
 +
-+#include "main.h"
++#include "fmodret.h"
++#include "../../../scripts/bpf/fmodret_metadata.h"
 +
-+/*
-+ * Decl tags added by resolve_btfids to functions in BTF_FMODRET sets. A target
-+ * which sleepable programs may attach to has both tags. A target which the
-+ * build found by analysing its code has a "bpf_fmodret_retval:" tag with the
-+ * values programs may return, such as "bpf_fmodret_retval:-22,-12".
-+ */
-+#define TAG_FMODRET		"bpf_fmodret"
-+#define TAG_FMODRET_SLEEPABLE	"bpf_fmodret_sleepable"
-+#define TAG_FMODRET_RETVAL	"bpf_fmodret_retval:"
++#define FMODRET_CANDIDATES_SECTION ".BTF_fmodret_candidates"
++#define NO_FUNCTION SIZE_MAX
 +
-+#define SYS_BTF_DIR		"/sys/kernel/btf"
-+#define ERROR_INJECTION_LIST	"/sys/kernel/debug/error_injection/list"
-+
-+struct fmodret_entry {
-+	__u32 btf_id;
-+	bool target;
-+	bool sleepable;
-+	const char *retval;
-+	/* More than one "bpf_fmodret_retval:" tag, which the verifier rejects */
-+	bool retval_dup;
-+};
-+
-+struct fmodret_filter {
-+	/* Only vmlinux, or only the module with this name */
-+	bool vmlinux;
-+	const char *module;
-+	/* The function to show, by name or by BTF ID */
++struct elf_function {
 +	const char *name;
-+	__u32 btf_id;
-+	unsigned int found;
-+	/* The BTF is the one of the running kernel */
-+	bool live;
++	GElf_Addr value;
++	GElf_Xword size;
++	Elf64_Section shndx;
++	bool traceable;
++	/* The symbol is weak: no strong definition replaced it at the link */
++	bool weak_symbol;
++	/* The records which describe the body at this address */
++	unsigned int nr_strong, nr_weak;
++	size_t strong, weak;
 +};
 +
-+typedef int (*btf_cb)(const char *owner, const struct btf *btf,
-+		      struct fmodret_filter *filter);
-+
-+#define ERRNO_NAME(e) { e, #e }
-+
-+/* The errors of the uapi and the kernel internal ones, which libc lacks */
-+static const struct {
-+	int value;
-+	const char *name;
-+} errno_names[] = {
-+	ERRNO_NAME(EPERM),
-+	ERRNO_NAME(ENOENT),
-+	ERRNO_NAME(ESRCH),
-+	ERRNO_NAME(EINTR),
-+	ERRNO_NAME(EIO),
-+	ERRNO_NAME(ENXIO),
-+	ERRNO_NAME(E2BIG),
-+	ERRNO_NAME(ENOEXEC),
-+	ERRNO_NAME(EBADF),
-+	ERRNO_NAME(ECHILD),
-+	ERRNO_NAME(EAGAIN),
-+	ERRNO_NAME(ENOMEM),
-+	ERRNO_NAME(EACCES),
-+	ERRNO_NAME(EFAULT),
-+	ERRNO_NAME(ENOTBLK),
-+	ERRNO_NAME(EBUSY),
-+	ERRNO_NAME(EEXIST),
-+	ERRNO_NAME(EXDEV),
-+	ERRNO_NAME(ENODEV),
-+	ERRNO_NAME(ENOTDIR),
-+	ERRNO_NAME(EISDIR),
-+	ERRNO_NAME(EINVAL),
-+	ERRNO_NAME(ENFILE),
-+	ERRNO_NAME(EMFILE),
-+	ERRNO_NAME(ENOTTY),
-+	ERRNO_NAME(ETXTBSY),
-+	ERRNO_NAME(EFBIG),
-+	ERRNO_NAME(ENOSPC),
-+	ERRNO_NAME(ESPIPE),
-+	ERRNO_NAME(EROFS),
-+	ERRNO_NAME(EMLINK),
-+	ERRNO_NAME(EPIPE),
-+	ERRNO_NAME(EDOM),
-+	ERRNO_NAME(ERANGE),
-+	ERRNO_NAME(EDEADLK),
-+#if defined(EDEADLOCK) && EDEADLOCK != EDEADLK
-+	ERRNO_NAME(EDEADLOCK),
-+#endif
-+	ERRNO_NAME(ENAMETOOLONG),
-+	ERRNO_NAME(ENOLCK),
-+	ERRNO_NAME(ENOSYS),
-+	ERRNO_NAME(ENOTEMPTY),
-+	ERRNO_NAME(ELOOP),
-+	ERRNO_NAME(ENOMSG),
-+	ERRNO_NAME(EIDRM),
-+	ERRNO_NAME(ECHRNG),
-+	ERRNO_NAME(EL2NSYNC),
-+	ERRNO_NAME(EL3HLT),
-+	ERRNO_NAME(EL3RST),
-+	ERRNO_NAME(ELNRNG),
-+	ERRNO_NAME(EUNATCH),
-+	ERRNO_NAME(ENOCSI),
-+	ERRNO_NAME(EL2HLT),
-+	ERRNO_NAME(EBADE),
-+	ERRNO_NAME(EBADR),
-+	ERRNO_NAME(EXFULL),
-+	ERRNO_NAME(ENOANO),
-+	ERRNO_NAME(EBADRQC),
-+	ERRNO_NAME(EBADSLT),
-+	ERRNO_NAME(EBFONT),
-+	ERRNO_NAME(ENOSTR),
-+	ERRNO_NAME(ENODATA),
-+	ERRNO_NAME(ETIME),
-+	ERRNO_NAME(ENOSR),
-+	ERRNO_NAME(ENONET),
-+	ERRNO_NAME(ENOPKG),
-+	ERRNO_NAME(EREMOTE),
-+	ERRNO_NAME(ENOLINK),
-+	ERRNO_NAME(EADV),
-+	ERRNO_NAME(ESRMNT),
-+	ERRNO_NAME(ECOMM),
-+	ERRNO_NAME(EPROTO),
-+	ERRNO_NAME(EMULTIHOP),
-+	ERRNO_NAME(EDOTDOT),
-+	ERRNO_NAME(EBADMSG),
-+	ERRNO_NAME(EOVERFLOW),
-+	ERRNO_NAME(ENOTUNIQ),
-+	ERRNO_NAME(EBADFD),
-+	ERRNO_NAME(EREMCHG),
-+	ERRNO_NAME(ELIBACC),
-+	ERRNO_NAME(ELIBBAD),
-+	ERRNO_NAME(ELIBSCN),
-+	ERRNO_NAME(ELIBMAX),
-+	ERRNO_NAME(ELIBEXEC),
-+	ERRNO_NAME(EILSEQ),
-+	ERRNO_NAME(ERESTART),
-+	ERRNO_NAME(ESTRPIPE),
-+	ERRNO_NAME(EUSERS),
-+	ERRNO_NAME(ENOTSOCK),
-+	ERRNO_NAME(EDESTADDRREQ),
-+	ERRNO_NAME(EMSGSIZE),
-+	ERRNO_NAME(EPROTOTYPE),
-+	ERRNO_NAME(ENOPROTOOPT),
-+	ERRNO_NAME(EPROTONOSUPPORT),
-+	ERRNO_NAME(ESOCKTNOSUPPORT),
-+	ERRNO_NAME(EOPNOTSUPP),
-+	ERRNO_NAME(EPFNOSUPPORT),
-+	ERRNO_NAME(EAFNOSUPPORT),
-+	ERRNO_NAME(EADDRINUSE),
-+	ERRNO_NAME(EADDRNOTAVAIL),
-+	ERRNO_NAME(ENETDOWN),
-+	ERRNO_NAME(ENETUNREACH),
-+	ERRNO_NAME(ENETRESET),
-+	ERRNO_NAME(ECONNABORTED),
-+	ERRNO_NAME(ECONNRESET),
-+	ERRNO_NAME(ENOBUFS),
-+	ERRNO_NAME(EISCONN),
-+	ERRNO_NAME(ENOTCONN),
-+	ERRNO_NAME(ESHUTDOWN),
-+	ERRNO_NAME(ETOOMANYREFS),
-+	ERRNO_NAME(ETIMEDOUT),
-+	ERRNO_NAME(ECONNREFUSED),
-+	ERRNO_NAME(EHOSTDOWN),
-+	ERRNO_NAME(EHOSTUNREACH),
-+	ERRNO_NAME(EALREADY),
-+	ERRNO_NAME(EINPROGRESS),
-+	ERRNO_NAME(ESTALE),
-+	ERRNO_NAME(EUCLEAN),
-+	ERRNO_NAME(ENOTNAM),
-+	ERRNO_NAME(ENAVAIL),
-+	ERRNO_NAME(EISNAM),
-+	ERRNO_NAME(EREMOTEIO),
-+	ERRNO_NAME(EDQUOT),
-+	ERRNO_NAME(ENOMEDIUM),
-+	ERRNO_NAME(EMEDIUMTYPE),
-+	ERRNO_NAME(ECANCELED),
-+	ERRNO_NAME(ENOKEY),
-+	ERRNO_NAME(EKEYEXPIRED),
-+	ERRNO_NAME(EKEYREVOKED),
-+	ERRNO_NAME(EKEYREJECTED),
-+	ERRNO_NAME(EOWNERDEAD),
-+	ERRNO_NAME(ENOTRECOVERABLE),
-+	ERRNO_NAME(ERFKILL),
-+	ERRNO_NAME(EHWPOISON),
-+#ifdef EFTYPE
-+	ERRNO_NAME(EFTYPE),
-+#endif
-+	{ 512, "ERESTARTSYS" },
-+	{ 513, "ERESTARTNOINTR" },
-+	{ 514, "ERESTARTNOHAND" },
-+	{ 515, "ENOIOCTLCMD" },
-+	{ 516, "ERESTART_RESTARTBLOCK" },
-+	{ 517, "EPROBE_DEFER" },
-+	{ 518, "EOPENSTALE" },
-+	{ 519, "ENOPARAM" },
-+	{ 521, "EBADHANDLE" },
-+	{ 522, "ENOTSYNC" },
-+	{ 523, "EBADCOOKIE" },
-+	{ 524, "ENOTSUPP" },
-+	{ 525, "ETOOSMALL" },
-+	{ 526, "ESERVERFAULT" },
-+	{ 527, "EBADTYPE" },
-+	{ 528, "EJUKEBOX" },
-+	{ 529, "EIOCBQUEUED" },
-+	{ 530, "ERECALLCONFLICT" },
-+	{ 531, "ENOGRACE" },
++struct elf_function_list {
++	struct elf_function *functions;
++	size_t nr;
++	size_t capacity;
 +};
 +
-+static const char *errno_name(long long value)
++struct fmodret_stats {
++	size_t records, unmapped, with_values;
++	size_t ambiguous_body, not_traceable, ambiguous_name;
++	size_t overridden, no_btf, return_mismatch, added;
++};
++
++static int find_section(Elf *elf, size_t shstrndx, const char *wanted,
++			Elf_Scn **result)
 +{
++	Elf_Scn *scn = NULL;
++
++	while ((scn = elf_nextscn(elf, scn))) {
++		GElf_Shdr shdr;
++		const char *name;
++
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		name = elf_strptr(elf, shstrndx, shdr.sh_name);
++		if (!name)
++			return -1;
++		if (!strcmp(name, wanted)) {
++			*result = scn;
++			return 0;
++		}
++	}
++
++	*result = NULL;
++	return 0;
++}
++
++static int find_symbol(Elf *elf, const char *wanted, GElf_Sym *result,
++		       bool *found)
++{
++	Elf_Scn *scn = NULL;
++
++	*found = false;
++	while ((scn = elf_nextscn(elf, scn))) {
++		GElf_Shdr shdr;
++		Elf_Data *data;
++		size_t nr_symbols;
++		size_t i;
++
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		if (shdr.sh_type != SHT_SYMTAB)
++			continue;
++		if (!shdr.sh_entsize || shdr.sh_size % shdr.sh_entsize)
++			return -EINVAL;
++		data = elf_getdata(scn, NULL);
++		if (!data || elf_getdata(scn, data))
++			return -1;
++		nr_symbols = shdr.sh_size / shdr.sh_entsize;
++		for (i = 0; i < nr_symbols; i++) {
++			const char *name;
++			GElf_Sym sym;
++
++			if (!gelf_getsym(data, i, &sym))
++				return -1;
++			if (sym.st_shndx == SHN_UNDEF || !sym.st_name)
++				continue;
++			name = elf_strptr(elf, shdr.sh_link, sym.st_name);
++			if (!name)
++				return -1;
++			if (strcmp(name, wanted))
++				continue;
++			*result = sym;
++			*found = true;
++			return 0;
++		}
++	}
++	return 0;
++}
++
++static int section_for_address(Elf *elf, GElf_Addr address,
++			       Elf64_Section *result)
++{
++	Elf_Scn *scn = NULL;
++
++	while ((scn = elf_nextscn(elf, scn))) {
++		GElf_Shdr shdr;
++
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		if (!(shdr.sh_flags & SHF_EXECINSTR) || address < shdr.sh_addr ||
++		    address - shdr.sh_addr >= shdr.sh_size)
++			continue;
++		*result = elf_ndxscn(scn);
++		return 0;
++	}
++	*result = SHN_UNDEF;
++	return 0;
++}
++
++static bool relocation_offset(const GElf_Shdr *target, GElf_Addr offset,
++			      size_t width, size_t *result)
++{
++	if (target->sh_size < width)
++		return false;
++	if (offset >= target->sh_addr &&
++	    offset - target->sh_addr <= target->sh_size - width) {
++		*result = offset - target->sh_addr;
++		return true;
++	}
++	/* ET_REL relocation offsets are relative to their target section. */
++	if (offset <= target->sh_size - width) {
++		*result = offset;
++		return true;
++	}
++	return false;
++}
++
++static uint64_t read_elf_value(const unsigned char *p, size_t size,
++			       unsigned int encoding)
++{
++	uint64_t value = 0;
 +	size_t i;
 +
-+	for (i = 0; i < ARRAY_SIZE(errno_names); i++)
-+		if (-(long long)errno_names[i].value == value)
-+			return errno_names[i].name;
-+	return NULL;
++	if (encoding == ELFDATA2LSB) {
++		for (i = 0; i < size; i++)
++			value |= (uint64_t)p[i] << (8 * i);
++	} else {
++		for (i = 0; i < size; i++)
++			value = (value << 8) | p[i];
++	}
++	return value;
 +}
 +
-+static int cmp_entry(const void *a, const void *b)
++static int copy_section_data(Elf_Scn *scn, const GElf_Shdr *shdr,
++			     unsigned char **result)
 +{
-+	const struct fmodret_entry *x = a, *y = b;
++	Elf_Data *data = NULL;
++	unsigned char *buf;
 +
-+	return (x->btf_id > y->btf_id) - (x->btf_id < y->btf_id);
++	buf = calloc(1, shdr->sh_size ?: 1);
++	if (!buf)
++		return -ENOMEM;
++	while ((data = elf_getdata(scn, data))) {
++		if (data->d_off > shdr->sh_size ||
++		    data->d_size > shdr->sh_size - data->d_off) {
++			free(buf);
++			return -EINVAL;
++		}
++		memcpy(buf + data->d_off, data->d_buf, data->d_size);
++	}
++	*result = buf;
++	return 0;
 +}
 +
-+/* The first type ID which belongs to BTF and not to its base */
-+static __u32 first_own_type(const struct btf *btf)
++static int add_elf_function(struct elf_function_list *list, const char *name,
++			    const GElf_Sym *sym)
++{
++	struct elf_function *functions;
++	size_t capacity;
++
++	if (list->nr == list->capacity) {
++		capacity = list->capacity ? 2 * list->capacity : 1024;
++		if (capacity > SIZE_MAX / sizeof(*functions))
++			return -E2BIG;
++		functions = realloc(list->functions, capacity * sizeof(*functions));
++		if (!functions)
++			return -ENOMEM;
++		list->functions = functions;
++		list->capacity = capacity;
++	}
++
++	list->functions[list->nr++] = (struct elf_function) {
++		.name = name,
++		.value = sym->st_value,
++		.size = sym->st_size,
++		.shndx = sym->st_shndx,
++		.weak_symbol = GELF_ST_BIND(sym->st_info) == STB_WEAK,
++		.strong = NO_FUNCTION,
++		.weak = NO_FUNCTION,
++	};
++	return 0;
++}
++
++static int collect_elf_functions(Elf *elf, struct elf_function_list *list)
++{
++	Elf_Scn *scn = NULL;
++
++	while ((scn = elf_nextscn(elf, scn))) {
++		GElf_Shdr shdr;
++		Elf_Data *data;
++		size_t nr_symbols;
++		size_t i;
++
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		if (shdr.sh_type != SHT_SYMTAB)
++			continue;
++		if (!shdr.sh_entsize || shdr.sh_size % shdr.sh_entsize)
++			return -EINVAL;
++		data = elf_getdata(scn, NULL);
++		if (!data || elf_getdata(scn, data))
++			return -1;
++
++		nr_symbols = shdr.sh_size / shdr.sh_entsize;
++		for (i = 0; i < nr_symbols; i++) {
++			const char *name;
++			GElf_Sym sym;
++			int err;
++
++			if (!gelf_getsym(data, i, &sym))
++				return -1;
++			if (GELF_ST_TYPE(sym.st_info) != STT_FUNC ||
++			    sym.st_shndx == SHN_UNDEF || !sym.st_name)
++				continue;
++			name = elf_strptr(elf, shdr.sh_link, sym.st_name);
++			if (!name)
++				return -1;
++			err = add_elf_function(list, name, &sym);
++			if (err)
++				return err;
++		}
++	}
++	return 0;
++}
++
++static int cmp_elf_function_location(const void *va, const void *vb)
++{
++	const struct elf_function *a = va;
++	const struct elf_function *b = vb;
++
++	if (a->shndx != b->shndx)
++		return a->shndx > b->shndx ? 1 : -1;
++	if (a->value != b->value)
++		return a->value > b->value ? 1 : -1;
++	return 0;
++}
++
++static int cmp_elf_function_name(const void *va, const void *vb)
++{
++	const struct elf_function *a = va;
++	const struct elf_function *b = vb;
++
++	return strcmp(a->name, b->name) ?: cmp_elf_function_location(va, vb);
++}
++
++/* Return the first function at VALUE in SHNDX. Functions are sorted by location. */
++static size_t function_at(const struct elf_function_list *list,
++			  Elf64_Section shndx, GElf_Addr value)
++{
++	size_t lo = 0, hi = list->nr;
++
++	while (lo < hi) {
++		size_t mid = lo + (hi - lo) / 2;
++		const struct elf_function *f = &list->functions[mid];
++
++		if (f->shndx < shndx || (f->shndx == shndx && f->value < value))
++			lo = mid + 1;
++		else
++			hi = mid;
++	}
++	if (lo == list->nr || list->functions[lo].shndx != shndx ||
++	    list->functions[lo].value != value)
++		return NO_FUNCTION;
++	return lo;
++}
++
++static bool function_contains(const struct elf_function *function,
++			      GElf_Addr address)
++{
++	if (address < function->value)
++		return false;
++	if (!function->size)
++		return address == function->value;
++	return address - function->value < function->size;
++}
++
++enum ftrace_site_kind {
++	FTRACE_SITE_MCOUNT,
++	FTRACE_SITE_PATCHABLE,
++	FTRACE_SITE_UNKNOWN,
++};
++
++/*
++ * The NOPs which arm64 puts before a function with CALL_OPS. From the entry of
++ * an overridden weak function, whose body has no symbol left, a longer distance
++ * could reach the next function. Other arches may need more.
++ */
++#define MAX_PATCHABLE_FUNCTION_ENTRY_SIZE 8
++
++/* Return true if function I or another function at its address contains ADDRESS */
++static bool alias_contains(const struct elf_function_list *list, size_t i,
++			   GElf_Addr address)
++{
++	const struct elf_function *f = &list->functions[i];
++
++	for (;;) {
++		if (function_contains(&list->functions[i], address))
++			return true;
++		if (!i || list->functions[i - 1].shndx != f->shndx ||
++		    list->functions[i - 1].value != f->value)
++			return false;
++		i--;
++	}
++}
++
++/*
++ * Mark the functions at (SHNDX, VALUE) traceable, or, with CHECK, only those
++ * which contain ADDRESS.
++ */
++static void mark_aliases(struct elf_function_list *list, Elf64_Section shndx,
++			 GElf_Addr value, GElf_Addr address, bool check)
++{
++	size_t first = function_at(list, shndx, value), i;
++
++	if (first == NO_FUNCTION)
++		return;
++	for (i = first; i < list->nr && list->functions[i].shndx == shndx &&
++	     list->functions[i].value == value; i++) {
++		if (check && !function_contains(&list->functions[i], address))
++			continue;
++		list->functions[i].traceable = true;
++	}
++}
++
++/*
++ * Mark the function containing an ftrace call site. Functions are sorted by
++ * section and address. Mark all aliases at the same address: at run time BTF
++ * attachment is name based and may resolve to any of them.
++ */
++static void mark_traceable_function(struct elf_function_list *list,
++				    Elf64_Section shndx, GElf_Addr address,
++				    enum ftrace_site_kind kind)
++{
++	size_t left = 0;
++	size_t right = list->nr;
++	size_t first;
++
++	/* Find the first function after ADDRESS in SHNDX. */
++	while (left < right) {
++		size_t middle = left + (right - left) / 2;
++		struct elf_function *function = &list->functions[middle];
++
++		if (function->shndx < shndx ||
++		    (function->shndx == shndx && function->value <= address))
++			left = middle + 1;
++		else
++			right = middle;
++	}
++	/*
++	 * A patchable entry is at the start of its function, a few bytes into it
++	 * (after an arm64 BTI) or in the NOPs before it
++	 */
++	first = SIZE_MAX;
++	if (kind != FTRACE_SITE_MCOUNT) {
++		if (left && list->functions[left - 1].shndx == shndx &&
++		    address - list->functions[left - 1].value <
++					MAX_PATCHABLE_FUNCTION_ENTRY_SIZE &&
++		    alias_contains(list, left - 1, address))
++			first = left - 1;
++		else if (left < list->nr && list->functions[left].shndx == shndx &&
++			 list->functions[left].value - address <=
++					MAX_PATCHABLE_FUNCTION_ENTRY_SIZE)
++			first = left;
++	}
++	if (first != SIZE_MAX) {
++		mark_aliases(list, shndx, list->functions[first].value, address, false);
++		return;
++	}
++	if (kind == FTRACE_SITE_PATCHABLE || !left)
++		return;
++
++	/* The nearest preceding function owns the call site. */
++	first = left - 1;
++	if (list->functions[first].shndx != shndx)
++		return;
++	mark_aliases(list, shndx, list->functions[first].value, address, true);
++}
++
++static int mark_relocated_ftrace_sites(Elf *elf, size_t target_ndx,
++				       const unsigned char *target_data,
++				       const GElf_Shdr *target_shdr,
++				       size_t begin, size_t end,
++				       size_t ptr_size, unsigned int encoding,
++				       struct elf_function_list *functions,
++				       enum ftrace_site_kind kind,
++				       bool *relocated)
++{
++	Elf_Scn *scn = NULL;
++
++	*relocated = false;
++	while ((scn = elf_nextscn(elf, scn))) {
++		GElf_Shdr shdr;
++		Elf_Data *data;
++		size_t nr_relocations;
++		size_t i;
++
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		if ((shdr.sh_type != SHT_RELA && shdr.sh_type != SHT_REL) ||
++		    (shdr.sh_info && shdr.sh_info != target_ndx))
++			continue;
++		if (!shdr.sh_entsize || shdr.sh_size % shdr.sh_entsize)
++			return -EINVAL;
++		data = elf_getdata(scn, NULL);
++		if (!data || elf_getdata(scn, data))
++			return -1;
++
++		nr_relocations = shdr.sh_size / shdr.sh_entsize;
++		for (i = 0; i < nr_relocations; i++) {
++			Elf_Scn *symtab_scn;
++			Elf_Data *symtab_data;
++			GElf_Shdr symtab_shdr;
++			GElf_Sxword addend;
++			GElf_Addr raw_offset;
++			GElf_Addr address;
++			GElf_Sym sym;
++			size_t sym_ndx;
++			size_t offset;
++
++			if (shdr.sh_type == SHT_RELA) {
++				GElf_Rela rela;
++
++				if (!gelf_getrela(data, i, &rela))
++					return -1;
++				sym_ndx = GELF_R_SYM(rela.r_info);
++				raw_offset = rela.r_offset;
++				addend = rela.r_addend;
++			} else {
++				GElf_Rel rel;
++
++				if (!gelf_getrel(data, i, &rel))
++					return -1;
++				sym_ndx = GELF_R_SYM(rel.r_info);
++				raw_offset = rel.r_offset;
++				if (!relocation_offset(target_shdr, raw_offset,
++						       ptr_size, &offset))
++					continue;
++				addend = read_elf_value(target_data + offset,
++							ptr_size, encoding);
++			}
++			if (!relocation_offset(target_shdr, raw_offset, ptr_size,
++					       &offset))
++				continue;
++			if (offset < begin || offset >= end)
++				continue;
++			*relocated = true;
++
++			/*
++			 * PIE vmlinux uses symbol-less RELATIVE relocations. Its
++			 * addend is the link-time call-site address, represented as
++			 * a signed ELF addend.
++			 */
++			if (!sym_ndx) {
++				Elf64_Section target_shndx;
++
++				address = (GElf_Addr)addend;
++				if (section_for_address(elf, address,
++							&target_shndx))
++					return -1;
++				if (target_shndx != SHN_UNDEF)
++					mark_traceable_function(functions,
++								target_shndx,
++								address, kind);
++				continue;
++			}
++
++			symtab_scn = elf_getscn(elf, shdr.sh_link);
++			if (!symtab_scn ||
++			    !gelf_getshdr(symtab_scn, &symtab_shdr))
++				return -1;
++			symtab_data = elf_getdata(symtab_scn, NULL);
++			if (!symtab_data || elf_getdata(symtab_scn, symtab_data) ||
++			    !gelf_getsym(symtab_data, sym_ndx, &sym))
++				return -1;
++			if (sym.st_shndx == SHN_UNDEF)
++				continue;
++			if (sym.st_shndx >= SHN_LORESERVE)
++				continue;
++			if (addend < 0) {
++				GElf_Addr delta = -(addend + 1);
++
++				delta++;
++				if (delta > sym.st_value)
++					continue;
++				address = sym.st_value - delta;
++			} else {
++				if ((GElf_Addr)addend > UINT64_MAX - sym.st_value)
++					continue;
++				address = sym.st_value + addend;
++			}
++			mark_traceable_function(functions, sym.st_shndx, address,
++						kind);
++		}
++	}
++	return 0;
++}
++
++static int read_ftrace_site_range(Elf *elf, Elf_Scn *scn, size_t begin,
++				  size_t end, size_t ptr_size,
++				  unsigned int encoding,
++				  struct elf_function_list *functions,
++				  enum ftrace_site_kind kind)
++{
++	unsigned char *buf = NULL;
++	GElf_Shdr shdr;
++	bool relocated;
++	size_t offset;
++	int err;
++
++	if (!gelf_getshdr(scn, &shdr))
++		return -1;
++	if (begin > end || end > shdr.sh_size ||
++	    (end - begin) % ptr_size)
++		return -EINVAL;
++	if (begin == end)
++		return 0;
++	err = copy_section_data(scn, &shdr, &buf);
++	if (err)
++		return err;
++	err = mark_relocated_ftrace_sites(elf, elf_ndxscn(scn), buf, &shdr,
++					  begin, end, ptr_size, encoding,
++					  functions, kind, &relocated);
++	if (err || relocated)
++		goto out;
++
++	for (offset = begin; offset < end; offset += ptr_size) {
++		GElf_Addr address;
++		Elf64_Section shndx;
++
++		address = read_elf_value(buf + offset, ptr_size, encoding);
++		err = section_for_address(elf, address, &shndx);
++		if (err)
++			goto out;
++		if (shndx != SHN_UNDEF)
++			mark_traceable_function(functions, shndx, address, kind);
++	}
++out:
++	free(buf);
++	return err;
++}
++
++static bool section_prefix(const char *name, const char *prefix)
++{
++	size_t len = strlen(prefix);
++
++	return !strncmp(name, prefix, len) &&
++	       (!name[len] || name[len] == '.');
++}
++
++static bool section_cannot_be_attached(const char *name)
++{
++	return section_prefix(name, ".init.text") ||
++	       section_prefix(name, ".exit.text") ||
++	       section_prefix(name, ".noinstr.text");
++}
++
++static int remove_unattachable_functions(Elf *elf,
++					 struct elf_function_list *functions,
++					 size_t shstrndx)
++{
++	GElf_Sym noinstr_start;
++	GElf_Sym noinstr_end;
++	bool found_start;
++	bool found_end;
++	size_t i;
++	int err;
++
++	err = find_symbol(elf, "__noinstr_text_start", &noinstr_start,
++			  &found_start);
++	if (err)
++		return err;
++	err = find_symbol(elf, "__noinstr_text_end", &noinstr_end, &found_end);
++	if (err)
++		return err;
++
++	for (i = 0; i < functions->nr; i++) {
++		struct elf_function *function = &functions->functions[i];
++		Elf_Scn *scn;
++		GElf_Shdr shdr;
++		const char *name;
++
++		if (!function->traceable)
++			continue;
++		scn = elf_getscn(elf, function->shndx);
++		if (!scn || !gelf_getshdr(scn, &shdr))
++			return -1;
++		name = elf_strptr(elf, shstrndx, shdr.sh_name);
++		if (!name)
++			return -1;
++		if (section_cannot_be_attached(name))
++			function->traceable = false;
++		else if (found_start && found_end &&
++			 function->shndx == noinstr_start.st_shndx &&
++			 noinstr_start.st_shndx == noinstr_end.st_shndx &&
++			 function->value >= noinstr_start.st_value &&
++			 function->value < noinstr_end.st_value)
++			function->traceable = false;
++	}
++	return 0;
++}
++
++static int read_ftrace_symbol_range(Elf *elf, const GElf_Sym *start,
++				    const GElf_Sym *stop, size_t ptr_size,
++				    unsigned int encoding,
++				    struct elf_function_list *functions,
++				    enum ftrace_site_kind kind)
++{
++	Elf_Scn *scn;
++	GElf_Shdr shdr;
++	size_t begin;
++	size_t end;
++
++	if (start->st_shndx != stop->st_shndx)
++		return -EINVAL;
++	scn = elf_getscn(elf, start->st_shndx);
++	if (!scn || !gelf_getshdr(scn, &shdr))
++		return -1;
++	if (start->st_value < shdr.sh_addr || stop->st_value < start->st_value ||
++	    stop->st_value - shdr.sh_addr > shdr.sh_size)
++		return -EINVAL;
++	begin = start->st_value - shdr.sh_addr;
++	end = stop->st_value - shdr.sh_addr;
++	return read_ftrace_site_range(elf, scn, begin, end, ptr_size, encoding,
++				       functions, kind);
++}
++
++/*
++ * Mark the functions with an ftrace call site. A module keeps the sites in the
++ * section FTRACE_CALLSITE_SECTION: __patchable_function_entries if PATCHABLE,
++ * else __mcount_loc. x86 also has call padding entries, which are not call
++ * sites, in __patchable_function_entries. vmlinux merges the sites into init
++ * data between the __start_mcount_loc and __stop_mcount_loc symbols, see
++ * MCOUNT_REC().
++ */
++static int read_ftrace_sites(Elf *elf, size_t shstrndx,
++			     size_t ptr_size, unsigned int encoding,
++			     struct elf_function_list *functions, bool patchable)
++{
++	const char *section = patchable ? "__patchable_function_entries" : "__mcount_loc";
++	Elf_Scn *scn = NULL;
++	GElf_Sym start;
++	GElf_Sym stop;
++	GElf_Sym patchable_start;
++	GElf_Sym patchable_stop;
++	bool found_start;
++	bool found_stop;
++	bool found_patchable_start;
++	bool found_patchable_stop;
++	GElf_Shdr shdr;
++	int err;
++
++	err = find_section(elf, shstrndx, section, &scn);
++	if (err)
++		return err;
++	if (scn) {
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		err = read_ftrace_site_range(elf, scn, 0, shdr.sh_size,
++					     ptr_size, encoding, functions,
++					     patchable ? FTRACE_SITE_PATCHABLE :
++							 FTRACE_SITE_MCOUNT);
++		if (err)
++			return err;
++	}
++
++	err = find_symbol(elf, "__start_mcount_loc", &start, &found_start);
++	if (err)
++		return err;
++	err = find_symbol(elf, "__stop_mcount_loc", &stop, &found_stop);
++	if (err)
++		return err;
++	err = find_symbol(elf, "__start_patchable_function_entries",
++			  &patchable_start, &found_patchable_start);
++	if (err)
++		return err;
++	err = find_symbol(elf, "__stop_patchable_function_entries",
++			  &patchable_stop, &found_patchable_stop);
++	if (err)
++		return err;
++	if (found_start && found_stop) {
++		if (found_patchable_start && found_patchable_stop) {
++			err = read_ftrace_symbol_range(elf, &start,
++						       &patchable_start,
++						       ptr_size, encoding,
++						       functions,
++						       FTRACE_SITE_MCOUNT);
++			if (err)
++				return err;
++			err = read_ftrace_symbol_range(elf, &patchable_start,
++						       &patchable_stop,
++						       ptr_size, encoding,
++						       functions,
++						       FTRACE_SITE_PATCHABLE);
++		} else {
++			err = read_ftrace_symbol_range(elf, &start, &stop,
++						       ptr_size, encoding,
++						       functions,
++						       FTRACE_SITE_UNKNOWN);
++		}
++		if (err)
++			return err;
++	}
++
++	return remove_unattachable_functions(elf, functions, shstrndx);
++}
++
++/*
++ * Find the function each record points to. In a module the pointer is a
++ * relocation, in a linked image it is the address. REFS maps each pointer
++ * sized slot of the section to a function.
++ */
++static int resolve_record_relocations(Elf *elf, const struct elf_function_list *functions,
++				      size_t metadata_ndx, const GElf_Shdr *metadata_shdr,
++				      const unsigned char *metadata, size_t *refs,
++				      size_t ptr_size, unsigned int encoding)
++{
++	Elf_Scn *scn = NULL;
++
++	while ((scn = elf_nextscn(elf, scn))) {
++		Elf_Data *data, *symbols;
++		Elf_Scn *symtab;
++		GElf_Shdr shdr;
++		size_t i;
++
++		if (!gelf_getshdr(scn, &shdr))
++			return -1;
++		if ((shdr.sh_type != SHT_RELA && shdr.sh_type != SHT_REL) ||
++		    shdr.sh_info != metadata_ndx)
++			continue;
++		if (!shdr.sh_entsize || shdr.sh_size % shdr.sh_entsize)
++			return -EINVAL;
++		data = elf_getdata(scn, NULL);
++		symtab = elf_getscn(elf, shdr.sh_link);
++		symbols = symtab ? elf_getdata(symtab, NULL) : NULL;
++		if (!data || !symbols || elf_getdata(scn, data))
++			return -1;
++		for (i = 0; i < shdr.sh_size / shdr.sh_entsize; i++) {
++			GElf_Rela rela;
++			GElf_Sym sym;
++			size_t offset;
++
++			if (shdr.sh_type == SHT_RELA) {
++				if (!gelf_getrela(data, i, &rela))
++					return -1;
++			} else {
++				GElf_Rel rel;
++
++				if (!gelf_getrel(data, i, &rel))
++					return -1;
++				rela = (GElf_Rela){ .r_offset = rel.r_offset,
++						    .r_info = rel.r_info };
++				/* REL addends are stored in the pointer itself. */
++				if (!relocation_offset(metadata_shdr, rel.r_offset, ptr_size,
++						       &offset))
++					return -EINVAL;
++				rela.r_addend = read_elf_value(metadata + offset, ptr_size,
++							       encoding);
++			}
++			if (!relocation_offset(metadata_shdr, rela.r_offset, ptr_size, &offset) ||
++			    offset % ptr_size)
++				return -EINVAL;
++			if (!gelf_getsym(symbols, GELF_R_SYM(rela.r_info), &sym))
++				return -1;
++			if (sym.st_shndx == SHN_UNDEF || sym.st_shndx >= SHN_LORESERVE)
++				continue;
++			refs[offset / ptr_size] = function_at(functions, sym.st_shndx,
++							      sym.st_value + rela.r_addend);
++		}
++	}
++	return 0;
++}
++
++static size_t record_function(Elf *elf, const struct elf_function_list *functions,
++			      const unsigned char *buf, const size_t *refs,
++			      size_t offset, size_t ptr_size, unsigned int encoding)
++{
++	Elf64_Section section;
++	GElf_Ehdr ehdr;
++	GElf_Addr value;
++
++	if (refs[offset / ptr_size] != NO_FUNCTION)
++		return refs[offset / ptr_size];
++	if (!gelf_getehdr(elf, &ehdr) || ehdr.e_type == ET_REL)
++		return NO_FUNCTION;
++	value = read_elf_value(buf + offset, ptr_size, encoding);
++	if (!value || section_for_address(elf, value, &section))
++		return NO_FUNCTION;
++	return function_at(functions, section, value);
++}
++
++/* Remember the records of a body for all the functions at its address */
++static void add_record(struct elf_function_list *functions, size_t first,
++		       size_t offset, bool weak)
++{
++	struct elf_function *f = &functions->functions[first];
++	size_t i;
++
++	for (i = first; i < functions->nr &&
++	     !cmp_elf_function_location(f, &functions->functions[i]); i++) {
++		if (weak) {
++			functions->functions[i].nr_weak++;
++			functions->functions[i].weak = offset;
++		} else {
++			functions->functions[i].nr_strong++;
++			functions->functions[i].strong = offset;
++		}
++	}
++}
++
++static int parse_records(Elf *elf, struct elf_function_list *functions,
++			 const unsigned char *buf, size_t size, const size_t *refs,
++			 size_t ptr_size, unsigned int encoding,
++			 struct fmodret_stats *stats)
++{
++	size_t offset = 0;
++
++	while (offset < size) {
++		unsigned int flags, length, nr_values;
++		size_t function;
++
++		if (size - offset < FMODRET_META_HEADER_SIZE(ptr_size) ||
++		    read_elf_value(buf + offset, 4, encoding) != FMODRET_META_MAGIC ||
++		    read_elf_value(buf + offset + 4, 4, encoding) != FMODRET_META_VERSION)
++			goto invalid;
++		length = read_elf_value(buf + offset + 8, 4, encoding);
++		flags = read_elf_value(buf + offset + 12, 4, encoding);
++		nr_values = read_elf_value(buf + offset + 16 + ptr_size, 4, encoding);
++		if (length < FMODRET_META_HEADER_SIZE(ptr_size) || length > size - offset ||
++		    length % ptr_size ||
++		    nr_values != (length - FMODRET_META_HEADER_SIZE(ptr_size)) /
++				 FMODRET_META_VALUE_SIZE ||
++		    (length - FMODRET_META_HEADER_SIZE(ptr_size)) % FMODRET_META_VALUE_SIZE)
++			goto invalid;
++		stats->records++;
++		function = record_function(elf, functions, buf, refs, offset + 16,
++					   ptr_size, encoding);
++		/* A function in a discarded section has no ELF function */
++		if (function == NO_FUNCTION)
++			stats->unmapped++;
++		else
++			add_record(functions, function, offset, flags & FMODRET_FN_WEAK);
++		offset += length;
++	}
++	return 0;
++invalid:
++	fprintf(stderr,
++		"invalid or old fmodret metadata at offset %#zx; rebuild all plugin objects\n",
++		offset);
++	return -EINVAL;
++}
++
++/* Return the record which describes the body of F, or NO_FUNCTION */
++static size_t chosen_record(const struct elf_function *f)
++{
++	if (f->nr_strong == 1)
++		return f->strong;
++	if (!f->nr_strong && f->nr_weak == 1)
++		return f->weak;
++	return NO_FUNCTION;
++}
++
++struct btf_func {
++	const char *name;
++	__u32 id;
++};
++
++static int cmp_btf_func(const void *a, const void *b)
++{
++	const struct btf_func *x = a, *y = b;
++
++	return strcmp(x->name, y->name);
++}
++
++/*
++ * Return the FUNCs of BTF, without those of its base, sorted by name. The BTF
++ * is sorted only after the tags are added, and searching all of it for each
++ * candidate is slow for vmlinux.
++ */
++static struct btf_func *collect_btf_funcs(const struct btf *btf, size_t *cnt)
 +{
 +	const struct btf *base = btf__base_btf(btf);
++	__u32 id, nr_types = btf__type_cnt(btf);
++	struct btf_func *funcs;
++	size_t n = 0;
 +
-+	return base ? btf__type_cnt(base) : 1;
-+}
-+
-+/*
-+ * Return the function which T tags with decl tag NAME, or 0. A NAME which ends
-+ * with ':' matches the tags which start with it.
-+ */
-+static __u32 tag_func(const struct btf *btf, const struct btf_type *t, const char *name)
-+{
-+	size_t len = strlen(name);
-+	const char *tag;
-+
-+	if (!btf_is_decl_tag(t) || btf_decl_tag(t)->component_idx != -1)
-+		return 0;
-+	tag = btf__name_by_offset(btf, t->name_off);
-+	if (strncmp(tag, name, len) || (name[len - 1] != ':' && tag[len]))
-+		return 0;
-+	if (!btf_is_func(btf__type_by_id(btf, t->type)))
-+		return 0;
-+	return t->type;
-+}
-+
-+/* Return the fmod_ret targets of BTF, sorted by BTF ID */
-+static int collect_targets(const struct btf *btf, struct fmodret_entry **targets,
-+			   size_t *target_cnt)
-+{
-+	__u32 id, func_id, start_id = first_own_type(btf);
-+	__u32 nr_types = btf__type_cnt(btf);
-+	struct fmodret_entry *entries = NULL, *entry, *tmp;
-+	size_t cnt = 0, capacity = 0;
-+
-+	for (id = start_id; id < nr_types; id++) {
-+		func_id = tag_func(btf, btf__type_by_id(btf, id), TAG_FMODRET);
-+		if (!func_id)
-+			continue;
-+
-+		if (cnt == capacity) {
-+			capacity = capacity ? 2 * capacity : 64;
-+			tmp = realloc(entries, capacity * sizeof(*entries));
-+			if (!tmp) {
-+				free(entries);
-+				return -ENOMEM;
-+			}
-+			entries = tmp;
-+		}
-+		entries[cnt].btf_id = func_id;
-+		entries[cnt].sleepable = false;
-+		cnt++;
-+	}
-+	if (cnt)
-+		qsort(entries, cnt, sizeof(*entries), cmp_entry);
-+
-+	/* The other tags mark functions which are already targets */
-+	for (id = start_id; cnt && id < nr_types; id++) {
++	funcs = malloc(nr_types * sizeof(*funcs));
++	if (!funcs)
++		return NULL;
++	for (id = base ? btf__type_cnt(base) : 1; id < nr_types; id++) {
 +		const struct btf_type *t = btf__type_by_id(btf, id);
-+		struct fmodret_entry key = {};
 +
-+		key.btf_id = tag_func(btf, t, TAG_FMODRET_SLEEPABLE);
-+		if (key.btf_id) {
-+			entry = bsearch(&key, entries, cnt, sizeof(*entries), cmp_entry);
-+			if (entry)
-+				entry->sleepable = true;
-+		}
++		if (!btf_is_func(t))
++			continue;
++		funcs[n].name = btf__name_by_offset(btf, t->name_off);
++		funcs[n++].id = id;
 +	}
++	qsort(funcs, n, sizeof(*funcs), cmp_btf_func);
++	*cnt = n;
++	return funcs;
++}
 +
-+	*targets = entries;
-+	*target_cnt = cnt;
++/* Return the BTF ID of the only FUNC named NAME, or 0 */
++static int find_btf_func(const struct btf_func *funcs, size_t cnt, const char *name)
++{
++	const struct btf_func key = { .name = name }, *f;
++
++	f = bsearch(&key, funcs, cnt, sizeof(*funcs), cmp_btf_func);
++	if (!f)
++		return 0;
++	if ((f > funcs && !strcmp(f[-1].name, name)) ||
++	    (f + 1 < funcs + cnt && !strcmp(f[1].name, name)))
++		return 0;
++	return f->id;
++}
++
++/* Return the size of the integer which FUNC returns, or 0 */
++static __u32 btf_func_int_return_size(const struct btf *btf, int func)
++{
++	const struct btf_type *t = btf__type_by_id(btf, func);
++	int ret;
++
++	t = btf__type_by_id(btf, t->type);
++	if (!t || !btf_is_func_proto(t) || !t->type)
++		return 0;
++	ret = btf__resolve_type(btf, t->type);
++	if (ret < 0)
++		return 0;
++	t = btf__type_by_id(btf, ret);
++	if (!btf_is_int(t) && !btf_is_enum(t) && !btf_is_enum64(t))
++		return 0;
++	return t->size;
++}
++
++/* Format the values of the record at OFFSET as "-22,-12" */
++static char *format_values(const unsigned char *buf, size_t offset, size_t ptr_size,
++			   unsigned int encoding)
++{
++	unsigned int nr = read_elf_value(buf + offset + 16 + ptr_size, 4, encoding);
++	const unsigned char *p = buf + offset + FMODRET_META_HEADER_SIZE(ptr_size);
++	size_t size = (size_t)nr * 21 + 1, len = 0;
++	char *s = malloc(size);
++	unsigned int i;
++
++	if (!s)
++		return NULL;
++	for (i = 0; i < nr; i++) {
++		int64_t value = read_elf_value(p + i * FMODRET_META_VALUE_SIZE,
++					       FMODRET_META_VALUE_SIZE, encoding);
++
++		len += snprintf(s + len, size - len, "%s%lld", i ? "," : "",
++				(long long)value);
++	}
++	s[len] = 0;
++	return s;
++}
++
++static int cmp_retval(const void *va, const void *vb)
++{
++	const struct fmodret_retval *a = va;
++	const struct fmodret_retval *b = vb;
++
++	return a->btf_id > b->btf_id ? 1 : a->btf_id < b->btf_id ? -1 : 0;
++}
++
++/* Choose the targets among the functions and describe them in RESULT */
++static int choose_functions(struct elf_function_list *functions, const struct btf *btf,
++			    const struct btf_func *btf_funcs, size_t nr_btf_funcs,
++			    const unsigned char *buf, size_t ptr_size,
++			    unsigned int encoding, struct fmodret_retvals *result,
++			    struct fmodret_stats *stats, int verbose)
++{
++	size_t i;
++
++	qsort(functions->functions, functions->nr, sizeof(*functions->functions),
++	      cmp_elf_function_name);
++	for (i = 0; i < functions->nr; i++) {
++		const struct elf_function *f = &functions->functions[i];
++		bool shared = (i > 0 && !strcmp(f->name, f[-1].name)) ||
++			      (i + 1 < functions->nr && !strcmp(f->name, f[1].name));
++		size_t record = chosen_record(f);
++		const char *reason = NULL;
++		unsigned int flags = 0;
++		struct fmodret_retval *r;
++		__u32 size;
++		int id = 0;
++
++		if (!f->nr_strong && !f->nr_weak)
++			continue;
++		if (record == NO_FUNCTION) {
++			stats->ambiguous_body++;
++			reason = "ambiguous-body";
++			goto rejected;
++		}
++		/*
++		 * A strong definition without values has no record. If it
++		 * replaced a weak one, only the record of the weak one points
++		 * to its body.
++		 */
++		if (!f->nr_strong && !f->weak_symbol) {
++			stats->overridden++;
++			reason = "overridden-weak";
++			goto rejected;
++		}
++		if (!read_elf_value(buf + record + 16 + ptr_size, 4, encoding))
++			continue;
++		stats->with_values++;
++		flags = read_elf_value(buf + record + 12, 4, encoding);
++		if (shared) {
++			stats->ambiguous_name++;
++			reason = "ambiguous-name";
++			goto rejected;
++		}
++		if (!f->traceable) {
++			stats->not_traceable++;
++			reason = "not-traceable";
++			goto rejected;
++		}
++		id = find_btf_func(btf_funcs, nr_btf_funcs, f->name);
++		if (id <= 0) {
++			stats->no_btf++;
++			reason = "no-unique-BTF-FUNC";
++			goto rejected;
++		}
++		size = btf_func_int_return_size(btf, id);
++		if (size != (flags & FMODRET_FN_RET64 ? 8 : 4)) {
++			stats->return_mismatch++;
++			reason = "BTF-return-type";
++		}
++rejected:
++		if (reason) {
++			if (verbose > 1)
++				fprintf(stderr, "fmodret: rejected %s: %s\n", f->name, reason);
++			continue;
++		}
++
++		if (result->cnt == result->cap) {
++			size_t cap = result->cap ? 2 * result->cap : 256;
++
++			r = realloc(result->retvals, cap * sizeof(*r));
++			if (!r)
++				return -ENOMEM;
++			result->retvals = r;
++			result->cap = cap;
++		}
++		r = &result->retvals[result->cnt];
++		r->btf_id = id;
++		r->values = format_values(buf, record, ptr_size, encoding);
++		if (!r->values)
++			return -ENOMEM;
++		result->cnt++;
++		stats->added++;
++		if (verbose > 1)
++			fprintf(stderr, "fmodret: %s: BTF ID %d, retval %s\n",
++				f->name, id, r->values);
++	}
++	if (result->cnt)
++		qsort(result->retvals, result->cnt, sizeof(*result->retvals), cmp_retval);
 +	return 0;
 +}
 +
-+/* Fill ENTRY from the decl tags of function FUNC_ID */
-+static void func_entry(const struct btf *btf, __u32 func_id, struct fmodret_entry *entry)
++int fmodret_collect(Elf *elf, const struct btf *btf, struct fmodret_retvals *result,
++		    bool patchable_ftrace, int verbose)
 +{
-+	__u32 id, nr_types = btf__type_cnt(btf);
-+
-+	memset(entry, 0, sizeof(*entry));
-+	entry->btf_id = func_id;
-+	for (id = first_own_type(btf); id < nr_types; id++) {
-+		const struct btf_type *t = btf__type_by_id(btf, id);
-+
-+		if (tag_func(btf, t, TAG_FMODRET) == func_id)
-+			entry->target = true;
-+		else if (tag_func(btf, t, TAG_FMODRET_SLEEPABLE) == func_id)
-+			entry->sleepable = true;
-+		else if (tag_func(btf, t, TAG_FMODRET_RETVAL) == func_id) {
-+			entry->retval_dup = entry->retval;
-+			entry->retval = btf__name_by_offset(btf, t->name_off) +
-+					strlen(TAG_FMODRET_RETVAL);
-+		}
-+	}
-+}
-+
-+static void list_target(const char *owner, const struct btf *btf,
-+			const struct fmodret_entry *entry)
-+{
-+	const struct btf_type *t = btf__type_by_id(btf, entry->btf_id);
-+	const char *name = btf__name_by_offset(btf, t->name_off);
-+
-+	if (json_output) {
-+		jsonw_start_object(json_wtr);
-+		jsonw_uint_field(json_wtr, "btf_id", entry->btf_id);
-+		jsonw_string_field(json_wtr, "name", name);
-+		jsonw_string_field(json_wtr, "owner", owner);
-+		jsonw_bool_field(json_wtr, "sleepable", entry->sleepable);
-+		jsonw_end_object(json_wtr);
-+	} else {
-+		printf("%u  %s (%s)%s\n", entry->btf_id, name, owner,
-+		       entry->sleepable ? " sleepable" : "");
-+	}
-+}
-+
-+static int list_btf(const char *owner, const struct btf *btf,
-+		    struct fmodret_filter *filter)
-+{
-+	struct fmodret_entry *targets = NULL;
-+	size_t cnt = 0, i;
++	struct elf_function_list functions = {};
++	struct btf_func *btf_funcs = NULL;
++	struct fmodret_stats stats = {};
++	unsigned char *buf = NULL;
++	size_t nr_btf_funcs;
++	size_t *refs = NULL;
++	size_t shstrndx, ptr_size, i;
++	unsigned int encoding;
++	Elf_Scn *scn;
++	GElf_Shdr shdr;
 +	int err;
 +
-+	err = collect_targets(btf, &targets, &cnt);
-+	if (err) {
-+		p_err("failed to collect fmod_ret targets of %s: %s", owner,
-+		      strerror(-err));
++	if (elf_getshdrstrndx(elf, &shstrndx))
++		return -EINVAL;
++	err = find_section(elf, shstrndx, FMODRET_CANDIDATES_SECTION, &scn);
++	if (err || !scn)
 +		return err;
++	if (!gelf_getshdr(scn, &shdr))
++		return -EINVAL;
++	ptr_size = gelf_getclass(elf) == ELFCLASS64 ? 8 : 4;
++	encoding = elf_getident(elf, NULL)[EI_DATA];
++	if (shdr.sh_size % ptr_size)
++		return -EINVAL;
++
++	err = collect_elf_functions(elf, &functions);
++	if (err)
++		goto out;
++	qsort(functions.functions, functions.nr, sizeof(*functions.functions),
++	      cmp_elf_function_location);
++
++	err = copy_section_data(scn, &shdr, &buf);
++	if (err)
++		goto out;
++	refs = malloc((shdr.sh_size / ptr_size ?: 1) * sizeof(*refs));
++	if (!refs) {
++		err = -ENOMEM;
++		goto out;
 +	}
-+	for (i = 0; i < cnt; i++)
-+		list_target(owner, btf, &targets[i]);
-+	free(targets);
-+	return 0;
++	for (i = 0; i < shdr.sh_size / ptr_size; i++)
++		refs[i] = NO_FUNCTION;
++	err = resolve_record_relocations(elf, &functions, elf_ndxscn(scn), &shdr, buf,
++					 refs, ptr_size, encoding);
++	if (err)
++		goto out;
++	err = parse_records(elf, &functions, buf, shdr.sh_size, refs, ptr_size,
++			    encoding, &stats);
++	if (err)
++		goto out;
++	err = read_ftrace_sites(elf, shstrndx, ptr_size, encoding, &functions,
++				patchable_ftrace);
++	if (err)
++		goto out;
++	btf_funcs = collect_btf_funcs(btf, &nr_btf_funcs);
++	if (!btf_funcs) {
++		err = -ENOMEM;
++		goto out;
++	}
++	err = choose_functions(&functions, btf, btf_funcs, nr_btf_funcs, buf, ptr_size,
++			       encoding, result, &stats, verbose);
++	if (err)
++		goto out;
++
++	if (verbose)
++		fprintf(stderr,
++			"fmodret: %zu records (%zu without a function), %zu functions with values, %zu added; rejected: %zu ambiguous body, %zu ambiguous name, %zu not traceable, %zu overridden weak, %zu without unique BTF FUNC, %zu BTF return type\n",
++			stats.records, stats.unmapped, stats.with_values, stats.added,
++			stats.ambiguous_body,
++			stats.ambiguous_name, stats.not_traceable, stats.overridden,
++			stats.no_btf, stats.return_mismatch);
++out:
++	if (err == -1)
++		fprintf(stderr, "failed to read %s: %s\n", FMODRET_CANDIDATES_SECTION,
++			elf_errmsg(-1));
++	free(btf_funcs);
++	free(refs);
++	free(buf);
++	free(functions.functions);
++	return err;
 +}
 +
-+struct error_injection {
-+	char *name;
-+	char *module;
-+	char *type;
++void fmodret_free(struct fmodret_retvals *retvals)
++{
++	size_t i;
++
++	for (i = 0; i < retvals->cnt; i++)
++		free(retvals->retvals[i].values);
++	free(retvals->retvals);
++	retvals->retvals = NULL;
++	retvals->cnt = retvals->cap = 0;
++}
+diff --git a/tools/bpf/resolve_btfids/fmodret.h b/tools/bpf/resolve_btfids/fmodret.h
+new file mode 100644
+index 000000000000..c1d5db64970b
+--- /dev/null
++++ b/tools/bpf/resolve_btfids/fmodret.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __RESOLVE_BTFIDS_FMODRET_H
++#define __RESOLVE_BTFIDS_FMODRET_H
++
++#include <stdbool.h>
++#include <stddef.h>
++#include <libelf.h>
++#include <linux/types.h>
++
++struct btf;
++
++/* A function found by the analysis, and the values it may return */
++struct fmodret_retval {
++	__u32 btf_id;
++	char *values;
 +};
 +
-+static struct error_injection *error_injections;
-+static size_t error_injection_cnt;
++/* Sorted by BTF ID */
++struct fmodret_retvals {
++	struct fmodret_retval *retvals;
++	size_t cnt, cap;
++};
 +
-+/*
-+ * Read the error injection list of the running kernel. Its lines are
-+ * "FUNC\tTYPE" and "FUNC [MODULE]\tTYPE". Without debugfs the list is empty.
-+ */
-+static void read_error_injection_list(void)
++int fmodret_collect(Elf *elf, const struct btf *btf, struct fmodret_retvals *result,
++		    bool patchable_ftrace, int verbose);
++void fmodret_free(struct fmodret_retvals *retvals);
++
++#endif
+diff --git a/tools/bpf/resolve_btfids/main.c b/tools/bpf/resolve_btfids/main.c
+index fbdfcb5c8819..2e60bd324704 100644
+--- a/tools/bpf/resolve_btfids/main.c
++++ b/tools/bpf/resolve_btfids/main.c
+@@ -75,6 +75,12 @@
+  * and also "bpf_fmodret_sleepable" when KF_SLEEPABLE is set, so the sleepable
+  * tag never comes alone. The kernel builds the set of fmod_ret targets from
+  * these tags when it loads BTF.
++ *
++ * Functions which the analysis of the compiler plugin records, see fmodret.c,
++ * get "bpf_fmodret" too, and "bpf_fmodret_retval:" with the values they
++ * return on paths without side effects, such as "bpf_fmodret_retval:-22,-12".
++ * The verifier lets programs attached to them return only these values or 0.
++ * A function in a BTF_FMODRET set keeps only its own tags.
+  */
+ 
+ #define  _GNU_SOURCE
+@@ -96,6 +102,7 @@
+ #include <bpf/btf.h>
+ #include <bpf/libbpf.h>
+ #include "btf_colors.h"
++#include "fmodret.h"
+ #include <subcmd/parse-options.h>
+ 
+ #define BTF_IDS_SECTION	".BTF_ids"
+@@ -154,6 +161,11 @@ struct object {
+ 	struct btf *orig_btf;
+ 	bool distill_base;
+ 	bool extract_inline;
++	/* The ftrace call sites are in __patchable_function_entries */
++	bool patchable_ftrace;
++
++	/* Functions found by the analysis of the compiler plugin, see fmodret.c */
++	struct fmodret_retvals fmodret_retvals;
+ 
+ 	struct {
+ 		int		 fd;
+@@ -205,6 +217,7 @@ struct btf_links {
+ #define DECL_TAG_KFUNC "bpf_kfunc"
+ #define DECL_TAG_FMODRET "bpf_fmodret"
+ #define DECL_TAG_FMODRET_SLEEPABLE "bpf_fmodret_sleepable"
++#define DECL_TAG_FMODRET_RETVAL "bpf_fmodret_retval:"
+ 
+ #define KF_SLEEPABLE	(1 << 5)
+ #define KF_FASTCALL	(1 << 12)
+@@ -1792,6 +1805,40 @@ static int add_decl_tag(struct btf2btf_context *ctx, const char *tag_name,
+ 	return push_decl_tag_id(ctx, new_id);
+ }
+ 
++static const struct kfunc *find_set_func(const struct rb_root *root, u32 btf_id)
 +{
-+	struct error_injection *tmp;
-+	char *line = NULL;
-+	size_t len = 0;
-+	FILE *f;
++	const struct rb_node *node = root->rb_node;
 +
-+	f = fopen(ERROR_INJECTION_LIST, "r");
-+	if (!f)
-+		return;
-+	while (getline(&line, &len, f) > 0) {
-+		char *name, *module = NULL, *type, *save;
++	while (node) {
++		const struct kfunc *k = rb_entry(node, struct kfunc, rb_node);
 +
-+		/* "NAME [MODULE]\tTYPE" or "NAME\tTYPE" */
-+		name = strtok_r(line, " \t\n", &save);
-+		type = strtok_r(NULL, " \t\n", &save);
-+		if (type && type[0] == '[') {
-+			module = type + 1;
-+			module[strcspn(module, "]")] = '\0';
-+			type = strtok_r(NULL, " \t\n", &save);
-+		}
-+		if (!name || !type)
-+			continue;
-+		tmp = realloc(error_injections,
-+			      (error_injection_cnt + 1) * sizeof(*error_injections));
-+		if (!tmp)
-+			break;
-+		error_injections = tmp;
-+		tmp = &error_injections[error_injection_cnt];
-+		tmp->name = strdup(name);
-+		tmp->module = strdup(module ?: "");
-+		tmp->type = strdup(type);
-+		if (!tmp->name || !tmp->module || !tmp->type) {
-+			free(tmp->name);
-+			free(tmp->module);
-+			free(tmp->type);
-+			break;
-+		}
-+		error_injection_cnt++;
++		if (btf_id < k->btf_id)
++			node = node->rb_left;
++		else if (btf_id > k->btf_id)
++			node = node->rb_right;
++		else
++			return k;
 +	}
-+	free(line);
-+	fclose(f);
-+}
-+
-+static void free_error_injection_list(void)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < error_injection_cnt; i++) {
-+		free(error_injections[i].name);
-+		free(error_injections[i].module);
-+		free(error_injections[i].type);
-+	}
-+	free(error_injections);
-+	error_injections = NULL;
-+	error_injection_cnt = 0;
-+}
-+
-+/* Return the error injection type of function NAME of OWNER, or NULL */
-+static const char *error_injection_type(const char *name, const char *owner)
-+{
-+	const char *module = strcmp(owner, "vmlinux") ? owner : "";
-+	size_t i;
-+
-+	for (i = 0; i < error_injection_cnt; i++)
-+		if (!strcmp(error_injections[i].name, name) &&
-+		    !strcmp(error_injections[i].module, module))
-+			return error_injections[i].type;
 +	return NULL;
 +}
 +
-+static void __printf(2, 0) prototype_printf(void *ctx, const char *fmt, va_list args)
++static int add_fmodret_retval_tags(struct btf2btf_context *ctx,
++				   const struct fmodret_retval *retval)
 +{
-+	vfprintf(ctx, fmt, args);
-+}
-+
-+/* Return the declaration of function FUNC_ID, or NULL */
-+static char *func_prototype(const struct btf *btf, __u32 func_id)
-+{
-+	const struct btf_type *t = btf__type_by_id(btf, func_id);
-+	LIBBPF_OPTS(btf_dump_emit_type_decl_opts, opts,
-+		.field_name = btf__name_by_offset(btf, t->name_off),
-+	);
-+	struct btf_dump *d;
-+	char *buf = NULL;
-+	size_t size = 0;
-+	FILE *f;
++	char *tag;
 +	int err;
 +
-+	f = open_memstream(&buf, &size);
-+	if (!f)
-+		return NULL;
-+	d = btf_dump__new(btf, prototype_printf, f, NULL);
-+	err = libbpf_get_error(d);
-+	if (!err) {
-+		err = btf_dump__emit_type_decl(d, t->type, &opts);
-+		btf_dump__free(d);
-+	}
-+	fclose(f);
-+	if (err) {
-+		free(buf);
-+		return NULL;
-+	}
-+	return buf;
-+}
-+
-+/* Show 0 and the values of a "bpf_fmodret_retval:" tag as a JSON array */
-+static void show_retval_json(const char *retval)
-+{
-+	const char *p = retval;
-+	char *end;
-+
-+	jsonw_name(json_wtr, "retval");
-+	jsonw_start_array(json_wtr);
-+	jsonw_int(json_wtr, 0);
-+	while (*p) {
-+		long long value;
-+
-+		errno = 0;
-+		value = strtoll(p, &end, 10);
-+		if (end == p || errno)
-+			break;
-+		jsonw_int(json_wtr, value);
-+		p = *end == ',' ? end + 1 : end;
-+	}
-+	jsonw_end_array(json_wtr);
-+}
-+
-+/*
-+ * Check the "bpf_fmodret_retval:" tag of FUNC_ID as the verifier does: negative
-+ * decimal numbers separated by commas, which the integer or enum of 4 or 8 bytes
-+ * that the function returns can hold. Return why it is invalid, or NULL.
-+ */
-+static const char *retval_invalid(const struct btf *btf, __u32 func_id,
-+				  const char *retval)
-+{
-+	const struct btf_type *t = btf__type_by_id(btf, func_id);
-+	const char *p = retval;
-+	int ret_id;
-+	char *end;
-+
-+	t = btf__type_by_id(btf, t->type);
-+	ret_id = t ? btf__resolve_type(btf, t->type) : -EINVAL;
-+	t = ret_id > 0 ? btf__type_by_id(btf, ret_id) : NULL;
-+	if (!t || !(btf_is_int(t) || btf_is_any_enum(t)) || (t->size != 4 && t->size != 8))
-+		return "the function does not return an integer of 4 or 8 bytes";
-+	for (;;) {
-+		long long value;
-+
-+		if (*p != '-')
-+			return "malformed tag";
-+		errno = 0;
-+		value = strtoll(p, &end, 10);
-+		if (end == p || errno || value >= 0)
-+			return "malformed tag";
-+		if (t->size == 4 && value < INT_MIN)
-+			return "a value does not fit the return type";
-+		if (!*end)
-+			return NULL;
-+		if (*end != ',')
-+			return "malformed tag";
-+		p = end + 1;
-+	}
-+}
-+
-+/* Show the values of a "bpf_fmodret_retval:" tag with the names of errors */
-+static void show_retval_plain(const char *retval)
-+{
-+	const char *p = retval, *name;
-+	char *end;
-+
-+	printf("\tretval: 0");
-+	while (*p) {
-+		long long value;
-+
-+		errno = 0;
-+		value = strtoll(p, &end, 10);
-+		if (end == p || errno)
-+			break;
-+		printf(", %lld", value);
-+		name = errno_name(value);
-+		if (name)
-+			printf(" (%s)", name);
-+		p = *end == ',' ? end + 1 : end;
-+	}
-+	printf("\n");
-+}
-+
-+static int show_function(const char *owner, const struct btf *btf,
-+			 const struct fmodret_entry *entry,
-+			 struct fmodret_filter *filter)
-+{
-+	const struct btf_type *t = btf__type_by_id(btf, entry->btf_id);
-+	const char *name = btf__name_by_offset(btf, t->name_off);
-+	const char *injection = NULL, *invalid = NULL;
-+	char *prototype;
-+
-+	/* The verifier rejects programs on a function with an invalid tag */
-+	if (entry->target && entry->retval_dup)
-+		invalid = "more than one tag";
-+	else if (entry->target && entry->retval)
-+		invalid = retval_invalid(btf, entry->btf_id, entry->retval);
-+	prototype = func_prototype(btf, entry->btf_id);
-+	if (!prototype) {
-+		p_err("failed to print the prototype of %s", name);
-+		return -EINVAL;
-+	}
-+	if (filter->live)
-+		injection = error_injection_type(name, owner);
-+
-+	if (json_output) {
-+		jsonw_start_object(json_wtr);
-+		jsonw_uint_field(json_wtr, "btf_id", entry->btf_id);
-+		jsonw_string_field(json_wtr, "name", name);
-+		jsonw_string_field(json_wtr, "owner", owner);
-+		jsonw_string_field(json_wtr, "prototype", prototype);
-+		jsonw_string_field(json_wtr, "target", !entry->target ? "none" :
-+				   entry->retval ? "found" : "declared");
-+		jsonw_bool_field(json_wtr, "sleepable", entry->target && entry->sleepable);
-+		if (invalid)
-+			jsonw_string_field(json_wtr, "retval_error", invalid);
-+		else if (entry->target && entry->retval)
-+			show_retval_json(entry->retval);
-+		if (injection)
-+			jsonw_string_field(json_wtr, "error_injection", injection);
-+		jsonw_end_object(json_wtr);
-+	} else {
-+		printf("%u  %s (%s)\n", entry->btf_id, name, owner);
-+		printf("\t%s\n", prototype);
-+		if (entry->target) {
-+			printf("\ttarget: %s\n", entry->retval ? "found by the kernel build" :
-+			       "declared");
-+			printf("\tsleepable: %s\n", entry->sleepable ? "yes" : "no");
-+			if (invalid)
-+				printf("\tretval: invalid, %s\n", invalid);
-+			else if (entry->retval)
-+				show_retval_plain(entry->retval);
-+			else
-+				printf("\tretval: any\n");
-+		} else {
-+			printf("\ttarget: not tagged, the verifier may accept it by other rules\n");
-+		}
-+		if (injection)
-+			printf("\terror injection: %s\n", injection);
-+	}
-+	free(prototype);
-+	filter->found++;
-+	return 0;
-+}
-+
-+static int show_btf(const char *owner, const struct btf *btf,
-+		    struct fmodret_filter *filter)
-+{
-+	__u32 id, nr_types = btf__type_cnt(btf);
-+	struct fmodret_entry entry;
-+	int err;
-+
-+	if (filter->btf_id) {
-+		if (filter->btf_id < first_own_type(btf) || filter->btf_id >= nr_types ||
-+		    !btf_is_func(btf__type_by_id(btf, filter->btf_id)))
-+			return 0;
-+		func_entry(btf, filter->btf_id, &entry);
-+		return show_function(owner, btf, &entry, filter);
-+	}
-+
-+	for (id = first_own_type(btf); id < nr_types; id++) {
-+		const struct btf_type *t = btf__type_by_id(btf, id);
-+
-+		if (!btf_is_func(t) ||
-+		    strcmp(btf__name_by_offset(btf, t->name_off), filter->name))
-+			continue;
-+		func_entry(btf, id, &entry);
-+		err = show_function(owner, btf, &entry, filter);
-+		if (err)
-+			return err;
-+	}
-+	return 0;
-+}
-+
-+static int filter_module(const struct dirent *entry)
-+{
-+	size_t len = strlen(entry->d_name);
-+
-+	/* Skip ".", "..", vmlinux and the ".inline" companions of modules */
-+	return entry->d_name[0] != '.' && strcmp(entry->d_name, "vmlinux") &&
-+	       !(len > 7 && !strcmp(entry->d_name + len - 7, ".inline"));
-+}
-+
-+static int walk_modules(struct btf *vmlinux, struct fmodret_filter *filter, btf_cb cb)
-+{
-+	struct dirent **modules = NULL;
-+	int i, nr_modules, err = 0;
-+
-+	if (filter->module) {
-+		struct btf *btf;
-+
-+		btf = btf__load_module_btf(filter->module, vmlinux);
-+		err = libbpf_get_error(btf);
-+		if (err) {
-+			p_err("failed to load BTF of module %s: %s", filter->module,
-+			      strerror(-err));
-+			return err;
-+		}
-+		err = cb(filter->module, btf, filter);
-+		btf__free(btf);
++	err = add_decl_tag(ctx, DECL_TAG_FMODRET, retval->btf_id, -1);
++	if (err)
 +		return err;
-+	}
 +
-+	nr_modules = scandir(SYS_BTF_DIR, &modules, filter_module, alphasort);
-+	if (nr_modules < 0) {
-+		/* There is no module directory without module BTF, which is fine */
-+		if (errno == ENOENT)
-+			return 0;
-+		err = -errno;
-+		p_err("failed to read %s: %s", SYS_BTF_DIR, strerror(errno));
-+		return err;
-+	}
-+	for (i = 0; i < nr_modules; i++) {
-+		const char *name = modules[i]->d_name;
-+		struct btf *btf;
-+
-+		btf = btf__load_module_btf(name, vmlinux);
-+		err = libbpf_get_error(btf);
-+		if (err == -ENOENT) {
-+			/* The module was unloaded meanwhile */
-+			err = 0;
-+			continue;
-+		}
-+		if (err) {
-+			p_err("failed to load BTF of module %s: %s", name, strerror(-err));
-+			break;
-+		}
-+		err = cb(name, btf, filter);
-+		btf__free(btf);
-+		if (err)
-+			break;
-+	}
-+	for (i = 0; i < nr_modules; i++)
-+		free(modules[i]);
-+	free(modules);
++	if (asprintf(&tag, "%s%s", DECL_TAG_FMODRET_RETVAL, retval->values) < 0)
++		return -ENOMEM;
++	err = add_decl_tag(ctx, tag, retval->btf_id, -1);
++	free(tag);
 +	return err;
 +}
 +
-+static int walk_live_btf(struct fmodret_filter *filter, btf_cb cb)
-+{
-+	struct btf *vmlinux;
-+	int err = 0;
-+
-+	vmlinux = btf__load_vmlinux_btf();
-+	err = libbpf_get_error(vmlinux);
-+	if (err) {
-+		p_err("failed to load vmlinux BTF: %s", strerror(-err));
-+		return err;
-+	}
-+	if (!filter->module)
-+		err = cb("vmlinux", vmlinux, filter);
-+	if (!err && !filter->vmlinux)
-+		err = walk_modules(vmlinux, filter, cb);
-+	btf__free(vmlinux);
-+	return err;
-+}
-+
-+static int walk_file_btf(const char *path, struct fmodret_filter *filter, btf_cb cb)
-+{
-+	struct btf *btf;
-+	int err;
-+
-+	btf = base_btf ? btf__parse_split(path, base_btf) : btf__parse(path, NULL);
-+	err = libbpf_get_error(btf);
-+	if (err) {
-+		p_err("failed to parse BTF from %s: %s", path, strerror(-err));
-+		return err;
-+	}
-+	err = cb(path, btf, filter);
-+	btf__free(btf);
-+	return err;
-+}
-+
-+/* Parse the optional OBJECT := { file FILE | vmlinux | module NAME } */
-+static int parse_object(int argc, char **argv, const char **path,
-+			struct fmodret_filter *filter)
-+{
-+	if (!argc)
-+		return 0;
-+	if (is_prefix(*argv, "vmlinux")) {
-+		filter->vmlinux = true;
-+		NEXT_ARG();
-+	} else if (is_prefix(*argv, "file")) {
-+		NEXT_ARG();
-+		if (!REQ_ARGS(1))
-+			return -1;
-+		*path = GET_ARG();
-+	} else if (is_prefix(*argv, "module")) {
-+		NEXT_ARG();
-+		if (!REQ_ARGS(1))
-+			return -1;
-+		filter->module = GET_ARG();
-+	}
-+	if (argc)
-+		return BAD_ARG();
-+	return 0;
-+}
-+
-+static int walk_btf(const char *path, struct fmodret_filter *filter, btf_cb cb)
-+{
-+	return path ? walk_file_btf(path, filter, cb) : walk_live_btf(filter, cb);
-+}
-+
-+static int do_list(int argc, char **argv)
-+{
-+	struct fmodret_filter filter = {};
-+	const char *path = NULL;
-+	int err;
-+
-+	if (parse_object(argc, argv, &path, &filter))
-+		return -1;
-+
-+	if (json_output)
-+		jsonw_start_array(json_wtr);
-+	err = walk_btf(path, &filter, list_btf);
-+	if (json_output)
-+		jsonw_end_array(json_wtr);
-+	return err;
-+}
-+
-+static int do_show(int argc, char **argv)
-+{
-+	struct fmodret_filter filter = {};
-+	const char *path = NULL;
-+	unsigned long id;
-+	char *endptr;
-+	int err;
-+
-+	if (!REQ_ARGS(2))
-+		return -1;
-+	if (is_prefix(*argv, "name")) {
-+		NEXT_ARG();
-+		filter.name = GET_ARG();
-+	} else if (is_prefix(*argv, "id")) {
-+		NEXT_ARG();
-+		errno = 0;
-+		id = strtoul(*argv, &endptr, 0);
-+		if (errno || *endptr || !id || id > UINT_MAX || **argv == '-') {
-+			p_err("can't parse %s as BTF ID", *argv);
-+			return -1;
-+		}
-+		filter.btf_id = id;
-+		NEXT_ARG();
-+	} else {
-+		p_err("expected 'name' or 'id', got: '%s'", *argv);
-+		return -1;
-+	}
-+	if (parse_object(argc, argv, &path, &filter))
-+		return -1;
-+	/* The BTF IDs of different modules overlap */
-+	if (filter.btf_id && !path && !filter.module)
-+		filter.vmlinux = true;
-+
-+	filter.live = !path;
-+	if (filter.live)
-+		read_error_injection_list();
-+	/* A BTF ID gives one function, a name an array of them */
-+	if (json_output && !filter.btf_id)
-+		jsonw_start_array(json_wtr);
-+	err = walk_btf(path, &filter, show_btf);
-+	if (!err && !filter.found) {
-+		if (filter.name)
-+			p_err("no function named %s", filter.name);
-+		else
-+			p_err("no function with BTF ID %u", filter.btf_id);
-+		err = -ENOENT;
-+	}
-+	if (json_output && !filter.btf_id)
-+		jsonw_end_array(json_wtr);
-+	free_error_injection_list();
-+	return err;
-+}
-+
-+static int do_help(int argc, char **argv)
-+{
-+	if (json_output) {
-+		jsonw_null(json_wtr);
-+		return 0;
-+	}
-+
-+	fprintf(stderr,
-+		"Usage: %1$s %2$s list [OBJECT]\n"
-+		"       %1$s %2$s show FUNC [OBJECT]\n"
-+		"       %1$s %2$s help\n"
-+		"\n"
-+		"       FUNC := { name NAME | id BTF_ID }\n"
-+		"       OBJECT := { file FILE | vmlinux | module NAME }\n"
-+		"       " HELP_SPEC_OPTIONS " |\n"
-+		"                    {-B|--base-btf} FILE }\n"
-+		"\n",
-+		bin_name, "fmodret");
-+	return 0;
-+}
-+
-+static const struct cmd cmds[] = {
-+	{ "list",	do_list },
-+	{ "show",	do_show },
-+	{ "help",	do_help },
-+	{ 0 }
-+};
-+
-+int do_fmodret(int argc, char **argv)
-+{
-+	return cmd_select(cmds, argc, argv, do_help);
-+}
-diff --git a/tools/bpf/bpftool/main.c b/tools/bpf/bpftool/main.c
-index d15fec71b64e..e2a7571b097c 100644
---- a/tools/bpf/bpftool/main.c
-+++ b/tools/bpf/bpftool/main.c
-@@ -65,7 +65,7 @@ static int do_help(int argc, char **argv)
- 		"       %s batch file FILE\n"
- 		"       %s version\n"
- 		"\n"
--		"       OBJECT := { prog | map | link | cgroup | perf | net | feature | btf | gen | struct_ops | iter | token }\n"
-+		"       OBJECT := { prog | map | link | cgroup | perf | net | feature | btf | gen | struct_ops | iter | fmodret | token }\n"
- 		"       " HELP_SPEC_OPTIONS " |\n"
- 		"                    {-V|--version} }\n"
- 		"",
-@@ -91,6 +91,7 @@ static const struct cmd commands[] = {
- 	{ "gen",	do_gen },
- 	{ "struct_ops",	do_struct_ops },
- 	{ "iter",	do_iter },
-+	{ "fmodret",	do_fmodret },
- 	{ "token",	do_token },
- 	{ "version",	do_version },
- 	{ 0 }
-diff --git a/tools/bpf/bpftool/main.h b/tools/bpf/bpftool/main.h
-index b1eb4b5d991b..4d877b803b47 100644
---- a/tools/bpf/bpftool/main.h
-+++ b/tools/bpf/bpftool/main.h
-@@ -178,6 +178,7 @@ int do_tracelog(int argc, char **arg) __weak;
- int do_feature(int argc, char **argv) __weak;
- int do_struct_ops(int argc, char **argv) __weak;
- int do_iter(int argc, char **argv) __weak;
-+int do_fmodret(int argc, char **argv) __weak;
- int do_token(int argc, char **argv) __weak;
+ static int btf2btf(struct object *obj)
+ {
+ 	struct btf2btf_context ctx = {};
+@@ -1841,6 +1888,18 @@ static int btf2btf(struct object *obj)
+ 		}
+ 	}
  
- int parse_u32_arg(int *argc, char ***argv, __u32 *val, const char *what);
++	for (size_t i = 0; i < obj->fmodret_retvals.cnt; i++) {
++		const struct fmodret_retval *retval = &obj->fmodret_retvals.retvals[i];
++		const struct kfunc *kfunc = find_set_func(&ctx.kfuncs, retval->btf_id);
++
++		/* The trampoline is built for the prototype without the implicit arguments */
++		if (find_set_func(&ctx.fmodrets, retval->btf_id) || (kfunc && (kfunc->flags & KF_IMPLICIT_ARGS)))
++			continue;
++		err = add_fmodret_retval_tags(&ctx, retval);
++		if (err)
++			goto out;
++	}
++
+ 	err = 0;
+ out:
+ 	free(ctx.decl_tags);
+@@ -2194,6 +2253,8 @@ int main(int argc, const char **argv)
+ 			    "distill --btf_base and emit .BTF.base section data"),
+ 		OPT_BOOLEAN(0, "inline", &obj.extract_inline,
+ 			    "extract location BTF into a .BTF.inline file"),
++		OPT_BOOLEAN(0, "patchable_ftrace", &obj.patchable_ftrace,
++			    "ftrace call sites are in __patchable_function_entries"),
+ 		OPT_CALLBACK(0, "btf_link", &btf_links, "section:module:btf-file",
+ 			     "patch a BTF link with --patch_btfids", parse_btf_link),
+ 		OPT_STRING(0, "patch_btfids", &btfids_path, "file",
+@@ -2252,6 +2313,10 @@ int main(int argc, const char **argv)
+ 	if (load_btf(&obj))
+ 		goto out;
+ 
++	if (fmodret_collect(obj.efile.elf, obj.btf, &obj.fmodret_retvals,
++			    obj.patchable_ftrace, verbose))
++		goto out;
++
+ 	if (btf2btf(&obj))
+ 		goto out;
+ 
+@@ -2309,6 +2374,7 @@ int main(int argc, const char **argv)
+ 	btf_id__free_all(&obj.funcs);
+ 	btf_id__free_all(&obj.sets);
+ 	free(obj.addr_syms);
++	fmodret_free(&obj.fmodret_retvals);
+ 	free(obj.efile.func_symbols);
+ 	if (obj.efile.elf) {
+ 		elf_end(obj.efile.elf);
 -- 
 2.43.0
 
