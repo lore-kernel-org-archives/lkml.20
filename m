@@ -1,69 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346314;
-	b=bjJVm7xtRvVLW0JQYk86uDgZpgR/BT2HWuc/w3Q3xy+Th4HNYsPS0rmUigQbSlMZ/A3Z
-	 RWE5L+My2AekEEoiBt6zFwmiVGvH/pVsNfMvDfT+hbRmkQMejG13X34UYqJL9ebsUSx2u
-	 +ykb8m2pUKtQpvJDgAG2tDfyokqCgk0MBdvc/xOd0id59YdyNTkgLknFM2GqC/qvG2mh8
-	 w9XAEhG38+S69rIcNnaGR+AXVSaky2jZy/JZlikMTvs4Ai6IjV9xa8kheB9RDviSJ8qCS
-	 +TywkV5IE2l4VBbK5QvoJqyWWAR3CILBHyki26wrwMEjR/79eG4iGcIgVxFWgp8Ajog==
+	t=1794346389;
+	b=DmGRSrVOdcf4yEFMQCn3ACzzYHPCgJONsvGsfApgBQZtYAySUYS7G/4g4J55Cq8OXTPe
+	 FEO20MWmRGW+Xi54JxSfI/RRIm4XrEvuPDsJcJSH8GfBrtGutjLn6dHMd/mTHtsyoKOcX
+	 0jrMangI/0IiQAQZbGYuKfP6t8VM/Dz/gm+2RvWlkww7Mz2fr06U61zhRU1zlK4IYEp/l
+	 XgzqIfmray889CEUU7Rausbvb6QRfZuhHlGDv/GLgO+z92vwmUq3ylVyz5Ek1rHICFskp
+	 fdkiAY1xVGp3czCttnRK3BSeYDv0p2jQtQ38oulbJhqVpkceFyroXkP6NK0pch0/Q+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346314;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Kh0ZeYdYoNYqCwSPGE+2Sg6clJviXZAk10ucqwqx6js=;
-	b=KqGHyQ5ukH/rhJLOT+BMuhYTVw5fSMYEaFcPtcANGyH9Zh8c4glDbG3n6aka6DLLy6AP
-	 kQXnT+PTDaNRmqM3a0uzkjdZOGhZbYNUfl7Q00FJlKyhPnJX30wYtZlT0O6UqOoqqLmo5
-	 AZJMBs961r28lRzY9paGC9JcL+FqmyKee0mJCDa4del7vimquNaVvgrjdYjl6NIwbA5Pz
-	 T9hx4wbf+9mnvPeHAwq1Z1ApMSjDGfbg1qen0U3ke+m5Y6Uf4dGVkzBjmI8qmdXnKgQhE
-	 UnOMR4h4lpgQYKZ2+9qVeJYh2JiKhTBIBlT2BPacrLBQDnll7AJbCAKOX9yLLOBgjMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346389;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 References;
+	bh=e3sukB2RZuy041Jain3ONjgs0JeDdnXnVzfL3HmKWPQ=;
+	b=ZIEIQHsMDsP8EL2zYibO2lEbw5NRIPdFwMQbqG9Hbfe9z0mAJJ2hzZfvtGtFBmIHak0G
+	 9nQkABnfZHOu34QGj+5QlkL7xGDT8uvkb8xBt8AIIVTPfKfoCj2yq/hcbb7ykE6wXaFO3
+	 7aGgtWCHi9qzXC3mMKmcdCnrGtwHxyxqjO0i4CZFnToPHSOFiCWiS9x+AKHDmPEUEr44v
+	 2DiLQkeUfXamMDWV3RmzKLfmAPy3nHjYI2nGYWTnkLyjDsyptT8elw1AOdc/iAB4z2wEN
+	 SKFfgR0yeDIMB/RQDEHutVb9fr8o6bibICyeCEZHfwByniQU08zAvrvzUavI2tST34A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dd4VGTkO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=ZhxF+7lf;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9069C606A31C;
-	Tue, 10 Nov 2026 21:31:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC35F606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:33:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC35F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dd4VGTkO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E49E1F0089F;
-	Tue, 10 Nov 2026 21:31:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346313;
-	bh=Kh0ZeYdYoNYqCwSPGE+2Sg6clJviXZAk10ucqwqx6js=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=dd4VGTkO8Alc2PCdu3gxUC1EpOTi24quLZGagayrE/IQoUuhcLtwa3IJCC1BW1VQt
-	 AAYBOkYk+9O37qbi/PKBM90IqpSpS/cmHBVvgKoo6HBUFk1ZiJjLFSm5ORlCsQvqwI
-	 dkdkkSxHYJV8eOaehA+52IoAKoNq/GavfybO0vI+fF/4LtUymJMhHtQZZ8VAHyxMi7
-	 C6eOmDRbxoYLybevt5ygucmvBzBq0rp5p4Y9l7ftangmm30ca3/k3uLhTDj001aVDq
-	 CG037/9q6ji+yYYcphQKxJTbSIYLcAP4XiT/jpU8mF7Q+xiqTcK64PGmu1n9S/DXth
-	 RS59+gFPKwP7A==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id C1A09CE0AD8; Tue, 10 Nov 2026 13:31:52 -0800 (PST)
-Date: Tue, 10 Nov 2026 13:31:52 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, corbet@lwn.net, mingo@redhat.com,
-	frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org, urezki@gmail.com, dave@stgolabs.net,
-	stern@rowland.harvard.edu, parri.andrea@gmail.com, will@kernel.org,
-	dhowells@redhat.com, j.alglave@ucl.ac.uk, luc.maranget@inria.fr,
-	akiyks@gmail.com, dlustig@nvidia.com, joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev,
-	brads@mainlining.org, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org, rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 26/28] hazptrtorture: Add torture_type=none clean skip
- for rcuscale coexistence
-Message-ID: <444c9bb1-fccc-44ff-8bcb-a04dd36eeecb@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
- <20261104165504.2430480-27-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=ZhxF+7lf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794346386; bh=e3sukB2RZuy041Jain3ONjgs0JeDdnXnVzfL3HmKWPQ=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=ZhxF+7lflqlnYWxsyQBtIObkuWTzfRj1tFMHhrKjku/OzJfcd+PUiWvbbQrgIGtWEI+ZGV9bpnxDgnbELdDl/HAWN0+iH+obGuPlyfOz9iD4z9XMOtePsVjQCytyHMn9pzRhKXy10l9Lw40SKIW5YaDMcRS4D1feajX72BjsXJNqHrg2QRT7p2TBPDr+pBidubSZmaBarB2DxdHERSvCwXpphb6epBGKf4a0+9rVs2Rp3vPQ7zzXpxs1NM79+ZpaRVjZfGZa6gsJpDr/eYlJWYzgdDsD5ZgjwxixW67PK9gXEIwTSuiBc48Yq5E+dR8LbSP/zqIYcz+MGUDdunA6uQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794346386; bh=l21te4vnjdcxm+BrNmCEfh7Dv5mjCuNFx4ER4X+DtJG=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=j5FXDQWfEVmumMHBlYMKvknxBesOIQvwDJTfk/aCx69Z/pZCL2Tz8nTiE/yed9RZFV8lOhcwq04zdzBlTPxBxLc88oWsnsERaijRlUEYWSa7VgZHDiMVx7oNcrpF2KMk5TEECZ6mX11nKpYy5WU/mlsIXI30AIFt9yMbX5wfYcDwOR3jv0jlqnn1liRsnaoKFXl+0AksPsj/vXvmzJoo+fn6B6ET3WabdGYEJw23URVzB4cHd5xeg1OAw3Yn0nxztjZlQQt3OUxKJyZGhpW7UE+6RApnjsBzgF0MgLxyC+7MeNzjNl+CvHUkIfX6gkVc0N8Sl7QEkiJT3OPOc9Y9hA==
+X-YMail-OSG: ums8UF4VM1kpUin84ZgAz3DOu0IaeYMYRFDXRUcNecJIj62RFV7H0fkqiGEeFmV
+ eTkrXqNr7.gegWTq5q9N.PwXu6z1uGCJ1_rsTfJOd1bQZRfIZQYw3tq6yw0eKNURekUp2zvCToEq
+ 6VS_g1zo_pUwKC9f9U3Ow_PJQ1KQKousf8V_AmLTiN7EfZBNB4xXaTbRmH6j47Yo_ArRUd3ZFK6R
+ YPHyqvvxNUe3JJjHr9TeYqffQjH46RgtTAJdZBDs1rrFkFmJMjgZVIpOL7kJ0KKknhhv2gwu09xE
+ _4hUEFNP7oh1UOOghP4r9SpYQx3JlZXD5QvjcvdZiOy9A7wQgjHQK1dVbmbO6IOVQcUKgkvcJbIi
+ _58yjQetX_9izUC4OURj5XWvof5g0FBkDwDUztp0Ii.E9YjwYeoP.l82pJyDBKaDU.G5fvcFzk9H
+ 3EQII_KTmQ3hI6ztIJjaLgyg3wGvuk2Bk1cozenRlXOOqys.Y..UJjmJrR_TtkUSTpw46zoD9Nvn
+ RMNsj_a.WCxMh_ANqwRcSf5.8R_XwjF606cIGhRlO8._wwI5caPWDfXSIpSL5zyk.6ZlQ5UbPITj
+ WqvL4nNOOn_XopGLJQXKmmYtEQj2cwgyPhAzGBjaLNv4ZJHhUs11CjvWyUz20QuTUYL1UPWA.RgK
+ hHtbM9.5pdfOlzjgQEXV9gIv4ayJsWDOVi5v5D6YgtTtQKvsAcyLlYk8bLOJAs7vrRLhSqvTIdOp
+ fDr8yNr.8OFDxL93Um8v95nKiy5dJ9Kegyp4EhY9Bw4OT_0ZiTsh5XNCqqAVB4R3NpWsXREvrp4I
+ 5dwmYYBqY.qd4B5lIYxtDE.WJoEyYHunKwrNqCqqj8HFbFCd4aTj2oSTfWW64m3DPR31cI8BkFwG
+ tS02dFo.rBB2fNpE_dI3v5AelJw4isfT9l_r5f.sVQFndUbp1a2Kw0goV7W_smkGtT3M7BMQQomR
+ P7PEhL.z29G0i1v9EbrpPAqnFolECqe0KDN6IF0jAzIlz3dXtHhsULgzTNbdFT2rdPQ7d6IuosKZ
+ 6C93OXIvqfIIwT_B1AxKA1i_85D5rStgHvP4mPwFuDz.ngzofHseMc5MPmCF0O4Z1BXqijs1yuuq
+ LCSdHB2wL_fa.vTVM4PQys5WGXF_75NUfPOwPN6G85YRimh9QurydgNxyFgFjGqZZzDCd66mlOof
+ iAnNMKEWnp_qyJmDTE3Q0oOzMThonldb4tWAixGi0MZJGh1SSm_g1blqwToV4E.B1f6fCkKLovmd
+ nzLdybp2fBQm2HqYe938oYfML5kuD_OCBkR9srx38mEUjg38dOjShU0MivQFKPMs4lsvdARbWwz3
+ Za7HnYxGyhYHPac3tpQEQQEx4wg.SdmykDNI33VclqGYmjv7LUG4d0KytvtFpU_keymjPmptXq_O
+ IYNFU8jW3ukntshwOWKDIxs45IaBn3FdGNveBDPI9upkfj8r4i1zcrMO2dmirJyfsFrAthahC8nc
+ Lqt_D3kCtjp9s8496IeHMt5VkxA8zuvYcRje6S52UMEBHotNU8QM3mX4TkHiHS1ehw7Czwc5zvps
+ A6S.w4McofXPUWCJJwzF4whp3lO5z7D5_Ga0Kv4W4Cl.MKD4lElYBsKJuHaCJ50gi3ihWsTP7VwC
+ 2.BlaR1m2NB1sx9h7yuCgjBRtDZFnlglTH2RYknjGwbprpdKDTMPPPT6P40In9r8pZYbkU8iz1L3
+ ckx7mMtU9XqQrV.HywkEvlPjkhwYflTW.mDwQM38ZmJbhNJn0o7SrWs3HbbCPYMdpHMjVu5ox0fa
+ hxCBhMl1Qb8ewn3C_5CFiyHfVQIdFF9.eUDcTa7JMW2b7xHcjqL1y7BtP4wb85RgwgkKQB5PKR2S
+ CRjkLySmRtkoR2Bjhd20Cc98iOaOZWFS8VWl0g7fDEILcOcYuot9m0xZq5aiPfZU_eJKTTlL0Jf9
+ d30gJE3HfremZQB8k2E_WPu5YnTHzVArbLhv.kBIsiL6M4Ev3q0eMksRCxi.288gW.CmB6i5fstN
+ _J8.N.Mqa0_FJbqao7bi89he0ghj0C4MKwNo49Wz3QgE-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 4d11689c-fb14-48b6-a504-8ae88bbff09d
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-104 with HTTP; Tue, 10 Nov 2026 21:33:06 +0000
+Received: from dip46.lsn.ir2.yahoo.com ([87.248.99.55])
+          by hello (SMTP) with SMTP ID 652c0e1457d08e3a6c2674d732e5567c;
+          Tue, 10 Nov 2026 21:33:04 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Tue, 10 Nov 2026 22:33:02 +0100
+Subject: [PATCH] spi: bcm2835: Add missing kernel-doc Return sections
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,68 +83,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104165504.2430480-27-kunwu.chan@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-spi-bcm2835-kdoc-return-v1-1-dffdfcc36233@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtoUjbEVxEPto0axW4kmwhj7
+ 27V43f4/xVcTMXh0K1g8lLXsTbQroN8O9eroJZm4MADEQX0STHlJ+9jj48yZjSZF6s49MIlRE4
+ xErR6Mrno+3c+nv72Jd0lz98dbNsH+Ktr7XsAAAA=
+X-Change-ID: 20261110-spi-bcm2835-kdoc-return-65e2d032b331
+To: Mark Brown <broonie@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ linux-spi@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794346383; l=2216;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=4NSC/saUCRz8KXKyYCJXbVeWomSvFe+rreCZagXgyQ8=;
+ b=qMXOG/iy83N1K4B/M1Psk1OjG1XoVgzqIqmJlTXqi7/4QHM2uvC/37WX+tt9h9YEhXkZPcir7
+ 10iRLpsXXOkBvYPai6woeUCBJ51cC1LQnqpxiy/Z8lhBuB8T5St/AuZ
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20261110-spi-bcm2835-kdoc-return-v1-1-dffdfcc36233.ref@yahoo.pl>
 
-On Thu, Nov 05, 2026 at 12:54:44AM +0800, Kunwu Chan wrote:
-> When both HAZPTR_TORTURE_TEST and RCU_SCALE_TEST are built into
-> the same kernel, hazptrtorture calls torture_init_begin() first
-> and rcuscale fails with -EBUSY.  torture_type=none makes
-> hazptrtorture return early without registering, allowing the
-> rcuscale hazptr scale type to run in the same boot.
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+scripts/kernel-doc -Wall reports two functions in this file with no
+description of their return value:
 
-You are only supposed to build one of them into the kernel at a time,
-so the intent of the torture_init_begin() failure paths is to enforce
-this rule.  If you want to run both in the same kernel, the way to do
-that is to build both as kernel modules, then do modprobe and then rmmod
-of the first one, followed by modprobe and rmmod of the second one.
+  bcm2835_spi_prepare_sg()
+  bcm2835_spi_transfer_one_dma()
 
-So please help me out here.  Why do we need to allow both rcuscale and
-hazptrtorture to be built into the same kernel?
+bcm2835_spi_prepare_sg() already describes its return value, but in a
+"Return 0 on success ..." sentence that kernel-doc does not recognize.
+Convert it to a "Return:" section.
 
-If your desire is simply better handling of an error condition, an
-alternative is to force either a Kconfig or build failure when more than
-one of the modules invoking torture_init_begin() is built into the same
-kernel at the same time.
+bcm2835_spi_transfer_one_dma() has no description at all. It returns 1
+once the DMA transfer has been started, which tells the SPI core that
+the transfer is still in progress and will be finalized later by
+spi_finalize_current_transfer() from the DMA completion callbacks, or a
+negative error number. Document that.
 
-							Thanx, Paul
+No functional change.
 
-> ---
->  .../selftests/rcutorture/configs/rcuscale/HAZPTR    | 13 +++++++++++++
->  .../rcutorture/configs/rcuscale/HAZPTR.boot         |  1 +
->  2 files changed, 14 insertions(+)
->  create mode 100644 tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
->  create mode 100644 tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
-> 
-> diff --git a/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
-> new file mode 100644
-> index 000000000000..c5e9cf0184ae
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
-> @@ -0,0 +1,13 @@
-> +CONFIG_SMP=y
-> +CONFIG_NR_CPUS=128
-> +CONFIG_PREEMPT=y
-> +CONFIG_HZ_PERIODIC=n
-> +CONFIG_NO_HZ_IDLE=y
-> +CONFIG_HOTPLUG_CPU=y
-> +CONFIG_DEBUG_KERNEL=y
-> +CONFIG_HAZPTR_TORTURE_TEST=y
-> +CONFIG_HAZPTR_DEBUG=y
-> +CONFIG_HAZPTR_STALL_DETECTOR=y
-> +CONFIG_HAZPTR_STALL_TIMEOUT=1000
-> +CONFIG_HAZPTR_DRAIN_ASSIST=y
-> +CONFIG_RCU_SCALE_TEST=y
-> diff --git a/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
-> new file mode 100644
-> index 000000000000..e9cca4cf453b
-> --- /dev/null
-> +++ b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
-> @@ -0,0 +1 @@
-> +hazptrtorture.torture_type=none
-> -- 
-> 2.43.0
-> 
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+ drivers/spi/spi-bcm2835.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
+index cc5748973281..8d4456bbe572 100644
+--- a/drivers/spi/spi-bcm2835.c
++++ b/drivers/spi/spi-bcm2835.c
+@@ -666,7 +666,8 @@ static void bcm2835_spi_dma_tx_done(void *data)
+  * @is_tx: whether to submit DMA descriptor for TX or RX sglist
+  *
+  * Prepare and submit a DMA descriptor for the TX or RX sglist of @tfr.
+- * Return 0 on success or a negative error number.
++ *
++ * Return: 0 on success or a negative error number.
+  */
+ static int bcm2835_spi_prepare_sg(struct spi_controller *ctlr,
+ 				  struct spi_transfer *tfr,
+@@ -766,6 +767,10 @@ static int bcm2835_spi_prepare_sg(struct spi_controller *ctlr,
+  * has finished, the DMA engine zero-fills the TX FIFO until it is half full.
+  * (Tuneable with the DC register.)  So up to 9 gratuitous bus accesses are
+  * performed at the end of an RX-only transfer.
++ *
++ * Return: 1 if the transfer was started and is still in progress, in which
++ * case it is finalized from the DMA completion callbacks, or a negative error
++ * number.
+  */
+ static int bcm2835_spi_transfer_one_dma(struct spi_controller *ctlr,
+ 					struct spi_transfer *tfr,
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-spi-bcm2835-kdoc-return-65e2d032b331
+
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
+
