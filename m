@@ -1,109 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320431;
-	b=W7/jxhLT8fuhUdEFB0e9pAcjZ6HKwDn1iB0wqsxU4zTY3JMhyJ/10xu9dIqGEhw5Vufp
-	 z10mHQfnBssC3G+tWrcT7Qg43Q74tBXEB9EpMvxSTEVuDL4HEY8ctb1ZOmeXkuoF8UAAi
-	 l/0Jiksnqmcj0pq0l2vJuxoW+YnmBFA2mLvTErqCekZy71csdEw8PKLLdK95/cB2F6LJP
-	 gwxaCVmnZG/eMwurVqZxxC9SvrqgbmK2P1UDPK9puTbCOBxsU7JsRHeOmkuhiOH3GvCxD
-	 nNYgYFQbKpX9yqiXx8i9ds8vbCOgbnY4S8JmN8gpYbWaYKWNCU2w7yz1eeOy3i+YupQ==
+	t=1794320450;
+	b=fknPsWMjmj8htPtbydq5Tfz0h/6Dz4vunq0n0sv4nCh4/ijYKSgeA+xPAimGZbdQUtNh
+	 OCK+qzk0K8BJ+T8+bMu6sWV5+4+uI+KHetBpPLvW2nEp3boboiCGUTYhQ6m9ZSsSGJtbP
+	 QavoMGTiXZ8hcT1n67cLmaZOQBaz8UaErDsj9zaglTWb0R3aqSJWMgsRdh5BW1ND6FRhJ
+	 mwutMqwlUckbEshptKA0wrNlJ65n8iuJ7/iYPYQphGfOrf1zwiEXaz/82jW4QgVsJoWYx
+	 O2S+0URYRKCYn6lZraz59iXYftP86glpcJdO1Kahw3g9XvjNtt6qySeW1DPexEH7CVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320431;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Ck5XRRHP22m9X3iNZf5BjNhfI3aiyPXUvxV7zc6dD6Q=;
-	b=XxUYgrZPAi01b29FMI3KeKOS4Og33K8BpDEIga0HGjj0EpQwOhCXKpq/IJw5/AmCI35k
-	 +1CbE8HM63TsjnG8/wTN7TBakcdgoeCy2VOzJT3b25BSDmxlG0VA2xDgSTn0gV/+/wzwc
-	 jmwALL6YoyyNBmZZ2WJL84bMgnf0pGwpPrAIBthX536Hguu1hKaiCdeTH/W7Y1XcReeQz
-	 GWS0MpE+ss+TnKA3kbPanO8FBlMspKPkBkGPA7u5H1513r5aBsFlWDZoRwoMwmeskA4Xj
-	 +fmrfFzSt6c3iKd69fIUNRAxJyWL7bg2+SIDF02KlATCcJUt3od/rU+808yh06LvNdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320450;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=KuCHHusPsDV6v2uzN39tFS1wbxXh1kRYSDHLVWEKoRU=;
+	b=MIqompF96Kn+Bc/9Su+Buyfu0FZyM1FrXq/zaAybLy+RVgzCIq2zWn0oS83+cCYR4iAq
+	 6jECE8mBq4cM+E99foWthu/K1O+1WeX8uoFoUyVNwL78ZD6ITViG9vftQCHE5AgiwOOaU
+	 r+c0tsp6nDsxdHXg4UPAuVDB+mFC7DsYFCMdtEDxUmS6Ryc7fQOd6EVzpWZZiRabnLe60
+	 iTxp89XDMLeekXIi2v0+pCHSiUIrxLb6G7QFUEJsG7ihAQFB2FCGXtVGXhU179nOfX36Y
+	 gs6h/fFLOp3iALQlIeGM8vLKo75mk+i2obg1eyfY2GdRigrDvWuyHffq7v7z0yy15lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=l7XBpB57;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="SQufQ1k/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EgcZyy2P;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9720A60A2601
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9720A60A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AA560A5BD0
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:20:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96AA560A5BD0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=l7XBpB57;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SQufQ1k/
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABAG3N2881256
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:20:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ck5XRRHP22m9X3iNZf5BjNhfI3aiyPXUvxV7zc6dD6Q=; b=l7XBpB57foeSGerC
-	m5xXsz9xfKW3IDra2zZuwsxdvJkaQ+sMPB3p8LCrhBZTcHvBCSCwRuaGMNY4MCEh
-	NyeVGcW1zNS2v/CIMe1i+iuwtlC6KRZgc1a9+WDr+CeB7Aw6+xBkdi6tB8YN3Uhz
-	8UsZStqrHjrDSMX3kSDwEVqZSQ2pjvPynMWFSW/vpRtXRMldcfC/wwVEtMjQ0VBR
-	WpGANWEThWa5E1yEJguRtPxpNoRUuCUNeVDiUOFyFnsyNWXZoiIn3MO+tjXoB9vQ
-	8Vt+wOJxBnrVmVJtiCDnzJRDahla2Dy92Lt95CkpEBRgpKEtZgRO2CfRizsfEdSv
-	yTxC0w==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hux849m8u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:20:29 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7d2d60dcf2aso1691674137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:20:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EgcZyy2P
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df160bb9cso64294f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:20:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794320429; x=1794925229; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ck5XRRHP22m9X3iNZf5BjNhfI3aiyPXUvxV7zc6dD6Q=;
-        b=SQufQ1k/vqtFYIYhBBNozDJ16NuqRj4sTU+pN1B1GogsNWWHoHd+u8YlVJlQu7q/KA
-         5FwWlxjGkk3dwuRTI3pMT/FyOGFRZbAGVPtzLc+cNvnDU/NAdDdyacxx+H68apFaZXo8
-         c61FqIxrknJf8LYMzeQg8ZViJVaxjrR7uusIzoiOUauZYOljIuMK/VnmAWG+dWJKQ8RZ
-         VNFXU+zkrhcwheHv6rD9OpWlhhcqNW8gMtUI9XRaqYiHvSxlmwrDyJH2iHDIropfywqi
-         d9zjiI9zJy4sjuKcNSGRTCLfzNenEmxXmemMmDaYgfNUNVlHXKyMwBxq2vZf23GbioRH
-         3HkQ==
+        d=gmail.com; s=20260707; t=1794320448; x=1794925248; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KuCHHusPsDV6v2uzN39tFS1wbxXh1kRYSDHLVWEKoRU=;
+        b=EgcZyy2PndrUzh1Zh8Lc+VqGbvXDyjCRMvRtdSKb08wIRTSbjyDgP0WSrVV7n9JQEi
+         OquCmyk7zhfT6pyx9cod/rDeDLNLXUx4ECJNEAk8Nut0EBoST1RIGZGhpJzdWjFOzLQX
+         tDyGrE408tTcYNifXsIfiGTCEQfMrKJJSmb9yBI1WJG7e2oNkB361vYub25vs9WwtHxh
+         gDeELEfaCp1emnwkgApjAuzYytSXY8T1Wj4rQlqMgX187e2r0px5i0gOoWbWIyzxkyFc
+         R7iGFn9s0PRkKOUeHvKgOGx7CCHMz9gfqv+JH6x18MEvWf2O2p3lte8NhXHHwgToLKf/
+         zQ0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794320429; x=1794925229;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794320448; x=1794925248;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ck5XRRHP22m9X3iNZf5BjNhfI3aiyPXUvxV7zc6dD6Q=;
-        b=pYXG2SQcYbMstIBz3BARbLzWugh2o8maSplHpohs6NHPtq9tyIgTuZjDRHK/rz2pZz
-         o1hjI+FgrteJdkAxTeFXhQeK+XiYs0MNhQOBsBYT7+z9Bl+HDoAxywOs1GbnM0mEOWI5
-         EqpQPld3bfauwnJW/GdYFgOqQLLBX5UgBbaVVG6o7KJw7qh8z19SmkD7MHE/pnWXgpbc
-         SctDU8pXQt93kum8ah+G8rFD2Uh8kdhCtTdtPjrm9SiE839z2wMHv8nbao4mfVE4Cg45
-         gHhb8g/uN87al8IUJx0t9hqp0w/s+yFfogLLpYV4naCDlCoel7rJcAmD5vNHVGzk5IHf
-         qvJA==
-X-Forwarded-Encrypted: i=1; AL+hErEEFjeyCrzh8XPWODNSrQXPyRNgLTMBt1AhZXo4LQp25Pjoqzt6jdsl1vQQsusVhzS8sXiBG6iuMpb3R8M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WI4K8B6EGWlA1T544MjLlRjwHuDZRl5fNTrO5EOkT5Y8hd93a
-	zgo5rGVbye2ejOgwHDiMmh9avYkhND8m2jICr0s/uAfDOUNwf9KvWezNpisJQfyit+a0CfuZF9D
-	BSBvJbBUzP9acc/wrPdKI/2yIXsC4LvdngSKjNhkfC2dcGDskGuzqdasDPdIvl85LEpE=
-X-Gm-Gg: AYBFou3sG7QeyxQUwD1cO58vv5klxifji/Nv1iATLK9Ptcp5QhhN/cKh4+eVgM0J1W3
-	6Vu/qEXGHf1ovMvWLwenq+iKAqGy1sdrRMmvajK5QantKD5GlMjdzP3DReNX+NWLKjT+d4/zTna
-	zPpSy39jXwmk2HO1N7Thf841X03F+1gJxEJ/RN0siUx4qIKraYHELqepNTYqGxXpsVjMPZyZLYB
-	M2+iIO5KnvQgDHaeAwhEhYJH3F42NTViaMF7g4NctBBdaRaysgKZXNxSh+yaOfiJ2cWnWQq4dV7
-	mVpLO+2lucoem2t5sOC81KTstOBfH1NA2vnHsLuOeQPdI0qRsP8h+xLnqZAvqPIyjqjJ9CY1zkc
-	XDXekA7xrqRviD88eYlxr4U+0U4fRyDcPu6yteBOfvFt2KFMYX1da40/ebXIQeXZTCra2ncmSgy
-	TcxNMkIG5/A6U7Hw==
-X-Received: by 2002:a05:6102:e14:b0:7cc:2cef:b330 with SMTP id ada2fe7eead31-7d301b90875mr1015856137.12.1794320428873;
-        Tue, 10 Nov 2026 06:20:28 -0800 (PST)
-X-Received: by 2002:a05:6102:e14:b0:7cc:2cef:b330 with SMTP id ada2fe7eead31-7d301b90875mr1015820137.12.1794320428242;
-        Tue, 10 Nov 2026 06:20:28 -0800 (PST)
-Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365ccbccsm5242319f8f.44.2026.11.10.06.20.26
+        bh=KuCHHusPsDV6v2uzN39tFS1wbxXh1kRYSDHLVWEKoRU=;
+        b=q3XfUVqMppTmFEWSeTRUbag34PL/zmqwve3FtQxrBbhzcG4gP0sPjaPL1L4ohqAQfN
+         Y0h8/1Qh4OX8O26cN7uv8uQpPIdyiU/kr4ohMx0zq4AnEFJNESZJC85dV9fD7H0l8++i
+         biU6E7LADBgHvziZ6eXpY+uYX4UX/DyK9MhWvyLS0zh1nB+5hWo5pB6qboW7V4hUPTuC
+         +kSFjjwnJpesF1rEDEEEYAsE83B7LKPxu15iVEyxgn1MoHngqlmQcXAZIWGQRwHVsQHY
+         qGnNz6/zmzz8VabVsdzJTwnJnnB/cD/sKiYDLsnVVEcrOpPL/xU/DCSlEzI9bQ6pskd2
+         1ZuQ==
+X-Forwarded-Encrypted: i=1; AL+hErFAiMOtRW8dnZ3TqnyIOLHp9k1Iil5B8Q/VzPQmJiY8ZOMeZZqmr2bPEaQBJLCY/ZvJ/Bdquu1IC7KAJgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87L0d7rAXRoFR5/b47bOpTHKJdDIJ46lW+SRkfa9pFQeqOsmKp
+	20rDGnHvS8NIiclJ7f++umlBeur03GfM2wkMDQ7prnUlA1EFnd58r3Pt
+X-Gm-Gg: AYBFou0exPpeV0evtl4hK90A1mGFhQgDLfPc3TXNIEK0sLcQopzXJzYixeK4ymeGv0k
+	ogVWvVf69mYvSe0K754TRHN6fww3xWWyHFtSbpcG+ONwpcAUX15IuGmWyo+9uStvRpV7mTyNY8t
+	5D8RlT3/b5DKVzqloZH7b6CgZzGO+/6/PBR3XYja4uE4kicATXW1w3GQcfy8pGF1ghbXTt7yg3z
+	xrpYkqnUgyfbQ4yev2q6EMGqqAN0gEqfLnAPS2eJmWm5Dz2pbUyzzMjDszcM9JIQMefb68b8/TI
+	/urJoqu/LA4SHrt9oV7y0CAZKq0rRrSuwPCT27ti21zwokLIiID6Xs+4tXRyQIvvndKmMGCdtY/
+	gAe3iw64f+678bPvZLA6xQeiV8qBUWPqJiacT0Q+NSTi5FzREt6/EJ6CiKRZ46wglPcM5RJIIi6
+	/tWL084SYS88iB2AiJLkd9eEwea7v82eR7lnTQh2vow4vFciPRR7N4GRhC/fxL8n/tpJZayfkrU
+	eKHPrYLdslZIHrOx4vGdBXmaSPqcPpKibgqLU41mUuz4pLu5fq/I9oysVHKwY+8DNQMzf1gEbx9
+	/1NvdVavweQLmNSdZZz0mSVZbRSUj3Nop4AXrsuYjfGO0RfSMIr5zYnD
+X-Received: by 2002:a05:6000:4a13:b0:492:b1c5:6dc3 with SMTP id ffacd0b85a97d-49830f6b390mr5471185f8f.6.1794320447580;
+        Tue, 10 Nov 2026 06:20:47 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4989a2a505asm3800566f8f.13.2026.11.10.06.20.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 06:20:26 -0800 (PST)
+        Tue, 10 Nov 2026 06:20:46 -0800 (PST)
+Date: Tue, 10 Nov 2026 17:20:43 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Josh Don <joshdon@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org, 
+	linux-kernel@vger.kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, tj@kernel.org, jakub@okonski.org
+Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group
+ preemption
+Message-ID: <avMeP-80bZz-zdtO@scheduler.schedules>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.765325702@infradead.org>
+ <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,105 +101,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH net-next v5 2/4] net: qrtr: Assign unique node id for
- MHI endpoints
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>, linux-arm-msm@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-        ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>,
-        Chris Lew <christopher.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
-        Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20261104-qrtr-multi-ep-v5-2-4cdb2b4f1920@oss.qualcomm.com>
-References: <20261104-qrtr-multi-ep-v5-0-4cdb2b4f1920@oss.qualcomm.com>
- <20261104-qrtr-multi-ep-v5-2-4cdb2b4f1920@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 15:20:23 +0100
-Message-Id: <179432042357.601816.13272349217674070278.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794320425; l=1427;
- i=youssef.abdulrahman@oss.qualcomm.com; s=20261110;
- h=from:subject:message-id; bh=pmxqB3moG63ZiXPlatXfrHmi22c4brr8zAmv5UPA8I8=;
- b=3VK4IzgRzDq5+i8kNkOpzL1wcBaSJdMg4/naLLQ7vN/3KPtJH+B1yfG8lIp5w3xiAoLLoYDt3
- ZVuSV7r+yx/CX6B9QgIG7xJ7bIfu+nOZyq4a/C/87nhN4u704Cmn9aw
-X-Developer-Key: i=youssef.abdulrahman@oss.qualcomm.com; a=ed25519;
- pk=JsDnG9UOJiLmu4WZj456fEwZASBHFVClDZ4KZkiVFAI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1NyBTYWx0ZWRfXyiV1P3kSjjXk
- iee4VliJ4UWOIXYzQR52xzS4IxLZJjUmHd1OCXS2t2grpPpSgjIJm+QgSF3RJ3tJcRWVHOj5DJ0
- h8sA16C+XK6rhKCOzP3q5ZCNGP7s9qyRX+nri4pNdsIjw3y2E0TEpn8DtwvoEBlKJpivBGVJz56
- 1pLhpzCWdy7nOBZDeWup2p5u/w8+jiiPQOtn4nT7qldIvgZRhI4wqS3vHh4iZvWXs5ykrnQX7mg
- 1AGvD8F74qYSoVeH6eA27SaiEf18yBQEoyCBeJyxcLLCjtzwmZ7heyW07ntkGkl8kAg12ehCi6e
- ySFqvi1gTOq2SLGxxSWNh4ATuyc8mKhqaWHCXiv3fG/3Eco4Sw7OKBUG6/cIUl13w/rGbRHkrIN
- GywprhEGWCeowhldeh6zTgaxDNmnmSc3JrFch2fZsIPs1aBRUpQwumKnE6SOQ/pcq6qk4COaecq
- hatC2bxCi5KveCB4kkQ==
-X-Proofpoint-GUID: U_Bl3ISeoD0mUv80a1v5p76rPbPpX0Nk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1NyBTYWx0ZWRfX4leBZZJ1fv4l
- cwBVajbbCtiI1KkhDxIGW5lcY9G6/D5P3/psgUQndV1FSX9lYq6IV1VDbTP5XwnEs2LEPrQPSKv
- PwE4bVIYX3zq4FXPOsRVah4dC+qTvZw=
-X-Proofpoint-ORIG-GUID: U_Bl3ISeoD0mUv80a1v5p76rPbPpX0Nk
-X-Authority-Analysis: v=2.4 cv=JNSuIMKb c=1 sm=1 tr=0 ts=6af3282d cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=51d02FP0LlRxlB9DzpEA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100057
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
 
-> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-> index efa70b95f8a7..7a59ccf15490 100644
-> --- a/net/qrtr/af_qrtr.c
-> +++ b/net/qrtr/af_qrtr.c
-> @@ -11,6 +11,7 @@
->  #include <linux/wait.h>
->  #include <linux/workqueue.h>
->  
-> +#include <net/qrtr.h>
->  #include <net/sock.h>
->  
->  #include "qrtr.h"
-> @@ -590,6 +591,12 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
->  	    cb->type != QRTR_TYPE_RESUME_TX)
->  		goto err;
->  
-> +	/* Host assigned node ids are not supposed to overlap with
-> +	 * remote node ids
-> +	 */
-> +	if (cb->src_node >= QRTR_NODE_HOST_BASE)
-> +		goto err;
-> +
-This breaks the functionality for QAIC devices, and any V1 packet with
-nid >= 0x10000, for two reasons:
- - V1 uses 32-bit node IDs
- - QAIC devices use hw_sernum as the node ID. I am yet to see a device
-   with node ID < 0x10000
-This causes "invalid ipcrouter packet" error logs to be printed when the
-device is advertising its services to the host.
->  	skb_put_data(skb, data + hdrlen, size);
->  
->  	nid = cb->src_node;
-> @@ -615,6 +622,8 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
->  		const struct qrtr_ctrl_pkt *pkt = data + hdrlen;
->  
->  		nid = le32_to_cpu(pkt->server.node);
-> +		if (nid >= QRTR_NODE_HOST_BASE)
-> +			goto err;
-Same concern as above.
+Hi Josh!
 
--- 
-Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+On Mon, Nov 09, 2026 at 04:10:30PM -0800, Josh Don wrote:
+
+> >  /*
+> > - * Preempt the current task with a newly woken task if needed:
+> > + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> > + * in the inverse case).
+> > + */
+> > +static inline enum preempt_wakeup_action
+> > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
+> > +{
+> > +       int cse_is_idle, pse_is_idle;
+> > +
+> > +       cse_is_idle = se_is_idle(cse);
+> > +       pse_is_idle = se_is_idle(pse);
+> > +
+> > +       if (cse_is_idle || pse_is_idle) {
+> > +               find_matching_se(&cse, &pse);
+> > +               WARN_ON_ONCE(!pse);
+> > +
+> > +               cse_is_idle = se_is_idle(cse);
+> > +               pse_is_idle = se_is_idle(pse);
+> 
+> now that se_is_idle() is checking for any ancestors with idle, this
+> doesn't appear to be correct. Some motivaing examples:
+
+So we want to keep the idle difference between groups with idle
+ancestors? FWIW, I asked about this but then thought it was knowingly
+and that was what we wanted. I'm still not sure what we want...
+
+
+
+> 
+> Ex 1:
+> regular task and SCHED_IDLE task both inside an idle cgroup.
+> se_is_idle() will be true for both se's, and so the regular task will
+> not end up preempting the SCHED_IDLE task, which would be the
+> desirable behavior (the task is not idle relative to the SCHED_IDLE
+> task)
+> 
+>     cgrp A (idle)
+>      /                 \
+> regular_task     SCHED_IDLE task
+> 
+> Ex2:
+> more complex example with a hierarchy of cgroups
+> 
+>           root
+>             |
+>           cgrp A (idle)
+>          /            \
+>      cgrp B           cgrp C (idle)
+>         |                   |
+>       task_1            task_2
+> 
+> task_1 should preempt task_2, and the inverse should also never
+> happen. However, the matching_se here are cgroups B and C, and both
+> show se_is_idle() as true
+> 
+> I can think of two simple ways to fix that, either seems fine
+> 1) use the existing se_is_idle() check for knowing when we can
+> fast-path skip the whole find_matching_se() business, but when we do
+> find the matching se, rather than use se_is_idle, use a more targeted
+> helper that directly compares just those two entities without any of
+> their ancestors (ie. for the task case just check if it has an idle
+> policy, and for the group case, just check tg_is_idle())
+> 2) once you find the matching se, just compare the ->idle values,
+> since if one of them is bigger (by at most 1?), then that one must be
+> the "idle" one relatively speaking. Handling the task vs group case
+> here seems a bit messier compared to the first option, so my
+> suggestion would be to go with the above
+> 
+> 
+> Best,
+> Josh
+
+Cheers,
+
+Kayra :-).
