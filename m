@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301406;
-	b=B0tCOvnJN4xxGGq4Gr4K2q8FSwe5Zt+vaXd6yftiCIzEgt99936w5YpzqpoSxqrBc+aJ
-	 xDLQ1tHvIOa3LVmIf0SXdsHO4gh/qyplc2bsuZqI+hvMqNe8mGERl+cQ53cSaXTpzMwu5
-	 DH3xr2dczgtmFeHciIp5Q9KpWdXu4jaYAzr8DPh6MS7VbynLBp62Wwhl015uur/KxUjOh
-	 4PwqzlaYw0l8jTZFpW/GVNnp5d489Ts1pUBvH5PV7/9PFcN3vufx+UG6YzEkBNE2Oy5hH
-	 QtpLWrtIq9JDct+RBgUd586GbGYfHEIni2ALsByikc0SQyt3DMDTZWS0sIk124tWLrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301406;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C2i4lkgCNHuL77WPS8g6z7ScnYZzVUFlX/5CnzjjXPA=;
-	b=oI1TDEntWnIxyXPBLsknsRfqD2HU/1+rLS809qighi8uY7bt+7Et/8d5NXROp+GkRTFG
-	 pHyWyGII6ojFGlkaAwcMRu2rvmZQhyK8xKFoxF/i0CVoknvCCbBQ9akCoFL3JIASA5pSs
-	 MLRTrZi+83GjmVhAPumGc6EE+bHpfUHmr944KywxnN49AR6P2JBDoU6Y1fULZLBzkULtc
-	 1HBCtQUUKZlazvHLEsYoPQkkBMWpyiR2eVtPeHE5aByPe7Bq4W+pltpmjmiCH4IDD0Ix2
-	 L3yAH76jKN9SpaZZv0bx5odi7Pb5yLP7ZkBPpLTr6wDnY+yWfVfZT0j2ysKXVxvQaug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OziTR/9y";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF6160A3813;
-	Tue, 10 Nov 2026 09:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OziTR/9y
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794301405;
-	b=I7wPL6iYqr4kzc9b3KJpPbNt5f9c1naGJkmbtERal7y5LYODdAIKFG9mQZepEtLt9uhQ
-	 Aas5RQnzmmnBADcjVnch79dJYTkFGUH0TyoJWGRs5yDN7viUClT+J+RBMUDI+vZfIBsTv
-	 ca1Kc6I0ufGE/qDoL8wx8K6nhgoCt4U6htYTZLrUxZRnykfWgBTpnxBe7UIIDomsjfYe6
-	 2p76Qj3Jc5QgG5FFlhh7YSGes1OcfdEW//87V1A+hzivqqDDY9gF6Zn9FrHxbnf9C35qJ
-	 jcWOlb2vh2/jIVyPecTi64GbgqrwRM5uSpEZ65J3zXmdTSjkbxa5lzv3yJtaTSTbzYg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794301405;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=C2i4lkgCNHuL77WPS8g6z7ScnYZzVUFlX/5CnzjjXPA=;
-	b=VExCWyJ4wcZF72aiWuh8xOO0YjQd02PLjnlE9wglAbNu/RtnFSIgnK6Fn2wek57wKVkz
-	 wRGlT8moTbvQ/wNCy3pkw9hTE47mFuyXrkCzmvY6609R/1IGG2bvaZe+yPhz3frveaJTZ
-	 jjfzv9pr1Z6LT/DkC/nDigyeJGQJOrQaSPM3Vz8KY+btKVHtS6xyqS2nZDS5r2hz8qmyW
-	 +3bR92h3VgmX6qih8ZFwxrmVn0xAeP0sE6IRo9yy55QETjK4yy6ZMM5UNczxGrx18P9JZ
-	 CoaP3jTb2IxAGXqDbae+FQI68Vxjit++48VTiyh4WA+8q/KU2Gpv4O7hD3OHWIZS8Hg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 14E061F008A3;
-	Tue, 10 Nov 2026 09:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794301405;
-	bh=C2i4lkgCNHuL77WPS8g6z7ScnYZzVUFlX/5CnzjjXPA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OziTR/9yUqewNjsTzwJM6jFn+EZOtyoLbd+cv9WsbJZ8SoTH7GgA44BbZJf+0wYro
-	 NjAej3AfEqGjo2K+hcMLAiDKhziI4IKropYl7nsxZ5jySeTOuiCOiGutYyUePd7O0L
-	 S1Ge2cK4kPdtCAnEXgzl4lxkKiXw7/FsJ4w3zacJK/rt0KygGgSVMVqVehvqBe4OCX
-	 LCl2R/BsSR6IZ5/9rD45nktGYD9ATCrFT4S+4YHeoYIvtqa7j/e7YKzibmNp5q3J6L
-	 YvlBFhQIYMvDjKW/6LU+RlgPXcW6v0WBMtTu8ymczTj0IpGNjCHtmdXKryCG2ZUQtu
-	 nonRdl8jpMLYw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9577648A57;
-	Tue, 10 Nov 2026 09:03:24 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 09:03:25 +0000
-Subject: [PATCH wpan] ieee802154: atusb: complete each transmitted frame
- only once
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794301449;
+	b=FI8aO3MjS7WutJtn7fLsYxDBWIOA7v/YnBN82xMSb5Cl4DGTIqrYLBI2nNjtTfnxX4gY
+	 g4Rzdyj6pkTAWUX1QhlnNmd1NjL/jLcS8ZNuCgKmkGC/EZHPvT4SQSsMcX538Q9C0g9C5
+	 Qzk2ceci8jVdFumNgw0TwA6dS5m0tcXrBS0mgKmI3eZiBPGR0vCBlBn8d9LgOGKf9XgyL
+	 tb5E8RF6UmgpCF8LGShrtgYetfh3TOzLXaHBMq/rU+Sxwaf8KyKCnvBlahkE9XtCu6KWx
+	 fvnpWYsw9CyKOmys3mD+p5l3nJcJCqleSq1wKS6Nxy395aPXl2uJKOVdRkWqQWKmBbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301449;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=/BerbQ1LqYXVXHKPiWMSxnG91S54BmhY5Kon5U7NqOY=;
+	b=IYtCpq2sNwHG/2wrKUOJB7F+hJXjGVXQq1hvZJzhyAykH8vnSXG7iba2BjlDpVp2E3MK
+	 xr/YsUpWnnw5PoktDH/QbOxz/K5ovN9OFUDLGuqIihltQVIy2jyOP+dBnA7H5X0XAkvqm
+	 7PyQzUeHPGtHVlVR5mkttu3qAxi1trQgk8WR/z6thVEpl5KWFPzMUPOHkIwhOa60O1Pgn
+	 f+Yk+BMmiqMajsLIlkNNqTDnKGGKozk/oX8+IEqx1lmpynU7X8hPQAMMtp88T0W/UEP9c
+	 DNwFTFMWTu+OvYtKMV6LXQ+VECF5W7CwwLubv8DsGZK4aUKxULUu9HGh+2J437PQK6w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D13FF60A2602;
+	Tue, 10 Nov 2026 09:04:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D13FF60A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.172])
+	by gateway (Coremail) with SMTP id _____8Cx+9EE3vJqYSEeAA--.21477S3;
+	Tue, 10 Nov 2026 17:04:04 +0800 (CST)
+Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJCxe84A3vJqYXQzAA--.22085S2;
+	Tue, 10 Nov 2026 17:04:00 +0800 (CST)
+From: wuqianhai@loongson.cn
+To: chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	tzimmermann@suse.de,
+	deller@gmx.de,
+	bhelgaas@google.com
+Cc: ardb@kernel.org,
+	ilias.apalodimas@linaro.org,
+	javierm@redhat.com,
+	loongarch@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wuqianhai <wuqianhai@loongson.cn>
+Subject: [PATCH v3 0/6] LoongArch: Identify the firmware/boot display device
+Date: Tue, 10 Nov 2026 17:01:57 +0800
+Message-Id: <20261110090203.2631481-1-wuqianhai@loongson.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261029033440.973077-1-wuqianhai@loongson.cn>
+References: <20261029033440.973077-1-wuqianhai@loongson.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,121 +65,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-atusb-tx-once-v1-1-43e2b92f2072@gmail.com>
-X-B4-Tracking: v=1; b=H4sIANzd8moC/x3MPQ6AIAxA4auQzjahmjB4FeOAUrQLEMCfxHh3i
- eM3vPdA4SxcYFQPZD6lSAwN1ClYdxs2RnHN0OveEJFGW4+yYL0xhpXROPKD0+QWZmhNyuzl/n8
- TXMkGmN/3AxupegBlAAAA
-To: joasantonio108@gmail.com, stefan@datenfreihafen.org, 
- alex.aring@gmail.com, miquel.raynal@bootlin.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
- kuba@kernel.org, pabeni@redhat.com, linux-wpan@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794301404; l=3532;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=Vqtsi3F3WbF3wGvBDjFI4OLrDf6LJpOQrNpq3siz01Y=;
- b=YLDXtuy52tYz/Ou2wD1yFBUb5xWkkhrAYZYVum7ArT6TZsxMUmWPGBGC9NpSFJwXBfn82Ts/E
- n2Vw5tqBS4XCwRu9XnMgFWckLqbWTmmIWEqWKo12JF0M2afhiv+Iwvm
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxe84A3vJqYXQzAA--.22085S2
+X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxGw17XFy8uF1kWrW7Zw15ZFc_yoWruFWUpF
+	4a9a9xJr4kWr4xGryIy34UXFn8Arn7G3yagFWakw18C345Jr18WF93t3yDXa4UJ393J3WF
+	qF15Jw1xWF4DuagCm3ZEXasCq-sJn29KB7ZKAUJUUUjr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
+	14v26r4UJVWxJr1ln4kS14v26r4a6rW5M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6Fy26r45twAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
+	vY0x0EwIxGrwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_GFv_Wrylx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_tr0E3s1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
+	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
+	rb1UUUUUU==
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+From: wuqianhai <wuqianhai@loongson.cn>
 
-atusb_xmit() stores the frame being transmitted in atusb->tx_skb and
-atusb_tx_done() hands it to ieee802154_xmit_complete() or
-ieee802154_xmit_error(), both of which free it.  tx_skb is never
-cleared, and atusb_in_good() calls atusb_tx_done() for every one or two
-byte bulk-in transfer it receives from the device.
+On LoongArch the kernel cannot reliably identify the display device that
+was set up by the firmware and used for the boot console.  Two code paths
+need this information and currently get it wrong:
 
-A device that sends a second tx completion report after a transmit
-therefore makes the driver free the same skb again, and drop
-phy->ongoing_txs once more.  A report sent before the first transmit
-calls the completion helpers with a NULL skb, which frees nothing but
-still drops phy->ongoing_txs.  The stale pointer is also left behind when
-usb_submit_urb() fails in atusb_xmit() and mac802154 frees the skb.
+  * The PCI VGA arbiter: vga_is_firmware_default() is compiled only on
+    x86, so on LoongArch vga_default_device() may select the wrong GPU
+    when several are present (for example an integrated display
+    controller and a discrete card).
 
-A malicious or malfunctioning USB device can use this for a double
-free of an skb once the interface is up and a frame has been sent.
+  * The framebuffer console: LoongArch does not implement
+    video_is_primary_device(), so with
+    CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y the console falls back to
+    the generic stub that always returns false and binds to the first
+    registered framebuffer instead of the boot display.
 
-Take the skb out of tx_skb when completing it and ignore completion
-reports when no frame is pending.
+This series fixes both by publishing the firmware framebuffer information
+through screen_info on LoongArch and consuming it the same way x86 does.
 
-Found by LLM-assisted source review.
+Patch 1 always defines and initializes sysfb_primary_display, and always
+provides its EFI stub alias, instead of guarding them behind
+SYSFB/EFI_EARLYCON.
 
-Fixes: 7490b008d123 ("ieee802154: add support for atusb transceiver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-This issue was found with the help of an LLM-based code review tool
-(Claude).  I checked the code paths by hand against v7.4-rc3 and
-reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
-not have the hardware to test it at runtime.
----
- drivers/net/ieee802154/atusb.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+Patch 2 refreshes screen_info from the PCI resource-assignment path after
+the root-bus resources are assigned, so the framebuffer address is final
+before the VGA arbiter and sysfb_init() consume it.  The call is placed
+in the LoongArch PCI scan path because only LoongArch has this ordering:
+acpi_init() relocates the BAR before vga_arb_device_init() runs.  On x86
+the screen_info address is still accurate at that point.  If you would
+rather have the helper called from the generic
+pci_assign_unassigned_root_bus_resources() path so that all architectures
+share it, that can be done instead.
 
-diff --git a/drivers/net/ieee802154/atusb.c b/drivers/net/ieee802154/atusb.c
-index 5f7fc4ee7a07..2460eb19b72b 100644
---- a/drivers/net/ieee802154/atusb.c
-+++ b/drivers/net/ieee802154/atusb.c
-@@ -195,21 +195,26 @@ static void atusb_tx_done(struct atusb *atusb, u8 seq, int reason)
- {
- 	struct usb_device *usb_dev = atusb->usb_dev;
- 	u8 expect = atusb->tx_ack_seq;
-+	struct sk_buff *skb;
- 
- 	dev_dbg(&usb_dev->dev, "%s (0x%02x/0x%02x)\n", __func__, seq, expect);
-+
-+	/* The device may report a tx completion when no frame is pending,
-+	 * or more than once for the same frame.  Complete each frame only
-+	 * once.
-+	 */
-+	skb = xchg(&atusb->tx_skb, NULL);
-+	if (!skb)
-+		return;
-+
- 	if (seq == expect) {
- 		/* TODO check for ifs handling in firmware */
- 		if (reason == IEEE802154_SUCCESS)
--			ieee802154_xmit_complete(atusb->hw, atusb->tx_skb, false);
-+			ieee802154_xmit_complete(atusb->hw, skb, false);
- 		else
--			ieee802154_xmit_error(atusb->hw, atusb->tx_skb, reason);
-+			ieee802154_xmit_error(atusb->hw, skb, reason);
- 	} else {
--		/* TODO I experience this case when atusb has a tx complete
--		 * irq before probing, we should fix the firmware it's an
--		 * unlikely case now that seq == expect is then true, but can
--		 * happen and fail with a tx_skb = NULL;
--		 */
--		ieee802154_xmit_hw_error(atusb->hw, atusb->tx_skb);
-+		ieee802154_xmit_hw_error(atusb->hw, skb);
- 	}
- }
- 
-@@ -351,6 +356,8 @@ static int atusb_xmit(struct ieee802154_hw *hw, struct sk_buff *skb)
- 			     (unsigned char *)&atusb->tx_dr, skb->data,
- 			     skb->len, atusb_xmit_complete, NULL);
- 	ret = usb_submit_urb(atusb->tx_urb, GFP_ATOMIC);
-+	if (ret)
-+		atusb->tx_skb = NULL;
- 	dev_dbg(&usb_dev->dev, "%s done (%d)\n", __func__, ret);
- 	return ret;
- }
+Patch 3 removes pci_fixup_vgadev(), which overrides the VGA default
+device to a discrete card after the arbiter has already selected the
+firmware framebuffer device, so vga_default_device() consistently
+reflects the boot display.
 
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-atusb-tx-once-6d1f3d01dbee
+Patch 4 implements video_is_primary_device() for LoongArch by reusing the
+VGA default device selected by the arbiter.
 
-Best regards,
+Patch 5 lets the EFI stub link directly to sysfb_primary_display on
+LoongArch, so the firmware framebuffer information is always populated.
+
+Patch 6 lets the VGA arbiter use CONFIG_SCREEN_INFO instead of an
+architecture check and makes VGA_ARB select SCREEN_INFO on LoongArch.
+
+Patches 1-4 are LoongArch-specific.  Patches 5 and 6 touch generic code
+(the EFI stub and the PCI VGA arbiter) and are placed last so they can be
+reviewed and merged separately.  Patches 3 and 4 depend on patch 6 taking
+effect, but are ordered ahead of it only to group the LoongArch changes
+together.
+
+Changes since v2:
+  - Split the screen_info refresh out of vga_arb_device_init() into the
+    LoongArch PCI resource-assignment path (patch 2), following Thomas'
+    suggestion to decouple it from sysfb_init().
+  - Drop the per-architecture check in vgaarb.c and the select of SYSFB
+    in favour of CONFIG_SCREEN_INFO and select SCREEN_INFO (patch 6).
+  - Always define and initialize sysfb_primary_display, and let the EFI
+    stub link to it directly (patches 1 and 5), instead of guarding them
+    behind SYSFB/EFI_EARLYCON.
+  - Remove the vga_default_device() override (patch 3) so the arbiter's
+    firmware-framebuffer selection takes effect.
+  - Implement video_is_primary_device() (patch 4) by reusing the arbiter's
+    default device, so FRAMEBUFFER_CONSOLE_DETECT_PRIMARY works.
+
+Build-tested on loongarch64 with GCC 8.3.0.
+
+wuqianhai (6):
+  LoongArch: efi: Provide sysfb_primary_display for screen_info users
+  LoongArch/PCI: Refresh screen_info after resource assignment
+  LoongArch/PCI: Remove vga default device override
+  LoongArch: video: Implement primary framebuffer device detection
+  efi/libstub: Enable direct sysfb_primary_display access on LoongArch
+  PCI/VGA: Enable firmware default device detection on LoongArch
+
+ arch/loongarch/Makefile                       |  3 ++
+ arch/loongarch/include/asm/video.h            |  7 +++++
+ arch/loongarch/kernel/efi.c                   |  5 +---
+ arch/loongarch/kernel/image-vars.h            |  2 --
+ arch/loongarch/pci/acpi.c                     |  4 +++
+ arch/loongarch/pci/pci.c                      | 18 ------------
+ arch/loongarch/video/Makefile                 |  3 ++
+ arch/loongarch/video/video-common.c           | 29 +++++++++++++++++++
+ drivers/firmware/efi/libstub/efi-stub-entry.c |  1 +
+ drivers/pci/Kconfig                           |  2 +-
+ drivers/pci/vgaarb.c                          |  2 +-
+ 11 files changed, 50 insertions(+), 26 deletions(-)
+ create mode 100644 arch/loongarch/video/Makefile
+ create mode 100644 arch/loongarch/video/video-common.c
+
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+2.34.1
 
