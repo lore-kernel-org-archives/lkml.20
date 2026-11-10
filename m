@@ -1,49 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329710;
-	b=p0c2ZQvMrv5q+g2Xz8xq470SwNdKUYclZdZrl0l9Tqi1BUwUbVqaayNKmHHVdR6IBlgx
-	 oDPZ3oeu3KZEpxrpbhYReN53MGSHN0Z47wq12BmRdIEu0kZ8VMT7cYtbNMoc+G/nPgZLd
-	 ryrh+AcucN/07mMpNIICGWei5eIQFaJK4FUzFEvYSdLZncvflLZCm42KEmylJAPcYIO5D
-	 lEHv7U9u1UQ+r7l57KBrS7u6blwUB1c5EhwamV6LszM7q5vlzkhfXvctw4cdyeGBqVe6/
-	 zTYoFw9+mb+6loZmJnWWbZlwzCvYhmtqkMpV1rZqrDBlc2s8d4nRc1HCo4lMAaq6gNg==
+	t=1794329714;
+	b=fRVv4MJo3dn261UFuCLd7os7WYe6Mi6g4bapj5WqyaUOZyqHcdeY5wFRvslmibhMYoaI
+	 xvGdr6W6TZQ62kjabARqNClhkTthSy6BKAGjE5uk9NRZsqWMA4xx3TEheLSLuZK62chTQ
+	 g6zHLA4Ye4S64bOwzBdgcKwNk/Xjv62fAv2XbI5l7RJoUQGPvrlo2+rmQIi77v1s5z8wD
+	 YotMw3wGraZq6jYLoWBosRIkkscEuYE3+u7jkXgcdSbFa/KTEZHnpGX9EvaYyL/GUWTeE
+	 qjKLsN2cfm7L3D/R1VAtor/CYh7Shd3EOIfegLcdozmlxne6VbKbQUj/jjL6xFqWHcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329714;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=+p5LsXOQnB/59+iK7tE/PH15gIGyp3rLq42QFenYeJw=;
-	b=j1f68ZBvZ7jnkWZ2HAfvDXq23v0WG/qXby2psKnSntDu0F1fep3GYz/fKsdACu77AMOb
-	 wOv1367ZlLXlXlFPLz6ZY7UApwlkyPP9NXpaWRgKDhoKP9PvDA+SGzkVm8CQlYCZv9von
-	 cBQWAWZLS7ckeL5LTN0FNk3INJ9MlCXLvS4BrC7JP4qWkgJigEk8xUKEfBtOs8d3QjSRW
-	 h4HDGD1DiloojOrs0S2/H/1v+cTpGcIRSY3M/r9f+YkeYmajeCBQW53Uyc6zA10EaOeva
-	 kcL809LWEpog7kIrqnsqusXW0Sd5VkLhKrLrpu5EAusyS3oYF5cZQkuqjj7IXHEWVdA==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=OMUVvNok96eLG6z3uWZdjjBaPhh9NjlLMIaPd6V/DRc=;
+	b=nOdS106b60AbE36UAMZzYRrGiaS0648pxHv3A6EPJpb59U6EqWEQhSXXbJkBRKRaoudF
+	 uvemvEo+ns1LnydpCy8upiIMyqpz1mS1t39/Ph0XI641DHjVquEtQmr6oRyUU4nLgARHs
+	 WLhPn2hFGzaAnq9dvXMwgng0vjC+hKOlqPkzPxwbLsweR8J700fdda1x4mkuII1Lh6kxF
+	 HBfAfQcVXAhN230wWheLjZpjL6lLXV+LRKJJxxKgORviRtzEhQx47n4KkBsP5BHlXU/s/
+	 7vHSkUYmcB7Af388q/tZNaoAi1xmxlm0JgdIl5YavXp9RDcCG2vQkD08mhcrKmKXJHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=hust.edu.cn;
 	spf=pass smtp.mailfrom=hust.edu.cn;
 	arc=none smtp.remote-ip=52.187.6.220
 Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADE0D606D214
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:55:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE0D606D214
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3CB560A5BE9;
+	Tue, 10 Nov 2026 16:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3CB560A5BE9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
 Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMDWnmpiTPNqQ68vAA--.40291S2;
-	Wed, 11 Nov 2026 00:54:58 +0800 (CST)
+	by app1 (Coremail) with UTF8SMTP id IAEQrMCGTWlnTPNqWq8vAA--.34538S2;
+	Wed, 11 Nov 2026 00:55:03 +0800 (CST)
 Received: from 51f0e866aafc.ntu.edu.sg (unknown [155.69.197.24])
-	by gateway (Coremail) with SMTP id _____wBHQDdZTPNqhKI0AA--.54723S2;
-	Wed, 11 Nov 2026 00:54:55 +0800 (CST)
+	by gateway (Coremail) with SMTP id _____wBHQDdZTPNqhKI0AA--.54723S4;
+	Wed, 11 Nov 2026 00:55:02 +0800 (CST)
 From: Suyuan Wang <stevewong@hust.edu.cn>
 To: iwona.winiarska@intel.com
 Cc: openbmc@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	joel@jms.id.au,
 	gregkh@linuxfoundation.org,
-	Suyuan Wang <stevewong@hust.edu.cn>
-Subject: [PATCH 0/2] peci: Fix two use-after-free bugs in device teardown
-Date: Tue, 10 Nov 2026 16:54:47 +0000
-Message-Id: <20261110165449.1996921-1-stevewong@hust.edu.cn>
+	Suyuan Wang <stevewong@hust.edu.cn>,
+	stable@vger.kernel.org,
+	Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Subject: [PATCH 2/2] peci: Fix use-after-free in remove_store()
+Date: Tue, 10 Nov 2026 16:54:49 +0000
+Message-Id: <20261110165449.1996921-3-stevewong@hust.edu.cn>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110165449.1996921-1-stevewong@hust.edu.cn>
+References: <20261110165449.1996921-1-stevewong@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,61 +59,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMDWnmpiTPNqQ68vAA--.40291S2
+X-CM-TRANSID:IAEQrMCGTWlnTPNqWq8vAA--.34538S2
 Authentication-Results: app1; spf=neutral smtp.mail=stevewong@hust.edu
 	.cn;
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4xJr4DGw1kZr4xCr1rWFg_yoWktrb_ur
-	W2krykAwn5GFnavasIkr1rZry3AF48Z3yftFZ5tF48A3yFqr98Xr4DZrWavr10v395ur1D
-	Ary5ZrWfZwnrKjkaLaAFLSUrUUUU5b8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbPxYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI
-	8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2
-	z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAaw2AFwI
-	0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27wAq
-	x4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r4UJVWxJr1lYx0E74AGY7
-	Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j
-	6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIecxEwVCm-wCF04k20x
-	vY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jSNtsUUUUU=
+X-Coremail-Antispam: 1UD129KBjvJXoWxJry3CFy5GF17Gw1xZFW3trb_yoW8trWrpr
+	ZxXa45Kr1DWr17GrsxZF4UWFy5ua1fA34rurW7Wr1Ig3W3Ar909a40vFWa9a4rArZ5KF4U
+	Jry5JryrWayUCF7anT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQYb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1ln4kS14
+	v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l
+	5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxVW8Jr0_Cr1UMcIj6x8Erc
+	xFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWU
+	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82
+	IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r4a6rW5MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0Ha0PUUUUU==
 X-CM-SenderInfo: jxsqimirwzmmo6kx23oohg3hdfq/
 
+remove_store() doesn't hold a reference to the device across
 
-Hi,
+    if (res && device_remove_file_self(dev, attr))
+            peci_device_destroy(device);
 
-A static analysis run over the PECI core turned up two places where a
-struct device is still used after the reference keeping it alive may
-be gone. I went through both by hand on next-20261109.
+Once device_remove_file_self() has dropped the sysfs active protection,
+nothing keeps the device alive. peci_device_destroy() then does
 
-The first one is in unregister_controller(), which reads the fwnode
-and disables runtime PM after device_unregister() has normally already
-freed the controller. The second one is in the sysfs "remove" handler:
-it doesn't hold a reference across device_remove_file_self() and
-peci_device_destroy(), so the device can be freed under it, either by
-its own device_unregister() or by a controller removal running at the
-same time. For that one I followed what SCSI does in
-sdev_store_delete().
+    device_unregister(&device->dev);
+    device->deleted = true;
 
-Both are compile tested only, since I don't have PECI hardware. If
-anyone with an AST2600 or NPCM BMC could give them a quick run, that
-would be great.
+and if device_unregister() dropped the last reference, the second line
+writes to freed memory. So writing 1 to the "remove" attribute usually
+ends in a use-after-free. A controller removal running at the same time
+can also destroy and free the device first, and then
+peci_device_destroy() reads device->deleted from freed memory.
 
-Thanks,
-Suyuan
+Take a reference before device_remove_file_self() and drop it at the
+end, the same way sdev_store_delete() does in SCSI. The deleted flag
+still makes sure that only one of the two paths unregisters the device.
 
-Suyuan Wang (2):
-  peci: Fix use-after-free in unregister_controller()
-  peci: Fix use-after-free in remove_store()
+Found with a static analysis tool and checked by hand.
 
- drivers/peci/core.c  |  8 +++++---
+Fixes: 42bed52b2e9c ("peci: Add sysfs interface for PECI bus")
+Cc: stable@vger.kernel.org
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+---
+Compile tested only. The race with controller removal comes from
+reading the code, I haven't reproduced it.
+
  drivers/peci/sysfs.c | 13 ++++++++++++-
- 2 files changed, 17 insertions(+), 4 deletions(-)
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+diff --git a/drivers/peci/sysfs.c b/drivers/peci/sysfs.c
+index c04244075794..4b1c8b91a3cc 100644
+--- a/drivers/peci/sysfs.c
++++ b/drivers/peci/sysfs.c
+@@ -60,8 +60,19 @@ static ssize_t remove_store(struct device *dev, struct device_attribute *attr,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (res && device_remove_file_self(dev, attr))
++	if (!res)
++		return count;
++
++	/*
++	 * device_remove_file_self() drops the sysfs active protection, after
++	 * which the device can be unregistered and freed, either by
++	 * peci_device_destroy() below or by a concurrent controller removal.
++	 * Hold a reference until we are done with it.
++	 */
++	get_device(dev);
++	if (device_remove_file_self(dev, attr))
+ 		peci_device_destroy(device);
++	put_device(dev);
+ 
+ 	return count;
+ }
 -- 
 2.34.1
 
