@@ -1,69 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294168;
-	b=dM7Q5/ekGjBYrC6BgPB21VRiJBMPBcEzif+ChnN/yLCtchEnZoWuZxy41mQyR4Q68tBb
-	 MONF4ltS3BJjHNwlcXqV7eP1at8OyZdKPtdvme1IYYv8QS8Mh/aZsEoJzaWAcyf01jcZR
-	 iy3WzMURkY20GT0TRtNxSj8F18KUWxViDS97OHKt8aZzmR+M8HXo0i44oGqrOHqLbA8F6
-	 76QF1pBSrLalp+RhYHebnzM5Feyv+BO6bYuTf0nF5yqOR0FnARpSTAuDzM7Pxcg1pXHIr
-	 rvkXmXvyyv5BDTMg1O2gSYjPQMUU5uwzQoW9yt+YaFqunAozmI0/kFUUJDVoxWlqJSQ==
+	t=1794294180;
+	b=FojpDTc1Bqbxq5z06pJzuKGGLbx2NtOi4/aWqX6aRlkK95jU8bmmvJHziqGGZgqorY9q
+	 nmdiwYm8u7KSWo87z+oYkJ7MlKuFJ2w3Pp2XKwvgA697uTJGb8toY6nJcBBVKj627sCTn
+	 dxK4yOs0Ls+2hUsOwAQt/DHMno7eCo4v4K3susei2eeW2UlRNNYet2TXWa4wdwNw0Ubbt
+	 PmIpI6OzH2o7Rf3gMvESRvUvu5v6MnKkQkvE/2up7x2StMH/1IAo4RRsjFiDJ6j99lzQJ
+	 LDMmWwUKLtopWuqPYZYJV/NwZ+WO8CdpZv3xFB54nqe8YKRGH9/zazTqlwhl8PoWAFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294168;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PdalA2lMsvhmzKK5z4/olxydbRPPxHSQukiE+bWcq2A=;
-	b=XJ6aOqR/SH05tIzE8CLX11JzC1yBwa6kAUIjEEVuvsIQkUnPH0BmgD+Vom6Q2k2ycLS/
-	 Qk0WQp/TprAcYXwyBei5GFG0Ck+QB901bSSmPMDHvJidkTroHRWrikgUWZVZdKI2lRZTR
-	 JjVR1UvIbIxcNRbqeWSpHgRaMO8ozu8L2ocAephb8FIZy+8LXjEfnVnzXZ5LP5EipAFhZ
-	 2bMVS4YH4IhAT0ELl3GLjmiQitCF5X49UO8AFCLVayek8SA4nOTG5H8oac5qjC2+EHciu
-	 mtjQOSXPdvnuLap5fXBiw9g4ebThqEdgmEHSE8gAzprE4VJXwsAm4cXuH6Joa5GY+5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294180;
+	h=DMARC-Filter:DKIM-Signature:Cc:From:Date:X-Mailer:Content-Type:
+	 Received:References:X-Original-From:In-Reply-To:Message-Id:
+	 Mime-Version:Content-Transfer-Encoding:To:Subject:X-Lms-Return-Path;
+	bh=VtDaiBvkfKI1+bXdcUXzcnZOabPvH6+FEFj3kyTZ72Y=;
+	b=EtwtCfQHB3s5IEm32C060pcBnIpsCFRHumz2XDDvTnWMnTb7eG6yGfVuNV2wfUtP3el9
+	 3wFrp/+wZVhAWoQvBv6iKjKs3wyniTWFDZJDkPtNt8PBLl2Wqk8fgYcLoUA6rnGTrTp7w
+	 54v5Nc9Caed5z7C1wIvpjGDAAE/0W4DcQQ+S4zrHhVYR+3MdS3MOsUr2puiZhhsGkaiCr
+	 EdSWZzzfOe/S7m0EJn99UKhZntiwTMUxuky13g0Gs3PhGSJgQdMxR6lYaPAvqqRwNqMQI
+	 wijaWvboVNNn719K3dpRV0g2D1816h28RR8IGjDiSWAADQoWtm1eJrDO8YzahLgMQ4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b="d9GI3/Bp";
+	arc=none smtp.remote-ip=209.127.231.43
+Received: from va-2-43.ptr.blmpb.com (va-2-43.ptr.blmpb.com [209.127.231.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F7A606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:02:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F7A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b5846462dcd411f19a56ed5b684f684d-20261110
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:9be663ea-f5de-4dbf-9979-2add6c209046,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c5ca694d64765e5f5568255934526006,BulkI
-	D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b5846462dcd411f19a56ed5b684f684d-20261110
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yaolu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1689587472; Tue, 10 Nov 2026 15:02:36 +0800
-From: yaolu@kylinos.cn
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: siqueira@igalia.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/amd/display: Don't free devres-owned i2c adapter on init failure
-Date: Tue, 10 Nov 2026 15:02:03 +0800
-Message-Id: <20261110070204.307887-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F906606A339
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F906606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=d9GI3/Bp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794294174;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=VtDaiBvkfKI1+bXdcUXzcnZOabPvH6+FEFj3kyTZ72Y=;
+ b=d9GI3/Bpox/LDYRbAdfDF3TMwJ1HXTzwZLm6rJY0h6UxDvk/7dGgm3ciG7BxeMvnxd2Y+K
+ a6rpsPcGJUE9JLBrQlpaN4oDe7hRjYLrDqnaVlKrkbAH7Vp/4uWqK83VGunKgJIS3+i/Is
+ M2ancIUQV+NNQph+Rx0lfaf8uY18evuXkfqmFVPeo332xtgPw7IfDKiQ61FkDh7iLDQjfv
+ G6p+ll7860h91JSpkGYb/0cuJbQkZg/dhn6NB+IYno8A4/32MVB3LHL+v8bY6lkol/gE5E
+ 2iJCQ1JGUEBxXEfIOFapKIgN09ZEIbBkBJLOdaAcJmhe7unavkLZeCKgq9HEsw==
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
+	"Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
+	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Rong Zhang" <rongrong@oss.cipunited.com>
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+Date: Tue, 10 Nov 2026 15:02:31 +0800
+X-Mailer: b4 0.17-dev-ce4c1
+Content-Type: text/plain; charset=UTF-8
+Received: from [127.0.1.1] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 15:02:51 +0800
+References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+In-Reply-To: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com>
+Message-Id: <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,34 +66,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
+	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Subject: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
+X-Lms-Return-Path: <lba+26af2c19c+d3620a+vger.kernel.org+rongrong@oss.cipunited.com>
 
-From: Lu Yao <yaolu@kylinos.cn>
+The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
+has no clock controller.
 
-amdgpu_dm_connector_init() registers the i2c adapter with
-devm_i2c_add_adapter().It will be released by devres on teardown, so
-we don't need to free it when failed.
+Retrieve clock frequency from OF to make it work.
 
-Fixes: 5b3eca05cfb0 ("drm/amd/display: Use devm_i2c_add_adapter to simplify i2c cleanup logic")
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
+
+Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index b498fc5fbb14..ccbda54c3add 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3514,7 +3514,7 @@ int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 	if (res) {
- 		drm_err(adev_to_drm(dm->adev), "connector_init failed\n");
- 		aconnector->connector_id = -1;
--		goto out_free;
-+		return res;
- 	}
+diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
+index 2811e7eab631..57b9e699c131 100644
+--- a/drivers/watchdog/loongson1_wdt.c
++++ b/drivers/watchdog/loongson1_wdt.c
+@@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
+ 	u32 timer_offset;
+ 	u32 set_offset;
+ 	u32 wdt_en_bit;
++	bool no_clk;
+ };
  
- 	drm_connector_helper_add(
--- 
-2.25.1
+ static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
+@@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
+ 	.wdt_en_bit = BIT(1),
+ };
+ 
++static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
++	.timer_offset = 0x8,
++	.set_offset = 0x4,
++	.wdt_en_bit = BIT(1),
++	.no_clk = true,
++};
++
+ struct ls1x_wdt_drvdata {
+ 	void __iomem *base;
+ 	struct clk *clk;
+@@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
+ 	struct ls1x_wdt_drvdata *drvdata;
+ 	struct watchdog_device *ls1x_wdt;
+ 	unsigned long clk_rate;
++	u32 freq;
++	int ret;
+ 
+ 	drvdata = devm_kzalloc_obj(dev, *drvdata);
+ 	if (!drvdata)
+@@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, drvdata);
+ 
+ 	drvdata->pdata = of_device_get_match_data(dev);
++	if (!drvdata->pdata)
++		return -ENODEV;
+ 
+ 	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(drvdata->base))
+ 		return PTR_ERR(drvdata->base);
+ 
+-	drvdata->clk = devm_clk_get_enabled(dev, NULL);
+-	if (IS_ERR(drvdata->clk))
+-		return PTR_ERR(drvdata->clk);
++	if (drvdata->pdata->no_clk) {
++		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
++		if (ret)
++			return ret;
++
++		clk_rate = freq;
++	} else {
++		drvdata->clk = devm_clk_get_enabled(dev, NULL);
++		if (IS_ERR(drvdata->clk))
++			return PTR_ERR(drvdata->clk);
+ 
+-	clk_rate = clk_get_rate(drvdata->clk);
++		clk_rate = clk_get_rate(drvdata->clk);
++	}
+ 	if (!clk_rate)
+ 		return -EINVAL;
+ 	drvdata->clk_rate = clk_rate;
+@@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
+ 	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
+ 	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
+ 	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
++	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
 
+-- 
+2.55.0
