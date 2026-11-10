@@ -1,55 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295695;
-	b=xcQwZS/DosPwYC6pkIrPjLS28awrNTTDW61ZizT65x9f5qYaHlCbOfkq24AB8LNG7vGF
-	 I8RT1w+FnCeFYYMxnIXGsm4xvR0kr5nzwsgT92De662qDc9XlNsNlVpHSeY7jEbYsmork
-	 4fOrgCIjiRGgqeV2kT9y/vbF3nbSOH3zLEyOLQmW3PnUTFbpMsjWqLZKVY2XmrPxKYIuI
-	 ZtGrRWAtXliPKId9HGxmKWcy1oGm1inqzVzKLngBmhN2Iqbl7NNpzfUO3TNoRkmQknyC0
-	 gmd91XMaCsmLVBRYnrgvFzqcDRzTQcOxrlLVd2u+sA+k4armlMBOzy9Ui4kJ8Qv4XWg==
+	t=1794295704;
+	b=jfao4CTT78/zTnlmN5heGtM+dVtwgeS8AMjbQ597jcdIJcLq066SbXHj7ovXX05bicnM
+	 2jZukTWnXrbQyIo51L9sJFz9Q7/tCHf6tTveLCKuKbFplJDQZHIKgbwo3tTYZ88w/5A0k
+	 GeVV/LChXmwOCdrODfd1RZZ/+Ne1U8lJZTbj9WGhybbO9bmeF2rhhoukv2Or/DQ1GCqJ+
+	 MDzwGmlqNys0ZwETK8fAkoCz0Ex2LCYLr1cMKQnGDVh2afskD8g1sUoxsnaiMkkcE5bD1
+	 in1XHTm36K3RoYBUPMWyRzYAviGWrx90/rqB6ZUtib7hcyETIYUryIY1m+TfGcxaUOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295695;
-	h=DMARC-Filter:DKIM-Signature:X-Virus-Scanned:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=M4r2qj7P4QEx7t98vQMOBPu9orxS4AyICajawHUCaJE=;
-	b=hG30X1ijneadVl1JU5H2wV4rctWspJpzABhDbl2ZZyrbUDPS3LCYF3PLv96vDx5zao8W
-	 R3GMn9ih/S7JbaBdicKtpXZsy5dn+2rlra+Q4SS1AV8gsRb7drxTR1IERlWOyvFv1bMEL
-	 6Lfe48GVXCiZnZ6diiP1IXiwWUpmDt3jEeIMYZ7lCcyGe9QWDxMk3mn5BDn5q6JZ9+87L
-	 YVDD/rC7Jpu22Kft0UrydW+ajjaK3jr4IWn7Fo20+zbLv5QBD7xuAW3pJ/vTWxLVsiSi+
-	 rs3U5pyGTI2S9WhySHAaqSSQsVYQUpkXfBro8rT82t4KkngN5kQhKeIpB1DUS0RA3MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295704;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Vk30BszvLUvZQJPLVx7j5492Hw84BFg36On09QYj8+0=;
+	b=vZT2dTnx23ql/yNaatUARN/P8DIUQf/RrrEZNTPOeCt/tFHS4ycSzMaDnMEBcMKejpca
+	 ZS19XYWJjRlCnVwikvK+vSGSvDnF/JUng7r/pu4OngCSmhzMsNUdeK9sZi62UYuDL305B
+	 K6tZbCKM+NEuEJ1DDuuQNF/j2O9q0F4LgvstpPpEoo0uTmGbEtN3KLGP2twZfe6OOd7yf
+	 BzQA2GcKm8oJHhMRspUKJWnM32/HU5XNvyVyIfVP1k3OqmJ1Ltd5amZFXxHst1ucYIMFj
+	 RHuXA5fzg35Rg2Ftwuj/JO/37dXXm+fNSxdPXgCRlPxK+xybBjC6pRfFTJ8k5PodSjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuxist.de;
-	spf=pass smtp.mailfrom=tuxist.de;
-	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=CqRPeBZR;
-	arc=none smtp.remote-ip=173.212.254.19
-Received: from proxyplus-primary (groupware.tuxist.de [173.212.254.19])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="Mn5un6P/";
+	arc=none smtp.remote-ip=203.205.221.209
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B08606A31C;
-	Tue, 10 Nov 2026 07:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11B08606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxist.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6F7606A33C;
+	Tue, 10 Nov 2026 07:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6F7606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=CqRPeBZR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxist.de; s=201705; h=from:to:subject:date:message-id; bh=M4r2qj7P4QEx7t98vQMOBPu9orxS4AyICajawHUCaJE=; b=CqRPeBZRTid32NIDO1Fo39yS3qxCXMTZoy8RV+och/8pD0WmpfZW6Ce4ilN6pQ/GzQ58wLz5I8hufLVplK3SxIxt4loiMZJq2TrS9Gkw3UxolFM6GJoY8FWSkTMLpPOxzllCgtv84EHi/PTBkGyTjPrHkRM4n1EmEBznFYzHxSp6Ktb/okJzYEwhd4FscwG1pF0jC0ZApDzurln6OT8SctaDL2GEq5v+EEBVcLyYTsntM316ec61U31yl9EFTrMSUt+lQfRJ/FBwOXIs/YvVCQ11EWs7nIVS+FpR58/ZLEsEBKbYEezlivgbZNbH7nLizVT8Vs8ckpDyqKuND3Wsog==
-Authentication-Results: proxyplus-primary; auth=pass smtp.auth=c0b31cfa-45fd-47d9-942d-1f6e173ca729
-X-Virus-Scanned: proxyplus-clamav builtin
-Received: from dibsi-vdi.intranet.tuxist.de ([94.31.110.105]) by proxyplus-primary (ProxyPlus) with ESMTPSA; Tue, 10 Nov 2026 07:27:35 +0000
-From: Jan Koester <jan.koester@tuxist.de>
-To: linkinjeon@kernel.org,
-	smfrench@gmail.com
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	brauner@kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 0/6] ksmbd: Windows SIDs for user and group ids
-Date: Tue, 10 Nov 2026 08:27:39 +0100
-Message-ID: <20261110072745.1546158-1-jan.koester@tuxist.de>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Mn5un6P/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794295695; bh=Vk30BszvLUvZQJPLVx7j5492Hw84BFg36On09QYj8+0=;
+	h=From:To:Cc:Subject:Date;
+	b=Mn5un6P/5HVtiJgXYmFaBNp58tH1AhAg12BEvpWJv9VOZTaeq7NL6+2NPCmlX7Wwj
+	 l6BwE/azySih3xRSmMsKPbmMsJ3qKE+5P5EkNQ5Zg+Ei7XvN9Y4jIMEcXhQ0tEiyJv
+	 yyKT87FacandmrLXdnsuWVdJFOVE5sKmM/VH9BXM=
+Received: from ikun ([221.176.157.250])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 70486608; Tue, 10 Nov 2026 15:28:04 +0800
+X-QQ-mid: xmsmtpt1794295684t6um2b4rz
+Message-ID: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9X4fnIIPYZ1r3ekLU3NqbruqAiolIMcy7IyE5drRcj6ZxomTOTq1
+	 J4l+uUm3ZB4Fll4as9Dj+cOXv50XyLgfq/r1wEtOsx+L5WtS1TEkUkPGW7UYMSB5xmGodr2DYbpG
+	 btnDR1ee6dUEKP9W5LPMEGKXoWs+NuJpgLvi6bhM/OnDAjIVWowvtbJtM4FL7ENkXl9UrkbgrlgK
+	 o87wlczlLaqsVdtPswlXR4Mx1HdRGnTfNe7N4Iq3uVgLWTPYwgFn0dYAcOKgK8V5Uzl/441SpOWn
+	 QClZwrc6dVncUG5U/1lf4w768ngYhKO8Pa1w6bkRHvs/0g6OTEJ9DpMeOhgv/qrJuoZ+L1Tv2f7m
+	 /D399dsJEp2SZ2BGgUyxFW4Sd31HonaiHdHzMWE6e/K3Y6Z9m1eDJTkt7v/q8FoA638xkj4/Q6dA
+	 ov12ZJKnzkDvoJOgpLPF3OzALewlQ7jRVVFXbc7fAI1oYGgM+HSXypY7mpYKcCETMnLKCm1Fmlbg
+	 AnF3iIaPARO2mi9PVkYLZvTIAUNJao7AuW9fk2vEZ8oJ6IwBCeSS1Pi+tFFFgSMLcCEzuin+P1+g
+	 jPPy8npgjyj8WVXoniVYqY0CGo6teWxmfI7O9ZGo4FxMWtOwKMkho+pCjC7d97HJMduCoGjBjfwn
+	 wVPyRIWuDDWAgKRsufuoES6pB+4J8Sw0Ycys9T1m/aysguYtBSvWPwyJ8A+SQGB4E/fYGrrI101P
+	 4Qze55Zw7GlCcpkSfeqjgahzUx62ASmYGXv71NNlcPKY31E+WpZaqPWtBoZU3BJZlvCaldOkz++/
+	 W7uTE6ryApF1FYGOEKHgLbBzAPP3rdI+lClgrn37KqNUXcFqPseJvqvzNyn5EX+lds183/IRvfmI
+	 joCzAupG54TsMzTDty54prs1tPOzpIAD/E6qXruGzVFXpYmpMnHeMon8PxjvHqSuVDCphEhXbs1y
+	 sdkS3gEwrL5k+BzdLwKqzkF+CV06FVugX3TI+DHFcXJ7wBU+nxBwT/jUStnW7zkVq7hYkXdzaW9T
+	 7VUFzC2uoQkEA/aEVrVIR6+rWdojxuQJDfMzZMe24GDRaWN8XMeKjctb+Mgogj5/ZfhNpjNKba8d
+	 crvK/etK8/u1y485k=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Alan <3164729207@qq.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: Alan <3164729207@qq.com>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ext4: free the new extent block when getting its buffer fails
+Date: Tue, 10 Nov 2026 15:27:23 +0800
+X-OQ-MSGID: <20261110072757.86156-1-3164729207@qq.com>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,92 +87,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+ext4_ext_grow_indepth() allocates and accounts a metadata block before
+calling sb_getblk_gfp(). If the buffer allocation fails, the new block
+has not been linked into the extent tree, but the error path returns
+without freeing it. This leaks the block and leaves i_blocks larger
+than the number of blocks reachable from the inode.
 
-Windows names owners and ACL entries by SID; for a domain account that
-is its objectSid. ksmbd shows a file's owner, group and POSIX ACL
-entries as S-1-22 SIDs or as its server domain SID + uid, which a
-Windows client can't relate to the domain's accounts, and a SID a client
-sets for a domain account doesn't map back to an id at all. This series
-lets user space, which knows the directory, translate between ids and
-SIDs in both directions, for accounts that are logged in or not.
+Commit 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+removed the implicit __GFP_NOFAIL from this allocation, making this
+error path reachable.
 
-It applies on top of the UUID/GUID id RFC (uid_r v2,
-<cover.1792552161.git.jan.koester@tuxist.de>) and the NTLM pass-through
-series (<cover.1792345559.git.jan.koester@gmx.net>); the netlink events
-it adds follow theirs. Patches 1-3 are independent of uid_r in substance;
-I can rebase them onto mainline to go on their own if that is preferred.
+Free the new metadata block before returning -ENOMEM. Use
+ext4_free_blocks() to undo both the allocation and inode accounting.
 
-Changes since v1
-(https://lore.kernel.org/linux-cifs/cover.1793168155.git.jan.koester@tuxist.de/):
-- 4/6: the token's SIDs are compared with the ACEs' through a new
-  exported smb_sid_equal() next to compare_sids(), which also replaces
-  the private copy of the same comparison in idmap.c. compare_sids()
-  and its existing callers are unchanged, as some rely on its prefix
-  matching (Namjae).
-- 4/6: the SID mapping stays an on-demand lookup on a cache miss, as
-  discussed; no change there.
-- 4/6 also converts the smb_check_perm_dacl() caller in
-  smb2_handle_app_instance_id().
-- samba-technical dropped from Cc: it only takes mail from subscribers.
+Tested on Linux 6.12.1 by injecting a NULL result at the caller's buffer
+acquisition boundary. Before the fix, seven failed extent tree growth
+operations left seven allocated but unreachable blocks and i_blocks of
+40 instead of 32 on a filesystem with 4 KiB blocks. After the fix, the
+same failures leave i_blocks at 32, and e2fsck -fn passes after a normal
+unmount. Retrying the operation, truncating the file, and growing the
+tree without injection also succeed.
 
-1/6 ksmbd ignored the owner and group of a descriptor without a DACL,
-    which is what Windows sends to take ownership (and smbcacls -C/-G),
-    and still reported success.
+Fixes: 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alan <3164729207@qq.com>
+---
+ fs/ext4/extents.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-2/6 After setting a POSIX ACL from a DACL, the following chmod used the
-    owning group's bits as the mask and left named entries without
-    effect.
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index ad0d80e33f6090..7358df54bcd4ae 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -1333,8 +1333,12 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
+ 		return err;
+ 
+ 	bh = sb_getblk_gfp(inode->i_sb, newblock, __GFP_MOVABLE | GFP_NOFS);
+-	if (unlikely(!bh))
++	if (unlikely(!bh)) {
++		/* The new block has not been linked into the extent tree yet. */
++		ext4_free_blocks(handle, inode, NULL, newblock, 1,
++				 EXT4_FREE_BLOCKS_METADATA);
+ 		return -ENOMEM;
++	}
+ 	lock_buffer(bh);
+ 
+ 	err = ext4_journal_get_create_access(handle, inode->i_sb, bh,
 
-3/6 passes the domain of an NTLM login (NTLMSSP DomainName) to user
-    space in the formerly reserved room of the login request, so a user
-    space serving several domains can tell DOMAIN\user from OTHER\user.
-
-4/6 adds KSMBD_EVENT_SID_MAP_REQUEST/RESPONSE for a user space that sets
-    KSMBD_GLOBAL_FLAG_SID_MAP at startup: the SID of an id ksmbd shows,
-    the id of a domain SID a client sets. Answers are cached (mappings
-    5 minutes, "none" 1 minute, "couldn't say" never). Showing a
-    descriptor never fails on a missing mapping; setting one fails with
-    STATUS_NO_LOGON_SERVERS, STATUS_INVALID_OWNER or
-    STATUS_INVALID_PRIMARY_GROUP instead of being applied in part or
-    ignored. The session user also matches ACEs for its groups' SIDs,
-    like a Windows access token.
-
-5/6 shows classic users as S-1-22-1-<uid> instead of the per-server
-    domain SID + uid, and still takes the old form.
-
-6/6 documents it in Documentation/userspace-api/uid_r.rst.
-
-The user space side is sharedd (FenrirOS' ksmbd user space) with
-adconnect for the directory lookups.
-
-Thanks,
-Jan
-
-Jan Koester (6):
-  ksmbd: don't ignore the owner and group of a descriptor without a DACL
-  ksmbd: keep named ACL entries effective when a DACL sets a POSIX ACL
-  ksmbd: pass the domain of an NTLM login to user space
-  ksmbd: map user and group ids to Windows SIDs through user space
-  ksmbd: show classic users as S-1-22-1-<uid> on every server
-  Documentation: uid_r: describe ksmbd's SID mapping
-
- Documentation/userspace-api/uid_r.rst |  18 +-
- fs/smb/server/Makefile                |   2 +-
- fs/smb/server/idmap.c                 | 315 +++++++++++++++++++++++++++++++++
- fs/smb/server/idmap.h                 |  25 +++
- fs/smb/server/ksmbd_netlink.h         |  62 ++++++-
- fs/smb/server/mgmt/user_config.c      |  21 ++-
- fs/smb/server/mgmt/user_config.h      |   7 +-
- fs/smb/server/server.c                |   2 +
- fs/smb/server/smb2pdu.c               |  37 +++-
- fs/smb/server/smbacl.c                | 267 ++++++++++++++++++++++++----
- fs/smb/server/smbacl.h                |  19 +-
- fs/smb/server/transport_ipc.c         |  72 +++++++-
- fs/smb/server/transport_ipc.h         |   5 +-
- 13 files changed, 797 insertions(+), 55 deletions(-)
- create mode 100644 fs/smb/server/idmap.c
- create mode 100644 fs/smb/server/idmap.h
-
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-2.56.0
+2.53.0
+
