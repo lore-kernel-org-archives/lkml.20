@@ -1,96 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794303104;
-	b=azv04qtc7B79F43ehQtyHczdJfYQbFAN7+SjWYU5RWyFa4j3LDDYAjx4eyhYUaq7IHQD
-	 gJJmnudpYuGnkQOWmfwgQtVjBiPBpdtikdcIGTbz8fYypf8i4Yw7Qy22YmI/rsG1THEMx
-	 NWvOeRI8B+AHFmTk/tl96Ox1wsTJNa0mNNJVeg3K29rXhl5AWw/4QvCks4iE5372gMeW4
-	 oup7ZOOO0xx8Lo33Dl0QPtllmhjLN6x00iKQ6mrQOdGt1TgJtbt1XRzE0LKv85kti1+/E
-	 kToMPpHj+zDVMcFMAVjrbXGgziDcF/Y5bZjEyMLkLYzjzFzdh/VMHoZ/BqZn/qYaKng==
+	t=1794303123;
+	b=UPP6zzdeyo77WMAe0zXyhoDdLWBAe3pjA+OCd7+mBBhGzajEBZ6k/+AUz+kdz8c8GSnm
+	 r+5j+Y5n3uclJ89ZcRuQk8Zd4OrQID7n+5xoF3emwTxkPmPDjmZRkq2aq8TIOIoIyJ7KQ
+	 LlifHZrWx40Mz2kvT0bQEAzrMGRwd1LwfwKZivnilBV+XAMxW+orsa7IFnf8OufXymwey
+	 ftBXP01PR9xILUWSeTXvSaiENMICN7PFDwjHA0cou08uijP7aWzjqrByuuN3J3wkjfzqW
+	 ZoVz/k/v3r8m7aEFWUozMjEiW/Sq5RqiAsMz6jW1XO0E+K38aY8ML3/Du4zmAKjyvCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=70d5HP/NDskHf8kArC44fYJ/2R1MLgLSjk60RYC7GPQ=;
-	b=b+rF+Vrx+IAfN0aIH/H5g04VDwKclbCKyMqJqIBXWX82Dkm2enXtIDb2qSAu2wlw+D3P
-	 dBcpjqJVJzcLAfVlgvU00sLbgLfGSaXwDJkQo7fghkJDHrJKFSAROhMqg06YJQCEJjxsD
-	 N2R3bvX9LQFTetGYVrXnzibwsce7LSYKQLofBuE2X3enbG4qSuvSykNena4FUL1XEEPUT
-	 8ntIVE3YrvVMA+3Gtb62qYOqcRC2f2FOwFSFzLuy49qcQ5Y+2ryIaVX9C8jEGtsaX0DxY
-	 IQOVxVVvWCVvY3ArOdU/rXnzs6VQ1I0+ZQLm1rb5z2UIRoqNyeQZ1gwtFZ1FEvaUckg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303123;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=oJI6oss0xH3OstOWRD7XS5gf1pugk84YsufQhXrpkNQ=;
+	b=ln5CaF0d7HZ/RoGn2D6csf0XCbKzIv4fUWyjrlNw4Pf8vJB+p/iMG1ETKddWPCPAWqVk
+	 1yQRXMkvWPLl8+MxIt0dYMHJbyT8EghQOfD24X+CN4wZjhj3CthAMzKf9hj8TYL+EW6oB
+	 N1kin78vzBz9G6ESvzAIUSHU35UB+Zq0jX1rTDlvk8ue0gKwF0LaVCUyYctiDD1F1AU+D
+	 vr6LzbaIMIFk8tvIZZPnV+e5O+pz/g9fXm+cyHdVcpV0RL2YZzJq6VW4HqB8yCaz1MM/D
+	 qYHkOuJ0ydKFqziRa4EmfkyLKoBpyLTY/shQF+t9IR+Wa+18Kel3F/z4LLSsQ+tpDBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m6VpWtDm;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b="XOgws/bB";
+	arc=none smtp.remote-ip=93.188.205.243
+Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABD2606CF8B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:31:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ABD2606CF8B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B46B606CF8B;
+	Tue, 10 Nov 2026 09:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B46B606CF8B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m6VpWtDm
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-372bdb942dbso2424816eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:31:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794303103; x=1794907903; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=70d5HP/NDskHf8kArC44fYJ/2R1MLgLSjk60RYC7GPQ=;
-        b=m6VpWtDmn0Dldk5emvFKnESyohulG8uw0ZwPMGdM/9S9v9cGrlFeN9gVlckf0Mv0qd
-         3fEteFvJtcrNghTloBDMtkBU/VUpnBYwWJGrWgbJ0TaRfH1Gh067jvJyvnab4B+wgVrs
-         59hh1V5259n5V2cFrmtphIhIRlYE7Ju3zRc+8t9Sy3bmJzvV6sEoFD3SH9SROk5LFspc
-         qIRJ4gTKCCniqI0K3QDpfIEI87CwGTcMfHt8fp+LwWdqE+Ip5GlYa+1E6hy1pFyOGnfE
-         VUwYg7oOCMTKdy4QI6YD6tLww1NgQkM2GoW7dN5f8M0DqdEBrD9z/jv8huYgv9A/vJbT
-         Nm7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794303103; x=1794907903;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=70d5HP/NDskHf8kArC44fYJ/2R1MLgLSjk60RYC7GPQ=;
-        b=uh4gRGNW0Mqw5m6M6/kw5lCZ+uujC1592VbeUPtOzGTIFDh8XuaDqoWfynoMPMG1/h
-         m+xhfk6IAQurpEQXN5Z1WXLYtdXU+LtX1mUKDvrYLfpd80ksqrsHIzY6GWUjkmcauFN3
-         U3b+0kQop+ctPvpCHV+BoELkJivhhFH78nQDJyHK1mpqMpwzNKhkUUHOleCKk+JcTZRH
-         VJeEOMuI1ZPOo/Tl7t6iHezs2+e/JKL0C7N8vOp08DHbXTtTwU/vOwyHI6dy/AL4QrKS
-         OfH9RNclaJNvzMjEKwADOKYnhZSYIRRG+k/CJR1g4Wd+dnrkOqPxvicOZ1BuJpmipeB7
-         lguw==
-X-Forwarded-Encrypted: i=1; AL+hErGmUWB7wl2pvzlSSmQ+X/ZBr1G7Y6SulerKPVUJAqFyNxrgSLkT6x4RCBto9mrqLNdznJdS5X4fPus85xE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Pe+FTi3VyXY110m+dEOeD+HzEahIJxR1qSlI6NcROxzcT9ChX
-	1982TX4vvSoOoLCdrUnMqyUtSFWlr6OG1IMNOP/0AM8Yc/UBEWuZjrob
-X-Gm-Gg: AYBFou0PplPs1UQ4qVIgSyu6FP69KHlvdKgoR4QONa7RW346WdvKZgesTmG8mAh5WUW
-	a1mVv223eAvNQldhJCi/HmTZipb7PMSUsReNcHidKAOflC5TU0mS16CcZlthjdqY6JiJWRgHeN7
-	/amxI/167hupnNp/XilSBxCuHlcDBME/my+B2Wu24HcU7X41HPHX4ZZwzC5yXol3bC06wIV3RoB
-	JcYv4xr3JCAOSPIhHex+6FDH3y7YdgE/8unNc/n4VjTyPtsJeFgfVnHZIsv5ISAX9HreOcBeYUa
-	vkq5tqMizHFByngn9sjrNV3jfaNoanqb/L9zuMH/vowCRSZMN3xWoS5P+EeW+/sBN0oSLvWKcFc
-	qpkdFpwBM1HA+OO6kKyqy7INpuyCzFVX9GWp5CpkfuyC1tq1b4vAIX5LNmKzYKK2U9K7EvS9IRn
-	YCpWYukvJncBpADzzeGpN+CFGVAJQORlglpGeYOmioqJ/IdFV0lGqVtWJx24LR6KfKCehfq3ius
-	JVWj9S1IZsUNqdut3ygKKNhxdgKce22NcX0nmXsAvgvENKBmNwAdBoP5cqSp59zP1j3ZAxuZbp8
-	DXRYW6GNJ/qUXZewxi5hrxZp4Ps9/wxfphcUwAr3uRjXPDPs7BQXtNLpTYk=
-X-Received: by 2002:a05:7300:da01:b0:351:29c8:643 with SMTP id 5a478bee46e88-3751f46823emr2583654eec.18.1794303103003;
-        Tue, 10 Nov 2026 01:31:43 -0800 (PST)
-Received: from homik.search.charter.net ([2603:8002:ad40:56f0:140f:bba5:1d89:57e3])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe3261csm4840148eec.4.2026.11.10.01.31.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 01:31:42 -0800 (PST)
-From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-To: mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=XOgws/bB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1794303112;
+	bh=uenKw59VxCtFuBnetHvedvizKcgHBESDC9ZUrZ0EMJU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XOgws/bBYaw/z4yO4YwbKXHVziva2wjSQCx++YpL8PH0uPJCfrEtGJeY4hUg6vAx9
+	 x1xNCR4FP8D7JFOF4TH1MG6EIbs7MDiBGwQld2lBVZGIMTnkagS1d35lnLCq3jgGpW
+	 X0gabB/swIaoSuOTxEPMa5jB3Bh8dk0LyhD3AS+q3iCGXvpgLH/IVWcpCeZl21ybEQ
+	 k88PMjiSq2g+gnC3Uhd5hkwFlkCjtqm48fPMTRW0M11qCga7vuYRlvCuBedwdnQT0m
+	 1ETFPdEHj8BGOpsEwB4+VZATRV4QvWCk6/m5pyvoHGFheDSBlMsSAc0XeSGXWVV4+y
+	 zAlCIwvjuCq3A==
+Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id E8ECD1FA63;
+	Tue, 10 Nov 2026 12:31:52 +0300 (MSK)
+Received: from mail.astralinux.ru (unknown [10.205.207.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 10 Nov 2026 12:31:50 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.16.187])
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jP1d2284sz2DS;
+	Tue, 10 Nov 2026 12:31:50 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	morbo@google.com,
-	justinstitt@google.com,
-	kees@kernel.org,
-	linux-hardening@vger.kernel.org,
-	Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Subject: [PATCH] scsi: target: iscsi: Replace strlcat() with snprintf()
-Date: Tue, 10 Nov 2026 01:31:37 -0800
-Message-ID: <20261110093137.37744-1-nikitash.mariiaw@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] ip6_gre: remove obsolete ERSPAN PMTU update
+Date: Tue, 10 Nov 2026 12:30:26 +0300
+Message-ID: <20261110093028.1346-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,35 +89,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/10 08:55:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207361 [Nov 10 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/10 08:49:00 #28832117
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/10 08:56:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-In preparation for removing the deprecated strlcat() API[1], replace
-the strlcat() call with snprintf() to construct the AuthMethod value
-directly from param->value.
+From: Daehyeon Ko <4ncienth@gmail.com>
 
-Since buf1 contains unmodified copy of param->value, formatting
-original value and suffix together preserves the NUL-terminated
-output, including partial or omitted ",None" suffixes when the
-256-byte buffer is too small.
+commit 8bc60db48e8cba35488bbd6e1f94aa990afa275a upstream.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
+and mirred can redirect it to a native ip6erspan device. The legacy PMTU
+update in ip6erspan_tunnel_xmit() treats that metadata dst as a route.
+Since it has no output device, dst_dev(dst)->mtu dereferences NULL.
+
+On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0 used
+self-created user and network namespaces to trigger:
+
+  KASAN: null-ptr-deref
+  RIP: ip6erspan_tunnel_xmit+0x10fc/0x2cc0
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+The update is obsolete. Commit fe1a4ca0a2b7 ("ip6_gre: process toobig
+in a better way") changed IPv6 GRE Too Big handling to update the
+underlay route and removed the equivalent block from __gre6_xmit().
+ip6_tnl_xmit() then propagates the underlay PMTU to the overlay route.
+
+Remove the stale ERSPAN copy and its now-unused dst variable. This
+eliminates the metadata-dst dereference and keeps ERSPAN aligned with
+IPv6 GRE PMTU handling.
+
+Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
+Cc: stable@vger.kernel.org
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20261002033058.358137-1-4ncienth@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[mdmitrichenko: Remove the older PMTU block using dst->dev->mtu
+ directly, along with its now-unused dst variable.]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- drivers/target/iscsi/iscsi_target_tpg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Backport fix for CVE-2026-99041
 
-diff --git a/drivers/target/iscsi/iscsi_target_tpg.c b/drivers/target/iscsi/iscsi_target_tpg.c
-index 99772364c88e..aad82a37538f 100644
---- a/drivers/target/iscsi/iscsi_target_tpg.c
-+++ b/drivers/target/iscsi/iscsi_target_tpg.c
-@@ -624,7 +624,7 @@ int iscsit_ta_authentication(struct iscsi_portal_group *tpg, u32 authentication)
- 		none = strstr(buf1, NONE);
- 		if (none)
- 			goto out;
--		strlcat(buf1, "," NONE, sizeof(buf1));
-+		snprintf(buf1, sizeof(buf1), "%s," NONE, param->value);
- 		if (iscsi_update_param_value(param, buf1) < 0)
- 			return -EINVAL;
- 	}
+ net/ipv6/ip6_gre.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index 0c7211540402..296900b0c65d 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -917,7 +917,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ {
+ 	struct ip_tunnel_info *tun_info = NULL;
+ 	struct ip6_tnl *t = netdev_priv(dev);
+-	struct dst_entry *dst = skb_dst(skb);
+ 	struct net_device_stats *stats;
+ 	bool truncate = false;
+ 	int encap_limit = -1;
+@@ -1050,10 +1049,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ 	/* Push GRE header. */
+ 	gre_build_header(skb, 8, TUNNEL_SEQ, proto, 0, htonl(atomic_fetch_inc(&t->o_seqno)));
+ 
+-	/* TooBig packet may have updated dst->dev's mtu */
+-	if (!t->parms.collect_md && dst && dst_mtu(dst) > dst->dev->mtu)
+-		dst->ops->update_pmtu(dst, NULL, skb, dst->dev->mtu, false);
+-
+ 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
+ 			   NEXTHDR_GRE);
+ 	if (err != 0) {
 -- 
 2.43.0
 
