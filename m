@@ -1,45 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325847;
-	b=ttJXwFWMZXQOirHkkkSm/YCHXiN9TyCWc3ylS+PNIlNxhW4fbbQTi83k3nCsFOQJkmIa
-	 glgYyfAjNNYANe+RtiA7D1maqFvt9TxZTB+yoA/kFo+WygT/VT5AGFIqudyLSsX6W7BFZ
-	 yisM/yzbBxt6IOZpabulNHkCMbfSev1o6BsuE4zhZMbRB0BdotdJeGk8SYeXPlAFc8jwx
-	 +AjBj4qCyxxlzduU+1l6pLsIMEJqRCxqALEgxJyFb9sCIGvpw+oIOqG5JXVhZwXcLAD2C
-	 r9y+HIGAQhSrnq9nwAwDsjBmkaATObzr8BX5wIrDnTgibz0Drgi/AHW5L5QkJ22L8xQ==
+	t=1794325866;
+	b=4Y1BNC2aShVo759lrHPgkycgP/E6HjceePUGOqBUuLwkG8D36+L/J54MbDHg2Rba2dMw
+	 fA4p8enrMPQfrUhNKMi1DTOnuBPrILpkhZTdyCoZCvzfPTCQtCWDrSMLVrz+8kUqGZ8KY
+	 3W2EcO9yxXlENMrpo3Mx+JCnbGOBQN6NT4h+2BjH+RZM9thUReHDxi1aRjD7VQYLLGAjI
+	 k9Vkwe9EQ6KEiQCOR52pSc8/lmv7zDb6couSAguRwU5LP/RaZBmKIYFJP5kxjlCkmNU0G
+	 RvXh0aXBYLOGeU3M0F9e9wjOKbOgDHLlq2bRqgJNJKUZ52sh0VCFAx/3ZqCTZ5u5Lwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325847;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=ZUw5z1eM2NFz4khMwpmWruXLJlm01GUhS15bXvEkmbo=;
-	b=bY8PO1BNUacYUkCbbgQILFQDeUPdn2GkQtEUK93IB081bjTCYI3QRKaAj55PGfg7bavh
-	 arPnTMLYG6tZVJVyyFwawO28wGhhQVkMjTjTYXENkfrbJTnNR5olSEjw7+NkSKLF6/Qa0
-	 6CiasWjJsh1gI/wxwczx+Sow+W3+53dd3JlRPkNIE45J9g44lPbQwp7xCRboaNzNnZB8I
-	 OyuLJzGGiyzWB9uDazhhL4W2Ke3GqD/JTpC9Qwo6jY1sqPnUkYsRvOySscXM45VWO/n7r
-	 50zxELRgLDBJ1zbyjvQLcPIqFYfAbNPvqLgdXmejnFPmstrpMjTKYldu67qV8psms7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325866;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=8oOoPZ2inaQp469WqkgzPu88gcv8m07yA22sCBbEfDM=;
+	b=vWSuRG6hHvRIE8eW8u8zEoX8XCnRXVsCeY1/juRCDYKcB76lYpZxSyNFLfTuZ5/vKqwZ
+	 nKobnY7Q2fg1DicWAwINP61dU2ak8noZXowiOVFLJ+WNaqIufP6Pq4U6QB0pOx6ZO7Dtt
+	 6rQbfWOYUzJEU+7Z7w2YB1BsY/KmdLFuKOYX6wbgmPMAIEpyllVkTHfU4vqDoUX3NiXNS
+	 qPAlPWAW2aPPF+h1PskyBkIN6D33GJENz/brtFQ56saTAY00UwTgBMkmUY9704ncsz5c5
+	 y2vnl3LkmNgiTLjFOSUpp6ZJYziIEpMhy8Azxuwz3+HDDHYJq6YbmjnCt7qXd0+lYMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nQ2rz7zB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b="CE/imlzB";
+	arc=none smtp.remote-ip=212.227.15.15
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFEB606A31C;
-	Tue, 10 Nov 2026 15:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8049606A31C;
+	Tue, 10 Nov 2026 15:51:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8049606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nQ2rz7zB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8415B1F0089F;
-	Tue, 10 Nov 2026 15:50:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325842;
-	bh=ZUw5z1eM2NFz4khMwpmWruXLJlm01GUhS15bXvEkmbo=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=nQ2rz7zB4Y2lnwHdGpoFBI2xx+VUgVa9x2d6GcUxdt0hXimnKhgOUKkngq6GMMTzr
-	 PP3dEryfLHyVApZGqRbnfZ3uymSIr5eGTzvBWbukshagJPyXejDNrdOPHlzIGx7YV7
-	 OgurmVm9QE6xPP3UKwI4tf5974MX/9Q9C7TLhXVtBl0MdEbW2GxqBYFzrcPPQ6Sn1L
-	 I5OUWbnEMjodgQOItGQ8fD5KFPsvHktQw8ypOPTF8sSrdUkUWS+63KKX6TWuEIck0s
-	 c3QX+fT5jkTA1FnhYnjEPnZI26Zc137tm2EX1Xo8xINBwYzqxbV3PRt++95VlLWggF
-	 sJkNE57DfdnOQ==
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=CE/imlzB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1794325858; x=1794930658; i=w_armin@gmx.de;
+	bh=8oOoPZ2inaQp469WqkgzPu88gcv8m07yA22sCBbEfDM=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=CE/imlzBYIcfmSOOJktNHGiE/Dq5Utk3pSKtXgYijuYMroNBuk1nrXWXdHnA/lV7
+	 rNKzJrrsImVAqg+nv1n1UKcfTEwRdcCneUerREm+5/xnnCOco6fSZmMXQ9MF0Iv1A
+	 cUMFtJnHAdqpcVrSqG13MkQ6iej7SfkWHoeeKi2rYXZk4mPzceSeNlYlN/tSUCKbe
+	 A11ol/T15FoQix+WPeEX2AblSbFJI9P40CPyBU48Tu/tR3YFstm5gLP8pfnr7dTy2
+	 lca2yy+c3rqvnaMY1JTFUcqm7p4a6FzNSbGfiIBPD3ua20f6JRohfeh8jQAqKXSE8
+	 6ZOKAjZqVxkIoxwQXw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MCsPy-1xHyPy38L2-00GM7l; Tue, 10
+ Nov 2026 16:50:58 +0100
+Message-ID: <1969fb5a-38ef-4b4b-9d2f-cb9a4348b968@gmx.de>
+Date: Tue, 10 Nov 2026 16:50:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,481 +62,173 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8] platform/x86: hp-bioscfg: fix heap OOB in
+ hp_enforce_single_line_input()
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ jorge.lopez2@hp.com, hansg@kernel.org, Muhammad Bilal <meatuni001@gmail.com>
+Cc: andriy.shevchenko@linux.intel.com, linux@weissschuh.net,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261026051740.88791-1-meatuni001@gmail.com>
+ <179425317709.10927.8604237354153885108.b4-ty@b4>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <179425317709.10927.8604237354153885108.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 16:50:31 +0100
-Message-Id: <DMRNF7IZQ1YI.1MRPH47QJC9XC@kernel.org>
-Subject: Re: [PATCH v2 11/12] gpu: nova-core: publish typed SR-IOV PF APIs
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>
-To: "Simon Song" <xinmengs@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
- <20261023154009.2246627-12-xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-12-xinmengs@nvidia.com>
+X-Provags-ID: V03:K1:7yMfWgckZ3HwbywMKlvzv1DjgHe8cBwZCXDr1pL5WPcxuaiyi1f
+ 9+39/IyP1bA6uUBiYNJ35l0m5eKGJCGoon4cbNozpzf/Or6rNG9RMHoLcuWkq+rbTj8vEAG
+ NBleFEaJ2IMrveHm7jA9l2uoW+TWoDyR698cSeBBB60xV474Baady/gEA81EGGN54ewNLh6
+ AOLh5ctnPm9OhfKCZfuAQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:5Uguylh90OI=;yYsptzVJCmMCHpo3rSJLUPvzQ9x
+ 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
+ GWyI18miiw==
 
-On Fri Oct 23, 2026 at 5:40 PM CEST, Simon Song wrote:
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
-er.rs
-> index dc6febeee65..99beab18987 100644
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
-> @@ -35,6 +35,12 @@
->      }, //
->  };
-> =20
-> +#[cfg(CONFIG_PCI_IOV)]
-> +use kernel::types::ForLt;
-> +
-> +#[cfg(CONFIG_PCI_IOV)]
-> +use crate::vgpu::vgpu_api::NovaCoreVfApi;
-> +
->  /// Counter for generating unique auxiliary device IDs.
->  static AUXILIARY_ID_COUNTER: Atomic<u32> =3D Atomic::new(0);
-> =20
-> @@ -42,6 +48,10 @@
->  pub(crate) struct NovaCore<'bound> {
->      /// Firmware-control registration.
->      _fwctl: fwctl::Registration<'bound, NovaCoreFwCtl>,
-> +    #[cfg(CONFIG_PCI_IOV)]
-> +    #[allow(clippy::type_complexity)]
-> +    #[pin]
-> +    _vf_registration: pci::VfRegistration<'bound, ForLt!(NovaCoreVfApi<'=
-_>)>,
->      #[pin]
->      pub(crate) gpu: Gpu<'bound>,
->      bar: pci::Bar<'bound, BAR0_SIZE>,
-> @@ -114,6 +124,11 @@ fn probe<'bound>(
->          pin_init::pin_init_scope(move || {
->              dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
-> =20
-> +            #[cfg(CONFIG_PCI_IOV)]
-> +            if pdev.is_virtfn() {
-> +                return Err(ENODEV);
-> +            }
+Am 09.11.26 um 20:39 schrieb Ilpo J=C3=A4rvinen:
+> On Mon, 26 Oct 2026 10:17:40 +0500, Muhammad Bilal wrote:
+>=20
+>> The input is copied with kstrdup(), which stops at the first NUL, but
+>> the full write size is passed to hp_enforce_single_line_input(). With
+>> an embedded NUL the helper reads, and can write one byte, past the
+>> copy. Use strnchrnul() so the scan stops at the first NUL, and return
+>> -EINVAL for a NUL or newline before the last byte.
+>>
+>> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+>> followed by 4093 bytes of "B" to current_password 100 times returns
+>> -EINVAL every time, without reading into the heap.
+>>
+>> [...]
+>=20
+> Thank you for your contribution, it has been applied to my local
+> review-ilpo-next branch. Note it will show up in the public
+> platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> local branch there, which might take a while.
 
-There's a lot of config guards, but we should actually stub the correspondi=
-ng
-functions, so they work regardless.
+This commit now causes build errors on for-next because strnchrnul() is=20
+not exported using EXPORT_SYMBOL().
 
-I suggest something like the diff in [2], that should be worked into the IO=
-V
-series.
+Thanks,
+Armin Wolf
 
-> +
->              pdev.enable_device_mem()?;
->              pdev.set_master();
-> =20
-> @@ -144,6 +159,18 @@ fn probe<'bound>(
->                  // Run optional GPU selftests.
->                  #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
->                  _: { gpu.run_selftests(pdev) },
-> +                #[cfg(CONFIG_PCI_IOV)]
-> +                _vf_registration <- {
-> +                    // SAFETY: `gpu` is initialized at its pinned addres=
-s and
-> +                    // outlives the registration and its borrowed API da=
-ta.
-> +                    let gpu =3D unsafe { &(*this.as_ptr()).gpu };
+> FYI [if applicable to your patch], as per Linus' policy change, also
+> fixes are mostly routed through for-next unless the fix is for a
+> commit introduced in the most recent cycle or is clearly a regression
+> fix.
+>=20
+> The list of commits applied:
+> [1/1] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_i=
+nput()
+>        commit: e7cf4282a8694f14eb44a2f110c7628a161e9692
+>=20
+> --
+>   i.
+>=20
+>=20
 
-You can use pin-init self-reference for this, see also [1].
-
-> +                    let api =3D NovaCoreVfApi::new(gpu, pdev);
-> +                    // SAFETY: Probe has exclusive access to the registr=
-ation
-> +                    // slot and no VFs are enabled before successful pro=
-be. The
-> +                    // registration keeps PF services available until VF=
- removal
-> +                    // completes and is dropped before its borrowed GPU =
-resources.
-
-VFs not being enabled before successful probe is not a safety requirement, =
-the
-API does ensure this.
-
-The only requirement is to store it in the driver's bus device private data=
-.
-
-> +                    unsafe { pci::VfRegistration::new(pdev, Ok(api)) }
-> +                },
->                  _reg: auxiliary::Registration::new(
->                      pdev.as_ref(),
->                      c"nova-drm",
-> @@ -176,4 +203,24 @@ fn probe<'bound>(
->              }))
->          })
->      }
-> +
-> +    #[cfg(CONFIG_PCI_IOV)]
-> +    fn sriov_enable<'bound, 'callback>(
-> +        _dev: &'bound pci::Device<Core<'_>>,
-> +        _this: Pin<&Self::Data<'bound>>,
-> +        token: pci::SriovEnable<'callback>,
-> +    ) -> Result<pci::SriovEnabled<'callback>> {
-> +        let num_vfs =3D token.num_vfs();
-> +        token.enable(num_vfs)
-
-NIT: Maybe provide a pci::SriovEnable::enable_all() helper for this in the =
-core code.
-
-> +    }
-> +
-> +    #[cfg(CONFIG_PCI_IOV)]
-> +    fn sriov_disable<'bound>(
-> +        _dev: &'bound pci::Device<Core<'_>>,
-> +        _this: Pin<&Self::Data<'bound>>,
-> +        token: pci::SriovDisable<'_>,
-> +    ) -> Result {
-> +        token.disable();
-> +        Ok(())
-> +    }
->  }
-
-[1] https://lore.kernel.org/nova-gpu/20261110152746.140351-1-dakr@kernel.or=
-g/
-
-[2] Diff for IOV series
-
-diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
-index a8540f90b13c..0185baa7aacc 100644
---- a/rust/helpers/pci.c
-+++ b/rust/helpers/pci.c
-@@ -41,6 +41,27 @@ __rust_helper u32 rust_helper_pci_ext_cap_next(u32 heade=
-r)
- }
-
- #ifndef CONFIG_PCI_IOV
-+__rust_helper int rust_helper_pci_iov_vf_id(struct pci_dev *pdev)
-+{
-+	return pci_iov_vf_id(pdev);
-+}
-+
-+__rust_helper int rust_helper_pci_enable_sriov(struct pci_dev *pdev,
-+					    int nr_virtfn)
-+{
-+	return pci_enable_sriov(pdev, nr_virtfn);
-+}
-+
-+__rust_helper void rust_helper_pci_disable_sriov(struct pci_dev *pdev)
-+{
-+	pci_disable_sriov(pdev);
-+}
-+
-+__rust_helper int rust_helper_pci_num_vf(struct pci_dev *pdev)
-+{
-+	return pci_num_vf(pdev);
-+}
-+
- __rust_helper unsigned int
- rust_helper_pci_sriov_get_totalvfs(struct pci_dev *pdev)
- {
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 0bcbf73bb363..dcdef0eb1ae2 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -36,7 +36,6 @@
- mod cap;
- mod id;
- mod io;
--#[cfg(CONFIG_PCI_IOV)]
- mod iov;
- mod irq;
-
-@@ -60,7 +59,6 @@
-     Extended,
-     Normal, //
- };
--#[cfg(CONFIG_PCI_IOV)]
- pub use self::iov::{
-     SriovDisable,
-     SriovEnable,
-@@ -96,7 +94,6 @@ unsafe fn register(
-         name: &'static CStr,
-         module: &'static ThisModule,
-     ) -> Result {
--        #[cfg(CONFIG_PCI_IOV)]
-         build_assert!(
-             T::HAS_SRIOV_ENABLE =3D=3D T::HAS_SRIOV_DISABLE,
-             "PCI drivers must implement both sriov_enable and sriov_disabl=
-e"
-@@ -116,7 +113,6 @@ unsafe fn register(
-             if let Some(ops) =3D T::PM_OPS {
-                 (*pdrv.get()).driver.pm =3D ops.raw;
-             }
--            #[cfg(CONFIG_PCI_IOV)]
-             if T::HAS_SRIOV_ENABLE {
-                 (*pdrv.get()).sriov_configure =3D Some(Self::sriov_configu=
-re_callback);
-             }
-@@ -592,6 +588,8 @@ fn runtime_resume<'bound>(dev: &Device<device::Bound>, =
-this: Pin<&Self::Data<'bo
-
-     /// Enables Single Root I/O Virtualization (SR-IOV) for a PF.
-     ///
-+    /// This callback is only invoked when `CONFIG_PCI_IOV` is enabled.
-+    ///
-     /// Called when userspace writes a nonzero VF count to `sriov_numvfs`.=
- The token carries the
-     /// requested count and permission to enable VFs on this PF. Return th=
-e guard obtained from
-     /// [`SriovEnable::enable()`] after completing setup; dropping it roll=
-s back the enable.
-@@ -624,7 +622,6 @@ fn runtime_resume<'bound>(dev: &Device<device::Bound>, =
-this: Pin<&Self::Data<'bo
-     ///     Ok(enabled)
-     /// }
-     /// ```
--    #[cfg(CONFIG_PCI_IOV)]
-     fn sriov_enable<'a>(
-         dev: &'a Device<device::Core<'_>>,
-         data: Pin<&Self::Data<'a>>,
-@@ -636,6 +633,8 @@ fn sriov_enable<'a>(
-
-     /// Disables all VFs of a PF in response to a userspace request.
-     ///
-+    /// This callback is only invoked when `CONFIG_PCI_IOV` is enabled.
-+    ///
-     /// Called when userspace writes zero to `sriov_numvfs`. Call [`SriovD=
-isable::disable()`]
-     /// while resources used by VF drivers are still available. Returning =
-an error before calling
-     /// it leaves the VFs enabled. Returning success requires that all VFs=
- have been disabled.
-@@ -661,7 +660,6 @@ fn sriov_enable<'a>(
-     ///     Ok(())
-     /// }
-     /// ```
--    #[cfg(CONFIG_PCI_IOV)]
-     fn sriov_disable<'a>(
-         dev: &'a Device<device::Core<'_>>,
-         data: Pin<&Self::Data<'a>>,
-diff --git a/rust/kernel/pci/iov.rs b/rust/kernel/pci/iov.rs
-index c5b6fd31d1e4..abba5eeaa49b 100644
---- a/rust/kernel/pci/iov.rs
-+++ b/rust/kernel/pci/iov.rs
-@@ -23,12 +23,50 @@
- };
- use core::{
-     any::TypeId,
-+    ffi::c_void,
-     marker::PhantomPinned,
-     mem::ManuallyDrop, //
- };
-
-+/// Returns the PF's registration pointer, or null when SR-IOV is disabled=
-.
-+///
-+/// # Safety
-+///
-+/// `pdev` must point to a live PCI device. The caller must exclude concur=
-rent changes to its
-+/// registration pointer.
-+unsafe fn vf_registration_data_ptr(pdev: *mut bindings::pci_dev) -> *mut c=
-_void {
-+    #[cfg(CONFIG_PCI_IOV)]
-+    {
-+        // SAFETY: The caller guarantees the device's validity and exclude=
-s concurrent changes.
-+        unsafe { (*pdev).vf_registration_data_rust }
-+    }
-+    #[cfg(not(CONFIG_PCI_IOV))]
-+    {
-+        let _ =3D pdev;
-+        core::ptr::null_mut()
-+    }
-+}
-+
-+/// Updates the PF's registration pointer, doing nothing when SR-IOV is di=
-sabled.
-+///
-+/// # Safety
-+///
-+/// `pdev` must point to a live PCI device. The caller must exclude concur=
-rent access to its
-+/// registration pointer and uphold the invariants of any published regist=
-ration data.
-+unsafe fn set_vf_registration_data_ptr(pdev: *mut bindings::pci_dev, data:=
- *mut c_void) {
-+    #[cfg(CONFIG_PCI_IOV)]
-+    // SAFETY: The caller guarantees the device's validity and exclusive a=
-ccess to its slot.
-+    unsafe {
-+        (*pdev).vf_registration_data_rust =3D data;
-+    }
-+    #[cfg(not(CONFIG_PCI_IOV))]
-+    let _ =3D (pdev, data);
-+}
-+
- impl Device<device::Core<'_>> {
-     /// Returns the number of Virtual Functions (VF) enabled for a Physica=
-l Function (PF).
-+    ///
-+    /// Returns zero when `CONFIG_PCI_IOV` is disabled.
-     #[inline]
-     pub fn num_vf(&self) -> u16 {
-         // SAFETY: `self.as_raw()` is valid and this call runs in the PCI =
-core callback context.
-@@ -110,7 +148,7 @@ pub fn enable(self, num_vfs: u16) -> Result<SriovEnable=
-d<'a>> {
-
-         // SAFETY: The PF's driver data and registration remain installed =
-throughout this callback.
-         // The registration owns final VF teardown after the enable guard =
-is disarmed.
--        if unsafe { (*self.pdev.as_raw()).vf_registration_data_rust }.is_n=
-ull() {
-+        if unsafe { vf_registration_data_ptr(self.pdev.as_raw()) }.is_null=
-() {
-             return Err(ENODEV);
-         }
-
-@@ -225,6 +263,9 @@ fn new<E>(data: impl PinInit<F::Of<'a>, E>) -> impl Pin=
-Init<Self, E> {
- /// [`Device::vf_registration_data_with()`] and [`Device::vf_registration_=
-data()`].
- ///
- /// Drop disables SR-IOV before clearing the registration pointer and rele=
-asing the data.
-+///
-+/// When `CONFIG_PCI_IOV` is disabled, the registration still initializes,=
- pins and owns its data,
-+/// but does not publish it to VF drivers.
- #[pin_data(PinnedDrop)]
- pub struct VfRegistration<'a, F: ForLt + 'static> {
-     pdev: &'a Device<device::Bound>,
-@@ -262,7 +303,7 @@ pub unsafe fn new<'core, I>(
-                     return Err(EBUSY);
-                 }
-                 // SAFETY: The core callback serializes changes to this de=
-vice's registration.
--                if !unsafe { (*pdev.as_raw()).vf_registration_data_rust }.=
-is_null() {
-+                if !unsafe { vf_registration_data_ptr(pdev.as_raw()) }.is_=
-null() {
-                     return Err(EBUSY);
-                 }
-             },
-@@ -272,15 +313,17 @@ pub unsafe fn new<'core, I>(
-             _: {
-                 // The data initializer may have registered another object=
- on this device.
-                 // SAFETY: The captured core context still serializes regi=
-stration changes.
--                if !unsafe { (*pdev.as_raw()).vf_registration_data_rust }.=
-is_null() {
-+                if !unsafe { vf_registration_data_ptr(pdev.as_raw()) }.is_=
-null() {
-                     return Err(EBUSY);
-                 }
-
-                 // SAFETY: The data is initialized and pinned, the slot is=
- unoccupied, and
-                 // no VF can access it yet. No fallible work follows publi=
-cation.
-                 unsafe {
--                    (*pdev.as_raw()).vf_registration_data_rust =3D
--                        core::ptr::from_ref(inner.as_ref().get_ref()).cast=
-_mut().cast();
-+                    set_vf_registration_data_ptr(
-+                        pdev.as_raw(),
-+                        core::ptr::from_ref(inner.as_ref().get_ref()).cast=
-_mut().cast(),
-+                    );
-                 }
-             },
-         })
-@@ -297,7 +340,7 @@ fn drop(self: Pin<&mut Self>) {
-
-         // SAFETY: The device is valid and all VF remove callbacks have co=
-mpleted, so no VF
-         // can access the registration pointer. The data remains alive unt=
-il this returns.
--        unsafe { (*self.pdev.as_raw()).vf_registration_data_rust =3D core:=
-:ptr::null_mut() };
-+        unsafe { set_vf_registration_data_ptr(self.pdev.as_raw(), core::pt=
-r::null_mut()) };
-     }
- }
-
-@@ -310,6 +353,8 @@ unsafe impl<F: ForLt> Sync for VfRegistration<'_, F> wh=
-ere for<'a> F::Of<'a>: Se
-
- impl Device<device::Bound> {
-     /// Return the zero-based VF index within its PF, or an error for a no=
-n-VF device.
-+    ///
-+    /// Returns [`ENOSYS`] when `CONFIG_PCI_IOV` is disabled.
-     pub fn vf_id(&self) -> Result<u32> {
-         // SAFETY: `self.as_raw()` points to a live PCI device; the helper=
- checks VF membership.
-         let id =3D unsafe { bindings::pci_iov_vf_id(self.as_raw()) };
-@@ -324,6 +369,7 @@ pub fn vf_id(&self) -> Result<u32> {
-     ///
-     /// The data lifetime must be hidden behind a higher-ranked closure in=
-dependently of the
-     /// reference lifetime, or `F` must be covariant in its encoded lifeti=
-me.
-+    #[cfg(CONFIG_PCI_IOV)]
-     unsafe fn vf_registration_data_pinned<F: ForLt + 'static>(&self) -> Re=
-sult<Pin<&F::Of<'_>>> {
-         if !self.is_virtfn() {
-             return Err(ENODEV);
-@@ -333,7 +379,7 @@ unsafe fn vf_registration_data_pinned<F: ForLt + 'stati=
-c>(&self) -> Result<Pin<&
-         // VF removal completes, and the PF keeps the registration install=
-ed until then.
-         let ptr =3D unsafe {
-             let pf =3D (*self.as_raw()).__bindgen_anon_1.physfn;
--            (*pf).vf_registration_data_rust
-+            vf_registration_data_ptr(pf)
-         };
-
-         if ptr.is_null() {
-@@ -360,11 +406,23 @@ unsafe fn vf_registration_data_pinned<F: ForLt + 'sta=
-tic>(&self) -> Result<Pin<&
-         Ok(unsafe { Pin::new_unchecked(&*data_ptr) })
-     }
-
-+    /// Returns [`ENODEV`] because no VF registration can be published.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The data lifetime must be hidden behind a higher-ranked closure in=
-dependently of the
-+    /// reference lifetime, or `F` must be covariant in its encoded lifeti=
-me.
-+    #[cfg(not(CONFIG_PCI_IOV))]
-+    unsafe fn vf_registration_data_pinned<F: ForLt + 'static>(&self) -> Re=
-sult<Pin<&F::Of<'_>>> {
-+        Err(ENODEV)
-+    }
-+
-     /// Access the VF registration data through a closure with an HRTB lif=
-etime.
-     ///
-     /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. Retur=
-ns
-     /// [`ENODEV`] if this is not a VF or no data was registered,
-     /// or [`EINVAL`] if `F` does not match the type registered by the PF.
-+    /// Returns [`ENODEV`] when `CONFIG_PCI_IOV` is disabled.
-     ///
-     /// The reference is borrowed from this VF, while the registration dat=
-a's lifetime remains
-     /// abstract so the closure cannot store shorter-lived references in i=
-nvariant data.
