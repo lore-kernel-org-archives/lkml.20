@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292881;
-	b=XvBRhLYV94lpH/gqnsUdfdNFQi3zNFpvmgzv57IjMI3nmc8aEFARfTlFtb0ykX41dpAx
-	 TkRzjc/iyBA9HZrdIdGiwnSMstrTc5ZW2WVauMF6I8KPQDP+4zZ5BEuzRWsNA/NePc1jO
-	 XGR1QxZkwVRM1CAJLOc1aTaBgrEknupmz2YyTQ6RpGe/GkEeJgnZJ39U8RPHhtcCV91r1
-	 VDe2jI3waAl/U2la5ubObgpqXmZcEoBxmQatEDfk7GZstQsPMcGlr4FXGK+NW6BUy9LIh
-	 npRmjxTnOcRArkEiCXNE6WaQCIMIz/7tuS+KJ8HnqB5zFUnbSI9uvGavY0oEtZOgpkA==
+	t=1794292883;
+	b=2IIRApB1i010iFAUu1QACmyPBFGTgllbOu/0W4kyeAO69aW930imMm5a3VBUw16KuExb
+	 MGj2BNZ6KUFUjehdbqeFACoZ4C0Iv+5ag47iMbjH2wSkQWatc4qu/39yfMxA6NjMwqIvP
+	 vb4fXcWFpKRpnssUHJzhNOCgi+GCvgi8drqxOE7zJKK2wDda9WjSSP/kiq0OPLVODVtsS
+	 +AEZhLYOOQGk76nABouxAtTwdN7dl/+r9pViokFuKVGllQyy9QqJg4Me+pR4wd/IN7ns2
+	 l9w8B24DCcXy4xWwukFu+9KcWoSJD2KykQEFbt5hCFfZhccdG/tADrxXtTJ96lK5x3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292883;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZcbuoKcmoM0xdN/PZYv5Je38NiolC63gdCP770nQ4GE=;
-	b=dG9PR6DmvyrVpqYdlE2mWGewmKf3MzgkDdZDgXL7ihxUxoVbSE05mfhSAaLECsaKi1NG
-	 +tnieq2/SPjd+mM878TFwZG0QTXNzCqoeHJ/K5JBbhYK4d9Yo3/WqBa7E49CUO4fj/eXq
-	 ehr0Ifa3wZYuQrMSespCpMl6UCrilVrZS17zNjA7Ekv4Hcx9f8MGX1u3fV5ErMu72yhx3
-	 8Quj7EFlYacDF+hV2VhObH+3GAn1Ok6mEeVl2hN0+edvQU/g9v4E3Z9/OYSxsz/sRwMGa
-	 Md5n3d8lbNs//nPeBApxNED2xkXF6I4NAvUWA2rRS46KUv2+MuEsmCwzWQVmFWSLsbQ==
+	bh=XlqmMTmdQY0yvkWH+OmhyR8vbh/qufmYoAUMw4jsvAE=;
+	b=CboP+Il15gvmNg2zqkHLozaZ9/xuvbKuYvm+qiDQzWIe5hobLzA4yYYaJOlcNkfRnV/X
+	 85tF4fBRrDXdrsQHtwfaa0d8H0Mg5/pujqqOEKNhXwi+aJwvEqwFyLgLNPixKfLh3BYRc
+	 wd3STpyyc8fOJvKg1XEnDW4WkPtdnDnH2xLzW8Lzv7c1hlo3ku3r1k9Hly5z2+XZaH8yk
+	 qoKC9B9SYl3G2M5VSQa2L7x+y41ItJwjy6TgQxIZ3c7DXqpyEAn33osrvUUtdaOpMM4Ry
+	 ny7vowj/mSz5JYioJzAma+CiPMdXQ6rxLyktz7Lo5FNw5tnFZmoXFb2spIsqqpu8i/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=V7b9AxUo;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C74660A262E;
-	Tue, 10 Nov 2026 06:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C74660A262E
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=PFF9s9J0;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FA4C60A5BCB;
+	Tue, 10 Nov 2026 06:41:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA4C60A5BCB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=V7b9AxUo
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=PFF9s9J0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=V7b9AxUotAwouXNq6RbQ51Cu9yMlv4xUIVpQ3W7QovuDd16SnhN1+Phb8CkCTwdPAl0Axw/t2lSGA
-	 xoETIyYkziVo58LsJaKUDet8EUJNhlIQa4u/aET+xEZbrdcVdj/P+N0t4sp2urWYBc3avai3mYMVnG
-	 4zvLjrgnXr87GJJo=
+	b=PFF9s9J05KcO8+Uch4nlglJSypF8jLy9dQzyVdnVnfcveUtihqlKoSo/ubJTnxBgUlITEfiScfFf0
+	 A7S49/F80Jg6CoG64uUsSF+LAPf+lHj+eFA5aCUfNiocEgC82jrdtmEHiXbpnCa98kuX18NtuT3MaB
+	 beJN4Nlq8nTkZYSw=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af2bc8c1f9-a75ec;
-	Tue, 10 Nov 2026 14:41:17 +0800 (CST)
-X-RM-TRANSID:2ee16af2bc8c1f9-a75ec
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af2bc8f83c-983db;
+	Tue, 10 Nov 2026 14:41:20 +0800 (CST)
+X-RM-TRANSID:2ee66af2bc8f83c-983db
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from  (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa120;
-	Tue, 10 Nov 2026 14:41:17 +0800 (CST)
-X-RM-TRANSID:2eea6af2bc812f6-aa120
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af2bc812f6-aa12c;
+	Tue, 10 Nov 2026 14:41:20 +0800 (CST)
+X-RM-TRANSID:2eea6af2bc812f6-aa12c
 From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 15/22] usb: musb: fix a few spelling mistakes in comments
-Date: Tue, 10 Nov 2026 06:40:58 +0000
-Message-ID: <20261110064105.20335-16-shishunbo@cmss.chinamobile.com>
+Subject: [PATCH 22/22] usb: usbip: fix a few spelling mistakes in comments
+Date: Tue, 10 Nov 2026 06:41:05 +0000
+Message-ID: <20261110064105.20335-23-shishunbo@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
 References: <20261110064105.20335-1-shishunbo@cmss.chinamobile.com>
@@ -75,36 +75,36 @@ No functional changes.
 
 Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 ---
- drivers/usb/musb/musb_host.c | 2 +-
- drivers/usb/musb/tusb6010.c  | 2 +-
+ drivers/usb/serial/ftdi_sio.h | 2 +-
+ drivers/usb/usbip/stub.h      | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/musb/musb_host.c b/drivers/usb/musb/musb_host.c
-index 31b061248991..b8a502d2b08b 100644
---- a/drivers/usb/musb/musb_host.c
-+++ b/drivers/usb/musb/musb_host.c
-@@ -65,7 +65,7 @@
-  * (Yes, bulk _could_ use more of the endpoints than that, and would even
-  * benefit from it.)
+diff --git a/drivers/usb/serial/ftdi_sio.h b/drivers/usb/serial/ftdi_sio.h
+index b053e038bda4..55ea61264f91 100644
+--- a/drivers/usb/serial/ftdi_sio.h
++++ b/drivers/usb/serial/ftdi_sio.h
+@@ -15,7 +15,7 @@
+  * USB on the other.
   *
-- * INTERUPPT and ISOCHRONOUS transfers are scheduled to the other endpoints.
-+ * INTERRUPT and ISOCHRONOUS transfers are scheduled to the other endpoints.
-  * So far that scheduling is both dumb and optimistic:  the endpoint will be
-  * "claimed" until its software queue is no longer refilled.  No multiplexing
-  * of transfers between endpoints, or anything clever.
-diff --git a/drivers/usb/musb/tusb6010.c b/drivers/usb/musb/tusb6010.c
-index 1d9571f24a56..6a86bebc24ca 100644
---- a/drivers/usb/musb/tusb6010.c
-+++ b/drivers/usb/musb/tusb6010.c
-@@ -941,7 +941,7 @@ static void tusb_musb_enable(struct musb *musb)
- 	musb_writel(tbase, TUSB_DMA_INT_MASK, 0x7fffffff);
- 	musb_writel(tbase, TUSB_GPIO_INT_MASK, 0x1ff);
- 
--	/* Clear all subsystem interrups */
-+	/* Clear all subsystem interrupts */
- 	musb_writel(tbase, TUSB_USBIP_INT_CLEAR, 0x7fffffff);
- 	musb_writel(tbase, TUSB_DMA_INT_CLEAR, 0x7fffffff);
- 	musb_writel(tbase, TUSB_GPIO_INT_CLEAR, 0x1ff);
+  * Thanx to FTDI (http://www.ftdichip.com) for so kindly providing details
+- * of the protocol required to talk to the device and ongoing assistance
++ * of the protocol required to talk to the device and ongoing assistence
+  * during development.
+  *
+  * Bill Ryder - bryder@sgi.com formerly of Silicon Graphics, Inc.- wrote the
+diff --git a/drivers/usb/usbip/stub.h b/drivers/usb/usbip/stub.h
+index d11270560c24..1fea0190de7f 100644
+--- a/drivers/usb/usbip/stub.h
++++ b/drivers/usb/usbip/stub.h
+@@ -29,7 +29,7 @@ struct stub_device {
+ 	 * It is allocated as stub_priv_cache and assigned to urb->context.
+ 	 *
+ 	 * stub_priv is always linked to any one of 3 lists;
+-	 *	priv_init: linked to this until the comletion of a urb.
++	 *	priv_init: linked to this until the completion of a urb.
+ 	 *	priv_tx  : linked to this after the completion of a urb.
+ 	 *	priv_free: linked to this after the sending of the result.
+ 	 *
 -- 
 2.53.0
 
