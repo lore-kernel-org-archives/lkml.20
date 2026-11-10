@@ -1,116 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284539;
-	b=pYgeDCLM7OBrLFdtfGofxZ2Hk70dkwt2ltZrvZq5oNxx7F1f+WGmW6S3HokexKhKoPmt
-	 OTjrJ3CI+R1rM9EGLqAjr2pazawhl9o5/iDwP1cez5mCUqkxFmWx9OMyRhif3KM8fxHZZ
-	 gKIzywubahADk1dSI+D0+kQkIE8TLwy0WXo/gG01RAPNcNgiGzZacIMw5bi2giOB3V+KI
-	 LEEbEzTz+mopIJDpyaWE7XT0zqD5mv1vmfolsVj7TzIgnoahHl+/IINw+DHyLHkLWLNZr
-	 fAusBOrSxZq7W9TR3/1T9AiurwE7Pk+TeBwM/exXBASEfC+viRkjuV8uzovgoOC/J7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284539;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uPNBoQQW3WB02TBAF3BzFuV2QfVhO4wd2JVa30h/5s0=;
-	b=bwY8l8RwZxlSGe5huupSM3FygYbNnUjpwjU0Pr+OuodmTPTGUrKZg2GJ0IrgCGvxcfU3
-	 m19WQ+7mUBkZZcKNUm8GuaDW9KV53ozh6fqQ6vNYb1DyNDb9+Oo1L3nOCuEpOG39t14b3
-	 CzcYs6fYReIhi65Oz8X2DHrCZKBMR3opb2YeIfsJd9bT9wNVwqKJjLnv/cSdDHaw8UOy3
-	 2njpqNl3Xh/KlQHKY7M6IRxKrcrqASd+2+LDyFbuAt7vpyRGfqvvc/Sxpep2iH/W7PokM
-	 IVeToXvTJa8Rf8x0vMeyaZBHiLmdsZ+u55jfPb+pE7mxUzAkb0hdubqGfFpzoO9tWRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y6GcAIoM;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794284545;
+	b=PQ9ViSrZeg2hFzeyrnaHDxyNsAna7NtBaZDVmWGUpwdSn6tAxuIjShU3ssEPWoXOtfED
+	 s+PSV6bZZNUQ3a3229mtgvxpl60oHhTnGLrBkijDUGU9OrYBEowbIZAr4Os822IljMU/3
+	 IxXO7qsZUturaXmblJTzCZMkGRnY9CI0WtYCx4ZNhQeCZN3Dv1j8gOOgPMKaRgvi9Nu7G
+	 CqgFmljl6en5t6ugrOvmdmXbh7kkjytIut16m/ANtaN8Zj3klbrNdYma2qBCwDUIrxXGB
+	 yC3+xd9lf2Eo434YAeSqGfOApDzZcaabC2yLTVYByJUxbcVz9XYLuPaTTnXCubLYXdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284545;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jp0ZJsgUnuRxHl8bEw52yuvQWXxPTZTnQu+LDpLRt9c=;
+	b=eihubeO5KzI4aWRx1E7PMzPNhGpfe1A+QKS1HNfsUp7NJQq13htkKNUuXTB8+aIjaUkj
+	 +92lomvW10cH8Qq0fX9uucwHfPOnmvBG6oyRdKbEO1Y4MWfiVmE1P4ZPm6SgT121sgWpb
+	 Qh+zVN7CY5f95GAhFecHDxDbu4N58MoqIvxlxDUfR21/dU4LohCChioOrlYu/QFEdyuN0
+	 1NPgB8iAMrLGPm1TRFuseVmLmRzKMtZOFmtl5t4PhSoGgeRh0gY/kR7nEf3MbD6ZBZ8ae
+	 ywc0thXL3fHmLL2yHEhMjJDYFHtfqfWhPTqH+gZj9372WPtXp8/zrdepsOuFtu375LA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAwBvzOh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9633D606A9D3
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAwBvzOh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794284545;
+	b=SVsumiAxBr7CMW93I5R0hwja85kIgsZT/mbHxdEeLZvvRFMAATZuJxibjA1BVtHCAOEz
+	 4II1390e0rlSsmkKg86IJLKrBVLGhc6KIOU454VNVGO8nDQIiD162qnS6ZGbENVcnKShT
+	 xzkYnO1KemsHSXWhbcOu3F9C4mbNrrm5UVFSZaBwOqh7P2SzoX+cZkbMEhywssrjOFsBu
+	 hLpIVJfWAxfPyemeiEpJdnGxMy2FFEM6s6v4kWVJQX/hm1fmjIN49+espl3oVq8VcWMzm
+	 Rz9n7Nqf5jq4OPEC+hyd9qZUn4ydyGEEoYN7QRQkFSZxYZvFmnZ8tLvIrBozVXouzsg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794284545;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jp0ZJsgUnuRxHl8bEw52yuvQWXxPTZTnQu+LDpLRt9c=;
+	b=p3Tc0ZpcNC+5KDsQczhdw8vSyVMNVVjwf/YGArSsg+rW76WEkUKd3zC5J/PPytit5PSt
+	 uC/7Va5UAVR+d8CzfMO4O9ruZnfvAr1HcEuDCrzKBLfKOq0erEfAj8lw49zg10xpTOcx1
+	 tPcw8R6sGwAoPalIiaIjbhMCuWShNbNvKWryX0boCs5+4UxD9gstr3SbONB9g4MavvMqR
+	 9g5Ta+07UxSoFsJlG5zWi3SPmLWto7wltCLnAP/I1hlI0Zs5H5KgAhvqgbxk4EMwCKcNX
+	 tQ3hWThab/MjynYOKx9P5rWUS785vk0YGe9iLNcJufDhMTNKhl7egx4Az3wY4ycUlEA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45070606A730
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:22:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45070606A730
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y6GcAIoM
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a3c08d6928so2883154c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:22:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284537; x=1794889337; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uPNBoQQW3WB02TBAF3BzFuV2QfVhO4wd2JVa30h/5s0=;
-        b=Y6GcAIoMky3oeSIHUgB2Mjm010BlPmVQ7t0ba1wxD4W/1igjfnN3/JlTXkToWSFml0
-         ptSyuFK2E1l5miKEorIz2pgNYUJoq0fEtnt26LVxvTM8Qe+BfKtQjzV7Z0iNTw6E8yG2
-         CVqoAmzAf2FUiL5HMEQhKo0lFFTtr560hbQblk0AOZVH25CD7COwhtYObutS+4k1azhG
-         lAMOIRxuiXoo6udBIn9pguQULxNKBlZV0nMNhCCELShYjJlth6FX6nBJh+XmjMs5nLU3
-         pmZNpyheJdNuFvjLptOu+HQde5wVjpqTRn6suCUh0DV6+yLUK8R12xAtehl45jFtw/jK
-         4UHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284537; x=1794889337;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uPNBoQQW3WB02TBAF3BzFuV2QfVhO4wd2JVa30h/5s0=;
-        b=n9lFU5sfzNL9HC5MlfU4SfQwcYe3+MKUU/LC0e+tD330fQEE+5zWyerKvUQZYCxJI6
-         TQoNeYDT/GLGD6vluyOa3KDoYwOZkbOEcJ1aLy5lCmwrUmAtd/pnZKb/4bhZ7drydFIN
-         7tFStOFVvgjjpPeX5CbVqnFLzuKalhvs9YhkEVDsFSAeGOeYyvcbqLoEnzCEnLsg7Ygl
-         djwlkgVtEbhRl66JY9KJous6GDrQpLTx+3DBpbqmWYb1DdCsPKKiUw9vWqsJuPiJTe+m
-         Lw7tiQMxO6n6U3Td9GHvD2mGj4w+XSBCuCt4xCblL3mh+8ymU9WBG0y2Ef+o0OQfsnaY
-         EZvg==
-X-Forwarded-Encrypted: i=1; AL+hErEVQBT9syjtTY5ms63AQau84wRtXozcyY4/0+SdU3Wku8q9yQVMyTL2v4pTe8jFoLKx95TOnr/T06Y5Q1o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sMhbx3wuzoZFjpS1lmK9XRifZi060QOAZYOozTQ8JhzimSzJS
-	F0FlhTfCfFUkFrtrZITcolmVOf45l9QC2BIrYc3vEmRAL3MI/nuRhKAt
-X-Gm-Gg: AYBFou1aC8ah9kUiJgLGb/xhHwfgj4UqXV8TfoAQn3If8fNqJdEtB4qsyEczNuamhMc
-	msmIrMwjMO6GDzol62eAB/3yf8dksyYQt4AbqZkA9Qm0k1qS2qNfTCU5ZCaibS9kGmAJ29p+Tt8
-	BIpmcrGnl21zIpNiTxNEalfnCLYzIoLnDFJeL2wx5Wg4CmR16+Umw6C19FRIErtC+XSZJKTcIc1
-	/t+TMfKPebiKbZ5GIVXxx29mfSHvDSeSRK2jbuoXebigZNl4LEE0tbxvDZHokD4FYOjKqZoz4jK
-	hyeNqVk1aatpyTYxAUDtYA2YFQachh1K+t7reXLsB6U3bzsKWMtHE528NPdmurrsG/TxbDkiVxo
-	R3c5jUTW9UVgK75u2+RfMKlwgJGvLoAs/Rr+LI2Ri/nRGynvVLmkqNg5/fTTgUYyF6idCuZnxcO
-	zc5TdQ3AV95KCHI93SpiDycULlR42DQ1gKP0InbwuwQitnmExodguXx3618LLykjoETr1x6+EdC
-	9cvSJZPOg50AzBv3mCZCt89Dx0Wl97VgZUqCv7MWSvtDzF4hPF1c25UUey+d2F+PDuwY4zWWYCi
-	yahWLZA7pcZY7Atl/twOHe3y3Mn41CgGCj2xjpttNGWHUpU=
-X-Received: by 2002:a05:701b:270c:b0:14a:5284:1bf5 with SMTP id a92af1059eb24-1b3b5fda3bfmr2024081c88.13.1794284537372;
-        Mon, 09 Nov 2026 20:22:17 -0800 (PST)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.22.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:22:16 -0800 (PST)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: bhelgaas@google.com,
-	lukas@wunner.de,
-	bvanassche@acm.org,
-	linux-pci@vger.kernel.org,
-	alistair@alistair23.me,
-	linux-cxl@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	jic23@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	jgg@nvidia.com,
-	akpm@linux-foundation.org
-Cc: gary@garyguo.net,
-	a.hindborg@kernel.org,
-	wilfred.mallawa@wdc.com,
-	tmgross@umich.edu,
-	ojeda@kernel.org,
-	boqun.feng@gmail.com,
-	alistair23@gmail.com,
-	gregkh@linuxfoundation.org,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	benno.lossin@proton.me,
-	alex.gaynor@gmail.com,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v6 25/25] lib: rspdm: Expose public Rust API
-Date: Tue, 10 Nov 2026 14:18:32 +1000
-Message-ID: <20261110041832.1730924-26-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
-References: <20261110041832.1730924-1-alistair.francis@wdc.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 0C82E1F008A2;
+	Tue, 10 Nov 2026 04:22:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794284545;
+	bh=jp0ZJsgUnuRxHl8bEw52yuvQWXxPTZTnQu+LDpLRt9c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=JAwBvzOhBdUj3MqbmPVM/hLA8nF0CetYlew087Eq1Znz9/SVceGdK8bVj7YzaqQpL
+	 y/iK0RlD8NM/4vFNMN338JDjgzjcc0WytIQDtkVqLb+OVCAr1vgowoEUjh85MRL1PO
+	 vOUp0anHMcfCxAaVcmdOaUIOB15I9hm7tYTXJDuyX0WoceaTHrix/mzedDoPlWCBUm
+	 2HWlEDP4Qzd0Ksy0ApjBHPL/NtoAalpKiHtr1kol69h75kBpMAXeEOc92lPjkApN5i
+	 VFEOfI3pKowQC1oJyQIgzIOhZPByd0emo5NYH2aTyXSRvBwIvNRUvOkH2iQY3uxZQY
+	 9IRXcaEKpyd5w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6D8E84883D;
+	Tue, 10 Nov 2026 04:22:23 +0000 (UTC)
+From: =?utf-8?q?Eren_=C3=96zen_via_B4_Relay?= <devnull+erenozen.protonmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 07:21:56 +0300
+Subject: [PATCH 1/3] drm/amd/display: Initialize FRL status polling work
+ once at DM init
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,188 +83,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-frl-polling-wq-teardown-v1-1-0ff028d5c35b@protonmail.com>
+References: <20261110-frl-polling-wq-teardown-v1-0-0ff028d5c35b@protonmail.com>
+In-Reply-To: <20261110-frl-polling-wq-teardown-v1-0-0ff028d5c35b@protonmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>, 
+ timur.kristof@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794284542; l=2549;
+ i=erenozen@protonmail.com; s=20261110; h=from:subject:message-id;
+ bh=4zCR7FWd/Rw2U/71QTZKamg0Naz8wle0ENFip0uSKOY=;
+ b=WVNoWmMUWIbkrp0eWabJ8ElOrvblUBCy1lVLDi0tnKc1rpDNNaabvHBdCeJOEzD8zvPY+pgrj
+ dJdF8fCvoJ9DGCJVKEb0C6RfMSTvFOYJ8cQ2rN5tkg2vjy3Wly9dzUj
+X-Developer-Key: i=erenozen@protonmail.com; a=ed25519;
+ pk=tPAwfVmIbYF3QziJ3LcoTIZDU12BsjVK+EkAB9nN1gA=
+X-Endpoint-Received: by B4 Relay for erenozen@protonmail.com/20261110 with
+ auth_id=1479
+X-Original-From: =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>
+Reply-To: erenozen@protonmail.com
 Content-Transfer-Encoding: 8bit
 
-From: Alistair Francis <alistair.francis@wdc.com>
+From: Eren Özen <erenozen@protonmail.com>
 
-Expose a public Rust API and an example that can be used to authenticate
-an SPDM responder.
+hdmi_frl_status_polling_work is a single delayed work item shared by the
+whole display manager, but it is initialized from
+amdgpu_dm_connector_init_helper(), which runs once for every connector.
+That helper is also called at runtime from dm_dp_add_mst_connector()
+when a DisplayPort MST branch device is plugged in. If an HDMI FRL
+stream is active at that moment, the polling work is queued and
+re-arming itself every 200ms, and INIT_DELAYED_WORK() on it
+reinitializes the timer and work entry of a pending item, which can
+corrupt the timer and workqueue state.
 
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+The work item belongs to the display manager, not to a connector, so
+initialize it, along with its polling delay, once in amdgpu_dm_init()
+next to the workqueue it runs on.
+
+Fixes: 5c9b8b27a883 ("drm/amd/display: Tie FRL support into amdgpu_dm")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Eren Özen <erenozen@protonmail.com>
 ---
- lib/rspdm/lib.rs   | 69 ++++++++++++++++------------------------------
- lib/rspdm/state.rs | 43 +++++++++++++++++++++++++++--
- 2 files changed, 63 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 4 ++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 2 --
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index 6bfe1eedc4121..6b1f864fe7266 100644
---- a/lib/rspdm/lib.rs
-+++ b/lib/rspdm/lib.rs
-@@ -9,6 +9,26 @@
- //!
- //! Top level library, including C compatible public functions to be called
- //! from other subsytems.
-+//!
-+//! ```rust,ignore
-+//! struct MyTransport { }
-+//!
-+//! impl Transport for MyTransport {
-+//!     fn exchange(
-+//!         &self,
-+//!         dev: &Device,
-+//!         request: &[u8],
-+//!         response: &mut [u8],
-+//!     ) -> Result<usize, Error> {
-+//!         todo!()
-+//!     }
-+//! }
-+//!
-+//! fn authenticate_device(dev: &Device, transport: &MyTransport) -> Result {
-+//!     let mut state = SpdmState::new(ARef::from(dev), transport, 512, None);
-+//!     state.authenticate()
-+//! }
-+//! ```
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 33c73ca9cf..bf2f74d7d9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -774,6 +774,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  
- use crate::bindings::{
-     spdm_state, //
-@@ -30,7 +50,7 @@
- };
+ 		dc_init_callbacks(adev->dm.dc, &init_params);
+ 	}
++
++	adev->dm.hdmi_frl_status_polling_delay_ms = 200;
++	INIT_DELAYED_WORK(&adev->dm.hdmi_frl_status_polling_work,
++			  hdmi_frl_status_polling_work);
+ 	if (adev->dm.dc->caps.max_links > 0) {
+ 		adev->dm.hdmi_frl_status_polling_wq =
+ 			create_singlethread_workqueue("hdmi_frl_status_polling_wq");
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index e8f050feb6..b1bdb94d74 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -3327,8 +3327,6 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 		aconnector->hdmi_hpd_debounce_delay_ms = 0;
+ 	}
  
- use crate::consts::SPDM_MIN_DATA_TRANSFER_SIZE;
--use crate::state::{
-+pub use crate::state::{
-     SpdmState,
-     Transport, //
- };
-@@ -263,51 +283,8 @@ fn from(code: SpdmErrorCode) -> Self {
- 
-     let mut state = mutex.lock();
- 
--    if let Err(e) = state.get_version() {
--        return e.to_errno() as c_int;
--    }
--
--    if let Err(e) = state.get_capabilities() {
--        return e.to_errno() as c_int;
--    }
--
--    if let Err(e) = state.negotiate_algs() {
--        return e.to_errno() as c_int;
--    }
--
--    if let Err(e) = state.get_digests() {
--        return e.to_errno() as c_int;
--    }
--
--    if state.provisioned_slots == 0 {
--        return -(bindings::EIO as c_int);
--    }
--
--    let mut provisioned_slots = state.provisioned_slots;
--    while (provisioned_slots as usize) > 0 {
--        let slot = provisioned_slots.trailing_zeros() as u8;
--
--        if let Err(e) = state.get_certificate(slot) {
--            return e.to_errno() as c_int;
--        }
--
--        provisioned_slots &= !(1 << slot);
--    }
--
--    let mut provisioned_slots = state.provisioned_slots;
--    while (provisioned_slots as usize) > 0 {
--        let slot = provisioned_slots.trailing_zeros() as u8;
--
--        if let Err(e) = state.validate_cert_chain(slot) {
--            pr_err!("Certificate in slot {slot} failed to verify: {e:?}\n");
--            return e.to_errno() as c_int;
--        }
--
--        provisioned_slots &= !(1 << slot);
--    }
--
--    let provisioned_slots = state.provisioned_slots.trailing_zeros();
--    if let Err(e) = state.challenge(provisioned_slots as u8) {
-+    if let Err(e) = state.authenticate() {
-+        dev_err!(&state.dev, "Authentication failed: {e:?}\n");
-         return e.to_errno() as c_int;
-     }
- 
-diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index 059398e95b92d..0fe99caf27958 100644
---- a/lib/rspdm/state.rs
-+++ b/lib/rspdm/state.rs
-@@ -96,7 +96,7 @@
- ///
- /// This trait abstracts the bus-specific message transport (for example
- /// a DOE mailbox for PCIe CMA) from the SPDM session logic.
--pub(crate) trait Transport {
-+pub trait Transport {
-     /// Perform a single SPDM message exchange.
-     ///
-     /// Send `request` to the responder and write the response into
-@@ -115,7 +115,7 @@ pub(crate) trait Transport {
- /// it does not need to stay bound to its driver. `T` is data and an
- /// exchange function owned by the caller, so the borrow checker enforces
- /// that the transport data outlives `SpdmState`.
--pub(crate) struct SpdmState<T: Transport> {
-+pub struct SpdmState<T: Transport> {
-     /// Responder device (reference counted). Used for error reporting and
-     /// passed to `transport`.
-     pub(crate) dev: ARef<Device>,
-@@ -194,7 +194,7 @@ impl<T: Transport> SpdmState<T> {
-     ///
-     /// `transport_sz` is the maximum message size the transport can carry,
-     /// and must be at least the SPDM minimum data transfer size (42 bytes).
--    pub(crate) fn new(
-+    pub fn new(
-         dev: ARef<Device>,
-         transport: T,
-         transport_sz: u32,
-@@ -232,6 +232,43 @@ pub(crate) fn hash_len(&self) -> usize {
-             .unwrap_or(0)
-     }
- 
-+    /// Authenticates the responder through a sequence of GET_VERSION,
-+    /// GET_CAPABILITIES, NEGOTIATE_ALGORITHMS, GET_DIGESTS, GET_CERTIFICATE
-+    /// and CHALLENGE exchanges.
-+    pub fn authenticate(&mut self) -> Result {
-+        self.get_version()?;
-+        self.get_capabilities()?;
-+        self.negotiate_algs()?;
-+        self.get_digests()?;
-+
-+        if self.provisioned_slots == 0 {
-+            return Err(EIO);
-+        }
-+
-+        let mut provisioned_slots = self.provisioned_slots;
-+        while (provisioned_slots as usize) > 0 {
-+            let slot = provisioned_slots.trailing_zeros() as u8;
-+
-+            self.get_certificate(slot)?;
-+
-+            provisioned_slots &= !(1 << slot);
-+        }
-+
-+        let mut provisioned_slots = self.provisioned_slots;
-+        while (provisioned_slots as usize) > 0 {
-+            let slot = provisioned_slots.trailing_zeros() as u8;
-+
-+            self.validate_cert_chain(slot)?;
-+
-+            provisioned_slots &= !(1 << slot);
-+        }
-+
-+        let provisioned_slots = self.provisioned_slots.trailing_zeros();
-+        self.challenge(provisioned_slots as u8)?;
-+
-+        Ok(())
-+    }
-+
-     /// Start a SPDM exchange
-     ///
-     /// The data in `request_buf` is sent to the device and the response
+-	dm->hdmi_frl_status_polling_delay_ms = 200;
+-	INIT_DELAYED_WORK(&dm->hdmi_frl_status_polling_work, hdmi_frl_status_polling_work);
+ 	/*
+ 	 * configure support HPD hot plug connector_>polled default value is 0
+ 	 * which means HPD hot plug not supported
+
 -- 
 2.56.0
+
 
