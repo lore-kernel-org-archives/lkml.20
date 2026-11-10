@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314946;
-	b=LVVdyvukVlU3IVVsSxG1T/BtxV85sarTJ0L3N3lm29Zlw45FtWgs1uHt8mgiOzcbLWPD
-	 fbI623gEA+aiIgdfIytqHbLNG3jwEETFj5CzMaiCpMFg920Muwi3FPq2DRNepBjquLYAc
-	 r5Fzmo4LGrD79mlC3MVzDnLR7k8QiqvSkWgpBEcpu5TEqwB89tCZweEKUIE3RJ3fBtt2b
-	 N/UV5uzkdM6yq4u81YUp211PTSGFvrVBhGgpTTs43VSEle/xpn7NyR2KPBAahl7vpNtjB
-	 AkMBhR/aoOK9JUQ0JaCJNnSMQBQXB60AaqktIiv/Hj0KP4N1H1vgHX6ndkdzCwT34rw==
+	t=1794314959;
+	b=J6MeK61RQMeNIEnpb2Pylae8gdtUYcFCS6QRZpv/TLE9vtVQjpYjoS4l5ZoXLyFznTgq
+	 rgvKAS6nYyGyl+s3jQPbdqNlusDB6s+MzvktkQBFYSzFxJDysm/D2EptAIGb1aN6I2GR8
+	 GkHUas2XLUA0+ssogn4DWQOc5YzuiQK8ED64/nsoD5C5l6yiGRzkVDsdOfxiFJuJTifUg
+	 gPfoJwcNO18ogMhlmIbU48FybJd+tMCRYo7ABhKWqfPYmSL7nulmK1eb3Yet6rseoissu
+	 CxHAVUbCZXlZc/wDu+/zaOeHDSri/wsX1bjvmS65ZGlMg5cXHH0b8KXpVRDfv08r4CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314946;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zHXJPTkKerzfVJJNUx8F5qgPDu406iPyqd9JEKnwCR8=;
-	b=jdvIp5A9xr3YN6cJRqF2SH7ITXNznvEQzi/4NhYsn4uXnQn159rtLTt4Ql60+yJVA+xf
-	 S/d/sqyC89UUyRVgmPui6hJHFS31OKHqcS1JQZqoMO+yv4oy/IhDg6aiU39NXSP8KM3JX
-	 /I3bTKMB68Rxos9tTV332aL2EKHMb4fqqtTXGRxEaS/Mo2v8UjVvKcjDBlCg8WmiLbbeT
-	 nCcNA0SCuCNLqEAcVzv2MctXXq0+H+1K7VOtoPKNwmQZLAYhPhkO3nFeqrBDrRyKhIXCd
-	 IGsx9ALe2f5++V/vSok8grGaSyUlEMfn/ojWqY0M4i5/MooV/f65g6JTRGwAALIhPRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314959;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=CbaK/OiLsBp24ctmmqfxEDeKLJHZS6Yzb8a5ARPuJDc=;
+	b=Up1iCLU55Gvct4GpFEuZ/qlqo3GbEVU5QvUkDvfiR8q66O3MRLDkdssuOM/grykJYp9g
+	 Gw2jnkjn/MIRin4zbQ68YoPE8P5ymk7EzOOFQUoYzuqw2jkU3cyfDv8PuEElMU5gsqM/T
+	 zeKGi6loSNxcuIXk/P7as/k+WW/sbk87sVdCwrx7NdaYfR0TGF3iToc37jCtxuqlllWi0
+	 NjsGo7joE9faeF58gdCT6sochgfyhYPSLYez0X/wAqzIAI8/vGjeqxUj4KtALZOzljPVh
+	 HPm+BHf3pjTgVHr6lMDxI4dLneuVEz173/6nD+9+OG8sdrq7A4dC8vEuE3uG0FbXS8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljepd4rt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C40606A321;
-	Tue, 10 Nov 2026 12:49:05 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="FW4jWPq/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99B25606A337;
+	Tue, 10 Nov 2026 12:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99B25606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljepd4rt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B7C1F0089F;
-	Tue, 10 Nov 2026 12:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314945;
-	bh=zHXJPTkKerzfVJJNUx8F5qgPDu406iPyqd9JEKnwCR8=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Ljepd4rto1iEmd+Tcv7jE9zOVDTxqkpn0TOaeAIdWl8+Z+DP+jwrsgRXPqYQYF4qv
-	 SFgTk6OwyIpolXoq1MLgNE0r4X93ZxEn9zCEvPn+Hawwsbiqy10OeoVgqM97qLHdQW
-	 6dL0WnTVZAriiZhGLrPrPZBqb3w8vglv1sOiA6RRpehwliZVOBWXl7HPkEs6bL/MiH
-	 him3PIskGnGVVjUAXONOTx6NGQSUHVeqMfj+31ChQwO7ltqvXyn1lc4E1ZCIkt/neN
-	 z2bYRw1QMmZuk3L1hZHWaZuUvIIYvIu/RMkBY7dxVdzDfTivDj2//YWe93OxX/qC8B
-	 cumb5sZPsZQ+g==
-Message-ID: <aac5e0a0-754a-4323-9417-cc17d7d42930@kernel.org>
-Date: Tue, 10 Nov 2026 13:48:56 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FW4jWPq/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C64A514BF;
+	Tue, 10 Nov 2026 04:49:14 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8EE773F85F;
+	Tue, 10 Nov 2026 04:49:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794314957; bh=P5lO3LRwfz3Xx9spMdnYq5HZgom/q8jT5u8waDgtbsc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FW4jWPq/tfDZxBG7gTvwO6Saghy4qPGyV+hze///XZNsFLtYaK5wj2gUsAQ3b/1gh
+	 T6W5B9h4lNu/oIbpkFS2CPsomzXXZPsB1rdaGrB44ze6FvmHsifyDOH/BV74iyXiQD
+	 /n5r91Z2/5jv4DVU8iWFUs+t19uEOqOgbofPVNlY=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 11/15] KVM: arm64: Reserve dirty ring space for the HDBSS buffer
+Date: Tue, 10 Nov 2026 12:49:07 +0000
+Message-ID: <avMSw3LLDIFT3kSR@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <90775cb3-84ab-4690-a252-1ac41488118f@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-12-zhengtian10@huawei.com> <auikG0clmr19sAjh@LeoBrasDK> <afcbf19b-bd13-4afc-ab56-8bc50c793e50@huawei.com> <au30DqzWIFny1tpr@LeoBrasDK> <d81243e3-d790-4ee8-9b28-36d35591ee77@huawei.com> <avIOZTvQF-1sxs2p@LeoBrasDK> <90775cb3-84ab-4690-a252-1ac41488118f@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,94 +89,228 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: ilitek,ili9488: make
- the port optional
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Romain TISSERAND <romain.tisserand@gmail.com>
-Cc: Igor Reznichenko <igor@reznichenko.net>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20261109160706.2272332-1-romain.tisserand@gmail.com>
- <20261109160706.2272332-2-romain.tisserand@gmail.com>
- <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261110-comical-adder-from-saturn-8c8fbb@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On 10/11/2026 13:00, Krzysztof Kozlowski wrote:
-> On Mon, Nov 09, 2026 at 05:07:04PM +0100, Romain TISSERAND wrote:
->> The panel is a MIPI-DSI peripheral, a child node of its DSI host, and the
->> driver does not use a graph port. A port is only needed when the host
->> links its panel through the graph; other DSI hosts, such as the Allwinner
->> sun6i-a31-mipi-dsi one, link the child node and have no output port to
->> point at. The PinePhone panel is described that way on the same host,
->> without a port.
->>
->> Keep the port allowed (panel-common) but no longer required, as for other
->> DSI panels such as ilitek,ili9881c.
+On Tue, Nov 10, 2026 at 04:54:30PM +0800, Tian Zheng wrote:
 > 
-> ilitek,ili7807s and a few others have the same and it is confusing. The
-> port should be required when this is connected over SPI or I2C, but not
-> for MIPI DSI. I think that for MIPI DSI port is meaningless so actually
-> incorrect.
 > 
-> Why was it added in the first place?
+> On 11/10/2026 2:18 AM, Leonardo Bras wrote:
+> > On Mon, Nov 09, 2026 at 12:00:52PM +0800, Tian Zheng wrote:
+> > > 
+> > > 
+> > > On 11/6/2026 11:36 PM, Leonardo Bras wrote:
+> > > > On Fri, Nov 06, 2026 at 06:36:04PM +0800, Tian Zheng wrote:
+> > > > > 
+> > > > > 
+> > > > > On 11/2/2026 10:54 PM, Leonardo Bras wrote:
+> > > > > > On Tue, Sep 29, 2026 at 06:36:51PM +0800, Tian Zheng wrote:
+> > > > > > > The dirty ring reserves room for CPU-side dirty buffers via
+> > > > > > > kvm_cpu_dirty_log_size(). Report the HDBSS buffer entry count
+> > > > > > > through it, so a full buffer flush always fits in the ring.
+> > > > > > > 
+> > > > > > > Pin the HDBSS buffer size to PAGE_SIZE when dirty-ring is enabled,
+> > > > > > > via kvm_arch_dirty_ring_size_updated(): a larger buffer only
+> > > > > > > shrinks the soft_limit and forces more frequent userspace drains.
+> > > > > > > 
+> > > > > > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> > > > > > > ---
+> > > > > > >     arch/arm64/kvm/arm.c | 8 ++++++++
+> > > > > > >     arch/arm64/kvm/mmu.c | 8 ++++++++
+> > > > > > >     2 files changed, 16 insertions(+)
+> > > > > > > 
+> > > > > > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> > > > > > > index 9d7bdece149a..5a7046acb62e 100644
+> > > > > > > --- a/arch/arm64/kvm/arm.c
+> > > > > > > +++ b/arch/arm64/kvm/arm.c
+> > > > > > > @@ -215,6 +215,14 @@ static int kvm_arm_default_max_vcpus(void)
+> > > > > > >     	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
+> > > > > > >     }
+> > > > > > > 
+> > > > > > > +void kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
+> > > > > > > +{
+> > > > > > > +	if (!system_supports_hdbss())
+> > > > > > > +		return;
+> > > > > > > +
+> > > > > > > +	kvm->arch.hdbss_buffer_size = KVM_ARM_HDBSS_DEFAULT_SIZE;
+> > > > > > > +}
+> > > > > > > +
+> > > > > > 
+> > > > > > On the same subject as a previous patch:
+> > > > > > I don't think this is the best approach, on top of adding a new weak
+> > > > > > function to take care.
+> > > > > > 
+> > > > > > Maybe during the dirty-ring allocation, on vcpu creation, we could take
+> > > > > > into account the requested dirty-ring size, and just allocate the HDBSS
+> > > > > > buffer taking that into account. That would make it simpler, don't you
+> > > > > > agree?
+> > > > > > 
+> > > > > > Thanks!
+> > > > > > Leo
+> > > > > 
+> > > > > Hi Leo,
+> > > > > 
+> > > > > The "set once" guard we're discussing comes from the patch that adds the
+> > > > > ioctl, and it isn't really needed. We discussed this earlier [1]: we can
+> > > > > just initialize hdbss_buffer_size to PAGE_SIZE at VM creation and let
+> > > > > the ring reservation use it directly. **That also means
+> > > > > kvm_arch_dirty_ring_size_updated() can be removed.** Thanks for your
+> > > > > suggestion.
+> > > > 
+> > > > :)
+> > > > 
+> > > > > 
+> > > > > As for why PAGE_SIZE is the right value in ring mode: the HDBSS buffer
+> > > > > is flushed on every VM exit, so a larger buffer doesn't reduce the flush
+> > > > > frequency. It only inflates the ring reservation (64 + size/
+> > > > > sizeof(u64)), which shrinks the soft_limit and forces more frequent
+> > > > > exits to userspace for the ring to be drained. Draining the dirty ring
+> > > > > from QEMU is more expensive than draining the HDBSS buffer from the
+> > > > > kernel, so the smallest buffer gives the best performance. In this mode,
+> > > > > a larger buffer provides no benefit to users.
+> > > > 
+> > > > Humm, if properly dimensioned larger buffers would be benefitial for
+> > > > memory-intensive workloads, unless they are guest_exiting for other
+> > > > reasons in the meantime.
+> > > > 
+> > > 
+> > > Agreed, and the workload I tested is on the "unless" side. The guest
+> > > exits constantly for other reasons, so the larger buffer never got a
+> > > chance to pay off, and only cost ring capacity.
+> > > 
+> > > > > 
+> > > > > In my tests, I also saw performance degrade when more space is reserved.
+> > > > > 
+> > > > 
+> > > > Humm, what kind of workloads did you test?
+> > > > Did you have the chance to monitor what were the reasons for VM exiting?
+> > > > 
+> > > 
+> > > For the workload question, it's a Redis server in the guest under redis-
+> > > benchmark (SET-only, 2KB values, 1M keys, 100M requests). The traffic is
+> > > network-driven, so the guest exits constantly to service requests. The
+> > > HDBSS buffer only accumulates entries between two exits and is flushed
+> > > on every exit, so it rarely fills regardless of size. A larger buffer
+> > > only inflated the ring reservation, which shrinks the soft_limit and
+> > > makes the ring-full exit and userspace drain fire more often.
+> > > 
+> > > > I am not saying this is mandatory for the HDBSS implementation, but the
+> > > > whole idea of letting the user choose their own HDBSS buffer size is
+> > > > because different workloads may benefit from different buffer sizes: if a
+> > > > VM writes a lot to new memory, and exits very little for other reasons,
+> > > > then a larger buffer will cause the VM to guest_exit much less often.
+> > > > 
+> > > > Does that make sense?
+> > > > 
+> > > > Thanks!
+> > > > Leo
+> > > 
+> > > It does make sense. That's exactly the workload where a larger buffer
+> > > pays off, and the next version no longer gets in its way. The two ioctls
+> > > are no longer mutually exclusive.
+> > > 
+> > > The only coupling left is the reservation. hdbss_buffer_size starts at
+> > > SZ_4K at VM creation, so a ring enabled right away reserves for the
+> > > default buffer (64 + 512 entries), and the minimum ring size accepted is
+> > > unchanged from v5. KVM_CAP_ARM_HDBSS_BUFFER_SIZE is the gate. When the
+> > > ring is already enabled, a size is accepted only if its reservation
+> > > still fits in the ring, otherwise -EINVAL. In the other order, ring-
+> > > enable validation rejects a ring too small for the configured size.
+> > 
+> > I don't think this is needed. If using dirtyring, we don't need to allow
+> > user to set hdbss size: HDBSS size should be sized according to the
+> > dirty-ring dimensions, that are set by userspace before the first vcpu is
+> > created.
+> > 
+> > 
+> > > So SZ_4K is just the conservative default for guests that exit often.
+> > > Anything larger, within what the ring can reserve, is up to the user.
+> > > 
+> > > Does this work for you?
+> > 
+> > I still think we should do PAGE_SIZE for dirty-bitmap. Dirty ring should do
+> > based on the dirty-ring size, and maybe review the use of reserved
+> > entries, or it's accounting.
+> > 
+> > What do you think?
+> > 
+> > Thanks!
+> > Leo
+> 
+> Hi Leo,
+> 
+> Thanks for your review. It does make sense!
+> 
+> I agree that dirty-bitmap mode will keep PAGE_SIZE as the default, and
+> in that mode the ioctl stays available for a larger buffer.
+> 
+> In ring mode we will drop the ioctl, the two remain mutually exclusive,
+> and the buffer will be derived from the ring size userspace configured
+> before the first vCPU is created:
+> 
+> ```
+> hdbss_buffer = clamp_t(unsigned long,
+>                        rounddown_pow_of_two(ring_size / 16),
+>                        SZ_4K, KVM_ARM_HDBSS_MAX_SIZE);
+> ```
 > 
 
-However won't all DRM drivers actually require panel? see b089c0a9b14c
-and 169466d4e59c which removed fallback to the child node.
+Are you allocating 1/16th of the ring size in bytes as an hdbss buffer?
+That's confusing. I recommend we rather have something like:
 
-Best regards,
-Krzysztof
+ring_entries = ring_size / sizeof(struct kvm_dirty_gfn);
+hdbss_entries = ring_entries / 2; // Or any number we decide to use here.
+hdbss_buf_size = hdbss_entries * sizeof(hdbss_buf_entry);
+
+Then we do 
+hdbss_buf_size = clamp_t(unsigned long,
+                         rounddown_pow_of_two(hdbss_buf_size),
+                         SZ_4K, KVM_ARM_HDBSS_MAX_SIZE);
+
+So it's clear what is what here. 
+Just dividing by 16 above can be confusing to whoever is reading the code.
+
+
+> A buffer entry is 8 bytes and a ring entry is 16 bytes, so:
+> 
+> ```
+> buffer entries = buffer_size / 8
+> ring entries   = ring_size / 16
+> ```
+
+Remember to use the sizeof instead of fixed numbers.
+
+> 
+> This means ring_size / 16 reserves at most one eighth of the ring
+> entries for the HDBSS buffer. That keeps the usable ring above 85% while
+> the buffer still grows with the configured ring size, and the result is
+> independent of the kernel page size, with SZ_4K as the only minimum.
+
+Yeah, remember that if you are dealing with the ringbuffer like this, an 
+user can request a 4k ringbuffer and we just won't be able to use hdbss, as 
+it means 4k/16 entries, and hdbss has the minimum of 4k/8.
+
+As I mentioned, maybe this approach of reserved entries is not the right 
+way of dealing with it in arm64.
+
+> 
+> One eighth is the ratio that looks reasonable to me so far. What do you
+> think?
+> 
+
+I see no reason why it could not be higher than that. It all depends on how 
+you want to deal with the full buffer in the future patchset. If hdbss 
+buffer is full, it has to exit and drain to the dirtyring. The guarantee 
+you seek with reserved entries is that all hdbss entries fit in the 
+dirty-ring.
+
+As long as the user is required to drain entries until the dirty-ring is 
+not 'full' anymore, we could easily work with dirty-ring having twice as 
+many entries as the hdbss buffer.
+
+How does it sound?
+
+Thanks!
+Leo
+
