@@ -1,81 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342113;
-	b=ATbEpeZV3oohT0Pii5a2884cgC3bLARwnqmXTwENZznROFPEEnHjSS+PttE4QIJ+Ayio
-	 +t5HdfE2xoP10t9EH9ejkc8ccaOEj0KTmhf5NKlTj2bUxB8UwG2QIQjCMSoWcRTjijI+w
-	 q9buMOnAewk/pFNZjihpq33K1BE/G8+iMCMvuUrt5eok+XmfJBpueMm5FzlCvuxzka0/j
-	 wXAC/2DsL4EvqVEGam5TbQc8pmCES4u+LFUPtT2wsJ96Zk/f1+93TPqSntbmIincb+OUN
-	 BHtNOuwEI48u4YltpnAKZEKFg5XufMBxxXq2BeYTMfrx5dcs708pKGZCJ9h3z7XqgrQ==
+	t=1794342201;
+	b=pYiG1VJoGMR1dlz82RgD3H2j14Tkex3nkOc9/SyxNmX/bXoeA/BVb/M/l/nGrTH3oudY
+	 +FOTbbQ0RUjWWgNPpcIds6nPIfMWm//PiADdoiMsOOoOcQr2NXTzUkWfkeTZaRx7stbu5
+	 s3UCrnhr2FatfC3r+ifKBvbKfE87R8DPG38IwjgfZYJ8mTgKzCVcrfleWe6Yyjjm4okAu
+	 fQ1wp8rzG27ju1dnjmGs2M8slskwKFXweBnL6Yq/txeMc/KwXwW1XpXeDLJ/RvwsqkPj+
+	 wDJrkDPyAB/MsGng5l8R146NcqAsPaU2I+cQhjMcI1IbxA2rt7rSGFC7tThAMLeHlkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342113;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7JJu+pEdf5RpGWIdVT2qEG1znfhrEKZZwrV03y/iAoI=;
-	b=F8XuAmsyy37wT6RzS6L0tZk7xyxtkFgknS9Lsq5ebuwoGCPTc6brr1foVPDSQ9d1Gd68
-	 BdgNZsq0dE6FuHOR8mQpWCMyczHoohLXqrxGRuVUj/WdTnJv6sZ3DKi8fwYkLNZWMhsBP
-	 hZXHwBpo5jU4MFJAgx3uJI1Tq8OhdPG1J2eK9gI2w2H6BnxzbnzYAu6NT02PlZz0GNcNA
-	 vwg2LjU/QvBtQEDqB2OACTf9u7BRCFSyfdb9PlLEYHlBrHb0D3zTinlkARgYky4EYycWV
-	 bWv1RndsFL2EAxiloYTxy4r9bavvjiOc1umt3R3u32H4utzTN7a3hoR3rHaJp/68CyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342201;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=aNTBUVcEjSCanLMfEBKZfMTj70g+Fn7VorpJWkJr3sM=;
+	b=ZitUFvvvN7/0TkZpRnWNDVabFWZn6JwyJqCa7Hfx7t0g+GK6eG/3WooHjbhtDycB5moI
+	 BJYi8ZsTMmwsZxm99LDHcYiwEhTooa4Xq8LujDqLvEagcq+C1v1IpBKKdlbkBznAz/4EV
+	 bvziaw2E3RxjbrIpxEstWLn3giC3siSwPo8Jd0Loizm1gc82FILMSxv/NVu83xAbZEXCt
+	 qUVnvuaQTRDB+cjdez3cxefUymVaDK3AktzlblvB2bdk/n5IyRilB7TPDg9MQRqSFqO08
+	 N3HD7Jz5iwmqreYY0BcyFugkN2sWhgwZ+hKAptTapQdQQz+g0KAUfqeJZeaVkzHiQyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miFoIWG3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=armoriq.io;
+	spf=pass smtp.mailfrom=armoriq.io;
+	dkim=pass header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="mM7A/PG/";
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29655606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E2B606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3E2B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miFoIWG3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D905E1F008A2;
-	Tue, 10 Nov 2026 20:21:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794342112;
-	bh=7JJu+pEdf5RpGWIdVT2qEG1znfhrEKZZwrV03y/iAoI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=miFoIWG3dgLkKgXAj1MJKO5fngFq5HWLOOs4WJ/f/Orob1wWYcjdTWw/j+T4tRVN0
-	 BnI7+CLwya1zmINYBZxcTChBr312r/qscW2ZELYLZK4hA1HMoHyeC3r1+aYD3Ffzrf
-	 q3VVIBdamdMDlXGzDY2VnLRYS5YCOm/lOdVWAscZmUa5amK0xr8EzTn5NJsnbkcB3B
-	 Ot0sA1N+nMV7B3jRYn4WnIVtRIy9zARMLn9lwrIeERuCokDb4YjuU6d2GiA/BEiEiv
-	 rhUYMMIcaO1fU2juotsMOIg4eKrWV0vjx4jNWd+KvQLxl9AWEe2QHj+yMgybjJBfu5
-	 tPboBO33YPqcw==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	hannes@cmpxchg.org,
-	hui.zhu@linux.dev,
-	kasong@tencent.com,
-	kunwu.chan@gmail.com,
-	liam@infradead.org,
-	lianux.mm@gmail.com,
-	linux-kernel@vger.kernel.org,
-	liuxiang.277@bytedance.com,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	ridong.chen@linux.dev,
-	rppt@kernel.org,
-	ryncsn@gmail.com,
-	shakeel.butt@linux.dev,
-	surenb@google.com,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	zhuhui@kylinos.cn,
-	sidchintamaneni@gmail.com,
-	Barry Song <baohua@kernel.org>,
-	Kunwu Chan <chentao@kylinos.cn>
-Subject: [PATCH v6 15/15] mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO allocation
-Date: Wed, 11 Nov 2026 04:20:25 +0800
-Message-Id: <20261110202025.25736-16-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261110202025.25736-1-baohua@kernel.org>
-References: <20261110202025.25736-1-baohua@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=mM7A/PG/
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so1706714eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:23:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=armoriq-io.20260707.gappssmtp.com; s=20260707; t=1794342200; x=1794947000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aNTBUVcEjSCanLMfEBKZfMTj70g+Fn7VorpJWkJr3sM=;
+        b=mM7A/PG/9Uk9fK/Jrh2TfmB/05D9oUgqUkYIaBhm81ACWuHUeGybpd9sjCv2uqxsFp
+         hP+54DI+fy9nzJ7v7hk8rjiQQTzmI/zdn5KweGrZN+nSkEMSmd8t9Jd56H2xhGaXXrY9
+         FJbpHjyPPembu5gdonohcpyWIvEq9KxR4EbyiR1BdFKe5eJ0c9+UItijTf9oAvxzYNr/
+         1brgT+3Ceh+r2Vg6BnjRYRjf//lMIQbSNi7tKUISSKISiKl4mSONNYDdWczzlIWe9wwY
+         /OiDzGdaBpreGqIRKhxI81H6efBOTb79xDe+XCS0gMxO2fc0VeJdSAxN25QDOtt4lhe2
+         zlIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794342200; x=1794947000;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aNTBUVcEjSCanLMfEBKZfMTj70g+Fn7VorpJWkJr3sM=;
+        b=hAyDWeslPzd5S7GCKmpYJ1ZpICO1lm/JTIa3EmS1BfowsHmVPrkXTlnLo2jo1yakbo
+         awQsfhEXq8YXdhdxLB+qrAAlGFP3s6U+YLI1Ormq/qjT1RYjRX44uabmoc+tbAxoK8+g
+         G/h2VkjcHXEi97c1AHEwXA4+XC36NvLOdpqqvPRZpd7V29FBxz/QjQb0vYxarx8BizvK
+         26X+qD1jfe5Bx7PeHz0/jGfUO2a/LWqU0ChopDYrsa8qhCw838steCiuZpjDOvqbIhg2
+         7rOVn1fgbyZCIh7JgEinTJpcscntIecVjbJD3tnIe63a8IjKqBJFx5Qn9mf9UJRzA5jB
+         6PWA==
+X-Gm-Message-State: APuU4Z9i0/ju3zwM9EMmchskxjBaEDW3M57soSt/PpWJtBFlz2C3LRa+
+	Nwh1EVQjVEuUF5e10WhJvGJlgl/qNL0vmse7pSuJXRL2vy0QEnXQdN7YyjPEDJKABeHthLN4X+m
+	rUo235Lnj2MU=
+X-Gm-Gg: AYBFou1fwQuahccA8Cd+cFaQKBV0fRFPsF19hjsPI1LMYM5lEX+O3Ncuud44MdmEfer
+	9n9IMbvBiodDrF02ZU2URuZ9RRzS3g7Vm708NRLBP070PYVCILBZ3zcArW8uv5H+ZzuXnv5ki0G
+	hkWlRlLmFx9fvKwfGQW0b87rNAD/DhPRWeSqElmNLeVypTyA2GbUSeZ6p4TePZx2n6QQ0I7YgyS
+	GflsljkYcEjebacyCrFUpcLO3go+PkV3VQtrdIOC8N2n+ivVNXe/wtQeJnCGC4fcEVe5KKKbJWv
+	UpSRwvDb/z4GN9hjnPp+kDMtgAMCX7Pkm9ziRkjoE9OBp6FMYFObvHsztFjawFjWyW7+uutbkMY
+	zLqvCPayuBg71mvbFGXdlg/z3yZUEQKRkegKpURHslWSAOfkXuOyqhUT+um9Xdi0SMsO41EmBaH
+	CiZoLPFUW/sGm1D8iOKoXcd/AGovWgMtXYkQNvg93+iJpAfsb579eO7Hx6RjfP6q1gqqIN/Z60d
+	OEBGgHkiQ9bgNHH9fHPz1QKut7wkZtda+1W1d0Jw+RU7dnUVq0+nQTpD7h9IJ0ByQ/ICUWzQd9o
+	tk363Nk+DEM4QaAmA/wpYHg6Mus82opJC1dHaTwaBLifZ79lx8kGFB9RtM5aJ9cLVDIHEZkaREe
+	Gr1bqaK9Ki0haP41LE0009juOm2eFqfdJuKHkUcoxzxOeECnYvXbZTg==
+X-Received: by 2002:a05:693c:8955:20b0:36f:26a7:968e with SMTP id 5a478bee46e88-37686a4510dmr514261eec.40.1794342199582;
+        Tue, 10 Nov 2026 12:23:19 -0800 (PST)
+Received: from localhost.localdomain ([2409:40f4:147:2742:6545:702a:2431:7dca])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm10076615eec.21.2026.11.10.12.23.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 10 Nov 2026 12:23:19 -0800 (PST)
+From: "HARIHARA SUDHAN. R" <harisudhan@armoriq.io>
+To: linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Paul Moore <paul@paul-moore.com>,
+	Kees Cook <kees@kernel.org>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Ben Segall <bsegall@google.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Ketan Bhardwaj <ketan@armoriq.io>,
+	bpf@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-mm@kvack.org,
+	"HARIHARA SUDHAN . R" <harisudhan@armoriq.io>
+Subject: [RFC PATCH v3 0/6] security: introduce Kernel Assurance Plane
+Date: Wed, 11 Nov 2026 01:52:40 +0530
+Message-ID: <20261110202246.274-1-harisudhan@armoriq.io>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,149 +125,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bo Zhang <zhangbo56@xiaomi.com>
+Kernel Assurance Plane (KAP) adds an objective-scoped authority context as a
+kernel object. An Intent Lineage Group (igroup) is that object: an externally
+managed authority whose lifetime is tied to an objective rather than to a
+process, a thread group or a sandbox, that a trusted controller can update or
+revoke in place while unmodified worker tasks keep running.
 
-With GFP_NOIO, we cannot reclaim anon folios unless they are in
-the swap cache. CLRU skips anon reclaim when the swap cache is
-very low by commit 74d9aa0d8e98 ("mm: vmscan: avoid anon scanning
-for GFP_NOIO with low swapcache"). Apply the same logic to MGLRU.
+v1 [1] was the design document. v2 added the implementation and moved the
+control plane under securityfs. This version answers the v2 review.
 
-The new scan-budget-based mechanism makes this straightforward to
-implement. Thanks also to Xiang Liu, who previously attempted to fix
-this before we had the scan-budget-based model [1].
+The review asked, in several forms, why this needs a new LSM rather than
+Landlock or a BPF LSM. The short answer, now the spine of the design document,
+is that path and syscall mediation is not the distinction: Landlock and seccomp
+already do that, often better. What they do not provide is an authority context
+that an outside controller can narrow or revoke, per objective, for a task that
+is already running, while a second objective beside it is untouched. The
+document opens with that and gives a two-objective example.
 
-[1] https://lore.kernel.org/linux-mm/179248830836.1744016.8424217811286616919.noio-mglru-rfc-v2@bytedance.com/
+Changes since v2:
 
-Cc: Xiang Liu <liuxiang.277@bytedance.com>
-Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
-Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
----
- mm/vmscan.c | 44 ++++++++++++++++++++++----------------------
- 1 file changed, 22 insertions(+), 22 deletions(-)
+* Design document (1/6) reworked to answer the review:
+  - leads with the authority-lifecycle distinction and the two-objective
+    example, and states plainly that the mediation overlaps Landlock;
+  - raises the central question (question 1): should KAP be a minimal
+    authority-lifecycle facility that composes with Landlock and existing hooks
+    for enforcement, rather than a self-contained LSM with its own mediation;
+  - drops the incorrect "cgroup membership cannot follow setns" claim and
+    reframes the cgroup and BPF-LSM rationales around which lifecycle semantics
+    should be a shared contract, not which mechanism enforces;
+  - states the JSON subset is a prototype wire form, not the model;
+  - narrows the net (connect only), ipc (coarse Unix, no SysV confinement),
+    descriptor (file_receive only), procfs and io_uring claims to what is
+    implemented;
+  - adds the deployment and privilege model and the lineage-root trust
+    boundary (opaque, not kernel-verified in this version);
+  - reframes question 5 to prefer existing namespace-transition hooks where
+    the target tree has them.
+* Code (4/6): the only code change is removing an unused securityfs dentry that
+  the kernel test robot flagged (-Wunused-but-set-global). The code is otherwise
+  identical to v2.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 379339220878..fa0245a07caa 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -272,13 +272,6 @@ static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
- 	if (!sc || (sc->gfp_mask & __GFP_IO))
- 		return false;
- 
--	/*
--	 * FIXME: MGLRU doesn't fully respect can_reclaim_anon_pages() for the
--	 * scanning type, so only apply this to the traditional LRU for now.
--	 */
--	if (lru_gen_enabled())
--		return false;
--
- 	if (memcg) {
- 		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
- 
-@@ -4206,12 +4199,14 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
- 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
- }
- 
--static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
--				  unsigned long nr[])
-+static void lruvec_evictable_size(struct lruvec *lruvec, struct scan_control *sc,
-+				  int swappiness, unsigned long nr[])
- {
- 	int type;
- 	unsigned long seq;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-+	int nid = lruvec_pgdat(lruvec)->node_id;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
-@@ -4219,6 +4214,8 @@ static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
- 	nr[LRU_GEN_FILE] = 0;
- 
- 	for_each_evictable_type(type, swappiness) {
-+		if (type == LRU_GEN_ANON && !can_reclaim_anon_pages(memcg, nid, sc))
-+			continue;
- 		for (seq = min_seq[type]; seq <= max_seq; seq++)
- 			nr[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
- 	}
-@@ -4229,7 +4226,7 @@ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
- 	unsigned long total, sizes[ANON_AND_FILE];
- 	int swappiness = get_swappiness(lruvec, sc);
- 
--	lruvec_evictable_size(lruvec, swappiness, sizes);
-+	lruvec_evictable_size(lruvec, sc, swappiness, sizes);
- 	total = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
- 
- 	/* whether the size is big enough to be helpful */
-@@ -4893,23 +4890,19 @@ static void lru_gen_balance_scan(struct lruvec *lruvec, struct scan_control *sc,
- {
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	u64 refault_rate[ANON_AND_FILE], anon_factor, file_factor;
--	u64 anon_scan, file_scan, total;
-+	u64 anon_scan, file_scan;
- 	u64 anon_weight, file_weight;
- 	int size_bias;
- 
--	total = nr[LRU_GEN_ANON] + nr[LRU_GEN_FILE];
--	if (!total)
--		return;
--
--	if (swappiness <= MIN_SWAPPINESS) {
-+	if (swappiness <= MIN_SWAPPINESS)
- 		nr[LRU_GEN_ANON] = 0;
--		nr[LRU_GEN_FILE] = min_t(u64, total_scan, nr[LRU_GEN_FILE]);
--		return;
--	}
- 
--	if (swappiness == SWAPPINESS_ANON_ONLY) {
-+	if (swappiness == SWAPPINESS_ANON_ONLY)
- 		nr[LRU_GEN_FILE] = 0;
-+
-+	if (!nr[LRU_GEN_ANON] || !nr[LRU_GEN_FILE]) {
- 		nr[LRU_GEN_ANON] = min_t(u64, total_scan, nr[LRU_GEN_ANON]);
-+		nr[LRU_GEN_FILE] = min_t(u64, total_scan, nr[LRU_GEN_FILE]);
- 		return;
- 	}
- 
-@@ -5113,12 +5106,19 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
- 			     struct scan_control *sc, int swappiness,
- 			     bool do_balance)
- {
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
- 	/* have to run aging, since eviction is not possible anymore */
- 	if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS > max_seq)
- 		return true;
- 
-+	/* run aging when GFP_NOIO limits anon reclaim with few swapcache folios */
-+	if (swappiness && min_seq[LRU_GEN_FILE] + MIN_NR_GENS > max_seq &&
-+	    reclaimable_anon_is_low(memcg, pgdat->node_id, sc))
-+		return true;
-+
- 	/* try to avoid aging, do gentle reclaim at the default priority */
- 	if (sc->priority == DEF_PRIORITY)
- 		return false;
-@@ -5137,7 +5137,7 @@ static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
- {
- 	unsigned long total;
- 
--	lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
-+	lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
- 	total = nr_to_scan[LRU_GEN_ANON] + nr_to_scan[LRU_GEN_FILE];
- 
- 	/* Just scrape all pages calculated above if this memcg was deleted */
-@@ -5888,7 +5888,7 @@ static int run_eviction(struct lruvec *lruvec, unsigned long seq, struct scan_co
- 		if (sc->nr_reclaimed >= nr_to_reclaim)
- 			return 0;
- 
--		lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
-+		lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
- 		lru_gen_balance_scan(lruvec, sc, swappiness,
- 				     nr_to_reclaim - sc->nr_reclaimed, nr_to_scan);
- 
--- 
-2.34.1
+The prototype runs as the guest kernel of Kata microVMs (Linux 6.18) and of
+Docker Sandboxes (Linux 7.0). In a Kata guest under nested virtualization,
+running the same binary unbound and then bound, enforcement adds 154 ns to a
+read and 787 ns to an open, while the unhooked getpid control does not move. On
+Docker Sandboxes, allow, deny and revoke were exercised on a real agent.
 
+Known gaps, where feedback is welcome:
+
+* Whether KAP should keep its own mediation or compose with Landlock and
+  existing hooks is open and is question 1; the current series is the
+  self-contained form.
+* The authority wire form is a strict subset of JSON and is experimental.
+* Decisions are serialized by one spinlock, and those that resolve a path
+  allocate a PATH_MAX buffer before taking it. Both are prototype choices.
+* igroups cannot be removed yet, and kap.procs keeps the pids written to it
+  after those tasks exit. A task's binding lives in its task blob and is
+  released with it.
+* A thread created while its process is being bound can miss the binding.
+  cgroups closes the same race with cgroup_threadgroup_rwsem; KAP does not yet.
+* Control writes need CAP_SYS_ADMIN. CAP_MAC_ADMIN may be the better fit.
+* unshare and setns call KAP directly because they have no LSM hook in this
+  base (question 5 in the document).
+* There are no selftests in this series yet. It was built with and without KAP
+  and with networking, namespaces and io_uring disabled, and boot tested in
+  QEMU with lock debugging: the control plane, file and exec decisions, epoch
+  revocation of a running task and kap.default.
+* The LSM ID is provisional and is for the LSM maintainers to confirm.
+
+[1] https://lore.kernel.org/linux-security-module/20261021165748.19304-1-ketan@armoriq.io/
+
+Base commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907 (Linux 7.3-rc7)
