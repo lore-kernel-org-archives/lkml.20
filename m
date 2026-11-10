@@ -1,62 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305043;
-	b=G4lsfnvvRTiK3B9Z7jo08qBtSlHlEQ5Tx3mulaY/dnWUHaoQCVfBvSnRnupnibHUuGjD
-	 M7jZwnbqkxN1AaoDvpZ9EnpUbyfRC4HmNYWECrDEKt4h7p/V70JiB0d95U2dLqs+vWE7d
-	 jzw71rWI2LCcykbsUZVeeyC04xqKCcX7U5LhM6W7UsYU4Kf+djlQU5RruxFs2L5nOhweK
-	 Flm+IGFYJQLgXQVyySTcTsEpdqSPYRPNvC3e9LyETyzXMm0tGYTbhq97bOg6xc1ifysUV
-	 Nu0WZim4qnHQcOQSRDjMequwbT4vAI+5hBU+O1MjugMxGFNMF2vCrEu9tD4QXHYyF2A==
+	t=1794305064;
+	b=ESLO7ODhOtrq7TKXdBihNGvUREQ/RG5KaXu0/PDGVsR9hP9kcwW8fbMW0+X+42+nxdL1
+	 0tSLTZzFvGfch8Eg5bsBkWvEzvYaFxbPYQRD0gbxCTAn6zVtuDuieYbAJC75S5Cn6PZA9
+	 24zwNBu2XImx3gsCbyjG/TwxWX+EVIPXyA9EA/Cn6+YmifPqMVxBoM8kPy2O60WKhX2wx
+	 VX0hhAVb0IwHCAcB2lyxxtDdF03KI2FLnKD0bCBhJwnQQS1WT9/OvCZbVbm8PPu6Uimw5
+	 ZfOk0xqCc3UcU1v3t767GqW04axDYkBDaMRSpdISmihxPXI7tzoDo5HwfRU0Yu+J+rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305043;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=5v0nfMk4rBodRMogcp330VoEDCSVbK9/ewM4ci8K6Js=;
-	b=m/N0NyIC46d3u//JMLkDAqEJbkv+gkyCK3bmvPdumo0UyCKp98WPyMkUFTi3hmNvntU8
-	 cBY2KoOGttINqyM+2trgm2ZLvCaK0KmLoC1HB9Of+Lict8NhpXyRAkAX38qNVPVhb00SZ
-	 ME6Rl3w+4d5ddvdmyZyRRDsrUuNbs2W+M9/gS2yeNzjK0muD/KdJL/N1Knff7Mi2jlumz
-	 CuNO8Gvd/WM2b78Y9m8SIzM7mB8NSi+pY23hxTNqjAyErRTruo1OUyzXa0wdKHBBiD/aO
-	 lX2e8xGDNfgBMYGf+IBjWZcta9P4qLEPVZCdhf8sa7+SRJr2scHxe8c7yQYg9lL7LJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305064;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=eY1DjQBxx9pGJujq6jDGfkVxNU4BxXGTTLJbRN2wf4U=;
+	b=4TB43BzmtZFZLGGQ4MgafTIuN3OXslZcMSwHzZvgQj/+5A5Tywn8Zi5LgfXPV+DarQI+
+	 guoBuVhIyprWJncbzstEqT2Pj/Baz9z5ivM7pNtJFy2y6V1Lu+qvpOGVmUXN50ydDs95F
+	 75TFh8UqJQQMxjtrJu+7WJ60p5vDgO9OePgqjsxeKgDeRx6jXMOj8pjM1yV0fp1K2hYCW
+	 HHkJNbHv2/glyNdOx664aBo8c2lfbNzPrRtQO1N7pdqjgUxyJZSA92XY4Cw0p8MM4vLtT
+	 scsZhKAjHts2/lfQkw5qsiW04nfGNtMxB7/5kUl/3cUAFGF/pUQbINh2tdGZiD+z4fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="UceBej/y";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9BE12606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:04:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QT0hLtk9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC1B606A325;
+	Tue, 10 Nov 2026 10:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UceBej/y
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA4BA1516
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:03:58 -0800 (PST)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B52713F85F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:04:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794305041; bh=u5FOKVXPwtEHvG/wCtI/T33KcnjC+imee3/ObiHKJ8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UceBej/yee8xq2v73jyYVIWQu72ljHT5JxqG/SXQkEjLddMy4Gh0PJ/g47akg4Ugx
-	 1immmXnDQZdre9zz4JGyKc75o5aTOdZ+MUKD+2WAbpyP0DupDxT9el8GVlH6BAaV+7
-	 cUyhDapDDfsFZ05laiWL4brtm6f1e4Nsy/QpBkow=
-Date: Tue, 10 Nov 2026 10:03:46 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Cunyuan Liu <cunyuan.liu@cixtech.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, gary.yang@cixtech.com,
-	fugang.duan@cixtech.com, daniel.almeida@collabora.com,
-	aliceryhl@google.com, p.zabel@pengutronix.de,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, cix-kernel-upstream@cixtech.com,
-	robin.wang@cixtech.com
-Subject: Re: [PATCH v2 2/3] drm/panthor: Add initial support for CIX Sky1
-Message-ID: <avLsAlL048MtIX4x@e142607>
-References: <20261109120902.125242-1-cunyuan.liu@cixtech.com>
- <20261109120902.125242-3-cunyuan.liu@cixtech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QT0hLtk9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80651F0089F;
+	Tue, 10 Nov 2026 10:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794305063;
+	bh=eY1DjQBxx9pGJujq6jDGfkVxNU4BxXGTTLJbRN2wf4U=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=QT0hLtk9QO9NQkSAMafK//Ctz1CLu6QbM11Rc9ypRgZvHyr5B908aYtoNJaavFGGr
+	 0fInfPXPrGa6TWHGLogzkkxJ+Xx00GGNu+4+rA8qxV1XsW1X1hTqN6DD16TSa3JAKp
+	 zFkHqXG9t7lCkgbbuWrsooy4xekpacKz3RZeGeb/jw/+M3qMTK0+w0JDpZwYMFWKGh
+	 gQ6rTH8699FKSbnCwHqDJJrCqVSQyUMdoE56xaNNnc1h9qrqjX4Oq+tJRybK9TVJke
+	 XsntNYFGeRI83Yhcix3xoAuRHe6qn+3qze9Zkb5x2CzaRLiQXjUBcD/HiBTyyy2Dku
+	 wT9SVixRtBFow==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,274 +49,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109120902.125242-3-cunyuan.liu@cixtech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 12/15] kexec: Add kexec_load_other_segments() helper
+From: Mike Rapoport <rppt@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+ chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com, 
+ mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
+ ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org, 
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, 
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+ akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, 
+ pasha.tatashin@soleen.com, pratyush@kernel.org, thuth@redhat.com, 
+ leitao@debian.org, yeoreum.yun@arm.com, robh@kernel.org, 
+ sourabhjain@linux.ibm.com, kees@kernel.org, coiby.xu@gmail.com, 
+ Yeking@Red54.com, tangyouling@kylinos.cn, maqianga@uniontech.com, 
+ zhangtianyang@loongson.cn, guodongtai@kylinos.cn, blum@kernel.org, 
+ adityag@linux.ibm.com, hui.wang@canonical.com, sohammetha01@gmail.com, 
+ guoren@kernel.org, gaohan@iscas.ac.cn, kai.huang@intel.com, kas@kernel.org, 
+ vishal.l.verma@intel.com, piliu@redhat.com, jbouron@amazon.com, 
+ mclapinski@google.com, me@linux.beauty, graf@amazon.com, bgwin@google.com, 
+ x86@kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+ kexec@lists.infradead.org
+In-Reply-To: <20261026075201.699550-13-ruanjinjie@huawei.com>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+ <20261026075201.699550-13-ruanjinjie@huawei.com>
+Date: Tue, 10 Nov 2026 12:04:05 +0200
+Message-Id: <179430504583.425130.15302016434972990362.b4-review@b4>
+X-Mailer: b4 0.16.1-dev
 
-Hi Cunyuan,
+Hi Jinjie,
 
-On Mon, Nov 09, 2026 at 08:09:00PM +0800, Cunyuan Liu wrote:
-> Add Sky1 SoC data for system-level cache settings and to skip devfreq.
-> 
-> The GPU on CIX Sky1 needs an external reset before the driver first
-> accesses the hardware. Without this reset, the GPU hardware cannot be
-> accessed correctly. Acquire an optional exclusive reset for all platforms
-> and apply it after enabling the clocks during initial probe. Platforms
-> without a reset keep working through the reset framework NULL handling.
+> arm64, LoongArch and RISC-V duplicate the elf core header and initrd
+> loading.  Move it into a common helper with one arch hook for the boot
+> parameters; a failure releases everything added for the attempt.
 
-Adding support for an external reset should be separate from the enablement
-of Sky1 GPU.
+I like the idea of pulling out the common code, but I'm not convinced
+that the split you suggest is right.
 
-> 
-> Configure SYSC_ALLOC before L2 power-on. Without these settings, GPU
-> rendering results are displayed incorrectly.
-
-Adding support for SYSC_ALLOC should be a separate patch. It can be used
-by other SoCs as well, not just Sky1. 
-
-> 
-> Keep the clock settings provided by the PM firmware. This first version
-> does not read OPPs or enable devfreq. It does not register a GPU cooling
-> device.
-
-This looks like a stop gap measure. What is your plan here? When do you
-think you might be able to provide OPP and devfreq support and what is
-the hold up?
-
-> 
-> Tested on Orion O6: offscreen pixel readback, kmscube, glmark2 at 1080p,
-> runtime suspend and resume with a retained EGL context, software-triggered
-> reset-worker tests, and module unload and reload. Display tests used
-> local Komeda support.
-> 
-> Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Baoquan He <baoquan.he@linux.dev>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Suggested-by: Mike Rapoport <rppt@kernel.org>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_devfreq.c  | 11 ++++++++++-
->  drivers/gpu/drm/panthor/panthor_device.c   | 13 +++++++++++++
->  drivers/gpu/drm/panthor/panthor_device.h   | 19 +++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_drv.c      | 14 ++++++++++++++
->  drivers/gpu/drm/panthor/panthor_gpu.c      | 14 ++++++++++++++
->  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  2 ++
->  6 files changed, 72 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> index 2249b41ca4af..1914549f7b1f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> @@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
+>  include/linux/kexec.h | 15 ++++++++
+>  kernel/kexec_file.c   | 90 +++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 105 insertions(+)
+>
+> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+> index faba26f871a4a..de1d83ddc38bd 100644
+> --- a/include/linux/kexec.h
+> +++ b/include/linux/kexec.h
+> @@ -259,6 +259,21 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
+>  extern int kexec_add_buffer(struct kexec_buf *kbuf);
+>  int kexec_locate_mem_hole(struct kexec_buf *kbuf);
 >  
->  	ptdev->devfreq = pdevfreq;
->  
-> +	/* Keep the firmware clock settings until Sky1 devfreq is supported. */
-> +	if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
-> +		ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-> +		return 0;
-> +	}
-
-This should not be in the driver. If you want to have a fixed frequency just use a fixed
-clock provider, or make the clock provider query the firmware for the value.
-
-> +
->  	/*
->  	 * The power domain associated with the GPU may have already added an
->  	 * OPP table, complete with OPPs, as part of the platform bus
-> @@ -323,8 +329,11 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
->  	unsigned long freq = 0;
->  	int ret;
->  
-> -	if (!pdevfreq->devfreq)
-> +	if (!pdevfreq->devfreq) {
-> +		if (ptdev->soc_data && ptdev->soc_data->skip_devfreq)
-> +			return clk_get_rate(ptdev->clks.core);
->  		return 0;
-> +	}
->  
->  	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 9687c59de350..a3a32abec5f7 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -229,6 +229,11 @@ int panthor_device_init(struct panthor_device *ptdev)
->  		return ret;
->  	}
->  
-> +	ptdev->reset_control = devm_reset_control_get_optional_exclusive(ptdev->base.dev, NULL);
-> +	if (IS_ERR(ptdev->reset_control))
-> +		return dev_err_probe(ptdev->base.dev, PTR_ERR(ptdev->reset_control),
-> +				     "Failed to get GPU reset\n");
-> +
->  	ret = panthor_devfreq_init(ptdev);
->  	if (ret)
->  		return ret;
-> @@ -511,6 +516,12 @@ int panthor_device_resume(struct device *dev)
->  	if (ret)
->  		goto err_disable_stacks_clk;
->  
-> +	if (!panthor_device_is_initialized(ptdev)) {
-> +		ret = reset_control_reset(ptdev->reset_control);
-> +		if (ret)
-> +			goto err_disable_coregroup_clk;
-> +	}
-> +
->  	panthor_devfreq_resume(ptdev);
->  
->  	if (panthor_device_is_initialized(ptdev) &&
-> @@ -553,6 +564,8 @@ int panthor_device_resume(struct device *dev)
->  
->  err_suspend_devfreq:
->  	panthor_devfreq_suspend(ptdev);
-> +
-> +err_disable_coregroup_clk:
->  	clk_disable_unprepare(ptdev->clks.coregroup);
->  
->  err_disable_stacks_clk:
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b55a3f9edd41..afb4167bd364 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -19,6 +19,8 @@
->  #include <drm/gpu_scheduler.h>
->  #include <drm/panthor_drm.h>
->  
-> +struct reset_control;
-> +
->  struct panthor_csf;
->  struct panthor_csf_ctx;
->  struct panthor_device;
-> @@ -34,10 +36,24 @@ struct panthor_pwr;
->  struct panthor_vm;
->  struct panthor_vm_pool;
->  
-> +/**
-> + * struct panthor_sysc_config - GPU system-cache configuration
-> + */
-> +struct panthor_sysc_config {
-> +	/** @alloc: System-cache allocation policies for GPU access types. */
-> +	u32 alloc[8];
+> +struct kexec_load_params {
+> +	unsigned long kernel_load_addr;
+> +	unsigned long kernel_size;
+> +	char *initrd;
+> +	unsigned long initrd_len;
+> +	char *cmdline;
+> +	unsigned long cmdline_len;
 > +};
+
+initrd and cmdline are already in image->initrd_buf, initrd_buf_len,
+cmdline_buf and cmdline_buf_len, that's where fops->load() gets them from.
+
+And the outputs are scattered: elf_load_addr goes to the image, the initrd
+address is passed as a separate argument to the hook, and LoongArch infers
+"there is an initrd" from initrd_load_addr != 0.
+
+
+
 > +
+> +int arch_kexec_setup_other_segments(struct kimage *image,
+> +				    struct kexec_load_params *params,
+> +				    unsigned long initrd_load_addr);
+> +int kexec_load_other_segments(struct kimage *image,
+> +			      struct kexec_load_params *params, bool top_down);
+> +
+
+The call chain is now fops->load() in arch -> kexec_load_other_segments()
+in core -> arch_kexec_setup_other_segments() back in arch. That's a
+midlayer: the core helper owns the sequence and the arch fills a hole in
+the middle of it.
+
+The weak default is never used, all three users override it, and x86,
+powerpc and s390 build a helper and a hook that nothing calls.
+
+>  #ifndef arch_kexec_locate_mem_hole
 >  /**
->   * struct panthor_soc_data - Panthor SoC Data
->   */
->  struct panthor_soc_data {
-> +	/** @skip_devfreq: Keep the firmware clock settings without devfreq. */
-> +	bool skip_devfreq;
-> +
-> +	/** @sysc_config: System-cache configuration, or NULL to keep defaults. */
-> +	const struct panthor_sysc_config *sysc_config;
-> +
->  	/** @asn_hash_enable: True if GPU_L2_CONFIG_ASN_HASH_ENABLE must be set. */
->  	bool asn_hash_enable;
->  
-> @@ -138,6 +154,9 @@ struct panthor_device {
->  	/** @soc_data: Optional SoC data. */
->  	const struct panthor_soc_data *soc_data;
->  
-> +	/** @reset_control: Optional external GPU reset. */
-> +	struct reset_control *reset_control;
-> +
->  	/** @phys_addr: Physical address of the iomem region. */
->  	phys_addr_t phys_addr;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index dc8d0191aef4..4d7b1230cd7b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1872,12 +1872,26 @@ static struct attribute *panthor_attrs[] = {
->  
->  ATTRIBUTE_GROUPS(panthor);
->  
-> +static const struct panthor_sysc_config sysc_config_cix_sky1 = {
-> +	/* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
-> +	.alloc = {
-> +		0x00230000, 0x00000023, 0x00000000, 0x00000000,
-> +		0x00523222, 0x00523200, 0x00000022, 0x00000032,
-> +	},
-> +};
-
-These should not be in the driver but in the device tree bindings. If you extract
-the system cache code into a separate patch we can have a proper discussion there.
-
-> +
-> +static const struct panthor_soc_data soc_data_cix_sky1 = {
-> +	.skip_devfreq = true,
-> +	.sysc_config = &sysc_config_cix_sky1,
-> +};
-> +
->  static const struct panthor_soc_data soc_data_mediatek_mt8196 = {
->  	.asn_hash_enable = true,
->  	.asn_hash = { 0xb, 0xe, 0x0, },
->  };
->  
->  static const struct of_device_id dt_match[] = {
-> +	{ .compatible = "cix,sky1-mali", .data = &soc_data_cix_sky1 },
->  	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
->  	{ .compatible = "rockchip,rk3588-mali" },
->  	{ .compatible = "arm,mali-valhall-csf" },
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index a383b04f101e..9a6963fe62ae 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -63,6 +63,19 @@ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
->  		  ptdev->gpu_info.selected_coherency);
+>   * arch_kexec_locate_mem_hole - Find free memory to place the segments.
+> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+> index 62d4cba278a57..8b80f1186875b 100644
+> --- a/kernel/kexec_file.c
+> +++ b/kernel/kexec_file.c
+> @@ -1295,3 +1295,93 @@ int kexec_purgatory_get_set_symbol(struct kimage *image, const char *name,
+>  	return 0;
 >  }
->  
-> +static void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
+>  #endif /* CONFIG_ARCH_SUPPORTS_KEXEC_PURGATORY */
+> +
+> +int __weak arch_kexec_setup_other_segments(struct kimage *image,
+> +					   struct kexec_load_params *params,
+> +					   unsigned long initrd_load_addr)
 > +{
-> +	const struct panthor_sysc_config *config;
-> +	unsigned int i;
-> +
-> +	if (!ptdev->soc_data || !ptdev->soc_data->sysc_config)
-> +		return;
-> +
-> +	config = ptdev->soc_data->sysc_config;
-> +	for (i = 0; i < ARRAY_SIZE(config->alloc); i++)
-> +		gpu_write(ptdev->gpu->iomem, GPU_SYSC_ALLOC(i), config->alloc[i]);
-
-This will crash for arch10 GPUs. I know that you're relying here on soc_data not having
-the fields filled in, but if we move the sysc_config data to being provided by DT, we
-need to check here.
-
+> +	return 0;
 > +}
 > +
->  static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
->  {
->  	struct panthor_gpu *gpu = ptdev->gpu;
-> @@ -317,6 +330,7 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
->  	}
->  
->  	/* Set the desired coherency mode and L2 config before the power up of L2 */
-> +	panthor_gpu_sysc_config_set(ptdev);
->  	panthor_gpu_coherency_set(ptdev);
->  	panthor_gpu_l2_config_set(ptdev);
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> index 4c5b953796e4..f9b65a4dae83 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> @@ -116,4 +116,6 @@
->  #define   GPU_COHERENCY_ACE				1
->  #define   GPU_COHERENCY_NONE				31
->  
-> +#define GPU_SYSC_ALLOC(n)				(0x340 + (n) * 4)
+> +int kexec_load_other_segments(struct kimage *image,
+> +			      struct kexec_load_params *params, bool top_down)
+> +{
+> +	struct kexec_buf kbuf = {
+> +		.image = image,
+> +		/* Do not allocate anything below the kernel */
+> +		.buf_min = params->kernel_load_addr + params->kernel_size,
+> +		.buf_max = top_down ? PFN_PHYS(max_low_pfn) : ULONG_MAX,
+> +	};
+
+top_down does not describe a direction, it selects "RISC-V policy" vs
+"arm64 policy": the upper limit for all buffers, the initrd direction and
+the 32G initrd window.
+
+These are boot protocol constraints and they belong to the architecture.
+The 32G window comes from arm64 booting.rst and the SZ_64K alignment below
+is "largest supported page size" on arm64 and LoongArch. With this patch
+they become generic and RISC-V silently switches from
+ELF_CORE_HEADER_ALIGN to 64K in 15/15.
+
+
 > +
->  #endif /* __PANTHOR_GPU_REGS_H__ */
-> -- 
-> 2.53.0
-> 
+> +	unsigned long orig_segments = image->nr_segments;
+> +	unsigned long initrd_load_addr = 0;
+> +	int ret = 0;
+> +
+> +#ifdef CONFIG_CRASH_DUMP
+> +	if (image->type == KEXEC_TYPE_CRASH) {
+> +		ret = crash_prepare_headers(true, &kbuf.buffer, &kbuf.bufsz, NULL);
+> +		if (ret) {
+> +			pr_err("Preparing elf core header failed\n");
+> +			goto out_err;
+> +		}
+> +
+> +		if (unlikely(image->elf_headers))
+> +			vfree(image->elf_headers);
 
-Best regards,
-Liviu
+The headers don't depend on where the kernel is placed, yet they are
+rebuilt on every iteration of the arm64 and LoongArch retry loops. That's
+why the vfree() above is needed, and with the out_err path freeing them
+it's now dead code.
 
+Building the headers once and only placing them in the loop removes the
+leak instead of fixing it.
+
+
+> +
+> +		image->elf_headers = kbuf.buffer;
+> +		image->elf_headers_sz = kbuf.bufsz;
+> +
+> +		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+> +		kbuf.memsz = kbuf.bufsz;
+> +		kbuf.buf_align = SZ_64K; /* largest supported page size */
+> +		kbuf.top_down = true;
+> +
+> +		ret = kexec_add_buffer(&kbuf);
+> +		if (ret)
+> +			goto out_err;
+> +
+> +		image->elf_load_addr = kbuf.mem;
+> +
+> +		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+> +			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
+> +	}
+> +#endif
+> +
+> +	if (params->initrd) {
+> +		kbuf.buffer = params->initrd;
+> +		kbuf.bufsz = params->initrd_len;
+> +		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+> +		kbuf.memsz = params->initrd_len;
+> +		kbuf.buf_align = 0;
+> +		/* within 1GB-aligned window of up to 32GB in size */
+> +		if (!top_down)
+> +			kbuf.buf_max = round_down(params->kernel_load_addr, SZ_1G) +
+> +					(unsigned long)SZ_1G * 32;
+> +		kbuf.top_down = top_down;
+> +
+> +		ret = kexec_add_buffer(&kbuf);
+> +		if (ret)
+> +			goto out_err;
+> +		initrd_load_addr = kbuf.mem;
+> +
+> +		kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+> +			      initrd_load_addr, kbuf.bufsz, kbuf.memsz);
+> +	}
+> +
+> +	ret = arch_kexec_setup_other_segments(image, params,
+> +					      initrd_load_addr);
+> +	if (ret)
+> +		goto out_err;
+> +
+> +	return 0;
+> +
+> +out_err:
+> +	while (image->nr_segments > orig_segments) {
+> +		kexec_free_segment_cma(image, image->nr_segments - 1);
+> +		image->nr_segments--;
+> +	}
+> +
+> +	kexec_free_elf_headers(image);
+
+This drops segments added by the arch hook (DTB, RISC-V purgatory, arm64
+dm-crypt keys) without knowing anything about the state attached to them,
+like image->dm_crypt_keys_addr or the purgatory info. The hook, in turn,
+frees its buffers but not its segments.
+
+Nobody owns the unwind, so "a failure releases everything added for the
+attempt" is not quite what happens.
+
+The conversions also bury ordering changes in "simplify" patches: on arm64
+dm-crypt keys move after the initrd, and on RISC-V the initrd moves before
+the purgatory. And dm-crypt keys loading is not an arm64 boot parameter,
+x86 and powerpc use it as well.
+
+> +
+> +	return ret;
+> +}
+
+
+What I had in mind was to make the core provide building blocks and let
+the architectures compose them, e.g. a common rollback function that
+frees CMAs and drops segments above nr. The retry loops in arm64 and
+LoongArch image loaders can use it instead of open coding
+kexec_free_segment_cma() and nr_segments--. There also could be a helper
+for adding FDT for example and maybe some other common parts, like, say,
+efl headers.
+
+Arch's load_other_segments() could use these helpers and still define
+their own policy for segment placement.
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Sincerely yours,
+Mike.
+
