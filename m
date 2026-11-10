@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324560;
-	b=AcEIWsNyuFjEtjT2AVE2ok6ylaX2jw2eGVMRFEbzjzBBGYxDKmCkF2D40PEpavdAUzQ1
-	 kUpvAuNSvypm0YJrXr3yhCzkbCjPqHe6vExQS8qUa7lb1orKvbhNj0h2BXq+RtMRuo0yn
-	 NKK+TQ7ODr2lsNPqP8WTdMo9vKc+ZULN+rC8b67e0hxx9cFQHImGyH/57XV9sJCcqtw6J
-	 pK3VVaAE8gydf6DALehNkPBLEShCYEzDd6XIw4aIz80I5lJb4M05FpwKYZCWXzODXeSRX
-	 8FEAhzfGRRlzxc0Fh6D8PKoCPBiODSoJXcCu62zqjws+5q/4mHJoy2i4Ti8a5eWI5iw==
+	t=1794324569;
+	b=Z6yHCW4SNWIc4S9dzO+ut9f4xTlH+AWWpPt//128b84Zgxk6gJKFRdMWX7OlYIYWC6cT
+	 l8a5EGO5teu8Yrdsy9azRqpKIithst2D8qs5z0qngej2aigvwYdl9KXTXYzeFeQyNXB3/
+	 6S/fAx1BeDQ0v7OGmUfK6Rn4no1f4L6/KfR7WH98czAMPudUNCgbjpQu+ia6n3Z5M3KjL
+	 pZTGrV3EQdynONICWJoQpNumsa20iVXgBQxopT/e+3S3SNQ2+02zYceIZysoxD5RLJK63
+	 2hwEyOV8tv16wdfWxhYFFeRPQ8qNnT2XJpSmYphTJuFQrb1DAObZLYLs4UdeCaSM9Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324560;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=Bt4p16M4Hn7px1KF+H5JB36BxwFxJbfBsjU1XaPYy7I=;
-	b=e+1hgrhluOI3OTHTN75+72tslg+OODuWIr47wsQbCAJCcPBAYrZLB+fdnjvVlUS6FzsV
-	 qffp98Y71+5LHTiRjZmXGLCL6NYpGAam1a2eRaTSQehH3lqLs+mcbeoysIpRDvTrUSM6U
-	 P3NhR08qvtPL0uMYkBDhHvKY51YC7NQKlxLelnrLhL6JYIjXE8lrBh994BLKTFs26VXNk
-	 z2XB71EpVrxhK5F9LC1CtFSAbkGUYep1TdTDZY4GjkZ3cqh2OeTCJ620L3mOGj3W5pEyO
-	 IGZ34jEm8OdSW8uee+371qw7oC3g9HiMTv8/3HxbO6OiVErC3H72V/KQw4d+65+/qVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324569;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eE5bBnvx3Gqg63Wh6ioe05F/FzYJEQy40fvhqq/+9QY=;
+	b=5oEMs5S9xVUu9hoo8zOJ2wv7XzpxKRk0uDyCTI7aqD0GvjluKLzkv2JYXcIcLGtP6RXN
+	 psBAMy//YKJIERxfTHnaAhRZEfYXbKZo3y6LXcEkdsLt1tUVLXuLlcCoyszH6AU/l7UET
+	 2gOVLHua9bMhWsqNjWKy9NkY3r6YQOjKIfgLvWWCZnCRpsmKh8yGKoKDfWlJP6Q3bG7Jc
+	 P9RSG+aQL7WsYIbTuYyv23M3deRpKR+05gp5giV2g63si/2g9a13Jex6kiWTNLvmxoUhB
+	 KfZGT0s3VfAtGFZMGvCHHlgzFiBGvInvWv2uPY/OTh2a33NIxMayz5nz71kBGqVMKJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSJs0Dw0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="EgGrkjt/";
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BDA60A3827;
-	Tue, 10 Nov 2026 15:29:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E7660A3827
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21E7660A3827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSJs0Dw0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F8D1F00900;
-	Tue, 10 Nov 2026 15:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324560;
-	bh=Bt4p16M4Hn7px1KF+H5JB36BxwFxJbfBsjU1XaPYy7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TSJs0Dw0xyOaRnZl088l0F3yIjGw4rU/H2At2c8xdDHdp8SerI4hF6PCuWS3HEruj
-	 fQCx/eJIQmjee38K0kl88oaP09m8oPFuWfb0SN2hdJzERKh8HBENPPbNq39MNh2UPZ
-	 6LUEoOgWA4i1YTnY9oJO82udks6VcVjN25+VrrtAMglfx6zUadZkKlzvwnivvOYNaB
-	 65uMmDKxwsnbXEjB0BONIyAxG3GTaI7iSmzK/z4wlqJSwCXkSd0psBWDyBjr1GYhQD
-	 0+xb/kDbfockIG1X6kXknznczMF7Drsf/dASORnmaQY6SbL3ZRlz28lUCakAsVrTFc
-	 ordjZse33Ca5g==
-Date: Tue, 10 Nov 2026 15:29:10 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-hardening@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ard Biesheuvel <ardb+git@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
-	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Maxwell Bland <mbland@motorola.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pierre Langlois <pierre.langlois@arm.com>,
-	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	Yang Shi <yang@os.amperecomputing.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH RFC v10 06/22] arm64: Disable EL2 trapping of POR_EL1
-Message-ID: <3500936b-4177-4ba0-a9df-7eb9d9d75b0a@sirena.org.uk>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-6-aa6c4d9603bc@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=EgGrkjt/
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so15802515e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:29:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794324567; x=1794929367; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eE5bBnvx3Gqg63Wh6ioe05F/FzYJEQy40fvhqq/+9QY=;
+        b=EgGrkjt/sx6/1BBrzSVaWxuMe5RXtwLIOGAoye2pByFuW+s6DWWDzJ871hmoC7CvF0
+         IFL/k0f7ozxOsNbVgrodVmboGNgccu1iFY3nXWvc7lP4e81Ct4ZF+cYpoKwYvd7NxMQ3
+         M+ccnETyvbFvY1WU+fSoxGINzI2lAPkjihLo0LFqMfnaii3XD+Z3rVafu22TAfH8i13A
+         i7zpRQDlTJnEtkV9VOlzpHIXY6UDC5Om9lcQldE6UwmgSBcisGG/b29TJFJLvnOtrxls
+         KK2vvOn8oh0tiFHINZ7D8MRmGW8cY7hsCdZZ832uWKOXTQVsVB9J8bSBRoJBmLrOfwiP
+         Aaww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794324567; x=1794929367;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eE5bBnvx3Gqg63Wh6ioe05F/FzYJEQy40fvhqq/+9QY=;
+        b=hoJzst8pjVL4y5JFPb1xDlXgAuRiAzwCZ7I6qF8kUnIHer+XAqK2fh3j5wJWbfr+Gy
+         +0lwf9dQUtiqFsxO1hdh+duxXKzXkANs+s6ECYqytNMypvnmAjaUnyyvvuoJRIoQrG3r
+         i2WAzfSUnDNG60wT41JRJOx8D6Psw/gyeFw/jLsJNe0kXwNa1ZRDtCPta2TlWH9Nl01+
+         nKSeek2O9tvmCCI2RhSq0cuEo+9pNFtiRPceqoZFUgQQXqsHwvcaczggDVeHXWSe5vWL
+         hdiDwaqQggyOM9YR3S8RxI+u+EPpqqndqG6hRV52gSjEooVmzUy3etCaR6WcsJ2riLtU
+         bjEw==
+X-Forwarded-Encrypted: i=1; AL+hErHXiXwVjlvYCTyfBPgOzZT4C5GNtcLxi6r8FFYMrac+6Dr+0AuJ4Ell8IQJrZnEDt2tLqwTvN0ANi0yk/8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UmNMCOuAlrY5InPWlnUsnpEYnagpGD8+tOJQ08DbOWUa5KLYV
+	ZtD1g1BlVOCOup6Gv1hn7/0GZ+DTxkn/+bXyCXzUg8u+v29gYdPbOBvAXRA+WgUMyW4=
+X-Gm-Gg: AYBFou09QHbTEabQMPILBpNq+XyAXohoAN0kiLvCglrHOkl3OmNo2vWGAdfbShBtCTL
+	ffbxM5H2t5kRNn/YRJ87HZY5duincYSqjwpknSUX18BQv6O1swz34D+8f1EON+EQXWGJQRYkOOa
+	vx0W8mSoGZfHVdXrpH7EkNbxm0mZvEpsC0HBPnKjBespRXSct4VMK6kkk5MXRqVn50cmd73SiZ9
+	+XFXOTH0XSE053sCxJmJRYr3cPfoO0/hoZG2iBjFo7QfXzuRQ/Jua22Ixa2KPzrG54FhSHNHT/V
+	jOrJJQautW189zsoU0H23DlB7yhSvKuI5B8IyAYushB7ygbkdNkKsEueggyN1CusVJtyp+9sw63
+	knqlSi/75NuQ7spPZ4m0Hvg9KT+2964hDaMBmD5zvCDaR7A2+NU8PTKNNwlzMGjJcLxYX82VYpO
+	gGDPlffELOqlfa9Lh7cuT6ZokUnIWixVGgy8itLM9IoTDhzrASsWRduwkhZ2GTymNmWm+oJjHrP
+	95hGWHTK5gTDXKWJKGzFBQ56np4wL7delSw0xRfWxD8dDMw7MOEitBvl1ROzn2TgpksNPWQ5u0O
+	a/bfleF3+kgH6tdqqlKH0CIOUcUwY3+klGHOH/b0Hxw1EdpxQ4hdbTU=
+X-Received: by 2002:a05:600c:3b83:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4ba0233f907mr61071135e9.5.1794324567432;
+        Tue, 10 Nov 2026 07:29:27 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0236f03esm55689215e9.3.2026.11.10.07.29.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:29:27 -0800 (PST)
+Message-ID: <d5b0310d-7123-4b61-95e1-04cf4f92e523@linaro.org>
+Date: Tue, 10 Nov 2026 15:29:26 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,38 +92,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nrZdJCOCfevRaauL"
-Content-Disposition: inline
-In-Reply-To: <20261109-kpkeys-v10-6-aa6c4d9603bc@arm.com>
-X-Cookie: You can't take damsel here now.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/23] coresight: trbe: Check the buffer association
+ before IRQ validation
+To: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-4-3f57cf3199b1@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-4-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
---nrZdJCOCfevRaauL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Nov 09, 2026 at 03:58:31PM +0000, Kevin Brodsky wrote:
+On 16/10/2026 17:55, Leo Yan wrote:
+> is_perf_trbe() obtains the sink buffer from the output handle and
+> dereferences buf->cpudata before validating either pointer. A live AUX
+> transaction does not guarantee that the selected buffer has a CPU
+> association.
+> 
+> Reject a missing buffer or CPU association before reading CPU driver
+> data or checking the hardware buffer addresses. Treat these configurations
+> as an invalid perf TRBE session.
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-trbe.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> index 8ec0b4c4987f25d10ee0b2f80c27e10f76357387..91fbdbad3676ffae399df0b4d4ddcd603a40e86c 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> @@ -1111,10 +1111,16 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
+>   static bool is_perf_trbe(struct perf_output_handle *handle)
+>   {
+>   	struct trbe_buf *buf = etm_perf_sink_config(handle);
+> -	struct trbe_cpudata *cpudata = buf->cpudata;
+> -	struct trbe_drvdata *drvdata = cpudata->drvdata;
+> +	struct trbe_cpudata *cpudata;
+> +	struct trbe_drvdata *drvdata;
+>   	int cpu = smp_processor_id();
+>   
+> +	if (!buf || !buf->cpudata)
+> +		return false;
+> +
+> +	cpudata = buf->cpudata;
+> +	drvdata = cpudata->drvdata;
+> +
+>   	WARN_ON(buf->trbe_hw_base != get_trbe_base_pointer());
+>   	WARN_ON(buf->trbe_limit != get_trbe_limit_pointer());
+>   
+> 
 
-> Make sure EL2 doesn't trap kernel accesses to POR_EL1 by setting the
-> nPOR_EL1 bit in HFGRT{R,W}_EL2.
-
-This wants a matching update in booting.rst as well for when the kernel
-is booted at EL1.
-
---nrZdJCOCfevRaauL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzOEUACgkQJNaLcl1U
-h9Ag0gf/f9f5XP+mPu/qkq9MsiAddVfTPO5cBvZan8qUxzXzuilhA54mF0WCZWl8
-+Fmzl+Q0J4gwxCKcr+yCLoOyMvLGiUCFQVnPcJT7wMBqrZ5DA5f/OW6YWx6uMZyT
-ExUsefodnzmOczU+s41SARPFGFuRuJsT756diQQYF/IlO8wq0GJ8mWoBGKf6H3OR
-BKFwnc4Cda3sUrlQ5UU1Y5DRXoHpQJe2+dz013uXt14vDmtxE8P0840PIRU+Y/F2
-zhXRtj08uReTLuyfCpkD2RuiPx2DKigEDjHND7yPRfuiA/qskHTAtBBtxtRcXoNc
-7EjgnbeiJeosuSBYcCi5CS+h/Sh4Jw==
-=osnL
------END PGP SIGNATURE-----
-
---nrZdJCOCfevRaauL--
+Reviewed-by: James Clark <james.clark@linaro.org>
