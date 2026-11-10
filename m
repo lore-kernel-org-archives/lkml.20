@@ -1,72 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794288816;
-	b=guvRKIGdsKKfC5i4jiDc/EKchnyrqekVs6B8CSxR9fYsFHCkOKMpPKwgp2QaxH4dh1j8
-	 lJAMSXEK0leIJbE8VNcmG+bIXi5KTOz/WUNqu+8RHJKQ4Ejird7I6/przq/PBfGz9PoUy
-	 Cprsy/FG7rm7ddQAF+g015vV/5i2538XIyQ1Rativ2FUwrMddHHk3d1Z/Cceh58mN1ZQj
-	 Ke6tlf9qsnp+7Xd/D/HPgTKsF6km6HJ2apytqmn9AJdT95mdAOZT96oqQ1aojUZVrq9kA
-	 gyxNR42nSax3KRB/eAb8ojrP2MZ5g6sAVnk3yb1G+bSys6B7eqAKyOjSTKS6RD4wZBw==
+	t=1794288818;
+	b=pNWt3/smo/qABD+CoS1N4s7kIrxofIXiuYDLptGJqR6DytZDVG6ewflIDZzfX4QYgNsc
+	 BAAXf/PqwbKEu9UcMAc46qpOWlSi4Dc3sF+tFc6cfhPu9bbATlo4NoIdiO8GEJFDwsIY3
+	 RQrPlAnLJ3Vh2hs0eH66OJHFKoU/jjnsMdBeHwyZ/LP/fnER3VlmNL1ZW7qJal5TGck74
+	 xFZ2zOZljraqNa5hOn9PMHsq9BnYLMqrH8uc5/JItYbt8pLBuYljN7XPRAuDtEdVCVXGb
+	 NvcEpEf4kS406SNErDBv/w1KQ5Tw2uNDAjIlNiLsgb0GBLJJFVUDograSLX1bb36mJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794288816;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=/D/X2RWqUWZEGqY5FvfeCmXbQ5GVi1wSyRCE6T+SpWY=;
-	b=D+5+CQF2hkFPP0RnxJk9vQN5fdwZL9NXnRFnPkaFFb4URQAV57gehlCkcYC8uU5Wxu3g
-	 Zl1I5VPPWolE+Mj1Gv+86ZcNWeZv9rPu1OAuIb2yY/aIjVELfVlzov3M3Zj+sL9JFqMGL
-	 l4zP3mLn+/LNhbF3pt1jCH071GKMbdowBxMJ33h99637YH17tb12OcDWkul5LatpKixuD
-	 D02nE7BbMFah4dBHrd6tVFzZvD6DtRnnM7skmwSfa5csPw7qfvetzkSFlnZPrm6bB9OWZ
-	 FbX7gJ8QtTDG7s3vRm1YKVRHxdYfnksMx+7qUPihkrz4j4hsjGXMwOvCRiz2LflsE8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794288818;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=tX3fnhTU9kRdBqbK4iHEq11RiCG95EIs/cbUf+PUWHY=;
+	b=b4lqa6V1eVcYK+I/F39+8P3nyQYpujQ3J06fgC7uEgyd2DMoVaGgHvgmOom1U4hgWhD3
+	 w8iDbEtTDgC3J7OpJHb1oPXyTCHEcqIzwQB/DchRONVZfpjP21NKlDbU8vN3wtRO+rT7g
+	 DUE7GOSk56fLICL1QyN2MTztersgWci1AL+v/mOE5dg1Wy779DsoiLUplBRpYOs6M4nIY
+	 q8Bc2nBxGrRKEI4rmPZdA2sjJXS7BaaLTU4BNSK/pbaHtifXE2HEOOYk8dXcnDmlz6mj7
+	 5MKau9/eMlTLKnkiuBSvlDAcxNZhaACCGn6WCHOQ7dQgaonkXfGQmKZ4UPveXV3AOSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jiaqiyan.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dE5+lcSc;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=POOVRrbx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9148360A262F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:33:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9148360A262F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jiaqiyan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3042460A263C;
+	Tue, 10 Nov 2026 05:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dE5+lcSc
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed08904845so25672575ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:33:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794288815; x=1794893615; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/D/X2RWqUWZEGqY5FvfeCmXbQ5GVi1wSyRCE6T+SpWY=;
-        b=dE5+lcSchWLW3n1PV41PtvHsqReKoNplg7cwcMGFmiDUtP88uNxfW6OAFXcn6GdzqE
-         eI4ZSztP9OqLxOW2aEJGFwlxap9b0NqcbHMzvDaI+KZpyynfYsmtMBxCYtqCZEkcgqPe
-         HX8adh49zAnwGX50kOGiYJEoGJ2JwuGxS5jlwu2yZlbxeN2DgO33bXWbOXuog8XLUeZK
-         rDzcLhOJezzBauebCC6m5lbpl0curbiFwKAaVM5ca37//sU4jWpc2nBpqwUfauA2rl4U
-         7J7RIEaiscQpn75EvM076j3iK6oXAwU+8wlw2hvrHFCf017F/SdoSVe0tN5CesHtdxxb
-         t7kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794288815; x=1794893615;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/D/X2RWqUWZEGqY5FvfeCmXbQ5GVi1wSyRCE6T+SpWY=;
-        b=sbEmJg/Z7IQqr8jND+V1NXh8UN3Fs/ciTDSBTn2mXiRdsmhkgFIbtr9PW7KkIFqdoM
-         nc4C9OUepHKm8QtNVhMJPUaDYO6HXisaQbldO/GvhmbhEdgaBDhdBipW66KBRsn+sPmN
-         hTt5ZJo9pfmzV2JmVcUlsIJQEuYaUnn7zEfSE7/4J51734Ao/dRdJxSZQ27ngmGyMmpN
-         cGM9YDhbA/7jpJxU/RIYgPSpcosX56lYpK4mvbzisD9EE0LjO72hm1hz3NYt1JVFnYSz
-         AdnYD4qxYzjVG8l1nY4iwQ2C/WxinZBH/4LQJb9wlZzhyZyX4s2BF764eWCp2VB5VjVw
-         eG5g==
-X-Forwarded-Encrypted: i=1; AL+hErH791Hcp1ikHYNuQyzGcTEW7I5GJZbJbh2orQRN2QORr6qxnnAmEmYzLAL2zYHwbNtkCwx5oCZkpcWzAd4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LrYVKACTNbOOEUkTsd/bYt6mr/fZe10zLTD0aulr88M4FzMo6
-	Lxlc2r9KCVlBGGUvrgvyzUh9TNqV0l0/+vWQaGsU3A25m2jKtdKPTQ2IumlTWqLbsvoaMKTJAw/
-	7lnk5aXpZOtxJuw==
-X-Received: from plbma13.prod.google.com ([2002:a17:903:94d:b0:2ea:e1c7:d3a1])
- (user=jiaqiyan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:3903:b0:2ea:192a:13b8 with SMTP id d9443c01a7336-2edb91f565emr13871085ad.20.1794288814617;
- Mon, 09 Nov 2026 21:33:34 -0800 (PST)
-Date: Tue, 10 Nov 2026 05:33:28 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=POOVRrbx
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C34C81F008A1;
+	Tue, 10 Nov 2026 05:33:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794288816;
+	bh=tX3fnhTU9kRdBqbK4iHEq11RiCG95EIs/cbUf+PUWHY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=POOVRrbxaqIA6xqu6daoH/id11WCmfNUzo+XzAT6lsJz3zZTJg7V2qeiGfzBZpE75
+	 LfDshuN03uliylbY0P0yq1Q0fbcgICoFnqbUB3s/5xxu2ZhcSot0MS2rSVarInFFsY
+	 5KPwiiDooPMvCmIbKt5FnLytxoEOuQNPg7fSqxEeYiV5SpVs315ANyy/bB+AnH8oNi
+	 rWzmqZ6FGnWfWkPFjxe1AnrwMRQ6vIXwBCv8KPdhmVncwY2RI45LMkID1P51le29tV
+	 8B8ByH1r/JBLquUHbtpy71B/i3EHrLCOJ4EyS0045MVZMQM8T4qtqDA/T6BPCqBZoS
+	 2VNStpDCbBUQA==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ignat Korchagin <ignat@linux.win>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: [PATCH v9 2/3] KEYS: Replace assoc_array with rhashtable
+Date: Tue, 10 Nov 2026 07:33:22 +0200
+Message-ID: <20261110053323.2936729-3-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110053323.2936729-1-jarkko@kernel.org>
+References: <20261110053323.2936729-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,289 +93,1775 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110053331.2708996-1-jiaqiyan@google.com>
-Subject: [PATCH v7 0/3] Only free healthy pages in high-order folio
-From: Jiaqi Yan <jiaqiyan@google.com>
-To: linmiaohe@huawei.com, vbabka@kernel.org
-Cc: osalvador@kernel.org, ljs@kernel.org, ziy@nvidia.com, harry.yoo@oracle.com, 
-	willy@infradead.org, osalvador@suse.de, jackmanb@google.com, 
-	hannes@cmpxchg.org, nao.horiguchi@gmail.com, david@kernel.org, 
-	william.roche@oracle.com, tony.luck@intel.com, wangkefeng.wang@huawei.com, 
-	jane.chu@oracle.com, akpm@linux-foundation.org, muchun.song@linux.dev, 
-	liam@infradead.org, rientjes@google.com, duenwen@google.com, 
-	jthoughton@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	vbabka@suse.cz, rppt@kernel.org, shuah@kernel.org, surenb@google.com, 
-	mhocko@suse.com, boudewijn@delta-utec.com, Jiaqi Yan <jiaqiyan@google.com>
-Content-Type: text/plain; charset="UTF-8"
-
-At the end of dissolve_free_hugetlb_folio(), a free HugeTLB
-folio becomes non-HugeTLB and is released to buddy allocator
-as a high-order folio, e.g. a folio that contains 262144 pages
-if the folio was a 1G HugeTLB hugepage.
-
-This is problematic if the HugeTLB hugepage contained HWPoison
-subpages. In that case, since buddy allocator does not check
-HWPoison for non-zero-order folio, the raw HWPoison page can
-be given out with its buddy page and be re-used by either
-kernel or userspace.
-
-Memory failure recovery (MFR) code (mm/memory-failure.c) does
-attempt to take raw HWPoison page off buddy allocator after
-dissolve_free_hugetlb_folio(). However, there is always a time
-window between dissolve_free_hugetlb_folio() frees a HWPoison
-high-order folio to buddy allocator and MFR takes HWPoison
-raw page off buddy allocator. Worse, a free HWPoison HugeTLB
-folio can also be dissolved outside of MFR, e.g. when shrinking
-the HugeTLB pool, and then nobody takes its HWPoison pages off
-buddy allocator.
-
-Another similar situation is when a transparent huge page (THP)
-is handled by MFR but splitting failed. Such THP will eventually
-be released to buddy allocator when owning userspace processes
-are gone, but with certain subpages having HWPoison [9].
-
-One obvious way to avoid these problems is to always check
-PageHWPoison() when allocating pages, which check_new_pages()
-only does if page sanity checks are enabled. However, it is
-against the past efforts to reduce sanity check overhead [1,2,3].
-As discussed in v6 [13], how HWPoison pages should be handled by
-page allocator in general deserves a bigger rework; this patchset
-only addresses the freeing side.
-
-__free_pages_prepare() already walks through all tail pages of a
-high-order folio to check and clear their flags, so counting
-PageHWPoison() pages in that loop is cheap, as suggested by David
-Hildenbrand [14]. If any HWPoison page is found, after all checks
-and preparations in __free_pages_prepare() succeed, the newly
-introduced free_has_hwpoisoned() only frees the healthy pages and
-excludes the HWPoison ones in the high-order folio. Unlike
-PG_has_hwpoisoned, which v6 relied on but is only maintained for
-THP, this catches HWPoison pages in any high-order folio.
-
-free_has_hwpoisoned() iterates through the sub-pages of the folio
-to identify contiguous ranges of healthy pages. Instead of freeing
-pages one by one, free_has_hwpoisoned() then re-uses
-free_prepared_contig_range() [11] to decompose healthy ranges into
-the largest possible chunks of different orders. Every chunk is
-sanitized and then freed via __free_frozen_pages(). It stops
-scanning once all HWPoison pages counted by __free_pages_prepare()
-are found. Each excluded HWPoison page is marked HWPoisonTakenOff
-with a refcount of 1, just like a page that memory_failure() takes
-off buddy allocator, so that unpoison_memory() can put it back.
-
-free_has_hwpoisoned() has linear time complexity wrt the number
-of pages in the folio. While the power-of-two decomposition
-ensures that the number of calls to the buddy allocator is
-logarithmic for each contiguous healthy range, the mandatory
-linear scan of pages to identify PageHWPoison() defines the
-overall time complexity.
-
-I tested with some test-only kernel code [4] and hugetlb-mfr [5],
-and validated that HWPoison pages are excluded by free_has_hwpoisoned()
-after dissolve_free_hugetlb_folio() a free 2M or 1G HugeTLB page that
-contains 1~8 HWPoison raw pages.
-
-To illustrate the latency free_has_hwpoisoned() adds to the memory
-freeing path, I measured it on a 1G HugeTLB folio with 8 HWPoison
-pages with instrument code [4, 5] for 20 sample runs, on a kernel
-without KASAN and CONFIG_DEBUG_VM, and compared it with free_one_page()
-of a healthy 1G folio:
-
-- Last HWPoison page at the end of the folio (worst case):
-  mean=767us, median=757us, stdev=29us (20 runs)
-
-- free_one_page() of a healthy 1G folio:
-  mean=50us, median=50us, stdev=3us
-
-free_has_hwpoisoned() is in worst case around 15x the baseline. Its
-cost is nontrivial, but still far from triggering soft lockup, and
-fair for handling exceptional hardware memory errors.
-
-Now that free_has_hwpoisoned() ensures HWPoison pages never make
-it into buddy allocator, MFR doesn't need to take_page_off_buddy()
-anymore after dissolving HWPoison hugepages. So the same patch
-replaces __page_handle_poison() with new __hugepage_handle_poison()
-at HugeTLB specific call sites. The two changes are in one patch
-because neither works without the other. This patchset doesn't
-affect the soft offline behavior in MFR, because soft offline marks
-a page HWPoison only after taking it off buddy allocator.
-
-To provide test coverage for the new __hugepage_handle_poison()
-in me_huge_page(), the last commit adds a MADV_HARD test variant
-for anonymous HugeTLB pages. It also covers the code path that
-frees a HugeTLB page that contains 1 raw HWPoison page.
-
-The commit message of patch 2 and this cover letter were reworded
-with an AI assistant, which was also used to review the code; the
-code changes are my own.
-
-Based on commit 0ea6dc8c4a21 ("fs/proc/task_mmu: fix lost maps entries above 2^63")
-
-Changelog
-
-v6 [13] -> v7
-
-- Rebase to recent akpm/mm-unstable.
-
-- Patch 1: modify free_prepared_contig_range() to take fpi_t
-  instead of adding a __free_prepared_contig_range() wrapper
-  (Matthew Wilcox).
-
-- Patch 2: count PageHWPoison() pages in the tail page loop of
-  __free_pages_prepare() instead of relying on PG_has_hwpoisoned
-  (David Hildenbrand [14]). Drop v6 patch 3/5 "mm/memory-failure:
-  set has_hwpoisoned flags on dissolved HugeTLB folio" as it is no
-  longer needed.
-
-- Patch 2: pass the number of HWPoison pages to
-  free_has_hwpoisoned(), which stops scanning once all of them are
-  found.
-
-- Patch 2: mark excluded HWPoison pages HWPoisonTakenOff with a
-  refcount of 1, so that unpoison_memory() puts them back to buddy
-  allocator instead of leaking them (Sashiko AI review).
-
-- Patch 2: remove pr_info() in free_has_hwpoisoned() (Vlastimil
-  Babka), and fix comments (Miaohe Lin).
-
-- Fold v6 patch 4/5 "mm/memory-failure: skip take_page_off_buddy
-  after dissolving HWPoison HugeTLB page" into patch 2, so that
-  memory_failure() doesn't fail to recover HugeTLB folios between
-  the two patches. Since free_has_hwpoisoned() already holds a
-  refcount on the isolated page, callers of
-  __hugepage_handle_poison() no longer page_ref_inc() it.
-
-- Patch 2: __hugepage_handle_poison() no longer tests HugeTLB flags
-  (e.g. raw_hwp_unreliable), because the folio may already be freed
-  by folio_put() in me_huge_page() or by a concurrent dissolve.
-  Instead, it tells success by whether the raw HWPoison page is
-  HWPoisonTakenOff after dissolving. Since commit a363c62a653c
-  ("mm/hugetlb: do not dissolve gigantic pages without runtime support"),
-  dissolve_free_hugetlb_folio() also fails properly on gigantic folios
-  without runtime support (Miaohe Lin).
-
-- Patch 3: use HUGETLB_SETUP_DEFAULT_PAGES() so that HugeTLB
-  settings are restored after the test (Sashiko AI review).
-
-- Re-measure the performance cost of free_has_hwpoisoned() in v7.
-
-- Drop Reviewed-by from Miaohe Lin and Vlastimil Babka on patch 2
-  due to the substantial changes above.
-
-v5 [12] -> v6
-
-- Rebase to recent akpm/mm-unstable and address comments from Zi Yan,
-  Miaohe Lin, Vlastimil Babka.
-
-- Extract free_pages_sanitize() to avoid touching HWPoison page(s)
-  at the end of __free_pages_prepare().
-
-- Introduce FPI_SANITIZE and add a fpi_t argument to the freeing path
-  free_has_hwpoisoned() -> __free_prepared_contig_range(), so that
-  healthy page blocks are sanitized before __free_frozen_pages().
-
-- Make free_has_hwpoisoned() be compatible with order==0.
-
-- Repeat the previous test done on both X86 and ARM64 machines.
-  CONFIG_KASAN + CONFIG_KASAN_SW_TAGS + kasan.fault=report are
-  enabled on the ARM64 machine.
-
-v4 [10] -> v5
-
-- Rebase to very recent akpm/mm-unstable.
-
-- Re-use free_prepared_contig_range() introduced by [11], and remove
-  free_contiguous_pages() in v4.
-
-- Instead of using struct page pointer, iterate over pfn in
-  free_has_hwpoison().
-
-- Re-tested and re-evaluated free_has_hwpoison()'s time cost.
-
-- Add memory failure recovery test for anonymous 1G HugeTLB page to
-  gain test coverage for __hugepage_handle_poison() and for freeing
-  1G HugeTLB page that has 1 HWPoison page.
-
-v3 [8] -> v4
-
-- Address comments from Zi Yan, Miaohe Lin, Harry Yoo.
-
-- Set has_hwpoisoned flag after introducing free_has_hwpoisoned().
-
-- Unwrap free_pages_prepare_has_hwpoisoned() into free_pages_prepare().
-
-- If folio has HWPoison, its healthy pages will be freed with FPI_NONE
-  right in free_pages_prepare(), who returns false to indicate caller
-  should not proceeding its own freeing action.
-
-- Rework the commit on __page_handle_poison. Only change the handling
-  for HWPoison HugeTLB page, leaving free buddy page and soft offline
-  handling alone.
-
-v2 [7] -> v3:
-
-- Address comments from Mathew Wilcox, Harry Hoo, Miaohe Lin.
-
-- Let free_has_hwpoisoned() happen after free_pages_prepare(),
-  which help to deal with decomposing the original compound page,
-  and with page metadata like alloc tag and page owner.
-
-- Tested with "page_owner=on" and CONFIG_MEM_ALLOC_PROFILING*=y.
-
-- Wrap checking PG_has_hwpoisoned and free_has_hwpoisoned() into
-  free_pages_prepare_has_hwpoisoned(), which replaces
-  free_pages_prepare() calls in free_frozen_pages().
-
-- Rename free_has_hwpoison_page() to free_has_hwpoisoned().
-
-- Measure latency added by free_has_hwpoisoned().
-
-- Ensure struct page *end is only used for pointer arithmetic,
-  instead of accessed as page.
-
-- Refactor page_handl_poison instead of just __page_handle_poison().
-
-v1 [6] -> v2:
-
-- Total reimplementation based on discussions with Mathew Wilcox,
-  Harry Hoo, Zi Yan etc
-
-- hugetlb_free_hwpoison_folio() => free_has_hwpoison_pages().
-
-- Utilize has_hwpoisoned flag to tell buddy allocator a high-order
-  folio contains HWPoison.
-
-- Simplify __page_handle_poison() given that the HWPoison page(s)
-  won't be freed within high-order folio.
-
-[1] https://lore.kernel.org/linux-mm/1460711275-1130-15-git-send-email-mgorman@techsingularity.net
-[2] https://lore.kernel.org/linux-mm/1460711275-1130-16-git-send-email-mgorman@techsingularity.net
-[3] https://lore.kernel.org/all/20230216095131.17336-1-vbabka@suse.cz
-[4] https://drive.google.com/file/d/1CzJn1Cc4wCCm183Y77h244fyZIkTLzCt/view?usp=sharing
-[5] https://lore.kernel.org/linux-mm/20251116013223.1557158-3-jiaqiyan@google.com
-[6] https://lore.kernel.org/linux-mm/20251116014721.1561456-1-jiaqiyan@google.com
-[7] https://lore.kernel.org/linux-mm/20251219183346.3627510-1-jiaqiyan@google.com
-[8] https://lore.kernel.org/linux-mm/20260112004923.888429-1-jiaqiyan@google.com
-[9] https://lore.kernel.org/linux-mm/20260113205441.506897-1-boudewijn@delta-utec.com
-[10] https://lore.kernel.org/linux-mm/20260202194125.2191216-1-jiaqiyan@google.com
-[11] https://lore.kernel.org/all/20260401101634.2868165-2-usama.anjum@arm.com
-[12] https://lore.kernel.org/linux-mm/20260531055829.3636554-1-jiaqiyan@google.com
-[13] https://lore.kernel.org/linux-mm/20260705180714.3708947-1-jiaqiyan@google.com
-[14] https://lore.kernel.org/linux-mm/8e48c288-2183-4d58-b69d-5f78344b5da5@kernel.org
-
-Jiaqi Yan (3):
-  mm/page_alloc: free_prepared_contig_range() takes fpi_t
-  mm/page_alloc: only free healthy pages in high-order folio
-  selftests/mm: add hard memory failure anonymous HugeTLB test
-
- mm/internal.h                               |   3 +
- mm/memory-failure.c                         |  52 ++++--
- mm/page_alloc.c                             | 180 ++++++++++++++++----
- tools/testing/selftests/mm/memory-failure.c |  67 +++++++-
- 4 files changed, 252 insertions(+), 50 deletions(-)
-
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+The keyrings subsystem is the sole user of assoc_array. It has over 1700
+lines of code, no test suite, and a long history of bugs, with LLMs now
+finding more.
+
+This unfortunate outcome has evolved over time by large from the shortage
+of in-kernel callers, time bandwidth and 3rd party contributors.
+
+What the keyrings needs is just a generic key-value store, which performs
+well with sparse key sets.
+
+Replace struct assoc_array in struct key with struct keyring_index:
+
+- keyring_index: holds an rhashtable for direct lookups, an RCU-protected
+  list of keyring_link entries for stable walks, the active link count, and
+  an rcu_work item for deferred teardown.
+- keyring_link: links a key into a keyring's hash table and list, caching
+  its 32-bit SipHash digest rehashed with jhash by rhashtable.
+
+Correspondingly, struct assoc_array_edit is replaced by struct keyring_edit
+for delivering transient state across link operations.
+
+Other behavioral changes:
+
+- KEYCTL_READ and sibling-keyring searches follow list order instead of
+  hash order: keyrings are prepended, other keys are appended, and
+  replacing a matching key retains its position.
+- key_unlink(), keyring_clear(), keyring_revoke(), and keyring_gc() no
+  longer allocate memory.
+- keyring_index_free() uses queue_rcu_work() instead of call_rcu() because
+  rhashtable_destroy() may sleep.
+
+Suggested-by: Eric Biggers <ebiggers@kernel.org>
+Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ include/keys/keyring-type.h |    1 -
+ include/linux/key-type.h    |    1 -
+ include/linux/key.h         |   28 +-
+ security/keys/Kconfig       |    1 -
+ security/keys/internal.h    |   14 +-
+ security/keys/key.c         |   22 +-
+ security/keys/keyring.c     | 1005 ++++++++++++++++-------------------
+ security/keys/request_key.c |    8 +-
+ 8 files changed, 476 insertions(+), 604 deletions(-)
+
+diff --git a/include/keys/keyring-type.h b/include/keys/keyring-type.h
+index 1dc83862f519..314832f5dc4a 100644
+--- a/include/keys/keyring-type.h
++++ b/include/keys/keyring-type.h
+@@ -9,6 +9,5 @@
+ #define _KEYS_KEYRING_TYPE_H
+ 
+ #include <linux/key.h>
+-#include <linux/assoc_array.h>
+ 
+ #endif /* _KEYS_KEYRING_TYPE_H */
+diff --git a/include/linux/key-type.h b/include/linux/key-type.h
+index c4f329b6ae3f..bb97bd3e5af4 100644
+--- a/include/linux/key-type.h
++++ b/include/linux/key-type.h
+@@ -161,7 +161,6 @@ struct key_type {
+ 				     const void *in, const void *in2);
+ 
+ 	/* internal fields */
+-	atomic64_t		index_id;	/* Opaque keyring index ID */
+ 	struct list_head	link;		/* link in types list */
+ 	struct lock_class_key	lock_class;	/* key->sem lock class */
+ } __randomize_layout;
+diff --git a/include/linux/key.h b/include/linux/key.h
+index 9ff10b780865..0d2d64e10f7b 100644
+--- a/include/linux/key.h
++++ b/include/linux/key.h
+@@ -17,7 +17,6 @@
+ #include <linux/sysctl.h>
+ #include <linux/rwsem.h>
+ #include <linux/atomic.h>
+-#include <linux/assoc_array.h>
+ #include <linux/refcount.h>
+ #include <linux/time64.h>
+ 
+@@ -107,34 +106,21 @@ struct key_owner;
+ struct key_tag;
+ struct keyring_list;
+ struct keyring_name;
++struct keyring_index;
+ 
+ struct key_tag {
+ 	struct rcu_head		rcu;
+-	atomic64_t		index_id;	/* Opaque keyring index ID */
+ 	refcount_t		usage;
+ 	bool			removed;	/* T when subject removed */
+ };
+ 
+ struct keyring_index_key {
+ 	/* [!] If this structure is altered, the union in struct key must change too! */
+-	unsigned long		hash;			/* Hash value */
+-	union {
+-		struct {
+-#ifdef __LITTLE_ENDIAN /* Put desc_len at the LSB of x */
+-			u16	desc_len;
+-			char	desc[sizeof(long) - 2];	/* First few chars of description */
+-#else
+-			char	desc[sizeof(long) - 2];	/* First few chars of description */
+-			u16	desc_len;
+-#endif
+-		};
+-		unsigned long x;
+-	};
++	u32			hash;			/* Hash value */
++	unsigned int		desc_len;
+ 	struct key_type		*type;
+ 	struct key_tag		*domain_tag;	/* Domain of operation */
+ 	const char		*description;
+-	u64			type_id;	/* Cached index IDs */
+-	u64			domain_id;
+ };
+ 
+ union key_payload {
+@@ -252,13 +238,11 @@ struct key {
+ 	union {
+ 		struct keyring_index_key index_key;
+ 		struct {
+-			unsigned long	hash;
+-			unsigned long	len_desc;
++			u32		hash;
++			unsigned int	desc_len;
+ 			struct key_type	*type;		/* type of key */
+ 			struct key_tag	*domain_tag;	/* Domain of operation */
+ 			char		*description;
+-			u64		type_id;
+-			u64		domain_id;
+ 		};
+ 	};
+ 
+@@ -271,7 +255,7 @@ struct key {
+ 		struct {
+ 			/* Keyring bits */
+ 			struct list_head name_link;
+-			struct assoc_array keys;
++			struct keyring_index __rcu *index;
+ 		};
+ 	};
+ 
+diff --git a/security/keys/Kconfig b/security/keys/Kconfig
+index f4510d8cb485..3f64d60d0f8a 100644
+--- a/security/keys/Kconfig
++++ b/security/keys/Kconfig
+@@ -5,7 +5,6 @@
+ 
+ menuconfig KEYS
+ 	bool "Enable access key retention support"
+-	select ASSOCIATIVE_ARRAY
+ 	help
+ 	  This option provides support for retaining authentication tokens and
+ 	  access keys in the kernel.
+diff --git a/security/keys/internal.h b/security/keys/internal.h
+index b7b622bc36a1..c452d71cce03 100644
+--- a/security/keys/internal.h
++++ b/security/keys/internal.h
+@@ -21,6 +21,12 @@
+ #include <linux/vmalloc.h>
+ 
+ struct iovec;
++struct keyring_link;
++
++struct keyring_edit {
++	struct keyring_link *new;
++	struct keyring_link *old;
++};
+ 
+ #ifdef __KDEBUG
+ #define kenter(FMT, ...) \
+@@ -98,13 +104,13 @@ extern int __key_move_lock(struct key *l_keyring, struct key *u_keyring,
+ 			   const struct keyring_index_key *index_key);
+ extern int __key_link_begin(struct key *keyring,
+ 			    const struct keyring_index_key *index_key,
+-			    struct assoc_array_edit **_edit);
++			    struct keyring_edit *edit);
+ extern int __key_link_check_live_key(struct key *keyring, struct key *key);
+ extern void __key_link(struct key *keyring, struct key *key,
+-		       struct assoc_array_edit **_edit);
++		       struct keyring_edit *edit);
+ extern void __key_link_end(struct key *keyring,
+ 			   const struct keyring_index_key *index_key,
+-			   struct assoc_array_edit *edit);
++			   struct keyring_edit *edit);
+ 
+ extern key_ref_t find_key_to_update(key_ref_t keyring_ref,
+ 				    const struct keyring_index_key *index_key);
+@@ -122,7 +128,7 @@ struct keyring_search_context {
+ #define KEYRING_SEARCH_SKIP_EXPIRED	0x0020	/* Ignore expired keys (intention to replace) */
+ #define KEYRING_SEARCH_RECURSE		0x0040	/* Search child keyrings also */
+ 
+-	int (*iterator)(const void *object, void *iterator_data);
++	int (*iterator)(const struct key *key, void *iterator_data);
+ 
+ 	/* Internal stuff */
+ 	int			skipped_ret;
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 3f1f0fc13710..20cf273cf4a3 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -430,7 +430,7 @@ static int __key_instantiate_and_link(struct key *key,
+ 				      struct key_preparsed_payload *prep,
+ 				      struct key *keyring,
+ 				      struct key *authkey,
+-				      struct assoc_array_edit **_edit)
++				      struct keyring_edit *edit)
+ {
+ 	int ret, awaken;
+ 
+@@ -461,7 +461,7 @@ static int __key_instantiate_and_link(struct key *key,
+ 				if (test_bit(KEY_FLAG_KEEP, &keyring->flags))
+ 					set_bit(KEY_FLAG_KEEP, &key->flags);
+ 
+-				__key_link(keyring, key, _edit);
++				__key_link(keyring, key, edit);
+ 			}
+ 
+ 			/* disable the authorisation key */
+@@ -505,7 +505,7 @@ int key_instantiate_and_link(struct key *key,
+ 			     struct key *authkey)
+ {
+ 	struct key_preparsed_payload prep;
+-	struct assoc_array_edit *edit = NULL;
++	struct keyring_edit edit = {};
+ 	int ret;
+ 
+ 	memset(&prep, 0, sizeof(prep));
+@@ -543,7 +543,7 @@ int key_instantiate_and_link(struct key *key,
+ 
+ error_link_end:
+ 	if (keyring)
+-		__key_link_end(keyring, &key->index_key, edit);
++		__key_link_end(keyring, &key->index_key, &edit);
+ 
+ error:
+ 	if (key->type->preparse)
+@@ -580,7 +580,7 @@ int key_reject_and_link(struct key *key,
+ 			struct key *keyring,
+ 			struct key *authkey)
+ {
+-	struct assoc_array_edit *edit = NULL;
++	struct keyring_edit edit = {};
+ 	int ret, awaken, link_ret = 0;
+ 
+ 	key_check(key);
+@@ -599,12 +599,12 @@ int key_reject_and_link(struct key *key,
+ 			 * concurrent restriction install.
+ 			 */
+ 			if (keyring->restrict_link) {
+-				__key_link_end(keyring, &key->index_key, edit);
++				__key_link_end(keyring, &key->index_key, &edit);
+ 				return -EPERM;
+ 			}
+ 			link_ret = __key_link_begin(keyring, &key->index_key, &edit);
+ 			if (link_ret < 0)
+-				__key_link_end(keyring, &key->index_key, edit);
++				__key_link_end(keyring, &key->index_key, &edit);
+ 		}
+ 	}
+ 
+@@ -635,7 +635,7 @@ int key_reject_and_link(struct key *key,
+ 	mutex_unlock(&key_construction_mutex);
+ 
+ 	if (keyring && link_ret == 0)
+-		__key_link_end(keyring, &key->index_key, edit);
++		__key_link_end(keyring, &key->index_key, &edit);
+ 
+ 	/* wake up anyone waiting for a key to be constructed */
+ 	if (awaken)
+@@ -825,7 +825,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 		.description	= description,
+ 	};
+ 	struct key_preparsed_payload prep;
+-	struct assoc_array_edit *edit = NULL;
++	struct keyring_edit edit = {};
+ 	const struct cred *cred = current_cred();
+ 	struct key *keyring, *key = NULL;
+ 	key_ref_t key_ref;
+@@ -966,7 +966,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 	key_ref = make_key_ref(key, is_key_possessed(keyring_ref));
+ 
+ error_link_end:
+-	__key_link_end(keyring, &index_key, edit);
++	__key_link_end(keyring, &index_key, &edit);
+ error_free_prep:
+ 	if (index_key.type->preparse)
+ 		index_key.type->free_preparse(&prep);
+@@ -979,7 +979,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 	/* we found a matching key, so we're going to try to update it
+ 	 * - we can drop the locks first as we have the key pinned
+ 	 */
+-	__key_link_end(keyring, &index_key, edit);
++	__key_link_end(keyring, &index_key, &edit);
+ 
+ 	key = key_ref_to_ptr(key_ref);
+ 	if (test_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags)) {
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index ac48d6204915..04d9a98c0f31 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -12,14 +12,15 @@
+ #include <linux/security.h>
+ #include <linux/seq_file.h>
+ #include <linux/err.h>
++#include <linux/jhash.h>
+ #include <linux/user_namespace.h>
+ #include <linux/nsproxy.h>
+ #include <linux/once.h>
+ #include <linux/random.h>
++#include <linux/rhashtable.h>
+ #include <linux/siphash.h>
++#include <linux/workqueue.h>
+ #include <keys/keyring-type.h>
+-#include <keys/user-type.h>
+-#include <linux/assoc_array_priv.h>
+ #include <linux/uaccess.h>
+ #include <net/net_namespace.h>
+ #include "internal.h"
+@@ -31,25 +32,153 @@
+ #define KEYRING_SEARCH_MAX_DEPTH 6
+ 
+ /*
+- * We mark pointers we pass to the associative array with bit 1 set if
+- * they're keyrings and clear otherwise.
++ * Keyrings are inserted at the head of @list, other keys at the tail, so
++ * recursive search can stop at the first non-keyring.
+  */
+-#define KEYRING_PTR_SUBTYPE	0x2UL
++struct keyring_index {
++	struct rhashtable	ht;
++	struct list_head	list;		/* Active keys */
++	unsigned long		nr;		/* Number of active keys */
++	struct rcu_work		rcu_work;
++};
++
++/*
++ * __key_link_begin() inserts new links with @key NULL so allocation happens
++ * before __key_link().  @hash is cached so resizing can hash links while @key
++ * is NULL.
++ */
++struct keyring_link {
++	struct rcu_head		rcu;
++	struct rhash_head	node;
++	struct key __rcu	*key;		/* NULL while inactive */
++	struct list_head	list;
++	u32			hash;
++};
+ 
+-static inline bool keyring_ptr_is_keyring(const struct assoc_array_ptr *x)
++static u32 keyring_hashfn(const void *data, u32 len, u32 seed)
+ {
+-	return (unsigned long)x & KEYRING_PTR_SUBTYPE;
++	const struct keyring_index_key *index_key = data;
++
++	return jhash_1word(index_key->hash, seed);
+ }
+-static inline struct key *keyring_ptr_to_key(const struct assoc_array_ptr *x)
++
++static u32 keyring_obj_hashfn(const void *data, u32 len, u32 seed)
+ {
+-	void *object = assoc_array_ptr_to_leaf(x);
+-	return (struct key *)((unsigned long)object & ~KEYRING_PTR_SUBTYPE);
++	const struct keyring_link *link = data;
++
++	return jhash_1word(link->hash, seed);
+ }
+-static inline void *keyring_key_to_ptr(struct key *key)
++
++static bool keyring_index_key_equal(const struct keyring_index_key *a,
++				    const struct keyring_index_key *b)
+ {
+-	if (key->type == &key_type_keyring)
+-		return (void *)((unsigned long)key | KEYRING_PTR_SUBTYPE);
+-	return key;
++	return a->type == b->type &&
++		a->domain_tag == b->domain_tag &&
++		a->desc_len == b->desc_len &&
++		memcmp(a->description, b->description, a->desc_len) == 0;
++}
++
++static struct key *keyring_link_key(const struct keyring_link *link)
++{
++	return rcu_dereference_check(link->key, true);
++}
++
++static int keyring_obj_cmpfn(struct rhashtable_compare_arg *arg,
++			     const void *obj)
++{
++	const struct keyring_link *link = obj;
++	const struct key *key = keyring_link_key(link);
++
++	return !key || !keyring_index_key_equal(&key->index_key, arg->key);
++}
++
++static const struct rhashtable_params keyring_link_params = {
++	.head_offset		= offsetof(struct keyring_link, node),
++	.hashfn			= keyring_hashfn,
++	.obj_hashfn		= keyring_obj_hashfn,
++	.obj_cmpfn		= keyring_obj_cmpfn,
++	.min_size		= 4,
++	.nelem_hint		= 3,
++	.automatic_shrinking	= true,
++	.insecure_elasticity	= true,
++};
++
++static struct keyring_index *keyring_index_locked(const struct key *keyring)
++{
++	return rcu_dereference_protected(keyring->index,
++					 lockdep_is_held(&keyring->sem));
++}
++
++static struct keyring_link *keyring_find_link(struct keyring_index *index,
++					      const struct keyring_index_key *index_key)
++{
++	if (!index)
++		return NULL;
++
++	return rhashtable_lookup_fast(&index->ht, index_key, keyring_link_params);
++}
++
++static int keyring_iterate(const struct key *keyring,
++			   int (*iterator)(const struct key *key, void *data),
++			   void *data)
++{
++	struct keyring_index *index;
++	struct keyring_link *link;
++	int ret;
++
++	guard(rcu)();
++	index = rcu_dereference(keyring->index);
++	if (index) {
++		list_for_each_entry_rcu(link, &index->list, list) {
++			ret = iterator(keyring_link_key(link), data);
++			if (ret)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
++static void keyring_link_free_rcu(struct rcu_head *rcu)
++{
++	struct keyring_link *link = container_of(rcu, struct keyring_link, rcu);
++
++	key_put(rcu_dereference_raw(link->key));
++	kfree(link);
++}
++
++static void __keyring_index_free(struct keyring_index *index)
++{
++	struct keyring_link *link, *tmp;
++
++	rhashtable_destroy(&index->ht);
++
++	list_for_each_entry_safe(link, tmp, &index->list, list) {
++		key_put(rcu_dereference_protected(link->key, true));
++		kfree(link);
++	}
++
++	kfree(index);
++}
++
++static void keyring_index_free_work(struct work_struct *work)
++{
++	struct keyring_index *index = container_of(to_rcu_work(work),
++						 struct keyring_index, rcu_work);
++
++	__keyring_index_free(index);
++}
++
++static void keyring_index_free(struct key *keyring)
++{
++	struct keyring_index *index = keyring_index_locked(keyring);
++
++	if (!index)
++		return;
++
++	rcu_assign_pointer(keyring->index, NULL);
++	/* rhashtable_destroy() may sleep, so defer via rcu_work. */
++	queue_rcu_work(system_dfl_wq, &index->rcu_work);
+ }
+ 
+ static DEFINE_RWLOCK(keyring_name_lock);
+@@ -143,80 +272,44 @@ static void keyring_free_preparse(struct key_preparsed_payload *prep)
+ static int keyring_instantiate(struct key *keyring,
+ 			       struct key_preparsed_payload *prep)
+ {
+-	assoc_array_init(&keyring->keys);
++	RCU_INIT_POINTER(keyring->index, NULL);
+ 	/* make the keyring available by name if it has one */
+ 	keyring_publish_name(keyring);
+ 	return 0;
+ }
+ 
+ /*
+- * Give key types and domains address-independent identities.  Zero means that
+- * an ID has not yet been allocated.  As with inode sequence numbers used by
+- * futexes, this relies on the 64-bit counter not wrapping in a machine's
+- * lifetime.
+- */
+-static u64 key_index_id(atomic64_t *id)
+-{
+-	static atomic64_t next_id;
+-	u64 old, new;
+-
+-	old = atomic64_read(id);
+-	if (likely(old))
+-		return old;
+-
+-	do {
+-		new = atomic64_inc_return(&next_id);
+-	} while (WARN_ON_ONCE(!new));
+-
+-	old = 0;
+-	if (!atomic64_try_cmpxchg_relaxed(id, &old, new))
+-		return old;
+-	return new;
+-}
+-
+-/*
+- * Hash a key type, domain and description.  KEYCTL_READ exposes the tree's
+- * traversal order, so no part of the index may contain kernel addresses.
++ * Hash a key type, domain and description.
+  */
+ static void hash_key_type_and_desc(struct keyring_index_key *index_key)
+ {
+-	const unsigned level_shift = ASSOC_ARRAY_LEVEL_STEP;
+-	const unsigned long fan_mask = ASSOC_ARRAY_FAN_MASK;
+ 	static siphash_key_t hash_key __read_mostly;
+-	unsigned long hash;
+ 	u64 acc;
+ 
++	/*
++	 * Compute a SipHash value of the description, type pointer, and domain
++	 * tag pointer using a per-boot random key.
++	 *
++	 * Note that using the pointers as input to the hash is safe, since
++	 * SipHash is a cryptographically secure pseudorandom function.  Thus
++	 * the hash values don't leak any information about the pointers.
++	 *
++	 * Similarly, truncating the SipHash values to the required 32 bits is
++	 * also safe.  No "folding" step is needed.
++	 */
+ 	get_random_once(&hash_key, sizeof(hash_key));
+ 	acc = siphash(index_key->description, index_key->desc_len, &hash_key);
+-	acc = siphash_3u64(index_key->type_id, index_key->domain_id, acc,
+-			   &hash_key);
+-
+-	/* Fold the hash down to 32 bits if need be. */
+-	hash = acc;
+-	if (ASSOC_ARRAY_KEY_CHUNK_SIZE == 32)
+-		hash ^= acc >> 32;
+-
+-	/* Squidge all the keyrings into a separate part of the tree to
+-	 * ordinary keys by making sure the lowest level segment in the hash is
+-	 * zero for keyrings and non-zero otherwise.
+-	 */
+-	if (index_key->type != &key_type_keyring && (hash & fan_mask) == 0)
+-		hash |= (hash >> (ASSOC_ARRAY_KEY_CHUNK_SIZE - level_shift)) | 1;
+-	else if (index_key->type == &key_type_keyring && (hash & fan_mask) != 0)
+-		hash = (hash + (hash << level_shift)) & ~fan_mask;
+-	index_key->hash = hash;
++	index_key->hash = siphash_3u64((uintptr_t)index_key->type,
++				       (uintptr_t)index_key->domain_tag,
++				       acc, &hash_key);
+ }
+ 
+ /*
+- * Finalise an index key to include a part of the description actually in the
+- * index key, to set the domain tag and index IDs, and to calculate the hash.
++ * Finalise an index key to set the domain tag and calculate the hash.
+  */
+ void key_set_index_key(struct keyring_index_key *index_key)
+ {
+ 	static struct key_tag default_domain_tag = { .usage = REFCOUNT_INIT(1), };
+-	size_t n = min_t(size_t, index_key->desc_len, sizeof(index_key->desc));
+-
+-	memcpy(index_key->desc, index_key->description, n);
+ 
+ 	if (!index_key->domain_tag) {
+ 		if (index_key->type->flags & KEY_TYPE_NET_DOMAIN)
+@@ -225,14 +318,6 @@ void key_set_index_key(struct keyring_index_key *index_key)
+ 			index_key->domain_tag = &default_domain_tag;
+ 	}
+ 
+-	/* Preserve the IDs when copying an existing key's index.  In
+-	 * particular, its type may already have been unregistered.
+-	 */
+-	if (!index_key->type_id)
+-		index_key->type_id = key_index_id(&index_key->type->index_id);
+-	if (!index_key->domain_id)
+-		index_key->domain_id = key_index_id(&index_key->domain_tag->index_id);
+-
+ 	hash_key_type_and_desc(index_key);
+ }
+ 
+@@ -268,150 +353,6 @@ void key_remove_domain(struct key_tag *domain_tag)
+ 		key_schedule_gc_links();
+ }
+ 
+-/*
+- * Build the next index key chunk.
+- *
+- * The hash and inline description are followed by the 64-bit type and domain
+- * IDs, low word first, and then by the rest of the description.
+- * We return it one word-sized chunk at a time.
+- */
+-static unsigned long keyring_get_key_chunk(const void *data, int level)
+-{
+-	const unsigned int id_chunks = sizeof(u64) / sizeof(unsigned long);
+-	const struct keyring_index_key *index_key = data;
+-	int desc_len = index_key->desc_len;
+-	unsigned long chunk = 0;
+-	int n = sizeof(chunk);
+-	unsigned int offset;
+-	const u8 *d;
+-
+-	level /= ASSOC_ARRAY_KEY_CHUNK_SIZE;
+-	switch (level) {
+-	case 0:
+-		return index_key->hash;
+-	case 1:
+-		return index_key->x;
+-	}
+-
+-	level -= 2;
+-	if (level < id_chunks)
+-		return index_key->type_id >> (level * ASSOC_ARRAY_KEY_CHUNK_SIZE);
+-	level -= id_chunks;
+-	if (level < id_chunks)
+-		return index_key->domain_id >> (level * ASSOC_ARRAY_KEY_CHUNK_SIZE);
+-	level -= id_chunks;
+-
+-	offset = sizeof(index_key->desc) + level * sizeof(long);
+-	if (desc_len <= offset)
+-		return 0;
+-
+-	d = index_key->description + offset;
+-	desc_len -= offset;
+-	if (desc_len > n)
+-		desc_len = n;
+-	d += desc_len;
+-	do {
+-		chunk <<= 8;
+-		chunk |= *--d;
+-	} while (--desc_len > 0);
+-	return chunk;
+-}
+-
+-static unsigned long keyring_get_object_key_chunk(const void *object, int level)
+-{
+-	const struct key *key = keyring_ptr_to_key(object);
+-	return keyring_get_key_chunk(&key->index_key, level);
+-}
+-
+-static bool keyring_compare_object(const void *object, const void *data)
+-{
+-	const struct keyring_index_key *index_key = data;
+-	const struct key *key = keyring_ptr_to_key(object);
+-
+-	return key->index_key.type == index_key->type &&
+-		key->index_key.domain_tag == index_key->domain_tag &&
+-		key->index_key.desc_len == index_key->desc_len &&
+-		memcmp(key->index_key.description, index_key->description,
+-		       index_key->desc_len) == 0;
+-}
+-
+-/*
+- * Compare the index keys of a pair of objects and determine the bit position
+- * at which they differ - if they differ.
+- */
+-static int keyring_diff_objects(const void *object, const void *data)
+-{
+-	const struct key *key_a = keyring_ptr_to_key(object);
+-	const struct keyring_index_key *a = &key_a->index_key;
+-	const struct keyring_index_key *b = data;
+-	unsigned long seg_a, seg_b;
+-	int level, i;
+-	u64 diff;
+-
+-	level = 0;
+-	seg_a = a->hash;
+-	seg_b = b->hash;
+-	if ((seg_a ^ seg_b) != 0)
+-		goto differ;
+-	level += ASSOC_ARRAY_KEY_CHUNK_SIZE / 8;
+-
+-	/* The inline description contributes one machine-word-sized chunk. */
+-	seg_a = a->x;
+-	seg_b = b->x;
+-	if ((seg_a ^ seg_b) != 0)
+-		goto differ;
+-	level += sizeof(unsigned long);
+-
+-	diff = a->type_id ^ b->type_id;
+-	if (diff)
+-		return level * 8 + __ffs64(diff);
+-	level += sizeof(u64);
+-
+-	diff = a->domain_id ^ b->domain_id;
+-	if (diff)
+-		return level * 8 + __ffs64(diff);
+-	level += sizeof(u64);
+-
+-	i = sizeof(a->desc);
+-	if (a->desc_len <= i)
+-		goto same;
+-
+-	for (; i < a->desc_len; i++) {
+-		seg_a = *(unsigned char *)(a->description + i);
+-		seg_b = *(unsigned char *)(b->description + i);
+-		if ((seg_a ^ seg_b) != 0)
+-			goto differ_plus_i;
+-	}
+-
+-same:
+-	return -1;
+-
+-differ_plus_i:
+-	level += i - (int)sizeof(a->desc);
+-differ:
+-	i = level * 8 + __ffs(seg_a ^ seg_b);
+-	return i;
+-}
+-
+-/*
+- * Free an object after stripping the keyring flag off of the pointer.
+- */
+-static void keyring_free_object(void *object)
+-{
+-	key_put(keyring_ptr_to_key(object));
+-}
+-
+-/*
+- * Operations for keyring management by the index-tree routines.
+- */
+-static const struct assoc_array_ops keyring_assoc_array_ops = {
+-	.get_key_chunk		= keyring_get_key_chunk,
+-	.get_object_key_chunk	= keyring_get_object_key_chunk,
+-	.compare_object		= keyring_compare_object,
+-	.diff_objects		= keyring_diff_objects,
+-	.free_object		= keyring_free_object,
+-};
+-
+ /*
+  * Clean up a keyring when it is destroyed.  Unpublish its name if it had one
+  * and dispose of its data.
+@@ -423,6 +364,8 @@ static const struct assoc_array_ops keyring_assoc_array_ops = {
+  */
+ static void keyring_destroy(struct key *keyring)
+ {
++	struct keyring_index *index;
++
+ 	if (keyring->description) {
+ 		write_lock(&keyring_name_lock);
+ 
+@@ -440,7 +383,18 @@ static void keyring_destroy(struct key *keyring)
+ 		kfree(keyres);
+ 	}
+ 
+-	assoc_array_destroy(&keyring->keys, &keyring_assoc_array_ops);
++	index = rcu_dereference_protected(keyring->index, true);
++	if (index)
++		__keyring_index_free(index);
++}
++
++static unsigned long keyring_nr_links(const struct key *keyring)
++{
++	const struct keyring_index *index;
++
++	guard(rcu)();
++	index = rcu_dereference(keyring->index);
++	return index ? READ_ONCE(index->nr) : 0;
+ }
+ 
+ /**
+@@ -449,7 +403,7 @@ static void keyring_destroy(struct key *keyring)
+  */
+ bool keyring_is_empty(const struct key *keyring)
+ {
+-	return READ_ONCE(keyring->keys.nr_leaves_on_tree) == 0;
++	return keyring_nr_links(keyring) == 0;
+ }
+ EXPORT_SYMBOL(keyring_is_empty);
+ 
+@@ -458,41 +412,22 @@ EXPORT_SYMBOL(keyring_is_empty);
+  */
+ static void keyring_describe(const struct key *keyring, struct seq_file *m)
+ {
++	unsigned long nr;
++
+ 	if (keyring->description)
+ 		seq_puts(m, keyring->description);
+ 	else
+ 		seq_puts(m, "[anon]");
+ 
+ 	if (key_is_positive(keyring)) {
+-		if (keyring->keys.nr_leaves_on_tree != 0)
+-			seq_printf(m, ": %lu", keyring->keys.nr_leaves_on_tree);
++		nr = keyring_nr_links(keyring);
++		if (nr != 0)
++			seq_printf(m, ": %lu", nr);
+ 		else
+ 			seq_puts(m, ": empty");
+ 	}
+ }
+ 
+-struct keyring_read_iterator_context {
+-	size_t			buflen;
+-	size_t			count;
+-	key_serial_t		*buffer;
+-};
+-
+-static int keyring_read_iterator(const void *object, void *data)
+-{
+-	struct keyring_read_iterator_context *ctx = data;
+-	const struct key *key = keyring_ptr_to_key(object);
+-
+-	kenter("{%s,%d},,{%zu/%zu}",
+-	       key->type->name, key->serial, ctx->count, ctx->buflen);
+-
+-	if (ctx->count >= ctx->buflen)
+-		return 1;
+-
+-	*ctx->buffer++ = key->serial;
+-	ctx->count += sizeof(key->serial);
+-	return 0;
+-}
+-
+ /*
+  * Read a list of key IDs from the keyring's contents in binary form
+  *
+@@ -503,7 +438,10 @@ static int keyring_read_iterator(const void *object, void *data)
+ static long keyring_read(const struct key *keyring,
+ 			 char *buffer, size_t buflen)
+ {
+-	struct keyring_read_iterator_context ctx;
++	struct keyring_index *links = keyring_index_locked(keyring);
++	key_serial_t *serials = (key_serial_t *)buffer;
++	struct keyring_link *link;
++	size_t count = 0;
+ 	long ret;
+ 
+ 	kenter("{%d},,%zu", key_serial(keyring), buflen);
+@@ -511,25 +449,22 @@ static long keyring_read(const struct key *keyring,
+ 	if (buflen & (sizeof(key_serial_t) - 1))
+ 		return -EINVAL;
+ 
+-	/* Copy as many key IDs as fit into the buffer */
+-	if (buffer && buflen) {
+-		ctx.buffer = (key_serial_t *)buffer;
+-		ctx.buflen = buflen;
+-		ctx.count = 0;
+-		ret = assoc_array_iterate(&keyring->keys,
+-					  keyring_read_iterator, &ctx);
+-		if (ret < 0) {
+-			kleave(" = %ld [iterate]", ret);
+-			return ret;
++	if (buffer && buflen && links) {
++		list_for_each_entry(link, &links->list, list) {
++			if (count == buflen / sizeof(*serials))
++				break;
++
++			serials[count++] = keyring_link_key(link)->serial;
++			cond_resched();
+ 		}
+ 	}
+ 
+-	/* Return the size of the buffer needed */
+-	ret = keyring->keys.nr_leaves_on_tree * sizeof(key_serial_t);
++	ret = links ? links->nr * sizeof(key_serial_t) : 0;
+ 	if (ret <= buflen)
+ 		kleave("= %ld [ok]", ret);
+ 	else
+ 		kleave("= %ld [buffer too small]", ret);
++
+ 	return ret;
+ }
+ 
+@@ -593,10 +528,9 @@ bool key_default_cmp(const struct key *key,
+ /*
+  * Iteration function to consider each key found.
+  */
+-static int keyring_search_iterator(const void *object, void *iterator_data)
++static int keyring_search_iterator(const struct key *key, void *iterator_data)
+ {
+ 	struct keyring_search_context *ctx = iterator_data;
+-	const struct key *key = keyring_ptr_to_key(object);
+ 	unsigned long kflags = READ_ONCE(key->flags);
+ 	short state = key_read_state(key);
+ 
+@@ -663,19 +597,78 @@ static int keyring_search_iterator(const void *object, void *iterator_data)
+ /*
+  * Search inside a keyring for a key.  We can search by walking to it
+  * directly based on its index-key or we can iterate over the entire
+- * tree looking for it, based on the match function.
++ * list looking for it, based on the match function.
+  */
+ static int search_keyring(struct key *keyring, struct keyring_search_context *ctx)
+ {
+ 	if (ctx->match_data.lookup_type == KEYRING_SEARCH_LOOKUP_DIRECT) {
+-		const void *object;
++		struct keyring_link *link;
++		struct key *key;
++
++		link = keyring_find_link(rcu_dereference(keyring->index),
++					 &ctx->index_key);
++		if (!link)
++			return 0;
++		key = keyring_link_key(link);
++		return ctx->iterator(key, ctx);
++	}
++
++	return keyring_iterate(keyring, ctx->iterator, ctx);
++}
+ 
+-		object = assoc_array_find(&keyring->keys,
+-					  &keyring_assoc_array_ops,
+-					  &ctx->index_key);
+-		return object ? ctx->iterator(object, ctx) : 0;
++/*
++ * Depth-first search of @keyring and its nested keyrings.
++ */
++static int search_keyring_tree(struct key *keyring,
++			       struct keyring_search_context *ctx, int depth)
++{
++	struct keyring_index *links;
++	struct keyring_link *link;
++	int ret;
++
++	if (keyring->flags & ((1 << KEY_FLAG_INVALIDATED) |
++			      (1 << KEY_FLAG_REVOKED)))
++		return 0;
++
++	if (search_keyring(keyring, ctx))
++		goto found;
++
++	if (!(ctx->flags & KEYRING_SEARCH_RECURSE))
++		return 0;
++	links = rcu_dereference(keyring->index);
++	if (!links)
++		return 0;
++
++	list_for_each_entry_rcu(link, &links->list, list) {
++		struct key *key = keyring_link_key(link);
++
++		if (key->type != &key_type_keyring)
++			break;
++		if (depth >= KEYRING_SEARCH_MAX_DEPTH) {
++			if (!(ctx->flags & KEYRING_SEARCH_DETECT_TOO_DEEP))
++				return 0;
++			ctx->result = ERR_PTR(-ELOOP);
++			return -ELOOP;
++		}
++
++		if (!(ctx->flags & KEYRING_SEARCH_NO_CHECK_PERM) &&
++		    key_task_permission(make_key_ref(key, ctx->possessed),
++					ctx->cred, KEY_NEED_SEARCH) < 0)
++			continue;
++
++		ret = search_keyring_tree(key, ctx, depth + 1);
++		if (ret < 0)
++			return ret;
++		if (ret)
++			goto found;
+ 	}
+-	return assoc_array_iterate(&keyring->keys, ctx->iterator, ctx);
++
++	return 0;
++
++found:
++	if (!(ctx->flags & KEYRING_SEARCH_NO_UPDATE_TIME))
++		keyring->last_used_at = ctx->now;
++	return 1;
+ }
+ 
+ /*
+@@ -685,17 +678,7 @@ static int search_keyring(struct key *keyring, struct keyring_search_context *ct
+ static bool search_nested_keyrings(struct key *keyring,
+ 				   struct keyring_search_context *ctx)
+ {
+-	struct {
+-		struct key *keyring;
+-		struct assoc_array_node *node;
+-		int slot;
+-	} stack[KEYRING_SEARCH_MAX_DEPTH];
+-
+-	struct assoc_array_shortcut *shortcut;
+-	struct assoc_array_node *node;
+-	struct assoc_array_ptr *ptr;
+ 	struct key *key;
+-	int sp = 0, slot;
+ 
+ 	kenter("{%d},{%s,%s}",
+ 	       keyring->serial,
+@@ -713,9 +696,9 @@ static bool search_nested_keyrings(struct key *keyring,
+ 	 * and whether it is valid or not.
+ 	 */
+ 	if (ctx->match_data.lookup_type == KEYRING_SEARCH_LOOKUP_ITERATE ||
+-	    keyring_compare_object(keyring, &ctx->index_key)) {
++	    keyring_index_key_equal(&keyring->index_key, &ctx->index_key)) {
+ 		ctx->skipped_ret = 2;
+-		switch (ctx->iterator(keyring_key_to_ptr(keyring), ctx)) {
++		switch (ctx->iterator(keyring, ctx)) {
+ 		case 1:
+ 			goto found;
+ 		case 2:
+@@ -727,152 +710,11 @@ static bool search_nested_keyrings(struct key *keyring,
+ 
+ 	ctx->skipped_ret = 0;
+ 
+-	/* Start processing a new keyring */
+-descend_to_keyring:
+-	kdebug("descend to %d", keyring->serial);
+-	if (keyring->flags & ((1 << KEY_FLAG_INVALIDATED) |
+-			      (1 << KEY_FLAG_REVOKED)))
+-		goto not_this_keyring;
+-
+-	/* Search through the keys in this keyring before its searching its
+-	 * subtrees.
+-	 */
+-	if (search_keyring(keyring, ctx))
+-		goto found;
+-
+-	/* Then manually iterate through the keyrings nested in this one.
+-	 *
+-	 * Start from the root node of the index tree.  Because of the way the
+-	 * hash function has been set up, keyrings cluster on the leftmost
+-	 * branch of the root node (root slot 0) or in the root node itself.
+-	 * Non-keyrings avoid the leftmost branch of the root entirely (root
+-	 * slots 1-15).
+-	 */
+-	if (!(ctx->flags & KEYRING_SEARCH_RECURSE))
+-		goto not_this_keyring;
+-
+-	ptr = READ_ONCE(keyring->keys.root);
+-	if (!ptr)
+-		goto not_this_keyring;
+-
+-	if (assoc_array_ptr_is_shortcut(ptr)) {
+-		/* If the root is a shortcut, either the keyring only contains
+-		 * keyring pointers (everything clusters behind root slot 0) or
+-		 * doesn't contain any keyring pointers.
+-		 */
+-		shortcut = assoc_array_ptr_to_shortcut(ptr);
+-		if ((shortcut->index_key[0] & ASSOC_ARRAY_FAN_MASK) != 0)
+-			goto not_this_keyring;
+-
+-		ptr = READ_ONCE(shortcut->next_node);
+-		node = assoc_array_ptr_to_node(ptr);
+-		goto begin_node;
+-	}
+-
+-	node = assoc_array_ptr_to_node(ptr);
+-	ptr = node->slots[0];
+-	if (!assoc_array_ptr_is_meta(ptr))
+-		goto begin_node;
+-
+-descend_to_node:
+-	/* Descend to a more distal node in this keyring's content tree and go
+-	 * through that.
+-	 */
+-	kdebug("descend");
+-	if (assoc_array_ptr_is_shortcut(ptr)) {
+-		shortcut = assoc_array_ptr_to_shortcut(ptr);
+-		ptr = READ_ONCE(shortcut->next_node);
+-		BUG_ON(!assoc_array_ptr_is_node(ptr));
+-	}
+-	node = assoc_array_ptr_to_node(ptr);
+-
+-begin_node:
+-	kdebug("begin_node");
+-	slot = 0;
+-ascend_to_node:
+-	/* Go through the slots in a node */
+-	for (; slot < ASSOC_ARRAY_FAN_OUT; slot++) {
+-		ptr = READ_ONCE(node->slots[slot]);
+-
+-		if (assoc_array_ptr_is_meta(ptr)) {
+-			if (node->back_pointer ||
+-			    assoc_array_ptr_is_shortcut(ptr))
+-				goto descend_to_node;
+-		}
+-
+-		if (!keyring_ptr_is_keyring(ptr))
+-			continue;
+-
+-		key = keyring_ptr_to_key(ptr);
+-
+-		if (sp >= KEYRING_SEARCH_MAX_DEPTH) {
+-			if (ctx->flags & KEYRING_SEARCH_DETECT_TOO_DEEP) {
+-				ctx->result = ERR_PTR(-ELOOP);
+-				return false;
+-			}
+-			goto not_this_keyring;
+-		}
+-
+-		/* Search a nested keyring */
+-		if (!(ctx->flags & KEYRING_SEARCH_NO_CHECK_PERM) &&
+-		    key_task_permission(make_key_ref(key, ctx->possessed),
+-					ctx->cred, KEY_NEED_SEARCH) < 0)
+-			continue;
+-
+-		/* stack the current position */
+-		stack[sp].keyring = keyring;
+-		stack[sp].node = node;
+-		stack[sp].slot = slot;
+-		sp++;
+-
+-		/* begin again with the new keyring */
+-		keyring = key;
+-		goto descend_to_keyring;
+-	}
+-
+-	/* We've dealt with all the slots in the current node, so now we need
+-	 * to ascend to the parent and continue processing there.
+-	 */
+-	ptr = READ_ONCE(node->back_pointer);
+-	slot = node->parent_slot;
+-
+-	if (ptr && assoc_array_ptr_is_shortcut(ptr)) {
+-		shortcut = assoc_array_ptr_to_shortcut(ptr);
+-		ptr = READ_ONCE(shortcut->back_pointer);
+-		slot = shortcut->parent_slot;
+-	}
+-	if (!ptr)
+-		goto not_this_keyring;
+-	node = assoc_array_ptr_to_node(ptr);
+-	slot++;
+-
+-	/* If we've ascended to the root (zero backpointer), we must have just
+-	 * finished processing the leftmost branch rather than the root slots -
+-	 * so there can't be any more keyrings for us to find.
+-	 */
+-	if (node->back_pointer) {
+-		kdebug("ascend %d", slot);
+-		goto ascend_to_node;
+-	}
+-
+-	/* The keyring we're looking at was disqualified or didn't contain a
+-	 * matching key.
+-	 */
+-not_this_keyring:
+-	kdebug("not_this_keyring %d", sp);
+-	if (sp <= 0) {
++	if (search_keyring_tree(keyring, ctx, 0) <= 0) {
+ 		kleave(" = false");
+ 		return false;
+ 	}
+ 
+-	/* Resume the processing of a keyring higher up in the tree */
+-	sp--;
+-	keyring = stack[sp].keyring;
+-	node = stack[sp].node;
+-	slot = stack[sp].slot + 1;
+-	kdebug("ascend to %d [%d]", keyring->serial, slot);
+-	goto ascend_to_node;
+-
+ 	/* We found a viable match */
+ found:
+ 	key = key_ref_to_ptr(ctx->result);
+@@ -880,8 +722,6 @@ static bool search_nested_keyrings(struct key *keyring,
+ 	if (!(ctx->flags & KEYRING_SEARCH_NO_UPDATE_TIME)) {
+ 		key->last_used_at = ctx->now;
+ 		keyring->last_used_at = ctx->now;
+-		while (sp > 0)
+-			stack[--sp].keyring->last_used_at = ctx->now;
+ 	}
+ 	kleave(" = true");
+ 	return true;
+@@ -1128,8 +968,8 @@ EXPORT_SYMBOL(keyring_restrict);
+ key_ref_t find_key_to_update(key_ref_t keyring_ref,
+ 			     const struct keyring_index_key *index_key)
+ {
++	struct keyring_link *link;
+ 	struct key *keyring, *key;
+-	const void *object;
+ 
+ 	keyring = key_ref_to_ptr(keyring_ref);
+ 
+@@ -1137,17 +977,16 @@ key_ref_t find_key_to_update(key_ref_t keyring_ref,
+ 	       keyring->serial, index_key->type->name, index_key->description);
+ 
+ 	guard(rcu)();
+-	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
+-				  index_key);
++	link = keyring_find_link(rcu_dereference(keyring->index), index_key);
+ 
+-	if (object)
++	if (link)
+ 		goto found;
+ 
+ 	kleave(" = NULL");
+ 	return NULL;
+ 
+ found:
+-	key = keyring_ptr_to_key(object);
++	key = keyring_link_key(link);
+ 	if (key->flags & ((1 << KEY_FLAG_INVALIDATED) |
+ 			  (1 << KEY_FLAG_REVOKED))) {
+ 		kleave(" = NULL [x]");
+@@ -1217,11 +1056,10 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+ 	return keyring;
+ }
+ 
+-static int keyring_detect_cycle_iterator(const void *object,
++static int keyring_detect_cycle_iterator(const struct key *key,
+ 					 void *iterator_data)
+ {
+ 	struct keyring_search_context *ctx = iterator_data;
+-	const struct key *key = keyring_ptr_to_key(object);
+ 
+ 	kenter("{%d}", key->serial);
+ 
+@@ -1317,57 +1155,98 @@ int __key_move_lock(struct key *l_keyring, struct key *u_keyring,
+ 	return 0;
+ }
+ 
++static struct keyring_index *keyring_get_index(struct key *keyring)
++{
++	struct keyring_index *links = keyring_index_locked(keyring);
++	int ret;
++
++	if (links)
++		return links;
++
++	links = kzalloc_obj(struct keyring_index);
++	if (!links)
++		return ERR_PTR(-ENOMEM);
++	ret = rhashtable_init(&links->ht, &keyring_link_params);
++	if (ret < 0) {
++		kfree(links);
++		return ERR_PTR(ret);
++	}
++
++	INIT_LIST_HEAD(&links->list);
++	INIT_RCU_WORK(&links->rcu_work, keyring_index_free_work);
++	rcu_assign_pointer(keyring->index, links);
++	return links;
++}
++
+ /*
+  * Preallocate memory so that a key can be linked into to a keyring.
+  */
+ int __key_link_begin(struct key *keyring,
+ 		     const struct keyring_index_key *index_key,
+-		     struct assoc_array_edit **_edit)
++		     struct keyring_edit *edit)
+ {
+-	struct assoc_array_edit *edit;
++	struct keyring_link *link = NULL;
++	struct keyring_link *replace;
++	struct keyring_index *links;
+ 	int ret;
+ 
+ 	kenter("%d,%s,%s,",
+ 	       keyring->serial, index_key->type->name, index_key->description);
+ 
+-	BUG_ON(index_key->desc_len == 0);
+-	BUG_ON(*_edit != NULL);
++	if (WARN_ON(index_key->desc_len == 0) || WARN_ON(edit->new)) {
++		ret = -EINVAL;
++		goto out;
++	}
+ 
+-	*_edit = NULL;
++	edit->new = NULL;
++	edit->old = NULL;
+ 
+-	ret = -EKEYREVOKED;
+-	if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
+-		goto error;
++	if (test_bit(KEY_FLAG_REVOKED, &keyring->flags)) {
++		ret = -EKEYREVOKED;
++		goto out;
++	}
+ 
+-	/* Create an edit script that will insert/replace the key in the
+-	 * keyring tree.
+-	 */
+-	edit = assoc_array_insert(&keyring->keys,
+-				  &keyring_assoc_array_ops,
+-				  index_key,
+-				  NULL);
+-	if (IS_ERR(edit)) {
+-		ret = PTR_ERR(edit);
+-		goto error;
++	links = keyring_get_index(keyring);
++	if (IS_ERR(links)) {
++		ret = PTR_ERR(links);
++		goto out;
+ 	}
+ 
+-	/* If we're not replacing a link in-place then we're going to need some
++	link = kzalloc_obj(struct keyring_link);
++	if (!link) {
++		ret = -ENOMEM;
++		goto out;
++	}
++	link->hash = index_key->hash;
++
++	replace = keyring_find_link(links, index_key);
++
++	/*
++	 * If we're not replacing a link in-place then we're going to need some
+ 	 * extra quota.
+ 	 */
+-	if (!edit->dead_leaf) {
++	if (!replace) {
+ 		ret = key_payload_reserve(keyring,
+ 					  keyring->datalen + KEYQUOTA_LINK_BYTES);
+ 		if (ret < 0)
+-			goto error_cancel;
++			goto out;
++
++		ret = rhashtable_insert_fast(&links->ht, &link->node,
++					     keyring_link_params);
++		if (ret < 0) {
++			key_payload_reserve(keyring,
++					    keyring->datalen - KEYQUOTA_LINK_BYTES);
++			goto out;
++		}
+ 	}
+ 
+-	*_edit = edit;
+-	kleave(" = 0");
+-	return 0;
++	edit->new = link;
++	edit->old = replace;
++	ret = 0;
+ 
+-error_cancel:
+-	assoc_array_cancel_edit(edit);
+-error:
++out:
++	if (ret && link)
++		kfree(link);
+ 	kleave(" = %d", ret);
+ 	return ret;
+ }
+@@ -1395,13 +1274,35 @@ int __key_link_check_live_key(struct key *keyring, struct key *key)
+  * holds at most one link to any given key of a particular type+description
+  * combination.
+  */
+-void __key_link(struct key *keyring, struct key *key,
+-		struct assoc_array_edit **_edit)
++void __key_link(struct key *keyring, struct key *key, struct keyring_edit *edit)
+ {
++	struct keyring_index *index = keyring_index_locked(keyring);
++	int ret;
++
+ 	__key_get(key);
+-	assoc_array_insert_set_object(*_edit, keyring_key_to_ptr(key));
+-	assoc_array_apply_edit(*_edit);
+-	*_edit = NULL;
++	rcu_assign_pointer(edit->new->key, key);
++
++	if (edit->old) {
++		ret = rhashtable_replace_fast(&index->ht, &edit->old->node,
++					      &edit->new->node, keyring_link_params);
++		if (WARN_ON(ret)) {
++			key_put(key);
++			return;
++		}
++
++		list_replace_rcu(&edit->old->list, &edit->new->list);
++		call_rcu(&edit->old->rcu, keyring_link_free_rcu);
++	} else {
++		if (key->type == &key_type_keyring)
++			list_add_rcu(&edit->new->list, &index->list);
++		else
++			list_add_tail_rcu(&edit->new->list, &index->list);
++
++		WRITE_ONCE(index->nr, index->nr + 1);
++	}
++
++	edit->new = NULL;
++	edit->old = NULL;
+ 	notify_key(keyring, NOTIFY_KEY_LINKED, key_serial(key));
+ }
+ 
+@@ -1412,20 +1313,31 @@ void __key_link(struct key *keyring, struct key *key,
+  */
+ void __key_link_end(struct key *keyring,
+ 		    const struct keyring_index_key *index_key,
+-		    struct assoc_array_edit *edit)
++		    struct keyring_edit *edit)
+ 	__releases(&keyring->sem)
+ 	__releases(&keyring_serialise_link_lock)
+ {
++	struct keyring_link *link = edit->new;
++
+ 	BUG_ON(index_key->type == NULL);
+ 	kenter("%d,%s,", keyring->serial, index_key->type->name);
+ 
+-	if (edit) {
+-		if (!edit->dead_leaf) {
++	if (link) {
++		if (!edit->old) {
+ 			key_payload_reserve(keyring,
+ 				keyring->datalen - KEYQUOTA_LINK_BYTES);
++			WARN_ON(rhashtable_remove_fast(&keyring_index_locked(keyring)->ht,
++						       &link->node,
++						       keyring_link_params));
++			call_rcu(&link->rcu, keyring_link_free_rcu);
++		} else {
++			kfree(link);
+ 		}
+-		assoc_array_cancel_edit(edit);
++
++		edit->new = NULL;
++		edit->old = NULL;
+ 	}
++
+ 	up_write(&keyring->sem);
+ 
+ 	if (index_key->type == &key_type_keyring)
+@@ -1455,9 +1367,9 @@ static int __key_link_check_restriction(struct key *keyring, struct key *key)
+  * of the user's key data quota to hold the link.
+  *
+  * Returns 0 if successful, -ENOTDIR if the keyring isn't a keyring,
+- * -EKEYREVOKED if the keyring has been revoked, -ENFILE if the keyring is
+- * full, -EDQUOT if there is insufficient key data quota remaining to add
+- * another link or -ENOMEM if there's insufficient memory.
++ * -EKEYREVOKED if the keyring has been revoked, -EDQUOT if there is insufficient
++ * key data quota remaining to add another link or -ENOMEM if there's
++ * insufficient memory.
+  *
+  * It is assumed that the caller has checked that it is permitted for a link to
+  * be made (the keyring should have Write permission and the key Link
+@@ -1465,7 +1377,7 @@ static int __key_link_check_restriction(struct key *keyring, struct key *key)
+  */
+ int key_link(struct key *keyring, struct key *key)
+ {
+-	struct assoc_array_edit *edit = NULL;
++	struct keyring_edit edit = {};
+ 	int ret;
+ 
+ 	kenter("{%d,%d}", keyring->serial, refcount_read(&keyring->usage));
+@@ -1489,7 +1401,7 @@ int key_link(struct key *keyring, struct key *key)
+ 		__key_link(keyring, key, &edit);
+ 
+ error_end:
+-	__key_link_end(keyring, &key->index_key, edit);
++	__key_link_end(keyring, &key->index_key, &edit);
+ error:
+ 	kleave(" = %d {%d,%d}", ret, keyring->serial, refcount_read(&keyring->usage));
+ 	return ret;
+@@ -1513,27 +1425,21 @@ static int __key_unlink_lock(struct key *keyring)
+  * Begin the process of unlinking a key from a keyring.
+  */
+ static int __key_unlink_begin(struct key *keyring, struct key *key,
+-			      struct assoc_array_edit **_edit)
++			      struct keyring_link **edit)
+ {
+-	struct assoc_array_edit *edit;
+-	const void *object;
++	struct keyring_link *link;
+ 
+-	BUG_ON(*_edit != NULL);
++	if (WARN_ON(*edit))
++		return -EINVAL;
+ 
+-	object = assoc_array_find(&keyring->keys, &keyring_assoc_array_ops,
+-				  &key->index_key);
+-	if (!object || keyring_ptr_to_key(object) != key)
++	link = keyring_find_link(keyring_index_locked(keyring), &key->index_key);
++	if (!link)
+ 		return -ENOENT;
+ 
+-	edit = assoc_array_delete(&keyring->keys, &keyring_assoc_array_ops,
+-				  &key->index_key);
+-	if (IS_ERR(edit))
+-		return PTR_ERR(edit);
+-
+-	if (!edit)
++	if (keyring_link_key(link) != key)
+ 		return -ENOENT;
+ 
+-	*_edit = edit;
++	*edit = link;
+ 	return 0;
+ }
+ 
+@@ -1541,27 +1447,22 @@ static int __key_unlink_begin(struct key *keyring, struct key *key,
+  * Apply an unlink change.
+  */
+ static void __key_unlink(struct key *keyring, struct key *key,
+-			 struct assoc_array_edit **_edit)
++			 struct keyring_link *link)
+ {
+-	assoc_array_apply_edit(*_edit);
++	struct keyring_index *index = keyring_index_locked(keyring);
++	int ret;
++
++	ret = rhashtable_remove_fast(&index->ht, &link->node, keyring_link_params);
++	if (WARN_ON(ret))
++		return;
++
++	list_del_rcu(&link->list);
++	WRITE_ONCE(index->nr, index->nr - 1);
++	call_rcu(&link->rcu, keyring_link_free_rcu);
+ 	notify_key(keyring, NOTIFY_KEY_UNLINKED, key_serial(key));
+-	*_edit = NULL;
+ 	key_payload_reserve(keyring, keyring->datalen - KEYQUOTA_LINK_BYTES);
+ }
+ 
+-/*
+- * Finish unlinking a key from to a keyring.
+- */
+-static void __key_unlink_end(struct key *keyring,
+-			     struct key *key,
+-			     struct assoc_array_edit *edit)
+-	__releases(&keyring->sem)
+-{
+-	if (edit)
+-		assoc_array_cancel_edit(edit);
+-	up_write(&keyring->sem);
+-}
+-
+ /**
+  * key_unlink - Unlink the first link to a key from a keyring.
+  * @keyring: The keyring to remove the link from.
+@@ -1571,9 +1472,8 @@ static void __key_unlink_end(struct key *keyring,
+  *
+  * This function will write-lock the keyring's semaphore.
+  *
+- * Returns 0 if successful, -ENOTDIR if the keyring isn't a keyring, -ENOENT if
+- * the key isn't linked to by the keyring or -ENOMEM if there's insufficient
+- * memory.
++ * Returns 0 if successful, -ENOTDIR if the keyring isn't a keyring or -ENOENT if
++ * the key isn't linked to by the keyring.
+  *
+  * It is assumed that the caller has checked that it is permitted for a link to
+  * be removed (the keyring should have Write permission; no permissions are
+@@ -1581,7 +1481,7 @@ static void __key_unlink_end(struct key *keyring,
+  */
+ int key_unlink(struct key *keyring, struct key *key)
+ {
+-	struct assoc_array_edit *edit = NULL;
++	struct keyring_link *edit = NULL;
+ 	int ret;
+ 
+ 	key_check(keyring);
+@@ -1593,8 +1493,8 @@ int key_unlink(struct key *keyring, struct key *key)
+ 
+ 	ret = __key_unlink_begin(keyring, key, &edit);
+ 	if (ret == 0)
+-		__key_unlink(keyring, key, &edit);
+-	__key_unlink_end(keyring, key, edit);
++		__key_unlink(keyring, key, edit);
++	up_write(&keyring->sem);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(key_unlink);
+@@ -1614,11 +1514,10 @@ EXPORT_SYMBOL(key_unlink);
+  * some of the user's key data quota to hold the link on @to_keyring.
+  *
+  * Returns 0 if successful, -ENOTDIR if either keyring isn't a keyring,
+- * -EKEYREVOKED if either keyring has been revoked, -ENFILE if the second
+- * keyring is full, -EDQUOT if there is insufficient key data quota remaining
+- * to add another link or -ENOMEM if there's insufficient memory.  If
+- * KEYCTL_MOVE_EXCL is set, then -EEXIST will be returned if there's already a
+- * matching key in @to_keyring.
++ * -EKEYREVOKED if either keyring has been revoked, -EDQUOT if there is
++ * insufficient key data quota remaining to add another link or -ENOMEM if
++ * there's insufficient memory.  If KEYCTL_MOVE_EXCL is set, then -EEXIST will
++ * be returned if there's already a matching key in @to_keyring.
+  *
+  * It is assumed that the caller has checked that it is permitted for a link to
+  * be made (the keyring should have Write permission and the key Link
+@@ -1629,7 +1528,8 @@ int key_move(struct key *key,
+ 	     struct key *to_keyring,
+ 	     unsigned int flags)
+ {
+-	struct assoc_array_edit *from_edit = NULL, *to_edit = NULL;
++	struct keyring_link *from_edit = NULL;
++	struct keyring_edit to_edit = {};
+ 	int ret;
+ 
+ 	kenter("%d,%d,%d", key->serial, from_keyring->serial, to_keyring->serial);
+@@ -1652,7 +1552,7 @@ int key_move(struct key *key,
+ 		goto error;
+ 
+ 	ret = -EEXIST;
+-	if (to_edit->dead_leaf && (flags & KEYCTL_MOVE_EXCL))
++	if (to_edit.old && (flags & KEYCTL_MOVE_EXCL))
+ 		goto error;
+ 
+ 	ret = __key_link_check_restriction(to_keyring, key);
+@@ -1662,11 +1562,11 @@ int key_move(struct key *key,
+ 	if (ret < 0)
+ 		goto error;
+ 
+-	__key_unlink(from_keyring, key, &from_edit);
++	__key_unlink(from_keyring, key, from_edit);
+ 	__key_link(to_keyring, key, &to_edit);
+ error:
+-	__key_link_end(to_keyring, &key->index_key, to_edit);
+-	__key_unlink_end(from_keyring, key, from_edit);
++	__key_link_end(to_keyring, &key->index_key, &to_edit);
++	up_write(&from_keyring->sem);
+ out:
+ 	kleave(" = %d", ret);
+ 	return ret;
+@@ -1683,27 +1583,17 @@ EXPORT_SYMBOL(key_move);
+  */
+ int keyring_clear(struct key *keyring)
+ {
+-	struct assoc_array_edit *edit;
+-	int ret;
+-
+ 	if (keyring->type != &key_type_keyring)
+ 		return -ENOTDIR;
+ 
+ 	down_write(&keyring->sem);
+ 
+-	edit = assoc_array_clear(&keyring->keys, &keyring_assoc_array_ops);
+-	if (IS_ERR(edit)) {
+-		ret = PTR_ERR(edit);
+-	} else {
+-		if (edit)
+-			assoc_array_apply_edit(edit);
+-		notify_key(keyring, NOTIFY_KEY_CLEARED, 0);
+-		key_payload_reserve(keyring, 0);
+-		ret = 0;
+-	}
++	keyring_index_free(keyring);
++	notify_key(keyring, NOTIFY_KEY_CLEARED, 0);
++	key_payload_reserve(keyring, 0);
+ 
+ 	up_write(&keyring->sem);
+-	return ret;
++	return 0;
+ }
+ EXPORT_SYMBOL(keyring_clear);
+ 
+@@ -1714,30 +1604,12 @@ EXPORT_SYMBOL(keyring_clear);
+  */
+ static void keyring_revoke(struct key *keyring)
+ {
+-	struct assoc_array_edit *edit;
+-
+-	edit = assoc_array_clear(&keyring->keys, &keyring_assoc_array_ops);
+-	if (!IS_ERR(edit)) {
+-		if (edit)
+-			assoc_array_apply_edit(edit);
+-		key_payload_reserve(keyring, 0);
+-	}
+-}
+-
+-static bool keyring_gc_select_iterator(void *object, void *iterator_data)
+-{
+-	struct key *key = keyring_ptr_to_key(object);
+-	time64_t *limit = iterator_data;
+-
+-	if (key_is_dead(key, *limit))
+-		return false;
+-	key_get(key);
+-	return true;
++	keyring_index_free(keyring);
++	key_payload_reserve(keyring, 0);
+ }
+ 
+-static int keyring_gc_check_iterator(const void *object, void *iterator_data)
++static int keyring_gc_check_iterator(const struct key *key, void *iterator_data)
+ {
+-	const struct key *key = keyring_ptr_to_key(object);
+ 	time64_t *limit = iterator_data;
+ 
+ 	key_check(key);
+@@ -1752,7 +1624,9 @@ static int keyring_gc_check_iterator(const void *object, void *iterator_data)
+  */
+ void keyring_gc(struct key *keyring, time64_t limit)
+ {
+-	int result;
++	struct keyring_link *link, *tmp;
++	struct keyring_index *index;
++	int ret;
+ 
+ 	kenter("%x{%s}", keyring->serial, keyring->description ?: "");
+ 
+@@ -1761,11 +1635,7 @@ void keyring_gc(struct key *keyring, time64_t limit)
+ 		goto dont_gc;
+ 
+ 	/* scan the keyring looking for dead keys */
+-	rcu_read_lock();
+-	result = assoc_array_iterate(&keyring->keys,
+-				     keyring_gc_check_iterator, &limit);
+-	rcu_read_unlock();
+-	if (result == true)
++	if (keyring_iterate(keyring, keyring_gc_check_iterator, &limit))
+ 		goto do_gc;
+ 
+ dont_gc:
+@@ -1774,8 +1644,23 @@ void keyring_gc(struct key *keyring, time64_t limit)
+ 
+ do_gc:
+ 	down_write(&keyring->sem);
+-	assoc_array_gc(&keyring->keys, &keyring_assoc_array_ops,
+-		       keyring_gc_select_iterator, &limit);
++	index = keyring_index_locked(keyring);
++	if (index) {
++		list_for_each_entry_safe(link, tmp, &index->list, list) {
++			if (!key_is_dead(keyring_link_key(link), limit))
++				continue;
++
++			ret = rhashtable_remove_fast(&index->ht, &link->node,
++						     keyring_link_params);
++			if (WARN_ON(ret))
++				break;
++
++			list_del_rcu(&link->list);
++			WRITE_ONCE(index->nr, index->nr - 1);
++			call_rcu(&link->rcu, keyring_link_free_rcu);
++		}
++	}
++
+ 	up_write(&keyring->sem);
+ 	kleave(" [gc]");
+ }
+diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+index 22cd66a44da5..40fbcd15be43 100644
+--- a/security/keys/request_key.c
++++ b/security/keys/request_key.c
+@@ -372,7 +372,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+ 			       struct key_user *user,
+ 			       struct key **_key)
+ {
+-	struct assoc_array_edit *edit = NULL;
++	struct keyring_edit edit = {};
+ 	struct key *key;
+ 	key_perm_t perm;
+ 	key_ref_t key_ref;
+@@ -433,7 +433,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+ 
+ 	mutex_unlock(&key_construction_mutex);
+ 	if (dest_keyring)
+-		__key_link_end(dest_keyring, &key->index_key, edit);
++		__key_link_end(dest_keyring, &key->index_key, &edit);
+ 	mutex_unlock(&user->cons_lock);
+ 	*_key = key;
+ 	kleave(" = 0 [%d]", key_serial(key));
+@@ -452,7 +452,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+ 		ret = __key_link_check_live_key(dest_keyring, key);
+ 		if (ret == 0)
+ 			__key_link(dest_keyring, key, &edit);
+-		__key_link_end(dest_keyring, &key->index_key, edit);
++		__key_link_end(dest_keyring, &key->index_key, &edit);
+ 		if (ret < 0)
+ 			goto link_check_failed;
+ 	}
+@@ -470,7 +470,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+ link_alloc_failed:
+ 	mutex_unlock(&key_construction_mutex);
+ link_alloc_failed_unlocked:
+-	__key_link_end(dest_keyring, &key->index_key, edit);
++	__key_link_end(dest_keyring, &key->index_key, &edit);
+ link_lock_failed:
+ 	mutex_unlock(&user->cons_lock);
+ 	key_put(key);
 -- 
-2.56.0.506.g506a7eabc5-goog
+2.47.3
 
