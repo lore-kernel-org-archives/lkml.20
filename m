@@ -1,57 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.97.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329878;
-	b=O6CtoDZXMLqMPsv5eVcCfP7WcIaBPuMToLe3L1FgC9oBRnqqUr4iRQAhiy29lEiVZMci
-	 tRpIBpYrk4y6oRKlPxeudGOvsKOIMZrZ9EeHpeX4p4eMO5++8zA+oTYeGZ4FeXnTsXqfW
-	 suISr+lrcB9yHf/CpAy8fcWMvKT5JDim5QarMJ3RlICy9b8xn6P5jsIVev27uIvfl1WaH
-	 1FO4msoU4uYCkrc7N6uBXYXHIkSp7TGiS76OaGpomq5rmEtXYNDi4JxW/8ukfsH0tdNwy
-	 kPZO1KAZALzwbN7xrAmTiLIN9wyrdBYpTnay0akipSJ4jomrHYK7Fncin2u7S3lPjsA==
+	t=1794329894;
+	b=a0xS6hfVOZ8zNOzy6/H/ihoYdz0geJcu5jyh/HDXq5TAR0ifdwGewjmLCfH++f+OhAoW
+	 BHXj8+kUS5vG0PZaL5oeiI35/ooS3CY7Oo82OcL89WMvdyU1UafI6UHkNuG7hFeNkZaEF
+	 NPTcbfJOAtN26agV80jm0MqURSS8SifKJL3XSw+GaIGh2fS1rXNmzzSp3k8YdhNcy/HkE
+	 Iah4YNwMb/HFC2T/egEln8rFMfChA0s87WsdC5RxI/dFnZEOjiW2+bK1KD0jcZuwMlJti
+	 rZfX1nwSt6ogEPNl5oz8mIJcIw0XB9RJtxtmUSUmq/tVCEx8INzslLd8u+BAX9I+DnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329878;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=he0nLvBGCDN8uqNcjTTM0VHtxOcySMAUdvuWZ5SeqT8=;
-	b=UFUqxG+VgCY+pG/FHlIJ7TJvLPmw6c6cIVCC98vf1at7sjPRmODN2V/FH0W/q/jV5jp4
-	 +zVNSX4utZhhKWyIz4Fsx9GTdfrVIVs7XiKluJ23ylnXuvjAiK2zEMeUHz7sCz0C2PEge
-	 izshu9oE3a27lQJxNfXNfCFnxCmbIset6sbrKDXFtFOV/jElczTq4zBa3A3xCVj6X2NgN
-	 lN7QJ6Cm601I5uUkiP6RXdXM9Cu+7aJq6Fu5P68jHtRfr/WdHQX4xSv3kLeOpkhJHzSmc
-	 n2hf9ZW1a5XYJYYVM8yFzgNTtS5MDrVw191yOTN7EZxZrpHnziBfk5+MhpwI3ua80jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329894;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
+	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=s3ZpsLefq0PS3uaqYJOnZLAzmDkCm1zInxr8ygQtDk4=;
+	b=Jahf6HYpQcaUaqNmGYOpUd8xoGyf93NHrzz9imXj6VkBrb2bRuMANinKVFZfwBVYZHQC
+	 BDe41oQlmud8xCutj6uUx6lmJhRwt87DNxjdAxfvJb0NCNEJ0arV7uz+iLX8cn+7wbN67
+	 PXQ1ysETW3nQs39buwu7b4GkJuiHYeOsFZtAocxIk4Bg8pKAWMd+JhyLO9sfMbq4h94TS
+	 ga7tFAlExToWl8W1FchdU8G86qvPcheQRt4bcnDZ5idZlrXeqpiMPp6kAZmmgEoTBqL+b
+	 mAwFu4Q9VLAQ4yd9kI0UaYmgcVJRkMzQPux2eN3UXZfoFTtpspcyq0WNou9kXEuVEbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrJzy7hf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=birger-koblitz.de;
+	spf=pass smtp.mailfrom=birger-koblitz.de;
+	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=riiQUoNY;
+	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=aAkSBjnr;
+	arc=none smtp.remote-ip=23.88.97.239
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6E0606A83E;
-	Tue, 10 Nov 2026 16:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173C8606A326;
+	Tue, 10 Nov 2026 16:58:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 173C8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrJzy7hf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE40D1F008A6;
-	Tue, 10 Nov 2026 16:57:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794329878;
-	bh=he0nLvBGCDN8uqNcjTTM0VHtxOcySMAUdvuWZ5SeqT8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JrJzy7hfvYhnswLWixpqtp3vtRIm615A8irbRopyLbtLZhLpctLfiWiJExN8odzXq
-	 Ox6jFSj1mIc9nbGMGB7xtcyqCaCDtOnVHMGj4dsGzou1lJgcNnOcazLMncEKBvHb2j
-	 dKQI+UgsjSTlxKTfBh5+1K4D9aEhGc8a5Ha1FQqUSxyZQMb7A9jc1V726myR1T5qqj
-	 V4vfUgOb9Qw/WChXpJbLULMTypa6qlIr/ByOspZkkQz+aHng+8tT28XQTzpoRcPzR+
-	 qlCmnF8KXwMCBCknw8xFdv+6LfJTQQ00ikIpG4oTbAHMkT2+/ZwioYZCsFENxjLLhb
-	 9rxEjA8fkYOTg==
-Date: Tue, 10 Nov 2026 16:57:56 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 09/11] zsmalloc: embed struct zs_handle into zram and
- zswap entries
-Message-ID: <avNMwoleXeYGz2CT@google.com>
-References: <20261110054836.1515030-1-senozhatsky@chromium.org>
- <20261110054836.1515030-10-senozhatsky@chromium.org>
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=riiQUoNY;
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=aAkSBjnr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1794329892;
+	bh=lwXpiQWNsd10Fs35VIZ488kyDttlHk6T6F9tVKnC+TY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=riiQUoNYeaWTF5rnjmzgAPzYASJAB/80t+W5xkpyo7ivzIHRDEI74VqMDs/1HSPeb
+	 6AdInDHlo7hIYfFFOmfr23olRAJ57aBfU/zJNS0qRLU/smMzvgrn0K+Z6Z+DAcBwFp
+	 9epDPX6PaCn+hH1nZ90eig9U5dn9iOO6RuJhB4/T2TK9enIfXtFIMw3JfHgX/ouyWj
+	 igLpWMo7sEeUanrOJGuhD4yzAYD51dxaNa3njqezVdGuhjzV50XVP1Ng5gkVnfYoX0
+	 N6wIpPDAJIAVoXnGDrgXwb+WDFQOwZfY6JEyzKD2mCoVWufjtkXSPXGpQ/Z+pt6yCk
+	 +ChtT0BaDXNhQ==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 3A2EB48C38; Tue, 10 Nov 2026 16:58:12 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1794329891;
+	bh=lwXpiQWNsd10Fs35VIZ488kyDttlHk6T6F9tVKnC+TY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aAkSBjnryZUzF5b5kst1ruM6mNj04NduSil4+W11e2bQwS0JgiH4A+Il+RgtVwgmb
+	 5sO+jRGkEbVTYQQMh0A76Lw4f8cA1fBvZ+AzdAUa90HempNLeWV5cRymmnQ8pyn8Hh
+	 JIB7tm87jEYKsA5gC9PB9f/lkjoo0/nIIH11k8AaY/hygravG5zqGDM2fx7DMvt5Wt
+	 hxlinDt5rkZXX54LOThio+AIgY7El5nhKOl395Al2moYBsgJwKH384EbjHY1Aj8mcb
+	 3JBSqzWB1a89N84UGdTmsh1vxDYmZG7Vbugyb94zhglopHua8+5F3BJcZtvlPQoIlI
+	 yPg6glaMJnclw==
+Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 0D6AC48C1C;
+	Tue, 10 Nov 2026 16:58:11 +0000 (UTC)
+Message-ID: <b1aba44e-754a-4968-873e-d7db88fa70dc@birger-koblitz.de>
+Date: Tue, 10 Nov 2026 17:58:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,128 +73,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110054836.1515030-10-senozhatsky@chromium.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v20 01/13] phylink: Add phylink_mac_interrupt
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, hkallweit1@gmail.com, chenhuacai@kernel.org,
+ kernel@xen0n.name, edumazet@kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, neuromoments@gmail.com, beganovic.emir@gmail.com
+References: <20261106-ax88179a-v20-1-37b5a1189983@birger-koblitz.de>
+ <179427470922.994134.16776316201780098943@kernel.org>
+ <64d05861-c4e1-4506-ac2f-4109f1062932@birger-koblitz.de>
+ <7c78c868-efe4-4b0a-b09a-c196210644e7@lunn.ch>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <7c78c868-efe4-4b0a-b09a-c196210644e7@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 02:48:14PM +0900, Sergey Senozhatsky wrote:
-> zsmalloc allocates an object from handle_cachep for every stored
-> object, just to have a stable address which compaction and page
-> migration can update when the object moves.  Both zram and zswap
-> already have per-entry structures that hold the handle, so we basically
-> keep a pointer to a pointer, which costs 8 bytes per stored object,
-> slab alloc/free on every store and free, and one more memory load on
-> every access.
+On 10/11/2026 5:30 pm, Andrew Lunn wrote:
+>> At this point I am asking a human to intervene and tell me whether anything
+>> really still needs to be done.
 > 
-> Make struct zs_handle public and embed it into zram_table_entry and
-> zswap_entry (their sizes don't change), so that zsmalloc writes object
-> location directly there, and remove handle_cachep.  zs_malloc() now
-> takes a handle pointer and returns an error code, zs_free() resets the
-> handle.
+> Do any of the patches not have a Reviewed-by: from me?
+> I thought i had given such tags.
+No. They are all reviewed by you. Many additionally by Nicolai.
+
+Birger
+
 > 
-> Since compaction and migration update the handle in place, it must be
-> naturally aligned, must not be on the stack (zs_malloc() warns about
-> both), must not be copied, and must stay allocated until zs_free() or
-> zs_rebind_handle().  zram recompression allocates a new object before
-> it frees the old one, so it uses zram->recomp_handle, protected by
-> ->dev_lock, and zs_rebind_handle() moves the new object to the slot
-> handle.  zram recompression is the only user of zs_rebind_handle().
+> We should merge this code.
 > 
-> This saves 8 bytes per stored page, e.g. 2MB per 1GB of swapped out
-> 4K pages.  Since handle is per-entry the memory savings scale.
-> 
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> ---
->  Documentation/admin-guide/mm/slab.rst |   2 +-
->  Documentation/mm/zsmalloc.rst         |  18 ++--
->  drivers/block/zram/zram_drv.c         |  70 ++++++-------
->  drivers/block/zram/zram_drv.h         |   6 +-
->  include/linux/zsmalloc.h              |  29 +++++-
->  mm/zsmalloc.c                         | 144 ++++++++++++++++----------
->  mm/zswap.c                            |  22 ++--
->  7 files changed, 177 insertions(+), 114 deletions(-)
+>     Andrew
 
-zsmalloc and zswap bits LGTM with a small nit below:
-
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
-
-[..]
->  
->  /*
-> - * Pairs with READ_ONCE() in handle_to_obj(): zs_free() may read the
-> - * handle locklessly, so prevent store tearing here.
-> + * Pairs with READ_ONCE() in handle_to_obj() and zs_handle_is_allocated():
-> + * zs_free(), zs_rebind_handle(), and zs_handle_is_allocated() may read
-> + * the handle locklessly, so prevent store tearing here.
->   */
->  static void record_obj(struct zs_handle *handle, unsigned long obj)
->  {
-> @@ -1307,31 +1292,37 @@ static unsigned long obj_malloc(struct zs_pool *pool,
->  /**
->   * zs_malloc - Allocate block of given size from pool.
->   * @pool: pool to allocate from
-> + * @handle: handle to store allocated object in
->   * @size: size of block to allocate
->   * @gfp: gfp flags when allocating object
->   * @nid: The preferred node id to allocate new zspage (if needed)
->   *
-> - * On success, handle to the allocated object is returned,
-> - * otherwise an ERR_PTR().
->   * Allocation requests with size > ZS_MAX_ALLOC_SIZE will fail.
-> + * zsmalloc keeps a back-pointer to @handle and updates it asynchronously
-> + * when the object moves, so @handle must be unsigned-long aligned, must
-> + * not be on the stack or modified/copied by the caller, and must remain
-> + * allocated until zs_free() or zs_rebind_handle().
-> + *
-> + * Return: 0 on success, negative error code otherwise.
->   */
-> -struct zs_handle *zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
-> -			    const int nid)
-> +int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
-> +	      gfp_t gfp, const int nid)
->  {
-> -	struct zs_handle *handle;
->  	struct size_class *class;
->  	int newfg;
->  	struct zspage *zspage;
->  
-> +	if (WARN_ON_ONCE(!IS_ALIGNED((unsigned long)handle,
-> +				     __alignof__(unsigned long)) ||
-> +			 object_is_on_stack(handle) ||
-> +			 zs_handle_is_allocated(handle)))
-
-Nit: Put this in a helper to reuse in zs_rebind_handle().
-
-> +		return -EINVAL;
-> +
-[..]  
-> +/**
-> + * zs_rebind_handle() - Rebind an allocated object to a new handle.
-> + * @pool: pool the object belongs to
-> + * @dst: unallocated destination handle (must not be on the stack)
-> + * @src: source handle that currently owns the object
-> + *
-> + * Rebinds the object from @src to @dst, updating the object header so
-> + * compaction and page migration update @dst instead of @src, and resets
-> + * @src.
-> + */
-> +void zs_rebind_handle(struct zs_pool *pool, struct zs_handle *dst,
-> +		      struct zs_handle *src)
-> +{
-> +	struct size_class *class;
-> +	struct zspage *zspage;
-> +	struct zpdesc *zpdesc;
-> +	struct link_free *link;
-> +	unsigned int obj_idx;
-> +	unsigned long obj;
-> +	unsigned long off;
-> +	void *vaddr;
-> +
-> +	/* Should never happen; bail out rather than corrupting handles */
-> +	if (WARN_ON_ONCE(!IS_ALIGNED((unsigned long)dst,
-> +				     __alignof__(unsigned long)) ||
-> +			 object_is_on_stack(dst) ||
-> +			 zs_handle_is_allocated(dst) ||
-> +			 !zs_handle_is_allocated(src)))
-> +		return;
-[..]
