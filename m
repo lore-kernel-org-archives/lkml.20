@@ -1,93 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307851;
-	b=n2eMPFM1D3hhtyF2N+ZFK/NkurxsWJbiTqBXSU7uoVmGxRyNbMIgQis3FFWxXxHgQRdB
-	 tTyja0d+PJk1OqKfDHdh7n4xD8j1ZDJYBMB0qqsQ4W4YHdxBUe2h3J8u7qA0JEaTdD0mo
-	 JXuB1go8dpuf4WPiIPNNGC0C20iBAO3dRv/iWPSim39Izzr7Vov/VsYKxhazVkGTuBGam
-	 tC7vb1lBqyugmYft1jediEyw1e91UuMCd7taXs3oYOpGs0OEnX9Hwm7wl5Rk8aaFMXNrN
-	 tuTg/uABmxUpCzdeewt8S+Vool+zxKNhsdLW/Y/ElPDfTQ1k192YTG31pKY5ufUxA3Q==
+	t=1794307923;
+	b=EOMMx7+jo//0IoP7YoOelbjzCsossB3TQGATtehpWM0KLg37HjBnzZZBDhnZEdMrOdjk
+	 M0qcwLPxgbLW7q8TaifYmLSBvNV1zRyooYuzHO63t85y6+27l6fzDy8J/K9NzEOR3sWVi
+	 cjtG7+pLDrvE/wUpRc7UlDWpmjicJ59pjDpFlEBR0BglkVSH1u55BrhDPzsc2vVPrHy67
+	 yvNBdEOzvfYlEHvswcaQloFoLj9cFypv4gcpTRS4/LpXxc70/iLjuCCBLxekqXC2iI1ug
+	 XO+WxAv6dQlwGLiH5pS2XvtgdG7sisLGGj6BGiFo2/8vJXQUj3TGFLkO0GhcANT1QBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307923;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
-	b=wAUi6kb0iR80PVQx18Bjint+n/XQSZKq1PyQm4BaO+I+ozGvXaKyDNXhsiU4h4rifjYm
-	 2NtO0uHJ6ts9Y6/mDSShHM7xBvsugOofM/ey31122V3UKsFlmtwupDSmFi3topOzlmJ8r
-	 FPNIX1ThGWyGzB3GG49Hm1GIKfbZwNXaErkArGoSLZtbwdojLajEQxIRoWLmofwb1t4Jh
-	 BvN/63CtRjajMB4y2v75fUDCO6c9VtBqbQYlT9VPYGgEMNaWBj0WTlFzcoDlvLQ51ksGb
-	 KEjmn4DvvoA69UPfNOQKPLdJqyaO9DpD3CUSp9TkbXYXzCvR058MKN8kbujdaxHssJw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=luY53rQnSHqOmqiVXG3ojpIoE98d8W8aTwUr99JyWqc=;
+	b=Y6V48JRoR4anZOuqaGs3AMBlxrB8sgg/+AmvpA4BU/YNrlpMq71fCYbPhaGsj24Rbz+d
+	 jroeNvZbbGts1ecPK7/c8SC1F0rCWPgc7uUJX5GwLjmTGVcUd3blq2XMLY5J4fYd7UDhZ
+	 d/Sb/J//zgaMA3tmStYdEdpNNAA9PSRVjCqIzj9U9LitHYafh+J/2LPtDsugNGDaEWNxD
+	 OEBfFAgnBWPvdGJUQHVDFxNSJVPHf+lmkM1BqFbGnMSL6YP1Sj5KguhHIJLiW5jDoWovC
+	 TROhfHBDa2nvvxFGo6eSPi/a43axxBbC11I2/lVfSwRHsqrqC6gNxKKvVPi1YT90imQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7oOBOLJ;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wakel.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NcRlXcf5;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86A3606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E86A3606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7FB606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C7FB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7oOBOLJ
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so2830018c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:50:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NcRlXcf5
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed08904845so29076415ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:52:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794307850; x=1794912650; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
-        b=S7oOBOLJgkm5j3tpXKpiwJK8P5y+iQiS8q2DMIqq1hbNqUzm3Dk9Nt3P44CdaCrFnC
-         NP1lvXmBMlAZLOlnIfUtw/GDGqi+w1LuNye8okF2f3p0ztePm1n0Pwhdry4x7bQ5Qk+k
-         L/mhIwUJT75aXGy9Cr82QMvFE7QF9OzoYoCmNt1uqiJ/VtTHPbqHCYey1HDMra8+WsKY
-         UTT9n9segkNKlcyfDUmqglN0a3BdUI3nlcSbj2+zZqkBoF+pZ+kXkeGvqIFaqOyoFaQZ
-         rMQlfgtW9dZc07qCWSy+dKhp138PASsfNg8ulKkUOytLlUrqKw6VzftrgIOyvWwqE2Bu
-         2HiQ==
+        d=google.com; s=20260707; t=1794307923; x=1794912723; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=luY53rQnSHqOmqiVXG3ojpIoE98d8W8aTwUr99JyWqc=;
+        b=NcRlXcf58L5cAm85xdwcRMP8p/gxpVW0B3VFJ8usn+Fv0oeYo7gKsPhzp/NOm7FFfn
+         F1frWF9UacFCIYy7+uO6/e3rXu0yXIbTev4FjE7N+3HYbWJn4T4jIYrpcj6hnLZQXqcD
+         jZrM4Qm0pFmQoIlaMiuFv8uGsuVg04jHZY7RhgYpcCuEjJLBc5WnZVvR1l4JwQpN4wGO
+         MjDcz6jZyUQLEqfqbWV5Oo4YooBz2Fl0qruAepfk2QuGXsfwE5RQ0HYYHCTaLWyVGb71
+         wAuCJniDC+kHUH+nYhYKdX0yTEpBkUgSKrIH2Z9vImolTGiPLvVHDmHpNz2QrAkeqRSk
+         C5mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794307850; x=1794912650;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794307923; x=1794912723;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
-        b=FNPok7ISbmmEZm+Ot1S6vkNP07yrXfv0W0Koss5GBxmSgXdjd5QSkp9lwGW9pMVJ2m
-         Hgg3zqsTQVre1gm2D9k9mneqjtHl+idAPSgAyd+piO42UPja4ruPPESN6SQI/tC1Ps34
-         n7KXYPSZXMHTQy0TrVrTKsEFn1xEuX2CZAK71Gwzl+zWIZC8QonF2gBIMB3nrinM77ST
-         IkGMaWuo2TFiU5shjsLZoNhQR7Z+5lPCEFixQekRtCgg7h4ju2FFUM/C8p+klVsFovxE
-         IDHwacIoeSCHVyP4NGrl5/Fts0kMi68345OsY7Xbf0aQlIPbXuSWK0rr9q8ffEt0bUx8
-         gQQQ==
-X-Forwarded-Encrypted: i=1; AL+hErGCmUtAn3zMhZmraCC4Z3/ogqEH7Ywn49n9+0J2TiIvyjgX2I8W2CFRfexmRfaHO13mLEEbFAY1EGNHitU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IncBypuHphcL6uYb5ue54D6PK5cCPFg4k69hm9zxzTG4/BdwL
-	BDgEsy07Il57Jhb4LoNq1rW6J3BBmLtli6+k+bJwkMG/x8FpiO+vf9g+
-X-Gm-Gg: AYBFou0EJRLBp98b3flFt6xUxJniMk1RKFRpT1jVSIwH/DCL2DTiezu6K/2Syge1cUj
-	8LDFCmJju6QO6vgjeeWkAd9HrwcPgLuVcS6ubhA9J0WUkaGJDusPV6y42Gv0ZmqFHr13kZsFc3v
-	nbRvSKP3FlxivAERLyDa9CweT6hEpiWhplGCdn2mEkJGM25ISQ9rbVURam6yAklLuqQIr553tcg
-	6H+KkVe0JXkdS+piuLJY9GNnasTbzVE/st+C2r2dKACyhEZGaSrtOfmIZssPRlwjGLV8kRTydtX
-	zkTfFSapePs/7OzCVCLfCFRvg67jgA6fZVcjA+RgFTximADzsk7goak+NU7zAEKDPFXerQC5AKu
-	bPYRAnJg/YPYoZfoOoxpxQVaIVIwBBAiXodVUWiudWorfZvGOYCcsKWStm2N1TtJ49H+qb14rcz
-	InKVuOota4/R6Vxkw6n3hDNqirTfUWinhKfr9AygoNt5n/LB3WaWn0qf4d1mI1j3rRGyF7UglCx
-	bZH2nyPDk4zgaVCt/EJO1/9gx6tBDmDXu3mQ0MFDy/PL/oPHWEVYboNSptMWYYt7o+Cqe8Eu/i1
-	nLGNcIxh03OksQgyfYB7Y0opaIPu+oHszi5GfUCf9+d6caAovhCNmYOt+tsncZ1VD/1hMw==
-X-Received: by 2002:a05:701a:815a:20b0:190:b2de:1549 with SMTP id a92af1059eb24-1b3b5e6524dmr3147999c88.1.1794307849889;
-        Tue, 10 Nov 2026 02:50:49 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2ff3bsm7899356c88.11.2026.11.10.02.50.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:50:49 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v4] ata: libahci: delete the SW activity blink timer on port stop
-Date: Tue, 10 Nov 2026 19:50:40 +0900
-Message-ID: <20261110105040.2483806-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=luY53rQnSHqOmqiVXG3ojpIoE98d8W8aTwUr99JyWqc=;
+        b=qE7l7WtOSm5JVfrxfoT8z+/lxxZHc9c8myGS4ljvNFdxpfTOtbqBA5twhkvuBmw5oF
+         8llePnj7blorLiZ3Mz9CLygTh/yAglofqQg9AHDmDi5jDDG9A3d1IIn/NkfRT3dT3K+g
+         a0RZAUic0QcMNRhDoZKBdn9Unj5QHLf7RHQnE2KZBG//luEbZ70znMO/gMwjJgIIQXlK
+         nCs+k25CV1NepzBZZ1xiufKDsBk+j+lYwL2Lq7Q/qZddIUnBRAmtiZY3EnxuEDf6bxKf
+         lF7apmQuIVWYfnRJVaStP/HRXG5mEWZI2MiSSrJGmOmeSvt9IEEYuPj1SCjTlw/QiC7u
+         REqQ==
+X-Forwarded-Encrypted: i=1; AL+hErGCB/YN4b0xcIDQ9/JF29WsRY/pgqOb2y1rd66LzMZAq9BhNAF9tW9ZCA5rOLI0xMsFLiPVcBQMwZpdnKM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jJmy6GNHos2sd3qdaOgTFma5B/X1XyqkpVto2olHt8TDm/IgM
+	xrpbPil3DZ4+NBwco+D3UcaUZZbxynFVE439xE7xWim4ZwA1FJfoiVVCZk29uDBhr0nimvr+7lt
+	SPQ==
+X-Received: from pldt9.prod.google.com ([2002:a17:903:40c9:b0:2e5:a015:564e])
+ (user=wakel job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f686:b0:2ec:ed58:2062
+ with SMTP id d9443c01a7336-2edb9278fa6mr19990085ad.35.1794307922487; Tue, 10
+ Nov 2026 02:52:02 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:51:58 +0000
+In-Reply-To: <20261105030834.3318480-1-wakel@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,83 +78,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261105030834.3318480-1-wakel@google.com>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+Message-ID: <20261110105158.975652-1-wakel@google.com>
+Subject: [PATCH v3] selftests: rtc: Support harness test filtering and arguments
+From: Wake Liu <wakel@google.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Shuah Khan <shuah@kernel.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, linux-rtc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Wake Liu <wakel@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The software activity LED support arms a per-EM-port timer (emp->timer,
-ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
-callback re-arms itself while the LED is blinking. The timer lives in
-struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
-with devm_kzalloc() and freed when the port is torn down.
+rtctest implements its own main() function with a rigid switch (argc)
+check that only accepts an optional single argument for the RTC device
+node path. This prevents kselftest_harness standard arguments from
+working properly:
 
-ahci_port_stop() never deletes this timer - nothing in libahci does - so
-when the SW activity LED is in use and the AHCI port is stopped (driver
-unbind / module unload) while the blink timer is still pending,
-ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
-dereferences the freed ahci_em_priv (use-after-free).
+1. Passing filter options like -t <name> or -T <name> triggers a usage
+   error because argc is greater than 2.
+2. Passing -l or -h causes rtctest to treat "-l" or "-h" as the device
+   node path and fail with access() errors before ever reaching the
+   harness argument checker.
 
-Shut the timers down in ahci_port_stop() before the port private data is
-released. Iterate every em_priv slot and skip the ones that
-ahci_init_sw_activity() never set up (emp->timer.function is NULL), so a
-timer armed on a fan-out link whose port multiplier was detached before
-port stop is not missed. Because the callback re-arms itself, use
-timer_shutdown_sync() so a concurrent re-arm cannot resurrect it.
+Parse command line arguments with getopt() to pass all kselftest harness
+options (such as -t, -T, -v, -V, -f, -F, -r, -d, -h, and -l) through to
+test_harness_run(), while preserving the ability to specify an optional
+RTC device node path as a non-option argument. Only reset optind once
+all options have been parsed, so the harness re-parses them from a clean
+getopt() state, and bypass device accessibility checks when help or test
+listing is requested.
 
-Not tested on real hardware (needs an AHCI controller with SGPIO
-enclosure management and the software activity LED enabled).
-
-Fixes: 18f7ba4c2f4b ("libata/ahci: enclosure management support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Wake Liu <wakel@google.com>
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
-Changes in v4:
-- Iterate all pp->em_priv[] slots instead of the current links, so a blink
-  timer armed on a fan-out link whose PMP was detached before port stop
-  (e.g. by sata_pmp_detach() on failed EH recovery) is still shut down
-  (Sashiko AI review). This drops the now-redundant ATA_FLAG_SW_ACTIVITY
-  gate, since the emp->timer.function check already skips unset-up slots.
-- Correct the Fixes tag to the commit that introduced emp->timer
-  (Sashiko AI review).
+v3:
+- Don't call test_harness_run() from inside the getopt() loop for -h
+  and -l. getopt() keeps its position inside grouped options, so with
+  e.g. "-ld" the harness resumed at 'd', missed -l/-h and ran the whole
+  suite without the device check. Record -h/-l instead and reset optind
+  only after all options have been parsed. Reported by Sashiko AI
+  review.
+- Kept Alexandre's Acked-by as the change is limited to the -h/-l
+  handling. Alexandre, please let me know if you'd rather re-check.
 
-Changes in v3:
-- Shorten the code comment (Niklas Cassel).
+v2: https://lore.kernel.org/all/20261105030834.3318480-1-wakel@google.com/
+- Rebased onto v7.4-rc1, no code changes.
+- Added Alexandre's Acked-by.
 
-Changes in v2:
-- Gate the shutdown loop and skip em_priv slots whose timer was never set
-  up (Sashiko AI review); superseded by the all-slots iteration in v4.
+v1: https://lore.kernel.org/all/20260910034821.2935214-1-wakel@google.com/
 
-v3: https://lore.kernel.org/linux-ide/20261110090303.2415681-1-hj351016@gmail.com/
+Alexandre, if you're still fine with it, could you queue this via the
+RTC tree along with the other rtctest changes? Shuah, please let me know
+if you would rather take it via kselftest.
 
- drivers/ata/libahci.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ tools/testing/selftests/rtc/rtctest.c | 54 ++++++++++++++++++++++-----
+ 1 file changed, 45 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 001a6f5..6d73c7f 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2605,8 +2605,23 @@ static void ahci_port_stop(struct ata_port *ap)
+diff --git a/tools/testing/selftests/rtc/rtctest.c b/tools/testing/selftests/rtc/rtctest.c
+index 552191fe1ca0..21c37764f9d3 100644
+--- a/tools/testing/selftests/rtc/rtctest.c
++++ b/tools/testing/selftests/rtc/rtctest.c
+@@ -487,18 +487,54 @@ TEST_F_TIMEOUT(rtc, alarm_wkalm_set_minute, 65) {
+ int main(int argc, char **argv)
  {
- 	const char *emsg = NULL;
- 	struct ahci_host_priv *hpriv = ap->host->private_data;
-+	struct ahci_port_priv *pp = ap->private_data;
- 	void __iomem *host_mmio = hpriv->mmio;
-+	struct ahci_em_priv *emp;
- 	int rc;
-+	int i;
+ 	int ret = -1;
++	int opt, i;
++	int non_opt = 0;
++	bool skip_dev_check = false;
 +
-+	/*
-+	 * Stop the SW activity blink timers before devres frees pp, skipping
-+	 * the slots that ahci_init_sw_activity() never set up.  Iterate all
-+	 * em_priv slots rather than the current links, so a timer armed on a
-+	 * fan-out link whose PMP was detached before port stop is not missed.
-+	 */
-+	for (i = 0; i < EM_MAX_SLOTS; i++) {
-+		emp = &pp->em_priv[i];
-+		if (emp->timer.function)
-+			timer_shutdown_sync(&emp->timer);
++	while ((opt = getopt(argc, argv, "dhlF:f:V:v:t:T:r:")) != -1) {
++		switch (opt) {
++		case 'h':
++			fprintf(stderr,
++				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n\n",
++				argv[0]);
++			skip_dev_check = true;
++			break;
++		case 'l':
++			skip_dev_check = true;
++			break;
++		case '?':
++			fprintf(stderr,
++				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n",
++				argv[0]);
++			return KSFT_FAIL;
++		default:
++			break;
++		}
 +	}
+ 
+-	switch (argc) {
+-	case 2:
+-		rtc_file = argv[1];
+-		/* FALLTHROUGH */
+-	case 1:
+-		break;
+-	default:
+-		fprintf(stderr, "usage: %s [rtcdev]\n", argv[0]);
+-		return 1;
++	for (i = optind; i < argc; i++) {
++		if (non_opt == 0) {
++			rtc_file = argv[i];
++			non_opt++;
++		} else {
++			fprintf(stderr,
++				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n",
++				argv[0]);
++			return KSFT_FAIL;
++		}
+ 	}
+ 
++	/*
++	 * Rewind getopt() so test_harness_run() can parse the options again.
++	 * Only do this after the loop above has consumed every option, as
++	 * getopt() keeps its position within grouped options (e.g. "-ld").
++	 */
++	optind = 1;
++
++	/* -h and -l are handled by the harness and need no RTC device */
++	if (skip_dev_check)
++		return test_harness_run(argc, argv);
++
+ 	/* Run the test if rtc_file is accessible */
+ 	if (access(rtc_file, R_OK) == 0)
+ 		ret = test_harness_run(argc, argv);
 
- 	/* de-initialize port */
- 	rc = ahci_deinit_port(ap, &emsg);
---
-2.43.0
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.542.g3ef89b7020-goog
+
