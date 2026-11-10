@@ -1,106 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794276507;
-	b=aVA6gLlSu8i/qcS++kkpxLqvZmiIIxZgu39kwarPO5R0GLbjYvFkCYyiw1FrC6n7qrif
-	 gKP+LAEoWaDwZGHb9YCsovpJgcJ3Cy7u6UxTvb/I2FiGFJBfmgsVvyRQNApeC3fTXeRwa
-	 ZI44XwyprLGUElYq6WR2KKq1fYVCluJPRQg0ElpAAtPsZRkdrIbxMo0PEsl26A77MtdPu
-	 VfN2DO8qTkcb2CeScbri2vluGaqG3hpNR3r2B6KjEpyRscm5d6JtF8BUoG2rBcseGQCqz
-	 twSBlWMbc6NJAYpQeLld45GQTIkezim0iKxYgb1wsHoqNvC/rjpLNMdNVq5mt92Y9Og==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794276507;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:Received:From:In-Reply-To:References:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xzg2mafdxdFEs1lOpJlsFyILGqsWsSSyX3pGfyNClE8=;
-	b=MwuhSFRXY9RPMNOjndaRI2Fiwp3K7Y/p1WlFIbrOjV4fF6YSa4D88rqbTawGcrNgFne4
-	 4Y0exR4y6TBBWKjMYD0F+l+m+0CbeA2Lp2/8tk/p5FGnXfX7cDrAPjYOEMRbBoU1yqVUQ
-	 MQPR6lQstN+zwUPPRmoSCbUjic3XcH5TSWY++q3VWhtliXU3bTQ9Q/m/yqvpKfJija1TB
-	 u7Ce+ciUwg91axt2bJtX8wyboE/D2jnuMp2x5Gs/ynzsOMkQmc2pZd7FrQKB3O3a6Th9I
-	 8lyR/FjwORtWomCQbYLgeneHYEeyLKgnNLm3o6aeCotUK+KoROMU0TlPpSFKX10X3AA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g37a4kR2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794276531;
+	b=T1pHYoZPh+1vIRP9zoFMEQFEfdR53avwCXXVlM2no71PX5d6D8A85DN6Iul91XhUIT8o
+	 xKV8H6kZkggvtWxMJPqDAOq6mY+gfKwv+AIpDUEscYbdg8UGFum9VZUJ4/9WE+5gwu2El
+	 xlOuGov/T24BzzQQtSDGvtRK+tX7Rv9Prx3Eyh2b8sbCXy2fkhOJUV14bturptJH3iHQB
+	 GPcjQ9dSefe+oa78feMEhqM7zkgNUtg8s7umW9oqq0mqTnZKPmbq+zPuOYYEDg6XF5jU5
+	 Kr4Tgi4N2vParE69r4z7Oj+fFA2t4OQuNtEvKz8h4BclrRSvmgrCBab9trLfsJWQ7UQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276531;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=GKIy7W9V1DOhRGum57t2Y4YFkP9DEDYp7ywnEyxOco0=;
+	b=4C26UTuL/s21OESQn3z6KoxdcmGR5G9txTh9agZj4pGF2wKqcW4khkUbVqydz2wNB+hs
+	 tuthvFL/NR8vgaq1NUEtQWCs4bElvit2LMlpn/YhbnsAJu5LSKv8t2BNCO3wJM+yp1UuA
+	 /Fp/XanpD3TjFFpZtKd8StqlQq6UBNcMYdW8+ETajeTgj1JOli6nlojifArNzH+vGKbhB
+	 en/FL7b7tS+jqv6vJwGXS/omRmG44swmUBHMfRQZj2nD7/JIjb/rVoS5QhHzJAE4DRsI2
+	 gAgmkAjwx5j6w5Zbbhwrf3sS7OUg7IcN4OBRt3KuREiIsd0ZjA7zonMUMhxpfszwa7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G2mrV4dP;
+	arc=none smtp.remote-ip=160.236.53.20
+Received: from mail-m1602365320.xmail.ntesmail.com (mail-m1602365320.xmail.ntesmail.com [160.236.53.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBC4606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EBC4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD2A606A31C;
+	Tue, 10 Nov 2026 02:08:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FD2A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g37a4kR2
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d427836e9so200516266b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:08:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794276506; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TxAOIECo6F3rZn+pVdWqxA7C2EZBLsd5kRxxCP8TyJ7XyYpkt43mgGjyQ7mf9lIx5n
-         zjDGHs2CP+olvuAa2uRPo5EvfRP38X269+xUaqOsX9yq+c2+qqUlzLjwl82bqLyDMitm
-         CxysAThnYh+1bqwib2KaDa8cKJYwlLbZddpIGNEnvxzB3OhHSeNyZpEk0+PkHnNJFF/5
-         MSFI0VsQrnbdsh9fmBzc+zDwq0b9PLL5m9RtBmnS5TrqGT77YdOEP+QM+hz8j0uNawZt
-         aaTDMu61+k8QipgeXrlo9wuqn3o/NC3Ru8sLlReyIdGMPdbqcd0SNtfMQJ7tdGgDLCgQ
-         inqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:references
-         :in-reply-to:from:mime-version:dkim-signature;
-        bh=xzg2mafdxdFEs1lOpJlsFyILGqsWsSSyX3pGfyNClE8=;
-        fh=fqu3erTgKcdi/YPZrw/T2UqQlCSn37PTQgz6I9FlwB8=;
-        b=FL/jgeKvMru9nH/NKkMggirQ5j+q6p2JEIRL0XU+HpBJRNGNQl32uY1bmQ19PhwnZm
-         Ao2s2XJhRRz4122c28Y5JuIBe5I/u5pFVBw5PGbpJoqbRQWxsH1BImipKnWuV3D4V0EP
-         GWI80A7vyZQiZdZoaca2AuA7w35Icb/Lz3UCPqlsd3iApBvURC51IrMOSvS4pNsbaxEX
-         uV0wHG9O6YxD6p15BPQO37TIen3gJ+59yo5KMYePI1r/2TlnN6+IeOsDi60ULpiGrh9R
-         z9PYrxGsTn1Ld2JZJ9u4hHAG6bhZ07+OZ+cdrakjtq7vzohenpUHaO49IyKd46gZeOaD
-         xNlA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794276506; x=1794881306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xzg2mafdxdFEs1lOpJlsFyILGqsWsSSyX3pGfyNClE8=;
-        b=g37a4kR2OYKgQA6R5gsDZ3w+ZslaVu5nQQYNH6WhIbL8yiCQgzA7D2ZFEzzf/Uyi1L
-         ms+IVBX416UN0axrp2IrbT7uQDhVyGpa/n+iK4ZTlddd0PpEBhkuxCh+aUB8O5awVI4e
-         V7toYv5zJA5WX2qlPCVlnWyJaefJxlDH6kwtknCChi/fd8EyO7Sb8gHCBeYRtYqp6kdF
-         bpad+lD4UgzPg7O88Qdg+nBBBfKX1hZYZKDXPyvt+F02rGBnw0jjmUg8WSQXAlnbJK5D
-         +CxeTkQgWXy8raJlGxdWhhSn4XIhjN/sb3JCNZ5ddWfRnMJBbJdpjLK9JvzgTa6qRgy6
-         Kl1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794276506; x=1794881306;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xzg2mafdxdFEs1lOpJlsFyILGqsWsSSyX3pGfyNClE8=;
-        b=fMY6cA0PqDWZM1FymhAZdHI3AaZNarfvqMPTxIMSkJTd6RSZ9s2ZJezlB4qYoHIqfI
-         1zZpxQD7+yLKedthH/U7iQIfl4GFl+Yz1Sqppz2JSixlN51ge2mvfNHpdnfjUELV4dPx
-         UaBX8khcGhSd7ToPjlGaRAM0umC8408Kwwv+6hs9+BEh7dqjmqHo94ztQJt7FXeZjWw8
-         7zWCGztge21jgs7aBuoTQ0n5vtIAjYN5VZ8WROpBs3cWed4JBPdEk49d+Woqwq24ja/m
-         o4MNGJWLFbbI8Otbxd0PboV017UQhs9ezvTjqcpMyBvgmZ3WzAGP3p3DPIOd6C5FYsp0
-         klLA==
-X-Forwarded-Encrypted: i=1; AL+hErFRAfsjQyhNcucJUqQjDVmoBQ+ra9INT3P5NBKKPG/0PM9Yr/QPV6X4SZhqB5K5i+ANuKj+wQYd8V/rG0w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Zz3vjHc2bdkhmYUqqs+sMPyHmCKI6sx8lMR0axMqmPY71hYTJ
-	jEieGh4k4JRBzOTGTJ5slAhNzud9VaDh1zSUn81ASpbDvJsiP/3hYEYIym119/1YN11UYvXzr/m
-	OlXLPJogpk2cjN4c9CDrpzAiPqem54g==
-X-Gm-Gg: AYBFou1/30nWvK7xpKDgvoV0U7BNKVPzTav+c9j6mQIp9hFRMNx60yQJRUghfb5COsD
-	jFyTwrG+HOsQy8Pg0PG4WoAnW6l65uOrBfUZyC4zBTu7RjMlCovqqFBm/HPpMdq2Tc9vsBgd+vh
-	3loxreuBmcUCk9LNLNzGZBlntg4K2MlBdDKG31aKF9LNEn7VGbk0AJKJkDtTzqZX/yJlqTlIggv
-	0UG7nyDGiKtpY9Xi7KY6uxqToD63lHunPeAa/PZerN4WB470zKRWBSKI9Wt/PV3ZVx1GaDvP1mz
-	y4p0316o/0pHgMga3pBwZ5NFCmh49StIy8dZhhua2ozsvgHk3jxVDUU3lJUvF3JJjbVv9MEy22g
-	r5iHfjwl/oSEoyCLiFHh1vQfd01A80C4miyw3dDL46M6MZbfu0VLW3N+wkvbvQ/nDZKVPnOueez
-	SwMsbiMJ9R7d6n3oQeCPSmXnIJt0bEWMN40EVsaLxlzBk=
-X-Received: by 2002:a17:906:f58d:b0:c41:7e99:c6c2 with SMTP id
- a640c23a62f3a-c5049656cbamr100998466b.44.1794276505640; Mon, 09 Nov 2026
- 18:08:25 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 9 Nov 2026 18:08:24 -0800
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 9 Nov 2026 18:08:11 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G2mrV4dP
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54157f5aa;
+	Tue, 10 Nov 2026 10:08:36 +0800 (GMT+08:00)
+Message-ID: <38fdf732-ffa1-45d4-a436-08d542ed2528@rock-chips.com>
+Date: Tue, 10 Nov 2026 10:08:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,106 +48,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Mon, 9 Nov 2026 20:07:59 -0600
-From: Myeonghun Pak <mhun512@gmail.com>
-In-Reply-To: <CAGEsz8Hvy-jde6K7vL4B4M=hpZpTYz2a1D_qza81uyhD=Fr8Sw@mail.gmail.com>
-References: <CAGEsz8Hvy-jde6K7vL4B4M=hpZpTYz2a1D_qza81uyhD=Fr8Sw@mail.gmail.com>
-Date: Mon, 9 Nov 2026 18:08:24 -0800
-X-Gm-Features: AclHuK9zIcEhLJfPfTc1f-zmgRBrGB7NhIU0-U0vwWpTSSE_uoc-gqIjLG_ZynM
-Message-ID: <CAGEsz8G5RuLvQUkfg-H0zArwLrPuoCWEt2tNO+nMssu+w38sMQ@mail.gmail.com>
-Subject: [PATCH v4 2/2] media: rcar-isp: distinguish absent cores from probe failures
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, 
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+ <avDN3pPY5Qwt9B1p@venus>
+ <b60b7079-b7b6-4d83-8167-2e4fc6021aae@rock-chips.com>
+ <5573124.44csPzL39Z@diego> <avIEPncVnojQBqpX@venus>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <avIEPncVnojQBqpX@venus>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c336e29503a7kunm8423815768d9d5
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUJNVh5LHx0fGElJS0pCSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=G2mrV4dPhT6SK9ihMPCZt3ZO8snXTozKw2nqL0KEWGC2zddBvJ6jGFGTlBWaeC4v4sNv+DGIOnQilbo5xBHitNVv458i2OLeD7v19yFAjUViMd8hdkAa8dKChvg5wbPQ8tam9+EBf3gI8zeK4zSjx5CzBalS4O7YWjVm8dvMnaY=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=GKIy7W9V1DOhRGum57t2Y4YFkP9DEDYp7ywnEyxOco0=;
+	h=date:mime-version:subject:message-id:from;
 
-risp_probe() interprets -ENODEV as an absent optional core, but resource
-setup also returns it for initialization failures and deferred probing.
+On 11/10/2026 1:51 AM, Sebastian Reichel wrote:
+> Hi,
+> 
+> On Mon, Nov 09, 2026 at 02:26:44PM +0100, Heiko Stübner wrote:
+>> Am Montag, 9. November 2026, 02:31:35 Mitteleuropäische Normalzeit schrieb Chaoyi Chen:
+>>> Hi Sebastian,
+>>> On 11/9/2026 3:42 AM, Sebastian Reichel wrote:
+>>>> Hello Chaoyi,
+>>>>
+>>>> On Sun, Nov 08, 2026 at 11:15:09AM +0800, Chaoyi Chen wrote:
+>>>>> Hi Sebastian,
+>>>>>
+>>>>> On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
+>>>>>> The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
+>>>>>> combination. It contains a Wanchanglong W552793BAA panel and a
+>>>>>> Goodix GT1158 touchscreen. This adds the DT description of it.
+>>>>>> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+>>>>>> ---
+>>>>>>  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++++++++++
+>>>>>>  1 file changed, 90 insertions(+)
+>>>>>>
+>>>>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+>>>>>> index 6a95a8bb6fb8..327ca13b60f0 100644
+>>>>>> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+>>>>>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+>>>>>> @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
+>>>>>>  		regulator-max-microvolt = <12000000>;
+>>>>>>  	};
+>>>>>>  
+>>>>>
+>>>>> I seem unable to apply the patch to the latest linux-next tree.
+>>>>>
+>>>>> So I tried to resolve the conflict manually, but the actual
+>>>>> test screen did not display. I will look into this further.
+>>>>
+>>>> Strange. The base of this series was Heiko's for-next tree from
+>>>> Friday. No RK3588 EVB1 patches landed since then:
+>>>>
+>>>> https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/commit/?h=for-next&id=cabb6811c38a46337d5f4252b4dc390f9296856c
+>>>>
+>>>> If your board uses the original Rockchip bootloader, which shows a
+>>>> Rockchip logo on the panel, you also need Cristian's latest YUV420
+>>>> patches that reset VOP2 at probe time avoiding some issues with the
+>>>> pre-initialized panel as a side effect. Those were recently applied
+>>>> by Heiko to the DRM tree, so testing on linux-next is indeed
+>>>> sensible.
+>>>>
+>>>
+>>> Hmm, the newest linux-next tag which I used is next-20261105, and Heiko's 
+>>> tree last updated date is1106. I'll give it a try on Heiko's tree.
+>>>
+>>> And I'm using mainline U-Boot, which obtained from the latest nightly build:
+>>> https://gitlab.collabora.com/hardware-enablement/rockchip-3588/debian-image-recipes.
+>>>
+>>> The backlight working correctly, and the DCS command has been sent, but nothing display.
+>>> Perhaps I should look elsewhere.
+>>
+>> I would assume it could be the SPLL (again).
+>>
+>> I.e. a recent u-boot change broke the SPL-based forced clock init and Jonas
+>> fixed that in [0]. Had the black display again recently too.
+>>
+>> And it seems it hasn't been merged yet.
+> 
+> Sounds reasonable. FWIW I only tested with the pre-flashed Rockchip
+> U-Boot (as described above). I intentionally keep that on my RK3588
+> EVB1, so that I can test RK3588 with vendor TF-A/U-Boot and upstream
+> or downstream kernel. All my other boards run upstream TF-A/U-Boot.
+> 
 
-Reserve -ENODEV for missing core MMIO or the renesas,vspx property.
-Preserve clock/reset errors, defer until the referenced VSPX device
-exists, and use -ENXIO for malformed VSPX data or failed RPPX1 creation.
-Convert remaining resource -ENODEV errors to -ENXIO so the parent
-rejects failed initialization instead of continuing with the channel
-selector.
+That's right. It looks like we've tripped up on SPLL again. :)
 
-Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-Suggested-by: Niklas S=C3=B6derlund <niklas.soderlund@ragnatech.se>
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v4:
-- Handle resource errors and preserve deferred probing.
-- Apply after the IRQ lifetime fix.
+The upstream TF-A/U-Boot with that patch makes the panel work. But there
+is slight jitter in the displayed content.. I'll look into this further.
 
-No hardware runtime testing.
+Tested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
- drivers/media/platform/renesas/rcar-isp/core.c |   17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/platform/renesas/rcar-isp/core.c
-b/drivers/media/platform/renesas/rcar-isp/core.c
-index 14f3c8f..0a32201 100644
---- a/drivers/media/platform/renesas/rcar-isp/core.c
-+++ b/drivers/media/platform/renesas/rcar-isp/core.c
-@@ -800,20 +800,20 @@ static int risp_core_probe_resources(struct
-rcar_isp_core *core,
-
- 	core->clk =3D devm_clk_get(&pdev->dev, "core");
- 	if (IS_ERR(core->clk))
--		return -ENODEV;
-+		return PTR_ERR(core->clk);
-
- 	core->rstc =3D devm_reset_control_get(&pdev->dev, "core");
- 	if (IS_ERR(core->rstc))
--		return -ENODEV;
-+		return PTR_ERR(core->rstc);
-
- 	of_vspx =3D of_parse_phandle(pdev->dev.of_node, "renesas,vspx", 0);
- 	if (!of_vspx)
--		return -ENODEV;
-+		return -ENXIO;
-
- 	vspx =3D of_find_device_by_node(of_vspx);
- 	of_node_put(of_vspx);
- 	if (!vspx)
--		return -ENODEV;
-+		return -EPROBE_DEFER;
-
- 	/* Attach to VSP-X */
- 	core->vspx.dev =3D &vspx->dev;
-@@ -840,7 +840,7 @@ static int risp_core_probe_resources(struct
-rcar_isp_core *core,
- 	clk_disable_unprepare(core->clk);
-
- 	if (!core->rpp) {
--		ret =3D -ENODEV;
-+		ret =3D -ENXIO;
- 		goto err_put_vspx;
- 	}
-
-@@ -860,10 +860,15 @@ int risp_core_probe(struct rcar_isp_core *core,
-struct platform_device *pdev,
- 	core->csrstc =3D csrstc;
- 	core->csbase =3D csbase;
-
-+	/* Keep channel-selector-only configurations working. */
-+	if (!platform_get_resource_byname(pdev, IORESOURCE_MEM, "core") ||
-+	    !of_find_property(pdev->dev.of_node, "renesas,vspx", NULL))
-+		return -ENODEV;
-+
- 	ret =3D risp_core_probe_resources(core, pdev);
- 	if (ret) {
- 		core->base =3D NULL;
--		return ret;
-+		return ret =3D=3D -ENODEV ? -ENXIO : ret;
- 	}
-
- 	ret =3D v4l2_device_register(core->dev, &core->v4l2_dev);
+-- 
+Best, 
+Chaoyi
