@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315367;
-	b=QBIOmb1idmMN8q5/ZL9JCD+iFhxx2Yq7gREuA0KOSAbh86Omv9vsewNr7FV0Ai+btFt9
-	 UdAOjjV3Wy/qq4S+aHiHzv0Ar7+CQddCgZKcpulMbvKEQ2IPtLH2o6ZOiTpXKH+KsCovi
-	 Tmh5iZMC2GwDo+ZjuNWAy9cDMe0s6tkBVWAHG6fJZPnJIBM+HXlJeeOuafXVWTimk/tkC
-	 l/cQn3RWGP9vJC123wmET8yhxUfppCL0+VPYHAkElw6kVJl9A8S+xlBQXJwHQZOKzzV4a
-	 RLrryu7X4lIgNq5Q4Bf/Xxr7YvWUh4Iv+p2dJ5TMne97dZUnq6rTi0L/sRPPniHSfQw==
+	t=1794315379;
+	b=ddPaXGywx1eeyCDebilLQ8xzZoVCV5Nt/Uc/B6hEyPTR2kwTbF5cZOFE07wiJvLsOnjI
+	 OaToRy3Jur4Nw4Tbzaupbd8OqheBVk70Sf6nChY83dcf7HHKX4ZZ+hvpzvnhEthRNl41J
+	 NLdmiLRLbbOOO1whtho3yOIkoO6Bg9NSkQhYN8Gi1totJeOi29ge15FNihZVrZScg2JQr
+	 ibY4ZzkRm2vzBg2T0/W93PFYrawb1kq0bgIAYEK1V6rOHBsf3nYf0iQwS1EYC8Uq3OblO
+	 Mod1BHLFXWafj616Rv6qMJASFen9hTJhVMSWnsAaEQOL86mxabjBh4ybYUINTVDTvuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315367;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=583v/INb/FdV9q7pbNC+560YuuPeVN9iULWL+PFKGXg=;
-	b=tkhBfayVePzcGsQHCkOFfueFcxwTW2sA/mddkzJsIXwzx8tdL4inU1IG2++SE9vLRot2
-	 akJH7UTmtWkasHiME2wLUAJZeCiWFCmVhrtZe0mf8C7kwFa3kzyI4L4C8dEfSNutDaF7D
-	 um8CVQQb1lw6g4toP8e7mkPfHH1c8zM+y2lc4oEEPk3wzb+/NTJWq70iODW3VXPiMJEX2
-	 jPjVS6Olnix4gKCiGDpyR9JiQvEM/BJ4cm199Nbel5JRb7fPBqABNs6TP/uIV8qqE89Yl
-	 8T4jCeyV1Fyz31Kq3jwl05BgBGZUFO05FrUUHVpSKLItqwa1bXgZMhh5Rtn0Iem26eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315379;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=S0iZDpAtb4CJMbbRNM3v2yo/BoGutJ8Lqq14LpztKj0=;
+	b=QcaFOwfuo/q0G8BotvuCdNh1OP8hgOVGWJk/b+ByFiTcp4J9mH56Vsn8nS4qSb/CjbDd
+	 xySh7KTNde3BWgDTAtPFV5ahr0J2LRtMvoqRzidf/SccG3Y+Q2wv5qE5rsgWpohlpVbVC
+	 8ZABd01l1sMoIREfi/4ktpTgb5/7g4zy2h4yiKD8cXETG1o22MMrXcOL3vjH0Mrp3Ug4h
+	 Quab1CIeIutxa4H7OTXq3vaQXX5RHO3+fFoyxaTqCpRDk98DkKkpEQDazQ7ubOZnhB6qC
+	 AO6cPbE++HIjW+UYfOtkFDWt/BRmQpMchWmUJsG/9ICQUSC9KU/4Y9ZJxL34V/voAJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0pMM6y7u;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBDIY4Rg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F706606A7D3;
-	Tue, 10 Nov 2026 12:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F706606A7D3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EB43B60A5BC7;
+	Tue, 10 Nov 2026 12:56:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0pMM6y7u
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=583v/INb/FdV9q7pbNC+560YuuPeVN9iULWL+PFKGXg=;
-	b=0pMM6y7u5lgfQjamrgCfQ10MyAe5lNGxBKFqovfn0ZiCm779trO8+ZezARJU0l5/i6meSqvTt
-	KI2U6Tz0EDkrrmC/7VB/R4FZ7j+6n+kxr1dukejRKOUscFIe5uByqxRQtugKsAr78uDGVhTfVYT
-	EakdaRvE1T8T7jwaqUBkViE=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jP68P2T2yz1K9YB;
-	Tue, 10 Nov 2026 20:55:49 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 18D7740565;
-	Tue, 10 Nov 2026 20:55:58 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 10 Nov 2026 20:55:56 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <nicolas.bouchinet@oss.cyber.gouv.fr>, <xiujianfeng@huawei.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
-	<shuah@kernel.org>, <kalevi@kolttonen.fi>, <caixinchen1@huawei.com>
-CC: <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<lujialin4@huawei.com>
-Subject: [PATCH -next -v2 7/8] Documentation/ABI: document the lockdown securityfs file
-Date: Tue, 10 Nov 2026 21:28:17 +0800
-Message-ID: <20261110132818.2231593-8-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20261110132818.2231593-1-caixinchen1@huawei.com>
-References: <20261110132818.2231593-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBDIY4Rg
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 214951F0089F;
+	Tue, 10 Nov 2026 12:56:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794315378;
+	bh=S0iZDpAtb4CJMbbRNM3v2yo/BoGutJ8Lqq14LpztKj0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VBDIY4Rg6sfLkekeEVeMC9HdCbbe/AUjsm7IUBgcs97hB4v9P6UsrhWwt182tAZAW
+	 Bp/VCnCrjDCog95+VNDXnNNyBYAhOFoQiSeJkwkEcXJGLXYS7uc/uW/MU9+kyGWGpi
+	 QHFj+fX4N9QqhOCG25yguqMC3faYQ0UH0j28+BJO/vYu1bz5vZ1XgGY+5sMubR04Rn
+	 Ui+JExzaMPc4kmwUZNVolDCSZrUBgrDKI2NvOmFh4dd60G5bvWlat5IY+wm0vj1mfa
+	 ZiyXoODOepzGxweNP2p2oi8gOSgoXwKMl39AgUK5o/MUZtQYct5550xvo0+4FCE3Ts
+	 cJrXWQIpt4kSQ==
+Date: Tue, 10 Nov 2026 14:56:14 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Cc: Takashi Iwai <tiwai@suse.de>, Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tpm: acpi: Fix memory leak at tpm_read_log_acpi()
+ error path
+Message-ID: <avMUbkRuq8FiThe-@kernel.org>
+References: <20261109173756.742248-1-tiwai@suse.de>
+ <4674faa5-47a6-4486-815e-a5a3a5275d69@molgen.mpg.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,86 +59,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4674faa5-47a6-4486-815e-a5a3a5275d69@molgen.mpg.de>
 
-Describe the /sys/kernel/security/lockdown interface: the levels it
-reports, how the active level is marked, when the file is present, and
-the write semantics (escalation only, EPERM for the current or a lower
-level, EINVAL for an unknown level).
+On Tue, Nov 10, 2026 at 11:43:31AM +0100, Paul Menzel wrote:
+> Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
 
-Also add the new ABI file to the LOCKDOWN SECURITY MODULE entry in
-MAINTAINERS.
+Thanks, I added it:
 
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- Documentation/ABI/testing/securityfs-lockdown | 43 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 2 files changed, 44 insertions(+)
- create mode 100644 Documentation/ABI/testing/securityfs-lockdown
+https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git/log/?h=for-next-keys
 
-diff --git a/Documentation/ABI/testing/securityfs-lockdown b/Documentation/ABI/testing/securityfs-lockdown
-new file mode 100644
-index 000000000000..2967a07df97c
---- /dev/null
-+++ b/Documentation/ABI/testing/securityfs-lockdown
-@@ -0,0 +1,43 @@
-+What:		/sys/kernel/security/lockdown
-+Date:		August 2019
-+KernelVersion:	5.4
-+Contact:	linux-security-module@vger.kernel.org
-+Description:
-+		The lockdown securityfs file reports and controls the
-+		lockdown state of the running kernel.  It is provided by
-+		the lockdown LSM and is located at
-+		/sys/kernel/security/lockdown.
-+
-+		The file is present only when CONFIG_SECURITY_LOCKDOWN_LSM is
-+		enabled and the lockdown LSM is active, either because
-+		CONFIG_SECURITY_LOCKDOWN_LSM_EARLY is set, or because it is
-+		ordered in through CONFIG_LSM or the "lsm=" kernel
-+		parameter.  Otherwise the node is absent, and userspace must
-+		handle its absence.
-+
-+		Reading the file returns the supported lockdown levels,
-+		with the currently active level enclosed in square
-+		brackets.  For example, when the kernel is not locked
-+		down::
-+
-+		  [none] integrity confidentiality
-+
-+		and when the kernel is in integrity mode::
-+
-+		  none [integrity] confidentiality
-+
-+		The file may be written with the name of a level to lock
-+		the kernel down further.  Lockdown can only be escalated,
-+		never relaxed, so writing the currently active level or a
-+		lower level fails with EPERM.  Writing an unrecognized
-+		level fails with EINVAL.  Successful writes return the
-+		number of bytes written.
-+
-+		The kernel can also be locked down at boot time with the
-+		"lockdown=" kernel parameter, or at build time via
-+		CONFIG_LOCK_DOWN_KERNEL_FORCE_INTEGRITY or
-+		CONFIG_LOCK_DOWN_KERNEL_FORCE_CONFIDENTIALITY when the
-+		lockdown LSM is active.
-+
-+Users:		fwupd and other userspace tools that query or manage
-+		kernel lockdown state
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c57be10c8729..0ba942dfe4c0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15652,6 +15652,7 @@ M:	Xiu Jianfeng <xiujianfeng@huawei.com>
- L:	linux-security-module@vger.kernel.org
- S:	Maintained
- T:	git https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/lsm.git
-+F:	Documentation/ABI/testing/securityfs-lockdown
- F:	security/lockdown/
- 
- LOCKING PRIMITIVES
--- 
-2.18.0.huawei.25
-
+Br, Jarkko
