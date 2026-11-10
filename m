@@ -1,74 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335712;
-	b=VJi24IxVI5f0UFmOhoJmw7j33Mrj1Z+LQ3sTZbE+fRq3G7e7H6xC+26AXLk/vCAo7BkQ
-	 YvurRvpwoYh8Zyjpj1AhCk/8N4CZ/a7mFM1ic/FvEYyB7g+79+bc58VvTIEMLrPCKoO2+
-	 nqW054R5krNMW90y7c8N0idB+z6Sl6JBHcda10lOVBtABE5xyHP3gpUSQCCAxOlV/S9O9
-	 FFVKCAjYDAWJjrLzcbfbo1uPw3T1S7v29tc8789AkomPHxEynfdsSn826/XOA2bp5oC/Z
-	 h/bhbHVp/0zHn1gNeIZiSZwT8dp/v6gUJRa6Y1/asjK3NyZGsVb+jQ2Bt57NL9UVElA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335712;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=dCp0Db26sWh4sAbqSPzWp1M0J6ydStL+IzHoLsVEdug=;
-	b=0HU2xAlESywwAUiVyly2TY8be2Kf5FQH0WTix5jH6LII7hQYzQNwgaqq/V5kiUtS3NAc
-	 B2rb/MygVMiemA2YnjXm+pho2qZffga4o7q8yAYOd8g2aEKU017tUeZ1tcK8iVBE8GUAU
-	 zY/kr+UsC0ge7PqZgzUmC6ZFdCw4Ti+3xoIKUbt0ZHU9Q7eVfpU63qMoLcnwbvM8T31nh
-	 lG9xKO/luZXgluuzuK9z2OuwDDLE/jOB0VVqo9E00/BKQx2wdiyFVuwpLMCuhuMtYoX+f
-	 PWReJ+0sFwdbItL6htHl+v4O70ZQNOeICZkI6Rj5dLhHe1UnieUWx80kZcPn1fHtPvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ctx22OId;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.0
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794335749;
+	b=iVExZ4dzT3h1P5/e+zA0CkSZ8YLerV6Lx9r7lXIi0+89Kr2aPNVpsZsoTgd1A/qQ3fsq
+	 T/PVCcYABrcok6wFXisdZlYbxEztmLfCF81E5606Qq5Uzrgp0VHvsnHlMe1wQI0y+Sy8V
+	 xoYnHG8rY8uRnKeUJ5ReP5Lbj/D5GkmIKhf+dBQJL6cCVIljZEWs90JKVZeyQ2axTwtJo
+	 2/qrpvu3FAWgylRhWyILuKOX4KojvaePrKGSdS5okD4q15F1ZXVO0MLPtHdyjEw0aTLXs
+	 hxozx/Xvu4JbaI4iJ8hw278bk+LtJcVjuhLeahOHRPnukvvwmUAIKAV00jjv76fVYAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335749;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6t6YpjmaHwsUAoqgX8nu6+PL4HNPwqUIUfpGNMSA3YU=;
+	b=X/EeOe4GhfqC2KjAOYhGHDkSj95OuHgA17vuFBX8pm4eaEoekwccIJLu69s9XoCvdQYP
+	 CJXkMon7le57+V17uZRqDhn66Vzq2M0Dw6Juyg2U6SiEgJ0ZsVNbhnhqCXb3cQcRHBskZ
+	 HZ1ZX0OqRgOfN4frVFVb18Xdojq5E6JdPDfI/5u0jAfoiQBZ4mytW1pbGhVdlTC3rhZea
+	 FUQSKNvO68eeZReeRHTKNcs36jl1qmRVG00Y8fKW/WKwsJdtujRbShMFNNXOiAI799Re5
+	 +x3+Q27vwNuMKKYw6VF59zLjRf7gWycqIRLqcRkgSOFOartoqna6HbYRKLCFxVO9v+g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xSiCMaza;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011000.outbound.protection.outlook.com [40.107.208.0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255B5606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 255B5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44868606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44868606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ctx22OId
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdba239d0easo2331666a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:35:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794335711; x=1794940511; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dCp0Db26sWh4sAbqSPzWp1M0J6ydStL+IzHoLsVEdug=;
-        b=ctx22OId3b1A89h+/g0DLFFIvF1rE/LJiVCOg314dN1i0WsgjGNLUdr9g5ogDUofXQ
-         iTytv8eWhKYvvAc1PGv3tO469SZSEgiiM8pzHozoBPZ+JLjj4U60kg4GE7ooJgxxgMLD
-         yYkNR/2PgzAqsrdBgcDkGmqae2glgyxhphW8A59/68tE1XL5f9uZe+BYr1Q+iDODYe5d
-         DYjN8zKbWgC5M1atPcdss9TOVd98YuPqehqpzIzO8IOUKFSKplq5o47oSsn2tnQxaxmm
-         uT0VRNaOVvoGtA5U6P1PyJMJR89m+mn5fyW1gkyhmmAlacc90Jj+otaDm3KCwrVsse/H
-         ntQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794335711; x=1794940511;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dCp0Db26sWh4sAbqSPzWp1M0J6ydStL+IzHoLsVEdug=;
-        b=UHlFokiF/+0D++sAo8Wc7mT1/MqX9YriHwQwJC1I2DfBfJM77M4X+GZAoK0eTEiiDO
-         I7lZwwp22g7CnvXRMCkQ97LVUIAps5OHjgMaKTbbPsWpTAItqJgMLi2eN7VobmrZ1iqp
-         DmY5WUakA6PUgc4fbAXZx4TArJD+XJbUldygOEDmFLEZqEG6Zh515QkPWXJnffDyqLQV
-         ERieKXCmLXXTNwYNVKZ65g2lZF02My3HKvjI7jsxJLvXgcVzJuXBQTL0/u3WzbGR23Xa
-         ClP7sP6AHBaA44OZJiVNrMofKcAN1dQYids3WV3cqSpKCuJYV0Ku7EvYqOJx8IA4iYI1
-         U3cA==
-X-Forwarded-Encrypted: i=1; AL+hErHrGvOLTH+ifMZmQ/q6WmbNwCPb/KuAlRbZPUVtH4AP9FJmE4JT3i9EFp5gh3oQAtBlLEMBnXTa/Xd7Dxo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9DYaowvT6bp5VDtWRp2H99mP6JHJaGUB20cjXIW87VS5fWW/4
-	mtEncAumnFmW4Lb9EqVnQl6sq0nt988YMcBOPz0qcjnIjJuj3QiTpIxlOwGHpDczSGgfYJGeUW9
-	Z2qTghg==
-X-Received: from pgbbo3.prod.google.com ([2002:a05:6a02:383:b0:cd8:ba74:813f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:7907:b0:3e1:bcb:1d19
- with SMTP id adf61e73a8af0-3f1901885e4mr3216153637.67.1794335711215; Tue, 10
- Nov 2026 10:35:11 -0800 (PST)
-Date: Tue, 10 Nov 2026 10:35:10 -0800
-In-Reply-To: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xSiCMaza
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BfzP0n/zQrmK+itD/VBFFgOWnWVGf1CIs2eDQ6nyXdTZY0fSrftcAzh2+0fKFivBWugVDx6pg5HVHee5OlnnEzhNuhHE62WGHSiU2lqMIeJGALkp4orUL3sM1A3rV7KsSDYTvkbD7BEDelirpvBvOYSJmcW2T8gtbkTFrATX2Aaj7/EwoSkHGxeEoKcQo4RuTG+qjzk/5/mtYvj5yXLQFgMRdvW6kXI4P2ARyrTuWyAithqZTBIvBboYEObLEtsHv7xMGKGjJs54PCBu/7C73dbwoRxYuKBIoEz5Zl9f2ZjsAN2DCbvoWhS5s0hvc+FPeHYW7JkeWJoESa3qGS98Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6t6YpjmaHwsUAoqgX8nu6+PL4HNPwqUIUfpGNMSA3YU=;
+ b=GIKV+7Zq6VyZYVTN2RYwPaG6b+kK4bNXqC9kUhvGGhFxoarnW6kLvJNudiL8zaJr7I7KZ8I6zbbu6dpwnf6YxSTAR1HfmNTGK5sJXoA+6rKAFFsXxEZx4dmsbh6AMOphyXoudfwazgrz/mDwllyIHqEJgevHKQOZr37ehVWskUT1wKUzq8gWh2OmsfJEEKWVzJcqvCZBW4DTOa+pTBgOOYmTORUfP1kYjugnpwkg08wMVxCrmgG8AEvbRzLp31QbBOlDoY/+SV62CE9PF6c7juI7J4wWMAR8+sd1e6msq3US8gcgjRCcYM+SHAoSVPGsh8SkhGNRDCtUwxN+GLS4gA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6t6YpjmaHwsUAoqgX8nu6+PL4HNPwqUIUfpGNMSA3YU=;
+ b=xSiCMazaHgq10DmByQsmxZYCvnVjPlM302fD+oJ4RBixj7yI3Eh1d2iLZbAXC9ODBfBjT0Mb45VRhKl2IZqKgeGu5yobvxpP+TYL7l+HGrBfRr9U9yHykQ5Icch9m+2pkloZucuAkJzIgnzGX0UPXbb4dRftO6hHzsMc0KBTIMc=
+Received: from PH8PR05CA0005.namprd05.prod.outlook.com (2603:10b6:510:2cc::14)
+ by PH7PR12MB7795.namprd12.prod.outlook.com (2603:10b6:510:278::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
+ 2026 18:35:45 +0000
+Received: from MW3PEPF00001658.namprd21.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::40) by PH8PR05CA0005.outlook.office365.com
+ (2603:10b6:510:2cc::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 18:35:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW3PEPF00001658.mail.protection.outlook.com (10.167.249.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.0 via Frontend Transport; Tue, 10 Nov 2026 18:35:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 12:35:44 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 12:35:44 -0600
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 10 Nov 2026 12:35:43 -0600
+Message-ID: <19e0180b-5d2a-7af7-cb00-d7d640e64f71@amd.com>
+Date: Tue, 10 Nov 2026 10:35:43 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,40 +104,194 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
- <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
-Message-ID: <avNj3kdnvQiY_ity@seanjc-mac.roam.internal>
-Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
- ring is full
-From: Sean Christopherson <seanjc@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH RESEND V1 1/4] accel/amdxdna: Add NPU10 and NPU11 devices
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
+References: <20261104224302.643329-1-yidong.zhang@amd.com>
+ <20261104224302.643329-2-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261104224302.643329-2-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PEPF00001658:EE_|PH7PR12MB7795:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb12b83c-c76e-447c-4bd4-08df3f596e99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|4143699003|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261009223027099003|261102123227099003|261026140227099003|261028144727099003|261026121527099003|261021121427099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	pNrRUYieTXmSrnstBwMr2RlShn0fwnFVse5QWSqIVurE+HN8Eyx1YDHht+ORlW9VcaKaPIjDuwt8JewBT1FcjwM2bvqdj+Mv6saYmO3wJ+hncwEv1M+iPH7Pa94y2JHY68U8sO11E90G41xGFa9zdQceDeW+8Hs2eeVHJtP71FMK6yhN2LZoYG3gpNtLgItQu0pvGvTWufDtoM4bdyLheDPTV4t4TktNGolo+p7A50R3xGX0x0K1v3yiP0VdrOTpatEzOOqM0wqNiQPLfG31WoKhsKwZIypUc/gVBWfAeRmDXmYQ7sG/QHmEFMABxGVq0GSagw0XhSaWjBTzeWn6/9BL1qygwY2yGZEgkeNaZMxNembkPbBEnpVRJgrC9wEWEo+wadv4TuJp2uSxFCl0IfCVBdXYydOa30FUrXg6RMlmMLrBHFatUNPxA/GCm2vI28Z38GWcBKBaNCWcnORp0TasiFsojofIldfmjERtN0RE+1v76WKnoSgYUVslKecU+xBPfLENfHi81S/+Ax7+Rznerniunc8c9Ajhtb6diwp0Xt78fXBD34beMAooo904X9+qe5UlaHkBYrJkYM6eCXUSydim0SI89sFAPexrhj/6c+4mRjD9aPn5t4F14AYF11HouhmsXtz1G/+du0+6smGbrn5sSbH43Oe3pH2imlZHhFNQ6ekq87HVABpJVSdenwATdpHnK2SnnP7S6/kr1Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261009223027099003)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(261021121427099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0o+L9LgpMkBMnm+eSe3xFqjsBq0EijMOvXAg8a66sd39YBZp//lwIcbVUP/B1gZuDDfcSjJ05nrH53VVcwm+ooFbLmIR+ZTMb7lqjDdm89A1yg9wydCyDf0JfYzizpgFl3osTYJ7t045j2W0uU414QJQ17/DDvuU566ekH7HwL+2nU+KzGNQBzGJKumBCFGx3pZi/yN5A8aoFAbdW7hiILIgW1HfcOVjOR8XfS2SvYK4/B1jRsmXfy9mLvgnXHC3kO9X464Morz4arAXtqoAP1Fpk0i8yY3poVRIhLD74wNREH7PRS3kLstk+AskDZjVrGp1pfxGKrHV+ZusPoLP3FGU/uLyjexdfGYZ827XXgp1V/zAqEmcRvykFQmmnD+1iXPDe+qrYY5wfod+toj6Z5p66N+zjFqrs4v6EZ19Z5v95b1MMTYq/YVslYu7blXz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 18:35:44.8769
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb12b83c-c76e-447c-4bd4-08df3f596e99
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW3PEPF00001658.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7795
 
-On Tue, Nov 10, 2026, Fuad Tabba wrote:
-> Hi Sean,
-> 
-> On Tue, 10 Nov 2026 15:48:37 +0000, Sean Christopherson
-> <seanjc@google.com> wrote:
-> > On Tue, Nov 10, 2026, Fuad Tabba wrote:
-> > > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> [...]
-> > > @@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
-> > >                          break;
-> > >                  }
-> > >
-> > > +                /* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
-> >
-> > Please don't include AI comments verbatim.
-> 
-> The series is LLM-assisted, but the comment was actually me.
 
-LOL, I think all of us are getting a bit corrupted.  :-)
+On 11/4/26 14:42, David Zhang wrote:
+> NPU3 revisions 0x14 and 0x15 are NPU10 and NPU11. Add their classic,
+> PF and VF devices with their firmware files and report each by its own
+> name. They otherwise use the NPU3 settings.
+>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_pci_drv.c | 14 +++++
+>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  6 ++
+>   drivers/accel/amdxdna/npu3_regs.c       | 78 +++++++++++++++++++++++++
+>   3 files changed, 98 insertions(+)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> index f233eb70a295..685fe1a7dd56 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
+>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
+>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
+>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_14/npu.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_14/cert.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_14/npu.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_14/cert.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_15/npu.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f1_15/cert.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_15/npu.sbin");
+> +MODULE_FIRMWARE("amdnpu/17f2_15/cert.sbin");
+>   
+>   /*
+>    * 0.0: Initial version
+> @@ -81,6 +89,12 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
+>   	{ 0x17f1, 0x13, &dev_npu3_classic_info },
+>   	{ 0x17f2, 0x13, &dev_npu3_pf_info },
+>   	{ 0x17f3, 0x13, &dev_npu3_vf_info },
+> +	{ 0x17f1, 0x14, &dev_npu10_classic_info },
+> +	{ 0x17f2, 0x14, &dev_npu10_pf_info },
+> +	{ 0x17f3, 0x14, &dev_npu10_vf_info },
+> +	{ 0x17f1, 0x15, &dev_npu11_classic_info },
+> +	{ 0x17f2, 0x15, &dev_npu11_pf_info },
+> +	{ 0x17f3, 0x15, &dev_npu11_vf_info },
+>   	{0}
+>   };
+>   
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> index 27593190dcf6..5ca32c5b1de0 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> @@ -187,6 +187,12 @@ extern const struct amdxdna_dev_info dev_npu1_info;
+>   extern const struct amdxdna_dev_info dev_npu3_classic_info;
+>   extern const struct amdxdna_dev_info dev_npu3_pf_info;
+>   extern const struct amdxdna_dev_info dev_npu3_vf_info;
+> +extern const struct amdxdna_dev_info dev_npu10_classic_info;
+> +extern const struct amdxdna_dev_info dev_npu10_pf_info;
+> +extern const struct amdxdna_dev_info dev_npu10_vf_info;
+> +extern const struct amdxdna_dev_info dev_npu11_classic_info;
+> +extern const struct amdxdna_dev_info dev_npu11_pf_info;
+> +extern const struct amdxdna_dev_info dev_npu11_vf_info;
+>   extern const struct amdxdna_dev_info dev_npu4_info;
+>   extern const struct amdxdna_dev_info dev_npu5_info;
+>   extern const struct amdxdna_dev_info dev_npu6_info;
+> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+> index cff99ddd3a55..4d38aeaea6d0 100644
+> --- a/drivers/accel/amdxdna/npu3_regs.c
+> +++ b/drivers/accel/amdxdna/npu3_regs.c
+> @@ -197,3 +197,81 @@ const struct amdxdna_dev_info dev_npu3_classic_info = {
+>   	.cert_feature_tbl	= npu3_cert_feature_table,
+>   	.ops			= &aie4_classic_ops,
+>   };
+> +
+> +const struct amdxdna_dev_info dev_npu10_pf_info = {
+> +	.mbox_bar		= NPU3_MBOX_BAR,
+> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+> +	.psp_bar		= NPU3_PSP_BAR_INDEX,
+> +	.smu_bar		= NPU3_SMU_BAR_INDEX,
+> +	.default_vbnv		= "RyzenAI-npu10-pf",
+> +	.device_type		= AMDXDNA_DEV_TYPE_PF,
+> +	.dev_priv		= &npu3_dev_priv,
+> +	.fw_feature_tbl		= npu3_fw_feature_table,
+> +	.cert_feature_tbl	= npu3_cert_feature_table,
+> +	.ops			= &aie4_pf_ops,
+> +};
+> +
+> +const struct amdxdna_dev_info dev_npu10_vf_info = {
+> +	.mbox_bar		= NPU3_MBOX_BAR,
+> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
+> +	.default_vbnv		= "RyzenAI-npu10-vf",
+> +	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
+> +	.dev_priv		= &npu3_dev_vf_priv,
+> +	.fw_feature_tbl		= npu3_fw_feature_table,
+> +	.cert_feature_tbl	= npu3_cert_feature_table,
+> +	.ops			= &aie4_vf_ops,
+> +};
+> +
+> +const struct amdxdna_dev_info dev_npu10_classic_info = {
+> +	.mbox_bar		= NPU3_MBOX_BAR,
+> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+> +	.psp_bar		= NPU3_PSP_BAR_INDEX,
+> +	.smu_bar		= NPU3_SMU_BAR_INDEX,
+> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
+> +	.default_vbnv		= "RyzenAI-npu10",
+> +	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
+> +	.dev_priv		= &npu3_dev_priv,
+> +	.fw_feature_tbl		= npu3_fw_feature_table,
+> +	.cert_feature_tbl	= npu3_cert_feature_table,
+> +	.ops			= &aie4_classic_ops,
+> +};
+> +
+> +const struct amdxdna_dev_info dev_npu11_pf_info = {
+> +	.mbox_bar		= NPU3_MBOX_BAR,
+> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+> +	.psp_bar		= NPU3_PSP_BAR_INDEX,
+> +	.smu_bar		= NPU3_SMU_BAR_INDEX,
+> +	.default_vbnv		= "RyzenAI-npu11-pf",
+> +	.device_type		= AMDXDNA_DEV_TYPE_PF,
+> +	.dev_priv		= &npu3_dev_priv,
+> +	.fw_feature_tbl		= npu3_fw_feature_table,
+> +	.cert_feature_tbl	= npu3_cert_feature_table,
+> +	.ops			= &aie4_pf_ops,
+> +};
+> +
+> +const struct amdxdna_dev_info dev_npu11_vf_info = {
+> +	.mbox_bar		= NPU3_MBOX_BAR,
+> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
+> +	.default_vbnv		= "RyzenAI-npu11-vf",
+> +	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
+> +	.dev_priv		= &npu3_dev_vf_priv,
+> +	.fw_feature_tbl		= npu3_fw_feature_table,
+> +	.cert_feature_tbl	= npu3_cert_feature_table,
+> +	.ops			= &aie4_vf_ops,
+> +};
+> +
+> +const struct amdxdna_dev_info dev_npu11_classic_info = {
+> +	.mbox_bar		= NPU3_MBOX_BAR,
+> +	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+> +	.psp_bar		= NPU3_PSP_BAR_INDEX,
+> +	.smu_bar		= NPU3_SMU_BAR_INDEX,
+> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
+> +	.default_vbnv		= "RyzenAI-npu11",
+> +	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
+> +	.dev_priv		= &npu3_dev_priv,
+> +	.fw_feature_tbl		= npu3_fw_feature_table,
+> +	.cert_feature_tbl	= npu3_cert_feature_table,
+> +	.ops			= &aie4_classic_ops,
+> +};
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
