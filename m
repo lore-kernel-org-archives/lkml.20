@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347793;
-	b=aIGSDuwDVx4Ut2DzAW0JjeuOooS6jXN26F7cuDuUPiyU+9halHGcwNBIPbSnKzfr1OES
-	 9gkWi7dbxVuMLZhQY8IOZsToQ/B2BKMVurqPk+vhc85KRtVdKC/hwA4BgGcVc3SSu3ml+
-	 qr2j7C7kGDjdRobXHorAPndzDl+ROANk1Ha98vvfgIEpPoAKeZl6131dRtQoGKGsddP/P
-	 iEOyK2fUHHJiUX7b5gMejUu7DihZq/bhZdEnl3crcPzwvib9rUWeCKrDyvdJWd4qqr6du
-	 cg11FNnybPRtTd5TmtVyyEOSL00Xlqkc/y2/YRu4cvFzxjoSz7iYt1pXw5yT7AVhDhA==
+	t=1794347789;
+	b=KTm9l7jahAdb6a4TmKUgaH4pRZuXT4JorZmRx99GCAU0xWJBXFaKxcBo+afoVtQ0yBAX
+	 OMkqKvb4WS3c4QnovwLTesKy3WnSQ8uSNMbMfjYgSUJFMUTPKALF51tCY4n5GZwtB5HCm
+	 c4zcjNx0sIfARyNyQCGebgQrvVcN/MMisDUH+H4e+Tiqxy0LreVjHweGiULJr7c/fBL0V
+	 F/gw7QqjsLw4m77llxCLUx1Xnm6FEdE+YqLCDR1dePJvKucuyxkXj91pHUR3QtAZeSBLr
+	 Jl/il+kImuogRWQvXPZuKvGdDFBImevTiy/wof98PRq0wyt/N+KLqhnRqa6S5x+u75g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347793;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347789;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=NO6xfwXJCf7saDCbc00EU4syl5ydeWwA/x34A0BsQ0M=;
-	b=o7wlG5qS1bkM4ohfB5rrnDS8HVMSEcbeHa4etdQFDo/FIjblVBhqe5bxN5oHkzCiYpt1
-	 G57qLxl6uP5izCeXAJDEFLNc44EfDDjhc10BqWlHz/MnIFIMgCk6E4jL63DdSKiAFGarP
-	 Wq2k4UjmHyxd+TprO1RuPgs5lmx3UiimSoT1q0oUrIK8RIvY4gcShDxKgQu+2KCyaf1Z7
-	 bkcMiAW7310s5GLkgggV4Y9GPb+yuJ9+IXx4yFW8iCGMkX/Ofo5wtum3kurTSvBUdLw0E
-	 BsHq3vi6qCsXAvyNSDatolHl7ZfhI4EppwBTW3EFIbcCuWUMIdPKVV4wGOgDdhTYBYg==
+	bh=3yHxwmGIP00UkCKgkChB+u5krh4ioA+qIXr0cmR6Xmc=;
+	b=PAdisoONVKeOv/FMvL5tv3u6XAtp66FNy8OtUVFZuXF+BX8WqmUtDoag2XlNxngtv9+/
+	 dJJo39LczYrEWxWn2OPzYhDcyXMTTe5ASaE93VI3IPtIIKp6csM8JT3LKSFpAI/iR2i4N
+	 YoDTu2q9abZTyT4cz8VxCNfgID9gDc9f2qkqlw4igbK30C4zQ2/jpKzSe6Vh54XakJLHb
+	 bhKuz/VlT7s9hYizjogOmqVErn2SWq1NibCpzMpSnDMyTMfkNY25TNN2mUBwiU7UN7dXr
+	 aTPom6ewxGO9mHV8+VrjkPZHIORtj7YrufjRF9MnoRSUGNwLI82E9cACkl1He8nX1Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=k+JG0y2A;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pnyN8E3P;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08BF606A9A7
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B08BF606A9A7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE58606C983
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 21:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE58606C983
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=k+JG0y2A
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so21381485e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:56:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pnyN8E3P
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a214af2076so19251095e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:56:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794347791; x=1794952591; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794347787; x=1794952587; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NO6xfwXJCf7saDCbc00EU4syl5ydeWwA/x34A0BsQ0M=;
-        b=k+JG0y2AurrMVGn4qnq2kToy9xNDIEenSjKJLz0mR/4LwQb5EoKq6OATFtgm4PEekF
-         gMaV1z6Zmc6V2btyEWjfHpIWzbjzFg56aCUaoLP1NqjBYHrstlhWZx6cvQrfDhMF3ppH
-         IR9IANn7JIekKtSB3wy7OrEoIOP4sCguNY3cAnrentShPZPlwPcZZ3KlgBa9gwhtRZqr
-         L51zrh9eL8GJNc5J8FOR1qlX96dxJgJD0bRTdp6uRW3lQiTbwvv+B4gSzvkNstyxWXTR
-         yjMg+Fa7ndJYhTpwLFVaBjJu9VHE//NZhR8pzWYqW91ZwQy0Ri5qq9p0FGN4UeLoC4cF
-         ng4Q==
+        bh=3yHxwmGIP00UkCKgkChB+u5krh4ioA+qIXr0cmR6Xmc=;
+        b=pnyN8E3PkA3JkFJuwnMjAxb7avDoA+jvgosay72oDS5E739u/8Nolhdn7hsJyHLHZt
+         yB/mTwG+qNhRwMnghUSO8KJQ9OHoX6u3H9Dksgnl9RbnaY5GMxnpN/W/TR9Z328EWZKQ
+         E6C4KujBIr41uqM1iVoC3TqYd/org3gEc5ka67FQzPOu0ZHJH9S2zaVwQP4bkLMvuTJ9
+         A8t5xumCbrGkvJXrC0Rxerwqkm/q4YG2VpMuctpfASHCJuyEsqg/yTLyTwVsdOmBjcQh
+         yI6ciJq+lm0aPEhee48xszoD/mDTIsDBUXE7ird+tgMWmLjKQwrcxijU8rMbjH5kKPFt
+         roFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794347791; x=1794952591;
+        d=1e100.net; s=20260707; t=1794347787; x=1794952587;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NO6xfwXJCf7saDCbc00EU4syl5ydeWwA/x34A0BsQ0M=;
-        b=XjjO5fizr0LJh3B9VibMyzlRTK1dmSDqM53TKzP1RbpyXksVR0YT4t8SaldY9zVyeF
-         mfJOXbf7xV+HBlxqoho545Sz89A8axyrOjvzu0hcTIy8INlkWT/iI6BEXFSy8PNV9ofM
-         1n0FjwV3Qk5WdEFPNdulvz/q3F6KvTfcgjfirdI5ayzmOdJ9oYEbYGcYgwjbmTQK/9D2
-         oL+tGqIBcaUGk6gAANzeIeM452b8ilQHp39NfWvpIlcsK8a1I+RsMexagterb+IruJbb
-         QcG5L5F9S4/VAb1A0hMF9oauZ/5GqWze4xeQ0GRjBkG0Nat3qvK0+LJepAp3dxZngQjc
-         +YDw==
-X-Forwarded-Encrypted: i=1; AL+hErHSuYFhD6dftOjFW0dJH+2ov9LjQ7r1tf/40ntOSFimN7nBArc1HMvWBx+xx7VGTx9WecIgwfO/wMtiy5E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iq3JAP+t6sIlC+q6LONLN95LnDcWhBX2pzIaVuBwOXrop2yYT
-	Bclccaa363y3/MiB9yRaFcOipbl2i87LfTrn13nUFdYHDDuP9dmmv2CdMIRIg9g+INo=
-X-Gm-Gg: AYBFou22AjUC7NgBzS+HzwQtuoHe0DITTzLy8zOuuYwJcLdGA68YD+Q82V+ZoBrbEtQ
-	hu3GRql5ifz/TJj7ecueddFRbpxTW0JjA8HRYO55yXXYER0ZFC98Hs2WYkphn3WO2yPyY6oljxe
-	yzuar37RiXs2ebQ64+L11Mh0RC7yoHP00wpAiVghjxkOAc8T/9BOL8h5Gun9uZZ/La4bQHGo70U
-	UL8aclk/80c7OI1bVQjAvOvuuCek8QHrDqlzqHBbuezEE4UsVTrknRZgMTO2u0PQ8QeYWCXjeIm
-	B32oeBBLDNG11hD+9C1fHd7LP2IEB/5uOF0Xzo+qkmY9mkVOX2l7A67aI9fuNlFBBcMeF9g1RUC
-	XCWFN3ZpEzILfhln+sZGfZu8J3HDDtsDUqIsAwXOzEat1mx+mawK3KP6OwErWR+zEB55PBOrgIy
-	ysd+nCa8ZV3Hws29yKO+FFhjmuRkirmFVMB5D4+YuTG5x52vK0e1Z9W78NB+Ens1nx26KuCLFdr
-	pMkQhkLkbkrfcqt8lLYcwXTf4F1a08a2noX6qIGDlbIiNvFJp/uskH8/MUoyWnGLtom2VcIEi4l
-	OXkfAh6qsqN01TUJ7IL38v6erkqD9x4y3g==
-X-Received: by 2002:a05:600c:4f84:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4ba0931d9eamr7085555e9.1.1794347791129;
-        Tue, 10 Nov 2026 13:56:31 -0800 (PST)
+        bh=3yHxwmGIP00UkCKgkChB+u5krh4ioA+qIXr0cmR6Xmc=;
+        b=Xqhdwy9gEdcu0MUPDvuZaq+jbq121fgIVbpJbou3V3p+rh60M4JRgalXWWuXg+G/NT
+         N0z0ALUyu8OliChN1gPavqxzLRKPYmZE76f619ogwwDzQcSuHR6y1yCktLIEKOJvjd57
+         8m8tpnV0ehafS0htjAP8sT2a59mPFJQuzlTIJb2B960pekkYmaNdl7x6bnlRtzdkTG8s
+         kHlUOO+8bguhYYWgkqgrdstTD/hzKPNcAJx1TlI+SNm5+odo/Lv+HzxKtHBMC8mnTicV
+         doW8Rurq4M1ESTqPKHjZuafP4xur2eohHq0O4dUUuohMrOm0Fal+f5uDhbfHgsQoqUWr
+         yYkQ==
+X-Forwarded-Encrypted: i=1; AL+hErGc+JDjucdgLNx1pljBzeBd0dqux5Pze5GQHUx6daGRVxYrkAZ36ruZuoyq6wH1yxrOY1gJJ2Z3M8kKh4o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PK+SJfcAyP/4j9dpjWxnk5zV02eos4xQ3/6S+ENaxNJSc2sQ7
+	RPbeQr0c4x+m/kLXkqJD0pib0z272Ds+9gWHO3carWa+608AM1kreNYWGUexdosypYY=
+X-Gm-Gg: AYBFou2GL6j8ustJb8OjeB+XZnUu4TqpRJBlejMSAWRjhXvE9iBFLaM9IWKS2Qy3nhw
+	l8ZZWHkbv85H/z2M1GEU+ItqLIHZTmlhn2yolz9myMBuVPE63K27QwKY8mfMcy0kvqjFFNwT2tu
+	w50iFrtDxZ1Y2IcSTruyBQ5qrB8q0KR3oDlAXj5Yb08WdDqmHKMZvRQ864tKLZQxfkiGI9jxqDO
+	99/U6sZ9NaebBy38R80rrlMVcey1Vy9XYEyBU6Y8uyv4Z14+T60QWqQvXr7UOYIPBRfksgqQPg9
+	z569WlGRqBCOkCifVNqVnAeLCYYtUAuyBn2HDssGogcgafEuGc7zqacL+SnxJqqnULt/EY5DliM
+	pKPJO4dmz0Ikk/S3vpQLqEusE2B+edvSs3/hfxGm4gsYzuyneQId4TpOSiZ35pV6FeiuJUS1saA
+	YU/7on85GR+bDn0uOu10XgkfckL/kZQ0ptI73JFbTTMuYpXu6PBz+c4xgpl7S8dVFVp8W/jbNP6
+	XcyWTImM7aqKoHV9VFF+WiO7Tw6gFD5S7aO7yi9TOwfnQHBYnidiD6sUK+Aa6OU3C2aGT68RBgQ
+	eDwK6koktYeNUTLNYRBWVrmbUNX9bgCqpw==
+X-Received: by 2002:a05:600c:83cf:b0:4a2:191f:7cbd with SMTP id 5b1f17b1804b1-4ba0935cc7fmr6834225e9.11.1794347787385;
+        Tue, 10 Nov 2026 13:56:27 -0800 (PST)
 Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba0204ee67sm92179165e9.13.2026.11.10.13.56.28
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba01fe9357sm104638115e9.9.2026.11.10.13.56.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 13:56:29 -0800 (PST)
+        Tue, 10 Nov 2026 13:56:26 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: Lee Jones <lee@kernel.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Thomas Richard <thomas.richard@bootlin.com>,
+Cc: Linus Walleij <linusw@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v4 16/20] mfd: Unify style of acpi_device_id arrays
-Date: Tue, 10 Nov 2026 22:54:41 +0100
-Message-ID:  <7e0cc26f7a3a662024c5383d68611353881f5f6e.1794347059.git.u.kleine-koenig@baylibre.com>
+	chrome-platform@lists.linux.dev,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v4 15/20] mfd: Use named initializers for platform_device_id array
+Date: Tue, 10 Nov 2026 22:54:40 +0100
+Message-ID:  <19b9b030217016ca7f4b0d9d9fc9ab915a8963f2.1794347059.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
 References: <cover.1794347059.git.u.kleine-koenig@baylibre.com>
@@ -109,126 +108,78 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4372; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=dcnySOz5sLZB2IWc3ElMFGLXGXlvG+aJt0YimLpkApE=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85LKtaDtSVT1IPnpbcyOBmlZuTxtOseh+i5G+ ifEdwREwu2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSygAKCRCPgPtYfRL+ Tn67CACH7JMlEnwG/SIKz8ZvFT6CIhXib6vgc9DtOxq4/nsrYLDvz3xLbXTNO4iQHXGzPuIPGw1 n09AjJCwlxrcLk4byGvF8+2sZ8e+94ojgcRjI+g4GSTDo/aLLDmre6K6bEpPhbURRXKq4GgPOZT UL+JzLkBqGYh16ymfeJ8wbxcjaXxQeW1LPAnE7YmdXpHSF6QSoDTCfs9h6UR28eSY5n0u41urMm 5ROSTd4EW7XQxfAo7CC0epc4ar0hUZE9X2kYwgQZ5/1HkqkcHBcmRiBl0uf/0GT5rIcCKCMl/5R Y9lxjj8orOxo/slp9RlVKF7QNYobVmlOXY8pRgaKV6T4x4ri
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2610; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=GtAPN5RJoz25rnsaMIkCchglusimHC6pNuburCmgGRg=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq85LIi8QM3sjZgogwtug7vcVX0SJ3+X0vaVym+ L1HdZB2sE+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavOSyAAKCRCPgPtYfRL+ TmYhCACII9zsLdrs/XbNbp5plwyC1+ueOodgi90o8Ine575DtEGWJWFKxuOyV3MjOikDIUogOsG MzJmZ24/rTI7I4xwYZlkYEAqHwAGYW8EMjWiQpKt5XO8wsAFYIxFSL8LTY71t74mgHbWDhNI+8w 2TxE30D1nc84pn3rOgSAECQGKJdmFQ2ypL3quSOgUzff6KmjPytCYfR+0y/C9BOwmXcw28lKsDc mkicJ29/gVaaf9mRn6Qtjl2QU/WU4d3KO3rTHSnwNDd0A7kyku+SPqvzMsCcRe+ONI4Alw7KzMt c3E3M48lKlrj231S7RpIbK24VOHABh3tP5EwFKaeE7IzoPbd
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-Update the various acpi_device_id arrays to conform to the most used and
-generally recommended coding style. That is:
+While being less compact, using named initializers allows to more easily
+see which members of the structs are assigned which value without having
+to lookup the declaration of the struct. And it's also more robust
+against changes to the struct definition.
 
- - no comma after the list terminator;
- - a comma after an initializer if (and only if) the closing } is not
-   directly following;
- - no explicit zeros in the list terminator;
- - a space after an opening { and before a closing }, a single space in
-   the list terminator;
+The mentioned robustness is relevant for a planned change to struct
+platform_device_id that replaces .driver_data by an anonymous union.
 
-Adapt the few offenders accordingly.
+This patch doesn't modify the compiled arrays, only their representation
+in source form benefits.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Also drop a tailing comma after a list terminator to match the common
+style for these device-id arrays.
+
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/mfd/axp20x-i2c.c              | 2 +-
- drivers/mfd/cs42l43-i2c.c             | 2 +-
- drivers/mfd/intel_soc_pmic_chtdc_ti.c | 2 +-
- drivers/mfd/intel_soc_pmic_crc.c      | 2 +-
- drivers/mfd/intel_soc_pmic_mrfld.c    | 2 +-
- drivers/mfd/kempld-core.c             | 2 +-
- drivers/mfd/upboard-fpga.c            | 2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/mfd/ab8500-core.c | 8 ++++----
+ drivers/mfd/cros_ec_dev.c | 2 +-
+ drivers/mfd/mt6397-core.c | 4 ++--
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-index 2f595e2b883c..57695e46e00e 100644
---- a/drivers/mfd/axp20x-i2c.c
-+++ b/drivers/mfd/axp20x-i2c.c
-@@ -97,7 +97,7 @@ static const struct acpi_device_id axp20x_i2c_acpi_match[] = {
- 		.id = "INT33F4",
- 		.driver_data = AXP288_ID,
- 	},
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index d5602b2f4a0e..8638fc8472f7 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -1252,10 +1252,10 @@ static int ab8500_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct platform_device_id ab8500_id[] = {
+-	{ "ab8500-core", AB8500_VERSION_AB8500 },
+-	{ "ab8505-core", AB8500_VERSION_AB8505 },
+-	{ "ab9540-i2c", AB8500_VERSION_AB9540 },
+-	{ "ab8540-i2c", AB8500_VERSION_AB8540 },
++	{ .name = "ab8500-core", .driver_data = AB8500_VERSION_AB8500 },
++	{ .name = "ab8505-core", .driver_data = AB8500_VERSION_AB8505 },
++	{ .name = "ab9540-i2c", .driver_data = AB8500_VERSION_AB9540 },
++	{ .name = "ab8540-i2c", .driver_data = AB8500_VERSION_AB8540 },
+ 	{ }
+ };
+ 
+diff --git a/drivers/mfd/cros_ec_dev.c b/drivers/mfd/cros_ec_dev.c
+index 96aac158fd8b..3c7e7f1efd0f 100644
+--- a/drivers/mfd/cros_ec_dev.c
++++ b/drivers/mfd/cros_ec_dev.c
+@@ -379,7 +379,7 @@ static void ec_device_remove(struct platform_device *pdev)
+ }
+ 
+ static const struct platform_device_id cros_ec_id[] = {
+-	{ DRV_NAME },
++	{ .name = DRV_NAME },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(platform, cros_ec_id);
+diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+index e74936ac206f..385121867da5 100644
+--- a/drivers/mfd/mt6397-core.c
++++ b/drivers/mfd/mt6397-core.c
+@@ -435,8 +435,8 @@ static const struct of_device_id mt6397_of_match[] = {
+ MODULE_DEVICE_TABLE(of, mt6397_of_match);
+ 
+ static const struct platform_device_id mt6397_id[] = {
+-	{ "mt6397" },
 -	{ },
++	{ .name = "mt6397" },
 +	{ }
  };
- MODULE_DEVICE_TABLE(acpi, axp20x_i2c_acpi_match);
- #endif
-diff --git a/drivers/mfd/cs42l43-i2c.c b/drivers/mfd/cs42l43-i2c.c
-index faf4fc6b3d73..89dca295cc57 100644
---- a/drivers/mfd/cs42l43-i2c.c
-+++ b/drivers/mfd/cs42l43-i2c.c
-@@ -76,7 +76,7 @@ static const struct acpi_device_id cs42l43_acpi_match[] = {
- 	{ .id = "CSC4243", .driver_data = CS42L43_DEVID_VAL },
- 	{ .id = "CSC2A3B", .driver_data = CS42L43B_DEVID_VAL },
- 	{ .id = "CSC4244", .driver_data = CS42L43B_DEVID_VAL },
--	{}
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, cs42l43_acpi_match);
- #endif
-diff --git a/drivers/mfd/intel_soc_pmic_chtdc_ti.c b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
-index ff6223d6f54b..49f4138961c8 100644
---- a/drivers/mfd/intel_soc_pmic_chtdc_ti.c
-+++ b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
-@@ -163,7 +163,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(chtdc_ti_pm_ops, chtdc_ti_suspend, chtdc_ti_resu
- 
- static const struct acpi_device_id chtdc_ti_acpi_ids[] = {
- 	{ .id = "INT33F5" },
--	{ },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, chtdc_ti_acpi_ids);
- 
-diff --git a/drivers/mfd/intel_soc_pmic_crc.c b/drivers/mfd/intel_soc_pmic_crc.c
-index c1c02700ef08..95588caa2e77 100644
---- a/drivers/mfd/intel_soc_pmic_crc.c
-+++ b/drivers/mfd/intel_soc_pmic_crc.c
-@@ -253,7 +253,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(crystal_cove_pm_ops, crystal_cove_suspend, cryst
- 
- static const struct acpi_device_id crystal_cove_acpi_match[] = {
- 	{ .id = "INT33FD" },
--	{ },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, crystal_cove_acpi_match);
- 
-diff --git a/drivers/mfd/intel_soc_pmic_mrfld.c b/drivers/mfd/intel_soc_pmic_mrfld.c
-index 9d7e1881d693..531d8b8be44d 100644
---- a/drivers/mfd/intel_soc_pmic_mrfld.c
-+++ b/drivers/mfd/intel_soc_pmic_mrfld.c
-@@ -140,7 +140,7 @@ static int bcove_probe(struct platform_device *pdev)
- 
- static const struct acpi_device_id bcove_acpi_ids[] = {
- 	{ .id = "INTC100E" },
--	{}
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, bcove_acpi_ids);
- 
-diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
-index 71b226a57204..ceef894efcca 100644
---- a/drivers/mfd/kempld-core.c
-+++ b/drivers/mfd/kempld-core.c
-@@ -440,7 +440,7 @@ static void kempld_remove(struct platform_device *pdev)
- static const struct acpi_device_id kempld_acpi_table[] = {
- 	{ .id = "KEM0000" },
- 	{ .id = "KEM0001" },
--	{}
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, kempld_acpi_table);
- 
-diff --git a/drivers/mfd/upboard-fpga.c b/drivers/mfd/upboard-fpga.c
-index 6674f4a1d2fe..37c3c50aa6e4 100644
---- a/drivers/mfd/upboard-fpga.c
-+++ b/drivers/mfd/upboard-fpga.c
-@@ -302,7 +302,7 @@ static int upboard_fpga_probe(struct platform_device *pdev)
- static const struct acpi_device_id upboard_fpga_acpi_match[] = {
- 	{ .id = "AANT0F01", .driver_data = (kernel_ulong_t)&upboard_up2_fpga_data },
- 	{ .id = "AANT0F04", .driver_data = (kernel_ulong_t)&upboard_up_fpga_data },
--	{}
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, upboard_fpga_acpi_match);
+ MODULE_DEVICE_TABLE(platform, mt6397_id);
  
 -- 
 2.56.0.rc1
