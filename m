@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269027;
-	b=HjuStzvDFBWwdCtZxO2XeyrJE59G46Xwq2bQZjhDxjHq1LIc40NCVrPHKaWolozqNwy5
-	 IlkleaK5L8ZQMpcYMSnPZJfg0sCqju6c7VsA3aRNn/zQ26ezb7bNytcwfBqsa64B0O2QH
-	 S4eKhyWHV5JduuTVAnxIwqHDMXsgPTkZxGMFhLHfw/KORsoYPLeUUNqiwzZK4p8TuLe4D
-	 oe87z6wroQFQi7Rq0BCpXZL7NMHE6vozftd2bDDn1qUN0J22Bt6U10OtS/b4IMC1A8Cr2
-	 ZkJiievGZsfyvyrYFKpfWdM/hOekr6CYcKxLjoSPxqwfjAybNjhfRP4VQ2YoC1RMtXg==
+	t=1794269029;
+	b=RWyOtyqWlID891azSkQ2C+S6OIfrFsBmZyUukk/3oviTj5xXmnxsz5mzjbvSqxpnFeYt
+	 YBMAP2oRtj5Nn8K6JPeMK2AQTtDDiHW8/vfeJF0RIorVDjHsqJ9jU/BcWzfligbR37gol
+	 GfXR/rfZ2fiyV4dRn7wuF/iH+ghKw9ua/hz0ygxDX+QSghT1I4jJ8qe2+j2EJ6eLZdPJZ
+	 x0x39PAMrq9t/gyT1rUj5jEtAD+8cn9QTlaLvxCVoFYwCZo5j7LJMAlCGlot0AqCCfI9N
+	 rYRZw1l+gPizmwrfZezcbmAG1wo5g0Tnh0LSSUI8dJiSfikevNQaCDGBIhqyZShzMUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269029;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qRWx6M+jYkJMNyYGPB8wr4U/904x6/bZv7J2hXdrjm0=;
-	b=eTxwXqpad9D9zOVepD4qyEFn86tebEe5fygzI913elLkmJPyKSVVt4az/UmO/zHgvSD0
-	 4BWSti88B/6WmaCbf7bXfXIQ/o9VFWxvj9FYIbbKwtASCtZCC5+0V5tTqsahuiDiq38iD
-	 goNMLUbhsxH3c1pZKVrtbSHUIFb6/ABkOxNgeHAtw67DZjUZe3ZbaC7oElB5Au6FoAkmG
-	 1PJYvmX3KgFX5/1uux6NZgJRtU+OYA2Zj9H9IO021ejFkP5pwZHcIMrRPu4963js4XlYX
-	 JlbT+Z0oVGExMYOm8Qj9aa91J5EgLINcpV7YKcgN2P3IhqQ7nFQ6GlRFWjEanvmN/mA==
+	bh=0PXwHeGALupf0331RmW1wRjuSer7MEVZbJRazHgd5E8=;
+	b=aRnsj8rMX/VLemwbd4p6mGimEMXztzbRPb52DbqVgPaWxVxhqcOMhl9neDAaFY+b1mJu
+	 5fl9x3Xm+mnpxER61rZjtsVROA/5SaEi3vZJNs0qQ800kBi7IGZqjq7g1q7DiABBJKilf
+	 I9YfBvZGPNYfjiX2h3luuBIgHwnyFYZxbwn7G6yi2iZVqTk1WibIA4ZtHyaCObTXugz1p
+	 gO1pgRZcqvM7W3v1HJwjO+SbFdH0qc5UZU3p+2hTj5HJTVBFpaabb4Ap24YC/IzctS3Rm
+	 tcHivJEUOe3RdOIMsjkhDsMaTYIqfu7QmG+v1cGHdg1PSkNoeitxtJMJjsHsZ4QpXkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H8SV8DZz;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9HowOFE;
 	arc=none smtp.remote-ip=209.85.161.48
 Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70EF60A2604
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A70EF60A2604
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA7F60A2615
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA7F60A2615
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H8SV8DZz
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-717034b331dso837557eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:03:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9HowOFE
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6dd7070699eso858432eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:03:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794269026; x=1794873826; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794269028; x=1794873828; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qRWx6M+jYkJMNyYGPB8wr4U/904x6/bZv7J2hXdrjm0=;
-        b=H8SV8DZzFQINAo/TgCYJcMD3Cp4XsBzuMofNQ6GbYDlxp4CrkPoMp5HWbOJTnmheAe
-         q+KiRMAheigLs+bq6l6D73817QHnle6z0L5ePB65zuWLbZsPVi5/i3oTrEju01IAqYmv
-         CNCJS2mGTQd7J0QhL4gQZP/ZFg7An/2VBHorAzAjqRxlTbYd5sOZ2l8I81XehL3R9iDt
-         bMyz0EN4DNwXrhOTEJ5jQHEDvTr+uPMwJcp759IchfR0OMce6G7Pp3OGbigKyRGISO7/
-         luL6syumiGph/HzsU4KTfeweBRxvaUSiE5v5JYyLNrirFpRvgZvnOmRBNOrn3n+oyFAs
-         Sjcg==
+        bh=0PXwHeGALupf0331RmW1wRjuSer7MEVZbJRazHgd5E8=;
+        b=R9HowOFEjTG8TGdzq3+2tEcRgrLzVCbjTymZUYGZ4QLvSUTDMIcXRG+BV1A/1+Gj05
+         1NtNe35sCjjUUQL+HM+1pUELkk39asEBJn0cbt0EbMGOXi5TCSc9xgjYyGcRRdaZKjdM
+         B+MznVKFtY/MtDmrhtRh0deMPuZgKMzMGsYBGuVwXPcOB5Ckhle7ocwtYipCo4a1q93B
+         XRucLhPkDmEO3xYKPrHjTX+oRch/plQamSHjyJTQIgQg3I+DtPDQ+lPSfigPr/BsGb51
+         e6xwCdDUSJX5T7YqU1CC0ZzBPQ0r7YJY6bOH3NbHePf9hvnlzkdVUPuAzejgEIzPiCI+
+         MMKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794269026; x=1794873826;
+        d=1e100.net; s=20260707; t=1794269028; x=1794873828;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qRWx6M+jYkJMNyYGPB8wr4U/904x6/bZv7J2hXdrjm0=;
-        b=gEjqcXI3egQKlcTH0lrxJJkoj/ywFR9As5QjwFDqiLiLX9CYTofceORBkltl8HSrpe
-         JHkUfYpzbqsuWe5lllTOLHtvNi77+tJ0Rno40SWA6dcah3k90/mhgvCzUTs3Y3ZdiMYg
-         r0Ij45FyMnQeNkdQR0exfRtAEnJCnNaSRMv4IZZgtBSW7HNCe49qMbOWIszJHPJi02ft
-         841d4QkUaI1GEBmUMDZVyI+wM9ELepiST13BV4AOfpT0R5VMmwBSjJuEh0/47aljD4vC
-         RG8sVHaDqgcIZdbzhapTgDiMj6PvGYqUAKg5O12IkZcnzAOTQSragIejFNa/Sz8p2i9w
-         7XYg==
-X-Forwarded-Encrypted: i=1; AL+hErGG42nkRQITShOLPtI3y4HTG8rXjxuKfO0f95sNqI6HyqjZaFAwyLrvkzvKVGs2c93+rPYlU1GozK2ZUtw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sx2hda5njV7d79OpQ5ERUR/4sslM/JC3QoVIpw4w67ztfV83P
-	5trIEfsZoDKcZcMV34b2WdUgTyqGQtn1cehPRbxb0L+QbFsMbhUAR8Dv
-X-Gm-Gg: AYBFou2s7fXOB7+LRTL6vNBYiXd2nvugMLpGnCrwo8Ey3X0+oOwBnXb34nMdATPA3Qo
-	MlkviWvZLeBfYgJtvTleoomhtU/4YJb6ZyL/o+AgEd1KugCMJAnFGEF/EOXrLSCFiyqo4i+jB2R
-	FvZVwAMiQTmRbASk/fj/PLM/2ijA+734hqBQHblLOrUG+HIWKBMWTFXTIpLLFJfALNSmWV1/JbQ
-	ncK36DJ6hRS1XBbM+tZdfQQKFJmobxztkb08XxXmuZ9bGX44r3EXy89wIKIwNvpVjz2BdnCmwhE
-	0+SX1FiLB8lDTNSVUa9Q4B7XOYAlkNwhSkPMGCEhhtrRIdMlUByiZkvG8OIW0ItoYk7HVkWvtSB
-	jGkNkz4WAILht/RRPiMZosoMNVR3lrBYMqiwOCz7wfVQvTDhK24UsZbye2faBBn+iVEoeKeyTZH
-	CFw/f4iQbYThgXDLLQCm6H17tF33xR0CZix1+3QzQkve8rvgwEU8SQp8f1knC1L5Uh20NEol4hg
-	JQwxKSmDw27EjYoJ0uZkzrMOasAH3/+j7ajrhEVAU523ROaTLCJFfUt5xp6/V51yn4zZBgSauF5
-	G5Ag7krpdu1qZ019Vuk4XoCeQJkZW+n10bRg/fJFV+XS8GvoWE+1cdxfUnhAjnI7
-X-Received: by 2002:a05:6820:248c:b0:70b:9808:a78f with SMTP id 006d021491bc7-718a5a5b6aemr331840eaf.51.1794269025678;
-        Mon, 09 Nov 2026 16:03:45 -0800 (PST)
+        bh=0PXwHeGALupf0331RmW1wRjuSer7MEVZbJRazHgd5E8=;
+        b=qB9FZWEXzUT1qAoZT8wDsf+gqTBwWZgJujEuhbaMQ76y5LnAV+uhovazJppd/WZyWy
+         UzGbMzzqWuH2BpM8fO3QxVBP1X71R1De1BcEBtcQjOosfWZPz3LQstf8fLWi8IWp+qUw
+         2lnZgxKtkVW0z6oCKKaE64TRemqb7AbceKMjSOpX2tgCapxRdOjJJ54O/10y0S3SOO88
+         H6kz71cRaaVdmtM/GNBgPFEgXw5q+ghY2A7Mgj/XkAKEAtuRNqNrcKgcLwCHAof9j+xR
+         rviSnbZDxdc093mY3hS2l5VmyheuWQM8vo/hlKfEk7PiOGqRAgg/yhOp2DDiLcISw1+B
+         xtvQ==
+X-Forwarded-Encrypted: i=1; AL+hErHZ1oI5Usee2XaDOzBZXQAgLvwEMhhnqjmAZM4KaJSke2xn3yWU623/YT4glKfYSoksdKjSdlHy7485MmA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QpuwzSp0Z7uIqxH+p9+Nen2p6iTnMp29EgRNS6z15F5oxXezv
+	jpoUqH0YPswnTUxgRYqYnqqCio8eS04kjwrpE7DdPVKRn1ocDDcoVkoc
+X-Gm-Gg: AYBFou1ObYURZSq+pqVGIRpiyTs9VeXyHnOhL/qTKG5mCMkBquirgLc/Ml1rRmPCF8a
+	GigndCjXSsTZYUC6slZTq9Z1HJzucio1Okd97MFNM1rruOyCl/PcAwzSe82TBZOV4slOI6mDwXZ
+	lKzAc7sM/Jxi7q09N74x5/eKZTzYVUNTYRwoxi/rf8mEuDOWAu3HVOJJMDvh3x0Qiio3jJUSJ2p
+	qnSw5QlgDh4BIl3KJJ74NpTHuo/imotm2KfB5az0zxOHjpxhZNQdOtAVuGCdYOr1YbSh0pgdBDf
+	F8wGtD7nbdhbFsOzSbwUOeS/jPr2LxjZCEjrlJexcEKm5HjtjK2VUZvmPzQpsQkg/sP8vpU6Brk
+	LlwSOtY4AvpQ/ng2xbBtCsx/AgtSUcMGfpGw/8UMHn5xTBTiz+DQr+jlrJ+f9MQ7bwuYrKkr4Ce
+	ydcD70mafNtcEJEflRek1vy1qNdZmpGO2002fBWrnBnecLJSOUz8UNoHwSYqeStld/Uco7XEf44
+	+7OTe5Ha4me1RUIpIMH0R+I2qbcpri5/lTOt8vEYsyLNFL2IpFfvnmxy8igj/ez8o7SViVBW+mM
+	oE1h2nXSz2BKQHUd3j9EWFJq/bEClvZ/y3yK7wNmj5c=
+X-Received: by 2002:a05:6820:338a:20b0:702:f7c2:1937 with SMTP id 006d021491bc7-718a7adc206mr309940eaf.83.1794269028466;
+        Mon, 09 Nov 2026 16:03:48 -0800 (PST)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718aa03dbeasm513036eaf.12.2026.11.09.16.03.43
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-718aa03dbeasm513036eaf.12.2026.11.09.16.03.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 16:03:44 -0800 (PST)
+        Mon, 09 Nov 2026 16:03:47 -0800 (PST)
 From: Leizhen Zhang <lzsx618@gmail.com>
 To: jpoimboe@kernel.org,
 	peterz@infradead.org
@@ -87,9 +87,9 @@ Cc: yangtiezhu@loongson.cn,
 	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Leizhen Zhang <lzsx618@gmail.com>
-Subject: [PATCH 2/3] objtool/LoongArch: Move the cfi->regs access after the NULL check
-Date: Mon,  9 Nov 2026 18:02:54 -0600
-Message-Id: <20261110000255.1720945-3-lzsx618@gmail.com>
+Subject: [PATCH 3/3] objtool: Fix misaligned load of the alternative feature word
+Date: Mon,  9 Nov 2026 18:02:55 -0600
+Message-Id: <20261110000255.1720945-4-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110000255.1720945-1-lzsx618@gmail.com>
 References: <20261110000255.1720945-1-lzsx618@gmail.com>
@@ -104,52 +104,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-init_orc_entry() takes &cfi->regs[CFI_FP] and &cfi->regs[CFI_RA] before
-it checks whether cfi is NULL, although a NULL cfi is an expected case
-(unreachable nops/traps and STACK_FRAME_NON_STANDARD functions, as the
-comment right below says).
+get_alt_entry() reads the feature word of a group alternative through
+an 'unsigned int *' at offset + entry->feature.  On x86 struct alt_instr
+is packed and 14 bytes long (ALT_ENTRY_SIZE) with the feature word at
+offset 8, so for every odd-numbered .altinstructions entry the load is
+only 2-byte aligned.  That is undefined behaviour in C, and UBSan
+reports it on an x86_64 defconfig build of v7.4-rc2:
 
-Forming a member address through a NULL pointer is undefined behaviour,
-and it lets the compiler assume cfi != NULL and drop the check that
-follows.  The x86 copy of this function has the same problem, and UBSan
-reports it there on every defconfig build.
+  special.c:84:18: runtime error: load of misaligned address 0x52e000018416 for type 'unsigned int', which requires 4 byte alignment
 
-Take the addresses only after the NULL check.
+x86 hosts tolerate the access, but objtool may run on hosts that do
+not, and the compiler is allowed to assume the alignment.  Copy the
+value out with memcpy() instead.  Running objtool with and without
+this patch on the same defconfig vmlinux.o gives byte-identical output.
 
 The report was found with UBSan, and the analysis and fix were
 prepared with the help of an AI coding assistant; I reviewed and
 tested the result.
 
-Fixes: 3c7266cd7bc5 ("objtool/LoongArch: Enable orc to be built")
+Fixes: be5ee60ac554 ("objtool: Provide access to feature and flags of group alternatives")
 Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 ---
- tools/objtool/arch/loongarch/orc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ tools/objtool/special.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/objtool/arch/loongarch/orc.c b/tools/objtool/arch/loongarch/orc.c
-index ffd3a3c858ae..960b59d5e566 100644
---- a/tools/objtool/arch/loongarch/orc.c
-+++ b/tools/objtool/arch/loongarch/orc.c
-@@ -8,8 +8,7 @@
- 
- int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruction *insn)
- {
--	struct cfi_reg *fp = &cfi->regs[CFI_FP];
--	struct cfi_reg *ra = &cfi->regs[CFI_RA];
-+	struct cfi_reg *fp, *ra;
- 
- 	memset(orc, 0, sizeof(*orc));
- 
-@@ -23,6 +22,9 @@ int init_orc_entry(struct orc_entry *orc, struct cfi_state *cfi, struct instruct
- 		return 0;
+diff --git a/tools/objtool/special.c b/tools/objtool/special.c
+index 2a533afbc69a..5df169d0e45d 100644
+--- a/tools/objtool/special.c
++++ b/tools/objtool/special.c
+@@ -81,8 +81,8 @@ static int get_alt_entry(struct elf *elf, const struct special_entry *entry,
+ 						   entry->orig_len);
+ 		alt->new_len = *(unsigned char *)(sec->data->d_buf + offset +
+ 						  entry->new_len);
+-		alt->feature = *(unsigned int *)(sec->data->d_buf + offset +
+-						 entry->feature);
++		memcpy(&alt->feature, sec->data->d_buf + offset + entry->feature,
++		       sizeof(alt->feature));
  	}
  
-+	fp = &cfi->regs[CFI_FP];
-+	ra = &cfi->regs[CFI_RA];
-+
- 	switch (cfi->type) {
- 	case UNWIND_HINT_TYPE_UNDEFINED:
- 		orc->type = ORC_TYPE_UNDEFINED;
+ 	orig_reloc = find_reloc_by_dest(elf, sec, offset + entry->orig);
 -- 
 2.34.1
 
