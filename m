@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316855;
-	b=WHN3hrhmMu6UMQYzPrPfrv8OwHayrsQL/lFQx+dtUFUZrdFgYYLrufJ52OSUTF/rS4yd
-	 t9qg5TLDsF/PecesYeRPsV2M5ZEJvUcvTiib3KZAeGhPRiJBB/WZ19XYEiNRf1uLwaJL6
-	 UoaDP0HXQRaizrWf59ZwTrphFTq9UETdVvs50oN2Cb+oE1tTgEUymsWX23eKFQch/cHKH
-	 LFRntN9s5stxkSi8KIlzYajancZxKfeDTcLzi/nKuFbyyjLxsoVQ4ESGB5tST/lJx+a4A
-	 7o+yBHz754K8DaRGqcH5gJKb2bCq1FIFxZC83xS+v32q1Amd7+1M4jeiRcNOwultHWg==
+	t=1794316867;
+	b=thcBKonBsfcGyrU6VI1YJVq2U62/Lu4orQTPijD3tOGybHncAxPA8FwYy5lwPTeXl/UX
+	 3KDQF2Rdnph6/4Sc8UfqK/8OoiN88LLkNpDbIPr+UyA/ueYj2WvuotQHk8C79uWGfLwMl
+	 jTMf+wvCtpbnse0YZjyXXPO1vQWdzhW7gvsn6webQAnVxJHtn5IA4BeN0xCQXtDK7gLJ2
+	 6usANq2pj+XNyOM+gii78qpkQ0znisHc3tf2t3F4B7hpGg8hbv5c+SjBAP7xcxHljtkjo
+	 uJt69iag7pVcUY/2mMkpdyAk2uwndq0RQl37Z8ToAFUIzhr4pUga+kSv9Ag60k49tzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316855;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=frrN9eP5VKX7iihEaJrF6vLJxtmPHDqRPsxohmOYZu8=;
-	b=x1H4140snUEEJwPqqpn0orCSzujRoBVg8/YjH90ckMj/QMCzghAKajmvqSJShw6ZoVQn
-	 y819HU5R1VDuTKpOOIU1foBzsk6o4aunte+f1aCnu+T6YypeBBX7MW14TPCRzjJoG0iN+
-	 18UQO+D3n2/IFml2rr9/zFv3lIHoImeyFZSkx9y9uBwXB4eRwpTfeSjtL+KYX5ZbHjQBC
-	 zmJY4VMQIvTFW/26Yo0ZLeADuDuQa3JxREA488FsGMxLTfe0qR6i/5R2wUwW2AJ2m1RvW
-	 LjZg8H8aFi8i4efluv3H1/4/DsvLoMmGS9I+QqumVZZ4L5FbsDuHapB1nCnEiS8g+7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316867;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=3KmJj98pjmOS6ArH+mC3Dc/dvsMdB1K1uCEscB7vPCo=;
+	b=leaWMnW65iVUx4U0yRvAkbRVyHNOuSu8pOo6z9L4HVtDlY+4wYBCVc9EDMyg2UxtN1jj
+	 BRKyX1UD7l39DBPK0DQvb8W2CPuM66WaHlHa+pn7XUJN9FZj9M2LDpsvmK4alIkAHjFFh
+	 2/9AHAwKVWJob3lC98YcwIfTX9FMCJVptnk/EFH89vZafBdoJlub+/IxOqo4/Iyfwp9fz
+	 coUUz7IFvAd5bQQ+y1uOy0B6o8y+433K5Tcf6XXLBePVkhAC2OTZCA3uYr92x07OgKAq3
+	 q+DE+MkcB6qR8RIXAYZdkEcNNFuVQGdeYypea5xrCwdKTZeIQJxc+oVzawhJb/jG41g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YlrRRqxJ;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F5B0607B10E;
-	Tue, 10 Nov 2026 13:20:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F5B0607B10E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cdCgFvD+;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4166606A770;
+	Tue, 10 Nov 2026 13:21:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4166606A770
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YlrRRqxJ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E3005143D;
-	Tue, 10 Nov 2026 05:20:50 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 42B2C3F632;
-	Tue, 10 Nov 2026 05:20:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794316853; bh=8xoLOeJ5D5iFRiilyKCfOmsSoEqiyL5IFmDWa/z/4zI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YlrRRqxJ8JhiltC5XonPWyDKEAZUX9aNRSAVZjMvqQiTyKGuXTb+idFqYGPuwaIag
-	 nQ+encbFYzyVaX9z3KOlVt0FSRaLwHkhbY92gqU8sUcKEGir3sgzFj6iCvV90X+KAl
-	 weOqY7W88IHI2Z7x31ynnQQgVOS0SOZ+NkZbPO4M=
-Date: Tue, 10 Nov 2026 13:20:49 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clegoffic@baylibre.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
-	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 10/11] firmware: arm_scmi: add an operation to set the
- function of a single pin
-Message-ID: <avMaMftPv6MTM6Qx@pluto>
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-10-52d92843ad97@baylibre.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cdCgFvD+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=3KmJj98pjmOS6ArH+mC3Dc/dvsMdB1K1uCEscB7vPCo=; b=cdCgFvD+aak+2qa0hM9tdatBab
+	qqdGTPrKvq8aqPIMf6w2hUUL0KPAJFsg8lAR0hB/H7RM1sv3966DWWDRh16DIj8zg5JxrKDZvlxkU
+	mUD34+iB4j0eUii+Ce21fShvOT/JFYiZsk14Tck+NnXJ+XS0K5Zc9q3wflJScWf+xYjc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQlmV-00FU5O-PR; Tue, 10 Nov 2026 14:20:59 +0100
+Date: Tue, 10 Nov 2026 14:20:59 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: netdev-bot+sashiko@kernel.org
+Cc: mmyangfl@gmail.com, netdev@vger.kernel.org, olteanv@gmail.com,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/4] net: dsa: motorcomm: Fix stats64 error
+ counter mapping
+Message-ID: <84b7c0d7-c167-43ab-9384-869c0bb40ea5@lunn.ch>
+References: <20261107132040.1066996-2-mmyangfl@gmail.com>
+ <179414774671.994134.1756882573318817305@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,26 +64,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-10-52d92843ad97@baylibre.com>
+In-Reply-To: <179414774671.994134.1756882573318817305@kernel.org>
 
-On Fri, Oct 30, 2026 at 04:58:41PM +0100, Clément Le Goffic wrote:
-> Add pin_mux_set, which selects a function on a single pin. mux_set only
-> works on groups.
+> [Severity: Medium]
+> With the tx_fifo_errors mapping removed, TX undersize events are no
+> longer counted in any rtnl_link_stats64 field, and that includes
+> tx_errors. Is this intended?
 > 
-> Signed-off-by: Clément Le Goffic <clegoffic@baylibre.com>
-> ---
->  drivers/firmware/arm_scmi/pinctrl.c | 7 +++++++
->  include/linux/scmi_protocol.h       | 3 +++
->  2 files changed, 10 insertions(+)
+> The tx_errors kernel-doc in include/uapi/linux/if_link.h says:
 > 
+>  * @tx_errors: Total number of transmit problems.
+>  *   This counter must include events counter by @tx_aborted_errors,
+>  *   @tx_carrier_errors, @tx_fifo_errors, @tx_heartbeat_errors,
+>  *   @tx_window_errors and other errors not otherwise counted.
+> 
+> A runt frame may not be a FIFO underrun. Could tx_undersize_errors still
+> be added to tx_errors as an error not otherwise counted?
 
-LGTM.
+It should not be possible to send runt frame, i expect either the
+hardware, or the driver to pad them to 64 bytes. So i don't think what
+the LLM is saying is valid.
 
-Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
+However, it would be good to get this counter reported somewhere.
 
-Thanks,
-Cristian
-
+	 Andrew
