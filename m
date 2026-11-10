@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331753;
-	b=I7NRaRWD+zeLrUjKnuagwPWr5lCUM3OV1BeeaLjB8pVpusZIHbkrhQczXVoLBhDxQykM
-	 cNPzcm50j9qfoGtvdSt00IO2SWlMA4FtlSzzXgw/WEJV/gt1/9/9s71c634PlxoCpnloi
-	 Sjs9vYNyl0cuLkxnjzPddF9VUuBveKmB5a07PZG8a8MvV8lpRvOoG1/PCCvjldjctqCqC
-	 CLipOHeVvPKTmuz8++EPgVy8jqd1T//A5HFgHjGqpvNfRRd94l43zSKizT0XL5t1Tauln
-	 MwhZn06tiKQNEUv+DXc7Z2LhhrUgggzplcjmWyzIBv7NZInTLqZA6FsvkljpMl/dxBA==
+	t=1794331771;
+	b=Db2QKnG6IOBjXgxnYrIqQgx3ZCrzGBYFE7bNPYgBx+iOAizyyXX/Jpju+3dpTygeUaET
+	 2Rmv2Uxu8CQBKMofI55O0eog+CtIXkdscvz2m8KOIsb2SgZlUiSQmghuN3etEQqSL4j7Z
+	 v0Gq+s6EL9kZWJ9jGDewn8wwLvk5UboZryA4t+MnJ6CM9hU3PZeuvpovGe5wtnSp0mGtl
+	 LmijAYTdHYH8jICiyFCjQQ85ZY0Igy6YW1M26Cn9hhL5RZasenuZomVa30sGH8tX2BnCQ
+	 fX3knqcB130/L+zSEvrSjlEgva92LUcAEr1QS9mt95l/+WtfNzvbrATx+Wedug8dVvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331753;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=c0IxWeg69L18hS0lsnM67W5uLT9pSaPfwx5NH8G9rgk=;
-	b=TnOEWvJOMmvSkpdEtAB/rOEK9P/i8LRiW8qKdfBIooEO89HzGefawWk2MtS41iwHpz99
-	 D8YECLw0uSuTofj5CVEd2APksmYsFJCFmMsbxKRNnSUEbxuakR1OTTg3naj2FKc9LHf2e
-	 gRsa4OgXvBOKzvQfuKVxWVPMF9V5A102g/gOJmE1AJM3aSh57GhU3Ygn2sP0vzfEos/7A
-	 QS5PfbbWPfOd5ntGn+DshH2ObGjxiWkcf196G1cyeLIewW/tqDd8qWN0kI/06SZ9+qu8P
-	 SNLhoRDxinF6TxzOGXTkRz2+8D96f/z1LWZlTdQ5PfIroQUNKWNl1uL9BmG3DSpZ04w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331771;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=U8vekOIgDj5lHshrVu6+OojGjUuLqlW9D9EqkiQsI1A=;
+	b=PnmgDEj1V6cJLBvlfRC+JUag3FeHSjB6XxPVwhfHsj27qMNX22XI1gE347T7mu9PcWLo
+	 RPPPf1oL/dIH84pDLuF5sLySVZSPa9eqZOxCQ9UZ8nbh/bXelCtdH6ZfRo/bJM/VEwuJv
+	 Og2EyWnKuLOoLAiQi5AH9RyAw+wK6rfSwVzIzf8IImOyDLEG6lo58QYdyCfdHbihJhBnU
+	 SUQK7sxVJWOHcEl5KGLl0oQRAy/fBRREnC5LrDyD2bpJtTTtvF8kgARSOYr3h7sFay8vi
+	 CTlXknhYTIox4+8M675FNVpraB6E9f6DJ84KmJ+0zpFi50d8CeJ0tA8Mpkz5fHXGQTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kYJqn36t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=networkplumber.org;
+	spf=pass smtp.mailfrom=networkplumber.org;
+	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c8oUNAyO;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3773E606A321;
-	Tue, 10 Nov 2026 17:29:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F88B606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:29:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F88B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kYJqn36t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9AD1F008A2;
-	Tue, 10 Nov 2026 17:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794331753;
-	bh=c0IxWeg69L18hS0lsnM67W5uLT9pSaPfwx5NH8G9rgk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kYJqn36thE+ClLNX7zWnjsf3M2Yyw6QJy9ksv2t+lUa5TLX9ve5NZRQ1ab6/qLV6l
-	 QCQtxooamb7EaD5+WvNF1SaTyXK9wW+lNbg4cFN3VttaRYUA089iTNSpGCCHQ2EwC7
-	 JDccXdfi+KPrRapLrMOMfaglvrD4QjXPaPJEwSNs=
-Date: Tue, 10 Nov 2026 12:29:11 -0500
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>, linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Dominik Brodowski <linux@dominikbrodowski.net>
-Subject: Re: [PATCH 2/3] PM: add sysfs attributes for additional
- suspend/resume metrics
-Message-ID: <2026111023-padlock-deluge-4173@gregkh>
-References: <20261110-pm-runtime-summary-v1-0-12ebf283db78@kernel.org>
- <20261110-pm-runtime-summary-v1-2-12ebf283db78@kernel.org>
+	dkim=pass (2048-bit key) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c8oUNAyO
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b904d10882so1041377b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:29:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1794331771; x=1794936571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U8vekOIgDj5lHshrVu6+OojGjUuLqlW9D9EqkiQsI1A=;
+        b=c8oUNAyOAS1OI9ImuewfKiO+OK1ksCavl12v4VTWFcQGJh15hZlG4TAZGOXSI1BPEL
+         8lCEqG7myzG6euUva5W3NAP2wOng/6KEQleZb+MiSY6ieB3LrDBrIaBNyg21bb/czaUs
+         P+rxa3fWNZ50SqFdayY8fsqJqu6pJXSJ4mMZCwUNITsQz7fuFnTqfl0ybZGXIfL5Yg3S
+         SHw4YyEM9PtEzFztZevvzKb7bP6mCP2+LJ5DABubyAs2gWOV8+t6FONhG2wa/PFiBh1b
+         hF3WhSOHw+ndoFMpMw9Q3yKq/JU2F0nD/JrddB2WX69mdiarI0v/3sd6B/RHJOPLQ36t
+         /rgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794331771; x=1794936571;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U8vekOIgDj5lHshrVu6+OojGjUuLqlW9D9EqkiQsI1A=;
+        b=MDUc1AI0t/oGF8lLjKhFIuDxcfxXpCHsgOxJL+AgGD8oEjACHPJKjZTmqHjagMgIjI
+         bKkR7NCHJEoT3pQgBm8Jk+ZKLcNqRUmSM8SrB5rCLOYSE9My8CT6GrTA3St34nHEuc8b
+         3Xmodyx1N88FkuunxVf+W/7itcYdG0DYOm7wnXPBmslBl+gybLXqMWUpiBTrjVzK07XD
+         +ca+XP9VLQnlywy1XDMX1m0Dn3iOKpU/UAHdqPmp++pXUfhlL3zdE21IGY+KrqI8+1SP
+         P8qnEhvmq8WObXvtUb/sOROoCpyXZ5WCfKYlB3gKhS3LayDDQvB7Y+qS5WplMJOrhyVv
+         OKDw==
+X-Forwarded-Encrypted: i=1; AL+hErFY8I/O1WbMm1toCuWg57BeTC87x6W/iEy1tUJVMDCvlBa67lrj2nsiyzaxi0xWkxvTCGQGAjjbSKH5mBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qxOET6OTA97w0PSlkZUkbpG8Tm5zWpnOECkDxIaizEyVo6WOo
+	nsc0iQBXni+jcgyK2nKUQMJcW+vKObkSc/4cwELQW3ombwphuqae6JLtLLb5JZaqvnk=
+X-Gm-Gg: AYBFou0Hmp94NmqI5/rmglE2ticTIQaAr+JVaHwZEz8XE35TnEzw+/9EWKjEvBZ9Dvb
+	eEnOZWcrT2Wtc7JTBvLTTcfupKoJTQmegIghJ93z+fX/Cu1V0aOC/1wlgl1h2D1MT8AfZxV6o80
+	00TOZh1+5eDd5W64n2FmMcsJzRuDG4Fm8HPP+o42tHimoiUyMYJkGcpXwsSdp25J5u5FtbyLPFD
+	9JCJITP0w5mJq2zSYqkO4+o3y6ALSPj3gi7GIejcfJpSicGuL0YISSICxrny0YT6S6RNKTg6c5N
+	N1Gpu6wltddntiVzglCOyZfs9TBogjhU0s0skbqNdWqvx5CgzXcm10c2B4uHMGEUwIiO8CUC9Bf
+	pvuAaHay9xLmDOM6YsJForRuMidyizncN1rGiQAixNmjITTigUHZ/eyaI0Rgad4qEWE6Y/jXWza
+	yJdYW+nXSh9k83KeZLkfyTgQXd9bgg5TITOEagBnkGmbWjkVO7ZcBo0xiL57le+rbs8VRxXJb6I
+	OBzHqzZUtC1fM7dbMMzIXV0Tl+bUbmrSrCPVWXIH8kwHr02jeRCLQS0PoFaB30fI4AmqBT9Gf3l
+	t7RHaBHQJWkWCE1uYLaSnxETYx7TQKXTYcaPLlb4XmY19kVjb+/SXMn7WqXAu/+LZGKZ
+X-Received: by 2002:a05:6a00:9502:b0:886:46c:8a1f with SMTP id d2e1a72fcca58-8ba8735a042mr3412188b3a.35.1794331770936;
+        Tue, 10 Nov 2026 09:29:30 -0800 (PST)
+Received: from phoenix.lan (204-195-112-43.wavecable.com. [204.195.112.43])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab5f1effsm1197939b3a.49.2026.11.10.09.29.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 09:29:30 -0800 (PST)
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2 2/3] ipv6: return EMSGSIZE when first route in dump does not fit
+Date: Tue, 10 Nov 2026 09:26:17 -0800
+Message-ID: <20261110172925.3293312-3-stephen@networkplumber.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110172925.3293312-1-stephen@networkplumber.org>
+References: <20261110172925.3293312-1-stephen@networkplumber.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,110 +104,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-pm-runtime-summary-v1-2-12ebf283db78@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 11:43:21AM +0100, Joshua Crofts wrote:
-> Add sysfs entries for additional suspend/resume statistics. These are
-> useful for investigating the behaviour of devices with PM runtime
-> enabled.
-> 
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> ---
->  Documentation/ABI/testing/sysfs-devices-power | 36 ++++++++++++
->  drivers/base/power/sysfs.c                    | 81 +++++++++++++++++++++++++++
->  2 files changed, 117 insertions(+)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-devices-power b/Documentation/ABI/testing/sysfs-devices-power
-> index 9bf7c8a267c58703a8a097ada1f12271271dbe98..03e5783d737120f98a1c88e5e53f56fe176484e5 100644
-> --- a/Documentation/ABI/testing/sysfs-devices-power
-> +++ b/Documentation/ABI/testing/sysfs-devices-power
-> @@ -284,6 +284,42 @@ Description:
->  		Reports total time that the device has been suspended, in
->  		milliseconds. Used for runtime PM statistics.
->  
-> +What:           /sys/devices/.../power/runtime_resume_count
-> +Date:           Nov 2026
-> +Contact:        Joshua Crofts <crofts@kernel.org>
-> +Description:
-> +                Reports the total number of times the device entered a resume
-> +                state.
-> +
-> +What:           /sys/devices/.../power/runtime_suspend_count
-> +Date:           Nov 2026
-> +Contact:        Joshua Crofts <crofts@kernel.org>
-> +Description:
-> +                Reports the total number of times the device entered a suspended
-> +                state.
-> +
-> +What:           /sys/devices/.../power/runtime_last_suspended_time
-> +Date:           Nov 2026
-> +Contact:        Joshua Crofts <crofts@kernel.org>
-> +Description:
-> +                Reports the residency duration of the most recent suspended
-> +                state, in milliseconds.
-> +
-> +What:           /sys/devices/.../power/runtime_min_suspended_time
-> +Date:           Nov 2026
-> +Contact:        Joshua Crofts <crofts@kernel.org>
-> +Description:
-> +                Reports the shortest measured duration the device spent in
-> +                suspended mode, in milliseconds.
-> +
-> +What:           /sys/devices/.../power/runtime_max_suspended_time
-> +Date:           Nov 2026
-> +Contact:        Joshua Crofts <crofts@kernel.org>
-> +Description:
-> +                Reports the longest measured duration the device spent in
-> +                suspended mode, in milliseconds.
-> +
-> +
->  What:		/sys/devices/.../power/runtime_usage
->  Date:		Apr 2010
->  Contact:	Dominik Brodowski <linux@dominikbrodowski.net>
-> diff --git a/drivers/base/power/sysfs.c b/drivers/base/power/sysfs.c
-> index 13b31a3adc77c0fe0a5c42fcf9b863dd5bc43088..7e5a186b33222d448b5caacaddbaf9913fe41a98 100644
-> --- a/drivers/base/power/sysfs.c
-> +++ b/drivers/base/power/sysfs.c
-> @@ -178,6 +178,82 @@ static ssize_t runtime_status_show(struct device *dev,
->  
->  static DEVICE_ATTR_RO(runtime_status);
->  
-> +static ssize_t runtime_resume_count_show(struct device *dev,
-> +					 struct device_attribute *attr,
-> +					 char *buf)
-> +{
-> +	u64 count;
-> +
-> +	spin_lock_irq(&dev->power.lock);
-> +	count = dev->power.resume_count;
-> +	spin_unlock_irq(&dev->power.lock);
+If a route does not fit in an empty dump skb, fib6_dump_node()
+suspends the walker and inet6_dump_fib() returns 1. rtnl_dumpit()
+then returns skb->len, which is 0, and the dump ends with NLMSG_DONE
+and status 0, silently dropping the route and those after it.
 
-Why is a lock needed at all?  The value isn't going to "smear", it will
-change right after the lock anyway.
+This became reachable when multipath routes started being dumped as a
+single message with an RTA_MULTIPATH attribute; a wide enough route no
+longer fits.
 
-> +
-> +	return sysfs_emit(buf, "%llu\n", count);
-> +}
-> +static DEVICE_ATTR_RO(runtime_resume_count);
-> +
-> +static ssize_t runtime_suspend_count_show(struct device *dev,
-> +					  struct device_attribute *attr,
-> +					  char *buf)
-> +{
-> +	u64 count;
-> +
-> +	spin_lock_irq(&dev->power.lock);
-> +	count = dev->power.suspend_count;
-> +	spin_unlock_irq(&dev->power.lock);
+Return -EMSGSIZE in this case, as IPv4 does. This depends on the
+rtnl_dumpit() fix in the previous patch.
 
-Same here, why a lock?
+Fixes: beb1afac518d ("net: ipv6: Add support to dump multipath routes via RTA_MULTIPATH attribute")
+Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
+---
+ net/ipv6/ip6_fib.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-And if you need one, why not a guard()?
+diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
+index e1d49897d6ab..1025267992f0 100644
+--- a/net/ipv6/ip6_fib.c
++++ b/net/ipv6/ip6_fib.c
+@@ -755,6 +755,12 @@ static int inet6_dump_fib(struct sk_buff *skb, struct netlink_callback *cb)
+ 
+ unlock:
+ 	rcu_read_unlock();
++	/* The walker stopped before adding anything, so the next route
++	 * is too large for this skb. Report that instead of letting an
++	 * empty skb look like the end of the dump.
++	 */
++	if (err > 0 && !skb->len)
++		err = -EMSGSIZE;
+ 	if (err <= 0)
+ 		fib6_dump_end(cb);
+ 	return err;
+-- 
+2.53.0
 
-Same for rest of this patch.
-
-thanks,
-
-greg k-h
