@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304257;
-	b=tItLN0e/g6YMXGMGLhv6hIfLLufMWUXbod+F76w+T9LJNQzyaxo/360b3g63C0T68fg8
-	 i1kcvrmAN5EZUfWNaXPFnJ7d7SM26QrEWps0mmUDbY5j6P3tj+9iUh9ERZYCuKZeuC4KS
-	 IofHeGJUu5cyR0KjaAzQUwRSKysrpJcdSUJzX2scPk/lbhCZAprr6dw9z3dUjSYDON6t8
-	 Ji4EsFAmpD+rzdJKSeMM6Mba31W0OuHN5S/x/8+mYXRX6hV6qEKGvapewBdCpvwxmT86n
-	 SHf903YAlQx/Ge3jRxOv7uctC0AKjirgMFPpeauKzZgY3F6DoMMz/qmQ0TzrrDN/5Hw==
+	t=1794304278;
+	b=x8f66k33URo2f5mJtMbud5Bve1EvXwDPj/owWLMVK1iLxfnC6mPcgNPCXAw0csfa+Fo8
+	 81znBhKxKwk6gUQO8oMMcuc8qPQdXijx+VDgviXiMg3pcV+4wvHw53tTfNVlN7wXghhla
+	 4oFrNNz2qxaMCfw+typoCLRPYD9R5ld6rYVAQCx9MW6RDk6NA+SGoSNWevCJV2tYDjz5P
+	 ul6DkGEfi+EferWTiuieCAWC+GtxLjXGpvjIBy5g62svoVocIhWuYD9DekID5C0xU1F2c
+	 Jz0r+8/nbMLxt7gmSpzRd5IC/nRDU3frETtiRODtgZe/Ur7GT9DuvIiA3eyla2fadhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304257;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=e3//m6z05CCr++yJ8pEIRKHvzyBVaUWMryM2WqTqQJs=;
-	b=e5zncX4kvOERDBgVSJwQjqOcJQnMph2UrYsCeq+2vy5nXA6mEJ2cO2rdil21avnNEckW
-	 8PFSvDqK0/KGmVpghaMOzh8MfsEAvoY3GvmhI0erC19mMkWZmXN7FZdo1oCddPfWJhLW6
-	 Yaycqu1/KRMacnNlpdaB/rfxULTQqMzo7nds05Ng8p53GHUeglNrpzpPmGD2IpHUyDmHE
-	 guSArupINd8F6GUBWYYMirURl61pQibEfJS5c8/W21ZJKEAldOdqaYzUPsGOzZa8Q3aXe
-	 4X5pu9kCij8LKd3p/OSQ+gCWuU59+xGuXFrlYdG+vGiN0gasOh5jYcDhiXtPb6Fedyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304278;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=YbxS4r3glnO7uNVQhRoODAC5fMs2dZeYVmrXo7/d8vw=;
+	b=RhH85ERq+nSHcFuZEL34BOTYpiIBTLEEevbCkfi1CW0v8oE4gB/zDyf8PIiPr2KcaVG7
+	 NZzYwDawfrxo7IGHgg61u/YQJwqZipPH12AiVrEeDI/sjlBPDV3A2+dIETVtM5JzQ5PnW
+	 D5PvKJ0v0dT0dxrbVPH39Y3InYOtJR7wJ/qzqWp7XfrfriSJUWDqSCg9VsJGKPVW9uDd0
+	 sI0z9lWuP1irZLWul2eiFyfKiyES4VSIazjd2AvV5sTDR/uWaFH14+U5DaN/AX6/mc7zv
+	 yo0S98EhnzeHhJzzuK/K5ASYqS+jY9rymovH5FVmyoFZ4lPi9jaq14fyF90LQ5YhXgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N70KADS+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="OmAK/lUN";
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 84D53606BF07;
-	Tue, 10 Nov 2026 09:50:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBAC606B9D2;
+	Tue, 10 Nov 2026 09:51:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFBAC606B9D2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N70KADS+
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A5B851F008A3;
-	Tue, 10 Nov 2026 09:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304257;
-	bh=e3//m6z05CCr++yJ8pEIRKHvzyBVaUWMryM2WqTqQJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N70KADS+ISsQ/NyHQkqIdHNIS4xgAvB+H6oPlzBasLeGPdixmDRbQb7KeWAIoe9Lk
-	 kRYG5YOAEhhWJX2sNCu3Pl7lonBwby+ZinIhXmEVJnL7Ahy4k858wH5kVGZkrgCu6j
-	 cP+B0aTnXONg0wJLIkW6H15r/gPjegA9ItVuhv2pQcuMkOX9N7Xpkl+eC91lLS5+7l
-	 wwHWocYvbB9wrTQfJy15fVIxT/htEEAzVJHQREUniV+3bvxHSXPd/bcOo18glzhX00
-	 wF5Sboa1ktHhMPhaTL4wQZYA4psu7VYQthoawI/ejYlQrdgM+DIxpcltAR7QTnXQtC
-	 uUWH3gBEmHlxQ==
-Date: Tue, 10 Nov 2026 10:50:53 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <l7ppjeoqvc6hblk52a6upei4ee2caahe2ltiur4gwig3ez7d3c@dmzzy22ixvlc>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
- <avICwdxyi-W1Y3PD@ashevche-desk.local>
- <ab73ez55exen3ew52svsxfinwsuatppdodu2e2zp6izjwwqwwu@2imxzxwclgtl>
- <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OmAK/lUN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794304277; x=1825840277;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EQIiYTmm+SRmdC9RpdohF83EwIDHyO3vFfvlI99ygw8=;
+  b=OmAK/lUNYEwXB/u6NdVOH2LXeROc6sRYzntMiaHQ9R7YIozYUSrg77ha
+   /KbD0/PwnuLkGnASDw1heP36OgncSi/zrCW7T7TPEWLOLBQ/GAiwCjPAw
+   egvDmba9MDMRBuzVISeErqiSwwPbHx9S3+SR+QZacvzjPrWD/+rJC+/hZ
+   1azqSBXOCB3cAh/liepgWM5sRaWYU8o29RKRCd+y+ff2itYTIeZwjv0qf
+   KL3FQP1Iq4YBkSAXh2d7i/VOiXLIEypz2qiFHHVi0zd+jHefPbZ1q6q3m
+   h4Stp5HX4DyMqn6x1hdeww0V28GEyOWg7qaqGa0jMIclSS95KggY65W+U
+   A==;
+X-CSE-ConnectionGUID: 6wKW89E3Q6aCKhaVCei6FA==
+X-CSE-MsgGUID: M3KesH8TQWi1ct4x5U2p0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2933299"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2933299"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:51:16 -0800
+X-CSE-ConnectionGUID: wfDQNmQoQ1yMM5C8d4P5RA==
+X-CSE-MsgGUID: jZDpL9LPSZ+loOUSCVp40g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="9851826"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 01:51:15 -0800
+Date: Tue, 10 Nov 2026 11:51:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com
+Subject: Re: [PATCH v7 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <avLpEA6CoZvicvDN@ashevche-desk.local>
+References: <avJZyb5S--smaHpX@ashevche-desk.local>
+ <SN1PR12MB2528754241E5C6271A02734FA5722@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,109 +80,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75VcwiGHB73ny8iSvXeFdjbTKUpnXZPS5iD7NwaMcJ6q-7A@mail.gmail.com>
+In-Reply-To: <SN1PR12MB2528754241E5C6271A02734FA5722@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 11:12:02AM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 11:00 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > On Mon, Nov 09, 2026 at 07:28:33PM +0200, Andy Shevchenko wrote:
-> > > On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> > > > On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > > > > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
+On Mon, Nov 09, 2026 at 09:56:44PM -0600, Victor Chernyakin wrote:
+
+...
+
+> > > +		return regmap_write(map, FDC1004_REG_OFFSET_CAL_CINn(chan->channel),
+> > > +				    (u16)DIV_S64_ROUND_CLOSEST(val64, fdc1004_calibbias[1]));
+> > 
+> > Why casting? Shouldn't it be handled on the regmap_write() stage based on
+> > the register / field description?
 > 
-> ...
+> This was prompted by this sashiko review:
 > 
-> > > > > > +               names[i] = kstrdup(prop->name, GFP_KERNEL);
-> > > > >
-> > > > > Can property be statically defined somewhere? We might want to also optimize
-> > > > > these duplications with const variant (here or elsewhere, for fwnode generic
-> > > > > path, I believe).
-> > > >
-> > > > Please rephrase because I'm not quite following what you're saying.
-> > >
-> > > Can prop->name come from something that is declared as
-> > >
-> > > static const ... foo = {
-> > >       ... .name = "bar";
-> > > };
-> >
-> > You can't know it for every instance of struct fwnode_handle, so the
-> > answer is: no.
+> https://lore.kernel.org/SN1PR12MB252888B43D53AB1723952D21A5742@SN1PR12MB2528.namprd12.prod.outlook.com
 > 
-> I believe I misput my question. If there is any potential that *some*
-> of fwnodes use statically defined string literals for the property
-> name? If so, kstrdup_const() and friends may be a better choice here
-> to save some memory (which is getting more and more expensive these
-> days :-).
->
+> TLDR I'm not certain the cast is necessary, but I'm also not certain
+> it's not necessary (if regmap does handle it, I couldn't figure out
+> where), so I've added it out of caution.
 
-Ah, that makes more sense. I'll look into it.
+Yes, regmap core code is tricky in many places. So, as far as I read it,
+the I2C default bus with val_bits == 16 (if you have no custom regmap IO
+accessors) uses internal format operation regmap_format_16_be() along
+with format_write kept at NULL and hence defer_cache set to true (cache
+after formatting). The default working buffer for the data is work_buf,
+to which the above formatter puts the data, it doesn't put anything outside
+16 LSBs.
 
-> > PS: is there a way of using match_string() with non-const data?
-> 
-> Why? It's an input parameter, it returns an index. Whatever you
-> provide will be not modified.
->
+Since the code is tricky, please double check my way of understanding the code
+and confirm or point out any mistakes I made.
 
-What I mean is that the following change
+-- 
+With Best Regards,
+Andy Shevchenko
 
-diff --git a/drivers/base/property.c b/drivers/base/property.c
-index 40fbf01a9faa..1c43fd2c8d57 100644
---- a/drivers/base/property.c
-+++ b/drivers/base/property.c
-@@ -563,7 +563,7 @@ EXPORT_SYMBOL_GPL(fwnode_property_match_string);
-  */
- int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
- {
--	int ret1, ret2 = -ENXIO, n1, n2, i, j, count;
-+	int ret, ret1, ret2 = -ENXIO, n1, n2, i, count;
- 	char **prim = NULL, **sec = NULL, **merged;
 
- 	if (IS_ERR_OR_NULL(fwnode) || !props)
-@@ -604,12 +604,9 @@ int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
-
- 	/* Properties from the primary node take precedence. */
- 	for (i = 0; i < n2; i++) {
--		for (j = 0; j < n1; j++) {
--			if (!strcmp(merged[j], sec_props.array[i]))
--				break;
--		}
-+		ret = match_string(merged, n1, sec_props.array[i]);
-
--		if (j >= n1) {
-+		if (ret >= n1) {
- 			merged[count++] = sec_props.array[i];
- 			sec_props.array[i] = NULL;
- 		}
-
-Results in:
-
-  CC      drivers/base/property.o
-drivers/base/property.c: In function ‘fwnode_property_get_names’:
-drivers/base/property.c:607:36: error: passing argument 1 of ‘match_string’ from incompatible pointer type [-Wincompatible-pointer-types]
-  607 |                 ret = match_string(merged, n1, sec_props.array[i]);
-      |                                    ^~~~~~
-      |                                    |
-      |                                    char **
-In file included from ./arch/arm64/include/asm/processor.h:34,
-                 from ./include/linux/sched.h:13,
-                 from ./include/linux/ratelimit.h:6,
-                 from ./include/linux/dev_printk.h:16,
-                 from ./include/linux/device.h:15,
-                 from drivers/base/property.c:11:
-./include/linux/string.h:336:38: note: expected ‘const char * const*’ but argument is of type ‘char **’
-  336 | int match_string(const char * const *array, size_t n, const char *string);
-      |                  ~~~~~~~~~~~~~~~~~~~~^~~~~
-make[4]: *** [scripts/Makefile.build:321: drivers/base/property.o] Error 1
-make[3]: *** [scripts/Makefile.build:603: drivers/base] Error 2
-make[2]: *** [scripts/Makefile.build:603: drivers] Error 2
-
-And I don't see a good way of working around it without doing:
-
-	match_string((const char *const)merged, n1, sec_props.array[i]));
-
-which is ugly.
-
-Bart
