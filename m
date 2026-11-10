@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324517;
-	b=z9NDTqkSizjNKjCFs5ZyjYWNtYMerh/EhNaniW13xZ2D8+nIn2oVYUhkYORNCwCgkZ9C
-	 orf11tBcrmPnKEgGpmgSM7W2tuOUvTnIhhtd5Et212a1pXsDH84OTBTmT6SBOCoTEdtUL
-	 cfBl9nnEoPdj/fTrJl+vxz0rulLXKXNVQ6asj9o1QkuHm/Sc7qJVEQVubbohNdUPD8E8b
-	 UIMTtv6Nx159Mq8Uqb2SK22GT2NW2RTzP3pafacXF5VSooLQm+gnyVIeIJYuLOOc7Ih3G
-	 VJ3Zq70qzUUUyyXIN1j5mtd2+YBdyIEBmgLwNZHl1fwYj9avgF1opap5565lBqSrvWA==
+	t=1794324525;
+	b=fUVKvbzj4UW13Zjm3UgdWP9RT4sSNAqGGVA0MtljjyFmJsYW6HzRVuWL/jlWCm5qpkJv
+	 VFmQHePBlbbIWZMqJp+CH1EZCcV7kmC5P409VNZq8UJgYmsuWMO69g7Q+PbkeNP73uJmX
+	 R7gujm7/ckamR0l1cGa1p9zAYCQphrB66kHq9a+aMz/D4CyFrv4MHIxL+0L0MRH+WG0Zf
+	 DzWK//n7HZZjZIVaGOlkPuWmGw9stlQbByqYVfvjm3ef2znV0xT7IxlyaRJbboPTBLtwn
+	 soJgBIwFdZgpMJYisenVGC/RdMBY3KcDKs0HrsF9gKAI87Mj+jFtE1aOR+j9lp7xYRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324517;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=6PM7dc9ky7du4QTlvZgvbasvK1Gnn9m7N3fjC8dVD4U=;
-	b=VRaXSOWHpyKGLO6arg6mYxa5TI5KiPLZjF2nnk+kfi4Lv/zxSrdXczMAvAccOZpNGzA5
-	 HPcUFSp+7oF1piCUOhnxpCXJuM0KU/3InoNdAEQ03eeCBX4Ba7rlgmsg1rA5WxjyfMQDg
-	 cahNNA2OPrndNbIb+SOsgi1ylzfFf9H49Oj9AzFUkq6VitESu2iwZa9iDFvg1wczAir5c
-	 8yP/RkBwZCG11biqfqO5TbYHXd42F31jZH8rqbZeyGw0dFGDNGfyEH1Wffusd/v9S+8Xo
-	 z0cRgmbWc8iR01EpA1r4EhB4tJQ4rPaLB4TQ2s74pWth8PFH01zUa+29gYC5sXtPRMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324525;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=m09xLtEnG0I/PYQsE4dhMAVWShcasniD6HSBtBOMuLY=;
+	b=xubMSyOlaPuaWnKgKDMxiglkkJv28xRdvsMCEYO6E26h3gmQnPAfSxnW2KSOxsevGzY1
+	 n5gZbyjIaCbatqJ9oGuQBjjo7DbhDevj0RFKtXbRa+B1jvg3th/YUiejL38sldqKDhUa/
+	 HIvVof8HHXSC+UZLwAYpITRZHEAk4OodAwrznqQDLW9oaumnueCo1MCCwBChdgN8yVEQ5
+	 TXz4RX12VPP6CD7wGrn0CvnEb9BR5vTy4rk1FvIp7wDKkNL1H+nojPFZvsiSredCb1YzO
+	 PH/TOUwvf9+5dT51XWmcxBCp4AqJEfo28NNG8E5mDasZU09qNpeRme1rbBIr7yTqfrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pV0ZF1ef;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HKa9IK7R;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B81E606A32A;
-	Tue, 10 Nov 2026 15:28:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B81E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2773D60A2608
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:28:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2773D60A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pV0ZF1ef
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=6PM7dc9ky7du4QTlvZgvbasvK1Gnn9m7N3fjC8dVD4U=; b=pV0ZF1efuRrC/FIGPn3u9+LEH7
-	+JgJH7g9y4lcv8jEyU/UEEbDiPKtQuSGG6Tn4BjC21YfNT69zGPfv63BUi/GhEJ7cVs6TLd69snKN
-	EAfrOm5DKCyIZOI6GyuSQ4N2MDrbVjEikQL/iB3oL/XXAvGthfUrtW2XifcDWpTpGQqGVPKgnZAfB
-	PJUjs8ESscBQCzQAoZ09Q5emzngERfoCNV8ZA4ynkcQ927Fj9nAHPSua3tzt1O8hHjOFJXr001WYu
-	GvNVTFARMmPLlEgjKM0OBoy6DUz4ABNvej3nVqAgl/6Tb3LgzmRcVEp4jhcBy1Bxx4Jm3TLzBEMNF
-	GK3PJc8w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQnlu-00CV18-1w;
-	Tue, 10 Nov 2026 15:28:31 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 10 Nov 2026 07:24:34 -0800
-Subject: [PATCH] reboot: halt when power off fails
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HKa9IK7R
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so28780015e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:28:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794324523; x=1794929323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m09xLtEnG0I/PYQsE4dhMAVWShcasniD6HSBtBOMuLY=;
+        b=HKa9IK7RGo1gEt5OcGNhk8HYTDw/WjqOcjjZA1u1lpbA+fPecAmooC2mrDu4teRTfH
+         FDx+glVdbEqC9D7RwHgGB+/28hvab0olVvqOmvdDhVyi26mSlxM+xdyiBEU1Y37+SOuc
+         d+Bc08USvgv83yBCPh7sxZdWoqHArOfdDuysDzvdOrohCxo6tu0DGINxzzUKrBGSvouE
+         fupRrBorJ612AUWdlLUeuxWH+MUwZl0j6dTOGyKR8sFRlrBaYHf8y+aHpspUX4yFHs31
+         ZGs0/MVpHrT0beWJOkfA0BF5QIj5f1LnCv+rBZ60dbxOywVdr1DQ+v4rlC/SesRrVjDa
+         3GwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794324523; x=1794929323;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m09xLtEnG0I/PYQsE4dhMAVWShcasniD6HSBtBOMuLY=;
+        b=rYxXyYYJq0EgCf6XYvqy2SmxvwNoybhf5jzzlQlq+x3H26TJwjMQxqWUyOEigB2+J9
+         NJ+R1gm1hFd9yKiuXEqctToqcDnx10ePOXr4Pi40B7CxG1RUixsxPnhRTxdK+DwHcSo0
+         xvTeFoqrAImOo9bQCDpVfxrftnDty1GC1LMvk7ysTIa2N3ahLIomgb3prokACHRjIiTe
+         NBdt3ZQC4MAamX4p7woNzSRcl3Y2VfYP+SNc1RAR+gZvaQOeYbZbwlvwQ8Q7hBug8ECb
+         h9ksQl7OCbRwpNs6qmyw+dMKriwlWnUiJLlDTHO+UMDXAo0+6tqkV55bGr8a0H+caMhY
+         F8/Q==
+X-Forwarded-Encrypted: i=1; AL+hErF9O4/TURe5Ce2xYQwh88Pv46lCDk+5YnoaeuybbY4RpQw/punu0wM6RvU3vc5IbnpTQOBIX885Cd/EQ3A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vgu06zj9Hctd93Z6v/d68YK69P0akaVl/nPhlHWUoXhy9+jcj
+	sMlwOfV9ax4OFrwMVADeql6xhPWZt5UkEQqOJY/7jiwwFhbcfDFCylJcT4QjQlkBaaw=
+X-Gm-Gg: AYBFou2myGi2VbTecSvv6R/9F9QyGollmcd5MmZdnL9Ni/UeGpkd3eqgZl1L61sA0B1
+	K35aWOl7QMKVMTG7GuYQs5/QT1e6I5psP+ZODmxB2Og2y+kta+AA/bTI7mqhAiJBnVL2i6Kk8qt
+	j2vAoEvYJLS/wZpZ5xlYIU7f5i6io+lW6INeUNx3ykip9I49NqPWL9sppP9yhVbnXKJUm7qYs4e
+	qlDuMAL1fKVxYMdzBk3GV+l+68gHb6+/nQaWCARTOGbxA1NGPM5OrXP7Wz4NWqnUeL/u85tvnrf
+	4QhXof5Vy6Utr7FOthie8+4IYvlh3iDc4RwtGSRLjSQicl+DbAGyU09in9EqUEmDwpnDbzm20qa
+	i+yfOzoHBlFBe0ng6lb2Oi/2KZ3BhckwbLHGcsQukR6l6AYUmyAefFLl7Ejcm4Q5pGtT0s0NL1T
+	DvNjI65nB/SurofBwJ4WC7ER7JbMFG7VQNWEA6cozwhVO6QUM7ZVcFKZhHKnvAQngnthV2u3nS9
+	ZgIZ3ThXz8R4p1llMJII3TP6G6QKM4TUz9nYXLcP0xXAvz18fDCn9IT+zqlgZchCesieWGjQ5Ja
+	LuOBx7sh11RP8gHgA3/wkQVEtofGkAzYkw==
+X-Received: by 2002:a05:6000:1788:b0:490:1881:80ec with SMTP id ffacd0b85a97d-4982f689f67mr5667739f8f.36.1794324522856;
+        Tue, 10 Nov 2026 07:28:42 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365ccbccsm5574512f8f.44.2026.11.10.07.28.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:28:42 -0800 (PST)
+Message-ID: <806ba4f6-b021-4eb5-8841-430edc87dfb6@linaro.org>
+Date: Tue, 10 Nov 2026 15:28:41 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,133 +92,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/23] coresight: trbe: Make watermark range check
+ overflow safe in __trbe_normal_offset()
+To: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-2-3f57cf3199b1@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-2-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-reboot-make-task-dead-v1-1-af88a3f37bf7@debian.org>
-X-B4-Tracking: v=1; b=H4sIADY382oC/x3MQQrCMBAF0KsMf92BTAS1uYq4SM1Xh2IjSRGh9
- O6C7wBvQ2dzdiTZ0Pjx7nVBEhsEt2deHlQvSIIY4tHMgjZOta76yjN1zX3Wwlz0fAqR4xRHOwQ
- Mgnfj3b//93Ld9x/oGIveZwAAAA==
-X-Change-ID: 20261110-reboot-make-task-dead-8702e9b29130
-To: "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
- Nicholas Piggin <npiggin@gmail.com>, 
- "Eric W. Biederman" <ebiederm@xmission.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, kernel-team@meta.com, 
- syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com, 
- Oleg Nesterov <oleg@redhat.com>, stable@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3891; i=leitao@debian.org;
- h=from:subject:message-id; bh=a8Z6bBQP7KM9Q5t/M4tExBaQEE62leoxfyQqdfsXka0=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8zgawRH9/kLkf5RWr8QkrLuhwWZcPFYLaIVD4
- QxJTlPMskiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavM4GgAKCRA1o5Of/Hh3
- bQrLD/9BHtznr1ZOsNPcDyKV39CtBJpiAZ5NBpwNdXNOkjTZL4Nj54jxHQ4o5QzpfJzhG5Eg3Fa
- nLDuKWPm7DEkfal+9zzBvim41vXwX0ad+3vYNYlqs2WpNMxR/lC0DzpGf67yWA1KaUcLmISITDc
- l5jkVdghaghSqGt6yCDSLq/ZrRTDWu7s1xfwROb+8bldShOypYGp+9bYFvtCLUvQ8m3Gi+sB6wr
- 3N6pGR+imSH5odard30MbG69e8ZO/s6lbAAXsXwGiqjeKEegJekQ4wRidPDT1mF9NUfKVed6f1C
- Q3EkWlal56O9CcEUo9fMKt03ZQnDCK/D8KxmQN0UUQ2M1LFmNB1UjpXS8lBviVubQplN1S8mCAb
- 4TD+QCt7lYij9hMtq+d9fr3ZaS8gHFUCLz9jf5ubH2A2fMfG5pPxEEXtNNT+CcStdY28/UgMRv6
- ZBl7qEGzb0jbRoH/J20OfV/+VtnNSPSnXbIbu9apezI16tHfYMNGnKjLdJ9bWd/PhVNQ9MTaNMf
- ThGfYQs/ofQZIO37YNvZVOHRJZ54Pa+hZ2vSvX9WuUs49aROksNKfk2xhjobdxhFhSpjYhO+CQJ
- RrcmOI/n3l1e2lf9FM06xDYsm775lUHAQPdzSgUp2FrZ3KZchiC8EP2BMCzwCipqHQT2dodZlNp
- AOgFkrE1yHotPzA==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-The reboot syscall calls do_exit(0) when kernel_power_off() returns.
-That happens when no power off handler takes the machine down, since
-machine_power_off() returns to its caller on x86, arm, arm64 and sh.
 
-For example, an x86 kernel built with CONFIG_ACPI_REDUCED_HARDWARE_ONLY
-cannot power off QEMU's pc and q35 machines. Their FADT is not
-hardware-reduced, so acpi_power_off() is still registered. But the
-legacy sleep code is compiled out and the FADT has no sleep control
-register, so acpi_enter_sleep_state() returns AE_NOT_EXIST.
 
-On x86, arm and arm64, interrupts are disabled by then, and do_exit()
-warns. syzbot hit this on a GCE VM:
+On 16/10/2026 17:55, Leo Yan wrote:
+> The current code checks whether the wakeup point lies before the current
+> tail by comparing against handle->head + handle->size. That addition can
+> overflow when the monotonically increasing perf AUX head is close to
+> ULONG_MAX, causing a valid wakeup point in the current writable range to
+> be missed.
+> 
+> Use unsigned subtraction to compare the distance from head to wakeup
+> against the buffer size instead. This keeps the check correct across
+> potential wrap.
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-trbe.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> index eca8e13a97447b46a4b383049aacb3fa7ad3c329..02d12445763a86d58c79bdf5143f761827456bc3 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> @@ -526,7 +526,7 @@ static unsigned long __trbe_normal_offset(struct perf_output_handle *handle)
+>   	 * +----|---------------|-------|-------+
+>   	 * trbe_base		limit		trbe_base + nr_pages
+>   	 */
+> -	if (handle->wakeup < (handle->head + handle->size) && head <= wakeup)
+> +	if ((handle->wakeup - handle->head) < handle->size && head <= wakeup)
+>   		limit = min(limit, round_up(wakeup, PAGE_SIZE));
+>   
+>   	/*
+> 
 
-  ACPI: PM: Preparing to enter system sleep state S5
-  kvm: exiting hardware virtualization
-  reboot: Power down
-  ------------[ cut here ]------------
-  irqs_disabled()
-  WARNING: kernel/exit.c:930 at do_exit+0x1cf7/0x2ae0 kernel/exit.c:930, CPU#0: init/6193
-  CPU: 0 UID: 0 PID: 6193 Comm: init Tainted: G             L      syzkaller #0 PREEMPT(full)
-  Call Trace:
-   <TASK>
-   __do_sys_reboot+0x36e/0x400 kernel/reboot.c:784
-   do_syscall_64+0x115/0x840 arch/x86/entry/syscall_64.c:94
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-If the caller is init, do_exit() then panics. Exiting does not help
-the other callers either: the devices are already shut down, and the
-task still holds system_transition_mutex.
-
-Halt instead, as the syscall already does when no power off handler is
-registered, and as most other architectures do in machine_power_off().
-
-Use machine_halt() rather than kernel_halt(). kernel_power_off() has
-already run the shutdown sequence, and kernel_halt() would call the
-reboot notifiers again with interrupts disabled.
-
-Keep the fallback in the syscall. hw_failure_emergency_action_func()
-relies on kernel_power_off() returning, so that it can try an
-emergency restart.
-
-Fixes: 001c28e57187 ("exit: Detect and fix irq disabled state in oops")
-Reported-by: syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8fdf0d8e10bdde1c2e88
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/all/20250404152006.GF3720@redhat.com/
-Link: https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
-This is my second attempt at fixing this. The first one silenced the
-warning in do_exit() pre LLMs:
-https://lore.kernel.org/all/20250403-exit-v1-1-8e9266bfc4b7@debian.org/
-
-Bradley Morgan tried twice, first enabling interrupts before do_exit(),
-then calling make_task_dead():
-https://lore.kernel.org/all/20260712125300.31501-1-include@grrlz.net/
-https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
-
-Tze-nan Wu hit a related init panic during power off:
-https://lore.kernel.org/all/20250410143937.1829272-1-Tze-nan.Wu@mediatek.com/
-
-All of these still let the task exit. In those threads Oleg and
-Christian said init should not exit on power off at all, so this
-version halts instead.
----
- kernel/reboot.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 9a84401adde5a0..bc71183d4ad870 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -791,6 +791,9 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
- 
- 	case LINUX_REBOOT_CMD_POWER_OFF:
- 		kernel_power_off();
-+		pr_emerg("Power off failed: System halted instead\n");
-+		/* kernel_power_off() already ran the shutdown, only halt. */
-+		machine_halt();
- 		do_exit(0);
- 		break;
- 
-
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261110-reboot-make-task-dead-8702e9b29130
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+Reviewed-by: James Clark <james.clark@linaro.org>
