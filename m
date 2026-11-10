@@ -1,104 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320605;
-	b=cpC13fk0hsYfA8N1WU6IstC2ObSA++p/EFSvvY/avl3Lovil5dW++4YNvRaMjGISv6Uw
-	 6+E036Ly109MUb+Yb2RqM9R0SRGeMnZgIPrlwipqlqYIalQ5yuMRnEENb7CLZT21Ts52J
-	 X+PojQVChceG3GyH2azvaOSlpmGLatoHtsBtuFfgQ6SQjefa3WYaHztlkEyHutUmKcyNa
-	 AquPmlbv/QvXV6JbEp+8lPfTkdugv0GMe5QbPReoxgB0EC6jhodcMeZ0Bk7fqxZkRhY3C
-	 A3o9K5P2E/MLUBNuk92jSpYU090KA2Tdhr1aqXvw4NG62ABhim5aKrus0vn79JANJkg==
+	t=1794320637;
+	b=p7Jio8vMkkqrGvajpTns/dvs+2zI5p2cwluu2iikbyGThpyfzO6RheQ4LYrrQNWguSYF
+	 oJd3jRJ/cKjCIiqjIEseXHR83L/2NDQtxwTdVBPSeCjZ05ak/DUvZN6Bq//jkkZS+6aO4
+	 NUl8NN4RbwwkEYen8Va/OzCCjYZOEzHF+YYHRvGuuDSNL9ZtnvYmWRtuNBfvBMhbdN8FE
+	 PPkkNoIFuQVV3R7CxWrzetJ6p6SNPeSGQJ+rr2ZO5e/3B2Xz0kQomsLPjlyJS+DL+a8iS
+	 dPkCArsfiklneHCSLxjvwMFWf9C+T/V5EJucnNJObz8GS1TIwV//GYwOlV8w2HbjFPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320605;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=+exaCkJW/EbFlRykLNrsB850shkNERPdeiGTcDXli/8=;
-	b=CCkND0Gk011hSudt0Zqqlv3hwBUo6mjKQeb0eFoTj3HymxLSnQHUSr4XRZCP9o4KoA51
-	 dKGt73cU403mi+wmW9WLUcuBxnhGqIPQSll2VUQ2NxO+9hYkMqrQ0iXDs7i8p8Lt2/WCo
-	 J+gXpEjg+BC6ATDssqKsaDGu79qRaI1IgO72BHKCpLygoJKrajwtD5xo++bTG+BjJ3W/c
-	 8mbVf6gA1YjvG4LJygLzF1/zHk+Bn6MhCZPwGjfw9bmDGOlWxNPZlTj/AuHapujj5TJm0
-	 kiS8WuKjYbgXDV5YaaKEk5ILqd1bCzgDGgSC2fz6AL0t2+gslHkVNIAFdGdp3sSZ6Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320637;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Kh3fWHtVs9ElLDXrVfG1M2iBA/DoCWf9txtZMpxB3YI=;
+	b=zhj83NWEJHHDyjcn669zt2RPQ2gXagBrkTJVLZcsu6gB0xnx+ZgrE2+dWropuWXFmcIA
+	 1BC7yEXxo8pNExw2oD/3O+oRUxYuUpDLmHtpL5hihn133W7hxzORm73ClIzaHJL39waUe
+	 agxadmXUu0hxADNAlpEA0LzzZu4+iRo0us5wkHbZoyNHj4I12BvUWoyCjaBQFTBKPBe2+
+	 fd5oWRg4T4h2R1+xJxzOb7Fx+Ia5ZrgG9U4EoL6b4KgC10G8gujSC6PVam7kAux8LMGIc
+	 StHIGl7BvrBq1VrcUrIT8PyKqekDvVzS9uw5cgme1kCQcH+h10p/+4zLxLZHIymMVJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sMsazdzo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="g/8aSI1f";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fTVjI5vP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DGHK0nDh;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=ZexUOhQC;
+	arc=none smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33D7606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F33D7606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D429606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D429606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sMsazdzo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=g/8aSI1f;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fTVjI5vP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DGHK0nDh
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CF7491F7C1;
-	Tue, 10 Nov 2026 14:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794320602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+exaCkJW/EbFlRykLNrsB850shkNERPdeiGTcDXli/8=;
-	b=sMsazdzosFaN4phz2soxjgtk9NDMNikEZFj5k0R7g0Ab3iE3s73GpEvnzrTiMB0NcT7WDF
-	tNpq4Dxd+4QdCXy8WkwzKz+I9M4mc9EBuRzEuUXqB9oQsCzcp6o2yDH1PQRT7bkHSCdpFu
-	aUMwr6qshKHkJOiLHO4cOmSnPOeZl9E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794320602;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+exaCkJW/EbFlRykLNrsB850shkNERPdeiGTcDXli/8=;
-	b=g/8aSI1fL6ozZFmSyjNK5sJcnva6tYsFpzPxhlLQK3CJ9/gkOJskchjgKA+xfE7h3+FjXQ
-	bmFh40O9M22m2IBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fTVjI5vP;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DGHK0nDh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794320601; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+exaCkJW/EbFlRykLNrsB850shkNERPdeiGTcDXli/8=;
-	b=fTVjI5vP4j/iBIA2kFMbshwAj4LUj3KyMpOtyOZxklr5s6/YJp/bZf2JfYaASkoXDQaECe
-	1KQSnp6TC3iFy+DVXcbQW5j+RKmHihx7yvpYTZIbWq3iGWfP7AnoEK3gHps0IzzofipSG/
-	Bt1woRRUi4JC62CKCAy+Hnq4XFldDZY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794320601;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+exaCkJW/EbFlRykLNrsB850shkNERPdeiGTcDXli/8=;
-	b=DGHK0nDhs3Fyp83JkatCQXvLCEfHRpmYB0WVUcwsVbT+yKjeEDzd3QbyyfPPZwCm6o3Pmr
-	tfTNBj5BJcd+6+Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FCB213479;
-	Tue, 10 Nov 2026 14:23:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id V1W5Edko82pnHgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 10 Nov 2026 14:23:21 +0000
-Message-ID: <1b25256b-5fb5-4b4a-bc05-7a2bfc309128@suse.de>
-Date: Tue, 10 Nov 2026 15:23:20 +0100
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=ZexUOhQC
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7d2dbc0a8d4so731177137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:23:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1794320635; x=1794925435; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Kh3fWHtVs9ElLDXrVfG1M2iBA/DoCWf9txtZMpxB3YI=;
+        b=ZexUOhQClOg9kYHkYXePsvaxuBh9ANjvAR6c3zVvKUpVHJw8arzcFu2Bq+OnBPjj7H
+         XGCmAuBlXWKBZ8J/9w/5AdY+4GqkP15JIqY+fPpSJ6w9314mWlXeghw80vMJdCxtobO4
+         xVgR0SPdqA6pvHx1163WBt/25tqbumeA/m6ZvMRCDIQecBL5owcOc/4bG+Kc+TDrwFPs
+         PDutCn61V+GsDgSoQxI5l5OG2EkSQA65i7FmxKjhglIoMYGALHzCW6tNMMvxIxA/J6/u
+         9LkL6q0cVIrDtE0BBJH3Fs9RfopzsAt6DYzi0BD8lCB2c2jg0kc2RXqy3cJ9ChdGa6KR
+         2hmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794320635; x=1794925435;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kh3fWHtVs9ElLDXrVfG1M2iBA/DoCWf9txtZMpxB3YI=;
+        b=cvmNhD4hfi7xcCEhrgmyCNwtTUTONvc2qf3XXQ/7rCPCrRD8mLlw8O//q2gzRg7CMt
+         TLbqVjI6+Qhf9+WCBFymfHWabjwC6RLARrx0SNoJdQ/sx9yZ+ZuoeX0qTFjehDxHsMa7
+         4sPHHqsK//8oo/3n0erGFfJePr+AFL9cDqQseL2ql5HHKWJynNwk4mVXfSKTFXzP1Ro8
+         DEgykFdSffkOmtARE9RnXESNvi+He98LtMt8wsmIKSlMotg90o5WAdkpHXHiE6l2BTKq
+         BbU0J3A0w980zydhS9hnWIc03j90zTo2JMloTligYM0XUFjHHrwWm90cqt2M4d7ejz5E
+         sarA==
+X-Forwarded-Encrypted: i=1; AL+hErGoZWvwK6FoMKPP4ankUi6Gz9iD0RrxvbuZL8QhPeYfvDJFMvp2EO6+uTW/rzp3IglA3t3PQbl0J2RvEsQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jo68LOfrfO0Eurn0EmFqidP3oKNSVgXQXo2I3aBwakWU8fxm2
+	uezef+rI8We+Fnm0ONeqn/TsXKUPnW/hxp9JxWK9t4h+GrDcMDmV+sPgkqtUdjVRe1U=
+X-Gm-Gg: AYBFou1kpGGRPgyEAFCZIMddkm/SQ4rsqBsOv2IiXQ/pG3Z35tgGjj+ewz0buy4TrSV
+	C7moKaLuqbeK82gk/dDRfvT7fxAJvUUyxplkiiMjyi7wIpstGG1/0ta5nVjyWIE4WTDyDlrHfXv
+	MQ9ZxERGnGlfZecZpLGc2htNGjq2/bPyXFDT9YgtFWjfVDBaoxjzZTP3OhuYqSzGl0iYeqGhmq7
+	B8AdM3y19F6sLTPZG8ryldq32oxu2LHelbXx5sQzmqy3h6G2Gb6VKwn1B5ImE2uRNJEkJfV+5Ef
+	y2Q6/w5iJK5gkmkkemjnX1NtKPlZYRa+IK4P+GZrHFGpUxf8dhmOtWwJe3AyRsNbpJAANC+2T2g
+	HJyyoZpjrgpDkooNFZwMrvweKUvQASp1fP4jKkfWXm0HK64831Vw2s8oDJx8A+haJAz8pcyruGc
+	uECK0ZfDkNUmxUq7eYQnd9lfAA2If1dWuZHjTtfVd229NYQUw5JC488kHOtZNdCX1Wq+gllxdJE
+	23vIOKS3sbW/MDe9GO9RyOtx/7IHLjDFnxYYH2wvifACS9tqkXGHbhndGFwIQpyEc7CMwcsdb90
+	Q0NeuV6G3ckGVEMy6M0q1YAa7zCp2sOO9ZLSGRN3c+Cv3OmBynHY1nXcO1jd12TG7MPTLMxpC4m
+	VjJScWU1AWeDlUEYh57EHHoyUykkXskXypc8qgP0UivjUmuM=
+X-Received: by 2002:a05:6102:6050:b0:7cc:2cef:b341 with SMTP id ada2fe7eead31-7d301ac2767mr622566137.4.1794320634935;
+        Tue, 10 Nov 2026 06:23:54 -0800 (PST)
+Received: from soleen.c.googlers.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c200838f0sm1837111241.9.2026.11.10.06.23.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 06:23:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,1397 +90,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/tiny: trigger5: Add MCT Trigger 5 USB display
- driver
-To: Ho Jie Feng <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: cyrozap@gmail.com, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-References: <20261026112843.69795-1-hjf3108@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261026112843.69795-1-hjf3108@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:email,suse.de:dkim,gitlab.freedesktop.org:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: CF7491F7C1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 03/19] kho, memfd_luo: Reference struct kho_vmalloc
+ via serialized pointer
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: Tarun Sahu <tarunsahu@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org, 
+ will@kernel.org, David Matlack <dmatlack@google.com>, 
+ Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, 
+ loganodell@google.com, arnd@arndb.de, dwmw2@infradead.org, 
+ baolu.lu@linux.intel.com, Bjorn Helgaas <bhelgaas@google.com>, 
+ oupton@kernel.org, alex@shazbot.org, gle.com@google.com, 
+ pbonzini@redhat.com, Andrew Morton <akpm@linux-foundation.org>, 
+ kevin.tian@intel.com, joro@8bytes.org, kvmarm@lists.linux.dev, 
+ linux-pci@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+ kexec@lists.infradead.org, kvm@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, skhawaja@google.com, sagis@google.com, 
+ linux-arch@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261110050202.529473-4-tarunsahu@google.com>
+References: <20261110050202.529473-1-tarunsahu@google.com>
+ <20261110050202.529473-4-tarunsahu@google.com>
+Date: Tue, 10 Nov 2026 09:23:48 -0500
+Message-Id: <179432062803.2329176.7220119921541924936.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7477;
+ i=pasha.tatashin@soleen.com; h=from:subject:message-id;
+ bh=3MeQeXkemHu+Wr0/oMRB7Xn+2Je8r4E7OMIYcRodeqI=;
+ b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq8yj5YKX9YmXwBRUiJpQxd2lEuERo2IgfqwM0l
+ IVRH3L/L9qJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCavMo+QAKCRC7dyhM23N6
+ 3qK5D/9g7VLq2y8fSOMG0PAMp3BX67/XRkPN7ey3PFRx5aKMUM07RMgQmzWBgUvl2Q6gNiQzkn6
+ PzGX64l/U3Obis7LYoXZVjFyU/Y1E3VsLm3pidkNnIIr4W6pd8fWOLQ1uNuf7+Y+ZNq3oJq7nS1
+ 4k2nRqLY7pzJAH9m8n6ub9XYCpLh3WeltCRtRINtCyceucFzMTRCUUdV2RUap7fL6Wumu3QX5eS
+ 8i1d0l/SPxERlsryDD5cCykkv2QXhHkfilL/BhVrMdy39RdMo4gj/FfTT94+11QgULuudAtccqO
+ U5L/QQpjwNg9nTNZkz1PQTXGK0J2aU/renYZpknMh5BplqfPCYnmTetLfrBpsDzfgey8RLF8V/Y
+ Eoh+ESh7BADOSLIg69tXGp+wnSKKHwkjEOC7OQCOwY9QDGPzUzCgkpdGdmzDoNKre2SpcvdIZAR
+ CcygD2hatCPKtp7iIAcav0qx3mKfHiW2V//Tu09m5IEQ7l7pd0mWhE4svcffc3miVXPGWhYrqmd
+ PVunIgq+xYFl+QWB7LvoZyaTxHcY3mbTkzsfJUXKDzZ/cqAhA8jR6w9agPlhIgaeGMrDR2m2MQg
+ C6Ovc0HMEbvS0tj7Rg3+WW5boGrxb4k26c6jkEz95OlytA/VPaKEpi+/upamWNVJg+P9KkVBlDM
+ /j4Qa87px1Kor9Q==
+X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
+ fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
 
-Hi,
-
-sorry for letting you wait for so long. You'll find a review below.
-
-The driver looks quite good already. Details below.  To give one advice, 
-I'd recommend to do away with the complicated transfer-worker logic and 
-simply send everything as part of the plane update, if possible.
-
-
-Am 26.10.26 um 12:28 schrieb Ho Jie Feng:
-> Add a DRM driver for MCT Trigger 5 USB display adapters.
-> This supports USB 3 to HDMI/VGA displays adapters with
-> trigger5 chipsets from j5create, StarTech and various others.
+> Subsystems preserving vmalloc allocations currently embed struct
+> kho_vmalloc directly by value in their serialized structures or device
+> tree properties. For example, struct memfd_luo_ser embeds struct
+> kho_vmalloc folios, and test_kho writes the structure directly into the
+> folios_info FDT property.
+> 
+> Embedding struct kho_vmalloc directly couples the containing layout's
+> field offsets and size to struct kho_vmalloc. Any modification to struct
+> kho_vmalloc shifts subsequent fields in the containing structure and
+> breaks the handover ABI across kexec.
+> 
+> Convert callers to hold a DECLARE_KHOSER_PTR pointer to struct
+> kho_vmalloc instead of embedding it by value. In memfd_luo, allocate the
+> main structure and struct kho_vmalloc in the same preserved folio, placing
+> struct kho_vmalloc in the remaining 8-byte-aligned space, and bump the
+> compatibility string to memfd-v3. In test_kho, place struct kho_vmalloc
+> in the remaining space of the FDT folio, store the serialized pointer in
+> the folios_info property, and bump the compatibility string to
+> kho-test-v2.
+> 
+> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
 >
-> The driver implements modesetting and USB framebuffer updates,
-> connector detection, and EDID retrieval.
->
-> The protocol is based on reverse-engineering work by Forest Crossman
-> (cyrozap) at: https://github.com/cyrozap/mct-usb-display-adapter-re
-> and usb packet captures between the Windows driver and the device.
->
-> Only the HDMI path has been tested. VGA selection is inferred from the
-> absence of USB audio interfaces.
->
-> Tested on JUA355. The list of USB device IDs are taken from the
-> Windows driver INF.
->
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> ---
-> Changes in v5:
-> - Fix warnings found by kernel test robot
->
-> Changes in v4:
-> - Move the driver to drm/tiny
-> - Remove the buffer resizing to reduce size of file
->
-> Changes in v3:
-> - Flush the vmalloc buffer before submitting the USB transfer.
-> - Support display panning by using the source offset
->
-> Changes in v2:
-> - Move the buffer resizing to crtc_* functions so that we can report
->    out of memory errors to userspace
-> - Change the PLL search function so that it is faster and doesn't
->    produce checkpatch warnings
-> - Update drm functions: crtc reset becomes create_state
-> - Fix warnings reported by kernel test robot
->
-> sashiko review false positives in v1-4:
-> - atomic in these function names mean that the changes should go through
->    through at once or not at all, nothing to do with atomic context.
->    Furthermore other drivers also have similar patterns
+> diff --git a/include/linux/kho/abi/kexec_handover.h b/include/linux/kho/abi/kexec_handover.h
+> index 6f12f5037ea5..bee75a7006e8 100644
+> --- a/include/linux/kho/abi/kexec_handover.h
+> +++ b/include/linux/kho/abi/kexec_handover.h
+> @@ -11,6 +11,8 @@
+>  #define _LINUX_KHO_ABI_KEXEC_HANDOVER_H
+>  
+>  #include <linux/bits.h>
+> +#include <linux/build_bug.h>
+> +#include <linux/kconfig.h>
+>  #include <linux/log2.h>
+>  #include <linux/math.h>
+>  #include <linux/types.h>
+> @@ -177,6 +179,10 @@ struct kho_vmalloc {
+>  	unsigned short order;
+>  };
+>  
+> +static_assert(sizeof(struct kho_vmalloc) == 16);
+> +static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+> +	      __alignof__(struct kho_vmalloc) == 8);
+> +
+>  /**
+>   * DOC: KHO persistent memory tracker
+>   *
+> diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
+> index 376a724a1d8c..7b49dd6d7e2a 100644
+> --- a/include/linux/kho/abi/memfd.h
+> +++ b/include/linux/kho/abi/memfd.h
+> @@ -81,7 +81,7 @@ static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>   *             to directly use them in the ABI.
+>   * @flags:     Flags for the file. Unused flag bits must be set to 0.
+>   * @nr_folios: Number of folios in the folios array.
+> - * @folios:    KHO vmalloc descriptor pointing to the array of
+> + * @folios:    Pointer to KHO vmalloc descriptor for the array of
+>   *             struct memfd_luo_folio_ser.
+>   */
+>  struct memfd_luo_ser {
+> @@ -90,14 +90,14 @@ struct memfd_luo_ser {
+>  	u32 seals;
+>  	u32 flags;
+>  	u64 nr_folios;
+> -	struct kho_vmalloc folios;
+> +	DECLARE_KHOSER_PTR(folios, struct kho_vmalloc *);
+>  };
+>  
+> -static_assert(sizeof(struct memfd_luo_ser) == 48);
+> +static_assert(sizeof(struct memfd_luo_ser) == 40);
+>  static_assert(!IS_ENABLED(CONFIG_64BIT) ||
+>  	      __alignof__(struct memfd_luo_ser) == 8);
+>  
+>  /* The compatibility string for memfd file handler */
+> -#define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
+> +#define MEMFD_LUO_FH_COMPATIBLE	"memfd-v3"
+>  
+>  #endif /* _LINUX_KHO_ABI_MEMFD_H */
+> diff --git a/lib/test_kho.c b/lib/test_kho.c
+> index aa6a0956bb8b..cd0f183ff68e 100644
+> --- a/lib/test_kho.c
+> +++ b/lib/test_kho.c
+> @@ -25,7 +25,7 @@
+>  
+>  #define KHO_TEST_MAGIC	0x4b484f21	/* KHO! */
+>  #define KHO_TEST_FDT	"kho_test"
+> -#define KHO_TEST_COMPAT "kho-test-v1"
+> +#define KHO_TEST_COMPAT "kho-test-v2"
+>  
+>  static long max_mem = (PAGE_SIZE << MAX_PAGE_ORDER) * 2;
+>  module_param(max_mem, long, 0644);
+> @@ -34,7 +34,7 @@ struct kho_test_state {
+>  	unsigned int nr_folios;
+>  	struct folio **folios;
+>  	phys_addr_t *folios_info;
+> -	struct kho_vmalloc folios_info_phys;
+> +	DECLARE_KHOSER_PTR(folios_info_phys, struct kho_vmalloc *);
+>  	int nr_folios_preserved;
+>  	struct folio *fdt;
+>  	__wsum csum;
+> @@ -47,13 +47,13 @@ static void kho_test_unpreserve_data(struct kho_test_state *state)
+>  	for (int i = 0; i < state->nr_folios_preserved; i++)
+>  		kho_unpreserve_folio(state->folios[i]);
+>  
+> -	kho_unpreserve_vmalloc(&state->folios_info_phys);
+> +	if (KHOSER_LOAD_PTR(state->folios_info_phys))
+> +		kho_unpreserve_vmalloc(KHOSER_LOAD_PTR(state->folios_info_phys));
+>  	vfree(state->folios_info);
+>  }
+>  
+>  static int kho_test_preserve_data(struct kho_test_state *state)
+>  {
+> -	struct kho_vmalloc folios_info_phys;
+>  	phys_addr_t *folios_info;
+>  	int err;
+>  
+> @@ -61,11 +61,10 @@ static int kho_test_preserve_data(struct kho_test_state *state)
+>  	if (!folios_info)
+>  		return -ENOMEM;
+>  
+> -	err = kho_preserve_vmalloc(folios_info, &folios_info_phys);
+> +	err = kho_preserve_vmalloc(folios_info, KHOSER_LOAD_PTR(state->folios_info_phys));
+>  	if (err)
+>  		goto err_free_info;
+>  
+> -	state->folios_info_phys = folios_info_phys;
+>  	state->folios_info = folios_info;
+>  
+>  	for (int i = 0; i < state->nr_folios; i++) {
+> @@ -123,14 +122,19 @@ static int kho_test_prepare_fdt(struct kho_test_state *state, ssize_t fdt_size)
+>  
+>  static int kho_test_preserve(struct kho_test_state *state)
+>  {
+> -	ssize_t fdt_size;
+> +	struct kho_vmalloc *folios_vmalloc;
+> +	ssize_t fdt_size, alloc_size;
+>  	int err;
+>  
+>  	fdt_size = state->nr_folios * sizeof(phys_addr_t) + PAGE_SIZE;
+> -	state->fdt = folio_alloc(GFP_KERNEL, get_order(fdt_size));
+> +	alloc_size = fdt_size + sizeof(struct kho_vmalloc);
+> +	state->fdt = folio_alloc(GFP_KERNEL, get_order(alloc_size));
+>  	if (!state->fdt)
+>  		return -ENOMEM;
+>  
+> +	folios_vmalloc = folio_address(state->fdt) + fdt_size;
+> +	KHOSER_STORE_PTR(state->folios_info_phys, folios_vmalloc);
+> +
+>  	err = kho_preserve_folio(state->fdt);
+>  	if (err)
+>  		goto err_free_fdt;
+> @@ -234,7 +238,8 @@ static int kho_test_save(void)
+>  
+>  static int kho_test_restore_data(const void *fdt, int node)
+>  {
+> -	const struct kho_vmalloc *folios_info_phys;
+> +	const DECLARE_KHOSER_PTR(*folios_info_phys, struct kho_vmalloc *);
+> +	const struct kho_vmalloc *folios_vmalloc;
+>  	const unsigned int *nr_folios;
+>  	phys_addr_t *folios_info;
+>  	const __wsum *old_csum;
+> @@ -255,7 +260,11 @@ static int kho_test_restore_data(const void *fdt, int node)
+>  	if (!folios_info_phys || len != sizeof(*folios_info_phys))
+>  		return -EINVAL;
+>  
+> -	folios_info = kho_restore_vmalloc(folios_info_phys);
+> +	folios_vmalloc = KHOSER_LOAD_PTR(*folios_info_phys);
+> +	if (!folios_vmalloc)
+> +		return -EINVAL;
+> +
+> +	folios_info = kho_restore_vmalloc(folios_vmalloc);
+>  	if (!folios_info)
+>  		return -EINVAL;
 
-Exactly. Somehow Sashiko doesn't get this. It thinks atomic means 
-"atomic context".
+Why do we need DECLARE_KHOSER_PTR() in test_kho.c at all?
 
-> - drm_gem_fb_begin_cpu_access is also required
->
->   MAINTAINERS                     |    7 +
->   drivers/gpu/drm/tiny/Kconfig    |   14 +
->   drivers/gpu/drm/tiny/Makefile   |    1 +
->   drivers/gpu/drm/tiny/trigger5.c | 1115 +++++++++++++++++++++++++++++++
->   4 files changed, 1137 insertions(+)
->   create mode 100644 drivers/gpu/drm/tiny/trigger5.c
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a08087fb6e678..20d4ffab67f8a 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8250,6 +8250,13 @@ S:	Maintained
->   F:	Documentation/devicetree/bindings/display/panel/mantix,mlaf057we51-x.yaml
->   F:	drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c
->   
-> +DRM DRIVER FOR MCT TRIGGER 5 USB DISPLAY ADAPTERS
-> +M:	Ho Jie Feng <hjf3108@gmail.com>
-> +L:	dri-devel@lists.freedesktop.org
-> +S:	Maintained
-> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> +F:	drivers/gpu/drm/tiny/trigger5.c
-> +
->   DRM DRIVER FOR MGA G200 GRAPHICS CHIPS
->   M:	Dave Airlie <airlied@redhat.com>
->   R:	Thomas Zimmermann <tzimmermann@suse.de>
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> index f0e72d4b6a470..65c2aa817c802 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-> @@ -98,6 +98,20 @@ config DRM_PIXPAPER
->   
->   	  If M is selected, the module will be built as pixpaper.ko.
->   
-> +config DRM_TRIGGER5
-> +	tristate "MCT Trigger 5 USB display adapters"
-> +	depends on DRM && USB && MMU
-> +	select DRM_CLIENT_SELECTION
-> +	select DRM_GEM_SHMEM_HELPER
-> +	select DRM_KMS_HELPER
-> +	help
-> +	  DRM driver for USB display adapters based on the MCT Trigger 5
-> +	  chipset, including the StarTech USB32VGAES and USB32HDES and the
-> +	  j5create JUA310 and JUA350.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called trigger5.
-> +
->   config TINYDRM_HX8357D
->   	tristate "DRM support for HX8357D display panels"
->   	depends on DRM && SPI
-> diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
-> index 48d30bf6152f9..675d51b9ec447 100644
-> --- a/drivers/gpu/drm/tiny/Makefile
-> +++ b/drivers/gpu/drm/tiny/Makefile
-> @@ -7,6 +7,7 @@ obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus-qemu.o
->   obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
->   obj-$(CONFIG_DRM_PANEL_MIPI_DBI)	+= panel-mipi-dbi.o
->   obj-$(CONFIG_DRM_PIXPAPER)              += pixpaper.o
-> +obj-$(CONFIG_DRM_TRIGGER5)		+= trigger5.o
->   obj-$(CONFIG_TINYDRM_HX8357D)		+= hx8357d.o
->   obj-$(CONFIG_TINYDRM_ILI9163)		+= ili9163.o
->   obj-$(CONFIG_TINYDRM_ILI9225)		+= ili9225.o
-> diff --git a/drivers/gpu/drm/tiny/trigger5.c b/drivers/gpu/drm/tiny/trigger5.c
-> new file mode 100644
-> index 0000000000000..d0ab06bab8d73
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/trigger5.c
-> @@ -0,0 +1,1115 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/completion.h>
-> +#include <linux/err.h>
-> +#include <linux/highmem.h>
-> +#include <linux/iosys-map.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/limits.h>
-> +#include <linux/math.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/overflow.h>
-> +#include <linux/scatterlist.h>
-> +#include <linux/sizes.h>
-> +#include <linux/slab.h>
-> +#include <linux/timer.h>
-> +#include <linux/types.h>
-> +#include <linux/usb.h>
-> +#include <linux/vmalloc.h>
-> +#include <linux/workqueue.h>
-> +
-> +#include <drm/clients/drm_client_setup.h>
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_atomic_state_helper.h>
-> +#include <drm/drm_connector.h>
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_damage_helper.h>
-> +#include <drm/drm_device.h>
-> +#include <drm/drm_drv.h>
-> +#include <drm/drm_edid.h>
-> +#include <drm/drm_encoder.h>
-> +#include <drm/drm_fbdev_shmem.h>
-> +#include <drm/drm_format_helper.h>
-> +#include <drm/drm_fourcc.h>
-> +#include <drm/drm_framebuffer.h>
-> +#include <drm/drm_gem.h>
-> +#include <drm/drm_gem_atomic_helper.h>
-> +#include <drm/drm_gem_framebuffer_helper.h>
-> +#include <drm/drm_gem_shmem_helper.h>
-> +#include <drm/drm_managed.h>
-> +#include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_plane.h>
-> +#include <drm/drm_print.h>
-> +#include <drm/drm_probe_helper.h>
-> +#include <drm/drm_rect.h>
-> +
-> +#define DRIVER_NAME		"trigger5"
-> +#define DRIVER_DESC		"MCT Trigger 5 USB display adapter"
-> +
-> +#define DRIVER_MAJOR		1
-> +#define DRIVER_MINOR		0
-> +
-> +#define TRIGGER5_NUM_TRANSFERS	2
-> +#define TRIGGER5_TRANSFER_BUF_SIZE SZ_8M
-> +
-> +struct trigger5_transfer_buf {
-> +	void *data;
-> +	struct sg_table sgt;
-> +	size_t len;
-> +};
-> +
-> +struct trigger5_transfer {
-> +	struct trigger5_device *trigger5;
-> +
-> +	struct trigger5_transfer_buf buf;
-> +	size_t frame_len;
-> +	struct drm_rect transfer_rect;
-> +
-> +	struct timer_list timer;
-> +	struct usb_sg_request sgr;
-> +
-> +	struct work_struct transfer_work;
-> +	struct completion frame_complete;
-> +};
-> +
-> +struct trigger5_device {
-> +	struct drm_device drm;
-> +	struct usb_interface *intf;
-> +	unsigned int bulk_pipe;
-> +
-> +	struct drm_connector connector;
-> +	struct drm_plane plane;
-> +	struct drm_crtc crtc;
-> +	struct drm_encoder encoder;
-> +
-> +	u16 frame_counter;
-> +
-> +	int current_transfer;
-> +	struct drm_rect pending_rect;
-> +	struct workqueue_struct *transfer_wq;
+DECLARE_KHOSER_PTR() makes sense in shared ABI structs like struct 
+memfd_luo_ser where both kernels reference the same struct field and get 
+type checking between KHOSER_STORE_PTR() and KHOSER_LOAD_PTR().
 
-Do you really need your own queue?
+Here, struct kho_test_state is purely local to the saving kernel and the 
+handover ABI is just the "folios_info" FDT property carrying a u64 
+physical address. Having two unrelated DECLARE_KHOSER_PTR() declarations 
+doesn't buy any cross-kernel type safety
 
-I'd recommend to push work on one of the system work queues.
-
-> +	bool display_enabled;
-
-This field only seems to control the dependency between transfer and 
-keepalive.
-
-> +	struct delayed_work keepalive_work;
-> +
-> +	struct trigger5_transfer transfers[TRIGGER5_NUM_TRANSFERS];
-> +};
-> +
-> +struct trigger5_pll {
-> +	u8 prediv;
-> +	u8 mul1;
-> +	u8 mul2;
-> +	u8 div1;
-> +	u8 div2;
-> +} __packed;
-> +
-> +struct trigger5_mode_request {
-> +	__be16 height;
-> +	__be16 width;
-> +	__be16 line_total_pixels; /* minus one */
-> +	__be16 line_sync_pulse; /* minus one */
-> +	__be16 line_back_porch; /* minus one */
-> +	__be16 unknown1;
-> +	__be16 unknown2;
-> +	__be16 width_minus_one;
-> +	__be16 frame_total_lines; /* minus one */
-> +	__be16 frame_sync_pulse; /* minus one */
-> +	__be16 frame_back_porch; /* minus one */
-> +	__be16 unknown3;
-> +	__be16 unknown4;
-> +	__be16 height_minus_one;
-> +	struct trigger5_pll pll;
-> +	u8 hsync_polarity;
-> +	u8 vsync_polarity;
-> +} __packed;
-> +
-> +/* gm12u320.c uses the same header format */
-> +struct trigger5_bulk_header {
-> +	u8 magic; /* 0xfb */
-> +	u8 length; /* 0x14 */
-> +	__le16 counter; /* lower 12-bit counter, upper 4-bit packet flags */
-> +	__le16 horizontal_offset; /* lower 13-bit offset, upper 3-bit unknown */
-> +	__le16 vertical_offset; /* lower 13-bit offset, upper 3-bit unknown */
-> +	__le16 width; /* lower 13-bit width, upper 3-bit unknown */
-> +	__le16 height; /* lower 13-bit height, upper 3-bit unknown */
-> +	__le32 payload_length; /* lower 28-bit length, upper 4-bit flags */
-> +	u8 flags; /* bit 0 must be set */
-> +	u8 unknown1;
-> +	u8 unknown2;
-> +	u8 checksum;
-> +} __packed;
-> +
-> +#define TRIGGER5_REQUEST_KEEPALIVE		0x91
-> +#define TRIGGER5_REQUEST_GET_REGISTER		0xA5
-> +#define TRIGGER5_REQUEST_GET_STATUS		0xA6
-> +#define TRIGGER5_REQUEST_GET_EDID		0xA8
-> +#define TRIGGER5_REQUEST_SET_MODE		0xC3
-> +#define TRIGGER5_REQUEST_SET_REGISTER		0xC4
-> +#define TRIGGER5_REQUEST_SET_CURSOR_POSITION	0xC8
-> +#define TRIGGER5_REQUEST_FIRMWARE_RESET		0xD1
-> +
-> +#define TRIGGER5_KEEPALIVE_INTERVAL_MS	2000
-> +#define TRIGGER5_BULK_TIMEOUT_MS		5000
-> +
-> +#define to_trigger5(x) container_of(x, struct trigger5_device, drm)
-
-container_of_const() is nowadays the preferred macro.
-
-> +
-> +static void trigger5_stop_io(struct trigger5_device *trigger5)
-> +{
-> +	WRITE_ONCE(trigger5->display_enabled, false);
-> +	flush_workqueue(trigger5->transfer_wq);
-> +	cancel_delayed_work_sync(&trigger5->keepalive_work);
-> +}
-> +
-> +static int trigger5_usb_suspend(struct usb_interface *interface,
-> +				pm_message_t message)
-> +{
-> +	struct trigger5_device *trigger5 = usb_get_intfdata(interface);
-> +	int ret;
-> +
-> +	ret = drm_mode_config_helper_suspend(&trigger5->drm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	trigger5_stop_io(trigger5);
-> +
-> +	return 0;
-> +}
-> +
-> +static int trigger5_usb_resume(struct usb_interface *interface)
-> +{
-> +	struct trigger5_device *trigger5 = usb_get_intfdata(interface);
-> +
-> +	return drm_mode_config_helper_resume(&trigger5->drm);
-> +}
-> +
-> +DEFINE_DRM_GEM_FOPS(trigger5_driver_fops);
-> +
-> +static const struct drm_driver trigger5_drm_driver = {
-> +	.driver_features = DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET,
-> +
-> +	/* GEM hooks */
-> +	.fops = &trigger5_driver_fops,
-> +	DRM_GEM_SHMEM_DRIVER_OPS,
-> +	DRM_FBDEV_SHMEM_DRIVER_OPS,
-> +
-> +	.name = DRIVER_NAME,
-> +	.desc = DRIVER_DESC,
-> +	.major = DRIVER_MAJOR,
-> +	.minor = DRIVER_MINOR,
-> +};
-> +
-> +static const struct drm_mode_config_funcs trigger5_mode_config_funcs = {
-> +	.fb_create = drm_gem_fb_create_with_dirty,
-> +	.atomic_check = drm_atomic_helper_check,
-> +	.atomic_commit = drm_atomic_helper_commit,
-> +};
-> +
-> +static u64 trigger5_calculate_pll(struct trigger5_pll *pll, int clock)
-> +{
-> +	u64 ref_clock = 10000000;
-> +	u64 target_clock = (u64)clock * 1000;
-> +	u64 calculated_clock, calculated_err, best_err = U64_MAX;
-> +	int prediv_div2, prediv, mul1, mul2, div1, div2;
-> +
-> +	/* Use values found in the capture */
-> +	for (prediv_div2 = 0x02; prediv_div2 <= 0x100; prediv_div2 <<= 1) {
-> +		for (mul1 = 1; mul1 <= 0x32; mul1++) {
-> +			for (mul2 = mul1; mul2 <= 0x32; mul2++) {
-> +				for (div1 = 1; div1 <= 0x32; div1++) {
-> +					if (!best_err)
-> +						break;
-> +					calculated_clock =
-> +						div_u64(ref_clock * mul1 * mul2,
-> +							prediv_div2 * div1);
-> +					calculated_err =
-> +						abs_diff(calculated_clock,
-> +							 target_clock);
-> +					if (prediv_div2 <= 0x10) {
-> +						div2 = prediv_div2;
-> +						prediv = 1;
-> +					} else {
-> +						div2 = 0x10;
-> +						prediv = prediv_div2 >> 4;
-> +					}
-> +					if (calculated_err < best_err) {
-> +						best_err =
-> +							calculated_err;
-> +						pll->mul1 = mul1;
-> +						pll->mul2 = mul2;
-> +						pll->div1 = div1;
-> +						pll->div2 = div2;
-> +						pll->prediv = prediv;
-> +					}
-> +				}
-> +			}
-> +		}
-> +	}
-> +	return best_err;
-> +}
-> +
-> +static void trigger5_bulk_timeout(struct timer_list *t)
-> +{
-> +	struct trigger5_transfer *transfer =
-> +		timer_container_of(transfer, t, timer);
-> +
-> +	usb_sg_cancel(&transfer->sgr);
-> +}
-> +
-> +static void trigger5_transfer_work(struct work_struct *work)
-> +{
-> +	struct trigger5_transfer *transfer =
-> +		container_of(work, struct trigger5_transfer, transfer_work);
-> +	struct trigger5_device *trigger5 = transfer->trigger5;
-> +	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
-> +	int idx, ret;
-> +
-> +	if (!drm_dev_enter(&trigger5->drm, &idx))
-> +		goto complete;
-> +
-> +	/* Submit bulk transfer with a five-second timeout. */
-> +	ret = usb_sg_init(&transfer->sgr, udev, trigger5->bulk_pipe, 0,
-> +			  transfer->buf.sgt.sgl,
-> +			  transfer->buf.sgt.nents, transfer->frame_len,
-> +			  GFP_KERNEL);
-> +	if (ret) {
-> +		drm_err_ratelimited(&trigger5->drm,
-> +				    "failed to initialize USB transfer: %d\n",
-> +				    ret);
-> +		goto exit;
-> +	}
-> +
-> +	mod_timer(&transfer->timer,
-> +		  jiffies + msecs_to_jiffies(TRIGGER5_BULK_TIMEOUT_MS));
-> +	usb_sg_wait(&transfer->sgr);
-> +	timer_delete_sync(&transfer->timer);
-> +
-> +	if (transfer->sgr.status)
-> +		drm_err_ratelimited(&trigger5->drm,
-> +				    "USB transfer failed: %d\n",
-> +				    transfer->sgr.status);
-> +	else if (transfer->sgr.bytes != transfer->frame_len)
-> +		drm_err_ratelimited(&trigger5->drm,
-> +				    "short USB transfer: %zu/%zu bytes\n",
-> +				    transfer->sgr.bytes, transfer->frame_len);
-> +	else if (READ_ONCE(trigger5->display_enabled))
-> +		/* Keepalive must only be sent after a frame has been sent */
-> +		queue_delayed_work(trigger5->transfer_wq,
-> +				   &trigger5->keepalive_work,
-> +				   msecs_to_jiffies(TRIGGER5_KEEPALIVE_INTERVAL_MS));
-> +
-> +exit:
-> +	drm_dev_exit(idx);
-> +complete:
-> +	complete(&transfer->frame_complete);
-> +}
-> +
-> +static void trigger5_keepalive_work(struct work_struct *work)
-> +{
-> +	struct trigger5_device *trigger5 =
-> +		container_of(to_delayed_work(work), struct trigger5_device,
-> +			     keepalive_work);
-> +	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
-> +	u8 response;
-> +	int idx, ret;
-> +
-> +	if (!READ_ONCE(trigger5->display_enabled))
-> +		return;
-> +
-> +	if (!drm_dev_enter(&trigger5->drm, &idx))
-> +		return;
-> +
-> +	ret = usb_control_msg_recv(udev, 0, TRIGGER5_REQUEST_KEEPALIVE,
-> +				   USB_DIR_IN | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0x0002, 0x0000, &response,
-> +				   sizeof(response), USB_CTRL_GET_TIMEOUT,
-> +				   GFP_KERNEL);
-> +	if (ret)
-> +		drm_err_ratelimited(&trigger5->drm,
-> +				    "keepalive request failed: %d\n", ret);
-> +
-> +	if (READ_ONCE(trigger5->display_enabled))
-> +		mod_delayed_work(trigger5->transfer_wq,
-> +				 &trigger5->keepalive_work,
-> +				 msecs_to_jiffies(TRIGGER5_KEEPALIVE_INTERVAL_MS));
-> +
-> +	drm_dev_exit(idx);
-> +}
-> +
-> +static void trigger5_free_bulk_buffer(struct trigger5_transfer_buf *buf)
-> +{
-> +	if (!buf->data)
-> +		return;
-> +	sg_free_table(&buf->sgt);
-> +	vfree(buf->data);
-> +	buf->data = NULL;
-> +	buf->len = 0;
-> +}
-> +
-> +static int trigger5_alloc_bulk_buffer(struct trigger5_transfer_buf *buf,
-> +				      size_t len)
-> +{
-> +	unsigned int num_pages;
-> +	int ret, i;
-> +	struct page **pages;
-> +	u8 *data;
-> +	void *ptr;
-> +
-> +	/* Large transfer buffer requires vmalloc and a scatterlist. */
-> +	data = vmalloc_32(len);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	num_pages = DIV_ROUND_UP(len, PAGE_SIZE);
-> +	pages = kmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
-> +	if (!pages) {
-> +		ret = -ENOMEM;
-> +		goto err_vfree;
-> +	}
-> +	for (i = 0, ptr = data; i < num_pages; i++, ptr += PAGE_SIZE)
-> +		pages[i] = vmalloc_to_page(ptr);
-> +	ret = sg_alloc_table_from_pages(&buf->sgt, pages,
-> +					num_pages, 0, len, GFP_KERNEL);
-> +	kfree(pages);
-> +	if (ret)
-> +		goto err_vfree;
-> +
-> +	buf->data = data;
-> +	buf->len = len;
-> +
-> +	return 0;
-> +err_vfree:
-> +	vfree(data);
-> +	return ret;
-> +}
-> +
-> +static void trigger5_init_transfer(struct trigger5_device *trigger5,
-> +				   struct trigger5_transfer *transfer)
-> +{
-> +	init_completion(&transfer->frame_complete);
-> +	complete(&transfer->frame_complete);
-> +	timer_setup(&transfer->timer, trigger5_bulk_timeout, 0);
-> +	INIT_WORK(&transfer->transfer_work, trigger5_transfer_work);
-> +	transfer->trigger5 = trigger5;
-> +}
-> +
-> +static size_t trigger5_mode_buf_len(const struct drm_display_mode *mode)
-> +{
-> +	return size_add(array3_size(mode->hdisplay, mode->vdisplay, 3),
-> +			sizeof(struct trigger5_bulk_header));
-> +}
-> +
-> +static void trigger5_crtc_atomic_enable(struct drm_crtc *crtc,
-> +					struct drm_atomic_commit *state)
-> +{
-> +	struct trigger5_device *trigger5 = to_trigger5(crtc->dev);
-> +	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
-> +	struct drm_crtc_state *crtc_state =
-> +		drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct drm_display_mode *mode = &crtc_state->mode;
-> +	struct trigger5_mode_request request = {};
-> +	u8 data[4];
-> +	u64 clk;
-> +	int idx, ret;
-> +
-> +	if (!drm_dev_enter(crtc->dev, &idx))
-> +		return;
-> +
-> +	trigger5_stop_io(trigger5);
-> +
-> +	/* Sequence recovered from USB captures. */
-> +	ret = usb_control_msg_recv(udev, 0,
-> +				   TRIGGER5_REQUEST_FIRMWARE_RESET,
-> +				   USB_DIR_IN | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0x0000, 0x0000, data, 1,
-> +				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-> +	if (ret)
-> +		goto err;
-> +
-> +	request.height = cpu_to_be16(mode->vdisplay);
-> +	request.height_minus_one = cpu_to_be16(mode->vdisplay - 1);
-> +	request.width = cpu_to_be16(mode->hdisplay);
-> +	request.width_minus_one = cpu_to_be16(mode->hdisplay - 1);
-> +
-> +	request.line_total_pixels = cpu_to_be16(mode->htotal - 1);
-> +	request.line_sync_pulse =
-> +		cpu_to_be16(mode->hsync_end - mode->hsync_start - 1);
-> +	request.line_back_porch =
-> +		cpu_to_be16(mode->htotal - mode->hsync_end - 1);
-> +
-> +	request.frame_total_lines = cpu_to_be16(mode->vtotal - 1);
-> +	request.frame_sync_pulse =
-> +		cpu_to_be16(mode->vsync_end - mode->vsync_start - 1);
-> +	request.frame_back_porch =
-> +		cpu_to_be16(mode->vtotal - mode->vsync_end - 1);
-> +	request.unknown1 = cpu_to_be16(0xff);
-> +	request.unknown2 = cpu_to_be16(0xff);
-> +	request.unknown3 = cpu_to_be16(0xff);
-> +	request.unknown4 = cpu_to_be16(0xff);
-> +
-> +	request.hsync_polarity = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
-> +	request.vsync_polarity = (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
-> +
-> +	trigger5_calculate_pll(&request.pll, mode->clock);
-> +	clk = div_u64(10000000ULL * request.pll.mul1 * request.pll.mul2,
-> +		      (u32)request.pll.prediv * request.pll.div1 *
-> +			      request.pll.div2 * 1000);
-> +	drm_dbg_kms(&trigger5->drm,
-
-Drivers should use drm_dbg()
-
-> +		    "pll: %02x %02x %02x %02x %02x -> %llu kHz (want %d kHz)\n",
-> +		    request.pll.prediv, request.pll.mul1, request.pll.mul2,
-> +		    request.pll.div1, request.pll.div2, clk, mode->clock);
-> +
-> +	/* wValue can be any value since we are sending a custom mode */
-> +	ret = usb_control_msg_send(udev, 0, TRIGGER5_REQUEST_SET_MODE,
-> +				   USB_DIR_OUT | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0, 0, &request, sizeof(request),
-> +				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret = usb_control_msg_recv(udev, 0,
-> +				   TRIGGER5_REQUEST_FIRMWARE_RESET,
-> +				   USB_DIR_IN | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0x0201, 0x0000, data, 1,
-> +				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret = usb_control_msg_recv(udev, 0,
-> +				   TRIGGER5_REQUEST_GET_REGISTER,
-> +				   USB_DIR_IN | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0x0000, 0xec34, data, sizeof(data),
-> +				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-> +	if (ret)
-> +		goto err;
-> +
-> +	data[0] = 0x60;
-> +	data[1] = 0x00;
-> +	data[2] = 0x00;
-> +	data[3] = 0x10;
-> +	ret = usb_control_msg_send(udev, 0,
-> +				   TRIGGER5_REQUEST_SET_REGISTER,
-> +				   USB_DIR_OUT | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0x0000, 0xec34, data, sizeof(data),
-> +				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
-> +	if (ret)
-> +		goto err;
-> +
-> +	WRITE_ONCE(trigger5->display_enabled, true);
-> +
-> +	goto exit;
-> +
-> +err:
-> +	drm_err(&trigger5->drm, "failed to configure display mode: %d\n", ret);
-
-No error messages in the display-update code paths please.  Maybe use 
-drm_err_once().  Otherwise you might spam the kernel logs with endless 
-error messages or give malicious user space a way to do that. Here and 
-in other functions.
-
-
-> +exit:
-> +	drm_dev_exit(idx);
-> +}
-> +
-> +static void trigger5_crtc_atomic_disable(struct drm_crtc *crtc,
-> +					 struct drm_atomic_commit *state)
-> +{
-> +	struct trigger5_device *trigger5 = to_trigger5(crtc->dev);
-> +	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
-> +	u8 data;
-> +	int idx, ret;
-> +
-> +	if (!drm_dev_enter(crtc->dev, &idx))
-> +		return;
-> +
-> +	trigger5_stop_io(trigger5);
-> +
-> +	ret = usb_control_msg_recv(udev, 0,
-> +				   TRIGGER5_REQUEST_FIRMWARE_RESET,
-> +				   USB_DIR_IN | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0x0001, 0x0000, &data, 1,
-> +				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-> +	if (ret)
-> +		drm_err(&trigger5->drm, "failed to disable display: %d\n", ret);
-> +
-> +	drm_dev_exit(idx);
-> +}
-> +
-> +static enum drm_mode_status
-> +trigger5_crtc_mode_valid(struct drm_crtc *crtc,
-> +			 const struct drm_display_mode *mode)
-> +{
-> +	struct trigger5_pll pll;
-> +	u64 err, ppm;
-> +
-> +	if (mode->hsync_end <= mode->hsync_start ||
-> +	    mode->htotal <= mode->hsync_end ||
-> +	    mode->htotal > U16_MAX + 1)
-> +		return MODE_H_ILLEGAL;
-> +
-> +	if (mode->vsync_end <= mode->vsync_start ||
-> +	    mode->vtotal <= mode->vsync_end ||
-> +	    mode->vtotal > U16_MAX + 1)
-> +		return MODE_V_ILLEGAL;
-> +
-> +	if (trigger5_mode_buf_len(mode) > TRIGGER5_TRANSFER_BUF_SIZE)
-> +		return MODE_MEM;
-> +
-> +	err = trigger5_calculate_pll(&pll, mode->clock);
-> +	ppm = div64_u64(err * 1000, mode->clock);
-> +	if (ppm > 10000)
-> +		return MODE_CLOCK_RANGE;
-> +
-> +	return MODE_OK;
-> +}
-> +
-> +static int trigger5_plane_atomic_check(struct drm_plane *plane,
-> +				       struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *new_plane_state =
-> +		drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state =
-> +		to_drm_shadow_plane_state(new_plane_state);
-> +	struct drm_crtc *crtc = new_plane_state->crtc;
-> +	struct drm_crtc_state *new_crtc_state;
-> +	size_t len;
-> +	int ret;
-> +
-> +	if (!new_plane_state->fb)
-> +		return 0;
-> +
-> +	new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-
-The pointer crtc can be NULL!  Then you cannot use it here. The pattern 
-for this code is
-
-   new_crtc_state = NULL;
-
-   if (crtc)
-     new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc)
-
-The call to _check_plane_state() will then work correctly and make the 
-plane as !visible.
-
-
-> +
-> +	ret = drm_atomic_helper_check_plane_state(new_plane_state,
-> +						  new_crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  false, false);
-> +	if (ret || !new_plane_state->visible)
-> +		return ret;
-> +
-> +	/* For drm_fb_xrgb8888_to_rgb888 temp buffer */
-> +	len = new_plane_state->fb->width * sizeof(u32);
-> +	if (!drm_format_conv_state_reserve(&shadow_plane_state->fmtcnv_state,
-> +					   len, GFP_KERNEL))
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-> +static u8 trigger5_bulk_header_checksum(const struct trigger5_bulk_header *header)
-> +{
-> +	const u8 *data = (const u8 *)header;
-> +	u16 checksum = 0;
-> +	size_t i;
-> +
-> +	for (i = 0; i < sizeof(struct trigger5_bulk_header) - 1; i++)
-> +		checksum += data[i];
-> +	checksum &= 0xff;
-> +	checksum = 0x100 - checksum;
-> +	return checksum & 0xff;
-> +}
-> +
-> +static void trigger5_clear_rect(struct drm_rect *rect)
-> +{
-> +	rect->x1 = INT_MAX;
-> +	rect->y1 = INT_MAX;
-> +	rect->x2 = 0;
-> +	rect->y2 = 0;
-> +}
-> +
-> +static void trigger5_merge_rect(struct drm_rect *r1, const struct drm_rect *r2)
-> +{
-> +	r1->x1 = min(r1->x1, r2->x1);
-> +	r1->y1 = min(r1->y1, r2->y1);
-> +	r1->x2 = max(r1->x2, r2->x2);
-> +	r1->y2 = max(r1->y2, r2->y2);
-> +}
-> +
-> +static void trigger5_plane_atomic_update(struct drm_plane *plane,
-> +					 struct drm_atomic_commit *atomic_state)
-> +{
-> +	struct drm_plane_state *old_state =
-> +		drm_atomic_get_old_plane_state(atomic_state, plane);
-> +	struct drm_plane_state *state =
-> +		drm_atomic_get_new_plane_state(atomic_state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state =
-> +		to_drm_shadow_plane_state(state);
-> +	struct trigger5_device *trigger5 = to_trigger5(plane->dev);
-> +	struct trigger5_transfer *current_transfer, *previous_transfer;
-> +	struct trigger5_bulk_header *header;
-> +	struct drm_rect current_rect, src_rect;
-> +	struct iosys_map data_map;
-> +	size_t frame_len, payload_len;
-> +	int width, height;
-> +	int idx, ret;
-> +
-> +	if (!drm_atomic_helper_damage_merged(old_state, state, &current_rect))
-> +		return;
-> +
-> +	if (!drm_dev_enter(plane->dev, &idx))
-> +		return;
-> +
-> +	current_transfer =
-> +		&trigger5->transfers[trigger5->current_transfer];
-> +	previous_transfer = &trigger5->transfers[1 - trigger5->current_transfer];
-> +
-> +	src_rect = drm_plane_state_src(state);
-> +
-> +	/* Match drm_atomic_helper_damage_iter_init() rounding. */
-> +	src_rect.x1 >>= 16;
-> +	src_rect.y1 >>= 16;
-> +	src_rect.x2 = (src_rect.x2 >> 16) + !!(src_rect.x2 & 0xffff);
-> +	src_rect.y2 = (src_rect.y2 >> 16) + !!(src_rect.y2 & 0xffff);
-> +
-> +	/* Latency reduction: requeue with the latest frame data. */
-> +	if (cancel_work(&previous_transfer->transfer_work)) {
-> +		complete(&previous_transfer->frame_complete);
-
-I would not recommend this logic.  For rapid successive updates, your 
-driver might end up canceling transfers and not sending any data for 
-extended periods.  Better take each frame on its own.
-
-
-> +
-> +		trigger5_merge_rect(&current_rect, &previous_transfer->transfer_rect);
-> +
-> +		current_transfer = previous_transfer;
-> +		trigger5->current_transfer = !trigger5->current_transfer;
-> +	}
-> +
-> +	/* Damage deferred by an earlier failed update. */
-> +	trigger5_merge_rect(&current_rect, &trigger5->pending_rect);
-> +	trigger5_clear_rect(&trigger5->pending_rect);
-> +
-> +	/* Clip merged damage to the new resolution. */
-> +	if (!drm_rect_intersect(&current_rect, &src_rect))
-> +		goto exit;
-> +
-> +	width = drm_rect_width(&current_rect);
-> +	height = drm_rect_height(&current_rect);
-> +	payload_len = array3_size(width, height, 3);
-> +	frame_len = size_add(payload_len, sizeof(*header));
-> +
-> +	if (drm_WARN_ON_ONCE(plane->dev, frame_len > current_transfer->buf.len))
-> +		goto exit;
-> +
-> +	/*
-> +	 * This should almost never wait because we have should have a
-> +	 * pending transfer ready to be de-queued above in case the transfer
-> +	 * hasn't finished, but do a bounded wait just in case it gets stuck
-> +	 */
-> +	if (!wait_for_completion_timeout(&current_transfer->frame_complete,
-> +					 msecs_to_jiffies(20)))
-> +		goto exit_save_pending;
-> +
-> +	current_transfer->transfer_rect = current_rect;
-> +
-> +	current_transfer->frame_len = frame_len;
-> +	header = current_transfer->buf.data;
-> +	header->magic = 0xfb;
-> +	header->length = 0x14;
-> +	/* flags 0: uncompressed 24-bit RGB888. */
-> +	header->counter =
-> +		cpu_to_le16((trigger5->frame_counter++) & 0xfff);
-> +	header->horizontal_offset = cpu_to_le16(current_rect.x1 - src_rect.x1);
-> +	header->vertical_offset = cpu_to_le16(current_rect.y1 - src_rect.y1);
-> +	header->width = cpu_to_le16(width);
-> +	header->height = cpu_to_le16(height);
-> +	header->payload_length = cpu_to_le32((u32)payload_len);
-> +	header->flags = 0x1;
-> +	header->unknown1 = 0;
-> +	header->unknown2 = 0;
-> +	header->checksum = trigger5_bulk_header_checksum(header);
-> +
-> +	iosys_map_set_vaddr(&data_map,
-> +			    current_transfer->buf.data + sizeof(*header));
-> +
-> +	ret = drm_gem_fb_begin_cpu_access(state->fb, DMA_FROM_DEVICE);
-> +	if (ret < 0) {
-> +		complete(&current_transfer->frame_complete);
-> +		goto exit_save_pending;
-> +	}
-> +
-> +	drm_fb_xrgb8888_to_rgb888(&data_map, NULL,
-> +				  &shadow_plane_state->data[0],
-> +				  state->fb, &current_rect,
-> +				  &shadow_plane_state->fmtcnv_state);
-> +
-> +	drm_gem_fb_end_cpu_access(state->fb, DMA_FROM_DEVICE);
-> +
-> +	flush_kernel_vmap_range(current_transfer->buf.data, frame_len);
-> +
-> +	queue_work(trigger5->transfer_wq, &current_transfer->transfer_work);
-> +	trigger5->current_transfer = !trigger5->current_transfer;
-
-Why do you need a separate work item for the transfer. Can't you just 
-send from here?  We do this in udl.
-
-> +	goto exit;
-> +
-> +	/* Retry the dropped damage on the next update. */
-> +exit_save_pending:
-> +	trigger5->pending_rect = current_rect;
-> +exit:
-> +	drm_dev_exit(idx);
-> +}
-> +
-> +static const struct drm_mode_config_helper_funcs
-> +trigger5_mode_config_helper_funcs = {
-> +	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
-
-This helper will first switch on the CRTC and then update the plane.  
-But there's a comment somewhere that says "Keepalive must only be sent 
-after a frame has been sent". The keepalive message is started in CRTC 
-enable before sending the frame, (right?)  Isn't that a contradiction?
-
-
-> +};
-> +
-> +static const struct drm_crtc_helper_funcs trigger5_crtc_helper_funcs = {
-> +	.mode_valid = trigger5_crtc_mode_valid,
-> +	.atomic_disable = trigger5_crtc_atomic_disable,
-> +	.atomic_check = drm_crtc_helper_atomic_check,
-> +	.atomic_enable = trigger5_crtc_atomic_enable,
-> +};
-> +
-> +static const struct drm_crtc_funcs trigger5_crtc_funcs = {
-> +	.atomic_create_state = drm_atomic_helper_crtc_create_state,
-> +	.destroy = drm_crtc_cleanup,
-> +	.set_config = drm_atomic_helper_set_config,
-> +	.page_flip = drm_atomic_helper_page_flip,
-> +	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
-> +};
-> +
-> +static const struct drm_plane_helper_funcs trigger5_plane_helper_funcs = {
-> +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-> +	.atomic_check = trigger5_plane_atomic_check,
-> +	.atomic_update = trigger5_plane_atomic_update,
-> +};
-> +
-> +static const struct drm_plane_funcs trigger5_plane_funcs = {
-> +	.update_plane = drm_atomic_helper_update_plane,
-> +	.disable_plane = drm_atomic_helper_disable_plane,
-> +	.destroy = drm_plane_cleanup,
-> +	DRM_GEM_SHADOW_PLANE_FUNCS,
-> +};
-
-I suggest to put the plane code and _funcs before the CRTC code and _funcs.
-
-
-> +
-> +static const struct drm_encoder_funcs trigger5_encoder_funcs = {
-> +	.destroy = drm_encoder_cleanup,
-> +};
-> +
-> +static const u32 trigger5_plane_formats[] = {
-> +	DRM_FORMAT_XRGB8888,
-> +};
-> +
-> +static int trigger5_read_edid(void *data, u8 *buf, unsigned int block,
-> +			      size_t len)
-> +{
-> +	struct trigger5_device *trigger5 = data;
-> +	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
-> +	int idx, ret;
-> +
-> +	if (!drm_dev_enter(&trigger5->drm, &idx))
-> +		return -ENODEV;
-> +
-> +	ret = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
-> +			      TRIGGER5_REQUEST_GET_EDID,
-> +			      USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-> +			      block, 0, buf, len, USB_CTRL_GET_TIMEOUT);
-> +	drm_dev_exit(idx);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != len)
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static int trigger5_connector_get_modes(struct drm_connector *connector)
-> +{
-> +	struct trigger5_device *trigger5 = to_trigger5(connector->dev);
-> +	const struct drm_edid *edid;
-> +	int count;
-> +
-> +	edid = drm_edid_read_custom(connector, trigger5_read_edid, trigger5);
-> +	drm_edid_connector_update(connector, edid);
-> +	count = drm_edid_connector_add_modes(connector);
-> +	if (!count)
-> +		count = drm_add_modes_noedid(connector, 1920, 1200);
-
-Please don't call drm_add_modes_noedid().  DRM helpers will set up safe 
-modes if no EDID could be found.  In you driver simply return he value 
-of count and let the helpers do their job.
-
-
-> +	drm_edid_free(edid);
-> +
-> +	return count;
-> +}
-> +
-> +static enum drm_connector_status
-> +trigger5_detect(struct drm_connector *connector, bool force)
-> +{
-> +	struct trigger5_device *trigger5 = to_trigger5(connector->dev);
-> +	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
-> +	u8 status[2];
-> +	int idx, ret;
-> +
-> +	if (!drm_dev_enter(&trigger5->drm, &idx))
-> +		return connector_status_disconnected;
-> +
-> +	ret = usb_control_msg_recv(udev, 0, TRIGGER5_REQUEST_GET_STATUS,
-> +				   USB_DIR_IN | USB_TYPE_VENDOR |
-> +					   USB_RECIP_DEVICE,
-> +				   0xff, 0x3, status, sizeof(status),
-> +				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-> +	drm_dev_exit(idx);
-> +
-> +	if (ret)
-> +		return connector_status_unknown;
-> +
-> +	return status[1] == 1 ? connector_status_connected :
-> +			     connector_status_disconnected;
-> +}
-> +
-> +static const struct drm_connector_helper_funcs trigger5_connector_helper_funcs = {
-> +	.get_modes = trigger5_connector_get_modes,
-> +};
-> +
-> +static const struct drm_connector_funcs trigger5_connector_funcs = {
-> +	.fill_modes = drm_helper_probe_single_connector_modes,
-> +	.destroy = drm_connector_cleanup,
-> +	.detect = trigger5_detect,
-> +	.reset = drm_atomic_helper_connector_reset,
-> +	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> +};
-> +
-> +static int trigger5_connector_init(struct trigger5_device *trigger5,
-> +				   int connector_type)
-> +{
-> +	int ret;
-> +
-> +	drm_connector_helper_add(&trigger5->connector,
-> +				 &trigger5_connector_helper_funcs);
-> +	ret = drm_connector_init(&trigger5->drm, &trigger5->connector,
-> +				 &trigger5_connector_funcs, connector_type);
-> +	trigger5->connector.polled =
-> +		DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
-> +	return ret;
-> +}
-> +
-> +static int trigger5_usb_probe(struct usb_interface *interface,
-> +			      const struct usb_device_id *id)
-> +{
-> +	int ret;
-> +	struct trigger5_device *trigger5;
-> +	struct usb_endpoint_descriptor *bulk_out;
-> +	struct drm_device *dev;
-> +	struct device *dma_dev;
-> +	struct usb_device *udev = interface_to_usbdev(interface);
-> +	/* Heuristic: Presence of audio interfaces indicates HDMI. */
-> +	bool is_hdmi = udev->actconfig->desc.bNumInterfaces > 1;
-> +
-> +	trigger5 = devm_drm_dev_alloc(&interface->dev, &trigger5_drm_driver,
-> +				      struct trigger5_device, drm);
-> +	if (IS_ERR(trigger5))
-> +		return PTR_ERR(trigger5);
-> +
-> +	trigger5->intf = interface;
-> +
-> +	ret = usb_find_bulk_out_endpoint(interface->cur_altsetting, &bulk_out);
-> +	if (ret)
-> +		return ret;
-> +	trigger5->bulk_pipe =
-> +		usb_sndbulkpipe(udev, usb_endpoint_num(bulk_out));
-> +
-> +	dev = &trigger5->drm;
-> +
-> +	dma_dev = usb_intf_get_dma_device(interface);
-> +	if (dma_dev) {
-> +		drm_dev_set_dma_dev(dev, dma_dev);
-> +		put_device(dma_dev);
-> +	} else {
-> +		drm_warn(dev,
-> +			 "buffer sharing not supported"); /* not an error */
-> +	}
-> +
-> +	ret = drmm_mode_config_init(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * The device has a built-in mode list, however we ignore
-> +	 * the mode list because the device accepts custom modes
-> +	 */
-> +	dev->mode_config.min_width = 1;
-> +	dev->mode_config.max_width = 8191;
-> +	dev->mode_config.min_height = 1;
-> +	dev->mode_config.max_height = 8191;
-> +
-> +	dev->mode_config.funcs = &trigger5_mode_config_funcs;
-> +	dev->mode_config.helper_private = &trigger5_mode_config_helper_funcs;
-> +
-> +	trigger5_clear_rect(&trigger5->pending_rect);
-> +
-> +	ret = drm_universal_plane_init(dev, &trigger5->plane, 0,
-> +				       &trigger5_plane_funcs,
-> +				       trigger5_plane_formats,
-> +				       ARRAY_SIZE(trigger5_plane_formats), NULL,
-> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_plane_helper_add(&trigger5->plane, &trigger5_plane_helper_funcs);
-> +	drm_plane_enable_fb_damage_clips(&trigger5->plane);
-> +
-> +	ret = drm_crtc_init_with_planes(dev, &trigger5->crtc, &trigger5->plane,
-> +					NULL, &trigger5_crtc_funcs, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_crtc_helper_add(&trigger5->crtc, &trigger5_crtc_helper_funcs);
-> +
-> +	ret = trigger5_connector_init(trigger5, is_hdmi ?
-> +					      DRM_MODE_CONNECTOR_HDMIA :
-> +					      DRM_MODE_CONNECTOR_VGA);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = drm_encoder_init(dev, &trigger5->encoder, &trigger5_encoder_funcs,
-> +			       is_hdmi ? DRM_MODE_ENCODER_TMDS :
-> +					 DRM_MODE_ENCODER_DAC, NULL);
-> +	if (ret)
-> +		return ret;
-> +	trigger5->encoder.possible_crtcs = drm_crtc_mask(&trigger5->crtc);
-> +
-> +	ret = drm_connector_attach_encoder(&trigger5->connector,
-> +					   &trigger5->encoder);
-> +	if (ret)
-> +		return ret;
-> +
-> +	trigger5_init_transfer(trigger5, &trigger5->transfers[0]);
-> +	trigger5_init_transfer(trigger5, &trigger5->transfers[1]);
-> +	ret = trigger5_alloc_bulk_buffer(&trigger5->transfers[0].buf,
-> +					 TRIGGER5_TRANSFER_BUF_SIZE);
-> +	if (ret)
-> +		goto err_free_buffers;
-> +	ret = trigger5_alloc_bulk_buffer(&trigger5->transfers[1].buf,
-> +					 TRIGGER5_TRANSFER_BUF_SIZE);
-> +	if (ret)
-> +		goto err_free_buffers;
-> +
-> +	trigger5->transfer_wq = alloc_ordered_workqueue(DRIVER_NAME, 0);
-> +	if (!trigger5->transfer_wq) {
-> +		ret = -ENOMEM;
-> +		goto err_free_buffers;
-> +	}
-> +
-> +	INIT_DELAYED_WORK(&trigger5->keepalive_work,
-> +			  trigger5_keepalive_work);
-> +
-> +	drm_mode_config_reset(dev);
-> +
-> +	usb_set_intfdata(interface, trigger5);
-> +
-> +	drm_kms_helper_poll_init(dev);
-> +
-> +	ret = drm_dev_register(dev, 0);
-> +	if (ret)
-> +		goto err_poll_fini;
-> +
-> +	drm_client_setup(dev, NULL);
-> +
-> +	return 0;
-> +
-> +err_poll_fini:
-> +	drm_kms_helper_poll_fini(dev);
-> +	usb_set_intfdata(interface, NULL);
-> +	destroy_workqueue(trigger5->transfer_wq);
-> +err_free_buffers:
-> +	trigger5_free_bulk_buffer(&trigger5->transfers[0].buf);
-> +	trigger5_free_bulk_buffer(&trigger5->transfers[1].buf);
-> +	return ret;
-> +}
-> +
-> +static void trigger5_usb_disconnect(struct usb_interface *interface)
-> +{
-> +	struct trigger5_device *trigger5 = usb_get_intfdata(interface);
-> +	struct drm_device *dev = &trigger5->drm;
-> +
-> +	drm_kms_helper_poll_fini(dev);
-> +	drm_dev_unplug(dev);
-> +	drm_atomic_helper_shutdown(dev);
-> +	trigger5_stop_io(trigger5);
-> +	destroy_workqueue(trigger5->transfer_wq);
-> +	trigger5_free_bulk_buffer(&trigger5->transfers[0].buf);
-> +	trigger5_free_bulk_buffer(&trigger5->transfers[1].buf);
-> +}
-> +
-> +static const struct usb_device_id id_table[] = {
-> +	/* From Windows driver INF file */
-
-Please remove that comment.  It's likely to bit rot quickly.  Maybe 
-mention it in the commit description, if you think it is important.
-
-Best regards
-Thomas
-
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5800, 0) }, /* HDMI */
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5801, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5802, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5803, 0) },
-> +	{ USB_DEVICE(0x0711, 0x5804) }, /* VGA */
-> +	{ USB_DEVICE(0x0711, 0x5805) },
-> +	{ USB_DEVICE(0x0711, 0x5806) },
-> +	{ USB_DEVICE(0x0711, 0x5807) },
-> +	{ USB_DEVICE(0x0711, 0x5808) },
-> +	{ USB_DEVICE(0x0711, 0x5809) },
-> +	{ USB_DEVICE(0x0711, 0x580A) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580B, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580C, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580D, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580E, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580F, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5810, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5811, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5812, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5813, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5814, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5815, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5816, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5817, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5818, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5819, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581A, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581B, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581C, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581D, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581E, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581F, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5820, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5821, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5822, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5823, 0) },
-> +	{ USB_DEVICE(0x0711, 0x5824) },
-> +	{ USB_DEVICE(0x0711, 0x5825) },
-> +	{ USB_DEVICE(0x0711, 0x5826) },
-> +	{ USB_DEVICE(0x0711, 0x5827) },
-> +	{ USB_DEVICE(0x0711, 0x5828) },
-> +	{ USB_DEVICE(0x0711, 0x5829) },
-> +	{ USB_DEVICE(0x0711, 0x582A) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582B, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582C, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582D, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582E, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582F, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5830, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5831, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5832, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5833, 0) },
-> +	{ USB_DEVICE(0x0711, 0x5834) },
-> +	{ USB_DEVICE(0x0711, 0x5835) },
-> +	{ USB_DEVICE(0x0711, 0x5836) },
-> +	{ USB_DEVICE(0x0711, 0x5837) },
-> +	{ USB_DEVICE(0x0711, 0x5838) },
-> +	{ USB_DEVICE(0x0711, 0x5839) },
-> +	{ USB_DEVICE(0x0711, 0x583A) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583B, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583C, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583D, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583E, 0) },
-> +	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583F, 0) },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(usb, id_table);
-> +
-> +static struct usb_driver trigger5_driver = {
-> +	.name = DRIVER_NAME,
-> +	.probe = trigger5_usb_probe,
-> +	.disconnect = trigger5_usb_disconnect,
-> +	.suspend = trigger5_usb_suspend,
-> +	.resume = trigger5_usb_resume,
-> +	.reset_resume = trigger5_usb_resume,
-> +	.id_table = id_table,
-> +};
-> +module_usb_driver(trigger5_driver);
-> +MODULE_AUTHOR("Ho Jie Feng <hjf3108@gmail.com>");
-> +MODULE_DESCRIPTION(DRIVER_DESC);
-> +MODULE_LICENSE("GPL");
->
-> base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+Can we drop DECLARE_KHOSER_PTR() here, keep a plain pointer in struct 
+kho_test_state, serialize a u64 phys addr into the "folios_info" FDT 
+property, and read it back as const u64 * + phys_to_virt() like the rest 
+of the KHO FDT code?
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Pasha
 
