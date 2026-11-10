@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794314459;
-	b=lxYaaYLnR3ZVZ2WSdCkgBvWJK8alMaeCLNovS4U5hlJ6Y3DZIOWGxE6iuGyvq20m/UKW
-	 1bR2BcrSEKS62z5VVcWVxD//Qoz4+8VCPfNFahi7lOJg2z/J4dayw8uryA4JPFpP30Im7
-	 zrTp+tNOF2DbHyMs4sPnS0c5VMaRN/YDBqPKUXhUtM/dndpw4QRvsIpVaudr1+OyszBeO
-	 moasiEeKHNaNqHgHrSKwSv0IsEmlwc6U9gwslmO9qAaQgIv5sxaoxtOHn/Y6R42Eftnno
-	 2dZTzn1UyXSl8TtTUjVUFHlehJj99yph+pIE06DYvo4Mxy2KeUobKSzK04xYdb6BL7Q==
+	t=1794314509;
+	b=DiQp9Sd4VffcudOxxe4dGeUUSRR3EhisS5aNVNsQzwjH28u+9DMkFbK7MT+KXl7uoFFf
+	 4BfV4a00x067vEJ44cE7NzyTbAhNwfiKwl94+XfZpJRUoPC4j4Szl7utjSIXEmRbcMQk1
+	 1zbDvCmDE1g/fmoB8eIcxO9HjkKH/aGLFwgBRcYriIzsfy291aW0eJCcn85Cl7GdEj1MW
+	 a9dmz+0nDrukXoA7xO6wVNz89lIQe/4cVdd1BVkxflai0kT+YP/DYltUH5nXBb11I3NpZ
+	 ASU1WkzGLJuwMCV91bf6JXNMBXuCXc4Xh10m3bmAaGY4+l9+TyPsFkfdEHilCPLwKUg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=D4gMZ1PVA/qgtmCoqERD1UHw3rhXprh1G5vdxXe7myk=;
-	b=oC80426Aw7eUNqOOwMUXivRC74q1EeAAybt54uK8mi0Iis024/8gEN7QY7eP4teDAw05
-	 KoxSjgbx8exX5oRxyRJAEqe8S3BFL8x0M1t2JEDY2kUHTtQGC9gBAbtM6Ay70W1XBIFm1
-	 Rt/9t7IIB1itGO6yeXd5g+erQ98+sJk3iWNWFdKg+X8XmGjVnZy5WrJZpvTN2+OeEB+sp
-	 8e5F/uAYsiCdENF2G2xflDE2bb2+cqGPcckYzHnMGD4l/DpFSCAsEsMcwK6uuVnUSrfz+
-	 b07Sdt+0o/WxW1U+/0Po6nleteOZrwe8BI4BiTUnvJRDsNRZP1VsFW/28t1yJHVH6Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314509;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i09EVYkN3X8Qw7KV5e6VdKei58gZnsyVQwm1zc9UbTA=;
+	b=CPJSIjZnja7T0HDUveHuJoXy7q0tL98M22s2lfuPbDtb8Xhb8b8GF2rvEGCxKPc5BHZ1
+	 YwMRuKOG4DinF3XQlTm/zLRaAQUtwy0Qcu4eJA6gEXdm6s0wqA3W8jrbFwQAeYugdpJDn
+	 m5kK5IUzq71MJ5orZ1oZAY9AL6SpbL5+aQI8dnBMCbnB7W9LDxMSCM2hzsNZ6FRAGCkKH
+	 +rZEmRgf5rm91E/GGiskVAOHMwGTR2rmF4+ltDCAyU0dGkIfBk9x8YRu9GeqNDWYRwAlp
+	 Ls0CGyr18Pt1E/3+hXffyb425DHmcxABo+LP0Y7zJS6HGUG39N6LIGYAjm7qgVsupqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UiED+id3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDyFU37T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D33606A32E;
+	Tue, 10 Nov 2026 12:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDyFU37T
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794314509;
+	b=muh7HJWnwEHCQtN6+bRJxY6kr4XQx1ztXHmwNUTmG8/FVNzZmu7kceNVX8Qj4vr8eLeF
+	 eXB7U0cgfDdLQVmCNNYmmbqDjhDhg+xSHz+notGzkDtqSDhYvorg0mcTbAIdqXtIPJxjx
+	 Y3COrYyimlO5InHpd92zqWYmCQlBIyx7+wr+Z4yOawNwO8uYiwtw7I6D6gWplS/eQEkNR
+	 ++/1dFzt36Ka8LgYBt0B8UN93kXKdW6duIVUMnXfaUCmSR7RhH1GpfXpf1EXvOvjGnfiT
+	 iu77qoinJjDO2u3LQygGxmniSWowNlDrdthF2baE0sTOXZs9+nT7ozxp8vKU/8vSZzQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794314509;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i09EVYkN3X8Qw7KV5e6VdKei58gZnsyVQwm1zc9UbTA=;
+	b=YMUMR7+YruH3rt9oMPvFhd3oqW+g3EGVMVhs4X91A6k/tRCBGCki9cLVGy2suNZcd+u9
+	 0J3pLLtXyD9OLXJgeHhJP3UuOpywuh9EzcyzuyJ6GMoK8WRlXd/oQcYKiS27oStOBZh4H
+	 s5e4hUtHEkS80nVkawjTTo14uyxZVb7leDNG4Hl528M2pj2EyDl8ycJznv61ifUEdalwH
+	 p8X5qJD2dMrRvAe6V7Hrz77SvZtYrx3OFqiRkved69yhDr/zv/eZQtA7K1V+3lK/sNrOY
+	 VpmMNbpBfBunFYf1uNabFg3dLO9LDR0aawcHdfqEf4KeUz8P/ZZcDfw05+o8+W5722A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40512606A33D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:40:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40512606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UiED+id3
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e64d52949so174548985a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:40:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794314457; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AGgoOvp75tx7cDGlanmdT7Dr/rUwGxyZJAFXqxIfwRrSqoVkCr3q5RZ4g/pevujfFr
-         eT+fULQtwnrquYicreYkGk/0k4jP/hUz/DSBfmiQGipNhPc0QiCjDECW/KmAe5HLWy4D
-         WwUSNxewwMzMPj9TyH2W5JZpRJg/1wT49lOGWH6bvLW+mxk8OeltXpGN9U0YHCURX/6q
-         7hlS6/tDh15VJ24fG4L2Lehh7XqOHA/abLn3fXvD0tH6pacNNmDHV7ZC803n+IHSO7yg
-         ugcPO9r7yrousuazLrgz0/7+TyUA27tiK3tYXl2L1an85GT5zD19nCYM5QqLfIAq2rB0
-         q56Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D4gMZ1PVA/qgtmCoqERD1UHw3rhXprh1G5vdxXe7myk=;
-        fh=LF9qJmVS9PS+m8ixhMZcCuMnrerTSfNDhrywnXJrO3E=;
-        b=IYymcduWT73/Qv6ujZFFoP/qaTsf8BeVJ9ITJI46KDqFzthejk70gg/Ituvxm/J/Uu
-         Ov14V6zcYTtdGM5t+0PLT2kWqtpauTaS6+qVuTTfK4JUILsiqa6yDITZBa3B0Ybdw/x+
-         Kztp1V/KZdCJ2FMytzoR37fw+DU0EQI4KDwLIHJei4EPkIsS2Obfufob7yUhOccZnAa8
-         wK4gXbRcsnGGXuhMAyGjc2KmP+rx3KJAmXIJJC7ENaysC/gRwp7hyMMtQECHLJa5khBx
-         fByWSQlFcTQAsnMDBN/kEK3Wi/Tc15C6OVdvKI5wWjes/ITXgqnS+UCBW/bfpMH1usPg
-         PpYg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794314457; x=1794919257; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D4gMZ1PVA/qgtmCoqERD1UHw3rhXprh1G5vdxXe7myk=;
-        b=UiED+id3VSZdgsoZMA1YSiLfBE2mMY0BkkqRrECjgevQDkAnzJCGpADOVqPQp4JgGo
-         vbpL2Fq8GGvTlgPBqzQaZus1cEssuCIBBMyAckf5TSHJObOkYJZTktiBshe3GcXV0IKc
-         /pjZZ1e48v0/hByYGiknK8QpRcyOBsvNR/M9aM5VQa1vzPCcwAS8wnHbNUayF0a+QM56
-         gOFHXs20ttDRdZqaJ8lq0X/5G96YGrfpF2HqKsL48xUHNVi7qT+w3nPsVOhzCG977We4
-         Mc3r++vex9Ysg9cMkgoWhDd7ZjUu0Rj0WGogNlcP3gH7howVxcZzz4qLX9id2JvsT5ea
-         650g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314457; x=1794919257;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D4gMZ1PVA/qgtmCoqERD1UHw3rhXprh1G5vdxXe7myk=;
-        b=utt6szVDqU4L84y0LXmE1xM8Igc8wH3lASTtmx0H+eBrliFrTKttCoscpv+UdZ7ogO
-         yTf4MHk/C6uVlOILZf8oJ9Dt2g0Yvi3TMEfJ0cfdp0m+rufM9EMtqUGx6oMTNGU+jY6I
-         y1BfcyU0E1Jb2pduhc2kLBjmGAH932gBna83FJoqrOJaf9O9PQJ4CA5F0WMaiUz9NR+C
-         7uBNi1doa+8Vcbje1wbXnB2gYlaKqMmivPjW4vsvuVfkAR0B777QKXduFa9/QRZnJMfx
-         QECCQGP4Td+58VipwX2oyjayRVb536yGsqiE+VkDxFs5LIVEHi9C4o+8ffRaQOusLU7u
-         kPNg==
-X-Forwarded-Encrypted: i=1; AL+hErGaFQ1ZUsTlxSF/pKjrWn6kF7dxWYq2RH4WQsXcHgiYaBraIUdoYssticHKWW5Cm2fH9FIX3CWLNl2Jtb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ttGxls7APwZunLKC1LEipv52RoW0k6oUJ7jL3MJxQTf3iDRMf
-	pwfZOGTvC9RpCyfpXdBmGLpTSQbcIyRKgNQqpqsG/ejwg5bllpScl5/N6sHFzD53aSPQPRmENIB
-	PiP9jUsypbGHa0SmSNst8nQJhTkXNIhk=
-X-Gm-Gg: AYBFou0+o/0hoyu+4h04PvwM0wj9M525X2lv322eC/NTn4oYQGRmSBi65+8jGr44XJw
-	04xvfUXbf97p9y6/PUk6gWMWDWoGEveZbu7Y5TFKDlnp1jIE/NWWHJMWj7qK7jMJRxwDqUoeJ4t
-	+JnFVTGuF8kTEgi938t3acEAYoTXl9IDZFNx1Y90pVF59pODC7Sbn76RmR+RRvf8kE9Rl+7M20x
-	3aT4DOzf1Lj3J2YHk+Yav+NB/hLNE7wnbKHbDGHumvyYlY+3JBF54C5YRXQRYz5p6BJsl1EpOJe
-	zJrVE100uMpKdCpM6zCSjax5P3IyfXtmZO3SbufJj0J6i6YbPP+bOgRPExJwY00lwzHZho0VDi4
-	/F4wD7kzsH/b0Ctc7pdqMWYrMUZQ2HKh4UEMrDSjM0baZisFY9tUyN4ZjmpEFKovAM1rV9G5ySr
-	P0UJYVksXNTu/KtHUE0eyz
-X-Received: by 2002:a05:620a:450d:b0:93c:b6db:8c with SMTP id
- af79cd13be357-9479f093b28mr391627885a.0.1794314457277; Tue, 10 Nov 2026
- 04:40:57 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id D224B1F008A2;
+	Tue, 10 Nov 2026 12:41:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794314509;
+	bh=i09EVYkN3X8Qw7KV5e6VdKei58gZnsyVQwm1zc9UbTA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=SDyFU37TscF0oD6Pm56C3Cks2z1TToStlWkcIzSiu7k2UZ5qt/gnl3Uld/JLtVE6P
+	 URHUpZ/SmLHENaRNFSL3XUGOQXUwieU9A4eM0Vr8cssMKLOgHjXZywpiu5bdIHkdAk
+	 aXcjDUQu+X/2C5K59AcT35qRaeKVhWbVSg7LXaH8YMfPSK+kHhiENZnks3nWnWTgB+
+	 8J5hHYvLt8L5m7Ey5neJIPRgTyFgsna/wIpCAHyW0SYnYZQR5DF3W7yumLqVox3LzP
+	 PBjKQg3fpvA7stNFm+2Xd93eDA0dPQqhdIHnQzYV+pw2zP+ih+t5rEF+ZN8zRlYynF
+	 ze1kEpr59lmWA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5D04748B52;
+	Tue, 10 Nov 2026 12:41:47 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 15:41:45 +0300
+Subject: [PATCH v2 2/3] media: verisilicon: program the H1 JPEG stream
+ limit in 64-bit words
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,54 +83,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CGME20261110094847eucas1p125691a852f3621482adae13de1205223@eucas1p1.samsung.com>
- <20261110094830.2081847-1-m.szyprowski@samsung.com> <20261110094830.2081847-2-m.szyprowski@samsung.com>
-In-Reply-To: <20261110094830.2081847-2-m.szyprowski@samsung.com>
-From: Max Filippov <jcmvbkbc@gmail.com>
-Date: Tue, 10 Nov 2026 04:40:44 -0800
-X-Gm-Features: AclHuK83CWJc5YlF2QehrZfUW5W7mZ4EuCDQrpmAsXstQoXrFuDrYSPavdO9f3s
-Message-ID: <CAMo8BfL04-yz8VppH6P+dcBTJEvM5zPR-=d9GMdRG4F2B78YXQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] xtensa: write back dirty lines in arch_dma_prep_coherent()
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@infradead.org>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Chris Zankel <chris@zankel.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-hantro-buflimit-v2-2-ff7790def9fc@gmail.com>
+References: <20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com>
+In-Reply-To: <20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Chen-Yu Tsai <wenst@chromium.org>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794314506; l=2059;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=rSixJW+4SIvnxSyMoeLcNv71TQPTVPSPPdIZPn8IhxE=;
+ b=rZnn4NFdWljPtdenIbYFVQCzkOroyvKYlmdGUI5ooGa+U4zK58oD4WfY32zIqxq2Hfq4rWxuN
+ 8s+/6csbyvVA6SX20juy4wkJtJWVLjQoFbNCblknsk6EKf4Mi32K267
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 1:48=E2=80=AFAM Marek Szyprowski
-<m.szyprowski@samsung.com> wrote:
->
-> arch_dma_prep_coherent() is expected to remove any dirty cache lines
-> covering the buffer, so that they are neither lost nor evicted later on
-> top of data written through the uncached alias or by the device.
-> xtensa implements it with __invalidate_dcache_range(), which uses the
-> DHI instruction and discards dirty lines without writing them back.
->
-> This loses data written through the cached kernel mapping right before
-> the call. dma_direct_alloc() zeroes the buffer with memset() on the
-> cached linear mapping and only then calls arch_dma_prep_coherent() and
-> switches to the KSEG bypass alias via arch_dma_set_uncached(). On cores
-> with a write-back data cache the zeroes still sitting in the cache are
-> dropped, and dma_alloc_coherent() returns a buffer with stale content.
->
-> Use __flush_invalidate_dcache_range() (DHWBI) instead, which writes the
-> dirty lines back before invalidating them. On cores with a write-through
-> data cache it maps to __invalidate_dcache_range(), so nothing changes
-> there.
->
-> Fixes: 0f665b9e2a6d ("xtensa: use the generic uncached segment support")
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
->  arch/xtensa/kernel/pci-dma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+From: Sergei Khomenkov <shomenkow@gmail.com>
 
-Reviewed-by: Max Filippov <jcmvbkbc@gmail.com>
+H1_REG_STR_BUF_LIMIT counts 64-bit words, but the driver writes the room
+left in the CAPTURE plane in bytes. A stream that does not fit, such as
+a quality 100 frame of noise in a default-sized buffer, is then written
+past the end of the plane, up to eight times its size.
 
---=20
-Thanks.
--- Max
+Write the limit in 64-bit words, rounded down to whole 64-byte bursts:
+the encoder finishes a burst it has started, so an unrounded limit lets
+it write up to 56 bytes past it.
+
+Found with an LLM coding assistant while porting mainline Linux to a
+Rockchip RK3026 board; the assistant also drafted this change. Tested
+on that board: overflowing frames now stop at the programmed limit
+without writing past the plane, and frames that fit are byte for byte
+the same as before. Not tested on other SoCs, including the STM32MP25,
+which shares this code.
+
+Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+---
+ drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c b/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
+index 86cc1a07026f..665a87e9fe92 100644
+--- a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
++++ b/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
+@@ -55,7 +55,12 @@ static void hantro_h1_jpeg_enc_set_buffers(struct hantro_dev *vpu,
+ 	vepu_write_relaxed(vpu, vb2_dma_contig_plane_dma_addr(dst_buf, 0) +
+ 				ctx->vpu_dst_fmt->header_size,
+ 			   H1_REG_ADDR_OUTPUT_STREAM);
+-	vepu_write_relaxed(vpu, size_left, H1_REG_STR_BUF_LIMIT);
++	/*
++	 * The limit is in 64-bit words. The encoder finishes a 64-byte burst
++	 * it has started (measured on the RK3026), so give it whole bursts.
++	 */
++	vepu_write_relaxed(vpu, round_down(size_left, 64) / 8,
++			   H1_REG_STR_BUF_LIMIT);
+ 
+ 	if (pix_fmt->num_planes == 1) {
+ 		src[0] = vb2_dma_contig_plane_dma_addr(src_buf, 0);
+
+-- 
+2.53.0
+
+
