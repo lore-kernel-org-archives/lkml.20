@@ -1,93 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297357;
-	b=RKM8doSub4Fui2c8bhVihBBlElLXqDAv2MOZ9gowRWuLUPQXKD39JCFK+ESf2gwnONpk
-	 MIIughu1i3od/0YG7Oyyk1pw6fQH14kxXbGsTfC6vdGBTTZPfFqAwGnnNKzYEPC1OXzMz
-	 /9roWSUSkdh0vL4SM9TSNNdu8kgHWzmuXeegJ3jygTRRh1pHkhipuBIHkPYc/BMjcJnPS
-	 lODNVLFmw/WokORjE/ExYe5ATZ9LFaeSMLndr02wvLgbIrQGdcflifez1Gncou8L5Fw8U
-	 dp6na/UFy1dceIkU3bhwZIe7jYomSb51lq6w1un2FMLv3pWsoX0HF9gyj+FcFB3lzoQ==
+	t=1794297402;
+	b=N9wmUCoEKRJV9VM+KPvovDXvC/cOYjwjXAhWdqIZAOpxLysOR6CiUjiIofm3q944JhbR
+	 TAXMFnz7KyNoJI9KO6WSAqsMj+PNwxV6C/zdEPpj48jFVJSITHMyOcSbWE7rOYLjgNaQB
+	 dwvn7ifEfvzH5We8VRnPVLz7CDPxqmSmJuRaZeMezmS/58Xh4Clx6qsVpDXnqbLo/ArUO
+	 cS025HFYlSjqY2LVsVTljvXQxjS71J3uhs7a15fW82EorThbXEM72XxDGVRVYuts4a0SB
+	 0nrV+3yOqZp2ONWFbmLSfuvObW7ZgEgzeCFfBsHXPj/yBDMBoAIob9oobR+yMmjoW0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297357;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BnNlY/us+vZG0qDZkwIWerdVJgfRG++NHY0uK525X08=;
-	b=rlBe21BvUEET+SnIpUXyKZ7+SAib9JmFJVqx5TJnr32cumjhvbhmC26QYYx5FyeOuZ5I
-	 CGIgzo35toIE4gCHcknomgRLZ9/SCIwA/ppInfNXRANbqLi0IESjOeLciniDG7RIlLcaW
-	 ieWqvW48cZBr+fKZMH4pzIkVyh0bWJY4d6qkgNUCqD9SRNbvsJSGKrYmC7SePndeKnUaJ
-	 QwfnJQQh+o+1VBhBvHIcMlduzgHSAalcE0bbyQumsEL85NUlVSLSeCJHW3eLXwXxuEtp8
-	 osDLwK3Ev3Qr7Lmzf85ypq73hN6AEYPKmvowY2Z2sUbgqBtZencb9uAJF8EogSz/NOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297402;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=olis6PpR/EgbjTfN230nB1ZkvAvMps4evVW4Ka0nkMI=;
+	b=Zrca9ujcSYld1vLid+MUpFV9ousxgovS/Jvs9oyDh5ipbYhn2lBJuy/NxfzW5V9mFNTz
+	 qw2zXn2XbFnAyzYlngGDzk0ya9Gxd27lhgJttzHXw/AJ1rJFEpepFBI0IUvf3RQXMB22A
+	 sG8kqpsNaK2cq88oYhLXYddSTtq4W2M7LCybbxlLZKarMhe44x6aF6O7xYKx/b2Y3nehA
+	 bYE93q7MbFsBtb8YjfGp+qJmvgoHnLNhIyMXf5i6adPLw6ZLu6KPxzvdny8jADD9Jw+Vx
+	 jAjl4utfKTvtJ5ogynNwYrSgMvp8YqeVuvh6oT7RFK36bSwTgvnskZ/g/s0946KDyMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pF6zik9H;
-	arc=none smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ljsfuuc2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MKmQbN1y;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D72606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89D72606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42D9606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B42D9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pF6zik9H
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so14135931fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:55:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ljsfuuc2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MKmQbN1y
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l4F21681291
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:56:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	olis6PpR/EgbjTfN230nB1ZkvAvMps4evVW4Ka0nkMI=; b=ljsfuuc2KsWw7B5T
+	3XVxHovOvzdWxvYu/9bBcn0MoJ0t+dWQqYKmmU2roIv5RIOmmZfnul+3Kf7FTLs6
+	Gkk01m8PNpMuMFsJ+sIESX6ko15V8MVNBkUN0X6z9qB48/GRqexjzFXy3YEiL+lG
+	pp/lK7ZT/2PgbQcz3SLo9toHIRXvuqFfu2M84yyXIPLEJP6Xy8W+GQ3tc1EoLBxq
+	VbKRGAoSTDQwsc0lFA8Of+bSekvAcg3vSSJxB8zlqhGzq0BOoIpjKZ+gvS0ybocV
+	KY/45zklliNqyjxXQ8mgEjiTxjH/3hCve0Deo0lHU3rzOeRQOXOqVH3uWSWKbF+D
+	7C6q0g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hunwkj5jj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:56:40 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92eebb130dcso48189285a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:56:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794297355; x=1794902155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BnNlY/us+vZG0qDZkwIWerdVJgfRG++NHY0uK525X08=;
-        b=pF6zik9HqBlnUxyUVNjaDYPeJJIaueDqrerGbI1ZJDvDiePLXsIlsxwVF4Mdu+w9Fa
-         2Zfk0ByvlBzDBww56nSiYryLeVawKmGXACnac/KLGAWDq9w/nRCLpWLWYuN11rxmiJwu
-         7WF9n7Ek1Sggu/UJtVZslhmOzRiYZHExgW8toGjDegiXJEfMN7Tij9XCqc4RYZtcaxv5
-         Ib31OQB993JrhVIvj9uxVOEyty1sh5n0Cd5UuzrpzFkRg+MYsV/FxWcRyyzR1yHf0Qfd
-         u108Mk80rcnC5yNkMBXmdVvsgMXwzHFKYXXxBvqq2rQzHENKBozwVbr/bPZdprjbN3N7
-         CRvA==
+        d=oss.qualcomm.com; s=google; t=1794297400; x=1794902200; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=olis6PpR/EgbjTfN230nB1ZkvAvMps4evVW4Ka0nkMI=;
+        b=MKmQbN1yfUraeTtjcm62G8ToVfjapv4L2P9iFBZ+bv24wUb3MwQ2a3CezouXEwUj7L
+         Si9Wdzt4SztskO4Ug12OimpI+X0mfFnVpUUnQPNHzMGEW3+DnNI7FD7q0k9fxOAAyD60
+         dGXTkp9s09INwfo7DWk9vPGdmGd0O82RvhjVk1JproaZ7u3efGPZCSiCMwJOiZYKCv+d
+         n7e8PucvZ4v/4cEsOo4xPk1L1PQvSzsZwnizeqtTr2SuolYZAIzCMMBX3j18av0flYSt
+         g+iAkaI9Mih+kQgNMP+x/EVLNZh0c4KfBoFjk53ibD8d0vvwK5t1qkdX/S2usJMdPdDp
+         xATQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794297355; x=1794902155;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794297400; x=1794902200;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BnNlY/us+vZG0qDZkwIWerdVJgfRG++NHY0uK525X08=;
-        b=xaj4cbSuxQdfmJdlDPkiQaim4imtPF8X8U0CY+HkasMaHvXsh1SIGWJaVFowNZmVSG
-         NmPz07jnsRklC46scbWdZybTZqKRrMGt9wQw1gSRhkO/m1Y29TB/tLaJUBGCocoS8OSx
-         MWE6yjQFQ/tpx1ZrmWzu/BDWiNpxNiqc/fzzS8KlYaiM0UFax1e11H78nwWOhHWEzovU
-         ziJ+sLdva/MaUuO5TVOjOZsTKxRrxn9Jy1kXzRTowBZf/Q3yEL0WCZHtnOxXF5J80gBr
-         kKV5IzcaQoL4vmJxpFahynC8J3UvS+U11oX7J/jzZ6H46Z/ghnBdA55nq8zBNrFfuMNT
-         68ug==
-X-Forwarded-Encrypted: i=1; AL+hErEyNXdOeuc2/ZJnbjxkdUZBiqWjUbyxBFW95ahv67qd7Obj4I2ChirUYVhBN6SKEem545jCWw2LeAdOwbc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84kMJmqC7+w273i5jEae0tzkNkVFuHL8RBhuyqWlbtKHd4Qzsm
-	99C1et7/bx75HRsChforLUzRObgMbeJNjVzjIkv4mH16vGr9htoJG8Wm
-X-Gm-Gg: AYBFou0CF3V0VPIvC0OB7LFjYxU6ddhhkcf89HaGETJg3iaHZoD/n27Meh4x0bKOVI+
-	tESGll7Xah2khH18FMLKxnyOK/2NxbmMxgSrQTxOi9ZSJuEcIsnd7X6uwMxiIWzZiJrlPVvukMi
-	xnqEqjweXHm6a6aKqTbu1GoQich49NTL6LQM2oQbTFudOVuGHHVIzoNGOAtABx92rfmxOXVkWPT
-	t6sGawwzPWmfPXrgI0wN/pFLSO7XqrZaVT4+2jLpTKpFaBb13oxVr9iInQfa4SF3rVGVkPVD054
-	spbOirIrRvvxvxS1epvs0t+JfJNSvFf5OH/A6vcRpHUiT3GVOr99BIehJIoMVUomyKbFFrjL5j2
-	Fr7KcpxbS8zDHSBNhftKfChjC0bjq3zKscuzeVKnsyCywwbWL6JRTrBy0CRToA8JQOKpobuWzHx
-	ODCaCk2WTZdXz8oylb47RqkuYeCIy5enDIp9d2cGXeEceN/lu0tZPY34AfLS2tnwVCL/yncwyVE
-	5jlGDgaf3W8pPLVDWt5Q3kfHNz3Bpf818f7VtTyF8F+Mgo3BxoDy9G031DnZ44zZhtEQzh+O3Wf
-	tGyvzpC1R0PSKQWASmUK4syn9Y4yOSp+ZaFY01DxoXNgRoLvU/unydEk9OETWSu1e3R9LhG4G2D
-	D2XgYbMxnKm9tw+RbAEnlbawQmoc=
-X-Received: by 2002:a05:6512:39c3:b0:5bb:7b64:340d with SMTP id 2adb3069b0e04-5c156ead9dfmr509262e87.28.1794297354505;
-        Mon, 09 Nov 2026 23:55:54 -0800 (PST)
-Received: from localhost.localdomain ([92.36.11.150])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157ced5basm249834e87.41.2026.11.09.23.55.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 23:55:54 -0800 (PST)
-From: Artem Novikov <novart962@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] tty: n_gsm: serialize mux configuration
-Date: Tue, 10 Nov 2026 10:55:38 +0300
-Message-ID: <20261110075538.51452-1-novart962@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=olis6PpR/EgbjTfN230nB1ZkvAvMps4evVW4Ka0nkMI=;
+        b=pmmOvClEclHCpsgjBE8NNfBRARDi69QnP3+D+vTJ4VAtwvSRIh12J4qk8j6aBN+fNQ
+         MuagCx87owA8+0fQNwZ1+F+ufN0oKTIotD1Ee80HL2Y6ustDmNINkDIZJp5WWNDLxZZ3
+         0XbxGmQmQ6YBG9V2HnX/KVKFCIHwRA7VevyvPVkX7EDKD5vlNthGvtYcgU58anO6cNsN
+         Dg3VpWq51TlDClm/p8nCOQN83TIlg7R06HtxpFFrE9mZbFzGiydDA8OQTTe9PnCMgIWd
+         mmy2Sa24CK0aulfCSPeK5162ZJPWt8Nrs8OWdIQc0kN3eXUP+08Pi3XrMuFRLMhafq07
+         y8hg==
+X-Forwarded-Encrypted: i=1; AL+hErGfdTYycUBV4UIV3UVkxSDzA+ELw1xcbUEJ+EIa6yLv8JZja0bj29fNmfniUrQLBQ1H+m2OIJh1UXdB8t4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5L62tRRPxXMVvHnpXRS1yBOh7MIo/6Vw5hVH8P1OzFmiLlBcK
+	HzEco2/wxTKBFeNJKjIrSQS339hpggceyvST5Coc0NWRsBx3mC0Y48vrdN4HyJUjorcmUh7zYkB
+	XMnbtQ1ms+mwfrDXHaplm+GULrRt7OOcqQQxiSVGJiwetZQEIeBLLM43pRoTJ4dM0zUE=
+X-Gm-Gg: AYBFou3E++6mdchU7PqnFuaCjwMbOchMGeiqkeeh3J1+BKn6VzbBWeQfAANK8Sww1wA
+	vc3Ch4AHeEHosNyOM+hpPs67vEj8jY4C50e0AsBYtDsmXxiV9rgjTL7Y/OxSB4ZlpJovEe9pVDn
+	KxNlSUNg6Spsy4jvVcDIKJ6+fxBN8l4WahDAo0t1detfdnqhsiXbI2lpnHwNEw8MDx2i0x7xP5G
+	bOpqPY8NO9E9V1m7d4dDJ4dpQAW9O356jbX2sb6jAv0dQCq9I1NdooVanqbBsbk2dvGesRh+F5l
+	T8a1UTdbPrvA+kU0weINjZZWr8Erfxcu0q/9dYm8iXVE8l5XfVQbCxh8fjF+0gAGWe/WN0sjCCa
+	A7i/nqGMbUcXQV40iI3bfZHzylA5seRtdFjDl8asarMsG2c/VLhTmE0smAXb8naBHfz52gm0=
+X-Received: by 2002:a05:620a:a084:b0:93f:740f:5a62 with SMTP id af79cd13be357-9479f396038mr301512585a.6.1794297399945;
+        Mon, 09 Nov 2026 23:56:39 -0800 (PST)
+X-Received: by 2002:a05:620a:a084:b0:93f:740f:5a62 with SMTP id af79cd13be357-9479f396038mr301510085a.6.1794297399490;
+        Mon, 09 Nov 2026 23:56:39 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b757823737sm824139a12.3.2026.11.09.23.56.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 23:56:38 -0800 (PST)
+Message-ID: <6e498ce7-01c2-4c68-a152-c0f86dc1f4b1@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 08:56:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,131 +115,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: qcom: socinfo: Add missing PMIC identifiers
+To: Alexander Koskovich <akoskovich@pm.me>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261109-topic-socinfo_pmics-v1-1-ecdb6cc6e40f@oss.qualcomm.com>
+ <qcxc7XsXmVOXMH3T-UIFGOexo2Qh1KtJspYZ15UrL2Tu_Jg6Uq6-PfJYTlJoipYPZnMnpNXN6wbs6pnJkkLTiQf4O9uOnp-NLJc-13wxigI=@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <qcxc7XsXmVOXMH3T-UIFGOexo2Qh1KtJspYZ15UrL2Tu_Jg6Uq6-PfJYTlJoipYPZnMnpNXN6wbs6pnJkkLTiQf4O9uOnp-NLJc-13wxigI=@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: r9u9OtSUwoXTKZZgBB0I3bHeHlMZRiFg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzMSBTYWx0ZWRfX8kcpaWVijOCQ
+ JuF98ZbUinO/rk0o1HgjA/8BX35lQgpTYODH+pgHKNc8W17ofpiSpdWn81i0bFj8xfzXvg2h8CO
+ 3U8j91Udkv7Kx9c7as7o5Yt7LNux6YI=
+X-Authority-Analysis: v=2.4 cv=TOrQ2Fla c=1 sm=1 tr=0 ts=6af2ce38 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=KowMc1ZSYTFx3OMWIoEA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: r9u9OtSUwoXTKZZgBB0I3bHeHlMZRiFg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzMSBTYWx0ZWRfX/daacQH4whne
+ NnotLaTv3Kcl31ABAQxy6wKG11wwlMl6GCff5XoiHMMT+PDrCYyzSSAvfY4kV+zGIW9zsh00Muv
+ SeJHxyAoRAyh9kQjbMvdJA9SQGxJpQWJaGG4kjsp/NkG/M3TKzl7R1GnUwmFuSiI2lyuYEUEkIF
+ J5DDWO+IKzzTu3kQMknuEYqA+b4PSLz60FsXL1IzZa4yqQoTSjWOSMQF1mz78cdavagQ75teRrV
+ YjE5jH7jCIrd0inT5N7YYNoz6K5kGtji0gkgg6yLY06/tbyLeirTFiDxWZdg/6/C7zjJYJ3btxs
+ P+cdzG017HfnSzzgFeHSrK4hswtY67Do2OOd8KN3/uAW6OGkgRp2ApVhvV8fn6AmRbMJYnx8MjB
+ cBvOB2XTOU89B5cL4iwbKF+XIFleqoTSLi52PBgo3TyE9A9fJByBQ2XJsIl43YlakfFUkXygoFY
+ 6rUNF2JPDWZ00vzJ+Rw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100031
 
-From: Artem Novikov <naa@amicon.ru>
+On 11/9/26 9:42 PM, Alexander Koskovich wrote:
+> On Monday, November 9th, 2026 at 10:39 AM, Konrad Dybcio <konradybcio@kernel.org> wrote:
+> 
+>> diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
+>> index 38efc5db7fa8..6ed8a4686e2b 100644
+>> --- a/drivers/soc/qcom/socinfo.c
+>> +++ b/drivers/soc/qcom/socinfo.c
+>> @@ -154,15 +154,22 @@ static const char *const pmic_models[] = {
+> ...
+>> +	/* 68 is unknown/reserved */
+>> +	[69] = "PM8550VS",
+> 
+> Duplicate?
 
-Concurrent GSMIOC_SETCONF calls can both decide to restart the same mux.
-gsm_cleanup_mux() releases gsm->mutex before gsm_config() calls
-gsm_activate_mux(), so cleanup and activation from different calls can
-overlap. The activation paths can register the same gsmtty minors, and
-registration rollback can race with another registration or cleanup.
-GSMIOC_SETCONF_EXT can restart the mux through the same paths.
+Indeed, clang didn't complain.. thanks!
 
-A 5.10.246-syzkaller report shows a NULL dereference in the unregister
-path:
+Konrad
 
- KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
- RIP: 0010:cdev_del+0x22/0x90 fs/char_dev.c:596
- Call Trace:
-  tty_unregister_device drivers/tty/tty_io.c:3290 [inline]
-  tty_unregister_device+0x117/0x1c0 drivers/tty/tty_io.c:3285
-  gsm_register_devices drivers/tty/n_gsm.c:496 [inline]
-  gsm_activate_mux drivers/tty/n_gsm.c:2286 [inline]
-  gsm_config drivers/tty/n_gsm.c:2517 [inline]
-  gsmld_ioctl+0x9b2/0xff0 drivers/tty/n_gsm.c:2829
-  tty_ioctl+0x86a/0x16d0 drivers/tty/tty_io.c:2757
-  vfs_ioctl fs/ioctl.c:48 [inline]
-  __do_sys_ioctl fs/ioctl.c:753 [inline]
-  __se_sys_ioctl fs/ioctl.c:739 [inline]
-  __x64_sys_ioctl+0x19a/0x210 fs/ioctl.c:739
-  do_syscall_64+0x33/0x40 arch/x86/entry/common.c:46
-  entry_SYSCALL_64_after_hwframe+0x67/0xd1
-
-Current tty_unregister_device() checks for a NULL cdev. The overlapping
-registration and cleanup operations in n_gsm remain unsynchronized.
-
-Serialize the complete configuration transaction with a per-mux mutex.
-Use the same mutex for GSMIOC_SETCONF_EXT, which can also restart the mux,
-and for the corresponding configuration snapshots. Keep userspace copies
-outside the critical sections. Use a separate mutex because
-gsm_cleanup_mux() already acquires gsm->mutex.
-
-Leave receive, transmit, timer and workqueue callbacks outside the new
-lock so that control-channel shutdown can still make progress. Concurrent
-configuration requests for one mux now wait for its reconfiguration to
-finish; independent muxes retain separate locks.
-
-Fixes: 01aecd917114 ("tty: n_gsm: fix tty registration before control channel open")
-Cc: stable@vger.kernel.org
-Signed-off-by: Artem Novikov <naa@amicon.ru>
----
- drivers/tty/n_gsm.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/tty/n_gsm.c b/drivers/tty/n_gsm.c
-index e55779ff0af2bb6328cf5f0ec70497107f1462e8..26e34e79b034a19e1b5dc1f4a87d56a74e884d56 100644
---- a/drivers/tty/n_gsm.c
-+++ b/drivers/tty/n_gsm.c
-@@ -273,6 +273,7 @@ struct gsm_mux {
- 	struct tty_struct *tty;		/* The tty our ldisc is bound to */
- 	spinlock_t lock;
- 	struct mutex mutex;
-+	struct mutex config_mutex;	/* Serializes mux configuration ioctls */
- 	unsigned int num;
- 	struct kref ref;
- 
-@@ -3219,6 +3220,7 @@ static void gsm_free_mux(struct gsm_mux *gsm)
- 			break;
- 		}
- 	}
-+	mutex_destroy(&gsm->config_mutex);
- 	mutex_destroy(&gsm->mutex);
- 	kfree(gsm->txframe);
- 	kfree(gsm->buf);
-@@ -3290,6 +3292,7 @@ static struct gsm_mux *gsm_alloc_mux(void)
- 	}
- 	spin_lock_init(&gsm->lock);
- 	mutex_init(&gsm->mutex);
-+	mutex_init(&gsm->config_mutex);
- 	kref_init(&gsm->ref);
- 	INIT_LIST_HEAD(&gsm->tx_ctrl_list);
- 	INIT_LIST_HEAD(&gsm->tx_data_list);
-@@ -3328,6 +3331,7 @@ static struct gsm_mux *gsm_alloc_mux(void)
- 	}
- 	spin_unlock(&gsm_mux_lock);
- 	if (i == MAX_MUX) {
-+		mutex_destroy(&gsm->config_mutex);
- 		mutex_destroy(&gsm->mutex);
- 		kfree(gsm->txframe);
- 		kfree(gsm->buf);
-@@ -3341,6 +3345,8 @@ static struct gsm_mux *gsm_alloc_mux(void)
- static void gsm_copy_config_values(struct gsm_mux *gsm,
- 				   struct gsm_config *c)
- {
-+	guard(mutex)(&gsm->config_mutex);
-+
- 	memset(c, 0, sizeof(*c));
- 	c->adaption = gsm->adaption;
- 	c->encapsulation = gsm->encoding;
-@@ -3384,6 +3390,10 @@ static int gsm_config(struct gsm_mux *gsm, struct gsm_config *c)
- 		return -EINVAL;
- 	if (c->i == 0 || c->i > 2)	/* UIH and UI only */
- 		return -EINVAL;
-+
-+	/* gsm_cleanup_mux() takes gsm->mutex, so use a separate lock. */
-+	guard(mutex)(&gsm->config_mutex);
-+
- 	/*
- 	 * See what is needed for reconfiguration
- 	 */
-@@ -3451,6 +3461,8 @@ static int gsm_config(struct gsm_mux *gsm, struct gsm_config *c)
- static void gsm_copy_config_ext_values(struct gsm_mux *gsm,
- 				       struct gsm_config_ext *ce)
- {
-+	guard(mutex)(&gsm->config_mutex);
-+
- 	memset(ce, 0, sizeof(*ce));
- 	ce->wait_config = gsm->wait_config ? 1 : 0;
- 	ce->keep_alive = gsm->keep_alive;
-@@ -3471,6 +3483,8 @@ static int gsm_config_ext(struct gsm_mux *gsm, struct gsm_config_ext *ce)
- 	if (ce->flags & ~GSM_FL_RESTART)
- 		return -EINVAL;
- 
-+	guard(mutex)(&gsm->config_mutex);
-+
- 	/* Requires care */
- 	if (ce->flags & GSM_FL_RESTART)
- 		need_restart = true;
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> 
+>>  	[69] = "PM8550VS",
+>>  	[70] = "PM8550VE",
+>>  	[71] = "PM8550B",
+>>  	[72] = "PMR735D",
+>>  	[73] = "PM8550",
+>>  	[74] = "PMK8550",
+> 
+> Thanks,
+> Alex
