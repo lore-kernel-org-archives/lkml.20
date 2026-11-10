@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298734;
-	b=Tgvg5GUzB9clPqY4AEwwAocO5+BR4kzm7yz8Af5f9QXYwO0W9FOjMn0cqBTgsMeE2/wL
-	 oaP0+RCE8EiwST4/vzEZWVeD8rGEj/2vb3LaM7DZhhoEcuCuKQRqfrjxwk6gDlENJkzzN
-	 dWc1/6X1GCnUB4EX7iDLbVqxPxBslPSYfwLApoJ1/glGrIWX0KoNT+EhunnVvXK+QfLlR
-	 JvtlOGLb9RJA16I/nrDsWUOJezz8ugNfoE/VNnKPUn6/4AemkpEa2cYnYW713lQNB2DpC
-	 ZnbE4ItYNYzua/Eeygv3xMA3D8jAKUS79FbcK9bmt2eF98c30whQlgjZ4NmfTCdLDhA==
+	t=1794298778;
+	b=XmA9qp8GZo5VZrs+9jz9hwu5wiLok2WH3QLYagkkQ1mGhINfb3RT9Dj9IsOT3kW89Wod
+	 k6/m676FmX3ax3bXfktrauNIh4In6/uvpmBeXAgngp+9tFjOfGkzUbLlE/honlNSN+iuF
+	 GACWOrCtsWE+y8ju2v1wEgNA3sCHFPb9UVkmCdKTYmihKOPvv2Yi8Z0SFME5D9W/ypysA
+	 G7UcuJnrC49I1GySjBW0DNi0K3JqNQmBjuXrGP18VUBqvo/83/+V9YSqof5Wqip46Jw62
+	 jbYc3zlptH/+9c+h/WWW2gLd3LgArxgujwSIcMLnMOvDzsSh+VCEYDmOFDgqFIrLy2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298734;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ip1VUC9MnNuE0hONR/E/VP2OIYv8tzluGRt97LQ2g5I=;
-	b=uy1XVAuf2+KKxtz2nYsKZs5NHi9hmvffshXwba6TyOxHVI9szvHFfZT2X6xXbJoe1qrj
-	 BOCc4N4dprZteWMCfGEQ9mh+adlqVZ5bIdGU+8nJwOe7jPvJI4utODyblfwu7+EzDhT2W
-	 hnCG0OdXtSJKRpRZYUXEKRtKpZeLM3c4JVzAKKOmkC8D1uv4kauC0+YT6py5BMviCDrCT
-	 PxRy5RydqXb1WVo7+mp05mSs1IdadlenO10AXLu8VsilUMdk1CYPfFBCaxAcfB8zIv3Uv
-	 YP7MnEfbfGeTpMHyAAQjUcatRfeIDrNIB2glQLimwcbdsVfy1hDBpMP4KdwpNxaurTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298778;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jHh8QP5RizpiZ/rOn8/fPhqoJKsZVAfXdzIBsu2Zprc=;
+	b=eIDHZ8MyxQa/hLrTR5yumUcBKn8YQy1ICf1Bbz1dcGrFy8/xG9gmwFfW+aLKBVFAgveB
+	 YQIHEktO1X3VslflwVRE9MMBF3mr28MaSJJCpPoe1Cben2YnuTirSOr/Qf2wURxvljCC3
+	 l7aOICasieMGhgPMWA+e0GEf9Uu2YysBTKRoPpbhfherd+So+oZN/WM6BDl2tu4f4yUlJ
+	 ba/nWgcYrmQNUiqnL04sXb/aL/mMNHSYjlT+3EkUp34rtyS0VJjlLEUPHWKKyp8bn8mlH
+	 Dj5JsKwGI5GzDLLOgu2E8mxwqVY61gSVGwtN7m9SetuoJKHaKL9KQ6g3g9oO9AHsi5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K89tUFv2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oirsN4Sz;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458C960A2609;
-	Tue, 10 Nov 2026 08:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF066606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:19:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF066606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K89tUFv2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D861F008A3;
-	Tue, 10 Nov 2026 08:18:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298733;
-	bh=ip1VUC9MnNuE0hONR/E/VP2OIYv8tzluGRt97LQ2g5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K89tUFv2ckrb+9Um9Hu6XQHAItAFc4czB5C78wk3n+s3n3QEJo6ytMiYPqnmI/jgz
-	 PbdnxVPt9+QphsuvSJh7l+B+j50421yu40oQ9RM4/FEMN7vAe6Rb160tr4Kl4Zl9BC
-	 00L+PF3YgHztdD5XmFjCCYqtsmRAqKgEAQ73AD1PGROta0gZVp0eouXAyZnqfgpzQd
-	 P4ikb0wJgOakZwuzYAl9jaYCliCbG07SRFFgEvg5zzkotd3uMn2nToOJOPZJmRWkUw
-	 AvkayQLi/c3Xsywl1osMKms9br6O3AQvLB8OLw1i7lOrDL577rcw5HkhZxUkV6jZpT
-	 +N7M+7o7ge0ug==
-Date: Tue, 10 Nov 2026 09:18:50 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gaurav Suman <gauravsuman007@gmail.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oirsN4Sz
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794298774; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=jHh8QP5RizpiZ/rOn8/fPhqoJKsZVAfXdzIBsu2Zprc=;
+	b=oirsN4Szv5wSU9MpqgtBIrQkbdqRzertWo4NV9jIcIrZPZp0ZWK3NDmvQM15cuVK8szTEcq3iUw1NPE+V3wd+C1YGaWsjDvc1Kpt0jEGzKdPusXGpADcvhPkngBsCeuUl0Z1OkWyRC3Aozt/mByOyz9sgmvcqKFHgN7ExCwyHjY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R511e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XEUf1sP_1794298765;
+Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XEUf1sP_1794298765 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 10 Nov 2026 16:19:34 +0800
+From: Weilin Tong <tongweilin@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Weilin Tong <tongweilin@linux.alibaba.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/8] dt-bindings: media: i2c: Add Samsung S5KGD1 image
- sensor
-Message-ID: <20261110-quantum-magnificent-stingray-67cb4c@quoll>
-References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
- <20261109-sm8150-camera-v1-5-3d2e7b407516@gmail.com>
+Subject: Re: [PATCH 0/2] mm: kmemleak: avoid long RCU read-side sections in reports
+Date: Tue, 10 Nov 2026 16:18:25 +0800
+Message-ID: <20261110081828.2446101-1-tongweilin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261109211709.133122f9f10091f06c4acbc1@linux-foundation.org>
+References: <cover.1793871596.git.tongweilin@linux.alibaba.com> <20261109211709.133122f9f10091f06c4acbc1@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +63,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109-sm8150-camera-v1-5-3d2e7b407516@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 10:38:23PM +0000, Gaurav Suman wrote:
-> Add bindings for the Samsung S5KGD1 (ISOCELL GD1) 32MP quad-Bayer
-> sensor, used as the front camera of the LG G8x ThinQ.
-> 
-> This was written and tested with the help of an AI coding assistant
-> (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
-> 
-> Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
-> ---
->  .../bindings/media/i2c/samsung,s5kgd1.yaml         | 105 +++++++++++++++++++++
->  1 file changed, 105 insertions(+)
-> 
+Hi Andrew,
 
-More of AI slop not really reviewed.
+Thanks for the review.
 
-Best regards,
-Krzysztof
+Yes, this was observed while reading /sys/kernel/debug/kmemleak on
+our downstream distribution's 6.6-based debug kernel, without injected
+delays. Here are excerpts from the original log:
 
+[1023772.105996] rcu: INFO: rcu_preempt self-detected stall on CPU
+[1023772.152485] rcu: 	(t=65047 jiffies g=357990333 q=711371 ncpus=96)
+[1023772.491019]  get_object+0x1e/0x70
+[1023772.501186]  kmemleak_seq_next+0x91/0xe0
+[1023772.512982]  seq_read_iter+0x482/0x1160
+
+With CONFIG_HZ=1000, the grace period had lasted about 65 seconds.
+I should have included this evidence in the cover letter.
+
+You're right about *pos: it does not advance when get_object() fails,
+so an unaligned position can miss the periodic checks throughout the
+skip loop. Our deleted-chain tests checked safety, but missed this
+progress issue.
+
+I'll address this in v2, preserving safe traversal across concurrent
+deletion, and add targeted coverage for this case.
+
+Thanks,
+Weilin
