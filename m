@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286947;
-	b=pZg2qA94HqQY6IGxKqR+0J1/ksqdw6Hqn6IXApFs1Sh/rmAdySHDfrr624Lti6AXBxMM
-	 +XwO3dmMPMcOzxSFTG+YMRZwsk9e4fgKVLGFJXScPVxeyG0QUwIi+Ghg5Pfd6tJv21v6t
-	 Eabaedu3ji5mfREAzRtyy3lp9NIOm4i+QG0pWFQO8bPEp2vSFY7j7YU4tk+Xl+6pmd98B
-	 bWK4F2lWv5LgKhHEZC15b07qW9jvqvMw8UHvVy4/W/e9s7hGbH1E9Hq60IUQrYv3h21cU
-	 lOnthsoRz88ixAodxcbNAo+KpGx5ytd4IKm8KGdiR6hPvIWVwDESVx00zXvBYM/Fz4g==
+	t=1794286949;
+	b=pjaKt9XN8AqYJBdaJnXyGs4xrYZYmou0WjndJEVmFLB9J2LOLZ2grVZZsGN1Szzi1tuz
+	 4l0FH+VujIhMB9b+6MZNugysT9lCYrbicV3Tq7PElu5N9b7IHh6lc8N3wpteUZWg0YsmC
+	 Ka5R1MVqpmGdgvP8ba5v77hbdoMt/Groo6RD0KJqTup+XQP27rdaTymy37E75N5r5OWaL
+	 nySYjMhx5z2r01YS3v1ujn/C6tIU82EImB2LrerIdNitiiEkeh27GldCiMaLadbQ0g56O
+	 L/wWjUY4c82uo+kJ3sizDWk2cF9IC3IopWKIJuNVuoLpzGOXIF4Z3hfEZLUrqNwWQ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286949;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=CgBCpjKfzBqNZpJUjcpaoZF5kynIHAd0/p/NXGzkOjc=;
-	b=Yn+wBzVRtlhYxwEQWwdQHYXKF8MP3dr0jz6gR/FeL0YlyLSSApqpbN8zw8JCnZIDH1x9
-	 C7NkP9sotwjDB/DGYX5qgT+n8fQJaH2qii9ZUtDY2CSlmHZc2x1yFjDdJ/vBI9p39c4UE
-	 rOaECyvllse/86OYA/YsauOjt1hXNu5KUS9xNYBONSIyy1I5qB0ekNLVWNEFKWmXF/5P7
-	 N+3IELvkc6PcXzmdBTFdZl0OHiKhh9T2tVXxLNvKcop4likUCliS2awrRklRQ6OJMDu3b
-	 6NpKjUMibGQ2zGQjtPUPvb3PpZXO4CnhYGSQKLxyQ/VTA40BM+7TmahBxd6tDFMbvrA==
+	bh=uCmKHaalBs1Mwi3hIIcbxr5U+8imaxCzGUPXqbL7HOI=;
+	b=GGwHLl9w4JgdYirJWqiQYOKugQwpcyBIz/PmrVmSqFGnwqXxeMjPKtrwQZw+wBIO6k6z
+	 VxvC7Vu70yp3xqKvHTvrvgseQzT4ebkZTMotkx9d33tg8UuqOR+vHpa1jaMGqtowlvY8W
+	 iC/Yvg9zNbON7a60xTi/rRsIKDXQ13+4KpndrXItzBt+Myx+ud8G6voaW3Ej09q9eLUXB
+	 kn3/95YFrFyd6c+1lNk1CymQZi0a4H0FV2n9vhWHZFegdgXLgLVGP5mWUgF+hSIfxQXUY
+	 c2/EyYmBrW4g2V3iuJqvo29ZfXLI0WBgYpSJRzjQqv8D8lCAgd4lXKiLNVxmx0de7/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="lNZ/Bmo1";
-	arc=none smtp.remote-ip=209.85.208.72
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n7DrnAkO;
+	arc=none smtp.remote-ip=209.85.218.71
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2CF606E495
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD2CF606E495
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F83606E4B9
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20F83606E4B9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lNZ/Bmo1
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6b76329afcdso43497a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:02:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n7DrnAkO
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c50547b4992so10232366b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:02:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794286944; x=1794891744; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794286946; x=1794891746; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CgBCpjKfzBqNZpJUjcpaoZF5kynIHAd0/p/NXGzkOjc=;
-        b=lNZ/Bmo1B5y2EaXYYAVuaMVIjPQaf0oOdvrpwSasoz6u5vTy/z+s4fr8W3wcvM74hV
-         PaIpbKX0Zy0GO/WpCVuxnl6CIkmyb2Z7JhqF88PI/zT6il+h64sSv3oldqJe8UbM7SLD
-         h/O1D4qaSAzV9xwZ7wV/yEo47kj6LKtxAVWAc+Urh4R2csyjH+d6FrgmNKsXCn+a8cFf
-         hzAO3YKZH2J6mNoE4D57WnD5hoSVzTNT+Y+CyRAYNjmHITTcLWAEmST8KJwRNqm9SkeJ
-         cw01d/rm0O7ajm0OSMfPpPXT0+uHLzEX7H+Vq3OznKrXqgMRG7XhDUID7zQIe5xPufj4
-         mAAg==
+        bh=uCmKHaalBs1Mwi3hIIcbxr5U+8imaxCzGUPXqbL7HOI=;
+        b=n7DrnAkOEYiYuDbFHtVEbxTbhsXXhUyIjyWuA6b4/0RuSysExzjm+K35LNrvLFziMc
+         fGfE2n/Z/EP4b5U4EaJsNr1KYqJLipt5plqiq9ZJW6EnFg0zLS3DDO2axvl0eRx7YoF5
+         VZiuDoGTga3OPuKoeilyKGWPzZId5t5YIJdHyP2XM6U2TkNfrfcSG+6G0er4NegsupUf
+         XyVSaWpQRooSMPTgSStu3lMkjT+sc4Q8uE/vPGIR/Z7mOosgJLoiiU67/YTdp0RB3Atd
+         jJIYxP2jJURPpzJ8o6VBsg2bscjY0s/uaJK0czgdOaQOwhFNVILsIcmdoD6mDo+IU55K
+         EsxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286944; x=1794891744;
+        d=1e100.net; s=20260707; t=1794286946; x=1794891746;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CgBCpjKfzBqNZpJUjcpaoZF5kynIHAd0/p/NXGzkOjc=;
-        b=rRgvjEayIDi6Og7YqE5IdiQuUAdP4Z0eCtpmPLA6ZPtUGZz8W+WpdXYB+sf0/QnGMt
-         S/xu9BtgR4aJ1RACb+JnY/4SfBuL8ETq+F99mHPCnfPyFlWjASO+EnL/36NvWeY3JjN3
-         +HwCHDhTpUjeq0PIPRYPCkT8vXhuwp0wKaH1+t84pNQOWUBWTNtuNXjPcEcyp9I2ZAkQ
-         CWiYO2NTWRuXhGBNqzAM9haZwHBZgx6UI0SbLAKHweJUPfxVQ9zNMfSvx4Hqn10d/iX7
-         eCrN/ZPLDlwa7UXCg5l7ZMpO6UK15FaK0V0E795hFkaxNr33KIPERn27yjP8qyq3rSUP
-         dMdQ==
-X-Forwarded-Encrypted: i=1; AL+hErH/TL2Yjrc2yf0asQQucK6veX9x16n6otQzQkBwcM3OFrPMXKxJsJYtbHCQCsdqA8In44aFh64WIiXxGyc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sDW+zAyiEQDLfo+kEfNPbb/gTF93Zz8p4PjDxjOul8X54UYxT
-	85C8JM04lb0ii6QWsg7WMZNvLwrqctDPz0kzE2pm0cR8ap8Mnq1CnKM03r25a46PEOGZNLAMNMl
-	sm1kycgKP1XDbgc+D5A==
-X-Received: from edtj4.prod.google.com ([2002:aa7:ca44:0:b0:6b7:3b3e:5148])
+        bh=uCmKHaalBs1Mwi3hIIcbxr5U+8imaxCzGUPXqbL7HOI=;
+        b=pL48s6M+emDzX+fAQpXghdWExljT24vXevCH4PQaigqvLP1ixW46migd62RQ2ZKFe9
+         xtdnFODZrgNixchyYD9OnI1bQ9H8L7r9/JYS361ihJ2u8Spq2p0EYt2FqkIPkx0MyeVA
+         maC4nnYY86dwZlQBmghLpqyOD5O2nmRHemrX8rN6PYL58CepJHsVINKY1Pb7v/vfDGzu
+         UGvRkoZqazBjDCHtqKWI7ku1b0SE4i9lpEJW4N1YnH+pN1zZ6uEDL3VRZ5Qwi8BXpQl8
+         zuBEyliR+aOsBNExVNmna7/aoEmHXK7uFG7fyz8bbntaRS/wIXfwx4JvH4rdf5/JbN3D
+         ac6Q==
+X-Forwarded-Encrypted: i=1; AL+hErF5Lq3V0z0vFnafWA4BhondKAg0LnwMrGDmaXNyrtnaemnTqj2jQml2lWHEzypTMAoxR6N/+SWGqYVYwYs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8U1caPUkVMLHc7aaTpInHMSfcV8yA98H5NJW/dxJnGThKAxkLa
+	4ziMAXpmldueWVufPUSMc/S/5PYo748BvzXwgxUQEXwLmOsx3PT0ZNVjQcsISb2ZU6xUJNqMfWz
+	13jEn6MxYDByELzAMrw==
+X-Received: from ejpc8.prod.google.com ([2002:a17:906:54c8:b0:c3f:c35a:7704])
  (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:aa7:d496:0:b0:6ac:934e:a9ca with SMTP id 4fb4d7f45d1cf-6b755626f5fmr907953a12.0.1794286944079;
- Mon, 09 Nov 2026 21:02:24 -0800 (PST)
-Date: Tue, 10 Nov 2026 05:02:00 +0000
+ 2002:a17:907:3d0d:b0:c49:a571:c4f9 with SMTP id a640c23a62f3a-c50494b4c4fmr100815566b.13.1794286946299;
+ Mon, 09 Nov 2026 21:02:26 -0800 (PST)
+Date: Tue, 10 Nov 2026 05:02:02 +0000
 In-Reply-To: <20261110050202.529473-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261110050202.529473-1-tarunsahu@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110050202.529473-18-tarunsahu@google.com>
-Subject: [PATCH v4 17/19] mm: memfd_luo: Add feature header to struct memfd_luo_ser
+Message-ID: <20261110050202.529473-20-tarunsahu@google.com>
+Subject: [PATCH v4 19/19] kho: Add KUnit test for the feature header helpers
 From: Tarun Sahu <tarunsahu@google.com>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, 
 	maz@kernel.org, will@kernel.org, David Matlack <dmatlack@google.com>, 
@@ -99,236 +99,267 @@ Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org,
 	Tarun Sahu <tarunsahu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Precede struct memfd_luo_ser with struct kho_ser_hdr using
-DECLARE_KHO_SER. Later memfd features can be appended under new
-feature indices without breaking compatibility between adjacent kernels.
+Add a KUnit test suite in lib/tests/kho_feature_kunit.c covering
+the Kexec HandOver feature header declared in
+include/linux/kho/abi/feature.h.
 
-Allocate both the memfd_luo_ser feature header and the kho_vmalloc
-feature header in the same preserved folio. On restore and retrieve,
-validate incoming required features before accessing payload fields.
+The suite contains three focused test cases:
+- kho_ser_hdr_zero_flags_test: verifies zero-feature header
+  initialization, payload sizing, and empty feature queries.
+- kho_ser_hdr_set_get_test: verifies DECLARE_KHO_SER structure sizing,
+  header initialization, payload pointer resolution, and 1-bit
+  feature flag setting and retrieval across flags entry boundaries,
+  including out-of-range queries.
+- kho_ser_hdr_validate_test: verifies __kho_ser_validate rejecting
+  unsupported required feature flags while ignoring optional flags.
 
 Signed-off-by: Tarun Sahu <tarunsahu@google.com>
 ---
- include/linux/kho/abi/memfd.h |  7 ++--
- mm/memfd_luo.c                | 67 ++++++++++++++++++++++++-----------
- 2 files changed, 51 insertions(+), 23 deletions(-)
+ MAINTAINERS                   |   1 +
+ lib/Kconfig.debug             |  13 +++
+ lib/tests/Makefile            |   1 +
+ lib/tests/kho_feature_kunit.c | 184 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 199 insertions(+)
+ create mode 100644 lib/tests/kho_feature_kunit.c
 
-diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
-index b0597c438973..27f8880ee593 100644
---- a/include/linux/kho/abi/memfd.h
-+++ b/include/linux/kho/abi/memfd.h
-@@ -83,6 +83,8 @@ static_assert(!IS_ENABLED(CONFIG_64BIT) ||
-  * @nr_folios:   Number of folios in the folios array.
-  * @folios_fhdr: Pointer to KHO vmalloc descriptor for the array of
-  *               struct memfd_luo_folio_ser.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1572f6c905aa..0b50de45140f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -14786,6 +14786,7 @@ F:	include/linux/kho/
+ F:	include/linux/kho_block.h
+ F:	kernel/liveupdate/kexec_handover*
+ F:	lib/test_kho.c
++F:	lib/tests/kho_feature_kunit.c
+ F:	tools/testing/selftests/kho/
+ 
+ KEYS-ENCRYPTED
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 2d22638ec13a..3d74d32b181d 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2967,6 +2967,19 @@ config DIMLIB_KUNIT_TEST
+ 	  For more information on KUnit and unit tests in general please refer
+ 	  to the KUnit documentation in Documentation/dev-tools/kunit/.
+ 
++config KHO_FEATURE_KUNIT_TEST
++	tristate "KUnit test for the Kexec HandOver feature header helpers" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  This option enables the KUnit test suite for the Kexec HandOver
++	  feature header helpers defined in include/linux/kho/abi/feature.h.
++	  It checks the feature flag encoding, the flags array sizing, the
++	  feature bit helpers, and header validation rules.
++
++	  The helpers are self-contained, so the test does not depend on
++	  CONFIG_KEXEC_HANDOVER and can also run under UML.
++
+ 	  If unsure, say N.
+ 
+ config CMDLINE_KUNIT_TEST
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index df0537e1b91f..f22a4552f755 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -35,6 +35,7 @@ obj-$(CONFIG_KFIFO_KUNIT_TEST) += kfifo_kunit.o
+ obj-$(CONFIG_TEST_LIST_SORT) += test_list_sort.o
+ obj-$(CONFIG_LINEAR_RANGES_TEST) += test_linear_ranges.o
+ obj-$(CONFIG_LIVEUPDATE_TEST) += liveupdate.o
++obj-$(CONFIG_KHO_FEATURE_KUNIT_TEST) += kho_feature_kunit.o
+ 
+ CFLAGS_longest_symbol_kunit.o += $(call cc-disable-warning, missing-prototypes)
+ obj-$(CONFIG_LONGEST_SYM_KUNIT_TEST) += longest_symbol_kunit.o
+diff --git a/lib/tests/kho_feature_kunit.c b/lib/tests/kho_feature_kunit.c
+new file mode 100644
+index 000000000000..db36895d53f5
+--- /dev/null
++++ b/lib/tests/kho_feature_kunit.c
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * KUnit tests for the Kexec HandOver feature header helpers
++ * in include/linux/kho/abi/feature.h.
 + *
-+ * Preceded by &struct kho_ser_hdr.
-  */
- struct memfd_luo_ser {
- 	u64 pos;
-@@ -93,9 +95,8 @@ struct memfd_luo_ser {
- 	DECLARE_KHOSER_PTR(folios_fhdr, DECLARE_KHO_SER_HDR(kho_vmalloc, *));
- };
- 
--static_assert(sizeof(struct memfd_luo_ser) == 40);
--static_assert(!IS_ENABLED(CONFIG_64BIT) ||
--	      __alignof__(struct memfd_luo_ser) == 8);
-+/* Register memfd_luo_ser with KHO serialization accessors */
-+DECLARE_KHO_SER(memfd_luo_ser, 40, 0, 0);
- 
- /* The compatibility string for memfd file handler */
- #define MEMFD_LUO_FH_COMPATIBLE	"memfd-v3"
-diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-index 74c1ff5877c3..94510f73a606 100644
---- a/mm/memfd_luo.c
-+++ b/mm/memfd_luo.c
-@@ -256,16 +256,21 @@ static void memfd_luo_unpreserve_folios(DECLARE_KHO_SER_HDR(kho_vmalloc, *folios
- 
- static size_t memfd_luo_ser_size(void)
- {
--	return sizeof(struct memfd_luo_ser) + kho_ser_size(kho_vmalloc);
-+	return kho_ser_size(memfd_luo_ser) + kho_ser_size(kho_vmalloc);
- }
- 
--static struct memfd_luo_ser *memfd_luo_ser_init(void *mem)
-+static struct memfd_luo_ser *
-+memfd_luo_ser_init(DECLARE_KHO_SER_HDR(memfd_luo_ser, *fhdr))
- {
- 	DECLARE_KHO_SER_HDR(kho_vmalloc, *folios_fhdr);
--	struct memfd_luo_ser *ser = mem;
-+	struct memfd_luo_ser *ser;
++ * Copyright (c) 2026, Google LLC.
++ * Tarun Sahu <tarunsahu@google.com>
++ */
 +
-+	kho_ser_init(fhdr, memfd_luo_ser);
-+	folios_fhdr = (void *)fhdr + kho_ser_size(memfd_luo_ser);
- 
--	folios_fhdr = mem + sizeof(struct memfd_luo_ser);
-+	ser = kho_ser_payload(fhdr, memfd_luo_ser);
- 	KHOSER_STORE_PTR(ser->folios_fhdr, folios_fhdr);
++#include <kunit/test.h>
++#include <linux/kho/abi/feature.h>
++#include <linux/module.h>
 +
- 	return ser;
- }
- 
-@@ -273,6 +278,7 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- {
- 	struct inode *inode = file_inode(args->file);
- 	struct memfd_luo_folio_ser *folios_ser;
-+	DECLARE_KHO_SER_HDR(memfd_luo_ser, *fhdr);
- 	struct memfd_luo_ser *ser;
- 	int err = 0, seals;
- 	u64 inode_size;
-@@ -304,12 +310,12 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 	}
- 
- 	/* Allocate the main serialization structure in preserved memory */
--	ser = kho_alloc_preserve(memfd_luo_ser_size());
--	if (IS_ERR(ser)) {
--		err = PTR_ERR(ser);
-+	fhdr = kho_alloc_preserve(memfd_luo_ser_size());
-+	if (IS_ERR(fhdr)) {
-+		err = PTR_ERR(fhdr);
- 		goto err_unlock;
- 	}
--	ser = memfd_luo_ser_init(ser);
-+	ser = memfd_luo_ser_init(fhdr);
- 
- 	ser->pos = args->file->f_pos;
- 	ser->size = inode_size;
-@@ -323,12 +329,12 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 	inode_unlock(inode);
- 
- 	args->private_data = folios_ser;
--	args->serialized_data = virt_to_phys(ser);
-+	args->serialized_data = virt_to_phys(fhdr);
- 
- 	return 0;
- 
- err_free_ser:
--	kho_unpreserve_free(ser);
-+	kho_unpreserve_free(fhdr);
- err_unlock:
- 	shmem_freeze(inode, false);
- 	inode_unlock(inode);
-@@ -337,12 +343,14 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 
- static int memfd_luo_freeze(struct liveupdate_file_op_args *args)
- {
-+	DECLARE_KHO_SER_HDR(memfd_luo_ser, *fhdr);
- 	struct memfd_luo_ser *ser;
- 
- 	if (WARN_ON_ONCE(!args->serialized_data))
- 		return -EINVAL;
- 
--	ser = phys_to_virt(args->serialized_data);
-+	fhdr = phys_to_virt(args->serialized_data);
-+	ser = kho_ser_payload(fhdr, memfd_luo_ser);
- 
- 	/*
- 	 * The pos might have changed since prepare. Everything else stays the
-@@ -356,6 +364,7 @@ static int memfd_luo_freeze(struct liveupdate_file_op_args *args)
- static void memfd_luo_unpreserve(struct liveupdate_file_op_args *args)
- {
- 	struct inode *inode = file_inode(args->file);
-+	DECLARE_KHO_SER_HDR(memfd_luo_ser, *fhdr);
- 	struct memfd_luo_ser *ser;
- 
- 	if (WARN_ON_ONCE(!args->serialized_data))
-@@ -364,13 +373,14 @@ static void memfd_luo_unpreserve(struct liveupdate_file_op_args *args)
- 	inode_lock(inode);
- 	shmem_freeze(inode, false);
- 
--	ser = phys_to_virt(args->serialized_data);
-+	fhdr = phys_to_virt(args->serialized_data);
-+	ser = kho_ser_payload(fhdr, memfd_luo_ser);
- 
- 	memfd_luo_unpreserve_folios(KHOSER_LOAD_PTR(ser->folios_fhdr),
- 				    args->private_data,
- 				    ser->nr_folios);
- 
--	kho_unpreserve_free(ser);
-+	kho_unpreserve_free(fhdr);
- 	inode_unlock(inode);
- }
- 
-@@ -402,6 +412,7 @@ static void memfd_luo_discard_folios(const struct memfd_luo_folio_ser *folios_se
- static void memfd_luo_finish(struct liveupdate_file_op_args *args)
- {
- 	struct memfd_luo_folio_ser *folios_ser;
-+	DECLARE_KHO_SER_HDR(memfd_luo_ser, *fhdr);
- 	struct memfd_luo_ser *ser;
- 
- 	/*
-@@ -412,10 +423,16 @@ static void memfd_luo_finish(struct liveupdate_file_op_args *args)
- 	if (args->retrieve_status)
- 		return;
- 
--	ser = phys_to_virt(args->serialized_data);
--	if (!ser)
-+	if (WARN_ON_ONCE(!args->serialized_data))
- 		return;
- 
-+	fhdr = phys_to_virt(args->serialized_data);
-+	if (kho_ser_validate(fhdr, memfd_luo_ser)) {
-+		pr_warn("invalid feature header, folios not discarded\n");
-+		goto out;
-+	}
++struct test_kho_payload {
++	u64 val;
++};
 +
-+	ser = kho_ser_payload(fhdr, memfd_luo_ser);
- 	if (ser->nr_folios) {
- 		folios_ser = kho_restore_vmalloc(KHOSER_LOAD_PTR(ser->folios_fhdr));
- 		if (!folios_ser)
-@@ -426,7 +443,7 @@ static void memfd_luo_finish(struct liveupdate_file_op_args *args)
- 	}
- 
- out:
--	kho_restore_free(ser);
-+	kho_restore_free(fhdr);
- }
- 
- static int memfd_luo_retrieve_folios(struct file *file,
-@@ -533,14 +550,24 @@ static int memfd_luo_retrieve_folios(struct file *file,
- static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- {
- 	struct memfd_luo_folio_ser *folios_ser;
-+	DECLARE_KHO_SER_HDR(memfd_luo_ser, *fhdr);
- 	struct memfd_luo_ser *ser;
- 	struct file *file;
- 	int err;
- 
--	ser = phys_to_virt(args->serialized_data);
--	if (!ser)
-+	if (WARN_ON_ONCE(!args->serialized_data))
- 		return -EINVAL;
- 
-+	fhdr = phys_to_virt(args->serialized_data);
-+	err = kho_ser_validate(fhdr, memfd_luo_ser);
-+	if (err) {
-+		pr_err("memfd_luo_ser feature validation failed: %pe\n",
-+		       ERR_PTR(err));
-+		goto free_ser;
-+	}
++enum test_kho_req_feat {
++	TEST_KHO_REQ_0 = 0,
++	TEST_KHO_REQ_63 = 63,
++	TEST_KHO_REQ_64 = 64,
++	TEST_KHO_REQ_69 = 69,
++	TEST_KHO_NR_REQUIRED = 70,
++};
 +
-+	ser = kho_ser_payload(fhdr, memfd_luo_ser);
++enum test_kho_opt_feat {
++	TEST_KHO_OPT_0 = 0,
++	TEST_KHO_OPT_63 = 63,
++	TEST_KHO_OPT_64 = 64,
++	TEST_KHO_OPT_69 = 69,
++	TEST_KHO_NR_OPTIONAL = 70,
++};
 +
- 	/* Make sure the file only has seals supported by this version. */
- 	if (ser->seals & ~MEMFD_LUO_ALL_SEALS) {
- 		err = -EOPNOTSUPP;
-@@ -581,14 +608,14 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 	}
- 
- 	args->file = file;
--	kho_restore_free(ser);
-+	kho_restore_free(fhdr);
- 
- 	return 0;
- 
- put_file:
- 	fput(file);
- free_ser:
--	kho_restore_free(ser);
-+	kho_restore_free(fhdr);
- 	return err;
- }
- 
++DECLARE_KHO_SER(test_kho_payload, 8, TEST_KHO_NR_REQUIRED, TEST_KHO_NR_OPTIONAL);
++
++struct test_kho_zero {
++	u64 val;
++};
++
++DECLARE_KHO_SER(test_kho_zero, 8, 0, 0);
++
++static void kho_ser_hdr_zero_flags_test(struct kunit *test)
++{
++	DECLARE_KHO_SER_HDR(test_kho_zero, *fhdr);
++	const DECLARE_KHO_SER_HDR(test_kho_zero, *const_fhdr);
++	u8 buf[kho_ser_size(test_kho_zero)] __aligned(8);
++	struct test_kho_zero *p;
++
++	KUNIT_EXPECT_EQ(test, sizeof(struct kho_ser_hdr), 8UL);
++	KUNIT_EXPECT_EQ(test, sizeof(*fhdr), sizeof(struct kho_ser_hdr));
++	KUNIT_EXPECT_EQ(test, kho_ser_size(test_kho_zero), 16UL);
++
++	fhdr = (void *)buf;
++	kho_ser_init(fhdr, test_kho_zero);
++	KUNIT_EXPECT_EQ(test, fhdr->size, 16U);
++	KUNIT_EXPECT_EQ(test, fhdr->nr_required, 0U);
++	KUNIT_EXPECT_EQ(test, fhdr->nr_optional, 0U);
++	KUNIT_EXPECT_EQ(test, kho_ser_hdr_size(fhdr), 8UL);
++
++	const_fhdr = fhdr;
++	KUNIT_EXPECT_EQ(test, const_fhdr->size, 16U);
++
++	p = kho_ser_payload(fhdr, test_kho_zero);
++	KUNIT_EXPECT_PTR_EQ(test, p, (void *)(buf + 8));
++
++	p = kho_ser_payload(const_fhdr, test_kho_zero);
++	KUNIT_EXPECT_PTR_EQ(test, p, (void *)(buf + 8));
++
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_required(fhdr, 0));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_optional(fhdr, 0));
++	KUNIT_EXPECT_EQ(test, kho_ser_validate(fhdr, test_kho_zero), 0);
++	KUNIT_EXPECT_EQ(test, kho_ser_validate(const_fhdr, test_kho_zero), 0);
++}
++
++static void kho_ser_hdr_set_get_test(struct kunit *test)
++{
++	DECLARE_KHO_SER_HDR(test_kho_payload, *fhdr);
++	const DECLARE_KHO_SER_HDR(test_kho_payload, *const_fhdr);
++	u8 buf[kho_ser_size(test_kho_payload)] __aligned(8);
++	struct test_kho_payload *p;
++
++	KUNIT_EXPECT_EQ(test, kho_ser_size(test_kho_payload), 40UL);
++
++	fhdr = (void *)buf;
++	kho_ser_init(fhdr, test_kho_payload);
++	KUNIT_EXPECT_EQ(test, fhdr->size, 40U);
++	KUNIT_EXPECT_EQ(test, fhdr->nr_required, 70U);
++	KUNIT_EXPECT_EQ(test, fhdr->nr_optional, 70U);
++	KUNIT_EXPECT_EQ(test, kho_ser_hdr_size(fhdr), 32UL);
++
++	const_fhdr = fhdr;
++	KUNIT_EXPECT_EQ(test, const_fhdr->size, 40U);
++	KUNIT_EXPECT_EQ(test, const_fhdr->nr_required, 70U);
++	KUNIT_EXPECT_EQ(test, const_fhdr->nr_optional, 70U);
++
++	p = kho_ser_payload(fhdr, test_kho_payload);
++	KUNIT_EXPECT_PTR_EQ(test, p, (void *)(buf + 32));
++
++	p = kho_ser_payload(const_fhdr, test_kho_payload);
++	KUNIT_EXPECT_PTR_EQ(test, p, (void *)(buf + 32));
++
++	kho_ser_set_required(fhdr, TEST_KHO_REQ_0);
++	kho_ser_set_required(fhdr, TEST_KHO_REQ_63);
++	kho_ser_set_required(fhdr, TEST_KHO_REQ_64);
++	kho_ser_set_required(fhdr, TEST_KHO_REQ_69);
++
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_required(fhdr, TEST_KHO_REQ_0));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_required(fhdr, 1));
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_required(fhdr, TEST_KHO_REQ_63));
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_required(fhdr, TEST_KHO_REQ_64));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_required(fhdr, 65));
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_required(fhdr, TEST_KHO_REQ_69));
++
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[0] & (1ULL << 0)));
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[0] & (1ULL << 63)));
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[1] & (1ULL << 0)));
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[1] & (1ULL << 5)));
++
++	kho_ser_set_optional(fhdr, TEST_KHO_OPT_0);
++	kho_ser_set_optional(fhdr, TEST_KHO_OPT_63);
++	kho_ser_set_optional(fhdr, TEST_KHO_OPT_64);
++	kho_ser_set_optional(fhdr, TEST_KHO_OPT_69);
++
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_optional(fhdr, TEST_KHO_OPT_0));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_optional(fhdr, 1));
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_optional(fhdr, TEST_KHO_OPT_63));
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_optional(fhdr, TEST_KHO_OPT_64));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_optional(fhdr, 65));
++	KUNIT_EXPECT_TRUE(test, kho_ser_has_optional(fhdr, TEST_KHO_OPT_69));
++
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[1] & (1ULL << 6)));
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[2] & (1ULL << 5)));
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[2] & (1ULL << 6)));
++	KUNIT_EXPECT_TRUE(test, !!(fhdr->flags[2] & (1ULL << 11)));
++
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_required(fhdr, 70));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_required(fhdr, 100));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_optional(fhdr, 70));
++	KUNIT_EXPECT_FALSE(test, kho_ser_has_optional(fhdr, 100));
++}
++
++static void kho_ser_hdr_validate_test(struct kunit *test)
++{
++	u8 buf[sizeof(struct kho_ser_hdr) + sizeof(u64) * 2] __aligned(8);
++	struct kho_ser_hdr *fhdr = (void *)buf;
++
++	__kho_ser_init(fhdr, 0, 4, 10);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 4), 0);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 2), 0);
++
++	kho_ser_set_optional(fhdr, 0);
++	kho_ser_set_optional(fhdr, 9);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 2), 0);
++
++	kho_ser_set_required(fhdr, 0);
++	kho_ser_set_required(fhdr, 1);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 2), 0);
++
++	kho_ser_set_required(fhdr, 2);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 2), -EOPNOTSUPP);
++
++	kho_ser_clear_required(fhdr, 2);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 2), 0);
++
++	kho_ser_set_required(fhdr, 3);
++	KUNIT_EXPECT_EQ(test, __kho_ser_validate(fhdr, 2), -EOPNOTSUPP);
++}
++
++static struct kunit_case kho_feature_test_cases[] = {
++	KUNIT_CASE(kho_ser_hdr_zero_flags_test),
++	KUNIT_CASE(kho_ser_hdr_set_get_test),
++	KUNIT_CASE(kho_ser_hdr_validate_test),
++	{}
++};
++
++static struct kunit_suite kho_feature_test_suite = {
++	.name = "kho_feature",
++	.test_cases = kho_feature_test_cases,
++};
++
++kunit_test_suite(kho_feature_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for the Kexec HandOver feature header helpers");
++MODULE_LICENSE("GPL");
 -- 
 2.56.0.506.g506a7eabc5-goog
 
