@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294721;
-	b=fOoBOH0j7BU2gg4k4FxnhZcpu4YWCC6jjVM5g6FYsuwuFU/R5sKUHsDMRF65jK3V2MS1
-	 bQMFLRP0FsGFciT+INmIHGHwGiMtYDf384ELCpZHViKr65eCazhbVHGReaeGo4Y3OVC1s
-	 w6KKGZ1Cazj3Pm1M2fcUyGVH4PDOddwWOH3wduE1Dr1jrhwP388Emx84viDhXM8oOgEAW
-	 bdcQE1eBzFvrHY5SUqTd986WBlN27YFLRpfNQ5IqAKurlEKiEmszPYlgtvK3ZgHBbhnQg
-	 5zQ5oThg9Bsv70DF+SOSzXFBYuiq+VsSwnIh7hjHL5kehMqM2mQSx3+YiHXJRE3qTtA==
+	t=1794294740;
+	b=l5Z36p2kLAQAatvNRWUnozK5+CYQJW88HMH2tB35tmdhpfq3iGdGmKdUtTuDFdlHBVaW
+	 GyyK/7Wu7IrwPXG0ya3icFnz4+meNyxlsod8smP4C6lOvvJaMbyZBgdq6Pfuz4q2TY7s8
+	 +J8rHNS1g2KwXj7icCU7sIR1lT4s9VeP60meH0DLQsMDMAdz/u8b4hB/GF9z3seQiBpJy
+	 CFdbY89avDoxQfbjXMXVqaq362xMdcUFxG8Z+q6DOiRiX2Hqi0r5wdoUg1CoCzutg9Dez
+	 W46c+LnWC7WBpSDZbKdvQSAVt5Nh8xkqNqfvs1CW2TIoQfJa92aJwNKV29BpRwRozyg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294721;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=H7fK2Woj0IQZx7iLg3FEGBdfVw3+fs6khAnVlrNRDdo=;
-	b=dfMXtCYQW8trz1xe42a8mFX7ZDq5aM1Jhcwh/qsw33Hoj57REQ3FG0vctVGs4/zPDibu
-	 kUecX7nAaSBZlQVuFvkkDcSV4sqGq84FN4WOnw+rug4GNHK0JPyUYrj7mt4I95IJDwFw1
-	 sRvvvK/aO5WmE7DyKLB0U0fHjSvXWMLd0DVZO/1wt0SM9QDL7Ls1N4nEB1mqAsNLrDUb7
-	 mrSbl+vzuu45o0Y/V+gI4dv5l/jze/Zy6sK20tc2Wa1EfalGDm8yBhR+QjJVo2Iw7g2VG
-	 rdahqzZXeqUtmEOfGSIxScRP5yxi1iGLM0p8mHqwm0I8ZFgzz/k1I52GZuT4gelyBTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294740;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5yWyiPml5ZX8N8f2Jc7eehCBNHyPBXlyreXyhVWMAHE=;
+	b=zsJN6LpTHfJOjm1ol/2cVkXlff7N2yScBWMcGiOOl9sHLTNsd8sngbshDA79m2NR2caq
+	 Pe8lQjTW4ROoaxxdCLJXGOAIB9iVnRVhtbziTtF78uj4nHxLYn+qiCwf5kOhvgSOEqL9g
+	 +XXRQ2qYp0Ro3JUjzR0oMjwxqPY9N0RWP1yKbgdR2QrNGln8yWV89BP8UcDxMxD58ME7B
+	 C9MNujOWhKAgubqrxyNJ8GgyeL1sBE08jadZHKJeck3469NRietHN7KjmAHm66Q2koTeg
+	 qPw27aNN9/rc8UIJFEiQXBWENHETRvWWIiIe2Roh0ENgei5zQ38Ip89LFWjyDOg8RnQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJIdZx0i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D41C60A3802;
-	Tue, 10 Nov 2026 07:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJIdZx0i
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294721;
-	b=raj4a4ooXizr44OhoqD2Z/goUFVAICmeZqpo12fj+fCX+M4hzMxdJayu2PA0EETZ3M7V
-	 ojTbmNu6RrOwRyX/9HRYarQwBhs0bMieLBWiwwnjEmdkm08WcOUQXBhO0tUUpUQFSRBwZ
-	 kzSzVoTSmeA9NGlSH5gxUJCA+CVdtjgCXGdF8zmOU2g1SN67q78vl1Z52k5fy4Ppdcj60
-	 hmYtRPkPocuRRICvl+LFBGPxvsaPX7boyTDteS9jvqjPkJ4aABnsz4b7LzxxY9ktqah4L
-	 B0c9FHybWfpROUICWMVIy0ZOinjCX7lo1rvAhT9EfoHyRXKokDVF5URP4cSMP0dUVIg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294721;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=H7fK2Woj0IQZx7iLg3FEGBdfVw3+fs6khAnVlrNRDdo=;
-	b=jIKtVi7QBdGfM+IjESPXQE1qS5WBgAsFUWpysSyBLb8bRCm6wPzV+rf3lS+nYRI91ByW
-	 VokdBouHsTbY2RtZ5JPPmmXgpOScGzYUAttarwligTvaw10sFl9/p0WZuDwjSYUcBriHW
-	 iG2X80qzPLceP3hEzJ6waEK2a5QvJQAJVYteMHKK5x3IavKr/HKoZUN2FRNJdq9dYgde/
-	 LCrofF3Ym3DgRXPaz4Qp5Ss7RqQqGZbsi8qXN4M2agzGUbpLX+6UwoTourglmh7f3JaVp
-	 JisSE12CyjVgMDzWSFXFq2N6WqErFTE6K2x603OBCCCwMgTyghD1JpMf7GSnuJNiydw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b="fbla/A9X";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 76F571F008A1;
-	Tue, 10 Nov 2026 07:11:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294721;
-	bh=H7fK2Woj0IQZx7iLg3FEGBdfVw3+fs6khAnVlrNRDdo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YJIdZx0iPKh41hYHUYE4gRcq5h1FndL/qw1a5L6bi/cvW0Wsuzk1PW3PIQ4urY6KH
-	 PEn/9v8V/vs2sP7B76BJIemm6S8oTnge/QtZ3slRTqyYOwvz4emapYFWkKN9fSdKNl
-	 T6aUmsF2/ws9pTBOn9vSRhPj0Tut2tSBi714oXwTa0k2C8VhG4K7blJj3IYW2y17IX
-	 /CPmvWDrO1fm2bvGdOpzADtNfZveniESPXahAI0gmqfq2wRko5BbyPyLHIcb/FP6MW
-	 Zt6DEXRwovcFjc92fqwkdGpceYCyIaNnpfwqyCA/2EcCepuRmykljGjIByI33/gepe
-	 EgQGh92Fyko9Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0C0FB488E6;
-	Tue, 10 Nov 2026 07:11:59 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:11:59 +0000
-Subject: [PATCH] driver core: fw_devlink: Don't report refused
- sync_state-only links as errors
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B36C606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:12:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B36C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=fbla/A9X
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6798eb0d190so1363252d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:12:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794294739; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r2eZTuciJBoSFQbQj3QRCLry8qAW/RbYJ8o5Wkv3kOvTJvpCJozbs9QeRpQbaKu1M+
+         ecN7V4osUae6tsf6g+ar7I4Sr8sz9Plz9o2GrG3e/8XYvKBDvdkpU+UHCjdSsaIBmNBE
+         pOlqky2Aty/14/9UztpA5vqVeFys/zWx+8KPcvb4gHDJxXiAcSrr8/GuJQB21vDMwTln
+         63+UcJP9X4zRnES/IKw+P2hrvJR/aj8QBctxbY7NbTSiNzCMhc2YyA5iTJfAvHL+kcfc
+         CWpB7cT7UK1k1OdzlXqjUUUgwqivgtaT0uVBz4YeP+AIGHV9VWkkx/1xwbfGoTg4zrhi
+         /k9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5yWyiPml5ZX8N8f2Jc7eehCBNHyPBXlyreXyhVWMAHE=;
+        fh=raW3JzEikTIx2pT/jmnffVmFw6gCaANKQCHcrALkTLo=;
+        b=hG4mZKKCSQBZt0v14V2/VXnIVdVON17aN02CrbfFd3o8S3s6K/LzX8UGaDqky18EKT
+         8zkkzPH5tw2cV7ULUt+yKqmvgBmFXZyig5/wh/VuHkh7cLKNFnKH3by6YQPOwJs7lzBd
+         SmRzfcleMPBnPYK6cK3oM7YIV4D6XS5OIIz2a4H2zwXwMGV6rgY0sJbjy9oUN/G97qWC
+         fBU0nutLFx3tuXlw/mqYXo9NS0JO1y81vm4Csl7q0mXMWkFCSZYXoCydLAiMhvyUElUX
+         sfw3ezs516/AVO/pH6udE5wh6ZeZlYSkvqm9hUDjdUpPxiaBVZ8fdY62Xw6dHvsKOH9l
+         FXQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794294739; x=1794899539; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5yWyiPml5ZX8N8f2Jc7eehCBNHyPBXlyreXyhVWMAHE=;
+        b=fbla/A9XlF/lOq2bcG6iZJPCqOGC/emuDCdTn1krs+v0qAsMuaTyS80O3LxALZZmIb
+         xjDBtyT5AkLFFP1fIRpXPJDwqGMFDo8KvTpFSfFW9kBZyhqqE+r6kjNTvb4m48XHzmar
+         vDoxjsCGVnyLYnPDthxKh0nVIe+czDQ9Rx/E1sc4mzTpy07fjkputPxJk2GI45wlZV3y
+         7muQnqIgNYGyAiny0chTZlUz5JSMyzsE7WbaSY8NqcuHN4Ucm8uMe2C/MVMKu+xgghP5
+         Aoi2rVgCbW2QSyRxNa55wznfOwYZv64/7fGeGjO5sZ9Vgv7uAXur6s7ubM9VZMUCTPHZ
+         EOOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794294739; x=1794899539;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5yWyiPml5ZX8N8f2Jc7eehCBNHyPBXlyreXyhVWMAHE=;
+        b=ngu/RIzh+oW3smN/cWlFOQxB6+m5vMlGEKJ+DnDfsTDoYHbQvJr/QAjMm6ue4hZXnv
+         QMEIWnkMU0zbYTAKdkbWUoBex+IVVNJbGFJoTHKQzCReZoEKM1iD5m6rWj6gjjW90Mpp
+         b1pAXKbUIVGGtevUgCCiPNVbLxMBSG8tNFJrN/aVNqf9YrSuFghaGVs35/tcwnGq5oPE
+         H5MNxc5PJW/fMRxSkisM3usuKYJBugQMf2IF5glmLmGMFczzWAcMCF/R/X0s7BnB0Ef6
+         j2MLGY7I4xxSfECPNsEyTaJsE5hzQXQ0ZmR2eo7sj0VLn2rX2hp3chmjykTR1468+/rP
+         TQxw==
+X-Forwarded-Encrypted: i=1; AL+hErGpJd9StCh6BpBrpDnkeMmQCxQZH/XtAUbEpII1Vk6PnKlgxiG4rA/s7YrnMIuzn8NSyc5zPG9SNFNUCdg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kw7T4/AgzI9p7gDFMCpHD++fV9r+KGLpy7XS3/l8YPbCiDfqv
+	lfINIbFo0FcLfE9OldrMLYtizosQeUhDq7zDGSNelkRrXqSBURSJ6fiFV9eIo8RQUzLFWcq22PS
+	3kCuA5NMcFWbXia6PNH+CkxlMkhlavJ8=
+X-Gm-Gg: AYBFou0zkCNvbhD37SNHt6BfseoTfqM83Qhx6CpeisoNhEst9mo5eOayNHhY08dhSHg
+	EMjl7nsk/EGVwUoqjTQl9X11HcT1VGKClSX5t5IsWsULF2OPKmfLk0GQtJsQBSfJ6bmG75/IU+Z
+	NdGN2IEbcPiPm1fVy0tTNp7ShvxmF5Fg1mg8+GZWQwDRQCic4drlLTGvIAMX4P6adcpeWAY2s32
+	PZKZk2ZqijEYCWAlP7iDuS9y++95WaOX4wZsMdllU9bs50ord6Le7Qk+Yil5Ujyqvb0VGKumjMm
+	8qlOsB015UNQYhtQESpsR3c40O9CO9+6+h5bGsQynvT+qUhT942ttUT9OOk2Saz4he1CshgjpLO
+	C9gV8lDb53kXMWjEwV++d4qgwgmpfLPcIhWZu
+X-Received: by 2002:a05:690e:c81:b0:679:96af:e306 with SMTP id
+ 956f58d0204a3-67c568269e8mr1104943d50.56.1794294739207; Mon, 09 Nov 2026
+ 23:12:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,93 +104,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-fw-devlink-sync-state-v1-1-6385be961c2b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPduEcgDxVYyHdXRSNNOsEzWEd
- 2fK8Tv8/wImScXgVC2QZFbTRyygQwV+dPEqqEMxNHXTElGN4Y2DzHeNN7Rv9GjZZcHQETvm0Ld
- HhtI+kwT9/L/ny2578SQ+/2awrhuYv127eQAAAA==
-X-Change-ID: 20261110-fw-devlink-sync-state-f71babbf968b
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294718; l=2670;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=im/hNd0AVyCdDuE0XZG+ciJxIyRE1L2sv39Qoyr9F+k=;
- b=VlzWbbYyVi5WPSTZS/BfGJ70oOOrABy71NP7acb8J651n3NHp51NssB8U8cUA0L5Xh6DiflGJ
- B/3mufVOdNNBMn8grQFkm+tFxd/kXn7sjYrp7Tb6dvnIKEEMys5j2bx
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at> <20261106101954.46907-3-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261106101954.46907-3-christian.koever-draxl@student.uibk.ac.at>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 10 Nov 2026 08:12:07 +0100
+X-Gm-Features: AclHuK-NNQu1JbIxB1uGpolHVv_SmZbveDQeysJSYIv9CiWjgRe7D4MXv9gg7C8
+Message-ID: <CAFBinCD5aQ_AsNxELgUd5yzXsghUVQg1tuGtVvF-bmPx+AjaUA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] media: rc: meson-ir: allow the receiver to wake
+ the system
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
+	jbrunet@baylibre.com, sean@mess.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
-
-A SYNC_STATE_ONLY device link is refused by device_link_add() once the
-consumer has already probed, since such a link only orders sync_state()
-callbacks and would be useless. This legitimately happens when a consumer
-that probes early (for example the Rockchip power domain provider, whose
-domains reference a PMIC regulator through domain-supply) is inferred to
-depend on a supplier device that is added later, and results in boot-time
-"Failed to create device link (0x180)" errors for a harmless condition.
-
-Log the refusal of a sync_state-only link at debug level and keep the error
-for links that matter for probe ordering.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Tested on an Orange Pi 5 (RK3588S): the three "Failed to create device
-link (0x180)" lines that the Rockchip power controller logged on every
-boot (suppliers: the RK806 PMIC on SPI and an RK8602 on I2C, referenced
-through domain-supply of two of its power domains) are gone, and the
-regulators are still acquired and held by those domains.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
----
- drivers/base/core.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index bf97b06337a1..4cdfc156ffbc 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -2241,8 +2241,20 @@ static int fw_devlink_create_devlink(struct device *con,
- 		}
- 
- 		if (con != sup_dev && !device_link_add(con, sup_dev, flags)) {
--			dev_err(con, "Failed to create device link (0x%x) with supplier %s for %pfwf\n",
--				flags, dev_name(sup_dev), link->consumer);
-+			/*
-+			 * A SYNC_STATE_ONLY link only orders sync_state() and
-+			 * is refused once the consumer has probed. That is
-+			 * expected when a consumer that probes early (e.g. a
-+			 * power domain provider referencing a regulator
-+			 * supplier that is added later) is linked to a late
-+			 * supplier, so don't report it as an error.
-+			 */
-+			if (device_link_flag_is_sync_state_only(flags))
-+				dev_dbg(con, "Not creating sync_state-only device link (0x%x) with supplier %s for %pfwf\n",
-+					flags, dev_name(sup_dev), link->consumer);
-+			else
-+				dev_err(con, "Failed to create device link (0x%x) with supplier %s for %pfwf\n",
-+					flags, dev_name(sup_dev), link->consumer);
- 			ret = -EINVAL;
- 		}
- 
-
----
-base-commit: ec1db86e7bb3ec13c90456efac43659a723ac068
-change-id: 20261110-fw-devlink-sync-state-f71babbf968b
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+On Fri, Nov 6, 2026 at 11:20=E2=80=AFAM
+<christian.koever-draxl@student.uibk.ac.at> wrote:
+>
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>
+> The suspend callback switches the decoder off, so nothing is left to
+> notice the remote and the receiver can never wake the system from
+> s2idle, where only Linux interrupts can wake the CPUs.
+>
+> When the device is a wakeup source, keep the decoder running and arm
+> its interrupt as a wake interrupt instead. Boards without the
+> wakeup-source property keep the existing behaviour.
+>
+> This does not affect suspend to RAM on boards whose firmware watches
+> the IR receiver itself while the SoC is down, as on S4 where BL31 wakes
+> the board on the remote's power key.
+>
+> Tested on an S905W2 board in s2idle: the power key on the remote wakes
+> it; with wakeup disabled for the receiver it does not.
+>
+> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de=
+>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
