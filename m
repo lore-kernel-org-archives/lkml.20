@@ -1,71 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332553;
-	b=VnO8A3Q6NCnywMzy5Lv3JtWDXzTGSArl058AEcFXOQh4Nc7rvQZHa7ysJ07Tg93ccgw3
-	 RkRJuCLeZqpKWNALb9GPW/etoNMBTs1GgVCM37kmBOK6J4QiN70Uzkn7gfj5fG0TGHhgU
-	 RUq7MdipbMUagA+NyZZgLzjbKXL6lEiGP5zQ5jVv+p4pLYrFVYSVYxAYKDgXpm08nvczy
-	 k2SF7t7F9xgjeQab0si4fgvgtPpZl23GtBOUXblVzySj3TsAbfrlLw8pGBSmBzA9UY6/P
-	 Oj+zw8dX1yyR/4pWuJdALlNBStEeCKCqSXyah7iLDUZ5sl1XifYBTh1tChXwmTu6i8Q==
+	t=1794332555;
+	b=0epUUxDuNDYD3aBgHUZJk5d+AOFLmiy12xZaOGrIPdeTqSCJDxussOCPoOwD+4H/m6Zn
+	 s+FW4G/KK1qmXKpuxfU28kyT37YIJ1G8LXOobTQNFgMFBA3xLr1irUATpfQzOTl7Sewix
+	 6/dqpAb0uXnB2aL0MlwDLKGBo2pOSCz61/eBwsP8SJyZE9QbQXoDjbSee5w17LojG2h56
+	 kjcqxzkfneAx0Z+oAoUzz0vlLcgd2DcsExd2JPytXLKCIeykT9UIhTYwuAZRQ9E1ESZLx
+	 3EpMKFV00UeQyeaNRMKrkJpImoGAGdDHJ1p8BqfWc3ZksLeME0Sp5zu9/D/py1S6Ieg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332553;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
-	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
-	bh=6hRmAt6Nv9zxg/FdmenP+WtbZJVt2hCdxtlI/zHA/a4=;
-	b=i7PaM9TbCj1qOsp2mL/jpkRgwYrNxZ9VVdOd2dFEKhqxLXc2cnmljrVeDJXQ3nz5Kv5j
-	 PE6BonQ6Ar1rPxGKKJwYf5r6nqcwI8XIApltmdlZ+H3LeXFkViJnIaV7Exj/MvUl68ME3
-	 r2bV8l6Jb/ZStSqQ4iv9PCTZQkbjAfZlXakmytUT3k/JP1VltFFo0T/jG8Pk53wYNONwz
-	 2SIRHR4M0Yh1tQV6r4AKCi9xdUPG+zMUKcEc5IzAG6U2XmhpvplUaT5BGQlXG44ZGY1ol
-	 +5hC8Iaa55744WnNmZOWHHI8ZVmaOAt2wGtmvKeojeokQ8k0Ke5hSK7lPCp7Df27f1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332555;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jbgSuxD4CgBXy0cbPyYVRCuYyNpAOZN/+jBRNG++0S4=;
+	b=sZfg4UEi1/3OTL8fWaf6ppXDNmo8wjIw9A2XmornjQYbU4Iu9p096iDYp1tSswHNDaGv
+	 yRGYgcSBImBhWveB7KUKEDKeW1K4BTau5xeIr/Eb4Ax77nypvbN/YHfFiTyzcjKe9oQO3
+	 JVEpNQCNiAWd/lbI38GLDYTwq6i60nmO+vEHPXnMQfxdi8++Q7hz3XwvE/MWNEqntg5oH
+	 w07LYB4opBfKyiTXCaskWBr5/GcSl6RBLxBQANNKxEQW0NNfLSpoPn2I4oY4Ye7TRe7fC
+	 /lgtSl6VZ0L6wX/tHMAEyb8zadhSbQS22GBbpZHvxuOhTI3z2Cy3fSgyJXqawr2aX5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deltatee.com;
-	spf=pass smtp.mailfrom=deltatee.com;
-	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=rte3d+7V;
-	arc=none smtp.remote-ip=204.191.154.188
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhTxZB6I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E6560A262D;
-	Tue, 10 Nov 2026 17:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E6560A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC0160A380D;
+	Tue, 10 Nov 2026 17:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=rte3d+7V
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Cc:To:From:content-disposition;
-	bh=6hRmAt6Nv9zxg/FdmenP+WtbZJVt2hCdxtlI/zHA/a4=; b=rte3d+7V7ASTFLmYzha/MPz6Og
-	BTsBcm16K02zDwHx8K+R5XPSTJGx7nIuJPy2GTgXLHJqYFRPJb+JyYIhu2snFHe/68dvkGUDq7ugd
-	FeLBZE+pGkUgdAG7uWcwoDnIwQC5i6teAf61Ce9i7TVSQdef1wX41hLpFdpIROhzOZqZ2HH7axio1
-	72jTP8nLgmE7jWYvuly6eW+xcph45yWg3XEIwMG0x66ABGYa8WSHrnVALrPTcFfI67ukjycwuisZ9
-	Utt42FYR4ZXfBF0VzMil7d8MUY/+EZNz/Og9YCuMZJkzPOoMQpQcP9JeAB2uAYcpJwMXTIZHV0rpN
-	mufPtP3Q==;
-Received: from donard.priv.deltatee.com ([172.16.1.31])
-	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xQprb-00000000o8S-2esx;
-	Tue, 10 Nov 2026 11:42:32 -0600
-Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xQpqg-00000002cVv-3aW6;
-	Tue, 10 Nov 2026 11:41:34 -0600
-From: Logan Gunthorpe <logang@deltatee.com>
-To: dmaengine@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhTxZB6I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CB61F008BC;
+	Tue, 10 Nov 2026 17:42:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794332554;
+	bh=jbgSuxD4CgBXy0cbPyYVRCuYyNpAOZN/+jBRNG++0S4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NhTxZB6IUedUgovEJg9k6mNFtic5HShCTAb6tXk4BdWSsCiIN1b6LDe6G1FFY5Fxd
+	 CUS74SGGPpbCakr6xBU0nermj8YvhF1OdK6PrY4t+ZYwfySr/dktF8GC+xvIV+ae1I
+	 ZdkVQgIeMT09omFxbgO44Yv4EE24Pq1ADmYYT8r5invSLkATq0ms1UCUhBRk/68XWW
+	 rqC0UK552RYWxSvGpy25Gy8CihoB/taDsFkBXlTI7WfxksrtnbY7Jg0LnepX3josy2
+	 QesjmYIF+h4Zs5Xhjxo8OC5zvRvrhNEhLPR8H9IL4UDnLusWa/KCkxh4a7GOcy8rlc
+	 nrkLfAjHSwzcg==
+From: Chuck Lever <cel@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.li@nxp.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Date: Tue, 10 Nov 2026 11:39:27 -0600
-Message-ID: <20261110173927.624629-7-logang@deltatee.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110173927.624629-1-logang@deltatee.com>
-References: <20261110173927.624629-1-logang@deltatee.com>
+	"kernelci.org bot" <bot@kernelci.org>
+Subject: Re: [PATCH] SUNRPC: Load the GSS module by OID only when the mechanism is missing
+Date: Tue, 10 Nov 2026 12:42:29 -0500
+Message-ID: <179433250776.39465.13251097480716731768.b4-ty@b4>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110030947.179738-1-sashal@kernel.org>
+References: <20261110030947.179738-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,149 +68,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 172.16.1.31
-X-SA-Exim-Rcpt-To: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, Frank.li@nxp.com, logang@deltatee.com, vkoul@kernel.org, sashiko-bot@kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: [PATCH v2 6/6] dmaengine: plx_dma: don't invoke client callbacks with ring_lock held
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-plx_dma_process_desc() and plx_dma_abort_desc() invoke the client's
-completion callback with ring_lock held. A callback that submits a new
-transfer, which is common, deadlocks taking the same lock in
-plx_dma_prep_memcpy().
+On Mon, 09 Nov 2026 22:09:47 -0500, Sasha Levin wrote:
+> gss_mech_get_by_OID() calls request_module() before it looks at the
+> list of registered mechanisms, so every lookup forks a modprobe, even
+> when the mechanism is already registered or built in.
+> gss_mech_get_by_name() and gss_mech_get_by_pseudoflavor() only load
+> the module when the lookup fails.
+> 
+> The read handler of /proc/net/rpc/gss_krb5_enctypes uses this lookup,
+> so every read() of that file runs modprobe, two per cat. The file is
+> present in every /proc/<pid>/net/rpc and /proc/<pid>/task/<tid>/net/rpc
+> directory, and LTP read_all gives each read one second. On a slow board
+> in KernelCI its workers stall on this file and the test times out.
+> 
+> [...]
 
-Copy and clear the callback and advance tail under ring_lock, then drop
-it to invoke the callback. To keep callbacks in order and ensure
-plx_dma_free_chan_resources() can't return while one is still running
-from plx_dma_remove(), serialize completion with a new complete_lock
-held across the whole loop. plx_dma_tx_status() only trylocks it, so a
-callback that polls the channel won't deadlock.
+Applied to nfsd-testing, thanks!
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dmaengine/20260717223217.B6FBF1F000E9@smtp.kernel.org
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
----
- drivers/dma/plx_dma.c | 45 ++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 38 insertions(+), 7 deletions(-)
+[1/1] SUNRPC: Load the GSS module by OID only when the mechanism is missing
+      commit: f7ef2ce48812080b87572a2f0fdec93cb2d2a629
 
-diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
-index d1bdff1b7310..394ca5483434 100644
---- a/drivers/dma/plx_dma.c
-+++ b/drivers/dma/plx_dma.c
-@@ -108,6 +108,8 @@ struct plx_dma_dev {
- 	void __iomem *bar;
- 	struct tasklet_struct desc_task;
- 
-+	/* serializes descriptor completion and callback invocation */
-+	spinlock_t complete_lock;
- 	spinlock_t ring_lock;
- 	bool ring_active;
- 	int head;
-@@ -132,12 +134,15 @@ static struct plx_dma_desc *plx_dma_get_desc(struct plx_dma_dev *plxdev, int i)
- 	return plxdev->desc_ring[i & (PLX_DMA_RING_COUNT - 1)];
- }
- 
--static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
-+static void plx_dma_process_desc_unlocked(struct plx_dma_dev *plxdev)
- {
-+	struct dmaengine_desc_callback cb;
- 	struct dmaengine_result res;
- 	struct plx_dma_desc *desc;
- 	u32 flags;
- 
-+	lockdep_assert_held(&plxdev->complete_lock);
-+
- 	spin_lock_bh(&plxdev->ring_lock);
- 
- 	while (plxdev->tail != plxdev->head) {
-@@ -166,22 +171,35 @@ static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
- 
- 		dma_cookie_complete(&desc->txd);
- 		dma_descriptor_unmap(&desc->txd);
--		dmaengine_desc_get_callback_invoke(&desc->txd, &res);
-+		dmaengine_desc_get_callback(&desc->txd, &cb);
- 		desc->txd.callback = NULL;
- 		desc->txd.callback_result = NULL;
--
- 		plxdev->tail++;
-+
-+		spin_unlock_bh(&plxdev->ring_lock);
-+		dmaengine_desc_callback_invoke(&cb, &res);
-+		spin_lock_bh(&plxdev->ring_lock);
- 	}
- 
- 	spin_unlock_bh(&plxdev->ring_lock);
- }
- 
-+static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
-+{
-+	spin_lock_bh(&plxdev->complete_lock);
-+	plx_dma_process_desc_unlocked(plxdev);
-+	spin_unlock_bh(&plxdev->complete_lock);
-+}
-+
- static void plx_dma_abort_desc(struct plx_dma_dev *plxdev)
- {
-+	struct dmaengine_desc_callback cb;
- 	struct dmaengine_result res;
- 	struct plx_dma_desc *desc;
- 
--	plx_dma_process_desc(plxdev);
-+	spin_lock_bh(&plxdev->complete_lock);
-+
-+	plx_dma_process_desc_unlocked(plxdev);
- 
- 	spin_lock_bh(&plxdev->ring_lock);
- 
-@@ -193,14 +211,18 @@ static void plx_dma_abort_desc(struct plx_dma_dev *plxdev)
- 
- 		dma_cookie_complete(&desc->txd);
- 		dma_descriptor_unmap(&desc->txd);
--		dmaengine_desc_get_callback_invoke(&desc->txd, &res);
-+		dmaengine_desc_get_callback(&desc->txd, &cb);
- 		desc->txd.callback = NULL;
- 		desc->txd.callback_result = NULL;
--
- 		plxdev->tail++;
-+
-+		spin_unlock_bh(&plxdev->ring_lock);
-+		dmaengine_desc_callback_invoke(&cb, &res);
-+		spin_lock_bh(&plxdev->ring_lock);
- 	}
- 
- 	spin_unlock_bh(&plxdev->ring_lock);
-+	spin_unlock_bh(&plxdev->complete_lock);
- }
- 
- static void __plx_dma_stop(struct plx_dma_dev *plxdev)
-@@ -337,7 +359,15 @@ static enum dma_status plx_dma_tx_status(struct dma_chan *chan,
- 	if (ret == DMA_COMPLETE)
- 		return ret;
- 
--	plx_dma_process_desc(plxdev);
-+	/*
-+	 * If another context is already completing descriptors (possibly
-+	 * a callback on this CPU that is polling the channel), let it
-+	 * finish rather than waiting on it.
-+	 */
-+	if (spin_trylock_bh(&plxdev->complete_lock)) {
-+		plx_dma_process_desc_unlocked(plxdev);
-+		spin_unlock_bh(&plxdev->complete_lock);
-+	}
- 
- 	return dma_cookie_status(chan, cookie, txstate);
- }
-@@ -518,6 +548,7 @@ static int plx_dma_create(struct pci_dev *pdev)
- 	if (!plxdev)
- 		return -ENOMEM;
- 
-+	spin_lock_init(&plxdev->complete_lock);
- 	spin_lock_init(&plxdev->ring_lock);
- 	tasklet_setup(&plxdev->desc_task, plx_dma_desc_task);
- 
--- 
-2.47.3
-
+--
+Chuck Lever <cel@kernel.org>
