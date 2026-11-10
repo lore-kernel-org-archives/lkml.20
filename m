@@ -1,63 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318643;
-	b=j/8/0J+odkZDU2TH35Hn7RvGrTy5To4Z3qVK2cunCM7aOUPRAzRugyAwiNvL3h71pytF
-	 yqYkjCzCkhlmPnH6QpXUGKpMJr/l58VhQmMo1a16QCF8Jo/aS9yXgUhqOqR3B81wQg01Q
-	 GS4ScmIdGoCNvrasnDkDSTp7i+D8lQoHfBHCpL6ofSOQXM2mgKHUM045p+4V7vl4wcFAv
-	 SGPgernuHrw3EJ8x/+5t7WoNDulI7lC0Z0JiUU7pOHyeWtgiP9FQ2zM1G4eEKtDsWSCD4
-	 RhjyqDl8C0G91yfc8E4Abs7q8Yb/LodunDmf7Urx00MhjSGLkOtPPYDI2LA5kIEVp1g==
+	t=1794318656;
+	b=cUrEXp6ab0k2iXPItHFWdq9YeU77mbxbZ7KA0Bj3/bbv27NbrxpaXDc2vuYWMG/1y34O
+	 NhUpr4BmkVNQwyBzT0LvGQSE8U3pnp6LciXeuT3X8ZOnlXzkcCLkEnBVOe9EQK441rHCa
+	 AEGqWbimEm0GuUdFC2BOr0AKLJdfYmKuOtwlCDMZECU2Q8otivI525h95SKsmo81VH4cq
+	 XDLihDUh6k/+uniHaR+Txdut9yWVrDm0InVvph9Eu44wgGXPM6WaxSQZ2b0e1N1UcOe93
+	 sUSfdjc71fJzMw6S4SHl/TwWOPosC0HZhhI9lKHF7oWnAJVpB37ZCQzqfeeyvboc9CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318643;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=bkk99GpB+onYPxsrtaHgbhEvyTIZqHozrmoJcM8fpi8=;
-	b=5th1HBBC2s3/eSHcCCFP0WZ6Wi2QVMO3JfKB5jk5mMIlrK7ofZ4RFb5nv8hEL/mH2Rtg
-	 Nwrtr2YpLk9HTHhIaetVNK5x33PV48iX7py1StBfGV7JnL47xW8INsYlVLr40f0KYnxsW
-	 syv9+xZ1FvuVHKDOUrpcSYAZLOhJ7kinX8eG4SdtE3K7A9wZfTfvdIIC31r9qHDOKMKDb
-	 7uA/42i0BWmwod3agRaSwUc/byFQe0UjpMpmXH+RXpcpEYf4Yol/MT+q8ZpcIqHxvhe7F
-	 6wp/bha5Hw+yCC/VDLRwkGua0a6QRZWHNkxH0Xc+9VjXod6UYDE0xO3c4sK2YobhNYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318656;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=1NYWU2IFMFcOZ4Xu65TWye0KHFmImuRiCo78dAp2MRY=;
+	b=jQuhW06qIE6yujJovJ0kp+hWoTlMkBjktP8bbySB9wVSUvizdL3zpJmIWkPutoJxLCRz
+	 nRncu3BrCI/QRzb9g2tRMTUTJk1/VJ6WmB3rkmzsbbixxUTbH0WKGLiF8hZdEYOvtGBjO
+	 k1cGiI5+NSHqX2ZVCewzXi6xrFw8Y5kfsk3v3j0RBl1A75Zb5w06fUHO4hbWwpAVGa5gH
+	 BuTSMtj7P9sMes/VSnqkdwXrmsOXlz2k03txrf/Bk288vVlCnDlkw6oecfpiolJaYrEHW
+	 S7ORGzEy2O/x8lpyo+tgBA0hhpoP/0az/MhM28N78NQ0AixWN8jDoVJe5P/iTe7NOVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARQaY0hk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rgZQ2PXP;
+	arc=none smtp.remote-ip=74.125.224.41
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CC606A321;
-	Tue, 10 Nov 2026 13:50:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BDD606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77BDD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ARQaY0hk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B797F1F0089F;
-	Tue, 10 Nov 2026 13:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318643;
-	bh=bkk99GpB+onYPxsrtaHgbhEvyTIZqHozrmoJcM8fpi8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ARQaY0hkEu2mlYmzoDeCsETqRL70Rruf/IlDQMb8CRngH3xEQjbeKz+rJn/0MWFwx
-	 GnFk/07ysVGmgEmqyg3PntGLWDCFLnLCxGGE38F9vwSzToqlUNaapzJfSHDW1sRn5p
-	 12NYEd7Wno45uL6UBj91BsWCKVtD/CUiuNRAj2ObH943zdagznikm/PUpTmf0KSaEe
-	 20sUGuB0L0BzmpA0KRDHyo9v1Ujg4WrPmuvcNSXzv+Oef3wgcp2PMindf9iQ9tZTKx
-	 /WkBEJev9r8B3auYA1WRvdODvWQdIr5Jz39XqTOvyRsI/IiHRBqiGOSTGlgBa2aQqk
-	 HSJK14RYiPGcw==
-Date: Tue, 10 Nov 2026 13:50:37 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Hyun-Uk Son <hyunuk.son@irondevice.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Ki-Seok Jo <kiseok.jo@irondevice.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-Message-ID: <40646ae6-f6be-4408-aefe-521fb0ea9bee@sirena.org.uk>
-References: <20261027093232.859755-1-hyunuk.son@irondevice.com>
- <20261027093232.859755-3-hyunuk.son@irondevice.com>
- <179318672062.199157.7461931531075403104.b4-review@b4>
- <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rgZQ2PXP
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-675617e81f9so1856179d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:50:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794318655; x=1794923455; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1NYWU2IFMFcOZ4Xu65TWye0KHFmImuRiCo78dAp2MRY=;
+        b=rgZQ2PXPVrNCfsW0OegwCsJKX6gwPzauztRbfGffPyiPzuH9sgNOFZHbjQ2TPU7xHd
+         HXnhXa/CInh3orIlh1j5T3FgG2yaY7i98dX3Z7aMte6sQntvLmkfWSYp2NqcP0OyOr6R
+         TU9q1AQwcelJn8HWOdT4V7fFrlBU6HOe+3Wxd2xifEaQvyl9uPYjW/6QJ104kynOpVAC
+         MuaW1ze5Xm7AU8GcgMXlK03ajGzPmnmXwZFSm0LBLQ856DiezSuINQxgnr8z8jbwnzHo
+         t36Yv0MGurTmPRlXEZZ1A1ASMmOLgWgTxPCgLHQi8kg2IO5j2qJUw7XFZhm7N4s8aVtb
+         kYHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794318655; x=1794923455;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1NYWU2IFMFcOZ4Xu65TWye0KHFmImuRiCo78dAp2MRY=;
+        b=uib81cnxyp1L3fDs0Tg7GQclcBt5xfdwMNeda9rRtZYltgtzjpuMK821zM50fb3Fi0
+         Sfn+BNnIrrjytDnXhI8GhUdyXYGmVzrbUdP6Zz0oPxV3XhIuOdxx2uKsIYSJg4gdly9O
+         ZlrNFgQhTM23jXgCvL/SDTcxfxqIz3bS5oIc7yq/j3wXue3bvwF2YxrIHpyJRoslcmLc
+         oE/h5YutoSU0YhJqZBiWBaNKebJfmO27Si5bshp40/EPqu7RI1skRUUN/kz//9EEtLw3
+         Qc5r0jHPJp3HF7wMsy8Kfr2qg6wlmW7+IhSwShXc55x4B2VirFS7D0pOjWWD1FbqTn6Y
+         ij3A==
+X-Forwarded-Encrypted: i=1; AL+hErFxj6T479L7J01jrOwxEDl3+wB0UDdy9QokiJCUW+XuWkUYnRTgVo32vSWt4xTplF4K5LN7aHsYM1Qvp3M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xXnMLVsdJUINImXvWKY41gOcW8FlEbJC3tpYqfqXZW1lGvW5m
+	070R/TjdNYBtiGKPgZsiOKl/ueaMSzuNRj3F/u9rM1pYHcHH1jba+KY=
+X-Gm-Gg: AYBFou1EXvxBahUHuGVfheuDi5rM4mfZLXsdW2iZUJ/jogZbFdhWMgnEug9h5sKN6GF
+	iovpnbH7RjSHU5hO0WFGYsBGIyEaZaicArjqRtcG8kY2b0i2tAvqjE3ybwFFonZ69UzGKZiZDn3
+	L6XQTTdiAxa+ZhXIzs5EHJ9d4Wbq2vd2rSq2iJYWd5kDBoEhNJFKGfO5TKtKfvlUAamHFC3XhUI
+	x8dClCTBEnJPGUOAgITv6jOMuwLrDBzwTM2D2PdLcuRZ+ogbdT5aiJbHuAv8Eo5Qxb0YnI451gi
+	FKkJjJTDQEO+IufSta0t6ugbuGCrhdE+xuspeW/phH53uuLukgBNftqvkeaYPwhybSz/3S8s1qz
+	lLMbpmmKesTmdG3Td3RWqYT4tkPGHkwhzoUUy3VqqpAstjc+eVnb2DvhDk9RmjwfYz/95hkFkDr
+	KN5qcv82+wCY0ajr630JfJ5FTOKzD2hGK5ZiiRrhTnGPE09lMURlJyXZxtcsRErpaBa5S0WsQWp
+	9QNufoztX3iKMgDoDFwvDe5Q605yibkG011pffODRx5RbvyZPH0kIuPWVfPmHf71PcQASPsBB7o
+	10hqOIqvaw1wiRyHngIDfR+vVf5WJaZGX81osAvL1S851Zpio3/t0joB5uyfJtDi
+X-Received: by 2002:a05:690e:1306:b0:67c:332f:3fd8 with SMTP id 956f58d0204a3-67c565f716cmr1597436d50.5.1794318655428;
+        Tue, 10 Nov 2026 05:50:55 -0800 (PST)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39324bf84sm19649867b3.3.2026.11.10.05.50.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 05:50:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,118 +87,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wBWp4atyzpScsPlD"
-Content-Disposition: inline
-In-Reply-To: <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
-X-Cookie: You can't take damsel here now.
-
-
---wBWp4atyzpScsPlD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 10:50:49 -0300
+Message-Id: <DMRKVJYRSG2B.2LT5AVK5FQ52G@gmail.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Brendan Higgins"
+ <brendan.higgins@linux.dev>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Danilo Krummrich" <dakr@kernel.org>,
+ "David Gow" <david@davidgow.net>, "Gary Guo" <gary@garyguo.net>, "Miguel
+ Ojeda" <ojeda@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Burak Emir" <burak.emir@gmail.com>, "Rae Moar"
+ <raemoar63@gmail.com>, "Tamir Duberstein" <tamird@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Yury Norov" <yury.norov@gmail.com>,
+ <kunit-dev@googlegroups.com>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 3/3] rust: bitmap: kunit: uncomment
+ owned_bitmap_out_of_bounds panic case
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
+ <20261029-rust_kunit_v6_send-v2-3-5ce551efc48e@gmail.com>
+ <CANiq72ma7GrbeMjktpWzNwWYj5y+AsQk8NROKY6TMdk3fwXEgA@mail.gmail.com>
+In-Reply-To: <CANiq72ma7GrbeMjktpWzNwWYj5y+AsQk8NROKY6TMdk3fwXEgA@mail.gmail.com>
 
-On Tue, Nov 10, 2026 at 08:41:57AM +0000, Hyun-Uk Son wrote:
+On Sun Nov 8, 2026 at 4:59 PM -03, Miguel Ojeda wrote:
+> On Thu, Oct 29, 2026 at 5:59=E2=80=AFPM Nicol=C3=A1s Antinori via B4 Rela=
+y
+> <devnull+nico.antinori.7.gmail.com@kernel.org> wrote:
+>>
+>> -    #[test]
+>>      #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>> +    #[test]
+>
+> Is this one done to match the other? If so, please mention it in the
+> commit message, and consider whether the last test in the file should
+> also be changed then.
 
-> > > +	ma5311->adc4_pga_left =3D 0x10;
-> > > +	ma5311->adc4_pga_right =3D 0x10;
+Yes! it was to match the other one. Since there are more tests the other
+way (#[test] on top) I can change the one I am uncommenting! (kunit.rs
+have also the #[test] attributes on top where a #[cfg(..)] is present).
 
-> > Like I said on v1 we usually leave the device with the hardware defaults
-> > to avoid having to decide on a specific use case in the kernel -
-> > presumably the defaults in the hardware were chosen for a reason.
+>
+> (We could do it in a separate, previous commit, but that is nit :)
+>
+>>          let mut b =3D BitmapVec::new(128, GFP_KERNEL)?;
+>> -
+>>          b.set_bit(2048);
+>
+> Spurious change?
 
-> I added a register initialization function because the factory-default
-> register settings are not suitable for practical use.
+It was on purpose, I thought it looked tidier separating it (but it is
+just personal taste :P, gonna revert this in the v3)
 
-They rarely are, but they tend to be safe and what is suitable for
-practical use will vary depending on the system.  A gain that makes
-sense for a line output will be unsuitable for headphones, and vice
-versa.  There are a few things, like zero cross for example, which are
-pretty much universally sensible and we do change those but for things
-that are likely to vary with use case we just go with what's in the
-hardware since that gives us consistency without us making decisions
-that might favour some users over others.
+>
+>> +    #[should_panic]
+>
+> It is great to have this, thanks! :)
+>
+> Cheers,
+> Miguel
 
-> static int ma5311_rx_tdm_slot_put(struct snd_kcontrol *kcontrol,
-> 				  struct snd_ctl_elem_value *ucontrol)
-> {
-
-=2E..
-
-> Also, this control is essential because it allows the speaker output=20
-> channels to be dynamically assigned to different playback channels=20
-> during PCM playback.=20
-
-This would be better represented with DAPM routes directing playback
-=66rom the audio interface rather than a custom control.
-
-> > > +static int ma5311_reset_control_put(struct snd_kcontrol *kcontrol,
-> > > +				    struct snd_ctl_elem_value *ucontrol) {
-> >=20
-> > > +	ret =3D ma5311_reset(component);
-
-> > This might break the machine driver if it's relying on setting the DAI =
-up
-> > during probe()...
-
-> With internal verification, I figured out that synchronizing
-> private data to reset hardware register setting is enough,
-> because The driver does not rely on probe() for any essential=20
-> configuration and dai_ops callback functions always set
-> the essential settings including PLL, TDM slot, etc..
-
-The issue is that machine drivers often only reconfigure things during
-probe() (including the generic ones) so the dai_ops might not get called
-again after a reset.
-
-> On our target platform, the required DAI settings,=20
-> including PLL and TDM slot  configuration, are reapplied=20
-> when the PCM streams are reconfigured after a reset.
-
-Sure, it'll work for some systems but not in general.
-
-> > > +	default:
-> > > +		dev_err(component->dev, "%s: unsupported PCM format: %d\n",
-> > > +			__func__, params_format(params));
-> > > +		return -EINVAL;
-> > > +	}
-
-> > Don't we need to configure anything in the hardware for clock provider
-> > mode here?
-
-> Since the frame size is already calculated in ma5311_dai_set_tdm_slot(),
-> I don't think we need to configure the clock provider mode here.
-
-You shouldn't rely on set_tdm_slot() having been called, generally
-things should work by default.  Usually the result is the equivalent of
-a set_tdm_slot() based on the hw_params channels and widths.
-
-> Lastly, do I need to address all feedback from the Sashiko bot, or are on=
-ly=20
-> the "High Priority" and "Medium Priority" comments mandatory, with the=20
-> remaining comments serving as recommendations?
-
-If it's pointing out something valid/useful then of course update for
-that but there's no requirement to update for everything.  Your other
-suggestions look OK from reviewing them here, though I might spot
-something in context - in general it's a lot easier to just send the new
-version, especially if it's just implementing the requested changes.
-
---wBWp4atyzpScsPlD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzIS0ACgkQJNaLcl1U
-h9Da1wf/bgkQCHFqKUYSzIoHpxGeMZXf+w8h+CHd5ZTxYCvfLl9ySXYFUDHgakxz
-nI4Wn1QFxeyaj/XuNMqnnSzZxFDaFDj4mNTwvOxLf1atQecJb3mZCGPqnNoC423W
-a/uUhWOUQq2z1/5qVNLyiQQ8BvWWn00cc96zst3cTQXPeJwry2CWpq5J8OTD50KM
-OZXR6g4AAeEJTqJIp4uFBqMPLQy8p3NaeJhe3toXjyB+3cDNjVKodkwjXdK0qCN/
-u3C6p04IUf+czG2/QMoexte6gjH6qyXdyLca2W9PdaVp/XVw5i+V6KBMzJaPnuVx
-z/g8aGOV9fwTq+Q5fXGK1e5L7Fonbw==
-=q/0p
------END PGP SIGNATURE-----
-
---wBWp4atyzpScsPlD--
