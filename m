@@ -1,99 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794348500;
-	b=qJwyexyBbftZ8V8Bj8AZAacgijIgZN8YDmvEQx7l284thFOmjcmw9+7bHSP5waleuID6
-	 9BufXBi1kWSSBYpvOK+IzzZ9zXltW1DiFkAJbumRsYu201yPyyA+9N8DLagHqfaVCpd07
-	 RhvCyxDTjIw4uCyAqli7Mfa+P1qxPjb2LkJMdEJ425r8H4hVeIKrAASXt+OgtDeNJC50y
-	 g7h8w91oqnx4L1qOssj9niDMuKP+wuTNpU3WCYFu0SPJ8/s5Y7Fo5LKRLjIKO1DObAPgn
-	 nLnXlncEBPnTZIy1zCyW+zFD4P4UxXunV8HazxXcg3GpBSKLsXwqmZlznUIRTbO2yhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794348500;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794348501;
+	b=g+4Uu5VgK8+bjHsoWFtX0qM8zGYgemi8KVV6FkhHgN93ax6CMrgtGdllasNnZ4Pfuz5l
+	 6WGVWTfWka9fPP0m5ag8k7d9UfFd8YBnqT+qUPNkbdPpFUGR8bb4c25fr2dMGKjNVGsmD
+	 RJcVPKgEmFqTfDAfhgF+LKNXGuplcT29LDHbj280De/jltL8nmblrWR5H/L+xw5JBVcWq
+	 tI8okbe2b4/Lhc0uBsMjP5V6L5a4d+o2rzB21VkOtPjwsThPB5qOCFeKW9heidJreAiEp
+	 w+Lfl5Q5mgC1mhl/jjIQRyinkGciHNLRzQyrqlXflIpQD4SpVZwjUUXPMDHjaC/2IlA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794348501;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9d5lzQZBiofcX+00oxDbZE4ZZEA0GJviWevYoM/JUhg=;
-	b=d+Lrr6IaipZ26uoSVevjaZ8qDnoO5F5rqZxpAFEb0gMTigOfyDaVXjau02sLq4V2HnFm
-	 cCC1FF4TvaIICpfnmT/ixHGI8j8/zUCZ7Omims+SxkNKLWdw7WBfoAoUKvuecYysRyUXS
-	 SVzodFTjgEGOuQZAizxEdshXt/hokaevnGM8mpi871Ea51lfBTZGQGMuLAv87Pnu5/sko
-	 JP6/C2JqvTZ+d0bmZCu3unDtOOMNIlA/F8F0RYw+wnVBwd8f6HNHDxZPIf1OwJbRgx9ZX
-	 Arq5RU2452G3Sb/bQN7oFVu+3gZ7fpNmrq859cFOkrgE1E7xz8nYkK7puLOUQR7Dlmw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=artiphishell.com;
-	spf=pass smtp.mailfrom=artiphishell.com;
-	dkim=pass header.d=artiphishell.com header.i=@artiphishell.com header.a=rsa-sha256 header.s=google header.b=XfWkIAKy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=N+MUyU3INOipJF3nxA2pGAx9KlSKX9/S9FUz5WZxUec=;
+	b=JeCb66s+9/4XJMrMENuFss1aNnhnfY6NsPxcAa1cKvBllaXI4s9NHVVkhgevXcnbbMA6
+	 7kVyfWsHKqYpM4Oud7TeESjx/kTKycsIfZGAZqr08yFsj3vhauO996KnTKIejzbsht2Qn
+	 nwXWM3Ddepkqrm4reUtLp3Bj9XCqSp0On30oEnbCSA07Sn+ca5NUrcfRK7Zn4vnTHQOOV
+	 YdOlwe5EgDYPlFDu/psiBbbC0NHvJpvAf+zjdvb4KD0X0xZQI4dMGewqsbsDDB9sLbjOV
+	 MnzRMUzWYCMsocDq0psvSWaidF7OalGu2Rs8TTbzBo8NnoajHlNVUPB/MkWw1/2diJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ky8Ogiya;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE68D60A382C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:08:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE68D60A382C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=artiphishell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=artiphishell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2705660A383C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:08:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2705660A383C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=artiphishell.com header.i=@artiphishell.com header.a=rsa-sha256 header.s=google header.b=XfWkIAKy
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490f38e9688so2068752f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:08:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794348498; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O8wM22HnqdI/i8v1jtmX07cTbA9cF11FIGz8rUsGTbodc6RlDyJEhyKx0GFbILMBJd
-         gfz1tMxEiKdgAGJzp9Hpv0xnfYMByWtMI3bZyMxEggi6wfZ+ewhy1Wx/lEnXsquTuRTk
-         a2Ae6qDHI12FFSpKdgwGOmtu3luWPRloSPENzlPdhIM/W0c1zJtTb+xYaHlNQsNPWIgP
-         3MUBfszL9cvYp1khWZQP17uibmPUfSq9JMbDHhZy9MNyR0EnrvPjplU9GixUTCVaGNA+
-         T3qTU6kA0MUfaNFLmjweWPz/ccRDoym5/JPyOZrRj4swjhUWsKMB/6E19iiOmbBIbRvm
-         NzVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9d5lzQZBiofcX+00oxDbZE4ZZEA0GJviWevYoM/JUhg=;
-        fh=me+oixfy8DVyHu7K9tKoP/eLWGXVYd/48enUiXzRcEQ=;
-        b=qPeS1hXVGE33MmyRsBZHvQkgdFAKhd1iQrxvQKRk3Fa3lfYbj3pukcznjGFtdTDHkS
-         Jg3VyHE0JVdhCl7THmo9KYDev704jKpR5521Gid5bJEfj3UR7Z/wHV2ZD6GKuV0z8aAj
-         7psp6P2E8JruRLCsFQ+x0D/psdYfxdMPHR7NQPAbc5qg3Julze7D4ZnHvbZbOyVN20UB
-         YSp5RQp4f9FeBPxdds1RNibiSsEsBcPk4ggAhllAGC5M7Yxsi+TUan6unlHBEs05GM4F
-         dFYlFto3nbSMcRK8a51SDixGUDFvXu+H4HOeCtbg5ALXk3cdDiwdtghPGvKYKhrqFnPt
-         Htpg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ky8Ogiya
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f479b9819so4480691eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:08:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=artiphishell.com; s=google; t=1794348498; x=1794953298; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9d5lzQZBiofcX+00oxDbZE4ZZEA0GJviWevYoM/JUhg=;
-        b=XfWkIAKytkU5Dd98AQuZaA8z0aPiclBMKUNef4lhu9n1FzVLzXm5/2qf+2edTzSkg0
-         OkW8itB3m56HAvf7zUp3XP/219YTa+LpNfD7GpgfnJimnrNe2LqhCfrJQ+GUJRUBp6zx
-         XSa2Ch7ZmPILsF01QqW80oGhnLpAnbwe4/FITcSSe8Fx4WnT0Rx0JcGNJ/O1XBGdClta
-         xWmjHSUzPAvST8HmZce4GIlfIWqWpRl+MyBMrBApBBmcNZgV1+o95RX0cVg6UdV2NZ6+
-         qYHFUdq4q00+Crr5SfS3VmGXLN1LTv2YgxcpUP4d85sFd9v7swtSPQjNwuRs75tO702S
-         JfJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794348498; x=1794953298;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794348500; x=1794953300; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9d5lzQZBiofcX+00oxDbZE4ZZEA0GJviWevYoM/JUhg=;
-        b=wl4svlG8j+Fuzq5CAPZjnHcekchjiejsKx1IoJB1yRmUDXC/czspjA6rd6tUlJtkUq
-         6NFgyG9GrRt8F0BZONbmo/gY2qs5uItHij3MsvxXN5hU80UobFFDDo/ZD+hhLpvrPXwU
-         8KwuB31L3/oBh+Eq1ev+0LvqYlfsrREfbx3G2lfYnTB4gkdLQ/X+BmXUlxqF3pJ2bo0i
-         7acOB1ySxE+SAGLFywKJjWfHqpoT4vEUPTUXrN7T2fg8hq7kD4ghNL2N79q8NQT0zB0/
-         QkK9/pbqlZm/IgvtNJtsPtJqpaI9309SRrRc6kFDhGFHAlrqYdH9jYTP/OjtTbScq3xN
-         k1HQ==
-X-Gm-Message-State: APuU4Z832PKsJV+jRcGoQIvb79cdzJyNqAbj8M+gP350U1KJpntJwtkN
-	TrN/kLtRS7p+QYVeJe67DW5XWbl/RL2RbT/hw/93dFwbthDiOS92hXoZFTFF3fgyvaQDgtrQn+Q
-	UtTf8PuHo0dvZPC5nNcaRaJBZKFIo8YcVal/OW/7QnoE=
-X-Gm-Gg: AYBFou39uTTzclaOv9zhP2b1fZyluWxHhdgGitU+5nYdNy5VwfohFlgMit3KT7kzsIE
-	/mPSJFnRFurUeABNgxWkAUdvpx1DqJtFYtnhXb73wtvZYHrH3qfG9k6dJJavWNRC5mTfaDUvyQg
-	pPwszYdfRAlNXOWoGkhf3BNIg0J/KNUVAEFpcILEZVyjEGO13CDoFl9dQ59/SgnZ8L5qvGmtmBR
-	b0SevzyxV/DyfDpeweOV+UP9oUK0/vLsn0Bvg54XVVhU8neEi5M6hOjWP9O9mb9E8u9RfB7aidQ
-	8njpMWfTxhANlUFN/g+qD88o1WtsBHYsTrTbCCMZFZAsuWzPJIGbKYS74WgoX6dvxAU+8wl5EYs
-	I1tojrS5ZNZbmSce27A0H+EdS50neLpKMoYEAs5ayoCMJ61q9/cY+r2yNnX1WDlnntg==
-X-Received: by 2002:a05:6000:26c6:b0:48e:7475:fe7b with SMTP id
- ffacd0b85a97d-49995ea11f6mr1535918f8f.6.1794348498026; Tue, 10 Nov 2026
- 14:08:18 -0800 (PST)
+        bh=N+MUyU3INOipJF3nxA2pGAx9KlSKX9/S9FUz5WZxUec=;
+        b=Ky8OgiyaoiaPXQ5GDXZD+RBv0DPoRaAtnKw9p8ogt1sX/Z0anfPx9ViMWnBg1c7lLY
+         73F1HT5Z9NHIMKskhPozje0KkEEcRv3Od/AYjwBc68+1dWmici1hSx6NRr0oK1D135MY
+         t7wmaiT82fKQWMC2TL2IWUuSQvePd4yttehN+803HXXgQfsec4dqNyEKSGBOXB6Hgqp7
+         C7y5oNuGLfiqEfbB5YlJ/zcDMhNxL5cKxt1Na3X91L70+fvnMugXZXpfMu1xVh9vNhU+
+         YmQQq0GdsA7Kk6UQSa4dbTjPXvmpSC3tOUjznZNKpqBlTfElb4Wu4rrQzj0CRXMWmnoB
+         oWwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794348500; x=1794953300;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N+MUyU3INOipJF3nxA2pGAx9KlSKX9/S9FUz5WZxUec=;
+        b=1i3fL0GeqTcZIaICeFEokxeCi3yJXrV6RMNyoNtShn6ClkL+q8C1fcKPsJzr7shM5S
+         v9/81Fj1TrFJIqWhdqdVBUoKARR9CveoXwaV2V73ci396GRpnGPZ4cssiIJDPS4lya4s
+         +sHkRz39MXcMxLs8k6FXZVHAKhBTxdpnvtdsNpyOqN85ud/p1PddXcOmjJHJTkdf7bma
+         Y3Zobhl/wGYdfFa5+/hSgr0k58HNmMeKRxuvbBuz7pZgpTVPNsrGD9nbNtjuW+e/pFQ5
+         GUGYYtfM07w/n91XhZGahiKLJ5bRG4EULWQNCbV+KSJOXIadHPfn9aiCTs5xbHJvL2c7
+         250g==
+X-Forwarded-Encrypted: i=1; AL+hErELkXNUz6R4liCvnH3evVG+EjJHBZhrhxx+EczbQUYE1adqzE2YxG3K2T9Brk08xf1rB73ohmxHCSK5l2Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rmmH8fKYLlOq9haBHYX6XQpDZSm7duNWmQHxFM92QRgN7iXBS
+	0/sVpzL564rfsaBNn/Ealp7xQgkTO6+KPbfRXWnTmXVw6w1QWROnCvmbFY8ZBKOcAg9ALEygK65
+	UEEdUOy92xQ==
+X-Received: from dycc6.prod.google.com ([2002:a05:693c:60c6:b0:33e:5767:2163])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:ce01:b0:36a:1452:8dad
+ with SMTP id 5a478bee46e88-3768636e3c6mr883020eec.20.1794348499849; Tue, 10
+ Nov 2026 14:08:19 -0800 (PST)
+Date: Tue, 10 Nov 2026 14:07:45 -0800
+In-Reply-To: <20261110220803.2503416-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,153 +78,243 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261022181955.35758-1-jay@artiphishell.com> <avOQ66kCxOghtFp4@equinox>
-In-Reply-To: <avOQ66kCxOghtFp4@equinox>
-From: Jay Vadayath <jay@artiphishell.com>
-Date: Tue, 10 Nov 2026 15:08:05 -0700
-X-Gm-Features: AclHuK_x_gSedLpiXqF-mReJPLrnM-YH0mKfOC_UB9zkN4PzXJlBPe1svsENvyU
-Message-ID: <CACd3oYMZ+umLbeK3q8oaJUwZHC4zbbFOe1YVEAq3s2v4B+d5Dw@mail.gmail.com>
-Subject: Re: [PATCH] cdrom: bound the device-supplied offset in cdrom_mrw_set_lba_space
-To: Phillip Potter <phil@philpotter.co.uk>
-Cc: linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+Mime-Version: 1.0
+References: <20261027231513.816148-1-irogers@google.com> <20261110220803.2503416-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+Message-ID: <20261110220803.2503416-3-irogers@google.com>
+Subject: [PATCH v3 02/20] perf machine: Protect machines->guests rbtree with a rw_semaphore
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, haghdoost@uber.com, 
+	namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Phillip,
+Unlike struct dsos, struct maps, and struct threads, struct machines had
+no lock protecting its machines->guests rbtree. Synchronizing access to
+machines->guests is needed both for concurrent guest machine lookups and
+so machines__shrink() can safely iterate guest machines using
+down_read_trylock(&machines->lock).
 
-Thank you for your response and for taking a look at this.
-I am happy to make the changes you requested.
-However, I wanted to clarify if you would like me to start a new email
-thread with the updated format ?
+Add a rw_semaphore lock to struct machines to synchronize access to the
+machines->guests rbtree across machines__add(), machines__find(),
+machines__set_comm_exec(), machines__process_guests(),
+machines__set_id_hdr_size(), machines__fprintf_dsos(),
+machines__fprintf_dsos_buildid(), machines__destroy_kernel_maps(), and
+machines__for_each_thread(), and check for an existing guest machine PID
+under write lock in machines__add().
 
-Or was the idea to just follow up on this thread and repost the same
-email with the updated format ?
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/util/machine.c | 42 +++++++++++++++++++++++++++++++++------
+ tools/perf/util/machine.h |  1 +
+ 2 files changed, 37 insertions(+), 6 deletions(-)
 
-Please let me know how you would like to proceed.
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index 5eb5efa4eb90..f6975d9c4568 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -237,6 +237,7 @@ int machines__init(struct machines *machines, struct perf_session *session)
+ {
+ 	int err = machine__init(&machines->host, "", HOST_KERNEL_ID);
+ 
++	init_rwsem(&machines->lock);
+ 	machines->session = session;
+ 	machines->host.machines = machines;
+ 	machines->guests = RB_ROOT_CACHED;
+@@ -247,12 +248,13 @@ void machines__exit(struct machines *machines)
+ {
+ 	machine__exit(&machines->host);
+ 	/* XXX exit guest */
++	exit_rwsem(&machines->lock);
+ }
+ 
+ struct machine *machines__add(struct machines *machines, pid_t pid,
+ 			      const char *root_dir)
+ {
+-	struct rb_node **p = &machines->guests.rb_root.rb_node;
++	struct rb_node **p;
+ 	struct rb_node *parent = NULL;
+ 	struct machine *pos, *machine = malloc(sizeof(*machine));
+ 	bool leftmost = true;
+@@ -265,9 +267,17 @@ struct machine *machines__add(struct machines *machines, pid_t pid,
+ 		return NULL;
+ 	}
+ 
++	down_write(&machines->lock);
++	p = &machines->guests.rb_root.rb_node;
+ 	while (*p != NULL) {
+ 		parent = *p;
+ 		pos = rb_entry(parent, struct machine, rb_node);
++		if (pid == pos->pid) {
++			up_write(&machines->lock);
++			machine__exit(machine);
++			free(machine);
++			return pos;
++		}
+ 		if (pid < pos->pid)
+ 			p = &(*p)->rb_left;
+ 		else {
+@@ -278,8 +288,8 @@ struct machine *machines__add(struct machines *machines, pid_t pid,
+ 
+ 	rb_link_node(&machine->rb_node, parent, p);
+ 	rb_insert_color_cached(&machine->rb_node, &machines->guests, leftmost);
+-
+ 	machine->machines = machines;
++	up_write(&machines->lock);
+ 
+ 	return machine;
+ }
+@@ -290,16 +300,18 @@ void machines__set_comm_exec(struct machines *machines, bool comm_exec)
+ 
+ 	machines->host.comm_exec = comm_exec;
+ 
++	down_read(&machines->lock);
+ 	for (nd = rb_first_cached(&machines->guests); nd; nd = rb_next(nd)) {
+ 		struct machine *machine = rb_entry(nd, struct machine, rb_node);
+ 
+ 		machine->comm_exec = comm_exec;
+ 	}
++	up_read(&machines->lock);
+ }
+ 
+ struct machine *machines__find(struct machines *machines, pid_t pid)
+ {
+-	struct rb_node **p = &machines->guests.rb_root.rb_node;
++	struct rb_node **p;
+ 	struct rb_node *parent = NULL;
+ 	struct machine *machine;
+ 	struct machine *default_machine = NULL;
+@@ -307,6 +319,8 @@ struct machine *machines__find(struct machines *machines, pid_t pid)
+ 	if (pid == HOST_KERNEL_ID)
+ 		return &machines->host;
+ 
++	down_read(&machines->lock);
++	p = &machines->guests.rb_root.rb_node;
+ 	while (*p != NULL) {
+ 		parent = *p;
+ 		machine = rb_entry(parent, struct machine, rb_node);
+@@ -314,11 +328,14 @@ struct machine *machines__find(struct machines *machines, pid_t pid)
+ 			p = &(*p)->rb_left;
+ 		else if (pid > machine->pid)
+ 			p = &(*p)->rb_right;
+-		else
++		else {
++			up_read(&machines->lock);
+ 			return machine;
++		}
+ 		if (!machine->pid)
+ 			default_machine = machine;
+ 	}
++	up_read(&machines->lock);
+ 
+ 	return default_machine;
+ }
+@@ -464,10 +481,12 @@ void machines__process_guests(struct machines *machines,
+ {
+ 	struct rb_node *nd;
+ 
++	down_read(&machines->lock);
+ 	for (nd = rb_first_cached(&machines->guests); nd; nd = rb_next(nd)) {
+ 		struct machine *pos = rb_entry(nd, struct machine, rb_node);
+ 		process(pos, data);
+ 	}
++	up_read(&machines->lock);
+ }
+ 
+ void machines__set_id_hdr_size(struct machines *machines, u16 id_hdr_size)
+@@ -477,11 +496,13 @@ void machines__set_id_hdr_size(struct machines *machines, u16 id_hdr_size)
+ 
+ 	machines->host.id_hdr_size = id_hdr_size;
+ 
++	down_read(&machines->lock);
+ 	for (node = rb_first_cached(&machines->guests); node;
+ 	     node = rb_next(node)) {
+ 		machine = rb_entry(node, struct machine, rb_node);
+ 		machine->id_hdr_size = id_hdr_size;
+ 	}
++	up_read(&machines->lock);
+ 
+ 	return;
+ }
+@@ -933,10 +954,12 @@ size_t machines__fprintf_dsos(struct machines *machines, FILE *fp)
+ 	struct rb_node *nd;
+ 	size_t ret = dsos__fprintf(&machines->host.dsos, fp);
+ 
++	down_read(&machines->lock);
+ 	for (nd = rb_first_cached(&machines->guests); nd; nd = rb_next(nd)) {
+ 		struct machine *pos = rb_entry(nd, struct machine, rb_node);
+ 		ret += dsos__fprintf(&pos->dsos, fp);
+ 	}
++	up_read(&machines->lock);
+ 
+ 	return ret;
+ }
+@@ -953,10 +976,12 @@ size_t machines__fprintf_dsos_buildid(struct machines *machines, FILE *fp,
+ 	struct rb_node *nd;
+ 	size_t ret = machine__fprintf_dsos_buildid(&machines->host, fp, skip, parm);
+ 
++	down_read(&machines->lock);
+ 	for (nd = rb_first_cached(&machines->guests); nd; nd = rb_next(nd)) {
+ 		struct machine *pos = rb_entry(nd, struct machine, rb_node);
+ 		ret += machine__fprintf_dsos_buildid(pos, fp, skip, parm);
+ 	}
++	up_read(&machines->lock);
+ 	return ret;
+ }
+ 
+@@ -1295,10 +1320,12 @@ int machines__create_guest_kernel_maps(struct machines *machines)
+ 
+ void machines__destroy_kernel_maps(struct machines *machines)
+ {
+-	struct rb_node *next = rb_first_cached(&machines->guests);
++	struct rb_node *next;
+ 
+ 	machine__destroy_kernel_maps(&machines->host);
+ 
++	down_write(&machines->lock);
++	next = rb_first_cached(&machines->guests);
+ 	while (next) {
+ 		struct machine *pos = rb_entry(next, struct machine, rb_node);
+ 
+@@ -1306,6 +1333,7 @@ void machines__destroy_kernel_maps(struct machines *machines)
+ 		rb_erase_cached(&pos->rb_node, &machines->guests);
+ 		machine__delete(pos);
+ 	}
++	up_write(&machines->lock);
+ }
+ 
+ int machines__create_kernel_maps(struct machines *machines, pid_t pid)
+@@ -3128,13 +3156,15 @@ int machines__for_each_thread(struct machines *machines,
+ 	if (rc != 0)
+ 		return rc;
+ 
++	down_read(&machines->lock);
+ 	for (nd = rb_first_cached(&machines->guests); nd; nd = rb_next(nd)) {
+ 		struct machine *machine = rb_entry(nd, struct machine, rb_node);
+ 
+ 		rc = machine__for_each_thread(machine, fn, priv);
+ 		if (rc != 0)
+-			return rc;
++			break;
+ 	}
++	up_read(&machines->lock);
+ 	return rc;
+ }
+ 
+diff --git a/tools/perf/util/machine.h b/tools/perf/util/machine.h
+index 973a59f7c26a..147ce343e370 100644
+--- a/tools/perf/util/machine.h
++++ b/tools/perf/util/machine.h
+@@ -151,6 +151,7 @@ typedef void (*machine__process_t)(struct machine *machine, void *data);
+ struct machines {
+ 	/** @session: back link to owning session if there is one. */
+ 	struct perf_session *session;
++	struct rw_semaphore lock;
+ 	struct machine host;
+ 	struct rb_root_cached guests;
+ };
+-- 
+2.56.0.542.g3ef89b7020-goog
 
-Thank you.
-
-
-On Tue, Nov 10, 2026 at 2:47=E2=80=AFPM Phillip Potter <phil@philpotter.co.=
-uk> wrote:
->
-> On Thu, Oct 22, 2026 at 11:19:55AM -0700, Jay Vadayath wrote:
-> > cdrom_mrw_set_lba_space() issues a MODE SENSE(10) into a 16-byte stack
-> > buffer (char buffer[16]), then takes offset =3D be16_to_cpu(mph->desc_l=
-ength)
-> > straight from reply bytes 6..7 and does buffer[offset + 3] =3D space. T=
-he
-> > desc_length field is fully device-controlled (0..65535) and nothing
-> > checks that offset + 3 lies within the buffer, nor that size (derived
-> > from mode_data_length) fits. A drive that returns desc_length =3D 24 tu=
-rns
-> > the assignment into buffer[27] =3D space, a one-byte write 12 bytes pas=
-t
-> > the end of the stack buffer.
-> >
-> > This runs when an MRW-writable CD-ROM is opened O_RDWR, so a malicious =
-or
-> > buggy USB/ATAPI drive (or an emulated one) is enough: no privilege beyo=
-nd
-> > being able to open /dev/sr0 for writing on an attacker-supplied device.
-> > The sink lives in the CD-ROM core, so it affects every cdrom driver
-> > (sr, ide-cd, pcd, gdrom).
-> >
-> >   BUG: KASAN: stack-out-of-bounds in cdrom_mrw_set_lba_space.constprop.=
-0+0x25c/0x260
-> >   Write of size 1 at addr ffff88800639f6db by task poc/133
-> >   Call Trace:
-> >    dump_stack_lvl+0x64/0x80
-> >    print_report+0xd0/0x630
-> >    kasan_report+0xe5/0x120
-> >    cdrom_mrw_set_lba_space.constprop.0+0x25c/0x260
-> >    cdrom_open+0x1169/0x2080
-> >    sr_block_open+0x9e/0x140
-> >    blkdev_get_whole+0x8c/0x200
-> >    bdev_open+0x214/0xc40
-> >    blkdev_open+0x1f8/0x370
-> >    do_dentry_open+0x408/0x1290
-> >    path_openat+0xb2f/0x2210
-> >    do_sys_openat2+0x126/0x170
-> >    ...
-> >
-> > Both desc_length (offset) and mode_data_length (size) come straight fro=
-m
-> > the device reply, so reject anything that would not fit in buffer:
-> > offset + 3 >=3D sizeof(buffer) or size > sizeof(buffer) returns -EIO be=
-fore
-> > the write. The sibling cdrom_mode_select consumer of size is covered by
-> > the same guard.
-> >
-> > This bug was discovered by Artiphishell's vTriage pipeline, which
-> > generated an emulated raw-gadget USB BOT CD-ROM (INQUIRY TYPE_ROM
-> > advertising MRW-write) plus an open(/dev/sr0, O_RDWR) client that drive=
-s
-> > the capability-probe chain (page 0x2a -> GET CONFIGURATION CDF_MRW ->
-> > MODE SENSE page 0x03 with desc_length =3D 24) and reliably triggers the
-> > KASAN report on an unpatched kernel. The fix below was drafted with the
-> > Claude coding assistant; a userspace reproducer is available on request=
-.
-> >
-> > Assisted-by: Claude:claude-opus-4-8
-> > Signed-off-by: Jay Vadayath <jay@artiphishell.com>
-> > ---
-> >  drivers/cdrom/cdrom.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
-> > index 4f1fd389260f..5e910d79045f 100644
-> > --- a/drivers/cdrom/cdrom.c
-> > +++ b/drivers/cdrom/cdrom.c
-> > @@ -571,6 +571,10 @@ static int cdrom_mrw_set_lba_space(struct cdrom_de=
-vice_info *cdi, int space)
-> >       offset =3D be16_to_cpu(mph->desc_length);
-> >       size =3D be16_to_cpu(mph->mode_data_length) + 2;
-> >
-> > +     /* Both fields are device-supplied; reject values that overflow b=
-uffer[]. */
-> > +     if (offset + 3 >=3D (int)sizeof(buffer) || size > (int)sizeof(buf=
-fer))
-> > +             return -EIO;
-> > +
-> >       buffer[offset + 3] =3D space;
-> >       cgc.buflen =3D size;
-> >
-> > --
-> > 2.51.2
-> >
->
-> Hi Jay,
->
-> Finally got around to looking at this properly, sorry - been very busy
-> and life stuff happening too. The fix looks decent as far as I can see.
-> Can I ask a few things though please:
->
-> (1) Please drop the Assisted-by tag.
-> (2) Please remove reference to Claude itself, and mention just "LLM
->     assistance" or such like if you want to (in the description).
-> (3) Likewise, please remove or substantially reduce the final paragraph.
->     How the bug was found is (in my view at least) not relevant to the
->     fix, and (perhaps unintentionally) could also read as an
->     advertisement. The relevant information to the mechanism the patch
->     guards against is all contained in your earlier paragraphs anyway.
-> (4) Given your inclusion of a call trace anyway, probably worth
->     including a Fixes: tag. This may well just be 1da177e4c3f4 in this
->     case, but it's a good way of signifying this is suitable for
->     backporting.
->
-> Hope that's ok? Based on how the patch looks to me, I'm happy to take it
-> though provided the above is addressed and no other problems are
-> discovered during runtime testing.
->
-> Regards,
-> Phil
-
-
-
---=20
-
-Regards
-Jay Vadayath, Ph.D.  | Co-founder
-Artiphishell
