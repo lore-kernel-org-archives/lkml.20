@@ -1,118 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333822;
-	b=nNC/LspdcOY+qltiCKr7NU6deuZAl8byMex2K8ps/88x12E5Bt3NkEOrK37qlklvo+3U
-	 8jZNBnEBUQZXW9mFbyMRgmztDzr0NWx66S0CfggOPqYLC0S4khkXWUUj4Snrh0CxsEcaU
-	 P/xuog6BrXo9Yn9zjsiWdaD4JPtraeySpAPeIAGW6TJ70ioXuAZGnwl45IKFiTftFzQ57
-	 7/Mr2SR/vQe9I+OrgrhHas5P0fWt7MtF6i7eHxvuMCTcbszIqkyEaR4aUoDcSrfsj4ZDv
-	 DcSkRZVTRqNDCcsdERRAWejlpYu9cj7Aawl3rvT/2HjifFGDUCeqMBSdxfyuq/ztqVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333822;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:User-Agent:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SV5lfvyALcY7fOIZa8sYuWFYmplZGlp6Nmi9Q1LMY98=;
-	b=vr0G2YOK/mapez5inrKAyfCLP+m8Z4nrsdebQo6COBjXeRlB2Y1VN30t/djbh1t03mAB
-	 ZQ/AD/00U7sEnMZGQZ3RYjALHFl0iFWJATlZLasBdR884S2l8GESgRHHLHhf4KjbBrh96
-	 i3TLTFe8bhr1vDLf8C4+E60JzI758k4G9HvaWvDhqqdGObhXhvYZ4yvAdd+FKX6qdrlUB
-	 hLvkIdbDG2Q1pcLlaY8cEXCRIhQW0/xyK9wpS8PqFh0hmbwgqFtxz+InS5ZGIW7EtjRLj
-	 z7YrD8U+TXcfccZGZS3WbGjIZ3lXDGr/QD10JlX53YJ2eQI7YCV6UnnRkhDiF63EjNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=YmmjZ8sv;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1Wtpo4zL;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794333825;
+	b=gGPsFiEjWo9phgDafwirnSWDMyu4eSCGAKwBz4ziaKAuK+8+rtbs4WBKQwC2Ir+e5NCA
+	 Rt3cvV4RVy3r1afVxW+5oJCF5I07z6stgicB651aCW2/0izjkPOM4OJxBQs1YNIRZh5XH
+	 lqkzj3G/31L3gmK+9nxOwnCVdUzrN3XlXS+ozVXyOnZdaJsflRH3BMNnpRvacSTUuWDb8
+	 LufFeo110tGQmRyihvQV7juGQA1D0c5+8o8GOd/fJNUu+n8vlzc0qbh1M2mrlUYGEw5Cl
+	 3uPJTeb+A0nzH66fzsbUDLgygGwN8NnyAuHz6Xf2Gh2pJUlNfsOQVn6kandJZm0pn/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=lzQJ9a5l1BTcj++f5PsFJW71LnXsNyCRLPczNlEpe/8=;
+	b=Ob2XDUUxH4xvP0gH5y/k7n9Nx2rUJJPwMEx4DE0RcFBkGLjJhrHoJHf1fkYtayy1z6NI
+	 mwTHxRC0k7k3yjV/vUjKwTcFHvyvMbaruxUE2n8k1YMYau3f0NpF5Yj6/gEnxdUMRFwHO
+	 KuSNXOZvmnnRZs3IxGR3e7DWcfpQwwyuzlq1JT1E/mzdsCSlG0PDcfGKTsW2nExz5vmGX
+	 ttUKsRjdE30CLXYdW4vwZNO5qMA+nn3mNOJ7Ea07BRqypcRiNZWa+ZmjJeuKKbmd/GH+P
+	 d1+wRksovbYRUOh3EhS+0IWN1QlG9JdowGMt6b/U+0owZuw6IQmTHTMEV4vqicJ+05w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zx2c4.com;
+	spf=pass smtp.mailfrom=zx2c4.com;
+	dkim=pass header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20261015.g header.b=ZZwI4IJ4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD682606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:03:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD682606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC7760A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:03:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC7760A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zx2c4.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zx2c4.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=YmmjZ8sv;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1Wtpo4zL
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3A6231D00213
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:03:41 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-03.internal (MEProxy); Tue, 10 Nov 2026 13:03:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1794333820; x=1794420220; bh=SV
-	5lfvyALcY7fOIZa8sYuWFYmplZGlp6Nmi9Q1LMY98=; b=YmmjZ8svx3IrfrawJe
-	08QbAPwK/V71GshUr0jjDL0rJdDTMtas2AoLEHQftXZZO48701i49doqE5YaCGIP
-	CGb14TBZ8nBufeqcEXadS3DzrcrbH9+Lr/V3NIV4MA9BKpJ4axqbiwzScmrVEbfy
-	A9bWSXTU7cYuAlGNEjbzxSbj2YObhV3iZldH5MdURFO9D1+yEuSaeLvAgIM7po6h
-	zoqYTRQHPabbx2o7Zgyde3rsX5Tc0sPagGuXrTkkwT5XORE6U2jx+mTZEmzvLyqX
-	2Q3OqIKPREEpJLyaZ6hN50VQzVf7MHO/evINqV+jJ4K9TzcfA2fuWjEy2Ifaxf4W
-	gBTg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1794333820; x=1794420220; bh=SV5lfvyALcY7fOIZa8sYuWFYmplZ
-	Glp6Nmi9Q1LMY98=; b=1Wtpo4zLYaJO6WiywJTb+qPY+sUtC5SGK1XVIxeTg5bI
-	TVYDmclpFbX8kiLkJZGBkldBlWbAni5aKa6e6ErOu2SIvMMG24Y59huD1bNVn9n+
-	32YLxHZ6M8TS1V8sK04k7wnHk12C7g/RvJPJ/PGIoCg8YN1LXrhiW1lI2LKPskMo
-	MftFqmmEr7xYh7DbxmbAPaky0nW35h6jCZK4BToIxJfhKShysFVY1yh8T5WqKcn8
-	nTGJHFH1oavxOgAuGDMas5XIAhbAvlHMPbYprQ9pNCwOvAaxQ5QxCxaxOMHv7Lt9
-	Aek+DZp0l1jLljhsTcIPM45vZ10b6IKAhApZaIMV/Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794333820; d=pobox.com;
-	mf=PGdpdHN0ZXJAcG9ib3guY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:AezzW+lovJ2OVO8n7zZ+IY+x+p8VLL+h29i0mfSTuG+FJi4
-	IbUejcmpAl1I4qs/NazR+UuTkmlC3f6ev3Yqyx0wOhN13KvVkoobGBEsxaO7g9ID
-	9nVzgcVpd0t0ktOdLm+36CkHMNsA7YotAyz2hxs4joyS5SC8nAa6w01z5//XTzet
-	4ubDlIY5BRAKEjPSN9GEQiGkrh5KLxFusjPZHn2i4Or4MuUXUxEc1mMf0hXng3j9
-	9Tl8VRAVdAaVZmKXW27plt58dABa4unHkcgk01SQPxDq8PLZiAHg0JCMIZthaF8q
-	1kQwgIADK2Na6hVVJQbK9oUI8vrXQAHKPulObnQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:hknBrsLWmV7bc2wYGfVkx0hD9DjxRkZl2jCpy/R2Yg0=:9D4gpE7pohI/tnlX3w5BcDIIWAcG5WfazULMTtubLsQ=;
-X-ME-Sender: <xms:fFzzalIRc50ZK1TakdVYBfTfMoXNSztzJu2F-Lct_8rsPlM9AU6PIA>
-    <xme:fFzzaqlBZyxybqA7gtxSRwLYEuUCdYLnEH_rAk11gI9jmP9Vxtd0FcNIHosYrWQf_
-    ioJqZ3hEziFxjBx_1sNW5OoSFum983vEkwMbFBl6UCkqlR6C7r7sgU>
-X-ME-Received: <xmr:fFzzatQYVxHQDJV0TpyVWYrwmYQtSiNrAdyLTZUEk04Q9hPhoourgAcQbE-SFvdN5JfHFlwxw3KlNaklngYzbbbwaPML9qIxaas4>
-X-ME-Proxy-Cause: dmFkZTFDppKHxyfs+5VvozjtsCb5z31aW5M0Os8c1oMy2eSOH8CxudA8IW4cSpbqIRH4/R
-    0TRGDvMYzZ+SicERL9WCIwqfIxYpoYQDt/8V/0wwadjH6YdMpNPqVvRy7Y6OAS+QcmoCnJ
-    sbaYFSDRBl2gf4g7cIlEomvklAVzFwfSL73q5n7nKvzjt6IC5SHvssXVKJYE3UxDGfLAnd
-    +MvmYuRmmrbe+dYLMddr9NqJrSpc2Np4/uCia0s5PMBg1SiKT/SmlK8BjpbkNQV7LrIzxF
-    MPSfer6IcR0BO+hkdpNZJy9jBvu0XNorz3dMzFz6fZKxjqrTFd7kNsdruaWDw4Te+iJKoM
-    /HD0b0GF4NK322fqPOQJKtOFck+2S7dGWVpQOU6V5aDA+a4WCXL4jUlr46qNMC5sfOHZML
-    YJO/a61JrwCKL5xpnlQljMr3cFrJrpmUxH1tNgODkLBs9cpqzr2zbauEcPAiu+3CaXVa29
-    uUUWr+sUh3HQer5R1npUJsRxnQbI5xK0mlFRruoL0ehsVaDRc8WoN4Fwfz/d8wz/tJoIq/
-    hoXjyY8p9tGZtLQKj40n6aa/jooR2OkExNotj30Qr3fHzeTJz4cfwSp121jsrYRfhNsvXe
-    bsW6hB4trjc3pn6ZiDo+HiIfKSlrknaSnmC1iOwyxDoCQUmYlyG1oVv/maYg
-X-ME-Proxy: <xmx:fFzzasIdv-XxLSiFCJmRe7l3zsEy8xg-fjCin9eFNN8T6VIGHWPt_g>
-    <xmx:fFzzajDeIE2Y5vYXAfpnWH--0JO4NlobQRtcgzXEDFYnJ_fEx8RKDw>
-    <xmx:fFzzalBN8HX7lF_07OJnGfR2DRQiayuOiAtXrJDEEAJyiZDzQk0emw>
-    <xmx:fFzzalD1J0ggVgUi6PLDXVBESF9IxG9fE1vLVOcvXb22YEcH4c03Zw>
-    <xmx:fFzzahIucb8w5Vy3vUZUijd02p-59xbtzTvp49G-BYDp86GOIY6Ebgbl>
-Feedback-ID: if26b431b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 13:03:40 -0500 (EST)
-From: Junio C Hamano <gitster@pobox.com>
-To: git@vger.kernel.org
-Cc: Linux Kernel <linux-kernel@vger.kernel.org>,
-	git-packagers@googlegroups.com
-Subject: [ANNOUNCE] Git 2.56.1 and friends
-Date: Tue, 10 Nov 2026 10:03:38 -0800
-Message-ID: <xmqqh5hosgw5.fsf@gitster.g>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20261015.g header.b=ZZwI4IJ4
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c505c561fd5so104835066b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:03:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794333823; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J202jYj0Cm8ZUa7jFV4dahNz6q5pJKii64pGboT6nw5exhbhKSftFbxyeIC9eISdAC
+         BVL74W1xp5wmtEzAnewhPuVOC4ESMbLQ4IBvNU3jJ3/nTqHp8jUlaHAP7WbYfqNmY3OT
+         CHSICaAXiR6WB5JRJyX1oKAvGCUbE6VjHk/M469l3d2Owv1IGqWRvCm15HQEySeR8Eut
+         ANcvCAxxlt8I0dY+SswDx61geVmw6AcqjX8tN7YSlfqlSpKa4UEirR8kBkUpiZxbQRnM
+         cJbnWXQYOs59W8wn/oXR2l6cjWuMWkU38Z7dKm5kMnURoBEbTP49Q1O956vgyPE4D3q2
+         7Idg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=lzQJ9a5l1BTcj++f5PsFJW71LnXsNyCRLPczNlEpe/8=;
+        fh=bixN3ycj596uqvwkNQgklRKDabZ4j4sIZHgyo7nTG2E=;
+        b=DsHxpA0AiMrR0l6TMgJ7BubvNSsPJAhFPn/0tPywU21qQgobXU/ZDeV9ioNgB50tdw
+         bHRMl9Tvr5L9eecK4vVMWS8knZ39dJQQHLarQBeFtE+dfCZj861z81QEgKBnccH/+SFU
+         H1uKi/JqR2Tj39oraNfSxNfum8Pc7jQup2yC7QkS3bezJNp5iSj1nV5M6xDEo4GnpiAB
+         fdDBuHKsACMPxN7vDK5GENZlO2gnK37AVE/imtZ6Apw/Omn8kIK8LSabLrlYOLKrJT6V
+         DqZYdCAzJn6GHmJd7HlEaUujkYxtv0PJ43GkFBZluHkSMMbK6uWzm/ip5HiRxRFNZHqS
+         S6Cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zx2c4.com; s=20261015.g; t=1794333823; x=1794938623; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lzQJ9a5l1BTcj++f5PsFJW71LnXsNyCRLPczNlEpe/8=;
+        b=ZZwI4IJ4aWISIef8lRAv4poXLLKPrWVwkiSlfKdjw5uD/OJZPi3I4FfAXubc1YYgEM
+         dG9fkB5ccMhfA4JUCMy2eTh9GuC7Tx8LJ1E1hSOA9RbdAouOvwK5RYoO9IS5x2DQQMDG
+         0FqW3ro9FawL6Aff9EKxS7ba2Bya25ZKhy7AOUmbgY1+jtEVGAC3HzhvQ1EBpUxvNTjy
+         j5yEmy3iFmLDPVFrUmj7iEU227OLSTYFTeYU5zk4H8m6bor/08jDLO78AkEBenZgkMSc
+         tkJf75SNJ2esk6+aHMIfzTz95Fl36/N3emySc2sfrt0HiQnByO/CbOrEjYJDM+XTZEhP
+         8GNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333823; x=1794938623;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lzQJ9a5l1BTcj++f5PsFJW71LnXsNyCRLPczNlEpe/8=;
+        b=SXX1TBH6JAfWxb/c10pu4MA8i8pUJEHYu38CHjPSxZAuJmeSAey6yzMk02BUnB66Hv
+         fbMEJcdjOYbNmrrDRNwIW1JSjaKLTXy6+SGQBWq4SAI8uDIPv31FfJGD5gkG3MZVSIBL
+         uiUlEIt50hSwHbI1+0ocZ7EL22hIgnnx0jlS9TKxD7e5hW/xgtETZPR8HNQAQKckce3N
+         //mpMxXX7UHCxeKICqFggXGPUgiH2OIrtnLIni5DPSwmyfnsrIU76TvtdFP5uWYj/2lR
+         oO3II5CSIWPhxhKM5Tjbd8K1D0Hfr7gTfkzpibQBaf9yhY1Kc3BiCtEMc3fBgFmjqzZe
+         0Q0A==
+X-Forwarded-Encrypted: i=1; AL+hErFLTcRp5ftRikZPGrXjspgafAblfsXh/JP9iKZ9PaabKbg+4ak13p+Cz2+3jMziQiGH1luO8ioJWtAkeWY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+d2PCQSG5Lfbn1kbX64uPiwRCYObTmGxA9y+ACgUlq7YRc5Lpq
+	unPI1EIsAUpsV+8GsAZxYYvTqIyoz0emPUwsY3VaO2MLdpWh5ETmwQqNdX/mSLEf19BWLces8Sw
+	rE+g0z8ELmJdyn3puBYYw++E9LxgaCGf9ilc/Fowmo1k=
+X-Gm-Gg: AYBFou3uDjaxcOFXOPJRRlI7HBRliz+Nttj4jMjhKc3b5jSxbasxV9hW70C2CF+4gnK
+	oFvvqeqeruPcKhOw8Womrtiy+kEom3oYThIhQmCEHCfk82P58t5VF9xp3880SNcLzH3krJgI5Jk
+	O6LP3FR6JLHmaJ0eOP3pY1ljvBFU8BHwer2uRKS273OMIxINRgbF9FPUZwR+ztiGxjHy9ElyV4q
+	xduLfr26B3UT3mNNzyYNU6yFwWJFx+LDGSUOUAvwWfp5fxhuMlgX7iIZxD/rq+5H0uqmZA+0rfR
+	4Fdh9+mC+JCHouglbSM9DuCrMelw09CQilbJa9YdPbA42ZBQZdH8L9vujJ9d8GpJlXGfavX5DSz
+	ycbhrrsLM1tYm8QISkWJ2sNmn4iRDqgZM2oPJz5cdLMNjMcNarcOuy+OXUFP8MjcGorZcl6rbFS
+	TrDJgJcVDiZhtQgA1YAatPNw9j1ujBLdf4s7bLtElPYyPoRJh6sj39c0mwLdQHbf0GO6IFWF6GZ
+	Rp10Bl2PuceJ+sN5la/BMGx/A==
+X-Received: by 2002:a17:907:c0a:b0:c42:3a77:80e5 with SMTP id
+ a640c23a62f3a-c5049583e86mr302817566b.29.1794333822814; Tue, 10 Nov 2026
+ 10:03:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,291 +105,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-A maintenance release Git 2.56.1 and others for older maintenance
-tracks down to maint-2.43 are now available at the usual places.
-
-This is a set of coordinated security fix releases.  Please update
-at your earliest convenience.
-
-The tarballs are found at:
-
-    https://www.kernel.org/pub/software/scm/git/
-
-The following public repositories all have a copy of the v2.50.2,
-v2.51.3, v2.52.1, v2.53.1, v2.54.1, v2.55.1, and v2.56.1 tags:
-
-  url = https://git.kernel.org/pub/scm/git/git
-  url = https://kernel.googlesource.com/pub/scm/git/git
-  url = git://repo.or.cz/alt-git.git
-  url = https://github.com/gitster/git
-
-
-Credit for organizing the set of these releases goes to Johannes
-Schindelin.  Credit for finding the vulnerabilities goes to Luke
-Martin and pwn2addr.  Credit for fixing them goes to Toon Claes,
-Karthik Nayak, and Kaartic Sivaraam.  The xdiff hardening is based
-on a patch by Jeff King, with help from Toon Claes and Christian
-Couder.
-
-------------------------------------------------------------
-Git v2.56.1 Release Notes
-=========================
-
-This release merges up the fix that appears in v2.50.2, v2.51.3,
-v2.52.1, v2.53.1, v2.54.1 and v2.55.1 to address CVE-2026-111760,
-CVE-2026-113408, CVE-2026-114466, CVE-2026-114467, CVE-2026-114469
-and CVE-2026-105437; see the release notes for these versions for
-details.
-
-
-------------------------------------------------------------
-Git v2.50.2 Release Notes
-=========================
-
-This addresses the security issues CVE-2026-111760, CVE-2026-113408,
-CVE-2026-114466, CVE-2026-114467, CVE-2026-114469 and CVE-2026-105437.
-
-This release also backports fixes necessary to let the CI builds pass
-successfully.
-
-Fixes since v2.50.1
--------------------
-
- * CVE-2026-111760:
-
-   Recursive clones are susceptible to Remote Code Execution: an
-   attacker-controlled repository can be crafted in a way that exploits
-   a bug in Git whereby Git can be fooled into overwriting a gitfile
-   (used for submodules) with a symbolic link that then points to a
-   directory with malicious config or hooks. The config or hooks may
-   have attacker-specified code.
-
-   See <https://github.com/git/git/security/advisories/GHSA-vp2w-7xxj-jvxr>
-   for details.
-
- * CVE-2026-113408:
-
-   It is possible for a server to advertise an unborn HEAD that contains
-   path-traversal characters (e.g., `refs/heads/../../../TARGET`). With
-   the files ref backend that can lead to ref-updating actions to write
-   to unwanted files.
-
-   See <https://gitlab.com/gitlab-org/git/-/work_items/809> for details.
-
- * CVE-2026-114467:
-
-   When Git strips the GPG signatures from a commit message, it only
-   accounts for two signatures. A commit message containing more than
-   two signatures therefore causes a stack memory corruption.
-
-   This can be triggered when using `git merge` with a tag which
-   contains more than two signatures. As such, this makes way for a DoS
-   attack which can potentially also affect forges when such a tag is
-   pushed to a remote and a merge action is initiated.
-
-   See <https://gitlab.com/gitlab-org/git/-/work_items/810> for details.
-
- * CVE-2026-114469:
-
-   Git rejects patches larger than ~1 GiB, because its patch application
-   code does not work well with large files. That check, however, only
-   considered the size of the patch as it appears in the input, which for
-   binary patches is much smaller than the size of the file the patch
-   describes, as binary patches are compressed and encoded. A binary
-   patch that inflates to a very large size therefore slipped past the
-   check and crashed Git with an out-of-bounds read.
-
-   See <https://gitlab.com/gitlab-org/git/-/work_items/811> for details.
-
- * CVE-2026-105437:
-
-   When merging, Git computes the size of the buffer holding the merge
-   result in a way that can overflow for very large merges, which can be
-   triggered by a large number of conflicts combined with a large
-   `conflict-marker-size`. The resulting buffer can then be too small,
-   and Git writes past its end (and, before and after that, before its
-   start), corrupting the heap.
-
-   See <https://gitlab.com/gitlab-org/git/-/work_items/814> for details.
-
- * CVE-2026-114466:
-
-   In response to CVE-2019-1348, `fast-import` disallows the
-   `export-marks` feature by default. The features
-   `rewrite-submodules-to` and `rewrite-submodules-from` as well as the
-   option `export-pack-edges` that were introduced in the meantime also
-   allow reading from arbitrary paths, and are therefore now also
-   disallowed by default.
-
-   See <https://gitlab.com/gitlab-org/git/-/work_items/812> for details.
-
- * Defense-in-depth: read-cache: reject cache entries with over-long
-   names.
-
- * Various fix-ups on HTTP tests.
-
- * Test update.
-
- * HTTP Header redaction code has been adjusted for a newer version of
-   cURL library that shows its traces differently from earlier
-   versions.
-
- * The `imap-send` command was adjusted to work with OpenSSL 4.0.
-
- * Replace macos-13 used at GitHub CI with macos-14, and macos-14 with
-   macos-15.
-
- * Work around a bug in the iconv library shipped with macOS 14 and 15
-   that fails to correctly handle stateful ISO/IEC 2022 encoded strings.
-
- * ci: fix broken jobs on Ubuntu 25.10 caused by switch to sudo-rs(1).
-
- * ci(dockerized): raise the PID limit for private repositories.
-
- * ci: bump debian-11 job to debian-12.
-
- * ci: skip CVS and P4 tests in leaks job, too.
-
- * mingw: drop the -D_USE_32BIT_TIME_T option, stop using nedmalloc, and
-   only use -Wl,--large-address-aware for 32-bit builds.
-
- * Update GitHub Actions jobs to avoid warnings against using deprecated
-   version of Node.js.
-
-----------------------------------------------------------------
-
-Changes since v2.56.0 are as follows:
-
-Beat Bolli (3):
-      imap-send: use the OpenSSL API to access the subject alternative names
-      imap-send: use the OpenSSL API to access the subject common name
-      imap-send: move common code into function host_matches()
-
-Colin Stagner (1):
-      ci: ubuntu: use GNU coreutils for dirname
-
-Collin Funk (4):
-      global: constify some pointers that are not written to
-      gpg-interface: remove an unnecessary NULL initialization
-      bloom: remove a misleading const qualifier
-      dir: avoid -Wdiscarded-qualifiers in remove_path()
-
-Elijah Newren (1):
-      read-cache: reject cache entries with over-long names
-
-Jeff King (30):
-      revision: make handle_dotdot() interface less confusing
-      convert: add const to fix strchr() warnings
-      http: add const to fix strchr() warnings
-      transport-helper: drop const to fix strchr() warnings
-      pager: explicitly cast away strchr() constness
-      run-command: explicitly cast away constness when assigning to void
-      pseudo-merge: fix disk reads from find_pseudo_merge()
-      rev-parse: simplify dotdot parsing
-      skip_prefix(): check const match between in and out params
-      revision: avoid writing to const string for parent marks
-      pkt-line: make packet_reader.line non-const
-      rev-parse: avoid writing to const string for parent marks
-      range-diff: drop const to fix strstr() warnings
-      config: store allocated string in non-const pointer
-      http: drop const to fix strstr() warning
-      ref-filter: factor out refname component counting
-      refs/files-backend: drop const to fix strchr() warning
-      ref-filter: simplify lstrip_ref_components() memory handling
-      git-compat-util: fix CONST_OUTPARAM typo and indentation
-      ref-filter: simplify rstrip_ref_components() memory handling
-      ref-filter: avoid strrchr() in rstrip_ref_components()
-      ref-filter: clarify lstrip/rstrip component counting
-      find_last_dir_sep(): convert inline function to macro
-      ci: bump debian-11 job to debian-12
-      test-lib: allow lazy prerequisite snippets as here-docs
-      t5551: handle trailing slashes in expected cookies output
-      t5563: add missing end-of-line in HTTP header
-      revert: initialize const value
-      curl: add support for curl_global_trace() components
-      http: handle curl stripping creds from effective url
-
-Johannes Schindelin (19):
-      ci(dockerized): raise the PID limit for private repositories
-      ci: work around Debian 12's HTTP/2 authentication failures
-      ci(vs-build): adapt to Visual Studio 2026 default on windows-latest
-      mingw: drop the -D_USE_32BIT_TIME_T option
-      mingw: stop using nedmalloc
-      mingw: only use -Wl,--large-address-aware for 32-bit builds
-      t5564: use a short path for the SOCKS proxy socket
-      checkout: use size_t and st_add() for cache entry length in update_some()
-      read-cache: use size_t and st_add() for cache entry size in read_one_entry_opt()
-      cmake: stop trying to build the reftable and xdiff libraries
-      t1600-index: add expensive tests for over-long tree paths
-      ci(vs-build) make the VS-built git.exe adjust MSYSTEM/PATH
-      Git 2.50.2
-      Git 2.51.3
-      Git 2.52.1
-      Git 2.53.1
-      Git 2.54.1
-      Git 2.55.1
-      Git 2.56.1
-
-Junio C Hamano (2):
-      GitHub CI: macos-13 images are no more
-      ci: skip CVS and P4 tests in leaks job, too
-
-Kaartic Sivaraam (3):
-      git-compat-util: add st_add5() helper to detect size_t overflow
-      xdiff: use size_t for merge buffer size computations
-      xdiff: check for overflow when computing merge buffer size
-
-Karthik Nayak (8):
-      base85: cleanup unused debug code
-      base85: introduce a new `chunk_and_encode85()` function
-      test-tool: add command to encode-chunk base85
-      apply: reject binary patches greater than MAX_APPLY_SIZE
-      apply: add tests mismatch in binary patch size
-      commit: rewrite `remove_signature()` to work with multiple signatures
-      fast-import: add safeguard around rewrite-submodules features
-      fast-import: add safeguard around 'export-pack-edges'
-
-Patrick Steinhardt (15):
-      build: tolerate use of _Generic from glibc 2.43 with Clang
-      ci: fix broken jobs on Ubuntu 25.10 caused by switch to sudo-rs(1)
-      t7528: work around ETOOMANY in OpenSSH 10.1 and newer
-      meson: simplify iconv-emits-BOM check
-      meson: detect broken iconv that requires ICONV_RESTART_RESET
-      gitlab-ci: update to macOS 15 images
-      README: add GitLab CI badge to make it more discoverable
-      t0021: skip EXPENSIVE test that is broken without SIZE_T_IS_64BIT
-      t4141: fix inefficient use of dd(1)
-      t5608: reduce maximum disk usage
-      t7508: skip EXPENSIVE test that is broken without SIZE_T_IS_64BIT
-      t7900: clean up large EXPENSIVE repository
-      t: use `test_bool_env` to parse GIT_TEST_LONG
-      gitlab-ci: disable RAM disk on macOS jobs
-      gitlab-ci: enable "GIT_TEST_LONG"
-
-Paul Tarjan (1):
-      t7800: fix racy "difftool --dir-diff syncs worktree" test
-
-René Scharfe (2):
-      macOS: make Homebrew use configurable
-      macOS: use iconv from Homebrew if needed and present
-
-Tamir Duberstein (2):
-      t4205: compare huge output without diff
-      ci: use twice the CPU count on both providers
-
-Toon Claes (6):
-      meson: ignore subprojects/.wraplock
-      meson: only detect ICONV_OMITS_BOM if possible
-      meson: use is_cross_build() where possible
-      connect: validate unborn HEAD symref-target in protocol v2
-      connect: validate born ref symref-target in protocol v2
-      connect: validate ref names in protocol v2 ls-refs response
-
-Torsten Bögershausen (2):
-      utf8.c: prepare workaround for iconv under macOS 14/15
-      utf8.c: enable workaround for iconv under macOS 14/15
-
-
+References: <116cec552f58748d434d4825c6c74f39266b265f.camel@infradead.org>
+ <avNCdbpjxM752XSw@zx2c4.com> <89b5e08e2a48c33be4cf2d495266d04a2dcf406e.camel@infradead.org>
+ <CAHmME9pWbftSmnJgLawNmWxNHMEqC5evxWPW8TruYkBD18Q8nQ@mail.gmail.com>
+In-Reply-To: <CAHmME9pWbftSmnJgLawNmWxNHMEqC5evxWPW8TruYkBD18Q8nQ@mail.gmail.com>
+From: "Jason A. Donenfeld" <jason@zx2c4.com>
+Date: Tue, 10 Nov 2026 19:03:31 +0100
+X-Gm-Features: AclHuK_PdK0XHi04omXe90eJidcgcAUUNUP4KnWXn-FWg3xkjBKoqqaRiccjqWc
+Message-ID: <CAHmME9ow3N6soH+WwW+MZsDG9VeKW5WK4dYA6k29Cxi7UQtkYg@mail.gmail.com>
+Subject: Re: [PATCH] wireguard: socket: fix sticky source address on p2p
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S.Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Antonio Quartulli <antonio@openvpn.net>, Ralf Lici <ralf@mandelbit.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, openvpn-devel@lists.sourceforge.net
+Content-Type: text/plain; charset="UTF-8"
+
+https://git.zx2c4.com/wireguard-linux/commit/?id=6d02c757940afc798e0eb294108262c3e55b1c5d
