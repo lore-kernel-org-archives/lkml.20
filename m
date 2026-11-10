@@ -1,53 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337441;
-	b=rZs28UQfRsUrVTt5ARwlGAzr1c7cls6lXHvEkIiHsjlet0NCwK/tlzB3PxIUgByOP+m1
-	 73g5r2+L0yj6Zu4kl9wyurodi3APeO6Hqcrm8nPsJCb1+ohl0im+8LvS4Gkq1GLeGQU4b
-	 eCo4JqmuW9hWw6Ypt5U9lNZepCEBYcfgdVuGLXAW//NMmcS8a+3oipuk9DVGkkbbrUnRJ
-	 N3O5YDnumzn4T/JhII04KIXRcUJ0mDnV+WSLvZVskVWA2vupvCH8LkMX1C9tjpB/y1wEe
-	 OuhkRjc4vTGOkPnzXJcBIfxNzKv+dAx7wpzz3BnHHud7eZbaTic365qu/1CUm3pLqyw==
+	t=1794337533;
+	b=jehdeaRR3aYwRIidZuU6AYIbV/3rUW5dERIjKKVystCmfh8f4nSgVkEX0RuEtp7NEJGN
+	 QU1or8/TVtrnoyhsJzCDVj0RU3sq82KtUYGGuValsmV2fJf7Cj0GiT1wCjeSPMWa9Hqj7
+	 L9uBeQHk05mRaHu9yxWfbBpmnVs4emjzkuAKuHKoaFwaJ58mCj6OAyix77+a0GnjRieyA
+	 gN8WX4lixh+ZQ8Xnui9BhXfP0ZgzXGF1/kO6Ty67+Vtx6rqkSWt71PHOqGIhEhl4zA6zP
+	 JwoawD7kzy91bybzaaK4tAPAZh+xvu53XnlobyDgdo1FH8bsvl34klvFQ8zi1bfY8rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337441;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=y7OEPRzVAkT9KxrEHaCyuc9a3WhCwxEMUn9niA8KRjM=;
-	b=HCX2mu+gCE2f510xei2NvVcyyN93wOhMA4wY52eTvVv8c+Y1hvJ083ew7pXdlNr875aS
-	 lxXrlcqpd80r6U7DIT8vXn1s6mdk49gyV0HXB3w2M+JayRm6mcYxu+GhExKH7IrcRof31
-	 XVmzjqEsPQTQaeRNtTe/j9kWRKgK28MoR3NV9Lm2zWkXlkNLk4GTizfSJebrLcz1TKNnS
-	 5G9ZW9OfhfnftOwA7Pkkax37oz1Mye/kERkZCLRS7HMPzSkIM/CXirKLftGxZlrSqVjEx
-	 awNOs/ncb2jk3QaJBHxUkBjt86P9Ju8U4LuVwfjc7U5pEc+LhiRVYOV3mxgj+aaUFGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337533;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=M6suHIpsl6GARsXl0aeCf2GhxVBiwsz4QMRfqHBX3QE=;
+	b=ntO+cDb+hE4xzykoTORlBf7m3SFWenxQrI8gOk0ojn44fYcEXTDSPJ/W9IxD/k798ELl
+	 akZrQmtCOehOOgwl89JIiIEvec+upSxNytJ3l6x3JEAOQ1ecBeiY9gSxfyTpdsFJRFYRo
+	 de3foei7unJ2hu5xIYwcrkcvfJtX3gJq1AFlXC+FsKn9J+TvPEDxbYecke/x6bYmeBVO5
+	 dCVfiHjRUkYLwekuowKnLedJb80c0QeQv9pCdAXR3DW8b7hbs6pdapi9XqXYiQzjnqOV4
+	 o9rLuljlAoXbByPru2GKo9S8jFQzdM5aq2S4ukkIpanzUPQ3sGym0gqBHXrV5x1DQ4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=LtFOMXuJ;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D8B606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:04:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D8B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso2837662b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:04:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794337440; x=1794942240;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=y7OEPRzVAkT9KxrEHaCyuc9a3WhCwxEMUn9niA8KRjM=;
-        b=n57d3x53HTaXAeXwrfoqstz6uoWYJYbIus58xPW5B2oqsQtA1CJjUryypQUC4FuAtb
-         AbxMGw0ZgBTTQXGWvMeZmFpzSf2R3Dop+sITQNoTB6Au2bdVn3SDzEIM6ryJ/M9c9j8R
-         4ue8i5YXBrS9gbS6J7qId+QN4QimlqRn/olRQ779X4qZzNDidnO91X6QxNMxT3e6v8lS
-         MBC+QLnc7gPu6c1G61oCYHTxd1uNMzWYOA8wRarznyKizkwdnSjMevlGE90pRoETeUMc
-         emCO0/aPev2HT0MpA6/VJe78OOK+SMjE+mO1kZnrOXpc7s1VhmVvzWVuA8AA55asT33q
-         JmFQ==
-X-Gm-Message-State: APuU4Z/IjjbvvziUbkOmgkgcXHYQLl2tLBKrvjInV2BfeRh8doQLQ3v6
-	Xg9gwVEQBG6nXZPTiNo/NjNMDvhV75ni6hWtWht1+999VmFutGGffb3RE6jcz4W0SCVlJdzzW7b
-	FfbTyb3N5G2r82YXbX5j4NLlf+VJftxeDWXiGQNY/GeeKGYzDjjqo7R3zn7Y=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B75606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:05:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27B75606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=LtFOMXuJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794337531;
+	bh=Uz3BhBVImxItOoQKtHHtypAOcZNmLlMDT+UDThYXTEY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=LtFOMXuJ9oY36UZepQyWbJGdaDUbedR9kzEldgu4NqYzeJltQNqahDZUmBHzomn9n
+	 n5hT+LMgDCW2Tv5fXbR/Fe535XqydT4G5iywkeZemeqRmSmEFEqOxK+b7lp1HOoOdq
+	 uGtUk2HMib6ufK+DtXvJAsdlFMOKxnsGtBKbTx327CXgufpLnhht0PQNtlCnMO5+cd
+	 0OoTTVhtM7NarFALOwW2rcn6XT0rpJt8PH6ZYzEajQy8j3CEKt4mOFHFfHz329hgcK
+	 v+/8QOD81fb/+iL3IFH75gxRxOTG+LJQMkXV6K3clMEd/J+zNQFUNSq+Roa31tbrC8
+	 UpISE9nB+D/LA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 890EB17E0820;
+	Tue, 10 Nov 2026 20:05:30 +0100 (CET)
+Message-ID: <cd6ff4c0-cd5d-4c42-8f52-5f3893aec015@collabora.com>
+Date: Tue, 10 Nov 2026 21:05:30 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,40 +61,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4441:b0:4e5:c2b4:33a3 with SMTP id
- 5614622812f47-5683cd3d8c7mr2623847b6e.45.1794337440340; Tue, 10 Nov 2026
- 11:04:00 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:04:00 -0800
-In-Reply-To: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af36aa0.17ff5aea.1b027f.019a.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [block?] BUG: unable to handle kernel paging
- request in blk_mq_complete_request_remote
-From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/7] drm/rockchip: dw_hdmi_qp: Set the VOP2 color space
+ from the connector
+To: =?UTF-8?Q?Jan_Clau=C3=9Fen?= <jan.claussen10@web.de>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261018143135.5745-1-jan.claussen10@web.de>
+ <20261018143135.5745-7-jan.claussen10@web.de>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20261018143135.5745-7-jan.claussen10@web.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hi Jan,
 
-***
+On 10/18/26 5:31 PM, Jan Claußen wrote:
+> VOP2 converts RGB to YCbCr using the matrix selected by the CRTC
+> state's color_space, but the HDMI encoder never sets it, so VOP2
+> always converts with BT.709. Once the colorspace property can
+> signal BT.2020 colorimetry to the sink, a YCbCr output would be
+> encoded with BT.709 and decoded with BT.2020.
+> 
+> Derive color_space from the connector colorspace before the early
+> return, so that a colorspace change alone is applied.
+> 
+> Signed-off-by: Jan Claußen <jan.claussen10@web.de>
+> ---
+>  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 9c4cf68d79d5..10c5b6d6406e 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/phy/phy.h>
+>  #include <linux/phy/phy-hdmi.h>
+>  #include <linux/regmap.h>
+> +#include <linux/videodev2.h>
+>  #include <linux/workqueue.h>
+>  
+>  #include <drm/bridge/dw_hdmi_qp.h>
+> @@ -187,6 +188,19 @@ static int dw_hdmi_qp_rockchip_get_vop_format(struct drm_encoder *encoder,
+>  	return bstate->output_bus_cfg.format;
+>  }
+>  
+> +static u32
+> +dw_hdmi_qp_rockchip_color_space(const struct drm_connector_state *conn_state)
+> +{
+> +	switch (conn_state->colorspace) {
+> +	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+> +	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+> +	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
+> +		return V4L2_COLORSPACE_BT2020;
+> +	default:
+> +		return V4L2_COLORSPACE_DEFAULT;
+> +	}
+> +}
 
-Subject: Re: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
-Author: nenkov2004@gmail.com
+My main concern is introducing V4L2_COLORSPACE_* logic into a DRM bridge driver,
+which should rather rely on enum drm_colorspace / DRM_MODE_COLORIMETRY_*.
+Translating the DRM colorimetry into V4L2 values only for VOP2 to map them back
+to a CSC matrix doesn't seem fully justified.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+The root problem is rather on the VOP2 side: the color_space field in struct
+rockchip_crtc_state and its V4L2-based handling in the CSC selection look like
+leftovers inherited from the vendor kernel, and I think this is a good time to
+clean that up instead of building on it.
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -538,6 +538,8 @@ bool nvme_cancel_request(struct request *req, void *data)
- 	if (blk_mq_rq_state(req) != MQ_RQ_IN_FLIGHT)
- 		return true;
-
-+	if (!(nvme_req(req)->ctrl->quirks & NVME_QUIRK_SKIP_CID_GEN))
-+		nvme_req(req)->genctr++;
- 	nvme_req(req)->status = NVME_SC_HOST_ABORTED_CMD;
- 	nvme_req(req)->flags |= NVME_REQ_CANCELLED;
- 	blk_mq_complete_request(req);
+Cristian
