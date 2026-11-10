@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323004;
-	b=nQBTYfzEAj0wT7TNWsFnjOeCH+mtvM24v7dDXZmH07gBbNHIc5iWfe0sQX1dU0I+BDD5
-	 cOO2AH5+VitgzhzhUiOMva+bDEv6C8Kl44OwZzi+HnPBUU8kR2ErDKHQ82HVXV+K/jH1R
-	 S44Ec/sHCtitvrQsRjTirXjuF5UZwMqn4GY1cfxEwb0NhB0DsDky8JTxWbAPITi5UVG1D
-	 E0mkaZ1EWWQk4GRVBULyhcvtcdWAVJJoIa+u7TwxEVWXH8lcIDbma1uX74oKa29Qb+sS+
-	 4a8Be4ZHagdUOFH1uGvIANSsWl+jhx7ktuFHkqoAa4PABODNOi3P8fpcHRzWnJRX0ag==
+	t=1794323000;
+	b=pYkcx157tQV5QRgb4GCw27TJU441NObLYQkyyztEqBzMIcGF8QcPl5prVqb3e308KfKl
+	 KkFAn98/RT5j72MM32Lz/Xlr+eWQ4M7dJbWVR/MbUBQ6OvayILRUwsH4hzwD8X8zNug31
+	 GIv3cIvbOjXLMLhZsYtBO57QfzDWEB7aDYyfft1/fnk4nN1qCUOqVwLnCPARoMpRC3k9J
+	 rYC7wFC9By0yi+ewoGxZY/09AotS2lWi0xZ6pHMPMTsvJQVC5jiAcjSopKpTW4lQ8WrBC
+	 Hfb6c5NzKpsP7jY9g2nfUr/y8gkPX+NoKEVAES/fLtHEIKTxt2I9c4ifeqLzB7/AIqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323004;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323000;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=sXxgGhcF0mTkYDF8HuHev/I0qLZckh9PHUK6grJLeg0=;
-	b=J0rPOMmHpcoanphiSxU9j/jyKPhXJCpz6JWjb1LiviSi0Izsfld/AQbTcIJ0DcMnYfL9
-	 TBm2NYY+9EEwnBKsRDcKvAY3QTMJP0al75ep7OJBt3LbwBv0QRDTeTubL4mjFrugNNUJ6
-	 gyTCVHO7Q6bnL47gV1OESI+HirgzbLppMhP4sFpDOQb9EMp1tjhgVF1c7ek5QRwa6vEwZ
-	 WqS05Iy9G3SzCFRHSGLa5uljKhLlilr9ocQGvi97eJWbf0+nyVKDYrafmtM2664ni1e1l
-	 32f3s6E2MMVfvnnmnSi3hCd7cFd4i4UuCHIJMgTAHwk+MavBGyzurPmlYI6A3kfq7Ng==
+	bh=QJvVyV94Cv8OIUbiM+u2kGZe6Vw+3fdgWvqCgG/0qUs=;
+	b=hKB3jzVsov+f1xICneX+vGeULhkit+Sofh4ZW0NN1V04ODV9L8g7//EDO4EZRWNF+6mi
+	 H1QmDRSzqyCetAIBanDldd4a3k+NG/RAQ2tLWZLyLU+12Wf9ycZq5Wr9AJ2s1YPlqTSge
+	 k6OQ0MZk0Ied8cOpPXj2u0GfVcNqxmqnfTgAUDGB/ZRJ+FeTSb3lDGS937hbJWL6EPk48
+	 iDX54xISNQIkXH+SxBwhpayTsSlXWEQpwYCTTiF5XbjkApbM2jYtNWG0R0/M15hQgHow2
+	 UWihtM3erdM5DKXgBxcyYgWa/ffmEE5R66tVd2Qho7yWx9miRCplI0ImXQDnsEZbFhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=C2oy3SkJ;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5NTgfbxf;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189EC60A380B;
-	Tue, 10 Nov 2026 15:03:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189EC60A380B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D253860A2603;
+	Tue, 10 Nov 2026 15:03:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D253860A2603
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=C2oy3SkJ
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5NTgfbxf
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jP8zZ4xTfz8XrrX;
-	Tue, 10 Nov 2026 23:03:22 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jP8zL1r0cz4x6DD;
+	Tue, 10 Nov 2026 23:03:10 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794323002;
-	bh=/88cOaiDZMOr8DKkibMc9irzW48otaXY8hW0OxygJss=;
+	s=z202610; t=1794322990;
+	bh=piI42uDP8SRa2CG5qbL2WUZAnmWJlreP3bqJtI3YcSs=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=C2oy3SkJirJtL/VeI3Bl74p7zgL9ki0z3hEKoXKqamobDKNGEjGsTYBg9Fg3HaSi4
-	 LGjBwn3SA13H5YlGpIct25UErCZ7I+OQ04cDGXvLEIq2Ar+/wClgxmZ0THwcrwnwlX
-	 2P8xw+FgMn2MFMrFM+3I5S8VW+14Wp3goA86QZlFD0CphKcdHQrK8oEFwAN0hN9FuF
-	 V3/z2+zd64SvLKam30rgDVyhCwLhz7+qwXXQ1PCR6fJUboEQTeNaoZPBqKULzl+Nvn
-	 t751+U/ZLRUtqHVMNaLifnAI2yCcjrMfiQ2tTPzFXJPXd6S+0PyRRTT+irCiTooTwV
-	 MWaELsN6fgaGg==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6AAF3AXW011142;
-	Tue, 10 Nov 2026 23:03:10 +0800 (+08)
+	b=5NTgfbxftbLMd9Aj53xQAjJ85GU74Li0as3fTbM29q1iJ9I+AFTEj9l/i/KKeQOwx
+	 VEmOXJ/UEICfPxsjVH+mBdsnmVnRbUc13sEda5XUth8PHMB5sAGEajLj498LXE49Ei
+	 bzNlOlBzANYqj6y1D5v6zcSoZOaX/UKaWquHkIv7w41KAzF/IASiY632c3j+4x+70a
+	 udBoBIxXoQHRRO7LrPJWKo7mAyJSQ9FtVLaCpV5bohXFIh58iQ4LONodVtO2OScGYe
+	 vXJg5XmY7YJmOQxF3N1YfK+WAHEWRLQTzKzInURk+D2J0g/Id8xlZw8Rnh4uVZeJo2
+	 EgyNMSP55S1IQ==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6AAF396F030665;
+	Tue, 10 Nov 2026 23:03:09 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
 Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 23:03:13 +0800 (CST)
-X-Zmail-TransId: 2afb6af332310c0-076fe
+	Tue, 10 Nov 2026 23:03:10 +0800 (CST)
+X-Zmail-TransId: 2afb6af3322effc-0763b
 X-Mailer: Zmail v1.0
-Message-ID: <20261110230313720JCGXeTg2zOideed82vWy9@zte.com.cn>
+Message-ID: <20261110230310932grXKWow1mHtiisyby_D4-@zte.com.cn>
 In-Reply-To: <20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn>
 References: 20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn
-Date: Tue, 10 Nov 2026 23:03:13 +0800 (CST)
+Date: Tue, 10 Nov 2026 23:03:10 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,61 +79,124 @@ To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
 Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
         <paul.ely@broadcom.com>, <kch@nvidia.com>,
         <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDQvNl0gbnZtZXQtZmNsb29wOiBmcmVlIHRoZSBMUyByZXF1ZXN0IHdoZW4gZGVsaXZlcnkgZmFpbHM=?=
+Subject: =?UTF-8?B?W1BBVENIIDIvNl0gbnZtZXQtdGNwOiBvbmx5IHdhaXQgZm9yIGluLWNhcHN1bGUgZGF0YSBmb3IgaW5saW5lIFNHTHM=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AAF3AXW011142
+X-MAIL:mse-fl2.zte.com.cn 6AAF396F030665
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 10 Nov 2026 23:03:22 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 23:03:10 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF3323A.002/4jP8zZ4xTfz8XrrX
+X-Fangmail-MID-QID: 6AF3322E.000/4jP8zL1r0cz4x6DD
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-fcloop_h2t_ls_req() allocates a fcloop_lsreq from lsreq_cache and hands
-it to nvmet_fc_rcv_ls_req().  That function only takes ownership on
-success and returns an error without invoking any completion callback
-when the target port is shutting down, the LS payload is too large, or
-the target has no free LS request slot.  The error is returned as-is, so
-the fcloop_lsreq is leaked; every failed LS during a target port
-teardown or an LS slot exhaustion loses one slab object.
+nvmet-tcp decides whether to wait for in-capsule data using only the
+write direction and SGL length.  A write using a transport SGL can fit
+within inline_data_size without carrying any in-capsule data.  The
+response path then withholds its R2T, leaving the command stuck.
 
-The target-to-host direction already frees the request when
-nvme_fc_rcv_ls_req() fails.  Do the same here.
+If request initialization fails, the same length-only test both
+withholds the error response and attempts to drain inline data that
+will never arrive.  This can also consume the following PDU as data
+or a digest.
 
-Fixes: 772042dd38ee ("nvmet-fcloop: allocate/free fcloop_lsreq directly")
+Require an offset data-block SGL in both checks.  Share a helper that
+only uses command and port fields, as the completion callback can run
+before nvmet_req_init() has finished.
+
+Fixes: bdaf13279192 ("nvmet-tcp: fix a segmentation fault during io parsing error")
+Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the fcloop
-loopback transport (nvme-fc host + nvmet-fc/fcloop target); no real
-FC HBA is required.
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with nvmet-tcp over
+loopback.  The standard nvme-tcp host driver only sends in-capsule data
+with an inline SGL, so it can never produce the triggering combination;
+the test instead drives a minimal user-space NVMe/TCP host that crafts
+the ICReq/Connect/command PDUs itself.
 
-The -ESHUTDOWN error path is otherwise only hit in a sub-instruction
-teardown race, so it is exercised with two TEST-ONLY changes (not part
-of this patch): a debugfs knob that makes nvmet_fc_rcv_ls_req() return
--ESHUTDOWN, and SLAB_NO_MERGE on lsreq_cache so the 72-byte
-fcloop_lsreq does not merge into a kmalloc cache.  A stock host sends
-120 Create Association LS with ctrl_loss_tmo=0 (each failure deletes
-the controller); the cache is shrunk afterwards, which only reclaims
-empty slabs:
+It sends a valid 4 KiB write with a transport SGL (type 0x5A) on an
+enabled controller and I/O queue:
 
   unpatched                            patched
-  lsreq_cache objects 0 -> 120         lsreq_cache objects stays 0
-  slabs 0 -> 4                         slabs stay 0
+  no R2T, write hangs                  R2T received, H2CData sent,
+                                       write completes (status 0x0000)
 
-diff --git a/drivers/nvme/target/fcloop.c b/drivers/nvme/target/fcloop.c
-index b63af3b643a6..a9cde536c33b 100644
---- a/drivers/nvme/target/fcloop.c
-+++ b/drivers/nvme/target/fcloop.c
-@@ -379,6 +379,8 @@ fcloop_h2t_ls_req(struct nvme_fc_local_port *localport,
- 	ret = nvmet_fc_rcv_ls_req(rport->targetport, rport,
- 				  &tls_req->ls_rsp,
- 				  lsreq->rqstaddr, lsreq->rqstlen);
-+	if (ret)
-+		kmem_cache_free(lsreq_cache, tls_req);
- 
- 	return ret;
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index 8092ce4914b6..a8a435aaa163 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -269,6 +269,23 @@ static inline bool nvmet_tcp_has_inline_data(struct nvmet_tcp_cmd *cmd)
+ 		!cmd->rbytes_done;
  }
+ 
++/*
++ * Check whether the SGL of @cmd carries in-capsule data that the host
++ * will send right after the command PDU.  Only the offset form of the
++ * data block descriptor is in-capsule; a regular transport SGL is
++ * fetched through an R2T instead.
++ */
++static inline bool nvmet_tcp_sgl_is_inline(struct nvmet_tcp_cmd *cmd)
++{
++	struct nvme_sgl_desc *sgl = &cmd->req.cmd->common.dptr.sgl;
++	u32 len = le32_to_cpu(sgl->length);
++
++	return sgl->type == ((NVME_SGL_FMT_DATA_DESC << 4) |
++			     NVME_SGL_FMT_OFFSET) &&
++		nvme_is_write(cmd->req.cmd) && len &&
++		len <= cmd->req.port->inline_data_size;
++}
++
+ static inline struct nvmet_tcp_cmd *
+ nvmet_tcp_get_cmd(struct nvmet_tcp_queue *queue)
+ {
+@@ -625,25 +642,19 @@ static void nvmet_tcp_queue_response(struct nvmet_req *req)
+ 	struct nvmet_tcp_queue	*queue = cmd->queue;
+ 	enum nvmet_tcp_recv_state queue_state;
+ 	struct nvmet_tcp_cmd *queue_cmd;
+-	struct nvme_sgl_desc *sgl;
+-	u32 len;
+ 
+ 	/* Pairs with store_release in nvmet_prepare_receive_pdu() */
+ 	queue_state = smp_load_acquire(&queue->rcv_state);
+ 	queue_cmd = READ_ONCE(queue->cmd);
+ 
+ 	if (unlikely(cmd == queue_cmd)) {
+-		sgl = &cmd->req.cmd->common.dptr.sgl;
+-		len = le32_to_cpu(sgl->length);
+-
+ 		/*
+-		 * Wait for inline data before processing the response.
+-		 * Avoid using helpers, this might happen before
+-		 * nvmet_req_init is completed.
++		 * Wait for in-capsule data before processing the response.
++		 * This can happen before nvmet_req_init() has completed, so
++		 * only look at the SGL descriptor itself.
+ 		 */
+ 		if (queue_state == NVMET_TCP_RECV_PDU &&
+-		    len && len <= cmd->req.port->inline_data_size &&
+-		    nvme_is_write(cmd->req.cmd))
++		    nvmet_tcp_sgl_is_inline(cmd))
+ 			return;
+ 	}
+ 
+@@ -981,7 +992,6 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
+ static int nvmet_tcp_handle_req_failure(struct nvmet_tcp_queue *queue,
+ 		struct nvmet_tcp_cmd *cmd, struct nvmet_req *req)
+ {
+-	size_t data_len = le32_to_cpu(req->cmd->common.dptr.sgl.length);
+ 	int ret;
+ 
+ 	/*
+@@ -991,8 +1001,7 @@ static int nvmet_tcp_handle_req_failure(struct nvmet_tcp_queue *queue,
+ 	 * otherwise we will need to prepare a buffer and receive the
+ 	 * stale data before continuing forward.
+ 	 */
+-	if (!nvme_is_write(cmd->req.cmd) || !data_len ||
+-	    data_len > cmd->req.port->inline_data_size) {
++	if (!nvmet_tcp_sgl_is_inline(cmd)) {
+ 		nvmet_prepare_receive_pdu(queue);
+ 		return 0;
+ 	}
