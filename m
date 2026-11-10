@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300469;
-	b=1qnBiYYJ0z1jfea9FVW5NX3Vk++gDiPXVS/qsDZjxzc2nMtoT85k56HY9XcZd4kI8wqf
-	 0GqLzi+4Xv4vqlWt0cmp7fUayksTuhivfjUkvssjc/sJpOPtWpLdqyoRy03PUYNqq2IwV
-	 GWQt9clgKDLM7gPdYU2AOiVVM6yeKtucrvhGdgrcqP9JhSMfvKR+6lV76iIDTenBNhd2D
-	 l1PLq5Glo3weCubGh2IWoqRp7nPsVpsf+z+4bT10p+D/lzfgO/RTAp1N222sc1uCFDRpZ
-	 yLKGxWXfDEFgRLwfj4yeOTClu1/a0rNhFOYgBtdUhOq62Npxsi/FBSvDcqbUCmYfrjw==
+	t=1794300488;
+	b=GiUl9gMwmfgC46DEHY5xJZoSbQG41I4RIWnfW8ZnEVu5o8hzM9DBiVmI2RBUsW1mmQG0
+	 5hxQgixOKH2Vo+9ibFJyhzVu0JAy7XyHqp0I+ZGDjA12IdOR4kPs94R8QF4IAlHiRb6SH
+	 4ki9530IfpRSJny3ttEK8CAOl3nMAetg0I2pga7Tk+JnxSWfyBFlexsmJgG3wffMeWkVp
+	 qO+e8u6skQ/CUdysnIvq95+Y+V3EevAUQRmlM2Jxgzb7fHLyWI4kUqLMq1zkdrKJh2MAl
+	 Iy4Hgxd/oxroii88XowzJjqADiTUR3hLIcPVNUPhNUKNvVQ/3R0uIXFF37H/mTSmb5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300469;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=971CVAco0wRsepZ2O+DuyJQLTFxXmiUWfADT6vKykDg=;
-	b=yvyKiKBXRUzNRDMDeDt9fmpltlsDLAGp2QdJ2OCdEOacSqCZMFTFAuowVKs6Sn06WiG8
-	 KJRHyb4eUDSKBRobxqxO/gCvXF5nADJPvszO/gYEra5ePs10ux+7+neQT4PeFyXPi7wU+
-	 SK6cnsJIo+XTthrbBZru2yNV2BiMVu2CD1g9aTBGFQJAqrfvFYGlWVI8wvBxopPXPxUyz
-	 RvQxcE9NxgQSz8SZIlWj8znsVbkZOJcTTudF3oUExg5FGV4FT6u7R4y14w3xYI3e+L6sL
-	 qFxO/xbuD2/luoc9r/a4X7C0w3cyjlswjgjPjlj0F0PYp0cfrlnWEigR36BS5mENTtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300488;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=gdWtCqOrHd/hpqiy5fnAanl9VNsFsqG9lG1bU+R/JFU=;
+	b=TPMh41bYVrfaw/2yqlK0GGoOKSZQZJdU6sWSRhKCi+LguQkdbnpkL/DFo8DwWclgtx3F
+	 nG1yROxgc+0RIfWhhD2bkNGxaT0h3a/bUydRNpmejOFKj2DY8SuyEKrZ0W5sOiarXRknj
+	 YvjGobAtCSFlfMY7fqMAQBmNGAGXJ7ASKSx7+nUN0IamY/Ja5hdiysFJU8FPkZnEFYcwN
+	 bPVOUNYm8bGAinzA0xnsH4mNCGaq7QdmoGwYcqvD2YbrxyxF1Szvrv0aynLYdJmAX6eN5
+	 c6K4QaTmOcD3hzRanmWR7qmiXRfJIVLf2p+/8liQaup+sy0HxK4M4IigtmIvCJ+3MSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2rOEA41;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908D9606A321;
-	Tue, 10 Nov 2026 08:47:49 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jBkSM0dF;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A258606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:48:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A258606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2rOEA41
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B911F008A1;
-	Tue, 10 Nov 2026 08:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794300468;
-	bh=971CVAco0wRsepZ2O+DuyJQLTFxXmiUWfADT6vKykDg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E2rOEA417uw2D2zqDfgokpjiUXSld29mrsEuVXHxP9GLTFMBlE9QpzHB6cYJTRj/s
-	 bNb9RuSh51wCZosf6cEmHsHb6r69dXLTOsubsj2wByaWqCyXZUHjmBKEw6LaYFbXfo
-	 tOTCOlCqR3rDCMMlaykpekQZGQflPc8CBcScbJuftXTOg43KZQzuE6dJ9pYq2BHlsc
-	 E13UUPMqzYhMiYC3vMc84UcC6JglBm/DDXTSCvJyPCXIVwgjYBXJuZB+eFqVYzkZk4
-	 BmfdxZ6u5kOCqxW439hUAZML7ys1hMaZACoMClSmusSg0Z35PJoD2xdz7m/LBLHBsf
-	 L5ZzCcDj9+wBw==
-Date: Tue, 10 Nov 2026 10:47:35 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Wandun <chenwandun1@gmail.com>
-Cc: robh@kernel.org, baoquan.he@linux.dev, m.szyprowski@samsung.com,
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
-	chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	saravanak@kernel.org, akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jBkSM0dF
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4E0E1516;
+	Tue, 10 Nov 2026 00:48:03 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5451F3F85F;
+	Tue, 10 Nov 2026 00:48:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794300486; bh=D6cpUVH7ysCqLH5BEhpKUszzrMl4AwrMKiUXrthyWfA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jBkSM0dFRGyhVC5aY24nwEDz041CoShYhuFpHaOy8BQgFV4TR3I+JGFH7gUorBGnl
+	 IyQhDj6NMKfailh30sFCTRZ7tUJhDQ3fsi0A8/wWulVqhmMZJytmNOOIOfI8+oNHP7
+	 E3q0Zo8f7Knm9CkrDCZce6DWTj3SNYNWOBVi865M=
+Date: Tue, 10 Nov 2026 08:48:04 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Tamas Petz <tamas.petz@arm.com>,
+	Tamas Zsoldos <tamas.zsoldos@arm.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v9 0/8] kdump: reduce vmcore size and capture time
-Message-ID: <avLaJxIrrnMQngO9@kernel.org>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <7773d026-4aef-4169-866a-71ec9a91da21@gmail.com>
+	coresight@lists.linaro.org
+Subject: Re: [PATCH v2 09/23] coresight: trbe: Clear TRBSR status at stop
+ sites
+Message-ID: <20261110084804.GZ9176@e132581.arm.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-9-3f57cf3199b1@arm.com>
+ <a79a52db-2361-4303-9d43-87837f349f48@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,166 +70,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7773d026-4aef-4169-866a-71ec9a91da21@gmail.com>
+In-Reply-To: <a79a52db-2361-4303-9d43-87837f349f48@arm.com>
 
-Hi Wandun,
-
-On Mon, Nov 09, 2026 at 08:23:16PM +0800, Wandun wrote:
+On Mon, Nov 09, 2026 at 10:51:30PM +0000, Suzuki K Poulose wrote:
+> On 16/10/2026 17:55, Leo Yan wrote:
+> > TRBSR_EL1 records the status of the buffer that just stopped. Clearing
+> > it in trbe_enable_hw() postpones cleanup until another run starts. If
+> > AUX output cannot restart, for example when AUX space is exhausted,
+> > that clear never executes. Clear the status in arm_trbe_disable()
+> > after disabling TRBE instead.
+> > 
+> > trbe_handle_overflow() can start the next run without calling
+> > arm_trbe_disable(). Clear the stopped buffer's syndrome and status bits
+> > while TRBE is disabled, before attempting the AUX restart. This also
+> > leaves the status clean when the restart fails.
+> > 
+> > Signed-off-by: Leo Yan <leo.yan@arm.com>
+> > ---
+> >   drivers/hwtracing/coresight/coresight-trbe.c | 10 +++++++++-
+> >   1 file changed, 9 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> > index 26e7554d6bdd31f8a55a8bc3a7b6d4c49b984b9b..dd9c9330bb0c739795f300dafc6ce34e72fbf280 100644
+> > --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> > +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> > @@ -655,7 +655,6 @@ static void trbe_enable_hw(struct trbe_buf *buf)
+> >   	WARN_ON(buf->trbe_hw_base < buf->trbe_base);
+> >   	WARN_ON(buf->trbe_write < buf->trbe_hw_base);
+> >   	WARN_ON(buf->trbe_write >= buf->trbe_limit);
+> > -	clr_trbe_status();
 > 
-> On 10/21/26 16:30, Wandun Chen wrote:
-> > From: Wandun Chen <chenwandun@lixiang.com>
-> > 
-> > On SoCs that carve out large firmware-owned reserved memory (GPU,
-> > camera ISP, ...), kdump currently dumps those carveouts as part of
-> > system RAM even though their contents are firmware state that is not
-> > useful for kernel crash analysis.
-> > 
-> > ACPI systems already filter reserved memory out of the vmcore through
-> > their existing path: firmware reports those carveouts as unusable in
-> > the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
-> > (is_usable_memory(), efi-init.c), and the ELF header builder has
-> > always skipped nomap regions; only DT-based systems currently fail
-> > to filter these regions, which is what this series addresses.
-> > 
-> > This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
-> > memblock to filter reserved memory on DT-based architectures. A new
-> > flag is needed because MEMBLOCK_NOMAP can only express regions without
-> > a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
-> > linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
-> > so kdump omits them; reusable CMA regions are different because their
-> > pages are handed back to the buddy allocator and may carry crash-relevant
-> > data.
-> > 
-> > Since the reserved memory regions are filtered out, the vmcore is
-> > smaller in size and faster to produce.
-> > 
-> > The series is based on linux-next and is organized as follows:
-> > 
-> > Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
-> >              memblock, fold the duplicated per-arch memblock walks
-> >              into the weak defaults, and serialize crash header
-> >              preparation against memory hotplug.
-> > Patches 4-7: NODUMP infrastructure: switch crash_core to
-> >              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
-> >              flag, add a dumpable flag to struct reserved_mem, and
-> >              mark /reserved-memory entries with MEMBLOCK_NODUMP.
-> > Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
-> >              ELF header.
-> 
-> Hi all,
-> 
-> A gentle ping on this series.
-> 
-> I'd appreciate any further feedback, particularly on the
-> MEMBLOCK_NODUMP discussion and the issues raised in the Sashiko
-> review.
+> TRBSR_ELx is UNKNOWN at reset and if we don't clear it at probe time, we
+> endup running the first session with unknown values. It is safer to
+> clear this at enable_hw.
 
-I'm fine with MEMBLOCK_NODUMP.
-The issue Sashiko raised about bound check against cmem->max_nr_ranges
-seems valid. 
+This is incorrect. trbe_reset_local() is called locally on each CPU to
+clear TRBSR_ELx, it has been guaranteed when the first session starts.
 
-I didn't check the reserved mem one.
- 
-> Please let me know if there are any other concerns or suggestions
-> before I prepare the next revision.
-
-I believe that should be rebased to account for reserved memory changes.
-The riscv change from resources to memblock needs an Ack from riscv
-maintainers.
-
-And with all that I can take the next version via kexec tree.
- 
-> Thanks,
-> Wandun
-> 
-> > 
-> > v8 --> v9:
-> > 1. Patch 7: Avoid a potential boot panic on SH when NODUMP marking requires
-> >    memblock resizing before it is allowed, found by Sashiko in [1]. SH supports
-> >    neither CONFIG_KEXEC_FILE nor CONFIG_CRASH_HOTPLUG, so skip marking when
-> >    both are disabled.
-> > 
-> > v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
-> > that approach is superseded here):
-> > 1. Stop marking /memreserve/ regions with NODUMP. v6 marked
-> >    /memreserve/ regions with NODUMP. But a bootloader may specify
-> >    a /memreserve/ entry for memory that the kernel later frees
-> >    (e.g. the initrd), and those pages would then be wrongly
-> >    filtered out of the vmcore after being reused as normal memory.
-> >    The v7 fix (clearing the flag in free_reserved_area()) caused
-> >    a lockless runtime mutation of memblock.memory [2]. Better solutions
-> >    exist but need extra preparation, so temporarily dropped the patch
-> >    that introduced the problem to keep this series simple in v8.
-> > 2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
-> >    MEMORY_HOTPLUG are unset. There the memblock arrays live in
-> >    .init.data, and the weak defaults referencing them create section
-> >    mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
-> >    is also unset.
-> > 3. RISCV recently gained crash hotplug support, so adapt its handler
-> >    like x86 in patch 3: use __crash_prepare_headers() instead of
-> >    crash_prepare_headers() to avoid self-deadlock.
-> > 4. Update the cover letter per review feedback: describe how ACPI
-> >    systems filter reserved memory and why a new flag is needed
-> >    instead of reusing NOMAP.
-> > 
-> > v6 --> v7:
-> > 1. Fix a stale MEMBLOCK_NODUMP flag issue [3]. Memory reserved and
-> >    marked as NODUMP may later be freed (the initrd, for example),
-> >    so the NODUMP flag must be cleared accordingly. Since the fix is
-> >    part of the NODUMP infrastructure introduced by patch 5, it has
-> >    been folded into that patch.
-> > 2. Drop the "generic" related description in the cover letter.
-> > 3. Collect the Acked-by and Reviewed-by tags received during the v6
-> >    review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
-> >    only one without a tag, as its Reviewed-by was dropped when the
-> >    fix was folded in.
-> > 4. Drop patch 1 of v6, which has been merged separately.
-> > 
-> > 
-> > v5 --> v6:
-> > 1. Serialize crash header preparation against memory hotplug to avoid
-> >    out-of-bounds or use-after-free issues.
-> > 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
-> >    avoiding a panic from too few regions before resize is permitted.
-> > 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
-> > 
-> > [1] https://sashiko.dev/#/patchset/20261016061549.4181390-1-chenwandun1@gmail.com?part=7
-> > [2] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
-> > [3] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
-> > 
-> > v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
-> > v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
-> > 
-> > Wandun Chen (8):
-> >   riscv: build crash_mem ranges from memblock instead of resource tree
-> >   crash_core: fold duplicated memblock arch hooks into the weak default
-> >   crash_core: serialize crash header preparation against hotplug
-> >   crash_core: replace for_each_mem_range() with for_each_mem_region()
-> >   memblock: introduce MEMBLOCK_NODUMP flag
-> >   of: reserved_mem: add dumpable flag to opt-in vmcore
-> >   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
-> >   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
-> >     header
-> > 
-> >  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
-> >  arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
-> >  arch/riscv/Kconfig                         |  2 +-
-> >  arch/riscv/kernel/crash.c                  |  2 +-
-> >  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
-> >  arch/x86/kernel/crash.c                    |  2 +-
-> >  drivers/of/fdt.c                           |  1 +
-> >  drivers/of/of_private.h                    |  1 +
-> >  drivers/of/of_reserved_mem.c               | 18 ++++++++
-> >  include/linux/crash_core.h                 |  2 +
-> >  include/linux/memblock.h                   |  9 ++++
-> >  include/linux/of_reserved_mem.h            |  1 +
-> >  kernel/crash_core.c                        | 53 +++++++++++++++++++++-
-> >  kernel/dma/contiguous.c                    |  1 +
-> >  mm/memblock.c                              | 16 +++++++
-> >  15 files changed, 103 insertions(+), 94 deletions(-)
-> > 
-> 
-
--- 
-Sincerely yours,
-Mike.
+Thanks,
+Leo
