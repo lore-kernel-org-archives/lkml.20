@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794290617;
-	b=wiEezKCFlQ7YnJ12Ktz6zWg7lCx09wWLiw8OcaSMv/qKW7R2oE//kLsP94sSBqX7LxK1
-	 ZSLLpVIY3h8NMj4zI5ZfiXlUWyTqYDoXCaLm6DK86aBgQEpXWd6NvpMQnBD4MrRfyqrtF
-	 Ql3pYS4vBd0s9PjY5HaEWUQS51NTk4wowBxoCNZMLy6za+SPl/9LMEm3tNvy5zNubnXBs
-	 J2LvjK0FMGlq6RDf9zh/ipnSdEieAz22ZFzMhp/yaM/4wXXrxFtK7cz4KCxoeJBRcu3Hj
-	 xitqXPu0R3eI2oNO/2n2a5cqJ9mISrCgMwX2kmF7J8ULl8rUCSrDmQ7oLg/49d2qPJA==
+	t=1794290719;
+	b=NofQjxbTPxBt0eDQJaOGYvpLxZUIDLWGOntYaZtIjG38hZdmvR8uzlnjuAeYP1EO38t0
+	 ziKUgy87KE35UJ0qwohzU5tl2TRUT9jG+Y38vSbe3MaWYNbGwO6ccVNnxWUPInMH6ofSk
+	 WUJVNqJOtKOcs/iNh9wLyhzwYMbjxC79uHgPeB8B+qGGkjZDn42YkbteLOGe92/UHnVkL
+	 uBNNOQy/IR83LO7SM9Bc7LjzzHFYPF4f+KEjqKG/P+np2fl5C+y/xBoRo73Gvoup6wRNg
+	 FklqJDF52nCuGOPNYItdmKW0cRyR2KjmKn/wsXlQnbGBNtkzDwslAYkNQlatbzFLCyQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290719;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7j4ZkRwyXw7fmRhYE9lsi9fnMe99t0IsGQ1HSh6+zso=;
-	b=K9F79ee3cAcCu4PeOX1wQ23cF6sbmDFoxjeI5O8OggWAhH09EAz6wz2UT9m6byANBTjL
-	 LKMo3Gyu5uJ2ywN+HntmUD/rHlXduWymNQlMyzjIotJkkaLffHS9J6gy3EVie73D5Bxtn
-	 wQezm8J0O6+7ZlzUpk0da7hTp4jiBQMl68xKuiAVMF0ifaTOtIZEkJzeFmAK9oJXefRty
-	 5yWzWPWC9QGj87mcZe1VQcOJUG5OodgYqFnTVJ1iKxxIgm08zQD7RANylUaCJjERcsZVE
-	 KqMUlL13ZpkQZzZhRCPRAn/gWsBu96Ot7378zOdQVhHM+mxX7QjOySRMcpXmGyLWGmw==
+	bh=8zeMjgHtH+jl0mAhl3Yfo7dOP5XDL51x/S4JII5wCbw=;
+	b=VDPD0L5aa1dOJSPrKU1JvhvRFWZ03G1vM9p6aXKgFkw7TyTol+6hZ+uD/5aSDnfn0pbH
+	 +5e5MaZGnqdG0Dbuvge6n3j/oAAdUOleyP4F6z5WMICOmtzHzSvuxg4jut5EF3fqpsXOl
+	 uvm+I93sM3sg+oTWvZPEA9l7FxftW1bQBzNTgxd/7MPgvK3T1ENg2dsTUXPge/6FB/ROZ
+	 uU3N1iZvbFqOzPJbtGF/I2EDZkKfjQABufCR4YVvJLEy6eNbh5W+p50gjnBbZmX2tHXlb
+	 l49oaLYSrsMBRQ2e1zt0DOKnFOfCwVPmwHiWraEBZ7Z/XSu/QrrQ9ytuvDdeG/e/ZPA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqkhoaJi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUA5AbH5;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6C3606A330;
-	Tue, 10 Nov 2026 06:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49794606A332;
+	Tue, 10 Nov 2026 06:05:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqkhoaJi
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUA5AbH5
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794290616;
-	b=QggrAHDbBrnUc+MyotqVhpy13EUQt8T+HR30YVvgnF2cdZvdKcaAsvoeom7oNTzSPgg7
-	 rLU3u+ronNR35xPEJCOJ7uE2lP6bziGtSLYXnyF9QTzxYnwQ6Fb7t+oy7k/60/cwD9LDi
-	 Uj9FFUAeZ4vzgSNmTSuPWFUZiSxfbpnHSULilj99YTBhR5gxwQN6hWXXXilnxkXzPvZ7n
-	 geUh1krCrBoZdblnWtGJGDV6qDzEG2ydFkkFN7Jq788lRNapRA5kjWiznm20s0Wm6lfHe
-	 5vLrgK5n1so+jfS0DyuKXvryMsWPkglezNgm5AHrkdXNVjpqn8kqxRDM44GkEg6HEYw==
+	t=1794290718;
+	b=2Gw6Eko2Owb/4XGGOWRzlmcPeDjqDOEzdimRaTejCNqppIE5QC7mesmmX6WvC9kCc0WH
+	 8bD1sQAr+pVyMfcU9Qwk3F++LBK/sLoTXirWofKoE68iw8DOJbJgr7OnTUPujp1UF9XzX
+	 VpkCpUvTH4ABjvjXXvXghcqt5R+gJEz+SF/PvIRsZfKijYpeqPVnq9fQ5dSCgHNpkMjHC
+	 Qx3/pbS6ddYmGkX1G65PfILIRW7hDfTsTgEZWpNaAt5bQsrhi9a/KNmySwb0AIUyxtUHs
+	 urpYGSKA8sW7egcn8EO0OLAfA7hYGHXfHpBeSp7KWOmiEkH54EeiQpfGcVg3nbphW9A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794290616;
+	c=relaxed/relaxed; t=1794290718;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7j4ZkRwyXw7fmRhYE9lsi9fnMe99t0IsGQ1HSh6+zso=;
-	b=ovRGRoGJAzLlTGXqeWoU72IwtTeDVxabr+WLu2WIr1fZlOjspv6HhLwZOLrL/rA968/J
-	 owlN9JJTAt62hWK9NoJYgmghV5+4XSEk+lLgL+njd+cuD338lnjD7YKsUEaJTPzg5NZVy
-	 onQPi3atPXPIiT1DCP5WeCT6KcQs4XnxS+22ABBhpbsh/hVn1z9qJAeB/b8zG1JBCcNRY
-	 qI5wqqFVcjlz2fGZ2IvkxQg0DtYdj5XYrtbT5YweMUbvOE+wkI9Kwc64zzKRXqNG7+s/4
-	 D7iSn/uSsiCPUtl/B04DIo5LuyDbB92ik9DREmnTo7rgM8QKToBKRxxgJ1LddB0ViQg==
+	bh=8zeMjgHtH+jl0mAhl3Yfo7dOP5XDL51x/S4JII5wCbw=;
+	b=KhgZKvsGUjfp1kNzETJSU9DTss7KAWScz4XsntEibqNRDd55jF6vQr8d/cDJiYl7f5bK
+	 yvcJKM15beQr9vLs3ChVvfJnoDTCp9FaDt5PMGLCAO3FGfat+Z7lmmQt7ayKefw3atBMZ
+	 tS/skgayezs5KVcR7bOngO6aMGJfyvn1/di41pfydwvWpxh6zc8te7RnTrvyqzlAAOvFu
+	 w7kkvsRnqolCqe1zQhPXhcAbSjJ34+70qUzpPIgw0HZT7f241nEfmkWs7LBAlTJk63gau
+	 tjx8S6CtJ5mmlHGJFMIeIMAcR7xg2UGY/fWgjDFoGNTrkPzmQB2QwtYCZdCJrKwBtOQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9AAA31F008A2;
-	Tue, 10 Nov 2026 06:03:35 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0162D1F008A2;
+	Tue, 10 Nov 2026 06:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794290616;
-	bh=7j4ZkRwyXw7fmRhYE9lsi9fnMe99t0IsGQ1HSh6+zso=;
+	s=k20260515; t=1794290718;
+	bh=8zeMjgHtH+jl0mAhl3Yfo7dOP5XDL51x/S4JII5wCbw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iqkhoaJixNaEZGwlP7iaOv6TR8+TrD4wN10VDtod2gSKgSyRPSmfR8Ac+x+5OqgHb
-	 tRI/1Hpe05gCqnPIsX+F0q66az29PkEcq7I9uAcZCpIZDF99p/gbGo+DYswGybO0Yr
-	 VIrZvriqzg6RSO3qxRbXmIVtDV0B7r6S+AgczqBOEjZjcAl/Fg2or3BNQwaWJd6lkf
-	 nXG9hAf9L094Ze0QG4XmWRgrow+OzDOr9tdl97iinfTSuyZ/UrJ+JCUfgoixwTUDRo
-	 aonlhhmWxLhztR1ZS3kbHy2ZaFWs1GAFZ3SJ6pgkBbnb5VBi3WJhGgBBsAVi2av2L4
-	 5KgmhjIK13WRQ==
+	b=KUA5AbH5ypd71PbB8MjbUaG5mVlq0gRLZ0xU2z+Is/GGgiXBgQmRE/ZZw3nDnLmcU
+	 RX3wUemJYKAsoX0rnXyyiDhNfxClDAmvQCGOB2r6r18m7s9KtSfM7fGSwehpzVohy5
+	 OLsLyn1DOxXCm1ctQseiW2BJadYMK9JG51R692vZQMYFpaM8Va51EjBmoX9tPuWGrO
+	 mOCq0ryh4QoRHVZ/bumM32Qbj0zIy9gWUrT5MVyilgX4jdCdDdDHMr2zNU5VlSCf1I
+	 pdoMWJWV5WQ7w0ahIASd79IZ1HFiJCXQqSB2A7WhWBhi6xqVzVq1b9KW0OGvrB982o
+	 dLsVUNrTFVOPQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2C8A0488D7;
-	Tue, 10 Nov 2026 06:03:35 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 81F2E488E2;
+	Tue, 10 Nov 2026 06:05:17 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 06:03:36 +0000
-Subject: [PATCH net-next 2/2] net: stmmac: dwmac-sun8i: Enable jumbo frames
- up to MTU 2018
+Date: Tue, 10 Nov 2026 06:05:18 +0000
+Subject: [PATCH 2/2] iommu/sun50i: Print the page table level and status of
+ a fault
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,26 +84,21 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-sun8i-emac-jumbo-v1-2-84bf00e9ffa3@gmail.com>
-References: <20261110-sun8i-emac-jumbo-v1-0-84bf00e9ffa3@gmail.com>
-In-Reply-To: <20261110-sun8i-emac-jumbo-v1-0-84bf00e9ffa3@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com, 
- linux-kernel@vger.kernel.org
+Message-Id: <20261110-sun50i-iommu-prefetch-v1-2-43428e792ef6@gmail.com>
+References: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
+In-Reply-To: <20261110-sun50i-iommu-prefetch-v1-0-43428e792ef6@gmail.com>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290614; l=4734;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290717; l=3756;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ZPiyfCZmfSnwUUZ2KWrlwC/8CYyWh0WpVDKIRZLdbyA=;
- b=rKIpUVWHTnbdoyIqofyDn2uTAGdmjCHH77Y6R/mjiVOYw8kDcJLjl3SUGBGfdQBu84DirQ8YF
- B2bwr757bDBBc8ygm8GGZTULgHil+lI7aryjIKAjQ5wGak7UDLbjNPR
+ bh=FOk5fAnA+iXFlIIjGN70elq+MDZGG6Z5UuNNT5KUp+4=;
+ b=Ke401L8ggwrBzgJ1veTdvXAv5Z7iGVXZAsKveDTuHCUhkwNwL6vwmYSTaDdhto2pYI48JS9Zx
+ oqKynhLPP7LBfZC3PeHv56uwETGl3It0XY7iTMOBrtxGTfivIU5eFbo
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -114,112 +109,103 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The sun8i EMAC advertises a maximum MTU of 3712, but no frame larger
-than the standard 1518 bytes is actually received: on an H616 board
-(Orange Pi Zero2, RTL8211F over RGMII) every ping above 1472 bytes with
-DF set is lost, and the rx_length counter goes up for each one.
-
-There are two independent limits:
-
-1. EMAC_RX_CTL0 bit 29 (JUMBO_FRM_EN) is never set, so the receiver
-   rejects frames longer than 1518 (1522 with a VLAN tag) bytes. The
-   Allwinner BSP driver (sunxi-gmac) sets this bit unconditionally at
-   init. Set it in core_init as well; core_init runs after every DMA
-   soft reset, including the one done by an MTU change.
-
-2. The EMAC has no Synopsys HW feature register, so stmmac uses normal
-   descriptors in chain mode and, without enh_desc, sets max_mtu to
-   SKB_MAX_HEAD(NET_SKB_PAD + NET_IP_ALIGN), which is 3712 with 4K
-   pages. That value is not a hardware limit. The descriptor buffer
-   size field is 11 bits wide (the same in the BSP and the QEMU model),
-   so ndesc_init_rx_desc() caps each RX buffer at 2047 bytes, and
-   ndesc_get_rx_status() discards any frame that needs a second
-   descriptor. On TX, stmmac_xmit() only splits jumbo frames for
-   enh_desc, and norm_set_tx_desc_len_on_chain() masks the length to
-   11 bits, so a linear frame longer than 2047 bytes would be silently
-   truncated.
-
-Moreover, the RX DMA only fills a multiple of 4 bytes of a buffer: on
-the H616, with 2047 programmed, a 2044 byte frame (FCS included) is
-received in one descriptor and a 2045 byte frame already spills into a
-second one. The usable size is therefore 2044 bytes, the same value as
-DESC_BUF_MAX in the original sun8i-emac submission and in the U-Boot
-driver.
-
-Limit max_mtu so that a frame with two VLAN tags and the FCS fits in
-2044 bytes (MTU 2018). A device tree max-frame-size can still lower it.
-Longer frames from the wire span two descriptors and are dropped as a
-whole by stmmac_rx(), which drains the descriptors of a split frame
-since commit 834ec9530832 ("net: stmmac: drop split frames on AF_XDP
-zero-copy RX").
+A page table fault that the hardware does not attribute to a master is
+currently printed with master ilog2(0) = -1 and nothing else, which says
+neither which walk failed nor what the interrupt register held. Name the
+level (L1 or L2 page table, or permission) and print the raw blame
+register next to the master, and print -1 explicitly when no master bit
+is set, so such a fault is still diagnosable.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 24 +++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/iommu/sun50i-iommu.c | 31 ++++++++++++++++++-------------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 0c82662fbe6e..a18d3daf6a3f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/drivers/iommu/sun50i-iommu.c b/drivers/iommu/sun50i-iommu.c
+index 1b7a7f0d9b62..47e398e25a51 100644
+--- a/drivers/iommu/sun50i-iommu.c
++++ b/drivers/iommu/sun50i-iommu.c
+@@ -874,11 +874,13 @@ static const struct iommu_ops sun50i_iommu_ops = {
+ };
  
- #include <linux/clk.h>
-+#include <linux/if_vlan.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/mdio-mux.h>
-@@ -219,12 +220,25 @@ static const struct emac_variant emac_variant_h616_emac1 = {
+ static void sun50i_iommu_report_fault(struct sun50i_iommu *iommu,
+-				      unsigned master, phys_addr_t iova,
+-				      unsigned prot)
++				      int master, phys_addr_t iova,
++				      unsigned int prot, const char *type,
++				      u32 status)
+ {
+-	dev_err(iommu->dev, "Page fault for %pad (master %d, dir %s)\n",
+-		&iova, master, (prot == IOMMU_FAULT_WRITE) ? "wr" : "rd");
++	dev_err(iommu->dev, "Page fault for %pad (master %d, dir %s, %s, status %#x)\n",
++		&iova, master, (prot == IOMMU_FAULT_WRITE) ? "wr" : "rd",
++		type, status);
  
- /* Used in RX_CTL0 */
- #define EMAC_RX_RECEIVER_EN             BIT(31)
-+#define EMAC_RX_JUMBO_FRM_EN		BIT(29)
- #define EMAC_RX_DO_CRC BIT(27)
- #define EMAC_RX_FLOW_CTL_EN             BIT(16)
+ 	if (iommu->domain)
+ 		report_iommu_fault(iommu->domain, iommu->dev, iova, prot);
+@@ -890,10 +892,11 @@ static void sun50i_iommu_report_fault(struct sun50i_iommu *iommu,
  
- /* Used in TX_CTL0 */
- #define EMAC_TX_TRANSMITTER_EN  BIT(31)
+ static phys_addr_t sun50i_iommu_handle_pt_irq(struct sun50i_iommu *iommu,
+ 					      unsigned addr_reg,
+-					      unsigned blame_reg)
++					      unsigned int blame_reg,
++					      const char *level)
+ {
+ 	phys_addr_t iova;
+-	unsigned master;
++	int master = -1;
+ 	u32 blame;
  
-+/* The buffer size field of the EMAC DMA descriptors is 11 bits wide, and
-+ * the RX DMA only fills a multiple of 4 bytes of a buffer: with 2047
-+ * programmed, frames longer than 2044 bytes spill into a second
-+ * descriptor. The stmmac normal descriptor code used for this EMAC only
-+ * handles frames that fit in a single RX descriptor and a single TX
-+ * descriptor buffer. Bound the MTU so that a frame, including two VLAN
-+ * tags and the FCS, always fits in 2044 bytes.
-+ */
-+#define EMAC_MAX_FRAME_LEN	2044
-+#define EMAC_MAX_MTU		(EMAC_MAX_FRAME_LEN - ETH_HLEN - \
-+				 2 * VLAN_HLEN - ETH_FCS_LEN)
-+
- /* Used in EMAC_TX_FLOW_CTL */
- #define EMAC_TX_FLOW_CTL_EN             BIT(0)
+ 	assert_spin_locked(&iommu->iommu_lock);
+@@ -909,19 +912,21 @@ static phys_addr_t sun50i_iommu_handle_pt_irq(struct sun50i_iommu *iommu,
+ 	 * stalled or cached, so there is nothing to report, reset or zap.
+ 	 */
+ 	if ((blame & IOMMU_PG_INT_PREFETCH) && !(blame & IOMMU_INT_MASTER_MASK)) {
+-		dev_dbg_ratelimited(iommu->dev, "page table prefetch of unmapped %pad\n",
+-				    &iova);
++		dev_dbg_ratelimited(iommu->dev, "%s prefetch of unmapped %pad\n",
++				    level, &iova);
+ 		return iova;
+ 	}
  
-@@ -645,6 +659,15 @@ static void sun8i_dwmac_core_init(struct mac_device_info *hw,
+-	master = ilog2(blame & IOMMU_INT_MASTER_MASK);
++	if (blame & IOMMU_INT_MASTER_MASK)
++		master = ilog2(blame & IOMMU_INT_MASTER_MASK);
  
- 	v = (8 << EMAC_BURSTLEN_SHIFT); /* burst len */
- 	writel(v, ioaddr + EMAC_BASIC_CTL1);
-+
-+	/* Without JUMBO_FRM_EN the receiver flags every frame longer than
-+	 * 1518 bytes (1522 with a VLAN tag) as a length error, so any MTU
-+	 * above 1500 is unusable. Frames are still bounded by the RX
-+	 * descriptor buffer size, see EMAC_MAX_MTU.
-+	 */
-+	v = readl(ioaddr + EMAC_RX_CTL0);
-+	v |= EMAC_RX_JUMBO_FRM_EN;
-+	writel(v, ioaddr + EMAC_RX_CTL0);
+ 	/*
+ 	 * If the address is not in the page table, we can't get what
+ 	 * operation triggered the fault. Assume it's a read
+ 	 * operation.
+ 	 */
+-	sun50i_iommu_report_fault(iommu, master, iova, IOMMU_FAULT_READ);
++	sun50i_iommu_report_fault(iommu, master, iova, IOMMU_FAULT_READ, level,
++				  blame);
+ 
+ 	return iova;
  }
+@@ -976,7 +981,7 @@ static phys_addr_t sun50i_iommu_handle_perm_irq(struct sun50i_iommu *iommu)
+ 	 * operation triggered the fault. Assume it's a read
+ 	 * operation.
+ 	 */
+-	sun50i_iommu_report_fault(iommu, master, iova, dir);
++	sun50i_iommu_report_fault(iommu, master, iova, dir, "permission", blame);
  
- static void sun8i_dwmac_set_mac(void __iomem *ioaddr, bool enable)
-@@ -1209,6 +1232,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->mac_setup = sun8i_dwmac_setup;
- 	plat_dat->tx_fifo_size = 4096;
- 	plat_dat->rx_fifo_size = 16384;
-+	plat_dat->maxmtu = min(plat_dat->maxmtu, EMAC_MAX_MTU);
+ 	return iova;
+ }
+@@ -1000,11 +1005,11 @@ static irqreturn_t sun50i_iommu_irq(int irq, void *dev_id)
+ 	if (status & IOMMU_INT_INVALID_L2PG)
+ 		sun50i_iommu_handle_pt_irq(iommu,
+ 					    IOMMU_INT_ERR_ADDR_L2_REG,
+-					    IOMMU_L2PG_INT_REG);
++					    IOMMU_L2PG_INT_REG, "L2 page table");
+ 	else if (status & IOMMU_INT_INVALID_L1PG)
+ 		sun50i_iommu_handle_pt_irq(iommu,
+ 					   IOMMU_INT_ERR_ADDR_L1_REG,
+-					   IOMMU_L1PG_INT_REG);
++					   IOMMU_L1PG_INT_REG, "L1 page table");
+ 	else
+ 		sun50i_iommu_handle_perm_irq(iommu);
  
- 	ret = sun8i_dwmac_set_syscon(&pdev->dev, plat_dat);
- 	if (ret)
 
 -- 
 2.55.0
