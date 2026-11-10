@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298992;
-	b=Eqlgumm7dobgZFgvmma4PvKuoc+Wj+1DiWryypjv6jyVd1Alqofw9uiLspQZVbyFEXX3
-	 duXlW9DLLnrFT50mFeVTq4LEwDV1uL2Rw/X+cV0XJnfn9cwy6GFFgPwvl6ZXRu9yyEAFT
-	 zGAxBJw/0SwJ1o3ebkG/1KRruGkM3KMHcvi6JaWVmDNFE7vlrM7PnwtRbgan9yHKIX9HE
-	 tFLoMILS3JGUk7tS7+c9oSE6jUdK6jkRUDptZo9quDGpDl6kexurD7ceb4IV+sbUGaYhE
-	 dDMfmZnTgQtmgG6/smpIdDvLLxuyKl55HGTtzYHFkUaPd/0pKBIG9xDICqtzHBjsuUQ==
+	t=1794299008;
+	b=g3yjm6Swdq9iJL/y7nMRKmJywheDi0o6OQMl3Cf75D3hnagC8Pw2P15S8qcHXr6sgJbr
+	 pHy28Nn9gsf+x4N7sQF7Hkhi8DhQRVjNfbc5x8ezSsiYI+TxwlezEMCn5rbQZK5S2ZJHo
+	 QDW6P9J1uwgIIZQheMGQK7+B99Xj2D+VYRnDiJ+h39IO3XIaldTNYKfXpOXMkBfqqup/g
+	 9+zGoX9JTOGA1Qy2W8QzSJpZPK1Vy8m9ytxmTz/d5aTxIOHnJbZ9YOr+Y099YOH4Wty7F
+	 g/1n+yT9vR9vftrzGInVBjtFYvpYWlCEC6zsvrFE+0vpGZoCDy0Ah9CLMEZn2xBaQOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298992;
-	h=DMARC-Filter:DKIM-Signature:From:Subject:X-Original-From:
-	 X-Lms-Return-Path:To:Cc:Date:Message-Id:Content-Type:Mime-Version:
-	 X-Mailer:Content-Transfer-Encoding;
-	bh=KnpGxHncAo0Zik1LXhxMT/JZ7malhv2rLRIQwcX0R+U=;
-	b=sajZWCmI94Ygv2JpY/6M90jsQAOWgBcEl2BR2gkmedZsd32K0Dfq4IR+sJKb06IFy2uf
-	 Jo1LpxiFZqrPRi2dtldNbbLdokcMKmOgSwS+JBh3UYGmkT5UPfc9WFepExknMut4SMmg9
-	 KiXB5njHUwBmd2HzGmMbdtAlPLpptu5TvBV2OHR5e8L3KnIZy3QYJIhoXKH1/TMz3ZrZc
-	 QhxD0WqhwwL6yOyzOBKxeAjR+fdMpptOl6HbADJpJnHl3nVl4+5qZv5O40rgiWI4bjDKl
-	 bSZYlJCCR8dYn5qN3of1JbfnrkEhEpzkVu4UzLtfgJFTyr/neHnHrBuWkCI/xWKJEEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299008;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4CxrLZlhsnLdjHdcH6odGSKbaksvNehmIBPyUx6+8A8=;
+	b=JlZ/LUdICAlEdf95b3ByNdFWD9V5VhzFZcbgCeLP9OLMzFvag6PIxQxKjyCTwtqXByhH
+	 /cf783jlbXLQKc0dtCTqlOVHAORmmOHbjFlnZd0TVwBTRJoKkzNveiCfag9tJmHA7wta9
+	 paRzcjjamrujYXByC29napaGmH87lha0JnC36snkSnseCU3HTD6OoF5xezQ10SfTO/6Fa
+	 2IYboUvYu6cj2fwsSQxZnByFetio8A5KD6zHXOe6rxVkQbVlTFDu9najyVIY1gTKEtnM+
+	 9qjfJFGv+kjJoOi6WV8+nH3BORWTNwtOP6x86CmBf9KXhVX4iuRvrB/rqu+/CQ+eJ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QGv1NQJj;
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73318606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:23:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73318606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lSWsvL34;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CCEC606A325;
+	Tue, 10 Nov 2026 08:23:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCEC606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QGv1NQJj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794298985; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=KnpGxHncAo0Zik1LXhxMT/JZ7malhv2rLRIQwcX0R+U=;
- b=QGv1NQJjadlnxkDsZM4fwAN9W6UA7hzhdqZB1DapSdXAPjXFD6IK1t0SzTHkzFlEkN11pO
- 3UCwhdywKJpMEBM1hB+OFYrMFIvLDVeddP+sZqVVE/3yVBrppM8nt0n8q+O8EgkGTV/mgP
- y6pxBSdsKl9eOTUPV0x4sPkBDDgRuL3SzvLb9pteOHMDA4OOghGpIlRltN2EDgh2SBghb+
- zqs5PwTKB+8PSPUffDL0drFkFX6uCGLuMoy9F8eN11l1vWUCKzjC0Fo6vc7iJcBf1WwiSp
- wn/5+QX0LtdW1L6LCKiDcb3XC3GmvjX+8TpKIjkuQGn083X6P6T+2zzBU5Pd4A==
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: [PATCH] io_uring: cancel pending poll activation on ring exit
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26af2d467+8954a8+vger.kernel.org+zhaogongyi@bytedance.com>
-To: "Jens Axboe" <axboe@kernel.dk>
-Cc: "Pavel Begunkov" <asml.silence@gmail.com>, <io-uring@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Tue, 10 Nov 2026 16:22:46 +0800
-Message-Id: <20261110082246.18986-1-zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lSWsvL34
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3BD4F1516;
+	Tue, 10 Nov 2026 00:23:23 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B9863F85F;
+	Tue, 10 Nov 2026 00:23:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794299006; bh=Fl19Ryaf0hHQ4aMbgjvRFTo4nuE32BVuV0ZlxaZOhio=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lSWsvL34M78tV3BIMDLbw/jmNXTj+YeoDW2V2Ihv1AgrovPFzPDVM1wdRqM/mh92x
+	 AfsnD3BwMbT7jxmBEfpYCeiHcxa1DpCoh2FgBk/pU8N+Hhyuab5ONtzv0s3YtXESzT
+	 C289T8bTqip/4SqJVn3ZaHVbG9bupQiiMPFRIXZU=
+Date: Tue, 10 Nov 2026 08:23:20 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+	f.fainelli@gmail.com, vincent.guittot@linaro.org,
+	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+	philip.radford@arm.com, david@kernel.org,
+	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 03/35] firmware: arm_scmi: Introduce a dedicated SCMI
+ Errors header
+Message-ID: <avLUeIlY89i5Mahs@pluto>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+ <20261109091221.2532706-4-cristian.marussi@arm.com>
+ <20261109140129.00004b4f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,41 +69,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109140129.00004b4f@oss.qualcomm.com>
 
-The first poll of a DEFER_TASKRUN ring queues activation task_work on
-its submitter and takes a ctx reference. If the ring closes while the
-work is pending and the submitter cannot run it, exit_work waits for
-the reference and eventually warns.
+On Mon, Nov 09, 2026 at 02:01:29PM -0800, Jonathan Cameron wrote:
+> On Mon,  9 Nov 2026 09:11:49 +0000
+> Cristian Marussi <cristian.marussi@arm.com> wrote:
+> 
+> > Add a new dedicated header and move all of the errors definitions and
+> > mapping helpers into it and out of common.h so that SCMI errors definitions
+> > alone can be easily included in protocol files without all of the unrelated
+> > additional stuff contained in common.h
+> 
+> In ideal world I'd move first and add the new codes later.
+> (so swap this and previous patch).
+> 
 
-Cancel pending activation before waiting for refs. If cancellation
-succeeds, release its reference here; otherwise the callback does it.
+Ok but logically the new separated header is needed by the fact that the
+new added error codes has to be checked in-protocol and including
+common.h in protocol unit bring in a lot of unneeded stuff.
 
-Fixes: bca39f390585 ("io_uring: add lazy poll_wq activation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
- io_uring/io_uring.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> Trivial thing but reduce the patch size a tiny bit!
+> 
+> Other than that, seems like there are enough of these
+> for a separate header to perhaps make sense.
+> 
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 5db57bf675f0..bdf996955f68 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -2593,6 +2593,10 @@ static __cold void io_ring_exit_work(struct work_struct *work)
- 	struct io_tctx_node *node;
- 	int ret;
- 
-+	if (ctx->submitter_task &&
-+	    task_work_cancel(ctx->submitter_task, &ctx->poll_wq_task_work))
-+		percpu_ref_put(&ctx->refs);
-+
- 	do {
- 		io_ring_ctx_cancel(ctx);
- 
-
-base-commit: 39c7210e970200f8b17de3767c73efe64173a95f
--- 
-2.39.5 (Apple Git-154)
+Thanks,
+Cristian
