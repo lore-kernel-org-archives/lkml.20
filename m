@@ -1,85 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314748;
-	b=P331raJbYp7ax6hNqgOWBpD5rvyBa1dQTyL01iD7QXUng8iRcM5ecoH4Y+ucC/wqMO18
-	 d3FuAr56irteb1tWrbBE/5GUTwlECu2flnaJ+Q9UFLMGRipz8uO/7htjkJI0GaY3dN8vJ
-	 /bzQEKMWDhz6oXm6a1XFI2LwyW2G+QKysRmUCvPQgmmNkXa0huhKTq+FDd8w8zye+S7pm
-	 l2AcELRb2zDKdNs1cnC6FZ1AO4oti0ZnM9bpmyqDSySw/RL0KD+a4NMLgI92/5n9FRYSy
-	 BCAneSeys22cWaI5S7qnZOwUA7sYXu907oKwh5D486bP7rircmg3la3ygdWbyIRgyjA==
+	t=1794314794;
+	b=aRaI0IPvX9fyzGNU8z4rhW6vsYmUikMSuIZ9wiS3ylxHTqTH3yyhfChTCoWroWl29FbI
+	 AWRgRL5f4iHpPJH5CXv72rHjcJE3gIUH8STUQ/IVxUW7c6H544KJsozh045diO53jJze5
+	 G5VquAFz2ShpvKhVLJZ1heY+ENwkf4eSNfTyecuFCEF4o/YzmnxqxYzCINPwcu/c8MjTK
+	 vRZ+Zyyd1dUU7TnzIr+0MVeMVI2u+MHXC2jmD6Poeu9epctVHA0u2NVQqPtV/g2+FryCW
+	 yVEQ8OaF0dD29MbHdj1wJrW8ULgAfbn3YJ7/4nKwelEWcNMvGvB2rrzMMKz5S4qCXYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314748;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=/n0bim+DZunsCFW3lXGEDWBVlO3l7mvDuQoSVxWJW/Q=;
-	b=ux60NynD05ekPd8Bv2Nat0lzMhbvqjVRHMoMR8+3WSzphqVIiqIe24XwwwBPitr4L+vY
-	 djiNZYnl/6/MkgL91mjFPhargjD+Gs60eGfQboPlQpBs2GlnG+k/FpsJ6ThngUFbRjg5y
-	 r4YQSh2lESJYZRXWz7X2rNvPeq0zH2hib+ZCdeXpLtZ8KM2ihIri6LUZe9bWRCw3ACwJA
-	 gu5t3ngYdgLp0GFeqt0ZAXlvCXheTJA65+89aKvGEfN6uvxehVBVZV3vY7kYyG5vCzvNM
-	 GiQlKDzo4jnzIuZC5qNf9Tzm2uIZwhi8yZpDBSIpC1OCV70lAuVfxdIemm4rHt4ytcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314794;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=74G19pmPKgFskXMMqzM3YOhI7qcVhKFNeIMLbYsSlng=;
+	b=UXnvbmZyx2FN5clTFm9aIQVbYaBk4xiErY5kIVks7Z3PL6EiVLR97fNSIhqGxD//ooQH
+	 XPtxVF4JS9YNBE/CHqr3uzNGw44UPfQI0CAyfFjvY8kqqM+/4hK678lEYJqbFsfdU2XG6
+	 YFrVySLnCVa7aNaEJE+Bgdc8fnK4hDYd9rid0anxzwsEyrHdwwx1WvRJMsbCUPMD7vuis
+	 Zy57U2kJeOwE6L+NV3ts8xosJ445hCGLlEHRwQkuF40gnQNssI5QaqqVwUsNPHXeRGlbm
+	 YAIBmKusDZkPsMzaMr72xRf/Q9XzrKc3wbVrE573gJGovV7a5WWIlqmCJ5/0Q6ddMkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tiZ1cWKS;
-	arc=none smtp.remote-ip=209.85.222.181
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VgZih2zJ;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD801606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD801606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1477B606A326;
+	Tue, 10 Nov 2026 12:46:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1477B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tiZ1cWKS
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93a40a9a01aso249184585a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:45:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794314746; x=1794919546; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/n0bim+DZunsCFW3lXGEDWBVlO3l7mvDuQoSVxWJW/Q=;
-        b=tiZ1cWKSpc9uAv0SdzmnaMzMNtVSWuInLRsIW8yxgbXOcAaw21fF2tKef0pbuZrtXH
-         +aQ0sd4xtOF1PnF3vnvB/LSDXBjOSrJErA1oSrgBc5DZgQQdjpCJX+hYFYkQ4WAITkAD
-         fDzUDn9nje5T45hIFzVxmaTKlJ7xpWldKxWedK8WqnRk4paqGkz2je46okt7IFJGjZmi
-         IDx5hHlZnatMfaYpoQrRjZDuIA3xr1IeGibAjwN+3PFyfGCzOb4qJ5s4+cM13tYMewmG
-         fq8+WmwDUI0puflffDQkswi8ZZ+69IhDbpzipsofhkc1Uo0K/GcDMPq0tP6kmv9F6aTl
-         n+Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314746; x=1794919546;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/n0bim+DZunsCFW3lXGEDWBVlO3l7mvDuQoSVxWJW/Q=;
-        b=TcIe9/I9Y3rGDjY67n49XpZlRmahf38/bAaR61wdJAiIWMxq+K5tYZAoQCyqnFfHWj
-         gR3g2JHv1VvhiwvyyKhs3WQH0xjHm1V7iNRH90jnFKbmmZ9nIYkE7WyyB22zxL95cqWv
-         rRjTxyLQc6nD0GzrOtvnWdn+asjYdY/ZTvyur5HQIl/Ji6Aef57pbynBEdPs6+cz6D5y
-         Sx+joRfys26WstnjPTeq+r+Cz/0u8uLEKpf9qSoykhHSvWcX/SzVQRZRvfbjBW/xgmBs
-         eZxKbUIDPW97zwmG905h/hkpuoHfqHTucVgGXfyhmzwAmhtwyTF++3Om2H4gYsl+fWE5
-         PICA==
-X-Forwarded-Encrypted: i=1; AL+hErHJWv6LDC2MaeP/FtaNdKAbveZVifL8H84fTxtiewpYXCBGaPe3HeKjHXGN6+7oV9RhFJdRwe5Dij/hdf4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pZ5xfnVKDZC+mYq9P6t6n/YCnEO5SG71u/3/Oy/I7IXsWocGl
-	q2J2jrrILBl3w6RyFtu88dbIKnYJoa6UVZGsTfnOXwlaIO6X06WWpYPO6P8e+VMvo/s=
-X-Gm-Gg: AYBFou1a2Fe5CNpl3KlRl6E6WVuWCXoNaNF6y9U+CeYg8VLzaZUf/sOQu7JkoezBZSL
-	arblq4wjhsnfQZefK12tJWS3/gXzAPW4xQSMmNYNF4k8cUoHi8bo/TqvSU/4CDUIPiIaldzRV7s
-	DaOww6UBCNkTWmBB7BVHxd5W4hfakQpOKPuoDvOnJ9IqLoyNaq1hHW5mVQl6uoHRFGeyJ4WoSi2
-	vUNX+SKlFZU2g8STh82qlQaXWpDvmz4ZHHCCB9R2J+S/S9wW5HqeA11Z7lIDxqgp/Nvth/aGA9k
-	czW5HIb+8rounWLZwWpd1ifs9xBncaggwFbpd1l+aCvpW2GbtbtAq6nr7AhVpCGfwxCAs7ibyJP
-	UB2vHUDokZgmf2aO4WmWGdSweWPxcm1vqzAN1JEpZA1RmmU8T5l8oGgKUnqDnGO0yykCULCwICu
-	dCML7rUANNgS2ifP5MgOAcibghqlV2DLzCTcjdQiuh0r0Qat8aHVQNmG9iPYKei6lcxSjX/XT4L
-	kF9Q8E0mWct7eaIHw7K00nFQuSZ3+U+wVDGp5dNzZT8zU73JF0Syk5y6uOhuWrdTUaDFvmKacG6
-	jYgSJ2UWwJ8oNuDzOioUanEWGwd5chRr3GW4CNj2obHQIqRxqcvcADCn8MiZ2l2xx6PI7CynalX
-	QpMgyBhE=
-X-Received: by 2002:a05:620a:4055:b0:93e:7ec5:2cfe with SMTP id af79cd13be357-9479f4b6e59mr357636485a.28.1794314746577;
-        Tue, 10 Nov 2026 04:45:46 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73c3ddsm215618585a.15.2026.11.10.04.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:45:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VgZih2zJ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=74G19pmPKgFskXMMqzM3YOhI7qcVhKFNeIMLbYsSlng=; b=VgZih2zJbpE1+7Mmc0TTYtTGde
+	yt+WciGHO2YL1gnkpV2goaaJOv2m76RK0+5th2x5guoX1uFGRADRIwwNLjUQBH0eZYfOi8KVCul1E
+	/qgjMfgOVl9APNaIs41yW6iHw9lFfg+JHBgIfyus+flyyuAd44g6c6e+idAot0F02DMhCHzL75HSn
+	v+jpx7YPWeO664rjxkTg6oBIToGyHZuRiZAd9OKgYPd40OAA0W3/NYCHjmKiUzah38MCx/GwHvnfr
+	Hm7RtwHbMNe6Vd9prr2PXTNCH5j93+YLCGhLNF+L2Z1Q3sM/CENbm73EecPrMs2JUknVqa3fdCrKl
+	G3s4o0vQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQlF3-00CPQj-0Q;
+	Tue, 10 Nov 2026 12:46:25 +0000
+Date: Tue, 10 Nov 2026 04:46:21 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>, linux-fsdevel@vger.kernel.org
+Subject: Re: [linus:master] [fs/pipe] f7f4665dc5:
+ lmbench3.PIPE.bandwidth.MB/sec 18.5% regression
+Message-ID: <avMQxhpHhIPM_6HP@gmail.com>
+References: <202611041404.befe64cd-lkp@intel.com>
+ <20261105-trommeln-einspannen-radius-ccb4e174e407@brauner>
+ <auygOHcuBba_o132@gmail.com>
+ <CAGudoHFpNbxL13ZOWiyyLSPpmzXcB=e=RBZ8ZGk+Oc58Aad9pA@mail.gmail.com>
+ <au2vjpu_yqNa83pN@gmail.com>
+ <CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=uMOzfr=bWmwof69g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,78 +73,257 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] mm/hugetlb: charge hugetlb cgroup and memcg in
- alloc_hugetlb_folio_reserve()
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Hongfu Li <hongfu.li@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>, 
- Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
- stable@vger.kernel.org
-In-Reply-To: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
-References: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
-Date: Tue, 10 Nov 2026 07:45:44 -0500
-Message-Id: <179431474443.789062.10429880669466859032.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=uMOzfr=bWmwof69g@mail.gmail.com>
+X-Debian-User: leitao
 
-On 2026-11-10 14:05 +0800, Hongfu Li wrote:
-> From: Hongfu Li <lihongfu@kylinos.cn>
+On Fri, Nov 06, 2026 at 02:44:54PM +0100, Mateusz Guzik wrote:
+> > 6) Any other idea?
 > 
-> alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
-> consumes a global reservation, but unlike the fault path it never charged
-> the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
-> memfd_pin_folios() through memfd_alloc_folio() were therefore silently
-> bypassing the accounting: they are never charged to the hugetlb cgroup
-> usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
-> so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
-> bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
-> folios are also not accounted in memory.current and are not bounded by
-> memory.max.
+> The SMAP stuff is the primary problem right now. To reiterate: every
+> single buffer read/write takes a SMAP trip, which is very expensive
+> even on modern uarchs. Refactoring this into i/o under one SMAP round
+> would provide a visible speed up. It also happens to not pose a
+> tradeoff in terms of memory usage and would be my first avenue of
+> attack if I was working on this.
 > 
-> Charge the folios to both the hugetlb cgroup and the memcg, just like
-> hugetlb_alloc_folio() does.
-> 
-> Test with a process that creates a hugetlb memfd and pins pages through
-> UDMABUF_CREATE. The counters were read while the folio was still pinned:
-> 
-...
-> 
-> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> All that said, one reader vs one writer scenario definitely makes
+> sense to optimize.
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+I've spent some tokens on it, and it seems to give ~5% improvement on
+the pipe bench. Is this what you had in mind (in a single patch format)?
 
-one note below that is worth assessing but maybe not a blocker.
+commit 724fa7def2700d51a7f0427d0de06c123b3bf8e9
+Author: Breno Leitao <leitao@debian.org>
+Date:   Mon Nov 9 05:04:45 2026 -0800
 
-> +		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
-> +						gfp_mask | __GFP_RETRY_MAYFAIL);
-> +		if (ret == -ENOMEM) {
-> +			folio_put(folio);
-> +			/*
-> +			 * Skip uncharging hugetlb_cgroup since the charges
-> +			 * were committed to the folio and freeing the folio
-> +			 * would have cleared those up.
-> +			 */
-> +			return NULL;
-> +		}
+    x86/uaccess, fs/pipe: copy a run of pipe buffers in one user access section
+    
+    Mateusz has been constantly suggesting that The SMAP stuff is the
+    primary problem right now in the pipe code, which summarizes to
+    anon_pipe_read() copying one pipe_buffer per copy_page_to_iter() call.
+    
+    On x86 every call opens and closes its own user access section, so a 64
+    KiB read that drains a full default pipe executes 16 STAC/CLAC pairs.
+    
+    The pipe's pages are not contiguous, so the copies stay separate.
+    
+    Move the body of copy_user_generic() into unsafe_copy_user_generic(),
+    which leaves STAC/CLAC to the caller's user access section, and turn
+    copy_user_generic() into a STAC/CLAC wrapper around it. The existing
+    callers get the same code. (This will eventually be a second patch if/once
+    this becomes an non-PoC)
+    
+    When the destination is a plain user buffer (ITER_UBUF, which is what
+    read(2) passes), copy up to PIPE_DEF_BUFFERS consecutive anonymous
+    buffers that the read consumes whole inside one scoped user write access
+    with unsafe_copy_user_generic(), then release them. The buffers are
+    looked up before the section starts, so that only the copies run with
+    user access enabled.
+    
+    What this buys depends on what SMAP costs the CPU. With the buffer by
+    buffer loop, booting with clearcpuid=smap speeds pipe_bench up by 4-14%
+    on a Sapphire Rapids Xeon Gold 6450C.
+    
+    pipe_bench from the pipe selftests runs 1, 2 or 5 writers against 1, 5
+    or 10 readers on one 1 MiB pipe, with 64 KiB writes and reads.
+    Throughput change from this patch, median of 2 boots x 5 runs, SMAP on:
+    
+                                   Sapphire Rapids
+      1 writer, 1 reader                  +5.2%
+      5 writers, 10 readers               +8.0%
+      all 9 mixes                    +5% to +15%
+    
+    Suggested-by: Mateusz Guzik <mjguzik@gmail.com>
+    Link: https://lore.kernel.org/all/CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=uMOzfr=bWmwof69g@mail.gmail.com/
+    Signed-off-by: Breno Leitao <leitao@debian.org>
 
-This adds a new -ENOMEM condition on stable which may race subtly on
-two tasks allocating against the same memory.max and cause failures.
-In testing, it doesn't cause splats or anything, it may just cause
-spurious allocation failures that fallback to other paths.
+diff --git a/arch/x86/include/asm/uaccess_64.h b/arch/x86/include/asm/uaccess_64.h
+index 20de34cc9aa6e7..28208db6132c27 100644
+--- a/arch/x86/include/asm/uaccess_64.h
++++ b/arch/x86/include/asm/uaccess_64.h
+@@ -115,10 +115,13 @@ static inline bool __access_ok(const void __user *ptr, unsigned long size)
+ __must_check unsigned long
+ rep_movs_alternative(void *to, const void *from, unsigned len);
+ 
++/*
++ * copy_user_generic() without the STAC/CLAC, for several copies inside one
++ * user access section. Returns the number of bytes not copied.
++ */
+ static __always_inline __must_check unsigned long
+-copy_user_generic(void *to, const void *from, unsigned long len)
++unsafe_copy_user_generic(void *to, const void *from, unsigned long len)
+ {
+-	stac();
+ 	/*
+ 	 * If CPU has FSRM feature, use 'rep movs'.
+ 	 * Otherwise, use rep_movs_alternative.
+@@ -131,6 +134,16 @@ copy_user_generic(void *to, const void *from, unsigned long len)
+ 		_ASM_EXTABLE_UA(1b, 2b)
+ 		:"+c" (len), "+D" (to), "+S" (from), ASM_CALL_CONSTRAINT
+ 		: : "memory", "rax");
++	return len;
++}
++
++#define unsafe_copy_user_generic unsafe_copy_user_generic
++
++static __always_inline __must_check unsigned long
++copy_user_generic(void *to, const void *from, unsigned long len)
++{
++	stac();
++	len = unsafe_copy_user_generic(to, from, len);
+ 	clac();
+ 	return len;
+ }
 
-This implication may be worth a comment in the changelog.
+diff --git a/fs/pipe.c b/fs/pipe.c
+index 4fa69192e6fba1..6f6041c94abefa 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -340,6 +340,115 @@ static inline unsigned int pipe_update_tail(struct pipe_inode_info *pipe,
+ 	return tail;
+ }
+ 
++#ifdef unsafe_copy_user_generic
++/* One buffer of a batched read, looked up before the user access section. */
++struct pipe_copy_src {
++	void *kaddr;
++	size_t len;
++};
++
++/*
++ * Fill @run with the anonymous buffers from @tail on that the read consumes
++ * whole. Returns how many, with their total length in @lenp.
++ */
++static unsigned int anon_pipe_batch_lookup(struct pipe_inode_info *pipe,
++					   unsigned int head, unsigned int tail,
++					   size_t total_len,
++					   struct pipe_copy_src *run,
++					   size_t *lenp)
++{
++	struct pipe_buffer *buf;
++	size_t len = 0;
++	unsigned int n;
++
++	for (n = 0; n < PIPE_DEF_BUFFERS && tail + n != head; n++) {
++		buf = pipe_buf(pipe, tail + n);
++		if (buf->ops != &anon_pipe_buf_ops ||
++		    (buf->flags & PIPE_BUF_FLAG_PACKET) ||
++		    buf->len > total_len - len)
++			break;
++		run[n].kaddr = page_address(buf->page) + buf->offset;
++		run[n].len = buf->len;
++		len += buf->len;
++	}
++	*lenp = len;
++	return n;
++}
++
++/*
++ * Copy the @n buffers in @run, @len bytes in all, to @to inside one user
++ * access section. All or nothing: @to only advances if no copy faults.
++ */
++static bool anon_pipe_batch_copy(struct iov_iter *to,
++				 const struct pipe_copy_src *run,
++				 unsigned int n, size_t len)
++{
++	const struct pipe_copy_src *r, *end = run + n;
++	char __user *dst = to->ubuf + to->iov_offset;
++	size_t off;
++
++	if (should_fail_usercopy())
++		return false;
++	might_fault();
++	for (r = run, off = 0; r < end; off += r->len, r++)
++		instrument_copy_to_user(dst + off, r->kaddr, r->len);
++	scoped_user_write_access_size(dst, len, fault) {
++		for (r = run, off = 0; r < end; off += r->len, r++)
++			if (unsafe_copy_user_generic((__force void *)dst + off,
++						     r->kaddr, r->len))
++				goto fault;
++	}
++	iov_iter_advance(to, len);
++	return true;
++
++fault:
++	return false;
++}
++
++/* Release the @n buffers from @tail on, which a read consumed whole. */
++static unsigned int anon_pipe_batch_release(struct pipe_inode_info *pipe,
++					    unsigned int head,
++					    unsigned int tail, unsigned int n,
++					    bool *wake_writer)
++{
++	*wake_writer |= pipe_full(head, tail, pipe->max_usage);
++	while (n--)
++		tail = pipe_update_tail(pipe, pipe_buf(pipe, tail), tail);
++	return tail;
++}
++
++/*
++ * Copy a run of anonymous buffers that the read consumes whole to a plain
++ * user buffer inside one user access section, instead of one STAC/CLAC pair
++ * per buffer. Returns the bytes consumed, or 0 to go buffer by buffer.
++ */
++static ssize_t anon_pipe_read_batch(struct pipe_inode_info *pipe,
++				    struct iov_iter *to, size_t total_len,
++				    unsigned int head, unsigned int *tailp,
++				    bool *wake_writer)
++{
++	struct pipe_copy_src run[PIPE_DEF_BUFFERS];
++	unsigned int n;
++	size_t len;
++
++	if (!iter_is_ubuf(to))
++		return 0;
++	n = anon_pipe_batch_lookup(pipe, head, *tailp, total_len, run, &len);
++	if (n < 2 || !anon_pipe_batch_copy(to, run, n, len))
++		return 0;
++	*tailp = anon_pipe_batch_release(pipe, head, *tailp, n, wake_writer);
++	return len;
++}
++#else
++static ssize_t anon_pipe_read_batch(struct pipe_inode_info *pipe,
++				    struct iov_iter *to, size_t total_len,
++				    unsigned int head, unsigned int *tailp,
++				    bool *wake_writer)
++{
++	return 0;
++}
++#endif
++
+ static ssize_t
+ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
+ {
+@@ -347,7 +456,7 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
+ 	struct file *filp = iocb->ki_filp;
+ 	struct pipe_inode_info *pipe = filp->private_data;
+ 	bool wake_writer = false, wake_next_reader = false;
+-	ssize_t ret;
++	ssize_t ret, batched;
+ 
+ 	/* Null read succeeds. */
+ 	if (unlikely(total_len == 0))
+@@ -393,7 +502,16 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
+ 		}
+ #endif
+ 
+-		if (!pipe_empty(head, tail)) {
++		batched = anon_pipe_read_batch(pipe, to, total_len, head,
++					       &tail, &wake_writer);
++		if (batched) {
++			ret += batched;
++			total_len -= batched;
++			if (!total_len)
++				break;	/* common path: read succeeded */
++			if (!pipe_empty(head, tail))	/* More to do? */
++				continue;
++		} else if (!pipe_empty(head, tail)) {
+ 			struct pipe_buffer *buf = pipe_buf(pipe, tail);
+ 			size_t chars = buf->len;
+ 			size_t written;
 
-~Gregory
 
--- 
-~Gregory
 
