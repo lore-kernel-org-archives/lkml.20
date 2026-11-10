@@ -1,85 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316236;
-	b=IJkb1iIuAK3DccNm8wWCIdLs1iYhdk8tPaL5OsWQA+I3NVwdj8usQGAn2K7XEwA7ZhIw
-	 +5qTDsz/c2rlh7p+aKNMvuOElhuBdzFHQrJCzKxFWPo3nzGSIHqZCMn6GLsiEAwBcnUfh
-	 /2wy+WetXKiPkanPlUYt54Ac8VwXCjuaNI2q+e3tNNinvp5bml6hCkb0GrteCO333ZZlG
-	 1plLV3ljMUsJcUfUBOcGsabb8GkTpklzPcoknl1wFnzb7stj1NpN0DfY/P9Szf3zKqZUA
-	 9bkChSsWe9lqbxZKwyUA17bQUM+yg3cuVQeSP5eHj3FUD5bS0vOl2llhbyN8ceyT1Sw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316236;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
-	bh=XQDfTOBLyQYKItk/7IbkqTdv3CPMUC9LzGhAb3DHHto=;
-	b=xGSqP6qqVVAk+SYyv4dqFwGMCJANYjMoMZI66V5nv88J19nqswgu/Sf3uEBLHs2VjQ9e
-	 3gNkkBAyS0n1z6zKJ2amPtdrOxEo/4S7f4Q2johcbIoC06jfzKgOAL25iz4LdYeb8SfPF
-	 qbz72FC2vAZ+YEG8YzvJYQYpXzfh5I6+Yg4rWLSYt6JoLuw/2bxrg8uQBTgIS75lDqV1J
-	 Bo9gGtP3vgF8Lo8DOT0qLTXtVkDprb0oIkb87baTsNhYgfM+vCQ7c+l8iUSutEna+3Mmr
-	 BCzRbOlIXYdR27ISr5ukTuVlEttFNAloQiJjPuxeYG2rYDSDIxYhlzq7LvO6f7PitgQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=giz8XH7k;
-	arc=none smtp.remote-ip=209.85.221.171
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794316231;
+	b=JmfZWf1mDabhd/yMeNsH2OewKl19gIbEM93O9czDxoi5WWh0XaS0eqUgOpywN33V0mHr
+	 Abci7YXCBSonqvpsJ0I2s1ucJeL/qoCW1WvUNEe9AGtSqwu4Le7zdATnr2WsFJlf8I1b+
+	 ONmiEfHRAhUr3nd84iJzZoHGJWwn6vmnK3ZppTc3bbNtgS176c3fkCIzwlrgeJP/piGX6
+	 /K3fShoLT2fQd3BXWsw5J5bwnyer6NMcwTMfiiRxi6AfqLe2JKStzzUliKiJ5D2ncf8EK
+	 fGyVidL8i9auZ8amzPdLjhp+HPckZfy+UfwCrw9vZFgHW2sCPbqa5lh45JjnRKSdUSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316231;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8JnYM2B1vVlKg2fb0z5/TwJuKWxuGmgSTBU82PD85gw=;
+	b=2z/9bP/uY8LqL37EGDx04Ozp5wIn2jc2Qp9vZIACl1lW4hp0s62FQWFr7GKaIOAAkynP
+	 eCk9CJXARPXj9+UAz0put2QPA3czoeuEPyojHkxnEfiBtuUCzmIcoe79n58ZXdbjnJCVT
+	 R6lTfO6ldHJSEEyLyJ6Zkl5a0/pfDbVCX5L+KmDbu3RbYtcfLcY8Ff/5XR91qgqXbAOta
+	 u4dsIuQMYiqz34mFYJBboiUum8ojmWg5fLtw2C+hXYEKw88UOQgpUa1n93sapFflJlgD/
+	 Vzto1QPB/X/gd1okcL/ZCcXBAIu77Tc51Zkp97vudtgFDHHq4wvz9Bxtekz9gZ1N3sQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nc5us+5V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011062.outbound.protection.outlook.com [52.101.70.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C543060A2620
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C543060A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D19606E45E;
+	Tue, 10 Nov 2026 13:10:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97D19606E45E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=giz8XH7k
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5e9528732b4so724481e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:10:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794316235; x=1794921035; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XQDfTOBLyQYKItk/7IbkqTdv3CPMUC9LzGhAb3DHHto=;
-        b=giz8XH7kLVNdvxOASwgI4RprGKiyUEsoiMXkvupuqdbq9I7LXpuFZqF9NAaqie1qMr
-         HNJZv2mOnI1c14z3zIJwnN7vIs8ky6CILsvv2CM0qmoOH9g3iRbx1bbXTS7NHMeYMWDc
-         T1E3X751NjsqCQfFyFJFZ/1wwBrMlG9vrd5wNzsn7G8Ze3LfFR7gBEFXW/avDW9IJBDC
-         tg48AzOGXWZzS3cj3uRy9HUOHAvypw2biHfmU5mc8WkPHCq5oCLx7A1KH9y3W7p0DbVV
-         Z8ZPRJ/mvn6eRb0cH+TTlVE5RtTkT5jIfBviqNGhmYhHP7IR91Dl8nmTHPnqTd/K3rGg
-         w4sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316235; x=1794921035;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XQDfTOBLyQYKItk/7IbkqTdv3CPMUC9LzGhAb3DHHto=;
-        b=Z9lLxYIaeY8pquEE0IAl/CkUcDdwBzEtNPeC76lTMYXZpgPxXyM5AfyEy1CTDC5N1y
-         NTGxRV+KXvRFOOAor7I0kBpC3oB/uCisprGtR3U4eMh6eEaRC8mhH0zwrPugYU3JZlLy
-         5F2uKcgqrplDezY0R/App90ZQxoZTo6Cc8xt+h2C0hm1+IhOvLep8Hvty7RYVaqtMvy4
-         EZc+Ikcnwe3bg/Hf9a7PPmzog0QIvNskvSD6yCU+ZW1Gqdg2sVvl/5V+v14c5lzF9f6m
-         abOSAKPL4SoqB6eI6XMN/6VDqt4zdHTGzaQDbLw9tMIRlCPMHZuxeID7BKp50bcAfAOY
-         KTnw==
-X-Forwarded-Encrypted: i=1; AL+hErHXbzCOl9syxqo/VqnvXAJHrcJWKSUUwETMAJw5rQeEJExNQ+8udPE8Sr2y+Yz7NX15ynX82Lr8DESI6fo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9k+JDEmvAlWuoX/yowfHcsf4i5aNivF4BG0XAt1bT8ZAQiRFc5
-	2wbh4j00jx1PlOF+66o1pJY/gEKl+NSywyNvin+Pxxo0xAM0LNLaSoYtaP7W84ELbhk=
-X-Gm-Gg: AYBFou1lyOnWmtLI8KF7MChLbs9ncYrEPjVSDj8jLy32TV5m+wqVYWlJsEkda0jrFwi
-	Youl1itURNOml1OVJi8py95L6cnKi0wWFLjo0wB+N5jLFn0ZoP/7TloC7t1kcVgJQvWLFeCNdVA
-	WZ3Vt7DjXKDpnYw3gX4T6pPa1e6i4qVB0RgPCwemNSqjhKPrs7ZFY1gDoTHAfgcwV+LPxc+Dhf2
-	tk3DfL5nOgsAzQpZVu5d9VroffP3Oo0obCk0mEf9ETbO/T499ORfZmuoSSLi9f7Ewb6LcZQajYX
-	krTRdaPZfRLNB5GZtgv5hDWSw1v6MfdDlQEUzZ0odv55cT7HET349PfTlK60R0RAWfAhS5Xy5XW
-	R1uFSPO5EviYtdhVEGeortFPeCzD52JJMyfwr3KwOypp3a9XOe/CjZGQRMjEG24+ZZHqW3xhUYh
-	XWULfrvXY1G40i9YDUzW3v595ZDBKL/lqcrS07Ib5Y5/Jw0BYeYjs9uiTGRwjkCM5HBXPA2hYcP
-	AQ79aryzDgBOAoPxOZX3ldPQoqX3MngDER3MwlG1cneScdxYIy9Uv0pUW6lXJdDB2lLEqGnoJUi
-	h1SmJHmtWtgZT08qgw1X+CRbnubK8Zo+LPJY0wusy99PAcVDU3pmRFJA0PpvIOZjIuw6xkOVH9y
-	YWR08vqkW2Yl4O6rhRqMQplyOh3SudxA=
-X-Received: by 2002:a05:6122:222a:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5ee0d068066mr932090e0c.4.1794316234604;
-        Tue, 10 Nov 2026 05:10:34 -0800 (PST)
-Received: from localhost (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c20081409sm1695863241.8.2026.11.10.05.10.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 05:10:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nc5us+5V
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uVr6BniGqJGv0CkKmol5L3u2AyYlSO+sQNEF+1uHnwlmzreKkjUojfH0XVJ1cBWxpX7OSgBAJSuD/bO56rW5INyrgcxv3wDYgQCtxa/8/4O99bbbk6x2DJilHfm8CQ5sick6/Uga1Q8n1baJ1qKroWB8Ft1gOy88rEkjmisjGx0v6EmAgBf9//2fnwHQCFj66yLEGTg2trZnObOTfsxq8ZOLhbfO55+J9P6QwnUX05pMLS50ZX2qS8+vYZg+rUTkQlYMBqw0B0Fi5i3hhqs6omMpLeC3Q/u7vBISffXY45d6IaKD2qGGDzWqA3/iBxX/8P66A1LU3I5QI/GHBIbJ2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8JnYM2B1vVlKg2fb0z5/TwJuKWxuGmgSTBU82PD85gw=;
+ b=S5WTCNLOQyrThTsWXqs9lxJEYwYN18Q1kPfaL0gimW7GynZFv55yy9XFsUTz09aOjpNGEG6LvMiOhcGQ6/OeJLo2gtosVAGBZy5fNHcTTtFR1Js9/95fIqWgHU7ZNdvNJZZemraTJte1cvSUzn2OORtZKMbvHoRHUo1O4OPub98Tw4HLQK/druj7lHTzTQ1/NfyfXjWjnG+OekzSGIN7kUjGbI4sIYdVK2tWXclP/tGo4lsy0AQMIgIBki3zDhagLDcbVOumvQP/ct3w7+8Xd7k88WJRO5Vfs+F9xT8GGXBpKb/LpN+pQ5g8/zdSQU2O76e5k50c7Cx7a28AWLyA8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8JnYM2B1vVlKg2fb0z5/TwJuKWxuGmgSTBU82PD85gw=;
+ b=nc5us+5V5CZ7afhfCqY+KbRhLb3aPz7Bi1nRe+oPmwCbYjjlkY+4LLCKLwPHVWD/CrRhe7YyC4YTffFAZQdl/jgcdYHT8JzFiYTC4lzJUlVp/cJsCTM02MQE9KuADfrsUmMm1+LDWxChkEf0DcUeTpGL6aEGbNBreyZQCHEKVTdgI/2JXi/k6hF2Q4jLIO97SjypvZmk0WJyUpSqAZ3+zDarJ8RRQUFtV9bVUj7Wdl3b7JjCeaKtvci9mIXCV0Kx3ZzPAl5r+/VHN0WekbeuCfeu+xrQI5CN1d0SCDYTPBz3J++7Sxyyrua2OFjp2XT9n19dJ1UB01qZv7UP7ImpSA==
+Received: from DUZPR01CA0047.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:469::16) by DB8PR10MB3800.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:10:167::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 13:10:25 +0000
+Received: from DU2PEPF00028D04.eurprd03.prod.outlook.com
+ (2603:10a6:10:469:cafe::53) by DUZPR01CA0047.outlook.office365.com
+ (2603:10a6:10:469::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 13:10:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU2PEPF00028D04.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 13:10:25 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 14:11:21 +0100
+Received: from localhost (10.48.87.14) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 10 Nov
+ 2026 14:10:24 +0100
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Date: Tue, 10 Nov 2026 14:10:24 +0100
+Subject: [PATCH v2 4/5] arm64: dts: st: add LTDC pixel clock controller on
+ stm32mp23
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,250 +105,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 08:10:32 -0500
-Message-Id: <DMRK0PU0VCN3.15F59WLOQ05P4@soleen.com>
-To: "Tarun Sahu" <tarunsahu@google.com>, "Pasha Tatashin"
- <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>,
- <robin.murphy@arm.com>, <maz@kernel.org>, <will@kernel.org>, "David
- Matlack" <dmatlack@google.com>, "Alexander Graf" <graf@amazon.com>,
- <seanjc@google.com>, <jgg@nvidia.com>, <loganodell@google.com>,
- <arnd@arndb.de>, <dwmw2@infradead.org>, <baolu.lu@linux.intel.com>, "Bjorn
- Helgaas" <bhelgaas@google.com>, <oupton@kernel.org>, <alex@shazbot.org>,
- <gle.com@google.com>, <pbonzini@redhat.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, <kevin.tian@intel.com>, <joro@8bytes.org>
-Cc: <kvmarm@lists.linux.dev>, <linux-pci@vger.kernel.org>, "Pratyush Yadav"
- <pratyush@kernel.org>, <kexec@lists.infradead.org>, <kvm@vger.kernel.org>,
- <iommu@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <skhawaja@google.com>, <sagis@google.com>, <linux-arch@vger.kernel.org>,
- <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 02/19] kho: block: Record the entry size in the block
- header
-From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
-X-Mailer: aerc 0.22.0-39-g5d7784875be2
-References: <20261110050202.529473-1-tarunsahu@google.com>
- <20261110050202.529473-3-tarunsahu@google.com>
-In-Reply-To: <20261110050202.529473-3-tarunsahu@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261110-ups_mp25_clk_syscfg-v2-4-624559bb8ec7@foss.st.com>
+References: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
+In-Reply-To: <20261110-ups_mp25_clk_syscfg-v2-0-624559bb8ec7@foss.st.com>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Christophe Roullier
+	<christophe.roullier@foss.st.com>
+CC: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	<linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316221; l=2481;
+ i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
+ bh=J3VoNyzLZYqMQiYBHkizPxPBu93SdONk+DBtz+5ogUY=;
+ b=25y0vmUISgKDTFsY0ZcE+jYqxi+ywrdHrdlttKk3nOsHAq6bGuarSHYj6zs7Wr9Ug+/9NUFsc
+ yMvxorMOnlQAb04zbGD+LLQvvkm0RnD0aU62JHibiv5Y+S06uGjP10Y
+X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
+ pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D04:EE_|DB8PR10MB3800:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10e4e4cb-7e32-43d9-a343-08df3f2bfbfc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|22082099003|18002099003|10067099003|11063799006|261102123227099003|261022105027099003|261026140227099003|261021123027099003|261021135927099003|261021121427099003|261009223027099003|56012099006|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	237G31NBytgSTkKiGFKJS1Zt4bOojILF04bQ+L7T5KW3H2OzBIDUpJ/QNmM4Fr+bC7XK2XITscOSLnxAOxPpMGWplaK4brd1IJhlvUFwElGKn/7miiX/GS3tyZnnvChZKjBfkhbIk78xAaqQoiZ8vsIGfQSwaHbvq17LvJbr5iz9Z1X9Csu6xwWjQinv1Ij75CysT+otSsbqA2do9kk6pK8IpXhvDpBV8dh0iADzIfEcfgn9LGTHF8DzwqQoV11nbwchZHCpByG3ZpREC5XEIRO2njr/kNARWnr0XdR+aL9YRLUpeaI6qT7MI9giwM9C4gQd4Yv3ULQoRVib+IV8fJ4QuIcOdlRgt01fgB8sCb/+MAP1WW15oxySl+rzHMgOrIzkQ5zW7G2iF2GVUnA/jCgIdssjsipcnirrE4Je3cf6ClJ0pZ/WAAnQtXLkSOtwwyuh1vwvQqsNwdUScUMfnAm0sHMIEcL0tmLa8CRCE/O6V64Oxw19OmkVHjd2UiAQIEX8SDaXBB9Rd2DjSRAmW/PE7JtVCIYI0yv7ukV1sm4iGiydLymfgiKOHRkznOaMBFGbr3uSO8V8BIpapmsFknhnjuD0ucBcfthxsvZuXYSyj5luuxkLtDMd7rGeHzO8vJfLptwsi7ibAmSZYJSnp8H2NxEMKBFBxDcFukX4Ow9qye8L6T1u79iK2mkTdnyYbjsWOIk4CyUlq0gg7N5nYQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(261102123227099003)(261022105027099003)(261026140227099003)(261021123027099003)(261021135927099003)(261021121427099003)(261009223027099003)(56012099006)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IS5r25kMWPEBmPtpsiF/+7M+fSmk1zB/vDaBbhHijfFi9HMbl04iIg1Ti8Sjs8YymV+HzIJ/72smwZYGSZs6MDm3NdLA+l3sWRxkCfzcPMTgR3JVU2E+BBo+mgQBXUoc9mhkOtiszwF5Q2HBKVSKyyPsZhqfZrs2kRMiwsHmKRPDi5gtmNHS8lQ6nThczwlXHePYRPZL4wzMUfTBz+q8qIPHiUZJPnT6iUlW9A/4J0W//cVmmP0dArGCk4HSozyUR0lKcIcLOIcAYxu8lzbX4cEAG4BhueTv6ap1jv9woPQIvsdnRGXXLUrKpxonWkZuROtiotqQb1UGvnqO3BQElVXpSf7sTiGjTZ7/UDrK2zCEb0CBomz4RG3D2iZTqC57ZFU0RbfbGOFo0yJNCPYW+TvAxoeT1Pi4ik3vNitRqRLGfRpGXxYf24Buc0dmp1Jj
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 13:10:25.2558
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10e4e4cb-7e32-43d9-a343-08df3f2bfbfc
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D04.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3800
 
-On Tue Nov 10, 2026 at 12:01 AM EST, Tarun Sahu wrote:
-> Subsystems using the KHO Serialization Blocks framework currently do
-> not record the serialized entry size in the block header. The entry size
-> is only known to individual callers, which must track and store it in an
-> owning serialized data structure. If a newer source kernel adds fields
-> to an entry, the changed entry size breaks the stride when an older
-> target kernel iterates over blocks.
->
-> Add an entry_size field to struct kho_block_header_ser. On the outgoing
-> side, record bs->entry_size into every block header during allocation.
-> During restoration, derive the entry stride directly from the block
-> header instead of relying on caller-supplied dimensions. The
-> kho_block_set_init() interface remains unchanged. A zero entry size,
-> or one that differs between blocks of a set, is rejected during
-> restoration.
->
-> This change modifies the serialized layout of struct kho_block_header_ser
-> and shifts the offset of serialized entries within preserved blocks.
-> Bump KHO_FDT_COMPATIBLE from kho-v4 to kho-v5 so that pre-v5 and post-v5
-> kernels cleanly reject mismatched handover state during boot. Also
-> update the stale compatible string example in the documentation.
->
-> Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> ---
->  include/linux/kho/abi/block.h          | 10 ++++----
->  include/linux/kho/abi/kexec_handover.h |  6 ++---
->  kernel/liveupdate/kho_block.c          | 32 +++++++++++++++++++++++---
->  3 files changed, 38 insertions(+), 10 deletions(-)
->
-> diff --git a/include/linux/kho/abi/block.h b/include/linux/kho/abi/block.=
-h
-> index 36bdbaf9b3b8..a40b0906c821 100644
-> --- a/include/linux/kho/abi/block.h
-> +++ b/include/linux/kho/abi/block.h
-> @@ -40,9 +40,10 @@
-> =20
->  /**
->   * struct kho_block_header_ser - Header for the serialized data block.
-> - * @next:  Physical address of the next struct kho_block_header_ser.
-> - * @count: The number of entries that immediately follow this header in =
-the
-> - *         memory block.
-> + * @next:       Physical address of the next struct kho_block_header_ser=
-.
-> + * @count:      The number of entries that immediately follow this heade=
-r in the
-> + *              memory block.
-> + * @entry_size: The size in bytes of each serialized entry in the block.
->   *
->   * This structure is located at the beginning of a block of physical mem=
-ory
->   * preserved across a kexec. It provides the necessary metadata to inter=
-pret
-> @@ -51,9 +52,10 @@
->  struct kho_block_header_ser {
->  	u64 next;
->  	u64 count;
-> +	u64 entry_size;
->  };
-> =20
-> -static_assert(sizeof(struct kho_block_header_ser) =3D=3D 16);
-> +static_assert(sizeof(struct kho_block_header_ser) =3D=3D 24);
->  static_assert(!IS_ENABLED(CONFIG_64BIT) ||
->  	      __alignof__(struct kho_block_header_ser) =3D=3D 8);
+Describe the LTDC pixel clock multiplexer of the SYSCFG as a
+clock-controller sub-node and use it as the LTDC "ref" clock instead of
+the SYSCFG node itself, whose deprecated "#clock-cells" property is
+removed.
 
-The above change goes away once my comment on the previous patch=20
-is addressed.
+Only the LTDC kernel clock is available as parent on STM32MP231; the
+LVDS and DSI clocks are added on STM32MP235.
 
-> =20
-> diff --git a/include/linux/kho/abi/kexec_handover.h b/include/linux/kho/a=
-bi/kexec_handover.h
-> index 2f4fb9c63942..6f12f5037ea5 100644
-> --- a/include/linux/kho/abi/kexec_handover.h
-> +++ b/include/linux/kho/abi/kexec_handover.h
-> @@ -41,7 +41,7 @@
->   *   restore the preserved data.::
->   *
->   *     / {
-> - *         compatible =3D "kho-v3";
-> + *         compatible =3D "kho-v5";
->   *
->   *         preserved-memory-map =3D <0x...>;
->   *
-> @@ -62,7 +62,7 @@
->   *     };
->   *
->   *   Root KHO Node (/):
-> - *     - compatible: "kho-v3"
-> + *     - compatible: "kho-v5"
+Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+---
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 9 ++++++++-
+ arch/arm64/boot/dts/st/stm32mp235.dtsi | 8 +++++++-
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-These are just examples, don't update them.
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index fefbf6f4f153..df446f0c1539 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -4,6 +4,7 @@
+  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+  */
+ #include <dt-bindings/clock/st,stm32mp25-rcc.h>
++#include <dt-bindings/clock/st,stm32mp25-syscfg-clk.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/regulator/st,stm32mp25-regulator.h>
+ #include <dt-bindings/reset/st,stm32mp25-rcc.h>
+@@ -1121,10 +1122,16 @@ exti1: interrupt-controller@44220000 {
+ 		syscfg: syscon@44230000 {
+ 			compatible = "st,stm32mp23-syscfg", "syscon";
+ 			reg = <0x44230000 0x10000>;
+-			#clock-cells = <0>;
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 
++			syscfg_clk: clock-controller {
++				compatible = "st,stm32mp25-syscfg-clk";
++				#clock-cells = <1>;
++				clocks = <&rcc CK_KER_LTDC>;
++				clock-names = "ltdc";
++			};
++
+ 			usb2_phy1: phy@2400 {
+ 				compatible = "st,stm32mp25-usb2phy1";
+ 				reg = <0x2400 0x24>;
+diff --git a/arch/arm64/boot/dts/st/stm32mp235.dtsi b/arch/arm64/boot/dts/st/stm32mp235.dtsi
+index 7a87c344a4fe..0ef5f2cdd18e 100644
+--- a/arch/arm64/boot/dts/st/stm32mp235.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp235.dtsi
+@@ -7,10 +7,16 @@
+ 
+ &ltdc {
+ 	compatible = "st,stm32mp255-ltdc";
+-	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
++	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>,
++		 <&syscfg_clk CK_SYSCFG_PIX_LTDC>, <&lvds>;
+ 	clock-names = "lcd", "bus", "ref", "lvds";
+ };
+ 
++&syscfg_clk {
++	clocks = <&rcc CK_KER_LTDC>, <&lvds>, <&clk_dsi_txbyte>;
++	clock-names = "ltdc", "lvds", "dsi";
++};
++
+ &rifsc {
+ 	lvds: lvds@48060000 {
+ 		compatible = "st,stm32mp255-lvds", "st,stm32mp25-lvds";
 
->   *
->   *       Identifies the overall KHO ABI version.
->   *
-> @@ -90,7 +90,7 @@
->   */
-> =20
->  /* The compatible string for the KHO FDT root node. */
-> -#define KHO_FDT_COMPATIBLE "kho-v4"
-> +#define KHO_FDT_COMPATIBLE "kho-v5"
-> =20
->  /* The FDT property for the preserved memory map. */
->  #define KHO_FDT_MEMORY_MAP_PROP_NAME "preserved-memory-map"
-> diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.=
-c
-> index 0d2a342ef422..9b148009085e 100644
-> --- a/kernel/liveupdate/kho_block.c
-> +++ b/kernel/liveupdate/kho_block.c
-> @@ -16,6 +16,12 @@
->   * array of serialized entries. Multiple blocks are linked together via =
-a
->   * physical pointer in the header, forming a linked list that can be eas=
-ily
->   * traversed in both the current and the next kernel.
-> + *
-> + * Each block header also records the size of its entries. A newer kerne=
-l may
-
-"newer kernel" does not make sense in the documentation comment, as any=20
-kernel can do that. I would suggest "outgoing kernel." By the way, in=20
-this series you use the terms "source" and "destination" kernel, whereas=20
-traditionally we have used "outgoing" and "incoming." While both=20
-conventions work, it would be preferable to maintain consistency.
-
-> + * append fields to an entry, so the kernel that writes a block and the =
-kernel
-> + * that reads it can use different entry sizes. The reader steps through=
- the
-> + * entries with the recorded size, so every entry is found, and it does =
-not read
-> + * beyond the recorded size of an entry.
->   */
-> =20
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-> @@ -110,6 +116,8 @@ static int kho_block_set_grow_one(struct kho_block_se=
-t *bs)
->  	if (IS_ERR(ser))
->  		return PTR_ERR(ser);
-> =20
-> +	ser->entry_size =3D bs->entry_size;
-> +
->  	err =3D kho_block_add(bs, ser);
->  	if (err) {
->  		kho_block_free_ser(bs, ser);
-> @@ -242,7 +250,8 @@ static bool kho_block_set_is_cyclic(struct kho_block_=
-set *bs)
->   *
->   * Restores a serialized block set from a given physical address. The ca=
-ller is
->   * responsible for ensuring that the block set @bs has been allocated an=
-d
-> - * initialized prior to calling this function.
-> + * initialized prior to calling this function. The entry size and the nu=
-mber
-> + * of entries per block are taken from the restored block headers.
->   *
->   * Return: 0 on success, or a negative errno on failure.
->   */
-> @@ -250,6 +259,7 @@ int kho_block_set_restore(struct kho_block_set *bs, u=
-64 head_pa)
->  {
->  	struct kho_block_header_ser *ser;
->  	u64 next_pa =3D head_pa;
-> +	u64 entry_size =3D 0;
->  	int err;
-> =20
->  	/* Restored block sets use size from the previous kernel */
-> @@ -264,8 +274,21 @@ int kho_block_set_restore(struct kho_block_set *bs, =
-u64 head_pa)
->  	}
-> =20
->  	while (next_pa) {
-> +		u64 capacity;
-> +
->  		ser =3D phys_to_virt(next_pa);
-> -		if (!ser->count || ser->count > bs->count_per_block) {
-> +		if (!ser->entry_size || (entry_size && ser->entry_size !=3D entry_size=
-)) {
-> +			pr_warn("Block contains invalid entry size: %llu\n",
-> +				ser->entry_size);
-> +			err =3D -EINVAL;
-> +			goto err_destroy;
-> +		}
-> +		entry_size =3D ser->entry_size;
-> +		bs->entry_size =3D entry_size;
-> +		capacity =3D (KHO_BLOCK_SIZE - sizeof(*ser)) / bs->entry_size;
-> +		bs->count_per_block =3D capacity;
-> +
-> +		if (!ser->count || ser->count > capacity) {
->  			pr_warn("Block contains invalid entry count: %llu\n",
->  				ser->count);
->  			err =3D -EINVAL;
-> @@ -370,7 +393,10 @@ void *kho_block_set_it_reserve_entry(struct kho_bloc=
-k_set_it *it)
->   * @it: The block iterator.
->   *
->   * Iterates through previously written entries during state deserializat=
-ion,
-> - * respecting the actual count stored in each block's header.
-> + * respecting the actual count stored in each block's header. Entries ar=
-e
-> + * spaced by the entry size recorded by the kernel that wrote them, whic=
-h can
-> + * be smaller or larger than the caller's structure. Fields beyond that =
-size
-> + * are not present in the entry.
->   *
->   * Return: A pointer to the next serialized entry, or NULL if all serial=
-ized
->   * entries have been read.
-
-
-
-
-
---=20
-Pasha
+-- 
+2.43.0
 
