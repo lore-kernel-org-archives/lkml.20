@@ -1,88 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299909;
-	b=W6g7a2/58/RuBEfoylBhz1D2b/61MIbqZNSd5rOc1Ll0D5W/jFJnMFuKHoWL1oqNlYZI
-	 uPbplM++Fwhlp1XuNvoetXTdZYf6H0HIkrtsxYHMrBg66Lv4k/xOb7UYwO2M1xXWxyOMq
-	 KdKi0bFq5glp4H/xmI9SrHDjomymFv66ydAeiqMo3uYi0TkmRi2I5om4U6eX4bx5qU41Y
-	 /wZCQUkZ/hs52khY63T4l0f7xCQQNhi+hD/XWTzWJsTuZOcaiTy0rn5gpuMeT/o6QhThF
-	 LvzhV8WfDxKSz/OZ37Wq19R8bNpJtBKql2uT2KqautgHVXwgy93BHK+vW0f3F7ZIlWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299909;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=GWMxi99EI1/rh+WLLJC5B+V1WHZ8pLpiyq7ZBqK3M7E=;
-	b=TE0lDArYTcGiySnaS9aDsJK7h/qXEBNY5ufB5gmUDp443PuC2czdU/Yxzhrj+tCwPbHY
-	 zuTAqwISdjmX+oI5GBB/y7G1PoTssoT5dFM58yUzzcmFZ2fPyfpAk8H8PdQbYIZ1sLI8x
-	 +CgGfz5c1TRj0WSD/PngJ/1myOO2MSpjZk2nNC1lDX0tdvUiBSoROizwPQZmVyJDCTBSp
-	 szb9W77FZQlDbKROuVAYZzw+gEmd1hyQoVe5QhranQldzvLUgAn/Exjf+psmAIdD7RHBI
-	 Llkf1w3ZRtwhquA6nJEycgj4LUoU0dr3ZLHuVmi0RNWpgh2BFJsUKrPIhppoVJpJqAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj3xUhgH;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794299901;
+	b=F8S9yuK1lDSSA2omfDdLhukykKaNN5U/dI5MKLfRd6+nOw6BhHh4T0REUr8tBllFv2z+
+	 zO8yVrHGsyULDM1Y92/GCm+A/lbvDKMdbUNXSRlHr5hY8Ri8IN7Q15iVR6UHOJQjkXN+2
+	 JXUdAyNPUvEunwmjloWOjUtfB1Te319Six2J0TXc50Cm6z1eDbd0vtvc+RX5JmtPlEGno
+	 +CUGmCEeHeoJUwlrPc0L5lXJQJ7MLCcb3TPAFdk6zRubGXFCDkZs4KccUPcej8gYjfci1
+	 G3ZYuXuY/TJHQqJaMKa4UAivqpegtcFORU1CS3IWm0+3kp3xgvBQ2rtxVsuWpnHl5kA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299901;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FtBVWp7IfTZa2B4qEChR/Tm/Wz6nqQjMtb4BDTNUelM=;
+	b=neOZ/IjVn2eVE32pj2a2xqLwqS1lSLT/UjPlaBpsMRTzcRyGAIx6l8nTIW3BjzW4NbJB
+	 5VdxrGkID7arCioXj0Ww/UvCwjzt+PZq36kWwn7qm0jTqX6FmG3uLL7Jurn6QB+huYwyW
+	 PwJKVE4ZQjySuZptS9IKsqog9jAEWcKg7Za3OfOOqyc+sGiKHywg5Hj0b0BShRR9DG7+N
+	 oRB3mysO5KHW5RfgGtxw3s3iXa3xwhzDJWH9mm1I2w8f+0R+m41fMxi9qH0XTK+RBU4Sl
+	 d3goF+7JVvb9gfTGOKhvCXXqSDCcS/qOYD4GEB0Ry2mPy/RBzhSFlJxaoPm7x1OpXNA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=K4IRRMkv;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b="54K7wU/l";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117B4606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:38:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 117B4606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EB1606A325;
+	Tue, 10 Nov 2026 08:38:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3EB1606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj3xUhgH
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so1330887b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:38:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794299908; x=1794904708; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GWMxi99EI1/rh+WLLJC5B+V1WHZ8pLpiyq7ZBqK3M7E=;
-        b=Rj3xUhgHX8/hIDcBwsM6tDvaceP7eAdXFVtO5ZLJJY3jxpLi0FFfuGgZcsXd+2q5bu
-         VA7s6XdIktWwS/zpsUETFMfGZK4jdsTZfrzZ0AaVBIq0d4FUC0DUPLmPjayAfRGNjkz/
-         c90xln9t4vb9MspNqc8UWcgq2eajtcXDdG7P9ot92ssnEiKWMP14GRh0kW9KX4lNck5l
-         Hbk/aTqE+OE9zQU/FJ5fuXiYUOYD+olUDdRfAEBXw6quXFEOFuwBnRNZkzcjljbMgRCR
-         lOBTQd6Q69lk9C8sQWnOIyvZj42TmtBwytvetRESKT/oK1/gSu/d32aENsINwEOO/FRv
-         NHIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794299908; x=1794904708;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GWMxi99EI1/rh+WLLJC5B+V1WHZ8pLpiyq7ZBqK3M7E=;
-        b=F5N7TH+s58H1dlYw6LiFb8YBUjw0zOgY4ZOYOg2QD8ak6t5eUV8r9PHLkNszcbyCVI
-         Nxw2KkjAyV9emQWuPXri5bU0qPbmYIGVtw+oqctP1iJb3WyllaHblArihu9W1GF69+j8
-         zvw3rHb26E/bIZhkrWYUUHz2pn0gabTar51ZkyHGeMEBNAHXdxuuuswl2o6Hoei43MKI
-         65LQRzZFvqT7cxrM2uQpYXRW8s3sdUd1Q+znuimUTS2S5iMZohAvkTyqwzTAa6fPRegz
-         C9djM1HuK5QM4q7H3Gxum9bBwrsNfpPIV/Ow3Kyl/+k2sZoe7zkbCtyeNEKKdcXF/bB2
-         yi4Q==
-X-Forwarded-Encrypted: i=1; AL+hErEdSclVRtblkVsJhgMYNo41TSNl9UEXi6wqtewSBP/X8bT6LTfxvc21tAExjpG2TkFkh7p+uUQ/brxXPr0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eUYdkGB10N0NK2Pyrc6Y9lZuZOnW0iwji+++gYL9tPysCfnrn
-	cQs5n0+x40V3JkXKidsnxOnyYN3LwkKFngYghFKbQCy1qV2dT4nIAkiZ
-X-Gm-Gg: AYBFou1A6fyndLN4wbzyrcf0l9gKL0TZyCud2gSNQ8xW3eJX8UIkiPlWClfdLtxYqnY
-	ZnZAjADGvo8ppMKlRCIhz/Ppf6W7wctdL6IrLAx6insF/KbufmcBzFTttMMVtUdO7ILe1f6Ivrp
-	YUF59xHlHEQpx2LCmAyJCsQGqm/SVsYy8fS0y/4tOoSpaBhwfMAr4+en2tYtZ9M/eecxnluFcED
-	FRRlE6pf+MRGR5FTrsYAYMc/CWSHpbs67PI8d+3uEwWO6r9fN4hmg41nlW4hU9RtPR0QdGsDoLf
-	wGZr5U0LerKE00V4LrB/dUFVRhdvFD5Jskcwh0243CS6MkwWECAgVcIk86+AaBx1aKx94GqlA3l
-	LdmAqmN/LC3WNxyhvU48vYE9abBNaQLfW6Qka96sgCzNy20BGT57Nf5ByKf+bkCBb7BQI3PDCsF
-	iLTeUS8U2SkvLDb0qQJDuODp+uH0Evzl/4EbuK79XTp9H/LtY9bHrJxE2lsE0l89pzV4HCAGCJe
-	PGqUMRpgIjIv/kbowtVX16yRo1mcq8B1YYxHJrWZJKJai9t5S7qZNmRB1k7aAgoSEv29TzqO51F
-	EoH0yyhywe8Ccy7rk2Gz2966hm7i3RPEDkIsi/Zlp9d0jxyX0DooIs6KWeDbyxabrIxm
-X-Received: by 2002:a05:6a00:4507:b0:89e:9c7e:fd5e with SMTP id d2e1a72fcca58-8ba860d431bmr2106680b3a.9.1794299908192;
-        Tue, 10 Nov 2026 00:38:28 -0800 (PST)
-Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b28d9sm628165b3a.18.2026.11.10.00.38.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 00:38:27 -0800 (PST)
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Tue, 10 Nov 2026 16:42:59 +0800
-Subject: [PATCH] dt-bindings: iio: adc: lltc,ltc2497: Make vref-supply
- optional for LTC2305/LTC2309
+	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=K4IRRMkv;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=54K7wU/l
+ARC-Seal: i=1; a=rsa-sha256; t=1794299897; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=rF/jZaXZooc4QGQIShzxRisw3MOImSFty7+jEvO+UZmbeOx10EPnxUj+zAdk+tkfkn
+    RuZLe4odc9KWvUkWWljuwA5ScheCTEQS9oBnAy8zJlwD22EfKzAMphHurBfi7gza5dg1
+    qBnm1eQj1riotr797kTfdg5Fo4br/AibRLNUqEV9+9uFs/oX7XJHIx0R4imeeRSyAi7X
+    h5aE0WV/M4HLZwtiHVHw/FBiN5q2mPRESTXgZXZu5evCXnfSloqEgsposPMkT+P8F2fR
+    APdfoMnXSyl/E7xcodRWIcSxugB9D9rLIXTvptCGEcYZmkCSRCd4atv5f2VfVmnnbv+G
+    Wh5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794299897;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=FtBVWp7IfTZa2B4qEChR/Tm/Wz6nqQjMtb4BDTNUelM=;
+    b=LIXehTy8A9Flf7MUNDMHUrrkinvZp2qyEXMhVF9fwkdm9fYXhsAL+eX+hmi1G+NkNU
+    84cGHol3H7m4DxUy//vDXX4ZsWRCkspIv0YKAtE478rKURX7ot8xhoFMANKIoXwy+Xoa
+    eWYk/J+HpyAaWcPx7ZeQEoef+xtS2kDGxMcLJeTO+an/EoJ49mqNHJPOvmf2wnc/A41B
+    Uf0aPttzfn2WpWpFZCez9BT7rUinF0Up5SR9ZTNIBHZDrbqtgQ8+gGN+3OPzlz6kToJh
+    owz3pyKijUjhsq84M2UNja3FFYqJawqWezlx3hAOKu2cqkXB/iA2NwiKhGuLR3YaeLNi
+    kEPw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794299897;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=FtBVWp7IfTZa2B4qEChR/Tm/Wz6nqQjMtb4BDTNUelM=;
+    b=K4IRRMkvAhUlDEPkpvyRxUubGSxh8MCK9EgcHoHdxbYgwjHVINGAtQPcuKRo6cp9v5
+    FR//MKn07DnXhJK5EGfuGkuX9L1LEFJvzM+ULQYf/vsacKw9m08P9vNI6Y0aTohiptPL
+    yF9HUr+RNFaTbbVzVFr2WmHUkuPuUo2UdIh3p4/Tlw7+y2caWmxSgUiPcuTZPt6xKcSK
+    zr7LItn4LchH7CsRuBta1yZ+sQ2wyydmt1mhdjLi6EjK2ne+YoQ2LldhhEeWgkc+SQMi
+    JEWXFXFO+KP8cg9kb0e1MsQMv+5PEOmUyWxoNX0GUY4o72gh+S0f1ZaTxs9DqkGLLQEG
+    MEVw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794299897;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=FtBVWp7IfTZa2B4qEChR/Tm/Wz6nqQjMtb4BDTNUelM=;
+    b=54K7wU/lJDA6ifTMXpki02gy1gl818vDs9Cz/wdkoIGekNrpTkd0VjDX03m59Nc+kX
+    lKj+zkSWJ4wiom6xMfAw==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a2AA8cHy5s
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 10 Nov 2026 09:38:17 +0100 (CET)
+Message-ID: <c90c1c35-7f0a-4694-9d29-0a6448d9a327@hartkopp.net>
+Date: Tue, 10 Nov 2026 09:38:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,94 +95,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] can: bcm: Account cyclic transmissions only on success
+To: raoxu <raoxu@uniontech.com>
+Cc: mkl@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <45A9B6D8611C63C9+20261110052315.253367-1-raoxu@uniontech.com>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <45A9B6D8611C63C9+20261110052315.253367-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIABLZ8moC/x2MSwqAMAwFryJZG+gnKHoVceEnakBsaUUE8e4Gl
- 8ObNw9kTsIZ2uKBxJdkCYeCLQuYtuFYGWVWBmdcZa01uJ+To6bGK/GCIZ7qDzvSuHiaq9F7Q6D
- fqKvcf7fr3/cD4lxAemcAAAA=
-X-Change-ID: 20261110-ltc2497-vref-optional-4bf34d6b3304
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Kyle Hsieh <kylehsieh1995@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1948;
- i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=mFMj3f//Gs56CTuMwMEdVyCw7B32N986wH/eEQpIYL0=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq8tkU0h+F6hQKFY3u8YXVOAq0gB3L2FY0h/K0/
- KgCl3tJ+sOJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavLZFAAKCRClg0K3CVbE
- gZxJB/4i9PB81n6Vgx4KImpgzWc++mn0PrAKmhxfzTkct7MNhnqrt7cghjzssGwnkyQCJ87xxyU
- U0PGiAlm/85L3F2PWr98EK702yrnQBKv4T2c0oyhzcrfrfL+noDI47fE2Zq/zk2JgkHEU9rIwf3
- JtWqxBzLln8SVeHkmiOLiYPAik3ZvYAZIsE6HNGJzCi4UtKpcFuuT45BVPwIFmWsrx/a6rHNw4X
- Y19kDF7D4Q/BzieWm+3PW3Xv/l/S9LZi8UWQuUXS1e60O+hYNVkvz0WUSZ0hAErUdpgQ9fDaHsB
- hlfEG0GWiRwqsmiUOugUmwNNSIbHTOraH49ozgeJn0fhTSb4
-X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
- fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-The LTC2305 and LTC2309 have an internal 4.096V reference, so their REF
-pin does not need to be driven by an external supply. The LTC2497 and
-LTC2499 have no internal reference and require one.
+Hello Xu Rao,
 
-Only require vref-supply for the LTC2497 and LTC2499, so boards using
-the internal reference can be described without a dummy regulator.
+thanks for looking into this, but I don't think this change is the
+right approach.
 
-Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
----
-The ltc2309 driver already uses the internal reference when vref-supply
-is absent. This is needed by the Meta Ventura2 BMC devicetree, which
-describes LTC2305 ADCs that use their internal reference:
-https://lore.kernel.org/all/20261106-ventura2-dts-update-v1-0-b085ece9bf57@gmail.com/
----
- .../devicetree/bindings/iio/adc/lltc,ltc2497.yaml      | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+On 10.11.26 06:23, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> The CAN broadcast manager advances the cyclic frame index and decrements
+> the initial-interval transmission count even when can_send() fails.
+> For example, taking the CAN interface down makes can_send() return
+> -ENETDOWN, but the timer still consumes the configured transmissions and
+> can report TX_EXPIRED without sending a frame.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-index 4df5aadd1e1d..22abc6885b5a 100644
---- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-@@ -47,14 +47,28 @@ properties:
-       - lltc,ltc2499
- 
-   reg: true
--  vref-supply: true
-+  vref-supply:
-+    description:
-+      Reference voltage supply. The LTC2305 and LTC2309 have an internal
-+      4.096V reference which is used when this property is absent.
-   "#io-channel-cells":
-     const: 1
- 
- required:
-   - compatible
-   - reg
--  - vref-supply
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - lltc,ltc2497
-+              - lltc,ltc2499
-+    then:
-+      required:
-+        - vref-supply
- 
- additionalProperties: false
- 
+This is intended behaviour. The BCM cyclic transmission is designed as
+a time-driven "fire and forget" mechanism: 'count' defines the number
+of ival1 time slots before switching to ival2. It does not define the
+number of successfully transmitted frames. The timer schedule must
+not depend on the state of the CAN interface.
 
----
-base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
-change-id: 20261110-ltc2497-vref-optional-4bf34d6b3304
+With your patch, if the interface is down (or the tx queue is full
+with -ENOBUFS, e.g. no ACK or bus-off), the following happens:
+
+- bcm_tx_set_expiry() still sees 'kt_ival1 && count' and re-arms the
+   timer with ival1 forever. The op never switches to ival2 and
+   TX_EXPIRED is never sent.
+
+- For setups with ival2 == 0 ("send 'count' frames and stop") the
+   hrtimer now never stops and keeps firing at ival1 until the op is
+   deleted.
+
+- When the interface comes back up, the remaining ival1 burst is sent
+   with a delay that can be arbitrarily long. This defeats the purpose
+   of the initial ival1 phase, which is usually a short burst right
+   after a content change.
+
+- In the ival2 phase, currframe no longer advances on errors. A
+   multiplex sequence then gets stuck repeating the same frame while
+   the tx queue is full. Losing one frame and continuing with the next
+   mux index in the next time slot is the expected behaviour of a
+   time-triggered sender.
+
+> Only update cyclic bookkeeping after can_send() succeeds. This matches
+> the existing successful-send accounting of frames_abs while preserving
+> the concurrent TX_RESET_MULTI_IDX check.
+
+frames_abs is a statistic that counts what was actually sent.
+currframe and count are control data for the transmission schedule.
+They intentionally follow different rules.
+
+The cyclic path has no way to report can_send() errors back to the
+user. Simply following the timing schedule, the same way a sender
+without bus access would, is the consistent behaviour here.
+
+If an application needs "N successfully sent frames", it should
+monitor the interface state (e.g. via rtnetlink) in user space and
+re-issue TX_SETUP with SETTIMER|STARTTIMER after the interface is up
+again.
+
+Therefore I would prefer to keep the current behaviour. So NAK from my 
+side for this patch.
+
+If the current semantics are not clear enough from the documentation,
+I would be happy to take a patch for
+Documentation/networking/can.rst that states explicitly that 'count'
+refers to ival1 timer events and not to successful transmissions.
 
 Best regards,
--- 
-Kyle Hsieh <kylehsieh1995@gmail.com>
+Oliver
+
+> 
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> ---
+>   net/can/bcm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/can/bcm.c b/net/can/bcm.c
+> index 7bd2aa39777a..cd66b23bf95c 100644
+> --- a/net/can/bcm.c
+> +++ b/net/can/bcm.c
+> @@ -375,7 +375,7 @@ static void bcm_can_tx(struct bcm_op *op, struct canfd_frame *cf)
+>   	 * we were sending - a concurrent TX_RESET_MULTI_IDX means this
+>   	 * frame's bookkeeping belongs to a sequence that no longer exists
+>   	 */
+> -	if (!cyclic || op->currframe == idx) {
+> +	if (!err && (!cyclic || op->currframe == idx)) {
+>   		op->currframe++;
+> 
+>   		/* reached last frame? */
+> --
+> 2.50.1
+> 
 
