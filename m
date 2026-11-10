@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310098;
-	b=K22t4274AhAO3XoN28g7i4MbbWIerbTWu9Jr4/C7s43Cvl5ZADWnIRZ27S/Mf4JyVZZ0
-	 fxxVRir7WO+HL5Ua/1d3WxbTCrwXlCaJrgkdsNrogLHUQGzH8EaSIQVWLcNfjWuMtiuJY
-	 F2vyh+wk6XvxHhHW54GNrVPnB2aCZrtRnjBaKC/L1hdJ5GbZN7ukkn7Y+y5Pk+Ru1UJ3r
-	 BFO3LsPjT5ZxhvMdK5JWyccRGmxMogTA/9wA7gohnEkiiQ0aBBwsQ2nCvIZk+nNyEaY1h
-	 7pVHYjnmh5rob+W6NhLVLIiRistuWEVljzuqvkdwSHgH4ELSKEV4B6d149rqrinUj6A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310098;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Bow83wIczwiYl+mYNYisPcBsNVqLXF/ekH8fXtAJVuI=;
-	b=h0SevbFsdJemG+3oXqjiA8a2+gtxr2gBleTipfwHqX22JlqfJSiqu18Vy1PouNlchpB6
-	 MWuYZun5GLHdZAIMsaeK9RmdPp7r553zpE5RHDIY44500WN7xwEGsF4lOmNa+ZpJJTNye
-	 ViFYhAljQoXF+WTTk+OXNKqEzCeomKK4f784i/7Oy2MVGkals/sHkXJM0zzqwjObU92WE
-	 HSGA3o2VJGsVCS4Ufh9qPu0M0uNvMxffCQj4kbpg8hT83VjIgUpvaeGV0hmjJ9mfNmLCH
-	 8du29KiwWEN89e/rjjFVt7FuCIfanhm9edw/rDXWZWqY86IR7TDMQPkcJdZt800JMIg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dDeiScvo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794310097;
+	b=pflqn+2WQmQw8pVJHu5K5QdyGlghTdVz2Ke1dnrYDQ1iv2yD9RnQ2MIytkYyk9vH795r
+	 3We+eT+MkB0MJ5h4FEOjLfr0h9s8lCqBGZ84MqptdmWdE/D/YnEzwe2ajCfC00z+VjpZa
+	 RJGDeYjbqeui0nX/bHeXhyOHXZl/x7XIDsDCvxoED5QDgaNLJ6rzMP6iTx2snlsTqexPx
+	 r1F2UrSclEsKzNl6ajqUcKyyLGCWEn0KbokoBveaaUqEJXfcM8XyJrBQslislfc636GUA
+	 SDW5Wc1CyeqYC9cNBZUzQmwDD5tlcfiaeATgy7Q21Zs40hzfbOd6WM25xONMpaM7H/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310097;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=I7+FoXiAXnYTR4FAAqnJM6g7iMricC9HMOscVkZdRQc=;
+	b=1rvWaPa1xpGJkcSbzQp3cYxeSWXnGUOXXm1+evn7fDBkBsV51gM+OcrqX5FtUt3dvqkg
+	 vgOYCtSXuqNeyb8a5k2/4dZZsyj34r+i7xMfkuaylabpYC1KR9/oLlhEpHG95Z9t3Zx0a
+	 h2DQWldHTuPdLxmTXBz5zD5bby1y8O1Ez2RzrfpSlifX/Avs55fbExOmtRB+FRF2qP1/0
+	 2+TDQXFmHFQ5cVtbfXTbQq0q8Ohwz4HlQwIP+Hc04x78cMnihNA6wQeELk+D6t7LzeG8g
+	 ZWU2LBoxEoIOiX1zVGhwtMke4ZGszNEAwnSY03rYGlsuX1CJAhfAY7hEi+yxmrFPKog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="VS14/sgM";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F74F606A32E;
-	Tue, 10 Nov 2026 11:28:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30902606A326;
+	Tue, 10 Nov 2026 11:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30902606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dDeiScvo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2808E1F008A1;
-	Tue, 10 Nov 2026 11:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794310097;
-	bh=Bow83wIczwiYl+mYNYisPcBsNVqLXF/ekH8fXtAJVuI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dDeiScvozPtJL2n8qM+O8IYSe4tDr75pEKgeDQV/2HtafsTURojPSPpvFqmo1cN2s
-	 GNA4CAxFdnwnUocGJO/qkY33Wkvh0iDQp0ti8/bl7tM6+cAE9Im6fH1wkgORmxv7pT
-	 /S4BrOAaIH0J1PG7YF+XMYDaCFdQvToy8iw0IssbHfxidsoHXgcOXQuRjh46ndqltW
-	 NaTufVAhNVRcEw9a/2txcKtAOUtXBDjh0dxAReVTdLVenPqGQhEHuFaY+JL6er0vAm
-	 UJjsI7NNM6mTUthKYkQvyQBwAByiK1w3j6G37bIPZu/ksTBjjoa7b8kHtqbcmrHbrs
-	 EEaMiN0YqAZ8Q==
-Message-ID: <35051734-9f07-47f3-88c6-f603b8263df6@kernel.org>
-Date: Tue, 10 Nov 2026 12:28:01 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VS14/sgM
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8FB08200912;
+	Tue, 10 Nov 2026 12:28:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794310092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I7+FoXiAXnYTR4FAAqnJM6g7iMricC9HMOscVkZdRQc=;
+	b=VS14/sgMg/EYq6G24pQt/Pao9HVnMwghNqa1Dni6A/dK1E19pU7pZ04wct5qp4gzCeZwk+
+	vGNmhlwTX54nysNcrmLdZ2TpjxeAr4w5SiVrnnBJMb/27kcoGefB+JKnr0EayXZ8MTcnHc
+	B/qozjgTIubEFtYhVFOdlo7gnYf6dKnuUXBg0ibCw5Fo8yQSYA+sC1+TRmPlGGc6Vp5uPm
+	z1bizqYI4MzFIFV42rlrMGY7HjsG2Zd5GteBrCHFSDSZQCGuZyT5u0JzV5tJTG9dSdJkYZ
+	yfjv9iC9rM6fXE0PkLBLKhnJx6JFOqTQ5CWxhJdGR3P8djYQXwA9GZdowhLSag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794310092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I7+FoXiAXnYTR4FAAqnJM6g7iMricC9HMOscVkZdRQc=;
+	b=I/ukohcz4i1+JrRf0PdAf8d5BG3fHPakwR9eNQFX4FdxA7eH1qvi2Tbn7o7xSt1w35VnNR
+	c3F3qD6fDinoOjEksWh4b4llcrWhghjG+UGkLXrY9FOGyJLzdi+agOlhrqoEsP21RaY6F/
+	0H5sexRB/ANtxhh2TdRg5m0N7ZItiTSHVQb1S1S+qFZMbWA8yYHFsnqy4Jti7UAj3Zc3eT
+	09A0aR3HIKf8XUlVT/hnXMg35LKAd/plKbfckNSNc6vbQ8jDp8bExcvqKYhpteWCJN5v01
+	7cnihzmAh6jhiCnrXO3dcwBZG2lT/jPC59yADaa4EHpbfPM4LwG7fwoaCm8hBg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794310092; a=rsa-sha256;
+	cv=none;
+	b=UJyK30gDMGm7X8N5rL4e0HNcjvoM9kmujer9PjzU0GHslB3wCzfwAqHnbF0EfsZUqwTBwi
+	929b7zK7aJXr6QZ1qENHT8FdtIdp//MFg3SMTwazhj8nZr9FVKDacJs6JbqxtW/4D8UX0y
+	kLrnH5yrg+W8Uk4hFU4q9ba4mY18aTgbkVEHuTlqejuia2nMckn6QJxy/T8ysuci+oyDAW
+	VmMcyOta+A5Gh/h1CKEkp3/hFCn/FDJfoV56e4qpxwa9l4qe58Z2ExotEnUVBnHVFox7zb
+	/G2ZIBBCdxVmBdE9eEP+NA9d6QYR7EU6P48P/I8lv+/ysh5ivFu+mJd+bxduWg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xQk1M-003U7r-1Y;
+	Tue, 10 Nov 2026 12:28:12 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 192D95E6817;
+	Tue, 10 Nov 2026 11:28:12 +0000 (UTC)
+Date: Tue, 10 Nov 2026 12:28:11 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>, mailhol@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev, 
+	linux-can@vger.kernel.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
+Message-ID: <20261110-urban-bald-mastiff-d3cc34-mkl@pengutronix.de>
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260929-loon-of-remarkable-romance-197df6-mkl@pengutronix.de>
+ <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,113 +104,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next 07/14] mptcp: annotate data-races around pernet
- sysctls
-Content-Language: fr
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, Nikolay Aleksandrov <razor@blackwall.org>,
- Paul Moore <paul@paul-moore.com>, Mat Martineau <martineau@kernel.org>,
- Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>,
- Allison Henderson <achender@kernel.org>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, "D. Wythe" <alibuda@linux.alibaba.com>,
- Dust Li <dust.li@linux.alibaba.com>, Sidraya Jayagond
- <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>,
- Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, bridge@lists.linux.dev,
- linux-security-module@vger.kernel.org, mptcp@lists.linux.dev,
- lvs-devel@vger.kernel.org, linux-rdma@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org,
- linux-s390@vger.kernel.org
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
- <20261109025425.328445-8-jiayuan.chen@linux.dev>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261109025425.328445-8-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-Hi Jiayuan,
-
-Thank you for the patch!
-
-On 09/11/2026 03:52, Jiayuan Chen wrote:
-> enabled, add_addr_timeout, checksum_enabled, allow_join_initial_addr_port,
-> stale_loss_cnt, close_timeout, pm_type and syn_retrans_before_tcp_fallback
-> are read by their ctrl.c helpers without any lock while the sysctl
-> handlers update them with WRITE_ONCE(), and the path_manager handler
-> stores pm_type with a plain write. Add READ_ONCE() to the readers and
-> WRITE_ONCE() to that handler.
-I have the same patch on the MPTCP ML (the WRITE_ONCE() is split in
-another one):
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ubmc5fnivmtvuzul"
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdUE1Jh605kgj4ADU7p1UjE-0u3ydBehL_5wsQPbe1EPMw@mail.gmail.com>
 
 
-https://lore.kernel.org/e8335e14eff144774aec63393f5cce13e69dddc0.1790147728.git.yangang@kylinos.cn
+--ubmc5fnivmtvuzul
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 0/7] can: rcar_canfd: Add support for Renesas RZ/G3S
+MIME-Version: 1.0
 
-So that's good to me:
+On 10.11.2026 12:08:49, Geert Uytterhoeven wrote:
+> On Tue, 29 Sept 2026 at 16:19, Marc Kleine-Budde <mkl@pengutronix.de> wro=
+te:
+> > On 02.09.2026 17:15:37, Claudiu Beznea wrote:
+> > > Series adds CAN support for the Renesas RZ/G3S SoC. Along with it a t=
+ypo
+> > > fix patch was added on the CAN driver.
+> > >
+> > > Merge strategy:
+> > > - patches 1-5/7 should go though the CAN tree
+> >
+> > Applied 1...5 to the linux-can-next tree.
+>
+> Thanks, but six weeks later they are still not visible?
+> Same for " [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict
+> resets in top-level"
+> https://lore.kernel.org/20261009-holistic-warping-puffin-3b92fe-mkl@pengu=
+tronix.de
+>
+> Am I looking at the wrong tree?
 
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+I tried to get stuff into the last merge window. For various reasons it
+didn't happen. Anyways - I've pushed all queued Renesas related patches
+to the can-next/testing branch. I hope I've collected all the latest
+series. Can you have a look?
 
-Note that my patch was still in review because Sashiko kept complaining
-that this was not fixing all issues, e.g. the new WRITE_ONCE() you
-introduced is not enough. Gang has a fix for that [1], and that's not
-blocking your patch.
+regards,
+Marc
 
-[1]
-https://lore.kernel.org/c9f533ea507e6a88d3401768785153a63790c3d8.1790147728.git.yangang@kylinos.cn
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+--ubmc5fnivmtvuzul
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavL/yQAKCRDMOmT6rpmt
+0qs4APwLy9Cwk00kuD3KSZmcaeZ7HE18HtTzyb0RIv91mTY89gD+Ob7LZZP5DT9B
+rWbIbde/9R5JHVC2ElHyP0lIP2mtIgc=
+=7Ee6
+-----END PGP SIGNATURE-----
+
+--ubmc5fnivmtvuzul--
