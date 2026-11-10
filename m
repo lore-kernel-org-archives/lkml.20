@@ -1,98 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309912;
-	b=ga+VGguznJhnruG2wR7VLgGxZHoggZ62n5KhjIueoE8/zul84NdEoe8BYJfQtZVAdnif
-	 xwhnQyLUXlS7Iao53uywGlYcnHyqvxJJtPO96s7pSlZoZYc+hdjb1uhW4SmP0dvj5inPa
-	 p+XbDoPQcm+RwmVfNXzo/p4ymQXezbL+8g7/l5LUrFhjpqBptbfcX5u+DzV5B7hC+VO8N
-	 Se8F59Fn3Xh3iJlP9aqtO5fdHywFrTeJZUs6LZlIUVyU4iJs09v4o/nmktemY/xCLu6to
-	 YdqlP5ezpQbBtU2ICBDWKlTRsmvpqc51XOx5DcEJhnyTajvaLb5u+YxPzPJyIwWnq0A==
+	t=1794309915;
+	b=5lxKGzkRol4ogigrUNiLy0FbCaPNEpLJ+LE/nJzDJMMkDiIkmpJWKErkEvdIdouDFcSt
+	 PS7A2OBtGoT5AAeZuPtbq86FooA1dnMTOLq8Asu/Ii52Y9tqwtM1t2gpCm6cS5cW9UTLI
+	 M25towK6Z72kjWGQi0WVkaKvlsrDxW6cH1CQPnkEIEAEcur5xDi3Qw7X4qOyytiAk+joO
+	 AvbX0efARx3khNTebUhp1Omk9D0xvwSv2AoEl5kRJzC7Y2OHwIcwE5tadfEwArRVLl403
+	 fZVlMezSNRFlmHjHutRgCrBnIyVATdnwF8DZRXda6AIlGSIIBN+7QWL6Kz1qJO6V3Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309912;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309915;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=olyA0GkCFOlLCJET/iZgvs7pvm9Jf8w/7sECMvsdEs0=;
-	b=IjTHPQMJqYw0G51eW38FdSU9aisTEir3tox8EfgK6tBykTQDHHAVmvky7pp52rg0oNVs
-	 DDLaSP/TsIowiX51Hb2BxCclFJX4G8KJWh9gU9phobv+qbBJJiSATqHhKilarh0yQhXpo
-	 oPgLd6aHV6zO7V/9ZkQV8NTTH0z3UrFgIS2OL9O2T1NXcTnLfOeBoAo01MuFTY+YBfnCx
-	 Qn+qK1YrL8xPxlaD4RsjtaR37A+518DikXGy5lNqIeIaq2vlOt16zwWw/wwyNTM3sAhIb
-	 5Ip+EKI1V6wcbKXxusl0UeJm9Cswy00ysdUVaJnm9dK4F8SORQrFeU/P9FEt2jaIKSA==
+	bh=njIoOXK5zMREOncg8mUAQGqPEShsE5xs29xDkWFtyUU=;
+	b=LosghG204nfk4TUsqv2WPwmsUEoZFmFslgwdWP4GtFva0xws6f4iwk0BTw6OPbZOhN4n
+	 +NmIKWmRvP6vILRNcBJ0GKwbzn+ujTd36MC4H/SRVjQwzKgUnPNwSihdoIp58qBQHfO2p
+	 NqO97bdzu5FR+ehdWTJDotpsOqvMbw/2VFJaxfLASVSZdVfqwpeL7/l5fL1q1+vtcZWae
+	 pTNwVYBpVWPwi6+5lY9EGfQyhshCJEs642s4AqDq/HMdqQUDOxtmKJUDsEkruPL4+8SZf
+	 wMtCGkWwAYZhpl3GE9PshuC2hIP8SnmQ+zbieaAnWNY49HRvgB159D2XUnz0ymSfcxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=T8yWAAYk;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="mVkWfYh/";
+	arc=none smtp.remote-ip=91.218.175.193
+Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF0D606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBF0D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5CD60A262F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C5CD60A262F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=T8yWAAYk
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36ff9c9da34so3218883eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:25:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794309910; x=1794914710; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=olyA0GkCFOlLCJET/iZgvs7pvm9Jf8w/7sECMvsdEs0=;
-        b=T8yWAAYkgz2a+nkOHuIH9bIYxYu5yNNTOvK3dDPfSZjQZYOb1MhwXxRQStfiX+HXum
-         RU2XOqcQDy6cfalegyRSO7c+u0XYRx2svEHpBNXRFeqHMi77HOBGDssUWiO9yePLG6+0
-         4oAYsFleFq/PfWACKOn2IlmdMKTLurs/g4TbsYqfV+fCvOl5B/3b40QKpYh6IzJDPkxX
-         AZaLuM8ofZj4og0fb5RvRqLQxigNnqMRCXpxlLB5LufP1WeuiQND5XmgnQBQ1QwA4MZa
-         S3QCn7j4ndeGbiS1Iru7LaE18aFo6DvuDqgQh30HTy5eXjT1nyyM6XvfLV792823ZYwf
-         IKaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794309910; x=1794914710;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=olyA0GkCFOlLCJET/iZgvs7pvm9Jf8w/7sECMvsdEs0=;
-        b=xhh75quU6SPPE90rXdVfw62orZlxTwG4od0/ZOSe1gUkO4G4fWoAWQ/X1jOnwYkApt
-         XVi2pLc23oLCnipsCMmkslkz6fTjiiDJU18yLmfU5bgEIVNK2c+vI4oWi1YGf4OVFY7u
-         9kt2cAjtcukPccyUqZ5U4CIY5nI/j4lLtzS4jayNfvV79vuhbgre8OBcvnJZAt5vva1C
-         Nh23B1q8oGSXoYBCP9NhPxErR2t8YkrJSp/8+AEvgczsMVBVDnl4OWaL0MesqEHZ1FLe
-         9Qwm662sIXUt/540XzgFbcy52181OZt2ys82I4YonY5bafcp/OtP7D/WKn2E8PYrCmxq
-         syIA==
-X-Forwarded-Encrypted: i=1; AL+hErEuV/N+fWbV378xzQlLcOSqxsGUiSMs/AxI5+MW8n3lLlPozubh9fbfnM2OBJWYQ3ZqGS7X6HWbWqe2ZYI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cz4U7cnRV9D6BdCAk8FbZ2irnHb2BTq+RbovxJW+xdFnLuwQP
-	sSl6pBOj4crN/GRDobnl3N1xbIIj1PnfVYYIlDVP5etk1vYt6HTBgGXVHxYM5lAk30Q=
-X-Gm-Gg: AYBFou3vAuV7ZwXugXfC/IzswMsDafe3lgN5EZ1I8rM8GQgpnLgVl0o9U9x7Urmmv9Q
-	YlXqT6V325rClMBStX5QKRCv8A83grW2KFyNOTRfCsm9YoJIQI0KXla4mPpNf0tXpqg//IYjl2Y
-	h6bsj1x9EyDmzJrWbGxN3/xLGb3q2/PQXjvJ/Wp4smDVvfxFoOdhvfoO/vnB5K/jHKGNGnmIkYM
-	su+B0leOzkvDo5+npYR2cwFlFWqYOoxYqLMxuP22CEgqD3ytQs0VNZMFHoCY0jV1CqBYk3TFcWp
-	S5AUHUkvossbpE9fH6mQDS6cOmj9PwzPO2V69EKlO1Gfo3ppV+YD9R31U3CMj34Aa/Kplsf5qPG
-	CgFDPfeGuUayWddArDACMiwPqNJqanGKaw77g0d+xUfVfterHq5iIyXhqg9GB9nDooaacb7YBLP
-	tPhPGSNaWXRrx8vHKtuEQ/wJ0LoTB84uPaXY6ocMFRK7BCsFQjagXggPyiDatD5aKr5EdR7N+sc
-	O8sbwnBi5aQP9nluoEwLcT/yjx/VqxMOWokgs1n9E7LVa4JGlv3WuGSSEU5JZMRWE/pRNzP3Yj8
-	Mr4iYbZuQ09KohkVLeSvftA4uqfcKyA3BpcGehD3QSmgVP4DdnAfxm2+7yfAkEwYOQ==
-X-Received: by 2002:a05:7301:1522:b0:36a:1089:9836 with SMTP id 5a478bee46e88-3751ee747dfmr2528761eec.15.1794309910199;
-        Tue, 10 Nov 2026 03:25:10 -0800 (PST)
-Received: from G6L4RL2QG9.bytedance.net ([61.213.176.6])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm7608755eec.19.2026.11.10.03.25.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 10 Nov 2026 03:25:09 -0800 (PST)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mVkWfYh/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BPShZdqjxGXzG9YjR46DA5wDrW3cgTzpgUAq+Dua6mc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794309913; v=1; x=1794914713;
+ b=mVkWfYh/OU5ocR0W3SIgvgFGay1eXuZ9K2ZVcborArx5MMPEOCDYFyeFOxuvPOfLou+64Lbj
+ NxviIlOtEWv4pnOnogTcpp3NFs6KhEcTsaL6ycgwbASbu3WK9k8ORbYH9DHGuAFwa6g6CJimA+3
+ WU9vvPNnJDjYBbYQqi7Xo5Z8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id aaa1849df80259f7;
+	Tue, 10 Nov 2026 11:25:10 +0000
+X-Mizu-Trace-ID: aaa1849df80259f7
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Uladzislau Rezki <urezki@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH] mm/hugetlb_vmemmap: fix PMD split TLB flush race
-Date: Tue, 10 Nov 2026 19:24:56 +0800
-Message-ID: <20261110112456.62827-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v4 6/9] mm/vmalloc: only flush the cache after the vmap succeeded
+Date: Tue, 10 Nov 2026 19:25:43 +0800
+Message-Id: <20261110112546.261415-7-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,119 +87,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bulk HVO optimization converts vmemmap PMDs for a list of folios into
-PTE tables before issuing a single global TLB flush. After publishing
-a PTE table, a concurrent single-folio optimization can observe it and
-remap its PTEs before the deferred flush:
+vmap_page_range() and __vmap_pages_range() call flush_cache_vmap()
+before they even look at the error code. A failed mapping is never
+used, so the flush is pointless at best.
 
-CPU0                             CPU1
-hugetlb_vmemmap_optimize_folios()
-  hugetlb_vmemmap_pteify_folio()
-    vmemmap_split_pmd()
-      pmd_populate_kernel()
-      /* TLB flush deferred */
-                                 hugetlb_vmemmap_optimize_folio()
-                                   vmemmap_pmd_entry()
-                                   /* sees a PTE table */
-                                   vmemmap_optimize_pte()
-                                     set_pte_at()
-  flush_tlb_all()
+According to the Sashiko review it is worse than pointless on UML:
+flush_cache_vmap() there is flush_tlb_kernel_range(), which syncs the
+PTEs into the host OS. Flushing a half-installed mapping therefore
+leaves host mappings behind for a range that was just freed again.
 
-This can create overlapping TLB entries at different granularities
-that map the same virtual address to different physical pages.
+Only flush when the mapping, and for vmap_page_range() also the KMSAN
+metadata, is fully set up.
 
-Serialize deferred PMD splitting against PTE remapping with init_mm's
-mmap lock. Hold it for write across the entire pteify batch and the
-final TLB flush, while optimize and restore remaps hold it for read.
-A remapper can then observe a split PMD only after stale PMD
-translations have been invalidated.
-
-Fixes: f4b7e3efaddb ("hugetlb: batch PMD split for bulk vmemmap dedup")
-Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-fbdc3410-a4cf-457e-88e6-684380fbadfe
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- mm/hugetlb_vmemmap.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ mm/vmalloc.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index ba8e11e399b2..ba6559bef742 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -158,10 +158,8 @@ static int vmemmap_remap_range(unsigned long start, unsigned long end,
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 0565cbfe325c..3f98056f8c7e 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -369,10 +369,12 @@ int vmap_page_range(unsigned long addr, unsigned long end,
  
- 	VM_BUG_ON(!PAGE_ALIGNED(start | end));
- 
--	mmap_read_lock(&init_mm);
- 	ret = walk_kernel_page_table_range(start, end, &vmemmap_remap_ops,
- 				    NULL, walk);
--	mmap_read_unlock(&init_mm);
- 	if (ret)
- 		return ret;
- 
-@@ -308,6 +306,9 @@ static inline int vmemmap_restore_range(unsigned long start, unsigned long end,
-  * is skipped, the caller must flush TLBs after all pteify operations are complete
-  * before remapping the folio's vmemmap pages.
-  *
-+ * Note: The caller must hold init_mm's mmap write lock for all pteify operations
-+ * and the final TLB flush.
-+ *
-  * Return: %0 on success, negative error code otherwise.
-  */
- static int vmemmap_pteify_folio(const struct folio *folio, unsigned long flags)
-@@ -318,6 +319,8 @@ static int vmemmap_pteify_folio(const struct folio *folio, unsigned long flags)
- 		.flags		= flags,
- 	};
- 
-+	mmap_assert_write_locked(&init_mm);
+ 	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+ 				 ioremap_max_page_shift);
+-	flush_cache_vmap(addr, end);
+ 	if (!err)
+ 		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+ 					       ioremap_max_page_shift);
++	if (!err)
++		flush_cache_vmap(addr, end);
 +
- 	return vmemmap_remap_range(start, end, &walk);
+ 	return err;
  }
  
-@@ -358,6 +361,7 @@ static int vmemmap_optimize_folio(const struct folio *folio,
- 	if (ret)
- 		return ret;
+@@ -758,7 +760,9 @@ static int __vmap_pages_range(unsigned long addr, unsigned long end,
+ 	int err;
  
-+	guard(mmap_read_lock)(&init_mm);
- 	ret = vmemmap_remap_range(start, end, &walk);
- 	if (!ret || !walk.nr_walked)
- 		return ret;
-@@ -392,6 +396,8 @@ static int vmemmap_restore_folio(const struct folio *folio, unsigned long flags)
- 	if (ret)
- 		return ret;
- 
-+	guard(mmap_read_lock)(&init_mm);
+ 	err = vmap_pages_range_noflush(addr, end, prot, pages, page_shift, gfp_mask);
+-	flush_cache_vmap(addr, end);
++	if (!err)
++		flush_cache_vmap(addr, end);
 +
- 	return vmemmap_restore_range(start, end, &vmemmap_pages, flags);
+ 	return err;
  }
  
-@@ -559,6 +565,7 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_l
- 	if (list_empty(folio_list))
- 		return;
- 
-+	mmap_write_lock(&init_mm);
- 	list_for_each_entry(folio, folio_list, lru) {
- 		int ret;
- 
-@@ -583,11 +590,13 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_l
- 			break;
- 	}
- 
-+	if (nr_to_optimize)
-+		flush_tlb_all();
-+	mmap_write_unlock(&init_mm);
-+
- 	if (!nr_to_optimize)
- 		return;
- 
--	flush_tlb_all();
--
- 	list_for_each_entry(folio, folio_list, lru) {
- 		int ret;
- 
-
-base-commit: b95f8bb86713c860ce8536d22a988b949b884d5f
 -- 
-2.54.0
+2.25.1
 
