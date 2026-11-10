@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305120;
-	b=shO9SiIr82Ba5QFl+ghxpulgDyv+C0/zUlLj/FZMWOjIwFQeJV/WAIP66Ub0T4AquOw4
-	 mS9C4ogdHffKH7k1khYccl30WCZu+hZDTfGUZ5EObP8aUBh9yarY51Wg0H/C5WlI4YuTf
-	 m72BzPUiti41FC0HA1Hjhq4nK9whdUW5BlQnps0wRxk5AAu8jyx7Bqb8gYyR+AMgL49Vz
-	 1UngABwtC6nCcdVcRJPi2Tp72TBVHvgQ4fVQSVjcXB5esvHhnWqOxKmeMzg0xrljntE/C
-	 Pda5asiCG7w54JQjIdH0Msm7z9FQ21q2CbSTHV8E03vGFSZgrpNAu13wa3TCCBnIOgw==
+	t=1794305121;
+	b=qv/GDvfkK7SphsZTE8AUGf+wSder09/hNY0laoUmUt7i5UVnRjorAwR7SR4KDY+Hpro7
+	 sbyioCQcENUtUVQKfFB7nOULVllpPPN6E0YBIl/QNMQT9pTkykCIckOZ7xtTQpdPQbYRg
+	 mtgzMIxtUWKKgVpD7f7dvl9K4eOhRItNbVm9+X2cex4+lmDFy5YUAUsb5wvdRL4+nWE6e
+	 D9/VR07d+ANFd6OVBDL5kaG00xWsby3qaJxnqR596MCTCGQDvDlC8daXFe5oKq+aOzTZa
+	 3ysbGtM229693WC7Rswjax8i2L1TP5BHNDMabDHWZisIxX0D2mV8Q+WVh9rSSQPQcAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305121;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BskGLoGruitQ8HSqA3ofT1EWKTDohCTdgmt5lMCT1dw=;
-	b=SGdgk3XRPGNEwf6pcg+cFRXwfEpPsLZU7P6Aa4+Ze/e4xJPNFmzZqNmk+ldk+qB3r908
-	 RaYZ6WtoUF3tnwwN/E845mXmvrK1psyuSjShq1+s1R9VT1XM0D/SSaJadjknBA4pbJAlQ
-	 qiYp7cqg19eSJBSwEk/yuBJpYXDdDoYE5jgLBvOmWEdJULZR1no8BlWlG8/ganmU7GKcv
-	 1GcGnT0F5GVUqIc5zfBycXzDQlKnwaquF5CpZv8UaCveiCDIQKOJExuEl2fkYH0hQ8RbU
-	 vqgv/aMEf3yoU/pZx3gMCww6vinLuucAOhuPYy4ip5d26fBh5Pt44bIPopeEWil52MA==
+	bh=SAaxaBUZqt+5yM3o1Sn3l7P3VMtS2rIqUac1ZncTLRk=;
+	b=WPS8t7hyFrdxzVl/Vv0zXzJLdryKnIHUu8FIz36GhgU8Q+QBxSijwfa/7n586pJDvEXm
+	 /xAkHVDudol4YHHqMGkeJkM2LpAAQh3mUuaPURtrUM4ko14AgOXVLyLw3l7tIaUiroxpn
+	 lvYzst1mSL74TB5uZB53QRLI4SW5WptWQ6gF9L3xfWfZirp4xRnzHhYN1bsAhk4JIQ/lA
+	 I/zbavDI4OGQ2M9dPgnDWeES+lG0EG2h+QIjrMj/DTs1TVAI5D5cU0yNKMP+xO3JApc4a
+	 qXdiXZR+27SWRgmXGd92wSWnetXksr2ElPtWzODdyNy65r5lY1h6rvcgNvQ8G2iyf4w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KY5Ei4pi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axYHAGmY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C8A606A337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EB6606A33F;
 	Tue, 10 Nov 2026 10:05:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KY5Ei4pi
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axYHAGmY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794305120;
-	b=tp3yxMpl88hy5I9Wr1l3+Vi5sWCZxrNHTeX4snbSMIeGs8eL8NCAAfturmZf90BgyCRV
-	 kRQsXlUGpEgD6055DgGI1oAU6OHvbMz9tdBIjtKsx/1wy4razJQKIuFbCry6GsUjpUgJE
-	 F5kOy6wJxW2KdJMBVTMK0BiF+/Cw7N4poJttzHa2opibvwhs/v8wY9P4ZqyuaPjazVjzG
-	 DTYC0gFyMayCSmjip29bEkjLj7LI74fpuzooCyaBPFdIyDHQgb595Ujc2+XIKh+aXybd6
-	 s4ONEhMjpDk9eppquPeKx5FuYlTZGg4crny6FHV4ZHOHSShSUdiWI1vYy/bW+/opjbA==
+	b=otNZLkelL5+Z2wZSEcPXp+hu4Zl29oWjBqnwucUh/vWM3EsejjS7NN5qj1Ph4psJPBY/
+	 1pL94bKksSSV3std1GkwUj+5hdrY2dIdvdy0QDq/EoCO1EBjfWAnIPjnaiFL+NZoQyiEM
+	 LemsvEpmOkRR86Q8ABBqbqS5wzoO6EQ5ltA5ISJTJpBdYFE2ztCzFkBGWPlJjbN+8MgSh
+	 iLvGp21b2fnBfZDYgjF7IWzUWJa6rKYHA4EPmg/rCcV52EsCGQfQUsoh+xteqxthM3Zf4
+	 KGzCnwx7bs7rKJFA6NVQIuoYl8uUY61vOhcyp6PiwmqY5IL5BQHDEQMliFe7/LvxfZQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794305120;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BskGLoGruitQ8HSqA3ofT1EWKTDohCTdgmt5lMCT1dw=;
-	b=HkS4NvmvO08QAfdjMM4gcKECrixyP1TdpqdYD6yRSnVqIyGDfjR0ZCUv6yVRqt7yBLZs
-	 cA5PkrfMnkTgU21amXRxyZudmosvkJy+I+lk+9KQZ709MjMlx5rjvt8TVRcrYTPcuWqeZ
-	 046TF2iPl+1SJYRROK4L8+nE5mm+4BpiEPtsCYTGTNi8J36/beTOUYwd2nFO1K5+GiEYo
-	 iOcB/cq8yE77DbsIqO0i25Nn+Vaw+Fmt9bRRD73+0aCh2wJmFa8HPfKz79edTdbkJ8pwG
-	 i6RdnWYqIiJ4U805JKEXObCWt08XM4PWPn0gbzjWl55ErjNBcQnMZWwFX1QbPg06dMQ==
+	bh=SAaxaBUZqt+5yM3o1Sn3l7P3VMtS2rIqUac1ZncTLRk=;
+	b=TN2cG8rMv3Li5ARAQTObXuaQB1bJpcrPo6L2EYuocWzvNtsyy96bI6/dYh+djKWRhD2f
+	 S7qVgga0aS+iqMz7nUac4kov8XelNRRUEZTqBLbngQKuFND3PMcKo9/wnA1jW6Qlbylbk
+	 auZjd0G9XPOo7MIHvmC89WVqsujJOCmckDDPBO9h6W8wkIF17B3fJuTLB/XVC0rygbYtr
+	 s59WHsGqjSnLbSTEbDUrr1GDf8La+E9Qe8p80TuNGPLh4u7Oc8rRtje4n2yV+Cv55t4wn
+	 9j24cQBOR1NWyc8rJB8LtfmBWw9JGyW6xaOqQjATK7mNGOSLhb2dBB5N0Y+WxixtqMQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 21B831F008A2;
-	Tue, 10 Nov 2026 10:05:18 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7C8BF1F008A5;
+	Tue, 10 Nov 2026 10:05:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794305120;
-	bh=BskGLoGruitQ8HSqA3ofT1EWKTDohCTdgmt5lMCT1dw=;
+	bh=SAaxaBUZqt+5yM3o1Sn3l7P3VMtS2rIqUac1ZncTLRk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=KY5Ei4pixvY7V9PCgdqG/haXQVIXDpy3jolPyt9l7/iRcjfZlWCFaALp6Eq3j59YI
-	 CNjlON5Hg2MQ5+3JITTTYd06924JLaoYDG1lEhZrbuAnHY4Uu6R5hSm/MSV+K5KfEk
-	 NPpk7jCRuYBZLTpuTy6qnvHBGi0dBeVcn/qN82EHSpzvbEbyknLt4kCbKeeI4ORPfO
-	 l6F0LHntGyVn8wSx5Bm0KnzXj1LVU1af9dSe2kKy52+SG/38oZsj7Tf6ZR/2Y2Jz0m
-	 YKdg8W7moaK6Xl5qH0e3+va5KxjzUOU7SON0pL7pKTdQ1dY0oYITBMfpUHmXBEKx+4
-	 92Wt7uKhfeAEA==
+	b=axYHAGmYlThc8qrobXe/2lFxgW9JYsPN4HWR6R/4FN/GBzzeCxck2Ba6BEdZFE3ge
+	 H5WggeINgiYH6uFTz55iSqqU9GMysdeHgt/+4IRygyaCiLOk3y/LON0wy6AdJarrkn
+	 tLBGr+L+pPTiYexj871Nrla7CtkfQ51rls3OIUeh0pDFPzQRJae8n4xudxlBrXFSjY
+	 Vg8+B5ePxZ4e1WuoQ9sytj1f/R9LDuzm+41oUyQKa0osUXy825kEflkLQkS6cHD0Jb
+	 4b3UeiaOBx+ojqZfcnKKsOj3NI42/MtLyXIIp2s5v/9Vvb5progouVfjv2qGsFqinz
+	 LPBmoG7FqXPsQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A347248A82;
-	Tue, 10 Nov 2026 10:05:17 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0D4A548A96;
+	Tue, 10 Nov 2026 10:05:18 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:05:16 +0000
-Subject: [PATCH RFC 02/11] media: h264: Support picture order count type 2
- in stateless encode
+Date: Tue, 10 Nov 2026 10:05:21 +0000
+Subject: [PATCH RFC 07/11] media: v4l2-core: Halve the I picture QP
+ increase of the encode CBR
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h264-encode-fixes-v1-2-7a64486df499@gmail.com>
+Message-Id: <20261110-h264-encode-fixes-v1-7-7a64486df499@gmail.com>
 References: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
 In-Reply-To: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -95,11 +95,11 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Michael Tretter <m.tretter@pengutronix.de>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=5092;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=3550;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=PCwKK6nMmQCe8KJ/MFG/ebErqC3wgGPpYaNKYiqCq2Y=;
- b=+DTLMzGqQ3mfZO8FkeJLj6mTAKM+p9Ms1EHrowHNkQK95kdabC/Jr6ourZ1eWabG9iHt9UHqa
- fFCw8AlTbfYBcJv3re77MGPpYwY97BTGDFWRSUTkxrZMRCR8vIBQnwf
+ bh=YKak4DZnLwR2w4xlIVJzMqRQDjjIsHD6EnCSZHiTMQg=;
+ b=1gdG3JuQ7+8Rxswlkfvv/ue4PfaZlhd8GVpVWfzDJW42hefHn7koR1L/PcaxDzfrLqpIiXXdj
+ 9htJmEruwERAKNc+yxC9uTHcUhKLk7SzwbZ90ZyeLf+9Nw88KIOEjal
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -110,139 +110,90 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Some encoders write the slice header in hardware and can't put a
-pic_order_cnt_lsb in it: the Hantro H1 and Rockchip VEPU1/VEPU2 encoders
-only produce slice headers for pic_order_cnt_type 2, where the picture
-order count is derived from frame_num.
+After an I picture above its share of the GOP at the largest I/P size
+ratio, the constant bitrate rate control raises the QP of the following
+I pictures. It adds the increase to the mean of the QP state now and at
+the previous I picture, so all of it reaches the next I picture, and it
+limits the increase by the QP of the I picture, four steps below the
+state.
 
-Accept pic_order_cnt_type 2, which drivers can then select in their
-state_constrain operation, and compute the picture order count as
-specified in ITU-T H.264 section 8.2.1.3. This needs the frame_num and
-FrameNumOffset of the previous picture in decoding order, which are now
-tracked for every picture, reference or not.
-
-Type 2 implies that the output order is the decoding order, which is
-always the case without B frames. Type 1 is still rejected.
+The Rockchip MPP library, whose behaviour this follows, adds the increase
+to the current state before the mean, so that half of it reaches the I
+picture, and limits it by the QP state. Do the same: an I picture that
+came out large because of a passing scene is not penalised twice.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c |  3 +-
- drivers/media/v4l2-core/v4l2-h264-enc.c      | 51 +++++++++++++++++++++++++---
- include/media/v4l2-h264-enc.h                |  3 ++
- 3 files changed, 52 insertions(+), 5 deletions(-)
+ drivers/media/v4l2-core/v4l2-enc-cbr.c | 36 ++++++++++++++++++----------------
+ 1 file changed, 19 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c b/drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c
-index a165f8114ce9..2d751855195b 100644
---- a/drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c
-+++ b/drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c
-@@ -758,7 +758,8 @@ int v4l2_h264_enc_rbsp_sps(struct v4l2_h264_enc_rbsp *rbsp,
- 			if (ret)
- 				return ret;
- 		}
--	} else {
-+	} else if (sps->pic_order_cnt_type != 2) {
-+		/* Type 2 has no further syntax elements. */
- 		return -EINVAL;
- 	}
- 
-diff --git a/drivers/media/v4l2-core/v4l2-h264-enc.c b/drivers/media/v4l2-core/v4l2-h264-enc.c
-index af925b6626cf..9745c0e85ee5 100644
---- a/drivers/media/v4l2-core/v4l2-h264-enc.c
-+++ b/drivers/media/v4l2-core/v4l2-h264-enc.c
-@@ -200,10 +200,11 @@ static int state_prepare_params(struct v4l2_h264_enc *enc)
- 	sps->pic_height_in_map_units_minus1 = state->height_mbs - 1;
- 
- 	/*
--	 * Only pic_order_cnt_type = 0 is currently supported.
--	 * Error out since no pic_order_cnt_lsb was provided.
-+	 * Only pic_order_cnt_type 0 and 2 are currently supported. Type 2
-+	 * derives the picture order count from frame_num, for hardware that
-+	 * can't write pic_order_cnt_lsb in the slice header.
- 	 */
--	if (sps->pic_order_cnt_type)
-+	if (sps->pic_order_cnt_type == 1)
- 		return -EINVAL;
- 
- 	/* SPS Video */
-@@ -933,6 +934,41 @@ static int ref_step_buffers(struct v4l2_h264_enc *enc)
- 	return 0;
+diff --git a/drivers/media/v4l2-core/v4l2-enc-cbr.c b/drivers/media/v4l2-core/v4l2-enc-cbr.c
+index 32f98052e981..70810b3fea23 100644
+--- a/drivers/media/v4l2-core/v4l2-enc-cbr.c
++++ b/drivers/media/v4l2-core/v4l2-enc-cbr.c
+@@ -47,8 +47,10 @@
+ /*
+  * The I QP increase after oversized I pictures: at most 4 QP (1/256 units)
+  * per I picture for an I picture twice its largest share, and in all at most
+- * a quarter QP per QP step below 45, up to 6 QP (more where the QP is low,
+- * where a QP step changes the size by fewer bits).
++ * a quarter QP per step of the QP state below 45, up to 6 QP (more where the
++ * QP is low, where a QP step changes the size by fewer bits). It raises the
++ * current state in the mean of cbr_qp_intra(), so half of it reaches the I
++ * pictures.
+  */
+ #define CBR_INTRA_ADD_STEP	(4 * 256)
+ #define CBR_INTRA_ADD_QP_END	45
+@@ -126,25 +128,25 @@ static u64 cbr_plan(const struct v4l2_enc_cbr *cbr, unsigned int fps,
  }
  
-+/* Picture order count type 2, see ITU-T H.264 section 8.2.1.3. */
-+static int ref_step_poc_type2(struct v4l2_h264_enc *enc)
-+{
-+	struct v4l2_h264_enc_state *state = &enc->state_active;
-+	struct v4l2_ctrl_h264_sps *sps = &state->sps;
-+	struct v4l2_ctrl_h264_encode_params *encode = &state->encode;
-+	struct v4l2_h264_enc_ref *ref = &enc->ref;
-+	unsigned int max_frame_num = BIT(sps->log2_max_frame_num_minus4 + 4);
-+	unsigned int frame_num_offset;
-+	unsigned int pic_order_cnt;
-+
-+	if (encode->flags & V4L2_H264_ENCODE_FLAG_IDR_PIC)
-+		frame_num_offset = 0;
-+	else if (ref->prev_frame_num > encode->frame_num)
-+		frame_num_offset = ref->prev_frame_num_offset + max_frame_num;
-+	else
-+		frame_num_offset = ref->prev_frame_num_offset;
-+
-+	if (encode->flags & V4L2_H264_ENCODE_FLAG_IDR_PIC)
-+		pic_order_cnt = 0;
-+	else if (!encode->nal_ref_idc)
-+		pic_order_cnt = 2 * (frame_num_offset + encode->frame_num) - 1;
-+	else
-+		pic_order_cnt = 2 * (frame_num_offset + encode->frame_num);
-+
-+	ref->frame_num_offset = frame_num_offset;
-+	ref->pic_order_cnt_msb = 0;
-+	ref->pic_order_cnt_lsb = 0;
-+	ref->top_field_order_cnt = pic_order_cnt;
-+	ref->bottom_field_order_cnt = pic_order_cnt;
-+	ref->pic_order_cnt = pic_order_cnt;
-+
-+	return 0;
-+}
-+
- static int ref_step_poc(struct v4l2_h264_enc *enc)
+ /*
+- * QP of an I picture: the mean of the QP state now and at the previous I
+- * picture (the current state weighs 70% when it rose from 33 or below to 35
+- * or above: content that got much harder), plus the increase after
+- * oversized I pictures, less the I QP delta. All-intra streams use the
+- * state alone, which then follows the I pictures fully.
++ * QP of an I picture: the mean of the QP state now, raised by the increase
++ * after oversized I pictures, and the state at the previous I picture (the
++ * current state weighs 70% when it rose from 33 or below to 35 or above:
++ * content that got much harder), less the I QP delta. All-intra streams use
++ * the state alone, which then follows the I pictures fully.
+  */
+ static int cbr_qp_intra(const struct v4l2_enc_cbr *cbr)
  {
- 	struct v4l2_h264_enc_state *state = &enc->state_active;
-@@ -949,7 +985,10 @@ static int ref_step_poc(struct v4l2_h264_enc *enc)
- 	unsigned int top_field_order_cnt;
- 	unsigned int bottom_field_order_cnt;
+ 	int cur = cbr->qp_q8, ref = cbr->qp_intra_ref_q8, q8;
  
--	/* Only pic_order_cnt_type = 0 is currently supported. */
-+	if (sps->pic_order_cnt_type == 2)
-+		return ref_step_poc_type2(enc);
-+
-+	/* Only pic_order_cnt_type 0 and 2 are currently supported. */
- 	if (sps->pic_order_cnt_type)
- 		return -EINVAL;
+-	if (cbr->gop == 1 || ref < 0)
++	if (cbr->gop == 1 || ref < 0) {
+ 		q8 = cur;
+-	else if (cur >= 35 * 256 && ref <= 33 * 256)
+-		q8 = (3 * ref + 7 * cur) / 10;
+-	else
+-		q8 = (ref + cur) / 2;
+-
+-	if (cbr->gop != 1)
+-		q8 += cbr->qp_intra_add_q8;
++	} else {
++		cur += cbr->qp_intra_add_q8;
++		if (cur >= 35 * 256 && ref <= 33 * 256)
++			q8 = (3 * ref + 7 * cur) / 10;
++		else
++			q8 = (ref + cur) / 2;
++	}
  
-@@ -1174,6 +1213,10 @@ static int ref_complete(struct v4l2_h264_enc *enc,
- 	unsigned int index;
- 	int ret;
+ 	return DIV_ROUND_CLOSEST(q8, 256) - cbr->qp_delta_intra;
+ }
+@@ -350,8 +352,8 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
+ 			      cbr->qp_intra_add_q8;
+ 			cbr->qp_intra_add_q8 =
+ 				clamp_t(s64, add, 0,
+-					clamp((CBR_INTRA_ADD_QP_END -
+-					       cbr->qp_pic) * 64, 0,
++					clamp(CBR_INTRA_ADD_QP_END * 64 -
++					      cbr->qp_q8 / 4, 0,
+ 					      CBR_INTRA_ADD_MAX));
+ 		}
  
-+	/* Keep the frame number of the previous picture for POC type 2. */
-+	ref->prev_frame_num = encode->frame_num;
-+	ref->prev_frame_num_offset = ref->frame_num_offset;
-+
- 	if (!encode->nal_ref_idc)
- 		return 0;
- 
-diff --git a/include/media/v4l2-h264-enc.h b/include/media/v4l2-h264-enc.h
-index 6debdc95232c..ff7166109551 100644
---- a/include/media/v4l2-h264-enc.h
-+++ b/include/media/v4l2-h264-enc.h
-@@ -54,6 +54,9 @@ struct v4l2_h264_enc_ref {
- 
- 	struct v4l2_h264_reflist_builder builder;
- 
-+	unsigned int prev_frame_num;
-+	unsigned int prev_frame_num_offset;
-+	unsigned int frame_num_offset;
- 	unsigned int prev_pic_order_cnt_msb;
- 	unsigned int prev_pic_order_cnt_lsb;
- 	unsigned int pic_order_cnt_msb;
 
 -- 
 2.55.0
