@@ -1,124 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332079;
-	b=oUhrGZTswmviSLV1kjtilX7jCgriinyJY8qzt6N+li0Kuz6ykv1YODADl2/VHWFyZ31z
-	 CT1ZEU0IYFO2G7OI7ooscUQ/Xdbor8+aLfAO4tucJwDWFRzKOssaawa0DGACA5GJ6lRGU
-	 2HVwY7+SCtSODCSFRI6EuLTb2qz8L/8XSA4+R3Cw/aRoO6pEgwPMJaIpCozIrnwdxHMMk
-	 V9dC7YQ5+V0mRZKuprVQTYaQKEuoW4H/1N7/jMETtAUvmpXjdmu58E0dI2xjQeMfAoPOJ
-	 XGLqhxJj39KXSAPQ8LwnGQOjDGOJl5ajYvpzjD4V6365kC1odC1OkMTX6jtesso79iA==
+	t=1794332094;
+	b=q8TnyUcd6AaZVYvffSJFGdRheG0OnDTZNzmXbNIBDJ16WdEguwmEOpPATA+Wp9Vod06D
+	 c3TYiZWNl2AfZFJwnHhC6iflZj5ZebZkRFEIiLBjMPjxHREChM8pIb+hgjtYBLUMWcRxt
+	 iand2zWHXUXoJUrCWdZUpPi4xTK1jA1LUOhXt3WMdYKu5/hP11KcRsPPBqDkQiIXB/cEt
+	 9MmZUYQCOrWVb+JZckCG8OJ5nEFYV8EOZ5kUp2wsUpTx9p0IJtU1Jrl+I77JzMyR8nnn+
+	 eYocVy9ULN746MzO1OvFBVabOippmwbTnctwtSeDC7Fzp1nvq77kjqWNkw6rjgABZYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332079;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=;
-	b=F9G0ropTr1xrXhoQxiyMCtn7nRud8X5Wqt4gxhklv+gnqprqdtomkCg3qWhOumn/Fl3L
-	 hNayq/S+HfVm0oCULu0sl14qx/r67hmUuTvL9jbsTf8n2TwjFNjdL5OPJsZJ7pi7iKEYO
-	 0JYeLtZXH7aN7Wo3z20eptrBH95PEKt4cv2fICh+exZEFChagGYybYJ8qKvkn0nNEXJ66
-	 OdNq1jKZQnepG4oVSLUHmPv4tqPsKzFBFwhg0zKaNx2tQxHXaezWsOMbEbOcdnc2r0Tka
-	 DmOytDoEwi7M6Uyf6DQAUwrSeY2MnJqPS+xfwhOM+bbqamlDRZLoJbOEDOgV23jMd6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:To:Cc:
+	 References:From:Content-Language:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3KFTybz8kT++YN5KVSZrQLabEco9jibefDbnF3iC0ZI=;
+	b=PvjeDqgNiJY1QXdIAtvKcURSjStm/D9ttczE5CJeB5AhNZ+Za4jbq0ikomXZA9uk6Woo
+	 IooaMqqzpJtj/hqIdZpQyhG8JorbtReLgqL7ko36j8iClBwUXYXJEB5hKuxyThLDgQdrX
+	 mI3Q9H9fcjhoE962b0103k4W4XID/k4e1TdWZo55ajwkN/S2AH1mJQWVLBaZzvKLw4SM/
+	 z8Y4CG98hQE77ZL7HzvcLLd6Q4aR6jVqxW11bGg8dLey9CW6cNdcYaggvmoJM1h3HSPKm
+	 U1ml1ClrEpDjkM1xSOacf9ZHSPwpdAG26b9V498KRNsnRrweO0VOvEQg3ieOIDINARQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=1kkmLxfe;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c2X0TOdI;
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=6wind.com;
+	spf=pass smtp.mailfrom=6wind.com;
+	dkim=pass header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=DV2mBkeH;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1C0606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F1C0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B838606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:34:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B838606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=1kkmLxfe;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c2X0TOdI
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 51B14EC060B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:34:37 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Tue, 10 Nov 2026 12:34:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794332077;
-	 x=1794418477; bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=; b=
-	1kkmLxfefJ1GOpeQDRHT5oyBPcD39lMZN4OoMlQzflxHNyJZBPrtkzINXhLdGsfp
-	PyCVT8c4Ro4fKiD1GQpm1HfJ+cvSRmiKfw4Ii0cUBQt1sYMgp532GQihIJbXVUCq
-	XxUi8yP5aGH31M/cYzaq7OwyC+z46Mpd7I4rel1T83EMFzLA/qmbuqJGbxL+h6Qj
-	a2tDRIKc0r6cmTt40gbeNtGGyygvqRzgstqa1PRJ0VmUdgCX0mV5cMjLuAJ3+LJs
-	rufS3QW03ytSU5o2np56onR6nUbNJjCDvLAI9UVoQWfo5y5twIOB5uItBpjHg55p
-	64tg1lh1d2D8Sm5ZGpxKEQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794332077; x=
-	1794418477; bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=; b=c
-	2X0TOdIo/hvbcYO8lUEIzueX7J63fTGyOnpl83eqvV2hDFNZQkMwGpyEOjymlz1P
-	/oskVMvWUT6DrfatMjpOtGYjWWDumVMdqbvCvGHrNCnSizezWGWpgEnLnZBwCwsN
-	VdV7LYVsAYwo/MdGLFlBZZu3YMkD17N1Gzu+aIfFkZADjS9Zw24uwIhbO7yao3C/
-	f6InulNT/3xtqprnd4AzOM5Mfn0yVXMw6gWkoZt5zTABmd6BzHZYYSMhvkqyhnCX
-	O1CRLioG371jQIgURocPFeyfEg9soTeXn3/aguoNC0fyh1JXVZZP41CflfhJ/GJI
-	fDOk9lHT5JSRCykwaBT6A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794332077; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:WpLPwQO9Ogxh8FlihRxUAHIyyrmvSaRKegdJQ9uOiEV77TK
-	bHOCMSvhU6osmdF2OjEFYjpkC9Y94aCniSfHljWNtzPxOtuUufvpDoe2wyDiGtvK
-	WM2SkfSs7IXwiPBdTsn5U1IFBcO0rE2RzgGmC0CHveMfvc24Gqln0/zLWnjaE231
-	W7aqERq1etzX5zAmCQ+i9Kz1PjNeeahsxuQnMRsC54sK5Wj7HQoTpbvIOq68xd/a
-	l5yPMRvG3Brvd+vCgYf9cpdx5bJnp+ivXtytGGAVYBIXRxtH/1UzGqR+yy+sz4pS
-	PMfueoeE/RHCNrXPSVZRtCnRFT0evCaKFIr7yXA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:j5EGXVVw93SNBXUJJ2dE05PR0u71RYfBjN/3IoGlRkc=:OizvlOtUbcQjOUuDe6QmyFt73nQXIcMPGe5y0Z0BmS8=;
-X-ME-Sender: <xms:rFXzaklCw_4KhbgHn5Xfc4Vb1NKY3xPGCSkAjXPuk_UGWfo2-9vF4w>
-    <xme:rFXzavgHo8MF8TRhu-QnIMVztHSFcvmgRp7yd97xzZ2M9vU5ASATyC3cpg5HPXUvH
-    KNHF7amjxl0lOTTn-ngSK-cGHpIU9gSrOPhUoKGJbWPcWHbRfHK444>
-X-ME-Received: <xmr:rFXzavE1qF5hjtOqtdHvCjrs7W1QwtVy1afVmXR0HylPdSWDRo8zPaDTsvFtnw>
-X-ME-Proxy-Cause: dmFkZTGCd/In14w3y25iKTyFC3yOKrM7gSzH5eAyn8BNxBG+Q329vrnfJ+I9l/0vqPLDdt
-    wg3SVRYPpsxeJoVRXLa++PDjg/lC5Wfg8aFVaR1E4E0D9baFoXNFtTv8dn/n96TvQBYKB7
-    ezwYSNLTJOeosVGKnKp7IDvk+e1NJdZzxdH2j2Of6rnk6JKaTuzfJcgEZoLhTabZ3mbbn3
-    wx6wsF/FK04d3hCyKsWaW4R3OCDlHU0VuHL9GZ0TixTITLQGgxvsq+dmcKbgRg5Av9qMIr
-    y5EpX2PKOyHOOb+4EMLtMD1i5pfKlHcGHudbQQkZrfadKJMo6LXTTRYk4RJ2U+UNxAEsTS
-    se/yc+qkpzsbZHQpTOJR5RNDtksWihVCLIY1n4hJ6Txz4tJ5ArdOMTBivJRuCemZGDyMs0
-    3vD07PCrYDsx2mZ93bQfUHzAHeLdlfIUbF74Tekuq7ZJyz5uSlR33rpgsWFlmM65Hd+/wx
-    v3Gvfa5wNrKiGFlGDK2i9rGPOTR8Rg1uwoODrkND7ux1vygGMIC3dG7dCov37mS8TYiI9F
-    HhyTG0sQ2+uFWDmBiofyDmcerqUt9S+SAVDl/kUU7PuBWlUGhTDY31amus4JRYJa4Y+t9e
-    KyhbQpqXsp2G7H7qGtO8IOBNS/jNyqC0MEo022ppWLkO4KGuocCOSsX3WCCw
-X-ME-Proxy: <xmx:rFXzaptVX4JX5D5shB0tRw2sj1TPIuakCWrt1Ild_iDOD0JpslheGQ>
-    <xmx:rFXzaocsZ1cRzbpfip9cgMs4FYtWdKYichEjJqMcX03iVAXD43hiAA>
-    <xmx:rFXzanmoI5vW4PT2ac2kO-hX1a3Z5Ba3FXIwrXn9AX_s0ySlKtpv-Q>
-    <xmx:rFXzajCCiRf4Ecb887FMZnry0KIc-O8rIAJ8NCKt4GDENh40XEdDnA>
-    <xmx:rVXzavIlDOEBxljooTqE24OwAE7Bv5ZkikK2fPOS1UD5KEKuueks_MN7>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 12:34:36 -0500 (EST)
-Date: Tue, 10 Nov 2026 10:34:34 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org, Abhishek Sahu
- <abhsahu@nvidia.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah
- Khan <shuah@kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH 4/5] vfio: selftests: Add sysfs_kernel_warn_count_get()
-Message-ID: <20261110103434.48709eba@shazbot.org>
-In-Reply-To: <20261029203324.1637772-5-dmatlack@google.com>
-References: <20261029203324.1637772-1-dmatlack@google.com>
-	<20261029203324.1637772-5-dmatlack@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=DV2mBkeH
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a7a3b29c11so2556795e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:34:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=6wind.com; s=google; t=1794332092; x=1794936892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3KFTybz8kT++YN5KVSZrQLabEco9jibefDbnF3iC0ZI=;
+        b=DV2mBkeHi9vDwYG/ceZd/Q4iLGwWg1jnKcSAv3wVxqBhiLC2YbAFlhVaB+RzkxLNHD
+         m4X9I8H1nweDa8MFCKzPHa4zOxNDbdVnE6brJ2m6GkZTRc71HjYQ/m3dUX0QiIMDQA1i
+         wAqtzwYOTe793jXvR4vv8mU1HWnwu151AkGbc+49mkYpJjb5rM8KPSBmnlZFZ+G1u5eh
+         F143rgAzutJ14CbssvmWElBBeEagf5O22tX0vYpoNgsf17uQD5OIhUsuiM29TwD2+e0r
+         dMmcFoUbykEs3mPoNjpF8Xp4DMUNIJn6qeZnmErM7+b6+3EqmRHdKvUf4AYk8HNInqFY
+         G+PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794332092; x=1794936892;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3KFTybz8kT++YN5KVSZrQLabEco9jibefDbnF3iC0ZI=;
+        b=LVuuPMkmBhWJiVX3cd2itut2ANZszF0Gkfx5/YM9OBp8fNneZ7LXNwdhLUatV5xdSZ
+         tj1X2bdHJWYj71Q+Xsup187CaLaROQZwnDTaAawkp6/CoA+S4YD6DKIp3XPIQ55airCT
+         LGwrmHC9We6uue299hNBQDaiUkJMw1321fpl994EUhI/7aB0WhXmnNsLiLrgj2w/9jCc
+         C5HXfv9E0eQKcsyiZBqAbruMgLX1Se0BiNGVFOTnamHX05S2Yzeocow8tQqOMlzaFMQx
+         hCJUKI7DyIgSPRFHoblII/5SfRVs8o8L1N3lTPUUuBpZB/BVMu9N88MoQPYVVSwgDIHG
+         GL4Q==
+X-Forwarded-Encrypted: i=1; AL+hErGzx+iCQ+/oVJuxkm6ygMVeziZwkozsT0uKflLQ6Xfce+f928bawA4V7tFv99zL+QWdi59wbA8a6jlnRZ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8t+ferCz+3YtHxeQa684Xayiostr7PSpnu8IexulRxP8CZ6Ly8
+	CkeUAW8i6bbvhg5hd6YqQXp0KvQevheg8YmyxqhrdtJ46yj8fTtCdCQtd3qiczaw+e8=
+X-Gm-Gg: AYBFou08mlRDRd8+pjANU/YeTF0MvT7AnFpgLz09AZ2n5eie/aCzHS5kzsPypeoz2M6
+	vSuMcG1TM7pLE6f1rC4EpvaQ/gd5osUnCjPIPIbX3yZ4qewl2Lo7ku/R4eMT25hOWvu4oIm0vMG
+	zOQqbpATK93WbO/mcRyeNWbOeUHQuSwgEukoZXpPqVImVO6pqarTm1LUSVGyPeKiNAzwL1uwv4I
+	RYBSjtIeqA7iwfOnWCEF/6ZQtQ9UHbPNl6OjGipu1UVfDjGSpBht+t2RRb48jqGFZIKASOrLkac
+	pcbXb8I1dCg8WplfysKcKqiaWVUlLxbJO7R6frZVMEFBF0LehpehcuYWs1c7F3h47dyAUCFAogO
+	l6fNT0tVgs6DZ7zfRcsQvZcpSbcfO4VIq5BrCSUUS1uaQ4CsYW+sG2D83zc0ebTwZNtKkcPbDU6
+	fcnr8NfHdhghdIXR58l1jt3FzFvdql4BC1l6M4YtqPTGSZIE+vPCfGh+bfGQehPaJTzoE2nJMRL
+	mo914FjLoEdj+Wcw7tXjLIYxCMpmTzddl7i4bejazIwojn7zswpcdWQINkqom8o1iXueaioOL4Y
+	XA5WyRlHjj+9jRju3GboakXheEGIZgYqMCzQIdC5VO5/ATS4uxOcY1AadPKgLy3kxI1WJiJ7yeP
+	xA85IUg==
+X-Received: by 2002:a05:600c:1d14:b0:4a1:b027:99ef with SMTP id 5b1f17b1804b1-4ba02337685mr57336495e9.2.1794332091742;
+        Tue, 10 Nov 2026 09:34:51 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02005762sm78705945e9.2.2026.11.10.09.34.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:34:51 -0800 (PST)
+Message-ID: <1eb85d22-7d2b-460c-82f6-2af15a4875dc@6wind.com>
+Date: Tue, 10 Nov 2026 18:34:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,39 +93,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net-next] ipv6: reset all.force_forwarding when disabling
+ all.forwarding
+To: Gabriel Goller <g.goller@proxmox.com>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261109-ipv6_reset_all-v1-1-815dfd508246@proxmox.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Content-Language: en-US
+Organization: 6WIND
+In-Reply-To: <20261109-ipv6_reset_all-v1-1-815dfd508246@proxmox.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026 20:33:23 +0000
-David Matlack <dmatlack@google.com> wrote:
-
-> Add a helper to read /sys/kernel/warn_count, which counts the number of
-> warnings (e.g. WARN(), KASAN, and UBSAN reports) the kernel has
-> encountered since boot. Return a negative value if the file does not
-> exist, e.g. on kernels that predate it.
+Le 09/11/2026 à 16:53, Gabriel Goller a écrit :
+> Disabling all.forwarding resets force_forwarding on every interface, but
+> leaves all.force_forwarding set:
 > 
-> Factor the code to read an integer from a sysfs file out of
-> sysfs_val_get_int() so that it can be shared by both helpers.
+>   # sysctl -wq net.ipv6.conf.all.forwarding=1
+>   # sysctl -wq net.ipv6.conf.all.force_forwarding=1
+>   # sysctl -wq net.ipv6.conf.all.forwarding=0
+>   # sysctl net.ipv6.conf.dummy1.force_forwarding
+>   net.ipv6.conf.dummy1.force_forwarding = 0
+>   # sysctl net.ipv6.conf.all.force_forwarding
+>   net.ipv6.conf.all.force_forwarding = 1
 > 
-> This will be used in a subsequent commit to detect kernel warnings
-> triggered by tests.
+> Writing 1 to all.force_forwarding afterwards is ignored because the
+> value did not change, so the interfaces are not re-enabled.
 > 
-> Signed-off-by: David Matlack <dmatlack@google.com>
-> ---
->  .../vfio/lib/include/libvfio/sysfs.h          |  7 +++++++
->  tools/testing/selftests/vfio/lib/sysfs.c      | 19 +++++++++++++++----
->  2 files changed, 22 insertions(+), 4 deletions(-)
+> Reset all.force_forwarding too and notify netconf listeners.
+> 
+> Suggested-by: Ido Schimmel <idosch@nvidia.com>
+> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
 
-I have a concern with this approach.  I run selftests in parallel as
-much as possible, using multiple devices, each targeted at specific
-tests, with other functional and performance tests running
-concurrently.  When wiring this into my harness, I initially saw a
-failure, but can't reproduce and have no log from the original event.
+There is the same effect if an interface entry is reset:
 
-I've updated my local CI to keep a console log so that I might have a
-chance of chasing the next instance, but I don't much like the fact
-that any warning occurring concurrently with this test can trigger a
-failure and the test doesn't provide anything to go on in the test logs
-themselves.  Thanks,
+$ sysctl -wq net.ipv6.conf.all.force_forwarding=1
+$ sysctl net.ipv6.conf.ntfp1.force_forwarding net.ipv6.conf.all.force_forwarding
+net.ipv6.conf.ntfp1.force_forwarding = 1
+net.ipv6.conf.all.force_forwarding = 1
+$ sysctl -wq net.ipv6.conf.ntfp1.force_forwarding=0
+$ sysctl net.ipv6.conf.ntfp1.force_forwarding net.ipv6.conf.all.force_forwarding
+net.ipv6.conf.ntfp1.force_forwarding = 0
+net.ipv6.conf.all.force_forwarding = 1
+$ sysctl -wq net.ipv6.conf.all.force_forwarding=1
+$ sysctl net.ipv6.conf.ntfp1.force_forwarding net.ipv6.conf.all.force_forwarding
+net.ipv6.conf.ntfp1.force_forwarding = 0
+net.ipv6.conf.all.force_forwarding = 1
 
-Alex
+Maybe the new value should be applied whatever the old value was for the 'all'
+entry (like for net.ipv6.conf.all.forwarding).
+
+Note that, it is the same for ipv4 forwarding:
+
+$ sysctl -wq net.ipv4.conf.all.forwarding=1
+$ sysctl net.ipv4.conf.all.forwarding net.ipv4.conf.ntfp1.forwarding
+net.ipv4.conf.all.forwarding = 1
+net.ipv4.conf.ntfp1.forwarding = 1
+$ sysctl -wq net.ipv4.conf.ntfp1.forwarding=0
+$ sysctl net.ipv4.conf.all.forwarding net.ipv4.conf.ntfp1.forwarding
+net.ipv4.conf.all.forwarding = 1
+net.ipv4.conf.ntfp1.forwarding = 0
+$ sysctl -wq net.ipv4.conf.all.forwarding=1
+$ sysctl net.ipv4.conf.all.forwarding net.ipv4.conf.ntfp1.forwarding
+net.ipv4.conf.all.forwarding = 1
+net.ipv4.conf.ntfp1.forwarding = 0
+
+but not for ipv6 forwarding:
+$ sysctl -wq net.ipv6.conf.all.forwarding=1
+$ sysctl net.ipv6.conf.all.forwarding net.ipv6.conf.ntfp1.forwarding
+net.ipv6.conf.all.forwarding = 1
+net.ipv6.conf.ntfp1.forwarding = 1
+$ sysctl -wq net.ipv6.conf.ntfp1.forwarding=0
+$ sysctl net.ipv6.conf.all.forwarding net.ipv6.conf.ntfp1.forwarding
+net.ipv6.conf.all.forwarding = 1
+net.ipv6.conf.ntfp1.forwarding = 0
+$ sysctl -wq net.ipv6.conf.all.forwarding=1
+$ sysctl net.ipv6.conf.all.forwarding net.ipv6.conf.ntfp1.forwarding
+net.ipv6.conf.all.forwarding = 1
+net.ipv6.conf.ntfp1.forwarding = 1
