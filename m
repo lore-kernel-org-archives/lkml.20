@@ -1,69 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794323271;
-	b=C8LYYaBvbVu3EhD+M2RlY1QdWE87UVcqcoZLg+p05qWOYx7mHOIZsXNRsaQRutTKaboF
-	 aJmXPVpyRQAZa8DUncRZYVRKtBFxO85ElzgHDEO+O7NWDm+oDmEIsaRaUckBWJYpMHAP2
-	 S3puPY2DS9q2ls7oo/8LX451ulMak1q+EpQ/ilXP1GPFsBzDXLQAsxE1mNNiKHupVI0XW
-	 PcxfvQd4K3x+QHJKrlcHS6MhMx+hSAIhES0fhHmbVQZqhwyQTHJALempbUWDe/xYVPcD+
-	 50oDPIeWvkIQUe8FGwLVDyAO25eHrN53CHgoYSeRx0xnZEAiU1sR9Fnn9xFFg2eipLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323271;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=VKJv1dEFI2T8VLCYOAsbXb27taluPbNUbiM5zUvXDBY=;
-	b=t3jqoCLga+UUSWVguQHOkMK/jBlKlWCuFP+ApGIZSIDzl0rPAjU3hncEagbxdoURUGtk
-	 TcTyB7g7+DFxa9W1ffWJ+jh624OtOUbPfC0rYpgznqek5I/964XlInTq8QcPKZZFxfLzj
-	 ig4F9DiqZWYS8Zx1DlG0GcWx5VYqzj81B2GOlwsGI3JIVzik7SGZDhFalN0dZOEGNQ5hG
-	 mxFawJNIOBhRQQ8CS6R/lWOKV9+B+v1lzExLD/EKY02D+zHyjmIn7zXtMqj6AuJVKD4jv
-	 BjajwNFV/09SMrO3ozyHQzZ41A+T6zLd9VtewYGHwTmr21R6V6swkRqwGwU27aBU+XA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=QRjJSqxV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794323278;
+	b=JQzuVrcuq5/rl0/qkBW5Oj/jTs8Olht4pSygGLtHr3QMRcaSqK7p8xFWuFpXnVwWwWZe
+	 bcgb4M8divEV8yOOnXGaPbZ4idOZEplTT5vSH80hADvwPXWEfmDHhl0ylOEfqagW50kes
+	 3maJSPlMB12sXf1tY8S5YZ4vURge7Tiooudl6SlbLX/VMjocw+V3IC5qy2L68cdOXot9c
+	 vQTFxbYC8KLEgQUFCPgYL5sTBVZ3ZRytHO/4nfp0S4Hnueb+raQU+/SVc/cxDaHzgPjwh
+	 rhP0QcOTIhEM00/lXR9VDDibPwPuXCosoPesX6SeGKtHQwjupEEhuzVysiHxfeUgWWw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323278;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JtM9UtzYhAWCxTCfoBKbcmHIR3U4Wq7tzdw7gboBY64=;
+	b=C5UiTgtHvzwVM/IihUFQ4cYLF3i/JwZ7cwtZClUwLoW7F8oSjNLQwtHBNT8wdZILUW2U
+	 8aYltazKR3wxUU/G94medmybREfW6oCsz4dl/kT/bSvaa7vaNit6RyO0j5y7mVA8Nf46R
+	 CYi3j7J9K2SWowhIc/a7STxTOP7vaU4nT97DuwLDU+8RmzsWC1KPXRwryPoVG9xsNd1ea
+	 rhzkESbng/esxQ80qQmK1nU9TZagiAGKpNrsMTReAb68hQGSakl5S4GCBcsvcjzaNkbLP
+	 a0hhQg3kkv94eI7GBgI8cxGdquCYhuA0Ns9AujwYxR2LqnTWJCw9GItIgg2cTzoy6AQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHozpx7Z;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFEB606A31C;
-	Tue, 10 Nov 2026 15:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCFEB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A9F60A2621
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:07:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A9F60A2621
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=QRjJSqxV
-ARC-Seal: i=1; a=rsa-sha256; t=1794323233; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LTHpbf6iKPc1H4j1Tkp5iU4AwuH4eCUg77sjoArjLy2nTrBHq0wLL32uREEMwEcWDafTZmtUu9bszpofcatrLNODBKsMuxn/SfkOhv6yVObfSElPxBWwZh/0LQ902YFSFJY0mdGRiJ8yvzbL9OUoDRV0R4osnvdJBkGNOwVdCYI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794323233; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=VKJv1dEFI2T8VLCYOAsbXb27taluPbNUbiM5zUvXDBY=; 
-	b=oL+IYwbknP13YKIskQ/bX+VuESZhp60+mg6eDKy2f88P2GHDnRSfq/CAmEmtMbr+OBcyrC+CpPSyjI4HYYLqn8bxBJSwG3fdMJNm0fLACv/9vKa4hLtnYrVzIngxljhyuZ84vFUtjEsdoMQfFEBGbdJpkxXrkDQ42lbW3opntFg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=QRjJSqxVE+/gxtf7abYigr1OptoAd5GDzyMDjrCp++CWDG77G7nJ+xa6OaCyBwpmgoXIvDiFn+/u+h/c3LmQ1nvtpiLpQcNcL2s5EQXk7EE75QZRCsehNMuqPSQUsnB8EtPteAdt6hj1E16MsNnIWoADiwRXA9mVCg1XaQuSTdE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=VKJv1dEFI2T8VLCYOAsbXb27taluPbNUbiM5zUvXDBY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794323232230649.3017002854683;
-	Tue, 10 Nov 2026 07:07:12 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id F2928180354; Tue, 10 Nov 2026 16:07:00 +0100 (CET)
-Date: Tue, 10 Nov 2026 16:07:00 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 5/5] arm64: dts: rockchip: add the clock of the RK3588
- PCIe SMMU
-Message-ID: <avMyK-ZQh8qVrFmw@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-5-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHozpx7Z
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e977109392so12284655ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:07:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794323277; x=1794928077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JtM9UtzYhAWCxTCfoBKbcmHIR3U4Wq7tzdw7gboBY64=;
+        b=LHozpx7ZkQyIUBsAkv4C311vzxfheFN2pzrL9Y/FTHkEXQzaVUkMAz9U9wFUejAOr8
+         YATASi40x9WcOvyF4dkS6SJQ2bBJHO0yE68WsOT8oewufPXMhMYT6O7d4/5H33a+EMHR
+         jjCu1KqktdAA/9c8ZIpbjFjA/3BLyNbgEZc3fS3F9+PTZ5y3jCgkJQ9rhGft5ONP+cJO
+         aTEF5vn9sQP8UWqDXO8UszNcV0yZFTKvtrsUk25y1Sz/3h5njQt9uj1PBQLO+FuWPgpB
+         LsGoLTWDE/iFYFuKD+GJLya2PXFipxPXM8zYDthkWkjgd0549O004Xgoom3qc/ylK84T
+         vykg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323277; x=1794928077;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JtM9UtzYhAWCxTCfoBKbcmHIR3U4Wq7tzdw7gboBY64=;
+        b=ZRgtshOffMNqt5wUqwXEcDs69Ktl27zgcwsxTp/uhIppo9HnrZWbTrjAkjzyajNWv8
+         pDsH3ryGRuHgRTP0KuyvlLagHsFHrm9GQwVdUuBGlfGm2I1O1GD+kqNkwJXJYL6VIYR4
+         e+yQSqebDRTCllFtDeHIC6coJQw3LW8ePD0hgrN4K8d79BqKaEJwlugD6lJfDHzYfz0V
+         SK2VeuOW1wWIOaXc7BUxBABk+TKjxmRlLine6c6CB0XVZ2gtgNPslWbZXRX6QvXXEotg
+         ihSZtriJS2HnhbD4fP6ZSsowvBn/Q3jHiJ7VtCUYL/Ja28OxPqRb5mlaRYKJRoPT8Bbn
+         9OWg==
+X-Forwarded-Encrypted: i=1; AL+hErFljyTc3gIAffQl967cpGBE7fOdCKAegroqh7yahlG8eV10xOFoLAmKbJ/1grOYch1GQJlNebjfvnJ80f0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9idxB4tvqJ6mER62xDxeHpyw7F4VQ2Kf07xrD1L9MeSiKTFHIj
+	yBAFSJqgNG70lyy7iSVynKPQ0mfBpEFCg9CZlvTZSOYgVrS9mdEPBlmq
+X-Gm-Gg: AYBFou3hcS3rSAoHalcndtLtOquD9pefLS9ZupNj1lnn9A4CqTHqf1j2L0tdVqjUlrs
+	xmG9my93A3+JF8IMJLdvRSMCr/2aD+LLpkN+d9yxVRx5MQIUr5MgOaKIN+oEDUAK28pMTkk/6A+
+	iglvmiKd5R9UbBNEG2c2kUypWcPqXiFCT2sZ9XABCT2blN25WyxshCnyCsCTL49wCIDyxex5ys8
+	96jqZI/d3yonS6Nq/2ZM7QMVSbXcFOeoJqKo6ohpc8D4CBoRGVRNX7ldVHuja9S+RfeQIELNouX
+	eEBtxstIz76YsnmmfV3+4HgvWbXZVE0gHD7D36fyQoXBJb6hmDtziqk8/Tbof7wIYIM3wVv7DAn
+	5YY2CtixjGLSQu4tWFwDNcReMYmfixP30aiCaO2B2eatwxUIrKi1EAbp9LvuO3EUG6SUTZ3Y7wd
+	659e+hEteX1JudYDGB74ftGiV5PwXVZodOsVttoNyb/NG15K7jrNSc6r5xG+YlsYyQEmUZ4HI85
+	ozo8qayfFEwOUNFe4kf/PsvLmEF9pYEzXMQ4b+2UKIqpFfYsm97WCNKukS7BIJzGMoySiQHaUFc
+	THbJXOF4kzL2X8Y5Fy09SuZOh3RW1o+9pJPV8zne6onjgR5c0G/EqNat/N7Jw7/mt5tzVCmWKtu
+	U/R2hJ+As3m0=
+X-Received: by 2002:a17:902:d481:b0:2ed:1ef3:9ec with SMTP id d9443c01a7336-2edb9172a2dmr26826345ad.14.1794323276968;
+        Tue, 10 Nov 2026 07:07:56 -0800 (PST)
+Received: from [192.168.2.6] ([27.75.101.24])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d78dbcsm10397575ad.27.2026.11.10.07.07.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:07:56 -0800 (PST)
+Message-ID: <71f76e5e-ce24-4a71-863a-169ad262c510@gmail.com>
+Date: Tue, 10 Nov 2026 22:07:46 +0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,87 +93,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qogk6fc2sep2osv7"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-5-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 36/41] nvmet: refuse files on pseudo filesystems as
+ namespace backing files
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org,
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org,
+ Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-36-4c998976c6c7@kernel.org>
+Content-Language: en-US
+From: Bui Nguyen Nhu Quynh <kaylovefoss@gmail.com>
+In-Reply-To: <20261110-work-loop-pseudo-v1-36-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
---qogk6fc2sep2osv7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/5] arm64: dts: rockchip: add the clock of the RK3588
- PCIe SMMU
-MIME-Version: 1.0
-
-Hi,
-
-On Tue, Nov 10, 2026 at 07:11:52AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The PCIe MMU-600 runs from ACLK_MMU_PCIE, which is also the parent of
-> the PCIe controllers' master clocks. When no PCIe controller is enabled,
-> nothing holds it and it gets gated as unused after boot, while
-> arm-smmu-v3 is still bound to the SMMU.
->=20
-> Describe the clock, so that the SMMU driver keeps it running.
->=20
-> Fixes: da92d3dfc871 ("arm64: dts: rockchip: enable the mmu600_pcie IOMMU =
-on the rk3588 SoC")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On 11/10/2026 4:14 PM, Christian Brauner wrote:
+> The file backend takes any path that isn't a block device. With
+> buffered_io=1 that includes files on procfs or sysfs which then get read
+> and written by a kernel worker on behalf of the host. Refuse files on
+> pseudo filesystems just like loop does.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 > ---
+>  drivers/nvme/target/io-cmd-file.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
+> index dfa8aa46188c..71c69bac5394 100644
+> --- a/drivers/nvme/target/io-cmd-file.c
+> +++ b/drivers/nvme/target/io-cmd-file.c
+> @@ -52,6 +52,11 @@ int nvmet_file_ns_enable(struct nvmet_ns *ns)
+>  		goto err;
+>  	}
+>  
+> +	if (file_is_pseudo(ns->file)) {
+> +		ret = -EINVAL;
+> +		goto err;
+> +	}
+> +
+>  	nvmet_file_ns_revalidate(ns);
+>  
+>  	/*
+> 
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+I noticed patch 41/41 doesn't include a test for nvmet. Would it make
+sense to add one with buffered_io=1? The test would need a pseudo file
+that can be opened with O_RDWR and supports both read_iter and
+write_iter. Otherwise, it could pass without ever reaching the new
+file_is_pseudo() check.
 
-Greetings,
-
--- Sebastian
-
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk3588-base.dtsi
-> index bcd342c025c9..8eed22ca69ab 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -559,6 +559,7 @@ mmu600_pcie: iommu@fc900000 {
->  			     <GIC_SPI 374 IRQ_TYPE_EDGE_RISING 0>,
->  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
->  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
-> +		clocks =3D <&cru ACLK_MMU_PCIE>;
->  		#iommu-cells =3D <1>;
->  		power-domains =3D <&power RK3588_PD_PCIE>;
->  	};
->=20
-> --=20
-> 2.55.0
->=20
->=20
->=20
-
---qogk6fc2sep2osv7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMxQACgkQ2O7X88g7
-+po1iw/+OFyH6jhIzKzEZMOnmy8SjHGAN+RooTWnNJifq/F3ZE7c4/A9Uk/X9th/
-6LSsk7G9a4AGWIw2yDlZwOVfFQfJSU0AIOLFW6Zg5nF3wSzN9ekVQo0qmjikH3p0
-r+y2ky33DRNMCwga0c4DtIP90Q21upZLMqt6cua9H33MYlQQfCSTgF5SG6bl+rgP
-bgTj7BviaNQ1yHIt5o+YqIh42NKkDHIcLblvQX5yz624FSllFxIfGvIy5aooivQ+
-OowrZdVmISVkHddUNGSh4/9rpAui12Uub23j3d+hanqDu411/FpYUfI3y8vq/mD5
-d70Q6g3IF0fQA0qFaWMmz5Qoq9kfrym7gtSK6VO1jl7IaDaXDFowZ8HlPpXob9Xi
-Q6MSzkKWDNbrs7wjtE5H3CAFIFNnIv4cvxiAOymC5BUmORGxjSbD4VFdRp5UoqLj
-/gI5DTwHZ94clngU2ll6gWCz5dtXzaJM8FBWKrYabJjLr02Hknt0uhxlu08t1RGp
-2u/yxLBI43cm234G4Hvqi5j0fhtTyB3+fm1PjN1d5RCDT2nf9HiSbURkbsHAxhq0
-hynlu0xr5vHGCsHJ/SIuB8POUIEfXTNZHK89o+rpnUdy5cmmgQvo2dvDWQN0/Yvo
-QsTol2p50KxkzF9YP17/r2Ff0oPJ6ekFAAC1RaDupSI2am+MP0s=
-=pXCf
------END PGP SIGNATURE-----
-
---qogk6fc2sep2osv7--
+Thanks.
