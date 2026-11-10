@@ -1,89 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274237;
-	b=cPrIaH/CKtTBlYUJY0LKkemkrwZXxhu4WjyeKrdqxg2keqv9tHiIsFMAJ8LrpUdveV9z
-	 cN5fptYydKdOJaUpJmuyQ2Ou1rhOyS83msZHLrqTsVYD2UzmimxrNEcACSxyMLeYWUMuz
-	 T46i5c7K3cmTDGsOAFEglPWHtxga8xcUzB7mLtpZmlKydsjqFOWWrHdlv8rVDpwNkgV4R
-	 8k+fT1vBxsLYj5CwxdA1a3wRg2GHY+zBjf1ZrbWKFzaqOotuU7BRFlQ6r1lFTO5RzKh5J
-	 MA2zenwNvtNFaccLdgtVqiXvdF0OGW26MB9Ms62LJr8rOUutIGUGrhQ9bE9VSahZhIg==
+	t=1794274254;
+	b=ezfEY5aRdbhdQMEXFWmZS7+R+3ytH2QW5qWOFXjC7TEqCG9ec73kVFThCTrVCXYVfZrB
+	 YtXHoxL5qRDgp5Qw5UitvGnX3dMQCYuxB6rTO8s4QPZ0PhP3VsiKACenpIgTdGefVNJio
+	 G+wkT4ArsO0ZhKKmD2GzfuW3gL1hhnhPrrPm43FEfhVF9atuwgQX6AR86G5fjb4xWRD/r
+	 H8Gcb8Ha8V+QJV0HjuJyFLbFnXH1aNsAfFMl8zviKkWUMIxXcrkkqqL6WlD+SywuAv9+9
+	 q1eZKNUWGLikyP01bRCorq63/qkM1Ldhk+J95jQ5+J4PQojsK4k35cZo06MjUAzwWtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274237;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6cr9ziobUF9AnItm9jr9xGM9l0DDOZ1SgmvFxuND5DU=;
-	b=ZTdVrrl7CW428wpzA73OR9LUr5lNHFtYx2DhsR6wo8ii3ET2RajYdopTmxowyfvioVXF
-	 /q4WfKG590jkec5xe6FzdtxLYY/Q6uYI6TJQD5NIhrpD1szka1HWMFT9zq8ESM8Uub0/3
-	 dxsTWdpbTmM4eUAMpQWsWMC5U0gYvRYv/vQZ2ByAIfPgZv6Gu2qYksTjYla8aPdokfnmc
-	 OpdoPGB2UlevVkhktX+WVk4e+xzMlm4VvV8QimIWFzgBjqivKK6vI03FNXmZyr0y9Valx
-	 6aZ5W4oleRStAKLNdJF1ltdbzsjU2xZxYgUrG9EA2e7IR1d4vp0ktuaDH0stEQjkd7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274254;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ZPcy8FDzorh0LfNIG6y+H5abHSeDBQ4QbkpgoHWq4dI=;
+	b=pnHfnUaOxj2SUrxp/8r5UpHUD0BtgX9A8Sk9mTvOrWJF+LeMucvW2yXPpcLRCfW6dQv5
+	 KOnKsd/WrcwCWhNDBGUyzCCk9hunrPw2OICmOyWgh4gWL8dGX/Y6+e7ZMjlvfAr+6vwAA
+	 jn47hJ4ZWZUY0x1fgSFYVEXZd87oc+snbC2ddylbUTPpB96lzoo267fMmZHW0w4zJj0TS
+	 IxurczKwDcb/M8re11MDIyRjXZZ1DszrpZ8gNiJcXldiPg0U5g5VYQa1cv3yqMyWvuLsN
+	 sVpTikG2OhDtG+EEKT2nVwVskp/43Hx9MgQrYztxKUYQauN2WlLMIBOMKGQqgbMyhfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pardini.net;
-	spf=pass smtp.mailfrom=pardini.net;
-	dkim=pass header.d=pardini.net header.i=@pardini.net header.a=rsa-sha256 header.s=google header.b="FQ/Vg4eZ";
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gMX1aW9X;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28DC606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A28DC606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A5A606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12A5A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pardini.net header.i=@pardini.net header.a=rsa-sha256 header.s=google header.b=FQ/Vg4eZ
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b6f42095bcso2036816a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 17:30:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pardini.net; s=google; t=1794274235; x=1794879035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6cr9ziobUF9AnItm9jr9xGM9l0DDOZ1SgmvFxuND5DU=;
-        b=FQ/Vg4eZ2DaEJ51myVQiaugzwi+/CrgpUMLwAX7xlzIUdTYY3BVr+V6rV9VBg8iaHw
-         vNvrtIgzLaaY+rcERUMZPEEyWcFk636tB6X9T4nWTyvUQaQoTZAEqdYZwdBHeAb0qxG7
-         6VevPOLmI2lWHIPG7jemP9LIimpTffXxrMzMKf5xf3cTlJAGIOu3OQ7ccPu3uH0nlY/r
-         W7nWaLSZWCaNCDG2fHPCAls/LjfBF1VfL8d04G//ZWrYid+Adt5qbkwIaLo9O6QBASnV
-         gomYcv8rr3oHeI4QNvDY63+Jv65H73gXjIiKuQMzkT9uwoa/9impg6RTkAIjNJxhA7rs
-         99ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794274235; x=1794879035;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6cr9ziobUF9AnItm9jr9xGM9l0DDOZ1SgmvFxuND5DU=;
-        b=wQbbCWgomij7e2rXYJ/h+M65rDpk54QV7vHgxYRJ+foeSKQIwOLma7CNEUfx2PKDtT
-         8yYuAx9mJqP51D+aVNfgJTuuebzPhVDwqrou+mKTDF8TtVHLedPZPuYe47cSfVUbePac
-         zc9RA/4zUWS6uMZtQnsXoR+IJfry1nJE1zHEATE4bhj1Da6PXj9upfJ8FWtu2PN6BSfK
-         kAyodp6quLWLrrWq5JYgdvI43eJKEVpj0+OIhWydEfOgr6BaGS/Ai2DuM5an5Raxf8V6
-         U9aHKl96KFKVwDLDtYaqHfeKz7xxyYTfpTYcxkCOBAu00n4DVjN9IR8RvCGfHBM8R5L6
-         jGzw==
-X-Forwarded-Encrypted: i=1; AL+hErGNfjYnSqjeqvJNsn45xLotvtOIM+158T5PmWsstHsuECGKDsA+BKSVAPtyJPDjqPEa2W7cA5OJxrOHqpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/vNgFMeWR1HKEumY2N8Pi6nNBd59dLxQfQ/hTthHEUfzMqhipY
-	exUQpVSKwQUhHKWE4dmQHUtb5JlrcrgKcgUc22068spX1SkJnmTpykVvRAJMt/tlcA==
-X-Gm-Gg: AYBFou3yTLrX57JT7dCkHtrZX8WeVYiVkd/Wr9Vec8PDxSzjGiAoCmAchzol6eb1wmq
-	FmN8KFz1lp/UT7CJTZG9VMaGnF6kEZmbIdatP+UnV5fD3Swi9frbaLDj9KfqktsXSw5SpnbMJ02
-	YRrcCNxLIdXvyvO/okDAGCSBgKzrZu9tC9rXHMTdzCEj+/YhROncJeFzhzhy/qf29MBaLqonYNH
-	fuBRDl65kPq3zU14mrBaD0bBwIWpWCMBKu8yiUOhwuemiQ+etxZ4U+vMdqViiRcZS4iUl9VcemD
-	/xjU0UQuca3z/2ecsFb12WMhTayr34JsaYYuhCM4raylaiPKIfwN+QNgSAXjtzoGNfCith7m5EN
-	QNI2TvruKUZk30hafxW+VtUsIRXGdHIso4DWKsxi8+FeZoL+r4rIQF48F3xyuiIBQRjRMdyJXv7
-	yGozhoAgWU7iwaYyu7nuneXCR0N6y2rzpDQuvqKJMGo4MlIuWXn5cLBu6P3g0r97cgGz80ui4ZO
-	N57arZecOlk24qfIjaB1YTDN+wVvxIPXGWwf/uHtBpP/we7hL11SPXIDFX+ttzfb9IpfPgkmd3q
-	MXPMrUCy2ThP0zX/xnGEYw0Y7qUPeUCka5WpAzs4dsGyWtpAF67E32AEsnYhKC4SCVh8LjTJJK6
-	bjTjCZ034DzgkX6M3FG90KAdu2KlvqcFbCyHlJ9WiWGL6AAvdeHgMJP+fKeOfim6ZXEq48g==
-X-Received: by 2002:a17:906:c108:b0:c40:d920:747c with SMTP id a640c23a62f3a-c5048f4046fmr83137966b.7.1794274235103;
-        Mon, 09 Nov 2026 17:30:35 -0800 (PST)
-Received: from ?IPV6:2a02:a466:4d7a:0:65ed:a8e1:a329:4b? (2a02-a466-4d7a-0-65ed-a8e1-a329-4b.fixed6.kpn.net. [2a02:a466:4d7a:0:65ed:a8e1:a329:4b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5701a1sm41990066b.21.2026.11.09.17.30.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 17:30:34 -0800 (PST)
-Message-ID: <f225b5f6-13eb-40d0-a9ca-7efab0e6876c@pardini.net>
-Date: Tue, 10 Nov 2026 02:30:33 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gMX1aW9X
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA0iHNB3480549;
+	Tue, 10 Nov 2026 01:30:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:to; s=pp1; bh=ZPcy8FDzorh0LfNIG6y+H
+	5abHSeDBQ4QbkpgoHWq4dI=; b=gMX1aW9X6ohnVkE8SU08XjX/O28CrERTRUPM6
+	o03pSnLpIO2kg1bXI+tOZjjRilWicLakNJlYG3BDZ1YScO9WilS3oWcMpBxnewDK
+	xDjyHBHu6VMayfKyauRmHvszfP8m4EIAkmZcSvt3D9zrM0a9IWUtcJ8lAm8i8dj+
+	cC7uQq8DDaJXFbfdsrddZZiaf4+8zO+K3jjnDIb7R5KGdE0dCaOClVKQZBGkGunZ
+	YZn2I10nUwI2QCj50XSUGlXLhpArdNwrZZjAlTkQ3V8n3iTV8PBCQ+joktk66llh
+	YiC+VdbbBZD3fo9NO2ovZ9kCu+avPEGKw3utdbO2MsjnrHrbQ==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsunt2m8x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 01:30:23 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA0ofu61091587;
+	Tue, 10 Nov 2026 01:30:22 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htfthmgp7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 01:30:22 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AA1UKsb30933264
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2026 01:30:20 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7D2BC2009F;
+	Tue, 10 Nov 2026 01:30:20 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1DF3820099;
+	Tue, 10 Nov 2026 01:30:18 +0000 (GMT)
+Received: from linux.ibm.com (unknown [9.126.150.29])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Tue, 10 Nov 2026 01:30:17 +0000 (GMT)
+Date: Tue, 10 Nov 2026 07:00:17 +0530
+From: Srikar Dronamraju <srikar@linux.ibm.com>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Ben Segall <bsegall@google.com>, Juri Lelli <juri.lelli@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>,
+        Steven Rostedt <rostedt@goodmis.org>,
+        Valentin Schneider <vschneid@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH] sched/fair: Skip sched-domain traversal when wake affine
+ is disabled
+Message-ID: <avJzqQEpKdU-GPrQ@linux.ibm.com>
+Reply-To: Srikar Dronamraju <srikar@linux.ibm.com>
+References: <20261109120522.1704752-2-srikar@linux.ibm.com>
+ <avHZrLRHmIgRu-a7@scheduler.schedules>
+ <avH1WCeG9_O83U7N@linux.ibm.com>
+ <avH3rQ4W6d4jfny2@scheduler.schedules>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,45 +101,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: rockchip: naneng-combphy: fix RK3588 SATA pipe_con1
- register offset
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Andrew Powers-Holmes <aholmes@omnom.net>,
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Yifeng Zhao <yifeng.zhao@rock-chips.com>
-References: <20261109-rk3588-combphy-sata2-6g-v1-1-e9135c91de6a@pardini.net>
- <avJULe_00cHwMh4X@venus>
-Content-Language: en-US
-From: Ricardo Pardini <ricardo@pardini.net>
-In-Reply-To: <avJULe_00cHwMh4X@venus>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+In-Reply-To: <avH3rQ4W6d4jfny2@scheduler.schedules>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAwNCBTYWx0ZWRfX63Op1gJWxEPi
+ W06XgyvDvTsnYUQ/q4QvEfDVP7blyVoQlk5ru1T1q/d4OeZGWMkCt49jBdRb3qw9Z9dHI8E12OF
+ TUyly+f+Lunf3f7eG2l89GXTZ36Bm6qPxmlCbqkHZ/1MunsjzsD8jKAPjHWCaeZdkgjU2yfX1GJ
+ y9JO+sJ+/9A2FxjZZeAC+HcdKQ3H/Mw/y8w3mA0emfZz1d9fvaaMkDiT1xTn+4Tj8SzvkepDHJ+
+ 2Ouwf4tQBSSS9vNToVLZuGMKkK09Bhel/my5AwwcbHy7JHs2XiCzE9BBWWyA5M+UnPHQEJjhUE3
+ 1H5WoG6NnG0HKN40OlfIvo65YB397g4K8rC4rc2CkTguURM3t9z8QaCGPlZgsRC/KrVJgoCxD6x
+ DHK52Qq32bSYxY6IhMGMCJS2gM5mFcd27MJYxQBSOGXfKaI2LlNQpdd43QmSWeXowMGLjRsCUGy
+ YR/IBls45ePWHwc1XDg==
+X-Proofpoint-ORIG-GUID: 79w8Nf_6MnBSd3MIHVneLM6c83kh1_vF
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAwNCBTYWx0ZWRfX3m+pmbTRrjgh
+ WYxhr6/Zh2eH7BrgpWcyJeCPifRJaGyQ1ZWGU3wgS4FuxQtYap8iKmF+5QaemgcLeGqceCvbUje
+ TJ1MAjwjtoWpcD+h/+fs+sAXZ85dtDw=
+X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af273b0 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8
+ a=oQ-zSjBuwacdp7I7bZgA:9 a=wPNLvfGTeEIA:10
+X-Proofpoint-GUID: LDOWQu0jNQxlrNLfs5NTXYMWIJySiy6l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_01,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100004
 
-Hi Sebastian,
+* Kayra Cizmeci <kayracizmeci@gmail.com> [2026-11-09 21:10:46]:
 
-On 10/11/2026 00:29, Sebastian Reichel wrote:
-> The patch is 1:1 from Yifeng Zhao with a better commit message.
-> You should keep him as the patch author with his Signed-off-by
-> followed by your Signed-off-by. Feel free to also add my R-b tag.
+> On Mon, Nov 09, 2026 at 10:01:20PM +0530, Srikar Dronamraju wrote:
+> > * Kayra Cizmeci <kayracizmeci@gmail.com> [2026-11-09 18:09:56]:
+> > 
+> > Hi Kayra,
+> > 
+> > > 
+> > > On Mon, Nov 09, 2026 at 05:35:22PM +0530, Srikar Dronamraju wrote:
+> > > > In select_task_rq_fair(), TTWU wakeups for which wake_wide() returns
+> > > > true, or where the waking CPU is not in the task's allowed CPU mask,
+> > > > want_affine is set to false.
+> > > > 
+> > > 
+> > > 
+> > > This just changes the behavior.
+> > > 
+> > > Old Code WF_FORK 1, WF_TTWU 0:
+> > > 
+> > > want_affine = 0, so we skip the first if block in the loop then leave
+> > > once we find a domain without our flag. And go with slow path.
+> > > 
+> > > 
+> > > New Code:
+> > > 
+> > > want_affine is moved away and early exit is removed. So we enter the if
+> > > block and try to find a domain with prev_cpu. Because WF_TTWU 
+> > > is 0, we just return new_cpu. Or if we can't fimd the domain with
+> > > prev_cpu, slow path.
+> > > 
+> > 
+> > When WF_TTWU is set, we are always suppose take the fast path.
+> > slowpath is for WF_FORK and WF_EXEC.
+> 
+> I know. And that is the exact problem with the above diff :-).
+> 
+> Like let's say prev_cpu is in the first domain we are looking, the
+> domain has SD_WAKE_AFFINE and SD_BALANCE_FORK set and next domain has
+> only SD_WAKE_AFFINE set:
+> 
+> Old Code:
+> 
+> sd = first domain and we enter the slow path with the first domain.
+> 
+> With your patch:
+> 
+> sd = NULL and we return new_cpu
+> 
 
-Thanks a lot for the review and for the directions. I've prepared v2
-along those lines: Yifeng Zhao as the author with his Signed-off-by,
-the BSP sentence (and Link:) dropped, the pcie3x2 link reset grant note 
-moved into the commit message, the notes below the fold trimmed, and 
-your R-b added.
+Oh thats a fair point, thanks for the reviewing it.
 
-I'll wait a bit before sending v2, in case anyone else wants to chime
-in; Sashiko seems happy about v1.
+> 
+> Or am I missing something?
+> 
+> Cheers,
+> 
+> Kayra
 
-T-b's from folks with a &sata2 board (Firefly ITX-3588J / Firefly 
-ROC-RK3588-RT, from a quick search) would be nice too; the board I found 
-it on (Mixtile Blade3) is not yet sent upstream (I'm still fighting its 
-2x FUSB302 and PD powering troubles there).
-
-Thanks again,
-Ricardo
-
+-- 
+Thanks and Regards
+Srikar Dronamraju
