@@ -1,100 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794281718;
-	b=wJvsn6xT1FfPXMd28JkSUNmPTSj2rebU4c06rrymWVDNbm/uDhWQ+VWlxrpig2Yo9FB4
-	 BuU/qVYGvAvniGQdgmN7tadSbxCMRMJqdIgnVIkGR2l0rW8Ib4D7mKH03Owbd0Zhm6i9w
-	 dQy5JvIeIZEx4KRRPN9ohUNZqeEYJMmtoL/0QY2cVNjCCJwN+EICkO6+L2Ve0oUesUE7/
-	 Id+06Z27rIhwBQmjA7vNMDMtJR9f6Vte6zMBg1XWDJsBjKnDr+UvXORH+8Uykw7RLdQQs
-	 Mr/4778E031sIauxD1Gul5rpGDuh3WEjV6xLQqX8ezn5DHIhp80tDimKfG571LJn1Nw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281718;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WkkM/R5qWbfTISU6pj4CyXD/2ii2VVA9oJ6sQdXNT50=;
-	b=2yY8Lv0JnFiF/atMVbiJ6vwZf1HqI8zGfCuop9E63kAAdYTpYxU/lIeUyuoPG/Iml5/t
-	 vz80rXmr5bohX6ZS1pQYuo8wpPuPZHkSShlGosqrRPisX1OSe32xYRyUnacZAlX5PqhdI
-	 RM6rlyD77wYEo7evfsSnVuyxQzT7odNnUvhoxVkENFAgCpsNbkpeEvtlyN0m881xrFQAI
-	 eVqMTcI0ORFP4AuYUet0aUE46DJt+Spqu8uvsMhrUHkU0xmplMX8cBVyG6Bjd46vU/1xk
-	 eyD7qYh83oPm5iLbnTRSTEwUIZ+S4d59gdmNz8Mq6SKNlSUKiKLVuq+0djFnxMo3qKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=s3vcb4kv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.25
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013025.outbound.protection.outlook.com [40.107.201.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794281755;
+	b=tEfb8/yMwjymG6ROGILoOQqy1q+PtfMmtz9FZ693SLRIGVodcmRBFuNHL0JtD0d4KYk6
+	 aafXw9VSR58iWmM36WeoV7oEAEGOx3BkXmHxtgk2JoAlUHyoeGPBnsT2KK78sEXYdlBKi
+	 JrHfQZwfSa1Kqk/y8C7NjhcMpKLbFPBLmkY4PcKoR+IWDs68eoTOtDHouVYkrQd1G4F1H
+	 N3cEWVs3OODiUXZk6WQAhGzkN/meYf8YQm63VHuC/CRiuHmraSxejzo/ouEhz8Ka2PWTJ
+	 rB20Fe5ivGcNdMc0NynFtAo8dLTnRtgwGNPVRMAf9saUJ2M5SwfnyUPnmrjP/dK8Xcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281755;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=lCplubZ3KW5IAPzFP2BWcswNJnUw6KB2HzBlQqEKJ9c=;
+	b=BZQs/K87+cGI6wRCSYUzBaJ7gng3fYHmcSK8E9cib09EF71HcELgRRTprakppmiP9AMU
+	 y+Kd5xsbuThiiW4HXx6gZsUDzuPGDp56r1cR96qI8PbVRw7Lu5uawlXrOeCOiJNbgzTJx
+	 Zl3VoohUvrb6s+Hu3wESp8/X1l5suXYQ9v4pZr7wg3uq2SFxO14IFsqIVfwq5hOeJcnZ/
+	 UgbejPpX/G/jLtnKF7lCgP6y+/gdaf3ydyX6bv6/87og14e6NaUBpiWmttyWtmqisbzoo
+	 oRU5iNPb5tj2DMrNlKjR+X+U8jdQdP/NS9+LL8dAENXYrQD7HG3TgRpScPBBKJumgjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=p5zCNWHN;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D989606A332;
-	Tue, 10 Nov 2026 03:35:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D989606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461E8606A31C;
+	Tue, 10 Nov 2026 03:35:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461E8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=s3vcb4kv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cSod3yjXBebeic/hqd9Qi646naT0LqCGcz0Wpjzpi2p7JsVM0weujbbnwHkqQXlXwgeDATPfSEIXnaCM4ThEA3YvxSkiB2v7U70RYowo3xvLTswjgliKM1nwV/SiIluSH87+wEHHXPkRufpRYOKpVKq/ZmQIDbox8lXi1oW+6LMrTqTjvg6B2Y0xWW17JX+pbs6d3SXgvZ8igRXwPSu/9Dvz/cTuJld24PP0W1ISbl1dBmQoMpS+gUTCkaIMofZEqAvm9LwgIgdM3fiVOt3VzC4OhxjinUKEGvOQtQQwed/GdvZrd2XNeomiyrgVd794gwCUitj4wmX0y5CDIe1b7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WkkM/R5qWbfTISU6pj4CyXD/2ii2VVA9oJ6sQdXNT50=;
- b=mJkUtY4w+/25qbG29aZiqAzNwFoEk/MDqdsydvBENZ1LXDvLuhbJH1x/eRXI27eRYf78Rb/Cbzs/U9nXLYYVayVPOhYF6iBkb3H7M/p5HUBshf6r1M+ySQqqi4n9xqnwjeLAcGHv+u1YyRm8PqZ0GKgDX8+v3vDwkhGLVtl3wnjNA1LgiOKoQfBAH1prX6lADCVnnBnUm25l0XF/8YdEUcUIfM/M7fYYHSPmfyO2XTFODEBDUGS7tl2m2hnfOLRoUdHulkDeGqmc9zJ4gDBOnoSSIMrNa79KBw80oGZOCwblZa7i1s0SxZGVvAIBAxUk0e+csPbmPfxsDL8QmGsOPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WkkM/R5qWbfTISU6pj4CyXD/2ii2VVA9oJ6sQdXNT50=;
- b=s3vcb4kvJlRC1Aomk6n6SmCmj6r6ugMNtl37g2C3Y/9YpxXj/J6ePIB4mwSD1+7S0nqhdtBX2mbbW7Y7UNmj9BInuudR22n9xYtuKJbDg6IudngMPDBlCxN7ip1I0v6fRrOIMqDsrhVtoNPNQEKag65o8WyTrr1NQq2vjbZlui2igPqIfAAwsknaKEdYCDJ6V0gfeRFiENB9JUAaaeMXHbQuGQ6wsH8iye0EncwJnPnp4DRAaF7voIxg6vbNANxFayqOUKR6MFd4+uSggt+1OqDIoCVzw+VLuLsSgZkp15L+sk4xluPsZE/kHdN2B2Ie/yW9si+wgCqGRmEcfbV2aA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH7PR12MB6977.namprd12.prod.outlook.com (2603:10b6:510:1b7::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 03:35:12 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 03:35:12 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Yafang Shao <laoar.shao@gmail.com>,
- Ying Huang <ying.huang@linux.alibaba.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org,
- juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org,
- david@kernel.org, gourry@gourry.net, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, shakeel.butt@linux.dev, roman.gushchin@linux.dev,
- yu.c.chen@intel.com, zhao1.liu@intel.com, tim.c.chen@linux.intel.com,
- lizhe.67@bytedance.com, mgorman@suse.de, bpf@vger.kernel.org,
- linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH bpf-next v4 0/4] BPF-based per-cgroup NUMA balancing
- mode selection
-Date: Mon, 09 Nov 2026 22:35:10 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <8D6452ED-CB2A-4D08-863E-039A9D0DA453@nvidia.com>
-In-Reply-To: <20261110032913.71974-1-laoar.shao@gmail.com>
-References: <20261110032913.71974-1-laoar.shao@gmail.com>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: MN0P223CA0030.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:52b::33) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=p5zCNWHN
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA0iWMW3906794;
+	Tue, 10 Nov 2026 03:35:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=lCplub
+	Z3KW5IAPzFP2BWcswNJnUw6KB2HzBlQqEKJ9c=; b=p5zCNWHNRKRKmx3b/mAjvM
+	G59tZ19hSQvMODtcrLi/69iN7KAN5MIP/M8zBl9lwyoQkVXK5Yz6d+ND8i8RI5a7
+	9wVXSoydj9d9ZQOu+iOA1k+cUiDEQJk3OnS1DirElu6CmtEX8j0caAMXOzmvTUnB
+	yhb5i9DKmVSJL3OmvBlvg/aSF1Lwib8PVkSPQsIfLt353pdJEn6E6D1KAqufWXjd
+	TKIwKRIVDBPQuKCekbN9gQIHnuHwbWuiSMqfxFomIUgtrp2RrvGnpxbm1BFonSE9
+	sPixbEpc+cZc2QxBK213URYt6FV4CnbTV4dkjGwfjh8ep3uTrMyoqAObyyHZjuxw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdg2jwr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 03:35:38 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA14pZv1043053;
+	Tue, 10 Nov 2026 03:35:37 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepvw2uf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 03:35:37 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AA3Za5e30278160
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2026 03:35:36 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7833558056;
+	Tue, 10 Nov 2026 03:35:36 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 10F4D5803F;
+	Tue, 10 Nov 2026 03:35:31 +0000 (GMT)
+Received: from [9.123.14.23] (unknown [9.123.14.23])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 10 Nov 2026 03:35:30 +0000 (GMT)
+Message-ID: <219b1f33-7bb8-43be-bbd1-7e7a5f805ad0@linux.ibm.com>
+Date: Tue, 10 Nov 2026 09:05:29 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,474 +86,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB6977:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87b6f453-739f-4e7e-4266-08df3edba0b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18092099006|18002099003|6133799003|10067099003|3023799007|5023799004|11063799006|261028144727099003|261026121527099003|261102123227099003|261022075727099003|261022105027099003|56012099006|261021123027099003|261021121427099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	MZygwOPh19Gj/cgBwW/hyB8COVqsWbOvYZCeo2EKVlaSxoGkZ8DaFylJUNmRJKXJv3QSSdv256ynhaDr3LpI9cUzUcJyomnyq4rCuv+9y9KYt65uRx2plEpRbWB02WV6UkT08P+lbKOD0v1LPbXkmHwaalxVVQNuwbHh/1V7seUzGDinshXRWMEbsVMf8ag/u6QmXL4I2wZuwoouXge5QKqEHhQ4jdpUWBVRaWAwr6ca31kNlSu2hY2vbIvjn2odGlMKfBw/caHLm6fj92hQ1dmlwYqKGmMg2/TGWxLfloD7vZBi20L/fv1iNB9HJcC+4E82CN2tKD3pb1AAJf+RV0/T6EbzKRb2V+jPlvNpxz8LsQlGiZUaH4DbbNGBAFX6pabH4LdSnggKg+Alx4w4BsMXDA+pAWFKa255p4vEirbGNHP0WdXI8Y4ux9A+iPDPSn7c/8nlm3xx4GD6sx45u3UUgGCdqCET0V508axlELnHGAdHvNyXP6ahRlSEE9v0x7Hz7zKlJbz0ToLd1MGMIT68aFL1sXtJeyetHNTQU+Y8g9nfGXPig6wDxEKiKkRWnh+yzX13lExUGlx2Q68VThzIic+AeWbuuoUBVyZvj4DkXVmQ+nbwD3NsJR5pwF8CURZ0PbPofVws7rWYjH3C/ZIKPi037pi5e3ES00SC/qc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18092099006)(18002099003)(6133799003)(10067099003)(3023799007)(5023799004)(11063799006)(261028144727099003)(261026121527099003)(261102123227099003)(261022075727099003)(261022105027099003)(56012099006)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?k7rQ+DqWBAhqc6NVV2UYOl7xz0N8/Fo7T6JaJL+OmEQ/+MGW8fKU0UNrL6EH?=
- =?us-ascii?Q?OuhzXOhSKgqxfii0KpDvYwjxoNOUJlcQ6XYp7SkljAXth8u04dnZZglM8VHV?=
- =?us-ascii?Q?tEh6GXk2XAASorHjbdrQQISr8UM3u9oDpOphUKkZm9WVVnjl4e7aXIXaq1KD?=
- =?us-ascii?Q?GbPURd4lgrd5Qm/QzVaLGSSzdfMYoRuv7O8LGsZzhSvlcIHv4nhCF65Wfba4?=
- =?us-ascii?Q?pnLFPVQDjXtZ71PaH+ST2ArFuRSw8nnK3n6dy+/qNIhrgrSFmFcGAUJCuevj?=
- =?us-ascii?Q?Ghr6Pq0CfysxUJwp+eE+CUxIrxY4xqGGVUuieILLlQ+wqYIaC1HP8zRbXxhI?=
- =?us-ascii?Q?fPaE0GiTX2CnGD9T5TvZbzMsLYhK+rFSfHH/uckH1zfeSk1AykubQVryJ9jd?=
- =?us-ascii?Q?oDLKt6BO3PLg0OI6PhcazF77PhUITHEoIe2AG6xE0t3itpub4BvWsYSQ510Y?=
- =?us-ascii?Q?Pvj/+5L5F1/opQFFsfO0cayNs/GCwWdx6gxPOyyaRB3wMOb5K3uicJoS/ZTg?=
- =?us-ascii?Q?RJ6vtV+1cNWt038J8GLs0FYomVT+aN4mOjI2n009B9pyJP2Kwn7+07zdvo2J?=
- =?us-ascii?Q?WZ32sXcUKMeudOpdXDZPG8ItjeVhG2YPuASdcGbG7cdlcLw13U6CtSi3/+qf?=
- =?us-ascii?Q?uDiKTqSMZplh36V+n0atbxmQSfxK2z3OfZelVGTXx8cwJa0ojk4X6N7GqD5p?=
- =?us-ascii?Q?2CcNcDqEROkOf/8kt/k7xTOB7ud+Nm9yY12iMNJ/Lx7Y5WnchO6ePzuSGsxl?=
- =?us-ascii?Q?krsUo116YFxijDCFJasxRTK0EHOUa+tHiGvqNIGm2M6q/PTHMKcgLkY9dbYY?=
- =?us-ascii?Q?j+47YYWpoxWbMwfS7zNmwUBRSSntI2tt/6ARL6JgqFXaqcxFEKmR4OCGqEMY?=
- =?us-ascii?Q?/Mi0RWFxgvA7MmuX4Evf5ptzyIrbtbtHKpD7ywxB+RoTjzd5OkR5NYBGYCMG?=
- =?us-ascii?Q?KHM48DedD9yEcVGvOLHgCwzmNEML7HswcCi3FoJtH7CqV14JE5scWHY0eZBW?=
- =?us-ascii?Q?NYWviFqpOx2NadvANS/bFPWIQAcozup0+Y9DD/rpndJdW8Gm+FzU3UuGuC5n?=
- =?us-ascii?Q?87aCQd2HLlQFRvivPaPerRGXoAqhKW78pbaUy52EOiTBlpzv9/wsG5bqvtTU?=
- =?us-ascii?Q?zZE4gvYIQn67KIVuTRNI4QUCpYlCyh4iblyl94nVv+iEaO34q8+KDoYZmwDl?=
- =?us-ascii?Q?nmtchjpBfiJwr5norlw5m2BTOAlHkWE4x03QVHBGSMlkmcl2csQ8OR5fN5g1?=
- =?us-ascii?Q?O97w3KseC556biCv7Bs/yg+noXBJ2tWHR1NQ0XHX97+gbRJiOyijC92jNa67?=
- =?us-ascii?Q?wp0zo8hRWUPHBUgPc43ald1cZxi8oUIBts5rG0SwbCxvZjhtpHEV96oaCAfz?=
- =?us-ascii?Q?ZVZXvoZ4PDzt6QNrT4JstyjSX59xzkTraksYRU6XnNOiPqP7hlVQAsxAj/bH?=
- =?us-ascii?Q?T7KP//PZfn8oLyiX6CmcMAH4WxWacXjIIcKi/Lq3X8FtvYxIAVu89WqTe6e6?=
- =?us-ascii?Q?1bjUGql9ornR/BElA5ehl88ABJ7K9th1Un2sbcVcdZDOD8X0/biW5meUS3x5?=
- =?us-ascii?Q?O1e+TkZP3nzfQ7oX3zwj9ubP4YSFA8tmM/oZ2siEledpin5M5i59PdmztRo+?=
- =?us-ascii?Q?zNsHBkkt5BPLYW4spqF9uGl1w3+zwTJOgWdV5AIyz4RKP5zIkZ6FTdaZcVJ2?=
- =?us-ascii?Q?siWnbB5g6QMlP75vQ6dzYh19Jzm2IxfnQj3OdhzJ4FoPqAhs?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87b6f453-739f-4e7e-4266-08df3edba0b2
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 03:35:12.5890
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l/Lt6Pn9+Uy95WGwAGhbRRY7l757nTBqGkQt5YDFZOchwx3VLlsfgrFtj5Pw0jIM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6977
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/9] keys/trusted_keys: propagate wrapping key
+ generation errors
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
+        ritesh.list@gmail.com, sshegde@linux.ibm.com, mpe@ellerman.id.au,
+        npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+        nayna@linux.ibm.com, rnsastry@linux.ibm.com, stable@vger.kernel.org
+References: <20261105144320.357260-1-ssrish@linux.ibm.com>
+ <20261105144320.357260-2-ssrish@linux.ibm.com> <auy4vLV8CRJB2hKt@kernel.org>
+Content-Language: en-US
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+In-Reply-To: <auy4vLV8CRJB2hKt@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af2910a cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=x0mFdGU97Ue3yh8tahEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAxMiBTYWx0ZWRfX5XELAtYD/6ZT
+ wQfVNAWINDMlyr8XpqZOz7CDOEzV7Tss9lrXD8t+1/xXMSMsR21cdMQ1HsFXSNdCUkBuRhQwZjv
+ kjzO7i+24zlcKUWng3TtT0IWzz6L0NLz4JxKx16QUAq4OqWqKvKrDLhBROtqYtfhi9VyDls5PRC
+ nOAbedfvl3wTLZ7NjP4Er/YABoq4kTWK1RSx1SQxkyo5xoYIOuVdflrlu2pGnmE0iPTIEF8ctVo
+ 0ETxRjdzw4rPVEG7dK29zCse5hlnogzV2Uc/mk8vaVmr2qB/T8wy3u8zmlU/2tAleDU+3/an3fn
+ epTzg0NPHOkPHL6mf70voQxXiXRynH2Bem9hQp95GZbjNFA7Y/B0bOrJR+g8MNAls2WU9F7woY6
+ bUc8m295oVSvyHso7wzlfiZcXQcCumOPYommejBAUQ8NNxqcCBTZRzPuty8GAYYO25ZCpXy84cw
+ 9heh5pAWmlPI+pV7AQA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAxMiBTYWx0ZWRfX8jDfyhclgVLd
+ Cj0RxyVmt4od8yAh89vjeRlSJLgwW3QEPNpr7UWU6TO4VbSWDr52T6/Uc50vWDknIFq1Dr/4bBo
+ DdzRHg10B6/ApTre8eHi44e18Th8xPE=
+X-Proofpoint-GUID: vk_w2uHnWXnxc3jjNBFmR4eSdao1W_3T
+X-Proofpoint-ORIG-GUID: bKv5OHUKM3cO6NFS6wbb7XorwYGzM8oY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_01,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100012
 
-+Ying, who did a lot of work on NUMA balancing
+Hi Jarkko,
+Thanks for taking a look.
 
-On 9 Nov 2026, at 22:29, Yafang Shao wrote:
-
-> Problem
-> =======
->
-> In our large fleet of Kubernetes-managed servers, NUMA balancing has
-> historically been disabled globally on each server. With the growing
-> deployment of multi-socket AMD EPYC servers, cross-NUMA access has become
-> a critical performance issue, which led us to reconsider enabling NUMA
-> balancing.
->
-> kernel.numa_balancing is a single system-wide sysctl. Latency-sensitive
-> workloads want NUMA balancing disabled, while NUMA-aware workloads want it
-> enabled. No single global setting serves both.
->
-> Design
-> ======
->
-> Core structure
-> ~~~~~~~~~~~~~~
->
-> This series follows Tejun's suggestion to store the existing NUMA
-> balancing mode bits in the cgroup's memcg and expose them through BPF
-> kfuncs.
->
-> A new field, mem_cgroup::numab_mode, holds the per-cgroup NUMA balancing
-> setting. Two kfuncs are added to set and read it:
->
->   bpf_numab_set_mode(): set the mode for a specific memory cgroup. The
->                         update is rejected with -EOPNOTSUPP if the cgroup
->                         has no visible, online memcg. Valid
->                         values are the NUMAB_* mode enum and
->                         NUMAB_FOLLOW_SYSTEM (-1); NUMAB_FOLLOW_SYSTEM
->                         uses the global sysctl state.
->
->   bpf_numab_get_mode(): return the combined task-side request of the
->                         cgroup's effective memcg and of all its ancestors.
->                         NUMAB_FOLLOW_SYSTEM is returned when no request is
->                         present. A cgroup without a memcg resolves to its
->                         nearest ancestor memcg. The following section
->                         describes how the request is combined across the
->                         hierarchy.
->
-> Both kfuncs are registered for BPF_PROG_TYPE_SYSCALL. bpf_numab_set_mode()
-> is KF_SLEEPABLE because it takes the mode mutex and the jump-label locks;
-> bpf_numab_get_mode() does not sleep. The mode values are exposed as a BTF
-> enum, so a BPF program can use NUMAB_FOLLOW_SYSTEM and the NUMAB_* mode
-> names without hardcoding private integers.
->
-> Effective mode semantics
-> ~~~~~~~~~~~~~~~~~~~~~~~~
->
-> In the current implementation, a memory cgroup can be set to the
-> following modes:
->
->   NUMAB_FOLLOW_SYSTEM (-1):   use the global sysctl state
->   NUMAB_DISABLED (0):         disabled
->   NUMAB_NORMAL (0x1):         normal mode
->   NUMAB_TIERING (0x2):        tiering mode
->   NUMAB_NORMAL_TIERING (0x3): normal mode plus memory tiering
->
-> The diagrams below assume that each cgroup shown has its own memcg. A
-> cgroup without one resolves to its nearest ancestor memcg, as described
-> in Storage of numab_mode.
->
-> Except for the sentinel and the opt-out described below, the effective
-> mode is the OR of this memcg's mode and that of all its ancestors.
->
-> - An opt-out wins for the task side and binds the subtree
->
->   A DISABLED mode anywhere in the cgroup's ancestry opts the cgroup's
->   tasks out entirely. Given:
->                      Pods (normal)
->                      /
->           Pod-A (disabled)
->           /           \
->    cgroup-A1(normal)   cgroup-A2(tiering)
->
->   The effective task-side mode for tasks(*) in cgroup-A1 and cgroup-A2
->   is:
->
->                      Pods (normal)
->                      /
->           Pod-A (disabled)
->           /           \
->    cgroup-A1(disabled)   cgroup-A2(disabled)
->
->   (*) The folio side is described below.
->
-> - NUMAB_FOLLOW_SYSTEM is skipped
->
->   Given:
->
->                      Pods (normal)
->                      /
->           Pod-A (-1)
->           /           \
->    cgroup-A1(none)   cgroup-A2(none)
->
->   The effective mode for tasks in cgroup-A1 and cgroup-A2 is:
->
->                      Pods (normal)
->                      /
->           Pod-A (normal)
->           /           \
->    cgroup-A1(normal)   cgroup-A2(normal)
->
-> - For all other modes, the effective value is the OR of this memcg's
->   mode and that of its ancestors
->
->   Given:
->
->                      Pods (normal)
->                      /
->           Pod-A (-1)
->           /           \
->    cgroup-A1(none)   cgroup-A2(tiering)
->
->   The effective mode for tasks in cgroup-A1 and cgroup-A2 is:
->
->                      Pods (normal)
->                      /
->           Pod-A (-1)
->           /           \
->    cgroup-A1(normal)   cgroup-A2(normal|tiering)
->
-> - The rationale behind these semantics
->
->   The cgroup hierarchy semantics invoked here are those of resource
->   limits: an ancestor's limit binds every descendant. That is the right
->   semantics for limits: a limit partitions a shared, finite resource,
->   and what a descendant consumes comes out of its ancestors' pool, so an
->   ancestor's limit must bind every level below it.
->
->   A policy request is a different kind of control: it is a preference
->   about how the kernel should treat the workload, not a quantity drawn
->   from a parent's pool. Expressing it consumes nothing, so the limit
->   semantics does not carry over; the question is only how the preferences
->   of several levels should combine.
->
->   We chose the additive interpretation: a descendant may ask for more on
->   top of what its ancestors asked for, while an opt-out at any level
->   still wins: DISABLED anywhere in the ancestry caps the whole subtree.
->
-> Task and folio keying
-> ~~~~~~~~~~~~~~~~~~~~~
->
-> The NUMA balancing knob is consulted at some callsites with only a folio
-> and no task, and at others with only a task and no folio.
->
-> - Task only
->
->   kernel/sched/fair.c: task_numa_fault()
->   kernel/sched/fair.c: update_scan_period()
->   kernel/sched/fair.c: migrate_degrades_locality()
->   kernel/sched/fair.c: exceed_llc_capacity()
->   kernel/sched/fair.c: get_pref_llc()
->   kernel/sched/fair.c: get_scan_cpumasks()
->
-> - Task and folio
->
->   kernel/sched/fair.c: should_numa_migrate_memory()
->
-> - Folio only
->
->   mm/memory-tiers.c: folio_use_access_time()
->   mm/mempolicy.c: folio_can_map_prot_numa()
->   mm/migrate.c: folio_migrate_flags()
->   mm/migrate.c: migrate_misplaced_folio_prepare()
->   mm/migrate.c: migrate_misplaced_folio()
->
-> Therefore, the helpers are split by side:
->
->   folio_numab_effective_mode()
->   folio_numab_in_*_mode()
->   task_numab_enabled()
->   task_numab_get_modes()
->
-> Another concern is how to handle callsites that have both a task and a
-> folio. The following anchor resolves it. Both the user fault path and the
-> kswapd demotion path reach folio_migrate_flags():
->
-> kswapd demotion (no task):
->
->   kswapd
->   + shrink_folio_list
->     + demote_folio_list
->       + migrate_pages
->         + folio_migrate_flags
->           + folio_numab_in_tiering_mode
->
-> Fault path (user task):
->
->   do_numa_page
->   + mpol_misplaced
->     + should_numa_migrate_memory(task-m, folio-n) (A)
->       + task or folio?
->   + migrate_misplaced_folio_prepare(folio-n)
->   + migrate_misplaced_folio(folio-n)
->     + migrate_pages
->       + folio_migrate_flags(folio-n) (B)
->         + folio_numab_in_tiering_mode
->
-> folio_migrate_flags() must key on the folio, since kswapd has no task to
-> consult. In the user fault path, both should_numa_migrate_memory() and
-> folio_numab_in_tiering_mode() are called. Since both refer to the same
-> folio in this context, keying on the folio at B but not at A would be
-> inconsistent. The rule is therefore simple: if a folio is available, key
-> on the folio; otherwise, key on the task. This also keeps the keying
-> robust to future refactoring: if either folio-keyed function is ever
-> reached by a kernel thread, the answer does not change.
->
-> Storage of numab_mode
-> ~~~~~~~~~~~~~~~~~~~~~
->
-> Some cgroups do not have the memory controller enabled:
->
-> Given:
->           Pods (+memory)
->           /
->        Pod-A ()
->         /
->       cgroup-A1 ()
->
-> cgroup-A1 has no memcg. Given the task/folio split, where should the
-> mode for such a cgroup live?
->
-> - If the mode were stored in struct cgroup and setting it on cgroup-A1
->   were allowed, tasks in cgroup-A1 would use cgroup-A1's request while
->   its folios would use Pod-A's memcg request, which is inconsistent.
->
-> - Storing the mode in struct mem_cgroup avoids that: cgroup-A1 cannot be
->   set, and both its tasks and its folios resolve to the same ancestor
->   memcg (Pod-A).
->
-> For consistency, the mode is stored in mem_cgroup, setting it on a
-> cgroup without the memory controller enabled is rejected with
-> -EOPNOTSUPP, and both task and folio lookups resolve a cgroup without a
-> memcg to its nearest ancestor memcg. A request is effective only while
-> its memcg is visible and online. Disabling the memory controller or
-> offlining the memcg clears the request, and lookups skip such a memcg, so
-> a pinned memcg cannot keep applying a stale request. A re-enabled memcg
-> starts transparent.
->
-> Shared memory semantics
-> ~~~~~~~~~~~~~~~~~~~~~~~
->
-> With the mode stored in the memcg, the longstanding shared-memory
-> problem in memcg has to be addressed for per-memcg NUMA balancing as
-> well.
->
-> Given:
->
->     cgroup-A     cgroup-B
->            \       | (charge)
->            Memory_shared_by_cgroup-A_and_cgroup-B
->
-> A choice is required when the NUMA modes of cgroup-A and cgroup-B
-> differ. Since the folio-side lookup starts at the folio's memcg, a task
-> in cgroup-A operating on this shared memory uses cgroup-B's folio-side
-> mode. If DISABLED were applied to memory, cgroup-B's DISABLED would
-> prevent cgroup-A from promoting the shared page. We avoid that by making
-> DISABLED task-side only.
->
-> In our experience, NUMA balancing is mostly disabled to avoid the
-> potential latency spikes it can cause. The intent of disabling it for
-> cgroup-B is to avoid latency spikes for tasks in cgroup-B; it does not
-> matter whether tasks in other cgroups perform NUMA balancing. We
-> therefore disable the task side only, not the memory side: DISABLED
-> applies to tasks, not to memory.
->
-> Demotion is global reclaim, not a per-cgroup balancing request.
-> DISABLED only opts the cgroup's tasks out of NUMA balancing; it must
-> not become a memory-side reclaim veto, or a cgroup could keep cold
-> pages in the fast tier, leaving less fast-tier capacity for other
-> cgroups' hot pages and defeating promotion for those pages.
->
-> So, in the end, DISABLED is a task-side property and does not gate
-> memory-side operations.
->
-> Shared fast tier
-> ~~~~~~~~~~~~~~~~
->
-> A promotion competes for capacity in the shared fast tier, but it
-> cannot consume more memory than the cgroup may already consume: it moves
-> the cgroup's own folios, within its own memory limit, from the slow tier
-> to the fast tier. Each contributor's own limit bounds its footprint,
-> but the fast tier is still a shared resource; demotion is the global
-> release valve that keeps cold pages from occupying it indefinitely.
->
-> So a child can still enable tiering mode if its ancestor has only set
-> normal.
->
-> Given:
->
->                      Pod (normal)
->                      /        \
->           cgroup-A (none)  cgroup-B (tiering)
->
-> the effective mode is:
->
->                       Pod (normal)
->                      /        \
->           cgroup-A (normal)  cgroup-B (normal|tiering)
->
-> What an ancestor cannot do now is cap only tiering while leaving normal
-> balancing available below. If that targeted cap is wanted, the natural
-> extension is a negative request: NO_TIERING would propagate down the
-> tree like the positive requests and mask TIERING out of the effective
-> mode. It would cap promotion, not demotion; demotion remains global
-> reclaim. With:
->
->                   Pod (normal | no_tiering)
->                      /            \
->             cgroup-A (none)   cgroup-B (tiering)
->
-> the effective modes would be:
->
->                       Pod (normal)
->                      /            \
->             cgroup-A (normal)  cgroup-B (normal)
->
-> For this version, I would keep the modes minimal and add NO_TIERING as a
-> follow-up once there is a real user for it.
->
-> Cost
-> ====
->
-> On the task side, an ancestor can opt out the whole subtree with
-> DISABLED, but cannot cap only tiering while leaving normal balancing
-> available below. On the memory side there is no opt-out at all:
-> DISABLED is task-side only, so a descendant's TIERING request is enough
-> to enable promotion for its own memory, and promotion is the mode that
-> consumes the shared fast tier.
->
-> The per-cgroup override was measured with schbench, 384 workers, on a
-> two-node 384-core machine. In that configuration, a cgroup mode put the
-> cgroup at the throughput of the equivalent system-wide setting, within a
-> fraction of a percent. This is a throughput measurement, not a
-> microbenchmark of the scan path: while the static key is on, a folio
-> lookup is O(cgroup depth), and callers that need more than one bit now
-> share a single lookup. An effective-mode cache may be worthwhile for
-> very deep hierarchies; that is left for follow-up measurements.
->
-> Limitations
-> ===========
->
-> The mode is per-memcg, not per-task. A cgroup without its own memcg
-> cannot be set; its tasks and folios resolve to the nearest ancestor
-> memcg. If multiple tasks in a single cgroup need different modes, place
-> them in separate child cgroups with the memory controller enabled.
->
-> For threaded cgroups, the mode must be set on the nearest domain
-> ancestor that has the memory controller enabled, because the memory
-> controller is not threaded.
->
-> Changelog
-> =========
->
-> RFC v3 -> RFC v4:
-> - Store numab_mode in mem_cgroup instead of struct cgroup
-> - Refine the commit log
->
-> RFC v3: https://lwn.net/Articles/1101442/
->
-> RFC v2 -> RFC v3:
-> - Replace the struct_ops interface with two kfuncs, following Tejun's
->   suggestion.
-> - Improve function naming and simplify the code (David)
->
-> RFC v2: https://lwn.net/Articles/1099962/
->
-> RFC v1 -> RFC v2:
-> - v1 keyed the hook on the memory cgroup and temporarily embedded the
->   cgroup id into the struct_ops value, because cgroup struct_ops support
->   was still under development.
-> - v2 attaches through the cgroup struct_ops support that has since landed
->   in bpf-next, keys the task side on the task's cgroup and the memory side
->   on the folio's memcg, and adds the memory-tiering mode alongside enable
->   and disable.
->
-> RFC v1: https://lwn.net/Articles/1054030/
->
-> Yafang Shao (4):
->   sched: add helpers for numa balancing
->   sched: sample NUMA balancing mode once per path
->   sched: add BPF-based per-cgroup NUMA balancing mode selection
->   selftests/bpf: add tests for the numab kfuncs
->
->  include/linux/memcontrol.h                    |   6 +
->  include/linux/sched/numa_balancing.h          | 144 +++++++++
->  init/Kconfig                                  |  23 ++
->  kernel/sched/bpf_numab.c                      | 261 +++++++++++++++++
->  kernel/sched/build_policy.c                   |   4 +
->  kernel/sched/fair.c                           |  99 +++++--
->  kernel/sched/sched.h                          |   1 -
->  mm/memcontrol.c                               |  14 +
->  mm/memory-tiers.c                             |   9 +-
->  mm/mempolicy.c                                |   9 +-
->  mm/migrate.c                                  |   9 +-
->  mm/vmscan.c                                   |   6 +-
->  tools/testing/selftests/bpf/config            |   2 +
->  .../selftests/bpf/prog_tests/bpf_numab.c      | 273 ++++++++++++++++++
->  tools/testing/selftests/bpf/progs/bpf_numab.c |  32 ++
->  15 files changed, 844 insertions(+), 48 deletions(-)
->  create mode 100644 kernel/sched/bpf_numab.c
->  create mode 100644 tools/testing/selftests/bpf/prog_tests/bpf_numab.c
->  create mode 100644 tools/testing/selftests/bpf/progs/bpf_numab.c
->
-> -- 
-> 2.52.0
+On 11/5/26 10:41 PM, Jarkko Sakkinen wrote:
+> On Thu, Nov 05, 2026 at 08:13:12PM +0530, Srish Srinivasan wrote:
+>> plpks_gen_wrapping_key() returns a negative errno when default wrapping key
+>> generation fails. However, trusted_pkwm_init() returns -EINVAL for all such
+>> failures, discarding the original error.
+>>
+>> Propagate the error returned by plpks_gen_wrapping_key() unchanged.
+>>
+>> Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
+>> Cc: stable@vger.kernel.org # 7.0
+>> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+>> Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+> Nit: I'd put the SOB as last.
 
 
-Best Regards,
-Yan, Zi
+Sure, I will make this change.
+
+
+>
+>> ---
+>>   security/keys/trusted-keys/trusted_pkwm.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
+>> index bf42c6679245..422f752598e1 100644
+>> --- a/security/keys/trusted-keys/trusted_pkwm.c
+>> +++ b/security/keys/trusted-keys/trusted_pkwm.c
+>> @@ -170,7 +170,7 @@ static int trusted_pkwm_init(void)
+>>   	ret = plpks_gen_wrapping_key();
+>>   	if (ret) {
+>>   		pr_err("Failed to generate default wrapping key\n");
+>> -		return -EINVAL;
+>> +		return ret;
+>>   	}
+>>   
+>>   	return register_key_type(&key_type_trusted);
+>> -- 
+>> 2.52.0
+>>
+> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+
+Thank you for the Rb.
+
+
+>
+> Br, Jarkko
+
+
+Thanks,
+Srish.
+
