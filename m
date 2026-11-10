@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794278517;
-	b=QinXYkuShoY6MaoM1I74vCCSSoDwv9ut7+bgahIBzSkQ68zZPrWSJGnY3STg+oKTu6iP
-	 4SjGju9djr8xgWn2cyoqUsaKkrargg1Enoa2id7KUPLk5K9LQKYwxCe8eNwbWv7Q+UFzm
-	 IVIKMWZ5AaaMyrlbrn7F64/idKL6aaYRuGJnuvKPVl60BJchY9OheBJv8Gl90k/Qfikul
-	 2mvrrMHCME4UhHoi85Tp5/W5aHyvfhAraBbTEsCJ59Q6xG1JsUWRnwux/Z8POMA5Mqr1L
-	 qi4QLdzuuwvZEXmFl+ORLlmK1V0kbI3LpqOXuKwfAEMFSbC9pDceyuQUCM7+2WRZ2XQ==
+	b=Wdd39Bd80qf7Xl4aH/2OKQa08YFBwWqH0iLCuzgDBFMzNn+jWjMROohhMKtYujPhDTdT
+	 /5sQhq6j7r2YnucRxWxwj77B9BwHpAvLuo8l0VwiCtAFdt40hHts+uqalRUQ8LIML6Voc
+	 pGAFPd9D3sURedZlDrpAXHTycqwXqQWGZLsAIIGnTvXeogGpPKiyYKj5JkrihCXHRdkYt
+	 ymaOXdYaTPduM3HQ2DVgzzP1Pms6o1nJ/MGlk9WXyV+zRANMJlep/mRMjc+dtO2rvRImD
+	 sZBlnhxz+97fIG8T8zzUcOj2gkmXRYyy37uq21eFC7KEnsQ5g7xaUfFkx6EtJ/xcK6Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794278517;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Gf5vm7cvpgQIIcKEgetbD//2pRCYO1NBnRFDgRJ50lo=;
-	b=JAMZXFVQ+m4nfnFCNsMrgJF04yiaeWusk2EnRwvpP13s498oqSCU5JT0k8/KWVRV9wi8
-	 IQayBzdxUSa8CvJhPklIP/4RPqtmRdhf0uoN4Mnhd8CpeQVElVR0xyXAiD3inzx1jrW8s
-	 Fs8EyUr5IITgjDDqFxIhxqL65yM7bqTF+wOlDC+gfkFwngnv9wNuXmUuiCisQqWvgBN3N
-	 p9gAWxQopLyJFm0sVh4Z4c7kpccuxU0mbPeuHAxkWc/Cy/j2jL6LHjueGCrK/bd3cd0+3
-	 DVNFirTyFTMIE+J2z7pIQmmz2Fti7fFqhiu21d0KpPN2sqtz8sl8xM4pd0FRw7R7kpw==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	b=RUJxYo8UZSRt4GOcIPKswd2uGW5zrp51P4KoBfBfIHpL9HTrPeWUwR3BjMFq9oDWlEwB
+	 QF1//zbFLtaDSJuagIXWr6rRz6TPE/we+IZeximfDS/Y2nfbLqDuVHtO+MBLHOlE4vcIK
+	 R7UDzZKBTim4k037wP+gy4YkUjOaeLNj1sg6cFhM5Qii7XuiKrVJUX6Wqneb7c2Unuyau
+	 kJ1rIIR0A/FyZTNVeawO7OBNgMLS6OTBYCH5lYM3pY6HxFfUhN+fVuM2H9r5e25QlGos2
+	 xEocYt6WouGfp3q/Lu25ZmMoth6MQcGarZTH44HjcyinIi/uQAhww+oZRhdl//Tbz4w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2hAxtMD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ06U85j;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D15606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5E6606A321;
 	Tue, 10 Nov 2026 02:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2hAxtMD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ06U85j
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794278516;
-	b=Rr4ToNFxdtn6L/Ke9rnzPPvIL3avMZPZfcED6BYZK6Yyh7zww2fN+ldQg/Jehc/AaadQ
-	 SGg+vzSFO4wT56ujnQjoTR4zdn2e22oU5+CtnA+9rDEzFKgd2St4AC6yPmXKjJANofJ/I
-	 JdMQLR5xlmhfGGztcCab9fnGfQ0dECoZxdLTRwbUM3lE8nKKPJBi3Xr1CxPJ0yS63DVkw
-	 OOQxMi+DHX59rZWCvDN/kDm1/rQ/WPl15ghbeejtyChf6lylJJjLYQEzuS1VjYVwLNR1+
-	 8K5gFJ0NFX6km2JUUjDSSvKInIXcs7PEa9aKPMGzxEqkSa5JsGg8OlXTkg7m2en9IyQ==
+	b=Gr3MTbSM4RccOy5tyuv3roHYZ6Oh7BB6xLm4v4HBGEgi3iFxfRDgCD99rSP1hjbJCNgi
+	 ndp3G6QIZIrmjJ++Ej5Ty4rT303Cs2cjRxOBrabBw3EEovaKyfttcvMeGnxy6M6rkUkZI
+	 UBvc1aBNz1G5Ws9ONnmsLZe5Km7A/da6XWwkkuBUOXycUPUzywGDgzlaDd86yJ5+DJcsF
+	 qOU7iYxiMBnb3dpN2AYYh3YKCUgr+ezMA5+aD3vckyo1i8aDGFOS/ZUlbf6v56gpUAItZ
+	 YeRP+ghhteSfmomk6VdOJbD7IhlaufO39MN4MUrmZvioT0Xq2VJt/EUOqNwG3Mouaxg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794278516;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=Gf5vm7cvpgQIIcKEgetbD//2pRCYO1NBnRFDgRJ50lo=;
-	b=Bcvd8GNjWD1ma2zJqEa5vIiMowCk5EoJLeyUHqkTkpNnT52nU/BfSD9nXtuUFG8mbuI0
-	 k3m+/3u9wATWZo+R7yQjb0frMyl0jddRyz5MdKksUwd2bQQPIC1J0uRLm2GAuIJ0r+WgG
-	 SW7B2EnMXYPYcKH+bA+DngZLHxhzzTRJAlBlCN0vi3/ndlVRWMoAHxk7/5nHWngyGSjEX
-	 ZSdcTys6vb0mnBWgtUohQPR1c5z1V6S26Lvs7wIu6kRuGzdmbBWGS+4b7XyndlyYLtJoA
-	 WOBmUdmbAwjEIdYVMbHq3QAcXg+xDAyWHk+cPCLyc5mMjUDy1YjR1w+31kiDl0I78ow==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	b=MDlf9Bv2EFy6D09SnA+SnEo8aAtp+DuvZ9w38n9A9C7q4fYTmYcB8H1EZnw8gZFu4aDy
+	 3DBUT2rGGmIsARlQhOrKufrHg8I1msst2dj7rs+wmXzSelbs4oQ5Lfz1A5oCdRWG6E4oF
+	 a8mCiIf00vosYRZOjZ/0pljsxSMg7ztkNoM5pkeo1N4yOQzQTnRa0S6xAMo97/XFgJufu
+	 Yxs12a/OE94oleLG3JweX4vRwLlE0v70d2cvOEN2Fd4HDcFfS718Wae5+TnsR19WVt0/X
+	 DTjeWd/NCFCrfrHSZXn955PStPXkKXC4rKOD2IdkFO0h4QDCSIZaz65T2LdqlBXxspg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 99ABD1F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id C51341F008A3;
 	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794278516;
-	bh=Gf5vm7cvpgQIIcKEgetbD//2pRCYO1NBnRFDgRJ50lo=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=D2hAxtMDMg7Jg4UkP6LK3pTlIVBYdpWnUf74FfaTcvhvkko9ewdzmQau9qCmGEeeF
-	 yf0tL7ERBurMPJUYszdOI+fiybnYK1sUgN4FOYtf7nlvkiToBSt+KoJGg075s8GnJJ
-	 XrBsZhi/HRCuuSAHxoTOaGGS4lu6N5ZwlAKx/HyGMiVO1SJ90V0ywuQrIEJN4wwwGz
-	 AwEq3lf9ZTtUG5lZVhsQFZUQoC2BHrQcfpVI6vf5i6k3Wb6TwsJhK8HUn7FAo7UIZW
-	 NVCRBIWuidH7OnLIE5KmKgC2VnpEedNV9jEBhXaZBimSs0OBt8BaGu2+5eqbKFmTlG
-	 ddwhTU9rjeSww==
+	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hJ06U85jtJeqmavRozNBRQZ0Bi3SJ3ftGqRpqfOURiAHY9iCaxmIL5XesjoECQ9M2
+	 VAtCkfDt6UeLQS45NVca2BaBo6qkUIrpLds2eMFjg2YdszkdqzX3QoA1CbcP8W8XRt
+	 /x/lZxapOd/WseQ19ZBNDfZNKLSsH3z+2Lvkp/nqbqEfIlrBFfM4gaqP+1TfpASmT0
+	 uw4SjBvJPFr58s2K6y6iQq56jD/DyQxQwtYX3ZF7isEMSg+KDvUC++c28jpU0zY7hJ
+	 unfYEHmgL87PWi31n/rhd9aXw+rpnKNIsmJHBG42bpgxZHe4omX/Xcg89cUWz91U7S
+	 rGKj8Qz0fPxmQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1679948786;
+	by lkml.kernel.org (Postfix) with ESMTP id 50C6A4878E;
 	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
 From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Subject: [PATCH v7 0/4] usb: gadget: gadgetfs: fix ep0 request lifetime and
- event counter
-Date: Tue, 10 Nov 2026 11:40:46 +0900
-Message-Id: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
+Date: Tue, 10 Nov 2026 11:40:49 +0900
+Subject: [PATCH v7 3/4] usb: gadget: gadgetfs: prevent ep0 event counter
+ underflow
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC6E8moC/yXMQQ5AMBBA0avIrDVpJ6G4ilgUo8YC6SAScXfF8
- i3+v0AoMAlUyQWBDhZe5gibJtCNbvakuI8G1JgbY7Tyrve0DaIOqyjD0hUZOo0WYrEGGvj8bnX
- zW/Z2om57F3DfD5UYMlVvAAAA
-X-Change-ID: 20261110-gadgetfs-v7-e529a852a027
+Message-Id: <20261110-gadgetfs-v7-v7-3-6d05409cc61a@gmail.com>
+References: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
+In-Reply-To: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
 To: Neill Kapron <nkapron@google.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Jing Lin <kayano050408@gmail.com>, stable@vger.kernel.org, 
@@ -97,78 +94,80 @@ Cc: Jing Lin <kayano050408@gmail.com>, stable@vger.kernel.org,
  syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
  Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278513; l=3007;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278513; l=2000;
  i=kayano050408@gmail.com; s=p600; h=from:subject:message-id;
- bh=PKUcg2l0YyjidzyI3AUerGASJfY84sbnjO7rcZqOJPg=;
- b=NnWcF6I+zVGDvJeFUfJlAm8S7qzFCsny+XGnztNTG2DNjspzooMcfYPkK3WFuK/cAlAGGcvur
- ywUX4a/2pnnB/0YlDNactv9yx+LZckTiILL/B+NIaB18HztasrtTpOW
+ bh=lkYUW+XIlbdK/rh+1VF/WDnE3MNRdwNCKjzdXPE9Fvo=;
+ b=xdV0LO301dIjt70LNgqdbL4X13NcnfFZpK9haUSjFq+MHE5dxKccphBn6t20Z9TFL1xps3SyL
+ 3ncoWLRvj3+CnWTSA/aWLb4bOQGY+J9s1z2a8W6ru7qBn7ZTm3M9N1H
 X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
  pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
 X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/p600 with
  auth_id=1475
 X-Original-From: Jing Lin <kayano050408@gmail.com>
 Reply-To: kayano050408@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series fixes the ep0 request lifetime and shared request buffer
-races in gadgetfs, and the pre-existing event counter underflow.
+From: Jing Lin <kayano050408@gmail.com>
 
-The first patch covers request lifetime and buffer ownership, the second
-the ep0 setup abort and unbind state races, the third the event counter
-underflow, and the fourth removes the const cast in gadgetfs_setup().
+ep0_read() snapshots dev->ev_next, drops dev->lock while copy_to_user()
+runs directly from dev->event[], and subtracts the snapshot afterwards.
+A concurrent disconnect, connect, setup, or another reader can reset,
+deduplicate, or consume the queue in that window.  This races on
+dev->event[], can drop newly arrived GADGETFS_SETUP events, and wraps
+dev->ev_next if the queue shrinks below the snapshot.
 
-The setup() callback runs in interrupt context and may not sleep, so a
-mutex cannot be used to serialize it against ep0_read() and ep0_write().
-The shared request state remains protected by dev->lock and the control
-payloads are handed off through private buffers.
+Dequeue the events into the local buffer and update dev->ev_next before
+dropping dev->lock for copy_to_user().
 
-Changes in v7:
-- Split the former lifetime patch into separate request lifetime and
-  buffer ownership and setup abort and unbind state race patches, as
-  requested by Alan Stern.
-- Submit ep0 requests through a shared queue_ep0_req() helper and wake
-  dev->wait on every runtime clear of ep0_req_queued, including failed
-  submissions.
-- Wait for the asynchronous dequeue completion under dev->lock in
-  gadgetfs_unbind().  If the controller rejects ep0 dequeue, keep the
-  request and its dev reference and let completion free it after
-  udc_stop() drains ep0.
-- Destroy non-ep0 endpoint files before tearing down dev->req, matching
-  the order in which the endpoints are created and destroyed.
-- Record setup_abort before gadgetfs_setup() early returns, keep
-  ep0_poll() from consuming it, include state changes and setup_generation
-  in the ep0_read() wait, and return -ESRCH from event reads after
-  unbind.
-- Ignore zero-length ep0_read() calls while a non-zero control OUT data
-  stage is pending so they cannot clobber its payload.
-- Address the remaining Sashiko findings from v6 patch 1, including the
-  ep0_write() state transition around copy_from_user() and the unbind
-  event path.
-- Write only event->u.setup.wLength in the const setup pointer patch, as
-  suggested by Alan Stern.
-- Link to v6: https://patch.msgid.link/20261109-b4-gadgetfs-ep0-v6-0-b410e3dced89@gmail.com
-
-The series was tested with the syzbot reproducer and with targeted
-lifecycle, request-reuse, abort, unbind, and event-counter tests on
-arm64 QEMU with dummy_hcd, KASAN, and lockdep.  The syzbot reproducer
-still exits 137 on the fixed kernel without a BUG, WARNING, KASAN
-report, or lockdep splat.
-
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
 Signed-off-by: Jing Lin <kayano050408@gmail.com>
 ---
-Jing Lin (4):
-      usb: gadget: gadgetfs: fix ep0 request lifetime and buffer races
-      usb: gadget: gadgetfs: fix ep0 setup abort and unbind state races
-      usb: gadget: gadgetfs: prevent ep0 event counter underflow
-      usb: gadget: gadgetfs: avoid writing through the const setup pointer
+ drivers/usb/gadget/legacy/inode.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
 
- drivers/usb/gadget/legacy/inode.c | 395 ++++++++++++++++++++++++++------------
- 1 file changed, 276 insertions(+), 119 deletions(-)
----
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-change-id: 20261110-gadgetfs-v7-e529a852a027
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index 6514220ef..0b3210f87 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1266,25 +1266,19 @@ scan:
+ 				break;
+ 			}
+ 		}
+-		spin_unlock_irq (&dev->lock);
+-		len = n * sizeof (struct usb_gadgetfs_event);
+-		if (copy_to_user (buf, &dev->event, len))
++		len = n * sizeof(struct usb_gadgetfs_event);
++		memcpy(tmp, &dev->event, len);
++		if (dev->ev_next > n) {
++			memmove(&dev->event[0], &dev->event[n],
++				sizeof(struct usb_gadgetfs_event)
++					* (dev->ev_next - n));
++		}
++		dev->ev_next -= n;
++		spin_unlock_irq(&dev->lock);
++		if (copy_to_user(buf, tmp, len))
+ 			retval = -EFAULT;
+ 		else
+ 			retval = len;
+-		if (len > 0) {
+-			/* NOTE this doesn't guard against broken drivers;
+-			 * concurrent ep0 readers may lose events.
+-			 */
+-			spin_lock_irq (&dev->lock);
+-			if (dev->ev_next > n) {
+-				memmove(&dev->event[0], &dev->event[n],
+-					sizeof (struct usb_gadgetfs_event)
+-						* (dev->ev_next - n));
+-			}
+-			dev->ev_next -= n;
+-			spin_unlock_irq (&dev->lock);
+-		}
+ 		return retval;
+ 	}
+ 	if (fd->f_flags & O_NONBLOCK) {
 
-Best regards,
---  
-Jing Lin <kayano050408@gmail.com>
+-- 
+Git-155)
 
 
