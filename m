@@ -1,100 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794328459;
-	b=hVeSCufmnjUrNAhvi52WAbnVLbGWnaqMGJj16xcam3zglI0/ib29+FjcheJqT6hPeRoL
-	 Aq78j1r/SZsX0NSyCzZWPuXQC38O0EinWmq7KOSGuBeSE+3lmio6hoEULyEhHn8V2/U+J
-	 3NW8AR4KUBToXMC7ZYk/3Sc2pN+7ZWsNx58obBgTtxI5kDsjDmb9te6JNCVt8sxIDcqG0
-	 31CziEuFtoUBUnAtT+G+nuJF5vJmEM0uagr7KQlPDCrvJa9N1HkQ07M8jkudXEAKbKbnE
-	 Vanb0aEC65q4jlb4Z+0tp6co3S/P/vuyFnIJtDShuoHEGUgKLi9IL3kEiPReZ21XFxQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FCqtSOwcpdw7XGftmO+xNjW4rRCfyh1m1PM9yVjmyCk=;
-	b=xP08WKWcsgVSwxqODmEsnMCTEDWq1vR1ed/tE7ZY65coqe8AM7ObB7mE8JPlISuwcICi
-	 Lma9bmL3V6Rp5qJKF0LHo9HiKpLCjbnSOnkhTuO92YUL9at0AMllM2JAyvrE+QzB1/HY/
-	 vS0OOtNUf0SACYE1ObeGTs3u9Lwzv1lOeZkAqtOsxUaNz9X9C+YEDcbXv33V/g7Op2NWH
-	 MPe7TDZ8fABzklJBakwmliSZy03sTQR8Qx3Gm+mPEj/jTfg1HmSKVC2YLgipZsxdzXTf0
-	 Z2FvMj6Dkt0egr/8nNowsLv1CI3d93JopIRshbplAPkpdibKVk++uimndB0W9GFbSVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HENuZjV5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794328455;
+	b=V96OviIIfWMcwWc5SsRuYPX4Uh3Orz4IxdDA7gaQZtClNPYIxqRYsoI5lThHYUmztSY7
+	 2/IYOth9tpS/HMssYqGJcqVkhSHgrhT79E5kzBl2IlAKjaCxEo9xN2CUoZLHHIf1FQtTo
+	 xLgH7ktHnCyDkgiBRxxHcNmvmiJp27O6O4mz8eSRkNRWtsaf7oBzK8O9RvuvmWRiUX1UY
+	 GyfYjEedCG/b/OO/tpNF+tkgzIYMk1QHSo+goFk7p42bJsa372nlAruvHOqycvoHUYQUl
+	 MNRzVX4+Cri0F6UKSjArlSzPJlSNA3sMat7OTtnlrm9qpnTwLhICHMNtrO0G0pOZMvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328455;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=0PcNzrAm+ZHWxKmhopZRMwa8hvJoI4qZ7QndHfl8spQ=;
+	b=liph4F39c9OVVnwP6CjmoeKZ9p7dxPJSFEZ4faR1if8/CkKiLSjjBf8g5iTMe9dnQDP7
+	 j2IiMLEgbxZ5vTzFQfc3GmDkZyd+7ygQLiFSrvzeBBH5yrE1+s3L1zC8/p+tsRG/reesj
+	 sbidPw9vHRmDzNrK4URPgjTaVFl9VPiAlaQAPJazyCY5r0RXEFz4YuYQdZrQcJkqn7led
+	 xo2J1myYnDrz6j/InZHruqPLiKCavp7Zr6Mi11me8+Uf/zX5SPggkAZkibeaYuhNOUc4y
+	 BlVQ/URu9hcwU8OBO+9LLu6+omfQ01StTM3trxI6oCsPof9nYYybOUXkFtLUTuIDtxg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0IJbFl1d;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zvScGAfr;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9F6606E808
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:34:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF9F6606E808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF63260A3814;
+	Tue, 10 Nov 2026 16:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF63260A3814
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HENuZjV5
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b633ddfad6so2962698a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:34:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794328457; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Y+dnSNF+igbIu2XDVZreTheRF8aMQ9sBTVgvv2hcrLlsA4kKdfYC8Cca6ziu9NXyky
-         x4zkMyF/K7YgPbMfdYWoFZ7ONleEW9VkUXEMgetGymvAX/RiFIEaxgoQg3w6Ria+j1PI
-         bqj2LyQiuB44bDuHMbh6vLiY0yWVK+q4PTmmu+piR+bIdOdTm1T4G2o3VQxwTzkiSlHY
-         CBQrS82W1D+RGCYjfp0a4Fox3Y6y1mnjVY6kn6zPLOhHvmYeZX+FYxLlcZknKAoXcPxz
-         CEW414vEhp97Bv+mmJi5jbzuJ0fVrYmiBNHFISW1pXIr1yd3m2svO8StALG9NgvRnOfK
-         4hCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FCqtSOwcpdw7XGftmO+xNjW4rRCfyh1m1PM9yVjmyCk=;
-        fh=JN40McTMfGE50XWLKQ1LBXw8i4lcv1+gOzcLd/6kHYk=;
-        b=IS87qCA8Fl/2+MME6ve3UqRMPRRWu+AkPFsXHkHU/3vdr3Q4XfCzKnFF2yOCYGe4ei
-         jUyBtMuURig+fW6okmvQu9BOJjkQGd/QESxQFEPaiZVelcdzI8+2Kun4FNTNJisjm0hM
-         MPeFR7YI8UodTfbOzeufuadJ3LAxjoESTWq/Yw+bAsk5Vq8P5+d9Uo9NaPrlssvfZFfG
-         0ZnQYrI33S9sBSo2lB0uyEG5DmiJ6jA0sqDaoxJGdBrqjfLsXODNzd8Urb1yMcCGRBDd
-         kdQePUFf5H7TXR4hh9WlzY6wDf87eL7qYSSV8fLFJ8nNz70obILoYvMJ+l/rmmqBUSke
-         dibA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794328457; x=1794933257; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FCqtSOwcpdw7XGftmO+xNjW4rRCfyh1m1PM9yVjmyCk=;
-        b=HENuZjV5rYYXZstMPqNfOr/X7CsuMdpnIU4RVF5ddOZ9GH1YRVnsluNbXiXZJZTqW/
-         X4R/n8mC0J9sa8adkM81EYNL176fgatokAH7XGexfoEI9+zHL4d8IjEf7HpjMxXeTuTC
-         emLokdvJolq8nzFi0hmqOGQ1Ex1R7rGgaTyyjXInnHSpFfH1NEABiJniDq6yFEIpJ8+9
-         eXpzLD43lkTAgWGvlnWNbl+4p29ZIWrzzOvpnurje76vGUd/gz30APzNfRvXchaW7gJp
-         69o1yOV3I/+15wqjWcqlUIBrsMRjQ6JkuNM9N2LVFkcvDNaxHWfbkPdIdlTNo3SQWRcg
-         LUwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794328457; x=1794933257;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FCqtSOwcpdw7XGftmO+xNjW4rRCfyh1m1PM9yVjmyCk=;
-        b=rHUh7KNtZkNzmLbCk3iT50XICfkHE7ui+1nGWmf93K+fKWKkvL3sDSsfPDhgZrEXl0
-         zDaXLWtv+xoJBzJBfWg/e9p9z5Mg4BMvhczcq9xqC5gOlct0Ag3T4RQC6+3yyUhz26IY
-         R/jklfyXbT0Lc2CJ48ghgI/K0TAZCoRlmKqgGmJ9g1oQe4B0swZ7ddgKexpXYnXpeXKF
-         maq7VQ8v3QDov+qU5Zx7MTDoJz37SP5C3fkCkXiYHxkxYmOK2ox8uman58ZUGFM/jS1m
-         8ZBl61hbMG2YW/PpB+3U4uib3zugknQ800BciUAE+vofWlet3Kz493TwMmNwvXOX/XaV
-         mJ7w==
-X-Forwarded-Encrypted: i=1; AL+hErE4fPfclxHBBfgIE84AG2/VSA7a4aWdX2mlR+s8zXxEw37RlSJV0S9gpKZxgg8I4iCvUNnJ0v4rWZYS1xs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97PH+2yveJX2JXN1SvNRmDsVuY4FEA4u/+dR8sCKQOcCPvetjI
-	vGsWPi8aMzzx7Xx/qiJ/qPblPW1nQm04qa1F2AB61ycuXhV1HhleC5xcLwAdCicO3RLTENP/Chh
-	fhnsGiT20UsKgE8x856I7A/hZN6LxI/g=
-X-Gm-Gg: AYBFou2EOOwqkNAmYoJDA6Q+MYymUjFVct9B5O3AncaMeAygtZLwiA/stOw26INU2Vo
-	b837bMzOGHefceax9qZnmJT+wq01o77hhRGZrrKJZHYHGzyhtdFY5TmAShyB15EXNv99SUzlRp6
-	TMWhSguynRO4kRwppljF6T32dN9jSUfH/r9jyZqRLDsugJu1aSVtbuLiRWo7qIr2XMk+8s6tZF8
-	vjES0gFAXFCfssogPpuMmHmAjcbRuTwSxvz8kkOhmfP/iXTATq1ZDbVQ/WJ6qAXV7T7syHkm8yr
-	E9l9JG3dhNyskw4pP7xuOFrfjpHO/Og9IDnHcAkt+fEOS8Tdsb80gg5xLmoEcsJxqN5yGkc/U+E
-	IU26OWX8KbF3zRRNkNcdqi9/Xz69cLqxbzvUP6T/2ASfQF95LEJZfmTcsbYGRAMdHO3+cwg==
-X-Received: by 2002:a05:6402:2712:b0:6b4:d1ed:95b3 with SMTP id
- 4fb4d7f45d1cf-6b756afb7e8mr2798959a12.41.1794328456887; Tue, 10 Nov 2026
- 08:34:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0IJbFl1d;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zvScGAfr
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794328453;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0PcNzrAm+ZHWxKmhopZRMwa8hvJoI4qZ7QndHfl8spQ=;
+	b=0IJbFl1dy8X4gSNDocamKYi4XU1btGt8bPidCaDlnNa07zJXzWlikLuXx2hk16wpl+PZbH
+	xpblKoEkUk5JX6iJEkMwW0xsZekYIRIUkeZ2IRJfWZ++oWoewtqn60tZVr0GemOQNCTBQ6
+	S5+7uAabRc0ZLvykOoahFNGm4UuJaShHSFZP9vSWM3haaXEXWOC+NDh9bckzU+ZPmSYBUt
+	kaUL63ld7fnWAUG5GHAkIbeW9x05MFhupI68H5RH0+g+dWMyQqK2EfHKAZld1B+/+y/iI5
+	AqyWk8frn3V4Z9qn+AzkcNlO/BQl6TsETiMTIrJVygfdBERtf7Ymdw0jVEmWFg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794328453;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0PcNzrAm+ZHWxKmhopZRMwa8hvJoI4qZ7QndHfl8spQ=;
+	b=zvScGAfrm9dnIxn2Pw3vTX+RHJ/du3IgZIPMAoUck5v1eWfyX8dk+d1g7wbvlQDjR0ocyA
+	Jw61rW8r85aOSODg==
+Date: Tue, 10 Nov 2026 17:34:06 +0100
+Subject: [PATCH v8 07/12] arm64: dts: broadcom: bcm2712: add
+ raspberrypi,bcm2712-firmware compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,347 +69,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101015551.786044-1-koray.fra@gmail.com> <20261101015551.786044-2-koray.fra@gmail.com>
- <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com>
- <DMP3UBB0QVOT.20HIXK7ZL6K6U@gmail.com> <CAOQ4uxgSVc8n1LbL_dcU-DpNN5BB-ap_vGdXEu7+d0Td7PK5Tw@mail.gmail.com>
- <DMP582BGB7DV.2U0SJLJL7A87K@gmail.com> <CAOQ4uxj82K4z+2OiY5W1g7NyWAFOFjqqWnZSS3prytW36j1LgA@mail.gmail.com>
- <DMR1E7XB3AT6.3UI3YHHBI8O9Z@gmail.com>
-In-Reply-To: <DMR1E7XB3AT6.3UI3YHHBI8O9Z@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 10 Nov 2026 17:34:05 +0100
-X-Gm-Features: AclHuK-xyrva0BFNfHdHgo1AdOKFc2mT705XNAyB3cFbLIaGNogkhAlZUjgESj0
-Message-ID: <CAOQ4uxjtuTDT63vJdYaq+RHQEQFLTksp66e46OMN99WhJz3SbA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
-To: koraynilay <koray.fra@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Sungjong Seo <sj1557.seo@samsung.com>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, Chris Mason <mason@kernel.org>, 
-	Jan Kara <jack@suse.cz>, Yuezhang Mo <yuezhang.mo@sony.com>, Chuck Lever <cel@kernel.org>, 
-	"Darrick J . Wong" <djwong@kernel.org>, Sean Smith <defendthedisabled@gmail.com>, 
-	Andrey Albershteyn <aalbersh@kernel.org>, Pedro Falcato <pfalcato@suse.de>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, exfat@lists.linux.dev, ntfs3@lists.linux.dev, 
-	linux-api@vger.kernel.org, Theodore Tso <tytso@mit.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-rpi-otp-driver-v8-7-797e0577d414@linutronix.de>
+References: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+In-Reply-To: <20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794328449; l=1201;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=QzShj9jr69aONGxWIoiSXIgjOLO6bK2pyRL4MJ0roYc=;
+ b=FDUtlquYhrthrWBpnwVJ22VMVQeCCXG2K0WzsWregE7e7EP3a3RUuRdSxS4JplkQkHCGKaDXQ
+ E6+0PLBBv7fCSfSv8rHmww3GhWsaUnLwp6/83txX1imZaiS/LowyUg/
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-On Mon, Nov 9, 2026 at 11:34=E2=80=AFPM koraynilay <koray.fra@gmail.com> wr=
-ote:
->
-...
-> >
-> > Re-reading and answering your original questions:
-> >
-> >> >> Quick question, should _mask also be used for user-space -> VFS to =
-advertise
-> >> >> what it wants to change?
-> >
-> > Yes absolutely.
-> >
-> >> >> This would be useful for on/off flags,
-> >
-> > Exactly.
-> >
-> > All the Windows filesystems that want ptime, would most likely want the=
- support
-> > on/off HIDDEN/SYSTEM/ARCHIVE flags as well.
->
-> (But these should be deferred to other patches/to the FSs themselves
-> right?)
->
+The Raspberry Pi 5 (BCM2712) firmware exposes additional features such
+as the additional OTP register region called 'private OTP'.
 
-Right.
-For the design discussion of xflags_mask I had to give those as an example.
+Add the raspberrypi,bcm2712-firmware compatible to allow drivers to
+distinguish this hardware variant while keeping
+raspberrypi,bcm2835-firmware as a fallback for backward compatibility
+with existing drivers.
 
-> >> >> but for ptime both fa->xflags and
-> >> >> fa->xflags_mask would have the same meaning of "I want to change pt=
-ime,
-> >> >> look at fa->ptime".
-> >
-> > There needs to be no FS_XLAG_PTIME in fa->xflags,
-> > just as there is no FS_XFLAG_PROJID in fa->xflags today.
-> >
-> > However, since btrfs does not support setting projid, when we introduce
-> > fa->xflags_mask, it would be elegant IMO to introduce the (new) flag
-> > FS_XFLAG_PROJID which would be valid in fa->xflags_mask.
-> >
-> > To be clear, currently upstream chattr (e2fsprogs) can set projid via
-> > FS_IOC_FSSETXATTR ioctl (no xflags_mask) and upstream
-> > xfs_io -c chattr (xfsprogs) can set projid via  file_setattr() syscall
-> > (no xflags_mask).
-> >
-> > But if either utils were to be modified to support setting ptime, then =
-it
-> > would need to use file_setattr() syscall and set both FS_XLAG_PTIME
-> > and FS_XFLAG_PROJID in  xflags_mask when it wants to set a non-zero
-> > value to those fields.
-> >
-> > Specifically, the invocation of chattr -p <projid>, will no longer need=
- to do
-> > FS_IOC_FSGETXATTR to read all the unrelated flags for setting the proji=
-d.
->
-> Ah yes, this would be a good change I think.
->
-> >> >> Should we make _mask the only way to advertise what the user wants =
-to
-> >> >> change,
-> >
-> > Yes, unless _mask is zero, which then means set all the legacy values
-> > which are frozen in the constant FS_XFLAGS_MASK.
-> >
-> >> >> ignore xflags | PTIME in user-space -> VFS and use it only in FS
-> >> >> -> VFS -> user-space to say "this fs supports PTIME for this file"
-> >
-> > Close, but not exactly.
-> >
-> > For GET, semantics are clear and follow statx precedents:
-> > xflags_mask always means "supported" (like stx_attributes_mask).
-> >
-> > For boolean flags, xflags is the value
-> > For integer fields, an xflags bit means "value provided" (like stx_mask=
-).
-> >
-> > For SET, when xflags_mask!=3D0, a flag of 1 means "I want to set this v=
-alue".
-> >
-> > For boolean flags, if the flag's bit in xflags_mask is 0, the flag is
-> > left untouched
-> > (e.g. a chattr -p that only sets the project ID doesn't touch IMMUTABLE=
-).
-> >
-> > For integer fields, the meaning of xflags_mask 1 and xflags 0 would be
-> > "I want to unset the value" which is not the same as "I want to set the=
- value
-> > to 0", because as you wrote, 0 is a valid value for ptime.
-> >
-> > The question of whether a specific field can be unset or not is up for =
-the
-> > filesystem to decide, not the VFS.
-> >
-> > For example, XFS already unset the value of cowextsize when flag
-> > FS_XFLAG_COWEXTSIZE is 0, although the same could be done
-> > with a 0 value to fa_cowextsize.
-> >
-> > VFS does enforce that xflags & ~xflags_mask is EINVAL.
-> >
-> >> >> (which will be always once support is added to an FS, so it would j=
-ust
-> >> >> be "this FS supports PTIME")?
-> >
-> > It does not have to be an FS-wide property. some fs could have ptime
-> > (or another attribute) support only on some files types.
->
-> Right.
->
-> >> >>
-> >> >
-> >> > Sorry I was not able to parse your question.
-> >> >
-> >> > I think the mask should mean "this FS supports PTIME"
-> >> > regardless if the user asked to get/set it or not.
-> >>
-> >> Yeah sorry, I'm just a bit confused because of all the similar names a=
-nd
-> >> concepts.
-> >
-> > Me too... I needed to re-read all the threads from Feb 2025...
->
-> I also had to go back to those threads, since at least those have more
-> parsable function names ahah.
->
-> >>
-> >> (assuming btrfs supports ptime and ext4 doesn't)
-> >>
-> >> * filesystem -> VFS -> user-space, while in fileattr_to_file_attr():
-> >>
-> >>   for btrfs, for all files[1]:
-> >>         fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 1
-> >>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1
-> >
-> > Yes.
-> >
-> >>
-> >>   for ext4, for all files:
-> >>         fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 0
-> >>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 0
-> >
-> > Yes.
-> >
-> >>
-> >> * user-space -> VFS -> filesystem, while in file_attr_to_fileattr():
-> >>
-> >>         fattr->fa_xflags & FS_XFLAG_PTIME =3D=3D ignored
-> >
-> > This is debatable. IMO it should be 1 for value, 0 to unset existing va=
-lue,
-> > similar to removexattr() if you want to look at it this way.
->
-> So in the case of ptime, fattr->fa_xflags & FS_XFLAG_PTIME should be
-> ignored, while for fattr->fa_xflags & FS_XFLAG_SOME_NEW_THING it will
-> need to be handled as
->
-> =3D=3D 1: set it taking the value from ->some_new_thing
-> =3D=3D 0: unset the value
->
+Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+---
+ arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-The API generally allows this interpretation for some_new_thing.
+diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
+index e5030da60f9e7..4d578e15190a2 100644
+--- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
++++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
+@@ -47,7 +47,9 @@ power_button: power-button {
+ 
+ 	firmware {
+ 		firmware: rpi-firmware {
+-			compatible = "raspberrypi,bcm2835-firmware", "simple-mfd";
++			compatible = "raspberrypi,bcm2712-firmware",
++				     "raspberrypi,bcm2835-firmware",
++				     "simple-mfd";
+ 
+ 			mboxes = <&mailbox>;
+ 
 
-It is either up to individual fs to say if they support the unset
-combination, or
-if you decide that it could never make sense to unset PTIME for
-any filesystem, you could enforce this in the vfs helpers.
+-- 
+2.47.3
 
-But I don't think it is wise to ignore fattr->fa_xflags & FS_XFLAG_PTIME
-and I think there is no particular reason to allow the combination
-!(fattr->fa_xflags & FS_XFLAG_PTIME) && attr->fa_ptime !=3D 0
-so I think that vfs should enforce at least that.
-
-> >>         fattr->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1 if user wants =
-to set it, otherwise 0
-> >
-> > Yes. but now the user has to set any legacy field it wants to set in
-> > fa_xflags_mask as well, because fa_xflags_mask is no longer zero.
-> > so we need to introduce flag constants for legacy fields that do not
-> > have xflags. I think that is only FS_XFLAG_PROJID.
->
-> Should this be a patch in this series, or a separate patch sent after?
->
-
-IMO it should.
-You can take my POC patch for xflags_mask and include the
-FS_XFLAG_PROJID there and the reasoning is conforming to
-the other fields that are always set with some xflag.
-
-vfs already does this:
-
-        /* Extent size hints of zero turn off the flags. */
-        if (fa->fsx_extsize =3D=3D 0)
-                fa->fsx_xflags &=3D ~(FS_XFLAG_EXTSIZE | FS_XFLAG_EXTSZINHE=
-RIT);
-        if (fa->fsx_cowextsize =3D=3D 0)
-                fa->fsx_xflags &=3D ~FS_XFLAG_COWEXTSIZE;
-
-With non-zero xflags_mask it could also reject non-zero field value
-with unset xflag, because filesystems are not expected to return
-this in file_getattr() and so there is no reason for chattr tools to
-do that.
-
-> >>
-> >> Would this be correct?
-> >>
-> >> Or would it be better to set FS_XFLAG_PTIME only in fa_xflags_mask, an=
-d
-> >> never touch fa_xflags with it, which would make the above become:
-> >>
-> >>
-> >> * filesystem -> VFS -> user-space, while in fileattr_to_file_attr():
-> >>
-> >>   for btrfs, for all files[1]:
-> >>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1
-> >>
-> >>   for ext4, for all files:
-> >>         fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 0
-> >>
-> >>   (and always fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 0)
-> >>
-> >> * user-space -> VFS -> filesystem, while in file_attr_to_fileattr():
-> >>
-> >>         (fattr->fa_xflags & FS_XFLAG_PTIME =3D=3D ignored)
-> >>         fattr->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1 if user wants =
-to set it, otherwise 0
-> >>
-> >
-> > I prefer the former.
-> >
-> >> This would mean that fa_xflags_mask is used like stx_mask both by the =
-fs
-> >> (to let the user know what it supports (a.k.a. what it's returning)) a=
-nd
-> >> by the user (to let the fs know what it's trying to set),
-> >
-> > This is actually like stx_attributes_mask not stx_mask.
->
-> Ah ok.
->
-> >> and fa_xflags
-> >> is used only for ON/OFF flags (like immutable).
-> >
-> > Yes, on/off for flag values (like stx_attributes), but "value exists"
-> > for field values (like stx_mask).
-> >
-> >>
-> >> Let me know if it's clearer.
-> >>
-> >
-> > Same.
->
-> Yes, I think I get it know.
->
-> So, just to recap:
->
-> fa->xflags_mask =3D=3D 0 -> legacy behaviour before this series
->
-
-Yes.
-
->
-> fa->xflags_mask & FS_XFLAG_ABCD =3D=3D 1 -> "user wants to set/change abc=
-d"
-
-Yes.
-
-> fa->xflags & FS_XFLAG_ABCD =3D=3D 1 -> "user wants kernel to take the val=
-ue from fa->abcd"
-
-Yes.
-
-> fa->xflags & FS_XFLAG_ABCD =3D=3D 0 -> "user wants kernel to unset abcd"
-
-Yes.
-
->
-> fa->xflags_mask & FS_XFLAG_ABCD =3D=3D 0 -> "don't touch abcd"
-
-Yes.
-
-And reject in vfs combinations that do not make sense.
-
->
->
-> and in the case of ptime this means:
->
->
-> fa->xflags_mask & FS_XFLAG_PTIME =3D=3D 1 -> "user wants to set/change pt=
-ime"
-> fa->xflags & FS_XFLAG_PTIME =3D=3D 0/1 -> "user wants kernel to take the =
-value from fa->ptime" [1]
-
-I say require 1 because why not.
-
->
-> fa->xflags_mask & FS_XFLAG_PTIME =3D=3D 0 -> "don't touch ptime"
->
->
-> Correct?
-
-Yes. as far as I can tell and with disclaimer that this is my own
-view of how the API should look like.
-
->
-> Thanks,
-> koraynilay
->
-> [1]: so basically ignored, it doesn't matter if the user sets xflags | PT=
-IME
-> or not, but still recommended in documentation. Tho thinking more about
-> it, maybe it would be better to enforce it at the fs level with
-> -EOPNOTSUPP.
-
-Exactly, either per-fs or vfs level.
-And -EINVAL is more appropriate for this IMO,
-but that is a never ending debate between those two errors.
-
-Thanks,
-Amir.
