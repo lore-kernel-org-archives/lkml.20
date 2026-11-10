@@ -1,97 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320450;
-	b=fknPsWMjmj8htPtbydq5Tfz0h/6Dz4vunq0n0sv4nCh4/ijYKSgeA+xPAimGZbdQUtNh
-	 OCK+qzk0K8BJ+T8+bMu6sWV5+4+uI+KHetBpPLvW2nEp3boboiCGUTYhQ6m9ZSsSGJtbP
-	 QavoMGTiXZ8hcT1n67cLmaZOQBaz8UaErDsj9zaglTWb0R3aqSJWMgsRdh5BW1ND6FRhJ
-	 mwutMqwlUckbEshptKA0wrNlJ65n8iuJ7/iYPYQphGfOrf1zwiEXaz/82jW4QgVsJoWYx
-	 O2S+0URYRKCYn6lZraz59iXYftP86glpcJdO1Kahw3g9XvjNtt6qySeW1DPexEH7CVA==
+	t=1794320485;
+	b=1e2p9Z8HzwBEyz4XikRxA/XkeAwe0XpkAGvwwm+mtNNnT0uO35H7qN/gjJZfUfg1j8+W
+	 K0jFIQkq0Yo0yGnBiOqv1ElPwP9HEbmenQSYUn+5scF/5sAikUHi0V/vXprhFm6Y0KTp9
+	 yiCOhoM1ykVumCJQpq33GDo8hxn0jtEtsitfnSHYiI4FuPY93eXWiKzEgasHuA1kyxcBW
+	 now1AImfUe5grX4EX2rUPBu1N7p6JT0a/zPKdMfOaCroEWBeErC6KzxZhUFxHVfPCrgiW
+	 +2yxDBgFO3Ngso4mii/oVKdAutf7jOHpImoxPlBEDSWfEpehZ9P/g3IwnGAKXBmKjSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=KuCHHusPsDV6v2uzN39tFS1wbxXh1kRYSDHLVWEKoRU=;
-	b=MIqompF96Kn+Bc/9Su+Buyfu0FZyM1FrXq/zaAybLy+RVgzCIq2zWn0oS83+cCYR4iAq
-	 6jECE8mBq4cM+E99foWthu/K1O+1WeX8uoFoUyVNwL78ZD6ITViG9vftQCHE5AgiwOOaU
-	 r+c0tsp6nDsxdHXg4UPAuVDB+mFC7DsYFCMdtEDxUmS6Ryc7fQOd6EVzpWZZiRabnLe60
-	 iTxp89XDMLeekXIi2v0+pCHSiUIrxLb6G7QFUEJsG7ihAQFB2FCGXtVGXhU179nOfX36Y
-	 gs6h/fFLOp3iALQlIeGM8vLKo75mk+i2obg1eyfY2GdRigrDvWuyHffq7v7z0yy15lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320485;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=BAgS5IG5Q6cmw/IjXmlog3zuTwHd5kSy1jWUQMAUfKY=;
+	b=lN8LPsm9CU/vHzpTJyDnQ/quqzAGjORLG689kAnHQBJF/vS+EmlJMxx4FeEH0kyVAU2I
+	 gOC2o2AdkgM70bwE2V+kqQFyihz4jOuiSMzvNxUasmU3gZgBqR3+7QV4SUcUq/AYmjo4M
+	 W1BQjLYILKCa8LdLYKKbrBl4QSXCao+wrjCSCEXKf4/ddo9aMuPqAsQCJoWrJwS8bYr12
+	 3/chZDShoXOFn5YEqOdazQkzUM0A7cjP2bdi4z00sA1vMekUtKfZUE1jYO/RvKmpkFfkl
+	 Y2MlrjJE+OSJSTicsyOGHNolh0TiHYIhPzayPqm9PGVlH6YbWqGSyQv4SjFNvlddSFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EgcZyy2P;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=dfqcbUnK;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I8IcNdZF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OFZt5G3N;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lARv1EHw;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AA560A5BD0
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:20:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96AA560A5BD0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCAD606A331;
+	Tue, 10 Nov 2026 14:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FCAD606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EgcZyy2P
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df160bb9cso64294f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:20:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794320448; x=1794925248; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KuCHHusPsDV6v2uzN39tFS1wbxXh1kRYSDHLVWEKoRU=;
-        b=EgcZyy2PndrUzh1Zh8Lc+VqGbvXDyjCRMvRtdSKb08wIRTSbjyDgP0WSrVV7n9JQEi
-         OquCmyk7zhfT6pyx9cod/rDeDLNLXUx4ECJNEAk8Nut0EBoST1RIGZGhpJzdWjFOzLQX
-         tDyGrE408tTcYNifXsIfiGTCEQfMrKJJSmb9yBI1WJG7e2oNkB361vYub25vs9WwtHxh
-         gDeELEfaCp1emnwkgApjAuzYytSXY8T1Wj4rQlqMgX187e2r0px5i0gOoWbWIyzxkyFc
-         R7iGFn9s0PRkKOUeHvKgOGx7CCHMz9gfqv+JH6x18MEvWf2O2p3lte8NhXHHwgToLKf/
-         zQ0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794320448; x=1794925248;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KuCHHusPsDV6v2uzN39tFS1wbxXh1kRYSDHLVWEKoRU=;
-        b=q3XfUVqMppTmFEWSeTRUbag34PL/zmqwve3FtQxrBbhzcG4gP0sPjaPL1L4ohqAQfN
-         Y0h8/1Qh4OX8O26cN7uv8uQpPIdyiU/kr4ohMx0zq4AnEFJNESZJC85dV9fD7H0l8++i
-         biU6E7LADBgHvziZ6eXpY+uYX4UX/DyK9MhWvyLS0zh1nB+5hWo5pB6qboW7V4hUPTuC
-         +kSFjjwnJpesF1rEDEEEYAsE83B7LKPxu15iVEyxgn1MoHngqlmQcXAZIWGQRwHVsQHY
-         qGnNz6/zmzz8VabVsdzJTwnJnnB/cD/sKiYDLsnVVEcrOpPL/xU/DCSlEzI9bQ6pskd2
-         1ZuQ==
-X-Forwarded-Encrypted: i=1; AL+hErFAiMOtRW8dnZ3TqnyIOLHp9k1Iil5B8Q/VzPQmJiY8ZOMeZZqmr2bPEaQBJLCY/ZvJ/Bdquu1IC7KAJgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87L0d7rAXRoFR5/b47bOpTHKJdDIJ46lW+SRkfa9pFQeqOsmKp
-	20rDGnHvS8NIiclJ7f++umlBeur03GfM2wkMDQ7prnUlA1EFnd58r3Pt
-X-Gm-Gg: AYBFou0exPpeV0evtl4hK90A1mGFhQgDLfPc3TXNIEK0sLcQopzXJzYixeK4ymeGv0k
-	ogVWvVf69mYvSe0K754TRHN6fww3xWWyHFtSbpcG+ONwpcAUX15IuGmWyo+9uStvRpV7mTyNY8t
-	5D8RlT3/b5DKVzqloZH7b6CgZzGO+/6/PBR3XYja4uE4kicATXW1w3GQcfy8pGF1ghbXTt7yg3z
-	xrpYkqnUgyfbQ4yev2q6EMGqqAN0gEqfLnAPS2eJmWm5Dz2pbUyzzMjDszcM9JIQMefb68b8/TI
-	/urJoqu/LA4SHrt9oV7y0CAZKq0rRrSuwPCT27ti21zwokLIiID6Xs+4tXRyQIvvndKmMGCdtY/
-	gAe3iw64f+678bPvZLA6xQeiV8qBUWPqJiacT0Q+NSTi5FzREt6/EJ6CiKRZ46wglPcM5RJIIi6
-	/tWL084SYS88iB2AiJLkd9eEwea7v82eR7lnTQh2vow4vFciPRR7N4GRhC/fxL8n/tpJZayfkrU
-	eKHPrYLdslZIHrOx4vGdBXmaSPqcPpKibgqLU41mUuz4pLu5fq/I9oysVHKwY+8DNQMzf1gEbx9
-	/1NvdVavweQLmNSdZZz0mSVZbRSUj3Nop4AXrsuYjfGO0RfSMIr5zYnD
-X-Received: by 2002:a05:6000:4a13:b0:492:b1c5:6dc3 with SMTP id ffacd0b85a97d-49830f6b390mr5471185f8f.6.1794320447580;
-        Tue, 10 Nov 2026 06:20:47 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4989a2a505asm3800566f8f.13.2026.11.10.06.20.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 06:20:46 -0800 (PST)
-Date: Tue, 10 Nov 2026 17:20:43 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Josh Don <joshdon@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org, 
-	linux-kernel@vger.kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, tj@kernel.org, jakub@okonski.org
-Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group
- preemption
-Message-ID: <avMeP-80bZz-zdtO@scheduler.schedules>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.765325702@infradead.org>
- <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=dfqcbUnK;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I8IcNdZF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OFZt5G3N;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lARv1EHw
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AFC4F21EA7;
+	Tue, 10 Nov 2026 14:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794320482; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAgS5IG5Q6cmw/IjXmlog3zuTwHd5kSy1jWUQMAUfKY=;
+	b=dfqcbUnKWeMMrbbtQxI4HQM7qrIh4AZ0rdet9B/6ElOBIqFSiDGiuE+1U00ut3ACwyb91k
+	r11g0ukmfmgZpAkPLIoBt7FBxKQ00ygdxuqdgmhj2u4V8/naZ4cHPSCZhNnU3P0rUj/quR
+	5maXirFkXXk4Lg3EkYDJXPDsbTG0ICY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794320482;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAgS5IG5Q6cmw/IjXmlog3zuTwHd5kSy1jWUQMAUfKY=;
+	b=I8IcNdZFZSFtUgRgMf53UkGbuTtSJb1zzUPCSb1BODWP/tylJEZx0BmLFYU3bDgA6b05ut
+	5Oej5bk5j+xTBnDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=OFZt5G3N;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=lARv1EHw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794320481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAgS5IG5Q6cmw/IjXmlog3zuTwHd5kSy1jWUQMAUfKY=;
+	b=OFZt5G3NjcxxJh9jY6RWrC7bvaHuyGavEEbdiAXuJUz/f1dYZmor5n2FYPrRYiQoiCED+w
+	1FijM1hEbGwM1P7v2pYubJuTrAUHD24tVDcOF18S7gaHWryxvKiASS6IebdlsiiUolZCHc
+	0QuxJjJxTEoiCmYYKfGjg6OEvasGjOc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794320481;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BAgS5IG5Q6cmw/IjXmlog3zuTwHd5kSy1jWUQMAUfKY=;
+	b=lARv1EHwNdS7tCNwBSn9srQwOl9Kg5/ztnfBrMPMFrjJm7RNq+r333D6UmkiyHiKi5q76w
+	+hVROod2CCZjqIBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7082C134F4;
+	Tue, 10 Nov 2026 14:21:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7c+hEGEo82ozHAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 14:21:21 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id D4BBB22538; Tue, 10 Nov 2026 15:21:16 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:21:16 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>
+Subject: Re: [PATCH v2 07/51] lockd: don't hand out the terminator of
+ nlm_end_grace
+Message-ID: <4isxnxlzjedh4t3hq73g5wjuwdtiudxx6llf6do2noyrno5lsb@6xwb4gw7wi7b>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-7-bbf7d5546809@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,87 +133,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-7-bbf7d5546809@kernel.org>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	R_RATELIMIT(0.00)[to_ip_from(RLpnapcpkwxdkc5mopt1ezhhna)];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[59];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim,suse.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: AFC4F21EA7
 
-Hi Josh!
+On Wed 04-11-26 18:27:24, Christian Brauner wrote:
+> nlm_end_grace_read() answers with "Y\n" or "N\n" from a three byte
+> buffer and hands out all three bytes, the terminating NUL included.
+> Leave the NUL out.
+> 
+> Fixes: d68e3c4aa416 ("lockd: add a /proc/fs/lockd/nlm_end_grace file")
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-On Mon, Nov 09, 2026 at 04:10:30PM -0800, Josh Don wrote:
+Makes sense. Feel free to add:
 
-> >  /*
-> > - * Preempt the current task with a newly woken task if needed:
-> > + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-> > + * in the inverse case).
-> > + */
-> > +static inline enum preempt_wakeup_action
-> > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
-> > +{
-> > +       int cse_is_idle, pse_is_idle;
-> > +
-> > +       cse_is_idle = se_is_idle(cse);
-> > +       pse_is_idle = se_is_idle(pse);
-> > +
-> > +       if (cse_is_idle || pse_is_idle) {
-> > +               find_matching_se(&cse, &pse);
-> > +               WARN_ON_ONCE(!pse);
-> > +
-> > +               cse_is_idle = se_is_idle(cse);
-> > +               pse_is_idle = se_is_idle(pse);
-> 
-> now that se_is_idle() is checking for any ancestors with idle, this
-> doesn't appear to be correct. Some motivaing examples:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-So we want to keep the idle difference between groups with idle
-ancestors? FWIW, I asked about this but then thought it was knowingly
-and that was what we wanted. I'm still not sure what we want...
+								Honza
 
-
-
+> ---
+>  fs/lockd/procfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Ex 1:
-> regular task and SCHED_IDLE task both inside an idle cgroup.
-> se_is_idle() will be true for both se's, and so the regular task will
-> not end up preempting the SCHED_IDLE task, which would be the
-> desirable behavior (the task is not idle relative to the SCHED_IDLE
-> task)
+> diff --git a/fs/lockd/procfs.c b/fs/lockd/procfs.c
+> index a01f08c8c2f3..74f7ab77535a 100644
+> --- a/fs/lockd/procfs.c
+> +++ b/fs/lockd/procfs.c
+> @@ -57,7 +57,7 @@ nlm_end_grace_read(struct file *file, char __user *buf, size_t size,
+>  	resp[1] = '\n';
+>  	resp[2] = '\0';
+>  
+> -	return simple_read_from_buffer(buf, size, pos, resp, sizeof(resp));
+> +	return simple_read_from_buffer(buf, size, pos, resp, sizeof(resp) - 1);
+>  }
+>  
+>  static const struct proc_ops lockd_end_grace_proc_ops = {
 > 
->     cgrp A (idle)
->      /                 \
-> regular_task     SCHED_IDLE task
+> -- 
+> 2.53.0
 > 
-> Ex2:
-> more complex example with a hierarchy of cgroups
-> 
->           root
->             |
->           cgrp A (idle)
->          /            \
->      cgrp B           cgrp C (idle)
->         |                   |
->       task_1            task_2
-> 
-> task_1 should preempt task_2, and the inverse should also never
-> happen. However, the matching_se here are cgroups B and C, and both
-> show se_is_idle() as true
-> 
-> I can think of two simple ways to fix that, either seems fine
-> 1) use the existing se_is_idle() check for knowing when we can
-> fast-path skip the whole find_matching_se() business, but when we do
-> find the matching se, rather than use se_is_idle, use a more targeted
-> helper that directly compares just those two entities without any of
-> their ancestors (ie. for the task case just check if it has an idle
-> policy, and for the group case, just check tg_is_idle())
-> 2) once you find the matching se, just compare the ->idle values,
-> since if one of them is bigger (by at most 1?), then that one must be
-> the "idle" one relatively speaking. Handling the task vs group case
-> here seems a bit messier compared to the first option, so my
-> suggestion would be to go with the above
-> 
-> 
-> Best,
-> Josh
-
-Cheers,
-
-Kayra :-).
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
