@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305259;
-	b=n3nuqKLlcaDIpddQKOKAwShy9cnC/tFLVq0vI58EfVbUEKc8gvgqZ9Tnr5El+MnhA9Pc
-	 GsDiHX7vyGFK59RXY/YQ+Xb8roDbILRo7Cv4hVPhJYIn8cZI3AP6LFwyQ0JAD+Iq9BBhe
-	 4fq0UV21QatywC5Rp5ecd8U2mnSWVXzQpn85v4dPrF8FuZoT5uIPgz5v9TZKqW8W78ws4
-	 RhyF5n38MnoCSF7wb6Jd4+69SASDiM7sAp4Ovsmqix3iGL7vmvNYbV/Bn/CmYjxbNlwzh
-	 Od23Czfgvu6KjAJT1OTPdThR1yq6lVJn/eRCciPRcvERnZbTntBbQkqYsbWJybCfMVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305259;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9ao8K5/T+J6vVSApsC1JJR7GkMSRx6aXdz7Pw677rMw=;
-	b=Yf3CpW8M9rmtuuJ87Pu9b6zz6zU7IBUS1TYI3QtuCY5JQtCuV65DzPv5qOyk0FcaJuiq
-	 LFUts+15+dBWz2KNd9B0OUc69P5gkmryRG6Qdi8cx2Sze85pqh8bIT8N/F9pbcTlaQmyf
-	 WIV+mNP5l+QLZWvm1WmekXDsVhwkj8v00iHlH/FI6RSefnt8ZWsUpXQ10blV4aEJSQ85P
-	 7praXX8sJ8I0sHeL4nwRIZ2KWdi13XIj8rF7/srFiZ8kOA00t1vdNd6nTbBsVHfRh0ESH
-	 DC1noBYYzv7WaGNpsSAoOibAPRmdTieu5AZDY4XO2yYG/rlLtJrF9B4rIL0lpru0S4A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ID3QL+vT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD860A3812;
-	Tue, 10 Nov 2026 10:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ID3QL+vT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305259;
-	b=nbFrGAzNIBjeVeSPVz3uHN2LwgdW03Gefs8ryJl9AgLkVi1hKVHbdraWHvNKCa7LfSRs
-	 zYVMlc3NOMepxYiwN5XewBEUI130Ps3sz6CKfMTVCBYfOWbo1IzcoeNLuxiKvoFBEQsiT
-	 bTbXOfg/AtC509rBuxHuYi2VS9RnDt1KPbp/jUvhtdEtc+7Xme+v4Og+NU46MZ7EOkd3R
-	 E6X4NCBXf1lcguuB9djl9fgFTRfzHtVRhzVN7YFFEbzazYd9j6Fb2aO41Wa+6/fBlBKic
-	 6SEOTA3ICKHSo57pr4I5mnVs5x3Cpz4fUtwua8WnI2sjOrUscQHCerL5Jk/g6DQzK6Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305259;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9ao8K5/T+J6vVSApsC1JJR7GkMSRx6aXdz7Pw677rMw=;
-	b=NLtx6ZNf3ILbvCTwQ6nOVhVaDBHutqp7w2W5DoOUorwjulWCqCD2FdAAV0QqdYBHsXQZ
-	 Q5UViAqaXRAGRxJ3uEeHmIW2Z6FGmYa3MAtr8T4onjTpStAXDTVzTDDQKtbJrM10fQo7K
-	 0alz/IjC5UTnZUui+oxrjdrt0F7tw/FmWm048Qt53GbA556/xP4sTcOU4dGJvNP/U/lZg
-	 mwvzbYQkq0rJYAS1eROn62y3gpWaeClx8++ipUH0u2Y08jSWNN4wNeF4InBx8VJROKbpD
-	 Jf5OnE0KbLGv/SBlKHG6v+eHyIiPdRblJxqjsTYRUXHk7ZZ11yWXXT6Km39L3uV4aBg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794305265;
+	b=Ot1omEg2yc3Ipty2fIsGa6KiIuLMD3jGdkd7vNv6zGwycxkRBYV5S0wsb930U74hEc5L
+	 vz/JaUPCMyE47au6tikj+E/aq7shoxCY93I5hl20A/1TyIY8qW507FFGLurVblsiTEHbi
+	 kk2IB5/I2n47isUz/siyCNjcF+wt4ZoQHLbOLY9rdBEeWN3Fky84Tm/L7nzOji/Zh0J2b
+	 3u87UtYmjEg4qSU8RDsIqv25VSKHTmOXaBcUt0fo+FzLyszwVkwUbVZHPATu6YDT8kmaz
+	 B06rnaWAJq1wIalktN0eVuywZIl+b1OswVgyqdDZp6kN0OiuMV3n/6SldYMR8VhFQIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305265;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type;
+	bh=xGsK3yBvD3dY+fIGOvU+/f6W2zSWjZOAbooLra3Z8sU=;
+	b=nnNcf9+QjMwfJDNiFPap1yhFYadKicsvhdiWYDLh4eF/y3XV2O8wDveWtD0zgNRw1MSg
+	 U+cdvBzwD/n+H+EJ4g+lnUnbQ1j/oKH/njjhQrIzqNG5UnLcYhYDgijaFM32E1mH8NmIN
+	 MXxL/ZhkoII/Pa0PiedSBM9ahw6Pc8ZOpsv2z7umORWjYw4qfxLnhOKO8S4M64wnxcPw5
+	 CafZ83XHo/yDSngHQQg5afUx6WS0UsS7369GnBq1WG/q51LPOXhDzzpltIpAHvvky+a7J
+	 scqGhYUpfLz28hSv2Va++515SdIOl3FrJAnMu7/gA18YLVt4cQQCUlOjcWIpcCvf1jA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Iyaj4DMw;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EC1281F0089F;
-	Tue, 10 Nov 2026 10:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305259;
-	bh=9ao8K5/T+J6vVSApsC1JJR7GkMSRx6aXdz7Pw677rMw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ID3QL+vT2QOTai2kmbPTwOQqMzZ8HMbLSKErlahBFB/WBD1Lra7dJZv05vfyPYd4N
-	 HqVrHBAIkC3zeGGEjIihD+fWzk+PuYKKg9B4shnGkSpPgRtAe3hMc6BG/ahqJzkt08
-	 lU4aMMeKrCSpQspm6bQ0RStRUl/UBpekqafWXAmKJD3ygZudMbhrkVn4eZZS2mTeMY
-	 lv6IRTH5vZdk3ZjfiMokiBuU6r7seccc01/0fF0uOQJt3KTjAjGunEDdq5V593McTo
-	 wv1t90Q07VX0T2XTIdaEcsMfh2U+x6ySGCbycMCA6c+v8QqA6VO1L9n3qz7SG1S8qQ
-	 rEH1OZbZDYqzg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6FCAD48ABE;
-	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:07:38 +0000
-Subject: [PATCH RFC 08/10] media: v4l2-hevc-enc: Add QP limits for the I
- pictures
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5217560A6F63
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:07:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5217560A6F63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Iyaj4DMw
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so22352605e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:07:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794305264; x=1794910064; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xGsK3yBvD3dY+fIGOvU+/f6W2zSWjZOAbooLra3Z8sU=;
+        b=Iyaj4DMww955eKJ8tI2muNnEoDOwC/Dvdv/6WPddBYN1yqjqLDLhFPG2LDHmpyWsIT
+         VPHj1bwo3tqgVz+m/yoRrbPPEcvKhRp9/yILZLW4VALAnf06yJabG2QZMl3588hdjaOp
+         MgCnY0cfals2/aYN8C7XXT47mHqM2IJzY0iQG+Xq1BY7ujJJNjSH50ZtqecBAysdYMfT
+         +V0tgoOx5xSQ7+cTKocpuT/Nd4Z+CToD784d58xCPrgM0ofS+3WBr3JY7fDJ9ChDMqii
+         T8PqsujolX7VgGO7X8j9KholUtMjUzI3nR1qlFHrT/b3e1gNd4sC6BwUSOWH4LL6rxUA
+         2SRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794305264; x=1794910064;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xGsK3yBvD3dY+fIGOvU+/f6W2zSWjZOAbooLra3Z8sU=;
+        b=CWgZG+kA7W9EngR3v0vTxacXpN8iNZO1YOLglgyPba43l8nytxhre9M3lqydYyeyQs
+         4kdM5VtBb9fR2Ss4SiAYNDQktnZ24pYs8tQOiQV3NZyg8BQQQkD+aRfjv4yFKUtcjau+
+         yk4efgrxYtvtFuw6//5wk4xLRHOS6g77YSAvFwj4mfX6YjinYC0CgmDIhHTE3YrNoWac
+         Hjj6MI4ADFl0AbM3S+mreOgd4/Ch7fw+T1XuGMXuAED7VqjstTXmj47WKztNL9Ov6oOY
+         2rGdu9+r2zKqVzKfe12B490n0cbpoW6MSSYFst/CUgZTpxLkzqKZENXiTnhcIAXCCiPe
+         0s3Q==
+X-Forwarded-Encrypted: i=1; AL+hErGOc+j8OSVGD6U2l5bFAPF5OWCTKmnGh8D8MMVG5mpXJ90FsTBOw7qR3PgOVNEbs+aw79Y3fasDpm5kI6Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/s9jMlWWtWr35hobnedHueJu/iaPz/HA3mziWO2Kln+a43xu0Y
+	OlFgL/hvUhQjmH/hc/kWjs+dIA+YTT60CnpybLxNsI3i7i8X3EwKDbPJd89oDs78MqPBfr7b2BM
+	GxB45ESI=
+X-Gm-Gg: AYBFou0D2UzCwL4KgU8yUOazlj9dpi+tzu1KEty1uhBSNCLBHsoC+YlQdmZwcDUBA2l
+	fTaqynORbTXv+on9OUzBCenQnkKfufuNiyn9yv8TSIcxbF5pgnwGWozmdsf7RMD+sl5dcCeZ7Fi
+	/9/ZbhvdnVjuw8LzHPpvtayZ6+E15QDtMhQqNnF2GStHfZE7OBJqKl3PziOeUCB1rIAZmsJ/bae
+	8y/VptJPjStGZT0EFaDxPG/JBmRxp4gtVh4B0lbU0YhCi8zZVWuSBSMPbusyHAZ9npntMbzGad/
+	Ea8R84VLsHo16EYKHkkbExc2a6BA6ZHFvUo/KndZvxhUH9sS4Ae/mn639YMLbpjTT5X7sgfgBzN
+	bLK399KQGDW0Pa/keTWXFqQKc1YyCWusDvYNoChBZv2KBcQyGfsNRaj0WUGDAwI7uR0znIlGuqU
+	kcEcwsuGxb5X8FiRzyi8vybK885ujAWw8p4PnlHPJ50I7obHQPTt60Z7DLU9v6ON9xOPB8zjvXq
+	4Gex9saqA2QwEV68Z6YTVm6PBx1AJnHrqYvTLGcCbbMwFFUuFi6aZ0Rn3MG86V/BVVkpEW6DbVf
+	YxclDsTRCdPfN3Qy5IMGh0uTbLJQJU6NHF7hiFPQwItOhnbilv2fEiA1PmGPlnZU52diHeaopjG
+	zJIwHLElTHLdnVWtI5GzURvuam4cjRyjqtelFOzFVnKuJR/uK7AS53fP/ev9uqAL2aI5XNHfR
+X-Received: by 2002:a05:600c:3e15:b0:4a2:5ca:767f with SMTP id 5b1f17b1804b1-4ba02307c34mr31970825e9.4.1794305263593;
+        Tue, 10 Nov 2026 02:07:43 -0800 (PST)
+Received: from ?IPV6:2a00:12d0:afa3:c01:92cc:e257:77ba:97a1? (2a00-12d0-afa3-c01-92cc-e257-77ba-97a1.ip.tng.de. [2a00:12d0:afa3:c01:92cc:e257:77ba:97a1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0203a6b0sm58365255e9.5.2026.11.10.02.07.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 02:07:43 -0800 (PST)
+Message-ID: <26ba4ecc-0a97-45a5-b39a-d7f1fb9b33a5@suse.com>
+Date: Tue, 10 Nov 2026 11:07:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,126 +92,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hevc-encode-uapi-v1-8-38ae9fcfedd4@gmail.com>
-References: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
-In-Reply-To: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=3795;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=AE4kglGiR5u7/pgWxx7FMl4jnb/lWjlmJsY7hLn1kAM=;
- b=VLX/BGi7saL9KOTcpT5V6O7pX9fdNr0GoOZRt7wCU3xHbiW6aYEvcFaHsQnXZgxO4sMrgIMEw
- C/ZhaQo7CJTDHRp7AmwMKg+LeiLa/C0reqCPgbF6AfMAv81KEzRQ92m
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] xen: don't allow gnttab_dma_[alloc|free]_pages()
+ in PV guest
+To: Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20261110095605.369848-1-jgross@suse.com>
+ <20261110095605.369848-2-jgross@suse.com>
+ <b17bbf33-1b4a-4491-b9dd-4ca1bad1876f@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <b17bbf33-1b4a-4491-b9dd-4ca1bad1876f@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------TtuF7cHMmXscsrdnH1gYPpJ2"
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TtuF7cHMmXscsrdnH1gYPpJ2
+Content-Type: multipart/mixed; boundary="------------qgsximp9r0ts5B0VjZR4a75R";
+ protected-headers="v1"; hp="clear"
+Message-ID: <26ba4ecc-0a97-45a5-b39a-d7f1fb9b33a5@suse.com>
+Date: Tue, 10 Nov 2026 11:07:42 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] xen: don't allow gnttab_dma_[alloc|free]_pages()
+ in PV guest
+To: Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20261110095605.369848-1-jgross@suse.com>
+ <20261110095605.369848-2-jgross@suse.com>
+ <b17bbf33-1b4a-4491-b9dd-4ca1bad1876f@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <b17bbf33-1b4a-4491-b9dd-4ca1bad1876f@citrix.com>
 
-The frame rate control of the core limits all pictures to the range of
-V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP and V4L2_CID_MPEG_VIDEO_HEVC_MAX_QP. The
-I pictures, coded several QP steps below the P pictures, then reach very
-low QP values at high bitrates, where they cost many bits for little
-quality.
+--------------qgsximp9r0ts5B0VjZR4a75R
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Take the limits of the I pictures from V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MIN_QP
-and V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MAX_QP when the driver has them, with
-a frame rate control. Without these controls, nothing changes.
+T24gMTAuMTEuMjYgMTA6NTksIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDEwLzExLzIw
+MjYgOTo1NiBhbSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+IFRvZGF5IGdudHRhYl9kbWFf
+YWxsb2NfcGFnZXMoKSBvciBnbnR0YWJfZG1hX2ZyZWVfcGFnZXMgYXJlIG5ldmVyDQo+PiBj
+YWxsZWQgd2hlbiBydW5uaW5nIGFzIGEgUFYgZ3Vlc3QsIGJ1dCB0aGlzIGhvbGRzIGZvciBp
+bi10cmVlIGNhbGxlcnMNCj4+IG9ubHkuDQo+Pg0KPj4gQmFpbCBvdXQgZWFybHkgd2hlbiBi
+ZWluZyBjYWxsZWQgaW4gUFYgbW9kZSBpbiBvcmRlciB0byBlbnN1cmUgbm8gb3V0DQo+PiBv
+ZiB0cmVlIG1vZHVsZSBvciBmdXR1cmUgdXNlIGNhc2VzIGFyZSB2aW9sYXRpbmcgdGhpcyBh
+c3N1bXB0aW9uLg0KPj4NCj4+IFRoaXMgZW5hYmxlcyB0byBzYWZlbHkgcmVtb3ZlIFBWLW9u
+bHkgY29kZSBmcm9tIGJvdGggZnVuY3Rpb25zLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEp1
+ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4+IC0tLQ0KPj4gICBkcml2ZXJzL3hl
+bi9ncmFudC10YWJsZS5jIHwgMTEgKysrKysrLS0tLS0NCj4+ICAgMSBmaWxlIGNoYW5nZWQs
+IDYgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy94ZW4vZ3JhbnQtdGFibGUuYyBiL2RyaXZlcnMveGVuL2dyYW50LXRhYmxlLmMN
+Cj4+IGluZGV4IDYwNGM0ZWVhNTkzMC4uNTZhNDk3OTg3OTQyIDEwMDY0NA0KPj4gLS0tIGEv
+ZHJpdmVycy94ZW4vZ3JhbnQtdGFibGUuYw0KPj4gKysrIGIvZHJpdmVycy94ZW4vZ3JhbnQt
+dGFibGUuYw0KPj4gQEAgLTEwNjMsNiArMTA2Myw5IEBAIGludCBnbnR0YWJfZG1hX2FsbG9j
+X3BhZ2VzKHN0cnVjdCBnbnR0YWJfZG1hX2FsbG9jX2FyZ3MgKmFyZ3MpDQo+PiAgIAlzaXpl
+X3Qgc2l6ZTsNCj4+ICAgCWludCBpLCByZXQ7DQo+PiAgIA0KPj4gKwlpZiAoV0FSTl9PTih4
+ZW5fcHZfZG9tYWluKCkpKQ0KPj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+IA0KPiBUaGlzIHdp
+bGwgZ2V0IHZlcnkgc3BhbW15IGlmIGhpdC7CoCBXQVJOX09OX09OQ0UoKSA/DQpJJ2QgcmF0
+aGVyIGhhdmUgaXQgc3BhbW15IHRoYW4gYnVyaWVkIHNvbWV3aGVyZSBpbiB0aGUgbG9ncy4N
+Cg0KQWRkaXRpb25hbGx5IEkgZXhwZWN0IGFueSBpbGxlZ2FsIHVzZXIgZ2l2aW5nIHVwIHF1
+aXRlIGZhc3QgaWYgbm8gYWxsb2NhdGlvbg0KYXQgYWxsIGZvciBETUEgaXMgd29ya2luZy4g
+Oi0pDQoNCg0KSnVlcmdlbg0K
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/media/v4l2-core/v4l2-hevc-enc.c | 24 +++++++++++++++++++++---
- include/media/v4l2-hevc-enc.h           |  7 +++++++
- 2 files changed, 28 insertions(+), 3 deletions(-)
+--------------qgsximp9r0ts5B0VjZR4a75R--
 
-diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc.c b/drivers/media/v4l2-core/v4l2-hevc-enc.c
-index a167c4af6288..2e0ba832b868 100644
---- a/drivers/media/v4l2-core/v4l2-hevc-enc.c
-+++ b/drivers/media/v4l2-core/v4l2-hevc-enc.c
-@@ -645,6 +645,12 @@ static void prepare_rc(struct v4l2_hevc_enc *enc,
- 	state->qp_min = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP,
- 				     -qp_bd_offset);
- 	state->qp_max = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_MAX_QP, 51);
-+	state->qp_min_i = enc_ctrl_val(enc,
-+				       V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MIN_QP,
-+				       state->qp_min);
-+	state->qp_max_i = enc_ctrl_val(enc,
-+				       V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MAX_QP,
-+				       state->qp_max);
- 	state->qp_i = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_QP, 30);
- 	state->qp_p = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_P_FRAME_QP,
- 				   state->qp_i);
-@@ -1072,10 +1078,23 @@ static bool rc_core_cbr(const struct v4l2_hevc_enc *enc,
- 	       !(enc->rc_ops && enc->rc_ops->estimate);
- }
- 
-+/* QP limits of the picture: the I picture ones with a frame rate control */
-+static int rc_clamp_qp(const struct v4l2_hevc_enc_state *state, int qp)
-+{
-+	int qp_bd_offset = 6 * state->sps.bit_depth_luma_minus8;
-+
-+	if (state->frame_rc_enable &&
-+	    state->encode.slice_type == V4L2_HEVC_SLICE_TYPE_I)
-+		qp = clamp(qp, state->qp_min_i, state->qp_max_i);
-+	else
-+		qp = clamp(qp, state->qp_min, state->qp_max);
-+
-+	return clamp(qp, -qp_bd_offset, 51);
-+}
-+
- static int rc_step(struct v4l2_hevc_enc *enc)
- {
- 	struct v4l2_hevc_enc_state *state = &enc->state_active;
--	int qp_bd_offset = 6 * state->sps.bit_depth_luma_minus8;
- 	u8 slice_type = state->encode.slice_type;
- 	unsigned int range;
- 	int qp, ret;
-@@ -1114,8 +1133,7 @@ static int rc_step(struct v4l2_hevc_enc *enc)
- 			return ret;
- 	}
- 
--	qp = clamp(qp, state->qp_min, state->qp_max);
--	enc->qp = clamp(qp, -qp_bd_offset, 51);
-+	enc->qp = rc_clamp_qp(state, qp);
- 
- 	return 0;
- }
-diff --git a/include/media/v4l2-hevc-enc.h b/include/media/v4l2-hevc-enc.h
-index 3db131370c56..f1d3da3269f1 100644
---- a/include/media/v4l2-hevc-enc.h
-+++ b/include/media/v4l2-hevc-enc.h
-@@ -128,6 +128,11 @@ struct v4l2_hevc_enc_ref {
-  * @frame_rc_enable: V4L2_CID_MPEG_VIDEO_FRAME_RC_ENABLE
-  * @qp_min: V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP
-  * @qp_max: V4L2_CID_MPEG_VIDEO_HEVC_MAX_QP
-+ * @qp_min_i: V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MIN_QP, @qp_min if the driver
-+ *	      has no such control. Limits the I pictures with a frame rate
-+ *	      control instead of @qp_min.
-+ * @qp_max_i: V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MAX_QP, @qp_max if the driver
-+ *	      has no such control
-  * @qp_i: V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_QP
-  * @qp_p: V4L2_CID_MPEG_VIDEO_HEVC_P_FRAME_QP
-  * @qp_b: V4L2_CID_MPEG_VIDEO_HEVC_B_FRAME_QP
-@@ -153,6 +158,8 @@ struct v4l2_hevc_enc_state {
- 	bool frame_rc_enable;
- 	int qp_min;
- 	int qp_max;
-+	int qp_min_i;
-+	int qp_max_i;
- 	int qp_i;
- 	int qp_p;
- 	int qp_b;
+--------------TtuF7cHMmXscsrdnH1gYPpJ2
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
--- 
-2.55.0
+-----BEGIN PGP SIGNATURE-----
 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmry7O4FAwAAAAAACgkQsN6d1ii/Ey/T
+Cwf/Tb+AVxXrbuvFoZ0LYX4wsA3Zp7tmM72RVwUDR+7DnfAt9KWN7r0YaiD7SN8dlzZzFDQHnexJ
+C/Ah4ryCfnlmtmcoCtTfTZKaEvbimlVMzmn/M+iEmjv152ygYU3Nzw/tXfeTlY+KALnG7PVCNShe
+vOicu3gwkfRBWMPDhOSI/vj3FwaBQCEHrpBHY0+LzbXgdC6ArqPuw5IRUrN71HxlWY/vrcZfi0E0
+iqDQmIEgj/flGZUquXjqw8pC/ROC4oq+QQblPVhBq7wMwndPZsMGUUhECM5SJc+xeFrkexKL85q+
+JK2yTy119TuUrfl3cBZGtRUAgPtwRPyhek26+HH3qw==
+=tx1f
+-----END PGP SIGNATURE-----
 
+--------------TtuF7cHMmXscsrdnH1gYPpJ2--
