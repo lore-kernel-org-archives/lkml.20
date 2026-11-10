@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293457;
-	b=1YsZ1aoW/Jd7wpAUxlpTpdUqZsO+XOwsAJnUghQpFLvGEgVbNCUB6zTHmcuERdYT8BY0
-	 cnlv/bwRak19H4+fvpeVEQktT0wc0VClhxAdgnE+/w72m08tDysEnwx8voL+69n25GH+s
-	 o8eeABX6sKMt/xsoSo5BTZ4XulyHvFeq5pyX1m5OHgi92ZZAvORe2+NOtFBY2J6mmyZJv
-	 S4hqVdlUsFOXYXp5UuijJdM4ihI4GBBJSjrwX0/GgEMfAU4ZROzFtEMKbHeQudBwdOgjh
-	 US2T14fcQ/3eq5HeGVa1VLNIjP2RxfKE8Hsi1h3ilbyv4XYaXb5o04DhcIynq0O8/ZA==
+	t=1794293493;
+	b=bYi6wWHo+dtgVCYCxvwLvtEjjIHpoBmNR0FTiC2gjIfJNIXlhAF0B8P8+yxFQbaadTli
+	 O3QI2eufUxLKC4AHiRPDpREa9UoofCAqIw/oS1xI5LMoCgkcSLeR1e8lGB982vxZLZKpL
+	 g5RbEMrtlVmrdtAzFZYExz+qKjyl+muYyMK2gTgm2sJQtmhN07FEUbI7m1XPBNt7c9jrE
+	 9F2iEoJCCvitW5y/l881EKXgGUQjj6nfa9O+15xsrAUU7QywlX4fNh8aCfLdrYm3/IAUP
+	 ec6xtO6pqqOyglPowBKnS67IWVKwT2RV4usFAUrVgXUw6x3KiVoH+kE22FYcAvP4uCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293457;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=/w5jL5vyA9upjdnw5WddL4HeRqRVj2qfta9DH6HupIw=;
-	b=NLdms9NhbVB98KmQMwwTtj1kq4p0N5ejvg7Rw7npnrVySFkesn3p2qB7rWMHXQ5Xwr+m
-	 cXKJZjMYPz9wIezK4f00lY+0pCBYQEzi5ZnCFzOTl81e5gd+Td6x6bOjffHJU0h8+qoXT
-	 Ye7NLsHTdV9Oecc+BQtUHYx4KXcyj8GzgnnvMh0ygvM8vwTN1oZqjYLxbTNaUTgeTMleS
-	 KEc3mLw8LEdLVK09QAOu3ZSwB3Ip2OH0WIqRifURIJrHAFJJcWX4HtnSX6gFAU6F0HLqx
-	 IH6BXpMPZMxqqSqw9U9GbbQuI9lNonUte57y5gP8VAqooYtFUUpGQS9vOiGPHMoX0nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293493;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AQk2bWnn9qEiJB55CfKKDZX/EDk/uqfS9SOxZvrUyFI=;
+	b=RGbRRm7XjA2rOpIpIwpS70DfFvridrVsM4Occe8rA+tZX4lGEdtn55BXSO5BGHGV5YbG
+	 /FnlGvqniOw+elNOk4UdhcN7F/j3Q+YZ5X2Sn4Jz0fuDwF0uqxw0m5t4vuxHoUhBGi+sl
+	 lcf1zsjRJ+z02fEkuOW3/MwtZpvBdPh8L+bSF9iSlPqsQIN+6xlHoU8h6OHkwKna46+Vf
+	 M0HnZnbE/ozudVUAkT1TednMNQkWOrzZ0gMThocLzWnfvgXR+ZYkoW7GKQ9+48vYX2AvF
+	 yjZl4Y6HXfirqlcy4JfWta7hoYVqgaFe3xQFhZWVYoliyeVX09FWnDKN9NfPoLgxN5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=uB1g4tXl;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nvcJZWW5;
+	arc=none smtp.remote-ip=185.70.43.100
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374B4606A31C;
-	Tue, 10 Nov 2026 06:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 374B4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326A0606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:51:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 326A0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=uB1g4tXl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794293378;
-	bh=/w5jL5vyA9upjdnw5WddL4HeRqRVj2qfta9DH6HupIw=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=uB1g4tXlDMNofQmaN4I4jIg7gmJ03AUnk5YUdQvy2CnsHntCb9Ge4czCH84OSR45c
-	 A4juJcWRrj7XHhVj2HOhXqMYElcpu/gldwOXCVx3TNawb9Df2xMVw0hANHR2U/SKQ6
-	 zjXMqkjgfaYu8nEPTos3AyTavjmYf8hfjtvmn/FE=
-X-QQ-mid: zesmtpsz4t1794293371ta564256b
-X-QQ-Originating-IP: FdOqUzZJzmmhkbZlIxz+KiVbEzGEuHwXiZl6I0gqZv0=
-Received: from = ( [183.48.247.17])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 14:49:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14734344013771177668
-EX-QQ-RecipientCnt: 12
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nvcJZWW5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794293489; x=1794552689;
+	bh=AQk2bWnn9qEiJB55CfKKDZX/EDk/uqfS9SOxZvrUyFI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=nvcJZWW5UYLD+L8c0CIhmpOFLYBxA/XgI2e3MQNTIZ9dezhvbModSbSWDbNG6NMru
+	 tz94klciV1ccErUrZgATbxtZlFW27+oiTkJ732ruO5TvcMhGC5AeOCGEI02FrIMH5i
+	 FLYVU4tK+LY6wmYpp7V5/6aMaNIFqcHNkoo/z5kzEbDwHLDmy6zbHXwO+CFXdSGNzV
+	 N075A9DOC6CW+WgzUU+/+TchZoRylwTVTFGsothmWm4tpu/pUGzLiXl4E1/21eTJWN
+	 dalYu7erMAR4WGWkLZSl6WUQYN7FsKy/HgB3QHjaTRPy611vZZbueiOiigwq6k0fOA
+	 IA1YK/QvGJX4Q==
+Date: Tue, 10 Nov 2026 06:51:25 +0000
+To: Manik Bajpai <manik.bajpai@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, Antti Laakso <antti.laakso@linux.intel.com>, German Pablo Lindo <germanpapulindez@gmail.com>, Christian Murphy <christian@themurphys.eu>, Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: staging/ipu7: snoop ISYS writes to capture buffers
+Message-ID: <20261110065119.20575-1-lsa.uz@pm.me>
+In-Reply-To: <asaywQrMq-GSrI2r@kekkonen.localdomain>
+References: <20261007183311.24637-1-lsa.uz@pm.me> <asaywQrMq-GSrI2r@kekkonen.localdomain>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 90cce48b7b9b0d962718d9c5e3831106eccc5c1f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,82 +63,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 10 Nov 2026 06:49:28 +0000
-Message-Id: <DMRBWY2S42EN.1CNW1DNHJOKKD@linux.spacemit.com>
-Cc: "Alex Elder" <elder@riscstar.com>
-Subject: Re: [PATCH v1 1/2] i2c: spacemit: Avoid sleeping during bus reset
- in atomic context
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Anand Moon" <linux.amoon@gmail.com>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Andi Shyti" <andi.shyti@kernel.org>,
- "Sebastian Reichel" <sre@kernel.org>, "Yixun Lan" <dlan@kernel.org>,
- "Aurelien Jarno" <aurelien@aurel32.net>, "open list:I2C SUBSYSTEM HOST
- DRIVERS" <linux-i2c@vger.kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, "open list:SYSTEM RESET/SHUTDOWN DRIVERS"
- <linux-pm@vger.kernel.org>, "open list:RISC-V SPACEMIT SoC Support"
- <linux-riscv@lists.infradead.org>, "open list:RISC-V SPACEMIT SoC Support"
- <spacemit@lists.linux.dev>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261110061429.2036-1-linux.amoon@gmail.com>
-In-Reply-To: <20261110061429.2036-1-linux.amoon@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OAHLEV5KK0ozoH9/EFcv2XP7SqQJgHnczDhCiuw/ZfP1Mw6LrY2OWrpO
-	HpbQkU2OqdbZSFxP/0uyeTx9HxmTQT6Yjsjf2/xxf98xAswq7la0KCdmZagnPoIe0ERvhHn
-	iP44ybOHog0hj/KyspHL0ZzvmTDvDQTjSRspzCN7y6LJylkKIl6htCJTs5MEvM/IftQj3M7
-	hob9moKn0uDu8D9d8rRbzCjRYT6Igzk+UewAdG3W2huL0QJvTw74fcITTPZ+VqGl4Xdp2N9
-	jLCtjZSraANL6r3jy2ulILdEVOjWSGS/i1llC+hFB5AGunzdLWsqMKNwHPHrFPnR3ABZaLT
-	/Y6MffxtTC97wk9qvwEKdpoCg/6FHRxa8UGAfHGz/RKr4nJ1F9kw4UgNIGwsQkUG1RsK47K
-	TgqJB1ATuUROmRcpIp4dUPU1ZjLhFniHntJfb/rISHbFmcUhNfaFplpd7af4lypsCuhfE2J
-	T4NQp4HXGQ1u5m5okgeWepjdKxzO3slg+J/rv2eqz+w0Zdj0/VpQCT1iV4AKygg7XAUplVk
-	w9FKyxUrdT6sfDOlAS2HKdVnBqDrV4WWSEHUhQ+j11D4OaKtyCSO6RBoEcxqUHNioRGuCYe
-	b1dAuTpahEJrHeqbpGPOw+YCzg17CYtzrHArfnZBrACSF7AtANAGriBna7bRLBl1OnPD1nS
-	yPyuBmXT/261Qq1AbPDX1Z8Tf3BMLFZUtll0nwqwGIKH0NfF1sd5p8YV51QfE/kFWThSZhO
-	Ark4k6lw4k3WPGnholYAxUK5DgntuAcdCkXx/fWR14T/xN+NATnm47DWlhmnj2DFj89/6rP
-	cNl0/cX7Eoqwf8IOrFYvSvI7UBTexhy41bGFiAPeb4iE1iprw3FVZ9m7WZAfvNzC0lz+HcG
-	fqlwZHgCNJKoO7aict8IGFHC7S1cpFW4x7lcpPVVzP+3+RVNq5Z43E/Mx4wvlz5m3vHGjux
-	uBXSBKqieTSdbUQq5CNMqVWO0tInnZXMhsHk5BIwPBQYpBqJfMQ/DB9F/8qm1cLesnUw1pc
-	lZ83OMrAOBc2LuwNWmLNOxB+s/EfrBjDbar4pJE2vaM/LU1EUNFCjSf3vZp6GfYTnoJfiT7
-	UZ9l09B0KaNURMiC52qyb58f23/byhYGg==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
-
---73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
 
-On Tue Nov 10, 2026 at 6:14 AM GMT, Anand Moon wrote:
-> The spacemit_i2c_conditionally_reset_bus() function uses usleep_range()
-> to wait after triggering a bus reset request. However, this function can
-> be invoked during atomic I2C transfers (such as power-off or restart
-> handlers running in atomic notifier chains), where sleeping is illegal.
->
-> Replace the sleep operation with the driver's internal helper,
-> spacemit_i2c_delay(), which conditionally uses udelay() when running in
-> an atomic context, avoiding "scheduling while atomic" bugs.
->
-> Assisted-by: LLM
-Also, please drop this tag. The same applies to patch 2.
-See commit 1e035297ffda.
+Hi Manik, Divyamani,
 
---=20
-Troy Mitchell
+Sakari added you to this patch in October. Is is_snoop =3D 1 on the
+capture pin right for IPU7, and for IPU 7.5, which I could not test?
 
+Christian Murphy sent a different fix for the same rows in August,
+which I missed: a clflush of each capture buffer in buf_prepare and
+buf_finish, with is_snoop left at 0. If the snoop bit cannot be relied
+on, his is the one to take:
+https://lore.kernel.org/all/20260824224139.21256-1-christian@themurphys.eu/
 
---73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645
-Content-Type: application/pgp-signature; name="signature.asc"
+With is_snoop =3D 1, frames holding rows of the buffer's previous fill
+went from 301 of 698 and 684 of 697 to none, reading every frame with
+the CPU, and 4224x3136 raw at about 790 MB/s still ran at 29.95 fps.
+The patch applies to v7.4-rc1 unchanged.
 
------BEGIN PGP SIGNATURE-----
+It carries an Assisted-by tag, which 7.4-rc1 no longer accepts; Sakari,
+please drop it when applying, or I will resend without it.
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavK+eCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8WuwEAp7T345IGTixk
-luS0mGzMpY26JPDPOjGWsAUNq6ZoV1gA/RWwn34/Jxu8vWe3risrvjxT8VoYL1gt
-bpegaV9zkQME
-=3GOU
------END PGP SIGNATURE-----
+Sergey
 
---73e506311f5038c7b44d14906978b5da3e801f24689993eeee7050688645--
