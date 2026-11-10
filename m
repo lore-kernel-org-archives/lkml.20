@@ -1,112 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794329947;
-	b=D/h6Kmf/lLWDGD+9cBRXiAOv35YBDAXCQk5NQ8dhxfXTIeVdhk8pbqiO+hoZQyhfTfy4
-	 Tl6nWDrUbvOrLAD0AOtrSnCa9ONw0Sr8Ri00yFFGsmusrCidG8mUEthCTpOZkfqk4ZR+t
-	 QvkWiedvQujCtvbsRNyqsR2va26JCfYQOImXhsZmQbTrT20fExljfXf0vBR4Sq4e67zhG
-	 PHhk4c5axWtTvQspw+8NSbeD61PyMT7HpNxpdk+Y8TKj8DsjB8BMGiyTfPfEEt9ONrkQr
-	 d0xkB9L66K7c2XsUbfrDg8aQtz3v6Hr7Ti+KcmoZWZeEFlOGUJL7ZhzAXDzMErN+DtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329947;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Message-ID:In-Reply-To:References:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Correlation-ID:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:
-	 X-Source-Args:X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:
-	 AntiSpam-DLSP:AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:
-	 CFBL-Feedback-ID;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=;
-	b=PBg5SL2rvfbJf8sFBIPPzqXMzBrccD97R9qQZLxOpChfJiCT0WFlHrfbhF6qeyzJKlbI
-	 DI9rLXsa2LkzTxnhwR7CMbZYsYWdZ+5InTQ7TDfEIUeIo0m8BkwHG7hXw+6DpGA9JnPHT
-	 G4lAr3pczh+C4hKVdjBNkYZIVAPAPgBAKpXMuUEZFQD9D/2Xag3x7Lsn4sI5geNx//0Er
-	 vvCYJOaz1S03P8/T3xs7LbzAU3jzAhwcw0F4s+dYg9Kda884ASz9vTCZoVTUTJC6pkmIC
-	 pSDAa8Rt1LtITbR53YQbTp8COLIRawPBKSCd9tQgmV8UjpL5OD6B414WnWIstZ/lE1Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=TKnWmkAI;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qrob+Jmo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.9])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794329961;
+	b=Q8jWEo2qtYGHJEzsBsgIAKpxlvTBLU6jI1HGwFr2B+rSPtH+oJS7kJ6heHcwIhBga2mO
+	 eAklEkyPjCYY6FuVfeIN95Sr9zN49vJMLSbobIjyku9zgOq8Z+HvJRtEaAygtsOS202//
+	 5laKwSlWMoBlo1ES68b0jUW96ILFvO0Ae11HjaqUfK0Z7V3vNUCcMLKDT0NUeTTQyuSw9
+	 eUCiNdIjtA5k9ZGSw5kfcRNZp9UUVznzakXfd5WfZRhpH5f3F532m9ja82KiqpQnvzZTK
+	 KiqJJB8MpHjKgkiPhSh5SRLoQkL5F33c2Yys/7HiTxip5G4sTo2WZjFmZf5RM+hukWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329961;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UZ/ExlSldP4/rbOita3JeRaRAyJwH7hKfGTv9i0JcTE=;
+	b=UiQbQDLMolRMogcLH11m2CIObgwcxVEC6g5MJnAJ9p6jB9FixRXtH1D0YgKNUbjprpou
+	 pSdrD5kfUk4Hkq5/ROkxaTHqH4zR1Rh4tSS1DSRNJvnGW2dcA2bwvEmIySq0BvKauy2YO
+	 ghEmeFAI5MsrDbHsH0Fq6VLTESK/0Ji/88RNZUzgK586BbehTkI8eUhM/GBGXnPhwT3en
+	 gpQDk7aQR0KeiC029oOOrj9v2EgkEBegcnB3pkEJsmNmFdtXynBfdVY4IB63G6Au5Gnwp
+	 W0LNw3dqFYT+t2Zg7zWviRXitqL9+nghkFgaQMOfFnMsheU1gbCh+LhVoXAUdJs2fzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vxf7Nh1Z;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67361606A32E;
-	Tue, 10 Nov 2026 16:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67361606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F72606A800
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13F72606A800
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=TKnWmkAI;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=qrob+Jmo
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; s=arckey; t=1794329946;
-	 b=cZNLJxOWwxDKVcSsdgOU6CaD/5ErAYMcRGF5qp2BSFvSYMkRuap6eoz2WLWbIdpC41pdggvUMp
-	  zbKlUmvMbLYHjfSa2OnYzgKlf61vso0/1umsUS01rVJpmUKYwP60xySCQZxRjvcOQqvywafr+S
-	  zFqYn/xOaRQ4vRXLsttqO2oLlhLvKbeFUvOOTOLXSsqL41RN8FAPzLpcq2D6co2W21ObrUqKVb
-	  nhibg0rx997lVuA7vUi1HeF750+MW4Jat8/KgSJc7cIBSDk0zPcxXkzHmYYmPRgnh3O/po2UeY
-	  mwebBPv/7dylvX+zc3VIatRsQ/T/6d5ni6ML2IX9pe4Arw==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; s=arckey; t=1794329946;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:References:
-	  In-Reply-To:Message-ID:Cc:To:From:Date:DKIM-Signature:DKIM-Signature;
-	b=HT9i9dksxEva4787IeLvs+iXTj6v+HE2h8lb+0tH5vPOqSRJr2Gzhk76836S+Y8LS14LP6KrIF
-	  oBtDiHOJ1PctOCehPjbgyMnjCStuZSEH5WN5zjHOcUpOXzYHj6koktw+phxStMY/8WBf8QghYu
-	  TH1JgPukjS8amG0VPyaH0IBT862rf5J+mxhRz3lyaCc5EHv2L5VmkTl/2qohCKqEQyvQYhrmHS
-	  /H5ul9Ukjb1zzQD4TH+kLvmQVAb5d0dLALVQ5WLu81u3XtI0dCxVRKfBXxD8Hj8erIAmZ+/TG1
-	  1FBS0F1rtbGzlNp3b9CmYJm5JpfCWZDYxCQ1kdj7xw8KBQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Message-ID:Cc:To
-	:From:Date:Reply-To:List-Unsubscribe;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=; b=TKnWmkAIN/x/wWkIgFW/wa4HVJ
-	zMyZdAY+TiPy0BB4A1BXO0MUbn+PbtVEn/KCrmMghQLGAyDj6CjI9w4Wg51IOfJLpDW9XUHm9XRjK
-	Iv46he44aRq00ygy9D84pnFKdze+PSlAJXYjlwR/aDQM32s5FncOVsvG/taGeerGxR/4=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQpBS-0000000CceW-0HqR;
-	Tue, 10 Nov 2026 16:58:58 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=6a36y4SRwgMeQN1J7eFZmKIcS5P354+mS0JMqXH3AcM=; b=qrob+JmocH4xrMNATvmA7uR9iO
-	PFT1HYk++mL+WoYIIKR/e1076P3KQDF0HyphTZqavIj/MZiTDl7fLT4v5NYbph2DKjeLtI9AVWch+
-	GWsJlSro+N+mTPVWO2CP27m63QfdVhPy9xUI1HQPEKESYGlj/IUo+7h4mZNOJ20saiKA=;
-Received: from [109.54.113.250] (port=16151 helo=dummy.faircode.eu)
-	by esm19.siteground.biz with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQpB8-000000007rc-1PpM;
-	Tue, 10 Nov 2026 16:58:38 +0000
-Date: Tue, 10 Nov 2026 17:58:35 +0100
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Message-ID: <cea97670-facd-48b0-97c3-651ca9d71c75@valla.it>
-In-Reply-To: <avM8OYHxB4nAKCnb@p14s>
-References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it> <20261102-remoteproc_virtio_map-v2-4-26b300e01c62@valla.it> <avM8OYHxB4nAKCnb@p14s>
-Subject: Re: [PATCH RFC v2 04/11] remoteproc: report VIRTIO_F_VERSION_1 for
- non-rproc-specific vdevs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vxf7Nh1Z
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89d6bd67045so1266404b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:59:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794329960; x=1794934760; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UZ/ExlSldP4/rbOita3JeRaRAyJwH7hKfGTv9i0JcTE=;
+        b=vxf7Nh1Z24RTvN9FwqKW0jSRILebSLzBbZ6KAEGfd4PmUlkxFBJQCuTnRzp3AXm1Et
+         zRHX1slxIq9ysn3jLVyshOndV81B+Qke4y7juBfkv+yZaxJNzuA1OgjyzBuquphAZ2Ro
+         nHBMzoVVKK8t3RxnDVfg3eCLakSu9oSJx+yuJV2yOO9twhiCFsEcZZEV+iKJMvf0e07g
+         WG45Wb7K3rE3/pIwExDayq4UG3SyzIErBCelC/GQA5z+Z7X2vK4SrGUWG35bsIlzA8Zt
+         OveDWV47W/Lr/2az7oRvmoUJGjcA6GpBm7iuphnQp2rTtQDOnteaJFXdepdYrZCmdRr8
+         wVuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794329960; x=1794934760;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UZ/ExlSldP4/rbOita3JeRaRAyJwH7hKfGTv9i0JcTE=;
+        b=vV5lKGu7x5sqtlztBStlB3s4oJoRMOzzivVjC1OI6eD/89a2gdg3mCVTfiS9sZZW4K
+         aa6ZCWJKBPQfNMqLmYWzJY26ghLEjov733t7mJQpPrpaiI5KyZFNAxsF/CaGDTR79ffp
+         2T2oj9FCfId0p5JWOugCvKjZksBiAMPzB0UhOPzL5iRtxfxD334kJy7wKO5GjJWaRBGa
+         ROGgMYZi+G0DurZOk/V5nq2PZEMSxZkXocF8dbH47jxqcvyMMDFS/iJ2bJYOGmhvqSdh
+         9rm8InJbsKtJJ+pZQzG9oTg8DK+lI+e5HtvLhG92mtnGcLERSlr3oReOTjSomXrI9QIn
+         vZ5g==
+X-Forwarded-Encrypted: i=1; AL+hErHybgkJq3MaSmhklbHykAaX0ECIA3OFdFtnjOZo2cyOoHAZJ4CnRkZWBJDdzDy3hzJm2z9tIdfOI0M8H+Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9henJhl57fkKByapuDkHK89LXDS817nRHJgwiAd/8UWHp46xEn
+	r1BP3BOf7sziUkaAOl1FSZZeuGcw22FQmpVcKdv0SvTAu/P9uKgB66+9
+X-Gm-Gg: AYBFou0YcNDQG+s5ID3jl6XSa7BXh2VXRZbrC3DYMkmg7SuLBnNSMUkQ/H/cDAENCUr
+	PvNL1r6IIaQl86w8nAeLJYA5xfd3mJlkr89U5vKIlC/pR/OGzbSEHkG3hmlGSy9prEuCR7XwfrE
+	DVWrqObgCwmVfYEOcvKPHZ8Q3UDqKstTcpGyFUPemocHzWGDQLopn+p3jVnkhqJsdz7o6l3+ekO
+	YLnN7ZhwPbWL3pLzxgnWUAhB7q9MdizovbVB6YnxTfPuw2sJJLGWt64sjlFREcxpJjYHS45YXB0
+	tnl29njErGNDZ3kScM/WZRHO+5Ykio4s3qQsMR15yxgXTXRGerdgW93UZIj3tIM9ksX2EMUJXgb
+	sFPQ7M1BG62U8cVXiQX/asfx70gAOWOiRTQOLtNoj5rtGoMN/HEjuX4Tu8F9SrfHA/4niWc5eeI
+	ziiWBHQ9nwo2rQkrKxa4rlGr40/San8YnqcKXwPsmMEwAwXe/NUPW0QW2tX52Mf+rt4dxXCzzVG
+	0MP0k6javII6MOoJovrLSdX4K0c8Fl67toldsxTNN9hA6dUIDD3tnzWFL8pxwNIqGC4Mo7QyN4X
+	TebFLeSJCLaha0ThuTrxf9KCiid4sJcii2gb3oldSEINiDrIdPvcM6JTk4fucYz1ckZAGphnShT
+	uPfpvjIoY/s5R5CP2ak/d3HUowBplPpLY/BHnweWfeJMaK5kDPo8PMPQ=
+X-Received: by 2002:a05:6a00:430e:b0:8b9:227b:bfc with SMTP id d2e1a72fcca58-8ba9474056bmr2246885b3a.1.1794329960411;
+        Tue, 10 Nov 2026 08:59:20 -0800 (PST)
+Received: from localhost.localdomain (mx-ll-183.88.2-201.dynamic.3bb.co.th. [183.88.2.201])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab4fd5c6sm1157154b3a.46.2026.11.10.08.59.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 10 Nov 2026 08:59:19 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org,
+	stfrench@microsoft.com
+Cc: icb@fastmail.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	ematsumiya@suse.de,
+	lsahlber@redhat.com,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 6/6] ksmbd: consume the sequence number of a request on a failed session
+Date: Tue, 10 Nov 2026 23:58:34 +0700
+Message-ID: <20261110165834.28162-7-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110165834.28162-1-mike.michalo@gmail.com>
+References: <20261110165834.28162-1-mike.michalo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,165 +108,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <cea97670-facd-48b0-97c3-651ca9d71c75@valla.it>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: bda9790e3da571369204bdc5c7e2349b
-X-AntiAbuse: ID - bda9790e3da571369204bdc5c7e2349b
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xQpBS-0000000CceW-0HqR-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Transfer-Encoding: 8bit
 
-Hi Mathieu,
+__handle_ksmbd_work() calls check_user_session() before
+__process_request(). When the session is unknown, invalid or expired, it
+sets the error status and jumps straight to send, skipping
+__process_request() and therefore ksmbd_verify_smb_message(), which is
+where smb2_check_sequence_number() consumes the request's MessageId from
+the command sequence window and refuses a replay.
 
-10 Nov 2026 16:46:09 Mathieu Poirier <mathieu.poirier@linaro.org>:
+Only a signed request on an expired session had its MessageId checked,
+by ksmbd_sign_expired_rsp(). Any other failed-session request (unsigned,
+encrypted, or on an unknown or invalid session) left its MessageId
+unconsumed: conn->seq_low then stays pinned at it while conn->seq_high
+advances as credits are granted, until the window of
+KSMBD_CMD_SEQ_WINDOW ids is full and the connection stalls. A replayed
+MessageId on such a session is not refused either.
 
-> Hi,
->
-> I started reviewing this set, making it to this patch.=C2=A0 I will conti=
-nue tomorrow
-> but due to the KVM forum later this week, I may not finish before next we=
-ek.
+Verify the message once at the start of the failed-session path, as
+__process_request() would have, and drop the now redundant check from
+ksmbd_sign_expired_rsp(); verifying twice would consume the MessageId
+twice and refuse a genuine request.
 
-Take your time, I'm in no rush to have this merged.
+The commands of a compound that follow the failed one are still neither
+answered nor consumed, as after any error that ends a compound; that is
+a separate problem.
 
-> That said, I applied the first 2 patches so no need to include them in th=
-e next
-> revision.
+An AI assistant was used to draft the patch and as an independent
+reviewer.
 
-Ok!
+Fixes: fd8c97d7c1cc ("ksmbd: implement the command sequence window")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+ fs/smb/server/server.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
->
-> Thanks,
-> Mathieu
->
-
-Thank you!
-
-Regards,
-Francesco
-
-> On Mon, Nov 02, 2026 at 12:26:41AM +0100, Francesco Valla wrote:
->> There is currently no way to report the VIRTIO_F_VERSION_1 using the
->> resource table alone, as the per-vdev feature array is limited to 32
->> bits.
->>
->> Considering that the VIRTIO 1.0 specification is now ~10 years old,
->> always report the VIRTIO_F_VERSION_1 feature for virtio devices that
->> are not specific for remoteproc usage. These latter, which as of today
->> are rpmsg and rproc-serial, are excluded to avoid impacting the existing
->> usecases, since VIRTIO_F_VERSION_1 changes the semantics of the
->> communication (e.g., the configuration space is assumed to be
->> little-endian rather than follow the device's endianness).
->>
->> While at it, replace BUG_ON() with WARN_ON() and return an appropriate
->> error in case of features that would overflow the 32 bits limit.
->>
->> Signed-off-by: Francesco Valla <francesco@valla.it>
->> ---
->> drivers/remoteproc/remoteproc_virtio.c | 28 +++++++++++++++++++++++++---
->> 1 file changed, 25 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc=
-/remoteproc_virtio.c
->> index c56d3330adfe..f1b362158a9c 100644
->> --- a/drivers/remoteproc/remoteproc_virtio.c
->> +++ b/drivers/remoteproc/remoteproc_virtio.c
->> @@ -16,6 +16,7 @@
->> #include <linux/of_reserved_mem.h>
->> #include <linux/platform_device.h>
->> #include <linux/remoteproc.h>
->> +#include <linux/rsc_table.h>
->> #include <linux/virtio.h>
->> #include <linux/virtio_config.h>
->> #include <linux/virtio_ids.h>
->> @@ -27,6 +28,11 @@
->>
->> #include "remoteproc_internal.h"
->>
->> +static bool rproc_virtio_rsc_vdev_rproc_specific(struct fw_rsc_vdev *rs=
-c)
->> +{
->> +=C2=A0=C2=A0 return (rsc->id =3D=3D VIRTIO_ID_RPMSG || rsc->id =3D=3D V=
-IRTIO_ID_RPROC_SERIAL);
->> +}
->> +
->> static int copy_dma_range_map(struct device *to, struct device *from)
->> {
->> =C2=A0=C2=A0=C2=A0 const struct bus_dma_region *map =3D from->dma_range_=
-map, *new_map, *r;
->> @@ -268,8 +274,17 @@ static void rproc_virtio_synchronize_cbs(struct vir=
-tio_device *vdev)
->> static u64 rproc_virtio_get_features(struct virtio_device *vdev)
->> {
->> =C2=A0=C2=A0=C2=A0 struct fw_rsc_vdev *rsc =3D vdev_to_rsc(vdev);
->> +=C2=A0=C2=A0 u64 features =3D (u64)rsc->dfeatures;
->>
->> -=C2=A0=C2=A0 return rsc->dfeatures;
->> +=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0 * All non-remoteproc-specific virtio devices are ass=
-umed to be
->> +=C2=A0=C2=A0=C2=A0 * compliant with virtio specifications 1.x; there is=
- no other method
->> +=C2=A0=C2=A0=C2=A0 * to transmit this capability from the remote proces=
-sor to the host.
->> +=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0 if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 features |=3D (1ULL << VIRTIO_F_VE=
-RSION_1);
->> +
->> +=C2=A0=C2=A0 return features;
->> }
->>
->> static void rproc_transport_features(struct virtio_device *vdev)
->> @@ -285,6 +300,7 @@ static void rproc_transport_features(struct virtio_d=
-evice *vdev)
->> static int rproc_virtio_finalize_features(struct virtio_device *vdev)
->> {
->> =C2=A0=C2=A0=C2=A0 struct fw_rsc_vdev *rsc =3D vdev_to_rsc(vdev);
->> +=C2=A0=C2=A0 u64 features;
->>
->> =C2=A0=C2=A0=C2=A0 /* Give virtio_ring a chance to accept features */
->> =C2=A0=C2=A0=C2=A0 vring_transport_features(vdev);
->> @@ -292,8 +308,14 @@ static int rproc_virtio_finalize_features(struct vi=
-rtio_device *vdev)
->> =C2=A0=C2=A0=C2=A0 /* Give virtio_rproc a chance to accept features. */
->> =C2=A0=C2=A0=C2=A0 rproc_transport_features(vdev);
->>
->> -=C2=A0=C2=A0 /* Make sure we don't have any features > 32 bits! */
->> -=C2=A0=C2=A0 BUG_ON((u32)vdev->features !=3D vdev->features);
->> +=C2=A0=C2=A0 /* Make sure we don't have any features > 32 bits except t=
-he expected ones. */
->> +=C2=A0=C2=A0 features =3D vdev->features;
->> +
->> +=C2=A0=C2=A0 if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 features &=3D ~(1ULL << VIRTIO_F_V=
-ERSION_1);
->> +
->> +=C2=A0=C2=A0 if (WARN_ON((u32)vdev->features !=3D features))
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
->>
->> =C2=A0=C2=A0=C2=A0 /*
->> =C2=A0=C2=A0=C2=A0=C2=A0 * Remember the finalized features of our vdev, =
-and provide it
->>
->> --
->> 2.56.0
->>
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index 13341ff38aeeb..e3fe856a8258a 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -109,9 +109,10 @@ static inline int check_conn_state(struct ksmbd_work *work)
+ 
+ /*
+  * The keys of a session whose Kerberos ticket has expired are still valid,
+- * so STATUS_NETWORK_SESSION_EXPIRED is signed. Check the MessageId and the
+- * signature first (MS-SMB2 3.3.5.2.3 and 3.3.5.2.4), so that the key never
+- * signs a response to a request it did not sign.
++ * so STATUS_NETWORK_SESSION_EXPIRED is signed. The caller has already
++ * checked the MessageId (MS-SMB2 3.3.5.2.3); check the signature
++ * (3.3.5.2.4) too, so that the key never signs a response to a request it
++ * did not sign.
+  */
+ static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
+ {
+@@ -125,9 +126,7 @@ static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
+ 	if (work->next_smb2_rcv_hdr_off)
+ 		return;
+ 
+-	if (ksmbd_verify_smb_message(work))
+-		conn->ops->set_rsp_status(work, STATUS_INVALID_PARAMETER);
+-	else if (!conn->ops->check_sign_req(work))
++	if (!conn->ops->check_sign_req(work))
+ 		conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
+ 	else
+ 		conn->ops->set_sign_rsp(work);
+@@ -277,6 +276,21 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 		if (conn->ops->check_user_session) {
+ 			rc = conn->ops->check_user_session(work);
+ 			if (rc < 0) {
++				/*
++				 * The error reply below skips
++				 * __process_request(), so check the message
++				 * and consume its sequence number here, as it
++				 * would. Otherwise a request on an unknown,
++				 * invalid or expired session leaves its
++				 * MessageId unconsumed, which pins the command
++				 * sequence window, and a replayed MessageId
++				 * is not refused.
++				 */
++				if (ksmbd_verify_smb_message(work)) {
++					conn->ops->set_rsp_status(work,
++						STATUS_INVALID_PARAMETER);
++					goto send;
++				}
+ 				if (rc == -EINVAL)
+ 					conn->ops->set_rsp_status(work,
+ 						STATUS_INVALID_PARAMETER);
+-- 
+2.43.0
 
