@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352398;
-	b=z64IE7YaEMhIz3vLq8qeL7/CRe61adYuCZUtdPbB0ushB349IeqIB3sr/jpzvAafHCu5
-	 mv4QtJHBmCGmi2FLdgk9oijnp5n/TJziFPSOYGDxrou/Zcb+70n8Fp9KuU8CjR7PZO7OR
-	 BO2oHCFQngeDNLA46dZcGj5jd242A7KsyBDO03Nvg3HbBniDLFiUdFqoK8vIdTB9MdRec
-	 WtnLiKpqnfk/MnKbSQn2Hiqokf/6OLt7FM/kSwdWGbbO9Q98SvDssSe5XqJjML3Kbhuas
-	 CGKUImqRMM1LgzGfOk5bYVET8VNuHrcU4+hf8ymvydQsClRaELXO+Qx2tnd+2SAjUMQ==
+	t=1794352402;
+	b=qL2Y21L5mEbjnF65YT4Jw99iclHHDUV+fCICCHApBN97Z3Q7miPEp3Be+1fDOYzywIwS
+	 eYmqb2AVJoRDf8xqCX/BjtHrUPL4dv5/8XiW5UDCBIwzWQkxO1Qzw/RODDlwXL4WuLBDG
+	 eXa+MdD7saBOIXVENLg1vmcHIvizflcTklL9QsCXKTRuzffr/Be2C9vEvhCUxoNqf/xrk
+	 rClUaMXcLEWa5boNljT2y0GyoOYCHEpTBUDEw+xz8hPYEt16+UfvXRBXj1s7a5NvTUe9m
+	 emWOkFBJkiGGHJ3EtPGR6j4pe+KJgdKY/yJ8YNwv9g++TsRGJpD3CjqwucAjBHA0iMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352402;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WNPvGEKQXav9VSZ3J7/386PWbh2deprE17GmLSUj3BQ=;
-	b=FXulwci/ioefk2Uo7U/5je2knVbeuj9mbtxDzStK8P/Gq61Wo5iVRMw6d8scNPwzMTy7
-	 RKjlOZ9oHAtNZStQD6ZXV78TbjiS3ByeenHU2bh4Em8Vi6cxRyVxdGbQAsQQxi7kk18aR
-	 wnxtIlYVVSdQjPTIacwwSwa6M4e/0/W7E7zASD6G73TZ4u8ip2djgJlzfhvQGrWI5RtlF
-	 d1EdV9xo9IG5bRy26/47LLJoIMWQ3lx/64rfCGeIw5FBL2/QYlvS3Wi57Ykoplv6IQriD
-	 FU0quskrrTrLt+//5By3fsElxw9KwAPjGMwPev3aV1wXNbv9C8WK2oCFC8/ADpbJQOA==
+	bh=ud8T4mdbdPPGU2+VlHIdj3ZjRdWxPiYqyHT55Q4BDnc=;
+	b=U/8/JjdP/jk8d/K0ergSzAwVQpw3gldQtibL+hFY7ASedlhA5ZIfmIeuF2EiITBDYh3W
+	 wwwMCA7pVnVrP+m8z9k+/nN3R/DyEXl6eWLiS7m+8Qk7qCz/bTTutq7ryCRnPq1aHDTHi
+	 9vv9tSqs7CfYFoHLV95ADeRHktLaTlvFHCLdfoYfkP+gi88vj6mBvVd07U4WoYz4KrBPE
+	 nHBi1/cvYMhWnGJd8op60cBC4+MwsGRSUr8N6iiQWnIXcU7/GAGiN5m7k1WpNsn0KbKSc
+	 Atrxd7lUQWgqwfl22vKB1JbBVyQ5lT6o45QnqnSdXkn+LrwAxv7hvX52GO+mE0eEqtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dama.to;
 	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kSOtdwcf;
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=snTVJ7Ds;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F2B606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F2B606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9DD606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:13:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9DD606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kSOtdwcf
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc751eddf25so1359090a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:13:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=snTVJ7Ds
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1047537b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:13:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794352398; x=1794957198; darn=vger.kernel.org;
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794352401; x=1794957201; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WNPvGEKQXav9VSZ3J7/386PWbh2deprE17GmLSUj3BQ=;
-        b=kSOtdwcflrPTYOJkmiuF1ig4Gx7po9JWw0+rkgtDjdQhuPJEj3dJCcsicLlHPeWxQV
-         8HF5JC6ZMi7dBxkoETsI1t9vz/ghr2gsgZ8UVwXjHeAB2Y6KU5eaInzFaGs0/G/Y5eCW
-         zF/SpM1eLZ/O+vx06KLGL2swCjxEl2MSban0MpTZaCQEhUqmtmxfsvldqcX4duHfxvVl
-         HCjgawbylZyc/msT/UQG1mO6Ykc1SyGApMJBlfxR9EgtNzQnfhdGj0b5suSMITWCtQd0
-         UOmg7cjMSdjr3MfKvwP2GKpia65QcXcPJ9h8iBs/2rk6ZAwFMkXs+EdntslcJPCl0WFw
-         Y0eQ==
+        bh=ud8T4mdbdPPGU2+VlHIdj3ZjRdWxPiYqyHT55Q4BDnc=;
+        b=snTVJ7DsTTatcwZgyt0NTW6EYGJKr6B64WkjFf5RVm4yiATGep3mDPMkX4RnEjXD3n
+         Pu5ALpzpm0Q21OSzW53ixtUWFrMWbUXIacAgn2+PFY/5l7c8COUYVdp5V90yzMCWbijf
+         D9aM4ULn6F29luQmYN2YvCKj9vrsEZsI4VDDbNcrS5A2St5QZcxDsuSBEtF1acgSqQSx
+         5NaSPyLDICGXkWsglr9BAzD/QFvRTFEIejqqnr4nMbOGn/2Ptccua0QyGMJGFK0e1xAL
+         1KOfCfpUoOmj9XKSx+OEhk44Vysw2FD4+BmCso+9DL0fXM6k4GdYPNOtC8EqfUreGZie
+         PfCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794352398; x=1794957198;
+        d=1e100.net; s=20260707; t=1794352401; x=1794957201;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WNPvGEKQXav9VSZ3J7/386PWbh2deprE17GmLSUj3BQ=;
-        b=XumASeatocV1RP4ZFSmLA4WVXmcdkomkh8iez29iEgz23i2hnmmL/+aaKOT5eGchUY
-         1bGOJenyRgWke/5gIKHY7Ifn/VLfAIm91CjcBUAVm8UTfL5L28ckjxYfdLd1mzbq5vDX
-         OWQghkXU3JeyJAKEvSIL8uzxqRq/qaDbvKsCuvo5QlLCkzvkQwT/JLGK8H2kFNx7M6b3
-         DvEw6LxsmOfDmpsodxykBShLAJN2Hz5p7inCK2EpwJaitII1w13R3Ogvg5ieT5+eqbgh
-         2NCiFZ0IxcfWIPrC+Ob45wV484uwipYvJSJWt3DqjsMFxeVv7ADnazfX2/0Lc4J+nA3L
-         fDTg==
-X-Forwarded-Encrypted: i=1; AL+hErGCWjjms6EFxh1sG/erpzL5WwJ27+0eTRyr2GE20Hho1JAo+yFYF97uGJ04KbN3Ij0+6YeWLPgYzm45iXI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jKcCs/+qitR2ugtxNX/NuphN1dnNDabKOJWivDfrAtisp8zHK
-	sGE6YyKgyokBbL6ao2tst/SWuCMYA9/lIZrJ/3pmTLYGg81mxti1yE6Ll1sBpTAKCfU=
-X-Gm-Gg: AYBFou1uu6TrXllInHOfUOhFcKmkwGskEB7iFI9tNNl3qh8K5mpZG5jCStXsYXAl5Zy
-	gPbnwdn9Wj1j5E+7nsZHPZH/9thxUmvjjSnn8/AP4h37oXABGHcT6w9fYCMjmnrW90sFSOh16BI
-	qDy2bFCkEp3XbSd0/2rVaUDo3jMxmr0FnWTK/oXWXqK2mR8XcKqwsug80DeIMPQ0jWTag67KeNQ
-	pn9Pkhs4+54hl2I6ccmrN0Qd1drXneUWnWHyDQm4wFr5Rp/+/D94K2sT/vockWkyY+OnTBC7EWh
-	YxeP2ZPEgyKi5dVm3VuZSSzhTOiOBpAg/t3H7vr+ETPHGAu1SFQfe71xoPDXuwAN1nQmxL5kL+C
-	hJtabifLVO2w15asoZkri1rdibKy1bEeNxsIX6prBSnzvEiLfuSnP63kmrxzzk/9WcSqTU9amuT
-	JMtJRa2wIzQBQkXqpXmxryi8MJUR/6pi2CvyMXB7IXjb5pQmTUA5hvDaxNgBQy++j/mgWCTNDaP
-	RHNJTFV8jTYnzi5iYuBzRIOw5oGH4SrJOiaBnwgmrs/+pblyJWP/ao2Iq5cEoldSpTya21sKzRN
-	J7CAUaZwuMvv5TAcbBPQ4Odleave45Lfc1ARA/MLLQs=
-X-Received: by 2002:a05:6a20:914b:b0:3e2:5d7f:f630 with SMTP id adf61e73a8af0-3f2feedbe75mr719252637.54.1794352397968;
-        Tue, 10 Nov 2026 15:13:17 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:56::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7cf07dsm1173961a12.28.2026.11.10.15.13.17
+        bh=ud8T4mdbdPPGU2+VlHIdj3ZjRdWxPiYqyHT55Q4BDnc=;
+        b=2nJJW/KGN4joY25VSozjYWTn43slsQVwFLgE1NxqgxiXHA2SC7MwFS2odAuAm36TlB
+         4wVmPgow42t+R3K0ZYPWFMUOsNvNhGmyi6EIjXQCoau6hzhonlhHa3Y+SixoQXXbsunq
+         M/BZV1YgWmFyebYIkgAtUk+wJQlIX+jBYQWxdQQlpRfHwII5vaE7tbUPJFtkST4yD9Qo
+         hfMwS5Ipv2/z4BJtm5qm+N3YTSNkm/carmPAaxlPteWEPLzA5Q1p5BJ9AGFBA6Uhx9hv
+         UpKy3x1YuzseIVhxhF3w6+ojz3YlVzO1N6AzT8tI4keaidTYM5bDiFFGWV8CsUcDRxrv
+         +wAQ==
+X-Forwarded-Encrypted: i=1; AL+hErGDOPRY+Sb6+Gmb0AyvBUoDBtTYCmKPxI+rMW3dG1Po5PrBbtHEzQbuMcsaApFvynPFsSmXVHLYwRDRzV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wULmVgEfls3kAX2zgWNISCQmCtuCnK/ONkOPPFf0UAA39pQFX
+	fZ6BjZhgRpClP6Q/QdOm36eEB4ERml3aH8JvXYZjut3SBC3dFrCzWXFD3CkFc50S4PY=
+X-Gm-Gg: AYBFou0kAM5/zx2uC+GvBC9PzFNS/Yp8E3M5aE5iwZe7yMjZ6/XuegeOtWfStZnUT5z
+	wKgFtHSKukmVs65Wc2/qmfWPyOd2chR6xvPncVu3uMiET9yiqnPY3cPEWOzVPxEvWUW9Ceu4aCP
+	m7VYte/GVXYeB2beSQ7xvur/qLSBaw05mzYM337+hOHcK9K1HlwSuSDYGKZimw8HGxshrD2Pv+q
+	E5pIKAU11QGWYGc+uRCte1RXSqLKBJxzLAdC5Pvm7R8MEhlko5n6pAgudvlLRJxzLbV7MfuqGUc
+	iuDG/WJIsyZiLBN4s0tNDi19/9DyMyxDHegzC5kfeDtYZhW60jVmQxJ04Qn6vO9dJKviB782EeP
+	SVt0G8Wdm+cjw2yhbUtfohlLpPWgsm3+LvoSULCWo7HIWVwMLNEB4LGZtIEqD6hxGpiyrDGydL3
+	xzCZr7I1l/n/vxEkVdniaTnBW/NYcUj6j6kDB17JSlaC7/2BkrdobNCldSdxtowJXPd8glbMk73
+	SsarsW8iWLjcwBp+ohKcxrMVzi2sjwCmgEJSfsm8cxXQYd4fvIa5vusMlOJfP3VnMVY0n8Y09rq
+	QFnr3VkFmJbg86jYF22E4Lkg5gzkX+Aw1sRnlmKui2Q=
+X-Received: by 2002:a05:6300:4090:b0:3eb:ace1:4b4a with SMTP id adf61e73a8af0-3f2feedf19dmr618205637.71.1794352400889;
+        Tue, 10 Nov 2026 15:13:20 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:40::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b27cdsm1353357b3a.19.2026.11.10.15.13.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 15:13:17 -0800 (PST)
+        Tue, 10 Nov 2026 15:13:19 -0800 (PST)
 From: Joe Damato <joe@dama.to>
 To: netdev@vger.kernel.org,
 	Tariq Toukan <tariqt@nvidia.com>,
@@ -91,9 +91,9 @@ Cc: edumazet@google.com,
 	linux-kernel@vger.kernel.org,
 	Joe Damato <joe@dama.to>,
 	linux-rdma@vger.kernel.org
-Subject: [PATCH net-next 1/5] net/mlx4: factor VLAN parsing into mlx4_en_prep_vlan()
-Date: Tue, 10 Nov 2026 15:12:55 -0800
-Message-ID: <20261110231304.1859217-2-joe@dama.to>
+Subject: [PATCH net-next 2/5] net/mlx4: factor csum flags into mlx4_en_csum_flags()
+Date: Tue, 10 Nov 2026 15:12:56 -0800
+Message-ID: <20261110231304.1859217-3-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110231304.1859217-1-joe@dama.to>
 References: <20261110231304.1859217-1-joe@dama.to>
@@ -108,66 +108,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extract the code which converts an skb VLAN tag into WQE fields into a
-small helper. This helper will be used by a follow-up series implementing
-software USO, to avoid code duplication.
+Extract the code which converts skb csum fields to WQE fields into a
+helper. This helper will be used by a follow-up series implementing
+software USO, to reduce code duplication.
 
 Signed-off-by: Joe Damato <joe@dama.to>
 ---
- drivers/net/ethernet/mellanox/mlx4/en_tx.c | 33 ++++++++++++++--------
- 1 file changed, 21 insertions(+), 12 deletions(-)
+ drivers/net/ethernet/mellanox/mlx4/en_tx.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-index c5d564e5a581..00210dbae1c3 100644
+index 00210dbae1c3..f6059b533eac 100644
 --- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
 +++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-@@ -861,6 +861,26 @@ static bool mlx4_en_build_dma_wqe(struct mlx4_en_priv *priv,
+@@ -861,6 +861,16 @@ static bool mlx4_en_build_dma_wqe(struct mlx4_en_priv *priv,
  	return false;
  }
  
-+static bool mlx4_en_prep_vlan(const struct sk_buff *skb,
-+			      union mlx4_wqe_qpn_vlan *qpn_vlan)
++static __be32 mlx4_en_csum_flags(const struct sk_buff *skb)
 +{
-+	u16 vlan_proto;
++	if (unlikely(skb->ip_summed != CHECKSUM_PARTIAL))
++		return 0;
++	if (skb->encapsulation)
++		return cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM);
 +
-+	if (!skb_vlan_tag_present(skb))
-+		return false;
-+
-+	qpn_vlan->vlan_tag = cpu_to_be16(skb_vlan_tag_get(skb));
-+	vlan_proto = be16_to_cpu(skb->vlan_proto);
-+	if (vlan_proto == ETH_P_8021AD)
-+		qpn_vlan->ins_vlan = MLX4_WQE_CTRL_INS_SVLAN;
-+	else if (vlan_proto == ETH_P_8021Q)
-+		qpn_vlan->ins_vlan = MLX4_WQE_CTRL_INS_CVLAN;
-+	else
-+		qpn_vlan->ins_vlan = 0;
-+
-+	return true;
++	return cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM | MLX4_WQE_CTRL_TCP_UDP_CSUM);
 +}
 +
- netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+ static bool mlx4_en_prep_vlan(const struct sk_buff *skb,
+ 			      union mlx4_wqe_qpn_vlan *qpn_vlan)
  {
- 	struct skb_shared_info *shinfo = skb_shinfo(skb);
-@@ -902,19 +922,8 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
- 	nr_txbb = desc_size >> LOG_TXBB_SIZE;
- 
- 	bf_ok = ring->bf_enabled;
--	if (skb_vlan_tag_present(skb)) {
--		u16 vlan_proto;
--
--		qpn_vlan.vlan_tag = cpu_to_be16(skb_vlan_tag_get(skb));
--		vlan_proto = be16_to_cpu(skb->vlan_proto);
--		if (vlan_proto == ETH_P_8021AD)
--			qpn_vlan.ins_vlan = MLX4_WQE_CTRL_INS_SVLAN;
--		else if (vlan_proto == ETH_P_8021Q)
--			qpn_vlan.ins_vlan = MLX4_WQE_CTRL_INS_CVLAN;
+@@ -891,12 +901,12 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct mlx4_wqe_data_seg *data;
+ 	struct mlx4_en_tx_info *tx_info;
+ 	u32 __maybe_unused ring_cons;
++	__be32 op_own, csum_flags;
+ 	int tx_ind;
+ 	int nr_txbb;
+ 	int desc_size;
+ 	int real_size;
+ 	u32 index, bf_index;
+-	__be32 op_own;
+ 	int lso_header_size;
+ 	void *fragptr = NULL;
+ 	bool bounce = false;
+@@ -991,12 +1001,10 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	/* Prepare ctrl segment apart opcode+ownership, which depends on
+ 	 * whether LSO is used */
+ 	tx_desc->ctrl.srcrb_flags = priv->ctrl_flags;
+-	if (likely(skb->ip_summed == CHECKSUM_PARTIAL)) {
+-		if (!skb->encapsulation)
+-			tx_desc->ctrl.srcrb_flags |= cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM |
+-								 MLX4_WQE_CTRL_TCP_UDP_CSUM);
 -		else
--			qpn_vlan.ins_vlan = 0;
-+	if (mlx4_en_prep_vlan(skb, &qpn_vlan))
- 		bf_ok = false;
--	}
- 
- 	netdev_txq_bql_enqueue_prefetchw(ring->tx_queue);
+-			tx_desc->ctrl.srcrb_flags |= cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM);
++
++	csum_flags = mlx4_en_csum_flags(skb);
++	if (csum_flags) {
++		tx_desc->ctrl.srcrb_flags |= csum_flags;
+ 		ring->tx_csum++;
+ 	}
  
 -- 
 2.53.0-Meta
