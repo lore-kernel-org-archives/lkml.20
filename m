@@ -1,97 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280345;
-	b=lXypVwgExwIJ2LdMq81n35M435dw04S2bm/bwEHPH7GiIdWQmMhTk5lSfFBhXVbN/C8S
-	 2COBQ6MA4dCoMBpBUSp6RQ3HrbLGjq/ZpSgnl2LBURRU5TlUsKFnQ2Gz7rf0JlWuVpvlM
-	 zaSJd4f11SzMcFpiyvw9gn5p3DCcsRQhxYE9XbzSCmTONfIOeNoIbamKBJ2L9e9/G7oEi
-	 +/YxFP6CzwEMXNnCToJgvDM77RnxVK/4O7l/wKKEKUGifefjKH5x4o9ToSto9u99gYFeL
-	 WkLl6M+De9b66Dfg8s0WoWIrqBv7PrAH+7XMFfkRE9tVa9EvxBavDqFyQnSI3SlToMg==
+	t=1794280395;
+	b=BMrH4dml7++Ar6Lgm/rYyujIXhCQ5FTzTQWpEB3fML64d6s8Xx8d7A/glo7zAcd1kAso
+	 zgXAdUZH1TJAaA0SWSdMT/23v3GfMHlNchWj+ymUuA/xpEXMeqkB+v/C/WSmZf89myutj
+	 rY4rsT3jVeDhnvTybEGB61RnTSzlCchyFlONFCXYgq/PIvUiYOIz8qRlQLxn7lDcoXYkZ
+	 MXnsJa4damtNEgsD+yXxPpG6fEvudiEbeH9myfQSDQVOoQt97vDkvJE7OfvLEQLsUkhgA
+	 Zkj4Ew+sCiIX2V948Ej/SSSNCL5EvNs+l/zBfeWwPW09Q8KAxZ+h1w2XCLiVYl69buw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280395;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=NFGbItuCJXnws5VmBkLsQYAO9inTwJbRMBsOInhSTps=;
-	b=2bm2PLFVDYik+Xu7gC4TCz8l3q/L/Ahu1EyaRji9DOgNmC4PhgzbIBnL5ECLX+/1HbBZ
-	 z01gopbVG6BmVkouQDlBC0BdfsLX2TSr3TbcFRzRWRj/CVPrRfJ9QpjrYCVSbgIKXPF9r
-	 O6A79awOuym2p6xgeBLINQ2cDi6K8Rjl7eX4/j42roXOmje6bgJf2z2jGVHdwhYwN9FYi
-	 Fw0BsoAjAq1p/W/cgPPsRkR9+whOzme+hION6ZBf12oBFSMZIjpVnOxHDHVbcnHvRvMUa
-	 WyIqWvKUYyGIZgsN/E29nptUOcGo0ID8ynpXeB84kUyZcphEj6w3HQ2e64eQR2lfX3Q==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=KsGmsSOFoUFqhki7bSOzws9koK/vjaFo7VoIU6A5xpA=;
+	b=f7/Rn0xvZclKyTKHGQhGnvW4t3Ds77O9t4t5ZVaT25LIxf9SySsUiyZuqLWiGygVA60y
+	 s6DmNevGpKf1bsUPXythfK9kmSP8uCkFoyfmQja+J7qIFcn1i2/WGvrxexZqSup7u5zYD
+	 reTNxPOrLvpJUV7XcavZ+kxlV8DN9Y8mvCI819HId5Q/BLkOYOlhMwDniTInHBlh0Z5b/
+	 XymqZgKz3DEtifg/u9k7K38sKV4txpEcIjlmZ5Bb6o94fH5BfdqMJTj4r5nXMv5b9bant
+	 D+9+l2aOLs//Q6ltRZqwhwnE92Om+B/hsF9Icl4jd5ojPWaAfbYi+eo3viXS3fEwa1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wx1ShSoX;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TKcvETLe;
+	arc=none smtp.remote-ip=209.85.167.181
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF603606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:12:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF603606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E604D60A2600
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E604D60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wx1ShSoX
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so704561b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:12:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TKcvETLe
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4b28d9537bcso1101308b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:13:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794280344; x=1794885144; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NFGbItuCJXnws5VmBkLsQYAO9inTwJbRMBsOInhSTps=;
-        b=Wx1ShSoXMAULpOOweXrdNkTnioNB1UaRLWhDjgHh5/OMjYq5jR/knMAZqJsg8NC+T+
-         8hk3hYeCsTUgBudpyDMSnwvlyL4KoVvUoRti40/dKvmzmIl0WV2d4GFsRtt5XsFLbZCF
-         7nXhS1EDYuqRxEZ46FFkYkMqkdH+7wTd2lt88=
+        d=gmail.com; s=20260707; t=1794280393; x=1794885193; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KsGmsSOFoUFqhki7bSOzws9koK/vjaFo7VoIU6A5xpA=;
+        b=TKcvETLeC6xPYlP4w6XWNuQkLC3mMyxIu21UmG3PlogpK0vckIq+hJO0JL3E1rsxQj
+         Qtpflds+Wz6GD2FKnKMbNTITSPDQrxHnQOqUZrIi7Ohzv923YlM3sDm9fgj4hdOEodST
+         glafdD3NEtBZAOgTv1m+d56tF9TvdgPB1w99fMUGkMAJcjU7YIDpx0AT2Grk8HycnfYT
+         K5PQTgq3SBY6KQfUAPNZfIammSuBJZlOfCOQWFL3f1e2aFL3yU4UYxQAWyyT29dhisVh
+         On2RDgnWyRx93m1S2LT2CeKGsydFcuiGzjY8Z4eceCijd/ppDPUuLAW1+I1Qm/KzKFdr
+         yBLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794280344; x=1794885144;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794280393; x=1794885193;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NFGbItuCJXnws5VmBkLsQYAO9inTwJbRMBsOInhSTps=;
-        b=Am4dhGQedTdEUxytgO8JZqvaW+WUAs5Fq9+ajNZzXgP7t+5P1eP+a3CUMMkw4JH2Qm
-         +4CosCblsMIMJ9KX9DeFdHC172fpNmlME9yUw0KAbhuq7zUFxF5QkO7Df/0KBfr8o/pu
-         L2b61N0HM7pn1COgpn8xdO4UcZXYac6o5hg/ukNmz2zpRD4z2k2rAGa+GL/UVXyK4bmG
-         I0KR1PwDNE/uplPwiOqIHoMJ7xw879qVW19ayf7CY5Zf6bPpFt8LDzA86pLQcVpNFUqw
-         /r/6Blu4cNzsuLJ8lFxocIr6IbytWqU8rSdzUP31gi7pgdi0tNw4aaOFMNuMJNjrD98e
-         dScA==
-X-Forwarded-Encrypted: i=1; AL+hErFWsgfodekOt2jar9k/CBNDwvQAYG+RbvMfUQDDxD/v7Evkqj3d99n+Eabj89leO3FxwxddAEK88Ct3gjU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+74ygOPmMc0S2fzLPgtbftBcku3BrmYaFObX6GgbkiRqWO2z/C
-	DQqChbqGSt++WUqm5B2tqKNHrUNqbzFmebs16lc2ZRgkJK5MNZMf79Yxu6xamhZGmw==
-X-Gm-Gg: AYBFou35jbz896GS6aGMtluKVDms0FitlAipHyOkEPHhZXuhH//zzJ9tCx7wcwBw62L
-	uj7vf/r74gi69ogWHnJVNxdEM5nx0ux90EA1/iT/7bxzPGdx8PSbJKXQo/Srq2G9frl10uDGTPw
-	EKAmU+OR3UIkv+SMKQO3NG2FZn0lbPF8+3v1Qx68gSq7i7WcogxA1oE6yw73Vvnk8o1PxaVAk6o
-	ImyyW8WvGJcshAPs4RehI9Jf0diwIuRgMJepd3qzyGMshMcn2WFV15uvfiRSCHNW1x+TL9A0r9z
-	vIcMxt8kDvSjtFjZEj9zM9zE3eriflPosTwXXiR5vrhtfhDSx013Yy3xJTHI6GsfyPGPNZttXRb
-	2qzgsNSCck+tElMrQhvKneIfpgbT9yRZreG2m6//2J06uxoCRQWcuCQoUZHp1W0RBXUU2++y/Cm
-	B1e3LgMM94hNkAld8JVdXoCRpSGkcs8fBTXcCH037+8kKsS3o6ENxqWQvxAt1xyD4iCPvchiTWw
-	eCgKuunC7o1kzOP2nwrmIqt7h5Uxwcfjkk/JeEoN+dJyba0Z+sz5z0dGBHpUPtSJEEdJvTX5x7+
-	jCR9hTcwyYtwTROITrPVpyLv7eLnunqH2ywO5s0zMQF/p0wi6ovqpPtjvW6lSHMJejWrqA==
-X-Received: by 2002:a05:6a20:3d1a:b0:3e2:e27:1d36 with SMTP id adf61e73a8af0-3f190b8c38cmr1165365637.59.1794280344125;
-        Mon, 09 Nov 2026 19:12:24 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7b6236sm301072a12.23.2026.11.09.19.12.21
+        bh=KsGmsSOFoUFqhki7bSOzws9koK/vjaFo7VoIU6A5xpA=;
+        b=DQG3N2tMrelRQy13nGoq4PkxO90Fl4wUz33kdMV14UncCZNrGpp/a/sHUy/2eWYWPP
+         sWkYDmzXA+IduZO+BSMn7uEm9eCLUmYBwZP6424I3o/YW2ywCSPT+X7r8YNKilx2x2Ol
+         mubM07i7s7MGzDEYsT0oAieqEU6RQR7L2R3kmN1gJypPnX3TO392b9OznwSRMZMPLDBi
+         GfqLo01csThFbYfJVEGqRrWMoWLjU6KzXdWTj/MkOCF1fRZ+BfYPd4JrupRfNZ00s/1X
+         a+5MDEJuAyX2xkyY4X7cZQDrn4Yqa7igT22YBzz3fbJt1jv7uTPsR2fZcZjJ7kMwSC1g
+         Bwhg==
+X-Gm-Message-State: APuU4Z+Nl1S9gcGeiRhUW+kYakMrsteHua2kgp9EnN0DTQGFxaSjSwhS
+	xeO5KF4TWTYdZtA4fV1g1TYPk7+ysJpFNS5HGh9znRkhtOIoatXTkhw3
+X-Gm-Gg: AYBFou21SAvLsZBLKWfr+x4BhrhDPkMKcQpvqibLrpKg81BGgJLgzTtD3wwFbt0MKZX
+	libWNVlOvaSud4d8zJRIPKaOcj++V15DELohTYwMupT1+24rqa0OVwmHDSxsN0+Ne2ZFR/GL5l4
+	KBMHJxj6lYG/wrPXJro+7f2HrUK80D8LQvgbWomvjeJLouLUyeNy4yJ9KSl2yrUyUvIjveoEhL1
+	IUKkV8w7NUDPwHojVgtjyrlzHtHM8Csu/ScsPuQM1WwYW5+fKyY6LmStmRrX8hEjecVoYtIpC4N
+	Ut4bOHHD1Cj/CvYMR2w3OfO705C4Vuo7QUUM8/GXJx7fSloSU4KZSgsX61onjxt74F4q9K86qkO
+	zKEsboIRdLFoA9ag1Bkwvi+BbcQ8gP4sVDf2PYt3z+YYVgPqpgQbMJWYZFucca7oJXD9zM/S4cX
+	daG7C5NylbuKaYkLzHvtf1LfmQbjb6OYP8ilLMRFRYHI2il446j/5R+FWHKFK1LWvuKj78hXYRO
+	+liTeNZOEFD+TsKLhKDKPknMfgJXSGJQ1mw8/yGcSv3uv/GI2WBQhRQpqupQAspXSi3ySAYMaRl
+	R6yBnV7VZrhxdJ4N+YiDYa4zKx6Vf4hVR6RrweXStPz1rSRV3ec8iT9JkK08iAcynK4dDyriBtf
+	fVJgVSKrOd6CdosZvruaA9jw/MKbfWYBUEa/gKriuT8uaMSmWCcdCuVbnmB99pAEwBGQMgWD8HE
+	PQPZoiFNK5Hl4TFUNcl7IcG9HYu02ML9N4l3289xdnS8dfzECb56+l
+X-Received: by 2002:a05:6808:11c8:b0:568:195a:3bb0 with SMTP id 5614622812f47-568812d0fa4mr697292b6e.23.1794280392814;
+        Mon, 09 Nov 2026 19:13:12 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905736b92sm1019236b6e.8.2026.11.09.19.13.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 19:12:23 -0800 (PST)
-Date: Tue, 10 Nov 2026 12:12:19 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Yosry Ahmed <yosry@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-mm@kvack.org
-Subject: Re: [PATCH 5/7] zsmalloc: embed struct zs_handle into zram and zswap
- entries
-Message-ID: <avKLRTmkNGU-wxmp@google.com>
-References: <20261105044752.1997895-1-senozhatsky@chromium.org>
- <20261105044752.1997895-6-senozhatsky@chromium.org>
- <auy22TkX0ADxP9WR@google.com>
- <avKFc82JS4R9yU-N@google.com>
+        Mon, 09 Nov 2026 19:13:12 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 09 Nov 2026 20:12:50 -0700
+Subject: [PATCH v9 01/11] serial: 8250_dw: allow port setup to report
+ errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,144 +93,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avKFc82JS4R9yU-N@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-submit-h616-uart-fifo-v1-v9-1-3f03961dae8a@gmail.com>
+References: <20261109-submit-h616-uart-fifo-v1-v9-0-3f03961dae8a@gmail.com>
+In-Reply-To: <20261109-submit-h616-uart-fifo-v1-v9-0-3f03961dae8a@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On (26/11/10 11:51), Sergey Senozhatsky wrote:
-> Date: Tue, 10 Nov 2026 11:51:21 +0900
-> From: Sergey Senozhatsky <senozhatsky@chromium.org>
-> To: Yosry Ahmed <yosry@kernel.org>
-> Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,  Andrew Morton
->  <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>,  Yosry Ahmed
->  <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,  Brian
->  Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>,  Richard
->  Chang <richardycc@google.com>, linux-kernel@vger.kernel.org,
->  linux-block@vger.kernel.org,  linux-mm@kvack.org
-> Subject: Re: [PATCH 5/7] zsmalloc: embed struct zs_handle into zram and
->  zswap entries
-> Message-ID: <avKFc82JS4R9yU-N@google.com>
-> 
-> On (26/11/05 17:19), Yosry Ahmed wrote:
-> [..]
-> > >  Additionally, zs_malloc() does not return a dereferenceable pointer.
-> > > -Instead, it returns an opaque handle (unsigned long) which encodes actual
-> > > -location of the allocated object. The reason for this indirection is that
-> > > +Instead, it stores the encoded location of the allocated object in the
-> > > +provided ``struct zs_handle``. The reason for this indirection is that
-> > 
-> > Should we explicitly call out that zsmalloc will keep a back pointer to
-> > the handle and update it asynchronously, so the owner shouldn't modify
-> > it, and should keep it allocated until zs_free() (or rebind)?
-> > 
-> > Probably somewhere in the code comments too?
-> 
-> Yeah, perhaps.
-> 
-> > >  zsmalloc does not keep zspages permanently mapped since that would cause
-> > >  issues on 32-bit systems where the VA region for kernel space mappings
-> > >  is very small. So, using the allocated memory should be done through the
-> > > diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
-> > > index 693c9484b638..6c76fd10344e 100644
-> > > --- a/include/linux/zsmalloc.h
-> > > +++ b/include/linux/zsmalloc.h
-> > > @@ -14,6 +14,7 @@
-> > >  #ifndef _ZS_MALLOC_H_
-> > >  #define _ZS_MALLOC_H_
-> > >  
-> > > +#include <linux/compiler.h>
-> > >  #include <linux/types.h>
-> > >  
-> > >  struct zs_pool_stats {
-> > > @@ -21,16 +22,39 @@ struct zs_pool_stats {
-> > >  	atomic_long_t pages_compacted;
-> > >  };
-> > >  
-> > > +/*
-> > > + * zsmalloc writes object location into the handle and updates it when
-> > > + * the object moves (compaction, page migration), so the handle must not
-> > > + * be on the stack and must not be copied.  Use zs_rebind_handle() to
-> > > + * move an object to another handle.
-> > > + */
-> > > +struct zs_handle {
-> > > +	unsigned long __private obj;
-> > > +} __aligned(sizeof(unsigned long));
-> > 
-> > Is alignment guaranteed even if this is embedded in a packed struct? I
-> > wonder if we should have an explicit alignment check in
-> > zs_malloc()/zs_store(), and probably rebind too?
-> 
-> I guess only run-time check will work.  I can add those.  I wonder
-> if we actually need to worry about this, neither zram nor zswap use
-> packed entries, but I think it's cheap enough to make sure in run-time.
-> 
-> > > +
-> > > +static inline void zs_handle_init(struct zs_handle *handle)
-> > > +{
-> > > +	ACCESS_PRIVATE(handle, obj) = 0;
-> > > +}
-> > > +
-> > > +static inline bool zs_handle_is_allocated(const struct zs_handle *handle)
-> > > +{
-> > > +	return READ_ONCE(ACCESS_PRIVATE(handle, obj)) != 0;
-> > > +}
-> > 
-> > Can this ever give a false negative?
-> 
-> That's a very good question.
-> 
-> > I believe that's only possible with pfn=0, I don't know if this can be the
-> > case on any architecture. Should we use something like OBJ_ALLOCATED_TAG?
-> 
-> Yeah, I don't know, I guess would be better to not rely on "pfn cannot be
-> 0".  Let me look into this.
+Return a status from dw8250_setup_port() and propagate failures through
+the DW and LPSS probe paths before registering the UART. Use the existing
+LPSS cleanup path to release board resources and IRQ vectors on failure.
 
-Look what I found:
+Keep the current setup behavior by returning zero on both successful
+paths. This separates error propagation from the configuration validation
+that will use it.
 
---------------------------------------------------------------------------
-commit 67296874eb1cc80317bf2a8fba22b494e21eb29b
-Author: Olav Haugan <ohaugan@codeaurora.org>
-Date:   Fri Nov 22 09:30:41 2013 -0800
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/tty/serial/8250/8250_dw.c    | 4 +++-
+ drivers/tty/serial/8250/8250_dwlib.c | 6 ++++--
+ drivers/tty/serial/8250/8250_dwlib.h | 2 +-
+ drivers/tty/serial/8250/8250_lpss.c  | 4 +++-
+ 4 files changed, 11 insertions(+), 5 deletions(-)
 
-    staging: zsmalloc: Ensure handle is never 0 on success
-    
-    zsmalloc encodes a handle using the pfn and an object
-    index. On hardware platforms with physical memory starting
-    at 0x0 the pfn can be 0. This causes the encoded handle to be
-    0 and is incorrectly interpreted as an allocation failure.
-    
-    This issue affects all current and future SoCs with physical
-    memory starting at 0x0. All MSM8974 SoCs which includes
-    Google Nexus 5 devices are affected.
-    
-    To prevent this false error we ensure that the encoded handle
-    will not be 0 when allocation succeeds.
-    
-    Signed-off-by: Olav Haugan <ohaugan@codeaurora.org>
-    Cc: stable <stable@vger.kernel.org>
-    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-
- static void *obj_location_to_handle(struct page *page, unsigned long obj_idx)
- {
-        unsigned long handle;
-@@ -441,17 +446,21 @@ static void *obj_location_to_handle(struct page *page, unsigned long obj_idx)
-        }
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 9cbe076463e0..8fffb1f9ab0d 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -766,7 +766,9 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	dw8250_setup_dma_filter(p, data);
  
-        handle = page_to_pfn(page) << OBJ_INDEX_BITS;
--       handle |= (obj_idx & OBJ_INDEX_MASK);
-+       handle |= ((obj_idx + 1) & OBJ_INDEX_MASK);
+ 	if (!data->skip_autocfg)
+-		dw8250_setup_port(p);
++		err = dw8250_setup_port(p);
++	if (err)
++		return err;
  
-        return (void *)handle;
- }
-
- static void obj_handle_to_location(unsigned long handle, struct page **page,
-                                unsigned long *obj_idx)
+ 	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
+ 	p->set_divisor = dw8250_set_divisor;
+diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+index 91b3607b64e6..4a06dec6e263 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.c
++++ b/drivers/tty/serial/8250/8250_dwlib.c
+@@ -208,7 +208,7 @@ static const struct serial_rs485 dw8250_rs485_supported = {
+ 		 SER_RS485_ADDR_DEST,
+ };
+ 
+-void dw8250_setup_port(struct uart_port *p)
++int dw8250_setup_port(struct uart_port *p)
  {
-        *page = pfn_to_page(handle >> OBJ_INDEX_BITS);
--       *obj_idx = handle & OBJ_INDEX_MASK;
-+       *obj_idx = (handle & OBJ_INDEX_MASK) - 1;
+ 	struct dw8250_port_data *pd = p->private_data;
+ 	struct uart_8250_port *up = up_to_u8250p(p);
+@@ -250,7 +250,7 @@ void dw8250_setup_port(struct uart_port *p)
+ 		dev_dbg(p->dev, "CPR is not available, using 0x%08x instead\n", reg);
+ 	}
+ 	if (!reg)
+-		return;
++		return 0;
+ 
+ 	/* Select the type based on FIFO */
+ 	if (reg & DW_UART_CPR_FIFO_MODE) {
+@@ -270,5 +270,7 @@ void dw8250_setup_port(struct uart_port *p)
+ 		pd->srbr = DW_UART_SRBR_0;
+ 	else
+ 		pd->srbr = UART_RX;
++
++	return 0;
  }
---------------------------------------------------------------------------
+ EXPORT_SYMBOL_GPL(dw8250_setup_port);
+diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+index 7191cabfb086..4d32651956ab 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.h
++++ b/drivers/tty/serial/8250/8250_dwlib.h
+@@ -100,7 +100,7 @@ struct dw8250_port_data {
+ unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud, unsigned int *frac);
+ void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac);
+ void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
+-void dw8250_setup_port(struct uart_port *p);
++int dw8250_setup_port(struct uart_port *p);
+ 
+ static inline u32 dw8250_readl_ext(struct uart_port *p, int offset)
+ {
+diff --git a/drivers/tty/serial/8250/8250_lpss.c b/drivers/tty/serial/8250/8250_lpss.c
+index f1b4b975571a..7ace0515038e 100644
+--- a/drivers/tty/serial/8250/8250_lpss.c
++++ b/drivers/tty/serial/8250/8250_lpss.c
+@@ -350,7 +350,9 @@ static int lpss8250_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	if (ret)
+ 		return ret;
+ 
+-	dw8250_setup_port(&uart.port);
++	ret = dw8250_setup_port(&uart.port);
++	if (ret)
++		goto err_exit;
+ 
+ 	ret = lpss8250_dma_setup(lpss, &uart);
+ 	if (ret)
 
-I guess I'll do the same + 1 / -1 trick.
+-- 
+2.53.0
+
