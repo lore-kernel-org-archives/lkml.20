@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342663;
-	b=KxnT8+kk8eT6xC314CWn2LvGC0vmn8Jp+ILEFmoa9PgAsvJ0svNxoCPqT+WIHZTjT9sv
-	 qjgvymF/1Jhy0N71jpwLrWjnyTePNS6TsJdm4FNBWd/JUy/DA8PXOccO/g+AcNGDxK/Ja
-	 XzvyvmX9P2sli4gMsjwlbD/3jBy7EEjqM+1BsNrt9TdxpzzyKe03S0kEHbtFBPoSnXsGF
-	 DsoSP7BpzSbY/7Du76ku84FwI8SVXxyUa6piccfranqDX7mT3F8zidhc43KftK5ZLG0Z+
-	 zWXZ8OhXSpw+KKFzyxRNOuvnd17uH72IoU1xJbL9339PQcVZyyzazJjsmQL18jZMwlg==
+	t=1794342654;
+	b=Z53uGcRCRvLznqBwa3tSKkaeOARuN+Drtes0yk3Nq7Y+GANFldX/U5lJcOtpZAXXjUA2
+	 XqYPGadc9zqd2NN3Ka30kw2XEqqxZ3HawjT+zgptFBr2sMSK0JI4qvVpXx9W/DQp1UZWg
+	 CYhOoocM4z6iYLdaRdRbNDBNPTqIREuoNjuydt3KkTkOR75Ui13asOXMOuEjh/6kxLoLq
+	 INubvmAShM/+BzWramoTIGhl8cLYgCv088vou/j1ycFvqQdbIqujXnvEi+r/8JwmoQNQ/
+	 QY+hAqkqwxeXpDUexaW3kjTmasIJ+QzwPOnThyGrcq3M8Meev87Gcx8vw1nnPcxBkKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342654;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=nb6Y3qBz5md8bEdKSYVr1uCQAxRH1CiYfiJZ2O+ozgw=;
-	b=sR7N3hqJ7Z2fqKGu6qojuqXgh10a/JYxB10hGD2X/+mvS8Ro+wAHkxHWliPDZtLzl+OC
-	 Ts85/bh7CWBQ4f7mXRvJLPdBUYbJVLg+YFtQT64j3xz9bM0Vw8Bedkb3D/3NUtNg/Orgc
-	 c3xvLb7ijCVglMWLjJaoTKXB8HGz2XtLrqzqEyqiBH1/PKJT00t4jMKmxOZnjJ05DE/2z
-	 5stU5HzWgBfka1jK4RWRsIhCsWy0b81mKo6xTMRZKoL7AvoCJLHTdJpllidoe1aq0mPOj
-	 jtmz7IcCq8Y5R9Ie/yy1T80zw7GT8TxV+sEIFyQHjUxuWazjSx5hfTn3Dv0zSsvAtrw==
+	bh=xyJt/IA562jYSqS9g8xyRoMMlRr+/oArZPwne7/nZrs=;
+	b=Z6iUu/4GddqMQfrXNewEuopPYW/TCPSDgF0dhWN20OpcUJGWhpWIQXBswJFYqluaOGHo
+	 J2dYu6xo/Rp5kxEWAjrfdLuiq9oxG4IMax+V/vSXbd5qfF58V9cjAIJYin5X1XpK+TICV
+	 LbkWY6EcWpXRFIbzQTv28cdEq0e2LKXJzTQFOV9aak79dHtMyL7mfHZUvN23OY04Q0Luw
+	 T4Q7sKfY23mWlUUfZlBbioEDVq8VAZvxECUIBvdjIHFDW0CPHrg8F1Db60Z32R5wd/AXw
+	 afq+c1WanqtUdDS3VrW1f4hAYeXtXERWExNy8pxwk7XjOweQgi4TR+BdI7DPcxmvtlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=digikod.net;
 	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=RkLx8uZi;
-	arc=none smtp.remote-ip=84.16.66.173
-Received: from smtp-42ad.mail.infomaniak.ch (smtp-42ad.mail.infomaniak.ch [84.16.66.173])
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=RkE1Cx9q;
+	arc=none smtp.remote-ip=83.166.143.175
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A5460A2612
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15A5460A2612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7A7606C8DF
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 20:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE7A7606C8DF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=RkLx8uZi
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJFX0MH0zGl7;
-	Tue, 10 Nov 2026 21:30:56 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=RkE1Cx9q
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJFS1k6pzGDf;
+	Tue, 10 Nov 2026 21:30:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794342654;
-	bh=nb6Y3qBz5md8bEdKSYVr1uCQAxRH1CiYfiJZ2O+ozgw=;
+	s=20191114; t=1794342651;
+	bh=xyJt/IA562jYSqS9g8xyRoMMlRr+/oArZPwne7/nZrs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RkLx8uZieNxXzrjKg5Q7RvMY/4DP2HAAxxCnTZDhFsvsTTZiQQatSu2cd8I1dmptx
-	 vvFATq3PBHrmTiqJ+8Y1ZhSQfM+bECDi0QV2v3TKRYvRLraHNoiRMAAZ1Ffx/VPryk
-	 My8PBshjHTHR1ypFM5mB9/WWIUdQeEbbzz6vdUjA=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJFV0L4TzwgN;
-	Tue, 10 Nov 2026 21:30:54 +0100 (CET)
+	b=RkE1Cx9qAQvpLdQzufswkGl40o1xzLZO7MgdBSyik5rHM8qNAiJPlA8vGIBKwww83
+	 LihVFyDjCuxZMjCA7a9IlSXv1N1WxZe5d74TNG5vf5RQAc6wqA6j9pylHHNVdyS67t
+	 YS/A735saKW0Di89c3fbbOx50xtBb6wBqs5HuEiI=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jPJFQ52LqzyHT;
+	Tue, 10 Nov 2026 21:30:50 +0100 (CET)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: Casey Schaufler <casey@schaufler-ca.com>,
 	Georgia Garcia <georgia.garcia@canonical.com>,
@@ -65,9 +65,9 @@ Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	linux-kernel@vger.kernel.org,
 	linux-security-module@vger.kernel.org,
 	selinux@vger.kernel.org
-Subject: [PATCH 5/6] selinux: Use security_capable_lsm() for CAP_MAC_ADMIN checks
-Date: Tue, 10 Nov 2026 21:30:39 +0100
-Message-ID: <20261110203042.2410140-6-mic@digikod.net>
+Subject: [PATCH 3/6] apparmor: Use security_capable_lsm() for policy capabilities
+Date: Tue, 10 Nov 2026 21:30:37 +0100
+Message-ID: <20261110203042.2410140-4-mic@digikod.net>
 In-Reply-To: <20261110203042.2410140-1-mic@digikod.net>
 References: <20261110203042.2410140-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,40 +83,78 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
 
-has_cap_mac_admin() checks CAP_MAC_ADMIN with cap_capable() and then
-with SELinux's own check, so that other stacked LSMs do not have to
-authorize it (see commit db59000ab760 ("selinux: only invoke
-capabilities and selinux for CAP_MAC_ADMIN checks")).  This also lets a
-process in a Landlock domain that denies CAP_MAC_ADMIN get or set
-security contexts unknown to the loaded policy.
+AppArmor checks CAP_MAC_ADMIN for policy management and CAP_MAC_OVERRIDE
+for unconfined stacking with cap_capable() instead of capable(), so that
+other stacked LSMs do not have to authorize them.  This also lets a
+process in a Landlock domain that denies CAP_MAC_ADMIN manage AppArmor
+policy, and one that denies CAP_MAC_OVERRIDE avoid the stacking
+restriction on unconfined profile changes.
 
-Switch this check to security_capable_lsm(), as for AppArmor and Smack
-in the previous commits.  The cred_has_capability() check is kept.
+Commit 31ec99e13346 ("apparmor: switch to apparmor to internal capable
+check for policy management") made this choice for CAP_MAC_ADMIN.
 
+Switch these checks to security_capable_lsm(), which keeps this choice
+for LSMs that only implement the capable hook.  policy_ns_capable()
+still makes its own aa_capable() check.  Update the comments that
+described these checks.
+
+Cc: Georgia Garcia <georgia.garcia@canonical.com>
 Cc: Günther Noack <gnoack@google.com>
-Cc: Ondrej Mosnáček <omosnacek@gmail.com>
+Cc: John Johansen <john.johansen@canonical.com>
 Cc: Paul Moore <paul@paul-moore.com>
-Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
 Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
 Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- security/selinux/hooks.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ security/apparmor/domain.c | 9 +++++----
+ security/apparmor/policy.c | 7 ++++---
+ 2 files changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 9950f89dfaa2..5d85bc06f4c5 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -3363,7 +3363,8 @@ static bool has_cap_mac_admin(bool audit)
- 	const struct cred *cred = current_cred();
- 	unsigned int opts = audit ? CAP_OPT_NONE : CAP_OPT_NOAUDIT;
+diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+index af9e8431e3ea..d2c111783457 100644
+--- a/security/apparmor/domain.c
++++ b/security/apparmor/domain.c
+@@ -884,11 +884,12 @@ static bool is_profile_priv_restricted_to_stack(const struct cred *subj_cred,
+ {
+ 	if (profile_unconfined(profile) && profile == profile->ns->unconfined &&
+ 	    aa_unprivileged_unconfined_restricted &&
+-	    /* cap_capable returns false (0) if true, hence true here means
+-	     * doesn't have capability and the stack will be restricted
++	    /* security_capable_lsm() returns 0 if CAP_MAC_OVERRIDE is granted,
++	     * otherwise the stack will be restricted
+ 	     */
+-	    cap_capable(current_cred(), &init_user_ns, CAP_MAC_OVERRIDE,
+-			CAP_OPT_NOAUDIT))
++	    security_capable_lsm(current_cred(), &init_user_ns,
++				 CAP_MAC_OVERRIDE, CAP_OPT_NOAUDIT,
++				 LSM_ID_APPARMOR))
+ 		return true;
+ 	return false;
+ }
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 63f7821b4dff..ba162d921805 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -876,8 +876,8 @@ static int audit_policy(struct aa_label *subj_label, const char *op,
+ 	return error;
+ }
  
--	if (cap_capable(cred, &init_user_ns, CAP_MAC_ADMIN, opts))
-+	if (security_capable_lsm(cred, &init_user_ns, CAP_MAC_ADMIN, opts,
-+				 LSM_ID_SELINUX))
- 		return false;
- 	if (cred_has_capability(cred, CAP_MAC_ADMIN, opts, true))
- 		return false;
+-/* don't call out to other LSMs in the stack for apparmor policy admin
+- * permissions
++/* don't ask other LSMs' capable hooks about apparmor policy admin
++ * permissions, only LSMs restricting capability use through capable_lsm
+  */
+ static int policy_ns_capable(const struct cred *subj_cred,
+ 			     struct aa_label *label,
+@@ -886,7 +886,8 @@ static int policy_ns_capable(const struct cred *subj_cred,
+ 	int err;
+ 
+ 	/* check for MAC_ADMIN cap in cred */
+-	err = cap_capable(subj_cred, userns, cap, CAP_OPT_NONE);
++	err = security_capable_lsm(subj_cred, userns, cap, CAP_OPT_NONE,
++				   LSM_ID_APPARMOR);
+ 	if (!err)
+ 		err = aa_capable(subj_cred, label, cap, CAP_OPT_NONE);
+ 
 -- 
 2.56.0
 
