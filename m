@@ -1,101 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794324709;
-	b=UJDyhH6Jw7UY1VSKQR5yeQkuTUYozaQJOgG02sod+JVls/JS4hmR+kdT7Q5+qxufCaWz
-	 JnociMU7u007I8MWIoIHJ6+erO+ma2L3r6Fca56BUzcWK2DE/LjsguEarpkiT9UPXnO0w
-	 8+IfgkL97/T2YdA4zZcBtkkfjYwuyHw+9HMENS0n76P1vARs670+zvCPdDUgQ0i/BfrZS
-	 ZHg4g2ErvFQLuOvFYfyGwOG3tapayS0Bt5vawe8RjK6QLWnKAf3SFN5jYoQ0GY4dvubrB
-	 1FNA43UqTt2TakIK4x0l3fm7rp5iG+R7jRl7jk1t2CVn77pDZc9iDxuSlm1f2igeNqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324709;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794324718;
+	b=pzxH8D09/N9enqKgOt9Po5+u7SYSaMFVpexQ06alX+IOhPQmL9e0+5Rnw1BKf34RSzdN
+	 bPG9x2TRzNGNMHtqgeXIWf1e9QDkMwE+FV5oTw0LemqK0odnLLTLy/Ybv/FZg0Wm0BB4l
+	 lKHZHGGQfnsvj2IP0MDacR9WwyIHYRBarAJU8+6ZbYd8GyD4I4hESxHAY9tf+kMz2vfVc
+	 aoWxPIQFg06Wsem3MaP5oL2hvW5rsGs7gtVVdAo63S+2lp7MSYybnuymlNfJ8xrKUmmEr
+	 8NuIixAX3NKRSTBUetnn29/llOP0iHPe3fwYK3LYfG258ZZFv/kXMb+WamXZTQNnv8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324718;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=K1/d2NyIuCP6NUn/LZuS44tPxEN2bj+/f16ojUcHMk4=;
-	b=F793L0Oe7wPQY46tKs2zL8f/0VunfkHL6hdw6JPqrXMh/5bVq9oiLdpLIAFXSV2l0Zui
-	 qZaGZQ+KaXuvhvkHxf9j25pq1aC9k/dkV2qrMpwvgCerw5zKKjd3GVnfLSHRHwJAv/KSc
-	 /WKzl2/1jttW2zHIKdmx5rFvsT4CmMYYmFMGMCf6HDwgCz0Z1kT1nu4/DkZGpDAEgM+/q
-	 +2Y1xm/LgstKKyP0emGKBApeBVYfoJp97AteFKHaKfucLNke0T3muUE5iWv4Dors+GAr2
-	 0Sku9u1hD2hjnM0T35Menaf0E0PT2tL2yc0m7SyF2nGLC/tHamToXFspvAqNeGKNvRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sOnALV4R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.49
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rJjgX6E2Iz7NtAxo/Ej78l7jtNhnUtuzxHSnkCpGCgw=;
+	b=VWSH4jM72I+TrGsfGJwWUa3RMhcqIVQaAi9zo4DDK1gtdU1TMYQ1HT0zfM/WJVZEAuZp
+	 wPEaU3yL4N2ai2mLPcQ5WzInjqc1+NG+aRDrI7niiFRu0oaRTAYPXHOv16ufwxAEu2US0
+	 88a4k65X1cBu2yedXMQUCacvbK6QJiZPCTXmZsu6T26zC0uw+FYGmxCxUWVb2JItFX/hz
+	 sJ7td9eQkBqiYCqeIQmWYHlS6iYqbbSjYUVlUsCKDPpDjVohFcq973mH2AA3zbAY5Hlya
+	 sxJze36H9Het0Bw014i5u08CiZb2ngU5GkfhsV3+pttLaHF9D/QSeHsJmapE+oFHzTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="qdk1/GAg";
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D5760A261B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:31:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2D5760A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC6360A2617
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFC6360A2617
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sOnALV4R
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7d2db6408cfso1188798137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:31:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794324708; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RxNhpKwkqVrN007KKmjMb5NTWmtkNULDVT3hFPOnuxgUGWGE7wwflKIrAAiivy0sHI
-         xgMnGsAcMcWJ0i/3gYfXIsgqIlqXqnCqALOWlBPEjJ0uRmTXntaotzJesRi8SjxDBILH
-         LCM8DCcuP0z/wWtZeK3AvgbmQCMKOgdNjn6CCL6b04EtKxyOacuw0PrwfoJbq2G++2xP
-         RZUvzfeAP95JOZ1F/0ELj7kytyIw30gvvUA0RWiQ7f4PzNL1X9WznYAhwyXniR5En/oA
-         pk4+7e+kBClRounU6h/w/gDSKE8XTMyuWMWJ39dLZYPCtZe4mpyWwbuMQwdnVq1TZ9I0
-         5aOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K1/d2NyIuCP6NUn/LZuS44tPxEN2bj+/f16ojUcHMk4=;
-        fh=6UKKxqgO6aBmkkK4BFZZL2N9U3dEXADBK54E3NAMIp4=;
-        b=jbHVd/OM9ydXnoC96ZnjIsm9VX0Qb+1HnCn6z+rGOEMo8LDPIEnjH0M9TaE4Qy5Jc8
-         fNOMBsjdHS/3t9GRt1tPU14U+KRvqiO1ectGpX86Cw6C/N5WqjNBZ7gLInjUOqLF1tIv
-         oTj1sfeIpOelgGLo0IY1X6C9eJ+gypTICaHlHPQftzJ+JCdX6h1/1iWtOAsIq2tG/8oG
-         DB6V0NuwDu0DkEq3z0kndND9jm0Z0zj91X/BECm6d7S5BGEHeQqaxWGX7LvZfFC6Yk2O
-         CnObbHm6Hh3MydWR6M+w0tmL0xJY7r5QajAx0dG/s3ATEnQd4esa6rKmdZgZFwx3zcqq
-         LvRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qdk1/GAg
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d58c50743so140761866b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:31:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794324708; x=1794929508; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K1/d2NyIuCP6NUn/LZuS44tPxEN2bj+/f16ojUcHMk4=;
-        b=sOnALV4RabTW7TXx7rjmDTNsf5tHHAYmUXJwgfUDq5UM5W3BHjN5iBQXvAvIlZdHDT
-         RunsTaxFGOmPsBVI/UWUQRUU61lGTeSOTV7Ls4oDevMfljfbDaejNb2p5o/je/oUzQVN
-         ODiTECjiawd9dA5ApJKl1GPG+snrlUdzTJMDx8+vzHyuEIH8h5PdZF+FRvrol+Yj/3gJ
-         vRHo4q1oHwQ11AsQGydfRlFpUdIMf33G3Tui7lBp/+FbxkDoWkLiGS2AisC+jeSvVL+J
-         uMeijdhrcOXb3WUOVkGaNpFRye90vYvFGNsOPsPzp+zSZMQDurT6HH2hkHYZo/OmfCgj
-         omvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794324708; x=1794929508;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1794324716; x=1794929516; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K1/d2NyIuCP6NUn/LZuS44tPxEN2bj+/f16ojUcHMk4=;
-        b=JNPuNcCx04xx/xM7y46HDoNvxvmk/TxYWJiq2J3ubkp4apKKyfrLrOh7t673V9CUYo
-         xpOh3eP5gF9OspP6aBVvAYlpq3mmZE9Q1uzpoJSQIQSQ7QV8BVFDrv/UiMQJhOStvdcn
-         Cmbu/qVcV0+LtGirnQlocrUTBRb5pmJV7lpTk1pvSKBzPAnP2tdFDhRv5Z8mRtDjLOXH
-         /3PAi30nuw1AM1xEKnQECr9Av9iMRZfWVU4p82TQfZkJTDo/B38V1mG8ERbAZoOrrftJ
-         /dXdahDxLnFse7noaQWzEnciQENVzbDLtQ3wAV95+T+fqB7xCRjAJGOj64n38Pr7eg9T
-         d2Vg==
-X-Forwarded-Encrypted: i=1; AL+hErHmZPKuzHSSnLXiffWuv4aJltWywS9ql/Ug8LLrWqizygf8Dg+xcj6HU1e0i/MWh1wRsznCXfKN/Ve1ZBU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8evwB64h4NnebxIJbY9B4Rev03MTHQN1plTGmZo4hi2wueMx3Q
-	UnPuQV572iB77tONHZvGw3XHqENS4TzBv74EICevnpoOpbEZf4ZNWLXa7eSL7HPfSFJa9m8P8gP
-	oaNCfHNgUykQRQFDhGKa8Teco4NRCJPg=
-X-Gm-Gg: AYBFou1W4kXM6rCuymiG5joCItHOKSq+eRzp214L88Zi5LCTJVApaMQgiqNBofWhgW3
-	IClMX4b+qZDD+liaWVjW3wuydF5p9etdvnUaMwDNJlqmPnZ0AebHbu/Cm2veT2gGqi6bEEj2e6L
-	6cxkuKEFZU/wxpzA46pBjqDaPBFnc41Phy3pJalmRBEcg3MhCaAgLWYeCicGAsnP/LutoD2h9GF
-	R+16usnWmWBC947fXCrCTI/Yp9fQKz5WZ/HmXQ1vauCyPVyqj5dDmO1xK5V2eTpG4fdbADH/R06
-	licV2mmCrFILtHgPlKmCUfcOXpKwwQ/qKQ5bbLRC6yxtZ8v0rNl3XvmlB3yCOde2sK5UOtx9TmO
-	CkSygKRIk0yAI4TAnSOZrl/F5ADolsGDS/bPT7El7ZEOIYhz8PVGCIG3qjbGnT879j9FJknviWW
-	fZh0EPYsjqLUEz6X+NE3JOF89LVAAn8QlMhgEu5A==
-X-Received: by 2002:a05:6102:1629:b0:7a7:19aa:8a88 with SMTP id
- ada2fe7eead31-7d301c1ac50mr1147212137.35.1794324707817; Tue, 10 Nov 2026
- 07:31:47 -0800 (PST)
+        bh=rJjgX6E2Iz7NtAxo/Ej78l7jtNhnUtuzxHSnkCpGCgw=;
+        b=qdk1/GAgnPdfBW0blGc59nzK/yavphqI/dYgYV5J4KwPKWYvIMN9mgMgzetooBKAo4
+         /R16WXP0YW6Cjo2ZetiGP7SDRdPW2RX3bkQmtMBv0TAyLeOgfqe9C41cMlK38R2sFPpG
+         qY4whmVLoei9RQTIKvdu0YIKpy5iNxkXE9lofjy/fN8XC2FgxCHqsnzN8U76hXe3AHFT
+         NKnY3U/AmB/O1FC4sdHeVkjwkZmKzjSBiO6LstVFmMuB0+xiKEfJ9FOPOL9MafxcfPzL
+         ZrSYXz9UNXNLoXR5Senra0OU3zlAZvh/dx3uiEC2kEsHD3LMSdbyzEzO3szoqMzYw7Q4
+         p0AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794324716; x=1794929516;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rJjgX6E2Iz7NtAxo/Ej78l7jtNhnUtuzxHSnkCpGCgw=;
+        b=EjsMBr05j4Nyb+kEf/DiuXpgBuQa6FOhwpv1eCN4E0Uw5AmNMJF7zXQr6PexohCfVu
+         imyJzaam1NUjvx9KhcH4gUUzojqMl6n2w4pPaWzEiqQc3mEh/g17iQ3Y7B2SydEhuAyg
+         QZTpHYFzS0nyihW1P19nB7REIZETsYrrzyxZOE4RQqlcZQqy7A4OqQEtYTWuq9p34jwh
+         g80smRbyhKEmZh2Y/t4wxELduEqZ2FtQKc4IAioKM++B+Knqf3VQjeSXq0AvRdy9WN4Z
+         coOMSPWfHpPBhwctIKlH9leRhQEm9W6a4z+xQV8RVHJ0Yz3MyY5mjPozFY4Qi1gdAK8C
+         76sg==
+X-Forwarded-Encrypted: i=1; AL+hErEEm2YcYBA88HL9GUyBtSFenDGrc96+FNdPUsXbG/wZv8d8G2pw69X7IrGEK6OZWgX/00CRp2d5h+Hj+J8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+K9DnGLNWnrRyTmhfY9WoKMExiDilTVAlofEl7hAwihfQ/eUp5
+	cc5ueE1Dor4uZ2ljqZKUYjR9Ub0zwv+Vv4PDquJVDRbPWXEEWjnfNFFa+txnlq7+lvAOD1Gy1bg
+	aFcxgtVw=
+X-Gm-Gg: AYBFou3HRSHXrqTM+uywYA0osQS5kyLvupP5b7wP2njxeXeVKqmSiOUPGddsPdkAbJQ
+	NxX90Tp4tlHLryuL/IexfTYyBAn7pHk3Ky7FE3GfOPfr2qukrKG0zntJPmM8CJ2P1gOrAFhXAah
+	javXmuuqc5+x192plM0Q/Sc4oObIYJJRrr0+3cpL4H22A4cCTF+jSAr3t7XjvZB3P8TnUQ5qsVw
+	192HktIZqqkpZ5PjhSK+msDR141gAjhgT0tTbCpq6goSHpagPyMNQ2NXd7sg5ANKozLhaz7qAsp
+	cnq8GP7ofrKT1SLMf+sxImVXkD8Z9kXD7GW8lMrPBFnBnWxUV0+GO9CE+FwbSRoCLPOvjX4CDB7
+	IMyXkr3M4Ty5tAsj/qugo8fhNuqnRBTRRRgY6z+YBOazvJF+biHQtQhdSzZ3186BdJ33h29BcRd
+	Sv3avyXfBK5vDU1YSJ2/5RVJGgut0IlK0meC0CQjsfXAOyt8mK0zVicB1xRz5pFmHb3rmlz6qDz
+	05jyl0Ke3tQd+w9mhW6QW+esaQSUyVdnI+cglme80Gi9cGugwTcvnUG2VRzOZfSho4J0tJsr37M
+	C4YVAsh+HXGzLf30rMlvoUxGJqG2RWhBml8=
+X-Received: by 2002:a17:906:8a6f:b0:c48:ddac:7eb1 with SMTP id a640c23a62f3a-c50496e7f98mr179676266b.45.1794324716129;
+        Tue, 10 Nov 2026 07:31:56 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4984e26f8e3sm4917105f8f.1.2026.11.10.07.31.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 07:31:55 -0800 (PST)
+Message-ID: <1b528cd9-eac0-43b3-8166-db9f78c9f044@linaro.org>
+Date: Tue, 10 Nov 2026 15:31:54 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,71 +93,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108161149.2774119-1-bestswngs@gmail.com>
-In-Reply-To: <20261108161149.2774119-1-bestswngs@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 10 Nov 2026 10:31:35 -0500
-X-Gm-Features: AclHuK9iYVUMVhjgMP1YORbw_EmIVcS02-pRhlLXyvezE7vMUFhkCvMgT7r-RmU
-Message-ID: <CADvbK_fGfv2k5rB1Q4Q-OwzJicXbKzs1ofW48F2prx6Z15CQZg@mail.gmail.com>
-Subject: Re: [PATCH net] sctp: reset stored flag for each association
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Wei Yongjun <yjwei@cn.fujitsu.com>, 
-	Michio Honda <micchie@sfc.wide.ad.jp>, YOSHIFUJI Hideaki <yoshfuji@linux-ipv6.org>, 
-	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/23] coresight: trbe: Assign the perf handle in
+ enable and disable
+To: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
+ <20261016-trbe_enable_disable_irq_handle_refactor-v2-11-3f57cf3199b1@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-11-3f57cf3199b1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 8, 2026 at 11:12=E2=80=AFAM Weiming Shi <bestswngs@gmail.com> w=
-rote:
->
-> sctp_send_asconf_del_ip() walks every association on an endpoint. The
-> stored flag records that the current association took the single-homed
-> deferral path and therefore did not allocate an ASCONF chunk. It is
-> currently scoped to the whole function. Once one association sets it,
-> later eligible multihomed associations allocate chunks but skip
-> sctp_send_asconf(), leaking each chunk and its skb.
->
-> Reset stored for every association so only an association taking the
-> deferral path skips transmission. In an A/B kmemleak test, the
-> vulnerable kernel reported 210 leaked objects from this call path and the
-> fixed kernel reported none.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 8a07eb0a50ae ("sctp: Add ASCONF operation on the single-homed host=
-")
-> Reported-by: Xiang Mei <xmei5@asu.edu>
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+
+
+On 16/10/2026 17:55, Leo Yan wrote:
+> etm-perf owns the perf output handle embedded in its per-CPU etm_ctxt and
+> passes it to TRBE through arm_trbe_enable(). TRBE binds that handle after
+> successful sink enable and unbinds it in arm_trbe_disable(). The handle
+> object remains valid throughout this interval, even if the current AUX
+> transaction ends or a new transaction begins.
+> 
+> The inner enable helper currently publishes the handle, while truncation
+> and failed rollover clear it. Sink disable leaves the handle installed
+> after dropping the buffer association. These assignments track the AUX
+> transaction rather than the enabled sink session.
+> 
+> Publish the handle only in arm_trbe_enable() after successful setup and
+> clear it in arm_trbe_disable() before dropping the buffer association.
+> Remove the assignments from the inner enable, overflow and truncation
+> paths so the handle association follows the enabled sink session.
+> 
+> A valid handle object may have no active AUX transaction, so the IRQ
+> handler continues to check perf_get_aux() before accessing the
+> transaction's configuration.
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
 > ---
->  net/sctp/socket.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-> index c7b9e325ec1c..ed91ceff45a9 100644
-> --- a/net/sctp/socket.c
-> +++ b/net/sctp/socket.c
-> @@ -771,7 +771,6 @@ static int sctp_send_asconf_del_ip(struct sock       =
-       *sk,
->         struct sctp_sockaddr_entry *saddr;
->         int                     i;
->         int                     retval =3D 0;
-> -       int                     stored =3D 0;
->
->         chunk =3D NULL;
->         sp =3D sctp_sk(sk);
-> @@ -784,6 +783,7 @@ static int sctp_send_asconf_del_ip(struct sock       =
-       *sk,
->                  __func__, sk, addrs, addrcnt);
->
->         list_for_each_entry(asoc, &ep->asocs, asocs) {
-> +               int stored =3D 0;
->
->                 if (!asoc->peer.asconf_capable)
->                         continue;
-> --
-> 2.56.0
->
-
-Acked-by: Xin Long <lucien.xin@gmail.com>
+>   drivers/hwtracing/coresight/coresight-trbe.c | 20 +++++++-------------
+>   1 file changed, 7 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+> index 4a041bbc6e970d72a7d735e15f7221037cb091d6..1f51c33de83638479436683fd96e31d69c3b860f 100644
+> --- a/drivers/hwtracing/coresight/coresight-trbe.c
+> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
+> @@ -303,11 +303,8 @@ static void trbe_report_wrap_event(struct perf_output_handle *handle)
+>   
+>   static void trbe_truncate_event(struct perf_output_handle *handle)
+>   {
+> -	struct trbe_buf *buf = etm_perf_sink_config(handle);
+> -
+>   	perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+>   	perf_aux_output_end(handle, 0);
+> -	*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
+>   }
+>   
+>   /*
+> @@ -1012,7 +1009,6 @@ static int __arm_trbe_enable(struct trbe_buf *buf,
+>   	if (ret)
+>   		goto err;
+>   
+> -	*this_cpu_ptr(buf->cpudata->drvdata->handle) = handle;
+>   	trbe_enable_hw(buf);
+>   	return 0;
+>   err:
+> @@ -1042,6 +1038,7 @@ static int arm_trbe_enable(struct coresight_device *csdev, enum cs_mode mode,
+>   		return ret;
+>   	}
+>   
+> +	*this_cpu_ptr(drvdata->handle) = handle;
+>   	cpudata->buf = buf;
+>   	cpudata->mode = mode;
+>   	return 0;
+> @@ -1062,6 +1059,7 @@ static int arm_trbe_disable(struct coresight_device *csdev)
+>   	trbe_drain_and_disable_local(cpudata);
+>   	clr_trbe_status();
+>   
+> +	*this_cpu_ptr(drvdata->handle) = NULL;
+>   	buf->cpudata = NULL;
+>   	cpudata->buf = NULL;
+>   	cpudata->mode = CS_MODE_DISABLED;
+> @@ -1102,16 +1100,12 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
+>   	trbe_report_wrap_event(handle);
+>   	perf_aux_output_end(handle, size);
+>   	event_data = perf_aux_output_begin(handle, event);
+> -	if (!event_data) {
+> -		/*
+> -		 * We are unable to restart the trace collection,
+> -		 * thus leave the TRBE disabled. The etm-perf driver
+> -		 * is able to detect this with a disconnected handle
+> -		 * (handle->event = NULL).
+> -		 */
+> -		*this_cpu_ptr(buf->cpudata->drvdata->handle) = NULL;
+> +	/*
+> +	 * If trace collection cannot be restarted, leave TRBE disabled.
+> +	 * The etm-perf driver detects this through handle->event == NULL.
+> +	 */
+> +	if (!event_data)
+>   		return -EINVAL;
+> -	}
+>   
+>   	return __arm_trbe_enable(buf, handle);
+>   }
+> 
+Reviewed-by: James Clark <james.clark@linaro.org>
