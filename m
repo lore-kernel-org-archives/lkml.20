@@ -1,70 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336873;
-	b=SqQ/Yn9S+k0RnZIQdX7rYTdBNNSrt5Sm5GlXF1oUX415GUUWLLJG3VaVW6qhokb4Kxyp
-	 xJQpFkY9Ukq4bnt6YEXwmo3x0McMdGktY6Am/SvlTD9RK1A1ofIx+ngfo2NlCOtVXXb/S
-	 /VZG/Zkio3rhyjQc3zJ/PnT22VEye3x45OOzwzKsyzdARgNN2GI6Q5jdKer12USp7OZrG
-	 mPkjTC3yF6zuImPP8e+emR/2/w7MvmvYKf4KRGfgJUhAOV64cY1rTRTbeH9nj6ZhaPs6I
-	 HSxSFu3aOxAsUftWueUMdHsKFOXiQDI3PCc7G3IfDe9AJwCSZmjTCwLQ8acWoJc2uwQ==
+	t=1794336879;
+	b=ME5cIVLOHrCSoGadPxwwKh74JpoqDQf5F1C/PkVl3W9qgKCdmlAr6x3nWTjJyl9Z9leP
+	 G6QYQe6/15GBDXQQ3PrJY50BTf0OKrtTjKu3aFY5L0cM/fCIwcYO3shZwWHCvp3Wmg/bg
+	 Vl9cGTRXN0HmEZy76eW1KXXpICEG8P0aJO/q+7NZMo8c6xDfaUBerFzo9TF2YAosaorK9
+	 kU+vIMn1/GpoCse3Y/MSxuwaMDbt3nYd+1lHzkPdH8FJDp28xlA57ojWUPYF3ESGZq5QZ
+	 2BZ4RHb18i7IPpXHNJWbjUoY2xIvpZ1LW5zMOQyF1AGCBZW1uwtWDVDWvIw8iP0hhnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336873;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=S8WybN0jXEvfuCjeNoU/0kdSxu89Svl0EaLSggB3TsY=;
-	b=QyDhrAAZESxACI7qEm7uCXmPpx+LY89MxtkLWzHp8YbyixbOr6nzt/1ryNjPX5jmfPG0
-	 NMdrFXLon+7aP+kenryyZjGMv+svlIt6KpaPlpZd5U0hhCiLiVZ2O+8Du4c3NJd4WDNNv
-	 rMAFrh2B1kwD3X+Zt88JWwMp1DYqn+r+RHvd5JASRfwIEojPpoXnpRer7Gei5lnXTrrx3
-	 ZH4LWNkv5zzzskmW0NiZlXopmw1jJJd7fZli6U8IMIS1fBEYUOim49YYKfZ7ITs/ovsFt
-	 boXTyUKYSp5kAVu5T1XQZ/hX8/9ZHhls7aJk2a022tGsAt5IuAFwh2jT+cZ+nR1IKvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336879;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=eE5rfuFrAE7EyUnvlrVRPnNovvwKuchWNSa6LJLS/nE=;
+	b=Wai0bU/FT2dE1qaOWQGXYiMtr1sK4FFAMD3lQ968dRBGRXzVLziXskzcR8Z0G3xobxtZ
+	 mUDcst1NcITVYE7JyE5vXBrVyjJ7ZdtpvdFsN48P/7aSsLThkGUTg89blMXa6ZE6XiMv5
+	 1x4HiiIE/aR5+qgOg4FrH7k5FevCSSyK+xQoMXFSeKxDmJZn4Q2upg5O/XuH2yRizfYtE
+	 ealP2MSxeITpOfG9fSYc2gfgdTT0AEXAihPWx/fHaNVr81TwVHXmOjHgdCr7Vl9Ihhtms
+	 CnaTGkj1+zJB67e6FR0QgOqaDeXlpma7A/ED//ppl1HBJIgsFHuu4ivLrAs2nAC+6UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=sgOUj6jQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PPFZG21/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF78606A31C;
-	Tue, 10 Nov 2026 18:54:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA02606A327;
+	Tue, 10 Nov 2026 18:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=sgOUj6jQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492831F008A2;
-	Tue, 10 Nov 2026 18:54:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794336872;
-	bh=S8WybN0jXEvfuCjeNoU/0kdSxu89Svl0EaLSggB3TsY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=sgOUj6jQ+prHKEVm07+3Sq1KThuQ51hD224Xh9LVBf0qlfg+StxnR4qb4izGEjFO2
-	 oO2PUINbgjgpADfix5rc/mWDWUxEBhV6VH/sgVcRmwyi3Q3cTK5rbe3M0VXcElYqWi
-	 zRvEScLVPmhHPWIOtzlB/E/ercg3AP6LaXazHuJg=
-Date: Tue, 10 Nov 2026 10:54:30 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross
- <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng
- <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Uladzislau
- Rezki <urezki@gmail.com>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
- entry for THP
-Message-Id: <20261110105430.54c7a914e163250222151d69@linux-foundation.org>
-In-Reply-To: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
-References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPFZG21/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A45A1F0089F;
+	Tue, 10 Nov 2026 18:54:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794336878;
+	bh=eE5rfuFrAE7EyUnvlrVRPnNovvwKuchWNSa6LJLS/nE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PPFZG21/eEZ7TiuF/sGhvkL/Sh0x5mWfvE7iOxERQ8fPE0RhXyOymvrqLfDKk1Bzg
+	 Jt8fbqbDIHqfU2LocrnKqwHnpIMni2Zzn7PiNQf8sU4IrCMBv0tyMGOV2LgcHblTzG
+	 rQqVZpkMQ4rUBuCM01VPpiSNgqoz2PLSN4+9YPnJ3wM4YO+1OW4+Fxy3AvewNowAMv
+	 2w5EDNGJM0s6hfSYZ6QFCep8SounMIQvA86IS7hnWTtL1jJ3HSmHOJ6fuFQnSVnwQl
+	 SVWEvGoaBA/V/ysgN1N7xV3cTZYiTDeEMd+5QbPDBZYG47VIZlQwcY6Vu9qAoteFUX
+	 ih4QehnD971Jw==
+Date: Tue, 10 Nov 2026 18:54:33 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: arm: stm32: Add clock-controller
+ sub-node to STM32MP2 SYSCFG
+Message-ID: <20261110-confidant-bundle-08385b99bd78@spud>
+References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
+ <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,21 +67,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HHiI4yu939XMUIIC"
+Content-Disposition: inline
+In-Reply-To: <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
 
-On Tue, 10 Nov 2026 12:03:06 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+--HHiI4yu939XMUIIC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Given the current throughput in the kernel resulting from AI-generated
-> series, I unfortunately lack the bandwidth to generally be able to offer
-> review except in those areas I maintain.
+On Tue, Nov 10, 2026 at 11:42:17AM +0100, Gabriel Fernandez wrote:
+> The LTDC pixel clock multiplexer of the STM32MP23x and STM32MP25x
+> SYSCFG is described by a clock-controller sub-node of the SYSCFG node.
+>=20
+> Add this sub-node to the SYSCFG binding. It is required on STM32MP23x
+> and STM32MP25x and not allowed on the other SoCs.
+>=20
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-Sigh.  Is
+Why does this need a child node at all, can't the clock controller
+properties go straight into this syscon node?
 
-	Nacked-by: Andrew Morton <akpm@linux-foundation.org>
+Cheers,
+Conor.
 
-allowed?
+> ---
+>  Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | 6 +++=
++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.=
+yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> index a559f8b03b84..38c844e8f19d 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> @@ -45,6 +45,10 @@ properties:
+>    "#size-cells":
+>      const: 1
+> =20
+> +  clock-controller:
+> +    type: object
+> +    $ref: /schemas/clock/st,stm32mp25-syscfg-clk.yaml#
+> +
+>  patternProperties:
+>    "^phy@2[48]00$":
+>      type: object
+> @@ -80,6 +84,7 @@ allOf:
+>          - "#address-cells"
+>          - "#clock-cells"
+>          - "#size-cells"
+> +        - clock-controller
+>          - phy@2400
+>          - phy@2800
+>      else:
+> @@ -87,6 +92,7 @@ allOf:
+>          '#address-cells': false
+>          '#clock-cells': false
+>          '#size-cells': false
+> +        clock-controller: false
+>          phy@2400: false
+>          phy@2800: false
+> =20
+>=20
+> --=20
+> 2.43.0
+>=20
 
-Thanks, hang in there.
+--HHiI4yu939XMUIIC
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavNoaQAKCRB4tDGHoIJi
+0iZXAP9cnh198rDZ/sUSZ260FfuknKWIsjUf89bqGNDkZUL2sQEA2zKAIIi4Rl1B
+iDzxXQOq8c3ujrIfaJuAzDie/dAXkwI=
+=KdWK
+-----END PGP SIGNATURE-----
+
+--HHiI4yu939XMUIIC--
