@@ -1,43 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319449;
-	b=PL4I3I1Ge+ObdncZKgo6cqjJVHWdLLW3UVOGsZ7J/M35+UdWQamDB3n0gfZSFAk8gfGu
-	 /EhiiqxA8ri2b4aLVNLxHm93n2ubSfa0aE+wfeqSJGf2cEZ7we8awrhEPSwFTE+6s0I41
-	 fsM3XVxuC8wv4Rd+HKP5k+sM8/ZlRqeA9h5rtIJkiHEeBYcIibjkmE2rl+Th8XyvBziwD
-	 RTv695rH6B8y6fcpn0hHLG4IhrgwGZWIuoPblornbDK61I38k17qFpQThIY2ZMbwfjYXI
-	 rFozUaGlphBAG1LDFbLrFYWrjFE7k2mbAcBqhC7c8eWGJECYs+raWoYOWyr+dSYHOqQ==
+	t=1794319437;
+	b=rZnanaiUZD4AdtX3Xwl/vuYyTboDWSWA3PbL1YxcvJ8TPkpTyRiVK6QDcJHnlwkkh1Ht
+	 UgkYxrQJ9yR/IL6R4hohDG2i39XzLN7qGc7zn60t5FVYVHn3N4vOM0HhzfbpjPxSwBR7K
+	 +HuAxiV8dlKnJl7Xdl30vStbmRPK4BPPsoJSLodUPDpM0y527uqYeeEmMwM9t7qTl51UT
+	 n96Gq3/Tpiryxrb/+DoOjFwpl2YEKWQbOdsiojimfg5etHWFxJWiIoCf4vbAcbuHAfq6E
+	 m9ZyJdIRYn0SC0pOtT9Ur3QUy+IpqRw5wQMo1ZX0cEe0w08QrcuUgmLpsI6SVjORUeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319449;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Bm-Milter-Handled:
-	 X-Bm-Transport-Timestamp;
-	bh=WqTwGGW5CM2uHHn8bLrnNbQteeETOrwEgNcCrwmUibQ=;
-	b=bTu6eiiNNynF7bse9oZsXrw23u3XSArYATVq6vnIl0WwrGjzdAKRamPUr3zPBxBEOpH+
-	 wgoG8OBpUDYkjwG2icMfMT6Nu2bRrHMZB8uUxRpwIvOBiqRMxpnOdWRrx8mAm6R1njDe5
-	 UZdYyOr3zD38CE9WQTwT+YgPig6NdAM+C8pLTUtUGM5pfNvq7u/7MewYRy4JFowA+gBEJ
-	 7XSsnAnHez3pCPHdMT56jCvrQ8kUphBFU4Ipib2bcMykxP6IoW+mmDE9oNZw9jeSKIQSw
-	 5sIcvGI9/YaNioy9ySFNttgXsoC7TmMZXb40IxLGNTxpbuay6lFtm+2PGwSqYDO6/NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319437;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lUUY6SG4mSmfFm2bbpqT0Yc1wqBj4qXywugKTS2CAHs=;
+	b=xlgw1lUxV8voFmjb3oaCPaEYtfWKtfmjpV/L9DaTO2pVbKOztJED+r2k/ZdF+lsWPZsw
+	 GD1bJZhtX91A17MxwbI6K1nGXcXIQVgpT+4a7sotWs5/yEIFALnO8PIEh7Jc/IZvlq1r7
+	 uCVf0am7oz2SzgiCh+34fYCJ6iLs2fC1zuOJDPAU3PXOsU/K3gYygD1uAQzcN31QEDlTP
+	 BWUk8Qk4G0XDnBfS46n6ommhAB2o8g2/7dcJvLVMrxB6qfhKCe6N1VOPGhoa0N/GH2bkI
+	 BHKVqfNXV5HAHW9gzQTyNBPqUXMxuBZmFQWcqyBkkIeLQUgxl8XYYcBOwRAYDKZlz9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=proxmox.com;
-	spf=pass smtp.mailfrom=proxmox.com;
-	arc=none smtp.remote-ip=94.136.29.106
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDLyYSmW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF0260A3813;
-	Tue, 10 Nov 2026 14:04:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBF0260A3813
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 6631A47DFD;
-	Tue, 10 Nov 2026 15:04:04 +0100 (CET)
-From: Hannes Laimer <h.laimer@proxmox.com>
-Date: Tue, 10 Nov 2026 15:03:55 +0100
-Subject: [PATCH net-next] selftests: forwarding: vxlan_reserved: drop
- redundant in_defer_scope
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F2760A2616;
+	Tue, 10 Nov 2026 14:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDLyYSmW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14281F008A2;
+	Tue, 10 Nov 2026 14:03:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794319437;
+	bh=lUUY6SG4mSmfFm2bbpqT0Yc1wqBj4qXywugKTS2CAHs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=fDLyYSmW7T9MgptwVDfMFXbcr+nvMZZmEDXUDgXC68WUbXRnFgIY94h+odPOW0slE
+	 yDKg2/+jI0j7jDQ6TY+9mvyjzs0WS0sxXRnk/AbvBklYq1FlEOX7f6qyD8QfJt+7T6
+	 6KngVa3Xx953OAo00kwoY8Uf8C6B0Qws37jeoTudEIgkRFhcVsa1djefznrxva26Az
+	 8yTXpfkiaQK8vOUlsZcWfH+G4vh6XxsqvvHuuar/XvgV9Z4fjtwqBWmf7tT3M4IpWj
+	 FRw3F+tM+Imhe2APLZuCLvH5KMoPj+bVcUXlJu8hxfrm5MPGI4Cd6dmrWKJIYvO8oB
+	 SZ1pFLm3dpkKA==
+From: Joshua Crofts <crofts@kernel.org>
+Date: Tue, 10 Nov 2026 15:03:47 +0100
+Subject: [PATCH 1/4] media: i2c: imx355: remove redundant
+ pm_runtime_dont_use_autosuspend() calls
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,141 +55,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-vxlan-reserved-tests-v1-1-a252d69c841e@proxmox.com>
-X-B4-Tracking: v=1; b=H4sIAEok82oC/yWMQQrCMBBFr1Jm7UAbQcSriIsk/dURGSUzhkDp3
- Y26+IvH572VDEVgdBpWKqhi8tQO026gfIt6BcvcmcIYDlMf1/aIygXdq5jZYW68hAzE4z6lMVN
- XXwWLtF/2TApnRXO6/B97pzuyf6u0bR9xRKugggAAAA==
-X-Change-ID: 20261026-vxlan-reserved-tests-f2ceea83bb0c
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Petr Machata <petrm@nvidia.com>, 
- Hannes Laimer <h.laimer@proxmox.com>
-X-Mailer: b4 0.16-dev-4217c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2433; i=h.laimer@proxmox.com;
- h=from:subject:message-id; bh=Ie6/k9NfC4SJjY+4P/R64ocofwlPm/PbLi7A3cujs+M=;
- b=owGbwMvMwCU2e2Iv83RDTSPG02pJDFmfVYLm15zY/yDQ3jUr6Oe02/+e/V/QXXLqhWXtlb+hY
- fdfW37r6yhlYRDjYpAVU2S5bL//66zeqXFGpzdzwcxhZQIZwsDFKQATCfRlZFh3trhBsCqHdefy
- Yu/k185HHHruLFiUqnNYZylTbMNyQWaGv6LVxfXcrJNn/w3e6/Rtvl8Sg7TqTD+Dg99zuS7YlVa
- cYgEA
-X-Developer-Key: i=h.laimer@proxmox.com; a=openpgp;
- fpr=64D04F905C35D23EBE24D079FA418E647F2175D1
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1794319442481
+Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
+References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
+In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ David Heidelberg <david@ixit.cz>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+ Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <crofts@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1216;
+ i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
+ bh=7pq2vQuuw5dAabFgpcuCosBYNK9UdD7ygDzJlEbAheg=;
+ b=bGrDcFTSzD8C8M885X0FD6tPKjGX4pOEXwgvZA/CG5dTGUIyYL+3MM8oiYo/LpRmprkG392/G
+ rSdWLw9vCx3B1iK7mIAM50QdiJwPsmcgfSKgHxwuWR6f2Urj4Eq10Gy
+X-Developer-Key: i=crofts@kernel.org; a=ed25519;
+ pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
 
-With commit a6e263f125cd ("selftests: net: lib: Introduce deferred
-commands") tests_run() already runs every test in its own defer scope.
-So the per-test in_defer_scope here does not do anything. Drop the
-in_defer_scope calls and the wrappers that only exist for that.
+Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
+driver core is now responsible for undoing any
+pm_runtime_use_autosuspend() calls on driver exit.
 
-Suggested-by: Petr Machata <petrm@nvidia.com>
-Link: https://lore.kernel.org/all/875wyo6b7d.fsf@pmachata.org/
-Signed-off-by: Hannes Laimer <h.laimer@proxmox.com>
+Remove the redundant function calls.
+
+Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
- .../selftests/net/forwarding/vxlan_reserved.sh     | 39 +++++-----------------
- 1 file changed, 8 insertions(+), 31 deletions(-)
+ drivers/media/i2c/imx355.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
-index 0ce264cc57f8..a273e1fcd26c 100755
---- a/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
-+++ b/tools/testing/selftests/net/forwarding/vxlan_reserved.sh
-@@ -273,30 +273,18 @@ __default_test_do()
- 	log_test "$what: drops reported"
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index c0dafabf5dc9ad6237c9c9380d6122edfedc96f3..89e42312265822428cbf0b909627c66415b3282f 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -1298,7 +1298,6 @@ static int imx355_probe(struct i2c_client *client)
+ error_subdev_cleanup_runtime_pm:
+ 	pm_runtime_disable(imx355->dev);
+ 	pm_runtime_set_suspended(imx355->dev);
+-	pm_runtime_dont_use_autosuspend(imx355->dev);
+ 	v4l2_subdev_cleanup(&imx355->sd);
+ error_media_entity_free:
+ 	media_entity_cleanup(&imx355->sd.entity);
+@@ -1329,7 +1328,6 @@ static void imx355_remove(struct i2c_client *client)
+ 		pm_runtime_set_suspended(imx355->dev);
+ 	}
+ 
+-	pm_runtime_dont_use_autosuspend(imx355->dev);
  }
  
--default_test_do()
-+default_test()
- {
- 	vxlan_device_add
- 	__default_test_do 0 "Default"
- }
- 
--default_test()
--{
--	in_defer_scope \
--	    default_test_do
--}
--
--plain_test_do()
-+plain_test()
- {
- 	vxlan_device_add reserved_bits 0xf7ffffff000000ff
- 	__default_test_do 0 "reserved_bits 0xf7ffffff000000ff"
- }
- 
--plain_test()
--{
--	in_defer_scope \
--	    plain_test_do
--}
--
- reserved_test()
- {
- 	local bit=$1; shift
-@@ -311,35 +299,30 @@ reserved_test()
- 
- reserved_0_test()
- {
--	in_defer_scope \
--	    reserved_test 0
-+	reserved_test 0
- }
- 
- reserved_10_test()
- {
--	in_defer_scope \
--	    reserved_test 10
-+	reserved_test 10
- }
- 
- reserved_31_test()
- {
--	in_defer_scope \
--	    reserved_test 31
-+	reserved_test 31
- }
- 
- reserved_56_test()
- {
--	in_defer_scope \
--	    reserved_test 56
-+	reserved_test 56
- }
- 
- reserved_63_test()
- {
--	in_defer_scope \
--	    reserved_test 63
-+	reserved_test 63
- }
- 
--gbp_changelink_test_do()
-+gbp_changelink_test()
- {
- 	vxlan_device_add gbp
- 	__default_test_do 25 "gbp"
-@@ -347,12 +330,6 @@ gbp_changelink_test_do()
- 	__default_test_do 25 "gbp after changelink"
- }
- 
--gbp_changelink_test()
--{
--	in_defer_scope \
--	    gbp_changelink_test_do
--}
--
- trap cleanup EXIT
- 
- setup_prepare
+ static const struct acpi_device_id imx355_acpi_ids[] __maybe_unused = {
 
----
-base-commit: 6db9448a443afde26231aaed7b112ed17b33f468
-change-id: 20261026-vxlan-reserved-tests-f2ceea83bb0c
-
-Best regards,
---  
-Hannes Laimer <h.laimer@proxmox.com>
-
+-- 
+2.47.3
 
