@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794328424;
-	b=dWf2QnOcizSzinXijMDakH6vq6uh6wful1x9LrMLCM0iZrus/DkZY5PWob1yE8AyEsjP
-	 yah+E79vrDfbA7BJ2MqItLR+UwOJ6SgCNi7JJ9BTvSDqV2swCgqlnFOLeGIwWaNuUaHGG
-	 Lmtcopp9/0XG+SpCJjW3UOp3f5ET6wGo5Yi9UMwausv9fLlmdLFTTFACIILQd/QP/bKVm
-	 JUwszokrxQepDPdT6ATskSSM8RMvuIs/PSrQ2MzXVdZR8G+s2uvrtb/p32ZPYjDIPpC+s
-	 j/eHQKmCyjqllGZHFs0TBGt6VrQZ4GzTPq6sUiztcJbC4ByHmzJfxTz3VPLUzSsgX2w==
+	t=1794328406;
+	b=CebtdRYJ5/1loEfFOhRrI4xG2S3hqSg8g6yTEEk0L2TEJVh88StZ2LsaxLw9KDbZGctS
+	 IIij5Vum8LSJHkq1sVevEKQIOEu/p/zvVC8Z3HhO8mEJrotGzcA97ENbo4nReD/nFfs/J
+	 4/cwV7I5R1lvzY7U4wfUhRk8bgrmOPHrJMx1xjkI1mSllihpZoltiYkE0aVBen69f/Coc
+	 qjGV8WgUbL9FixD8r8bKZAG32iwZsDUHKh6TJlxU+A2dLPWz3kXmYQMydnwjVd9pnoNLy
+	 7kNdsSfrY9s/f8+YlMDdUQa+wgVRFp8RC9Lg76+cKz9cXmUvHsvlUD85nKyLifZZQ4g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328406;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
 	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
 	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
@@ -26,100 +26,100 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=lOfEYuUBe6ndDWQJv8TzQxCmohESfL6Ga0KOJmJFfZ0=;
-	b=u4l3mYjdGeU4yw0X+ZnyzByaALegw0Bi6B9tz1v38CHglmqGEEmERQCXifTXxKdLWb/d
-	 LrMXeMe2cOJjt6U0RWCsJ3DtjaaWKoGqkLXDZJKse+KBduSl3SNJNc/Npp/VgU/1OBfDZ
-	 gzmuolEx3GyZZfBzJZzDNg5kucGEAmVccfFMnQttZ1TEQ0jZbUSR4UV9orDrSVgKqMg0X
-	 p98iBkMvnjqdNfP/XLXP/WGErO/2nD4gdh3pqzB0BVjZV1xuImejjOcaInxJEESm5hIV7
-	 Rvw4BOKhlXbRusXl+WWwNKXVFWVB8tfAOiL+8OYXADahPvAqVLqQ5VvfsvNBd0mkczw==
+	bh=GVXyasBrEOY3qWtcfZCzwrJMRX4+XgLztno7hjkpsjM=;
+	b=0NwkJss9QeSZlY3N59Ac+qv3pZ4tQw3G7rOK7TqPvlBjL9DLrDcZ8+VigJtyuiFwhRPa
+	 oqzMbhZu3ZVphbhZvcIkKe2138uIIdwfhI0Shm+g//2XrZtdB6iT0pqlNl/H1KYWHIn4z
+	 HdwfTdqiToAsAbI1nUpMq8H8bvMBlytRPiwMJuCJ6k9bzbk8tGNCo/mFgpWpUS/U2po61
+	 fUWyZqIsCkbSfzDCL0dR1kG0Zp1lPo6csPLYv5J5eT0LgtBykgKCUTJSKwldM5TR3OkWy
+	 2AbCoH3dMw5bIb9r/pqgGrQd4z9X96figObFW4PHwyWIUlEmwSKDgpaVTTk5QLRaDOw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ti.com;
 	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ccIKP9Ed;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b="WjsG/vIf";
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b="cMR/GKxi";
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=jq4bUZwo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
 Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E838A606A205;
-	Tue, 10 Nov 2026 16:33:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E838A606A205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C030606A33C;
+	Tue, 10 Nov 2026 16:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C030606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ccIKP9Ed;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=WjsG/vIf
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AAEwCnP3291768;
-	Tue, 10 Nov 2026 10:33:38 -0600
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=cMR/GKxi;
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=jq4bUZwo
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AAEw2Do2015361;
+	Tue, 10 Nov 2026 10:33:16 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=lOfEYuUBe6ndDWQJv8TzQxCmohESfL6Ga0KOJmJFf
-	Z0=; b=ccIKP9EdrcpGs4WOu5LEvl93u4sTUF1JnxD9fb0Pn9jR+HC53BMBxEGnf
-	47iqimR+gM47hUPzu4F5mFCKWdgd+j90dSR28UmYRc6jhNA2gzq2gYvOyACqZ9Y8
-	PL9b4jP1deerZOhfpHCrcJ4zV/mLtWDHcBX11cL+2kyamhSznDM4MxoVTMxLTeed
-	MbmslJaZaQ9GpEMVqNFO+6cIougtZTrcza7qz1s5bQv1M8hkjGUpAhagWF4TQEKF
-	1KYtZy0T7jBkM27Ojo6hEdbI+KlduKrNwloxbH1J54scGBt1QQ5iKW82yJhwuBDV
-	2dWS9xjADtMP+azVC22kjVQtYMywA==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hv0j0acse-1
+	proofpoint-05-2026; bh=GVXyasBrEOY3qWtcfZCzwrJMRX4+XgLztno7hjkps
+	jM=; b=cMR/GKxiUeVvkHDY07NmzOiRO18ddKJbSeerI79IljMwu2QVD3VurkdWU
+	j7uT3iCRBi8EkIxZ8txADRoGGs0Whlych1a6mLPYCFBtk5qtzASliNh6DUgeO5/X
+	+CzwbHSPjzbofNJQOA21blUd31AuizF5oFaL2+KNq/UVbAUM7yQf7orHNtJ6Yjjw
+	kOn4N7v/PiAdSoZbsvrdKjQNPkn4MBg6FbpVr8W8NYJ8Xv80siKF97BKH21h2CXu
+	5evsmG0GQcf5fu8ucbTpp1+uBR2yCq1Xo1jzv3WcDISRKYLrxkbZishXfnGFel+X
+	djP37W3Ux01zEX/ARY3p5obAq7hIw==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012026.outbound.protection.outlook.com [52.101.48.26])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4huxnx31jx-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 10:33:37 -0600 (CST)
+	Tue, 10 Nov 2026 10:33:16 -0600 (CST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dE8CxH/Tqi9svnR6klUyw7c59t/FYMzK9rMTrK4QDrVlKlB2hvQ+A9apYJoQb6QmHmM4P7v5ysx/qj5fRQ2PzpKUtt+Ky98mcvJMXV8SPFAmm7kC8KFFg06HndnThzskbrWcOuq/Qk4XoXy/wm9Sn/7+l7fB8VhHvAczBBQpdRDrRgPyrPK02aSh0N8mzfWSm0ZDhkl15+LRva1m7K2bmfkFaVIhwWN7pfs9azLGpFwuOEyfQZ+IFelrCPSUqZzVDNRtBtciuwfoZNQt7gdnCyt8whH2nV22vEz22B4IQMf7KtLyo7bxWi+pEl6zZVMD5rsCxuQpLpCOfttlZwEZyw==
+ b=PFs9TqRuE8geVkuF85AlbsxEPdWQ8QndOLM91yuORf2s2UCz0qCKX1tISH8SfOtDH9S89943pfcMHYTnsZKxN4ui8G3rdFr+pxzDU9zNmcPdG0zqWtp0zAPhvcWVXnKgFKtdpWBkqeri4DwZh6eT/vAj6U8wBbyuSwIMyOlqqIMTZK94+okOrT7PlvmUIXcwWykAGWAwJpXBjVROanCtwbx0kz1JuF5FYdl+/aLJocO1KcEopEJ9qTLesun6iwj69AhZpV8pV6jWINlvK/5tbteMPnhaPx9Ff0QWCVp29BHuVQy04eqvOffllyKp5EzroG2yPblqGSlG8aLKQtujRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lOfEYuUBe6ndDWQJv8TzQxCmohESfL6Ga0KOJmJFfZ0=;
- b=RwBNcHsxThKb0KLpJOs3PkMnnmFLHinxTT9amdRd0TfsvtcqYyMJH2M0vGjW1eRrWRZy1aD6paOhqGj/NvlOs7R3GMT3rx0Zs+Eep1fJafBtI3tkW7sI6u9Vm9nA9g6d5lg3dcDs9A8W5OxdLXmkxUQSnnagIxDi4wN1Hpv5+rmqeh5JrdoeTezt5xqkFF3Ct9gEG19bWaBjPsVhSt2CMn/qr+gQCOHUmOAs6K7RGO5PwkYJn/da8+C0KzvUUieQg1PFTLpHm+hnWIPK5OGtPYl1hFr8Mlr1kgzYudrgeLql1lPT2cglriSPvJuI1JeBmSPb6SAlcNlaUgGlZVjEEw==
+ bh=GVXyasBrEOY3qWtcfZCzwrJMRX4+XgLztno7hjkpsjM=;
+ b=vBW09fbF53n+yfR0tqYafs6XwJattT2j0268UQkbAEjHbd1HJfIGmhnudOv+M2Ad2lnJlvSXAS65N6fc++L+nA1w+g69edPGLX9yJT6/B9aBLFv95f7+PDPwu+phmaECbRvY7k6r7oEf9DLkfSjV1NH7PWF7QvrOUFZ/eXxWzXeYohMyvQN1PlePS6TTFFVpeC8rmkUzkAVrHiW1HG0MdTo7GMFIZUw/TgrCK9em3mwENqhxE2VGMXseHHP6NxDPxIKM3E0hiIITrmF2iXwvLJp2BGHd/OIyQAGbmcIkbEeHSjBka2JeY/jAiuI1guNLSLN1bu0fooahEa+kWkdc4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.23.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lOfEYuUBe6ndDWQJv8TzQxCmohESfL6Ga0KOJmJFfZ0=;
- b=WjsG/vIfIHfzaYXu4FFDRoPoXWMEhm5GOmEP6j9n7OLe6nWHTND/2BaZWKHWlCLUA7xDJeKHTY/vYXOSWUAerSF77hBNhVyz9lQ7xxkC2aMmHdeZ1o/uxCppqKyC15OdDoGk+7qdxxy9Yj6hZ7QlmStRiQjM3FBf0oNIY+WpO5Y=
-Received: from MN0PR05CA0006.namprd05.prod.outlook.com (2603:10b6:208:52c::31)
- by SN4PR10MB997897.namprd10.prod.outlook.com (2603:10b6:806:4ff::6) with
+ bh=GVXyasBrEOY3qWtcfZCzwrJMRX4+XgLztno7hjkpsjM=;
+ b=jq4bUZwog5XrsRbn4RNBL2AXjmZZjpcsBG0uGXfYbEzt1EqSlm91+F+HBei+lNiBweiFmrO2V8E1EAr/UOw38irIe9NecBh2KcWXjccqSz7ib0A8yoBflv/HAFamUsSBb1+ZGIPmOewioYcKISO0FuQD5QacgIu36ii8cGETC2Y=
+Received: from SJ0PR05CA0109.namprd05.prod.outlook.com (2603:10b6:a03:334::24)
+ by DM3PPF7961280CE.namprd10.prod.outlook.com (2603:10b6:f:fc00::c32) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 16:33:34 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:208:52c:cafe::9d) by MN0PR05CA0006.outlook.office365.com
- (2603:10b6:208:52c::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
+ 2026 16:33:06 +0000
+Received: from BY1PEPF00026957.namprd05.prod.outlook.com
+ (2603:10b6:a03:334:cafe::af) by SJ0PR05CA0109.outlook.office365.com
+ (2603:10b6:a03:334::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 16:33:33 +0000
+ Nov 2026 16:33:06 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BY1PEPF00026957.mail.protection.outlook.com (10.167.244.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 16:33:32 +0000
-Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 16:33:05 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
  2026 10:32:50 -0600
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
  2026 10:32:50 -0600
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
  Transport; Tue, 10 Nov 2026 10:32:50 -0600
 Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AAGWoH61141135;
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AAGWoH71141135;
 	Tue, 10 Nov 2026 10:32:50 -0600
 From: Brandon Brnich <b-brnich@ti.com>
 To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
@@ -127,10 +127,10 @@ To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
         <linux-kernel@vger.kernel.org>
 CC: <k-willis@ti.com>, <jai.luthra@ideasonboard.com>,
         Brandon Brnich
-	<b-brnich@ti.com>, <stable@vger.kernel.org>
-Subject: [PATCH v8 3/4] media: imagination: e5010: Update e5010_init_device Call Sites to Ensure Proper Device State
-Date: Tue, 10 Nov 2026 10:32:46 -0600
-Message-ID: <20261110163247.48712-4-b-brnich@ti.com>
+	<b-brnich@ti.com>
+Subject: [PATCH v8 4/4] media: imagination: e5010: Enable autosuspend for runtime PM
+Date: Tue, 10 Nov 2026 10:32:47 -0600
+Message-ID: <20261110163247.48712-5-b-brnich@ti.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261110163247.48712-1-b-brnich@ti.com>
 References: <20261110163247.48712-1-b-brnich@ti.com>
@@ -147,130 +147,229 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|SN4PR10MB997897:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39ef07cc-3770-40d8-bf99-08df3f485c1b
+X-MS-TrafficTypeDiagnostic: BY1PEPF00026957:EE_|DM3PPF7961280CE:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9a76afc-03e5-463d-18ec-08df3f484c33
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|261028144727099003|261026140227099003|261021135927099003|56012099006|261021121427099003|261022105027099003|261021123027099003|261022075727099003|261022115727099003|261009223027099003|261026121527099003|261102123227099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|10067099003|261026121527099003|261009221227099003|261021135927099003|261026140227099003|56012099006|261022075727099003|261021123027099003|261022115727099003|261022105027099003|261009223327099003|261009221727099003|261009220027099003|261009223027099003|261102123227099003|261021121427099003|261028144727099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	OlBFVAPs0oGNebaFDkOAqJIuebXyUtALlUwgm54wUt+CEwo+0wRHcmc9CGHXmaeX/wqPnPntWx9kMOBZ+0/vLzeOWX/cu1w6ktbXJHDOsXjz19YiISWp3w+NluMmtiP6csUdp7QdC+N860lGILT7wJi71EHhlhxFt2yVpt4wK14pOGOziGZ6zh7AtwHkcql5Xp1+DUF4N8djCS7OHg2vCjTJfaODKcYZZJPydTdhi87p2XQZUsM1m8M2txG9LwnltkHKrK9dMUcyGnHnuNR7k5xmBi8uWodlcDzwLg4EuREt4hGaOyqYMB7iWrdOcT7pFiOdOiM4mpYc+at3lpE+CRt9P5RQKmyTGCV0sj8QpJAbk78HRKHYpNzQF8YngUhmQ+LeghvbQiItJBEqJAAMEDZ4munjibJQRB2H0cjuV62GwmhnatAGTmVJt7/+8DtAtfhHATDx4ws/Is3Z3Y2q7Q+mnLtW4Q9KT2QmbKVqlsEgc5dK+zLlfGaoyknZt6eM1Xmg0jNeP70M9JVBOAcskCSfN8emeXA/Bl3RwssJczQGrZWIRBLEDPhwFQoJsO+u8q69Q+tGevdbTE+Bx2LPfurW/dNkOO+uwjHRBhy+EZfhALvBoLs5rrh5kxEECf0CHq1NbFScZCMojCknBfKm4VeobIDdB7SXNMztxt6SDFvhfXvn73DMi/T7CuRt6vehmukukxaj7P2SNzGkxJDVBw==
+	evYACfRJ/RkV6vqbpgOYU0uN3fH6zAy65crvQ4D1s2c1Rg9dsoC7Dq9/qgqx6XChfMwZan07qt9BreYlFlPy4SAottwR7TsRiA5NsDRN0lWEnD/wzu8BR4MaA9zgbFagseEExQogaS19bxM5wiSU9qtGODw/Sv6zzNE6gHAY/G5FkpgM7BzgTHSIp6qEr+Zg7lAgHXBVXjNgQyb3MJ5xw393Cp8TSInp57xWfvLcQZMuJkkRyq1jWENa5zxKIMZQTia7crXe9cmThczZQLyKYxPDjOBgojYZzAYTm//T6Ppq/IqbpZVz881LLWHOOGzaMpLEZo4/Tyh2jl7XIqnSf1SUFPRE8mhXiUzw3xvJStWBbGbYyzy183Mul9mFLaU7OLmeOXTRsWv8oIFD7PLx+ZJdYoLq1AqJkU5BXQNBbaFxC8YEDMxY8bUpZrExN5DgxJZ4xJUKv2rc2AtcvnKWX3IRqpRIR2BmR0YxAjxLIRUx7R+L8dt+VwGlDA0zCYg197WBLU9ptedmHnYNXd59oc4mig9bD1FAjmMY6RgL86YPH8m4UnfCPL3WTXgKuMGg/PgRmAZHAqaf5BEw/ZsHwQpH2yRHCbvrdI4omE5z5/RHdggqF1YbGesh9VbuVcts6C7q2xVqHMEChnBA9ZskTTfblJlBclwyJhW1IiEtbkMwO/6FyWmoMrNJdwpu4qzrysIvD/Kl7Jc/SBLgx3oSvg==
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(261028144727099003)(261026140227099003)(261021135927099003)(56012099006)(261021121427099003)(261022105027099003)(261021123027099003)(261022075727099003)(261022115727099003)(261009223027099003)(261026121527099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(10067099003)(261026121527099003)(261009221227099003)(261021135927099003)(261026140227099003)(56012099006)(261022075727099003)(261021123027099003)(261022115727099003)(261022105027099003)(261009223327099003)(261009221727099003)(261009220027099003)(261009223027099003)(261102123227099003)(261021121427099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	SwSQx4KKlhA5WVsh/Z5PFE48rgEh8cvLcPGJ9ebk8sPiQLDeIH+kuLssHA1JMagtqFApvgDD7QLD7+oE6pf3Y7LJQy/Md7OTIsg16ef7z7eBQHppYVZE+gk2HrxdiFT2mLwm6UHbHFcDkDXR+XWOaSaFO2GIuKYKfGuvQQ3VoSZRp76e9Vp1+MzshLSIzInQ4LxTrZ6Yqg3MXCiJXNklwLUPOXg7uyeFo5JVpt+X0HLUVe9kWhakTkd1AkSjiIJN626bpLc+4VRLFsTQA3Yly7XeVNf7NhELpROWXgsptPcW7/8o7Yy1BqhVt5A/rXuneitYxV+17prjkYThtx4Lae9TzLI5X8dUvr9/CbjBkEB7spzbuS5W4ugBs+eQLk8/Fp2CQGF2Ef2gwNhmxBbGsmrVpQ+i0NGMPynWST9bz30+utkqXmvJhUxbu87/tKZK
+	+sVad2cV2mQJW9L/+iW2kNxT/3I0jY9uKneLAK59ljvhD68iEqqAiFiEmmT7Pvun8euc3QiUl3aeM/jQ5RcQjWzJ3Bo/EDfL55aAh7myGtuJbv0vtoYqYWlTGMP8aTOccn9Q7OvrGuB4ispd+lVP0K2eTotwtrXKU0z/6BocMAQ42xubWaXgEKiIc4Sa/wsYTIn4j3OrwoWDClkAadruRsqfnkzm5g9WCIkZxbiHp4A/elSgzAkrBTOVkRajb8HxrQDyy4ibjCQLK0lvIhJHyPp65D3l6tFLLDu5braCkmOs/2fEx5lgEBZ6NWeFcDtejUJOe1UFiobVkLw9xnCa+CUSEuJBF/Gv7ALR1EQA0DmQKMNKkLWxCPQLddwltxYXBA5ycGGFFaNhpKiv6UtZLbrbVEgXo3htVXuk7iaZxRwRZtGUGUnD8Aaph1fiDqwp
 X-Exchange-RoutingPolicyChecked:
-	fW9E/WhFbKatXcpwgy0hwi/VwlV7Eu51DlAsMPZ/kC/U1UiVA4QczypE5HqIoDSHLKxKFOaMcUWjk53UrNaFxim544woL9OAViV1dPVZtO9UXVR2hMZCoRf7kraC5CLmdLuE+KLcMv6qMDKUrjM8BbhTUbt51wJ+vG9W5h4n9H6yEs5lgNYg3Uo2TU4oaWTpc5PULULKy2C1JKPIy45aVPBePkcrKAXV11/NKJuKyygd7CuuBDnrOh3JBDBUaLETnUzcsXFYMeBERVxpYV1VPIAl6ezbGbSiPdmouRCsCcHIM8+FNz3Br+8ATwdnlffduHbHGqnrsH599e83DveiFw==
+	YpakTKaapAi0qDvitVTpYGf1wgV85zdZCnT8tjn389rT78d0Ok3DWDYewRvkbbp6FSkLrdm2aPUVCZ/zMLQWeJkq5655hWI+HTUXm7gJ3GGQf2PV2YnidStWW1bEdJRfu4/z79lRUz2hUkVStYoVoooTwzf+mPure5im8aeO3gTXReymql4C2xncC59stmSv2VZU5WCMu+kF3GgKRNp1BkuxAonifpN4K1d+4uJn5PW5UtJmylCoqp3CBmqtKwfTz5IwjYk5/3bbVxqEfn8KcBiJ4oiPC3aZsu3KADfJo7yeWOlsW0EyJJUzImytG4C7OzEOA/2VyZKh3glmXIjh7Q==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:33:32.4150
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:33:05.7171
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39ef07cc-3770-40d8-bf99-08df3f485c1b
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9a76afc-03e5-463d-18ec-08df3f484c33
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FC0.namprd04.prod.outlook.com
+	BY1PEPF00026957.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR10MB997897
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX03j20QgntMnS
- Pn5gscWYoz5YAYuL5dXgVZhBvdWsyQ69cc+ahI4XYqRH/bxWNor3kJnv9edyRT31ybRS07YwtSQ
- LHXTmOmdDU249YKILAyHUD6LDSn391u4XGWMUR4RJoNsM9bX8QdeQJsJLVNwTNiNXcEf3z7W9z3
- pc+y9SWwJ/D5QDwCK9DtwANX+6otD+ETiuWuZHwbHLowfQDLIWHdtkYBZgfaMEORwG4EkO6+UA/
- W/EJQzPQZYc0UUb+XPOUz2/nzOZRAXx/8WDsYM0B9wb5TNPJrUS18rFpZo1vMRL4FUAJKHzH4Ep
- Y+ONmsipzyuyHX5Ef4zEQOg7UdiVPlHAdoDhbENweLt/vWBnELrWkYnH3LwC9GFctydijrpSdNN
- 5PGlo6aUaKz1ruP9rygAVkP365F104RTJpdZyBGdbEia48EDVbDMZ1B0nPmmu7LX93PIQllNur6
- LuIHqNAqTHmq3ANtIgg==
-X-Proofpoint-GUID: 1BGqea9aGS7Ky_voXpEEkE4U0Es4wsTz
-X-Proofpoint-ORIG-GUID: 1BGqea9aGS7Ky_voXpEEkE4U0Es4wsTz
-X-Authority-Analysis: v=2.4 cv=BrgIUoX5 c=1 sm=1 tr=0 ts=6af34761 cx=c_pps
- a=w9jTARCbdo3hRO6w7Rsibg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=Jee-tNXcj7xYXxj2UzcA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX3CdHaFSYwJJ8
- 1OzgdHaMg7o9fmS8EAOyZvvzpQ4nfcskRx/IlMXH5ZmENGElTbwTmf0OW4+1W22Y5l+EdgokjJM
- vtkkUQFDWDiGrE4Lw8aDXNnoYToiJV8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF7961280CE
+X-Proofpoint-ORIG-GUID: Ku745aHFfeoVdtPj3erakvvsPFotAt1j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX3/9zNdg79vG2
+ J8fLFPCc2U7Ii0ccw9CeFT+se32qYz59C+a2QMTo0V9f4YAoY4jfZdHg2VipFTkxD6lu06iCr0c
+ QJgZUV8iskbfI2YORAaCyguDUQSqrp4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX0nBSLYbMfcZ8
+ Udksz65sKmWJb7NHfgx6rcwcWqrVVcYVOtELsibFc7+sNSThN0gwGKbqLdt6Gz0WGYIJNl5Bmh1
+ QIhzE0V74rkrHRh+v8LSbzi5UwmLr9OZ3T3U1fzugT2amZ6ZGegKzxj1YPtgyXchL7BD1cgMYll
+ h7XDcxtHE+qnAsc5W5kxfkE0bY8KdFw3bjFYEmDx/YHpZlFLaBVBqBRmScFuuN+PDf/QC86gWbv
+ 7gwi3gUiNeCXtK7zQGa+Qk+cBMIRezQBhP8od2Jk+UdVsr4VDG778h7Gj6PseGtK01HfRmvMOin
+ VOXL5/bluoAhJUUJ6JgeAVQ3nasD7fGd/XkMgL0Tw2VBI/f+jMGQFlA+/iOcYSPbUdK1q7DqBHI
+ zqRO9GdCRuFYmPOaauhE4skIEUEYvme/oB7N0bw6JakyZj58g3xveucyg7yrWaoVU0hnIzDrMTD
+ yZyY5bm3NU2TpRlK1/g==
+X-Proofpoint-GUID: Ku745aHFfeoVdtPj3erakvvsPFotAt1j
+X-Authority-Analysis: v=2.4 cv=b4cncdGx c=1 sm=1 tr=0 ts=6af3474c cx=c_pps
+ a=NPM8+NhlmoQiEOpqaaNCjw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=aRswYXHNUpzWL3HiacYA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100065
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 bulkscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611100065
 
-The PM framework skips the runtime resume hook if the device was never on
-in the first place. This results in a crash in the system resume hook when
-a call to e5010_init_device attempts a write to a powered down device.
+Current implementation only has one call to turn the device on -
+start_streaming. This can waste power of system as the device can be in
+STREAM_ON state, but no buffers are actually being submitted.
 
-Move e5010_init_device to the resume hook to ensure register write only
-occurs when device is properly powered on.
+e5010_init_device is tightly coupled to runtime resume hook with
+autosuspend addition and has been removed from start_streaming accordingly.
+However, there is the case where runtime PM is not configured which would
+leave the device permantately uninitialized. Add call to e5010_init_device
+to e5010_probe to account for this case.
 
-e5010_init_device needs to be called after e5010_reset for next
-device_run to have all registers properly reset. Without this call,
-register values are stale. Similarly, e5010_last_context_run should be
-set to NULL in e5010_init_device so the next device_run call does not
-use stale QP values.
-
-Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
-Cc: stable@vger.kernel.org
 Signed-off-by: Brandon Brnich <b-brnich@ti.com>
 ---
- .../platform/imagination/e5010-jpeg-enc.c     | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ .../platform/imagination/e5010-jpeg-enc.c     | 48 +++++++++----------
+ .../platform/imagination/e5010-jpeg-enc.h     |  1 +
+ 2 files changed, 24 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-index 17ea616ff1795..4e77112b59197 100644
+index 4e77112b59197..3c7c5f121a32f 100644
 --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
 +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-@@ -986,6 +986,8 @@ static int e5010_init_device(struct e5010_dev *e5010)
- {
- 	int ret = 0;
+@@ -976,6 +976,7 @@ static irqreturn_t e5010_irq(int irq, void *data)
  
-+	e5010->last_context_run = NULL;
-+
- 	/*TODO: Set MMU in bypass mode until support for the same is added in driver*/
- 	e5010_hw_bypass_mmu(e5010->mmu_base, 1);
+ 	v4l2_m2m_job_finish(e5010->m2m_dev, ctx->fh.m2m_ctx);
+ 	dprintk(e5010, 3, "ctx: 0x%p Finish job\n", ctx);
++	pm_runtime_put_autosuspend(e5010->dev);
  
-@@ -1488,7 +1490,9 @@ static void e5010_device_run(void *priv)
+ job_unlock:
+ 	spin_unlock(&e5010->hw_lock);
+@@ -1101,6 +1102,8 @@ static int e5010_probe(struct platform_device *pdev)
+ 		goto fail_after_v4l2_m2m_init;
+ 	}
  
- device_busy_err:
- 	e5010_reset(e5010->dev, e5010->core_base, e5010->mmu_base);
++	pm_runtime_set_autosuspend_delay(dev, JPEG_AUTOSUSPEND_DELAY_MS);
++	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_enable(dev);
+ 
+ 	if (!pm_runtime_enabled(dev)) {
+@@ -1109,6 +1112,11 @@ static int e5010_probe(struct platform_device *pdev)
+ 			dev_err_probe(dev, ret, "failed to enable clock\n");
+ 			goto fail_after_v4l2_m2m_init;
+ 		}
++		ret = e5010_init_device(e5010);
++		if (ret) {
++			dev_err_probe(dev, ret, "failed to init device\n");
++			goto fail_after_clock_enable;
++		}
+ 	}
+ 
+ 	ret = video_register_device(e5010->vdev, VFL_TYPE_VIDEO, 0);
+@@ -1123,10 +1131,12 @@ static int e5010_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ fail_after_clock_enable:
+-	if (pm_runtime_enabled(dev))
++	if (pm_runtime_enabled(dev)) {
++		pm_runtime_dont_use_autosuspend(dev);
+ 		pm_runtime_disable(dev);
+-	else
++	} else {
+ 		clk_disable_unprepare(e5010->clk);
++	}
+ fail_after_v4l2_m2m_init:
+ 	v4l2_m2m_release(e5010->m2m_dev);
+ fail_after_v4l2_register:
+@@ -1143,10 +1153,10 @@ static void e5010_remove(struct platform_device *pdev)
+ 	video_unregister_device(e5010->vdev);
+ 	v4l2_m2m_release(e5010->m2m_dev);
+ 	v4l2_device_unregister(&e5010->v4l2_dev);
++	pm_runtime_dont_use_autosuspend(e5010->dev);
+ 	pm_runtime_disable(e5010->dev);
+ 	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		clk_disable_unprepare(e5010->clk);
 -
-+	ret = e5010_init_device(e5010);
-+	if (ret)
-+		v4l2_err(&e5010->v4l2_dev, "failed to initialize device after reset\n");
+ }
+ 
+ static void e5010_vb2_buffers_return(struct vb2_queue *q, enum vb2_buffer_state state)
+@@ -1307,31 +1317,13 @@ static int e5010_encoder_cmd(struct file *file, void *priv,
+ static int e5010_start_streaming(struct vb2_queue *q, unsigned int count)
+ {
+ 	struct e5010_context *ctx = vb2_get_drv_priv(q);
+-	int ret;
+ 
+ 	struct e5010_q_data *queue = get_queue(ctx, q->type);
+ 
+ 	v4l2_m2m_update_start_streaming_state(ctx->fh.m2m_ctx, q);
+ 	queue->sequence = 0;
+ 
+-	ret = pm_runtime_resume_and_get(ctx->e5010->dev);
+-	if (ret < 0) {
+-		v4l2_err(&ctx->e5010->v4l2_dev, "failed to power up jpeg\n");
+-		goto fail;
+-	}
+-
+-	ret = e5010_init_device(ctx->e5010);
+-	if (ret) {
+-		v4l2_err(&ctx->e5010->v4l2_dev, "failed to Enable e5010 device\n");
+-		goto fail;
+-	}
+-
+ 	return 0;
+-
+-fail:
+-	e5010_vb2_buffers_return(q, VB2_BUF_STATE_QUEUED);
+-
+-	return ret;
+ }
+ 
+ static void e5010_stop_streaming(struct vb2_queue *q)
+@@ -1347,8 +1339,6 @@ static void e5010_stop_streaming(struct vb2_queue *q)
+ 	    v4l2_m2m_has_stopped(ctx->fh.m2m_ctx)) {
+ 		v4l2_event_queue_fh(&ctx->fh, &e5010_eos_event);
+ 	}
+-
+-	pm_runtime_put_sync(ctx->e5010->dev);
+ }
+ 
+ static void e5010_device_run(void *priv)
+@@ -1361,7 +1351,6 @@ static void e5010_device_run(void *priv)
+ 	unsigned long flags;
+ 	int num_planes = ctx->out_queue.fmt->num_planes;
+ 
+-	spin_lock_irqsave(&e5010->hw_lock, flags);
+ 	s_vb = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+ 	WARN_ON(!s_vb);
+ 	d_vb = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+@@ -1369,6 +1358,14 @@ static void e5010_device_run(void *priv)
+ 	if (!s_vb || !d_vb)
+ 		goto no_ready_buf_err;
+ 
++	ret = pm_runtime_resume_and_get(e5010->dev);
++	if (ret < 0) {
++		dev_err(e5010->dev, "Device failed to turn on\n");
++		goto no_ready_buf_err;
++	}
++
++	spin_lock_irqsave(&e5010->hw_lock, flags);
++
+ 	s_vb->sequence = ctx->out_queue.sequence++;
+ 	d_vb->sequence = ctx->cap_queue.sequence++;
+ 
+@@ -1493,6 +1490,8 @@ static void e5010_device_run(void *priv)
+ 	ret = e5010_init_device(e5010);
+ 	if (ret)
+ 		v4l2_err(&e5010->v4l2_dev, "failed to initialize device after reset\n");
++	spin_unlock_irqrestore(&e5010->hw_lock, flags);
++	pm_runtime_put_autosuspend(e5010->dev);
  no_ready_buf_err:
  	if (s_vb) {
  		v4l2_m2m_src_buf_remove_by_buf(ctx->fh.m2m_ctx, s_vb);
-@@ -1517,6 +1521,13 @@ static int e5010_runtime_resume(struct device *dev)
- 		return ret;
+@@ -1506,7 +1505,6 @@ static void e5010_device_run(void *priv)
+ 		v4l2_m2m_buf_done(d_vb, VB2_BUF_STATE_ERROR);
  	}
- 
-+	ret = e5010_init_device(e5010);
-+	if (ret) {
-+		dev_err(dev, "Failed to re-enable e5010 device\n");
-+		clk_disable_unprepare(e5010->clk);
-+		return ret;
-+	}
-+
- 	return 0;
+ 	v4l2_m2m_job_finish(e5010->m2m_dev, ctx->fh.m2m_ctx);
+-	spin_unlock_irqrestore(&e5010->hw_lock, flags);
  }
  
-@@ -1549,12 +1560,6 @@ static int e5010_resume(struct device *dev)
- 	if (ret < 0)
- 		return ret;
+ #ifdef CONFIG_PM
+diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.h b/drivers/media/platform/imagination/e5010-jpeg-enc.h
+index da57bc1baa464..807821ded127e 100644
+--- a/drivers/media/platform/imagination/e5010-jpeg-enc.h
++++ b/drivers/media/platform/imagination/e5010-jpeg-enc.h
+@@ -23,6 +23,7 @@
+ #define DEFAULT_HEIGHT			480
+ #define E5010_MODULE_NAME		"e5010"
+ #define JPEG_MAX_BYTES_PER_PIXEL	2
++#define JPEG_AUTOSUSPEND_DELAY_MS	100
  
--	ret = e5010_init_device(e5010);
--	if (ret) {
--		dev_err(dev, "Failed to re-enable e5010 device\n");
--		return ret;
--	}
--
- 	v4l2_m2m_resume(e5010->m2m_dev);
- 
- 	return ret;
+ /* JPEG marker definitions */
+ #define START_OF_IMAGE			0xFFD8
 -- 
 2.43.0
 
