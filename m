@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298933;
-	b=XxHuXLuGyA+qxHMHRyP0fKtnefNbTWrzXF4S/P2JF1b93mQHI2dDEWFqKKIxsHq77IfS
-	 7sQedXTf0dKButt4Bbs4JNUB5g+LNKQ0V/TtnFBAlCuN5JxMZtS9AX28OxmLK6XieMJAf
-	 O18uxDsA3nZ020l3uFtdG4/sKvTupJa2iSZ1j7FFHarfRfyKIjgmGQHL0wZaNBpXyVkqd
-	 B1i9AJ/MR2kRum2H+csYJkf6HPXIJ63oO88n6ab2mLoq4wUzzGUIA9g+54MICjhARR8mL
-	 QjAgvS60RVZ8oJvSamGhuApCoFiuBZtna39JhbxXC6Zy8Ta+SuRplIkNO6+czAGONMg==
+	t=1794298992;
+	b=Eqlgumm7dobgZFgvmma4PvKuoc+Wj+1DiWryypjv6jyVd1Alqofw9uiLspQZVbyFEXX3
+	 duXlW9DLLnrFT50mFeVTq4LEwDV1uL2Rw/X+cV0XJnfn9cwy6GFFgPwvl6ZXRu9yyEAFT
+	 zGAxBJw/0SwJ1o3ebkG/1KRruGkM3KMHcvi6JaWVmDNFE7vlrM7PnwtRbgan9yHKIX9HE
+	 tFLoMILS3JGUk7tS7+c9oSE6jUdK6jkRUDptZo9quDGpDl6kexurD7ceb4IV+sbUGaYhE
+	 dDMfmZnTgQtmgG6/smpIdDvLLxuyKl55HGTtzYHFkUaPd/0pKBIG9xDICqtzHBjsuUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298933;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HnrGMq+cn2NOMNsMWSOnoWmFXpZJHPxXccfXvP/driY=;
-	b=jqUOLZcaHOCzbjeszrQDTENI3FflV6lfwo09F1p4+q0uPAcsw4iv+PJCQ4XoZ6ViWD1q
-	 H/NJid8rB+6Gj4w33LF4+ODF8zL/Gz21mfGsjIAZkdoTAvQ5Kcw3mH6VnrReBS9f2wjJN
-	 hNqqGx0FaF6HwV7PnsCXX3EASHyr5eEASzmMm2MUPdjSgq6Lp/XKD6maDWscABeKOgvVI
-	 D7zolZ5sa7PpqF68wq/0WHaeLYIFAR9N9tyOXvyc8m3HDEfpoe5QMUMw4ZebS7xE20ikG
-	 ReHgjjqlgt2JfJzgzFjlyg9IJuNYoZOrIIlnOybEXkrszxbiaYxe7nEfzrtB294ReQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298992;
+	h=DMARC-Filter:DKIM-Signature:From:Subject:X-Original-From:
+	 X-Lms-Return-Path:To:Cc:Date:Message-Id:Content-Type:Mime-Version:
+	 X-Mailer:Content-Transfer-Encoding;
+	bh=KnpGxHncAo0Zik1LXhxMT/JZ7malhv2rLRIQwcX0R+U=;
+	b=sajZWCmI94Ygv2JpY/6M90jsQAOWgBcEl2BR2gkmedZsd32K0Dfq4IR+sJKb06IFy2uf
+	 Jo1LpxiFZqrPRi2dtldNbbLdokcMKmOgSwS+JBh3UYGmkT5UPfc9WFepExknMut4SMmg9
+	 KiXB5njHUwBmd2HzGmMbdtAlPLpptu5TvBV2OHR5e8L3KnIZy3QYJIhoXKH1/TMz3ZrZc
+	 QhxD0WqhwwL6yOyzOBKxeAjR+fdMpptOl6HbADJpJnHl3nVl4+5qZv5O40rgiWI4bjDKl
+	 bSZYlJCCR8dYn5qN3of1JbfnrkEhEpzkVu4UzLtfgJFTyr/neHnHrBuWkCI/xWKJEEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flE9mZh+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QGv1NQJj;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F416606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:22:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73318606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:23:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73318606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flE9mZh+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057AB1F0089F;
-	Tue, 10 Nov 2026 08:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298933;
-	bh=HnrGMq+cn2NOMNsMWSOnoWmFXpZJHPxXccfXvP/driY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=flE9mZh+QHHyaCINvho2iTZoK/5U1LoVKzl1hLVatdoLJOlGhe0dBbpCEZcB0khkc
-	 nrVeZ/0hBLEiLzdZHtiK5rt3HsTWotiqpjTXOTPi6QwJckdboOBdk+fAElKQNflmYv
-	 Pt6rYtirwpFnCesLjlWMDzMQnaqucjrwqLyjIv8TKvMI4No2SfRKDJ43tnvspsCnNd
-	 5L2R8z5AcQmSbT60hRuDtAnbttg4pQJCMRwhNhyIxeW2voLlZBLtvgszX5Lu6At6/U
-	 FglrtYsoOqIxvxtjdt1lJUug3PgG29W8AW5dT6pLiaC2WBpeOxbC7FV1Et2+zAOAKj
-	 4qoct87rG7Dfg==
-Date: Tue, 10 Nov 2026 09:22:06 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nicolas Schier <n.schier@fritz.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Jan Stancek <jstancek@redhat.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/4] x86/boot/compressed: Mark process_mem_region()
- index __maybe_unused
-Message-ID: <avLULiGClSYFVZAE@gmail.com>
-References: <20261109124816.61438-6-blum@kernel.org>
- <20261109124816.61438-9-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QGv1NQJj
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794298985; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=KnpGxHncAo0Zik1LXhxMT/JZ7malhv2rLRIQwcX0R+U=;
+ b=QGv1NQJjadlnxkDsZM4fwAN9W6UA7hzhdqZB1DapSdXAPjXFD6IK1t0SzTHkzFlEkN11pO
+ 3UCwhdywKJpMEBM1hB+OFYrMFIvLDVeddP+sZqVVE/3yVBrppM8nt0n8q+O8EgkGTV/mgP
+ y6pxBSdsKl9eOTUPV0x4sPkBDDgRuL3SzvLb9pteOHMDA4OOghGpIlRltN2EDgh2SBghb+
+ zqs5PwTKB+8PSPUffDL0drFkFX6uCGLuMoy9F8eN11l1vWUCKzjC0Fo6vc7iJcBf1WwiSp
+ wn/5+QX0LtdW1L6LCKiDcb3XC3GmvjX+8TpKIjkuQGn083X6P6T+2zzBU5Pd4A==
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: [PATCH] io_uring: cancel pending poll activation on ring exit
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af2d467+8954a8+vger.kernel.org+zhaogongyi@bytedance.com>
+To: "Jens Axboe" <axboe@kernel.dk>
+Cc: "Pavel Begunkov" <asml.silence@gmail.com>, <io-uring@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Date: Tue, 10 Nov 2026 16:22:46 +0800
+Message-Id: <20261110082246.18986-1-zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,45 +61,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109124816.61438-9-blum@kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Content-Transfer-Encoding: 7bit
 
+The first poll of a DEFER_TASKRUN ring queues activation task_work on
+its submitter and takes a ctx reference. If the ring closes while the
+work is pending and the submitter cannot run it, exit_work waits for
+the reference and eventually warns.
 
-* Thorsten Blum <blum@kernel.org> wrote:
+Cancel pending activation before waiting for refs. If cancellation
+succeeds, release its reference here; otherwise the callback does it.
 
-> The local index variable i in process_mem_region() is unused when either
-> CONFIG_MEMORY_HOTREMOVE or CONFIG_ACPI is disabled.
-> 
-> Mark it __maybe_unused accordingly.
-> 
-> Reviewed-by: Jan Stancek <jstancek@redhat.com>
-> Reviewed-by: Nicolas Schier <n.schier@fritz.com>
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  arch/x86/boot/compressed/kaslr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/boot/compressed/kaslr.c b/arch/x86/boot/compressed/kaslr.c
-> index 290153818d0f..6f95092fa97e 100644
-> --- a/arch/x86/boot/compressed/kaslr.c
-> +++ b/arch/x86/boot/compressed/kaslr.c
-> @@ -599,7 +599,8 @@ static bool process_mem_region(struct mem_vector *region,
->  			       unsigned long minimum,
->  			       unsigned long image_size)
->  {
-> -	int i;
-> +	int i __maybe_unused;
-> +
->  	/*
->  	 * If no immovable memory found, or MEMORY_HOTREMOVE disabled,
->  	 * use @region directly.
+Fixes: bca39f390585 ("io_uring: add lazy poll_wq activation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+ io_uring/io_uring.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Please improve the code instead of uglifying it with an attribute
-of uncertainty. 99% of __maybe_unused uses are unnecessary, such as
-this one - let's not introduce new unnecessary uses.
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 5db57bf675f0..bdf996955f68 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -2593,6 +2593,10 @@ static __cold void io_ring_exit_work(struct work_struct *work)
+ 	struct io_tctx_node *node;
+ 	int ret;
+ 
++	if (ctx->submitter_task &&
++	    task_work_cancel(ctx->submitter_task, &ctx->poll_wq_task_work))
++		percpu_ref_put(&ctx->refs);
++
+ 	do {
+ 		io_ring_ctx_cancel(ctx);
+ 
 
-Thanks,
-
-	Ingo
+base-commit: 39c7210e970200f8b17de3767c73efe64173a95f
+-- 
+2.39.5 (Apple Git-154)
