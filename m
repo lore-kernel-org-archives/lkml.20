@@ -1,104 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794332146;
-	b=XjiJO5c4HS8FB87PTSZtgU0yNdZKioUgIkQ07M+b+A6g1I6C2iDaKViBejls5nD0tci0
-	 /k0uJX7SIImYm6FCzzTofpbFGdPalw/sBH9JQSQ59p+LKFtueZIYEwhN0/KL0sll5rIEL
-	 ePfap7ZPN5/fS9tSaj66BIEBkid0HFBL3QE2X5Cl+PD4I+7oSURGo68yd82yzK7qECXdd
-	 1gTbd04ID45qet2ZPzqrwzj9jPb7M13MNA/CzfyF370cDj8oc+XGMNLck+58ZtYaCIotp
-	 FJICrVtmoo37XvNOj5znN1pxTMZPGEBtWWbUUAUySX4IiNIPuKX1IjYMNBnqnG++UJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794332146;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DpHXja1Sn1bdSvrQOfHx8aWnL8JCMm8nde+yLXZQF3s=;
-	b=GQ5klPTXZW1F6cWp1IDbm5SBVfKpUVJFx067gxcjMQldYqCy48Nt2ilxG6zxCiTdV7Y5
-	 Br5XjQRSjis1zFzdR8nr9Z/DVjtmqAbyyq5WrwEhytmJ3xOS+ounzjpwIfodT6V9nkjfU
-	 75yuDaY5qyqjTyLaQoQaZkdunEGpKnN9+5196ajJqSxIpJpzxNyvAlaROV2VNbc89WbP1
-	 rXbN1RZcfHrsZsK5wovDpIKP7wlPB6PUCPP52hGd+POc83p6NgzfXzlDCza8luDTqmsdG
-	 /Z1Us2eCHessrko3Ww2AUZI6mwkj9U8bBBTAtU8spnytfwSIVuioXClleYSokxEkHNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=USfhEz7z;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="LtZ/Gh2Z";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794332163;
+	b=nOf7vq+9XKQgRGpavPagmR92bcuBdyr2i7MEZWrWNhs0/HseQznzGUSFHFDbBEw0YwX7
+	 hWUT0kCWKTKSXj6K1RJrrZuUrJpkzuAi8sz0A1W6hTu2dq9jV9L6CiDyLHwy61+q6m4qn
+	 GxsBzhgp+WUtgrZWkELsveyccIO/Z21nrX5HtherFKyIVf61qpfehDJmrr9WI6NDJITkn
+	 hvnzT18b7eSd+kC/gDABcQT/AO4cYbxu7hTEsQaf3ZZI8vrRcVzOplXCJ6yjZdFE267Q8
+	 CnKqMepCOMaruuNzbJJ1H5bM7/vk9sEUxIJb3a/8xLLTexsMRM8BwbO2U6P09hS7wFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332163;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nILCuq7jMxm7d27HT5TDaY5X6pBpHEWOImzMthFhFVg=;
+	b=XD8iMfTGQ6nFiJgIxxCgbn9gnAxy1PjrfnwgrhFEX4w8MZ/nzgQV5gDWWxkBJv+Fe20V
+	 9B7A8uVAY5K13/R+RwKDSxrgJxD6PgdIZ+TtC9FOKcZzaGEO1zTZhwN5I0y2ygbzh9NnI
+	 zieMHxUyyqG3A2DlWDPo9+Uw095qMsqT0qXM/kfPaXaSyi5t1qaVO50gl+OgIEfPB8N4k
+	 K9G5UZ4dul3H5bahhD0TbequOcY+h4brK3YDWgjeDuTL3xI6ei7MLXo4ao4iKblirCxqu
+	 JRHzEgES9QX8/cFCylw/wkZ7obTYql7gdvnNspmm7BKhc8dGY2WZHj9qmalWa635NFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gUoU5rnk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427C260A3813;
-	Tue, 10 Nov 2026 17:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 427C260A3813
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC347606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 17:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC347606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=USfhEz7z;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=LtZ/Gh2Z
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794332143;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DpHXja1Sn1bdSvrQOfHx8aWnL8JCMm8nde+yLXZQF3s=;
-	b=USfhEz7z3M7tZULL0Z2g3eqP6mkHtv22zuCMv1tPoHsPq2JeLB9De9QKVdT7zOcV5eNLEg
-	U+Hp1bKWsdyG8ddxQvlMay/IRk76Kxbt/v8hRhWg6O7YH8r9+dTQhANNGkY0I1xC/A+RvT
-	Q4+cA8OHhLD/bHOEWiDKu4hogrUoxMmelYjew91/0sktiVjf6mkZRu60mNJZ2Ub6M4lcZ2
-	zy+lbiAjSWhyI3GTM0xhG5GZRaBXG6DJ6XrpcspwdbgO+VgO3tM+L7vxcHJqiLO8WVcBGh
-	6VokIDa6fd8+wRU0fOHj3gWZ5NUJM2gzUbhyYGCLM4mJRBtuZFQhnGI1+pI+bw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794332143;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DpHXja1Sn1bdSvrQOfHx8aWnL8JCMm8nde+yLXZQF3s=;
-	b=LtZ/Gh2Z9flFrNxCM/fMtnBzop8G/rHkqkJJJIEDlCG/7immcnNVkKynNWyFJDgEf9m5VE
-	1L8y0HYQHgde53AQ==
-To: linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
-	Qais Yousef <qyousef@layalina.io>
-Subject: [PATCH v2 6/7] sched: Add sysfs files for the per-CPU fair_server knobs
-Date: Tue, 10 Nov 2026 18:34:48 +0100
-Message-ID: <20261110-sched_dl-v2-6-cc9399f7aeb1@linutronix.de>
-In-Reply-To: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
-References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gUoU5rnk
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4ced671398so289001466b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:36:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794332161; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rTCmjvn4/NP9JJOGfFEVIKxk2VHm/qFpDZRgdaG+DWwqzYermRe4LmJ/QGrQ5CA+jn
+         6GT8VVtN/EvDY+exSFvG926vb88hVxDnNTlyJxwGDMDsjv2dtL5rqpFRLMSLBFO+7iXX
+         9UXCJNlS02E6pfgE1H2p1U66WgW05yhSssQ9YggEytYnAL9jjryhwpnXS5HTpLoxg3eG
+         LyR6k6QoLji1Mk0fwdne7HORwo4A8FaePEu7BsHrYS1BFfYFG5ZihOeuul2qMuPx82Su
+         vDl2N1jcpyHgJ8AU+1xBrPD/muoieaPV0wCsEso5aQaK/k7iRolyQVp6ZIeC13RGD84W
+         sv9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nILCuq7jMxm7d27HT5TDaY5X6pBpHEWOImzMthFhFVg=;
+        fh=dpfzKIz4N71KaeLAOjzc2Ud058LyRnK1LoT1TllygWI=;
+        b=c8eCCspr1zXP7S8x/o+NM49Zi8towBvKulB0j3Jen3yqpYUFRwdKJJIVlDzrpNPgcS
+         U2mbbcYuKHm5OoX+vGNmTaOCWpA74LTUvgLTW8Dpw4XM8XU6xdnggkjnQ/6mrZrLUi8X
+         LQkpcC40sZSYdSHR8BEzxpUocdtkI/y173hnILlk17m4Q6YdLoeeidRmP1YqV4qFOTZl
+         HrPuy2+yMOe+3trXTxbRNzK9Ky4iS1Rzd3Mpuecb0J1D8PxMYvB5neuiGYqu9T0KEGhz
+         yvgxUNyTr9zs1xcdCwsSCBSB7Ah0HdythdMNBkv6Pp9xmFdM+gEVeb3x9vhv23swWCsm
+         OD7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794332161; x=1794936961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nILCuq7jMxm7d27HT5TDaY5X6pBpHEWOImzMthFhFVg=;
+        b=gUoU5rnk5T2tZSIumF6DSTL6bWo0JNyZVhXpAjbquAG5R7hOMhSkq4uOA+O8KbW653
+         Fts8GrSnaSSzRcbBQBnIWFLylRG99vBCHvgt/0S1H8wsD+Op3Jg5y0W1nS6j/ZVpTzTv
+         Iu4hkkxsDO88vyd3oFKaEH6afo0GVjORHAcsNbqZWA21Wr+IaqjoN7F1feirtPAytxds
+         Lje+n1D7P2ulhHQ1K9hbyJdBUFdArTkBZapnl14pT8oDkkJEoCBaUJaaM5FzDmy8JVYa
+         n6ZaQulYilojEEcng/a0bY6s8ST0DD/qdrVs8iErHBXcbdZaio15Ayf+rj7cLOrJHY4N
+         f+rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794332161; x=1794936961;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nILCuq7jMxm7d27HT5TDaY5X6pBpHEWOImzMthFhFVg=;
+        b=TCst18fHKiMFHzPUczmh+DDENXbNBvgf0/XLXW4VoXNxxWIVKXTmmiimgb1lUro8Cf
+         tN0Inz+KDrkSSCDvbxtBK96eclAevhERHjfPRAkREtAm11A+35PGEWRssC0UNxQRneh2
+         vYY584ARaoxAI1+QaNVQhlsm1UrUS8+SEI9WM/TQlRzB+/sTPi6prxej/RjITmD0FHQi
+         vhMxA0KKpGQugiGtu3HJIRIlat/OvzZpQiY16I83+hYqqdZZRGsA4yxf/1T/ZUj5WUNg
+         afm39srraDEeCNiOjIJqIpkCoQkVrcKNx+BNLt9+njkd4spP7qeYtCJDLgEAdVf0leTs
+         9hJQ==
+X-Gm-Message-State: APuU4Z/NJOpYwKEf4avZMjAJSvi1i7uC1taOnhCsPYtN9+u6Xcm9ixny
+	iqbk9UTgsCQs8+ul191mwZOUG+WBgnEnH5ikoD5vluD5EmQlEPTiQS17zZx3+htcEpEnupTJXCp
+	dxUl88yuc9+ay+kf78IPdbRKu2wghlMN3fF0qhXQS1Q==
+X-Gm-Gg: AYBFou0wsmk696clV8LyVvmn9VJXNr2dpRnpFjchczUNEZ+/IMp2YzAHnMCiWlDPw8V
+	oMJOaZGZprrWDbfX8NIUKxZ62eHkiiWYztjrpnZGbT8jR/rgaMPNEheHQMIvPjX0Sb1rognW73U
+	PJQfScy6DEM8b8OHNAbiTp56m2WJAb5HRYMGYJD6xLXYCiGVaxm/AtOLKaIoxGlx4EbriGp/KDq
+	l8dJfDG5mGec7WwKfyAmzYtO31h3rtjPicEkqInLt8TmFpN/JCbpvPhK6qUhyXxs8KmGlcCuwun
+	Gzu/Ddcohug3TWRkUwilGHWyjxviTRIibYKS6HiwTrcKyJ6c1wKZPmSCx8CIdBqUwMxPlGxxhAR
+	Uakn4h52qwv4IpSQC0ook+wXcCz48MGsJ56Q1XyG6NuGPY1hhK0hzro7pCajXZAKhXaRZzQ==
+X-Received: by 2002:a17:907:9488:b0:c49:cdc8:10cf with SMTP id
+ a640c23a62f3a-c5049647c0emr274411866b.40.1794332161182; Tue, 10 Nov 2026
+ 09:36:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,332 +103,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+References: <20261106160621.347228-1-marco.crivellari@suse.com>
+ <20261106160621.347228-2-marco.crivellari@suse.com> <au5RmN37RlOCp2m9@pavilion.home>
+ <CAAofZF6_JpSDNSKUuePiJx+74tbRH8vJ4spyNGp9KbjFPrbA0w@mail.gmail.com> <avMdOa44c5qvryuH@localhost.localdomain>
+In-Reply-To: <avMdOa44c5qvryuH@localhost.localdomain>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Tue, 10 Nov 2026 18:35:49 +0100
+X-Gm-Features: AclHuK-jUPcZJAEQdgEP5KvCYJlT0f9Lp6j9m5kPRh-4aU2yPsCfZVUebR1cMJU
+Message-ID: <CAAofZF7KAnd0xpOcgKDs6yDL9vmbON3xRAK360BBuzEpwJzu9g@mail.gmail.com>
+Subject: Re: [PATCH 1/3] tick/nohz: Re-evaluate the tick on polling idle and
+ on user entry
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>, 
+	Ingo Molnar <mingo@kernel.org>, Michal Hocko <mhocko@suse.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Anna-Maria Behnsen <anna-maria@linutronix.de>, Thomas Gleixner <tglx@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The fair_server exposes the runtime and period knobs per-CPU in the
-debugfs folder. The debugfs interface is not a stable ABI.
-Make the /sys/kernel/debug/sched/fair_server/cpu*/{period|runtime} knobs
-available as /sys/kernel/sched/cpuX/{fair_server_period|fair_server_runtime=
-}.
+On Tue, Nov 10, 2026 at 2:33=E2=80=AFPM Frederic Weisbecker <frederic@kerne=
+l.org> wrote:
+> [...]
+> > With the hunk, the stopped tick firing for the first timer sets
+> > TIF_NEED_RESCHED, the polling loop exits and the tick is reprogrammed
+> > for the second timer within a few microseconds; the 10 iterations
+> > captured take 0.92s instead of ~18s. Without that hunk, the CPU stops
+> > spinning on an unrelated event.
+> >
+> > So in my understanding tick_nohz_idle_exit() program the tick only for
+> > the earliest timer; when it expire, the tick is stopped and not
+> > rearmed in tick_nohz_handler() (HRTIMER_NORESTART). Without setting
+> > NEED_RESCHED if another timer has been queued it has to wait for
+> > another event that set NEED_RESCHED.
+>
+> Hehe, you're right :)
+>
+> Let's try another strategy then. TS_FLAG_INIDLE is what tells nohz_fool w=
+hether
+> to manage the tick through the idle loop or through the IRQ exit.
+>
+> So why not calling tick_nohz_idle_enter() on each idle loop iterations? T=
+hat is,
+> from cpuidle_idle_call(). And call tick_nohz_idle_exit() right before
+> cpu_idle_poll()?
 
-It adds a struct kobject to the rq and exposes only those two. The
-per-runqueue folder is named `cpu' rather than `rq' since it might be
-more intuitive to the user than `rq' or `runqueue'.
+Aha, sounds good! :-) So INIDLE is set only when really "in idle" (eg
+no polling).
 
-The set logic is pulled from the debugfs folder but it is still shared.
-That debugfs logic could be removed (after providing the same for
-ext-server) or symlinked for a while.
+> Then you can remove tick_nohz_idle_restart_tick().
 
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- kernel/sched/deadline.c | 152 ++++++++++++++++++++++++++++++++++++++++++++=
-+++-
- kernel/sched/debug.c    |  56 ++----------------
- kernel/sched/sched.h    |   8 +++
- 3 files changed, 163 insertions(+), 53 deletions(-)
+Should we remove only the call or also the function and its declaration?
+I'm asking because the call we're going to remove is the only one present.
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c5a2499a1450a..b574135f45e7e 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -4131,6 +4131,59 @@ void print_dl_stats(struct seq_file *m, int cpu)
- 	print_dl_rq(m, cpu, &cpu_rq(cpu)->dl);
- }
-=20
-+static unsigned long dl_server_period_max =3D (1UL << 22) * NSEC_PER_USEC;=
- /* ~4 seconds */
-+static unsigned long dl_server_period_min =3D (100) * NSEC_PER_USEC;     /=
-* 100 us */
-+
-+int __sched_server_write_common(enum dl_param param, u64 value, struct rq =
-*rq,
-+				struct sched_dl_entity *dl_se, const char *sname)
-+{
-+	u64 old_runtime, runtime, period;
-+	int retval =3D 0;
-+
-+	scoped_guard (rq_lock_irqsave, rq) {
-+		old_runtime =3D runtime =3D dl_se->dl_runtime;
-+		period =3D dl_se->dl_period;
-+
-+		switch (param) {
-+		case DL_RUNTIME:
-+			if (runtime =3D=3D value)
-+				break;
-+			runtime =3D value;
-+			break;
-+		case DL_PERIOD:
-+			if (value =3D=3D period)
-+				break;
-+			period =3D value;
-+			break;
-+		}
-+
-+		if (runtime > period ||
-+		    period > dl_server_period_max ||
-+		    period < dl_server_period_min) {
-+			return  -EINVAL;
-+		}
-+
-+		if (!cpu_online(cpu_of(rq)))
-+			return -EBUSY;
-+
-+		update_rq_clock(rq);
-+		dl_server_stop(dl_se);
-+		retval =3D dl_server_apply_params(dl_se, runtime, period, 0);
-+		dl_server_start(dl_se);
-+
-+		if (retval < 0)
-+			return retval;
-+	}
-+	if (!!old_runtime ^ !!runtime) {
-+		pr_info("%s server %sabled on CPU %d%s.\n",
-+			sname,
-+			runtime ? "en" : "dis",
-+			cpu_of(rq),
-+			runtime ? "" : ", system may malfunction due to starvation");
-+	}
-+	return 0;
-+}
-+
- #define SCHED_ATTR(_name)					\
- 	static struct kobj_attribute sched_attr_## _name =3D	\
- 	__ATTR(_name, 0644, sched_attr_##_name##_show, sched_attr_##_name##_store)
-@@ -4253,13 +4306,110 @@ static const struct attribute_group sched_global_a=
-ttrs_group =3D {
- 	.attrs =3D sched_global_attrs,
- };
-=20
-+/* RQ */
-+#define RQ_ATTR(_name)						\
-+	static struct kobj_attribute rq_## _name =3D	\
-+	__ATTR(_name, 0644, rq_##_name##_show, rq_##_name##_store)
-+
-+#define kobj_to_rq(__kobj) container_of(__kobj, struct rq, rq_kobj)
-+
-+static ssize_t rq_fair_server_runtime_show(struct kobject *kobj, struct ko=
-bj_attribute *attr,
-+					   char *buf)
-+{
-+	struct rq *rq =3D kobj_to_rq(kobj);
-+	struct sched_dl_entity *dl_se;
-+
-+	dl_se =3D &rq->fair_server;
-+
-+	return sysfs_emit(buf, "%llu\n", dl_se->dl_runtime);
-+}
-+
-+static ssize_t rq_fair_server_runtime_store(struct kobject *kobj, struct k=
-obj_attribute *attr,
-+					    const char *buf, size_t count)
-+{
-+	struct rq *rq =3D kobj_to_rq(kobj);
-+	u64 val;
-+	int ret;
-+
-+	ret =3D kstrtoull(buf, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret =3D  __sched_server_write_common(DL_RUNTIME, val, rq, &rq->fair_serve=
-r, "Fair");
-+	if (ret)
-+		return ret;
-+	return count;
-+}
-+RQ_ATTR(fair_server_runtime);
-+
-+static ssize_t rq_fair_server_period_show(struct kobject *kobj, struct kob=
-j_attribute *attr,
-+					  char *buf)
-+{
-+	struct rq *rq =3D kobj_to_rq(kobj);
-+	struct sched_dl_entity *dl_se;
-+
-+	dl_se =3D &rq->fair_server;
-+
-+	return sysfs_emit(buf, "%llu\n", dl_se->dl_period);
-+}
-+
-+static ssize_t rq_fair_server_period_store(struct kobject *kobj, struct ko=
-bj_attribute *attr,
-+					   const char *buf, size_t count)
-+{
-+	struct rq *rq =3D kobj_to_rq(kobj);
-+	u64 val;
-+	int ret;
-+
-+	ret =3D kstrtoull(buf, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret =3D  __sched_server_write_common(DL_PERIOD, val, rq, &rq->fair_server=
-, "Fair");
-+	if (ret)
-+		return ret;
-+	return count;
-+}
-+RQ_ATTR(fair_server_period);
-+
-+static struct attribute *rq_attrs[] =3D {
-+	&rq_fair_server_runtime.attr,
-+	&rq_fair_server_period.attr,
-+	NULL
-+};
-+ATTRIBUTE_GROUPS(rq);
-+
-+static const struct kobj_type rq_ktype =3D {
-+	.sysfs_ops      =3D &kobj_sysfs_ops,
-+	.default_groups =3D rq_groups,
-+};
-+
-+static int sched_create_rq_sysfs(struct kobject *sched_kobj)
-+{
-+	unsigned int cpu;
-+	int ret;
-+
-+	for_each_possible_cpu(cpu) {
-+		struct rq *rq =3D cpu_rq(cpu);
-+
-+		ret =3D kobject_init_and_add(&rq->rq_kobj, &rq_ktype, sched_kobj,
-+					   "cpu%d", cpu);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
- static int __init sched_dl_init(void)
- {
- 	struct kobject *sched_kobj;
-+	int ret;
-=20
- 	sched_kobj =3D kobject_create_and_add("sched", kernel_kobj);
- 	if (!sched_kobj)
- 		return -ENOMEM;
--	return sysfs_create_group(sched_kobj, &sched_global_attrs_group);
-+	ret =3D sysfs_create_group(sched_kobj, &sched_global_attrs_group);
-+	if (ret)
-+		return ret;
-+	return sched_create_rq_sysfs(sched_kobj);
- }
- late_initcall(sched_dl_init);
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index e6a3b516c703b..0e0782603a99a 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -363,23 +363,13 @@ static const struct file_operations sched_debug_fops =
-=3D {
- 	.release	=3D seq_release,
- };
-=20
--enum dl_param {
--	DL_RUNTIME =3D 0,
--	DL_PERIOD,
--};
--
--static unsigned long dl_server_period_max =3D (1UL << 22) * NSEC_PER_USEC;=
- /* ~4 seconds */
--static unsigned long dl_server_period_min =3D (100) * NSEC_PER_USEC;     /=
-* 100 us */
--
- static ssize_t sched_server_write_common(struct file *filp, const char __u=
-ser *ubuf,
- 					 size_t cnt, loff_t *ppos, enum dl_param param,
- 					 void *server)
- {
- 	long cpu =3D (long) ((struct seq_file *) filp->private_data)->private;
- 	struct sched_dl_entity *dl_se =3D (struct sched_dl_entity *)server;
--	u64 old_runtime, runtime, period;
- 	struct rq *rq =3D cpu_rq(cpu);
--	int retval =3D 0;
- 	size_t err;
- 	u64 value;
-=20
-@@ -387,48 +377,10 @@ static ssize_t sched_server_write_common(struct file =
-*filp, const char __user *u
- 	if (err)
- 		return err;
-=20
--	scoped_guard (rq_lock_irqsave, rq) {
--		old_runtime =3D runtime =3D dl_se->dl_runtime;
--		period =3D dl_se->dl_period;
--
--		switch (param) {
--		case DL_RUNTIME:
--			if (runtime =3D=3D value)
--				break;
--			runtime =3D value;
--			break;
--		case DL_PERIOD:
--			if (value =3D=3D period)
--				break;
--			period =3D value;
--			break;
--		}
--
--		if (runtime > period ||
--		    period > dl_server_period_max ||
--		    period < dl_server_period_min) {
--			return  -EINVAL;
--		}
--
--		if (!cpu_online(cpu_of(rq)))
--			return -EBUSY;
--
--		update_rq_clock(rq);
--		dl_server_stop(dl_se);
--		retval =3D dl_server_apply_params(dl_se, runtime, period, 0);
--		dl_server_start(dl_se);
--
--		if (retval < 0)
--			return retval;
--	}
--
--	if (!!old_runtime ^ !!runtime) {
--		pr_info("%s server %sabled on CPU %d%s.\n",
--			server =3D=3D &rq->fair_server ? "Fair" : "Ext",
--			runtime ? "en" : "dis",
--			cpu_of(rq),
--			runtime ? "" : ", system may malfunction due to starvation");
--	}
-+	err =3D __sched_server_write_common(param, value, rq, dl_se,
-+					  server =3D=3D &rq->fair_server ? "Fair" : "Ext");
-+	if (err)
-+		return err;
-=20
- 	*ppos +=3D cnt;
- 	return cnt;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 5f99f5ef415e7..8f813d9df0cc5 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1432,6 +1432,7 @@ struct rq {
- #endif
-=20
- 	atomic_t		nr_iowait;
-+	struct kobject		rq_kobj;
- } __no_randomize_layout;
-=20
- #ifdef CONFIG_FAIR_GROUP_SCHED
-@@ -3507,6 +3508,13 @@ extern void print_cfs_rq(struct seq_file *m, int cpu=
-, struct cfs_rq *cfs_rq);
- extern void print_rt_rq(struct seq_file *m, int cpu, struct rt_rq *rt_rq);
- extern void print_dl_rq(struct seq_file *m, int cpu, struct dl_rq *dl_rq);
-=20
-+enum dl_param {
-+	DL_RUNTIME =3D 0,
-+	DL_PERIOD,
-+};
-+extern int __sched_server_write_common(enum dl_param param, u64 value, str=
-uct rq *rq,
-+				       struct sched_dl_entity *dl_se, const char *sname);
-+
- extern void resched_latency_warn(int cpu, u64 latency);
-=20
- #ifdef CONFIG_NUMA_BALANCING
+> Just be careful: tick_nohz_idle_enter() and tick_nohz_idle_exit() may now=
+ be
+> unbalanced. If TS_FLAG_INIDLE is already set, tick_nohz_idle_enter() shou=
+ld
+> return early and tick_nohz_idle_exit() as well if !TS_FLAG_INIDLE.
+>
+> Also IRQs may now be disabled while calling tick_nohz_idle_exit(), so it =
+should
+> use local_irq_save() and not local_irq_disable(). OTOH tick_nohz_idle_ent=
+er()
+> should always expect IRQs disabled.
+>
+> So the purpose is to move cpu_idle_poll() outside the dynticks idle logic=
+, then
+> it's safe against nohz_full timer management, the tick keeps being stoppe=
+d if
+> possible and it's only restarted for dynticks idle.
+
+Ok, I think it's clear.
+
+I've already started implementing the changes. I will send v2 with all
+the changes.
+
+Thank you!
 
 --=20
-2.55.0
 
+Marco Crivellari
+
+SUSE Labs
