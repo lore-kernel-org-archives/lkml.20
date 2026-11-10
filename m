@@ -1,118 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328467;
-	b=aMmlc1slWwz9BjjVbR8ntcfDR8bO0zg/pwTbg7zWVaDsBHd+dHrxg4b5t6iJa8p/dgNV
-	 +hptVy/viAxd4lyJZbzkC2Sd6jE7V2F1aTajt6U8WUG/uMjL4m1XX+FkXuboWzqfWR6lB
-	 h6V+T7luSsaxO2a2NKjgn25hNLywyOclyTWYwqC0SdiIT32EY9EoUrS2c2Lqskd3Y3Kb3
-	 BIyhZhI2E7teGV1sbAhiTdnhW99dae8Y09piKMh9yt11uZnVA3WVghnPXLXtBE+miv/4v
-	 OIjk+BXDjzSqxN3iQeuMRsc7Z51oizvBLYuljLvJltTYYFwZ7uLlCypUJwXgPZ89ipA==
+	t=1794328483;
+	b=iWTk5BoijEKBW3VrrhM9kt11GCMKCtkgU+lpzPAEVEyjYEu5pQtFWvmysl7aNb3Eb4Fs
+	 8xBfLl0eDiy9opwC/8pSrCH4CxuSXDHfm9bFwL0CIiYKWMqC6Qvp05BKwoCQwx6KSqfgA
+	 jy3js4GlRhsHnD/SJidoxCnzfzs5vTG9RJQ0bGRcJMvsTd+B2OrIffXxR1XOsJFn0ZOyG
+	 0n8m4YhLN5FHaJdvBRmxPvxjHpkBo4mSzhOUCK99tLCQ5X/Ku6xYaju49ZCrtz5EI3lVR
+	 eR2mKxKLf8I7RBrwPsVe1LjmKZ1lj90xw3NaRoySLP6YbjXYFKf3C57HXnN9Z5Ptxlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328467;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=y+V2JxIlVOChITFgo1z9lTreH4E5kp3RpfFu+UewLVo=;
-	b=l2HSmJdyXEdQxQslpMDMIMH0y5m46yBeHXQP9ULwnak+s3kGYtlm8Xs/Hid2pWM8b3bW
-	 Gb+6YtBZzEBBiM6bjs7RjRj8H0PCjCgm8qjLuUtmuP5ceZowU8EzsgOWJ+HEkakD/Vx7B
-	 P+fJXNJcpTI9nYhRwCdwcCaY3dQZU0EA8khdIuaftOivTdpfPxnenFYg9ZYPf4d/SLZrJ
-	 HwRr8zbJguTe1bYlzzaYN7CaPLEpWMHUOLfj8MEdQnIPZD4ji5h83k0RS1fa8ZorLBkjU
-	 4MFybolv56L4jw3vS/SDvZaHgr6cEM44Gl6y2tY5ptGVnTuf7m9hSmf7/8W2HWcirwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328483;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=A/5LL2oP+jZw6FK1LnyXF4yA4UCBdbE9fOMI+QqDcr4=;
+	b=ohvuQ74HSQOR+NUt2xJCWFDzDR/rWOOZaPAA8LVH6INvev6rJ9hPIpylQOMrBlJGtUCN
+	 k2Qpa/CKMv8EkYS3oub1hODDFqVA8b9xN2cwGGKRbZL6fwUxdJxZoK+aQ77jsxFGblLtg
+	 KliM3uwq1/8DPY6FaDwh+vIHVvHDmySHHxXVGIQmZ2G073BvCUnJJBuxofa9TTDQKQzd4
+	 lOuYlmC0YSfm1PHX8C9fV2n/xKaYajqUcMJoX/DEF8ZVzBQDiKuKMSSUj9rEcAMiCLQ+L
+	 oYP9DIaN9wScww2hX2Zo9HSkiItAEqrgl3dfrN+WKZ2yBKeUZOOyLtLB501uwFmnQlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fSy8tcC5;
-	arc=none smtp.remote-ip=209.85.222.43
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rkv4JPct;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57542606A8A3
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:34:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57542606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2C6606A205;
+	Tue, 10 Nov 2026 16:34:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D2C6606A205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fSy8tcC5
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-98c7798ce74so590879241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:34:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794328466; x=1794933266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y+V2JxIlVOChITFgo1z9lTreH4E5kp3RpfFu+UewLVo=;
-        b=fSy8tcC5IqRPJ8T9YRj22z1qFAkPgpRi2kcT3apWfgMEplaE1W0onrcdvaL/BL/ywE
-         rOSS0ydfaat3r8gteyf5+yftpLD+2I78ebj6isd5tSmAO9uXKA6drfZE2fPbEDLgB8tv
-         4nj5eU6BbFuMME+jx7QiJhMbdOwnH56XkB3/HT/fr1ZGQooLEtuVaD6KLZUnJ4xbTN5H
-         VkTk3pY/yOZ/w9fPvBKK5wNUDrb1f6zcpKrwD0C4hM87Oys5nnQ81EVXkI7GaiyDb9rK
-         5iOj/aarsL/qQFbE1WK3Ho0Kl6BxOfVqScOWNlF4Xqlcyi87wAdVUnIdMg2NDVulzXnv
-         hkjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794328466; x=1794933266;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y+V2JxIlVOChITFgo1z9lTreH4E5kp3RpfFu+UewLVo=;
-        b=ntBayhDHiu8kMrmwFTr3EjXY1RuuiLorps77e6EzbZeLse94CHXm9KgL45v/Qk/5e7
-         tn+A0mxzD94BIK7O91uPiP89OJ1NbnJ2GI+YPgnxHbntfoT95oSZTDknqHLrEdoPlG6/
-         /j/uJfCt0S+eCp9dcKjBz9M94QzDgRe11XI9zwH3bqLm3yDdCqa2B8Z22WFHLMgLpTOL
-         thE2BQryMDgE2wZgj4Stvs/uLJetqs7YJcV26JHn/CbBPx6ncviDGyOzAlmTujZ8v4cu
-         S+bcatko3YD4ssZQo6vR/+4isO8w4GUwhn/xTg2M9zt6MxmrKWu8YZhX4Nag7B25/adJ
-         e8Yw==
-X-Forwarded-Encrypted: i=1; AL+hErGz7GEAlYYI4RClPCS/Cp9rHTErrhfXSRnuEyWglhSth4Y/0qrJBYHHnnhwTRYS9VotyDtlZv81gLcnLEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Vinn+Dh+ExmVO8LQPg7PxuZmdqsPb/KAUvF2F9lM1hBudmreg
-	Gy7xQ9OWz70b/Wbr4MZv4MPk17JERpk0NMkR4cNEGHrZRSKnFeas0SGb
-X-Gm-Gg: AYBFou3MQIijMurr2zONIK9z7CJu2AfNjalmtKJv4kiyhD/8WIUd9B+i6eNMrS+R9lJ
-	LM5infP+A5szsch+yXz64DUwL2i2Drid5FfBYzmPEEysCgYMdda5mhsLTXKAp/DOe5SgvStSfZ4
-	QVITrnQ9ktO136Zc12YtnfNXYPnaTonmo9EbPez7cmxqXYgHmU+3ZfooPiUiYHEjOIrJkAlqFoH
-	C/yFLbcVr20GXlooHmZnUfKRx6oX9Q/VSNv4psROXgygO7OsUAUqtml/SkvbO2/ojY/A11+6jit
-	QnfxLLctwcCU0quTPr+UryGnKO9zN02/48qPtkm7DRA8AHqyLoI/5eQ6DhJ2tCbO8f6WhCoKroc
-	v0kl2Wxsqt5rDnkKys5fWyETZH/p2zLtpDoYWdC/zBK8WTvHYJfKBGi3GtvcpSks4SqpWpAdUq5
-	JenadsE2uW/36hkMk8fSLjjcn70BKN+2Tm15+3nP7dEsW1IfnjSTZCgclli91MD6/qJLIrdLAm8
-	ximv+k9QF2Udo7q49Bpb32MgLXKARYW+vO0qGL8/gzIAP+sGqkKA6QKXM/xyXbe7eg0awL5GFnH
-	3SakZoVJTr2czzdjTik8UQYk/jtfSaNKWFUV0CxbVHJli1RftQKRSRjjBhtJXdjXq521JtccuP+
-	H8nB8c55bZUfgIncNZ5igQ9vc98G6mAJjwrWG+vRIuG8XZwh25bzlgMmQzQmWhkV3d3CkgXqTDZ
-	dS0cqal7znaZ2WbFyU
-X-Received: by 2002:a05:6102:c54:b0:7b5:7cd5:2a1b with SMTP id ada2fe7eead31-7d301b9d79fmr866580137.10.1794328466169;
-        Tue, 10 Nov 2026 08:34:26 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c200838f0sm2147394241.9.2026.11.10.08.34.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:34:25 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:34:25 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- kuba@kernel.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- Eric Dumazet <edumazet@kernel.org>, 
- virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, 
- kvm@vger.kernel.org, 
- namangulati@google.com
-Message-ID: <willemdebruijn.kernel.4096b48e9e59@gmail.com>
-In-Reply-To: <874ido29iy.fsf@pengutronix.de>
-References: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
- <willemdebruijn.kernel.1d6388f036c46@gmail.com>
- <874ido29iy.fsf@pengutronix.de>
-Subject: Re: [PATCH RFC v4 0/6] virtio-net: add receive timestamp support
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rkv4JPct
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794328482; x=1825864482;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=62tf4jRuBAhAw6YJUn1Bb7RvCWjFNxKFAHNol+T/IT0=;
+  b=Rkv4JPct00/26/YOS2cK1WBkM9XyYe+Gp2gA5vSE9P8OByRlKEbeBUlO
+   bzF9uy2UeotZNyJCibxVo1AVQ2We79eW5ZJJHJ1zr5pP9HYVgKh7tEiQT
+   xF8gI9i1P68COMOFRSek1lPrls7P8S0oKvRyTwWVyBJHHNY3ThS1gIhmi
+   RCaPhGtZCvDcYkhaIaiEb0kT5zapitt76HaT6RsUfQVHdLZB/yfGR/nJU
+   u4fwA7dPlTTxvAgedQAIwP6PS17nAHbnP9bLz+G9xxsDmcdxHgwyIn21N
+   PIbDsHY7yd8JDIo59hj1GJuPUDKjICputJvxWuQKcXDa+McBLloC90Qay
+   A==;
+X-CSE-ConnectionGUID: CE+w0Lv0TM6W6ebYvDZ1Mg==
+X-CSE-MsgGUID: kSlkoRDkTDaGn2msKAaSKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2974631"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2974631"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:34:42 -0800
+X-CSE-ConnectionGUID: jGJAXPcdRle/P09ygKzg3g==
+X-CSE-MsgGUID: 4EeMYk2fRkuNsMxdZCUkTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8629844"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 08:34:39 -0800
+Date: Tue, 10 Nov 2026 18:34:35 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>, linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	git@amd.com, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Subject: Re: [PATCH v5 16/16] iio: adc: xilinx-xadc: Add I2C interface support
+Message-ID: <avNHmwYFsrpN99Nt@ashevche-desk.local>
+References: <20261110050201.1850399-1-dileepkumar.nagavarapu@amd.com>
+ <20261110050201.1850399-17-dileepkumar.nagavarapu@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,91 +85,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110050201.1850399-17-dileepkumar.nagavarapu@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Steffen Trumtrar wrote:
+On Tue, Nov 10, 2026 at 10:32:01AM +0530, Dileep Kumar Nagavarapu wrote:
+> Add I2C interface support for Xilinx System Management Wizard IP along
+> with the existing AXI memory-mapped interface. This support enables
+> monitoring the voltage and temperature on UltraScale+ devices where the
+> System Management Wizard is connected via I2C.
 > 
-> Hi Willem,
-> 
-> On 2026-11-01 at 09:57 -05, Willem de Bruijn <willemdebruijn.kernel@gmail.com> wrote:
-> 
-> > Steffen Trumtrar wrote:
-> > > This series picks up Willem de Bruijn's work on a virtio-net receive
-> > > timestamp. The device puts the time of arrival (TAI, ns) into the
-> > > virtio-net header so the guest can use it for PTP and RTT estimation
-> > > without taking the timestamp itself after the host-to-guest latency.
-> > > 
-> > > The series is an RFC. I am mostly interested in feedback on the
-> > > approach and on the wire format:
-> > 
-> > At a high level +1 from me.
-> 
-> Thanks!
-> 
-> > 
-> > Some comments inline.
-> > > 
-> > >  - The timestamp is a new field at the end of virtio_net_common_hdr
-> > >    after outer_nh_offset and ipsec, offset 32 (see virtio spec),
-> > >    negotiated with VIRTIO_NET_F_RX_TSTAMP (bit 49). Header size now 40
-> > >    bytes.
-> > >    Willem noted on v3 that virtio_net_common_hdr was not meant to be
-> > >    extended this way; I kept it as the simplest approach, but a
-> > >    separate struct for the timestamp header is an option.
-> > >  - Timestamping is enabled at runtime with SIOCSHWTSTAMP; all
-> > >    supported rx filters behave the same for now.
-> > >  - XDP programs can read the timestamp with
-> > >    bpf_xdp_metadata_rx_timestamp().
-> > >  - vhost-net passes the feature through; the timestamp itself is
-> > >    written by tun. The tun patch is only meant as a reference
-> > >    implementation for the device side.
-> > >  - The timestamp is in TAI.
-> > 
-> > Is this a requirement? It is common for PHCs to be synced to TAI,
-> > but not 100% the case. Does virtio need to specify this.
-> >
-> 
-> No, I don't think it has to be TAI. TAI is only what the tun reference
-> implementation does (ktime_get_clocktai_ns()). What the guest really
-> needs is to know which clock the timestamp comes from, so it can compare
-> it with something.
-> 
-> One idea for the spec change: don't fix the time base in virtio-net at
-> all, only say the timestamp is in nanoseconds of some device clock, and
-> let the device tell the driver which clock that is. virtio_rtc already
-> has clock ids with a type (UTC, TAI, monotonic, ...), and the Linux
-> driver registers a PHC for each of them (with VIRTIO_RTC_PTP).
-> virtio-net could carry the virtio_rtc clock id in its config space, and
-> the driver reports the index of that PHC in get_ts_info. That would also
-> fix the phc_index == -1 problem you pointed out in 2/6.
-> 
-> What I don't like about it: virtio-net then depends on a second device
-> being there, and with more than one virtio_rtc device the clock id alone
-> is not enough to find the right one. Without virtio_rtc the driver would
-> not offer hardware timestamps at all.
-> 
-> The alternative is a PHC in virtio-net itself (gettime over the control
-> vq), which is a lot more spec for one timestamp field.
-> 
-> Do you think the virtio_rtc way is reasonable, or is there something
-> simpler I'm missing?
+> Key changes:
+> - Implement 32-bit DRP (Dynamic Reconfiguration Port) packet format
+>   as per Xilinx PG185 specification.
+> - Add separate I2C probe with xadc_i2c_of_match_table to handle same
+>   compatible string ("xlnx,system-management-wiz-1.3") on I2C bus.
+> - Add NULL checks for get_dclk_rate callback function in sampling rate
+>   functions to support interfaces without clock control
+> - Create separate iio_info structure(xadc_i2c_info) without event
+>   callbacks for I2C devices
+> - Add xadc_i2c_transaction() function to handle I2C read/write operations
+> - Add XADC_TYPE_US_I2C type to distinguish I2C interface from AXI
+> - Defer XADC hardware initialization until first device access, since the
+>   I2C path reaches the PL SysMon indirectly through a platform controller
+>   DRP bridge that may not yet be operational at probe() time. Initializing
+>   on first read/write instead avoids probe failures caused by transient
+>   unavailability of that downstream path.
 
-I don't have an obvious answer. This needs consensus.
+...
 
-Hardcoding clock base to TAI is definitely easiest.
+> +struct xadc_i2c {
+> +	struct xadc xadc;
+> +	struct i2c_client *client;
+> +	bool hw_initialized;
+> +	unsigned int conf0;
+> +	unsigned int bipolar_mask;
+> +};
 
-Outside of virtio, the relationship between PHY RX timestamps and PHC
-is well understood. It would make some sense for virtio to follow that
-model.
+Have you run `pahole`?
 
-But indeed when having multiple NICs and multiple PHCs, how to map them
-I think is an unresolved issue in general? Of course, aslo moot if they
-are all synced, which I think may be an implicit assumption especially
-in the world of spec compliant PTP.
+...
 
-And, if virtualizing anyway, it is feasible to do the clock conversion
-in the software device, not having to bother with all this complexity
-inside the VM. Though maybe not for direct HW virtio-net queues.
+> +static int xadc_i2c_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	unsigned int conf0, bipolar_mask;
+> +	const struct xadc_ops *ops;
+> +	struct iio_dev *indio_dev;
+> +	struct xadc_i2c *xadc_i2c;
+> +	struct xadc *xadc;
+> +	int ret;
+> +
+> +	ops = device_get_match_data(dev);
+> +	if (!ops)
+> +		return -ENODEV;
 
+-ENODATA
+
+> +	indio_dev = xadc_device_setup(dev, sizeof(*xadc_i2c), ops);
+> +	if (IS_ERR(indio_dev))
+> +		return PTR_ERR(indio_dev);
+> +
+> +	xadc_i2c = iio_priv(indio_dev);
+> +	xadc_i2c->client = client;
+> +	xadc = &xadc_i2c->xadc;
+> +
+> +	ret = xadc_common_init(dev, xadc, ops);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = xadc_device_configure(indio_dev, 0, &conf0, &bipolar_mask);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to setup the device\n");
+> +
+> +	xadc_i2c->conf0 = conf0;
+> +	xadc_i2c->bipolar_mask = bipolar_mask;
+> +	xadc_i2c->hw_initialized = false;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+...
+
+> +MODULE_IMPORT_NS("IIO_XADC");
+
+> +
+
+Unneeded blank line.
+
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>");
+> +MODULE_AUTHOR("Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>");
+> +MODULE_DESCRIPTION("Xilinx XADC I2C Interface Driver");
