@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297720;
-	b=ZT3aZVj1gCMkgZ9tmo+vgOXu622lU3Ifb5OmRjevpwSpT5UffxfCxU0K92x5jJ52Urec
-	 e226GcS6Rr5A8z9fl2jCziJh1eD8qQoh7Bt8gSFgqY26EIGYvpd10kVc1tmRy2P4jUWY3
-	 O9nfXs6eB3X/MBdSDz8HECQWYDZ88PinVSK6jnine+5Ntoe+OPtIkwrgXSG46D+lOqIq8
-	 lI9cwjowdh3VzAh2s2LBMlgXgaoajXaOK9KEn4S7PKL3UYiiPMKbIn36vdaoIJIhZQQMx
-	 c2uEZ2yfyK91UmQE7eW9G4icaulsxiA7wwDbJ0nEAyGbRVy3Q79CRu8DZ7trjI5D90g==
+	t=1794297721;
+	b=E/ZclnuE1hKTtyrMszy6x6NBJwLqMSdC8bIZxrZGZNaTwNrxiJOSlu5VMoTHiqOVhhzJ
+	 q4wJyj/BROsaor1viR0L5QYNCzm6h/w2d68G/TNSv06jPmsU6yWDGdqzYeKQIrKJAwWf/
+	 45F9guMRGKrK7NW8NMK+NC3gnPGhDRqijQLXIP2wwTb76EV9zJ2Zgvc8pla8/j1SYH4G8
+	 yJuNHv9dgnmjgvhRndHdVYALnmJ3pkX2uawiFHyH+4Lem7au69cT+s1u5OYYSc6Bo6pAr
+	 ytRONYQo7Rb4sVjjhu6g075C1CbIqlnygGb0MwhUi+GKWxRJeorDePRgbI87PboAW8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297720;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:User-Agent:References:
-	 From:Content-Transfer-Encoding:Subject:In-Reply-To:Message-Id:
-	 X-Lms-Return-Path:To:Date:Content-Type:Received:Cc:Mime-Version;
-	bh=bcIJeNa/s/CZobvKVdNkLsGHNQtQLHi4ynaZuvo975c=;
-	b=I66ytB+7a2uivdvxXjT9tuunMaHsaCjsREnGUUUoN0jYAPtxXjwFnqZ7fOhxiNupR+BL
-	 NDtUpskkNZnpyAxZXMNlkpJkHOyow6/s6p0kB4XluzmF0DhvcOJ36Ot/yLYUdJVP2RVyo
-	 CYd1i/7jYCt885HWALehsDfnFxzKI9wW8ZqDAl6295qzsdscY/4T+c/RrpVYX8Pkrh3G+
-	 KRPYLuB6X+tm5TqySLPLt0u+kvImE9P6eIsxKqs1/oO2o1Ra0CkuGKbEyNcEz3QXRZ4J4
-	 w92SozbUqPotYJ6sognaz1opaFVh4on1vP2iDSxUVGsk0l6HooSzX4tLHVxmnG9oPnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297721;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OiJbUJ5l0jctc+MHq3ejBCQI9uvcTD4H/eKMo81Oa1o=;
+	b=5BRUw7qoMG0fVaHVvfT6y55lbEOlTeC9c5ltySwQomRSktYkm0Pxd+5nz1psxIDJwS59
+	 orbODL1PYlpo63lTDOpVrKxLVYgVhmMjyyhUcvEYHQtEXxUu0rblVxAC3Y5Ghf7mjzDjN
+	 pf2AHVG57FwDj6SoGHnpTpMv3mybPG6J3lenJ6i19EpQfqP97VltQafUY6le8nSFqojtB
+	 fItl93hZ64EpJiN2g9Hesry2He9wQF7ow7MFVvQXJJMhndCCPrlLInp6WuuPYh0CtUXHe
+	 nNJ5RMFVLpPHewTu1NqNpoyuNFSc9BR7gMVxPpIYDk5T9Iwhem6Ix264fy4cC9Oa6QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cipunited.com;
-	spf=pass smtp.mailfrom=oss.cipunited.com;
-	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=JjzClbGY;
-	arc=none smtp.remote-ip=209.127.231.19
-Received: from va-2-19.ptr.blmpb.com (va-2-19.ptr.blmpb.com [209.127.231.19])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="jA3K4nR/";
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271E4606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 271E4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999EF606CF41
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 999EF606CF41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=JjzClbGY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2303200042; d=oss.cipunited.com; t=1794297713;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=bcIJeNa/s/CZobvKVdNkLsGHNQtQLHi4ynaZuvo975c=;
- b=JjzClbGYPqU1QXH/zjR7zOpITUgRYglVVIQP0fN4LKVW6psxR7bwsKKLZk05tJLfHAvcLb
- lNnHk8YwwADmVNZKhOzB2LheTU9P21Aj091eWF9JA+hk+f3tIrAqmkc9Z1FmtzqnSfoR+F
- P/BlcsXbnB+L4NF+oyTNlH8nbPCUr68OZY6MHBA+VDGXvmabqN916/nwaQxats7DYWif9Q
- qXdBAZyKkzcXWkTO39TJ78dQCNJWaqVmvSN2M7nzhg5hOjS4mG/LUWKOfEmyqrJwhVosxj
- U6wYcqmKo1qAI/B668U03mieD8p+FdwQhOVx9bNOFZmtdS2w2s2bGMHicj4LoQ==
-X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
-User-Agent: Evolution 3.62.1-3
-References: <20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com> <20261110-mips-ls7a-wdt-v1-2-968bb85122e6@oss.cipunited.com> <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
-From: "Rong Zhang" <rongrong@oss.cipunited.com>
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/4] watchdog: loongson1: Add Loongson-7A watchdog support
-In-Reply-To: <9525d680-71e7-4dc8-a1fc-1be178453cb2@roeck-us.net>
-Message-Id: <a1cae24c83e4b60bc6abfd1b387b3e92fe54c07d.camel@oss.cipunited.com>
-X-Lms-Return-Path: <lba+26af2cf66+7d6f78+vger.kernel.org+rongrong@oss.cipunited.com>
-To: "Guenter Roeck" <linux@roeck-us.net>, 
-	"Keguang Zhang" <keguang.zhang@gmail.com>, 
-	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
-Date: Tue, 10 Nov 2026 15:59:59 +0800
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.8.156] ([1.192.71.23]) by smtp.feishu.cn with ESMTPS; Tue, 10 Nov 2026 16:01:40 +0800
-Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
-	"Icenowy Zheng" <uwu@icenowy.me>, 
-	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
-	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jA3K4nR/
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso875735a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:02:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794297721; x=1794902521; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OiJbUJ5l0jctc+MHq3ejBCQI9uvcTD4H/eKMo81Oa1o=;
+        b=jA3K4nR/08GXzFRGQ1PrEgbALaXclN05Tavtme60Zya1HnVAGd7ehwPLwZAIb9Y4Nv
+         inrpY4nrmk8xGqWyJ7Yc3s7L/auX/ODa11jhdXhYThHI2ZAZdr7+iIKGttFMG9pjomO8
+         zYLuAVazU7qJAY4NQ6R5Rkfh6PrhJDBhZTExce6pgWZpxyTvOucDkLVqbwTICrCfsCfc
+         eQR4T2LHT7BFBcaQEopc1Jctt1e50jSue6AqHIFloA6b21Y6w2wu+uYav1FH/QIuBLVR
+         Zfny7eIlvrDPd0nDKAznBrG3a7rHJHk2lfGTV8zXBM4ODN/2vNk/MsTOkreE3B5PJbNu
+         E6yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794297721; x=1794902521;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OiJbUJ5l0jctc+MHq3ejBCQI9uvcTD4H/eKMo81Oa1o=;
+        b=DVnntWKRHVpb3fNlFpa6jqul3wTPsM4EkqSqjDF7L5PTsxDe6O1Jl9u9h54E8YNZA/
+         fLCDedRJDb1iNoun7sc7j3u3tBQaHijY3ohIrTELLuXvDON385rbhEA2VQw8qWxWRAYb
+         j0z57ektcJHnLSmF2Muu1jQQ1QTFejJ7yl4H504tZWCgFfL0nqF7c+vwIOnoWs73/GK+
+         N/K1DtAYGFiAm3oOTRJRBr0WoCVkeRm+E9Qhcy0sROYsWwY/njR4tw4gS1WwBo8ts4aY
+         LV9Nr8UzkuQeKDnWeZZorDUepmtJPZX2uZlPE6Yo79+tfi1W1FK8enO7m3UmWIPUX05s
+         tbQw==
+X-Forwarded-Encrypted: i=1; AL+hErFxYXUCB9/W41+ILUNZHwwyk9ENU6XZUVS2x2nY/g2/mF3pchlrjzHJFsjgLJmfuKyRpJcb1hLWYoeKF6A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ztDzbEGYMK2JZJJfZVYVytgs2XcVVITNgcPG54eA64zBTHwh6
+	ye7kSw1M5k6HcPt1CJlbgjpEavduqtk2/Q0QGHObSEiBEC0lTB4S6zx1
+X-Gm-Gg: AYBFou0Aquj9Bse7awRToW9Nifp7DEobN/4WgpqM6auFR8giA4fvVc/SCYkStILGtWQ
+	8t9fEVPM+nOsGJ5sT/2WmNLEMbV3xmibBI4S+/dY0DB56tF4QRLAUpXholChz9k+lEiGfoyfvRr
+	ZO1t6RFL5mDcEgWyF7XrVvD72gvepGayTo+4FAhpxivYJu77wvFTkHoXSwprZ3lX4T6PlWyIveU
+	xZdSNfoFyEHOH1yg+GV3xOCbf2vF/bsSXT9pcQ9UYZ0iHyXEaH96t84OBdCldtr0aJJYHXHNK59
+	1yHN8wN+9zFt4rs/Qyzc0OCNzTtvxOfJ9tnBoHTP9jvoW4bz+8iFKkzvYFUltz03/7JRRAtnZVh
+	I1g6Dpz+9oh9xzHLa8k1tfg5+n1zoh8+cn9WQzMYSaAlDVJUK0BeJ1akFSAE3G4ZtlZTMe6P/IO
+	W7KG6f0KaJPlyqbkt5Wj1FfGluuMS1NpXE/SUZa7ywiS1ZKDIUcMDDfDMrZTTyrxoryr7DWz/Lt
+	BU0L436WOawSRLQ+hLRZp0SVukcATGFaDaa1JSHDulUAiNsdsq75JmZTNOcACpP6oLUm/d+cz3Q
+	lvRelI+AD8Gq+oSrS14nuJNulQ9bL7vikD+893ygPHaOIEqIvDv127R8zsER0FaGEgHb7/+Cnx4
+	gUw8egGy8t3DC6Vv85KUrMMxCveyR0g==
+X-Received: by 2002:a17:90b:314a:b0:3ac:8741:e2e8 with SMTP id 98e67ed59e1d1-3b166aeeff6mr2040479a91.8.1794297720830;
+        Tue, 10 Nov 2026 00:02:00 -0800 (PST)
+Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:b87c:eff1:b55f:23de])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1678ceda0sm2906627a91.5.2026.11.10.00.01.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 00:02:00 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>,
+	linux-wireless@vger.kernel.org
+Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rtw-next v2 2/5] wifi: rtlwifi: rtl8192d: report no signal for frames without PHY status
+Date: Tue, 10 Nov 2026 16:01:38 +0800
+Message-ID: <20261110080143.1362021-3-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110080143.1362021-1-hjf3108@gmail.com>
+References: <20261110080143.1362021-1-hjf3108@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,109 +98,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Guenter,
+Only the first frame of an A-MPDU comes with the PHY status.
+This makes mac80211 report the correct value when queried from iw.
 
-On Mon, 2026-11-09 at 23:47 -0800, Guenter Roeck wrote:
-> On 11/9/26 23:02, Rong Zhang wrote:
-> > The Loongson-7A watchdog is similar to Loongson 2K0300, except that it
-> > has no clock controller.
-> > 
-> > Retrieve clock frequency from OF to make it work.
-> > 
-> > Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
-> > 
-> > Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> > ---
-> >   drivers/watchdog/loongson1_wdt.c | 29 +++++++++++++++++++++++++----
-> >   1 file changed, 25 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/watchdog/loongson1_wdt.c b/drivers/watchdog/loongson1_wdt.c
-> > index 2811e7eab631..57b9e699c131 100644
-> > --- a/drivers/watchdog/loongson1_wdt.c
-> > +++ b/drivers/watchdog/loongson1_wdt.c
-> > @@ -31,6 +31,7 @@ struct ls1x_wdt_pdata {
-> >   	u32 timer_offset;
-> >   	u32 set_offset;
-> >   	u32 wdt_en_bit;
-> > +	bool no_clk;
-> >   };
-> >   
-> >   static const struct ls1x_wdt_pdata ls1b_wdt_pdata = {
-> > @@ -45,6 +46,13 @@ static const struct ls1x_wdt_pdata ls2k0300_wdt_pdata = {
-> >   	.wdt_en_bit = BIT(1),
-> >   };
-> >   
-> > +static const struct ls1x_wdt_pdata ls7a_wdt_pdata = {
-> > +	.timer_offset = 0x8,
-> > +	.set_offset = 0x4,
-> > +	.wdt_en_bit = BIT(1),
-> > +	.no_clk = true,
-> > +};
-> > +
-> >   struct ls1x_wdt_drvdata {
-> >   	void __iomem *base;
-> >   	struct clk *clk;
-> > @@ -129,6 +137,8 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
-> >   	struct ls1x_wdt_drvdata *drvdata;
-> >   	struct watchdog_device *ls1x_wdt;
-> >   	unsigned long clk_rate;
-> > +	u32 freq;
-> > +	int ret;
-> >   
-> >   	drvdata = devm_kzalloc_obj(dev, *drvdata);
-> >   	if (!drvdata)
-> > @@ -136,16 +146,26 @@ static int ls1x_wdt_probe(struct platform_device *pdev)
-> >   	platform_set_drvdata(pdev, drvdata);
-> >   
-> >   	drvdata->pdata = of_device_get_match_data(dev);
-> > +	if (!drvdata->pdata)
-> > +		return -ENODEV;
-> >   
-> >   	drvdata->base = devm_platform_ioremap_resource(pdev, 0);
-> >   	if (IS_ERR(drvdata->base))
-> >   		return PTR_ERR(drvdata->base);
-> >   
-> > -	drvdata->clk = devm_clk_get_enabled(dev, NULL);
-> > -	if (IS_ERR(drvdata->clk))
-> > -		return PTR_ERR(drvdata->clk);
-> > +	if (drvdata->pdata->no_clk) {
-> > +		ret = of_property_read_u32(dev->of_node, "clock-frequency", &freq);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		clk_rate = freq;
-> > +	} else {
-> > +		drvdata->clk = devm_clk_get_enabled(dev, NULL);
-> > +		if (IS_ERR(drvdata->clk))
-> > +			return PTR_ERR(drvdata->clk);
-> >   
-> 
-> Wouldn't it be much easier to just create a fixed rate clock and use it
-> (as suggested by Sashiko in the devicetree patch) ?
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+ drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Makes sense. I will take that approach (and fix other concerns found by
-Sashiko) when I resubmit this.
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c b/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
+index 9f9a344920..58f7ad4027 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
+@@ -425,6 +425,8 @@ bool rtl92d_rx_query_desc(struct ieee80211_hw *hw, struct rtl_stats *stats,
+ 						     stats->rx_bufshift);
+ 		_rtl92d_translate_rx_signal_stuff(hw, skb, stats, pdesc,
+ 						  p_drvinfo);
++	} else {
++		rx_status->flag |= RX_FLAG_NO_SIGNAL_VAL;
+ 	}
+ 	/*rx_status->qual = stats->signal; */
+ 	rx_status->signal = stats->recvsignalpower + 10;
+-- 
+2.53.0
 
-Thanks,
-Rong
-
-> 
-> Guenter
-> 
-> > -	clk_rate = clk_get_rate(drvdata->clk);
-> > +		clk_rate = clk_get_rate(drvdata->clk);
-> > +	}
-> >   	if (!clk_rate)
-> >   		return -EINVAL;
-> >   	drvdata->clk_rate = clk_rate;
-> > @@ -191,6 +211,7 @@ static const struct of_device_id ls1x_wdt_dt_ids[] = {
-> >   	{ .compatible = "loongson,ls1b-wdt", .data = &ls1b_wdt_pdata },
-> >   	{ .compatible = "loongson,ls1c-wdt", .data = &ls1b_wdt_pdata },
-> >   	{ .compatible = "loongson,ls2k0300-wdt", .data = &ls2k0300_wdt_pdata },
-> > +	{ .compatible = "loongson,ls7a-wdt", .data = &ls7a_wdt_pdata },
-> >   	{ /* sentinel */ }
-> >   };
-> >   MODULE_DEVICE_TABLE(of, ls1x_wdt_dt_ids);
-> >
