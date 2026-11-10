@@ -1,55 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299174;
-	b=gpY6KC99oGqkUPXPRpX1mqGhHsf+gQK0WpSsnMJAYPvMFFS3gJVCdSP4GghQPdrS9kWo
-	 ZqRvGo6s0p4hoDRMGCHPSEucofEqME0x2MLqnuwyHnsiqU2y7DzOsjzMdBAwqczm9vgUN
-	 Dy59tJ9sRJ0B6KYNt5cS+3ve9qqMQZv6Mf0lwCqPg91TieQscqZmmI4PbETz62xsf7Ptv
-	 hZF3gF+IIvAbtEoyhYktoQbZ1mX4uHSpggI8HJFTo6C5bXEnkv3ZPiFnVgeAktEo8QTaM
-	 CU+DhgyfI70HRHmAd5WDZ1SmaFSIFoBAFCGsD9il0pBIM/CDg1Ida0WyX2kOClIZlFA==
+	t=1794299189;
+	b=JNPIErBrXQhBq6Sq1RMq1GDQXS2b5WMri46dj8sQ6riw2eLrR5teYzR6KMDFxu9REH3z
+	 9YEvWwuo38Xak9LFwG/BjnjyGi/DydOhqsbTxvsXxLMfW2yljv4c8dH3iMEz4Z/KL1EC5
+	 5qXJXBJP9kcXUbFQSShykXBXdgf2XLA/g9YVGzUnNSbyoSJUo33BYO8QNJ0dvHKgci97w
+	 hW48qAhHXEaQKNEHTo2oZQ3XPGCAptXvuVumpnD/aOIx9/HiVYPXZfZSveqLImyhgRAq0
+	 JV9exjk/IeJJSySlOUnLIAqSM9nipDiN4Etdq7/QruA1yjf/CbnT/wMMhkx0ENgIHKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299174;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=hVH2nKdWYge/Mm5lz7TbcB9+sv1fB/L+SrFdf+amB/c=;
-	b=PrGJbdKOg3CDR8Grpw9/Hi7nLriRlPCvGtbZQLVJkU1EUrNW+3LEI5pwWTLP8kMtHrzj
-	 3pCpTSYiIE7kx7dvnDzl4JUNJfHKOmcZtUImicvHP9i8ifZ9HEorVQ8fAcMGNUk2yrp2c
-	 2LiGpI+bxHPN/OZRDpJkMiCWx76dGD50FPy6qHYza6/JTloSMk7muwLwxcGOeuKacHa2e
-	 MSSFkTiWcfDPbB5P1NFDbbiKFaxOjxyuIEK6HP7GGqcj+ZQpiDwkEWdvYp4Vtk2Bb1/5m
-	 s4VXwY9K4PpkqelnUNEBcmgRBZOIw7/8EUB8fWl1mUVfw879o++oJnWXDwODjhocO2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299189;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=R4EAcCpHM83oZ0S7+xLkLWc02XjcnZxXTSXnWoPgwPg=;
+	b=O29aMyTmHZ8pN3DFyFLsTlhonBK533qw8Rq/wZhrxSlqZP5oDqFhdVfhd6KIn9C4MxeJ
+	 WwG3voWjXI3zCxfHawm9gXY4e4xtArIzFUAKt0TJRgWQkRc0rvnZ9f58dwGbej47v91pA
+	 HGbkSAK61khlp99OEM9RZiZyOi0Gswu+ZNeqHIDfVnZlmxA5IQj0SYQWY8Fj/JAfTRYRj
+	 Ve4bCc7Q0UnSmdYzHa/daQ+xF5Xn0PSCGUeh61nB82jMlmi/iNQXQ4+o8ehBItIrXex/i
+	 92a/MMXLrwYYOrPMCGKx66cgwg22QJVD20YSxINO9qRXtkJ+ldL19IhUgazL2zM8idg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kJ+y7w8T;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE9C60A260F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CE9C60A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kJ+y7w8T
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 887BBC69153;
-	Tue, 10 Nov 2026 08:26:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4CB2060012;
-	Tue, 10 Nov 2026 08:26:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8677110328531;
-	Tue, 10 Nov 2026 09:26:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794299168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hVH2nKdWYge/Mm5lz7TbcB9+sv1fB/L+SrFdf+amB/c=;
-	b=kJ+y7w8TJjoEvPS8z7mowz2u0RGqGZ7ISX7fC3zZGfIvOjiNnbpy06HDAtYfbLwIqDGAnm
-	O1e3XCFUYTho6C5rZwk48RUlHPhjqota6F/kdqNKNtGahed2xapwbiKgSL/aOWiiQrEqm+
-	JzAmfCbuqEOkBXIBXjgFNeC7MO+1XMYtRRaTt9Ozvf0CbmFrR8m0yygnzgvDoMJkXkqFW0
-	oaqTq8PhwQtO84vb9y1upEIxIeTeyDiu+1Xrg3ZnztAFDz3pU8XCBy/JDBFkf1LxBRmS3n
-	PVKkQjbEsXnbYLogZcYGAnt0gThiHHx7RSzzql2G+vmVmm/Ez/zSXw0kgDcQ+A==
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6065360A3814;
+	Tue, 10 Nov 2026 08:26:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6065360A3814
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8BxrtIu1fJqah0eAA--.21638S3;
+	Tue, 10 Nov 2026 16:26:22 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJBx5cwo1fJqF3IzAA--.12508S2;
+	Tue, 10 Nov 2026 16:26:18 +0800 (CST)
+Message-ID: <61dc34e7-e872-42cb-a0b1-be100a78053a@loongson.cn>
+Date: Tue, 10 Nov 2026 16:23:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +44,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/4] EDAC/loongson: Encode node and MC info into mc_idx
+To: Borislav Petkov <bp@alien8.de>
+Cc: Qunqin Zhao <zhaoqunqin@163.com>, tony.luck@intel.com,
+ linux-edac@vger.kernel.org, chenhuacai@kernel.org,
+ linux-kernel@vger.kernel.org, Wang Jinwei <wangjinwei@loongson.cn>,
+ Yulong Wang <wangyulong@loongson.cn>, Dongyan Qian
+ <qiandongyan@loongson.cn>, Chao Li <lichao@loongson.cn>,
+ Huacai Chen <chenhuacai@loongson.cn>
+References: <20261105025532.2055-1-zhaoqunqin@163.com>
+ <20261105025532.2055-3-zhaoqunqin@163.com>
+ <20261110064106.GAavK8ghva7DgZ35DK@fat_crate.local>
+ <809041a2-ebdd-409d-a1f4-3ac7884513d2@loongson.cn>
+ <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261110080338.GJavLP2h448voZSQRE@fat_crate.local>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 09:26:04 +0100
-Message-Id: <DMRDYWVZ4LY9.13BL0K8BOX2VC@bootlin.com>
-To: "Paul Louvel" <paul.louvel@bootlin.com>, "Liam Girdwood"
- <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH v5 3/3] regulator: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
- <20261106-paul-lm51772-v5-3-0e83ac9711d9@bootlin.com>
- <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
-In-Reply-To: <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBx5cwo1fJqF3IzAA--.12508S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrKrW3ur47JryrWrWDuw47Jrc_yoWfuFX_ur
+	1UCF9ru34kW3yvywnrCw4fArnFgayvgry8ZrZrXw4Iqa47XrW5uF4UWrWS9w1rKr1DAF9x
+	ZFyjvw4xtw4jvosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb38YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
+	6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+	1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_
+	GFylx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
+	CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
+	I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
+	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
+	UjIFyTuYvjxU2MKZDUUUU
 
-Hello Mark,
 
-On Fri Nov 6, 2026 at 12:17 PM CET, Paul Louvel wrote:
-> On Fri Nov 6, 2026 at 11:12 AM CET, Paul Louvel wrote:
->> +static const struct regulator_desc lm51772_regulator_template[] =3D {
->> +	{ .name =3D "vout",
->> +	  .of_match =3D of_match_ptr("vout"),
->> +	  .of_parse_cb =3D lm51772_vout_of_parse,
->> +	  .regulators_node =3D of_match_ptr("regulators"),
->> +	  .id =3D 0,
->> +	  .type =3D REGULATOR_VOLTAGE,
->> +	  .owner =3D THIS_MODULE,
->> +	  .linear_ranges =3D lm51772_voltage_ranges,
->> +	  .linear_range_selectors_bitfield =3D lm51772_voltage_ranges_sel,
->> +	  .n_linear_ranges =3D ARRAY_SIZE(lm51772_voltage_ranges),
->> +	  .n_voltages =3D 100 + 2301 + 165 + 2236,
->> +	  .vsel_reg =3D LM51772_REG_VOUT_TARGET1_LSB,
->> +	  .vsel_mask =3D LM51772_VOUT_TARGET1_MASK,
->> +	  .vsel_reg_oversize =3D true,
->> +	  .vsel_range_reg =3D LM51772_REG_MFR_SPECIFIC_D8,
->> +	  .vsel_range_mask =3D LM51772_SEL_FB_DIV20,
->> +	  .active_discharge_reg =3D LM51772_REG_MFR_SPECIFIC_D2,
->> +	  .active_discharge_mask =3D LM51772_DISCHARGE_CONFIG1 | LM51772_DISCH=
-ARGE_CONFIG0,
->> +	  .active_discharge_on =3D
->> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG1, 1) |
->> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG0, 1),
->> +	  .active_discharge_off =3D
->> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG1, 0) |
->> +		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG0, 0),
-
-Please find the comment I made to my own patch below.
-
+在 2026/11/10 16:03, Borislav Petkov 写道:
+> On Tue, Nov 10, 2026 at 03:47:20PM +0800, Qunqin Zhao wrote:
+>> "all your nodes belong to memory controller 0"
+>> I don't quite follow this sentence. There are four memory controllers on LS3C6000/S.
+>>
+>> On firmware without mc-idx there can still be more than one  memory controller
+> So edac_device_alloc_index() is used to give out indices for other EDAC
+> devices with edac_device_alloc_ctl_info() but I guess you could use that in
+> your driver until you don't need to add other devices besides MCs and then
+> it'll become a mess...
 >
-> Maybe would it be better if the core could also change the active dischar=
-ge
-> strength:
->
->   int (*set_active_discharge)(struct regulator_dev *rdev, bool enable,
->             int strength_uA);
->
-> That would remove the need for introducing a vendor-specific property:
-> 'ti,active-discharge-strength-microamp'.
->
+> Lemme ask the simplest question first: is there any case where ACPI won't
 
-Let me know what you think.
+mc-idx is not guaranteed. There is firmware that does not provide the property.
+
+
+Qunqin,
 
 Thanks.
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+> provide that _DSD property or you're in control of the firmware - not like on
+> x86 - and this case we're trying to fix is never going to happen anyway...?
+>
+> Thx.
+>
 
