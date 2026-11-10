@@ -1,79 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294901;
-	b=Z8LJAHdgCZvBZ3QOhlSA8nOlxrx9iAXEk/MEivUByyGmGkl0JfcVTaq5avSj9iNC+6p1
-	 NaQOp5OojjHyDH5tVhoiYiKlnXRvfyu7DlaGvgnkyooCBIRTLbo2b2UgH3QPZ5ViaXOxa
-	 uGmgSxbrp92zGdX8k8AGt5H+OBSuDRRg6nFLbzWfGc3bZR6tij7Xf0iM2sQVl1c/tvhep
-	 VxUCQ1bVB9aq6BwkYk88+8oM81oV/LbDrSW5bVRU1KBVa6NIyZCtvPT9nPUdVrhdhijvd
-	 ndgA8TCybZJQpfQnLu1vV4OyTXo0DJivicJXsShrIsf/zXzaTRm8iWqkF3tY4bKggIQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294901;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ae4pe3RUGygwlUhXax0I830rKA/M8Wy+tBPNgk2/UPg=;
-	b=qsN58XhYg9mKL+rjBpdOnWWmaJhxn/1Tu1Zvnjl2AN0c/KX0V6pNW8VBq9TTHntl4rst
-	 53e7Euu8S7Eg9OfuWldPyOf73D3DWm1CxBRk/vxv5mAxChz3Q533OqSZTqT6TS59ilCtl
-	 ZVsGEXkdoU9i7ULEtxAnOfSL/wS1ahFzYhuIojywqhapKmmpxlyJrle+0Z2tGiR3gBxUJ
-	 E2t5CxV647E5wgzEI981PvfaKjW+jaFPtNbu/SQu2cx5HqYy/YUD4Jgwk9G2oW8wtN7HP
-	 PkMfH1HRfA28sL4gw4kcXYR1oG/SYMSbhwxHeQtmJKRGkgvVR+rJpsBn85ezAImMw2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGN5Ez40;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69996606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGN5Ez40
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294901;
-	b=TQVmsnRG1gj56u1dNa9ELY9ePTVIXh3H6qoAVlg16OD2uLnli2PUauF6NzwBQyBHNlPC
-	 8VPt4NPujVFPnTKFJlVOLZ5HEgHKv5TVSk67biLfrjQ+tCgOQAj7nW2oLqQA3jxf7L051
-	 gEwb79FAfXBTCp0DyQJf/CfmYpkd+ubFkNEPCiOZQxmL6ef2U4HPzmQVHI1vmGHowt/gO
-	 1RbJRor58Q8x4o9xOljxyDQ9rJy2QWblt/bN8jTl2UwpZ4n3Jtx4Hth1zDxX3/lRwN33s
-	 JbrLw3DS0h2PeGYBp9llhZYJp/aZ//IuLCPTe1jew7iDhBe3hgDxnRDRWd1LSVwVRQg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294901;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ae4pe3RUGygwlUhXax0I830rKA/M8Wy+tBPNgk2/UPg=;
-	b=oXY5P3iFg5HpaYNu9v9jBwwGs+m8cDVJmhyUw/Uboslf+7sqFu22w7d0fEsW9+Ek5sfH
-	 wtSjNXIlSvhICN0ABIaWpU2+tAGB+/fHgBBzG7QXIS3LEUzE/bDaHfOYaBYvuAoXuNmO7
-	 ht1FkqBc4Fy2GhPXeSD9pjvuaYnV78Sq4tqFkpSdvbRXTm0R4OBaxM4xPfxL72ojNWSJR
-	 2/u12hdlqF+JXmzQP4MWTYgeoaQmz0us4CJrdhYTHtztaiYobigT7yYlQvD9rKTJJMU1f
-	 nLhy864oqLdfdh//FpJMTZkJEyGVsDTaba40qzzbeyAH2HES0oopAd/Z6JnbXggCRKQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794294910;
+	b=Lw0LjUABL3cUKwEg1nwMPXYZt1IwHoNnA2F+2Itw4GZn5TgjcU4wGehBfSDolAqfM9JB
+	 IOUTxNzr0Ay7ILLaHDM8xx1N1rZRWCcUdoIZ+e7T90Hbpdzbs056yj7xZte5LCIhwh8Qx
+	 ZTa0ND/71Bv+h3RbtlobZrN+C6AnUQfBAKPqfgmZ4O7v8C3NPiuVaxjJX5cVnykL2pg9v
+	 dI5Whxy4+8UCwUKG9PXQJhbycGJsefT24raWdvrvES64OKfIghcl3NVCNtX81jMbRf1mM
+	 uEJ7jkKdIQzDLsz/3qnJjdV+X9/oQFfvYzjuULnO4/ZEUb0dKFv3FmPMpmiVx6YTpzw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294910;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=h+J3J0epLuUim0gFkWCnrvjgBBaMOJi50a7zUOpsEaI=;
+	b=UWoX20GtH0O3IXaYP/6zEaQ733+IxfsD7WaKOk232TssGJUlucx8VqzyDyWhUqh4Zxpk
+	 bLtAIB9jYYmaJ2Q47hPrPv618IjEcZvvib/bYp2KcQen7fpZqjN27xN5WRAtVcZ6Fch6A
+	 aBhGoWZLd8XFXQET/N3//q5p5EdRSeANKW1F0l4CfwyVaCATZ0tfrrn23r9p4W1dQJFPw
+	 UT37R/PxuXz9ZZ0KDDWCvuqCtLCym9rdUU3g+mEBULQ8yE470bDzWhrtu06T1SAaCFZoR
+	 UENE9Bw5lokywtBxuYz7wgbqdR+eqb+HjYU7NXlUVsV2pIR++eEqmQ3H2CaNO/yrk2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IC6s7YNj;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5C8701F0089F;
-	Tue, 10 Nov 2026 07:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294901;
-	bh=ae4pe3RUGygwlUhXax0I830rKA/M8Wy+tBPNgk2/UPg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=XGN5Ez40NfwkOD1+4OcbvyRmxrQRyys3RMZUhsE1y/MAu9UYLLAua0GLJ5AaO9QZK
-	 3ax0zShK7tOo3FXCJ0XWefFeFO4Drv9A1A1YAt6q4IcOFnJIHK1C/q/lzve0sn+6gm
-	 iAvFPrbmoaHd7D2DMogSlrpfO9+PqBvzcIfevbnA3sP3MIUj4W+dq9uHfT6q6i3BPF
-	 LTW0G/GIPUj0ybbMokMNA7puIR2E588VzZAJJ5Hxo7vgcSxEH1Is79IUbdrPNWaJvB
-	 gwntZh7y1gpa0iU17WsokybzvignlDGZdD/64l1Wz0oVD4yWMIYp9fPuE5xjdixNy9
-	 0FBobJaC403tw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E1A47488E6;
-	Tue, 10 Nov 2026 07:14:59 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:15:00 +0000
-Subject: [PATCH] drm/panthor: Do not change the GPU clock rate while
- suspended
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC15606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 07:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DC15606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IC6s7YNj
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3446870eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:15:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794294909; x=1794899709; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h+J3J0epLuUim0gFkWCnrvjgBBaMOJi50a7zUOpsEaI=;
+        b=IC6s7YNjlZ9PztkV+z7oGAXqHLNbg5AWY68TafBW93FK1CXQrcPpNVR5skIHqL/ZOA
+         fhO3AYcgJLmIsI6FcUUKphIsZkb1RKjz3RU/HONs0Y+rhuJZgS0HsMAlQ4s6VlujCYQn
+         KyBAz7Ubu8KPdqYMupcB4NsybMOpTAmHDh+a829OJth3ZYv/swcKQAhmDKoQGr9hOL8K
+         9LVkhQsTck/UYcj0vaUVZEtJ2T13mqmBD3+Rfq2LsZ8xegCO1lOP91SrOoBKZ4VwcE+f
+         5VMBjkUOGWRkxtk2jI6etAKvSs4AHgY85NeD0iRwlRkaZDXvmPegTZMNZWBW72twXWjx
+         Lq9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794294909; x=1794899709;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=h+J3J0epLuUim0gFkWCnrvjgBBaMOJi50a7zUOpsEaI=;
+        b=w9vzuBIauHddRsKDVDGk+fe2xqcT7qNCtIlZvpLSaXQNxygNbZmuS5ra75WOdismFf
+         g0N3wXxUJmRaPA/9HnvAQ3C+Mi9fy00Cymf2APT9c4CePnWyXxIQOHJOgjiFyYroMO3j
+         5v618wEdHifjjBk61d8GacbBDsV/k+xWxFDwZu6HpCSsuzXvp49G2JIT+k4bquB12vGq
+         +4qrrvA9xMOiPvyN3H/hmDY76IKCRnAfzk6TglkgiV7EOcTnvUDbnvWbZO1rpGASpPUd
+         uDnp/3rqfZs0x8ucruvFcQE1Mmco3f4fLiPraocRTee4+15Bh1m+F6dWICRQSL7+F9Ce
+         +FxQ==
+X-Forwarded-Encrypted: i=1; AL+hErHwyK9QVrWGAzGhVe6KYGMJhkIKRouAPrGZHNpckjg6G8fKhgfeEHAzK/IoE2FWanDkiFCE/c+GLNKn0fQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Z3NYzP6G+mAbgPztG85fkrFe1ymmfRroHusIr0cX0wXD8ZI4F
+	2s4MIdxk9RRQ0ILgh+ZCxdm5jWbPSEPaAsl2KAOLSmxCFv0Zf0xNeD7/
+X-Gm-Gg: AYBFou1klrCKRMesVVmprIZYwODlD4RPem1Akvlxl4pY0KhMEOZWoGO/cgIAHgFoEnF
+	/Ea6dv17D6ax6/xJPetJQN42tpC0+642bWy8IDq/DiBNixmHp80QyeyE1UuJBhvRSUCY1enSd49
+	eVSHokXX2XtAtSc5snLuWjZuRvXOeI9sBk0R43fW3f79MgD3xUXIkjlSnHRH6Cgre0odoLpoC1p
+	0MDYrILNSkyZy+ScO4BVwnfopbbTEWOJO8ucxCTe5KmOazwB0pLYdBcy00EVao5FeAped6SU3ds
+	bZ+k9jC1zgoW7MebrYAjDOm8M5OLyX4THvcoDA0ncfpIix1Bd9tlgCozyb27mvqWk3eFG1zyK+C
+	xvsS3gecZ8h5GebhUOyy2jZYvs/bj2q+wEIVSvbECdGISnRcRTDLcEQ1dyVr+psJxRYhxGKsJiF
+	fWDKu9f5K0t3ac1JmRwq3tgbdDaPOSPPxwU2PpU5uEfNQ3pI008RxMY+SCYfcwoDIuNsuBTT3Ym
+	1e9/tKglmoMAhAtFuN785tDdquzPR5VmaMZJ1KlGD55/yjfogNR+jQ33zfeSnos5WXHIucGEzh/
+	6SdHJNPGgebA2XpXtc3e/CSLsPC+5kFMiPBQ
+X-Received: by 2002:a05:7301:fc10:b0:36c:a084:30a4 with SMTP id 5a478bee46e88-3751ef77c77mr2325949eec.21.1794294909109;
+        Mon, 09 Nov 2026 23:15:09 -0800 (PST)
+Received: from hanzj-mi.. ([157.185.136.247])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e76e2sm5034648eec.24.2026.11.09.23.15.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 23:15:08 -0800 (PST)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>,
+	jfs-discussion@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+2cec257b63d85bb983fc@syzkaller.appspotmail.com
+Subject: [PATCH] jfs: hold a page reference on log pages while I/O is in flight
+Date: Tue, 10 Nov 2026 15:15:05 +0800
+Message-ID: <20261110071505.2411506-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,162 +96,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJhwgLr2JcQPsjo6Y0HSAmh
- LtTdPkt3tvIkBVGt2qjjFVNp1ggl4r82MUnWEMx1a5uRcRx6uI8TpltsYQY2H/eLBKa1l0HND2
- olClj0O/ven/8bUv/gp/PFe37AdSOyWx3AAAA
-X-Change-ID: 20261110-panthor-suspend-clk-11d5604fe5be
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Jonas Karlman <jonas@kwiboo.se>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294899; l=5357;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=5go781LIcqxZXcS2fgUKEcRmZbGKWGhE55YnHaY3k5E=;
- b=sWRK/xNMMI8xbnZDMbozJG0VgEE8K+dtXH8cCcg14tTn5zwqv8mxRZjPzpKtbbHeqenDlJfM8
- gr0hTA/AC6NBSGHJyQncQxQBZNCzvdDvdueMUOmBbsYasltnVlaC1mH
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+syzbot reports a use-after-free read in copy_folio_from_iter_atomic()
+that has been reproducing for almost a year:
 
-From the start of panthor_device_suspend() until panthor_device_resume()
-has enabled the clocks again, the GPU clocks are off or about to be, and
-the GPU power domain may be down. devfreq can still call ->target() in
-that window: a write to min_freq or max_freq in sysfs, a thermal cooling
-state change or a PM QoS request all end up in update_devfreq() whatever
-the device state.
+  BUG: KASAN: use-after-free in copy_folio_from_iter_atomic
+  Read of size 4096 by task kworker/u32:9
+  Workqueue: loop0 loop_rootcg_workfn
+    lo_rw_aio
+    shmem_file_write_iter
+    generic_perform_write
+    copy_folio_from_iter_atomic
 
-With the RK3588 GPU core clock switched to the firmware-managed
-SCMI_CLK_GPU (needed to reach the PVTPLL rates of the upper OPPs), such
-a call is fatal. To set a PVTPLL rate TF-A programs registers in the GPU
-GRF, which sit in the GPU power domain, and with the domain off that
-access ends in an asynchronous SError and a kernel panic, for example
-after
+I reproduced the same KASAN report with the C reproducer from the
+syzbot page: the loop worker reads a log page that jfs has already
+freed.
 
-  echo 1000000000 > /sys/class/devfreq/fb000000.gpu/min_freq
+The jfs log code builds one-page bios for its log device in
+lbmStartIO()/lbmRead() and adds the page with __bio_add_page() without
+taking a reference on it.  The lifetime of the page is instead
+guaranteed indirectly: the lbuf that owns the page is kept alive until
+lbmIOWait() observes the lbmDONE flag, which lbmIODone() sets when the
+bio completes.
 
-while the GPU is runtime suspended.
+That guarantee is not sufficient when the log device is an asynchronous
+stacking device such as loop: log writes are pipelined through
+lmGroupCommit(), and lbmStartIO() marks the sync-point write REQ_SYNC.
+The block layer may complete the REQ_SYNC write before an earlier log
+write has been processed by the loop worker, so lmLogShutdown() can
+free all log pages while an earlier bio is still queued inside loop
+and about to read the page it references.
 
-Only apply a rate to the hardware while the device is resuming or
-active, plus the suspend frequency that devfreq_suspend_device() applies
-from the suspend path while the GPU is still powered. Other requests are
-still accepted and recorded by devfreq, which applies them on resume or
-at the next governor update.
+Fix this by the book: take a page reference before adding the page to
+the bio and drop it in the completion path (lbmIODone()), so the page
+is guaranteed to stay alive for the whole lifetime of the bio.  This
+is the same lifetime rule every other filesystem follows for pages it
+submits.
 
-The RFC this is based on (Jonas Karlman's panthor SCMI clock change,
-carried in Armbian's linux-rockchip pull request 380) checked the
-runtime PM status instead. That
-status is still RPM_SUSPENDING after panthor_devfreq_suspend() has run,
-which leaves a window where the rate can be raised again right before
-the power domain goes down. The devfreq suspend count cannot be used
-either: panthor's first runtime resume calls devfreq_resume_device()
-without a matching suspend, so the count is -1 while the GPU is active
-and 0 while it is suspended.
+This bug was found and analyzed with the help of LLM tooling; the fix
+was authored and verified by the signer.
 
-Suggested-by: Jonas Karlman <jonas@kwiboo.se>
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Link: https://syzkaller.appspot.com/bug?extid=2cec257b63d85bb983fc
+Reported-by: syzbot+2cec257b63d85bb983fc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2cec257b63d85bb983fc
+Tested-by: Zhijian Han <hanzhijian1991@gmail.com>
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
 ---
-Tested on an Orange Pi 5 (RK3588S) with the GPU core clock switched to
-SCMI_CLK_GPU and a 200 MHz opp-suspend (the configuration from the RFC,
-not yet in mainline): writing min_freq while the GPU was runtime
-suspended no longer ends in an SError, the request takes effect at the
-next job (1 GHz measured), max_freq likewise; 200 suspend/resume cycles
-with short GPU jobs and a 3 minute sustained load ran without faults.
-With the mainline device tree (CRU clock, no suspend OPP) the SError is
-not reachable and the guard only skips rate changes while the GPU is
-powered down.
+ fs/jfs/jfs_logmgr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
----
- drivers/gpu/drm/panthor/panthor_devfreq.c | 42 ++++++++++++++++++++++++++++---
- 1 file changed, 39 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-index 2249b41ca4af..cab86e9c9d46 100644
---- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-+++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-@@ -60,20 +60,56 @@ static void panthor_devfreq_update_utilization(struct panthor_devfreq *pdevfreq)
- 	pdevfreq->time_last_update = now;
- }
+diff --git a/fs/jfs/jfs_logmgr.c b/fs/jfs/jfs_logmgr.c
+index 306165e61438..ef9ef11ddb1e 100644
+--- a/fs/jfs/jfs_logmgr.c
++++ b/fs/jfs/jfs_logmgr.c
+@@ -1971,6 +1971,7 @@ static int lbmRead(struct jfs_log * log, int pn, struct lbuf ** bpp)
  
-+/*
-+ * Whether a new rate can be applied to the hardware now.
-+ *
-+ * From the start of panthor_device_suspend() until panthor_device_resume()
-+ * has enabled the clocks again, the GPU clocks are about to be disabled
-+ * or are off, and the GPU power domain may be down. devfreq can still
-+ * call ->target() in that window: sysfs
-+ * min_freq/max_freq writes, thermal cooling and PM QoS requests all end
-+ * up in update_devfreq() whatever the device state.
-+ *
-+ * Changing the rate then is pointless, and harmful where the core clock
-+ * is managed by firmware: on RK3588, setting SCMI_CLK_GPU to a PVTPLL
-+ * rate with the GPU power domain off makes TF-A access the powered-down
-+ * GPU GRF, which ends in an asynchronous SError. So while the device is
-+ * suspending only the suspend frequency, applied by
-+ * devfreq_suspend_device(), reaches the hardware, and nothing does
-+ * while it is suspended. devfreq records the other requests: they are
-+ * applied on resume or at the next governor update.
-+ */
-+static bool panthor_devfreq_can_set_rate(struct panthor_device *ptdev,
-+					 unsigned long freq)
-+{
-+	struct devfreq *devfreq = ptdev->devfreq ? ptdev->devfreq->devfreq : NULL;
-+
-+	switch (atomic_read(&ptdev->pm.state)) {
-+	case PANTHOR_DEVICE_PM_STATE_SUSPENDED:
-+		return false;
-+	case PANTHOR_DEVICE_PM_STATE_SUSPENDING:
-+		return devfreq && devfreq->suspend_freq &&
-+		       freq == devfreq->suspend_freq;
-+	default:
-+		return true;
-+	}
-+}
-+
- static int panthor_devfreq_target(struct device *dev, unsigned long *freq,
- 				  u32 flags)
- {
-+	struct panthor_device *ptdev = dev_get_drvdata(dev);
- 	struct dev_pm_opp *opp;
--	int err;
+ 	bio = bio_alloc(file_bdev(log->bdev_file), 1, REQ_OP_READ, GFP_NOFS);
+ 	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
++	get_page(bp->l_page);
+ 	__bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
+ 	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
  
- 	opp = devfreq_recommended_opp(dev, freq, flags);
- 	if (IS_ERR(opp))
- 		return PTR_ERR(opp);
- 	dev_pm_opp_put(opp);
+@@ -2117,6 +2118,7 @@ static void lbmStartIO(struct lbuf * bp)
+ 	bio = bio_alloc(bdev, 1, REQ_OP_WRITE | REQ_SYNC,
+ 			GFP_NOFS);
+ 	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
++	get_page(bp->l_page);
+ 	__bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
+ 	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
  
--	err = dev_pm_opp_set_rate(dev, *freq);
-+	if (!panthor_devfreq_can_set_rate(ptdev, *freq))
-+		return 0;
+@@ -2184,6 +2186,7 @@ static void lbmIODone(struct bio *bio)
+ 		jfs_err("lbmIODone: I/O error in JFS log");
+ 	}
  
--	return err;
-+	return dev_pm_opp_set_rate(dev, *freq);
- }
++	put_page(bp->l_page);
+ 	bio_put(bio);
  
- static void panthor_devfreq_reset(struct panthor_devfreq *pdevfreq)
-
----
-base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
-change-id: 20261110-panthor-suspend-clk-11d5604fe5be
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+ 	/*
+-- 
+2.43.0
 
