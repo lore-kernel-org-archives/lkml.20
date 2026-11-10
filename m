@@ -1,95 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794306071;
-	b=e0tlQxRh04D8zEiy8WyrADCGe80SPaPjypBlda1v2J7L/cZ3p/VYAfL3X8TtIo3INZXB
-	 XJx14Asjfri6JGndek35Ki+0ukO1hQ9OBUiXBXpIJ6yeI3FORMMMWT6HWOs3ykOZr0XcD
-	 Inz6dpj3Mo/RmPIAFivvXfvQNBHSbvm9AK3lwUDCcfwB5sHuDQpc6/9UG+06ZSz9QRoQD
-	 PUNHNAFAIJ1IAmAp/uoIMj21d76lnTraEglRSLmW+Kq/u7r2IT5BfStEwGbYg6iqB9KNK
-	 QEMLYC9aifblLOPAJPxISWpA89cOWJpd+65J6on0mJc14rIyObPrasTgEDfZhVVhYhw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=UboqA+4K+MV7dHYdQxPpT5p8vhCKMEGnuA0lIEB7+GNVo1Fx7GcxsIyqzPF3d8PE/u65
+	 Nb3AJ1fJ1WHL6LBv1ZzVi+hpVrAY0/bjkNGLmXhysJHa5GJ7yrRSoUOC8cBRSKSo7mdZH
+	 vgQYb3FPHjvF6lmoVf0Uj480zSJfq540NiwzHeC4JbmB4RBre7C/N48EMsRHmcybEvFMg
+	 lEqnypbOuadE+VAxrvf2c0M92l+5sR+WEHqc0z6TAjVGuid3V2RVil3cIKm0ddG1c7iN/
+	 zVzr5KmlheBgvUPh7yf1V8DF/rayr7IGdd6vrcEF9ccug4tNp03lpM25qT9wiwzKSMg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794306071;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R1hap9nzJEoggZoxWzvPk4o6CjKXiYGLdrpOjrIMfXA=;
-	b=J/KsUUZ6u90M8mg+UYKtCF/5PE4oSfrtQVU5kz8Pn3qY0C99LOYlrvsBAGW9tInDHIGX
-	 xjolLSh5UJU4ZkfyK75VDCCXBGKk8vhNEtcSA8xOsrJZHD22l3CQRlAV78NzPpea/vk/0
-	 kBePoIKqgr2yaIkuO8sxYCFpU1aVFTseG2nn+FAiNudxbeYE8cUVStsGoMx2cZENCA2YG
-	 lSDuRF4lR52V/v0bUpjHMEAhos09DBtFz948M4x14iKWZnrGw3WCHFG9uo1t2XNpu1oSy
-	 A4G71fyxoDmYT70knNtSIeOHYjDqM1Saeu8P+rZhf27XMhxlOyLWj/eitAV1nvOLhag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D92GPw4D;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KQ7pz3RBqH1RZ9Kp0ueUvPFlO8ZFlajmD8i6yNfqtw0=;
+	b=Kw35oPBR1q3wwRytV+DeTkuqfMl258f+wLOM28jlEWQAlbN25Wy/3ii9JinKF8NiAnmy
+	 HbIfIFv4hvkkNJU+lzRQs2b/OtQJG6IA4RgOB5nVTNFD3PZNtTrae2GAIKR0OL1Prj1rt
+	 3278QOh12YNxW2LTmqRKY2YMQO4XSLdNxe7DR68J5XO+9lI6BIMav1kVRZAmFu+CUeSgh
+	 EOUesA3r/0x+yMF43ZN7Nk28N1WhBQ7UQjNvdInkkCLPLxVzO2e2zjIdA2lLMhxbuZXd/
+	 rM3Gaq6ybUEpK0cv0/PI9rnZjheFgjuQndw7nmjqBmHDDf+D4QPl9wVAUQRF+DCYj3g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="RK/XL+K0";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.17
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E60A60A6F45;
-	Tue, 10 Nov 2026 10:21:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191EC60A5BFE;
+	Tue, 10 Nov 2026 10:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 191EC60A5BFE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D92GPw4D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462431F0089F;
-	Tue, 10 Nov 2026 10:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794306070;
-	bh=R1hap9nzJEoggZoxWzvPk4o6CjKXiYGLdrpOjrIMfXA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D92GPw4DSyaddSMBA/fUifmA1xEnUhLjtzInEH+6r3my7NVWgWv0O9ig/KHX8eGTz
-	 +iwSucOnYpfFZRNk42b92PKouuh1T4KC4HBCl16I0hjsSMPzgE5hRUWD1ON8NgjleJ
-	 ApfOhdbSHWsJDolkO7mLu78Ia4Qy6pE5A5k75qj/A3tYJCbX2GX0Xhbow0WR7fr88K
-	 gG7j3P7O4WlHZkTaSQ4uggGi6CHKvG7xaJAIcwZymEXbz+LBSOLlxuE9j63BhA+Vuu
-	 meg7kR37nPMsLaz/9kgtGxgPN5nR03G67nxfe8vEPUQOOos6b8FfscYZzjxz/aiw/P
-	 iTO1Sy9c6pAwg==
-From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
-To: Magnus Karlsson <magnus.karlsson@intel.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	Mina Almasry <almasrymina@google.com>
-Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	David Wei <dw@davidwei.uk>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stuart Clark <stuclar@meta.com>
-Subject: [PATCH net-next v1 02/11] net: Add memory provider capabilities
-Date: Tue, 10 Nov 2026 11:20:23 +0100
-Message-ID: <20261110102039.1002605-3-bjorn@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110102039.1002605-1-bjorn@kernel.org>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=RK/XL+K0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vsvKFk6PuPwQAXF+vzoq39rmhBwsKVDag3PNrRqqVs8vyhz1DIoM4pANeZfUveXduggYJ4Ftph/KMk1cZPR5fIFDYHUlfi2uDwtTwsURlk5UIjbpcj1MthTISWL52aNxGPDXjKEObOPtM2qpMwheP0/AZuWeAjt7Jz1Ft9lmqUpCyQPVti1t7amJCYkhpZD5/7kDOhBc1yRcwkGV+2Gofu2hZVBAVgIEC/0X268f3BRAHgU/njAB6zQU3KqoUULDyKCOdHFoijYQ/QSHYGXUki5zvhres7xDFqgQpxYCRSmcgYoSJEOAIB3UUWIkBC1F2s+bc/Uer84l7LQOQo8Jcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KQ7pz3RBqH1RZ9Kp0ueUvPFlO8ZFlajmD8i6yNfqtw0=;
+ b=RK6ABfHMjlGrM/WuCfFJpgRkHzvhSHilNzJF1NOluhIL19O13kzzyugvSwaig7YN8fPHuaa4sDvF6stG6M+P5aDtWdQngUWQI9BAbHSlzSsWLwmtWS/Y7rWarQLSJ8Ig+0q7QoK35gX02OIhjfuAbdza9dQ6hdEd9q0uspO452KpdxSeGePHssj6YyGroq47QdOYWm6VxuTqZDTH12skIH/rVx472d/dVmzgY6Q8JnRxAAQtqveBP12FJrxokzpWZSGStYLsyPXJuvRCe/tvUDSrqsrLwFN1d/l9/q3oDE8Wu4gS2aiQo6TUloOKY5/bhUSSd3KZMGF8f9ip1K1kdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KQ7pz3RBqH1RZ9Kp0ueUvPFlO8ZFlajmD8i6yNfqtw0=;
+ b=RK/XL+K03wSiNJh7F13chV662fR2UpdJ9mT18iQ/nAKac/6KHnsCWudopWZwfb80lvevCvpYM6w+phrBflikwdH1uE7D0LbLZvIsDBvLKJWdqNspB7IElsEYFM4ChTmvGZBozZiotTJ6IRkV2D5ZtPkLfOowkPQXgjzVgJ671tIOVmNDf5ilO5B+fw5OSVFxtSS2SPivHefv4CG/mvjob1cR12nd9AhlokPVermzOxt+OzNuPVPIMycTOeIbqSrYGXmaBle1j0uqpRPlJiQuvIt1T/to8MXK2qInNTEf+r41DJAl3voZZ81AQn0RmuNNrv3RESsAbUxwRfZ5eI+14A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SAEPR12MB328447.namprd12.prod.outlook.com (2603:10b6:802:209::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 10:21:08 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 10:21:08 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Tue, 10 Nov 2026 19:20:52 +0900
+Subject: [PATCH v3 03/13] gpu: nova-core: move the bootloader DMEM
+ descriptor out of FWSEC
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-r000-fw-v3-3-20d79ebb646f@nvidia.com>
+References: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
+In-Reply-To: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYWP286CA0014.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:178::20) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,417 +102,345 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SAEPR12MB328447:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0015375-c509-4882-b288-08df3f1455a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|10067099003|11063799006|5023799004|56012099006|261022105027099003|261021123027099003|261022075727099003|261021121427099003|261022115727099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	yYwbjVwihLK3p62x52Hz4pHQmxWn5sWsWgv0lcuZU6w9fhDHqiqiMit101x2NGi5arUU6z13I6QKjcT5ivaTb2Nd/FD7PiAM9b/6oQWTHCvsvmaV3Qz9lgLrj0Rnu8PIG7kfv9N/LyewqYS77nAvpMkr9RdJf8kPPheq4CpWOwF6nC2pzvETe9TKhJ0wUagaIocwO2DWutI38LYQzezOqA+yQfE7Bz+kYIEBQagEiSHoe5YTveVDW+wvk3/g5WgHwPHfwacdOhawdx2JHN9hkLZlI3J2WDFlA0oNUUia9aSjTwLUjKKSraXV/+0GWkw0482arrDE7uUj3Ofs6JeM41wypyKdOrkbmWedInI6lf5ZgStjsoktdfNX3RSqOKujfr1TDg1nKXQAnD8T4mG8FAtUnfXr3efB8rQVwFqhGECpi2krTQPa6BnWf1dypzDqin6lJOz5Ly4Hkqvk14YZTRdtMwwjSJGwFAOmUaIUdzRK9qbfpNnN4ClNV8/LuguD12YaE4L24Pe5dms2hOUuNM4cYx1L2hJsthJtoLdnELBeOT2Te1OQE36Tovb0xVe6cAR9wihnLCbRevFavWvbgB63hCyRzO7BqVHNK7rHR+0wyLvDm7xohWk+9mTRkZaIL/GeirIwRpft9TcXqpw9M+VUHY7nCrfnWd+7/iWDqDY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(10067099003)(11063799006)(5023799004)(56012099006)(261022105027099003)(261021123027099003)(261022075727099003)(261021121427099003)(261022115727099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d2J5bE1iMEtua3dETjEyNjUzYWxuSk1qeDA5NGJTdXZuV3VoRDRoL3lrTGhT?=
+ =?utf-8?B?NVhmaXFzWEs1K3BNdWhxMmJPTU5PaTd6cDdldThWQ1pVZkdidEI2SDRvNlls?=
+ =?utf-8?B?VVoyY09lUUJmTWpTcCtrZXVWaXBPZ0NQVklMVGRoOGYwYUM0UWJETDBVVVQv?=
+ =?utf-8?B?VEZqdUxtbFMvR3kvdHlwWkRaOFRmWHV4TzNXZHBqdXNVeEtHd1J6aHc5azZ6?=
+ =?utf-8?B?ODFlMFczUlZtU081am8yTk1iWWU3Y0VicTVQeFNkNzV3LzNNL21zc1RaSFRp?=
+ =?utf-8?B?SEtIQWN5bEUyWkJzd01KL2pVdFQzczRXcFpRK2tpYkNiNzVsa0Zwc08vSEd0?=
+ =?utf-8?B?Zi9zODZaVmI3K3h4ZzR0dm1zaUl1R1JUQzlwMVJpMEVHS3FEeTVFRnJlVEcx?=
+ =?utf-8?B?czRvQS9CRlN0bXVBcUoxWVRKWjNtQWk4T25KVXdJWHZPQmZaTDMrK2NSWE1t?=
+ =?utf-8?B?ditWNjFKKzh2aXFjbmJlUXcxNWdVWTl4OC9yT2lCY2lOMVZTMW01WWl5OHc2?=
+ =?utf-8?B?VkZCdnZob3R6WjNOaElRc3MyaDNFUXpzSWNOdmZaZ0haRGZuMUxUazl0aG5w?=
+ =?utf-8?B?OWJ1cFZ4MWpjazJzWm5BMjA0TGUwa3Voc01jSDZ6MGYyTlRhM3VrRjBZdUtS?=
+ =?utf-8?B?dEluckZ0RGJQZ0FsT2F4MEt1UXlDZGVudWJqSnNJdkc1TUtqcGlHS2pmMDdY?=
+ =?utf-8?B?aVluTWZhOVQ0TDc1bHo4bUV5Vm5IdXRZSXFsWW9xUlFoYnJhTE5Cb0M0Qmpo?=
+ =?utf-8?B?T3RveWdCc3I2TTlpdGZkK3h5cmJyeWVRTXA3SGxmY2g4T2dRYTFGSXRER1dp?=
+ =?utf-8?B?aEp3bDlJOTZOM2FkSkVFWFRWMTl1cGF3a2ZCcVcvY3NxbERCanNWd3NncG1x?=
+ =?utf-8?B?K2hnblZlT1JYL2JxYUhSN1lubUkzV1VOYWVUQXo0N1B6OURWSkZOa2tlV3I1?=
+ =?utf-8?B?aE5qa3NENG91WG1qK2VoTXFXODR1enA4L1c5cUNhVjVCTVNHUHhnZk9LL3JY?=
+ =?utf-8?B?Mkk1alFlQnQ0UEYwcCtpUXVPSFppVHRNWkJCWUxhRW4zdEV4RTVDdVhLYWtP?=
+ =?utf-8?B?LzM4d3NKanozUzh0eWhXV05GM2hadDB0OGJqNVB6VzNhTzR2ZVpSZnZlWmVU?=
+ =?utf-8?B?a1k5VWwxZWYxRDFrcCs2bDBtOVBtN0ViRkZkL2FSN2JMckVyZVd4NnY4WmpC?=
+ =?utf-8?B?YnBYWnE3YWxEYXU3cmYwbHVMVG5HcHQ3YXRweXoraWp0b09IWmZtZnZlSngz?=
+ =?utf-8?B?Y1pkK3ZJYjNTS0ZUaGduNGtsV2QzQytpT2l2Uy9ZTFJTMmM4MWpsR1NaS1Ex?=
+ =?utf-8?B?SzMvYVRpK2pKOERHS21KOVJHWXBSbnd0eFlnbG9aaXJ0b1Y4Z2pWMFVldE5y?=
+ =?utf-8?B?cnBFdVBucUlBSHEwUUhMKzhSQkVGamU3ek9PRmdKZ09SV1IvMEl5aHBmZzBs?=
+ =?utf-8?B?SVM0RVhjdkwxS3BIK3gvQjQ2QmM1MmF1dXBhTURkeGJ0Q051UXZNWDlJV3d1?=
+ =?utf-8?B?dzYvRUdNRjRrNVZuYW1LMHM5ZmVpa1F1bGJPbldqRXIyMzhzdkJ1aUlOZEpj?=
+ =?utf-8?B?YUlIcVpKekcyUUVUMGdIaGlYT0F2K1F3WXFLVGpBQzFoR08ya295eXFQQW5U?=
+ =?utf-8?B?NG1rVXd5aDBST1F0cUhoSHJEcVV5V1U3TU1Jc2RKYzI0THN3Um8ycXNKZEJ2?=
+ =?utf-8?B?enV4ZGQ2eGZHZ2hzOTYrc28rTXV4UUprd05KQ2dJdjkwcnZucGkxeG4ydlMz?=
+ =?utf-8?B?VEczZEhMME9zOG9CR20wQ09aV3lvcm11RlJISXQ3QnFVbmlzKy9NeTZPbVY0?=
+ =?utf-8?B?MUc1SzU4SEpPVUt5NkxFUG5yMmNmVXZzWm9mejYrUjlYa1NvOCttRzFoendJ?=
+ =?utf-8?B?ajVxV3BUUitUZXhJVThtakJ6SXNZbnVsMnlGaFJud3YrSWc1Z2hjT1N3UFRP?=
+ =?utf-8?B?NUhHNmFJbVZEUnUwaHpKOCs4RHdYMUNSUFlVTytYVXpkTUxyb0RVaUtTRjV0?=
+ =?utf-8?B?M2VaQ1NwdW5RdnJtaTJ1TEs3U1dVTENxVmNiSjFJNlhpbEpoSlB5R3k4Vmhl?=
+ =?utf-8?B?ekxPMU1vN0Y5Q3U3Y1Q4YmJhRFN0M2h1dGtqZW1WVTJyMktnaGd0NmdJOW9a?=
+ =?utf-8?B?NEs3WWpvT1lNYS80WjFZc1NnRzBmNWlsY0pYZWVEcnlFSkxsbFF5clVkeGJt?=
+ =?utf-8?B?UVkyWThKczkvdXdjNDlmYkxKcW1xRkxFZXF3OVREaTlSMlZlbTJtUnZaMEZq?=
+ =?utf-8?B?bG1oU1hpaE5yejJLa2hSbTZxL0p5elBhWWg1M000Tkl3V3EwVDg0ZEt2cFl1?=
+ =?utf-8?B?WTFaNmc4TDZZT0Q1M2F0YUtLSDJ0cndGYzhNQzAzYlFUV0hlWGx4dmVoV25E?=
+ =?utf-8?Q?LVzY/lTAgDAAF94LQQobItuY0V0WEW+ivS2QAmCk+CGsN?=
+X-MS-Exchange-AntiSpam-MessageData-1: g69ZTdt+9vkwkA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0015375-c509-4882-b288-08df3f1455a1
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 10:21:07.9890
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BqIv0j3gyJ9ClRz5V8LvtZ1DUjq8gAYPFWVugCY6V/vABdUqm6per1CLBoxNyHR1bsbDPmZKJv2ADDHv3mM2aA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAEPR12MB328447
 
-The core treats every memory provider as unreadable: installing one
-needs header split and no XDP program, and any page pool that allows
-unreadable netmem takes it. An AF_XDP UMEM provider is readable, needs
-XDP, and hands out whole buffers.
+From: John Hubbard <jhubbard@nvidia.com>
 
-Describe providers by MP_CAP_READABLE and MP_CAP_FRAG; devmem and
-io_uring keep their behavior with MP_CAP_FRAG. A page pool takes a
-readable provider only with the new PP_FLAG_MEM_PROVIDER:
-PP_FLAG_ALLOW_UNREADABLE_NETMEM says that a driver handles unreadable
-netmem, not that it handles any provider.
+The generic falcon bootloader reads its load parameters from a
+descriptor that the driver places in DMEM. The r000 load-and-execute
+bootloader event carries such a descriptor, so its handler will need the
+descriptor type.
 
-Signed-off-by: Björn Töpel <bjorn@kernel.org>
+The descriptor was defined in the FWSEC code, which was its only user.
+Move the definition, unchanged, into the generic bootloader module.
+
+No functional changes.
+
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+[acourbot: keep the fields private, add a constructor and the ctx_dma()
+ accessor instead of making every field pub(crate)]
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- Documentation/networking/netmem.rst     |  5 ++++
- drivers/net/netkit.c                    |  3 +-
- include/net/page_pool/helpers.h         | 14 +++++++++-
- include/net/page_pool/memory_provider.h | 14 ++++++++++
- include/net/page_pool/types.h           | 15 ++++++++--
- io_uring/zcrx.c                         |  1 +
- net/core/dev.c                          | 10 ++++---
- net/core/devmem.c                       |  1 +
- net/core/netdev_rx_queue.c              | 37 ++++++++++++++++++++-----
- net/core/page_pool.c                    | 34 +++++++++++++++++++++--
- net/ethtool/rings.c                     |  7 +++--
- net/xdp/xsk_buff_pool.c                 |  3 +-
- 12 files changed, 122 insertions(+), 22 deletions(-)
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 95 +++++-----------------
+ drivers/gpu/nova-core/firmware/gen_bootloader.rs   | 94 ++++++++++++++++++++-
+ 2 files changed, 112 insertions(+), 77 deletions(-)
 
-diff --git a/Documentation/networking/netmem.rst b/Documentation/networking/netmem.rst
-index 6871dcdd700c..39cb75339704 100644
---- a/Documentation/networking/netmem.rst
-+++ b/Documentation/networking/netmem.rst
-@@ -103,6 +103,11 @@ Driver RX Requirements
-      which knows when dma-syncing is (or is not) appropriate.
-    - PP_FLAG_ALLOW_UNREADABLE_NETMEM. The driver must specify this flag iff
-      tcp-data-split is enabled.
-+   - PP_FLAG_MEM_PROVIDER. The page pool takes memory from the memory
-+     provider of its RX queue, readable or not. Page pool creation fails if
-+     the provider is unreadable and PP_FLAG_ALLOW_UNREADABLE_NETMEM is not
-+     set, so do not set it on header page pools of such a queue. Without it,
-+     PP_FLAG_ALLOW_UNREADABLE_NETMEM selects unreadable providers only.
- 
- 5. The driver must not assume the netmem is readable and/or backed by pages.
-    The netmem returned by the page_pool may be unreadable, in which case
-diff --git a/drivers/net/netkit.c b/drivers/net/netkit.c
-index 82e608e733d9..df672ed5ffcc 100644
---- a/drivers/net/netkit.c
-+++ b/drivers/net/netkit.c
-@@ -12,6 +12,7 @@
- #include <net/netdev_lock.h>
- #include <net/netdev_queues.h>
- #include <net/netdev_rx_queue.h>
-+#include <net/page_pool/memory_provider.h>
- #include <net/xdp_sock_drv.h>
- #include <net/netkit.h>
- #include <net/dst.h>
-@@ -289,7 +290,7 @@ static int netkit_xsk(struct net_device *dev, struct netdev_bpf *xdp)
- 		ret = -EOPNOTSUPP;
- 		goto out;
- 	}
--	if (!create || !dev_get_min_mp_channel_count(phys))
-+	if (!create || netif_all_mps_have_cap(phys, MP_CAP_READABLE))
- 		ret = phys->netdev_ops->ndo_bpf(phys, &xdp_lower);
- out:
- 	netdev_unlock(phys);
-diff --git a/include/net/page_pool/helpers.h b/include/net/page_pool/helpers.h
-index 28635ce9454e..96e6b62cdebb 100644
---- a/include/net/page_pool/helpers.h
-+++ b/include/net/page_pool/helpers.h
-@@ -62,6 +62,7 @@
- 
- #include <linux/dma-mapping.h>
- 
-+#include <net/page_pool/memory_provider.h>
- #include <net/page_pool/types.h>
- #include <net/net_debug.h>
- #include <net/netmem.h>
-@@ -519,7 +520,18 @@ static inline void page_pool_nid_changed(struct page_pool *pool, int new_nid)
-  */
- static inline bool page_pool_is_unreadable(struct page_pool *pool)
- {
--	return !!pool->mp_ops;
-+	return pool->mp_ops && !(pool->mp_ops->caps & MP_CAP_READABLE);
-+}
-+
-+/**
-+ * page_pool_supports_frag() - may page pool buffers be split
-+ * @pool: queried page pool
-+ *
-+ * Return: false if the memory provider of @pool hands out whole buffers only
-+ */
-+static inline bool page_pool_supports_frag(const struct page_pool *pool)
-+{
-+	return !pool->mp_ops || pool->mp_ops->caps & MP_CAP_FRAG;
- }
- 
- #endif /* _NET_PAGE_POOL_HELPERS_H */
-diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_pool/memory_provider.h
-index bceb5f7740e2..4417e54a0f81 100644
---- a/include/net/page_pool/memory_provider.h
-+++ b/include/net/page_pool/memory_provider.h
-@@ -19,6 +19,18 @@ struct sk_buff;
-  * Per-provider custom logic must be delegated to memory_provider_ops rather
-  * than handled directly in page_pool core code.
-  */
-+
-+/**
-+ * enum mp_caps - memory provider capabilities
-+ * @MP_CAP_READABLE: The CPU can access provider memory. It may back header
-+ *	page pools, and XDP programs may run on it.
-+ * @MP_CAP_FRAG: Page pool fragments may split provider buffers.
-+ */
-+enum mp_caps {
-+	MP_CAP_READABLE		= BIT(0),
-+	MP_CAP_FRAG		= BIT(1),
-+};
-+
- struct memory_provider_ops {
- 	netmem_ref (*alloc_netmems)(struct page_pool *pool, gfp_t gfp);
- 	bool (*release_netmem)(struct page_pool *pool, netmem_ref netmem);
-@@ -27,6 +39,7 @@ struct memory_provider_ops {
- 	int (*nl_fill)(void *mp_priv, struct sk_buff *rsp,
- 		       struct netdev_rx_queue *rxq);
- 	void (*uninstall)(void *mp_priv, struct netdev_rx_queue *rxq);
-+	u32 caps;
+diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+index 80239301bbfa..e7933b5af201 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+@@ -35,60 +35,16 @@
+     },
+     firmware::{
+         fwsec::FwsecFirmware,
+-        gen_bootloader::GenericBootloader, //
++        gen_bootloader::{
++            BootloaderDmemDescV2,
++            GenericBootloader, //
++        },
+     },
+     gpu::Chipset,
+     num::FromSafeCast, //
+     regs,
  };
  
- bool net_mp_niov_set_dma_addr(struct net_iov *niov, dma_addr_t addr);
-@@ -38,6 +51,7 @@ int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
- 		      struct netlink_ext_ack *extack);
- int netif_mp_close_rxq(struct net_device *dev, unsigned int rxq_idx,
- 		       const struct pp_memory_provider_params *old_p);
-+bool netif_all_mps_have_cap(struct net_device *dev, u32 cap);
+-/// Structure used by the boot-loader to load the rest of the code.
+-///
+-/// This has to be filled by the GPU driver and copied into DMEM at offset
+-/// [`BootloaderDesc.dmem_load_off`].
+-#[repr(C, packed)]
+-#[derive(Debug, Clone)]
+-struct BootloaderDmemDescV2 {
+-    /// Reserved, should always be first element.
+-    reserved: [u32; 4],
+-    /// 16B signature for secure code, 0s if no secure code.
+-    signature: [u32; 4],
+-    /// DMA context used by the bootloader while loading code/data.
+-    ctx_dma: u32,
+-    /// 256B-aligned physical FB address where code is located.
+-    code_dma_base: u64,
+-    /// Offset from `code_dma_base` where the non-secure code is located.
+-    ///
+-    /// Also used as destination IMEM offset of non-secure code as the DMA firmware object is
+-    /// expected to be a mirror image of its loaded state.
+-    ///
+-    /// Must be multiple of 256.
+-    non_sec_code_off: u32,
+-    /// Size of the non-secure code part.
+-    non_sec_code_size: u32,
+-    /// Offset from `code_dma_base` where the secure code is located (must be multiple of 256).
+-    ///
+-    /// Also used as destination IMEM offset of secure code as the DMA firmware object is expected
+-    /// to be a mirror image of its loaded state.
+-    ///
+-    /// Must be multiple of 256.
+-    sec_code_off: u32,
+-    /// Size of the secure code part.
+-    sec_code_size: u32,
+-    /// Code entry point invoked by the bootloader after code is loaded.
+-    code_entry_point: u32,
+-    /// 256B-aligned physical FB address where data is located.
+-    data_dma_base: u64,
+-    /// Size of data block (should be multiple of 256B).
+-    data_size: u32,
+-    /// Number of arguments to be passed to the target firmware being loaded.
+-    argc: u32,
+-    /// Arguments to be passed to the target firmware being loaded.
+-    argv: u32,
+-}
+-// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+-unsafe impl AsBytes for BootloaderDmemDescV2 {}
+-
+ /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
+ /// operation.
+ pub(crate) struct FwsecFirmwareWithBl<'a> {
+@@ -140,9 +96,6 @@ pub(crate) fn new(
+         };
  
- /**
-   * net_mp_netmem_place_in_cache() - give a netmem to a page pool
-diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types.h
-index 6d543076a0c0..0d48c05f1462 100644
---- a/include/net/page_pool/types.h
-+++ b/include/net/page_pool/types.h
-@@ -31,8 +31,19 @@
-  */
- #define PP_FLAG_ALLOW_UNREADABLE_NETMEM BIT(3)
+         let dmem_desc = {
+-            // Bootloader payload is in non-coherent system memory.
+-            const FALCON_DMAIDX_PHYS_SYS_NCOH: u32 = 4;
+-
+             let imem_sec = firmware.imem_sec_load_params();
+             let imem_ns = firmware.imem_ns_load_params().ok_or(EINVAL)?;
+             let dmem = firmware.dmem_load_params();
+@@ -154,30 +107,20 @@ pub(crate) fn new(
+                 return Err(EINVAL);
+             }
  
-+/* Take memory from the memory provider of the RX queue, if one is installed.
-+ * Set page_pool_params.slow.netdev and queue_idx, and create the pool under
-+ * the instance lock of the netdev.
-+ * An unreadable provider also needs PP_FLAG_ALLOW_UNREADABLE_NETMEM, or page
-+ * pool creation fails. Without this flag, PP_FLAG_ALLOW_UNREADABLE_NETMEM
-+ * selects unreadable providers only.
-+ */
-+#define PP_FLAG_MEM_PROVIDER	BIT(4)
+-            BootloaderDmemDescV2 {
+-                reserved: [0; 4],
+-                signature: [0; 4],
+-                ctx_dma: FALCON_DMAIDX_PHYS_SYS_NCOH,
+-                code_dma_base: firmware_dma.dma_address(),
+-                // `dst_start` is also valid as the source offset since the firmware DMA object is
+-                // a mirror image of the target IMEM layout.
+-                non_sec_code_off: imem_ns.dst_start,
+-                non_sec_code_size: imem_ns.len,
+-                // `dst_start` is also valid as the source offset since the firmware DMA object is
+-                // a mirror image of the target IMEM layout.
+-                sec_code_off: imem_sec.dst_start,
+-                sec_code_size: imem_sec.len,
+-                code_entry_point: 0,
+-                // Start of data section is the added padding + the DMEM `src_start` field.
+-                data_dma_base: firmware_dma
+-                    .dma_address()
+-                    .checked_add(u64::from_safe_cast(align_padding))
+-                    .and_then(|offset| offset.checked_add(dmem.src_start.into()))
+-                    .ok_or(EOVERFLOW)?,
+-                data_size: dmem.len,
+-                argc: 0,
+-                argv: 0,
+-            }
++            // Start of data section is the added padding + the DMEM `src_start` field.
++            let data_dma_base = firmware_dma
++                .dma_address()
++                .checked_add(u64::from_safe_cast(align_padding))
++                .and_then(|offset| offset.checked_add(dmem.src_start.into()))
++                .ok_or(EOVERFLOW)?;
 +
- #define PP_FLAG_ALL		(PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV | \
--				 PP_FLAG_SYSTEM_POOL | PP_FLAG_ALLOW_UNREADABLE_NETMEM)
-+				 PP_FLAG_SYSTEM_POOL | \
-+				 PP_FLAG_ALLOW_UNREADABLE_NETMEM | \
-+				 PP_FLAG_MEM_PROVIDER)
++            BootloaderDmemDescV2::new(
++                &imem_ns,
++                &imem_sec,
++                &dmem,
++                firmware_dma.dma_address(),
++                data_dma_base,
++            )
+         };
  
- /* Index limit to stay within PP_DMA_INDEX_BITS for DMA indices */
- #define PP_DMA_INDEX_LIMIT XA_LIMIT(1, BIT(PP_DMA_INDEX_BITS) - 1)
-@@ -82,7 +93,7 @@ struct pp_alloc_cache {
-  * @netdev:	netdev this pool will serve (leave as NULL if none or multiple)
-  * @queue_idx:	queue idx this page_pool is being created for.
-  * @flags:	PP_FLAG_DMA_MAP, PP_FLAG_DMA_SYNC_DEV, PP_FLAG_SYSTEM_POOL,
-- *		PP_FLAG_ALLOW_UNREADABLE_NETMEM.
-+ *		PP_FLAG_ALLOW_UNREADABLE_NETMEM, PP_FLAG_MEM_PROVIDER.
-  */
- struct page_pool_params {
- 	struct_group_tagged(page_pool_params_fast, fast,
-diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
-index 555f27e6c1ba..3b5bf97aa203 100644
---- a/io_uring/zcrx.c
-+++ b/io_uring/zcrx.c
-@@ -1478,6 +1478,7 @@ static const struct memory_provider_ops io_uring_pp_zc_ops = {
- 	.destroy		= io_pp_zc_destroy,
- 	.nl_fill		= io_pp_nl_fill,
- 	.uninstall		= io_pp_uninstall,
-+	.caps			= MP_CAP_FRAG,
+         Ok(Self {
+@@ -203,7 +146,7 @@ pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<'_, Gsp>)
+ 
+         // Configure DMA index for the bootloader to fetch the FWSEC firmware from system memory.
+         falcon.pfalcon.update(
+-            regs::NV_PFALCON_FBIF_TRANSCFG::try_at(usize::from_safe_cast(self.dmem_desc.ctx_dma))
++            regs::NV_PFALCON_FBIF_TRANSCFG::try_at(usize::from_safe_cast(self.dmem_desc.ctx_dma()))
+                 .ok_or(EINVAL)?,
+             |v| {
+                 v.with_target(FalconFbifTarget::CoherentSysmem)
+diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+index 16ef2c79a6b1..b7aac9a25a53 100644
+--- a/drivers/gpu/nova-core/firmware/gen_bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+@@ -13,12 +13,14 @@
+     },
+     prelude::*,
+     ptr::Alignable,
+-    sizes, //
++    sizes,
++    transmute::AsBytes, //
  };
  
- static unsigned zcrx_parse_rq(netmem_ref *netmem_array, unsigned nr,
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 3b60b15e2175..663fe3e32ea0 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -10546,8 +10546,9 @@ int netif_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf)
- 		return -EBUSY;
- 	}
- 
--	if (dev_get_min_mp_channel_count(dev)) {
--		NL_SET_ERR_MSG(bpf->extack, "unable to propagate XDP to device using memory provider");
-+	if (!netif_all_mps_have_cap(dev, MP_CAP_READABLE)) {
-+		NL_SET_ERR_MSG(bpf->extack,
-+			       "unable to propagate XDP to device using unreadable memory provider");
- 		return -EBUSY;
- 	}
- 
-@@ -10622,8 +10623,9 @@ static int dev_xdp_install(struct net_device *dev, enum bpf_xdp_mode mode,
- 		return -EBUSY;
- 	}
- 
--	if (dev_get_min_mp_channel_count(dev)) {
--		NL_SET_ERR_MSG(extack, "unable to install XDP to device using memory provider");
-+	if (!netif_all_mps_have_cap(dev, MP_CAP_READABLE)) {
-+		NL_SET_ERR_MSG(extack,
-+			       "unable to install XDP to device using unreadable memory provider");
- 		return -EBUSY;
- 	}
- 
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index b9146b1f294a..8f190b574beb 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -698,4 +698,5 @@ static const struct memory_provider_ops dmabuf_devmem_ops = {
- 	.release_netmem		= mp_dmabuf_devmem_release_page,
- 	.nl_fill		= mp_dmabuf_devmem_nl_fill,
- 	.uninstall		= mp_dmabuf_devmem_uninstall,
-+	.caps			= MP_CAP_FRAG,
+ use crate::{
+     falcon::{
+         self,
++        FalconDmaLoadTarget,
+         FalconPioImemLoadTarget, //
+     },
+     firmware::tlv::{
+@@ -29,6 +31,96 @@
+     num::FromSafeCast, //
  };
-diff --git a/net/core/netdev_rx_queue.c b/net/core/netdev_rx_queue.c
-index a7261fedd5e7..9e14a747f9b5 100644
---- a/net/core/netdev_rx_queue.c
-+++ b/net/core/netdev_rx_queue.c
-@@ -82,9 +82,13 @@ __netif_get_rx_queue_lease(struct net_device **dev, unsigned int *rxq_idx,
- /* See also page_pool_is_unreadable() */
- bool netif_rxq_has_unreadable_mp(struct net_device *dev, unsigned int rxq_idx)
- {
--	if (rxq_idx < dev->real_num_rx_queues)
--		return __netif_get_rx_queue(dev, rxq_idx)->mp_params.mp_ops;
--	return false;
-+	const struct memory_provider_ops *ops;
-+
-+	if (rxq_idx >= dev->real_num_rx_queues)
-+		return false;
-+
-+	ops = __netif_get_rx_queue(dev, rxq_idx)->mp_params.mp_ops;
-+	return ops && !(ops->caps & MP_CAP_READABLE);
- }
- EXPORT_SYMBOL(netif_rxq_has_unreadable_mp);
  
-@@ -95,6 +99,22 @@ bool netif_rxq_has_mp(struct net_device *dev, unsigned int rxq_idx)
- 	return false;
- }
- 
-+bool netif_all_mps_have_cap(struct net_device *dev, u32 cap)
-+{
-+	const struct memory_provider_ops *ops;
-+	unsigned int i;
-+
-+	netdev_assert_locked_ops_compat(dev);
-+
-+	for (i = 0; i < dev->real_num_rx_queues; i++) {
-+		ops = dev->_rx[i].mp_params.mp_ops;
-+		if (ops && (ops->caps & cap) != cap)
-+			return false;
-+	}
-+
-+	return true;
++/// Structure used by the boot-loader to load the rest of the code.
++///
++/// This has to be filled by the GPU driver and copied into DMEM at offset
++/// [`BootloaderDesc.dmem_load_off`].
++#[repr(C, packed)]
++#[derive(Debug, Clone)]
++pub(crate) struct BootloaderDmemDescV2 {
++    /// Reserved, should always be first element.
++    reserved: [u32; 4],
++    /// 16B signature for secure code, 0s if no secure code.
++    signature: [u32; 4],
++    /// DMA context used by the bootloader while loading code/data.
++    ctx_dma: u32,
++    /// 256B-aligned physical FB address where code is located.
++    code_dma_base: u64,
++    /// Offset from `code_dma_base` where the non-secure code is located.
++    ///
++    /// Also used as destination IMEM offset of non-secure code as the DMA firmware object is
++    /// expected to be a mirror image of its loaded state.
++    ///
++    /// Must be multiple of 256.
++    non_sec_code_off: u32,
++    /// Size of the non-secure code part.
++    non_sec_code_size: u32,
++    /// Offset from `code_dma_base` where the secure code is located (must be multiple of 256).
++    ///
++    /// Also used as destination IMEM offset of secure code as the DMA firmware object is expected
++    /// to be a mirror image of its loaded state.
++    ///
++    /// Must be multiple of 256.
++    sec_code_off: u32,
++    /// Size of the secure code part.
++    sec_code_size: u32,
++    /// Code entry point invoked by the bootloader after code is loaded.
++    code_entry_point: u32,
++    /// 256B-aligned physical FB address where data is located.
++    data_dma_base: u64,
++    /// Size of data block (should be multiple of 256B).
++    data_size: u32,
++    /// Number of arguments to be passed to the target firmware being loaded.
++    argc: u32,
++    /// Arguments to be passed to the target firmware being loaded.
++    argv: u32,
 +}
 +
- static int netdev_rx_queue_reconfig(struct net_device *dev,
- 				    unsigned int rxq_idx,
- 				    struct netdev_queue_config *qcfg_old,
-@@ -189,6 +209,7 @@ static int __netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
- 			       struct netlink_ext_ack *extack)
- {
- 	const struct netdev_queue_mgmt_ops *qops = dev->queue_mgmt_ops;
-+	bool unreadable = !(p->mp_ops->caps & MP_CAP_READABLE);
- 	struct netdev_queue_config qcfg[2];
- 	struct netdev_rx_queue *rxq;
- 	int ret;
-@@ -196,16 +217,18 @@ static int __netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
- 	if (!qops)
- 		return -EOPNOTSUPP;
- 
--	if (dev->cfg->hds_config != ETHTOOL_TCP_DATA_SPLIT_ENABLED) {
-+	if (unreadable &&
-+	    dev->cfg->hds_config != ETHTOOL_TCP_DATA_SPLIT_ENABLED) {
- 		NL_SET_ERR_MSG(extack, "tcp-data-split is disabled");
- 		return -EINVAL;
- 	}
--	if (dev->cfg->hds_thresh) {
-+	if (unreadable && dev->cfg->hds_thresh) {
- 		NL_SET_ERR_MSG(extack, "hds-thresh is not zero");
- 		return -EINVAL;
- 	}
--	if (dev_xdp_prog_count(dev)) {
--		NL_SET_ERR_MSG(extack, "unable to custom memory provider to device with XDP program attached");
-+	if (unreadable && dev_xdp_prog_count(dev)) {
-+		NL_SET_ERR_MSG(extack,
-+			       "unable to use unreadable memory provider with XDP program attached");
- 		return -EEXIST;
- 	}
- 	if (p->rx_page_size && !(qops->supported_params & QCFG_RX_PAGE_SIZE)) {
-diff --git a/net/core/page_pool.c b/net/core/page_pool.c
-index d7c88c0b67e5..d88a3ea528d4 100644
---- a/net/core/page_pool.c
-+++ b/net/core/page_pool.c
-@@ -188,6 +188,29 @@ static void page_pool_struct_check(void)
- 				    PAGE_POOL_FRAG_GROUP_ALIGN);
- }
- 
-+static int page_pool_select_mp(struct page_pool *pool,
-+			       const struct pp_memory_provider_params *mpp)
-+{
-+	const struct memory_provider_ops *ops = mpp->mp_ops;
-+	unsigned int flags = pool->slow.flags;
-+	bool readable;
++impl BootloaderDmemDescV2 {
++    /// Context DMA slot through which the bootloader reads the image: physical, non-coherent
++    /// system memory.
++    const FALCON_DMAIDX_PHYS_SYS_NCOH: u32 = 4;
 +
-+	if (!ops)
-+		return 0;
++    /// Creates the descriptor of an image whose code is at `code_dma_base` and whose data is at
++    /// `data_dma_base`.
++    ///
++    /// `imem_ns` and `imem_sec` locate the non-secure and secure code in the image, and `dmem`
++    /// gives the size of its data. The code DMA object must be a mirror image of the target IMEM
++    /// layout, because the bootloader uses the destination offset of each code segment as its
++    /// source offset too.
++    pub(crate) fn new(
++        imem_ns: &FalconDmaLoadTarget,
++        imem_sec: &FalconDmaLoadTarget,
++        dmem: &FalconDmaLoadTarget,
++        code_dma_base: u64,
++        data_dma_base: u64,
++    ) -> Self {
++        Self {
++            reserved: [0; 4],
++            signature: [0; 4],
++            ctx_dma: Self::FALCON_DMAIDX_PHYS_SYS_NCOH,
++            code_dma_base,
++            non_sec_code_off: imem_ns.dst_start,
++            non_sec_code_size: imem_ns.len,
++            sec_code_off: imem_sec.dst_start,
++            sec_code_size: imem_sec.len,
++            code_entry_point: 0,
++            data_dma_base,
++            data_size: dmem.len,
++            argc: 0,
++            argv: 0,
++        }
++    }
 +
-+	readable = ops->caps & MP_CAP_READABLE;
-+	if (flags & PP_FLAG_MEM_PROVIDER) {
-+		if (!readable && !(flags & PP_FLAG_ALLOW_UNREADABLE_NETMEM))
-+			return -EOPNOTSUPP;
-+	} else if (readable) {
-+		return 0;
-+	}
-+
-+	pool->mp_priv = mpp->mp_priv;
-+	pool->mp_ops = ops;
-+	return 0;
++    /// Returns the context DMA slot through which the bootloader reads the image.
++    pub(crate) fn ctx_dma(&self) -> u32 {
++        self.ctx_dma
++    }
 +}
 +
- static int page_pool_init(struct page_pool *pool,
- 			  const struct page_pool_params *params,
- 			  int cpuid)
-@@ -272,12 +295,14 @@ static int page_pool_init(struct page_pool *pool,
- 
- 	xa_init_flags(&pool->dma_mapped, XA_FLAGS_ALLOC1);
- 
--	if (pool->slow.flags & PP_FLAG_ALLOW_UNREADABLE_NETMEM) {
-+	if (pool->slow.flags & (PP_FLAG_MEM_PROVIDER |
-+				PP_FLAG_ALLOW_UNREADABLE_NETMEM)) {
- 		netdev_assert_locked(pool->slow.netdev);
- 		rxq = __netif_get_rx_queue(pool->slow.netdev,
- 					   pool->slow.queue_idx);
--		pool->mp_priv = rxq->mp_params.mp_priv;
--		pool->mp_ops = rxq->mp_params.mp_ops;
-+		err = page_pool_select_mp(pool, &rxq->mp_params);
-+		if (err)
-+			goto free_ptr_ring;
- 	}
- 
- 	if (pool->mp_ops) {
-@@ -1070,6 +1095,9 @@ netmem_ref page_pool_alloc_frag_netmem(struct page_pool *pool,
- 	unsigned int max_size = PAGE_SIZE << pool->p.order;
- 	netmem_ref netmem = pool->frag_page;
- 
-+	if (static_branch_unlikely(&page_pool_mem_providers) &&
-+	    WARN_ON_ONCE(!page_pool_supports_frag(pool)))
-+		return 0;
- 	if (WARN_ON(size > max_size))
- 		return 0;
- 
-diff --git a/net/ethtool/rings.c b/net/ethtool/rings.c
-index e3810c0320e3..378e171d4e10 100644
---- a/net/ethtool/rings.c
-+++ b/net/ethtool/rings.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
- #include <net/netdev_queues.h>
-+#include <net/page_pool/memory_provider.h>
- 
- #include "common.h"
- #include "netlink.h"
-@@ -258,15 +259,15 @@ ethnl_set_rings(struct ethnl_req_info *req_info, struct genl_info *info)
- 		return -EINVAL;
- 	}
- 
--	if (dev_get_min_mp_channel_count(dev)) {
-+	if (!netif_all_mps_have_cap(dev, MP_CAP_READABLE)) {
- 		if (kernel_ringparam.tcp_data_split !=
- 		    ETHTOOL_TCP_DATA_SPLIT_ENABLED) {
- 			NL_SET_ERR_MSG(info->extack,
--				       "can't disable tcp-data-split while device has memory provider enabled");
-+				       "can't disable tcp-data-split while device has unreadable memory provider enabled");
- 			return -EINVAL;
- 		} else if (kernel_ringparam.hds_thresh) {
- 			NL_SET_ERR_MSG(info->extack,
--				       "can't set non-zero hds_thresh while device is memory provider enabled");
-+				       "can't set non-zero hds_thresh while device has unreadable memory provider enabled");
- 			return -EINVAL;
- 		}
- 	}
-diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
-index 7750d2ec4ee2..18966bbdb5b7 100644
---- a/net/xdp/xsk_buff_pool.c
-+++ b/net/xdp/xsk_buff_pool.c
-@@ -2,6 +2,7 @@
- 
- #include <linux/netdevice.h>
- #include <net/netdev_lock.h>
-+#include <net/page_pool/memory_provider.h>
- #include <net/xsk_buff_pool.h>
- #include <net/xdp_sock.h>
- #include <net/xdp_sock_drv.h>
-@@ -241,7 +242,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 		goto err_unreg_pool;
- 	}
- 
--	if (dev_get_min_mp_channel_count(netdev)) {
-+	if (!netif_all_mps_have_cap(netdev, MP_CAP_READABLE)) {
- 		err = -EBUSY;
- 		goto err_unreg_pool;
- 	}
++// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
++unsafe impl AsBytes for BootloaderDmemDescV2 {}
++
+ /// The generic falcon bootloader image and its IMEM load parameters.
+ pub(crate) struct GenericBootloader {
+     /// Bootloader code, zero-padded to a whole number of falcon memory blocks.
+
 -- 
 2.56.0
 
