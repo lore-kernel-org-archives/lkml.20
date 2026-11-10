@@ -1,101 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794339076;
-	b=VTeuuif7s6JIu6Srjx1uVUeLjX9cHO9O2AUwl6JaIEHZ7xH+ITFBrTD81CyjVSOpAXlr
-	 QpqfeFWb1IAVU1AmCX0SksNoyos2Vpc1G4RWX9W4nHL+w3zySpnEIL2CpeGRdZ4INXbru
-	 mGNBZTl/mBEEfPk+de+uip3KgObe9pM82yfE9ipQxGEaVYqRHkStDXIn8lsocy3YHS/Xf
-	 Kf32V5F21xCVyS0n7X7c1H394nkf9sM1OgjjxXHWgFn7ZlJFD6V8OTAgmny3YHjh19lhq
-	 GFaOTm8TlrmTyG+Jz4LFnMkpB7+E67Z03XDyjfp1Qop/Y4OKf/RQMKsKRpsKsWyi5Lw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=skxlqrVHf5aZpOHPdRTwTLeLUkPAgDGOV4NdOraz4FmFdOIsYcyGktWiCI7DhvXdRmGf
+	 P6fu+EfNf7QeAMdrAkW7lnyCBSZVVq3CyaOjDnE/Rfa5Nu9sQ1K6vNs6ffjxgS/JvP/Ic
+	 Dw9FtlfMxUCnm/2B3tyImR9AZ9jqADpcZRJTMW5UcxdS6Dq6KV3nv2zRWyt+eZvnXdRMz
+	 Wql7DFbc5/XeHCZPn3BoFBpVxlWJrnVo93+xzkzFJdmO2D7pzRyPFGATBxgIU9JFjDrwf
+	 izHaYCup59rYdqA0BUc+UKVufHrx5B6bM/c03/gLtFqir+gf2P8zbbIQ2Ep/cXy4oFA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794339076;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
-	b=nNXUoWWd7fLq2gYhyp4ZdNzIfhfpnHj5V3iwWldpviEOmRD0AXp3iV4X8U2Cs+iX36p5
-	 g9I4gof9Al3CaFXr/JtGehkAGDAMjKHfISV337BixSRFEqbuwrvcX6LhCWV5xhbVOm4sB
-	 mcD8thMzEpwEsixpWXhMbwBF+UUYLib4E1K3ytsIMeciUZeOjarMb0co6tbhcfLZoSmKS
-	 q6oprjn02M2waWeAf+jPDu5P6Wh57vuvKk+iSOdnyahZ0uJDAKQqo7fzE24HLb7NsMZ05
-	 YL+kGiyzb8DArOpAfANTH0QkSAxuGDdJZ0g2cEN0sB7huLiFNQ9vdFlff7i1sRte6Gg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ygA55dIo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=v03e9Y03TCTAkAvci/8PC8X7VD3txoGBmM2Y7VpeMIE=;
+	b=Pp/jfixGfVc5r9Qezh11p6vFnFRT08IK6A1tASns9UaxgSxtD3F/6GYLhLQN0yDaxf6l
+	 ASFl+K5PvshjS5mr9QNdY4wLI5H7AUzt5smNE8EZqzFw4jBQM7GZklZ+MdJO2eCOb9Zxm
+	 XO/ZFJu7WYL2xcqx41QCk/6zv6GF6u9DbVbwI342xJE0x8VesU4Za4gz3LsgnZiLygaQg
+	 Rv0bX3FENc6ygn1pUICgjqsfYkbD5Jed1tIZtS6ToIklCul4uCIIBQvEsdzLkQ5rLoHsu
+	 qmzQD3B8s7O9iQPieqLftLosebLYFZA3wm0DjsYUurHTSF3yJQkFq86SmHJoIjfcw7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=HdezrP3u;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Ihs84QX2;
+	arc=none smtp.remote-ip=202.12.124.147
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF8C606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EF8C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD29606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 19:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD29606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ygA55dIo
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b70192ebceso4296748a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:31:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794339075; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VNbA9LI0PJtbMQ25/I22Y8lxkxRSKaudMxpLvh2MPCWnQJLT1GXWUxQ6uEFZtee2lu
-         ezah4oEgGXxXbtxlbxMLWNju8x5nHRe0XLZziYIChrcH7qWmcVVP+5jrxc0fVejQYIeh
-         dBXWyILxGtKav8HTw59AJjEj4LqMIRBKHTiv7b7rD+soTTdNe5OMHpFsjBWlHYd8Zs9r
-         zoWOjUeOer9xOzsdHjgN3SPBYj9f6Ut4zciahjrhj0PHBnkE++79FYg8dkmcX8dgrLU8
-         9olPQ9VANkAzynoerK0ZlEPqoHfelF1IZYjTPNzMW/RtlZCYg+QVyersn+Pi5NAmcpOX
-         BMFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
-        fh=hwQohN6jwcKYZslHRnGfGmfatMpHDAVV6bD4w54rXPo=;
-        b=lvNJoS9dOyG5fw9NyPxVQOxFrcdSPVsPzIswvmx4VCKMKLhJCjP6vCMQs3LkIU+Xi4
-         aXNtSSpgppGPTrkP9Afoxk9G41jeUweApMkQ9S0z4gBuDlaamvEHUQo4yg3FvUk1sThs
-         m23W5OgJ8fxnktZBgKg3yEZsxhiQ1tpZmdAW7XzvW9azZsLzlg2qinT+ZE8Ad0QDPf7J
-         ApqPaKvBW8nVgK6jNc27APwoqipMZo4/PHk9FdfH5modaSONH4uwIaOGdWaLmwiMo/fR
-         ajs54RCYpSTvkb86AyBJvpnTKp0TRP6rydYD0LsanOlnpl8aldr5XC/CPzKzbZnNoQqC
-         2WmA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794339075; x=1794943875; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
-        b=ygA55dIoz/6O4MxSokjKAYOAnTAUBuad/texw+fVpfWZq/9MB7Z84VndkLK8QIAqXU
-         9MBui/Yo5n2BSvO3OClQ6fhIsD8wQ7G3jWmz6cdywYdqMY1bm/I+0AndVvZf7rva6T00
-         ysgfJC+APM3chckN/eEMKFJeSEdUxCjJWXXwyhPziZxsdO3qDUVPxF/wKrF4y1Kdhw43
-         yPO6PQEBCd6Svdh22LukN+Cha+0U985V65ONfS/l0syMDRV+/0W0TJb7C/oAoj1J9mXp
-         p0bq1nVovvt7QUX+14kIP+gM0Pn6A6fLGHCfdd0Lm3JxE/gOBbzMx9hcD2gLU9bTGC0R
-         M6dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794339075; x=1794943875;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7PpHUnf1QWGzREEK74qSoQAh95FpMu5Wm8BOh1zkZj8=;
-        b=Ep9fz+Z+UadOEsTwDi5bCQTU0aFOxu4MBosJ6SbH7L65IuB3IAwO+yvj4KBH3Yq8E6
-         2EPMTpWG+tzT5unpvAxxbwACrw6LADlpkXv1IS90XfP953JwfiYez+CG6M7N/M8zPW7f
-         W9jk2MbbPxqs2aObGCiDYdsohtMTqc1MGlNlphuaXhZRpskdLFrMHeVaWzrXTLVHMWOs
-         +jBLItSdoad0pll9XnkcfLHyxeJSqQ0CH9L+zcJPp5FeC8vCEcAZ1qwpbz5o65h/P5gP
-         K7BgitV8+dT3QlEh7VB27t4iOy8fOHUqq3o+lBfcL0qisS4mOXzYewggeHcxI9NW5/oR
-         rC1w==
-X-Forwarded-Encrypted: i=1; AL+hErEc0dXH2SWHFGpV9WJm5MIpzxzH0YBhRJ+JRPDJGhkfW18+S7nlp0YYFrbsEHhyB2RxHe0pbSSPXENNg1c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KGLHod129mnd7iPNTgBlemOMIiJTsmx8KgwSnXd7lfLQtODvc
-	1T8ZzWeufmr+K69sDdxvbDbtnQEo8+2fzeT8i2sb57k7tugTsNxT9kAtzjSH1Ys5tLkk2bZhvJN
-	pCl0AK18FvDuHy9G+R+CtbfTDHu+boVs=
-X-Gm-Gg: AYBFou0j/JgNWx/7MnAhssNpYJJhslLx5+r7++Z9ItxWwycku8qbQNRfmvXG4ROiiN3
-	GeVGW0rd/nXnjAckZ6syPmgecK7YBtEoaOz/UI7GBsFmx5WfApqnkmSmNtVcCeEeSy86jZlXXjg
-	sRA0+I+ShO8zCWS7v99OttIzHr9275M/nZL9eQBA+mP3VcaPcIgkzOCAwxuBUt3jeydM6J/f6Wx
-	rK10PX3OTNGqwmIMBH6V5duxCKqmxO89NuA9VRc3etOQIEQWEcZ2PeT/l4deEk/JnThRLnpACSQ
-	0/6hEQjT4N4NmTw9GTsL2bFxZ8Ddoo7G9MeMKHLFuwWxzmjklRpe6z6ABsLLIuXWUnfE0KIwz8d
-	PB3b2bVA6aSR46MvO0L664h+ErAJSPqsfivimLha9/psi7nR+xUD9UpBEgaMaxyMbe07C9njO7/
-	BYarV/+JXne3FFq6KaeWql2i0cKLCmR7xCMWy9imZL7l/r
-X-Received: by 2002:a05:6402:5416:b0:6b1:b9b0:dcfd with SMTP id
- 4fb4d7f45d1cf-6b77707dcb9mr271933a12.0.1794339074327; Tue, 10 Nov 2026
- 11:31:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=HdezrP3u;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Ihs84QX2
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5BEA61D00298
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:31:10 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 10 Nov 2026 14:31:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1794339068; x=
+	1794425468; bh=v03e9Y03TCTAkAvci/8PC8X7VD3txoGBmM2Y7VpeMIE=; b=H
+	dezrP3uFOzaBbwW6Ego1tbYbzvAe0I7ekXaqqeIJak52WN7Sh74ZLdn5cMe7kpCN
+	ca8+SKinjojeyahQENreiVALLKSid26J5HjX+Mv0tr+r+zVZymqb30EEFgCA21Zj
+	MZLNaHeMQuR/WqXICKsirAU5OA907RiJwFTGiJqbT7q1UW1L0EEhJHCW3kWixBqW
+	OpJYN+NYC+QzaJhgN8mhdZY8wog4MyAmfFi14i45PodwrkO4UEsPqbNPtCAiBrPK
+	7h04MnU/i1liwwJbP9C4qvhzmnN+Npt8ff6GcyPbQUy81fGKSlft6rtGMvr7um4P
+	kgKZbsMyCXiMM7iXDU/dA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794339068; x=1794425468; bh=v
+	03e9Y03TCTAkAvci/8PC8X7VD3txoGBmM2Y7VpeMIE=; b=Ihs84QX29h/gxJhFu
+	WxtDkmWm10fdzVkU/vHi9enYgbBP2jq6vDBm9+pmmpTG8ylHxv+9TgbRjxKpV6Q3
+	zTDLfd9kA9H3a6pMeXAq9+RJEnVMvY2G6yByEbl/ivyr8KQYxE7XNqTw2kmFaeNh
+	DdRn3LYfn5VjNMSm1v64Z+aesCTx9poSzAPpj5QPN839F+4sAsoF6mgNl+LTib3u
+	UPlKyeic1yQR/9Vu0h8NDb+0ECYyonkMrCaDtBwXCt7kv4yzA07jk/5tT3NgBrCp
+	Xeu8AcsDI8Fs2JLSfZ1QaEHbDwjBUEbwcb72HHpbKHZKg9429y5x05S6b9Wow5gs
+	LUofQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794339068; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:u1gWt3V8fk/9sZ7N8GfzV25d6hIbPoir15snRx8J0lp8V0x
+	Je2pfHlswwXtOaPk7SP6NlF/LaUniCr+x0M6MiHdLkUR2Hquglh1wxjGiELQxKGw
+	N6klteWyy1MAVP3hWSbsza7dUGvogkR9f1IL+SzLFDiczi7Z5aO+wvxEUXWC+Pdk
+	OpUAcbp/TgpV0Mt0nnq6fpwaj17d9iQzJOGFAr+WofU/Zzdkr+a5Y2rK/H5JqQvZ
+	HmgyINlspqoK+vJcrQWRpFXlEuvKuJzWc7oXQkHRtFaqI4N4dbkbn2e3NCgXxLa9
+	1AF6OqtVkynQfNeznkdTAjc1gIGgudIB5O6VbaA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:MAJ9DqFnDeSq70XNulQ6ZtRPOgcYsxs2eX/baM6PlZI=:v03e9Y03TCTAkAvci/8PC8X7VD3txoGBmM2Y7VpeMIE=;
+X-ME-Sender: <xms:_HDzaumnvnU24hp5y0Vh8PkY5D4dGqLhNJlTnEwOFhEdmOzmcayMPQ>
+    <xme:_HDzao7VSXYadpPxo2zesqDx0usG9PeLh6TsV4IMOm2MBULB3OMzZWLxr8Jzj_fRz
+    AJB2Kx1lJHsrrfDt5yskHY7TRuHl0zD8JXWvhja2mWzLYiS8pYwzWM>
+X-ME-Received: <xmr:_HDzanRZUxKDFxvw5kMD6n06tsYKqPUGZxV8TTTCb89mxp4b4HNGGQuJXe-MFe9a>
+X-ME-Proxy-Cause: dmFkZTFMeJeww1ENRAMLr95NPIDKq1Ih4yfW4uN7X/Y1stIPZFHR4+JaX2YuW0S+cxsHv9
+    sv3MxakxEf+rP/GyryRvnt7z79clzwe3xEamKCrWfJG6rPX/iB72O3dvmBglFpXB5H9Vhx
+    WuGL/MMY6lpktrXZhpEcLS0JVQjSbwhxcYcPGigkKqOGJUINLSes3PRTGjXcZHFnc+Oyey
+    K1zvPf2qJhi/3hDixgre65FZul7xMH7hJXANtv57+BLIGrVhzp5vOvy3cxNujD9TJciwUy
+    xLiGyFEE55n/B4tr+fB9E9N1Iy9QXDaJEojjqIDR1roi0ZK8CgyF8CUmm2jNPO3eeP6Gs2
+    PWt08khz2cY9Zgn4cF02e9zSV5tvpeichBCj8EnBUQIjG6rZInrJcW7dhC93uMx/x5Wa3F
+    iNUuBFunr2KLmQzbQZnSHTR4JUyMzXjlCvEBltwEON/3B/WRHkOa5dDIBjpKCqgoRWwjXg
+    Z+yn3GOgmc/kMA5djQb3GexYuen3bhAcYD9aKf07wXqXkCgOEg+nxFSvT5AQzTYrz6dtpM
+    VHujIz9WR6Bd8ixopl/vrfJ+XuA9s6NBWWVf60f4XwahVRvzZCNkK4Wa/TfYGC89GPZnft
+    QV6BxmCBTCvEjAHXf/BS9ydY9bzuOtshZwL8pWI+p2j5G/f/vEWIOjNrXgLQ
+X-ME-Proxy: <xmx:_HDzauzFzZeHLTDqtfFN6yCL1XwIZ_8OwDda1yfJHIOfaLOyw20rsg>
+    <xmx:_HDzanq2vzPMljd90zOsbCeCsn9w3wC1j5LJvQTswlfrfIBBX4WNmQ>
+    <xmx:_HDzap1efA1y3Gnbw3k4e8YF93hmdmW2MDvCXaWtQmOkUKTWMGamDA>
+    <xmx:_HDzavwYLGMWAHpkd4gisPz5SjOZphccL7n-2ZEfGSlipxgrdOrZFg>
+    <xmx:_HDzageRxP64uxRoSs7wDNYux7rxZDyn8rA9QZm81jbcjvlQcZJ_ZpYa>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 14:31:07 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: mike.michalo@gmail.com
+Cc: linkinjeon@kernel.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	ematsumiya@suse.de,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH v4 2/6] ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
+Date: Tue, 10 Nov 2026 13:30:59 -0600
+Message-ID: <20261110193059.3200468-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110165834.28162-3-mike.michalo@gmail.com>
+References: <20261110165834.28162-1-mike.michalo@gmail.com> <20261110165834.28162-3-mike.michalo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,126 +132,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com>
-In-Reply-To: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Tue, 10 Nov 2026 20:31:02 +0100
-X-Gm-Features: AclHuK_7HNzlokPAsBoIv_7fPp-EVtZiMe-LJK6KHz7D9VmXnxbP6S1wnm1WwT0
-Message-ID: <CA+=Fv5RBKVAdGgq=BGPmLXpczcB3qvQcSw8aat7nB2ePXcG4yg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/3] perf alpha: Decode ProfileMe samples
-To: Matt Turner <mattst88@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+Hi Michail,
 
-On Wed, Nov 4, 2026 at 7:53=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> The Alpha kernel series "alpha/perf: add ProfileMe sampling" adds
-> ProfileMe sampling to the Alpha cpu PMU. Each ProfileMe sample carries
-> the profiled instruction's PMPC and its I_STAT and PCTR_CTL status as
-> PERF_SAMPLE_RAW data, which says whether the instruction retired,
-> whether it trapped and why, whether it was a mispredicted branch,
-> stalled before map, or was killed on a wrong path, and what PCTR1
-> counted while it was in flight:
->
->   https://lore.kernel.org/r/20261104-alpha-profileme-v6-0-63362e9290a3@gm=
-ail.com
->
-> This series is the perf tool side. Patch 1 decodes the raw data in perf
-> report -D and perf script -D, as is done for AMD IBS. It copies the new
-> uapi header from the kernel series into tools/arch, so it should wait
-> until that header is merged. Patch 2 adds a script that sums the status
-> by symbol or by instruction, in the style of DCPI. Patch 3 gives perf
-> mem a ProfileMe event, as the kernel series reports the DTB hits and
-> misses of loads and stores in the data source.
->
-> To try it, with the kernel series applied:
->
->   perf record -R -e cpu/instructions,profileme/ -- ./workload
->   tools/perf/python/alpha-profileme.py --pc
->
-> I tested this on an AlphaServer ES47 (EV7). Sampling a loop whose
-> branch tests random data reports that branch mispredicted in 21% of its
-> samples, and 0% with sorted data. As a normal user, perf mem record on
-> a loop that loads one word from each page reports the load's DTB hits
-> and misses.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
-> Changes in v4:
-> - Patches 1 and 2: ignore TRP, and MIS and the trap type with it, for
->   an instruction killed before it was mapped, as the kernel series
->   does. Thanks to Ian Rogers.
-> - Patch 2: record cpu/instructions,profileme/ in the example, as a
->   precise event now samples only retired instructions, which leaves
->   the killed% and invalid% columns at 0. Thanks to Ian Rogers.
-> - New patch 3: add a perf mem event for Alpha, cpu/cycles,profileme/.
->   Suggested by Ian Rogers.
-> - Link to v3: https://patch.msgid.link/20261102-perf-alpha-profileme-v3-0=
--4bf6e1dda733@gmail.com
->
-> Changes in v3:
-> - Patch 1: silence -Wpacked around the uapi header, which breaks the
->   build where __u64 is 4-byte aligned, such as sh4.
-> - Patch 2: only read raw data from cpu PMU events, as a tracepoint's
->   payload can pass for ProfileMe status. Thanks to Magnus Lindholm.
-> - Patch 2: print a table for each thing PCTR1 can count, so that mixing
->   events no longer averages unrelated values. Thanks to Magnus Lindholm.
-> - Link to v2: https://patch.msgid.link/20261030-perf-alpha-profileme-v2-0=
--9ce2f0b0e622@gmail.com
->
-> Changes in v2:
-> - Patch 1: copy the raw data out of the sample and convert it from
->   little endian, so that it decodes on strict-alignment and big-endian
->   hosts.
-> - Patches 1 and 2: follow the new 28-byte struct alpha_profileme_sample
->   from kernel v2.
-> - Link to v1: https://patch.msgid.link/20261028-perf-alpha-profileme-v1-0=
--f46c1938d001@gmail.com
->
-> ---
-> Matt Turner (3):
->       perf alpha: Decode ProfileMe raw samples
->       perf python: Add alpha-profileme.py
->       perf alpha: Add perf mem support
->
->  tools/arch/alpha/include/uapi/asm/perf_event.h |  31 +++++
->  tools/perf/Documentation/perf-mem.txt          |   3 +
->  tools/perf/arch/alpha/Build                    |   2 +-
->  tools/perf/arch/alpha/util/Build               |   2 +
->  tools/perf/arch/alpha/util/mem-events.c        |  17 +++
->  tools/perf/arch/alpha/util/mem-events.h        |   7 +
->  tools/perf/arch/alpha/util/pmu.c               |  11 ++
->  tools/perf/check-headers.sh                    |   1 +
->  tools/perf/python/alpha-profileme.py           | 178 +++++++++++++++++++=
-++++++
->  tools/perf/util/Build                          |   1 +
->  tools/perf/util/alpha-sample-raw.c             | 156 +++++++++++++++++++=
-+++
->  tools/perf/util/sample-raw.c                   |   2 +
->  tools/perf/util/sample-raw.h                   |   2 +
->  13 files changed, 412 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 4626d370ae89b8af4d46a45372b269f926ec662d
-> change-id: 20261028-perf-alpha-profileme-8010299be323
->
-> Best regards,
-> --
-> Matt Turner <mattst88@gmail.com>
->
+On Tue, Nov 10, 2026 at 04:58:30PM +0000, Michail Andreas Michalopoulos wrote:
+> Since connections of the same session can now use different
+> algorithms, each signing key also has to be used with the algorithm it
+> was created for. The session signing key belongs to the connection
+> that set up the session, and MS-SMB2 3.3.5.5 requires a binding
+> request on a new channel to be verified with it. Store that
+> connection's algorithm in the session and use it together with the
+> session key, while channel keys keep using their own connection's
+> algorithm.
 
-My plan is to take this series through the Alpha tree alongside the
-kernel ProfileMe support. Does that work for the perf maintainers?
-An Acked-by would be appreciated.
+I don't think the spec ties the algorithm to the key. MS-SMB2 3.1.4.1
+and 3.1.5.1 use Connection.SigningAlgorithmId, the algorithm of the
+connection the message travels on. That holds for a binding request
+too. The key is Session.SigningKey, but the algorithm is the one the
+new connection negotiated.
+
+The two algorithms also cannot differ for a client that follows the
+spec. When it opens another connection to a server it is already
+connected to, it offers only the algorithm it negotiated before
+(3.2.4.2.2.2). ksmbd supports that algorithm, so it picks it again.
+
+So sess->signing_algorithm looks unnecessary. Where the two could
+differ, with a client that offers a different list on the new
+connection, the patch verifies the binding request with the old
+connection's algorithm, while the client signs it with the new one's.
+Taking the algorithm from the connection, as the spec does, would
+avoid that and the extra field.
 
 Thanks,
-Magnus
+Ian
