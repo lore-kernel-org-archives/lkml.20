@@ -1,92 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279938;
-	b=cvF5+SKwMguwUFdiNEFlO1r0jS3ctrfC2pv+qmRthndN3/SZcdHWyZOURYOEGTgBSnJ2
-	 BU17zIEX6hbobvxIj4q24gKF9MlgMrIcYydXmyQaQCddVZA5IeHwNBCWHPM6Q0envWW1u
-	 dyhfyqi7WLqDxPj5lyrEj7uJNw+vnQIxpPggYdWaPcB8ahQL2UdPYnXS+c73uOg6hSjYu
-	 YtwizbLG9IDvOXjoQwFZpAnMg0OVAPtgaDWmB6cRixiW6tB41ZOhM+8xewx6vciMEUCPv
-	 XpmJoedESHcZ73cVMd51va04ktKNfd7SaJgmxK3fzW6HAv2MZhMguqoE1KlTOjM1A1A==
+	t=1794279947;
+	b=APVWbAPw51thA8TglZxjcy5MrL2M2+3AB+7eVlHadqC1B1fB+YmiUgQO/XprhQu+redz
+	 zicIshJq+7zjbPzVwpl3jS4sD1wKFCvf+BtITcWIkdPUILpSIrbdKQ0ondL9AXD6/lmK8
+	 2pkFtWN+fmjHVfl1aeIXwxmIOlRPYvhLXbgeBMv/5//GToMnR14x17ictwmxqqFc/Os0D
+	 4xfHwYdF5T1IqJzuLGq8foHvu9/wIaJRaJIi77r5FJ2wHzsgovbje3yMnH9XG/gNlfrLz
+	 mAj++L93e1Mjll/UZPupTdsugtxE2+iWmmhivbXgiQTMrFM8/VnZ/qgsrA3uoZjeumA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279938;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:X-Mailer;
-	bh=WX8HAKlzGxNN6geVNUiXNfag9XxIX/lb5PTYIBvV6kQ=;
-	b=k+DeQyTKQ+ed+mlufLezwCMD+P5G3bS2KmUZhrVwl6c+oRYJon07B+B40ZCWbQQXDuFW
-	 QpH+NFCa3a8rYJCgCt+E7kSm/W+il5b0D4up9KYlD/NW40b2NMgm0ivcv4/R7Tj0vWbnb
-	 nLLMF+39ClwwjVvSfO+WFwxvUDaUJJRHfhv+x6zg+9JP3O6X26Mpxb+esM89K7PB8RMyg
-	 BilsZM3QCDXYlcn39QZNWfjYtE3eBa5QjPoTAyVMgt7U7ud2aOiJD8DNQU6fiyByeH660
-	 6G4egXaLTwx7+1aVxzseOhRrq8mkAI7LCcxfZ1sXPpPLCdjo9vsIqxVxKpUpxugAVsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279947;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=q9XOYK7wX+00B6FBPgLD2vBKMAkmDiR49f/zui5qQz0=;
+	b=Gkr855X9Umz1w3iGJS1a0XHk+Sa7T0ProfnyUq/Y+OKDQIPZvBPAJXMaiLDIZBxK/KhS
+	 RafSqrwzI218gvOP5GnTeCOseSNcbt4ac3LOGF1yu7YgBHCqJBf91rhAbcO2a07y5VYf7
+	 N9j5q2aDPe9z1wlwN46Dq15218YjaWYjp5dBN/72EM9e3Oa5ZDxFZ1GR352zka1O3kiZF
+	 MAtSdEiqMWSgb/Mwnz/BEXwuqApV0lRoai8gxXIf6NPCOsVsDnwfCld2t3ifjR9DwOv1i
+	 GpNKL5fJdmRHFVkUZ4BCpOxpWlXwZegOUzgZckecpxcWkCQh+PIUXKzepa3tGkhU5ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+i0H708;
-	arc=none smtp.remote-ip=74.125.227.128
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fZUfxXVy;
+	arc=none smtp.remote-ip=162.62.58.211
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EE6606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:05:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82EE6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C9A606A32E;
+	Tue, 10 Nov 2026 03:05:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C9A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+i0H708
-Received: by mail-pj2-f0.google.com with SMTP id d9443c01a7336-2ed216ed287so10624195ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 19:05:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794279938; x=1794884738; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WX8HAKlzGxNN6geVNUiXNfag9XxIX/lb5PTYIBvV6kQ=;
-        b=A+i0H708U0QhhS/auEv9RXynihAQg5JUK56vhWJuStLBuxsYlHpMBakfVnh6EzLj3b
-         Gy9vlMUuqNOnWne61jTAmePg+MOto1QYGb/dtNUzm0g4ptrrxBY39l+jXxVszQDbD/eL
-         DOLMiyFNJb7FJ/duLezj0VblqoAeaZnN0PYZMT8oGOeM0svmYHcb45CCUUhwlCV09t/+
-         /P8h5qAky1D6pDcpqDzU0NQE8OZCIvBNdFsB/+JujP8Ujv7VWfO1LBxBDvurdxYSdIuX
-         zYi9vFydpGS16c/GCkcWZXLtyzTVffpAwRdl1VAX4qd4/u+nw0aJqxJWXN47YPAukMYC
-         6MNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794279938; x=1794884738;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WX8HAKlzGxNN6geVNUiXNfag9XxIX/lb5PTYIBvV6kQ=;
-        b=I7d30FZF9kxW0JDbPuLYl7r2AywOBmRAeYTM0QVxmJ1EEMY3ZYr/2nTcx+AT4yKzJS
-         +EkAaDSGsyj/5oHfYZTsfIEEZxSACBgXR9hOMqAOWl1z7lg4k+8OhpQcA9G1l1WNX3WT
-         LmdYisFTiJwPM+3Vut5Ibgz8TTwPLi/bz7eGzpUjd6oWpwDusRofFWE/YqmN4ceRGJMs
-         FaruhmglOv2DAXcA6HvLXsxnY7aaZ6215lKlNpVTH2d9CutIdFokJu2htue3SmsTg8c/
-         F+yeZ5ZKAPNB3n559rFRpLDVPt0o6EcYJbUptpls4yQxOjHnv27fxOY/FBaBQAZLia1Z
-         8yLg==
-X-Forwarded-Encrypted: i=1; AL+hErExMgh/KScchQ37LKfQxwXf6u8qVbIbHCaBP8kzYMPkgnmktu1jqS0aSrS9mD4VO+ux9YbBxSxAL3+JKYQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+E3vn7dE2a0I8K6QiBl+uurQ2Uym6UTCxNMb09h7CYVBK+rGU
-	2fGrDUYXFxkXsa8GHG7N2fx6fdMQ6T8EdFmV8ULAJfF8g9MQY/MuiT6vM1quf9Sx
-X-Gm-Gg: AYBFou2cyZ1inKv/WIydWGVFFSHSU+jbIrygtoOac/O1FGC15t/Ow+A5wC6+sCIFrss
-	pU6IwaMVBQ9HG7BhCN7qwA6Mq40yCv5xyTqhHY/A+Q+btDn34g4D8SJSLPdctFx0J1tOikniNci
-	6OAZJ7PbY741cFtHCIcvhnpAgsuyNYUZL/3HpnwLyWSZTfRaBgfsY9ONzNV55Dw2rIZNPbFSVU2
-	Ssx3Kn8DpS9HcfU0HAOnyTE/CLBeymdCSdcWEVElKR5Q2ZakoeDrDxq+BLm7TMFYZWTurc2Zxvd
-	fE6tJlgeJFebBnlrgvCgp6EAkbca5FdkWMkhRV0l/vrdaPMyk/tSC0rn3to/O1HOB6Ota6pljdZ
-	72j6J1HMTDttS8n+GotY0Co7GjynTyjqBCpbzhnGCN2Eg23oijo7W204mePR4thxffQl3mQCXiJ
-	4IokpQKI8mvbiyioo1BkeF3CsrAexKtd7nPWNKL3AzjwPJXQ7hBWATcxVG6QVWgdK9mN6nluBv2
-	HFwCL7wAySoWf+X7wkfvvegQZGxNMRb8Ok+qu4aW8hE/RoTxvt4sn6xHlUEnxKb7LORnv2KHSIy
-	7u8pvRWv0dkFLF7J3+8U
-X-Received: by 2002:a05:6372:a80c:b0:3de:4976:a0fe with SMTP id adf61e73a8af0-3f190087dfcmr1128599637.64.1794279937902;
-        Mon, 09 Nov 2026 19:05:37 -0800 (PST)
-Received: from hhost ([120.231.212.144])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab21835fsm321901b3a.42.2026.11.09.19.05.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 19:05:37 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:05:20 +0800
-From: Xingyuan Mo <hdthky0@gmail.com>
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: "open list:BTRFS FILE SYSTEM" <linux-btrfs@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	Xingyuan Mo <hdthky0@gmail.com>
-Subject: [PATCH] btrfs: bound free space runs by extent count in remap tree
- setup
-Message-ID: <20261110030459.2640203-1-hdthky0@gmail.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fZUfxXVy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794279939; bh=q9XOYK7wX+00B6FBPgLD2vBKMAkmDiR49f/zui5qQz0=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=fZUfxXVyc6DAD15Sv5X4swqN9j/GmjL8dRnoagW1DhD+O/L6QRUMlsggANFnRQ0Bj
+	 D5veAtp3I1xww6mVMV1Tr+z5flqP62yg5Y/LzHau/FXDztMX9+63fkAMDnicnryiiA
+	 RfwgTnlQNClTOqf3FGIO1LhVf7JathlzAxx97xHI=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: MzHbHz6ky8ylxXRwvpD01xe5vfDxiM5d4sy1mzo5PARKG0efZTjt8CVhuRmRZB
+	 X916dvvbNf6mSP72RiWNcNkqCoNPOcxgBWOr5TCZcXnrUl9jCXlBL7sN0QJ4T5Y3UdWVhkCbnXnpG
+	 vdp9c5eNmkQygDx70y3v0fP7PLOER3IGW5zxJhXPUmUgyxGfqZwX2rtwe3Jtn8xzOde1dGcyuBCqu
+	 B3CmRyVm7R4LWQcm8jyBLfeacUa7dugB4ZvW+mqQuK17Ml+y8ub7YPpJctk25Nys2Mvv769EMSsdn
+	 gyFpV4NtYY5QzHMlFVwUMf61TfKrDif+QvN+eKFykf8fTRr4P6tUAMX8EjrmxtXe08M0wJY2zcUsV
+	 ZCbbeAv7i2dpy57uuj5FAmeBEfOhOs1aeSEH0H8cMnzrL5dxPYAS/1QrmLQ0Tnz/MFmRldWYiA+AG
+	 caiEA5CJiQ34zO8hIgYLPotpS0901vK+WlSahYTacdWKy7Xxs8wr9JFeu4ioN5jSZWUXuuGtEd6Cl
+	 CCMNpacI0piTaP6oj8dLwYr0Q9s2ZbZuL8q0lDeZOUh53rJLmlKt00fsxUCrOkTvd3utbbRA09EXR
+	 q22YlOFFUVDNvtHFy0LzEi6f3c9jZsOK34FYUDLWr2avoGfnlcSFvpxriZBvxtK3CsV2toP3ohc8y
+	 NMr0xO1FEC1hRQsL77+9TGn1IKzFmrjJJbkuQS4DIcFfsC5fXcYtBCnC/y355xwQqk95Ic+wvYhYN
+	 as5k0cJeG2my4Jt7nJ6eEx/rYbxpgRw5gK4DODp4ef2+JhCC1cgOW3at0NnbaX0f450vYnOJHZEBU
+	 HRoPJhcnehr04GJlF3dwm1u3UCTrR3iDsI5b57xBHS3Aw+ZocdVTg9dcE/M2hyvEV8Hc9ZGCS1eXg
+	 onxDMmUiVaEXvBtajFT5QG0P+nx0d2HHMnE7cURCbigcGOWiCt1GLo+jsbEua2PJZlr7qnaVKSEbf
+	 1i9qJJwVhsoLAP1jhHQzWj1nNX9WYsvWLk6T5wFS+mI9dsL6xI77tQvxdJFZ1pPERKAYtrirzDYJO
+	 fpiPE+5B/T4uxxl4WF2yiIWequDXJkDxKHdZr
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>
+Cc: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?T2xpdmVyIEhhcnRrb3Bw?=" <socketcan@hartkopp.net>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?U2ltb24gSG9ybWFu?=" <horms@kernel.org>, "=?utf-8?B?Sm9uYXRoYW4gQ29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?U2h1YWggS2hhbg==?=" <skhan@linuxfoundation.org>, "=?utf-8?B?UmFuZHkgRHVubGFw?=" <rdunlap@infradead.org>, "=?utf-8?B?V29sZmdhbmcgR3JhbmRlZ2dlcg==?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, 
+	"=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v8 00/10] can: fix Rockchip TX stalls and bus-off restart/close races
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,145 +68,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.43.0
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 10 Nov 2026 11:05:37 +0800
+X-Priority: 3
+Message-ID: <tencent_F59D327809C523BE014488357EEF4D163408@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
+	<20261109112402.283c16a3@kernel.org>
+In-Reply-To: <20261109112402.283c16a3@kernel.org>
+X-QQ-mid: xmsezb41-0t1794279937tom1cqfol
 
-create_remap_tree_entries() sizes the space_runs array with the extent
-count read from the FREE_SPACE_INFO item of the block group, then fills
-it while walking the free space tree.  Nothing on this path cross-checks
-that count against the items that follow, and the only guards in the
-walk are two ASSERTs, compiled out unless CONFIG_BTRFS_ASSERT is set:
-the FREE_SPACE_BITMAP branch hands the array to parse_bitmap(), which
-appends one struct space_run per run of set bits without any bound at
-all.
-
-A crafted (or corrupted) filesystem that advertises a smaller extent
-count than the number of runs its free space items describe therefore
-gets a heap out-of-bounds write with disk-controlled contents during
-relocation, e.g. through BTRFS_IOC_BALANCE.  The free space tree load
-path validates the same count when it caches a block group, but that
-check runs lazily and only leaves the block group in
-BTRFS_CACHE_ERROR, which does not stop the remap path from re-reading
-and trusting the item.
-
-Bound the writes by the extent count: make parse_bitmap() take the
-array size and return -EUCLEAN when a bitmap would overflow it, and
-replace the ASSERT in the FREE_SPACE_EXTENT branch with the same
-check.  This also covers an extent count of 0 (ZERO_SIZE_PTR) and
-keeps the downstream entries array, sized extent_count + 2 and filled
-with at most num_space_runs + 1 entries, within bounds.  Consistent
-filesystems are unaffected, as merging adjacent runs can only shrink
-the number of runs below the recorded extent count.
-
-Validated with a crafted image on a KASAN kernel: an info item
-claiming one extent next to a bitmap encoding 40 runs makes an
-unpatched kernel write up to 624 bytes past the 16-byte allocation in
-parse_bitmap() during balance:
-
-  BUG: KASAN: slab-out-of-bounds in btrfs_relocate_block_group+0x2a46/0x3600
-  Write of size 8 at addr ffff88800c992550 by task balance/278
-  __asan_store8+0x85/0xb0
-  btrfs_relocate_block_group+0x2a46/0x3600
-  btrfs_relocate_chunk+0x82/0x320
-  btrfs_balance+0x1071/0x2e30
-  btrfs_ioctl+0x2943/0x3c60
-  __x64_sys_ioctl+0xd1/0x120
-  The buggy address is located 0 bytes to the right of
-  allocated 16-byte region [ffff88800c992540, ffff88800c992550)
-
-with create_remap_tree_entries() and parse_bitmap() inlined into
-btrfs_relocate_block_group, while with this patch the same image fails
-balance with -EUCLEAN and an image with a matching count still
-relocates cleanly.
-
-Fixes: b56f35560b82 ("btrfs: handle setting up relocation of block group with remap-tree")
-Signed-off-by: Xingyuan Mo <hdthky0@gmail.com>
----
- fs/btrfs/relocation.c | 34 ++++++++++++++++++++++------------
- 1 file changed, 22 insertions(+), 12 deletions(-)
-
-diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index b2ac5b836b217..d57522cc7f386 100644
---- a/fs/btrfs/relocation.c
-+++ b/fs/btrfs/relocation.c
-@@ -4013,16 +4013,16 @@ struct space_run {
- 	u64 end;
- };
- 
--static void parse_bitmap(u64 block_size, const unsigned long *bitmap,
--			 unsigned long size, u64 address, struct space_run *space_runs,
--			 unsigned int *num_space_runs)
-+static int parse_bitmap(u64 block_size, const unsigned long *bitmap,
-+			unsigned long size, u64 address, struct space_run *space_runs,
-+			unsigned int *num_space_runs, u32 max_space_runs)
- {
- 	unsigned long pos, end;
- 	u64 run_start, run_length;
- 
- 	pos = find_first_bit(bitmap, size);
- 	if (pos == size)
--		return;
-+		return 0;
- 
- 	while (true) {
- 		end = find_next_zero_bit(bitmap, size, pos);
-@@ -4034,6 +4034,9 @@ static void parse_bitmap(u64 block_size, const unsigned long *bitmap,
- 		    space_runs[*num_space_runs - 1].end == run_start) {
- 			space_runs[*num_space_runs - 1].end += run_length;
- 		} else {
-+			if (*num_space_runs >= max_space_runs)
-+				return -EUCLEAN;
-+
- 			space_runs[*num_space_runs].start = run_start;
- 			space_runs[*num_space_runs].end = run_start + run_length;
- 
-@@ -4047,6 +4050,8 @@ static void parse_bitmap(u64 block_size, const unsigned long *bitmap,
- 		if (pos == size)
- 			break;
- 	}
-+
-+	return 0;
- }
- 
- static void adjust_block_group_remap_bytes(struct btrfs_trans_handle *trans,
-@@ -4608,7 +4613,11 @@ static int create_remap_tree_entries(struct btrfs_trans_handle *trans,
- 				space_runs[num_space_runs - 1].end =
- 					found_key.objectid + found_key.offset;
- 			} else {
--				ASSERT(num_space_runs < extent_count);
-+				if (num_space_runs >= extent_count) {
-+					mutex_unlock(&bg->free_space_lock);
-+					ret = -EUCLEAN;
-+					goto out;
-+				}
- 
- 				space_runs[num_space_runs].start = found_key.objectid;
- 				space_runs[num_space_runs].end =
-@@ -4634,14 +4643,15 @@ static int create_remap_tree_entries(struct btrfs_trans_handle *trans,
- 
- 				read_extent_buffer(leaf, bitmap, offset, data_size);
- 
--				parse_bitmap(fs_info->sectorsize, bitmap,
--					     data_size * BITS_PER_BYTE,
--					     found_key.objectid, space_runs,
--					     &num_space_runs);
--
--				ASSERT(num_space_runs <= extent_count);
--
-+				ret = parse_bitmap(fs_info->sectorsize, bitmap,
-+						   data_size * BITS_PER_BYTE,
-+						   found_key.objectid, space_runs,
-+						   &num_space_runs, extent_count);
- 				kfree(bitmap);
-+				if (ret) {
-+					mutex_unlock(&bg->free_space_lock);
-+					goto out;
-+				}
- 			}
- 		}
- 
--- 
-2.43.0
+SGksCgo+ID7CoFN1YmplY3Q6wqBbUEFUQ0jCoG5ldMKgdjjCoDAwLzEwXcKgY2FuOsKgZml4
+wqBSb2NrY2hpcMKgVFjCoHN0YWxsc8KgYW5kwqBidXMtb2ZmwqByZXN0YXJ0L2Nsb3NlwqBy
+YWNlcwo+Cj4gcGxlYXNlwqB1c2XCoGdldF9tYWludGFpbmVyLnBsLMKgZG/CoG5vdMKgQ0PC
+oG5ldGRldsKgb27CoENBTsKgcGF0Y2hlc8KgZGlyZWN0bHkuCgpJIHVzZWQgYjQgcHJlcCAt
+LWF1dG8tdG8tY2MsIHdoaWNoIGludm9rZXMgZ2V0X21haW50YWluZXIucGwuClRoZSBzZXJp
+ZXMgbW9kaWZpZXMgRG9jdW1lbnRhdGlvbi9uZXR3b3JraW5nL2Nhbi5yc3QsIHdoaWNoIG1h
+dGNoZXMKRG9jdW1lbnRhdGlvbi9uZXR3b3JraW5nLyB1bmRlciBORVRXT1JLSU5HIFtHRU5F
+UkFMXSBhbmQgaXMgbm90CmV4Y2x1ZGVkIHRoZXJlLCBzbyBuZXRkZXZAdmdlci5rZXJuZWwu
+b3JnIHdhcyBhZGRlZCBhdXRvbWF0aWNhbGx5LgoKSSB3aWxsIG1hbnVhbGx5IHJlbW92ZSBu
+ZXRkZXZAdmdlci5rZXJuZWwub3JnIGZyb20gQ2MgZm9yIHRoZSBuZXh0CnJldmlzaW9uLgoK
+QmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
 
