@@ -1,136 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298203;
-	b=b67meSrVKZTmk2BiQcYitZslCAcwHyVdGfhzRBIYU03BPUGqeEpi4HAjMTZxCRIFnU6k
-	 exm/DUMRTHxbDneaeqHY942mMd6Rt7hXXzYSC2Sugl1f1a49rDfgeZ6RAPF/duysYnLq5
-	 5Cfm82oWthJdkNp6IdOY4UuNMd/secmTc0WcLQ+hGL8vFweAGXtuTLt4NGqzovRghbwYE
-	 h/cIEn3GBzoUzelq0zsLrqTLpEZt+3kmaDiEOK40sxknHrwiPMQwKOrooqwF1BpiveKvx
-	 gudGcia3DpcGUge1kURiQWzMpbF6uEpeXFyTUdsU0V4/opIOAoYSUQbv9sPuo4RCfoA==
+	t=1794298240;
+	b=Q7JOfvjKdV/moPvuh8WL6txRuAek/iKccjow75ck1MfO6BU2VJ9MAnOVvQLTvvC9h19N
+	 aEpC0HbhHZzWBCe8BvnhJHUbfFIn8JE+NCMOqc69lRgTLJhIZty3iVc6aEROWLOUzdgX5
+	 dyT2mX8aM/xD3VI+OyjzqMytaJMCay1/kEQk3h7TlnHbC5udqtWcBCSxHnSow6h2aRUP3
+	 jZ1GWMFvFYp2vYl014Sz+8Kvp/pAT1UdNR0u2WjzLSru1X4J/eRs2hotNw1MAENSSVshV
+	 Wfyeeoovz8SSxBzTRYL084M6/hE1IHwCZlv4YDxDMSef27+ojQ+O07CmWu0gsMkQ5YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298203;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=L7X08ZaDKejqmoDVsYnR15CKc4ooGxbHKPQKWY15LNk=;
-	b=BT7sb930h9h+8K//oWp3fTxfqhfiGwnNKxQj6Ck9+XSbRiomLIGurszTxe7qb3jx7XO4
-	 tn02JaePdq/Qy3LGgdfAn+cSnNXPQr1NXYm111ALSqsfbq3W1ck9bRduGLdPv8bCBID0K
-	 T7MCYmT6f5hDreKgu9BvGRxPm51FepC5S+kN14Z4/sOxCKR6yVbhY3Bv8WU9bSTM3DTS4
-	 tKQQmvFQ93uiN252SiMkHNRKeiXOYOzBNheHOj1tYmc0stH9TYxj/CG8oHa/gZ7qfp+KK
-	 hGEGwHR6qs3O6DfiGRjC+dga4TGqOMdk049dJmVHGA62qk2czYtQa9B2xXE0N0Ytkeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298240;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ui3CpIlEJ97q+nx0KroTiGNw6xa+MjE5Cl5DE9+vJM8=;
+	b=h24hHU8/aAtu7RmcvAhfUHnTmpCV1OsNN/KgvGnXuXdzH8UF9SeJ0u0Zh3GRbtK89A8d
+	 kU7OEL+s10pqaruX4nT7HBizWvypyTlXVfNN63GqqVVAd846XSkVudfa+77JzsZHWQ7Hl
+	 SR4zKUs/mSbUFcwGx6xAtTM0eZKGqkk1tXxxziGRnvUmPcU1IGVS0CAnEDe8muvasfR5M
+	 72qM6kb5G/09DvEc0oCEWADZhjvcMNMnx5xNC9gG2tARGU6LyCCgHftg3kHaTL1/qhOad
+	 SrmYPuZK+MZ2NBVu/xaE2nyVQ8n1CA6C+rnYN9UedLIR6eNpDWOeu3NsM4eDy7Glwgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=smZzyaKt;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DFgOGQUm;
-	arc=none smtp.remote-ip=103.168.172.149
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxFnCQ1v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0681560A263D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:10:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0681560A263D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E10D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:10:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=smZzyaKt;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DFgOGQUm
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 465A0EC05DC
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:10:02 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 10 Nov 2026 03:10:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794298201;
-	 x=1794384601; bh=L7X08ZaDKejqmoDVsYnR15CKc4ooGxbHKPQKWY15LNk=; b=
-	smZzyaKt7iVQLSJcvCcIr+qAmkb4G48diYMQa1s+tWLcvv0WDzRWkNdugfKZZ6Pu
-	MBPNMXJ1zajaAtewGJbZZ2yaiFIa0AtDKzq5xfUfWYViyY2gkGN6PaGGFg9zbxbF
-	s8VQxE6VSV86xF34XOCNAsOf7IuSIcRhVOtq8ahf+RwbKL/GK9gp5xryT1Zb4viQ
-	W6rVvnvfUE1+OJpB+EU6NjS4fnfRX5hM65B91Xj6pVaCVY4o448dO5ed9ecXDMEA
-	aUwhZjRkY7UXuCyZbGf21yzW/5XKjJvXZOueGY7UvjznjWCoy9YtRqorZH8fD6Lw
-	Su6ILgW2bIxKwmFsEhQvsQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794298201; x=
-	1794384601; bh=L7X08ZaDKejqmoDVsYnR15CKc4ooGxbHKPQKWY15LNk=; b=D
-	FgOGQUmPbUW7ipMN8vuGjyelpQ0IyQ0ZWEeLOXJtJOil9mNJ7g6nNkBZUiF6RzaK
-	l6giLNTVDsr0K7qv3Dz3J7P6TD8QTRVXH3Q+BqzQJ45sZr4JcGy84RxocLi1mf2S
-	cZJ4utdPsV8DUrlJLprDlY/HbVoEWj38XtklBo3HlKPWa1DHdX9vt1kyH8z1B/BA
-	FYqAVPDFU6VVVlT73FPUnh06rKKRGDftKImOb6AybZ8oY3Ri8tCxJL15MfEj1FRk
-	LXfw63fBHH/9uSA5+2P6XL5wE90nm/WwfyVahypDV8I8pjYag4wUTKIsHyU3lfQA
-	vmLxh18aUag0nEZnq/Qqg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794298201; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:JfuICogP01e9uTgfbRozLhbMIg2yoRwcFs6sfVQjnYwMHBI
-	O8iias0ODHvdsF2cvpNee6qkLF45wk7AiH68ph6I5CoJruFlfa9MhvQ/gzV+duWw
-	x5wA2xny+7aX4CUvJR0kVzP5cGuH3vVGw4L5F+lHlQ9PHMVPOCN/9LoMQHODIHup
-	fTbnL0DsVhro9xScaorVaG+k6YT4lFnBNwFwA9t98fovevPrBqGD5Y2exw13hoBe
-	71X2r1BwKdvGXl+sOA3azqcRKnTcrM08UEwbbykr0IVHwyUcV0Evu3Nse027Fpu2
-	HmF1nC2tAw6d6dSFdZrtCL6GuAELDbEDCCo/eJg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QzMiz6hXEi+H3u1xNR3puK8mz4UjMhvECPG3etrAv/A=:QDHYz0joinfyqcMDnrAmhllDNNnbF/S0QcY6HnLCl/E=;
-X-ME-Sender: <xms:WdHyakIyJ9SYod4wpSneN6-HtKNDfpJbU7JjRxhngzC4uqj3pkQCqQ>
-    <xme:WdHyas5N2LnA53nNrpqPBMwrqo3un_d8H0uiqgqOQF01hGwEmN9RXA4sfQqaawb3P
-    -nFfIhROb30PbMX_ChCqZaE0n_eFvuEsdJqJrFs57SIUHuZszL6C54E>
-X-ME-Received: <xmr:WdHyajZUhx9uGef9FGeJbuQ9Um0-FWtnJU9nNIPwRhyKoUREAWblYxxWS7NW1h4fbX3mDr4ZcjvT60Tq_DvwXNq_zDOVois>
-X-ME-Proxy-Cause: dmFkZTFJs/KhJ6SVSDBDZQ2cuGthrLhI26tG4AKadjP+rz0vKu8/vpVkZtjs3dDgzseOCx
-    CQdwP9dxcEUOSOOaHycnESElSgKGWQSVjg9CnjuWwdALffUgiw7Cgtyk32U83e7/uiz5Au
-    Tu3wYbKEqrO8HNNohxgKZqhwKT/fpVy4QnJPvVgh9zx+38otiGx+0iyOUvbNzswo/z2HJM
-    +pT7iyuPv/q0O9nvEvbo1y0nNnCIcxaQI3BsEVAZwd9ailNOjj+x5S9nGtWK+/XL1pKlLM
-    TfMQPsa+KkwRI/m/7CyjBwzWQqwpkJ7zuEINI+vnAqK/VnzWCezlnlN9k2YRVE6ycxcmfr
-    hLRWlo/YTQJo4n/0qrG51q0GOd7vDSKbF4QpJLBIXCLDdspf0n6x2EIiXPoOCaY8kwSfDv
-    CqGvyZ9Cz3nXlNzFafFa436SukLaOMX09p0eq6UboooHqsNnnQrUwY/61tOUSH/oUaTtbT
-    Y1rVpsiZoXEgNLD87bVuQiUM3BJ3+oNZSCURiuMGgixhf8h0z4AW/Xb2FAwL4E2Xs1JpOQ
-    gZUO38n+grUW/+XRGIAwOHNW9iV6myhCIvs7k/j01u6T141NZQsIYj0qrdVQNCfDBFhS4T
-    8SZ1LDCBN4AKxTkE/ihnVzBlu0QGVhFLN/s4nVmLPRl1v/aR2zE54VIPx8+A
-X-ME-Proxy: <xmx:WdHyajz2KdqO3qoNJpZXXmEbyrKROyu3Iw-tmTOvGY8Yc4knzYBtRw>
-    <xmx:WdHyavN-Hjr5h_iiyCSvKMIezf-bkYivztnUrAsJ-Ki9zRm7pQJlNg>
-    <xmx:WdHyah4WBes-kCOWkmDAhqY-iFd5Q2l_t1UxiJzW96DAjuUmcZhi0A>
-    <xmx:WdHyaldoVyA0fcBaqoa83KV9bm7KeLbLGQ5X86VIQZOuSBjAgcmuLA>
-    <xmx:WdHyagS590pe4-_8Fg217SPGY9lZk1RIA_cC_P4CupArufrb2Unqxpu4>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 03:10:00 -0500 (EST)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Sergey Shtylyov <sergei.shtylyov@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v8 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-Date: Tue, 10 Nov 2026 09:07:27 +0100
-Message-ID: <20261110080727.2377040-4-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261110080727.2377040-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20261110080727.2377040-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxFnCQ1v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8BAC1F0089F;
+	Tue, 10 Nov 2026 08:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794298240;
+	bh=ui3CpIlEJ97q+nx0KroTiGNw6xa+MjE5Cl5DE9+vJM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bxFnCQ1vPDFtFhBtQXiw1XsFAyyZg6NDQfzLHIRS/5b13h5u4kxxfAjjPkKbKvBe2
+	 jhlpGMLgkSD9sxDvSMWVG4LyQEueUBCf1S8+y03mKbbkRPIT9aaYtnyG4LMZGTaqZH
+	 ZbIy4osRecG4YG+xtlQgRFUZYnhFVS4oc8s2lJ3ps7+ywH2RhrsgHy1ox6TrXOVZWN
+	 K1iZSFF5NdfNaC0ngnKtFtrzC7ZCEet1bpagm3ORVeAPera5uPloH3yhsY4MrTlBEx
+	 vZ/nvI32EiOiBtPEzh3d7FrmhSARS93F/rMbBvOffiE4/oCTeL/2PLtvbBLzPaBdJr
+	 NrvGVJnjSPnYA==
+Date: Tue, 10 Nov 2026 10:10:33 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Ivy Lopez <skunkolee@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/cma: simplify cma_declare_contiguous_multi()
+Message-ID: <avLReYfv2iMARmk2@kernel.org>
+References: <20261106-cma-multi-v1-1-054eae6e2c1c@kernel.org>
+ <4acf6df8-8cdf-4f71-830d-9233db151b2a@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,43 +62,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4acf6df8-8cdf-4f71-830d-9233db151b2a@kernel.org>
 
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
+On Mon, Nov 09, 2026 at 09:56:20PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/6/26 13:56, Mike Rapoport (Microsoft) wrote:
+> > When cma_declare_contiguous_multi() cannot allocate a CMA area as a
+> > single range, it falls back to collecting a list of up to CMA_MAX_RANGES
+> > largest free ranges above 4G, reserves them in memblock and adds them to
+> > cma->ranges.
+> > 
+> > The list and subsequently cma->ranges are supposed to be sorted in the
+> > order of base addresses of the "allocated" ranges.
+> > 
+> > This implementation has two bugs:
+> > 
+> > * The allocation may fail even when there is enough free memory because
+> >   list_insert_sorted() sorts the list in the wrong order.
+> > 
+> >   When the list is full, the largest range is evicted rather than the
+> >   smallest, the final list is not sorted by address, and the smallest
+> >   ranges are used first.
+> > 
+> > * the function may report success while it reserved less memory than
+> >   requested because sizesum accounts for ranges that were skipped.
+> > 
+> > And overall it is a lot of list management and open coded range
+> > selection for no real gain.
+> > 
+> > Replace the current code with a loop that finds the largest free range
+> > above 4G, reserves as much of it as needed and repeats until the entire
+> > area is reserved or CMA_MAX_RANGES ranges are used.
+> > 
+> > After successful alocation sort the cma->ranges by their base address.
+> > 
+> > The new code scans free memory once for every range rather than once
+> > for all ranges, so it is slightly slower, but it is way simpler and more
+> > robust.
+> > 
+> > Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
+> > Reported-by: Ivy Lopez <skunkolee@gmail.com>
+> > Closes: https://lore.kernel.org/all/cover.1792032699.git.skunkolee@gmail.com
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> 
+> [...]
+> 
+> 
+> Quite the simplification :)
+> 
+> >  int __init cma_declare_contiguous_multi(phys_addr_t total_size,
+> >  			phys_addr_t align, unsigned int order_per_bit,
+> >  			const char *name, struct cma **res_cma, int nid)
+> >  {
+> > -	phys_addr_t start = 0, end;
+> > -	phys_addr_t size, sizesum, sizeleft;
+> > -	struct cma_init_memrange *mrp, *mlp, *failed;
+> > +	unsigned long size_mb = (unsigned long)total_size / SZ_1M;
+> 
+> Nit: could be const.
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
-* Changes since v2
-- Preserve sort order by unit-address.
-
-* Changes since v1
-- Rename node ptp.
----
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 5284923b6cef..f2d6696680db 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -606,6 +606,15 @@ mfis: system-controller@e6260000 {
- 			status = "disabled";
- 		};
+Ack.
  
-+		gptp: ptp@e6449000 {
-+			compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-+			reg = <0 0xe6449000 0 0x500>;
-+			clocks = <&cpg CPG_MOD 2723>;
-+			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-+			resets = <&cpg 2723>;
-+			status = "disabled";
-+		};
-+
- 		tsn0: ethernet@e6460000 {
- 			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
- 			reg = <0 0xe6460000 0 0x7000>,
--- 
-2.55.0
+> > +	phys_addr_t size, remaining, size_align;
+> >  	struct cma_memrange *cmrp;
+> > -	LIST_HEAD(ranges);
+> > -	LIST_HEAD(final_ranges);
+> > -	struct list_head *mp, *next;
+> > -	int ret, nr = 1;
+> > -	u64 i;
+> > +	phys_addr_t start = 0;
+> >  	struct cma *cma;
+> > +	int nr = 0;
+> > +	int ret;
+> >  
+> >  	/*
+> >  	 * First, try it the normal way, producing just one range.
+> >  	 */
+> >  	ret = __cma_declare_contiguous_nid(&start, total_size, 0, align,
+> >  			order_per_bit, false, name, res_cma, nid);
+> > +	if (!ret) {
+> > +		pr_info("Reserved %lu MiB at %pa\n", size_mb, &start);
+> > +		return 0;
+> > +	}
+> >  	if (ret != -ENOMEM)
+> > -		goto out;
+> > +		goto err;
+> >  
+> >  	/*
+> >  	 * Couldn't find one range that fits our needs, so try multiple
+> > @@ -572,151 +556,56 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
+> >  	 * aligned to @align, and a size that is aligned to
+> >  	 * both @align and @order_to_bit, things will work out.
+> >  	 */
+> > -	nr = 0;
+> > -	sizesum = 0;
+> > -	failed = NULL;
+> > -
+> >  	ret = cma_new_area(name, total_size, order_per_bit, &cma);
+> > -	if (ret != 0)
+> > -		goto out;
+> > +	if (ret)
+> > +		goto err;
+> >  
+> >  	align = max_t(phys_addr_t, align, CMA_MIN_ALIGNMENT_BYTES);
+> > -	/*
+> > -	 * Create a list of ranges above 4G, largest range first.
+> > -	 */
+> > -	for_each_free_mem_range(i, nid, MEMBLOCK_NONE, &start, &end, NULL) {
+> > -		if (upper_32_bits(start) == 0)
+> > -			continue;
+> > -
+> > -		start = ALIGN(start, align);
+> > -		if (start >= end)
+> > -			continue;
+> > -
+> > -		end = ALIGN_DOWN(end, align);
+> > -		if (end <= start)
+> > -			continue;
+> > +	size_align = max_t(phys_addr_t, align, PAGE_SIZE << order_per_bit);
+> >  
+> > -		size = end - start;
+> > -		size = ALIGN_DOWN(size, (PAGE_SIZE << order_per_bit));
+> > +	remaining = total_size;
+> > +	while (remaining && nr < CMA_MAX_RANGES) {
+> > +		size = cma_find_free_range(align, size_align, nid, &start);
+> 
+> That's more a memblock helper than a cma helper :)
 
+I'd keep it here in order not to encourage broader use :)
+ 
+> [...]
+> 
+> > +	/* allocate from lower addresses first */
+> > +	sort(cma->ranges, nr, sizeof(cma->ranges[0]), cma_range_cmp, NULL);
+> 
+> That's nice.
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Thanks! 
+ 
+> -- 
+> Cheers,
+> 
+> David
+
+-- 
+Sincerely yours,
+Mike.
