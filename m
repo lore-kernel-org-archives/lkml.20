@@ -1,76 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321628;
-	b=M2OlHv9rMdZ+njmktUw1JPS0FSXiDStq/OHss5sshEZ5JE7qTq5LG0oK9KCxny1WfRqF
-	 k8SravJEdmWJ/MBGFfAzZeSLWkStWwJ0vwFRw6q6ftczMgqo8zpU6qKb6ZIJDMfK7q3T7
-	 /xsTkP2rlWV2FVsSwARNw/p6Z4koCMl1Y0mG8stGLmExf1dN9jix0UwXQOKZa6gO2nnq5
-	 0rawmNUra4W1vXOG5R0soYcDic35lgzDEWLCtTCNHUrczaqBUKesLdqFqZhbaWoW3VD+3
-	 aAlwwoYKnWqGswyHDsTQkbbH1VGpP4iY+L3XC6ed+cDrVjmNsUI/gpAjRJp0OBUKLQA==
+	t=1794321661;
+	b=4qKxC6v/Dwkzq8tej72xtvURXRC2st6gEqN1vNbTnqR94BlwZX/JeIFkP3Mpooo8bEYN
+	 AaZQGHh/mh+rGzYdN4bQK/wJl/opKPVe/0sfOCYdlsQ/FHZdDQQhWksiz39dXd90PTgmU
+	 /KJTB67eX1VNaiXPzEm5zap2VIVXi+KPgOT5R+bmt/rkw2Kb1GRwFVQVwH3+VbhgCVeoC
+	 iLKBsVu6KWq4yLJjXnjikie0ElGp1xD3Rx5A7AKXjt8uTinccM56oIeEaVSqnaxtJUazw
+	 zlIy5ldzOyg0GbzKQ881HrbHj/G6mhplU+oiMrzCBfr98zgRUytJVsmedrJU3AKjrNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321628;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=NdsGEmcnwDERcnYVwxnzF5K4RGP76a4vobMfRThtHus=;
-	b=JxBMpQBTAhvlNWsH7Vv1M/Bqx4om8Ie/NxAckR2qfZaPB8/bz2Sov3LLC5araU01Kc6J
-	 MpoYiTKTyaTdbwWm2ifSDt2GfNQm+TLoTbJINH2dWclwpiRB5BiBiJD3rJjr8ohlY5p56
-	 TGMj2tcpc1idd6C4DgfYKPZJla2XS17H7j0yLDzd+NT/M/PeTBHXuv8zIEHR/LpMpCJ5c
-	 aJ7+lCa/Kysp9NJv8YuM2Nnz3pGWDD8pW4RnXkG3eIRp8Ya5dmukIYjkx10PDNJRoV6FU
-	 MC4KdyfoP5JDAQBvKGdCYBGqW3vvcmJxjwIrbi6VtCR5iUgp9uRryqBglAaeutzL7og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321661;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QEilx6ClIxukouIYpCxZMMGhxt3BPIVjJ/jaO2GXxUs=;
+	b=tQSfJ1tAejOuxk5VNCcmM/PbyD228eQumJt0DEjq/ErXr/IzInTyB0LY7meVCWmls7lA
+	 vvfEMpmBLcwDObykoArmk0fuxCZk3+ShQnu9Q4phKPLi3vOUlNMGe5yfrnm88BU0o9IMg
+	 I/0mk8pX4we5lMO9Zpa+XNDTIUqS4Suz3cLtIkqrx5B1QJqHpAWwKT3Jf7g4+I+epoy2g
+	 lWR8l+kCNxUyDQ7aS5QR+BGY/ETUichKq8adcKF3B1ATYYUotrQpWrOzCZNr/PFNjON4L
+	 10g4nX1E5HpQTN01xyz0BBId72oU3ZCb/Hotpf/FHvbm9wMNUgMuDfnrY0qil3TSkmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AEVtHNND;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE0560A2605
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBE0560A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so2545800a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:40:27 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321626; x=1794926426;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NdsGEmcnwDERcnYVwxnzF5K4RGP76a4vobMfRThtHus=;
-        b=pz9zxDRgq2iNz7L6bJmWOmINafpx3N6UUExGJ6CLz6Cqnn5VBOQjxupPyPmhFyFCc5
-         Rlh+YVSzLyHYupP1ERO8mQTwan87mtyLFqFWhdFAKxguoSZSulLq3WkcAoUkPmzfpJUh
-         /qMcxCPIK3G6QD4frBpstsptOHM0vNkt4Rk8ssZ2BRE0udUly/kfwOQgo3S4nHhU7Mr7
-         VBfghJfLuUAiN3uYFl7f/Fl8tfSsqacElKEpeeW2LGGM4RabTHg09R/4pP0TuKXd0XmX
-         iGiMH/rlpBmsfNU7ZOQVAyuEqGq60S3/bWK2KYpI1icOw0FtEt9WNGPFv+pXh5p30wj9
-         ugAA==
-X-Forwarded-Encrypted: i=1; AL+hErEeE1pbxioq+QGMqr/rOln7zQAwo0bcQU/SIOrb/B76Ez3/Yfuq9Z7nd0xbMqxVC2rBfD6tAJaWTQ9BjLw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BMXNL6aI3vsOIN+40vagWVl8apCbP+NL+LGMFYLcmvsNh0t59
-	VKbm0MlZfjgjyFrcpcNLnB644POyCbS+6wSE6G6jrjeD51xxGrriZVtic7ch12mvcTs=
-X-Gm-Gg: AYBFou2zrOrQbjqiobgJdIbacCDaLBb7qT7V4+/x4hkTQFG6eO4TuX1UAcnMzU+Dd3T
-	OKEZCynpvRd8lrCRCEsqU0vdJbxidy22oyOraIGDm11jqhijxsCWPEHJq5logRQ58tMlWxD8bAX
-	JEfyeJa5zAvPSktsgeS8KUthPWkxMFxPDV/wfJU3SHQFeEah0qa/63D7F3gsXcuHjagUpQo4olU
-	plQZVeCYSmstXXAi4Qgg0Cc2ZLsEDaLpbWeuzhtiCVO6eiyEb1juuFF+3Ca0hu5RPhLdhiOyb2g
-	f9EgRIFowvbKajmmBiFnpn1C+apUeqlEvQdBYBBwNxjm8OIOCOdvz2PKMzJPA5ffbbeaUm2apTd
-	p0fJrN2REgdw9emY7Ye7ZiKVTQcgjapEyOPzLTXsMgrG7kkzARRuEZqpjRO5901IciNCdtflEFs
-	+FgM+//1dz5d9YAJ3pUXJQiaI8BXetGJ/zlSxlpt0a64Goapu8IdIpF8Welr7YUoeEiz6Jh2EK8
-	FaXFQqKbD/8KoOXjpBDbrMHx0k2KxL8q6GmVQZdNyNphTKxkyDfJyYRuAa9/Pp6q/eZ2c1o75ri
-	M9aNH7Ysgwea+LO9zd/nzvWiQSyWCSlqIav70ib1+/d9MLLz8FKgujIfTcQ+xwgdh0k=
-X-Received: by 2002:a05:6402:84c:b0:6b4:641:baed with SMTP id 4fb4d7f45d1cf-6b756aee301mr2321833a12.30.1794321626088;
-        Tue, 10 Nov 2026 06:40:26 -0800 (PST)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b757823737sm1200935a12.3.2026.11.10.06.40.20
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:40:20 -0800 (PST)
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so2545609a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:40:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHrlqtm4k1+UIcMLm1v2DR5/qM4Y4fZNkMNb5N3r/qPu4gj4oqbJRzXX0fFF2C3psfeGNiQxvzA3WhEv20=@vger.kernel.org
-X-Received: by 2002:aa7:d78b:0:b0:6b5:9150:edf3 with SMTP id
- 4fb4d7f45d1cf-6b756b12aeemr1910612a12.43.1794321620553; Tue, 10 Nov 2026
- 06:40:20 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AEF606A330;
+	Tue, 10 Nov 2026 14:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55AEF606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AEVtHNND
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794321660; x=1825857660;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3beWCTD/ZW0ya5XumXXSuW4w/qLCbXbTicr7vKWt6Is=;
+  b=AEVtHNNDb0iucR8uastwNiGtVakQ/N0QIFGX4NNJFFZMAOJVUEMj+jdb
+   hJ+q84iiJc/y5fKpxP9aC7vH5NEu6QStHPFQZ8dunbe6gqpCi97w3XZ1P
+   pcUx7UnNdEW5/7lEa9cZ8Bnl9egOskSWOoJIOBmvmnrSz1IkWS3KbJReG
+   zo56XBI4F8LJsU3vDjd5vpyGWJ6ZxJVLiSd3ozOCuU9zCLADDMVRqQnxn
+   y2agzUYk2ZVWgI48YWZ05STGbmMYITTbyKwKpEsRxoHNDJbZ2hy9FksnL
+   hJ6MczKCtcu/EgyfVdb8S1kggGOkh08O6uLiVx7BU1uL7MCVM7sdnRC7E
+   g==;
+X-CSE-ConnectionGUID: K5o8m7WSTj6ghuXElfkwTQ==
+X-CSE-MsgGUID: JIL1lMH4TZ+MZ9OBqDJ1Iw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2957101"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2957101"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:41:00 -0800
+X-CSE-ConnectionGUID: gpo7fP8uTBCwKYwmCtWJlw==
+X-CSE-MsgGUID: FJkc3b9eTUeNUMqsYlZm7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8500198"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 10 Nov 2026 06:40:57 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 095A699; Tue, 10 Nov 2026 15:40:56 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:40:56 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Sven Peter <sven@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 6/7] thunderbolt: decouple the waiting time of
+ TB_PORT_UNPLUGGED and TB_PORT_UP
+Message-ID: <20261110144056.GE259790@black.igk.intel.com>
+References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
+ <20261110114925.722014-7-chunfeng.yun@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,61 +91,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110141429.149451-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261110141429.149451-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 10 Nov 2026 15:40:06 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWOgiYZmK52--Dcuat-gHtW-GOhiQfHBoSDMcefWzUx+A@mail.gmail.com>
-X-Gm-Features: AclHuK-vciKQvIOU3wexWocdK7lSDvoS7oWEizuJMJhyo6occ__o2qwUAjcDY0U
-Message-ID: <CAMuHMdWOgiYZmK52--Dcuat-gHtW-GOhiQfHBoSDMcefWzUx+A@mail.gmail.com>
-Subject: Re: [PATCH v3] docs: submitting-patches: Clarify partial review tags
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261110114925.722014-7-chunfeng.yun@mediatek.com>
 
-On Tue, 10 Nov 2026 at 15:36, Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
-> Refactoring of driver subsystems or some core driver parts often come
-> with change of the actual drivers.  If that happens within one patch,
-> people giving "Reviewed-by" tag only to piece of the patch, like one
-> driver, and ignoring the rest including the main concept of the patch,
-> are not really reviewing "the patch".
->
-> As explained in the Submitting Patches document, the "Reviewer's
-> statement of oversight" is for patch as in "entire patch" meaning:
->
->   (a) I have carried out a technical review of this patch to
->       evaluate its appropriateness and readiness for inclusion into
->       the mainline kernel.
->
-> The sentence is explicit, exhaustive and complete, meaning it does not
-> allow implicit variations like: "this patch or part of this patch".
->
-> Reviewing pieces of the patch while ignoring the main part of it, is
-> much closer to Acknowledgment, thus Ack or at least "Reviewed-by" should
-> be followed by '# subpart' suffix.
->
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Tue, Nov 10, 2026 at 07:48:54PM +0800, Chunfeng Yun wrote:
+> When usb4 is woke up by device disconnect, no need wait for 2s,
+> usually the phase2~4 takes at most about 200ms, and enters to
+> TB_PORT_CONNECTING, if it is still in TB_PORT_UNPLUGGED after 400ms,
+> treat it as disconnected.
+> 
+> Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
 > ---
-> Changes in v3:
-> 1. Minor commit msg adjustments
-> 2. Use  Driver X author <foo@example.org> # for Driver
-> 3. Tag
+> new changes
+> ---
+>  drivers/thunderbolt/switch.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
+> index 7daee83c7ed8..e12546bfb869 100644
+> --- a/drivers/thunderbolt/switch.c
+> +++ b/drivers/thunderbolt/switch.c
+> @@ -489,8 +489,9 @@ int tb_port_state(struct tb_port *port)
+>   * Wait up to 2 seconds for a port to reach state TB_PORT_UP. If
+>   * wait_if_unplugged is set then we also wait if the port is in state
+>   * TB_PORT_UNPLUGGED (it takes a while for the device to be registered after
+> - * switch resume). Otherwise we only wait if a device is registered but the link
+> - * has not yet been established.
+> + * switch resume, Wait at most 400 ms for link to start connecting,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+router
 
-Gr{oetje,eeting}s,
+> + * if timeout, means the device is disconnected). Otherwise we only wait
+> + * if a device is registered but the link has not yet been established.
+>   *
+>   * Return:
+>   * * %0 - If the port is not connected or failed to reach
+> @@ -501,6 +502,7 @@ int tb_port_state(struct tb_port *port)
+>  int tb_wait_for_port(struct tb_port *port, bool wait_if_unplugged)
+>  {
+>  	int retries = 20;
+> +	int unplugged_retries = 4;
 
-                        Geert
+Reverse-christmas tree
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+>  	int state;
+>  	if (!port->cap_phy) {
+>  		tb_port_WARN(port, "does not have PHY\n");
+> @@ -519,7 +521,7 @@ int tb_wait_for_port(struct tb_port *port, bool wait_if_unplugged)
+>  			return 0;
+>  
+>  		case TB_PORT_UNPLUGGED:
+> -			if (wait_if_unplugged) {
+> +			if (wait_if_unplugged && unplugged_retries--) {
+>  				/* used during resume */
+>  				tb_port_dbg(port,
+>  					    "is unplugged (state: 7), retrying...\n");
+> -- 
+> 2.45.2
