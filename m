@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794352468;
-	b=nM++uHEdDwp9FjaRS02ToIWpqPnRQGndpEgi/QVQReWxMZd5KI2PQRpzp9GTaW4AO+RG
-	 /22v96IZCTv7LmqJnwuVYaddxXWiwfxtBHZqFDrPjoOt8dO5SG2QzPxNFoomAjdtkhoFu
-	 kv5MpCSE+HvkkdY4GcuqOlOa0bqoU3nE9iayqK2+mpSeINlW8Lhb+FUJntWhkbTzBx/Qp
-	 /zjs+zC/BHBiWnr98xkvKD4jAXCEUpRgc6PoXXOwKFKC5qoKCZP6LTf2vW3v6ZBVvtIkH
-	 QymlgVpd3OIs9uTptfTYdW0ly9vhm5/W62EYHg/l0ujmU0HKzAqPO8BZ2py1efi8ehA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352468;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QFIJPotnPl4zcCi4SEs2Thxfu9rvo/W9PjSXru65Fno=;
-	b=HA47Wpt69lPHCuzIYkgtzEEPmYQlCQsHutTa1MOne7cIR6DHCULiWo66OlBZv9fI1mwV
-	 tLmxp5CPgH0BLzWj9aeTZ5uweyoX0QxPulFkC/koQyON0HswrUsKkJM1QfilrEIBOMtk0
-	 sG3CeW36+nY9IELCmnrefxk1NkgSX5o2hMZHbTtjGf4LadUkClujJ+17JIi88v1tNWw80
-	 75W9IaqcYC6cvY4AoLZKhDSgayzuJo7mntVZ+/cwIGpIlKqmNpfYxUNFErQN3VULNudsq
-	 MoKeU25aWsD/vXxLn/PRMHkKmY6bLxaMDDRdmL9MIKMhiFObFREWE9cO0xu6o20Pt2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kMeSCJ+M;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794352475;
+	b=x1nVURlFdrNPBhMuuZ1TIncFXOuVUUXGLCI85c2D9ayV/FJ1QD397CBy5woAShSXUmWI
+	 ZfWFHd5JBeum9ohfVB/eGUi+ZPlYKTSSs9+Fs6/QN7TQ8KZ/eyQ7M0ud+WBpZQOiLEH3L
+	 HIfWInc+SX7CMtwpZ6LJUsawdvZCA0aRL7WoTfG4JoNC93g6blwuDqerKK1NeVWHevmc0
+	 waaW5QW2j67m7ys40vxbjv/ZfcNTBfkYk3gQ7O5rQOd2ztb8lZR13HIdk51cfZOxNsoMF
+	 Sr+rI9lhky0x64PN+8vvFTPuSsIBomBixLTlRBXSOUj5WNyYwLqwZIZISgEPiqEFGaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352475;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=GaRjxJLStAFn7kRkTlmoATlwOXPiUviJx+B8s4MFeng=;
+	b=k88euJRhQZxhMPiwTuYeXU1yVlxCtqZho8zM0/LO5NZB2tOuaoubJIU2QkMeEe4o1set
+	 xPEHjOCrCAveCVovNac/2ezVFEHDdZsRsexiil3xJKSlKK3hcSU5P3za7udIRAM2ZTCFN
+	 oZM0OCCO3sr+tUZs7ihq/wKozrg9RL2ODHg0ru5NmoGz+IAcGPRQR4P/Wu/FE0nyyIU7+
+	 g/cm0qteOsxDHNVTkeaSUz3IXL/MC+dP4Mq02QlfJRwCooN3FsTz6xzjzyLIrGZwXKG6y
+	 JdBaH8UHBVvkVJQbo2apWh4jhkinKWMGBCXZzRp7oc01Z1accY2iISlBUZmFW+PwtDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V5/lSF5x";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA5A606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 23:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAA5A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F2C606A31C;
+	Tue, 10 Nov 2026 23:14:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kMeSCJ+M
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533202fe429so49751cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 15:14:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794352467; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P3+6Eymg5RxXDow/6+Fs6vpzWW4jRi3kYK9x1oNWFeew8GHQiVmiWFgy024s4ahZPZ
-         pCgxs1w5dieqBY+qE5U0W2tY0De23YBb4iDvznGp4MNfJRcMIPDSYvs3Jz5M+e1AdYwK
-         vq4OE4xcxJ9S6uFs8eAScuiQGEkOG/uZtOJRd9KlEEr9MZK1W166yGCM6RNPo1uobo6o
-         4bmLwhDsjmfpY0vZgNMhQNNfiGYIGO6xYJWjvIAuam/BVfEIfG85appqtjlvazdq5SWY
-         MaUYAVP6AsymfCH35q5ppxXe7JDMDKK/nr43sTSG31ocPt/1tqUyIabO0RubBr34rh2w
-         kvpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QFIJPotnPl4zcCi4SEs2Thxfu9rvo/W9PjSXru65Fno=;
-        fh=VaSXoD4semqEJOWBo+UPwrfX1watqvTlp66aGWjCnHI=;
-        b=hYNvZKl+YAojxsX+B/9DH1ewy6LkbSQeOpei/pjc9Rtg+63Hph954LFAN5NQ0JvbBz
-         U9iDLWhhQwfP0Rb0FTR/6NnvVB1hMUzescN9ODEQZ6Ml+vWquma/PQ9aQuOqVH1g94cu
-         jnWBoIk+bayxlXwM7fqaHtPCqrcPc52jOLDY4/fXfVOKIQB09gdLOKTuXPqcq1jljwhJ
-         vi8iz7hnaSpSEyaDGLMqBse5YB+vZCEeGgj+QT4yvjy1MDQtYX053xqkRZSsYed1mwga
-         BAdgUVxj+uOOPU8pmzY+kblNiZx9lha5mvj1zOpzh5ItYdwI6Zgoj9TpMMLxADDizgLs
-         9c+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794352467; x=1794957267; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QFIJPotnPl4zcCi4SEs2Thxfu9rvo/W9PjSXru65Fno=;
-        b=kMeSCJ+MOifXDk1cC0j8Q+/AMt23H13qBAeciTPnn/4pXHyFBDhupP5nFtIiqW7AvO
-         fLL8DezCkK/U7QhS7rFLcGx0+EeW+Nx6ZWGJ14cUAZgwcnHUhvUQ4KZaDD0d8SallXkn
-         yzIZP2oV1D4SrvM55Fs9sBLaXOuOzh5N2I+d0xgvJyW3c5aZze0Q9kykmBEc2Etuc9gz
-         5J2k7jA8sg6sGgUBsrJUqwizvHbsO85TQr5d73jAhyRGezdSKAfaYvCbNowYZteXOL6w
-         N7ajjlx3bJP7WGrPgWRFEqPgKG5RcvLVoYRNeOSxvLiAMf5Bz7bi0+YN5RlijFdUwDU5
-         BbaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794352467; x=1794957267;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QFIJPotnPl4zcCi4SEs2Thxfu9rvo/W9PjSXru65Fno=;
-        b=nDELaWxjihGxlpmliqECM3031n5JAuf9vaycAe+1zfosgQCiI03qA/GJwoc1Ih1nPy
-         O5ADDlpBqErQ7J/C4AJfyw1qO5ALYPgthdCVI1/BsnIgyszDuKX6MBiUnAtJTTftklyl
-         /qfInpTGCzMBsDnIu63zM0ifbwLA5UOEHAwv5sDLgAg4eAheR3L3jAZuMT9dK+7knTTh
-         1JDdCKiauEVoT9Fyar53tSTkktALWbvGomoDBzYxzSOK+4ldnepiQjRaqhRlDTjjLgh0
-         N0f2P44yllyh2mRxGeaUg634IWmLzVvcvk3aKNwD9qkW7llGSPdT1GFSqkY0Rv03dlL9
-         VnBg==
-X-Forwarded-Encrypted: i=1; AL+hErGYS9Qhw3haker55zcsrR2mEH+rBLiL3Y0sYvOAugv44U2lcjyJgWfuxVaSE38Nlt3/IS3oOGj42BkQdx4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+m7wh/QCNJaAwHspw53LN+r37Sj0GgimUK2aGDHDsxVII/dwqa
-	kn6/WHndcMSL+s2rSfn900CdVtvdYCgQu/1RX3Uc06qGtN6sHK/Kv0kJSGW6u7ckc/KggMWbg8u
-	4DL6VDE3QY1xdOah3J71+Qqhb3b2B2dXzfg0iVD95
-X-Gm-Gg: AYBFou2Lz2U5YtXs0GHUxHQbBf2Bl6HOF37NLGugPStXBWMd8/c78WAx+2C1cjvbFL1
-	QVHRDMX01hhNBZtVvnP0HtqrncmJ596OZBD16hJUGV5NezrkwS18d5d9+7rm10MQmiTPWptYSlb
-	YPyaXsYvAp3S8M5iHyoSqta2op0hbC4qoBxhfQ7P3CSNaUpGXIqxlXIC+0yDtAihlaOFcK6Kmme
-	IylB+6VSMbtidmthvyD267bkeSp1rCnCMmf8N83GFtJFdyxIB6kqsn5fGtcTUpZhfK1EE4Fo8Qq
-	4BPs3XxEbwtVfSHc9/iBqoLwp57+mUY+yp9LE9ecY/J1pPBgcbnfAL4/vwoxWC6Za9/iFHHf5SR
-	9fQx1EDuCvaz7e+zFdjWCfz8My6y1/K7BfTefKU2p4LcV71K6ciTa/ZXP992GFjMCo40=
-X-Received: by 2002:a05:622a:1f88:b0:536:97c0:dcd0 with SMTP id
- d75a77b69052e-556a15e9f9bmr6139351cf.4.1794352465509; Tue, 10 Nov 2026
- 15:14:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5/lSF5x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751351F0093C;
+	Tue, 10 Nov 2026 23:14:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794352475;
+	bh=GaRjxJLStAFn7kRkTlmoATlwOXPiUviJx+B8s4MFeng=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=V5/lSF5xuJy9h6KtG9TjyDtMUcIPnz4sxpzpfG5rrGBBQkE1CGBxSi2QYYpoJvaJs
+	 Mr4y2cilW/JDPlOAAC3MvUZIT0vgktDnBY/jAnRqEfZYdk78zwyc4zAC8+w+134feY
+	 wjjEUVhB2w6JQSgadqVob0ESJLA4OSFjnNDGo6f15TbAaWe2aoR2JDQmqEstnfDyZT
+	 XcIKzeZgbGC2mqVWde4DkN4S4MnMQIkrVvr/H8a++mASLxTPkJoI7/kNp6wGXHL81k
+	 59pbwxr6MQZ/MJyhucvX/1NMkcCmPr3XIz9wrTo8q//CzBsNYdJwBTeG78bqem25+l
+	 ZstFC+cJu3gOg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>, John Stultz
+ <jstultz@google.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, linux-rtc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, Igor
+ Velkov <iav@iav.lv>
+Subject: Re: [PATCH RFC 2/3] alarmtimer: Choose the wakeup RTC by sleep
+ state and priority
+In-Reply-To: <20261104-b4-alarmtimer-rtc-priority-v1-2-e996681b8086@iav.lv>
+References: <20261104-b4-alarmtimer-rtc-priority-v1-0-e996681b8086@iav.lv>
+ <20261104-b4-alarmtimer-rtc-priority-v1-2-e996681b8086@iav.lv>
+Date: Wed, 11 Nov 2026 00:14:31 +0100
+Message-ID: <87qzgsth2g.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,287 +67,376 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107044102.1506626-1-irogers@google.com> <avOhhIL1EExpcJBi@google.com>
-In-Reply-To: <avOhhIL1EExpcJBi@google.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 10 Nov 2026 15:14:14 -0800
-X-Gm-Features: AclHuK9v8ZNyaAA2Ixe1LvY-E-TihixtplvYY9VkvlWYIDhpnTqSGK04R8mheG0
-Message-ID: <CAP-5=fW4FLbm2pmUCC2Xohy4RFxnfoP9_eoOCLmUbeX9cabFnw@mail.gmail.com>
-Subject: Re: [PATCH v11 00/20] tools/perf: Adopt kernel compiler-context-analysis.h
- annotations
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: acme@kernel.org, adrian.hunter@intel.com, bvanassche@acm.org, 
-	elver@google.com, james.clark@linaro.org, jolsa@kernel.org, 
-	justinstitt@google.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, llvm@lists.linux.dev, mingo@redhat.com, 
-	morbo@google.com, nathan@kernel.org, ndesaulniers@google.com, 
-	peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Tue, Nov 10, 2026 at 2:58=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
-wrote:
->
-> Hi Ian,
->
-> On Fri, Nov 06, 2026 at 08:40:41PM -0800, Ian Rogers wrote:
-> > The perf tool previously added Clang thread-safety annotations in
-> > tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
-> > UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
-> > unified set of static context analysis macros and attributes in
-> > include/linux/compiler-context-analysis.h (context_lock_struct,
-> > __guarded_by, __acquires, __releases, __must_hold, etc.).
-> >
-> > This series makes tools/include/linux/compiler-context-analysis.h
-> > functional by synchronizing it and the required compiler_types.h helper=
-s
-> > with the kernel headers, converts tools/perf from its custom mutex.h
-> > macros to the kernel-style compiler-context-analysis.h annotations, and
-> > expands context analysis coverage across comm, dso/dsos, thread/threads=
-,
-> > config, intel-tpebs, env, and maps. Along the way, separate preparatory
-> > patches fix an unlocked __dsos__add() call and TOCTOU race in
-> > __machine__addnew_vdso(), skip BPF and OOL DSOs in
-> > dsos__find_kernel_dso(), ensure DSOs created in auxtrace, machine, and
-> > symbol helpers belong to a dsos collection, avoid dropping
-> > _dso__data_open_lock in dso__list_del() under REFCNT_CHECKING, switch
-> > dso__data_open_lock and tpebs_mtx to DEFINE_MUTEX(), add a read-lock
-> > fast path to dsos__findnew_id(), fix an unlocked read of
-> > tpebs_reader_thread and double-close of tpebs_cmd.out in intel-tpebs,
-> > avoid a potential read-to-write deadlock in maps__load_first(), and fix
-> > map index lookup fallback and removal in maps.
-> >
-> > This series was developed and reviewed with assistance from an AI codin=
-g
-> > agent (Gemini 3.1 Pro) and reviewed with Sashiko.
->
-> Is there any chance other tools than perf can be affected by this
-> change?
+On Wed, Nov 04 2026 at 05:54, Igor Velkov via B4 Relay wrote:
+> alarmtimer_rtc_add_device() registers a platform device under the first
+> RTC that has an alarm and a wakeup-capable parent, and alarmtimer_suspend()
+> programs that RTC. On ODROID-HC4 it is meson-vrtc, a register the firmware
+> reads when the application processors suspend, with no interrupt in
+> Linux, so an alarm set on it does not wake the board from s2idle; the
+> board's pcf8563 registers later and is never used.
 
-So previously the annotations were in tools/perf/util in mutex.h
-directory, the common context annotations didn't exist under tools/
-and so this patch adds them. As such there are no existing users in
-tools/ and no impact to other tools.
-The minor kernel change avoids an unused parameter warning, but
-shouldn't impact anything.
+I'm impressed how creative hardware/firmware people can be...
 
-> How can I check this?  Does it require specific build flags?  Does it
-> work with GCC as well?  Can we extend the build test to validate this
-> automatically?
+FYI, the patch fails to apply against
 
-Building with clang/llvm is sufficient and already covered by the
-build-test. I wanted this so the previous Abseil-style lock
-annotations would be tested. The changes here rename the annotations
-to match the kernel and then adds use of __guarded_by for better
-correctness (and fixing the bugs this discovered on the way).
+     git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers/core
 
-I'm working on a v12 to fix the Sashiko TPEBS finding.
+and violates the tip maintainer coding style requirements
+
+    https://docs.kernel.org/process/maintainer-tip.html
+
+all over the place.
+
+> +/*
+> + * Place for @ar in alarmtimer_rtcs, or NULL when an RTC ahead of it would be
+> + * chosen over it for every suspend state.
+> + */
+> +static struct list_head *alarmtimer_rtc_position(const struct alarmtimer_rtc *ar)
+> +{
+> +	struct alarmtimer_rtc *other;
+> +	struct list_head *pos;
+> +
+> +	lockdep_assert_held(&rtcdev_lock);
+> +
+> +	list_for_each(pos, &alarmtimer_rtcs) {
+> +		other = list_entry(pos, struct alarmtimer_rtc, node);
+> +		if (other->priority < ar->priority)
+> +			break;
+
+What's this priority check for? Nothing uses it and we are _not_
+designing for hypothetical use cases where a platform has a gazillion of
+RTCs. It's bad enough that we have to support per suspend state wakeup
+sources in the first place.
+
+> +	ar = kzalloc_obj(*ar);
+> +	if (!ar)
+> +		return -ENOMEM;
+> +
+> +	ar->rtc = rtc;
+> +	device_property_read_u32(parent, "linux,alarmtimer-priority",
+> +				 &ar->priority);
+> +	listed = device_property_present(parent, "linux,wakeup-states");
+> +	for (state = PM_SUSPEND_MIN; state < PM_SUSPEND_MAX; state++) {
+> +		ar->wakes_from[state] = !listed ||
+> +			device_property_match_string(parent, "linux,wakeup-states",
+> +						     alarmtimer_state_names[state]) >= 0;
+> +		wakes |= ar->wakes_from[state];
+> +	}
+
+This is unreadable garbage and list management is the completely wrong
+approach.
+
+You have three suspend states to care about (s2idle, standby, mem) and
+you ideally have a RTC device assigned to each state. Whether that's a
+single device or different ones does not matter:
+
+struct rtc_wakeup {
+	struct rtc_dev		*rtc[PM_SUSPEND_MAX];
+        struct rtc_dev		*active_rtc;
+        struct rct_timer	timer;
+        unsigned long		assigned;
+};
+
+static struct rtc_wakeup wakeup_ctl;
+
+register()
+	...
+        // Reads state list or returns STATES_ALL (0xE) if no list property available
+        unsigned long states = parse_wakeup_states(dev);
+
+        // Remove already assigned states
+        states &= ~wakeup_ctl.assigned;
+        if (!states)
+        	return -EBUSY;
+
+  	pdev = platform_device_register_data(dev, "alarmtimer",
+  					     PLATFORM_DEVID_AUTO, NULL, 0);
+
+	if (IS_ERR(pdev))
+        	return PTR_ERR(pdev);
+
+	if (!try_module_get(rtc->owner)) {
+	  	platform_device_unregister(pdev);
+        	return -ESRCH;
+        }
+
+        get_device(dev);
+	device_init_wakeup(&pdev->dev, true);
+
+        for_each_set_bit(state, &states, PM_SUSPEND_MAX)
+        	wakeup_ctl.rtcs[state] = dev;
+
+	WRITE_ONCE(wakeup_ctl.assigned, wakeup_ctl.assigned | states);
+        return 0;
+
+No allocations, straight forward comprehensible code.
+
+That requires to rework alarmtimer_get_rtcdev() to
+
+bool alarmtimer_has_rtcdev()
+{
+	return !!READ_ONCE(wakeup_ctl.assigned);
+}
+
+But that's fine because with that change nothing needs
+alarmtimer_get_rtcdev() outside of the core code anymore.
+
+>  static int alarmtimer_suspend(struct device *dev)
+>  {
+> +	struct rtc_device *rtc = to_rtc_device(dev->parent);
+>  	ktime_t min, now, expires;
+> -	struct rtc_device *rtc;
+> +	struct alarmtimer_rtc *ar;
+>  	struct rtc_time tm;
+>  	int i, ret, type;
+>  
+> +	scoped_guard(spinlock_irqsave, &rtcdev_lock)
+> +		ar = alarmtimer_rtc_for_state(pm_suspend_target_state);
+> +	if (ar && ar->rtc != rtc)
+> +		return 0;
+
+...
+
+> +	/* No RTC wakes the system from this state */
+> +	if (!ar)
+>  		return 0;
+
+In the upstream code this condition is bogus because if there is a
+platform device then there must be a rtc device as well.
+
+Though I understand that with multiple devices you need to somehow
+handle the freezer_delta/expires magic even if there is no RTC device
+for the current suspend state.
+
+But with the above that's truly incomprehensible and after reading it
+three times I still can't convince myself that it is even halfways
+correct.
+
+The other thing is that if there is a non-supported state your hackery
+fails (contrary to the current code which has the pointless condition
+for rtcdev) to evaluate whether there is an alarm armed at all.
+
+If there is an alarm armed then it's sensible to reject the suspend
+attempt for the unsupported state. You modeled this after your use case
+which does not use the non-supported states, but that's far from being
+generally correct, no?
+
+Trying to handle this with magic hacks is not going to fly, but this
+can be simply done by avoiding the multi-platform device creation and
+just creating one disconnected pseudo device:
+
+struct rtc_wakeup {
+	struct rtc_dev		*rtc[PM_SUSPEND_MAX];
+        struct platform_device	*pdev;
+        struct rtc_dev		*active_rtc;
+        struct rct_timer	timer;
+        unsigned long		assigned;
+};
+
+static struct rtc_wakeup wakeup_ctl;
+
+static bool wakeup_create_pdev(void)
+{
+	if (!IS_ERR_OR_NULL(wakeup_ctl.pdev))
+		return true;
+
+	wakeup_ctl.pdev = platform_device_register_data(NULL, "alarmtimer",
+							PLATFORM_DEVID_AUTO, NULL, 0);
+	if (IS_ERR(wakeup_ctl.pdev))
+        	return false;
+
+	device_init_wakeup(&wakeup_ctl->pdev->dev, true);
+        return true;
+}
+
+register()
+	...
+        // Reads state list or returns STATES_ALL (0xE) if no list property available
+        unsigned long states = parse_wakeup_states(dev);
+
+        // Remove already assigned states
+        states &= ~wakeup_ctl.assigned;
+        if (!states)
+        	return -EBUSY;
+
+	if (!try_module_get(rtc->owner))
+        	return -ESRCH;
+
+	if (!wakeup_create_pdev()) {
+        	module_put(rtc->owner);
+        	return -ENODEV;
+	}                
+
+        get_device(dev);
+
+        for_each_set_bit(state, &states, PM_SUSPEND_MAX)
+        	wakeup_ctl.rtcs[state] = dev;
+
+	WRITE_ONCE(wakeup_ctl.assigned, wakeup_ctl.assigned | states);
+        return 0;
+
+Then all of this falls into place:
+
+static int alarmtimer_suspend(struct device *unused)
+{
+	scoped_guard(spinlock_irqsave, &freezer_delta_lock) {
+		min = freezer_delta;
+		expires = freezer_expires;
+		type = freezer_alarmtype;
+		freezer_delta = 0;
+	}
+
+        // Evaluate the pending alarms
+        ...
+        
+      	if (!alarm_armed)
+               	return 0;
+
+	struct rtc_device *rtc = wakeup_ctl.rtcs[pm_suspend_target_state];
+
+        // Handle the case of an unsupported state
+	if (!rtc) {
+          	pm_wakeup_event(dev, ....);
+                return -E$TOBEDEFINED;
+        }
+
+        ....
+
+	wakeup_ctl.active_rtc = rtc;
+}
+
+and
+
+static int alarmtimer_resume(struct device *unused)
+{
+	if (!wakeup_ctl.active_rtc)
+        	return;
+
+	rtc_timer_cancel(wakeup_ctl.active_rtc, &wakeup_ctl.timer);
+	wakeup_ctl.active_rtc = NULL;
+}
+
+So this gets _ONE_ suspend() and _ONE_ resume() call and nothing more
+and everything falls in place and is comprehensible, no?
+
+One user space visible issue here might be that user space cannot
+determine which RTC device is responsible for wakeup. So this needs some
+investigation whether user space actually searches for
+/sys/.../alarmtimer.xxx
+
+I doubt it, but who the hell knows.
+
+Though the same problem exists when user space suddenly finds more than
+one alarmtimer device...
+
+While staring at that code long enough I really got disgusted by this
+freezer handling nonsense. That's a horrible hack and want's to be fixed
+up _before_ we add multi-rtc wakeup support. The proper thing to do is
+to integrate this into the wakeup_ctl infrastructure:
+
+struct freezer_wakeup {
+	struct alarm		alarm;
+        ktime_t			expires;
+};
+
+struct rtc_wakeup {
+	struct rtc_dev		*rtc[PM_SUSPEND_MAX];
+        struct platform_device	*pdev;
+        struct rtc_dev		*active_rtc;
+        struct rct_timer	timer;
+  	struct freezer_wakeup	freezer[ALARM_NUMTYPE];
+        unsigned long		assigned;
+};
+
+static struct rtc_wakeup wakeup_ctl;
+
+And obviously initialize that:
+
+static void alarmtimer_freezer_fn(struct alarm *alarm, ktime_t now) { }
+
+static __init ....()
+{
+	struct freezer_wakeup *f = wakeup_ctl.freezer;
+
+	for (unsigned int t = 0; t < ALARM_NUMTYPE; t++, f++)
+		alarm_init(&f->alarm, t, alarmtimer_freezer_fn);
+}
+
+But then this whole freezerset() thing boils down to:
+
+static void alarmtimer_freezerset(ktime_t absexp, enum alarmtimer_type type)
+{
+	if (WARN_ON_ONCE(type >= ALARM_NUMTYPE))
+        	return;
+
+	struct freezer_wakeup *f = wakeup_ctl.freezer + type;
+
+	guard(spinlock_irqsave)(&freezer_delta_lock);
+	if (f->expires > absexp)
+		f->expires = absexp;       
+}
+
+And the suspend path gets:
+
+static void alarmtimer_arm_freezer(void)
+{
+        guard(spinlock_irqsave)(&freezer_delta_lock);
+
+	struct freezer_wakeup *f = wakeup_ctl.freezer;
+
+	for (unsigned int t = 0; t < ALARM_NUMTYPE; t++, f++) {
+        	if (f->expires == KTIME_MAX)
+                	contine;
+                alarm_start_timer(&f->expires, f->alarm, false)
+                f->expires = KTIME_MAX;
+        }
+}
+
+static ktime_t alarmtimer_getnext(struct alarm_base *base)
+{
+	guard(spinlock_irqsave)(&base->lock);
+
+	struct timerqueue_node *next = timerqueue_getnext(&base->timerqueue);
+
+        return next ? next->expires : KTIME_MAX;
+}
+
+static int alarmtimer_suspend(struct device *unused)
+{
+	alarmtimer_arm_freezer();
+        ...
+
+	struct alarm_base *base = alarm_bases;
+	ktime_t expires_rel = KTIME_MAX;
+        enum alarmtimer_type type;
+
+	for (unsigned int t = 0; t < ALARM_NUMTYPE; t++, base++) {
+		ktime_t expabs = alarmtimer_getnext(base);
+
+		if (expabs == KTIME_MAX)
+                	continue;
+
+		ktime_t exprel = ktime_sub(expires, base->get_ktime());
+
+		if (exprel < expires_rel) {
+                	expires_rel = exprel;
+                        type = t;
+                }
+	}
+
+        // Remove the freezer timers from the queue
+	alarmtimer_disarm_freezer();
+
+	// Stop right here if no alarm set
+        if (expires_rel == KTIME_MAX)
+		return 0;
+        ...
+}
+
+I'm sure that I missed something there, but you get the general idea.
 
 Thanks,
-Ian
 
-> Thanks,
-> Namhyung
->
-> >
-> > v11:
-> >   - Rebase onto perf-tools-next.
-> >   - Add Fixes tags to patches 7, 15, and 18.
-> >   - Serialize tpebs_send_record_cmd() with teardown via
-> >     tpebs_cmd_in_flight and tpebs_cmd_cond, check
-> >     check_if_command_finished(&tpebs_cmd) under tpebs_mtx only when not
-> >     stopping, guard evsel__tpebs_open() against a concurrent tpebs_stop=
-()
-> >     with a generation counter (tpebs_gen) and tpebs_stopping across
-> >     closing the fds and finish_command(), and annotate tpebs_cmd,
-> >     control_fd, ack_fd, tpebs_stopping, tpebs_cmd_in_flight, and
-> >     tpebs_gen with __guarded_by(&tpebs_mtx) in patch 17.
-> >
-> > v10:
-> >   - Split the maps__load_first() lock inversion fix (patch 18) from the
-> >     maps index lookup and removal fixes (patch 19).
-> >   - Fall back to the linear pointer scan in maps__by_address_index() an=
-d
-> >     maps__by_name_index() when bsearch() returns NULL, check
-> >     map__start(prev) < map__start(new) in __maps__insert(), factor out
-> >     __maps__remove_at() so maps__remove_maps() removes at index i
-> >     directly without risking an infinite loop, guard against -1 index
-> >     wraparound in maps__find_next_entry(), refresh sort invariants in
-> >     maps__fixup_end() and machine__create_kernel_maps(), and add a unit
-> >     test in tests/maps.c.
-> >
-> > v9:
-> >   - Rebase onto perf-tools-next (resolving the conflict in
-> >     tools/include/linux/compiler.h with ASSERT_STATIC_STORAGE() and
-> >     converting the newly added dso__set_symsrc_filename() lock
-> >     annotation in tools/perf/util/dso.h).
-> >   - Move __must_hold_shared(&dsos->lock) on __dsos__find() from patch 1=
-3
-> >     into patch 7 where __dsos__find() is introduced so every commit in
-> >     the series builds cleanly with -Wthread-safety.
-> >
-> > v8:
-> >   - Set DSO_BINARY_TYPE__BPF_IMAGE for non-OOL ksymbol DSOs in
-> >     machine__process_ksymbol_register() and skip
-> >     DSO_BINARY_TYPE__BPF_PROG_INFO, DSO_BINARY_TYPE__BPF_IMAGE, and
-> >     DSO_BINARY_TYPE__OOL in dsos__find_kernel_dso_cb() so that
-> >     dsos__find_kernel_dso() does not match ksymbol DSOs in
-> >     machine->dsos (patch 8).
-> >   - Split the dsos__add() additions in auxtrace, machine, and symbol in=
-to
-> >     a standalone patch (patch 9) before "perf dso: Pass dso_data to
-> >     close_data_fd() and dso__list_del()" (patch 10).
-> >
-> > v7:
-> >   - Add newly created DSOs in machine__process_ksymbol_register() and
-> >     dso__split_kallsyms() to machine->dsos so assert(dso__dsos(dso)) in
-> >     dso__list_add() always holds.
-> >   - Add __guarded_by(&config_mutex) to function-local static parser
-> >     buffers in parse_value() and perf_parse_file().
-> >   - Remove from maps_by_name before calling
-> >     map__put(maps_by_address[address_idx]) in __maps__remove() so
-> >     callers such as maps__remove_maps() that pass maps_by_address[i] as
-> >     map do not use a freed handle in maps__by_name_index() under
-> >     REFCNT_CHECKING.
-> >
-> > v6:
-> >   - Rebase onto perf-tools-next.
-> >
-> > v5:
-> >   - Hold machine->dsos.lock in write mode across machine->vdso_info
-> >     initialization and temporary file creation in
-> >     machine__findnew_vdso() and __machine__findnew_compat(), and
-> >     annotate __machine__addnew_vdso() with
-> >     __must_hold(&machine->dsos.lock).
-> >   - Reset tpebs_cmd.pid =3D 0 and return early without setting
-> >     t->started =3D true if start_command() fails in
-> >     evsel__tpebs_start_perf_record().
-> >
-> > v4:
-> >   - Place the DSO loaded in addr_filter__resolve_syms() into a dsos
-> >     collection so dso__dsos(dso) is populated.
-> >   - Join tpebs_reader_thread on error in evsel__tpebs_open(), document
-> >     why tpebs_cmd.pid is cleared before pthread_join() in tpebs_stop(),
-> >     and include <pthread.h> and <signal.h> in util/intel-tpebs.c.
-> >   - Include <string.h> in util/maps.c.
-> >
-> > v3:
-> >   - Rebase onto perf-tools-next (converting the newly added
-> >     dso__find_binary_type() lock annotations in util/dso.c).
-> >   - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso=
-,
-> >     dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
-> >     tpebs_mtx, maps) from the annotation patches.
-> >   - Move AI coding assistant attribution to the cover letter and drop
-> >     per-commit Assisted-by tags per linux-next
-> >     Documentation/process/coding-assistants.rst.
-> >   - Add Marco Elver's Reviewed-by to patch 1.
-> >   - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
-> >     ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h.
-> >   - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
-> >     Makefile.config.
-> >   - Pass write_locked to __dsos__find().
-> >   - Pass struct dso_data * to close_data_fd() and dso__list_del() to
-> >     remove the REFCNT_CHECKING dso pointer from struct dso_data and
-> >     avoid dropping dso__data_open_lock in dso__list_del(), and include
-> >     <assert.h> in util/dso.c.
-> >   - Re-validate DSO lookup under the write lock in dsos__findnew_id()
-> >     via __dsos__findnew_id(), and handle NULL dso_id in
-> >     dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp().
-> >   - Reset tpebs_cmd.out =3D -1 if start_command() fails and include
-> >     <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
-> >     util/intel-tpebs.c.
-> >   - Bounds-check the index in __maps__remove() (freeing maps_by_name if
-> >     out of bounds).
-> >
-> > v2:
-> >   - Use -c rather than -E when probing for
-> >     -fexperimental-late-parse-attributes in Makefile.config to avoid
-> >     -Werror,-Wunused-command-line-argument.
-> >   - Acquire machine->dsos.lock in write mode across duplicate checking,
-> >     dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso()=
-.
-> >   - Avoid dropping dso__data_open_lock in dso__list_del() under
-> >     REFCNT_CHECKING.
-> >   - Pass tpebs_cmd.out directly to __sample_reader() and set
-> >     tpebs_cmd.out =3D -1 in evsel__tpebs_open() to avoid a double-close=
- in
-> >     tpebs_stop(), and clarify the config_set_mutex comment.
-> >   - Drop maps__lock before calling map__load() in maps__load_first() to
-> >     avoid a read-to-write self-deadlock when loading kernel maps insert=
-s
-> >     additional trampoline maps.
-> >
-> > Ian Rogers (20):
-> >   compiler-context-analysis: Avoid unused parameter warning in
-> >     _context_unsafe_alias()
-> >   tools headers compiler: Synchronize compiler_types.h with the kernel
-> >     sources
-> >   tools headers: Synchronize linux/compiler-context-analysis.h with the
-> >     kernel sources
-> >   perf mutex: Use kernel style compiler-context-analysis.h annotations
-> >   perf build: Enable additional Clang thread-safety flags
-> >   perf comm: Add __guarded_by annotations to struct comm_strs
-> >   perf vdso: Fix unlocked __dsos__add() and race in
-> >     __machine__addnew_vdso()
-> >   perf dsos: Skip BPF and OOL DSOs in dsos__find_kernel_dso()
-> >   perf dsos: Ensure DSOs in auxtrace, machine, and symbol are in dsos
-> >   perf dso: Pass dso_data to close_data_fd() and dso__list_del()
-> >   perf dso: Use DEFINE_MUTEX for dso__data_open_lock
-> >   perf dsos: Use read lock fast path in dsos__findnew_id()
-> >   perf dso: Expand context analysis annotations
-> >   perf thread: Expand context analysis annotations to threads and
-> >     namespaces_lock
-> >   perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
-> >     handling
-> >   perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
-> >   perf config, intel-tpebs, env: Add __guarded_by and __must_hold
-> >     annotations
-> >   perf maps: Fix lock inversion in maps__load_first()
-> >   perf maps: Fix map index lookup fallback and removal
-> >   perf maps: Add context analysis annotations
-> >
-> >  include/linux/compiler-context-analysis.h     |   2 +-
-> >  .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
-> >  tools/include/linux/compiler-gcc.h            |  72 ++-
-> >  tools/include/linux/compiler.h                |  50 +-
-> >  tools/include/linux/compiler_types.h          | 206 ++++++-
-> >  tools/perf/Makefile.config                    |   8 +-
-> >  tools/perf/builtin-sched.c                    |  16 +-
-> >  tools/perf/builtin-top.c                      |   4 +-
-> >  tools/perf/check-headers.sh                   |   1 +
-> >  tools/perf/tests/dso-data.c                   |   4 +
-> >  tools/perf/tests/maps.c                       | 140 +++++
-> >  tools/perf/util/annotate.c                    |   4 +-
-> >  tools/perf/util/annotate.h                    |   8 +-
-> >  tools/perf/util/auxtrace.c                    |  16 +-
-> >  tools/perf/util/bpf-event.h                   |   5 +-
-> >  tools/perf/util/comm.c                        |  10 +-
-> >  tools/perf/util/config.c                      |  47 +-
-> >  tools/perf/util/dso.c                         | 140 +++--
-> >  tools/perf/util/dso.h                         |  17 +-
-> >  tools/perf/util/dsos.c                        |  34 +-
-> >  tools/perf/util/dsos.h                        |  12 +-
-> >  tools/perf/util/env.c                         |   1 +
-> >  tools/perf/util/env.h                         |  19 +-
-> >  tools/perf/util/intel-tpebs.c                 | 206 ++++---
-> >  tools/perf/util/libbfd.c                      |   4 +-
-> >  tools/perf/util/machine.c                     |  34 +-
-> >  tools/perf/util/maps.c                        | 216 +++++---
-> >  tools/perf/util/mutex.c                       |   4 +-
-> >  tools/perf/util/mutex.h                       |  90 +--
-> >  tools/perf/util/rwsem.c                       |   8 +-
-> >  tools/perf/util/rwsem.h                       |  10 +-
-> >  tools/perf/util/symbol.c                      |   4 +
-> >  tools/perf/util/thread.c                      |  10 +-
-> >  tools/perf/util/thread.h                      |  30 +-
-> >  tools/perf/util/threads.c                     |   4 +
-> >  tools/perf/util/threads.h                     |   6 +-
-> >  tools/perf/util/vdso.c                        |  53 +-
-> >  37 files changed, 1477 insertions(+), 536 deletions(-)
-> >
-> >
-> > base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
-> > --
-> > 2.56.0.455.g6c5a503b38-goog
-> >
+        tglx
