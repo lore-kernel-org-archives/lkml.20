@@ -1,66 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269825;
-	b=4S6kcO3RAeV+HoYB0biRoNscCanKTXzqiwq/QrWhG3wGdlcKTQoGMEjR4x3eNyRx/Vh6
-	 1vRQm9PJQqb7/lwgJ+sX19ZrKjesbn8adL15R66DZ4lQlcoDTW8BcEEY7LcXwIjfRzH40
-	 MvRlazSij3u74Fnnj8/vyrpnw1rBhMnMBj/tCTvK2uhDZgpxKWd2B7F878VQ2T4H9fV1X
-	 IPAThuXmH8d3cbTyHSuoXa+Fqilq3A4iIqO5Ym5WyRSNJc1udg34tAedGDiobnDav1wHu
-	 4tnHenYkq0kAShWuQSV0CtqnXdnvN+0WKa7YJyuUBHyd/ISACSFd7ySQMdAnbQpJL2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269825;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=S8fHLhX1Wopu8reB9mEZz+dFQmeZd2AuByljTQ8bzQI=;
-	b=bba92cx7LHA9oUxGQsuDVd282JCJLmKC/oDyYYQL7yLQ1x8UKB1yFoHSPjcV7YjA6v+G
-	 oQIEoUug/ttLMG7upvajEeK95W82lYvBeK57MRY+cgl6o/ahjx18r1NkUOCunU44ocNtn
-	 KmOXa1la4T6/HYrbmE05/+yHbK9V+Lrhg8XeedyYETBoEzElGG95RxtePm3/cglRmBg88
-	 g8zShBexW2ShAM0udr2J9inASgZkdRaqw00ZIovMJDgTcTXni9lYn0GPr+AsnL7+GVD7Q
-	 FaoFYN94mTj/1wq8ks4z3B7ByUVGmpK4RYBbKZaAZUwlDFtYeemnRdWy1iyBzdGTaCQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3NI7Z3i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794269840;
+	b=xAdVm9FEGxQD3regOtGyE/X6ytLpH09XvI0M6+28lIh7l0yCIhAhkHno1SFe8uCPRFTw
+	 eRvxlsUD9/tkOh0ZTqvvWDOGTK+Blo+W6E7lQg6YBhuvf/z037vzFXduCole+VkvfwDgR
+	 sod32kHHhnbwpgE5IUzyWsMGUV/Cm9uSmh/UbCJNGD3v6bkHGYzUNylNM78oIxL8Nyg+D
+	 sTeDeePDIwC92dwa0n+hTdek84QYBBwrqQkY+ZDm6REAFgLYochCK7TZtA8cGSKCsqtfk
+	 zl3oHj9z8GDp/aM+y+9IvRKutJwl1tr/jqrwWBQyWdw1EkIY85o+Z5A53VFwC7QVItQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269840;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RJ36JhmwCAUCGImNmtkvC2/pUrrSeH9vb42BEBLFWFU=;
+	b=NwCOsckcyZw0u/1GN6Tfh4a1oJxPBZR2eJ6tw+1ddatd9JvnRX8tAg7X3KlKtBLg8zbe
+	 rkCun4e4CN8+IRA2Iwso5gpShF+enQdvvnC1XEzTv6o2MQvd6saLLcmBp7QSQfZ+OtvCz
+	 AXYXhMZ5H8EHMrI7KRccFgoQfe0mBN6ec3ZGnIO02B9JqiXeaCetvoNsIBmvMp7mrmKou
+	 MXGQygQz0LUjCMeUmEG6w2OsyBQkUKNiHBCMkPhEKBu2g73EELwOAxgIkBh7iZFquy4W1
+	 5DxPJRHJhUwuCmeleEudil/IOimDwN5yGhgAe5NcTeY7T7Yc084k2YDuUevncNek/+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Tu3dGBVQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.32
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010032.outbound.protection.outlook.com [52.101.85.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8C1606A32A;
-	Tue, 10 Nov 2026 00:17:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3058606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:17:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3058606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3NI7Z3i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6B01F008A2;
-	Tue, 10 Nov 2026 00:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794269825;
-	bh=S8fHLhX1Wopu8reB9mEZz+dFQmeZd2AuByljTQ8bzQI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3NI7Z3iugPRvehaaEwOnCYy2EpfDl5XTk0ShVHPtwIgRV8M2m+jKWxridyP75nnS
-	 ZLSvxFe9hEbAGD754Y2gFM5BDlzxM7/HFmJoHApbIgjxWIdxh3v+QVUoVPpa4F1uzJ
-	 ASdrBi3vRPZd0q8gbwAwP8TwRNd4zgRowedCfpDfUjtK5U1ehoaVaQ8gz8/KQ1vYnL
-	 VcOhPrDpQdk7jbGMx/7VfCIVSeoxI2zYmAtX3+dmVZYUjVq3tgpPnf4U66yMVA+4Oh
-	 CfaEFFkG9UdtMc6QAyPrAgcIf32MByoR+Lp7K5ygG/5/yanhctQuN0H/+OkOjGpI6y
-	 p5VaJDovNTGsg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: lian@is.s.u-tokyo.ac.jp
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	shina@is.s.u-tokyo.ac.jp,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] virtio_net: reject stats replies for queues outside the request
-Date: Mon,  9 Nov 2026 16:17:00 -0800
-Message-ID: <20261110001659.1654289-2-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
-References: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Tu3dGBVQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=roxaZgc9k47bExUmqxsSAGoe9/iYNAoi7milX1hCi6wBkEV5LofY5XXQKtVs3Y4ENDqNmy3Se2XYXf6JsgaMJp/a6ilywJYpsP9KtxhPbf4aqBcykvbzwB4PhV0AL/3Z/yPJp4HTU82iEdtYuX03KTRsfZ7vUbKuL98/g3M2tEzyd0uWeivOyuwUVe0o2Skvqx2+14/dEzwa2WONPpo6HY+XExaKMDAOHJAowsANrlM7SPBWLAW0IF+Yg1J3C1CxPBicJkZTQkriNYSIPSVPjJLpFj0g10K7+oa1+EinwXo1Y4/c5Q1kBuYXIdCCabnaX0OKXe+zl/cSbyFQmmRhHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RJ36JhmwCAUCGImNmtkvC2/pUrrSeH9vb42BEBLFWFU=;
+ b=vFAJTSRX7Wn6B5iOId8vVKafysZxJ9u7BRNI6EUCo8zgfZnB9TTsHvVNa0jH7VgM5Qhf2nNB30T6VKl8CY2UgwhrD8x73nYAVR+JC5Bqx7ioNvbepc7CRic1q1XBc2zaL/DPoUCJ3t0QUD8y1MfezlnuvbZ5FV1wLl9Q3xrYOZ6XXdTplVpmYy6faRhQ+XkTPmG7abddi9eSUogNNsJKLe3vvclxxArNN5WvdjucEfQ618T3f+7Tg8VDPlZEXl2csx7b3Mi91sW9o2llOtz+N0cy+tOJffaSy3xnqCMVLz/lb0eiLpTLwXXO8Qe+TxyV2smkqEVe+T91oBYKDafwLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RJ36JhmwCAUCGImNmtkvC2/pUrrSeH9vb42BEBLFWFU=;
+ b=Tu3dGBVQ21tYrLHRxi5n3RqISNEp80umU7v3U5OwPd3bCK67uz/zVdDYl35GnT35WoQ03PhBKF4yq5BlwWJnXyVOoENUAczHtRClZu0OxtLrf7ENGBq1RuxgVLT5RJ0Xfjp8eHsn8G4QzEvEwFok92CXVVCnZCLU6IERomTeueqO1tqpV9VOfkItAGJ4LHykV3KCyjte7Sl5VUMcR1alF06w6VDAFzsRL6oL4Qv/pNZwNTFxdqw4BaVe9YVMgd38WCDS7CSOE/VCXZSGYusjOp/3Fy1yOI2+BfAwhVKOAjtcBaS9xFZPa8Jbx1w/q2Tckg0ALGG9kDi3wXNAhqxp9g==
+Received: from BN1PR14CA0010.namprd14.prod.outlook.com (2603:10b6:408:e3::15)
+ by MN0PR12MB6344.namprd12.prod.outlook.com (2603:10b6:208:3d3::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
+ 2026 00:17:14 +0000
+Received: from BN2PEPF0000A894.namprd04.prod.outlook.com
+ (2603:10b6:408:e3:cafe::45) by BN1PR14CA0010.outlook.office365.com
+ (2603:10b6:408:e3::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Tue,
+ 10 Nov 2026 00:17:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN2PEPF0000A894.mail.protection.outlook.com (10.167.248.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 00:17:14 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 16:16:58 -0800
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 16:16:57 -0800
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Mon, 9 Nov 2026 16:16:55 -0800
+Date: Mon, 9 Nov 2026 16:16:53 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
+	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>
+Subject: Re: [PATCH v9 11/25] iommu/arm-smmu-v3-kvm: Add the kernel driver
+Message-ID: <avJidXM9yQOX4VBJ@nvidia.com>
+References: <20261015200903.2735565-1-smostafa@google.com>
+ <20261015200903.2735565-12-smostafa@google.com>
+ <auzvygiGRTWgJXzF@nvidia.com>
+ <avGk0ilyJh3obmKx@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,103 +120,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <avGk0ilyJh3obmKx@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A894:EE_|MN0PR12MB6344:EE_
+X-MS-Office365-Filtering-Correlation-Id: 052168f3-9c1b-47cf-e8bc-08df3ebff909
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|7416014|23010399003|36860700016|261028144727099003|10067099003|11063799006|4143699003|56012099006|261021121427099003|261022075727099003|261022105027099003|261021135927099003|261009223027099003|261026140227099003|261102123227099003|261026121527099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	3Q4cIg2JIJ84/HScjow2VXcMI1uuyQ543+nYiY9qwwBDx/7gKhWFTfdYEcWEi3YhGLcmfMEmT6ZyJaj3zW1CZPfjHm16XaJj6RZlFOujV8fxPO7oTGwmpYOmMV6hZj1ueUi1+k9WDQvvAQKqc2KSMUfRiTlyTBZ+Cu5PdA2mPouf83JQPf3Ep9LZaZloJTItylVnTWVNFNxDpwkRpJ0h1C8aBKvEhIS4M8WrkqTe09JUnYV2gE0dx0zTSoUkqyuc20jnJEajZkWn4jFX/Eo+GODIqJi5nr/KG2D+DPUNayEdTEvZBZsvTxbil1IwGWqW2OE+TdcUtyc9JcWIBkz6r8p5VSZCt17THz52H+5/sv8a7HmXtwkLT8AqPC39s1lMVQqHcApSnIMFqTvYsYofrQtt0gws68HbJl4Yt8IpsTWvfvTMi22PM7kXy65CDhSFd6b8EM7tarA0uE2wlz2Jqx7GecbjwsFy/Z+02Ep/HsxsOaqBf9HBdqEU6lCOv/jpu4o2wXGtW+gfajNF+jfaoyRcIzOAC+fE0curF8Z6kNHnBp+RTdImd2Vuh6I5ZsZjyVoHf/vz/fnQViE6sP4T7dElhWVDYrAx47l5S0cV7z2r+AWEn3MqkcdCD6xChggZkuDecPyYhMDxBPCeJ6gl2aiEUIm05KAyWsZOjqI42z/0C6r6g2/3CZmhcmgnAx4sntqeBm8fRhT+esL9tBSM4Q==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(23010399003)(36860700016)(261028144727099003)(10067099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261021135927099003)(261009223027099003)(261026140227099003)(261102123227099003)(261026121527099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZCTX0zLr47gHJcPHYTwZqvSZ0cSODxq0DwoEbbyvD2bctkLclvoFCmT5QzhtujTz/vMetUFJGHaD02jHzdA/sg9fAsTq45eLyWU7RKbtBfBM0+DjFNXRwEVk8KQU0krwKglVHE0UzToxZQ0MGY1glUVCKGktpOcf2EmnC/YcHhaMpatxg5bY8KT9K2KUDmZGDj5sJU9z0w8uR1zDdhW/d+pPWTqet+ugCN7oOt/3JDFGDO5L4EDQg9jyaadWwN36sjXVqifw26BAi4lkdiD1DtEhSjbUEcFuAkRx3NHDEF2L6zNiFDH+1ZaJPUlL5TuKuWcwW5bw8537vn3nivN/i6eXiZabc2bTXqEWIrqbtCotKZX5ZQrrg/oPiUMihDxgqUkZrVY0ZRUyyDekix9E7UEfPgbU1Rm0GAOvR6HueyX6Wcgl9dstC45jIJbzPu7m
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 00:17:14.5815
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 052168f3-9c1b-47cf-e8bc-08df3ebff909
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A894.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6344
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-virtio_net: reject stats replies for queues outside the request
+On Mon, Nov 09, 2026 at 10:47:46AM +0000, Mostafa Saleh wrote:
+> On Thu, Nov 05, 2026 at 01:06:18PM -0800, Nicolin Chen wrote:
+> > On Thu, Oct 15, 2026 at 08:08:42PM +0000, Mostafa Saleh wrote:
+> > > diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> > > +#ifdef CONFIG_ARM_SMMU_V3_PKVM
+> > > +/*
+> > > + * Two devices are involved: the aux device bound to this driver, and the
+> > > + * physical platform device bound to the pKVM init driver, which only uses it
+> > > + * for discovery. This driver keeps using the platform device, as it carries
+> > > + * the fwnode the IOMMU core and consumers link to, the DMA configuration and
+> > > + * the IRQs.
+> > 
+> > It would be nicer to have a diagram or so to show the co-relationship
+> > among different devices and drivers.
+> > 
+> > I assume the regular arm-smmu-v3 driver is a part of the picture too,
+> > when the pkvm driver binding fails?
+> > 
+> 
+> I can add some ASCII diagram.
+> If pKVM driver fails, no aux devices are created and the main driver
+> probes the platform SMMUv3 devices as usual.
 
-With this patch, __virtnet_get_hw_stats() rejects a device statistics
-reply if any record has a vq_index outside the range of queues in the
-request. The control vq is the one exception. This stops the device from
-steering writes in virtnet_fill_stats() past the end of the ethtool -S
-output array or the on-stack struct netdev_queue_stats_tx.
+I didn't check closely, but would it be safe to do so?
 
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index dd2c41ef6fbe7..db56f984bb86a 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
+Is pkvm aware of the missing SMMU device and handling it properly?
 
-[ ... ]
+When pkvm is enabled and the SMMU device is supposed to be a pkvm
+device, should it not fall back to the main driver?
 
-> @@ -4994,6 +4995,13 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
->  	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
->  		hdr = p;
->  		qid = le16_to_cpu(hdr->vq_index);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the new vq_index check only
-limits where the driver writes. Can the device still steer the parse
-through hdr->size?
-
-The loop in __virtnet_get_hw_stats() advances by hdr->size, which comes
-from the device. It only checks that each record starts below res_size.
-It does not check that hdr->size is non-zero, or that it covers the header
-plus the payload for hdr->type, or that the record ends inside the reply
-buffer.
-
-If hdr->size is 0 and vq_index is in range, p never advances. Will this
-loop then spin forever? The loop has no cond_resched(), and on the
-ethtool -S path it runs with rtnl held:
-
-  virtnet_get_ethtool_stats()
-    virtnet_get_hw_stats(vi, &ctx, -1)
-      __virtnet_get_hw_stats()
-
-If a short hdr->size puts a record near the end of the buffer, the found:
-loop in virtnet_fill_stats() still reads the whole payload for the reply
-type:
-
-	v = (const __le64 *)(base + desc[i].offset);
-	ctx->data[offset + i] = le64_to_cpu(*v);
-
-Can that read past the end of the kmalloc'd reply and copy slab bytes into
-the ethtool -S output? virtnet_fill_stats_qstat() does the same read for
-the per-queue netlink stats.
-
-The parser also has no way to know how much of the reply the device wrote.
-virtnet_send_command_reply() throws away the used length:
-
-	while (!virtqueue_get_buf(vi->cvq, &tmp) &&
-	       !virtqueue_is_broken(vi->cvq)) {
-
-and virtnet_get_hw_stats() allocates the reply with plain
-kmalloc(res_size, GFP_KERNEL). If the reply is short, the leftover heap
-bytes get parsed as records. Would they be reported as counters whenever a
-stale vq_index happens to fall in [first_vq, last_vq]?
-
-> +		/* The vqs of the queue pairs beyond curr_queue_pairs lie
-> +		 * between last_vq and the control vq.
-> +		 */
-> +		if ((qid < first_vq || qid > last_vq) &&
-> +		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
-> +			return -EINVAL;
-
-[Severity: Medium]
-This is a pre-existing issue, but after this change a malformed reply
-returns -EINVAL while a failed command still returns 0. Just above the
-loop in __virtnet_get_hw_stats():
-
-	if (!ok)
-		return ok;
-
-virtnet_send_command_reply() returns a bool. So when the device answers
-with a status other than VIRTIO_NET_OK, or the kick fails, or the cvq is
-broken, __virtnet_get_hw_stats() returns 0.
-
-virtnet_get_ethtool_stats() only warns when the return value is non-zero:
-
-	if (virtnet_get_hw_stats(vi, &ctx, -1))
-		dev_warn(&vi->dev->dev, "Failed to get hw stats.\n");
-
-As it stands, a rejected command is not reported, and ethtool -S shows zero
-for every hardware counter. Should this path also return an errno?
-
-> +
->  		virtnet_fill_stats(vi, qid, ctx, p, false, hdr->type);
->  	}
-
-[ ... ]
--- 
-pw-bot: cr
+Nicolin
