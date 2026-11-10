@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794317807;
-	b=krRV+0Ee/eqGYZLVtw5W0CvDi1MMCW/eXu1WtS/8RCOKr23yDu5aX2GttF15Bj7oIO//
-	 b2thyurh7VjN3I9Zf2qQ+eg33v64Kb/wJkVutKlB30+ynFaVQgxcHwMZmkMaU0GaCAWzt
-	 AfpUQyqjBrah4rG1EhiXUN32y7bbqRh198xdVIWdXaSOqA2bfD8fSqsWpLsroBxG6tZ1w
-	 nrZLyrwyC4r6KeC+V8tp5PFQjvvIYv3vzdo2yQExYCNsuXUt+ADSR80uBKKKIShsCZmrQ
-	 uWTtHAlQlhPlApBkTT2wnWZF07yKasgEDwBk4+ZDFO9Uw7AiSZsrL51qys4eDZE2xqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317807;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=0azMahU3OokpLVsuQ5UXOF5UyDmli+pSUQLgONyqu+4=;
-	b=U3V5T3e8nGmN9P6qkV0LHrb5ZMNS7S4kLSyIkGF987uSs79S4HlniszNapgOZ3ktkyOq
-	 P9wJkhJpYbLxFuu918oi7PCxwaUFXa96pMWxw04yjFwyKsGshZyX2whSDPrERbz2S2vq2
-	 xMXHjOpVHrrlWKQylGJ5EJqJb09gsM9O7fJhVgzfoBWp6zH0p1QsFBODLrl258gv/lTTB
-	 dSCtXe+ghTYVcyIYb0QPH+GtU+FUBOW0CAIx6s4iK8KbAh42zKC0lNSTQ7HeMplfL5KRX
-	 mdxQxVKZAJ90dCS/84fvNmxYM6VFV05tDMF0iNNFz/QQT84n/v2ilD4zwss83ltrxwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Uahep5AR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794317855;
+	b=oUs/6feP6LLBJ1gfKqczhR7Vv1v8MWUm4qMgPLRBsVxDYMZ3r1gOLKehHvc1acpM7K7c
+	 JfTnk5j7w4jExW4tVkOAdCbbnpOMEnrIPbo2aDcxCoVAMfkAP64dGYvaQ/bfUQyQIbp/b
+	 aUttkPK6SJAi6TRMVqNNjiV6IGMcu3FUQzySlPesLsE+YqXCJBrP/SrvpyGFb0GcjNtt8
+	 86thyU8qsDOw1pG6CnqSP2IWG9/izwGNL5dqV7aqhTXeekg79Ojbj9XjnIPc1yk8PN7cO
+	 m2mfj89bNJnUW9yuj4zIvaPAtdMIXKP9V5HifUfLGkb68HgIrtLQgT2zV/TzemL7asw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317855;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mZHrabfWk4S2HUCqdB68Rskp0Af4pRxUMfzSm1U1JdE=;
+	b=x1InVthvxlcgFjefwQ20o8YFOdQeT2RXNOrVxt/pvfEtk9ttHEnkaN41crC+GoirP8HE
+	 KQ/So4rebK5niz9/lK0AWIw7v+e8DsaSIdx/6+ekGg13l81qfb6PqxKRyd8Q5kqjPk0d4
+	 is2htyzUxc3CdjijMep6chbaXC/Q8MPKR7ByjnwJNOl566rse/dlKmwmBBL24uuYQ1DSz
+	 YcXDE9a0PhYqfDXLxsNVzIRdCwYU/HcB6LKOxngfO/GPVDeZrkbXN+6Lo4D6q9glLusiN
+	 xMh4yHip8WhOgopgehOp+s8KSFxd+ViC7y3WC4U5ocbvX5A8crkRNVw+imRWf4jS0ng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QRR/ihPC";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E78606A74C;
-	Tue, 10 Nov 2026 13:36:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64E78606A74C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8780606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=Uahep5AR
-ARC-Seal: i=1; a=rsa-sha256; t=1794317778; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=K4/+UttRAjzAJ3tYTbL5chZCJ5VRYGIvtDflTCJkgEt4DbDydg5RAmAbarg8p+uCcJUOUYOoCJGRwe8Z/FD5PlkcUf0Y9DpvJtryT619TE9IS9NWNPSCfJTQ8xTpoeJ1QC+0GdEw6r0KWxE7bpAjMaYA+3oA/F2yqUcp2dAeN8I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794317778; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=0azMahU3OokpLVsuQ5UXOF5UyDmli+pSUQLgONyqu+4=; 
-	b=LqNg3qfY7VB9fLy5VfuDjI4o28UPGBLncjpx1Y6lOwXxcBX1YWueXy4rpZEibW7t52hoAQo0SqF0YHrIS0iw5wW0QdmLoLq52Z8TBpp975nqetk8Z4Rmc6GwWaCHoh+tJieSewj820E3qSCGP8+dR5k0iVzQpsN4o0V988461HA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: a=rsa-sha256; b=Uahep5ARfTOcVThz/h0awv+3+zSEEIu2EMY9g+co7qXLTPHvF+z8xOcw0JJ7yH9mNyeZysNLWp+Ml4VqHV5vRDJQqxHD86MfAqkNeLMZzaZFuja08+HrNxZqsBNGJHnumbvTm9k4Nyec6/2iP9yj+AxbtsK9yG8eK99gye/2iJ0=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=0azMahU3OokpLVsuQ5UXOF5UyDmli+pSUQLgONyqu+4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794317777710817.8057734110412;
-	Tue, 10 Nov 2026 05:36:17 -0800 (PST)
-Message-ID: <f67ecd0e-1eae-41b1-8a61-d06eb062e523@zohomail.com>
-Date: Tue, 10 Nov 2026 21:36:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QRR/ihPC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0880C1F0089F;
+	Tue, 10 Nov 2026 13:37:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794317854;
+	bh=mZHrabfWk4S2HUCqdB68Rskp0Af4pRxUMfzSm1U1JdE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QRR/ihPCYTxS6rbD4+czUP/fyN+1My280e+0RDFv1ILWSPIXy1e6pJYallZfxpona
+	 s42yRP8xnZvKzdGEmaJCk2DcEvbHjBAgm8/f8HaKuLgmmYNe+L8dJHUaeBqvWxr/jm
+	 xv5n9hPYyaO4TQwWp8bBoY3qYs+VgmlrnhG2vwQVQm07tVfa8ovhpXCb/y7PCt+Gso
+	 rbmI7FpZKlcDmugp0tBK/vzVs+RJxcZCFy9BDNNz8NXUeu2tdZM3QEL5KLqN18Ja1t
+	 QTIlEJMQWFHCd2kjHbierwai3L+jWV7ydbgQn2hRhaqZxtylTaE3km5aTKDNhQGbeL
+	 Y5Cmf+C+N7FVg==
+Date: Tue, 10 Nov 2026 14:37:32 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Hao Li <hao.li@linux.dev>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, Roman Gushchin <roman.gushchin@linux.dev>
+Subject: Re: [PATCH] mm/slab: remove outdated comment in
+ create_kmalloc_caches()
+Message-ID: <avMdQuXxfqMCBbBA@thinkstation>
+References: <20261104144753.2266231-1-ekffu200098@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,256 +59,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 02/19] cxl: Share CXL port upstream PCI device lookup
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Joshua Machauer <machaujo@amazon.de>,
- Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-References: <20261105185917.2667656-1-smadhavan@nvidia.com>
- <20261105185917.2667656-3-smadhavan@nvidia.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261105185917.2667656-3-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu08011227cd6656a0b0b917d8a199c6e100004c38c21d393ffd7344d61fa92497026c4e4ee171ecce232c3e:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104144753.2266231-1-ekffu200098@gmail.com>
 
-
-在 2026/11/6 02:59, Srirangan Madhavan 写道:
-> read_cdat_data() resolves a CXL port's upstream device to its backing PCI
-> device. HDM cache updates need the same mapping.
->
-> Factor the lookup into cxl_port_get_uport_pci_dev() and return a referenced
-> PCI device to make caller ownership explicit.
->
-> Use automatic reference cleanup in read_cdat_data(), as suggested by
-> Li Ming, so early returns release the PCI device reference.
->
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-> Reviewed-by: Richard Cheng <icheng@nvidia.com>
-> Reviewed-by: Li Ming <ming.li@zohomail.com>
->
+On Wed, Nov 04, 2026 at 11:47:51PM +0900, Sang-Heon Jeon wrote:
+> Since commit 16a1d968358a ("mm/slab: remove mm/slab.c and slab_def.h")
+> removed SLAB, no kmalloc cache is created before create_kmalloc_caches().
+> 
+> So remove the outdated comment.
+> 
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 > ---
-> Changes in v17:
-> - Use an explicit pci_dev_put() on a single exit path in
->    read_cdat_data() instead of mixing __free() with goto cleanup
->    (Sashiko)
->    https://sashiko.dev/#/patchset/20261029145703.2185231-1-smadhavan@nvidia.com?part=2
+>  mm/slab_common.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index e66c0778ee98..c4a386f0dd90 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -1029,9 +1029,7 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+>  }
+>  
+>  /*
+> - * Create the kmalloc array. Some of the regular kmalloc arrays
+> - * may already have been created because they were needed to
+> - * enable allocations for slab creation.
+> + * Create the kmalloc array.
+>   */
 
-Reviewed-by: Li Ming <ming.li@zohomail.com>
+LGTM, but maybe let's just drop the comment?
+The name "create_kmalloc_caches" already covers
+"Create the kmalloc array"
 
+>  void __init create_kmalloc_caches(void)
+>  {
+> 
+> base-commit: d15d7703166daf7bd62c844a3cb1b3a6279adb4c
+> -- 
+> 2.43.0
+> 
 
-I still think the new goto makes the code harder to follow. But I saw 
-your discussion in v13[1], both Jonathan and Dave agree with your 
-current changes. I post my proposal here which can eliminate all goto 
-labels. If there is no response from them, or if they disagree with my 
-changes, we can continue with your implementation.
-
-[1]: 
-https://lore.kernel.org/all/fb513893-7c6c-408c-811f-1eae20f0436c@intel.com/
-
-diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-index 9d807c1a002c..fbf4b56a39c4 100644
---- a/drivers/cxl/core/pci.c
-+++ b/drivers/cxl/core/pci.c
-@@ -573,17 +573,8 @@ void read_cdat_data(struct cxl_port *port)
-         size_t table_length, length;
-         int rc;
-
--       if (is_cxl_memdev(uport)) {
--               struct device *host;
--
--               cxlmd = to_cxl_memdev(uport);
--               host = cxlmd->dev.parent;
--               if (dev_is_pci(host))
--                       pdev = to_pci_dev(host);
--       } else if (dev_is_pci(uport)) {
--               pdev = to_pci_dev(uport);
--       }
--
-+       struct pci_dev *pdev __free(pci_dev_put) =
-+                               cxl_port_get_uport_pci_dev(port);
-         if (!pdev)
-                 return;
-
-@@ -606,30 +597,32 @@ void read_cdat_data(struct cxl_port *port)
-          * bytes for the DOE header. Table data starts afterwards.
-          */
-         buf = devm_kzalloc(dev, sizeof(*buf) + length, GFP_KERNEL);
--       if (!buf)
--               goto err;
-+       if (!buf) {
-+               dev_err(dev, "Failed to allocate CDAT buffer.\n");
-+               return;
-+       }
-
-         table_length = length;
-
-         rc = cxl_cdat_read_table(dev, doe_mb, buf, &length);
--       if (rc)
--               goto err;
-+       if (rc) {
-+               devm_kfree(dev, buf);
-+               dev_err(dev, "Failed to read CDAT.\n");
-+               return;
-+       }
-
-         if (table_length != length)
-                 dev_warn(dev, "Malformed CDAT table length (%zu:%zu), 
-discarding trailing data\n",
-                         table_length, length);
-
--       if (cdat_checksum(buf->data, length))
--               goto err;
-+       if (cdat_checksum(buf->data, length)) {
-+               devm_kfree(dev, buf);
-+               dev_err(dev, "Failed to validate CDAT.\n");
-+               return;
-+       }
-
-         port->cdat.table = buf->data;
-         port->cdat.length = length;
--
--       return;
--err:
--       /* Don't leave table data allocated on error */
--       devm_kfree(dev, buf);
--       dev_err(dev, "Failed to read/validate CDAT.\n");
-  }
-
-
-> ---
->   drivers/cxl/core/core.h |  1 +
->   drivers/cxl/core/pci.c  | 24 ++++++------------------
->   drivers/cxl/core/port.c | 26 ++++++++++++++++++++++++++
->   3 files changed, 33 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-> index 35eaf636adc9..983d7690c3a5 100644
-> --- a/drivers/cxl/core/core.h
-> +++ b/drivers/cxl/core/core.h
-> @@ -157,6 +157,7 @@ long cxl_pci_get_latency(struct pci_dev *pdev);
->   int cxl_pci_get_bandwidth(struct pci_dev *pdev, struct access_coordinate *c);
->   int cxl_port_get_switch_dport_bandwidth(struct cxl_port *port,
->   					struct access_coordinate *c);
-> +struct pci_dev *cxl_port_get_uport_pci_dev(struct cxl_port *port);
->   
->   static inline struct device *port_to_host(struct cxl_port *port)
->   {
-> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-> index 9d807c1a002c..905892cfedef 100644
-> --- a/drivers/cxl/core/pci.c
-> +++ b/drivers/cxl/core/pci.c
-> @@ -564,26 +564,13 @@ static unsigned char cdat_checksum(void *buf, size_t size)
->    */
->   void read_cdat_data(struct cxl_port *port)
->   {
-> -	struct device *uport = port->uport_dev;
-> +	struct pci_dev *pdev = cxl_port_get_uport_pci_dev(port);
->   	struct device *dev = &port->dev;
->   	struct pci_doe_mb *doe_mb;
-> -	struct pci_dev *pdev = NULL;
-> -	struct cxl_memdev *cxlmd;
->   	struct cdat_doe_rsp *buf;
->   	size_t table_length, length;
->   	int rc;
->   
-> -	if (is_cxl_memdev(uport)) {
-> -		struct device *host;
-> -
-> -		cxlmd = to_cxl_memdev(uport);
-> -		host = cxlmd->dev.parent;
-> -		if (dev_is_pci(host))
-> -			pdev = to_pci_dev(host);
-> -	} else if (dev_is_pci(uport)) {
-> -		pdev = to_pci_dev(uport);
-> -	}
-> -
->   	if (!pdev)
->   		return;
->   
-> @@ -591,14 +578,14 @@ void read_cdat_data(struct cxl_port *port)
->   				      CXL_DOE_PROTOCOL_TABLE_ACCESS);
->   	if (!doe_mb) {
->   		dev_dbg(dev, "No CDAT mailbox\n");
-> -		return;
-> +		goto out;
->   	}
->   
->   	port->cdat_available = true;
->   
->   	if (cxl_cdat_get_length(dev, doe_mb, &length)) {
->   		dev_dbg(dev, "No CDAT length\n");
-> -		return;
-> +		goto out;
->   	}
->   
->   	/*
-> @@ -624,12 +611,13 @@ void read_cdat_data(struct cxl_port *port)
->   
->   	port->cdat.table = buf->data;
->   	port->cdat.length = length;
-> -
-> -	return;
-> +	goto out;
->   err:
->   	/* Don't leave table data allocated on error */
->   	devm_kfree(dev, buf);
->   	dev_err(dev, "Failed to read/validate CDAT.\n");
-> +out:
-> +	pci_dev_put(pdev);
->   }
->   EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
->   
-> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-> index 625e4aa427db..5dc2815d82d8 100644
-> --- a/drivers/cxl/core/port.c
-> +++ b/drivers/cxl/core/port.c
-> @@ -34,6 +34,32 @@
->   static DEFINE_IDA(cxl_port_ida);
->   static DEFINE_XARRAY(cxl_root_buses);
->   
-> +/**
-> + * cxl_port_get_uport_pci_dev - get the PCI device for a port's upstream device
-> + * @port: CXL port to map to a PCI device
-> + *
-> + * Return: A referenced PCI device, or NULL if the upstream device is not PCI.
-> + * The caller must release the returned reference with pci_dev_put().
-> + */
-> +struct pci_dev *cxl_port_get_uport_pci_dev(struct cxl_port *port)
-> +{
-> +	struct device *uport = port->uport_dev;
-> +	struct device *host;
-> +
-> +	if (is_cxl_memdev(uport)) {
-> +		struct cxl_memdev *cxlmd = to_cxl_memdev(uport);
-> +
-> +		host = cxlmd->dev.parent;
-> +	} else {
-> +		host = uport;
-> +	}
-> +
-> +	if (!host || !dev_is_pci(host))
-> +		return NULL;
-> +
-> +	return pci_dev_get(to_pci_dev(host));
-> +}
-> +
->   /*
->    * The terminal device in PCI is NULL and @platform_bus
->    * for platform devices (for cxl_test)
+-- 
+Cheers,
+Harry / Hyeonggon
