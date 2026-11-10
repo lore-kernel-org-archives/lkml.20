@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271319;
-	b=tzgEk7IcKk62ELZbtpfWNsmz87/ZGGaop0J4b4mOEKq7fsOTnKr8nmRhCiAU/EB4YgN1
-	 WGQAK2nQH84GYH8wtbK4OpWrq4xPMLLV0jXKNie8fTAB26a32tsMbTpnEHwVWCwxyyr3v
-	 DSJ0o3NO3Hw2rKujhfQNcp2c1gkU5tLpqr4xgcweKL8tTAsPYqoS4k8arFsO0LG5WaPz3
-	 4Rzw+nTB1KqWlkgKtBDMGMWyQtMSdVB0T7rPesO7SZvsdd7IkoaKhn83x8iYv/J7CY9sa
-	 9SnahYNW5r0x/bV5onjsH6OmDe54geiQdtzEvGigjou9tho+RgVC7jaCJTHxO55Qsyg==
+	t=1794271343;
+	b=r4iNhpp4M7k09gLSqb7BLcQTca+tlbn/APXrSXynjBSVS0fH7M9F8VQW8bN/qvEWWoQP
+	 iUWYSXlLfi8nNlX+uYjtq6mdoEFIxj99i5FHwXMGX5sKM/ZR/PZSPj0y9RetSfQgtX84f
+	 CAXyLHNZUavL+oaI9T2RQKZIMQstb05ahGsmIw+gE9CMZMbqckFb+5Vk1Oqkebo2+fOZq
+	 yz7gvN6/+7gXG/Cys03wkR/wdWnmEAPjFHp7N/5kKOT3LYZSis9dvhAvNtmCEI7ucSj5c
+	 5kXqiEE1eSNk/b8JlBGx+JEYrM+2NbGSrEiuI4woo2Ni0au1cqmlyCoBn+0LY1bqSPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271319;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=KS3CHz1HyXxL41ZbBw00ADRpyBw17oL3axjjjtzyPRU=;
-	b=uOq2BZH2TToaqOsZ0R2y7u5xxL/+4orGza825l7PfMA0xPbc9Q+YspYxMGZKONKExt2L
-	 3c4JpqxNbyq90ITY+49C4DftRtjDdfEqqv+bIPgu742uMkp7UzpXIgplBQpMaXzRHd9r3
-	 Nmyl5CHFBkRg8jdqHWYbl3ysQuAppAPS4NDEcmp3fHrXSH/pcLa0s2InqqSWngNrUBmbJ
-	 DTDozEgey70bHUzq++cEzq1x1zLE44YsefEfft2c8LTz3pQwR3I6M04F3SxpFNgx81ij8
-	 AKdCQa9RZdNtco3J1akDcnT2g1nodwSfidO/mZtBmRRgIzDuxGfyDjV5lu3aCizcfkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271343;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=nb8/3651PQi+wnO5xWDWcO+y3y5ytYQlH20uezfH+ZU=;
+	b=YtwJGBt+16uqRVP36wpc348ldCP5mACoXYNdr+XdZBwRHX58QyTH/TBRAiYO7LwzrDIo
+	 18Ka5khg7IAwcwmexCsDbl78oDp/jP/ZcVEVWsT7kaEe6Wxpuz56cI7/QA8/x5tZAjNih
+	 d8jXtYv6TBznSIiuLe1Bka2iHY9cl3EHbnQS/MnPOHs3Wdfjvw9rqBGm02aCrfFumFDFX
+	 Lp6rk4HjfNk49kGhJS4AsGIjsfqJx0ryUvoneeXh+xzFdG8db0YL+rFxU7GpFn+FMvBeT
+	 E4wNibs/WuGZIpxpnNj3AicWMJH2Rz+J+h8ELa2TCEmXVysYbqmETQaaBA9ABjDdWWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mqAetget;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g46Ipwb0;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0976606A321;
-	Tue, 10 Nov 2026 00:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0976606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8835606A31C;
+	Tue, 10 Nov 2026 00:42:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8835606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mqAetget
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794271317; x=1825807317;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=N1lyR087T12zQqlwX36X90Z9WK9rxY4dYwTOOiytRNU=;
-  b=mqAetgetIR+iSOkVaFNs/Eh2DPSR5Rippj3Avhnypb0sz0/TtYerULEF
-   VFjccJ9AVkLLrPNN/MN2ThyUExtSGInZMg/VS9lWkK7y9hdfSPBXdo1+G
-   FWpP5pgd6kenSdoYuJsA8KYld+fClO4Fp0fkkPt0mZyrmRD1lToMfuwef
-   9yrNXyXsSHMrGHfBBxiHbq+/FBId9CNLzCywqd54npK+Q0kFQIL6WesCK
-   Wa3j0zW6lj16tiQfPLQemOSingd16hIAayKbnRLDg+vMEYELxyJqfAyKT
-   /r2S0UbO/8o7NVq3w/bj8ahhyEmErd+Hzf+6zddvNGcnoJIygjrVsbwHT
-   A==;
-X-CSE-ConnectionGUID: OV8v/b+DS+ugJN0e94g+8A==
-X-CSE-MsgGUID: +UxsAg7PR9uX1MiA4d+R5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3043559"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3043559"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 16:41:57 -0800
-X-CSE-ConnectionGUID: k4v22akHQpK6aR2ztbSGKw==
-X-CSE-MsgGUID: OA4Mi6sfT4e84EpQxTK1Gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="9787333"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 16:41:56 -0800
-Message-ID: <508bc475-2162-4667-a6b8-8fe753042893@intel.com>
-Date: Mon, 9 Nov 2026 18:41:55 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g46Ipwb0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794271341;
+	bh=jelWMB/DBj38lxtsoeFn4zfXVqb37rYafHvCTADg8do=;
+	h=From:Date:Subject:To:Cc:From;
+	b=g46Ipwb0jR4wdsoxeI1/IuKY3ruRNQ6s2IslOn/OrWU8KUUBc9z3xcC/umjL4slnX
+	 nbh4NDNiOTFTpcSVeChDAzlqmXMKyRaVyUyv05jhhjkACerJ9mr5GFv+agnob7n1WZ
+	 uvIrb2oXUNtIe8odRRyap1Mdb9lQFd5HhhasoDv/CkbWubfYko5BxIr7H4WBh9Nq0T
+	 WGhWaAX9dPWlKqEK0LZdEzDIcbhLkDW6uJvNwjl3S+ss2FHwcfvZx5zGF6dC1FGe12
+	 d/iX24t3xZSaLA1gHv0zWYQa+heMuwOctMGJ1m9Cb3MElupRd7dF/gON9gIYSUwJNj
+	 r3tp3BYq3Pq0A==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F01B117E04E5;
+	Tue, 10 Nov 2026 01:42:20 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id B1B6148002C; Tue, 10 Nov 2026 01:42:20 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 10 Nov 2026 01:41:58 +0100
+Subject: [PATCH] spi: Fix runtime PM imbalance on pump transfer message
+ error
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,101 +66,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/18] KVM: x86/pmu: Document GLOBAL_STATUS_RESET
- passthrough erratum
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-11-zide.chen@intel.com> <au40uLZo3C8a7fdg@google.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <au40uLZo3C8a7fdg@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDtgRlLUq4iLGqc6gjFkYimId
+ ze2y+/B+w9QjsIKbXFA5I+obD7DPApw88tPjDJmA5X0NMaUqEEw7j7JyhhWfMsXLTUVWUfW1gT
+ 5GCLn+Rft+r91HxZ26S7BeV7IM5zedgAAAA==
+X-Change-ID: 20261110-spi-runtime-pm-fix-529325c25582
+To: Mark Brown <broonie@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Mark Hasemeyer <markhas@chromium.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ kernel@collabora.com, Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ stable@vger.kernel.org, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2294;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=jelWMB/DBj38lxtsoeFn4zfXVqb37rYafHvCTADg8do=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGryaGhpQIC8Xs2xQCf2WNxWILLEANG2wd/+H
+ r6D1fb9Mj2nmokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq8mhoAAoJENju1/PI
+ O/qaX14P/3c6UYpoe1cZY32PTKyEzxN4atoVcyQYaq99xgbTUKYYpP6JTNLg54d4ld2haBuxRfj
+ o+qDsMYJ4gUWyQ4V2H0pIFq0GX3TEjZS+VRKGSJUGbwoazuuBJylvkTVmTlo3wH1zO7hdBaNF3A
+ yW6lHSpKLN9YXXSwao9+pPoy3DjScR7AwviIdzeuv6If/Bts61DbiRe3/YiMgoGvsacqpcWzSKg
+ bfhjyaTG7+k722HYMemRegBTfEGK6oWuh+zuG5T2/fkjle51SkVrtuNh2LNWPe/QUwSCOYYQ+IS
+ ui05x0irNBtOKAeQ/UD2UWooaaRGGK3PHx5xATJLJkziEerOUk+FUfkcl3F7tKgdvfP2bFOmK5Q
+ fY91hRBL+Fb0LGTPl0an8D6UZdUoXoPQk2Gi9Rl3AqoFWo3bLn6xipYTxcD9JlE0lGLcJ+Ugzoi
+ 2mPEONJaj0pj7hYabsTHnSmkpx0jatPj5xeucNaz0XTHwAwyP8+6ksNQLGzA8YviYa3YmZ6l3i5
+ cwRuPvsOSng6VlFwIz1qvuzzYoJa5n9NTiwHkbeXPXCGV5byHZ4h87IB50VwFvYRFhZP7TzBAZ6
+ KHauBdXSwOLBV6AhY/0uruImRt59Wt5nPvD34CnH+w/Y6314OpxcCu+iIRyCdYXdI0LVO3saqXc
+ 28Lkv86asTjXrLg60mQguCA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
+The current SPI message pumping code may drop the runtime PM twice when
+an SPI message cannot be sent:
 
+spi_master spi2: noqueue transfer failed
+rockchip-spi feb20000.spi: Runtime PM usage count underflow!
 
-On 11/6/2026 2:14 PM, Yosry Ahmed wrote:
-> On Thu, Nov 05, 2026 at 06:39:19PM -0700, Zide Chen wrote:
->> IA32_PERF_GLOBAL_STATUS_RESET, introduced in PerfMon version 4,
->> inherits the MSR address and architecturally defined bits from
->> IA32_PERF_GLOBAL_OVF_CTRL, while providing additional bits to clear
->> new indicators in IA32_PERF_GLOBAL_STATUS.
->>
->> From an emulation perspective, KVM handles it identically to the
->> OVF_CTRL MSR: reads return zero, and intercepted writes are guarded
->> against pmu->global_status_rsvd. No code changes are needed in KVM
->> to emulate this MSR.
->>
->> However, to reduce VM exits, KVM passes through this MSR in mediated
->> PMU mode when GLOBAL_STATUS is also passed through. Consequently,
->> writes to bits that are valid on the host but unvirtualized by KVM
->> will not trigger a #GP (unlike when the MSR is intercepted). Except
->> for the known limitation where host Intel PT in system mode can
->> assert Trace_ToPA_PMI (bit 55), unvirtualized status bits are not set
->> while the guest is running, so clearing them has no negative effects.
->>
->> Document this divergence in errata.rst.
->>
->> Signed-off-by: Zide Chen <zide.chen@intel.com>
->> ---
->> v3:
->> - New patch prompted by Jim and Yosry's review on unvirtualized
->>   status bits.
->> ---
->>  Documentation/virt/kvm/x86/errata.rst | 10 +++++++++-
->>  1 file changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/Documentation/virt/kvm/x86/errata.rst b/Documentation/virt/kvm/x86/errata.rst
->> index a9cf0e004651..161ba6d1beb4 100644
->> --- a/Documentation/virt/kvm/x86/errata.rst
->> +++ b/Documentation/virt/kvm/x86/errata.rst
->> @@ -84,4 +84,12 @@ memory.
->>  
->>  Note, this erratum does not affect AMD CPUs, which fully virtualize CR0.CD in
->>  hardware, i.e. put the CPU caches into "no fill" mode when CR0.CD=1, even when
->> -running in the guest.
->> \ No newline at end of file
->> +running in the guest.
->> +
->> +IA32_PERF_GLOBAL_STATUS_RESET
->> +-----------------------------
->> +To reduce VM-exits on performance-critical paths, KVM passes through writes
->> +to IA32_PERF_GLOBAL_STATUS_RESET (0x390) in mediated PMU mode when the guest's
->> +counters match hardware, without injecting #GP on unvirtualized bits.
-> 
-> Might be worth clarifying that this refers to the number of counters
-> matching, not the values in the counters.
+Fix the problem by always keeping the runtime PM count increased when
+exiting __spi_pump_transfer_message(), as the caller handles decreasing
+it.
 
-Good point. Saying "counters match hardware" can easily be misread as
-counter values matching. I'll reword this to "when all hardware counters
-are exposed to the guest".
+Note, that the function already keeps the RPM usage counter increased
+for the error paths following after the prepare_transfer_hardware step.
 
-> 
->> +Because the MSR is read-as-zero and write-to-clear, this cannot leak
->> +host information to the guest.
-> 
-> It can let the guest clear host state tho, but I assume this isn't a
-> problem because GLOBAL_STATUS is saved/restored on guest PMU load/put.
-> Might be worth clarifying.
+Cc: stable@vger.kernel.org
+Fixes: bef4a48f4ef7 ("spi: Fix null dereference on suspend")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+I noticed this with RK3588 system suspend/resume, which uses SPI based
+PMIC and runs into SPI transmission problems when the PM domain driver
+tries to disable regulators required by e.g. NPU or GPU domain. I've not
+yet checked too closely, but suspect Heiko's atomic SPI transmission
+support series might also help with fixing the actual failure.
 
-I can add "or clobber host state." at the end, and the whole text:
+My patch is not really a v2, but Alexander Shiyan probably ran into the
+same issue before and came up with a way different patch and rationale:
 
-To reduce VM-exits on performance-critical paths, KVM passes through
-writes to IA32_PERF_GLOBAL_STATUS_RESET (0x390) in mediated PMU mode
-when all hardware counters are exposed to the guest, without injecting
-#GP on unvirtualized bits.  Because the MSR is read-as-zero and
-write-to-clear, this cannot leak host information or clobber host state.
+https://lore.kernel.org/linux-rockchip/20260806191854.922530-1-eagle.alexander923@gmail.com/
+---
+ drivers/spi/spi.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-> 
->> -- 
->> 2.56.0
->>
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index ce257b3ec530..4d9c5d026ff6 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -1967,7 +1967,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
+ 	if (!was_busy && ctlr->auto_runtime_pm) {
+ 		ret = pm_runtime_get_sync(ctlr->dev.parent);
+ 		if (ret < 0) {
+-			pm_runtime_put_noidle(ctlr->dev.parent);
+ 			dev_err(&ctlr->dev, "Failed to power device: %d\n",
+ 				ret);
+ 
+@@ -1988,9 +1987,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
+ 				"failed to prepare transfer hardware: %d\n",
+ 				ret);
+ 
+-			if (ctlr->auto_runtime_pm)
+-				pm_runtime_put(ctlr->dev.parent);
+-
+ 			msg->status = ret;
+ 			spi_finalize_current_message(ctlr);
+ 
+
+---
+base-commit: 059518f775baecc9803fc97787bd0b17558f8047
+change-id: 20261110-spi-runtime-pm-fix-529325c25582
+
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
