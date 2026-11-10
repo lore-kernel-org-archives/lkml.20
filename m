@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.91
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279050;
-	b=nG/jNYypGvDaO4HellLUaeyMcHblAn8CaekJ68QYEyiZgra/K6odxGK/Jq8tbSc6bXze
-	 HGOkQl75j/wNJv/6TCIaf4rYK1Mfq18FTVHnFGu2BDJuz4tqnpMo+JxVKjeK1sOjQWzGS
-	 vI5bLAlFUm555D8Y9dBGktarEiPmlX1D2KTxxTKN9gqJ4JgwJvcCNctvjcUV15WcLpJp8
-	 p7mH5ysxOVFrgdi3eHeA2uLMZOMeZpDUavFUHtpAdVfg8GvCQIQdRIwXMkbnLlZxw1MY1
-	 fJPo5oU87Mw42N1w2Q9dbO8cn/b8GOM/Y9fEOLkyWge6V//pBUOeZAp69S1vvbVPrWw==
+	t=1794279047;
+	b=dUuIQ8PBG2F4GlNJC0lWf4GkzJnnCEz6PHiD7/XZ3ITlzIm73OqcFN4bgsADxSv8QCV9
+	 oVnt+tPXBCWyELOYcT9vmVVQVbEajHdxnX0bGz3yN0DxkennljmoHko4o6Fd3SOLQ33qa
+	 gUllJuQrv9HxKuiH88yQ93w8a0/UdXWaJCOPM5K4khWj45MABGtvvlZpMfhgrWUGeCwB2
+	 BjuRC+2oClJiZtT8nBfUHG2BShy7abQVcznn4l3y+NJNfnaAVhdkLJgiS8Z0OjBL89JKf
+	 unM6Pzrgub6TqH0uhw8Se6O5jJapbAYoLEuM9l8EOwVLUC5wpAu2xLmTCHeOdlMsSyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279050;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V4BuPZ7NW9TLL+8xfWGzyH2DKRK7c1rfjhgBtZNneX8=;
-	b=XjS3vm6S2/nWhlREfiqwIs0k9GXBmx5mQkZT/ReWe2TEsrUb0clsVfC2AXO1iDhkdalO
-	 sWMi/VDjOl1tZp8Ye84LqFAxHOHyJx+HPsZDdSm0Ls2l3wPv+ISdhhLYgs0uVHyVSNwpE
-	 0CNnswV8/H1+Cp7H8hFs/PBl8e8mY5a3sY66d7ilDQKsaXQpgA54zo2VA5HweXJ8XEiNI
-	 T79R8mwQU3oE+88yy9XZjkmQzoyfdQguINNL+2XKNnmjbOoP58EpeSOn71ef92uY0/aZK
-	 KFg7srHVmuQ3x7CwR5CIAWRv6VAQO7D+DUrufeOBvOhSKDXmhncG+AR55iFOYI3B/Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279047;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=C8unCCHJYQwjY59pFoSyfbnbh+xaAmhUDTGx43WO634=;
+	b=d9Ms1iATM03GYrXxXtciLk3D2Ddhac/ORfeyiB1B1eiYClhku9ZIq5G/Jh4R7JARx1zb
+	 1NXEvGkkSE5RoF2+xcc3rpD6s+MNKJxQSM9Rfbayc+NwT/8kYytsk9eRM4/knaVWsg0mc
+	 +KZ/GxgmJNJZjz63EZ9J34kHdCcExC75PAL5nL54rzoQ+srxEbqJYJIlKYkEsCxa9BY88
+	 17kLI4wW5wi2KkxZkCjrHv2Tv5SzoqpCi5Ys7ON9g690JYUVKcD6r/sbWpPK0jPw6khK5
+	 /DNEE7LOZjkI4/o9kO6dilK3jam9by7Y6H+DDaSpEHIlhxamALq3nDJTjk0+4i1w7pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0BFBl8z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ICQ1oRb4;
+	arc=none smtp.remote-ip=95.215.58.91
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C38F606A325;
-	Tue, 10 Nov 2026 02:50:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D387606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:50:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D387606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0BFBl8z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07BA71F008A2;
-	Tue, 10 Nov 2026 02:50:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279050;
-	bh=V4BuPZ7NW9TLL+8xfWGzyH2DKRK7c1rfjhgBtZNneX8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k0BFBl8zcd33ECWC2HjtKmbdUmGlo7G4Bqu9sRRwvbtFUAIUioMoO4JXLdDT0xjZp
-	 RowSKL9DP6ksG991qVHD0bXCFj9UwIDE2rj03MvWA8S+Km4v3wZw6yNnTnode5ZoeG
-	 f/nkY+f+gWu4nosoqsMqLgsVslyVqXkFwBezraEJBcghUYkxYq75iWrwAzGm6h3HjH
-	 cQOObLLm9ZsLccfHSH+gPebfexjGrVbelz4Eb9Et+FMRhp0/8mByyfHdLlkf5JXTK7
-	 BHdIvTj5cm9SvOLBGLxqoYyVHIYZkigGoR+wnF9GMiWoEULHyuMsCKXhWWR8iL+yUz
-	 X78/Z/CQix8mw==
-Date: Mon, 9 Nov 2026 18:50:48 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: James Clark <james.clark@linaro.org>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Jakub Brnak <jbrnak@redhat.com>, Leo Yan <leo.yan@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Subject: Re: [PATCH v3 3/4] perf test probe_vfs_getname: Fix missing
- debuginfo detection
-Message-ID: <avKGiPiE4Ag3PS33@z2>
-References: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
- <20261109-james-perf-test-fixes-v3-3-e8d0a65e618a@linaro.org>
- <ecd60873-644e-4b8b-a786-ec84276a99c4@linaro.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ICQ1oRb4
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eD87Wy+Emd5tpWqwJtKKrbIiq9BHikxiL8HebslatJA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794279044; v=1; x=1794883844;
+ b=ICQ1oRb4LotvW/3csuh1OkxuTmCjvnD6Egx/4JflMYnFbnwnEVPGFM0gedqkIszxk14cYIT+
+ /s5096rYPpwrxOpx6tS58XdPpuEj5WYNZg+aVDspYu8B7URSmG5AH+meo1pMpKl6ccZehbSMGca
+ 9bDBs1F/jc3QyMTtu3hWaE0A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4395f85f1f1d0f1b;
+	Tue, 10 Nov 2026 02:50:44 +0000
+X-Mizu-Trace-ID: 4395f85f1f1d0f1b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9d9e53e5-aede-46fe-b0cb-747b95a816fd@linux.dev>
+Date: Tue, 10 Nov 2026 03:50:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,80 +58,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ecd60873-644e-4b8b-a786-ec84276a99c4@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
+ readback support
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bartu Alev <bartualev@gmail.com>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
+References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com>
+ <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
+ <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 12:11:09PM +0000, James Clark wrote:
-> 
-> 
-> On 09/11/2026 10:17, James Clark wrote:
-> > skip_if_no_debuginfo() looks for the errors that 'perf probe' prints when
-> > there is no debuginfo in the output of add_probe_vfs_getname(). But since
-> > commit 92b664dcefab ("perf test probe_vfs_getname: Skip if no suitable
-> > line detected"), add_probe_vfs_getname() returns early without adding a
-> > probe if 'perf probe -L' doesn't find the line, which is also what
-> > happens when there is no debuginfo. The error from 'perf probe -L' is
-> > discarded, so the debuginfo errors are never found.
-> > 
-> > This causes the debuginfo dependent subtests of the
-> > "perftool-testsuite_probe" test to fail instead of being skipped on
-> > kernels without debuginfo, because test_adding_kernel.sh calls
-> > skip_if_no_debuginfo() unconditionally. The other users only call it
-> > when add_probe_vfs_getname() returns 1, so they aren't affected.
-> > 
-> > Fix it by doing a dry run of a probe that needs debuginfo instead. This
-> > works without libdw too, where 'perf probe -L' isn't available, and also
-> > avoids adding a real probe just to check for debuginfo. This fixes the
-> > "perftool-testsuite_probe" test:
-> > 
-> >    $ sudo perf test -vvv "perftool-testsuite_probe"
-> >    ...
-> >    -- [ FAIL ] -- perf_probe :: test_adding_kernel :: listing added probe :: perf probe -l (output regexp parsing)
-> >    ...
-> >    -- [ FAIL ] -- perf_probe :: test_adding_kernel :: wildcard adding support (command exitcode + output regexp parsing)
-> >    ...
-> >    -- [ FAIL ] -- perf_probe :: test_adding_kernel :: non-existing variable (output regexp parsing)
-> >    ...
-> >    ## [ FAIL ] ## perf_probe :: test_adding_kernel SUMMARY :: 3 failures found
-> >    ...
-> >    189: perftool-testsuite_probe : FAILED!
-> > 
-> > Fixes: 92b664dcefab ("perf test probe_vfs_getname: Skip if no suitable line detected")
-> > Signed-off-by: James Clark <james.clark@linaro.org>
-> > ---
-> >   tools/perf/tests/shell/lib/probe_vfs_getname.sh | 6 +++++-
-> >   1 file changed, 5 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/tools/perf/tests/shell/lib/probe_vfs_getname.sh b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> > index 57a59ae7d4ae..98cfb02cf7c6 100644
-> > --- a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> > +++ b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> > @@ -64,7 +64,11 @@ add_probe_vfs_getname() {
-> >   }
-> >   skip_if_no_debuginfo() {
-> > -	add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find the path for the kernel|Debuginfo-analysis is not supported)|(file has no debug information)" && return 2
-> > +	# Dry run a probe that needs debuginfo.
-> > +	perf probe -n -v 'getname_flags $params' 2>&1 | grep -q \
-> > +		-e "^Failed to find the path for the kernel" \
-> > +		-e "^Debuginfo-analysis is not supported" \
-> > +		-e "file has no debug information" && return 2
-> >   	return 1
-> >   }
-> > 
-> 
-> Hi Namhyung,
-> 
-> This patch causes a shellcheck issue with certain versions. Not sure if you
-> applied it already, but I'll send another version anyway:
-> 
->   In tests/shell/./lib/probe_vfs_getname.sh line 30:
-> add_probe_vfs_getname() {
-> ^-- SC2120 (warning): add_probe_vfs_getname references arguments, but none
-> are ever passed.
 
-No worries, I'll pick v4.
+On 11/9/26 19:02, Ilpo Järvinen wrote:
+> On Thu, 29 Oct 2026, Bartu Alev wrote:
+>
+>> The TUF keyboard RGB attributes kbd_rgb_mode and kbd_rgb_state are
+>> write-only, so userspace tools keep their own copy of the lighting
+>> configuration and lose track of it whenever the EC changes state on its
+>> own: after a firmware reset or a boot into another operating system the
+>> tools show a stale configuration until the user rewrites every field.
+>>
+>> DSTS device 0x0010005B evaluates the DSDT method EC0.KBLS(), which
+>> snapshots the EC's host-visible keyboard state into a 16-byte buffer:
+>> lighting mode, red, green and blue levels, animation speed, and the
+>> four power-state flags.  The first byte is a constant 1 written by the
+>> AML, which distinguishes a KBLS reply from any other object the method
+>> could return.
+>>
+>> Add kbd_rgb_read_status() to evaluate and validate that buffer, parse
+>> it through a packed struct, and convert both attributes to
+>> DEVICE_ATTR_RW.  The read returns the write format with "n/a" in the
+>> command position: the command word belongs to the write verb (apply
+>> now or save to flash) and both verbs update the EC mirror the same
+>> way, so there is no state to report there.  The three EC speed codes
+>> map back to the sysfs indices 0 to 2.
+>>
+>> Readback was verified against the EC firmware: the status bytes mirror
+>> EC RAM at 0x0B22 to 0x0B2E, and the speed codes 0xe1, 0xeb and 0xf5
+>> select animation step thresholds of 30, 20 and 10 ticks per phase,
+>> which matches the slow, normal and fast labels.  Tested on a TUF
+>> Gaming A15 (FA507NV).
+>>
+>> Suggested-by: Denis Benato <denis.benato@linux.dev>
+>> Signed-off-by: Bartu Alev <bartualev@gmail.com>
+>> ---
+>>  drivers/platform/x86/asus-wmi.c            | 83 +++++++++++++++++++++++++++++-
+>>  include/linux/platform_data/x86/asus-wmi.h |  3 ++
+>>  2 files changed, 84 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+>> index b33ebdb21aa2..054d1d684bb0 100644
+>> --- a/drivers/platform/x86/asus-wmi.c
+>> +++ b/drivers/platform/x86/asus-wmi.c
+>> @@ -1062,6 +1062,65 @@ static DEVICE_ATTR_RW(gpu_mux_mode);
+>>  #define TUF_KBD_RGB_SPEED_SLOW		0xe1
+>>  #define TUF_KBD_RGB_SPEED_NORMAL	0xeb
+>>  #define TUF_KBD_RGB_SPEED_FAST		0xf5
+>> +/* TUF keyboard RGB status readback *******************************************/
+>> +struct asus_wmi_kbd_rgb_status {
+>> +	u8 signature;
+>> +	u8 mode;
+>> +	u8 red;
+>> +	u8 green;
+>> +	u8 blue;
+>> +	u8 speed;
+>> +	u8 state;
+>> +	u8 unused[9];
+>> +} __packed;
+>> +
+>> +static int kbd_rgb_read_status(struct asus_wmi_kbd_rgb_status *status)
+>> +{
+>> +	int err;
+>> +
+>> +	err = asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
+>> +					   ASUS_WMI_DEVID_TUF_RGB_READ_STATUS,
+>> +					   0, (u8 *)status, sizeof(*status));
+>> +	if (err)
+>> +		return err < 0 ? err : -ENODEV;
+> What do you (or Denis) think on sashiko's mention about 
+> asus_wmi_evaluate_method_buf() casting integer.value to int which might 
+> end up aliasing high-bit on return values with errnos?
 
-Thanks,
-Namhyung
+Hi Ilpo,
+
+I don't see the sashiko response neither in my mail nor in the lore,
+but I think I understand the problem.
+
+What I think is that we have been lucky.
+
+ASUS probably chose the presence bit high enough not to cause
+troubles when they have to report a status to armoury crate
+and they don't use negative numbers, but yes I agree that the
+return value is more to be seen as a bitfield (with some-bits
+fields as numbers) rather than ints.
+
+I have actually spotted this on a commit from Marco that was not
+being sent on the lkml (because he touched that code) and I didn't
+like what I saw (I didn't like what was already there).
+
+Those commits were about modernizing the use of mutex
+and __free where appropriate and I kinda liked them, will
+ask him to revive it...
+
+But proper and coherent error handling will touch basically
+a large part of supported hardware and asus-wmi core
+parts,
+
+I am a bit hesitant to touch that code because I might break
+some old and not widely known device: it's the only reason
+I haven't (yet) acted in this regard.
+
+> The other caller seems to also return that value directly out of _store 
+> function().
+
+The other caller got lucky exactly as the rest of driver.
+
+setters in wmi don't even report the presence bit so there
+is even less "incentive" to actually check it.
+
 
