@@ -1,98 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321505;
-	b=jeMnRSEyedYekCrkQUZ/sJSkv8SoLzrc4LZ1buYXKqjWQwGselWImjEamM4nLbYPnfNu
-	 ImY4taXgjJQgmix6HvlgMVLoZ9xA3gx4zPmOjwDYl+Pm2E1xU+jx/wtiZj/uwXPbo54q3
-	 WyF8pIUuz0LstK9y7LavbVVNV9iwr4/Few7UXmPs1ZLrgCEIYtvG5Ds+WmJy963PkvJdp
-	 n0GJs0tpPNJLpDCHVhv0tqqS1+615vDGB0vb0+/OJba2pzsrjnZzmA6wFKwcfChs+Ic/w
-	 Rs97PnGfpY2SqlC1xmM5iCHev0CGSCvD9QERyuI8jWkbZwcmXhiLFIhTm0J+7ud2dWA==
+	t=1794321503;
+	b=pTii59aySqSvf904/7SM0cyjzQ3qkz9uZ11aRIre9GR0Hb0SCaobveCzLJRAaN95kNHP
+	 nxtG/kfQ33Dh+MXtxecJVjqQARsrnXyPl2e8za7gdOmaNBRD1eTulMos8idr3YQUBz4gn
+	 6fD714eRBcI4a2h8eRlz1kj84bpnX1yd+BzN9sYVpSZgRDQs9qPVCo+I3O06Oj0HjpT2/
+	 wgPEJW4P+kJeNGUfM/K0Rg32n8Lc70E03BR7xIZY4hfSlWssDlt6OH4u7eHI+ZqBIQgYi
+	 fF89MInYdapwqO6nL3L8BJhqQ/1geJxnDVSnWYSD3O1SnrEj5o5SlRZqxVR2Xb7bKyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321505;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+IqBot1PtwDYqDn5RWRuc5xaq4SMIIwOUN97ZyFcYvk=;
-	b=JdOurSNPZXp+zHjjs2GGJnNmw3/0/5LCNG0Wee0yYhR2A5uF7UlnirvSwq8Fg/HFGBT9
-	 A7ZmgCpzCKbUK4KCh08q0TLDlbj0R7Zkk41uIMC7fKLe7cgkXy0nxneDjThXQc2+T0NnB
-	 aEw1j5mwD2vFw8S4BhHrKcVoPsgRQLt98dB/PXqqZbtsNk8IPrMdMqFfpFy6I5GPRYHWF
-	 HwX1PksTxMMMHVW1DGmysLnxpiZkOLE6ZvQ8GNe8TJJr1GwaBTRKKc4QBqVfaeX/75MEE
-	 9uzhKPeTRbQ9qfvFjaFviJtkMYUXiAIgnTV7cQd2vmjLfrir7I5Ju48tD2EgkeGONqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321503;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=5lBnGw323nAZPFcKAE7f2MC4rO4RnvcfKystGSLQS/o=;
+	b=rdGWPIMye9y0DQ/ltpyQCjZfC+z0xq5qEhQNSpGnjGST35luxgky51vE4Ugj6PYkExvk
+	 GkhbhiDDTvIU54zR0C5hW9HspS1u6BPdkMQYCaToMShP6OCXM3RK8msCZSqMEiENtBKNj
+	 Hb4qs6tsiuABMQdeQO7nh+zTTLvm0bqtDxX6Mc9DrVQ2BKUR+ayQ36T7DYRW9rqfzyecH
+	 C19lOpGnIu5uCk3pPh4OiM94CNKPYyh3WGNK1c8o57a9cHITwbelQwHr3Q8FHpv9OpUGr
+	 2vpimFaqy4QPkotbvLBqpRtX0G21QZDCoclrMZ4MWu9SFGS1N+qAjSY5HDW1bvEkrbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Vag1rzpr;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AB7gxzkL;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445A960A382A
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:38:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 445A960A382A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBF8606A33E;
+	Tue, 10 Nov 2026 14:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EBF8606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Vag1rzpr
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b147e06befso953826a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:38:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794321505; x=1794926305; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+IqBot1PtwDYqDn5RWRuc5xaq4SMIIwOUN97ZyFcYvk=;
-        b=Vag1rzprQhkSiNFjjYcq/5iTzep1Ypv9nzLUaeUw2kzFZA5cHkvUUF3ptb3YT0DetE
-         m3tTH03/sOwGsyIFQjg8orJE4lhT7PKnB/MHaFLbmpDsi9+RrMgf741Jms8wtX6lYwpt
-         JOlob3lCStXyft0sEX7TclHUMxkuApbA7cZHZjlJCTZw55KIW1/Q0DGZ7ZBt/AH9FnI0
-         xMG5AXtjL0XS1QdELQ2U3FISuepUigDub3rAsBSPLPNlV1rtNtKis+NcBEPTYYsnOIV1
-         5N42yTZTn+iwDitUvh9662NpwYC8r/Rdk4zXSWhvVbQ8J5jZlFQB/mnqiHzac3aOhaQu
-         GPxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321505; x=1794926305;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+IqBot1PtwDYqDn5RWRuc5xaq4SMIIwOUN97ZyFcYvk=;
-        b=TNk+3L1cd0ZH4Wmyd5F9hhx42lkUDEOtYYVFBUXi/5EqnRp0FELCKcu5IU9tkGpDnq
-         mUhqhRlKxyihw6gIyuSkvfIjewzuPwyzNVA4T0X9ZWpZexnK0Jg8i66sWCro6XcvMsVL
-         EIlbSooS02la0pzH0xrLE+oei2gVHlywk+FEKClhJAb6zet1lzDOYKbt4kIkiem2LlAJ
-         TPFSH/LQERd0CY8qmHybxrjNH66TIRB5fM7RKLO1xhQ1nNIr70FzVZyIWuLn8tCsVIib
-         y2pzoasuwbRbKT0TXYfxkWf0PasblM0denrYuNCND3a89075Q2IK0H/jFeTOV9PawFB5
-         nHEg==
-X-Forwarded-Encrypted: i=1; AL+hErEFQlng/dfb2k23/TEPWkVxliIHPsA358Lj3XV4mxmlru5g2splXkK5p1hsDr/4WEny8+iqLKKQb9s2QM8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tgKRJLJN/yA2oupndLAUtIk63CeK7xBR8KTiyZfm7EVBl2gju
-	HyW0gyl2JfFqM6oEinerYVXqYROS+2PXQTOZtLeNYch1PlS7uyfH+P0wPTnnyqig4zoZCl3gSos
-	IDrAJ
-X-Gm-Gg: AYBFou0OfYsrOAvesLMBvRjwF+DP/Nmy/mewn91IgKj7vnK9rRXIpNpjQcOtH9Hvntl
-	D//25unNQLgff48K1HxAoC942+jhjo670H1OGJDpCT918m/R9bMOMR4v/dGfbUZks9rdre/WTlT
-	xSQeReAFfWQReatuJF1+Jl27IjY7jdSWm7+hknSYvcE+JeMpKMjUyfQ2L0Shg+qBmya7oq34b6y
-	x8tMmkCYCmYUxqTZVyOfSmQcX4fVMzqK5pHI/GjcUf7mHUwh04zfrdki7vxGadA523jEo49WsP5
-	p2ULZwo0XoC8fJbmTKCS69EmmccOhZCggQor18TK5v1XDeCLVq7K3pNMKP1Mn02uDFgqZ+Yqavo
-	LPmdfCjkvkBXRrtXB72iX6DIukNx8w4iYxr9Ir+3QNHS1VMhuh/oOhdP4tdG2TcgVYa63/v3gia
-	6U5iOH3+2Nd/xhHd2L6u+E69M9ts6EV7sRwaRx1P6R5d/X1mKNcn3js4mpH/ClX8dfLYQufJjtq
-	oVbJ49uoNkya9KbzjcEJyJLeI68Yf9Sdb0GykelUldAi5mgtUPVg3DxhwFa706Ffe7aRj+05IGF
-	ca7s3plgQy7eP61zbuP/FV1NHmpYt/zD
-X-Received: by 2002:a17:90b:55cd:b0:3ac:9925:72ae with SMTP id 98e67ed59e1d1-3b166cddadbmr2410116a91.31.1794321503970;
-        Tue, 10 Nov 2026 06:38:23 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:a917:5683:7f92:9eda])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1690eb517sm1867517a91.4.2026.11.10.06.38.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 06:38:23 -0800 (PST)
-Date: Tue, 10 Nov 2026 08:38:21 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Nishanth Menon <nm@ti.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: reset: Convert the ti,syscon-reset binding
- to DT schema
-Message-ID: <avMsXdwyw4FsQtZG@p14s>
-References: <20261109173112.4111810-1-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AB7gxzkL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794321503; x=1825857503;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LUB0SAz/HO+Q2s5dKRUfbVOv0PKX7CcPXZfgiRpkBMo=;
+  b=AB7gxzkLmmc0QeROs4y7UvSNaLTEXxobLMdjRqPZdhnVu1ZdpEM/jMVi
+   LRqN6PWv/0qGIWhLSsj7Dt8K1xX0/ESwwRuqhrGrAwxt7oUjd6EVVcqVB
+   /6F9Y/yG6acgowL7CBjAa7A7JUMQLS5y15jxGeyYgQjKiftUN+MsTYCen
+   G07vbTIK0f3ylCj4/1ISQrN+akDZ99+asp+0GkgUU1ypFbN3MHyf2n5qv
+   HBsIPfrocHPd1q2dQQkS2Z8DoOw0e6q1iELTVGOPmpCjgwwfr17HHBYoT
+   zpppeBIj8DEmuzw62bVSXk5ItUwkvAJwuuL9s2DUqaRZU0ZOJrWVExO34
+   g==;
+X-CSE-ConnectionGUID: 3HKND3+QSXyqrTjNoUyVWA==
+X-CSE-MsgGUID: YqElB2KDRMqFnH3Y1JDMnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3085218"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3085218"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 06:38:22 -0800
+X-CSE-ConnectionGUID: 6mJiu9m+RQSI1D+JhS403A==
+X-CSE-MsgGUID: uvAvjTj9R4qZlPcChftrtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8491558"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa008.fm.intel.com with ESMTP; 10 Nov 2026 06:38:00 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id C171799; Tue, 10 Nov 2026 15:37:58 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:37:58 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Sven Peter <sven@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 4/7] thunderbolt: add platform NHI driver
+Message-ID: <20261110143758.GC259790@black.igk.intel.com>
+References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
+ <20261110114925.722014-5-chunfeng.yun@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,203 +90,360 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109173112.4111810-1-robh@kernel.org>
+In-Reply-To: <20261110114925.722014-5-chunfeng.yun@mediatek.com>
 
-On Mon, Nov 09, 2026 at 11:31:11AM -0600, Rob Herring (Arm) wrote:
-> Convert the ti,syscon-reset binding to DT schema format. It's a straight
-> forward conversion.
+On Tue, Nov 10, 2026 at 07:48:52PM +0800, Chunfeng Yun wrote:
+> Historically, the Thunderbolt/USB4 Native Host Interface (NHI)
+> controller has been exposed as a PCI device handled by
+> drivers/thunderbolt/pci.c. However, some SoCs (such as MediaTek
+> mt8901/mt8992) integrate the NHI as a memory-mapped platform device
+> described via Device Tree or ACPI.
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> To support platform-attached NHI controllers:
+> 
+> Introduce platform.c to register a platform driver matching
+> "usb4-nhi-platform" (OF) and "ACPI0015" (ACPI);
+> Implement platform tb_nhi_ops hooks for pm, interrupts related;
+> 
+> Support an optional dedicated wake interrupt: on integrated SoCs,
+> the MAC/PHY reside in a power domain whose clocks and power can be
+> gated during sleep, preventing the primary NHI interrupt from
+> acting as a wakeup source; so add an optional dedicated wakeup
+> interrupt which comes from the always-on power domain.
+> 
+> Clean up the unused nhi_enable_int_throttling() prototype.
+> 
+> Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
 > ---
->  .../bindings/remoteproc/ti,keystone-rproc.txt |  2 +-
->  .../bindings/reset/ti,syscon-reset.yaml       | 58 ++++++++++++
->  .../bindings/reset/ti-syscon-reset.txt        | 91 -------------------
->  3 files changed, 59 insertions(+), 92 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
->  delete mode 100644 Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-
-Applied.
-
-Thanks,
-Mathieu
-
+> v2 changes:
+> * Added CONFIG_USB4_PLATFORM to build the platform driver as a separate
+>   module (thunderbolt_platform.ko), instead of statically embedding it
+>   into thunderbolt.o.
+> * Renamed plat.c to platform.c, renamed internal functions from nhi_plat_*
+>   to nhi_platform_*, and updated the Device Tree compatible string from
+>   "thunderbolt-platform" to "usb4-nhi-platform".
+> * Removed domain lifecycle changes (domain.c) and PCI driver cleanups
+>   (pci.c) from this patch, handled by previous patches.
+> * Squashed the optional dedicated wake IRQ support (previously a separate
+>   patch in v1) directly into this patch.
+> * Replaced the custom local ISR with the shared tb_nhi_isr(), adopted
+>   the renamed tb_nhi_probe() / tb_nhi_shutdown() / tb_nhi_pm_ops
+>   interfaces, and added -EPROBE_DEFER handling for the wake IRQ.
+> ---
+>  drivers/thunderbolt/Kconfig    |   9 ++
+>  drivers/thunderbolt/Makefile   |   3 +
+>  drivers/thunderbolt/nhi.h      |   1 -
+>  drivers/thunderbolt/pci.c      |   1 +
+>  drivers/thunderbolt/platform.c | 172 +++++++++++++++++++++++++++++++++
+>  include/linux/thunderbolt.h    |   4 +
+>  6 files changed, 189 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/thunderbolt/platform.c
 > 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-> index 847552133633..94f4508c8b0c 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-> @@ -46,7 +46,7 @@ The following are the mandatory properties:
->  			managing the resets for this device, and a reset
->  			specifier. Please refer to either of the following reset
->  			bindings for the reset argument specifier as per SoC,
-> -			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-> +			Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
->  			    for 66AK2HK/66AK2L/66AK2E SoCs or,
->  			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
->  			    for 66AK2G SoCs
-> diff --git a/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml b/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
+> diff --git a/drivers/thunderbolt/Kconfig b/drivers/thunderbolt/Kconfig
+> index 605af440457a..846ab51df7ab 100644
+> --- a/drivers/thunderbolt/Kconfig
+> +++ b/drivers/thunderbolt/Kconfig
+> @@ -27,6 +27,15 @@ config USB4_PCI
+>  	  To compile this driver a module, choose M here. The module will be
+>  	  called thunderbolt_pci.
+>  
+> +config USB4_PLATFORM
+> +	tristate "Support for platform USB4 and Thunderbolt controllers"
+> +	help
+> +	  Say Y here to add support the USB4 and Thunderbolt host routers
+> +	  for a platform device on such as ARM64 SoCs.
+> +
+> +	  To compile this driver a module, choose M here. The module will be
+> +	  called thunderbolt_platform.
+> +
+>  config USB4_CONFIGFS
+>  	def_tristate USB4
+>  	depends on CONFIGFS_FS && !(USB4=y && CONFIGFS_FS=m)
+> diff --git a/drivers/thunderbolt/Makefile b/drivers/thunderbolt/Makefile
+> index a563bf2b0345..334fa4ebdfc8 100644
+> --- a/drivers/thunderbolt/Makefile
+> +++ b/drivers/thunderbolt/Makefile
+> @@ -8,6 +8,9 @@ thunderbolt-objs += usb4_port.o nvm.o retimer.o quirks.o clx.o
+>  obj-${CONFIG_USB4_PCI} += thunderbolt_pci.o
+>  thunderbolt_pci-y := pci.o icm.o
+>  
+> +obj-${CONFIG_USB4_PLATFORM} += thunderbolt_platform.o
+> +thunderbolt_platform-y := platform.o
+> +
+>  thunderbolt-${CONFIG_ACPI} += acpi.o
+>  thunderbolt-$(CONFIG_DEBUG_FS) += debugfs.o
+>  thunderbolt-$(CONFIG_USB4_CONFIGFS) += configfs.o
+> diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
+> index 65f9daf36068..ef5d24d81251 100644
+> --- a/drivers/thunderbolt/nhi.h
+> +++ b/drivers/thunderbolt/nhi.h
+> @@ -27,7 +27,6 @@ enum nhi_mailbox_cmd {
+>  	NHI_MAILBOX_ALLOW_ALL_DEVS = 0x23,
+>  };
+>  
+> -void nhi_enable_int_throttling(struct tb_nhi *nhi);
+>  void nhi_disable_interrupts(struct tb_nhi *nhi);
+>  irqreturn_t tb_nhi_isr(int irq, void *data);
+>  irqreturn_t tb_ring_msix(int irq, void *data);
+> diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
+> index 9379c598a221..698f47ec63da 100644
+> --- a/drivers/thunderbolt/pci.c
+> +++ b/drivers/thunderbolt/pci.c
+> @@ -736,4 +736,5 @@ static struct pci_driver nhi_driver = {
+>  	.shutdown = nhi_pci_shutdown,
+>  	.driver.pm = &tb_nhi_pm_ops,
+>  };
+> +
+
+I guess this is unintented change?
+
+>  module_pci_driver(nhi_driver);
+> diff --git a/drivers/thunderbolt/platform.c b/drivers/thunderbolt/platform.c
 > new file mode 100644
-> index 000000000000..1cbb2bf88716
+> index 000000000000..3562b6c7ea7d
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/reset/ti,syscon-reset.yaml
-> @@ -0,0 +1,58 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/reset/ti,syscon-reset.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/thunderbolt/platform.c
+> @@ -0,0 +1,172 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Thunderbolt driver - NHI driver (Platform bus specific implementation)
+> + *
+> + * Author: Chunfeng Yun <chunfeng.yun@mediatek.com>
+> + */
 > +
-> +title: TI Syscon Reset Controller
+> +#include <linux/acpi.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/errno.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/pm_wakeirq.h>
+> +#include <linux/slab.h>
 > +
-> +maintainers:
-> +  - Nishanth Menon <nm@ti.com>
+> +#include "nhi.h"
+> +#include "tb.h"
 > +
-> +description:
-> +  Reset controller implemented by registers in the parent syscon.
+> +static int nhi_platform_init(struct tb_nhi *nhi)
+> +{
+> +	/* avoid device link fail for pcie tunnel */
+
+Do you have the ACPI _DSD there in place? Then I don't think you need
+these. And "pcie" -> "PCIe" everywhere (except in code).
+
+> +	pm_runtime_set_active(nhi->dev);
+> +	pm_runtime_get_noresume(nhi->dev);
+> +	pm_runtime_enable(nhi->dev);
 > +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,syscon-reset
-> +      - items:
-> +          - enum:
-> +              - ti,k2e-pscrst
-> +              - ti,k2l-pscrst
-> +              - ti,k2hk-pscrst
-> +          - const: ti,syscon-reset
+> +	device_set_wakeup_capable(nhi->dev, true);
+> +	device_enable_async_suspend(nhi->dev);
+
+I also suggest not to enable all the fancy power management until you have
+the basic stuff like tunneling fully functional.
+
 > +
-> +  '#reset-cells':
-> +    const: 1
+> +	return 0;
+> +}
 > +
-> +  ti,reset-bits:
-> +    description: >
-> +      Seven cells per reset, indexed by the reset specifier:
+> +static void nhi_platform_clear_wake_irq(void *dev)
+> +{
+> +	dev_pm_clear_wake_irq(dev);
+> +}
 > +
-> +        Cell #1 : offset of the reset assert control register
-> +        Cell #2 : bit position of the reset in the reset assert control register
-> +        Cell #3 : offset of the reset deassert control register
-> +        Cell #4 : bit position of the reset in the reset deassert control register
-> +        Cell #5 : offset of the reset status register
-> +        Cell #6 : bit position of the reset in the reset status register
-> +        Cell #7 : Flags used to control reset behavior, available flags defined
-> +                  in the DT include file <dt-bindings/reset/ti-syscon.h>
+> +static int nhi_platform_init_irq(struct tb_nhi *nhi)
+> +{
+> +	struct device *dev = nhi->dev;
+> +	int ret;
 > +
-> +required:
-> +  - compatible
-> +  - '#reset-cells'
-> +  - ti,reset-bits
+> +	ret = devm_request_irq(dev, nhi->irq, tb_nhi_isr, IRQF_NO_SUSPEND,
+> +			       dev_name(dev), nhi);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "request irq failed\n");
+
+failed to request interrupt
+
+Please be consistent with the rest of the driver.
+
 > +
-> +additionalProperties: false
+> +	if (nhi->wake_irq) {
+> +		ret = dev_pm_set_dedicated_wake_irq(dev, nhi->wake_irq);
+> +		if (ret) {
+> +			return dev_err_probe(dev, ret, "set wake irq %d failed\n", nhi->wake_irq);
+
+Split this into 2 lines.
+
+> +		}
 > +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/reset/ti-syscon.h>
+> +		dev_info(dev, "wake irq %d\n", nhi->wake_irq);
+
+Remove this. The driver should be silent when it works. You can add debug
+but I don't think this is useful.
+
 > +
-> +    reset-controller {
-> +        compatible = "ti,k2e-pscrst", "ti,syscon-reset";
-> +        #reset-cells = <1>;
-> +        ti,reset-bits = <0xa3c 8 0xa3c 8 0x83c 8
-> +                          (ASSERT_CLEAR | DEASSERT_SET | STATUS_CLEAR)>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt b/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-> deleted file mode 100644
-> index 61a0ff33e89f..000000000000
-> --- a/Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
-> +++ /dev/null
-> @@ -1,91 +0,0 @@
-> -TI SysCon Reset Controller
-> -=======================
-> -
-> -Almost all SoCs have hardware modules that require reset control in addition
-> -to clock and power control for their functionality. The reset control is
-> -typically provided by means of memory-mapped I/O registers. These registers are
-> -sometimes a part of a larger register space region implementing various
-> -functionalities. This register range is best represented as a syscon node to
-> -allow multiple entities to access their relevant registers in the common
-> -register space.
-> -
-> -A SysCon Reset Controller node defines a device that uses a syscon node
-> -and provides reset management functionality for various hardware modules
-> -present on the SoC.
-> -
-> -SysCon Reset Controller Node
-> -============================
-> -Each of the reset provider/controller nodes should be a child of a syscon
-> -node and have the following properties.
-> -
-> -Required properties:
-> ---------------------
-> - - compatible		: Should be,
-> -			    "ti,k2e-pscrst"
-> -			    "ti,k2l-pscrst"
-> -			    "ti,k2hk-pscrst"
-> -			    "ti,syscon-reset"
-> - - #reset-cells		: Should be 1. Please see the reset consumer node below
-> -			  for usage details
-> - - ti,reset-bits	: Contains the reset control register information
-> -			  Should contain 7 cells for each reset exposed to
-> -			  consumers, defined as:
-> -			    Cell #1 : offset of the reset assert control
-> -			              register from the syscon register base
-> -			    Cell #2 : bit position of the reset in the reset
-> -			              assert control register
-> -			    Cell #3 : offset of the reset deassert control
-> -			              register from the syscon register base
-> -			    Cell #4 : bit position of the reset in the reset
-> -			              deassert control register
-> -			    Cell #5 : offset of the reset status register
-> -			              from the syscon register base
-> -			    Cell #6 : bit position of the reset in the
-> -			              reset status register
-> -			    Cell #7 : Flags used to control reset behavior,
-> -			              available flags defined in the DT include
-> -			              file <dt-bindings/reset/ti-syscon.h>
-> -
-> -SysCon Reset Consumer Nodes
-> -===========================
-> -Each of the reset consumer nodes should have the following properties,
-> -in addition to their own properties.
-> -
-> -Required properties:
-> ---------------------
-> - - resets	: A phandle to the reset controller node and an index number
-> -		  to a reset specifier as defined above.
-> -
-> -Please also refer to Documentation/devicetree/bindings/reset/reset.txt for
-> -common reset controller usage by consumers.
-> -
-> -Example:
-> ---------
-> -The following example demonstrates a syscon node, the reset controller node
-> -using the syscon node, and a consumer (a DSP device) on the TI Keystone 2
-> -66AK2E SoC.
-> -
-> -/ {
-> -	soc {
-> -		psc: power-sleep-controller@2350000 {
-> -			compatible = "syscon", "simple-mfd";
-> -			reg = <0x02350000 0x1000>;
-> -
-> -			pscrst: reset-controller {
-> -				compatible = "ti,k2e-pscrst", "ti,syscon-reset";
-> -				#reset-cells = <1>;
-> -
-> -				ti,reset-bits = <
-> -					0xa3c 8 0xa3c 8 0x83c 8 (ASSERT_CLEAR | DEASSERT_SET   | STATUS_CLEAR) /* 0: dsp0 */
-> -					0xa40 5 0xa44 3 0     0 (ASSERT_SET   | DEASSERT_CLEAR | STATUS_NONE)  /* 1: example */
-> -				>;
-> -			};
-> -		};
-> -
-> -		dsp0: dsp0 {
-> -			...
-> -			resets = <&pscrst 0>;
-> -			...
-> -		};
-> -	};
-> -};
+> +		ret = devm_add_action_or_reset(dev, nhi_platform_clear_wake_irq, dev);
+
+Can you pass dev_pm_clear_wake_irq directly here?
+
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static void nhi_platform_exit(struct tb_nhi *nhi)
+> +{
+> +	devm_free_irq(nhi->dev, nhi->irq, nhi);
+
+Isn't it released automatically?
+
+> +	flush_work(&nhi->interrupt_work);
+> +
+> +	pm_runtime_put_noidle(nhi->dev);
+> +	pm_runtime_disable(nhi->dev);
+> +	pm_runtime_set_suspended(nhi->dev);
+> +}
+> +
+> +static const struct tb_nhi_ops nhi_platform_default_ops = {
+> +	.init = nhi_platform_init,
+> +	.shutdown = nhi_platform_exit,
+> +	.init_interrupts = nhi_platform_init_irq,
+> +};
+> +
+> +static int nhi_platform_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct tb_nhi *nhi;
+> +
+> +	nhi = devm_kzalloc(dev, sizeof(*nhi), GFP_KERNEL);
+
+devm_kzalloc_obj()
+
+> +	if (!nhi)
+> +		return -ENOMEM;
+> +
+> +	nhi->dev = dev;
+> +	nhi->ops = &nhi_platform_default_ops;
+> +
+> +	nhi->iobase = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(nhi->iobase))
+> +		return PTR_ERR(nhi->iobase);
+> +
+> +	nhi->irq = platform_get_irq(pdev, 0);
+> +	if (nhi->irq < 0)
+> +		return nhi->irq;
+> +
+> +	/* ignore error */
+
+This should explain why it's okay to ignore the error.
+
+> +	nhi->wake_irq = platform_get_irq_optional(pdev, 1);
+> +	if (nhi->wake_irq == -EPROBE_DEFER)
+> +		return nhi->wake_irq;
+> +	else if (nhi->wake_irq < 0)
+> +		nhi->wake_irq = 0;
+> +
+> +	return tb_nhi_probe(nhi);
+> +}
+> +
+> +static void nhi_platform_do_remove(struct platform_device *pdev, bool reset)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct tb *tb = platform_get_drvdata(pdev);
+> +	struct tb_nhi *nhi = tb->nhi;
+
+Reverse-christmas tree if possible:
+
+	struct tb *tb = platform_get_drvdata(pdev);
+	struct device *dev = &pdev->dev;
+	struct tb_nhi *nhi = tb->nhi;
+
+> +
+> +	/*
+> +	 * On system shutdown/reboot force a host router reset so the
+> +	 * CM asserts DPR on connected tbt3 devices before the router tree
+
+Thunderbolt 3
+
+> +	 * is removed (see tb_stop()).
+> +	 */
+> +	if (reset)
+> +		nhi->host_reset = true;
+> +
+> +	pm_runtime_get_sync(dev);
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +
+> +	tb_domain_remove(tb);
+> +	wait_for_completion(&nhi->domain_released);
+> +	tb_nhi_shutdown(nhi);
+> +}
+> +
+> +static void nhi_platform_remove(struct platform_device *pdev)
+> +{
+> +	nhi_platform_do_remove(pdev, false);
+> +}
+> +
+> +static void nhi_platform_shutdown(struct platform_device *pdev)
+> +{
+> +	nhi_platform_do_remove(pdev, true);
+> +}
+> +
+> +
+> +#ifdef CONFIG_OF
+> +static const struct of_device_id nhi_platform_of_match[] = {
+> +	{ .compatible = "usb4-nhi-platform" },
+> +	{ }
+> +};
+
+I think this was agreed to be dropped for now.
+
+> +MODULE_DEVICE_TABLE(of, nhi_platform_of_match);
+> +#endif
+> +
+> +#ifdef CONFIG_ACPI
+> +static const struct acpi_device_id nhi_platform_acpi_match[] = {
+> +	{ "ACPI0015", 0 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, nhi_platform_acpi_match);
+> +#endif
+> +
+> +static struct platform_driver nhi_platform_driver = {
+> +	.probe = nhi_platform_probe,
+> +	.remove = nhi_platform_remove,
+> +	.shutdown = nhi_platform_shutdown,
+> +	.driver = {
+> +		.name = "thunderbolt",
+> +		.of_match_table = of_match_ptr(nhi_platform_of_match),
+> +		.acpi_match_table = ACPI_PTR(nhi_platform_acpi_match),
+> +		.pm = &tb_nhi_pm_ops,
+> +	},
+> +};
+> +
+> +module_platform_driver(nhi_platform_driver);
+> +MODULE_ALIAS("platform:thunderbolt");
+> +MODULE_DESCRIPTION("Thunderbolt/USB4 platform host interface driver");
+> +MODULE_LICENSE("GPL v2");
+> diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
+> index 57502da29080..72497acac254 100644
+> --- a/include/linux/thunderbolt.h
+> +++ b/include/linux/thunderbolt.h
+> @@ -511,6 +511,8 @@ void tb_service_properties_changed(struct tb_service *svc);
+>   * @going_away: The host controller device is about to disappear so when
+>   *		this flag is set, avoid touching the hardware anymore.
+>   * @iommu_dma_protection: An IOMMU will isolate external-facing ports.
+> + * @irq: interrupt number of NHI.
+> + * @wake_irq: optional dedicated wakeup interrupt.
+>   * @interrupt_work: Work scheduled to handle ring interrupt when no
+>   *		    MSI-X is used.
+>   * @hop_count: Number of rings (end point hops) supported by NHI.
+> @@ -532,6 +534,8 @@ struct tb_nhi {
+>  	u32 *interrupt_mask;
+>  	bool going_away;
+>  	bool iommu_dma_protection;
+> +	int irq;
+> +	int wake_irq;
+>  	struct work_struct interrupt_work;
+>  	u32 hop_count;
+>  	unsigned long quirks;
 > -- 
-> 2.53.0
-> 
+> 2.45.2
