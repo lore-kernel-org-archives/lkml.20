@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336129;
-	b=Iz/rYpWVxXZ0BsM9yqHTsnWMYpKkOzbWz26Op/4D4llbmnrgy7xZ8RXOwC9i/WtDufRL
-	 Bbbi1k+JHUn8cqQrvbEkM8oq5PUnUiAZxZu2lxAa54OYIr1Zxi8GLttQIM3UgFwTsYasz
-	 GsdXk2pwyM+feWWFSvi69LZ74cBeTWIo8udKpEWRuLaIH7eQjQsRmDE0jfGUPLl3+DtVT
-	 QYl3uZudMKmy1F04Fk4wpyYtlo7P1EroKlNEraSa4G4WgcTralG+Lx81mxGTj7lTjU0OP
-	 55/XheOedby/NkcaM4wOdwvzuy6Clb4DkUYgc7qM4w3X8Z6qhJr60qbvymigFSrR9PQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336129;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fXb0XqFsaTNiAdOf5/i8uXOS/3ZPKLdeB/CQNiCWj+k=;
-	b=DJFtjS7KaUdb0ergHS1963fAyzxKMf4hqw9wFb3AFiEbX2Dp88ZmtK8Sjfla2hn+K0og
-	 03ShQ65Powa6kZc3PoESd5XOKMjL6DLaBV+cJN+OS8dORhoLQGr4NYHCWTIg+xKkIFyJj
-	 ODB8SrZnYHjkvAasywxazl5aJREpT1Unblq95Qm1iBJRSoxeGmDL4nLfgZiqOXYMNutxj
-	 afZbNxLGLeumabg/SIT6nbZJ7NkC8asRipFEArs9QxW27ZvHDaBZv1oi6W+AvtvHr3LLm
-	 Bn2S1jni4Yn2kkmOxAFU2Y2qefZ0uWyp+xqrSSx9/Won+2IiSrFeCjS4ust50nreeAA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewhSuFsJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794336144;
+	b=Tq8HC9SpquMOafz8B/pqk7BeUWT0V2O8693wsJ7Vt6xrO1fncIr0VvjIVHudMpVUswUX
+	 s5uP0ECtokJ71HqcwkBch0iO87l051ocC5p0AhCT+u/c2B1t4lX9V2bNtevzAfje6admB
+	 U0AaSvcoFo4y3Zp3vrsFp1stQEamSS+3jD1e8SW0Z7g2PTKdJ9DzAjrkm/2SBQi0rVq4X
+	 DNl4zO7HTZ1Bbek+3qUiX0JCnI9PjoD/qgwIDCVK2yQPkNeX2U82zph92ElUx9os54fBd
+	 Bw0OR/Uty18WbZ/FWMcpOuRnpMUHL7BacYI7Kr0QcKnipJHSQmUh0c7nqem5lZFIvdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336144;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=IJxn3qo9bR1YiWbsVjx6fmfUIW8eyV5FFrf9nDql2TM=;
+	b=hjWo6w+kAsnvrfYaRToQY9rWvwXKv3ba5PFRTAOYKoXwFQJt78A9ikyR3Mp+TYXrVhfL
+	 0V5zNv6+a32EZolNeuOmus9uqHZzxy7MUqg/3X+GXJbW78HkZ8oStEBz9bwC5wtKUt/GZ
+	 2TKcebPW7turP4S1fBBvdXT/pJsuGuUSWIIntYA3wDJgung9lBBPghjM4CQ7obNedP1of
+	 NOC1HYaAmm+7JzgFETIEb/0v3nUOC01zFU6UF8kdjfor+YBUnUe/ziZZzYoIGxlYM5OTR
+	 FO6YzdYMiHJR5INpuatJFzlZHQGOu6h25P6/fll6ghpUz1FggoIx63MuPT/NnDBZaOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOzPl1L8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DC1606A913;
-	Tue, 10 Nov 2026 18:42:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90504606A92B
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90504606A92B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewhSuFsJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64BEE1F008A2;
-	Tue, 10 Nov 2026 18:41:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336128;
-	bh=fXb0XqFsaTNiAdOf5/i8uXOS/3ZPKLdeB/CQNiCWj+k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ewhSuFsJrfdYDpTE/gonu8E6tArNmgjYOFlesKdqqHlo9EJhF1P0yqHueTRP5fiYF
-	 Ci0PPLTIqzrOxvuo8gD28UuP9pHzCo0nU833MFNsrp9SWpnxjoARHj7PplWlGenn0Z
-	 nlXV0tuVN13TtMkp/5b1j2HczDsnnGWp+lbFeOCgiu6yqKjgsSLHpnLl3kyOgqRAxU
-	 /2WXNLjUDTLy4e0l0KsJYI8T0I/fd8axw2litjT8/xP6fdIkREfxjkYydwsPyPwgeS
-	 RfKo451W9Yv+oVn9DdWQ4rHLhf4Id0Tj9g18U04ADRyqpLl24vPEgpOoqgmpUvg+uL
-	 FPnjI28WRZbdw==
-Date: Tue, 10 Nov 2026 20:41:54 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Danilo Krummrich <dakr@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Uladzislau Rezki <urezki@gmail.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
- entry for THP
-Message-ID: <avNlcudgk5N0cH6P@kernel.org>
-References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOzPl1L8
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8256106635eso1051977a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:42:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794336143; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ybz8h6uO7Rde75hn8pFnr67prMgQkoLe5EFH460iM9JYIjxZzM3x5d+5mXCGSnT2Ty
+         2KYUVp5zjZwCWLM7EvQigkvqV62loZhDm6yNx76OnmxS+lrkeOHY9igLHmoQc1grAJCT
+         QSvnRNWDfIrLHydOSTY6R+8mRYRjAkeWVjbFoTYg8gKO6LCEUy1zgMrQR7GjtIzPq3iF
+         WWB3BQHuL3Mk+t0UH97ON8ox2y+Yy661hpAiC0xRLXaLoUPxCKoPp9yBbeerS51fUUmL
+         r3TioS5/0h81MDLHLh+HTCe8QzK5s0X6sl9BNmDdrQ+keVQZWj7fqmIZh2pLLB+DNNNA
+         vxrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IJxn3qo9bR1YiWbsVjx6fmfUIW8eyV5FFrf9nDql2TM=;
+        fh=n+Rbl1aHqwc8EpruIACwdxILOE+/91UlCM2Ywz6/9CE=;
+        b=ewqkCcB/D31flhavzde1t0Xw32kdmn1uds+EH7rxM9qjA+VZYwbPvpzTGjKWgk/Pfu
+         bCZ0uR3VSIII+8DKlssvX62hXopo67nkaHEw4GHF/0aO5rsKV62qlSdHcR69NQRhfSv9
+         S420ceAJyz8JM2CIcULsaPKTmhS1AOLdI7fPXtOXnfQpSMJ+yIEAOKOs/znq3FuqTmyF
+         PGHTZ/wXP5lwAJZ/TIJAWGkqfMJEzgDmZMvCzKOEUT7/nOmCpA8X4PDP+4AqWeeYpWGb
+         JJLbuy7YtuvlUvWvWsPmVzflv42Ccs1YqIkzT7h5pj7jgt9yfbv/im6UHrhSAXn0O3TD
+         27Ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794336143; x=1794940943; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IJxn3qo9bR1YiWbsVjx6fmfUIW8eyV5FFrf9nDql2TM=;
+        b=GOzPl1L8hRVjkffAQOxToM40LGbUN6J+NDsUfwKw2whmCy12nlhxMqTZrIffhYz6c5
+         82raO4rO5Z/Nnur8vQxYLPRuFWegRL9LQna+/16U/qixg+cCYrO84k3opaOnz/z9f//g
+         OvMmuW1l82/aqZBPhPkF/MRWD7wEOpc///gPqgv0Z63wprZeqEw9aafEjqB/YLKAkFAu
+         uEyg1Gh3mrFddj2nVel68LgHczYj88PuhW38WnVMmW3rfQkBPIuaO2p/1W3LAYjQmuEX
+         edsXx3DSwbwWpPfNXsmEt6yUl2iQfN9PXb6PoQkNB767Ud9sIdMaXNoOmZXinAaskBPI
+         dGTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794336143; x=1794940943;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IJxn3qo9bR1YiWbsVjx6fmfUIW8eyV5FFrf9nDql2TM=;
+        b=ZxiJZUQxkLVkDTJkc2I2FNZCZHkmS5409hQCIvF1n/bHxNZMpQ3OWrBja7Q4ZDDgF/
+         tyrLsWr7gZkIl7FFCFSL8pb9wozyE7kVZvQD8yNAbB0jpFpF0WlueOAXzXcmYL/3FY79
+         xK7lm+YbzDRBUd2qYCz0aJ8WwBp/4l74Vqns6rjCs+QB2WWvKxGRFAVZ8fxphb3DrAjW
+         AZN/PCmXD7FADYIXYPy4OIdg4txeHVNwnJ+rfJoBMekOVLRvtFW7dRRsqMfdeB9+9mqU
+         hh6xeOQiGuFcXQ8ewnR8J9UIpXQp8L0BYwjydyxMqqiwNzBSJQOgg+W/zm7PoWkDIKh6
+         cw0w==
+X-Forwarded-Encrypted: i=1; AL+hErEvmgbrTEx8TM7k9uLqfgc0RjKsgfBvWjrmSfNZqfQ/CqMTCjxPrYraslyiZlzo4Qxs4qHAJBuxn3yReJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IXbObJJwF4CJodXb6pAteQPb9l7SCWpCqpV2Ph7GIs1AFpDSP
+	hqJuFHldw39r0NrJBSHhuHC4ipelgDncYLe48o86yaFwbvlOWLOS7AdkuN5iuYu1Cxz33TNpJNn
+	a/lg+8fpHkItBR1k29nPVVeMqh/HOmMY=
+X-Gm-Gg: AYBFou3r6ZSY0PZhgZoE9CXw7Y1F8hZuOD/cR7+sBUSozriLWEnksTbP9X7lfs3xMzD
+	E6uyJkuX5ez5t+HNWprPAJ6vVCvF3WtJCWNrIXW0n+FbzwchxmcjDyFNvdELpmauSrt6kCwnqLa
+	5Fpo/2EJGP58uy3i04s4+F22RtgMEy23yWPW39evo49BC84nHIzmWJOWkSkasPJUFHYjIOqgIlv
+	NqtSPlo0EUkSR/tmm2iHA1kyiMxAzWyZOph2s2FpsSh8a4jzZCgM0rFo0cRJYLqg9D0KR55RrU2
+	dPBVFU10PC3CttN10afEilhLt89OUyBEjt16aePa7maVbRURyJ/yLhG0Fg9uZBkDV5sYQI99VDk
+	o3VCMa5aUyQW9gs2ADfO0TWKmvb0PZMns4zQeoOvkLqdsOGORr7dFcRrLg8/P5Pmg
+X-Received: by 2002:a05:6808:2212:b0:4f3:e133:c574 with SMTP id
+ 5614622812f47-5683cc0efcemr2798420b6e.19.1794336143447; Tue, 10 Nov 2026
+ 10:42:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,28 +104,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+References: <20261110164222.698745-1-andriy.shevchenko@linux.intel.com>
+ <avNb_7QmpPkxa8xq@yury> <df77dcec-08ea-b307-53bc-d52078fce7a2@linux.intel.com>
+In-Reply-To: <df77dcec-08ea-b307-53bc-d52078fce7a2@linux.intel.com>
+From: Yury Norov <yury.norov@gmail.com>
+Date: Tue, 10 Nov 2026 13:42:12 -0500
+X-Gm-Features: AclHuK9zAzIBs3yl4x2cgqpMXprPRNOqAyrkGsucmnU2n3m4faNlmxAM7HKEc8g
+Message-ID: <CAAH8bW9ZT-D6boyM6qWLj9DpYwi1CgFXcfJk3Q9mtnNGqSYQDA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] string: Export strnchrnul()
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Yury Norov <ynorov@nvidia.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	linux-hardening@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, jorge.lopez2@hp.com, 
+	Hans de Goede <hansg@kernel.org>, Muhammad Bilal <meatuni001@gmail.com>, 
+	platform-driver-x86@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 12:03:06PM +0000, Lorenzo Stoakes (ARM) wrote:
-> Given the current throughput in the kernel resulting from AI-generated
-> series, I unfortunately lack the bandwidth to generally be able to offer
-> review except in those areas I maintain.
-> 
-> I have separated the patches into areas maintained by David, Andrew, and
-> Alice + Danilo, so each can take the patches relevant to the subsystems,
-> for convenience.
-> 
-> Apologies for doing this, but given the current trends I'd like to do
-> something to make my inbox a little more manageable :)
+On Tue, Nov 10, 2026 at 1:39=E2=80=AFPM Ilpo J=C3=A4rvinen
+<ilpo.jarvinen@linux.intel.com> wrote:
+>
+> On Tue, 10 Nov 2026, Yury Norov wrote:
+>
+> > On Tue, Nov 10, 2026 at 05:41:50PM +0100, Andy Shevchenko wrote:
+> > > Export strnchrnul() for users that may be compiled as modules.
+> > >
+> > > Reported-by: Armin Wolf <W_Armin@gmx.de>
+> > > Closes: https://lore.kernel.org/r/1969fb5a-38ef-4b4b-9d2f-cb9a4348b96=
+8@gmx.de
+> > > Fixes: 0bee0cece2a6 ("lib/string: add strnchrnul()")
+> >
+> > Not sure that exporting a symbol is actually a fix. It rather looks
+> > like a normal development. Also, I'd like to have this patch attached
+> > to the PDx86 or whatever series that uses it.
+>
+> I did put it now before the change that broke because of the missing
+> export.
+>
+> I dropped Closes and Fixes tags as the issue should be non-problem after
+> the history rewrite.
 
-Yeah, I hear your pain!
+OK, then
 
-Thanks a lot for your work, mate :)
-
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-
--- 
-Sincerely yours,
-Mike.
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
