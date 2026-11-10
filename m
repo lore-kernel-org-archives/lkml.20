@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316382;
-	b=K5IVQvrGno6C0Z8G1wo2dQqGGOreEXoeGmFf/0LEXG2kUaqfp47lDEbXXuTBQkZBcFUE
-	 RgHIkugLXJVHD7uRdki/P5t0fA85ItkvRI2EalogadU/J7viDu2R64/qeDcUR5MaMgcYh
-	 LtJYpVG0HayWaOzEAg1/45lYV72KAw4pX/94EHc8sVZ1owN/xu0AdwobDkyZNMwzYME63
-	 3nr+FL2tk1tmmnTVYnRAEnmQRbG58cGc9RlzvOAKtDhmDaTl4hfRacKIqUv2eFWgSSaEt
-	 7h87lqDOae946VB7dpLh70BKjFlGsEey1s9pktnOBz8nNP25Ug0kfeAGM1IklRk45/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316382;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=j9MOCzNF55rZGGpluezeQ+vnoNPiPbJ5pnRhrnmo5Bc=;
-	b=COuEqssGmpKZoNtDmACUXZHSYlD+MK8SSBaS6F/acn/0It3pnr6w1ooEo/9T7tDVDK4R
-	 DoJPukF3GpEkwPE4gm3xZJZ+BZv0C7SewyU3s6LCqyBaof7CzX8fVL1llHWwubjdS+iHs
-	 SuYSSPeWOjPDs1BDEu9nyhSIbVdFabnLkNQQj53upkcjR5NkyckyiGn63kfkM+ssN1F/T
-	 OO3vsGKeC6WTPRIpakZ4vJqv2miXV5abAr/muRH5IVhkpq07/hMy+9+giAV3rX2iQsXRs
-	 ZK9H185lbH7KkmraB50hoJDbh5NrtnrCXutFSOjv/iXISWCuf6KraJMYjcWG9JaqjMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sdwbhu2K;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794316469;
+	b=V5/yto/FWlIXS0XA1HM8ZTuE8EpriizPsJduufnfoJyLlhUHkDxJLoY2s5fk5wYcLkRl
+	 8L0jm0BKajg6H/hmlpcKrVsYij+b5FzGq2c1cxjEdbQmdgKoN4zSUVtYpg+HbqVe7OhRY
+	 /uCFQWrdcFhW4AfIGSQckfVN04WWB6J1nxP9jXenGSdUzUCOhP0YmcHdTiiV5/td7now1
+	 82kC2EN7XPWYcepZkOx8eARxEtBw7a9M/qzHU7NtPf6ITbRddJpdo3rgaUpiMozgxrtcW
+	 hNspP1N22IRyVXCCr4HI2Te7wz8C16iCC6TKlm/TBBDb1pW9xq1nIfhq8Ptk7D3ZYow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316469;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=E0D4lFouC3sbFRgg4Jcn0sQ9USf0uYoRvw06StM8D7o=;
+	b=wum0JNHlyQlgMeJfblW4F/A7kiS1EZZqQGdT6PhycfEbRvUZZIGnQhedupgEILGKuxUw
+	 iyvhVEktgyxO3p+VkPTc3N/cL7Y60ts/hdMiqP2e+S5hb8ls6LG8+PeeA0MqGOcBfRqBh
+	 ZBGUo1iONYui+qumP73xRfKxrhKb6iEwiTtO8/Kkuccqrrgtdt2b4r6u3uOICs+6Eqje2
+	 JipoygkG6nlHulxJ/QFCYDGBtGSOyi29+oQYlAKrPt4GVy+w6M3LRjM/JLcAmFYF2bhx0
+	 TngpO00y6B+N0w3wXB6orHs+hTIOgfC2k45jIYm3+/ZEuUTH20/SiKujdpDYGTsBUng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUCaOs2u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF948606BFE5
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF948606BFE5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F084A606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:14:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sdwbhu2K
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67bec5dc8d4so1292060d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:13:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794316381; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hb3oSafADcD7MWjIXczZ98cHrAvsCPXl/gdGD4EFR8B+mKP5fkLkbtTAv+D92rfvA6
-         qZ0WfIzZP3XPHr6ynAWnYAGSpUFBEZt0laEiXxm0P562x9kOm6xtMbQH6VUq+iQ65pqj
-         /HD/JsqCztDb8I5SaJ8GaDpS8hStr2E15o/VnkOC+bHWSg9cQAGoHd3NOT0PCxylQ/JM
-         CBKKyUCePPmCKc3P1mUD2xHm4hT22v9obL6ISs3TZ2FeUEVsLzYALZ03yOqtkzoPIFdm
-         +GmPMn1aczvLnDkZ6iubtxkFx12s/HTmx/WB9JSVvFQ7QVmkkIK2W3rib4wGjVPl4oPS
-         xi0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j9MOCzNF55rZGGpluezeQ+vnoNPiPbJ5pnRhrnmo5Bc=;
-        fh=fsNwwyWW7V4pEQfWppsLtz4+I45FmFOSOHWe9Ciaegc=;
-        b=MfjJtodbpy5/21dL8+otGlL8yHPmkvd7uf4ycKDk+6JXBNURTksHf1LyHfT3dfqiS+
-         nUpLdGqTIl/7ae+2wusoJQahlnGkxDgcXUPOnd9rSNR8TFUsY8s61hH/E+7fnmxKfuNy
-         nESCj+HObHLXFJnOGek44XRbTtzjYdxtXsuKE+PWvEPgNie38XsZWQzEk8mx+B9LTI1x
-         8onmKDf+xL2Ow4JVWGcFzSIkLhWQ2M9rxLd/XrP6VzDi0AEP8+dpENpHfItDjvax8fB+
-         HyLCxqleNameT3kGlqpX6lYYwq6rjzr6EmGcWZNx6w1nkQB7HyZpXQIsDOfKty/d7zQU
-         RZHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794316381; x=1794921181; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j9MOCzNF55rZGGpluezeQ+vnoNPiPbJ5pnRhrnmo5Bc=;
-        b=Sdwbhu2KpgwFLfVlfH6iDlq+dRJGSCxir2demi1cxoaqTT17leKdGKQlndYEKtYU5c
-         4CmjBWzYktFmk9hfzFAmZ1VoHanX2QcIdUGdKqTV5oC+C8BP+g4INWFSWYNKyCfLqt3X
-         tUcd3BGcEHlP5W4vaDqhhHjHeb5wnrSczCmCQGbzZ3ZHU/IySdOzvic3w8LMH7sL+mwn
-         V7+6WUxXTfMZH0o1cPClzyFGoiTHwiQWRleDmjIiztc8DYMf568wzkX3CAUQAh57tOPJ
-         tWrRaurKK4islFO7DwFl7kfIUnB1VXryOTOUJvrOa0eEUhqKjP4XdCoLIjoqDcDxUazt
-         dS0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316381; x=1794921181;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j9MOCzNF55rZGGpluezeQ+vnoNPiPbJ5pnRhrnmo5Bc=;
-        b=FAXkE1awmuYutrJPx5RETqKi4E+pkcNEYCFRxghheX+PMjWxRKnOtK9ad5x59KBz0C
-         rlvPAH5LO7MC8XZmikSd2bCHlqtuf9ogEQ60qiV9bLKaKTG5l04hx0RqES3wDGM+3U+s
-         6cYC564IsCowjp8iKXlmiTucY2eG7M94D1BEAaMTEI0mmx5iDNkBZzCQeOQPVorC9dL2
-         lUZVbLZ/OT3n2p/2AHPTjw49fllq/n1UOuk4IvqKTJfsoiA8D8y68a8dxCu7KqVLlTHM
-         TvR7KdzOnOFqO4PWPezW+XlVoHYVY8mG6mwZyhGJpLIvmmAjm1jDDwAosQ1nP8qo4a9o
-         PGrQ==
-X-Forwarded-Encrypted: i=1; AL+hErG/qGqSKAGVa2pzaZhWCjWbnzfISiqj9P0nCTJIX6loqzDDhXmwpD2atQo7E8P27lmM8yNO6LC10L/DEVY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xyy2o7Xlo4Fv6xNGEK+HxF5BmUtLZmmQ+NrWgE6UE5xUr4ZlJ
-	EVHag9Q9Q/pPlhcp2+iaARaOIqsX2wtMQjyouSXSrjx4m8i4cOSCEpdIyZoVbgEUYM8oXM6RoY6
-	GsIZQPOSr8UY6QLn3A2BHOkXnFmpnbbI=
-X-Gm-Gg: AYBFou2/ZbxUz0Aa6LcTMUYhEguByv1pUb9PG/+X9xF+nBfmNIHvjrAimG2Wm/8HVJc
-	9AfUbS6eo6DyTXMFPgmVwgx9nrideFMEpaaMGNQ1/SZtxYmUjZbVUGzRJrLovYIhbilfwjfT6H+
-	KflWAz0N3jTDprvGoqz/HYQ4bB72xWwDPvtWqT3r7OQTEI7hQVG50q2bKf6PULajdy8j07Yuohi
-	8uAGNa9I/3AMA9X2csLi87HIC9NNSOA+hKqxZyE9x+z03j+VhXAepeF1bzEgxDJEnU8LKWEiuho
-	DLpp3VooF0mO/mMNHEhQ6fugHiAa5p7D6a0s6I/Zb/j2VbETlT/QnIkMlpwX21DSEmiVbsKeVDN
-	0PeHSeSikqF5SG8qcpayP00t+PLMxezD/0jkG1w==
-X-Received: by 2002:a05:690e:1386:b0:67b:eb7a:e62a with SMTP id
- 956f58d0204a3-67c56265785mr1829765d50.0.1794316380667; Tue, 10 Nov 2026
- 05:13:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUCaOs2u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9071F008A4
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:14:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794316467;
+	bh=E0D4lFouC3sbFRgg4Jcn0sQ9USf0uYoRvw06StM8D7o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=gUCaOs2uTZ+8NNoMmWNAXXqfiYfiRBbfi9D9aYLUWjiT+uHC37Bb6k4/cOe5g75VB
+	 wvIk0AbW5hJwBc4dNx1oVUKaRsSpm46cl0R2Pr5/0oYQ6ig5/BAGwLJUqGhND+yo9o
+	 GmeFEOk9r81oT0zZo1P8+/vBW4QS71oE5qmIwmGZwB4hRAOZlKpADBu+9xQuURs9fA
+	 NaNASNvBqZ6ZGqTBfs9G5+sFu+8t/mhMRXMI8uxDQA3klxjx3Z4q/kbGMMkuSAhgc+
+	 539GiimSRZdyJG+YBkgW5mCobpPfAuF0i7lQBslR/h4pfzL0bZ2+NIV7N4JnIKrQKr
+	 dgFwPyAuiN62Q==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso1847859e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:14:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHRbZ0lyotc0jzkVIpQVxi6WdF8pbWOfdLJVRiVLGp/Z3VeXFA4WOA9ITIbzNHpja89hoOC3KrKezvDAvk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NFLXyKLjucQEFdVk/xNkaKdymH4/xmeqtVJsDYRhHBAShXH5v
+	cKapcuyyP3bNEbi1h7qQVeP5e6MWfjWGmjFCYdyA0MgB5hIoofgcgQ1GvpizCSakTRjtlMqKgmu
+	Sr5/KCN5IcVl+CjDwsHgNPCoStqotOzo=
+X-Received: by 2002:a05:6512:3088:b0:5c0:bcb:bcf9 with SMTP id
+ 2adb3069b0e04-5c156ebc96emr867357e87.50.1794316466194; Tue, 10 Nov 2026
+ 05:14:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,79 +59,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
- <f5a22a46-0fd8-4739-bf11-a20e0b3a443b@linux.dev> <DMR088J2OR6L.9TOD4IDBHTZ8@gmail.com>
-In-Reply-To: <DMR088J2OR6L.9TOD4IDBHTZ8@gmail.com>
-From: Anton Protopopov <aspsk2@gmail.com>
-Date: Tue, 10 Nov 2026 14:12:50 +0100
-X-Gm-Features: AclHuK-z3hLVWTJeTumw2Ph2v5vhN9G_65U0kCrk8Fj0jgmTxAiCTqvVd4CkNag
-Message-ID: <CAGn_ityW5Z+JEcTL9wKnQOgLXhjXxC357Q=h95AgR9xP+pcmjA@mail.gmail.com>
-Subject: Re: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light skeletons
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>, Siddharth Nayyar <sidnayyar@google.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Quentin Monnet <qmo@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Giuliano Procida <gprocida@google.com>, 
-	Neill Kapron <nkapron@google.com>, =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, 
-	Maxime Ripard <mripard@kernel.org>
+References: <20261108233900.4043941-3-ca@modelmiser.com> <20261108233900.4043941-4-ca@modelmiser.com>
+In-Reply-To: <20261108233900.4043941-4-ca@modelmiser.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 10 Nov 2026 14:14:14 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0h-kc0qdgYncJUSqhw7w-Y7svxnqChSGP8StGaAckw7Tg@mail.gmail.com>
+X-Gm-Features: AclHuK-J0IQKxSqxYpSdieCIBbY4_MtW6eSRdRbeP0hbidLlG4SKGNr3oYXizWk
+Message-ID: <CAJZ5v0h-kc0qdgYncJUSqhw7w-Y7svxnqChSGP8StGaAckw7Tg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ACPI: pfr_update: keep the state until the last file
+ is closed
+To: Chad Aldreda <ca@modelmiser.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, 
+	linux-acpi@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 9, 2026 at 10:40=E2=80=AFPM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
+On Mon, Nov 9, 2026 at 12:39=E2=80=AFAM Chad Aldreda <ca@modelmiser.com> wr=
+ote:
 >
-> On Mon, Nov 09, 2026 at 11:46 AM Ihor Solodrai <ihor.solodrai@linux.dev> =
-wrote:
+> struct pfru_device is allocated with devm_kzalloc() and embeds the
+> miscdevice, so it is freed when the driver unbinds. A file that is open
+> on the node outlives the unbind and nothing holds a reference for it:
+> the next ioctl() or write() on that file uses freed memory. Unbinding
+> the driver needs root.
 >
-> > Andrii, Alexei, wdyt? Any other ideas?
+> Allocate the structure with kzalloc() and reference count it: open()
+> takes a reference, under misc_mtx, which misc_deregister() also takes,
+> release() drops it, and a devm action drops the driver's own. The
+> structure also holds a reference on the parent device it uses. A call to
+> ioctl() or write() that starts after remove() returns fails with
+> -ENODEV; one already running finishes against state that is still valid.
 >
-> The loader asks the kernel for ids, sizes and offsets only to pass them
-> back in the next three commands:
+> The problem was found with a Coccinelle script that reports device nodes
+> in devm memory [1]. The fix, the reproducer and this message were
+> written with an AI assistant (Claude) and checked by hand. The bug was
+> reproduced and the fix tested in QEMU with KASAN, using an SSDT whose
+> _DSM stands in for the firmware: ioctl() and write() worked before an
+> unbind and, on a file held open across it, failed with -ENODEV. A call
+> racing with the unbind was not tested, nor was hardware with this
+> firmware interface.
 >
->   the loader asks                   and passes it back in
->   --------------------------------  ------------------------------------
->   id, size of bpf_struct_ops_<t>    BPF_MAP_CREATE
->   id of <t>, index of the member    BPF_PROG_LOAD
->   offset of data, of every member   BPF_MAP_UPDATE_ELEM
+> Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.co=
+m [1]
+> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
+vice driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+> ---
+> The same Coccinelle script reports this driver for the misc_register()
+> of &pfru_dev->miscdev.
 >
-> the kernel can match by name instead.
+> Reproduced in QEMU 10.2.4 (q35, KASAN, booted with kasan_multi_shot). An
+> SSDT adds a device with _HID INTC1080 and a _DSM that returns valid
+> packages, and memmap=3D reserves the communication buffer. A process open=
+s
+> /dev/acpi_pfr_update0, uses QUERY_CAP, SET_REV, write() of a minimal
+> capsule and STAGE, and unbinds the driver through sysfs with the file
+> open. Repeating those calls gives, without this patch, 9 KASAN reports
+> in pfru_ioctl(), query_capability(), pfru_write() and start_update().
 >
-> The kernel has both BTFs. BPF_MAP_CREATE of a struct_ops map demands
-> btf_fd of the object already, and bpf_struct_ops.c doesn't use it.
-> The kernel can find its struct_ops and the members by name,
-> like btf_parse_kptr() finds the type of a kptr.
-> Then the loader passes what bpftool knows when it generates
-> the skeleton:
+> With it there are none. All the calls succeed before the unbind and
+> return -ENODEV after it, and the same sequence behaves the same after a
+> bind. Unbinding with the file already closed, or never opened, gives no
+> reports either. ACTIVATE and STAGE_ACTIVATE were not run; they share
+> start_update() with STAGE.
 >
->   command              the loader passes
->   -------------------  --------------------------------------------------=
--
->   BPF_MAP_CREATE       btf_fd, btf_value_type_id and value_size of the
->                        struct in the BTF of the object
->   BPF_PROG_LOAD        attach_btf_obj_fd =3D btf_fd, attach_btf_id =3D th=
-at
->                        struct, expected_attach_type =3D index of its memb=
-er
->   BPF_MAP_UPDATE_ELEM  that struct with the prog fds in it
+> No lock is added. A call that passed the removed check can run during
+> the unbind, against state and a parent device that are still valid; the
+> driver has never serialized calls from different files. An rwsem would
+> make the unbind wait for a firmware update to finish.
 >
-> The kernel rejects such BPF_MAP_CREATE and BPF_PROG_LOAD today.
-> Nothing changes for existing users.
-> The BTF of the object is in the blob, so the signature covers the names.
+> kzalloc() rather than kzalloc_obj(), which first appears in v7.0, for
+> the stable trees.
 >
-> Then no need for a helper or a kfunc. The 4k buffer, the fds of module
-> BTF and the offsets at run time go away.
-> map->def.value_size, prog->attach_btf_id and prog->expected_attach_type
-> don't hold offsets into the blob.
+>  drivers/acpi/pfr_update.c | 51 +++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 49 insertions(+), 2 deletions(-)
 >
-> The diff below replaces patches 1-5. Patches 6 and 7 stay.
+> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+> index 98ace679601b..b9e4c1065ad5 100644
+> --- a/drivers/acpi/pfr_update.c
+> +++ b/drivers/acpi/pfr_update.c
+> @@ -16,9 +16,11 @@
+>  #include <linux/file.h>
+>  #include <linux/fs.h>
+>  #include <linux/idr.h>
+> +#include <linux/kref.h>
+>  #include <linux/miscdevice.h>
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/slab.h>
+>  #include <linux/string.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/uio.h>
+> @@ -82,6 +84,8 @@ struct pfru_device {
+>         u32 rev_id, index;
+>         struct device *parent_dev;
+>         struct miscdevice miscdev;
+> +       struct kref kref;
+> +       bool removed;
+>  };
+>
+>  static DEFINE_IDA(pfru_ida);
+> @@ -428,6 +432,9 @@ static long pfru_ioctl(struct file *file, unsigned in=
+t cmd, unsigned long arg)
+>         u32 rev;
+>         int ret;
+>
+> +       if (READ_ONCE(pfru_dev->removed))
+> +               return -ENODEV;
+> +
+>         switch (cmd) {
+>         case PFRU_IOC_QUERY_CAP:
+>                 ret =3D query_capability(&cap_hdr, pfru_dev);
+> @@ -476,6 +483,9 @@ static ssize_t pfru_write(struct file *file, const ch=
+ar __user *buf,
+>         char *buf_ptr;
+>         int ret;
+>
+> +       if (READ_ONCE(pfru_dev->removed))
+> +               return -ENODEV;
+> +
+>         ret =3D query_buffer(&buf_info, pfru_dev);
+>         if (ret)
+>                 return ret;
+> @@ -518,8 +528,39 @@ static ssize_t pfru_write(struct file *file, const c=
+har __user *buf,
+>         return ret ?: len;
+>  }
+>
+> +static void pfru_free(struct kref *kref)
+> +{
+> +       struct pfru_device *pfru_dev =3D
+> +               container_of(kref, struct pfru_device, kref);
+> +
+> +       put_device(pfru_dev->parent_dev);
+> +       kfree(pfru_dev);
+> +}
+> +
+> +static void pfru_put(void *data)
+> +{
+> +       struct pfru_device *pfru_dev =3D data;
+> +
+> +       kref_put(&pfru_dev->kref, pfru_free);
+> +}
+> +
+> +/* misc_open() holds misc_mtx here, and misc_deregister() takes it. */
+> +static int pfru_open(struct inode *inode, struct file *file)
+> +{
+> +       kref_get(&to_pfru_dev(file)->kref);
+> +       return 0;
+> +}
+> +
+> +static int pfru_release(struct inode *inode, struct file *file)
+> +{
+> +       pfru_put(to_pfru_dev(file));
+> +       return 0;
+> +}
+> +
+>  static const struct file_operations acpi_pfru_fops =3D {
+>         .owner          =3D THIS_MODULE,
+> +       .open           =3D pfru_open,
+> +       .release        =3D pfru_release,
+>         .write          =3D pfru_write,
+>         .unlocked_ioctl =3D pfru_ioctl,
+>         .llseek         =3D noop_llseek,
+> @@ -530,6 +571,7 @@ static void acpi_pfru_remove(struct platform_device *=
+pdev)
+>         struct pfru_device *pfru_dev =3D platform_get_drvdata(pdev);
+>
+>         misc_deregister(&pfru_dev->miscdev);
+> +       WRITE_ONCE(pfru_dev->removed, true);
+>  }
+>
+>  static void pfru_put_idx(void *data)
+> @@ -554,10 +596,16 @@ static int acpi_pfru_probe(struct platform_device *=
+pdev)
+>                 return -ENODEV;
+>         }
+>
+> -       pfru_dev =3D devm_kzalloc(&pdev->dev, sizeof(*pfru_dev), GFP_KERN=
+EL);
+> +       pfru_dev =3D kzalloc(sizeof(*pfru_dev), GFP_KERNEL);
+>         if (!pfru_dev)
+>                 return -ENOMEM;
+>
+> +       kref_init(&pfru_dev->kref);
+> +       pfru_dev->parent_dev =3D get_device(&pdev->dev);
+> +       ret =3D devm_add_action_or_reset(&pdev->dev, pfru_put, pfru_dev);
+> +       if (ret)
+> +               return ret;
+> +
+>         ret =3D ida_alloc(&pfru_ida, GFP_KERNEL);
+>         if (ret < 0)
+>                 return ret;
+> @@ -568,7 +616,6 @@ static int acpi_pfru_probe(struct platform_device *pd=
+ev)
+>                 return ret;
+>
+>         pfru_dev->rev_id =3D PFRU_DEFAULT_REV_ID;
+> -       pfru_dev->parent_dev =3D &pdev->dev;
+>
+>         pfru_dev->miscdev.minor =3D MISC_DYNAMIC_MINOR;
+>         pfru_dev->miscdev.name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL,
+> --
 
-I like Alexei's approach here, it fits with shirudo. I also have tested it.
-(Patches 6,7 weren't tested, shirudo uses libbpf without bpftool.)
-
->
-> [...]
->
+Applied as 7.5 material, thanks!
