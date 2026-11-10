@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311048;
-	b=GPkZ0cNnDvyIlfdQAJ4fhCXa1kfAlsgz/hMz7GjqdKXsl2xBKJhQjagJ6z86M2xxZlQs
-	 OPh0lM7E6fxGMQ/NxkfYU4SY12ewOLe82qKfo+erkPUaIF0G8EMpyDIFW4Lqiv7aROYuD
-	 NGG9qb+/In9ewNkQfGw+sryoCztH1MexKwbxzErOK+MauRrqJCQWUzC2LUR8S0KqNtCm+
-	 14I1Ok3jn6RHtTzCeDwT7HhOIv4JSAI3NiqbTjfWzIW891GiLYThl55gt/D3NdvIVdL6p
-	 CcPXds6S3tXmmrykWic4Leo5Ae8OdA5DtwxZOl9pXKjXuMoDHJx28eJMtcvN2iXGpNg==
+	t=1794311053;
+	b=UC34AJZYF0I3d3tPF3Pj8TRJFfTo7LfgoqYpchixAKnDgNHHiUvJF0ohm10oT56rjXE8
+	 Wm4XV7WDKRTqpZiHze/bvPGjT1f7ODRWAhu2JrstAQnFd8/zVI1um2mdw6It3NO9ReADW
+	 CFq3skbSiurvnCfl6sfLzTPdpazkuHd2kEenbJRDwBazTNkfu1xMIgmYX0o1t9nW53uXk
+	 KKFyt1FvOEGzTcOonXcofiADYDikFuojX8Kj6v7wQV4mMnOV4DuY+NdlxapL5KmR9quKt
+	 PvoxkFZO8wr8NzwlBhUSgl5ocf3tsUTRDozQarq10OF2ODSE4apIjUvBRFv3P4i/XZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311048;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
-	b=Txq5JddXXRIdBGMdhuvcONpz8TvGzl0ZS9eyHGmqNtP2wHP2NOQ7cNiCxUhqP/yA1fsp
-	 9qcAJOR6cEP1o/8zr6R9gsgYYWew1/UHZspNjrtE1nsbNOnPzcnkufD6OEGaT0x3UEWW2
-	 Fq7/zTB9uDN1xVdx5zS7JLZZxeCGHdqDPTX+/A13boLjr3+In67WmsTPrHilIt/ZopBo6
-	 jz8Ao/i5kukdv4IfzhMZ0ULDpUueN54NMO+xVMSgxnBP8/VYHaHVyNIYcONkUrRMi7ozM
-	 SakyjQQ61NZZ3tVYJMEUw9whXm3h+oWDeqa/KXqqzPMUYyOV1mKozTb6MkMFTlq575g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311053;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IN60gOhiFLXTiUujpua2k2lDg3kIk++JqhLJJqH7/6g=;
+	b=i6GL+ckyDSdC5qrQ3oPW7/DYda5mI35boFbKzey7Pk0NF4bPwRdJwYj3kUr6/3J9lE4Z
+	 CyKdTYBeSD7fdwdBHO2IBfdJkxfn0jvWIVIg7fDJbJ6yhHicHT4BwjQatLE6PfMy3OKwQ
+	 APw3d0LweNX68uJ5KBhhWDzpHfAoBz4+zFAehWegAOQZBCJS+o9Lcv94jcIzNOoiHPYC4
+	 T6hRfI0dRKfroJD7XLWKAZqJuD7/7dvni9cS0ZFAOausE2/Y8AvL93zf8xwEXY35LLdfE
+	 tlzmhGUgY9zry8tcGyfqs3FE1u+8+sx9/tenNdjY4DheVcq/Arntm53xYwkQrnCjtVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O6HMWVBV;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3JG0qKZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9432F606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9432F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871F0606A31C;
+	Tue, 10 Nov 2026 11:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O6HMWVBV
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so3130583c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 03:44:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794311048; x=1794915848; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
-        b=O6HMWVBVln5XP80c2bMEK8+zD7RjvqUj8izRi31qCuDgXZ4dYDMjCL+gRh4os4IzmA
-         1nuQGss7B7ZgejBA+qzsIHKjGh3cxcTB8YsHbxCAIlBIoqIt2Wevjo2asv0YjOZqt+w8
-         EcKbYVGSvRzodNPjM7fVMqfBsMwVx08e+XX1vYee1/0joE9wbdyvnyC4IPBK7ngcY2tN
-         LkxmqpQZvLKJntF6zADGKa8xXba7omnUSlsdABiro03BZVe96JK5NPFwV6c0QN/yfl1r
-         LpA9286AFWzQkEoK1qBW8jt0CwB5G5PVttu/ree8u/aXOU/odXxkkMfF+UFKnBM+2HYA
-         KJEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794311048; x=1794915848;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
-        b=AG2GYA239R/KDGkRqVbtkPh6XXk5xQ7topQRGZuS0mZiMSlKT22uMKccOFBSjD8u/E
-         V4fFKDqpMj0PCpp7FgFt3aG66I3gtrWOkYxzcPfiGdCfeYfbfdsm/gpJT5tbx70yg08R
-         DObqkRZtyQhnQrvhv8kTiJY/dgLgQYC3MPy9Yn2eCNjK/aisbcN33484r5msbeeE1/kc
-         eLy9CYIZ7dFRTvo3wWsKKtwCLhY03yvGkfCE6MiW0tdfCY4nGyYpO/OULD7qUb02Ewfc
-         IRnhuaLFIGQ1WT4aeS06wbin7KEbYIZDJSR7oJtTUpj/1QqiiSmzcSwF5GW/wItvxWYh
-         0/1A==
-X-Forwarded-Encrypted: i=1; AL+hErFHWBcvWtjIshy648bmWAMKQhxX5n1sB6o16G98GbAw4AWs5Jxix6Ch8qfumAAvEzRh5jtXuSuDuQmMQeQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8c86iY1ynUBwzdCZiiRwshfMiL5nJd91TIy8xSNFJDJ9QyrxjY
-	JUTJ3D1vrDQR7aUVyBpGijYfFdVDPBgWRc7DJliGIDU2d9a1vdJ5dj5f
-X-Gm-Gg: AYBFou0VbdRJYPll3joq7MyHdQLS9wUtGt3z6Z2ElGxALXaYxez0LQcWorvMPOG8a+i
-	v+8Fu3819YQqlX++HvIWn62TvhDvVr3cmNyiZgSLZDwr2x9q3GC5F5nDEtSm2zInG0cmjpTmB7c
-	umJQrdR1f7XK80WmiQaST+SU6kwsGvStC4R3OneUxZxc9Vf1TaF9CNmZ2RqGgLj8Ab8KLhE0pnc
-	4Fm84SWkK1CFUVUumku7shhAz1DbKV0VlOJupZjd8BeL7qqe5zsbtJQZo73eiYacF3Vt04Yh8od
-	muhTJQx8n6efKPsKcEVbw0AFTOOaJnBWUI2fNoWfKDNX5yIJ8VS8RUhjf8D+KwJcZbBDjb7cD1y
-	O6koF3BVbgMNkEXNnjKGRaQUPIlmEFwpDUio2201f7TbL01WlKwDIMudjIwSoYXqZCL5qelNThK
-	sBBt9ZWpGrCZRrLlaczzx7G8xakEI4udwHIAN+9/aNImhw/bDP3sNMMQE29Ov3hWn20CRDB9fRf
-	CuD5p4/b82FgOWgI0Xh7c905FJcvvSFP69/QNbyUTWY7pxDJrruhTp+ik2GL0wh6KJM8Y/pTagR
-	DogI6paHOlD0PmIQmDFx8+RvkeaQOJ5oQu5+KYEYZAi3oJX5
-X-Received: by 2002:a05:7022:3a86:b0:1b3:a881:4d9f with SMTP id a92af1059eb24-1b3b60249b4mr3330257c88.20.1794311046423;
-        Tue, 10 Nov 2026 03:44:06 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b1003fsm6648791c88.6.2026.11.10.03.44.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:44:05 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] usb: gadget: lpc32xx_udc: drain the pullup work on removal
-Date: Tue, 10 Nov 2026 20:43:51 +0900
-Message-ID: <20261110114351.2524921-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3JG0qKZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250591F008A1;
+	Tue, 10 Nov 2026 11:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794311053;
+	bh=IN60gOhiFLXTiUujpua2k2lDg3kIk++JqhLJJqH7/6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H3JG0qKZ9niYs6YjHIufI/k3dsoPl13q0IBWxSMbWj6z3Dx2ASXFeABv7ljz/tTVJ
+	 w5+1n3xgQbW2VYc598nFr0vwNccC60tWXoMpvdxfexmeBxp8zOvTZStBAXo3Pe6ZQa
+	 iPgiHa9k6AL4ZgYoXbRQ6ZafZzjX+6cce1adWMZ0OBsosqLDjMb+JFBgSxvxbYzEWM
+	 IFkN+1zfqCBOuLHEVYkwaJlb5NBaB/B2WMxUNbaTIPpiY15/oNnsPpF3diKV7dsa1x
+	 E/tpcYtBHBMXmjmxbrcF2UkoOuELMKXQIGxVUyRHC1VVbwyRNj2MQajuO0OYAaW/rv
+	 hQ47pcUWS0qVQ==
+Date: Tue, 10 Nov 2026 12:44:09 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: gpio: realtek-otto: Add RTL9311B
+Message-ID: <20261110-classy-normal-zebra-0a0d7c@quoll>
+References: <20261109052808.3035449-1-joshua.scott@alliedtelesis.co.nz>
+ <20261109052808.3035449-2-joshua.scott@alliedtelesis.co.nz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,50 +59,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261109052808.3035449-2-joshua.scott@alliedtelesis.co.nz>
 
-isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
-isp1301 i2c pull-up access from process context. The work handler
-(pullup_work) dereferences udc and touches the isp1301 i2c client.
+On Mon, Nov 09, 2026 at 06:28:07PM +1300, Joshua Scott wrote:
+> The Realtek RTL9311B is a network switch with integrated ARMv8 CPU. It
+> has the same GPIO controller as the RTL9310, with one bank of 20 GPIOs.
+> Add a compatible for it, with the RTL9310 compatible as a fallback.
+> 
+> Signed-off-by: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+> ---
+> Changes in v2:
+> - Add the RTL9311B as its own compatible list, with "realtek,rtl9310-gpio"
+>   as a fallback, instead of adding it to the enum used with
+>   "realtek,otto-gpio" alone
+> 
+>  .../bindings/gpio/realtek,otto-gpio.yaml      | 22 ++++++++++++-------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
 
-udc is allocated with devm_kmemdup(), so devres frees it after
-lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which can
-schedule pullup_job -- and also puts the isp1301 i2c client, but it never
-drains the work. A pullup_job still pending can then run after udc has
-been freed (and the isp1301 client put), dereferencing freed memory -- a
-use-after-free.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Cancel pullup_job in lpc32xx_udc_remove(), after the final pullup(udc, 0)
-and before the udc and its isp1301 client are released.
+Best regards,
+Krzysztof
 
-Found by static analysis; not runtime-reproduced (needs LPC32xx USB
-gadget hardware with the isp1301 transceiver).
-
-Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
-index 94355d3..210fa1f 100644
---- a/drivers/usb/gadget/udc/lpc32xx_udc.c
-+++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
-@@ -3186,6 +3186,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
- 	udc_clk_set(udc, 1);
- 	udc_disable(udc);
- 	pullup(udc, 0);
-
-+	/*
-+	 * pullup() schedules pullup_job to do the slow isp1301 i2c access; the
-+	 * work dereferences udc, so drain it before the devm-allocated udc (and
-+	 * the isp1301 i2c client it uses) are released.
-+	 */
-+	cancel_work_sync(&udc->pullup_job);
-+
- 	device_init_wakeup(&pdev->dev, 0);
- 	remove_debug_file(udc);
-
---
-2.43.0
