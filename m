@@ -1,83 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344820;
-	b=gi2tEVPNRJ4XdoIzgpeYcde/g3AsTEs3jspGPXWPEvRcZF8ZdTX/KSTe0RQOEtjQxmsw
-	 t6flUU3ioEjPapY+gvRbO80S73q7CO/X2CNQw0pCDu95ax1gdn3KOjXiFgoKqjYKDcY+2
-	 jIrYoVWaLC5rMRrLC0H/wWo8GXluow7O+bnt1qq16sUz1Q44wF44NVglBSiSMYNo9v1VL
-	 WFjFKPRjxb7HS2gJ7aHpTjL59Q0ujMKVcuWEa8zmZtcKtAvHTNosf6URvvyIVJYedJofK
-	 hJN54j4fT7jJuD7IDGDDbqZ/F6pNJ+gZTOWAJRlSmgjEX70hsb53XnP9Wi9nD/DUYbw==
+	t=1794344923;
+	b=XDbICQdqo6bDycE2sxAo/J4bFFwPMwxVot/7wMxupTTcZ+SAPbqP2uETZnoEw7l7wUPv
+	 WkDq6gzC6eqnkFoZWCxt+HnvHMdbLn1NExSCVqulSAsGcnXiVj37TXMhtyhGsGzZJEt33
+	 UScFlucaFBblT0MjGrbyUYaNYrJRmZFbS4vWxITwmTYFTSzF1NX0/mlzeBCGmxH71Mgjz
+	 anbOM4gUaJmZi4j+cFV0DqRTXt6grGFZvSlDwzNggrTnX3bHj6ahVFkDhdo8UhSCxIfcW
+	 rmRrPM/+iETERBZcpnmq5Bmz36en4SDq2GLPO17786UskMCvFQimyLohWNwIy7LcYUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344820;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=DpnP2Mak7ClK0iGLIA+5g0n2afYfskurGZa8VAsvA5Q=;
-	b=LQ0UKkoj3ctGT6BG5y1218JDbTuV15a8UpVrWrR+zLTILsI94m0Fjk/uaFHI3VSFYNMP
-	 lZ1T3a7Or5aEBaaRStIrIMAM7P8G0/5LOm6PnKv6rXFFKnlv2U6fqznP8jQbrm3hlNEr/
-	 XppU8PrZYCcKn6CdAnhZUd4Yyhl2jm2s07aVPUGPU1VGl4ISlCbejyojb5Kk/AObidM/r
-	 b28DVw8htTlOCQVf9C4xaPDSKxO4bv36d8D9xWXozvF8XKGlXC0Fnv0znKYW7Til2EXYR
-	 potTftiuXU/btGHCnTBxqz5dsu0BjV9FYuskKpsMaRGYLFYxthLOBCCbSV6eta7ZsLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344923;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Wihr2MrF2FO793dTKH7ddHpRfNQ9adLzPWYI0Gv/j84=;
+	b=V5oUhhcV43KuLX3R/Ia2/Ktq3k5C6UXQYyi8nAvIwNHh3KGfKtMsP+hO6Ov143AUAjWQ
+	 1ZdzHLzP4HajSPaSDA3tRturzm96j31BO80/GMEv8gjk4axjgjC3vMT95eDRxf95oIE+H
+	 3zEvRpMTcItRKUrsC1bpzrzrYYWbAiSeR8G6qMxIZFKrYLJL/gNjeu7toUECAx8YVaiy2
+	 wpImnjza3xSVlyo6kCcwjgSMIjVdCiwC5MpCdLYTvFd9jEEzbxg/TTEFlin3hS4D+GhWF
+	 gK8YqeW1LtK+O+oT08/fkMNYOLUQMnyIz0Ojl7lPjR0+a8rLMJ5PmCyTuoaBl+bH50A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wx6NcXCp;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMVAf3zz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6F5606A320;
-	Tue, 10 Nov 2026 21:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E6F5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D46606A321;
+	Tue, 10 Nov 2026 21:08:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wx6NcXCp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794344819; x=1825880819;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VepGlO4JaVIwZk/LYRXN0gv6O3En9kw6cam+UtiCf4Y=;
-  b=Wx6NcXCpkjSGnKK2eLLpzDP9XoMcTKRPsVHJh3/yyonHj16GDln2UL5j
-   MxgNub0hey1JaHxJ/zAQkidqzSyYQIxxq5LdD9V92k5EZgpnru2z4+Rbw
-   6c8WDer25uKfUfVhF0k127Zo2lgoGnlH+vThSKmEJS2Yqi1GURiRfb9QQ
-   EBBakHpchH449eNv/CSeD6dSBlwiYGPNkbEDPRaerpMcN6ObKjMJ9HSB3
-   2nL1mmw6RCu3M0y0oe1gSdI82YZGfKGNkHlahELWLRmcgeu+SmEFGf5yA
-   B+qO5zHwgcf6Q2Us3tcsfpJJX8q8Zv+7w69VPIjcvYASbbvqqeH4OouGt
-   Q==;
-X-CSE-ConnectionGUID: ON0iHAdwS8KalNUj+UqLvQ==
-X-CSE-MsgGUID: H7HFSmKhRjqxTOewE9brjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3004963"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="3004963"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 13:06:11 -0800
-X-CSE-ConnectionGUID: ylWqEV9DSp62yHh3wXL4qg==
-X-CSE-MsgGUID: i0cp5d5LStKfGbjkkOZj0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8341426"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 13:05:22 -0800
-Date: Tue, 10 Nov 2026 23:05:20 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	apais@microsoft.com, rlmenge@gmail.com, hargar@linux.microsoft.com,
-	Jarred White <jarredwhite@linux.microsoft.com>,
-	Jeff Kirsher <jeff.kirsher@microsoft.com>
-Subject: Re: [PATCH v2 1/1] i2c: designware: Add ACPI ID MSFT0006 for
- Microsoft Cobalt SoCs
-Message-ID: <avOHEJxZG49tICa8@ashevche-desk.local>
-References: <20261109210146.57766-1-sidchintamaneni@gmail.com>
- <avI7g14oGpFKlJnV@ashevche-desk.local>
- <CAE5sdEg3VKZuGqpt1Sm22Dsuh8HUFi-9w2GWEAicALS4ECXQ_A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMVAf3zz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4EB1F0089F;
+	Tue, 10 Nov 2026 21:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794344922;
+	bh=Wihr2MrF2FO793dTKH7ddHpRfNQ9adLzPWYI0Gv/j84=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YMVAf3zzQ0uqmVL+VbTBt+1JwkrNK+Qw1g08kq63UdwgwteUdVwp20F+rr1emd7Vt
+	 IvMeVGLIbRV9oE6BEbzcDenCSC3DirWr9GhZJLjENk4g51cUp/DpJzRwygXyzFX6VW
+	 1HNSZQaAbAU7dSw9W5Di8cYnz712D2Ae5jk0XTeOguq4TUxW6KnWHGSALSsypJEICZ
+	 wtBaRKiKo1RI3Hmk4D8OXQDpRgdrOc9HJwOr+czsitqPSshhWE8TX0MWO5nVrl4RP1
+	 SRy2vqLTkcGVCqwTjXDhahGcBbe9vg2BW03u2PtMbhRdo5N50kZW1Spftp6CcNWQbM
+	 2gg5qJFmHgYqQ==
+Date: Tue, 10 Nov 2026 13:08:40 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] crypto/arm64: sm4 - Drop cpu feature table for PMULL
+Message-ID: <20261110210840.GB1907@quark>
+References: <20261109161052.890682-2-u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,43 +61,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAE5sdEg3VKZuGqpt1Sm22Dsuh8HUFi-9w2GWEAicALS4ECXQ_A@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261109161052.890682-2-u.kleine-koenig@baylibre.com>
 
-On Tue, Nov 10, 2026 at 12:15:10PM -0800, Siddharth Chintamaneni wrote:
-> On Mon, 9 Nov 2026 at 13:30, Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> >
-> > On Mon, Nov 09, 2026 at 09:01:46PM +0000, Siddharth Chintamaneni wrote:
-> > > Add the MSFT0006 ACPI ID for the DesignWare I2C controller integrated
-> > > on Microsoft Cobalt SoCs, along with its 300 MHz input clock description
-> > > in acpi_apd.c.
-> > >
-> > > Without an explicit MSFT0006 entry, ACPI device matching falls back to
-> > > its _CID (APMC0D0F), which configures a 100 MHz input clock instead of
-> > > the controller's actual 300 MHz clock.
-> > >
-> > > Acked-by: Jarred White <jarredwhite@linux.microsoft.com>
-> > > Acked-by: Jeff Kirsher <jeff.kirsher@microsoft.com>
-> > > Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-> > > ---
-> >
-> > Where is the changelog?
+On Mon, Nov 09, 2026 at 05:10:52PM +0100, Uwe Kleine-König wrote:
+> The result of having that table is that the sm4-ce-gcm module is
+> autoloaded if the CPU supports the PMULL cpu feature. However that
+> module is only usefull if there are both SM4 and PMULL. The module is
+> already auto-loaded if the CPU has SM4 and calls sm4_ce_gcm_init() then
+> which fails without PMULL.
 > 
-> Oh I just dropped cc tags.
+> So dropping the PMULL cpu feature table has the only affect that on
+> machines with PMULL but without SM4 the useless module isn't loaded any
+> more.
 > 
-> > Haven't I given a tag already?
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> ---
+> Hello,
 > 
-> no, I thought you were suggesting that I repost it.
+> PSA: I don't know what these cpu features are and what the sm4-ce-gcm
+> module does. I just stumbled over that MODULE_DEVICE_TABLE(cpu, ...) and
+> convinced myself by looking at the code about the above analysis. It
+> wouldn't be a big surprise to me if I missed something relevant. So
+> please apply some distrust before the patch.
 
-Okay, it's fine to me
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+I guess this and your other patch look fine, if Herbert wants to apply
+them.  Note that we've actually been moving away from having separate
+modules for the architecture-optimized crypto code, and when that
+happens to this code the MODULE_DEVICE_TABLE will go away anyway.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+- Eric
