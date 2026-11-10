@@ -1,62 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794303055;
-	b=E6ZrUW+wNNg4OZG1xHAjEFrFlRhs6TOptvT9lOmaDjwnOABgNIrH0ngZzRNvWh2p4X8U
-	 cs281Pdpgm4ybW9qP1KvOqt0qlYjvr6qrVGR6qCzvPDo45S1dtlyltod9S5w47N4otDkC
-	 o2N8c2A3VkSEqoqjXJ/wnDefhxzLqYLuwwtzb8plssECc///+Ov1wTdBoDMLjb9HU+Q5n
-	 n8UwdZw6iJPjI4wq6MGaRVd2PEAnhRSIk+LGvNX6QoYCsehtYEuTp+RVKgNNBoLIJOQ1+
-	 l9gO3Pct1i6MnPVTOHtPJ4wWTOKftuiRxvbsv7d3Wip/ZG4EhDFV417qfJcfww18gKg==
+	t=1794303088;
+	b=uUxNbAZwdqZaMhhshqzzfmnxyOCxHJCMd89+/BdVCf+WxEokOtGWy1EFCzQCiplGAXud
+	 YpCjk91XYnuOBYB77hBmDJkbON72lmyK4QM4ibPw36rlFCFzE6kmogZ5M49NMEXMRqugr
+	 1cxau4xwA9si6ZOotTp1QvEdUElwZqVvK42Or8ZcL14DHMe9Y9kxEV+iOGAirTwY4Ba4N
+	 BVERXOoHfLT0FRezcGJ6zS6AN5QFAQYtefas9TUzkT+QxENeOF91OdGbgLCrroGBz+dwk
+	 oKlWn6IptXxLBGQ8jpbXELQmUP7FZbw5o7mry75bOZTPQC7KNKqGWLL5rod0rmGIT1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=3a9+A4cGMpvcWBUNJX+y82H3Lcn9cALPUzIw6af2AfE=;
-	b=qw/FyNwV07+HwaDPcrnJORHmWcd8E5mfS0SDMBnAYdTfG/yWKUunoteCditm6xf1au6B
-	 d57EIoPH6918Ze3LbB3B8CWRMQ5OUl7+w6kmXviQhIrOV3IjiwI/GjRjjDHibF5qsTOjT
-	 gJjicGaYr1cA9uwfQOSqihBOFq7PPD0avrlIzSMp1P9ScDZc/6sOhWmyfG0qNiLtpDlcm
-	 gZaDe+Ufl2bQIQMwSVREM20zjks0U1Xoz29JVXP6rh3LQkj5vI7edCc0AeRsyVdL5Tb90
-	 qihK0RpnGhFnhH/ShAdMRXk9JWh9KV7mkuF5UmDdLWzNbuEV0PVKuE9C/TkieiONg/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303088;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=YLlZuK32JaWyLywcZsk5CvR69cakJjXk6LbjdCED9YE=;
+	b=r7eBcV9BImf1UXMkPCRe4T+ydJjM9a4bnKZ3x7O+F1MrNVpezXlsWbKdyPuHJWs3drR2
+	 n5ek5jdJK/P14weUNP50RsVnqbD+Gqe392tYZjed1CN1Igf3647iQD/dVTVa1dbCUJl/V
+	 /5VzSXDNRZpZsMN5AFYXp9QDeQRlAr3cNW7Xfu4eDgKO7yU7xugf74dfzMOE7w5fsbfP6
+	 byxCP36emc5fveq7MPt9GjpXYzUBZIdbWcy4jC3A7S2A6TdreK97bZ8nGYsRkpNR0bik9
+	 iNmvyvNPGCC0CjT8vsCBj8sZCXalrE04HpK0Y7SAENIKNwEQquBy6A++5ZlLwz+1NSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwcwYqjI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XiSvh/NK";
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CF1606B9D7;
-	Tue, 10 Nov 2026 09:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1577460774E6
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:31:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1577460774E6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwcwYqjI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64F271F0089F;
-	Tue, 10 Nov 2026 09:30:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794303054;
-	bh=3a9+A4cGMpvcWBUNJX+y82H3Lcn9cALPUzIw6af2AfE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZwcwYqjISG4ryy7jJkuwvwIgQ5W0SqJcYnmERlw5RGVMPqSbCuWUp8V6tGP483IYN
-	 tPOf2hREYaBI6yDnB2rYjMpvpLJM6BX6ptZevNWJva69XJRwz7ADywbQA2z4jNSQM8
-	 VZ8KyDhtpdoN0U60ZIPXL7NUZBtW9iGZ+FwMIFfUqAgo6BSArftCGWiUt7KZA1JF5A
-	 k2j0LcIlJftiAg34+n7FVLWkt/CfcJRaMQruCgI2L4fq3DOXuJJZfFrK/fBt3mlmYM
-	 PjW0RQeZCNLk12po38CI03jqx4TS5vcSAS6qn5zGNdX8+Glq3wGBQ5k1bCzPFyYZAv
-	 iPPCEiNb/Aqvw==
-Date: Tue, 10 Nov 2026 10:30:50 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v4 01/13] dt-bindings: clock: renesas,r8a78000-cpg: Add
- CPG_SGDn_VIO_DP_{TX,OTHER}
-Message-ID: <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll>
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-1-1b2072e8c37e@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiSvh/NK
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3704d30b84fso2239885eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:31:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794303087; x=1794907887; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YLlZuK32JaWyLywcZsk5CvR69cakJjXk6LbjdCED9YE=;
+        b=XiSvh/NKqvjOdSVHWiygLlN2DwSz7zhe6HV2OJnaqgbWSmYa8G1rxt8M78TcL/auyL
+         oIUA9OZ+WmWa3ZcUhvchkJseJShevm081ZVhWLiluBpEAeUEepxrxpkI7gnwlzEIurG1
+         IDssfUiFv8ovo9O+/+qLDvfQjfrh48YlEjFAnoZaTWrye7TWUIVI7ED/zzeg4C2OK42V
+         6e4RIpzgXb0A+e8xGXA5a95T2oLk0ly8qKNsP0LoikvhvHYhXWYRv7ugyGktPb21lkUJ
+         Z5wquUFXZ+eb75R9ouNjsZ+Abd451+11+Dw8nk5FqDc255O6jaVkSWG4y0xCzECvO9A0
+         5XhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794303087; x=1794907887;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YLlZuK32JaWyLywcZsk5CvR69cakJjXk6LbjdCED9YE=;
+        b=IkGPYABef+BLQQ+QwegtiNvmR6Jpx05v6fiq59nZkUE3lNlhsSd4QzPz6ZZyS2OcNb
+         9ZH/3TsV1sz6dccDSXxPAV5UD6IRo5Rjmf2TJiyDA1LBel490TY4/1SuTcRRpIzP46oW
+         0USARX/6mCLTuDZj9qIpc45DbbeWUUiKFCSJth6cNL/uzNQLei5yIyMXoKzne36zSoWj
+         8+1UYj1zmUV5yvDX6/U8C63+aND5Zr0OoHiwm1N0Eo4l+inMXe/8IewS2Rio9Zwus4Di
+         NVqC41iXSgZozwL2wXCuGDahPCcbBHh3dpB5VppbDasoEegybo10PpwCeCQ9D6yn1I2i
+         KWjw==
+X-Gm-Message-State: APuU4Z/CYFvOKifkmJ8RAPPM1dAZoSTECQn1Y/vblkNR18oNkuximn8U
+	pOIozVLiGlwBXCvJZ+uSLtdSJtyb2bg0Qdg6Arobibo1yikfgjf47I6l
+X-Gm-Gg: AYBFou21kMWqc3ikd7PZbXiBDPVuioLtCngOLH1zWUs+nE7wlxqPN1vuxSa+vv5TDOG
+	H2E5bSYC3X4G+dx/JQfvHdDt2u8Jk8pnc/L5TJ+U91TDjENv6VXMyBLkXclCUxekNS6UV0Cq8ZL
+	mA7N6WySWofBnZhiliOiDYUuTTwkCcW5h8x0bD5bcg029yFZ+pYJZPcq41bEOgmT07kdNEYTJ4K
+	aKo4mP55Culri+clvraqM8HHjAUo5Rxl/bCDNhNaVwoKm0A0hUblNGrxPRifxpZvtr0MzEG0tcX
+	1wlqJ4625x2/S8cxCuhjv95s8ECBfQ10kz8HZrvkuzZokW3UJJHWgI83wGNvpYrnlNHlhbekUcO
+	utrs22KdtKJoXw1h8LE1HW1sHKAA5DhqthzSW1c+KUE5MVzpZjP7af99dYQ6yJLc+fdgdsRvt9L
+	TTXl8D5IR9Zhe9d3cYwGJyIm0cWo5neZwxixNCZrXxKltlQ9KZFQYx1nUIImk7rZHFEQrLR0mXd
+	eLmMJvvSQG8/uzNpFuerK8iUSwEQLlH0AHE0E3YeDj/1HxcIDrU5M52vNwOhi+WWUCPQ4kAYGXX
+	D2uaFOnZmlqiFxs9SrWLNgEh8cXTt/g9IJ1vdi0WOVpDFuqQyy/9
+X-Received: by 2002:a05:7301:488e:b0:371:7ecc:b82a with SMTP id 5a478bee46e88-3751f659215mr2769649eec.21.1794303087065;
+        Tue, 10 Nov 2026 01:31:27 -0800 (PST)
+Received: from localhost.localdomain ([103.179.231.100])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm6610193eec.14.2026.11.10.01.31.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:31:26 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: hare@kernel.org,
+	hare@suse.de,
+	hch@lst.de,
+	kbusch@kernel.org,
+	kch@nvidia.com,
+	sagi@grimberg.me
+Cc: linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v2] nvmet: clean up DH group state on initialization failure
+Date: Tue, 10 Nov 2026 09:30:47 +0000
+Message-ID: <20261110093047.4290-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,38 +98,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-1-1b2072e8c37e@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 10:34:22PM +0900, Paul Elder wrote:
-> Add the CPG_SGDn_VIO_DP_TX and CPG_SGDn_VIO_DP_OTHER clocks that are
-> used by FCPV, VSP, VCON, and DPTX cores.
->=20
-> It should be noted that there is likely a discrepancy regarding the
-> clocks. In practice it ought not to be an issue as all the clocks derive
-> from the same SGD1_VIO_MAIN clock and none of them are programmable or
-> gateable.
->=20
-> According to the datasheet, the FCPV[BID] and VSPD cores use
-> SGD*_VIO_DP_TX=CF=86 while the VSP[BI] cores use SGD*_VIO_DP_OTHER=CF=86.
-> However, educated guessing suggests that IP cores in the same pipeline
-> should be using the same clocks:
-> - FCPV[BI] -> VSP[BI]:                  SGD*_VIO_DP_OTHER=CF=86
-> - FCPVD -> VSPD -> VCON -> DPTX:        SGD*_VIO_DP_TX=CF=86
->=20
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
->=20
-> ---
-> Changes in v4:
-> - Add all the clocks
-> - remove DNI
+nvmet_setup_dhgroup() leaves the DH transform and group ID
+initialized when private-key generation, public-key allocation,
+or public-key generation fails.
 
-What is DNI?
+A subsequent invocation with the same DH group incorrectly
+returns success because the existing transform and group ID
+are treated as proof of successful initialization.
 
-What do you expect from us on this patchset?
+Release the transform and reset the group state on initialization
+failures so that subsequent attempts can properly retry setup.
 
-Best regards,
-Krzysztof
+Fixes: 7a277c37d352 ("nvmet-auth: Diffie-Hellman key exchange support")
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+v2:
+ - Consolidate error handling in "nvmet_setup_dhgroup()" using 
+   a shared cleanup label to avoid duplicated teardown code.
+ - Add Fixes trailer.
+
+ drivers/nvme/target/auth.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+index ccba84b1344e..20f8c84e8ced 100644
+--- a/drivers/nvme/target/auth.c
++++ b/drivers/nvme/target/auth.c
+@@ -105,9 +105,7 @@ int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id)
+ 		if (ret < 0) {
+ 			pr_debug("%s: ctrl %d failed to generate private key, err %d\n",
+ 				 __func__, ctrl->cntlid, ret);
+-			kfree_sensitive(ctrl->dh_key);
+-			ctrl->dh_key = NULL;
+-			return ret;
++			goto err;
+ 		}
+ 		ctrl->dh_keysize = crypto_kpp_maxsize(ctrl->dh_tfm);
+ 		kfree_sensitive(ctrl->dh_key);
+@@ -115,18 +113,26 @@ int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id)
+ 		if (!ctrl->dh_key) {
+ 			pr_warn("ctrl %d failed to allocate public key\n",
+ 				ctrl->cntlid);
+-			return -ENOMEM;
++			ret = -ENOMEM;
++			goto err;
+ 		}
+ 		ret = nvme_auth_gen_pubkey(ctrl->dh_tfm, ctrl->dh_key,
+ 					   ctrl->dh_keysize);
+ 		if (ret < 0) {
+ 			pr_warn("ctrl %d failed to generate public key\n",
+ 				ctrl->cntlid);
+-			kfree(ctrl->dh_key);
+-			ctrl->dh_key = NULL;
++			goto err;
+ 		}
+ 	}
+ 
++	return 0;
++err:
++	kfree_sensitive(ctrl->dh_key);
++	ctrl->dh_key = NULL;
++	crypto_free_kpp(ctrl->dh_tfm);
++	ctrl->dh_tfm = NULL;
++	ctrl->dh_gid = 0;
++	ctrl->dh_keysize = 0;
+ 	return ret;
+ }
+ 
+-- 
+2.55.0
 
