@@ -1,68 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322542;
-	b=HgQhPX56okyuKxWxaIgud6zMJX8i2tgm84qDJvHxo4JqtmdpG6lDkCWO7f3qUWZwfo9R
-	 +i2YC2ZzEwBhEcIhLisEGWWuaNV5OXYx5J/s+8IkWLIRB14LCnUIzvHR7T5kJt18N5QSJ
-	 CKKMMNKGuPQWjl1boJygmDKn5jEKbRC0r30AVP/bpMz+MNT9EwgeoDZOYgJ659SgU+D7p
-	 1t5F8EqbQMZ9mh+GuHwJpAZ1icmT/o3G4IvJSsnG0mJtW7MFZMMNkwvr9nW26/XRBxenW
-	 LfP9MMHVbU1T+un5Ez4MGkw8kAJ6PBAFcDojsdL+b2wMx4CCUXxaRmVDHYCe/+hS99w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322542;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=9iTzNvY7Uy2wxh4/yC+c64lgqi3vm9WV/SAUoSR7IP4=;
-	b=OeKQJKC5gZokmAGI7RuJjk81QN9kX8OPkYH23DT5bGhk+gi5W0OlLW9oo3173hse5Fkr
-	 HJxdQ5CjQnnRRk7U5N7WZgSP5fhgB7Mt9Q8gJB7p9b8dPlLvq+7dDLc+lzIrQ+NHEkvT+
-	 0Fn5tyjL+P1CQOyvAsovIUeRuftGfN0MTuYr3HmlnXAYwZaZqTG/vWyfvmTryoFslcTM4
-	 VkOhwDy8tzxF1dtWbVi6XDm8BVCaC4ymaZ8xmc7KoVi8KXppH6InaaSIATesfT7pUhq9o
-	 5NOB4EVnTMZgFVUHTi+nJxUJmW7u1Tbiq9Csf9pM6om9+treJfTXzRueIHRZmfgMzWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AZfAP+WA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794322549;
+	b=yCDXNxsGT/yrdvS5aDbxt9QWi/67ooLgb4x7UYxobjBHL/uhKtCjTs64014oRfgxVbI4
+	 O6b99TJX0mcW2/MRayJhflzCn6amYiniSQfPyKHHpM7605KaRqsRFNj0kWmis1sYkEBiv
+	 ffeyRaWt+lMepgTM9FVYasE+zrgF8dHtyw4dUXmXzXZlVxIKrmetF/QT3RLOjTniBQYP3
+	 XurIxTdlTswlgSKnp516UyfxPONBC6/kURo/qwBFZBYbcEeW5YGUd9rK4eyUhSeiGhHuK
+	 FTgrZXbPzEYhsXT/Qd9MSNwAfzCMrSXvhnxIFnEstceIOi9RmaHuYlxrxFDGiWe/ohA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322549;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=zSjXnOetE5oKa5v8S9LBrUhcmgizc8ch93AeD/W6gEI=;
+	b=d2IcXSEVbVXFqDkS10/KP8lc3kHMGnVTqbPQ02a/hd2KBjjDPNAiAyU+HixpD+j2HkZH
+	 KGngR46XaGLTRECz1WWUyC6a3rgX3GI6yVHYPYH4HZbGcWVZH0b5sNgF4s6hOxHFTPvX6
+	 Mh/oQ+irELtztP4PCVl+gCl/dTEz4NMDzYOZ1yK1m7tc16oSJ6aQ0410VpWQWT41U9NPV
+	 tNqW46E4biIDyiD3W9uVY7LS6WppTYKg/RuHsmY9/mqzQ2lB5WeW8U+0l8uaa8/4Jn+Wf
+	 qZlh3tBIRJc4E/294YrWiGI2UjSosK5xy3nZLoZ9FXlzhC0zya4QnZfPYMwcCTtWPJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Tcwd7Q8/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA6C606A320;
-	Tue, 10 Nov 2026 14:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA6C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B09F606A325;
+	Tue, 10 Nov 2026 14:55:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AZfAP+WA
-ARC-Seal: i=1; a=rsa-sha256; t=1794322518; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=P+nid//XTmhX1bkpQjiWlLCC/jZue1QxH2DjzJoB9BLs/o0whE7Jwrhud1S/B9SJagyjI1S6YMVi2DKk7KZm3oWlf7ye8Try18aW7YwogrMmJdSAVO94TGxariIpjZfyeCxV2QoZJO2RYyY7aDRWwUzy65cVBe1sCmmqgycoGsg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794322518; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9iTzNvY7Uy2wxh4/yC+c64lgqi3vm9WV/SAUoSR7IP4=; 
-	b=E/o2LlsUDPGK18ieTU/Qs4wYz/6yyR9UY+1C01o6W7mXZtF2lyRSKMPDayCFpFfxYZZ3czi3E+TCg1ayGBT+saMjMfX6rn5QMElQzWJeXTCtpzlW9TUEpTaA3dugxgA/Zfm/ByBkv5KqflvHDxY8KRaPn3kcQQoE4xzI9+I2Av4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=AZfAP+WAKnLO/LgAor/UnG4BaxlcChZXI4bVO+Xq7/TrvsfcnB55tJWiQML2aL9/QJzKCkKr9QlEiwK/tHL3bBf+9FfcydxJPIWwSuuEWtxs0w8T+FptYdziyfM6YluZfr0ScPqN5Yy2+nMoRJLTEQVrOoFkoZpPFOAL3aNnZJQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=9iTzNvY7Uy2wxh4/yC+c64lgqi3vm9WV/SAUoSR7IP4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179432251690026.33458305795125;
-	Tue, 10 Nov 2026 06:55:16 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 7AF03180354; Tue, 10 Nov 2026 15:55:09 +0100 (CET)
-Date: Tue, 10 Nov 2026 15:55:09 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 2/5] dt-bindings: iommu: arm,smmu-v3: allow clocks
-Message-ID: <avMv7fQuNJZpE_zr@venus>
-References: <20261110-smmu-v3-pcie-pd-v1-0-628819ca44b9@gmail.com>
- <20261110-smmu-v3-pcie-pd-v1-2-628819ca44b9@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tcwd7Q8/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E4C1F008A3;
+	Tue, 10 Nov 2026 14:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322549;
+	bh=zSjXnOetE5oKa5v8S9LBrUhcmgizc8ch93AeD/W6gEI=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=Tcwd7Q8/BgCZr0AJA+q53XtkaEXHNBQAptcCIoE3INOkDT8T++JPLwFgnijhu6LIp
+	 QoJCfJqeBNhK26M7LL9xd4MzXxKVISVDOEW1cYrYEyBiFKRmR2hdLsioEex6m+2Rc5
+	 2AgfVzjCsuMDtAVvAKOrFX1qXAfAYeUYjVl2rownrESZ29DXkmWTHYRM7alPMZLQ6M
+	 DZH727vPlYTYzZb+oco6o/Bkhlk4m5LBSezhlvCb0bhHHiXIMbUlIMDObU3PIfYN46
+	 k7napT6YlagBuXnh78UDBF3WtFBwiJfcd2zG9H8WTZ7Zkc62YNaLopDBhwYuzfc472
+	 iPuH2WgxnRVeQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id B2761F40069;
+	Tue, 10 Nov 2026 09:55:47 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 10 Nov 2026 09:55:47 -0500
+X-ME-Sender: <xms:czDzahOxHA_IGoa_FJdwV0BFPQw-nSdKO6kKGUN5puCfrxj2G2sK_w>
+    <xme:czDzauxKYck9zKSqhpZaTHxPL9lIOi42MPCnrNTR7eaQqnpkmbe8dEx0PuhUogQkg
+    tb2W38kOzksOJlDJ4uTGR7-rkbiwtctKuF5oVtOm556TqS1yjjUw9U>
+X-ME-Proxy-Cause: dmFkZTE8jIcOTzT9axQiHwEjJScKTRkNH3ZVhgYbwXrBMnGwr/PZk5kUfGxy+RC0ezRM03
+    2Axgl1A3kstcvJQqQJ+tEirxS634eXBQm2b+wwk+7byJnMoEdYYw7Lfb7185Bnwoliq1Mt
+    XZ8lliUhOZ8AACZwbl4T2Tc7NYRy4GvnOujvSweRGBGAD4OQXGjTipshhA5n2cB6RQlk4p
+    zmTRFZMOMjoY8cueG7e24ndoN2R/gq/lSNUbCVZu/PUOrAg9f6aovYYa9SSKBBYGtgXYMN
+    0qbpFOi4S4kwXDcxuFcZlmK43Jt2p3+0W9uSzX8U3QJynW/odwma6a1hhpAbc8zEaSnbtk
+    CFI/IAk8YwHJ0hyg7qaH8oiiVC3V/1ZiobIhoPO231VrqQk5oaP4jl+jS7yMnBbNxynDhF
+    /tTsfxMaF/A9xwJBu4sKm+3lzwzMEEbqt79mE4Lq/VAgowI2/Z3gVdFMTE48DIB1KcUvAe
+    gGFx1Bx/tQmWXfeE09uUSkiQ2KYN+OrlgTMnrepjVRxO73rY2t7sodPh2AhJIAG1ZYT5ga
+    3nwb3G0mQrnmFOm4Qa4C2JwbajMdJBWMeam4uZKQraajbqcBHzCXvMtQm1fQbm3S2rexTo
+    KA6wW/vDabSoXlut9Nm5uKTSjp20eGQ9lpLOxOz31c8eLm8Mlp10sjOYDNZA
+X-ME-Proxy: <xmx:czDzaoanLMdLTFqhzMhrxv5H09chgFe3GMMhc1XBCkfiMJQ_ckta8Q>
+    <xmx:czDzauzWTK7EYc76X_4JSXvP7e9Yqejr2yggz6O-tuvCpsEWBQGUaQ>
+    <xmx:czDzasWQEDY8T3p3eaJhPzKDKFxYGPCQnFb1-n-prg7tBs3f0gJpWA>
+    <xmx:czDzaqbpJaYjvNkk5zy3xoww5EsXMA5_awnvU25FYCgSdhgQQ41Hfg>
+    <xmx:czDzavOKwCwywHfR1JNgdmNe33GAeUXrw31wmu_3YBRbMsucyl2ChD_t>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 7D2B9780070; Tue, 10 Nov 2026 09:55:47 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,93 +77,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="apkvvzaxcdcph66e"
-Content-Disposition: inline
-In-Reply-To: <20261110-smmu-v3-pcie-pd-v1-2-628819ca44b9@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.310.16
-X-ZohoMailClient: External
+X-ThreadId: AKCAcWHxcB8B
+Date: Tue, 10 Nov 2026 09:55:27 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Christian Brauner" <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: "Jann Horn" <jannh@google.com>, "Chris Mason" <mason@kernel.org>,
+ "Josef Bacik" <josef@toxicpanda.com>, "Christoph Hellwig" <hch@lst.de>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>, "Jan Kara" <jack@suse.cz>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ target-devel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org,
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ fuse-devel@lists.linux.dev, linux-efi@vger.kernel.org,
+ xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev,
+ linux-s390@vger.kernel.org, "Linuxppc Dev" <linuxppc-dev@lists.ozlabs.org>,
+ linux-usb@vger.kernel.org, "Amir Goldstein" <amir73il@gmail.com>,
+ linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org
+Message-Id: <47b8b8cb-aadb-4f84-aa5c-c5a74d73fac1@app.fastmail.com>
+In-Reply-To: <20261110-work-loop-pseudo-v1-21-4c998976c6c7@kernel.org>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-21-4c998976c6c7@kernel.org>
+Subject: Re: [PATCH RFC 21/41] nfsd: use fc_init_pseudo()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
 
---apkvvzaxcdcph66e
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/5] dt-bindings: iommu: arm,smmu-v3: allow clocks
-MIME-Version: 1.0
 
-Hi,
-
-On Tue, Nov 10, 2026 at 07:11:49AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> Some SoCs feed the SMMUv3 from a clock that the OS controls. On the
-> Rockchip RK3588 the MMU-600 for PCIe runs from ACLK_MMU_PCIE, whose only
-> other consumers are the PCIe controllers. When no PCIe controller is
-> enabled, the clock framework gates it as unused, and the SMMU can no
-> longer be accessed.
->=20
-> Allow up to four clocks, so that such a clock can be described and held
-> by the SMMU driver.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+On Tue, Nov 10, 2026, at 4:14 AM, Christian Brauner wrote:
+> Initialize the nfsd filesystem as a pseudo filesystem. This raises
+> SB_I_PSEUDO and also SB_I_NOEXEC and SB_I_NODEV. It never holds
+> executables or device nodes.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 > ---
+>  fs/nfsd/nfsctl.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+> index f32311f2d7cf..ce2666deddbd 100644
+> --- a/fs/nfsd/nfsctl.c
+> +++ b/fs/nfsd/nfsctl.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/namei.h>
+>  #include <linux/ctype.h>
+>  #include <linux/fs_context.h>
+> +#include <linux/pseudo_fs.h>
+> 
+>  #include <linux/sunrpc/cache.h>
+>  #include <linux/sunrpc/svcsock.h>
+> @@ -1375,6 +1376,7 @@ static int nfsd_init_fs_context(struct fs_context *fc)
+>  {
+>  	put_user_ns(fc->user_ns);
+>  	fc->user_ns = get_user_ns(fc->net_ns->user_ns);
+> +	fc_init_pseudo(fc);
+>  	fc->ops = &nfsd_fs_context_ops;
+>  	return 0;
+>  }
+>
+> -- 
+> 2.53.0
 
-This does not explain why a maximum of four clocks is allowed.
+Acked-by: Chuck Lever <cel@kernel.org>
 
-Greetings,
 
--- Sebastian
-
->  Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/D=
-ocumentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> index c8f22dfdb1db..f8a74730667c 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-> @@ -63,6 +63,13 @@ properties:
-> =20
->    msi-parent: true
-> =20
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 4
-> +    description:
-> +      Clocks needed to access the SMMU registers and to keep its transla=
-tion
-> +      units running, if they are not managed by firmware.
-> +
->    power-domains:
->      maxItems: 1
-> =20
->=20
-> --=20
-> 2.55.0
->=20
->=20
->=20
-
---apkvvzaxcdcph66e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrzMEwACgkQ2O7X88g7
-+ppLEw/+MNtpw8yw9i0ZkKzRkK8q/EzZMGPQ599QxbdAR88xtnYi6Htl4uE73QyK
-WkyMrX/NIplWZu5I44J68aJC+H+jWvOxTEO6apPIQFOuK0dznO/Y6m0GRtFz7p4s
-4od00k+xpLP/76wW0Ib4d9sSXxyeMv9lXq+1Auv3YkA5a7p+hcpzRDejRrg0udag
-xPUiy4++1yAAkaYlBZyR71EqgXkRRTM9a2sDqwlQfK3nsnrWuoPxl4S6Bk67cfOT
-U7JRIGKBiKTmMjOU5D0ESw5czT+O9R/bVHdeUnDtSrLyAMxfvjBQv9YLarCHkYmh
-5keolQEbb8OzeyEKaj/gFhi9C6eqh5d5D538Zs1Q6pCrSs5BnzN+3BP3CFrhk39G
-xjbb2XCo3L+zz0zaiE43XkqsLIz2XujWpWt3HrKSiAQuga0vDZ701isJ/wwYbFbX
-WlG+e7XtUKDgbux0s07qRP0dW+/i5jdIx+qW6o/KtGAx4QRgoogiEhxQC7GE8ut8
-DTKO3GyJg3oGVbdR2IsEDnhkWpgIJlSRh/GbK5SmMUtzQS+veirXv5rd7QvmXXle
-yi3i50b1eY17V2SDt1GuITSD7bfqfd5oZOYnWazdDEdiX0nTlBfDxFH82eu/TlzG
-p08cMLFJp/9F2TjNoK0NyMzF6Wx22nxxoj54u0RLkMgJlXa6j8E=
-=kunh
------END PGP SIGNATURE-----
-
---apkvvzaxcdcph66e--
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
