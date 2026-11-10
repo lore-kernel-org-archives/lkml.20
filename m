@@ -1,89 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794283247;
-	b=Vh1qtVwHRxxlipQeJnQocYLUkIpQO5D3/alXLZ92tOduUiass893I17u6zy69z1hFYGp
-	 m052UrT+zgGF8y+f7n774cPmkt99rfHFzAbNkqFMt6o195a0TsE4+d0NzfCRaNnekj32T
-	 fdrrtVm43m9fvE0SoqRiPJpLtRNLSorlMJvvxUiVNojWsvzoGX3PLn6PcTpvR8VviNh34
-	 Wdgia//IAEqUYqKOEbWkErhfxMwlXW3Ehj4u9whdLBk8MpeD7dq0ts+1IgsoHHO8my5fJ
-	 hLjT6stss3bU31IdXuqm2kcaz0C94ojGK1YmBoPIr0qTut9tQGh+SutAR6muT2tD46Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283247;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=AMLfsgd2///WRofDujebt5cSA9Zf11vcK5RD88/TdEI=;
-	b=n6Mm4JdvaXTle59Alqq/VIZzn+QTeyX54cCAmsBPC4+9lu2sZfyp+hVk4QWLYt/vqEC0
-	 X0TlcIdjksvYjcPIRGcz5DaykvTVNmH03CPNfBJelOKyyhwwWxUACCKvuYbtWsLNtYPYw
-	 ZFGKCC4JHN4+GF4erJ1p9lL8hVpJ6MAh2aqh0eRMhb6/cdDDg135XeHv5AFj9cQak14nV
-	 gZwepkgVcFX/unnaZtHFjlqyP+7W/yI7ruRvlpZsSKyy9I51dO+g7YFeBA9rjYQhic4Ao
-	 Hvqpn2sej4vnU7sY5mtveT4HIlFh7mPuygk2g/tjvx5abSXK9WOPthmGJ4H9MyNw01w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwzLTbqV;
-	arc=none smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794283265;
+	b=uf7ezeWqvcqua4V11J1JGg1WFDjIfL0EJBDvFNR/Nw62Q2jZOcE/gglBSp7isFzdsrtb
+	 mL2Mj618ECQ7TDp+O4vtkcWCH1/7lmdMeFIsB/Jv/MiHf4lwL3kt+w2VgCXUYpZsaa3qf
+	 EyVOukMwVwgggiQONZdz2KkbIcRmq0DV9b1QdYhtJXQMo3uSChwOV+lZete1CfucGKaTZ
+	 omesPBvPoZ9oDhk2U0+ws1qMx10dtNVjii3YXrZpXiKmnBD5eRjQBy2F5pZAf9I3V2RuL
+	 7AIQgYs1Xi53UzvrI5HU1LJrv9HUVr7mm031i/pqd1MQaBDIgzbea9XwfTtlG16OEqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283265;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zs6ukZfbAFX9b2vxcr0AVM9lrZdxCbvtGtCbdt2cNa8=;
+	b=Zs+9uasOj3jJUJvfbN4HQx5Z/KZapJL6OWFWC1TUjYK5hJVPJO2Gv0F/ysxE+3rWO9/f
+	 6PFn9Oc8mVju2tL9UiGOxuGMSvJ8i0lxwYOJRqzhgrVLGMzbozJryzQKiXuceuvnWrXl/
+	 oDL31W/Dwae8p/hY7fXh4X6GuK6FVBR6iMIiiJsU17kkSHmm71AyabFHbegd3ea2jM4Ov
+	 7kks/6afeefmTeCaQ1vaw0VDVmkTSKWno7KNUVtStgmnmDqdefBCwB2/0nSJhiUZJJvyX
+	 O4M1mmOnEsCwJMnuMQRk5hNV1UzMLicuOlieTJWfCwnF3Wmtn0Cq9Yy1LYS6qOt405w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XhyaIy/j";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D7D60A2600;
+	Tue, 10 Nov 2026 04:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhyaIy/j
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794283265;
+	b=BaOi7a4bLYLsBeSGpxiPhw0jJ0Hji9YZOLUTWO4/JjJyRKEfkJNUPYbNcGempiUi7EX0
+	 t8UQ1tk2Kq5S0G1E/6Vf9EJdneuzAIgQrpQOY+vPZtfRP6KgF76MCUk9U9x6ilQYk4J5W
+	 0UIb/fgglyNcW7YFlDSwoqXwDp3C/o7Hfp3z4iMQckMQaHnnnZtFM4WkLBwsSRP9NbgCu
+	 glF9SEVT+ANsnXYbx7zzFVI7boyG6i00VT1vBz34ZA2Kjot4qkz8vLhf5TBo3z7158WDV
+	 Lpsf2+fh/VUlxJ68+7ylQqJIt13hUntxSbwg+jOd+5U5ZEosPEzJQW6gw1QkNz/kD+g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794283265;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zs6ukZfbAFX9b2vxcr0AVM9lrZdxCbvtGtCbdt2cNa8=;
+	b=Y8t0fImWuj+pvcSucpsF2iMF8WETr1oa3u6SBmbKkQ+e1HH7NchVjdJUPr0oZg/9tR/r
+	 K0970eaW8sWOaTuRcycCi/NQiZlpvwCoa/z3VApyQFKcpBomJ33NZK8xcWlY7S4YmjV6L
+	 u46TVGb95cm9ZVYz2A7KlK+iIblk9CwaRA3plg1DOOBoNxGXaAj31nyN5slcYJ9EVPICn
+	 yLwsYUwcNYBJMWGoOvXc5jeFQ9D8IN0H5HsBzEPGoKOMSJsuq8Vst4Vs3+sgHSFFraKRu
+	 VV0tp8w7ikf7QSmg2g8QA1fdiYPkzXqxsJXU+XK0+GI2EIx6i6KEz/4k1WgLTwfQ7zQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F6460A3824
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7F6460A3824
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwzLTbqV
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-8479f46ecd8so803360a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:00:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794283246; x=1794888046; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AMLfsgd2///WRofDujebt5cSA9Zf11vcK5RD88/TdEI=;
-        b=lwzLTbqV3Ek4HbFvxkQUBnQH+ABXrtHYDABYJ854e2zPvrNXi80ryjShhzvLF+lJsc
-         Qu6CUTLeEKs3E/Td0KVKtpPV+bRRbz3QT8qSk2tclf1uWA68h3Up4SHRUkR5zgPlh0x3
-         XxmoBHwp7Bv1Js8XStFlG1j/57cUY4EP1+VIpa94xPTSOfY2P8R8r5WW3V1maAMNzypS
-         rkMoBL6nsTMSf9Yu/tdlCj3tdUp/uV2lLv1ABhLn3uCBAfkadh9rjV/Dswk+SQT5S74R
-         cBSCULD+8Wsg2zygA6flKQT3n3RYgl8rmxX1UriU52RQsrrJLZ0sIoC+75b/WB+PtaWd
-         pWfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794283246; x=1794888046;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AMLfsgd2///WRofDujebt5cSA9Zf11vcK5RD88/TdEI=;
-        b=oWD+Zx4xOs1fcpIfhIsnqQHnxzhalBssENW2gBi23iEslioQER4EBtcp7AitxUdZtG
-         SZO2OvfndBtHKcgRcROSVxKmpCSdTX43LrbcLkZqNNvjwT2PsihOyu+QD1DxNBs9GwjO
-         zsQJ+pzDr4k7xv547DeHNJqMR5ghw8oezAsE/KI3LXCvb+uUzjh/O2EXnC+6zXrOTpwi
-         IdqzX5ZRKYMhvK5x4aQCDrgqmHNt9DKBPs99zLBEAqjjgPi98YKJWpH9cI7EdqcHR7gG
-         CBkoEPwew0a0WhJKhs0DK0ayhnmyuxbFqZTYCxsZWlyHEAZ/zNMB7Ae+QgLRRIJh19K1
-         F+Tw==
-X-Gm-Message-State: APuU4Z/+iWDFCzQUPmBro5LSfUxOR0nhbn0NnldpoLeASwikDiBHpcfh
-	doEQmc0dkfgudR8BH4itAGIjjsjPIbxHdDWY5RPMwTZyRjpRIfWoQdqC
-X-Gm-Gg: AYBFou3RSeY/I5wTYvZzOKER0DZ0GaSpikD8YUwkU81zHReKdh+jeT2w8ufyWib/Dpe
-	7yydsg2RH4VZvy8UzQavYBwM44tURWXHK8p1ClrWWVZPnY1dx3WV5KQQ4C3DNQY1Uae9NHtePJT
-	NmDm9m7pZycfMHembIrFBJyZgW3dNhl9NWSiu+i1Yp6FAmB3Gt4vYVPu/n9qOawDCWsJukoJOuR
-	IsnnUM9G15UJ3Gz0aIWpX/RfKZSAVNLfH7HVNCU9lMeeTMXAmEcz5GF+ZhGEELEyicuhHy0Pr7l
-	HIQ5uoefMcRX65nhuUZq+UfXL/B3oeSG3AD+Pgo209kMAbN9UEQrRbQy9I8Ru+MZ0H2rJHw1/QY
-	GhBvnE66Rn9Mft4t7Y2JxSkYoicy5XlpzDvLMaHlNPbZAPjG0zUXoZYjOCc3AUoWfHnKUH4JZR5
-	LSs3fr7O7krF36xKgiRgQEzT5ecS4jxOODDMGPQcXGeW8/6Thg4/XyshpUsB/AjL/NEybezwNQF
-	csH7WpkmcYSRU52IGodqZAFgWUVWncuQgnMgXgPoPpBRd94hgDwVgCkUSXAH6rb6BJzRvg1da3G
-	dKuo4vMxHYzpku1xOdXtGQhGNr0DLgwoQYg4YX+8cbDRc5wN9aPorm+7C3yjC7mNKzvOMDO7SX6
-	cWnF2OZ75EcHqENHKQudeF0LV/Sqy4p84lZ5JQKUWIP+d41DHGfv83Stp7U7ZX8g3o5tIDBmOA6
-	ouujutvB4ZrpRGlgIBkFNoSt0JNnnGSolOo8BQhT/RorMVyg2dvj6CNjRXDiUe52PUrUDywcLB
-X-Received: by 2002:a05:6830:4aca:b0:7fa:ab72:9e01 with SMTP id 46e09a7af769-860dc8464a2mr1224823a34.25.1794283245936;
-        Mon, 09 Nov 2026 20:00:45 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcc1d759sm1028178a34.23.2026.11.09.20.00.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:00:45 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 09 Nov 2026 21:00:23 -0700
-Subject: [PATCH v11 8/8] serial: 8250: retain DMA resources when
- termination fails
+	by smtp.kernel.org (Postfix) with ESMTPS id CDEE61F00904;
+	Tue, 10 Nov 2026 04:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794283265;
+	bh=zs6ukZfbAFX9b2vxcr0AVM9lrZdxCbvtGtCbdt2cNa8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XhyaIy/j90cFsOT8IKi3A1+exn6+TCn1MGblVg852uvUtfLU9pBOeU8KQ+PmNs3Jq
+	 yHZXH3Qa3ioWevDi/LVwTSAM4yDgLhaGXyd/unbGHw3S0SYU074FMFxdThdHiB0klf
+	 S6p7mtPgapWl126wtwiS5FOM8AerMM3fCJxncfIiwNiYl/rrOFi8gzz4Af9TQu+jVo
+	 N+7thMlToJFo8Z1mAzhNIsTUCcuvXiJ/QX13hLLXfKzx6XLvGgkDBYhc1XVOJi1iKb
+	 iuq5vjDstQFUI6rP/xto3F27CzrONENZAto/Rm2Nt1kLO8GPeoJFJzQgI8O3ZrQXZo
+	 FrfLhLsxiDWLw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5B0ED48824;
+	Tue, 10 Nov 2026 04:00:52 +0000 (UTC)
+From: Eric Davis via B4 Relay <devnull+eric.davis.broadcom.com@kernel.org>
+Date: Mon, 09 Nov 2026 20:00:44 -0800
+Subject: [PATCH rdma-next v3 11/13] RDMA/core: extended memory registration
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,147 +83,528 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-submit-serial-8250-dma-cancel-v1-v11-8-6364edca63d6@gmail.com>
-References: <20261109-submit-serial-8250-dma-cancel-v1-v11-0-6364edca63d6@gmail.com>
-In-Reply-To: <20261109-submit-serial-8250-dma-cancel-v1-v11-0-6364edca63d6@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Tony Lindgren <tony@atomide.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Richard Genoud <richard.genoud@bootlin.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
- Timur Tabi <timur@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
+Message-Id: <20261109-uet-ib-core-v3-11-3e7e7ffed2e9@broadcom.com>
+References: <20261109-uet-ib-core-v3-0-3e7e7ffed2e9@broadcom.com>
+In-Reply-To: <20261109-uet-ib-core-v3-0-3e7e7ffed2e9@broadcom.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Eric Davis <eric.davis@broadcom.com>
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794283250; l=16788;
+ i=eric.davis@broadcom.com; s=20261014; h=from:subject:message-id;
+ bh=/P1ZKVTCIQYFoDk1FAhmhsp0eJwheAwpJBooMc7LKmk=;
+ b=3j1xiVPLFCvwHv72ftQJLkElOJIyQOFO/mogVu8W6t7Slj1iVqs1xkr85qbtG+MSzGtdq2it/
+ bBKGCng5DxtCY40UAhBC4mLvkqPgoegFt8MhCXftS4AgpBiqlbrKoWV
+X-Developer-Key: i=eric.davis@broadcom.com; a=ed25519;
+ pk=uy3oCTOYBipIPjryXGMynBmtPvbO6qN2FOrduzpiI4A=
+X-Endpoint-Received: by B4 Relay for eric.davis@broadcom.com/20261014 with
+ auth_id=1186
+X-Original-From: Eric Davis <eric.davis@broadcom.com>
+Reply-To: eric.davis@broadcom.com
+Content-Transfer-Encoding: 7bit
 
-serial8250_release_dma() ignores the return from dmaengine_terminate_sync()
-before freeing the coherent RX buffer, unmapping the TX FIFO and releasing
-the channels. If the provider fails to stop a channel, the DMAengine
-wrapper returns the error without synchronizing its callbacks. Hardware
-or a detached callback can then access the released storage and state.
+From: Eric Davis <eric.davis@broadcom.com>
 
-Checking the error and returning early would not preserve their lifetime:
-serial core frees the TX FIFO after the driver's shutdown callback returns,
-and port removal can then release the callback context as well.
+Memory registration for an unconnected transport may take more than an
+address and an access mask. A job to bind the region to, a key the caller
+chose, or a region carved out of another. None of it fits the write()
+command, so add a device method that takes the wider set of attributes
+and reach it when the ioctl carries any of these new fields.
 
-Require successful synchronous termination of both channels before
-releasing any DMA resources. Retry failed channels after a sleep outside
-the port lock, leaving channels that have already stopped and drained
-alone. Keep the shutdown gate and storage reservation in place throughout
-the retries.
+A region bound to a job holds a reference to its job key until it is
+deregistered.
 
-Start retries with a 1 ms sleep and double it up to one second. This
-makes short-lived failures responsive while bounding sustained retry
-activity; neither delay is a hardware timeout. Report the initial failure
-and ongoing failures with the elapsed time and current RX/TX error codes.
-Track the five-second progress-report interval separately for each
-teardown, so failures on different ports are reported independently.
-Report recovery once both channels have stopped and drained.
-
-A permanently failed DMA engine blocks close or removal. This deliberately
-retains the buffers, mappings, channels and callback context until the
-provider can establish that they are no longer in use.
-
-Fixes: 9ee4b83e51f7 ("serial: 8250: Add support for dmaengine")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-Reviewed-by: Raul E Rangel <rrangel@chromium.org>
+Signed-off-by: Eric Davis <eric.davis@broadcom.com>
 ---
- drivers/tty/serial/8250/8250_dma.c | 50 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 2 deletions(-)
+ drivers/infiniband/core/device.c              |   1 +
+ drivers/infiniband/core/uverbs_cmd.c          |   7 +-
+ drivers/infiniband/core/uverbs_std_types_mr.c | 187 +++++++++++++++++++++++++-
+ drivers/infiniband/core/verbs.c               |   9 ++
+ include/rdma/ib_verbs.h                       |  46 +++++++
+ include/uapi/rdma/ib_user_ioctl_cmds.h        |   5 +
+ include/uapi/rdma/ib_user_ioctl_verbs.h       |  10 ++
+ 7 files changed, 260 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
-index b1f2998e7735..6efeb16fd994 100644
---- a/drivers/tty/serial/8250/8250_dma.c
-+++ b/drivers/tty/serial/8250/8250_dma.c
-@@ -565,6 +565,53 @@ int serial8250_request_dma(struct uart_8250_port *p)
- }
- EXPORT_SYMBOL_GPL(serial8250_request_dma);
+diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
+index cf2a59afcf76..fd45decf9c4f 100644
+--- a/drivers/infiniband/core/device.c
++++ b/drivers/infiniband/core/device.c
+@@ -3028,6 +3028,7 @@ void ib_set_device_ops(struct ib_device *dev, const struct ib_device_ops *ops)
+ 	SET_DEVICE_OP(dev_ops, reg_dm_mr);
+ 	SET_DEVICE_OP(dev_ops, reg_user_mr);
+ 	SET_DEVICE_OP(dev_ops, reg_user_mr_dmabuf);
++	SET_DEVICE_OP(dev_ops, reg_user_mr_ex);
+ 	SET_DEVICE_OP(dev_ops, req_notify_cq);
+ 	SET_DEVICE_OP(dev_ops, rereg_user_mr);
+ 	SET_DEVICE_OP(dev_ops, resize_user_cq);
+diff --git a/drivers/infiniband/core/uverbs_cmd.c b/drivers/infiniband/core/uverbs_cmd.c
+index afe891e7b42d..fa9a02ef3070 100644
+--- a/drivers/infiniband/core/uverbs_cmd.c
++++ b/drivers/infiniband/core/uverbs_cmd.c
+@@ -731,6 +731,7 @@ static int ib_uverbs_reg_mr(struct uverbs_attr_bundle *attrs)
+ 	mr->type    = IB_MR_TYPE_USER;
+ 	mr->dm	    = NULL;
+ 	mr->sig_attrs = NULL;
++	ib_mr_init_core_refs(mr);
+ 	mr->uobject = uobj;
+ 	atomic_inc(&pd->usecnt);
+ 	mr->iova = cmd.hca_va;
+@@ -790,7 +791,10 @@ static int ib_uverbs_rereg_mr(struct uverbs_attr_bundle *attrs)
  
-+static void serial8250_terminate_dma(struct uart_8250_port *p)
-+{
-+	struct uart_8250_dma *dma = p->dma;
-+	unsigned int delay_us = 1 * USEC_PER_MSEC;
-+	ktime_t start, last_report;
-+	int rx_ret, tx_ret;
-+
-+	rx_ret = dmaengine_terminate_sync(dma->rxchan);
-+	tx_ret = dmaengine_terminate_sync(dma->txchan);
-+	if (!rx_ret && !tx_ret)
-+		return;
-+
-+	start = ktime_get();
-+	last_report = start;
-+	dev_err(p->port.dev,
-+		"DMA termination failed: RX %d, TX %d; teardown blocked\n",
-+		rx_ret, tx_ret);
-+
-+	/*
-+	 * Shutdown cannot return while DMA owns storage or callback state:
-+	 * serial core frees the TX FIFO afterwards, and removal frees the port.
-+	 * Retain both channels and retry outside the port lock. A permanently
-+	 * failed DMA engine therefore prevents teardown from completing.
+ 	mr = uobj->object;
+ 
+-	if (mr->dm) {
++	/* A region bound to a job or to another region is re-created rather
++	 * than re-registered, so those bindings can't be lost or bypassed.
 +	 */
-+	while (rx_ret || tx_ret) {
-+		fsleep(delay_us);
-+		/* Retry promptly at first, then limit sustained retry activity. */
-+		delay_us = min(delay_us * 2, 1 * USEC_PER_SEC);
-+		if (rx_ret)
-+			rx_ret = dmaengine_terminate_sync(dma->rxchan);
-+		if (tx_ret)
-+			tx_ret = dmaengine_terminate_sync(dma->txchan);
-+		if (rx_ret || tx_ret) {
-+			ktime_t now = ktime_get();
++	if (mr->dm || mr->jkey || mr->parent || atomic_read(&mr->usecnt)) {
+ 		ret = -EINVAL;
+ 		goto put_uobjs;
+ 	}
+@@ -838,6 +842,7 @@ static int ib_uverbs_rereg_mr(struct uverbs_attr_bundle *attrs)
+ 		new_mr->device = new_pd->device;
+ 		new_mr->pd = new_pd;
+ 		new_mr->type = IB_MR_TYPE_USER;
++		ib_mr_init_core_refs(new_mr);
+ 		new_mr->uobject = uobj;
+ 		atomic_inc(&new_pd->usecnt);
+ 		new_uobj->object = new_mr;
+diff --git a/drivers/infiniband/core/uverbs_std_types_mr.c b/drivers/infiniband/core/uverbs_std_types_mr.c
+index 0c72f801e0d3..8d281d13d210 100644
+--- a/drivers/infiniband/core/uverbs_std_types_mr.c
++++ b/drivers/infiniband/core/uverbs_std_types_mr.c
+@@ -40,8 +40,13 @@ static int uverbs_free_mr(struct ib_uobject *uobject,
+ 			  enum rdma_remove_reason why,
+ 			  struct uverbs_attr_bundle *attrs)
+ {
+-	return ib_dereg_mr_user((struct ib_mr *)uobject->object,
+-				&attrs->driver_udata);
++	struct ib_mr *mr = uobject->object;
 +
-+			if (ktime_ms_delta(now, last_report) < 5 * MSEC_PER_SEC)
-+				continue;
-+			dev_err(p->port.dev,
-+				"DMA termination still failing after %lld ms: RX %d, TX %d\n",
-+				ktime_ms_delta(now, start), rx_ret, tx_ret);
-+			last_report = now;
-+		}
-+	}
-+	dev_info(p->port.dev, "DMA termination recovered after %lld ms\n",
-+		 ktime_ms_delta(ktime_get(), start));
++	/* regions derived from this one still use it */
++	if (atomic_read(&mr->usecnt))
++		return -EBUSY;
++
++	return ib_dereg_mr_user(mr, &attrs->driver_udata);
+ }
+ 
+ static int UVERBS_HANDLER(UVERBS_METHOD_ADVISE_MR)(
+@@ -132,6 +137,7 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DM_MR_REG)(
+ 	mr->pd      = pd;
+ 	mr->type    = IB_MR_TYPE_DM;
+ 	mr->dm      = dm;
++	ib_mr_init_core_refs(mr);
+ 	mr->uobject = uobj;
+ 	atomic_inc(&pd->usecnt);
+ 	atomic_inc(&dm->usecnt);
+@@ -246,6 +252,9 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_DMABUF_MR)(
+ 	mr->device = pd->device;
+ 	mr->pd = pd;
+ 	mr->type = IB_MR_TYPE_USER;
++	mr->iova = iova;
++	mr->length = length;
++	ib_mr_init_core_refs(mr);
+ 	mr->uobject = uobj;
+ 	atomic_inc(&pd->usecnt);
+ 
+@@ -266,6 +275,118 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_DMABUF_MR)(
+ 	return ret;
+ }
+ 
++/* Attributes that an extended MR registration uses. The 64b wide keys are
++ * not in the list as they are not a property of how the MR was registered
++ * and instead a device property which could be used by an ordinary register.
++ */
++static const u16 reg_mr_ext_attrs[] = {
++	UVERBS_ATTR_REG_MR_FLAGS,
++	UVERBS_ATTR_REG_MR_JKEY_HANDLE,
++	UVERBS_ATTR_REG_MR_PARENT_MR_HANDLE,
++	UVERBS_ATTR_REG_MR_DERIVE_CNT,
++	UVERBS_ATTR_REG_MR_REQ_RKEY64,
++};
++
++static bool reg_mr_has_ext_attrs(struct uverbs_attr_bundle *attrs)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(reg_mr_ext_attrs); i++)
++		if (uverbs_attr_is_valid(attrs, reg_mr_ext_attrs[i]))
++			return true;
++
++	return false;
 +}
 +
- void serial8250_release_dma(struct uart_8250_port *p)
++static int reg_mr_ex_attr(struct uverbs_attr_bundle *attrs, struct ib_pd *pd,
++			  struct ib_mr_ex_attr *ex)
++{
++	u64 caps = pd->device->attrs.device_cap_flags;
++	int ret;
++
++	ret = uverbs_get_flags32(&ex->flags, attrs, UVERBS_ATTR_REG_MR_FLAGS,
++				 (IB_UVERBS_REG_MR_USER_RKEY |
++				  IB_UVERBS_REG_MR_IDEMPOTENT_SAFE));
++	if (ret)
++		return ret;
++
++	if (uverbs_attr_is_valid(attrs, UVERBS_ATTR_REG_MR_JKEY_HANDLE)) {
++		struct ib_jkey *jkey = uverbs_attr_get_obj(
++			attrs, UVERBS_ATTR_REG_MR_JKEY_HANDLE);
++
++		if (IS_ERR(jkey))
++			return PTR_ERR(jkey);
++
++		/* a key acts within the PD it was made on */
++		if (jkey->pd != pd)
++			return -EINVAL;
++
++		if (!(caps & (IB_DEVICE_MR_JOB_RESTRICTED |
++			      IB_DEVICE_MR_QP_JOB_RESTRICTED)))
++			return -EOPNOTSUPP;
++
++		ex->jkey = jkey;
++	}
++
++	/* a region carved out of another, execute the range check */
++	if (uverbs_attr_is_valid(attrs, UVERBS_ATTR_REG_MR_PARENT_MR_HANDLE)) {
++		struct ib_mr *parent = uverbs_attr_get_obj(
++			attrs, UVERBS_ATTR_REG_MR_PARENT_MR_HANDLE);
++
++		if (IS_ERR(parent))
++			return PTR_ERR(parent);
++
++		if (parent->pd != pd || parent->type != IB_MR_TYPE_USER)
++			return -EINVAL;
++
++		/* a window stays within its parent's job */
++		if (parent->jkey &&
++		    (!ex->jkey || ex->jkey->job != parent->jkey->job))
++			return -EINVAL;
++
++		if ((ex->iova < parent->iova) ||
++		    (ex->length > parent->length) ||
++		    ((ex->iova - parent->iova) >
++		     (parent->length - ex->length)))
++			return -EINVAL;
++
++		ex->parent_mr = parent;
++	}
++
++	if (uverbs_attr_is_valid(attrs, UVERBS_ATTR_REG_MR_DERIVE_CNT)) {
++		ret = uverbs_copy_from(&ex->derive_cnt, attrs,
++				       UVERBS_ATTR_REG_MR_DERIVE_CNT);
++		if (ret)
++			return ret;
++	}
++
++	if (ex->flags & IB_UVERBS_REG_MR_USER_RKEY) {
++		if (!(caps & IB_DEVICE_USER_RKEY))
++			return -EOPNOTSUPP;
++
++		ret = uverbs_copy_from(&ex->req_rkey64, attrs,
++				       UVERBS_ATTR_REG_MR_REQ_RKEY64);
++		if (ret)
++			return ret;
++
++		if (ex->req_rkey64 > U32_MAX && !(caps & IB_DEVICE_KEY64))
++			return -EOPNOTSUPP;
++	} else if (uverbs_attr_is_valid(attrs,
++					UVERBS_ATTR_REG_MR_REQ_RKEY64)) {
++		/* a key with no flag to say it is the caller's */
++		return -EINVAL;
++	}
++
++	/* Idempotent-safe is a property of the key so it can only be asked
++	 * for on a key the caller chose.
++	 */
++	if ((ex->flags & IB_UVERBS_REG_MR_IDEMPOTENT_SAFE) &&
++	    !(ex->flags & IB_UVERBS_REG_MR_USER_RKEY))
++		return -EINVAL;
++
++	return 0;
++}
++
+ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 	struct uverbs_attr_bundle *attrs)
  {
- 	struct uart_8250_dma *dma = p->dma;
-@@ -574,9 +621,9 @@ void serial8250_release_dma(struct uart_8250_port *p)
+@@ -276,10 +397,12 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 	u32 valid_access_flags = IB_ACCESS_SUPPORTED;
+ 	u64 length, iova, fd_offset = 0, addr = 0;
+ 	struct ib_device *ib_dev = pd->device;
++	struct ib_mr_ex_attr ex = { .fd = -1 };
+ 	struct ib_dmah *dmah = NULL;
+ 	bool has_fd_offset = false;
+ 	bool has_addr = false;
+ 	bool has_fd = false;
++	bool has_ext;
+ 	u32 access_flags;
+ 	struct ib_mr *mr;
+ 	int fd;
+@@ -293,6 +416,10 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 	if (ret)
+ 		return ret;
  
- 	cancel_work_sync(&dma->tx_flush_work);
- 	cancel_work_sync(&dma->rx_flush_work);
-+	serial8250_terminate_dma(p);
++	has_ext = reg_mr_has_ext_attrs(attrs);
++	if (has_ext && !ib_dev->ops.reg_user_mr_ex)
++		return -EOPNOTSUPP;
++
+ 	if (uverbs_attr_is_valid(attrs, UVERBS_ATTR_REG_MR_ADDR)) {
+ 		ret = uverbs_copy_from(&addr, attrs,
+ 				       UVERBS_ATTR_REG_MR_ADDR);
+@@ -318,7 +445,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 	}
  
- 	/* Release RX resources */
--	dmaengine_terminate_sync(dma->rxchan);
- 	scoped_guard(uart_port_lock_irqsave, &p->port) {
- 		dma->rx_running = 0;
- 		dma->rx_terminating = false;
-@@ -588,7 +635,6 @@ void serial8250_release_dma(struct uart_8250_port *p)
- 	dma->rxchan = NULL;
+ 	if (has_fd) {
+-		if (!ib_dev->ops.reg_user_mr_dmabuf)
++		/* an extended registration hands the fd to reg_user_mr_ex */
++		if (!has_ext && !ib_dev->ops.reg_user_mr_dmabuf)
+ 			return -EOPNOTSUPP;
  
- 	/* Release TX resources */
--	dmaengine_terminate_sync(dma->txchan);
- 	dma_unmap_single(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
- 			 UART_XMIT_SIZE, DMA_TO_DEVICE);
- 	dma_release_channel(dma->txchan);
+ 		/* FD requires offset and can't come with addr */
+@@ -358,7 +486,27 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 	if (ret)
+ 		return ret;
+ 
+-	if (has_fd)
++	if (has_ext) {
++		ex.addr = addr;
++		ex.length = length;
++		ex.iova = iova;
++		ex.access_flags = access_flags;
++		ex.dmah = dmah;
++		if (has_fd) {
++			/* -1 already names host memory to the driver */
++			if (fd < 0)
++				return -EBADF;
++			ex.fd = fd;
++			ex.fd_offset = fd_offset;
++		}
++
++		ret = reg_mr_ex_attr(attrs, pd, &ex);
++		if (ret)
++			return ret;
++
++		mr = pd->device->ops.reg_user_mr_ex(pd, &ex,
++						    &attrs->driver_udata);
++	} else if (has_fd)
+ 		mr = pd->device->ops.reg_user_mr_dmabuf(pd, fd_offset, length,
+ 							iova, fd, access_flags,
+ 							dmah, attrs);
+@@ -373,12 +521,26 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 	mr->device = pd->device;
+ 	mr->pd = pd;
+ 	mr->type = IB_MR_TYPE_USER;
++	mr->iova = iova;
++	mr->length = length;
++	ib_mr_init_core_refs(mr);
+ 	mr->uobject = uobj;
+ 	atomic_inc(&pd->usecnt);
+ 	if (dmah) {
+ 		mr->dmah = dmah;
+ 		atomic_inc(&dmah->usecnt);
+ 	}
++
++	/* hold a reference to the job key, deregistration will drop it */
++	mr->jkey = ex.jkey;
++	if (ex.jkey)
++		atomic_inc(&ex.jkey->usecnt);
++
++	/* and to the region this one was derived from */
++	mr->parent = ex.parent_mr;
++	if (ex.parent_mr)
++		atomic_inc(&ex.parent_mr->usecnt);
++
+ 	rdma_restrack_new(&mr->res, RDMA_RESTRACK_MR);
+ 	rdma_restrack_set_name(&mr->res, NULL);
+ 	rdma_restrack_add(&mr->res);
+@@ -529,6 +691,23 @@ DECLARE_UVERBS_NAMED_METHOD(
+ 	UVERBS_ATTR_PTR_OUT(UVERBS_ATTR_REG_MR_RESP_RKEY,
+ 			    UVERBS_ATTR_TYPE(u32),
+ 			    UA_MANDATORY),
++	UVERBS_ATTR_FLAGS_IN(UVERBS_ATTR_REG_MR_FLAGS,
++			     enum ib_uverbs_reg_mr_flags,
++			     UA_OPTIONAL),
++	UVERBS_ATTR_IDR(UVERBS_ATTR_REG_MR_JKEY_HANDLE,
++			UVERBS_OBJECT_JKEY,
++			UVERBS_ACCESS_READ,
++			UA_OPTIONAL),
++	UVERBS_ATTR_IDR(UVERBS_ATTR_REG_MR_PARENT_MR_HANDLE,
++			UVERBS_OBJECT_MR,
++			UVERBS_ACCESS_READ,
++			UA_OPTIONAL),
++	UVERBS_ATTR_PTR_IN(UVERBS_ATTR_REG_MR_DERIVE_CNT,
++			   UVERBS_ATTR_TYPE(u32),
++			   UA_OPTIONAL),
++	UVERBS_ATTR_PTR_IN(UVERBS_ATTR_REG_MR_REQ_RKEY64,
++			   UVERBS_ATTR_TYPE(u64),
++			   UA_OPTIONAL),
+ 	UVERBS_ATTR_UHW());
+ 
+ DECLARE_UVERBS_NAMED_METHOD_DESTROY(
+diff --git a/drivers/infiniband/core/verbs.c b/drivers/infiniband/core/verbs.c
+index 9359318141b7..a80d750777f4 100644
+--- a/drivers/infiniband/core/verbs.c
++++ b/drivers/infiniband/core/verbs.c
+@@ -2374,6 +2374,7 @@ struct ib_mr *ib_reg_user_mr(struct ib_pd *pd, u64 start, u64 length,
+ 	mr->type = IB_MR_TYPE_USER;
+ 	mr->pd = pd;
+ 	mr->dm = NULL;
++	ib_mr_init_core_refs(mr);
+ 	atomic_inc(&pd->usecnt);
+ 	mr->iova =  virt_addr;
+ 	mr->length = length;
+@@ -2405,6 +2406,8 @@ int ib_dereg_mr_user(struct ib_mr *mr, struct ib_udata *udata)
+ 	struct ib_pd *pd = mr->pd;
+ 	struct ib_dm *dm = mr->dm;
+ 	struct ib_dmah *dmah = mr->dmah;
++	struct ib_jkey *jkey = mr->jkey;
++	struct ib_mr *parent = mr->parent;
+ 	struct ib_sig_attrs *sig_attrs = mr->sig_attrs;
+ 	int ret;
+ 
+@@ -2417,6 +2420,10 @@ int ib_dereg_mr_user(struct ib_mr *mr, struct ib_udata *udata)
+ 			atomic_dec(&dm->usecnt);
+ 		if (dmah)
+ 			atomic_dec(&dmah->usecnt);
++		if (jkey)
++			atomic_dec(&jkey->usecnt);
++		if (parent)
++			atomic_dec(&parent->usecnt);
+ 		kfree(sig_attrs);
+ 	}
+ 
+@@ -2464,6 +2471,7 @@ struct ib_mr *ib_alloc_mr(struct ib_pd *pd, enum ib_mr_type mr_type,
+ 	mr->need_inval = false;
+ 	mr->type = mr_type;
+ 	mr->sig_attrs = NULL;
++	ib_mr_init_core_refs(mr);
+ 
+ 	rdma_restrack_new(&mr->res, RDMA_RESTRACK_MR);
+ 	rdma_restrack_parent_name(&mr->res, &pd->res);
+@@ -2525,6 +2533,7 @@ struct ib_mr *ib_alloc_mr_integrity(struct ib_pd *pd,
+ 	mr->need_inval = false;
+ 	mr->type = IB_MR_TYPE_INTEGRITY;
+ 	mr->sig_attrs = sig_attrs;
++	ib_mr_init_core_refs(mr);
+ 
+ 	rdma_restrack_new(&mr->res, RDMA_RESTRACK_MR);
+ 	rdma_restrack_parent_name(&mr->res, &pd->res);
+diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
+index 8be766b80ce0..07fd5731d458 100644
+--- a/include/rdma/ib_verbs.h
++++ b/include/rdma/ib_verbs.h
+@@ -2084,6 +2084,13 @@ struct ib_mr {
+ 		struct list_head	qp_entry;	/* FR */
+ 	};
+ 
++	/* the job this region is restricted to, NULL if it is unrestricted */
++	struct ib_jkey	  *jkey;
++	/* the region this one was derived from, NULL if registered fresh */
++	struct ib_mr	  *parent;
++	/* regions derived from this one that are still registered */
++	atomic_t	   usecnt;
++
+ 	struct ib_dm      *dm;
+ 	struct ib_sig_attrs *sig_attrs; /* only for IB_MR_TYPE_INTEGRITY MRs */
+ 	struct ib_dmah *dmah;
+@@ -2098,6 +2105,28 @@ struct ib_mr {
+ 	struct rdma_restrack_entry res;
+ };
+ 
++struct ib_mr_ex_attr {
++	u64			addr;
++	u64			length;
++	u64			iova;
++	u32			access_flags;	/* enum ib_access_flags */
++	u32			flags;		/* enum ib_uverbs_reg_mr_flags */
++	int			fd;		/* -1 = host memory addr */
++	u64			fd_offset;
++	struct ib_dmah		*dmah;
++	/* bind the region to a job, NULL leaves it unrestricted */
++	struct ib_jkey		*jkey;
++	/* carve/derive the region out of this one, NULL registers fresh. The
++	 * driver refuses a region outside the parent's memory, or with access
++	 * the parent lacks.
++	 */
++	struct ib_mr		*parent_mr;
++	/* how many regions the user expects to derive from this one */
++	u32			derive_cnt;
++	/* the key the user chose, valid with IB_UVERBS_REG_MR_USER_RKEY */
++	u64			req_rkey64;
++};
++
+ struct ib_mw {
+ 	struct ib_device	*device;
+ 	struct ib_pd		*pd;
+@@ -2813,6 +2842,9 @@ struct ib_device_ops {
+ 				       u64 length, u64 virt_addr,
+ 				       int mr_access_flags, struct ib_pd *pd,
+ 				       struct ib_udata *udata);
++	struct ib_mr *(*reg_user_mr_ex)(struct ib_pd *pd,
++					struct ib_mr_ex_attr *attr,
++					struct ib_udata *udata);
+ 	int (*dereg_mr)(struct ib_mr *mr, struct ib_udata *udata);
+ 	int (*query_qp_semantics)(struct ib_device *device,
+ 				  enum ib_qp_type qp_type,
+@@ -4818,6 +4850,20 @@ static inline u32 ib_inc_rkey(u32 rkey)
+ 	return ((rkey + 1) & mask) | (rkey & ~mask);
+ }
+ 
++/**
++ * ib_mr_init_core_refs - clears what core reads back when an MR is
++ *   deregistered.
++ * @mr: struct ib_mr pointer to initialize.
++ *
++ * A driver's MR need not be zeroed, so every path that makes an MR calls this.
++ */
++static inline void ib_mr_init_core_refs(struct ib_mr *mr)
++{
++	mr->jkey = NULL;
++	mr->parent = NULL;
++	atomic_set(&mr->usecnt, 0);
++}
++
+ /**
+  * ib_attach_mcast - Attaches the specified QP to a multicast group.
+  * @qp: QP to attach to the multicast group.  The QP must be type
+diff --git a/include/uapi/rdma/ib_user_ioctl_cmds.h b/include/uapi/rdma/ib_user_ioctl_cmds.h
+index 1de6a1ffd92c..fd8372c0c550 100644
+--- a/include/uapi/rdma/ib_user_ioctl_cmds.h
++++ b/include/uapi/rdma/ib_user_ioctl_cmds.h
+@@ -369,6 +369,11 @@ enum uverbs_attrs_reg_mr_cmd_attr_ids {
+ 	UVERBS_ATTR_REG_MR_FD_OFFSET,
+ 	UVERBS_ATTR_REG_MR_RESP_LKEY,
+ 	UVERBS_ATTR_REG_MR_RESP_RKEY,
++	UVERBS_ATTR_REG_MR_FLAGS,
++	UVERBS_ATTR_REG_MR_JKEY_HANDLE,
++	UVERBS_ATTR_REG_MR_PARENT_MR_HANDLE,
++	UVERBS_ATTR_REG_MR_DERIVE_CNT,
++	UVERBS_ATTR_REG_MR_REQ_RKEY64,
+ };
+ 
+ enum uverbs_attrs_create_counters_cmd_attr_ids {
+diff --git a/include/uapi/rdma/ib_user_ioctl_verbs.h b/include/uapi/rdma/ib_user_ioctl_verbs.h
+index 9ae45f7d3dc0..c0532fa418a7 100644
+--- a/include/uapi/rdma/ib_user_ioctl_verbs.h
++++ b/include/uapi/rdma/ib_user_ioctl_verbs.h
+@@ -303,6 +303,16 @@ struct ib_uverbs_buffer_desc {
+ 	__aligned_u64 length;
+ };
+ 
++/* Extended memory registration, for devices whose memory keys are 64 bits
++ * wide and may be bound to a job. See UVERBS_ATTR_REG_MR_FLAGS.
++ */
++enum ib_uverbs_reg_mr_flags {
++	/* REQ_RKEY64 carries the key, rather than the device assigning one */
++	IB_UVERBS_REG_MR_USER_RKEY		= 1 << 0,
++	/* the region tolerates a replayed idempotent operation */
++	IB_UVERBS_REG_MR_IDEMPOTENT_SAFE	= 1 << 1,
++};
++
+ /* A UET reliable unconnected queue pair number uses all 32 bits:
+  *
+  *	[ absolute 1b | reserved 7b | resource index 12b | PIDonFEP 12b ]
 
 -- 
-2.53.0
+2.56.0
+
 
