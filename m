@@ -1,78 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320385;
-	b=zGj8IHlTmadp8VL6NTfkh2FXRDEl9xgI6v2vGEmppZJz3a0ObGblacbjbQ13qMTKiG1+
-	 MJ+/bWyks3HYUyyB+LiKI+pcFoBooR3v2BS62a9UxYj1KMAo09lmX0Nk1exa4HEC7ptSp
-	 5Bd2ErVtFF/J9H9K73g4rsHo9LUjXciHOgdwMIgebyujmG0+DEHdS6vZKrv88uOPUwBHT
-	 fGlUMHjNSsJouu0/HkdlLxwwuqst5lVVlcU8Efi+BPFMjTtSeW48tCLwEn1MLVglSjdUS
-	 BdG66grMLKpOTP/hTD2xu/r6QNN9chOM/KISlwyV++tzgbDXvpVErlMBmT+IZw6I22g==
+	t=1794320407;
+	b=4WSyb7nqZskvAVjm80cSjt7Al0uAG42UrXABdP2vOO67czXJMpjy82iL3tvTehGFE5nc
+	 JBL/bcuTp/BYVaTI/rqU7VSjy7FTfdN8J2pE2hjHcZYng/SXRRrTNLqBfNivFtJBU7s5O
+	 ltJGYnv9Xr9VXANCHxFKHSXg0A0SEDG0eU3Kt9xguzHAohRJBJlviRibHZbKe5PxTz328
+	 D/9uN7BxELZxS1mANgODS4ikb9D00w6lmYn/mJAMmLw14QfmF4izYuHnrwUd8oFNdK+/j
+	 PsOH1mMPPYOntsqQPIGsidqOR4yF8+kRUpmDm1Heu1VPUoC1MUkg4+sjNkR0XQOqE6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320385;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=POoseU5QwHuTaUUqTtUaCKWgFktdvvSiU7J4FyrRut8=;
-	b=j3lr79FWEA0WbUb1yxhcCxlPogf3hOQptiK0BgZF8AhAjCI/nNjSRzGVi4iTg5Soxn9Z
-	 RytEzaz20DrcwSuGUM1OdOp8FgOhP1O6h3fdC5TID1GDuqfbMnFgfSoFIG9FrUFjzDxnp
-	 zDR9wXe0kjgR7fsEfPg3IgfMwA/4yx3qiDZ3wvdEFUylQUPamylebYVeTHNq6Byfdj4DY
-	 Kw4jLp0XgNSy6y1JF4/1xAqEQnxMLqgQ2zFSagTWr+9iArnjeNicPTsoeUixjPJqgs1Ll
-	 B2zuFxSFYe4++/Cab6A4XsCCP1V+epSDfx0HA4fDhyZyzc6Mh5g3QUhOmUi4nUgXXsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=9GjOW8HzxHhNlBVytkPohM1w2TsUdmk1Xb8jc6vaQjg=;
+	b=Cy3Wg1F9kqyn82BzpPBomnEjI0cu3Ortku+SegP+ENX61hvBs1NPHi+/xPetaPHxc20f
+	 pzaKNO5OjJB2FFX3tFbc5C4aZPogEez/lk+MFYHuxEavOx9uamxKGrs3OoBWJas7lCfjH
+	 ZSM2ZWSUDdOLXPJAjpdbkpeikW0kZNCw5fV/ULE1k70L5HoW3hZt89dk8NwBVEXwDF2Uo
+	 h4NPXuFw2RoJ3xo0WcSBMeMlw7hf7AbaGYUqmRGK5H+BqtpNoEV9fUIS9yXemUshHFNwQ
+	 j29aFvHBgwBWwLoolV11IEDefhY7uXARR9mLWwOqcdBpLRWqJu9Tgq4hLOdQC/JOgKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDsH2EnX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJrZfuC+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDF960A383E;
-	Tue, 10 Nov 2026 14:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA257606A321;
+	Tue, 10 Nov 2026 14:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDsH2EnX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E481F008A1;
-	Tue, 10 Nov 2026 14:19:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJrZfuC+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689801F0089F;
+	Tue, 10 Nov 2026 14:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320384;
-	bh=POoseU5QwHuTaUUqTtUaCKWgFktdvvSiU7J4FyrRut8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fDsH2EnXolC6lBYjERa8+hrs1OrXDOSShrHiB+D5vBvoOB+AmgDD7+mim8cvKWcNA
-	 P6FgjtHvNXdz94wvEwC7NmaRIqO9GF2L2EY/FyN1xYiUWoc+xElEwJ/Rz4CwYcGs60
-	 oqcqT4onDDt4km7S3u7oUc4+j5eLWjyXJ7wF7kmVfJ4BQHhgJ/1/Uzo3OPkFRX4y82
-	 HhgI46xJX924YQhRzwrbBtcrFiybbUwONnsO9jYz77F8/RNV0ngWY6Bg+ZA5f+E3O8
-	 CBghcxfkhqxr3u1DK77peWiRAaYph38WxyserAtZBNTNOZRRskHbOaWAAsggrsgIJu
-	 dT/j4gTYagZwQ==
-Date: Tue, 10 Nov 2026 14:19:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-hardening@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ard Biesheuvel <ardb+git@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
-	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Maxwell Bland <mbland@motorola.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pierre Langlois <pierre.langlois@arm.com>,
-	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	Yang Shi <yang@os.amperecomputing.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH RFC v10 04/22] arm64: Implement asm/kpkeys.h using POE
-Message-ID: <07b55bf9-e116-4731-9f84-49cd1b55fa50@sirena.org.uk>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-4-aa6c4d9603bc@arm.com>
+	s=k20260515; t=1794320406;
+	bh=9GjOW8HzxHhNlBVytkPohM1w2TsUdmk1Xb8jc6vaQjg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kJrZfuC+oX66C9FVtRYbr6pIlMgaHmbFL6BJ3wmlSYFM5EXhoMKHWjGXPyyAFROAG
+	 +bH7ltyw3B8S/IFWyJxtX2McbYcRSoQr3+JbUmLP14Dvf4qkw9hdzTDJJsV73xZ1Pt
+	 Kdlht2Ij8sB1g4dVuIy7ELgyuOWzMEsa6Ay335gXQ+sEfNkwouk88PhUaoa/b91Dg0
+	 QIoE0BF1woqBu+G9cb/E/BfHXOYdYcQvdyv5B56EOir1KVQJDLqd2fqn6gRJn1O+x+
+	 bXHbemgd0b2cFx+i1VKWxO7qlumdZhGBzfFwAj5dwFoXSGCX8geNVq89SUd6Q4AevG
+	 2PEKFynVLYTqA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5DFE439D0C97;
+	Tue, 10 Nov 2026 14:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,38 +53,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gYHulBH5cftCD4rh"
-Content-Disposition: inline
-In-Reply-To: <20261109-kpkeys-v10-4-aa6c4d9603bc@arm.com>
-X-Cookie: You can't take damsel here now.
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: dsa: microchip: initialize the IRQ access mutex
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179432040518.3989458.1694702089176046934.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 14:20:05 +0000
+References: <20261104-ksz-irq-mutex-init-v1-1-e3bb7d9dbd80@vaisala.com>
+In-Reply-To: <20261104-ksz-irq-mutex-init-v1-1-e3bb7d9dbd80@vaisala.com>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, arun.ramadoss@microchip.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Tristram.Ha@microchip.com,
+ stable@vger.kernel.org
+
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Wed, 04 Nov 2026 07:58:35 +0000 you wrote:
+> ksz_switch_register() initializes dev_mutex, regmap_mutex, alu_mutex and
+> vlan_mutex but not lock_irq, which the IRQ chip takes in its bus lock
+> callbacks on every mask and unmask of a switch interrupt, and the PTP
+> code takes the same way. The zeroed mutex happens to work on the
+> uncontended fast path, but with CONFIG_DEBUG_MUTEXES the first lock,
+> from the IRQ domain mapping during probe, warns:
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: dsa: microchip: initialize the IRQ access mutex
+    https://git.kernel.org/netdev/net/c/ba1dc196502f
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
---gYHulBH5cftCD4rh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Nov 09, 2026 at 03:58:29PM +0000, Kevin Brodsky wrote:
-
-> +#define POR_EL1_INIT	POR_ELx_PERM_PREP(0, POE_RWX)
-> +
-> +#ifndef __ASSEMBLY__
-
-Everything else in arch/arm64 was converted to __ASSEMBLER__.
-
---gYHulBH5cftCD4rh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzJ/YACgkQJNaLcl1U
-h9DrHgf+Ntv2EG47dQBJVo2dflFo9Lt9TsvYKLCqzm33JoYC/P26mYi/8633hQW0
-w2L056Uutdlq/ierGicH8Fb1zQIA88/FnTKEh+j872XE9Kz4ZNVl6MpVbWxm5oq+
-FFU/2s66n/vbRZUIEfoM1X2ux5jjIHqdDWq4BeaMI0BS5ZpXXqVxkf+xsiESskAa
-GCqvb4bLfjyFI005vGSvrjzju9Wd99csPXt8fcqRlDlXZOAPkJC9lwEdFNCxkMcg
-LxBzbT062ehMLTyTGLIvAxVbakdWlTWbp6CglbDCrddaKZz1/9gRQ0w6yMYej1vM
-O4DSvBecyFNT6MVKzNIRtQqL3QrIRA==
-=esSa
------END PGP SIGNATURE-----
-
---gYHulBH5cftCD4rh--
