@@ -1,110 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278862;
-	b=HVpMRvM4x6rvr9TWUTJaRkw+OBJJfM268q4WKSng3R6v0v4cAHNJBUnLDex0XwqiDUtN
-	 ns0+gEOp5dA78lkunuZGbXP4Ng9Mc7zpNrm/jFKmzq7nkIR7EV6t9hbDnu+/zrgPy5bQ5
-	 mk8rq4JeQwWVrsH1BQseCyC+eQMi8mlvalRpkCqpJHg/yxX1BVsMJ34djvlRk8sLKZs4j
-	 jMGRqFO6dB1906z8EwGszRzkdCHoOcus/tjTN8imNUU8n7YZdgQj1dMHctyVCU4p7Ue5E
-	 +7T7LJU195TGrKlW7A/3gcdvha112REOYa+kRlOQ/UpP7jpUK5JoVq7PaahIzeN8dYg==
+	t=1794278926;
+	b=0Ruf8BXc8Q5pOY1PcADxOCHR4t6lJqE35sLs1ctHsy2ypRTHGVDulPkFRRF9arSqkYuQ
+	 SBQWS0To48MkFflA5aGdFG21KbpjSRKsjfLjkIVQYyAQPYLAwxma8CsG9t8Kcd0Sc/FIm
+	 uP980sSztQlaKkvrA/VkOCR4boI5OAqqN6NwN6TEe/PUT+frJv4Zpoau3KAgNdvAoZdgw
+	 ijw5TmOa3Gvf5YApEvCKYkJdSRpUzgmodgHbl5tezCTkMoI4VzZWHXBb2Ar6kBnurHiev
+	 zQTLEv5Dox+Kr/QFAvuG+gWM6GshLAx1V9LqdwGzjSNyWRtzysFom2hv+6GDl3nSvZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278862;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278926;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OGI87JTmKxRRfHEIswCBbT6wa5pP+uXrDb2vu3bdzdI=;
-	b=vwIqhWvuBk0hC4e+1n68fpwiTH+HNIzx+SH3q+PWHQYwoV2XOQcydK6U62K/AOFObztq
-	 KtFsBlMrv3u9ocUXyM8waaB45hPfxzKj+sJjU+abwWBkEy5OfclbtSAOAxadanEvbzx2o
-	 NJSsf1Onl7i1lWP7E1sQop75JICzikYNyyG9fwRKowBdZTbFQgFayxB3dZhYQI9o79rbN
-	 /SxnW1E8xz1qlnCuVjqcZ7z42PluNO/LrBsQ36qjjNnWRWOZq9I8SbYivau5z6QPajmw2
-	 7et1I6ur8wFYdbASmAIkaV3i/DfE/XRJ/IHBW4zYOogDscmZnYK0oRt6WqgLqOO12EQ==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=u1mRfjRp548mQrIu3BS48h/N53IKij7/e2kmO+NoODA=;
+	b=PRWgBvsHoQE/xbdbU13KfCLKXUTVIDuEcibXZbvq8Xru/z5RU8T6UasMYCnKmR3zTyoX
+	 8W2NAW6SN+HNFuLalpOdyaJh0YsgYaSr7Dp2Pvlfjov8aKYLEmDlObZwqlzqgMa3Cs7K1
+	 isOI907PUvrtJtNYuwW0yQXT0RphKVjIEotFnMrQ0Vbj2l+xHkiLV7PeX3J0Q3CxATGW/
+	 29GQLbdK0CX/E9nSyWVgUOCrzlXxtI39coWeFQOPWnImBgBA7QdkKp8lSHi0f9CsFhcuR
+	 EqZcRBMFfzP1UlduOkWdpMLP+1+ALvzfxK2Envzf0t2JIamPjDzgNMG7QwYLIBeT7Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xXDhpVPK;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KgRxhcdn;
+	arc=none smtp.remote-ip=209.85.161.50
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64CA606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B64CA606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E90606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5E90606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xXDhpVPK
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7d2e1abf3eeso1206503137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:47:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KgRxhcdn
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-7143451981fso1028645eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:48:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794278861; x=1794883661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OGI87JTmKxRRfHEIswCBbT6wa5pP+uXrDb2vu3bdzdI=;
-        b=xXDhpVPKhEwmXYlSdgVQWRD0yKtOa/0Jw/dE9lGk+00h/qpIBRBu6nYBUWXUzsBIKu
-         Mk8lf9mhxkiuZuVqgGV/DcNb6gN+cqUzzGaoVl5hEoVetgWT1Qa6qEvst+uqueb0Rluy
-         rBpM45G0Kgmf7f7iLFzxPiXDygzfN35egxwAa8x2ibzfO5rHCUYA8aFVS8vz4Sid4MJh
-         tx52lBzwWWNdu2Bllk8DdCHnir32H9HeDfZcmF9poJ44gPcpBRnEuLO/ceeQNmo9So/9
-         ZnR5bGpZAXa1CAiDxN+3JKm0XU4q8b6B+hCLP1i5opauNmPLdkxI/Vd+TEPrE4qYv449
-         BA5w==
+        d=gmail.com; s=20260707; t=1794278925; x=1794883725; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u1mRfjRp548mQrIu3BS48h/N53IKij7/e2kmO+NoODA=;
+        b=KgRxhcdnXtkdCaGp5bqw8j0icuFvS05TJxM52gjAOMC875K5SlLmpxNATd7+krziLX
+         CO4azcZgsAbU28WQKosvaeN6buAq2qOltVCGy7NAFdKUvKkoiViqmTfFQg+ddkoVpYw0
+         BwBpqhEg6604V7zLHHvxq1YbGqmCBLHV13/ZzFgSYxsy2CF5ikOfNysUYXz/Wg9Xpgkn
+         dL5uVHkhEqAbpyl8EVBzSDJWhMJu+benOkcpgEXyx0fZWNaDtJQQhNyOfswzhTR5Rw7c
+         CMF1wIaF8qo7GoB2EYcIU3fCbmWCS5j6EgXpsAC6LgQTWABCTX3UJzdJmwtInMxA90XR
+         7wTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794278861; x=1794883661;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OGI87JTmKxRRfHEIswCBbT6wa5pP+uXrDb2vu3bdzdI=;
-        b=OVis3MIl6vJw8UvPOUFSaqYccOQ8XqELoHExksi/BMGoZCV9OkFcdQZgQdGzp1mzs3
-         pOT1YkaWewp/X2+kSGZIRsth9YzMCliGQEj29tCgNvITE9tgHbowzilc8zU0T/fOIeyI
-         6JzMUaiPulHy4i2jGCLhUjopcVDg2ogqN+ba+bhINsM2yVYyTtiUSUwDfYHbsVQRpFqh
-         eCfBpqsfevDPYDk2brHQsxkzzdUOBqT+1tU9nQGyB72ysrA9/WsbzwphxYUvr7gWNuPe
-         ZqaUTiQkE+pzS3tOvH3j/NK66xchiWdS4anZVym4u4DUmdKMNEyC6yG0cam1/BUIHhOc
-         7LSA==
-X-Forwarded-Encrypted: i=1; AL+hErHKB4Fid0hkkBxQwOQozDyBcrXthXG6j1H5Rk6SS+BFEhlUWrmkwGbAh12xPdUGkMsccAI96+DeQaH/I3Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gUL7D1qGx2N6z4DEfH8mH2pgNY0NuK14e+66MJPQM442gvMl/
-	CvYiu1gg/QcGVx/jeqvw+PrPBBjerdu9CiBkWpQ91krqCtFB50d7zSSl
-X-Gm-Gg: AYBFou0XA6hrllvrW8WctUbw9pQTyXZlTyZLxtgIYutVEUTKcKTkTmLioABNcFlk01g
-	UTlkH++aXTs1+wObIoHroG/wqNyz4NFAEwkyEToRN7nyGYJFr0bHtr6NOnhncp+Z9Xi3pJ3n+9g
-	hcm5vVFSiirPtNckkxSjLXGruaGBw7+homrJ4bWr11eHCf3vSOenG0GFsxip8MJ4I0zVWWrbX1B
-	1o5WOq2YvRStmsI0OJhzjjR83Q7yMzgDfKsq8MfNSiFfQwlj0XJvnin11g17TFPJ1ClVqcz2NK0
-	xUUTrBzFPWxcyIWMYg+Jb1lJNU28UAOjkYkmWYPt1dyY5Vi7eIG2vT612A9zLF6SQ9snEJU/yYA
-	0PwiuEPHq09le/gDl0e15+30SvDblN/TgZFOkCvTbhqc2Du9lL2Kfx7pM+XMH4d5bDkf9QGL86e
-	tOp1FUtKoregWGmd9tjNRuNQFUZdK3Vz1LnTJdDQLuD7YaBaLCLH0tTDw67hk42FEGDiUAOT84y
-	KkV9a6Zb4AqyDRCLb2dprUsoM34V0cb/NCZMT79ehWvCsCWYywsIKJbvFjqy0ZkhD1gNo3+mh6h
-	d3YrEUfIUnzLVIZQwXQ/J2DcOFzZ5KNAEuKrrmViBduan3U7ITifOWhoHf1kAQaRBk5R5O7XFVu
-	/3M8I4Yo8qqjvlNIM2Wm16/+jX66Fh11vjqvOvau7RE4nvESHPSW7UwsNn0NwC29KvQGChQU=
-X-Received: by 2002:a67:e116:0:b0:7d2:d876:fb3c with SMTP id ada2fe7eead31-7d3011e2755mr389213137.35.1794278860666;
-        Mon, 09 Nov 2026 18:47:40 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c2019bf87sm1116873241.11.2026.11.09.18.47.40
+        d=1e100.net; s=20260707; t=1794278925; x=1794883725;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u1mRfjRp548mQrIu3BS48h/N53IKij7/e2kmO+NoODA=;
+        b=E+N8EKsH1L1ro1utn+BGGp08xIF+HJNnDuhSiL0/PKa1D+mhzCBoL4kqGB9iECA9wM
+         e2JRJbcNlGtHaa52vnRSBm5LW/W5YF+6of1SKgbSKJqCtEprFpg8CYh96RYzVr+/c5gi
+         t0N3MtJ5FZHN4HK2hZFBKW9iv32ai/8U3SKs2Iez2t4GSFVz8ibTt/6My3p8sCjuxRzN
+         /s6z7pAEOX1rPA0HwcX5QojyxC9VwYySA/JOfOK3uCRECdnANzKzAUKYCE16w5FkzA7G
+         ZamXDb2hqKin42TOC33X+WNproozyyPJiRhY517pDS8y0tPfRhcfNJPjh3VWGXpjukKi
+         LY7w==
+X-Forwarded-Encrypted: i=1; AL+hErEfqXwpJb/xMrNMHq3frNCZU2CLCtey96Y7xqTX7Ic4NhT1aieI4nF26gQFXp1Elh8TBEP7pZez5ozUYSY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T5ufoAtXrpq9zRRqyWNl8AD/H9C7Byk8bIGA8BLueW6TgqSXO
+	53BYL1navn+l78O5KuZGsdewwaFnh4QXCspe8/Wxxt/c/jfeM72Mbwro
+X-Gm-Gg: AYBFou3igULz8hwhhqFyu66dRnzj78Dpwt1VNt/bbtyR5HBCf3TRgYKir0ZzyBCl1LW
+	1/cECa7yRtbBYShCH4hKUa9d9f4LjUJfoz7DFG8jt6YyrI0hx1bAvrpz+5nytA4FPO2DmRbYDku
+	njrR35Q/bKarWsa5/CeMTQsg0rk8i5aYRtPhaO71heXXBWH8q0Wp8q4AZ64Z5Z/K8ISB1AyaCJq
+	KC+uWw5mBoLxrR+Lyw8UZUO8Kwpd0r/7P0Paj+D5SL8ihmv/j2dX3aVP6o9TXvM3nnH0w4KhXO0
+	SMO1aUtgnXuNdSmsugG6SamKQnFTKigyIiOTDZ8rVCUYaKsaniO4n/D4k4PyINjVAwI8p04+hF4
+	o3fmMaLYuxN53GF5lyZmQXf9/voYpECvmEo3kHKSWUcNRHWPYtLCJLltUxM7r3b7ijBnCbWlnJF
+	xK1X4iCR5XZeUIfMaVAzRvQlwWcjHA7ArL3K/e/XBmOUi9S9LyZzG7Qs7wH5n++Qj7DmRqPTNrr
+	l9mvwxTHAHyYuPzzZAFhUI+YCm7cuMOifWskpsBgoqK6jlhrvimSMtC5pIm9Ygrd4EtkMg5tnXR
+	tDa+RvUiLbbzjgiI0Da4TsYf/2wYgui+X27bfkksJGYWM20c3kQqK7Ks9IpLi91JzzPyyIbIn89
+	lVWRKhpGgSNoCAPPi4xYjZaMoFZpqwg4aA3EQHgBFf9WwfkbR9zSiwKJ5qwcaaE+QD7tOP3HDgp
+	QU/Mwq+dLLNbyO5Nv7wV7+V7eBtsl1upIgfINGVkhPkIQ0Y9Kw7cgK
+X-Received: by 2002:a05:6808:1991:b0:4cb:f21b:6f91 with SMTP id 5614622812f47-5683cdec02amr1137185b6e.36.1794278924676;
+        Mon, 09 Nov 2026 18:48:44 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905f39c60sm943233b6e.14.2026.11.09.18.48.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:47:40 -0800 (PST)
-Date: Mon, 09 Nov 2026 21:47:39 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: dsahern@kernel.org, 
- idosch@nvidia.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemdebruijn.kernel@gmail.com, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- yana06070@163.com, 
- shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, 
- willemb@google.com, 
- tpluszz77@gmail.com
-Message-ID: <willemdebruijn.kernel.2c8d7027641a5@gmail.com>
-In-Reply-To: <20261109014400.9025-2-yanxia@cmss.chinamobile.com>
-References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
- <20261109014400.9025-2-yanxia@cmss.chinamobile.com>
-Subject: Re: [PATCH net v3 2/2] selftests: net: exercise SO_MARK on connected
- sockets
+        Mon, 09 Nov 2026 18:48:44 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v3 0/3] ethtool: expose PHY receive totals
+Date: Mon, 09 Nov 2026 19:48:31 -0700
+Message-Id: <20261109-submit-acx00-phy-stats-v1-v3-0-fbc6327c5be4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,26 +93,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OSw6CMBAG4KuYrh1tSy3ElfcwLkoZpEaKaSvBE
+ O7ugBpdmcxmXl/+kUUMDiPbr0YWsHfRdZ6abL1itjH+jOAq6pnkUgsuFcR72boExg6cw615QEw
+ mRegFVEVW1HmulMKC0f8tYO2GxT4yjwk8DomdXhtiLmjTTM+3pYkIZTDeNvPoc71tjfPzvnExd
+ eGxxOzFIr4T7f4koqJYWaW0QKWrkh/OBF43tmuXHL38SkT9kyRJmS2M1krx3IpfaZqmJ/inzTN
+ IAQAA
+X-Change-ID: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Xia Yan wrote:
-> cmsg_so_mark.sh sends to explicit destinations, so it does not test the
-> route cached by connect().
-> 
-> Add -k to cmsg_sender to connect first and send without msg_name.
-> Check connected IPv4 and IPv6 UDP, ping and raw sockets with equal,
-> prohibited and zero per-message marks.
-> 
-> Add an exact mark 0 prohibit rule before the connected cases. Connect
-> with an allowed socket mark, then require rejection of a mark 0 cmsg.
-> 
-> The same test fails four IPv6 cases before the kernel fix and passes
-> all 54 with it.
+Some PHYs count received frames and bytes including errored traffic. Add
+explicit receive-total counters to the generic PHY statistics interface
+alongside its counters for successfully received traffic.
 
-nit: empty line before Signed-off-by block
+Use the new counters to expose ACx00 receive statistics through the phydev
+group. Accumulate the hardware counters in 64-bit software totals, retain
+them across reset and power transitions, and return cached snapshots to
+ethtool.
 
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Convert DP83TG720's existing RX packet statistic to the receive-total
+counter, matching its documented inclusion of packets with errors.
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v3:
+- Add generic PHY receive-total packet and byte counters in a preparatory
+  patch, retaining the existing successful-traffic counters and their IDs.
+- Report ACx00 packet and byte totals through the new fields, leaving
+  successful-only counters unset.
+- Convert DP83TG720's inclusive RX packet count to the new total field.
+- Bound coherent-counter sampling to three attempts and skip unstable
+  snapshots without making phylib take the link down.
+- Reject out-of-range byte samples before updating the hardware baseline
+  or accumulated totals, retaining MDIO and page-restoration errors.
+- Rebase onto current net-next.
+- Link to v2: https://patch.msgid.link/20261102-submit-acx00-phy-stats-v1-v2-1-3c8a664407c1@gmail.com
+
+Changes in v2:
+- Rebase onto current net-next and repost after the merge window.
+- No functional changes.
+- Link to v1: https://patch.msgid.link/20261025-submit-acx00-phy-stats-v1-v1-1-d3d461e46db0@gmail.com
+
+---
+James Hilliard (3):
+      ethtool: add PHY receive frame and byte totals
+      net: phy: acx00: report receive statistics
+      net: phy: dp83tg720: report inclusive RX packet totals
+
+ Documentation/networking/ethtool-netlink.rst |  16 ++-
+ drivers/net/phy/dp83tg720.c                  |   2 +-
+ drivers/net/phy/xpowers/acx00.c              | 168 ++++++++++++++++++++++++++-
+ include/linux/ethtool.h                      |   6 +
+ include/uapi/linux/ethtool_netlink.h         |   2 +
+ net/ethtool/stats.c                          |   8 +-
+ 6 files changed, 196 insertions(+), 6 deletions(-)
+---
+base-commit: e281e85235cfc2acd080093d5deced427c4c9856
+change-id: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
