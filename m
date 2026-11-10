@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271378;
-	b=bB2gQVwQU4MmhRERyAjsm5XjGIQxGfazMXItVDraNzDCPAbzLEbFG4hzW3m71o6rrXFo
-	 HKh7gpgQsl0h3B2qzVuMhLz9Ax8A4VTNaPKVuZb1MCjq328Ktuf9uLHOvGQXTmWdR70ul
-	 NapafGKkyQZLQeTqvTq74Srw4fwO1pudCihlYmzwaQcAbTEBesX56JyYztSRMKi57Ree8
-	 i5HqAvs5NwBRGdObklzt81/KbyRp1yP5sz3XJ5A03Cp0sxSXFllNuZiAabi1fFBgJk0dz
-	 8Q4O/TKozm8AvP0GRUa7A7XkoPkCJ/kvUrmkaK59FJ1mOJlgsfevCWJ8O2SCwKjpb2g==
+	t=1794271427;
+	b=zJm3ePZqScME3TL4ZEgmFi49a0DHuFip3L/s/DxmRam4IRjxM7ucg3Kgfn101AT+XQ3v
+	 E+pIduXi6QkYCHNozwvdNuw2omEnWBV7emE4y19oDeiM71opFcwik4P35Tl0pxtPqcy39
+	 oAjhk3+tT16XHo6Pbyzau/VrICHIMVZq7AGhilpA+lTL9SppjGTyCvzEmEAc7zi2b4HLq
+	 jnkyfNaJAp/VCdDULHECy75SlRREhWn8ypov9U2Q00b4qVw64HzBPEU6EIHChlLPUR6Ge
+	 M2DFbq9HJCOaxEHE3DE5C3lhWz2SCdXL6y/ftg1AT7TTs/Ir8qmh7ZYRLTvGvalaqxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271378;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=CqdI/d5wgJOUaCu123F2dzY2ajSgkaE79+RY2xgj2nc=;
-	b=K/NI1J7xG3bfeoFB8j9ZyKBBXmBKnL9fJ8B5Eu3p5kQjVW9jCekvcmn81UAAD20kNozz
-	 HpS5tO0sUuW8AKkM3pFuh7RiiR4ir4D6Hoa+HKDrs+CbUQldjMffmYPt+1cmX0UsmqZ4Z
-	 s+yr41dWeD2ouGWEyRHEN1eLBNXyOw3DsHhzdwym43w0KkkmXwEH0R4z0GAvZGe9o/2Xz
-	 mEgBA5vir4F7awJl1JOOPpTotzvXpdUJsifmI4ei+HfUwOggERMrj6U+PBZzmlur/TVHT
-	 1M4HVJ1C82CBCgEcI6jNMCPTnzoQSfw/Na9chSpFeUX/Mq1scSzTl88LjeIiXv54xLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271427;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DnucIcTgSgzN80YineL0Zf+mFJUStd1WsSHGkjriBFk=;
+	b=EEJmgwyQFY1eO/dHNmdXTknlNsZk9AZZZviP6gXecimrFGgfadEm9JeQJC9WTvVNQORV
+	 Sfq9Xy99iGnSBslYX/58OXqGHWK0f6KmJnDHpAROWV3GCuPURNkenoGQA9pj21s2Cwl/E
+	 IV1Lex30vX3/On1HdvVo7RiSv/8Y1f9XB4dnHVm6aB/oeBaJ/q/sqmBPtop/dekNzaARy
+	 PfV+t/mF1mGoqqWEjsRRDb0ZvkdY407ETFnGFsRSXuIxK2O1uNMja6NI9sRMIx5HfIZNl
+	 TgsP5JWdXqkj2NHhNeZ0KMKE6uTU4FOBntmoIZ5Sbd5J30iM85pkMVp9TLpjOgW9Cow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC7pdmQ0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rjgM45yS;
+	arc=none smtp.remote-ip=95.215.58.252
+Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8086D606A325;
-	Tue, 10 Nov 2026 00:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A9A606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44A9A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC7pdmQ0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6EF1F0089F;
-	Tue, 10 Nov 2026 00:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794271378;
-	bh=CqdI/d5wgJOUaCu123F2dzY2ajSgkaE79+RY2xgj2nc=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=nC7pdmQ0OnxxXP1rEFBLBk9m5bXrd5KpKNU/NOhh6d9FkCEXihIca1/1eRk8nMXQZ
-	 jCS9apTMaqlHWUWzSuro+ciUTOyLYEPnzWeXPZx+na98poFy0irKuw5sB5Q3pFWPu8
-	 JsP5u0KmFhsGZjkuWcOg8Tev4TOAgrZC9BaYP09L50sW+HviHeuKHwbidY0qfTKkV9
-	 hQXwoip7tCk/XIatFhPgWM/AX5512z5TaiNX/tKir/vinLsutjggG9/TiqQ9PGoO+o
-	 kQqGlAal6FohH+3ePLz1O2gQn6zSIIgJHQizuudnhlMuCOcs8ArpBI37vvbpKYwwOo
-	 p4t0XTTqKRnUg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2129B391AFB2;
-	Tue, 10 Nov 2026 00:42:58 +0000 (UTC)
-Subject: Re: [GIT PULL] kselftest fixes update for Linux 7.4-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <65ee4aa7-b581-4b60-bdda-e91855499ee2@linuxfoundation.org>
-References: <65ee4aa7-b581-4b60-bdda-e91855499ee2@linuxfoundation.org>
-X-PR-Tracked-List-Id: <linux-kselftest.vger.kernel.org>
-X-PR-Tracked-Message-Id: <65ee4aa7-b581-4b60-bdda-e91855499ee2@linuxfoundation.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest tags/linux_kselftest-fixes-7.4-rc3
-X-PR-Tracked-Commit-Id: 36990c8fda77d918b1e52d5d6df3a144b552d86e
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-Message-Id: <179427137663.3573198.16939057349089589896.pr-tracker-bot@kernel.org>
-Date: Tue, 10 Nov 2026 00:42:56 +0000
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Shuah Khan <skhan@linuxfoundation.org>, shuah <shuah@kernel.org>, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rjgM45yS
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fsMw4fyQIfLqOhX7sbVZ6x0ogMaS6OrkFY10Wfy6qT0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794271423; v=1; x=1794876223;
+ b=rjgM45yS5eI8TWT7mf5lTB27TmHGl6IjJQGfUWLtijawcXdkYhe4iIYERHCwl8ROJp57NVRE
+ 1bJs9AjUvl6ASykZ5cd2fsEz5s4gQhG3E/rzT4hxx+B+YjbZIy/voQmZ6JyHDTeYvxDHVvaAZYL
+ J7EN17vxMD4Knfda5pDR/N9A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e92493251cf79fa7;
+	Tue, 10 Nov 2026 00:43:43 +0000
+X-Mizu-Trace-ID: e92493251cf79fa7
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 01:43:38 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Alastair D'Silva <alastair@d-silva.org>, Ping-Ke Shih <pkshih@realtek.com>,
+ linux-wireless@vger.kernel.org, Kalle Valo <kvalo@kernel.org>
+CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v9_0/4=5D_wifi=3A_rtw88=3A_sd?=
+ =?US-ASCII?Q?io=3A_Fix_unhandled_RX_request_interrupt_storm?=
+In-Reply-To: <DE52F1F4-9DBC-4627-BB76-90A2727345F8@linux.dev>
+References: <20261107035321.1210303-1-alastair@d-silva.org> <ab3dcde64bb90809ae10627803315d7385d6708e@linux.dev> <f2784538533947a38e9d03af7bc7fce8@realtek.com> <162821b6cf0e6d17aa33c81d55a716b553e70579@linux.dev> <23518740c620e5575d5ca5f46aa99f1dbb7e1172.camel@d-silva.org> <DE52F1F4-9DBC-4627-BB76-90A2727345F8@linux.dev>
+Message-ID: <C4EFEB7A-39A9-4F35-8531-0F6FAB04DF4C@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +67,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-The pull request you sent on Mon, 9 Nov 2026 13:49:17 -0700:
+On November 9, 2026 10:49:06 PM GMT+01:00, Luka Gejak
+<luka.gejak@linux.dev> wrote:
+>On November 9, 2026 9:29:38 PM GMT+01:00, Alastair D'Silva
+><alastair@d-silva.org> wrote:
+>>
+>>On Sun, 2026-11-08 at 06:06 +0000, Luka Gejak wrote:
+>>> 
+>>> > Please take Luka's Reviewed-by for each patch, and send v10.
+>>> > 
+>>> > [1] https://patchwork.kernel.org/project/linux-
+>>> >
+>>wireless/list/?series=&submitter=Alastair&state=*&q=&archive=&delegate=
+>>> > 
+>>> 
+>>> It might be the same issue lore is experiencing. Nothing newer than
+>>> November 6th is appearing, maybe it's related?
+>>> 
+>>> 
+>>
+>>Looks like it's still stuck on 6th of November - is there someone we can
+>>poke?
+>>
+>>-- 
+>>Alastair D'Silva
+>>0493 18 5566
+>>
+>Maybe helpdesk, or Konstantin? I'm not sure, I will see what I can do.
+>Best regards,
+>Luka Gejak
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest tags/linux_kselftest-fixes-7.4-rc3
+The issue has been resolved.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/b3dfbde62cf1981c4638939c159dfd087b7a72e9
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Best regards,
+Luka Gejak
