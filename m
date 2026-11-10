@@ -1,123 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794318001;
-	b=CQpGGtlvP4pVQuvQtH0fEsj3ndlysat0MHkSGifewxpDXLz3c74BrMQ5fehgkRTJni3Q
-	 G1drIzsQengzI6uSDQfVdnEvg5MOUElghndrRmKo5dCWh+NzpLSnvJN4O9J0CeqYpQEmZ
-	 jTVlEMbWu2E3f9Jl8LK6Y3VAvQSeFNVGYV0hKw5GrQ+aqclK9fJlryQriiSLHd5wkwQ9C
-	 EGJIa+J5iQCZ8ZsDmtGiMSDCgOUkT+dXgrWkr5l6gO7eC2btHhjhEqcg6UffOv7mVd19S
-	 R35F5PpscwDnufB+JK65ZXLPNIQAJRzmz0VbMdbxXyYguYUKjsvfNumuG+VKnJW27mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318001;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Mg6oCc/9mKynP5F9a/znRNXHsUn30pti9r2EQTEQynM=;
-	b=T7OziQ83mQPNZNlhy4s1yDbqf1+QdTF4Y6Hm4EyyL4rVFylRqvTv2QTn0m79e9FC/xK7
-	 gb7MuD5fgPf5gu9Bly22IxuORSTN7BPiYVEIPWmkIuetaqplSa6m5qPWHLntnYGJeQ+Uu
-	 F8XcOGPYmj/NXCyLMakezqgaWtit4ChpSmhvSH/jfsI3pk5sPzrYlHF/KYhBo2Nkz2B2v
-	 K/CqcRxkhQCsT0mLSdZ7l01wwAkIzGKER2z1MxnpIt9y42hvY8cDuBRYqmnAdWu5ajaB7
-	 REKnYkIf018cU5PUEMe/CDJFYmqbijpHitCPmEZ76D1lPJGzLXxeb839+tTsRAIr7vw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o0mLqlxo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AEBTT3ni;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794318009;
+	b=jJz1aNIvFQPjRp5uAeVi7UyrmLe9TN5MWv1HnMZ5UDQ/nETbqhF4T91wSkUqoLDZnn5b
+	 8KNxAb2BBdWw2/CTRNlavnKletRzQ4LGXMbquV1VFcizeoo7K4bZL9K4ukFpZYMc72nlm
+	 A7W/SZkC8W9enufTnIGLyT/S8eYwI+qmw3o8iy/GVkhISBz9zrs7ueoqOXmwwqRJXP66V
+	 l1mPwU1xLgjGYlXAbadRjJSUwbKRbSlgcPVr2Kwsba3WMCk7fgvN8yrT+mQnMUDp5ItA/
+	 RGvkTI7JxssWk6ToSrUsloarfq55Y/lVQuZoQSzVAHj/WqBr2yEE7ExZ7YH8KcjRung==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318009;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=wmZRRxF9P2WywNu2e79cn3gKlus8G4417OVoGcz0qRI=;
+	b=g1vrZADSHgrlNpVVQiaFiAyF42wPcKnLovom3r+agG4Od9JsCL6VKwcScu3Q7gMmqWyj
+	 9aEfgwBBTV5smBZCx0rCkcuOBRXGdy6SJWr8gNlS0ZO1xdY0OUu4erQmvRE3nWiWsg13u
+	 NAa853uaS6howCW/6JMg/f62vnFfE/QUf5xN17QVdVIcVa2AO65fOFTVSq2RC3LM+Uki2
+	 eS1DqsKrFOv+pDIw6Qh6wM0oWYjPuMqOysdhBYSBdwCu2pVfK0nV9VZwhTEHKLDbsYqp3
+	 bo43iGqccruC6/I2WONVr7xmfHbZd2Cxi0lZR2x2RdnZgwt9e5PtI9JmuD6lB70yZDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zHQ4Rdxe;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8145B606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:40:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8145B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7566F606A760;
+	Tue, 10 Nov 2026 13:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7566F606A760
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o0mLqlxo;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AEBTT3ni
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABAVW83840129
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:39:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Mg6oCc/9mKynP5F9a/znRNXHsUn30pti9r2EQTEQynM=; b=o0mLqlxoSJH4Vg+j
-	xmwO9g4nHNXv/rczj6LLRRYhI8zuBowS5nt8SyRGQ0SPUTsx8d0zsE8MV9KqcoCw
-	xbKZjqX7pye5oSoHGDt2R9bnFLoutzMs2bNQ06GVuZJv0Zap74CZRwLobZDA3CiN
-	H0jDzriebLpxV80HVbkIElkKidp6vx4UMrI9aYBdpjx3NTstUyFC9WfmmEVbgFoE
-	rlh/slodkkYFGELZgaA+bTRFCHudApaw/fKC0c1d5wUNWKNJ7vQuxP8tx/schRNJ
-	W2x6aQzLEeh0M8LwOMntJ32rl2rBfy7c9semCBHWqm4acybcmQz5hWK5E/BgbX1w
-	xcd+dg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg3kxm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:39:59 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eaae62796dso19878055ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:39:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794317998; cv=none;
-        d=google.com; s=arc-20260327;
-        b=peVUv5pqQG6hH6CnMXUYY3pwtAoVu8m8LWEC33oJGeTe+b6R7mKT/0Dzzzx80VncUR
-         M9AgtwTi9wfTFiPF3y+kuoOO1VdzXcF0jDuMVENP4EMX6FXWSweDuPoPm5lKH8iqdCM0
-         hqalki6YoIUMLzxbasErnK/xtFnPVGJ+sUoGh96dZ1B4ifQTmlKt0r6I+UdHdxJdifsL
-         o7Jo3/XgePm7hYk/Fd9inPu18wgdwUSHATnIsvU41ew9b0yZNFGsjgIwyRIkiNI0yTD6
-         d7rMWzQNmwfwyRDmsVXnK+Sxaf94LgRAlJtPD/7vPW6nPUk+pet3OU+1CbHorMePpK/S
-         VFfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Mg6oCc/9mKynP5F9a/znRNXHsUn30pti9r2EQTEQynM=;
-        fh=haTSDQIwwh+GXu4ypzMBtehsFLBW0QEyqMBDLFDjxOk=;
-        b=FYnF9rck2HPCyUOzA4U39Q1zQpYXRArLq3JOAekE3kPHDOJcBK0XeFBqRcNtK5h9LE
-         FpQH3HdcLJu4Unvj/9UfKRjD2NnbiSc82crCADah6uTbvDPDi3AoPmL472cOiGVkZnk2
-         dqV2DRE2so+cb3OYrubntkV023hjnOt2Bwd9OMwueDagqfq9cflR2Q23R2rfu4caw++R
-         hxsLkQfpplRJ4lZulqytwJlJCyuxRohAbuU5rNWxSysRl2da1alWZxSt/rmABfJCB+NR
-         FdWdy5gnLThlD38TSO1Ne2YvPVLajhjS//H0Esln98jNIaxWaUia5MHjmK2wUdKJaphy
-         bkZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794317998; x=1794922798; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mg6oCc/9mKynP5F9a/znRNXHsUn30pti9r2EQTEQynM=;
-        b=AEBTT3niRxwkOvBn5PfTYHEEcXV9y8DYQTP8wphE0jO+4mXDr2ZbfkA2tvfdDnGzzh
-         ZclOGEnMaeeN3UQtEfUMTLgzHclU0Tah1YM+Z0gFO2ainIiuXbOedLkYI+y5j0Kni8ej
-         lc6AF7COX8bNd2bzDoTLs14dtLxBGMDsRM5i0pWSjcrR2MPWzYqYz/A8PEhTJ0c8VPGK
-         8vHHFWT7e8wawGvKvPSst/FsnRdBAWG2PCp7SSMerzx5XjmfVgV8nMUAmtchlTH1I8oN
-         YGDLpl++Cj2oLDZDJaX1rkDsd50jOS9ZCG0YTLWYC/hUiHoWv4Uz1zXE688NoTM9RvdB
-         7fMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794317998; x=1794922798;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mg6oCc/9mKynP5F9a/znRNXHsUn30pti9r2EQTEQynM=;
-        b=LYaBN/2ujXvWl3Tpit9PfSnsE1QiOvj002yCqveiTDD68KERrrFPTKGzfoH91/K+7J
-         6JWuTSD768OcYAe+/EKylwNxkzMe7NNRuvSe6Kh2zkLeCwObzJzZ9HGftdtRv3vqT1BZ
-         bVFviWU8kQdoPE/MUmHXGUkSoj4WpxeL1urWa4eWOl9ZFwMqq7A29UzYHhVbvyfqBmGt
-         qGQwI3+/8hrA0C2NCELNyIQsY5WZJdtJe4c1o2iPkfW4JdAC9WCYEl8KO6asuXVkDY3c
-         y/SsPefQUwd3pPnvTorERHFkxcg553HR59rzF4N25hdWUpn+at4nlcEP4um5p048mgeQ
-         6qIg==
-X-Forwarded-Encrypted: i=1; AL+hErFzR1l+LfvK2mRQ9VoivadmDK38AKLyVgIzDFTWOK7+OkOGqhV4YaCbbWuLfaIeXh8wCJeVbymddJz/NSs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vEtvvf5FPJV0Bggj/vllS2764fnnSaNfYn5YvlTBwrXO3i2xP
-	MYj65NrYHtsfN4R0cif4FRLCWCZxEmU4+iwejcyToI8SfvjwPzzOGZeJFB8OoICYXathB77vxrX
-	cNYyCcaqeZNMxNx8hGqJYJAMx4J5UtPV1441pcYatJqy7qJkKI6zB7E7FwzmJTWsJy0iNclADZO
-	zafyZDvSU7N0kIniwzUFMQMeCT2Mb/phb0aZXB9SYKGw==
-X-Gm-Gg: AYBFou2vQWzxPrasgBrDCYgAmBACw0lReZ8P6OKIQuVnJhzXUUxPmwVNxtyVz87c/iA
-	3c1byRbzdOQbydHhcYDMRJ99S3bWWURy862HzixWAkx1F5KqMX9MhtDoMhrveoBP5zZxLeJn+Fk
-	IURDpDHf6+jj3g2LNcbrNPyAsP96xpQCohqFwkY7ZOcKEfo6zx3RVfXkypLQ==
-X-Received: by 2002:a17:902:ecc7:b0:2ed:29eb:177f with SMTP id d9443c01a7336-2edb9164bf0mr23948585ad.13.1794317998171;
-        Tue, 10 Nov 2026 05:39:58 -0800 (PST)
-X-Received: by 2002:a17:902:ecc7:b0:2ed:29eb:177f with SMTP id
- d9443c01a7336-2edb9164bf0mr23948385ad.13.1794317997703; Tue, 10 Nov 2026
- 05:39:57 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zHQ4Rdxe
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=wmZRRxF9P2WywNu2e79cn3gKlus8G4417OVoGcz0qRI=;
+	b=zHQ4RdxejMhw69nHV9s7EYAAI6i0vSrSj2IhKY+/3Es9t0lfkCZ0N6c/GnFsBmiyw/2m79Ej1
+	O/cDF35/IsBxpeClWJW49xBCBEKRNigUxjpDnsvzUS4O9ta/NfN+6go9asYde37ARYqdGRyQHX+
+	mxIbexJVYETqMNjyArKIL5s=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jP77B5sjMzmVgP;
+	Tue, 10 Nov 2026 21:39:50 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 62C344058A;
+	Tue, 10 Nov 2026 21:40:05 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 21:40:04 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
+	<tan.shaopeng@fujitsu.com>, <will@kernel.org>, <gshan@redhat.com>,
+	<zengheng4@huawei.com>, <jic23@kernel.org>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v5 RESEND 5/7] fs/resctrl: Release the limbo RMIDs when the CDP state changes
+Date: Tue, 10 Nov 2026 21:39:36 +0800
+Message-ID: <20261110133938.3768632-6-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110133938.3768632-1-ruanjinjie@huawei.com>
+References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,98 +77,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031200925.3364-1-yuanzhenpeng210@gmail.com>
- <CAFBinCBo0C=KABcg5ueDTRSJhF9vmWnPwYHbaMGTOYppOsabwA@mail.gmail.com>
- <CAEDN0nDjYLE5hy7gVLQ3hv1WESVJQWgc7T_8aLqzRui036A-_A@mail.gmail.com>
- <CAEDN0nBEK5PvkV-eC11XHYG04Occgs6o9_9K67OZn+xtkh68yQ@mail.gmail.com> <CAFBinCCxfp65Fe0D1UnupghgiOkTB0-m=+L0kNSOUm7DzRFKcQ@mail.gmail.com>
-In-Reply-To: <CAFBinCCxfp65Fe0D1UnupghgiOkTB0-m=+L0kNSOUm7DzRFKcQ@mail.gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 14:39:46 +0100
-X-Gm-Features: AclHuK9Cj5Yfw2Skuhr4nlPjsEojXxiMikKw6Cl-Wxr-T9dRxocHgrBfMronDNQ
-Message-ID: <CAPx+jO_oAnJFY9hodP6gxPCD2ch0=+0MNXkKoJXz=3OzeAq+iQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] mmc: meson-mx-sdhc: add DMA bounce buffer support
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: HELPMEEADICE <yuanzhenpeng210@gmail.com>, linux-mmc@vger.kernel.org,
-        ulfh@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com,
-        jbrunet@baylibre.com, linux-amlogic@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1NCBTYWx0ZWRfXxN24So4a3fhW
- uog/n7trdjw8PyIqec27xAm+DeVMaXyjPnmo+fD7XizNHl6DwYJuqR2mQRqmL4jjWiG4B94L7me
- Cnn9ka7Vh7gsQJyguRFeMpVFwJs3evxoNZ5BPmnsEMI8wgPkZ33cUQekxEttJ/GenfmkAWvsGPk
- Xu9y511t6K9/sVBDgJgPmYczPB10n9RceM3KfZVFZh8ZPiua3bquFevLySkuAfMs4nIPkdTJ5k3
- qGvNkep+HA21VxM5je7fU4174qMJraKeb4sWw57hPtE+IWyuuvkL4N9eqRBkafPpbo92RoEKjFt
- 8UVCf61oqukcsBmw8znxatKsqWVrpVcdKl2R9jRof3sYLU9YQEY4tnDQ+AOt/G+uePO5QXg+MNO
- Bynpo3f+FNdo9ydeEvxnNPa3A5vp479EcJOnJt6xiXtvgsulI1y0/16BOYaYTpFlyRMBqG47JLM
- HRZEOLrxI4ScsDkZ6Ew==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1NCBTYWx0ZWRfX3FFPiVAlTbNs
- Y+Nz9auYqHQ8GoaoYlPjrKAHJZbiKAyS1DkMHI4vZWgVh2CO+jkShL/Z2FJoFBJekpGYNEefONF
- /XSnfI9535YXgS+WMQxZeTYpGDW5CV8=
-X-Proofpoint-GUID: v9v5ZDF6epd_-eh96wj1Y6GzM2qab-0c
-X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af31eaf cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=mK_AVkanAAAA:8 a=pGLkceISAAAA:8
- a=BQpyg1UmJCR0kPwaJroA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
- a=3gWm3jAn84ENXaBijsEo:22
-X-Proofpoint-ORIG-GUID: v9v5ZDF6epd_-eh96wj1Y6GzM2qab-0c
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611100054
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Sun, Nov 1, 2026 at 11:52=E2=80=AFPM Martin Blumenstingl
-<martin.blumenstingl@googlemail.com> wrote:
->
-> Hi,
->
-> On Sun, Nov 1, 2026 at 9:55=E2=80=AFAM HELPMEEADICE <yuanzhenpeng210@gmai=
-l.com> wrote:
-> >
-> > Hi Martin,
-> >
-> > Thank you again for your feedback!
-> >
-> > I've completed the comparison between the original driver,
-> > MMC_CAP2_MERGE_CAPABLE, and the 128 KiB bounce buffer implementation
-> > on my Xunlei OneCloud (Amlogic S805).
-> >
-> > The results show that MMC_CAP2_MERGE_CAPABLE alone does not improve
-> > performance on this platform.
-> >
-> > Runtime instrumentation confirmed that:
-> >
-> > - dma_get_merge_boundary() returns 0.
-> > - host->can_dma_map_merge remains 0.
-> I see, so that will prevent it from doing anything.
->
-> > - The block queue's max_segments remains 1.
-> > - The merge-only variant behaves essentially the same as the original d=
-river.
-> >
-> > Here are the sequential read results (MiB/s, mean of 5 runs):
-> >
-> >                  Baseline   Merge-only   Bounce
-> >     4 KiB          11.81       12.20      13.01
-> >    64 KiB          12.88       12.80      57.52
-> >   128 KiB          12.97       12.80      67.68
-> >     1 MiB          13.11       13.05      69.43
-> >
-> > The bounce buffer improves sequential read throughput by up to 5.3x
-> > and sequential write throughput by up to 2.1x.
-> Let's wait for Ulf's feedback in the next few days if it's something
-> that should go into MMC core (either by default or opt-in) or if we
-> should keep it driver specific.
+On MPAM the counter of an RMID is selected by the PARTIDs of the CLOSID
+that owned it. Without CDP, CLOSID c is PARTID c; with CDP it is
+PARTIDs 2c and 2c+1. An RMID that stays in limbo across an unmount and
+a mount that changes the CDP state is read through the PARTIDs of the
+new state, which are not the PARTIDs its cache lines are tagged with.
 
-I think I need to see an updated patch to see whether it makes sense
-to move this to the mmc core. And even it would, we can always apply
-it and make rework on top.
+With 5 PARTIDs:
 
-Kind regards
-Uffe
+  mount                  CDP off, CLOSID c -> PARTID c
+  mkdir g1..g4           CLOSIDs 1..4
+  umount                 RMIDs enter limbo with CLOSIDs 1..4
+  mount -o cdp           CDP on, CLOSID c -> PARTIDs 2c, 2c+1
+  limbo handler          reads CLOSID 2 as PARTID 5 > PARTID_MAX 4
+                         MSC error interrupt, mpam_disable()
+
+The other direction is worse because nothing reports it. If resctrl is
+mounted with CDP and mounted again without it, CLOSID c is read as
+PARTID c, which is in range, so the limbo handler silently tests the
+occupancy of the PARTID of a different CLOSID and frees or keeps the
+RMIDs based on it.
+
+When a mount changes the CDP state, release the RMIDs in limbo without
+reading them instead of restarting the limbo handler. Cache lines that
+still carry those RMIDs are accounted to the next user of each RMID.
+
+The CDP state that matters is the one that changes the PARTIDs used by
+the monitors, which is not necessarily the CDP state of the L3
+resource. MPAM gives every CLOSID two PARTIDs in all MSCs while CDP is
+enabled on any resource, so enabling CDP on L2 alone also changes the
+PARTIDs the L3 monitors use. Add resctrl_arch_mon_cdp_enabled() to let
+the architecture report this. Only MPAM can be affected, so the RMIDs
+are only released where the RMID depends on the CLOSID. On x86 the
+RMID does not depend on the CLOSID, and resctrl_arch_mon_cdp_enabled()
+returns false.
+
+Reproduced on QEMU with the sequence above:
+
+  mpam:__mpam_irq_handler: error irq from msc:1 'MSMONCFG_ID_RANGE', partid:5, pmg: 0, ris: 0
+  mpam:mpam_disable: MPAM disabled due to hardware error interrupt
+
+With the change the sequence completes without an error.
+
+Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
+Suggested-by: Ben Horgan <ben.horgan@arm.com>
+Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 7.1+
+---
+v5:
+- Split the change of the limbo handler lifetime into the previous
+  patch. The limbo handler now stops while resctrl is unmounted on every
+  architecture, and only the release of the RMIDs depends on
+  CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID.
+- Drop the cqm_work_cpu changes. resctrl_limbo_resume() cancels the
+  worker before it queues it again or releases the RMIDs.
+- Move the rdt_disable_ctx() reordering to a separate patch.
+- Add resctrl_arch_mon_cdp_enabled() instead of comparing the CDP state
+  of L2 in the file system.
+- Rename limbo_cdp to limbo_cdp_enabled and document that it is only set
+  with CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID.
+- Check QOS_L3_OCCUP_EVENT_ID first and drop the rmid_busy_llc check.
+- Use lockdep_assert_cpus_held() at the start of resctrl_limbo_resume().
+- Describe the reverse sequence, from CDP on to CDP off.
+- Link to v4: https://lore.kernel.org/all/20261105070934.2258613-4-ruanjinjie@huawei.com/
+v4:
+- Use resctrl_mounted instead of a separate limbo_paused flag.
+- Record the CDP state once when resctrl is mounted.
+- Add resctrl_limbo_resume(), called once resctrl_mounted is set.
+- Previous Link: https://lore.kernel.org/all/20261031094616.1691026-1-ruanjinjie@huawei.com/
+---
+ arch/x86/include/asm/resctrl.h |  6 ++++++
+ drivers/resctrl/mpam_resctrl.c |  9 +++++++++
+ fs/resctrl/monitor.c           | 25 +++++++++++++++++++++++--
+ include/linux/arm_mpam.h       |  1 +
+ 4 files changed, 39 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
+index 8f6edcdcfd87..d88a09a45d7b 100644
+--- a/arch/x86/include/asm/resctrl.h
++++ b/arch/x86/include/asm/resctrl.h
+@@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
+ 	return rmid;
+ }
+ 
++/* The RMID does not depend on the CLOSID, so neither does CDP change it */
++static inline bool resctrl_arch_mon_cdp_enabled(void)
++{
++	return false;
++}
++
+ /* x86 can always read an rmid, nothing needs allocating */
+ struct rdt_resource;
+ static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 5468367776e2..563ca99a581d 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -148,6 +148,15 @@ bool resctrl_arch_get_cdp_enabled(enum resctrl_res_level rid)
+ 	return mpam_resctrl_controls[rid].cdp_enabled;
+ }
+ 
++/*
++ * CDP emulation gives every CLOSID two PARTIDs in all MSCs, so CDP enabled
++ * on any resource changes the PARTIDs the monitors use for a CLOSID.
++ */
++bool resctrl_arch_mon_cdp_enabled(void)
++{
++	return cdp_enabled;
++}
++
+ u32 resctrl_arch_preconvert_bw(const struct rdt_resource *r, u32 val)
+ {
+ 	return val;
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index f56d0e32fd06..87d744a168fb 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -70,6 +70,14 @@ static u32 *closid_num_dirty_rmid;
+  */
+ static unsigned int rmid_limbo_count;
+ 
++/*
++ * @limbo_cdp_enabled - Whether CDP changed the hardware IDs the monitors
++ *			used for a CLOSID when the RMIDs in limbo were freed.
++ *			Only set when CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID
++ *			is enabled.
++ */
++static bool limbo_cdp_enabled;
++
+ /*
+  * @rmid_entry - The entry in the limbo and free lists.
+  */
+@@ -1044,12 +1052,15 @@ int setup_rmid_lru_list(void)
+  * resctrl_limbo_resume() - Restart the limbo handler after a mount.
+  *
+  * The limbo handler stops while resctrl is unmounted. Restart it on every
+- * domain that still has RMIDs in limbo.
++ * domain that still has RMIDs in limbo. Where the RMID depends on the
++ * CLOSID and the mount changed the hardware IDs a CLOSID is monitored
++ * with, the RMIDs in limbo can no longer be read: release them instead.
+  */
+ void resctrl_limbo_resume(void)
+ {
+ 	struct rdt_l3_mon_domain *d;
+ 	struct rdt_resource *r;
++	bool release = false;
+ 
+ 	lockdep_assert_cpus_held();
+ 	lockdep_assert_held(&rdtgroup_mutex);
+@@ -1057,6 +1068,13 @@ void resctrl_limbo_resume(void)
+ 	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
+ 		return;
+ 
++	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID)) {
++		bool cdp_enabled = resctrl_arch_mon_cdp_enabled();
++
++		release = cdp_enabled != limbo_cdp_enabled;
++		limbo_cdp_enabled = cdp_enabled;
++	}
++
+ 	r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ 	list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
+ 				lockdep_is_cpus_held()) {
+@@ -1068,7 +1086,10 @@ void resctrl_limbo_resume(void)
+ 		 * it is queued again on a CPU picked now.
+ 		 */
+ 		cancel_delayed_work(&d->cqm_limbo);
+-		cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
++		if (release)
++			release_limbo_rmids(d);
++		else
++			cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
+ 	}
+ }
+ 
+diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+index 002f56e15362..ff1e1d6420fa 100644
+--- a/include/linux/arm_mpam.h
++++ b/include/linux/arm_mpam.h
+@@ -62,6 +62,7 @@ bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
+ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
+ void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
+ u32 resctrl_arch_system_num_rmid_idx(void);
++bool resctrl_arch_mon_cdp_enabled(void);
+ 
+ struct rdt_resource;
+ void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_event_id evtid);
+-- 
+2.34.1
+
