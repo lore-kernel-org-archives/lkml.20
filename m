@@ -1,62 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302737;
-	b=stlUMihB9hbgoGBwqI3PRbMchOzP6b0E8LbFsSSHYQ2cEIGbbDWc3DlqSB3hQ0B9Zba6
-	 KIRAns+SeYqmysNZKcKiVc3fZsVv55W/YqACejw72hVb4hTPZ4/ZtAftFUS6EeUHZP+Cj
-	 Shs9LSIu6uJtLZFpHUVxqNDC4usv3TRUp4kbiZFrl7sZY4z8+RTyR3gUslenFkbjl3MZQ
-	 fCH5ChpclUiVcYR0xWY22lPYsZ7XQKAXGtBclp/EHuZOLOsJQU6qRjAijKDunGLIhtEbc
-	 iZhxAjAfHspLVPhjKubB49ye+fDMXpoKABIR5/QYJlV+RcLcWVl9uBznvSz60wCQjjA==
+	t=1794302788;
+	b=3x9B9APOb49ywbexwGFakaGX3wpZRR50SrDGS9TiT2kWIKFc7XoMimajhHmaVXSXU+dD
+	 JOmvPVyg0cX+yB9DrjfuFM9QbSn28KeRi39R9ofHatkCXIfJOT4SRLZLEKpHvnwwLwCsc
+	 bEBWvQRTvGVPchShzRtdR7/h7AnfXP5KgG7xVJuOOiJA+6cfoEfacYAKjEXNZ5S9ajBkG
+	 GleZ+FxCuaXalHNV/9GTGUP1Zp0ANkSSjkMrUDZXtVa2yHlBAXTIGl2atJ7fMtsGyYNRn
+	 0H/utm1Z8l/7FmM6v7+aniRe0MAbalVL/HF3HPNp8Ssbq1kgV3bVvSu1Rcw1CgcmQVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302737;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=vPSsXX3clm/mdMUjS8oLuvG1pE7EzVDHGhOmLvNaAtU=;
-	b=Tc5U3poZ6Ibqsrb1WeqygC+ilRgllfs2IBPU09nNTLnUGRDUUNgZwg4WL04Gk+YtbJFy
-	 BS7IwXi+M49FxZPs7FLhUyZAhJLjo5nCX9Oe1FktdafWQdGvZVX2oqFIVficB6dkfA+Yn
-	 4ZsGPethZoxSfp+cp/vrRklJHNT/sk7GZpOGo1HjmieXifeTMTCATNhQVd96/aN5FmRyX
-	 6802e0yP+v3MvY9+5qDRBjmHoKcsELADA9AmQX+LJDqAuN1ZFdP4Rmcth236pcZX2+sT/
-	 QUkWqLX6PuAEtnFuMX98tDd8I+JOPvqVCs4Y8TjaQcRG+B1jcI5K8s1wNJpjDDh714A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302788;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=UriPUrEKGMPcV1kTeVLDKkGMmTprVWESy8oG8aPSbZo=;
+	b=YI5rmE0jDAAzeJxbLi+bj28ipL8XqD65Y3XPBnhKuclUnITNVdkclY5mI7NaMyA9Bn95
+	 OqfzdrdLgFVpucoahzo9krUAJqIL8DAWLqB/X4XCKjDjfjPWrBnR+7SzzwBdtmKwyfoLY
+	 8BwLxYhuApbb5/bqWy6NHM9T5kKmOp5Z+m/FLurm8NmO1hQnOL7yTmdsMYNF4ThFgaCUk
+	 ZWC1D2F4pXW/3khYha3yv5pZFODdik5Cr4STHatsaKPylKAhwWOvRi1JyILQFIdIMGvih
+	 bnfbKAHoPiCn93TlyBMfZMm+uxXJqkhpUcTKjZwchUu47uiDPRz1ZN/uPL82lNWT22Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=FbcDXnzp;
-	arc=none smtp.remote-ip=216.40.44.13
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22C6606B2D4;
-	Tue, 10 Nov 2026 09:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22C6606B2D4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=FbcDXnzp
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 9575440191;
-	Tue, 10 Nov 2026 09:25:28 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 146FF2E;
-	Tue, 10 Nov 2026 09:25:23 +0000 (UTC)
-Date: Tue, 10 Nov 2026 04:25:17 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Cc: Vincent Donnefort <vdonnefort@google.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Thomas Gleixner
- <tglx@kernel.org>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+fbe07bcf949966f3c00f@syzkaller.appspotmail.com
-Subject: Re: [PATCH] ring-buffer: Do not WARN when trace_rb_cpu_prepare()
- fails to allocate
-Message-ID: <20261110042517.5bbbe14b@fedora>
-In-Reply-To: <CAPDkpGre=z=RCS_ffBKTKV_GsQn4ejyknVwNPFmjkhGTORZy5g@mail.gmail.com>
-References: <20261104222558.863948-1-christian.aurichzm@gmail.com>
-	<avGSispr9aIXliex@google.com>
-	<CAPDkpGre=z=RCS_ffBKTKV_GsQn4ejyknVwNPFmjkhGTORZy5g@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF3FB6074288;
+	Tue, 10 Nov 2026 09:26:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3FB6074288
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.172])
+	by gateway (Coremail) with SMTP id _____8BxhvBB4_JqXiMeAA--.21094S3;
+	Tue, 10 Nov 2026 17:26:25 +0800 (CST)
+Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJDxSs494_Jql3UzAA--.21244S2;
+	Tue, 10 Nov 2026 17:26:21 +0800 (CST)
+From: wuqianhai@loongson.cn
+To: chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	tzimmermann@suse.de,
+	deller@gmx.de,
+	bhelgaas@google.com
+Cc: ardb@kernel.org,
+	ilias.apalodimas@linaro.org,
+	javierm@redhat.com,
+	loongarch@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wuqianhai <wuqianhai@loongson.cn>
+Subject: [PATCH v3 5/6] efi/libstub: Enable direct sysfb_primary_display access on LoongArch
+Date: Tue, 10 Nov 2026 17:24:24 +0800
+Message-Id: <20261110092424.2647921-1-wuqianhai@loongson.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110090203.2631481-1-wuqianhai@loongson.cn>
+References: <20261110090203.2631481-1-wuqianhai@loongson.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,33 +65,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 9cdzj5on41zqzw39w959yjezp7g6u3ia
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 146FF2E
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX187wsdH8oh+6xuK2PV1vt+uxhnL1R8CEvs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=vPSsXX3clm/mdMUjS8oLuvG1pE7EzVDHGhOmLvNaAtU=; b=FbcDXnzpaSHtj+6exOFekjDJNbD3p6MBpCcE12uFldOKHBf2rmLxfO9h+1m2I/HLpThzw0PV8L7S5BzndO4DHoNaSCfqe4zlLMUvRBHUJEQ9ezYdP5R9LD5Kq8HB/WlePPrtfwxZGjEiAylz1mz6BZys502TAGV8Vr8SXPXZ8yM=
-X-HE-Tag: 1794302723-842149
-X-HE-Meta: U2FsdGVkX1+W2o1P2LoZzKBiXtxhVFjpiDOmOZ1Z0AN5VCIPlr+ssGha9J/Uz03ymgIjZI7UUd0v1Pzj8QXy0GWj/aKvNio102pZb4yeC+e+VB7WJTM+dnQDAo2LGsnMRsfpMfFEFX99vAI4GAn3gNZMtHUliino2I5Sk/8tio0HuIptkiFBQ/BOpgJ4xjwlD/g0drxO9RxEqc+Kc56TCoV+j5DOik86vdzkLgG3tdpUpwIVIkrh5xlgRZSJJzeOBPGDQM/l/MWMKTBlDSgw0T8O5+EvcyWTY1V5zhHkPKgmnpSoXvXHMRjtBqWXY9qekx7HwEpWa96jXmJ3p06/QM1OaM8P09CfnxEgTIrhlSB+QtRu6GovCw==
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxSs494_Jql3UzAA--.21244S2
+X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7GF1fCFW5GrWxCFykWFWxuFX_yoWkCFgEya
+	s8urZrWr4j9ryYgr4UKrWfuas0qay0qw1kZF92yrW3tw4jgwn5Ww4kXwn7CF13AryvkrZ8
+	A3WDCF9xAr48tosvyTuYvTs0mTUanT9S1TB71UUUU8JqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbBxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r4a6rW5M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
+	6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
+	0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v2
+	6r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14
+	v26r4a6rW5MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7IUYC0P3UUUUU==
 
-On Mon, 9 Nov 2026 07:38:55 -0300
-Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com> wrote:
+From: wuqianhai <wuqianhai@loongson.cn>
 
-> Thanks Vincent. I took that reply as Steven explaining where the warning
-> comes from, but I may have misread it.
-> 
-> Steven, the same si_mem_available() check fails silently for the current
-> CPU in alloc_buffer(), so whether mkdir WARNs or just returns -ENOMEM
-> depends on which CPU runs out first. If you'd rather keep the WARN I'll
-> drop this.
+alloc_primary_display() returns NULL on LoongArch when neither
+CONFIG_EFI_EARLYCON nor CONFIG_SYSFB is enabled, so the EFI stub does not
+populate the core kernel's sysfb_primary_display.  Allow LoongArch to link
+directly to sysfb_primary_display, like x86, so the firmware framebuffer
+information is always available.
 
-Actually, because of the CPU coming on line (not the instances) I
-pulled it into my test queue. I'm currently traveling so I haven't
-pushed things up yet. But patchwork has updated the status[1] of this to
-"Under review" which means it's in the testing process.
+Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+---
+ drivers/firmware/efi/libstub/efi-stub-entry.c | 1 +
+ 1 file changed, 1 insertion(+)
 
--- Steve
+diff --git a/drivers/firmware/efi/libstub/efi-stub-entry.c b/drivers/firmware/efi/libstub/efi-stub-entry.c
+index efa3ab8ad1c6..2ac22720675c 100644
+--- a/drivers/firmware/efi/libstub/efi-stub-entry.c
++++ b/drivers/firmware/efi/libstub/efi-stub-entry.c
+@@ -20,6 +20,7 @@ struct sysfb_display_info *alloc_primary_display(void)
+ 		return __alloc_primary_display();
+ 
+ 	if (IS_ENABLED(CONFIG_X86) ||
++	    IS_ENABLED(CONFIG_LOONGARCH) ||
+ 	    IS_ENABLED(CONFIG_EFI_EARLYCON) ||
+ 	    IS_ENABLED(CONFIG_SYSFB))
+ 		return kernel_image_addr(&sysfb_primary_display);
+-- 
+2.34.1
 
-[1] https://patchwork.kernel.org/m/20261104222558.863948-1-christian.aurichzm@gmail.com/
