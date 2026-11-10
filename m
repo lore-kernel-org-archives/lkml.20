@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297141;
-	b=3ygovBQ8tKszFwu8Ci6/Ir0TecOwbcFwsfXho+JeJllQwQ7tKYAjlY19zPXNxWw8nI/q
-	 yKx4YbZ8IZx365lxLKGE9koTkqK6MRPhCtGsArFy3EyFtJCc1GTPWEpIH68NuuO0NwPA4
-	 KX9BjeVNcNGan/J0rcwnEenspYpKru+tsgc/lSluXa4laT7XEn6sxCZFAcjx5r3x2cQ8z
-	 bV6bQPR/gTaqAQc4TqR5vwexpEwf8ZSMd613ZV85GjZ/GNtewSiB+C1G4Dm82pg+RSiSM
-	 HxJPp7rTfnsseJtQEwcYqPPXxHyGZb2HtSVdAT+7aqYX2ULbNfGFyzmvMGzjO1zcMtg==
+	t=1794297209;
+	b=EGMfALqxikwABBhjW1zP7lV73foPnooL0RR8Boujje8sEPPn8TKYC74KQVDlsTXmvs9o
+	 02Soa0HhlyY84hcjAmhGFRma8rQlNzY6eTES4PSQ37KwQAg1tts4Fo0We+Wbr+5U7yA0W
+	 WJ+tp/uukCXV5e8GgCbUnPbp7aI+F2l1KS6lK6m+PhLQuzmIxvEBVjPMt/tPEiazHeUzk
+	 dbKI060xj+pih16zKESBNMd481V3Qa6i9ryQoQkqWaCQhT/D0n8DuoJyJRI1cySYynkhr
+	 Hh/NgMCjc7dl3p1Rrt5l3XsLy3u4U9bFwh95Rz6yzzRgSXBAAyXzxGP2BYf+fuYx9oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297141;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=HOR1+kqQhwJITF9mrUMDzf7ZzPSccks+bMhcYnxMQ/k=;
-	b=PeGn8Ho6Q/S8GWzZSWGQfXdPDZjAp02QMTXJ6KXD9UzQjLcldDfcgTtAP7kI4z07PXAk
-	 dQT83PDF5EYvA1c+VKdHs+qCLJzf5XNybKDA91mpYaU6qHqep6wTWYxRr5CX6++ZLmxdG
-	 ewiJCXa2tLnZT8Qu2J32H5VZKKtrpptbDoicDaDbvXqDnUiB1trA93OkTEEliSn2PeLVi
-	 fnfJ0EQYSXnm3W63FTEbnqjFxa4/U1/QptpQuMkjzk2Xsn0bFznbO0BFmBPLWPk4vmvAg
-	 gUGxucemTURr7kh1umB/r8rmNwCGmqlxC7Sd0vEjoEcZHiTUKcSApFX/jIQ0EcOAOTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297209;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VHS9PME+lj3sobM0nuC4YjIOUceVBhWAlwGY7ffSBGc=;
+	b=qZJ1Bmg8bj6QEkl1xpNoIN9m3q3UZUQO73C3e9BFLxoW55ze7nMAa2eyKHPS8yTA/XG/
+	 TOGjVHt0Xf06hFXprc9BpD4frxcb54JaBvMWS8Rfkr5zpv0R+5dVwYtBnKrV9Q+eIpAn5
+	 uK+GG2rEdL7oy1FqdFZm/ORXxoa+4gEj9Em5ax76ij6nnmDzwnhdVh3wpS7PkKz7eMCnd
+	 8mDNNB+8dgoNotoSTOJyD4L2kHywHz3TX/ESuNCAzLJQC/mSYsYH/y1azCCG762Z7Zf+U
+	 LnmjAbKD3odNOv6rtW2AarAz8Du6L626n+qN5B5zRIKNJlHMtSSJvMYjwGEI3aKGucg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Wo0WadD1;
-	arc=none smtp.remote-ip=216.40.44.14
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B41606A334;
-	Tue, 10 Nov 2026 07:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1B41606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="mW9Vdaz/";
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47E8F606A334;
+	Tue, 10 Nov 2026 07:53:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E8F606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Wo0WadD1
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 6959A140503;
-	Tue, 10 Nov 2026 07:52:12 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 1BA702002B;
-	Tue, 10 Nov 2026 07:52:07 +0000 (UTC)
-Date: Tue, 10 Nov 2026 02:52:02 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Breno Leitao <leitao@debian.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Steven
- Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
- rb_handle_head_page()
-Message-ID: <20261110025202.78c8c03a@fedora>
-In-Reply-To: <avGQnBjyUMwunknT@google.com>
-References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
-	<20261105155729.0f9c7e4d@gandalf.local.home>
-	<avGQnBjyUMwunknT@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mW9Vdaz/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=mW9Vdaz/XA64uN17RQ32bPeGIIjIymPZen9zbHpQhcnKphIVWNrXqQI87jol9aa9OHd/sDHIwLkU+
+	 Q6Xsq3th3d78FGntJMNlfvXbJmenqhc1cpN2lLHKNEEz2WYpfu/KLrvZjzdV/ItPQe5NidzXQuJDvf
+	 SsmfGU/4TrgYLW9c=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af2cd76a68-c9fd9;
+	Tue, 10 Nov 2026 15:53:26 +0800 (CST)
+X-RM-TRANSID:2ee56af2cd76a68-c9fd9
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from openEuler-24.03.03 (unknown[74.82.203.40])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af2cd6bd67-acb02;
+	Tue, 10 Nov 2026 15:53:26 +0800 (CST)
+X-RM-TRANSID:2ee76af2cd6bd67-acb02
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: yanhaishuang@cmss.chinamobile.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	almasrymina@google.com,
+	daniel@iogearbox.net,
+	willemb@google.com,
+	willemdebruijn.kernel@gmail.com,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	narcisav.kernel@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 0/2] net: do not run out of frags in alloc_skb_with_frags()
+Date: Wed, 11 Nov 2026 00:46:59 +0900
+Message-ID: <20261110154701.26310-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,121 +80,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 1BA702002B
-X-Stat-Signature: erqs333doy343w6acayxmgdjtkgouj9d
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+YQOdajhCDf1ZjZQfnHpfSD5rLF0zgf5s=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=HOR1+kqQhwJITF9mrUMDzf7ZzPSccks+bMhcYnxMQ/k=; b=Wo0WadD1kJznyFIlA6jRp+DI7L2vl/XdShuuFurlVUnOZW8enSWCf4tTmX8XqPYhIYO+74AuaTtTUfTsxtk6eyVW9RZrG29QbG9n/6kOUVsBN48xeHTGhpLh3F8SHLikyRWKwLMOjIyzUX2hJlUozCfOqyvc3ya0n8MGTvAebyQ=
-X-HE-Tag: 1794297127-995168
-X-HE-Meta: U2FsdGVkX1+hTXjhiPB/SOj4L/XPStP7ECk2j9J4x/CsE0t8QgKNpm9izosUDHdljRIJTbLF4rRiA/aFukUGls7Y9P9meRaZDRHrmTc/xDDJdHrsuzRqcTU+YviHj0930OyYBGYD6NOguoAf1ebrXF1wnnqJ5356UB0WiNN+M6paW1SRvUgubYwabm7Po6e/6/zL0gkjPvzJ3QRW9zQPr8VOzhr/U5mcSJpcXaynm6/RKPuj8L5Db6hBNIX/85+RESUCtwW3UShT7Zrw9bTGeC3ViAdQxqVQDCfrmKq4a5ZvF1R6X7nAL6b5EQyTRdAvknI1oj35S5XMUGHaQFBvUYl52H0jLw/1
+Content-Transfer-Encoding: 8bit
 
-On Mon, 9 Nov 2026 09:21:32 +0000
-Vincent Donnefort <vdonnefort@google.com> wrote:
+alloc_skb_with_frags() can fail with -ENOBUFS for a data_len that passed
+its own size check: it splits the tail into one frag per bit set in its
+page count, and when a high-order allocation fails it lowers the order
+without checking that the frags left can still hold the rest. With
+vhost-net + tun, a guest that sends a GSO packet above 64K can then make
+the vhost worker retry that packet forever (100% CPU, device dead).
+Patch 1 fixes both cases; patch 2 adds a KUnit test for the tail case.
 
-> > The issue I think you hit was that we have two HEAD pages, when interrupts
-> > come in. That is, we can get a state of:
-> >   
-> >   --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->  
-> 
-> How we can end-up in this situation? The cmpxch will only swap HEAD for UPDATE. 
+The issues were found with the help of an AI coding assistant.
 
-The cpu_buffer->head_page is only updated by the reader, when it did its last read.
+Changes in v2:
+- Patch 1: also fix the fallback after a failed high-order allocation:
+  only lower the order while the frags left can hold the rest, else
+  retry the same order once with direct reclaim (reported by the netdev
+  AI review of v1). Changelog and test notes updated, including fault
+  injection results.
+- Patch 1: reword the comment as suggested by Narcisa, and compute the
+  page count with DIV_ROUND_UP() to keep the line within 80 columns.
+- Patch 1: say in the changelog that this only fixes the frag accounting;
+  larger frames failing in tun_alloc_skb() are a separate problem.
+- Patch 2: skip the test instead of failing it when no order-3 page can
+  be had, and name the fix by its subject. Dropped Narcisa's Reviewed-by
+  since the test changed.
 
-Let's look at it one at a time:
+v1: https://lore.kernel.org/netdev/20261108100617.23840-1-yanhaishuang@cmss.chinamobile.com/
 
-                              cpu_buffer->head_page
-                     tail               |
-                      v                 v
-  +--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
-  |                                                                     |
-  +---------------------------------------------------------------------+
+Haishuang Yan (2):
+  net: do not run out of frags in alloc_skb_with_frags()
+  net: add a KUnit test for the alloc_skb_with_frags() tail split
 
-Then the writer moves the HEAD page around the buffer while there are
-no reads happening
-
-
-                              cpu_buffer->head_page
-                                tail |
-                                  v  v
-  +--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
-  |                                                                     |
-  +---------------------------------------------------------------------+
-
-                              cpu_buffer->head_page
-                                    |          tail
-                                    v            v
-  +--> subbuf ----> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
-  |                                                                     |
-  +---------------------------------------------------------------------+
-
-                              cpu_buffer->head_page
-                                        |                      tail
-                                        v                        v
-  +-HEAD-> subbuf ----> subbuf ----> subbuf ----> subbuf ----> subbuf --+
-  |                                                                     |
-  +---------------------------------------------------------------------+
-
-                              cpu_buffer->head_page
-        tail                             |
-          v                              v
-  +--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
-  |                                                                     |
-  +---------------------------------------------------------------------+
-
-Now, I'll break up the update part:
-
-                              cpu_buffer->head_page
-        tail                             |
-          v                              v
-  +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
-  |                                                                       |
-  +-----------------------------------------------------------------------+
-
-                                 cpu_buffer->head_page
-        tail                                |
-          v                                 v
-  +--> subbuf --UPDATE--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
-  |                                                                           |
-  +---------------------------------------------------------------------------+
-
-An interrupt comes in and moves the head even more.
-
-                                 cpu_buffer->head_page
-        tail                              |
-          v                               v
-  +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
-  |                                                                           |
-  +---------------------------------------------------------------------------+
-
-Now  the reader decides to read again and starts between the UPDATE and the HEAD
+ net/core/net_test.c | 35 +++++++++++++++++++++++++++++++++++
+ net/core/skbuff.c   | 30 ++++++++++++++++++++++++++++--
+ 2 files changed, 63 insertions(+), 2 deletions(-)
 
 
-                                                 cpu_buffer->head_page
-        tail                                              |
-          v                                               v
-  +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
-  |                                                                           |
-  +---------------------------------------------------------------------------+
-
-It finds a page with the HEAD pointer set but not the UPDATE pointer and does a swap!
+base-commit: a45dbf182137275f44ad7c8bc8acd23f7af6b2cf
+-- 
+2.43.0
 
 
-                                                        reader_page -----+
-                                                                         |
-                                                 cpu_buffer->head_page   |
-        tail                                                         |   |
-          v                                                          v   v
-  +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
-  |                                                                           |
-  +---------------------------------------------------------------------------+
 
-Now the commit finishes and moves forward and will even hit a blank
-page but the last write is now on the reader page. This breaks the
-entire integrity of the ring buffer.
-
-Does this make sense?
-
--- Steve
