@@ -1,49 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349543;
-	b=4mjhJiFmWk/KiOFvYtsbazoTl3JnSdIJrZG+MRdHUHxEo+eItWVYi7vUaeNniEpaGBMt
-	 hY/wIwCFyEI+LcTf8ag1XGdEXElfvQLefnJ8GHTrqr51S2dpVDhd3iwJs76/hEsRbjixu
-	 yk2cNu1SXbFPGxDUwx14EIkjLfuQtEPyT7lFHyklwmKSjIfQBWtGVEwTtTU/GPPkhmGeM
-	 mp2z7Jr/1UeO6dNYcwRu/4YN5BDca1GAGnBiS3IOoWF/XQVj4eXhpPiuaGJqtVPd40ton
-	 hdHlT3u7W20niGfynmpkEwFTN8PFESGlP3QBKd0oh+mR6QBcIoRJ2euQq1ERLJiQWWg==
+	t=1794349561;
+	b=3IZf4By24oCQ5ggDAYa5QrxhNZCIqZ35lIo4Zx6F3KVPGub6i0KltyaEBQcC41GRJP2S
+	 LY7yQOabR9FyoF8PeVN0r/01PTnaYvCxDtCI+Wi+ZjsnipZABNO4jFnhRirNkhDt0YKwe
+	 fSgWtzi+sPkKfG15gZL1p8NUQmkDBCmHstHQhIhZe7xrMTV9JAo4Wa/EKb0gMdUMbv1VH
+	 dvK74Lfeg13W04o72tieXywl6IuRrXdOGLMC1uBJ77fiDjgtvs1soi4Tf2fU8byKlNTtE
+	 Z3pDqKKz/ZVGPR4Tn8iQbw4G0d5Wyffx77gYMbX5H76Xo1U9lFtl84IG+oEOQix5Ejw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349543;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rFR07zZ7CA7ruaUhfGP1DElQrItxL3fk+/y1XmeQu+8=;
-	b=3TRufTBE1ladAoSquEW75Na3lXz15ubZwHYa3NCHHAEEIMRXwymM66c8YtWOnRQJrT9h
-	 Gqhlg2X5pZrSUycKH9TVhPog54n/ZBECMp6ElMP5/I5mrpJqeQSQLFGZTA+HjbJPnITS/
-	 QM/MBxH+bxhn80V3Gwbvd+EWEh7mp4s0vKBLlDwv81DL2RXVBqV5UhWAJSJ8OSqS5nC3D
-	 z3chY2oV9CtXiXy8X8gbz4mwjZ5pA1G+jqEYZ5RsjnUa7gJ4yEBg1WGN+6FjDlPPR2c0J
-	 B3Vau93UgjMv0ISDx2kVRW2m/AIYU3GqKX2c8bhwMCZxH0VId5AY4osIWVB6F+Vvmyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349561;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=QTCujI8/h5TPqkOtaoAlRquKFa3ouHL2s5oDMvSTaAw=;
+	b=dnHnPgyGGCYv9VB0cyfK3E2CQTyNf/GAXu3jS5iYtgH3PnygYkFRbjxoMSkQ3nTMUp3Z
+	 7O6wXgNmVXqc5Ge7ZfkTjJi4sUurnt8SmewizxHotT5XLwIVLut2Ocvmg38OfbeYj+Wmq
+	 /DBb7TeJN7Vpcg3eDTgOOfBa2z2EJ1CO4qYbxXGmDdZQ2wysHhX7TMR5TtyK2RRzGE9yE
+	 DhNCCzPLWtq4tZKZFeMYHV9Ga+RwA2FDJHVDASd6s7Ke/CAbedcsXsa+weK8kq9xyx5Gl
+	 YBE05jIPM0iG9Mw0IjEfBK0cQ1ogWjXgIF9YFEXdqpUQwf6zQGn513hg+j+S5qUc2Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FWX9bXuO;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30552606A31C;
-	Tue, 10 Nov 2026 22:25:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30552606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cp+tOSd2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oi5KJafi;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F6F606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F6F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FWX9bXuO
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 409261477;
-	Tue, 10 Nov 2026 14:25:38 -0800 (PST)
-Received: from [10.57.15.53] (unknown [10.57.15.53])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 428183F85F;
-	Tue, 10 Nov 2026 14:25:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794349541; bh=oW7L7gPeQ+Ay/BcA5QLJVKSf56GeWibtLdxcGOAqMVk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FWX9bXuOdn5hcICHmtU+lwoFmjGyd1NcsjGjnuGgUtNERi8vxN4MmDhwkmUMXI0DI
-	 L3AJAmnZfZiHtLq5sEmZU4lTUW5MIGj+dyXnL8r6pctqKEOFvP7ra/7sAGoDYN9QWo
-	 kSMBbryUgpV8D60U3mH4oBh5rv1o85Si1K9jN6cE=
-Message-ID: <77dc00cf-49ce-4f3e-a2fd-32c80f9b8b5a@arm.com>
-Date: Tue, 10 Nov 2026 22:25:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cp+tOSd2;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oi5KJafi
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAMKcIh3715093
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:26:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QTCujI8/h5TPqkOtaoAlRquKFa3ouHL2s5oDMvSTaAw=; b=Cp+tOSd2a9k0ul7T
+	vbbqZ/ZYAIXNkqtpV7NyDiLxrJZo5UvfJis9hgKgbbEkHjXnMVFbJBt6kTdQT35q
+	qHSE8LuDyqRdV9S12bpuGe9NhSNZmJxVLnN1rFRYlcEn4NsmnzF3USEEL8SVRg1w
+	3YAWqL2CmzcNRkH21bzGbGRaTDDsv9JFq1MXeadHg0fo/hKUW9g3ngngLp0hgZ6X
+	HPfY8zl8YEkdgaJUsDnz/1gyCbiAuEA0ha4x8ghZi6TA88EUigyOLcP8ffglbS+C
+	1y8amHKRD/WvcGcY+2DZ0RD/7/RYeglLY4gpoEggIy5UOHDApuAgX3S8qjWXb8ho
+	D0npxQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw4b60s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:26:00 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a3451ea93so3832274eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:26:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794349560; x=1794954360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QTCujI8/h5TPqkOtaoAlRquKFa3ouHL2s5oDMvSTaAw=;
+        b=Oi5KJaficyGinXbpw/lkjiyId/8VgaSRLFgmA27CJiGGCn/mm2fE2HL3pNDGv5YlPh
+         JZN9ZxYLkPOhTh8sQXHBgWnj0eLoJBuBftMef9b6ShsFOfMZx7I8EIUE3VL/gmI7Fv5b
+         v25aNMJz+kK7TjAXDrLP8Wu9XnUbHoEoy0RYWCR4QM1Gl5nlJ33Wb28nHCWW/frkRMll
+         vi9/0hL+Op2MjnByZ6vpsMIIntZMshf3A9aZ9qbTm6ybpzVegC1zDlwEw64hwG3vXFsJ
+         csftzerKefpmgKwk/3dEnuHC9qqTh/G6yNKCYe6hYRtrKCKRACSlfXVUTPTqHGrhZrhv
+         lxzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794349560; x=1794954360;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QTCujI8/h5TPqkOtaoAlRquKFa3ouHL2s5oDMvSTaAw=;
+        b=fJ0ek4ghryq2mZ3i2xKr12mx3vibLLOs6GcqP3fpM8gLey0IEIHZEOC12L//9kv41u
+         oYAod7+PqhfLNEGDlkFfi6hYpMVZL2k8XaNXItrD44NU+33zPdfjfobXFGzHyfppYuxI
+         GQh/dct/qNBMkpzXMRdydM0CWZ8AFECUxPt/DUEKf/wjxU0Yx/sIl5y7XOCBwmHC+l2N
+         qT3L0JTkKCzMyH9mInXkGYHXfVgmdeqtqS1rQRkmMVS16gSj7F2Abr9QWTk75/2WGbim
+         e3YOl73K1t7SA4uLUW45FdtYNtVuBFQsN8bXsa8A5OjZ+dbxc5k6c00gEfo8ceylTujj
+         VSHQ==
+X-Gm-Message-State: APuU4Z+14VYjaDUlo4+3+S6cWLuLPCS2Owd5jvAd45B02JIDdHRAF6fw
+	wYPKo3Vrd0aOkUjMwkFhqNVcM9f/XsBaNQRR5rt5QLPMdymg1tu55siEUD4TqjQA7NvDCF2whTg
+	1Kwzy64j+ggbssqM1IOazSVAvoQtQI7h2Rxt3dopxKN8UjAxgugpyY79kRVTamcrx3/k=
+X-Gm-Gg: AYBFou07NnkJ1lwAghTEC9KExJjofsgb+KJEjTK3IogkZuUYrkTiIYNLydWCIBQKrxG
+	lwKmFj/9Bl86D0PMhfNtZbKDjDK1Eqs1CSlfS0ZfB3VrpLX9KyWIJ39dlsJUNDL6MYhTKW3dOZK
+	02Moq5Lez/DEYvr1U0sz4Hk4xSkmLoazvBA15UR+AzKZv8IR5Fe7Z1dTWqIatpt0POo9uhDHWbb
+	TQ5hX+olf82ly0zhsqAYwp348GZ77kSVEqEHqc/VBynaqLQT6DSrxjwJL///RDR5gyG47Fsija8
+	dboZpI010zTN1raqqZy8MDD2EcVsoOznZg/b8PG3o28Sey5zSEYPWUGyHV1D4awoN1C2dFmvs5p
+	vshsnqLeRqLZ16ow8zZWMcu56T0grdGuAzbh44mXHRxungP2DS19URez+Ai8VecrZdSKOP8qf2w
+	QIWOBmuwMnohPcSCdUkRmUMHSvITY=
+X-Received: by 2002:a05:7300:6a8f:b0:360:e2e6:f849 with SMTP id 5a478bee46e88-376861732afmr893471eec.28.1794349559541;
+        Tue, 10 Nov 2026 14:25:59 -0800 (PST)
+X-Received: by 2002:a05:7300:6a8f:b0:360:e2e6:f849 with SMTP id 5a478bee46e88-376861732afmr893440eec.28.1794349558946;
+        Tue, 10 Nov 2026 14:25:58 -0800 (PST)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe07dsm9981992eec.20.2026.11.10.14.25.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 14:25:58 -0800 (PST)
+Date: Tue, 10 Nov 2026 14:25:35 -0800
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+        f.fainelli@gmail.com, vincent.guittot@linaro.org,
+        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
+        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
+        usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 21/35] firmware: arm_scmi: Add Telemetry boot-on
+ support
+Message-ID: <20261110142535.000034c8@oss.qualcomm.com>
+In-Reply-To: <20261109091221.2532706-22-cristian.marussi@arm.com>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+	<20261109091221.2532706-22-cristian.marussi@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,87 +131,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] cpuidle: Skip miss accounting for timer broadcast
- fallbacks
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261030083633.1699270-1-christian.loehle@arm.com>
- <20261030083633.1699270-2-christian.loehle@arm.com>
- <CAJZ5v0g7gZH=Eod5xXcP0adN1r=-eLqpKA-CpS+hYXjgndZFHg@mail.gmail.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <CAJZ5v0g7gZH=Eod5xXcP0adN1r=-eLqpKA-CpS+hYXjgndZFHg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA4OSBTYWx0ZWRfX+9JvrzlzINAM
+ M7bwf4JPhVObOp1f3hicP6639QmcXFMCl6t8Gayc4PfKUzPd0A/QT+OkySbMQbgMQFv+p3MXtoy
+ F1irK8GmgmpkdDlxAxSqjVh1e3HXJheH1KSejsPbNdnoG3u+vd4iOhL3ZqKqWwtqr36QbGKJrw2
+ RjVWbsmBtzRA8eFs7mD+yrSsMv8JvDxpXZR8bnumakxyAmi0Uqruz71L6tRkFjda0tl7AyqehZ9
+ iF4ImqIjWC8lVo64Qgju+SCDS7BEIABaM/jIqrjn5SELjm0pE7TLRBI8g3+L3ldL7Z7nKm4dMuj
+ 5xdIDZVXBMMXjh2dscvzkHz0ug9RPNiwrrtmMTP1H2exQDM2fhGyizdWm5eH33SLKYGplN33HPH
+ HunV0zng3qE+p1J3cU8G7eE0ZK2kdKR0bL5UsysYX85s5p7iIO8OAmvSBRbhO/IhyKwWpVaK5ro
+ +rhuDxVm+Qp71kNzQrg==
+X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af399f8 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=7CQSdrXTAAAA:8 a=xkoatq2HAAAA:8 a=vwVg_fRgSUVs-176lKkA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=CuNAHyPTimGbZf_9KV2F:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA4OSBTYWx0ZWRfXwWrsapT4C6kx
+ YAdi2NbYgsfoVpP+8tC7dEp4OICr7afDEyfAiPYsm9GqBw+Bt0LbDoext0oaKYpyJWGKreiuCc/
+ ViAsBlxzXrSa71ubUGKIlchPhMIxn30=
+X-Proofpoint-GUID: 1bJKxaIj5w4LW9uIIUS4jWJLzS8jhpkQ
+X-Proofpoint-ORIG-GUID: 1bJKxaIj5w4LW9uIIUS4jWJLzS8jhpkQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100089
 
-On 11/10/26 20:16, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Oct 30, 2026 at 9:36 AM Christian Loehle
-> <christian.loehle@arm.com> wrote:
->>
->> A failed tick_broadcast_enter() can force a shallower state than the
->> governor selected. Exclude successful broadcast fallbacks from above/below
->> miss accounting while retaining their usage, residency and governor
->> feedback.
-> 
-> Is this a theoretical problem, or can it be observed in practice?
-> 
-> In either case, it would be good to add some information on that here.
+On Mon,  9 Nov 2026 09:12:07 +0000
+Cristian Marussi <cristian.marussi@arm.com> wrote:
 
-It's very much a real problem, see the cover letter, it's about 5% of
-the accounted idle_misses on arm64.
-
+> Add the initialization and discovery logic needed to detect when the
+> platform SCMI server is configured with telemetry enabled at boot and
+> perform all the needed resource enumerations to keep the kernel telemetry
+> subsystem state aligned with the platform boot-on configurations.
 > 
->> Fixes: 04dab58a39d4 ("cpuidle: Add 'above' and 'below' idle state metrics")
->> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->> ---
->>  drivers/cpuidle/cpuidle.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
->> index 2d2f40a2cb81..faa29f58738e 100644
->> --- a/drivers/cpuidle/cpuidle.c
->> +++ b/drivers/cpuidle/cpuidle.c
->> @@ -222,6 +222,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
->>
->>         struct cpuidle_state *target_state = &drv->states[index];
->>         bool broadcast = !!(target_state->flags & CPUIDLE_FLAG_TIMER_STOP);
->> +       bool broadcast_failed = false;
->>         ktime_t time_start, time_end;
->>
->>         instrumentation_begin();
->> @@ -232,6 +233,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
->>          * CPU as a broadcast timer, this call may fail if it is not available.
->>          */
->>         if (broadcast && tick_broadcast_enter()) {
->> +               broadcast_failed = true;
->>                 index = find_deepest_state(drv, dev, target_state->exit_latency_ns,
->>                                            CPUIDLE_FLAG_TIMER_STOP, false);
->>
->> @@ -306,6 +308,13 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
->>                 dev->states_usage[entered_state].time_ns += diff;
->>                 dev->states_usage[entered_state].usage++;
->>
->> +               /*
->> +                * The broadcast constraint forced a shallower state, do not
->> +                * account for it as a cpu_idle_miss.
->> +                */
->> +               if (broadcast_failed)
->> +                       goto out;
->> +
->>                 if (diff < drv->states[entered_state].target_residency_ns) {
->>                         for (i = entered_state - 1; i >= 0; i--) {
->>                                 if (dev->states_usage[i].disable)
->> @@ -338,6 +347,7 @@ noinstr int cpuidle_enter_state(struct cpuidle_device *dev,
->>                 dev->states_usage[index].rejected++;
->>         }
->>
->> +out:
->>         instrumentation_end();
->>
->>         return entered_state;
->> --
->> 2.34.1
->>
+> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+Minor things inline.
+
+Whilst reading this I'm kind of on the lookout for things that maybe
+could be pushed out to a future patch set just to cut down on the
+rather large reviews needed on current set.
+
+I'll address that separately when I get to end of the series, but
+maybe this is one such thing that could wait.
+
+Jonathan
+
+> ---
+>  drivers/firmware/arm_scmi/telemetry.c | 287 +++++++++++++++++++++++++-
+>  1 file changed, 280 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+> index 918067e225d5..2322348f98c9 100644
+> --- a/drivers/firmware/arm_scmi/telemetry.c
+> +++ b/drivers/firmware/arm_scmi/telemetry.c
+
+> +
+> +static int
+> +iter_enabled_list_process_response(const struct scmi_protocol_handle *ph,
+> +				   const void *response,
+> +				   struct scmi_iterator_state *st, void *priv)
+> +{
+> +	const struct scmi_msg_resp_telemetry_de_enabled_list *r = response;
+> +	const struct scmi_enabled_de_desc *desc;
+> +	struct telemetry_info *ti = priv;
+> +	struct telemetry_de *tde;
+> +	u32 de_id;
+> +	int ret;
+> +
+> +	desc = &r->array[st->loop_idx];
+> +	de_id = le32_to_cpu(desc->id);
+> +	if (scmi_telemetry_tde_lookup(ti, de_id)) {
+> +		dev_err(ph->dev,
+> +			"Found INVALID DE with DUPLICATED ID:0x%08X\n", de_id);
+> +		return -EINVAL;
+> +	}
+> +
+> +	tde = scmi_telemetry_tde_get(ti, de_id);
+> +	if (IS_ERR(tde))
+> +		return PTR_ERR(tde);
+> +
+> +	guard(mutex)(&tde->mtx);
+> +	tde->de.info->id = de_id;
+> +	tde->de.enabled = true;
+> +	tde->de.tstamp_enabled = le32_to_cpu(desc->mode) == DE_ENABLED_WITH_TSTAMP;
+> +	/*
+> +	 * Guessing that, if a DE is reported as enabled with timestamp, it has
+> +	 * to support timestamp: NOTE THAT the timestamp type (tde->ts_type) can
+> +	 * ONLY be discovered later by  DE_DESCRIPTION.
+
+Extra pace before DE_DESCRIPTION that probably wants to go.
+
+> +	 */
+> +	tde->de.tstamp_support = tde->de.tstamp_enabled;
+> +
+> +	ret = scmi_telemetry_tde_register(ti, tde);
+> +	if (ret) {
+> +		scmi_telemetry_free_tde_put(ti, tde);
+> +		return ret;
+> +	}
+> +
+> +	scmi_telemetry_de_state_update(ti, ENA_STATE, NULL, true);
+> +	if (tde->de.tstamp_enabled)
+> +		scmi_telemetry_de_state_update(ti, ENA_TSTAMP, NULL, true);
+> +
+> +	dev_dbg(ph->dev, "Registered new ENABLED DE with ID:0x%08X\n",
+> +		tde->de.info->id);
+> +
+> +	return 0;
+> +}
+
+
+>  static int
+>  scmi_telemetry_de_groups_init(struct telemetry_info *ti)
+>  {
+> @@ -1163,8 +1417,13 @@ scmi_telemetry_de_groups_init(struct telemetry_info *ti)
+>  		}
+>  	}
+>  
+> -	/* Expose all groups once all fully initialized */
+> -	rinfo->num_groups = num_groups;
+
+This reflects on patch 11, but using num_groups here was rather inconsistent
+with all the use of ti->info.base.num_groups.
+
+They are equal as it was a santity check earlier but I'd make a change
+back then to use the ti->info.base.num_groups to assign this.
+Then more obvious here that you have the write change to this loop.
+
+> +	for (int i = 0; i < ti->info.base.num_groups; i++) {
+> +		/* Expose groups once successfully initialized */
+> +		if (!scmi_telemetry_group_config_lookup(ti, &rinfo->grps[i]))
+> +			rinfo->num_groups++;
+> +		else
+> +			trace_scmi_tlm_access(0, "GROUP_LOOKUP_FAILED", 0, 0);
+> +	}
+>  
+>  	return 0;
+>  }
 
