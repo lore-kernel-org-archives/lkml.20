@@ -1,118 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794284377;
-	b=BhVm7koiSaeU3JwRkw6jP46CY6bZ6GkGmCaE1YmouYOD4nfvkW0etU5Pmvn76AX9/47A
-	 ovIWYDTW+uC/LACpg8yBg0TyyhlpDpKo7c4iqB8cpNzwrHPdFS55fwg0x1IlA5xWw1sZg
-	 SMqFz1pIGjispJYccni8ce89sgtD7wlon8W8n9bRatqBJz+L8xOSQC0QIEqJaP6hl3Sez
-	 uBDdbDZw9q8rksmI2se2BBIWmvCvnu2bzkQYwqHU+gY5FKyXgsO2Wka5xm/zy8OY3LdEy
-	 X/Cedcwm91bKyv6Wxf6HG0WeLukoRM9t/3NFmzf6GhK7Iu/2GpZRffMtDhH3+7VKPuw==
+	t=1794284363;
+	b=loTB+mTFHi46+xTkNDXrwjr/LzKSdzAF6pI8uwhlifbO0BiZ1o/8AMTiojVAHAUn+Mbr
+	 YFkfbIeKrXqwCoG8bLuaBcUny601xlMNsDgZdlwwBzh1B5udA/1gMI9esFFYJj7jecl3s
+	 1tcoL0gK4N5Sdz/vjQOW2gEol+nXGqm8vMDRvryy9XaOH2kwmZTwTbWw3ocW5deut5Gxr
+	 xhq6cXOf9T5DSvKSYinYgktTIbB7/nCuJP+Ro3V8LfPMOWVyaGtLBaF5q7P997gIMhclH
+	 Nggbvt/sU85XiQR5lybP/6dOEOJ9WHtNjD5QMR3vOo/CoWoKh/lg8UIKohK8j6z/6nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794284377;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=akOgOFZaJ6AkC9My1p+5ZWxqR31Lz10lBBUyVueJ0Ek=;
-	b=THunJhMVIjQGdhNLpIlwGjYofpkYagqPLrudSKaWBdL8R88yt7WPudZpSlIBEKTFxAhN
-	 3Sy8j4hNB6+0n0sAUO61PeCDBHS/EOivXey6C9YSjzHxV9iE+JSZb9KsvU/6YqlMf2mUA
-	 /rEqB2QR+pHqsmggdCOxvZ3HRkGuBvPBZ/zmQwsEc5twt8fALHKqWIPQmLR90FfRdcfg0
-	 kCWKrVWL6KuWjGswRUlP/OBbwCwlLUfBROLNvG9hGy0fX646m/b1IOBfbzom7s2vF8Frk
-	 aV7QIKlVaTctX2FdgTxo1ItrCx2qtTmUePoa7oe633pnq2RfFLr8YOWTBJgPYEGJc0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794284363;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cRsKOafKqI8dLGqnlRQ4af7ukN3KKmKLy6whAXKDynM=;
+	b=vDh0evFd7oc7RIWAJihoqtGVifEoIRINXYLw8k9GXKa6ulEgcHcLdt5wBgTSssnMTiHW
+	 Tbb14BUCChS6DpI49qRkfFurIInRefj65oudvlICgDkfZIEsD8XHa95ECpBnb2ECbE9SK
+	 8/geY/rrndYyNJ21gEtTYCUZIP7LIwyevsPypRTU9aLb7wanMyTi19uf+U6V1mlLO0hz5
+	 Au9B9nbspu+P3QVrV1+0r1FXwTa+fw7RS/WbON2+cBwHy/iFhXTcC2gzFda11dh0hZbCA
+	 86NGxUCXdouOvjVlJOxgYu3X9qqMCaXAmQlNIOZQLwSK5P7P980MFuHExVinr9ebVVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BYW6ru18;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gbYv9R3P;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9246260A6F7B
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9246260A6F7B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A904C60A381D
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 04:19:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A904C60A381D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BYW6ru18
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-18818daa3e7so405032c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 20:19:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794284377; x=1794889177; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=akOgOFZaJ6AkC9My1p+5ZWxqR31Lz10lBBUyVueJ0Ek=;
-        b=BYW6ru18H3XBx3AsTpAR8Xqn7UK+BaL7xpqsLxLhqN2QvvOiWbVZxKkyqDcuQPdzVW
-         2+gpsIN6qgJie5m6wTOQRhX+fUPxLjgcxBll/ZY5p5UUbL0d50ye8w6dG9XoY+qrh79S
-         vVkCKtAvNEplr6QFFbhPl5rlOHja0HaBtUjHnvmCGW4fMecoJaMuo0sRvS36ezUY3TJn
-         rpl5lcuLVLu+51qXKbkEETsCX/Rp45x3aXYPZ5W9ze4MZOYCpD/pPMmfcTFNTa4MM7O4
-         pVBCqfOAZdqwjRZmG0VMJWPLnctGlbgb+BcQqD5NJ7ofHiuG6bpYKdyv2tR/xhNzr2NN
-         taMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794284377; x=1794889177;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=akOgOFZaJ6AkC9My1p+5ZWxqR31Lz10lBBUyVueJ0Ek=;
-        b=sNR2YRlsb0zA20IQLHgjZBDWVImMdZkBpkOVvGIwGoUHzauQJ2nqY+AunTOIG1X2ld
-         555/XxDOw7khjLZaZZCH1wcm0WzNc28UTG9DeQURbaf/rk4ajL/03infiEpHIl6TpNlg
-         U28O/UW9TJ2c4IPLHbq2UUBgs7Tjsk5oTKNCNgv92watGGh1gP64DbEOApP4jSee+BRR
-         3ltqY7t+YTZlxyBja8V00l+34oDPkVvdpAmhxUmlJtucaCpnhKMRkEZ9cjcHRPzKR5O/
-         qtxTaZSTwRGQraF675yqYCDmQNJw/BSu3LVgFTxne1JTA7be0DlS8S4+cRTkRpzUxBCl
-         ODQg==
-X-Forwarded-Encrypted: i=1; AL+hErG/FmHXvy0QIeWrwp+l/6eYJdP/c4vrv/0YTYyefjF12zi0AMfbL6q05/HHjyrPVL+Ks82HtDqbLmpxflI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EnSERDCSVKjv8eC/DhyNxqTapQibyQkzYcGtlkx4Mv3jy7E/H
-	/B1YMNrIi2oLj/Aj3DHLj3cro7qgaE9N2IcFYERpBdbAMehvByKlhjjT
-X-Gm-Gg: AYBFou0hrV9QgKxnRf3psWj33tioxf41Nd9+vJR6nyhmwzhAhGYHWL3pKDpP1N2bram
-	mS8M1ktLRJRfEe8Hd2JzJncvHVwJPiPH3xEUzDVdWBGgaeu/rnr/5H0SiBRoO2ovLkEPM6DiRV+
-	7fbaLNAmeIaTDQY7Q6pdnXDi1SZM42X8vEt20isCkAp+p05lmxnfY5sv3nGe5oC5Uu6yjd8Wqtp
-	aTFsLpKjdfDH3bnqSW2idSq8LgOl7P5XkurHuZCGHUTVMoFE+XpLzqLNW89LQLLV11pM5MRr1Su
-	fDtB1ySafgasQGeN6oB5eqvOSXWMnA1x8baoZ0uoZHWJLNDRfmGBzCGPzAsziqfQikMg1EaNzC5
-	wyRoYZtGqWxZaKG5ur2rlTEh7wDXc6Qd1Y9qbN+D1YvDl5KBSXoM2yx1/kb+W0878XgpN6NCBvN
-	9jhR8RA/O+bAnF5BWT15y9mOtKt97r2L2B2Oidy9xKhy10rXuRA3A5I6ZUq3EsOaf/D29FU77TW
-	pfWRAB5d7nZugHmMmknnTffIfO2oQ+4dw4xug8ZnM3kH4SRmHd+do5NyetY5eJRWtvvcVmbL94n
-	FxjpJbaiznJbmhaxRZ+n45oe6Ky94oIcYEulr+buh9N+ubI=
-X-Received: by 2002:a05:701b:4502:10b0:1ab:90a8:87a2 with SMTP id a92af1059eb24-1b3b5e25dbcmr1978641c88.11.1794284376568;
-        Mon, 09 Nov 2026 20:19:36 -0800 (PST)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b7ba88sm3540459c88.22.2026.11.09.20.19.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 20:19:35 -0800 (PST)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: bhelgaas@google.com,
-	lukas@wunner.de,
-	bvanassche@acm.org,
-	linux-pci@vger.kernel.org,
-	alistair@alistair23.me,
-	linux-cxl@vger.kernel.org,
-	linux-coco@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gbYv9R3P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794284361; x=1825820361;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=BVep7Qz8JJqudKzCF6G/P+rgdoPynynQFiyMuZ5kOMU=;
+  b=gbYv9R3PJb0qQvFThTp0azK8LEhxGtwh6+zXCLseqSKeW9NnjMOQ39I0
+   uOYOS40Twf0tRQZvc4uwzyZu15aq3tVBlt24pEveb9wvj8DGIzBJ90TEF
+   EOEF/kA53/DFU4ZYOWqYOle0Mc61n1wnVh+5fwDT3bZc6xUQo0e7Mtdxq
+   9imyu384f3GzGGwm6C13ptNchmtfVo82tdWA5XD6RyvlK/rMMsc35nphO
+   H9GMzOFNO3iJddd+40GHj5HUvdjMJVyqtuKFXvKB58NLPz38ktSnkWDdM
+   MWfDUg+WVXa3nfOvQYmvWkn5fmVn4GzSw7QLew8hL3xiwi1LVNU91yhI7
+   Q==;
+X-CSE-ConnectionGUID: L6SQ5cSHQaieozXef+BW7Q==
+X-CSE-MsgGUID: wlJrSvCEQLqeiIp5XTqbEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2901348"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2901348"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
+X-CSE-ConnectionGUID: Czvc6wcTSdOl6TcV+kkw/A==
+X-CSE-MsgGUID: ygcaiT8hS7mFc7xI3EOeDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7856929"
+Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 20:19:15 -0800
+From: Reinette Chatre <reinette.chatre@intel.com>
+To: ben.horgan@arm.com,
+	james.morse@arm.com,
+	Dave.Martin@arm.com,
+	fenghuay@nvidia.com,
+	ruanjinjie@huawei.com
+Cc: tony.luck@intel.com,
+	yu.c.chen@intel.com,
+	babu.moger@amd.com,
+	fustini@kernel.org,
+	tan.shaopeng@fujitsu.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	jic23@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	jgg@nvidia.com,
-	akpm@linux-foundation.org
-Cc: gary@garyguo.net,
-	a.hindborg@kernel.org,
-	wilfred.mallawa@wdc.com,
-	tmgross@umich.edu,
-	ojeda@kernel.org,
-	boqun.feng@gmail.com,
-	alistair23@gmail.com,
-	gregkh@linuxfoundation.org,
-	aliceryhl@google.com,
-	bjorn3_gh@protonmail.com,
-	benno.lossin@proton.me,
-	alex.gaynor@gmail.com,
-	Dan Williams <dan.j.williams@intel.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: [PATCH v6 06/25] X.509: Move certificate length retrieval into new helper
-Date: Tue, 10 Nov 2026 14:18:13 +1000
-Message-ID: <20261110041832.1730924-7-alistair.francis@wdc.com>
+	patches@lists.linux.dev,
+	reinette.chatre@intel.com
+Subject: [PATCH v3 8/8] arm_mpam: resctrl: Rename struct mpam_resctrl_dom to mpam_resctrl_ctrl_dom
+Date: Mon,  9 Nov 2026 20:19:08 -0800
+Message-ID: <7a44ffd1fc83e74192fa8363d560c1f90e843da1.1794283825.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110041832.1730924-1-alistair.francis@wdc.com>
-References: <20261110041832.1730924-1-alistair.francis@wdc.com>
+In-Reply-To: <cover.1794283825.git.reinette.chatre@intel.com>
+References: <cover.1794283825.git.reinette.chatre@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,101 +93,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lukas Wunner <lukas@wunner.de>
+struct mpam_resctrl_dom holds the control domain of a resource, while
+its monitoring domain is held by struct mpam_resctrl_mon_dom. Unlike the
+name of the monitoring structure, the name struct mpam_resctrl_dom does
+not say which kind of domain the structure holds.
 
-The upcoming in-kernel SPDM library (Security Protocol and Data Model,
-https://www.dmtf.org/dsp/DSP0274) needs to retrieve the length from
-ASN.1 DER-encoded X.509 certificates.
+Rename it to struct mpam_resctrl_ctrl_dom to match its monitoring
+counterpart.
 
-Such code already exists in x509_load_certificate_list(), so move it
-into a new helper for reuse by SPDM.
+No functional change.
 
-Export the helper so that SPDM can be tristate.  (Some upcoming users of
-the SPDM library may be modular, such as SCSI and ATA.)
-
-No functional change intended.
-
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+Tested-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- crypto/asymmetric_keys/x509_loader.c | 38 +++++++++++++++++++---------
- include/keys/asymmetric-type.h       |  2 ++
- 2 files changed, 28 insertions(+), 12 deletions(-)
+Changes since RFC v2:
+- Add Jinjie's Reviewed-by tag.
+- Add Jinjie's Tested-by tag.
+---
+ drivers/resctrl/mpam_internal.h |  2 +-
+ drivers/resctrl/mpam_resctrl.c  | 18 +++++++++---------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/crypto/asymmetric_keys/x509_loader.c b/crypto/asymmetric_keys/x509_loader.c
-index 0d516c77cc26a..174451b93edad 100644
---- a/crypto/asymmetric_keys/x509_loader.c
-+++ b/crypto/asymmetric_keys/x509_loader.c
-@@ -4,28 +4,42 @@
- #include <linux/key.h>
- #include <keys/asymmetric-type.h>
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index 1df439ecb055..dc304e4e0dc0 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -432,7 +432,7 @@ struct mpam_msc_ris {
+ 	struct mpam_garbage	garbage;
+ };
  
-+ssize_t x509_get_certificate_length(const u8 *p, unsigned long buflen)
-+{
-+	ssize_t plen;
-+
-+	/* Each cert begins with an ASN.1 SEQUENCE tag and must be more
-+	 * than 256 bytes in size.
-+	 */
-+	if (buflen < 4)
-+		return -EINVAL;
-+
-+	if (p[0] != 0x30 ||
-+	    p[1] != 0x82)
-+		return -EINVAL;
-+
-+	plen = (p[2] << 8) | p[3];
-+	plen += 4;
-+	if (plen > buflen)
-+		return -EINVAL;
-+
-+	return plen;
-+}
-+EXPORT_SYMBOL_GPL(x509_get_certificate_length);
-+
- int x509_load_certificate_list(const u8 cert_list[],
- 			       const unsigned long list_size,
- 			       const struct key *keyring)
+-struct mpam_resctrl_dom {
++struct mpam_resctrl_ctrl_dom {
+ 	struct mpam_component		*ctrl_comp;
+ 	struct rdt_ctrl_domain		resctrl_ctrl_dom;
+ };
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 263bbbc27dac..8894d0d19468 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -1400,7 +1400,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 	struct mpam_config *cfg;
+ 	struct mpam_props *cprops;
+ 	struct mpam_resctrl_res *res;
+-	struct mpam_resctrl_dom *dom;
++	struct mpam_resctrl_ctrl_dom *dom;
+ 	enum mpam_device_features configured_by;
+ 
+ 	lockdep_assert_cpus_held();
+@@ -1409,7 +1409,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 		return resctrl_get_default_ctrl(r);
+ 
+ 	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
+-	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
++	dom = container_of(d, struct mpam_resctrl_ctrl_dom, resctrl_ctrl_dom);
+ 	cprops = &res->class->props;
+ 
+ 	/*
+@@ -1460,7 +1460,7 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 	struct mpam_config cfg;
+ 	struct mpam_props *cprops;
+ 	struct mpam_resctrl_res *res;
+-	struct mpam_resctrl_dom *dom;
++	struct mpam_resctrl_ctrl_dom *dom;
+ 
+ 	lockdep_assert_cpus_held();
+ 	lockdep_assert_irqs_enabled();
+@@ -1473,7 +1473,7 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 	 * resctrl_arch_update_domains() relies on this.
+ 	 */
+ 	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
+-	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
++	dom = container_of(d, struct mpam_resctrl_ctrl_dom, resctrl_ctrl_dom);
+ 	cprops = &res->class->props;
+ 
+ 	if (mpam_resctrl_hide_cdp(r->rid))
+@@ -1643,7 +1643,7 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
+ static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
+ 					  struct rdt_resource *r,
+ 					  struct mpam_component *comp,
+-					  struct mpam_resctrl_dom *dom)
++					  struct mpam_resctrl_ctrl_dom *dom)
  {
- 	key_ref_t key;
- 	const u8 *p, *end;
--	size_t plen;
-+	ssize_t plen;
+ 	struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
+ 	int err;
+@@ -1741,10 +1741,10 @@ static struct mpam_resctrl_mon_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu
+ 	return NULL;
+ }
  
- 	p = cert_list;
- 	end = p + list_size;
- 	while (p < end) {
--		/* Each cert begins with an ASN.1 SEQUENCE tag and must be more
--		 * than 256 bytes in size.
--		 */
--		if (end - p < 4)
--			goto dodgy_cert;
--		if (p[0] != 0x30 ||
--		    p[1] != 0x82)
--			goto dodgy_cert;
--		plen = (p[2] << 8) | p[3];
--		plen += 4;
--		if (plen > end - p)
-+		plen = x509_get_certificate_length(p, end - p);
-+		if (plen < 0)
- 			goto dodgy_cert;
+-static struct mpam_resctrl_dom *
++static struct mpam_resctrl_ctrl_dom *
+ mpam_resctrl_get_ctrl_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+ {
+-	struct mpam_resctrl_dom *dom;
++	struct mpam_resctrl_ctrl_dom *dom;
+ 	struct rdt_resource *r = &res->resctrl_res;
  
- 		key = key_create_or_update(make_key_ref(keyring, 1),
-diff --git a/include/keys/asymmetric-type.h b/include/keys/asymmetric-type.h
-index 1b91c8f98688d..301efa952e263 100644
---- a/include/keys/asymmetric-type.h
-+++ b/include/keys/asymmetric-type.h
-@@ -84,6 +84,8 @@ extern struct key *find_asymmetric_key(struct key *keyring,
- 				       const struct asymmetric_key_id *id_2,
- 				       bool partial);
+ 	lockdep_assert_cpus_held();
+@@ -1761,7 +1761,7 @@ static void mpam_resctrl_add_cpu_ctrl_domain(unsigned int cpu,
+ 					     struct mpam_resctrl_res *res)
+ {
+ 	struct rdt_resource *r = &res->resctrl_res;
+-	struct mpam_resctrl_dom *dom;
++	struct mpam_resctrl_ctrl_dom *dom;
+ 	struct mpam_component *comp;
  
-+ssize_t x509_get_certificate_length(const u8 *p, unsigned long buflen);
-+
- int x509_load_certificate_list(const u8 cert_list[], const unsigned long list_size,
- 			       const struct key *keyring);
+ 	lockdep_assert_held(&domain_list_lock);
+@@ -1811,7 +1811,7 @@ static void mpam_resctrl_remove_cpu_ctrl_domain(unsigned int cpu,
+ 						struct mpam_resctrl_res *res)
+ {
+ 	struct rdt_resource *r = &res->resctrl_res;
+-	struct mpam_resctrl_dom *dom;
++	struct mpam_resctrl_ctrl_dom *dom;
+ 
+ 	lockdep_assert_held(&domain_list_lock);
  
 -- 
 2.56.0
