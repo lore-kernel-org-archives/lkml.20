@@ -1,108 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321679;
-	b=lMhwriKWaPdFov5OBp7KMLkrcVlUZsWMx9dQaye5ob863xDRd/jZZz16SMxB9aJh1ZaM
-	 Uuluvg8khKasG/0RDhXeGRu+68Qxk49zeZGScBTqhXFjBkjlqv3dZDurQbNsTIUMU94W6
-	 qYuaHc49NfxtE1CerRc+yqeswEWM8+IUZaw7NlOK/r7DsNfeXv8uON6ru2bzLECFHlzo6
-	 0dApQdrpB0C0E5RDUz9kuKPl5vwvuIED3/yUtTnnjZ7aA3jp+90h0p19qf0dUatkVE67c
-	 b6aLsamQwu3nIn0jmwywr+Cn7oVgjyuhkyYCxZZri79vnPWPao3JeK+8DZpvoYuv6UA==
+	t=1794321687;
+	b=CTuqMn3du55NFEIN43N0gQXKrqc6XVMZGwg7uilpVH9ZASATiL5woSbc9OoGtzWNM0tN
+	 +9ucjQBUTjbOzK5vL9yoWAppZojmkr71PnY3uMsJvlsZieHsOOfqHrb8dpdP+IgcSfbm4
+	 wHY6TP0eLZefd9I5CNcorB5i4bOEK5QgXmusIgNTdHp2PCHcK89VAgR9j83xoDwhcmikA
+	 Gyp1JE8eZwAKkfu3nBu0hOpCtQ+pltFdu6nadco3EGIxUloBihTgwRapM2QRZPebQ13t2
+	 O7+MFQMrJ5hjPBy2TZrcsdo/ZrlmS39jziXc+B6dqjnvCa/TEvxIXNcF80JWglqeL7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321679;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=e6tmUSbTA8kI3wpkqOhoSuw/zjQHagh6vk2l/7Qyg7s=;
-	b=OXvh7m/HW++93umyd0zG6IfQw0bcwFa0stmf8Kzd1i7oB9brrUrB5RIgkQ5nfPf3nijm
-	 cxzHKWwoe7xFL0EvZid5Mc6wTzNAm0bqJv1pFB8iaiwl3f8Rirj8BwsBTXcEs+Glwb2iL
-	 ryFRMLBKWoFH+Nc5qz7MGHlSlWMKg/dRTzYCZFntjStsUTyUx7I19joAsvXnruUfOatLn
-	 LnRzFCl4Y/cYNulz5yCYCwL+iKWKlypzqCk99+aCnoCwe9fGYwgE04v1G3m/rylReq8WG
-	 esmvwC3UwgnjPiQqcWpgtxaF60ZQfc7sSf/LTuHY+TDOJbmTQy2Dvl/RDvYRzA6tvbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321687;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=TTm6kiQ7jtyAPcCMdJ4HrL7lFDse3/K7/p/AaBjxNSc=;
+	b=1JWXBGPsALRwiSc5fGEdBPcHcLIX4Yuwv+ix++MvmRt/C1YyxlWd/uZn4WmsEkKJScmb
+	 k+VZ7GvztM4nr1G9U0CXXSKkpuVV0GKmtnuBvlftgkCsn5XPp7ioOr4Pt8+fcet/hcPft
+	 LlwXw3GKvgNwB4+9dS6A4p63TZEVV8XRavKmbOAG2eC+ZxyAIxYbxKvBOdgmVRDF4Wmui
+	 Ae4yDyeI7Y608IeWP0FTdip1j2WqGhFrB1+f+mDmlPdYhfLAxmrdMqopbkaMNkZ5gEvyQ
+	 xEloGZU9i08UB0xbYHKCOv034F5Z0TWOHAURS9Ns4+g77JYVGivmhYHUXN/+xgis2VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jOgLSzER;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=t4v9lJxs;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L0wasxwR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0F5606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD0F5606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AEC60A2619;
+	Tue, 10 Nov 2026 14:41:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jOgLSzER;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=t4v9lJxs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794321677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e6tmUSbTA8kI3wpkqOhoSuw/zjQHagh6vk2l/7Qyg7s=;
-	b=jOgLSzERd38dEI697TiSGkguueuN07KUmXgvFVSJ83v+g48ei1eHvUa+SiF/IrAlUj2sPI
-	rc1RnfGlgmG3ZIpnibqB4ULGp98moBl8J3Lo0ERgD8o2gzTa7bPCRXyhnAJaQEjNCN/jlr
-	A0ssqkWsXOawwx5uWa9yOokLHq1Drbs=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-609-oTyfVjcRP8iqI1UMU2ZT9Q-1; Tue, 10 Nov 2026 09:41:16 -0500
-X-MC-Unique: oTyfVjcRP8iqI1UMU2ZT9Q-1
-X-Mimecast-MFC-AGG-ID: oTyfVjcRP8iqI1UMU2ZT9Q_1794321675
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so21434685e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:41:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794321675; x=1794926475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e6tmUSbTA8kI3wpkqOhoSuw/zjQHagh6vk2l/7Qyg7s=;
-        b=t4v9lJxsDXuT21EpVxi2YjYy5Kaex6++wgkV19OfuHGPOFtxZGQ2EHsQraHrI2SzD6
-         RhYGkUGGBi8Ce73dgdimTxWL1SQBwsu7U1DhSXrTQ9sVYlLEhgrbjNiW+JD8olIPpGDv
-         d5w0zFC7vv6HtfoHDv+AjoEz5J14bpyGXs+O0Pfo1z7iCo+p4PcfktVIlToS0v/9mwL2
-         UHi3itNoduyzWLS1sSxTr+2+LdpIYv2PF95OUrwQ00hDjqyTKY58hbBw/A+DGU0iXqSr
-         xLF/IRmSYRoOu1uvuBuk5olPlEv4oaJbiHuj20g3VqEV+KzKpNx9cXlTI1gmiXVaJ3gS
-         phOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321675; x=1794926475;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e6tmUSbTA8kI3wpkqOhoSuw/zjQHagh6vk2l/7Qyg7s=;
-        b=hlOImArajxASaYo/22duy6oyhe9B/iUTQ49QkKpLDcS4zZzvdSVRmuwxbwE9/coRi/
-         2q5MFYBeOCAGH1F56IotFAx8SrLIzTqW/aBaLoOcC9IjwW5lehLw8kkBn1+W8cAGsgTw
-         9M3fWMBWGGyXU9SlPWce/dxlVMdau/aDFlj8excEyH60wmgy8f4elPbHhFPEy1JPsW5a
-         77E3ujtxWtAMoQYMo5XkzucQdu/TJWfcicBDMUX6jAjQyHrx6zRdNat3km/Rtt+c0oKt
-         H9pKZGM+RaPVAoT8SnUWr33nOvyQghaq3Q9KKqpqDOOt3BXuA2z35P3yDAS5pksgKNHd
-         zipw==
-X-Forwarded-Encrypted: i=1; AL+hErGzVXygem12C33fgSyfUNOSV4cn+VolN7uPaMt790xqXZKqFLioB95UJ67KWCUUVNvA6L9hyssJAoCEXN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/K8LEbYXidXGiPsE2MPKrvqnrjct38DqVGyIYKuGh3WmhJcDgB
-	i9+vVrjSUUoWZVCkYAJ/TJtDLJkIoo01Pe9/iXUTMc1VM6PZYElVWx7otc/NJ/V/IIWKBTJesqu
-	eaMtGNccG54OLA9HkQi6pTVa/qveglNtaOh7QazsKDhxO+59gfK2Xm7JuOgJpzwGtBg==
-X-Gm-Gg: AYBFou1ZZVxIuj0Wqmr7uB6a2iv/OCtUUWDNA2gi2e4QCO2nWnnh+LxJi6X5k/pXJG5
-	IEjxO01N4oj2R1gr7N31fxP+YSWa41GDETmKJClAwsSklSP/253Ek/cdKG8HB9Dqc9ykabisGCz
-	jsuYlTQfhku/JJbTVH8kbx9XnGtVSe9Pjyj1FqkuIfhPsIsS0/rcOu9Svvijt4BcLdKZILWwFC3
-	Ju8Z8ow/LFDKcvdaHXZVhEEKR3fc8HGo2WzfkGtL769o2MvU3H+aMIpijV2OHouR+Fx5eh19g2Q
-	dbv/JSaFC7PygghWRVLQ1Hd1JhOIhY+iblVNCo060gA83LZDIiPtoP/VylqXJ1hLMjrJPDeyiwt
-	ALaLA90HurmRGBtaRY37iMll0A45w6dxKFOgkl5MBxb8yeox6esf7lCyYf3TjR0S+Qtc/S4URoE
-	aV6z9TBNKhXKjCoRIPwPDRck5afQHyXrMhz1PJJnLRRur3
-X-Received: by 2002:a05:600c:190f:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4ba02336807mr53183115e9.6.1794321675130;
-        Tue, 10 Nov 2026 06:41:15 -0800 (PST)
-X-Received: by 2002:a05:600c:190f:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4ba02336807mr53182425e9.6.1794321674505;
-        Tue, 10 Nov 2026 06:41:14 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe9357sm78127275e9.9.2026.11.10.06.41.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:41:14 -0800 (PST)
-Message-ID: <1754e4c8-3b6e-4983-a7fb-d3444c1156c1@redhat.com>
-Date: Tue, 10 Nov 2026 15:41:12 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L0wasxwR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1E511F0089F;
+	Tue, 10 Nov 2026 14:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794321686;
+	bh=TTm6kiQ7jtyAPcCMdJ4HrL7lFDse3/K7/p/AaBjxNSc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=L0wasxwRyNyaZaSu5O40KQkrPdcwPwQDvnECjTlxCGp6xyeRZ4A3jc2KvBK4O/MP7
+	 6bnETJhqvUXR8BZ+Da2ZWDI7eS3xYLLOAHeZX05ill9iztKetIoYXYNYz7hnRuzyt5
+	 z8oN8snKA4wRnD5LQn7MJw186+gmyY0MDUKd5D/vTETBdxGDqTjLtST3uv+qg08ntK
+	 LI0vMPh4b7aAVYdf+hOU2Dzl9lsqv+DH2GVNzbIFfIGjnPY/a05iu1NEm4t3Pa3RYv
+	 NNG76tMvTr6LqpXWxFtIgRwUtayZpzkpusKdZxi2CPxbypQGojWGVWXuNvf3IqhMwn
+	 7HXAK9xeYBm3A==
+Subject: Re: [PATCH net v2] tun: disallow setting IEEE 802.15.4 link types via
+ TUNSETLINK
+From: netdev-bot+sashiko@kernel.org
+To: skalpesh942@gmail.com
+Cc: willemdebruijn.kernel@gmail.com, jasowangio@gmail.com,
+ alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Date: Tue, 10 Nov 2026 14:41:25 +0000
+Message-ID: <179432168535.994134.12500013987740507509@kernel.org>
+In-Reply-To: <20261106142421.17793-1-skalpesh942@gmail.com>
+References: <20261106142421.17793-1-skalpesh942@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,60 +66,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 2/2] net: pcs: xpcs: make supported_interfaces
- authoritative
-To: Coia Prant <coiaprant@gmail.com>, Jakub Kicinski <kuba@kernel.org>
-Cc: Jiawen Wu <jiawenwu@trustnetic.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Fabio Baltieri <fabio.baltieri@gmail.com>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261102212506.3348537-1-coiaprant@gmail.com>
- <20261102212506.3348537-4-coiaprant@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261102212506.3348537-4-coiaprant@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/2/26 22:25, Coia Prant wrote:
-> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
-> index 6f0a110e32d2..25fdc9c6b72c 100644
-> --- a/drivers/net/pcs/pcs-xpcs-rk.c
-> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
-> @@ -483,6 +483,7 @@ struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *pcs, int
->   	struct platform_device *pdev;
->   	struct dw_xpcs_rk *pxpcs;
->   	struct dw_xpcs *xpcs;
-> +	DECLARE_PHY_INTERFACE_MASK_ZERO(supported_interfaces);
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Please respect the reverse christmas tree order above.
+Critical: 0 · High: 0 · Medium: 2 (2) · Low: 0
 
->   
->   	if (!of_device_is_available(pcs))
->   		return ERR_PTR(-ENODEV);
-> @@ -536,6 +537,15 @@ struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *pcs, int
->   		return xpcs;
->   	}
->   
-> +	/*
-> +	 * The RK3568 XPCS supports 1000BASE-X, SGMII and QSGMII.
-> +	 */
-> +	__set_bit(PHY_INTERFACE_MODE_1000BASEX, supported_interfaces);
-> +	__set_bit(PHY_INTERFACE_MODE_SGMII, supported_interfaces);
-> +	__set_bit(PHY_INTERFACE_MODE_QSGMII, supported_interfaces);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Sashiko thinks this last statement is a no op:
+- [Medium] The commit message rejects NULL checks in net/ieee802154/ and
+  says it fixes the problem "at the source".
+- [Medium] The commit message misstates the root cause and points the
+  Fixes tag at the wrong commit.
 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102212506.3348537-1-coiaprant@gmail.com
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but tun still
+  lets users set ARPHRD_6LOWPAN through TUNSETLINK.
+- [Medium] This problem wasn't introduced by this patch, but TUNSETLINK
+  still accepts ARPHRD_MCTP (290), and an unprivileged user can use that…
 
-I don't think this is 'net' material, I suggest resubmitting for
-net-next.
+--
 
-/P
+tun: disallow setting IEEE 802.15.4 link types via TUNSETLINK
 
+The TUNSETLINK ioctl now rejects ARPHRD_IEEE802154 and
+ARPHRD_IEEE802154_MONITOR. It also rejects any arg larger than USHRT_MAX.
+The IEEE 802.15.4 cases and the <linux/ieee802154.h> include are removed
+from tun_get_addr_len().
+
+Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+
+> A userspace application can set the link type of a TUN/TAP interface
+> to ARPHRD_IEEE802154 or ARPHRD_IEEE802154_MONITOR via ioctl(fd,
+> TUNSETLINK, arg) because tun_get_addr_len() explicitly recognized
+> these types.
+
+[Severity: Medium]
+Is this the right root cause? TUNSETLINK has assigned any arg to
+dev->type since commit ff4cc3ac93e1 ("[TUN]: Allow setting the linktype
+of the tap device.") from 2005:
+
+    tun->dev->type = (int) arg;
+
+tun_get_addr_len() came later, in cca8ea3b05c9, and only picks addr_len
+after the type has already been set. Unknown types fall through to the
+default case and get addr_len 0, but they are still accepted.
+
+The dereference in ieee802154_llsec_dump_table() goes back to
+3e9c156e2c21 (2014).
+
+With that history, is this tag correct?
+
+    Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETLINK processing")
+
+It looks like the bug predates cca8ea3b05c9. Removing the IEEE802154
+cases from tun_get_addr_len() also seems to be cleanup made dead by the
+new TUNSETLINK check, not part of the fix itself.
+
+[ ... ]
+
+> The IEEE 802.15.4 subsystem operates on the invariant that any
+> net_device with dev->type == ARPHRD_IEEE802154 is a genuine WPAN device
+> with a valid dev->ieee802154_ptr context.
+
+[ ... ]
+
+> Rather than scattering NULL checks across every site in net/ieee802154/,
+> fix the issue at the source: validate that arg fits within unsigned short
+
+[Severity: Medium]
+Is tun the only way to break this invariant? bond_enslave() in
+drivers/net/bonding/bond_main.c rejects only CAN devices:
+
+    if (slave_dev->type == ARPHRD_CAN) {
+        BOND_NL_ERR(bond_dev, extack,
+                    "CAN devices cannot be enslaved");
+        return -EPERM;
+    }
+
+For the first non-Ethernet slave, bond_setup_by_slave() copies the type
+onto the bond:
+
+    bond_dev->type = slave_dev->type;
+
+Nothing in drivers/net/bonding/ sets ml_priv or ieee802154_ptr.
+
+Enslaving a wpan interface that is down (from mac802154, hwsim or
+fakelb) would therefore give a bond of type ARPHRD_IEEE802154. On that
+bond, ieee802154_llsec_dump_table() would still run:
+
+    if (idx < first_dev || dev->type != ARPHRD_IEEE802154)
+        goto skip;
+
+    data.ops = ieee802154_mlme_ops(dev);
+    if (!data.ops->llsec)
+
+with dev->ml_priv == NULL. The nl-phy.c and socket.c sites look exposed
+in the same way.
+
+Unlike the tun case, this path needs CAP_NET_ADMIN and an existing WPAN
+netdev.
+
+Team already closed this gap in commit 9043be310c6a ("team: reject CAN,
+IEEE 802.15.4 and 6LoWPAN devices in team_port_add"). That commit noted
+that bonding only had the CAN fix (8ba68464e478):
+
+    if (port_dev->type == ARPHRD_CAN ||
+        port_dev->type == ARPHRD_IEEE802154 ||
+        port_dev->type == ARPHRD_IEEE802154_MONITOR ||
+        port_dev->type == ARPHRD_6LOWPAN) {
+
+The commit message relies on this invariant as the reason for not adding
+checks in net/ieee802154/. Would bonding need a similar rejection before
+the fix at the source is complete?
+
+> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> index dcec7311e6011..f2915e929e395 100644
+> --- a/drivers/net/tun.c
+> +++ b/drivers/net/tun.c
+
+[ ... ]
+
+> @@ -3362,22 +3358,33 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
+>  			netif_info(tun, drv, tun->dev,
+>  				   "Linktype set failed because interface is up\n");
+>  			ret = -EBUSY;
+
+[ ... ]
+
+> +		if (arg > USHRT_MAX) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +
+> +		if (arg == ARPHRD_IEEE802154 || arg == ARPHRD_IEEE802154_MONITOR) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch, but
+should ARPHRD_6LOWPAN be rejected here too? tun_get_addr_len() still has:
+
+    case ARPHRD_6LOWPAN:
+        return EUI64_ADDR_LEN;
+
+lowpan_event() in net/6lowpan/core.c is a global netdevice notifier. It
+checks only dev->type == ARPHRD_6LOWPAN and __in6_dev_get(dev), and then
+treats netdev_priv(dev) as a struct lowpan_dev. The header comment on
+lowpan_is_ll() says:
+
+    /* caller need to be sure it's dev->type is ARPHRD_6LOWPAN */
+
+For a tun device, netdev_priv() is a struct tun_struct, which starts
+with:
+
+    struct tun_file __rcu *tfiles[MAX_TAP_QUEUES];
+
+On NETDEV_DOWN, lowpan_event() runs:
+
+    for (i = 0; i < LOWPAN_IPHC_CTX_TABLE_SIZE; i++)
+        clear_bit(LOWPAN_IPHC_CTX_FLAG_ACTIVE,
+                  &lowpan_dev(dev)->ctx.table[i].flags);
+
+These writes land inside tun->tfiles[].
+
+On NETDEV_UP or NETDEV_CHANGE it reads lowpan_dev(dev)->lltype, which
+overlays tfiles[0]. If that value equals LOWPAN_LLTYPE_IEEE802154,
+addrconf_ifid_802154_6lowpan() dereferences
+lowpan_802154_dev(dev)->wdev->ieee802154_ptr, which comes from tun
+memory.
+
+The inet6_dev created at NETDEV_REGISTER survives the type change, so
+the notifier check passes.
+
+With the current layouts, each clear_bit() targets bit 0 of an aligned
+pointer. lltype can read as 1 only on some 64-bit big-endian layouts, so
+the crash depends on the memory layout. The path is still reachable by
+an unprivileged user with tun in a user+net namespace.
+
+Team rejects ARPHRD_6LOWPAN for this reason. Commit 9043be310c6a notes
+that "the 6LoWPAN netdev notifier writes through lowpan_dev(dev) on
+NETDEV_DOWN".
+
+[Severity: Medium]
+This is also a pre-existing issue and was not introduced by this patch,
+but TUNSETLINK still accepts ARPHRD_MCTP (290). Can this hit a WARN_ON
+in the MCTP receive path?
+
+An IFF_TUN device registers as ARPHRD_NONE, and mctp_known() in
+net/mctp/device.c accepts that type:
+
+    return dev->type == ARPHRD_MCTP ||
+           dev->type == ARPHRD_LOOPBACK ||
+           dev->type == ARPHRD_NONE;
+
+So mctp_register() attaches an mctp_dev at NETDEV_REGISTER.
+mctp_dev_notify() handles only NETDEV_REGISTER and NETDEV_UNREGISTER, so
+the mctp_dev stays in place after a type change.
+
+Suppose the user calls TUNSETLINK(ARPHRD_MCTP), brings the link up, and
+writes a frame whose packet info header carries ETH_P_MCTP.
+tun_get_user() sets skb->protocol = pi.proto, and the frame reaches
+mctp_pkttype_receive():
+
+    if (dev->type == ARPHRD_MCTP) {
+        cb = mctp_cb(skb);
+    } else {
+
+The skb cb was zeroed at allocation and no MCTP driver ever filled it
+in, so mctp_cb() hits:
+
+    WARN_ON(cb->magic != 0x4d435450);
+
+An unprivileged user can reach this with tun in a user+net namespace,
+and on panic_on_warn systems it panics the machine. Should ARPHRD_MCTP be
+rejected here as well?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106142421.17793-1-skalpesh942%40gmail.com
