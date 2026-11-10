@@ -1,101 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278421;
-	b=UfAvLdSw3znQ1IoxLWbLpDWI04PcPwGR+2YrtqXbQFpynggvw4qkyGH8GwwLZMe2Shjl
-	 5FvwXpsvjj2gaDLMZ7kCTshPwTmG/M/XXjMrpyaoAMyoTtoOCOEypqv5WrtJyHIhU/YC/
-	 i+sPnYwejSJN5Je/UkzYW2aFNgRFrmzm4cX26nxLscxuuokjFNZNJjxaEVUzMs+4stAWl
-	 dL4W9SUwEBkrl4dqsNyAfhA6LgfFKmnWZSOr8jY3GgpKSxFgKcb6UR8P3fONIsWG/++LG
-	 u57UklJ0XYs+6kQNTJJQiGCo+UuGtunSdBNndAkjOd0mMb2/PuCxVkxvvng4xHrLwGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278421;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HM+XyEisFCZIwucULiILX4kMgQHO5fwVxx7FssGS5nA=;
-	b=LMkvkdP1QfyTW72pkB+h2rKRJ9ni1tcqh3qnV4q/0J3uSvK5DqBHCakFpHjXVl3I+AZA
-	 wbp/gTyQeZd23q9cu3YeYzpTmpG/227Ri6VEiJnFPtrByb8AKcJBk2qwAJQBrTPNYqTh4
-	 4g/XzB4te5PITzIwHcQ+kHGT7kL9J3hIuar1aXXgy0UUxIvFFaF0vvaxLAdh4Mifkvx96
-	 +S42fvRoVM7tXeaKHKe5Y3+ZglkBFzxKeV8K1eREK7ErDCeG7e+vTYXHHZTSrPneOMBrP
-	 67PqPmgsTRo0Xlp7V59IG6cAVYO8l3Gb8QRO6MasstBqsJX5uQk+cHObEYDkhmYK36Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HSQ5V8k6;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794278517;
+	b=QinXYkuShoY6MaoM1I74vCCSSoDwv9ut7+bgahIBzSkQ68zZPrWSJGnY3STg+oKTu6iP
+	 4SjGju9djr8xgWn2cyoqUsaKkrargg1Enoa2id7KUPLk5K9LQKYwxCe8eNwbWv7Q+UFzm
+	 IVIKMWZ5AaaMyrlbrn7F64/idKL6aaYRuGJnuvKPVl60BJchY9OheBJv8Gl90k/Qfikul
+	 2mvrrMHCME4UhHoi85Tp5/W5aHyvfhAraBbTEsCJ59Q6xG1JsUWRnwux/Z8POMA5Mqr1L
+	 qi4QLdzuuwvZEXmFl+ORLlmK1V0kbI3LpqOXuKwfAEMFSbC9pDceyuQUCM7+2WRZ2XQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278517;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Gf5vm7cvpgQIIcKEgetbD//2pRCYO1NBnRFDgRJ50lo=;
+	b=JAMZXFVQ+m4nfnFCNsMrgJF04yiaeWusk2EnRwvpP13s498oqSCU5JT0k8/KWVRV9wi8
+	 IQayBzdxUSa8CvJhPklIP/4RPqtmRdhf0uoN4Mnhd8CpeQVElVR0xyXAiD3inzx1jrW8s
+	 Fs8EyUr5IITgjDDqFxIhxqL65yM7bqTF+wOlDC+gfkFwngnv9wNuXmUuiCisQqWvgBN3N
+	 p9gAWxQopLyJFm0sVh4Z4c7kpccuxU0mbPeuHAxkWc/Cy/j2jL6LHjueGCrK/bd3cd0+3
+	 DVNFirTyFTMIE+J2z7pIQmmz2Fti7fFqhiu21d0KpPN2sqtz8sl8xM4pd0FRw7R7kpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2hAxtMD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D15606A31C;
+	Tue, 10 Nov 2026 02:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2hAxtMD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794278516;
+	b=Rr4ToNFxdtn6L/Ke9rnzPPvIL3avMZPZfcED6BYZK6Yyh7zww2fN+ldQg/Jehc/AaadQ
+	 SGg+vzSFO4wT56ujnQjoTR4zdn2e22oU5+CtnA+9rDEzFKgd2St4AC6yPmXKjJANofJ/I
+	 JdMQLR5xlmhfGGztcCab9fnGfQ0dECoZxdLTRwbUM3lE8nKKPJBi3Xr1CxPJ0yS63DVkw
+	 OOQxMi+DHX59rZWCvDN/kDm1/rQ/WPl15ghbeejtyChf6lylJJjLYQEzuS1VjYVwLNR1+
+	 8K5gFJ0NFX6km2JUUjDSSvKInIXcs7PEa9aKPMGzxEqkSa5JsGg8OlXTkg7m2en9IyQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794278516;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Gf5vm7cvpgQIIcKEgetbD//2pRCYO1NBnRFDgRJ50lo=;
+	b=Bcvd8GNjWD1ma2zJqEa5vIiMowCk5EoJLeyUHqkTkpNnT52nU/BfSD9nXtuUFG8mbuI0
+	 k3m+/3u9wATWZo+R7yQjb0frMyl0jddRyz5MdKksUwd2bQQPIC1J0uRLm2GAuIJ0r+WgG
+	 SW7B2EnMXYPYcKH+bA+DngZLHxhzzTRJAlBlCN0vi3/ndlVRWMoAHxk7/5nHWngyGSjEX
+	 ZSdcTys6vb0mnBWgtUohQPR1c5z1V6S26Lvs7wIu6kRuGzdmbBWGS+4b7XyndlyYLtJoA
+	 WOBmUdmbAwjEIdYVMbHq3QAcXg+xDAyWHk+cPCLyc5mMjUDy1YjR1w+31kiDl0I78ow==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE94606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:40:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE94606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HSQ5V8k6
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0cf2c0785so15358367b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:40:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794278420; x=1794883220; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HM+XyEisFCZIwucULiILX4kMgQHO5fwVxx7FssGS5nA=;
-        b=HSQ5V8k60WN+aHLL0FYylBzscTr1Fiafj5adRc53D0wzGY6iWf6qCiJjLoWkGwpz4y
-         MkYNCGFYnJ/RE9qjzrVBgGKrwDDYCzRKzwgHPlhUSwekzzlHWw9HH+IQNy0o8U+VXaNP
-         cqLof6bJnvzxk9HGAwdDf9HB2QeiQ5rfgWL27nHiZjF5rXGdAL7n6JKVOMlrXmIWJ4R5
-         lKY1JsyawlU35j8WiIY4pI1kHZUwTEt1zEvj3OPagtrrTDNeUn3vJ2V01YIWsSE5LaKA
-         nmPyCTL80jWaMwUNW6ptnKmZy35E3xQIOc1tZrD+1LZszW7GzEidV/hN20MjeTJ/6UWz
-         6Feg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794278420; x=1794883220;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HM+XyEisFCZIwucULiILX4kMgQHO5fwVxx7FssGS5nA=;
-        b=jnV1krCJrudFW8ykuWMF14Xa+BwpO1Jq/vy3NkhJ+ra6K+JWZ33u9IQGNAHiSw5hYn
-         jzKKG4S6/oWz0cCAwdaRp5F7pjNjRSImF7jIQLtxB69LT2U9otUwKC+JpUTtjfYnfyTM
-         +BXHP7YHv3hxROlT2c379daqWofTreYzOa4cVTYWRz9d7UkAXi79ds/rA+jNIb5cVYfS
-         nLKawbR09hfg/iU1YXxJtne3ifZA3s3USLCC4mwhw4kecY2r7sdLBM242uUoeHsmeK61
-         IaLrGiqJFYv+g2m0t2zmmgnuQqbWdjT4rEB+c8GRud+aQMwHeVzbLJDF8LUZwIAO5O0H
-         4LWA==
-X-Forwarded-Encrypted: i=1; AL+hErFZcE6OrmSV+WsnTqK2dLEv97HFeC975oOXn9/IT3oKFuuVPEZCu2t5gjuiYUZcVn5gklVABv0bqA+GxFY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kf7q4792sBaK1CXdUaQBwliCaT6yUeSb67jvKyYPVGkZCGQv7
-	JVR+qrZJhT8AnRde4V7w0I3OCZAtF24VDh423VnkFxN5+49oaWbWL0aH
-X-Gm-Gg: AYBFou0mfi0t98XEO/zbE86eCKtgEXrNLpf30UojeOecfmpee/g+gF9mOmnQBUickkK
-	DFGSptEziGueehq1JT03VXpydhaItCV/jc7BhQ3nwg+JsZJjZynHaeB+5Gxh4qe088gK9Hf6lPk
-	GYX8wzZ0crg1BhomZ42Szi/HdSSFf18pgjmpRVGy2nDrawzH5YNgItkfkrHOAmvdrCiNPBhsPlv
-	kNPwIeI20QSRCJjoA6TV2tWyDKGCMCi4SljYsWUr7MG3RMDlKEABAhJfrjpVJAYZGl0vFzXahRE
-	GMUSSMcoHAsZsdm1RAm644yFsHUGEEFI5q+vRIgc9NGDb2Pv5Hr31N1SaV5ywAUudjf0H8TGATy
-	oVm0TDXhyWcDobg9PdE405YhJdlnel0hHY/gGMVupWbiykb65CPG/GNiPGq/BjTNxtYf+EbAzev
-	9ry/YoBmNBWkfmAhuPXfIoGC+/Zo5b+j+36HvU++6SJkDyuSFxQCoEafGX8mBX5BcHjOJxANHDm
-	SyxbchSY2JfRE+dxslZqwuSIGuhoaClK/Yp6vojF1MN65p4xFj2IBN1SFoVSoLWsNyfWVj2CtF/
-	ZV9wlTY4C6eEUM/3oFhK4X35pv1Js8xkgFY3TusKPPi55HXOLKTu2Q==
-X-Received: by 2002:a05:690c:7403:b0:8b3:90df:6264 with SMTP id 00721157ae682-8b39293ba9bmr7395247b3.1.1794278420282;
-        Mon, 09 Nov 2026 18:40:20 -0800 (PST)
-Received: from VPN-156-197.vpn.usf.edu ([2607:fe50:0:f802::4046])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933e0d01sm9313377b3.22.2026.11.09.18.40.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 18:40:19 -0800 (PST)
-From: Juan Agustin Niccolini <juanagusnicco@gmail.com>
-To: netdev@vger.kernel.org,
-	linux-afs@lists.infradead.org
-Cc: dhowells@redhat.com,
-	marc.dionne@auristor.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@kernel.org,
-	davem@davemloft.net,
-	horms@kernel.org,
-	jaltman@auristor.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] rxrpc: Fix rxrpc_sock UAF caused by missing poke in rxrpc_abort_eproto()
-Date: Mon,  9 Nov 2026 21:40:15 -0500
-Message-ID: <20261110024015.198-1-juanagusnicco@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179427443746.994134.16851409559930782509@kernel.org>
-References: <20261106011550.59902-1-juanagusnicco@gmail.com> <179427443746.994134.16851409559930782509@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 99ABD1F0089F;
+	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794278516;
+	bh=Gf5vm7cvpgQIIcKEgetbD//2pRCYO1NBnRFDgRJ50lo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=D2hAxtMDMg7Jg4UkP6LK3pTlIVBYdpWnUf74FfaTcvhvkko9ewdzmQau9qCmGEeeF
+	 yf0tL7ERBurMPJUYszdOI+fiybnYK1sUgN4FOYtf7nlvkiToBSt+KoJGg075s8GnJJ
+	 XrBsZhi/HRCuuSAHxoTOaGGS4lu6N5ZwlAKx/HyGMiVO1SJ90V0ywuQrIEJN4wwwGz
+	 AwEq3lf9ZTtUG5lZVhsQFZUQoC2BHrQcfpVI6vf5i6k3Wb6TwsJhK8HUn7FAo7UIZW
+	 NVCRBIWuidH7OnLIE5KmKgC2VnpEedNV9jEBhXaZBimSs0OBt8BaGu2+5eqbKFmTlG
+	 ddwhTU9rjeSww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1679948786;
+	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
+From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
+Subject: [PATCH v7 0/4] usb: gadget: gadgetfs: fix ep0 request lifetime and
+ event counter
+Date: Tue, 10 Nov 2026 11:40:46 +0900
+Message-Id: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,37 +84,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC6E8moC/yXMQQ5AMBBA0avIrDVpJ6G4ilgUo8YC6SAScXfF8
+ i3+v0AoMAlUyQWBDhZe5gibJtCNbvakuI8G1JgbY7Tyrve0DaIOqyjD0hUZOo0WYrEGGvj8bnX
+ zW/Z2om57F3DfD5UYMlVvAAAA
+X-Change-ID: 20261110-gadgetfs-v7-e529a852a027
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jing Lin <kayano050408@gmail.com>, stable@vger.kernel.org, 
+ linux-usb@vger.kernel.org, 
+ syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+ Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278513; l=3007;
+ i=kayano050408@gmail.com; s=p600; h=from:subject:message-id;
+ bh=PKUcg2l0YyjidzyI3AUerGASJfY84sbnjO7rcZqOJPg=;
+ b=NnWcF6I+zVGDvJeFUfJlAm8S7qzFCsny+XGnztNTG2DNjspzooMcfYPkK3WFuK/cAlAGGcvur
+ ywUX4a/2pnnB/0YlDNactv9yx+LZckTiILL/B+NIaB18HztasrtTpOW
+X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
+ pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
+X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/p600 with
+ auth_id=1475
+X-Original-From: Jing Lin <kayano050408@gmail.com>
+Reply-To: kayano050408@gmail.com
 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
->
-> - [Critical] The patch only makes the stranded-call UAF a race.
-> - [High] rxrpc: race on call->_state in rxrpc_abort_eproto() outside I/O
->   thread
+This series fixes the ep0 request lifetime and shared request buffer
+races in gadgetfs, and the pre-existing event counter underflow.
 
-#2 is a real issue but wildly exaggerated.  #1 is real.  Neither was
-caused by my patch, and I was already aware of both.
+The first patch covers request lifetime and buffer ownership, the second
+the ep0 setup abort and unbind state races, the third the event counter
+underflow, and the fourth removes the const cast in gadgetfs_setup().
 
-#1, the "critical" one, was found by my LLMs on October 29 and raised
-with the maintainers and security@kernel.org on a private thread, along
-with its patch and reproducer.  The reproducer triggers a UAF on
-mainline without touching any of the code paths my patch touches,
-which shows it was not introduced by it.  I will send that patch to
-netdev now, since Sashiko has made the issue public.
+The setup() callback runs in interrupt context and may not sleep, so a
+mutex cannot be used to serialize it against ep0_read() and ep0_write().
+The shared request state remains protected by dev->lock and the control
+payloads are handed off through private buffers.
 
-#2 is a race that is nanoseconds wide, cannot be meaningfully widened
-on non-RT kernels, and yields nothing exploitable if won; its severity
-is low at best.
+Changes in v7:
+- Split the former lifetime patch into separate request lifetime and
+  buffer ownership and setup abort and unbind state race patches, as
+  requested by Alan Stern.
+- Submit ep0 requests through a shared queue_ep0_req() helper and wake
+  dev->wait on every runtime clear of ep0_req_queued, including failed
+  submissions.
+- Wait for the asynchronous dequeue completion under dev->lock in
+  gadgetfs_unbind().  If the controller rejects ep0 dequeue, keep the
+  request and its dev reference and let completion free it after
+  udc_stop() drains ep0.
+- Destroy non-ep0 endpoint files before tearing down dev->req, matching
+  the order in which the endpoints are created and destroyed.
+- Record setup_abort before gadgetfs_setup() early returns, keep
+  ep0_poll() from consuming it, include state changes and setup_generation
+  in the ep0_read() wait, and return -ESRCH from event reads after
+  unbind.
+- Ignore zero-length ep0_read() calls while a non-zero control OUT data
+  stage is pending so they cannot clobber its payload.
+- Address the remaining Sashiko findings from v6 patch 1, including the
+  ep0_write() state transition around copy_from_user() and the unbind
+  event path.
+- Write only event->u.setup.wLength in the const setup pointer patch, as
+  suggested by Alan Stern.
+- Link to v6: https://patch.msgid.link/20261109-b4-gadgetfs-ep0-v6-0-b410e3dced89@gmail.com
 
-My patch did not cause either issue, nor did it make them worse than
-they already are.  It is compatible with the patch that addresses #1.
-Note that the issue my patch fixes is significantly worse, since that
-UAF is deterministic and has a reliable LPE exploit.  I recommend
-addressing it soon; the patch has been available since October 11.
+The series was tested with the syzbot reproducer and with targeted
+lifecycle, request-reuse, abort, unbind, and event-counter tests on
+arm64 QEMU with dummy_hcd, KASAN, and lockdep.  The syzbot reproducer
+still exits 137 on the fixed kernel without a BUG, WARNING, KASAN
+report, or lockdep splat.
 
-Best,
-Agustin
+Signed-off-by: Jing Lin <kayano050408@gmail.com>
+---
+Jing Lin (4):
+      usb: gadget: gadgetfs: fix ep0 request lifetime and buffer races
+      usb: gadget: gadgetfs: fix ep0 setup abort and unbind state races
+      usb: gadget: gadgetfs: prevent ep0 event counter underflow
+      usb: gadget: gadgetfs: avoid writing through the const setup pointer
+
+ drivers/usb/gadget/legacy/inode.c | 395 ++++++++++++++++++++++++++------------
+ 1 file changed, 276 insertions(+), 119 deletions(-)
+---
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+change-id: 20261110-gadgetfs-v7-e529a852a027
+
+Best regards,
+--  
+Jing Lin <kayano050408@gmail.com>
+
+
