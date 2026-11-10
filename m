@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308570;
-	b=UOjF0Sw4QbMQrTsEoNDGwOPI0sgvD08X17Si+GPSSnyrRIxdVcV6gymdY6qxBh1ZZSHU
-	 G4cqgOwPoS2BtnFQ44U+om7wypNtSkWx/41CCIMc8UV9pPrey+ujC63f2hB5HosKxsxxP
-	 sdwzY3KvJdJAgAcpxDO4cCTlwnaJWdtJu/elpK3CR5kCvU9OIwipww9V5v0VNGmcR0rm1
-	 Ut99f6/vgJEKDJ+yOfzsc7wJSuaX4stIMXfhBm+B9nLk1vOYFqz3EeJjOaV7Eli5TWc9W
-	 opifGFzpX0eCGa+gHR7rvCu2Jwc6NbiZD9PKsegKSEwdVBuoLWz8tgTnvMKbyp9CVUg==
+	t=1794308597;
+	b=BqHjYuHJiD5jqYr6D921D47QVVo0uIPv8RwrzNGEOa9J0LMqLgYLaO09O8CTYIPA5tHi
+	 pzaZ44AjS571i0hST1JoZ6R/7Fepvp73fsOJ1sdH8w0urMsUpYIsffzO94n4UdALB3pvh
+	 0hJM4Fur3uZAW+C3XVQQaAVF/3pAsYnG++TlpYwBd3+cg7lMs0mH/Wu6IKvLiQD1jqjd1
+	 GH8KmSdNwUKzS0BImMeT5IGzjOwMWCHTBNF+co4W3ZXzUIzDebmALxyUD/mkMPIbXBNZX
+	 /cvZa/MBRmdy9DWBpsshBOp7aYl6vyd0RtyPBSle45FTnBVR4rBrZJYy2h9lq1vEFgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308570;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=wEGSf+/hfTCuh8Nt4NVGGLnTln5lo8lnKGzyaYzEY+g=;
-	b=V584U50R+knkDq9uVjiT6GmQ3reGwgw4NQL+ou3LxDT0P9/ZRHM8qqYYIJ0QTkf4SJcE
-	 wr2RpOqrX1uBDn9o3tvd5YwpHv9IQgZdXvxmPPzRrE8JXffNJEbl4j6eCsLb79yMxN0oP
-	 g12lJE1R8Gx1QCSdtU9/hPYh44Tf08d+UhrDp4wAo9RGv7sLpz+KFxAKrc7o9nC8RmGud
-	 NlzElVBgF+/4jev6Ro3DUnnPwzY3HUesnLRBr7Ra8Hvkec1pO7H8qN07YKC909DIjeOLN
-	 F+sZmQdou1Wj346d6pnAS67WohP/FvGDW50YyBMZGq++mvcKoMT//KT0tEbFP7yD1mQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308597;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zJqoM5byy7t2oJnrolNTZNqtxc09Si1RLmF8E4lHkmc=;
+	b=OMUthagpJbpQA05IhBFCf1R0ShiYdO5ccO17lKGsLiVJvlcxgTfMh7hXVek3PtTIVpBF
+	 jNukrc69y7tA7IurJy9Z02XJ2ylfByovKgUYfaFH7Q3Vyvdh8fzlK90vvrVirJHaemlrD
+	 1Mt/sBcpm341E+ATccWzj0oGH5i/SpiPZjRdiemdhO1bTSfSDkHcWHrX8ilPl/RcbD7DV
+	 mLYPd9f9PNoGINqn+f9W96shmxftB5DCPAfqz0vIUFlP/+hA3oujvDdzoVDeI5F07EnWz
+	 snnQUpqt4y1IGttRX0MXLsUETLpVc63CwFPcFkIsbDP8JBLo0Zbxrky2nFWSde2uGag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UnesdDuB;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YANA8zpl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0E8606A321;
-	Tue, 10 Nov 2026 11:02:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E0E8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FEF606A31C;
+	Tue, 10 Nov 2026 11:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UnesdDuB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794308568; x=1825844568;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=L6tv8Puv3bmo8paZD0sDn+ZLcVAqdz6eZBaI9jgbL0w=;
-  b=UnesdDuBblTCK+bPTqBZeS9X7Ms2hRufAAUF6541Vkh8/jx4SSHODGo4
-   mD9is/kTMXTpsrs918hCdsSDwb2JUwSmB5ozlAkGAviNoamJU8+DSUFz0
-   RBvNxbEku7qFZy9uZUmozrF6P2YOwtpuGrJpPVAfT1HZrFr7AmvSxFCrj
-   iGF3V3CpZPjWXPhKX079hoZx6ShiYD4603X8fQ8Xuz9xkeavbSyYRbDoc
-   A+R5yaVLisYnmjE0VRFLCYCWPmZezDVSiRHvAFNXDbgUwl43ZfbfqVNkK
-   QyCiZ1X+SCRMhs4WthoC9kG7zksQaxx1g8U/J/zTam5Ec/2hVvLYakfwl
-   w==;
-X-CSE-ConnectionGUID: NZglDkvXSJy4dzFDZ3t9Zw==
-X-CSE-MsgGUID: VnZpDEmCQRuEblLhm4go2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3081141"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3081141"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 03:02:47 -0800
-X-CSE-ConnectionGUID: AfKwJFtXRUaeBRQ8UJaCtg==
-X-CSE-MsgGUID: F5s46HDrQNeOiooQ8dtksQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8164732"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 10 Nov 2026 03:02:46 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQjcg-00000000wfT-3pqp;
-	Tue, 10 Nov 2026 11:02:42 +0000
-Date: Tue, 10 Nov 2026 19:01:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds
- down into the past
-Message-ID: <202611101839.fRQuN29G-lkp@intel.com>
-References: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YANA8zpl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558691F008A1;
+	Tue, 10 Nov 2026 11:03:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794308597;
+	bh=zJqoM5byy7t2oJnrolNTZNqtxc09Si1RLmF8E4lHkmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YANA8zplr5ixeJhh0AM8kWaDEpgWrinnTQE5LawdfgLFWTMxt5ac2dOiWa2uHAMWT
+	 ECRyCaV5UcHiP0DAo950O9Dmg0eiMieX5pblSLm5iCsk5XT3a9DATsrRof7z/6txrQ
+	 mwJ76n3z4xZHT0rB0l8oFErQFtc54rlSYNYJ5NS5nwj6xa1ameGYDGdHgXlRk/01r8
+	 bZANPsfP8Swcja4QTEWwCPFJkEUzh7Fdsp5RiafyRFQLtUGpl5OvmRJugN4TQbo7/U
+	 Q/1lOVg0My+24NrLBHq5Z1LHUVmtllX3g3t3W6cC1YtpP7IgN0+ncBEq4UwiLL9fTs
+	 HUPvecaa/x0jA==
+Date: Tue, 10 Nov 2026 11:03:10 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Seunghyun An <san55@wisc.edu>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Suren Baghdasaryan <surenb@google.com>, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm: avoid redundant reads of the vm_refcnt cacheline
+ in anonymous faults
+Message-ID: <avLxcf8KaFP_XPnM@gremlin>
+References: <20261110000002.1834454-1-san55@wisc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,117 +63,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
+In-Reply-To: <20261110000002.1834454-1-san55@wisc.edu>
 
-Hi Arun,
+Thanks for the report.
 
-kernel test robot noticed the following build warnings:
+You are a complete newcomer to mm, and you are sending very subtle changes
+to a core part of it, so I am not confident that you have the depth of
+understanding the kernel requires for such work. See
+https://docs.kernel.org/process/generated-content.html
 
-[auto build test WARNING on 7485659ecb81d5fce3a3edf2cae9fcb29c17b1cd]
+I'll therefore take over this change and treat this as a bug report.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Arun-Iyengar-via-B4-Relay/rtc-Don-t-lose-a-minute-resolution-alarm-that-rounds-down-into-the-past/20261110-071347
-base:   7485659ecb81d5fce3a3edf2cae9fcb29c17b1cd
-patch link:    https://lore.kernel.org/r/20261110-rtc-minute-alarm-v1-1-be9d7c5227a1%40gmail.com
-patch subject: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds down into the past
-config: parisc-allnoconfig (https://download.01.org/0day-ci/archive/20261110/202611101839.fRQuN29G-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611101839.fRQuN29G-lkp@intel.com/reproduce)
+I will give you due credit for reporting the issue of course.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611101839.fRQuN29G-lkp@intel.com/
+I'd like to collaborate on the perf measurements however, so if you could
+re-run your test results on my series when I send it that'd be appreciated.
 
-All warnings (new ones prefixed by >>):
+In general it seems that the actual issue is the debug assertion, given you
+state only vma_has_anon_rmap() as a problem here.
 
-   In file included from include/linux/timer.h:6,
-                    from include/linux/uprobes.h:18,
-                    from include/linux/mm_types.h:16,
-                    from include/linux/mmzone.h:22,
-                    from include/linux/topology.h:34,
-                    from include/linux/irq.h:19,
-                    from arch/parisc/include/asm/hardirq.h:13,
-                    from include/linux/hardirq.h:11,
-                    from include/linux/interrupt.h:11,
-                    from include/linux/rtc.h:18,
-                    from drivers/rtc/interface.c:11:
-   drivers/rtc/interface.c: In function 'rtc_set_alarm':
->> drivers/rtc/interface.c:562:60: warning: integer overflow in expression of type 'long int' results in '-129542144' [-Woverflow]
-     562 |                         alarm_time = ktime_add_ns(down, 60 * NSEC_PER_SEC);
-         |                                                            ^
-   include/linux/ktime.h:60:50: note: in definition of macro 'ktime_add_ns'
-      60 | #define ktime_add_ns(kt, nsval)         ((kt) + (nsval))
-         |                                                  ^~~~~
-
-
-vim +562 drivers/rtc/interface.c
-
-   512	
-   513	int rtc_set_alarm(struct rtc_device *rtc, struct rtc_wkalrm *alarm)
-   514	{
-   515		ktime_t alarm_time;
-   516		int err;
-   517	
-   518		if (!rtc->ops)
-   519			return -ENODEV;
-   520		else if (!test_bit(RTC_FEATURE_ALARM, rtc->features))
-   521			return -EINVAL;
-   522	
-   523		err = rtc_valid_tm(&alarm->time);
-   524		if (err != 0)
-   525			return err;
-   526	
-   527		err = rtc_valid_range(rtc, &alarm->time);
-   528		if (err)
-   529			return err;
-   530	
-   531		err = mutex_lock_interruptible(&rtc->ops_lock);
-   532		if (err)
-   533			return err;
-   534		if (rtc->aie_timer.enabled)
-   535			rtc_timer_remove(rtc, &rtc->aie_timer);
-   536	
-   537		alarm_time = rtc_tm_to_ktime(alarm->time);
-   538		if (test_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features) &&
-   539		    alarm->time.tm_sec) {
-   540			ktime_t down = ktime_sub_ns(alarm_time,
-   541						    (u64)alarm->time.tm_sec * NSEC_PER_SEC);
-   542			struct rtc_time tm;
-   543			ktime_t now;
-   544	
-   545			err = __rtc_read_time(rtc, &tm);
-   546			if (err)
-   547				goto unlock;
-   548			now = rtc_tm_to_ktime(tm);
-   549	
-   550			/*
-   551			 * Round down so we never miss a deadline. If that puts an alarm
-   552			 * that is still in the future into the past, the timer would
-   553			 * expire right away and the hardware alarm would never be
-   554			 * armed: whoever relies on it, e.g. to wake the system from
-   555			 * suspend, would wait forever. Round up to the next minute
-   556			 * instead. An alarm already in the past is left alone, it is
-   557			 * handled by __rtc_set_alarm.
-   558			 */
-   559			if (ktime_after(down, now) || !ktime_after(alarm_time, now))
-   560				alarm_time = down;
-   561			else
- > 562				alarm_time = ktime_add_ns(down, 60 * NSEC_PER_SEC);
-   563		}
-   564	
-   565		rtc->aie_timer.node.expires = alarm_time;
-   566		rtc->aie_timer.period = 0;
-   567		if (alarm->enabled)
-   568			err = rtc_timer_enqueue(rtc, &rtc->aie_timer);
-   569	
-   570	unlock:
-   571		mutex_unlock(&rtc->ops_lock);
-   572	
-   573		return err;
-   574	}
-   575	EXPORT_SYMBOL_GPL(rtc_set_alarm);
-   576	
+In general in future - while we're fine with you using LLMs, newcomers
+should work on small, incremental changes to mm to build up understanding
+first.
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Cheers, Lorenzo
