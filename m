@@ -1,49 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794302425;
-	b=XJv75ARIlNdgk0M2nJtnvqtYw6+h/2qRS/vV9B8PcHqO5ob0eRfIgFjcHdOJ40pi6Sgu
-	 su7oYsRP8cTwaSO/ZvVraJYrMQWSYsqqDtaPXJ4t5daL+PFK7FnBMjI8uLLJLyziO0prl
-	 yXzcvXlMH6P1+BtTycVWP4OwtaBGxJ8GxGfj7UXIk8a18q0vkieu95jVZJotkdfsiKVAB
-	 hcIRR+U0pbcWhmFNhMoZp5eFyt0F5N0jkGLE8nxuP3wistfmt7Al6KzqT0w2W2DcUmIbK
-	 YRejg7HE/u8ir8DtxHobeZMt8yr6wFghlynemb5S2cReRIKv4oPKwQFAsKF+lkdM54g==
+	t=1794302428;
+	b=AcflF8C9tLHuujxerfPRArGxbMvb1SR3JqG8US3kav9C9idOKqpt8VxQj6mKUXltzXZu
+	 juyHqdYqfReEOMwT7cLGGCd6nmLlMOpup9MBs2olE9gi2zHEIsdafdq8pGqjX1Usmwt+S
+	 xHvpoSFr08chlGzv7Q7tth4w4zaLTWOudkIjUVEa9d5miylwvs93Ff1Kcl5gvRwUyAgKf
+	 XWBhxMaG8zm9YBCXWZmmL9M6ugiGFllJGavdCFFn2AiY8BxwLeYUMwO3t5unYTVv+7i02
+	 uhLGP9+VGJeAgrDEnHGxpVIJXRySggvdeW7v+rY0xTfVt1gKM90KLO03Dx+Dal7EfqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794302425;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5v6oTkZQz6qlfBhdJSuXnvnO8rYqx/rzC+7+Nl5/OGM=;
-	b=iD08AoSh0gQECC1jh9zW9fpnu19dtOX9V4wVeEXGCUSP4M4KOU8/4veQC3dVeDheeIsv
-	 vEBdcqaTziZBI8BaXFq/IyKsX50H/wqjG7j15sN/joUkwTx9ZmlwQ1gdP+LxmGAgTUJ+Y
-	 mwFaQa/jhnfdWmEEnzfAI1gSvqhcUb3yodGApQtex3jSUZsnLgj4D7EL0tWo2PDtNgJaW
-	 5sfd2U1dAPtEcqjMVwHrWinI0rMtunSVKFE9TiPv5hQ0KO9dJpRqxcUhqBr6yClLcA2Ah
-	 HepyCzCE1vmVOzFAnlljfHj/3qalIOJVJXzgOyUr672hZl+R1ApK2hEei4luKhKMGWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794302428;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cSWIafk7ikiCCY+OyvdNor7sWV+uHSYsERPSHy5tkIM=;
+	b=3vRccQB+mPAwcn5XI+Weac9T1SwIDbuX3qPn94+a+BmJeq0pe9+VGnUwg8QLNdnrUz+u
+	 5b1NDqD1U1rki/53ShW1vbPBjFc0A3K/ADq+Dn/PU/u4MlWSaif+yg0a8OiqCNEhV6i0h
+	 hxBgZ5Okcu0nbyEIVqwmEOT1XLRizenfzoCsmgdLdfuWT63BnpkVijyDEegSRUD+BdCr9
+	 hwVzZ8zzujalAb/Pav6nS/sqX0KF8ZHM57QMrh5lcNiWYbzjv4x2qNBEAfzq7V91unWEU
+	 2vmuGdRTGjyYA4LFRCBRk3tT81ESjBeSmHyM9gN8C38TP6PqORq5ynVHXCgJee3o7Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIJ0bZ6Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEdAJIaY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1124D606DABA;
-	Tue, 10 Nov 2026 09:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070DA607FB5A;
+	Tue, 10 Nov 2026 09:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIJ0bZ6Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515E81F0089F;
-	Tue, 10 Nov 2026 09:20:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEdAJIaY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4AC1F0089F;
+	Tue, 10 Nov 2026 09:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794302424;
-	bh=5v6oTkZQz6qlfBhdJSuXnvnO8rYqx/rzC+7+Nl5/OGM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=eIJ0bZ6YykzyfYaq0uQnsLuPNj+m0vg4MOIRUUV7WyIHrzOWlMn5BpzKyvQO1xQnK
-	 lIgHxLYXr0xM6gXAPduca8fCpGnrbXmRu3n7sX++lmrPokRdnMxOQCvAaieuNDey1/
-	 rDMY2lnbcyTg88AQ5EnW+l0uOlH6KcCfGavMFZPvkrzrCwVDMo4o1H9usL4RbMeid9
-	 8ju7v6AtrNpyzqVV8uy5DYhL2Vr+eLE/ymRsWc8pcaS97R4A8Z95dfIgLeSJCXVpWi
-	 mDeT0clD8WfcFmQfLKdl3Rcurbo/W+eyqIPzNmzhefzjE4bnqF8y5kxjx80v9c4Gko
-	 v/as+SN9c7AFA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 10 Nov 2026 10:14:55 +0100
-Subject: [PATCH RFC 39/41] usb: gadget: f_mass_storage: refuse files on
- pseudo filesystems
+	s=k20260515; t=1794302427;
+	bh=cSWIafk7ikiCCY+OyvdNor7sWV+uHSYsERPSHy5tkIM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WEdAJIaYOybMdnxp8lc5A/tcQ1/l8K75skGyY/pa5rMXczpT03UtV/cTttuq/Uesf
+	 UhydKLbscaLxCGDmtfoibbmWWRc9x0IP4cxao7rCCYhRzPoNwPkuwLem4eljHoi9Lo
+	 wnLaBje8gtyfehzvLux2So3ofm5WIwEmH+1wZWJXiNWtU/INDo9fmWiyl3EPuxSkKf
+	 gwdSSJWD9WW38Sl+GZtqEPEDRXHMdxJmTNdEfyYoal9dG7NKf5mdWl0XSs5eiLEDk9
+	 yKCqZ/nFz1B52u7+axUPmWeELgGsbe39k2vv6hLItpHhCYbs3Ur0H7xZv+Ya1UMxHY
+	 0aLhi1hftZd0A==
+Date: Tue, 10 Nov 2026 10:20:23 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michael Reeves <michael.reeves077@gmail.com>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-input@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] dt-bindings: input: apple: Add DockChannel HID
+ transport
+Message-ID: <20261110-accurate-unselfish-cockle-3a39bd@quoll>
+References: <20261108-b4-apple-mtp-keyboard-v5-0-e2c97b82669a@gmail.com>
+ <20261108-b4-apple-mtp-keyboard-v5-2-e2c97b82669a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,67 +63,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-work-loop-pseudo-v1-39-4c998976c6c7@kernel.org>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-In-Reply-To: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-mm@kvack.org, bpf@vger.kernel.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
- ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
- linux-kselftest@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1124; i=brauner@kernel.org;
- h=from:subject:message-id; bh=5CZmEVUvUM8phb7GCUC0PbdIONUtutPPh5jN88b8MUg=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9enDwpOymfbk/lix9c8OUO8H7nMDJjqNuYfXt8RN5b
- SZ7VM/p6yhlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhIsgXDP81qmQUMxt7JIhtj
- H769H+D76yOfp7vrv8Uv+XNqFL+3cjL8szGK7szT6zNcPi0pgC3zv/C19XHNGld3L/vwMHyKxLW
- bjAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108-b4-apple-mtp-keyboard-v5-2-e2c97b82669a@gmail.com>
 
-fsg_lun_open() takes any regular file as the backing file of a LUN. The
-file-storage kthread then reads and writes it with kernel_read() and
-kernel_write() on behalf of the USB host. With a procfs or sysfs file
-behind a LUN the host gets to read and write kernel interfaces with
-kernel credentials. Refuse files on pseudo filesystems just like loop
-does.
+On Sun, Nov 08, 2026 at 07:25:07AM +0000, Michael Reeves wrote:
+> +description:
+> +  HID transport for keyboard and trackpad devices connected via the
+> +  DockChannel FIFO mailbox on Apple Silicon SoCs. The endpoint includes a
+> +  small RTKit coprocessor called MTP which must be booted before the HID
+> +  transport becomes available.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/usb/gadget/function/storage_common.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Just an enum instead of items and const below.
 
-diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
-index 75831f2c7abe..83683ade20c2 100644
---- a/drivers/usb/gadget/function/storage_common.c
-+++ b/drivers/usb/gadget/function/storage_common.c
-@@ -211,6 +211,11 @@ int fsg_lun_open(struct fsg_lun *curlun, const char *filename)
- 		goto out;
- 	}
- 
-+	if (file_is_pseudo(filp)) {
-+		LINFO(curlun, "file on a pseudo filesystem: %s\n", filename);
-+		goto out;
-+	}
-+
- 	/*
- 	 * If we can't read the file, it's no good.
- 	 * If we can't write the file, use it read-only.
+> +          - const: apple,t8112-dockchannel-hid
 
--- 
-2.53.0
 
+
+> +      - items:
+> +          - enum:
+> +              - apple,t6020-dockchannel-hid
+> +              - apple,t6030-dockchannel-hid
+> +              - apple,t6031-dockchannel-hid
+> +              - apple,t8122-dockchannel-hid
+> +          - const: apple,t8112-dockchannel-hid
+> +
+> +  reg:
+> +    items:
+> +      - description: Coprocessor ASC registers
+> +      - description: Coprocessor SRAM/mailbox registers
+> +
+> +  reg-names:
+> +    items:
+> +      - const: asc
+> +      - const: sram
+> +
+> +  mboxes:
+> +    items:
+> +      - description: ASC mailbox used for RTKit control
+> +      - description: DockChannel FIFO mailbox used for HID packets
+> +
+> +  mbox-names:
+> +    items:
+> +      - const: asc
+> +      - const: dockchannel
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +  apple,has-stm:
+> +    type: boolean
+> +    description:
+> +      Specifies that the coprocessor provides STM device and serial
+> +      number query endpoints that must be ready before registering HID devices.
+
+Isn't this implied by the compatible?
+
+> +
+> +  hid-country-code:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      HID country code for the keyboard layout variant.
+
+What is the meaning of values? Do they map to any existing ABI? Like USB
+HID? Otherwise, why country code is 32 bit integer instead of ISO3166
+codes? As pointed last time, this should go probably to a common hid
+schema.
+
+No default? Not required?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - mboxes
+> +  - mbox-names
+> +  - iommus
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        hid@24e400000 {
+> +            compatible = "apple,t8112-dockchannel-hid";
+> +            reg = <0x2 0x4e400000 0x0 0x4000>,
+> +                  <0x2 0x4ec00000 0x0 0x100000>;
+> +            reg-names = "asc", "sram";
+> +            mboxes = <&mtp_mbox>, <&mtp_dockchannel>;
+> +            mbox-names = "asc", "dockchannel";
+> +            iommus = <&mtp_dart 1>;
+> +            apple,has-stm;
+> +            hid-country-code = <0>;
+
+Which country is 0? Isn't this just a default?
+
+
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0c1963150f04..41b12717c657 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2714,6 +2714,7 @@ F:	Documentation/devicetree/bindings/gpio/apple,smc-gpio.yaml
+>  F:	Documentation/devicetree/bindings/gpu/apple,agx.yaml
+>  F:	Documentation/devicetree/bindings/hwmon/apple,smc-hwmon.yaml
+>  F:	Documentation/devicetree/bindings/i2c/apple,i2c.yaml
+> +F:	Documentation/devicetree/bindings/input/apple,t8112-dockchannel-hid.yaml
+>  F:	Documentation/devicetree/bindings/input/touchscreen/apple,z2-multitouch.yaml
+>  F:	Documentation/devicetree/bindings/interrupt-controller/apple,*
+>  F:	Documentation/devicetree/bindings/iommu/apple,dart.yaml
+> 
+> -- 
+> 2.56.0
+> 
