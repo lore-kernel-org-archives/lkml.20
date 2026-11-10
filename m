@@ -1,83 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318938;
-	b=rCNKOTEhoCxEGnrpif8A4Px9x/+L1Miahee8JWPNlQVvpUSlnlTzotbgeeGKKvRxpWsg
-	 h92dAHTeLgNJvDqhsRxyNwvS53zU4iLZuS8W611nyo/nBPMpHvuGgKUthhH5RVo9DxDEG
-	 sYxDw3rckrLGehK7dYjx2t+FYyxD++etLi4WJjglNuV05BStpvPhNpPJZZbjLc0mzyCxc
-	 v/xxWsXQ+c5aR2R1IkiqbbUooenvGgdC9BNplVTCrsrgWzgimQmitCnWOsdAquGr/8nRu
-	 QMdCoAs7pHh0JZ20r8WqlVhHBqYluPpDx83ptJOofmjFjRThWZz7nvehozy04oVMhiw==
+	t=1794318967;
+	b=rZXGeiocbWNvXalcLyLxu0gEiKzBK8Fo6grJcDqhnv+zFKSRIF9jOXJE4TB4NiumiZXe
+	 jRzpx5igKhGzBP30sO1aGt0Q/7dwpKZ8y0EBxKJW9DXId7x7ja3gYQiRwxjOLkebEnkFK
+	 7zwiralAJISZBkr8gfRL7iToBgv/hs+o8+pX2Dn7xGLAMPDgYYLslR5/LvqIDf0PRxo41
+	 XfKDln5KK4LP94S24/x+mOrhR6O/h8XINcvoX1dT8Lql+oOLcUotSuuWevO3SYKcfKnO/
+	 sF6iabDhSWPH4Bm4+EdkcNsYsug/Hfrcemoet9kvGUW3mijNwwGMVlRjf2sgYkJH/bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318938;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=IYGhANhPBrozk6ereFsD6fb9TNu93Ek+MLRFDmzCQDo=;
-	b=glqxBSoJD19fOor6NsJ27sFSITp7r0dzCfQileDBbhz2b68dZ+5/MAd/xMCVTyn5TtBC
-	 elLJitvTCG3JM4GfP2EVFMli0j3ua5SA9Lbhwmtv3g+q1AKhqgi7k7i99ajn2IwcH9LGG
-	 55WVa9jDccn+cY5O2MpLq772/ETgPz1bAzEVxrM9y0YTmsdISDEPtiOA9M8/66Wj1PPye
-	 wGPTBIQyx9ahF6SQxwTwu/Uq4majNQAwH8tt8GOQFSzDxrSMULsc38xudhK99TpoCStYE
-	 gAa09HWD8ZfJZCx68f/n+EjWu4YA+ojUgblW5mTOVlKJsSic28qIP4XMzr43iZ0LBDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318967;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=CYVCeh2uxfSFPv0xirYoRVJZdsUpsEprYDSIaHZqDVA=;
+	b=JqkzkULXCufxNhF7+64UzZNkkjTZb9HBHnl4DUJI/kapX2ZYILbdHVzIhDX9nmdXtccU
+	 v4SnUdKKsk4Nm8JIqk+SLN03rN2RlgCdps3k0ONrqJUFwtiJxADY/npUd14Sg5+YMvk6i
+	 Y28KO475bXHQ7lKYqgeabtSJBfpyzKBBlGgM9TqBeBkzS0RSDekm1dzoQO8VHs0zdC3DT
+	 hO+Gs0LF5FYwJcPl3U9/f5O4mui0Z8neDbjafkk/6EJGTEDwRnV1EbuWx0BzgIKfrHDpo
+	 RMzBv2uGwZHwPUfzhmnPDfzEupT02HfmlUt/Y9DYHrYP/NomsJZSetOj/1F4c13FZ0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ECZSQnsD;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RS/KgQmr";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F4E606A31C;
-	Tue, 10 Nov 2026 13:55:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2F4E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE51B606A31C;
+	Tue, 10 Nov 2026 13:56:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ECZSQnsD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794318937; x=1825854937;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=W8O1LBRwu+sB/68DfU9Zjqdg14RpoGbap0+yHR8ZzjA=;
-  b=ECZSQnsDrfSVTzCJXOTlOjsK6r9y1Rjd2JtxtBwVwVELwmURUOqXW/Br
-   6la/Oof7V7lOrZnyW16vu61y903YZvPtRltk9n2wyjtuD5d4JNm2kX1CW
-   ZNhYh6c6PWQaZvvgl5ElbN+8ljxraJQyF0wRHzf0lphXEE3LJEkST0opE
-   EHf0Yv4NJfXmoxbLAlgp7qqBZ7MN3sJjpvc9u7wTAkmiZDOTuztR5VmiK
-   woCaXdIQ46ZT48mQVpGiUr8+DxXR+OlGlaHBnxM8279w+jehamQE7e0AQ
-   AzZ8/CBDlGNuo4Q2hOG6TiERdtSEuJBI/ETMI5uLJycwzt6QBbbI/pNbi
-   A==;
-X-CSE-ConnectionGUID: KJI/dfMGR9CpDcBewIQnFQ==
-X-CSE-MsgGUID: YAwx74T0R5CBQYZsIplJug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3059467"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3059467"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 05:55:36 -0800
-X-CSE-ConnectionGUID: swvv99rkQ1udTRNjdJRSQg==
-X-CSE-MsgGUID: TUiSrJe5RlSHRKUdDZxGEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8018180"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 05:55:32 -0800
-Date: Tue, 10 Nov 2026 15:55:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v14 14/14] gpio: pl061: use string_choices helpers for
- IRQ trigger logging
-Message-ID: <avMiUkiq54lM20mX@ashevche-desk.local>
-References: <20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com>
- <20261110-cv75-gpio-v14-14-e586aad0467a@ambarella.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RS/KgQmr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1071A1F008A2;
+	Tue, 10 Nov 2026 13:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794318966;
+	bh=CYVCeh2uxfSFPv0xirYoRVJZdsUpsEprYDSIaHZqDVA=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=RS/KgQmrp7lZSEi/at8qJaBKjsWgevSSR/P1c2Md8EZ4Ws8jxuN7MBUCmivrhnkXi
+	 Ydf7aVVhV144CSCsgoNm1GaUEvG+b3NLmswMuNMmnLeXLxmvFtK4awq4lyu9RwxdeR
+	 YL8Mp6p/TAwvuWgaPyR/J2QiH9Vi7nLFE4FJrrqWE0CkEfJ8nQ7DdVYsHs9LCaHYbG
+	 wTx8WLNKeLMnqdurRgbFtyLaN+YA/6kxi9pnFOLZkK66dC7xjuBsXcE5uo5im7BND4
+	 bAsqIekTHgt2aYaMADFtiLaZhpHzghVH237B3qZzVI3mb73Wsa2Nu49S1Hcc0NpmOt
+	 IxucmEX+5Wo9w==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,22 +48,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-cv75-gpio-v14-14-e586aad0467a@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 10 Nov 2026 14:55:57 +0100
+Message-Id: <DMRKZHFKVKZ8.1ZCH8L9CDK07D@kernel.org>
+Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
+ entry for THP
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Liam R. Howlett"
+ <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Mike
+ Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
+ "Michal Hocko" <mhocko@suse.com>, "Johannes Weiner" <hannes@cmpxchg.org>,
+ "Qi Zheng" <qi.zheng@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>,
+ "Uladzislau Rezki" <urezki@gmail.com>, "Zi Yan" <ziy@nvidia.com>, "Baolin
+ Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
+ "Barry Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>,
+ "Usama Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+ <e1b0d6b4-f7ec-44df-a9f0-0e3a3722a973@kernel.org>
+In-Reply-To: <e1b0d6b4-f7ec-44df-a9f0-0e3a3722a973@kernel.org>
 
-On Tue, Nov 10, 2026 at 12:32:39PM +0800, Long Zhao via B4 Relay wrote:
+On Tue Nov 10, 2026 at 1:06 PM CET, David Hildenbrand (Arm) wrote:
+> On 11/10/26 13:03, Lorenzo Stoakes (ARM) wrote:
+>> Given the current throughput in the kernel resulting from AI-generated
+>> series, I unfortunately lack the bandwidth to generally be able to offer
+>> review except in those areas I maintain.
+>>=20
+>> I have separated the patches into areas maintained by David, Andrew, and
+>> Alice + Danilo, so each can take the patches relevant to the subsystems,
+>> for convenience.
+>>=20
+>> Apologies for doing this, but given the current trends I'd like to do
+>> something to make my inbox a little more manageable :)
+>
+> Yeah, it's crazy.
+>
+> Thanks a lot man!
 
-> Use str_high_low() and str_rising_falling() for the level and edge
-> debug lines.
+Thanks Lorenzo!
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Andrew can just queue the whole series I guess.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Acked-by: Danilo Krummrich <dakr@kernel.org>
