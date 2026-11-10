@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307798;
-	b=FPy0b3w2NN6Pk1FF2lF7jn3PT2g9L3t7o8FMMXW5BohHeHtPuKONkAS//NXQg0gPqE76
-	 1rUcIb8nIKhwF2/yq6+pdBDnr2fwPo/X1yg47Tfap72i3jl2noXefG7oAeFtpOwsnS6cx
-	 SDL1nIwgpq4VmIa8R+d17ar0DGP9UK40YvbnuIuwvLm009k9/rIJXQ2RVImYzObR+XZ0j
-	 enPaDHGp80I9ot59lEV5iKhhzZYA8FCKR+qxf7dt7ev4PcgHf7eedJLuv2VHsMgQF85Bo
-	 Qi2eas6/OE1NtZ0qxT5tHDy2YUvp4/IfCK0eP7C76dQamZ4qRxDPZ7hqBeaAn9f5BWg==
+	t=1794307817;
+	b=J74wWUPFcezz2oHgN6rBB01YwmhMEghMudud5kpfRryKAn3h9l4TeEzmQQ2W9RTP+j2M
+	 GSBkT0aumxJSceL6oN2g+Bqtq1WunNPhJMlEqleCqOVNtg+bqKQkyc/lOpiKVom+G1WxL
+	 NoF0ONX+e6p4AP827CrgxxCynF6ni/52/TgnXgUYHn6jRZ67s6B+d06L4xJic9LIMcijq
+	 2rTgxQ7So/L1UbCNgDSQOOpqqq+lhvIl+LX653L1pPADM3jrppp6jrUCliL5HlIImsXxp
+	 q2OZZsNdjADUD976O1Yq0JxWA7RAZx597XbdBN4v/rHT4pLgbgpnaR9lWWMEAwOgdfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307798;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307817;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uBuo3746wle39j4tB4qABMZkgvKNVlkfWjVtPlqyf5s=;
-	b=MmAhZNq3TGXFYMgiElbzXbJ/dfG+hFMNSUMgwGUQjFQJXDr24fIs9winB6TmowAxgoaI
-	 Epw+WwJN6xlTO8xl4U/kpZSzlB2ZfTA8GTjDfnDMGQ1rylMiDJwXv7katMlOX9S/EnNFN
-	 YZMjlY2+20kBgg/uWX19SFRx9x8YlKE12BoZbWGcgUuWnY6eCX1IFSShqWuZc7ZWofRAS
-	 /0WX+ERr4u+Pnwl817E/1Xz/73F9XoGpnWPmU4ntUhoClV8iEXaUEYjVg6j7SYZ/6h8uq
-	 3wGwV7mVs4i7bnuCBYNtVbi6LtoIZepyuv1p8aKfBLDdNYu+Tg9Afxlf8ZGEQP+X8Kg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=RVTkGzwp8ckIzdQmxfwAcPBKin5d3z25DmdwwACLOEQ=;
+	b=aiJuBP7DOHWL9qe8trVuqp8FHTynMbiO6Ord6FlEJS3jTKN0xVHvS7IcrKYMibh7ypMO
+	 LXZ9mU3ujOeoN01nD00WUVenWd310k2tG3edLTi2Ah+j+g1HcnDOgrT/p2zztusKFq8N3
+	 hlwYzEul1vK5rUiEJl+KOy7sDlhUwMUs3WnIrzvhIwaa3Jy+0bM6/daG4aHhZFPaa5gBd
+	 Mx6cZsAiUipCYjUaqKH/4tJTGXZkNGW0oOjt2JhVywVbYlyDwFOImkt3psqZfAM7BnvRz
+	 mgj3D0PUaBn7id+9dRWndjDvqQKjEX7a7cBxRGUMECiZucoS8bp5vJdCvygAhK7zJMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="v+/BH2b5";
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="P/jUBQCJ";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B6360A2620
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B6360A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE43B60A2605
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE43B60A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v+/BH2b5
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e96502e447so15400405ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:49:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=P/jUBQCJ
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so15130095e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:50:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794307797; x=1794912597; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uBuo3746wle39j4tB4qABMZkgvKNVlkfWjVtPlqyf5s=;
-        b=v+/BH2b54+pvoF1P6F3VrMhIi+jzBpaWE+ckSGRv/1lFtP55O+WAOTzxihP9ulZEoj
-         fjjz2tCnTDwNQQSutY7eXih6apzgiyLzikNZgLinD2ov2khIPu7bP0h2Wccc/TF5N0vL
-         beWZ132nnimNsHWdu+yTfyeir7JUZHRzSwYG4V1XirlW0YV7PA2+6FXfKM5XM+W0PSBM
-         /ynVx2IpOJFZ6nTWoVcYbpjw6hDkPUeSh/XN2uPFz1H3x8dPrua9SA54P2W60DlKltUC
-         VbQuRII7/YEMZbvGdeHwJLN6RCGHbYhOCYOHXBJJx65OQK+Oe7YefEmGQJM4cQk5gtoF
-         1U2A==
+        d=suse.com; s=google; t=1794307815; x=1794912615; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RVTkGzwp8ckIzdQmxfwAcPBKin5d3z25DmdwwACLOEQ=;
+        b=P/jUBQCJoeTzk8ENZY21IS6gDU+Zdyc3XCOAcCfNMmq10lkR8U6IsmhN6Xm3LtJm8c
+         57Lsbw3/yyD/WCd7dwlAtYB4m5l5PDLR8WQN55qbEKB3A1ar0X0i4ayXtpEkZSm/eleM
+         6n9AJ1zMuI6fPQNhL7pK4RYhwuyzARnCAXY8ukjpWK0dVMLxQkE0hnzi++H5U5WHivPK
+         7u53LDz9nSTrMJHmZ7FzqqwECFmbIJQlD68etYr8cZaqjQOw2vAxdFNZrBnmAKEJV3gn
+         +8hObpVZccBlXWQdyg7IrVvXM3egRtxOSiTfU5PxSJb7YuQjs8akDrMWE61qu3NyeNvD
+         /6jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794307797; x=1794912597;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uBuo3746wle39j4tB4qABMZkgvKNVlkfWjVtPlqyf5s=;
-        b=gwFHIVzH30n1dwhX6w2n8PabHt88OgXaOHnr4xDYbK3gcN8lyq5UZtTTFYqFVG12Uv
-         b73ezecvGI1UUAIKfMa4srohoJtpXKBDOj5e6yLo/QygNRlidtlHfQDGQChESy72QjPJ
-         HIciwoY3yLI5+hR+edL3Da+ha0XiLNuozzK1lDHB+CJRY0l7Q1KDyoLQqzwQgCf1A5pm
-         4bJh/7G+oK3WfumOqV+uDch48PzLCLmGXcM+eq8wWuUNwt0RaRMOTgpz7tu23xstoAeQ
-         jpsZNSooGgv/dq2yTVuqGxmGLelpxmvfq90pMHnm1Ri3DTU3eVaNGvS9CrVu5hJgo6SE
-         LVqA==
-X-Forwarded-Encrypted: i=1; AL+hErF40SplmndeTgGu7nFiQCBAugVycSVkR4DLXb5vZ6zv4gXnWuUtNQ4p++C8rd8QOo+3JyKclR7yBfuPxlI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8A4tvxFFtu95TZa619Jj8hhwgRWLK8sjrW/ApAwEJ3wsRvXrV6
-	2NVlj84azveVEGSUG4Q1gWQjS6bGwgFAPEgTZeDwZk4gOoQmsBV5L7ii
-X-Gm-Gg: AYBFou38TifbUZtNNGnaItILhdDgXLgNOKPdRTMV/bgYFv5iO6xjef+PYMJJXdhnl1R
-	Dm2xG/7YaXyAUCUpAe7cYOIwao4vFuDKWHr6dty/KVf9zUGDhtPn3eAzrmUDO0r8iEd6maCy+R4
-	23Qu5beO8sFy+bluW+OGavIfTzJsofRSeOGuYEwM5UYobx72ll+97G4pepO2zcH67dso4Frny+D
-	i9//UV5hZ8aIknJZSa8aZboCZcyncuoQ2HEuurwBLMIir/emIBGJ9p6rOD4GQvGB/eaC65URg4I
-	kwhLrSogKnhH+rplMmf0du0Uu07MiA+TeR10zTkpXeS4noKcUrjDudVLPXk0DkNHvrKXQOa9GJj
-	anQmFvSn/fTrJ45UGZOlQPsB2SnZ5bcvZtm3UDBDty3RRHB1VxUkkFWErGhkzW5uglhk6qgJ0sz
-	XafY0VG7Znx8uDR2Yg5n85STjMfx7uthfctFrchmmpO3VpuNmQXCYGNCm/0m7r1eQhghYdZCFZT
-	w0Rv3rdqCHuSRW9Znbf8jmFJ1IpYopQl0v1SQ6kNfhJ8o5hUmvp08/+sKcsxXCn+OWCZnWVikeA
-	QWd5UWFWLiUOkYbWB2LhKjSVGvSHMxXLT2jZH/cuu4UBKqV+m0ivIbyC
-X-Received: by 2002:a17:903:41cc:b0:2e9:776f:66b4 with SMTP id d9443c01a7336-2edb92f0722mr20908875ad.44.1794307797151;
-        Tue, 10 Nov 2026 02:49:57 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:6214:1250::1d3:d5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d906e4sm7337815ad.40.2026.11.10.02.49.53
+        d=1e100.net; s=20260707; t=1794307815; x=1794912615;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RVTkGzwp8ckIzdQmxfwAcPBKin5d3z25DmdwwACLOEQ=;
+        b=k6CsIfV6FTVsSGF/06el1w1U8QD+P1VHfJueaWl7lnt5E/cd+KyiDSK7F5iUUX4Rqm
+         vPYwcJM4tH0MaTZUxHBAQklGzgWP/nAuArH3NSV6Q7DJIlQ8SxMDffnsBFXLAHQyVYrS
+         7tiChyh5aYPOKg825n7SsW0JODpgSb3P5W8DU47RdtsdPKJbpN7YrM2CbL2QIZ3aqDee
+         2e3g5mHfMDcq8N/TV0TxfNaNSf7w2/kCS+PK/2Cbmu2ZsWqotAoLJo3rYqwmpXxnScrY
+         TInSoiE4PPynfrZ1jNNRJzQfWzJkzYErN+Qmxcs98DjpRtQ4K/b5tFGnaoRiFaZREKgZ
+         fLFA==
+X-Forwarded-Encrypted: i=1; AL+hErGY/nBVGS2vdyIV+fpqTxVkK2e/mdH5Dbtqn43EaXa1y6ci8ES5ilaQIo2QpomJ9rqlQ1Jxn2ZFs8/+Mec=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iZAAiAPQgv0iLIRY4iA0BydkBLOOTMIrVDbaMTktlde09YEMm
+	KhF+HfGGcU27k4x9e1lzbOrzqIOeAqipC9Wii+ciZ5yoQ4PQKi6u2CFBGjULc+jJXWY=
+X-Gm-Gg: AYBFou2ZwoGxiU6ZKOnJH7DIrx5RszM/800I+MgiEoiVVIG2IjEw2u/FHK6mmzErJLG
+	krdMrl7vkxjaMpX+6g9RXP7ndlqCW4PmTb6i6ShWDpM/R8A3HehSKzTI/c+hnva2IdD3U7di+G6
+	6GL2MhfZb+WCPwkpZFrEsBOaLE8lumQ2qWQZdcvt4Pb3L5xC0YStwferorhTzVcooW5RXB5vazK
+	MmgwnxsJBpU4Xv+Z/hRNTMl1wvu3Y1P4W1FyZAfGsFZooXuComqoAnpCow2AGgU2l17GmeFt1WZ
+	JtdQGu6EQEZcwKlrI2AjgoHGSPCDfVm86GlV+AU6rIi1MYGqKnRJzSxXhHcf0vuh3BP7UZoZ88Y
+	GWBT2/taFXMpM9UBxsW3D8VEPyvvJkesk6ZtMYe+uXUk+FtbFPVhsLrN1NIrLcgHjYT9sTGqjAr
+	aRWFKuESqlQrGaNtcrOqqRu3xWqBFH3OaKm/OPi1E46FPRjW1kLsO8npegFF2jxf8pb05qQYdbL
+	fKpjdznhGd0Mm/fNBSqvPXsQuqgbwfYqBJUTWMMXeo9mlsIhjkMVR6I9ZU8xdCjbg0nFJduep5U
+	fuykfdxEAWeLV6ARY5OEfUG7T+NDX/bb1D0G+45nIRYewA==
+X-Received: by 2002:a05:600c:4e14:b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4ba0233b8b5mr35312615e9.7.1794307814843;
+        Tue, 10 Nov 2026 02:50:14 -0800 (PST)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c37bdfsm4522648f8f.22.2026.11.10.02.50.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:49:56 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+        Tue, 10 Nov 2026 02:50:14 -0800 (PST)
+Date: Tue, 10 Nov 2026 11:50:12 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Miroslav Benes <mbenes@suse.cz>,
+	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	Yafang Shao <laoar.shao@gmail.com>, Shuah Khan <shuah@kernel.org>,
+	live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v4 3/3] net: dsa: motorcomm: Delete the ACL rule of the port being unbound
-Date: Tue, 10 Nov 2026 18:48:55 +0800
-Message-ID: <20261110104930.223598-4-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110104930.223598-1-mmyangfl@gmail.com>
-References: <20261110104930.223598-1-mmyangfl@gmail.com>
+Subject: Re: [PATCH v3 2/2] selftests/livepatch: skip based on the test
+ modules instead of KDIR
+Message-ID: <avL25NFPU_pJ2tXJ@pathway.suse.cz>
+References: <20261103222706.1642224-1-sashal@kernel.org>
+ <20261103222706.1642224-3-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,74 +103,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103222706.1642224-3-sashal@kernel.org>
 
-A flower filter on a block shared across ports is offloaded as one
-hardware rule per port, all carrying the same classifier cookie.
-Deletion looked a rule up by cookie alone and could take another
-port's copy: with skip_sw, a filter silently stopped being enforced
-on a still-bound port, while the detached port kept enforcing it.
+On Tue 2026-11-03 17:27:06, Sasha Levin wrote:
+> setup_config() skips every test when there is no kernel build directory
+> at $KDIR or /lib/modules/$(uname -r)/build. The test modules are built
+> together with the selftests and the scripts load them from
+> test_modules/, so nothing needs a build directory at run time. A
+> machine running an installed kselftest tree usually has none, and the
+> tests are skipped there although the modules were built and installed.
+> 
+> Check for the modules that __load_mod() loads instead, and remove
+> has_kdir(), which has no other users.
 
-Delete the rule matching the port being unbound instead.
+This is another a bit cryptic LLM generated commit message.
+IMHO, it will be much more strightforard to say that this patch
+allows to run livepatch selftests with pre-built test modules
+without a need to install kernel devel files.
 
-Fixes: 8eb9e7520b17 ("net: dsa: yt921x: Add ACL support")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/tc.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+> Fixes: 54ee3526796f ("selftests: livepatch: Avoid running the tests if kernel-devel is missing")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  tools/testing/selftests/livepatch/functions.sh | 16 +++++-----------
+>  1 file changed, 5 insertions(+), 11 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/livepatch/functions.sh b/tools/testing/selftests/livepatch/functions.sh
+> index 8b26b70f92d8c..14fc9cade4de3 100644
+> --- a/tools/testing/selftests/livepatch/functions.sh
+> +++ b/tools/testing/selftests/livepatch/functions.sh
+> @@ -44,16 +44,10 @@ function is_root() {
+>  	fi
+>  }
+>  
+> -# Check if we can compile the modules before loading them
+> -function has_kdir() {
+> -	if [ -z "$KDIR" ]; then
+> -		KDIR="/lib/modules/$(uname -r)/build"
+> -	fi
+> -
+> -	if [ ! -d "$KDIR" ]; then
+> -		echo "skip all tests: KDIR ($KDIR) not available to compile modules."
+> -		exit $ksft_skip
+> -	fi
+> +# Check that the test modules were built before loading them
+> +function has_test_modules() {
+> +	compgen -G "test_modules/*.ko" > /dev/null ||
+> +		skip "test modules are not available"
 
-diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index 429345ad1eda..e3f057ed580f 100644
---- a/drivers/net/dsa/motorcomm/tc.c
-+++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -1226,7 +1226,7 @@ static u16 yt921x_acl_activated_ports(const struct yt921x_priv *priv)
- 
- static unsigned int
- yt921x_acl_find(const struct yt921x_priv *priv, enum tc_setup_type type,
--		unsigned long tag)
-+		unsigned long tag, u16 ports_mask)
- {
- 	for (unsigned int blkid = 0; blkid < YT921X_ACL_BLK_NUM; blkid++) {
- 		const struct yt921x_acl_blk *aclblk = priv->acl_blks[blkid];
-@@ -1236,7 +1236,10 @@ yt921x_acl_find(const struct yt921x_priv *priv, enum tc_setup_type type,
- 
- 		for (unsigned int i = 0; i < YT921X_ACL_ENT_PER_BLK; i++)
- 			if (aclblk->rules[i] && aclblk->rules[i]->tag == tag &&
--			    aclblk->rules[i]->type == type)
-+			    aclblk->rules[i]->type == type &&
-+			    FIELD_GET(YT921X_ACL_KEYb_SPORTS_M,
-+				      aclblk->rules[i]->entries[0].key[1]) ==
-+			    ports_mask)
- 				return YT921X_ACL_ENT_PER_BLK * blkid + i;
- 	}
- 
-@@ -1364,7 +1367,7 @@ yt921x_acl_commit(struct yt921x_priv *priv, unsigned int entid, u8 entsmask)
- 
- static int
- yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
--	       unsigned long tag)
-+	       unsigned long tag, u16 ports_mask)
- {
- 	struct yt921x_acl_rule *aclrule;
- 	struct yt921x_acl_blk *aclblk;
-@@ -1378,7 +1381,7 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
- 	int res;
- 	int ret;
- 
--	entid = yt921x_acl_find(priv, type, tag);
-+	entid = yt921x_acl_find(priv, type, tag, ports_mask);
- 	if (entid == UINT_MAX)
- 		return -ENOENT;
- 
-@@ -1553,7 +1556,7 @@ yt921x_dsa_cls_flower_del(struct dsa_switch *ds, int port,
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
--	res = yt921x_acl_del(priv, TC_SETUP_CLSFLOWER, cls->cookie);
-+	res = yt921x_acl_del(priv, TC_SETUP_CLSFLOWER, cls->cookie, BIT(port));
- 	mutex_unlock(&priv->reg_lock);
- 
- 	return res;
--- 
-2.53.0
+I would prefer to keep also the original tests as a fallback
+and report:
 
+		echo "skip all tests: test modules are not available and KDIR ($KDIR) is not available to compile them."
+
+Best Regards,
+Petr
