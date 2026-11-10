@@ -1,63 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245563;
-	b=luwf36s5hHffBrP26kh7uY3soikqejDUsuvtb7Yoaaxo5Or+0sYshc9zxlXmFfRS7yao
-	 WDbnZVMH1dcPCIDAaqs7xTA4MfmvS35d42XIigGRafXjIGhR9HlEMkuC1oBgymmUf9KlZ
-	 PX5gM+LoqSQqMGYCftqAi3LOqfHaE1miwcG3vpMarY6v018a3b8GiqjUKO3EDK9Qmprt7
-	 8nUoOtpFVp911B49a+jXcR3mkGNoYKV3dWP2LhftVERY3fG68Fb7geNSzTntETQ7d2OTp
-	 jwWzeqc9OfsQ9WypMbWmeknVcXkSKGF1L2nJq8yxdlrPhz3+Vx4y35Xp2gVxM6qNbDQ==
+	t=1794245608;
+	b=aPQc398+b5d8dJUjPD5JPCcH3RIcXJHcbP5mwe904R+i54XUWz7G1IwIq9c2IN7an72L
+	 yxLdPV5JlIQg0AB4/J1Hc3uFRX1UwGA1aaWOVuDxrPgsSaX8K3XFtogvIy81yWwRIqymZ
+	 v74i7gmZAwuthCpiquTNZgh7qRYozaOlaa0iqryZzeUdNxlOvPLJf6UiG1JyvAVvMWY+S
+	 C5wURUEepjdep0LaJ0JCoanRqdKHMAP59koP9gl6twURX4FGa/cxXnjuKDo8EPjEHP1l0
+	 omzuGZIGcc7yJ5VltnKnbERcv/36A7JMlLJuZvqzuI9KQfdK+VlKZLQ7UC33YnDdGPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245563;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=mKe7ARg30ugtmOMY2pGpxnyKNaS+xGD77ucYorxS5c8=;
-	b=XvmRW8JuxuMEc1wZo3nNJkJFjdnaAhkjotVRTz+toJ4WDmAARN9a2aGo72blVzGdA2UK
-	 8XFoesQwPahQTwa4wmutuvxKfwL7VXBKDljz4vjL+Ku29R81CaLwD5Us5l6DhkIDEvWhs
-	 SqznUV28TX51A/Tw4ux8i9gcY0wUkaFbg8PP6JnibMv1VkSc5cBvsCxlKdhjnRwgp4JlY
-	 7ZJ7x1j1ApiyKW/eR+u3iT48u1xHOkXZDeuOiJvkxAYKJbQ+bZ9aRr9SJZDVJQFgXB3Sa
-	 686Wvaoym/A4QCAJvW3GfVz+DAHkS92gJ4WTc8GqjCH3ZH27/SbGUUnpRgp/wucBKsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794245608;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dUKIJ/XyzMoGqH+elSoxlwUX6nrAsxgspguzZjb2vhk=;
+	b=a2vx5WxmH2X96uPqOPBUUwQpY4Nq5wkXs4bpJYcb+77TIHBUzR5r2oF/3Pho1sJdv27d
+	 1+Twb5M4fIqlpFmtw4wOgx3r1kyG7FuQodwSh4pTCkTWI+0xZ97WHk2tNbkeEb7ZHubdo
+	 oB8ZSD52yYQkz8Mr56miEf010i55+21fuPpuY4hKmz4CJFu41EqGVK63tSMN1cupxIptk
+	 ppNdMdeprI99IDN6cFP7SyPKtcvVsympz7O5p/LB04OaKcr/JT00FGUKRLg41CPehIvTD
+	 gadG61KwEKhGNi5qk3iMuLBAO11qJrXk9daR7ftXStJ4A1EtpLBa+LDo1nzsRaDCkQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1wt.eu;
-	spf=pass smtp.mailfrom=1wt.eu;
-	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=OL9R1eTt;
-	arc=none smtp.remote-ip=51.159.59.229
-Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qHnCBDEa;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CF4606EE94;
-	Mon,  9 Nov 2026 17:32:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70CF4606EE94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F20606A321;
+	Mon,  9 Nov 2026 17:33:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F20606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=OL9R1eTt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1794245558; bh=mKe7ARg30ugtmOMY2pGpxnyKNaS+xGD77ucYorxS5c8=;
-	h=From:Message-ID:From;
-	b=OL9R1eTt34vZnwyH1a3m7c4+5h2Q8RhaLoe2FXPFjZ3eCFZ/XqunBISKpqbDu9Vax
-	 lbPzt/XF/ybGYLwSNVyhn86lcUTScZts1fFdBWHoYGw/dQBwTcN4m7IAnv8Es3cBiQ
-	 BfxNFAnPyYY217jCsNg/5fAWuZ0sr7bSWgxcdLFA=
-Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id 8D94BC0954;
-	Mon, 09 Nov 2026 18:32:38 +0100 (CET)
-Date: Mon, 9 Nov 2026 18:32:38 +0100
-From: Willy Tarreau <w@1wt.eu>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, skhan@linuxfoundation.org,
-        Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, gregkh@linuxfoundation.org,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH 14/14] docs: netdev: align the security fixes section
- with security-bugs.rst
-Message-ID: <avIDtoA-w1UQEatq@1wt.eu>
-References: <20261109080240.29444-1-w@1wt.eu>
- <20261109080240.29444-15-w@1wt.eu>
- <20261109080036.11bf06c6@kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qHnCBDEa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794245602; bh=dUKIJ/XyzMoGqH+elSoxlwUX6nrAsxgspguzZjb2vhk=;
+	h=From:To:Cc:Subject:Date;
+	b=qHnCBDEaAMLH7Q8XddFhi6oOved6PquxyDIUwl8+9AIWoqByFUcFMZmAHaRWSjKdA
+	 fvzy5cYzk3vXPTjkMDwLfoqMyu3tAwwblKNMj2jctCSV7GR0cJnTGhlr8dRKNW4d91
+	 Y/czNTh1lvM49f7325fqoP3kea+a4RlNkt+urZCs=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 854B44ED; Tue, 10 Nov 2026 01:33:20 +0800
+X-QQ-mid: xmsmtpt1794245600t9mvu9umj
+Message-ID: <tencent_184425A5E27EBF8CC03B3D988647BDFA5C0A@qq.com>
+X-QQ-XMAILINFO: OeJ9zRfntlNP6oALGb+HWo7FwJX7ssaY9/P9tD1Q1dyMM789M2YlwG88Lst9FJ
+	 b5qrfnGB8RoTi+7j/o4OqE/r5WMMW8GiS+wzIs+yzjjKdMN1gA6U0qeZ/SomCtN8iPWhD0pLKPwf
+	 SM/rwT8v4+rutNMzJhR2Qt8ogzkiew5BFfq9ezc+vv53GTqIMnvC2CyVAH7lzDfes3QmfCrcejqU
+	 FKKHj/TvX9v47ZugT9bsOKZ9mRLpmVj6V34gGRP8/DV36dE0wvh6NKUs80TRPv2h1uSSZEtRfs7r
+	 z9KhJZbd4KSY1a308Kd2/KqAywBfBZ1rWgyHU+D1fLXlG9kWEv2NwmCggh/C2PyZeMG8J5T+VA65
+	 IhNHxw30o/wnAL25DpCaFtf674ehv9KdKzJpfRJIaKbM4a1uidHK/YDEewGvKSqX1/240FaPIWBL
+	 7G3z5KQEyIRSXB/IbVGHc7/RRt7XeSuFcCBVk57t0JIIguQpMpyi6QJ+57GlBVkcvRJH2y6MQTwu
+	 Wwc23VF6i3dacbvzKRSIdKPo3wziPz4asscfJILB0xUNFsP5Wad9AINiw4ZhKkgDZxhX8VKCUh2Z
+	 0spjsNf6IInzo5aJSL3as/e3XYAKPDoTZouC+6XjcSKd3RMCorncUPo6UoUtuUzEEvinE2egC1Zb
+	 23lVgX/lMS4hLmxBawtbWLsYIn2ComnHjW7uRnZyBBJSME6I3oGllETc4zDpqVgWGoRR6fGcP69K
+	 GFlIWrT/Nq0COIjHMSQ/nS7SNrVJHZO9diiutoTbQfWdbd1gvwESQvlnCD8vAFN8pQp0KS3sg1WE
+	 mFTm2+/U0cgdthj+GMRnlsLC0TLCDGdCTaYc9lsJRk9R8s4iWREzXhSqre8vfVW6qI27Vo8RWwbb
+	 boIDFykhpO9tztjxPywoHURtukuIG/Z1O+47WQRRHAXl7++nFiHTel08PdCO6U1+jB7lw2YYpN01
+	 U4BlpvIbwbGyMdjrnJl7mY9LipD/MqZ3p0Lxt3NG/V62F8zWfST1s+ssrnCBuovBulkyBuu+NE9P
+	 JF5wqtO+ojeToxgtuh7Zs66UhkWxsNxlNQyJLhSMzXYZ79zGGrTKtv3Sh2MBSSJ+Jb10g0ReodjQ
+	 nFVTlq0j8y2uUd92nRJLoOL4XkifOgEG3p8fkdAsK4TqHw/WHrOg2QPXx3Dg==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ [PATCH] xfs: reject a continuation op with no buffered region in log recovery
+Date: Tue, 10 Nov 2026 21:00:00 +0800
+X-OQ-MSGID: <patch-xfs-wascont-v2-20261110@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,35 +77,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109080036.11bf06c6@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-Hi Jakub,
+xlog_recover_add_to_cont_trans() takes the tail item of the transaction
+and indexes ri_buf[ri_cnt - 1] without checking that the item has any
+region buffered:
 
-On Mon, Nov 09, 2026 at 08:00:36AM -0800, Jakub Kicinski wrote:
-> On Mon,  9 Nov 2026 09:02:40 +0100 Willy Tarreau wrote:
-> > -people use the mailing lists and not reach out directly.  If you aren't
-> > -OK with that, then perhaps consider mailing security@kernel.org or
-> > -reading about http://oss-security.openwall.org/wiki/mailing-lists/distros
-> > -as possible alternative mechanisms.
-> > +people use the mailing lists and not reach out directly. Fixes for such
-> > +bugs are posted to the lists like any other fix, with a commit message
-> > +that does not detail how to exploit the bug. Never post reproducers or
-> > +exploits publicly: maintainers will ask for them privately if needed.
-> 
-> Please don't insert the wording about not sharing details.
-> Vast majority of the bugs have no real life security impact
-> and we have to keep asking people to share the repro.
+	item = list_entry(trans->r_itemq.prev, struct xlog_recover_item,
+			  ri_list);
+	old_ptr = item->ri_buf[item->ri_cnt-1].iov_base;
 
-OK.
+An item created by xlog_recover_add_item() has ri_cnt == 0 and
+ri_buf == NULL - the transaction header itself is copied into
+trans->r_theader, not into the item - so this evaluates to NULL[-1].
+xlog_recovery_process_trans() dispatches to this function for any op
+whose header carries XLOG_WAS_CONT_TRANS, and nothing on the way
+checks that flag sequence against the item state; the only related
+assertion in the recovery code is XFS_DEBUG-only.
 
-> Can we instead add a brief "please follow the standard process
-> described in the $security doc" ? Or, maybe even better, can we
-> delete the "security fixes" section completely? it is very old.
+A crafted dirty log with a valid transaction header followed by an op
+header with XLOG_WAS_CONT_TRANS therefore faults at mount time on a
+stock kernel, without any sanitizer enabled:
 
-Oh yes that would be even better indeed! I'll send a v2 of this one
-ASAP.
+  BUG: unable to handle page fault for address: fffffffffffffff0
+  #PF: supervisor read access in kernel mode
+  Oops: 0000 [#1] SMP
+  RIP: xlog_recover_add_to_cont_trans+0xf9/0x460
+   xlog_recovery_process_trans
+   xlog_recover_process_ophdr
+   xlog_recover_process_data
+   xlog_recover_process
+   xlog_do_recovery_pass
 
-thanks!
-Willy
+Note that reaching it does not require an actual split region: a single
+continuation op right after the transaction header is enough, because
+the dispatcher never checks that the previous region had a buffer
+attached.
+
+Treat it as log corruption and fail recovery, matching the other
+-EFSCORRUPTED paths in this file.
+
+Reported-by: Guikun Yang <yangguikun19@qq.com>
+Signed-off-by: Guikun Yang <yangguikun19@qq.com>
+---
+Tested on a crafted dirty-log image (real mkfs.xfs, files, sync, crash,
+then the first region op after the transaction header gets oh_flags
+0x08 and the v2 record CRC is recomputed): the modified image now fails
+recovery with the new message, while the unmodified image still
+recovers and mounts. The same image reproduced the NULL deref 3/3
+before the patch.
+
+ fs/xfs/xfs_log_recover.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/fs/xfs/xfs_log_recover.c b/fs/xfs/xfs_log_recover.c
+index 1111111..2222222 100644
+--- a/fs/xfs/xfs_log_recover.c
++++ b/fs/xfs/xfs_log_recover.c
+@@ -2147,6 +2147,11 @@ xlog_recover_add_to_cont_trans(
+ 	/* take the tail entry */
+ 	item = list_entry(trans->r_itemq.prev, struct xlog_recover_item,
+ 			  ri_list);
++	if (XFS_IS_CORRUPT(log->l_mp, item->ri_cnt == 0)) {
++		xfs_warn(log->l_mp,
++			 "%s: continuation with no buffered region", __func__);
++		return -EFSCORRUPTED;
++	}
+ 
+ 	old_ptr = item->ri_buf[item->ri_cnt-1].iov_base;
+ 	old_len = item->ri_buf[item->ri_cnt-1].iov_len;
+--
+2.43.0
+
+Resend note: the first posting went out with a truncated Subject line and
+without linux-kernel on Cc - a defect in the tooling that sent it, no
+content changed.
+
