@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349122;
-	b=XkvMBlfNCRnvdKU6cXjAcPIeofS7OfCp5ySMFR9hKCxTtoiLyTq3r3nE2WfeXn8ag+o6
-	 cuDcYMQZEUe61FoCQC+7Ebq1yMPKbTpN8p/McK2R50YZ4x5AIKR9wCADW5c/I7xW2CdRp
-	 5+JP/YHzSqZ6m3O1UOe5QyNe5hOWEta59G8069x6RE13cfFoIdtHjFhYz9hSlSViUJnzW
-	 6Weh6AMeWtkHn1OdobIJoWxUQVn1YwHoqkD7npV1+FOdBKnp8sEewoBOz/t0kVj/H678z
-	 Z/MngKA2WeBCpaK93VXPZeOWL3cEuZI8+rAzeJORV5/hJcwm4B1h7NUtsPgSAzU33zg==
+	t=1794349124;
+	b=RI7w85FC4Xi6UmMTvZOlr0kT/TUjYOq/tqi1aoh3AjvDYbXigk4N0Fr/Lx/6XT5dq+FK
+	 SRrkZzksg9pLq+Sg7cSuuNipWI0NSaimUqL6MbQJBQgJ+mprH3RZjFXAV3PEezWtzsJvS
+	 fPxcMtuquN6N+Wo11q00puJ1GDNKKUJ0YVk+z0aK+6GMLOn0NYtQb2AZ2yM79X3q37GZ3
+	 5l9ZbAzNJyhGiz4999YyuqqEzlqJPoJcQmXlqoVbgdPq15KMM0K074WqBkdVT8fLKah58
+	 1ihBUqyoKrE4PAg10qONBhbiHl+3nPT1bIYWkV6eu0GRjctvON0Ba9cXM+a6lwpWlsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349124;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=mMAZKQAFME8P3yklgR9smhNvOT7whcwIN/YXkT24B7k=;
-	b=kcJmas8ILaUPrvT170jYkNIB3w2dAK9vX3+eOBuFn1m3AtIOG1Qz4+sxNXLR2cIZj3nT
-	 ktj7/NaJi7qMxscPhTMTTbSO0hPXD44PxkHSv/9i58q0OEDztgwWTEwl8BoStz3Ruu/oh
-	 IK0qIqaszdUFhABZkgacjuTQT4kqCXlD+bi3LPB0cnsj+ZLPa2qkpeOIezTS/ZCXSdlt+
-	 ZL2M1mUSvJ5Rg+/kFfUgZhDwpCVafV/W/SOSo0MKo7cKQDMi6Qi7oq4NWkjAb+V2vva8T
-	 DuuVtYfmEpJO+Yfjcib9aIgBa082JvqEzzMjxG1pOTbxH70Eibwr+NOd246n0tDxSgg==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fDbH24IqyXGeJwrHjekd3y0pkWs6pa3ajDlC4H0B9Rs=;
+	b=xm44Kj+e6tEswoj5B6jalyltvyF0EssSoetMICWZ6ZbgYjespQ0o2J4RiI6L23wUW0CT
+	 clkQVwogtgIFDfnkoXM39jUBluDIjJZMxx88GPJKp5i+123R97P1uSIErut55ftINcgYf
+	 LXGm/VIPUsaTZSxc5rs2AUS68QfNCJ2aXQgRdr1h8ND0FgXovUBctf9aH+zL4rGh3WSyr
+	 BcxGXJ0RCuZV/1xfpUivWCzKxRmlFoqQ0GDqwGeB4G6V93PrjPjFM0qV/2CdCbZnsxFaC
+	 1ZwGye45CIcOD4Lj0AQNRwPPCp2fKXLoUy1I8lfdp9A+WPMzTFot4v+RQNvtwGHGsbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=La40Nucr;
-	arc=none smtp.remote-ip=95.215.58.172
-Received: from mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KATnxScb;
+	arc=none smtp.remote-ip=95.215.58.174
+Received: from mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EE6606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:18:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5EE6606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15EE606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A15EE606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=La40Nucr
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KATnxScb
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fJko3etiBFrEh3/Db7V6Hp/x1IoP6O70SfBSmJFkESg=;
+DKIM-Signature: a=rsa-sha256; bh=ucW0CbkgsYickmF4J+LbDhp0k/VR5j5+Ym5RT6WHGS0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794349118; v=1; x=1794953918;
- b=La40Nucr2UDJ8QIyB5cj2B3za8riJvJPVAzIUIW6jpX8Ls2zCFuHM5aDhjBhHzLIS+/c7xQh
- MUBC1MQkD2XFRMejo6wX3sBMK0gVaXRqv6Xs5Mdn7F8EfFdIGyy8EGqY8IlbA3EBjBe4pWUvvhR
- OAwWyHgsRJXxX15eSs0PclVQ=
+ t=1794349121; v=1; x=1794953921;
+ b=KATnxScbwb64vWmiiVtuCVXVGjDEVGbtOnd1iqIBXx5KJnfO9Nb2ZxFJWUwTE+Hrs5AEsKsz
+ yvZnA0NemMEkt04T/1BB5QczwompSqODfu9lYqlkfYdD18QVO8OuW1fqx+vivQ2Cfce1t8fSzha
+ 5xT7yCctpxAYjRm1CitCAV7o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id bd0672650117ca00;
-	Tue, 10 Nov 2026 22:18:38 +0000
-X-Mizu-Trace-ID: bd0672650117ca00
+Received: by mta11.migadu.com with ESMTPS id 53003b696ba808b5;
+	Tue, 10 Nov 2026 22:18:41 +0000
+X-Mizu-Trace-ID: 53003b696ba808b5
 X-Migadu-Flow: FLOW_OUT
 From: Bradley Morgan <bradley.morgan@linux.dev>
 To: Catalin Marinas <catalin.marinas@arm.com>,
@@ -53,11 +54,14 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
 	Mark Brown <broonie@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bradley.morgan@linux.dev
-Subject: [PATCH 0/2] arm64: signal: Fix ZT restore without ZA and clean up bounds check
-Date: Tue, 10 Nov 2026 22:18:34 +0000
-Message-ID: <20261110221836.3265929-1-bradley.morgan@linux.dev>
+	bradley.morgan@linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] arm64/fpsimd: signal: Require ZA context when restoring ZT context
+Date: Tue, 10 Nov 2026 22:18:35 +0000
+Message-ID: <20261110221836.3265929-2-bradley.morgan@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110221836.3265929-1-bradley.morgan@linux.dev>
+References: <20261110221836.3265929-1-bradley.morgan@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,27 +73,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series addresses two separate issues in the arm64 signal frame
-parsing and restoration code:
+When restoring the signal frame, restore_zt_context() checks whether ZA
+is enabled via thread_za_enabled(&current->thread). However, if user.za
+is omitted from the signal frame, restore_za_context() is skipped entirely.
+If the signal handler touched SME prior to rt_sigreturn(), ZA remains
+enabled in current->thread.svcr from the handler context, causing
+thread_za_enabled() to succeed and restore_zt_context() to write userspace
+ZT data without restoring ZA state.
 
-Patch 1 fixes a bug where ZT state could be restored without ZA state.
-If user.za was omitted from the signal frame, restore_za_context() was
-never invoked. When a signal handler touched SME before calling
-rt_sigreturn(), thread_za_enabled(&current->thread) evaluated to true,
-causing restore_zt_context() to overwrite ZT without restoring ZA.
-We now mandate that user->za is present before restoring ZT context.
+Require user->za to be present in the signal frame before restoring ZT.
 
-Patch 2 drops a duplicate limit - offset < size bounds check in
-parse_user_sigframe() that was left over after the switch block from the
-2017 frame layout rework.
+Fixes: ee072cf70804 ("arm64/sme: Implement signal handling for ZT")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bradley Morgan <bradley.morgan@linux.dev>
+---
+ arch/arm64/kernel/signal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Bradley Morgan (2):
-  arm64/fpsimd: signal: Require ZA context when restoring ZT context
-  arm64: signal: drop redundant bounds check in parse_user_sigframe()
-
- arch/arm64/kernel/signal.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
+diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
+index 6a06a4e352b1d..20d5f19921e0d 100644
+--- a/arch/arm64/kernel/signal.c
++++ b/arch/arm64/kernel/signal.c
+@@ -678,7 +678,7 @@ static int restore_zt_context(struct user_ctxs *user)
+ 	u16 nregs;
+ 
+ 	/* ZA must be restored first for this check to be valid */
+-	if (!thread_za_enabled(&current->thread))
++	if (!user->za || !thread_za_enabled(&current->thread))
+ 		return -EINVAL;
+ 
+ 	if (user->zt_size != ZT_SIG_CONTEXT_SIZE(1))
 -- 
 2.53.0
 
