@@ -1,98 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304880;
-	b=h8ZlYbQ+tJjzVPkajJdbERiK7HRmbAPEqfKY9O47ZeMIr0mnBO82wlHm98RqbZORPmiY
-	 apsvhH2LzRalv6Z1llZf+YKXY1cMgbHRjDmhtsRxQJnWB4fUiM5W4Db8AmZJtwiVqAmr3
-	 3ri8BE8P9qw8SlCJKNFu0MNT58DGwQvWeqvDAyrFEQumAlQcUkDuevidoOZuBJEYtE33O
-	 dSGdr777DOWk/I0oaqZ6pdBb//z2bJ5DMZcOu/s49hj/ERGEUlT+gE9h4zDR6Vf0QC9DY
-	 eMZTsYMkHtJIe2s4W5PpkQmlr0izH4DrdaiwxnbsfTGmA9olFu+yb3sHHNmsHtBVoeQ==
+	t=1794304893;
+	b=HEFNo0ifdvZFKYG/ioPfOb5UMn661b2n7pYKjA4BwTq9l7yXJ59EKP6WyO9ZshlRdFrq
+	 pl1+RnEJxqtHTTFLiQuAfahn0PZdv9UPw1+RASvvdvOxLhzCiesEz1DUgQGhX/R8jje3h
+	 SWbw+VwH4bpJsR4owjwh90OQg0O9Nt8siQJ8vERSG1lUy4BfjtI95ZDSm14/O28exJ+dT
+	 TDRfqE91FFiedPfxhJX8FluVKPS//qv3sT+qnHhK3Ohr21tSDdBSanEfl8YVOwi2kXmGK
+	 7rz17D2gKRalzeDmikML1qZum+jfNHoZt2qqWe7nGYIGSWBA9LufPOy9qhj/4Xj2ztg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304880;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=r9Pl8QyXylw3efq/GJcZ2H+q3w0RBKBXrliBi80vKGw=;
-	b=fyo0ll/GcUPNruL2ZtLwcja07MB2Q/ePG1QWA32NA9Ci8eK8HfJVv5cR0ex/HFeWDV4X
-	 duwzQ46TDOEq3ys88WLwUiBrqpG/lmgg0tfbrODKNE0elyKXGup+UAI54cNMbNUM0hNCQ
-	 A6D7h0li8NtyQx8xT8a7g9bUa0NLv6MVoImF2/LodvFGj/s3JdF0jFWCflBtZLgMqgOWI
-	 yUeBOPU4+RKPkfTvu3PXFSD7EwUPd/UwWqc+2qQx4HJA7wWIsDK9GVl2E8BZ0eQKKBf8s
-	 WrYtkoZ71FVPrFphDOExuH23wATX18kaKCzTqO7pBqWkndS2im7eOh2w3zgGnruftww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304893;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ADIRuleOP-NewSCL:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Pcf79JCJAWHbiN6Vn4/htZhJapEM9Xf8xgTLcJyZEcE=;
+	b=eQBjrv0SxIG98OkejaqxQTFKXR+fLWHeXkVNxeqfsnNieOId1nMtCI49vL4BxDjD1+kE
+	 rD7Y8iss0rGU1+HfsLUUxiDnloLlRrmILEJtACULJJtd98tdHD8YRcCRgjL1LpD6yimZG
+	 w6jfjYIhtUkj14RYoq8jceDHe7i4VQaQaMFxffjRphWyGTYbhsnP1bb4den+Hr+O+9L/y
+	 D0T85D+/DCCSaow1D/hA3YVgcEyHwbpUF3pJajJ3BENSWcJ6B4OGQDkB3J7iO4tIG29KM
+	 Cv/3b/YSa/TKCfyZ5Vr9/JF3jD8GObsP786eb/BFPqda5JRfHBvFEf/z09HyMiPNGRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hihSnyLV;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rQMnbe0t;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=UyFzQBOG;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D222B60A3816
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:01:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D222B60A3816
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29C7606A33C;
+	Tue, 10 Nov 2026 10:01:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A29C7606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hihSnyLV
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so1165549f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:01:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794304878; x=1794909678; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r9Pl8QyXylw3efq/GJcZ2H+q3w0RBKBXrliBi80vKGw=;
-        b=hihSnyLVB9FjyRlDuAovNuIBjgewXp5dc/cQqEO+qUuZyz51f4E5maO2fTlg9fxjmU
-         85A5jq6UUjxbgA5fQlRAE+RvwEwIMtIPPpPJG2jTeCKmaod1hgWq2ZrxpkYS4XPP/Lir
-         a7EAw5oUQqDLxyjeJo1wkT+/Rvvj7BX5K1r5AXcLPq5VF0uSW4ArS7/TTmGepGQdebkR
-         uNE+5OJLM+e8RzTyICAmiZlySlTFU8Banj+xC2TMXlVF2p/FX4ILu8goir89YN+FD6Up
-         XrQF78+wReRB6xrljJv1O4/wTHTIIQePnWNiB1bgTc1wgpVHOCVrzJD21lxK2SoWDnTX
-         P5MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794304878; x=1794909678;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r9Pl8QyXylw3efq/GJcZ2H+q3w0RBKBXrliBi80vKGw=;
-        b=Dwk83tutNp3SANT4g95CevR3WR5FDhsQgfMhqUSwBU3nyP4OSz4ES0c3Jwz9BawRvc
-         RQhiRAXCbUVMkgcRuU0g82lOJvd21azaEDr4f2wPKin1NEKNvjcmw+NgmIfdO36UPzMa
-         AtrLkDQgicDamRrJIC9x4zf4lioZwk2fbDwMTSZcDd7fcvJuzK/lv9PpBr3CePQ3fQT3
-         iTU0iLxHD4pOXPnqLScPcCYWs5g1+G2uYabW5qUgVZ7JoZBfUICEukPM06xuxdNesQvi
-         n0jIZixPLoFwjZZcd7AGz1H3IraqZ+Jb1wN2eCJQd86V5OLDUTs3jtcdxL1QzGPvjh52
-         eyTA==
-X-Forwarded-Encrypted: i=1; AL+hErGmRuFmFnSVj3liP9vCcf8fa1GffLKgKr3mme2FbKKmrzZWqn0ERYsB7IIFQqiMYBoSAAUwb0KfMOgDTdc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9s+FlHpSMqyNEEN9/cNXj8IBhEWaUrbup6B0ttTrmHIyY30br4
-	ZOrR3yiqLu/beTWaZdjfZzO7bfye0F3kW0WCWy1L7Wy3Gla+SEfBZyIS
-X-Gm-Gg: AYBFou3m6TXTG+omiN0MYv48UDed2iOl0PY9L8Wq1pR0L+FjUrl+gGZTxRO/vRrt4Oj
-	U+q4VW3VRoCPJFdllgnKy8rHp0zCO+Mq5GrG59zpvvbPYZCB2ZpvdQrDUuSW/Ie/fAHMNKVr+/q
-	2nS+TEPvQC9Py/LRvF0yGR+5cHwvxVOZsN9iARvLDPVItY/SbcoMC6ELDsXS7f8COfvJsRZjfnZ
-	439L2y92rpxZuNwYtkoi6p4kjOYZFpZubpslAEGUom3yLoOMstjMmi1WxfoaOe1ZprehUcPo3N6
-	wplnQFS7Xo0OP0Ip7QS+JPQ6DY5EWGyuRUZH80KtVDfrD/3aL/1gIF8KAWluNZm/vPtO5NNGn3M
-	n4/Kp8Ymv/R/bKTEtS/46eAlj/ab0qYTJM9gcuPL2AzQ/BxPatUe1rfUucmHe4zLAQiSk/W/L/3
-	uuE+IDduH4QKnRBUhqGuZo5yzpc+3LaDIcBwLP8JhHHh3KwV7gU/pvAGN/LT0SHTv7HVppIkKWF
-	Frwpcbva0qRKDKLbaT52BTmyaHm8KuXe6mxEHjGauqHKhuQ85oohviZUGrlXrOgoTRjZJtALzWF
-	8wN4zlcidXqhnFqlj6F8eye5wnYgnpoYpqEmOOt3CVr6+wzUFZLpX4wvhujHf3fBRZu4j/xsY91
-	zTxt4Atb1V+3Z
-X-Received: by 2002:a05:6000:2003:b0:48d:ecba:3cf8 with SMTP id ffacd0b85a97d-49830b9829emr4172839f8f.43.1794304878022;
-        Tue, 10 Nov 2026 02:01:18 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm2567009f8f.14.2026.11.10.02.01.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:01:17 -0800 (PST)
-Date: Tue, 10 Nov 2026 10:01:16 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matteo Croce <technoboy85@gmail.com>, Brendan Higgins
- <brendan.higgins@linux.dev>, David Gow <davidgow@google.com>,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, Kees Cook
- <kees@kernel.org>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v7] kunit: memcpy: Add benchmark
-Message-ID: <20261110100116.5c435722@pumpkin>
-In-Reply-To: <20261109193925.8a127f2d0afd5429f1f551f1@linux-foundation.org>
-References: <20261110021622.122490-1-technoboy85@gmail.com>
-	<20261109193925.8a127f2d0afd5429f1f551f1@linux-foundation.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rQMnbe0t;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=UyFzQBOG
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7lHuo3216554;
+	Tue, 10 Nov 2026 05:00:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=Pcf79JCJAWHbiN6V
+	n4/htZhJapEM9Xf8xgTLcJyZEcE=; b=rQMnbe0tR1P12PChTNuf6RLu2Eqsqt3H
+	XcfAXgt+QaIMbUqOSUiR74tBu/n3dkVT/5xTV7yrFwvLhA8iRSdHHuCDc640gBDr
+	wa4kj2ff31+i4OE0OZED4QW9DoFqbwffs4DyZQgRzdajAScL1CiYOjyzL8t7F3Zk
+	lwqViPnBi2BsuBSyn9QHTahiONSloAXkUsfwVb5Z9Ftjy2vypb2HcnUv2facACWZ
+	VLId3LtIyLPU8gCYdai4O9aVjT8wDAWgIMyowb3lycH8jf7Y8XuDh4b4PRzxT+nY
+	x3tvUJVsdBSd5/4Ccbs1VklMuXAG/LwAT+LkrDfKV1yfDf4RnOJPKA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=Pcf79JCJAWHbiN6Vn4/htZhJapE
+	M9Xf8xgTLcJyZEcE=; b=UyFzQBOGfJJzc2WziCMovN4whtbapVxhmcyv/KeJruX
+	NVdtpcfvcOjxscGrDWqa4Wuj5AvlL96CrlAiBr4OgidG2POnuKVO1pvTRKBhNsLd
+	lPlJeR/O6PL4IhgiO+JTn7gVE/Ab8UABj/Cq1P35hFVifkAoQ0djJGW5TjSSVy/r
+	UFr2/POnR1ThFOBO4yhNSs+nqySTSDn1UwV1MpTuWyPXro0YTeaOrLW6gJl5fu3d
+	v0YrYqQDK12xF2YaXmUCdqjKkc/JSz6JUWRblmmF/SYOq1enDansABPyflXBRwc1
+	pnS6nysEMSh5Om6kiM05sG8LuLMScuAi4ruOvo28C1A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4huwenhffq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 05:00:59 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6AAA0w1a021107
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 10 Nov 2026 05:00:58 -0500
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 10 Nov
+ 2026 05:00:58 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 10 Nov 2026 05:00:58 -0500
+Received: from HYB-GHaNx595DZ2.ad.analog.com (HYB-GHaNx595DZ2.ad.analog.com [10.117.116.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6AAA0eua008466;
+	Tue, 10 Nov 2026 05:00:43 -0500
+From: Christopher de Guzman <christopher.deguzman@analog.com>
+Subject: [PATCH v2 0/4] hwmon: (pmbus/ltc2978) Add support for LT7175 and
+ LT7176P
+Date: Tue, 10 Nov 2026 18:00:39 +0800
+Message-ID: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,38 +93,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEfr8moC/4WNSw6DIBRFt2LeuDRAI2hH7qNxwOepNCoG0LQx7
+ r1+FtDRzUnuvWeFiMFhhGe2QsDFRefHHfgtA9OpsUXi7M7AKReMckrmKaaAaiB9kkzmV4iJ6BI
+ f0mhVNNzCvp4CNu5zPr/qi+Os32jScXc0OheTD99TvbCj99+yMEJJIXSpJS90mdtKjar37d34A
+ ept237KNgzd0QAAAA==
+X-Change-ID: 20261020-upstream-lt7175-lt7176p-b9e37cba8f2d
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan
+	<skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        Christopher de
+ Guzman <christopher.deguzman@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794304841; l=2885;
+ i=christopher.deguzman@analog.com; s=20261020; h=from:subject:message-id;
+ bh=lNd3XhwiREZFjb8YSQiZAwOfJHUr5v741WXrnVtLqRY=;
+ b=Agu+HOC9yGUx1vqE4ETtOEHCPsoLD9Ci82Rv4+OF8VKpRF4OfaMCsxWeI52b31R2eKU2CG+7k
+ KVO36Bi28CHDLFvzauczxWifcFHi+7R9wZ0ZLauFTfZJKyA9tyu05xs
+X-Developer-Key: i=christopher.deguzman@analog.com; a=ed25519;
+ pk=nSwfp91RWULY/zCnrDkBvXulgnpfKy+5C6/Gh3ecLwo=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: DhpFf0MzOw6gwGEVNxo9MZ1-_B8gBm-6
+X-Authority-Analysis: v=2.4 cv=Dv/Da2/+ c=1 sm=1 tr=0 ts=6af2eb5b cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=bC-a23v3AAAA:8
+ a=gAnH3GRIAAAA:8 a=_jlGtV7tAAAA:8 a=VwQbUJbxAAAA:8 a=8AirrxEcAAAA:8
+ a=07d9gI8wAAAA:8 a=ag1SF4gXAAAA:8 a=JfrnYn6hAAAA:8 a=LjB95_yAhz7QVSCH7TwA:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=nlm17XC03S6CtCLSeiRr:22
+ a=ST-jHhOKWsTCqRlWije3:22 a=e2CUPOnPG4QKp8I52DXD:22 a=Yupwre4RP9_Eg_Bd0iYG:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfX8rFEKJI1v4J6
+ t8ZMhywRB3i508Xc2suqRQ/ThwwbwNoLuMSK4ixeyxKbQcbmSDM39dqplvw6BgJdnB1zCdaJIJi
+ ymT//Vz8HW43o/xqFwM006V+s1cjMliQthrNUim1Urr2qhz0BWicDx0tpJTM3ov9CSC8eSvG3Py
+ aiyU/sOxSPAfTn8qGBblhFY0w9iVP/kwS8I8mxERI2cFxHYsIHgslAi951HDIkersrMIvrNmYQu
+ yJDmW7Ozussjkt9STFqZo4IKV9a1u08hBDTk6kIKAZH2q7ZQXBekuUFZYd2bvkTQW8ngqPZNnYn
+ ZHvDcWKkqL/S6QPJycqCJ46+nlNQ+K1+iZdO+KroFFjifW9VuLAbAFn2Fqs/zcSNUmXP/RCbESr
+ UGG224rNezrvubdjylMQiZRRu+4bwzK0j1Qmbly2xlOmrr+By/qlA8tOY/lpeQEFwpRWBJ45kPp
+ m7RrnfdZGpoGtOjuJzg==
+X-Proofpoint-ORIG-GUID: DhpFf0MzOw6gwGEVNxo9MZ1-_B8gBm-6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDAzOSBTYWx0ZWRfX4zDnKS5ss5PA
+ z9u/3msZ7XA/z0vL0Spb5FIab+k+tm3Di3OKWsvBIAvhtK8QiizlOqXnQ6sWjHgXsM59AFhyynU
+ 92VYfz6B5fEakPQJ0VjzfFvHboDRR5y3nlq2QZCKv1lQtTBfO5/x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100039
 
-On Mon, 9 Nov 2026 19:39:25 -0800
-Andrew Morton <akpm@linux-foundation.org> wrote:
+Add support for the LT7175 and LT7176P PMBus buck regulators to the
+ltc2978 driver. Both belong to the LT7170 family (MFR_SPECIAL_ID
+0x1C1D) and are identified by their PMBUS_IC_DEVICE_ID string.
 
-> On Tue, 10 Nov 2026 03:16:22 +0100 Matteo Croce <technoboy85@gmail.com> wrote:
-> 
-> > Add optional benchmarks for memcpy() and memmove(), enabled with
-> > CONFIG_MEMCPY_KUNIT_BENCHMARK.  
-> 
-> hm, sorry, I must ask "why".  Nowadays optimizing memcpy() is a
-> super-specialized thing undertaken by the bravest architecture
-> specialists who are unlikely to rely upon a generic kunit test for the
-> purpose!
+Patch 2 also changes how LT7170-family chips are identified: the
+IC_DEVICE_ID string is matched against ltc2978_id[] instead of using
+a strncmp() per chip, as suggested in review. Patch 4 fixes a related
+documentation error for LT7170/LT7171.
 
-You also want a comparison against the 'obvious loops' (which it can
-take some effort to generate because the compiler tends to convert them
-to memcpy()). Otherwise the numbers are pretty meaningless.
+Tested with LT7175 and LT7171-1 eval boards on a Raspberry Pi 3B. The
+chip identification change was tested on a 6.12 kernel because the
+board does not run hwmon-next; the series is build-tested on
+hwmon-next.
 
-But kernel benchmarks are really the wrong place.
-The 'bravest architecture specialists' are going to test the code
-in userspace where multiple algorithms can be tested and quickly
-tweaked/dismissed.
-You also need a bank of systems with different cpu variants and run the
-code on all on them - much easier if you only need to copy a program across.
+Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
+---
+Changes in v2:
+- Drop the -1 variants from the bindings and the i2c/of tables (Guenter)
+- Add lt7175/lt7176p as case labels on the existing lt7170/lt7171
+  probe block instead of duplicating it (Guenter)
+- Identify LT7170-family chips by matching IC_DEVICE_ID against
+  ltc2978_id[] with a length check instead of a strncmp() per chip;
+  this avoids reading past the returned data (Guenter, Sashiko)
+- Don't list LT7175/LT7176P under the curr1 "iin" label (Sashiko)
+- New patch 4: remove LT7170/LT7171 from the curr1 "iin" label for the
+  same reason
+- Not addressed: ltc_get_max() compares IEEE754 peak values as LINEAR11
+  (Sashiko). This is pre-existing and also affects LT7170/LT7171; I can
+  send a separate fix if that is useful.
+- Link to v1: https://patch.msgid.link/20261020-upstream-lt7175-lt7176p-v1-0-86b9b728b95d@analog.com
 
-I also (sometimes being one of the 'bravest architecture specialists')
-try to work out how many bytes/clock the a copy (or ipcsum) is doing
-and what the fixed costs are.
-That actually tells you something useful.
-(But you always need to check that the compiler generated something like
-the expected copy - otherwise it is pretty pointless.)
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
 
-David
+---
+Christopher de Guzman (4):
+      dt-bindings: hwmon: ltc2978: Add support for LT7175 and LT7176P
+      hwmon: (pmbus/ltc2978) Add support for LT7175 and LT7176P
+      hwmon: ltc2978: Document LT7175 and LT7176P support
+      hwmon: ltc2978: Remove LT7170 and LT7171 from curr1 iin documentation
+
+ .../devicetree/bindings/hwmon/lltc,ltc2978.yaml    |  4 ++-
+ Documentation/hwmon/ltc2978.rst                    | 32 +++++++++++++++++-----
+ drivers/hwmon/pmbus/Kconfig                        |  6 ++--
+ drivers/hwmon/pmbus/ltc2978.c                      | 23 ++++++++++------
+ 4 files changed, 45 insertions(+), 20 deletions(-)
+---
+base-commit: 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e
+change-id: 20261020-upstream-lt7175-lt7176p-b9e37cba8f2d
+
+Best regards,
+--  
+Christopher de Guzman <christopher.deguzman@analog.com>
+
