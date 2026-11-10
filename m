@@ -1,77 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278318;
-	b=LpL2A4O3LmcDERfT6dIo6WV36hQd8Ic1SIN4oDgRXasAWAG2dS4UB2k5tBRv6+eY4NCC
-	 CwDNMaSacVcf7zlIibe6Q6UrPfYNvXC1Ia4zkuuHJvRaLAo2ED1O6KrQLyGYEdvMDNSLz
-	 27TvgW2h8XAcLN+mxowswiEw4A9sWHrHBfmX4r1ZaShuP4nYNYBVOdMKfeHUmrxJFUKIk
-	 sVzriy02og9vNzrDPV5X/FPB5Mu+NuFwdM26BAB9rs0FWh7+l/35xaBpULROmtT8DacQE
-	 C7DO+mv0qFncFDIlb/C/CP5HKQMdl7X6Pi8dPLJ1m1UxPBpAmX6ME9mQqCw9tYMDVHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278318;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=eVM5XFxpTekZI/TznZd5JXWHYNNpDG15hrmiBUopk64=;
-	b=wIFDAPyFcBiGjzo6eN7V02jsi91l1NG35VskQuPzFI2m+JzTiEKpjaM8yILKxc/Gqzra
-	 WxXu8ARzNkfKn7tZ5sj7Pa7+bZ1+gTaghBc5XXRD7HZeb8FaI0eq0rp7SsGOrnJImxPFP
-	 jggshNF2LH/mvv0AcRXb8r3aZopFn9rUXpVVikNEHFaJLc9TvEJuQpXyLw2e2wjfmNp/x
-	 Dj6P3irNjC/82K+aeykfgvNqaGojVjyEGy9y4weebuJgpZ1VLqcvhP4hgMvp0FTrdx2Gl
-	 tfZIEw/FA5Mkbr4eJKnGhXY1mgqZbt3kGEpSDHhF9aaw/pFRqsCRey4gZ9ssSFEhdHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=co5amkzN;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 369AB60A260D;
-	Tue, 10 Nov 2026 02:38:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 369AB60A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794278330;
+	b=XZPBTh5Sbj6HY002AKDtQTcg7pksO1g3zq9WG82pTdFjZxLZ39AeFNil8q42foP1pe6F
+	 elHPzXFmB6mWp5ex7PtBMea6LZDsBjVKTPHCqS3qJ1KSTTP8H0pCc1R88RNuTb77vza+I
+	 XYho9JhiVcLuyElQJpXNfjvBMIxauJtg+24N1F/HtX/uJQNqDCq5Oj37r9jxBkdI6pLU6
+	 7ReyzzshLrlZrNFoUB/BpCOBSw8+HvixeCb44Uaw7mXoeBAP18BKk7gwd88Q4c/Yjkd3p
+	 dFmYe3FBv8hrfhU0jZU3PSAxIT3hyzcTjb+HQo0tNOO6r7WuWewdQqTmcK0ot9olX/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278330;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hLFpIj06iWIjWH062UOt1GWvTFb9FnA3jx3mjAJmQOk=;
+	b=R4CHXP/uEABDtKmGS9TUJcoGrzRRnZshUPRe2+y2LmNQr8qd3mlIv6NfFHRlWtfG59zF
+	 cGU+WgPqXxriPpMOeCeDcuYLQlJkBBs4dtVB43nDG1yr5klW1rLFFC4Tj2lp7yYtw7aCw
+	 CwwhkmhvWLgqmqsw1W7urm9ZJObVAfDdWMUztFPwyY8+V+p1uRr21UgXYxmNKA0k7c+qE
+	 S/BXdGegXp0YKC9dvgyOG3cOIW+sessu6Z+Fh3iwl6jWOHJU6pkQl0eq/gDFiFl63TYVC
+	 CRomY+uK7OeGZXEgPb0QjK4Q1PivONJq27WdOlmgLZ6uH3BXRnIQyjHaKpL78eJlFMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HV15tRNd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BB5606A32E;
+	Tue, 10 Nov 2026 02:38:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=co5amkzN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=co5amkzNgSM4eSt5maBYOipTvdJoD6KKIekUMjO8V3MWhhzeyX9HKO0FPrl7hK+x6rW87jGNkhQv1
-	 g2Mj+zIRy1+f7dzbSNu8JqA0UpxsDc5rFRGiPSTc19Onygrz2M6IEz9LAxzagDCIwyHqQD0+7K6Miq
-	 1EQC0kK4WHuGSd9o=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af283a8b65-c70bd;
-	Tue, 10 Nov 2026 10:38:34 +0800 (CST)
-X-RM-TRANSID:2ee56af283a8b65-c70bd
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af283a8745-a37b7;
-	Tue, 10 Nov 2026 10:38:34 +0800 (CST)
-X-RM-TRANSID:2ee56af283a8745-a37b7
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Simon Horman <horms@kernel.org>
-Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Diogo Ivo <diogo.ivo@siemens.com>,
-	Haokexin <haokexin@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: ti: icssg-prueth: Fix device_node refcount leak in prueth_probe()
-Date: Tue, 10 Nov 2026 10:38:30 +0800
-Message-ID: <20261110103000.3141-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261109165902.GS18859@horms.kernel.org>
-References: <20261109165902.GS18859@horms.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HV15tRNd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794278329;
+	b=X8NSPErzXXC3gpZbngSn0jnmxlNv103UzE3RVbhLbNBalWeUft2k/tjwFdVhA2rRDqyg
+	 PJl7a5pejfz4eHDCPOF1RP+za2+TvSNVA31kRa2IfDtOokSvMwtfe+Mb5NL81/9MLqWTw
+	 +U6FEYq4T3CfV4JexSencSjLlxXQgljhK6+uAQBj9qnPAtgcs+Thy/PSYfv/J1P7FwoCd
+	 owykBrQ0Qq9Dj8v35zkzg/qTr3AJTzZjfupWJFYUzkG99Q1B7EjZJ4DyBEBlMZlewPz8C
+	 mysm1X1Qnl5bY9lN1bN8qwOa0iLvUCPcY6yAIUF8UnZ04mXzVDm9Z7mKy34oCE/SNCQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794278329;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hLFpIj06iWIjWH062UOt1GWvTFb9FnA3jx3mjAJmQOk=;
+	b=BmBPhsvuxR6af5EAp3ESGK2KTYb5RYBjcZlbUAhzKRnkSY0NfBeJZ8JW9fyS4Wlhumyu
+	 hc8Comgr/hiEnPigPGT7A1NTD063yyFXAMhRftUFxCSt2anOnJ4wb4VK7Y1LoHUDUy4gB
+	 dwN3E6qTHUNe2SHf/kJ7zCUM7LCBKA/3d7SYfqKWEOdNowUm3igSmo9HP5LLkXd19/DTv
+	 DonqqDy5PNdBBEpvT3zSTbADuoTLImeYsGOCQ/BnF9LG5mThrvlourAwAg0pkO0qFhocz
+	 6KSV7xhapvA90IHY/InrFiUShUB9c2QSnS2wMFgZaAkQdHy8diZylxUwJJiVrtpA9FQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E9FEC1F008A3;
+	Tue, 10 Nov 2026 02:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794278329;
+	bh=hLFpIj06iWIjWH062UOt1GWvTFb9FnA3jx3mjAJmQOk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=HV15tRNd+I1BJ+QTFJHbiH4Io+ncUYaorppya3b2v/DfbcRY4uBru2yyyhFC5p30k
+	 vYDZX0WJJkVElO66aOda+CF/xueUU0Knc4xostr6ccAxCFEMVqNkXSYyW+bjzlhAjf
+	 dHKowPF55lrlzwkx9WMZC7/zLd1rbq07UjZiA088YsvVeGbSObKRrCZGo2hy1LmnJi
+	 9zM3k+4fKuTKuriWPxfl8FhuNPZqY8iHccV+syS+tCY8/KSO1rpPb6cNCBffy4LmTV
+	 EEDoFmOW5c0CinEqcPl1O/klVlR2lZsPWxwD+prBGPFGbGLoHJE0WGMYtmy7luwv1g
+	 xzWc7yljxqweg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6756D48764;
+	Tue, 10 Nov 2026 02:38:48 +0000 (UTC)
+From: "Eric A. Stalee via B4 Relay" <devnull+mail.eric-stalee.eu@kernel.org>
+Date: Tue, 10 Nov 2026 03:38:13 +0100
+Subject: [PATCH] fs/ntfs3: load index allocation runs before use in
+ indx_new()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,60 +83,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-ntfs3-indx-new-load-runs-v1-1-061378c2d45e@eric-stalee.eu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm0yHZCoVzEsBqZgjSlmyl9Cu
+ LujLr/FezsYJ2GDW7FD4kVMRs2gUwHdI+jAKDEbvPM1ETnUqbcSReOGyiu+xhAxzWrI/hyrQO5
+ 6cRXk/J24l+23vjd/29w+uZu+PziOD4eJcGZ8AAAA
+X-Change-ID: 20261110-ntfs3-indx-new-load-runs-e25d4a109804
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ "Eric A. Stalee" <mail@eric-stalee.eu>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278328; l=4039;
+ i=mail@eric-stalee.eu; s=20261110; h=from:subject:message-id;
+ bh=ljuOubNiF29ICM1zvurt0a9eMhRnzv4IXWbSHt8+7bE=;
+ b=j7DyAqOo5H3uyh0znlxbg1uT5qlRDSALeA+akNO7C9t4HbQ7T8vA2ilU7MbVT6eJ2Hy9EvcQA
+ amFDJ15gImBDXPS8lH70g6YMN7uniUfonI0u7ZRkKA9Aj3rY824w0n2
+X-Developer-Key: i=mail@eric-stalee.eu; a=ed25519;
+ pk=Vp3vCG+vzRAtKQmuxwsKy8/XIbX003wXmany+Up3BfY=
+X-Endpoint-Received: by B4 Relay for mail@eric-stalee.eu/20261110 with
+ auth_id=1473
+X-Original-From: "Eric A. Stalee" <mail@eric-stalee.eu>
+Reply-To: mail@eric-stalee.eu
+Content-Transfer-Encoding: 7bit
 
-Hi Simon,
+From: "Eric A. Stalee" <mail@eric-stalee.eu>
 
-Thanks for the review, and for looking into the neighbouring error
-paths.
+indx_new() maps a new index buffer through indx->alloc_run with
+ntfs_get_bh(). The runs of $INDEX_ALLOCATION in alloc_run are loaded on
+demand: indx_read() loads the missing range with attr_load_runs_range()
+and retries when ntfs_read_bh() returns -ENOENT, but indx_new() does not.
 
-On Mon, Nov 09, 2026 at 04:52:35PM +0000, Simon Horman wrote:
-> But I wonder if this nearby check also leaks a reference,
-> because while it drops one, wouldn't there be two if the
-> condition is met?
+When indx_add_allocate() finds a free bit in the index $BITMAP, it
+reuses that buffer without touching $INDEX_ALLOCATION, so no runs are
+loaded on that path either. If the reused buffer lies in a range whose
+runs have not been loaded during the current mount, run_lookup_entry()
+fails in ntfs_get_bh(), indx_new() returns -ENOENT and the insertion
+that needed the split fails.
 
-I don't think that branch can be entered at all, so it does not
-leak in practice. eth0_node and eth1_node are both initialised to
-NULL, and each iteration of the port scan loop assigns at most one
-of them (the reg == 0 and reg == 1 cases are mutually exclusive),
-while for_each_child_of_node() visits each child exactly once. So
-the same node can never end up stored in both slots, and the
-both-NULL case is already handled by the preceding "neither port0
-nor port1 node available" check. As far as I can tell, the equality
-comparison is dead code.
+This was seen on a 1.7 TiB NTFS volume that is also used by Windows.
+Its $Extend/$Reparse index has $INDEX_ALLOCATION:$R split over two MFT
+records through an attribute list, with 149 index buffers allocated and
+148 in use. Every symlink() on the volume failed with ENOENT, while
+creating files and directories worked and the other NTFS volumes on the
+same system were not affected. The failure persisted across remounts
+and reboots, and did not depend on the MFT record number of the new
+inode.
 
-The DT error the check describes, two port nodes carrying the same
-reg value, does leak a reference though, just not through that
-branch: if both ports have reg = <0>, the second assignment simply
-overwrites eth0_node, the reference taken on the first node is
-lost, and eth1_node stays NULL, so the equality check never fires.
+Return values from a kretprobe trace of one failing symlink():
 
-On Mon, Nov 09, 2026 at 04:59:02PM +0000, Simon Horman wrote:
-> Sorry, one more thing. Which is not strictly related. But as we're on the
-> topic of error paths in this function, I am not convinced of the validity
-> of the value of reg being used even when the call to of_property_read_u32
-> fails in this loop:
+  indx_add_allocate()   <- indx_insert_into_buffer()  =  0
+  ntfs_get_bh()         <- indx_new()                 = -2
+  indx_new()            <- indx_insert_into_buffer()  = -2
+  indx_insert_entry()   <- ntfs_insert_reparse()      = -2
+  ntfs_insert_reparse() <- ntfs_create_inode()        = -2
+  ntfs_create_inode()   <- ntfs_symlink()             = -2
 
-You are right, the error is only logged and the uninitialised value
-of reg is then used to select eth0_node or eth1_node. Depending on
-the garbage, the node is routed into one of the slots (including
-the overwrite case above) or, when the value is neither 0 nor 1,
-the reference taken by the of_node_get() right before is leaked, as
-the node is not stored anywhere. This is the pre-existing loop
-issue I mentioned in my reply to the bots: the "port reg should be
-0 or 1" branch leaks the reference even for a valid out-of-range
-reg value.
+Load the missing runs and retry when ntfs_get_bh() returns -ENOENT, as
+indx_read() does. With this change, symlink creation on the affected
+volume works.
 
-Understood on the patch-set, and thanks for the hint. I will send a
-v2 that combines the fixes for the two drivers, keeping them
-unchanged and adding a per-driver patch for the port scan loop that
-skips a port when reading its reg property fails, only takes a
-reference for reg values 0 and 1, and rejects duplicate reg values,
-which is what the existing check seems to intend but never actually
-catches. Happy to adjust the split if you would prefer the loop
-changes as a separate series.
+The analysis and this patch were produced with an AI coding assistant
+(Claude Opus 5.5 in Claude Code) under my direction. It read the ntfs3
+source, wrote the kprobe script I ran to get the trace above, wrote the
+fix and drafted this changelog. I reviewed the change and tested it as
+described below.
+
+Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
+Signed-off-by: Eric A. Stalee <mail@eric-stalee.eu>
+---
+Testing:
+ - Built as an out-of-tree module without warnings for 6.18.60 (CachyOS
+   kernel, gcc 16.2.1) and 7.3.3 (CachyOS kernel, clang 23.1.4 with
+   ThinLTO). The CachyOS tree's fs/ntfs3 at 6.18.60 is identical to
+   v6.18.60.
+ - With the patched module on 6.18.60, symlink() on the affected volume
+   succeeds for absolute and relative targets and for names containing
+   ':'. With the unpatched module it fails every time.
+ - Not run on mainline. The patch applies to current mainline with a
+   5 line offset.
+ - No reproducer from a freshly formatted volume: I could not recreate
+   the on-disk state from scratch, so the affected volume is the only
+   test case.
+---
+ fs/ntfs3/index.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+index c06b36760..4970188a0 100644
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -987,6 +987,23 @@ static struct indx_node *indx_new(struct ntfs_index *indx,
+ 	}
+ 
+ 	err = ntfs_get_bh(ni->mi.sbi, &indx->alloc_run, vbo, bytes, &r->nb);
++	if (err == -ENOENT) {
++		/*
++		 * A reused index buffer can lie in a part of $INDEX_ALLOCATION
++		 * whose runs were never loaded. Load them and retry, as
++		 * indx_read() does.
++		 */
++		const struct INDEX_NAMES *name = &s_index_names[indx->type];
++
++		down_write(&indx->run_lock);
++		err = attr_load_runs_range(ni, ATTR_ALLOC, name->name,
++					   name->name_len, &indx->alloc_run,
++					   vbo, vbo + bytes);
++		up_write(&indx->run_lock);
++		if (!err)
++			err = ntfs_get_bh(ni->mi.sbi, &indx->alloc_run, vbo,
++					  bytes, &r->nb);
++	}
+ 
+ 	if (err) {
+ 		kfree(index);
+
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-ntfs3-indx-new-load-runs-e25d4a109804
 
 Best regards,
-Xiangwu Lai
+--  
+Eric A. Stalee <mail@eric-stalee.eu>
 
 
