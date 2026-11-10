@@ -1,79 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794283268;
-	b=i+j9FsVKq+63AGskQuC8cDOBqHzvnwcwDJPrO2Llss25WumclYLB6+VQd8p9M2HGumkm
-	 2W8NRubsUaka467jkF39KLhuYJOX0TjAvlhSNvKRlXtZlwm5rRIZJTjyPH8pT7x/IOFcA
-	 Cyk+efm6kEsOfWy3o4IHORkpGlSAQ2if3lfcNxI3X0AeX+2VRd1eet7Fg7uiGQfiGmbi/
-	 n1InXXdMO6MKmuwwtHmVXO8GoylOQy2rEmX65lp83mqsPb6DmsecBkLqN6OnDZP4C5ow3
-	 ICaxk/8qz9r6vwcVzGATMlD5LEj1E4mwBPcyhJWY+evJiZ9jN7ftiAjfdM944GOQvGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283268;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gOCje1wEA0jEk0AQmv5QCogn4sYJDIV9ytwST59ipKk=;
-	b=0RGqa0q8hdfSY+lFWQs61He1tjcZmRSziDS0ztV4cAuWEXkA/Hm7hE0x4Ylf/U9h82g/
-	 +avK1iIvorrHaibGq1TTtbRinnAyoYPYYjJjcOLKxHvw7PXKDZjd7fULdXOHMreenxvmf
-	 HpTQF0pH6OGd29QyNFEoKLmGTxM1ETkWusuuSIf5noqknmFBaFbaRfVrJRClEdfselqQv
-	 yLaN0CnghpIVYM77s8qU4u4t2k0A1j6eMo131tiFvAL7i8jC8O4OexYy5rKHqG+B3TT6g
-	 z6uNw3Dwdv+oNnamzR11krlFNwnWYZCn0hnnYP3TJ9pxEPPFsy7lXf07k7gSYNxNFhA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QkuJdxeU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9B660A5BE8;
-	Tue, 10 Nov 2026 04:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QkuJdxeU
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794283267;
-	b=Kz9UMIeM2ZCuP4+nMdVxMpxE3MJdLCOKjYLe7MCOqNt4tq/oF6x/POmKj6gKI5zgLLOm
-	 OF7KZczTK2aUyCvU9nN/o+9+LCWpwUsnemwjmYZBW5kVfhiQHhVr2Z17tzlNaTvrigsem
-	 7bF/UgIreNwHqMaScphYYKh8CENeER1SZ+WqDH05nYKfBiDi7wNr0pSwxMRPXFD4Dqjet
-	 JawTBc72DLyyrFADKizaOXEQQco26sZn+d6i/mHlzLJVAr5BbDTxKdKsP6kZk45VHjYJP
-	 F5hqVgm/Fk+mRM99444UaTMFAJYyc+l1+lM6v7tfDtqQCPAwb5vj0/FhMLcCUVOwh7Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794283267;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gOCje1wEA0jEk0AQmv5QCogn4sYJDIV9ytwST59ipKk=;
-	b=t48MxUOphGrmYQxXVFZIC8vqejQscFCne/9TTZ2UDfBD5jyyihIKnyoowo3+ZYfYdMvb
-	 1DQOfyGkv+Js4nsqNtmy9F+/9mRZhK5sgEsHY/+ExxsGSg8f521uEchBsa3CMZ37+ifPe
-	 9NCqqg0A133Tt0siaU7eMkxi5fujValc7MAlblfiQFFev8XjYoy0eBIQERd2ZIaBJRPve
-	 B089A5QvZW4Qq1pgkn3wu2aEVRUufZtMLzNnEE+WFyUp7agmBzDoQ2VVYuQVIvWEnzEFU
-	 KWZT/DdlWBWHnq7o23SqVLRav9loEzZ+nvaQR7jueKyQnzseYxIA7WpDaw9Lsjq+AHA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id F2D0C1F008BD;
-	Tue, 10 Nov 2026 04:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794283267;
-	bh=gOCje1wEA0jEk0AQmv5QCogn4sYJDIV9ytwST59ipKk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QkuJdxeUVAEtug9p42rTKzITd6jYOlEnZFkdYFVeynYGmKPgr4nkE5Z8EOOMlcM34
-	 /dIisSocJN2WfBgWhqWYncMNCaGBl2HdD/onRqmW6VZ1uOr8BRaUG3QKGabJlPfxEb
-	 iZw0ZHnzjropu5PjqvGzbgW9Bv7wi/YIOsvWV9uWLjmQnvq36pyKy8K2RDlpusDiSn
-	 p4psOAj1D+zR5LWENjMPFQYnU7GHTDxpChK8Ubw130dC1EWqFHMDJtWgg1hSKbR8li
-	 D4DkRQ2/1StCQbvU9JDGaaXHpAyU4aspC2XWZZPprQSVj9ua6RxCUHe6Qq82VXBNln
-	 c7uYtdoS/0clw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7D2444882C;
-	Tue, 10 Nov 2026 04:00:52 +0000 (UTC)
-From: Eric Davis via B4 Relay <devnull+eric.davis.broadcom.com@kernel.org>
-Date: Mon, 09 Nov 2026 20:00:46 -0800
-Subject: [PATCH rdma-next v3 13/13] RDMA/core: attach a memory region to a
- queue pair
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794283313;
+	b=LrdtT5Dd7D7ZjZK5N2475GjXaE7Oky204oT7sRqQCvS6+thOrz3xbZ+Nb9p0s3BlIIgJ
+	 jt/rd/QDIedpACvFbh4goBS+AZTMfp+OTOepwQMdjHrLGhqpFDogo3cz+Jyt0uLTJL+qc
+	 aR0KmAkx4QIhxJrN5F7Vq9Jj18TOjUdkNxtTinKo6DTrjjksdcNTrFVU6T5BI0ncd9Mwa
+	 S4bJi6qncXAzjhcq0jj5Ab4PI58QkkSepF2nc0NPJ8BQ5Hp7eAQb9zgZ70Knw2Y5an2Lf
+	 hzeYWoP6E58LJRuxiMQ9gbw/sStZa001gBy8ciBzY0KUVR3So38IGHzVqZY1T4snrug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283313;
+	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=Hvig8NCy10BZJadWO3yd2CYf8PCGOn5+JUtgjupFJOs=;
+	b=QUCoso50j1OB0bcLr7MzkXAYctwVbqPQxMfGRj59Y+s9oYPQndt/cnB17MTeJAOOQNwk
+	 yK9sELmSCQlFOEIqnYxLZovS+LecV/T/byCD44uO1GuR1PiudcwggJCGi8xWG2SZVUF/a
+	 5a+pIRby33ugYv6B+ZrIWYD+a1Veq7fEqH0Sh8IwWJgGMRZUmR8TtYitaMIlVRHBD3u9J
+	 7WPtQOAFRGqLsODNhY1F+2Sarpn0CbUn4ZKS2s9rehHyhvAXW6aXhuwiTDhNTzabva7xJ
+	 ODKrhmtesHXi/zELpN5rYEQOQcoYks82lnv8DNmjyPwSGvp6W8jBjJQtU70CAwEwepQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2D0D606A335;
+	Tue, 10 Nov 2026 04:01:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D0D606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jNtHz0w7RzCQsZK;
+	Tue, 10 Nov 2026 12:01:35 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jNtHy6HWnzCQsZB;
+	Tue, 10 Nov 2026 12:01:34 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 1D73230A6439;
+	Tue, 10 Nov 2026 12:00:50 +0800 (CST)
+Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 10 Nov
+ 2026 12:01:33 +0800
+Date: Tue, 10 Nov 2026 12:01:31 +0800
+From: Huang Shijie <huangsj@hygon.cn>
+To: Jan Kara <jack@suse.cz>
+CC: <axboe@kernel.dk>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
+	<zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
+	<agruenba@redhat.com>, <mic@digikod.net>, <gnoack@google.com>,
+	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
+	<aleksa@amutable.com>, <legion@kernel.org>, <david@kernel.org>,
+	<sandeen@redhat.com>, <ebiggers@kernel.org>, <linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
+	<gfs2@lists.linux.dev>, <linux-security-module@vger.kernel.org>,
+	<sunjunchao@bytedance.com>
+Subject: Re: [PATCH 2/3] vfs: convert inode iterators to the unsafe
+ super_iter_inodes()
+Message-ID: <avKXG8jGHhokoXtC@hsj-2U-Workstation>
+References: <20261015093854.2082600-1-huangsj@hygon.cn>
+ <20261015093854.2082600-3-huangsj@hygon.cn>
+ <phaorzf3wo3qg3dwxwzemtvc3xk644lecgoeeu3th2zx3cv5ml@xzhc2jw7vobi>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,318 +69,93 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-uet-ib-core-v3-13-3e7e7ffed2e9@broadcom.com>
-References: <20261109-uet-ib-core-v3-0-3e7e7ffed2e9@broadcom.com>
-In-Reply-To: <20261109-uet-ib-core-v3-0-3e7e7ffed2e9@broadcom.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Eric Davis <eric.davis@broadcom.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794283250; l=10229;
- i=eric.davis@broadcom.com; s=20261014; h=from:subject:message-id;
- bh=i0WaytShyBt8PfdvU8b9TZhNRnftG0KclTFSm2GxxaI=;
- b=dGrkvnb60ktifKWgHTXOGvateN0UMZ/ueb/f4vEK5BDBnOJfxH7mIv75qQS1afg3OoTodT6xZ
- 8dHlKAmRxyHCuN/8FScEWsbTwu6k1myrgX6t2yS2Skny7jeBwePtocV
-X-Developer-Key: i=eric.davis@broadcom.com; a=ed25519;
- pk=uy3oCTOYBipIPjryXGMynBmtPvbO6qN2FOrduzpiI4A=
-X-Endpoint-Received: by B4 Relay for eric.davis@broadcom.com/20261014 with
- auth_id=1186
-X-Original-From: Eric Davis <eric.davis@broadcom.com>
-Reply-To: eric.davis@broadcom.com
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <phaorzf3wo3qg3dwxwzemtvc3xk644lecgoeeu3th2zx3cv5ml@xzhc2jw7vobi>
+X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-From: Eric Davis <eric.davis@broadcom.com>
+在 Mon, Nov 09, 2026 at 11:08:00AM +0100，Jan Kara 写道：
+> On Thu 15-10-26 17:38:53, Huang Shijie wrote:
+> > Convert VFS internal superblock inode iterators that cannot use
+> > referenced inodes to super_iter_inodes() with INO_ITER_F_UNSAFE set:
+> >   - Dquot removal
+> >   - inode eviction
+> >   - The nr_blockdev_pages()
+> >   - generic_shutdown_super()
+> > 
+> > Signed-off-by: Huang Shijie <huangsj@hygon.cn>
+> 
+> See some comments below.
+> 
+> > diff --git a/fs/inode.c b/fs/inode.c
+> > index a9d37be390a1..139c56ee9d11 100644
+> > --- a/fs/inode.c
+> > +++ b/fs/inode.c
+> > @@ -853,8 +853,11 @@ static void evict(struct inode *inode)
+> >   * Dispose-list gets a local list with local inodes in it, so it doesn't
+> >   * need to worry about list corruption and SMP locks.
+> >   */
+> > -static void dispose_list(struct list_head *head)
+> > +static bool dispose_list(struct list_head *head)
+> >  {
+> > +	if (list_empty(head))
+> > +		return false;
+> > +
+> >  	while (!list_empty(head)) {
+> >  		struct inode *inode;
+> >  
+> > @@ -864,6 +867,29 @@ static void dispose_list(struct list_head *head)
+> >  		evict(inode);
+> >  		cond_resched();
+> >  	}
+> > +	return true;
+> > +}
+> > +
+> > +static int evict_inode_fn(struct inode *inode, void *data)
+> > +{
+> > +	struct list_head *dispose = data;
+> > +
+> 
+> Here we miss the unlocked check
+>             if (icount_read_once(inode))
+>                     continue;
+Thanks for pointing this.
+	
+> so every inode will now go through the i_lock roundtrip.
+> 
+> > +	spin_lock(&inode->i_lock);
+> > +	if (icount_read(inode) ||
+> > +	    (inode_state_read(inode) & (I_NEW | I_FREEING | I_WILL_FREE))) {
+> > +		spin_unlock(&inode->i_lock);
+> > +		return INO_ITER_RET_DONE;
+> > +	}
+> > +
+> > +	inode_state_set(inode, I_FREEING);
+> > +	inode_lru_list_del(inode);
+> > +	spin_unlock(&inode->i_lock);
+> > +	list_add(&inode->i_lru, dispose);
+> > +
+> > +	/* Abort so evict_inodes() can dispose of the queued inodes first. */
+> > +	if (need_resched())
+> > +		return INO_ITER_RET_ABORT;
+> > +	return INO_ITER_RET_DONE;
+> >  }
+> 
+> The need_resched() handling needs more thought here. The way you've done it
+> will just abort the iteration, evict gathered inodes and then restart the
+> whole iteration (which will then have to skip again all the inodes we could
+> not evict). Which is not what evict_inodes() does today and we really had
+> to resort to those tricks to avoid softlockups under certain loads.
+> Frankly, this iteration is so special that I'd be willing to leave it
+> unconverted for now rather than trying to bend the general iterator for its
+> needs.
+okay. I will think over it again.
 
-A region registered against a protection domain is reachable from every QP
-in it. When a device can narrow that, let a region be attached to one QP
-and detached again, so the network only reaches the MR over that QP.
+If I really cannot find a good way to avoid the softlockups,
+I will keep the code unconverted.
 
-Which restrictions a device supports is reported through the memory region
-access capability bits.
-
-Signed-off-by: Eric Davis <eric.davis@broadcom.com>
----
- drivers/infiniband/core/device.c              |   2 +
- drivers/infiniband/core/uverbs_std_types_mr.c |   2 +-
- drivers/infiniband/core/uverbs_std_types_qp.c | 116 +++++++++++++++++++++++++-
- drivers/infiniband/core/verbs.c               |  12 +++
- include/rdma/ib_verbs.h                       |  13 ++-
- include/uapi/rdma/ib_user_ioctl_cmds.h        |  12 +++
- 6 files changed, 154 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
-index fd45decf9c4f..1b838bf3600d 100644
---- a/drivers/infiniband/core/device.c
-+++ b/drivers/infiniband/core/device.c
-@@ -3018,6 +3018,8 @@ void ib_set_device_ops(struct ib_device *dev, const struct ib_device_ops *ops)
- 	SET_DEVICE_OP(dev_ops, query_pkey);
- 	SET_DEVICE_OP(dev_ops, query_port);
- 	SET_DEVICE_OP(dev_ops, query_port_speed);
-+	SET_DEVICE_OP(dev_ops, qp_attach_mr);
-+	SET_DEVICE_OP(dev_ops, qp_detach_mr);
- 	SET_DEVICE_OP(dev_ops, query_qp);
- 	SET_DEVICE_OP(dev_ops, query_qp_semantics);
- 	SET_DEVICE_OP(dev_ops, query_srq);
-diff --git a/drivers/infiniband/core/uverbs_std_types_mr.c b/drivers/infiniband/core/uverbs_std_types_mr.c
-index 5a617a705904..37e591002c75 100644
---- a/drivers/infiniband/core/uverbs_std_types_mr.c
-+++ b/drivers/infiniband/core/uverbs_std_types_mr.c
-@@ -42,7 +42,7 @@ static int uverbs_free_mr(struct ib_uobject *uobject,
- {
- 	struct ib_mr *mr = uobject->object;
- 
--	/* regions derived from this one still use it */
-+	/* regions derived from this one, or the QP it is attached to, use it */
- 	if (atomic_read(&mr->usecnt))
- 		return -EBUSY;
- 
-diff --git a/drivers/infiniband/core/uverbs_std_types_qp.c b/drivers/infiniband/core/uverbs_std_types_qp.c
-index a1112083fb73..88a6050d1d04 100644
---- a/drivers/infiniband/core/uverbs_std_types_qp.c
-+++ b/drivers/infiniband/core/uverbs_std_types_qp.c
-@@ -683,12 +683,126 @@ DECLARE_UVERBS_NAMED_METHOD(
- 			     enum ib_uverbs_qp_attach_comp_cntr_op,
- 			     UA_MANDATORY));
- 
-+/* bind a region to the QP that will use it */
-+static int UVERBS_HANDLER(UVERBS_METHOD_QP_ATTACH_MR)(
-+	struct uverbs_attr_bundle *attrs)
-+{
-+	struct ib_qp *qp =
-+		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE);
-+	struct ib_mr *mr =
-+		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE);
-+	u64 caps = qp->device->attrs.device_cap_flags;
-+	u32 id;
-+	int ret;
-+
-+	if (!qp->device->ops.qp_attach_mr)
-+		return -EOPNOTSUPP;
-+
-+	if (qp->real_qp != qp || qp->qp_type != IB_QPT_RU)
-+		return -EINVAL;
-+
-+	if (mr->pd != qp->pd || mr->type != IB_MR_TYPE_USER)
-+		return -EINVAL;
-+
-+	/* the device has to implement the access class the region asks for */
-+	if (!(caps & (mr->jkey ? IB_DEVICE_MR_QP_JOB_RESTRICTED :
-+				 IB_DEVICE_MR_QP_RESTRICTED)))
-+		return -EOPNOTSUPP;
-+
-+	/* a region restricted to a job serves a QP in that job */
-+	if (mr->jkey && (!qp->jkey || qp->jkey->job != mr->jkey->job))
-+		return -EINVAL;
-+
-+	/* one QP at a time */
-+	if (cmpxchg(&mr->attached_qp, NULL, qp))
-+		return -EBUSY;
-+
-+	ret = xa_alloc(&qp->attached_mrs, &id, mr, xa_limit_32b, GFP_KERNEL);
-+	if (ret)
-+		goto err_claim;
-+
-+	ret = qp->device->ops.qp_attach_mr(qp, mr);
-+	if (ret)
-+		goto err_xa;
-+
-+	/* the QP holds the region until detach or its own destroy */
-+	mr->attach_id = id;
-+	atomic_inc(&mr->usecnt);
-+	/* the MR's read lock drops with a relaxed atomic, order the hold
-+	 * before it so a dereg that gets in next sees the region in use
-+	 */
-+	smp_mb__after_atomic();
-+
-+	return 0;
-+
-+err_xa:
-+	xa_erase(&qp->attached_mrs, id);
-+err_claim:
-+	WRITE_ONCE(mr->attached_qp, NULL);
-+	return ret;
-+}
-+
-+static int UVERBS_HANDLER(UVERBS_METHOD_QP_DETACH_MR)(
-+	struct uverbs_attr_bundle *attrs)
-+{
-+	struct ib_qp *qp =
-+		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE);
-+	struct ib_mr *mr =
-+		uverbs_attr_get_obj(attrs, UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE);
-+	int ret;
-+
-+	if (!qp->device->ops.qp_detach_mr)
-+		return -EOPNOTSUPP;
-+
-+	if (qp->real_qp != qp)
-+		return -EINVAL;
-+
-+	if (READ_ONCE(mr->attached_qp) != qp)
-+		return -EINVAL;
-+
-+	ret = qp->device->ops.qp_detach_mr(qp, mr);
-+	if (ret)
-+		return ret;
-+
-+	xa_erase(&qp->attached_mrs, mr->attach_id);
-+	WRITE_ONCE(mr->attached_qp, NULL);
-+	/* once usecnt reads zero the MR can be freed under us */
-+	smp_mb__before_atomic();
-+	atomic_dec(&mr->usecnt);
-+
-+	return 0;
-+}
-+
-+DECLARE_UVERBS_NAMED_METHOD(
-+	UVERBS_METHOD_QP_ATTACH_MR,
-+	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE,
-+			UVERBS_OBJECT_QP,
-+			UVERBS_ACCESS_WRITE,
-+			UA_MANDATORY),
-+	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE,
-+			UVERBS_OBJECT_MR,
-+			UVERBS_ACCESS_READ,
-+			UA_MANDATORY));
-+
-+DECLARE_UVERBS_NAMED_METHOD(
-+	UVERBS_METHOD_QP_DETACH_MR,
-+	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE,
-+			UVERBS_OBJECT_QP,
-+			UVERBS_ACCESS_WRITE,
-+			UA_MANDATORY),
-+	UVERBS_ATTR_IDR(UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE,
-+			UVERBS_OBJECT_MR,
-+			UVERBS_ACCESS_READ,
-+			UA_MANDATORY));
-+
- DECLARE_UVERBS_NAMED_OBJECT(
- 	UVERBS_OBJECT_QP,
- 	UVERBS_TYPE_ALLOC_IDR_SZ(sizeof(struct ib_uqp_object), uverbs_free_qp),
- 	&UVERBS_METHOD(UVERBS_METHOD_QP_CREATE),
- 	&UVERBS_METHOD(UVERBS_METHOD_QP_DESTROY),
--	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_COMP_CNTR));
-+	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_COMP_CNTR),
-+	&UVERBS_METHOD(UVERBS_METHOD_QP_ATTACH_MR),
-+	&UVERBS_METHOD(UVERBS_METHOD_QP_DETACH_MR));
- 
- const struct uapi_definition uverbs_def_obj_qp[] = {
- 	UAPI_DEF_CHAIN_OBJ_TREE_NAMED(UVERBS_OBJECT_QP,
-diff --git a/drivers/infiniband/core/verbs.c b/drivers/infiniband/core/verbs.c
-index a80d750777f4..1b6f116c6072 100644
---- a/drivers/infiniband/core/verbs.c
-+++ b/drivers/infiniband/core/verbs.c
-@@ -1351,6 +1351,7 @@ static struct ib_qp *create_qp(struct ib_device *dev, struct ib_pd *pd,
- 
- 	spin_lock_init(&qp->mr_lock);
- 	xa_init(&qp->comp_cntrs);
-+	xa_init_flags(&qp->attached_mrs, XA_FLAGS_ALLOC);
- 	INIT_LIST_HEAD(&qp->rdma_mrs);
- 	INIT_LIST_HEAD(&qp->sig_mrs);
- 	init_completion(&qp->srq_completion);
-@@ -1398,6 +1399,7 @@ static struct ib_qp *create_qp(struct ib_device *dev, struct ib_pd *pd,
- err_create:
- 	rdma_restrack_put(&qp->res);
- 	xa_destroy(&qp->comp_cntrs);
-+	xa_destroy(&qp->attached_mrs);
- 	kfree(qp);
- 	return ERR_PTR(ret);
- 
-@@ -2228,6 +2230,7 @@ int ib_destroy_qp_user(struct ib_qp *qp, struct ib_udata *udata)
- 	struct ib_qp_security *sec;
- 	struct ib_comp_cntr *cc;
- 	unsigned long index;
-+	struct ib_mr *mr;
- 	int ret;
- 
- 	WARN_ON_ONCE(qp->mrs_used > 0);
-@@ -2265,6 +2268,15 @@ int ib_destroy_qp_user(struct ib_qp *qp, struct ib_udata *udata)
- 		atomic_dec(&cc->usecnt);
- 	xa_destroy(&qp->comp_cntrs);
- 
-+	/* the driver ended the bindings with the QP, release the regions */
-+	xa_for_each(&qp->attached_mrs, index, mr) {
-+		WRITE_ONCE(mr->attached_qp, NULL);
-+		/* once usecnt reads zero the MR can be freed under us */
-+		smp_mb__before_atomic();
-+		atomic_dec(&mr->usecnt);
-+	}
-+	xa_destroy(&qp->attached_mrs);
-+
- 	ib_qp_usecnt_dec(qp);
- 	if (sec)
- 		ib_destroy_qp_security_end(sec);
-diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
-index 3b2903b1c40d..6b36df1cf759 100644
---- a/include/rdma/ib_verbs.h
-+++ b/include/rdma/ib_verbs.h
-@@ -2003,6 +2003,8 @@ struct ib_qp {
- 	struct list_head	xrcd_list;
- 	struct xarray		comp_cntrs; /* op_mask -> comp_cntr */
- 	u32			comp_cntr_op_mask;
-+	/* regions attached to this QP, each held until detach or destroy */
-+	struct xarray		attached_mrs;
- 
- 	/* count times opened, mcast attaches, flow attaches */
- 	atomic_t		usecnt;
-@@ -2094,8 +2096,11 @@ struct ib_mr {
- 	struct ib_jkey	  *jkey;
- 	/* the region this one was derived from, NULL if registered fresh */
- 	struct ib_mr	  *parent;
--	/* regions derived from this one that are still registered */
-+	/* regions derived from this one, and an attachment, that hold it */
- 	atomic_t	   usecnt;
-+	/* the QP this region is attached to, NULL if none */
-+	struct ib_qp	  *attached_qp;
-+	u32		   attach_id; /* index in attached_qp->attached_mrs */
- 
- 	struct ib_dm      *dm;
- 	struct ib_sig_attrs *sig_attrs; /* only for IB_MR_TYPE_INTEGRITY MRs */
-@@ -2852,6 +2857,11 @@ struct ib_device_ops {
- 					struct ib_mr_ex_attr *attr,
- 					struct ib_udata *udata);
- 	int (*dereg_mr)(struct ib_mr *mr, struct ib_udata *udata);
-+	/* attach/detach a region so it is bound to single QP (restricted).
-+	 * destroy_qp ends the QP's bindings, then core releases the regions.
-+	 */
-+	int (*qp_attach_mr)(struct ib_qp *qp, struct ib_mr *mr);
-+	int (*qp_detach_mr)(struct ib_qp *qp, struct ib_mr *mr);
- 	int (*query_qp_semantics)(struct ib_device *device,
- 				  enum ib_qp_type qp_type,
- 				  struct ib_qp_semantics *sem);
-@@ -4867,6 +4877,7 @@ static inline void ib_mr_init_core_refs(struct ib_mr *mr)
- {
- 	mr->jkey = NULL;
- 	mr->parent = NULL;
-+	mr->attached_qp = NULL;
- 	atomic_set(&mr->usecnt, 0);
- 
- 	if (!(mr->device->attrs.device_cap_flags & IB_DEVICE_KEY64)) {
-diff --git a/include/uapi/rdma/ib_user_ioctl_cmds.h b/include/uapi/rdma/ib_user_ioctl_cmds.h
-index bc2797fc37fe..8de110b8db34 100644
---- a/include/uapi/rdma/ib_user_ioctl_cmds.h
-+++ b/include/uapi/rdma/ib_user_ioctl_cmds.h
-@@ -200,6 +200,18 @@ enum uverbs_methods_qp {
- 	UVERBS_METHOD_QP_CREATE,
- 	UVERBS_METHOD_QP_DESTROY,
- 	UVERBS_METHOD_QP_ATTACH_COMP_CNTR,
-+	UVERBS_METHOD_QP_ATTACH_MR,
-+	UVERBS_METHOD_QP_DETACH_MR,
-+};
-+
-+enum uverbs_attrs_qp_attach_mr_cmd_attr_ids {
-+	UVERBS_ATTR_QP_ATTACH_MR_QP_HANDLE,
-+	UVERBS_ATTR_QP_ATTACH_MR_MR_HANDLE,
-+};
-+
-+enum uverbs_attrs_qp_detach_mr_cmd_attr_ids {
-+	UVERBS_ATTR_QP_DETACH_MR_QP_HANDLE,
-+	UVERBS_ATTR_QP_DETACH_MR_MR_HANDLE,
- };
- 
- enum uverbs_attrs_create_srq_cmd_attr_ids {
-
--- 
-2.56.0
+Thanks
+Huang Shijie
 
 
