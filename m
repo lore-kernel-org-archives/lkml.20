@@ -1,109 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794278036;
-	b=CdyNF7LuuTxdGPXo3GgctnkPZw//v97xGpxfjEm4ycVCE+tXl0hfaIyybwVPTWHz9kit
-	 +fgIz8ZxQRJIeonh51RiUkxWCQ8X/dUQqVUL6X9k/09rVs2ej+byAKY/wnNskaguE1dEt
-	 p96KZtdvX58t/ToDJpasCLVNmre4zTsz/QBaQb3SzF6v1/HbXQJBOHnVloZ1idNApvkyG
-	 9fVCX9hc8IXE4thbvE5y5HmnAP8qx+FK8duhBM0hdF1FdRLc1gv1X2qdRGLDa9By9Wy9H
-	 StLolHSzT77Q3az7SYmT3vBLIfzzYspiNwASuIgMseDwrg0rx0hJeLoQG2jQO5n0cuA==
+	b=oJuoXf78w3ZMzLdEzBdZbJ2perow53lVa0Ax+2vNJNDP7XH4/tWcaN2Sik7EuHEGPZEh
+	 bDLo+z4vA2fznWKI/+MC9exXu6954ApnJ8k4t35xUA7QAXPVCgI4U4zFd7xH3yk96LWv5
+	 t8uJCZws5emKqi1J9ekoUocAd8p0rkpi+T2JVTTaF13WiR2JeN+Buuo8XKYalj8ICNdYe
+	 EE7B5MbKDIGiXMC3Vk1hLv2m2x0vHcKtBD3uSlTJ2ROs+Y3HJE7oluzXguLpPXlPg1ZIk
+	 EUNvD4H5NImVb5TrXCr4A6msbXiuXYHD5i4auZutvKx9WpTeLDB7FpTAKFNkRS7P7yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794278036;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=onDRaLguTUW2a83jMl1YZiAlaHNlpOxn5ahgZIssCS4=;
-	b=GYBdkbXGkdMx/jI404eCVriOhr/3LKPVtx03k3AWLIWh6GR1VVjqqsyBTkkuNbY7PATy
-	 FItTTVakAtb5szsDvuL3eXr6IMz4WUfeerI/8dkpzVy2KpVdvUGmv077Wpd244yqTRvCg
-	 csmbJDMB4TXtrkDgiY7liwueJVBZeKuhctxJEPyitOZhzXJ0rD8eObQsOyuGuIz5W+hbe
-	 oLSKRFyveMe3Aybag6lYifmy84jW2c/d2bPbegCnXIjOEdEpIjO3pVHKfF1ra0986Xb7C
-	 87Pts7RaizUorafwUMC7jEoIMUNOV6HU8aTY4QGMrpCGwdoDYxysrrtXbhvI10FjDlA==
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=g1VIsYyLXpbp2selItXnLHOrtqqaZK6VFKqYqk+/4fE=;
+	b=Hq3Fdg54VAiQ3ynsvxW6wHJM036OnhKCddABmmOzhsvveCQs8Kt25W/ehBK6JyYU3Guo
+	 O+yjB9lM8GFAq2xi3n+R6E5DFKOk3+0btTs0+xTnBbaLmJC+d48JXA6ejGOcm5RSCPetq
+	 /tBJZLt7tKUorsZy13DpmcyZPFuKBtv7LF5lshqb5qmcJfUhcz8IU/2TU3jue9AIAQs+j
+	 VMJTrip0bV3B5t0Yzx2nGzgs6/Z5gb1VZyaq0IkW40mEkhtK6IY7LpABVH12kSOmdoS53
+	 mOOKF7XFijhfwSJ+8m4Jzu4T5heu16ZefyB8B+vAADUv8QeykVGFARcMAMwG7D3Gy1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G1obDVAS;
-	arc=none smtp.remote-ip=209.85.217.44
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=bXj8nXao;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jMVi2CE1;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89609606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89609606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAF5606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:33:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAF5606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G1obDVAS
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7d2d1b4a83aso467347137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:33:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794278035; x=1794882835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=onDRaLguTUW2a83jMl1YZiAlaHNlpOxn5ahgZIssCS4=;
-        b=G1obDVASqefxB6poYdjSmxCFHjae9eYxJSNGGnlEYlbaEUEJivW7JDtmuGERQcgQmN
-         jLQt9g2DSx1yyia37PP/ykKwYVfjHoNMpAsBsWcx1xnqRLrrH9i6dHgRXVgwLRphQ3mg
-         Y6aMvkPKSa0PJn/FT/cPJaxDossiDDXv6D6d/28oQy6ndp/q9nQBiOQYer/iTR21B9JE
-         Xr+gk/exekmfyJoJTVs6SVqVjtObZYwFB8IzkdhjCRTYi9wYeI0qdVL1DDvdM8XQyPki
-         oglumqrNc6J2a2pRN8Z7kaLNm6XEJZwSAv7/NPRMsrQ1PX8GwtTNfs5q91PjawEY7Mxj
-         2T+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794278035; x=1794882835;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=onDRaLguTUW2a83jMl1YZiAlaHNlpOxn5ahgZIssCS4=;
-        b=nidR5qw4bDj/h1PtUpXG84+g5QeHjxECxwRg+bCajpo64dulfOoWTgSXRJSNu7a2VG
-         cTIALp0Q3Km+GCEGAgVsgefOi6t3oJRsdZnNFpKQcJizhqjSQ2XK0wWX6rOJKAL7gzUy
-         LR8LC3nirH9HQrByHSaJpWvG4DkHtIkSrBN+bRPopKplx2Jom0bM+cSCUr1jEy17Vesx
-         40aZ6PwJr9+1LlWAIkx6mpLQseV+Et+ijaCOSFXrfjrhAvbc3WDs0GqhdhzItNSKDbNp
-         AfRYbeXpk6sGguvqERQtmsbVZFFavcuA1EWCXFTJQxJ/wERu7T+ZGUcF7A+8CV88P8LL
-         9JIw==
-X-Forwarded-Encrypted: i=1; AL+hErEiry8SwnRv9nTCQpAjnxOHs1brtniB2bljh3hIP9PHcmO0ltIvFdrCqnrBQ7M7HHOHUZyeVb5hN1lnEcU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MER3R8eaFIm3sUxhy8dshXnLxN1cGH1cLRe9500UxnDACSpV1
-	fHwHrKJQd6f+M6A/dBVCIqe3b8ZsxEbOnUTshnAxXsoizaQXJJfZZ6CP
-X-Gm-Gg: AYBFou2d60sRgS9U09Z70YrXlhnWbPkDeHFPTvjmEYgqYcnchU4GSRko/Ew5+IZaR6j
-	FzMfznMLITVmNa5SE2unZKLUENyGaZlJSUWhDrxHSWPYdnPxsSO1VirVrK6kYWIhXSAvlmdKkoG
-	y65ylDu9xTyq2ypqnNLM1HsP7EtxnHmNxDkLEZx3atdqDvJrC0EU7ADnTIZOKuTiTA89ijHbuT0
-	g4uGrnXjVMrde9zPUkOluP74pHtGUyxAuNA78g9xuA4tigOLPu5vOFsJ9Pm/qB8wmWs8YLwFROH
-	c9AssXz5MxWAeX35Z9dmNU1CsWhNvEeNdXv0pR7d+plI0BslC3ORT9zjP5/E4E46v0d1lv9g1iB
-	MGMW0avQfbuu2BvMWncKC5Np7rjHrncbxaIKlSq9mxT+FWgCFHAJ1/lxTu/+GyD5ZsdwWQK1D/6
-	bf6NlqZoWoQYqpeg/nZbBMWWkO5Y3+vv5m5d71iZovBWSulw50fodXluVPmuCt2RCS/AKymDRay
-	UWabJW2yyn8LNfD4gKRzuscuxmkXE+8ztjh+9WpCZjvCTIfkpYpcqiNAVD/3C7GtSak8otun/yC
-	ra+UrWthhXyooFmEB9D0TyZ3EgjvqGJ5aJPbnfE1PWWPulLpw2+3IwD+tKHhdyVWb4q+4IZ0hCf
-	vIDR495oUgP2wlewkR4Flj5XNnJ4m3dipl/ujQrCB15T5WMxT6uTtueIHcWFyE5XC+yaq6PI=
-X-Received: by 2002:a05:6102:2912:b0:7d2:7c63:5a0a with SMTP id ada2fe7eead31-7d301bcae2cmr373574137.23.1794278035436;
-        Mon, 09 Nov 2026 18:33:55 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d302359221sm877564137.6.2026.11.09.18.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:33:54 -0800 (PST)
-Date: Mon, 09 Nov 2026 21:33:54 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: dsahern@kernel.org, 
- idosch@nvidia.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemdebruijn.kernel@gmail.com, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- yana06070@163.com, 
- shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, 
- willemb@google.com, 
- tpluszz77@gmail.com
-Message-ID: <willemdebruijn.kernel.136b3b685931d@gmail.com>
-In-Reply-To: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
-References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
-Subject: Re: [PATCH net v3 1/2] ipv6: fix cached route reuse for control
- messages
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=bXj8nXao;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jMVi2CE1
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 9768EEC0584
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:33:54 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 09 Nov 2026 21:33:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794278034; x=1794364434; bh=g1VIsYyLXpbp2selItXnL
+	HOrtqqaZK6VFKqYqk+/4fE=; b=bXj8nXaohzoFelziePzf868blggMXjkn3fFaB
+	TWioAAfimNfjcAImsdDK04HlGQOUUqj6nc2pL4ziDM4HbyVZ6VEw4LjT8AHhmFfz
+	bystM9WZ9Zu/Etdn11YBPp8ypipJ6z18GRr+r8oSU2Xaus10ghsvN2bFgdcsAp2t
+	x1agSYOdu453w5//r/TSYD7dGcZ+onFw/MD7Anm2y2NSCGPik5CtWY3AfbV17Tbr
+	3PSZERX4YZIdTiiTvd1UDjBRniaWT1AKapfp5H1oyNAIzf0+waArqmCbO0OHH03D
+	Em7v7vj7L8W/HwKeCmAywUhYsA1Dp53Z9xiQSPcOV+/DN+uHw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794278034; x=1794364434; bh=g1VIsYyLXpbp2selItXnLHOrtqqaZK6VFKq
+	Yqk+/4fE=; b=jMVi2CE1TxaDXYqFBo4/thZmhetcJD7HexhKqPekN9byw2tUjfV
+	qJ3StqdgeK/giP/DfQ6b9A9QW6T2yAZCgihAZi32E99aaWH5ilIlGaAJeY8MS+lC
+	AR/9Aim2nFLZn3Roezx+aS5P5//u1XPXQkpAtLhZAm7LkuP1bphnPisNSm4NzZ5O
+	9J1cqSAFitBvRpXZh4V/Kn1dOJkurPgNwEUCrHf16LbM/e7guoi5KFmn9+qMZEfI
+	k1qcwcelJWZ2gxmGEbZmNwAHex8hXw7AN+xd5tJhx2v1vx1cg9VW5ZbQcZL0ESvO
+	ftUf5T24PNX3sZYtXDBDph3XxsKhqtzzS/A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794278034; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:KMSAFSQ/MFhscyNNsbswoyS4gJYi+orvN7mLIYD5SOIby84
+	CigKo/9xGMLNXuVrvUwwAehauhMlZNz6QLjHyAi3W5qummKMHQgR43fecUpsu7yV
+	vspnNOm3tIuN9ooAtyj+rd8CBsa7/ckNtHP65soSrXm5b7qDaEstBIjdtNgXTSkU
+	o2xzRqttHu3/PtoidzGa/NycDNP9PwirCPo8m012ymHlPFlnpzHJARsFsKZ5xSqS
+	IwtK4m822iGFWtHoQkEJ5VxFf+saWQhYRWtMN9ce/DUB+hAoMKBPQbVp7cBw1GhF
+	QGBw6eCaTnisMEaPXP1+jxOr4mcPOaUFPAlyEfg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:kMWAz0Y7LcfoM4kZwhM6zeRlTGJLvTg9J/ndnRR9zuM=:sG0Hqyd7/PCaADqMeTD+NKc9g3wk445JcBSTksY5AEg=;
+X-ME-Sender: <xms:kYLyak2SpphrsDGHgHi_zG1synKO2rSTajgKkWNXosZo59WkX7Nc7g>
+    <xme:kYLyavgu-1y2yuLOIUa1a9pWNhi019eU5WZNVM-8fYJfwGYbTPGebciNfxlq9BXyR
+    4Uw1yjBaA2kS3coQKZUkkiNKgnLGtGE8frMd2XCFGiQHSizioYKF-LG>
+X-ME-Received: <xmr:kYLyatnLzGjdqQ_B26sgqUfJlzC7QUOd_8gbby5l4UVyU2uMLItjbpVjXvQ6odtV>
+X-ME-Proxy-Cause: dmFkZTEaFI12Qo/RXtAOqBnkLtQHGnHF3OoWfQsLrjLl2B3nKseZbWYD1SlSSdLYdT6M+o
+    e8hnVKv2IA1quSLS0a1l1PpLXpODgHN4VcCJ9WoTKIq1WjgSRLm3GowCs7pYS30cp7MtUe
+    BYEHO17M2s0d+tj+GXIFjnmffkE7+g8EC3xvIigL/ydpa46T3Y+FPXzcsDAMlKkceYMykW
+    WWBFDuqK9pWlFelMeEvubbZ/9UgUxuDOVxrz3Ouni6rwUDOXHG7Dph3x9nLByj6FzCFCFn
+    Mvtx0HfMKKHE0uGqNXN01wCzdGg3kR+xZsb9M5+AdOuipFxxcUyRaFs9FQkLV/6aojAnqn
+    456z3MHg4CaXnU8SMVPMr3/Ez3Sc3sRRTiqQKC0yFdJSfjJkPMUASqwGVIcnePTq0OdoUL
+    M08KGvbdOblfzU8m8EwCwhA0SD7Xh1cb5ImOXxt7UVHAbgR9f30ADUztiq5X8wKVx/3DMa
+    erTmuZKKwjf0bbIC1VUxc/FT6kboeMDq0Qi2hOujQMmq/jMEQ81hNVOQcF8cUQR3qI70yQ
+    SGqIgf42tR1BGi2kuXwjuEhHO4icLs+1G+CknaoHOr3hWkpQhZDrWU/x+R0YJK41k035xh
+    +Q2H+v7WKdhly0GyVOl//KZzv7MewIXA69+RCKROK/chCsBb0bWy2P3QsL0w
+X-ME-Proxy: <xmx:kYLyalaoLzDAlroJXNqKbMXziVTww2WGupcqne2RtUJqqxCy6ZVdxQ>
+    <xmx:kYLyaoEpdow6vX0TeSPPwSeZCQx_kIBA82t6s70WmYf0k5BmL16SkA>
+    <xmx:kYLyakaT-kjGqL77QE9BH7mf5UIHmLdjczuC1QZdQWxrRJY0qr3yAw>
+    <xmx:kYLyasxwpwcSTV8QzA3TB8RJzkD4w4Iwx37ATu_wMBmnZJkGmYaejg>
+    <xmx:koLyatMymf-G8UNhPl_lVw5h1N8FX9hPa-yDvwK4PlXDLjK1azMGv6fd>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 21:33:52 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: keep group denials when a POSIX ACL entry decides access
+Date: Mon,  9 Nov 2026 20:33:44 -0600
+Message-ID: <20261110023344.2105916-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,30 +127,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Xia Yan wrote:
-> A connected IPv6 UDP or ping socket can reuse its cached route when an
-> SO_MARK cmsg requests another mark. A packet can then bypass a prohibit
-> rule instead of failing with EACCES.
-> 
-> ip6_sk_dst_lookup_flow() reads the cache even when connected is false.
-> UDP clears connected after parsing IP or socket control messages. Ping
-> always passes false.
-> 
-> Only read the cache when connected is true. Ordinary connected UDP
-> sends keep using the cache. Ping sends do a fresh lookup.
-> 
-> Found during code review of IPv6 UDP route caching. On UML, the same
-> connected-socket selftest fails four IPv6 cases before the fix and
-> passes all 54 with it.
-> 
-> Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-> Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-> Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.1e0038bcc3ef8@gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+When no ACE names the caller, Everyone or Authenticated Users,
+smb_check_perm_dacl() lets a POSIX ACL entry for the caller decide
+access. The entry's rights replace the result of the DACL walk. Deny
+ACEs for the caller's groups, and OWNER RIGHTS for the owner, are then
+lost.
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+For example, a deny of FILE_WRITE_DATA for one of the caller's groups
+should refuse writes. A POSIX ACL entry that gives the caller write
+access still lets the caller write.
+
+Remove the requested rights that those ACEs deny from the entry's
+rights. The DACL walk already records them in grp_denied.
+
+Fixes: 42ac1f1917ae ("ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261102200353.884509-1-icb%40fastmail.org
+Link: https://sashiko.dev/#/patchset/20261103150458.11591-1-icb%40fastmail.org
+Link: https://sashiko.dev/#/patchset/20261107062233.1579198-1-icb%40fastmail.org?part=1
+Link: https://sashiko.dev/#/patchset/20261107231941.1824289-1-icb%40fastmail.org?part=1
+Link: https://sashiko.dev/#/patchset/20261108182011.1888520-1-icb%40fastmail.org?part=1
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+Notes:
+    A POSIX ACL entry that decides can still drop rights that ACEs for
+    the caller's groups grant. The implicit allowances that every
+    non-strict check adds are also unchanged.
+    
+    For MAXIMUM_ALLOWED, only the rights named in the request are
+    checked against these denials. Group deny ACEs still do not limit
+    the rights that MAXIMUM_ALLOWED adds, as on the other paths of this
+    check.
+    
+    Tested with KASAN on ksmbd-for-next 4ab80fd4d1f1, and over SMB on a
+    kernel whose fs/smb/server tree is identical to it. smbtorture
+    results are unchanged.
+    
+    This patch was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 1b387c262d59..45f70a05e21f 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1764,6 +1764,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 					if (!access_bits)
+ 						access_bits =
+ 							SET_MINIMUM_RIGHTS;
++					/*
++					 * Only ACEs for the caller's groups,
++					 * or OWNER RIGHTS for the owner, apply
++					 * here. The POSIX ACL entry does not
++					 * grant an explicitly requested right
++					 * that they deny first in DACL order.
++					 */
++					access_bits &= ~(grp_denied &
++							 requested);
+ 					posix_acl_release(posix_acls);
+ 					goto check_access_bits;
+ 				}
+
+base-commit: 4ab80fd4d1f1c4363b336ddb3d8818ea37c4997d
+-- 
+2.47.3
+
