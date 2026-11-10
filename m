@@ -1,49 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319486;
-	b=WDiX/+riF7K+xGUSiS4j3QHNO7N5gz/rAHwiUkJ1CaC7xVjGkXmvWddptHRblK/2/XnZ
-	 wt7w8iCrHIGYohEwNbvRl0DuCt6o+Lkl8osAWUfvA9wI54NjDoX5pSoaEZs/NyczS+WnG
-	 yFBiHzcHu3xcMSm8dbggUY5qqVYejLwZqQo9oHVgpiUdHpAMQzlchkNcFqjQekQHkO4NH
-	 nanzhN++lOVuRQAfvaYhYBN+N3UhWOQ4EOIXz79p4cfdAhOd053mh67VK8e0cyG3Y/Yfa
-	 wn6Z4jEpCQebU8T5o88qx8mbUEsT4aY33hvPwucGJBxdMSb9Wouu891OLHoTUdRM/QQ==
+	t=1794319487;
+	b=xBc69TU8m1TM/WdB7cZkhHudejfcSmfz9VhSabJp6U5aEZXNM600XUiFpdC5fwQiKKSo
+	 gsRI/J8PZhf9c6LS+WT4ZEkG2Njb2JsaErpfr3K4ihk3xafBJEcg5faWT9u0iv2T7CiCK
+	 +KuC96n3BBBBc0h+Ux1tn1YcAoEsmtKegkEBRSeAXOpQYM1Ifn/eX54jdOsPcZFLxVLf7
+	 ONZjxqg9oQzIMQjodeZ6q7amOMj86HXuyAUT3jTO7QOIYj80x0i2CokFBQLwUBKvBnLJY
+	 UmroGCtKWP04NeZUeFjydOPiH43SLESY3SBRjmZyGjPhC+KtBm7+KCNIm/Yjqv9EhEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319486;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=i3BnkwwX1QpJuZSXpGnT1o2/p8maiFIvIlJFgd8ousU=;
-	b=0ZBwK/bditIvjGJ7OgSs502h/yV/xhtqNsULRZEEUpcAKUMmB0POXIxbFhJuexLA0oXx
-	 aaiLa0+Jf/wqIUT4CBr5lEiqDUXbXZ7TsJhYEifGaM8D5W7BXTltsDlURmGB7OTxBhzYn
-	 oyqoftahnQNpRCqlFuT7lnW+/NeKnNwGDfOVNEy+925GMIUQtmokw7odvnfSS2BJhRCQ8
-	 7HJIbCl7bGrIOjP9ngbsx8u8+8YCiHp8hKDWsPAcGwb09kUeiCaXjwRf85yuYj+Pas9VL
-	 UuMh9PEdIRq+brPP26FwQOfTDsSAaMLBRkbBqmHb/pNaQdMJyUskWO+p8lz8LeFUp1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319487;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=418qL2keCn/YC9lRyTTJ32argrNbioPNqzsGFZM0jp0=;
+	b=4LbnUxHfLdgGzo1ucFHTnx/q2nw2hlE+9NtHQK+zdWvjL+TqHXYOj3F55vng7jj3Ahcx
+	 2d0QhWeLrDJqSEO7cnGOMiybRxiBa50gOLWnrvsh6mp6phqezjyT4dkGx5EsOvai3Juio
+	 dec/QOlO8R1NxNN4nRXPnJsKv9NgWmgrsXIXbqVJVYPsefhSvKyz/mqBtBdg38jjNBKkN
+	 4xMrEZeAoFIwex+2XotWHn9SvCMmnCc/gcHUp2QK61t0nbSv5L8FLfLB1de4FeZ0pw/pq
+	 x66rHgJPKFQAV1RwWHDKfdDmhStGhcuQ/hljlcGkSGdx+q68uH7uk8998AM73YedOdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="dv/Ghu2h";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71CA0606A32A;
-	Tue, 10 Nov 2026 14:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71CA0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vWtTmGCr;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F72606A33F
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 14:04:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6F72606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dv/Ghu2h
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B314F143D;
-	Tue, 10 Nov 2026 06:04:41 -0800 (PST)
-Received: from [10.57.10.132] (unknown [10.57.10.132])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A51853F632;
-	Tue, 10 Nov 2026 06:04:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794319484; bh=BlHcBR7XX57WikFwdYmvtykbeUsCkBngls9+R/yKh6Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dv/Ghu2hcXhyZsdzum0Qj+KYMSpRnrdxXFCaVwePrPvToPowei/9jMA30yVCil2dK
-	 49YFj+/dj03TnWCuz3fzCHb54refDhICi9kVBS42rqgHZdXMjO3Vmh92IDnY4sG6/s
-	 sg7dxeAcKd5AvJ2pG41DCd3as0OkbuWM47N62woc=
-Message-ID: <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
-Date: Tue, 10 Nov 2026 14:05:16 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vWtTmGCr
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b08a162d4bso1159782a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 06:04:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794319486; x=1794924286; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=418qL2keCn/YC9lRyTTJ32argrNbioPNqzsGFZM0jp0=;
+        b=vWtTmGCrwobFP4zJww8Q+XzfMCl9hyZEiswN2YzfeLyaZY+ThZgKsYFihWrzRdrF7V
+         SwcsnfuoYO+jpoLlnekqtsQFMxUDvHewDr/dYNu/eiGhKpQg5n3vPGWj9sT1jDhNFWZ3
+         B9tESisHXDW9JO6kvF3mg+OA5+edOc5ljNGp6fsEb0fr3zIzuDbGIAl/3Gwdgpbc6EM7
+         g9FJ8LOEYTpTlGif5N9inWvR5ST7Ns5mEZZbF3eLripB0v9gUYhkvfPfFG4frDaAQg+I
+         I8AxymV8Zruu4E8L1ERDWepQ6Cxsp2L6q4Xir/wauUyPAFl/jVpumFuCPcybwSt8INhY
+         dvJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794319486; x=1794924286;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=418qL2keCn/YC9lRyTTJ32argrNbioPNqzsGFZM0jp0=;
+        b=mN3op22i5+lMEDilXmxvoeWVEwqEYtntE3SCR7kcmlSNakJI0l7+rzPgd3UzQ9JoIs
+         vKGE/FjsDiviLciC06DXA1Gk6jwOVGrSWiuAlbNpbSLG37+y/fy5ySkPmPfCeh65isoh
+         J2ftvv/g0WPWqoYJMx/dz2lGW9entKZJ0q56nmgT3dqJrZTzQvWCzD41RtIUiOiwcxEH
+         lqVPZxBhssUVFo7jIYetb7tGdbbX7M/4e0LsNDQdUA2k00rPEuRe/ORrqg7AzRELcoZi
+         5qyf6NpT3iwqJioGiDQx/slf31C+EVtHKuuUfPvatS9GNp9muCWaufG3DIe5MO0KFXoI
+         t+ew==
+X-Forwarded-Encrypted: i=1; AL+hErFxXRw00QhF3U+Nabeqia9hCl3TldID32/mc0uQbLOFWMr9zJIGhxlKBhIrR/bsLjTTSdnj+8gaEJBnSqI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Rcs9OWpNo8+E/rjHjdGzwXQRUzKz0TMFNSszEMpweBEnJf5kV
+	An18Vsz2BdDROUakFvLU5QKOKHMngIi/Po+GqJIauuF3ntIssJBAgjx6pKtnw8hH
+X-Gm-Gg: AYBFou3vgT/9teviCGZTqB5EUhbU48KlvE311UKqlkNP04HSuV4FTB+fuTS/c49G+6m
+	B+U+yc/IURkBGHS8A/2pwR2hw5B4I9I8rtKwhoUeSlm4r4gRRQx66nbvIS/FoxchXtDqqA0MQhk
+	mddUpltOPqEQUXB9fmD7GYiE5dHjkmTzjDelCWI44AauImHNK8aTlhiP37khayUVSzdc0Cvl5PY
+	zMEMCnOL35Km3ivjWb91ElUN5XqOhgn5Y7z/cP2ahgpK4MmRtWpc0j4np7/EygvR3o1yWfpybKK
+	YW4DQwXFkqg7XBygpbVrUONxgnFPj7nKvckRp/ERaPV4fAmuf8BYm2/Nz7Fljn+d4af2wIzHbyi
+	h1u7CT4L/U0vsm8CZwjUFJZ5ym/c2cROesXxXm1PFq4vvj9RIEzlCGGUBH6PdACMMU4aqnhnkY0
+	n7baFS5vjLVuNMmFKiIlW1MlJ1dw3WxnuG2J6hue1bXy+EyE2co6k2zBzb35/126uUBfxIpzoGY
+	Xtq83vPpoOoCcYgzE/cyZGIhgNhOqKMjPUsogwwOKEleuoQTWOBHPes9MQ6rdB79rexwu1mRd+A
+	6C7JUnI8rMpv5A6X+QmiBzdlDa6Sm9eTExif5498Ude53suGjW7/CFHkeJiI
+X-Received: by 2002:a17:90b:1a86:b0:3b1:2810:dfdb with SMTP id 98e67ed59e1d1-3b166d1edf5mr2895888a91.48.1794319486272;
+        Tue, 10 Nov 2026 06:04:46 -0800 (PST)
+Received: from LAPTOP-6IS184GT ([104.28.251.150])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16903edfesm1875444a91.2.2026.11.10.06.04.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 06:04:44 -0800 (PST)
+From: Nick <nick21042013@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jic23@kernel.org
+Cc: lars@metafoo.de,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Nick <nick21042013@gmail.com>
+Subject: 
+Date: Tue, 10 Nov 2026 20:33:54 +0630
+Message-ID: <20261110140354.2047-1-nick21042013@gmail.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,118 +98,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
- ranking
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Guo Chen <guo.chen@oss.qualcomm.com>,
- Vincent Donnefort <vincent.donnefort@arm.com>,
- Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
- <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
- <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
- <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
- <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Nick <nick21042013@gmail.com>
+
+Date: Tue, 10 Nov 2026 19:57:26 +0630
+
+Subject: [PATCH] staging: iio: adt7316: fix camelCase violations
 
 
-On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
-> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> wrote:
->>
->> Hi Rafael,
->>
->> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
->>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com> wrote:
->>
->> [snip]
->>
->>
->>>>
->>>> That's fine, please continue.
->>>
->>> I have a couple of questions though.
->>>
->>> First, why is the ondemand governor mentioned in the changelog?  In
->>> the mainline, the ondemand governor cannot work with EAS, so it
->>> shouldn't matter for this issue, should it?
->>
->> The ondemand is affected by the EM setup code and set 'inefficient'
->> flags for some OPPs. The EM is also present for cooling devices
->> and can work w/o EAS and schedutil, w/ just ondemand governor.
->>
->> Because EM marks the OPPs kind of 'globally' as inefficient, then
->> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
->> In the EM code we have:
->> cpufreq_table_set_inefficient(policy, table[i].frequency);
-> 
-> So maybe this is the one that needs to be fixed?  What about simply
-> skipping boost frequencies in it?
-> 
->> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
->> pass to __cpufreq_driver_target() with that flags as well.
-> 
-> Thanks for explaining and all of that needs to be said in the patch changelog.
-> 
->>>
->>> Second, why is the issue regarded as a defect in the code and not in
->>> the energy model?  Arguably, boost frequencies should be more costly
->>> than the non-boost ones.  At least the idea behind the boost is making
->>> higher-cost OPPs temporarily available.  If they are sustainable,
->>> treating them as boost OPPs is rather pointless.
->>
->> IMHO it was a bug in the commit mentioned in this patch fix tag.
->> It is affecting more than just EAS or EM, since the EM is working with
->> all generic code and all cpufreq governors.
-> 
-> To be precise, the EM initialization may affect cpufreq in general
-> because inefficient frequencies are used for CPU cooling.  Fair
-> enough, but I'm not talking about this.
-> 
-> I'm talking about a reason for giving boost frequencies lower or equal
-> cost relative to non-boost frequencies in the energy model because
-> this doesn't make sense to me TBH.
-> 
-> And I get that such energy models were there before the commit in
-> question and now they are not working properly, but IMO they are
-> broken, not that commit.
-> 
->>>
->>> TBH, I'm too comfortable with looking at cpufreq frequency from within
->>> the EM code.  If that needs to be done, something is amiss at the
->>> design level.
->>
->> I think this edge case is special, as I described above.
->>
->> I'm happy to hear your view on this EM influence to some global
->> setting in cpufreq. Maybe it was too far to establish this
->> 'inefficiency' flags in there for many usage?
-> 
-> There's nothing wrong with using the information from the energy
-> model, when available, to amend cpufreq, but the patch goes the other
-> way around: It tries to amend the energy model with information taken
-> from cpufreq (in order to avoid making mistakes later when amending
-> cpufreq with the energy model information).
-> 
-> I think that cpufreq should simply refuse to set
-> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
 
-I see your point now, about the direction. Yes, you're right.
+Rename Vref and AIN to lowercase characters.
 
-Since we are taking the information about 'boost' from the
-cpufreq, then refusing to set OPPs inefficient in the first
-place makes more sense.
+This fixes the style violations and brings
 
+the driver into line with the kernel style
+
+guidelines.
+
+
+
+Signed-off-by: Nick <nick21042013@gmail.com>
+
+---
+
+ drivers/staging/iio/addac/adt7316.c | 12 ++++++------
+
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+
+
+diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+
+index 20f6052cc..a71502cf0 100644
+
+--- a/drivers/staging/iio/addac/adt7316.c
+
++++ b/drivers/staging/iio/addac/adt7316.c
+
+@@ -663,7 +663,7 @@ static IIO_DEVICE_ATTR(da_high_resolution, 0644,
+
+ 		adt7316_store_da_high_resolution,
+
+ 		0);
+
+ 
+
+-static ssize_t adt7316_show_AIN_internal_Vref(struct device *dev,
+
++static ssize_t adt7316_show_ain_internal_vref(struct device *dev,
+
+ 					      struct device_attribute *attr,
+
+ 					      char *buf)
+
+ {
+
+@@ -677,7 +677,7 @@ static ssize_t adt7316_show_AIN_internal_Vref(struct device *dev,
+
+ 		!!(chip->config3 & ADT7516_AIN_IN_VREF));
+
+ }
+
+ 
+
+-static ssize_t adt7316_store_AIN_internal_Vref(struct device *dev,
+
++static ssize_t adt7316_store_ain_internal_vref(struct device *dev,
+
+ 					       struct device_attribute *attr,
+
+ 					       const char *buf,
+
+ 					       size_t len)
+
+@@ -704,9 +704,9 @@ static ssize_t adt7316_store_AIN_internal_Vref(struct device *dev,
+
+ 	return len;
+
+ }
+
+ 
+
+-static IIO_DEVICE_ATTR(AIN_internal_Vref, 0644,
+
+-		adt7316_show_AIN_internal_Vref,
+
+-		adt7316_store_AIN_internal_Vref,
+
++static IIO_DEVICE_ATTR(ain_internal_vref, 0644,
+
++		adt7316_show_ain_internal_vref,
+
++		adt7316_store_ain_internal_vref,
+
+ 		0);
+
+ 
+
+ static ssize_t adt7316_show_enable_prop_DACA(struct device *dev,
+
+@@ -1684,7 +1684,7 @@ static struct attribute *adt7516_attributes[] = {
+
+ 	&iio_dev_attr_enable_smbus_timeout.dev_attr.attr,
+
+ 	&iio_dev_attr_powerdown.dev_attr.attr,
+
+ 	&iio_dev_attr_fast_ad_clock.dev_attr.attr,
+
+-	&iio_dev_attr_AIN_internal_Vref.dev_attr.attr,
+
++	&iio_dev_attr_ain_internal_vref.dev_attr.attr,
+
+ 	&iio_dev_attr_da_high_resolution.dev_attr.attr,
+
+ 	&iio_dev_attr_enable_proportion_DACA.dev_attr.attr,
+
+ 	&iio_dev_attr_enable_proportion_DACB.dev_attr.attr,
+
+-- 
+
+2.52.0.windows.1
 
