@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327174;
-	b=tA+FCkbqUNmxIxkWKdKHBFZJI3icTCgmTXD/H7Ac0TM40imqJpCVX911ninxgeE5WLM/
-	 dOOg5oFiAlNVSbDDLJ4kzEOJHmVr15ElBZXegRCCqCm7nybzZz7XM71FwUJDHAwMD8bWD
-	 GgrQM7dAPJBvFVMD6UmPm4gD4Dc69TurcyC8iFLNANzKSPU06SKTMaz1PHBArewd5RKL3
-	 PORBcDoNOb3Oo2WF0WiDrTBckKfruXEFCA75ONHi3EfkPKjUSR6akeCHqtXICZ7I4hSIg
-	 ePaRq//cHs4SEVTyk/YoQHtBfITyR/zc+auE+r3zCF0i5lpnbDYzjY00P3GXlEcAmLg==
+	t=1794327196;
+	b=K2OTJawCpYHyHS42dAuHRo1+9dCC+RP09k0ixB3PCLiD832JC12714ZF8umMZqTbZbM6
+	 mcZVaqQjeiGevF0dccPt108d3M5sdYb74X815LEnKWk94rEcFQr97FvtvBGoNstn7bDDl
+	 pUHyDPt0AEHOgfRkRoaVak62Fjb++ljrvO5sLEyEXW9m5NUV7+GOWrI3pm6dYOQkyJFFj
+	 sPXPjIKII0+2AjBBm+hgmu7JVRBkMsKAA7rPz5uxX/0FbVIrXyzIMse7rjpSwIvDg/Mom
+	 th1bNTcXTBI5DwIWsGRktfK6tEfstLdLRLD7oeLDjqtHXtC3sE3hGhknQm6imvkuawQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327174;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=in2GRGedn8xujhUfMjqdyzbGddtgYvZlV+27x56RYsw=;
-	b=sAadFA375ZzkfM7ZBCrtyoXgSsXTRHm4Ry9ydSzUNowsPS3OYehnEWXhxD7Jpa8UgJEg
-	 3Gybir0bivY1G1NhCLpKDG6/Ho0NJKLTRuTFwj8W85Y3KWYpILmQvjLAHfqm3bWoY3upN
-	 IVxq+/Ehc8ZAMDlqlNavzLgDuBqHGt1MetLv+AsdA99mBrqeJTKs5y+KmsIRLkgY9fUoC
-	 BAY+lN4DfMBg2D4CBs3zmWzfSkCASR5qroigkgQ92op1jOcvr95VI6BL3CIf7x2eqbCds
-	 0Mv5c3sTX6riTPAvaJuFo5Icgu+7XJg1HJ1dqaNLS/IJmQSIVwsuWDa1eaqu1tdqdEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327196;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=;
+	b=0cgN657wQnB27xsa1bqHNsf6rn1mqCNp7z2O+MOlsYFuWwtG5OnwClAdglN01EDQHqCH
+	 EqXX/BfsqX1maJyVom1tufOOOtbytWWV5LKAumdhZexw8xuvj1g2WuhjBEqKs/uJYfA/3
+	 Q7Tuz+HMqhqZ3O3nCZAU8Nt76Zvls2swgls09XfGFnoyL8yT3ULplrFeGL+naX8iLwlxk
+	 5BwCe5zKlV7FqHiav3GtlZcNqOzxXo+upIv9dC0ahr8EqVMhoR5MUNL8fUbqGmqiiaHw5
+	 tNTTFSlDJqawQoK7udTjoSOl3KRaOJTp2vTmnuvoTnxN4sqe+NFW1598y3iA+sZgmiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zx2c4.com;
-	spf=pass smtp.mailfrom=zx2c4.com;
-	dkim=pass header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=WhZUmgXT;
-	arc=none smtp.remote-ip=209.85.216.101
-Received: from mail-pj1-f101.google.com (mail-pj1-f101.google.com [209.85.216.101])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B57606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:12:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05B57606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zx2c4.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zx2c4.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E745D606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E745D606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=WhZUmgXT
-Received: by mail-pj1-f101.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso1413217a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:12:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794327172; x=1794931972;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=in2GRGedn8xujhUfMjqdyzbGddtgYvZlV+27x56RYsw=;
-        b=0u3x/3R3o3shdoODuoCNQVZmYBedTnIVXooYZljYeixkUitY9tSSLIPawdwBl3jich
-         SXJFHEQAwihtjMGHygg5ouQL2NPgWE1x0sTVOz7D/JT7atZFLtokCx/BR6DhTMoemThC
-         5WCjFs4pTljHq/8NzdRQjM4xWFgs/wULVgzVZf5fHH3Pcd9X+R8ZCaA3NtYH9KKGT/OL
-         Lrb4/Pufsp89V6URbyox5KVrNeJNXOP0XYrGF2vDXncH8w1DSzEwfuvufzCFRDauB4f/
-         hD4Ys1+HCHpj2TRaCr1fu+zdxOF2x4z18ry0sAGSbu3jp5ouHLXh3A3CAFZYrkYSw/2r
-         XyyA==
-X-Forwarded-Encrypted: i=1; AL+hErE4IgG9+sh7+7sfYxoDC+iGMwwoKau9JTc4RC4WRozctK9PpHamPeRyuulf1Jx3LyWNRbeQ3ucWz7ROYh0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aaE5/cb2i3Jbqos5spzksFLCB4GV/jF9NVK1E2AwTA49LXXOV
-	c06/dq2prCo3QJmVOoIhqSnPFeC3ikNK9ckkzOf3TVR1sbk0LjvT9v8DBCulNj9UOAYtyoXerby
-	Bmgx+BqMWHsMwVi7CtLFgrdcmkOqEyt5uHq3HItM=
-X-Gm-Gg: AYBFou0LdUTOzGfjQXSfDHmVHStfEOoTMrFv7/+r85NgjkkR5XBLseyhV9GspxPgdgl
-	X3wmyAEnKk59GunYrTVWpvN0ZSHzKCe75xYtUTK9r38u+o8NFEG+EGynGGFlB7x9E6TbVdmS5QL
-	+0FTxc/hCwEjQ0nj0phqhNQd39Onndh40/04hnpMvq3SBoqMxaB8yuGwj3HeYjV3VSOS3ujnrbk
-	EeW+FV9iu+/j366vZoKVDZy24AtSFWW92AHKkCvoYMLpYB9NqL5j++Jc1FQNRTVmi0Um0scv2J5
-	QtfF2eOZ8BpLDIICzhqontOlgrkUKgrGRXT5Lr0HEXv+dcINP00clePbUj6TI4qtzWnhrKw1dax
-	dww==
-X-Received: by 2002:a17:90b:5625:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3b1679ba42emr1924377a91.28.1794327172047;
-        Tue, 10 Nov 2026 08:12:52 -0800 (PST)
-Received: from zx2c4.com (mail.zx2c4.com. [104.131.123.232])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17e0dccfesm170958a91.4.2026.11.10.08.12.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:12:52 -0800 (PST)
-X-Relaying-Domain: zx2c4.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1794327167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=in2GRGedn8xujhUfMjqdyzbGddtgYvZlV+27x56RYsw=;
-	b=WhZUmgXTiHPEQa5m8oXC9xJGHWmDVDhBJOCOKZ68i0JAgrryuJ2OpKISMMArTDvqKX9J3p
-	gly0mlrzj/PiWbAWnd57JXbMST0Ayd3lZxBjRTHC45wOgvxvTiqVvYN7mP52oUauJ3QI0S
-	qnL9KbBPK/0Od73r2/adXduAhczgmS4=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id b5d66eed (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Tue, 10 Nov 2026 16:12:46 +0000 (UTC)
-Date: Tue, 10 Nov 2026 17:12:37 +0100
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S.Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Antonio Quartulli <antonio@openvpn.net>,
-	Ralf Lici <ralf@mandelbit.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	openvpn-devel@lists.sourceforge.net
-Subject: Re: [PATCH] wireguard: socket: fix sticky source address on p2p
-Message-ID: <avNCdbpjxM752XSw@zx2c4.com>
-References: <116cec552f58748d434d4825c6c74f39266b265f.camel@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.phl.internal (Postfix) with ESMTP id 1EFB213813E8
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 11:13:15 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 11:13:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794327177;
+	 x=1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=
+	asQC+qHDAv/I83EYngLJ0bkBe+uuEnPcLg0jrc2OX9kVtaPYAd/md3quox9jqmy4
+	S/jELTpXjA2k1IxJWtdK3HZW4IriVAHis0xufJR256BBPAzbfZ5QsGw2eqYq1k/I
+	S4qzaUtb3Ob4GAV2mxThnKp0r/zG0TfcXAK+eUmyQOHhHqtyGONG7gkgzRBQG2d0
+	/gzJT11LHsGNvLKSZnn9JL3iytYjrT3V7KZt2FZsHfjjQeZHywjaesrjJhD0e7vN
+	Y6/iN3Jg7w8xS8OVdYMBSUZOfxDnVhVfPJGqKe/oSxsAZXPn7y2e4GOOItdMLZ2R
+	LLVckhHoSzC+MGE1iJu5eg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794327177; x=
+	1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=p
+	jDZKFBWlX484yfO06iZThedU7MnSaqyMkXKHKaXomC5/xVavgZU65SsCjokZJWML
+	GjeTj8Lq4+LWeI1CWzzxuQj2m4isbVa0ssa9g7eZhXilCypVINe5kxTBiobUF6uZ
+	Gtle0jaTmJtlAyGlrtNmbTTDPt9uAjbADo1dgbyzsDA47ykOoKjYt1o87LKBSqHb
+	mP2YIbspjWDiF2EJOgZRHTKT7VhzsY0TtBEN2nWcPAnRSw5Q7HRlPmorpTONvfpP
+	auvP37j94bGeH1y2GQ4LwX12DjFEZi+3xGQave3kINRA2PBRPI5FXxcFzbhhhvXR
+	Tsc8Y3Jb1FgwsS6Y0dcjg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794327177; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:NcVXXBQZMi4XwwY91rH6Qc9EzwFTiAa/z6Ko1lYN2VKm+bq
+	9wtCnKHHzlxDqs6icn8Lpr+rziUqfEqchcLy+jCc28PTQjtS61dd8MzyIlLrVVW6
+	W0c6rEYhYGrrCcybFG5P9pIatkOkVUcpTJ+VYguWDLJrbJSdIKbruxWepNbAejgI
+	tnhzz/Jl7W9sjEgHlFwKBifagdrW1FWIow8AxOuJrSc81XTg64ev80/q/jfCif64
+	fnyBg+aqXVP25/ucvrnnNzEfmGf2rbFvUQCMNKM1RNxaYU+pMs7Geyw3On89JEe+
+	w/P3E9hqPh5tknfKwTnHCNNt81/iy7frygH9PxQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:NY+qH6VFe1gb9eaYka4u3Pju9dQg6z2rB5jHAxzea+M=:YUoKa4y1cAE3r8AhMFawDzVW7orX9AEZ4cmB97mmTGA=;
+X-ME-Sender: <xms:gELzat-KhdG49YOXD28knxP-wmxhvouurLuqg65ijoK_1PztTiM67w>
+    <xme:gELzashOw3MORHNRaj5VZYoHPjgRatChT2__Hps4-a7QS4ExIju8qL8_9B3SiDtB2
+    sGKQug7JFF_lfIFqrxv09JzfzrzZWKrRlvdLjWPWqavJafwb6XI9q0tBA>
+X-ME-Proxy-Cause: dmFkZTEwJqmeu88i0D1P4NSr1o0RdeyL0ncQrpwlZpsRiyH4mGhKK76jqiY9/AURvmAyKQ
+    Xh2LjT8fovpOgpIQnvH5QYWZs5UCg8lDhPsbwXo4GfEZeWp/aOvfLOYPWjqnmAFI1BwG/q
+    XyZG43p0HoLIgnysLFo6MzsLlgysOWgB08DJdha5yxDuEjeXR7MU6VvvNb4tgDJLpz9WaL
+    DOmlUn0Mje4CQssJm+pxYVCWPCE7uxZNBjliBSIc14Pa1+Q+euFKNdLxxVitjY9vJ+1g1T
+    +rig9iVkFuoti3t+qEcHMM2vh4+G+ag1IzrG3We9+FcQnC6cOfB1bItA6vAPi6A+u1KULf
+    wxoJ36bIqa+kM9OWApvgKo4MId3H8RRe0FCkMwp8Cj2i2hPzQqFijO+zALFklT7XBp4yQ4
+    D0Bsmvzif3sMMCJY2OSk1bwCPIIRPEFuJI4Mi/vpw7sfUa+jfrhN159tiieQQE7aztSV43
+    DlSawBFw+hJYm5oAPkD2NlBoL/gRh3vgmwf+Y/GbihlHM/o3EcsWCertLTOcD6iStWXR7G
+    LAS2aVSdVtxoGSiZj2/kYUSfLhEBFCn05KpxcrFYCW/FmzT2YT72YPVx3p0wR8sMiJ3lAW
+    x+8+3z8XttowLJjfinG9ew4R0xJsilSkEkmhmN5AqofFDl0uTCDo7P0ixMQQ
+X-ME-Proxy: <xmx:hkLzak2BPEyGi10FxxkrY3byRVHSjq_0wLclV2jUuSmkyRE3xcj4fw>
+    <xmx:hkLzakkySXPgYGwh_r1Ql-VHDAdYXcQ3p0tjVOV29OCOWQo8MbFMmw>
+    <xmx:hkLzavloJp1yUj6WriMMnPneQ8pVgU9Ew-sH84r-kdZ-OdXPheHDYw>
+    <xmx:hkLzarPnZB-B1EOixQtLefzjQeDp3wnHNrTbJ3SPpTKyjOvpO-EsFA>
+    <xmx:iULzajThipr-UxTyuQQEJ7jWDCsE73KlfzXTf41eZRpd8Rpi4a2MNCT2>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id AC32432A0097; Tue, 10 Nov 2026 11:12:48 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,39 +115,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ThreadId: AK-jVwBtQCQR
+Date: Tue, 10 Nov 2026 17:12:28 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>,
+ "Arnd Bergmann" <arnd@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson" <danielt@kernel.org>,
+ "Helge Deller" <deller@gmx.de>, devicetree@vger.kernel.org,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ "Guenter Roeck" <linux@roeck-us.net>, linuxppc-dev@lists.ozlabs.org,
+ llvm@lists.linux.dev, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ mfd@lists.linux.dev, "Michael Hennerich" <michael.hennerich@analog.com>,
+ patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
+ "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
+ "Support Opensource" <support.opensource@diasemi.com>
+Message-Id: <991009b6-e62b-46bd-9a0b-43c3b7a6d10a@app.fastmail.com>
+In-Reply-To: <avM5EnC9yujUZcCO@nsa>
+References: 
+ <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+ <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+ <20260912232047.19c4cb10@jic23-hlaptop> <avM5EnC9yujUZcCO@nsa>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <116cec552f58748d434d4825c6c74f39266b265f.camel@infradead.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 04:38:06PM +0000, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
-> 
-> WireGuard attempts to reply from the address to which the original
-> packet was sent, caching it in endpoint->src4 and validating it before
-> each use with inet_confirm_addr(..., RT_SCOPE_HOST).
-> 
-> For Legacy IP that validation always fails for an address on a point-
-> to-point interface, because confirm_addr_indev() insists on
-> inet_ifa_match(), which compares against ifa_address — the *peer*
-> address on a p2p link — under a /32 mask. The local address is never
-> within that "subnet", so a perfectly valid source address is discarded
-> and send4() falls back to kernel source address selection.
-> 
-> For peers on the far side of the p2p link, the fallback happens to
-> select the same address and nobody notices. But when a peer on a local
-> LAN sends to the p2p address (e.g. my OpenWrt box listening on its
-> external PPPoE address), the reply is sent from the LAN interface's own
-> address instead. A stateful firewall on the peer then drops the reply
-> as unrelated to the flow it originated, and the handshake never
-> completes.
-> 
-> inet_confirm_addr() is an ARP helper answering "do I have an address
-> on the same subnet as this"; what send4() wants to ask is only "is
-> this still a local address". Use __ip_dev_find() for that, matching
-> what send6() already does with ipv6_chk_addr(). IPv6 does not have
-> this problem.
+On Tue, Nov 10, 2026, at 16:39, Nuno S=C3=A1 wrote:
+> On Sat, Sep 12, 2026 at 11:20:47PM +0100, Jonathan Cameron wrote:
+>> On Thu, 10 Sep 2026 20:14:15 +0200 "Arnd Bergmann" <arnd@arndb.de> wr=
+ote:
 
-Hmm... How did you choose __ip_dev_find() over, say,
-inet_lookup_ifaddr_rcu(), which is structurally more similar to
-ipv6_chk_addr()?
+>> > drivers/iio/adc/ad7793.c
+>> Maybe. Analog devices ack needed.
+>>=20
+>> Production part but this one indeed fails to probe.  Analog
+>> folk, do you want to fix this one up?
+>
+> Given it's production we should fix. Looking at platdata seems to nice=
+ly
+> fir in DT. Issue is that I don't have HW with me to test. So I'll maybe
+> just remove platdata and assume some defaults.
+
+Sounds good. I already dropped my removal patch for this one.
+
+>> > drivers/iio/frequency/ad9523.c
+>> Maybe. Analog Devices ack needed.
+>>=20
+>
+> Hmm we definitely use this one and we have OF support out of tree with
+> likely some DT abuse of what can be in DT or not. Not sure if I have
+> some HW around but we'll need to fix it.
+>
+> In general for ADI parts, I think we can drop the ones that are not
+> recommended for new designs. All the others I tempted to say we should
+> keep. Naturally we need to fix all the drivers that do not compile
+> without platdata. And for the ones with defaults we can also just remo=
+ve
+> platdata and use the plain defaults.
+
+Ok, I'll leave it alone as well now.
+
+I currently still have patches to remove adp8860/8870 (backlight), ad7877
+(touchscreen), ad714x (touch) and adxl34x (input, not the iio one), which
+are currently unusable with DT but are all listed as in production.
+
+I assume you want to fix all of these and keep them in the kernel,
+but possibly still remove the adxl34x and only keep the IIO driver for
+that part?
+
+I also have patches to remove platform_data probing from ad5761, adf4350,
+ad5791, ad5421 and ad5504, these all have DT support.
+
+See=20
+https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/=
+?h=3Dboard-remove-7.4
+for the updated series. I hope to slowly get through that. Let
+me know if you want me to skip any more of those patches.
+
+Thanks,
+
+    Arnd
