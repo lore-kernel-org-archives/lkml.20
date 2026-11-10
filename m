@@ -1,63 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312501;
-	b=TZIu+zr550OF/fN6Lkl7MoJvh1F7Z+FmYOnrt6YZgWCuGrpMB6PUgLbJ9gXIgG3CPXEr
-	 jnDU94lKVizmhIW2TFb8ixccKB5BazmIq3+5t0fMln+MbDMjDyEiqOZIfVX0TNDKrPiey
-	 AmAGoWn3UBJVgRLuBK0fxhvqVGinzVRvp2pSS75Hb06agcLkNti0rPsBzXSBUoMvcmjZe
-	 weJcZ2Ambfu5sTJhjHDsCtwsUZ11iE4wWVMmZHtfRBAEJNvqwUkKKvp8HNK6Td8UQdySH
-	 87iEx6N1xU6UmbrWHUAAi3TP1G58KLZMrcRRFIjNXeUX/TJkE2PMCRSTqE7XOMUaotw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312501;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mvvPC3+ird2JdQYl0sF3n5jlmtsAooRx8KFT06CTW34=;
-	b=hz7pGEw83EWiq4dLuDgZfJYHvqkKLMnVVGnNgAHcbhut8vSpRI2lDfLK0Yacyk/bSY28
-	 UsEe3bJ1yEhbjXLoM/YmUcio9POEe91LWYVapJsj+TpXDlhBtbrS2kVRI+5JpRZmSuqh/
-	 zu46ml1boW2IO+Q5cSQ1ojfermmqG+NM0lfdxYlRahaJQDStYO6Agu2pZxa9HnLtI1qjE
-	 uzqmWj0WvHr/umkKX3ZRzC+vecAdvoywHI9fLmcpPRgS7u3sxsHWW+W3soNdo33edUC5F
-	 fDKN21PKzVfmkqlvsHjcL//DoiRzsc2Z29U3zHlu9ZXYy8ELpu7fJjWSL3vyskoAAww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+G1a8qa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794312493;
+	b=ARMJTaTORZfHr1mUDAnoFV6dJao2CSMjZydnjDTGswbDUEEvWcnTXJact+r+4pjco/Vc
+	 QW/4+gZMHwzNWj2ObWvY9QkycG1mQeguv1pZWSBq0I9m/rJy7P2ljnzE28bIEkeTzBqIa
+	 2fzOxEY23G9pr4dYMdRuyJGsnHeONR4AD4yxYkI15h1Xy0CYlSbQUQ6mK4AiGiqJz+amt
+	 SLYBmYyJwHQQt/cYmhwzPx0rnAvKZulqHr7EXLDKVGY3TiKyr1LD58u4mi6YR/bYY7kIl
+	 ltXgl+kcgn/vHnnxhygyWz1y73mVUmJwQug6+CCyr9D95sPloM9XZTR64O8/8wuxiwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312493;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1p4Nw1sunRb8ttSMBWqNtRGqe9rUhE/XBa0xE2BwA98=;
+	b=vkCVY4QgShmuzPkSlsEFgWLHaJMzUdCnmaqmFKE3OWulrkjBXbicYLvgQDWlKXkFNb/B
+	 H2di8HQqmwFVkN9ThfNDv9CCiOdekltnASjSkdhlJx2MWZzRrwiwM4wtuGfL8WN2Lg7oV
+	 m9PB61PLnVNVki7Md8sovsnWR+tu2Wpu10Gwog3Gcs7n2Xmo/jSscdvYtDAfZlK6f4Ddq
+	 Gx21yQOABuZBSWiGeLDPIJx11n2H4cJkYF4rXrySSyKDsFeNraH5k1xnhjuZeFMAF2XGh
+	 kE0eHBEg657yqwvJtsJwRAy9VsGWY+vhaHgNVRsdgHkgltmHWYzryn70bxQgEpUdhDQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=lKjoRVfZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.46
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013046.outbound.protection.outlook.com [40.107.159.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21B160A2606;
-	Tue, 10 Nov 2026 12:08:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E4C60A262D;
+	Tue, 10 Nov 2026 12:08:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E4C60A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+G1a8qa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1571F008A2;
-	Tue, 10 Nov 2026 12:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312500;
-	bh=mvvPC3+ird2JdQYl0sF3n5jlmtsAooRx8KFT06CTW34=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j+G1a8qaRKmHtc0tyGyBhCVBNpLlwbaGuKfie9D9F5mh/d6EF9kq6ikn+pbZE0DQQ
-	 Dj/DRcqpTk1kDHRfdx26w10ANGn44UeeiCAJHQazDIujfDhRStVhLF9/GZgroPheYa
-	 XoUTK/JMV+AuYDTgYrPl2Hf6TssF7Ud4/NERc0Hrur+ybT0XwrasVCfm3A49mFTY3d
-	 bE8GkpRs0m7h3FfUbw10lz9yIjlTzsGPt+ubXAZJLgnHATD+KVSZ5KnIhIpLVlKEDa
-	 yfWPMnx+OD1DZMFkskA7carVW8VSiWY5Nu8Dsb7TJ98cIsVQiVlUMWcimD+6BYwzcz
-	 N2dYgJ3J5o3yA==
-Subject: Re: [PATCH net-next v6 RESEND 4/4] net: stmmac: hold RTNL when
- reading descriptor rings in descriptors_status
-From: netdev-bot+sashiko@kernel.org
-To: dinghui1111@163.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
- liuxuanjun@lixiang.com
-Date: Tue, 10 Nov 2026 12:08:18 +0000
-Message-ID: <179431249895.994134.1654344406959828487@kernel.org>
-In-Reply-To: <20261106090507.1020751-5-dinghui1111@163.com>
-References: <20261106090507.1020751-5-dinghui1111@163.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=lKjoRVfZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ItTRSVR8njnZkBVoWFP7LwUGx/b4N/EgQQs8CdRyAcAKRhOCJTJoAM6JAy9cSERq6kGV1HycBKqaOyaoLMkWIXP555TCXTYTWuhmoFX6b4Ex6HSarttIvvUuhBgCRQ+EkiCPh14NieKJPEBcCIwnDb3MBr2z3bxuoz9/8k8q0aTJdWtsBU8Zg1q0n3WcOzg7RkIMa1ckAcA4yZM/znlm63VyKSoG4S1bq5pj+/4APfN23D/CB/IfB1jefTxoWUhb1QI9y66F2yR7e9IDYI5vnfnDVEse8H3uz4Zt+/iFAZMVgfvOsOzHdlJe97AJiaHEUOImqoQCE0LupfCSKD5Xtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1p4Nw1sunRb8ttSMBWqNtRGqe9rUhE/XBa0xE2BwA98=;
+ b=jl20BbBgdywNGZ396nsSn9WE4UaT7wL+9PEwD6QfuszUU/kYV2F6mnmFDh25qjgQuhIEcmhh4fa0jKpIOp8HCsKnbokyiB8Mp8/Q8hQZ+X4sTEeTMRQ6FL2MEnykJ7BS+Yb83Vs5p5l5MIwYz79NKD7tOAZo9LsRjm38T1FMDWWsfdQWLRSRB/kunfmWywuGHaIc8yBlFiehPVs3wPS7/LWCNRa0wPVW6MPxAaz03/vEIO7peLKmtG0RTWmAGyzjOwwN2XYcTztUOzAMVAXfT+z7cazgtVMxcw0q98eBTKyCfGubcXvaSR9FtmYNdY0A53i92d6D4S0KIicUVLlojg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1p4Nw1sunRb8ttSMBWqNtRGqe9rUhE/XBa0xE2BwA98=;
+ b=lKjoRVfZ7HIFJOP2klMrDUJDJWnIK2i87scaWqkexsEadT/4Lr0ea7csN1PfebtBo+ZQamrmyCW5TPq9mzRCUKI2sPyl0wkBPXJ2eiDEcvt9Rc1Jt6lbnyvMFNjz5EkOH88vUHOTuF8J/UMDS2Fb6Jr1lS/T4KkBjue1P6pj+fhNDo+Xrqp+S8GxH9U7SFRkTmd+tRruZMpz7U9ouTaZ5fwuMLSL7CPETTM+nMbOJgIGZ69u9rO+mWW+83gSPR7jgKDPfT9Hh1pQoojlKvlMZ5rdnWsYpm2Xxil66UZk1GxYpk8RQ6Zu4b7+kI/jZbCDLEGZ1iHFD9HuztMb5M+CKA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com (2603:10a6:20b:23::20)
+ by PA6PR04MB11832.eurprd04.prod.outlook.com (2603:10a6:102:520::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 12:08:10 +0000
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0]) by AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0%6]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 12:08:10 +0000
+From: Stefan Ghetu <stefan.ghetu@nxp.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-sound@vger.kernel.org
+Cc: daniel.baluta@nxp.com,
+	Stefan Ghetu <stefan.ghetu@nxp.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5/5] ASoC: fsl_asrc_m2m: allow only one task at a time per
+Date: Tue, 10 Nov 2026 14:07:43 +0200
+Message-Id: <20261110120743.6301-6-stefan.ghetu@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261110120743.6301-1-stefan.ghetu@nxp.com>
+References: <20261110120743.6301-1-stefan.ghetu@nxp.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS4PR10CA0030.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d8::11) To AM6PR04MB4472.eurprd04.prod.outlook.com
+ (2603:10a6:20b:23::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,105 +105,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB4472:EE_|PA6PR04MB11832:EE_
+X-MS-Office365-Filtering-Correlation-Id: e33c5e56-1cf0-45b8-4800-08df3f2349af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|7416014|23010399003|56012099006|11063799006|22082099003|18002099003|10067099003|261009223027099003|261028144727099003|261102123227099003|261021121427099003|261026140227099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	FVYc3DA7X7V+mX6PhuCJ6OO8Q4SkDeKE3doyHcx7dgtv4HJ2AA1FFHvup1gjbTy5Pp7LFXMtYGqgALzaPTImwr+SsViwDrmtRcHZDlg1k09QTiTVxdNIZyg3mPu8NQbaNE/hcUZGSgrdo9OWiOx2YorTR5n+P8/x2ioTV2XlFn5/lhIDWjSifGz1eHqsZo5XmiTJIhsT7o/cxqzIWq+m15A+mA9ajGE5rnHL+NaLx2ljz8EHL8wBkVjbVCQawN83H5D4LA0SbOuwkiQGBagNM+AhQkopqulTT7kZn/oh7Mmh6ChKh+m5k37hTcXg+SGCT35ca5k5HsU47wzMv+z9gxwcTzH+G86q+mXlArTG9rrdjP1SQZGzps0s/Q2QtLYzrs+oUTxhPHr+nGv1vL8No/gq+PCCKv3F13b4AiN2OTb83zZFJVyAYz1oHEu2e020l/vH5viT93g4Sx+ezS6T3HFgyIYP4qW7dftWwrUuzhBDhCBBsLCdT0B3kfmRQY0CSl1Xq6a8k6g0IA03B6A/nCTx318DINsH85xvj3qk3wr3F8dNhODgNnEs6NOHRkw+e4sY6GXVZbYuHLYiTHyLbzlv4jynbTkNoRZWzZhG9Z+0anWuBCrU6gis1nNgnxzyot8jPgJ/HlL77GQNDOn1m1rYQ0cC4kh63qeI/lAh8Kc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB4472.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(23010399003)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003)(261009223027099003)(261028144727099003)(261102123227099003)(261021121427099003)(261026140227099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ywK8ELGCAf3xBqwOU2AqQh/7Yr6Rvi8vK6wddd3XXoJmNDZ/3SLP/QErKoqu?=
+ =?us-ascii?Q?QViryrbJwAOeMXOFqSLtsSJtjXfD+NFllnNan4NZAEF3rrt97fc3J1cmj81e?=
+ =?us-ascii?Q?rIxDoGuA3Scrqk2JFHN/ZOgKEyYlcVDh82ZKJyjpX0qcoPLSg5lPyR1AQi4E?=
+ =?us-ascii?Q?2GwkWWqjFTvfaoROm2CsVM7X36/o4gcNnzoilfWk623QfKZvUewJStTBhVNn?=
+ =?us-ascii?Q?uvD8x3KEUuVxTS3pIeeSVXf1wWlcFo47Gq+5gSFfBgBpl8PP8fqO/sBenHVB?=
+ =?us-ascii?Q?Ukg13QxQHddHaKDRpF8UmL1NUDFFVagtA4yZouOLjJEZWwwhEF3SBu4S8WQ9?=
+ =?us-ascii?Q?wUvYatAfTdgylcNLcwPm3FGWfFp6AgaS4Kk5zK1uK9rrRpcqR/JTfKVK7q5t?=
+ =?us-ascii?Q?JvDMwBEgtQ3lwPDOhjPjWsn0lrJU1xkqp0ljNVjD7VjttT6JUB5h5skAzOij?=
+ =?us-ascii?Q?4/ZbT+8lcybjnBGESEWrWnds9cqZuWrSr62ZR4lIWSGdbAXXRn+9tdB95vzU?=
+ =?us-ascii?Q?Qeyv2HW0M/RKDYB4m5cYxdz3i1HJcwuqskXYsOs7dl3Gj+7MsuYHcKtHjxd0?=
+ =?us-ascii?Q?ldrbrs+cgA7PmNo599Cc/QY/7NQ7LZvvrwJs+u4Z/9pEXEH/2sT0Z4ulKT14?=
+ =?us-ascii?Q?IkDoMEQj2fpL+rGQ6Eqco6z530/vp1cfFe6ZfSEdK2aHHXdPsWTqxp/3y5cU?=
+ =?us-ascii?Q?vhbW+CWNyLR5qLbnxcUjCE/Y/hvG93BLsQFpPGJQJMcmUb+tff19vxItLJkn?=
+ =?us-ascii?Q?U2fpD2W9tmCEojZuWKk6/VRyLJCEwuDGR/PxFRgAQl72xu+b/iWo1h/6s/lM?=
+ =?us-ascii?Q?P80f70d3sR3DE+FWg/+Ffm5TxHLfQsgnm13V4yQ3wu/KHLUpqa1WQFUlHX42?=
+ =?us-ascii?Q?Ud07G2TdMS1dwpGzdkdUjkstP6s44R7OW+2fnRupgduTJ6UqgcJXT8o/RjMO?=
+ =?us-ascii?Q?S2kEfi5ujcWiN9ExGaW+6GiZol+JJ5XPp5kg2dzFhbjGkoZGp3VRmk3YrHFh?=
+ =?us-ascii?Q?hb+5CdC8ZuBd8DJImqbG8AsIpPEICSW90ItcEfdSD2JbLvonrZ+nYBZHJ5oD?=
+ =?us-ascii?Q?WVB/Y6SJY0zGldigwrYY4Ydp4DDYuB7uEq4u6s/DVn09esXwMQn+zL5nw5/z?=
+ =?us-ascii?Q?HFVp5nn74IgKW31kGdV4F3SGT4/o3Hd3xysoEzbbX+lX1EeCyRCLPhKx48xP?=
+ =?us-ascii?Q?zMEyYUpNUJz0vXehSoUBMFPEiUCoXI1LLERTrr19yTNAVjMq5NzUkyYNo9oh?=
+ =?us-ascii?Q?MHAgaez59JayhCmTFeJKkawssX34Z/EDw+h67vyJDXjZnjrZY2xjsHpVDwzU?=
+ =?us-ascii?Q?0IlD2KBx+3H5fi3q4P4jVyQNUlm1ffv/rBnh76WNC8PnOPv79fJ9lOohabBt?=
+ =?us-ascii?Q?Fmlo3En6xvXIRjYqeQ5WIOCXQByI16ETWMcV4eCXYj5YpWa4NluHEBa6gLCo?=
+ =?us-ascii?Q?kUoHiKO74pnFvxREy0iWqQ1gG699xFoBpzI47JHiOsOFAP9RwmuEojT4CyH8?=
+ =?us-ascii?Q?i+HJcmgqswhMxamtKdSoyHUb1DxcrTutQ7LU4JIvDA5G8a5/+vfV3aE8OHV0?=
+ =?us-ascii?Q?D9Jyi5Tpi/U+KP4otE7bExPRVzg3uXgs/LY2cJJDcDaLADXI4PogBJ8e6nYF?=
+ =?us-ascii?Q?sROV0wU/NzXOleOy+K9g9pyqBeB8eCUPb3lJzOsbtFcv1vqLSv49dpdXQviA?=
+ =?us-ascii?Q?2PJlbSrtE7d/qJxb6z6k0NR53nakS6470kkATpPVwMmY0V9DbzTUQ0hGCH80?=
+ =?us-ascii?Q?l9ucY/rEOg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e33c5e56-1cf0-45b8-4800-08df3f2349af
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4472.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 12:08:10.3836
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2KS3XHPzQE5xWogUWoMxxwHs/NfZ+0wmTEMTR8FK63aQB2cWT9tTG4KdvPdQuFCTnyrQzi5SAMRKJOE1pLaoiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11832
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+All tasks of a stream share one pair and one set of DMA channels, and
+get_caps() advertises a single fragment, but the compress core allows
+up to 64 tasks. A second task requests the pair again and overwrites the
+DMA channels. Freeing both tasks then releases the same channels twice
+and leaves a stale asrc->pair[] entry after close.
 
-Low priority / nit picks for your consideration:
+Return -EBUSY from task_create() while a task exists, and clear the DMA
+channel pointers once they are released.
 
-- [Low] The commit fixes a NULL pointer dereference that a user can
-  trigger, but its message has no Fixes: tag (and no Cc: stable).
-- [Low] stmmac_rings_status_show() reads its loop bounds before taking
-  RTNL.
+Fixes: 24a01710f627 ("ASoC: fsl_asrc_m2m: Add memory to memory function")
+Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+---
+ sound/soc/fsl/fsl_asrc_m2m.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
---
-
-net: stmmac: hold RTNL when reading descriptor rings in descriptors_status
-
-This commit takes RTNL around the descriptors_status debugfs reader so it
-is serialized against the control-plane paths that free the descriptor
-rings. It also skips queues whose rings are NULL, which happens when the
-interface stays IFF_UP after a failed internal reopen.
-
-> Skip such queues with a hint instead of dereferencing a NULL pointer
-> in stmmac_rings_status_show().
->
-> Signed-off-by: Ding Hui <dinghui@lixiang.com>
-
-[Severity: Low]
-This fixes a NULL pointer dereference that can be triggered from debugfs,
-but the commit has no Fixes: tag and no Cc: stable. Should they be added so
-the affected stable trees pick this up?
-
-The state described above comes from stmmac_change_mtu() when the reopen
-fails:
-
-stmmac_change_mtu()
-    __stmmac_release(dev);
-    ret = __stmmac_open(dev, dma_conf);
-        init_error:
-            free_dma_desc_resources(priv, &priv->dma_conf);
-
-free_dma_desc_resources() frees the rings and sets dma_rx/dma_erx and
-dma_tx/dma_etx to NULL. IFF_UP stays set.
-
-Before this patch, stmmac_rings_status_show() checked only IFF_UP. It then
-passed the NULL ring to sysfs_display_ring(), which dereferences p->des0. A
-reader that raced with ndo_stop, an MTU change, an XDP change or an XSK
-change could also read DMA memory while it was being freed.
-
-There are two candidate targets. One is the commit that added the
-unsynchronized descriptors_status reader. The other is the commit that
-added the MTU-change reopen path:
-
-Fixes: 347007968744 ("net: ethernet: stmicro: stmmac: permit MTU change with interface up")
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index cd4631efe47ab..10d33a43db947 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -6748,8 +6748,10 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
->  	u8 tx_count = priv->plat->tx_queues_to_use;
->  	u8 queue;
->  
-> +	rtnl_lock();
-> +
-
-[Severity: Low]
-Are the loop bounds still read outside the lock? rx_count and tx_count are
-set in the declarations, before rtnl_lock() is taken:
-
-    u8 rx_count = priv->plat->rx_queues_to_use;
-    u8 tx_count = priv->plat->tx_queues_to_use;
-
-stmmac_reinit_queues() (ethtool -L) runs under RTNL. It releases the rings
-and then updates both fields:
-
-stmmac_reinit_queues()
-    stmmac_release(dev);
-    ...
-    priv->plat->rx_queues_to_use = rx_cnt;
-    priv->plat->tx_queues_to_use = tx_cnt;
-    ...
-    ret = stmmac_open(dev);
-
-Suppose the reader loads the counts and then blocks in rtnl_lock() while
-set_channels runs. The loops then use stale bounds.
-
-If the count shrank, the reader prints "Descriptor ring not allocated" for
-queues that no longer exist. If it grew, live queues are skipped without
-any message. This is also a data race that KCSAN could report, since the
-fields are written under RTNL.
-
-The rx_queue[] and tx_queue[] arrays are sized by MTL_MAX_*_QUEUES, so the
-accesses stay in bounds. Only the debugfs output is affected.
-
-The commit message says RTNL now synchronizes this reader with the control
-plane. Would it make sense to read rx_queues_to_use and tx_queues_to_use
-after rtnl_lock() as well?
-
-[ ... ]
-
+diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
+index cadfebb12e7c..2e91073f14f9 100644
+--- a/sound/soc/fsl/fsl_asrc_m2m.c
++++ b/sound/soc/fsl/fsl_asrc_m2m.c
+@@ -471,6 +471,10 @@ static int fsl_asrc_m2m_comp_task_create(struct snd_compr_stream *stream,
+ 	struct dma_chan *tmp_chan;
+ 	int ret;
+ 
++	/* All tasks share the pair and DMA channels: one task at a time */
++	if (pair->dma_chan[IN])
++		return -EBUSY;
++
+ 	exp_info_in.ops = &fsl_asrc_m2m_dma_buf_ops;
+ 	exp_info_in.size = ASRC_M2M_BUFFER_SIZE;
+ 	exp_info_in.flags = O_RDWR;
+@@ -527,6 +531,7 @@ static int fsl_asrc_m2m_comp_task_create(struct snd_compr_stream *stream,
+ 
+ err_dma_channel_out:
+ 	dma_release_channel(pair->dma_chan[IN]);
++	pair->dma_chan[IN] = NULL;
+ err_dma_channel_in:
+ 	if (asrc->m2m_unprepare)
+ 		asrc->m2m_unprepare(pair);
+@@ -571,6 +576,8 @@ static int fsl_asrc_m2m_comp_task_free(struct snd_compr_stream *stream,
+ 		dma_release_channel(pair->dma_chan[IN]);
+ 	if (pair->dma_chan[OUT])
+ 		dma_release_channel(pair->dma_chan[OUT]);
++	pair->dma_chan[IN] = NULL;
++	pair->dma_chan[OUT] = NULL;
+ 
+ 	return 0;
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106090507.1020751-1-dinghui1111%40163.com
+2.53.0
+
