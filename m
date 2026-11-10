@@ -1,64 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269232;
-	b=TLgu/nyCU+qARSozeyce6+flWGn54v+STpq9uM5ZmU4PKIOyLCdmkD1rIts7WiqgIXjy
-	 5zUvHr8AX0cO49765eB07u9XEvh8UnbgjX8gGFBmsirgS6rrsDxl1XMtsh1HciK7Aw9fr
-	 S2wh/5ds6atsRA8+LkSq6G/64OxWXTloXaV6F9YOgcFSCBLY2IWHEjiImZVfyd8aUkfMe
-	 JzG9oDIJxWs1o9E2vFyNwcVQ3CijRJG0ZRPkAk5GrQnFtRJ/mdfBP+Lc6s7LuD7xPaL+b
-	 eBeDTVPUlgU+JA/9nk8sY7090F4OefPFd7Py+CuSiEC+A/kCoMhSNxvmQjt59jiJMqA==
+	t=1794269283;
+	b=v1Mm7hxkYIhQ7S8N+qWSj1CQwt0KtfcN563PSCbkF1tEsxpcAbRk7Y+ibtpHKO4ANLXv
+	 p6vHrZE44gAYpz2ZyX8h1E1/CXieit8SinndKA4h9VidsNhoY6EmQSNylnWnJ0GbyajQd
+	 bhokjFjWeuLt/595TiZ0vikfH9x/udpI8TsUBxjXwXqf5VXNTZOR6GrI6YDy30dvqldMH
+	 EtF2lBX81JCPOZjbTCElhlQzexBAZQ6z3O0wFnrhSM5suTeTv8n0pBouTFc94PWj7UdK1
+	 rxW1kwOiIHiBX4SkWlXJ8B4FgOBVqZNUtFVVZEjBte8tb8AuIY3fI8s/sJlVIVPXleg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269232;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=cH848nBB2JYZZR8gfhKmZDRVyjtqbBBdYIiS+WbkklI=;
-	b=aOTUktEMSR6j3QtPm8SSrkScPGD3B4L3CiFtFqe6FgRFMejC8IamClNhx5CaGdGXEnvX
-	 HQpT5AeRV85zSDxnWcDhzm6fbxuH1mlh5rLM94MhCfr9ZdezzBPX9B7StjnC/YBLNiGGY
-	 yFk+JUr9PuzMBg5WB9MyoLLuxC3ziPdrWGUOVynL7UCuP3AevjDmbseL9udkION4UKtR0
-	 D5QbfrarkgbO1jizhWOHq8K2TwwlkS9KVcuVSpAxhDy+Ib6TFptR/7xop0G+sR7tf7jFS
-	 4YgKbH6bzcfPBSzW2et9ezPWiIk+lLWPDLb4m6HAS1mvSfn6ksij4iFhJqt4gQZ7INQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269283;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=+p+YiJukHGesQfS1qVRcmGpAI2BJYIJwn755denoFYo=;
+	b=3Z0mCxezMPEZCNJbz9uXF6HbxjuO2uOF2Q2Ns9Oq3U9PApdQt3GLs4an8CXX4LHdIn5s
+	 4eL/+hxVdYRLcqqPC1liyEL9+RvOtnEKIaV+Iu6lGHbd0QGQ7YgDDRi6pJqYzzCaRwbNO
+	 SfdBYKA2yP4AOIO8CsIEFj0CBucD1//eC39zO8lNvGgwhpiFD2mBCnZgZLO3L4QRY9UT+
+	 X7+SNIP0xol6rn9Yd88e8hN79nT59bhss3r/E3OJ4t9FtkMb4ILi0GBDqNEcxwyeUkPBl
+	 uD5pvDL9NVpiNbXxO085OdN+/P7SRVcahv6lJ1ksVMX18zrTZcHQ6FLCp9mrS2YuhZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="OW/MiH3Z";
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB6AF606A326;
-	Tue, 10 Nov 2026 00:07:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB6AF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ORaHNL/R";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E8E606A31C;
+	Tue, 10 Nov 2026 00:08:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=OW/MiH3Z
-Received: from localhost (unknown [52.172.102.219])
-	by linux.microsoft.com (Postfix) with ESMTPSA id EE43620B7168;
-	Mon,  9 Nov 2026 16:06:59 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EE43620B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794269228;
-	bh=cH848nBB2JYZZR8gfhKmZDRVyjtqbBBdYIiS+WbkklI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=OW/MiH3ZsN2c4gO4mKXVgmT5I8hKDEfZ0hixVV+Vt35CiYDPF0lcxRbZclWdBJBmC
-	 nPF7WECBxPGTECvSkI7GxavpFCtI94ZGs6/1dGuMQo1ot3rrtf/2SGJVT6VGGmMurj
-	 vfIENo2HM8GhMIFZfoXbBfbLI7F06o6ylU0Rr0SU=
-Date: Mon, 9 Nov 2026 16:06:57 -0800
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: Mukesh R <mrathor@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-arch@vger.kernel.org, jgg@nvidia.com,
- haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, arnd@arndb.de,
- jacob.pan@linux.microsoft.com
-Subject: Re: [PATCH V4 1/5] mshv: Add gfp flags to deposit memory logic
-Message-ID: <20261109160657.0000594d@linux.microsoft.com>
-In-Reply-To: <20261105020106.3496339-2-mrathor@linux.microsoft.com>
-References: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
-	<20261105020106.3496339-2-mrathor@linux.microsoft.com>
-Organization: LSG
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORaHNL/R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3021F0089F;
+	Tue, 10 Nov 2026 00:08:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794269283;
+	bh=+p+YiJukHGesQfS1qVRcmGpAI2BJYIJwn755denoFYo=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=ORaHNL/RYrbFyI5l51ptdYXE3BnU+m4nkVuQOO5rg3PRINSFVOyUB8/3gyHchhtgb
+	 J8jNjS8iyZ0Gr4FaPXO2eqoDfLZgMaKwztIRXKrhIhH0+Y73X1iCsJQW+gltaJb3pd
+	 jtzFfu8rXYP5PPYhSdnw50riainqDgYDVr6nF00gpEs82E7xaYLlrkk7wHOjximjXH
+	 EzDHBp4p1ulvMrwByFHPkmP0010ByESf4nzdrkgrTmb90TUOTZbJNhhewj5gsTnZ5i
+	 Q0zFqWn2KMHCQcMsMP+h74QB7zMMU+p816L+Au9RYgdR2JMpZtueAWT/gzykdqRbQe
+	 9qmHnXPt3Lgyg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 18639CE0DDC; Mon,  9 Nov 2026 16:08:03 -0800 (PST)
+Date: Mon, 9 Nov 2026 16:08:03 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	rcu@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] scftorture: Reject empty workloads before
+ starting helpers
+Message-ID: <190db18f-9342-448f-a38f-db09aa143f4f@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261109000243.3936824-1-joelagnelf@nvidia.com>
+ <20261109000243.3936824-3-joelagnelf@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,171 +69,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109000243.3936824-3-joelagnelf@nvidia.com>
 
-Hi Mukesh,
+On Sun, Nov 08, 2026 at 07:02:38PM -0500, Joel Fernandes wrote:
+> A module loaded with nthreads=0 starts its statistics task, but cleanup
+> skips stopping that task. Unloading the module then leaves it executing
+> freed module text. Reject a zero thread count before starting helpers;
+> negative counts still select the online CPU count.
+> 
+> Also, when built as a module with reschedule-only, this leaves the
+> selector empty because resched_cpu() is unavailable to modules. It warns
+> while selecting an operation, invokes no callbacks, and can nevertheless
+> report SUCCESS.  Reject an empty effective selector after filtering
+> unsupported operations.
+> 
+> Both failures were reproduced in a guest without the patches.
+> 
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 
-On Wed,  4 Nov 2026 18:01:02 -0800
-Mukesh R <mrathor@linux.microsoft.com> wrote:
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
 
-> Currently GFP_KERNEL is hard coded in hv_alloc_dep_pages(). Add
-> gfp_flags parameter so it can be called in atomic context from
-> map_pages callback in struct iommu_domain_ops and other places in
-> future. A new function hv_deposit_memory_gfp() is added to facilitate
-> this, so hv_deposit_memory() can continue to function as is.
->=20
-> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+If you wish, you could split this into two commits, but your call.
+
+							Thanx, Paul
+
 > ---
->  drivers/hv/hv_proc.c           | 20 +++++++++++---------
->  include/asm-generic/mshyperv.h | 14 +++++++++++---
->  2 files changed, 22 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-> index f811bb5c42a1..8380e9050f46 100644
-> --- a/drivers/hv/hv_proc.c
-> +++ b/drivers/hv/hv_proc.c
-> @@ -22,7 +22,7 @@
->   * Returns: number of pages allocated or -ENOMEM
->   */
->  static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp,
-> int num_pages,
-> -			      bool single)
-> +			      bool single, gfp_t gfp_flags)
->  {
->  	struct page *page;
->  	int num_allocd, count =3D 0;
-> @@ -37,7 +37,6 @@ static int hv_alloc_dep_pages(int node, u64 *pfna,
-> u64 *lastpfnp, int num_pages, while (num_pages) {
->  		/* Find highest order we can actually allocate */
->  		int order =3D 31 - __builtin_clz(num_pages);
-> -		gfp_t gfp_flags =3D GFP_KERNEL;
-> =20
->  		if (!single)
->  			gfp_flags |=3D __GFP_NOWARN;
-> @@ -81,7 +80,8 @@ static int hv_alloc_dep_pages(int node, u64 *pfna,
-> u64 *lastpfnp, int num_pages,
->   * so we must split that also. Lastly,
-> HV_MAX_CONTIGUOUS_ALLOCATION_PAGES is
->   * not guaranteed to always be power of 2.
->   */
-> -static int hv_call_deposit_pages(int node, u64 partition_id, bool
-> contiguous) +static int hv_call_deposit_pages(int node, u64
-> partition_id, bool contiguous,
-> +				 gfp_t gfp_flags)
->  {
->  	struct hv_deposit_memory *hc_input;
->  	int i, rc, num_pages;
-> @@ -98,14 +98,15 @@ static int hv_call_deposit_pages(int node, u64
-> partition_id, bool contiguous) num_pages =3D HV_DEPOSIT_MAX;
->  	}
-> =20
-> -	hc_input =3D (struct hv_deposit_memory
-> *)get_zeroed_page(GFP_KERNEL);
-> +	hc_input =3D (struct hv_deposit_memory
-> *)get_zeroed_page(gfp_flags); if (hc_input =3D=3D NULL)
->  		return -ENOMEM;
-> =20
->  	hc_input->partition_id =3D partition_id;
->  	pfna =3D hc_input->gpa_page_list;
-> =20
-> -	rc =3D hv_alloc_dep_pages(node, pfna, &lastpfn, num_pages,
-> contiguous);
-> +	rc =3D hv_alloc_dep_pages(node, pfna, &lastpfn, num_pages,
-> contiguous,
-> +				gfp_flags);
->  	if (rc < 0)
->  		goto out_free;
-> =20
-> @@ -159,7 +160,7 @@ static int hv_call_deposit_pages(int node, u64
-> partition_id, bool contiguous) return rc;
->  }
-> =20
-> -int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status)
-> +int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status, gfp_t
-> gfp_flags) {
->  	int result =3D hv_result(hv_status);
->  	bool contiguous =3D false;
-> @@ -179,7 +180,7 @@ int hv_deposit_memory_node(int node, u64 pt_id,
-> u64 hv_status) result =3D=3D
-> HV_STATUS_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY) contiguous =3D true;
-> =20
-> -	return hv_call_deposit_pages(node, pt_id, contiguous);
-> +	return hv_call_deposit_pages(node, pt_id, contiguous,
-> gfp_flags); }
->  EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
-> =20
-> @@ -232,7 +233,7 @@ int hv_call_add_logical_proc(int node, u32
-> lp_index, u32 apic_id) break;
->  		}
->  		ret =3D hv_deposit_memory_node(node,
-> hv_current_partition_id,
-> -					     status);
-> +					     status, GFP_KERNEL);
->  	} while (!ret);
-> =20
->  	return ret;
-> @@ -266,7 +267,8 @@ int hv_call_create_vp(int node, u64 partition_id,
-> u32 vp_index, u32 flags) }
->  			break;
->  		}
-> -		ret =3D hv_deposit_memory_node(node, partition_id,
-> status);
-> +		ret =3D hv_deposit_memory_node(node, partition_id,
-> status,
-> +					     GFP_KERNEL);
-> =20
->  	} while (!ret);
-> =20
-> diff --git a/include/asm-generic/mshyperv.h
-> b/include/asm-generic/mshyperv.h index 4c9f3353074a..2584e693d7b3
-> 100644 --- a/include/asm-generic/mshyperv.h
-> +++ b/include/asm-generic/mshyperv.h
-> @@ -346,7 +346,7 @@ static inline bool hv_parent_partition(void)
->  }
-> =20
->  bool hv_result_needs_memory(u64 status);
-> -int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
-> +int hv_deposit_memory_node(int node, u64 partition_id, u64 status,
-> gfp_t gfp); int hv_call_add_logical_proc(int node, u32 lp_index, u32
-> acpi_id); int hv_call_notify_all_processors_started(void);
->  bool hv_lp_exists(u32 lp_index);
-> @@ -357,7 +357,8 @@ static inline bool hv_root_partition(void) {
-> return false; } static inline bool hv_l1vh_partition(void) { return
-> false; } static inline bool hv_parent_partition(void) { return false;
-> } static inline bool hv_result_needs_memory(u64 status) { return
-> false; } -static inline int hv_deposit_memory_node(int node, u64
-> partition_id, u64 status) +static inline int
-> hv_deposit_memory_node(int node, u64 partition_id, u64 status,
-> +					 gfp_t gfp)
->  {
->  	return -EOPNOTSUPP;
->  }
-> @@ -379,9 +380,16 @@ static inline int hv_call_create_vp(int node,
-> u64 partition_id, u32 vp_index, u3 }
->  #endif /* CONFIG_MSHV_ROOT */
-> =20
-> +/* Generic deposit function with no default numa node and GFP_KERNEL
-> */ static inline int hv_deposit_memory(u64 partition_id, u64 status)
->  {
-> -	return hv_deposit_memory_node(NUMA_NO_NODE, partition_id,
-> status);
-> +	return hv_deposit_memory_node(NUMA_NO_NODE, partition_id,
-> status,
-> +				      GFP_KERNEL);
-> +}
+>  kernel/scftorture.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/kernel/scftorture.c b/kernel/scftorture.c
+> index 603b2dba1536..ff9a8271a464 100644
+> --- a/kernel/scftorture.c
+> +++ b/kernel/scftorture.c
+> @@ -588,6 +588,12 @@ static int __init scf_torture_init(void)
+>  
+>  	scftorture_print_module_parms("Start of test");
+>  
+> +	if (!nthreads) {
+> +		SCFTORTOUT_ERRSTRING("nthreads must be nonzero");
+> +		firsterr = -EINVAL;
+> +		goto unwind;
+> +	}
 > +
-> +static inline int hv_deposit_memory_gfp(u64 partition_id, u64
-> status, gfp_t gfp) +{
-> +	return hv_deposit_memory_node(NUMA_NO_NODE, partition_id,
-> status, gfp); }
-> =20
->  #if IS_ENABLED(CONFIG_HYPERV_VTL_MODE)
-nit: no user for hv_deposit_memory_gfp here.
-IMHO, hv_deposit_memory_gfp() should be introduced in patch 5/5, where
-hv_iommu_map_pages()=A0 first calls it:
-ret =3D hv_deposit_memory_gfp(hv_current_partition_id, status, gfp);
-
-Other than that,
-
-Reviewed-by: Jacob Pan <jacob.pan@linux.microsoft.com>
+>  	if (weight_resched <= 0 &&
+>  	    weight_single <= 0 && weight_single_rpc <= 0 && weight_single_wait <= 0 &&
+>  	    weight_many <= 0 && weight_many_wait <= 0 &&
+> @@ -636,6 +642,11 @@ static int __init scf_torture_init(void)
+>  	scf_sel_add(weight_many_wait1, SCF_PRIM_MANY, true);
+>  	scf_sel_add(weight_all1, SCF_PRIM_ALL, false);
+>  	scf_sel_add(weight_all_wait1, SCF_PRIM_ALL, true);
+> +	if (!scf_sel_array_len) {
+> +		SCFTORTOUT_ERRSTRING("no supported operations selected");
+> +		firsterr = -EINVAL;
+> +		goto unwind;
+> +	}
+>  	scf_sel_dump();
+>  
+>  	if (onoff_interval > 0) {
+> -- 
+> 2.54.0
+> 
