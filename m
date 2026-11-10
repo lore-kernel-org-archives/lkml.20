@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330193;
-	b=Y+1/nJde87rh0NKCOEVUcmtWCa4DahB7FZDa+45EJU0pLDtKjPqfr7hLhV4XN86sYpbg
-	 7CoRuTGcNidSQF8dFIqhHfffwLxyk/FPdZUrNtNpo7kU/1J5/MPzofdx/eJNltzfvXL6F
-	 Fdm5bX9duoQOHFSrABjXH+dWH1vxM1y1IGj/Wh8H0/t60UPoG6FKJo1PnYNwpXoofQ7cK
-	 Jc7pFxA6DU5inAMdXrhVftU9NM4DtCp2uZ6NV5mbQLO31ZoYple8i/R7dzlZuZ8CJdZ3u
-	 DGFAk+3Kx0X6+Sf8NO199EXdblnJ4N80t5bSvpeqTGvXb9eUu4jzEm0+PN/aKq5ZrTw==
+	t=1794330208;
+	b=Sk47Nid2ZjPfLlr+IjB2E2969fUiBXNBiergjsgSpzQtpmBtPcRark/MB9JY8BWR+wti
+	 t9lMrHOHffNi1scRxy0BYTo6vadlPGjIcqVNu+dnqOAgtef7FdxrRCas4JDrEpjWRvvXp
+	 SUBhCyVrECdNHMEYSpfgqYkTOPtc4NPOetgrt6DYbLefFmZ6g6Nz+VObvBV8Cejjom6/V
+	 SkCb3O1OmMxryPkEXh6onl2Xp2jmgh5XpjN8yRY5GTMCYPp/A/Zw8UOev5ZM1DUuWaAec
+	 pmNlci9NfbI3ef07aKgOl+EKQpKC0XzrshF66oOc0z4iu32WR+/2jNMmQ3Lxm0Fvb7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330208;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=zanXqdxJzKB/M0HVLRr5b03mkT180rjVmbT5V/v416U=;
-	b=Fx/fO5T5USRTmCSC7qCsqKFpQLRBVTLTtvDYWkPUONR6ZmCZz9LrbTdoBEeei5N5A6u6
-	 LtK62rcZrbMpU1re+P6ZIqyeMh3f7+NgbxNXy64Vi/2LFJ1AAq0cgEgWZnohTnpC+NhfH
-	 MVfvCzLk53bYT5j44z+r6cU/As61d2Wh2DyZ21EC2EvVMqfTxwItXRfvqLeI6WYqm7wMY
-	 OKdfsrIfF9j71ST5rInp7u4uSOTeHpINb14A4JmRjq+AyKyOV6dvFp6cmNAx8qWL0xwvL
-	 W3VCHJpJyTg4l0aanRrzxyV19UMwA67Ypei91sam7re6LDOj4J00KJV8UFBUS+4wuFw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OYBNS/wIwETszXOBgNpLsMvPx95qdQbX+4kEObkSrd4=;
+	b=wVpXSAz9wqLBE/OVoUJOIjhVy9dELK6b8xXpXllMWu7jDUtpsQtfHF4mhrblutdU9xlM
+	 hpd9tikSqWBVC4PmlrCRobqJxGMvOL0x8OZdJ2vA7twDCyhNB0bXrGlTyEB4Xr0I4VGK6
+	 vOk06GmXp60z9ku0bCR5KFkrclJl+LaAbNYPh+Pmyri+aEduZLx4f7nXyX/3oT9A+O5Jh
+	 OYMQgmWY3w5M7yT/6VBcXBj3RwUrNzpoSk6YbDMQqrx50lLUquPz1ACiKTNKfdRmS34WI
+	 wJ7fsBJywzrbmUqVa9+6b+sKuA7NltrBFTqkAHtrT6x+0CT+ubeYau5D1VO3boDlMtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4zV4Whg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h9xiN3w6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68006606A33E;
-	Tue, 10 Nov 2026 17:03:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2A3606A31C;
+	Tue, 10 Nov 2026 17:03:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4zV4Whg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2002A1F0089F;
-	Tue, 10 Nov 2026 17:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h9xiN3w6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32CD81F008A3;
+	Tue, 10 Nov 2026 17:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330193;
-	bh=zanXqdxJzKB/M0HVLRr5b03mkT180rjVmbT5V/v416U=;
-	h=Date:From:To:Cc:Subject;
-	b=M4zV4WhgwO74JSS7JsHnAvkNS2Y9ckeY8hsFvWO/soozmyeV0fsmi3NDGgxk9TAdX
-	 1zqsqUUkoEwiLLHyU16kBZ+iVY73u1NnxKfqnGgmtmJSVUvBvkpV8E2qaTO/joHBpg
-	 wYcI7fRV45C74uhl2clgFjkdS/K1JhRZBmRuWOSd9L2HuDkFwsuO+idElIIGBlt2gY
-	 TTsr69Z93jr7bUVR9zgDhk3Xp127UehRp+5i3eywaqtG3xbT2oPvLyq1vTSpnVB3r9
-	 junxMIUtt0G4INupZdFEzqfXtFEdTBEB1ZW5vreow9iiJULNGzOu1ep5SJq6hNtT4P
-	 cTW/tXif7tm1w==
-Date: Tue, 10 Nov 2026 17:03:08 +0000
-From: Mark Brown <broonie@kernel.org>
-To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Networking <netdev@vger.kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: linux-next: manual merge of the net-next tree with the origin tree
-Message-ID: <avNOTKD-WJpbu14j@sirena.org.uk>
+	s=k20260515; t=1794330207;
+	bh=OYBNS/wIwETszXOBgNpLsMvPx95qdQbX+4kEObkSrd4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h9xiN3w6tQaZmnlGlFXHoQYdpAhIdrU1SCwWBhN4fRfNjkM+xDQIPj2Pba9imBt8x
+	 SrGL0Hayefiwa7HkLpIrlkOPy4h09Ukw3bDyV8IpF+nGgbb9hZNWvmEkP1GbwkYUsl
+	 wB5jx8genrtWxC5qMhpd3wEXiP7cpXpn/Cj7Zt3eSdLoqW3fSoHZyJlQ2fEPRvz1gI
+	 PVDFENGYdlYYuvtD6FgjB5EscgrFiYvWXUrcpjr1ASmO9dE+/N31CsETmVpuRSraZP
+	 8pO4w/TgE2wcEn82+N9jJoSQP9WPVgUBlZmOLJmDPZPHKRlsmuYX4fSfJL8a1NmcfC
+	 2rJqxQ61582SA==
+Date: Tue, 10 Nov 2026 17:03:25 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 11/11] zsmalloc: populate new zspage outside
+ class->lock in zs_store()
+Message-ID: <avNOUwojK5x8IkOm@google.com>
+References: <20261110054836.1515030-1-senozhatsky@chromium.org>
+ <20261110054836.1515030-12-senozhatsky@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,56 +61,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="I8kBAMTTqksYRfUd"
-Content-Disposition: inline
-
-
---I8kBAMTTqksYRfUd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261110054836.1515030-12-senozhatsky@chromium.org>
 
-Hi all,
+On Tue, Nov 10, 2026 at 02:48:16PM +0900, Sergey Senozhatsky wrote:
+> A new zspage is not on class fullness lists and is not movable until
+> zs_store() calls insert_zspage() and SetZsPageMovable(), so neither
+> other zs_store() callers nor compaction and page migration can see it.
+> Nobody else has the handle yet either.
+> 
+> So for a new zspage allocate the object and copy the data before we
+> take class->lock, and don't take zspage read lock.  This makes
+> class->lock critical section shorter and saves a zspage lock/unlock.
+> 
+> Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-Today's linux-next merge of the net-next tree got a conflict in:
+LGTM:
 
-  drivers/net/ethernet/hisilicon/hisi_femac.c
-
-between commit:
-
-  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
-oc_obj() family")
-
-=66rom the origin tree and commit:
-
-  10830cb24e915 ("net: hisilicon: Remove orphan femac driver")
-
-=66rom the net-next tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-Deleted the file.  Kees, *please* don't do these changes at -rc2,
-there's a reason they're normally done at -rc1.
-
---I8kBAMTTqksYRfUd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzTksACgkQJNaLcl1U
-h9DMEwf/UplQS0TFzzD+rKkjvGpvtTxp7HSa0gv55Vtu1mqp8SC8/sODkYLyFH05
-900f2JZHtAy3tkHnonEGJaJ0LEPFKCfwtVpftEJIRHlg0MK4p8VA5oniUYTD7Sg/
-+sMbhOVQI4+NkIy5QnOWFrYQ2PwWzxxzn/cWBhJqRsWWLKx5sHX7MaUqP10Yajev
-rtlAJ62HbE9i1b3T/FxFmySe8uX2QGJKicjR5nxW0v2VrcVFUnd3xKT2r6NvX/D8
-B4NmQULwJmaFQd6rQ8Vuo46IwC5fn+JWimtevfFe4gnNXNDaEz4mvYxQX/CCBv3o
-TeV99bV3gfV+6+Vhr92l4Tno5lpqNw==
-=ertP
------END PGP SIGNATURE-----
-
---I8kBAMTTqksYRfUd--
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
