@@ -1,91 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=139.138.36.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310979;
-	b=4lWLukAwH2TWeojb94cPsmUdSxFpTfYZcsGUCGHn5Nuhs5u5hl8WxeZP75JA1hZm7KN8
-	 o5cUjKdkhc4RsaRhoL6TlQDVYiBHPjKRNxO9JsME6nzNV78K6fEmqrwJXzsvitzOE1+Vc
-	 4Qzd0jWH78Ie8aYOuClzLkhP8/tS8D4wFUWuqq5IkKjfNLk4MN0+Z2W7UcXzjygQSIBsg
-	 Qa8u0D8qcGHgh7AnLcNdlMlEoNL1pzOXm8MK0oLqHiLB6sz6Do4igk5VGYtKLG4YyrOqJ
-	 /4CWd//ECF2VC02gCeLz490bijbVF+tshIGmL89JRL9UcJMXViiyE7rPus1Ogr640Qg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310979;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=UDfjj6f+4UQA+nIrJmQDTbohlU8B0SuA2IAGCHYP12U=;
-	b=e386NiPNAqQO5Z5iU2zw2eIHra+SVZrKUQaBD/lzaTObPB5uJ6NqlrxXIybL/XuMIAHc
-	 ec1OK3kJuNTXC4oZTNdqpVkf5w2x8ynaxtGs3dpDCrIhUJG0JiUtJZAC9wDNLEEHYwjWi
-	 6We8bbKcYU2jA/FIId4jMKa04Ieti1ka0wg8SpvdetROuyxFngZTfi2gvl1Ly9qZvbwqg
-	 34hPwu/gtl5vdH//ANONYtm577kyhflvqCJ4oBBEQ0HTssARm5S+mEVTnLr+6/IBNx94y
-	 odeAj7Bg0E75sZKLUHad/aOg4m4/mCMp3FA3ISp7UiL+hdPZo6Y0FmQr7apZRKOR6CQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=EtPhqJ26;
-	arc=none smtp.remote-ip=139.138.36.225
-Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com [139.138.36.225])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.74
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794310987;
+	b=F3GiJ7ykJRYPChjKrUU6KXKz2lCqDITGq7QZeDtto+rQS55KEghD0aSm/PZISarZ2zT2
+	 Q4zV/Brkx1VJkUMGQQ08rohWu1UhyCZoVmQKJf6SFwNASHtjKoRdqR+3l6s4YAYyxU3RX
+	 c3wdCs9mXJEGkM2N3UaeXCGDPuB+Psq4Q3iStEw4rpy+746XO4bjEbcSgPv+6pIhs8Y4F
+	 t4LsgYjRMyYtYYeUTHAGWlKHA7WwyxC6CK+Y0td50vLao/yV7yThFyBRToAwnumOvQ2wP
+	 0PHznBfjieFj4+hdichwimdPv4dVpolQQCOSfkP0shnCuFODq37o470Qu+Qmy8ZYnew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310987;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CyRTBSd4eog+UQSbF3AGOcW7ej/XlHx0mO7UwzoYECY=;
+	b=OeIt7DwprE0MgAWKu+IibTyRu0wHlxSpcyfgENHN590cEeK/V2XkxZ9rAtkKiC15P+QI
+	 bK73B7yVNb7qOwbDFoAVIIVOYHwsr13/aEngSAJ85i2HXmvX5zaqw0G/5M6M06rv0VC2i
+	 FgiiPejwZdglBYJbGrcMOAgvzmpfaHb7+yeOmV2onH42ockEE4SRQsTPDQ/qsqYrM9LI1
+	 0SyTcWZXW314M4zHmbCat8YgaskhXF3kV0Yd8FT540+6YaGIh2fk57sbTHlMhS6cdvs0W
+	 mHIriByv+bmfnA111TYaEMYLIeJr1+ExgnykiS6df38+/5rWfNnwBCerEOpUfeeO3jg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=hQ7dvdCY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.74
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023074.outbound.protection.outlook.com [52.101.127.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494A8606A32A;
-	Tue, 10 Nov 2026 11:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 494A8606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D998606A331;
+	Tue, 10 Nov 2026 11:43:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D998606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=EtPhqJ26
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1794310986; x=1825846986;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=D3SLBgY9fe7hrDb5SERRAgjehrb+Hk8BhBruccWqiF8=;
-  b=EtPhqJ262woSGcP1G7/lceHwE1UpToCiYvh+SgTpKISUI7Gezr+NWn3P
-   pTf3LW0GPEwS3fnqh+amdurhDflw+SZbpu8+Cc4qYEjGv5prFGe7E8McI
-   eNg/XQBsEtlXT2HosP0rMlvcvG966X3GZ/u2m2cVPXuBbFahv6JnBWv7y
-   pJr0UYgmIgdAslmxhoauFCcjyCQggEcZ/dL+RpR0GhGO/UUsT0727qRyo
-   0HtgZGh7gp/IWHvprmjisp/jPdJ4JGMW1684AlV6tb0NVEAQbWTzPZwfy
-   fdQErQElxQVBca9/kkoV+zee7wWiASisEl6y/g3iNyseE/IeU5PK89gmD
-   A==;
-X-CSE-ConnectionGUID: qqCIi7PASkSTbxlUdPXPDQ==
-X-CSE-MsgGUID: OwcQXHB8QNyrVY6+YH9OLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="247475806"
-X-IronPort-AV: E=Sophos;i="6.27,205,1786978800"; 
-   d="scan'208";a="247475806"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 20:42:58 +0900
-Received: from az2nlsmgm1.o.css.fujitsu.com (unknown [10.150.26.203])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 1D5DE10000DA;
-	Tue, 10 Nov 2026 11:42:51 +0000 (UTC)
-Received: from az2nlsmom1.o.css.fujitsu.com (unknown [10.150.26.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id C26E5C00D78;
-	Tue, 10 Nov 2026 11:42:50 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.61.34])
-	by az2nlsmom1.o.css.fujitsu.com (Postfix) with SMTP id 6AF96829EC7;
-	Tue, 10 Nov 2026 11:42:40 +0000 (UTC)
-Date: Tue, 10 Nov 2026 20:42:38 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Steven Price <steven.price@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>, 
-	Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
-	Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: Re: [PATCH 02/11] KVM: arm64: CCA: Introduce Realms
-Message-ID: <avL9kNR2mGmqmcA9@FCCLS0092175.localdomain>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-3-steven.price@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=hQ7dvdCY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=unqZkoNpeem/VQHgRElIFlk0GOisZhzZy0MiJ6e52AI8SCOctYuY+54OE0lpvmhNp+La8ZJfwhsxij6LlWvD41TkMGRmpKtsM3wgmvk3bagCEVhWy7QdGvPDgWEBX3vTZ9hdxQ1NZEG0jPaJorA0U9c7xvT1uJa2wurg5AEA6QyrS9xsUL7S2quU9PlIns300Sr1VJT6s3HJmqpSMQENPmR28NdpNt6QcqJUHxRPnzdZB0ods/4Wl3hdyQ0NvzFYRDEmzS9ljXwWfOFD67kIHQhg4d3ZR6SUu2VN5q4bQadELv5nuO1xH+DkkurqUtckzGSz6AVsxs/BR3LNkF/OnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CyRTBSd4eog+UQSbF3AGOcW7ej/XlHx0mO7UwzoYECY=;
+ b=FY/GeYcXiu0fTLJFiVOYzhTFzMYY5jqWmTy1/ezJyL0gJ+GrVqg3JRy+0abZpE2XmzvuGMmDLQozA+ugcG/C0JiXL2CnYIrB5xnaBBsdDqU/dEyF25G9THvpmV2T1aoe1p1ENuEiTi3Cv33fD53E5vYVuSVhUUqB6ExaO0Y6PAXJ6Z/JXNyZy6VZeQK8RD+lJfbAQLqx4nVhex8yjdT9ckf3poekrTDtEiZMyjbOVoj4GlAsgfmYnNRoNlo2NGHW8raHBZbr8zb2cM1T5uxGdgYIYXq9UeCHWdJXKM+Hkrhh8Kv41+6SWDKeCVJlv9CVzlaZBCWaEHklRaHwY6UxoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CyRTBSd4eog+UQSbF3AGOcW7ej/XlHx0mO7UwzoYECY=;
+ b=hQ7dvdCY33Jq1DDXJZ0OYbrGm+iekadDqKaZKBP6RU2HgyMIvFUwuE2I/naM/mtP70zjBdPJPqlZ/kpMYlv3eTXFWsR5/8+UyOrdMon+q3MZnxLS8rejPk1BvfKt20G3EoLiHvzyHeFJWg6qk7H8IC23lgJsWs/0KIeUD1nE6VJiMhrRODj/TrxZijAb57neloip22j0+UfAEegGmn1xj+Uhvha0MTzxmgOSjjnIMQPD5UkLWG8JoxPWVrHyr9DEbyi3Txgn2uJi7gAZBQXoo8Yb+DgwFNq+Kibq9j9O4pniWVus/sLpZycQiGNICzzbFiYTEgBPDGAUuffnW8qgFw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
+ by JH0PR03MB7853.apcprd03.prod.outlook.com (2603:1096:990:33::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 11:43:02 +0000
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
+ 11:43:02 +0000
+Message-ID: <bbe0dedf-4b02-4cc6-97be-accfc06baa10@amlogic.com>
+Date: Tue, 10 Nov 2026 19:42:55 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+To: tanure@linux.com
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261103163715.385394-1-tanure@linux.com>
+ <20261103163715.385394-3-tanure@linux.com>
+ <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
+ <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
+ <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
+From: Chuan Liu <chuan.liu@amlogic.com>
+In-Reply-To: <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TP0P295CA0040.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:4::13) To KL1PR03MB5778.apcprd03.prod.outlook.com
+ (2603:1096:820:6d::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,209 +112,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261102141304.126883-3-steven.price@arm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|JH0PR03MB7853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6351b656-5a9d-4269-52d5-08df3f1fc6ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|4143699003|11063799006|56012099006|22082099003|18002099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	+UevEOhqQfR/thcKvJmA5gT0pu7eoGYwNsQIaRRV16rnomwNhL606OLIp4rQEXKtQ58bOS4EcJYzxuiU1pVzQvUH2bfUIXDmYUoSZVCu2oV6+dm4JxyECp5rO0LqkIJLA07gxtOGm6/tLHu6rJL+YE0+DgG8ApGdV39t5j2xoHnCzNSZyeMlrq+Z1Hq7GXpiy6ChuUXSoS7LScRu3QlSjbc0Z5CKROv2ACHaM+czzgsyyAU2/NhWeaPs3o82Frt4WdUc+A/VqbSZi9/OGJls/N2JZSHXj9euj2gIkMDe/jzXF/kN0BkifSUQ4P3eXbrFUqwG05j2enBVSnRzRUtEJ9zIPtXcogqMtQN7dejwdYvstfjlsl8+Am8uT9oy8rfvnkPC8wcf8YjJ61p9mYg+HPWbx1AQXSzvgjFE0w4opy1HZ6f6hW2c47nuX6F0BriUW3R1wvHemLGacbznDdeTI1IRf6/eTv/thX76F3Ed6sQkR777QyWpaXSGE+z8S+NEwMwZQtSpyh0oyEu68qxRyZ943PVlvQjBmQ0U4FkodFjVatrHppVO9gtakCFtFrmgT9lrN44eN5wk6Rk6Q8c3BcjPbxdEoR3dXrTNx/8wksHSbbWm+YQiwCZrF0LEQtWS
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WmhDYk96c29VTXNTSUVNVllZRERiWU9lTGNxNkxWMFIrS25odUJjMDkwQks2?=
+ =?utf-8?B?SitBc0ZmcHMvVSs1UjhCbTJwazBHb1FjcEdEZHo1ZTgzWUxSSTU4eGhaYzlp?=
+ =?utf-8?B?UFQ2MjhobjBCcmVQMmpzT1RtRGpCa2l3T1ZWcnd5azRhZmpZbXFUSG1pTVdO?=
+ =?utf-8?B?d284c3dRaXg0S2NZVDBRVGNOTzZnU0NTOWFNSkxWSVRYVFZFUTJWZUx5QUxE?=
+ =?utf-8?B?ZUwrUi9iQlRMdmhQcTZaelU5OWZ6Z0pnUHpMbUhYUzhBYkFlVUszSnZRUkFl?=
+ =?utf-8?B?emV4VDdnTlQ5UER0SXF3QmhJbEN2V1kvWlg5SlQxaUJ5b0dZOXBIc2d5ZTdq?=
+ =?utf-8?B?SWJVNTlDa1ZpQnkySys3MUIwNFRiNmo0L1FyZTFUeVdXL1R0U2xFTjhBQlBY?=
+ =?utf-8?B?bXo1bXNvS1RzdnpFOGFldTZhQ3Zxd2xZWVNFOE1BemhlZ2VFd2cxUFh2RTZL?=
+ =?utf-8?B?RkNnUk1yTEVTUTg1QWRpYkwwUnlhRTdvc1ZVVy9xUDVzS3BnSmpvckxWL2ty?=
+ =?utf-8?B?T1kyZTNIL0ozUUhESnVTYlYrQWRSYWswYzBXWENBVWRNMWhoZUU1Ti9WZ1lV?=
+ =?utf-8?B?VkdyaVpKM0pmek5ibEw0YityNmlCdEJORldqV0NtYTI5OHQyQWdrbndtZFZ1?=
+ =?utf-8?B?clFUV1E2YnZienNRS0s3V3F3dUs5QmFtcEkzMkRMaDlwbUlxcWJjY0RKVVF4?=
+ =?utf-8?B?eFZ5TVpCdG9BZ3JicHk4aXBueGFqZDdJVVNjUEk2NHFLNXJjMDY2dUJKeEU1?=
+ =?utf-8?B?UnI3cUhKU2pVVnhRUmp0M0lmSlFOck1mdTN6a2xIOEVIWEtDMFE2L0VuL2tW?=
+ =?utf-8?B?MVUyeU5adnVEREdYcDBGd0tjU2piOFltMElYSFA3bHVVd01RT3RrcWJuSFlz?=
+ =?utf-8?B?bGtwSy80ajlIZllqOUl3SFliaUFFZnNoTVJGaDdoWkFBZUgvZUlaTWZjQ3da?=
+ =?utf-8?B?cndyTGtTcWd5ZDVOdGFHeVBiN3RWNHU0NzcwUTZhaWhsL01DS3VCMkw3dFln?=
+ =?utf-8?B?dm5Nci9JcmUwZkFCL3dGR015MkZkZTFjVWVtWElmTDBuZWIvN3l4Z3N5bmNS?=
+ =?utf-8?B?VjZ6Zk8xelVEdjg2aVlDdm05ZC92L2lWSVBIZHRaT2dGaW1JS05hY0pNaW1Q?=
+ =?utf-8?B?Y0J2UDRxRldDaVFHaWJ2UjJ1MUFyTU9xVWh2QzhLLzZMcGVSUVREbjFOUmRx?=
+ =?utf-8?B?VFo0ZWVZWUhieUtjekdLT1E3SlBHckVZK1FOUVBZUDZJM2lFSlZ5NHNLM2k3?=
+ =?utf-8?B?OUswSTh3RDI5RkR0dmQ3ZmJwYmVVZFlBT0JyZUhYRitNRTVraXVKaUJsWmdZ?=
+ =?utf-8?B?R3BtMCtNSDZUT3ZUOWpqZ1ZMelZ6U2pMdlVrNStwTFA0eXRuakVPWlZPOXNj?=
+ =?utf-8?B?R3BrTnY5ZCswNjlVeS9Ua1FOVXRlL1VXL2JsYlR5cW1hSlp4b0MxTkh0djhV?=
+ =?utf-8?B?ejJtYWVZdFRZV0Z0aHM0SHgrTkhPQTQ2VTI0VW1rUHA0RG96cSswaDFYYXlR?=
+ =?utf-8?B?WGhkMkM3UkhCb3gzYW1ZYzR0WjlRRmVudlRqU2ZTYVQ4dkR4SmZTN1VraW41?=
+ =?utf-8?B?NWFvc09lSzlpQnBWcWszRDRKcU56amtnK1F1cExFUE11RGhJMUh2UlJ1Y3Va?=
+ =?utf-8?B?bUgyTmwzQmhkOWY2NytFejh6WUNLdEVOSDdtcFcwWWFrakg3VURWRUg1VDFV?=
+ =?utf-8?B?Y1ZWSWlvT2VuT01iSEgzNTY3MWJrbEU2aUdWQjFZc3ZBeVVoWDNGcm1EQUFm?=
+ =?utf-8?B?Njd3T3pFQUlyaHB6bDQxaldZSFFuRmo3ZGExSit5Rm84ODU1bTdvWHZTbGFj?=
+ =?utf-8?B?RWROY1dEVk83c3dXcHMzZFZ3dWRsbmRvOWR0c25sZjQ4NXNTMmZmYWMxejBL?=
+ =?utf-8?B?dHM2V0w5RGRPaThLYUFKRCtkYzlZcFY0VXZ3Q2UwWWxkMDl1U05Dc2hqOEtm?=
+ =?utf-8?B?MmhGaFlLYmsvSzhJb2tWeERnbXFqUFFJcWliMlFYWnIzSkhDMmo4dVRoaGQz?=
+ =?utf-8?B?T2N4MTFhZlV3U0tWQTA5TVVMK3Yyd3h3aEtzMEFIS29WbCtMbWczL2RORW5p?=
+ =?utf-8?B?M3RBQ0dCeW9vdGNncmhON3B6QTRSYmxWdjFBOEpyUFFzaVFybndFWHorK0k1?=
+ =?utf-8?B?ekFSeEFsREtDY1VRNDltWElHSkloZHVtdHQ5UWZ1WjZuZ1B5aHdIbmhhNnpk?=
+ =?utf-8?B?NzBScE1la3NkSmJHalM2SGFXbjdyZisyd1pPWFd5dGZuN2VyWlVtTW9LRkdK?=
+ =?utf-8?B?QTljV1Q2bFJ0anVubjFsM0swNkMvc25kNjdWYk44RUlIbVZxQms3THRPbGcy?=
+ =?utf-8?B?YkpBTkIvTnBhZXdaSWJUZ2xPbm5OU1MrbDFhSjl0SG9pc1FESXZVdz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6351b656-5a9d-4269-52d5-08df3f1fc6ba
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 11:43:02.4824
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WBu5W4ichdR5Y1ByL2JbCtVRXdKnh+YjL7kJwHAD9S0yW2cc4ZQimBH6HVaJJ9dTuz3xgSKymyVYs8fbfG8NIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB7853
 
-Hi Steve,
+Hi Lucas,
 
-On 11/02 14:12, Steven Price wrote:
-> From: Suzuki K Poulose <suzuki.poulose@arm.com>
+On 11/9/2026 11:43 PM, Lucas Tanure wrote:
+> [ EXTERNAL EMAIL ]
 > 
-> Add foundational work for supporting Realms.
->  - Add a new VM flavor.
->  - At KVM init, check if the KVM can support Realms (though not functional
->    yet) and will be advertised by static key kvm_rmi_is_available. This
->    will be turned on in a later patch, once we have all the bits and
->    pieces ready. For now check if we are blessed with KVM_MODE_RMM.
->  - Add realm specific tracking in kvm_arch. Since Realm and protected pKVM
->    states are mutually exclusive, move them into a union.
->  - Also adjust the memslot preparation checks to reflect the changes.
+> On Fri, Nov 6, 2026 at 3:16 AM Chuan Liu <chuan.liu@amlogic.com> wrote:
+>>
+>> Hi Krzysztof, Lucas,
+>>
+>> On 11/5/2026 7:57 PM, Krzysztof Kozlowski wrote:
+>>> [ EXTERNAL EMAIL ]
+>>>
+>>> On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
+>>>>
+>>>> Assisted-by: LLM
+>>>
+>>> Drop this one.
+>>>
+>>>> Signed-off-by: Lucas Tanure <tanure@linux.com>
+>>>> ---
+>>>>    .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++++
+>>>>    1 file changed, 59 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+>>>> index e769c9bb70d8..6de013e3e8f6 100644
+>>>> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+>>>> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+>>>> @@ -23,6 +23,7 @@ select:
+>>>>              - amlogic,meson-gxbb-dwmac
+>>>>              - amlogic,meson-axg-dwmac
+>>>>              - amlogic,meson-g12a-dwmac
+>>>> +          - amlogic,t7-dwmac
+>>>>      required:
+>>>>        - compatible
+>>>>
+>>>> @@ -57,6 +58,59 @@ allOf:
+>>>>                - const: clkin1
+>>>>                - const: timing-adjustment
+>>>>
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: amlogic,t7-dwmac
+>>>> +    then:
+>>>> +      properties:
+>>>> +        clocks:
+>>>> +          items:
+>>>> +            - description: GMAC main clock
+>>>> +            - description: First parent clock of the internal mux
+>>>> +            - description: Second parent clock of the internal mux
+>>>> +            - description:
+>>>> +                clock of the pipeline stage inserted in the bus path between
+>>>> +                the controller and the DRAM. Without it, the controller cannot
+>>>> +                complete DMA transfers.
+>>>> +            - description:
+>>>> +                clock of the register block holding PRG_ETH0 and PRG_ETH1.
+>>>> +                Without it, the block reads as zero and ignores writes.
+>>>
+>>> This sounds like you take clock from other block. That's wrong, that
+>>> device should take its own clock.
+>>
+>> I see that the clock in the dts patch corresponds to <&clkc_periphs
+>> CLKID_SYS_ETHPHY>. This clock provides the working clock for the APB Bus
+>> of the ETH PHY controller, and this clock will affect the register
+>> reading and writing of the ETH PHY (including the ETH_PLL). See section
+>> 15.3.4.2 RegisterDescription in A311D2 Datasheet for details.
 > 
-> Please note that we cannot create Realm VMs yet. This requires further
-> changes to the UABI and core RMI driver support, which will come later.
+> Thanks. That section is the PHY block at 0xfe028000, the region of the
+> mdio multiplexer node. The registers in this description are PRG_ETH0
+> and PRG_ETH1 in eth_top at 0xfe024000. On the VIM4 the same gate feeds
+> them too: with it off they read as zero and ignore writes. My datasheet
+> revisions do not say which clock feeds eth_top. Can you confirm it is
+> this one?
+
+The information I can confirm is:
+   - The base address of eth_phy is 0xfe028000, and its corresponding 
+APB clock is <&clkc_periphs CLKID_SYS_ETHPHY>.
+   - The base address of eth_top is 0xfe024000, and the base address of 
+eth_mac is 0xfdc00000; their corresponding APB clock is <&clkc_periphs 
+CLKID_SYS_ETH>.
+
+The CPU reads and writes the registers of these peripheral controllers 
+(or Processing Units) via the APB. Consequently, the registers of these 
+controllers cannot be read and written properly if the corresponding APB 
+clock (sys_clk/clk81) is not enabled.
+
 > 
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> ---
->  arch/arm64/include/asm/kvm_emulate.h   | 16 +++++++
->  arch/arm64/include/asm/kvm_host.h      | 57 +++++++++++++++++-------
->  arch/arm64/include/asm/kvm_rmi.h       | 61 ++++++++++++++++++++++++++
->  arch/arm64/include/asm/virt.h          |  1 +
->  arch/arm64/kvm/Makefile                |  2 +-
->  arch/arm64/kvm/arm.c                   | 24 ++++++++--
->  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  2 +-
->  arch/arm64/kvm/hyp/nvhe/switch.c       |  4 +-
->  arch/arm64/kvm/hyp/nvhe/timer-sr.c     |  2 +-
->  arch/arm64/kvm/mmu.c                   | 13 +++---
->  arch/arm64/kvm/rmi.c                   | 18 ++++++++
->  11 files changed, 169 insertions(+), 31 deletions(-)
->  create mode 100644 arch/arm64/include/asm/kvm_rmi.h
->  create mode 100644 arch/arm64/kvm/rmi.c
+> Thanks,
+> Lucas
 > 
-> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
-> index 334211b8b2ee..32021bdf2610 100644
-> --- a/arch/arm64/include/asm/kvm_emulate.h
-> +++ b/arch/arm64/include/asm/kvm_emulate.h
-> @@ -831,4 +831,20 @@ static inline void kvm_reset_vcpu_psci(struct kvm_vcpu *vcpu,
->  	vcpu_set_reg(vcpu, 0, reset_state->r0);
->  }
->  
-> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
-> +{
-> +	return READ_ONCE(kvm->arch.realm.state);
-> +}
-> +
-> +static inline void kvm_set_realm_state(struct kvm *kvm,
-> +				       enum realm_state new_state)
-> +{
-> +	WRITE_ONCE(kvm->arch.realm.state, new_state);
-> +}
-> +
-> +static inline bool kvm_realm_is_created(struct kvm *kvm)
-> +{
-> +	return kvm_vm_is_realm(kvm) && kvm_realm_state(kvm) != REALM_STATE_NONE;
-> +}
-> +
->  #endif /* __ARM64_KVM_EMULATE_H__ */
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index ccd2dc8f73c3..7d0222047ca1 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -29,6 +29,7 @@
->  #include <asm/kvm.h>
->  #include <asm/kvm_asm.h>
->  #include <asm/kvm_hcall.h>
-> +#include <asm/kvm_rmi.h>
->  #include <asm/vncr_mapping.h>
->  
->  #define __KVM_HAVE_ARCH_INTC_INITIALIZED
-> @@ -48,6 +49,13 @@
->  #define KVM_VCPU_MAX_FEATURES 10
->  #define KVM_VCPU_VALID_FEATURES	(BIT(KVM_VCPU_MAX_FEATURES) - 1)
->  
-> +#define KVM_REALM_VCPU_VALID_FEATURES			\
-> +	(BIT(KVM_ARM_VCPU_POWER_OFF)		|	\
-> +	 BIT(KVM_ARM_VCPU_PSCI_0_2)		|	\
-> +	 BIT(KVM_ARM_VCPU_PTRAUTH_ADDRESS)	|	\
-> +	 BIT(KVM_ARM_VCPU_SVE)			|	\
-> +	 BIT(KVM_ARM_VCPU_PTRAUTH_GENERIC))
-> +
->  #define KVM_REQ_SLEEP \
->  	KVM_ARCH_REQ_FLAGS(0, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
->  #define KVM_REQ_IRQ_PENDING		KVM_ARCH_REQ(1)
-> @@ -409,6 +417,7 @@ enum kvm_arm_vm_flavor {
->  	VM_PKVM,		/* Normal guests on pKVM */
->  	MARKER(__VM_PROTECTED),
->  	VM_PROTECTED_PKVM,	/* Protected VM */
-> +	VM_REALM,		/* CCA */
->  	VM_FLAVOR_MAX
->  };
->  
-> @@ -502,11 +511,14 @@ struct kvm_arch {
->  	/* Count the number of VNCR_EL2 TLBs */
->  	atomic_t vncr_tlb_count;
->  
-> -	/*
-> -	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
-> -	 * the associated pKVM instance in the hypervisor.
-> -	 */
-> -	struct kvm_protected_vm pkvm;
-> +	union {
-> +		/*
-> +		 * For an untrusted host VM, 'pkvm.handle' is used to lookup
-> +		 * the associated pKVM instance in the hypervisor.
-> +		 */
-> +		struct kvm_protected_vm pkvm;
-> +		struct realm realm;
-> +	};
->  
->  #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
->  	/* Nested virtualization info */
-> @@ -1572,30 +1584,43 @@ struct kvm *kvm_arch_alloc_vm(void);
->  
->  #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
->  
-> -#ifdef __KVM_NVHE_HYPERVISOR__
-> +#define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor >= __VM_PROTECTED)
->  
-> -#define kvm_vm_is_protected(kvm)			\
-> -	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
-> +#ifdef __KVM_NVHE_HYPERVISOR__
->  /*
->   * Accessing vcpu->kvm from nVHE hyp stub is tricky, as we need to convert the
->   * pointer to the hyp VA. With pKVM, the nVHE code runs with the hyp_vcpu,
-> - * which is populated correctly and is gated on is_protected_kvm_enabled().
-> + * which is populated correctly. Always vcpu_is_protected_pkvm(), which is
-> + * gated on is_protected_kvm_enabled().
-> + */
-> +#define vcpu_is_protected(vcpu)		BUILD_BUG_ON(1)
-> +#else
-> +#define vcpu_is_protected(vcpu)		kvm_vm_is_protected((vcpu)->kvm)
-> +#endif
-> +
-> +#define kvm_vm_is_protected_pkvm(kvm)					\
-> +	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
-> +
-> +/*
-> + * Rely on is_protected_kvm_enabled() check in kvm_vm_is_protected_pkvm() to
-> + * make sure the vcpu->kvm is always valid VA in the context
->   */
-> -#define vcpu_is_protected(vcpu)						\
-> +#define vcpu_is_protected_pkvm(vcpu)					\
->  	({								\
->  		struct kvm *__kvm = READ_ONCE((vcpu)->kvm);		\
->  									\
-> -		(__kvm && kvm_vm_is_protected(__kvm));			\
-> +		(__kvm && kvm_vm_is_protected_pkvm(__kvm));		\
->  	})
+>>
+>>>
+>>>
+>>>> +
+>>>> +        clock-names:
+>>>> +          items:
+>>>> +            - const: stmmaceth
+>>>> +            - const: clkin0
+>>>> +            - const: clkin1
+>>>> +            - const: pipeline
+>>>> +            - const: pclk
+>>>> +
+>>>> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
+>>>> +        # The RX delay line of this glue is fine tuning in 200ps steps,
+>>>> +        # added on top of what phy-mode describes. The TX side has no fine
+>>>> +        # tuning: its only step is a quarter of the clock period, the full
+>>>> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+>>>> +        tx-internal-delay-ps: false
+>>>> +
+>>>> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
+>>>> +        # properties instead.
+>>>> +        amlogic,tx-delay-ns: false
+>>>> +        amlogic,rx-delay-ns: false
+>>>> +
+>>>> +  # Delay definitions for Meson8b and newer
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            enum:
+>>>> +              - amlogic,meson8b-dwmac
+>>>> +              - amlogic,meson8m2-dwmac
+>>>> +              - amlogic,meson-gxbb-dwmac
+>>>> +              - amlogic,meson-axg-dwmac
+>>>> +              - amlogic,meson-g12a-dwmac
+>>>> +    then:
+>>>> +      properties:
+>>>>            amlogic,tx-delay-ns:
+>>>>              enum: [0, 2, 4, 6]
+>>>>              default: 2
+>>>> @@ -106,6 +160,7 @@ allOf:
+>>>>              contains:
+>>>>                enum:
+>>>>                  - amlogic,meson-g12a-dwmac
+>>>> +              - amlogic,t7-dwmac
+>>>>        then:
+>>>>          properties:
+>>>>            rx-internal-delay-ps:
+>>>> @@ -142,6 +197,10 @@ properties:
+>>>>          - items:
+>>>>              - const: amlogic,meson6-dwmac
+>>>>              - const: snps,dwmac
+>>>> +      - items:
+>>>> +          - const: amlogic,t7-dwmac
+>>>> +          - const: snps,dwmac-5.10a
+>>>> +          - const: snps,dwmac
+>>>
+>>> I see no such hunk in the code, so not sure how to review this.
+>>>
+>>> Best regards,
+>>> Krzysztof
+>>>
+>>>
+>>> _______________________________________________
+>>> linux-amlogic mailing list
+>>> linux-amlogic@lists.infradead.org
+>>> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+>>
+>> --
+>> Best regards,
+>> Chuan
+>>
 
-I've tested the integration branch and found that the secondary CPU
-bring-up fails:
-    [    1.426502] smp: Bringing up secondary CPUs ...
-    [    9.194442] CPU1: failed to come online
-    [    9.194558] CPU1: failed in unknown state : 0x0
-    [    9.197714] smp: Brought up 1 node, 1 CPU
-    [    9.197775] SMP: Total of 1 processors activated.
-
-It seems that this patch missed replacing a use of
-vcpu_is_protected() introduced by the following commit:
-
-    25d726dddc23 ("KVM: arm64: Reject host power-on of a vCPU that EL2 holds powered off")
-
-The following diff fixes the issue for me. Also, though not included in
-the diff, I think vcpu_is_protected() in __pkvm_create_hyp_vcpu() should
-be replaced with vcpu_is_protected_pkvm() as well.
-
-Thanks,
-Kohei
-
----8<---
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 522a837637fe..be676c13e219 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -960,7 +960,8 @@ static void __kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu, u32 mp_state)
- /* The guest's own CPU_OFF: EL2 has already powered the vCPU off. */
- void kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu)
- {
--       u32 mp_state = vcpu_is_protected(vcpu) ? KVM_MP_STATE_UNINITIALIZED : KVM_MP_STATE_STOPPED;
-+       u32 mp_state = vcpu_is_protected_pkvm(vcpu) ?
-+                      KVM_MP_STATE_UNINITIALIZED : KVM_MP_STATE_STOPPED;
-
-        spin_lock(&vcpu->arch.mp_state_lock);
-        __kvm_arm_vcpu_power_off(vcpu, mp_state);
-diff --git a/arch/arm64/kvm/psci.c b/arch/arm64/kvm/psci.c
-index b01f8d44033f..6674e8d6ff4c 100644
---- a/arch/arm64/kvm/psci.c
-+++ b/arch/arm64/kvm/psci.c
-@@ -68,7 +68,7 @@ static unsigned long kvm_psci_vcpu_on(struct kvm_vcpu *source_vcpu)
-         * STOPPED before that is the VMM's pause.
-         */
-        if (!kvm_arm_vcpu_stopped(vcpu) ||
--           (vcpu_is_protected(vcpu) && !kvm_pkvm_vcpu_is_powered_off(vcpu))) {
-+           (vcpu_is_protected_pkvm(vcpu) && !kvm_pkvm_vcpu_is_powered_off(vcpu))) {
-                if (kvm_psci_version(source_vcpu) != KVM_ARM_PSCI_0_1)
-                        ret = PSCI_RET_ALREADY_ON;
-                else
+-- 
+Best regards,
+Chuan
 
