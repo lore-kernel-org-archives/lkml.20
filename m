@@ -1,147 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.66.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794299132;
-	b=3XWjbR84xMpGk/+Ga4mJIrZxLkdFcjdmmjF0twd7IsiEpla5bwjzAn3LuQOKrBKxIz2l
-	 nCFbKeFn4zEBlo1wGixjeNODYF90P2qOdPEp8LFw0jMf8AOB3EKhIRQRZ3co8z3kvyBEk
-	 iDrVVO9cpbZiPwHEzYG+rNa2PPv2htMeODXV7APTHbQ/CzOHsYiDL6fUC+GvrlvgkH17d
-	 lRSlhjpELVcjuGSXZQhbLfRltG9gyQxxgPYOd0G5voDvDlZsaymuSQtIf55pUHqfW3xJA
-	 wELDrDzt3irDDixVY/VhECpQfbjBIp7IP2LqIuSkjPWC6uIqIgm96btMZfZrkRDGyiA==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.111
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794299120;
+	b=1odjMgie267rinnES7OA77rPAsFX5gw3uxHD/8hBNwql+nSB2gn37su9IzEew7FyczSm
+	 2PZirL4X0+dDCouowEPC9maZxCY1wbjb3Ncu/8pdRgQ2DR5B/RJRIApgpXV5X7Q+OA0G3
+	 LALe9nUt1WBgeR36fL3w62eUt4bYR+74r+lbKZEEHBKhrwqJ8YZgXiexiAJKkwVGll9I2
+	 apOW4Q2tAS/FEiahIm3U2gsm7Kav15W/Ow2S0ObYcWJMgj+F0H0O2bRuGlQTNmo0x9NHE
+	 lj8dfS51ZYBVfJIgKuDNH+uSI/qYpchLvq7djrJohnVn2TxK6Fv369qBbN11U2VB0AQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299132;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-kuka-no-automatic-footer:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299120;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mw5JUe7A7NkeFD4B1Y8yMH0Z08UgM3nvhLtC6t3gBfQ=;
-	b=HV0bNEhwPL959d0JgOeOIFrIbYpHoa9+NfB0E6c7UTbCcMpMYRSvK6xv1ViyELeO/xpo
-	 E1Tu8BJfj2Phv13xJsxLmYb3yeVvT777a3+sJ+1dqtaFxJ6csSTSKmtU0ba4Nk0A1rnbK
-	 wTrJIZb+4euLHrUxH06kVLMYezxTbFRJKINCMbsfp4H2+OpKvg1g0SyosgEuGyhWpr12L
-	 jFGVz0FKbpsAHRzI3UMf6c2dgnPVFILGYBjfDxz7H4DnWNgbb+Vx8tDFgm8pVTRvEc88E
-	 vpOR0hiXKPst0jAMY75S7QzPS4aIpK8ARxEcP+E19dZTyiaO0yS0OS2rwfJK3VRgG8Q==
+	bh=+A19KZktfJ9WubK3tSrVGgcJywvdEEEzc8mO41Be7dQ=;
+	b=4z/NAPh7znbdzTdzLRGlctrTfKoYNfl6bAXPB0G9qkk32qNJ0czkb18NV/sHLApCrwX6
+	 ++x1hynTqLHFDDJ9V5yKYJW9OFVmIbB0Oe4fnPKYls6eKWDIU8X9okqvkf9xoIeun0vyz
+	 JfkVlHJGrzWVYZHEwbWVzh8OYqSJ1j8L5GB+ty/+UnMCXz/zb1bxuXWXSG4Lh6RLGzyBB
+	 DiRbF9Y8AhSELSjSYd2G5lZu+gzlmZ83KX7f7IV5zFKQG9hq75NaYSFBWC24eEW+cIxoS
+	 RdQIezLwDRmkBSVt7mwzMcaD20i0RegRvEcvJLGn0YMK15kOagpc1xGg1W6lRi9VklQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kuka.com;
-	spf=pass smtp.mailfrom=kuka.com;
-	dkim=pass header.d=kuka.com header.i=@kuka.com header.a=rsa-sha256 header.s=selector2 header.b=msU4Er1P;
-	arc=fail smtp.remote-ip=52.101.66.47
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012047.outbound.protection.outlook.com [52.101.66.47])
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=KtKp8Eq8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.111
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021111.outbound.protection.outlook.com [52.101.125.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C0F60A6F64
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C0F60A6F64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kuka.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kuka.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72B360A260F;
+	Tue, 10 Nov 2026 08:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72B360A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kuka.com header.i=@kuka.com header.a=rsa-sha256 header.s=selector2 header.b=msU4Er1P
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=KtKp8Eq8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gsuzcSQQq282D2nHZzNaEOYKnHJ+5M9RWfrh/6rLp4EMfkjaUt96GMr6tGyNx3uHX3snrBvgC5ob4/ts+uoOElcxR69SOe0iPjx8N/59UUaY09mZxXFUCnDkEWZ9KNhrRMXijgJ7MpdKgK6NsmqxohYaqp5FeOgM4D8f5mAGk9xHnu29f8LypkyUIYUlSeqeg7li8aPcZTBnemQ8PS9/7KUo3b/AYVj8TxMZS1JsnzKJlwHPA63wvXv2ZovIzTKv570WSBtWPcQ73krjAE7hjmbMMGMZ32Qds3slUo1wsVhn9tixUXrBo9idk8oP2GVBLbmY0jb9/U191u1XZpLPEw==
+ b=FwjroSqLUPWPawXHaBXaya44b2FUav6kHXC95N68Wiz8DnnKVVnmwpP/j7zWiQf583FtD4LPmXTSNNHAEJ+YXohBa3K812bBb9dGMb6YlEa9PkmVA7pE0F77N+wQzogV4fiFhHAdUI/Ojujl5Vnk9U2sxqE8vrCRJJcWkt9E5y5/VwCGbAc+ANQizm7OF22IuxsBe5wrshhHI1KdGKCCLh6cAUfQQu8zsLOL+8WpkotEYxjnANNlo9fR3jLwwhmefP9IDE+XcI4UsPkMBsEbVMI1LIpfBI8tuU4N4ojRYbMqV+c3ANtYfGfy0wHTBgNP9OsRJhFKZ1wm1rA/JtRwAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mw5JUe7A7NkeFD4B1Y8yMH0Z08UgM3nvhLtC6t3gBfQ=;
- b=G0xtrEhqLtYZYabV6hmZ3kGV2GIRdMBIh46ddtNL2Y4UrsNSvpBRLGvjeNddVID1l72SGCVerWVyrC1SJ2oquPwSJJhiauZCYTUMP0sj5smUAQrq/JQvkWJdxrTf7RJ9mkKAgqySxQ8m0qgVQMUi9+ri/eF4dTDlYWT54JDNA/CsHqWZSEPuGHjpGmtjGeGdQoG6wXNGgnobeyV0CVU1B5ZCCJqUjfavc3V2OwlAI0rl3cAUzSz5QXmPPtmMkB6w5MpMsdGA4aROu4S+SChL5HiJ7CiAM3/STqdGHo6FtEuoJNGEBbMd8zQykHzhrwZTnfeAPfJUJMAE8x9Z3j3LuQ==
+ bh=+A19KZktfJ9WubK3tSrVGgcJywvdEEEzc8mO41Be7dQ=;
+ b=DnSSZ9jHZqy0MUhA3FfjIOvTcRatZOEP3jTLpYmZyORY5sllCFqddsEKki3J4fHuEZg70bTu+HM20mzvlX8BlwKo+N2sJiyt4MU9iJCBaxWX+VuqpXCTTyhegahwKImKyOc+5pA7yeW5t2NaH8uHbwwX1/gFQ9j0RU2jZ40LZMeChHbP7LM+v+KXYTqSrqJ3owF++2d/3YuZGqbYBR9Yew41q1dca91FbJKqzez6dD93YpOHOFoe0LtqFzIja/tRhsGqO+CIXIv/dQgFOdWT4zWGebktrywl13kXc/8t7ECMUGvrRk2fq9mfkFTqBFUbK0NoQpxD1hLRg5JF0lU9Jw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kuka.com; dmarc=pass action=none header.from=kuka.com;
- dkim=pass header.d=kuka.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuka.com; s=selector2;
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mw5JUe7A7NkeFD4B1Y8yMH0Z08UgM3nvhLtC6t3gBfQ=;
- b=msU4Er1PAzL3jqqxPMULq+rrjVu7bXFuSOf/yurwthGoUSZtUG0OPv4PNINy92VfKKOohLyuEmCVB02MGR4/+J9YIZ7lkM/ex264H2KhI+oiJL/3SdbPQJSPOqKT5GVdCGF+clnbj42AzkPjObHG+k5h/DfjPZLuM3GuJ1R3W7VXDtn/HZMm8Eqm6fTQ+NpBpES0sCHZBUJmmpNQVBXc78dMrGsc6BJpTuQm9kRwOXX7dYwqvRdEVtOEoP1s6cZqosU8FVWfOr6PXHt+DS4MLCVHLJi8cjX50ic58QgudDQfjdJ9QRuEUOokzv6F6py/PpwjevXmC1Sl7xhJVAaFkA==
-Received: from PAXPR01MB8824.eurprd01.prod.exchangelabs.com
- (2603:10a6:102:224::14) by AM7PR01MB6995.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:1b7::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 08:25:28 +0000
-Received: from PAXPR01MB8824.eurprd01.prod.exchangelabs.com
- ([fe80::25fe:77c3:6eaa:48b4]) by PAXPR01MB8824.eurprd01.prod.exchangelabs.com
- ([fe80::25fe:77c3:6eaa:48b4%6]) with mapi id 15.21.0592.009; Tue, 10 Nov 2026
- 08:25:28 +0000
-From: Alexander Krabler <Alexander.Krabler@kuka.com>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Peter
- Zijlstra <peterz@infradead.org>, Sebastian Andrzej Siewior
-	<bigeasy@linutronix.de>
-CC: Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
-	=?iso-8859-1?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>, Clark Williams
-	<clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>,
-	=?iso-8859-1?Q?Tobias_Sch=FClein?= <Tobias.Schuelein@kuka.com>
-Subject: [BUG] futex(FUTEX_LOCK_PI2): timed out PI waiter keeps owner boosted
- until it gets the CPU
-Thread-Topic: [BUG] futex(FUTEX_LOCK_PI2): timed out PI waiter keeps owner
- boosted until it gets the CPU
-Thread-Index: AQHdcO0K8CHM4VXnokKf90szhrlw7Q==
-Date: Tue, 10 Nov 2026 08:25:28 +0000
-Message-ID:
- <PAXPR01MB882495A65FEC263204092D0A82722@PAXPR01MB8824.eurprd01.prod.exchangelabs.com>
-Accept-Language: de-DE, en-DE, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-kuka-no-automatic-footer: true
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kuka.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR01MB8824:EE_|AM7PR01MB6995:EE_
-x-ms-office365-filtering-correlation-id: c0f02154-c0fb-45eb-0ede-08df3f042d36
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|38070700021|260925021311599003|260925021911599003|260925022911599003|11063799006|56012099006|261022105027099003|261022075727099003|261021135927099003|261021121427099003|261026121527099003|10067099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003;
-x-microsoft-antispam-message-info:
- 7akoCYiV/xnBkzoy0B44jZZXqF/Y2wr+sLWE1xpiQDnw3Phz0zr6Z8rkpWKWjjw357YZofsh1kEc7qciPR5E9bi5fsesuHDLtHzIDtmmVgHA/5rk0YVvypHjOUXbvfkFQe5GbYYSEKiv6ITkxw+lxT9nUvBfe1NRTrzvDBAcA+2b8L2hgRXzOjiuQWQIJ6XCp85vItjO/uUnhWAgazYEnpr/P4kDXtco9nVGvq/qZIsj8CTd9Uqufe1Mx3aOQwFNoks5Je7Q0IpFamsxowqz42NQFVair4JK27nLG1H9NnOVtN1IzTry30hzBcyR3xBjMF6KjFaWQcpKX20TLxXKsL5de7V0g6Y7yiz1a5AfbhilXPTnWRb7/xxw2xmk79pg1c+sEkWlTue7GupaDrGeeAS0p2y5V/wup2ooXvAlIOnXw6l5qZjHETRGVeN0uWCeEtMyJ/4oY0EXh6wr0DpIkhvZTuC5sFzzzuxfUz7HvRdWyiXcx8coWiaHu70LcUZ2xpd0LTBxylKcDnp66+DdMe/hMcV+wtrf4WtIRPIujSqAE02Az07xXOUiOmHfLh9+XypiVsyVutSQnfFT6UUqA/AYWUIYM9Mcgh4Jw6UuFXRHmLdaVtPDbYO8trarYh1q8lEISVC4Pt4k0E0BTWzxzM9GWrCrFZh1FLVNbTfJjYxgRzhUfHeF1PrPYlyi1UfmnErdIEg8EW7IMeFmCsuTMzsBzy5vGJZ2pfvo7mchRrk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR01MB8824.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(38070700021)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021135927099003)(261021121427099003)(261026121527099003)(10067099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?o6bGeIMoZBFi+9u6kifnrWzUlWWF6FZ+n1e7y+MNPg2JOC464vvOgbs8Ct?=
- =?iso-8859-1?Q?t968D3m9nDmX6UD0bN77zCUPsAuNQOnm+buv4hQs16Y+Cx0UFWB/DSIlLs?=
- =?iso-8859-1?Q?sWaL04pcPVqx3ieQnVV1/e+E1cP0pyVcuWlE7cU7NONX2KFDQ0LNySN7xs?=
- =?iso-8859-1?Q?Sg2epo1HbX6xDjuKqF+IeHIET8kfbgb5MXXdak/L0Qi9J3lsaYLbRGmNbD?=
- =?iso-8859-1?Q?zlvi7YpHEIFjybNdKFkTkOzTihwP2A5sopQRwmT+jTKI2Xpsp/1OVXv/tH?=
- =?iso-8859-1?Q?nbilp2ZvFd09ap1/EKTLjpZ6roBsdm6AIHNRfm0h/BfQJ9xT8oPBy9grav?=
- =?iso-8859-1?Q?owG6NoONNw8ZegUKlv+tViTUqNb3cI5ckYRIsyvOGC37ZOKG5qz2nheMde?=
- =?iso-8859-1?Q?4obGzWe7XzGF77VvrJCUkAQVXkBMCvzfMnMn6f2OocOy1h5KzmqYOdJIkg?=
- =?iso-8859-1?Q?2wQImzqFLHDxkzPSFXp3FbX+jgdkNe5Hz+Z/3G8PS8ZAKhpeOGKO6MqDgO?=
- =?iso-8859-1?Q?utx8tkq2ysr60b7auIv/J9os7kDjNO/yjnKw6BKn+ipedQAXnpblOH1RW8?=
- =?iso-8859-1?Q?2PxvTZQbjimYWDrSAOwqnzTLtEigA9cYHioQ+bNEb3dCcugxXT5zPqrO9T?=
- =?iso-8859-1?Q?V3P9v44r4BLOuWd3S+N8YTgxxk9fM3yGSTOw73EusosV6bNQqMeDy7SLGB?=
- =?iso-8859-1?Q?zxrxJbx5tcS/OAm1GuPmXr6de740y0VL8aXWdJTLgF2EcDx6xPRgZiRBdp?=
- =?iso-8859-1?Q?tam6wCO4Qaq+WcFR5pFAp3WyIRc+DDIXQN2pY0mFjxkfcOjUoNxxbFPDOs?=
- =?iso-8859-1?Q?fnVFnOW6L/Rgj86eP0JoNvkgvIAlC/oBXeijtYAYbAVM+oEKVrDSGzMltn?=
- =?iso-8859-1?Q?sw4/2gQIYyP+e/h86gPeEj7vVj/cYTizuYQVw6+Lglmy17mFAFAne5eFds?=
- =?iso-8859-1?Q?z8r+Ubllhjr7uEk7NIE9rO2Tn6BnneSepSyz80pHq36qUDtOmCMxM+4WJ0?=
- =?iso-8859-1?Q?ACtrBgzKqMK7SzUVlB4SKVl1LYCZRhicT1Nsjdwhkvan1Sq5WTbE4VOLyB?=
- =?iso-8859-1?Q?pHTr6W2kmNAnu+7Rc06VbQV0EyuuCZrM2XslwY7SFnvho1lNRagstWm/rU?=
- =?iso-8859-1?Q?3vvo0XCJndG5aFlE+rO5WaZQAXAWhXNUMKbEslJGiWyc04DH/lKQDqRGT+?=
- =?iso-8859-1?Q?XMtKm63BrTx1rKLjN4B7K1gCVa8rPI6bHyonW5nqE0QxR97PEY/MOncVfh?=
- =?iso-8859-1?Q?ZKhf11ulAcVNUWro41irSAu+a5jFwRU4rAM3bys5S+vrffhZb2u0E/SM/g?=
- =?iso-8859-1?Q?FYA9nxk1AcnaF+7IfSF8O70/+cKpDRWVK0cQj4e53WpnYSf18qYB/u0yFD?=
- =?iso-8859-1?Q?u+OYyOHzYPk2HSNE/uGKx5vOd8Qyl4ISimUdhrEB2xBTyuf9u6Bu1G3+6L?=
- =?iso-8859-1?Q?+fHN90y4nL6lkLZaPz4T4Kh5lwyfYTTT6X9C7/g5Ao4QXFKLFWqnORZ56W?=
- =?iso-8859-1?Q?GQ2Nu/3lDhKFmgFrv7bvYX8K8Im1AeYE/9BT8JjU4Nh6Qf80tXNgv/2dWD?=
- =?iso-8859-1?Q?UeY8z6YpMayLcYawvzV5aIsaPklT1yX9+s94C6ookZ+b8uFZclNgf/n3HL?=
- =?iso-8859-1?Q?GwNwECYQTLXVvuw2M2oAZeeTH0Smbgf2vvo0MMcHCVjf7C2GPi0OtM1eF9?=
- =?iso-8859-1?Q?ZRNEQESEizc1RsEydvi5nGSPuowFQdLb3yMgA3nrBtyukyuOMp7iqSgteK?=
- =?iso-8859-1?Q?S+a7lsREYVQ9QbU7mdRVrUk+TtVAmQS9zmio1KHCWFFzhfFxts38Akn1Gc?=
- =?iso-8859-1?Q?1LF+9PKabA=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=+A19KZktfJ9WubK3tSrVGgcJywvdEEEzc8mO41Be7dQ=;
+ b=KtKp8Eq8ZcJEJjKpGJE5t722dA0uayBlrcsU7hoPZSzdYfxeig9NRuTNwEuFipPHNBMbBjtDKTigAFI/MuuvV7W9Xdc/4hdAR5GIMWtX2Yf4XkCTRq2Q8jwYmkVc+ab8Lv4e+Q27Mu5kmPqhO2N3ZZTvmwOCsZGVXwplvJ/jRfw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TY3P286MB3015.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:318::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 08:25:12 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 08:25:12 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	linux-pci@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ntb@lists.linux.dev
+Subject: [PATCH v9 07/10] Documentation: PCI: endpoint: Document vNTB DMA export
+Date: Tue, 10 Nov 2026 17:24:56 +0900
+Message-ID: <20261110082459.1798763-8-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261110082459.1798763-1-den@valinux.co.jp>
+References: <20261110082459.1798763-1-den@valinux.co.jp>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0320.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3b7::16) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,256 +113,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: kuka.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY3P286MB3015:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f60d284-ec80-4c92-f230-08df3f0423b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|7416014|376014|366016|1800799024|56012099006|261022075727099003|261021121427099003|261021123027099003|261022105027099003|261026121527099003|261026135527099003|261026140227099003|261102130727099003|261028144727099003|261102123227099003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	p+fGk3Xw4XK9OfhDVXDELFDN2ucioDiDje3hXoWv0xF+guLn82OHrvznPwdlF5IPq2mUnpaVI3qTAcy01e5ozhx5khZaa/IdjpFmvZvic4ZlTGEa2SKHKdMiT9NY0opbR6cJDGsdg5JIvP+R8ApCjC2TfMyXeBFiwAocG4M65GuwAcXxVPNjf/skbMnqngllgaV9WayEyfI+ndJb3JeVrEhK5bZHVYMOMqq2Po1r3PESKUQxMvw8+Jay0ppFIhhjfy9XhloQ4e/mXVlLP0gFbPHTDtS4N2rY8knh8AZXQG9l6mipuVujyR6svtbtW3gT8CtOFLNphdUQI8CYC4o3/TlBNdCEIUByN8DOyeAVK+KGq+NB7lD2OE8M8Ca6Tb0cMclAJi8LVY2V8OXf7YQYbEYNbju+Ow5K9ytfP+Hb7XjvhexRl/0fB8NK0+6iK3npsncKdCl1pjdPzjVOe51Ur36GwyuMP0BZOHlpW/XZWG1SYyOr2t8xknueThMVodFbtgd6HfKuOIgJZ4yej/fknIphTFUMzZLgysgdqTuyyrnrcXQr9AD6F24Et4HNvGrwASbWNhCBr2+LOrY1JnCAcKKlHlbxdFAJh0QBOlOlhEmooIeKqYFR9cT5ln1EqDO+
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(366016)(1800799024)(56012099006)(261022075727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261026121527099003)(261026135527099003)(261026140227099003)(261102130727099003)(261028144727099003)(261102123227099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3t52LVxSI6gkWd/lSFME+oShGhGIfsdAAOkCYu+gVkAcS3yyn9+SftWkRX++?=
+ =?us-ascii?Q?SN0gB2MDLyHb0R6mnmwWQ42LjGlo2aWWBlg5Rkuf4UcQ1uhKJ0V0y7jpwUMR?=
+ =?us-ascii?Q?EwqS/sPdPKRBVr9TBz3v4rqRMKZ3QVAAn2xnt+Xz+0P3bw13ZxwxcW/d2m/+?=
+ =?us-ascii?Q?r50OHEzhOqbciLntw4aPzB8WxpOyPkNmiKGogrv3mr4Q88oH0dEQChpDcj9H?=
+ =?us-ascii?Q?n1FR2dlT8Db8XDKRCSZid05PqAo0VOzsiIRqnfBMgw5nzKmL5l3EAyzuk4uy?=
+ =?us-ascii?Q?0XrI+BMDv17mp97E56ubzC2qQYbSgjqzl8v1gaU4Vri3r/EuD0ZKpU963Ipf?=
+ =?us-ascii?Q?wWeASypFA/LmhNcDmFj04l62PxUD5x/lxyXqYj+GwdF7oIi0RhDkPTiWCk/i?=
+ =?us-ascii?Q?eBVKTEyl/UGZrRO1xLJLvXQTPC49uKPoNPnchdgzGn20pqlguAuY3lwC7Drh?=
+ =?us-ascii?Q?lZbZx65DaRbhyIyB5NiMkjR4QaW9ndBYVDAV3vInJ/SVdzTgs7/3tcFWU8Hx?=
+ =?us-ascii?Q?aWzy0xpaT77XkRBfe91NpigatBi3NXD+trSxWjDVsP32fPHjF2taTvJ7bosd?=
+ =?us-ascii?Q?dtUmQCzZGAeOJ3bGEC0BhWvRowdbu+QQY29PED61UsfpHwDFOFkVJrJVzdpj?=
+ =?us-ascii?Q?loVQ/zrpE/rdOI+JqqLDNvTCsUx24jWSQ5rvpnFS6jXvROQPSeG/ji5jbWX/?=
+ =?us-ascii?Q?KJy6FNdMi5iWaQTiz4gUjBtBGoow6lLOGifpCzzHAFcBKpMMzsOPPdgEy4RX?=
+ =?us-ascii?Q?22JlB3jHa7b1MQYIA944qcNpx3SS7sTEHpcnQK3F9DJKy+aGwYpHs1VboTn4?=
+ =?us-ascii?Q?i0anN0K98xMdAUTaGyNGdaWuh0qTKbfAJOyLHqXOKW6rReICE0ceP1t94vRU?=
+ =?us-ascii?Q?cao3YDN4/S60RJtV27n8eCNWe2MbZTdPy5UIgkIs1xd/Mn9ImAC7N34kUH49?=
+ =?us-ascii?Q?HhgtGsuIU58iFZBYxjdRD8C3jvvUGJcGhcHmdgWa2ATxzHVSBL5tqQb1sTha?=
+ =?us-ascii?Q?y35paoxJRNNuNkJ+/wIVFj2LaB99CkZEkLkQiBpunEHQqFVWlF5+YmFDDj/c?=
+ =?us-ascii?Q?M0Xhemsu6wUxGgibnwopP3DnqeZg9bCxikuPRxgpCh8HZQA1vQoVI/8jxzEi?=
+ =?us-ascii?Q?lUl4f+V057LLP/6PV4VVaoca6guExxxfNUAeXAVu+mAYzaU4Drksv90UZ+U+?=
+ =?us-ascii?Q?b9dGrH/nlWXk4PkT6+j+VrySC0AnpXhhDkyMI4x2vR6pdD4g9Usm0gHfcO+o?=
+ =?us-ascii?Q?WD8WHj82km8uHLn5ce9haKKXTAGPWFEuKytyP17bXQEIebbauvclOJQbSHW7?=
+ =?us-ascii?Q?1aEFHspSDnK5b9RzGKGy4IlQ8yLc66HBeFWw0UJRCVTtHf2g+aD1Ggy3VGTj?=
+ =?us-ascii?Q?8lxNchmB+vM7BOcoZcjUnYRkCg1FmF+V/1ZeP5d9tmpWxnexOH5dBmAKCsjq?=
+ =?us-ascii?Q?06riYI85kFcY1uiupYYUhyU77Ujp5jqgHNKHaDD53eZqC0PBo2i1i5dbmJJn?=
+ =?us-ascii?Q?DbffxSD/bFt4acFVLkXKBo/CN1dkgJLkCPtvHIYdQs/4JNCoj8BgtyShYHkT?=
+ =?us-ascii?Q?alrrlcnQdzayR16oQCXTZH1CiBAsFTcTomki9nqWdzINrjvkzvqHAlXGtGX4?=
+ =?us-ascii?Q?L7aOw6rHE0zR9Q0XZzHheVt9mrY+DMhA+NnVYPDRbE/vBlLyGqU7dxNk/pdG?=
+ =?us-ascii?Q?fv7gBsbd7yujLBPV4fYTrw6tQ7Wnj+lLquMmYTLfD1KQ38cRYfAqwj5T/XRM?=
+ =?us-ascii?Q?4KiD+CG/daL/pW2r5/OgRaCSYzi4jitepy445/rblmbOUqBlb5m7?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f60d284-ec80-4c92-f230-08df3f0423b8
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8824.eurprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0f02154-c0fb-45eb-0ede-08df3f042d36
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 08:25:28.0414
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:25:12.2556
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5a5c4bcf-d285-44af-8f19-ca72d454f6f7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ETLPpSNpWwoN92YCQyVHMcKbIJ7SWd4+GIZOLS+pgoYpow6Y3GpG7rY8b5NKG9KphrMjUn/F5GPyEkkcHCs+tfEKUGG5U55S0NvoANd6wNA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR01MB6995
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: at9o0/ogWCKilaE1lH0UQhVOKmHJRWpoEAdNu8uyRiZyg14L/P/vpH9Se/QfXsLn/juqHhxjiAfnxxUv76COtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3P286MB3015
 
-Hello,=0A=
-=0A=
-when using PI futexes with timeout, priority inversion can happen,=0A=
-as after the timeout the priority of the lock owner task is not=0A=
-reset until the waiter gets scheduled.=0A=
-=0A=
-The priority of the lock owner seems to be only reset when either of:=0A=
-* the lock owner unlocks the mutex (FUTEX_UNLOCK_PI).=0A=
-* the waiter gets scheduled after the timeout=0A=
-  and deboosts the lock owner actively.=0A=
-=0A=
-If both threads run on the same CPU, by chance or because actively=0A=
-pinned to the same CPU, then the lock owner can prevent=0A=
-the high priority task from running.=0A=
-After the high priority task times out on waiting for the lock,=0A=
-it runs only if the lock owner voluntarily relinquishes the CPU=0A=
-or unlocks the mutex.=0A=
-If it does not, it can prevent the high priority task from running=0A=
-for an unbounded amount of time.=0A=
-=0A=
-Commit b40c927345a9 ("hrtimer: Use hrtimer_start_expires_user() for hrtimer=
- sleepers")=0A=
-(since 7.2) changed the logic to avoid going through=0A=
-the clock event device and wakeups, when the timeout already expired.=0A=
-Before that change, you can observe the above behaviour=0A=
-even when using already expired timeouts.=0A=
-=0A=
-The issue is fully reproducible.=0A=
-The example uses two threads, pi_waiter and pi_owner.=0A=
-Both tasks are pinned to the same CPU, and use SCHED_FIFO=0A=
-with priority 2 (97) and 1 (98) respectively.=0A=
-The PI futex is locked by pi_owner and never released.=0A=
-pi_waiter tries to get the PI futex with a 1ms timeout.=0A=
-As a consequence, pi_owner gets its priority boosted correctly=0A=
-and gets scheduled.=0A=
-=0A=
-After the timeout, pi_waiter is woken up correctly.=0A=
-However, pi_owner has its priority still inherited from pi_waiter and=0A=
-prevents pi_waiter from running until it voluntarily gives up the CPU.=0A=
-The priority boost of pi_owner is only reverted when pi_waiter finally=0A=
-gets CPU time.=0A=
-=0A=
-Tested on 7.4-rc2 (7475ea8b) x86_64 and on 6.12 aarch64.=0A=
-Observed on both PREEMPT_RT and PREEMPT_DYNAMIC.=0A=
-The reproducer exits with status 1 on all tested kernels.=0A=
-=0A=
------------------------- >8 ------------------------=0A=
-/*=0A=
- * Run with CAP_SYS_NICE or RLIMIT_RTPRIO set to >=3D2.=0A=
- * A FUTEX_LOCK_PI2 waiter that times out should drop the PI boost of the=
-=0A=
- * lock owner.=0A=
- * Exit code 0: boost dropped, 1: owner kept the boost, 2: setup error.=0A=
- */=0A=
-=0A=
-#define _GNU_SOURCE=0A=
-#include <errno.h>=0A=
-#include <linux/futex.h>=0A=
-#include <pthread.h>=0A=
-#include <sched.h>=0A=
-#include <stdatomic.h>=0A=
-#include <stdbool.h>=0A=
-#include <stdint.h>=0A=
-#include <stdio.h>=0A=
-#include <stdlib.h>=0A=
-#include <sys/syscall.h>=0A=
-#include <time.h>=0A=
-#include <unistd.h>=0A=
-=0A=
-#define NSEC_PER_SEC 1000000000LL=0A=
-#define NSEC_PER_MSEC 1000000LL=0A=
-=0A=
-/* Our PI mutex (futex-based). */=0A=
-static uint32_t ftx;=0A=
-static atomic_bool lock_returned;=0A=
-=0A=
-static void die(const char *msg, int err)=0A=
-{=0A=
-        errno =3D err;=0A=
-        perror(msg);=0A=
-        exit(2);=0A=
-}=0A=
-=0A=
-static int64_t now_ns(void)=0A=
-{=0A=
-        struct timespec ts;=0A=
-        clock_gettime(CLOCK_MONOTONIC, &ts);=0A=
-        return ts.tv_sec * NSEC_PER_SEC + ts.tv_nsec;=0A=
-}=0A=
-=0A=
-static long futex_lock_pi2_1ms_timeout(uint32_t *uaddr)=0A=
-{=0A=
-        int64_t deadline =3D now_ns() + 1 * NSEC_PER_MSEC;=0A=
-        struct timespec ts =3D {=0A=
-            .tv_sec =3D deadline / NSEC_PER_SEC,=0A=
-            .tv_nsec =3D deadline % NSEC_PER_SEC,=0A=
-        };=0A=
-        return syscall(SYS_futex, uaddr, FUTEX_LOCK_PI2, 0, &ts);=0A=
-}=0A=
-=0A=
-static void busy_sleep_ms(long ms)=0A=
-{=0A=
-        int64_t start =3D now_ns();=0A=
-        while (now_ns() - start < ms * NSEC_PER_MSEC)=0A=
-                ;=0A=
-}=0A=
-=0A=
-static void pin_to_cpu0(void)=0A=
-{=0A=
-        cpu_set_t set;=0A=
-        int ret;=0A=
-=0A=
-        CPU_ZERO(&set);=0A=
-        CPU_SET(0, &set);=0A=
-        ret =3D pthread_setaffinity_np(pthread_self(), sizeof(set), &set);=
-=0A=
-        if (ret)=0A=
-                die("pthread_setaffinity_np", ret);=0A=
-}=0A=
-=0A=
-static void set_fifo_prio(int prio)=0A=
-{=0A=
-        struct sched_param param =3D {.sched_priority =3D prio};=0A=
-        if (sched_setscheduler(0, SCHED_FIFO, &param))=0A=
-                die("sched_setscheduler", errno);=0A=
-}=0A=
-=0A=
-static void *waiter_thread(void *arg)=0A=
-{=0A=
-        (void)arg;=0A=
-        pthread_setname_np(pthread_self(), "pi_waiter");=0A=
-=0A=
-        if (futex_lock_pi2_1ms_timeout(&ftx) =3D=3D 0)=0A=
-                die("FUTEX_LOCK_PI2 unexpectedly acquired the lock", 0);=0A=
-        if (errno !=3D ETIMEDOUT)=0A=
-                die("FUTEX_LOCK_PI2 did not time out", errno);=0A=
-=0A=
-        /*=0A=
-         * After the timeout expired, the owner must have been deboosted,=
-=0A=
-         * so we preempt it and get here while the owner is still busy loop=
-ing.=0A=
-         */=0A=
-        atomic_store(&lock_returned, true);=0A=
-        return NULL;=0A=
-}=0A=
-=0A=
-int main(void)=0A=
-{=0A=
-        pthread_t thd;=0A=
-        bool ok;=0A=
-        int ret;=0A=
-=0A=
-        pthread_setname_np(pthread_self(), "pi_owner");=0A=
-=0A=
-        /* Uncontended PI futex. Acquire from user space, never released. *=
-/=0A=
-        ftx =3D gettid();=0A=
-=0A=
-        /* Pin both threads to the same CPU. */=0A=
-        pin_to_cpu0();=0A=
-=0A=
-        /* Use realtime scheduling. Inherited by waiter. */=0A=
-        set_fifo_prio(2);=0A=
-=0A=
-        ret =3D pthread_create(&thd, NULL, waiter_thread, NULL);=0A=
-        if (ret)=0A=
-                die("pthread_create", ret);=0A=
-=0A=
-        /*=0A=
-         * Reduce our own priority. Makes sure the other thread can run=0A=
-         * and attempt to acquire the mutex (boost us back to 2).=0A=
-         */=0A=
-        set_fifo_prio(1);=0A=
-=0A=
-        busy_sleep_ms(10);=0A=
-=0A=
-        /*=0A=
-         * Must be read before joining, while we still hog the CPU.=0A=
-         * If the flag is unset, we did keep our priority boost=0A=
-         * (and therefore were not preempted),=0A=
-         * although nobody waits on the PI futex anymore.=0A=
-         */=0A=
-        ok =3D atomic_load(&lock_returned);=0A=
-=0A=
-        pthread_join(thd, NULL);=0A=
-        return !ok;=0A=
-}=0A=
------------------------- >8 ------------------------=0A=
-=0A=
-Relevant ftrace events:=0A=
-       pi_waiter-7339  [000] 67127.305214: sys_enter_futex:      uaddr: 0x5=
-5e4dc9de08c, op: 0x0000000d, val: 0x00000000, utime: 0x7f3702911e00, uaddr2=
-: 0x7f3702b48010, val3: 0x00000000=0A=
-       pi_waiter-7339  [000] 67127.305218: hrtimer_setup:        hrtimer=3D=
-0xffffd27f8f3f3b50 clockid=3DCLOCK_MONOTONIC mode=3D0x0=0A=
-       pi_waiter-7339  [000] 67127.305228: sched_pi_setprio:     comm=3Dpi_=
-owner pid=3D7338 oldprio=3D98 newprio=3D97=0A=
-       pi_waiter-7339  [000] 67127.305231: hrtimer_start:        hrtimer=3D=
-0xffffd27f8f3f3b50 function=3Dhrtimer_wakeup/0x0 expires=3D67127276392278 s=
-oftexpires=3D67127276392278=0A=
-       pi_waiter-7339  [000] 67127.305235: sched_switch:         pi_waiter:=
-7339 [97] S =3D=3D> pi_owner:7338 [97]=0A=
-...=0A=
-        pi_owner-7338  [000] 67127.306216: hrtimer_expire_entry: hrtimer=3D=
-0xffffd27f8f3f3b50 now=3D67127276396064 function=3Dhrtimer_wakeup/0x0=0A=
-        pi_owner-7338  [000] 67127.306216: sched_waking:         comm=3Dpi_=
-waiter pid=3D7339 prio=3D97 target_cpu=3D000=0A=
-        pi_owner-7338  [000] 67127.306227: sched_wakeup:         pi_waiter:=
-7339 [97] CPU:000=0A=
-        pi_owner-7338  [000] 67127.306228: hrtimer_expire_exit:  hrtimer=3D=
-0xffffd27f8f3f3b50=0A=
-        pi_owner-7338  [000] 67127.306229: hrtimer_rearm:        next_event=
-=3D67127277000000 deferred=3D1=0A=
-...=0A=
-... After here, pi_owner should drop back to its old prio (98).=0A=
-... But it keeps its prio until it voluntarily gives up the CPU=0A=
-... (pthread_join in the example).=0A=
-...=0A=
-        pi_owner-7338  [000] 67127.315249: sys_enter_futex:      op=3DFUTEX=
-_WAIT_BITSET|FUTEX_CLOCK_REALTIME uaddr=3D0x7f3702912ce8 val=3D0x00000002 u=
-time=3D0x00000000 val3=3D0xffffffff=0A=
-        pi_owner-7338  [000] 67127.315272: sched_switch:         pi_owner:7=
-338 [97] S =3D=3D> pi_waiter:7339 [97]=0A=
-       pi_waiter-7339  [000] 67127.315279: sched_pi_setprio:     comm=3Dpi_=
-owner pid=3D7338 oldprio=3D97 newprio=3D98=0A=
-       pi_waiter-7339  [000] 67127.315284: sys_exit_futex:       0xffffffff=
-ffffff92=0A=
-=0A=
-=0A=
-The same issue happens with FUTEX_LOCK_PI, too.=0A=
-Is this considered a bug? In the documentation,=0A=
-I couldn't find anything that would explain the seen behaviour.=0A=
-=0A=
-Thanks,=0A=
-Alexander=0A=
-=0A=
--- =0A=
-KUKA Deutschland GmbH=0A=
-Board of Directors: Michael J=FCrgens (Chairman), Johan Naten, Hui Zhang=0A=
-Registered Office: Augsburg HRB 14914=
+Document the dma_bar attribute and the requirements for exporting
+endpoint DMA channels. Also document how the selected BAR may be shared
+with an MW.
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+---
+Changes in v9:
+  - Clarify the max_mw_size restriction and EPC alignment requirement
+    for MW/DMA BAR sharing. (Sashiko)
+  - Link to v8: https://lore.kernel.org/r/20261022082230.3164834-8-den@valinux.co.jp/
+
+ Documentation/PCI/endpoint/pci-vntb-howto.rst | 34 +++++++++++++++++--
+ 1 file changed, 31 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/PCI/endpoint/pci-vntb-howto.rst b/Documentation/PCI/endpoint/pci-vntb-howto.rst
+index 3679f5c30254..7f2fe24ea60b 100644
+--- a/Documentation/PCI/endpoint/pci-vntb-howto.rst
++++ b/Documentation/PCI/endpoint/pci-vntb-howto.rst
+@@ -90,9 +90,9 @@ of the function device and is populated with the following NTB specific
+ attributes that can be configured by the user::
+ 
+ 	# ls functions/pci_epf_vntb/func1/pci_epf_vntb.0/
+-	ctrl_bar  db_count  mw1_bar  mw2_bar  mw3_bar  mw4_bar	spad_count
+-	db_bar	  mw1	    mw2      mw3      mw4      num_mws	vbus_number
+-	vntb_vid  vntb_pid
++	ctrl_bar  dma_bar  mw2      mw3_bar  num_mws     vntb_pid
++	db_bar    mw1      mw2_bar  mw4      spad_count  vntb_vid
++	db_count  mw1_bar  mw3      mw4_bar  vbus_number
+ 
+ A sample configuration for NTB function is given below::
+ 
+@@ -105,6 +105,34 @@ By default, each construct is assigned a BAR, as needed and in order.
+ Should a specific BAR setup be required by the platform, BAR may be assigned
+ to each construct using the related ``XYZ_bar`` entry.
+ 
++To export DMA channels, set ``dma_bar`` before binding the function.
++For example::
++
++	# echo 5 > functions/pci_epf_vntb/func1/pci_epf_vntb.0/dma_bar
++
++This currently supports the unrolled DesignWare eDMA layout. The EPC must
++support subrange and dynamic inbound mappings.
++
++``dma_bar`` cannot select the control or doorbell BAR.
++Any rounded-up BAR tail is scratch-backed.
++
++Leaving ``dma_bar`` unassigned disables DMA export.
++With a separate DMA BAR, an older ``ntb_hw_epf`` peer can ignore the extension
++and continue without DMA. A peer that understands the extension also continues
++without DMA if the advertised type is unavailable or no DMA IRQ can be
++allocated.
++
++If no spare BAR is available, ``dma_bar`` can select the BAR of one MW instead.
++DMA resources then follow that MW. In this configuration:
++
++* The configured MW size must be a power of two and meet the EPC's alignment
++  requirement. Without the fallback described below, the MW translation must
++  cover that full size. Smaller requests are rejected, including those caused
++  by the host's ``max_mw_size`` setting for ``ntb_transport``.
++* Older peers treat the whole BAR as an MW. The function detects this at
++  link-up and then exposes the whole BAR as the MW, so NTB still works
++  without DMA.
++
+ A sample configuration for virtual NTB driver for virtual PCI bus::
+ 
+ 	# echo 0x1957 > functions/pci_epf_vntb/func1/pci_epf_vntb.0/vntb_vid
+-- 
+2.54.0
+
