@@ -1,95 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326739;
-	b=u4DPLLi490bDaWoDHB+YWqNosAahhWcLnqjv41vfELJu8KM54Qo+6cGdVMx0gL4fOR3U
-	 kurRs9m5KeRi1BstmJoJAVlLqK+4AiY5w5ejfaXT+oSCZTXAe81k/yDQKWjZP0KCR1IrM
-	 FF6y3T7xLnw9wYIZzY7IafIKIKS2C2ggxpeRr/CgNW8zFoVAej7IBb4R/ogN/DKaj+yn2
-	 dcpQFzLu2+WE3gMbIornhQGDz9nL3QxLkT9cn8SzNhAvqJ1yp7buUTi8I7+IV4GC5kSEe
-	 4T79PADwpU6Hpf4uFmxRap8RCPKdT1C7AEgH7Rc8N1Equd5Py4Z5iGYuXdioeNuISDw==
+	t=1794326794;
+	b=ulSL2Euo2biwnnVqu/WxhF+tVkgk1NVtS0Jguwnrh4JytxlyqH9KEdwzNwgdwLELTURF
+	 0NChuIHZj2lZ1SR7pIPRKQDFLXXsJ6Bq4Z6I7JJyy8az46lvFoLXJ9z6l36TkDO+PCvmw
+	 v8clsyQuNvU3EIUHO156EED+wSQURtSCKfvBURICgpBQiTaA+CrBfjm6ZhZU0oLuWpw54
+	 /S6NoJvSQVh0UWZe+SE8GweXxAIvXi+0K7x6AgyM5PEKwOXpAEKnCIa6U+bvPw6D6ywiy
+	 OBx4puq0yMvuqrB128k0qiuNtpJaEW1OS/GtEZ1MMOqcIrhvcP0U4j4PlknO9NjXXQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326794;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hELu8QwX+qFD/DnVT/P2rFt7tx59zhJVYLvINkhGp1Q=;
-	b=Ooj8+uwOkVmbC0wnn8oizdFkVuOc6ngJoMcPEzS7nuWUM4iBYgDyKV+mVFWtYD6pHTd6
-	 9Hqho0JOUI4yPpzepp28npymBIpI0/76dI1XPUGvgPCJZz409Q4ulGaz4unztAAuFoF0C
-	 BB9Rc9brTtbTQnhoPGLqdYt/+RisdhzFeuziubG+DXkpX/8bA8WuhbNBZRNBeQFzIz3qI
-	 qJcrLFZmO9IxSHAn9Kqgj6vN8NfA0jdfMYC91Q+2hilUfXsh/DG775LF8tkUqZzvXMqX9
-	 BdRbbdRM++D5hkT5mFlMGUZ3mSbZmLeK+grVKmqR2Xub2Mm3GUgPO5Z0l0fRbSPrpkQ==
+	bh=Vrfc2uaAwCa6vgkw7mtiQRrVI6iR2fXJpjV3Toth268=;
+	b=IrzmK7afjT0Z586Kv8p1Wpr0Kmom3O/Q6vMsWHtzBcYsmYIGRM9n+wUVzEMJyQmsQaAB
+	 d+v6r6loyLtBpZ7Yna+M+0SmIPZFG7oZK94ZQunOehvQVIKRBX49SxLyvKcWT9ZzwObSm
+	 SnYkknDoT1LcUzdYBBqOURJ5nNesLNFxKnD1n5L6VCg0G/N584WpyOVoczStjKx/95MuO
+	 3V8q5qmEn/GnbX7LSbIS3HpCU6idw+0h+MPk22MpvPFqPPfD+0UmoG6T8MRNwYKDpq4tw
+	 V+dQaaRAcYYlHSA/1bbsNW+CXf+p7gQwlYcPI/RR58q8z06qYwF17DAzy7umrwZ+neA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zsIDDtZ5;
-	arc=none smtp.remote-ip=209.85.167.182
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hYvFUIu8;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CA4606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63CA4606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1CC606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 16:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC1CC606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zsIDDtZ5
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4b28d7c729fso1384925b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:05:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hYvFUIu8
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so1483753eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:06:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794326738; x=1794931538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hELu8QwX+qFD/DnVT/P2rFt7tx59zhJVYLvINkhGp1Q=;
-        b=zsIDDtZ5sks72bWAQZKuHIr6mYn0Zl8cMA0em/UNdi/b/oi8VKgjksDjHUrZrW6ajN
-         J6KjkKPPreD+8yRabuQ3VTAaBuTfy5BGjpCXlB7YwFt7GReXARJCt97PS63nLrpPvtPz
-         GhdZB5viDbXScVkopHFjd/woRTgoxek2S/qDubyLMAWAVy8aPm3+Xe2xssaqnTGHc4i8
-         VoxvhIqeDupkuAbHKXdPd6Bq5cqsiVGq+sQ2c+l5stBqjLbOvCbNJbXsXyd6VEtAYlcT
-         JH3Ksvq46UNAj4ZQeOl8jq9VVFHkoefC575jsSnfYg+E7l5tu9t2+brd832dMysfL+Lm
-         G5NQ==
+        d=gmail.com; s=20260707; t=1794326793; x=1794931593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vrfc2uaAwCa6vgkw7mtiQRrVI6iR2fXJpjV3Toth268=;
+        b=hYvFUIu8ZWv5dNB1GaL7fkMqJA6tevDFZDf3F1b5Cpi+lokAMJ3ZnlwuLs4P/904de
+         1HRWfAGVwhbAOkaKTzYAycjUdmIzM9viu4Nj+kYTSAqyRs+vq4d420OZDT+zyxmeq8Dp
+         yeKxSaRe6mugmCFATS1mXydwYbRIaqIa48ypthuFz1nG59/w76l6JsvT+jrkP09BTCZf
+         PEe5NJqC9qE/ZxK0udZIpnpdPtUhWAg4LLVUeYLG2YHFKLNgrnwMZKtK9ozOY/PIhk9z
+         iK2YnR0xoboRrFwetO6kN8gtarh5BdGZX2FLSJ1TKfHKbcCPTpOzn8xW2wVnRxd93j+u
+         yJSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794326738; x=1794931538;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hELu8QwX+qFD/DnVT/P2rFt7tx59zhJVYLvINkhGp1Q=;
-        b=SL0JrcLjdg0BvxkcaAh/VGe33y47Ox0RDbjSzjHqCOwlZfNYC+tD96C+e8CbHC4JJc
-         8ac7/e5yPnHAiMU9ndZmzJMqdh64zj640ZVZOHv2r48zk1iF0WFpQMzap+PALv6zJcuq
-         e+R4+x0WTttn9HVNur8zRkLktHVIXz/gQF3D8N5+uHzJtO7a62IFJoLgxS5yXc2FkEM5
-         FDgBjFMPU4WFD3ZLiKfio1szasnKg4kS+LQd2qjhmanT7D+ndYFQ/0kb0KSnzKLPlbJx
-         otBvmIOKgHZaDBat71q9jRiP0YsxBIZJYiA31DX5AOinBky/nBoUuTi78abVkXyu4kOC
-         SNAQ==
-X-Gm-Message-State: APuU4Z8ITLqZlobHAFTfYptDxVLNX1Km/nUNAr8XIzayPA3Wt7ib9BE4
-	8jALwmIByV8TRJiIDcD9CqqZ+GYps0gm9NG9FASMX1D3nE1ehwVl7kUy
-X-Gm-Gg: AYBFou321h3Rh8b8TN0L2HJ6KHArgxeYD3GArEVPnj9J5Wx+FPg6XJItzfQm6drQpi6
-	gEvykpYCDo+3qKpqKjAz49SMPptgRVNPediGlf9tTGNYxPYsYhT6rOY66d935uUng6RW6reSXDr
-	GaOflY9SNMCWOi4gU/WC0co5e4heDUJQoGKTuG/rtwdml86DSXS6gM6h6zg2dafQvtQXOyNsJm7
-	BYlxXDjTLKtQJtYZ96VKCRkFbXzkJiu2Ka21Yp6EKuI2jkneq9QF4EJkinMlFQmSki9WpUyTQoY
-	fxXaJe7VPVy0ZBY/9bdzbU4joaOv7dW3N4TuoJtJb6Q75gm8K6uFXsOFJpEZqyIIfntphHuL9Ec
-	thtGgN5cvG5oBijr8RtviaAJ77qK5y4SvkFP6THbZGqdvPhEhsRQfjeYMaphukOfrQ1vJwejuxB
-	Mp2cKr3Ot/yl+ksVQvRsG8VXRhTVT7byOZAZPXKCJavjpT3pCymU8j7BFnpeD0cTKZlIhA8uXLD
-	wPV3m6hyvK3rp6irvBwlx5WwMP2lNkaNPpYD70dVMUgxx10+rYT2yDdS1yKGeNZXheTJ2pO9IT3
-	oKcINcHUAAY/5r2/jORK07LOmdcU2o09eWzjkTMbGpj7/IxThAmqzvlcbGWaxAFYq+vOh58=
-X-Received: by 2002:a05:6808:1524:b0:4c3:4e34:c69e with SMTP id 5614622812f47-5683c9eae0bmr2080731b6e.8.1794326738280;
-        Tue, 10 Nov 2026 08:05:38 -0800 (PST)
-Received: from localhost.localdomain ([103.170.54.93])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905f2faf5sm2434105b6e.13.2026.11.10.08.05.33
+        d=1e100.net; s=20260707; t=1794326793; x=1794931593;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vrfc2uaAwCa6vgkw7mtiQRrVI6iR2fXJpjV3Toth268=;
+        b=crwN8U8NA7TzSWclt04sm0qCY5BOlggIEkBdHn59rVQN5LIGwqy/blT/JrLzUwg5D4
+         by1EyJTnpRKk1hqy8BwqPEpCZvIHwXW5xkSiOK1Jnc/1ZS1MbM51+q6lELbZl7vYuh+u
+         xFR0spLvvcy7MI2tvBK39umrGskFSsxLPbXMQJDHSCsXyaOqAUL99RJdKEGfZO9YEt2k
+         M0fWBw0yfcVP3/RHpukSiXLra/n92Is+uWsplQ5mbJSIMemfivXYOBLE90IAeAU9Vb2M
+         BM8HRgJAeBb2DzoTna4lYIaWOOjRx0Szj4hA8EQLRWjD/HsCb/n/mSam0sVJBB0MHTPU
+         dX8w==
+X-Forwarded-Encrypted: i=1; AL+hErGUvWIRbKgvdpd2Ap6eaDriNpTzou9Drqrhx6hIA5vkLjNztHzYyzRbTqj3GF6/kOeNAMAYPkwj8WC5Tak=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DgqQOxblheIujj6wcCVhMclYahhmTwJ9w/9wsxs3YOBXbsDl5
+	tIqWvIJgEh5+3asdO6aMVimSiJ5kzrp2SA1lRC6dozD5xVn7imPa7w2v
+X-Gm-Gg: AYBFou3yWaVpHKkaYT13JQdAuEnLi2+z6bRufLIH23yCaz1imSpi5DSZoIYkO7hyEW3
+	hzPqzSch3a7MNYczWXAT65y9wMidpz0jEPpHfo1hXmqMZm6NEwZX9nVW0dfhxYhmsmbRoKiXE17
+	QgpDSjH+oNPLkvs/BZ6glrEYc66czthnXzPm36SyKhHNQwRBdOuhYjJnn17b+j6hfB5SDa9Wfo6
+	Pu7mTrjliiBTL8KCYO0RSctSqh8DvmsoQRXncOAjoUYBw2CKIp4I1vu1IGraA1s6NotTQfJAe9b
+	tOBEoLz80POT74POOd9hgHIIg2h401xBCXGHZur0g8T5yQaVSJ4LkaeDmoUb/XWMmXx0nGalaIT
+	Ae04wSkeHmBu0+SAC+wZCTx3J6TBc+B3e3LfhMXUVOco9LDOIUhoH/vRPoXlozF/ga4eHkrk2h5
+	8G/IQOXoubtk1dQ9vQ6ha1pt7+Sh4V3nLQ/32N1bArqfdhBawErS6D5BnKiYXQBuv8iVzyJoUKX
+	+rebX0OGtP8eQw4esCLvl/tpzv7P70QVSIZPg9tRt5/vlj9Gr5BtYuaaR5Wz8f7LP23jYDimcpD
+	HHrZX5dgATt0eKImm/Gd5/uBP24=
+X-Received: by 2002:a05:7301:4d05:b0:369:535f:4d12 with SMTP id 5a478bee46e88-3751c53edf2mr3716461eec.3.1794326792549;
+        Tue, 10 Nov 2026 08:06:32 -0800 (PST)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm8453403eec.7.2026.11.10.08.06.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:05:37 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com,
-	tiwai@suse.com
-Subject: Re: [PATCH v3] ALSA: control: Validate element info in compat ioctl
-Date: Tue, 10 Nov 2026 16:05:10 +0000
-Message-ID: <20261110160510.2697-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87y0b1ug39.wl-tiwai@suse.de>
-References: <87y0b1ug39.wl-tiwai@suse.de>
+        Tue, 10 Nov 2026 08:06:31 -0800 (PST)
+From: Coia Prant <coiaprant@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Jiawen Wu <jiawenwu@trustnetic.com>,
+	Mengyuan Lou <mengyuanlou@net-swift.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Fabio Baltieri <fabio.baltieri@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH net-next v4 0/2] net: phy: fix PHY interface mask initialization and XPCS usage
+Date: Wed, 11 Nov 2026 00:05:52 +0800
+Message-ID: <20261110160554.918652-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,28 +110,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Takashi,
+This series fixes issues related to the handling of the PHY interface mask
+(supported_interfaces) at the core level and in the XPCS driver.
 
-The validation in snd_ctl_elem_write() happens too late. Before calling 
-snd_ctl_elem_write(), the compat handler calls copy_ctl_value_from_user(), which 
-uses the type and count returned by get_ctl_type() to determine how many values to copy.
+Patch 1 fixes a local macro in the txgbe driver.
+DECLARE_PHY_INTERFACE_MASK_ZERO() incorrectly uses PHY_INTERFACE_MODE_MAX
+as the array length instead of BITS_TO_LONGS(), which wastes stack space.
+Move it to include/linux/phy.h and base it on
+DECLARE_PHY_INTERFACE_MASK() so the bitmap is correctly sized while
+still being zero-initialized.
 
-If the control's info callback returns an invalid count, the integer and boolean paths 
-can access beyond the fixed-size integer value array. Other paths can also calculate a 
-copy size larger than the available kernel buffer.
+Patch 2 makes the XPCS supported_interfaces mask authoritative. The
+generic compat table advertises modes that a specific integration may
+not support. The Rockchip glue now builds a platform mask (1000BASE-X,
+SGMII, QSGMII) and intersects it with the inherited core mask using
+phy_interface_and(). In addition, xpcs_find_compat() now checks
+supported_interfaces before looking up the compat table, ensuring the
+core respects the narrowed mask.
 
-The read path has a similar issue. It uses the same type and count when copying the values 
-back to userspace, which can result in an out-of-bounds read from the kernel buffer.
+Note: checkpatch.pl reports "Macros with complex values should be
+enclosed in parentheses" for the new macro in Patch 1. This is a known
+false positive for declarative macros that expand to variable
+declarations; wrapping it would break compilation.
 
-So, validation in snd_ctl_elem_write() cannot prevent these problems because the unsafe 
-accesses can happen before it is called.
+Changes since v3:
+- Rebased onto net-next as suggested by Paolo.
+- Patch 1: drop the Fixes tag, as this is a cleanup/optimization rather
+  than a bug fix.
+- Patch 2: move DECLARE_PHY_INTERFACE_MASK_ZERO() to the top of the
+  function to comply with the reverse Christmas tree order.
+- Patch 2: clarify in the commit message that QSGMII is currently a
+  no-op because the core does not support it, demonstrating the
+  intersection behavior.
+---
+Coia Prant (2):
+  net: phy: move DECLARE_PHY_INTERFACE_MASK_ZERO to core
+  net: pcs: xpcs: make supported_interfaces authoritative
 
-Using __snd_ctl_elem_info() in get_ctl_type() ensures that the type and count are validated 
-before they are used by the compat handlers. It also reuses the existing element ID handling 
-and access checks.
+ drivers/net/ethernet/wangxun/txgbe/txgbe_type.h |  3 ---
+ drivers/net/pcs/pcs-xpcs-rk.c                   | 10 ++++++++++
+ drivers/net/pcs/pcs-xpcs.c                      |  3 +++
+ include/linux/phy.h                             |  3 +++
+ 4 files changed, 16 insertions(+), 3 deletions(-)
 
-Therefore, I think this validation is necessary.
+-- 
+2.47.3
 
-Best regards,
-
-Sreeraj
