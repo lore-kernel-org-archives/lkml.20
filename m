@@ -1,68 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794271896;
-	b=UBhRjPgzxaQU4UhDvhVlb0dUOh6ILpHRYD/jMCfRyorbCZdk96UuNzV047WeqS8RE2HZ
-	 O331KjcZz0HiWoTpZ8vvSrjc0JYZbLOpwEzWt56q0pYOteWN6WVsEhz5ONhRpAkLzokx6
-	 Je1ohuqCnSIApz6y3HMUR+EMrlFD2BQbbsiXr+KU3iHXogK+nzEiyNCz/X9VfivFlDJG3
-	 nGN90K5MogtIR61CokkrnLY7xo9XIjBOB385YMcSceCfXnA15HZi3uDjZJJbKR8EQ1NH4
-	 MkFjGSOeMAE4BHTfTzFN3ZDUqZ8HgbCRnNWldmEF1C+xDcUKdv2fIXWwzi237QeCmlQ==
+	t=1794271915;
+	b=vuUagmLwOrMpbCo4PLgakIFwvd3yIcVl1DBEfTRGSY1EG9cJ+QqYCLHtj2wTGsRR1L4l
+	 +Et5w8+rsWQWvqxk5Xi/8Ts3TvGbfsOKyXzvIOz7ul1QZnexiVXC1IhVDwFXnqOe7AnQk
+	 F6XvNzCx4x6pulJp9p/4n350iZRO+kPUfxYdP3xh9Wfu2uK8OiTYKgR/L3Lr7suU3F+xT
+	 6TM9yMrIoa4ySxmvCgUwM4DWnfgxeDyYK2ehX8PhB3Cs0XZBXubKkXjKhB/7M5q1hNzA9
+	 7oeOxDL3TglL3VD0JuG+6sWnti1MZZ/KgxOoqhwVMT1lBgLUVKEcD4sNA5iii9JGXBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271896;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
-	 Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=LxD33bNL5rSCXAzzNAfOTxYq1lnExYbcm26tyMihFoM=;
-	b=3Wf0rFmCagzVZUZEWtpE6ekP/cY64017fMunIWebFd5ZpXbEftRIeGuo7dPCezRRsHVs
-	 CUla+kE/3gdyDsV5nSFmUzknlA8BarTrJwNWsU55MYuHznETjic817EMCvpuffI795Kgc
-	 YRkk11HXjskh5V/VDFSvvMgy6vHNBfr3qaMyXrtxGsjRixmzfbI6q82eH8HxGmfNAc4Ld
-	 p6s5cHY+n4cSBkoFg7/wZZpH4wvSZskoQMKxDU/h/bk3dKugSm0GYD5AroTHCGQAaFSjy
-	 PLAmdEKKtwd5t5/SSWDk/hye/OwQ49TYJczOqAlNHDvqwY19X3lJoCor2MqKE/xWa9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271915;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=sfsl0vEvxU/Ixv1S43LGbOFsZ8xd2WGwvs4MQ52W9pk=;
+	b=DW/8chNefJKYWEuieU55ZFbzKYH7qOIn2YG7EBpB6CVUJXhzeoO3rRmzJeQAsnb67byY
+	 PPvgORAnQQ+tOUPJXPVbAOhqfJ7Kh/UDYdC8h/U+nlJ32CWERHLmBL+p0LI3jDo88cLn3
+	 exk9F+lGdLpLCrMjxLaLcipBrycN1nNhpcxQsOcNiXV+e/q8jLTpBtEw3Ma+ZH80KWvKd
+	 iTSkwSXmeiG8eF6dMrdqUrqDh4pmayLjmSkOymPJgC54JVi7EIo9AWuRnq4foWvdF1sXr
+	 u4iMtmrCizm39CYsJ0bHwspVXSwj+oIXHP431FsHSOHyiQq8HTWmKNEgrO7QXcNbkeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lDtpx7iO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=g53wR0D0;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b="WBfjx/8e";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=kKAa0w8u;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85CE606A31C;
-	Tue, 10 Nov 2026 00:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B85CE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3798606A336
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:51:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3798606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=lDtpx7iO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=g53wR0D0
-Date: Tue, 10 Nov 2026 00:51:25 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794271887;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=LxD33bNL5rSCXAzzNAfOTxYq1lnExYbcm26tyMihFoM=;
-	b=lDtpx7iO6lCepei/koJiKoXjMLnnMH8ck47qoDWYNctHxWWzoEzYZ3EjXHjqWqTAMvP++f
-	wxklrXPnkWNc7rXXuy7tFmHUTXFZce8jBULBdSlovg19Yro3ieTSwRWBs33JywvpAUOh1E
-	kbLYS9M34AAHALNjYCGI2hZagwPo9JTlTtwm+3WnAOnFxWmVNSO6Gohuge5a4G2Na6krrI
-	vUKt9LTtjIRug08qFU1kAZMZZKHL6recBkujuYG6ZTvkfFcdN6pU/2NMqpCuj2NWJ28ZNg
-	ZdYhFfxw1UsmuAAUQf7fY6SNNV1vpN0HJef1V0P49jBku8JP/zi9zi4tskPC/A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794271887;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=LxD33bNL5rSCXAzzNAfOTxYq1lnExYbcm26tyMihFoM=;
-	b=g53wR0D069YYm24jPQxW1xUf3kKOr4Gz4+hwG4R1JasKoEoYRN6akU7HIAEpAa6hq52pAl
-	KQ65EhCbw9cNS+DQ==
-From: "tip-bot2 for Borislav Petkov (AMD)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/misc] MAINTAINERS: Fix Intel TDX kernel file patterns
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm1 header.b=WBfjx/8e;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=kKAa0w8u
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3425D1D0019F
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:51:53 -0500 (EST)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Mon, 09 Nov 2026 19:51:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794271912;
+	 x=1794358312; bh=sfsl0vEvxU/Ixv1S43LGbOFsZ8xd2WGwvs4MQ52W9pk=; b=
+	WBfjx/8edxu/4eaPtcK36DwSAjBvmcVp6vmLi3kuwBAasOsnWXe3LFdK9RMyOanD
+	BvlXRm6Zpgs5E6rFS8oVkP69YpWDrdmqm/imXpOLdAFP9Qy9mkmR2nBcJsAGfYDp
+	x1h1MNxrOns/skXSmccJdethBYskmFOxDkhFjsP8IT0B5e5lJzRn57EFKwpbc2nN
+	lrVhoeThzmiSPATJseBglgPBAKll9wRNoUkqW/0tqeSvAXykLzhi+n4XSpxAHyfJ
+	vcKSO/4TI9wbLr5e2+PbZR8vRGRpUgHUsRHWmkFXv6X0mT/aT5jT3oQ6RauQ2XLv
+	mCDreYbi4jjEvfo9Bx8LoA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794271912; x=
+	1794358312; bh=sfsl0vEvxU/Ixv1S43LGbOFsZ8xd2WGwvs4MQ52W9pk=; b=k
+	KAa0w8upi1TJVG/tb6DhIrUmkJOr1K3ggW77tgj210SOceX9kOcLau5c3C856JX8
+	AdqPPTfdLCdAmyVhKgzBF/pTg6gsIaMzsBASy4zZa5KziTHKxBh2/yJmyD74mM3N
+	LpUZXO+34O1/yIY9MQzLYIPWYu/Xv4wtC07HAVn6h7Z92R3c0sd6K2XWDUotjBKz
+	gV1rsb4D4mTLsQfpjHAzPjjoyMSp1WWexkmbp0sNdUU0HNqb1X5T5Yd2SCXPUUrs
+	SjB4miBn9alxk9H7YqNwUG9SUmuwJHlla9t2VnaklDP4hFb6QTLHCICCfdDTFg+2
+	aI1AWXOxwel95TYfYKEig==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794271912; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:h8iYUgo+47/xMjQd9oygpHvjJAt/IB9GvnUx4MPLIxgYpd/
+	BjKG6dB30T8+b89iPAjlZIQsFeQk180pKHaT8/8FXYlTOezJmR+PVUCTG1Po4xbM
+	Tz3Lq9GHqJ837opxmLnKGFW1ajKfPqNzVPkmzcbUoQtVIh/jj/l8IdhAleHkWKmU
+	q5UAMZzG2GOEyflR5rlLC5uYqMbv5BA8V3/kbeJUZWKwJ3bB4c4DLCnuCJoyz/Yo
+	nKC7+m32mADXWACj80oySzX21INmuzUTTuWhCHMLWr2DsKtKFW36ueDEqzVdZZFc
+	Bg5gN4ZIzwpdKfUTsP76XIYndLn4DZ384WG21tw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:DjYZDj8AWXZrw0aZmqpTzsEU9gJ3ClTub8Nei9DDkHY=:YBcOwyBIC8YvKTrYysH1B1x7wM3DQh3WKmFS4QM9P7M=;
+X-ME-Sender: <xms:p2ryakCEcfZu3Q-egA_-jLDSgPXV9CSyWntVe-PwP3pMft_j4IhXWQ>
+    <xme:p2ryahWjtTG3aSNGgq92RzYGjh_ugqYEkuKjibupYlbWZ0LyGvX4xsqhtkx0BeiaI
+    U7KWsjgXMOrvkkcUOJ-hk16-aIvMH4_YHdjXKbKcm95hOJuTKi8ZX4U>
+X-ME-Proxy-Cause: dmFkZTFBnibe1gUXjuAF2ew4mvxm3Ru7XGV72rMlvd9jd0Ag5igXQbPP/PRZ4bWpQXrOj+
+    petvBH7xBC5Y7UyRNGYF19YilO/GaVTbYBBMajSc+neykayb8uy+jqDmmGxFLf7+Sdu9FD
+    pIXIdaSW+OqaxvD71reKS7hVe40WsDaPa7sAYAa4jy2CSv8VZ1Uyz9NzpBxHMf3nOZgPpt
+    nA5YAmiM+/Z+zCZy1Pi4kTZHnID4kCr63F/oYwmxiazwbcdYuOm/jQlYIGvrauPY/87X3A
+    8sMtB20GvcIbZ1eqoUzuwB2ONPsuo5yXW3o3s/34y6XHxNPeMHkj89T1HY5HjPdlmznhfv
+    xg0S6ZgTjNQT2hT7RBV/2UcZKnCsHOMdmkFfV32e8TEMcPcrtP99qKAPWblhufL2LxF8r1
+    uFrSuU1Dr+lAq9OVEXDv3A7LEcrXqlIjvfafeL0vlYE5g0DXNpcsM9hfknY3UPvUGQANZC
+    ooIBzJT+05AhhKrxJRMpVIYGjwnzJ2fqDliEAnbxDbaVTD1t1sPfFnLu4vm7e45XwQ0IuP
+    K716YM2V11K92bmyyTqR+8uw0+xbaJ8WmMiVSFikF3/4jTeDWJaC5puDTK5V0ijfe/AcxQ
+    0pO0wb9AqjgPVDiNc3ucDKW6gPv6FpLUNlI79fNj2P0Yjd7w1cpayoTVuUDQ
+X-ME-Proxy: <xmx:p2ryamwYlbvgk6tIJJJhRll2-E1V626g02XncTJInHq2iOfVMJoG7Q>
+    <xmx:p2ryaj8JWZE-w3wulezvn7gxE-6i3SR9UcTVZKxz5iBIIpX_XYP7jA>
+    <xmx:p2ryarw6SgaWUejwQr5Ywcu04LGoOqBnU0ie4w6qbqkzTcEwSJEvAg>
+    <xmx:p2ryasXfHuWgsezIyPRA9kqUA2tItnK7KvnqdZiWoK-VUmp_BNvmvA>
+    <xmx:qGryai4BZbKjYAl7AmB9aoQU4mdNELqSSuxGYqSD0NzuymiKx48sQ0VO>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 1437E2C00085; Mon,  9 Nov 2026 19:51:51 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,70 +115,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179427188525.2093942.2236341209244600692.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: ADQwfFUtXaMB
+Date: Mon, 09 Nov 2026 19:51:30 -0500
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Mario Limonciello" <superm1@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Daniel Lezcano" <daniel.lezcano@oss.qualcomm.com>
+Cc: "Jonathan Corbet" <corbet@lwn.net>,
+ "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>,
+ "Viresh Kumar" <viresh.kumar@linaro.org>, "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Maximilian Luz" <luzmaximilian@gmail.com>,
+ "Shyam Sundar S K" <Shyam-sundar.S-k@amd.com>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Daniel Lezcano" <daniel.lezcano@kernel.org>,
+ "Zhang Rui" <rui.zhang@intel.com>, "Lukasz Luba" <lukasz.luba@arm.com>,
+ "Armin Wolf" <W_Armin@gmx.de>, "Jai Luthra" <jai.luthra@ideasonboard.com>,
+ "Greg KH" <gregkh@linuxfoundation.org>, "Jack Wu" <jackbb_wu@compal.com>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-pm@vger.kernel.org,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
+Message-Id: <9c290945-0281-469a-a5c9-6e6c2bd93c50@app.fastmail.com>
+In-Reply-To: <34c23beb-88d5-4456-b84f-f00e31578468@kernel.org>
+References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com>
+ <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
+ <CAJZ5v0gGeKEqMWvP3cQrXztZt-faFZJF+yNfygcBPT57f-a8Lw@mail.gmail.com>
+ <34c23beb-88d5-4456-b84f-f00e31578468@kernel.org>
+Subject: Re: [PATCH v3 0/4] Make platform profiles firmware independent
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the x86/misc branch of tip:
 
-Commit-ID:     4718aa616ec36dee6b4b846236174754b86f0852
-Gitweb:        https://git.kernel.org/tip/4718aa616ec36dee6b4b846236174754b86=
-f0852
-Author:        Borislav Petkov (AMD) <bp@alien8.de>
-AuthorDate:    Thu, 29 Oct 2026 19:25:27 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Mon, 09 Nov 2026 16:45:05 -08:00
 
-MAINTAINERS: Fix Intel TDX kernel file patterns
+On Mon, Nov 9, 2026, at 12:39 PM, Mario Limonciello wrote:
+> On 11/9/26 10:46, Rafael J. Wysocki (Intel) wrote:
+>> On Mon, Nov 9, 2026 at 5:37=E2=80=AFPM Daniel Lezcano
+>> <daniel.lezcano@oss.qualcomm.com> wrote:
+>>>
+>>>
+>>> Hi,
+>>>
+>>> sashiko validated this series
+>>>
+>>> Is there any other comments for these changes I should take care of ?
+>>=20
+>> I'd love to see some feedback from someone having a vested interest in
+>> this interface.  Mario?  Mark?
+>>=20
+> I am onboard with the new approach.
+>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-A K: is a content regex file pattern which matches any text in a patch
-so if a commit message contains "tdx" as in
+Ditto. Apologies - I thought I had added my tag already, but if I haven'=
+t:
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
 
-  has_tdxe_auto_clear
-
-for example, see
-
-  https://lore.kernel.org/r/20261026-g2ul_sci-v3-3-b3097163edd5@bp.renesas.com
-
-get_maintainer.pl adds the x86 gang to the Cc list for what obviously is
-a completely unrelated patch due to the K pattern being overly broad.
-
-The same happens when someone uses it to check
-
-  drivers/power/reset/tdx-ec-poweroff.c
-
-patches.
-
-So switch the x86 TDX patterns to files and directories (F:) wildcard
-type patterns and group them by path, for less false positives.
-
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-Link: https://lore.kernel.org/r/20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.l=
-ocal
----
- MAINTAINERS | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc..f617535 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -30465,8 +30465,11 @@ L:	linux-coco@lists.linux.dev
- L:	kvm@vger.kernel.org
- S:	Supported
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/tdx
--N:	tdx
--K:	\b(tdx)
-+F:	arch/x86/**/*tdx*
-+F:	Documentation/**/*tdx*
-+F:	drivers/virt/coco/tdx*/
-+F:	include/uapi/linux/tdx*
-+F:	tools/testing/selftests/tdx/
-=20
- X86 VDSO
- M:	Andy Lutomirski <luto@kernel.org>
+Mark
