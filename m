@@ -1,44 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304628;
-	b=Xea7Qd9fp3waprNmPHQOh+H/gsOK68DxhfnDf3f/55VGRH3YfA0z+swO1TulJ5GxK5iS
-	 RAwqx7rHi/BGJ5+wwOAgbQgAcB6l03sww80xzK23JfP6C26DC+Iw6PGE0S7tyQrnTjLM4
-	 m9Q5a1R8yE/D7i7AEcSVvNf6amyZBOORxj7XQDHOK/WRQXyY7aL2QYrWJiMDYCwl8FsH8
-	 13Gi5Bn4s1LRJHevnoQx+AdgK0DyloIGLZYudiH6uexA4H8M4GrwsSyvoVE+MbOdcLovq
-	 auY7QFqIQ6vz82sohKg2rjRodpmXvDwsabTbwcamJB/iVGmuLkjNaLvZ9m3yosqwJLA==
+	t=1794304636;
+	b=Mo1ApldoMkvZyDY7zcanVjXnD/P+OsiOUKkkLen13p2rjzBoppnSUjBrPmFJv5Xp2XqE
+	 zgWK8GXydeFoZc8P1y5x5YdciHbfWBQYJz43oDbftmP4Ct3F1q7uVEVAbnYNI1hiXpZO7
+	 DDcY9D+LOrSxTwqFT7fFJlCZ8x40O8euSA77a5wrM7fWUTcodqa2CmRb3PIrSedqk/zWM
+	 134LzRM42Yy/RBIPv2gz1FEooz00R1uUNxDLKxn7FJkjZODOyg1eYHcdomUGLn3NYRF2r
+	 RXaFldiYuEArZSXWeZR///S961VHEsVR4gLIeTAd3EDUtA2wUzPj9Lm11LcbGHBybLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304628;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=XDw9TAxp8+PVmYmAoppiNo2R12oIkwagkMS4XyFHbSY=;
-	b=qVzb0Xa4U4UuwQMDHjdXAQvE/OAAsQZke6lWxOxEPTzIceN5lKJ/rei+DJJ9ceTY6+CR
-	 nE7wt3+1Rl3Dfi4rj2a1JKxnQaiEX8orA+Y75PmLQgWdhbJ+LKlBxT3zTE6aVmtRZ5tNw
-	 fr7cf0Uvn4Ofav7noU7pTRFiE0w8itv9iF8Ch42l4xHXXQz/22CI4znR8XveDjcBaNEE6
-	 CtRRMXm5DMqX81jH/DRhBEoCAvLZhTQHZ0akQtL30tX6SW6ThtjpRjRvwfz36o/Hv9lmU
-	 YsfKtelXqfNWrH136UweSqTtMOpNXSEmg4c4nA/yR6u+wUqXoG59KqGl7RCDlnBz0fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794304636;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cr1HltizvWayFo41XNkNxw+fGqlfdV0vW0QjzKRC/tY=;
+	b=RBBvMlY6MCRnCZ4BOGoX+Ez/kOFvFGgL30IYVSXrhYIHp0RjGC+9cmXsN+E/3UOywVb7
+	 FSZVAUHU0qP4bwSqEoJaBD9JlBJAVnfdVdvdn709dF2zdh/sitXKr6jc7+bd6cd6g+i9T
+	 bDZ9rFzBAnJKhkwhqJ1Baz2BtePg1h1gbLl7MG1vjk2+VWzDg2aNMmjoymiEGlI+7Pjvh
+	 MXYorQcrygODq8TO0uq6WWsx4f2UJ/BrqiAGSwXGiOyxb3kVpH1bAKR9nEDfqcMODQ5IJ
+	 uSCjUpXt48UcqE0knMuiXYxwfIErLju3a6p1IwAb3Ex+ZIgNSyim5MqkDoRpH5vOmYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FUPAm8N1;
-	arc=none smtp.remote-ip=154.81.10.40
-Received: from mail-m1040.netease.com (mail-m1040.netease.com [154.81.10.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCYdfsfA;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE49B606A33D
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE49B606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE81606A901
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 09:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FE81606A901
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FUPAm8N1
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 542714690;
-	Tue, 10 Nov 2026 17:56:54 +0800 (GMT+08:00)
-Message-ID: <d1e3a4a9-7cb2-4345-86d9-f8d1c0156b42@rock-chips.com>
-Date: Tue, 10 Nov 2026 17:56:50 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCYdfsfA
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2761c69fbso2635054c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 01:57:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794304636; x=1794909436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cr1HltizvWayFo41XNkNxw+fGqlfdV0vW0QjzKRC/tY=;
+        b=aCYdfsfAXj3vohBdQYRudfCUIdjPEyILDtym05OSKtEwd0jXMpavlqauHhDA+pKctU
+         OProCkm8DPgk6iUW+SOa3Sd5NjlogFzBUvRWew/U6LtsZ0U29pfqgIg8bgJl2OF/M1Qy
+         GNJ1meuzJ492VoKYC4bEkHtz5rJJ/DF9RgLTrLLT5ra9nkEU58y3ECFa9FbkV37ZOkBa
+         SXgnmbr/l/kG8yZqkL1u6ZQ8H2H6nj1um+BYSHI9+73O4mZXuzfrq4NGunBaQGHVrJ5A
+         vrLjKcr27NvRuiXl3rhN2i/BzzsT/P+CGThWKqMJ1X6koOYUsjTTIDHTjIk0UC/MZrjX
+         Yj4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794304636; x=1794909436;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cr1HltizvWayFo41XNkNxw+fGqlfdV0vW0QjzKRC/tY=;
+        b=FI1NchKKiQXtLctSBLaYDH+WNuzhn3W2AIL9NxYnq6xInwbccQ5YiWF4uvF5fZF6ry
+         q7Ay3fZYlqrTwNTfBtoYeJxWch9wQRkrR2VxMY6ueQdp3AENJdInr/J3+5GXxImsMF9a
+         HZHDsvEO618B4Uf6kX4WLAVXlcFnlQJSdIBnuQBUO7OilmXNsYsrgFCh3GGN71ljWJy/
+         lZ8XJnjsT/4kXy4S9smMDsgA9A1s0gssLNtEvuFkjNl06A+m8LJ1ebfAgnZdFCeQtBLF
+         RZmVVaBbsYosu/K0YkdtHyziSsYFh2KYYokNmgEeBD6iwZR+SaaTp+WSm8YE7dFcqsyb
+         /cEA==
+X-Forwarded-Encrypted: i=1; AL+hErFhZNqdK7pS6if7FAniC1RrYdDMOG5Ah000J0nFJ3JSR3KpBb+VCbsHu9ixvj2nqXEObHgQa0GiP77vW2Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GYf6ifukBDK5VTqbUdTJw6pfn4/vNiLqS3UBbqWZ/n0deQZ4A
+	Gcu8bxK/9Q0gdu5d5O3U4jDAuRBz09goLZsZdK7JkRc79S1N0I+E1cHr
+X-Gm-Gg: AYBFou1VGTVYWuTSFP4e1hmOUOdLmfoi1/f5r/HhefmPk5n8OWJALfjlTsqBbJJb5Pd
+	BcLp1mVRy+yGc4U5/7vbrCUNWl1kqbtx9ERDMytnVOt29F8n4ije+bKM/FeOFykeMsrBH2PjWYI
+	X2GQYLIXy2u2qZyPbHEzWRSBGtvQJ2aIHTdkpsol2+QyABx+u0oW4UA+HIxHR0qJbAHu0Jfe6Qg
+	OhpblpMj3CdFCrJk/4gGj7eMYjnaxzDYuzb4ScvN3vGN9Ox6XCyzUXw1pYzJSafPscSI9LFl8cS
+	42gyzMzKxbaXIE20b0lVqQ0eap7nNGzDl7RmuP1jt8AjRYhtC1RuN13pSGu3/Xl8D+2K3ehXi52
+	utwUsTGQXrVHVk3BQqJFoP/HIor3+HewpgsSmgEIDu2+PY5dfp69lDLNw8k4iM63p3Dhe+BEbwo
+	Jgw0HUhUY0b2ABHc4fg1KMUdlfnUJXW21H7h7S9FY7NHnZsmFM57VMMYjP/bMGHccW6Vr8gtU4R
+	+KYHOfuGBbCmSPOHTnxYFTSvOHxoPkG6UbLx/goOobswSfxf30hT2DPduGRQ2mnhwD+7jS7ni/H
+	1mZaqkO8yKn2aSVQxAXjq294vAp8VR8nRRhkOVCq0fkss4yExjgYiywDhWJTIZAcFdw4xzTVvLn
+	JGgw6k2aVCgZNkvWOHcGnuwTCM4PN7IQe9UYyLOPLdbCABw==
+X-Received: by 2002:a05:7022:f503:b0:1ac:91b6:8dfd with SMTP id a92af1059eb24-1b3b6180311mr2664542c88.31.1794304635203;
+        Tue, 10 Nov 2026 01:57:15 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b75d42sm5203801c88.20.2026.11.10.01.57.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:57:08 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Maxim Kochetkov <fido_max@inbox.ru>,
+	Andrew Jackson <Andrew.Jackson@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Tim Bird <tim.bird@sony.com>,
+	Yuri Zaporozhets <yuriz@vodafonemail.de>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 5/6] ASoC: dwc: Propagate optional IRQ lookup errors
+Date: Tue, 10 Nov 2026 16:55:24 +0700
+Message-ID: <20261110095525.504660-6-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110095525.504660-1-phucduc.bui@gmail.com>
+References: <20261110095525.504660-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,74 +108,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] drm/rockchip: vop2: Find the first mixer of a video
- port with Esmart3 too
-To: aiyengar1990@gmail.com
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com>
- <20261110-vop2-fixes-v1-6-d336e9dd90d3@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261110-vop2-fixes-v1-6-d336e9dd90d3@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1c4e3a1d603a7kunm6c01c8eb715da2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGR0fVkJOSE5LHhpPTBhDTlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=FUPAm8N1nOe1ZJvKxUl85v9FSy633IoHhaFi9+BagYYZlyk5Vkd1HjGqcf0KxVFMf6Gm+4uR17d1NKADyKNA1BHrHw+5P7lp4tmMVhQSo/JRnDHzmo/jDhCFTg1aWOd6RCwJr7GyfyQs+6TzIFou49nk5CaHU7+4nXwdYxtciqc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=XDw9TAxp8+PVmYmAoppiNo2R12oIkwagkMS4XyFHbSY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-Hi Arun,
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-On 11/10/2026 3:18 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> vop2_find_start_mixer_id_for_vp() looks for the first layer that holds a
-> window of the video port, but for_each_set_bit() takes the number of bits
-> to search, and ROCKCHIP_VOP2_ESMART3 is the highest window id, so Esmart3
-> is never found. A video port whose bottom layer shows Esmart3 then starts
-> its alpha setup at the mixer of a higher layer, or, if Esmart3 is its
-> only window, past all layers, and programs mixers of other video ports.
-> 
-> Search all window ids.
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> index 83203d18865b..2843bfb36341 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -1889,7 +1889,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
->  
->  	for (i = 0; i < 31; i += 4) {
->  		match = false;
-> -		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
-> +		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3 + 1) {
+platform_get_irq_optional() can return errors other than
+-EPROBE_DEFER. Propagate these errors instead of silently
+continuing, while treating -ENXIO as the absence of an IRQ.
 
-It would be better to add `ROCKCHIP_VOP_MAX_LAYER_ID` after ROCKCHIP_VOP2_ESMART3.
+Use dev_err_probe() to report IRQ lookup failures.
 
->  			win = vop2_find_win_by_phys_id(vop2, phys_id);
->  			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
->  				match = true;
-> 
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/dwc/dwc-i2s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index b0d3413c27d2..0d2be2d8d31a 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -961,8 +961,8 @@ static int dw_i2s_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	irq = platform_get_irq_optional(pdev, 0);
+-	if (irq == -EPROBE_DEFER)
+-		return irq;
++	if (irq < 0 && irq != -ENXIO)
++		return dev_err_probe(&pdev->dev, irq, "failed to get IRQ\n");
+ 	if (irq > 0) {
+ 		ret = devm_request_irq(&pdev->dev, irq, i2s_irq_handler, 0,
+ 				pdev->name, dev);
 -- 
-Best, 
-Chaoyi
+2.43.0
 
