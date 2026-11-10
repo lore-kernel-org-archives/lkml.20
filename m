@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.149.154.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315031;
-	b=0nqAranutpY51dpXb01iUQTAzi1MNjVKaD+rPEnuty98pdTn8q9nrAZ75/4My6UsA6pU
-	 m4H+ylOIBi73I4AC+7x/+7csUYZRtc7WowbLeT+gQb2vHw1S/Do/0wo4JGCVuSlKghnHE
-	 5xGZUEQo+AqMJJnczAxZHVk0tUNF9yeBK523L01QWjn6+fJaX/LKuESCDgSK1SCkleOfV
-	 zpur3YH5B9PJ5/7ljixNECuMpIiEQEfXk0I6ZYgRF4uLGskFN+7ln/hdQZeKrF4JpQqqp
-	 SyHIpj2MTKYaNie6fT7xQqWQNg65B6aQ4aufbDOmCoTFiIq4dxH1PqtZq6yhCrOT30g==
+	t=1794315033;
+	b=oQz04+ftYWTEDQ2a9u0xjPNurVrwiYHDtoAi0PuWjXjQtNrl8XcTcebHHg+mUP9aTelx
+	 FMFrRgO14HFxHGzYfqpp7FAW8nY6/ptHqtirtVKhZ2kM6hQyP9CXxf0a0AC3/tjPpwevP
+	 Lq08syyBWO5cH3D5uL74K2W9sZ/xPLlhk+LTu0M5/EZ2rZQ4HhJMzYCAgqaQ415+66V21
+	 CClEcOrDkDrB6aG/xG2/TMJDflS/uwCR1ZbcFDG/FIW8DzLgro2S31ZeyAN5Z5C1dYngc
+	 MTYEzXkdTkUN8fOl3p/Uy4Sms+Ub0HrWnn7PYEshhFarwcnX52ey18uHpHcAfMriXMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315031;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ke8k9Pom61RVocDNSNi53TyKiWzenyLEQQdp9t8ox30=;
-	b=M81yonpbMZPkhFnt2qBLIhJwDxRUCvvT9JU6VVnALdZs+SCIqQx/nqQZNseDtWRITDs3
-	 EmPo5qaDWYx8TlPCJyzsPgFgshX8+GwCy+7UVEAMztiuJ+qRVw2s2f+QXr+f/kUK6ewZk
-	 Dmhcfss32WncC7ZHFG8/HXyzYEFplORI1EnjtoMtAAlFMp8mEoD1fbo81nLR4rZMmhCCM
-	 lkop0lxJ7AKo8+93dZd+bjFFvzxUZNP4abGlmLT4yq8ycqLYcac8v8PRARaXMYZLzJTUR
-	 F4CvqQym0zoar0xH+UiwWQ0bpxu5/0U6oQH6anVNEYyMFhW/EtvQ0GbGNNlYD3BvUjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315033;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=eSIyMO4qEqpO7aW8Uu4zxMpreeSiJEJ6/6xBHS948Fk=;
+	b=mnqXLccGk3PWtOmvU2uRafu3fq5rjRy4rtNNSy3upgRZl9ET0RfiUohXzMnDeh+TJxuv
+	 G32rci5/v8ypFrYh2AWQUfQnUO2HRVzm5HDCmiNCw2MHs0eFAggeWJHY6mrutZD41kdHJ
+	 YsXTwsZC1BEBVwZ4wV90BIPyrobd45tB4C+33cqTBDcKT5tGKXSi5+Z8E886Tbitx0JYw
+	 awry2FuDP+UTsr9Sv0yToMgwSvkcQPQj4ChUG/eAjT8MOYu9EklhL7C2P+EI5tYwW2/f/
+	 2QXbkfU/7xEIKyrTucNy2iz5Wi62w3drXP8f3HXorURgin36wNIDO2NR76KRIKuTdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntiq.com;
-	spf=pass smtp.mailfrom=sntiq.com;
-	dkim=pass header.d=sntiq.com header.i=@sntiq.com header.a=rsa-sha256 header.s=dkim header.b="JfqZ/YIU";
-	arc=none smtp.remote-ip=45.149.154.214
-Received: from mail.sntiq.com (mail.sntiq.com [45.149.154.214])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUxKmqGw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEED606A325;
-	Tue, 10 Nov 2026 12:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFEED606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntiq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntiq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C85F606A335;
+	Tue, 10 Nov 2026 12:50:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntiq.com header.i=@sntiq.com header.a=rsa-sha256 header.s=dkim header.b=JfqZ/YIU
-Received: from node (unknown [9.246.125.159])
-	by mail.sntiq.com (Postfix) with ESMTPSA id 2C99420388;
-	Tue, 10 Nov 2026 12:50:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sntiq.com; s=dkim;
-	t=1794315023;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ke8k9Pom61RVocDNSNi53TyKiWzenyLEQQdp9t8ox30=;
-	b=JfqZ/YIUuz4GxqIqD4Jjz41VKX3cxuq7ciZ9Tv+AeGzYDUxrsS5Kwqf6mbSDDjTTNX/Ug+
-	dBz4B6ZzGaowXcsKdUHfGfLS+CkIUljW4nowiAnEkr9qIK4HkamKldTr+20nVo0tLlm2ZC
-	NPyZIS2+c5u7E9ISye1DRQoon0El60RiNxsq6r+Slv6nzk7JckffwG6QRg6o7RbepnhDtJ
-	Mvw5NqsTPBUytpgrxLwtDGbpVog/kKNykA0ZlW23suHYXWgMu6X2xQCkTuU9npe9DJE2jf
-	PcbaL4FGMEwY+Dz9hKVEvDgfEctmMUZOgDknN8ridjiezU8jvzsu33l6t6XXDQ==
-From: David Glushkov <david.glushkov@sntiq.com>
-To: Diogo Sousa <diogogsousa@gmail.com>
-Cc: Mario Limonciello <superm1@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: Disable async suspend for AMD rev 0x62 ACP and HD Audio
-Date: Tue, 10 Nov 2026 13:50:24 +0100
-Message-ID: <20261110125025.2753861-1-david.glushkov@sntiq.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <5cdc7ef0-e18f-4afc-96b2-ee4e92bc29ee@gmail.com>
-References: <5cdc7ef0-e18f-4afc-96b2-ee4e92bc29ee@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUxKmqGw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A9D1F0089F;
+	Tue, 10 Nov 2026 12:50:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794315033;
+	bh=eSIyMO4qEqpO7aW8Uu4zxMpreeSiJEJ6/6xBHS948Fk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cUxKmqGw9tbGLyw35zdOXdvKprJ6RYJNccwnNwemZfhxfKN3/LaKBXwuGeYUy4QSp
+	 E3OPApuouKYGi2J7RQwoilrNbJaINkDQNdq+jvujJH+QKefK+tDEF/HugQsVkkuiT/
+	 BVdPgL2vkUpgEfD1P1DaO1yRnOU/e1DZFcPeICIFefQbHtwhIQYhopN5Q/RwGpk5LU
+	 UI0aCcrBamJ9UGhvO0/M8l4ynx01GbYkPYuEYmNHrJBFLv2wgQF0MZ/+9fy2xiVUqV
+	 Go3wSNsJ4UOha+IyIql6KOHUeLX+afGRWZyY+c7XQ5CHP+WKnyIhU/RyMLvv3MC61W
+	 2ZHp5EECvEV+A==
+Date: Tue, 10 Nov 2026 12:50:24 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH v5 3/3] regulator: Add TI LM51772 support
+Message-ID: <a0dca1ff-f036-4c39-940f-cafa0c58dac6@sirena.org.uk>
+References: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
+ <20261106-paul-lm51772-v5-3-0e83ac9711d9@bootlin.com>
+ <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
+ <DMRDYWVZ4LY9.13BL0K8BOX2VC@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,29 +65,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iXfapwVFvBYP/e7D"
+Content-Disposition: inline
+In-Reply-To: <DMRDYWVZ4LY9.13BL0K8BOX2VC@bootlin.com>
+X-Cookie: You can't take damsel here now.
 
-(Resending in plain text, my previous mail was rejected by the lists
-because of an HTML part.)
 
-Hi Mario, Bjorn,
+--iXfapwVFvBYP/e7D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I'm the author of the A9WJG subsystem-ID quirk that Diogo mentioned in his
-commit message, so a data point from the MSI side.
+On Tue, Nov 10, 2026 at 09:26:04AM +0100, Paul Louvel wrote:
+> On Fri Nov 6, 2026 at 12:17 PM CET, Paul Louvel wrote:
 
-I hit the same problem on an MSI Raider A18 HX A9WJG (MS-182L): the ACP is
-rev 0x62 (1022:15e2 at 6a:00.5) with the Ryzen HD Audio controller
-(1022:15e3) at 6a:00.6, and HD Audio stops working after resume, same as
-Diogo describes. This is on the CachyOS 7.3 kernel.
+> > Maybe would it be better if the core could also change the active discharge
+> > strength:
+> >
+> >   int (*set_active_discharge)(struct regulator_dev *rdev, bool enable,
+> >             int strength_uA);
+> >
+> > That would remove the need for introducing a vendor-specific property:
+> > 'ti,active-discharge-strength-microamp'.
 
-Regarding the BIOS question: I'm on the latest BIOS for this model,
-E182LAMS.31B (dated 05/26/2026), so a BIOS update isn't available as a
-workaround here either. That makes at least two different vendors (ASUS
-and MSI) with the latest firmware still affected.
+> Let me know what you think.
 
-Given that, a generic fix keyed on the ACP revision, as in Diogo's patch,
-looks preferable to per-board subsystem-ID quirks. I'm happy to test any
-follow-up version on this machine.
+I'm not sure how general that is, it's very common for configuration to
+be done in terms of a resistance rather than some current regulated
+thing (which is a lot harder to implement, unless your thing is actually
+just a resistor and assuming a voltage or something).
 
-Thanks,
-David
+--iXfapwVFvBYP/e7D
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrzExAACgkQJNaLcl1U
+h9C0rgf+Lsdr9w5/Gpqi4yIWItJdwNPcb2ayISb/4PJAAg647zBhRW2kic2/3su0
+1mvk30XmHhoUIzLfiy8BmjhrF3SOydOTkjBoyFwQeCL9ew/x6Xfcmbu7aMRnAjg+
+MjimpO9OTeQgaV+e+i9wkvgpeL3mqNClHWQGqesLxpuUsPznutEITvARQogAazcb
+pQZTxXCnv0oZV6fSTKRtCUEpARTEsBrvZz15m46C4WBLvQZ7FogzzkL3hOM5Id29
+GwPq5M7a/NcHLxEeRyLLpIqf5xPC2In5zNQa7pRUR+ZgDw0fwiEGPf+4tytUSKx0
+o6R6huwHB9kPezKhFtO5KfRSRcGfxQ==
+=5J3X
+-----END PGP SIGNATURE-----
+
+--iXfapwVFvBYP/e7D--
