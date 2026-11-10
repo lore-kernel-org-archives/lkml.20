@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300728;
-	b=CAfhx9H7D3/G0ATYNayDNfTCoZnl6rNNk/Yzb/WQWYi/zdSu0Hy5+sWoWKd3G1zi4UVr
-	 dc8vJ2HB2y5nF5613z5ETzVWnx/hAKUgR9z9wHML5FaF1vO4uh0Uec7WdbBB2DgkYed1w
-	 oUmGEs7Chhnf4SR165Fce/Fr9vanEZ3I/5ybbpiYw1yHbrYFeS/U6KjlmrhBp9mNtIa/o
-	 ZnSdZwCLSf0U8Toip+HNU10QqpH0zmW5tr8ZATGPsUs5sAzcLQAzb5nbnnugZ5nXyJEfw
-	 yBygPFNPnYZysfQ2k671iWMsHTa8PMY9n5G8UIhu56q8lUzVbbfkw1CU8617GH7cY9A==
+	t=1794300749;
+	b=zEky/WZdlNJuLzc5b/WNM3ZcpESxr4j2/zNRECkBIfFGCmWA76AvCUH2/zWoRSUIiQvQ
+	 tUj5cuoXmOiBoeE50ZLtvqFIsFMaaNIICaToBWl+cX3FmYejU+8ck9DT74dOfwFMNwa8Q
+	 RWza/fGm48Hni2aQs7U5ERzftQJ6mepkvetv28j9cXml25RDyYG/fveLBVEAxeM+mKD+L
+	 dilacxHqAq25Hx0L0qefWracgcCTO023+SA8ahQksUPFuwNSuXv/o7NXesXfyWnrp+M0W
+	 EFUGvbRjzTikRMkxvH7DOLiveDuMSgiZCkgajhBaCoBafOyeuWfAhuuleJ2h80mw3Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300728;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300749;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yV3HrO4sB875j9dq+PUOEpzNA5g/u+ASOnUiDHJot7s=;
-	b=Bk1bxzpg/G77bmzoiHvjAM7AGL4ZfWVNiIvkfDo9efgzBjBNZ/j2S7Dvgtu3aNl9/SKu
-	 2oRZvjCx53us7uVu+TgAL6DFDY3fAWx+44XfHv8NAEOyeRfjNzRLSjtPs46qN5KxlLoqq
-	 VVBWEw07Me5YI2YHWtuqTOIfJbtPExyj9g1sy3rK/smgUgxZ1o79n9sr7vR+dacomHjou
-	 RVQHQSyhjg/cxZZQGmQrhIpqnHMnoccKNaZDpwJC+rxE4Ed3kan5KvGoby8DrUAUlcCs5
-	 SXr1MOahpjQAYvCpPrzeMCx7GuV3Y9P2MFReU51KIA/HWcR5qOFtVs8ctxcWCqr5kGA==
+	bh=xfIJPZ8iDuwMd4fEVUhcFpuLjx5VOiQMHuJ+5IFm8uE=;
+	b=VyAxlucNlc8bE7XhMgdP+/Qd0FcyEloLSP9lsXaUgGy0w8Zg4COMdM1rK4Ul7dHchSi+
+	 6vl5ahJriKU2nuuFhs6vd3Wc90ZkKjbDCbdOK93PS8/AXvPMMbCklVbHEiJkxZNhah+Y5
+	 Cghv6OLHsgyOzLC+0ruyUrFfjzrQEeBXcmze2byVl/Toqv7WWJAhPs8iIAcA2aMq8uZ/i
+	 BmlxQp8w2jIAIYmdKybjMKWGOHud/2lkbp9REAwsxd4ks8Zp8hbUVkMlbflJp1uPaQZIJ
+	 3wyOLAP08RSfg5PsKTN3ZgrDUsZqkPlqmQw28EQ7lu6dcHcJghp7ASXrfai6whmcPmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FnXUqWKE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vRpZCQP3;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D56606A33B;
-	Tue, 10 Nov 2026 08:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFB2606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 08:52:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FFB2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FnXUqWKE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACF171F008BC;
-	Tue, 10 Nov 2026 08:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794300726;
-	bh=yV3HrO4sB875j9dq+PUOEpzNA5g/u+ASOnUiDHJot7s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FnXUqWKEHzshOhgqUXQrR36k84e3a372+EYuMroj/Y8B0xK/PljvnZ6jmuV17AZfj
-	 avKkZ60HX1oayiLWj8Jm9aZiENctAZvEERYiI1SRcrRnu7M4dTh5+kzT+v1tzRe6yA
-	 oPqiX2sjUZFPcgioDnKbpM1ovvhErjiD3iqYcVV0XnfAjuCieFjMfPMRWkUkbyjsy6
-	 xa5ECuY7FX8HdyMDq69nrfYCk8bhbX8ObHi1PgDylmv0sFJPcjLMn1a0ZcwwEO2Jy1
-	 V4ICUHzfK9G6ORfxAF2VTOexRnBWnqoSgs8BjYTXhnKIvaTnIgHb6m2i8ngx4UwshM
-	 /xd1BFobQkWqA==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xQhaG-0000000Adc6-04Qw;
-	Tue, 10 Nov 2026 09:52:04 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vRpZCQP3
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so2577779eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 00:52:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794300748; x=1794905548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xfIJPZ8iDuwMd4fEVUhcFpuLjx5VOiQMHuJ+5IFm8uE=;
+        b=vRpZCQP3JJAWn31Xlx4mnDyRwzONdMx5G1bNd+rkPVUyTY+7NIC4a2uUW3CmTW4uM0
+         0Rg5T4YwHY9mWhvaj9TdrRU8C/BLWvTrSIbGsrkitVBcSpD5pe4gbXhLY9gawGjryu8h
+         UkiIDyxRuM58fMrjHBU2VtjFCkVXaEKWwjVy3b/GiVw84TfEqUfuz0VvvEmLc0Cr/rwa
+         NmYLM9a5QHdJ0rb8ReYzSDkqWrxfCojvkYT0LSAPyYIaOHw35qd0LCQUWRzG579rSXM4
+         WgGAHTubycHVdSY/iG3Rlnz6nce8yn86MNJywXGn4Vy5+aaiA7xBC1CMdJYBSff9q6N9
+         e8hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794300748; x=1794905548;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xfIJPZ8iDuwMd4fEVUhcFpuLjx5VOiQMHuJ+5IFm8uE=;
+        b=13PCXyKSHXKCn4UtoHNkN+wfeB+eirGKemg9p/J49TNX7LLldy9HcbFwqdNq/lt3sP
+         KYWw2FUVo+Qww9qz63OoD5AoBMpI8vPyCaw/vPeLuitw0tfcBo0PWvYk5OdkJ7CFt9r6
+         kCHsVqQ3WUBodYswYZHc1785qpwX4su9DHfqnTjc2X6JeIN8hEfAaeOqSIB5RhR5w8fN
+         eD/EAdiPBEisQ+IrodHE+YAUnONhEQxBRK3/x+NiGA5TuMvZeDCukk4xGMlbLhzFsAcV
+         ewJsY93jpN9+38ke6E+w6YR5Y2LqY6hJRZCO4LeX9/l3XwcH/ivjzCmNdmW0LyP4N+TD
+         sz5Q==
+X-Forwarded-Encrypted: i=1; AL+hErEAlK09T1hiAKdSLIE0Fi/mnPLuwAPKknkvOOiX26fuHfASclkWwAg5BatPuSvaVhYiEnmDvxnthRQeBhM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KGXQonzD2Tow2ruUcgGvFtXLrMTFwMl2hc4Ledrf4yuPjTGCB
+	cEjwlym1ZgUkunAqpHG2RkFxGKWaAs/mqqQZEc7eQmLuF/Aybt8RZisr
+X-Gm-Gg: AYBFou34eiBwCWRHxEDstUbTiKdr0J2FJeEIlJPqrAPLrG8l/OXK0sn1/pGRcUowgPH
+	4y/WcTrL0oy6lvRV1AG6kQI9uzlpN1RmlfNESyakCtrnBbipZeRsByJPRINwA4o9UxCCR6Z9pvq
+	utgUbrer9lxwfkjjLS+rWp36vCTzRRqgp6P2ur9tltSlOKziKkXQ0iVbI4gk/OFOmwJ9r25/qYK
+	HPdfwqszvyvnnccmdzgcFBNQTwAPWmWK8abOzu6Zg6fzwhJ/fLN9Vudqea/oo9oTL6DVb5qB6oW
+	hNZRjakHdPe8wBaCCOoQbKDVtT+akneR+sBzCwel9bKQVs7FioMo6Y3CAxpoIwKgiqqGryQbLjK
+	zyzfFxVt4gsO1X54ksfYbdQRYDUXS4ji2p0MTktr54KyrhJ2Se8KzsJnpr9ueF3vJDJEL/ncEAA
+	GiY3+QY7sMHz7qcONbWZZPRGkHVHlPoj4VK5EBwEFv7e1swzCxFEi7I1YVGxzSRvxmW+BXux87Q
+	S03HvuujqKdjlUUuiV+78AGOgzGIatTmwIWfa8m/NomLWreqAa1yAcC9ARCbK1gl+ruOemEriAk
+	we8v226NmJm5c+woFC/Srg984J2JZDziE3847Yfjx+nDVBcV3MTTWAro6jv2bvJaamMAO0Gi05A
+	0TvWR8O+lwdCFBo7np/buUST3fUx4vnpBLm0R70fdKW9hWJU=
+X-Received: by 2002:a05:7300:f48f:b0:351:2958:1740 with SMTP id 5a478bee46e88-3751fc35f80mr2396611eec.37.1794300747995;
+        Tue, 10 Nov 2026 00:52:27 -0800 (PST)
+Received: from AHUANG12-3ZHH9X.lenovo.com (static-ip-10-78-56-61.rev.dyxnet.com. [61.56.78.10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375215d8889sm5590830eec.27.2026.11.10.00.52.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 00:52:27 -0800 (PST)
+From: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v2 1/8] driver core: platform: fix swnode use-after-free on device release
-Date: Tue, 10 Nov 2026 09:51:17 +0100
-Message-ID: <20261110085125.2535508-2-johan@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110085125.2535508-1-johan@kernel.org>
-References: <20261110085125.2535508-1-johan@kernel.org>
+	ahuang12@lenovo.com,
+	"Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+Subject: [PATCH 1/1] mm/damon/core: simplify minimum watermark wait time calculation
+Date: Tue, 10 Nov 2026 16:51:32 +0800
+Message-Id: <20261110085132.1023-1-adrianhuang0701@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,49 +101,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a device has a software node, device_remove_software_node() may
-drop the last reference and free it during platform_device_release().
-If the software node is the also the primary node then the device fwnode
-pointer is never cleared.
+The minimum watermark wait time calculation uses an additional boolean
+variable, init_wait_time, to determine whether min_wait_time has been
+initialized.
 
-Use a temporary variable to track whether the firmware node is a
-software node to avoid a use-after-free in is_software_node() and having
-fwnode_handle_put() call a function pointer via poisoned or reallocated
-memory when the primary node is a software node.
+Simplify the logic by using list_is_first() to identify the first
+scheme and initialize min_wait_time accordingly. Subsequent schemes
+update min_wait_time only when their waiting intervals are shorter.
 
-This issue was flagged by Sashiko when reviewing a related fix.
+This removes the unnecessary boolean variable while preserving the
+existing behavior, including the case where no schemes are configured.
 
-Fixes: 7d80509ff0da ("driver core: platform: unify release path")
-Closes: https://sashiko.dev/#/bug/linux-b860000b-f1d0-46a0-ab52-d47cec8eab99
-Cc: stable@vger.kernel.org	# 7.3
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
 ---
- drivers/base/platform.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ mm/damon/core.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 979593e5cca1..be5d2f315fdb 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -598,13 +598,14 @@ static void platform_device_release(struct device *dev)
- {
- 	struct platform_object *pa = container_of(dev, struct platform_object,
- 						  pdev.dev);
-+	bool fwnode_is_software_node = is_software_node(dev_fwnode(dev));
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index d36823f4d092..93ec684a113c 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3985,14 +3985,12 @@ static int kdamond_wait_activation(struct damon_ctx *ctx)
  
- 	device_remove_software_node(dev);
- 	/*
--	 * If the primary firmware node is a software node, its reference count
--	 * was already decreased by the call to device_remove_software_node().
-+	 * If the firmware node is a software node, its reference count
-+	 * was decremented by device_remove_software_node().
- 	 */
--	if (!is_software_node(dev_fwnode(dev)))
-+	if (!fwnode_is_software_node)
- 		fwnode_handle_put(pa->pdev.dev.fwnode);
- 	kfree(pa->pdev.dev.platform_data);
- 	kfree(pa->pdev.mfd_cell);
+ 	while (!kdamond_need_stop(ctx)) {
+ 		unsigned long min_wait_time = 0;
+-		bool init_wait_time = false;
+ 
+ 		damon_for_each_scheme(s, ctx) {
+ 			wait_time = damos_wmark_wait_us(s);
+-			if (!init_wait_time || wait_time < min_wait_time) {
+-				init_wait_time = true;
++			if (list_is_first(&s->list, &ctx->schemes) ||
++			    wait_time < min_wait_time)
+ 				min_wait_time = wait_time;
+-			}
+ 		}
+ 		if (!min_wait_time)
+ 			return 0;
 -- 
-2.56.0
+2.43.0
 
