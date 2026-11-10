@@ -1,98 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318793;
-	b=cBbI8ehdZrErEqOtiE0cuQIuBag+F1DBxeZXg2+6c0tYpCHVn7rlFnwbsKJc0LfGhRFa
-	 x2qeG5QUXZLhyQ5tu4xzr97ZRrFIYpB7s6W0FLOZ1J4MuX1hsVO8cKzPKy9npxJpbBrGP
-	 mQ0/1OqZsxgRFQBoBqxiObSexYSEnhAJhX4m4mpqMx96xs8TVZfgFetbI9tzqvu4+vwt5
-	 VtiCMa9YH5q9U/GjzWgYIASCpOeIcQaV9llMbfb/EXgQpLA2f/+Veg0lqJOdhkvoqmyjw
-	 Qj2CFlThDgK2ImBDbQQ6FGzzY0tiL1PNFmnfJhFvotISJR8qOdsMJhdiDbhcpDPLzZg==
+	t=1794318801;
+	b=HZ5RIF81ax8EYr6rpwPp+JZxebPAXKjwFLY3iTnP2sQ1Fnp8uN/EmUwch41jO5786Tom
+	 a/LCyrDDB6AEi0vMSW/4pgZsdOYYwYc4+dBzdJLzfbIUJrdyrwMrHdtevnkmX6CnIaTJX
+	 RpihIm1WwXskWe32ZiE5Xpk7wmJH5ATNaLqxLxmUWAjuljAspsulY+8bGGUXWk7vwOdYQ
+	 TLkoDQOvSrZjmClxa+pvk4dgKqvVH+4TTZfk8QDWJV75JpvsQD0kNzHPv+bnGHVPkxNCo
+	 LLF3I9trO5FLNGnCInvBt/O2Sv/AWI7BMwt/y1BUZFo2Nz7xRyhfHQR6sJA1fpnu28Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318793;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=d4NSCnrsDvRbwBgqs2GERpu46FtgR0tNjhD+8taDJQk=;
-	b=ZJjKKrxiu5isIdGIZu+bECmoTM+CwtaUiJSrb6VF+61ehYObtb/MF4AeApnjZKizeJs4
-	 eZGYzoeg/aEc79hsP6eRv2L1rdQ+c7BG6Wwguc6ZxAPfArISIVTvSPgWe5pJB1M7kFGfu
-	 92NpY6XwlTbPWwnLAEfUZfwO3CP+VyA7WULQw0jCozgQINsc4ndfk19A5gWR6hG2KUUoV
-	 gl3YlZ9RD1hPUL+dxlYBPxYF6FvkywZ+Bi01BDoHu/KH9wN5dT/IwSxCNzuqzCzDR+EbN
-	 7hkhXJVS7UnSmxYoe7Vp6vI+cb6/pY/31T1XjNEBThv0V08Q9/TG+FKlNNNTAawtxmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318801;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
+	b=h/wymOxk0jqLL8H30tCrzm2TPGLUCOAo+CMX1kyb6MaiOPUh2s+KZIy1t89bbfr5pCtp
+	 AsE2LkQp9Ywi1SDWl9RcuRGZOL8nUc6UJEnNSkG5Nubu02okQ+PWZPdgu8mHMTYUpnCDr
+	 NtBFOOpvg7ZBDWm6gIfeawfx5SoSJwHfD39hJ+GpSPWdF1SbpRnHFA92m2DD7WoABndUd
+	 51ZHc01MQ5YNW6VaCZF4kr7Lccq9E9Z8335NHqFtxzMGWQWdsJ58kpF+0NtcuQfGeX3Mh
+	 bd7mSP0PZhDi/Lcxr6IR3zb86Q87+it4EypwIGe9PmO8Iu1Wgt6G18N1ghnuIGplrDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=teLs5hGE;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=QgUUViqV;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DTFvvSvR;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=swYBA4Ja;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ujMwJ2Ho;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B0E606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 13:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2B0E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C56606A33C;
+	Tue, 10 Nov 2026 13:53:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C56606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=teLs5hGE
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so16736195e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 05:53:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794318791; x=1794923591; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d4NSCnrsDvRbwBgqs2GERpu46FtgR0tNjhD+8taDJQk=;
-        b=teLs5hGEycwkTQHU/tkdfRWfHUVLf8FvNrr1j6fIqA8AwZspd3ALDl77yFSJq3YWmz
-         5fQTLeLFDFyKbnoHpEegpwvsXpoPDpyRRax1A5+FUymd+p62uImzs0BFrmhahhf71Uhi
-         WF1VAuaQDa0HA5WqfsNkFapOLbnjQFyrvAMMs0SjV5+1oI7cv0cxDMV/v8/rZmFg/DKN
-         4KNU1U8uOBxIpPBlAEx1R7Nrt5D01mpXSNl6RYSWYKrcSaT1/iq35lsE5xKDjn7BJFGI
-         aZUy+7uHSH3zyXuR0I9VOLLmcJmgMpna9rTxgF0of3s57PdOZJIQ+CIgrsFbScZCLUH5
-         X3rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794318791; x=1794923591;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d4NSCnrsDvRbwBgqs2GERpu46FtgR0tNjhD+8taDJQk=;
-        b=Gfq0SSvEQRybmoXAHKWYUEChROl3pKMfIuczD9jEuyImAR9QNTSCmY9xj92jhRkhMX
-         fcXeV8AP4KPq1+4XXoj8fzviJRctNEQThUcQs9X3JB1UOrk5uc5S9WBwbNT8evljAs4V
-         0lT4sS52LH5nj/jRnMyPLMju/mK+B9ySItFHIAw3cLeJjeEjml8eUbXd/+8sWDUVyUlS
-         yu2WFQhdBsGF2z17f3DV4Z0ev0MLXHOK/iguNbxZ2Az4ySmeYfVInKmJzbRoRXQAgL55
-         cQ4fk/Yo5vjb05hTr7i1KBmfJP4V/ATpaQsvgXjvm3Z0QObr2Ew79ZjxoPt/T0T89Dqh
-         eexg==
-X-Forwarded-Encrypted: i=1; AL+hErHCLYw8boDo14VhGZa/4IQhrNnnxtv2vY5sf4ERifEgQ5ximjQHKs8KXb1kQnHXgMAfRGGq7pGjVMgFpr0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/97maDV4DtGOE71QTwrjSTT8wLhh8pJ9956Ucr4+Z3zCK8NLlh
-	7jappHLvU5mP1rWVsRoaGrmI7sIDVcXyixeUafgRkOglHqfjEiJr6dN5
-X-Gm-Gg: AYBFou1sOjKk2THccgBLwkf0ocOBhMnkvFnH9gjUr/n42oSJ3vpcO2W5G39uHlvRzro
-	Px2vNEvNVtngMQd3Qxn7vv76UGwPOmU1lAG/iPJcig1bGzri8HPnVdIPpiIlA4fnwknSRvyxQKI
-	meB2FKnoxg+BQW7fOZzySFVg4nc9cJIdmbMYg5atpu9fR0tW82/uS6GiH8rBW0UVKM8pq59ZJEn
-	kSaJHKoHSLO3sIwP5D6lhC+MAUvT6Unxl7gAsYYUd/CIGgbQRUk24MRnzJTW0A0XgN4NWy1+0NJ
-	VAuwf87yk2xtTf2+cZGnJvcNj17OMiYllI1ek79n9xrXjApIxwB2d6ncCEWU09IsAGq0EfYJDYp
-	hmJqAflJGiDKZF6jYNIkmWqxmY2LiP4DYNnOQT/C6V53vDMSJBzscbyzMXOSI83UaFKV2ZLgbU2
-	botjkil+GCTlmxg5D9akgShK89BZJyxSO1JbJFJ52IZsySglBTCBUYn6kOhhiJcvuSj7d/WVJXJ
-	2BPY2Rte7+pW+m3TBQ8uFpw2ymTcxjeOjEHdI4hVBXMSRadOQkz7aZJR9mzTc3DH0xtrG64WjCP
-	1NXnB4QgY79yPRzgFFrt48cI1Efvv/vJroSd8w==
-X-Received: by 2002:a05:600c:8b66:b0:4a6:4d6b:a840 with SMTP id 5b1f17b1804b1-4ba02351009mr49636755e9.31.1794318791044;
-        Tue, 10 Nov 2026 05:53:11 -0800 (PST)
-Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2c5asm104797705e9.5.2026.11.10.05.53.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:53:10 -0800 (PST)
-Date: Tue, 10 Nov 2026 14:04:41 +0000
-From: Anton Protopopov <a.s.protopopov@gmail.com>
-To: bot+bpf-ci@kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
-	eddyz87@gmail.com, memxor@gmail.com, almagui@kernel.org,
-	john.fastabend@gmail.com, qmo@kernel.org, brauner@kernel.org,
-	kpsingh@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, sashal@kernel.org,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
-	martin.lau@kernel.org, mason@kernel.org
-Subject: Re: [PATCH v2 bpf-next 11/18] bpf: Follow PHIs in bpf_scan_ir
-Message-ID: <avMkeelRyvo-Bzuf@mail.gmail.com>
-References: <20261109170550.141443-12-a.s.protopopov@gmail.com>
- <8ab81e05089b4f5ec1ecb1bea9e6dc5cc2953a67f16e9369db005c2f3f3ee242@mail.kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=QgUUViqV;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DTFvvSvR;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=swYBA4Ja;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ujMwJ2Ho
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C461021E68;
+	Tue, 10 Nov 2026 13:53:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794318799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
+	b=QgUUViqViWCMY15ugNChFv3abQjhR0uVHD/mNm2xAI6hXizLOON7KbCxBRMn+Q7qx1Zd/+
+	3qxHP6EzoKtTueeVE9Z+gQRnx96xpDn8BlwYqAfVSUVpXc54rN+klU8AqSHZo+OnsWxvLa
+	R6W4nNqX/hdq9yBvnn5xvzixKZK6QVk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794318799;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
+	b=DTFvvSvRIVl0YFEtqQr5KB4edvgx8y6PdCUR48rHCmH2cDjd82wBkfA7lpwefWONspUH4N
+	JjMCaDYCoX/xCrCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794318798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
+	b=swYBA4JaEWYZe6/pZZCl2ZydZAx+XJLdjEntlW7iIabs9RFjPiEcIup8fyTHn71UupdCxf
+	AxUIfuYOX3Q3MPmzP2tAirCTHRiPS++/CKbUkf3LPJQcmKL1/7kcUUd+vG0W/bEDBh60Bv
+	SeQXZBeVzjMSLyPtYg0APXwT/UW/npg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794318798;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jcmj2mRiryRprIj9Gr9aUDtuxY0NQ+ycYiPJC0rulso=;
+	b=ujMwJ2HoR7JnVj9DpENaei73/ZLgzQaEOocb2UseRJBKNMbQEP5DWJzT2SBTtRDVGi8sYH
+	cIp78rA38DQHsrCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A68713479;
+	Tue, 10 Nov 2026 13:53:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LOSuGc4h82oXfgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 13:53:18 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 1ED802251E; Tue, 10 Nov 2026 14:53:14 +0100 (CET)
+Date: Tue, 10 Nov 2026 14:53:14 +0100
+From: Jan Kara <jack@suse.cz>
+To: Gopal Malaviya <gopalmalaviya53@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, fujunjie1@qq.com, vishal.moola@gmail.com, 
+	roman.gushchin@linux.dev, Trace <tracekotae@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/filemap: restart mmap readahead on sequential faults
+ after many misses
+Message-ID: <jwg2p4bjzkacnx6fkifkb5jbe7ah6btuecpcpulbkym6e23v6x@mh35p6yafmqi>
+References: <20261105192517.228523-1-tracekotae@gmail.com>
+ <20261109091444.128521-1-gopalmalaviya53@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,64 +115,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8ab81e05089b4f5ec1ecb1bea9e6dc5cc2953a67f16e9369db005c2f3f3ee242@mail.kernel.org>
+In-Reply-To: <20261109091444.128521-1-gopalmalaviya53@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,suse.cz,kvack.org,vger.kernel.org,lists.linux.dev,qq.com,gmail.com,linux.dev];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -11.30
 
-On 26/11/09 05:42PM, bot+bpf-ci@kernel.org wrote:
-> > bpf: Follow PHIs in bpf_scan_ir
+On Mon 09-11-26 09:14:44, Gopal Malaviya wrote:
+> Since commit 9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED
+> retries as mmap hits"), about a hundred sparse mmap faults push
+> mmap_miss over MMAP_LOTSAMISS and turn off mmap read-around, as
+> intended. But mmap_miss only comes down on hits on pages that
+> read-around brought in, and with read-around off there are none. A file
+> that is then read sequentially gets a synchronous single-page read for
+> every page until it is opened again.
 > 
-> TL;DR: Nits only: in bpf_scan_ir.cpp, isErrnoRange() duplicates
-> errnoConstant()'s errno check, so the range is defined twice; also a comment
-> style nit.
+> When a miss above the limit is on the page right after the previous
+> miss, start readahead the way a sequential read() miss does, with
+> page_cache_sync_ra(), and keep mmap_miss at its cap so that hits on
+> that small first window do not bring back full read-around for random
+> access.
 > 
-> > diff --git a/scripts/llvm-plugins/bpf_scan_ir.cpp b/scripts/llvm-plugins/bpf_scan_ir.cpp
-> > --- a/scripts/llvm-plugins/bpf_scan_ir.cpp
-> > +++ b/scripts/llvm-plugins/bpf_scan_ir.cpp
+> Tested in a KVM guest (x86_64, 2 vCPUs, 3 GiB) with ext4 on virtio-blk.
+> "base" is mm-hotfixes-unstable. "95b8e" is commit 95b8e432265f ("mm: use
+> zone lock guard in __offline_isolated_pages()"), the last one before the
+> series of 9b0fcac3cfe7. Commit 0b9c0aeba938 ("mm/filemap: count only the
+> faulting address as a mmap hit"), the first of that series, gives the
+> same results as 95b8e for the reproducer.
 > 
-> [ ... ]
+> Reproducer from the report, read_ahead_kb 128, major faults:
 > 
-> > @@ -34,9 +36,40 @@ namespace {
-> >  
-> >  static constexpr int MaxErrno = 4095;
-> >  
-> > +// is Range in [-4095, 0) ?
-> > +static bool isErrnoRange(const ConstantRange &Range)
-> > +{
-> > +	unsigned Width = Range.getBitWidth();
-> > +
-> > +	if (Width != 32 && Width != 64)
-> > +		return false;
-> > +
-> > +	auto L = APInt(Width, 0) - APInt(Width, MaxErrno);
-> > +	auto R = APInt(Width, 0);
-> > +	return !Range.isEmptySet() && ConstantRange(L, R).contains(Range);
-> > +}
-> > +
+>                                          95b8e    base  patched
+>   sequential only                            1       1        1
+>   sparse pass, then sequential               1   16384        2
+>   sparse, MADV_SEQUENTIAL, sequential      512     512      512
+>   sparse, close and reopen, sequential       1       1        1
 > 
-> this isn't a bug, but could singleErrno() and errnoConstant() share one
-> check?
+> Touching 1% of the pages of a cold 20 GiB file, larger than memory,
+> MiB read from disk:
 > 
-> isErrnoRange() has a single caller, singleErrno(), which only passes it a
-> range that getSingleElement() already showed to hold exactly one value.
-> For that input the width check, the isEmptySet() test and the wrapped
-> ConstantRange containment do the same thing as errnoConstant() below
-> (width of 32 or 64, then N >= -MaxErrno && N < 0), so the errno range is
-> now defined in two places, and the !Range.isEmptySet() test can never
-> fail.
+>                        read_ahead_kb 128        read_ahead_kb 8192
+>                       95b8e  base patched     95b8e   base patched
+>   random               5656   215     215    344731   1032    1032
+>   stride 2053 pages    6545   216     216    419003    992     992
+>   random 2-page runs   2992   215     528    173093   1099    2248
+>   random 4-page runs   1570   216     594     86797   1266    2301
 > 
-> For example, errnoConstant() could call
-> singleErrno(ConstantRange(C->getValue()), N), or singleErrno() could test
-> the sign-extended element against MaxErrno directly.
+> After the sparse pass, reading 32 regions of 2 MiB in turn takes 512
+> major faults per region on base and 2 with this patch.
 > 
-> Also, the "// is Range in [-4095, 0) ?" comment is the only function-level
-> comment in the file using // rather than /* */, and it hardcodes -4095
-> where the code uses MaxErrno.
+> Not tested: NFS, the GPU workload from the report, and other
+> architectures and page sizes.
+> 
+> An AI assistant (Claude) helped with the analysis and the approach, and
+> wrote the test programs and drafts of the comment and this changelog.
+> I reviewed, implemented, built and tested the change.
+> 
+> Fixes: 9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED retries as mmap hits")
+> Reported-by: Trace <tracekotae@gmail.com>
+> Closes: https://lore.kernel.org/all/20261105192517.228523-1-tracekotae@gmail.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gopal Malaviya <gopalmalaviya53@gmail.com>
 
-Yes, thanks, will fix
+I think this [1] looks like a nicer solution to your problem.
 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42662799554
+[1] https://lore.kernel.org/all/20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se/
 
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
