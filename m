@@ -1,80 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336794;
-	b=yEuFo2KOkGLplVVDI6fL0EdWqgSYWSJLuKIc457LjvPs/R4f2No/c9rSrhRLnwsiRyGp
-	 47cO7An76QTgKeGRSCSr902BzoZ63JTBQRLFrKauIW0c8i+xCGKgwy5K+/vjeZZJGw8fY
-	 bN7ZIrfP6ibT8GdC3UsS1yfP9HdffhcfDJvwKbs3p8a/FuPygRXLUL7mlUUAdqjs9BnUC
-	 Z2q1UJSGLZ9GiqGNBfmZlHQ22nig4Eld+a7YkLPXb6pDD+FcaP1g/sLlsVMRPhpn6bwF7
-	 aZug8UjkS6vA/c6gLkO1RKUn7KUwDDeudnC+J5C+NotV5z9++k5MKrG6UUSEst5m2Xg==
+	t=1794336825;
+	b=xDJMtLi6MaR2DLFPRzWMwBKC5R+brgLx/EI89b50bblttuWhTZKNLxstMDpMNRUjDzOY
+	 BOWMtR2bAXjxo/tbrrutcbRQhvGFTQfTNYIk2yTTLF9NS1QRsA6CegvAQ4INL1+l7P5q5
+	 fDxXocZWRX3rPynuMW1QVzeO4RMJQ0xYwhJOZeJG0OeLqIUZckbUHBh9U5JYBi3sbCFY1
+	 XS6wBK/xHAihbX6pVkSJLrPI+DXNk4JvJIMyxgCAQa5EcYp0aXzsS1zYXSG+9HhqqGFRi
+	 6kY1ZiOcPicGtNN04/st0FWc+JrTOW+Selg9f3haYBvR3TQ5Ju/oWMfueEwOwRRt24A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336794;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=qCtHkLQV1QPmcRdOglLIVfj2T2vVGmdYJSqGUnXVjnI=;
-	b=MbxLyWQ9xr1npwR9qWyJgEVntDIAHPTFpIOj5gC2/m9fmDKLCtAAg6kmSS7VuQtiO+zp
-	 cJjtMHsFtEvzBmZB1pP36QXVOIkYcf5zvcKBwdw7fK3bXQ+AqdFRdg1qSPURQRlW7jhuO
-	 onxX/Hw8sWGKuo0YFYQ/Rf9p3yc9hLoQ4Q3e0/HHJ71nJG32e1Qc9WrHExfrHetH7nsNe
-	 YsGC62q7cVo2anlz1eqffwDZ04ypqTH0nyFk0xhTJLEGBhQGvfkFZRErBnFv/6QbXN7Hu
-	 YoVFfa1hoT2Trl9pHWERBiL3KRdPqCy2Skm8+wdLAA9MRc5wkaDYud6ZMH9McWz9cIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336825;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=WfgVb+98zze5M/HUuNMbgboxdFsP2UahqL/P5wxY7Ys=;
+	b=kGqKgCQgb2GvTrpCZ9N3uoT1HvZT6isnpjsuftDunKYlMOjZ139w9e+pHA1uaWElrWBF
+	 +N2XkiZ/17cCm54ZPdAPIKknu8Yxm3B+501vU9ZK6jg9XHDa8JhbsutzisrohKJqOJFfC
+	 bIMd0wkZBUu438PFhPIXzIMw/SMQdGzY8M6LWs5IyZZqHiXewP9gY6tSsj0WpPPTQt89K
+	 frCCu9pJhgozTYkD93j2pd6oV2eru348/Po3UHAX2iYrl9PZ2HT+d13MMcQucKv1RJWjh
+	 Pe78OGb9eI88SCiORm7fT7eTdrlF/EwPqHxW9I5ao//bvSQHXcanOTqGz6LgAqZ0isw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DRj0zqli;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8392606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8392606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DRj0zqli
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AAAEA40E04D4;
-	Tue, 10 Nov 2026 18:53:10 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id BVIe70Ns5zVT; Tue, 10 Nov 2026 18:53:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794336787; bh=qCtHkLQV1QPmcRdOglLIVfj2T2vVGmdYJSqGUnXVjnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DRj0zqliS66Eb31ZeCh4V0hQ6sP33FUElB30wto3pwImbw9OFPXFXqvt4cLaA7+c9
-	 tifrFqiQ2Iwth11SQ3CuQjV3DBHRQMvp7N+WoyftT9sQJG6S+o1RNBCOut2fKDQ2G/
-	 lBpxKpIf7fuS4KsjEjan5fOltL61CMEZIAo7FsdYQ+2PMOT8HSG6ZDtMN4hz7uzs1c
-	 LvQjF1O3Eo0SCD1cVNs+8CD6JP+yPcWftXhTqziPu7xUN+psThIw/ZLfTHdqoHvc0q
-	 oK3F88RTw6+3VdoOM1pwqoZmv3zr5ohGoazOoYrg+EaeqxgYVbOGi3ePDSrs0pzsXq
-	 b0DZjx+s3qUrFdffCFffrCvbGwcB+0qHKVQmrgNkX0xRANruJNsPisJSUYdG467KyP
-	 hF43Tv+xwpRhyFdZz71+WxX039a9rEpo4zKvT1ytpGzTRB/lzR5aa8JAECdHGJEkgR
-	 QvWWxbB2LL6IfyLUtE6qp7HuRHa00zjbhTMk5+gxv6VKwV2v8eM5+NFIPQY514dgGB
-	 Z9n2hwM8RgaKKGVA8Lr3xE8OSu2MVEjiBCMH+93ttmOvu/yWk1rcgwcpDBUoShKtvB
-	 Gh5yanL7hoFmfzHgzN5qEhzYOEXHIWesPdeVrHBvZbQ12wlyFLbs0BaAfGd2BszjCP
-	 b82Cez0www3lcd3ttoQ+JIe8=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 186E640E02A0;
-	Tue, 10 Nov 2026 18:53:00 +0000 (UTC)
-Date: Tue, 10 Nov 2026 10:52:57 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Dario Ackermann <dario@darioackermann.ch>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	x86@kernel.org, tglx@kernel.org
-Subject: Re: AW: [REGRESSION] x86/microcode: boot hangs bringing up first
- secondary CPU on i7-6700HQ, avoided by dis_ucode_ldr
-Message-ID: <20261110185257.GFavNoCWszSXhRkaOV@fat_crate.local>
-References: <mw9nsyuj.70b4b79c-e987-49da-abe1-0164defd8d5a@darioackermann.ch>
- <630330232567670562275469.6204.202611921938@darioackermann.ch>
- <8a0a9e63-54c2-4e5d-9479-1e39946328c4@leemhuis.info>
- <691747894523180440145931.1352.2026111016821@darioackermann.ch>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5712606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 18:53:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5712606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-540537f959fso2730058b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 10:53:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794336823; x=1794941623;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WfgVb+98zze5M/HUuNMbgboxdFsP2UahqL/P5wxY7Ys=;
+        b=bE+Bg5iaQNCjPcwxiYlx2PAK7RSLoC3n/hWI4XD0DouYgBZI4G6YEDWCqE2WyBsXeH
+         KFdvz3w3ZwhJ3CEQhmgBB/HoRD6/KuVC2W/0rgyjSyn7QoFyBzTcKbuYLY0kvsE1RlwQ
+         bOaLVuhssB/eWEi77Fc6cB0XZ4h28GI9dXsfghaYVkcqWptAWV1NfN8XpkkaNnrkSYky
+         a40vKoPvMmzOASgdAbLu/OLnRZ0Hotat+mnzYzB79RIh4TIfnaEh+ojPreTxleq83D9b
+         /Ttx8E1fThaPEGWsk8oPqIn0J1+bhQS+5SAasHzYUgItmvpFi6JDPmnpMo4U/727NqlY
+         5ayw==
+X-Gm-Message-State: APuU4Z++Jk66O6/vwjN0+pxe6Y17VLh+xFjrKFvo0lunBZzzAX60zryG
+	MePcE5znHCQsrSmQGu6JVR2Y3/OX8TFMmUMpRvIToIUfN6Dh8wmI5iQ/nNTMO4S4xOFAyBAiW3H
+	HmvtkkH4yDDPv5YqpKDvxr5TEP/79avXjjpC06TNwkFlssyfjm4uGLn6kCpk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,33 +57,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <691747894523180440145931.1352.2026111016821@darioackermann.ch>
+X-Received: by 2002:a05:6808:3505:b0:567:dc3a:c63e with SMTP id
+ 5614622812f47-5683cc9ee30mr2532896b6e.10.1794336823726; Tue, 10 Nov 2026
+ 10:53:43 -0800 (PST)
+Date: Tue, 10 Nov 2026 10:53:43 -0800
+In-Reply-To: <6a99dfb2.9266084e.bf0d7.027c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af36837.c2a1e073.10a5a1.1172.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
+From: syzbot <syzbot+fefa0af09f7891b1800e@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 10, 2026 at 04:08:17PM +0000, Dario Ackermann wrote:
-> Sorry for the thread-mixup.
-> 
-> I tested v7.4-rc2 (7475ea8b5861). It still hangs while bringing up CPU1,
-> with both default AP bringup and cpuhp.parallel=0.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Ok, so I don't understand: which kernel did work fine, without any cmdline
-switches?
+***
 
-Pls send full dmesg from that one. IOW, did any kernel at all load microcode
-successfully on your machine?
+Subject: Re: [syzbot] [block?] general protection fault in blk_mq_quiesce_queue
+Author: nenkov2004@gmail.com
 
-Also, send one from 7.4 with dis_ucode_ldr on the cmdline.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
 
-Also, check whether you're running the latest microcode packages by updating
-your distro blobs.
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -680,6 +680,9 @@ int nvme_reset_ctrl_sync(struct nvme_ctrl *ctrl)
+ {
+ 	int ret;
 
-And put your reply under the text you're replying to, like I just did.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
++	if (!test_bit(NVME_CTRL_STARTED_ONCE, &ctrl->flags))
++		return -EBUSY;
++
+ 	ret = nvme_reset_ctrl(ctrl);
+ 	if (!ret) {
+ 		flush_work(&ctrl->reset_work);
