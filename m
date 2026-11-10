@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315098;
-	b=zIYzF2e0iY/IvEHBi91TSvUQIKLID2fFtiuZVYDMOnDO0CaVlMFsk3d8YIA8xky/YVdk
-	 4sGGpVcoMTreH8ZCtOwYo2SQ8Ag777uEOP0OuWjqlE6GsVsxNrV2jVDigBC+cgXFyjIg/
-	 r7WC2AG1q6Ngth/S1vgDySR23KtEKSKffkfcvOL0Q6ze2wtIAq3LAODKz8eg3ekQapYPM
-	 iCnxJPHlW/ZqReJZb0oNPs/PPYw9jUvdYTiZUiEhZ1lAQkjZJlsSimMNFqJs8EJ23OzTi
-	 4abrfeckjj+1A6H6B9mFjQH6Wsh4rWGqNlfaiDVEUlyknH2cNlAaM3lFvTC3jMaRd+g==
+	t=1794315099;
+	b=r5ss4CeAqNxVh3cdMCqJWbPnO4YL/Ao8P5bsfRw1wfOCj6ZeD1vDYBErCUli1sRcLmga
+	 XEE0kpdXkX7pPCKWA6qf+K8k/uTuIYwaWn2GyGXgBwC0W1a6+HeiDX/NvR1OR6y8No5+h
+	 NqvJW8reE4ozCEBiVJYlgc2ty/2gTDlnTauOxgXaUV6GypwOBW2ywzei8QLJRng600DoM
+	 YbkCd4VN5e5ZQqy4yBp4jhuLfE3VqBn/CmUSswoHQWG8wooyrwi+ha9p0vVpjsxVJTAIs
+	 znqqPLvqrkDcwt9lVDKIUpipzJyH8nKZDX4PiTpcl7Ppo/LC80sICwRlxRL0ay0ky1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315098;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RFv7UBnzr82TPaBJp6124pYT0jBn52Qd5UGAxk9lS1k=;
-	b=Yn+w7U+ZYzF31qCNntbr4lPGfXvDnUe61vhPw1DvCkkTe3SKhaXlj9B/ZOAwh8KvVI76
-	 fB47GZRa0FOJdqKBImzgITRMws9cGEEj2Ffpk8+1Afk6bhrM2JDCUj7Ma6HJtsUhuCYTP
-	 +1Ucle/uBRDYuGkCN1jKYbCxZO5h+ncTvo3h7JEfYZCU1CMPGKG2T6xq2ZZvXKCup90kc
-	 l4l5wwKBoxtv1XGnC7yH4ozz37YLuMP7vAIBqbMa6/IZtJrgMgyiPjqUabwCCpGiH6gq2
-	 9lW5WXpsPVvyInBcOK4KOUK+iewfJWmu3bIYPMZVB1nIgv/Ct7CzNQbcbbDOlPuRbyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315099;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aBuWKyi8wpUUUsRvXcbjJTpGAQmPtNPZJw1MUOr676c=;
+	b=TtV9lQD9oiWdTCktRq/lAZYEfG6iwDvB2Ouu88BRNS0BoGc5BQIIEocp2gO0MK77OzL/
+	 VS2MEm/p7I33YqwPlre42siMoAGdz7RRQ23ZXWyZifjfAo99fMtfUAGCp4xD2DuIxcYM3
+	 t5SuuLo6FbS5ZqpcRIVZUirnQkxpchwlzBpqoBLyb/taQfad7CFxgkPnOaAume5ZYWwvv
+	 dWSQFtPDgP0aUbUXxLEZEzaWtnxOiMncpDCbAxH7FfuD0sZaJtP29i4GF8ofxT5HsfByq
+	 YNPWdFEYsXHAli0m7GlXbwc4amMLzBQ+SxbZw2PM9y6xUUEjLVxJPGyYX/ck7uRHSww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eI0hhfBk;
-	arc=none smtp.remote-ip=95.215.58.158
-Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=UQifjXE1;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113E860A380F
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:51:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113E860A380F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FC860A3812
+	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 12:51:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4FC860A3812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eI0hhfBk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yfFCdwk/e0ynSBLLJzEBbB0h06SCnoIpbB2KBYA+o3A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794315095; v=1; x=1794919895;
- b=eI0hhfBko2JouH7RYZ9tlExYSJ9hzzgSX0XH+CTssWTj785ADQV5O/OHndy1yC/5nsNXNkPL
- dsVOHs8oR50SURwnkNmQRrXY9KV3eD8vgb7FtUlZ4j97voYIOXeI7eivz1B17jXTvRU8Cd016qS
- CNTcfsiCeGRt1Iqyg9E7H5qw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de0f297dc80b2cf4;
-	Tue, 10 Nov 2026 12:51:34 +0000
-X-Mizu-Trace-ID: de0f297dc80b2cf4
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	liwanwu@kylinos.cn,
-	devnexen@gmail.com,
-	zhaomengmeng@kylinos.cn,
-	emil@etsalapatis.com,
-	yphbchou0911@gmail.com,
-	mingo@redhat.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH 7/9] tools/sched_ext: scx_qmap: Reset the hier stats baseline on restart
-Date: Tue, 10 Nov 2026 20:49:59 +0800
-Message-ID: <20261110125001.4167503-8-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110125001.4167503-1-cui.tao@linux.dev>
-References: <20261110125001.4167503-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=UQifjXE1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794315096;
+	bh=LpW8bnbyKPQsIeY/hUiu+2QS/IzXdlLbZKVOxKpxbxU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UQifjXE1W2CoFx4GOn0ZY0QxRtwASNxchq9xILPVC9o8Tp+d2HErKE+aJhh/ZT9+N
+	 /BWYTr/kGhlkEux5VcKX4dJtj2Rg7DCJlu7BTyIQBdQ/RR+rcSEq0s45UmJHbIrYBI
+	 UuhHeiTwR800RTHvZLpbl5XX6H78Y+dD0rX44+YUh5Vn5W7NTQ6KlV9kK5zEW0RGO/
+	 NUBQLTBLxOgTuo77l6gLPKtqKp5fJZaUYLNiYDIBmgdwhprlY9vgGz2H+7NhCud4HL
+	 KhKZ/b5Yk2lh0mmvj9vJafpR31Q239MP1/yfkcjF77FY7JW0tLzgNnQElCnFjYozvt
+	 zTlqf61Wmqvug==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7BAA417E0634;
+	Tue, 10 Nov 2026 13:51:36 +0100 (CET)
+Message-ID: <c4ebe7c4-84c3-4c43-a149-cb04b18dc42c@collabora.com>
+Date: Tue, 10 Nov 2026 14:51:36 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,37 +61,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/9] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lucas Tanure <lucas.tanure@neat.no>
+References: <20261110-vc4-common-scramb-v4-0-eaa141a0da0f@collabora.com>
+ <20261110-vc4-common-scramb-v4-6-eaa141a0da0f@collabora.com>
+ <6044130c-8753-4928-990f-04f0ad43d9f1@igalia.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <6044130c-8753-4928-990f-04f0ad43d9f1@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+Hi Maíra,
 
-hprev holds the previous per-participant counter snapshots for the
-hier stats deltas and is initialized before the restart: label, so a
-hotplug-triggered fail-safe reload leaves it holding snapshots from
-the previous generation while the scheduler's own counters start from
-zero; the first stats interval prints u64-underflow garbage.
+On 11/10/26 2:11 PM, Maíra Canal wrote:
+> 
+> 
+> On 09/11/26 21:13, Cristian Ciocaltea wrote:
+>> Replace driver local scrambling logic with the newly introduced common
+>> HDMI 2.0 scrambling support:
+>>
+>> - Advertise source-side scrambling capability by setting supported HDMI
+>>    version based on the variant's max_pixel_clock.
+>>
+>> - Provide minimal .scrambler_{enable,disable} connector callbacks that
+>>    only toggle the VC5 HDMI_SCRAMBLER_CTL register, while delegating
+>>    sink-side SCDC programming and periodic status monitoring to
+>>    drm_connector_hdmi_{enable,disable}_scrambling().
+>>
+>> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
+>>    the .detect_ctx() path to drm_atomic_helper_connector_hdmi_hotplug()
+>>    which internally calls drm_connector_hdmi_sync_scdc() to trigger a
+>>    CRTC reset on reconnection.
+>>
+>> - Drop the local scrambling_work delayed workqueue and scdc_enabled
+>>    flag, now tracked by the common drm_connector_hdmi layer, as well as
+>>    the now unused output_{bpc,color_format} driver data members.
+>>
+>> No functional change intended.
+>>
+>> Acked-by: Maxime Ripard <mripard@kernel.org>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> 
+> Reviewed-by: Maíra Canal <mcanal@igalia.com>
 
-Reset it together with optind on reload.
+Thank you for your quick review!
 
-Fixes: e9151ed5c944 ("tools/sched_ext: scx_qmap - Expand hierarchical sub-scheduling")
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- tools/sched_ext/scx_qmap.c | 1 +
- 1 file changed, 1 insertion(+)
+> Feel free to push the series to drm-misc-next. Thank you!
 
-diff --git a/tools/sched_ext/scx_qmap.c b/tools/sched_ext/scx_qmap.c
-index f44802247069..414afb817e0a 100644
---- a/tools/sched_ext/scx_qmap.c
-+++ b/tools/sched_ext/scx_qmap.c
-@@ -292,6 +292,7 @@ int main(int argc, char **argv)
- 	}
- restart:
- 	optind = 1;
-+	memset(&hprev, 0, sizeof(hprev));
- 	skel = SCX_OPS_CID_OPEN(qmap_ops, scx_qmap);
- 
- 	skel->rodata->slice_ns = skel->rodata->__SCX_SLICE_DFL;
--- 
-2.53.0
+Done.
 
-base-commit: 5b740a72b55c4267ba4d8010f17dde26b26f52d3
+Kind regards,
+Cristian
